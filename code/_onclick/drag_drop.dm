@@ -122,6 +122,8 @@
 /client/MouseDown(datum/object, location, control, params)
 	if(QDELETED(object)) //Yep, you can click on qdeleted things before they have time to nullspace. Fun.
 		return
+	if(SEND_SIGNAL(mob, COMSIG_MOB_MOUSEDOWN, object, location, control, params) & COMSIG_MOB_CLICK_CANCELED)
+		return
 	SEND_SIGNAL(src, COMSIG_CLIENT_MOUSEDOWN, object, location, control, params)
 	if(mouse_down_icon)
 		mouse_pointer_icon = mouse_down_icon
@@ -134,6 +136,8 @@
 			sleep(delay)
 
 /client/MouseUp(object, location, control, params)
+	if(SEND_SIGNAL(mob, COMSIG_MOB_MOUSEUP, object, location, control, params) & COMSIG_MOB_CLICK_CANCELED)
+		return
 	if(SEND_SIGNAL(src, COMSIG_CLIENT_MOUSEUP, object, location, control, params) & COMPONENT_CLIENT_MOUSEUP_INTERCEPT)
 		click_intercept_time = world.time
 	if(mouse_up_icon)
@@ -180,6 +184,8 @@
 	if(selected_target[1] && over_object?.IsAutoclickable())
 		selected_target[1] = over_object
 		selected_target[2] = params
+	if(SEND_SIGNAL(mob, COMSIG_MOB_MOUSEDRAG, src_object, over_object, src_location, over_location, src_control, over_control, params) & COMSIG_MOB_CLICK_CANCELED)
+		return
 	SEND_SIGNAL(src, COMSIG_CLIENT_MOUSEDRAG, src_object, over_object, src_location, over_location, src_control, over_control, params)
 	return ..()
 

@@ -520,8 +520,8 @@
 /obj/effect/immortality_talisman/singularity_act()
 	return
 
-/obj/effect/immortality_talisman/singularity_pull()
-	return 0
+/obj/effect/immortality_talisman/singularity_pull(atom/singularity, current_size)
+	return
 
 /obj/effect/immortality_talisman/Destroy(force)
 	if(!can_destroy && !force)

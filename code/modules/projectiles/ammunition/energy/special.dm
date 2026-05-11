@@ -2,7 +2,6 @@
 /obj/item/ammo_casing/energy/ion
 	projectile_type = /obj/projectile/ion
 	muzzle_flash_color = LIGHT_COLOR_BLUE
-	delay = 0.4 SECONDS
 	select_name = "ion"
 	fire_sound = 'sound/weapons/ionrifle.ogg'
 
@@ -106,7 +105,6 @@
 	fire_sound = 'sound/weapons/bulletflyby.ogg'
 	click_cooldown_override = 2
 	harmful = FALSE
-	delay = 3
 
 /obj/item/ammo_casing/energy/shuriken/borg
 	e_cost = 50
@@ -241,6 +239,5 @@
 	desc = "A broadhead spike made out of a weird silvery metal."
 	projectile_type = /obj/projectile/bullet/spike
 	muzzle_flash_effect = null
-	delay = 3 //and delay has to be stored here on energy guns
 	select_name = "spike"
 	fire_sound = 'sound/weapons/bladeslice.ogg'

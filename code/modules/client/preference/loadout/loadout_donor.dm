@@ -150,12 +150,19 @@
 /datum/gear/donor/zippogold
 	index_name = "gold engraved zippo lighter"
 	display_name = "Золотая зажигалка Зиппо"
-	path =  /obj/item/lighter/zippo/fluff/michael_guess_1
+	path =  /obj/item/lighter/zippo/gold
+	donator_tier = 3
 
 /datum/gear/donor/zippopurple
 	index_name = "purple engraved zippo lighter"
 	display_name = "Фиолетовая зажигалка Зиппо"
-	path = /obj/item/lighter/zippo/fluff/purple
+	path = /obj/item/lighter/zippo/purple
+	donator_tier = 3
+
+/datum/gear/donor/zippogonzo
+	index_name = "gonzo zippo lighter"
+	display_name = "зажигалка Зиппо с кулаком Гонзо"
+	path = /obj/item/lighter/zippo/gonzofist
 	donator_tier = 3
 
 /datum/gear/donor/strip

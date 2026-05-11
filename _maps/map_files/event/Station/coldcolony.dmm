@@ -62,7 +62,9 @@
 /turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "abH" = (
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/machinery/papershredder,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -226,7 +228,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/bar)
 "adC" = (
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/science)
 "adE" = (
@@ -281,7 +283,9 @@
 /turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "ael" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -324,7 +328,7 @@
 /area/coldcolony/malta/hallway/bridge)
 "afH" = (
 /obj/machinery/vending/hatdispenser,
-/obj/effect/decal/warning_stripes/yellow/partial{
+/obj/effect/turf_decal/delivery/partial{
 	dir = 1
 	},
 /obj/structure/sign/poster/official/random{
@@ -423,7 +427,9 @@
 /turf/simulated/wall,
 /area/coldcolony/malta/security/brigstaff)
 "ahr" = (
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -437,7 +443,9 @@
 /area/coldcolony/malta/engineering/atmos)
 "ahH" = (
 /obj/structure/closet/emcloset,
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/machinery/light,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/medical/virology)
@@ -452,7 +460,7 @@
 /obj/machinery/power/port_gen/pacman{
 	anchored = 1
 	},
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
@@ -479,7 +487,7 @@
 	dir = 8;
 	layer = 2.9
 	},
-/obj/effect/decal/warning_stripes/red/hollow,
+/obj/effect/turf_decal/delivery/red/hollow,
 /obj/item/storage/box/teargas,
 /obj/item/storage/box/teargas{
 	pixel_x = 3;
@@ -529,7 +537,9 @@
 /turf/simulated/floor/wood,
 /area/coldcolony/malta/resid_serv/crew_quarters/theatre)
 "ajS" = (
-/obj/effect/decal/warning_stripes/southeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /obj/machinery/light{
 	dir = 1
@@ -692,7 +702,7 @@
 /area/coldcolony/malta/civilian/trading)
 "anm" = (
 /obj/machinery/vending/coffee,
-/obj/effect/decal/warning_stripes/yellow/partial{
+/obj/effect/turf_decal/delivery/partial{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/white,
@@ -741,7 +751,7 @@
 "anL" = (
 /obj/machinery/recharge_station,
 /obj/structure/extinguisher_cabinet/directional/west,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "purple"
@@ -775,7 +785,7 @@
 /area/coldcolony/malta/medical/paramedic)
 "aoi" = (
 /obj/structure/closet/emcloset,
-/obj/effect/decal/warning_stripes/blue,
+/obj/effect/turf_decal/delivery/blue,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "green"
@@ -841,7 +851,7 @@
 /area/coldcolony/malta/bridge/vip)
 "aoE" = (
 /obj/structure/rack,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/random/tool,
 /obj/random/tool,
 /obj/effect/decal/cleanable/dirt,
@@ -864,7 +874,7 @@
 /obj/item/clothing/shoes/winterboots,
 /obj/item/clothing/shoes/winterboots,
 /obj/item/clothing/shoes/winterboots,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
@@ -933,7 +943,7 @@
 /obj/item/trash/candy,
 /obj/item/trash/can,
 /obj/item/trash/pistachios,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/shard{
 	icon_state = "medium";
@@ -950,7 +960,9 @@
 	},
 /area/coldcolony/malta/security/brig)
 "aqU" = (
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -1019,14 +1031,14 @@
 	},
 /area/coldcolony/malta/security/securehallway)
 "arQ" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/effect/baseturf_helper/asteroid,
 /turf/simulated/floor/plasteel{
 	icon_state = "purple"
 	},
 /area/coldcolony/malta/research/robotics)
 "arT" = (
-/obj/effect/decal/warning_stripes/yellow/partial,
+/obj/effect/turf_decal/delivery/partial,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -1096,7 +1108,7 @@
 	},
 /area/coldcolony/malta/security/reception)
 "ate" = (
-/obj/effect/decal/warning_stripes/blue,
+/obj/effect/turf_decal/delivery/blue,
 /obj/structure/rack{
 	dir = 8;
 	layer = 2.9
@@ -1148,7 +1160,7 @@
 /area/coldcolony/malta/resid_serv/kitchen)
 "aud" = (
 /obj/structure/rack,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -1273,7 +1285,9 @@
 /area/coldcolony/ruin/sm_lab)
 "avC" = (
 /obj/machinery/portable_atmospherics/canister/carbon_dioxide,
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -1368,7 +1382,7 @@
 	name = "Secure Storage Blast Doors"
 	},
 /obj/machinery/door/firedoor,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -1505,7 +1519,7 @@
 /obj/item/clothing/shoes/winterboots,
 /obj/item/clothing/shoes/winterboots,
 /obj/item/clothing/shoes/winterboots,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
@@ -1542,7 +1556,7 @@
 /area/coldcolony/ruin/sm_chamber)
 "azS" = (
 /obj/machinery/vending/cola,
-/obj/effect/decal/warning_stripes/yellow/partial,
+/obj/effect/turf_decal/delivery/partial,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -1653,7 +1667,7 @@
 /turf/simulated/floor/grass,
 /area/coldcolony/malta/hallway/service/central)
 "aCc" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -1769,7 +1783,7 @@
 /turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_house)
 "aEg" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/closet/crate/engineering,
 /obj/item/stack/sheet/metal/fifty,
 /obj/item/stack/sheet/metal/fifty,
@@ -1818,7 +1832,7 @@
 /obj/item/clothing/shoes/winterboots,
 /obj/item/clothing/shoes/winterboots,
 /obj/item/clothing/shoes/winterboots,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/item/radio/intercom/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
@@ -2205,7 +2219,7 @@
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/quartermaster/miningeva)
 "aMK" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/portable_atmospherics/canister/nitrogen,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -2214,7 +2228,7 @@
 /area/coldcolony/malta/engineering/control)
 "aML" = (
 /obj/structure/closet/secure_closet/security,
-/obj/effect/decal/warning_stripes/red/hollow,
+/obj/effect/turf_decal/delivery/red/hollow,
 /obj/item/clothing/suit/hooded/wintercoat/security,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -2297,7 +2311,7 @@
 /obj/item/reagent_containers/iv_bag/blood/nian,
 /obj/item/reagent_containers/iv_bag/blood/tajaran,
 /obj/item/reagent_containers/iv_bag/blood/vulpkanin,
-/obj/effect/decal/warning_stripes/blue/hollow,
+/obj/effect/turf_decal/delivery/blue/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -2505,7 +2519,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/ruin/sm_chamber)
 "aSj" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/hallway/service/south)
 "aSp" = (
@@ -2770,7 +2784,7 @@
 /area/coldcolony/malta/outer/roadblock)
 "aWU" = (
 /obj/machinery/portable_atmospherics/canister/oxygen,
-/obj/effect/decal/warning_stripes/blue/hollow,
+/obj/effect/turf_decal/delivery/blue/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "green"
@@ -2945,7 +2959,9 @@
 	},
 /area/coldcolony/malta/resid_serv/bar)
 "baA" = (
-/obj/effect/decal/warning_stripes/northeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -2982,7 +2998,7 @@
 /obj/structure/urinal{
 	pixel_y = 28
 	},
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -2999,7 +3015,7 @@
 	},
 /area/coldcolony/malta/engineering/atmos)
 "bbm" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/engineering/break_room)
 "bbQ" = (
@@ -3167,7 +3183,7 @@
 	obj_integrity = 95;
 	stat = 1
 	},
-/obj/effect/decal/warning_stripes/yellow/partial{
+/obj/effect/turf_decal/delivery/partial{
 	dir = 8
 	},
 /obj/machinery/light{
@@ -3242,7 +3258,7 @@
 	},
 /area/coldcolony/malta/security/permabrig)
 "bfm" = (
-/obj/effect/decal/warning_stripes/yellow/partial{
+/obj/effect/turf_decal/delivery/partial{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -3256,7 +3272,7 @@
 /area/coldcolony/malta/quartermaster/miningbar)
 "bfv" = (
 /obj/machinery/space_heater,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/power/apc/directional/south,
 /obj/structure/cable,
 /turf/simulated/floor/plasteel{
@@ -3287,7 +3303,7 @@
 /obj/structure/chair{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/red/hollow,
+/obj/effect/turf_decal/delivery/red/hollow,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -3325,14 +3341,16 @@
 	dir = 8;
 	pixel_y = 4
 	},
-/obj/effect/decal/warning_stripes/blue,
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/delivery/blue,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
 /area/coldcolony/malta/medical/virology)
 "bhE" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/sign/poster/official/work_for_a_future{
 	pixel_x = 32
 	},
@@ -3427,7 +3445,7 @@
 /obj/structure/chair/comfy/red{
 	dir = 8
 	},
-/obj/effect/decal/warning_stripes/red/hollow,
+/obj/effect/turf_decal/delivery/red/hollow,
 /obj/structure/disposalpipe/segment{
 	dir = 10
 	},
@@ -3459,7 +3477,7 @@
 /turf/simulated/floor/grass,
 /area/coldcolony/malta/resid_serv/hydroponics)
 "bjA" = (
-/obj/effect/decal/warning_stripes/red/hollow,
+/obj/effect/turf_decal/delivery/red/hollow,
 /obj/structure/rack{
 	dir = 8;
 	layer = 2.9
@@ -3481,7 +3499,7 @@
 	},
 /area/coldcolony/malta/security/securearmory)
 "bjP" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/light_construct{
 	dir = 8
 	},
@@ -3508,13 +3526,13 @@
 	},
 /area/coldcolony/ruin/sm_lab)
 "bkd" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/station_map/directional/north,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/quartermaster/office)
 "bke" = (
 /obj/machinery/vending/hydroseeds,
-/obj/effect/decal/warning_stripes/yellow/partial{
+/obj/effect/turf_decal/delivery/partial{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
@@ -3566,7 +3584,9 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/engineering)
 "bli" = (
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/machinery/photocopier,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
@@ -3589,7 +3609,7 @@
 /area/coldcolony/malta/security/warden)
 "bly" = (
 /obj/machinery/door/firedoor,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -3611,7 +3631,7 @@
 	},
 /area/coldcolony/malta/medical/medbay)
 "blM" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/portable_atmospherics/canister/toxins,
 /turf/simulated/floor/plasteel{
 	icon_state = "purplefull"
@@ -3634,14 +3654,14 @@
 /area/ruin/unpowered/coldcolony_outside)
 "bmf" = (
 /obj/machinery/recharge_station,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "yellow"
 	},
 /area/coldcolony/malta/engineering/break_room)
 "bmg" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/dispenser/oxygen,
 /obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/plasteel,
@@ -3717,7 +3737,7 @@
 	},
 /area/coldcolony/malta/security/checkpoint)
 "bnk" = (
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
 	dir = 8
@@ -3729,8 +3749,10 @@
 /area/coldcolony/malta/hallway/service/east)
 "bnl" = (
 /obj/structure/rack,
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/delivery/hollow,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/item/grenade/chem_grenade/metalfoam,
 /obj/item/grenade/chem_grenade/metalfoam{
 	pixel_x = 2;
@@ -3994,7 +4016,7 @@
 /area/coldcolony/malta/bridge/vip)
 "brU" = (
 /obj/machinery/disposal,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/structure/disposalpipe/trunk{
 	dir = 4
 	},
@@ -4104,7 +4126,7 @@
 /area/coldcolony/malta/medical/sleeper)
 "buq" = (
 /obj/machinery/vending/cigarette,
-/obj/effect/decal/warning_stripes/yellow/partial{
+/obj/effect/turf_decal/delivery/partial{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -4196,7 +4218,7 @@
 /area/ruin/unpowered/coldcolony_outside)
 "bwR" = (
 /obj/structure/rack,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/item/floor_painter{
 	pixel_x = -6;
 	pixel_y = 6
@@ -4225,7 +4247,7 @@
 	dir = 8;
 	id_tag = "evacgarage"
 	},
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/structure/fans/tiny,
 /obj/machinery/door_control{
 	id = "evacgarage";
@@ -4242,7 +4264,7 @@
 	},
 /area/coldcolony/malta/quartermaster/sorting)
 "bxs" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/research)
 "bxX" = (
@@ -4311,7 +4333,9 @@
 	},
 /area/coldcolony/malta/bridge/vip)
 "bzD" = (
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution"
@@ -4356,7 +4380,7 @@
 	id_tag = "engigarage"
 	},
 /obj/structure/fans/tiny,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/effect/decal/snow/sand/edge{
 	dir = 4
 	},
@@ -4518,7 +4542,9 @@
 	},
 /area/coldcolony/malta/bridge/vip)
 "bEq" = (
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 5
 	},
@@ -4567,7 +4593,7 @@
 /area/ruin/unpowered)
 "bFc" = (
 /obj/machinery/pipedispenser/disposal,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "caution"
@@ -4586,7 +4612,7 @@
 	dir = 8;
 	pixel_x = -12
 	},
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/mirror{
 	pixel_y = -30
 	},
@@ -4611,7 +4637,7 @@
 	},
 /area/coldcolony/malta/medical/genetics)
 "bFX" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/power/port_gen/pacman,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/engineering/storage)
@@ -4718,7 +4744,9 @@
 	},
 /area/coldcolony/malta/turret_protected/ai)
 "bIl" = (
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -4743,9 +4771,11 @@
 	dir = 2;
 	id_tag = "eslock"
 	},
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/machinery/door/firedoor,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
@@ -4758,7 +4788,7 @@
 /area/coldcolony/malta/hallway/cargo_escape/exit)
 "bJh" = (
 /obj/machinery/vending/coffee,
-/obj/effect/decal/warning_stripes/yellow/partial{
+/obj/effect/turf_decal/delivery/partial{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -4807,7 +4837,7 @@
 /turf/simulated/floor/carpet/green,
 /area/coldcolony/malta/resid_serv/bar/atrium)
 "bKj" = (
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -5004,8 +5034,10 @@
 "bOc" = (
 /obj/structure/closet/secure_closet/atmos_personal,
 /obj/item/extinguisher/mini,
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/delivery/hollow,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/machinery/light{
 	dir = 1
 	},
@@ -5180,7 +5212,7 @@
 /area/ruin/unpowered)
 "bRw" = (
 /obj/structure/closet/secure_closet/brig,
-/obj/effect/decal/warning_stripes/red/hollow,
+/obj/effect/turf_decal/delivery/red/hollow,
 /obj/machinery/status_display{
 	pixel_y = 32
 	},
@@ -5273,7 +5305,7 @@
 /area/coldcolony/malta/resid_serv/crew_quarters/cabin2)
 "bSB" = (
 /obj/structure/closet/secure_closet/engineering_electrical,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/sign/nosmoking_2{
 	pixel_y = -32
 	},
@@ -5400,7 +5432,7 @@
 	},
 /area/coldcolony/malta/chapel/main)
 "bTP" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/closet/secure_closet/freezer/meat/empty,
 /obj/item/reagent_containers/food/snacks/salmonmeat,
 /obj/item/reagent_containers/food/snacks/salmonmeat,
@@ -5664,7 +5696,7 @@
 	},
 /area/coldcolony/malta/security/processing)
 "bYP" = (
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -5768,7 +5800,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/bar)
 "caK" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/portable_atmospherics/canister/carbon_dioxide,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -5792,8 +5824,8 @@
 /turf/simulated/floor/plasteel/white,
 /area/coldcolony/malta/medical/surgery/west)
 "cbt" = (
-/obj/effect/turf_decal/bot/left,
-/obj/effect/turf_decal/bot/right,
+/obj/effect/turf_decal/delivery/hollow/left,
+/obj/effect/turf_decal/delivery/hollow/right,
 /obj/structure/closet/crate/secure/plasma{
 	req_access = list(31,32,50)
 	},
@@ -5892,13 +5924,13 @@
 /area/coldcolony/ruin/sm_chamber)
 "cdr" = (
 /obj/machinery/recharge_station,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
 /area/coldcolony/malta/security/processing)
 "cdw" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/item/seeds/wheat,
 /obj/item/seeds/wheat,
 /obj/item/seeds/wheat,
@@ -5985,7 +6017,9 @@
 /turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "ceo" = (
-/obj/effect/decal/warning_stripes/northeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
 /turf/simulated/floor/engine,
 /area/coldcolony/malta/security/execution)
 "cez" = (
@@ -6068,7 +6102,9 @@
 /turf/simulated/floor/wood,
 /area/coldcolony/malta/resid_serv/bar/atrium)
 "chp" = (
-/obj/effect/decal/warning_stripes/southwestcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -6114,7 +6150,7 @@
 /area/coldcolony/malta/engineering/control)
 "cih" = (
 /obj/machinery/portable_atmospherics/canister/oxygen,
-/obj/effect/decal/warning_stripes/blue/hollow,
+/obj/effect/turf_decal/delivery/blue/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -6125,7 +6161,9 @@
 	dir = 4;
 	name = "Труба фильтрации"
 	},
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel{
@@ -6180,7 +6218,7 @@
 /obj/item/clothing/shoes/winterboots,
 /obj/item/clothing/shoes/winterboots,
 /obj/item/clothing/shoes/winterboots,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
@@ -6271,7 +6309,9 @@
 	},
 /area/coldcolony/malta/security/customs)
 "ckM" = (
-/obj/effect/decal/warning_stripes/southeastcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 2
+	},
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -6291,7 +6331,7 @@
 	},
 /area/coldcolony/malta/quartermaster/storage)
 "cla" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/closet/radiation,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/engineering/engine)
@@ -6464,7 +6504,7 @@
 /area/ruin/unpowered)
 "coS" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -6480,7 +6520,7 @@
 /turf/simulated/floor/wood/fancy/birch,
 /area/coldcolony/malta/bridge/vip)
 "cpq" = (
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -6780,7 +6820,7 @@
 /area/coldcolony/malta/maintenance/garden)
 "cvp" = (
 /obj/machinery/vending/coffee,
-/obj/effect/decal/warning_stripes/yellow/partial{
+/obj/effect/turf_decal/delivery/partial{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -6890,7 +6930,9 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -6912,7 +6954,7 @@
 	},
 /area/coldcolony/malta/hallway/bridge)
 "cxF" = (
-/obj/effect/decal/warning_stripes/blue,
+/obj/effect/turf_decal/delivery/blue,
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -6997,7 +7039,9 @@
 /turf/simulated/floor/grass,
 /area/coldcolony/malta/hallway/service/central)
 "cyX" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -7066,7 +7110,7 @@
 	dir = 8;
 	layer = 2.9
 	},
-/obj/effect/decal/warning_stripes/red/hollow,
+/obj/effect/turf_decal/delivery/red/hollow,
 /obj/machinery/door/window{
 	dir = 2;
 	name = "Secure Armory";
@@ -7086,7 +7130,7 @@
 /area/coldcolony/malta/security/securearmory)
 "cAB" = (
 /obj/structure/rack,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/item/clothing/glasses/meson{
 	pixel_x = -6;
 	pixel_y = 4
@@ -7208,7 +7252,7 @@
 	dir = 8;
 	layer = 2.9
 	},
-/obj/effect/decal/warning_stripes/red/hollow,
+/obj/effect/turf_decal/delivery/red/hollow,
 /obj/item/clothing/suit/armor/bulletproof,
 /obj/item/clothing/head/helmet/alt,
 /obj/item/clothing/shoes/jackboots/armored,
@@ -7233,7 +7277,7 @@
 	},
 /area/coldcolony/malta/escape_toilet)
 "cCw" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/closet/secure_closet/freezer/meat/empty,
 /obj/item/reagent_containers/food/snacks/meat,
 /obj/item/reagent_containers/food/snacks/meat,
@@ -7358,7 +7402,7 @@
 /area/coldcolony/ruin/abandoned_garage)
 "cES" = (
 /obj/structure/closet/crate/trashcart,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/effect/spawner/lootdrop/maintenance/double,
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/servicegen)
@@ -7413,7 +7457,7 @@
 /obj/effect/decal/snow/sand/edge{
 	dir = 8
 	},
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/machinery/door_control{
 	id = "secgarage";
 	pixel_x = -24;
@@ -7426,7 +7470,7 @@
 	anchored = 1
 	},
 /obj/structure/cable,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/research)
 "cGH" = (
@@ -7518,7 +7562,7 @@
 /area/coldcolony/ruin/sm_lab)
 "cHU" = (
 /obj/structure/closet/radiation,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/engineering/engine)
 "cHX" = (
@@ -7723,7 +7767,9 @@
 	},
 /area/coldcolony/malta/research/lab)
 "cLG" = (
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -7744,8 +7790,10 @@
 /area/coldcolony/malta/research/server)
 "cMH" = (
 /obj/structure/rack,
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/delivery/hollow,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/item/grenade/gas/oxygen,
 /obj/item/grenade/gas/oxygen{
 	pixel_x = 2;
@@ -7765,7 +7813,9 @@
 	},
 /area/coldcolony/malta/engineering/atmos)
 "cMI" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/extinguisher_cabinet/directional/east,
 /turf/simulated/floor/plasteel{
@@ -7816,7 +7866,7 @@
 "cOj" = (
 /obj/machinery/vending/tool,
 /obj/machinery/firealarm/directional/east,
-/obj/effect/decal/warning_stripes/yellow/partial{
+/obj/effect/turf_decal/delivery/partial{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -7834,7 +7884,9 @@
 	},
 /area/coldcolony/malta/turret_protected/ai)
 "cOt" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/structure/sign/poster/official/random{
 	pixel_x = -32
 	},
@@ -7970,7 +8022,9 @@
 	dir = 8
 	},
 /obj/machinery/portable_atmospherics/scrubber,
-/obj/effect/decal/warning_stripes/eastsouthwest,
+/obj/effect/turf_decal/stripes/end{
+	dir = 2
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "yellow"
@@ -8006,7 +8060,7 @@
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/hallway/service/south)
 "cSb" = (
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/bridge)
@@ -8039,7 +8093,7 @@
 	},
 /area/coldcolony/malta/security/permabrig)
 "cSw" = (
-/obj/effect/decal/warning_stripes/yellow/partial{
+/obj/effect/turf_decal/delivery/partial{
 	dir = 1
 	},
 /obj/machinery/alarm/directional/west,
@@ -8113,7 +8167,9 @@
 	},
 /area/coldcolony/malta/medical/medbay)
 "cUt" = (
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -8163,7 +8219,7 @@
 	},
 /area/coldcolony/malta/bridge/vip)
 "cUQ" = (
-/obj/effect/decal/warning_stripes/blue/hollow,
+/obj/effect/turf_decal/delivery/blue/hollow,
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/hallway/service/north)
@@ -8264,7 +8320,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/firedoor,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteblue"
@@ -8287,7 +8343,9 @@
 	},
 /area/coldcolony/ruin/syndie_outpost)
 "cYb" = (
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -8327,7 +8385,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/effect/decal/warning_stripes/red/hollow,
+/obj/effect/turf_decal/delivery/red/hollow,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -8350,7 +8408,7 @@
 /area/coldcolony/malta/security/securearmory)
 "cYM" = (
 /obj/machinery/vending/cola,
-/obj/effect/decal/warning_stripes/yellow/partial{
+/obj/effect/turf_decal/delivery/partial{
 	dir = 4
 	},
 /obj/structure/sign/poster/official/random{
@@ -8375,7 +8433,7 @@
 	},
 /area/coldcolony/malta/security/permabrig)
 "cZa" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/research/robotics)
 "cZd" = (
@@ -8499,7 +8557,7 @@
 /area/coldcolony/ruin/abandoned_banya)
 "dav" = (
 /obj/structure/closet/emcloset,
-/obj/effect/decal/warning_stripes/blue,
+/obj/effect/turf_decal/delivery/blue,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/resid_serv/crew_quarters/fitness)
 "daH" = (
@@ -8617,7 +8675,7 @@
 /turf/simulated/floor/carpet/orange,
 /area/coldcolony/malta/bridge/vip)
 "dcP" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/door_control{
 	id = "RoboPrivat";
 	name = "Robotics Privacy Shutters Control";
@@ -8771,7 +8829,7 @@
 /area/coldcolony/malta/resid_serv/crew_quarters/fitness)
 "dgc" = (
 /obj/structure/closet/crate/freezer,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/item/reagent_containers/food/snacks/meat,
 /obj/item/reagent_containers/food/snacks/meat,
 /turf/simulated/floor/plasteel{
@@ -8894,7 +8952,7 @@
 /turf/simulated/floor/wood/fancy/birch,
 /area/coldcolony/malta/bridge/checkpoint)
 "diM" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/portable_atmospherics/canister/sleeping_agent,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -8936,7 +8994,7 @@
 /area/coldcolony/malta/medical/cmostore)
 "dkk" = (
 /obj/machinery/cryopod/robot,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/machinery/computer/cryopod/robot{
 	pixel_x = -28
 	},
@@ -8982,7 +9040,7 @@
 /area/coldcolony/malta/bridge/nuke_storage)
 "dlE" = (
 /obj/machinery/recharge_station,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -9014,7 +9072,9 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/brig)
 "dlV" = (
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
@@ -9276,8 +9336,8 @@
 /turf/simulated/floor/plating/cold,
 /area/ruin/unpowered)
 "drJ" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/effect/decal/warning_stripes/arrow{
+/obj/effect/turf_decal/delivery/hollow,
+/obj/effect/turf_decal/arrows/black{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -9451,7 +9511,9 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/servicegen)
 "dwG" = (
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 9
 	},
@@ -9663,7 +9725,7 @@
 /area/coldcolony/malta/outer/roadblock)
 "dAd" = (
 /obj/item/twohanded/required/kirbyplants,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
@@ -9803,7 +9865,7 @@
 "dDT" = (
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /obj/effect/decal/cleanable/cobweb,
-/obj/effect/decal/warning_stripes/blue/hollow,
+/obj/effect/turf_decal/delivery/blue/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "brown"
@@ -9819,7 +9881,7 @@
 /area/coldcolony/malta/medical/medbay)
 "dEf" = (
 /obj/machinery/door/firedoor,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/effect/landmark/start/hangover,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -9828,7 +9890,7 @@
 /area/coldcolony/malta/hallway/cargo_escape/port/west)
 "dEg" = (
 /obj/machinery/vending/cola,
-/obj/effect/decal/warning_stripes/yellow/partial,
+/obj/effect/turf_decal/delivery/partial,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
@@ -9947,14 +10009,14 @@
 /area/coldcolony/malta/hallway/service/south)
 "dFy" = (
 /obj/machinery/door/firedoor,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
 /area/coldcolony/malta/bridge/vip)
 "dFz" = (
 /obj/machinery/disposal,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/structure/disposalpipe/trunk{
 	dir = 1
 	},
@@ -9980,7 +10042,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/emcloset,
-/obj/effect/decal/warning_stripes/blue,
+/obj/effect/turf_decal/delivery/blue,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/hallway/service/nw)
 "dGf" = (
@@ -10024,7 +10086,9 @@
 	},
 /area/coldcolony/malta/medical/medbay)
 "dGV" = (
-/obj/effect/decal/warning_stripes/northwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
 /obj/item/radio/intercom/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -10032,7 +10096,7 @@
 /area/coldcolony/malta/hallway/cargo_escape/port/east)
 "dGX" = (
 /obj/machinery/suit_storage_unit/security,
-/obj/effect/decal/warning_stripes/red/hollow,
+/obj/effect/turf_decal/delivery/red/hollow,
 /obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -10259,7 +10323,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/bar)
 "dMv" = (
-/obj/effect/decal/warning_stripes/blue,
+/obj/effect/turf_decal/delivery/blue,
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -10309,7 +10373,7 @@
 /area/coldcolony/malta/resid_serv/crew_quarters/theatre)
 "dNy" = (
 /obj/machinery/vending/cigarette,
-/obj/effect/decal/warning_stripes/yellow/partial{
+/obj/effect/turf_decal/delivery/partial{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -10355,7 +10419,7 @@
 /turf/simulated/floor/wood,
 /area/coldcolony/malta/resid_serv/bar/atrium)
 "dOF" = (
-/obj/effect/decal/warning_stripes/yellow/partial,
+/obj/effect/turf_decal/delivery/partial,
 /obj/effect/landmark/spawner/late/cyborg,
 /obj/machinery/computer/guestpass{
 	pixel_x = -28
@@ -10497,7 +10561,7 @@
 /area/coldcolony/malta/medical/virology)
 "dRx" = (
 /obj/machinery/vending/cigarette,
-/obj/effect/decal/warning_stripes/yellow/partial{
+/obj/effect/turf_decal/delivery/partial{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -10610,7 +10674,9 @@
 	},
 /area/coldcolony/malta/outer/roadblock)
 "dUe" = (
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -10930,7 +10996,7 @@
 /area/coldcolony/malta/resid_serv/crew_quarters/fitness)
 "dZa" = (
 /obj/machinery/computer/arcade/battle,
-/obj/effect/decal/warning_stripes/red/hollow,
+/obj/effect/turf_decal/delivery/red/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -10963,7 +11029,7 @@
 /obj/structure/chair{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/red/hollow,
+/obj/effect/turf_decal/delivery/red/hollow,
 /obj/effect/landmark/start/security_officer,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -11094,7 +11160,7 @@
 /area/coldcolony/malta/security/processing)
 "edJ" = (
 /obj/structure/closet/secure_closet/engineering_electrical,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/item/clothing/gloves/color/fyellow,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellow"
@@ -11193,7 +11259,7 @@
 /area/coldcolony/malta/security/securearmory)
 "eeq" = (
 /obj/machinery/disposal,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/structure/disposalpipe/trunk{
 	dir = 2
 	},
@@ -11265,7 +11331,9 @@
 	},
 /area/coldcolony/malta/bridge/vip)
 "efr" = (
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 1
 	},
@@ -11393,7 +11461,7 @@
 /obj/effect/decal/snow/sand/edge{
 	dir = 1
 	},
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/machinery/door/poddoor/shutters{
 	id_tag = "lbgarage"
 	},
@@ -11430,7 +11498,7 @@
 /area/coldcolony/malta/turret_protected/aisat)
 "ehZ" = (
 /obj/machinery/vending/shoedispenser,
-/obj/effect/decal/warning_stripes/yellow/partial{
+/obj/effect/turf_decal/delivery/partial{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -11733,7 +11801,7 @@
 	},
 /area/ruin/unpowered)
 "eoq" = (
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/machinery/hydroponics/soil,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel,
@@ -11798,12 +11866,12 @@
 	},
 /area/coldcolony/malta/hallway/service/north)
 "eqe" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/station_map/directional/west,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/research)
 "eqg" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/floodlight,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/engineering/storage)
@@ -11884,7 +11952,7 @@
 	},
 /area/coldcolony/malta/hallway/service/east)
 "esO" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/floodlight,
 /obj/machinery/light{
 	dir = 8
@@ -12015,7 +12083,7 @@
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/quartermaster/ore_production)
 "euD" = (
-/obj/effect/decal/warning_stripes/red/hollow,
+/obj/effect/turf_decal/delivery/red/hollow,
 /obj/effect/spawner/random_spawners/security_shotguns,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -12047,7 +12115,7 @@
 /area/coldcolony/malta/maintenance/incinerator)
 "evA" = (
 /obj/machinery/light,
-/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -12204,7 +12272,7 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 1
 	},
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/quartermaster/storage)
 "ezD" = (
@@ -12309,8 +12377,8 @@
 /area/coldcolony/malta/security/detectives_office)
 "eAR" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/bot/left,
-/obj/effect/turf_decal/bot/right,
+/obj/effect/turf_decal/delivery/hollow/left,
+/obj/effect/turf_decal/delivery/hollow/right,
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance/tripple,
 /obj/machinery/light{
@@ -12388,7 +12456,7 @@
 /turf/simulated/floor/bluegrid,
 /area/coldcolony/malta/turret_protected/ai)
 "eBA" = (
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/machinery/hydroponics/soil,
 /obj/item/seeds/tower,
 /turf/simulated/floor/plasteel,
@@ -12421,7 +12489,7 @@
 	},
 /area/coldcolony/malta/resid_serv/hydroponics)
 "eCH" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -12435,7 +12503,7 @@
 /area/shuttle/pirate_corvette)
 "eCV" = (
 /obj/machinery/portable_atmospherics/scrubber/huge/stationary,
-/obj/effect/decal/warning_stripes/red/hollow,
+/obj/effect/turf_decal/delivery/red/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -12547,7 +12615,9 @@
 /area/coldcolony/ruin/sm_chamber)
 "eFE" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/machinery/disposal,
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/structure/disposalpipe/trunk{
@@ -12562,7 +12632,7 @@
 	},
 /area/coldcolony/malta/quartermaster/miningbar)
 "eFN" = (
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/machinery/hydroponics/soil,
 /obj/item/seeds/tea,
 /turf/simulated/floor/plasteel,
@@ -13018,7 +13088,7 @@
 /area/coldcolony/malta/security/medbay)
 "eOV" = (
 /obj/structure/closet/secure_closet/hydroponics,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/sign/poster/official/random{
 	pixel_x = 32
 	},
@@ -13081,7 +13151,7 @@
 	},
 /area/coldcolony/malta/medical/medbay)
 "ePM" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/light_switch/directional/north,
 /obj/structure/rack,
 /obj/item/circuitboard/protolathe{
@@ -13352,7 +13422,7 @@
 /area/coldcolony/malta/security/lobby)
 "eTH" = (
 /obj/machinery/space_heater,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -13366,7 +13436,9 @@
 	},
 /area/coldcolony/ruin/abandoned_garage)
 "eTR" = (
-/obj/effect/decal/warning_stripes/northwestcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -13540,7 +13612,7 @@
 /area/coldcolony/malta/resid_serv/bar)
 "eXZ" = (
 /obj/machinery/recharge_station,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "purple"
@@ -13557,7 +13629,9 @@
 	},
 /area/coldcolony/malta/security/medbay)
 "eYg" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/machinery/power/electrolyzer,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -13676,7 +13750,7 @@
 	},
 /area/coldcolony/malta/resid_serv/crew_quarters/fitness)
 "eZV" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/closet/crate,
 /obj/item/clothing/head/fluff/arachno_mask,
 /obj/item/clothing/head/fluff/kiahat,
@@ -13741,7 +13815,7 @@
 /area/coldcolony/malta/security/processing)
 "fbi" = (
 /obj/structure/closet/firecloset,
-/obj/effect/decal/warning_stripes/red,
+/obj/effect/turf_decal/delivery/red,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "green"
@@ -13749,7 +13823,7 @@
 /area/coldcolony/malta/hallway/cargo_escape/exit)
 "fbq" = (
 /obj/machinery/vending/coffee,
-/obj/effect/decal/warning_stripes/yellow/partial{
+/obj/effect/turf_decal/delivery/partial{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -13812,7 +13886,7 @@
 /area/ruin/unpowered/coldcolony_outside)
 "fdF" = (
 /obj/machinery/vending/coffee,
-/obj/effect/decal/warning_stripes/yellow/partial{
+/obj/effect/turf_decal/delivery/partial{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -13833,7 +13907,7 @@
 /area/ruin/unpowered/coldcolony_outside)
 "few" = (
 /obj/machinery/door/firedoor,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/hallway/cargo_escape/port/west)
@@ -13934,7 +14008,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/coldcolony/malta/medical/surgery/east)
 "fhy" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/hallway/cargo_escape/entrance)
 "fhP" = (
@@ -14162,7 +14236,7 @@
 /area/coldcolony/malta/security/processing)
 "fmO" = (
 /obj/structure/rack,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/item/radio{
 	pixel_x = 5;
 	pixel_y = 4
@@ -14287,7 +14361,7 @@
 /turf/simulated/floor/wood,
 /area/coldcolony/malta/research/test_chamber)
 "fqE" = (
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/hologram/holopad,
@@ -14417,7 +14491,7 @@
 /area/coldcolony/malta/hallway/service/nw)
 "fut" = (
 /obj/structure/rack,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -14552,7 +14626,9 @@
 /turf/simulated/floor/wood/fancy/light,
 /area/coldcolony/malta/bridge/hop)
 "fvW" = (
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -14670,7 +14746,9 @@
 	dir = 4;
 	name = "Труба фильтрации"
 	},
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -14710,7 +14788,7 @@
 	},
 /area/coldcolony/malta/security/magistrateoffice)
 "fyZ" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -15298,7 +15376,7 @@
 /area/coldcolony/malta/maintenance/servicegen)
 "fLd" = (
 /obj/structure/closet/secure_closet/brig,
-/obj/effect/decal/warning_stripes/red/hollow,
+/obj/effect/turf_decal/delivery/red/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
@@ -15374,7 +15452,7 @@
 	},
 /area/coldcolony/malta/hallway/service/nw)
 "fMy" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/portable_atmospherics/scrubber/huge,
 /obj/structure/extinguisher_cabinet/directional/south,
 /obj/machinery/light,
@@ -15390,8 +15468,8 @@
 /area/coldcolony/malta/security/hos)
 "fMP" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/bot/right,
-/obj/effect/turf_decal/bot/left,
+/obj/effect/turf_decal/delivery/hollow/right,
+/obj/effect/turf_decal/delivery/hollow/left,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -15452,7 +15530,9 @@
 	},
 /area/coldcolony/ruin/syndie_outpost)
 "fOs" = (
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/machinery/portable_atmospherics/canister/sleeping_agent,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -15555,7 +15635,7 @@
 /area/coldcolony/malta/security/processing)
 "fPr" = (
 /obj/item/twohanded/required/kirbyplants,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/hallway/cargo_escape/port/central)
 "fPt" = (
@@ -15635,7 +15715,7 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
@@ -15761,7 +15841,7 @@
 	pixel_x = 32
 	},
 /obj/machinery/vending/department_clothesmate/cargo,
-/obj/effect/decal/warning_stripes/yellow/partial{
+/obj/effect/turf_decal/delivery/partial{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -15770,7 +15850,7 @@
 /area/coldcolony/malta/quartermaster/storage)
 "fTY" = (
 /obj/structure/rack,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/power/apc/directional/west,
 /obj/structure/cable{
 	icon_state = "0-4"
@@ -15959,7 +16039,7 @@
 /area/coldcolony/malta/security/permabrig)
 "fXk" = (
 /obj/item/twohanded/required/kirbyplants,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "green"
@@ -15974,8 +16054,8 @@
 /area/coldcolony/malta/engineering/break_room)
 "fXD" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/bot/right,
-/obj/effect/turf_decal/bot/left,
+/obj/effect/turf_decal/delivery/hollow/right,
+/obj/effect/turf_decal/delivery/hollow/left,
 /obj/structure/closet/crate/freezer,
 /obj/item/reagent_containers/iv_bag/blood/BMinus,
 /obj/item/reagent_containers/iv_bag/blood/AMinus,
@@ -16016,13 +16096,13 @@
 "fYB" = (
 /obj/machinery/biogenerator,
 /obj/item/reagent_containers/glass/bucket,
-/obj/effect/decal/warning_stripes/red/hollow,
+/obj/effect/turf_decal/delivery/red/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/coldcolony/malta/security/permabrig)
 "fYR" = (
-/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/ore_box,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -16251,7 +16331,7 @@
 	},
 /area/coldcolony/malta/hallway/service/central)
 "gff" = (
-/obj/effect/decal/warning_stripes/yellow/partial{
+/obj/effect/turf_decal/delivery/partial{
 	dir = 1
 	},
 /obj/structure/cable{
@@ -16411,7 +16491,9 @@
 	},
 /area/coldcolony/malta/resid_serv/crew_quarters/sleep)
 "gjr" = (
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -16565,7 +16647,9 @@
 	dir = 1;
 	name = "Труба фильтрации"
 	},
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	desc = "Труба хранит в себе набор газов для смешивания";
 	dir = 4;
@@ -16618,7 +16702,7 @@
 /area/coldcolony/malta/security/permabrig)
 "gmG" = (
 /obj/machinery/disposal,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/structure/disposalpipe/trunk{
 	dir = 1
 	},
@@ -16705,7 +16789,7 @@
 	},
 /area/coldcolony/malta/hallway/cargo_escape/port/central)
 "gnU" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/closet/crate/internals,
 /obj/item/tank/internals/emergency_oxygen/double,
 /obj/item/clothing/mask/breath,
@@ -16750,7 +16834,7 @@
 "goK" = (
 /obj/machinery/vending/snack,
 /obj/item/radio/intercom/directional/east,
-/obj/effect/decal/warning_stripes/yellow/partial{
+/obj/effect/turf_decal/delivery/partial{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -16801,7 +16885,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/hallway/cargo_escape/entrance)
 "gqg" = (
@@ -16844,7 +16928,7 @@
 /turf/simulated/floor/plating/asteroid/cold,
 /area/ruin/unpowered/coldcolony_outside)
 "gqE" = (
-/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/ore_box,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/quartermaster/ore_production)
@@ -16886,7 +16970,9 @@
 	},
 /area/coldcolony/malta/security/reception)
 "grn" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/machinery/computer/security/engineering,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -16956,7 +17042,7 @@
 /turf/simulated/floor/carpet/royalblue,
 /area/coldcolony/malta/bridge/captain)
 "gsq" = (
-/obj/effect/decal/warning_stripes/blue/hollow,
+/obj/effect/turf_decal/delivery/blue/hollow,
 /obj/effect/decal/cleanable/generic,
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -17046,7 +17132,9 @@
 	},
 /area/coldcolony/malta/medical/sleeper)
 "gue" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -17069,7 +17157,9 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/turret_protected/aisat)
 "gur" = (
@@ -17141,7 +17231,7 @@
 /area/coldcolony/malta/bridge/checkpoint)
 "gvX" = (
 /obj/machinery/vending/coffee,
-/obj/effect/decal/warning_stripes/yellow/partial{
+/obj/effect/turf_decal/delivery/partial{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -17300,7 +17390,7 @@
 	},
 /area/coldcolony/malta/civilian/trading)
 "gzD" = (
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/effect/spawner/lootdrop/maintenance/tripple,
 /obj/effect/spawner/lootdrop/maintenance/tripple,
 /obj/item/trash/liquidfood,
@@ -17353,7 +17443,7 @@
 	},
 /area/coldcolony/malta/security/securehallway)
 "gAz" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -17387,7 +17477,9 @@
 	},
 /area/coldcolony/malta/security/brig)
 "gBq" = (
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -17412,7 +17504,7 @@
 /area/coldcolony/malta/hallway/cargo_escape/entrance)
 "gBH" = (
 /obj/structure/rack,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/item/stack/sheet/metal{
 	amount = 50
 	},
@@ -17461,7 +17553,7 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 8
 	},
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurple"
@@ -17476,7 +17568,7 @@
 /area/coldcolony/malta/security/prison/cell_block/A)
 "gCW" = (
 /obj/machinery/vending/department_clothesmate/engineering,
-/obj/effect/decal/warning_stripes/yellow/partial{
+/obj/effect/turf_decal/delivery/partial{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
@@ -17595,7 +17687,7 @@
 /area/coldcolony/malta/bridge/vip)
 "gEJ" = (
 /obj/structure/rack,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/item/storage/toolbox/mechanical,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -17707,7 +17799,7 @@
 /area/coldcolony/malta/hallway/cargo_escape/north)
 "gGZ" = (
 /obj/structure/closet/firecloset,
-/obj/effect/decal/warning_stripes/red,
+/obj/effect/turf_decal/delivery/red,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -17756,7 +17848,9 @@
 	},
 /area/coldcolony/malta/quartermaster/ore_production)
 "gIN" = (
-/obj/effect/decal/warning_stripes/southeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -17792,7 +17886,7 @@
 /area/coldcolony/malta/bridge/checkpoint)
 "gJb" = (
 /obj/machinery/space_heater,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -17840,14 +17934,14 @@
 /area/coldcolony/malta/quartermaster/storage)
 "gJT" = (
 /obj/structure/closet/secure_closet/hydroponics,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/item/clothing/suit/hooded/wintercoat/hydro,
 /turf/simulated/floor/plasteel{
 	icon_state = "hydrofloor"
 	},
 /area/coldcolony/malta/resid_serv/hydroponics)
 "gJW" = (
-/obj/effect/decal/warning_stripes/yellow/partial,
+/obj/effect/turf_decal/delivery/partial,
 /obj/machinery/vending/chinese,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
@@ -17962,7 +18056,7 @@
 /area/coldcolony/malta/medical/virology)
 "gMo" = (
 /obj/item/twohanded/required/kirbyplants,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitecorner"
@@ -18080,7 +18174,7 @@
 	},
 /area/coldcolony/ruin/abandoned_house)
 "gNG" = (
-/obj/effect/decal/warning_stripes/blue,
+/obj/effect/turf_decal/delivery/blue,
 /obj/structure/closet/emcloset,
 /obj/item/tank/internals/emergency_oxygen/engi,
 /obj/item/tank/internals/emergency_oxygen/engi,
@@ -18168,7 +18262,7 @@
 	dir = 8;
 	layer = 2.9
 	},
-/obj/effect/decal/warning_stripes/red/hollow,
+/obj/effect/turf_decal/delivery/red/hollow,
 /obj/item/clothing/suit/armor/bulletproof,
 /obj/item/clothing/head/helmet/alt,
 /obj/item/clothing/shoes/jackboots/armored,
@@ -18298,7 +18392,7 @@
 /turf/simulated/floor/plating/asteroid/cold,
 /area/ruin/unpowered/coldcolony_outside)
 "gPP" = (
-/obj/effect/decal/warning_stripes/red/hollow,
+/obj/effect/turf_decal/delivery/red/hollow,
 /obj/structure/window/reinforced{
 	dir = 1
 	},
@@ -18347,7 +18441,7 @@
 /area/coldcolony/malta/security/securearmory)
 "gQG" = (
 /obj/machinery/disposal,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/structure/disposalpipe/trunk{
 	dir = 1
 	},
@@ -18383,7 +18477,7 @@
 /area/coldcolony/malta/medical/virology)
 "gRL" = (
 /obj/structure/closet/crate/trashcart,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "purple"
@@ -18540,7 +18634,7 @@
 /turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "gWl" = (
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -18615,7 +18709,9 @@
 /obj/structure/table/reinforced,
 /obj/item/clipboard,
 /obj/item/gps/engineering,
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/machinery/light{
 	dir = 8
 	},
@@ -18746,9 +18842,11 @@
 	},
 /area/coldcolony/malta/civilian/trading)
 "hab" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/dispenser/oxygen,
-/obj/effect/decal/warning_stripes/northwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
 /obj/machinery/computer/guestpass{
 	pixel_y = 28
 	},
@@ -18758,7 +18856,7 @@
 /area/coldcolony/malta/engineering/break_room)
 "haN" = (
 /obj/machinery/recharge_station,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -18867,7 +18965,7 @@
 /area/coldcolony/malta/quartermaster/storage)
 "hcH" = (
 /obj/machinery/portable_atmospherics/canister,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/engineering/atmos)
 "hcN" = (
@@ -19099,7 +19197,9 @@
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/research/shallway)
 "hhs" = (
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -19113,12 +19213,12 @@
 	},
 /area/coldcolony/malta/engineering/monitor)
 "hhO" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/dispenser,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/engineering/storage)
 "hij" = (
-/obj/effect/decal/warning_stripes/red/hollow,
+/obj/effect/turf_decal/delivery/red/hollow,
 /obj/structure/closet/secure_closet/security,
 /obj/structure/window/reinforced{
 	color = "red";
@@ -19168,7 +19268,7 @@
 	anchored = 1
 	},
 /obj/structure/cable,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -19429,7 +19529,7 @@
 /obj/machinery/power/terminal{
 	dir = 1
 	},
-/obj/effect/decal/warning_stripes/blue/hollow,
+/obj/effect/turf_decal/delivery/blue/hollow,
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
@@ -19468,7 +19568,9 @@
 /turf/simulated/floor/plasteel/white,
 /area/coldcolony/malta/medical/biostorage)
 "hoo" = (
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/engine,
 /area/coldcolony/malta/security/execution)
 "hoq" = (
@@ -19559,7 +19661,7 @@
 /obj/structure/closet/secure_closet/personal,
 /obj/item/clothing/suit/hooded/wintercoat,
 /obj/item/clothing/suit/hooded/wintercoat,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -19741,7 +19843,7 @@
 "hsr" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/firecloset,
-/obj/effect/decal/warning_stripes/red,
+/obj/effect/turf_decal/delivery/red,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/hallway/service/nw)
 "hsE" = (
@@ -19817,7 +19919,7 @@
 /area/coldcolony/malta/resid_serv/crew_quarters/cabin1)
 "htX" = (
 /obj/machinery/door/firedoor,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -19829,14 +19931,16 @@
 /turf/simulated/floor/plasteel/white,
 /area/coldcolony/malta/medical/medbay)
 "hup" = (
-/obj/effect/decal/warning_stripes/southwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
 /area/coldcolony/malta/hallway/cargo_escape/port/east)
 "hus" = (
 /obj/structure/closet/bombclosetsecurity,
-/obj/effect/decal/warning_stripes/red,
+/obj/effect/turf_decal/delivery/red,
 /obj/structure/window/reinforced,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -20065,7 +20169,7 @@
 /area/coldcolony/malta/security/brig)
 "hAN" = (
 /obj/structure/kitchenspike,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/resid_serv/kitchen)
 "hBc" = (
@@ -20232,7 +20336,7 @@
 	},
 /area/coldcolony/malta/bridge/tcomm)
 "hDf" = (
-/obj/effect/decal/warning_stripes/red/hollow,
+/obj/effect/turf_decal/delivery/red/hollow,
 /obj/machinery/flasher/portable,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -20254,7 +20358,7 @@
 	layer = 4;
 	pixel_y = -32
 	},
-/obj/effect/decal/warning_stripes/red/hollow,
+/obj/effect/turf_decal/delivery/red/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -20271,7 +20375,7 @@
 /area/coldcolony/malta/research/test_chamber)
 "hDC" = (
 /obj/machinery/vending/clothesmate,
-/obj/effect/decal/warning_stripes/yellow/partial{
+/obj/effect/turf_decal/delivery/partial{
 	dir = 1
 	},
 /obj/machinery/light{
@@ -20304,7 +20408,7 @@
 	dir = 10
 	},
 /obj/structure/closet/emcloset,
-/obj/effect/decal/warning_stripes/blue,
+/obj/effect/turf_decal/delivery/blue,
 /obj/structure/sign/nosmoking_2{
 	pixel_x = -32
 	},
@@ -20313,7 +20417,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/coldcolony/malta/medical/sleeper)
 "hEm" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/ruin/sm_division)
 "hFa" = (
@@ -20448,7 +20552,7 @@
 /turf/simulated/floor/carpet/black,
 /area/coldcolony/malta/maintenance/casino)
 "hHN" = (
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -20602,7 +20706,9 @@
 	},
 /area/coldcolony/malta/security/hos)
 "hLy" = (
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -20626,7 +20732,9 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 8
 	},
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -20719,7 +20827,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/ruin/sm_lab)
 "hOp" = (
-/obj/effect/decal/warning_stripes/blue/hollow,
+/obj/effect/turf_decal/delivery/blue/hollow,
 /obj/effect/decal/snow/sand/edge{
 	dir = 6
 	},
@@ -20794,7 +20902,7 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 2
 	},
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel/white,
 /area/coldcolony/malta/medical/sleeper)
 "hPx" = (
@@ -20904,7 +21012,7 @@
 	dir = 4
 	},
 /obj/machinery/firealarm/directional/south,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
@@ -21096,7 +21204,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/science)
 "hXl" = (
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
 	dir = 2
@@ -21111,7 +21219,7 @@
 	dir = 8;
 	layer = 2.9
 	},
-/obj/effect/decal/warning_stripes/red/hollow,
+/obj/effect/turf_decal/delivery/red/hollow,
 /obj/machinery/door/window{
 	dir = 2;
 	name = "Secure Armory";
@@ -21198,14 +21306,14 @@
 	},
 /area/coldcolony/malta/medical/sleeper)
 "hZC" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "purple"
 	},
 /area/coldcolony/malta/research/robotics)
 "iad" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/table,
 /obj/item/plant_analyzer,
 /obj/item/hatchet,
@@ -21254,7 +21362,7 @@
 	},
 /area/coldcolony/malta/quartermaster/office)
 "iat" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/closet/wardrobe/atmospherics_yellow,
 /obj/machinery/light,
 /obj/item/clothing/suit/hooded/wintercoat/engineering/atmos,
@@ -21340,7 +21448,7 @@
 /area/coldcolony/malta/resid_serv/bar)
 "ibE" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance/tripple,
 /turf/simulated/floor/plasteel{
@@ -21377,7 +21485,9 @@
 	},
 /area/coldcolony/malta/turret_protected/ai)
 "ibX" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/item/mecha_parts/part/ripley_right_arm,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -21401,7 +21511,9 @@
 	},
 /area/coldcolony/malta/bridge/captain/bedroom)
 "icK" = (
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
@@ -21573,7 +21685,7 @@
 /turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_house)
 "igi" = (
-/obj/effect/decal/warning_stripes/yellow/partial{
+/obj/effect/turf_decal/delivery/partial{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -21602,7 +21714,7 @@
 /area/coldcolony/malta/hallway/cargo_escape/exit)
 "igy" = (
 /obj/machinery/computer/roboquest,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -21639,9 +21751,11 @@
 	dir = 2;
 	id_tag = "eslock"
 	},
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/machinery/door/firedoor,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -21930,7 +22044,7 @@
 	},
 /area/coldcolony/malta/maintenance/kitchen)
 "inV" = (
-/obj/effect/decal/warning_stripes/red/hollow,
+/obj/effect/turf_decal/delivery/red/hollow,
 /obj/effect/decal/cleanable/generic,
 /obj/machinery/light{
 	dir = 1
@@ -21995,7 +22109,7 @@
 	dir = 8;
 	layer = 2.9
 	},
-/obj/effect/decal/warning_stripes/red/hollow,
+/obj/effect/turf_decal/delivery/red/hollow,
 /obj/machinery/door/window{
 	dir = 2;
 	name = "Secure Armory";
@@ -22076,8 +22190,8 @@
 	},
 /area/coldcolony/malta/hallway/cargo_escape/port/central)
 "iqb" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/effect/decal/warning_stripes/arrow{
+/obj/effect/turf_decal/delivery/hollow,
+/obj/effect/turf_decal/arrows/black{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -22271,7 +22385,7 @@
 	},
 /area/coldcolony/malta/resid_serv/crew_quarters/locker_toilet)
 "iuS" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/hallway/bridge)
 "ivi" = (
@@ -22354,7 +22468,7 @@
 /obj/structure/sign/poster/official/random{
 	pixel_x = -32
 	},
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "green"
@@ -22373,7 +22487,7 @@
 /area/coldcolony/malta/quartermaster/storage)
 "iwG" = (
 /obj/machinery/vending/hydronutrients,
-/obj/effect/decal/warning_stripes/yellow/partial{
+/obj/effect/turf_decal/delivery/partial{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -22574,8 +22688,10 @@
 	id_tag = "eslock"
 	},
 /obj/machinery/door/firedoor,
-/obj/effect/decal/warning_stripes/north,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/delivery,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
@@ -22616,7 +22732,7 @@
 /area/coldcolony/malta/resid_serv/crew_quarters/fitness)
 "iBk" = (
 /obj/machinery/door/firedoor,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -22811,7 +22927,9 @@
 /area/coldcolony/malta/research/xenobiology)
 "iEK" = (
 /obj/machinery/power/apc/directional/east,
-/obj/effect/decal/warning_stripes/northeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
@@ -22860,7 +22978,7 @@
 /area/coldcolony/malta/chapel/office)
 "iFr" = (
 /obj/structure/closet/secure_closet/engineering_welding,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/item/clothing/glasses/welding,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
@@ -22966,7 +23084,7 @@
 /area/coldcolony/malta/resid_serv/crew_quarters/barber)
 "iHv" = (
 /obj/structure/closet/secure_closet/engineering_personal,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/firealarm/directional/north,
 /obj/item/clothing/suit/hooded/wintercoat/engineering,
 /obj/item/clothing/suit/hooded/wintercoat/engineering,
@@ -23107,7 +23225,7 @@
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/research/robotics)
 "iJy" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -23115,7 +23233,7 @@
 /area/coldcolony/malta/hallway/service/south)
 "iJz" = (
 /obj/machinery/portable_atmospherics/canister,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/window/reinforced{
 	dir = 8
 	},
@@ -23126,7 +23244,7 @@
 /obj/structure/closet/secure_closet/personal,
 /obj/item/clothing/suit/hooded/wintercoat,
 /obj/item/clothing/suit/hooded/wintercoat,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -23384,7 +23502,7 @@
 /area/coldcolony/malta/engineering/monitor)
 "iPI" = (
 /obj/effect/decal/cleanable/dust,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/hallway/cargo_escape/entrance)
 "iQc" = (
@@ -23459,7 +23577,7 @@
 	},
 /area/coldcolony/malta/quartermaster/office)
 "iRN" = (
-/obj/effect/decal/warning_stripes/red/hollow,
+/obj/effect/turf_decal/delivery/red/hollow,
 /obj/machinery/space_heater,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -23547,7 +23665,7 @@
 /area/coldcolony/malta/medical/genetics)
 "iSI" = (
 /obj/machinery/door/firedoor,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -23749,13 +23867,11 @@
 /turf/simulated/wall,
 /area/coldcolony/malta/research)
 "iVU" = (
-/obj/effect/decal/warning_stripes/west{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "siding1"
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
 	},
-/obj/effect/decal/warning_stripes/west{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "siding2"
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -23801,7 +23917,9 @@
 	},
 /area/coldcolony/malta/bridge/vip)
 "iXb" = (
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/machinery/computer/station_alert,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -24000,7 +24118,7 @@
 /area/coldcolony/malta/research/shallway)
 "iZI" = (
 /obj/structure/closet/emcloset,
-/obj/effect/decal/warning_stripes/blue,
+/obj/effect/turf_decal/delivery/blue,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -24085,7 +24203,9 @@
 	},
 /area/coldcolony/malta/security/reception)
 "jcC" = (
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/item/mecha_parts/mecha_equipment/generator,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -24120,7 +24240,7 @@
 /obj/item/clothing/shoes/winterboots,
 /obj/item/clothing/shoes/winterboots,
 /obj/item/clothing/shoes/winterboots,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/alarm/directional/west,
 /obj/machinery/camera{
 	c_tag = "Outpost West";
@@ -24347,7 +24467,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/research/explab)
 "jfT" = (
-/obj/effect/decal/warning_stripes/red/hollow,
+/obj/effect/turf_decal/delivery/red/hollow,
 /obj/structure/closet/secure_closet/security,
 /obj/item/clothing/suit/hooded/wintercoat/security,
 /turf/simulated/floor/plasteel{
@@ -24364,7 +24484,7 @@
 /area/coldcolony/malta/resid_serv/bar/atrium)
 "jfY" = (
 /obj/machinery/vending/cigarette,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/hallway/cargo_escape/port/central)
 "jgc" = (
@@ -24418,7 +24538,7 @@
 /area/coldcolony/malta/medical/sleeper)
 "jgP" = (
 /obj/machinery/recharge_station,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
@@ -24449,7 +24569,7 @@
 /turf/simulated/wall,
 /area/coldcolony/malta/resid_serv/bar/atrium)
 "jhR" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/light,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -24463,15 +24583,17 @@
 /area/coldcolony/malta/resid_serv/library)
 "jiu" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/bot/right,
-/obj/effect/turf_decal/bot/left,
+/obj/effect/turf_decal/delivery/hollow/right,
+/obj/effect/turf_decal/delivery/hollow/left,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "brown"
 	},
 /area/coldcolony/malta/quartermaster/sorting)
 "jiI" = (
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/quartermaster/storage)
 "jiZ" = (
@@ -24537,7 +24659,7 @@
 /area/coldcolony/malta/turret_protected/ai)
 "jkt" = (
 /obj/structure/closet/secure_closet/engineering_personal,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/item/clothing/suit/hooded/wintercoat/engineering,
 /obj/item/clothing/suit/hooded/wintercoat/engineering,
 /turf/simulated/floor/plasteel{
@@ -24699,16 +24821,20 @@
 /area/coldcolony/malta/security/prison/cell_block/A)
 "jmu" = (
 /obj/structure/table/reinforced,
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/item/paper_bin,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
 /area/coldcolony/malta/engineering/atmos)
 "jmF" = (
-/obj/effect/decal/warning_stripes/blue,
+/obj/effect/turf_decal/delivery/blue,
 /obj/structure/closet/emcloset,
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/machinery/camera{
 	c_tag = "Engineering Entrance";
 	dir = 4;
@@ -24741,7 +24867,7 @@
 /area/coldcolony/malta/security/detectives_office)
 "jmI" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/effect/decal/cleanable/dust,
 /obj/effect/decal/cleanable/dust,
 /obj/structure/closet/crate/secure/gear{
@@ -24760,7 +24886,9 @@
 /turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "jmM" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/machinery/firealarm/directional/west,
 /obj/structure/rack,
 /obj/item/storage/toolbox/mechanical{
@@ -24816,7 +24944,7 @@
 /area/coldcolony/malta/resid_serv/bar/atrium)
 "joe" = (
 /obj/machinery/recharge_station,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/structure/sign/poster/official/random{
 	pixel_y = -32
 	},
@@ -24826,7 +24954,7 @@
 	},
 /area/coldcolony/malta/bridge)
 "jon" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate/engineering,
 /obj/item/stock_parts/micro_laser,
@@ -24876,7 +25004,7 @@
 	},
 /area/coldcolony/malta/turret_protected/ai)
 "joS" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/sign/poster/official/random{
 	pixel_y = 32
 	},
@@ -24925,7 +25053,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/medical/virology)
 "jpt" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/closet/crate/engineering,
 /obj/item/clothing/head/welding,
 /obj/effect/spawner/lootdrop/maintenance/double,
@@ -24948,7 +25076,7 @@
 /obj/structure/closet/crate/freezer,
 /obj/item/reagent_containers/food/snacks/cutlet,
 /obj/item/reagent_containers/food/snacks/cheesewedge,
-/obj/effect/decal/warning_stripes/red/hollow,
+/obj/effect/turf_decal/delivery/red/hollow,
 /obj/machinery/power/apc/directional/east,
 /obj/structure/cable,
 /turf/simulated/floor/plasteel{
@@ -25084,7 +25212,7 @@
 	},
 /area/coldcolony/malta/hallway/service/south)
 "jtL" = (
-/obj/effect/decal/warning_stripes/yellow/partial{
+/obj/effect/turf_decal/delivery/partial{
 	dir = 8
 	},
 /obj/machinery/constructable_frame/machine_frame,
@@ -25220,7 +25348,7 @@
 /area/coldcolony/malta/maintenance/brig)
 "jvV" = (
 /obj/machinery/vending/snack,
-/obj/effect/decal/warning_stripes/yellow/partial,
+/obj/effect/turf_decal/delivery/partial,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -25435,7 +25563,7 @@
 /area/ruin/unpowered/coldcolony_outside)
 "jzq" = (
 /obj/structure/closet/emcloset,
-/obj/effect/decal/warning_stripes/blue,
+/obj/effect/turf_decal/delivery/blue,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -25504,7 +25632,7 @@
 	icon_state = "tube-broken";
 	status = 2
 	},
-/obj/effect/decal/warning_stripes/red,
+/obj/effect/turf_decal/delivery/red,
 /obj/structure/sign/poster/random{
 	pixel_y = -32
 	},
@@ -25561,7 +25689,7 @@
 /area/coldcolony/malta/research/lab)
 "jBK" = (
 /obj/structure/closet/secure_closet/engineering_welding,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/item/clothing/glasses/welding,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellow"
@@ -25691,7 +25819,7 @@
 /area/ruin/unpowered/coldcolony_outside)
 "jDU" = (
 /obj/machinery/vending/engivend,
-/obj/effect/decal/warning_stripes/yellow/partial{
+/obj/effect/turf_decal/delivery/partial{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -25827,7 +25955,7 @@
 	dir = 4
 	},
 /obj/machinery/vending/chinese,
-/obj/effect/decal/warning_stripes/yellow/partial,
+/obj/effect/turf_decal/delivery/partial,
 /obj/structure/sign/poster/official/random{
 	pixel_y = -32
 	},
@@ -25894,7 +26022,7 @@
 /area/coldcolony/malta/medical/virology)
 "jHe" = (
 /obj/machinery/disposal,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/structure/disposalpipe/trunk{
 	dir = 2
 	},
@@ -26054,7 +26182,7 @@
 /area/coldcolony/malta/security/prison/cell_block/A)
 "jKO" = (
 /obj/machinery/disposal,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/structure/disposalpipe/trunk{
 	dir = 1
 	},
@@ -26126,7 +26254,7 @@
 /area/coldcolony/malta/chapel/main)
 "jLK" = (
 /obj/machinery/vending/snack,
-/obj/effect/decal/warning_stripes/yellow/partial{
+/obj/effect/turf_decal/delivery/partial{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -26442,7 +26570,7 @@
 	},
 /area/coldcolony/malta/engineering/storage)
 "jSH" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/space_heater,
 /obj/structure/extinguisher_cabinet/directional/south,
 /obj/machinery/light,
@@ -26475,7 +26603,9 @@
 	},
 /area/coldcolony/malta/hallway/cargo_escape/port/east)
 "jTA" = (
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -26501,7 +26631,9 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/civilian/mrchangs)
 "jUa" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
@@ -26522,7 +26654,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/rack,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/item/stack/cable_coil{
 	pixel_x = 6;
 	pixel_y = -2
@@ -26589,7 +26721,7 @@
 	},
 /area/coldcolony/malta/security/permabrig)
 "jVK" = (
-/obj/effect/decal/warning_stripes/blue,
+/obj/effect/turf_decal/delivery/blue,
 /obj/structure/closet/firecloset,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -26618,7 +26750,7 @@
 	},
 /area/coldcolony/malta/engineering/break_room)
 "jVU" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/closet/crate/secure/plasma{
 	req_access = list(31,32,50)
 	},
@@ -26667,7 +26799,9 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 8
 	},
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -26760,7 +26894,9 @@
 /turf/simulated/floor/grass,
 /area/coldcolony/malta/resid_serv/hydroponics)
 "jYo" = (
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
@@ -26877,7 +27013,9 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/cargo)
 "kar" = (
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/structure/chair/e_chair{
 	dir = 1
 	},
@@ -27069,7 +27207,7 @@
 /area/coldcolony/malta/quartermaster/ore_production)
 "kcG" = (
 /obj/machinery/disposal,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/structure/disposalpipe/trunk{
 	dir = 2
 	},
@@ -27257,7 +27395,7 @@
 /area/ruin/unpowered/coldcolony_outside)
 "kgd" = (
 /obj/machinery/door/firedoor,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -27291,7 +27429,9 @@
 	on = 1;
 	target_pressure = 4500
 	},
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -27491,7 +27631,7 @@
 	},
 /area/coldcolony/malta/hallway/service/nw)
 "kkt" = (
-/obj/effect/decal/warning_stripes/red/hollow,
+/obj/effect/turf_decal/delivery/red/hollow,
 /obj/machinery/light,
 /obj/machinery/vending/ammo,
 /turf/simulated/floor/plasteel{
@@ -27754,7 +27894,9 @@
 /obj/structure/table/reinforced,
 /obj/machinery/cell_charger,
 /obj/item/stock_parts/cell/high,
-/obj/effect/decal/warning_stripes/northwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -27787,7 +27929,7 @@
 /obj/effect/decal/snow/sand/edge{
 	dir = 1
 	},
-/obj/effect/decal/warning_stripes/yellow/partial{
+/obj/effect/turf_decal/delivery/partial{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -27813,7 +27955,7 @@
 	},
 /area/coldcolony/malta/hallway/service/north)
 "ksb" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/closet/secure_closet/freezer/fridge,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -27891,7 +28033,7 @@
 	},
 /area/coldcolony/malta/medical/cmostore)
 "ksQ" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/rack,
 /obj/item/circuitboard/communications{
 	pixel_x = -4;
@@ -27953,7 +28095,9 @@
 	},
 /area/coldcolony/malta/engineering/atmos)
 "ktO" = (
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/structure/table/reinforced,
 /obj/machinery/photocopier/faxmachine/longrange{
 	department = "Chief Engineer's Office";
@@ -28034,7 +28178,7 @@
 /turf/simulated/floor/wood/fancy/light,
 /area/coldcolony/malta/bridge/captain)
 "kvS" = (
-/obj/effect/decal/warning_stripes/red/partial{
+/obj/effect/turf_decal/delivery/red/partial{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -28158,7 +28302,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/medbay)
 "kxw" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/space_heater,
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -28365,12 +28509,12 @@
 /area/coldcolony/malta/security/securearmory)
 "kzF" = (
 /obj/structure/closet/emcloset,
-/obj/effect/decal/warning_stripes/blue,
+/obj/effect/turf_decal/delivery/blue,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/security/lobby)
 "kzJ" = (
-/obj/effect/turf_decal/bot/left,
-/obj/effect/turf_decal/bot/right,
+/obj/effect/turf_decal/delivery/hollow/left,
+/obj/effect/turf_decal/delivery/hollow/right,
 /obj/structure/sign/poster/official/random{
 	pixel_y = 32
 	},
@@ -28478,7 +28622,7 @@
 /area/coldcolony/malta/bridge/meeting_room)
 "kBZ" = (
 /obj/machinery/door/firedoor,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -28495,7 +28639,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel/white,
 /area/coldcolony/malta/medical/chemistry)
 "kCl" = (
@@ -28545,7 +28689,9 @@
 /turf/simulated/wall,
 /area/coldcolony/malta/resid_serv/hydroponics)
 "kDm" = (
-/obj/effect/decal/warning_stripes/northwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
 /obj/structure/window/reinforced{
 	dir = 8
 	},
@@ -28613,7 +28759,9 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
-/obj/effect/decal/warning_stripes/northwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/medical/virology)
 "kEA" = (
@@ -28763,7 +28911,7 @@
 	},
 /area/coldcolony/malta/security/permabrig)
 "kHi" = (
-/obj/effect/decal/warning_stripes/red/hollow,
+/obj/effect/turf_decal/delivery/red/hollow,
 /obj/machinery/light,
 /obj/structure/closet/l3closet/security,
 /turf/simulated/floor/plasteel{
@@ -28831,7 +28979,7 @@
 /area/coldcolony/malta/security/magistrateoffice)
 "kHL" = (
 /obj/machinery/door/firedoor,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/effect/landmark/start/chemist,
 /turf/simulated/floor/plasteel/white,
 /area/coldcolony/malta/medical/chemistry)
@@ -28868,7 +29016,9 @@
 	dir = 1;
 	name = "Труба фильтрации"
 	},
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -29005,7 +29155,9 @@
 	},
 /area/coldcolony/malta/medical/virology)
 "kLT" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/structure/sign/poster/official/random{
 	pixel_x = 32
 	},
@@ -29037,7 +29189,9 @@
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/hallway/service/south)
 "kMe" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
@@ -29075,7 +29229,7 @@
 /area/coldcolony/malta/chapel/main)
 "kMO" = (
 /obj/item/twohanded/required/kirbyplants,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/cable,
 /obj/machinery/power/apc/worn_out/directional/south,
 /turf/simulated/floor/plasteel{
@@ -29324,7 +29478,7 @@
 /area/coldcolony/malta/quartermaster/storage)
 "kSc" = (
 /obj/structure/closet/secure_closet/security,
-/obj/effect/decal/warning_stripes/red/hollow,
+/obj/effect/turf_decal/delivery/red/hollow,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -29351,7 +29505,7 @@
 /area/coldcolony/malta/chapel/main)
 "kSv" = (
 /obj/machinery/disposal,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/structure/disposalpipe/trunk{
 	dir = 1
 	},
@@ -29377,7 +29531,7 @@
 /area/coldcolony/malta/bridge/hop)
 "kSP" = (
 /obj/structure/closet/firecloset,
-/obj/effect/decal/warning_stripes/red,
+/obj/effect/turf_decal/delivery/red,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -29533,7 +29687,7 @@
 /area/coldcolony/malta/research/test_chamber)
 "kWD" = (
 /obj/structure/closet/firecloset,
-/obj/effect/decal/warning_stripes/red,
+/obj/effect/turf_decal/delivery/red,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/hallway/service/south)
 "kWE" = (
@@ -29661,7 +29815,9 @@
 /turf/simulated/floor/wood,
 /area/coldcolony/malta/hallway/cargo_escape/entrance)
 "kYH" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/machinery/computer/card/minor/ce,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -29672,7 +29828,7 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 2
 	},
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -29815,7 +29971,7 @@
 	dir = 8;
 	layer = 2.9
 	},
-/obj/effect/decal/warning_stripes/red/hollow,
+/obj/effect/turf_decal/delivery/red/hollow,
 /obj/item/clothing/suit/armor/bulletproof,
 /obj/item/clothing/head/helmet/alt,
 /obj/item/clothing/shoes/jackboots/armored,
@@ -29853,7 +30009,7 @@
 /area/coldcolony/malta/resid_serv/crew_quarters/locker)
 "ldP" = (
 /obj/structure/closet/emcloset,
-/obj/effect/decal/warning_stripes/blue,
+/obj/effect/turf_decal/delivery/blue,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/hallway/bridge)
 "ldR" = (
@@ -30054,13 +30210,11 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/kitchen)
 "lhv" = (
-/obj/effect/decal/warning_stripes/west{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "siding8"
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
 	},
-/obj/effect/decal/warning_stripes/west{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "siding4"
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
 	},
 /obj/machinery/door/window/eastleft{
 	dir = 1;
@@ -30111,7 +30265,7 @@
 /area/coldcolony/malta/bridge)
 "ljd" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/structure/closet/crate/wooden,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plasteel{
@@ -30126,7 +30280,7 @@
 /obj/item/reagent_containers/iv_bag/blood/skrell,
 /obj/item/reagent_containers/iv_bag/blood/unathi,
 /obj/item/reagent_containers/iv_bag/blood/vulpkanin,
-/obj/effect/decal/warning_stripes/blue/hollow,
+/obj/effect/turf_decal/delivery/blue/hollow,
 /obj/structure/extinguisher_cabinet/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -30161,7 +30315,7 @@
 /obj/effect/decal/snow/sand/edge{
 	dir = 8
 	},
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/machinery/door/poddoor/shutters{
 	dir = 2;
 	id_tag = "comgarage"
@@ -30243,7 +30397,7 @@
 	},
 /area/coldcolony/malta/bridge/vip)
 "llP" = (
-/obj/effect/decal/warning_stripes/yellow/partial{
+/obj/effect/turf_decal/delivery/partial{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -30266,7 +30420,9 @@
 /turf/simulated/wall/rust,
 /area/coldcolony/malta/quartermaster/office)
 "lmr" = (
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/structure/closet/emcloset,
 /obj/machinery/light{
 	dir = 1
@@ -30301,7 +30457,7 @@
 	},
 /area/coldcolony/malta/security/securehallway)
 "lmx" = (
-/obj/effect/decal/warning_stripes/red,
+/obj/effect/turf_decal/delivery/red,
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/plasteel{
@@ -30472,8 +30628,8 @@
 /turf/simulated/floor/plasteel/white,
 /area/coldcolony/malta/medical/cmo)
 "lqR" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/effect/decal/warning_stripes/arrow{
+/obj/effect/turf_decal/delivery/hollow,
+/obj/effect/turf_decal/arrows/black{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -30559,7 +30715,7 @@
 /area/coldcolony/malta/resid_serv/bar/atrium)
 "lsc" = (
 /obj/item/twohanded/required/kirbyplants,
-/obj/effect/decal/warning_stripes/red,
+/obj/effect/turf_decal/delivery/red,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkred"
@@ -30631,7 +30787,7 @@
 "luh" = (
 /obj/structure/closet/secure_closet/reagents,
 /obj/structure/extinguisher_cabinet/directional/west,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whiteyellow"
@@ -30768,7 +30924,9 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/ruin/syndie_outpost)
 "lxw" = (
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -30896,7 +31054,7 @@
 	pixel_x = -32
 	},
 /obj/machinery/door/firedoor,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -31112,7 +31270,9 @@
 	dir = 8
 	},
 /obj/structure/table/reinforced,
-/obj/effect/decal/warning_stripes/southwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
 /obj/item/stack/rods{
 	amount = 10
 	},
@@ -31127,7 +31287,9 @@
 	},
 /area/coldcolony/malta/engineering/atmos)
 "lEO" = (
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 1
 	},
@@ -31210,7 +31372,7 @@
 	},
 /area/coldcolony/malta/medical/chemistry)
 "lFJ" = (
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -31319,7 +31481,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/servicegen)
 "lII" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/portable_atmospherics/scrubber,
 /obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel{
@@ -31375,7 +31537,9 @@
 	},
 /area/coldcolony/malta/hallway/cargo_escape/port/central)
 "lJy" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light{
 	dir = 4
@@ -31397,7 +31561,7 @@
 /area/ruin/unpowered/coldcolony_outside)
 "lJK" = (
 /obj/machinery/portable_atmospherics/scrubber,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -31452,7 +31616,7 @@
 "lKh" = (
 /obj/structure/closet/crate/freezer,
 /obj/machinery/iv_drip,
-/obj/effect/decal/warning_stripes/blue/hollow,
+/obj/effect/turf_decal/delivery/blue/hollow,
 /obj/item/tank/internals/emergency_oxygen/engi,
 /obj/item/tank/internals/emergency_oxygen/engi,
 /obj/item/tank/internals/emergency_oxygen/nitrogen,
@@ -31579,7 +31743,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/security/permabrig)
 "lLQ" = (
-/obj/effect/decal/warning_stripes/red/partial,
+/obj/effect/turf_decal/delivery/red/partial,
 /obj/machinery/light_switch/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -31663,8 +31827,8 @@
 /turf/simulated/wall/rust,
 /area/coldcolony/malta/maintenance/kitchen)
 "lNh" = (
-/obj/effect/turf_decal/bot/left,
-/obj/effect/turf_decal/bot/right,
+/obj/effect/turf_decal/delivery/hollow/left,
+/obj/effect/turf_decal/delivery/hollow/right,
 /obj/structure/closet/crate/secure/plasma{
 	req_access = list(31,32,50)
 	},
@@ -32064,7 +32228,9 @@
 /turf/simulated/floor/plasteel/white,
 /area/coldcolony/malta/medical/sleeper)
 "lVP" = (
-/obj/effect/decal/warning_stripes/eastsouthwest,
+/obj/effect/turf_decal/stripes/end{
+	dir = 2
+	},
 /obj/machinery/light{
 	dir = 4
 	},
@@ -32091,7 +32257,7 @@
 /area/coldcolony/malta/security/main)
 "lWg" = (
 /obj/machinery/vending/chinese,
-/obj/effect/decal/warning_stripes/yellow/partial{
+/obj/effect/turf_decal/delivery/partial{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/white,
@@ -32123,7 +32289,9 @@
 	dir = 9;
 	name = "Труба фильтрации"
 	},
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "caution"
@@ -32340,7 +32508,7 @@
 /area/coldcolony/malta/research/explab)
 "mbG" = (
 /obj/structure/closet/crate/hydroponics/prespawned,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "green"
 	},
@@ -32419,7 +32587,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/medical/surgery/west)
 "mcZ" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/portable_atmospherics/canister/carbon_dioxide,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -32465,7 +32633,9 @@
 	},
 /area/coldcolony/malta/chapel/main)
 "mdR" = (
-/obj/effect/decal/warning_stripes/southwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -32517,7 +32687,9 @@
 	},
 /area/coldcolony/malta/quartermaster/miningeva)
 "meq" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/machinery/firealarm/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -32546,7 +32718,7 @@
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/security/prison/cell_block/A)
 "mfg" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/security/lobby)
 "mfh" = (
@@ -32665,7 +32837,7 @@
 /obj/effect/decal/snow/sand/edge{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/machinery/door/poddoor/shutters{
 	dir = 1;
 	id_tag = "secgarage"
@@ -32707,7 +32879,7 @@
 "miG" = (
 /obj/structure/fans/tiny,
 /obj/effect/decal/snow/sand/edge,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/machinery/door/poddoor/shutters{
 	id_tag = "lbgarage"
 	},
@@ -32729,7 +32901,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/turret_protected/aisat)
 "miM" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/closet/radiation,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -32738,7 +32910,7 @@
 /area/coldcolony/ruin/sm_lab)
 "miR" = (
 /obj/machinery/disposal,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/structure/disposalpipe/trunk{
 	dir = 2
 	},
@@ -32784,7 +32956,7 @@
 /area/coldcolony/malta/engineering/storage)
 "mki" = (
 /obj/machinery/vending/autodrobe,
-/obj/effect/decal/warning_stripes/yellow/partial{
+/obj/effect/turf_decal/delivery/partial{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -32802,7 +32974,7 @@
 /obj/structure/rack,
 /obj/item/stack/sheet/glass/fifty,
 /obj/item/stack/sheet/metal/fifty,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -32856,7 +33028,7 @@
 /turf/simulated/floor/wood/fancy/light,
 /area/coldcolony/malta/bridge/hop)
 "mmr" = (
-/obj/effect/decal/warning_stripes/yellow/partial{
+/obj/effect/turf_decal/delivery/partial{
 	dir = 1
 	},
 /obj/machinery/power/apc/directional/east,
@@ -32872,7 +33044,7 @@
 /area/coldcolony/malta/engineering/storage)
 "mmH" = (
 /obj/structure/closet/firecloset,
-/obj/effect/decal/warning_stripes/red,
+/obj/effect/turf_decal/delivery/red,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -32884,7 +33056,9 @@
 	},
 /area/coldcolony/malta/security/execution)
 "mnc" = (
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/machinery/suit_storage_unit/ce,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -32935,7 +33109,9 @@
 /area/coldcolony/malta/engineering/atmos)
 "mnU" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/machinery/chem_heater,
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/machinery/light_switch/directional/east,
@@ -33329,7 +33505,7 @@
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/resid_serv/kitchen)
 "myF" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/servicegen)
 "myR" = (
@@ -33434,7 +33610,7 @@
 /area/coldcolony/malta/medical/virology)
 "mzv" = (
 /obj/machinery/disposal,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/structure/disposalpipe/trunk{
 	dir = 2
 	},
@@ -33446,7 +33622,7 @@
 /area/coldcolony/malta/engineering/atmos)
 "mzF" = (
 /obj/structure/closet/emcloset,
-/obj/effect/decal/warning_stripes/blue,
+/obj/effect/turf_decal/delivery/blue,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/hallway/service/north)
 "mzG" = (
@@ -33636,7 +33812,7 @@
 	},
 /area/coldcolony/malta/quartermaster/ore_production)
 "mDt" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/rack,
 /obj/random/tool,
 /obj/random/tool,
@@ -33828,7 +34004,7 @@
 "mIj" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/effect/decal/cleanable/dust,
 /obj/structure/closet/crate/plastic,
 /turf/simulated/floor/plasteel{
@@ -33839,8 +34015,10 @@
 /obj/structure/sink{
 	pixel_y = 22
 	},
-/obj/effect/decal/warning_stripes/blue,
-/obj/effect/decal/warning_stripes/southwest,
+/obj/effect/turf_decal/delivery/blue,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -33861,7 +34039,9 @@
 	},
 /area/coldcolony/malta/engineering/atmos)
 "mIG" = (
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -33877,7 +34057,7 @@
 /area/coldcolony/malta/engineering/atmos)
 "mIT" = (
 /obj/machinery/door/firedoor,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -33931,7 +34111,9 @@
 	},
 /area/coldcolony/malta/bridge/vip)
 "mJA" = (
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/machinery/light{
 	dir = 8
 	},
@@ -34074,7 +34256,9 @@
 /turf/simulated/floor/carpet/cold,
 /area/ruin/unpowered)
 "mML" = (
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -34107,7 +34291,7 @@
 	},
 /area/coldcolony/malta/security/reception)
 "mNa" = (
-/obj/effect/decal/warning_stripes/yellow/partial{
+/obj/effect/turf_decal/delivery/partial{
 	dir = 8
 	},
 /obj/structure/sign/poster/official/random{
@@ -34238,13 +34422,13 @@
 /area/coldcolony/malta/quartermaster/sorting)
 "mPX" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/quartermaster/office)
 "mPZ" = (
 /obj/machinery/vending/chinese,
-/obj/effect/decal/warning_stripes/yellow/partial{
+/obj/effect/turf_decal/delivery/partial{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -34640,7 +34824,7 @@
 /area/coldcolony/malta/bridge/vip)
 "mVo" = (
 /obj/effect/decal/snow/sand/edge,
-/obj/effect/decal/warning_stripes/yellow/partial{
+/obj/effect/turf_decal/delivery/partial{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -34683,7 +34867,7 @@
 /turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "mXg" = (
-/obj/effect/decal/warning_stripes/yellow/partial,
+/obj/effect/turf_decal/delivery/partial,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -34748,7 +34932,9 @@
 /turf/simulated/floor/wood/fancy/light,
 /area/coldcolony/malta/resid_serv/crew_quarters/theatre)
 "mYb" = (
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -34760,7 +34946,7 @@
 	dir = 8;
 	id_tag = "evacgarage"
 	},
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/hallway/cargo_escape/entrance)
@@ -34877,7 +35063,7 @@
 /area/coldcolony/malta/resid_serv/crew_quarters/cabin2)
 "mZF" = (
 /obj/structure/closet/walllocker/emerglocker/directional/west,
-/obj/effect/decal/warning_stripes/blue/hollow,
+/obj/effect/turf_decal/delivery/blue/hollow,
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /obj/effect/decal/snow/sand/edge{
 	dir = 9
@@ -34969,7 +35155,9 @@
 	},
 /area/coldcolony/malta/hallway/bridge)
 "nbC" = (
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
@@ -35129,7 +35317,9 @@
 	dir = 8
 	},
 /obj/machinery/portable_atmospherics/pump,
-/obj/effect/decal/warning_stripes/eastsouthwest,
+/obj/effect/turf_decal/stripes/end{
+	dir = 2
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "yellow"
@@ -35202,7 +35392,7 @@
 /area/coldcolony/malta/bridge/meeting_room)
 "ngL" = (
 /obj/machinery/door/firedoor,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -35211,9 +35401,11 @@
 	},
 /area/coldcolony/malta/hallway/cargo_escape/port/east)
 "ngR" = (
-/obj/effect/decal/warning_stripes/blue/hollow,
+/obj/effect/turf_decal/delivery/blue/hollow,
 /obj/machinery/portable_atmospherics/canister/oxygen,
-/obj/effect/decal/warning_stripes/southwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -35300,7 +35492,7 @@
 	},
 /area/coldcolony/malta/resid_serv/library/game_zone)
 "njH" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/table,
 /obj/item/kitchen/knife/butcher,
 /turf/simulated/floor/plasteel{
@@ -35319,7 +35511,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/suit_storage_unit/engine,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/engineering/engine)
@@ -35452,7 +35644,7 @@
 /area/coldcolony/malta/bridge/vip)
 "nmQ" = (
 /obj/structure/closet/firecloset,
-/obj/effect/decal/warning_stripes/red,
+/obj/effect/turf_decal/delivery/red,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "red"
@@ -35539,7 +35731,7 @@
 /area/ruin/unpowered)
 "noW" = (
 /obj/machinery/disposal,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/structure/disposalpipe/trunk{
 	dir = 1
 	},
@@ -35584,7 +35776,9 @@
 /turf/simulated/wall/r_wall/rust,
 /area/coldcolony/malta/engineering/atmos)
 "nqx" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/start/hangover,
 /turf/simulated/floor/plasteel{
@@ -35735,7 +35929,7 @@
 /obj/structure/curtain/open/shower{
 	icon_state = "closed"
 	},
-/obj/effect/decal/warning_stripes/blue/hollow,
+/obj/effect/turf_decal/delivery/blue/hollow,
 /obj/item/stack/cable_coil,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -35977,7 +36171,7 @@
 	name = "Secure Armory";
 	req_access = list(1)
 	},
-/obj/effect/decal/warning_stripes/red/hollow,
+/obj/effect/turf_decal/delivery/red/hollow,
 /obj/item/storage/lockbox/mindshield,
 /obj/item/storage/box/trackimp,
 /obj/item/storage/box/chemimp{
@@ -36105,13 +36299,11 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/medical/virology)
 "nCh" = (
-/obj/effect/decal/warning_stripes/west{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "siding8"
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
 	},
-/obj/effect/decal/warning_stripes/west{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "siding4"
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -36207,7 +36399,7 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/bridge)
 "nDM" = (
@@ -36283,7 +36475,7 @@
 /area/coldcolony/malta/medical/biostorage)
 "nEY" = (
 /obj/machinery/suit_storage_unit/security,
-/obj/effect/decal/warning_stripes/red/hollow,
+/obj/effect/turf_decal/delivery/red/hollow,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -36321,7 +36513,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/bridge)
 "nFw" = (
-/obj/effect/decal/warning_stripes/yellow/partial{
+/obj/effect/turf_decal/delivery/partial{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -36330,7 +36522,7 @@
 	},
 /area/coldcolony/malta/research)
 "nFM" = (
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -36364,7 +36556,7 @@
 /obj/item/clothing/shoes/winterboots,
 /obj/item/clothing/shoes/winterboots,
 /obj/item/clothing/shoes/winterboots,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutral"
@@ -36550,7 +36742,7 @@
 /turf/simulated/floor/plasteel,
 /area/shuttle/pirate_corvette)
 "nJB" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/item/radio/intercom/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -36597,13 +36789,11 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/research/shallway)
 "nKe" = (
-/obj/effect/decal/warning_stripes/west{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "siding8"
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
 	},
-/obj/effect/decal/warning_stripes/west{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "siding4"
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "asteroid"
@@ -36611,7 +36801,7 @@
 /area/coldcolony/malta/resid_serv/hydroponics)
 "nKm" = (
 /obj/machinery/seed_extractor,
-/obj/effect/decal/warning_stripes/red/hollow,
+/obj/effect/turf_decal/delivery/red/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -36760,7 +36950,7 @@
 /area/coldcolony/malta/bridge/vip)
 "nOO" = (
 /obj/machinery/disposal,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/structure/disposalpipe/trunk{
 	dir = 2
 	},
@@ -36777,7 +36967,7 @@
 /turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "nOX" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/closet/wardrobe/atmospherics_yellow,
 /obj/item/clothing/suit/hooded/wintercoat/engineering/atmos,
 /turf/simulated/floor/plasteel{
@@ -36897,7 +37087,7 @@
 	},
 /area/coldcolony/ruin/sm_chamber)
 "nRP" = (
-/obj/effect/decal/warning_stripes/yellow/partial{
+/obj/effect/turf_decal/delivery/partial{
 	dir = 4
 	},
 /obj/structure/disposalpipe/segment,
@@ -36936,7 +37126,7 @@
 /area/coldcolony/malta/chapel/main)
 "nSt" = (
 /obj/machinery/disposal,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/structure/disposalpipe/trunk{
 	dir = 1
 	},
@@ -36949,7 +37139,7 @@
 	obj_integrity = 95;
 	stat = 1
 	},
-/obj/effect/decal/warning_stripes/yellow/partial{
+/obj/effect/turf_decal/delivery/partial{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
@@ -36959,7 +37149,9 @@
 	dir = 8
 	},
 /obj/machinery/portable_atmospherics/pump,
-/obj/effect/decal/warning_stripes/eastnorthwest,
+/obj/effect/turf_decal/stripes/end{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "yellow"
@@ -36997,7 +37189,7 @@
 /turf/simulated/wall/r_wall/rust,
 /area/coldcolony/malta/turret_protected/ai_upload)
 "nTj" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/closet/secure_closet/freezer/meat/empty,
 /obj/item/reagent_containers/food/snacks/meat/bird,
 /obj/item/reagent_containers/food/snacks/meat/bird,
@@ -37022,7 +37214,9 @@
 	},
 /area/coldcolony/malta/bridge/nuke_storage)
 "nTI" = (
-/obj/effect/decal/warning_stripes/southeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "purple"
@@ -37388,7 +37582,9 @@
 /turf/simulated/floor/wood/fancy/light,
 /area/coldcolony/malta/resid_serv/bar)
 "nZE" = (
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/machinery/status_display/supply_display{
 	pixel_x = 32
 	},
@@ -37412,7 +37608,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/bridge)
 "oad" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/rack,
 /obj/item/wrench,
 /obj/item/screwdriver,
@@ -37468,7 +37664,7 @@
 	icon_state = "0-8"
 	},
 /obj/item/twohanded/required/kirbyplants,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -37499,7 +37695,7 @@
 /area/coldcolony/malta/resid_serv/crew_quarters/fitness)
 "oby" = (
 /obj/structure/closet/firecloset,
-/obj/effect/decal/warning_stripes/red,
+/obj/effect/turf_decal/delivery/red,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/resid_serv/crew_quarters/fitness)
@@ -37848,7 +38044,9 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/meter,
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -37956,7 +38154,7 @@
 /turf/simulated/floor/wood/fancy/oak,
 /area/coldcolony/malta/bridge/blueshield)
 "oiS" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/portable_atmospherics/scrubber,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -37971,7 +38169,7 @@
 /area/coldcolony/ruin/abandoned_banya)
 "ojE" = (
 /obj/machinery/door/firedoor,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/hallway/cargo_escape/port/west)
 "ojI" = (
@@ -38024,7 +38222,7 @@
 	c_tag = "Medbay Exam Room North";
 	network = list("SS13","Medical")
 	},
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel/white,
 /area/coldcolony/malta/medical/sleeper)
 "okw" = (
@@ -38040,7 +38238,7 @@
 /area/coldcolony/malta/bridge/nuke_storage)
 "okR" = (
 /obj/machinery/door/firedoor,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -38098,7 +38296,9 @@
 /turf/simulated/floor/plasteel,
 /area/coldcolony/ruin/sm_lab)
 "olo" = (
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
@@ -38126,7 +38326,7 @@
 /obj/structure/sink{
 	pixel_y = 22
 	},
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -38180,7 +38380,7 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel/white,
 /area/coldcolony/malta/medical/chemistry)
 "oon" = (
@@ -38213,7 +38413,7 @@
 /obj/item/twohanded/spear/secspear,
 /obj/item/twohanded/spear/secspear,
 /obj/item/twohanded/spear/secspear,
-/obj/effect/decal/warning_stripes/red/hollow,
+/obj/effect/turf_decal/delivery/red/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -38239,7 +38439,7 @@
 /turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "opu" = (
-/obj/effect/decal/warning_stripes/red/partial,
+/obj/effect/turf_decal/delivery/red/partial,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -38271,7 +38471,7 @@
 	},
 /area/coldcolony/malta/chapel/main)
 "opO" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/space_heater,
 /obj/machinery/light,
 /obj/structure/sign/poster/official/air1{
@@ -38299,7 +38499,7 @@
 	},
 /area/coldcolony/malta/hallway/service/nw)
 "opQ" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/closet/wardrobe/robotics_black,
 /obj/item/clothing/head/welding{
 	pixel_x = -3;
@@ -38407,13 +38607,17 @@
 /obj/machinery/atmospherics/binary/pump{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
 /area/coldcolony/malta/engineering/atmos)
 "osq" = (
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/engine,
 /area/coldcolony/ruin/sm_chamber)
@@ -38467,7 +38671,9 @@
 "otj" = (
 /obj/machinery/power/apc/directional/east,
 /obj/structure/bed/amb_trolley,
-/obj/effect/decal/warning_stripes/eastnorthwest,
+/obj/effect/turf_decal/stripes/end{
+	dir = 1
+	},
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
@@ -38481,7 +38687,9 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/effect/decal/warning_stripes/southwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/turret_protected/aisat)
 "otB" = (
@@ -38489,7 +38697,7 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 8
 	},
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurple"
@@ -38563,7 +38771,7 @@
 	},
 /area/coldcolony/malta/security/hos)
 "ouf" = (
-/obj/effect/decal/warning_stripes/yellow/partial{
+/obj/effect/turf_decal/delivery/partial{
 	dir = 1
 	},
 /obj/structure/cable{
@@ -38692,7 +38900,7 @@
 /turf/simulated/wall/r_wall,
 /area/coldcolony/malta/research/robotics)
 "ovO" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/effect/landmark/start/student_sientist,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -38918,7 +39126,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/red/hollow,
+/obj/effect/turf_decal/delivery/red/hollow,
 /obj/structure/closet/secure_closet/security_grenade_launcher,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -39106,7 +39314,7 @@
 /area/coldcolony/malta/resid_serv/kitchen)
 "oFP" = (
 /obj/machinery/space_heater,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel/white,
 /area/coldcolony/malta/medical/sleeper)
 "oGo" = (
@@ -39180,7 +39388,7 @@
 /turf/simulated/wall/rust,
 /area/coldcolony/malta/maintenance/cargo)
 "oHz" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/door_control{
 	id = "rdprivacy";
 	name = "Privacy Shutters";
@@ -39264,7 +39472,9 @@
 /turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "oIF" = (
-/obj/effect/decal/warning_stripes/southeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
 /obj/machinery/light{
 	dir = 4
 	},
@@ -39320,7 +39530,7 @@
 /area/ruin/unpowered/coldcolony_outside)
 "oJn" = (
 /obj/structure/closet/firecloset,
-/obj/effect/decal/warning_stripes/red,
+/obj/effect/turf_decal/delivery/red,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/hallway/service/north)
 "oJq" = (
@@ -39547,7 +39757,9 @@
 	},
 /area/coldcolony/malta/security/securearmory)
 "oMW" = (
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/machinery/computer/atmos_alert,
 /obj/structure/sign/poster/official/random{
 	pixel_x = 32
@@ -39563,7 +39775,9 @@
 /area/coldcolony/malta/bridge)
 "oNw" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/effect/landmark/start/chemist,
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/structure/disposalpipe/segment{
@@ -40000,7 +40214,7 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/medbay)
 "oUi" = (
@@ -40016,7 +40230,9 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/perma)
 "oUz" = (
-/obj/effect/decal/warning_stripes/northwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
 /obj/structure/table,
 /obj/item/soap,
 /turf/simulated/floor/plasteel,
@@ -40084,7 +40300,7 @@
 /area/coldcolony/malta/hallway/service/central)
 "oVR" = (
 /obj/structure/closet/emcloset,
-/obj/effect/decal/warning_stripes/blue,
+/obj/effect/turf_decal/delivery/blue,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -40121,7 +40337,7 @@
 /turf/simulated/floor/wood,
 /area/coldcolony/malta/hallway/cargo_escape/entrance)
 "oWs" = (
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/effect/landmark/start/hangover,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/research/robotics)
@@ -40269,7 +40485,7 @@
 	},
 /area/coldcolony/malta/hallway/cargo_escape/port/east)
 "pai" = (
-/obj/effect/decal/warning_stripes/red/hollow,
+/obj/effect/turf_decal/delivery/red/hollow,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -40306,7 +40522,9 @@
 /turf/simulated/floor/carpet/orange,
 /area/coldcolony/malta/resid_serv/crew_quarters/theatre)
 "paN" = (
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -40571,7 +40789,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/research/lab)
 "pgh" = (
-/obj/effect/decal/warning_stripes/arrow{
+/obj/effect/turf_decal/arrows/black{
 	pixel_y = 15
 	},
 /turf/simulated/floor/plasteel{
@@ -40600,7 +40818,7 @@
 	dir = 6
 	},
 /obj/machinery/portable_atmospherics/canister/oxygen,
-/obj/effect/decal/warning_stripes/blue/hollow,
+/obj/effect/turf_decal/delivery/blue/hollow,
 /obj/structure/sign/poster/official/help_others{
 	pixel_x = 32
 	},
@@ -40622,7 +40840,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/coldcolony_outside)
 "phI" = (
-/obj/effect/decal/warning_stripes/red,
+/obj/effect/turf_decal/delivery/red,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -40738,12 +40956,12 @@
 /area/coldcolony/malta/hallway/cargo_escape/north)
 "pkj" = (
 /obj/machinery/recharge_station,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/hallway/bridge)
 "pks" = (
 /obj/machinery/vending/cigarette,
-/obj/effect/decal/warning_stripes/yellow/partial{
+/obj/effect/turf_decal/delivery/partial{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -40917,7 +41135,7 @@
 	},
 /area/coldcolony/malta/engineering/atmos)
 "pmT" = (
-/obj/effect/decal/warning_stripes/blue,
+/obj/effect/turf_decal/delivery/blue,
 /obj/structure/rack{
 	dir = 8;
 	layer = 2.9
@@ -40944,8 +41162,10 @@
 "pni" = (
 /obj/structure/closet/secure_closet/atmos_personal,
 /obj/item/extinguisher/mini,
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/delivery/hollow,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/poster/official/random{
 	pixel_y = 32
@@ -40992,7 +41212,7 @@
 	id_tag = "engigarage"
 	},
 /obj/structure/fans/tiny,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/effect/decal/snow/sand/edge{
 	dir = 8
 	},
@@ -41344,7 +41564,9 @@
 	},
 /area/coldcolony/malta/engineering/atmos)
 "puM" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -41501,7 +41723,9 @@
 	},
 /area/coldcolony/malta/medical/chemistry)
 "pxc" = (
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/machinery/light{
 	dir = 8
 	},
@@ -41566,7 +41790,7 @@
 /obj/item/radio/headset/headset_sci{
 	pixel_x = -3
 	},
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -41906,7 +42130,7 @@
 /turf/simulated/floor/carpet,
 /area/coldcolony/malta/resid_serv/bar/atrium)
 "pDU" = (
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
 	dir = 4
@@ -41950,7 +42174,7 @@
 /area/coldcolony/malta/hallway/bridge)
 "pFQ" = (
 /obj/item/twohanded/required/kirbyplants,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/hallway/cargo_escape/north)
 "pGm" = (
@@ -42096,7 +42320,9 @@
 /turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "pIL" = (
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -42255,7 +42481,7 @@
 "pMB" = (
 /obj/structure/reagent_dispensers/watertank/high,
 /obj/item/reagent_containers/glass/bucket,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "green"
@@ -42325,7 +42551,7 @@
 /area/coldcolony/malta/resid_serv/library/game_zone)
 "pNw" = (
 /obj/structure/closet/firecloset,
-/obj/effect/decal/warning_stripes/red,
+/obj/effect/turf_decal/delivery/red,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkred"
@@ -42345,7 +42571,9 @@
 /turf/simulated/wall,
 /area/coldcolony/malta/maintenance/research)
 "pNH" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -42434,7 +42662,7 @@
 /area/shuttle/pirate_corvette)
 "pPc" = (
 /obj/item/twohanded/required/kirbyplants,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -42469,7 +42697,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/structure/sign/poster/official/random{
 	pixel_x = 32
 	},
@@ -42579,7 +42807,9 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/ruin/sm_chamber)
 "pSO" = (
-/obj/effect/decal/warning_stripes/southeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
 /obj/structure/table/reinforced,
 /obj/item/taperecorder,
 /turf/simulated/floor/engine,
@@ -42655,7 +42885,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/security/prison/cell_block/A)
 "pUP" = (
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -42727,7 +42957,7 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -42780,7 +43010,7 @@
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/engineering/atmos)
 "pZa" = (
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/engineering)
 "pZh" = (
@@ -42918,7 +43148,9 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/medical/virology)
 "qbi" = (
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -42968,7 +43200,7 @@
 /area/coldcolony/malta/quartermaster/storage)
 "qcQ" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/quartermaster/office)
 "qcT" = (
@@ -42999,7 +43231,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/coldcolony/malta/medical/cmo)
 "qdh" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/engineering/storage)
@@ -43030,7 +43262,9 @@
 	},
 /area/coldcolony/malta/bridge)
 "qen" = (
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/structure/lattice,
 /turf/simulated/floor/plating/asteroid,
 /area/coldcolony/ruin/sm_chamber)
@@ -43100,7 +43334,9 @@
 	},
 /area/coldcolony/malta/resid_serv/crew_quarters/sleep)
 "qgp" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -43196,7 +43432,7 @@
 /area/coldcolony/malta/bridge/meeting_room)
 "qiR" = (
 /obj/machinery/disposal,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/structure/disposalpipe/trunk{
 	dir = 1
 	},
@@ -43211,7 +43447,9 @@
 /area/coldcolony/malta/research/shallway)
 "qjd" = (
 /obj/machinery/gibber,
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/resid_serv/kitchen)
 "qji" = (
@@ -43329,7 +43567,7 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/effect/decal/warning_stripes/blue,
+/obj/effect/turf_decal/delivery/blue,
 /obj/machinery/light_switch/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -43486,7 +43724,7 @@
 /area/coldcolony/ruin/sm_maintenance)
 "qor" = (
 /obj/machinery/disposal,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/structure/disposalpipe/trunk{
 	dir = 1
 	},
@@ -43575,7 +43813,9 @@
 	},
 /area/ruin/unpowered)
 "qpP" = (
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/start/hangover,
 /turf/simulated/floor/plasteel{
@@ -43598,7 +43838,7 @@
 /area/coldcolony/malta/quartermaster/miningbar)
 "qqp" = (
 /obj/structure/closet/secure_closet/injection,
-/obj/effect/decal/warning_stripes/red,
+/obj/effect/turf_decal/delivery/red,
 /obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -43620,7 +43860,7 @@
 /area/coldcolony/malta/hallway/cargo_escape/exit)
 "qqC" = (
 /obj/machinery/disposal,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/structure/disposalpipe/trunk{
 	dir = 2
 	},
@@ -43752,7 +43992,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/casino)
 "qrV" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/closet/crate/engineering,
 /obj/item/stock_parts/matter_bin,
 /obj/item/stock_parts/matter_bin,
@@ -43806,7 +44046,7 @@
 /area/coldcolony/malta/security/lobby)
 "qsq" = (
 /obj/structure/closet/firecloset,
-/obj/effect/decal/warning_stripes/red,
+/obj/effect/turf_decal/delivery/red,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -43877,7 +44117,7 @@
 	},
 /area/coldcolony/malta/resid_serv/hydroponics)
 "qtM" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/item/stack/ore/silver{
 	amount = 9
 	},
@@ -43893,7 +44133,9 @@
 	},
 /area/coldcolony/malta/medical/virology)
 "qub" = (
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/ash,
 /obj/effect/decal/cleanable/dirt,
@@ -43901,7 +44143,7 @@
 /area/coldcolony/ruin/sm_chamber)
 "que" = (
 /obj/machinery/disposal,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/structure/disposalpipe/trunk{
 	dir = 2
 	},
@@ -43966,7 +44208,7 @@
 /area/coldcolony/malta/escape_toilet)
 "qwo" = (
 /obj/structure/closet/secure_closet/security,
-/obj/effect/decal/warning_stripes/red/hollow,
+/obj/effect/turf_decal/delivery/red/hollow,
 /obj/item/clothing/suit/hooded/wintercoat/security,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
@@ -44037,7 +44279,9 @@
 	},
 /area/coldcolony/malta/medical/sleeper)
 "qxH" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/effect/landmark/start/engineer,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -44062,7 +44306,7 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/item/stack/sheet/mineral/plasma/fifty,
 /obj/item/wrench,
 /turf/simulated/floor/plasteel,
@@ -44122,7 +44366,7 @@
 /area/coldcolony/malta/research/test_chamber)
 "qzm" = (
 /obj/machinery/space_heater,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/item/radio/intercom/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -44140,7 +44384,9 @@
 /area/coldcolony/malta/bridge/hop)
 "qzC" = (
 /obj/structure/table/reinforced,
-/obj/effect/decal/warning_stripes/southwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
 /obj/structure/window/reinforced{
 	dir = 8
 	},
@@ -44165,7 +44411,7 @@
 	},
 /area/coldcolony/malta/bridge/vip)
 "qzV" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -44261,7 +44507,7 @@
 /area/coldcolony/malta/chapel/main)
 "qBZ" = (
 /obj/machinery/space_heater,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -44331,7 +44577,7 @@
 	},
 /area/coldcolony/malta/engineering/engine)
 "qDo" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/closet/crate/engineering,
 /obj/item/extinguisher/mini,
 /turf/simulated/floor/plasteel{
@@ -44371,7 +44617,7 @@
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/resid_serv/kitchen)
 "qDW" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "purple"
@@ -44423,7 +44669,7 @@
 /area/coldcolony/malta/medical/virology)
 "qEF" = (
 /obj/machinery/disposal,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/structure/disposalpipe/trunk{
 	dir = 4
 	},
@@ -44433,9 +44679,8 @@
 /area/coldcolony/malta/engineering/control)
 "qEK" = (
 /obj/machinery/hydroponics/soil,
-/obj/effect/decal/warning_stripes/west{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "siding1"
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
 	},
 /obj/structure/window/reinforced{
 	dir = 1
@@ -44488,7 +44733,9 @@
 /turf/simulated/floor/plasteel/white,
 /area/coldcolony/malta/medical/paramedic)
 "qFv" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -44657,7 +44904,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/research/shallway)
 "qIo" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -44667,7 +44914,7 @@
 "qIu" = (
 /obj/machinery/light/small,
 /obj/effect/landmark/start/civilian,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/door_control{
 	desiredstate = 1;
 	id = "toilet1";
@@ -44683,7 +44930,7 @@
 /area/coldcolony/malta/resid_serv/crew_quarters/locker_toilet)
 "qIy" = (
 /obj/structure/closet/crate/freezer,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/item/reagent_containers/food/snacks/meat/ham,
 /obj/item/reagent_containers/food/snacks/meat/ham,
 /obj/item/reagent_containers/food/snacks/meat/ham,
@@ -44707,7 +44954,7 @@
 /turf/simulated/floor/wood/fancy/light,
 /area/coldcolony/malta/bridge)
 "qJn" = (
-/obj/effect/decal/warning_stripes/yellow/partial,
+/obj/effect/turf_decal/delivery/partial,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/research/robotics)
@@ -44761,7 +45008,7 @@
 	dir = 8;
 	network = list("SS13","Security")
 	},
-/obj/effect/decal/warning_stripes/red/hollow,
+/obj/effect/turf_decal/delivery/red/hollow,
 /obj/vehicle/ridden/atv,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -44779,8 +45026,10 @@
 "qKQ" = (
 /obj/structure/closet/secure_closet/atmos_personal,
 /obj/item/extinguisher/mini,
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/delivery/hollow,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -44801,7 +45050,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/power/port_gen/pacman,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/cable,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/engineering/engine)
@@ -44984,7 +45233,7 @@
 /area/coldcolony/malta/turret_protected/ai)
 "qOD" = (
 /obj/machinery/portable_atmospherics/canister/oxygen,
-/obj/effect/decal/warning_stripes/blue/hollow,
+/obj/effect/turf_decal/delivery/blue/hollow,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/hallway/bridge)
 "qOH" = (
@@ -45002,7 +45251,7 @@
 /obj/machinery/status_display{
 	pixel_y = 32
 	},
-/obj/effect/decal/warning_stripes/yellow/partial{
+/obj/effect/turf_decal/delivery/partial{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -45233,7 +45482,7 @@
 "qUH" = (
 /obj/structure/railing/corner,
 /obj/machinery/door/firedoor,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -45474,7 +45723,7 @@
 	},
 /area/coldcolony/malta/bridge)
 "qZx" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/item/radio/intercom/directional/west,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/research)
@@ -45506,7 +45755,9 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 8
 	},
-/obj/effect/decal/warning_stripes/southeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -45622,7 +45873,9 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/security/permahallway)
 "rbO" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/structure/closet/secure_closet{
 	icon_state = "ce";
 	name = "chief engineer's locker";
@@ -45706,7 +45959,9 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/ruin/abandoned_garage)
 "rda" = (
-/obj/effect/decal/warning_stripes/northeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
 /obj/structure/closet/walllocker/emerglocker/directional/north,
 /obj/item/reagent_containers/food/pill/patch/silver_sulf,
 /obj/item/reagent_containers/food/pill/patch/silver_sulf,
@@ -45729,7 +45984,7 @@
 /turf/simulated/floor/wood,
 /area/coldcolony/malta/resid_serv/crew_quarters/theatre)
 "rdx" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/space_heater,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel,
@@ -45870,7 +46125,7 @@
 /area/ruin/unpowered/coldcolony_outside)
 "rfE" = (
 /obj/machinery/portable_atmospherics/canister/oxygen,
-/obj/effect/decal/warning_stripes/blue/hollow,
+/obj/effect/turf_decal/delivery/blue/hollow,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/security/lobby)
 "rfH" = (
@@ -45943,7 +46198,7 @@
 	dir = 5;
 	network = list("Medical","SS13")
 	},
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whiteyellow"
@@ -46058,7 +46313,7 @@
 /area/coldcolony/ruin/sm_lab)
 "ric" = (
 /obj/machinery/recharge_station,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
@@ -46267,10 +46522,10 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/servicegen)
 "rma" = (
-/obj/effect/decal/warning_stripes/yellow/partial{
+/obj/effect/turf_decal/delivery/partial{
 	dir = 8
 	},
-/obj/effect/decal/warning_stripes/arrow{
+/obj/effect/turf_decal/arrows/black{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -46595,7 +46850,7 @@
 	dir = 8
 	},
 /obj/structure/closet/secure_closet/freezer/kitchen,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "hydrofloor"
 	},
@@ -46755,7 +47010,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/coldcolony/malta/medical/biostorage)
 "rtY" = (
-/obj/effect/decal/warning_stripes/yellow/partial,
+/obj/effect/turf_decal/delivery/partial,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurple"
@@ -46795,7 +47050,7 @@
 /area/coldcolony/malta/hallway/service/central)
 "rvl" = (
 /obj/machinery/door/firedoor,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
@@ -46840,29 +47095,29 @@
 	},
 /area/coldcolony/malta/engineering/break_room)
 "rwf" = (
-/obj/effect/decal/warning_stripes/yellow/partial{
+/obj/effect/turf_decal/delivery/partial{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/arrow{
+/obj/effect/turf_decal/arrows/black{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/telepad_cargo,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "brown"
 	},
 /area/coldcolony/malta/quartermaster/sorting)
 "rwh" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/portable_atmospherics/canister/nitrogen,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
 /area/coldcolony/malta/engineering/control)
 "rwj" = (
-/obj/effect/decal/warning_stripes/yellow/partial{
+/obj/effect/turf_decal/delivery/partial{
 	dir = 8
 	},
 /obj/machinery/vending/coffee,
@@ -46916,34 +47171,23 @@
 /area/coldcolony/malta/medical/morgue)
 "rxz" = (
 /obj/machinery/door/firedoor,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
 /area/coldcolony/malta/hallway/service/south)
 "rxN" = (
-/obj/effect/decal/warning_stripes/northwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
 /obj/effect/baseturf_helper/asteroid,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
 /area/coldcolony/malta/hallway/cargo_escape/port/west)
-"ryn" = (
-/obj/effect/decal/warning_stripes/west{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "siding2"
-	},
-/obj/effect/decal/warning_stripes/west{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "siding1"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "asteroid"
-	},
-/area/coldcolony/malta/resid_serv/hydroponics)
 "ryr" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
@@ -47264,7 +47508,7 @@
 	obj_integrity = 95;
 	stat = 1
 	},
-/obj/effect/decal/warning_stripes/yellow/partial{
+/obj/effect/turf_decal/delivery/partial{
 	dir = 4
 	},
 /obj/effect/mapping_helpers/turfs/damage,
@@ -47292,7 +47536,7 @@
 /turf/simulated/floor/plating,
 /area/shuttle/pirate_corvette)
 "rGz" = (
-/obj/effect/decal/warning_stripes/blue/hollow,
+/obj/effect/turf_decal/delivery/blue/hollow,
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
@@ -47485,7 +47729,7 @@
 /obj/structure/chair{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/red/hollow,
+/obj/effect/turf_decal/delivery/red/hollow,
 /obj/effect/landmark/start/security_officer,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -47544,7 +47788,7 @@
 /turf/simulated/wall,
 /area/coldcolony/malta/medical/sleeper)
 "rLZ" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/closet/crate/vault{
 	name = "nt crate"
 	},
@@ -47596,7 +47840,7 @@
 /area/coldcolony/malta/bridge/blueshield)
 "rMF" = (
 /obj/structure/closet/emcloset,
-/obj/effect/decal/warning_stripes/blue,
+/obj/effect/turf_decal/delivery/blue,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/hallway/service/south)
 "rMP" = (
@@ -47833,7 +48077,9 @@
 	},
 /area/coldcolony/malta/bridge/checkpoint)
 "rRE" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/item/analyzer,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -47963,7 +48209,7 @@
 /turf/simulated/floor/wood,
 /area/coldcolony/malta/security/detectives_office)
 "rTk" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/space_heater,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -47995,7 +48241,7 @@
 /area/coldcolony/malta/hallway/service/north)
 "rTD" = (
 /obj/structure/dispenser/oxygen,
-/obj/effect/decal/warning_stripes/red,
+/obj/effect/turf_decal/delivery/red,
 /obj/item/radio/intercom/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -48006,7 +48252,7 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -48054,7 +48300,7 @@
 /turf/simulated/floor/wood/fancy/light,
 /area/coldcolony/malta/bridge)
 "rUV" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/floodlight,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -48117,7 +48363,7 @@
 	},
 /area/coldcolony/malta/bridge/vip)
 "rWM" = (
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/structure/closet/crate/hydroponics,
 /obj/effect/spawner/lootdrop/maintenance/double,
 /turf/simulated/floor/plasteel{
@@ -48256,7 +48502,9 @@
 	},
 /area/coldcolony/malta/maintenance/kitchen)
 "sag" = (
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/machinery/atm{
 	pixel_x = -28
 	},
@@ -48292,7 +48540,9 @@
 	},
 /area/coldcolony/malta/resid_serv/crew_quarters/cabin2)
 "saG" = (
-/obj/effect/decal/warning_stripes/southeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -48328,7 +48578,7 @@
 /area/coldcolony/ruin/sm_chamber)
 "sbz" = (
 /obj/machinery/computer/rdconsole/robotics,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/research/robotics)
 "sbB" = (
@@ -48346,7 +48596,7 @@
 /area/coldcolony/malta/quartermaster/storage)
 "sbN" = (
 /obj/machinery/vending/cola,
-/obj/effect/decal/warning_stripes/yellow/partial{
+/obj/effect/turf_decal/delivery/partial{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -48406,7 +48656,7 @@
 	dir = 8
 	},
 /obj/machinery/firealarm/directional/east,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurple"
@@ -48458,7 +48708,7 @@
 /area/coldcolony/malta/resid_serv/kitchen)
 "sdW" = (
 /obj/item/twohanded/required/kirbyplants,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -48507,8 +48757,8 @@
 /area/coldcolony/malta/maintenance/brig)
 "seT" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/bot/left,
-/obj/effect/turf_decal/bot/right,
+/obj/effect/turf_decal/delivery/hollow/left,
+/obj/effect/turf_decal/delivery/hollow/right,
 /obj/structure/closet/crate/secure/engineering{
 	req_access = list(10)
 	},
@@ -48641,7 +48891,9 @@
 /area/coldcolony/malta/hallway/service/south)
 "sjb" = (
 /obj/machinery/suit_storage_unit/security/hos,
-/obj/effect/decal/warning_stripes/southwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -48691,8 +48943,10 @@
 	name = "Secure Storage Blast Doors"
 	},
 /obj/machinery/door/firedoor,
-/obj/effect/decal/warning_stripes/yellow,
-/obj/effect/decal/warning_stripes/southwestcorner,
+/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -48741,7 +48995,7 @@
 /area/ruin/unpowered/coldcolony_outside)
 "snl" = (
 /obj/machinery/recharge_station,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -48804,7 +49058,7 @@
 /area/coldcolony/ruin/abandoned_banya)
 "soe" = (
 /obj/machinery/roboquest_pad,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/machinery/light_switch/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -48831,7 +49085,7 @@
 	},
 /area/coldcolony/malta/hallway/cargo_escape/north)
 "soJ" = (
-/obj/effect/decal/warning_stripes/red/hollow,
+/obj/effect/turf_decal/delivery/red/hollow,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -48889,7 +49143,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/research)
 "spr" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/alarm/directional/west,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/research)
@@ -49164,8 +49418,10 @@
 	dir = 4;
 	pixel_y = 4
 	},
-/obj/effect/decal/warning_stripes/blue,
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/delivery/blue,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -49232,7 +49488,7 @@
 /area/coldcolony/malta/hallway/cargo_escape/port/west)
 "svZ" = (
 /obj/structure/rack,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/random/tool,
 /obj/random/tool,
 /turf/simulated/floor/plasteel{
@@ -49393,7 +49649,7 @@
 "syX" = (
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /obj/machinery/firealarm/directional/east,
-/obj/effect/decal/warning_stripes/blue/hollow,
+/obj/effect/turf_decal/delivery/blue/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurple"
@@ -49429,7 +49685,7 @@
 /obj/effect/decal/snow/sand/edge{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/research)
 "szH" = (
@@ -49554,7 +49810,7 @@
 /area/coldcolony/malta/research/test_chamber)
 "sBm" = (
 /obj/machinery/recharge_station,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/resid_serv/crew_quarters/fitness)
@@ -49582,9 +49838,11 @@
 	},
 /area/coldcolony/malta/security/hos)
 "sCp" = (
-/obj/effect/decal/warning_stripes/red,
+/obj/effect/turf_decal/delivery/red,
 /obj/structure/closet/firecloset,
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -49917,8 +50175,10 @@
 "sIl" = (
 /obj/structure/closet/secure_closet/atmos_personal,
 /obj/item/extinguisher/mini,
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/delivery/hollow,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/machinery/firealarm/directional/north,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -49971,7 +50231,9 @@
 	dir = 1;
 	name = "Труба смешивания"
 	},
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "caution"
 	},
@@ -50013,7 +50275,7 @@
 	},
 /area/coldcolony/malta/security/processing)
 "sJD" = (
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/brig)
 "sJH" = (
@@ -50052,7 +50314,7 @@
 /obj/structure/sign/poster/random{
 	pixel_y = 32
 	},
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/light_switch/directional/north,
 /obj/machinery/light{
 	dir = 1
@@ -50078,7 +50340,7 @@
 "sKq" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/newscaster/directional/south,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/quartermaster/storage)
 "sKt" = (
@@ -50118,7 +50380,7 @@
 /area/coldcolony/ruin/abandoned_banya)
 "sLq" = (
 /obj/machinery/recharge_station,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/hallway/cargo_escape/port/east)
 "sLs" = (
@@ -50431,7 +50693,7 @@
 /area/coldcolony/ruin/abandoned_banya)
 "sSd" = (
 /obj/machinery/vending/cigarette,
-/obj/effect/decal/warning_stripes/yellow/partial{
+/obj/effect/turf_decal/delivery/partial{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -50583,7 +50845,7 @@
 	dir = 8;
 	pixel_x = -12
 	},
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -50603,7 +50865,7 @@
 /area/coldcolony/malta/research/shallway)
 "sWi" = (
 /obj/machinery/mecha_part_fabricator,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -50643,7 +50905,7 @@
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/hallway/cargo_escape/entrance)
 "sWQ" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/closet/crate/critter/pig,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -50663,7 +50925,7 @@
 /area/coldcolony/malta/maintenance/engineering)
 "sXn" = (
 /obj/machinery/portable_atmospherics/scrubber,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -50785,7 +51047,7 @@
 /turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "tab" = (
-/obj/effect/decal/warning_stripes/yellow/partial{
+/obj/effect/turf_decal/delivery/partial{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -50811,7 +51073,7 @@
 	},
 /area/coldcolony/malta/resid_serv/crew_quarters/theatre)
 "taD" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/space_heater,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -50834,7 +51096,7 @@
 	},
 /area/coldcolony/malta/engineering/atmos)
 "taP" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/portable_atmospherics/canister/air,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -51155,7 +51417,7 @@
 /area/coldcolony/malta/resid_serv/mimeoffice)
 "thC" = (
 /obj/structure/closet/secure_closet/security,
-/obj/effect/decal/warning_stripes/red/hollow,
+/obj/effect/turf_decal/delivery/red/hollow,
 /obj/item/clothing/suit/hooded/wintercoat/security,
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -51179,7 +51441,9 @@
 	},
 /area/coldcolony/malta/bridge/vip)
 "thI" = (
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/structure/table/reinforced,
 /obj/machinery/cell_charger{
 	pixel_y = 2
@@ -51398,7 +51662,9 @@
 	},
 /area/coldcolony/malta/resid_serv/crew_quarters/sleep)
 "tnH" = (
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -51738,7 +52004,7 @@
 /area/coldcolony/malta/resid_serv/crew_quarters/fitness)
 "ttB" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -51809,7 +52075,7 @@
 	dir = 4
 	},
 /obj/item/radio/intercom/directional/south,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
@@ -51861,7 +52127,7 @@
 /area/coldcolony/malta/engineering/break_room)
 "tvl" = (
 /obj/machinery/disposal,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/structure/disposalpipe/trunk{
 	dir = 4
 	},
@@ -51905,16 +52171,18 @@
 	},
 /area/coldcolony/malta/engineering/break_room)
 "tvS" = (
-/obj/effect/decal/warning_stripes/arrow{
+/obj/effect/turf_decal/arrows/black{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/yellow/partial{
+/obj/effect/turf_decal/delivery/partial{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/quartermaster/office)
 "tvU" = (
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellow"
@@ -52041,7 +52309,7 @@
 /obj/structure/window/reinforced,
 /obj/machinery/vending/cola,
 /obj/machinery/firealarm/directional/west,
-/obj/effect/decal/warning_stripes/yellow/partial{
+/obj/effect/turf_decal/delivery/partial{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -52061,7 +52329,7 @@
 /area/coldcolony/ruin/sm_maintenance)
 "txM" = (
 /obj/machinery/recharge_station,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
@@ -52070,7 +52338,7 @@
 /obj/structure/closet/wardrobe/pjs{
 	anchored = 1
 	},
-/obj/effect/decal/warning_stripes/red,
+/obj/effect/turf_decal/delivery/red,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -52139,7 +52407,9 @@
 /turf/simulated/floor/engine/n2,
 /area/coldcolony/malta/engineering/atmos)
 "tzg" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/machinery/light{
 	dir = 8
 	},
@@ -52281,7 +52551,7 @@
 /area/coldcolony/malta/maintenance/casino)
 "tBM" = (
 /obj/structure/closet/secure_closet/engineering_personal,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/light_switch/directional/north,
 /obj/machinery/camera{
 	c_tag = "Engineering Lobby";
@@ -52297,7 +52567,7 @@
 /area/coldcolony/malta/engineering/break_room)
 "tBN" = (
 /obj/machinery/door/firedoor,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -52354,7 +52624,7 @@
 /area/coldcolony/ruin/sm_chamber)
 "tCQ" = (
 /obj/machinery/recharge_station,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/structure/sign/poster/official/random{
 	pixel_y = 32
 	},
@@ -52426,7 +52696,7 @@
 /turf/simulated/floor/plasteel/grimy,
 /area/coldcolony/malta/civilian/vacantoffice)
 "tEb" = (
-/obj/effect/decal/warning_stripes/blue,
+/obj/effect/turf_decal/delivery/blue,
 /obj/effect/decal/snow/sand/edge{
 	dir = 5
 	},
@@ -52710,7 +52980,7 @@
 /obj/structure/chair/comfy/black{
 	dir = 8
 	},
-/obj/effect/decal/warning_stripes/red/hollow,
+/obj/effect/turf_decal/delivery/red/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -52916,7 +53186,7 @@
 /area/coldcolony/ruin/sm_division)
 "tNQ" = (
 /obj/machinery/power/port_gen/pacman,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/cable,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/engineering/engine)
@@ -53086,7 +53356,7 @@
 /area/coldcolony/malta/bridge/hop)
 "tRQ" = (
 /obj/machinery/door/firedoor,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkred"
@@ -53125,7 +53395,7 @@
 "tSM" = (
 /obj/structure/rack,
 /obj/item/wrench,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/hallway/cargo_escape/entrance)
 "tSN" = (
@@ -53191,7 +53461,7 @@
 	},
 /area/coldcolony/malta/security/securehallway)
 "tTQ" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/item/robot_parts/robot_suit,
 /turf/simulated/floor/plasteel{
 	icon_state = "purple"
@@ -53273,7 +53543,7 @@
 	},
 /area/coldcolony/malta/resid_serv/crew_quarters/cabin1)
 "tUQ" = (
-/obj/effect/decal/warning_stripes/yellow/partial,
+/obj/effect/turf_decal/delivery/partial,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
@@ -53333,7 +53603,7 @@
 "tWz" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -53343,7 +53613,9 @@
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/quartermaster/storage)
 "tWT" = (
-/obj/effect/decal/warning_stripes/northeastcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -53425,7 +53697,7 @@
 /area/coldcolony/malta/resid_serv/clownoffice)
 "tYw" = (
 /obj/machinery/door/firedoor,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -53641,7 +53913,7 @@
 /area/coldcolony/malta/hallway/bridge)
 "ubP" = (
 /obj/machinery/door/firedoor,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -53652,7 +53924,9 @@
 	dir = 4;
 	name = "Труба дыхательной смеси"
 	},
-/obj/effect/decal/warning_stripes/southwestcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -53664,7 +53938,9 @@
 /area/coldcolony/malta/engineering/atmos)
 "ucB" = (
 /obj/machinery/computer/mech_bay_power_console,
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "purple"
 	},
@@ -53862,7 +54138,7 @@
 	},
 /area/coldcolony/malta/engineering/atmos)
 "uhC" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/space_heater,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
@@ -53957,7 +54233,7 @@
 /area/coldcolony/malta/resid_serv/kitchen)
 "ujw" = (
 /obj/machinery/vending/snack,
-/obj/effect/decal/warning_stripes/yellow/partial,
+/obj/effect/turf_decal/delivery/partial,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -54116,7 +54392,7 @@
 /obj/effect/decal/snow/sand/edge{
 	dir = 8
 	},
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/machinery/door_control{
 	id = "rndgarage";
 	pixel_x = -24
@@ -54387,7 +54663,7 @@
 /obj/item/clothing/shoes/winterboots,
 /obj/item/clothing/shoes/winterboots,
 /obj/item/clothing/shoes/winterboots,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -54465,7 +54741,7 @@
 	},
 /area/coldcolony/malta/engineering/atmos)
 "utC" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -54484,7 +54760,9 @@
 /turf/simulated/floor/wood,
 /area/coldcolony/malta/medical/morgue)
 "uux" = (
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -54573,7 +54851,7 @@
 	},
 /area/coldcolony/malta/security/warden)
 "uvI" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/space_heater,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/hallway/service/north)
@@ -54631,7 +54909,7 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 1
 	},
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -54648,8 +54926,8 @@
 /area/coldcolony/malta/research/storage)
 "uwR" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/bot/right,
-/obj/effect/turf_decal/bot/left,
+/obj/effect/turf_decal/delivery/hollow/right,
+/obj/effect/turf_decal/delivery/hollow/left,
 /obj/item/storage/fancy/donut_box,
 /obj/structure/closet/crate/plastic,
 /obj/item/storage/fancy/donut_box{
@@ -54696,7 +54974,7 @@
 	},
 /area/coldcolony/malta/research/lab)
 "uxJ" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/closet/crate/secure/engineering{
 	req_access = list(10)
 	},
@@ -54741,7 +55019,7 @@
 	dir = 4;
 	pixel_x = 12
 	},
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -54791,7 +55069,9 @@
 /turf/simulated/floor/mineral/abductor/cold,
 /area/ruin/unpowered)
 "uBr" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -54872,7 +55152,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/medical/virology)
 "uDA" = (
-/obj/effect/decal/warning_stripes/arrow{
+/obj/effect/turf_decal/arrows/black{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -55112,7 +55392,9 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
 	},
-/obj/effect/decal/warning_stripes/northeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
 /obj/structure/closet{
 	icon_state = "bio_virology"
 	},
@@ -55214,7 +55496,7 @@
 /area/coldcolony/malta/civilian/vacantoffice)
 "uLt" = (
 /obj/structure/reagent_dispensers/fueltank,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/engineering)
 "uLy" = (
@@ -55228,7 +55510,9 @@
 	},
 /area/shuttle/pirate_corvette)
 "uLL" = (
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -55453,7 +55737,7 @@
 /area/coldcolony/malta/security/magistrateoffice)
 "uPW" = (
 /obj/machinery/disposal,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/structure/disposalpipe/trunk{
 	dir = 1
 	},
@@ -55483,7 +55767,7 @@
 	dir = 1
 	},
 /obj/machinery/vending/sustenance/additional,
-/obj/effect/decal/warning_stripes/yellow/partial{
+/obj/effect/turf_decal/delivery/partial{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -55546,7 +55830,9 @@
 /turf/simulated/floor/wood/fancy/light,
 /area/coldcolony/malta/bridge/hop)
 "uRM" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/machinery/camera{
 	c_tag = "Atmospherics South";
 	dir = 4;
@@ -55641,7 +55927,7 @@
 	},
 /area/coldcolony/malta/resid_serv/crew_quarters/locker)
 "uVe" = (
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/machinery/flasher{
 	id = "hopflash";
 	pixel_x = 58
@@ -55803,7 +56089,9 @@
 	dir = 5;
 	name = "Труба дыхательной смеси"
 	},
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "caution"
 	},
@@ -55920,7 +56208,9 @@
 	},
 /area/coldcolony/malta/chapel/main)
 "vab" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -56044,7 +56334,9 @@
 	},
 /area/coldcolony/malta/medical/genetics)
 "vdA" = (
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/machinery/constructable_frame/machine_frame,
 /obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/plasteel{
@@ -56400,7 +56692,7 @@
 	pixel_x = 32
 	},
 /obj/machinery/door/firedoor,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -56607,7 +56899,7 @@
 /area/coldcolony/malta/security/warden)
 "vne" = (
 /obj/machinery/space_heater,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -56868,14 +57160,14 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/computer/mecha,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/light{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/research/hor)
 "vrr" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -56936,7 +57228,7 @@
 /area/coldcolony/malta/hallway/service/nw)
 "vsm" = (
 /obj/machinery/portable_atmospherics/canister/oxygen,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -56945,7 +57237,9 @@
 	},
 /area/coldcolony/malta/engineering/atmos)
 "vst" = (
-/obj/effect/decal/warning_stripes/southeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -56993,7 +57287,7 @@
 /area/shuttle/pirate_corvette)
 "vtr" = (
 /obj/structure/table,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/item/clothing/head/cone{
 	desc = "Старый дорожный конус. Говорят он увеличивает интеллект носителя.";
 	name = "Символ Разумизма";
@@ -57297,7 +57591,7 @@
 /area/coldcolony/malta/security/processing)
 "vxG" = (
 /obj/structure/closet/emcloset,
-/obj/effect/decal/warning_stripes/blue,
+/obj/effect/turf_decal/delivery/blue,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkred"
@@ -57309,7 +57603,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/effect/decal/warning_stripes/yellow/partial{
+/obj/effect/turf_decal/delivery/partial{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -57329,7 +57623,7 @@
 /area/coldcolony/malta/research/hor)
 "vyg" = (
 /obj/machinery/door/firedoor,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -57360,7 +57654,7 @@
 /area/coldcolony/malta/engineering/atmos)
 "vyu" = (
 /obj/item/twohanded/required/kirbyplants,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
@@ -57581,7 +57875,7 @@
 /area/coldcolony/malta/bridge/checkpoint)
 "vCt" = (
 /obj/structure/closet/emcloset,
-/obj/effect/decal/warning_stripes/blue,
+/obj/effect/turf_decal/delivery/blue,
 /turf/simulated/floor/plasteel/white,
 /area/coldcolony/malta/medical/medbay)
 "vCF" = (
@@ -57682,7 +57976,7 @@
 /area/coldcolony/malta/engineering/atmos)
 "vEe" = (
 /obj/machinery/door/firedoor,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -57711,8 +58005,10 @@
 	name = "Secure Storage Blast Doors"
 	},
 /obj/machinery/door/firedoor,
-/obj/effect/decal/warning_stripes/yellow,
-/obj/effect/decal/warning_stripes/southeastcorner,
+/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 2
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -57921,7 +58217,9 @@
 	},
 /area/coldcolony/malta/maintenance/kitchen)
 "vHS" = (
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/structure/mecha_wreckage/ripley,
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
@@ -58037,7 +58335,7 @@
 	},
 /area/coldcolony/malta/security/brig)
 "vLi" = (
-/obj/effect/decal/warning_stripes/yellow/partial{
+/obj/effect/turf_decal/delivery/partial{
 	dir = 8
 	},
 /obj/machinery/vending/cola{
@@ -58115,7 +58413,7 @@
 /turf/simulated/floor/wood/cherry/cold,
 /area/coldcolony/ruin/abandoned_banya)
 "vNV" = (
-/obj/effect/decal/warning_stripes/blue,
+/obj/effect/turf_decal/delivery/blue,
 /obj/structure/rack{
 	dir = 8;
 	layer = 2.9
@@ -58138,7 +58436,7 @@
 /area/coldcolony/malta/hallway/cargo_escape/exit)
 "vOc" = (
 /obj/machinery/light/small,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/door_control{
 	desiredstate = 1;
 	id = "toilet2";
@@ -58282,7 +58580,7 @@
 /area/coldcolony/malta/hallway/service/north)
 "vQQ" = (
 /obj/machinery/vending/cigarette,
-/obj/effect/decal/warning_stripes/yellow/partial,
+/obj/effect/turf_decal/delivery/partial,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/quartermaster/storage)
 "vRh" = (
@@ -58460,7 +58758,7 @@
 	pixel_y = 22
 	},
 /obj/structure/curtain/open/shower,
-/obj/effect/decal/warning_stripes/blue/hollow,
+/obj/effect/turf_decal/delivery/blue/hollow,
 /obj/effect/landmark/start/prisoner,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -58513,7 +58811,9 @@
 	},
 /area/coldcolony/malta/resid_serv/hydroponics)
 "vUY" = (
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -58651,7 +58951,7 @@
 	},
 /area/coldcolony/malta/security/magistrateoffice)
 "vXs" = (
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/servicegen)
 "vXt" = (
@@ -58715,7 +59015,7 @@
 /area/ruin/unpowered)
 "vYs" = (
 /obj/machinery/disposal,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/structure/disposalpipe/trunk{
 	dir = 8
 	},
@@ -58884,7 +59184,9 @@
 	},
 /area/coldcolony/malta/security/processing)
 "wcD" = (
-/obj/effect/decal/warning_stripes/southwestcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -58933,7 +59235,7 @@
 /area/coldcolony/malta/hallway/cargo_escape/exit)
 "wdU" = (
 /obj/machinery/disposal,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/structure/disposalpipe/trunk{
 	dir = 4
 	},
@@ -59051,7 +59353,7 @@
 /area/coldcolony/ruin/sm_lab)
 "wgS" = (
 /obj/structure/closet/secure_closet/security,
-/obj/effect/decal/warning_stripes/red/hollow,
+/obj/effect/turf_decal/delivery/red/hollow,
 /obj/item/clothing/suit/hooded/wintercoat/security,
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -59071,7 +59373,7 @@
 /area/coldcolony/malta/hallway/cargo_escape/port/east)
 "whw" = (
 /obj/machinery/vending/suitdispenser,
-/obj/effect/decal/warning_stripes/yellow/partial{
+/obj/effect/turf_decal/delivery/partial{
 	dir = 1
 	},
 /obj/machinery/light{
@@ -59186,7 +59488,9 @@
 "wiy" = (
 /obj/machinery/door/airlock/public/glass,
 /obj/machinery/door/firedoor,
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -59295,7 +59599,7 @@
 /area/coldcolony/malta/bridge/hop)
 "wjU" = (
 /obj/machinery/portable_atmospherics/canister/oxygen,
-/obj/effect/decal/warning_stripes/red,
+/obj/effect/turf_decal/delivery/red,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -59693,7 +59997,9 @@
 	dir = 5;
 	name = "Труба фильтрации"
 	},
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -59796,7 +60102,7 @@
 /turf/simulated/floor/wood,
 /area/coldcolony/malta/medical/morgue)
 "wtA" = (
-/obj/effect/decal/warning_stripes/yellow/partial,
+/obj/effect/turf_decal/delivery/partial,
 /obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
@@ -59940,7 +60246,7 @@
 /area/coldcolony/malta/research/hallway)
 "www" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/yellow/partial,
+/obj/effect/turf_decal/delivery/partial,
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
@@ -59956,7 +60262,9 @@
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/hallway/cargo_escape/entrance)
 "wxa" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -59992,7 +60300,9 @@
 	dir = 1;
 	name = "Труба фильтрации"
 	},
-/obj/effect/decal/warning_stripes/southeastcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 2
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -60120,7 +60430,7 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/machinery/light_switch/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -60222,7 +60532,7 @@
 /area/shuttle/pirate_corvette)
 "wCH" = (
 /obj/item/twohanded/required/kirbyplants,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "green"
@@ -60358,14 +60668,16 @@
 /area/coldcolony/malta/chapel/office)
 "wFu" = (
 /obj/structure/closet/emcloset,
-/obj/effect/decal/warning_stripes/blue,
+/obj/effect/turf_decal/delivery/blue,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "brown"
 	},
 /area/coldcolony/malta/quartermaster/miningeva)
 "wFw" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -60459,7 +60771,7 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/cargo)
 "wGi" = (
@@ -60524,7 +60836,7 @@
 /area/ruin/unpowered/coldcolony_outside)
 "wHR" = (
 /obj/structure/closet/chefcloset,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "hydrofloor"
 	},
@@ -60596,7 +60908,7 @@
 /turf/simulated/floor/plating/asteroid/snow,
 /area/ruin/unpowered/coldcolony_outside)
 "wJd" = (
-/obj/effect/decal/warning_stripes/yellow/partial{
+/obj/effect/turf_decal/delivery/partial{
 	dir = 4
 	},
 /turf/simulated/floor/plating,
@@ -60653,7 +60965,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/research/server)
 "wKw" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/security/lobby)
@@ -60701,7 +61013,7 @@
 	},
 /area/coldcolony/malta/hallway/service/south)
 "wLF" = (
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/machinery/recharge_station,
 /obj/item/radio/intercom/directional/west,
 /turf/simulated/floor/plasteel,
@@ -60951,7 +61263,9 @@
 /area/coldcolony/malta/hallway/service/east)
 "wPm" = (
 /obj/machinery/computer/security/engineering,
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/machinery/light_switch/directional/west,
 /obj/machinery/camera{
 	c_tag = "Engineering Monitoring";
@@ -60973,7 +61287,7 @@
 /obj/effect/decal/snow/sand/edge{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/hallway/bridge)
 "wPx" = (
@@ -61107,7 +61421,7 @@
 	},
 /area/coldcolony/malta/medical/virology)
 "wSn" = (
-/obj/effect/decal/warning_stripes/red/hollow,
+/obj/effect/turf_decal/delivery/red/hollow,
 /obj/structure/window/reinforced,
 /obj/structure/closet/secure_closet/guncabinet{
 	anchored = 1;
@@ -61195,14 +61509,16 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/brig)
 "wTs" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/power/port_gen/pacman,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/engineering/storage)
 "wUp" = (
 /obj/machinery/suit_storage_unit/atmos,
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -61529,7 +61845,7 @@
 /area/coldcolony/malta/maintenance/kitchen)
 "wZq" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/shieldwallgen,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -61626,7 +61942,9 @@
 	},
 /area/coldcolony/malta/security/customs)
 "xbT" = (
-/obj/effect/decal/warning_stripes/northeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
@@ -61743,10 +62061,10 @@
 	},
 /area/coldcolony/malta/bridge/meeting_room)
 "xfi" = (
-/obj/effect/decal/warning_stripes/yellow/partial{
+/obj/effect/turf_decal/delivery/partial{
 	dir = 8
 	},
-/obj/effect/decal/warning_stripes/arrow{
+/obj/effect/turf_decal/arrows/black{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -61758,7 +62076,9 @@
 /obj/machinery/mech_bay_recharge_port{
 	dir = 2
 	},
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/structure/sign/poster/official/random{
 	pixel_x = -32
 	},
@@ -61861,7 +62181,7 @@
 /area/coldcolony/malta/research/hor)
 "xic" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/machinery/shieldwallgen,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -61889,7 +62209,7 @@
 	},
 /area/coldcolony/malta/security/medbay)
 "xiz" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/tank/internals/emergency_oxygen/double,
 /obj/item/tank/internals/emergency_oxygen/double,
@@ -61904,7 +62224,7 @@
 /obj/machinery/vending/wallmed{
 	pixel_x = -25
 	},
-/obj/effect/decal/warning_stripes/blue,
+/obj/effect/turf_decal/delivery/blue,
 /obj/structure/closet/emcloset,
 /obj/effect/decal/snow/sand/edge{
 	dir = 10
@@ -62121,7 +62441,7 @@
 /area/coldcolony/malta/hallway/service/south)
 "xlt" = (
 /obj/machinery/vending/artvend,
-/obj/effect/decal/warning_stripes/yellow/partial{
+/obj/effect/turf_decal/delivery/partial{
 	dir = 1
 	},
 /obj/structure/sign/poster/official/random{
@@ -62267,7 +62587,7 @@
 /obj/machinery/status_display{
 	pixel_x = -32
 	},
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/table/reinforced,
 /obj/item/cartridge/signal/toxins{
 	pixel_x = 6
@@ -62406,7 +62726,7 @@
 	},
 /area/coldcolony/malta/hallway/cargo_escape/port/central)
 "xqu" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/quartermaster/office)
 "xqL" = (
@@ -62427,7 +62747,9 @@
 "xrn" = (
 /obj/machinery/door/airlock/public/glass,
 /obj/machinery/door/firedoor,
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -62439,7 +62761,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/effect/decal/warning_stripes/red/hollow,
+/obj/effect/turf_decal/delivery/red/hollow,
 /obj/structure/table/reinforced,
 /obj/item/storage/fancy/donut_box,
 /turf/simulated/floor/plasteel{
@@ -62491,7 +62813,7 @@
 /area/coldcolony/malta/resid_serv/clownoffice)
 "xsY" = (
 /obj/machinery/door/firedoor,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
@@ -62609,7 +62931,7 @@
 /area/coldcolony/malta/bridge/meeting_room)
 "xuN" = (
 /obj/structure/rack,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/item/stack/sheet/glass{
 	amount = 50
 	},
@@ -62621,7 +62943,7 @@
 	},
 /area/coldcolony/malta/engineering/break_room)
 "xuO" = (
-/obj/effect/decal/warning_stripes/yellow/partial,
+/obj/effect/turf_decal/delivery/partial,
 /obj/machinery/vending/cigarette,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
@@ -62640,7 +62962,9 @@
 	dir = 4;
 	name = "Труба дыхательной смеси"
 	},
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution"
@@ -62831,8 +63155,10 @@
 /obj/structure/sink{
 	pixel_y = 22
 	},
-/obj/effect/decal/warning_stripes/blue,
-/obj/effect/decal/warning_stripes/southeast,
+/obj/effect/turf_decal/delivery/blue,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -62889,7 +63215,7 @@
 /area/coldcolony/malta/security/customs)
 "xAc" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/closet/crate/medical,
 /obj/item/storage/firstaid/adv,
 /obj/item/storage/firstaid/regular{
@@ -62919,7 +63245,7 @@
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /obj/machinery/alarm/directional/south,
 /obj/machinery/light,
-/obj/effect/decal/warning_stripes/blue/hollow,
+/obj/effect/turf_decal/delivery/blue/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
@@ -62944,7 +63270,9 @@
 	dir = 8
 	},
 /obj/machinery/portable_atmospherics/scrubber,
-/obj/effect/decal/warning_stripes/eastnorthwest,
+/obj/effect/turf_decal/stripes/end{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "yellow"
@@ -62999,7 +63327,7 @@
 	},
 /area/coldcolony/malta/bridge/vip)
 "xCd" = (
-/obj/effect/decal/warning_stripes/yellow/partial{
+/obj/effect/turf_decal/delivery/partial{
 	dir = 4
 	},
 /obj/structure/disposalpipe/segment{
@@ -63059,7 +63387,9 @@
 	},
 /area/coldcolony/malta/research/lab)
 "xCK" = (
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -63069,24 +63399,21 @@
 	},
 /area/coldcolony/malta/engineering/atmos)
 "xCO" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/light/small{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/hallway/bridge)
 "xCP" = (
-/obj/effect/decal/warning_stripes/west{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "siding2"
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
 	},
-/obj/effect/decal/warning_stripes/west{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "siding8"
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
 	},
-/obj/effect/decal/warning_stripes/west{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "siding4"
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "asteroid"
@@ -63438,12 +63765,14 @@
 	},
 /area/coldcolony/malta/maintenance/kitchen)
 "xKZ" = (
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/item/trash/spacetwinkie,
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/medbay)
 "xLb" = (
-/obj/effect/decal/warning_stripes/southwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -63464,7 +63793,7 @@
 /turf/simulated/wall/r_wall,
 /area/coldcolony/malta/maintenance/brig)
 "xLR" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/closet/secure_closet/cargotech,
 /obj/item/clothing/suit/hooded/wintercoat/cargo,
 /obj/item/clothing/suit/hooded/wintercoat/cargo,
@@ -63511,17 +63840,14 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/effect/decal/warning_stripes/west{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "siding8"
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
 	},
-/obj/effect/decal/warning_stripes/west{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "siding2"
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
 	},
-/obj/effect/decal/warning_stripes/west{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "siding1"
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "asteroid"
@@ -63630,7 +63956,7 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/closet/secure_closet/engineering_electrical,
 /obj/item/clothing/gloves/color/fyellow,
 /turf/simulated/floor/plasteel,
@@ -63799,7 +64125,7 @@
 	id = "garbage";
 	name = "Garbage"
 	},
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/servicegen)
 "xTi" = (
@@ -63934,7 +64260,9 @@
 /turf/simulated/floor/mineral/abductor/cold,
 /area/ruin/unpowered)
 "xVQ" = (
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/structure/table/reinforced,
 /obj/item/clothing/glasses/meson/sunglasses,
 /obj/item/rcd_ammo,
@@ -63977,14 +64305,14 @@
 /area/coldcolony/malta/maintenance/servicegen)
 "xXs" = (
 /obj/structure/reagent_dispensers/oil,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "purple"
 	},
 /area/coldcolony/malta/research/chargebay)
 "xXu" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/dispenser/oxygen,
 /obj/structure/sign/poster/official/random{
 	pixel_y = 32
@@ -64039,7 +64367,9 @@
 	dir = 1;
 	name = "Труба фильтрации"
 	},
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "caution"
@@ -64058,7 +64388,7 @@
 /area/coldcolony/malta/maintenance/kitchen)
 "xYZ" = (
 /obj/machinery/door/firedoor,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -64106,7 +64436,7 @@
 	},
 /area/coldcolony/malta/resid_serv/library)
 "xZN" = (
-/obj/effect/decal/warning_stripes/red,
+/obj/effect/turf_decal/delivery/red,
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -64145,7 +64475,9 @@
 	},
 /area/coldcolony/malta/resid_serv/crew_quarters/fitness)
 "yai" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -64186,7 +64518,7 @@
 /area/coldcolony/malta/bridge/hop)
 "yaN" = (
 /obj/machinery/door/firedoor,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
@@ -64226,7 +64558,7 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 2
 	},
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/quartermaster/office)
 "ybP" = (
@@ -64262,7 +64594,7 @@
 /area/coldcolony/malta/medical/medbay)
 "ycV" = (
 /obj/machinery/disposal,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/structure/disposalpipe/trunk{
 	dir = 4
 	},
@@ -64284,7 +64616,7 @@
 /area/coldcolony/malta/engineering/teg)
 "ydD" = (
 /obj/machinery/space_heater,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkred"
@@ -64346,7 +64678,7 @@
 /turf/simulated/floor/carpet/cold,
 /area/coldcolony/ruin/abandoned_house)
 "yeS" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/space_heater,
 /obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel{
@@ -64402,7 +64734,7 @@
 /area/coldcolony/malta/security/permabrig)
 "ygV" = (
 /obj/machinery/disposal,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/structure/disposalpipe/trunk{
 	dir = 2
 	},
@@ -64424,7 +64756,7 @@
 /area/coldcolony/malta/chapel/main)
 "yhx" = (
 /obj/machinery/pipedispenser,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -94844,7 +95176,7 @@ iGr
 iGr
 wUJ
 wif
-ryn
+nKe
 wif
 kDj
 kDj
@@ -95101,7 +95433,7 @@ kDj
 kDj
 eKR
 wif
-ryn
+nKe
 wif
 eKR
 pZh
@@ -95358,7 +95690,7 @@ pMB
 qEK
 jek
 wif
-ryn
+nKe
 wif
 wif
 enR

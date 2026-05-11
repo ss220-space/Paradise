@@ -115,17 +115,19 @@
 	base_icon_state = "beacon"
 	anchored = FALSE
 	density = TRUE
-	layer = MOB_LAYER - 0.2 //so people can't hide it and it's REALLY OBVIOUS
+	layer = BELOW_MOB_LAYER //so people can't hide it and it's REALLY OBVIOUS
 	var/active = FALSE
+	var/energy_used = 1.5 KILO JOULES
 
 /obj/machinery/power/singularity_beacon/proc/Activate(mob/user = null)
-	if(surplus() < 1500)
+	if(surplus() < energy_used)
 		if(user)
 			to_chat(user, span_notice("The connected wire doesn't have enough current."))
 		return
-	for(var/thing in GLOB.singularities)
-		var/obj/singularity/singulo = thing
-		if(singulo.z == z)
+	var/list/connected_z = SSmapping.get_connected_levels(get_turf(src))
+	for(var/datum/component/singularity/singulo as anything in GLOB.singularities)
+		var/atom/singulo_atom = singulo.parent
+		if(singulo_atom.z in connected_z)
 			singulo.target = src
 	icon_state = "[base_icon_state]1"
 	active = TRUE
@@ -134,8 +136,7 @@
 		to_chat(user, span_notice("You activate the beacon."))
 
 /obj/machinery/power/singularity_beacon/proc/Deactivate(mob/user = null)
-	for(var/thing in GLOB.singularities)
-		var/obj/singularity/singulo = thing
+	for(var/datum/component/singularity/singulo as anything in GLOB.singularities)
 		if(singulo.target == src)
 			singulo.target = null
 	icon_state = "[base_icon_state]0"
@@ -143,10 +144,10 @@
 	if(user)
 		to_chat(user, span_notice("You deactivate the beacon."))
 
-/obj/machinery/power/singularity_beacon/attack_ai(mob/user as mob)
+/obj/machinery/power/singularity_beacon/attack_ai(mob/user)
 	return
 
-/obj/machinery/power/singularity_beacon/attack_hand(mob/user as mob)
+/obj/machinery/power/singularity_beacon/attack_hand(mob/user, list/modifiers)
 	if(anchored)
 		add_fingerprint(user)
 		return active ? Deactivate(user) : Activate(user)
@@ -183,8 +184,8 @@
 	if(!active)
 		return PROCESS_KILL
 
-	if(surplus() >= 1500)
-		add_load(1500)
+	if(surplus() >= energy_used)
+		add_load(energy_used)
 	else
 		Deactivate()
 

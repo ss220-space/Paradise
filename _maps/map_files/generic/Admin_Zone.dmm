@@ -1149,7 +1149,7 @@
 /turf/simulated/floor/wood,
 /area/admin)
 "lq" = (
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/machinery/bluespace_beacon/syndicate,
 /turf/simulated/floor/wood,
 /area/admin)
@@ -1447,7 +1447,7 @@
 	},
 /area/tdome/arena)
 "pK" = (
-/obj/effect/decal/warning_stripes/blue,
+/obj/effect/turf_decal/delivery/blue,
 /turf/simulated/wall/indestructible,
 /area/admin)
 "pL" = (
@@ -3779,7 +3779,7 @@
 /obj/machinery/teleport/hub/upgraded{
 	admin_usage = 1
 	},
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},

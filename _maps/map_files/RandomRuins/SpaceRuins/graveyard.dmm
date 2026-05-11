@@ -233,7 +233,7 @@
 /area/ruin/space/graveyard/graves)
 "ey" = (
 /obj/structure/table/wood,
-/obj/item/lighter/zippo/fluff/purple,
+/obj/item/lighter/zippo/purple,
 /turf/simulated/floor/plasteel{
 	icon_state = "lightdark"
 	},
@@ -262,7 +262,9 @@
 /turf/simulated/floor/grass,
 /area/ruin/space/graveyard/graves)
 "fm" = (
-/obj/effect/decal/warning_stripes/northwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
 /turf/simulated/floor/plating,
 /area/ruin/space/graveyard/church)
 "fy" = (
@@ -482,7 +484,9 @@
 /turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/church)
 "kq" = (
-/obj/effect/decal/warning_stripes/southeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
 /turf/simulated/floor/plating,
 /area/ruin/space/graveyard/church)
 "kr" = (
@@ -1854,7 +1858,9 @@
 /turf/simulated/floor/plating/asteroid,
 /area/ruin/space/graveyard/church)
 "Pw" = (
-/obj/effect/decal/warning_stripes/northeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
 /turf/simulated/floor/plating/burnt,
 /area/ruin/space/graveyard/church)
 "PF" = (
@@ -2021,7 +2027,9 @@
 /turf/simulated/floor/carpet,
 /area/ruin/space/graveyard/church)
 "Ti" = (
-/obj/effect/decal/warning_stripes/southwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
 /turf/simulated/floor/plating,
 /area/ruin/space/graveyard/church)
 "TA" = (

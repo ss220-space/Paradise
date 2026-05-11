@@ -671,3 +671,22 @@ GLOBAL_LIST_INIT(modulo_angle_to_dir, list(NORTH, NORTHEAST, EAST, SOUTHEAST, SO
 			return list(-1, -1)
 		else
 			return list(0, 0)
+
+/**
+ * # WARNING!
+ * Using a matrix like this as a color value will simplify it back to a string after being set.
+ */
+/proc/color_hex2color_matrix(string)
+	var/length = length(string)
+	if((length != 7 && length != 9) || length != length_char(string))
+		return COLOR_MATRIX_IDENTITY
+	// For runtime safety
+	. = COLOR_MATRIX_IDENTITY
+	var/list/color = rgb2num(string)
+	var/red = color[1] / 255
+	var/green = color[2] / 255
+	var/blue = color[3] / 255
+	var/alpha = 1
+	if(length(color) == 4)
+		alpha = color[4] / 255
+	return list(red,0,0,0, 0,green,0,0, 0,0,blue,0, 0,0,0,alpha, 0,0,0,0)

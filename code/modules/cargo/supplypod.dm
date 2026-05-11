@@ -283,9 +283,9 @@
 	SIGNAL_HANDLER
 	SEND_SIGNAL(src, COMSIG_SUPPLYPOD_ENTERED, arrived, old_loc, old_locs)
 
-/obj/structure/closet/supplypod/proc/on_exited(datum/source, mob/living/exited, atom/new_loc)
+/obj/structure/closet/supplypod/proc/on_exited(datum/source, mob/living/exited, direction)
 	SIGNAL_HANDLER
-	SEND_SIGNAL(src, COMSIG_SUPPLYPOD_EXITED, exited, new_loc)
+	SEND_SIGNAL(src, COMSIG_SUPPLYPOD_EXITED, exited, direction)
 
 /obj/structure/closet/supplypod/proc/setStyle(datum/pod_style/chosen_style) //Used to give the sprite an icon state, name, and description.
 	style = chosen_style

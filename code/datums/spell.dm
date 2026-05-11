@@ -6,7 +6,7 @@
 /obj/effect/proc_holder/singularity_act()
 	return
 
-/obj/effect/proc_holder/singularity_pull()
+/obj/effect/proc_holder/singularity_pull(atom/singularity, current_size)
 	return
 
 GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))

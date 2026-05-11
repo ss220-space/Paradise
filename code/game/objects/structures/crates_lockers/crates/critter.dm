@@ -9,6 +9,8 @@
 	close_sound = 'sound/machines/wooden_closet_close.ogg'
 	open_sound_volume = 25
 	ignore_shoves = TRUE
+	elevation = 21
+	elevation_open = 0
 	var/already_opened = TRUE
 	var/content_mob = null
 	var/amount = 1

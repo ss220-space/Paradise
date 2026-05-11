@@ -158,16 +158,15 @@
 
 	/// List of of blobs, their offsprings and blobburnouts spawned by them
 	var/list/blobs = list(
-		"infected" = list(),
-		"offsprings" = list(),
-		"minions" = list()
+		BLOB_GROUP_INFECTED = list(),
+		BLOB_GROUP_OFFSPRINGS = list(),
+		BLOB_GROUP_MINIONS = list()
 	)
 	/// Count of blob tiles to blob win
 	var/blob_win_count = BLOB_BASE_TARGET_POINT
 	/// Number of resource produced by the core
 	var/blob_point_rate = 3
-	/// Number of bursted blob infected
-	var/bursted_blobs_count = 0
+
 	/// Total blob submode stage
 	var/blob_stage = BLOB_STAGE_NONE
 	/// The need to delay the end of the game when the blob wins
@@ -888,11 +887,11 @@
 	. += auto_declare_completion_sintouched()
 	list_clear_nulls(.)
 
-/datum/game_mode/proc/apocalypse_cinema(obj/singularity/god/god, inevitable = FALSE)
-	if(istype(god, /obj/singularity/god/narsie))
+/datum/game_mode/proc/apocalypse_cinema(obj/god/god, inevitable = FALSE)
+	if(istype(god, /obj/god/narsie))
 		return SSticker.cultdat.apocalypse_cinema
 
-	if(istype(god, /obj/singularity/god/ratvar))
+	if(istype(god, /obj/god/ratvar))
 		return /datum/cinematic/cult_arm_ratvar
 
 	return FALSE
@@ -912,7 +911,7 @@
 	)
 	sleep(30 SECONDS)
 
-	var/obj/singularity/god/god = locate(/obj/singularity/god) in GLOB.poi_list
+	var/obj/god/god = locate(/obj/god) in GLOB.poi_list
 
 	if(!god)
 		GLOB.minor_announcement.announce(

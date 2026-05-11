@@ -113,7 +113,7 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 		return FALSE
 	return TRUE
 
-/turf/simulated/floor/blob_act(obj/structure/blob/B)
+/turf/simulated/floor/blob_act(obj/structure/blob/blob)
 	return
 
 /turf/simulated/floor/update_overlays()
@@ -144,7 +144,8 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 	if(temperature > FIRE_MINIMUM_TEMPERATURE_TO_EXIST && prob(1))
 		burn_tile()
 
-/turf/simulated/floor/proc/make_plating(make_floor_tile, mob/user)	// Set `make_floor_tile` to FALSE, if `floor_tile` have another drop logic before calling this proc.
+/// Set `make_floor_tile` to FALSE, if `floor_tile` have another drop logic before calling this proc.
+/turf/simulated/floor/proc/make_plating(make_floor_tile, mob/user)
 	if(make_floor_tile && floor_tile && !broken && !burnt)
 		var/obj/item/stack/stack_dropped = new floor_tile(src)
 		if(user)
@@ -261,7 +262,7 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 			to_chat(user, span_danger("You remove the floor tile."))
 	return make_plating(make_tile, user)
 
-/turf/simulated/floor/singularity_pull(S, current_size)
+/turf/simulated/floor/singularity_pull(atom/singularity, current_size)
 	..()
 	if(current_size == STAGE_THREE)
 		if(prob(30))

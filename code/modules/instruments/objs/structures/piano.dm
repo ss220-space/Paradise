@@ -7,6 +7,11 @@
 	density = TRUE
 	allowed_instrument_ids = "piano"
 
+/obj/structure/piano/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/climbable)
+	AddElement(/datum/element/elevation, pixel_shift = 10)
+
 /obj/structure/piano/unanchored
 	anchored = FALSE
 
@@ -32,9 +37,10 @@
 	density = TRUE
 	allowed_instrument_ids = "piano"
 
-/obj/structure/pianoclassic/Initialize(mapload)
-	. = ..()
+/obj/structure/pianoclassic/ComponentInitialize()
 	AddElement(/datum/element/falling_hazard, damage = 80, hardhat_safety = FALSE, crushes = TRUE, impact_sound = 'sound/effects/piano_hit.ogg')
+	AddElement(/datum/element/climbable)
+	AddElement(/datum/element/elevation, pixel_shift = 26)
 
 /obj/structure/pianoclassic/ghostpiano
 	name = "cursed piano"

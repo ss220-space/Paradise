@@ -24,6 +24,11 @@
 	var/buildstacktype = /obj/item/stack/sheet/metal
 	var/buildstackamount = 2
 	var/comfort = 2 // default comfort
+	/// Directions in which the bed has its headrest on the left side.
+	var/left_headrest_dirs = NORTHEAST
+	/// Mobs standing on it are nudged up by this amount. Also used to align the person back when buckled to it after init.
+	var/elevation = 6
+	var/allow_tucking = TRUE
 
 /obj/structure/bed/psych
 	name = "psych bed"
@@ -105,6 +110,14 @@
 		PREPOSITIONAL = "деревянной кровати",
 	)
 
+
+/obj/structure/bed/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/soft_landing)
+	if(elevation)
+		AddElement(/datum/element/elevation, pixel_shift = elevation)
+	update_buckle_vars(dir)
+
 /obj/structure/bed/proc/handle_rotation()
 	return
 
@@ -123,6 +136,13 @@
 			new buildstacktype(loc, buildstackamount)
 	..()
 
+/obj/structure/bed/setDir(newdir)
+	. = ..()
+	update_buckle_vars(newdir)
+
+/obj/structure/bed/proc/update_buckle_vars(newdir)
+	buckle_lying = newdir & left_headrest_dirs ? 270 : 90
+
 /*
  * Roller beds
  */
@@ -135,6 +155,7 @@
 	anchored = FALSE
 	comfort = 1
 	pull_push_slowdown = 0	// used for transporting lying mobs
+	allow_tucking = FALSE
 	var/icon_up = "up"
 	var/icon_down = "down"
 	var/folded = /obj/item/roller
@@ -174,12 +195,12 @@
 /obj/structure/bed/roller/post_buckle_mob(mob/living/target)
 	set_density(TRUE)
 	update_icon(UPDATE_ICON_STATE)
-	target.pixel_y = target.base_pixel_y + 3
+	target.add_offsets(UID(), y_add = 10)
 
 /obj/structure/bed/roller/post_unbuckle_mob(mob/living/target)
 	set_density(FALSE)
 	update_icon(UPDATE_ICON_STATE)
-	target.pixel_y = target.base_pixel_y + target.body_position_pixel_y_offset
+	target.remove_offsets(UID())
 
 /obj/structure/bed/roller/holo
 	name = "holo stretcher"
@@ -290,6 +311,7 @@
 	buildstackamount = 10
 	buildstacktype = /obj/item/stack/sheet/wood
 	comfort = 0.5
+	elevation = 0
 
 /obj/structure/bed/dogbed/ian
 	name = "Ian's bed"
