@@ -236,7 +236,7 @@
 					to_chat(user, span_warning("You need at least two sheets of plasteel to create a false wall!"))
 					return .
 				to_chat(user, span_notice("You start building a false wall..."))
-				if(!do_after(user, 2 SECONDS * plasteel.toolspeed, src, category = DA_CAT_TOOL) || state != GIRDER_DISPLACED || QDELETED(plasteel) || !plasteel.use(4))
+				if(!do_after(user, 2 SECONDS * plasteel.toolspeed, src, category = DA_CAT_TOOL) || state != GIRDER_DISPLACED || QDELETED(plasteel) || !plasteel.use(2))
 					return .
 				to_chat(user, span_notice("You created a reinforced false wall. Push on it to open or close the passage."))
 				var/obj/structure/falsewall/reinforced/falsewall = new(loc)
@@ -250,7 +250,7 @@
 					to_chat(user, span_warning("You need at least two sheets of plasteel to finalize the reinforced wall!"))
 					return .
 				to_chat(user, span_notice("You start finalizing the reinforced wall..."))
-				if(!do_after(user, 2 SECONDS * plasteel.toolspeed, src, category = DA_CAT_TOOL) || state != GIRDER_REINF || !isfloorturf(loc) || QDELETED(plasteel) || !plasteel.use(2))
+				if(!do_after(user, 2 SECONDS * plasteel.toolspeed, src, category = DA_CAT_TOOL) || state != GIRDER_REINF || !isfloorturf(loc) || QDELETED(plasteel) || !plasteel.use(1))
 					return .
 				to_chat(user, span_notice("You have finalized the reinforced wall."))
 				var/turf/floor = loc
@@ -265,7 +265,7 @@
 					to_chat(user, span_warning("You need at least two sheets of plasteel to reinforce the girder!"))
 					return .
 				to_chat(user, span_notice("You start reinforcing the girder..."))
-				if(!do_after(user, 6 SECONDS * plasteel.toolspeed, src, category = DA_CAT_TOOL) || state == GIRDER_DISPLACED || state == GIRDER_REINF || QDELETED(plasteel) || !plasteel.use(2))
+				if(!do_after(user, 6 SECONDS * plasteel.toolspeed, src, category = DA_CAT_TOOL) || state == GIRDER_DISPLACED || state == GIRDER_REINF || QDELETED(plasteel) || !plasteel.use(1))
 					return .
 				to_chat(user, span_notice("You reinforce the girder."))
 				var/obj/structure/girder/reinforced/girder = new(loc)
