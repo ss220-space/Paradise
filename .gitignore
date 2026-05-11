@@ -111,3 +111,6 @@ dmdoc/
 
 # AI assistants
 .claude/
+
+# dotenv
+.env
