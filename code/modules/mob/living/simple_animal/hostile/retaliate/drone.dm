@@ -29,7 +29,7 @@
 	del_on_death = 1
 	var/passive_mode = TRUE // if true, don't target anything.
 	var/datum/effect_system/trail_follow/ion/ion_trail
-	var/static/list/drone_list = subtypesof(/obj/item/circuitboard/drone)
+	var/static/list/drone_list = valid_subtypesof(/obj/item/circuitboard/drone)
 
 /mob/living/simple_animal/hostile/malf_drone/Initialize(mapload)
 	. = ..()
