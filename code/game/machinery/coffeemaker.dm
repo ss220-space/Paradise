@@ -11,6 +11,7 @@
 
 // MARK: Base coffeemaker
 /obj/machinery/coffeemaker
+	abstract_type = /obj/machinery/coffeemaker
 	name = "coffeemaker"
 	desc = "Нет, эту кофемашину вы ТОЧНО не должны были увидеть. Пожалуйста, сообщите о баге."
 	gender = FEMALE
