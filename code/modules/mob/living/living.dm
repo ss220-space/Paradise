@@ -1014,7 +1014,7 @@
 		trail.color = BLOOD_COLOR_RED
 
 /mob/living/proc/apply_blood_trail_bleeding() // that depends on our brute damage.
-	var/brute_ratio = round(getBruteLoss()/maxHealth, 0.1)
+	var/brute_ratio = round(getBruteLoss() / maxHealth, 0.1)
 	setBlood(max(blood_volume - max(1, brute_ratio * 2), 0))
 
 /mob/living/carbon/human/makeTrail(turf/T)
