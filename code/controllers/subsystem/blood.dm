@@ -40,12 +40,8 @@
 SUBSYSTEM_DEF(blood)
 	name = "Blood"
 	priority = FIRE_PRIORITY_MOBS
-	flags = SS_KEEP_TIMING
-	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
+	ss_flags = SS_KEEP_TIMING
 	wait = 2 SECONDS
-	init_order = INIT_ORDER_MOBS
-	offline_implications = "Blood will no longer process."
-	ss_id = "blood"
 	/// List of current processing humans
 	var/list/currentrun = list()
 
@@ -126,12 +122,14 @@ SUBSYSTEM_DEF(blood)
 					"полную дезориентацию")
 				to_chat(target, span_warning("Вы чувствуете [symptom]."))
 
-		if(-INFINITY to BLOOD_VOLUME_SURVIVE)
+		if(1 to BLOOD_VOLUME_SURVIVE)
 			if(!target.undergoing_cardiac_arrest())
 				target.set_heartattack(TRUE)
 			if(!target.incapacitated())
 				target.Stun(30 SECONDS)
 
+		if(-INFINITY to 1)
+			target.death()
 
 /datum/controller/subsystem/blood/proc/process_bleeding(mob/living/carbon/human/target, seconds)
 	if(target.bodytemperature < TCRYO || HAS_TRAIT(target, TRAIT_NO_CLONE))
@@ -210,7 +208,7 @@ SUBSYSTEM_DEF(blood)
 		target.bleed(current_bleed * total_bleed_mod)
 
 	// make bloodsplatter for arterial bleeding
-	if(has_arterial_bleed)
+	if(has_arterial_bleed && target.stat != DEAD)
 		create_arterial_bleeding_splatter(target)
 
 
