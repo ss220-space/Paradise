@@ -16,6 +16,10 @@
 /obj/machinery/space_heater/get_cell()
 	return cell
 
+/obj/machinery/space_heater/ComponentInitialize()
+	AddElement(/datum/element/climbable)
+	AddElement(/datum/element/elevation, pixel_shift = 20)
+
 /obj/machinery/space_heater/Initialize(mapload)
 	. = ..()
 	if(ispath(cell))

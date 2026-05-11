@@ -294,7 +294,7 @@
 
 	beam_entered(entered)
 
-/obj/effect/ebeam/reacting/proc/on_exited(datum/source, atom/movable/exited)
+/obj/effect/ebeam/reacting/proc/on_exited(datum/source, atom/movable/exited, direction)
 	SIGNAL_HANDLER
 
 	if(isnull(owner))

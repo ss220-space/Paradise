@@ -1,0 +1,7 @@
+author: "dageavtobusnick"
+delete-after: True
+changes:
+  - bugfix: "Исправлена невозможность стрельбы в упор. (PR #9205)"
+  - bugfix: "Исправлено некорректная обработка выстрела в рот. (PR #9205)"
+  - refactor: "Выстрел в рот теперь работает через interact_with_atom. (PR #9205)"
+  - tweak: "Добавлены обработчики изменения gun_user и target в ВВ (PR #9205)"

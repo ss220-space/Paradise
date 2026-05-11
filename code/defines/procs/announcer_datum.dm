@@ -93,7 +93,7 @@ GLOBAL_DATUM_INIT(major_announcement, /datum/announcer, new(config_type = /datum
 		for(var/obj/item/radio/radio as anything in GLOB.global_radios)
 			receivers |= radio.send_announcement()
 		for(var/mob/mob in receivers)
-			if(!istype(mob) || !mob.client || mob.stat || !mob.can_hear())
+			if(!istype(mob) || !mob.client || mob.stat || HAS_TRAIT(mob, TRAIT_DEAF))
 				receivers -= mob
 				continue
 			if(!mob.say_understands(null, message_language))

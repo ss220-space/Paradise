@@ -1,0 +1,4 @@
+author: "dageavtobusnick"
+delete-after: True
+changes:
+  - bugfix: "Исправление ошибки \"Invalid path: String is not utf8\". (PR #9201)"

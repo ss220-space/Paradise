@@ -8,9 +8,9 @@
 	anchored = TRUE
 	pass_flags_self = LETPASSTHROW|PASSFENCE
 	obj_flags = BLOCKS_CONSTRUCTION_DIR
-	climbable = TRUE
 	layer = ABOVE_MOB_LAYER
 	interaction_flags_click = NEED_HANDS | ALLOW_RESTING
+	var/climbable = TRUE
 	var/currently_climbed = FALSE
 	var/buildstacktype = /obj/item/stack/rods
 	var/buildstackamount = 3
@@ -25,8 +25,11 @@
 		)
 		AddElement(/datum/element/connect_loc, loc_connections)
 
-/obj/structure/railing/get_climb_text()
-	return span_notice("Вы можете нажать [span_bold("ЛКМ и перетащить")] себя на [declent_ru(ACCUSATIVE)], чтобы после небольшой задержки взобраться на н[GEND_HIS_HER(src)].")
+/obj/structure/railing/ComponentInitialize()
+	. = ..()
+	if(!climbable)
+		return
+	AddElement(/datum/element/climbable)
 
 /obj/structure/railing/corner //aesthetic corner sharp edges hurt oof ouch
 	icon_state = "railing_corner"
@@ -86,7 +89,7 @@
 		return TRUE
 	return ..()
 
-/obj/structure/railing/proc/on_exit(datum/source, atom/movable/leaving, atom/newLoc)
+/obj/structure/railing/proc/on_exit(datum/source, atom/movable/leaving, direction)
 	SIGNAL_HANDLER
 
 	if(!density)
@@ -103,21 +106,10 @@
 		return
 	if(currently_climbed)
 		return
-	if(!(get_dir(leaving, newLoc) & dir))
+	if(!(direction & dir))
 		return
 	leaving.Bump(src)
 	return COMPONENT_ATOM_BLOCK_EXIT
-
-/obj/structure/railing/do_climb(mob/living/user)
-	var/initial_mob_loc = get_turf(user)
-	. = ..()
-	if(.)
-		currently_climbed = TRUE
-		if(initial_mob_loc != get_turf(src)) // If we are on the railing, we want to move in the same dir as the railing. Otherwise we get put on the railing
-			currently_climbed = FALSE
-			return
-		user.Move(get_step(user, dir))
-		currently_climbed = FALSE
 
 /obj/structure/railing/proc/can_be_rotated(mob/user)
 	if(anchored)

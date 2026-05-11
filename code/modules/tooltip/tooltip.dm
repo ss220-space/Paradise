@@ -42,7 +42,7 @@ Notes:
 /datum/tooltip/New(client/C)
 	if(C)
 		owner = C
-		owner << browse(wrap_file2text(file), "window=[control]")
+		owner << browse(WRAP_FILE2TEXT(file), "window=[control]")
 
 	..()
 

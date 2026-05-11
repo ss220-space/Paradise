@@ -51,7 +51,7 @@
 		transparent = TRUE
 		update_icon()
 
-/obj/structure/closet/bluespace/proc/on_exited(datum/source, atom/movable/departed, atom/newLoc)
+/obj/structure/closet/bluespace/proc/on_exited(datum/source, atom/movable/departed, direction)
 	SIGNAL_HANDLER
 
 	update_transparency()

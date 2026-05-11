@@ -23,6 +23,11 @@ jobs:
           ~/dmdoc
           touch dmdoc/.nojekyll
           mv tgui/public/ dmdoc/assets
+      - name: "Generate admin verbs report"
+        run: |
+          pip install avulto jinja2
+          python tools/extract_admin_verbs/extract_admin_verbs.py --output dmdoc/admin_verbs
+          mv dmdoc/admin_verbs/admin_verbs.html dmdoc/admin_verbs/index.html
         # Nojekyll is important to disable jeykll syntax, which can mess with files that start with underscores
 
       - name: "Deploy Documentation"

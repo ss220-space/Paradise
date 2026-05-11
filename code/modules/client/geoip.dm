@@ -6,7 +6,12 @@
 #define GEOIP_API_FIELDS "status,message,country,countryCode,region,regionName,city,timezone,isp,mobile,proxy,query"
 
 GLOBAL_LIST_INIT(isp_blacklist, world.file2list("config/isp/isp_blacklist.txt"))
+GLOBAL_PROTECT(isp_blacklist)
 GLOBAL_LIST_INIT(isp_whitelist, world.file2list("config/isp/isp_whitelist.txt"))
+GLOBAL_PROTECT(isp_whitelist)
+
+GLOBAL_LIST_EMPTY(geoip_ckey_updated)
+GLOBAL_PROTECT(geoip_ckey_updated)
 
 /**
  * # GeoIP data

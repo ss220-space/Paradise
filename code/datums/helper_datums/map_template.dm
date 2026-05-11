@@ -17,7 +17,7 @@
 		name = rename
 
 /datum/map_template/proc/preload_size(path)
-	var/bounds = GLOB.maploader.load_map(wrap_file(path), 1, 1, 1, shouldCropMap = FALSE, measureOnly = TRUE)
+	var/bounds = GLOB.maploader.load_map(WRAP_FILE(path), 1, 1, 1, shouldCropMap = FALSE, measureOnly = TRUE)
 	if(bounds)
 		width = bounds[MAP_MAXX] // Assumes all templates are rectangular, have a single Z level, and begin at 1,1,1
 		height = bounds[MAP_MAXY]
@@ -81,7 +81,7 @@
 	if(mapfile)
 		. = mapfile
 	else if(mappath)
-		. = wrap_file(mappath)
+		. = WRAP_FILE(mappath)
 
 	if(!.)
 		stack_trace("  The file of [src] appears to be empty/non-existent.")

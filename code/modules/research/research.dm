@@ -484,10 +484,10 @@ research holder datum.
 		PREPOSITIONAL = "дискете шаблона печати"
 	)
 
-/obj/item/disk/design_disk/New()
-	..()
-	pixel_x = rand(-5, 5)
-	pixel_y = rand(-5, 5)
+/obj/item/disk/design_disk/Initialize(mapload)
+	. = ..()
+	pixel_x = base_pixel_x + rand(-5, 5)
+	pixel_y = base_pixel_y + rand(-5, 5)
 
 /obj/item/disk/design_disk/proc/load_blueprint(datum/design/D)
 	var/obj/design_item = new D.build_path

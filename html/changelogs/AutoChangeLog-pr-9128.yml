@@ -1,0 +1,4 @@
+author: "SansWD"
+delete-after: True
+changes:
+  - bugfix: "Параметр Анонимность CKEY работает и в белом табло, меняет ckey на ANON в строчках самого богатого/повреждений. (PR #9128)"

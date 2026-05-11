@@ -469,6 +469,7 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 		if(M.client && ((!isnewplayer(M) && M.stat == DEAD) || check_rights(R_ADMIN|R_MOD, FALSE, M)) && M.get_preference(PREFTOGGLE_CHAT_DEAD))
 			var/follow
 			var/lname
+			var/display = get_display_key(subject?.client)
 			if(subject)
 				if(subject != M)
 					follow = "([ghost_follow_link(subject, ghost=M)]) "
@@ -478,13 +479,11 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 				if(isobserver(subject))
 					DM = subject
 				if(check_rights(R_ADMIN|R_MOD, FALSE, M))							// What admins see
-					lname = "[keyname][(DM?.client.prefs.toggles2 & PREFTOGGLE_2_ANON) ? (@"[ANON]") : (DM ? "" : "^")] ([name])"
+					lname = "[display] ([name])"
 				else
-					if(DM?.client.prefs.toggles2 & PREFTOGGLE_2_ANON)	// If the person is actually observer they have the option to be anonymous
-						lname = "<i>Anon</i> ([name])"
-					else if(DM)									// Non-anons
+					if(DM)									// Non-anons
 						lname = "[keyname] ([name])"
-					else										// Everyone else (dead people who didn't ghost yet, etc.)
+					else 										// Everyone else (dead people who didn't ghost yet, etc.)
 						lname = name
 				lname = "[span_name("[lname]")] "
 			to_chat(M, span_deadsay("[follow][lname][message]"))

@@ -16,7 +16,7 @@
 
 	new /atom/movable/lighting_object(src)
 
-// Used to get a scaled lumcount.
+/// Used to get a scaled lumcount.
 /turf/proc/get_lumcount(minlum = 0, maxlum = 1)
 	if(!lighting_object)
 		return 1

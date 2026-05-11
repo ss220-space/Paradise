@@ -624,37 +624,6 @@ ADMIN_VERB(cmd_admin_create_centcom_report, R_SERVER|R_EVENT, "Create Communicat
 
 #undef CUSTOM_MESSAGE_TYPE
 
-ADMIN_VERB_AND_CONTEXT_MENU(cmd_admin_delete, R_ADMIN, "Delete", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, atom/target as obj|mob|turf in world)
-	user.admin_delete(target)
-
-/client/proc/admin_delete(datum/D)
-	if(istype(D) && !D.can_vv_delete())
-		to_chat(src, "[D] rejected your deletion", confidential = TRUE)
-		return
-	var/atom/A = D
-	var/coords = ""
-	var/jmp_coords = ""
-	if(istype(A))
-		var/turf/T = get_turf(A)
-		if(T)
-			coords = "at [COORD(T)]"
-			jmp_coords = "at [ADMIN_COORDJMP(T)]"
-		else
-			jmp_coords = coords = "in nullspace"
-
-	if(tgui_alert(src, "Are you sure you want to delete:\n[D]\n[coords]?", "Confirmation", list("Yes", "No")) == "Yes")
-		log_admin("[key_name(usr)] deleted [D] [coords]")
-		message_admins("[key_name_admin(usr)] deleted [D] [jmp_coords]")
-		BLACKBOX_LOG_ADMIN_VERB("Delete")
-		if(isturf(D))
-			var/turf/T = D
-			T.ChangeTurf(T.baseturf)
-		else
-			vv_update_display(D, "deleted", VV_MSG_DELETED)
-			qdel(D)
-			if(!QDELETED(D))
-				vv_update_display(D, "deleted", "")
-
 ADMIN_VERB(list_open_jobs, R_ADMIN, "List free slots", "List available station jobs.", ADMIN_CATEGORY_MAIN)
 	if(SSjobs)
 		var/currentpositiontally
@@ -749,7 +718,7 @@ ADMIN_VERB(gib_self, R_ADMIN|R_EVENT, "Gibself", "Give yourself the same treatme
 ADMIN_VERB_AND_CONTEXT_MENU(cmd_check_contents, R_ADMIN, "Check Contents", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, mob/living/target as mob in GLOB.mob_list)
 	var/list/mob_contents = target.get_contents()
 	for(var/atom/content in mob_contents)
-		to_chat(user, "[content] [ADMIN_VV(content, "VV")]", confidential = TRUE)
+		to_chat(user, "[content] [ADMIN_VV(content, "VV")] [ADMIN_TAG(content)]", confidential = TRUE)
 	BLACKBOX_LOG_ADMIN_VERB("Check Contents")
 
 ADMIN_VERB(toggle_view_range, R_ADMIN, "Change View Range", "Switch between 1x and custom views.", ADMIN_CATEGORY_GAME)

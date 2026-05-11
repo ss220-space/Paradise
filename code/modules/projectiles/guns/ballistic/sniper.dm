@@ -13,8 +13,8 @@
 	fire_sound = 'sound/weapons/gunshots/1sniper.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
-	fire_delay = 40
-	burst_size = 1
+	fire_delay = 4 SECONDS
+	burst_amount = 1
 	origin_tech = "combat=7"
 	can_suppress = TRUE
 	slot_flags = ITEM_SLOT_BACK
@@ -27,7 +27,7 @@
 		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 12, ATTACHMENT_OFFSET_Y = -4),
 	)
 	recoil = GUN_RECOIL_MEGA
-	fire_modes = GUN_MODE_SINGLE_ONLY
+	gun_firemode_list = list(GUN_FIREMODE_SEMIAUTO)
 
 /obj/item/gun/projectile/automatic/sniper_rifle/update_icon_state()
 	icon_state = base_icon_state

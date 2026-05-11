@@ -3,11 +3,9 @@ GLOBAL_REAL(SSmentor_tickets, /datum/controller/subsystem/tickets/mentor_tickets
 /datum/controller/subsystem/tickets/mentor_tickets/New()
 	NEW_SS_GLOBAL(SSmentor_tickets)
 	PreInit()
-	ss_id = "mentor_tickets"
 
 /datum/controller/subsystem/tickets/mentor_tickets
 	name = "Mentor Tickets"
-	offline_implications = "Mentor tickets will no longer be marked as stale. No immediate action is needed."
 	ticket_system_name = MENTORHELP_SYSTEM_NAME
 	ticket_name = MENTORHELP_TICKET_NAME
 	span_class = "mentorhelp"

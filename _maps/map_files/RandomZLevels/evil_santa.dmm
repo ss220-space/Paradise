@@ -1196,7 +1196,7 @@
 	pixel_y = 3
 	},
 /obj/item/clothing/mask/cigarette/cigar,
-/obj/item/lighter/zippo/fluff/purple,
+/obj/item/lighter/zippo/purple,
 /obj/item/clothing/mask/cigarette/cigar{
 	pixel_x = -5;
 	pixel_y = 5

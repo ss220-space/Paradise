@@ -100,6 +100,7 @@
 	diag_hud_set_health()
 
 	ADD_TRAIT(src, TRAIT_WET_IMMUNITY, INNATE_TRAIT)
+	ADD_TRAIT(src, TRAIT_FENCE_CLIMBER, INNATE_TRAIT)
 
 	RegisterSignal(GLOB.alarm_manager, COMSIG_TRIGGERED_ALARM, PROC_REF(alarm_triggered))
 	RegisterSignal(GLOB.alarm_manager, COMSIG_CANCELLED_ALARM, PROC_REF(alarm_cancelled))
@@ -416,8 +417,6 @@
 	return 1
 
 /////////////////////////////////// EAR DAMAGE ////////////////////////////////////
-/mob/living/silicon/can_hear()
-	return TRUE
 
 /mob/living/silicon/put_in_hand_check() // This check is for borgs being able to receive items, not put them in others' hands.
 	return FALSE

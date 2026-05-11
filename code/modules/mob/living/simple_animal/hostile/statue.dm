@@ -49,14 +49,10 @@
 	var/cannot_be_seen = 1
 	var/mob/living/creator = null
 
-/mob/living/simple_animal/hostile/statue/Initialize(mapload)
+// No movement while seen code.
+/mob/living/simple_animal/hostile/statue/Initialize(mapload, mob/living/creator)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_GODMODE, INNATE_TRAIT)
-
-// No movement while seen code.
-
-/mob/living/simple_animal/hostile/statue/New(loc, mob/living/creator)
-	..()
 	// Give spells
 	AddSpell(new /obj/effect/proc_holder/spell/aoe/flicker_lights(null))
 	AddSpell(new /obj/effect/proc_holder/spell/aoe/blindness(null))
@@ -77,7 +73,7 @@
 		if(client)
 			to_chat(src, span_warning("You cannot move, there are eyes on you!"))
 		return 0
-	. = ..()
+	return ..()
 
 /mob/living/simple_animal/hostile/statue/handle_automated_action()
 	if(!..())
