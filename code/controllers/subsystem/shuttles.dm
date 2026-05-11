@@ -8,6 +8,7 @@ SUBSYSTEM_DEF(shuttle)
 		/datum/controller/subsystem/mapping,
 		/datum/controller/subsystem/atoms,
 		/datum/controller/subsystem/air,
+		/datum/controller/subsystem/capitalism,
 	)
 	ss_flags = SS_KEEP_TIMING
 	runlevels = RUNLEVEL_SETUP | RUNLEVEL_GAME
