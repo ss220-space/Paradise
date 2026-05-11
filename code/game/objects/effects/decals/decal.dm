@@ -19,7 +19,7 @@
 		 * Someday, someone will definitely clean it up to the end.
 		 */
 		//if(mapload)
-		//	stack_trace("[name] spawned in a bad turf ([loc]) at [AREACOORD(src)] in [get_area(src)]. Please remove it or allow it to pass never_should_have_come_here if it's intended.")
+		//	stack_trace("[name] spawned in a bad turf ([loc]) at [AREACOORD(src)] in [get_area(src)]. Please remove it or allow it to pass `never_should_have_come_here` if it's intended.")
 		return INITIALIZE_HINT_QDEL
 
 	var/static/list/loc_connections = list(
@@ -44,7 +44,7 @@
 /obj/effect/decal/proc/never_should_have_come_here(turf/here_turf)
 	return isclosedturf(here_turf) || (isgroundlessturf(here_turf) && !GET_TURF_BELOW(here_turf))
 
-/obj/effect/decal/proc/on_decal_move(turf/changed, path, list/new_baseturfs, flags, list/post_change_callbacks)
+/obj/effect/decal/proc/on_decal_move(turf/changed, path, list/post_change_callbacks)
 	SIGNAL_HANDLER
 	post_change_callbacks += CALLBACK(src, PROC_REF(sanity_check_self))
 
