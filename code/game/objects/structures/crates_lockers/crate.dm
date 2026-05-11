@@ -84,6 +84,7 @@
 	return do_trap_effect(user)
 
 /obj/structure/closet/crate/after_close(mob/living/user)
+	. = ..()
 	RemoveElement(/datum/element/climbable, climb_time = crate_climb_time * 0.5, climb_stun = 0)
 	AddElement(/datum/element/climbable, climb_time = crate_climb_time, climb_stun = 0)
 	if(elevation != elevation_open)
