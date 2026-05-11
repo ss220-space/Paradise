@@ -1,6 +1,5 @@
 /datum/action/cooldown/spell/conjure_item
 	school = SCHOOL_CONJURATION
-	invocation_type = INVOCATION_NONE
 
 	/// Typepath of whatever item we summon
 	var/obj/item_type

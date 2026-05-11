@@ -14,8 +14,6 @@
 /datum/action/cooldown/spell/jaunt
 	school = SCHOOL_TRANSMUTATION
 
-	invocation_type = INVOCATION_NONE
-
 	/// What dummy mob type do we put jaunters in on jaunt?
 	var/jaunt_type = /obj/effect/dummy/phased_mob
 
@@ -116,7 +114,7 @@
 
 /datum/action/cooldown/spell/jaunt/Remove(mob/living/remove_from)
 	exit_jaunt(remove_from)
-	if (!is_jaunting(remove_from)) // In case you have made exit_jaunt conditional, as in mirror walk
+	if(!is_jaunting(remove_from)) // In case you have made exit_jaunt conditional, as in mirror walk
 		return ..()
 	var/obj/effect/dummy/phased_mob/jaunt = remove_from.loc
 	jaunt.eject_jaunter()

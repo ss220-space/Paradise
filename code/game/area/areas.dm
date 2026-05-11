@@ -165,9 +165,9 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 			continue
 		if(GLOB.teleportlocs[AR.name])
 			continue
-		if (!AR.has_contained_turfs())
+		if(!AR.has_contained_turfs())
 			continue
-		if (is_station_level(AR.z))
+		if(is_station_level(AR.z))
 			GLOB.teleportlocs[AR.name] = AR
 
 /area/New(loc, ...)

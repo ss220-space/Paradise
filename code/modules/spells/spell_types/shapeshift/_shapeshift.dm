@@ -172,7 +172,7 @@
 
 	// Make sure that if you shapechanged into a bot, the AI can't just turn you off.
 	var/mob/living/simple_animal/bot/polymorph_bot = new_shape
-	if (istype(polymorph_bot))
+	if(istype(polymorph_bot))
 		polymorph_bot.emagged = TRUE
 		polymorph_bot.remote_disabled = FALSE
 
@@ -202,9 +202,9 @@
 
 /// Removes an active shapeshift effect from the owner
 /datum/action/cooldown/spell/shapeshift/proc/unshift_owner()
-	if (isnull(owner))
+	if(isnull(owner))
 		return
-	if (is_shifted(owner))
+	if(is_shifted(owner))
 		do_unshapeshift(owner)
 
 #undef is_shifted
