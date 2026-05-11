@@ -57,6 +57,8 @@ GLOBAL_LIST_EMPTY(raindrop_active_offers)
 			var/datum/rainDrop_offer = locateUID(id)
 			dispute_rainDrop_offer(rainDrop_offer)
 			return TRUE
+		if("logout")
+			last_login_owner = null
 
 // Логинимся и возвращаем аккаунт, либо выдаем null
 /datum/data/pda/app/rainDrop/proc/login_in_messenger(list/data)

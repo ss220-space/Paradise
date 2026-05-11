@@ -41,6 +41,7 @@ type Data = {
 const OFFER_STATUS_COLOR = {
   open: 'good',
   taken: 'average',
+  submitted: 'average',
   completed: 'good',
   cancelled: 'bad',
   disputed: 'bad',
@@ -49,6 +50,7 @@ const OFFER_STATUS_COLOR = {
 const OFFER_STATUS_TEXT = {
   open: 'Открыт',
   taken: 'В работе',
+  submitted: 'Ожидает подтверждения',
   completed: 'Завершен',
   cancelled: 'Отменен',
   disputed: 'Спор',
@@ -61,15 +63,13 @@ const PDA_UI = {
 };
 export const pda_rainDrop = (props: unknown) => {
   const { act, data } = useBackend<Data>();
-
   const { account, offers = [] } = data;
-
   const [tab, setTab] = useState('market');
-
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [reward, setReward] = useState(100);
   const [ratings, setRatings] = useState<Record<string, number>>({});
+
   if (!account) {
     return (
       <Window
@@ -134,6 +134,16 @@ export const pda_rainDrop = (props: unknown) => {
                       ★ {account.rating} ({account.rating_count})
                     </Box>
                   </Box>
+                  <Stack.Item mt={0.5}>
+                    <Button
+                      compact
+                      color="bad"
+                      icon="sign-out-alt"
+                      onClick={() => act('logout')}
+                    >
+                      Выйти
+                    </Button>
+                  </Stack.Item>
                 </Stack.Item>
               </Stack>
             </Section>
@@ -230,25 +240,29 @@ export const pda_rainDrop = (props: unknown) => {
                                 </Stack.Item>
                               )}
 
-                              {offer.status === 'taken' && (
-                                <>
-                                  <>
-                                    <Stack.Item>
-                                      <NumberInput
-                                        width="65px"
-                                        value={ratings[offer.id] ?? 5}
-                                        minValue={0}
-                                        maxValue={5}
-                                        step={1}
-                                        onChange={(value) =>
-                                          setRatings({
-                                            ...ratings,
-                                            [offer.id]: Number(value),
-                                          })
-                                        }
-                                      />
-                                    </Stack.Item>
+                              {offer.status === 'taken' &&
+                                offer.worker?.account_number ===
+                                  account.account_number && (
+                                  <Stack.Item grow>
+                                    <Button
+                                      fluid
+                                      color="average"
+                                      icon="flag-checkered"
+                                      onClick={() =>
+                                        act('submit_offer', {
+                                          id: offer.id,
+                                        })
+                                      }
+                                    >
+                                      Работа выполнена
+                                    </Button>
+                                  </Stack.Item>
+                                )}
 
+                              {offer.status === 'submitted' &&
+                                offer.client?.account_number ===
+                                  account.account_number && (
+                                  <>
                                     <Stack.Item grow>
                                       <Stack vertical>
                                         <Stack.Item>
@@ -271,29 +285,28 @@ export const pda_rainDrop = (props: unknown) => {
                                               })
                                             }
                                           >
-                                            Завершить
+                                            Подтвердить выполнение
                                           </Button>
                                         </Stack.Item>
                                       </Stack>
                                     </Stack.Item>
-                                  </>
 
-                                  <Stack.Item grow>
-                                    <Button
-                                      fluid
-                                      color="bad"
-                                      icon="gavel"
-                                      onClick={() =>
-                                        act('dispute_offer', {
-                                          id: offer.id,
-                                        })
-                                      }
-                                    >
-                                      Спор
-                                    </Button>
-                                  </Stack.Item>
-                                </>
-                              )}
+                                    <Stack.Item grow>
+                                      <Button
+                                        fluid
+                                        color="bad"
+                                        icon="gavel"
+                                        onClick={() =>
+                                          act('dispute_offer', {
+                                            id: offer.id,
+                                          })
+                                        }
+                                      >
+                                        Спор
+                                      </Button>
+                                    </Stack.Item>
+                                  </>
+                                )}
 
                               {(offer.status === 'open' ||
                                 offer.status === 'taken') && (
@@ -381,6 +394,7 @@ export const pda_rainDrop = (props: unknown) => {
                         setTitle('');
                         setDescription('');
                         setReward(100);
+                        setTab('my');
                       }}
                     >
                       Создать предложение
@@ -440,52 +454,74 @@ export const pda_rainDrop = (props: unknown) => {
 
                             <Stack.Item>
                               <Stack>
-                                {offer.status === 'taken' && (
-                                  <>
-                                    <Stack.Item grow>
-                                      <Stack vertical>
-                                        <Stack.Item>
-                                          <Box mb={0.5} color="label">
-                                            Оценка исполнителя
-                                          </Box>
-
-                                          {renderRatingStars(offer.id)}
-                                        </Stack.Item>
-
-                                        <Stack.Item mt={1}>
-                                          <Button
-                                            fluid
-                                            color="good"
-                                            icon="check"
-                                            onClick={() =>
-                                              act('complete_offer', {
-                                                id: offer.id,
-                                                rating: ratings[offer.id] ?? 5,
-                                              })
-                                            }
-                                          >
-                                            Завершить
-                                          </Button>
-                                        </Stack.Item>
-                                      </Stack>
-                                    </Stack.Item>
-
+                                {offer.status === 'taken' &&
+                                  offer.worker?.account_number ===
+                                    account.account_number && (
                                     <Stack.Item grow>
                                       <Button
                                         fluid
-                                        color="bad"
-                                        icon="gavel"
+                                        color="average"
+                                        icon="flag-checkered"
                                         onClick={() =>
-                                          act('dispute_offer', {
+                                          act('submit_offer', {
                                             id: offer.id,
                                           })
                                         }
                                       >
-                                        Спор
+                                        Работа выполнена
                                       </Button>
                                     </Stack.Item>
-                                  </>
-                                )}
+                                  )}
+
+                                {offer.status === 'submitted' &&
+                                  offer.client?.account_number ===
+                                    account.account_number && (
+                                    <>
+                                      <Stack.Item grow>
+                                        <Stack vertical>
+                                          <Stack.Item>
+                                            <Box mb={0.5} color="label">
+                                              Оценка исполнителя
+                                            </Box>
+
+                                            {renderRatingStars(offer.id)}
+                                          </Stack.Item>
+
+                                          <Stack.Item mt={1}>
+                                            <Button
+                                              fluid
+                                              color="good"
+                                              icon="check"
+                                              onClick={() =>
+                                                act('complete_offer', {
+                                                  id: offer.id,
+                                                  rating:
+                                                    ratings[offer.id] ?? 5,
+                                                })
+                                              }
+                                            >
+                                              Подтвердить выполнение
+                                            </Button>
+                                          </Stack.Item>
+                                        </Stack>
+                                      </Stack.Item>
+
+                                      <Stack.Item grow>
+                                        <Button
+                                          fluid
+                                          color="bad"
+                                          icon="gavel"
+                                          onClick={() =>
+                                            act('dispute_offer', {
+                                              id: offer.id,
+                                            })
+                                          }
+                                        >
+                                          Спор
+                                        </Button>
+                                      </Stack.Item>
+                                    </>
+                                  )}
 
                                 {(offer.status === 'open' ||
                                   offer.status === 'taken') && (

@@ -1,5 +1,7 @@
 #define RAINDROP_STATUS_OPEN "open"
 #define RAINDROP_STATUS_TAKEN "taken"
+#define RAINDROP_STATUS_SUBMITTED "submitted"
 #define RAINDROP_STATUS_COMPLETED "completed"
 #define RAINDROP_STATUS_CANCELLED "cancelled"
 #define RAINDROP_STATUS_DISPUTED "disputed"
+
