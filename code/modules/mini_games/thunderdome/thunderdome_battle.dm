@@ -107,12 +107,11 @@ GLOBAL_VAR_INIT(tdome_arena_melee, locate(/area/tdome/newtdome/CQC))
 		brawler.thunderdome = src
 		brawler.outfit.backpack_contents += random_stuff
 		var/mob/dead/observer/ghost = candidates[currpoint]
-		if(ghost && ghost.client && ghost.client.persistent_client)
+		if(ghost?.client?.persistent_client)
 			var/datum/persistent_client/persistent = ghost.client.persistent_client
-			if(persistent)
-				persistent.respawn_locked = TRUE
-				GLOB.respawnable_list -= ghost
-				ghost.can_reenter_corpse = FALSE
+			persistent.respawn_locked = TRUE
+			GLOB.respawnable_list -= ghost
+			ghost.can_reenter_corpse = FALSE
 
 		fighters += brawler
 		brawler.attack_ghost(ghost)
@@ -220,6 +219,7 @@ GLOBAL_VAR_INIT(tdome_arena_melee, locate(/area/tdome/newtdome/CQC))
 
 	var/mob/dead/observer/ghost = persistent.mob
 	if(istype(ghost))
+		return
 		ghost.antagHUD = persistent.antaghud_enabled
 
 		if(persistent.respawn_eligible)
