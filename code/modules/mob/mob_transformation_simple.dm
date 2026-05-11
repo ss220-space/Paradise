@@ -22,7 +22,7 @@
 		to_chat(usr, span_warning("cannot convert into a new_player mob type."))
 		return
 
-	if (SEND_SIGNAL(src, COMSIG_PRE_MOB_CHANGED_TYPE) & COMPONENT_BLOCK_MOB_CHANGE)
+	if(SEND_SIGNAL(src, COMSIG_PRE_MOB_CHANGED_TYPE) & COMPONENT_BLOCK_MOB_CHANGE)
 		return
 
 	var/mob/M
