@@ -169,7 +169,7 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 
 	var/special_role = "None"
 	var/assigned_role = "None"
-	var/karma_diary = wrap_file("[GLOB.log_directory]/karma.log")
+	var/karma_diary = WRAP_FILE("[GLOB.log_directory]/karma.log")
 	if(M.mind)
 		if(M.mind.special_role)
 			special_role = M.mind.special_role

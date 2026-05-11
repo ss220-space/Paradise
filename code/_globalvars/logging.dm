@@ -1,4 +1,5 @@
 // Everything in this file should be protected
+/// The directory in which ALL log files should be stored
 GLOBAL_VAR(log_directory)
 GLOBAL_PROTECT(log_directory)
 GLOBAL_VAR(world_game_log)
