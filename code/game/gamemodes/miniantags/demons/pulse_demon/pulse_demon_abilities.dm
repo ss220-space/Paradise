@@ -21,8 +21,9 @@
 	var/requires_area = FALSE
 	base_cooldown = 20 SECONDS
 
-/obj/effect/proc_holder/spell/pulse_demon/New()
+/obj/effect/proc_holder/spell/pulse_demon/Initialize(mapload)
 	. = ..()
+
 	update_info()
 
 /obj/effect/proc_holder/spell/pulse_demon/proc/update_info()
@@ -248,7 +249,7 @@
 	create_attack_logs = FALSE
 	var/base_message = "see messages you shouldn't!"
 
-/obj/effect/proc_holder/spell/pulse_demon/toggle/New(initstate = FALSE)
+/obj/effect/proc_holder/spell/pulse_demon/toggle/Initialize(mapload, initstate = FALSE)
 	. = ..()
 	do_toggle(initstate, null)
 

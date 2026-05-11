@@ -153,17 +153,27 @@
 		plane = old_plane
 
 		// Give the victim 10 seconds to respond
-		sleep(10 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(finish_optional_capture), user, M), 10 SECONDS)
+		return .
 
-		if(!opt_in)
-			to_chat(user, span_warning("The soul resists your attempts at capturing it!"))
-			return .
+	do_capture(user, M)
 
-		opt_in = FALSE
+/obj/item/soulstone/proc/finish_optional_capture(mob/living/user, mob/living/carbon/human/M)
+	if(QDELETED(src) || QDELETED(user) || QDELETED(M))
+		return
 
-		if(spent)//checking one more time against shenanigans
-			return .
+	if(!opt_in)
+		to_chat(user, span_warning("The soul resists your attempts at capturing it!"))
+		return
 
+	opt_in = FALSE
+
+	if(spent)
+		return
+
+	do_capture(user, M)
+
+/obj/item/soulstone/proc/do_capture(mob/living/user, mob/living/carbon/human/M)
 	if(is_sacrifice_target(M.mind))
 		if(iscultist(user))
 			SSticker.mode.cult_objs.succesful_sacrifice()

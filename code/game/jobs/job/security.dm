@@ -56,6 +56,7 @@
 	implant_variant = /obj/item/organ/internal/cyberimp/eyes/hud/security
 
 /datum/job/security
+	abstract_type = /datum/job/security
 	department = STATION_DEPARTMENT_SECURITY
 	department_flag = JOBCAT_ENGSEC
 	is_security = 1

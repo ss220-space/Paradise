@@ -49,6 +49,7 @@
 	implants = list()
 
 /datum/job/service
+	abstract_type = /datum/job/service
 	department = STATION_DEPARTMENT_SERVICE
 	department_flag = JOBCAT_SUPPORT
 	is_service = 1
@@ -212,6 +213,8 @@
 
 /datum/outfit/job/clown/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_BANANIUM_SHIPMENTS))
+		backpack_contents[/obj/item/stack/sheet/mineral/bananium/fifty] = 1
 	if(H.gender == FEMALE)
 		mask = /obj/item/clothing/mask/gas/clown_hat/sexy
 		uniform = /obj/item/clothing/under/rank/clown/sexy
@@ -414,6 +417,8 @@
 
 /datum/outfit/job/mime/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_MIMANIUM_SHIPMENTS))
+		backpack_contents[/obj/item/stack/sheet/mineral/tranquillite/fifty] = 1
 	if(H.gender == FEMALE)
 		uniform = /obj/item/clothing/under/mimeskirt
 		mask = /obj/item/clothing/mask/gas/mime/sexy

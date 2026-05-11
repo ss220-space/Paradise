@@ -95,6 +95,9 @@
 		PREPOSITIONAL = "ксероксе \"Синдиката\"",
 	)
 
+/obj/machinery/photocopier/ComponentInitialize()
+	AddElement(/datum/element/elevation, pixel_shift = 8) //enough to look like your bums are on the machine.
+
 /obj/machinery/photocopier/Initialize(mapload)
 	. = ..()
 	forms = new
@@ -249,7 +252,7 @@
 		temp_img = icon('icons/obj/butts.dmi', "xeno")
 	else
 		return
-	var/obj/item/photo/p = new /obj/item/photo (loc)
+	var/obj/item/photo/p = new /obj/item/photo(loc)
 	if(scanning)
 		p.forceMove(src)
 	else if(folder)
@@ -715,7 +718,6 @@
 	playsound(loc, 'sound/machines/ping.ogg', 50, FALSE)
 	atom_say("Внимание: На стеклянной плаформе обнаружены ягодицы!", FALSE)
 	SStgui.update_uis(src)
-	return TRUE
 
 /obj/machinery/photocopier/Destroy()
 	QDEL_LIST(saved_documents)

@@ -170,6 +170,11 @@
 	if(new_skin)
 		skin = new_skin
 	update_icon()
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_MEDBOT_MANIA) && is_station_level(z))
+		treatment_brute = "bicaridine"
+		treatment_fire = "kelotane"
+		treatment_oxy = "perfluorodecalin"
+		treatment_tox = "pen_acid"
 
 /mob/living/simple_animal/bot/medbot/bot_reset()
 	..()

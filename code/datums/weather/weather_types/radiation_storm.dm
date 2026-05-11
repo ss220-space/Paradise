@@ -10,7 +10,7 @@
 	weather_overlay = "ash_storm"
 	weather_duration_lower = 600
 	weather_color = "green"
-	weather_sound = 'sound/misc/bloblarm.ogg'
+	weather_sound = 'sound/announcer/bloblarm.ogg'
 
 	end_duration = 100
 	end_message = span_notice_alt("The air seems to be cooling off again.")

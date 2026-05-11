@@ -21,7 +21,6 @@
 	layer = TABLE_LAYER
 	pass_flags_self = PASSTABLE|LETPASSTHROW
 	can_astar_pass = CANASTARPASS_ALWAYS_PROC
-	climbable = TRUE
 	max_integrity = 100
 	integrity_failure = 30
 	smooth = SMOOTH_BITMASK
@@ -39,6 +38,10 @@
 	var/flipped = FALSE
 	/// Can this table be flipped?
 	var/can_be_flipped = TRUE
+
+/obj/structure/table/ComponentInitialize()
+	. = ..()
+	make_climbable()
 
 /obj/structure/table/Initialize(mapload)
 	. = ..()
@@ -93,9 +96,11 @@
 	new /obj/structure/table/reinforced/brass(loc)
 	qdel(src)
 
-/obj/structure/table/do_climb(mob/living/user)
-	. = ..()
-	item_placed(user)
+///Adds the element used to make the object climbable, and also the one that shift the mob buckled to it up.
+/obj/structure/table/proc/make_climbable()
+	AddElement(/datum/element/climb_walkable)
+	AddElement(/datum/element/climbable)
+	AddElement(/datum/element/elevation, pixel_shift = 12)
 
 /obj/structure/table/attack_hand(mob/living/user)
 	..()
@@ -156,7 +161,7 @@
 		return TRUE
 	return FALSE
 
-/obj/structure/table/proc/on_exit(datum/source, atom/movable/leaving, atom/newLoc)
+/obj/structure/table/proc/on_exit(datum/source, atom/movable/leaving, direction)
 	SIGNAL_HANDLER
 
 	if(leaving.movement_type & PHASING)
@@ -171,7 +176,7 @@
 	if(checkpass(leaving, PASSTABLE) || ((pass_flags_self & LETPASSTHROW) && leaving.throwing))
 		return
 
-	if(density && dir == get_dir(leaving, newLoc))
+	if(density && dir == direction)
 		leaving.Bump(src)
 		return COMPONENT_ATOM_BLOCK_EXIT
 
@@ -209,20 +214,18 @@
 		return FALSE
 
 /obj/structure/table/mouse_drop_receive(obj/dropping, mob/user, params)
-	if(..())
-		return TRUE
 	if(!isitem(dropping) || user.get_active_hand() != dropping)
-		return FALSE
+		return ..()
 	if(isrobot(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		return FALSE
+		return
 	if(istype(dropping, /obj/item/storage/bag/tray)) // we don't put the tray on the table
-		return FALSE
+		return
 	if(!user.drop_item_ground(dropping))
-		return FALSE
+		return
 	if(dropping.loc != loc)
 		add_fingerprint(user)
 		step(dropping, get_dir(dropping, src))
-		return TRUE
+		return
 
 /obj/structure/table/proc/tablepush(mob/living/victim, mob/user)
 	if(HAS_TRAIT(user, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
@@ -357,12 +360,15 @@
 			return
 
 		user.visible_message(span_warning("[DECLENT_RU_CAP(user, NOMINATIVE)] переворачивает [declent_ru(ACCUSATIVE)]!"))
-
-		if(climbable)
+		if(HAS_TRAIT(src, TRAIT_CLIMBABLE))
 			structure_shaken()
+		RemoveElement(/datum/element/climb_walkable)
+		RemoveElement(/datum/element/climbable)
+		RemoveElement(/datum/element/elevation, pixel_shift = 12)
 	else
 		if(!unflip())
 			to_chat(user, span_notice("Никак не поддаётся."))
+		make_climbable()
 
 /obj/structure/table/proc/flip(direction, throw_around = TRUE)
 	if(flipped)
@@ -377,7 +383,6 @@
 			if(thing.anchored)
 				continue
 			INVOKE_ASYNC(thing, TYPE_PROC_REF(/atom/movable, throw_at), pick(targets), 1, 1)
-
 	dir = direction
 	if(dir != NORTH)
 		layer = 5

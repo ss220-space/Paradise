@@ -10,7 +10,7 @@
 	icon_state = "crossbow"
 	item_state = "crossbow-solid"
 	fire_sound = 'sound/weapons/grenadelaunch.ogg'
-	fire_delay = 25
+	fire_delay = 2.5 SECONDS
 
 	valid_projectile_type = /obj/item/arrow
 
@@ -166,8 +166,8 @@
 
 	to_chat(usr, span_notice("You set the draw tension to <b>[choice]</b>."))
 
-/obj/item/gun/throw/crossbow/process_fire(atom/target, mob/living/user, message = TRUE, list/modifiers, zone_override, bonus_spread = 0)
-	..()
+/obj/item/gun/throw/crossbow/process_fire(zone_override, secondary_fire = FALSE)
+	. = ..()
 	tension = 0
 	update_icon()
 

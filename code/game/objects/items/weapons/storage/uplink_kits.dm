@@ -913,6 +913,48 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/ammo_box/magazine/m10mm(src)
 	new /obj/item/ammo_box/magazine/m10mm(src)
 
+/obj/item/storage/box/syndie_kit/kedr_kit
+	name = "smg K-45 kit"
+	desc = "Коробка, содержащая пистолет-пулемет K-45, глушитель и четыре дополнительных магазина."
+
+/obj/item/storage/box/syndie_kit/kedr_kit/get_ru_names()
+	return list(
+		NOMINATIVE = "набор пистолета-пулемета K-45",
+		GENITIVE = "набора пистолета-пулемета K-45",
+		DATIVE = "набору пистолета-пулемета K-45",
+		ACCUSATIVE = "набор пистолета-пулемета K-45",
+		INSTRUMENTAL = "набором пистолета-пулемета K-45",
+		PREPOSITIONAL = "наборе пистолета-пулемета K-45",
+	)
+
+/obj/item/storage/box/syndie_kit/kedr_kit/populate_contents()
+	new	/obj/item/gun/projectile/automatic/smg/kedr(src)
+	new /obj/item/gun_module/muzzle/suppressor(src)
+	new /obj/item/ammo_box/magazine/kedr(src)
+	new /obj/item/ammo_box/magazine/kedr(src)
+	new /obj/item/ammo_box/magazine/kedr(src)
+	new /obj/item/ammo_box/magazine/kedr(src)
+
+/obj/item/storage/box/syndie_kit/kedr_ammo
+	name = "ammunition for smg K-45"
+	desc = "Коробка, содержащая четыре заряженных магазина для пистолет-пулемет K-45."
+
+/obj/item/storage/box/syndie_kit/kedr_ammo/get_ru_names()
+	return list(
+		NOMINATIVE = "боеприпасы для пистолета-пулемета K-45",
+		GENITIVE = "боеприпасов для пистолета-пулемета K-45",
+		DATIVE = "боеприпасам для пистолета-пулемета K-45",
+		ACCUSATIVE = "боеприпасы для пистолета-пулемета K-45",
+		INSTRUMENTAL = "боеприпасами для пистолета-пулемета K-45",
+		PREPOSITIONAL = "боеприпасах для пистолета-пулемета K-45",
+	)
+
+/obj/item/storage/box/syndie_kit/kedr_ammo/populate_contents()
+	new /obj/item/ammo_box/magazine/kedr(src)
+	new /obj/item/ammo_box/magazine/kedr(src)
+	new /obj/item/ammo_box/magazine/kedr(src)
+	new /obj/item/ammo_box/magazine/kedr(src)
+
 /obj/item/storage/box/syndie_kit/agent_base_kit
 	name = "agent base kit"
 	desc = "Набор, содержащий минимальный комплект снаряжения для выполнения задач."

@@ -46,6 +46,7 @@
 	buckle_lying = 0
 	can_buckle = TRUE
 	max_integrity = 250
+	buckle_lying = 180
 
 /obj/structure/kitchenspike/Destroy()
 	unbuckle_all_mobs(force = TRUE)
@@ -125,25 +126,13 @@
 	if(ishuman(target))
 		target.add_splatter_floor()
 	target.adjustBruteLoss(30)
-	target.setDir(SOUTH)
-	var/matrix/m180 = matrix(target.transform)
-	m180.Turn(180)
-	animate(target, transform = m180, time = 0.3 SECONDS)
-	if(ismonkey(target))
-		target.pixel_x = target.base_pixel_x
-		target.pixel_y = target.base_pixel_y + PIXEL_Y_OFFSET_LYING + 3
-	else
-		target.pixel_x = target.base_pixel_x
-		target.pixel_y = target.base_pixel_y + PIXEL_Y_OFFSET_LYING
+	target.add_offsets(type, x_add = -1)
+	target.set_lying_angle(buckle_lying)
 
 /obj/structure/kitchenspike/post_unbuckle_mob(mob/living/target)
 	target.adjustBruteLoss(30)
 	target.emote("scream")
-	var/matrix/m180 = matrix(target.transform)
-	m180.Turn(180)
-	animate(target, transform = m180, time = 0.3 SECONDS)
-	target.pixel_x = target.base_pixel_x + target.body_position_pixel_x_offset
-	target.pixel_y = target.base_pixel_y + target.body_position_pixel_y_offset
+	target.remove_offsets(type)
 	target.AdjustWeakened(20 SECONDS)
 
 /obj/structure/kitchenspike/deconstruct(disassembled = TRUE)

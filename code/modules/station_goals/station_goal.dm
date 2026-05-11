@@ -32,7 +32,7 @@
 	GLOB.minor_announcement.announce(
 		message = "Поступила приоритетная директива \"Нанотрейзен\". Отправлены подробности проекта \"[html_decode(name)]\".",
 		new_title = ANNOUNCE_PRIORITY_RU,
-		new_sound = 'sound/AI/commandreport.ogg'
+		new_sound = SSstation.announcer.get_rand_report_sound(),
 	)
 	print_command_report("<div style='text-align:center;'><img src = ntlogo.png>" + "<h3>[directive]</h3></div><hr>" + get_report(), "[directive]", FALSE, src)
 

@@ -146,7 +146,7 @@
 		ammo_type[i] = shot
 	shot = ammo_type[select]
 	fire_sound = shot.fire_sound
-	fire_delay = shot.delay
+	set_fire_delay(shot.delay)
 
 /obj/item/gun/energy/Destroy()
 	if(selfcharge)
@@ -209,8 +209,8 @@
 	chambered = null //either way, released the prepared shot
 	newshot()
 
-/obj/item/gun/energy/process_fire(atom/target, mob/living/user, message = TRUE, list/modifiers, zone_override, bonus_spread = 0)
-	if(!chambered && can_shoot(user))
+/obj/item/gun/energy/process_fire(zone_override, secondary_fire = FALSE)
+	if(!chambered && can_shoot(gun_user))
 		process_chamber()
 	return ..()
 
@@ -224,7 +224,7 @@
 			select = 1
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 	fire_sound = shot.fire_sound
-	fire_delay = shot.delay
+	set_fire_delay(shot.delay)
 	if(!isnull(user) && (shot.select_name || shot.fluff_select_name))
 		var/static/gun_modes_ru = list(//about 2/3 of them will never be shown in game, but better save, than sorry
 			"practice" = "режим практики",

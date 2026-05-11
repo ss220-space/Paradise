@@ -30,19 +30,18 @@
 		return
 	if(occupant)
 		to_chat(user, span_notice("[src] is already occupied."))
-		return TRUE //occupied
+		return //occupied
 	if(target.buckled)
 		return
 	if(target.has_buckled_mobs()) //mob attached to us
 		to_chat(user, span_warning("[target] will not fit into [src] because [target.p_they()] [target.p_have()] a slime latched onto [target.p_their()] head."))
-		return TRUE
+		return
 	visible_message("[user] puts [target] into the [src].")
 
 	target.forceMove(src)
 	occupant = target
 	update_icon(UPDATE_ICON_STATE)
 	add_fingerprint(user)
-	return TRUE
 
 /obj/machinery/abductor/experiment/attack_hand(mob/user)
 	if(..())

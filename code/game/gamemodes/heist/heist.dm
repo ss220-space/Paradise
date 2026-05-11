@@ -280,8 +280,9 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 	icon_state = "tcstation"
 	anchored = TRUE
 
-/obj/machinery/vox_win_button/New()
+/obj/machinery/vox_win_button/Initialize(mapload)
 	. = ..()
+	
 	add_overlay(icon('icons/obj/machines/computer.dmi', "syndie"))
 
 /obj/machinery/vox_win_button/attack_hand(mob/user)

@@ -8,6 +8,9 @@
 	open_sound = 'sound/machines/wooden_closet_open.ogg'
 	close_sound = 'sound/machines/wooden_closet_close.ogg'
 	open_sound_volume = 25
+	ignore_shoves = TRUE
+	elevation = 21
+	elevation_open = 0
 	var/already_opened = TRUE
 	var/content_mob = null
 	var/amount = 1
@@ -61,9 +64,6 @@
 	update_air()
 	..()
 	return TRUE
-
-/obj/structure/closet/crate/critter/shove_impact(mob/living/target, mob/living/attacker)
-	return FALSE
 
 /obj/structure/closet/crate/critter/corgi
 	name = "dog corgi crate"

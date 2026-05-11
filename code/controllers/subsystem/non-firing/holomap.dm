@@ -13,8 +13,10 @@
 
 SUBSYSTEM_DEF(holomaps)
 	name = "Holomaps"
-	init_order = INIT_ORDER_HOLOMAP
-	flags = SS_NO_FIRE
+	dependencies = list(
+		/datum/controller/subsystem/mapping,
+	)
+	ss_flags = SS_NO_FIRE
 
 	var/static/list/valid_map_indexes = list()
 	var/static/list/holomaps = list()
@@ -25,7 +27,7 @@ SUBSYSTEM_DEF(holomaps)
 	var/static/list/list/holomap_position_to_name = list()
 
 /datum/controller/subsystem/holomaps/Recover()
-	flags |= SS_NO_INIT // Make extra sure we don't initialize twice.
+	ss_flags |= SS_NO_INIT // Make extra sure we don't initialize twice.
 
 /datum/controller/subsystem/holomaps/Initialize(timeofday)
 	if(generate_holomaps())

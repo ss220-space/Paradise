@@ -21,10 +21,11 @@
 SUBSYSTEM_DEF(addition_goals)
 	name = "Addition Goals"
 	wait = 1 SECONDS
-	init_order = INIT_ORDER_CARGO_QUESTS
-	flags = SS_KEEP_TIMING
-	offline_implications = "Addition goals will no longer function."
-	ss_id = "addition_goals"
+	dependencies = list(
+		/datum/controller/subsystem/shuttle,
+	)
+	ss_flags = SS_KEEP_TIMING
+
 	var/goal_state = AGS_STATE_NOT_STARTED
 	//goals stuff
 	var/list/goal_types = list()

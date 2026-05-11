@@ -200,42 +200,41 @@
 		storage_master.attempt_insert(item)
 	return TRUE
 
-/atom/movable/screen/storage/mouse_drop_receive(obj/item/I, mob/user, params)
-	if(!user || !master || !istype(I) || user.incapacitated(IGNORE_RESTRAINTS|IGNORE_GRAB) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || ismecha(user.loc))
-		return FALSE
+/atom/movable/screen/storage/mouse_drop_receive(obj/item/dropped, mob/user, params)
+	if(!user || !master || !istype(dropped) || user.incapacitated(IGNORE_RESTRAINTS|IGNORE_GRAB) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || ismecha(user.loc))
+		return
 
 	if(is_ventcrawling(user))
-		return FALSE
+		return
 
 	var/obj/item/storage/S = master
 	if(!S)
-		return FALSE
+		return
 
-	if(I in S.contents) // If the item is already in the storage, move them to the end of the list
-		if(S.contents[length(S.contents)] == I) // No point moving them at the end if they're already there!
-			return FALSE
+	if(dropped in S.contents) // If the item is already in the storage, move them to the end of the list
+		if(S.contents[length(S.contents)] == dropped) // No point moving them at the end if they're already there!
+			return
 
 		var/list/new_contents = S.contents.Copy()
 		if(S.display_contents_with_number)
-			// Basically move all occurences of I to the end of the list.
+			// Basically move all occurences of dropped to the end of the list.
 			var/list/obj/item/to_append = list()
 			for(var/obj/item/stored_item in S.contents)
-				if(S.can_items_stack(stored_item, I))
+				if(S.can_items_stack(stored_item, dropped))
 					new_contents -= stored_item
 					to_append += stored_item
 
 			new_contents.Add(to_append)
 		else
-			new_contents -= I
-			new_contents += I // oof
+			new_contents -= dropped
+			new_contents += dropped // oof
 		S.contents = new_contents
 
 		if(user.s_active == S)
 			S.orient2hud(user)
 			S.show_to(user)
 	else // If it's not in the storage, try putting it inside
-		S.attempt_insert(I)
-	return TRUE
+		S.attempt_insert(dropped)
 
 /atom/movable/screen/storage/space_box
 	screen_loc = "7,7 to 10,8"
@@ -513,42 +512,42 @@
 
 	return TRUE
 
-/atom/movable/screen/inventory/mouse_drop_receive(obj/item/I, mob/user, params)
-	if(!user || !istype(I) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || ismecha(user.loc) || is_ventcrawling(user))
-		return FALSE
+/atom/movable/screen/inventory/mouse_drop_receive(obj/item/dropped, mob/user, params)
+	if(!user || !istype(dropped) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || ismecha(user.loc) || is_ventcrawling(user))
+		return
 
-	if(isalien(user) && !I.allowed_for_alien())	// We need to do this here
-		return FALSE
+	if(isalien(user) && !dropped.allowed_for_alien())	// We need to do this here
+		return
 
-	if(!in_range(get_turf(I), get_turf(user)))
-		return FALSE
+	if(!in_range(get_turf(dropped), get_turf(user)))
+		return
 
 	if(!hud?.mymob || !slot_id)
-		return FALSE
+		return
 
 	if(hud.mymob != user)
-		return FALSE
+		return
 
 	if(!(slot_id & ITEM_SLOT_HANDS))
-		return FALSE
+		return
 
-	if(I.loc == user)
-		if(I.equip_delay_self > 0 && !user.is_general_slot(user.get_slot_by_item(I)))
+	if(dropped.loc == user)
+		if(dropped.equip_delay_self > 0 && !user.is_general_slot(user.get_slot_by_item(dropped)))
 			user.visible_message(
-				span_notice("[user] начина[PLUR_ET_UT(user)] снимать [I.declent_ru(ACCUSATIVE)]..."),
-				span_notice("Вы начинаете снимать [I.declent_ru(ACCUSATIVE)]..."),
+				span_notice("[user] начина[PLUR_ET_UT(user)] снимать [dropped.declent_ru(ACCUSATIVE)]..."),
+				span_notice("Вы начинаете снимать [dropped.declent_ru(ACCUSATIVE)]..."),
 			)
-			if(!do_after(user, I.equip_delay_self, user, timed_action_flags = (DA_IGNORE_LYING|DA_IGNORE_USER_LOC_CHANGE), max_interact_count = 1, cancel_on_max = TRUE, cancel_message = span_warning("Снятие [I.declent_ru(GENITIVE)] было прервано!")))
-				return FALSE
+			if(!do_after(user, dropped.equip_delay_self, user, timed_action_flags = (DA_IGNORE_LYING|DA_IGNORE_USER_LOC_CHANGE), max_interact_count = 1, cancel_on_max = TRUE, cancel_message = span_warning("Снятие [dropped.declent_ru(GENITIVE)] было прервано!")))
+				return
 
-		if(!user.drop_item_ground(I))
-			return FALSE
+		if(!user.drop_item_ground(dropped))
+			return
 
-	if((slot_id == ITEM_SLOT_HAND_LEFT && !user.put_in_l_hand(I, ignore_anim = FALSE)) || \
-		(slot_id == ITEM_SLOT_HAND_RIGHT && !user.put_in_r_hand(I, ignore_anim = FALSE)))
-		return FALSE
+	if((slot_id == ITEM_SLOT_HAND_LEFT && !user.put_in_l_hand(dropped, ignore_anim = FALSE)) || \
+		(slot_id == ITEM_SLOT_HAND_RIGHT && !user.put_in_r_hand(dropped, ignore_anim = FALSE)))
+		return
 
-	I.pickup(user)
+	dropped.pickup(user)
 
 /atom/movable/screen/inventory/hand
 	//interaction_flags_atom = NONE //so dragging objects into hands icon don't skip adjacency & other checks

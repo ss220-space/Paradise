@@ -6,7 +6,7 @@ import {
   Stack,
   Table,
   Tooltip,
-} from 'tgui/components';
+} from '../../components';
 
 import { useBackend } from '../../backend';
 import { SORTING_TYPES } from './contants';

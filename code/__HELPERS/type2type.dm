@@ -150,12 +150,13 @@
 
 	return NONE
 
+GLOBAL_LIST_INIT(modulo_angle_to_dir, list(NORTH, NORTHEAST, EAST, SOUTHEAST, SOUTH, SOUTHWEST, WEST, NORTHWEST))
 /// Converts an angle (degrees) into an ss13 direction
-GLOBAL_LIST_INIT(modulo_angle_to_dir, list(NORTH,NORTHEAST,EAST,SOUTHEAST,SOUTH,SOUTHWEST,WEST,NORTHWEST))
-#define angle2dir(X) (GLOB.modulo_angle_to_dir[round((((X%360)+382.5)%360)/45)+1])
+#define angle2dir(X) (GLOB.modulo_angle_to_dir[round((((X % 360) + 382.5) % 360) / 45) + 1])
 
-/proc/angle2dir_cardinal(angle)
-	switch(round(angle, 0.1))
+/proc/angle2dir_cardinal(degree)
+	degree = SIMPLIFY_DEGREES(degree)
+	switch(round(degree, 0.1))
 		if(315.5 to 360, 0 to 45.5)
 			return NORTH
 		if(45.6 to 135.5)
@@ -577,6 +578,9 @@ GLOBAL_LIST_INIT(modulo_angle_to_dir, list(NORTH,NORTHEAST,EAST,SOUTHEAST,SOUTH,
 			return "Звуки взаимодействия с предметами"
 		if(CHANNEL_BOSS_MUSIC)
 			return "Музыка боссов"
+		if(CHANNEL_ANNOUNCER)
+			return "Станционные оповещения"
+
 
 ///Get the dir to the RIGHT of dir if they were on a clock
 ///NORTH --> NORTHEAST
@@ -667,3 +671,22 @@ GLOBAL_LIST_INIT(modulo_angle_to_dir, list(NORTH,NORTHEAST,EAST,SOUTHEAST,SOUTH,
 			return list(-1, -1)
 		else
 			return list(0, 0)
+
+/**
+ * # WARNING!
+ * Using a matrix like this as a color value will simplify it back to a string after being set.
+ */
+/proc/color_hex2color_matrix(string)
+	var/length = length(string)
+	if((length != 7 && length != 9) || length != length_char(string))
+		return COLOR_MATRIX_IDENTITY
+	// For runtime safety
+	. = COLOR_MATRIX_IDENTITY
+	var/list/color = rgb2num(string)
+	var/red = color[1] / 255
+	var/green = color[2] / 255
+	var/blue = color[3] / 255
+	var/alpha = 1
+	if(length(color) == 4)
+		alpha = color[4] / 255
+	return list(red,0,0,0, 0,green,0,0, 0,0,blue,0, 0,0,0,alpha, 0,0,0,0)

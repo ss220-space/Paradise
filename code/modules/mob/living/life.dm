@@ -11,7 +11,6 @@
 
 	if(!loc)
 		return FALSE
-	INVOKE_ASYNC(src, PROC_REF(burst_blob_in_mob))
 
 	if(stat != DEAD)
 		//Chemicals in the body

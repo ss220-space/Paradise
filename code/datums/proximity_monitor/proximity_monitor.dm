@@ -8,8 +8,8 @@
 	var/atom/hasprox_receiver
 	/// The range of the proximity monitor. Things moving wihin it will trigger HasProximity calls.
 	var/current_range = 1
-	/// If we don't check turfs in range if the host's loc isn't a turf
-	var/ignore_if_not_on_turf
+	/// Whether this monitor checks turfs in range when it's loc isn't a turf (inside closet for example)
+	var/works_when_not_on_turf
 	/// The signals of the connect range component, needed to monitor the turfs in range.
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
@@ -17,8 +17,8 @@
 		COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZED_ON = PROC_REF(on_initialized),
 	)
 
-/datum/proximity_monitor/New(atom/_host, range, _ignore_if_not_on_turf = TRUE)
-	ignore_if_not_on_turf = _ignore_if_not_on_turf
+/datum/proximity_monitor/New(atom/_host, range, works_when_not_on_turf = FALSE)
+	src.works_when_not_on_turf = works_when_not_on_turf
 	if(range)
 		current_range = range
 	set_host(_host)
@@ -65,7 +65,7 @@
 	current_range = range
 
 	// If the connect_range component exists already, this will just update its range. No errors or duplicates.
-	AddComponent(/datum/component/connect_range, host, loc_connections, range, !ignore_if_not_on_turf)
+	AddComponent(/datum/component/connect_range, host, loc_connections, range, works_when_not_on_turf)
 
 /datum/proximity_monitor/proc/on_moved(atom/movable/source, atom/old_loc)
 	SIGNAL_HANDLER
@@ -78,12 +78,12 @@
 
 	return
 
-/datum/proximity_monitor/proc/set_ignore_if_not_on_turf(does_ignore = TRUE)
-	if(ignore_if_not_on_turf == does_ignore)
+/datum/proximity_monitor/proc/set_works_when_not_on_turf(does_work = FALSE)
+	if(works_when_not_on_turf == does_work)
 		return
-	ignore_if_not_on_turf = does_ignore
-	// Update the ignore_if_not_on_turf
-	AddComponent(/datum/component/connect_range, host, loc_connections, current_range, ignore_if_not_on_turf)
+	works_when_not_on_turf = does_work
+	// Update the works_when_not_on_turf
+	AddComponent(/datum/component/connect_range, host, loc_connections, current_range, works_when_not_on_turf)
 
 /datum/proximity_monitor/proc/on_uncrossed()
 	SIGNAL_HANDLER
