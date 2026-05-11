@@ -550,7 +550,7 @@
 	mob_name = "Ship Officer"
 	id = /obj/item/card/id/away/old/sec
 	uniform = /obj/item/clothing/under/retro/security
-	belt = /obj/item/clothing/accessory/holster/gun/
+	belt = /obj/item/clothing/accessory/holster/gun
 	suit = /obj/item/clothing/suit/armor/vest/security
 	shoes = /obj/item/clothing/shoes/jackboots
 	head = /obj/item/clothing/head/helmet
