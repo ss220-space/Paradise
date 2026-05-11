@@ -166,8 +166,10 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 /obj/structure/window/rpd_act(mob/user, obj/item/rpd/our_rpd, mode)
 	return
 
-/obj/structure/window/singularity_pull(S, current_size)
+/obj/structure/window/singularity_pull(atom/singularity, current_size)
 	..()
+	if(anchored && current_size >= STAGE_TWO)
+		set_anchored(FALSE)
 	if(current_size >= STAGE_FIVE)
 		deconstruct(FALSE)
 

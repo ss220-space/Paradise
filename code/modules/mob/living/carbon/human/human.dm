@@ -1525,25 +1525,28 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 	return threatcount
 
+// Overrides the point value that the mob is worth
 /mob/living/carbon/human/singularity_act()
 	. = 20
-	if(mind)
-		if((mind.assigned_role == JOB_TITLE_ENGINEER) || (mind.assigned_role == JOB_TITLE_CHIEF_ENGINEER))
+	switch(mind?.assigned_role)
+		if(JOB_TITLE_ENGINEER, JOB_TITLE_CHIEF_ENGINEER)
 			. = 100
-		if(mind.assigned_role == JOB_TITLE_ENGINEER_TRAINEE)	//Чем глупее, тем вкуснее
+		if(JOB_TITLE_ENGINEER_TRAINEE) // The stupider, the tastier
 			. = 300
-		if(mind.assigned_role == JOB_TITLE_CLOWN)
+		if(JOB_TITLE_CLOWN)
 			. = rand(-1000, 1000)
-	..() //Called afterwards because getting the mind after getting gibbed is sketchy
+	..() // Called afterwards because getting the mind after getting gibbed is sketchy
 
-/mob/living/carbon/human/singularity_pull(S, current_size)
+/mob/living/carbon/human/singularity_pull(atom/singularity, current_size)
 	..()
-	if(current_size >= STAGE_THREE)
-		var/list/handlist = list(l_hand, r_hand)
-		for(var/obj/item/hand_item in handlist)
-			if(prob(current_size * 5) && hand_item.w_class >= ((11-current_size)/2)	&& drop_item_ground(hand_item))
-				step_towards(hand_item, src)
-				to_chat(src, span_warning("[S] вырывает [hand_item.declent_ru(ACCUSATIVE)] из вашей хватки!"))
+	if(current_size < STAGE_THREE)
+		return
+	var/list/handlist = list(l_hand, r_hand)
+	for(var/obj/item/hand_item in handlist)
+		if(!prob(current_size * 5) || hand_item.w_class < ((11 - current_size) / 2) || !drop_item_ground(hand_item))
+			continue
+		step_towards(hand_item, src)
+		to_chat(src, span_warning("[singularity.declent_ru(NOMINATIVE)] вырывает [hand_item.declent_ru(ACCUSATIVE)] из вашей хватки!"))
 
 /mob/living/carbon/human/narsie_act(obj/god/narsie)
 	if(iswizard(src) && iscultist(src)) //Wizard cultists are immune to narsie because it would prematurely end the wiz round that's about to end by the automated shuttle call anyway

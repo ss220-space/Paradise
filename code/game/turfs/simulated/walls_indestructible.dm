@@ -24,7 +24,7 @@
 /turf/simulated/wall/indestructible/singularity_act()
 	return
 
-/turf/simulated/wall/indestructible/singularity_pull(S, current_size)
+/turf/simulated/wall/indestructible/singularity_pull(atom/singularity, current_size)
 	return
 
 /turf/simulated/wall/indestructible/narsie_act()

@@ -11,7 +11,7 @@ GLOBAL_LIST_EMPTY(bump_teleporters)
 
 /obj/effect/bump_teleporter/Initialize(mapload)
 	. = ..()
-	
+
 	GLOB.bump_teleporters += src
 
 /obj/effect/bump_teleporter/Destroy()
@@ -21,7 +21,7 @@ GLOBAL_LIST_EMPTY(bump_teleporters)
 /obj/effect/bump_teleporter/singularity_act()
 	return
 
-/obj/effect/bump_teleporter/singularity_pull()
+/obj/effect/bump_teleporter/singularity_pull(atom/singularity, current_size)
 	return
 
 /obj/effect/bump_teleporter/Bumped(atom/movable/moving_atom)

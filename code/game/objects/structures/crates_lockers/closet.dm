@@ -738,7 +738,7 @@ GLOBAL_LIST_EMPTY(closets)
 
 /obj/structure/closet/singularity_act()
 	dump_contents()
-	..()
+	return ..()
 
 /obj/structure/closet/AllowDrop()
 	return TRUE

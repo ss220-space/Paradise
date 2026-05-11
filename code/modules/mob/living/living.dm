@@ -1331,11 +1331,12 @@
 	return HEARING_PROTECTION_NONE
 
 /mob/living/singularity_act()
-	investigate_log("([key_name_log(src)]) has been consumed by the singularity.", INVESTIGATE_ENGINE) //Oh that's where the clown ended up!
+	investigate_log("has been consumed by the singularity.", INVESTIGATE_ENGINE) //Oh that's where the clown ended up!
+	investigate_log("has been gibbed by the singularity.", INVESTIGATE_DEATHS)
 	gib()
 	return 20
 
-/mob/living/singularity_pull(singularity, current_size)
+/mob/living/singularity_pull(atom/singularity, current_size)
 	..()
 	if(move_resist == INFINITY)
 		return

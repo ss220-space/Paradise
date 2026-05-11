@@ -42,7 +42,7 @@
 
 /// Checks if we are allowed to be in `here_turf`, and returns that result. Subtypes should override this when necessary.
 /obj/effect/decal/proc/never_should_have_come_here(turf/here_turf)
-	return iswallturf(here_turf) || ismineralturf(here_turf) || (isgroundlessturf(here_turf) && !GET_TURF_BELOW(here_turf))
+	return isclosedturf(here_turf) || (isgroundlessturf(here_turf) && !GET_TURF_BELOW(here_turf))
 
 /obj/effect/decal/proc/on_decal_move(turf/changed, path, list/new_baseturfs, flags, list/post_change_callbacks)
 	SIGNAL_HANDLER
