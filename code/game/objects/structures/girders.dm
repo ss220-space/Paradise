@@ -232,7 +232,7 @@
 		var/obj/item/stack/sheet/plasteel/plasteel = sheet
 		switch(state)
 			if(GIRDER_DISPLACED)
-				if(plasteel.get_amount() < 4)
+				if(plasteel.get_amount() < 2)
 					to_chat(user, span_warning("You need at least two sheets of plasteel to create a false wall!"))
 					return .
 				to_chat(user, span_notice("You start building a false wall..."))
@@ -246,7 +246,7 @@
 				return ATTACK_CHAIN_BLOCKED_ALL
 
 			if(GIRDER_REINF)
-				if(plasteel.get_amount() < 2)
+				if(plasteel.get_amount() < 1)
 					to_chat(user, span_warning("You need at least two sheets of plasteel to finalize the reinforced wall!"))
 					return .
 				to_chat(user, span_notice("You start finalizing the reinforced wall..."))
@@ -261,7 +261,7 @@
 				return ATTACK_CHAIN_BLOCKED_ALL
 
 			else
-				if(plasteel.get_amount() < 2)
+				if(plasteel.get_amount() < 1)
 					to_chat(user, span_warning("You need at least two sheets of plasteel to reinforce the girder!"))
 					return .
 				to_chat(user, span_notice("You start reinforcing the girder..."))
