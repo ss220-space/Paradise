@@ -247,7 +247,7 @@
 
 			if(GIRDER_REINF)
 				if(plasteel.get_amount() < 1)
-					to_chat(user, span_warning("You need at least two sheets of plasteel to finalize the reinforced wall!"))
+					to_chat(user, span_warning("You need at least one sheet of plasteel to finalize the reinforced wall!"))
 					return .
 				to_chat(user, span_notice("You start finalizing the reinforced wall..."))
 				if(!do_after(user, 2 SECONDS * plasteel.toolspeed, src, category = DA_CAT_TOOL) || state != GIRDER_REINF || !isfloorturf(loc) || QDELETED(plasteel) || !plasteel.use(1))
@@ -262,7 +262,7 @@
 
 			else
 				if(plasteel.get_amount() < 1)
-					to_chat(user, span_warning("You need at least two sheets of plasteel to reinforce the girder!"))
+					to_chat(user, span_warning("You need at least one sheet of plasteel to reinforce the girder!"))
 					return .
 				to_chat(user, span_notice("You start reinforcing the girder..."))
 				if(!do_after(user, 6 SECONDS * plasteel.toolspeed, src, category = DA_CAT_TOOL) || state == GIRDER_DISPLACED || state == GIRDER_REINF || QDELETED(plasteel) || !plasteel.use(1))
