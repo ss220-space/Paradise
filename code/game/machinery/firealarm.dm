@@ -22,6 +22,7 @@ GLOBAL_LIST_EMPTY(firealarms)
 	power_channel = ENVIRON
 	resistance_flags = FIRE_PROOF
 	cares_about_temperature = TRUE
+	mouse_over_pointer = MOUSE_HAND_POINTER
 
 	var/buildstage = FIRE_ALARM_READY
 	var/wiresexposed = FALSE

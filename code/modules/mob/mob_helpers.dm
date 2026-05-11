@@ -489,35 +489,38 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 			to_chat(M, span_deadsay("[follow][lname][message]"))
 
 /proc/notify_ghosts(message, ghost_sound = null, enter_link = null, title = null, atom/source = null, image/alert_overlay = null, flashwindow = TRUE, action = NOTIFY_JUMP) //Easy notification of ghosts.
-	for(var/mob/dead/observer/O in GLOB.player_list)
-		if(O.client)
-			to_chat(O, span_ghostalert("[message][(enter_link) ? " [enter_link]" : ""]"))
+	for(var/mob/dead/observer/ghost in GLOB.player_list)
+		if(ghost.client)
+			to_chat(ghost, span_ghostalert("[message][(enter_link) ? " [enter_link]" : ""]"))
 			if(ghost_sound)
-				SEND_SOUND(O, sound(ghost_sound))
+				SEND_SOUND(ghost, sound(ghost_sound))
 			if(flashwindow)
-				window_flash(O.client)
+				window_flash(ghost.client)
 			if(source)
-				var/atom/movable/screen/alert/notify_action/A = O.throw_alert("[source.UID()]_notify_action", /atom/movable/screen/alert/notify_action)
-				if(A)
-					if(O.client.prefs && O.client.prefs.UI_style)
-						A.icon = ui_style2icon(O.client.prefs.UI_style)
+				var/atom/movable/screen/alert/notify_action/toast = ghost.throw_alert(
+					category = "[source.UID()]_notify_action",
+					type = /atom/movable/screen/alert/notify_action,
+				)
+				if(toast)
+					if(ghost.client.prefs && ghost.client.prefs.UI_style)
+						toast.icon = ui_style2icon(ghost.client.prefs.UI_style)
 					if(title)
-						A.name = title
-					A.desc = message
-					A.action = action
-					A.target = source
+						toast.name = title
+					toast.desc = message
+					toast.action = action
+					toast.target_ref = WEAKREF(source)
 					if(!alert_overlay)
 						var/old_layer = source.layer
 						var/old_plane = source.plane
 						source.layer = FLOAT_LAYER
 						source.plane = FLOAT_PLANE
-						A.add_overlay(source)
+						toast.add_overlay(source)
 						source.layer = old_layer
 						source.plane = old_plane
 					else
 						alert_overlay.layer = FLOAT_LAYER
 						alert_overlay.plane = FLOAT_PLANE
-						A.add_overlay(alert_overlay)
+						toast.add_overlay(alert_overlay)
 
 /**
  * Checks if a mob's ghost can reenter their body or not. Used to check for DNR or AntagHUD.

@@ -1,4 +1,5 @@
-/mob/Destroy()//This makes sure that mobs with clients/keys are not just deleted from the game.
+// This makes sure that mobs with clients/keys are not just deleted from the game.
+/mob/Destroy()
 	persistent_client?.set_mob(null)
 	remove_from_mob_list()
 	remove_from_alive_mob_list()
@@ -15,8 +16,14 @@
 		spellremove(src)
 	mobspellremove(src)
 	QDEL_LIST(diseases)
+
+	if(length(progressbars))
+		stack_trace("[src] destroyed with elements in its progressbars list")
+		progressbars = null
+
 	for(var/alert in alerts)
-		clear_alert(alert)
+		clear_alert(alert, TRUE)
+
 	if(client)
 		clear_client_in_contents()
 	ghostize()

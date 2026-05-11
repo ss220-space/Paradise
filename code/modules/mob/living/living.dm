@@ -777,6 +777,8 @@
 	return
 
 /mob/living/proc/revive()
+	if(QDELETED(src))
+		return FALSE
 	rejuvenate()
 	if(iscarbon(src))
 		var/mob/living/carbon/C = src
