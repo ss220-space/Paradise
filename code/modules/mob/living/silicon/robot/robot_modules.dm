@@ -215,7 +215,7 @@
 
 /obj/item/robot_module/standard/respawn_consumable(mob/living/silicon/robot/R)
 	var/obj/item/reagent_containers/spray/cleaner/C = locate() in modules
-	C.reagents.add_reagent("cleaner", 3)
+	C.reagents.add_reagent(/datum/reagent/space_cleaner, 3)
 	..()
 
 /obj/item/robot_module/medical
@@ -318,6 +318,10 @@
 	return
 
 /obj/item/robot_module/medical/respawn_consumable(mob/living/silicon/robot/R)
+	if(emag)
+		var/obj/item/reagent_containers/spray/PS = emag
+		PS.reagents.add_reagent("sacid", 2)
+
 	..()
 
 /obj/item/robot_module/engineering
@@ -534,7 +538,7 @@
 
 /obj/item/robot_module/janitor/respawn_consumable(mob/living/silicon/robot/R)
 	var/obj/item/reagent_containers/spray/cleaner/drone/C = locate() in modules
-	C.reagents.add_reagent("cleaner", 4)
+	C.reagents.add_reagent(/datum/reagent/space_cleaner, 4)
 	..()
 
 /obj/item/robot_module/butler
@@ -1080,7 +1084,7 @@
 
 /obj/item/robot_module/drone/respawn_consumable(mob/living/silicon/robot/R)
 	var/obj/item/reagent_containers/spray/cleaner/C = locate() in modules
-	C.reagents.add_reagent("cleaner", 3)
+	C.reagents.add_reagent(/datum/reagent/space_cleaner, 3)
 	..()
 
 /obj/item/robot_module/drone/handle_death(mob/living/silicon/robot/R, gibbed)
