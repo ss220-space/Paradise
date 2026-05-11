@@ -444,7 +444,7 @@
 
 /datum/status_effect/fleshmend/tick(seconds_between_ticks)
 	if(LAZYLEN(active_instances) >= 1)
-		var/heal_amount = (length(active_instances) / cling.tolerance) * (freezing ? 2 : 10)
+		var/heal_amount = (length(active_instances) / cling.tolerance) * (freezing ? 2 : 5)
 		var/blood_restore = 30 * length(active_instances)
 		var/update = NONE
 

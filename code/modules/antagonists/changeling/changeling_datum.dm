@@ -254,7 +254,7 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	if(h_owner.has_status_effect(STATUS_EFFECT_FLESHMEND))
 		tolerance = max(tolerance - 0.2, 1)
 	else
-		tolerance = max(tolerance - 0.2, 0)
+		tolerance = max(tolerance - 0.1, 0)
 
 /**
  * Signal proc for [COMSIG_MOB_MIDDLECLICKON](not yet) and [COMSIG_MOB_ALTCLICKON].
