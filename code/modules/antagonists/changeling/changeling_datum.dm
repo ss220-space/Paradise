@@ -252,9 +252,9 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 		genetic_damage = max(0, genetic_damage - CLING_GENETIC_DAMAGE_REDUCTION)
 
 	if(h_owner.has_status_effect(STATUS_EFFECT_FLESHMEND))
-		tolerance = max(tolerance - 0.2, 1)
+		tolerance = max(tolerance - 0.1, 1)
 	else
-		tolerance = max(tolerance - 0.1, 0)
+		tolerance = max(tolerance - 0.15, 0)
 
 /**
  * Signal proc for [COMSIG_MOB_MIDDLECLICKON](not yet) and [COMSIG_MOB_ALTCLICKON].

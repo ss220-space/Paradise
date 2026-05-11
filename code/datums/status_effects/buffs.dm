@@ -434,13 +434,14 @@
 	cling = owner?.mind?.has_antag_datum(/datum/antagonist/changeling)
 	freezing = (owner.bodytemperature + 50 <= owner.dna.species.body_temperature)
 
-	cling.tolerance += 1
 	active_instances += instance_duration
-
-	if(freezing || cling.tolerance > 1)
+	if(freezing || cling.tolerance >= 0)
 		owner.balloon_alert(owner, "эффективность регенерации снижена")
+		cling.tolerance += 1.5
 	else
 		owner.balloon_alert(owner, "быстрая регенерация плоти")
+		cling.tolerance += 1
+
 
 /datum/status_effect/fleshmend/tick(seconds_between_ticks)
 	if(LAZYLEN(active_instances) >= 1)
@@ -450,6 +451,7 @@
 
 		update |= owner.heal_overall_damage(heal_amount, heal_amount, updating_health = FALSE)
 		update |= owner.heal_damage_type(heal_amount, OXY, FALSE)
+		owner.balloon_alert(owner, "[heal_amount] - [cling.tolerance]")
 
 		if(update)
 			owner.updatehealth("fleshmend")
