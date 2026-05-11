@@ -9,7 +9,7 @@
 /turf/simulated/wall,
 /area/mimeoffice)
 "d" = (
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/structure/plasticflaps,
 /obj/machinery/navbeacon{
 	codes_txt = "delivery;dir=2";
@@ -111,7 +111,7 @@
 	},
 /area/clownoffice)
 "o" = (
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/machinery/door/window/eastright{
 	name = "Mime Delivery";
 	req_access = list(46);
@@ -218,7 +218,7 @@
 /turf/simulated/floor/plating,
 /area/mimeoffice)
 "B" = (
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/structure/plasticflaps,
 /obj/machinery/navbeacon{
 	codes_txt = "delivery;dir=2";
@@ -322,7 +322,7 @@
 	},
 /area/clownoffice)
 "J" = (
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/machinery/door/window/eastright{
 	name = "Clown Delivery";
 	req_access = list(46)

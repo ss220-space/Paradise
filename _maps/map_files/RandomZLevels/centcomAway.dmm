@@ -442,7 +442,9 @@
 	},
 /area/awaymission/centcom_away/hangar)
 "bk" = (
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/simulated/floor/plating,
 /area/awaymission/centcom_away/hangar)
 "bl" = (
@@ -502,7 +504,7 @@
 	id_tag = "XCCHangar1";
 	name = "XCC Main Hangar"
 	},
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -1372,7 +1374,9 @@
 /area/awaymission/centcom_away/maint)
 "dV" = (
 /obj/structure/closet/crate,
-/obj/effect/decal/warning_stripes/northwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
 /turf/simulated/floor/plating,
 /area/awaymission/centcom_away/hangar)
 "dW" = (
@@ -1385,7 +1389,9 @@
 /turf/simulated/floor/plating,
 /area/awaymission/centcom_away/cafe)
 "dY" = (
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/awaymission/centcom_away/hangar)
 "dZ" = (
@@ -1488,7 +1494,9 @@
 /area/awaymission/centcom_away/cafe)
 "en" = (
 /obj/structure/closet/crate,
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /turf/simulated/floor/plating,
 /area/awaymission/centcom_away/hangar)
 "eo" = (
@@ -1584,17 +1592,23 @@
 /area/awaymission/centcom_away/cafe)
 "ez" = (
 /obj/structure/ore_box,
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /turf/simulated/floor/plating,
 /area/awaymission/centcom_away/hangar)
 "eA" = (
 /obj/structure/reagent_dispensers/watertank,
-/obj/effect/decal/warning_stripes/northwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
 /turf/simulated/floor/plating,
 /area/awaymission/centcom_away/cafe)
 "eB" = (
 /obj/machinery/shieldgen,
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/awaymission/centcom_away/cafe)
 "eC" = (
@@ -1619,7 +1633,9 @@
 	},
 /area/awaymission/centcom_away/hangar)
 "eE" = (
-/obj/effect/decal/warning_stripes/northeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
 /turf/simulated/floor/plating,
 /area/awaymission/centcom_away/cafe)
 "eF" = (
@@ -1647,7 +1663,9 @@
 /area/awaymission/centcom_away/hangar)
 "eL" = (
 /obj/structure/closet/crate,
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /turf/simulated/floor/plating,
 /area/awaymission/centcom_away/hangar)
 "eM" = (
@@ -1655,7 +1673,9 @@
 /turf/simulated/floor/shuttle,
 /area/awaymission/centcom_away/hangar)
 "eN" = (
-/obj/effect/decal/warning_stripes/southeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
 /turf/simulated/floor/plating,
 /area/awaymission/centcom_away/hangar)
 "eO" = (
@@ -1716,16 +1736,22 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/simulated/floor/plating,
 /area/awaymission/centcom_away/cafe)
 "eY" = (
 /obj/machinery/portable_atmospherics/canister/air,
-/obj/effect/decal/warning_stripes/southwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
 /turf/simulated/floor/plating,
 /area/awaymission/centcom_away/cafe)
 "eZ" = (
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /turf/simulated/floor/plating,
 /area/awaymission/centcom_away/cafe)
 "fa" = (
@@ -1744,7 +1770,9 @@
 /area/awaymission/centcom_away/hangar)
 "fd" = (
 /obj/machinery/portable_atmospherics/pump,
-/obj/effect/decal/warning_stripes/southeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
 /turf/simulated/floor/plating,
 /area/awaymission/centcom_away/cafe)
 "fe" = (
@@ -3314,7 +3342,9 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/effect/decal/warning_stripes/southwestcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/centcom_away/general)
 "ju" = (
@@ -3333,7 +3363,9 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/effect/decal/warning_stripes/southeastcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 2
+	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/centcom_away/general)
 "jx" = (
@@ -3361,7 +3393,9 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/centcom_away/general)
 "jB" = (
@@ -3371,7 +3405,9 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/centcom_away/general)
 "jC" = (
@@ -3415,7 +3451,9 @@
 	},
 /area/awaymission/centcom_away/hangar)
 "jJ" = (
-/obj/effect/decal/warning_stripes/northwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
 /turf/simulated/floor/plating,
 /area/awaymission/centcom_away/hangar)
 "jK" = (
@@ -3532,7 +3570,9 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/awaymission/centcom_away/hangar)
 "ka" = (
@@ -3614,7 +3654,9 @@
 	},
 /area/awaymission/centcom_away/courtroom)
 "kl" = (
-/obj/effect/decal/warning_stripes/northwestcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/centcom_away/general)
 "kn" = (
@@ -3729,7 +3771,9 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/effect/decal/warning_stripes/northeastcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/centcom_away/general)
 "kB" = (
@@ -4074,7 +4118,9 @@
 	pixel_y = 7;
 	req_access = list(2)
 	},
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/simulated/floor/plating,
 /area/awaymission/centcom_away/hangar)
 "lw" = (
@@ -4083,7 +4129,9 @@
 	pixel_x = -3;
 	pixel_y = -2
 	},
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/simulated/floor/plating,
 /area/awaymission/centcom_away/hangar)
 "lx" = (
@@ -4132,7 +4180,7 @@
 	id_tag = "XCCsec3";
 	name = "XCC Main Access Shutters"
 	},
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/awaymission/centcom_away/general)
 "lF" = (
@@ -4713,7 +4761,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/awaymission/centcom_away/general)
 "nd" = (
@@ -4746,11 +4794,11 @@
 	id_tag = "XCCMechs";
 	name = "XCC Mech Bay"
 	},
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/awaymission/centcom_away/hangar)
 "nh" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/awaymission/centcom_away/hangar)
 "ni" = (
@@ -4838,14 +4886,14 @@
 	id_tag = "XCCMechs";
 	name = "gravpult"
 	},
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/awaymission/centcom_away/hangar)
 "ns" = (
-/obj/effect/decal/warning_stripes/yellow/partial{
+/obj/effect/turf_decal/delivery/partial{
 	dir = 8
 	},
-/obj/effect/decal/warning_stripes/arrow{
+/obj/effect/turf_decal/arrows/black{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -5430,10 +5478,10 @@
 	},
 /area/awaymission/centcom_away/thunderdome)
 "oV" = (
-/obj/effect/decal/warning_stripes/arrow{
+/obj/effect/turf_decal/arrows/black{
 	dir = 8
 	},
-/obj/effect/decal/warning_stripes/yellow/partial{
+/obj/effect/turf_decal/delivery/partial{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -5535,7 +5583,7 @@
 	id_tag = "XCCFerry";
 	name = "XCC Ferry Hangar"
 	},
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -5679,7 +5727,7 @@
 	id_tag = "XCCsec1";
 	name = "XCC Checkpoint 1 Shutters"
 	},
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/awaymission/centcom_away/general)
 "pH" = (
@@ -5900,7 +5948,7 @@
 	id_tag = "XCCsec2";
 	name = "XCC Checkpoint 2 Shutters"
 	},
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/awaymission/centcom_away/general)
 "ql" = (
@@ -5911,11 +5959,13 @@
 	pixel_y = 7;
 	req_access = list(2)
 	},
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/simulated/floor/plating,
 /area/awaymission/centcom_away/hangar)
 "qm" = (
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/awaymission/centcom_away/general)
 "qn" = (
@@ -5923,7 +5973,7 @@
 	id_tag = "XCCtdomemelee";
 	name = "XCC Thunderdome Melee"
 	},
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -5933,7 +5983,7 @@
 	id_tag = "XCCtdome";
 	name = "XCC Thunderdome"
 	},
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -5943,14 +5993,16 @@
 	id_tag = "XCCtdomeguns";
 	name = "XCC Thunderdome Guns"
 	},
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/awaymission/centcom_away/thunderdome)
 "vS" = (
 /obj/structure/closet/crate/large,
-/obj/effect/decal/warning_stripes/northeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
 /turf/simulated/floor/plating,
 /area/awaymission/centcom_away/hangar)
 "yt" = (
@@ -5963,7 +6015,7 @@
 	},
 /area/awaymission/centcom_away/thunderdome)
 "JB" = (
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/machinery/tcomms/relay/ruskie{
 	network_id = "XCC-P5831-RELAY"
 	},
@@ -5971,7 +6023,9 @@
 /area/awaymission/centcom_away/general)
 "Mb" = (
 /obj/structure/closet/crate/large,
-/obj/effect/decal/warning_stripes/southwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
 /turf/simulated/floor/plating,
 /area/awaymission/centcom_away/hangar)
 "Yt" = (

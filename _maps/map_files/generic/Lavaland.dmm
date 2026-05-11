@@ -996,7 +996,7 @@
 /area/mine/living_quarters)
 "cX" = (
 /obj/structure/ore_box,
-/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/mine/production)
 "cY" = (
@@ -1010,7 +1010,7 @@
 /turf/simulated/floor/plasteel,
 /area/mine/production)
 "cZ" = (
-/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/mine/production)
 "da" = (
@@ -1132,7 +1132,7 @@
 /obj/structure/closet/crate{
 	icon_state = "crateopen"
 	},
-/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/mine/production)
 "dy" = (
@@ -6302,7 +6302,7 @@
 "JC" = (
 /obj/structure/closet/crate,
 /obj/machinery/alarm/directional/north,
-/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/mine/production)
 "JF" = (
@@ -6644,7 +6644,7 @@
 /obj/machinery/shower{
 	dir = 8
 	},
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "purplecorner"
 	},
