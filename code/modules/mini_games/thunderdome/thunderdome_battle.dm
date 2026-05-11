@@ -218,13 +218,14 @@ GLOBAL_VAR_INIT(tdome_arena_melee, locate(/area/tdome/newtdome/CQC))
 	persistent.respawn_locked = FALSE
 
 	var/mob/dead/observer/ghost = persistent.mob
-	if(istype(ghost))
+	if(!istype(ghost))
 		return
-		ghost.antagHUD = persistent.antaghud_enabled
 
-		if(persistent.respawn_eligible)
-			GLOB.respawnable_list |= ghost
-			ghost.can_reenter_corpse = TRUE
+	ghost.antagHUD = persistent.antaghud_enabled
+
+	if(persistent.respawn_eligible)
+		GLOB.respawnable_list |= ghost
+		ghost.can_reenter_corpse = TRUE
 
 /**
  * Invisible object which is responsible for rolling brawlers for fighting on thunderdome.
