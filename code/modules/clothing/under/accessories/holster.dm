@@ -14,10 +14,6 @@
 	var/sound_holster = 'sound/weapons/gun_interactions/1holster.ogg'
 	var/sound_unholster = 'sound/weapons/gun_interactions/1unholster.ogg'
 
-/obj/item/clothing/accessory/holster/gun/ComponentInitialize()
-	. = ..()
-	AddElement(/datum/element/item_skins)
-
 /obj/item/clothing/accessory/holster/Destroy()
 	for(var/obj/item/I in holstered)
 		if(I.loc == src)
@@ -163,6 +159,10 @@
 	holster.attack_self(usr)
 
 /obj/item/clothing/accessory/holster/gun
+
+/obj/item/clothing/accessory/holster/gun/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/item_skins)
 
 /obj/item/clothing/accessory/holster/knives
 	name = "knife holster"
