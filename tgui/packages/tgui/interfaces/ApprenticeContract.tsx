@@ -78,10 +78,7 @@ export const ApprenticeContract = (props) => {
                           </Button>
                         }
                       >
-                        <Box
-                          italic
-                          dangerouslySetInnerHTML={{ __html: school.desc }}
-                        />
+                        <Box italic>{school.desc}</Box>
                       </Section>
                     </Stack.Item>
                   ))}

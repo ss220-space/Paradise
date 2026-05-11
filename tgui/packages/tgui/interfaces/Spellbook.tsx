@@ -213,12 +213,7 @@ export const Spellbook = (props) => {
                             )}
                             <Stack.Item>
                               {spell.desc ? (
-                                <Box
-                                  italic
-                                  dangerouslySetInnerHTML={{
-                                    __html: spell.desc,
-                                  }}
-                                />
+                                <Box italic>{spell.desc}</Box>
                               ) : (
                                 <Box color="label" italic>
                                   No description.
