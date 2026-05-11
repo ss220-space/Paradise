@@ -450,7 +450,6 @@
 
 		update |= owner.heal_overall_damage(heal_amount, heal_amount, updating_health = FALSE)
 		update |= owner.heal_damage_type(heal_amount, OXY, FALSE)
-		owner.balloon_alert(owner, "heal_amount: [heal_amount], tolerance: [cling.tolerance]")
 
 		if(update)
 			owner.updatehealth("fleshmend")
