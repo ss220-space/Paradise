@@ -1279,7 +1279,7 @@
 	new /obj/item/ammo_box/speedloader/c38(src)
 	new /obj/item/ammo_box/speedloader/c38(src)
 	new /obj/item/gun/projectile/revolver/detective(src)
-	new /obj/item/clothing/accessory/holster/gun/(src)
+	new /obj/item/clothing/accessory/holster/gun(src)
 
 /obj/item/storage/box/hardmode_box
 	name = "box of HRD-MDE project box"
