@@ -238,7 +238,6 @@
 
 /atom/movable/screen/alert/aura_healing
 	name = "Исцеляющая аура"
-	icon_state = "template"
 	clickable_glow = TRUE
 	click_master = FALSE
 

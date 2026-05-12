@@ -194,7 +194,6 @@
 /atom/movable/screen/alert/take_item
 	name = "Взять предмет"
 	desc = "Вам хотят передать предмет!"
-	icon_state = "template"
 	timeout = 10 SECONDS
 	clickable_glow = TRUE
 	/// UID of the mob offering the receiver an item.

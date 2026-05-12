@@ -630,7 +630,6 @@
 /atom/movable/screen/alert/notify_cloning
 	name = "Реанимация"
 	desc = "Кто-то пытается вас реанимировать. Вернитесь в своё тело, если хотите возродиться!"
-	icon_state = "template"
 	timeout = 30 SECONDS
 	clickable_glow = TRUE
 
@@ -644,7 +643,6 @@
 /atom/movable/screen/alert/ghost
 	name = "Призрак"
 	desc = "Хотите стать призраком? Вы получите уведомление, когда ваше тело извлекут из гнезда."
-	icon_state = "template"
 	timeout = 5 MINUTES // longer than any infection should be
 	clickable_glow = TRUE
 
@@ -679,7 +677,6 @@
 /atom/movable/screen/alert/notify_action
 	name = "Тело создано"
 	desc = "Вы можете в него вселиться."
-	icon_state = "template"
 	timeout = 30 SECONDS
 	clickable_glow = TRUE
 	/// Weakref to the target atom to use the action on
@@ -801,7 +798,6 @@
 /atom/movable/screen/alert/notify_soulstone
 	name = "Камень душ"
 	desc = "Кто-то пытается заключить вашу душу в камень. Нажмите, чтобы согласиться."
-	icon_state = "template"
 	timeout = 10 SECONDS
 	clickable_glow = TRUE
 	var/obj/item/soulstone/stone = null
@@ -866,7 +862,6 @@
 	return living_owner.resist_buckle()
 
 /atom/movable/screen/alert/restrained
-	icon_state = "template"
 	clickable_glow = TRUE
 
 /atom/movable/screen/alert/restrained/handcuffed
