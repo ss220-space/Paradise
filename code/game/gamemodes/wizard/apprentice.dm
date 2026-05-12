@@ -1,12 +1,6 @@
-// ============================================================================
-// ============================================================================
-// PART 1: CORE LOGIC
-// ============================================================================
-// ============================================================================
+///////// MARK 1: CORE LOGIC //////////
 
-// ============================================================================
-// BLOCK 1.1: BASE CONTRACT & UI
-// ============================================================================
+// MARK: BLOCK 1.1: BASE CONTRACT & UI
 
 /obj/item/contract
 	name = "contract"
@@ -19,7 +13,6 @@
 	var/used = 0
 	var/infinity_uses = 0
 
-// TGUI CALL
 /obj/item/contract/attack_self(mob/user)
 	ui_interact(user)
 
@@ -51,9 +44,7 @@
 	return data
 
 
-// ============================================================================
-// BLOCK 1.2: APPRENTICE CONTRACT
-// ============================================================================
+// MARK: BLOCK 1.2: APPRENTICE CONTRACT 
 
 /obj/item/contract/apprentice
 	name = "apprentice contract"
@@ -68,76 +59,69 @@
 		to_chat(usr, "Вы даже не гуманоид... Вы не понимаете как этим пользоваться и что здесь написано.")
 		return FALSE
 
-	var/mob/living/carbon/human/teacher = usr
+	if(action != "choose_school")
+		return TRUE
 
-	if(action == "choose_school")
-		var/school_id = params["school"]
-		
-		if(used)
-			to_chat(teacher, span_notice("You already used this contract!"))
-			return TRUE
-			
-		if(!infinity_uses)
-			used = 1
-			
-		to_chat(teacher, span_notice("Apprentice waiting..."))
-		var/image/source = image('icons/obj/cardboard_cutout.dmi', "cutout_wizard")
-		var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as the wizard apprentice of [teacher.real_name]?", ROLE_WIZARD, TRUE, source = source)
-
-		if(QDELETED(teacher))
-			return TRUE
-
-		if(length(candidates))
-			var/mob/C = pick(candidates)
-			new /obj/effect/particle_effect/fluid/smoke(teacher.loc)
-			var/mob/living/carbon/human/apprentice = new/mob/living/carbon/human(teacher.loc)
-			apprentice.possess_by_player(C.key)
-
-			to_chat(apprentice, span_notice("You are the [teacher.real_name]'s apprentice!\nYou are bound by magic contract to follow [teacher.p_their()] orders and help [teacher.p_them()] in accomplishing their goals."))
-
-			var/list/href_list = list("school" = school_id)
-			school_href_choose(href_list, teacher, apprentice)
-
-			apprentice.equip_or_collect(new /obj/item/radio/headset(apprentice), ITEM_SLOT_EAR_LEFT)
-			apprentice.equip_or_collect(new /obj/item/clothing/under/color/lightpurple(apprentice), ITEM_SLOT_CLOTH_INNER)
-			apprentice.equip_or_collect(new /obj/item/clothing/shoes/sandal(apprentice), ITEM_SLOT_FEET)
-			apprentice.equip_or_collect(new /obj/item/clothing/suit/wizrobe(apprentice), ITEM_SLOT_CLOTH_OUTER)
-			apprentice.equip_or_collect(new /obj/item/clothing/head/wizard(apprentice), ITEM_SLOT_HEAD)
-			apprentice.equip_or_collect(new /obj/item/storage/backpack/satchel(apprentice), ITEM_SLOT_BACK)
-			apprentice.equip_or_collect(new /obj/item/storage/box/survival(apprentice), ITEM_SLOT_BACKPACK)
-			apprentice.equip_or_collect(new /obj/item/teleportation_scroll/apprentice(apprentice), ITEM_SLOT_POCKET_RIGHT)
-			
-			var/wizard_name_first = pick(GLOB.wizard_first)
-			var/wizard_name_second = pick(GLOB.wizard_second)
-			var/randomname = "[wizard_name_first] [wizard_name_second]"
-			var/newname = tgui_input_text(apprentice, "You are the wizard's apprentice.\nWould you like to change your name to something else?", "Name change", randomname, max_length = MAX_NAME_LEN)
-
-			if(!newname)
-				newname = randomname
-			apprentice.mind.name = newname
-			apprentice.real_name = newname
-			apprentice.name = newname
-			var/datum/objective/protect/new_objective = new /datum/objective/protect
-			new_objective.owner = apprentice.mind
-			new_objective:target = teacher.mind
-			new_objective.explanation_text = "Protect [teacher.real_name], the wizard teacher."
-			apprentice.mind.objectives += new_objective
-			SSticker.mode.apprentices += apprentice.mind
-			apprentice.mind.special_role = SPECIAL_ROLE_WIZARD_APPRENTICE
-			SSticker.mode.update_wiz_icons_added(apprentice.mind)
-			apprentice.faction = list("wizard")
-			log_game("[apprentice.key] has become [teacher]'s (ckey: [teacher.key]) apprentice.")
-		else
-			used = 0
-			log_game("[teacher] (ckey: [teacher.key]) has failed to spawn aprrentice.")
-			to_chat(teacher, span_warning("Unable to reach your apprentice!\nYou can either attack the spellbook with the contract to refund your points, or wait and try again later."))
-			
+	handle_choose_school(usr, params["school"])
 	return TRUE
 
+/obj/item/contract/apprentice/proc/handle_choose_school(mob/living/carbon/human/teacher, school_id)
+	if(used)
+		to_chat(teacher, span_notice("You already used this contract!"))
+		return
 
-// ============================================================================
-// BLOCK 1.3: APPRENTICE CHOOSE BOOK
-// ============================================================================
+	if(!infinity_uses)
+		used = 1
+
+	to_chat(teacher, span_notice("Apprentice waiting..."))
+	var/image/source = image('icons/obj/cardboard_cutout.dmi', "cutout_wizard")
+	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as the wizard apprentice of [teacher.real_name]?", ROLE_WIZARD, TRUE, source = source)
+
+	if(QDELETED(teacher))
+		return
+
+	if(length(candidates))
+		var/mob/candidate = pick(candidates)
+		new /obj/effect/particle_effect/fluid/smoke(teacher.loc)
+		var/mob/living/carbon/human/apprentice = new(teacher.loc)
+		apprentice.possess_by_player(candidate.key)
+		to_chat(apprentice, span_notice("You are the [teacher.real_name]'s apprentice!\nYou are bound by magic contract to follow [teacher.p_their()] orders and help [teacher.p_them()] in accomplishing their goals."))
+		var/list/href_list = list("school" = school_id)
+		school_href_choose(href_list, teacher, apprentice)
+		apprentice.equip_or_collect(new /obj/item/radio/headset(apprentice), ITEM_SLOT_EAR_LEFT)
+		apprentice.equip_or_collect(new /obj/item/clothing/under/color/lightpurple(apprentice), ITEM_SLOT_CLOTH_INNER)
+		apprentice.equip_or_collect(new /obj/item/clothing/shoes/sandal(apprentice), ITEM_SLOT_FEET)
+		apprentice.equip_or_collect(new /obj/item/clothing/suit/wizrobe(apprentice), ITEM_SLOT_CLOTH_OUTER)
+		apprentice.equip_or_collect(new /obj/item/clothing/head/wizard(apprentice), ITEM_SLOT_HEAD)
+		apprentice.equip_or_collect(new /obj/item/storage/backpack/satchel(apprentice), ITEM_SLOT_BACK)
+		apprentice.equip_or_collect(new /obj/item/storage/box/survival(apprentice), ITEM_SLOT_BACKPACK)
+		apprentice.equip_or_collect(new /obj/item/teleportation_scroll/apprentice(apprentice), ITEM_SLOT_POCKET_RIGHT)
+		var/wizard_name_first = pick(GLOB.wizard_first)
+		var/wizard_name_second = pick(GLOB.wizard_second)
+		var/randomname = "[wizard_name_first] [wizard_name_second]"
+		var/newname = tgui_input_text(apprentice, "You are the wizard's apprentice.\nWould you like to change your name to something else?", "Name change", randomname, max_length = MAX_NAME_LEN)
+		if(!newname)
+			newname = randomname
+		apprentice.mind.name = newname
+		apprentice.real_name = newname
+		apprentice.name = newname
+		var/datum/objective/protect/new_objective = new /datum/objective/protect
+		new_objective.owner = apprentice.mind
+		new_objective:target = teacher.mind
+		new_objective.explanation_text = "Protect [teacher.real_name], the wizard teacher."
+		apprentice.mind.objectives += new_objective
+		SSticker.mode.apprentices += apprentice.mind
+		apprentice.mind.special_role = SPECIAL_ROLE_WIZARD_APPRENTICE
+		SSticker.mode.update_wiz_icons_added(apprentice.mind)
+		apprentice.faction = list("wizard")
+		log_game("[apprentice.key] has become [teacher]'s (ckey: [teacher.key]) apprentice.")
+	else
+		used = 0
+		log_game("[teacher] (ckey: [teacher.key]) has failed to spawn aprrentice.")
+		to_chat(teacher, span_warning("Unable to reach your apprentice!\nYou can either attack the spellbook with the contract to refund your points, or wait and try again later."))
+
+
+// MARK: BLOCK 1.3: APPRENTICE CHOOSE BOOK
 
 /obj/item/contract/apprentice_choose_book
 	name = "магический учебник"
@@ -179,9 +163,7 @@
 	return TRUE
 
 
-// ============================================================================
-// BLOCK 1.4: SCHOOL APPLY LOGIC
-// ============================================================================
+// MARK: BLOCK 1.4: SCHOOL APPLY LOGIC
 
 /obj/item/contract/proc/school_href_choose(href_list, mob/living/carbon/human/teacher, mob/living/carbon/human/apprentice)
 	var/school_id = href_list["school"]
@@ -208,15 +190,9 @@
 	return 0
 
 
-// ============================================================================
-// ============================================================================
-// PART 2: CONTENT & DATA
-// ============================================================================
-// ============================================================================
+// MARK 2: CONTENT & DATA
 
-// ============================================================================
-// BLOCK 2.1: SCHOOL REGISTRY
-// ============================================================================
+// MARK: BLOCK 2.1: SCHOOL REGISTRY
 
 /datum/possible_schools
 	var/list/datum/schools_list = list (
@@ -238,9 +214,7 @@
 	)
 
 
-// ============================================================================
-// BLOCK 2.2: Magick Schools & GEAR
-// ============================================================================
+// MARK: BLOCK 2.2: Magick Schools & GEAR
 
 // --- SCHOOL OF HEALING ---
 /datum/magick_school/healer

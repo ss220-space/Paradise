@@ -1,12 +1,6 @@
-// ============================================================================
-// ============================================================================
-// PART 1: ENTRY 
-// ============================================================================
-// ============================================================================
+///////// MARK 1: ENTRY //////////
 
-// ============================================================================
-// BLOCK 1.1: SPELLBOOK BASE & PROCS
-// ============================================================================
+// MARK: BLOCK 1.1: SPELLBOOK BASE & PROCS
 
 /datum/spellbook_entry
 	var/name = "Entry Name"
@@ -18,7 +12,7 @@
 	var/refundable = TRUE
 	var/obj/effect/proc_holder/spell/S = null //Since spellbooks can be used by only one person anyway we can track the actual spell
 	var/buy_word = "Выучить"
-	var/limit  //used to prevent a spellbook_entry from being bought more than X times with one wizard spellbook
+	var/limit //used to prevent a spellbook_entry from being bought more than X times with one wizard spellbook
 
 /datum/spellbook_entry/proc/CanBuy(mob/living/carbon/human/user, obj/item/spellbook/book) // Specific circumstances
 	if(book.uses < cost || limit == 0)
@@ -33,7 +27,7 @@
 
 /datum/spellbook_entry/proc/LearnSpell(mob/living/carbon/human/user, obj/item/spellbook/book, obj/effect/proc_holder/spell/newspell)
 	for(var/obj/effect/proc_holder/spell/aspell as anything in user.mind.spell_list)
-		if(initial(newspell.name) == initial(aspell.name))  // Not using directly in case it was learned from one spellbook then upgraded in another
+		if(initial(newspell.name) == initial(aspell.name)) // Not using directly in case it was learned from one spellbook then upgraded in another
 			if(aspell.spell_level >= aspell.level_max)
 				to_chat(user, span_warning("This spell cannot be improved further."))
 				return FALSE
@@ -103,9 +97,7 @@
 	return dat
 
 
-// ============================================================================
-// BLOCK 1.2: SPELLS
-// ============================================================================
+// MARK: BLOCK 1.2: SPELLS
 
 // --- Offensive ---
 /datum/spellbook_entry/blind
@@ -337,9 +329,7 @@
 	cost = 1
 
 
-// ============================================================================
-// BLOCK 1.3: RITUALS & EVENTS
-// ============================================================================
+// MARK: BLOCK 1.3: RITUALS & EVENTS
 
 /datum/spellbook_entry/summon
 	name = "Summon Stuff"
@@ -403,9 +393,7 @@
 	return TRUE
 
 
-// ============================================================================
-// BLOCK 1.4: MAGICAL ITEMS
-// ============================================================================
+// MARK: BLOCK 1.4: MAGICAL ITEMS
 
 /datum/spellbook_entry/item
 	name = "Buy Item"
@@ -676,7 +664,7 @@
 	item_path = /obj/item/antag_spawner/pulse_demon
 	category = "Summons"
 	limit = 3
-	cost = 1  //Needs station power to live. Also can kill the wizard trivially in maints (get shock protection).
+	cost = 1 //Needs station power to live. Also can kill the wizard trivially in maints (get shock protection).
 
 /datum/spellbook_entry/item/mayhembottle
 	name = "Mayhem in a Bottle"
@@ -700,9 +688,7 @@
 	limit = 1
 
 
-// ============================================================================
-// BLOCK 1.5: LOADOUTS
-// ============================================================================
+// MARK: BLOCK 1.5: LOADOUTS
 
 /datum/spellbook_entry/loadout
 	name = "Standard Loadout"
@@ -747,15 +733,9 @@
 	return TRUE
 
 
-// ============================================================================
-// ============================================================================
-// PART 2: PHYSICAL SPELLBOOK ITEM
-// ============================================================================
-// ============================================================================
+///////// MARK 2: PHYSICAL SPELLBOOK ITEM //////////
 
-// ============================================================================
-// BLOCK 2.1: BASE ITEM & INITIALIZATION
-// ============================================================================
+// MARK: BLOCK 2.1: BASE ITEM & INITIALIZATION
 
 /obj/item/spellbook
 	name = "spell book"
@@ -821,9 +801,7 @@
 				"YOU DIDN'T THINK IT'D BE THAT EASY, DID YOU?")))
 
 
-// ============================================================================
-// BLOCK 2.2: ITEM/SPELL REFUND
-// ============================================================================
+// MARK: BLOCK 2.2: ITEM/SPELL REFUND
 
 /obj/item/spellbook/attackby(obj/item/I, mob/living/user, params)
 	if(user.a_intent == INTENT_HARM || skip_refunds)
@@ -900,9 +878,7 @@
 	ui_interact(user)
 
 
-// ============================================================================
-// BLOCK 2.3: TGUI
-// ============================================================================
+// MARK: BLOCK 2.3: TGUI
 
 /obj/item/spellbook/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -922,85 +898,90 @@
 
 	var/list/all_entries = list()
 	for(var/i in 1 to length(entries))
-		var/datum/spellbook_entry/E = entries[i]
+		var/datum/spellbook_entry/entry = entries[i]
 		var/list/entry_data = list()
 
-		entry_data["name"] = E.name
-		entry_data["category"] = E.category
-		entry_data["cost"] = E.cost
-		entry_data["buy_word"] = E.buy_word
-		entry_data["refundable"] = E.refundable
+		entry_data["name"] = entry.name
+		entry_data["category"] = entry.category
+		entry_data["cost"] = entry.cost
+		entry_data["buy_word"] = entry.buy_word
+		entry_data["refundable"] = entry.refundable
 		entry_data["index"] = i
 
-		entry_data["can_buy"] = E.CanBuy(user, src)
-		entry_data["can_refund"] = E.CanRefund(user, src)
+		entry_data["can_buy"] = entry.CanBuy(user, src)
+		entry_data["can_refund"] = entry.CanRefund(user, src)
 
-		if(E.spell_type)
-			if(!E.S)
-				E.S = new E.spell_type()
-			entry_data["desc"] = E.S.desc + E.desc
-			entry_data["cooldown"] = E.S.base_cooldown / 10
-			entry_data["clothes_req"] = E.S.clothes_req
+		if(entry.spell_type)
+			if(!entry.S)
+				entry.S = new entry.spell_type()
+			entry_data["desc"] = entry.S.desc + entry.desc
+			entry_data["cooldown"] = entry.S.base_cooldown / 10
+			entry_data["clothes_req"] = entry.S.clothes_req
 		else
-			entry_data["desc"] = E.desc
+			entry_data["desc"] = entry.desc
 			entry_data["cooldown"] = null
 			entry_data["clothes_req"] = null
 
-		if(istype(E, /datum/spellbook_entry/item))
-			var/datum/spellbook_entry/item/I = E
-			entry_data["item_path"] = "[I.item_path]"
+		if(istype(entry, /datum/spellbook_entry/item))
+			var/datum/spellbook_entry/item/item_entry = entry
+			entry_data["item_path"] = "[item_entry.item_path]"
 
 		all_entries += list(entry_data)
 
 	data["entries"] = all_entries
 	return data
 
+#define SPELLBOOK_ACTION_BUY "buy"
+#define SPELLBOOK_ACTION_REFUND "refund"
+
 /obj/item/spellbook/ui_act(action, list/params)
 	if(..())
 		return
-	
-	var/mob/living/carbon/human/H = usr
-	if(!ishuman(H) || !owner || H != owner)
+
+	var/mob/living/carbon/human/user = usr
+	if(!ishuman(user) || !owner || user != owner)
 		return
 
-	if(H.mind && H.mind.special_role == SPECIAL_ROLE_WIZARD_APPRENTICE)
-		to_chat(H, span_warning("If you got caught sneaking a peak from your teacher's spellbook, you'd likely be expelled from the Wizard Academy. Better not."))
+	if(user.mind && user.mind.special_role == SPECIAL_ROLE_WIZARD_APPRENTICE)
+		to_chat(user, span_warning("If you got caught sneaking a peak from your teacher's spellbook, you'd likely be expelled from the Wizard Academy. Better not."))
 		return
 
 	switch(action)
-		if("buy")
-			var/idx = text2num(params["index"])
-			if(idx && idx <= length(entries))
-				var/datum/spellbook_entry/E = entries[idx]
-				if(E && E.CanBuy(H, src))
-					if(E.Buy(H, src))
-						if(E.limit)
-							E.limit--
-						uses -= E.cost
-						. = TRUE 
+		if(SPELLBOOK_ACTION_BUY)
+			var/idx = params["index"]
+			if(!idx || idx > length(entries))
+				return
+			var/datum/spellbook_entry/entry = entries[idx]
+			if(!entry || !entry.CanBuy(user, src))
+				return
+			if(!entry.Buy(user, src))
+				return
+			if(entry.limit)
+				entry.limit--
+			uses -= entry.cost
+			. = TRUE
 
-		if("refund")
-			var/idx = text2num(params["index"])
-			if(idx && idx <= length(entries))
-				var/datum/spellbook_entry/E = entries[idx]
-				if(E && E.refundable)
-					var/result = E.Refund(H, src)
-					if(result > 0)
-						if(!isnull(E.limit))
-							E.limit += result
-						uses += result
-						. = TRUE 
+		if(SPELLBOOK_ACTION_REFUND)
+			var/idx = params["index"]
+			if(!idx || idx > length(entries))
+				return
+			var/datum/spellbook_entry/entry = entries[idx]
+			if(!entry || !entry.refundable)
+				return
+			var/result = entry.Refund(user, src)
+			if(result <= 0)
+				return
+			if(!isnull(entry.limit))
+				entry.limit += result
+			uses += result
+			. = TRUE
+			
+#undef SPELLBOOK_ACTION_BUY
+#undef SPELLBOOK_ACTION_REFUND
 
+// MARK 3: SINGLE USE SPELLBOOKS
 
-// ============================================================================
-// ============================================================================
-// PART 3: SINGLE USE SPELLBOOKS
-// ============================================================================
-// ============================================================================
-
-// ============================================================================
-// BLOCK 3.1: BASE CLASS & CORE LOGIC
-// ============================================================================
+// MARK: BLOCK 3.1: BASE CLASS & CORE LOGIC
 
 /obj/item/spellbook/oneuse
 	var/spell = /obj/effect/proc_holder/spell/projectile/magic_missile //just a placeholder to avoid runtimes if someone spawned the generic
@@ -1067,9 +1048,7 @@
 	user.visible_message(span_caution("[DECLENT_RU_CAP(src, NOMINATIVE)] на мгновение загорается чёрным светом!"))
 
 
-// ============================================================================
-// BLOCK 3.2: SPECIFIC ONEUSE BOOKS
-// ============================================================================
+// MARK: BLOCK 3.2: SPECIFIC ONEUSE BOOKS
 
 /obj/item/spellbook/oneuse/fireball
 	spell = /obj/effect/proc_holder/spell/fireball
@@ -1119,8 +1098,7 @@
 	icon_state = "bookmindswap"
 	item_state = "bookmindswap"
 	desc = "Обложка этой книги выглядит нетронутой, хотя её страницы выглядят изношенными и истрёпанными."
-
-var/mob/stored_swap = null  //Used in used book recoils to store an identity for mindswaps
+	var/mob/stored_swap = null  //Used in used book recoils to store an identity for mindswaps
 
 /obj/item/spellbook/oneuse/mindswap/get_ru_names_cached()
 	return get_ru_names()
@@ -1283,9 +1261,7 @@ var/mob/stored_swap = null  //Used in used book recoils to store an identity for
 	desc = "Глаз на обложке следит за вашим взглядом..."
 
 
-// ============================================================================
-// BLOCK 3.3: RANDOM BOOK
-// ============================================================================
+// MARK: BLOCK 3.3: RANDOM BOOK
 
 /obj/item/spellbook/oneuse/random
 	icon_state = "random_book"
