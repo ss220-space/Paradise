@@ -318,10 +318,6 @@
 	return
 
 /obj/item/robot_module/medical/respawn_consumable(mob/living/silicon/robot/R)
-	if(emag)
-		var/obj/item/reagent_containers/spray/PS = emag
-		PS.reagents.add_reagent("sacid", 2)
-
 	..()
 
 /obj/item/robot_module/engineering
