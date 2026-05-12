@@ -14,7 +14,7 @@
 
 	modifier = extra_params ? extra_params["modifier"] : 0
 	modifier = text2num(modifier)
-	modifier = clamp(modifier, -50, 50)
+	modifier = clamp(modifier, -95, 95)
 
 	var/datum/job/curr_job = subscriber.linked_job
 	var/base_paycheck = curr_job?.paycheck || 0

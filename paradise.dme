@@ -2669,6 +2669,7 @@
 #include "code\modules\economy\Accounts.dm"
 #include "code\modules\economy\Accounts_DB.dm"
 #include "code\modules\economy\ATM.dm"
+#include "code\modules\economy\BRG_Account.dm"
 #include "code\modules\economy\Economy_Events.dm"
 #include "code\modules\economy\Economy_Events_Mundane.dm"
 #include "code\modules\economy\Economy_TradeDestinations.dm"

@@ -299,7 +299,7 @@ const DetailedAccountInfo = (_properties) => {
             <LabeledList.Item label="Корректировка зарплаты">
               <Box>
                 Введите значение процента корректировки заработной платы
-                (диапазон: –50% … +50%).
+                (диапазон: –95% … +95%).
               </Box>
               <Stack>
                 <Stack.Item grow>
@@ -309,13 +309,13 @@ const DetailedAccountInfo = (_properties) => {
                       const num = parseInt(val, 10);
                       if (!isNaN(num)) {
                         setSelectedValue(
-                          String(Math.max(-50, Math.min(50, num)))
+                          String(Math.max(-95, Math.min(95, num)))
                         );
                       } else {
                         setSelectedValue(val);
                       }
                     }}
-                    placeholder="Введите процент (-50 до 50)..."
+                    placeholder="Введите процент (-95 до 95)..."
                     width="100%"
                   />
                 </Stack.Item>

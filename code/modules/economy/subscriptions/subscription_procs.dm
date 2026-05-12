@@ -1,10 +1,15 @@
 // ======================================================================================
 //								    Additional Tools
 // ======================================================================================
-/proc/find_subscription_with_type(subscriber_account_name, subscription_type)
-	for(var/datum/subscription/checked_sub as anything in GLOB.all_subscriptions)
-		if(checked_sub.subscription_type_path == subscription_type && checked_sub.subscriber_account.owner_name == subscriber_account_name)
-			return checked_sub
+/proc/find_subscription_with_type(datum/money_account/subscriber_account, subscription_type)
+	if(!subscriber_account || !subscriber_account.brg_profile)
+		return null
+
+	var/datum/brg_account/brg = subscriber_account.brg_profile
+	for(var/datum/subscription/sub as anything in brg.subscriptions)
+		if(sub.active && sub.subscription_type_path == subscription_type)
+			return sub
+	return null
 
 /proc/find_subscription_salary_modifier_spec(target_account_name, subscription_type)
 	for(var/datum/subscription/salary_modifier/sub in GLOB.all_subscriptions)
@@ -23,21 +28,29 @@
 )
 	validate_subscription_inputs(subscriber_account, subscription_type)
 
-	// Find a template in the catalog of available subscriptions
 	var/datum/subscription/template = locate(subscription_type) in GLOB.available_subscriptions
-
 	if(!template)
-		CRASH("Subscription type [subscription_type] not found in catalog - forgot to register it?")
+		CRASH("Subscription type [subscription_type] not found")
 
-	find_existhing(subscriber_account, subscription_type, template)
+	var/datum/subscription/existing = find_subscription_with_type(subscriber_account, subscription_type)
+
+	if(existing)
+		if(existing.active)
+			to_chat(usr, span_warning("У вас уже есть активная подписка '[template.subscription_name]'."))
+			return FALSE
+		existing.resub()
+		if(existing.active)
+			to_chat(usr, span_warning("Подписка восстановлена."))
+			return TRUE
+		return FALSE
 
 	var/datum/subscription/new_sub = new subscription_type(subscriber_account, extra_params)
 
 	if(!is_subscription(new_sub) || !new_sub.active)
-		to_chat(usr, span_warning("Критическая ошибка: не удалось создать или активировать подписку."))
+		to_chat(usr, span_warning("Ошибка создания подписки."))
 		return FALSE
 
-	to_chat(usr, span_good("Подписка '[new_sub.subscription_name]' успешно оформлена."))
+	to_chat(usr, span_good("Подписка '[new_sub.subscription_name]' оформлена."))
 	return TRUE
 
 /proc/find_existhing(datum/money_account/subscriber_account, subscription_type, datum/subscription/template)

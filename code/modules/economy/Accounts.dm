@@ -150,9 +150,11 @@ GLOBAL_DATUM(CC_account, /datum/money_account)
 
 	var/datum/job/linked_job = /datum/job
 	var/salary_payment_active = FALSE
+	var/datum/brg_account/brg_profile
 
 /datum/money_account/New()
 	..()
+	brg_profile = new /datum/brg_account(src)
 
 /datum/money_account/proc/addInsurancePoints(amount)
 	insurance += amount

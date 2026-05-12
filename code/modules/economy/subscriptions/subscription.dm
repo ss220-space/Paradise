@@ -49,12 +49,18 @@
 	cancel_reason = null
 	subscription_type_path = type
 
+	subscriber.brg_profile.add_subscription(src)
+	recipient_account.brg_profile.add_subscription(src)
+
 	// check that it is a subscription - template
 	if(!(subscriber_account == recipient_account))
 		GLOB.all_subscriptions += src
 		SSsubscriptions_subsystem.add_subscription(src)
 
 /datum/subscription/Destroy()
+	subscriber_account.brg_profile.remove_subscription(src)
+	recipient_account.brg_profile.remove_subscription(src)
+
 	set_subscriber_account(null)
 	set_recipient_account(null)
 	GLOB.all_subscriptions -= src
