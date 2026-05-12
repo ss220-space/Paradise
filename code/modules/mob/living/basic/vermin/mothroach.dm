@@ -63,6 +63,6 @@
 	)
 
 /mob/living/basic/mothroach/attack_hand(mob/living/carbon/human/M)
-	if(M.a_intent == INTENT_HELP)
+	if(M.a_intent == INTENT_GRAB)
 		get_scooped(M)
 	..()
