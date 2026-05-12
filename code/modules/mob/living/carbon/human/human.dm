@@ -250,7 +250,6 @@
 		var/datum/antagonist/changeling/cling = mind.has_antag_datum(/datum/antagonist/changeling)
 		if(cling)
 			status_tab_data[++status_tab_data.len] = list("Объём химикатов:", "[cling.chem_charges]/[cling.chem_storage]")
-			status_tab_data[++status_tab_data.len] = list("Дестабилизация генома:", "[cling.genetic_damage]")
 			status_tab_data[++status_tab_data.len] = list("ДНК поглощено:", "[cling.absorbed_count]")
 
 		var/datum/antagonist/vampire/vamp = mind.has_antag_datum(/datum/antagonist/vampire)

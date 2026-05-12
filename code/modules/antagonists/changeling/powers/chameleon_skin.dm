@@ -1,11 +1,10 @@
 /datum/action/changeling/chameleon_skin
 	name = "Кожа-Хамелеон"
-	desc = "Пигментация нашей кожи стремительно изменяется, чтобы сливаться с окружением. Дестабилизирует 10 генома."
+	desc = "Пигментация нашей кожи стремительно изменяется, чтобы сливаться с окружением."
 	helptext = "Позволяет становиться невидимым, если не двигаться пару секунд. Можно включать и выключать."
 	button_icon_state = "chameleon_skin"
 	power_type = CHANGELING_PURCHASABLE_POWER
 	dna_cost = 1
-	genetic_damage = 10
 	req_human = TRUE
 
 /datum/action/changeling/chameleon_skin/sting_action(mob/user)

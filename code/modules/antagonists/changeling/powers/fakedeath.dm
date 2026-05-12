@@ -6,9 +6,6 @@
 	req_dna = 1
 	req_stat = DEAD
 
-/**
- * Fake our own death and fully heal. You will appear to be dead but regenerate fully after a short delay.
- */
 /datum/action/changeling/fakedeath/sting_action(mob/living/user)
 	if(user.stat != DEAD)
 		cling.calculate_stasis_delay(user)

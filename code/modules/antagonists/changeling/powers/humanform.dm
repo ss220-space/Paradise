@@ -1,15 +1,9 @@
 /datum/action/changeling/humanform
 	name = "Гуманоидная форма"
-	desc = "Мы трансформируемся в гуманоида. Дестабилизирует 20 генома."
-	helptext = "Оставляет после себя лужу крови."
+	desc = "Мы трансформируемся в гуманоида."
 	button_icon_state = "human_form"
 	req_dna = 1
-	genetic_damage = 20
-	blood_on_castoff = TRUE
 
-/**
- * Transform into a human.
- */
 /datum/action/changeling/humanform/sting_action(mob/living/carbon/human/user)
 	if(HAS_TRAIT(user, TRAIT_NO_TRANSFORM))
 		return FALSE
@@ -19,10 +13,7 @@
 		return FALSE
 
 	// Notify players about transform.
-	user.visible_message(
-		span_warning("[user] трансформируется в гуманоида!"),
-		span_notice("Наш геном временно нестабилен."),
-	)
+	user.visible_message(span_warning("[user] трансформируется в гуманоида!"))
 	user.force_gene_block(GLOB.monkeyblock, FALSE)
 
 	if(istype(user))
@@ -41,4 +32,3 @@
 	Remove(user)
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return TRUE
-

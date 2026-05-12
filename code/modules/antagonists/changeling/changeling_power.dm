@@ -34,18 +34,10 @@ GLOBAL_LIST_INIT(changeling_mutations, list(
 	var/req_human = FALSE
 	/// What `stat` value the changeling needs to have to use this power. Will be CONSCIOUS, UNCONSCIOUS or DEAD.
 	var/req_stat = CONSCIOUS
-	/// Genetic damage caused by using the sting. Nothing to do with cloneloss.
-	var/genetic_damage = 0
-	/// Hard counter for spamming abilities.
-	var/max_genetic_damage = 100
-	// For passive abilities like hivemind that dont need a button
-	//var/needs_button = TRUE
 	/// If this power is active or not. Used for toggleable abilities.
 	var/active = FALSE
 	/// If this power can be used while the changeling has the `TRAIT_FAKE_DEATH` trait.
 	var/bypass_fake_death = FALSE
-	/// If this power used castoff blood.
-	var/blood_on_castoff = FALSE
 /**
  * Changeling code relies on on_purchase to grant powers.
  * The same goes for Remove(). if you override Remove(), call parent or else your power wont be removed on respec
@@ -86,10 +78,6 @@ GLOBAL_LIST_INIT(changeling_mutations, list(
 		sting_feedback(user, target)
 		take_chemical_cost()
 
-		if(blood_on_castoff)
-			user.add_splatter_floor()
-			playsound(user.loc, 'sound/effects/splat.ogg', 50, TRUE)
-
 /datum/action/changeling/proc/sting_action(mob/user)
 	return FALSE
 
@@ -98,7 +86,6 @@ GLOBAL_LIST_INIT(changeling_mutations, list(
 
 /datum/action/changeling/proc/take_chemical_cost()
 	cling.chem_charges -= chemical_cost
-	cling.genetic_damage += genetic_damage
 
 /**
  * Fairly important to remember to return `TRUE` on success >.<
@@ -120,10 +107,6 @@ GLOBAL_LIST_INIT(changeling_mutations, list(
 
 	if(req_stat < user.stat)
 		user.balloon_alert(user, "мы обездвижены")
-		return FALSE
-
-	if(cling.genetic_damage > max_genetic_damage)
-		user.balloon_alert(user, "геном ещё перестраивается")
 		return FALSE
 
 	if(HAS_TRAIT(user, TRAIT_FAKEDEATH) && !bypass_fake_death)

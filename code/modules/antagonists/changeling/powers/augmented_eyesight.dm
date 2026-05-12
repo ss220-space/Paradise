@@ -1,7 +1,3 @@
-/**
- * Augmented Eyesight: Gives you thermal and night vision - bye bye, flashlights. Also, high DNA cost because of how powerful it is.
- * Possible todo: make a custom message for directing a penlight/flashlight at the eyes - not sure what would display though.
- */
 /datum/action/changeling/augmented_eyesight
 	name = "Продвинутое зрение"
 	desc = "Создаёт тепловые рецепторы и светочувствительные мембраны в наших глазах."

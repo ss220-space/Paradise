@@ -4,12 +4,11 @@
 
 /datum/action/changeling/mimicvoice
 	name = "Подражание голоса"
-	desc = "Мы изменяем голосовые связки, чтобы звучать, как пожелаем. Дестабилизирует 5 генома."
+	desc = "Мы изменяем голосовые связки, чтобы звучать, как пожелаем."
 	helptext = "Напишите имя тела, которому хотите подражать."
 	button_icon_state = "mimic_voice"
 	power_type = CHANGELING_PURCHASABLE_POWER
 	dna_cost = 1
-	genetic_damage = 5
 	req_human = TRUE
 
 /datum/action/changeling/mimicvoice/sting_action(mob/user)

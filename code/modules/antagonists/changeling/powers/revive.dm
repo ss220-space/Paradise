@@ -3,6 +3,7 @@
 	desc = "Мы регенерировали, вылечив весь урон сосуду."
 	helptext = "Не рекомендуется использовать при свидетелях."
 	button_icon_state = "revive"
+	req_dna = 1
 	req_stat = DEAD
 	bypass_fake_death = TRUE
 

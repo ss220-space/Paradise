@@ -1,11 +1,11 @@
 /datum/action/changeling/chemical_synthesis
 	name = "Химический синтез"
-	desc = "Мы оптимизируем наши внутренние химические процессы для ускоренного производства реагентов."
-	helptext = "Постоянно увеличивает скорость химического синтеза на 2 химиката."
+	desc = "Мы оптимизируем наши внутренние химические процессы для ускоренного производства химикатов."
+	helptext = "Постоянно увеличивает скорость химического синтеза на 0.5 химикатов."
 	button_icon_state = "chemical_synthesis"
 	power_type = CHANGELING_PURCHASABLE_POWER
 	dna_cost = 2
-	var/recharge_bonus = 2
+	var/recharge_bonus = 0.5
 
 /datum/action/changeling/chemical_synthesis/on_purchase(mob/user)
 	. = ..()

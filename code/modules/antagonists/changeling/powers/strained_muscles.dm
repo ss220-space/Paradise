@@ -1,15 +1,10 @@
-/**
- * Strained Muscles: Temporary speed boost at the cost of rapid damage.
- * Limited because of hardsuits and such; ideally, used for a quick getaway.
- */
 /datum/action/changeling/strained_muscles
 	name = "Напряжение мышц"
-	desc = "Мы модифицируем мышцы ног, снижая накопление в них кислоты, что позволяет нам двигаться намного быстрее. Дестабилизирует 10 генома."
-	helptext = "Мы способны выдержать 20 секунд без вреда для химического синтеза. Можно использовать в низшей форме."
+	desc = "Мы модифицируем мышцы ног, снижая накопление в них кислоты, что позволяет нам двигаться намного быстрее. Требует 10 химикатов."
+	helptext = "Мы способны выдержать 10 секунд без вреда для химического синтеза. Можно использовать в низшей форме."
 	button_icon_state = "strained_muscles"
 	power_type = CHANGELING_PURCHASABLE_POWER
 	dna_cost = 1
-	genetic_damage = 10
 
 /datum/action/changeling/strained_muscles/Remove(mob/living/user)
 	user.remove_status_effect(STATUS_EFFECT_SPEEDLEGS)

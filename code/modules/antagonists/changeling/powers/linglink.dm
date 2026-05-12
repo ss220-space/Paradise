@@ -68,7 +68,7 @@
 				user.balloon_alert(user, "создаём связь...")
 				to_chat(target, span_userdanger("У вас начинается страшная мигрень, и вы слышите собственный крик, но ваш рот закрыт!"))
 
-		if(!do_after(user, 2 SECONDS, target, NONE) || !can_sting(user, TRUE))
+		if(!do_after(user, 6 SECONDS, target, NONE) || !can_sting(user, TRUE))
 			user.balloon_alert(user, "создание связи прервано")
 			cling?.is_linking = FALSE
 			return FALSE

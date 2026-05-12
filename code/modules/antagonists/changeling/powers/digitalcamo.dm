@@ -1,19 +1,15 @@
 /datum/action/changeling/digitalcamo
 	name = "Цифровой камуфляж"
-	desc = "Мы развиваем способность изменять свой силуэт, чтобы избегать поисковые алгоритмы камер. Можно использовать в низшей форме. Дестабилизирует 10 генома."
+	desc = "Мы развиваем способность изменять свой силуэт, чтобы избегать поисковые алгоритмы камер. Можно использовать в низшей форме."
 	helptext = "Нас нельзя отследить камерами, но при ближайшем рассмотрении можно заметить странности."
 	button_icon_state = "digital_camo"
 	power_type = CHANGELING_PURCHASABLE_POWER
 	dna_cost = 1
-	genetic_damage = 10
 
 /datum/action/changeling/digitalcamo/Remove(mob/user)
 	REMOVE_TRAIT(user, TRAIT_AI_UNTRACKABLE, CHANGELING_TRAIT)
 	..()
 
-/**
- * Prevents AIs tracking you but makes you easily detectable to the human-eye.
- */
 /datum/action/changeling/digitalcamo/sting_action(mob/user)
 	if(HAS_TRAIT_FROM(user, TRAIT_AI_UNTRACKABLE, CHANGELING_TRAIT))
 		REMOVE_TRAIT(user, TRAIT_AI_UNTRACKABLE, CHANGELING_TRAIT)

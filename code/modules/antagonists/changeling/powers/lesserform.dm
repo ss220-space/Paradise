@@ -1,17 +1,12 @@
 /datum/action/changeling/lesserform
 	name = "Низшая форма"
-	desc = "Мы трансформируемся в низшую форму. Дестабилизирует 20 генома."
-	helptext = "Мы уменьшаемся в размерах, что освободит нас от наручников, всей одежды и позволит лазить по вентиляции. Оставляет после себя лужу крови."
+	desc = "Мы трансформируемся в низшую форму."
+	helptext = "Мы уменьшаемся в размерах, что освободит нас от наручников, всей одежды и позволит лазить по вентиляции."
 	button_icon_state = "lesser_form"
 	power_type = CHANGELING_PURCHASABLE_POWER
 	dna_cost = 1
-	genetic_damage = 20
 	req_human = TRUE
-	blood_on_castoff = TRUE
 
-/**
- * Transform into a monka.
- */
 /datum/action/changeling/lesserform/sting_action(mob/living/carbon/human/user)
 	if(!istype(user))
 		return FALSE
@@ -27,10 +22,7 @@
 		user.balloon_alert(user, "неподходящая форма")
 		return FALSE
 
-	user.visible_message(
-		span_warning("[user] трансформируется в низшую форму!"),
-		span_notice("Наш геном временно нестабилен."),
-	)
+	user.visible_message(span_warning("[user] трансформируется в низшую форму!"))
 	remove_changeling_mutations(user)
 	user.force_gene_block(GLOB.monkeyblock, TRUE)
 

@@ -8,9 +8,6 @@
 	chemical_cost = 20
 	req_stat = UNCONSCIOUS
 
-/**
- * Heals the things that the other regenerative abilities don't.
- */
 /datum/action/changeling/panacea/sting_action(mob/living/user)
 	user.balloon_alert(user, "мы очищаем сосуд!")
 	var/mob/living/simple_animal/borer/borer = user.has_brain_worms()
@@ -19,7 +16,6 @@
 		if(iscarbon(user))
 			var/mob/living/carbon/c_user = user
 			c_user.fakevomit()
-			c_user.Stun(VOMIT_STUN_TIME)
 
 	if(iscarbon(user))
 		var/mob/living/carbon/c_user = user

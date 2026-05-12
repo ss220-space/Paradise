@@ -75,10 +75,12 @@
 		var/datum/antagonist/changeling/target_cling = target?.mind?.has_antag_datum(/datum/antagonist/changeling)
 		if(target_cling)//If the target was a changeling, suck out their extra juice and objective points!
 			cling.chem_charges += min(target_cling.chem_charges, cling.chem_storage)
+			cling.chem_storage += CLING_CHEM_STORAGE_STEAL
 			cling.absorbed_count += target_cling.absorbed_count
 
-			target_cling.absorbed_dna.len = 1
 			target_cling.absorbed_count = 0
+			target_cling.absorbed_dna.len = 1
+			target_cling.chem_storage -= CLING_CHEM_STORAGE_STEAL
 
 	cling.chem_charges = min(cling.chem_charges + 10, cling.chem_storage)
 

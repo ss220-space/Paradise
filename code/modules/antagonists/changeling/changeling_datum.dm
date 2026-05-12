@@ -39,15 +39,11 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	/// Amount of chemical recharge slowdown, calculated as `chem_recharge_rate - chem_recharge_slowdown`
 	var/chem_recharge_slowdown = 0
 	/// The total amount of chemicals able to be stored.
-	var/chem_storage = 60
+	var/chem_storage = 100
 	/// The range of changeling stings.
 	var/sting_range = 2
 	/// The changeling's identifier when speaking in the hivemind, i.e. "Mr. Delta 123".
 	var/changelingID = "Changeling"
-	/// The current amount of genetic damage incurred from power use.
-	var/genetic_damage = 0
-	/// This diminishes the healing of fleshmend the higher it is.
-	var/tolerance = 0
 	/// This variable is applied to default [CLING_FAKEDEATH_TIME]
 	var/fakedeath_delay = 0 SECONDS
 	/// If the changeling is in the process of absorbing someone.
@@ -245,16 +241,9 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 
 	if(h_owner.stat == DEAD)
 		chem_charges = clamp(0, chem_charges + chem_recharge_rate - chem_recharge_slowdown, chem_storage * 0.5)
-		genetic_damage = directional_bounded_sum(genetic_damage, - CLING_GENETIC_DAMAGE_REDUCTION, CLING_DEAD_GENETIC_DAMAGE_HEAL_CAP, 0)
 
-	else // Not dead? no chem/genetic_damage caps.
+	else // Not dead? no chem caps.
 		chem_charges = clamp(0, chem_charges + chem_recharge_rate - chem_recharge_slowdown, chem_storage)
-		genetic_damage = max(0, genetic_damage - CLING_GENETIC_DAMAGE_REDUCTION)
-
-	if(h_owner.has_status_effect(STATUS_EFFECT_FLESHMEND))
-		tolerance = max(tolerance - 0.1, 1)
-	else
-		tolerance = max(tolerance - 0.15, 0)
 
 /**
  * Signal proc for [COMSIG_MOB_MIDDLECLICKON](not yet) and [COMSIG_MOB_ALTCLICKON].
@@ -308,7 +297,6 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	chem_recharge_rate = initial(chem_recharge_rate)
 	chem_charges = min(chem_charges, chem_storage)
 	chem_recharge_slowdown = initial(chem_recharge_slowdown)
-	genetic_damage = initial(genetic_damage)
 	mimicking = ""
 	tts_mimicking = ""
 
@@ -555,12 +543,8 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
  * Additional stasis delay from different sources.
  */
 /datum/antagonist/changeling/proc/calculate_stasis_delay(mob/living/user)
-
 	if(QDELETED(src) || QDELETED(user) || !istype(user))
 		return
-
-	// 1 SECOND for each point of genetic damage.
-	fakedeath_delay = genetic_damage * 1 SECONDS
 
 	// 2 SECONDS for each fire stack.
 	if(user.on_fire)

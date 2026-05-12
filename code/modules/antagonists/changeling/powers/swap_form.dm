@@ -1,11 +1,11 @@
 /datum/action/changeling/swap_form
 	name = "Обмен сосудами"
-	desc = "Мы силой забираем чужой сосуд, перенося сознание из него в наш старый сосуд. Дестабилизирует 60 генома."
+	desc = "Мы силой забираем чужой сосуд, перенося сознание из него в наш старый сосуд. Требует 40 химикатов."
 	helptext = "Новый сосуд получит все наши способности, но мы потеряем ДНК оставленного сосуда взамен на ДНК нового. Для использования требуется душить жертву. Можно использовать в низшей форме."
 	button_icon_state = "mindswap"
 	power_type = CHANGELING_PURCHASABLE_POWER
 	dna_cost = 1
-	genetic_damage = 60
+	chemical_cost = 40
 
 /datum/action/changeling/swap_form/can_sting(mob/living/carbon/user)
 	if(!..())
@@ -74,11 +74,15 @@
 		user.possess_by_player(ghost.key)
 	qdel(ghost)
 
-	user.Paralyse(10 SECONDS)
 	user.regenerate_icons()
 
-	if(target.stat == DEAD && target.suiciding)  //If Target committed suicide, unset flag for User
-		target.suiciding = FALSE
+	if(target.stat == DEAD)
+		user.Paralyse(CLING_FAKEDEATH_TIME)
 
-	to_chat(target, span_warning("Наш геном временно нестабилен после смены оболочки [user] на [target]."))
+		if(target.suiciding) //If Target committed suicide, unset flag for User
+			target.suiciding = FALSE
+
+	else
+		user.Paralyse(10 SECONDS)
+
 	return TRUE

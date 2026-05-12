@@ -1,10 +1,9 @@
 /datum/action/changeling/transform
 	name = "Трансформация"
-	desc = "Мы принимаем облик и голос из поглощенных ДНК. Дестабилизирует 20 генома."
+	desc = "Мы принимаем облик и голос из поглощенных ДНК."
 	button_icon_state = "transform"
 	power_type = CHANGELING_INNATE_POWER
 	req_dna = 1
-	genetic_damage = 20
 	req_human = TRUE
 
 /datum/action/changeling/transform/sting_action(mob/living/carbon/human/user)

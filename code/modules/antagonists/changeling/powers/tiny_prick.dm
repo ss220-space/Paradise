@@ -92,6 +92,7 @@
 /**
  * Extract DNA Sting
  */
+
 /datum/action/changeling/sting/extract_dna
 	name = "Хоботок извлечения"
 	desc = "Мы скрытно уколем  жертву и украдём её ДНК."
@@ -114,17 +115,16 @@
 /**
  * Transformation Sting
  */
+
 /datum/action/changeling/sting/transformation
 	name = "Хоботок трансформации"
-	desc = "Мы скрытно уколем  гуманоида и введём ретровирус, который заставит жертву трансформироваться. Требует 50 химикатов, дестабилизирует 50 генома."
-	helptext = "Жертва трансформируется подобно нам. Последствия будут очевидны для жертвы. Нельзя использовать при дестаблизации 30 генома."
+	desc = "Мы скрытно уколем  гуманоида и введём ретровирус, который заставит жертву трансформироваться. Требует 50 химикатов."
+	helptext = "Жертва трансформируется подобно нам. Последствия будут очевидны для жертвы."
 	button_icon_state = "sting_transform"
 	sting_icon = "sting_transform"
 	power_type = CHANGELING_PURCHASABLE_POWER
 	dna_cost = 2
-	chemical_cost = 30
-	genetic_damage = 50
-	max_genetic_damage = 30
+	chemical_cost = 50
 	/// Currently selected DNA
 	var/datum/dna/selected_dna = null
 	/// Typecache of the blacklisted species
@@ -173,9 +173,6 @@
 
 /datum/action/changeling/sting/transformation/sting_action(mob/user, mob/target)
 	add_attack_logs(user, target, "Transformation sting (changeling) (new identity is [selected_dna.real_name])")
-	if(is_monkeybasic(target))
-		to_chat(user, span_notice("Наш геном становится нестабильным из-за укола [target.name]!"))
-
 	if(iscarbon(target) && (target.status_flags & CANWEAKEN))
 		var/mob/living/carbon/carbon = target
 		carbon.do_jitter_animation(500)
@@ -198,6 +195,7 @@
 /**
  * Mute Sting
  */
+
 /datum/action/changeling/sting/mute
 	name = "Хоботок безмолвия"
 	desc = "Мы скрытно уколем  жертву и она полностью лишится возможности говорить на короткое время. Требует 20 химикатов."
@@ -217,10 +215,11 @@
 /**
  * Blind Sting
  */
+
 /datum/action/changeling/sting/blind
 	name = "Хоботок слепоты"
 	desc = "Мы скрытно уколем  жертву и она временно ослепнет. Требует 20 химикатов."
-	helptext = "На 40 секунд полностью ослепит жертву и на 80 секунд оставит размытое зрение."
+	helptext = "На 60 секунд полностью ослепит жертву и на 120 секунд оставит размытое зрение."
 	dna_cost = 1
 	chemical_cost = 20
 	button_icon_state = "sting_blind"
@@ -234,18 +233,19 @@
 		ADD_TRAIT(target, TRAIT_NEARSIGHTED, CHANGELING_TRAIT)
 		if(!HAS_TRAIT_NOT_FROM(target, TRAIT_NEARSIGHTED, CHANGELING_TRAIT))
 			target.update_nearsighted_effects()
-	target.EyeBlind(40 SECONDS)
-	target.EyeBlurry(80 SECONDS)
+	target.EyeBlind(60 SECONDS)
+	target.EyeBlurry(120 SECONDS)
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return TRUE
 
 /**
  * Hallucination Sting
  */
+
 /datum/action/changeling/sting/LSD
 	name = "Хоботок галлюцинаций"
 	desc = "Мы скрытно уколем  жертву и посеем ужас в ней. Требует 20 химикатов."
-	helptext = "Через 30-60 секунд у жертвы начнутся галлюцинации на 400 секунд."
+	helptext = "Через 10 секунд у жертвы начнутся галлюцинации на 300 секунд."
 	dna_cost = 1
 	chemical_cost = 20
 	button_icon_state = "sting_lsd"
@@ -254,7 +254,7 @@
 
 /datum/action/changeling/sting/LSD/sting_action(mob/user, mob/living/carbon/target)
 	add_attack_logs(user, target, "LSD sting (changeling)")
-	addtimer(CALLBACK(src, PROC_REF(start_hallucinations), target, 400 SECONDS), rand(30 SECONDS, 60 SECONDS))
+	addtimer(CALLBACK(src, PROC_REF(start_hallucinations), target, 300 SECONDS), 10 SECONDS)
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return TRUE
 
@@ -265,6 +265,7 @@
 /**
  * Cryogenic Sting
  */
+
 /datum/action/changeling/sting/cryo //Enable when mob cooling is fixed so that frostoil actually makes you cold, instead of mostly just hungry.
 	name = "Криогенный хоботок"
 	desc = "Мы скрытно уколем  жертву химическим коктейлем, который будет замораживать её изнутри. Требует 20 химикатов."
@@ -279,7 +280,6 @@
 	add_attack_logs(user, target, "Cryo sting (changeling)")
 	if(target.reagents)
 		target.reagents.add_reagent("frostoil", 30)
-		target.reagents.add_reagent("ice", 30)
+		target.adjust_bodytemperature(-(100 * TEMPERATURE_DAMAGE_COEFFICIENT))
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return TRUE
-

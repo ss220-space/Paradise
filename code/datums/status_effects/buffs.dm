@@ -412,6 +412,8 @@
 	id = "fleshmend"
 	status_type = STATUS_EFFECT_REFRESH
 	alert_type = /atom/movable/screen/alert/status_effect/fleshmend
+	/// This diminishes the healing of fleshmend the higher it is.
+	var/tolerance = 0
 	/// This diminishes the healing of fleshmend if the user is cold when it is activated
 	var/freezing = FALSE
 	/// Number of heal ticks.
@@ -431,21 +433,19 @@
 	..()
 
 /datum/status_effect/fleshmend/proc/apply_new_fleshmend()
-	cling = owner?.mind?.has_antag_datum(/datum/antagonist/changeling)
+	tolerance += 1
+	active_instances += instance_duration
 	freezing = (owner.bodytemperature + 50 <= owner.dna.species.body_temperature)
 
-	active_instances += instance_duration
-	if(freezing || cling.tolerance >= 0)
+	if(freezing || tolerance > 0)
 		owner.balloon_alert(owner, "эффективность регенерации снижена")
-		cling.tolerance += 1.5
 	else
 		owner.balloon_alert(owner, "быстрая регенерация плоти")
-		cling.tolerance += 1
 
 
 /datum/status_effect/fleshmend/tick(seconds_between_ticks)
 	if(LAZYLEN(active_instances) >= 1)
-		var/heal_amount = (length(active_instances) / cling.tolerance) * (freezing ? 2 : 5)
+		var/heal_amount = (length(active_instances) / tolerance) * (freezing ? 2 : 10)
 		var/blood_restore = 30 * length(active_instances)
 		var/update = NONE
 
@@ -468,6 +468,8 @@
 
 		active_instances -= expired_instances
 
+	tolerance = max(tolerance - 0.1, 1)
+
 	if(length(active_instances) <= 0)
 		qdel(src)
 
@@ -481,6 +483,7 @@
 /datum/status_effect/speedlegs/on_apply()
 	cling = owner?.mind?.has_antag_datum(/datum/antagonist/changeling)
 	owner.add_movespeed_modifier(/datum/movespeed_modifier/status_effect/strained_muscles)
+	cling.chem_charges -= CLING_CHEMICAL_COST_STRAINED_MUSCLES
 	return TRUE
 
 /datum/status_effect/speedlegs/tick(seconds_between_ticks)

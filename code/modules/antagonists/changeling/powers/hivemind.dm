@@ -26,11 +26,6 @@ GLOBAL_LIST_EMPTY(hivemind_bank)
 	if(!..() || QDELETED(user) || !cling)
 		return
 
-	/*if(!linglink)
-		linglink = new
-		linglink.cling = cling
-		linglink.Grant(user)*/
-
 	if(cling.evented)
 		user.add_language(LANGUAGE_HIVE_EVENTLING)
 	else
@@ -42,25 +37,14 @@ GLOBAL_LIST_EMPTY(hivemind_bank)
 
 	to_chat(user, span_changeling("Мы чувствуем пустоту, потеряв связь с ульем."))
 
-	/*if(linglink)
-		linglink.Remove(user)
-		QDEL_NULL(linglink)*/
-
 	user.remove_language(LANGUAGE_HIVE_CHANGELING)
 	user.remove_language(LANGUAGE_HIVE_EVENTLING)
 
 	..()
 
 /datum/action/changeling/hivemind_pick/Destroy(force)
-	/*if(linglink)
-		if(owner)
-			linglink.Remove(owner)
-
-		QDEL_NULL(linglink)*/
-
 	owner?.remove_language(LANGUAGE_HIVE_CHANGELING)
 	owner?.remove_language(LANGUAGE_HIVE_EVENTLING)
-
 	return ..()
 
 /datum/action/changeling/hivemind_pick/sting_action(mob/user)
