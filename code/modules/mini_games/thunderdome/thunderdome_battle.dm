@@ -91,11 +91,12 @@ GLOBAL_VAR_INIT(tdome_arena_melee, locate(/area/tdome/newtdome/CQC))
 		for(var/obj/machinery/door/poddoor/pod_door in GLOB.airlocks)
 			if(pod_door.id_tag != "TD_CloseCombat")
 				continue
-			if(pod_door.density)
-				INVOKE_ASYNC(pod_door, TYPE_PROC_REF(/obj/machinery/door, do_animate), "opening")
-				pod_door.set_density(FALSE)
-				pod_door.set_opacity(FALSE)
-				pod_door.update_icon()
+			if(!pod_door.density)
+				continue
+			INVOKE_ASYNC(pod_door, TYPE_PROC_REF(/obj/machinery/door, do_animate), "opening")
+			pod_door.set_density(FALSE)
+			pod_door.set_opacity(FALSE)
+			pod_door.update_icon()
 
 	while(currpoint <= points)
 		if(phi > (2 * PI))
