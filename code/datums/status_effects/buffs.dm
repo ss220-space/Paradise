@@ -420,8 +420,6 @@
 	var/instance_duration = 10
 	/// A list of integers, one for each remaining instance of fleshmend.
 	var/list/active_instances = list()
-	/// A reference to the changeling's changeling antag datum.
-	var/datum/antagonist/changeling/cling
 	var/ticks = 0
 
 /datum/status_effect/fleshmend/on_apply()
@@ -481,31 +479,58 @@
 	var/datum/antagonist/changeling/cling
 
 /datum/status_effect/speedlegs/on_apply()
-	cling = owner?.mind?.has_antag_datum(/datum/antagonist/changeling)
+	cling = IS_CHANGELING(owner)
 	owner.add_movespeed_modifier(/datum/movespeed_modifier/status_effect/strained_muscles)
-	cling.chem_charges -= CLING_CHEMICAL_COST_STRAINED_MUSCLES
+	cling.chem_charges -= CLING_MUSCLES_CHEMICALCOST
 	return TRUE
 
 /datum/status_effect/speedlegs/tick(seconds_between_ticks)
-	if(owner.stat || owner.staminaloss >= owner.get_max_stamina() || cling.chem_charges <= (stacks * CLING_EXHAUSTION_MODIFICATOR) + CLING_CHEM_RECHARGE_RATE)
+	if(owner.stat || owner.staminaloss >= owner.get_max_stamina() || cling.chem_charges <= (stacks * CLING_MUSCLES_MODIFICATOR) + CLING_CHEM_RECHARGE_RATE)
 		owner.balloon_alert(owner, "мы истощены!")
 		owner.Knockdown(6 SECONDS)
 		qdel(src)
 	else
 		stacks++
-		if(stacks == CLING_STACKS_BEFORE_EXHAUSTION)
+		if(stacks == CLING_MUSCLES_STACKS)
 			owner.balloon_alert(owner, "наши ноги болят!")
-		else if(stacks > CLING_STACKS_BEFORE_EXHAUSTION) //Warning message that the stacks are getting too high
-			cling.chem_charges -= (stacks * CLING_EXHAUSTION_MODIFICATOR) + CLING_CHEM_RECHARGE_RATE  //At first the changeling may regenerate chemicals fast enough to nullify fatigue, but it will stack
+		else if(stacks > CLING_MUSCLES_STACKS) //Warning message that the stacks are getting too high
+			cling.chem_charges -= (stacks * CLING_MUSCLES_MODIFICATOR) + CLING_CHEM_RECHARGE_RATE  //At first the changeling may regenerate chemicals fast enough to nullify fatigue, but it will stack
 
 /datum/status_effect/speedlegs/on_remove()
 	owner.remove_movespeed_modifier(/datum/movespeed_modifier/status_effect/strained_muscles)
-	if(stacks >= CLING_STACKS_BEFORE_EXHAUSTION)
+	if(stacks >= CLING_MUSCLES_STACKS)
 		owner.balloon_alert(owner, "наши мышцы истощены")
 		owner.Knockdown(6 SECONDS)
 		owner.emote("gasp")
 	else
 		owner.balloon_alert(owner, "наши мышцы расслабляются")
+	cling = null
+
+/datum/status_effect/chameleon
+	id = "chameleonskin"
+	alert_type = null
+	var/stacks = 0
+	var/datum/antagonist/changeling/cling
+
+/datum/status_effect/chameleon/on_apply()
+	cling = IS_CHANGELING(owner)
+	cling.chem_charges -= CLING_CHAMELEON_CHEMICALCOST
+	owner.balloon_alert(owner, "кожа становится прозрачной!")
+	return TRUE
+
+/datum/status_effect/chameleon/tick(seconds_between_ticks)
+	if(owner.stat || cling.chem_charges <= CLING_CHAMELEON_CONSUMPTION + CLING_CHEM_RECHARGE_RATE)
+		qdel(src)
+	else
+		cling.chem_charges -= CLING_CHAMELEON_CONSUMPTION
+		if((world.time - owner.last_movement) >= 10)
+			owner.alpha_add(standartize_alpha(-50), ALPHA_SOURCE_CHAMELEON_CLING)
+		else
+			owner.alpha_add(standartize_alpha(150), ALPHA_SOURCE_CHAMELEON_CLING)
+
+/datum/status_effect/chameleon/on_remove()
+	owner.balloon_alert(owner, "кожа снова видна")
+	owner.alpha_set(1, ALPHA_SOURCE_CHAMELEON_CLING)
 	cling = null
 
 /datum/status_effect/panacea
