@@ -1155,7 +1155,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
  *
  * Default behaviour is to send [COMSIG_ATOM_SING_PULL] and return
  */
-/atom/proc/singularity_pull(obj/singularity/singularity, current_size)
+/atom/proc/singularity_pull(atom/singularity, current_size)
 	SEND_SIGNAL(src, COMSIG_ATOM_SING_PULL, singularity, current_size)
 
 /**

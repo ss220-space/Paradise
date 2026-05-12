@@ -849,7 +849,7 @@
 /mob/living/simple_animal/demon/pulse_demon/experience_pressure_difference(flow_x, flow_y)
 	return // Immune to gas flow.
 
-/mob/living/simple_animal/demon/pulse_demon/singularity_pull()
+/mob/living/simple_animal/demon/pulse_demon/singularity_pull(atom/singularity, current_size)
 	return
 
 /mob/living/simple_animal/demon/pulse_demon/mob_negates_gravity()

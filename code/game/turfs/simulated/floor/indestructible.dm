@@ -10,7 +10,7 @@
 /turf/simulated/floor/indestructible/singularity_act()
 	return
 
-/turf/simulated/floor/indestructible/singularity_pull(S, current_size)
+/turf/simulated/floor/indestructible/singularity_pull(atom/singularity, current_size)
 	return
 
 /turf/simulated/floor/indestructible/narsie_act()

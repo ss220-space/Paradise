@@ -21,7 +21,7 @@
 /obj/effect/landmark/ex_act()
 	return
 
-/obj/effect/landmark/singularity_pull()
+/obj/effect/landmark/singularity_pull(atom/singularity, current_size)
 	return
 
 /obj/effect/landmark/singularity_act()

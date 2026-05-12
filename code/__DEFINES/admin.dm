@@ -112,5 +112,9 @@
 #define BLACKBOX_LOG_ADMIN_VERB(the_verb) SSblackbox.record_feedback("tally", "admin_verb", 1, the_verb)
 #define BLACKBOX_LOG_VUAP(the_verb) SSblackbox.record_feedback("tally", "VUAP", 1, the_verb)
 
-//How many things you can spawn at once with spawn verb/create panel
+/// How many things you can spawn at once with spawn verb/create panel
 #define ADMIN_SPAWN_CAP 100
+
+// LOG BROWSE TYPES
+#define BROWSE_ROOT_ALL_LOGS 1
+#define BROWSE_ROOT_CURRENT_LOGS 2

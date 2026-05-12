@@ -1641,7 +1641,9 @@
 /turf/simulated/floor/grass,
 /area/awaymission/wwgov)
 "fu" = (
-/obj/effect/decal/warning_stripes/northwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/wwrefine)
 "fv" = (
@@ -1674,7 +1676,9 @@
 /turf/simulated/floor/wood,
 /area/awaymission/wwmines)
 "fA" = (
-/obj/effect/decal/warning_stripes/northeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/wwrefine)
 "fB" = (
@@ -1684,7 +1688,9 @@
 /turf/simulated/floor/grass,
 /area/awaymission/wwgov)
 "fC" = (
-/obj/effect/decal/warning_stripes/southwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/wwrefine)
 "fD" = (
@@ -1693,14 +1699,18 @@
 /turf/simulated/floor/wood,
 /area/awaymission/wwmines)
 "fE" = (
-/obj/effect/decal/warning_stripes/southeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/wwrefine)
 "fF" = (
 /obj/effect/landmark{
 	name = "wildwest_syndipod"
 	},
-/obj/effect/decal/warning_stripes/southwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/wwrefine)
 "fG" = (
