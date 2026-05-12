@@ -559,6 +559,15 @@ ADMIN_VERB(display_del_log_simple, R_DEBUG, "Display Simple del() Log", "Display
 ADMIN_VERB(view_runtimes, R_DEBUG|R_VIEWRUNTIMES, "View Runtimes", "Opens the runtime viewer.", ADMIN_CATEGORY_DEBUG)
 	GLOB.error_cache.show_to(user.mob)
 
+	// The runtime viewer has the potential to crash the server if there's a LOT of runtimes
+	// this has happened before, multiple times, so we'll just leave an alert on it
+	if(GLOB.total_runtimes >= 50000) // arbitrary number, I don't know when exactly it happens
+		var/warning = "There are a lot of runtimes, clicking any button (especially \"linear\") can have the potential to lag or crash the server"
+		if(GLOB.total_runtimes >= 100000)
+			warning = "There are a TON of runtimes, clicking any button (especially \"linear\") WILL LIKELY crash the server"
+		// Not using TGUI alert, because it's view runtimes, stuff is probably broken
+		alert(user, "[warning]. Proceed with caution. If you really need to see the runtimes, download the runtime log and view it in a text editor.", "HEED THIS WARNING CAREFULLY MORTAL")
+
 ADMIN_VERB(allow_browser_inspect, R_DEBUG, "Allow Browser Inspect", "Allow browser debugging via inspect.", ADMIN_CATEGORY_DEBUG)
 	if(user.byond_version < 516)
 		to_chat(user, span_warning("You can only use this on 516!"))
