@@ -9,7 +9,7 @@ GLOBAL_LIST_EMPTY(raindrop_active_offers)
 	/// PDA owner account
 	var/datum/rainDrop_account/last_login_owner
 
-	// Используем флаг вместо того, что бы пользоваться логин системой, которая у терминалов.
+	// We use the flag instead of using the login system that terminals have.
 	var/can_login = FALSE
 
 /datum/data/pda/app/rainDrop/update_ui(mob/user, list/data)
@@ -60,33 +60,32 @@ GLOBAL_LIST_EMPTY(raindrop_active_offers)
 		if("logout")
 			last_login_owner = null
 
-// Логинимся и возвращаем аккаунт, либо выдаем null
+// Log in and return the account, or return null
 /datum/data/pda/app/rainDrop/proc/login_in_messenger(list/data)
-	// Проверяем зашел ли человек в аккаунт в мессенджере
+	// Check if the person is logged into the account
 	var/now_id = pda.id
 	if(!now_id && !last_login_owner)
 		return null
 
-	// Находим человека в базе аккаунтов
+	// Find a person in the account database
 	var/datum/money_account/owner_money_account = get_account_with_name(pda.owner)
 	if(!owner_money_account)
 		return null
 
-	// так как тут выше был money_account запихиваем возможные таргеты
+	// since there was money_account above, we push possible targets
 	data["allTargets"] = get_all_targets(owner_money_account)
 
-	// берем аккаунт мессенджера из аккаунта человека+
 	var/datum/rainDrop_account/owner_rainDrop_account = owner_money_account.rainDrop_account
 	if(!owner_rainDrop_account)
 		return null
 
-	// делаем скриншот, что бы заново не надо было вставлять айди карту
+	// We take a screenshot so that we don't have to insert the ID card again
 	can_login = TRUE
 	last_login_owner = owner_rainDrop_account
 	data["can_login"] = can_login
 	return owner_rainDrop_account
 
-// передает в UI все таргеты для создания личных/групповых чатов
+// passes all targets to the UI for creating personal/group chats
 /datum/data/pda/app/rainDrop/proc/get_all_targets(datum/money_account/exclude_account)
 	var/list/all_targets = list()
 	for(var/datum/money_account/target_account as anything in GLOB.all_money_accounts)
