@@ -205,8 +205,6 @@
 	spray_maxrange = 5
 	spray_currentrange = 5
 
-/obj/item/reagent_containers/spray/cleaner/tactical/cyborg
-
 /obj/item/reagent_containers/spray/cleaner/tactical/get_ru_names()
 	return list(
 		NOMINATIVE = "тактический распылитель",

@@ -34,7 +34,7 @@
 		/obj/item/circuitboard,
 		/obj/item/stack/tile/light,
 		/obj/item/stack/ore/bluespace_crystal,
-		/obj/item/stack/sheet/plasteel
+		/obj/item/stack/sheet/plasteel,
 	)
 
 	//Item currently being held.
