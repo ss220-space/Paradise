@@ -74,7 +74,7 @@
 /// it calls Entered() on all of its moveable contents, which will invoke on_source_entering(), which will register each elevating
 /// object with the new turf. We need to do this because turfs do not keep their traits when changed, and so the check for
 /// TRAIT_TURF_HAS_ELEVATED_OBJ above will fail and cause override runtimes when we attempt to register the signals again.
-/datum/element/elevation/proc/pre_change_turf(turf/changed, path, list/new_baseturfs, flags, list/post_change_callbacks)
+/datum/element/elevation/proc/pre_change_turf(turf/changed, path, list/post_change_callbacks)
 	SIGNAL_HANDLER
 	for(var/atom/movable/content as anything in changed)
 		if(HAS_TRAIT_FROM(content, TRAIT_ELEVATING_OBJECT, UNIQUE_TRAIT_SOURCE(src)))

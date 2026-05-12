@@ -1,60 +1,23 @@
-/// Security helpers to ensure you cant arbitrarily load stuff from disk
-/proc/wrap_file(filepath)
-	if(IsAdminAdvancedProcCall())
-		// Admins shouldnt fuck with this
-		to_chat(usr, span_boldannounceooc("File load blocked: Advanced ProcCall detected."))
-		log_and_message_admins("attempted to load files via advanced proc-call")
-		return
-
-	return file(filepath)
-
-/proc/wrap_file2text(filepath)
-	if(IsAdminAdvancedProcCall())
-		// Admins shouldnt fuck with this
-		to_chat(usr, span_boldannounceooc("File load blocked: Advanced ProcCall detected."))
-		log_and_message_admins("attempted to load files via advanced proc-call")
-		return
-
-	return file2text(filepath)
-
-///checks if a file exists and contains text
-///returns text as a string if these conditions are met
-/proc/return_file_text(filename)
-	if(fexists(filename) == 0)
-		error("File not found ([filename])")
-		return
-
-	var/text = wrap_file2text(filename)
-	if(!text)
-		error("File empty ([filename])")
-		return
-
-	return text
-
-///Sends resource files to client cache
-/client/proc/getFiles()
-	if(IsAdminAdvancedProcCall())
-		to_chat(usr, span_boldannounceooc("Shelleo blocked: Advanced ProcCall detected."))
-		log_and_message_admins("attempted to call Shelleo via advanced proc-call")
-		return
-
-	for(var/file in args)
-		src << browse_rsc(file)
-
-/client/proc/browse_files(root="data/logs/", max_iterations=10, list/valid_extensions=list(".txt",".log",".htm"))
+/client/proc/browse_files(root_type = BROWSE_ROOT_ALL_LOGS, max_iterations = 10, list/valid_extensions=list("txt", "log", "htm", "html", "gz", "json"))
 	if(IsAdminAdvancedProcCall())
 		to_chat(usr, span_boldannounceooc("Shelleo blocked: Advanced ProcCall detected."))
 		log_and_message_admins("attempted to call Shelleo via advanced proc-call")
 		return
 
 	// wow why was this ever a parameter
-	root = "data/logs/"
+	var/root = "data/logs/"
+	switch(root_type)
+		if(BROWSE_ROOT_ALL_LOGS)
+			root = "data/logs/"
+		if(BROWSE_ROOT_CURRENT_LOGS)
+			root = "[GLOB.log_directory]/"
 	var/path = root
 
-	for(var/i=0, i<max_iterations, i++)
+	for(var/i in 1 to max_iterations)
 		var/list/choices = flist(path)
 		if(path != root)
-			choices.Insert(1,"/")
+			choices.Insert(1, "/")
+		choices = sort_list(choices) + "Download Folder"
 
 		var/choice = tgui_input_list(src, "Choose a file to access:", "Download", choices, null)
 		switch(choice)
@@ -63,20 +26,34 @@
 			if("/")
 				path = root
 				continue
+			if("Download Folder")
+				var/list/comp_flist = flist(path)
+				var/confirmation = tgui_input_list(src, "Are you SURE you want to download all the files in this folder? (This will open [length(comp_flist)] prompt[length(comp_flist) == 1 ? "" : "s"])", "Confirmation", list("Да", "Нет"))
+				if(confirmation != "Да")
+					continue
+				for(var/file in comp_flist)
+					src << ftp(path + file)
+				return
 		path += choice
 
-		if(copytext(path,-1,0) != "/") //didn't choose a directory, no need to iterate again
+		if(copytext_char(path, -1) != "/") // didn't choose a directory, no need to iterate again
 			break
-
-	var/extension = copytext(path,-4,0)
-	if(!fexists(path) || !(extension in valid_extensions))
+	var/extensions
+	for(var/i in valid_extensions)
+		if(extensions)
+			extensions += "|"
+		extensions += "[i]"
+	var/regex/valid_ext = new("\\.([extensions])$", "i")
+	if(!fexists(path) || !(valid_ext.Find(path)))
 		to_chat(src, span_red("Error: browse_files(): File not found/Invalid file([path])."))
 		return
 
 	return path
 
-#define FTPDELAY 200 // 200 tick delay to discourage spam
-#define ADMIN_FTPDELAY_MODIFIER 0.5 // Admins get to spam files faster since we ~trust~ them!
+/// 200 tick delay to discourage spam
+#define FTPDELAY 200
+/// Admins get to spam files faster since we ~trust~ them!
+#define ADMIN_FTPDELAY_MODIFIER 0.5
 
 /**
  * This proc is a failsafe to prevent spamming of file requests.

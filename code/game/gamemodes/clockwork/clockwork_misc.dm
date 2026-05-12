@@ -31,16 +31,13 @@
 /obj/effect/clockwork/overlay/singularity_act()
 	return
 
-/obj/effect/clockwork/overlay/singularity_pull()
-	return
-
-/obj/effect/clockwork/overlay/singularity_pull(S, current_size)
+/obj/effect/clockwork/overlay/singularity_pull(atom/singularity, current_size)
 	return
 
 /obj/effect/clockwork/overlay/Destroy()
 	if(linked)
 		linked = null
-	. = ..()
+	return ..()
 
 /obj/effect/clockwork/overlay/wall
 	name = "clockwork wall"

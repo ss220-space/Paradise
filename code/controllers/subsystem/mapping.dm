@@ -403,7 +403,7 @@ SUBSYSTEM_DEF(mapping)
 	else
 		var/s_traits = map_datum.traits ? map_datum.traits : DEFAULT_STATION_TRATS
 		map_z_level = GLOB.space_manager.add_new_zlevel(MAIN_STATION, linkage = map_datum.linkage, traits = s_traits)
-	GLOB.maploader.load_map(wrap_file(map_datum.map_path), z_offset = map_z_level)
+	GLOB.maploader.load_map(WRAP_FILE(map_datum.map_path), z_offset = map_z_level)
 
 	if(map_datum?.forced_mode)
 		GLOB.master_mode = map_datum.forced_mode.name

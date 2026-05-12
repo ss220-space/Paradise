@@ -1,5 +1,0 @@
-author: "Bess3"
-delete-after: True
-changes:
-  - add: "Зажигалка кулак гонзо в т3 лоадаут (PR #9177)"
-  - refactor: "Зажигалки в одном файле .dm и .dmi (PR #9177)"

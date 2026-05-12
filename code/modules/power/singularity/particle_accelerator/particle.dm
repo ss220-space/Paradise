@@ -75,7 +75,7 @@
 /obj/effect/accelerated_particle/ex_act(severity, target)
 	qdel(src)
 
-/obj/effect/accelerated_particle/singularity_pull()
+/obj/effect/accelerated_particle/singularity_pull(atom/singularity, current_size)
 	return
 
 /obj/effect/accelerated_particle/proc/propagate()

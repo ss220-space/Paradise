@@ -577,7 +577,8 @@ GLOBAL_VAR(bomb_set)
 	else
 		visible_message(span_notice("The [src] emits a quiet whirling noise!"))
 
-#define NUCLEAR_DISK_SECURE_THRESHOLD 500 SECONDS
+#define NUCLEAR_DISK_SECURE_THRESHOLD 250 SECONDS
+#define NUCLEAR_DISK_WEIGHT_INCREMENT 10
 
 //==========DAT FUKKEN DISK===============
 /obj/item/disk/nuclear
@@ -616,8 +617,8 @@ GLOBAL_VAR(bomb_set)
 	var/turf/new_turf = get_turf(src)
 	var/datum/event_meta/loneop = GLOB.lone_operative_meta
 	if(istype(loneop) && prob(loneop.weight))
-		loneop.weight = max(loneop.weight - 1, 0)
-		if(loneop.weight % 5 == 0 && num_station_players() > 1)
+		loneop.weight = max(loneop.weight - NUCLEAR_DISK_WEIGHT_INCREMENT, 0)
+		if(loneop.weight % (5 * NUCLEAR_DISK_WEIGHT_INCREMENT) == 0 && num_station_players() > 1)
 			message_admins("[src] is secured (currently in [ADMIN_VERBOSEJMP(new_turf)]). The weight of Lone Operative is now [loneop.weight].")
 		log_game("[src] being secured has reduced the weight of the Lone Operative event to [loneop.weight].")
 
@@ -635,8 +636,8 @@ GLOBAL_VAR(bomb_set)
 		var/datum/event_meta/loneop = GLOB.lone_operative_meta
 		if(!istype(loneop))
 			return
-		loneop.weight += 1
-		if(loneop.weight % 5 == 0 && num_station_players() > 1)
+		loneop.weight += NUCLEAR_DISK_WEIGHT_INCREMENT
+		if(loneop.weight % (5 * NUCLEAR_DISK_WEIGHT_INCREMENT) == 0 && num_station_players() > 1)
 			if(disk_comfort_level >= 2)
 				visible_message(span_notice("[src] sleeps soundly. Sleep tight, disky."))
 			message_admins("[src] is unsecured in [ADMIN_VERBOSEJMP(new_turf)]. The weight of Lone Operative is now [loneop.weight].")
@@ -674,3 +675,4 @@ GLOBAL_VAR(bomb_set)
 #undef NUKE_CORE_PANEL_UNWELDED
 #undef NUKE_CORE_FULLY_EXPOSED
 #undef NUCLEAR_DISK_SECURE_THRESHOLD
+#undef NUCLEAR_DISK_WEIGHT_INCREMENT

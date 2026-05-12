@@ -676,19 +676,8 @@
 		C = M.client
 	else if(M.last_known_ckey in GLOB.directory)
 		C = GLOB.directory[M.last_known_ckey]
-
-	// Now we see if we need to respect their privacy
-	var/out_ckey
-	if(C)
-		if(C.prefs.toggles2 & PREFTOGGLE_2_ANON)
-			out_ckey = "(Anon)"
-		else
-			out_ckey = C.ckey
-	else
-		// No client. Just mark as DC'd.
-		out_ckey = "(Disconnected)"
-
-	return out_ckey
+// Now we see if we need to respect their privacy
+	return get_display_key(C)
 
 ///Returns a list of strings for a given slot flag.
 /proc/parse_slot_flags(slot_flags)

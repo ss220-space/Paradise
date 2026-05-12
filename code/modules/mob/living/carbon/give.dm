@@ -9,17 +9,17 @@
 	if(target.incapacitated() || HAS_TRAIT(target, TRAIT_HANDS_BLOCKED) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || target.client == null)
 		return
 
-	var/obj/item/I = get_active_hand()
+	var/obj/item/item = get_active_hand()
 
-	if(!I)
+	if(!item)
 		to_chat(usr, span_warning("У вас ничего нет в руке, чтобы передать [target.declent_ru(ACCUSATIVE)]."))
 		return
-	if(HAS_TRAIT(I, TRAIT_NODROP) || (I.item_flags & ABSTRACT))
+	if(HAS_TRAIT(item, TRAIT_NODROP) || (item.item_flags & ABSTRACT))
 		to_chat(usr, span_warning("Это нельзя просто так взять и передать."))
 		return
 	if(target.r_hand == null || target.l_hand == null)
-		var/ans = tgui_alert(target,"[usr] хо[PLUR_CHET_TYAT(usr)] передать вам [I.declent_ru(ACCUSATIVE)]?", "Передача предмета", list("Взять","Не брать"))
-		if(!I || !target)
+		var/ans = tgui_alert(target,"[usr] хо[PLUR_CHET_TYAT(usr)] передать вам [item.declent_ru(ACCUSATIVE)]?", "Передача предмета", list("Взять","Не брать"))
+		if(!item || !target)
 			return
 		switch(ans)
 			if("Взять")
@@ -29,25 +29,25 @@
 					to_chat(usr, span_warning("Нужно оставаться в пределах досягаемости!"))
 					to_chat(target, span_warning("[usr.name] ото[GEND_SHEL(usr)] слишком далеко."))
 					return
-				if(HAS_TRAIT(I, TRAIT_NODROP) || (I.item_flags & ABSTRACT))
-					to_chat(usr, span_warning("[DECLENT_RU_CAP(I, NOMINATIVE)] прилип[GEND_LA_LO_LI(I)]  к вашей руке и не отдаётся!"))
-					to_chat(target, span_warning("[DECLENT_RU_CAP(I, NOMINATIVE)] прилип[GEND_LA_LO_LI(I)] к руке [usr.name], когда вы попытались взять!"))
+				if(HAS_TRAIT(item, TRAIT_NODROP) || (item.item_flags & ABSTRACT))
+					to_chat(usr, span_warning("[DECLENT_RU_CAP(item, NOMINATIVE)] прилип[GEND_LA_LO_LI(item)]  к вашей руке и не отдаётся!"))
+					to_chat(target, span_warning("[DECLENT_RU_CAP(item, NOMINATIVE)] прилип[GEND_LA_LO_LI(item)] к руке [usr.name], когда вы попытались взять!"))
 					return
-				if(I != get_active_hand())
+				if(item != get_active_hand())
 					to_chat(usr, span_warning("Нужно держать предмет в активной руке."))
-					to_chat(target, span_warning("[usr.name] передумал[GEND_A_O_I(usr)] передавать вам [I.declent_ru(NOMINATIVE)]."))
+					to_chat(target, span_warning("[usr.name] передумал[GEND_A_O_I(usr)] передавать вам [item.declent_ru(NOMINATIVE)]."))
 					return
 				if(target.r_hand != null && target.l_hand != null)
 					to_chat(target, span_warning("Ваши руки заняты."))
 					to_chat(usr, span_warning("[GEND_HIS_HER_CAP(usr)] руки заняты."))
 					return
-				usr.drop_item_ground(I)
-				target.put_in_hands(I, ignore_anim = FALSE)
-				I.add_fingerprint(target)
-				target.visible_message(span_notice("[usr.name] передаёт [I.declent_ru(ACCUSATIVE)] [target.name]."))
-				I.on_give(usr, target)
+				usr.drop_item_ground(item)
+				target.put_in_hands(item, ignore_anim = FALSE)
+				item.add_fingerprint(target)
+				target.visible_message(span_notice("[usr.name] передаёт [item.declent_ru(ACCUSATIVE)] [target.name]."))
+				item.on_give(usr, target)
 			if("Не брать")
-				target.visible_message(span_warning("[usr.name] пытался передать [I.declent_ru(ACCUSATIVE)] [target.name], но [GEND_HE_SHE(usr)] отказал[GEND_SYA_AS_OS_IS(usr)]."))
+				target.visible_message(span_warning("[usr.name] пытался передать [item.declent_ru(ACCUSATIVE)] [target.name], но [GEND_HE_SHE(usr)] отказал[GEND_SYA_AS_OS_IS(usr)]."))
 	else
 		to_chat(usr, span_warning("Руки [target.name] заняты."))
 
@@ -66,14 +66,14 @@
 	if(istype(client.click_intercept, /datum/click_intercept/give))
 		QDEL_NULL(client.click_intercept)
 		return
-	var/obj/item/I = get_active_hand()
-	if(!I)
+	var/obj/item/item = get_active_hand()
+	if(!item)
 		to_chat(src, span_warning("У вас нет предмета в руке для передачи!"))
 		return
-	if(HAS_TRAIT(I, TRAIT_NODROP))
-		to_chat(src, span_warning("[DECLENT_RU_CAP(I, NOMINATIVE)] прилип[GEND_A_O_I(I)] к вашей руке и не отда[PLUR_YOT_YUT(I)]ся!"))
+	if(HAS_TRAIT(item, TRAIT_NODROP))
+		to_chat(src, span_warning("[DECLENT_RU_CAP(item, NOMINATIVE)] прилип[GEND_A_O_I(item)] к вашей руке и не отда[PLUR_YOT_YUT(item)]ся!"))
 		return
-	if(I.item_flags & ABSTRACT)
+	if(item.item_flags & ABSTRACT)
 		to_chat(src, span_warning("Такой предмет нельзя просто взять и передать."))
 		return
 
@@ -99,18 +99,27 @@
 	name = "Предложение предмета"
 	desc = "Вы предлагаете предмет игроку. Держите предмет в руке, чтобы он мог принять его! Нажмите чтобы отменить."
 	icon_state = "offering_item"
+	clickable_glow = TRUE
 	/// UID of the mob who's being offered the item.
 	var/receiver_UID
 	/// UID of the item being given.
 	var/item_UID
 
 /atom/movable/screen/alert/status_effect/offering_item/Click(location, control, params)
+	. = ..()
+	if(!.)
+		return FALSE
+
+	var/mob/living/carbon/giver = owner
 	var/mob/living/carbon/receiver = locateUID(receiver_UID)
-	var/mob/living/carbon/giver = attached_effect.owner
-	var/obj/item/I = locateUID(item_UID)
-	to_chat(giver, span_notice("Вы передумали передавать [I.declent_ru(ACCUSATIVE)] [receiver]."))
-	to_chat(receiver, span_warning("[giver] передумал[PLUR_I(giver)] передавать вам [I.declent_ru(ACCUSATIVE)]."))
+	var/obj/item/item = locateUID(item_UID)
+	if(!istype(receiver) || !item)
+		return FALSE
+
+	to_chat(giver, span_notice("Вы передумали передавать [item.declent_ru(ACCUSATIVE)] [receiver]."))
+	to_chat(receiver, span_warning("[giver] передумал[PLUR_I(giver)] передавать вам [item.declent_ru(ACCUSATIVE)]."))
 	receiver.clear_alert("take item [item_UID]") // This cancels *everything* related to the giving/item offering.
+	return TRUE
 
 /**
  * # Give click intercept
@@ -185,8 +194,8 @@
 /atom/movable/screen/alert/take_item
 	name = "Взять предмет"
 	desc = "Вам хотят передать предмет!"
-	icon_state = "template"
 	timeout = 10 SECONDS
+	clickable_glow = TRUE
 	/// UID of the mob offering the receiver an item.
 	var/giver_UID
 	/// UID of the mob who has this alert.
@@ -206,7 +215,7 @@
 	// If either of these atoms are deleted, we need to cancel everything. Also saves having to do null checks before interacting with these atoms.
 	// So there is no more COMSIG_QDELETING for giver, because it overrides the same registration
 	// in /atom/movable/screen/proc/set_new_hud, which is probably worse then not having it here, because alert will be cleared
-	// anyway in do_timeout()
+	// anyway in alert_timeout()
 	RegisterSignal(item, list(COMSIG_QDELETING, COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED), PROC_REF(cancel_give))
 	RegisterSignal(giver, list(COMSIG_MOB_SWAP_HANDS, SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED)), PROC_REF(cancel_give))
 
@@ -233,50 +242,56 @@
 	receiver.clear_alert("take item [item_UID]")
 
 /atom/movable/screen/alert/take_item/Click(location, control, params)
+	. = ..()
+	if(!.)
+		return FALSE
+
+	var/mob/living/receiver = owner
 	var/mob/living/giver = locateUID(giver_UID)
-	var/mob/living/receiver = locateUID(receiver_UID)
 	// hopefully this will do instead of COMSIG_QDELETING
 	if(!giver)
 		to_chat(receiver, span_warning("Что-то пошло не так при передаче предмета, сообщите об этом в баг-репорты!"))
-		return
+		return FALSE
 
 	if(receiver.stat != CONSCIOUS)
-		return
+		return FALSE
 
-	var/obj/item/I = locateUID(item_UID)
-	if(!I)
-		return
+	var/obj/item/item = locateUID(item_UID)
+	if(!item)
+		return FALSE
 
 	if(receiver.r_hand && receiver.l_hand)
-		to_chat(receiver, span_warning("Освободите руки для принятия [I.declent_ru(ACCUSATIVE)]!"))
-		return
+		to_chat(receiver, span_warning("Освободите руки для принятия [item.declent_ru(ACCUSATIVE)]!"))
+		return FALSE
 
 	if(!giver.Adjacent(receiver))
-		to_chat(receiver, span_warning("Подойдите ближе к [giver] чтобы взять [I.declent_ru(ACCUSATIVE)]!"))
-		return
+		to_chat(receiver, span_warning("Подойдите ближе к [giver] чтобы взять [item.declent_ru(ACCUSATIVE)]!"))
+		return FALSE
 
-	if(HAS_TRAIT(I, TRAIT_NODROP))
-		to_chat(giver, span_warning("[DECLENT_RU_CAP(I, NOMINATIVE)] прилип к вашей руке при попытке передачи!"))
-		to_chat(receiver, span_warning("[DECLENT_RU_CAP(I, NOMINATIVE)] прилип к руке [giver] когда вы пытались взять!"))
-		return
+	if(HAS_TRAIT(item, TRAIT_NODROP))
+		to_chat(giver, span_warning("[DECLENT_RU_CAP(item, NOMINATIVE)] прилип к вашей руке при попытке передачи!"))
+		to_chat(receiver, span_warning("[DECLENT_RU_CAP(item, NOMINATIVE)] прилип к руке [giver] когда вы пытались взять!"))
+		return FALSE
 
-	UnregisterSignal(I, list(COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED)) // We don't want these triggering `cancel_give` at this point, since the give is successful.
+	UnregisterSignal(item, list(COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED)) // We don't want these triggering `cancel_give` at this point, since the give is successful.
 
-	giver.drop_item_ground(I)
-	receiver.put_in_hands(I, ignore_anim = FALSE)
+	giver.drop_item_ground(item)
+	receiver.put_in_hands(item, ignore_anim = FALSE)
 
-	I.add_fingerprint(receiver)
-	I.on_give(giver, receiver)
+	item.add_fingerprint(receiver)
+	item.on_give(giver, receiver)
 
-	receiver.visible_message(span_notice("[giver] переда[PLUR_YOT_YUT(giver)] [I.declent_ru(ACCUSATIVE)] [receiver]."))
+	receiver.visible_message(span_notice("[giver] переда[PLUR_YOT_YUT(giver)] [item.declent_ru(ACCUSATIVE)] [receiver]."))
 	receiver.clear_alert("take item [item_UID]")
+	return TRUE
 
-/atom/movable/screen/alert/take_item/do_timeout(mob/M, category)
-	var/mob/living/giver = locateUID(giver_UID)
-	var/mob/living/receiver = locateUID(receiver_UID)
-	// Make sure we're still nearby. We don't want to show a message if the giver not near us.
-	if(giver in view(3, receiver))
-		var/obj/item/I = locateUID(item_UID)
-		to_chat(giver, span_warning("Вы пытались передать [I.declent_ru(ACCUSATIVE)] [receiver], но [GEND_HE_SHE(receiver)] отказал[GEND_SYA_AS_OS_IS(receiver)]."))
-		to_chat(receiver, span_warning("[giver] прекратил[GEND_A_O_I(giver)] попытку передать вам [I.declent_ru(ACCUSATIVE)]."))
-	..()
+/mob/living/carbon/alert_timeout(atom/movable/screen/alert/alert, category)
+	if(istype(alert, /atom/movable/screen/alert/take_item))
+		var/atom/movable/screen/alert/take_item/take_alert = alert
+		var/mob/living/giver = locateUID(take_alert.giver_UID)
+		// Make sure we're still nearby. We don't want to show a message if the giver not near us.
+		if(giver in view(3, src))
+			var/obj/item/item = locateUID(take_alert.item_UID)
+			to_chat(giver, span_warning("Вы пытались передать [item.declent_ru(ACCUSATIVE)] [src], но [GEND_HE_SHE(src)] отказал[GEND_SYA_AS_OS_IS(src)]."))
+			to_chat(src, span_warning("[giver] прекратил[GEND_A_O_I(giver)] попытку передать вам [item.declent_ru(ACCUSATIVE)]."))
+	return ..()

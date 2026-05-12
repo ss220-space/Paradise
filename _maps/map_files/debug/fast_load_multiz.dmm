@@ -22,7 +22,9 @@
 /turf/simulated/floor/mineral/titanium/purple,
 /area/fastload/purple)
 "eW" = (
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/fastload/blue)
 "eX" = (
@@ -30,18 +32,24 @@
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/fastload)
 "gL" = (
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/structure/stairs{
 	dir = 8
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/fastload/blue)
 "he" = (
-/obj/effect/decal/warning_stripes/southeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
 /turf/simulated/floor/mineral/titanium/purple,
 /area/fastload/purple)
 "hq" = (
-/obj/effect/decal/warning_stripes/northwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
 /turf/simulated/floor/mineral/titanium/purple,
 /area/fastload/purple)
 "hG" = (
@@ -109,7 +117,9 @@
 /turf/simulated/wall/indestructible/reinforced,
 /area/fastload)
 "vI" = (
-/obj/effect/decal/warning_stripes/southeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/fastload)
 "vR" = (
@@ -126,11 +136,15 @@
 /turf/space,
 /area/space)
 "xL" = (
-/obj/effect/decal/warning_stripes/arrow{
+/obj/effect/turf_decal/arrows/black{
 	dir = 8
 	},
-/obj/effect/decal/warning_stripes/south,
-/obj/effect/decal/warning_stripes/northwestcorner,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/fastload)
 "xQ" = (
@@ -148,14 +162,16 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/fastload/blue)
 "zP" = (
-/obj/effect/decal/warning_stripes/northwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/fastload/blue)
 "An" = (
 /turf/simulated/openspace,
 /area/fastload/purple)
 "AX" = (
-/obj/effect/decal/warning_stripes/arrow{
+/obj/effect/turf_decal/arrows/black{
 	dir = 4
 	},
 /turf/simulated/floor/mineral/titanium/purple,
@@ -193,7 +209,9 @@
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/fastload)
 "Hi" = (
-/obj/effect/decal/warning_stripes/northeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/fastload)
 "HE" = (
@@ -212,7 +230,7 @@
 /turf/simulated/floor/mineral/titanium/purple,
 /area/fastload/purple)
 "ND" = (
-/obj/effect/decal/warning_stripes/arrow{
+/obj/effect/turf_decal/arrows/black{
 	dir = 4
 	},
 /obj/machinery/light_switch/directional/south,
@@ -222,7 +240,9 @@
 /turf/simulated/openspace,
 /area/fastload)
 "Qa" = (
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/fastload/blue)
 "QS" = (
@@ -238,7 +258,7 @@
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/fastload)
 "Uj" = (
-/obj/effect/decal/warning_stripes/arrow{
+/obj/effect/turf_decal/arrows/black{
 	dir = 8
 	},
 /turf/simulated/floor/mineral/titanium/blue,
@@ -259,18 +279,24 @@
 /turf/simulated/floor/mineral/titanium/purple,
 /area/fastload/purple)
 "Zk" = (
-/obj/effect/decal/warning_stripes/southwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
 /obj/structure/stairs{
 	dir = 4
 	},
 /turf/simulated/floor/mineral/titanium/purple,
 /area/fastload/purple)
 "ZW" = (
-/obj/effect/decal/warning_stripes/northwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/fastload)
 "ZY" = (
-/obj/effect/decal/warning_stripes/northeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
 /turf/simulated/floor/mineral/titanium/purple,
 /area/fastload/purple)
 
