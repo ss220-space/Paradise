@@ -317,9 +317,6 @@
 /obj/item/robot_module/medical/add_default_robot_items()
 	return
 
-/obj/item/robot_module/medical/respawn_consumable(mob/living/silicon/robot/R)
-	..()
-
 /obj/item/robot_module/engineering
 	name = "Engineering"
 	module_type = "Engineer"
