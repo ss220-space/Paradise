@@ -12,7 +12,7 @@ Stores your account balance, photos, and other necessary variables.
 	var/list/subscriptions = list()
 
 /datum/brg_account/New(datum/money_account/owner_account)
-	src.owner = owner_account
+	owner = owner_account
 	set_photo()
 
 /datum/brg_account/proc/set_photo()
@@ -20,7 +20,7 @@ Stores your account balance, photos, and other necessary variables.
 		return
 	var/datum/data/record/general_record = GLOB.data_core.find_general_record_by_name(owner.owner_name)
 	if(general_record)
-		src.photo = general_record.fields["photo-south"]
+		photo = general_record.fields["photo-south"]
 
 /datum/brg_account/proc/get_account_info()
 	var/list/member = list()

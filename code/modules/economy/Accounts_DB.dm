@@ -274,8 +274,7 @@ GLOBAL_VAR(current_date_string)
 				to_chat(usr, span_danger("Аккаунт не найден."))
 				return
 
-			if(sub_uid && sub_uid != "" && sub_uid != "null")
-				target = locateUID(sub_uid)
+			target = locateUID(sub_uid)
 
 			if(!target)
 				target = find_subscription_salary_modifier_spec(owner_name, sub_type)

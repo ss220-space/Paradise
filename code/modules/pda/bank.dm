@@ -120,7 +120,7 @@
 	switch(action)
 		if("transfer")
 			var/target = params["target"]
-			var/amount = text2num(params["amount"])
+			var/amount = params["amount"]
 			var/purpose = params["purpose"]
 
 			var/datum/money_account/recipient_user = get_account_with_name(target)

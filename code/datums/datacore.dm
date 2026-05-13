@@ -560,7 +560,7 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 	return preview_icon
 
 /datum/datacore/proc/find_general_record_by_name(name)
-	for(var/datum/data/record/G in general)
-		if(G.fields["name"] == name)
-			return G
+	for(var/datum/data/record/finded_record in general)
+		if(finded_record.fields["name"] == name)
+			return finded_record
 	return null

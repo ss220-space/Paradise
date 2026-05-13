@@ -64,7 +64,7 @@
 	set_subscriber_account(null)
 	set_recipient_account(null)
 	GLOB.all_subscriptions -= src
-	. = ..()
+	return ..()
 
 /datum/subscription/proc/subscription_process()
 	if(!active)
