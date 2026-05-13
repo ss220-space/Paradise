@@ -123,6 +123,9 @@ GLOBAL_PROTECT(log_end)
 /proc/log_qdel(text)
 	WRITE_LOG(GLOB.world_qdel_log, "QDEL: [text][GLOB.log_end]")
 
+/proc/log_signal(text)
+	WRITE_LOG(GLOB.signal_log, "SIGNAL: [text][GLOB.log_end]")
+
 /proc/log_mentorsay(text, mob/speaker)
 	if(CONFIG_GET(flag/log_adminchat))
 		WRITE_LOG(GLOB.world_game_log, "MENTORSAY: [speaker.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
