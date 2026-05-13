@@ -376,11 +376,14 @@
 	if(object.IsReachableBy(user, reach) && start_attack_chain_check(user, object)) //Dealt with by attack code
 		return
 
-	if((user.hand && !isgun(user.l_hand) || !user.hand && !isgun(user.r_hand)) && !isrobot(user)) // If the object in our active hand is not a gun, abort
+	if((!isgun(user.get_active_hand()))) // If the object in our active hand is not a gun, abort
 		return
 
 	if(!HAS_TRAIT(user, TRAIT_BADASS) && weapon_weight == WEAPON_HEAVY && (user.get_inactive_hand() || !user.has_inactive_hand() || (user.pulling && user.pull_hand != PULL_WITHOUT_HANDS)))
 		to_chat(user, span_userdanger("Для стрельбы из [declent_ru(GENITIVE)] нужны две свободные руки!"))
+		return
+
+	if(!user.is_in_active_hand(src) && user.a_intent != INTENT_HARM)
 		return
 
 	if(gun_on_cooldown(user))
@@ -389,7 +392,7 @@
 	if(!can_trigger_gun(user))
 		return
 
-	if(user.hand && isgun(user.r_hand) || !user.hand && isgun(user.l_hand)) // If we have a gun in our inactive hand too, both guns get innacuracy maluses
+	if(isgun(user.get_inactive_hand())) // If we have a gun in our inactive hand too, both guns get innacuracy maluses
 		if(user.a_intent == INTENT_HARM)
 			dual_wield = TRUE
 			setup_bullet_accuracy()
