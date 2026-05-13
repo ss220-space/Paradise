@@ -3,13 +3,24 @@
  */
 /obj/item/toy/waterballoon
 	name = "water balloon"
-	desc = "A translucent balloon. There's nothing in it."
+	desc = "Полупрозрачный воздушный шарик. В нём ничего нет."
 	icon = 'icons/obj/toys/balloons.dmi'
 	icon_state = "balloon_red-e"
 	item_state = "waterballoon-e"
 
+/obj/item/toy/waterballoon/get_ru_names()
+	return list(
+		NOMINATIVE = "шарик",
+		GENITIVE = "шарика",
+		DATIVE = "шарику",
+		ACCUSATIVE = "шарика",
+		INSTRUMENTAL = "шариком",
+		PREPOSITIONAL = "шарике",
+	)
+
 /obj/item/toy/waterballoon/Initialize(mapload)
 	. = ..()
+	AddElement(/datum/element/update_icon_updates_onmob)
 	create_reagents(10)
 
 /obj/item/toy/waterballoon/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
@@ -29,30 +40,30 @@
 			user.changeNext_move(CLICK_CD_MELEE)
 			target.reagents.trans_to(src, 10)
 			to_chat(user, span_notice("Вы наполняете шарик из [target.declent_ru(GENITIVE)]."))
-			desc = "A translucent balloon with some form of liquid sloshing around in it."
+			desc = "Полупрозрачный воздушный шарик, внутри которого плещется какая-то жидкость."
 			update_icon(UPDATE_ICON_STATE)
 
 /obj/item/toy/waterballoon/wash(mob/user, atom/source)
 	if(reagents.total_volume < 10)
 		reagents.add_reagent("water", min(10-reagents.total_volume, 10))
 		to_chat(user, span_notice("Вы наполняете шарик из [source.declent_ru(GENITIVE)]."))
-		desc = "A translucent balloon with some form of liquid sloshing around in it."
+		desc = "Полупрозрачный воздушный шарик, внутри которого плещется какая-то жидкость."
 		update_icon(UPDATE_ICON_STATE)
 
-/obj/item/toy/waterballoon/attackby(obj/item/I, mob/user, params)
-	if(isglassreagentcontainer(I) || istype(I, /obj/item/reagent_containers/food/drinks/drinkingglass))
+/obj/item/toy/waterballoon/attackby(obj/item/item, mob/user, params)
+	if(isglassreagentcontainer(item) || istype(item, /obj/item/reagent_containers/food/drinks/drinkingglass))
 		add_fingerprint(user)
-		if(!I.reagents || I.reagents.total_volume < 1)
-			to_chat(user, span_warning("[DECLENT_RU_CAP(I, NOMINATIVE)] пуст!"))
+		if(!item.reagents || item.reagents.total_volume < 1)
+			to_chat(user, span_warning("[DECLENT_RU_CAP(item, NOMINATIVE)] пуст!"))
 			return ATTACK_CHAIN_PROCEED
-		if(I.reagents.has_reagent("facid", 1) || I.reagents.has_reagent("acid", 1))
+		if(item.reagents.has_reagent("facid", 1) || item.reagents.has_reagent("acid", 1))
 			to_chat(user, span_warning("Кислота прожигает шарик!"))
-			I.reagents.reaction(user)
+			item.reagents.reaction(user)
 			qdel(src)
 			return ATTACK_CHAIN_BLOCKED_ALL
-		desc = "A translucent balloon with some form of liquid sloshing around in it."
-		to_chat(user, span_notice("Вы наполняете шарик из [I.declent_ru(GENITIVE)]."))
-		I.reagents.trans_to(src, 10)
+		desc = "Полупрозрачный воздушный шарик, внутри которого плещется какая-то жидкость."
+		to_chat(user, span_notice("Вы наполняете шарик из [item.declent_ru(GENITIVE)]."))
+		item.reagents.trans_to(src, 10)
 		update_icon(UPDATE_ICON_STATE)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
@@ -62,24 +73,16 @@
 	if(!..()) //was it caught by a mob?
 		balloon_burst(hit_atom)
 
-/obj/item/toy/waterballoon/proc/balloon_burst(atom/AT)
-	if(!reagents || reagents.total_volume < 1)
-		return
-
-	var/turf/turf
-	if(AT)
-		turf = get_turf(AT)
-	else
-		turf = get_turf(src)
-
-	turf.visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] лопается!"), "Вы слышите хлопок и всплеск.")
-	reagents.reaction(turf)
-
-	for(var/atom/atom in turf)
-		reagents.reaction(atom)
-
-	icon_state = "burst"
-	qdel(src)
+/obj/item/toy/waterballoon/proc/balloon_burst(atom/hit_atom)
+	if(reagents.total_volume >= 1)
+		visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] лопается!"), "Вы слышите хлопок и всплеск.")
+		reagents.reaction(get_turf(hit_atom))
+		for(var/atom/A in get_turf(hit_atom))
+			reagents.reaction(A)
+		icon_state = "burst"
+		spawn(5)
+			if(src)
+				qdel(src)
 
 /obj/item/toy/waterballoon/update_icon_state()
 	if(reagents.total_volume >= 1)
@@ -94,26 +97,21 @@
 
 /obj/item/toy/balloon
 	name = "balloon"
-	desc = "No birthday is complete without it. Sealed with a mechanical bluespace wrap so it remains floating no matter what."
+	desc = "Праздничный шарик. Использованные блюспейс технологии позволили ему парить при любых условиях."
 	icon = 'icons/obj/toys/balloons.dmi'
 	icon_state = "balloon"
 	item_state = "balloon"
 	lefthand_file = 'icons/mob/inhands/balloons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/balloons_righthand.dmi'
 	w_class = WEIGHT_CLASS_BULKY
-	throwforce = 0
-	throw_speed = 3
-	throw_range = 7
-	force = 0
 	var/random_color = TRUE
 	/// the string describing the name of balloon's current colour.
 	var/current_color
 
 /obj/item/toy/balloon/long
 	name = "long balloon"
-	desc = "A perfect balloon to contort into goofy forms. Sealed with a mechanical bluespace wrap so it remains floating no matter what."
+	desc = "Воздушный шарик, идеальный для скручивания в различные формы. Использованные блюспейс технологии позволили ему парить при любых условиях."
 	icon_state = "balloon_long"
-	item_state = "balloon"
 	w_class = WEIGHT_CLASS_NORMAL
 	/// Combinations of balloon colours to make specific animals.
 	var/list/balloon_combos = list(
@@ -133,29 +131,33 @@
 		list("orange", "purple") = /obj/item/toy/balloon_animal/plasmaman,
 	)
 
-
 /obj/item/toy/balloon/long/attackby(obj/item/attacking_item, mob/living/user, list/modifiers, list/attack_modifiers)
 	if(!istype(attacking_item, /obj/item/toy/balloon/long))
 		return ..()
 
 	var/obj/item/toy/balloon/long/hit_by = attacking_item
+
 	if(hit_by.current_color == current_color)
-		to_chat(user, span_warning("You must use balloons of different colours to do that!"))
-		return ..()
+		balloon_alert(user, "нужен другой цвет!")
+		return ATTACK_CHAIN_BLOCKED
+
 	visible_message(
-		span_notice("[user.name] starts contorting up a balloon animal!"),
-		blind_message = span_hear("You hear balloons being contorted."),
+		span_notice("[user.name] начинает скручивать шарики вместе!"),
+		blind_message = span_hear("Вы слышите как кто-то скручивает шарики вместе."),
 		vision_distance = 3,
 		ignored_mobs = user,
 	)
+
 	for(var/list/pair_of_colors in balloon_combos)
 		if((hit_by.current_color == pair_of_colors[1] && current_color == pair_of_colors[2]) || (current_color == pair_of_colors[1] && hit_by.current_color == pair_of_colors[2]))
 			var/path_to_spawn = balloon_combos[pair_of_colors]
 			user.put_in_hands(new path_to_spawn)
 			break
+
 	qdel(hit_by)
 	qdel(src)
-	return TRUE
+
+	return ATTACK_CHAIN_BLOCKED_ALL
 
 /obj/item/toy/balloon/attackby(obj/item/I, mob/user, list/modifiers, list/attack_modifiers)
 	if(istype(I, /obj/projectile/bullet/reusable/foam_dart) && ismonkey(user))
@@ -171,7 +173,7 @@
 		return ..()
 
 /obj/item/toy/balloon/bullet_act(obj/projectile/proj)
-	if((istype(proj, /obj/projectile/bullet/) || istype(proj, /obj/projectile/bullet/reusable/foam_dart)) && ismonkey(proj.firer))
+	if((istype(proj, /obj/projectile/bullet/sniper) || istype(proj, /obj/projectile/bullet/reusable/foam_dart)) && ismonkey(proj.firer))
 		pop_balloon(monkey_pop = TRUE)
 	return ..()
 
@@ -183,6 +185,7 @@
 
 /obj/item/toy/balloon/Initialize(mapload)
 	. = ..()
+	AddElement(/datum/element/update_icon_updates_onmob)
 	if(!random_color)
 		return
 	current_color = pick(BALLOON_COLORS)
@@ -209,24 +212,54 @@
 
 /obj/item/toy/balloon/corgi
 	name = "corgi balloon"
-	desc = "A balloon in the shape of a corgi's head. For the all year good boys."
+	desc = "Воздушный шарик в форме головы корги. Для хороших мальчиков круглый год."
 	icon_state = "corgi"
 	item_state = "corgi"
 	random_color = FALSE
 
+/obj/item/toy/balloon/corgi/get_ru_names()
+	return list(
+		NOMINATIVE = "воздушный шарик-корги",
+		GENITIVE = "воздушного шарика-корги",
+		DATIVE = "воздушному шарику-корги",
+		ACCUSATIVE = "воздушного шарика-корги",
+		INSTRUMENTAL = "воздушным шариком-корги",
+		PREPOSITIONAL = "воздушном шарике-корги",
+	)
+
 /obj/item/toy/balloon/heart
 	name = "heart balloon"
-	desc = "A balloon in the shape of a heart. How lovely"
+	desc = "Воздушный шарик в форме сердца. Как мило!"
 	icon_state = "heart"
 	item_state = "heart"
 	random_color = FALSE
 
+/obj/item/toy/balloon/heart/get_ru_names()
+	return list(
+		NOMINATIVE = "воздушный шарик-сердце",
+		GENITIVE = "воздушного шарика-сердца",
+		DATIVE = "воздушному шарику-сердцу",
+		ACCUSATIVE = "воздушного шарика-сердца",
+		INSTRUMENTAL = "воздушным шариком-сердцем",
+		PREPOSITIONAL = "воздушном шарике-сердце",
+	)
+
 /obj/item/toy/balloon/syndicate
 	name = "syndicate balloon"
-	desc = "There is a tag on the back that reads \"FUK NT!11!\"."
+	desc = "Этикетка на задней стороне гласит: \"Смерть Нанотрейзен!11!\"."
 	icon_state = "syndballoon"
 	item_state = "syndballoon"
 	random_color = FALSE
+
+/obj/item/toy/balloon/syndicate/get_ru_names()
+	return list(
+		NOMINATIVE = "воздушный шарик синдиката",
+		GENITIVE = "воздушного шарика синдиката",
+		DATIVE = "воздушному шарику синдиката",
+		ACCUSATIVE = "воздушный шарик синдиката",
+		INSTRUMENTAL = "воздушным шариком синдиката",
+		PREPOSITIONAL = "воздушном шарике синдиката",
+	)
 
 /obj/item/toy/balloon/contractor
 	name = "contractor balloon"
@@ -248,10 +281,20 @@
 
 /obj/item/toy/balloon/arrest
 	name = "arreyst balloon"
-	desc = "A half inflated balloon about a boyband named Arreyst that was popular about ten years ago, famous for making fun of red jumpsuits as unfashionable."
+	desc = "Полунадутый воздушный шар с изображением бойз-бэнда \"Арестанты\", популярного около десяти лет назад и прославившегося тем, что высмеивал красные комбинезоны как немодные."
 	icon_state = "arrestballoon"
 	item_state = "arrestballoon"
 	random_color = FALSE
+
+/obj/item/toy/balloon/arrest/get_ru_names()
+	return list(
+		NOMINATIVE = "воздушный шарик \"В розыске\"",
+		GENITIVE = "воздушного шарика \"В розыске\"",
+		DATIVE = "воздушному шарику \"В розыске\"",
+		ACCUSATIVE = "воздушный шарик \"В розыске\"",
+		INSTRUMENTAL = "воздушным шариком \"В розыске\"",
+		PREPOSITIONAL = "воздушном шарике \"В розыске\"",
+	)
 
 #undef BALLOON_COLORS
 
@@ -267,77 +310,73 @@
 	lefthand_file = 'icons/mob/inhands/balloons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/balloons_righthand.dmi'
 	abstract_type = /obj/item/toy/balloon_animal
-	throwforce = 0
-	throw_speed = 2
-	throw_range = 5
-	force = 0
 
 /obj/item/toy/balloon_animal/guy
 	name = "balloon guy"
-	desc = "A balloon effigy of the everyday standard issue human guy. Wonder if he pays balloon taxes. He probably evades them."
+	desc = "Фигурка из воздушных шариков, изображающая обычного парня. Интересно, платит ли он налоги на воздушные шары? Вероятно, уклоняется от них."
 	icon_state = "balloon_guy"
 
 /obj/item/toy/balloon_animal/nukie
 	name = "balloon nukie"
-	desc = "A balloon effigy of syndicate's nuclear operative. Either made to appease them and pray for survival, or to poke fun at them."
+	desc = "Фигурка из воздушных шариков, изображающая ядерного оперативника \"Синдиката\". Возможно, она сделана чтобы умиротворить их и попросить о пощаде, ну, или подшутить над ними."
 	icon_state = "balloon_nukie"
 
 /obj/item/toy/balloon_animal/clown
 	name = "balloon clown"
-	desc = "A balloon clown, smiling from ear to ear and beyond!"
+	desc = "Клоун из воздушных шариков, улыбающийся во весь рот."
 	icon_state = "balloon_clown"
 
 /obj/item/toy/balloon_animal/cat
 	name = "balloon cat"
-	desc = "Without the sharp claws, balloon cats are possibly cuter than their live counterparts, though not as relatable, warm and fuzzy."
+	desc = "Фигурка из воздушных шариков, изображающая кошку. Возможно она милее своих живых собратьев, но не располагает добротой и не такая пушистая."
 	icon_state = "balloon_cat"
 
 /obj/item/toy/balloon_animal/fly
 	name = "balloon fly"
-	desc = "A balloon effigy of a flyperson. Thankfully, it doesn't come with balloon vomit."
+	desc = "Фигурка из воздушных шариков в форме мухи, жужжание не входит в комплект."
 	icon_state = "balloon_fly"
 
 /obj/item/toy/balloon_animal/podguy
 	name = "balloon podguy"
-	desc = "A balloon effigy of a podperson. Though, actual podpeople have heads and not stalks and leaves."
+	desc = "Фигурка из воздушных шариков, изображающая человека-растение, отдаленно напоминающего диону."
 	icon_state = "balloon_podguy"
 
 /obj/item/toy/balloon_animal/ai
 	name = "balloon ai core"
-	desc = "A somewhat unrealistic balloon effigy of the station's AI core. Actual AI probably wouldn't smile like this."
+	desc = "Несколько нереалистичное изображение ядра искусственного интеллекта станции, сделанное из воздушных шариков. Настоящий ИИ, вероятно, так бы не улыбался."
 	icon_state = "balloon_ai"
 
 /obj/item/toy/balloon_animal/dog
 	name = "balloon dog"
-	desc = "A balloon effigy of the best boy. It cannot truly compare, but it makes an effort."
+	desc = "Фигурка из воздушных шариков, изображающая хорошего мальчика. Конечно, она не может сравниться с оригиналом, но попытка хорошая."
 	icon_state = "balloon_dog"
 
 /obj/item/toy/balloon_animal/xeno
 	name = "balloon xeno"
-	desc = "A balloon effigy of a spooky xeno! Too squishy to scare anyone itself, though."
+	desc = "Фигурка жуткого ксеноморфа из воздушных шариков! Слишком мягкая, чтобы напугать кого-либо сама по себе!"
 	icon_state = "balloon_xeno"
 
 /obj/item/toy/balloon_animal/banana
 	name = "balloon banana"
-	desc = "A balloon banana. This one can't be slipped on. Good for psychological warfare, though."
+	desc = "Банан из воздушных шариков, на нём не подскользнуться. Зато он хорошо подходит для психологической войны."
 	icon_state = "balloon_banana"
 
 /obj/item/toy/balloon_animal/lizard
 	name = "balloon lizard"
-	desc = "A balloon effigy of a lizard. One of the first species to adapt to clown planet's culture. Perhaps because they are naturally laughable?"
+	desc = "Фигурка из воздушных шариков, изображающая ящерку. Один из первых видов, адаптировавшихся к культуре планеты клоунов. Возможно, потому что они от природы смешные?"
 	icon_state = "balloon_lizard"
 
 /obj/item/toy/balloon_animal/slime
 	name = "balloon slime"
-	desc = "A balloon effigy of single specimen of the galaxy-wide slime scourge, of purple variety. Slimes tried to invade clown planet once. They got quickly washed out by water-spitting flowers, though."
+	desc = "Фигурка из воздушных шариков, изображающая единственного представителя слаймов в галактике, фиолетового цвета. Однажды слаймы пытались вторгнуться на планету клоунов, однако их быстро смыло плюющимися водой цветами."
 	icon_state = "balloon_slime"
 
 /obj/item/toy/balloon_animal/moth
 	name = "balloon moth"
-	desc = "A balloon effigy of a common member of moth flotillas. Very few of them ever decide to settle on the clown planet, but those who do have the best 'piece-of-cloth-disappearing' acts."
+	desc = "Фигурка из воздушных шариков, изображающая распространенного представителя расы Ниан. Очень немногие из них решают поселиться на планете клоунов, но те, кто это делает, демонстрируют лучшие трюки с \"исчезновением трусов\"."
 	icon_state = "balloon_moth"
 
 /obj/item/toy/balloon_animal/plasmaman
 	name = "balloon plasmaman"
-	desc = "A balloon effigy of a plasmaman. Among the rarest on the clown planet, only having appeared recently thanks to ready trade between clown planet and NT."
+	desc = "Фигурка плазмамена, выполненная из воздушных шариков. Самый редкий представитель на планете клоунов, они появились совсем недавно благодаря активной торговле между клоунами и NT."
 	icon_state = "balloon_plasmaman"
