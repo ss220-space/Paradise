@@ -1,5 +1,5 @@
 /obj/machinery/vending/chinese
-	name = "\"Мистер Чанг\""
+	name = "Mr. Chang"
 	desc = "Машина самообслуживания, созданная специально для удовлетворения вашей потребности в азиатской кухне."
 	slogan_list = list(
 		"Попр+обуйте 5000 лет культ+уры!",
@@ -35,10 +35,10 @@
 
 /obj/machinery/vending/chinese/get_ru_names()
 	return list(
-		NOMINATIVE = "торговый автомат \"Мистер Чанг\"",
-		GENITIVE = "торгового автомата \"Мистер Чанг\"",
-		DATIVE = "торговому автомату \"Мистер Чанг\"",
-		ACCUSATIVE = "торговый автомат \"Мистер Чанг\"",
-		INSTRUMENTAL = "торговым автоматом \"Мистер Чанг\"",
-		PREPOSITIONAL = "торговом автомате \"Мистер Чанг\"",
+		NOMINATIVE = "торговый автомат Mr. Chang",
+		GENITIVE = "торгового автомата Mr. Chang",
+		DATIVE = "торговому автомату Mr. Chang",
+		ACCUSATIVE = "торговый автомат Mr. Chang",
+		INSTRUMENTAL = "торговым автоматом Mr. Chang",
+		PREPOSITIONAL = "торговом автомате Mr. Chang",
 	)
