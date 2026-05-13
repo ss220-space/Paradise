@@ -1285,9 +1285,7 @@
 /area/coldcolony/ruin/sm_lab)
 "avC" = (
 /obj/machinery/portable_atmospherics/canister/carbon_dioxide,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -3237,8 +3235,7 @@
 "beH" = (
 /obj/structure/table/wood,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Head of Security's Office";
-	pixel_y = 2
+	department = "Head of Security's Office"
 	},
 /obj/machinery/power/apc/directional/north,
 /obj/structure/cable{
@@ -3342,9 +3339,7 @@
 	pixel_y = 4
 	},
 /obj/effect/turf_decal/delivery/blue,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -3599,8 +3594,7 @@
 "bls" = (
 /obj/structure/table/reinforced,
 /obj/machinery/recharger{
-	pixel_x = 1;
-	pixel_y = 3
+	pixel_x = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -4771,9 +4765,7 @@
 	dir = 2;
 	id_tag = "eslock"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/delivery,
 /obj/structure/disposalpipe/segment,
@@ -5035,9 +5027,7 @@
 /obj/structure/closet/secure_closet/atmos_personal,
 /obj/item/extinguisher/mini,
 /obj/effect/turf_decal/delivery/hollow,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -5162,8 +5152,7 @@
 /area/coldcolony/ruin/abandoned_house)
 "bQt" = (
 /obj/machinery/recharger{
-	pixel_x = 1;
-	pixel_y = 3
+	pixel_x = 1
 	},
 /obj/structure/table/wood,
 /turf/simulated/floor/carpet,
@@ -6309,9 +6298,7 @@
 	},
 /area/coldcolony/malta/security/customs)
 "ckM" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/corner,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -6471,9 +6458,7 @@
 	},
 /area/coldcolony/malta/engineering/atmos)
 "cnB" = (
-/obj/structure/closet/crate/miningcar{
-	name = "mining car"
-	},
+/obj/structure/closet/crate/miningcar,
 /obj/item/stack/ore/bluespace_crystal,
 /obj/item/stack/ore/titanium{
 	amount = 6
@@ -6967,8 +6952,7 @@
 /area/ruin/unpowered)
 "cxT" = (
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Head of Personnel's Office";
-	pixel_y = 2
+	department = "Head of Personnel's Office"
 	},
 /obj/structure/table/wood,
 /turf/simulated/floor/carpet/orange,
@@ -7540,8 +7524,7 @@
 "cHA" = (
 /obj/structure/table/reinforced,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Research Director's Office";
-	pixel_y = 2
+	department = "Research Director's Office"
 	},
 /obj/machinery/requests_console{
 	announcementConsole = 1;
@@ -8022,9 +8005,7 @@
 	dir = 8
 	},
 /obj/machinery/portable_atmospherics/scrubber,
-/obj/effect/turf_decal/stripes/end{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/end,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "yellow"
@@ -8167,9 +8148,7 @@
 	},
 /area/coldcolony/malta/medical/medbay)
 "cUt" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -9072,9 +9051,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/brig)
 "dlV" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
@@ -15530,9 +15507,7 @@
 	},
 /area/coldcolony/ruin/syndie_outpost)
 "fOs" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/machinery/portable_atmospherics/canister/sleeping_agent,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -16267,8 +16242,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/reinforced,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Quartermaster's Office";
-	pixel_y = 2
+	department = "Quartermaster's Office"
 	},
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/quartermaster/qm)
@@ -17157,9 +17131,7 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/turret_protected/aisat)
 "gur" = (
@@ -21511,9 +21483,7 @@
 	},
 /area/coldcolony/malta/bridge/captain/bedroom)
 "icK" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
@@ -21751,9 +21721,7 @@
 	dir = 2;
 	id_tag = "eslock"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
@@ -24180,8 +24148,7 @@
 "jbJ" = (
 /obj/structure/table/reinforced,
 /obj/machinery/recharger{
-	pixel_x = 1;
-	pixel_y = 3
+	pixel_x = 1
 	},
 /obj/machinery/light_switch/directional/north,
 /turf/simulated/floor/plasteel{
@@ -24203,9 +24170,7 @@
 	},
 /area/coldcolony/malta/security/reception)
 "jcC" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/item/mecha_parts/mecha_equipment/generator,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -24591,9 +24556,7 @@
 	},
 /area/coldcolony/malta/quartermaster/sorting)
 "jiI" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/quartermaster/storage)
 "jiZ" = (
@@ -24821,9 +24784,7 @@
 /area/coldcolony/malta/security/prison/cell_block/A)
 "jmu" = (
 /obj/structure/table/reinforced,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/item/paper_bin,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -25583,8 +25544,7 @@
 "jzO" = (
 /obj/structure/table/reinforced,
 /obj/machinery/recharger{
-	pixel_x = 1;
-	pixel_y = 3
+	pixel_x = 1
 	},
 /obj/machinery/alarm/directional/south,
 /turf/simulated/floor/plasteel{
@@ -26603,9 +26563,7 @@
 	},
 /area/coldcolony/malta/hallway/cargo_escape/port/east)
 "jTA" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -27013,9 +26971,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/cargo)
 "kar" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/structure/chair/e_chair{
 	dir = 1
 	},
@@ -28100,8 +28056,7 @@
 	},
 /obj/structure/table/reinforced,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Chief Engineer's Office";
-	pixel_y = 2
+	department = "Chief Engineer's Office"
 	},
 /obj/machinery/keycard_auth{
 	pixel_x = 8;
@@ -28561,9 +28516,7 @@
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/hallway/service/south)
 "kAE" = (
-/obj/structure/closet/crate/miningcar{
-	name = "mining car"
-	},
+/obj/structure/closet/crate/miningcar,
 /obj/item/stack/ore/iron{
 	amount = 14
 	},
@@ -30420,9 +30373,7 @@
 /turf/simulated/wall/rust,
 /area/coldcolony/malta/quartermaster/office)
 "lmr" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/structure/closet/emcloset,
 /obj/machinery/light{
 	dir = 1
@@ -31208,9 +31159,7 @@
 	},
 /area/coldcolony/malta/research)
 "lCN" = (
-/obj/machinery/atmospherics/binary/circulator{
-	icon_state = "circ8-off"
-	},
+/obj/machinery/atmospherics/binary/circulator,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -32228,9 +32177,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/coldcolony/malta/medical/sleeper)
 "lVP" = (
-/obj/effect/turf_decal/stripes/end{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/end,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -34932,9 +34879,7 @@
 /turf/simulated/floor/wood/fancy/light,
 /area/coldcolony/malta/resid_serv/crew_quarters/theatre)
 "mYb" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -35120,9 +35065,7 @@
 /turf/simulated/floor/carpet/green,
 /area/coldcolony/malta/civilian/mrchangs)
 "nbd" = (
-/obj/structure/closet/crate/miningcar{
-	name = "mining car"
-	},
+/obj/structure/closet/crate/miningcar,
 /obj/item/stack/ore/silver{
 	amount = 9
 	},
@@ -35317,9 +35260,7 @@
 	dir = 8
 	},
 /obj/machinery/portable_atmospherics/pump,
-/obj/effect/turf_decal/stripes/end{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/end,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "yellow"
@@ -37223,9 +37164,7 @@
 	},
 /area/coldcolony/malta/research/chargebay)
 "nTO" = (
-/obj/structure/closet/crate/miningcar{
-	name = "mining car"
-	},
+/obj/structure/closet/crate/miningcar,
 /obj/item/stack/ore/silver{
 	amount = 5
 	},
@@ -37582,9 +37521,7 @@
 /turf/simulated/floor/wood/fancy/light,
 /area/coldcolony/malta/resid_serv/bar)
 "nZE" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/machinery/status_display/supply_display{
 	pixel_x = 32
 	},
@@ -38025,6 +37962,7 @@
 /obj/machinery/atm{
 	pixel_x = -32
 	},
+/obj/machinery/jukebox/bar,
 /turf/simulated/floor/wood,
 /area/coldcolony/malta/resid_serv/bar/atrium)
 "ogJ" = (
@@ -38607,17 +38545,13 @@
 /obj/machinery/atmospherics/binary/pump{
 	dir = 4
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
 /area/coldcolony/malta/engineering/atmos)
 "osq" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/engine,
 /area/coldcolony/ruin/sm_chamber)
@@ -40379,8 +40313,7 @@
 "oYi" = (
 /obj/structure/table,
 /obj/machinery/recharger{
-	pixel_x = 1;
-	pixel_y = 3
+	pixel_x = 1
 	},
 /obj/structure/sign/poster/official/random{
 	pixel_x = -32
@@ -40522,9 +40455,7 @@
 /turf/simulated/floor/carpet/orange,
 /area/coldcolony/malta/resid_serv/crew_quarters/theatre)
 "paN" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -41163,9 +41094,7 @@
 /obj/structure/closet/secure_closet/atmos_personal,
 /obj/item/extinguisher/mini,
 /obj/effect/turf_decal/delivery/hollow,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/poster/official/random{
 	pixel_y = 32
@@ -43086,8 +43015,7 @@
 "pZT" = (
 /obj/structure/table/wood,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Magistrate's Office";
-	pixel_y = 2
+	department = "Magistrate's Office"
 	},
 /turf/simulated/floor/wood/fancy/light{
 	color = "orange"
@@ -43148,9 +43076,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/medical/virology)
 "qbi" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -43262,9 +43188,7 @@
 	},
 /area/coldcolony/malta/bridge)
 "qen" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/structure/lattice,
 /turf/simulated/floor/plating/asteroid,
 /area/coldcolony/ruin/sm_chamber)
@@ -44133,9 +44057,7 @@
 	},
 /area/coldcolony/malta/medical/virology)
 "qub" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/ash,
 /obj/effect/decal/cleanable/dirt,
@@ -45027,9 +44949,7 @@
 /obj/structure/closet/secure_closet/atmos_personal,
 /obj/item/extinguisher/mini,
 /obj/effect/turf_decal/delivery/hollow,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -46118,9 +46038,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 1
 	},
-/obj/effect/baseturf_helper/asteroid/snow{
-	baseturf = /turf/simulated/floor/plating/asteroid/snow
-	},
+/obj/effect/baseturf_helper/asteroid/snow,
 /turf/simulated/floor/plating/asteroid/cold,
 /area/ruin/unpowered/coldcolony_outside)
 "rfE" = (
@@ -46207,8 +46125,7 @@
 "rgH" = (
 /obj/structure/table/wood,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Chief Medical Officer's Office";
-	pixel_y = 2
+	department = "Chief Medical Officer's Office"
 	},
 /turf/simulated/floor/plasteel/white,
 /area/coldcolony/malta/medical/cmo)
@@ -46784,9 +46701,7 @@
 	},
 /area/coldcolony/malta/bridge)
 "rqC" = (
-/obj/structure/closet/crate/miningcar{
-	name = "mining car"
-	},
+/obj/structure/closet/crate/miningcar,
 /obj/item/stack/ore/diamond{
 	amount = 3
 	},
@@ -47211,9 +47126,7 @@
 	},
 /area/coldcolony/malta/resid_serv/crew_quarters/sleep)
 "rzd" = (
-/obj/structure/closet/crate/miningcar{
-	name = "mining car"
-	},
+/obj/structure/closet/crate/miningcar,
 /obj/item/stack/ore/iron{
 	amount = 9
 	},
@@ -48286,8 +48199,7 @@
 /area/coldcolony/malta/quartermaster/miningbar)
 "rUz" = (
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Captain's Office";
-	pixel_y = 2
+	department = "Captain's Office"
 	},
 /obj/structure/table/wood,
 /obj/machinery/requests_console{
@@ -48759,9 +48671,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/delivery/hollow/left,
 /obj/effect/turf_decal/delivery/hollow/right,
-/obj/structure/closet/crate/secure/engineering{
-	req_access = list(10)
-	},
+/obj/structure/closet/crate/secure/engineering,
 /obj/item/rcd,
 /obj/item/rcd_ammo,
 /obj/item/rcd_ammo,
@@ -49419,9 +49329,7 @@
 	pixel_y = 4
 	},
 /obj/effect/turf_decal/delivery/blue,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -50176,9 +50084,7 @@
 /obj/structure/closet/secure_closet/atmos_personal,
 /obj/item/extinguisher/mini,
 /obj/effect/turf_decal/delivery/hollow,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/machinery/firealarm/directional/north,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -50220,8 +50126,7 @@
 /obj/structure/table/wood,
 /obj/structure/window/reinforced,
 /obj/machinery/recharger{
-	pixel_x = 1;
-	pixel_y = 3
+	pixel_x = 1
 	},
 /turf/simulated/floor/carpet/royalblue,
 /area/coldcolony/malta/bridge/captain/bedroom)
@@ -50231,9 +50136,7 @@
 	dir = 1;
 	name = "Труба смешивания"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution"
 	},
@@ -50983,8 +50886,7 @@
 "sZl" = (
 /obj/structure/table/wood,
 /obj/machinery/recharger{
-	pixel_x = 1;
-	pixel_y = 3
+	pixel_x = 1
 	},
 /obj/machinery/power/apc/directional/east,
 /obj/structure/cable{
@@ -51867,9 +51769,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/hallway/service/east)
 "trl" = (
-/obj/structure/closet/crate/miningcar{
-	name = "mining car"
-	},
+/obj/structure/closet/crate/miningcar,
 /obj/item/stack/ore/gold{
 	amount = 3
 	},
@@ -51923,9 +51823,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/coldcolony/malta/medical/surgery/west)
 "tsb" = (
-/obj/structure/closet/crate/miningcar{
-	name = "mining car"
-	},
+/obj/structure/closet/crate/miningcar,
 /obj/item/stack/ore/titanium{
 	amount = 11
 	},
@@ -53938,9 +53836,7 @@
 /area/coldcolony/malta/engineering/atmos)
 "ucB" = (
 /obj/machinery/computer/mech_bay_power_console,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel{
 	icon_state = "purple"
 	},
@@ -54700,8 +54596,7 @@
 	pixel_x = 32
 	},
 /obj/machinery/recharger{
-	pixel_x = 1;
-	pixel_y = 3
+	pixel_x = 1
 	},
 /obj/item/rcs,
 /obj/item/rcs,
@@ -54975,9 +54870,7 @@
 /area/coldcolony/malta/research/lab)
 "uxJ" = (
 /obj/effect/turf_decal/delivery/hollow,
-/obj/structure/closet/crate/secure/engineering{
-	req_access = list(10)
-	},
+/obj/structure/closet/crate/secure/engineering,
 /obj/item/stack/sheet/mineral/uranium{
 	amount = 20
 	},
@@ -56089,9 +55982,7 @@
 	dir = 5;
 	name = "Труба дыхательной смеси"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution"
 	},
@@ -56334,9 +56225,7 @@
 	},
 /area/coldcolony/malta/medical/genetics)
 "vdA" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/machinery/constructable_frame/machine_frame,
 /obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/plasteel{
@@ -58006,9 +57895,7 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/delivery,
-/obj/effect/turf_decal/stripes/corner{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/corner,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -58217,9 +58104,7 @@
 	},
 /area/coldcolony/malta/maintenance/kitchen)
 "vHS" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/structure/mecha_wreckage/ripley,
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
@@ -58811,9 +58696,7 @@
 	},
 /area/coldcolony/malta/resid_serv/hydroponics)
 "vUY" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -59997,9 +59880,7 @@
 	dir = 5;
 	name = "Труба фильтрации"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -60062,8 +59943,7 @@
 "wsH" = (
 /obj/structure/table/wood,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "NT Representative's Office";
-	pixel_y = 2
+	department = "NT Representative's Office"
 	},
 /turf/simulated/floor/carpet/royalblue,
 /area/coldcolony/malta/bridge/ntrep)
@@ -60300,9 +60180,7 @@
 	dir = 1;
 	name = "Труба фильтрации"
 	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/corner,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -60895,9 +60773,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/coldcolony/malta/medical/cmostore)
 "wIN" = (
-/obj/structure/closet/crate/miningcar{
-	name = "mining car"
-	},
+/obj/structure/closet/crate/miningcar,
 /obj/item/stack/ore/bluespace_crystal,
 /obj/item/stack/ore/iron{
 	amount = 14
@@ -61263,9 +61139,7 @@
 /area/coldcolony/malta/hallway/service/east)
 "wPm" = (
 /obj/machinery/computer/security/engineering,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/machinery/light_switch/directional/west,
 /obj/machinery/camera{
 	c_tag = "Engineering Monitoring";
@@ -62962,9 +62836,7 @@
 	dir = 4;
 	name = "Труба дыхательной смеси"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution"
@@ -63167,8 +63039,7 @@
 /obj/structure/window/reinforced,
 /obj/structure/table/reinforced,
 /obj/machinery/recharger{
-	pixel_x = 1;
-	pixel_y = 3
+	pixel_x = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -63691,8 +63562,7 @@
 "xJr" = (
 /obj/structure/table/reinforced,
 /obj/machinery/recharger{
-	pixel_x = 1;
-	pixel_y = 3
+	pixel_x = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -64934,8 +64804,7 @@
 "ylm" = (
 /obj/structure/table/reinforced,
 /obj/machinery/recharger{
-	pixel_x = 1;
-	pixel_y = 3
+	pixel_x = 1
 	},
 /obj/machinery/recharger/wallcharger{
 	pixel_x = 5;

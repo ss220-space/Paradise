@@ -3216,7 +3216,7 @@
 /turf/space,
 /area/space)
 "yK" = (
-/obj/machinery/disco,
+/obj/machinery/jukebox/disco,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/bar)
 "yN" = (

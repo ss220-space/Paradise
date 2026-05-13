@@ -27348,7 +27348,7 @@
 /obj/effect/turf_decal/box/white/corners{
 	dir = 8
 	},
-/obj/machinery/disco/immobile,
+/obj/machinery/jukebox/disco/indestructible,
 /turf/simulated/floor/mineral/abductor,
 /area/centcom/zone1)
 "mTh" = (

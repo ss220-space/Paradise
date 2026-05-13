@@ -5523,7 +5523,7 @@
 /turf/simulated/floor/wood/fancy/light,
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
 "Vm" = (
-/obj/machinery/disco/immobile,
+/obj/machinery/jukebox/disco/indestructible,
 /turf/simulated/floor/light/colour_cycle/dancefloor_b,
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
 "Vn" = (
