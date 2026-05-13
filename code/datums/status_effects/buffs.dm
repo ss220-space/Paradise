@@ -435,7 +435,7 @@
 	active_instances += instance_duration
 	freezing = (owner.bodytemperature + 50 <= owner.dna.species.body_temperature)
 
-	if(freezing || tolerance > 0)
+	if(freezing || tolerance > 1)
 		owner.balloon_alert(owner, "эффективность регенерации снижена")
 	else
 		owner.balloon_alert(owner, "быстрая регенерация плоти")
