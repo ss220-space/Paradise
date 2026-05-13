@@ -2,6 +2,7 @@
 #define LIVER_FAILURE_STAGE_SECONDS 60
 #define LIVER_DEFAULT_TOX_HEALING -0.1
 ///liver failure stages
+#define LIVER_FAILURE_STAGE_GOOD 0
 #define LIVER_FAILURE_STAGE_PAIN 1
 #define LIVER_FAILURE_STAGE_BURN 2
 #define LIVER_FAILURE_STAGE_ACID 3
@@ -160,12 +161,16 @@
 	if(human_owner.is_eyes_covered())
 		return
 
-	switch(failure_time)
-		if(0 to LIVER_FAILURE_STAGE_ACID * LIVER_FAILURE_STAGE_SECONDS - 1)
+	var/failure_stage = floor(failure_time / LIVER_FAILURE_STAGE_SECONDS)
+
+	switch(failure_stage)
+		if(LIVER_FAILURE_STAGE_GOOD to LIVER_FAILURE_STAGE_BURN)
 			examine_list += span_notice("[GEND_HIS_HER_CAP(human_owner)] глаза выглядят слегка жёлтыми.")
-		if(LIVER_FAILURE_STAGE_ACID * LIVER_FAILURE_STAGE_SECONDS to LIVER_FAILURE_STAGE_COLLAPSE * LIVER_FAILURE_STAGE_SECONDS - 1)
+
+		if(LIVER_FAILURE_STAGE_ACID)
 			examine_list += span_notice("[GEND_HIS_HER_CAP(human_owner)] глаза полностью жёлтые и [GEND_HE_SHE(human_owner)] явно страдает.")
-		if(LIVER_FAILURE_STAGE_COLLAPSE * LIVER_FAILURE_STAGE_SECONDS to INFINITY)
+
+		if(LIVER_FAILURE_STAGE_COLLAPSE to INFINITY)
 			examine_list += span_danger("[GEND_HIS_HER_CAP(human_owner)] глаза полностью жёлтые и опухшие от гноя. [GEND_HE_SHE_CAP(human_owner)] долго не продержится.")
 
 /obj/item/organ/internal/liver/cybernetic
@@ -224,6 +229,7 @@
 
 #undef LIVER_FAILURE_STAGE_SECONDS
 #undef LIVER_DEFAULT_TOX_HEALING
+#undef LIVER_FAILURE_STAGE_GOOD
 #undef LIVER_FAILURE_STAGE_PAIN
 #undef LIVER_FAILURE_STAGE_BURN
 #undef LIVER_FAILURE_STAGE_ACID
