@@ -754,7 +754,7 @@
 	if(player.assigned_role)
 		jobtext = " the <b>[player.assigned_role]</b>"
 
-	var/text = "<b>[player.get_display_key()]</b> was <b>[player.name]</b>[jobtext] and"
+	var/text = "<b>[player.get_mind_key()]</b> was <b>[player.name]</b>[jobtext] and"
 	if(player.current)
 		if(player.current.stat == DEAD)
 			text += " [span_redtext("died")]"
@@ -775,7 +775,7 @@
 	return text
 
 /proc/printeventplayer(datum/mind/player)
-	var/text = "<b>[player.get_display_key()]</b> was <b>[player.name]</b>"
+	var/text = "<b>[player.get_mind_key()]</b> was <b>[player.name]</b>"
 	if(player.special_role != SPECIAL_ROLE_EVENTMISC)
 		text += " the [player.special_role]"
 

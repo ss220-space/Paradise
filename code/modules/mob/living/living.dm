@@ -2346,3 +2346,9 @@
 /mob/living/set_base_pixel_y(new_value)
 	. = ..()
 	update_offsets()
+
+/// Returns a string for the specified body zone. If we have a bodypart in this zone, refers to its plaintext_zone instead.
+/mob/living/proc/parse_zone_with_bodypart(zone)
+	var/obj/item/organ/external/part = get_bodypart(zone)
+
+	return part?.plaintext_zone || parse_zone(zone)
