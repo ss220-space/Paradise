@@ -55,7 +55,7 @@
 		for(var/datum/mind/changeling in changelings)
 			var/changelingwin = TRUE
 
-			text += "<br>[changeling.get_display_key()] was [changeling.name] ("
+			text += "<br>[changeling.get_mind_key()] was [changeling.name] ("
 			if(changeling.current)
 				if(changeling.current.stat == DEAD)
 					text += "died"

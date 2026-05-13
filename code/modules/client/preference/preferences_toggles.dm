@@ -281,6 +281,9 @@
 	. = ..()
 	if(user.prefs.sound & ~SOUND_DISCO)
 		usr.stop_sound_channel(CHANNEL_JUKEBOX)
+	var/mob/client_mob = user.mob
+	if(!isnull(client_mob))
+		SEND_SIGNAL(client_mob, COMSIG_MOB_JUKEBOX_PREFERENCE_APPLIED)
 
 /datum/preference_toggle/toggle_ghost_pda
 	name = "Сообщения на КПК — Призрак"

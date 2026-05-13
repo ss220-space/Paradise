@@ -92081,7 +92081,7 @@
 	},
 /area/medical/virology)
 "qAw" = (
-/obj/machinery/computer/arcade,
+/obj/machinery/jukebox/bar,
 /turf/simulated/floor/carpet/red,
 /area/crew_quarters/bar/atrium)
 "qAH" = (
