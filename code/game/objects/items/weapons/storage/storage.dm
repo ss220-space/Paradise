@@ -80,14 +80,14 @@
 	if(display_contents_with_number)
 		boxes = new /atom/movable/screen/storage()
 		boxes.name = "storage"
-		boxes.master = src
+		boxes.master_ref = WEAKREF(src)
 		boxes.icon_state = "block"
 		boxes.screen_loc = "7,7 to 10,8"
 		boxes.layer = HUD_LAYER
 		boxes.plane = HUD_PLANE
 
 	closer = new /atom/movable/screen/close()
-	closer.master = src
+	closer.master_ref = WEAKREF(src)
 
 	orient2hud()
 
@@ -391,33 +391,33 @@
 	/// Storage closer ref
 	var/atom/movable/screen/close/closer
 
-/datum/storage_box/New(master)
+/datum/storage_box/New(new_master)
 	// Making ref to parent storage
-	storage = master
+	storage = new_master
 
 	// Initialize screen objects
 	start = new
 	start.icon_state = "storage_start"
-	start.master = master
+	start.master_ref = WEAKREF(new_master)
 
 	end = new
 	end.icon_state = "storage_end"
-	end.master = master
+	end.master_ref = WEAKREF(new_master)
 
 	continued = new
 	continued.icon_state = "storage_continue"
-	continued.master = master
+	continued.master_ref = WEAKREF(new_master)
 
 	top = new
 	top.icon_state = "storage_top"
-	top.master = master
+	top.master_ref = WEAKREF(new_master)
 
 	bottom = new
 	bottom.icon_state = "storage_bottom"
-	bottom.master = master
+	bottom.master_ref = WEAKREF(new_master)
 
 	closer = new
-	closer.master = master
+	closer.master_ref = WEAKREF(new_master)
 
 	place_items = new
 

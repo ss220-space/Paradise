@@ -583,7 +583,7 @@
 /obj/structure/sign/deathsposal{
 	pixel_x = -32
 	},
-/obj/effect/decal/warning_stripes/red,
+/obj/effect/turf_decal/delivery/red,
 /turf/simulated/floor/engine,
 /area/maintenance/incinerator)
 "rT" = (

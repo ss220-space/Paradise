@@ -456,19 +456,21 @@
 	var/datum/species/slime/species = target.dna.species
 	return species.evolved_slime
 
-/proc/spawn_atom_to_turf(spawn_type, target, amount, admin_spawn=FALSE, list/extra_args)
-	var/turf/T = get_turf(target)
-	if(!T)
+/proc/spawn_atom_to_turf(spawn_type, target, amount, admin_spawn = FALSE, list/extra_args)
+	var/turf/turf = get_turf(target)
+	if(!turf)
 		CRASH("attempt to spawn atom type: [spawn_type] in nullspace")
 
-	var/list/new_args = list(T)
+	var/list/new_args = list(turf)
 	if(extra_args)
 		new_args += extra_args
 
+	var/atom/atom
 	for(var/j in 1 to amount)
-		var/atom/X = new spawn_type(arglist(new_args))
+		atom = new spawn_type(arglist(new_args))
 		if(admin_spawn)
-			X.flags |= ADMIN_SPAWNED
+			atom.flags |= ADMIN_SPAWNED
+	return atom // return the last mob spawned
 
 /proc/admin_mob_info(mob/subject, mob/user = usr)
 	if(!ismob(subject))
@@ -676,19 +678,8 @@
 		C = M.client
 	else if(M.last_known_ckey in GLOB.directory)
 		C = GLOB.directory[M.last_known_ckey]
-
-	// Now we see if we need to respect their privacy
-	var/out_ckey
-	if(C)
-		if(C.prefs.toggles2 & PREFTOGGLE_2_ANON)
-			out_ckey = "(Anon)"
-		else
-			out_ckey = C.ckey
-	else
-		// No client. Just mark as DC'd.
-		out_ckey = "(Disconnected)"
-
-	return out_ckey
+// Now we see if we need to respect their privacy
+	return get_display_key(C)
 
 ///Returns a list of strings for a given slot flag.
 /proc/parse_slot_flags(slot_flags)
@@ -991,8 +982,14 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		if(!QDELETED(brain.brainmob?.mind))
 			return brain.brainmob.mind
 
-/// Returns a string for the specified body zone. If we have a bodypart in this zone, refers to its plaintext_zone instead.
-/mob/living/proc/parse_zone_with_bodypart(zone)
-	var/obj/item/organ/external/part = get_bodypart(zone)
-
-	return part?.plaintext_zone || parse_zone(zone)
+/proc/dance_rotate(atom/movable/target_movable, datum/callback/call_per_rotate, set_original_dir = FALSE)
+	set waitfor = FALSE
+	var/original_dir = target_movable.dir
+	for(var/i in list(NORTH, SOUTH, EAST, WEST, EAST, SOUTH, NORTH, SOUTH, EAST, WEST, EAST, SOUTH))
+		if(!target_movable)
+			return
+		target_movable.setDir(i)
+		call_per_rotate?.Invoke()
+		sleep(0.1 SECONDS)
+	if(set_original_dir)
+		target_movable.setDir(original_dir)

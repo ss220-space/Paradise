@@ -1,4 +1,0 @@
-author: "makaroshka003"
-delete-after: True
-changes:
-  - tweak: "Убран режим SKILLS худа из очков БЩ и кэпа (PR #9178)"

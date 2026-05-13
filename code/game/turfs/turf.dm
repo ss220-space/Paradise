@@ -605,11 +605,11 @@
 	faller.drop_from_hands()
 
 /turf/singularity_act()
-	if(intact)
+	if(underfloor_accessibility < UNDERFLOOR_INTERACTABLE)
 		for(var/obj/on_top in contents) //this is for deleting things like wires contained in the turf
 			if(on_top.level != 1)
 				continue
-			if(on_top.invisibility in list(INVISIBILITY_MAXIMUM, INVISIBILITY_ABSTRACT))
+			if(HAS_TRAIT(on_top, TRAIT_UNDERFLOOR))
 				on_top.singularity_act()
 	ChangeTurf(baseturf)
 	return 2
@@ -1113,13 +1113,13 @@
 	// No, I don't think I will.
 	return FALSE
 
-/obj/effect/abstract/pressure_overlay/singularity_pull()
+/obj/effect/abstract/pressure_overlay/singularity_pull(atom/singularity, current_size)
 	// I am not a physical object, you have no control over me!
-	return FALSE
+	return
 
 /obj/effect/abstract/pressure_overlay/singularity_act()
 	// I don't taste good, either!
-	return FALSE
+	return
 
 /turf/proc/ensure_pressure_overlay()
 	if(isnull(pressure_overlay))

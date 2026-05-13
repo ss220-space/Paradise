@@ -397,7 +397,7 @@
 	lootcount = 1
 	loot = list(
 		/obj/machinery/floodlight = 50,
-		/obj/machinery/disco = 50,
+		/obj/machinery/jukebox/disco = 50,
 		/obj/mecha/combat/durand/old = 50,
 		/obj/machinery/snow_machine = 50,
 	)

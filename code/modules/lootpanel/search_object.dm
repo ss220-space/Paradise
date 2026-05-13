@@ -84,7 +84,7 @@
 	qdel(src)
 
 /// Parent tile has been altered, entire search needs reset
-/datum/search_object/proc/on_turf_change(turf/source, path, list/new_baseturfs, flags, list/post_change_callbacks)
+/datum/search_object/proc/on_turf_change(turf/source, path, list/post_change_callbacks)
 	SIGNAL_HANDLER
 
 	post_change_callbacks += CALLBACK(src, GLOBAL_PROC_REF(qdel), src)

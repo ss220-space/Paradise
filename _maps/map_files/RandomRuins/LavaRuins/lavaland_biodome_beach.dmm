@@ -580,7 +580,7 @@
 /turf/simulated/wall/mineral/sandstone,
 /area/ruin/powered/beach)
 "Ns" = (
-/obj/machinery/disco/immobile,
+/obj/machinery/jukebox/disco/indestructible,
 /turf/simulated/floor/light/colour_cycle,
 /area/ruin/powered/beach)
 "NQ" = (

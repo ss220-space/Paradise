@@ -1,12 +1,17 @@
 /// An info button that, when clicked, puts some text in the user's chat
-/obj/effect/info
-	name = "info"
+/obj/effect/abstract/info
+	name = "справка"
 	icon_state = "info"
+	icon = 'icons/effects/effects.dmi'
+	invisibility = INVISIBILITY_NONE
+	layer = OBJ_LAYER
 
 	/// What should the info button display when clicked?
 	var/info_text
+	/// What theme should the tooltip use?
+	var/tooltip_theme
 
-/obj/effect/info/Initialize(mapload, info_text)
+/obj/effect/abstract/info/Initialize(mapload, info_text)
 	. = ..()
 
 	if(isnull(info_text))
@@ -14,14 +19,15 @@
 
 	src.info_text = info_text
 
-/obj/effect/info/Click()
+/obj/effect/abstract/info/Click()
 	. = ..()
-	to_chat(usr, info_text)
+	to_chat(usr, chat_box_regular("[span_boldnotice(name)]<br>[span_notice(info_text)]"))
 
-/obj/effect/info/MouseEntered(location, control, params)
+/obj/effect/abstract/info/MouseEntered(location, control, params)
 	. = ..()
 	icon_state = "info_hovered"
+	openToolTip(usr, src, params, title = name, content = info_text, theme = tooltip_theme)
 
-/obj/effect/info/MouseExited()
+/obj/effect/abstract/info/MouseExited()
 	. = ..()
 	icon_state = initial(icon_state)

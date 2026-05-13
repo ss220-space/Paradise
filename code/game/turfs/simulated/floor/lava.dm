@@ -75,7 +75,7 @@
 /turf/simulated/floor/lava/singularity_act()
 	return
 
-/turf/simulated/floor/lava/singularity_pull(S, current_size)
+/turf/simulated/floor/lava/singularity_pull(atom/singularity, current_size)
 	return
 
 /turf/simulated/floor/lava/make_plating()
