@@ -562,7 +562,9 @@
 
 /obj/item/gun/proc/shoot_with_empty_chamber(atom/movable/user)
 	if(isliving(user))
-		to_chat(user, span_danger("*клик*"))
+		var/mob/living/living_user = user
+		to_chat(living_user, span_danger("*клик*"))
+	playsound(user, 'sound/weapons/empty.ogg', 100, TRUE)
 
 /obj/item/gun/proc/shoot_live_shot(atom/movable/user, atom/target, pointblank = FALSE)
 	if(pointblank && !COOLDOWN_FINISHED(src, pb_cooldown))
@@ -574,24 +576,26 @@
 	if(!chambered)
 		return
 
+	var/turf/current_turf = get_turf(src)
 	var/muzzle_range = chambered.muzzle_flash_range
 	var/muzzle_strength = chambered.muzzle_flash_strength
 	var/muzzle_flash_time = 0.2 SECONDS
-
 	if(suppress_muzzle_flash)
 		muzzle_range *= 0.5
 		muzzle_strength *= 0.2
 		muzzle_flash_time *= 0.5
+
 	if(!sound_loop)
 		if(suppressed)
-			playsound(user, suppressed_fire_sound, 30, TRUE, ignore_walls = FALSE, extrarange = SILENCED_SOUND_EXTRARANGE, falloff_distance = 0)
+			playsound(current_turf, suppressed_fire_sound, 30, TRUE, ignore_walls = FALSE, extrarange = SILENCED_SOUND_EXTRARANGE, falloff_distance = 0)
 		else
-			playsound(user, fire_sound, 50, TRUE)
-	if(pointblank)
+			playsound(current_turf, fire_sound, 50, TRUE)
+
+	if(pointblank && isliving(user))
 		do_pointblank_shot(user, target)
 
-	if(chambered.muzzle_flash_effect)
-		var/obj/effect/temp_visual/target_angled/muzzle_flash/effect = new chambered.muzzle_flash_effect(get_turf(src), target, muzzle_flash_time)
+	if(chambered.muzzle_flash_effect && current_turf)
+		var/obj/effect/temp_visual/target_angled/muzzle_flash/effect = new chambered.muzzle_flash_effect(current_turf, target, muzzle_flash_time)
 		effect.alpha = min(255, muzzle_strength * 255)
 		if(chambered.muzzle_flash_color)
 			effect.color = chambered.muzzle_flash_color
@@ -617,14 +621,15 @@
 		O.emp_act(severity)
 
 /obj/item/gun/proc/can_trigger_gun(mob/living/user)
-	if(user)
+	if(istype(user))
 		if(!user.can_use_guns(src))
 			return FALSE
-		if(length(restricted_species) && user.dna?.species)
-			if(!is_type_in_list(user.dna.species, restricted_species))
-				to_chat(user, span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] несовместим с вашей биологией!"))
-				return FALSE
-	if(!can_shoot(user))
+
+		if(restricted_species && length(restricted_species) && !is_type_in_list(user.dna.species, restricted_species))
+			to_chat(user, span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] несовместим с вашей биологией!"))
+			return FALSE
+
+	if(!can_shoot(user)) //Just because you can pull the trigger doesn't mean it can't shoot.
 		shoot_with_empty_chamber(user)
 		return FALSE
 	return TRUE
@@ -645,53 +650,60 @@
 
 /obj/item/gun/proc/process_fire(zone_override)
 	var/atom/target = src.target
-	if(!target)
+	if(!target || fire_cd)
 		return NONE
-	if(fire_cd)
-		return NONE
+
+	var/atom/movable/user = gun_user
+	var/mob/living/living_user = isliving(user) ? user : null
+	var/is_tk_grab = (living_user && !isnull(living_user.tkgrabbed_objects[src]))
+	var/is_pacifist = (living_user && (HAS_TRAIT(living_user, TRAIT_PACIFISM) || GLOB.pacifism_after_gt))
+	var/is_buckled = (living_user && living_user.buckled)
+	var/is_left_hand = (living_user && living_user.l_hand == src)
+
+	if(living_user && !is_tk_grab)
+		add_fingerprint(living_user)
+
+	if(chambered && living_user)
+		chambered.leave_residue(living_user)
+
 	var/bonus_spread = src.bonus_spread
-	var/mob/living/user = gun_user
-	var/is_tk_grab = !isnull(user.tkgrabbed_objects[src])
-	if(is_tk_grab) // don't add fingerprints if gun is hold by telekinesis grab
-		add_fingerprint(user)
+	if(living_user)
+		bonus_spread += living_user.get_fracture_spread_bonus(is_left_hand)
+		add_fingerprint(living_user)
 
-	if(chambered)
-		chambered.leave_residue(user)
-
-	var/is_left_hand = user.l_hand == src
-	bonus_spread += user.get_fracture_spread_bonus(is_left_hand)
-	if(user.buckled)
+	if(is_buckled)
 		bonus_spread += 45
 
 	SEND_SIGNAL(src, COMSIG_GUN_FIRED, user, target)
 	last_fired = world.time
 	SEND_SIGNAL(src, COMSIG_MOB_GUN_FIRED, target, src)
-	if(gun_user)
-		SEND_SIGNAL(gun_user, COMSIG_MOB_GUN_FIRE, src)
-	var/sprd = 0
 
-	if(is_tk_grab)
-		rotate_to_target(target)
+	if(living_user)
+		SEND_SIGNAL(living_user, COMSIG_MOB_GUN_FIRE, src)
+		if(is_tk_grab)
+			rotate_to_target(target)
 
-	if(chambered)
-		if(HAS_TRAIT(user, TRAIT_PACIFISM) || GLOB.pacifism_after_gt) // If the user has the pacifist trait, then they won't be able to fire [src] if the round chambered inside of [src] is lethal.
-			if(chambered.harmful) // Is the bullet chambered harmful?
-				to_chat(user, span_warning("В [declent_ru(ACCUSATIVE)] заряжены смертельные патроны! Лучше не рисковать..."))
-				return
-		sprd = accuracy.randomize_spread(user, bonus_spread, shots_counter)
-		if(!chambered.fire(target = target, user = user, modifiers = modifiers, distro = null, quiet = suppressed, zone_override = zone_override, spread = sprd, firer_source_atom = src, damage_mod = damage_mod, stamina_mod = stamina_mod))
-			shoot_with_empty_chamber(user)
-			return NONE
-		else
-			if(get_dist(user, target) <= 1) //Making sure whether the target is in vicinity for the pointblank shot
-				shoot_live_shot(user, target, TRUE)
-			else
-				shoot_live_shot(user, target, FALSE)
-		if(chambered)
-			chambered.after_fire()
-	else
+	if(!chambered)
 		shoot_with_empty_chamber(user)
 		return NONE
+
+	if(is_pacifist && chambered.harmful)
+		to_chat(living_user, span_warning("В [declent_ru(ACCUSATIVE)] заряжены смертельные патроны! Лучше не рисковать..."))
+		return NONE
+
+	var/sprd = accuracy.randomize_spread(user, bonus_spread, shots_counter)
+	var/fired = chambered.fire(target = target, user = user, modifiers = modifiers, distro = null, quiet = suppressed, zone_override = zone_override, spread = sprd, firer_source_atom = src, damage_mod = damage_mod, stamina_mod = stamina_mod)
+	if(!fired)
+		shoot_with_empty_chamber(user)
+		return NONE
+
+	var/atom/origin_check = living_user ? living_user : src
+	var/is_point_blank = (get_dist(origin_check, target) <= 1)
+	shoot_live_shot(user, target, is_point_blank)
+
+	if(chambered)
+		chambered.after_fire()
+
 	process_chamber()
 	update_icon()
 
@@ -1191,3 +1203,26 @@
 		set_target(var_value)
 		return TRUE
 	. = ..()
+
+/obj/item/gun/on_tripwire_trigger(obj/item/tripwire/base, mob/living/victim)
+	INVOKE_ASYNC(src, PROC_REF(tripwire_fire_as_payload), base, victim)
+
+/obj/item/gun/proc/tripwire_fire_as_payload(obj/item/tripwire/base, mob/living/victim)
+	if(!base || !base.is_active)
+		return
+
+	if(!can_shoot(null))
+		shoot_with_empty_chamber(null)
+		return
+
+	var/atom/final_target = victim
+	if(!final_target)
+		var/turf/current_turf = get_turf(base)
+		var/target_dir = REVERSE_DIR(base.dir)
+		final_target = get_edge_target_turf(current_turf, target_dir)
+
+	if(!final_target)
+		return
+
+	fast_fire(final_target, base, BODY_ZONE_CHEST)
+	base.update_appearance()
