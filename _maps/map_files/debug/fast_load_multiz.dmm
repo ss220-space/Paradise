@@ -21,20 +21,11 @@
 /obj/machinery/light/floor,
 /turf/simulated/floor/mineral/titanium/purple,
 /area/fastload/purple)
-"eW" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
 "eX" = (
 /obj/machinery/light/floor,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/fastload)
 "gL" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
 /obj/structure/stairs{
 	dir = 8
 	},
@@ -52,13 +43,6 @@
 	},
 /turf/simulated/floor/mineral/titanium/purple,
 /area/fastload/purple)
-"hG" = (
-/obj/machinery/light_switch/directional/west,
-/obj/machinery/light{
-	dir = 8
-	},
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
 "jk" = (
 /turf/simulated/wall/indestructible/reinforced,
 /area/fastload/blue)
@@ -89,10 +73,6 @@
 /obj/machinery/light,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/fastload)
-"pn" = (
-/obj/spacepod/sec,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
 "pZ" = (
 /obj/machinery/tcomms/core/station,
 /turf/simulated/floor/mineral/titanium/purple,
@@ -139,9 +119,7 @@
 /obj/effect/turf_decal/arrows/black{
 	dir = 8
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
@@ -153,18 +131,6 @@
 /area/fastload/purple)
 "yS" = (
 /obj/effect/landmark/spawner/late/cyborg,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
-"zn" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
-"zP" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/fastload/blue)
 "An" = (
@@ -239,12 +205,6 @@
 "Pd" = (
 /turf/simulated/openspace,
 /area/fastload)
-"Qa" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
 "QS" = (
 /obj/machinery/station_map/security/directional/north,
 /turf/simulated/floor/mineral/titanium/blue,
@@ -2173,14 +2133,14 @@ jO
 HE
 HE
 HE
-hG
 HE
 HE
 HE
 HE
 HE
 HE
-zn
+HE
+HE
 HE
 jk
 ay
@@ -2367,7 +2327,7 @@ ay
 ay
 ay
 jk
-QS
+HE
 HE
 HE
 HE
@@ -2499,7 +2459,7 @@ ay
 ay
 ay
 jk
-HE
+QS
 HE
 HE
 HE
@@ -2839,8 +2799,8 @@ HE
 HE
 HE
 HE
-zP
-eW
+HE
+HE
 gL
 jk
 ay
@@ -2896,7 +2856,6 @@ ay
 ay
 jk
 HE
-pn
 HE
 HE
 HE
@@ -2905,7 +2864,8 @@ HE
 HE
 HE
 HE
-Qa
+HE
+HE
 HE
 Uj
 jk
@@ -2971,7 +2931,7 @@ HE
 HE
 HE
 HE
-Qa
+HE
 HE
 HE
 jk

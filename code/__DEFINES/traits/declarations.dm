@@ -568,3 +568,6 @@
 #define TRAIT_ON_CLIMBABLE "on_climbable"
 
 #define TRAIT_DISK_VERIFIER "disk-verifier"
+
+/// Trait which means whatever has this is dancing by a dance machine
+#define TRAIT_DISCO_DANCER "disco_dancer"
