@@ -249,6 +249,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 		"1012" = 50, // CHANNEL_RADIO_NOISE
 		"1011" = 100, // CHANNEL_BOSS_MUSIC
 		"1010" = 100, // CHANNEL_INTERACTION_SOUNDS
+		"1009" = 40, // CHANNEL_ANNOUNCER
 	)
 	/// The volume mixer save timer handle. Used to debounce the DB call to save, to avoid spamming.
 	var/volume_mixer_saving = null
@@ -1655,7 +1656,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 					var/prev_species = species
 					new_species += CONFIG_GET(str_list/playable_species)
 
-					species = tgui_input_list(user, "Выберите расу", "Раса", sortTim(new_species, cmp = /proc/cmp_text_asc))
+					species = tgui_input_list(user, "Выберите расу", "Раса", sortTim(new_species, GLOBAL_PROC_REF(cmp_text_asc)))
 					if(!species)
 						species = prev_species
 						return
@@ -1752,7 +1753,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 						else if(!(lang.flags & RESTRICTED))
 							new_languages += language_name
 
-					var/new_language = tgui_input_list(user, "Выберите дополнительный язык", "Дополнительный язык", sortTim(new_languages, cmp = /proc/cmp_text_asc))
+					var/new_language = tgui_input_list(user, "Выберите дополнительный язык", "Дополнительный язык", sortTim(new_languages, GLOBAL_PROC_REF(cmp_text_asc)))
 					if(!new_language)
 						return
 					language = new_language
@@ -1815,7 +1816,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 							if(species in SA.species_allowed) //If the user's head is of a species the hairstyle allows, add it to the list.
 								valid_hairstyles += hairstyle
 
-					sortTim(valid_hairstyles, cmp = /proc/cmp_text_asc) //this alphabetizes the list
+					sortTim(valid_hairstyles, GLOBAL_PROC_REF(cmp_text_asc)) //this alphabetizes the list
 					var/new_h_style = tgui_input_list(user, "Выберите стиль причёски", "Причёска", valid_hairstyles)
 					if(new_h_style)
 						h_style = new_h_style
@@ -1861,7 +1862,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 
 							valid_head_accessory_styles += head_accessory_style
 
-						sortTim(valid_head_accessory_styles, cmp = /proc/cmp_text_asc)
+						sortTim(valid_head_accessory_styles, GLOBAL_PROC_REF(cmp_text_asc))
 						var/new_head_accessory_style = tgui_input_list(user, "Выберите тип аксессуаров на голове", "Аксессуары на голове", valid_head_accessory_styles)
 						if(new_head_accessory_style)
 							ha_style = new_head_accessory_style
@@ -1919,7 +1920,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 										continue
 
 							valid_markings += markingstyle
-						sortTim(valid_markings, cmp = /proc/cmp_text_asc)
+						sortTim(valid_markings, GLOBAL_PROC_REF(cmp_text_asc))
 						var/new_marking_style = tgui_input_list(user, "Выберите тип отметок на голове", "Отметки на голове", valid_markings)
 						if(new_marking_style)
 							m_styles["head"] = new_marking_style
@@ -1947,7 +1948,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 							if(M.wizard_only)
 								continue
 							valid_markings += markingstyle
-						sortTim(valid_markings, cmp = /proc/cmp_text_asc)
+						sortTim(valid_markings, GLOBAL_PROC_REF(cmp_text_asc))
 						var/new_marking_style = tgui_input_list(user, "Выберите тип отметок на теле", "Отметки на теле", valid_markings)
 						if(new_marking_style)
 							m_styles["body"] = new_marking_style
@@ -1976,7 +1977,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 									continue
 
 							valid_markings += markingstyle
-						sortTim(valid_markings, cmp = /proc/cmp_text_asc)
+						sortTim(valid_markings, GLOBAL_PROC_REF(cmp_text_asc))
 						var/new_marking_style = tgui_input_list(user, "Выберите тип отметок на хвосте", "Отметки на хвосте", valid_markings)
 						if(new_marking_style)
 							m_styles["tail"] = new_marking_style
@@ -2000,7 +2001,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 						possible_body_accessories.Add("None") //the only null entry should be the "None" option
 					else
 						possible_body_accessories.Remove("None") // in case an admin is viewing it
-					sortTim(possible_body_accessories, cmp = /proc/cmp_text_asc)
+					sortTim(possible_body_accessories, GLOBAL_PROC_REF(cmp_text_asc))
 					var/new_body_accessory = tgui_input_list(user, "Выберите тип аксессуаров на теле", "Аксессуары на теле", possible_body_accessories)
 					if(new_body_accessory)
 						m_styles["tail"] = "None"
@@ -2048,7 +2049,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 						else //If the user is not a species who can have robotic heads, use the default handling.
 							if(species in SA.species_allowed) //If the user's head is of a species the facial hair style allows, add it to the list.
 								valid_facial_hairstyles += facialhairstyle
-					sortTim(valid_facial_hairstyles, cmp = /proc/cmp_text_asc)
+					sortTim(valid_facial_hairstyles, GLOBAL_PROC_REF(cmp_text_asc))
 					var/new_f_style = tgui_input_list(user, "Выберите стиль лицевой растительности", "Лицевая растительность", valid_facial_hairstyles)
 					if(new_f_style)
 						f_style = new_f_style
@@ -2062,7 +2063,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 						if(!(species in SA.species_allowed))
 							continue
 						valid_underwear[underwear] = GLOB.underwear_list[underwear]
-					sortTim(valid_underwear, cmp = /proc/cmp_text_asc)
+					sortTim(valid_underwear, GLOBAL_PROC_REF(cmp_text_asc))
 					var/new_underwear = tgui_input_list(user, "Выберите тип нижнего белья", "Нижнее бельё", valid_underwear)
 					ShowChoices(user)
 					if(new_underwear)
@@ -2082,7 +2083,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 						if(!(species in SA.species_allowed))
 							continue
 						valid_undershirts[undershirt] = GLOB.undershirt_list[undershirt]
-					sortTim(valid_undershirts, cmp = /proc/cmp_text_asc)
+					sortTim(valid_undershirts, GLOBAL_PROC_REF(cmp_text_asc))
 					var/new_undershirt = tgui_input_list(user, "Выберите тип нательной рубашки", "Нательная рубашка", valid_undershirts)
 					ShowChoices(user)
 					if(new_undershirt)
@@ -2102,7 +2103,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 						if(!(species in SA.species_allowed))
 							continue
 						valid_sockstyles[sockstyle] = GLOB.socks_list[sockstyle]
-					sortTim(valid_sockstyles, cmp = /proc/cmp_text_asc)
+					sortTim(valid_sockstyles, GLOBAL_PROC_REF(cmp_text_asc))
 					var/new_socks = tgui_input_list(user, "Выберите тип носков", "Носки", valid_sockstyles)
 					ShowChoices(user)
 					if(new_socks)
@@ -2437,7 +2438,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 				if("hear_adminhelps")
 					sound ^= SOUND_ADMINHELP
 				if("ui")
-					var/new_UI_style = tgui_input_list(user, "Выберите стиль интерфейса", "Стиль интерфейса", list(UI_THEME_MIDNIGHT_RUS, UI_THEME_PLASMAFIRE_RUS, UI_THEME_RETRO_RUS, UI_THEME_SLIMECORE_RUS, UI_THEME_OPERATIVE_RUS, UI_THEME_WHITE_RUS, UI_THEME_CLOCKWORK_RUS))
+					var/new_UI_style = tgui_input_list(user, "Выберите стиль интерфейса", "Стиль интерфейса", list(UI_THEME_MIDNIGHT_RUS, UI_THEME_PLASMAFIRE_RUS, UI_THEME_RETRO_RUS, UI_THEME_SLIMECORE_RUS, UI_THEME_OPERATIVE_RUS, UI_THEME_WHITE_RUS, UI_THEME_GLASS_RUS, UI_THEME_CLOCKWORK_RUS))
 					if(!new_UI_style)
 						return
 					switch(new_UI_style)
@@ -2453,6 +2454,8 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 							UI_style = UI_THEME_OPERATIVE
 						if(UI_THEME_WHITE_RUS)
 							UI_style = UI_THEME_WHITE
+						if(UI_THEME_GLASS_RUS)
+							UI_style = UI_THEME_GLASS
 						if(UI_THEME_CLOCKWORK_RUS)
 							UI_style = UI_THEME_CLOCKWORK
 

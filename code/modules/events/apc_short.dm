@@ -21,7 +21,7 @@
 
 /datum/event/apc_short/announce()
 	GLOB.minor_announcement.announce(
-		message = "Зафиксирована перегрузка энергосети станции [station_name()]. Инженерному отделу надлежит проверить все замкнувшие ЛКП.",
+		message = "Зафиксирована перегрузка энергосети объекта [station_name()]. Инженерному отделу надлежит проверить все замкнувшие ЛКП.",
 		new_title = ANNOUNCE_APC_FAILURE_RU,
 		new_sound = 'sound/AI/power_short.ogg'
 	)
@@ -41,7 +41,7 @@
 		/area/turret_protected/ai,
 	))
 	GLOB.minor_announcement.announce(
-		message = "Зафиксирована перегрузка энергосети станции [station_name()]. Вероятно, отказали гравитационные системы.",
+		message = "Зафиксирована перегрузка энергосети объекта [station_name()]. Вероятно, отказали гравитационные системы.",
 		new_title = ANNOUNCE_APC_FAILURE_RU,
 		new_sound = 'sound/AI/attention.ogg'
 	)
@@ -75,9 +75,9 @@
 
 	if(announce)
 		GLOB.minor_announcement.announce(
-			message = "Зафиксирована перегрузка энергосети станции [station_name()]. Инженерному отделу надлежит проверить все замкнувшие ЛКП.",
+			message = "Зафиксирована перегрузка энергосети объекта [station_name()]. Инженерному отделу надлежит проверить все замкнувшие ЛКП.",
 			new_title = ANNOUNCE_APC_FAILURE_RU,
-			new_sound = 'sound/AI/attention.ogg'
+			new_sound = ANNOUNCER_POWEROFF
 		)
 
 	var/affected_apc_count = 0
@@ -107,7 +107,7 @@
 		if(POWER_RESTORE_ONLY)
 			if(announce)
 				GLOB.minor_announcement.announce(
-					message = "Все работающие ЛКП на станции [station_name()] были полностью заряжены.",
+					message = "Все работающие ЛКП на объекте [station_name()] были полностью заряжены.",
 					new_title = ANNOUNCE_APC_REPAIR_RU,
 					new_sound = 'sound/AI/power_restore.ogg'
 				)
@@ -129,7 +129,7 @@
 		if(APC_REPAIR_ONLY)
 			if(announce)
 				GLOB.minor_announcement.announce(
-					message = "Все ЛКП на станции [station_name()] были восстановлены.",
+					message = "Все ЛКП на объекте [station_name()] были восстановлены.",
 					new_title = ANNOUNCE_APC_REPAIR_RU,
 					new_sound = 'sound/AI/power_restore.ogg'
 				)
@@ -148,7 +148,7 @@
 		if(APC_REPAIR_AND_CHARGE)
 			if(announce)
 				GLOB.minor_announcement.announce(
-					message = "Все ЛКП на станции [station_name()] были полностью заряжены и восстановлены. Приносим извинения за доставленные неудобства.",
+					message = "Все ЛКП на объекте [station_name()] были полностью заряжены и восстановлены. Приносим извинения за доставленные неудобства.",
 					new_title = ANNOUNCE_APC_REPAIR_RU,
 					new_sound = 'sound/AI/power_restore.ogg'
 				)
@@ -174,10 +174,19 @@
 /proc/power_restore_quick(announce = TRUE)
 	if(announce)
 		GLOB.minor_announcement.announce(
-			message = "Все СКАНы на станции [station_name()] были перезаряжены. Приносим извинения за доставленные неудобства.",
+			message = "Питание на объекте [station_name()] было восстановлено. Приносим извинения за неудобства.",
 			new_title = ANNOUNCE_APC_REPAIR_RU,
-			new_sound = 'sound/AI/power_restore.ogg'
+			new_sound = ANNOUNCER_POWERON
 		)
+
+	// recharge the APCs
+	for(var/obj/machinery/power/apc/apc as anything in GLOB.apcs)
+		if(!is_station_level(apc.z))
+			continue
+		var/obj/item/stock_parts/cell/cell = apc.get_cell()
+		if(cell)
+			cell.give(cell.maxcharge)
+
 	// fix all of the SMESs
 	for(var/obj/machinery/power/smes/smes in SSmachines.get_by_type(/obj/machinery/power/smes))
 		if(!is_station_level(smes.z))

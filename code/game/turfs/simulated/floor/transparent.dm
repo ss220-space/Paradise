@@ -126,7 +126,7 @@
 	STOP_PROCESSING(SSobj, src)
 
 /turf/simulated/floor/glass/proc/update_below_light(new_path)
-	if(isprocessing) // we're extinguished
+	if(datum_flags & DF_ISPROCESSING) // we're extinguished
 		return
 	if(ispath(new_path, /turf/space))
 		light_power = initial(light_power)
@@ -136,7 +136,7 @@
 	update_light()
 
 /turf/simulated/floor/glass/Destroy()
-	if(isprocessing)
+	if(datum_flags & DF_ISPROCESSING)
 		STOP_PROCESSING(SSobj, src)
 	return ..()
 

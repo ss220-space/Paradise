@@ -10,7 +10,8 @@
 
 /obj/effect/temp_visual/dir_setting/bloodsplatter/Initialize(mapload, angle, blood_color)
 	if(!blood_color)
-		CRASH("Tried to create a blood splatter without a blood_color")
+		stack_trace("Tried to create a blood splatter without a blood_color at [AREACOORD(src)].")
+		return INITIALIZE_HINT_QDEL
 
 	var/x_component = sin(angle) * -20
 	var/y_component = cos(angle) * -20
@@ -455,13 +456,13 @@
 	pixel_y = -8
 	duration = 2 SECONDS
 	var/scan_type = "alpha"
-	var/obj/effect/temp_visual/holo_scan/beta
+	var/obj/effect/temp_visual/holo_scan/beta/beta
 
 /obj/effect/temp_visual/holo_scan/Initialize(mapload, scan_color = "red")
 	. = ..()
 	icon_state = "scan_[scan_type]_[scan_color]"
 	if(scan_type == "alpha")
-		beta = new(get_turf(src), scan_color)
+		beta = new /obj/effect/temp_visual/holo_scan/beta(get_turf(src), scan_color)
 
 /obj/effect/temp_visual/holo_scan/Destroy()
 	QDEL_NULL(beta)

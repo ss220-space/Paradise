@@ -379,7 +379,7 @@
 	desc = "You shouldn't see this, a spawner for NASA Void Suits."
 	var/suits = list("red", "green", "ntblue", "purple", "yellow", "ltblue")
 
-/obj/effect/nasavoidsuitspawner/New()
+/obj/effect/nasavoidsuitspawner/Initialize(mapload)
 	. = ..()
 	var/obj/item/clothing/head/helmet/space/nasavoid/H
 	var/obj/item/clothing/suit/space/nasavoid/S

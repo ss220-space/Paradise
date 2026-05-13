@@ -44,9 +44,8 @@
 /obj/projectile/bullet/sniper
 	//speed = 0.75
 	//range = 100
-	damage = 70
+	damage = 100
 	weaken = 4 SECONDS
-	dismemberment = 50
 	armour_penetration = 50
 	forced_accuracy = TRUE
 	var/breakthings = TRUE
@@ -54,13 +53,11 @@
 /obj/projectile/bullet/sniper/on_hit(atom/target, blocked = 0, hit_zone)
 	if((blocked != 100) && (!ismob(target) && breakthings))
 		target.ex_act(rand(EXPLODE_DEVASTATE, EXPLODE_HEAVY))
-
 	return ..()
 
 /obj/projectile/bullet/sniper/soporific
 	armour_penetration = 0
 	nodamage = TRUE
-	dismemberment = 0
 	weaken = 0
 	breakthings = FALSE
 	var/sleep_time = 40 SECONDS
@@ -76,7 +73,6 @@
 	weaken = 6 SECONDS
 	stun = 6 SECONDS
 	damage = 85
-	dismemberment = 0
 	ricochets_max = 0
 
 /obj/projectile/bullet/sniper/explosive/on_hit(atom/target, blocked = 0, hit_zone)
@@ -88,7 +84,6 @@
 /obj/projectile/bullet/sniper/haemorrhage
 	armour_penetration = 15
 	damage = 15
-	dismemberment = 0
 	weaken = 0
 	breakthings = FALSE
 	var/bleeding = 100
@@ -105,7 +100,6 @@
 	name = "penetrator round"
 	damage = 60
 	forcedodge = -1
-	dismemberment = 0
 	weaken = 0
 	breakthings = FALSE
 	ricochet_chance = 0
@@ -119,12 +113,9 @@
 	knockdown = 4 SECONDS
 	weaken = 0
 	breakthings = FALSE
-	dismemberment = 0
 
 // MARK: .338 - AXMC
 /obj/projectile/bullet/sniper/a338
-	damage = 80
-	dismemberment = 0
 
 /obj/projectile/bullet/sniper/soporific/a338
 

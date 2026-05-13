@@ -32,7 +32,7 @@
 /turf/simulated/wall/shuttle/singularity_act()
 	return
 
-/turf/simulated/wall/shuttle/singularity_pull(S, current_size)
+/turf/simulated/wall/shuttle/singularity_pull(atom/singularity, current_size)
 	return
 
 /turf/simulated/wall/shuttle/burn_down()

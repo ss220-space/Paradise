@@ -26,7 +26,7 @@
 	/// Variance for inaccuracy fundamental to the casing
 	var/variance = 0
 	/// Delay for energy weapons
-	var/delay = 0
+	var/delay = 0.4 SECONDS
 	/// Randomspread for automatics
 	var/randomspread = FALSE
 	/// Override this to make your gun have a faster fire rate, in tenths of a second. 4 is the default gun cooldown.
@@ -44,8 +44,6 @@
 	var/muzzle_flash_range = MUZZLE_FLASH_RANGE_WEAK
 	/// How strong the flash is
 	var/muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_WEAK
-	/// Ammo type overlay for magazines (not add overlay if null)
-	var/bullet_type = null
 
 	/// Ammo marking for desc and names. Should be like `"9x19 мм БП."`
 	var/ammo_marking = null

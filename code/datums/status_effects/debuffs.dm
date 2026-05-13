@@ -225,8 +225,10 @@
 	var/turf/current_turf = get_turf(owner)
 	if(needs_to_bleed)
 		new /obj/effect/temp_visual/bleed/explode(current_turf)
-		for(var/splatter_dir in GLOB.alldirs)
-			new /obj/effect/temp_visual/dir_setting/bloodsplatter(current_turf, dir2angle(splatter_dir), owner.get_blood_color())
+		var/splatter_color = owner.get_blood_color()
+		if(splatter_color)
+			for(var/splatter_dir in GLOB.alldirs)
+				new /obj/effect/temp_visual/dir_setting/bloodsplatter(current_turf, dir2angle(splatter_dir), splatter_color)
 		playsound(current_turf, SFX_DESECRATION, 200, TRUE, -1)
 		owner.adjustBruteLoss(bleed_damage)
 	else
@@ -241,11 +243,14 @@
 // MARK: stamina_dot
 /datum/status_effect/stamina_dot
 	id = "stamina_dot"
-	duration = 130
+	duration = 13 SECONDS
 	alert_type = null
 
 /datum/status_effect/stamina_dot/tick(seconds_between_ticks)
 	owner.adjustStaminaLoss(10)
+
+	if(owner.getStaminaLoss() >= owner.max_stamina)
+		qdel(src)
 
 // MARK: oxy_dot
 /datum/status_effect/oxy_dot
@@ -390,7 +395,7 @@
 				owner.a_intent_change(INTENT_HARM)
 			if(owner.hand && owner.l_hand != found_gun)
 				owner.swap_hand()
-			found_gun.process_fire(target, owner, zone_override = BODY_ZONE_HEAD)	// hell yeah! few headshots for mr. vampire!
+			found_gun.fast_fire(target, owner, zone_override = BODY_ZONE_HEAD)	// hell yeah! few headshots for mr. vampire!
 			found_gun.attack(owner, owner, def_zone = BODY_ZONE_HEAD)	// attack ourselves also in case gun has no ammo
 
 // start of `living` level status procs.
@@ -944,6 +949,10 @@
 
 /datum/status_effect/transient/jittery/calc_decay()
 	return (-0.2 + (owner.resting ? -0.8 : 0)) SECONDS
+
+/datum/status_effect/transient/jittery/on_remove()
+	. = ..()
+	owner.update_offsets()
 
 /datum/status_effect/transient/jittery/get_examine_text()
 	switch(strength)

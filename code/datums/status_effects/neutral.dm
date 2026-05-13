@@ -317,19 +317,6 @@
 		var/current_effect = difference > 0 ? -temp_effect : temp_effect
 		owner.adjust_bodytemperature(current_effect * TEMPERATURE_DAMAGE_COEFFICIENT)
 
-/atom/movable/screen/alert/status_effect/leaning
-	name = "Прислонившись"
-	desc = "Вы прислонились к чему-то."
-	icon_state = "buckled"
-
-/atom/movable/screen/alert/status_effect/leaning/Click()
-	var/mob/living/L = usr
-	if(!istype(L))
-		return
-	L.changeNext_move(CLICK_CD_RESIST)
-	if(L.last_special <= world.time)
-		return L.stop_leaning()
-
 /datum/status_effect/leaning
 	id = "leaning"
 	tick_interval = STATUS_EFFECT_NO_TICK

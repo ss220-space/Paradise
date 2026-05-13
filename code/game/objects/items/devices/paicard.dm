@@ -39,8 +39,8 @@
 	is_syndicate_type = TRUE
 	upgrade = new()
 
-/obj/item/paicard/New()
-	..()
+/obj/item/paicard/Initialize(mapload)
+	. = ..()
 	add_overlay("pai-off")
 	LAZYADD(GLOB.paiController.paicards, src)
 

@@ -67,8 +67,8 @@
  * * leaning_offset - pixel offset to apply on the mob when leaning
  */
 /mob/living/proc/start_leaning(atom/lean_target, leaning_offset)
-	var/new_x = lean_target.pixel_x + base_pixel_x + body_position_pixel_x_offset
-	var/new_y = lean_target.pixel_y + base_pixel_y + body_position_pixel_y_offset
+	var/new_x = 0
+	var/new_y = 0
 	switch(get_dir(src, lean_target))
 		if(NORTH)
 			new_y += leaning_offset
@@ -77,7 +77,7 @@
 		if(EAST)
 			new_x += leaning_offset
 
-	animate(src, 0.2 SECONDS, pixel_x = new_x, pixel_y = new_y)
+	add_offsets(LEANING_TRAIT, x_add = new_x, y_add = new_y)
 
 	if(density == TRUE) //no point in giving the trait if we are already undense
 		ADD_TRAIT(src, TRAIT_UNDENSE, TRAIT_LEANING)
@@ -118,9 +118,9 @@
 		COMSIG_LIVING_RESTING,
 		COMSIG_LIVING_SET_BUCKLED,
 	))
+	remove_offsets(LEANING_TRAIT)
 	UnregisterSignal(leaned_object, list(COMSIG_AIRLOCK_OPEN, COMSIG_VEHICLE_MOVE, COMSIG_MOVABLE_MOVED))
 	leaned_object = null
-	animate(src, 0.2 SECONDS, pixel_x = base_pixel_x + body_position_pixel_x_offset, pixel_y = base_pixel_y + body_position_pixel_y_offset)
 	REMOVE_TRAIT(src, TRAIT_UNDENSE, TRAIT_LEANING)
 	SEND_SIGNAL(src, COMSIG_LIVING_STOPPED_LEANING)
 

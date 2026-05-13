@@ -15,12 +15,10 @@
 
 SUBSYSTEM_DEF(tickets)
 	name = "Admin Tickets"
-	init_order = INIT_ORDER_TICKETS
-	wait = 300
+	wait = 30 SECONDS
 	priority = FIRE_PRIORITY_TICKETS
-	offline_implications = "Admin tickets will no longer be marked as stale. No immediate action is needed."
-	flags = SS_BACKGROUND
-	ss_id = "admin_tickets"
+	ss_flags = SS_BACKGROUND
+
 	var/span_class = "adminticket"
 	var/ticket_system_name = ADMINHELP_SYSTEM_NAME
 	var/ticket_name = ADMINHELP_TICKET_NAME
@@ -273,7 +271,7 @@ SUBSYSTEM_DEF(tickets)
 	for(var/key in response_phrases)	//build a new list based on the short descriptive keys of the master list so we can send this as the input instead of the full paragraphs to the admin choosing which autoresponse
 		sorted_responses += key
 
-	var/message_key = tgui_input_list(usr, "Выберите авто-ответ. Это заменит тикет на решённый.", "Autoresponse", sortTim(sorted_responses, cmp = /proc/cmp_text_asc))//use sortTim and cmp_text_asc to sort alphabetically
+	var/message_key = tgui_input_list(usr, "Выберите авто-ответ. Это заменит тикет на решённый.", "Autoresponse", sortTim(sorted_responses, GLOBAL_PROC_REF(cmp_text_asc)))//use sortTim and cmp_text_asc to sort alphabetically
 	var/client/ticket_owner = get_client_by_ckey(T.client_ckey)
 	if(!ticket_owner)
 		to_chat(C, span_notice("Can't respond to the ticket of a disconnected user."))

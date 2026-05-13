@@ -4,13 +4,18 @@
 	desc = "A rectangular steel crate."
 	icon = 'icons/obj/crates.dmi'
 	icon_state = "crate"
-	climbable = TRUE
 	open_sound = 'sound/machines/crate_open.ogg'
 	close_sound = 'sound/machines/crate_close.ogg'
 	pass_flags_self = PASSSTRUCTURE | LETPASSTHROW
 	x_shake_pixel_shift = 1
 	y_shake_pixel_shift = 2
 	dense_when_open = TRUE
+	/// Mobs standing on it are nudged up by this amount.
+	var/elevation = 14
+	/// The same, but when the crate is open
+	var/elevation_open = 14
+	/// The time spent to climb this crate.
+	var/crate_climb_time = 2 SECONDS
 	/// The reference of the manifest paper attached to the cargo crate.
 	var/datum/weakref/manifest
 	// A list of beacon names that the crate will announce the arrival of, when delivered.
@@ -21,6 +26,13 @@
 	var/can_be_emissive = FALSE
 	/// Wired up and ready to be fitted with an electropack trap.
 	var/wired_for_trap = FALSE
+
+/obj/structure/closet/crate/ComponentInitialize()
+	AddElement(/datum/element/climbable, climb_time = crate_climb_time, climb_stun = 0) //add element in closed state before parent init opens it(if it does)
+	if(!elevation)
+		return
+	AddElement(/datum/element/climb_walkable)
+	AddElement(/datum/element/elevation, pixel_shift = elevation)
 
 /obj/structure/closet/crate/Destroy()
 	manifest = null
@@ -52,17 +64,34 @@
 
 /obj/structure/closet/crate/after_open(mob/living/user, force)
 	. = ..()
-	tear_manifest()
+	RemoveElement(/datum/element/climbable, climb_time = crate_climb_time, climb_stun = 0)
+	AddElement(/datum/element/climbable, climb_time = crate_climb_time * 0.5, climb_stun = 0)
+	if(elevation != elevation_open)
+		if(elevation)
+			RemoveElement(/datum/element/elevation, pixel_shift = elevation)
+		if(elevation_open)
+			AddElement(/datum/element/elevation, pixel_shift = elevation_open)
+	tear_manifest(user)
 
 /obj/structure/closet/crate/before_open(mob/living/user, force)
 	. = ..()
 	if(!.)
 		return FALSE
 
-	if(climbable)
+	if(HAS_TRAIT(src, TRAIT_CLIMBABLE))
 		structure_shaken()
 
 	return do_trap_effect(user)
+
+/obj/structure/closet/crate/after_close(mob/living/user)
+	. = ..()
+	RemoveElement(/datum/element/climbable, climb_time = crate_climb_time * 0.5, climb_stun = 0)
+	AddElement(/datum/element/climbable, climb_time = crate_climb_time, climb_stun = 0)
+	if(elevation != elevation_open)
+		if(elevation_open)
+			RemoveElement(/datum/element/elevation, pixel_shift = elevation_open)
+		if(elevation)
+			AddElement(/datum/element/elevation, pixel_shift = elevation)
 
 /obj/structure/closet/crate/proc/do_trap_effect(mob/living/user)
 	if(!wired_for_trap || !locate(/obj/item/radio/electropack) in src)
@@ -131,7 +160,9 @@
 
 	if(!ishuman(user))
 		our_manifest.forceMove(drop_location(src))
-	user.put_in_hands(our_manifest)
+	else
+		user.put_in_hands(our_manifest)
+
 	manifest = null
 	update_appearance()
 

@@ -61,7 +61,7 @@
 		AM.forceMove(get_turf(src))
 	return ..()
 
-/obj/item/mecha_parts/mecha_equipment/medical/sleeper/Exit(atom/movable/leaving, atom/newLoc)
+/obj/item/mecha_parts/mecha_equipment/medical/sleeper/Exit(atom/movable/leaving, direction)
 	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/medical/sleeper/action(mob/living/carbon/target, list/modifiers)
@@ -584,7 +584,7 @@
 		return TRUE
 
 /obj/item/mecha_parts/mecha_equipment/medical/beamgun/action(mob/target, list/modifiers)
-	if(!mbeam.process_fire(target, loc))
+	if(!mbeam.fast_fire(target, loc))
 		STOP_PROCESSING(SSobj, src)
 		return
 

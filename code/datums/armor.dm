@@ -153,5 +153,11 @@ GLOBAL_LIST_EMPTY(armor_cache)
 
 	CRASH("Unknown armor type '[armor_type]'")
 
+/datum/armor/can_vv_mark()
+	return FALSE
+
+/datum/armor/vv_get_dropdown()
+	SHOULD_CALL_PARENT(FALSE)
+	return list("", "MUST MODIFY ARMOR VALUES ON THE PARENT ATOM")
 
 #undef ARMORID

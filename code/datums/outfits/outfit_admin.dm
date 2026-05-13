@@ -143,9 +143,11 @@
 	name = "Syndicate Stirke Team Officer"
 	pda = /obj/item/pinpointer
 
-/datum/outfit/admin/syndicate_strike_team/officer/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	.=..()
-	H.back.contents += new /obj/item/disk/nuclear/unrestricted
+/datum/outfit/admin/syndicate_strike_team/officer/post_equip(mob/living/carbon/human/officer, visualsOnly = FALSE)
+	. = ..()
+	if(visualsOnly)
+		return
+	officer.equip_or_collect(new /obj/item/disk/nuclear/unrestricted, ITEM_SLOT_BACKPACK)
 
 /datum/outfit/admin/syndicate_strike_team/full_gear
 	can_be_admin_equipped = TRUE
@@ -430,9 +432,11 @@
 	name = "NT Death Commando officer"
 	can_be_admin_equipped = FALSE
 
-/datum/outfit/admin/death_commando/officer/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	.=..()
-	H.back.contents += new /obj/item/disk/nuclear/unrestricted
+/datum/outfit/admin/death_commando/officer/post_equip(mob/living/carbon/human/officer, visualsOnly = FALSE)
+	. = ..()
+	if(visualsOnly)
+		return
+	officer.equip_or_collect(new /obj/item/disk/nuclear/unrestricted, ITEM_SLOT_BACKPACK)
 
 /datum/outfit/admin/pirate
 	name = "Space Pirate"

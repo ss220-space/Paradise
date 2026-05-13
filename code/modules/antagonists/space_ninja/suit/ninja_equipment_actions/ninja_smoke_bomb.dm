@@ -19,8 +19,8 @@
 	action_initialisation_text = null
 
 /obj/item/clothing/suit/space/space_ninja/proc/prime_smoke(lowcost = FALSE)
-	var/datum/action/item_action/advanced/ninja/ninja_smoke_bomb/ninja_action = locate() in actions
-	if(!ninja_action.IsAvailable(feedback = FALSE))
+	var/datum/action/item_action/advanced/ninja/ninja_smoke_bomb/ninja_smoke_bomb = locate() in affecting.actions
+	if(!ninja_smoke_bomb.IsAvailable(feedback = FALSE))
 		return
 	var/cost = lowcost ? 250 : 1000
 	if(!ninjacost(cost))
@@ -28,10 +28,9 @@
 		var/smoke_amount = lowcost ? 5 : 20
 		smoke_system.set_up(amount = smoke_amount, location = src)
 		smoke_system.start()
-		ninja_action.use_action()
+		ninja_smoke_bomb.use_action()
 
 /obj/item/clothing/suit/space/space_ninja/proc/toggle_smoke()
-	for(var/datum/action/item_action/advanced/ninja/ninja_smoke_bomb_toggle_auto/ninja_action in actions)
-		ninja_action.use_action()
-		auto_smoke = !auto_smoke
-		break
+	var/datum/action/item_action/advanced/ninja/ninja_smoke_bomb_toggle_auto/ninja_smoke_bomb_toggle_auto = locate() in affecting.actions
+	ninja_smoke_bomb_toggle_auto.use_action()
+	auto_smoke = !auto_smoke

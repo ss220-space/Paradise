@@ -26,7 +26,7 @@ diff = "0.1"
 dmi = "0.5.0"
 image = { version = "0.25", features = ["png"] }
 qrcode = { version = "0.14.1", features = ["image", "svg"] }
-symphonia = { version = "0.5.4", features = ["all-codecs"] }
+symphonia = { version = "0.5.5", features = ["all-codecs"] }
 md-5 = "0.10"
 twox-hash = "2.1"
 const-random = "0.1.18"

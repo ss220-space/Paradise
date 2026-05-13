@@ -17,3 +17,8 @@
 
 ///from base of /datum/turf_reservation/proc/Release: (datum/turf_reservation/reservation)
 #define COMSIG_TURF_RESERVATION_RELEASED "turf_reservation_released"
+
+///From element/elevation/reset_elevation(): (list/values)
+#define COMSIG_TURF_RESET_ELEVATION "turf_reset_elevation"
+	#define ELEVATION_CURRENT_PIXEL_SHIFT 1
+	#define ELEVATION_MAX_PIXEL_SHIFT 2

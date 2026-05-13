@@ -345,6 +345,7 @@
 
 /obj/item/flashlight/flare/proc/turn_on()
 	on = TRUE
+	START_PROCESSING(SSobj, src)
 	update_brightness()
 	force = on_damage
 	damtype = FIRE
@@ -363,7 +364,6 @@
 		balloon_alert_to_viewers("медленно тускнеет")
 
 /obj/item/flashlight/flare/attack_self(mob/user)
-	// Usual checks
 	if(!fuel)
 		balloon_alert(user, "израсходовано!")
 		return
@@ -573,6 +573,8 @@
 	item_state = "torch"
 	light_color = LIGHT_COLOR_ORANGE
 	on_damage = 10
+	fuel_lower = 60
+	fuel_upp = 70
 
 /obj/item/flashlight/flare/torch/get_ru_names()
 	return list(

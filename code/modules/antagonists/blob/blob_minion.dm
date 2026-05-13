@@ -23,12 +23,12 @@
 /datum/antagonist/blob_minion/add_owner_to_gamemode()
 	var/datum/game_mode/mode = SSticker.mode
 	if(mode)
-		mode.blobs["minions"] |= owner
+		mode.blobs[BLOB_GROUP_MINIONS] |= owner
 
 /datum/antagonist/blob_minion/remove_owner_from_gamemode()
 	var/datum/game_mode/mode = SSticker.mode
 	if(mode)
-		mode.blobs["minions"] -= owner
+		mode.blobs[BLOB_GROUP_MINIONS] -= owner
 
 /datum/antagonist/blob_minion/apply_innate_effects(mob/living/mob_override)
 	var/mob/living/user = ..(mob_override)

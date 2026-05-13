@@ -1,13 +1,9 @@
 VERB_MANAGER_SUBSYSTEM_DEF(input)
 	name = "Input"
-	init_order = INIT_ORDER_INPUT
 	init_stage = INITSTAGE_EARLY
-	flags = SS_TICKER
+	ss_flags = SS_TICKER
 	priority = FIRE_PRIORITY_INPUT
-	runlevels = RUNLEVELS_DEFAULT|RUNLEVEL_LOBBY
-	offline_implications = "Player input will no longer be recognised. Immediate server restart recommended."
-	cpu_display = SS_CPUDISPLAY_HIGH
-	ss_id = "input"
+	runlevels = RUNLEVELS_DEFAULT | RUNLEVEL_LOBBY
 
 	var/list/macro_set
 

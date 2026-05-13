@@ -24,7 +24,7 @@
 	immunity_type = TRAIT_BLOBSTORM_IMMUNE
 
 /datum/weather/blob_storm/telegraph()
-	var/list/blobs = SSticker?.mode?.blobs["infected"] + SSticker?.mode?.blobs["offsprings"]
+	var/list/blobs = SSticker?.mode?.blobs[BLOB_GROUP_INFECTED] + SSticker?.mode?.blobs[BLOB_GROUP_OFFSPRINGS]
 	var/color
 	var/mass = 0
 	for(var/datum/mind/blob in blobs)
@@ -43,7 +43,7 @@
 	GLOB.major_announcement.announce(
 		message = "Биологической угроза 5-го уровня достигла критической массы на борту [station_name()]. Выброс спор и массовое заражение неизбежно.",
 		new_title = ANNOUNCE_BIOHAZARD_RU,
-		new_sound = 'sound/AI/commandreport.ogg'
+		new_sound = SSstation.announcer.get_rand_report_sound()
 	)
 
 /datum/weather/blob_storm/can_weather_act(mob/living/mob_to_check)

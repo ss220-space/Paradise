@@ -150,8 +150,8 @@
 	status_tab_data[++status_tab_data.len] = list("Stolen essence:", "[essence_accumulated]E")
 	status_tab_data[++status_tab_data.len] = list("Stolen perfect souls:", "[perfectsouls]")
 
-/mob/living/simple_animal/revenant/New()
-	..()
+/mob/living/simple_animal/revenant/Initialize(mapload)
+	. = ..()
 
 	remove_from_all_data_huds()
 	random_revenant_name()
@@ -422,8 +422,8 @@
 		PREPOSITIONAL = "фантомной пыли",
 	)
 
-/obj/item/ectoplasm/revenant/New()
-	..()
+/obj/item/ectoplasm/revenant/Initialize(mapload)
+	. = ..()
 	addtimer(CALLBACK(src, PROC_REF(reform)), reform_time)
 
 /obj/item/ectoplasm/revenant/Destroy()

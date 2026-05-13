@@ -183,5 +183,20 @@
 
 #define BUTTON_TRAIT "button"
 
+#define STATION_TRAIT "station-trait"
+
 /// Trait given by echolocation component.
 #define ECHOLOCATION_TRAIT "echolocation"
+
+#define NO_EARS "no_ears"
+/// Traits related to guns
+#define GUN_TRAIT "gun"
+
+/// Trait from mob/living/update_offsets()
+#define UPDATE_OFFSET_TRAIT "update_offset"
+
+/// From grabbing someone
+#define GRABBING_TRAIT "grabbing"
+
+/// A trait gained by leaning against a wall
+#define LEANING_TRAIT "leaning"

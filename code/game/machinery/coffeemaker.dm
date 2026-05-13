@@ -11,6 +11,7 @@
 
 // MARK: Base coffeemaker
 /obj/machinery/coffeemaker
+	abstract_type = /obj/machinery/coffeemaker
 	name = "coffeemaker"
 	desc = "Нет, эту кофемашину вы ТОЧНО не должны были увидеть. Пожалуйста, сообщите о баге."
 	gender = FEMALE
@@ -49,12 +50,12 @@
 	QDEL_LIST(coffee)
 	return ..()
 
-/obj/machinery/coffeemaker/Exited(atom/movable/departed, atom/newLoc)
+/obj/machinery/coffeemaker/Exited(atom/movable/gone, direction)
 	. = ..()
-	if(departed == coffeepot)
+	if(gone == coffeepot)
 		coffeepot = null
 		update_appearance(UPDATE_OVERLAYS)
-	if(departed == cartridge)
+	if(gone == cartridge)
 		cartridge = null
 		update_appearance(UPDATE_OVERLAYS)
 

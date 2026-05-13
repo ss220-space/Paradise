@@ -5,217 +5,6 @@ ADMIN_VERB(toggle_game_debug, R_DEBUG, "Debug-Game", "Toggles game debugging.", 
 	log_admin("[key_name(user)] [message].")
 	BLACKBOX_LOG_ADMIN_VERB("Toggle Debug Two")
 
-ADMIN_VERB(advanced_proc_call, R_PROCCALL, "Advanced ProcCall", "Call a proc on any datum in the server.", ADMIN_CATEGORY_DEBUG)
-	spawn(0)
-		var/target = null
-		var/targetselected = 0
-		var/returnval = null
-		var/class = null
-
-		switch(tgui_alert(user, "Proc owned by something?",, list("Yes", "No")))
-			if("Yes")
-				targetselected = 1
-				if(user.holder && user.holder.marked_datum)
-					class = tgui_input_list(user, "Proc owned by...", "Owner", list("Obj", "Mob", "Area or Turf", "Client", "Marked datum ([user.holder.marked_datum.type])"), null)
-					if(class == "Marked datum ([user.holder.marked_datum.type])")
-						class = "Marked datum"
-				else
-					class = tgui_input_list(user,"Proc owned by...", "Owner", list("Obj","Mob","Area or Turf","Client"), null)
-				switch(class)
-					if("Obj")
-						target = input(user, "Enter target:", "Target", user) as obj in world
-					if("Mob")
-						target = tgui_input_list(user, "Enter target:", "Target", GLOB.mob_list, user)
-					if("Area or Turf")
-						target = input(user, "Enter target:", "Target", user.mob.loc) as area|turf in world
-					if("Client")
-						var/list/keys = list()
-						for(var/client/C)
-							keys += C
-						target = tgui_input_list(user, "Please, select a player!", "Selection", keys, null)
-					if("Marked datum")
-						target = user.holder.marked_datum
-					else
-						return
-			if("No")
-				target = null
-				targetselected = 0
-
-		var/procname = tgui_input_text(user, "Введите имя прока после /proc/. Пример: если путь /proc/fake_blood, нужно ввести fake_blood", "Путь:", null, encode = FALSE)
-		if(!procname)
-			return
-
-		//strip away everything but the proc name
-		var/list/proclist = splittext(procname, "/")
-		if(!length(proclist))
-			return
-		procname = proclist[length(proclist)]
-
-		var/proctype = "proc"
-		if("verb" in proclist)
-			proctype = "verb"
-
-		if(targetselected && !hascall(target,procname))
-			to_chat(user, span_red("Error: callproc(): type [class] has no [proctype] named [procname]."))
-			return
-
-		var/list/lst = user.get_callproc_args()
-		if(!lst)
-			return
-
-		if(targetselected)
-			if(!target)
-				to_chat(user, span_red("Error: callproc(): owner of proc no longer exists."))
-				return
-			message_admins("[key_name_admin(user)] called [target]'s [procname]() with [length(lst) ? "the arguments [list2params(lst)]":"no arguments"].")
-			log_admin("[key_name(user)] called [target]'s [procname]() with [length(lst) ? "the arguments [list2params(lst)]":"no arguments"].")
-			returnval = WrapAdminProcCall(target, procname, lst) // Pass the lst as an argument list to the proc
-		else
-			//this currently has no hascall protection. wasn't able to get it working.
-			message_admins("[key_name_admin(user)] called [procname]() with [length(lst) ? "the arguments [list2params(lst)]":"no arguments"]")
-			log_admin("[key_name(user)] called [procname]() with [length(lst) ? "the arguments [list2params(lst)]":"no arguments"]")
-			returnval = WrapAdminProcCall(GLOBAL_PROC, procname, lst) // Pass the lst as an argument list to the proc
-
-		to_chat(user, "<font color='#EB4E00'>[procname] returned: [!isnull(returnval) ? returnval : "null"]</font>")
-		BLACKBOX_LOG_ADMIN_VERB("Advanced Proc-Call")
-
-// All these vars are related to proc call protection
-// If you add more of these, for the love of fuck, protect them
-
-/// Who is currently calling procs
-GLOBAL_VAR(AdminProcCaller)
-GLOBAL_PROTECT(AdminProcCaller)
-/// How many procs have been called
-GLOBAL_VAR_INIT(AdminProcCallCount, 0)
-GLOBAL_PROTECT(AdminProcCallCount)
-/// UID of the admin who last called
-GLOBAL_VAR(LastAdminCalledTargetUID)
-GLOBAL_PROTECT(LastAdminCalledTargetUID)
-/// Last target to have a proc called on it
-GLOBAL_VAR(LastAdminCalledTarget)
-GLOBAL_PROTECT(LastAdminCalledTarget)
-/// Last proc called
-GLOBAL_VAR(LastAdminCalledProc)
-GLOBAL_PROTECT(LastAdminCalledProc)
-/// List to handle proc call spam prevention
-GLOBAL_LIST_EMPTY(AdminProcCallSpamPrevention)
-GLOBAL_PROTECT(AdminProcCallSpamPrevention)
-
-// Wrapper for proccalls where the datum is flagged as vareditted
-/proc/WrapAdminProcCall(datum/target, procname, list/arguments)
-	if(target && procname == "Del")
-		to_chat(usr, "Calling Del() is not allowed")
-		return
-
-	if(target != GLOBAL_PROC && !target.CanProcCall(procname))
-		to_chat(usr, "Proccall on [target.type]/proc/[procname] is disallowed!")
-		return
-	var/current_caller = GLOB.AdminProcCaller
-	var/ckey = usr ? usr.client.ckey : GLOB.AdminProcCaller
-	if(!ckey)
-		CRASH("WrapAdminProcCall with no ckey: [target] [procname] [english_list(arguments)]")
-	if(current_caller && current_caller != ckey)
-		if(!GLOB.AdminProcCallSpamPrevention[ckey])
-			to_chat(usr, span_adminnotice("Another set of admin called procs are still running, your proc will be run after theirs finish."))
-			GLOB.AdminProcCallSpamPrevention[ckey] = TRUE
-			UNTIL(!GLOB.AdminProcCaller)
-			to_chat(usr, span_adminnotice("Running your proc"))
-			GLOB.AdminProcCallSpamPrevention -= ckey
-		else
-			UNTIL(!GLOB.AdminProcCaller)
-	GLOB.LastAdminCalledProc = procname
-	if(target != GLOBAL_PROC)
-		GLOB.LastAdminCalledTargetUID = target.UID()
-	GLOB.AdminProcCaller = ckey	//if this runtimes, too bad for you
-	++GLOB.AdminProcCallCount
-	try
-		. = world.WrapAdminProcCall(target, procname, arguments)
-	catch
-		to_chat(usr, span_adminnotice("Your proc call failed to execute, likely from runtimes. You <i>should</i> be out of safety mode. If not, god help you."))
-
-	if(--GLOB.AdminProcCallCount == 0)
-		GLOB.AdminProcCaller = null
-
-//adv proc call this, ya nerds
-/world/proc/WrapAdminProcCall(datum/target, procname, list/arguments)
-	if(target == GLOBAL_PROC)
-		return call("/proc/[procname]")(arglist(arguments))
-	else if(target != world)
-		return call(target, procname)(arglist(arguments))
-	else
-		to_chat(usr, span_boldannounceooc("Call to world/proc/[procname] blocked: Advanced ProcCall detected."))
-		message_admins("[key_name(usr)] attempted to call world/proc/[procname] with arguments: [english_list(arguments)]")
-		log_admin("[key_name(usr)] attempted to call world/proc/[procname] with arguments: [english_list(arguments)]l")
-
-/proc/IsAdminAdvancedProcCall()
-#if defined(GAME_TESTS) || defined(MAP_TESTS) || defined(TESTING)
-	return FALSE
-#else
-	return usr && usr.client && GLOB.AdminProcCaller == usr.client.ckey
-#endif
-
-ADMIN_VERB_ONLY_CONTEXT_MENU(call_proc_datum, R_PROCCALL, "Atom ProcCall", atom/A as null|area|mob|obj|turf)
-	var/procname = tgui_input_text(user, "Введите имя прока после /proc/. Пример: если путь /proc/fake_blood, нужно ввести fake_blood", "Путь:", null, encode = FALSE)
-	if(!procname)
-		return
-
-	if(!hascall(A,procname))
-		to_chat(user, span_warning("Error: callproc_datum(): target has no such call [procname]."), confidential = TRUE)
-		return
-
-	var/list/lst = user.get_callproc_args()
-	if(!lst)
-		return
-
-	if(!A || !is_valid_src(A))
-		to_chat(user, span_warning("Error: callproc_datum(): owner of proc no longer exists."), confidential = TRUE)
-		return
-	message_admins("[key_name_admin(user)] called [A]'s [procname]() with [length(lst) ? "the arguments [list2params(lst)]":"no arguments"]")
-	log_admin("[key_name(user)] called [A]'s [procname]() with [length(lst) ? "the arguments [list2params(lst)]":"no arguments"]")
-
-	spawn()
-		var/returnval = WrapAdminProcCall(A, procname, lst) // Pass the lst as an argument list to the proc
-		to_chat(user, span_notice("[procname] returned: [!isnull(returnval) ? returnval : "null"]"), confidential = TRUE)
-
-	BLACKBOX_LOG_ADMIN_VERB("Atom Proc-Call")
-
-/client/proc/get_callproc_args(is_atom_new = FALSE)
-	var/argnum = tgui_input_number(src, "Введите число аргументов [is_atom_new ? " (За исключением loc)" : ""]", "Число аргументов:", 0)
-	if(argnum <= 0)
-		return list() // to allow for calling with 0 args
-
-	argnum = clamp(argnum, 1, 50)
-
-	var/list/lst = list()
-	//TODO: make a list to store whether each argument was initialised as null.
-	//Reason: So we can abort the proccall if say, one of our arguments was a mob which no longer exists
-	//this will protect us from a fair few errors ~Carn
-	var/extra_classes = list("type", "reference", "mob's area", "CANCEL")
-	while(argnum--)
-		var/value = vv_get_value(extra_classes = extra_classes)
-
-		if(!(value["class"] in extra_classes))
-			lst += value["value"]
-			continue
-
-		var/class = value["class"]
-		// Make a list with each index containing one variable, to be given to the proc
-		switch(class)
-			if("CANCEL")
-				return null
-
-			if("type")
-				lst += tgui_input_list(src, "Выберите тип:", "Тип", typesof(/obj,/mob,/area,/turf))
-
-			if("reference")
-				lst += input(src, "Выберите ссылку:", "Ссылка", src) as mob|obj|turf|area in world
-
-			if("mob's area")
-				var/mob/temp = tgui_input_list(src, "Выберите моба", "Выбор", GLOB.mob_list, usr)
-				lst += temp.loc
-
-	return lst
-
 ADMIN_VERB_VISIBILITY(air_status, ADMIN_VERB_VISIBLITY_FLAG_MAPPING_DEBUG)
 ADMIN_VERB(air_status, R_DEBUG, "Air Status In Location", "Gets the air status for your current turf.", ADMIN_CATEGORY_DEBUG)
 	var/turf/user_turf = get_turf(user.mob)
@@ -302,11 +91,11 @@ ADMIN_VERB(cmd_debug_del_sing, R_DEBUG, "Del Singulo / Tesla", "Delete all singu
 	if(confirm != "Yes")
 		return
 
-	for(var/I in GLOB.singularities)
-		var/obj/singularity/S = I
-		if(!is_level_reachable(S.z))
+	for(var/datum/component/singularity/singulo_component as anything in GLOB.singularities)
+		var/atom/singulo = singulo_component.parent
+		if(!is_level_reachable(singulo.z))
 			continue
-		qdel(S)
+		qdel(singulo)
 	log_and_message_admins("has deleted all Singularities and Tesla orbs.")
 	BLACKBOX_LOG_ADMIN_VERB("Del Singulo/Tesla")
 
@@ -700,25 +489,33 @@ ADMIN_VERB(debug_mob_lists, R_DEBUG, "Debug Mob Lists", "For when you just gotta
 		if("Respawnable Mobs")
 			to_chat(user, jointext(GLOB.respawnable_list, ","))
 
-ADMIN_VERB(display_del_log, R_DEBUG, "Display del() Log", "Display del's log of everything that's passed through it.", ADMIN_CATEGORY_DEBUG)
+ADMIN_VERB(display_del_log, R_DEBUG|R_VIEWRUNTIMES, "Display del() Log", "Display del's log of everything that's passed through it.", ADMIN_CATEGORY_DEBUG)
 	var/list/dellog = list("<b>List of things that have gone through qdel this round</b><br><br><ol>")
-	sortTim(SSgarbage.items, cmp = /proc/cmp_qdel_item_time, associative = TRUE)
-	for(var/path in SSgarbage.items)
-		var/datum/qdel_item/I = SSgarbage.items[path]
+	sortTim(SSgarbage.items, GLOBAL_PROC_REF(cmp_qdel_item_time), associative = TRUE)
+	for(var/path, value in SSgarbage.items)
+		var/datum/qdel_item/item = value
 		dellog += "<li><u>[path]</u><ul>"
-		if(I.failures)
-			dellog += "<li>Failures: [I.failures]</li>"
-		dellog += "<li>qdel() Count: [I.qdels]</li>"
-		dellog += "<li>Destroy() Cost: [I.destroy_time]ms</li>"
-		if(I.hard_deletes)
-			dellog += "<li>Total Hard Deletes [I.hard_deletes]</li>"
-			dellog += "<li>Time Spent Hard Deleting: [I.hard_delete_time]ms</li>"
-		if(I.slept_destroy)
-			dellog += "<li>Sleeps: [I.slept_destroy]</li>"
-		if(I.no_respect_force)
-			dellog += "<li>Ignored force: [I.no_respect_force]</li>"
-		if(I.no_hint)
-			dellog += "<li>No hint: [I.no_hint]</li>"
+		if(item.qdel_flags & QDEL_ITEM_SUSPENDED_FOR_LAG)
+			dellog += "<li>SUSPENDED FOR LAG</li>"
+		if(item.failures)
+			dellog += "<li>Failures: [item.failures]</li>"
+		dellog += "<li>qdel() Count: [item.qdels]</li>"
+		dellog += "<li>Destroy() Cost: [item.destroy_time]ms</li>"
+		if(item.hard_deletes)
+			dellog += "<li>Total Hard Deletes [item.hard_deletes]</li>"
+			dellog += "<li>Time Spent Hard Deleting: [item.hard_delete_time]ms</li>"
+			dellog += "<li>Highest Time Spent Hard Deleting: [item.hard_delete_max]ms</li>"
+			if(item.hard_deletes_over_threshold)
+				dellog += "<li>Hard Deletes Over Threshold: [item.hard_deletes_over_threshold]</li>"
+		if(item.slept_destroy)
+			dellog += "<li>Sleeps: [item.slept_destroy]</li>"
+		if(item.no_respect_force)
+			dellog += "<li>Ignored force: [item.no_respect_force]</li>"
+		if(item.no_hint)
+			dellog += "<li>No hint: [item.no_hint]</li>"
+		if(length(item.extra_details))
+			var/details = item.extra_details.Join("</li><li>")
+			dellog += "<li>Extra Info: <ul><li>[details]</li></ul>"
 		dellog += "</ul></li>"
 
 	dellog += "</ol>"
@@ -727,27 +524,45 @@ ADMIN_VERB(display_del_log, R_DEBUG, "Display del() Log", "Display del's log of 
 	popup.set_content(dellog.Join())
 	popup.open(FALSE)
 
-ADMIN_VERB(display_del_log_simple, R_DEBUG, "Display Simple del() Log", "Display a compacted del's log.", ADMIN_CATEGORY_DEBUG)
+ADMIN_VERB(display_del_log_simple, R_DEBUG|R_VIEWRUNTIMES, "Display Simple del() Log", "Display a compacted del's log.", ADMIN_CATEGORY_DEBUG)
 	var/dat = {"<b>List of things that failed to GC this round</b><br><br>"}
-	for(var/path in SSgarbage.items)
-		var/datum/qdel_item/I = SSgarbage.items[path]
-		if(I.failures)
-			dat += "[I] - [I.failures] times<br>"
+	for(var/path, value in SSgarbage.items)
+		var/datum/qdel_item/item = value
+		if(item.failures)
+			dat += "[item] - [item.failures] times<br>"
 
 	dat += "<b>List of paths that did not return a qdel hint in Destroy()</b><br><br>"
-	for(var/path in SSgarbage.items)
-		var/datum/qdel_item/I = SSgarbage.items[path]
-		if(I.no_hint)
-			dat += "[I]<br>"
+	for(var/path, value in SSgarbage.items)
+		var/datum/qdel_item/item = value
+		if(item.no_hint)
+			dat += "[item]<br>"
 
 	dat += "<b>List of paths that slept in Destroy()</b><br><br>"
-	for(var/path in SSgarbage.items)
-		var/datum/qdel_item/I = SSgarbage.items[path]
-		if(I.slept_destroy)
-			dat += "[I]<br>"
+	for(var/path, value in SSgarbage.items)
+		var/datum/qdel_item/item = value
+		if(item.slept_destroy)
+			dat += "[item]<br>"
 
 	var/datum/browser/popup = new(user, "simpledellog", "Simple del logs")
 	popup.set_content(dat)
+	popup.open(FALSE)
+
+ADMIN_VERB(debug_atom_init, R_DEBUG|R_VIEWRUNTIMES, "Display Initialize Log", "Displays a list of things that didn't handle Initialize properly.", ADMIN_CATEGORY_DEBUG)
+	var/list/html_data = list()
+	html_data += "<h1>Bad Initialize() Calls</h1><table border='1'><tr>\
+		<th scope='col'>Type</th><th scope='col'>Qdeleted before init</th>\
+		<th scope='col'>Did not init</th><th scope='col'>Slept during init</th>\
+		<th scope='col'>No init hint</th></tr>"
+
+	for(var/path, value in SSatoms.BadInitializeCalls)
+		html_data += "<tr><td>[path]</td><td>[value & BAD_INIT_QDEL_BEFORE ? "X" : "&nbsp;"]</td>\
+			<td>[value & BAD_INIT_DIDNT_INIT ? "X" : "&nbsp;"]</td><td>[value & BAD_INIT_SLEPT ? "X" : "&nbsp;"]</td>\
+			<td>[value & BAD_INIT_NO_HINT ? "X" : "&nbsp;"]</td></tr>"
+
+	html_data += "</table>"
+
+	var/datum/browser/popup = new(user, "initdebug", "Initialize Log")
+	popup.set_content(html_data.Join())
 	popup.open(FALSE)
 
 /client/proc/cmd_admin_toggle_block(mob/M, block)
@@ -769,6 +584,15 @@ ADMIN_VERB(display_del_log_simple, R_DEBUG, "Display Simple del() Log", "Display
 
 ADMIN_VERB(view_runtimes, R_DEBUG|R_VIEWRUNTIMES, "View Runtimes", "Opens the runtime viewer.", ADMIN_CATEGORY_DEBUG)
 	GLOB.error_cache.show_to(user.mob)
+
+	// The runtime viewer has the potential to crash the server if there's a LOT of runtimes
+	// this has happened before, multiple times, so we'll just leave an alert on it
+	if(GLOB.total_runtimes >= 50000) // arbitrary number, I don't know when exactly it happens
+		var/warning = "There are a lot of runtimes, clicking any button (especially \"linear\") can have the potential to lag or crash the server"
+		if(GLOB.total_runtimes >= 100000)
+			warning = "There are a TON of runtimes, clicking any button (especially \"linear\") WILL LIKELY crash the server"
+		// Not using TGUI alert, because it's view runtimes, stuff is probably broken
+		alert(user, "[warning]. Proceed with caution. If you really need to see the runtimes, download the runtime log and view it in a text editor.", "HEED THIS WARNING CAREFULLY MORTAL")
 
 ADMIN_VERB(allow_browser_inspect, R_DEBUG, "Allow Browser Inspect", "Allow browser debugging via inspect.", ADMIN_CATEGORY_DEBUG)
 	if(user.byond_version < 516)
@@ -836,3 +660,87 @@ ADMIN_VERB(clear_smart_asset_cache, R_DEBUG, "Clear Smart Asset Cache", "Clear t
 		fdel("[ASSET_CROSS_ROUND_SMART_CACHE_DIRECTORY]/spritesheet_cache.[initial(target_spritesheet.name)].json")
 		cleared++
 	to_chat(user, span_notice("Cleared [cleared] asset\s."))
+
+ADMIN_VERB_AND_CONTEXT_MENU(cmd_admin_delete, R_DEBUG|R_SPAWN, "Delete", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, atom/target as obj|mob|turf in world)
+	user.admin_delete(target)
+
+/datum/mc_dependency_ui
+
+/datum/mc_dependency_ui/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "MCDependencyDebug")
+		ui.set_autoupdate(FALSE)
+		ui.open()
+
+/datum/mc_dependency_ui/ui_state(mob/user)
+	return ADMIN_STATE(R_DEBUG)
+
+/datum/mc_dependency_ui/ui_data(mob/user)
+	var/list/data = list()
+
+	var/list/subsystems = Master.subsystems.Copy()
+	sortTim(subsystems, GLOBAL_PROC_REF(cmp_subsystem_init))
+
+	for(var/datum/controller/subsystem/subsystem as anything in subsystems)
+		var/list/sub_data = list()
+		sub_data["name"] = subsystem.name
+		var/list/dependents = list()
+		for(var/datum/controller/subsystem/dependent as anything in subsystem.dependents)
+			dependents += dependent.name
+		sub_data["dependents"] = dependents
+		data += list(sub_data)
+
+	return list(
+		"subsystems" = data
+	)
+
+/datum/mc_dependency_ui/ui_assets(mob/user)
+	return list(get_asset_datum(/datum/asset/simple/plane_background))
+
+ADMIN_VERB(debug_mc_dependencies, R_DEBUG, "Debug MC Dependencies", "Debug MC dependencies.", ADMIN_CATEGORY_DEBUG)
+	var/datum/mc_dependency_ui/data = new /datum/mc_dependency_ui()
+	data.ui_interact(usr)
+
+ADMIN_VERB(count_instances, R_DEBUG, "Count Atoms/Datums", "Count how many atom or datum instances there are of each type, then output it to a JSON to download.", ADMIN_CATEGORY_DEBUG)
+	var/option = tgui_alert(user, "What type of instances do you wish to count?", "Instance Count", list("Atoms", "Datums"))
+	if(!option)
+		return
+	var/list/result
+	to_chat(user, span_notice("Beginning instance count ([option])"), type = MESSAGE_TYPE_DEBUG)
+	switch(option)
+		if("Atoms")
+			result = count_atoms()
+		if("Datums")
+			result = count_datums()
+
+	if(result)
+		to_chat(user, span_adminnotice("Counted [length(result)] instances, sending compiled JSON file now."), type = MESSAGE_TYPE_DEBUG)
+		var/tmp_path = "tmp/instance_count_[user.ckey].json"
+		fdel(tmp_path)
+		rustlib_file_write(json_encode(result, JSON_PRETTY_PRINT), tmp_path)
+		var/exportable_json = file(tmp_path)
+		DIRECT_OUTPUT(user, ftp(exportable_json, "[LOWER_TEXT(option)]_instance_count_round_[GLOB.round_id].json"))
+		fdel(tmp_path)
+
+#ifndef OPENDREAM
+/proc/count_atoms()
+	. = list()
+	for(var/datum/thing in world) //atoms (don't believe its lies)
+		.[thing.type]++
+	sortTim(., cmp = GLOBAL_PROC_REF(cmp_numeric_dsc), associative = TRUE)
+
+/proc/count_datums()
+	. = list()
+	for(var/datum/thing)
+		.[thing.type]++
+	sortTim(., cmp = GLOBAL_PROC_REF(cmp_numeric_dsc), associative = TRUE)
+#else
+/proc/count_atoms()
+	. = list()
+	CRASH("count_atoms not supported on OpenDream")
+
+/proc/count_datums()
+	. = list()
+	CRASH("count_datums not supported on OpenDream")
+#endif

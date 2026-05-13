@@ -152,7 +152,7 @@
 	icon_state = "datadisk1"
 	var/modkit_design = /datum/design/unique_modkit
 
-/obj/item/disk/design_disk/modkit_disc/New()
+/obj/item/disk/design_disk/modkit_disc/Initialize(mapload)
 	. = ..()
 	blueprint = new modkit_design
 
@@ -282,8 +282,12 @@
 	else
 		to_chat(itemUser, failText)
 		return
-	to_chat(itemUser, span_notice("Змея, довольная вашей клятвой, намертво прирастает к вашему предплечью. Ваши мысли теперь вращаются только вокруг помощи другим, а вред — всего лишь смутное, греховное воспоминание..."))
-	var/datum/status_effect/hippocraticOath/effect = itemUser.apply_status_effect(STATUS_EFFECT_HIPPOCRATIC_OATH)
+
+	apply_oath(itemUser)
+
+/obj/item/rod_of_asclepius/proc/apply_oath(mob/living/carbon/user)
+	to_chat(user, span_notice("Змея, довольная вашей клятвой, намертво прирастает к вашему предплечью. Ваши мысли теперь вращаются только вокруг помощи другим, а вред — всего лишь смутное, греховное воспоминание..."))
+	var/datum/status_effect/hippocraticOath/effect = user.apply_status_effect(STATUS_EFFECT_HIPPOCRATIC_OATH)
 	effect.hand = usedHand
 	activated()
 
@@ -407,6 +411,8 @@
 	status = NONE
 	item_flags = NO_PIXEL_RANDOM_DROP
 	contents = newlist(/obj/item/cursed_katana)
+	sound_on = 'sound/weapons/swings/katana_swing4.ogg'
+	sound_off = 'sound/weapons/swings/katana_swing4.ogg'
 
 /obj/item/organ/internal/cyberimp/arm/katana/get_ru_names()
 	return list(

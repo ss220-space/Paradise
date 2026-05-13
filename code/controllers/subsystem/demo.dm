@@ -1,10 +1,12 @@
 SUBSYSTEM_DEF(demo)
 	name = "Demo"
 	wait = 1
-	flags = SS_TICKER | SS_BACKGROUND
+	ss_flags = SS_NO_INIT // SS_TICKER | SS_BACKGROUND
 	///Adding Lobby to the runlevel because we want it to start writing before the game starts since there's a of atoms queued to be written during init
 	runlevels = RUNLEVELS_DEFAULT | RUNLEVEL_LOBBY
-	init_order = INIT_ORDER_DEMO
+	dependencies = list(
+		/datum/controller/subsystem/atoms,
+	)
 
 	// loading_points = 12.6 SECONDS // Yogs -- loading times
 
@@ -75,7 +77,7 @@ SUBSYSTEM_DEF(demo)
 
 /datum/controller/subsystem/demo/Initialize()
 	if(!CONFIG_GET(flag/demos_enabled))
-		flags |= SS_NO_FIRE
+		ss_flags |= SS_NO_FIRE
 		can_fire = FALSE
 		marked_dirty.Cut()
 		marked_new.Cut()

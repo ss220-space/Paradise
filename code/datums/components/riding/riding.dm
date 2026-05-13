@@ -1,3 +1,8 @@
+/// Offsets applied for people riding something
+#define RIDING_SOURCE "riding"
+/// Offsets applied for something being ridden
+#define BEING_RIDDEN_SOURCE "being_ridden"
+
 /**
  * This is the riding component, which is applied to a movable atom by the [ridable element][/datum/element/ridable] when a mob is successfully buckled to said movable.
  *
@@ -189,9 +194,7 @@
 			for(var/offsetdir in offsets)
 				if(offsetdir == AM_dir)
 					var/list/diroffsets = offsets[offsetdir]
-					buckled_mob.pixel_x = diroffsets[1]
-					if(length(diroffsets) >= 2)
-						buckled_mob.pixel_y = diroffsets[2]
+					buckled_mob.add_offsets(RIDING_SOURCE, x_add = diroffsets[1], z_add = diroffsets[2])
 					if(length(diroffsets) == 3)
 						buckled_mob.layer = diroffsets[3]
 					break dir_loop
@@ -205,8 +208,13 @@
 		else
 			px = directional_vehicle_offsets[AM_dir][1]
 			py = directional_vehicle_offsets[AM_dir][2]
-	AM.pixel_x = px
-	AM.pixel_y = py
+
+	if(isliving(AM))
+		var/mob/living/living_seat = AM
+		living_seat.add_offsets(BEING_RIDDEN_SOURCE, x_add = px, y_add = py)
+	else
+		AM.pixel_x = px
+		AM.pixel_y = py
 
 /datum/component/riding/proc/set_vehicle_dir_offsets(dir, x, y)
 	directional_vehicle_offsets["[dir]"] = list(x, y)
@@ -250,8 +258,7 @@
 /datum/component/riding/proc/restore_position(mob/living/buckled_mob)
 	if(isnull(buckled_mob))
 		return
-	buckled_mob.pixel_x = buckled_mob.base_pixel_x
-	buckled_mob.pixel_y = buckled_mob.base_pixel_y
+	buckled_mob.remove_offsets(RIDING_SOURCE)
 	var/atom/source = parent
 	SET_PLANE_EXPLICIT(buckled_mob, initial(buckled_mob.plane), source)
 	/*
@@ -331,3 +338,6 @@
 	SIGNAL_HANDLER
 	for(var/mob/passenger as anything in ridden.buckled_mobs)
 		passenger.Bump(supermatter)
+
+#undef RIDING_SOURCE
+#undef BEING_RIDDEN_SOURCE
