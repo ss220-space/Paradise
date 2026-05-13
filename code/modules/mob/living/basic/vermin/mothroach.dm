@@ -63,8 +63,8 @@
 	)
 
 /mob/living/basic/mothroach/attack_hand(mob/living/carbon/human/user)
-    if(!user)
-        return
-    if(user.a_intent == INTENT_GRAB && get_scooped(user))
-        return
-    return ..()
+	if(!user)
+		return
+	if(user.a_intent == INTENT_GRAB && get_scooped(user))
+		return
+	return ..()
