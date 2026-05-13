@@ -379,11 +379,11 @@
 	if((!isgun(user.get_active_hand()))) // If the object in our active hand is not a gun, abort
 		return
 
-	if(!HAS_TRAIT(user, TRAIT_BADASS) && weapon_weight == WEAPON_HEAVY && (user.get_inactive_hand() || !user.has_inactive_hand() || (user.pulling && user.pull_hand != PULL_WITHOUT_HANDS)))
-		to_chat(user, span_userdanger("Для стрельбы из [declent_ru(GENITIVE)] нужны две свободные руки!"))
+	if(!user.is_in_active_hand(src) && user.a_intent != INTENT_HARM)
 		return
 
-	if(!user.is_in_active_hand(src) && user.a_intent != INTENT_HARM)
+	if(!HAS_TRAIT(user, TRAIT_BADASS) && weapon_weight == WEAPON_HEAVY && (user.get_inactive_hand() || !user.has_inactive_hand() || (user.pulling && user.pull_hand != PULL_WITHOUT_HANDS)))
+		to_chat(user, span_userdanger("Для стрельбы из [declent_ru(GENITIVE)] нужны две свободные руки!"))
 		return
 
 	if(gun_on_cooldown(user))
