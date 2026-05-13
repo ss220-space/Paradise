@@ -54,7 +54,7 @@
 		qdel(reagents)
 
 /obj/item/ammo_casing/proc/throw_proj(atom/target, turf/targloc, atom/movable/user, list/modifiers, spread, atom/firer_source_atom)
-	var/turf/curloc = get_turf(firer_source_atom) || get_turf(src)
+	var/turf/curloc = get_turf(firer_source_atom) || get_turf(src) || get_turf(user)
 	if(!istype(targloc) || !istype(curloc) || !BB)
 		return
 
@@ -62,8 +62,8 @@
 	if(BB.loc != curloc)
 		BB.forceMove(curloc)
 
-	var/atom/origin = user ? user : firer_source_atom
-	if(target && (get_dist(origin, target) <= 1))
+	var/atom/origin_atom = (isliving(user) ? user : (firer_source_atom ? firer_source_atom : src))
+	if(target && get_dist(origin_atom, target) <= 1)
 		BB.starting = curloc
 		BB.prehit(target)
 		target.bullet_act(BB, BB.def_zone)
@@ -77,7 +77,10 @@
 		QDEL_NULL(BB)
 		return TRUE
 
-	BB.preparePixelProjectile(target, user || firer_source_atom, modifiers, spread)
+	if(isliving(user))
+		BB.preparePixelProjectile(target, user, modifiers, spread)
+	else
+		BB.preparePixelProjectile(target, origin_atom, modifiers, spread)
 
 	if(BB)
 		BB.fire()
