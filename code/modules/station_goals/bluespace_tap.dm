@@ -91,7 +91,7 @@
 		/obj/item/toy/katana = 10,
 		/obj/item/stack/sheet/mineral/abductor/fifty = 20,
 		/obj/item/sord = 20,
-		/obj/item/toy/syndicateballoon = 15,
+		/obj/item/toy/balloon/syndicate = 15,
 		/obj/item/lighter/zippo/gonzofist = 5,
 		/obj/item/lighter/zippo/engraved = 5,
 		/obj/item/lighter/zippo/nt_rep = 5,

@@ -26988,10 +26988,10 @@
 /obj/machinery/light/spot,
 /obj/structure/rack/holorack,
 /obj/effect/turf_decal/delivery/white,
-/obj/item/toy/syndicateballoon{
+/obj/item/toy/balloon/syndicate{
 	pixel_x = -3
 	},
-/obj/item/toy/syndicateballoon/contractor{
+/obj/item/toy/balloon/contractor{
 	pixel_x = 3
 	},
 /turf/simulated/floor/plasteel{
@@ -32332,7 +32332,7 @@
 "pdl" = (
 /obj/machinery/vending/toyliberationstation{
 	contraband = null;
-	products = list(/obj/item/gun/projectile/automatic/toy=10,/obj/item/gun/projectile/automatic/toy/pistol=10,/obj/item/gun/projectile/shotgun/toy=10,/obj/item/toy/sword=10,/obj/item/ammo_box/foambox=20,/obj/item/toy/foamblade=10,/obj/item/toy/syndicateballoon=10,/obj/item/clothing/suit/syndicatefake=5,/obj/item/clothing/head/syndicatefake=5,/obj/item/gun/projectile/shotgun/toy/crossbow=10,/obj/item/gun/projectile/automatic/smg/c20r/toy/riot=10,/obj/item/gun/projectile/automatic/l6_saw/toy/riot=10,/obj/item/gun/projectile/automatic/sniper_rifle/toy=10,/obj/item/ammo_box/foambox/riot=20,/obj/item/toy/katana=10,/obj/item/twohanded/dualsaber/toy=5,/obj/item/deck/cards/syndicate=10)
+	products = list(/obj/item/gun/projectile/automatic/toy=10,/obj/item/gun/projectile/automatic/toy/pistol=10,/obj/item/gun/projectile/shotgun/toy=10,/obj/item/toy/sword=10,/obj/item/ammo_box/foambox=20,/obj/item/toy/foamblade=10,/obj/item/toy/balloon/syndicate=10,/obj/item/clothing/suit/syndicatefake=5,/obj/item/clothing/head/syndicatefake=5,/obj/item/gun/projectile/shotgun/toy/crossbow=10,/obj/item/gun/projectile/automatic/smg/c20r/toy/riot=10,/obj/item/gun/projectile/automatic/l6_saw/toy/riot=10,/obj/item/gun/projectile/automatic/sniper_rifle/toy=10,/obj/item/ammo_box/foambox/riot=20,/obj/item/toy/katana=10,/obj/item/twohanded/dualsaber/toy=5,/obj/item/deck/cards/syndicate=10)
 	},
 /obj/machinery/light/small{
 	dir = 1

@@ -25,6 +25,7 @@
 	throw_speed = 4
 	throw_range = 20
 	var/unique_toy_rename = FALSE
+	/// Can this toy be placed on the floor?
 
 /obj/item/toy/examine(mob/user)
 	. = ..()
@@ -40,106 +41,6 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
-
-/*
- * Balloons
- */
-/obj/item/toy/balloon
-	name = "water balloon"
-	desc = "A translucent balloon. There's nothing in it."
-	icon = 'icons/obj/toy.dmi'
-	icon_state = "waterballoon-e"
-	item_state = "waterballoon-e"
-
-/obj/item/toy/balloon/Initialize(mapload)
-	. = ..()
-	create_reagents(10)
-
-/obj/item/toy/balloon/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
-	return ATTACK_CHAIN_PROCEED
-
-/obj/item/toy/balloon/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
-	if(!proximity_flag)
-		return
-
-	if(istype(target, /obj/structure/reagent_dispensers))
-		var/obj/structure/reagent_dispensers/RD = target
-		if(RD.reagents.total_volume <= 0)
-			to_chat(user, span_warning("[DECLENT_RU_CAP(RD, NOMINATIVE)] пустой."))
-		else if(reagents.total_volume >= 10)
-			to_chat(user, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] полный."))
-		else
-			user.changeNext_move(CLICK_CD_MELEE)
-			target.reagents.trans_to(src, 10)
-			to_chat(user, span_notice("Вы наполняете шарик из [target.declent_ru(GENITIVE)]."))
-			desc = "A translucent balloon with some form of liquid sloshing around in it."
-			update_icon(UPDATE_ICON_STATE)
-
-/obj/item/toy/balloon/wash(mob/user, atom/source)
-	if(reagents.total_volume < 10)
-		reagents.add_reagent("water", min(10-reagents.total_volume, 10))
-		to_chat(user, span_notice("Вы наполняете шарик из [source.declent_ru(GENITIVE)]."))
-		desc = "A translucent balloon with some form of liquid sloshing around in it."
-		update_icon(UPDATE_ICON_STATE)
-
-/obj/item/toy/balloon/attackby(obj/item/I, mob/user, params)
-	if(isglassreagentcontainer(I) || istype(I, /obj/item/reagent_containers/food/drinks/drinkingglass))
-		add_fingerprint(user)
-		if(!I.reagents || I.reagents.total_volume < 1)
-			to_chat(user, span_warning("[DECLENT_RU_CAP(I, NOMINATIVE)] пуст!"))
-			return ATTACK_CHAIN_PROCEED
-		if(I.reagents.has_reagent("facid", 1) || I.reagents.has_reagent("acid", 1))
-			to_chat(user, span_warning("Кислота прожигает шарик!"))
-			I.reagents.reaction(user)
-			qdel(src)
-			return ATTACK_CHAIN_BLOCKED_ALL
-		desc = "A translucent balloon with some form of liquid sloshing around in it."
-		to_chat(user, span_notice("Вы наполняете шарик из [I.declent_ru(GENITIVE)]."))
-		I.reagents.trans_to(src, 10)
-		update_icon(UPDATE_ICON_STATE)
-		return ATTACK_CHAIN_PROCEED_SUCCESS
-
-	return ..()
-
-/obj/item/toy/balloon/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
-	if(reagents.total_volume >= 1)
-		visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] лопается!"), "Вы слышите хлопок и всплеск.")
-		reagents.reaction(get_turf(hit_atom))
-		for(var/atom/A in get_turf(hit_atom))
-			reagents.reaction(A)
-		icon_state = "burst"
-		spawn(5)
-			if(src)
-				qdel(src)
-
-/obj/item/toy/balloon/update_icon_state()
-	if(reagents.total_volume >= 1)
-		icon_state = "waterballoon"
-		item_state = "waterballoon"
-	else
-		icon_state = "waterballoon-e"
-		item_state = "waterballoon-e"
-
-/obj/item/toy/syndicateballoon
-	name = "syndicate balloon"
-	desc = "There is a tag on the back that reads \"FUK NT!11!\"."
-	icon_state = "syndballoon"
-	item_state = "syndballoon"
-	w_class = WEIGHT_CLASS_BULKY
-	var/lastused = null
-
-/obj/item/toy/syndicateballoon/attack_self(mob/user)
-	if(world.time - lastused < CLICK_CD_MELEE)
-		return
-	var/playverb = pick("дёргаете [declent_ru(NOMINATIVE)] за верёвочку", "играете с [declent_ru(INSTRUMENTAL)]")
-	user.visible_message(span_notice("[user] играется с [declent_ru(INSTRUMENTAL)]."), span_notice("Вы [playverb]."))
-	lastused = world.time
-
-/obj/item/toy/balloon/snail
-	name = "'snail' balloon"
-	desc = "It looks quite familiar, right?"
-	icon_state = "snailplushie"
-	item_state = "snailplushie"
 
 /*
  * Fake telebeacon
@@ -666,6 +567,12 @@
 
 /obj/random/plushie/item_to_spawn()
 	return pick(subtypesof(/obj/item/toy/plushie) - typesof(/obj/item/toy/plushie/fluff) - subtypesof(/obj/item/toy/plushie/plasmamanplushie/standart)) //exclude the base type and 11 random plasma plushies
+
+/obj/item/toy/plushie/snail
+	name = "'snail' plushie"
+	desc = "It looks quite familiar, right?"
+	icon_state = "snailplushie"
+	item_state = "snailplushie"
 
 /obj/item/toy/plushie/corgi
 	name = "corgi plushie"

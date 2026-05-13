@@ -1,4 +1,12 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"ae" = (
+/obj/item/toy/katana,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"ao" = (
+/obj/item/toy/balloon_animal/dog,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
 "aw" = (
 /obj/effect/landmark/observer_start,
 /turf/simulated/floor/mineral/titanium/blue,
@@ -14,13 +22,59 @@
 /obj/structure/holosign/barrier/atmos,
 /turf/space,
 /area/space)
+"bs" = (
+/obj/item/toy/redbutton,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"bw" = (
+/obj/item/toy/AI,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
 "bP" = (
-/turf/simulated/wall/r_wall,
+/obj/item/toy/therapy/purple,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"cg" = (
+/obj/item/toy/plushie/robo_corgi,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"cC" = (
+/obj/item/toy/plushie/plasmamanplushie/standart/captain,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"cK" = (
+/obj/item/toy/plushie/marble_fox,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"cV" = (
+/obj/item/toy/nuke,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"cX" = (
+/obj/item/toy/plushie/foxplushie,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"dN" = (
+/obj/item/toy/plushie/rdplushie,
+/turf/simulated/floor/mineral/titanium/yellow,
 /area/fastload)
 "dY" = (
 /obj/machinery/light/floor,
 /turf/simulated/floor/mineral/titanium/purple,
 /area/fastload/purple)
+"ei" = (
+/obj/item/toy/balloon/contractor,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
+"ez" = (
+/obj/item/toy/figure/syndie,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/fastload/purple)
+"eL" = (
+/obj/machinery/station_map/security/directional/north,
+/obj/item/toy/plushie/snail,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
 "eW" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -28,7 +82,39 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/fastload/blue)
 "eX" = (
-/obj/machinery/light/floor,
+/obj/item/toy/character/cthulhu,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"fd" = (
+/obj/item/inflatable_duck,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"fi" = (
+/obj/item/toy/figure/miner,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/fastload/purple)
+"fo" = (
+/obj/item/toy/plushie/rouny,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"fB" = (
+/obj/item/toy/figure/hos,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/fastload/purple)
+"fV" = (
+/obj/item/toy/plushie/voxplushie,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"fY" = (
+/obj/item/toy/plushie/tuxedo_cat,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"gc" = (
+/obj/item/toy/plushie/ninja,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"gm" = (
+/obj/item/toy/plushie/wet_owl,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/fastload)
 "gL" = (
@@ -40,18 +126,50 @@
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/fastload/blue)
+"gO" = (
+/obj/item/toy/figure/janitor,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/fastload/purple)
+"gT" = (
+/obj/item/toy/figure/dsquad,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/fastload/purple)
+"gW" = (
+/obj/item/toy/figure/ce,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/fastload/purple)
+"gX" = (
+/obj/item/toy/plushie/crimson_fox,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
 "he" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
 /turf/simulated/floor/mineral/titanium/purple,
 /area/fastload/purple)
+"hm" = (
+/obj/item/toy/figure/rd,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/fastload/purple)
+"hn" = (
+/obj/item/toy/plushie/siamese_cat,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
 "hq" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
 /turf/simulated/floor/mineral/titanium/purple,
 /area/fastload/purple)
+"ht" = (
+/obj/item/toy/character/thief,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"hz" = (
+/obj/item/toy/plushie/banbanana,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
 "hG" = (
 /obj/machinery/light_switch/directional/west,
 /obj/machinery/light{
@@ -59,16 +177,52 @@
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/fastload/blue)
+"hT" = (
+/obj/item/toy/figure/chaplain,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/fastload/purple)
+"ia" = (
+/obj/item/toy/plushie/plasmamanplushie/standart/engineer,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"iD" = (
+/obj/item/toy/therapy/green,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"iX" = (
+/obj/item/toy/plushie/plasmamanplushie/standart/sindie,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
 "jk" = (
 /turf/simulated/wall/indestructible/reinforced,
+/area/fastload/blue)
+"jo" = (
+/obj/item/toy/balloon_animal/plasmaman,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/fastload/blue)
 "jD" = (
 /turf/space/openspace,
 /area/space)
+"jE" = (
+/obj/item/toy/plushie/nianplushie,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
 "jO" = (
 /obj/structure/ladder,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/fastload/blue)
+"jP" = (
+/obj/item/toy/plushie/lizard_plushie/green,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"kc" = (
+/obj/item/toy/figure/cargotech,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/fastload/purple)
+"kj" = (
+/obj/item/toy/plushie/plasmamanplushie/standart,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
 "ks" = (
 /obj/structure/holosign/barrier/atmos,
 /turf/space/openspace,
@@ -77,49 +231,201 @@
 /obj/machinery/door/airlock/engineering,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/fastload)
-"nd" = (
-/obj/structure/rack,
-/obj/item/stack/sheet/metal/fifty,
-/obj/item/stack/sheet/rglass/fifty,
-/obj/item/stack/sheet/glass/fifty,
-/obj/item/stack/sheet/plasteel/fifty,
+"kA" = (
+/obj/item/toy/flash,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/fastload)
+"kY" = (
+/obj/item/toy/balloon_animal/cat,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
+"lb" = (
+/obj/item/toy/carpplushie/candy,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"lh" = (
+/obj/item/toy/figure/detective,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/fastload/purple)
+"lv" = (
+/obj/item/toy/foamblade,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"lx" = (
+/obj/item/toy/plushie/slimeplushie,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"ly" = (
+/obj/item/toy/prize/ripley,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"mU" = (
+/obj/item/toy/russian_revolver,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"nd" = (
+/obj/item/toy/plushie/grey_cat,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"nq" = (
+/obj/item/toy/carpplushie/silent,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"nH" = (
+/obj/item/toy/prize/mauler,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"nT" = (
+/obj/item/toy/figure/roboticist,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/fastload/purple)
+"og" = (
+/obj/item/toy/balloon_animal/fly,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
 "oJ" = (
 /obj/machinery/light,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/fastload)
 "pn" = (
-/obj/spacepod/sec,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
+/obj/item/twohanded/toy/chainsaw,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
 "pZ" = (
 /obj/machinery/tcomms/core/station,
 /turf/simulated/floor/mineral/titanium/purple,
 /area/fastload/purple)
+"qb" = (
+/obj/item/toy/plushie/corgi,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"qf" = (
+/obj/item/toy/character/cleric,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"qk" = (
+/obj/item/toy/carpplushie/ice,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"qq" = (
+/obj/item/toy/balloon_animal/banana,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
 "qA" = (
 /obj/machinery/light{
 	dir = 4
 	},
 /turf/simulated/floor/mineral/titanium/purple,
 /area/fastload/purple)
+"qN" = (
+/obj/item/toy/plushie/hampter/medic,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"qT" = (
+/obj/item/toy/figure/magistrate,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/fastload/purple)
+"re" = (
+/obj/item/toy/therapy/blue,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"rn" = (
+/obj/item/toy/plushie/red_fox,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"rI" = (
+/obj/item/toy/prize/marauder,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"rL" = (
+/obj/item/toy/plushie/hampter,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
 "rS" = (
 /obj/machinery/light,
 /turf/simulated/floor/mineral/titanium/purple,
 /area/fastload/purple)
+"ss" = (
+/obj/item/toy/balloon/contractor,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"sw" = (
+/obj/item/toy/owl,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
 "sP" = (
-/obj/machinery/light{
-	dir = 1
-	},
+/obj/item/toy/balloon/syndicate,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"sW" = (
+/obj/item/toy/balloon/arrest,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
+"tf" = (
+/obj/item/toy/plushie/ashwalkerplushie,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"ti" = (
+/obj/item/toy/carpplushie/void,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"tv" = (
+/obj/item/toy/plushie/plasmamanplushie/standart/doctor,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"tx" = (
+/obj/item/toy/plushie/lizard_plushie,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"tB" = (
+/obj/item/toy/figure/mime,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/fastload/purple)
+"ui" = (
+/obj/item/toy/desk/dippingbird,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/fastload/purple)
+"up" = (
+/obj/item/toy/desk/fan,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/fastload/purple)
+"uw" = (
+/obj/item/toy/carpplushie/nebula,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"ux" = (
+/obj/item/toy/plushie/purple_fox,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"uz" = (
+/obj/item/toy/prize/gygax,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"uB" = (
+/obj/item/toy/prize/seraph,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/fastload)
 "uJ" = (
 /turf/simulated/wall/indestructible/reinforced,
 /area/fastload)
+"uL" = (
+/obj/item/toy/plushie/deer,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"uU" = (
+/obj/item/toy/plushie/manulplushie,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"vl" = (
+/obj/item/toy/balloon_animal/podguy,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
 "vI" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
-	},
+/obj/item/toy/prize/odysseus,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"vJ" = (
+/obj/item/toy/plushie/ipcplushie,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/fastload)
 "vR" = (
@@ -131,30 +437,73 @@
 	},
 /turf/simulated/floor/mineral/titanium/purple,
 /area/fastload/purple)
+"wb" = (
+/obj/item/toy/plushie/blahaj/twohanded,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"wm" = (
+/obj/item/toy/plushie/face_hugger,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
 "ww" = (
 /obj/spacepod/sec,
 /turf/space,
 /area/space)
+"wE" = (
+/obj/item/toy/prize/deathripley,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"xf" = (
+/obj/item/toy/figure/atmos,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/fastload/purple)
+"xE" = (
+/obj/item/toy/figure/botanist,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/fastload/purple)
 "xL" = (
-/obj/effect/turf_decal/arrows/black{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
+/obj/item/toy/plushie/nukeplushie,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/fastload)
 "xQ" = (
 /obj/machinery/message_server,
 /turf/simulated/floor/mineral/titanium/purple,
 /area/fastload/purple)
+"xR" = (
+/obj/item/toy/plushie/axolotlplushie,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"xW" = (
+/obj/item/toy/plushie/bubblegumplushie,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"yh" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/item/toy/pet_rock/naughty_coal,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"yQ" = (
+/obj/item/toy/plushie/gsbplushie,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
 "yS" = (
 /obj/effect/landmark/spawner/late/cyborg,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/fastload/blue)
+"yX" = (
+/obj/item/toy/carpplushie/toxin,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"zg" = (
+/obj/item/toy/plushie/octopus,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"zh" = (
+/obj/item/toy/character/wizard,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
 "zn" = (
 /obj/machinery/light{
 	dir = 8
@@ -162,35 +511,139 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/fastload/blue)
 "zP" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
+/obj/item/toy/plushie/tabby_cat,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
 "An" = (
 /turf/simulated/openspace,
 /area/fastload/purple)
+"AC" = (
+/obj/item/toy/figure/chef,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/fastload/purple)
+"AP" = (
+/obj/item/toy/prize/honk,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
 "AX" = (
 /obj/effect/turf_decal/arrows/black{
 	dir = 4
 	},
 /turf/simulated/floor/mineral/titanium/purple,
 /area/fastload/purple)
+"Bb" = (
+/obj/item/toy/carpplushie/gold,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"Bd" = (
+/obj/item/toy/cattoy,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"Be" = (
+/obj/item/toy/plushie/hampter/security,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"Bo" = (
+/obj/item/toy/balloon_animal/slime,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
 "By" = (
+/obj/machinery/light_switch/directional/west,
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/item/toy/plushie/girly_corgi,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"BD" = (
+/obj/item/toy/balloon,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"BF" = (
+/obj/item/toy/plushie/plasmamanplushie/standart/atmostech,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/fastload)
 "BO" = (
 /turf/simulated/wall/indestructible/reinforced,
 /area/fastload/purple)
+"BT" = (
+/obj/item/toy/prize/fireripley,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"BU" = (
+/obj/item/toy/plushie/black_cat,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"BX" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/obj/item/storage/box/characters,
+/turf/simulated/openspace,
+/area/fastload)
 "Cc" = (
 /obj/machinery/light_switch/directional/south,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/fastload)
+"Cn" = (
+/obj/item/toy/figure/captain,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/fastload/purple)
+"Co" = (
+/obj/item/toy/carpplushie,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"CI" = (
+/obj/item/toy/griffin,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"CP" = (
+/obj/item/toy/toolbox,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/fastload/purple)
+"CS" = (
+/obj/item/toy/figure/geneticist,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/fastload/purple)
+"Dp" = (
+/obj/item/toy/figure/assistant,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/fastload/purple)
 "DZ" = (
 /obj/item/radio/intercom/directional/north,
+/obj/item/toy/blink,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"Ej" = (
+/obj/item/toy/snappop,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"Eq" = (
+/obj/item/toy/figure/cmo,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/fastload/purple)
+"Ev" = (
+/obj/item/toy/plushie/white_cat,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"EE" = (
+/obj/item/toy/plushie/beaver/sounded,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"ES" = (
+/obj/item/toy/figure/wizard,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/fastload/purple)
+"Fi" = (
+/obj/item/toy/figure/warden,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/fastload/purple)
+"Fq" = (
+/obj/item/toy/character/warrior,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"Fu" = (
+/obj/item/toy/sword,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/fastload)
 "Fv" = (
@@ -202,33 +655,170 @@
 /obj/item/radio/intercom/directional/north,
 /turf/simulated/floor/mineral/titanium/purple,
 /area/fastload/purple)
+"FR" = (
+/obj/item/toy/balloon_animal/nukie,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
 "Gf" = (
-/obj/structure/rack,
-/obj/item/mounted/frame/intercom,
-/obj/item/mounted/frame/alarm_frame,
+/obj/item/toy/plushie/beepsky,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"Gm" = (
+/obj/item/toy/figure/borg,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/fastload/purple)
+"Gp" = (
+/obj/item/toy/plushie/greyplushie,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"Gw" = (
+/obj/item/toy/figure/clown,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/fastload/purple)
+"Gz" = (
+/obj/item/toy/balloon_animal/ai,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
+"GK" = (
+/obj/item/toy/prize/durand,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"GU" = (
+/obj/item/toy/plushie/chikaboomchik,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"GX" = (
+/obj/item/toy/therapy/yellow,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/fastload)
 "Hi" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 5
+	dir = 1
 	},
+/obj/item/toy/pet_rock/fred,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/fastload)
 "HE" = (
 /turf/simulated/floor/mineral/titanium/blue,
 /area/fastload/blue)
+"HK" = (
+/obj/item/toy/figure/ian,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/fastload/purple)
+"HZ" = (
+/obj/item/toy/balloon_animal/clown,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
+"Ib" = (
+/obj/item/toy/pet_rock/roxie,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"Il" = (
+/obj/item/toy/plushie/black_fox,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"IB" = (
+/obj/item/toy/balloon_animal/lizard,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
+"IO" = (
+/obj/item/toy/plushie/beaver,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"IR" = (
+/obj/item/toy/figure/librarian,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/fastload/purple)
+"IU" = (
+/obj/item/toy/figure/virologist,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/fastload/purple)
 "JC" = (
 /obj/machinery/computer/account_database,
 /turf/simulated/floor/mineral/titanium/purple,
 /area/fastload/purple)
+"Kw" = (
+/obj/item/toy/plushie/kotwithfunnyhat,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"Ky" = (
+/obj/item/toy/therapy/orange,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"KD" = (
+/obj/item/toy/plushie/plasmamanplushie/standart/chemist,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"KL" = (
+/obj/item/toy/figure/engineer,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/fastload/purple)
+"Lg" = (
+/obj/item/toy/balloon/corgi,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
+"Lw" = (
+/obj/item/toy/balloon/long,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
+"Lx" = (
+/obj/item/toy/plushie/orange_cat,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"LB" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/simulated/openspace,
+/area/fastload)
 "LF" = (
 /obj/machinery/computer/secure_data,
 /turf/simulated/floor/mineral/titanium/purple,
 /area/fastload/purple)
+"LG" = (
+/obj/item/toy/figure/bartender,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/fastload/purple)
+"Ma" = (
+/obj/item/toy/plushie/hampter/janitor,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"Me" = (
+/obj/item/toy/minimeteor,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"Mf" = (
+/obj/item/toy/balloon_animal/moth,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
+"MB" = (
+/obj/item/toy/plushie/snakeplushie,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"MQ" = (
+/obj/item/toy/plushie/blahaj,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
 "Nb" = (
 /obj/structure/ladder,
 /turf/simulated/floor/mineral/titanium/purple,
 /area/fastload/purple)
+"Nn" = (
+/obj/item/toy/figure/chemist,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/fastload/purple)
+"Nq" = (
+/obj/item/toy/figure/md,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/fastload/purple)
+"Nu" = (
+/obj/item/toy/eight_ball,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/fastload/purple)
+"Nv" = (
+/obj/item/toy/plushie/orange_fox,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
 "ND" = (
 /obj/effect/turf_decal/arrows/black{
 	dir = 4
@@ -236,25 +826,107 @@
 /obj/machinery/light_switch/directional/south,
 /turf/simulated/floor/mineral/titanium/purple,
 /area/fastload/purple)
+"Oa" = (
+/obj/item/toy/toy_xeno,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"Om" = (
+/obj/item/toy/plushie/nianplushie/beeplushie,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"Pa" = (
+/obj/item/toy/balloon_animal/xeno,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
 "Pd" = (
 /turf/simulated/openspace,
 /area/fastload)
+"PK" = (
+/obj/item/toy/eight_ball/conch,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/fastload/purple)
+"PP" = (
+/obj/item/toy/prize/phazon,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"PU" = (
+/obj/item/toy/figure/secofficer,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/fastload/purple)
+"PZ" = (
+/obj/item/toy/plushie/plasmamanplushie/standart/scientist,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
 "Qa" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
+/obj/item/toddler,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"Qf" = (
+/obj/item/toy/therapy,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"Qy" = (
+/obj/item/toy/desk/newtoncradle,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/fastload/purple)
+"QB" = (
+/obj/item/toy/therapy/red,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
 "QS" = (
-/obj/machinery/station_map/security/directional/north,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
+/obj/item/toy/russian_revolver/trick_revolver,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"Ri" = (
+/obj/item/toy/figure/hop,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/fastload/purple)
+"Rx" = (
+/obj/item/toy/desk/officetoy,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/fastload/purple)
+"RG" = (
+/obj/item/toy/plushie/plasmamanplushie/standart/miner,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
 "RU" = (
-/obj/item/radio/intercom/directional/north,
+/obj/item/toy/plushie/realgoat,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"Su" = (
+/obj/item/toy/balloon/heart,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/fastload/blue)
+"Sv" = (
+/obj/item/toy/spinningtoy,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"SD" = (
+/obj/item/toy/plushie/plasmamanplushie/standart/brigmed,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"SH" = (
+/obj/item/toy/figure/qm,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/fastload/purple)
+"SX" = (
+/obj/item/toy/plushie/shardplushie,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"Tc" = (
+/obj/item/toy/plushie/plasmamanplushie/standart/officer,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
 "Tl" = (
-/obj/structure/ladder,
+/obj/item/toy/minigibber,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"Tw" = (
+/obj/item/toy/carpplushie/electric,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"TJ" = (
+/obj/item/toy/plushie/coffee_fox,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/fastload)
 "Uj" = (
@@ -263,10 +935,52 @@
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/fastload/blue)
+"Uz" = (
+/obj/item/toy/figure/lawyer,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/fastload/purple)
+"UR" = (
+/obj/item/toy/plushie/orange_fox/grump,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"UW" = (
+/obj/structure/sink,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
+"Ve" = (
+/obj/item/toy/figure/ninja,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/fastload/purple)
+"Vp" = (
+/obj/item/toy/snappop/virus,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"Wc" = (
+/obj/item/toy/character/lich,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"Wg" = (
+/obj/item/toy/plushie/pink_fox,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"Wj" = (
+/obj/item/toy/figure/scientist,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/fastload/purple)
+"WD" = (
+/obj/item/toy/character/alien,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"WL" = (
+/obj/item/restraints/handcuffs/toy,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/fastload/purple)
 "Xa" = (
-/obj/machinery/light{
-	dir = 4
-	},
+/obj/item/toy/plushie/hampter/asisstant,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"Xp" = (
+/obj/item/toy/plushie/blue_fox,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/fastload)
 "Xw" = (
@@ -275,9 +989,54 @@
 	},
 /turf/simulated/floor/mineral/titanium/purple,
 /area/fastload/purple)
+"XK" = (
+/obj/item/toy/balloon,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
+"XQ" = (
+/obj/item/toy/plushie/kotrazumist,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"XU" = (
+/obj/item/toy/codex_gigas,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"Yh" = (
+/obj/item/toy/balloon_animal/guy,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
 "YB" = (
 /turf/simulated/floor/mineral/titanium/purple,
 /area/fastload/purple)
+"YQ" = (
+/obj/item/toy/waterballoon,
+/obj/item/toy/waterballoon,
+/obj/item/toy/waterballoon,
+/obj/item/toy/waterballoon,
+/obj/item/toy/waterballoon,
+/obj/item/toy/waterballoon,
+/obj/item/toy/waterballoon,
+/obj/item/toy/waterballoon,
+/obj/item/toy/waterballoon,
+/obj/item/toy/waterballoon,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
+"YS" = (
+/obj/item/toy/plushie/pig,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"YU" = (
+/obj/item/toy/snappop/phoenix,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
+"YZ" = (
+/obj/item/toy/balloon/syndicate,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
+"Zd" = (
+/obj/item/toy/plushie/plasmamanplushie/standart/ntr,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
 "Zk" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
@@ -287,10 +1046,15 @@
 	},
 /turf/simulated/floor/mineral/titanium/purple,
 /area/fastload/purple)
+"ZL" = (
+/obj/item/twohanded/dualsaber/toy,
+/turf/simulated/floor/mineral/titanium/yellow,
+/area/fastload)
 "ZW" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 9
+	dir = 1
 	},
+/obj/item/toy/pet_rock,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/fastload)
 "ZY" = (
@@ -2170,8 +2934,8 @@ ay
 ay
 jk
 jO
-HE
-HE
+jk
+jk
 HE
 hG
 HE
@@ -2303,7 +3067,7 @@ ay
 jk
 HE
 HE
-HE
+UW
 HE
 HE
 HE
@@ -2367,8 +3131,8 @@ ay
 ay
 ay
 jk
-QS
 HE
+YQ
 HE
 HE
 HE
@@ -2433,11 +3197,11 @@ ay
 ay
 ay
 jk
-HE
-HE
-HE
-HE
-HE
+Lw
+XK
+sW
+ei
+Pa
 HE
 HE
 HE
@@ -2499,10 +3263,10 @@ ay
 ay
 ay
 jk
-HE
-HE
-HE
-HE
+Lw
+XK
+Lg
+og
 HE
 HE
 HE
@@ -2565,10 +3329,10 @@ ay
 ay
 ay
 jk
-RU
-HE
-HE
-HE
+Lw
+XK
+Su
+Yh
 HE
 HE
 aw
@@ -2631,10 +3395,10 @@ ay
 ay
 ay
 jk
-HE
-HE
-HE
-HE
+Lw
+XK
+YZ
+IB
 HE
 yS
 HE
@@ -2697,10 +3461,10 @@ ay
 ay
 ay
 jk
-HE
-HE
-HE
-HE
+Lw
+XK
+Gz
+Mf
 HE
 HE
 HE
@@ -2763,10 +3527,10 @@ ay
 ay
 ay
 jk
-HE
-HE
-HE
-HE
+Lw
+XK
+qq
+FR
 HE
 HE
 HE
@@ -2829,6 +3593,10 @@ ay
 ay
 ay
 jk
+Lw
+XK
+kY
+jo
 HE
 HE
 HE
@@ -2836,10 +3604,6 @@ HE
 HE
 HE
 HE
-HE
-HE
-HE
-zP
 eW
 gL
 jk
@@ -2895,17 +3659,17 @@ ay
 ay
 ay
 jk
-HE
-pn
-HE
-HE
-HE
-HE
+Lw
+XK
+HZ
+vl
 HE
 HE
 HE
 HE
-Qa
+HE
+HE
+HE
 HE
 Uj
 jk
@@ -2961,6 +3725,10 @@ ay
 ay
 ay
 jk
+Lw
+XK
+ao
+Bo
 HE
 HE
 HE
@@ -2968,10 +3736,6 @@ HE
 HE
 HE
 HE
-HE
-HE
-HE
-Qa
 HE
 HE
 jk
@@ -6462,13 +7226,13 @@ jD
 BO
 YB
 YB
-YB
-YB
-YB
-YB
-YB
-YB
-YB
+Dp
+hT
+CS
+Nq
+PU
+WL
+ui
 YB
 YB
 YB
@@ -6528,13 +7292,13 @@ jD
 BO
 YB
 YB
+xf
+AC
+Ri
+tB
+ez
 YB
-YB
-YB
-YB
-YB
-YB
-YB
+up
 YB
 YB
 YB
@@ -6594,13 +7358,13 @@ jD
 BO
 YB
 YB
+LG
+Nn
+fB
+fi
+IU
 YB
-YB
-YB
-YB
-YB
-YB
-YB
+Qy
 YB
 YB
 YB
@@ -6660,13 +7424,13 @@ jD
 BO
 vS
 YB
+Gm
+Gw
+HK
+Ve
+Fi
 YB
-YB
-YB
-YB
-YB
-YB
-YB
+Rx
 YB
 YB
 YB
@@ -6726,13 +7490,13 @@ jD
 BO
 xQ
 YB
+xE
+Eq
+gO
+SH
+ES
 YB
-YB
-YB
-YB
-YB
-YB
-YB
+up
 YB
 YB
 YB
@@ -6792,13 +7556,13 @@ jD
 BO
 Fz
 YB
-YB
-YB
-YB
-YB
+Cn
+lh
+Uz
+hm
 dY
 YB
-YB
+CP
 YB
 YB
 YB
@@ -6858,11 +7622,11 @@ jD
 BO
 pZ
 YB
-YB
-YB
-YB
-YB
-YB
+kc
+gT
+IR
+nT
+Nu
 YB
 YB
 YB
@@ -6924,11 +7688,11 @@ jD
 BO
 vS
 YB
-YB
-YB
-YB
-YB
-YB
+gW
+KL
+qT
+Wj
+PK
 YB
 YB
 YB
@@ -10619,18 +11383,18 @@ jD
 jD
 jD
 uJ
-Tl
 vR
 vR
 vR
+Qa
 By
-vR
-vR
-vR
-By
-vR
-vR
-vR
+gX
+dN
+gc
+tv
+Ma
+XU
+yh
 vR
 uJ
 jD
@@ -10686,17 +11450,17 @@ jD
 ks
 ku
 vR
-vR
-vR
-vR
-vR
-vR
-vR
-vR
-vR
-vR
-vR
-vR
+Vp
+uB
+fd
+cg
+uL
+yQ
+Om
+ia
+qN
+sw
+Ib
 vR
 uJ
 jD
@@ -10751,18 +11515,18 @@ jD
 jD
 jD
 uJ
-vR
-vR
-vR
-vR
-vR
-vR
-vR
-vR
-vR
-vR
-vR
-vR
+BD
+Ej
+nH
+Me
+zg
+BU
+Gp
+RU
+RG
+Be
+CI
+Tl
 vR
 uJ
 jD
@@ -10817,18 +11581,18 @@ jD
 jD
 jD
 uJ
-vR
-vR
-vR
-vR
-vR
-vR
-vR
-vR
-vR
-vR
-vR
-vR
+eL
+YU
+vI
+Co
+wm
+nd
+vJ
+cX
+Zd
+rL
+WD
+Oa
 vR
 uJ
 jD
@@ -10884,17 +11648,17 @@ jD
 jD
 uJ
 sP
-vR
-vR
-vR
-vR
-vR
-vR
-vR
-vR
-vR
-vR
-vR
+ly
+PP
+qk
+rn
+Ev
+SX
+MQ
+Tc
+IO
+qf
+mU
 oJ
 uJ
 jD
@@ -10949,18 +11713,18 @@ jD
 jD
 jD
 uJ
+ss
+BT
+cV
+nq
+Il
+Lx
+tx
 vR
-vR
-vR
-vR
-vR
-vR
-vR
-vR
-vR
-vR
-vR
-vR
+PZ
+EE
+eX
+QS
 vR
 uJ
 jD
@@ -11016,17 +11780,17 @@ jD
 jD
 uJ
 DZ
+wE
+Qf
+Tw
+cK
+hn
 vR
-vR
-vR
-vR
-vR
-eX
-vR
-vR
-vR
-vR
-vR
+wb
+iX
+GU
+Wc
+pn
 vR
 uJ
 jD
@@ -11081,18 +11845,18 @@ jD
 jD
 jD
 uJ
+Sv
+uz
+re
+Bb
+Xp
 vR
-vR
-vR
-vR
-vR
-vR
-vR
-vR
-vR
-vR
-vR
-vR
+jP
+xR
+fo
+gm
+ht
+Bd
 vR
 uJ
 jD
@@ -11147,17 +11911,17 @@ jD
 jD
 jD
 uJ
-sP
-vR
-vR
-vR
-vR
-vR
-vR
-vR
-vR
-vR
-vR
+Fu
+GK
+iD
+yX
+Nv
+zP
+tf
+kj
+Gf
+uU
+Fq
 vR
 oJ
 uJ
@@ -11213,17 +11977,17 @@ jD
 jD
 jD
 uJ
-vR
-vR
-vR
-vR
-vR
-vR
-vR
-vR
-vR
-vR
-vR
+ZL
+AP
+Ky
+lb
+UR
+fY
+MB
+BF
+hz
+lv
+zh
 vR
 Cc
 uJ
@@ -11279,18 +12043,18 @@ jD
 jD
 jD
 uJ
-vR
-vR
+ae
+rI
 bP
-vR
-vR
-vR
-vR
-vR
-vR
-vR
-Pd
-Pd
+uw
+TJ
+XQ
+xL
+SD
+YS
+kA
+BX
+LB
 Pd
 uJ
 jD
@@ -11345,18 +12109,18 @@ jD
 jD
 jD
 uJ
-nd
 vR
 vR
-vR
-vR
-vR
-vR
-vR
-vR
-vR
+QB
+ti
+Wg
+Kw
+jE
+cC
+xW
+bs
 ZW
-xL
+vR
 Pd
 uJ
 jD
@@ -11411,18 +12175,18 @@ jD
 jD
 jD
 uJ
-Gf
 vR
 vR
-vR
+GX
+qb
+ux
+fV
+lx
+KD
 Xa
-vR
-vR
-vR
-Xa
-vR
+bw
 Hi
-vI
+vR
 Pd
 uJ
 jD

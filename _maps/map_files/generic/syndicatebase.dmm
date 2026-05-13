@@ -25292,7 +25292,7 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 4
 	},
-/obj/item/toy/syndicateballoon,
+/obj/item/toy/balloon/syndicate,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate/secure/syndicate{

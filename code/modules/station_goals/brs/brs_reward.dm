@@ -108,7 +108,7 @@
 		/obj/vehicle/ridden/car,
 
 		//Toys
-		/obj/item/toy/syndicateballoon = 5,
+		/obj/item/toy/balloon/syndicate = 5,
 		/obj/item/gun/projectile/automatic/smg/c20r/toy,
 		/obj/item/gun/projectile/automatic/l6_saw/toy,
 		/obj/item/gun/projectile/automatic/toy/pistol,

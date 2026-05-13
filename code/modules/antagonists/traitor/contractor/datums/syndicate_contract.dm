@@ -32,7 +32,7 @@
 		/obj/item/toy/nuke,
 		/obj/item/toy/plushie/nukeplushie,
 		/obj/item/toy/sword,
-		/obj/item/toy/syndicateballoon,
+		/obj/item/toy/balloon/syndicate,
 	)
 	/// The base credits reward upon completion. Multiplied by the two lower bounds below.
 	var/credits_base = 100
