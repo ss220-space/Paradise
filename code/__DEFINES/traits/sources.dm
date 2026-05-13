@@ -200,3 +200,5 @@
 
 /// A trait gained by leaning against a wall
 #define LEANING_TRAIT "leaning"
+
+#define GIVE_TRAIT "give"

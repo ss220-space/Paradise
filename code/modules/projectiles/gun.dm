@@ -373,6 +373,9 @@
 	if(user.in_throw_mode)
 		return
 
+	if(HAS_TRAIT(src, TRAIT_GIVE_READY))
+		return
+
 	if(object.IsReachableBy(user, reach) && start_attack_chain_check(user, object)) //Dealt with by attack code
 		return
 
@@ -747,7 +750,7 @@
 		return TRUE
 	if(user.a_intent == INTENT_HARM)
 		return TRUE
-	if(isitem(target) || iscloset(target) || istable(target) || is_screen_atom(target) || isdisposalunit(target))
+	if(isitem(target) || iscloset(target) || istable(target) || is_screen_atom(target) || isdisposalunit(target) || istype(target, /obj/machinery/recharger))
 		return TRUE
 	return FALSE
 
