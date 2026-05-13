@@ -1725,7 +1725,7 @@
 /area/ruin/powered/pirateship)
 "KD" = (
 /obj/effect/decal/cleanable/dust,
-/obj/machinery/disco,
+/obj/machinery/jukebox/disco,
 /turf/simulated/floor/pod/dark/lavaland_air,
 /area/ruin/powered/pirateship)
 "KE" = (
