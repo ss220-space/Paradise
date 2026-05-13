@@ -247,7 +247,7 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 		var/list/text = list("<span style='font-size: 2;'><b>The Vox raiders were:</b></span>")
 
 		for(var/datum/mind/vox in raiders)
-			text += "<br>[vox.get_display_key()] was [vox.name] ("
+			text += "<br>[vox.get_mind_key()] was [vox.name] ("
 			if(check_return)
 				var/obj/stack = raiders[vox]
 				if(get_area(stack.loc) != locate(/area/shuttle/vox))
@@ -282,7 +282,7 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 
 /obj/machinery/vox_win_button/Initialize(mapload)
 	. = ..()
-	
+
 	add_overlay(icon('icons/obj/machines/computer.dmi', "syndie"))
 
 /obj/machinery/vox_win_button/attack_hand(mob/user)

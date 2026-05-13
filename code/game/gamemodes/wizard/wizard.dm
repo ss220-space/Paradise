@@ -298,7 +298,7 @@
 
 		for(var/datum/mind/wizard in wizards)
 
-			text += "<br>[span_bold(wizard.get_display_key())] was [span_bold(wizard.name)] ("
+			text += "<br>[span_bold(wizard.get_mind_key())] was [span_bold(wizard.name)] ("
 			if(wizard.current)
 				if(wizard.current.stat == DEAD)
 					text += "died"
@@ -341,7 +341,7 @@
 		if(length(apprentices))
 			text += span_bold(span_fontsize3("<br>the wizards/witches apprentices were:"))
 			for(var/datum/mind/apprentice in apprentices)
-				text += "<br><b>[apprentice.get_display_key()]</b> was <b>[apprentice.name]</b> ("
+				text += "<br><b>[apprentice.get_mind_key()]</b> was <b>[apprentice.name]</b> ("
 				if(apprentice.current)
 					if(apprentice.current.stat == DEAD)
 						text += "died"
