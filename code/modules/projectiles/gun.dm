@@ -376,7 +376,7 @@
 	if(object.IsReachableBy(user, reach) && start_attack_chain_check(user, object)) //Dealt with by attack code
 		return
 
-	if((!isgun(user.get_active_hand()))) // If the object in our active hand is not a gun, abort
+	if(!isgun(user.get_active_hand())) // If the object in our active hand is not a gun, abort
 		return
 
 	if(!user.is_in_active_hand(src) && user.a_intent != INTENT_HARM)
