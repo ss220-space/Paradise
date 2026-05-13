@@ -246,7 +246,7 @@
 
 /obj/item/toy/balloon/syndicate
 	name = "syndicate balloon"
-	desc = "Этикетка на задней стороне гласит: \"Смерть Нанотрейзен!11!\"."
+	desc = "Этикетка на задней стороне гласит: \"Смерть НТ!11!\"."
 	icon_state = "syndballoon"
 	item_state = "syndballoon"
 	random_color = FALSE
