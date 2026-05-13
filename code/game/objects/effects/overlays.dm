@@ -1,6 +1,5 @@
 /obj/effect/overlay
 	name = "overlay"
-	var/i_attached	//Added for possible image attachments to objects. For hallucinations and the like.
 
 /obj/effect/overlay/singularity_act()
 	return
@@ -8,11 +7,11 @@
 /obj/effect/overlay/singularity_pull(atom/singularity, current_size)
 	return
 
-/obj/effect/overlay/beam//Not actually a projectile, just an effect.
+// Not actually a projectile, just an effect.
+/obj/effect/overlay/beam
 	name = "beam"
 	icon = 'icons/effects/beam.dmi'
 	icon_state = "b_beam"
-	var/tmp/atom/BeamSource
 
 /obj/effect/overlay/beam/Initialize(mapload)
 	. = ..()
@@ -38,6 +37,7 @@
 	icon_state = "coconuts"
 
 /obj/effect/overlay/sparkles
+	gender = PLURAL
 	name = "sparkles"
 	icon_state = "shieldsparkles"
 
