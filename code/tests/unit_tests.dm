@@ -36,6 +36,7 @@
 #include "test_subsystem_flags.dm"
 #include "test_subsystem_init.dm"
 #include "test_subsystem_metric_sanity.dm"
+#include "test_tgui_create_message.dm"
 #include "test_timer_sanity.dm"
 #endif
 
