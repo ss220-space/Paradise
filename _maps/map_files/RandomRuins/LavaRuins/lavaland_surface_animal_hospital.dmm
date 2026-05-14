@@ -418,7 +418,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
 "bi" = (
-/obj/item/toy/cattoy,
+/obj/item/toy/plushie/cattoy,
 /turf/simulated/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
 "bj" = (

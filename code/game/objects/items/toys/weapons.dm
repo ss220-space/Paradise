@@ -4,6 +4,7 @@
 /obj/item/toy/sword
 	name = "toy sword"
 	desc = "A cheap, plastic replica of an energy sword. Realistic sounds! Ages 8 and up."
+	icon = 'icons/obj/items.dmi'
 	icon_state = "sword0"
 	item_state = "sword0"
 	var/active = FALSE
@@ -25,7 +26,7 @@
 		icon_state = "sword0"
 		item_state = "sword0"
 		w_class = WEIGHT_CLASS_SMALL
-	
+
 	update_icon()
 
 /obj/item/toy/sword/attack_self(mob/user)
@@ -90,6 +91,7 @@
 /obj/item/toy/katana
 	name = "replica katana"
 	desc = "Woefully underpowered in D20."
+	icon = 'icons/obj/items.dmi'
 	icon_state = "katana"
 	item_state = "katana"
 	flags = CONDUCT
