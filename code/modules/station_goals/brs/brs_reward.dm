@@ -130,7 +130,6 @@
 		/obj/random/carp_plushie,
 		/obj/item/toy/balloon,
 		/obj/item/toy/spinningtoy,
-		/obj/item/toy/blink,
 		/obj/item/storage/box/dice,
 		/obj/item/storage/box/snappops,
 		/obj/item/deck/cards,
