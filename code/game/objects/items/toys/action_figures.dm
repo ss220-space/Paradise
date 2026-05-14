@@ -32,6 +32,7 @@
 /obj/random/mech
 	name = "Random Mech Prize"
 	desc = "This is a random prize"
+	icon = 'icons/obj/toy.dmi'
 	icon_state = "ripleytoy"
 
 /obj/random/mech/item_to_spawn()
@@ -220,6 +221,7 @@
 /obj/random/figure
 	name = "Random Action Figure"
 	desc = "This is a random toy action figure"
+	icon = 'icons/obj/toy.dmi'
 	icon_state = "nuketoy"
 
 /obj/random/figure/item_to_spawn()

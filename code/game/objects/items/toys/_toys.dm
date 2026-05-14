@@ -181,6 +181,7 @@
 /obj/random/therapy
 	name = "Random Therapy Doll"
 	desc = "This is a random therapy doll."
+	icon = 'icons/obj/toy.dmi'
 	icon_state = "therapyred"
 
 /obj/random/therapy/item_to_spawn()

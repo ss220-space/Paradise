@@ -36,6 +36,7 @@
 /obj/random/plushie
 	name = "Random Plushie"
 	desc = "This is a random plushie"
+	icon = 'icons/obj/toy.dmi'
 	icon_state = "redfox"
 
 /obj/random/plushie/item_to_spawn()
@@ -635,6 +636,7 @@
 /obj/random/carp_plushie
 	name = "Random Carp Plushie"
 	desc = "This is a random plushie"
+	icon = 'icons/obj/toy.dmi'
 	icon_state = "carpplushie"
 
 /obj/random/carp_plushie/item_to_spawn()
