@@ -107,7 +107,7 @@
 		span_hear("You hear something crack and explode in gore.")
 		)
 	jedi.Stun(3 SECONDS)
-	new /obj/effect/gibspawner/generic(get_turf(jedi), jedi)
+	new /obj/effect/gibspawner/generic(get_turf(jedi), jedi.dna)
 	jedi.apply_damage(30, BRUTE, BODY_ZONE_HEAD)
 	if(QDELETED(jedi))
 		return // damage was too much
@@ -124,7 +124,7 @@
 /obj/singularity/proc/carbon_tk_part_two(mob/living/carbon/jedi)
 	if(QDELETED(jedi))
 		return
-	new /obj/effect/gibspawner/generic(get_turf(jedi), jedi)
+	new /obj/effect/gibspawner/generic(get_turf(jedi), jedi.dna)
 	jedi.apply_damage(30, BRUTE, BODY_ZONE_HEAD)
 	if(QDELETED(jedi))
 		return // damage was too much
@@ -141,7 +141,7 @@
 /obj/singularity/proc/carbon_tk_part_three(mob/living/carbon/jedi)
 	if(QDELETED(jedi))
 		return
-	new /obj/effect/gibspawner/generic(get_turf(jedi), jedi)
+	new /obj/effect/gibspawner/generic(get_turf(jedi), jedi.dna)
 	jedi.apply_damage(30, BRUTE, BODY_ZONE_HEAD)
 	if(QDELETED(jedi))
 		return // damage was too much

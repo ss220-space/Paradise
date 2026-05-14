@@ -22,7 +22,7 @@
 
 /obj/effect/proc_holder/spell/touch/proc/charge_hand(mob/living/carbon/user)
 
-	var/obj/item/melee/touch_attack/new_hand = new hand_path(src, user)
+	var/obj/item/melee/touch_attack/new_hand = new hand_path(null, src, user)
 
 	if(user.put_in_hands(new_hand, qdel_on_fail = TRUE))
 		RegisterSignal(user, COMSIG_MOB_KEY_DROP_ITEM_DOWN, PROC_REF(discharge_hand))

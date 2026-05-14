@@ -29,7 +29,7 @@
 
 /mob/living/simple_animal/hostile/guardian/healer/Initialize(mapload)
 	. = ..()
-	AddSpell(new /obj/effect/proc_holder/spell/guardian_quickmend(summoner))
+	AddSpell(new /obj/effect/proc_holder/spell/guardian_quickmend(src, summoner))
 
 /mob/living/simple_animal/hostile/guardian/healer/Life(seconds, times_fired)
 	..()
