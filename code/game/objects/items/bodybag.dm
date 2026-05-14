@@ -565,7 +565,7 @@
 		)
 
 	user.balloon_alert(user, "вы вырываетесь!")
-	if(istype(loc, /obj/machinery/disposal))
+	if(isdisposalunit(loc))
 		return ..()
 	bust_open()
 

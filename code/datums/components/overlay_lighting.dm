@@ -164,7 +164,7 @@
 /datum/component/overlay_lighting/proc/clean_old_turfs()
 	for(var/turf/lit_turf as anything in affected_turfs)
 		lit_turf.dynamic_lumcount -= lum_power
-		SSdemo.mark_turf(lit_turf)
+		//SSdemo.mark_turf(lit_turf)
 	affected_turfs = null
 
 ///Populates the affected_turfs lazylist, adding to its contents the effects of being near the light.
@@ -174,7 +174,7 @@
 	. = list()
 	for(var/turf/lit_turf in view(lumcount_range, get_turf(current_holder)))
 		lit_turf.dynamic_lumcount += lum_power
-		SSdemo.mark_turf(lit_turf)
+		//SSdemo.mark_turf(lit_turf)
 		. += lit_turf
 	if(length(.))
 		affected_turfs = .

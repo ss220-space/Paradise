@@ -283,8 +283,11 @@
 
 	//if area isn't specified use current
 	area.apc |= src
-	update_icon()
-	addtimer(CALLBACK(src, PROC_REF(update)), 5)
+
+	// Make the apc visually interactive
+	register_context()
+	addtimer(CALLBACK(src, PROC_REF(update)), 0.5 SECONDS)
+	update_appearance()
 
 	var/static/list/hovering_mob_typechecks = list(
 		/mob/living/silicon = list(

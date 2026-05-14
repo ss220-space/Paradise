@@ -24,7 +24,7 @@
 		to_chat(user, span_warning("You don't have that much plasma!"))
 		return
 
-	var/obj/item/melee/touch_attack/alien/transfer_plasma/transfer_hand = new hand_path(src, user, amount)
+	var/obj/item/melee/touch_attack/alien/transfer_plasma/transfer_hand = new hand_path(null, src, user, amount)
 
 	// And code copypasta now!
 	if(user.put_in_hands(transfer_hand, qdel_on_fail = TRUE))

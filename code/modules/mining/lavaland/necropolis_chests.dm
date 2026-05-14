@@ -282,8 +282,12 @@
 	else
 		to_chat(itemUser, failText)
 		return
-	to_chat(itemUser, span_notice("Змея, довольная вашей клятвой, намертво прирастает к вашему предплечью. Ваши мысли теперь вращаются только вокруг помощи другим, а вред — всего лишь смутное, греховное воспоминание..."))
-	var/datum/status_effect/hippocraticOath/effect = itemUser.apply_status_effect(STATUS_EFFECT_HIPPOCRATIC_OATH)
+
+	apply_oath(itemUser)
+
+/obj/item/rod_of_asclepius/proc/apply_oath(mob/living/carbon/user)
+	to_chat(user, span_notice("Змея, довольная вашей клятвой, намертво прирастает к вашему предплечью. Ваши мысли теперь вращаются только вокруг помощи другим, а вред — всего лишь смутное, греховное воспоминание..."))
+	var/datum/status_effect/hippocraticOath/effect = user.apply_status_effect(STATUS_EFFECT_HIPPOCRATIC_OATH)
 	effect.hand = usedHand
 	activated()
 

@@ -63,7 +63,7 @@
 	id_tag = "UO45_Elevator";
 	name = "Elevator Door"
 	},
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/central_hall)
 "ao" = (
@@ -1115,7 +1115,9 @@
 /area/awaymission/UO45/central_hall)
 "dm" = (
 /obj/machinery/r_n_d/destructive_analyzer,
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/research)
 "dn" = (
@@ -2246,7 +2248,9 @@
 /area/awaymission/UO45/central_hall)
 "fU" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/research)
 "fV" = (
@@ -2878,11 +2882,15 @@
 /area/awaymission/UO45/gateaway)
 "hC" = (
 /obj/machinery/r_n_d/protolathe,
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/research)
 "hD" = (
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -2905,7 +2913,9 @@
 /obj/structure/sign/nosmoking_2{
 	pixel_x = -32
 	},
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -2925,7 +2935,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -3302,7 +3314,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -3314,7 +3328,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/northwestcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -3480,7 +3496,9 @@
 /area/awaymission/UO45/gateaway)
 "iT" = (
 /obj/structure/closet/l3closet/scientist,
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/gateaway)
 "iU" = (
@@ -3631,7 +3649,9 @@
 /area/awaymission/UO45/gateaway)
 "ji" = (
 /obj/structure/closet/l3closet/scientist,
-/obj/effect/decal/warning_stripes/northeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/gateaway)
 "jj" = (
@@ -4121,7 +4141,9 @@
 "km" = (
 /obj/structure/dispenser/oxygen,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/gateaway)
 "kn" = (
@@ -4129,7 +4151,9 @@
 	dir = 4;
 	on = 1
 	},
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/gateaway)
 "ko" = (
@@ -4245,7 +4269,9 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/gateaway)
 "kB" = (
@@ -4254,7 +4280,7 @@
 	id_tag = "UO45_biohazard";
 	name = "biohazard containment door"
 	},
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -5559,7 +5585,7 @@
 	initialize_directions = 10
 	},
 /obj/machinery/portable_atmospherics/scrubber,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/engineering)
 "nh" = (
@@ -6178,7 +6204,7 @@
 /area/awaymission/UO45/crew_quarters)
 "om" = (
 /obj/machinery/portable_atmospherics/canister/air,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/engineering)
 "on" = (
@@ -7538,7 +7564,7 @@
 "rc" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
 /obj/machinery/portable_atmospherics/scrubber,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/engineering)
 "rd" = (
@@ -7656,7 +7682,7 @@
 	dir = 1
 	},
 /obj/machinery/portable_atmospherics/canister/air,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/engineering)
 "rp" = (
@@ -8820,7 +8846,9 @@
 /area/awaymission/UO45/engineering)
 "tA" = (
 /obj/structure/closet/firecloset,
-/obj/effect/decal/warning_stripes/northwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/research)
 "tB" = (
@@ -9118,7 +9146,9 @@
 	dir = 8;
 	initialize_directions = 11
 	},
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/research)
 "ui" = (
@@ -9137,7 +9167,9 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 10
 	},
-/obj/effect/decal/warning_stripes/northeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/research)
 "uk" = (
@@ -9215,12 +9247,16 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/research)
 "ur" = (
 /obj/machinery/atmospherics/binary/valve,
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/research)
 "us" = (
@@ -9243,7 +9279,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/engineering)
 "uu" = (
@@ -9288,7 +9324,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/engineering)
 "uA" = (
@@ -9309,12 +9345,14 @@
 	name = "engineering security door"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/engineering)
 "uD" = (
 /obj/machinery/portable_atmospherics/scrubber,
-/obj/effect/decal/warning_stripes/southwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/research)
 "uE" = (
@@ -9381,7 +9419,9 @@
 	dir = 1
 	},
 /obj/machinery/portable_atmospherics/canister/air,
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/research)
 "uN" = (
@@ -9389,7 +9429,9 @@
 	dir = 1
 	},
 /obj/machinery/portable_atmospherics/canister/air,
-/obj/effect/decal/warning_stripes/southeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/research)
 "uO" = (
@@ -9533,7 +9575,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/engineering)
 "vd" = (
@@ -9541,7 +9583,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/engineering)
 "ve" = (
@@ -9591,7 +9633,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/engineering)
 "vj" = (
@@ -9913,10 +9955,10 @@
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/mining)
 "vX" = (
-/obj/effect/decal/warning_stripes/arrow{
+/obj/effect/turf_decal/arrows/black{
 	dir = 8
 	},
-/obj/effect/decal/warning_stripes/yellow/partial{
+/obj/effect/turf_decal/delivery/partial{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -10549,10 +10591,10 @@
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/mining)
 "xn" = (
-/obj/effect/decal/warning_stripes/arrow{
+/obj/effect/turf_decal/arrows/black{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/yellow/partial{
+/obj/effect/turf_decal/delivery/partial{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -10653,7 +10695,9 @@
 /area/awaymission/UO45/mining)
 "xB" = (
 /obj/structure/ore_box,
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/mining)
 "xC" = (
@@ -10666,7 +10710,9 @@
 /area/awaymission/UO45/mining)
 "xD" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/mining)
 "xE" = (
@@ -10681,7 +10727,9 @@
 	pixel_x = 32
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/mining)
 "xG" = (

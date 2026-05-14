@@ -106,7 +106,7 @@
 			if(CHASM_DROPPING)
 				INVOKE_ASYNC(src, PROC_REF(drop), thing)
 			if(CHASM_REGISTER_SIGNALS)
-				RegisterSignal(thing, list(COMSIG_MOVETYPE_FLAG_DISABLED, COMSIG_LIVING_SET_BUCKLED, COMSIG_MOVABLE_THROW_LANDED), PROC_REF(drop_stuff), override = TRUE)
+				RegisterSignals(thing, list(COMSIG_MOVETYPE_FLAG_DISABLED, COMSIG_LIVING_SET_BUCKLED, COMSIG_MOVABLE_THROW_LANDED), PROC_REF(drop_stuff), override = TRUE)
 
 /datum/component/chasm/proc/droppable(atom/movable/dropped_thing)
 	var/atom/atom_parent = parent
@@ -278,10 +278,10 @@
 	if(isliving(arrived))
 		RegisterSignal(arrived, COMSIG_LIVING_REVIVE, PROC_REF(on_revive))
 
-/obj/effect/abstract/chasm_storage/Exited(atom/movable/departed, atom/newLoc)
+/obj/effect/abstract/chasm_storage/Exited(atom/movable/gone, direction)
 	. = ..()
-	if(isliving(departed))
-		UnregisterSignal(departed, COMSIG_LIVING_REVIVE)
+	if(isliving(gone))
+		UnregisterSignal(gone, COMSIG_LIVING_REVIVE)
 
 /obj/effect/abstract/chasm_storage/proc/get_fish(mob/fish, atom/new_loc)
 	if(!(fish in src))

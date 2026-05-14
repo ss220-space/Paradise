@@ -545,7 +545,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 
 		LAZYCLEARLIST(missing_organs)
 		mess = FALSE
-		new /obj/effect/gibspawner/generic(get_turf(src), occupant)
+		new /obj/effect/gibspawner/generic(get_turf(src), occupant?.dna)
 		playsound(loc, 'sound/effects/splat.ogg', 50, TRUE)
 		update_icon()
 		return

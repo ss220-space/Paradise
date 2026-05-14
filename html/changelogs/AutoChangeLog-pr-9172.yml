@@ -1,4 +1,0 @@
-author: "Rafnik02"
-delete-after: True
-changes:
-  - tweak: "удаляет упоминание модераторов из списка \"В Сети\" (PR #9172)"

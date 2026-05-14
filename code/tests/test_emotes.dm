@@ -1,4 +1,4 @@
-/datum/game_test/emote/Run()
+/datum/unit_test/emote/Run()
 	/// Special cases that shouldn't need keybinds.
 	var/list/ignored_emote_types = list(
 		/datum/emote/living/simple_animal/slime, // The emotes are usable if you are a slime, but I don't think we need to flood the keybind list with them
@@ -36,7 +36,7 @@
 		if(isnum(cur_emote.max_unintentional_stat_allowed) && cur_emote.max_unintentional_stat_allowed < cur_emote.unintentional_stat_allowed)
 			TEST_FAIL("emote [cur_emote]'s max_unintentional_stat_allowed is greater than its unintentional_stat_allowed, and would be unusable.")
 
-/datum/game_test/emote/proc/get_emote_keybinds()
+/datum/unit_test/emote/proc/get_emote_keybinds()
 	var/list/bound_emotes = list()
 	for(var/keybind in subtypesof(/datum/keybinding/emote))
 		var/datum/keybinding/emote/E = new keybind()

@@ -1,7 +1,8 @@
 /atom/movable/screen/blob
 	icon = 'icons/hud/blob.dmi'
+	mouse_over_pointer = MOUSE_HAND_POINTER
 
-/atom/movable/screen/blob/MouseEntered(location,control,params)
+/atom/movable/screen/blob/MouseEntered(location, control, params)
 	. = ..()
 	openToolTip(usr,src,params,title = name,content = desc, theme = "blob")
 

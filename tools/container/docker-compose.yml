@@ -1,0 +1,29 @@
+services:
+  dreammaker:
+    image: paradise:latest
+    restart: no
+    build:
+      context: ../../
+      dockerfile: tools/container/Dockerfile
+    entrypoint: bash /entrypoint.sh
+    ports:
+      - "3228:3228"
+    volumes:
+      - ../../_maps:/paradise/_maps:ro
+      - ../../config:/paradise/config:ro
+      - ../../code:/paradise/code:ro
+      - ../../html:/paradise/html:ro
+      - ../../icons:/paradise/icons:ro
+      - ../../interface:/paradise/interface:ro
+      - ../../sound:/paradise/sound:ro
+      - ../../strings:/paradise/strings:ro
+      - ../../tgui:/paradise/tgui
+
+      - ../../__odlint.dm:/paradise/__odlint.dm:ro
+      - ../../_build_dependencies.sh:/paradise/_build_dependencies.sh:ro
+      - ../../librustlibs.so:/paradise/librustlibs.so:ro
+      - ../../paradise.dme:/paradise/paradise.dme:ro
+
+      - ./gamedata:/paradise/data
+      - ./entrypoint.sh:/entrypoint.sh:ro
+

@@ -4,7 +4,6 @@
  */
 /mob/living/proc/update_transform(resize = RESIZE_DEFAULT_SIZE)
 	var/matrix/ntransform = matrix(transform) //aka transform.Copy()
-	var/final_pixel_y = base_pixel_y + body_position_pixel_y_offset
 	/**
 	 * pixel x/y/w/z all discard values after the decimal separator.
 	 * That, coupled with the rendered interpolation, may make the
@@ -15,7 +14,7 @@
 	var/abs_pixel_y_offset = 0
 	var/translate = 0
 	if(current_size != RESIZE_DEFAULT_SIZE)
-		var/standing_offset = get_pixel_y_offset_standing(current_size)
+		var/standing_offset = get_transform_translation_size(current_size)
 		abs_pixel_y_offset = abs(standing_offset)
 		translate = (abs_pixel_y_offset - round(abs_pixel_y_offset)) * sign(standing_offset)
 	var/final_dir = dir
@@ -36,6 +35,7 @@
 	if(resize != RESIZE_DEFAULT_SIZE)
 		changed = TRUE
 		var/is_vertical = !lying_angle || !rotate_on_lying
+		var/new_translation = get_transform_translation_size(resize * current_size)
 		///scaling also affects translation, so we've to undo the old translate beforehand.
 		if(translate && is_vertical)
 			ntransform.Translate(0, -translate)
@@ -46,24 +46,19 @@
 		body_maptext_height_offset = initial(maptext_height) * (current_size - 1) * 0.5
 		maptext_height += body_maptext_height_offset - old_maptext_offset
 		//Update final_pixel_y so our mob doesn't go out of the southern bounds of the tile when standing
-		if(is_vertical) //But not if the mob has been rotated.
-			//Make sure the body position y offset is also updated
-			body_position_pixel_y_offset = get_pixel_y_offset_standing(current_size)
-			abs_pixel_y_offset = abs(body_position_pixel_y_offset)
-			var/new_translate = (abs_pixel_y_offset - round(abs_pixel_y_offset)) * sign(body_position_pixel_y_offset)
-			if(new_translate)
-				ntransform.Translate(0, new_translate)
-			final_pixel_y = base_pixel_y + body_position_pixel_y_offset
+		if(is_vertical && new_translation)
+			ntransform.Translate(0, new_translation)
 
 	if(!changed) //Nothing has been changed, nothing has to be done.
 		return
 
-	SEND_SIGNAL(src, COMSIG_PAUSE_FLOATING_ANIM, 0.3 SECONDS)
+	ADD_TRAIT(src, TRAIT_NO_FLOATING_ANIM, UPDATE_TRANSFORM_TRAIT)
+	addtimer(TRAIT_CALLBACK_REMOVE(src, TRAIT_NO_FLOATING_ANIM, UPDATE_TRANSFORM_TRAIT), 0.3 SECONDS, TIMER_UNIQUE|TIMER_OVERRIDE)
 
 	//if true, we want to avoid any animation time, it'll tween and not rotate at all otherwise.
 	var/is_opposite_angle = REVERSE_ANGLE(lying_angle) == lying_prev
 	var/animate_time = is_opposite_angle ? 0 : UPDATE_TRANSFORM_ANIMATION_TIME
-	animate(src, transform = ntransform, time = animate_time, pixel_y = final_pixel_y, dir = final_dir, easing = (EASE_IN|EASE_OUT))
+	animate(src, transform = ntransform, time = animate_time, dir = final_dir, easing = (EASE_IN|EASE_OUT))
 
 	handle_transform_change()
 

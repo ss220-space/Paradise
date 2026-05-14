@@ -1,9 +1,7 @@
 TIMER_SUBSYSTEM_DEF(runechat)
 	name = "Runechat"
 	priority = FIRE_PRIORITY_RUNECHAT
-	offline_implications = "Runechat messages will no longer clear. Shuttle call recommended."
-	cpu_display = SS_CPUDISPLAY_HIGH
-	ss_id = "runechat"
+
 	var/list/datum/callback/message_queue = list()
 
 /datum/controller/subsystem/timer/runechat/fire(resumed)

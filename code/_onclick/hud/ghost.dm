@@ -1,7 +1,8 @@
 /atom/movable/screen/ghost
 	icon = 'icons/mob/screen_ghost.dmi'
+	mouse_over_pointer = MOUSE_HAND_POINTER
 
-/atom/movable/screen/ghost/MouseEntered()
+/atom/movable/screen/ghost/MouseEntered(location, control, params)
 	. = ..()
 	flick(icon_state + "_anim", src)
 
@@ -77,8 +78,8 @@
 	icon_state = "minigames"
 
 /atom/movable/screen/ghost/Click()
-	var/mob/dead/observer/G = usr
-	G.open_minigames_menu()
+	var/mob/dead/observer/observer = usr
+	observer.open_minigames_menu()
 
 /atom/movable/screen/ghost/respawn_pai
 	name = "Настроить ПИИ"

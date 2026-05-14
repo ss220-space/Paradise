@@ -2,10 +2,8 @@
 
 SUBSYSTEM_DEF(sounds)
 	name = "Sounds"
-	init_order = INIT_ORDER_SOUNDS
-	flags = SS_NO_FIRE
-	offline_implications = "Sounds may not play correctly. Shuttle call recommended."
-	ss_id = "sounds"
+	ss_flags = SS_NO_FIRE
+	init_stage = INITSTAGE_EARLY
 
 	/// BYOND max channels
 	var/static/using_channels_max = CHANNEL_HIGHEST_AVAILABLE

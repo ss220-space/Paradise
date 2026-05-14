@@ -4,20 +4,23 @@
 	abstract_type = /obj/effect
 	icon = 'icons/effects/effects.dmi'
 	obj_flags = IGNORE_HITS
-	resistance_flags = INDESTRUCTIBLE|LAVA_PROOF|FIRE_PROOF|UNACIDABLE|ACID_PROOF|FREEZE_PROOF
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	move_resist = INFINITY
 	anchored = TRUE
 
 /obj/effect/add_debris_element()
 	return // They're not hittable, and prevents recursions.
 
+/obj/effect/attack_generic(mob/user, damage_amount, damage_type, damage_flag, sound_effect, armor_penetration)
+	return
+
 /obj/effect/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
 	return
 
 /obj/effect/singularity_act()
-	if(!QDELETED(src))
-		qdel(src)
-	return FALSE
+	if(QDELETED(src))
+		return
+	qdel(src)
 
 /obj/effect/fire_act(exposed_temperature, exposed_volume)
 	return
@@ -31,7 +34,7 @@
 /obj/effect/mech_melee_attack(obj/mecha/mech, obj/item/mecha_parts/mecha_equipment/selected_module = null)
 	return FALSE
 
-/obj/effect/blob_act(obj/structure/blob/B)
+/obj/effect/blob_act(obj/structure/blob/blob)
 	return
 
 /obj/effect/experience_pressure_difference(flow_x, flow_y)
@@ -61,6 +64,7 @@
  * The object should be immune to all forms of damage, or things that can delete it, such as the singularity, or explosions.
  */
 /obj/effect/abstract
+	abstract_type = /obj/effect/abstract
 	name = "Abstract object"
 	invisibility = INVISIBILITY_ABSTRACT
 	layer = TURF_LAYER
@@ -81,11 +85,14 @@
 /obj/effect/abstract/zap_act()
 	return
 
+/obj/effect/abstract/singularity_pull(atom/singularity, current_size)
+	return
+
 /obj/effect/abstract/singularity_act()
 	return
 
-/obj/effect/abstract/get_gravity()
-	return
+/obj/effect/abstract/get_gravity(turf/gravity_turf)
+	return FALSE
 
 /obj/effect/abstract/narsie_act()
 	return
@@ -104,6 +111,3 @@
 
 /obj/effect/abstract/fire_act(exposed_temperature, exposed_volume)
 	return
-
-/obj/effect/abstract/get_gravity(turf/gravity_turf)
-	return FALSE

@@ -21,21 +21,13 @@ GLOBAL_REAL(GLOB, /datum/controller/global_vars)
 	controller_vars["vars"] = null
 	gvars_datum_in_built_vars = controller_vars + list(NAMEOF(src, gvars_datum_protected_varlist), NAMEOF(src, gvars_datum_in_built_vars), NAMEOF(src, gvars_datum_init_order))
 
-	ASYNC
-		qdel(exclude_these) //signal logging isn't ready
+	QDEL_IN(exclude_these, 0) //signal logging isn't ready
 
 	Initialize()
 
 /datum/controller/global_vars/Destroy(force)
 	// This is done to prevent an exploit where admins can get around protected vars
 	SHOULD_CALL_PARENT(FALSE)
-	stack_trace("Some fucker qdel'd the global holder!")
-	if(!force)
-		return QDEL_HINT_LETMELIVE
-	gvars_datum_protected_varlist.Cut()
-	gvars_datum_in_built_vars.Cut()
-
-	GLOB = null
 	return QDEL_HINT_IWILLGC
 
 /datum/controller/global_vars/stat_entry(msg)
