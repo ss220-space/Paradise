@@ -50,7 +50,7 @@
 		return
 
 	// Condition 3: Using opendream
-#if defined(OPENDREAM) || defined(GAME_TESTS)
+#if defined(OPENDREAM) || defined(UNIT_TESTS)
 	return
 #endif
 

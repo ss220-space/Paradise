@@ -16,7 +16,7 @@ PROCESSING_SUBSYSTEM_DEF(station)
 	var/list/antag_restricted_roles = list()
 
 /datum/controller/subsystem/processing/station/Initialize()
-	#ifndef GAME_TESTS
+	#ifndef UNIT_TESTS
 	SetupTraits()
 	#endif
 	announcer = new announcer() //Initialize the station's announcer datum

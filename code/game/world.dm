@@ -144,7 +144,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	// If we got here, we are in a "normal" reboot
 	Master.Shutdown() // Shutdown subsystems
 
-	// If we were running game tests, finish that run
+	// If we were running unit tests, finish that run
 	#ifdef TEST_RUNNER
 	GLOB.test_runner.Finalize()
 	return

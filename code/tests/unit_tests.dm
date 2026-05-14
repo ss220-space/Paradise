@@ -1,15 +1,15 @@
-// Include game test files in this module in this ifdef
+// Include unit test files in this module in this ifdef
 
 // Sort in alphabetical order, please!
 // Use the website if you can't do it yourself. https://spiskin.ru/scripts/sort_alphabet
 
 #ifdef TEST_RUNNER
-#include "_game_test.dm"
+#include "_unit_test.dm"
 #include "_map_per_tile_test.dm"
 #include "test_runner.dm"
 #endif
 
-#ifdef GAME_TESTS
+#ifdef UNIT_TESTS
 #include "test_achievements.dm"
 #include "test_admin_verb_unique_names.dm"
 #include "test_announcements.dm"

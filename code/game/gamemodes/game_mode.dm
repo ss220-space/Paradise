@@ -816,7 +816,7 @@
 		if(!goal.can_gain())
 			continue
 
-		#ifndef GAME_TESTS
+		#ifndef UNIT_TESTS
 		possible += goal
 		#endif
 
