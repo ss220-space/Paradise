@@ -61,7 +61,6 @@
 	)
 
 /obj/item/toy/plushie/fox/red
-	icon_state = "redfox"
 
 /obj/item/toy/plushie/fox/black
 	icon_state = "blackfox"

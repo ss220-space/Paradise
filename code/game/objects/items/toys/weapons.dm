@@ -126,7 +126,6 @@
 /obj/item/toy/foamblade
 	name = "foam armblade"
 	desc = "it says \"Sternside Changs #1 fan\" on it. "
-	icon = 'icons/obj/toy.dmi'
 	icon_state = "foamblade"
 	item_state = "arm_blade"
 	attack_verb = list("уколол", "поглотил", "пронзил")
@@ -173,7 +172,6 @@
 /obj/item/toy/toolbox
 	name = "Rubber Toolbox"
 	desc = "Practice your robust!"
-	icon = 'icons/obj/toy.dmi'
 	icon_state = "rubber_toolbox"
 	damtype = STAMINA
 	force = 10

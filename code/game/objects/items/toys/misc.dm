@@ -14,7 +14,6 @@
 /obj/item/toy/snappop
 	name = "snap pop"
 	desc = "Wow!"
-	icon = 'icons/obj/toy.dmi'
 	icon_state = "snappop"
 	w_class = WEIGHT_CLASS_TINY
 	var/ash_type = /obj/effect/decal/cleanable/ash
