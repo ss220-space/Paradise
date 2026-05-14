@@ -182,7 +182,7 @@
 
 	for(var/datum/mind/syndicate in members)
 
-		text += "<br><b>[syndicate.get_display_key()]</b> был <b>[syndicate.name]</b> ("
+		text += "<br><b>[syndicate.get_mind_key()]</b> был <b>[syndicate.name]</b> ("
 		if(syndicate.current)
 			if(syndicate.current.stat == DEAD)
 				text += "мёртв"

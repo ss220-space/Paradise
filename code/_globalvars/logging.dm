@@ -28,6 +28,8 @@ GLOBAL_VAR(mapmanip_log)
 GLOBAL_PROTECT(mapmanip_log)
 GLOBAL_VAR(round_id)
 GLOBAL_PROTECT(round_id)
+GLOBAL_VAR(signal_log)
+GLOBAL_PROTECT(signal_log)
 
 #ifdef REFERENCE_TRACKING
 GLOBAL_VAR(gc_log)

@@ -87,7 +87,7 @@
 		span_notice("Вы прислоняетесь к [lean_target.declent_ru(DATIVE)]."),
 	)
 	leaned_object = lean_target
-	RegisterSignal(src, list(
+	RegisterSignals(src, list(
 		COMSIG_MOB_CLIENT_MOVED,
 		COMSIG_LIVING_START_PULL,
 		COMSIG_LIVING_GET_PULLED,

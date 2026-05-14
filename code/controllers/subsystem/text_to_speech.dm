@@ -204,7 +204,7 @@ SUBSYSTEM_DEF(tts)
 		tts_seeds[seed.name] = seed
 		tts_seeds_names += seed.name
 		tts_seeds_names_by_donator_levels["[seed.donator_level]"] += list(seed.name)
-	tts_seeds_names = sortTim(tts_seeds_names, GLOBAL_PROC_REF(cmp_text_asc))
+	sortTim(tts_seeds_names, GLOBAL_PROC_REF(cmp_text_asc))
 
 	tts_effect_map = list(
 		"[SOUND_EFFECT_ROBOT]" = list(
