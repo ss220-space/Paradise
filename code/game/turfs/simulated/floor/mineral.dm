@@ -310,15 +310,11 @@
 /turf/simulated/floor/mineral/abductor/cold
 	atmos_environment = ENVIRONMENT_COLD
 
-/turf/simulated/floor/plating/abductor2
+/turf/simulated/floor/plating/abductor2/update_icon()
+	..()
 	name = "alien plating"
 	icon = 'icons/turf/floors.dmi'
 	icon_state = "alienplating"
-
-	update_icon()
-		..()
-		icon = 'icons/turf/floors.dmi'
-		icon_state = "alienplating"
 
 /turf/simulated/floor/plating/abductor2/break_tile()
 	return //unbreakable
