@@ -165,7 +165,7 @@
 	var/obj/item/toy = pick_weight_classic(list(
 		/obj/item/toy/balloon/syndicate = 3,
 		/obj/item/toy/balloon/contractor = 3,
-		/obj/item/toy/carpplushie/void = 1,
+		/obj/item/toy/plushie/carp/void = 1,
 		/obj/item/toy/foamblade = 1,
 	))
 	toy = new toy(spawned_mob)

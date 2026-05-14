@@ -5728,7 +5728,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 15
 	contains = list(
 		/obj/item/circuitboard/machine/crematorium,
-		/obj/item/toy/plushie/orange_fox,
+		/obj/item/toy/plushie/fox/orange,
 	)
 	containername = "ящик деталей крематория"
 	container_ru_names = list(

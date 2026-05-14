@@ -4932,7 +4932,7 @@
 /area/centcom/zone3)
 "crD" = (
 /obj/structure/closet/crate,
-/obj/item/toy/plushie/blue_fox,
+/obj/item/toy/plushie/fox/blue,
 /obj/item/radio/off,
 /obj/item/extinguisher,
 /turf/simulated/floor/indestructible/vox{
@@ -8196,7 +8196,7 @@
 	},
 /area/centcom/evac)
 "dRV" = (
-/obj/item/toy/plushie/orange_fox/grump{
+/obj/item/toy/plushie/fox/orange/grump{
 	desc = "Эта лиса и её друг однажды спасли станцию.";
 	name = "savior grumpy fox"
 	},
@@ -13967,7 +13967,7 @@
 /obj/structure/chair/comfy/brown{
 	dir = 4
 	},
-/obj/item/toy/plushie/crimson_fox{
+/obj/item/toy/plushie/fox/crimson{
 	layer = 5;
 	name = "Алая лиса"
 	},
@@ -36350,7 +36350,7 @@
 	},
 /area/syndicate_mothership/elite_squad)
 "qXa" = (
-/obj/item/toy/plushie/blue_fox,
+/obj/item/toy/plushie/fox/blue,
 /turf/simulated/floor/plating/airless,
 /area/centcom/zone1)
 "qXw" = (
@@ -39898,7 +39898,7 @@
 /area/syndicate_mothership)
 "sAo" = (
 /obj/structure/table/reinforced,
-/obj/item/toy/plushie/marble_fox{
+/obj/item/toy/plushie/fox/marble{
 	pixel_y = 8
 	},
 /obj/item/paper_bin/syndicate{
@@ -40171,7 +40171,7 @@
 /obj/structure/chair/comfy/brown{
 	dir = 4
 	},
-/obj/item/toy/plushie/red_fox{
+/obj/item/toy/plushie/fox/red{
 	layer = 5;
 	name = "Лиса золотистого оттенка"
 	},
@@ -49978,7 +49978,7 @@
 	info = "Переговорить с командованием о трёхзначных числах"
 	},
 /obj/structure/chair/sofa/corp/left,
-/obj/item/toy/plushie/red_fox,
+/obj/item/toy/plushie/fox/red,
 /turf/simulated/floor/carpet/black,
 /area/centcom/zone2)
 "xgQ" = (

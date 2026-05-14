@@ -8,7 +8,7 @@
 
 /datum/gear/plushie/redfoxplushie
 	index_name = "a red fox plushie"
-	path = /obj/item/toy/plushie/red_fox
+	path = /obj/item/toy/plushie/fox/red
 
 /datum/gear/plushie/blackcatplushie
 	index_name = "a black cat plushie"
@@ -27,7 +27,7 @@
 
 /datum/gear/plushie/carpplushie
 	index_name = "a carp plushie"
-	path = /obj/item/toy/carpplushie
+	path = /obj/item/toy/plushie/carp
 
 /datum/gear/plushie/nianplushie
 	index_name = "Nian plushie"

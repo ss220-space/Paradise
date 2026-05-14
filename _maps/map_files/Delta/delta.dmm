@@ -117626,7 +117626,7 @@
 	dir = 4
 	},
 /obj/structure/table,
-/obj/item/toy/plushie/red_fox,
+/obj/item/toy/plushie/fox/red,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},

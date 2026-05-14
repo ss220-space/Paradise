@@ -45270,7 +45270,7 @@
 	},
 /obj/structure/window/reinforced,
 /obj/structure/table,
-/obj/item/toy/plushie/red_fox,
+/obj/item/toy/plushie/fox/red,
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/fitness)
 "fOF" = (

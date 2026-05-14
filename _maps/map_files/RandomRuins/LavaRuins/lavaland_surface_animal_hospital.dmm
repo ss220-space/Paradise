@@ -71,7 +71,7 @@
 /area/ruin/powered/animal_hospital)
 "al" = (
 /obj/structure/table/wood,
-/obj/item/toy/carpplushie,
+/obj/item/toy/plushie/carp,
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},

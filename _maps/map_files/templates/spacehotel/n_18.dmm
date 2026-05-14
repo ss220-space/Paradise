@@ -26,7 +26,7 @@
 "f" = (
 /obj/structure/bed,
 /obj/item/bedsheet/purple,
-/obj/item/toy/plushie/purple_fox,
+/obj/item/toy/plushie/fox/purple,
 /turf/simulated/floor/indestructible/carpet,
 /area/template_noop)
 "g" = (

@@ -94,7 +94,7 @@
 /*
  * Owl and griffin
  */
- /obj/item/toy/owl
+/obj/item/toy/owl
 	name = "owl action figure"
 	desc = "An action figure modeled after 'The Owl', defender of justice."
 	icon_state = "owlprize"

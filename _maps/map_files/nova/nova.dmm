@@ -95259,7 +95259,7 @@
 	dir = 4
 	},
 /obj/structure/table,
-/obj/item/toy/carpplushie/void,
+/obj/item/toy/plushie/carp/void,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

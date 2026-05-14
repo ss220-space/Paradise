@@ -710,13 +710,13 @@
 /area/ruin/unpowered)
 "Py" = (
 /obj/structure/table/wood/fancy/red,
-/obj/item/toy/carpplushie/ice,
+/obj/item/toy/plushie/carp/ice,
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/wood/fancy/birch,
 /area/ruin/unpowered)
 "PM" = (
 /obj/structure/table/wood/fancy/red,
-/obj/item/toy/carpplushie/nebula,
+/obj/item/toy/plushie/carp/nebula,
 /turf/simulated/floor/wood/fancy/birch,
 /area/ruin/unpowered)
 "PS" = (

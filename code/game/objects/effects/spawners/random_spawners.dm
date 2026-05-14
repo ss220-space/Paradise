@@ -365,7 +365,7 @@
 		/obj/item/rad_laser = 1,
 		/obj/item/storage/box/syndie_kit/emp = 1,
 		/obj/item/batterer = 1,
-		/obj/item/toy/carpplushie/dehy_carp = 1,
+		/obj/item/toy/plushie/carp/dehy_carp = 1,
 		/obj/item/clothing/glasses/hud/security/chameleon = 1,
 		/obj/item/mod/module/visor/thermal = 1,
 		/obj/item/mod/module/stealth = 1,
