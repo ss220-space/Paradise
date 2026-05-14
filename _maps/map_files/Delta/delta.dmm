@@ -122071,7 +122071,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/item/reagent_containers/spray/cleaner/drone,
+/obj/item/reagent_containers/spray/cleaner/small,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkblue"
