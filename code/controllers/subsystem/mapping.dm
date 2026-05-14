@@ -170,9 +170,9 @@ SUBSYSTEM_DEF(mapping)
 		handleRuins()
 
 	var/empty_z_traits = list(REACHABLE)
-#ifdef GAME_TESTS
+#ifdef UNIT_TESTS
 	preloadTemplates(path = "_maps/map_files/tests/")
-	empty_z_traits |= GAME_TEST_LEVEL
+	empty_z_traits |= UNIT_TEST_LEVEL
 #endif
 
 	// Makes a blank space level for the sake of randomness

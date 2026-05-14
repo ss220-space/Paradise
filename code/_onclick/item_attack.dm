@@ -183,7 +183,7 @@
  */
 /atom/proc/attackby(obj/item/item, mob/user, modifiers)
 	. = ATTACK_CHAIN_PROCEED
-	var/signal_out = SEND_SIGNAL(src, COMSIG_PARENT_ATTACKBY, item, user, modifiers)
+	var/signal_out = SEND_SIGNAL(src, COMSIG_ATOM_ATTACKBY, item, user, modifiers)
 	if(signal_out & COMPONENT_CANCEL_ATTACK_CHAIN)
 		. |= ATTACK_CHAIN_BLOCKED
 	if(signal_out & COMPONENT_NO_AFTERATTACK)

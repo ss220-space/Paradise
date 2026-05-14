@@ -1,5 +1,5 @@
 // Unit test to ensure SS metrics are valid
-/datum/game_test/subsystem_metric_sanity/Run()
+/datum/unit_test/subsystem_metric_sanity/Run()
 	for(var/datum/controller/subsystem/SS as anything in Master.subsystems)
 		var/list/data = SS.get_metrics()
 		if(length(data) != 4)

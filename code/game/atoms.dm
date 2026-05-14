@@ -617,7 +617,7 @@
 /atom/proc/remove_persistent_overlay(id)
 	if(!istext(id))
 		CRASH("Non-text argument passed as an ID.")
-	var/all_persistent = datum_components?[/datum/component/persistent_overlay]
+	var/all_persistent = _datum_components?[/datum/component/persistent_overlay]
 	if(!all_persistent)
 		return
 	if(!islist(all_persistent))
