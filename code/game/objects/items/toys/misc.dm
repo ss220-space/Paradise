@@ -1,3 +1,13 @@
+/* Misc toys
+ *	Contains:
+ *		Snap pops
+ *		Codex gigas
+ *		Mini gibber
+ *		Toy big red button
+ *		Fake cuffs
+ *		Office desk toys
+ */
+
 /*
  * Snap pops
  */
@@ -167,7 +177,7 @@
 		to_chat(user, span_alert("Ничего не происходит."))
 
 /*
- *Fake cuffs (honk honk)
+ * Fake cuffs (honk honk)
  */
 /obj/item/restraints/handcuffs/toy
 	desc = "Toy handcuffs. Plastic and extremely cheaply made."
@@ -176,7 +186,7 @@
 	ignoresClumsy = TRUE
 
 /*
- *Magic 8-Ball
+ * Magic 8-Ball
  */
 /obj/item/toy/eight_ball
 	name = "Magic 8-Ball"

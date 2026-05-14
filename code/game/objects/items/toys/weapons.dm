@@ -1,3 +1,13 @@
+/* Weapon toys
+ *	Contains:
+ *		Toy swords
+ *		Foam Armblade
+ *		Toy/fake flash
+ *		Rubber Chainsaw
+ *		Rubber Toolbox
+ *		Russian roulette
+ */
+
 /*
  * Toy swords
  */
