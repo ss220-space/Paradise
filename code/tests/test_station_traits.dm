@@ -1,7 +1,7 @@
 /// This test spawns various station traits and looks through them to see if there's any errors.
-/datum/game_test/station_traits
+/datum/unit_test/station_traits
 
-/datum/game_test/station_traits/Run()
+/datum/unit_test/station_traits/Run()
 	var/datum/station_trait/cybernetic_revolution/cyber_trait = allocate(/datum/station_trait/cybernetic_revolution)
 	for(var/datum/job/job as anything in subtypesof(/datum/job))
 		// TODO ksaikok replace all this bullshit with TG test when(if) someone refactors job datums

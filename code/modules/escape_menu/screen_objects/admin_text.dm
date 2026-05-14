@@ -20,7 +20,7 @@
 	. = ..()
 
 	RegisterSignal(escape_menu.client, COMSIG_ADMIN_HELP_RECEIVED, PROC_REF(on_admin_help_received))
-	RegisterSignal(escape_menu.client, list(COMSIG_CLIENT_VERB_ADDED, COMSIG_CLIENT_VERB_REMOVED), PROC_REF(on_client_verb_changed))
+	RegisterSignals(escape_menu.client, list(COMSIG_CLIENT_VERB_ADDED, COMSIG_CLIENT_VERB_REMOVED), PROC_REF(on_client_verb_changed))
 
 	var/datum/admin_help/current_ticket = escape_menu.client?.current_ticket
 	if(!isnull(current_ticket))
