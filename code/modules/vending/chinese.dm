@@ -35,10 +35,10 @@
 
 /obj/machinery/vending/chinese/get_ru_names()
 	return list(
-		NOMINATIVE = "торговый автомат Mr. Chang",
-		GENITIVE = "торгового автомата Mr. Chang",
-		DATIVE = "торговому автомату Mr. Chang",
-		ACCUSATIVE = "торговый автомат Mr. Chang",
-		INSTRUMENTAL = "торговым автоматом Mr. Chang",
-		PREPOSITIONAL = "торговом автомате Mr. Chang",
+		NOMINATIVE = "торговый автомат \"Мистер Чанг\"",
+		GENITIVE = "торгового автомата \"Мистер Чанг\"",
+		DATIVE = "торговому автомату \"Мистер Чанг\"",
+		ACCUSATIVE = "торговый автомат \"Мистер Чанг\"",
+		INSTRUMENTAL = "торговым автоматом \"Мистер Чанг\"",
+		PREPOSITIONAL = "торговом автомате \"Мистер Чанг\"",
 	)
