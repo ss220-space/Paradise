@@ -187,7 +187,7 @@
 	modules += new /obj/item/melee/baton/telescopic(src) // for minimal possablity to execute sec part of the module and also for tests
 	modules += new /obj/item/restraints/handcuffs/cable/zipties(src)
 	modules += new /obj/item/flash/cyborg(src)
-	modules += new /obj/item/reagent_containers/spray/cleaner/drone(src) // test if will be in active usage and become op to be cutted out later
+	modules += new /obj/item/reagent_containers/spray/cleaner(src) // test if will be in active usage and become op to be cutted out later
 	modules += new /obj/item/soap/nanotrasen(src)
 	modules += new /obj/item/stack/sheet/metal/cyborg(src)
 	modules += new /obj/item/stack/sheet/glass/cyborg(src) // regular glass for simplest works on broken window replacement
@@ -514,7 +514,7 @@
 /obj/item/robot_module/janitor/Initialize(mapload)
 	. = ..()
 	modules += new /obj/item/soap/nanotrasen(src)
-	modules += new /obj/item/reagent_containers/spray/cleaner/drone(src)
+	modules += new /obj/item/reagent_containers/spray/cleaner(src)
 	modules += new /obj/item/storage/bag/trash/cyborg(src)
 	modules += new /obj/item/mop/advanced/cyborg(src)
 	modules += new /obj/item/lightreplacer/cyborg(src)
@@ -530,7 +530,7 @@
 	fix_modules()
 
 /obj/item/robot_module/janitor/respawn_consumable(mob/living/silicon/robot/R)
-	var/obj/item/reagent_containers/spray/cleaner/drone/C = locate() in modules
+	var/obj/item/reagent_containers/spray/cleaner/C = locate() in modules
 	C.reagents.add_reagent(/datum/reagent/space_cleaner, 4)
 	..()
 
@@ -1051,7 +1051,7 @@
 	modules += new /obj/item/multitool/cyborg(src)
 	modules += new /obj/item/gripper(src)
 	modules += new /obj/item/extinguisher(src)
-	modules += new /obj/item/reagent_containers/spray/cleaner/drone(src)
+	modules += new /obj/item/reagent_containers/spray/cleaner(src)
 	modules += new /obj/item/soap(src)
 	modules += new /obj/item/storage/bag/trash/cyborg(src)
 	modules += new /obj/item/rpd(src)
