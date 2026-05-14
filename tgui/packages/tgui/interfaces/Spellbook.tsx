@@ -68,7 +68,7 @@ export const Spellbook = (props) => {
           <Stack.Item grow>
             <Stack fill>
               <Stack.Item width="30%">
-                <Section fill scrollable title={`Points: ${points}`}>
+                <Section fill title={`Points: ${points}`}>
                   <Tabs vertical>
                     {mainTab === 'Spells' && (
                       <>
