@@ -45270,7 +45270,7 @@
 	},
 /obj/structure/window/reinforced,
 /obj/structure/table,
-/obj/item/toy/plushie/fox/red,
+/obj/item/toy/plushie/fox,
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/fitness)
 "fOF" = (
@@ -81170,7 +81170,7 @@
 "nSr" = (
 /obj/structure/table/wood,
 /obj/item/stack/wrapping_paper,
-/obj/item/toy/plushie/orange_cat{
+/obj/item/toy/plushie/cat/orange{
 	pixel_x = 3;
 	pixel_y = 4
 	},

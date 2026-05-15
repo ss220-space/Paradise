@@ -20620,7 +20620,7 @@
 /area/ninja/holding)
 "jSA" = (
 /obj/structure/table/glass,
-/obj/item/toy/plushie/tabby_cat{
+/obj/item/toy/plushie/cat/tabby{
 	desc = "Любимая игрушка-антистресс одной из представительниц вида таяран, когда-то работавшей главой персонала. Она была настолько занята выполнением своих обязанностей, что умерла голодной смертью прямо на своем рабочем месте. Не будьте как эта таяра. Кушайте регулярно.";
 	name = "Любимая игрушка бюрократов"
 	},
@@ -40171,7 +40171,7 @@
 /obj/structure/chair/comfy/brown{
 	dir = 4
 	},
-/obj/item/toy/plushie/fox/red{
+/obj/item/toy/plushie/fox{
 	layer = 5;
 	name = "Лиса золотистого оттенка"
 	},
@@ -44437,7 +44437,7 @@
 	},
 /area/syndicate_mothership)
 "uxZ" = (
-/obj/item/toy/plushie/orange_cat{
+/obj/item/toy/plushie/cat/orange{
 	desc = "Этот котик и его подруга однажды спасли станцию.";
 	name = "savior cat plushie"
 	},
@@ -49978,7 +49978,7 @@
 	info = "Переговорить с командованием о трёхзначных числах"
 	},
 /obj/structure/chair/sofa/corp/left,
-/obj/item/toy/plushie/fox/red,
+/obj/item/toy/plushie/fox,
 /turf/simulated/floor/carpet/black,
 /area/centcom/zone2)
 "xgQ" = (

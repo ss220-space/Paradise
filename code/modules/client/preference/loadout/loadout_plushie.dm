@@ -8,11 +8,11 @@
 
 /datum/gear/plushie/redfoxplushie
 	index_name = "a red fox plushie"
-	path = /obj/item/toy/plushie/fox/red
+	path = /obj/item/toy/plushie/fox
 
 /datum/gear/plushie/blackcatplushie
 	index_name = "a black cat plushie"
-	path = /obj/item/toy/plushie/black_cat
+	path = /obj/item/toy/plushie/cat
 
 /datum/gear/plushie/voxplushie
 	index_name = "a vox plushie"

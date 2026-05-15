@@ -2,18 +2,34 @@
  * Plushies
  */
 
+
 /obj/item/toy/plushie
 	name = "plushie"
 	desc = "Очаровательная, мягкая и приятная на ощупь плюшевая игрушка."
 	var/poof_sound = 'sound/weapons/thudswoosh.ogg'
+	// used for custom plushie cuddles
+	var/list/cuddle_verb
 	attack_verb = list("тыкнул", "ударил", "шлёпнул")
 	w_class = WEIGHT_CLASS_SMALL
 	resistance_flags = FLAMMABLE
 	unique_toy_rename = TRUE
+	COOLDOWN_DECLARE(cooldown)
 
 /obj/item/toy/plushie/Initialize(mapload)
 	. = ..()
+	AddElement(/datum/element/update_icon_updates_onmob)
 	AddElement(/datum/element/bed_tuckable, mapload, 6, -4, 90)
+
+/// Use this to override how your poof sound plays
+/obj/item/toy/plushie/proc/play_poof_sound()
+	playsound(get_turf(src), poof_sound, 30, TRUE)
+
+/obj/item/toy/plushie/proc/display_cuddle_verb(mob/user as mob)
+	if(cuddle_verb)
+		user.visible_message(span_notice("[get_examine_icon(viewers(user))] [pick(cuddle_verb)]"))
+	else
+		var/list/defauld_cuddle = list("обнима[PLUR_ET_YUT(user)]", "тиска[PLUR_ET_YUT(user)]", "прижима[PLUR_ET_YUT(user)]")
+		user.visible_message(span_notice("[user] [pick(defauld_cuddle)] the [src]."))
 
 /obj/item/toy/plushie/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ..()
@@ -23,15 +39,12 @@
 	if(iscarbon(target) && prob(10))
 		target.reagents.add_reagent("hugs", 10)
 
-/// Use this to override how your poof sound plays
-/obj/item/toy/plushie/proc/play_poof_sound()
-	playsound(get_turf(src), poof_sound, 30, TRUE)
-
 /obj/item/toy/plushie/attack_self(mob/user as mob)
-	var/cuddle_verb = pick("обнима[PLUR_ET_YUT(user)]", "тиска[PLUR_ET_YUT(user)]", "прижима[PLUR_ET_YUT(user)]")
-	user.visible_message(span_notice("[user] [cuddle_verb] the [src]."))
+	if(!COOLDOWN_FINISHED(src, cooldown))
+		return FALSE
+	display_cuddle_verb(user)
 	play_poof_sound()
-	return ..()
+	COOLDOWN_START(src, cooldown, 1 SECONDS)
 
 /obj/random/plushie
 	name = "Random Plushie"
@@ -60,7 +73,7 @@
 		PREPOSITIONAL = "плюшевой лисе",
 	)
 
-/obj/item/toy/plushie/fox/red
+/obj/item/toy/plushie/fox
 
 /obj/item/toy/plushie/fox/black
 	icon_state = "blackfox"
@@ -101,61 +114,70 @@
 /*
  * Cats
  */
-/obj/item/toy/plushie/black_cat
-	name = "black cat plushie"
+/obj/item/toy/plushie/cat
+	name = "cat plushie"
 	icon_state = "blackcat"
+	cuddle_verb = list("Мяу!", "Мурр!")
 
-/obj/item/toy/plushie/grey_cat
-	name = "grey cat plushie"
+/obj/item/toy/plushie/cat/get_ru_names()
+	return list(
+		NOMINATIVE = "плюшевый кот",
+		GENITIVE = "плюшевого кота",
+		DATIVE = "плюшевому коту",
+		ACCUSATIVE = "плюшевого кота",
+		INSTRUMENTAL = "плюшевым котом",
+		PREPOSITIONAL = "плюшевом коте",
+	)
+
+/obj/item/toy/plushie/cat/grey
 	icon_state = "greycat"
 
-/obj/item/toy/plushie/white_cat
-	name = "white cat plushie"
+/obj/item/toy/plushie/cat/white
 	icon_state = "whitecat"
 
-/obj/item/toy/plushie/orange_cat
-	name = "orange cat plushie"
+/obj/item/toy/plushie/cat/orange
 	icon_state = "orangecat"
 
-/obj/item/toy/plushie/siamese_cat
-	name = "siamese cat plushie"
+/obj/item/toy/plushie/cat/siamese
 	icon_state = "siamesecat"
 
-/obj/item/toy/plushie/tabby_cat
-	name = "tabby cat plushie"
+/obj/item/toy/plushie/cat/tabby
 	icon_state = "tabbycat"
 
-/obj/item/toy/plushie/tuxedo_cat
-	name = "tuxedo cat plushie"
+/obj/item/toy/plushie/cat/tuxedo
 	icon_state = "tuxedocat"
 
-/obj/item/toy/plushie/kotrazumist
+/obj/item/toy/plushie/cat/kotrazumist
 	name = "Razumist Cat"
-	desc = "Cat with warning cone on it. Wonder what do itself so smart?"
+	desc = "Кот с конусом на макушке. Интересно, что же сделало его таким умным?"
 	icon_state = "razymist_cat"
-	COOLDOWN_DECLARE(cooldown)
+	cuddle_verb = list("Я знаю всё обо всём, спроси меня о чём-нибудь!", "Сегодня я особенно мудр!", "Мяу!", "Мурр!")
 
-/obj/item/toy/plushie/kotrazumist/attack_self(mob/user)
-	. = ..()
-	if(. || !COOLDOWN_FINISHED(src, cooldown))
-		return .
-	var/razumisttext = pick("Я знаю всё обо всём, спроси меня о чём-нибудь!", "Сегодня я особенно мудр!", "Мяу!", "Мурр!")
-	user.visible_message("[get_examine_icon(viewers(user))] [span_notice(razumisttext)]")
-	COOLDOWN_START(src, cooldown, 3 SECONDS)
+/obj/item/toy/plushie/cat/kotrazumist/get_ru_names()
+	return list(
+		NOMINATIVE = "кот разумист",
+		GENITIVE = "кота разумиста",
+		DATIVE = "коту разумисту",
+		ACCUSATIVE = "кота разумиста",
+		INSTRUMENTAL = "котом разумистом",
+		PREPOSITIONAL = "коте разумисте",
+	)
 
-/obj/item/toy/plushie/kotwithfunnyhat
+/obj/item/toy/plushie/cat/ricehat
 	name = "Rice Cat"
 	desc = "White cat plushie with straw hat for hard work on rice field!"
 	icon_state = "ricehat_cat"
-	COOLDOWN_DECLARE(cooldown)
+	cuddle_verb = list("Добро пожаловать на рисовые поля!", "Где мой рис?!", "Мяу!", "Мурр!")
 
-/obj/item/toy/plushie/kotwithfunnyhat/attack_self(mob/user)
-	. = ..()
-	if(. || !COOLDOWN_FINISHED(src, cooldown))
-		return .
-	var/ricetext = pick("Добро пожаловать на рисовые поля!", "Где мой рис?!", "Мяу!", "Мурр!")
-	user.visible_message("[get_examine_icon(viewers(user))] [span_notice(ricetext)]")
-	COOLDOWN_START(src, cooldown, 3 SECONDS)
+/obj/item/toy/plushie/cat/ricehat/get_ru_names()
+	return list(
+		NOMINATIVE = "кот в рисовой шляпе",
+		GENITIVE = "кота в рисовой шляпе",
+		DATIVE = "коту в рисовой шляпе",
+		ACCUSATIVE = "кота в рисовой шляпе",
+		INSTRUMENTAL = "котом в рисовой шляпе",
+		PREPOSITIONAL = "коте в рисовой шляпе",
+	)
 
 /obj/item/toy/plushie/manulplushie
 	name = "manul plushie"
@@ -178,9 +200,18 @@
  */
 /obj/item/toy/plushie/cattoy
 	name = "toy mouse"
-	desc = "A colorful toy mouse!"
+	desc = "Яркая игрушечная мышка!"
 	icon_state = "toy_mouse"
-	var/cooldown = 0
+
+/obj/item/toy/plushie/cattoy/get_ru_names()
+	return list(
+		NOMINATIVE = "игрушечная мышь",
+		GENITIVE = "игрушечной мыши",
+		DATIVE = "игрушечной мыши",
+		ACCUSATIVE = "игрушечную мышь",
+		INSTRUMENTAL = "игрушечной мышью",
+		PREPOSITIONAL = "игрушечной мыши",
+	)
 
 /*
  * Races
@@ -189,17 +220,8 @@
 	name = "vox plushie"
 	desc = "A stitched-together vox, fresh from the skipjack. Press its belly to hear it skree!"
 	icon_state = "plushie_vox"
-	item_state = "plushie_vox"
-	var/cooldown = 0
-
-/obj/item/toy/plushie/voxplushie/attack_self(mob/user)
-	if(!cooldown)
-		playsound(user, 'sound/voice/shriek1.ogg', 10, FALSE)
-		user.visible_message("[get_examine_icon(viewers(user))] [span_danger("Skreee!")]")
-		cooldown = 1
-		spawn(30) cooldown = 0
-		return
-	..()
+	poof_sound = 'sound/voice/shriek1.ogg'
+	cuddle_verb = "Skreee!"
 
 /obj/item/toy/plushie/shardplushie
 	name = "Shard plushie"
@@ -207,69 +229,42 @@
 	icon_state = "plushie_shard"
 	item_state = "plushie_shard"
 	attack_verb = list("аннигилировал", "поцарапал")
-	var/shardbite = 'sound/effects/supermatter.ogg'
-	var/cooldown = FALSE
-
-/obj/item/toy/plushie/shardplushie/attack_self(mob/user)
-	if(cooldown)
-		return ..()
-
-	playsound(loc, pick('sound/effects/supermatter.ogg', 'sound/effects/glass_step_sm.ogg'), 10, 1)
-	user.visible_message("[get_examine_icon(viewers(user))] [span_danger("ДЕСТАБИЛИЗАЦИЯ!")]")
-	cooldown = TRUE
-	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
-
-/obj/item/toy/plushie/shardplushie/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
-	. = ..()
-	if(ATTACK_CHAIN_SUCCESS_CHECK(.))
-		playsound(loc, pick('sound/effects/supermatter.ogg', 'sound/effects/glass_step_sm.ogg',), 10, TRUE)
+	cuddle_verb = "ДЕСТАБИЛИЗАЦИЯ!"
+	poof_sound = 'sound/effects/supermatter.ogg'
 
 /obj/item/toy/plushie/greyplushie
 	name = "Плюшевый грей"
 	desc = "Плюшевая кукла грея в толстовке. Кукла входит в серию \"Пришелец\" и имеет свитер, большую голову и мультяшные глаза. Любит мехов."
 	icon_state = "plushie_grey"
 	item_state = "plushie_grey"
-	var/hug_cooldown = FALSE //Defaults the plushie to being off coolodown. Sets the hug_cooldown var.
-	var/scream_cooldown = FALSE //Defaults the plushie to being off cooldown. Sets the scream_cooldown var.
+	cuddle_verb = list("☝︎❒︎♏︎♏︎⧫︎♓︎■︎♑︎⬧︎📬︎", "☟︎□︎⬥︎ ♋︎❒︎♏︎ ⍓︎□︎◆︎✍︎", "☹︎♓︎●︎◆︎ ♓︎⬧︎ ⧫︎♒︎♏︎ ♌︎♏︎⬧︎⧫︎", "✋︎ ●︎□︎❖︎♏︎ ❍︎♏︎♍︎♒︎⬧︎✏︎")
 	var/singed = FALSE
+	var/scream_cooldown = FALSE //Defaults the plushie to being off cooldown. Sets the scream_cooldown var.
 
 /obj/item/toy/plushie/greyplushie/water_act(volume, temperature, source, method = REAGENT_TOUCH) //If water touches the plushie the following code executes.
 	. = ..()
 	if(scream_cooldown)
 		return
 	scream_cooldown = TRUE //water_act executes the scream_cooldown var, setting it on cooldown.
-	addtimer(CALLBACK(src, PROC_REF(reset_screamdown)), 30 SECONDS) //After 30 seconds the reset_coolodown() proc will execute, resetting the cooldown. Hug interaction is unnaffected by this.
+	addtimer(CALLBACK(src, PROC_REF(reset_screamdown)), 30 SECONDS) //After 30 seconds the reset_coolodown() proc will execute, resetting the cooldown.
 	playsound(src, 'sound/goonstation/voice/male_scream.ogg', 10, FALSE)//If the plushie gets wet it screams and "AAAAAH!" appears in chat.
 	visible_message("[get_examine_icon(viewers(loc))] [span_danger("AAAAAAХ!")]")
 	if(singed)
 		return
 	singed = TRUE
+	cuddle_verb = list("За что...", "Изверги...")
 	icon_state = "grey_singed"
 	item_state = "grey_singed"//If the plushie gets wet the sprite changes to a singed version.
+	update_icon(UPDATE_ICON_STATE)
 	desc = "Испорченная плюшевая игрушка грея. Похоже, что кто-то прогнал его под водой."
 
 /obj/item/toy/plushie/greyplushie/proc/reset_screamdown()
 	scream_cooldown = FALSE //Resets the scream interaction cooldown.
 
-/obj/item/toy/plushie/greyplushie/proc/reset_hugdown()
-	hug_cooldown = FALSE //Resets the hug interaction cooldown.
-
-/obj/item/toy/plushie/greyplushie/attack_self(mob/user)//code for talking when hugged.
-	. = ..()
-	if(hug_cooldown)
-		return
-	hug_cooldown = TRUE
-	addtimer(CALLBACK(src, PROC_REF(reset_hugdown)), 5 SECONDS) //Hug interactions only put the plushie on a 5 second cooldown.
-	if(singed)//If the plushie is water damaged it'll say Ow instead of talking in wingdings.
-		user.visible_message("[get_examine_icon(viewers(user))] [span_danger("Ow...")]")
-	else//If the plushie has not touched water they'll say Greetings in wingdings.
-		user.visible_message("[get_examine_icon(viewers(user))] [span_danger("☝︎❒︎♏︎♏︎⧫︎♓︎■︎♑︎⬧︎📬︎")]")
-
 /obj/item/toy/plushie/ipcplushie
 	name = "IPC plushie"
-	desc = "An adorable IPC plushie, straight from New Canaan. Arguably more durable than the real deal. Toaster functionality included."
+	desc = "Очаровательная плюшевая игрушка IPC прямо из Нью-Кэнаана. Пожалуй, даже прочнее, чем настоящая. Функционально напоминает тостер."
 	icon_state = "plushie_ipc"
-	item_state = "plushie_ipc"
 
 /obj/item/toy/plushie/ipcplushie/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers/food/snacks/breadslice))
@@ -320,7 +315,6 @@
 	desc = "Wild looking ash walker plush toy."
 	icon_state = "plushie_ashwalker1"
 	attack_verb = list("порезал", "шлёпнул", "протаранил")
-	var/cooldown = FALSE
 	var/ashwalkerbite = 'sound/effects/unathihiss.ogg'
 
 /obj/item/toy/plushie/ashwalkerplushie/Initialize(mapload)
@@ -359,29 +353,15 @@
 
 /obj/item/toy/plushie/nianplushie
 	name = "nian plushie"
-	desc = "A silky nian plushie, straight from the nebula. Pull its antenna to hear it buzz!"
+	desc = "Мягкая плюшевая игрушка в виде Ниана, добытая прямо из туманности. Потяните за усики, чтобы услышать жужжание!"
 	icon_state = "plushie_nian"
 	item_state = "plushie_nian"
-	var/cooldown = FALSE
-	var/mothbite = 'sound/voice/scream_moth.ogg'
-
-/obj/item/toy/plushie/nianplushie/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
-	. = ..()
-	if(ATTACK_CHAIN_SUCCESS_CHECK(.))
-		playsound(loc, mothbite, 10, TRUE)	// Play bite sound in local area
-
-/obj/item/toy/plushie/nianplushie/attack_self(mob/user)
-	if(cooldown)
-		return ..()
-
-	playsound(src, 'sound/voice/scream_moth.ogg', 10, FALSE)
-	user.visible_message("[get_examine_icon(viewers(user))] [span_danger("Buzzzz!")]")
-	cooldown = TRUE
-	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
+	poof_sound = 'sound/voice/scream_moth.ogg'
+	cuddle_verb = list("Бжжж!", "Бззз!", "Жуж!")
 
 /obj/item/toy/plushie/nianplushie/beeplushie
 	name = "bee plushie"
-	desc = "A cute toy that resembles an even cuter bee."
+	desc = "Милая игрушка, похожая на пчёлку."
 	icon_state = "plushie_h"
 	item_state = "plushie_h"
 	attack_verb = list("ужалил", "жужанул", "опылил")
@@ -396,7 +376,6 @@
 	icon_state = "RD_doll"
 	item_state = "RD_doll"
 	var/tired = 0
-	COOLDOWN_DECLARE(cooldown)
 
 /obj/item/toy/plushie/rdplushie/proc/interaction(mob/user)
 	if(!COOLDOWN_FINISHED(src, cooldown))
@@ -461,7 +440,6 @@
 			«Кукла-аниматроник GSBussy, лимитированная серия. Произведено ######» - часть текста невозможно разобрать."
 	icon_state = "GSBussy_doll"
 	item_state = "GSBussy_doll"
-	COOLDOWN_DECLARE(cooldown)
 
 /obj/item/toy/plushie/gsbplushie/proc/interaction(mob/user)
 	if(!COOLDOWN_FINISHED(src, cooldown))
@@ -494,48 +472,26 @@
  */
 /obj/item/toy/plushie/blahaj
 	name = "shark plushie"
-	desc = "A smaller, friendlier, and fluffier version of the real thing."
+	desc = "Уменьшенная, более дружелюбная и пушистая версия чем настоящая."
 	gender = MALE
 	icon_state = "blahaj"
 	item_state = "blahaj"
 	attack_verb = list("жеванул", "обглодал", "укусил")
-	var/fishbite = 'sound/weapons/bite.ogg'
-	var/cooldown = FALSE
-
-/obj/item/toy/plushie/blahaj/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
-	. = ..()
-	if(ATTACK_CHAIN_SUCCESS_CHECK(.))
-		playsound(loc, fishbite, 10, TRUE)	// Play bite sound in local area
-
-/obj/item/toy/plushie/blahaj/attack_self(mob/user)
-	if(cooldown)
-		return ..()
-
-	playsound(src, 'sound/weapons/bite.ogg', 10, FALSE)
-	visible_message(span_danger("...!"))
-	cooldown = TRUE
-	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
+	poof_sound = 'sound/weapons/bite.ogg'
 
 /obj/item/toy/plushie/blahaj/twohanded
 	name = "akula plushie"
-	desc = "baby shark's older and cuter sister. It can play silly sound by pressing button on its belly. Doo-doo!"
+	desc = "Старшая и более милая сестричка акулёнка. Она может издавать забавные звуки при нажатии кнопки на животе. Бейби шарк ту ту туру туру!"
 	gender = FEMALE
 	w_class = WEIGHT_CLASS_NORMAL
 	icon_state = "plushie_akula"
 	item_state = "plushie_akula"
+	poof_sound = 'sound/items/rawr.ogg'
+	cuddle_verb = "Rawr!"
 
 /obj/item/toy/plushie/blahaj/twohanded/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/two_handed, require_twohands = TRUE)
-
-/obj/item/toy/plushie/blahaj/twohanded/attack_self(mob/user)
-	if(cooldown)
-		return ..()
-
-	playsound(src, 'sound/items/rawr.ogg', 25, FALSE)
-	user.visible_message("[get_examine_icon(viewers(user))] [span_boldnotice("Rawr!")]")
-	cooldown = TRUE
-	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
 
 /*
  * Plasmaman
@@ -545,7 +501,6 @@
 	desc = "A stuffed toy that resembles your purple coworkers. Mmm, yeah, in true plasmaman fashion, it's not cute at all despite the designer's best efforts."
 	icon_state = "plasmaman_plushie_civillian"
 	var/pmanlbite = 'sound/effects/extinguish.ogg'
-	var/cooldown = FALSE
 
 /obj/item/toy/plushie/plasmamanplushie/random/Initialize(mapload)
 	. = ..()
@@ -671,7 +626,6 @@
 /obj/item/toy/plushie/carp/void
 	icon_state = "voidcarp"
 
-
 /*
  * Hampters
  */
@@ -712,7 +666,6 @@
 
 /obj/item/toy/plushie/beaver/sounded //only adminspawn
 	desc = "Милая мягкая игрушка бобра. Держа его в руках, вы едва можете сдержаться от криков счастья. Эта выглядит ещё лучше, чем обычно!"
-	COOLDOWN_DECLARE(cooldown)
 
 /obj/item/toy/plushie/beaver/sounded/attack_self(mob/user)
 	. = ..()
@@ -791,7 +744,6 @@
 	item_state = "axolotl"
 	attack_verb = list("ущипнул", "чмокнул")
 	var/axolotlbite = 'sound/items/axolotl.ogg'
-	var/cooldown = FALSE
 
 /obj/item/toy/plushie/axolotlplushie/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ..()
@@ -813,7 +765,6 @@
 	icon_state = "realgoat"
 	attack_verb = list("жеванул", "ударил", "ткнул")
 	var/goatbite = 'sound/items/goatsound.ogg'
-	var/cooldown = FALSE
 
 /obj/item/toy/plushie/realgoat/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ..()
@@ -835,7 +786,6 @@
 	icon_state = "rouny"
 	attack_verb = list("порезал", "укусил", "протаранил")
 	var/rounibite = 'sound/items/Help.ogg'
-	var/cooldown = FALSE
 
 /obj/item/toy/plushie/rouny/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ..()
@@ -920,7 +870,6 @@
 	icon_state = "plushie_bubblegum"
 	item_state = "plushie_bubblegum"
 	attack_verb = list("атаковал", "протаранил")
-	var/cooldown = FALSE
 	var/bubblestep = 'sound/effects/meteorimpact.ogg'
 	var/bubbleattack = 'sound/misc/demon_attack1.ogg'
 
@@ -945,7 +894,6 @@
 	item_state = "chikaboom"
 	attack_verb = list("цапнул", "клюнул")
 	poof_sound = 'sound/items/wahwah.ogg'
-	COOLDOWN_DECLARE(cooldown)
 
 /obj/item/toy/plushie/chikaboomchik/attack_self(mob/user)
 	. = ..()
@@ -965,9 +913,7 @@
 	resistance_flags = INDESTRUCTIBLE | FIRE_PROOF | ACID_PROOF | LAVA_PROOF
 	/// Is it in evil mode now or not
 	var/is_evil = FALSE
-	/// Cooldown to prevent evil sound spam
 	var/cooldown_time = 2 SECONDS
-	COOLDOWN_DECLARE(cooldown)
 
 /obj/item/toy/plushie/wet_owl/get_ru_names()
 	return list(
@@ -1038,7 +984,6 @@
 	icon = 'icons/obj/ninjaobjects.dmi'
 	icon_state = "ninja_plushie_green"
 	item_state = "ninja_plushie_green"
-	var/cooldown = 0
 	var/plushie_color
 
 /obj/item/toy/plushie/ninja/update_icon_state()
@@ -1070,3 +1015,4 @@
 			if("red")
 				user.visible_message(span_notice("[get_examine_icon(viewers(user))] [DECLENT_RU_CAP(src, NOMINATIVE)] говорит: \"Ты можешь бежать, но не сможешь спрятаться!\""))
 		plushie_color = null
+

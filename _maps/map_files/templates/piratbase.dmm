@@ -5718,7 +5718,7 @@
 	dir = 4
 	},
 /obj/structure/table/wood,
-/obj/item/toy/plushie/tabby_cat,
+/obj/item/toy/plushie/cat/tabby,
 /turf/simulated/floor/wood,
 /area/ruin/space/pirate_base/atrium)
 "ra" = (
