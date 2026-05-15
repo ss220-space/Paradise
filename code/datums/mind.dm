@@ -696,6 +696,16 @@
 		. += "." //hiel grammar
 		//         ^ whoever left this comment is literally a grammar nazi. stalin better. in russia grammar correct you.
 
+/datum/mind/proc/memory_edit_vox_raider()
+	. = _memory_edit_header("vox raider")
+	if(has_antag_datum(/datum/antagonist/vox_raider))
+		. += "<b><font color='red'>VOX RAIDER</font></b>|<a href='byond://?src=[UID()];vox_raider=clear'>Remove</a>"
+		. += "<br><a href='byond://?src=[UID()];vox_raider=landmark'>To Vox Base</a>."
+	else
+		. += "<a href='byond://?src=[UID()];vox_raider=make'>Make Vox Raider</a>"
+
+	. += _memory_edit_role_enabled(ROLE_VOX_RAIDER)
+
 /datum/mind/proc/edit_memory()
 	if(!SSticker || !SSticker.mode)
 		tgui_alert(usr, "Not before round-start!", "Alert")
@@ -2493,6 +2503,19 @@
 				var/mob/living/carbon/alien/alien = current
 				alien.update_datum()
 				log_and_message_admins("has made [key_name(current)] into a \"Xenomorph\"")
+
+	else if(href_list["vox_raider"])
+		switch(href_list["vox_raider"])
+			if("clear")
+				remove_antag_datum(/datum/antagonist/vox_raider)
+
+			if("make")
+				add_antag_datum(/datum/antagonist/vox_raider, /datum/team/vox_raiders)
+
+			if("landmark")
+				var/picked_landmark = pick(GLOB.raider_spawn)
+				var/turf/loc_spawn = get_turf(picked_landmark)
+				current.forceMove(loc_spawn)
 
 	else if(href_list["common"])
 		switch(href_list["common"])

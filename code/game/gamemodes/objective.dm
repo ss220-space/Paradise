@@ -152,6 +152,9 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	if(owner)
 		. += owner
 
+/datum/objective/proc/update_explanation_text()
+	return
+
 /**
  * Originally an Objective proc. Changed to a datum proc to allow for the proc to be run on minds, before the objective is created
  */

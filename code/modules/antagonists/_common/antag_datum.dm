@@ -492,3 +492,5 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
 
 /datum/antagonist/proc/get_steal_objective_type()
 	return /datum/objective/steal
+
+

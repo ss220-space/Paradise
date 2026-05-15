@@ -579,6 +579,10 @@
 	var/message = span_warning("[target.declent_ru(NOMINATIVE)] блокиру[PLUR_ET_YUT(target)] атаку [user.declent_ru(GENITIVE)]!")
 	if(target.check_martial_art_defense(target, user, null, message))
 		return FALSE
+
+	if(SEND_SIGNAL(target, COMSIG_HUMAN_ATTACKED, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
+		return FALSE
+
 	if(attacker_style && attacker_style.harm_act(user, target) == TRUE)
 		return TRUE
 	else
@@ -666,6 +670,9 @@
 
 /datum/species/proc/disarm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(user == target)
+		return FALSE
+
+	if(SEND_SIGNAL(target, COMSIG_HUMAN_ATTACKED, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return FALSE
 
 	var/message = span_warning("[target.declent_ru(NOMINATIVE)] блокиру[PLUR_ET_YUT(target)] попытку обезоруживания [user.declent_ru(GENITIVE)]!")
@@ -1266,7 +1273,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 	return TRUE
 
 /datum/species/proc/spec_hitby(atom/movable/AM, mob/living/carbon/human/H)
-	return
+	SEND_SIGNAL(H, COMSIG_SPECIES_HITBY, AM)
 
 /datum/species/proc/spec_proceed_attack_results(obj/item/I, mob/living/carbon/human/defender, mob/living/attacker, obj/item/organ/external/affecting)
 	return ATTACK_CHAIN_PROCEED

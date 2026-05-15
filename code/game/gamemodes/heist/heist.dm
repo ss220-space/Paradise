@@ -25,7 +25,7 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 /datum/game_mode/heist/can_start()
 	if(!..())
 		return FALSE
-	var/list/candidates = get_players_for_role(ROLE_RAIDER)
+	var/list/candidates = get_players_for_role(ROLE_VOX_RAIDER)
 	var/raider_num = 0
 
 	//Check that we have enough vox.
@@ -46,8 +46,8 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 
 /datum/game_mode/heist/pre_setup()
 	for(var/datum/mind/raider in raiders)
-		raider.assigned_role = SPECIAL_ROLE_RAIDER
-		raider.special_role = SPECIAL_ROLE_RAIDER
+		raider.assigned_role = SPECIAL_ROLE_VOX_RAIDER
+		raider.special_role = SPECIAL_ROLE_VOX_RAIDER
 		raider.offstation_role = TRUE
 	return TRUE
 
@@ -282,7 +282,7 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 
 /obj/machinery/vox_win_button/Initialize(mapload)
 	. = ..()
-	
+
 	add_overlay(icon('icons/obj/machines/computer.dmi', "syndie"))
 
 /obj/machinery/vox_win_button/attack_hand(mob/user)

@@ -656,5 +656,5 @@
 	name = "Encryption key"
 	desc = "An encryption key for a radio headset. To access special radio channel, use :3."
 	icon_state = "sov_cypherkey"
-	channels = list(EVENT_GAMMA_FRE_NAME = 1)
+	channels = list(EVENT_GAMMA_FREQ_NAME = 1)
 */

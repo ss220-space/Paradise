@@ -271,3 +271,13 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 
 /datum/team/proc/declare_completion()
 	return
+
+/datum/team/proc/get_member_ckeys()
+	var/list/member_ckeys = list()
+	for(var/datum/mind/member as anything in members)
+		if(!member.current)
+			continue
+
+		member_ckeys += member.current.ckey
+
+	return member_ckeys

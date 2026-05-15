@@ -26,7 +26,7 @@
 #define ROLE_HOG_CULTIST "hand of god: cultist"
 #define ROLE_DEVIL "devil"
 #define ROLE_KRAMPUS "krampus"
-#define ROLE_RAIDER "vox raider"
+#define ROLE_VOX_RAIDER "vox raider"
 #define ROLE_TRADER "trader"
 #define ROLE_VAMPIRE "vampire"
 #define ROLE_THIEF "thief"
