@@ -118,3 +118,24 @@ dmdoc/
 # Ignore custom music and title screens (amend as appropriate)
 /config/jukebox_music/sounds/*
 !/config/jukebox_music/sounds/exclude
+
+#voicechat stuff
+#python
+__*__
+
+# Node.js-specific
+node_modules/
+npm-debug.log
+package-lock.json
+
+# pipelib specific
+*.o
+*.so
+*.dll
+#visual studio
+Release
+x86
+x64
+Debug
+.vs/
+*.user

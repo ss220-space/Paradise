@@ -532,4 +532,10 @@ TGUI_MAX_CHUNK_COUNT 128
 ## Disable the loading of space ruins
 #DISABLE_SPACE_RUINS
 
+## Uncomment to enable voicechat
+ENABLE_VOICECHAT
+
+## What port to use for node connections. Ensure this port is open.
+PORT_VOICECHAT 3000
+
 ### INITIALIZATION SETTINGS END ###

@@ -92,6 +92,9 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	TGS_TOPIC
 	log_misc("WORLD/TOPIC: \"[T]\", from:[addr], master:[master], key:[key == CONFIG_GET(string/comms_password) ? "*secret*" : key]")
 
+	if(addr == "127.0.0.1" && SSvoicechat)
+		SSvoicechat.handle_topic(T , addr)
+
 	// Handle spam prevention
 	if(!(addr in CONFIG_GET(str_list/topic_filtering_whitelist)))
 		if(!GLOB.world_topic_spam_prevention_handlers[addr])
@@ -120,6 +123,8 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	return wth.invoke(input)
 
 /world/Reboot(reason, fast_track = FALSE)
+	if(SSvoicechat && SSvoicechat.initialized)
+		SSvoicechat.Shutdown()
 	//special reboot, do none of the normal stuff
 	if((reason == 1) || fast_track) // Do NOT change this to if(reason). You WILL break the entirety of world rebooting
 		if(usr)
@@ -310,6 +315,8 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	GLOB.changelog_hash = fexists(latest_changelog) ? md5(latest_changelog) : 0 //for telling if the changelog has changed recently
 
 /world/Del()
+	if(SSvoicechat && SSvoicechat.initialized)
+		SSvoicechat.Shutdown()
 	rustg_close_async_http_client() // Close the HTTP client. If you dont do this, youll get phantom threads which can crash DD from memory access violations
 	var/debug_server = world.GetConfig("env", "AUXTOOLS_DEBUG_DLL")
 	if(debug_server)

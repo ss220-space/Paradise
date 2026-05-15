@@ -135,6 +135,7 @@ SUBSYSTEM_DEF(ticker)
 				game_finished |= mode.check_finished()
 			if(game_finished || force_ending)
 				change_state(GAME_STATE_FINISHED)
+				SEND_SIGNAL(src, COMSIG_TICKER_ROUND_ENDED)
 		if(GAME_STATE_FINISHED)
 			change_state(GAME_STATE_FINISHED)
 			Master.SetRunLevel(RUNLEVEL_POSTGAME) // This shouldnt process more than once, but you never know

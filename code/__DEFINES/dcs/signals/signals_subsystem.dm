@@ -8,3 +8,6 @@
 
 /// Called when the round has started, but before GAME_STATE_PLAYING.
 #define COMSIG_TICKER_ROUND_STARTING "comsig_ticker_round_starting"
+
+/// Called when round has ended
+#define COMSIG_TICKER_ROUND_ENDED "comsig_ticker_round_ending"
