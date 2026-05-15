@@ -573,3 +573,5 @@
 
 /// Trait which means whatever has this is dancing by a dance machine
 #define TRAIT_DISCO_DANCER "disco_dancer"
+
+#define TRAIT_GIVE_READY "give_ready"
