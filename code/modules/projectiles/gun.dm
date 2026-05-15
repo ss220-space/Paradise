@@ -28,7 +28,7 @@
 	var/trigger_guard = TRIGGER_GUARD_NORMAL	//trigger guard on the weapon, hulks can't fire them with their big meaty fingers
 	var/sawn_desc = null				//description change if weapon is sawn-off
 	var/sawn_state = SAWN_INTACT
-	var/fire_delay = 0					//rate of fire for burst firing and semi auto
+	var/fire_delay = 0.6 SECONDS					//rate of fire for burst firing and semi auto
 	var/weapon_weight = WEAPON_LIGHT
 	var/list/restricted_species
 	var/ninja_weapon = FALSE			//Оружия со значением TRUE обходят ограничение ниндзя на использование пушек
@@ -56,7 +56,7 @@
 	///How many shots can the weapon shoot in burst? Anything less than 2 and you cannot toggle burst.
 	var/burst_amount = 1
 	///The delay in between shots. Lower = less delay = faster.
-	var/burst_delay = 0.1 SECONDS
+	var/burst_delay = 0.15 SECONDS
 	///When burst-firing, this number is extra time before the weapon can fire again. Depends on number of rounds fired.
 	var/extra_delay = 0
 	///when autobursting, this is the total amount of time before the weapon fires again. If no amount is specified, defaults to fire_delay + extra_delay
@@ -364,27 +364,45 @@
 	if(modifiers[RIGHT_CLICK])
 		return
 
+	if(modifiers[ALT_CLICK])
+		return
+
+	if(modifiers[CTRL_CLICK])
+		return
+
+	if(user.in_throw_mode)
+		return
+
+	if(HAS_TRAIT(src, TRAIT_GIVE_READY))
+		return
+
+	if(object.IsReachableBy(user, reach) && start_attack_chain_check(user, object)) //Dealt with by attack code
+		return
+
+	if(!isgun(user.get_active_hand())) // If the object in our active hand is not a gun, abort
+		return
+
+	if(!user.is_in_active_hand(src) && user.a_intent != INTENT_HARM)
+		return
+
+	if(!HAS_TRAIT(user, TRAIT_BADASS) && weapon_weight == WEAPON_HEAVY && (user.get_inactive_hand() || !user.has_inactive_hand() || (user.pulling && user.pull_hand != PULL_WITHOUT_HANDS)))
+		to_chat(user, span_userdanger("Для стрельбы из [declent_ru(GENITIVE)] нужны две свободные руки!"))
+		return
+
 	if(gun_on_cooldown(user))
 		return
 
 	if(!can_trigger_gun(user))
 		return
 
-	if(!HAS_TRAIT(user, TRAIT_BADASS) && weapon_weight == WEAPON_HEAVY && (user.get_inactive_hand() || !user.has_inactive_hand() || (user.pulling && user.pull_hand != PULL_WITHOUT_HANDS)))
-		to_chat(user, span_userdanger("Для стрельбы из [declent_ru(GENITIVE)] нужны две свободные руки!"))
-		return
-	if(user.hand && !isgun(user.l_hand) || !user.hand && !isgun(user.r_hand)) // If the object in our active hand is not a gun, abort
-		return
-	if(user.hand && isgun(user.r_hand) || !user.hand && isgun(user.l_hand)) // If we have a gun in our inactive hand too, both guns get innacuracy maluses
+	if(isgun(user.get_inactive_hand())) // If we have a gun in our inactive hand too, both guns get innacuracy maluses
 		if(user.a_intent == INTENT_HARM)
 			dual_wield = TRUE
 			setup_bullet_accuracy()
-	if(user.in_throw_mode)
-		return
-	if(user.Adjacent(object)) //Dealt with by attack code
-		return
+
 	if(QDELETED(object))
 		return
+
 	set_target(get_turf_on_clickcatcher(object, user, params))
 	src.modifiers = modifiers
 	if(gun_firemode == GUN_FIREMODE_SEMIAUTO)
@@ -486,20 +504,20 @@
 	if(gun_user && HAS_TRAIT(gun_user, TRAIT_CLUMSY) && prob(50))
 		bonus_spread += 45
 
-/obj/item/gun/proc/modify_fire_delay(value, mob/user)
-	fire_delay += value
+/obj/item/gun/proc/set_fire_delay(value, mob/user)
+	fire_delay = value
 	SEND_SIGNAL(src, COMSIG_GUN_AUTOFIREDELAY_MODIFIED, fire_delay)
 
-/obj/item/gun/proc/modify_burst_delay(value, mob/user)
-	burst_delay += value
+/obj/item/gun/proc/set_burst_delay(value, mob/user)
+	burst_delay = value
 	SEND_SIGNAL(src, COMSIG_GUN_BURST_SHOT_DELAY_MODIFIED, burst_delay)
 
-/obj/item/gun/proc/modify_auto_burst_delay(value, mob/user)
-	autoburst_delay += value
+/obj/item/gun/proc/set_auto_burst_delay(value, mob/user)
+	autoburst_delay = value
 	SEND_SIGNAL(src, COMSIG_GUN_AUTO_BURST_SHOT_DELAY_MODIFIED, autoburst_delay)
 
-/obj/item/gun/proc/modify_burst_amount(value, mob/user)
-	burst_amount += value
+/obj/item/gun/proc/set_burst_amount(value, mob/user)
+	burst_amount = value
 	SEND_SIGNAL(src, COMSIG_GUN_BURST_SHOTS_TO_FIRE_MODIFIED, burst_amount)
 
 	if(burst_amount < 2)
@@ -512,6 +530,18 @@
 			add_firemode(GUN_FIREMODE_BURSTFIRE, user)
 		if((GUN_FIREMODE_AUTOMATIC in gun_firemode_list) && !(GUN_FIREMODE_AUTOBURST in gun_firemode_list))
 			add_firemode(GUN_FIREMODE_AUTOBURST, user)
+
+/obj/item/gun/proc/modify_fire_delay(value, mob/user)
+	set_fire_delay(fire_delay + value, user)
+
+/obj/item/gun/proc/modify_burst_delay(value, mob/user)
+	set_burst_delay(burst_delay + value, user)
+
+/obj/item/gun/proc/modify_auto_burst_delay(value, mob/user)
+	set_auto_burst_delay(autoburst_delay + value, user)
+
+/obj/item/gun/proc/modify_burst_amount(value, mob/user)
+	set_burst_amount(burst_amount + value, user)
 
 /// Inform the gun if he is currently bursting, to prevent reloading
 /obj/item/gun/proc/set_bursting(bursting)
@@ -589,24 +619,6 @@
 	for(var/obj/O in contents)
 		O.emp_act(severity)
 
-/obj/item/gun/afterattack(atom/target, mob/living/user, proximity_flag, list/modifiers, status)
-	. = ..()
-	if(proximity_flag) //It's adjacent, is the user, or is on the user's person
-		if(target in user.contents) //can't shoot stuff inside us.
-			return
-		if(!ismob(target) || user.a_intent == INTENT_HARM) //melee attack
-			return
-		if(target == user && user.zone_selected != BODY_ZONE_PRECISE_MOUTH) //so we can't shoot ourselves (unless mouth selected)
-			return
-
-	if(proximity_flag)
-		if(user.zone_selected == BODY_ZONE_PRECISE_MOUTH)
-			if(target == user && HAS_TRAIT(user, TRAIT_BADASS))
-				user.visible_message(span_danger("[user] сдул[GEND_A_O_I(user)] дым с дула [declent_ru(GENITIVE)]. Как же [GEND_HE_SHE(user)] хорош[GEND_A_O_I(user)]!"))
-			else
-				handle_suicide(user, target, modifiers)
-			return
-
 /obj/item/gun/proc/can_trigger_gun(mob/living/user)
 	if(istype(user))
 		if(!user.can_use_guns(src))
@@ -625,11 +637,15 @@
 	return
 
 /obj/item/gun/proc/fast_fire(atom/target, mob/user, zone_override)
-	set_target(target)
-	set_gun_user(user)
-	process_fire(zone_override)
-	set_target(null)
-	set_gun_user(null)
+	var/old_target = src.target
+	var/old_user = gun_user
+	src.target = target
+	gun_user = user
+	setup_bullet_accuracy()
+	. = process_fire(zone_override)
+	src.target = old_target
+	gun_user = old_user
+	setup_bullet_accuracy()
 
 /obj/item/gun/proc/process_fire(zone_override)
 	var/atom/target = src.target
@@ -693,12 +709,7 @@
 /obj/item/gun/ranged_interact_with_atom_secondary(atom/interacting_with, mob/living/user, list/modifiers)
 	if(azoom)
 		zoom(user)
-		return
-	. = ..()
-
-/obj/item/gun/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
-	if(user.a_intent != INTENT_HARM)
-		return ATTACK_CHAIN_BLOCKED
+		return ITEM_INTERACT_SUCCESS
 	return ..()
 
 /obj/item/gun/attackby(obj/item/I, mob/user, list/modifiers)
@@ -719,6 +730,29 @@
 			return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
+
+/obj/item/gun/interact_with_atom(atom/interacting_with, mob/living/user, list/modifiers)
+	. = ..()
+	if(.)
+		return
+
+	if(user.zone_selected != BODY_ZONE_PRECISE_MOUTH || user != interacting_with)
+		return
+
+	if(interacting_with == user && HAS_TRAIT(user, TRAIT_BADASS))
+		user.visible_message(span_danger("[user] сдул[GEND_A_O_I(user)] дым с дула [declent_ru(GENITIVE)]. Как же [GEND_HE_SHE(user)] хорош[GEND_A_O_I(user)]!"))
+	else
+		handle_suicide(user, interacting_with, modifiers)
+	return ITEM_INTERACT_SUCCESS
+
+/obj/item/gun/proc/start_attack_chain_check(mob/user, atom/target)
+	if(user == target && user.zone_selected == BODY_ZONE_PRECISE_MOUTH)
+		return TRUE
+	if(user.a_intent == INTENT_HARM)
+		return TRUE
+	if(isitem(target) || iscloset(target) || istable(target) || is_screen_atom(target) || isdisposalunit(target) || istype(target, /obj/machinery/recharger))
+		return TRUE
+	return FALSE
 
 /obj/item/gun/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(istype(action, /datum/action/item_action/toggle_gunlight))
@@ -1139,18 +1173,24 @@
 
 /obj/item/gun/vv_edit_var(var_name, var_value)
 	if(var_name == NAMEOF(src, fire_delay))
-		modify_fire_delay(-fire_delay + var_value, usr)
+		set_fire_delay(var_value, usr)
 		return TRUE
 	if(var_name == NAMEOF(src, burst_delay))
-		modify_burst_delay(-burst_delay + var_value, usr)
+		set_burst_delay(var_value, usr)
 		return TRUE
 	if(var_name == NAMEOF(src, autoburst_delay))
-		modify_auto_burst_delay(-autoburst_delay + var_value , usr)
+		set_auto_burst_delay(var_value , usr)
 		return TRUE
 	if(var_name == NAMEOF(src, burst_amount))
-		modify_burst_amount(-burst_amount + var_value, usr)
+		set_burst_amount(var_value, usr)
 		return TRUE
 	if(var_name == NAMEOF(src, gun_firemode))
 		toggle_firemode(var_value)
+		return TRUE
+	if(var_name == NAMEOF(src, gun_user))
+		set_gun_user(var_value)
+		return TRUE
+	if(var_name == NAMEOF(src, target))
+		set_target(var_value)
 		return TRUE
 	. = ..()

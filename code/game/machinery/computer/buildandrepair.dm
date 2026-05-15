@@ -26,9 +26,20 @@
 	board_type = "machine"
 	abstract_type = /obj/item/circuitboard/machine
 
+/obj/item/circuitboard/drone
+	board_type = "drone"
+	abstract_type = /obj/item/circuitboard/drone
+	var/tech_to_give
+
 /obj/item/circuitboard/Initialize(mapload)
 	. = ..()
 	format_board_name()
+
+/obj/item/circuitboard/drone/Initialize(mapload)
+	. = ..()
+	if(!tech_to_give)
+		return
+	origin_tech = "[tech_to_give]=[rand(3, 6)]"
 
 /obj/item/circuitboard/proc/format_board_name()
 	if(board_name) // Should always have this, but just in case.
@@ -46,6 +57,46 @@
 				continue
 			nice_list += list("[req_components[A]] [initial(A.name)]\s")
 		. += span_notice("Required components: [english_list(nice_list)].")
+
+/obj/item/circuitboard/drone/motherboard
+	name = "Drone CPU motherboard"
+	tech_to_give = "programming"
+
+/obj/item/circuitboard/drone/interface
+	name = "Drone neural interface"
+	tech_to_give = "biotech"
+
+/obj/item/circuitboard/drone/processor
+	name = "Drone suspension processor"
+	tech_to_give = "magnets"
+
+/obj/item/circuitboard/drone/controller
+	name = "Drone shielding controller"
+	tech_to_give = "bluespace"
+
+/obj/item/circuitboard/drone/capacitor
+	name = "Drone power capacitor"
+	tech_to_give = "powerstorage"
+
+/obj/item/circuitboard/drone/reinforcer
+	name = "Drone hull reinforcer"
+	tech_to_give = "materials"
+
+/obj/item/circuitboard/drone/system
+	name = "Drone auto-repair system"
+	tech_to_give = "engineering"
+
+/obj/item/circuitboard/drone/counter
+	name = "Drone plasma overcharge counter"
+	tech_to_give = "plasmatech"
+
+/obj/item/circuitboard/drone/targetting
+	name = "Drone targetting circuitboard"
+	tech_to_give = "combat"
+
+/obj/item/circuitboard/drone/core
+	name = "Corrupted drone morality core"
+	tech_to_give = "syndicate"
 
 /obj/item/circuitboard/message_monitor
 	board_name = "Message Monitor"

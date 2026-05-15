@@ -1,13 +1,8 @@
 SUBSYSTEM_DEF(ticker)
 	name = "Ticker"
-	init_order = INIT_ORDER_TICKER
-
 	priority = FIRE_PRIORITY_TICKER
-	flags = SS_KEEP_TIMING
+	ss_flags = SS_KEEP_TIMING
 	runlevels = RUNLEVEL_LOBBY | RUNLEVEL_SETUP | RUNLEVEL_GAME
-	offline_implications = "The game is no longer aware of when the round ends. Immediate server restart recommended."
-	cpu_display = SS_CPUDISPLAY_LOW
-	ss_id = "ticker"
 
 	/// Time the game should start, relative to world.time
 	var/round_start_time = 0
@@ -173,6 +168,24 @@ SUBSYSTEM_DEF(ticker)
 				to_chat(world, "<b>Следующая карта — [SSmapping.next_map.name]!</b>")
 
 			SSachievements.save_achievements_to_db()
+
+/datum/controller/subsystem/ticker/Recover()
+	current_state = SSticker.current_state
+	force_ending = SSticker.force_ending
+	login_music = SSticker.login_music
+	minds = SSticker.minds
+	delay_end = SSticker.delay_end
+	tipped = SSticker.tipped
+	selected_tip = SSticker.selected_tip
+	round_start_time = SSticker.round_start_time
+	if(Master) //Set Masters run level if it exists
+		switch(current_state)
+			if(GAME_STATE_SETTING_UP)
+				Master.SetRunLevel(RUNLEVEL_SETUP)
+			if(GAME_STATE_PLAYING)
+				Master.SetRunLevel(RUNLEVEL_GAME)
+			if(GAME_STATE_FINISHED)
+				Master.SetRunLevel(RUNLEVEL_POSTGAME)
 
 /datum/controller/subsystem/ticker/proc/call_reboot()
 	if(mode.station_was_nuked)

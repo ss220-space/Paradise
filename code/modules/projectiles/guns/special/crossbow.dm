@@ -10,7 +10,7 @@
 	icon_state = "crossbow"
 	item_state = "crossbow-solid"
 	fire_sound = 'sound/weapons/grenadelaunch.ogg'
-	fire_delay = 25
+	fire_delay = 2.5 SECONDS
 
 	valid_projectile_type = /obj/item/arrow
 

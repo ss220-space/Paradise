@@ -53,7 +53,7 @@
 	for(var/datum/mind/vampire in vampires)
 		var/traitorwin = TRUE
 		var/datum/antagonist/vampire/vamp = vampire.has_antag_datum(/datum/antagonist/vampire)
-		text += "<br>[vampire.get_display_key()] was [vampire.name] ("
+		text += "<br>[vampire.get_mind_key()] was [vampire.name] ("
 		if(vampire.current)
 			if(vampire.current.stat == DEAD)
 				text += "died"
@@ -107,7 +107,7 @@
 
 	var/list/text = list("<span style='font-size: 2;'><b>The Enthralled were:</b></span>")
 	for(var/datum/mind/mind in vampire_enthralled)
-		text += "<br>[mind.get_display_key()] was [mind.name] ("
+		text += "<br>[mind.get_mind_key()] was [mind.name] ("
 		if(mind.current)
 			if(mind.current.stat == DEAD)
 				text += "died"

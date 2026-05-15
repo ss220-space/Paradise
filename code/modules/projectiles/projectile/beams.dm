@@ -283,8 +283,8 @@
 	// Add this to SM psi coefficient on hit for lasers
 	var/psi_change
 
-/obj/projectile/beam/emitter/singularity_pull()
-	return //don't want the emitters to miss
+/obj/projectile/beam/emitter/singularity_pull(atom/singularity, current_size)
+	return // don't want the emitters to miss
 
 /obj/projectile/beam/emitter/hitscan/bluelens
 	name = "electrodisruptive beam"

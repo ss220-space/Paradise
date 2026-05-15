@@ -17,7 +17,7 @@
  */
 SUBSYSTEM_DEF(automatedfire)
 	name = "Autofire"
-	flags = SS_TICKER | SS_NO_INIT
+	ss_flags = SS_TICKER | SS_NO_INIT
 	wait = 1
 	priority = FIRE_PRIORITY_AUTOFIRE
 

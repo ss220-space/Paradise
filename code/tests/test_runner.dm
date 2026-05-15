@@ -1,14 +1,14 @@
 // Logging large amounts of test failures can cause performance issues significant enough to hit GitHub Actions timeout thresholds.
 // This can happen intentionally (if there's a lot of legitimate map errors), or accidentally if a test condition is written incorrectly and starts e.g.
 // logging failures for every single tile.
-#ifdef LOCAL_GAME_TESTS
+#ifdef LOCAL_UNIT_TESTS
 #define MAX_MAP_TEST_FAILURE_COUNT 100
 #else
 #define MAX_MAP_TEST_FAILURE_COUNT 20
 #endif
 
 /datum/test_runner
-	var/datum/game_test/current_test
+	var/datum/unit_test/current_test
 	var/failed_any_test = FALSE
 	var/list/test_logs = list()
 	var/list/durations = list()
@@ -22,20 +22,20 @@
 
 /datum/test_runner/proc/RunAll()
 	#ifdef MAP_TESTS
-	// Run map tests first in case game tests futz with map state
+	// Run map tests first in case unit tests futz with map state
 	RunMap()
 	#endif
-	#if defined(GAME_TESTS) || defined(MAP_TESTS)
+	#if defined(UNIT_TESTS) || defined(MAP_TESTS)
 	Run()
 	#endif
-	SSticker.reboot_helper("Game Test Reboot", "tests ended", 0)
+	SSticker.reboot_helper("Unit Test Reboot", "tests ended", 0)
 
 /datum/test_runner/proc/Run()
-	log_world("Test runner: game tests.")
+	log_world("Test runner: unit tests.")
 	CHECK_TICK
 
-	for(var/I in subtypesof(/datum/game_test) - /datum/game_test/room_test)
-		var/datum/game_test/test = new I
+	for(var/I in subtypesof(/datum/unit_test) - /datum/unit_test/room_test)
+		var/datum/unit_test/test = new I
 		test_logs[I] = list()
 
 		current_test = test
@@ -98,7 +98,7 @@
 	log_world("Test runner: finalizing.")
 	var/time = world.timeofday
 
-	#ifdef LOCAL_GAME_TESTS
+	#ifdef LOCAL_UNIT_TESTS
 	emit_failures = TRUE
 	#endif
 
@@ -109,7 +109,7 @@
 		if(!GLOB.log_directory)
 			LAZYADD(fail_reasons, "Missing GLOB.log_directory!")
 		if(failed_any_test)
-			LAZYADD(fail_reasons, "Game Tests failed!")
+			LAZYADD(fail_reasons, "Unit Tests failed!")
 	else
 		fail_reasons = list("Missing GLOB!")
 

@@ -1,5 +1,0 @@
-author: "SCPfollower"
-delete-after: True
-changes:
-  - add: "Добавлен новый режим для camera_bug (PR #8611)"
-  - tweak: "Advaned режим просмотра камер для camera_bug, схожий с просмотром камер у ИИ (PR #8611)"

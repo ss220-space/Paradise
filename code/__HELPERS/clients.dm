@@ -61,3 +61,15 @@
 		for(var/stealth_key in GLOB.stealthminID)
 			if(GLOB.stealthminID[stealth_key] == stealth_text)
 				return stealth_key
+
+/proc/get_display_key(client/client)
+	if(!client)
+		return "(Disconnected)"
+
+	if(client.holder?.fakekey)
+		return client.holder.fakekey
+
+	if(client.prefs && (client.prefs.toggles2 & PREFTOGGLE_2_ANON))
+		return "(Anon)"
+
+	return client.key

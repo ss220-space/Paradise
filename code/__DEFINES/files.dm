@@ -1,6 +1,11 @@
 // None of these should be trusted for the purpose of user input
 // They do not check the actual type of the file, a user could just rename it
 
+/// Loads a file from disk. Prevent loading files via Advanced ProcCall.
+#define WRAP_FILE(filepath) file(filepath)
+/// Reads a file from disk into a string. Prevent reading files via Advanced ProcCall.
+#define WRAP_FILE2TEXT(filepath) file2text(filepath)
+
 /// File types we can sniff the duration from using rustg.
 #define IS_SOUND_FILE_SAFE(file) is_file_type_in_list(##file, SSsounds.safe_formats)
 

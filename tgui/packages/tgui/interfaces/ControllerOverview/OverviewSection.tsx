@@ -1,4 +1,4 @@
-import { Button, LabeledList, Section, Stack } from 'tgui/components';
+import { Button, LabeledList, Section, Stack } from '../../components';
 
 import { useBackend } from '../../backend';
 import type { ControllerData } from './types';

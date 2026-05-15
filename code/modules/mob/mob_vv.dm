@@ -131,9 +131,13 @@
 		log_admin("[key_name(usr)] has removed verb [verb] from [key_name(src)]")
 
 	if(href_list[VV_HK_REGEN_ICONS])
+		if(!check_rights(R_DEBUG|R_ADMIN))
+			return
 		regenerate_icons()
 
 	if(href_list[VV_HK_OFFER_GHOSTS])
+		if(!check_rights(R_DEBUG|R_ADMIN))
+			return
 		offer_control(src)
 
 	if(href_list[VV_HK_DIRECT_CONTROL])

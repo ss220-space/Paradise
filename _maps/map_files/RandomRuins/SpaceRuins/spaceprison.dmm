@@ -61,7 +61,9 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
-/obj/effect/decal/warning_stripes/southeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
 /obj/item/stack/cable_coil/cut{
 	amount = 1
 	},
@@ -298,7 +300,9 @@
 	dir = 4
 	},
 /obj/machinery/portable_atmospherics/canister/air,
-/obj/effect/decal/warning_stripes/northwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating,
 /area/ruin/spaceprison)
@@ -309,7 +313,9 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/item/stack/cable_coil/cut{
 	amount = 1
@@ -374,7 +380,9 @@
 /area/ruin/spaceprison)
 "bd" = (
 /obj/machinery/power/smes,
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
@@ -519,12 +527,16 @@
 	id = "spaceprisonsolar";
 	name = "Space Prison Solar Control"
 	},
-/obj/effect/decal/warning_stripes/northeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
 /turf/simulated/floor/plating,
 /area/ruin/spaceprison)
 "bB" = (
 /obj/machinery/power/apc/worn_out/directional/south,
-/obj/effect/decal/warning_stripes/southwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -555,7 +567,9 @@
 	},
 /area/ruin/spaceprison)
 "bF" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/ruin/spaceprison)
@@ -617,7 +631,9 @@
 /area/ruin/spaceprison)
 "bL" = (
 /obj/item/stock_parts/cell,
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/effect/decal/cleanable/dust,
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -927,7 +943,9 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/effect/decal/warning_stripes/southwestcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -947,7 +965,9 @@
 	},
 /area/ruin/spaceprison)
 "cM" = (
-/obj/effect/decal/warning_stripes/southwestcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -1154,7 +1174,9 @@
 /turf/simulated/floor/plating,
 /area/ruin/spaceprison)
 "fV" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -1242,7 +1264,9 @@
 /turf/template_noop,
 /area/space/nearstation)
 "hl" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -1333,7 +1357,9 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/spaceprison)
 "jy" = (
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/machinery/door_control{
 	desc = "A remote control-switch for the pod doors.";
 	id = "spaceprisonpod";
@@ -1446,7 +1472,9 @@
 /turf/simulated/floor/plating,
 /area/ruin/spaceprison)
 "lL" = (
-/obj/effect/decal/warning_stripes/southwestcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -1737,7 +1765,9 @@
 	},
 /area/ruin/spaceprison)
 "uO" = (
-/obj/effect/decal/warning_stripes/northwestcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -2041,7 +2071,9 @@
 	},
 /area/ruin/spaceprison)
 "Bd" = (
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -2063,7 +2095,9 @@
 	},
 /area/ruin/spaceprison)
 "BG" = (
-/obj/effect/decal/warning_stripes/northwestcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -2104,7 +2138,9 @@
 /area/ruin/spaceprison)
 "Cr" = (
 /obj/structure/closet/emcloset,
-/obj/effect/decal/warning_stripes/southeastcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 2
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -2302,7 +2338,9 @@
 	},
 /area/ruin/spaceprison)
 "Ih" = (
-/obj/effect/decal/warning_stripes/northeastcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
 /obj/structure/closet/firecloset,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -2335,7 +2373,9 @@
 	},
 /area/ruin/spaceprison)
 "IM" = (
-/obj/effect/decal/warning_stripes/northeastcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
 /turf/simulated/floor/plating,
 /area/ruin/spaceprison)
 "IP" = (
@@ -2485,7 +2525,9 @@
 /turf/simulated/floor/plating,
 /area/ruin/spaceprison)
 "MG" = (
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
@@ -2772,7 +2814,9 @@
 	},
 /area/ruin/spaceprison)
 "Td" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/item/stack/ore/bluespace_crystal{
 	amount = 4
 	},
@@ -2808,7 +2852,9 @@
 /turf/simulated/floor/plating,
 /area/ruin/spaceprison)
 "TK" = (
-/obj/effect/decal/warning_stripes/northwestcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
