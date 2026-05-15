@@ -240,7 +240,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			on_mob_init()
 
 	spawn(5)
-		new /obj/machinery/ai_powersupply(src)
+		new /obj/machinery/ai_powersupply(src, src)
 
 	create_eye()
 
