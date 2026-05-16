@@ -158,6 +158,8 @@ GLOBAL_VAR_INIT(refid_filter, TYPEID(filter(type="angular_blur")))
 
 #define is_cash(A) (istype(A, /obj/item/coin) || istype(A, /obj/item/stack/spacecash))
 
+#define is_door(A) (istype(A, /obj/machinery/door))
+
 #define is_airlock(A) (istype(A, /obj/machinery/door/airlock))
 
 #define is_camera(A) (istype(A, /obj/item/camera))
@@ -433,3 +435,6 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 
 #define is_cargo_shelf(A) (istype(A, /obj/structure/cargo_shelf))
 #define is_crate(A) (istype(A, /obj/structure/closet/crate))
+
+#define is_closet(A) (istype(A, /obj/structure/closet))
+#define is_secure_closet(A) (istype(A, /obj/structure/closet/secure_closet))

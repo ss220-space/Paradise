@@ -11,6 +11,7 @@
 	put_on_delay = 50
 	magical = TRUE
 	dog_fashion = /datum/dog_fashion/head/blue_wizard
+	clothing_flags = CASTING_CLOTHES
 
 /obj/item/clothing/head/wizard/red
 	name = "red wizard hat"
@@ -160,6 +161,7 @@
 	put_on_delay = 50
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	magical = TRUE
+	clothing_flags =  CASTING_CLOTHES
 
 /obj/item/clothing/suit/wizrobe/red
 	name = "red wizard robe"
