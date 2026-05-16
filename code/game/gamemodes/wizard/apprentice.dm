@@ -71,7 +71,7 @@
 		return
 
 	if(!infinity_uses)
-		used = 1
+		used = TRUE
 
 	to_chat(teacher, span_notice("Apprentice waiting..."))
 	var/image/source = image('icons/obj/cardboard_cutout.dmi', "cutout_wizard")
@@ -116,7 +116,7 @@
 		apprentice.faction = list("wizard")
 		log_game("[apprentice.key] has become [teacher]'s (ckey: [teacher.key]) apprentice.")
 	else
-		used = 0
+		used = FALSE
 		log_game("[teacher] (ckey: [teacher.key]) has failed to spawn aprrentice.")
 		to_chat(teacher, span_warning("Unable to reach your apprentice!\nYou can either attack the spellbook with the contract to refund your points, or wait and try again later."))
 
@@ -155,7 +155,7 @@
 			return TRUE
 			
 		if(!infinity_uses)
-			used = 1
+			used = TRUE
 
 		var/list/href_list = list("school" = school_id)
 		school_href_choose(href_list, null, apprentice)
