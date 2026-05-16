@@ -206,6 +206,10 @@
 /obj/item/organ/internal/regenerative_core/legion/pre_preserved
 	preserved = TRUE
 
+/obj/item/organ/internal/regenerative_core/legion/inert/Initialize(mapload)
+	. = ..()
+	go_inert()
+
 /obj/item/organ/internal/regenerative_core/legion/Initialize(mapload)
 	. = ..()
 	update_icon()
