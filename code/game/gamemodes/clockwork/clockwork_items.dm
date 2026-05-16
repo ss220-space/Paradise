@@ -170,7 +170,7 @@
 				deplete_spell()
 			else if(iscloset(target))
 				var/obj/structure/closet/closet = target
-				if(istype(closet, /obj/structure/closet/secure_closet))
+				if(is_secure_closet(closet))
 					var/obj/structure/closet/secure_closet/SC = closet
 					SC.locked = FALSE
 				playsound(get_turf(usr), 'sound/magic/knock.ogg', 20, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)

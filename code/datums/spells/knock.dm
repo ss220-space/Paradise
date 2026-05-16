@@ -36,7 +36,7 @@
 	door.open()
 
 /obj/effect/proc_holder/spell/aoe/knock/proc/try_open_closet(obj/structure/closet/closet)
-	if(istype(closet, /obj/structure/closet/secure_closet))
+	if(is_secure_closet(closet))
 		var/obj/structure/closet/secure_closet/s_closet = closet
 		s_closet.locked = FALSE
 	closet.open()

@@ -3953,6 +3953,7 @@
 #include "code\modules\spells\spell_types\shapeshift\_shape_status.dm"
 #include "code\modules\spells\spell_types\shapeshift\_shapeshift.dm"
 #include "code\modules\spells\spell_types\teleport\_teleport.dm"
+#include "code\modules\spells\spell_types\teleport\area_teleport.dm"
 #include "code\modules\spells\spell_types\touch\_touch.dm"
 #include "code\modules\station_goals\bfl.dm"
 #include "code\modules\station_goals\bluespace_tap.dm"

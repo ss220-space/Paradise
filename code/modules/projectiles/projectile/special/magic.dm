@@ -226,7 +226,7 @@
 		CreateDoor(target)
 	else if(isturf(T) && T.density)
 		CreateDoor(T)
-	else if(istype(target, /obj/machinery/door))
+	else if(is_door(target))
 		OpenDoor(target)
 	else if(iscloset(target))
 		OpenCloset(target)
