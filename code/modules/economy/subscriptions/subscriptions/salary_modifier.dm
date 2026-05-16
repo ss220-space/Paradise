@@ -31,7 +31,7 @@
 
 /datum/subscription/salary_modifier/proc/update_modifier(new_modifier)
 	new_modifier = text2num(new_modifier)
-	new_modifier = clamp(new_modifier, -50, 50)
+	new_modifier = clamp(new_modifier, -95, 95)
 
 	if(new_modifier == modifier)
 		return TRUE

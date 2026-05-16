@@ -265,7 +265,7 @@ GLOBAL_VAR(current_date_string)
 		if("set_salary_modifier")
 			var/sub_type = /datum/subscription/salary_modifier
 			var/owner_name = params["owner_name"]
-			var/salary_modifier = text2num(params["modifier"])
+			var/salary_modifier = params[SUBSCRIPTION_PARAM_MODIFIER]
 			var/sub_uid = params["salary_modifier_uid"]
 			var/datum/money_account/sub_acc = get_account_with_name(owner_name)
 			var/datum/subscription/salary_modifier/target
@@ -280,7 +280,7 @@ GLOBAL_VAR(current_date_string)
 				target = find_subscription_salary_modifier_spec(owner_name, sub_type)
 
 			if(!target)
-				var/list/extra_params = list("modifier" = salary_modifier)
+				var/list/extra_params = list(SUBSCRIPTION_PARAM_MODIFIER = salary_modifier)
 				create_subscription(sub_acc, sub_type, extra_params)
 				return
 

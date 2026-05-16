@@ -11,6 +11,7 @@ import {
   Section,
   Stack,
   Table,
+  RestrictedInput,
 } from '../components';
 import { Window } from '../layouts';
 import { LoginInfo } from './common/LoginInfo';
@@ -254,8 +255,8 @@ const DetailedAccountInfo = (_properties) => {
   } = data;
 
   const isModified = salary_modifier !== undefined && salary_modifier !== 0;
-  const [selectedValue, setSelectedValue] = useState<string>(
-    String(salary_modifier || 0)
+  const [selectedValue, setSelectedValue] = useState<number>(
+    salary_modifier || 0
   );
   const color =
     (salary_modifier || 0) > 0
@@ -303,19 +304,11 @@ const DetailedAccountInfo = (_properties) => {
               </Box>
               <Stack>
                 <Stack.Item grow>
-                  <Input
+                  <RestrictedInput
                     value={selectedValue}
-                    onChange={(val) => {
-                      const num = parseInt(val, 10);
-                      if (!isNaN(num)) {
-                        setSelectedValue(
-                          String(Math.max(-95, Math.min(95, num)))
-                        );
-                      } else {
-                        setSelectedValue(val);
-                      }
-                    }}
-                    placeholder="Введите процент (-95 до 95)..."
+                    onChange={(val) => setSelectedValue(val)}
+                    minValue={-95}
+                    maxValue={95}
                     width="100%"
                   />
                 </Stack.Item>
@@ -349,7 +342,7 @@ const DetailedAccountInfo = (_properties) => {
                     color="transparent"
                     fontSize="0.8rem"
                     onClick={() => {
-                      setSelectedValue('0');
+                      setSelectedValue(0);
                       act('set_salary_modifier', {
                         modifier: 0,
                         owner_name: owner_name,
