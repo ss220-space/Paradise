@@ -158,6 +158,8 @@ jobs:
           fetch-depth: 1
 
       - name: Setup Rust (MSVC)
+        env:
+          RUSTFLAGS: '-C target-cpu=x86-64'
         run: |
           rustup default stable-x86_64-pc-windows-msvc
           rustup target add i686-pc-windows-msvc
@@ -169,8 +171,11 @@ jobs:
           install: mingw-w64-i686-gcc
 
       - name: Build Windows DLL (MSVC)
+        env:
+          RUSTFLAGS: '-C target-cpu=x86-64'
         run: |
           cd rust
+          export RUSTFLAGS='-C target-cpu=x86-64'
           cargo build --release --target i686-pc-windows-msvc
           copy target\i686-pc-windows-msvc\release\rustlibs.dll ..\rustlibs.dll
 
@@ -178,7 +183,7 @@ jobs:
         shell: msys2 {0}
         run: |
           export PATH="/c/Users/runneradmin/.cargo/bin:$PATH"
-
+          export RUSTFLAGS='-C target-cpu=x86-64'
           which cargo || echo "Cargo not found, installing..."
 
           if ! command -v cargo &> /dev/null; then
