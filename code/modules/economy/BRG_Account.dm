@@ -38,16 +38,16 @@ Stores your account balance, photos, and other necessary variables.
 
 /// Adds a subscription to the account list
 /datum/brg_account/proc/add_subscription(datum/subscription/new_sub)
-	if(!new_sub || !is_subscription(new_sub))
+	if(!new_sub)
 		return FALSE
 
 	// Check for duplicates of the same types
 	for(var/datum/subscription/existing in subscriptions)
-		if(!existing || !existing.active)
+		if(!existing.active)
 			continue
 
 		// If the type matches AND the receiver matches, it's a duplicate
-		if(existing.subscription_type_path == new_sub.subscription_type_path && \
+		if(istype(existing, new_sub.type) && \
 			existing.recipient_account == new_sub.recipient_account)
 			return FALSE
 
@@ -64,7 +64,7 @@ Stores your account balance, photos, and other necessary variables.
 /datum/brg_account/proc/get_active_subscriptions()
 	var/list/active_subs = list()
 	for(var/datum/subscription/sub as anything in subscriptions)
-		if(sub && sub.active)
+		if(sub.active)
 			active_subs += sub
 	return active_subs
 
@@ -77,6 +77,6 @@ Stores your account balance, photos, and other necessary variables.
 	if(!path_type)
 		return FALSE
 	for(var/datum/subscription/sub as anything in subscriptions)
-		if(sub && sub.active && sub.subscription_type_path == path_type)
+		if(sub.active && istype(sub, path_type))
 			return TRUE
 	return FALSE
