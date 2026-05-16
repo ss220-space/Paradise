@@ -253,8 +253,6 @@
 	if(abs(gravity_state) > STANDARD_GRAVITY)
 		handle_high_gravity(gravity_state, seconds_per_tick, times_fired)
 
-/mob/living/carbon/handle_gravity(seconds_per_tick, times_fired)
-	. = ..()
 	if(gravity_state < HIGH_GRAVITY_SLOWDOWN)
 		remove_movespeed_modifier(/datum/movespeed_modifier/high_gravity)
 
