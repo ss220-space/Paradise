@@ -253,7 +253,7 @@
 	if(abs(gravity_state) > STANDARD_GRAVITY)
 		handle_high_gravity(gravity_state, seconds_per_tick, times_fired)
 
-	if(gravity_state < HIGH_GRAVITY_SLOWDOWN)
+	if(abs(gravity_state) < HIGH_GRAVITY_SLOWDOWN)
 		remove_movespeed_modifier(/datum/movespeed_modifier/high_gravity)
 
 	if(gravity_state < GRAVITY_CANT_STAY)
