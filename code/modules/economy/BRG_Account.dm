@@ -34,14 +34,6 @@ Stores your account balance, photos, and other necessary variables.
 
 	return member
 
-///Iterates through the input list,
-///checking whether the account exists in the given list.
-/proc/check_brg_account_in_list(datum/brg_account/checked_account, list/checked_list)
-	for(var/datum/brg_account/selected_account as anything in checked_list)
-		if(selected_account.owner.account_number == checked_account.owner.account_number)
-			return TRUE
-	return FALSE
-
 // =================== SUBS METHODS ======================
 
 /// Adds a subscription to the account list
