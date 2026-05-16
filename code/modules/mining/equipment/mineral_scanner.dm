@@ -134,8 +134,9 @@
 		return
 
 	for(var/turf/simulated/mineral/mineral as anything in minerals)
-		mineral.add_overlay(image('icons/effects/ore_overlays.dmi', mineral.scan_state))
-		mineral.addtimer(CALLBACK(mineral, TYPE_PROC_REF(/atom, cut_overlays)), 3.5 SECONDS)
+		var/image/mineral_overlay = image('icons/effects/ore_overlays.dmi', icon_state = mineral.scan_state)
+		mineral.add_overlay(mineral_overlay)
+		mineral.addtimer(CALLBACK(mineral, TYPE_PROC_REF(/atom, cut_overlay), mineral_overlay), 3.5 SECONDS)
 
 /obj/effect/temp_visual/mining_overlay
 	plane = FULLSCREEN_PLANE
