@@ -46,7 +46,9 @@
 /area/awaymission/academy/headmaster)
 "an" = (
 /obj/machinery/shieldwallgen,
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -653,7 +655,7 @@
 	locked = 0
 	},
 /obj/item/clothing/glasses/hud/hydroponic,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/item/clothing/under/rank/hydroponics,
 /obj/item/circuitboard/hydroponics,
 /obj/item/hatchet/wooden,
@@ -952,7 +954,7 @@
 /area/awaymission/academy/classrooms)
 "em" = (
 /obj/machinery/seed_extractor,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "green"
@@ -964,7 +966,7 @@
 	},
 /area/awaymission/academy/classrooms)
 "ep" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/vending/hydroseeds,
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -1062,7 +1064,9 @@
 	},
 /area/awaymission/academy/classrooms)
 "eH" = (
-/obj/effect/decal/warning_stripes/northwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
 /turf/simulated/floor/plating/airless,
 /area/awaymission/academy)
 "eI" = (
@@ -1131,7 +1135,9 @@
 	},
 /area/awaymission/academy/classrooms)
 "eW" = (
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/simulated/floor/plating/airless,
 /area/awaymission/academy)
 "eX" = (
@@ -1161,7 +1167,9 @@
 	},
 /area/awaymission/academy/classrooms)
 "fd" = (
-/obj/effect/decal/warning_stripes/southwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
 /turf/simulated/floor/plating/airless,
 /area/awaymission/academy)
 "fe" = (
@@ -1385,7 +1393,7 @@
 /area/awaymission/academy/classrooms)
 "fY" = (
 /obj/structure/window/reinforced,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/awaymission/academy/classrooms)
 "fZ" = (
@@ -1415,11 +1423,15 @@
 /area/awaymission/academy/classrooms)
 "gd" = (
 /obj/structure/table/reinforced,
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/academy/classrooms)
 "gf" = (
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitehall"
@@ -1483,7 +1495,9 @@
 /area/awaymission/academy/classrooms)
 "gq" = (
 /obj/machinery/door/window,
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/academy/classrooms)
 "gr" = (
@@ -1565,7 +1579,9 @@
 /area/awaymission/academy/academyaft)
 "gH" = (
 /obj/structure/table/reinforced,
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/item/twohanded/dualsaber/toy,
 /turf/simulated/floor/plasteel,
 /area/awaymission/academy/classrooms)
@@ -1589,7 +1605,9 @@
 "gM" = (
 /obj/machinery/door/window,
 /obj/item/ammo_casing,
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/academy/classrooms)
 "gP" = (
@@ -1604,11 +1622,13 @@
 "gR" = (
 /obj/structure/window/reinforced,
 /obj/item/ammo_casing,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/awaymission/academy/classrooms)
 "gS" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/academy/classrooms)
 "gT" = (
@@ -1874,7 +1894,7 @@
 	locked = 0
 	},
 /obj/item/clothing/glasses/hud/hydroponic,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/item/clothing/under/rank/hydroponics,
 /obj/item/circuitboard/hydroponics,
 /obj/effect/decal/cleanable/dirt,
@@ -2031,7 +2051,7 @@
 /area/awaymission/academy/academyaft)
 "iD" = (
 /obj/structure/table,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/reagentgrinder{
 	pixel_x = -1;
 	pixel_y = 9
@@ -2513,7 +2533,7 @@
 	locked = 0
 	},
 /obj/item/clothing/glasses/hud/hydroponic,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/item/clothing/under/rank/hydroponics,
 /obj/item/circuitboard/hydroponics,
 /obj/item/hatchet/wooden,
@@ -2745,7 +2765,7 @@
 /area/awaymission/academy/academyaft)
 "lV" = (
 /obj/machinery/biogenerator,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "green"
@@ -3343,7 +3363,9 @@
 	},
 /area/awaymission/academy/classrooms)
 "sf" = (
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/awaymission/academy/classrooms)
 "si" = (
@@ -3398,7 +3420,7 @@
 "sM" = (
 /obj/structure/table,
 /obj/machinery/smartfridge/disks,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "green"
@@ -4086,7 +4108,7 @@
 /turf/simulated/floor/grass,
 /area/awaymission/academy/academygate)
 "zm" = (
-/obj/effect/decal/warning_stripes/red,
+/obj/effect/turf_decal/delivery/red,
 /turf/simulated/floor/plating,
 /area/awaymission/academy/classrooms)
 "zo" = (
@@ -4214,7 +4236,7 @@
 /obj/machinery/light_construct{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/constructable_frame/machine_frame,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -4529,7 +4551,9 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/academy/classrooms)
 "Ey" = (
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/awaymission/academy/classrooms)
 "EA" = (
@@ -5808,7 +5832,7 @@
 /area/awaymission/academy/academyaft)
 "Sd" = (
 /obj/machinery/plantgenes,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = -32
 	},
@@ -6601,7 +6625,9 @@
 /area/awaymission/academy/classrooms)
 "Zs" = (
 /obj/structure/table/reinforced,
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/item/gun/projectile/revolver/russian,
 /turf/simulated/floor/plasteel,
 /area/awaymission/academy/classrooms)

@@ -39,14 +39,15 @@ Notes:
 	var/init = 0
 	var/atom/last_target
 
-/datum/tooltip/New(client/C)
-	if(C)
-		owner = C
+/datum/tooltip/New(client/client)
+	if(client)
+		owner = client
+		var/datum/asset/stuff = get_asset_datum(/datum/asset/simple/jquery)
+		stuff.send(owner)
 		owner << browse(WRAP_FILE2TEXT(file), "window=[control]")
-
 	..()
 
-/datum/tooltip/Destroy(force, ...)
+/datum/tooltip/Destroy(force)
 	last_target = null
 	return ..()
 

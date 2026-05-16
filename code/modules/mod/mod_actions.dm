@@ -160,7 +160,7 @@
 		check_flags = NONE
 	name = "Активировать [linked_module.declent_ru(ACCUSATIVE)]"
 	desc = "Быстрая активация [linked_module.declent_ru(GENITIVE)]"
-	RegisterSignal(linked_module, list(
+	RegisterSignals(linked_module, list(
 		COMSIG_MODULE_ACTIVATED,
 		COMSIG_MODULE_DEACTIVATED,
 		COMSIG_MODULE_USED,

@@ -84,9 +84,9 @@
 /datum/component/proc/_JoinParent()
 	var/datum/parent = src.parent
 	//lazy init the parent's dc list
-	var/list/parents_components = parent.datum_components
+	var/list/parents_components = parent._datum_components
 	if(!parents_components)
-		parent.datum_components = parents_components = list()
+		parent._datum_components = parents_components = list()
 
 	//set up the typecache
 	var/our_type = type
@@ -121,7 +121,7 @@
  */
 /datum/component/proc/_RemoveFromParent()
 	var/datum/parent = src.parent
-	var/list/parents_components = parent.datum_components
+	var/list/parents_components = parent._datum_components
 	for(var/i_type in _GetInverseTypeList())
 		var/list/components_of_type = parents_components[i_type]
 
@@ -137,7 +137,7 @@
 			parents_components -= i_type
 
 	if(!length(parents_components))
-		parent.datum_components = null
+		parent._datum_components = null
 
 	UnregisterFromParent()
 
@@ -182,93 +182,6 @@
 	LAZYREMOVE(sources, source)
 	if(!LAZYLEN(sources))
 		qdel(src)
-
-/**
- * Register to listen for a signal from the passed in target
- *
- * This sets up a listening relationship such that when the target object emits a signal
- * the source datum this proc is called upon, will receive a callback to the given proctype
- * Return values from procs registered must be a bitfield
- *
- * Arguments:
- * * datum/target The target to listen for signals from
- * * sig_type_or_types Either a string signal name, or a list of signal names (strings)
- * * proctype The proc to call back when the signal is emitted
- * * override If a previous registration exists you must explicitly set this
- */
-/datum/proc/RegisterSignal(datum/target, sig_type_or_types, proctype, override = FALSE)
-	if(QDELETED(src) || QDELETED(target))
-		return
-
-	if(!islist(sig_type_or_types))
-		sig_type_or_types = list(sig_type_or_types)
-
-	var/list/procs = (signal_procs ||= list())
-	var/list/target_procs = (procs[target] ||= list())
-	var/list/lookup = (target.comp_lookup ||= list())
-
-	for(var/signal_type in sig_type_or_types)
-		var/exists = target_procs[signal_type]
-		target_procs[signal_type] = proctype
-		if(exists)
-			if(!override)
-				stack_trace("[signal_type] overridden. Use override = TRUE to suppress this warning.\nTarget: [target] ([target.type]) Proc: [proctype]")
-			continue
-
-		var/list/looked_up = lookup[signal_type]
-
-		if(isnull(looked_up)) // Nothing has registered here yet
-			lookup[signal_type] = src
-		else if(!islist(looked_up)) // One other thing registered here
-			lookup[signal_type] = list(looked_up, src)
-		else // Many other things have registered here
-			looked_up += src
-
-/**
- * Stop listening to a given signal from target
- *
- * Breaks the relationship between target and source datum, removing the callback when the signal fires
- *
- * Doesn't care if a registration exists or not
- *
- * Arguments:
- * * datum/target Datum to stop listening to signals from
- * * sig_typeor_types Signal string key or list of signal keys to stop listening to specifically
- */
-/datum/proc/UnregisterSignal(datum/target, sig_type_or_types)
-	var/list/lookup = target.comp_lookup
-	if(!signal_procs || !signal_procs[target] || !lookup)
-		return
-	if(!islist(sig_type_or_types))
-		sig_type_or_types = list(sig_type_or_types)
-	for(var/sig in sig_type_or_types)
-		if(!signal_procs[target][sig])
-			if(!istext(sig))
-				stack_trace("We're unregistering with something that isn't a valid signal \[[sig]\]")
-			continue
-		switch(length(lookup[sig]))
-			if(2)
-				lookup[sig] = (lookup[sig]-src)[1]
-			if(1)
-				stack_trace("[target] ([target.type]) somehow has single length list inside comp_lookup")
-				if(src in lookup[sig])
-					lookup -= sig
-					if(!length(lookup))
-						target.comp_lookup = null
-						break
-			if(0)
-				if(lookup[sig] != src)
-					continue
-				lookup -= sig
-				if(!length(lookup))
-					target.comp_lookup = null
-					break
-			else
-				lookup[sig] -= src
-
-	signal_procs[target] -= sig_type_or_types
-	if(!signal_procs[target].len)
-		signal_procs -= target
 
 /**
  * Called on a component when a component of the same type was added to the same parent
@@ -322,30 +235,6 @@
 		. += current_type
 		current_type = type2parent(current_type)
 
-/**
- * Internal proc to handle most all of the signaling procedure
- *
- * Will runtime if used on datums with an empty component list
- *
- * Use the [SEND_SIGNAL] define instead
- */
-/datum/proc/_SendSignal(sigtype, list/arguments)
-	var/target = comp_lookup[sigtype]
-	if(!length(target))
-		var/datum/listening_datum = target
-		return NONE | call(listening_datum, listening_datum.signal_procs[src][sigtype])(arglist(arguments))
-	. = NONE
-	// This exists so that even if one of the signal receivers unregisters the signal,
-	// all the objects that are receiving the signal get the signal this final time.
-	// AKA: No you can't cancel the signal reception of another object by doing an unregister in the same signal.
-	var/list/queued_calls = list()
-	// This should be faster than doing `var/datum/listening_datum as anything in target` as it does not implicitly copy the list
-	for(var/i in 1 to length(target))
-		var/datum/listening_datum = target[i]
-		queued_calls.Add(listening_datum, listening_datum.signal_procs[src][sigtype])
-	for(var/i in 1 to length(queued_calls) step 2)
-		. |= call(queued_calls[i], queued_calls[i + 1])(arglist(arguments))
-
 // The type arg is casted so initial works, you shouldn't be passing a real instance into this
 /**
  * Return any component assigned to this datum of the given type
@@ -359,7 +248,7 @@
 	RETURN_TYPE(c_type)
 	if(initial(c_type.dupe_mode) == COMPONENT_DUPE_ALLOWED || initial(c_type.dupe_mode) == COMPONENT_DUPE_SELECTIVE)
 		stack_trace("GetComponent was called to get a component of which multiple copies could be on an object. This can easily break and should be changed. Type: \[[c_type]\]")
-	var/list/datum_component = datum_components
+	var/list/datum_component = _datum_components
 	if(!datum_component)
 		return null
 	. = datum_component[c_type]
@@ -380,7 +269,7 @@
 	var/initial_type_mode = initial(c_type.dupe_mode)
 	if(initial_type_mode == COMPONENT_DUPE_ALLOWED || initial_type_mode == COMPONENT_DUPE_SELECTIVE)
 		stack_trace("GetComponent was called to get a component of which multiple copies could be on an object. This can easily break and should be changed. Type: \[[c_type]\]")
-	var/list/all_components = datum_components
+	var/list/all_components = _datum_components
 	if(!all_components)
 		return null
 	var/datum/component/potential_component
@@ -397,7 +286,7 @@
  * * c_type The component type path
  */
 /datum/proc/GetComponents(c_type)
-	var/list/components = datum_components?[c_type]
+	var/list/components = _datum_components?[c_type]
 	if(!components)
 		return list()
 	return islist(components) ? components : list(components)
@@ -581,7 +470,7 @@
  * * /datum/target the target to move the components to
  */
 /datum/proc/TransferComponents(datum/target)
-	var/list/components = datum_components
+	var/list/components = _datum_components
 	if(!components)
 		return
 	for(var/component_key in components)

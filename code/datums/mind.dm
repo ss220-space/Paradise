@@ -155,7 +155,7 @@
 	return original_mob_UID == o_mob.UID()
 
 // Do not use for admin related things as this can hide the mob's ckey
-/datum/mind/proc/get_display_key()
+/datum/mind/proc/get_mind_key()
 	// Lets try find a client so we can check their prefs
 	var/client/C = null
 

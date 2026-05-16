@@ -45,7 +45,7 @@
 
 	if(!(shell_flags & SHELL_FLAG_CIRCUIT_UNMODIFIABLE))
 		RegisterSignal(parent, COMSIG_ATOM_TOOL_ACT(TOOL_MULTITOOL), PROC_REF(on_multitool_act))
-		RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, PROC_REF(on_attack_by))
+		RegisterSignal(parent, COMSIG_ATOM_ATTACKBY, PROC_REF(on_attack_by))
 
 	if(!(shell_flags & SHELL_FLAG_CIRCUIT_UNREMOVABLE))
 		RegisterSignal(parent, COMSIG_ATOM_TOOL_ACT(TOOL_SCREWDRIVER), PROC_REF(on_screwdriver_act))
@@ -106,7 +106,7 @@
 
 /datum/component/shell/UnregisterFromParent()
 	UnregisterSignal(parent, list(
-		COMSIG_PARENT_ATTACKBY,
+		COMSIG_ATOM_ATTACKBY,
 		COMSIG_ATOM_TOOL_ACT(TOOL_SCREWDRIVER),
 		COMSIG_ATOM_TOOL_ACT(TOOL_MULTITOOL),
 		COMSIG_OBJ_DECONSTRUCT,

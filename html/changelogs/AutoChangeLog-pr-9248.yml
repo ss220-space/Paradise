@@ -1,0 +1,4 @@
+author: "dageavtobusnick"
+delete-after: True
+changes:
+  - admin: "Убран общий ограничитель в вв на флаг R_VAREDIT. (PR #9248)"

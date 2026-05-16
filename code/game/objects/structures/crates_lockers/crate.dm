@@ -81,6 +81,10 @@
 	if(HAS_TRAIT(src, TRAIT_CLIMBABLE))
 		structure_shaken()
 
+	return do_trap_effect(user)
+
+/obj/structure/closet/crate/after_close(mob/living/user)
+	. = ..()
 	RemoveElement(/datum/element/climbable, climb_time = crate_climb_time * 0.5, climb_stun = 0)
 	AddElement(/datum/element/climbable, climb_time = crate_climb_time, climb_stun = 0)
 	if(elevation != elevation_open)
@@ -88,8 +92,6 @@
 			RemoveElement(/datum/element/elevation, pixel_shift = elevation_open)
 		if(elevation)
 			AddElement(/datum/element/elevation, pixel_shift = elevation)
-
-	return do_trap_effect(user)
 
 /obj/structure/closet/crate/proc/do_trap_effect(mob/living/user)
 	if(!wired_for_trap || !locate(/obj/item/radio/electropack) in src)

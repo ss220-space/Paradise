@@ -76,7 +76,7 @@
 /obj/effect/countdown/ex_act(severity, target) //immune to explosions
 	return
 
-/obj/effect/countdown/singularity_pull()
+/obj/effect/countdown/singularity_pull(atom/singularity, current_size)
 	return
 
 /obj/effect/countdown/singularity_act()

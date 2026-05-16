@@ -244,5 +244,5 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 /obj/effect/extraction_holder/singularity_act()
 	return
 
-/obj/effect/extraction_holder/singularity_pull()
+/obj/effect/extraction_holder/singularity_pull(atom/singularity, current_size)
 	return

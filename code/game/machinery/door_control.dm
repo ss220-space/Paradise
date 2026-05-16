@@ -9,6 +9,8 @@
 	idle_power_usage = 2
 	active_power_usage = 4
 
+	mouse_over_pointer = MOUSE_HAND_POINTER
+
 	var/ai_control = TRUE
 	var/is_animating = FALSE
 

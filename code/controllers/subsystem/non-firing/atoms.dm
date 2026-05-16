@@ -138,18 +138,3 @@ SUBSYSTEM_DEF(atoms)
 		InitializeAtoms()
 	old_initialized = SSatoms.old_initialized
 	BadInitializeCalls = SSatoms.BadInitializeCalls
-
-ADMIN_VERB(debug_atom_init, R_DEBUG|R_VIEWRUNTIMES, "Atom Init Log", "Shows what failed to init this round", ADMIN_CATEGORY_DEBUG)
-	var/list/html_data = list()
-	html_data += "<h1>Bad Initialize() Calls</h1><table border='1'><tr><th scope='col'>Type</th><th scope='col'>Qdeleted before init</th><th scope='col'>Did not init</th><th scope='col'>Slept during init</th><th scope='col'>No init hint</th></tr>"
-
-	for(var/typepath in SSatoms.BadInitializeCalls)
-		var/val = SSatoms.BadInitializeCalls[typepath]
-
-		html_data += "<tr><td>[typepath]</td><td>[val & BAD_INIT_QDEL_BEFORE ? "X" : "&nbsp;"]</td><td>[val & BAD_INIT_DIDNT_INIT ? "X" : "&nbsp;"]</td><td>[val & BAD_INIT_SLEPT ? "X" : "&nbsp;"]</td><td>[val & BAD_INIT_NO_HINT ? "X" : "&nbsp;"]</td></tr>"
-
-	html_data += "</table>"
-
-	var/datum/browser/popup = new(user, "initdebug", "Init Debug")
-	popup.set_content(html_data.Join())
-	popup.open(FALSE)

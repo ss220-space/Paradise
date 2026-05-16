@@ -86,7 +86,7 @@
 	underlays.Cut()
 	underlays += emissive_appearance(icon, "[base_icon_state]_lightmask", src)
 
-/obj/effect/portal/singularity_pull()
+/obj/effect/portal/singularity_pull(atom/singularity, current_size)
 	return
 
 /obj/effect/portal/singularity_act()
