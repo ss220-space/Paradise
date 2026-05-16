@@ -200,3 +200,7 @@
 
 /// A trait gained by leaning against a wall
 #define LEANING_TRAIT "leaning"
+
+#define GIVE_TRAIT "give"
+/// Trait from mob/living/update_transform()
+#define UPDATE_TRANSFORM_TRAIT "update_transform"

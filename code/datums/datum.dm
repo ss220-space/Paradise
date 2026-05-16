@@ -22,7 +22,7 @@
 	var/list/open_uis
 
 	/// Active timers with this datum as the target
-	var/list/active_timers
+	var/list/_active_timers
 	/// Status traits attached to this datum
 	var/list/_status_traits
 	/**
@@ -30,15 +30,15 @@
 	  *
 	  * Lazy associated list in the structure of `type -> component/list of components`
 	  */
-	var/list/datum_components
+	var/list/_datum_components
 	/**
 	  * Any datum registered to receive signals from this datum is in this list
 	  *
 	  * Lazy associated list in the structure of `signal -> registree/list of registrees`
 	  */
-	var/list/comp_lookup
+	var/list/_listen_lookup
 	/// Lazy associated list in the structure of `target -> list(signal -> proctype)` that are run when the datum receives that signal
-	var/list/list/signal_procs
+	var/list/list/_signal_procs
 
 	var/tmp/unique_datum_id = null
 
@@ -78,6 +78,10 @@
 	#endif
 #endif
 
+	/// If we have called dump_harddel_info already. Used to avoid duped calls (since we call it immediately in some cases on failure to process)
+	/// Create and destroy is weird and I wanna cover my bases
+	var/harddel_deets_dumped = FALSE
+
 #ifdef REFERENCE_TRACKING
 	var/running_find_references
 	/// When was this datum last touched by a reftracker?
@@ -103,6 +107,96 @@
 	 * like that to be the case, such as base behavior providers.
 	 */
 	var/abstract_type = /datum
+
+/**
+ * Default implementation of clean-up code.
+ *
+ * This should be overridden to remove all references pointing to the object being destroyed, if
+ * you do override it, make sure to call the parent and return its return value by default
+ *
+ * Return an appropriate [QDEL_HINT][QDEL_HINT_QUEUE] to modify handling of your deletion;
+ * in most cases this is [QDEL_HINT_QUEUE].
+ *
+ * The base case is responsible for doing the following
+ * * Erasing timers pointing to this datum
+ * * Erasing compenents on this datum
+ * * Notifying datums listening to signals from this datum that we are going away
+ *
+ * Returns [QDEL_HINT_QUEUE]
+ */
+/datum/proc/Destroy(force = FALSE)
+	SHOULD_CALL_PARENT(TRUE)
+	SHOULD_NOT_SLEEP(TRUE)
+	tag = null
+	weak_reference = null //ensure prompt GCing of weakref.
+
+	if(unique_datum_id)
+		RUSTLIB_CALL(untick_by_uuid, unique_datum_id)
+
+	if(_active_timers)
+		var/list/timers = _active_timers
+		_active_timers = null
+		for(var/datum/timedevent/timer as anything in timers)
+			if(timer.spent && !(timer.flags & TIMER_DELETE_ME))
+				continue
+			qdel(timer)
+
+	//BEGIN: ECS SHIT
+	var/list/components = _datum_components
+	if(components)
+		for(var/component_key in components)
+			var/component_or_list = components[component_key]
+			if(islist(component_or_list))
+				for(var/datum/component/component as anything in component_or_list)
+					qdel(component, FALSE)
+			else
+				var/datum/component/single_comp = component_or_list
+				qdel(single_comp, FALSE)
+		components.Cut()
+
+	_clear_signal_refs()
+	//END: ECS SHIT
+
+	return QDEL_HINT_QUEUE
+
+///Only override this if you know what you're doing. You do not know what you're doing
+///This is a threat
+/datum/proc/_clear_signal_refs()
+	var/list/lookup = _listen_lookup
+	if(lookup)
+		for(var/sig in lookup)
+			var/list/comps = lookup[sig]
+			if(length(comps))
+				for(var/datum/component/comp as anything in comps)
+					comp.UnregisterSignal(src, sig)
+			else
+				var/datum/component/comp = comps
+				comp.UnregisterSignal(src, sig)
+		_listen_lookup = lookup = null
+
+	for(var/target in _signal_procs)
+		UnregisterSignal(target, _signal_procs[target])
+
+/// Return text from this proc to provide extra context to hard deletes that happen to it
+/// Optional, you should use this for cases where replication is difficult and extra context is required
+/// Can be called more then once per object, use harddel_deets_dumped to avoid duplicate calls (I am so sorry)
+/datum/proc/dump_harddel_info()
+	return
+
+///images are pretty generic, this should help a bit with tracking harddels related to them
+/image/dump_harddel_info()
+	if(harddel_deets_dumped)
+		return
+	harddel_deets_dumped = TRUE
+	return "Image icon: [icon] - icon_state: [icon_state] [loc ? "loc: [loc] ([loc.x],[loc.y],[loc.z])" : ""]"
+
+/datum/nothing
+	// Placeholder object, used for ispath checks. Has to be defined to prevent errors, but shouldn't ever be created.
+
+/// Calls qdel on itself, because signals dont allow callbacks
+/datum/proc/selfdelete()
+	SIGNAL_HANDLER
+	qdel(src)
 
 /**
  * Callback called by a timer to end an associative-list-indexed cooldown.
@@ -134,81 +228,3 @@
 		return
 	SEND_SIGNAL(source, COMSIG_CD_RESET(index), S_TIMER_COOLDOWN_TIMELEFT(source, index))
 	TIMER_COOLDOWN_END(source, index)
-
-/**
- * Default implementation of clean-up code.
- *
- * This should be overridden to remove all references pointing to the object being destroyed, if
- * you do override it, make sure to call the parent and return its return value by default
- *
- * Return an appropriate [QDEL_HINT][QDEL_HINT_QUEUE] to modify handling of your deletion;
- * in most cases this is [QDEL_HINT_QUEUE].
- *
- * The base case is responsible for doing the following
- * * Erasing timers pointing to this datum
- * * Erasing compenents on this datum
- * * Notifying datums listening to signals from this datum that we are going away
- *
- * Returns [QDEL_HINT_QUEUE]
- */
-/datum/proc/Destroy(force = FALSE)
-	SHOULD_CALL_PARENT(TRUE)
-	SHOULD_NOT_SLEEP(TRUE)
-	tag = null
-	weak_reference = null //ensure prompt GCing of weakref.
-
-	if(unique_datum_id)
-		RUSTLIB_CALL(untick_by_uuid, unique_datum_id)
-
-	if(active_timers)
-		var/list/timers = active_timers
-		active_timers = null
-		for(var/datum/timedevent/timer as anything in timers)
-			if(timer.spent && !(timer.flags & TIMER_DELETE_ME))
-				continue
-			qdel(timer)
-
-	//BEGIN: ECS SHIT
-	var/list/components = datum_components
-	if(components)
-		for(var/component_key in components)
-			var/component_or_list = components[component_key]
-			if(islist(component_or_list))
-				for(var/datum/component/component as anything in component_or_list)
-					qdel(component, FALSE)
-			else
-				var/datum/component/single_comp = component_or_list
-				qdel(single_comp, FALSE)
-		components.Cut()
-
-	_clear_signal_refs()
-	//END: ECS SHIT
-
-	return QDEL_HINT_QUEUE
-
-///Only override this if you know what you're doing. You do not know what you're doing
-///This is a threat
-/datum/proc/_clear_signal_refs()
-	var/list/lookup = comp_lookup
-	if(lookup)
-		for(var/sig in lookup)
-			var/list/comps = lookup[sig]
-			if(length(comps))
-				for(var/datum/component/comp as anything in comps)
-					comp.UnregisterSignal(src, sig)
-			else
-				var/datum/component/comp = comps
-				comp.UnregisterSignal(src, sig)
-		comp_lookup = lookup = null
-
-	for(var/target in signal_procs)
-		UnregisterSignal(target, signal_procs[target])
-
-/// Return text from this proc to provide extra context to hard deletes that happen to it
-/// Optional, you should use this for cases where replication is difficult and extra context is required
-/// Can be called more then once per object, use harddel_deets_dumped to avoid duplicate calls (I am so sorry)
-/datum/proc/dump_harddel_info()
-	return
-
-/datum/nothing
-	// Placeholder object, used for ispath checks. Has to be defined to prevent errors, but shouldn't ever be created.

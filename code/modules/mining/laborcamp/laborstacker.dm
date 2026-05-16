@@ -32,7 +32,7 @@
 			if(!initial(sheet.point_value) || (initial(sheet.merge_type) && initial(sheet.merge_type) != sheet_type)) //ignore no-value sheets and x/fifty subtypes
 				continue
 			sheet_values += list(list("ore" = initial(sheet.name), "value" = initial(sheet.point_value)))
-		sheet_values = sortTim(sheet_values, GLOBAL_PROC_REF(cmp_sheet_list))
+		sortTim(sheet_values, GLOBAL_PROC_REF(cmp_sheet_list))
 
 /obj/machinery/mineral/labor_claim_console/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)

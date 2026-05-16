@@ -1,11 +1,11 @@
-name: Run SQL Validation + Game Tests
+name: Run SQL Validation + Unit Tests
 
 on:
   workflow_call:
 
 jobs:
-  game_tests:
-    name: Run SQL Validation + Game Tests
+  unit_tests:
+    name: Run SQL Validation + Unit Tests
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     strategy:
@@ -40,7 +40,7 @@ jobs:
           sudo apt install libcurl4:i386
           bash tools/ci/install_rustg.sh
 
-      - name: Run Game Tests
+      - name: Run Unit Tests
         run: |
           source $HOME/BYOND/byond/bin/byondsetup
           mkdir -p data

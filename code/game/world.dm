@@ -144,7 +144,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	// If we got here, we are in a "normal" reboot
 	Master.Shutdown() // Shutdown subsystems
 
-	// If we were running game tests, finish that run
+	// If we were running unit tests, finish that run
 	#ifdef TEST_RUNNER
 	GLOB.test_runner.Finalize()
 	return
@@ -273,6 +273,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	GLOB.http_log = "[GLOB.log_directory]/http.log"
 	GLOB.sql_log = "[GLOB.log_directory]/sql.log"
 	GLOB.mapmanip_log = "[GLOB.log_directory]/mapmanip.log"
+	GLOB.signal_log = "[GLOB.log_directory]/signal.log"
 
 	start_log(GLOB.world_game_log)
 	start_log(GLOB.world_href_log)
@@ -282,6 +283,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	start_log(GLOB.http_log)
 	start_log(GLOB.sql_log)
 	start_log(GLOB.mapmanip_log)
+	start_log(GLOB.signal_log)
 
 	#ifdef REFERENCE_TRACKING
 	GLOB.gc_log = "[GLOB.log_directory]/gc_debug.log"

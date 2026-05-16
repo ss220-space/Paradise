@@ -1,4 +1,4 @@
-/datum/game_test/component_duping/Run()
+/datum/unit_test/component_duping/Run()
 	var/list/bad_dms = list()
 	for(var/t in typesof(/datum/component))
 		var/datum/component/comp = t
