@@ -1,0 +1,4 @@
+author: "dageavtobusnick"
+delete-after: True
+changes:
+  - bugfix: "Исправлены возможные причины хардделов, связанные с призраками. (PR #9262)"

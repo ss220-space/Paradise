@@ -38,7 +38,7 @@
 	src.heal_amount = heal_amount
 	src.heal_delay = heal_delay
 
-	RegisterSignal(target, COMSIG_PARENT_ATTACKBY, PROC_REF(on_attackby))
+	RegisterSignal(target, COMSIG_ATOM_ATTACKBY, PROC_REF(on_attackby))
 	RegisterSignal(target, COMSIG_ATOM_EXAMINE, PROC_REF(on_self_examine))
 
 /// Proc used to check the list for correct types
@@ -70,7 +70,7 @@
 /datum/element/material_heal/Detach(mob/living/carbon/target)
 	. = ..()
 
-	UnregisterSignal(target, list(COMSIG_PARENT_ATTACKBY, COMSIG_ATOM_EXAMINE))
+	UnregisterSignal(target, list(COMSIG_ATOM_ATTACKBY, COMSIG_ATOM_EXAMINE))
 
 /// Main signal proc. Signal is called in atom/proc/attackby()
 /datum/element/material_heal/proc/on_attackby(mob/living/carbon/source, obj/item/stack/item, mob/living/user, params)

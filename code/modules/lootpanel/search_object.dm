@@ -30,7 +30,7 @@
 	if(isturf(item))
 		RegisterSignal(item, COMSIG_TURF_CHANGE, PROC_REF(on_turf_change))
 	else
-		RegisterSignal(item, list(
+		RegisterSignals(item, list(
 			COMSIG_ITEM_PICKUP,
 			COMSIG_MOVABLE_MOVED,
 			COMSIG_QDELETING,
@@ -50,7 +50,7 @@
 		return
 
 	// Condition 3: Using opendream
-#if defined(OPENDREAM) || defined(GAME_TESTS)
+#if defined(OPENDREAM) || defined(UNIT_TESTS)
 	return
 #endif
 

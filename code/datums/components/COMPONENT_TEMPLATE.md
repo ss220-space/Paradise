@@ -16,7 +16,7 @@ See \_component.dm for detailed explanations
 
 /datum/component/mycomponent/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_NOT_REAL, PROC_REF(signalproc))                                    // RegisterSignal can take a signal name by itself,
-	RegisterSignal(parent, list(COMSIG_NOT_REAL_EITHER, COMSIG_ALMOST_REAL), PROC_REF(otherproc))    // or a list of them to assign to the same proc
+	RegisterSignals(parent, list(COMSIG_NOT_REAL_EITHER, COMSIG_ALMOST_REAL), PROC_REF(otherproc))    // or a list of them to assign to the same proc
 
 /datum/component/mycomponent/UnregisterFromParent()
 	UnregisterSignal(parent, COMSIG_NOT_REAL)          // UnregisterSignal has similar behavior

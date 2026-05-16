@@ -13,7 +13,7 @@
 
 	if(perfectcopy)
 		if(O)
-			var/static/list/forbidden_vars = list("type","loc","locs","vars", "parent","parent_type", "verbs","ckey","key","power_supply","contents","reagents","stat","x","y","z","group", "comp_lookup", "datum_components")
+			var/static/list/forbidden_vars = list("type","loc","locs","vars", "parent","parent_type", "verbs","ckey","key","power_supply","contents","reagents","stat","x","y","z","group", "_listen_lookup", "_datum_components")
 
 			for(var/V in original.vars - forbidden_vars)
 				if(islist(original.vars[V]))

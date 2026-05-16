@@ -151,6 +151,8 @@
 
 /// Combination flag for movetypes which, for all intents and purposes, mean the mob is not touching the ground
 #define MOVETYPES_NOT_TOUCHING_GROUND (FLYING|FLOATING|UPSIDE_DOWN)
+/// Trait source for stuff movetypes applies
+#define SOURCE_MOVETYPES "movetypes"
 
 // for /datum/var/datum_flags
 #define DF_USE_TAG (1<<0)
