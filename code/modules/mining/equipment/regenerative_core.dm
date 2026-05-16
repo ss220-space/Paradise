@@ -51,6 +51,10 @@
 		to_chat(user, span_warning("Стабилизатор работает только с определёнными типами органов монстров, обычно регенеративной природы."))
 		return ..()
 
+	if(C.preserved)
+		to_chat(user, span_warning("Ядро уже стабилизировано!"))
+		return ..()
+
 	C.preserved()
 	balloon_alert(user, "ядро стабилизировано!") //replace to "organ" when there is more than one kind of regenerative organ
 	qdel(src)
