@@ -46,16 +46,16 @@
 	. = ..()
 	if(!proximity_flag)
 		return
-	var/obj/item/organ/internal/regenerative_core/C = target
-	if(!istype(C))
+	var/obj/item/organ/internal/regenerative_core/core = target
+	if(!istype(core))
 		to_chat(user, span_warning("Стабилизатор работает только с определёнными типами органов монстров, обычно регенеративной природы."))
-		return ..()
-
-	if(C.preserved || C.inert)
-		to_chat(user, span_warning("Это ядро уже [C.inert ? "сгнило" : "стабилизировано"]!"))
 		return
 
-	C.preserved()
+	if(core)
+		to_chat(user, span_warning("Это ядро уже [core.inert ? "сгнило" : "стабилизировано"]!"))
+		return
+
+	core.preserved()
 	balloon_alert(user, "ядро стабилизировано!") //replace to "organ" when there is more than one kind of regenerative organ
 	qdel(src)
 
