@@ -51,7 +51,7 @@
 		to_chat(user, span_warning("Стабилизатор работает только с определёнными типами органов монстров, обычно регенеративной природы."))
 		return
 
-	if(core)
+	if(core.preserved || core.inert)
 		to_chat(user, span_warning("Это ядро уже [core.inert ? "сгнило" : "стабилизировано"]!"))
 		return
 
