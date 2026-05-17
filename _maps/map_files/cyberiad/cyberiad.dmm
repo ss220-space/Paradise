@@ -10882,7 +10882,7 @@
 	dir = 1;
 	location = "Security"
 	},
-/obj/structure/plasticflaps,
+/obj/structure/plasticflaps/opaque,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Secure Gate";
 	name = "Security Blast Door"
@@ -12562,7 +12562,7 @@
 	codes_txt = "delivery";
 	location = "Hydroponics"
 	},
-/obj/structure/plasticflaps,
+/obj/structure/plasticflaps/opaque,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "bot"
@@ -15304,6 +15304,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
+/obj/structure/plasticflaps/kitchen,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
 "bmx" = (
@@ -16777,7 +16778,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/auxsolarport)
 "bsV" = (
-/obj/structure/plasticflaps,
+/obj/structure/plasticflaps/opaque,
 /obj/machinery/navbeacon{
 	codes_txt = "delivery";
 	dir = 8;
@@ -17358,7 +17359,7 @@
 	dir = 1;
 	location = "Bridge"
 	},
-/obj/structure/plasticflaps,
+/obj/structure/plasticflaps/opaque,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/bridge/meeting_room)
@@ -23246,7 +23247,7 @@
 	dir = 8;
 	location = "Research Division"
 	},
-/obj/structure/plasticflaps,
+/obj/structure/plasticflaps/opaque,
 /turf/simulated/floor/plasteel{
 	icon_state = "bot"
 	},
@@ -32671,6 +32672,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
+/obj/structure/plasticflaps/kitchen,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -54988,7 +54990,7 @@
 	dir = 8;
 	id = "comdel"
 	},
-/obj/structure/plasticflaps,
+/obj/structure/plasticflaps/opaque,
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plating,
 /area/maintenance/trading)
@@ -67117,7 +67119,7 @@
 /turf/simulated/floor/carpet,
 /area/crew_quarters/heads/hop)
 "nXO" = (
-/obj/structure/plasticflaps,
+/obj/structure/plasticflaps/opaque,
 /obj/machinery/navbeacon{
 	codes_txt = "delivery";
 	location = "Kitchen"
@@ -76556,7 +76558,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/structure/plasticflaps,
+/obj/structure/plasticflaps/opaque,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/janitor)
@@ -76804,6 +76806,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
 	},
+/obj/structure/plasticflaps/kitchen,
 /turf/simulated/floor/plasteel/dark,
 /area/toxins/server)
 "rYH" = (
@@ -77936,7 +77939,7 @@
 	},
 /area/hallway/primary/central/nw)
 "szq" = (
-/obj/structure/plasticflaps,
+/obj/structure/plasticflaps/opaque,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "szK" = (
@@ -85478,7 +85481,7 @@
 	dir = 4;
 	location = "Medbay"
 	},
-/obj/structure/plasticflaps,
+/obj/structure/plasticflaps/opaque,
 /turf/simulated/floor/plating,
 /area/medical/sleeper)
 "vxu" = (

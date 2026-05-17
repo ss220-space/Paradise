@@ -24010,6 +24010,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/structure/plasticflaps/kitchen,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -40967,6 +40968,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/structure/plasticflaps/kitchen,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -46539,7 +46541,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "gSO" = (
-/obj/structure/plasticflaps,
+/obj/structure/plasticflaps/opaque,
 /obj/machinery/conveyor{
 	dir = 8;
 	id = "packageExternal"
@@ -57650,7 +57652,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint3)
 "iAx" = (
-/obj/structure/plasticflaps,
+/obj/structure/plasticflaps/opaque,
 /obj/machinery/navbeacon{
 	codes_txt = "delivery";
 	location = "Kitchen"
@@ -59013,7 +59015,7 @@
 /area/maintenance/trading)
 "iML" = (
 /obj/effect/turf_decal/delivery,
-/obj/structure/plasticflaps,
+/obj/structure/plasticflaps/opaque,
 /obj/machinery/navbeacon{
 	codes_txt = "delivery;dir=1";
 	dir = 1;
@@ -64065,6 +64067,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 6
 	},
+/obj/structure/plasticflaps/kitchen,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -123518,7 +123521,7 @@
 	},
 /area/crew_quarters/sleep)
 "szC" = (
-/obj/structure/plasticflaps,
+/obj/structure/plasticflaps/opaque,
 /obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/navbeacon{
 	codes_txt = "delivery;dir=4";
@@ -135655,7 +135658,7 @@
 /area/maintenance/fsmaint3)
 "uop" = (
 /obj/effect/turf_decal/delivery,
-/obj/structure/plasticflaps,
+/obj/structure/plasticflaps/opaque,
 /obj/machinery/navbeacon{
 	codes_txt = "delivery;dir=2";
 	location = "Mime"
@@ -136734,7 +136737,7 @@
 /area/crew_quarters/bar/atrium)
 "uxs" = (
 /obj/effect/turf_decal/delivery,
-/obj/structure/plasticflaps,
+/obj/structure/plasticflaps/opaque,
 /obj/machinery/navbeacon{
 	codes_txt = "delivery";
 	dir = 1;
@@ -139960,7 +139963,7 @@
 /area/maintenance/detectives_office)
 "uXx" = (
 /obj/effect/turf_decal/delivery,
-/obj/structure/plasticflaps,
+/obj/structure/plasticflaps/opaque,
 /obj/machinery/navbeacon{
 	codes_txt = "delivery;dir=4";
 	dir = 4;
@@ -151221,7 +151224,7 @@
 	dir = 8;
 	location = "Bar"
 	},
-/obj/structure/plasticflaps,
+/obj/structure/plasticflaps/opaque,
 /turf/simulated/floor/plasteel/dark,
 /area/crew_quarters/bar)
 "wGb" = (
@@ -158517,7 +158520,7 @@
 /area/toxins/launch)
 "xMH" = (
 /obj/effect/turf_decal/delivery,
-/obj/structure/plasticflaps,
+/obj/structure/plasticflaps/opaque,
 /obj/machinery/navbeacon{
 	codes_txt = "delivery;dir=2";
 	location = "Clown"

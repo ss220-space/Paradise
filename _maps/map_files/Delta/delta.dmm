@@ -6304,6 +6304,7 @@
 	name = "Waste Incinerator";
 	req_access = list(12,24,39)
 	},
+/obj/structure/plasticflaps/kitchen,
 /turf/simulated/floor/engine,
 /area/maintenance/incinerator)
 "aYW" = (
@@ -9365,7 +9366,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/plasticflaps,
+/obj/structure/plasticflaps/opaque,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
@@ -11551,7 +11552,7 @@
 /area/security/prisonershuttle)
 "bEw" = (
 /obj/effect/turf_decal/delivery,
-/obj/structure/plasticflaps,
+/obj/structure/plasticflaps/opaque,
 /obj/machinery/navbeacon{
 	codes_txt = "delivery;dir=4";
 	dir = 4;
@@ -14059,7 +14060,7 @@
 	},
 /area/hallway/primary/port)
 "bSw" = (
-/obj/structure/plasticflaps,
+/obj/structure/plasticflaps/opaque,
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plating,
 /area/hydroponics)
@@ -18394,7 +18395,7 @@
 /turf/simulated/floor/plasteel,
 /area/medical/research/nhallway)
 "crJ" = (
-/obj/structure/plasticflaps,
+/obj/structure/plasticflaps/opaque,
 /obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/navbeacon{
 	codes_txt = "delivery;dir=4";
@@ -23000,7 +23001,7 @@
 /area/toxins/test_chamber)
 "cQB" = (
 /obj/effect/turf_decal/delivery,
-/obj/structure/plasticflaps,
+/obj/structure/plasticflaps/opaque,
 /obj/machinery/navbeacon{
 	codes_txt = "delivery;dir=2";
 	location = "Mime"
@@ -24523,7 +24524,7 @@
 /area/crew_quarters/chief)
 "cXT" = (
 /obj/effect/turf_decal/delivery,
-/obj/structure/plasticflaps,
+/obj/structure/plasticflaps/opaque,
 /obj/machinery/navbeacon{
 	codes_txt = "delivery;dir=2";
 	location = "Clown"
@@ -25440,6 +25441,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/plasticflaps/kitchen,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -29802,6 +29804,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/plasticflaps/kitchen,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -30104,7 +30107,7 @@
 	codes_txt = "delivery";
 	location = "Chemistry"
 	},
-/obj/structure/plasticflaps,
+/obj/structure/plasticflaps/opaque,
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -36053,6 +36056,7 @@
 	dir = 10;
 	initialize_directions = 10
 	},
+/obj/structure/plasticflaps/kitchen,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -36460,7 +36464,7 @@
 	},
 /area/maintenance/bar)
 "eiO" = (
-/obj/structure/plasticflaps,
+/obj/structure/plasticflaps/opaque,
 /obj/machinery/conveyor{
 	dir = 4;
 	id = "cargodelivery"
@@ -49213,7 +49217,7 @@
 /area/hallway/secondary/exit)
 "gVN" = (
 /obj/effect/turf_decal/delivery,
-/obj/structure/plasticflaps,
+/obj/structure/plasticflaps/opaque,
 /obj/machinery/navbeacon{
 	codes_txt = "delivery;dir=1";
 	dir = 1;
@@ -58424,7 +58428,7 @@
 	},
 /area/maintenance/banya)
 "jde" = (
-/obj/structure/plasticflaps,
+/obj/structure/plasticflaps/opaque,
 /obj/effect/turf_decal/delivery,
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -61404,7 +61408,7 @@
 /area/hallway/primary/central/sw)
 "jIl" = (
 /obj/effect/turf_decal/delivery,
-/obj/structure/plasticflaps,
+/obj/structure/plasticflaps/opaque,
 /obj/machinery/navbeacon{
 	codes_txt = "delivery;dir=2";
 	location = "Chapel"
@@ -65596,7 +65600,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/structure/plasticflaps,
+/obj/structure/plasticflaps/opaque,
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/storage/primary)
@@ -65801,7 +65805,7 @@
 	},
 /area/hallway/primary/fore)
 "kMb" = (
-/obj/structure/plasticflaps,
+/obj/structure/plasticflaps/opaque,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/navbeacon{
 	codes_txt = "delivery";
@@ -66083,7 +66087,7 @@
 	},
 /area/maintenance/detectives_office)
 "kPe" = (
-/obj/structure/plasticflaps,
+/obj/structure/plasticflaps/opaque,
 /obj/effect/turf_decal/siding/green/corner{
 	color = "";
 	dir = 4;
@@ -66179,7 +66183,7 @@
 /area/medical/cmo)
 "kQH" = (
 /obj/effect/turf_decal/delivery,
-/obj/structure/plasticflaps,
+/obj/structure/plasticflaps/opaque,
 /obj/machinery/navbeacon{
 	codes_txt = "delivery;dir=2";
 	location = "Bar"
@@ -81453,7 +81457,7 @@
 /area/security/checkpoint/south)
 "olI" = (
 /obj/effect/turf_decal/delivery,
-/obj/structure/plasticflaps,
+/obj/structure/plasticflaps/opaque,
 /obj/machinery/navbeacon{
 	codes_txt = "delivery";
 	dir = 1;
@@ -83790,6 +83794,7 @@
 	locked = 1;
 	name = "Xenobio Kill Room"
 	},
+/obj/structure/plasticflaps/kitchen,
 /turf/simulated/floor/plasteel,
 /area/toxins/xenobiology)
 "oKD" = (
@@ -91265,7 +91270,7 @@
 /turf/simulated/wall,
 /area/medical/surgery/north)
 "qsi" = (
-/obj/structure/plasticflaps,
+/obj/structure/plasticflaps/opaque,
 /obj/machinery/conveyor{
 	dir = 8;
 	id = "cargodelivery"
@@ -124362,7 +124367,7 @@
 /area/quartermaster/qm)
 "xzw" = (
 /obj/effect/turf_decal/delivery,
-/obj/structure/plasticflaps,
+/obj/structure/plasticflaps/opaque,
 /obj/machinery/navbeacon{
 	codes_txt = "delivery;dir=4";
 	dir = 4;
