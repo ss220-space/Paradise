@@ -54,10 +54,10 @@
 ///Call qdel on the atom after initialization
 #define INITIALIZE_HINT_QDEL 2
 
-///type and all subtypes should always immediately call Initialize in New()
+/// Type and all subtypes should always immediately call Initialize in New()
 #define INITIALIZE_IMMEDIATE(X) ##X/New(loc, ...){\
 	..();\
-	if(!(flags & INITIALIZED)) {\
+	if(!(flags & INITIALIZED) && SSatoms) {\
 		var/previous_initialized_value = SSatoms.initialized;\
 		SSatoms.initialized = INITIALIZATION_INNEW_MAPLOAD;\
 		args[1] = TRUE;\
@@ -83,62 +83,6 @@
 /// Succesfully initialized, BUT do not announce it to players (generally to hide game mechanics it would otherwise spoil)
 #define SS_INIT_NO_MESSAGE 4
 
-// Subsystem init_order, from highest priority to lowest priority
-// Subsystems shutdown in the reverse of the order they initialize in
-// The numbers just define the ordering, they are meaningless otherwise.
-#define INIT_ORDER_TITLE 100 // This **MUST** load first or people will se blank lobby screens
-#define INIT_ORDER_SPEECH_CONTROLLER 95
-#define INIT_ORDER_GARBAGE 92
-#define INIT_ORDER_DBCORE 91
-#define INIT_ORDER_REDIS 90
-#define INIT_ORDER_BLACKBOX 56
-#define INIT_ORDER_ADMIN_VERBS 55
-#define INIT_ORDER_CLEANUP 54
-#define INIT_ORDER_INPUT 50
-#define INIT_ORDER_SOUNDS 45
-#define INIT_ORDER_INSTRUMENTS 44
-#define INIT_ORDER_ACHIEVEMENTS 43
-#define INIT_ORDER_DONATIONS 42
-#define INIT_ORDER_GREYSCALE 41
-#define INIT_ORDER_GREYSCALE_PREVIEW 40
-#define INIT_ORDER_EVENTS 39
-#define INIT_ORDER_HOLIDAY 38
-#define INIT_ORDER_JOBS 37
-#define INIT_ORDER_AI_MOVEMENT 36 //We need the movement setup
-#define INIT_ORDER_AI_CONTROLLERS 35 //So the controller can get the ref
-#define INIT_ORDER_TICKER 30
-#define INIT_ORDER_NEW_PLAYERS_INFO 31
-#define INIT_ORDER_MAPPING 20
-#define INIT_ORDER_HOLOMAP 10 // after map loads, but before atoms init
-#define INIT_ORDER_EARLY_ASSETS 9
-#define INIT_ORDER_SPATIAL_GRID 8
-#define INIT_ORDER_FLUIDS 7 // Needs to be above atoms, as some atoms may want to start fluids/gases on init
-#define INIT_ORDER_ATOMS 6
-#define INIT_ORDER_MACHINES 5
-#define INIT_ORDER_IDLENPCS 4
-#define INIT_ORDER_MOBS 3
-#define INIT_ORDER_ASSETS 2
-#define INIT_ORDER_TIMER 1
-#define INIT_ORDER_DEFAULT 0
-#define INIT_ORDER_AIR -1
-#define INIT_ORDER_SUN -2
-#define INIT_ORDER_ICON_SMOOTHING -5
-#define INIT_ORDER_OVERLAY -6
-#define INIT_ORDER_XKEYSCORE -10
-#define INIT_ORDER_TICKETS -11
-#define INIT_ORDER_LIGHTING -20
-#define INIT_ORDER_CAPITALISM -21
-#define INIT_ORDER_SHUTTLE -22
-#define INIT_ORDER_CARGO_QUESTS -23
-#define INIT_ORDER_NIGHTSHIFT -24
-#define INIT_ORDER_GAME_EVENTS -26
-#define INIT_ORDER_PATH -50
-#define INIT_ORDER_EXPLOSIONS -69
-#define INIT_ORDER_PERSISTENCE -95
-#define INIT_ORDER_STATPANELS -98
-#define INIT_ORDER_DEMO -99 // To avoid a bunch of changes related to initialization being written, do this last
-#define INIT_ORDER_CHAT -100 // Should be last to ensure chat remains smooth during init.
-
 // Subsystem fire priority, from lowest to highest priority
 // If the subsystem isn't listed here it's either DEFAULT or PROCESS (if it's a processing subsystem child)
 #define FIRE_PRIORITY_PING 10
@@ -151,6 +95,7 @@
 #define FIRE_PRIORITY_TERRAFORMING 15
 #define FIRE_PRIORITY_TURFS_VISUALIZATION 15
 #define FIRE_PRIORITY_DONATIONS 15
+#define FIRE_PRIORITY_DATABASE 16
 #define FIRE_PRIORITY_WET_FLOORS 20
 #define FIRE_PRIORITY_AIR 20
 #define FIRE_PRIORITY_NPC 20
@@ -166,6 +111,7 @@
 #define FIRE_PRIORITY_BURNING 40
 #define FIRE_PRIORITY_DEFAULT 50
 #define FIRE_PRIORITY_PARALLAX 65
+#define FIRE_PRIORITY_INSTRUMENTS 80
 #define FIRE_PRIORITY_FLUIDS 80
 #define FIRE_PRIORITY_MOBS 100
 #define FIRE_PRIORITY_ASSETS 105
@@ -176,6 +122,8 @@
 #define FIRE_PRIORITY_STATPANEL 390
 #define FIRE_PRIORITY_CHAT 400
 #define FIRE_PRIORITY_RUNECHAT 410 // I hate how high the fire priority on this is -aa
+#define FIRE_PRIORITY_TTS 425
+#define FIRE_PRIORITY_AUTOFIRE 449
 #define FIRE_PRIORITY_MOUSE_ENTERED 450
 #define FIRE_PRIORITY_OVERLAYS 500
 #define FIRE_PRIORITY_EXPLOSIONS 666
@@ -192,14 +140,22 @@
 #define RUNLEVEL_POSTGAME (1<<3)
 #define RUNLEVELS_DEFAULT (RUNLEVEL_SETUP|RUNLEVEL_GAME|RUNLEVEL_POSTGAME)
 
+// SS hibernation states
+#define SS_NOT_HIBERNATING 0
+#define SS_WAKING_UP 1
+#define SS_IS_HIBERNATING 2
+
 // Subsystem delta times or tickrates, in seconds. I.e, how many seconds in between each process() call for objects being processed by that subsystem.
 // Only use these defines if you want to access some other objects processing seconds_per_tick, otherwise use the seconds_per_tick that is sent as a parameter to process()
 #define SSMACHINES_DT (SSmachines.wait / 10)
 #define SSMOBS_DT (SSmobs.wait / 10)
 #define SSOBJ_DT (SSobj.wait / 10)
 
-// The change in the world's time from the subsystem's last fire in seconds.
+/// The change in the world's time from the subsystem's last fire in seconds.
 #define DELTA_WORLD_TIME(ss) ((world.time - ss.last_fire) * 0.1)
+
+/// Same as DELTA_WORLD_TIME but we ignore time spent hibernating
+#define DELTA_WORLD_TIME_WITHOUT_HIBERNATION(ss) ss.hibernation_state ? ss.wait : DELTA_WORLD_TIME(ss)
 
 /// The timer key used to know how long subsystem initialization takes
 #define SS_INIT_TIMER_KEY "ss_init"

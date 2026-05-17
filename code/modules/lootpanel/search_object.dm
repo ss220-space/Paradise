@@ -30,7 +30,7 @@
 	if(isturf(item))
 		RegisterSignal(item, COMSIG_TURF_CHANGE, PROC_REF(on_turf_change))
 	else
-		RegisterSignal(item, list(
+		RegisterSignals(item, list(
 			COMSIG_ITEM_PICKUP,
 			COMSIG_MOVABLE_MOVED,
 			COMSIG_QDELETING,
@@ -50,7 +50,7 @@
 		return
 
 	// Condition 3: Using opendream
-#if defined(OPENDREAM) || defined(GAME_TESTS)
+#if defined(OPENDREAM) || defined(UNIT_TESTS)
 	return
 #endif
 
@@ -84,7 +84,7 @@
 	qdel(src)
 
 /// Parent tile has been altered, entire search needs reset
-/datum/search_object/proc/on_turf_change(turf/source, path, list/new_baseturfs, flags, list/post_change_callbacks)
+/datum/search_object/proc/on_turf_change(turf/source, path, list/post_change_callbacks)
 	SIGNAL_HANDLER
 
 	post_change_callbacks += CALLBACK(src, GLOBAL_PROC_REF(qdel), src)

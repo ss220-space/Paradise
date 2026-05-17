@@ -422,8 +422,8 @@
 	var/datum/plant_gene/gene
 	var/read_only = 0 //Well, it's still a floppy disk
 
-/obj/item/disk/plantgene/New()
-	..()
+/obj/item/disk/plantgene/Initialize(mapload)
+	. = ..()
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/disk/plantgene/Destroy()

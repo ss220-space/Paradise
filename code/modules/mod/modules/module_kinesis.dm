@@ -67,9 +67,7 @@
 	return ..()
 
 /*
-tier 1 - range 2-3
-tier 2 - range 5-6, can lift conscious with handcuffs on them
-tier 3 - range 7-8, can lift conscious
+range 2-3
 */
 
 /obj/item/mod/module/anomaly_locked/kinesis/update_core_powers()
@@ -81,10 +79,6 @@ tier 3 - range 7-8, can lift conscious
 
 	var/calculated_range = round((core.get_strength() / 20))
 	grab_range = min(calculated_range, maximum_grab_range)
-	if(core.get_strength() > 100)
-		stat_required = CONSCIOUS
-	if(core.get_strength() > 200)
-		incapacitated_required = FALSE
 
 /obj/item/mod/module/anomaly_locked/kinesis/on_select_use(atom/target)
 	. = ..()
@@ -218,6 +212,7 @@ tier 3 - range 7-8, can lift conscious
 	kinesis_beam = mod.wearer.Beam(grabbed_atom, "kinesis")
 	kinesis_catcher = mod.wearer.overlay_fullscreen("kinesis", /atom/movable/screen/fullscreen/cursor_catcher/kinesis, 0)
 	kinesis_catcher.assign_to_mob(mod.wearer)
+	RegisterSignal(kinesis_catcher, COMSIG_SCREEN_ELEMENT_CLICK, PROC_REF(on_catcher_click))
 	soundloop.start()
 	START_PROCESSING(SSfastprocess, src)
 
@@ -239,6 +234,13 @@ tier 3 - range 7-8, can lift conscious
 		animate(grabbed_atom, 0.2 SECONDS, pixel_x = pre_pixel_x, pixel_y = pre_pixel_y)
 	grabbed_atom = null
 	soundloop.stop()
+
+/obj/item/mod/module/anomaly_locked/kinesis/proc/on_catcher_click(atom/source, location, control, params, user)
+	SIGNAL_HANDLER
+
+	var/list/modifiers = params2list(params)
+	if(LAZYACCESS(modifiers, RIGHT_CLICK))
+		clear_grab()
 
 /obj/item/mod/module/anomaly_locked/kinesis/proc/range_check(atom/target)
 	if(!isturf(mod.wearer.loc))

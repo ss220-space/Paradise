@@ -87,7 +87,7 @@
 	},
 /area/shuttle/escape)
 "r" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/machinery/light/spot{
@@ -102,13 +102,13 @@
 /turf/simulated/floor/shuttle,
 /area/shuttle/escape)
 "u" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/shuttle,
 /area/shuttle/escape)
 "w" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/closet/crate,
 /turf/simulated/floor/shuttle,
 /area/shuttle/escape)

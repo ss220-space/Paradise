@@ -164,7 +164,7 @@ Made by Xhuis
 			GLOB.major_announcement.announce(
 				message = "Сканерами дальнего действия обнаружена большая концентрация психической блюспейс-энергии. Вероятность вознесения тенеморфов высока, всему экипажу следует предотвратить вознесение любой ценой!",
 				new_title = ANNOUNCE_CCPARANORMAL_RU,
-				new_sound = 'sound/AI/commandreport.ogg'
+				new_sound = SSstation.announcer.get_rand_report_sound(),
 			)
 			log_game("Shadowling reveal. Powergame and validhunt allowed.")
 		return 1
@@ -283,7 +283,7 @@ Made by Xhuis
 	if(length(shadows))
 		text += "<br>[span_big("<b>Тенелингами были:</b>")]"
 		for(var/datum/mind/shadow in shadows)
-			text += "<br>[shadow.get_display_key()] was [shadow.name] ("
+			text += "<br>[shadow.get_mind_key()] was [shadow.name] ("
 			if(shadow.current)
 				if(shadow.current.stat == DEAD)
 					text += "мертвы"
@@ -298,7 +298,7 @@ Made by Xhuis
 		if(length(shadowling_thralls))
 			text += "<br>[span_big("<b>Рабами были:</b>")]"
 			for(var/datum/mind/thrall in shadowling_thralls)
-				text += "<br>[thrall.get_display_key()] was [thrall.name] ("
+				text += "<br>[thrall.get_mind_key()] was [thrall.name] ("
 				if(thrall.current)
 					if(thrall.current.stat == DEAD)
 						text += "мертвы"

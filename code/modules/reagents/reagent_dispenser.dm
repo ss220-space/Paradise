@@ -15,6 +15,15 @@
 	var/lastrigger = ""
 	/// If the dispenser is being blown up already. Used to avoid multiple boom calls due to itself exploding etc
 	var/went_boom = FALSE
+	/// is it climbable? some of our wall-mounted dispensers should not have this
+	var/climbable = FALSE
+
+/obj/structure/reagent_dispensers/ComponentInitialize()
+	. = ..()
+	if(!climbable)
+		return
+	AddElement(/datum/element/climbable, climb_time = 4 SECONDS, climb_stun = 4 SECONDS)
+	AddElement(/datum/element/elevation, pixel_shift = 14)
 
 /obj/structure/reagent_dispensers/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
 	. = ..()

@@ -124,10 +124,11 @@
 		trunk = null
 	return ..()
 
-/obj/machinery/disposal/singularity_pull(S, current_size)
+/obj/machinery/disposal/singularity_pull(atom/singularity, current_size)
 	..()
-	if(current_size >= STAGE_FIVE)
-		deconstruct()
+	if(current_size < STAGE_FIVE)
+		return
+	deconstruct()
 
 //This proc returns TRUE if the item can be picked up and FALSE if it can't.
 //Set the stop_messages to stop it from printing messages
@@ -279,7 +280,6 @@
 		else
 			viewer.show_message("[DECLENT_RU_CAP(user, NOMINATIVE)] начина[PLUR_ET_YUT(user)] заталкивать [target.declent_ru(ACCUSATIVE)] в мусоропровод.", 3)
 	INVOKE_ASYNC(src, TYPE_PROC_REF(/obj/machinery/disposal, put_in), target, user)
-	return TRUE
 
 /obj/machinery/disposal/proc/put_in(mob/living/target, mob/living/user) // need this proc to use INVOKE_ASYNC in other proc. You're not recommended to use that one
 	var/msg

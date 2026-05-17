@@ -141,8 +141,8 @@
 /obj/item/gun/energy/printer
 	name = "cyborg lmg"
 	desc = "A machinegun that fires 3d-printed flachettes slowly regenerated using a cyborg's internal power source."
-	icon_state = "l6closed0"
-	icon = 'icons/obj/weapons/projectile.dmi'
+	icon = 'icons/obj/weapons/guns_48x32.dmi'
+	icon_state = "l6saw_cyborg"
 	cell_type = /obj/item/stock_parts/cell/secborg
 	ammo_type = list(/obj/item/ammo_casing/energy/c3dbullet)
 	can_charge = FALSE
@@ -336,7 +336,7 @@
 		overloaded = TRUE
 		cell.use(125)
 		playsound(carbon.loc, 'sound/machines/terminal_prompt_confirm.ogg', 75, TRUE)
-		atom_say("Overloading failure.", use_tts = FALSE)
+		atom_say("Overloading success.", use_tts = FALSE)
 		set_light(3) // extra visual effect to make it more noticable to user and victims alike
 		holder = carbon
 		RegisterSignal(holder, COMSIG_MOB_SWAP_HANDS, PROC_REF(discharge))
@@ -354,7 +354,7 @@
 	UnregisterSignal(holder, COMSIG_MOB_SWAP_HANDS)
 	holder = null
 
-/obj/item/gun/energy/plasma_pistol/process_fire(atom/target, mob/living/user, message = TRUE, list/modifiers, zone_override, bonus_spread = 0)
+/obj/item/gun/energy/plasma_pistol/process_fire(zone_override, secondary_fire = FALSE)
 	if(charging)
 		return
 	return ..()
@@ -416,7 +416,7 @@
 	item_flags = DROPDEL
 	ammo_type = list(/obj/item/ammo_casing/energy/chrono_beam)
 	can_charge = FALSE
-	fire_delay = 50
+	fire_delay = 5 SECONDS
 	var/obj/item/chrono_eraser/TED = null
 	var/obj/structure/chrono_field/field = null
 	var/turf/startpos = null
@@ -433,10 +433,10 @@
 /obj/item/gun/energy/chrono_gun/update_overlays()
 	return list()
 
-/obj/item/gun/energy/chrono_gun/process_fire(atom/target, mob/living/user, message = TRUE, list/modifiers, zone_override, bonus_spread = 0)
+/obj/item/gun/energy/chrono_gun/process_fire(zone_override, secondary_fire = FALSE)
 	if(field)
 		field_disconnect(field)
-	..()
+	return ..()
 
 /obj/item/gun/energy/chrono_gun/Destroy()
 	if(TED)
@@ -497,7 +497,7 @@
 	item_flags = DROPDEL|ABSTRACT|NOBLUDGEON
 	ammo_type = list(/obj/item/ammo_casing/energy/shuriken)
 	can_charge = FALSE
-	burst_size = 3
+	burst_amount = 3
 	var/cost = 100
 	var/obj/item/clothing/suit/space/space_ninja/my_suit = null
 	var/datum/action/item_action/advanced/ninja/toggle_shuriken_fire_mode/my_action = null
@@ -527,17 +527,21 @@
 	qdel(src)
 
 /obj/item/gun/energy/shuriken_emitter/can_shoot(mob/user)
-	return !my_suit.ninjacost(cost*burst_size)
+	return !my_suit.ninjacost(cost * burst_amount)
 
 /obj/item/gun/energy/shuriken_emitter/borg
 	name = "robotic shuriken emitter"
 	desc = "A device sneakily hidden inside your robotic hand. Shoots 3 energy shurikens that slows and temporary blinds their targets"
 	ammo_type = list(/obj/item/ammo_casing/energy/shuriken/borg)
-	// Эти два значения не нужны боргам — они не носят ниндзя костюм
+	item_flags = ABSTRACT|NOBLUDGEON
+	// These two values are not needed for borgs - they don't wear a ninja suit
 	cost = null
 	my_suit = null
 
 /obj/item/gun/energy/shuriken_emitter/borg/equip_to_best_slot(mob/M)
+	return
+
+/obj/item/gun/energy/shuriken_emitter/borg/run_drop_held_item(mob/user)
 	return
 
 /obj/item/gun/energy/shuriken_emitter/borg/can_shoot(mob/user)
@@ -552,7 +556,7 @@
 	item_state = "spikethrower"
 	w_class = WEIGHT_CLASS_SMALL
 	fire_sound_text = "a strange noise"
-	burst_size = 2 // burst has to be stored here
+	burst_amount = 2 // burst has to be stored here
 	can_charge = FALSE
 	selfcharge = TRUE
 	charge_delay = 10

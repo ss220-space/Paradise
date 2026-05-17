@@ -137,7 +137,7 @@
 
 	if(targetl.buckled)
 		return
-	. = TRUE
+
 	add_fingerprint(user)
 	move_into_gibber(user,target)
 

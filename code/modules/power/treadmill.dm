@@ -37,7 +37,7 @@
 	else
 		mobs_running[arrived] = arrived.last_movement
 
-/obj/machinery/power/treadmill/proc/on_exited(datum/source, mob/living/departed, atom/newLoc)
+/obj/machinery/power/treadmill/proc/on_exited(datum/source, mob/living/departed, direction)
 	SIGNAL_HANDLER
 
 	if(anchored && isliving(departed))

@@ -6,7 +6,6 @@
 	density = TRUE
 	anchored = TRUE
 	layer = TABLE_LAYER
-	climbable = TRUE
 	pass_flags = LETPASSTHROW
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	/// What is currently forging in source
@@ -23,6 +22,11 @@
 		INSTRUMENTAL = "Мировой Кузней",
 		PREPOSITIONAL = "Мировой Кузне",
 	)
+
+/obj/structure/world_anvil/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/climbable)
+	AddElement(/datum/element/elevation, pixel_shift = 16)
 
 /obj/item/gps/internal/world_anvil
 	icon_state = null

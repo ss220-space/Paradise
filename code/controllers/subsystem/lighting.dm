@@ -1,11 +1,12 @@
 SUBSYSTEM_DEF(lighting)
 	name = "Lighting"
-	wait = 2
-	init_order = INIT_ORDER_LIGHTING
-	flags = SS_TICKER
-	offline_implications = "Lighting will no longer update. Shuttle call recommended."
-	cpu_display = SS_CPUDISPLAY_HIGH
-	ss_id = "lighting"
+	dependencies = list(
+		/datum/controller/subsystem/atoms,
+		/datum/controller/subsystem/mapping,
+	)
+	wait = 1
+	ss_flags = SS_TICKER
+
 	/// List of lighting sources queued for update.
 	var/static/list/sources_queue = list()
 	/// List of lighting corners queued for update.

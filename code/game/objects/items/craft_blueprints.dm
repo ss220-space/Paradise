@@ -7,8 +7,9 @@
 	desc = "Чертежи для крафта"
 	icon = 'icons/obj/craft_blueprints.dmi'
 	icon_state = "blueprint"
-	var/place_icon = "put_blueprint"
+	interaction_flags_mouse_drop = NEED_HANDS
 
+	var/place_icon = "put_blueprint"
 	/// Placing state
 	var/placed_on_table = FALSE
 	/// Crafting item name
@@ -107,18 +108,15 @@
 	item.pixel_y = clamp(y_offset - (ICON_SIZE_Y / 2), - (ICON_SIZE_Y / 2), ICON_SIZE_Y / 2)
 
 /obj/item/craft_blueprints/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
-	if(over_object != usr || !ishuman(usr) || !usr.Adjacent(src))
-		return ..()
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
-		balloon_alert(usr, "не получилось!")
-		return FALSE
-	var/mob/living/human = usr
-	balloon_alert(usr, "свернуто")
+	if(over_object != user || !ishuman(user) || user.incapacitated())
+		return
+
+	var/mob/living/human = user
+	balloon_alert(user, "свернуто")
 	placed_on_table = FALSE
 	layer = initial(layer)
 	update_icon()
 	human.put_in_any_hand_if_possible(src, drop_on_fail = TRUE)
-	return FALSE
 
 // MARK: Crafting mechanic
 

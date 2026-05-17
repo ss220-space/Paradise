@@ -37,6 +37,9 @@
 #define LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE 128
 #define LIGHTING_PLANE_ALPHA_INVISIBLE 0
 
+/// The amount of lumcount on a tile for it to be considered dark (used to determine reading and nyctophobia)
+#define LIGHTING_TILE_IS_DARK 0.2
+
 #define standartize_alpha(__alpha) (__alpha / LIGHTING_PLANE_ALPHA_VISIBLE)
 
 #define ALPHA_SOURCE_DEFAULT "default"

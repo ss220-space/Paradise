@@ -1,7 +1,7 @@
 /obj/effect/proc_holder/spell/touch/alien_spell/transfer_plasma
 	name = "Transfer Plasma"
 	desc = "Transfers plasma to a nearby alien"
-	hand_path = "/obj/item/melee/touch_attack/alien/transfer_plasma"
+	hand_path = /obj/item/melee/touch_attack/alien/transfer_plasma
 	action_icon_state = "alien_transfer"
 	on_gain_message = span_noticealien_alt("You vomit some plasma in your hand and prepare to transfer it.")
 	on_withdraw_message = span_noticealien_alt("You decide not to use plasma for now...")
@@ -24,7 +24,7 @@
 		to_chat(user, span_warning("You don't have that much plasma!"))
 		return
 
-	var/obj/item/melee/touch_attack/alien/transfer_plasma/transfer_hand = new hand_path(src, user, amount)
+	var/obj/item/melee/touch_attack/alien/transfer_plasma/transfer_hand = new hand_path(null, src, user, amount)
 
 	// And code copypasta now!
 	if(user.put_in_hands(transfer_hand, qdel_on_fail = TRUE))
@@ -47,7 +47,7 @@
 	icon_state = "alien_transfer"
 	var/plasma_amount = 0
 
-/obj/item/melee/touch_attack/alien/transfer_plasma/New(spell, owner, plasma)
+/obj/item/melee/touch_attack/alien/transfer_plasma/Initialize(mapload, spell, owner, plasma)
 	. = ..()
 	name = "[name] ([plasma])"
 

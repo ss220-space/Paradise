@@ -14,8 +14,6 @@
 
 ///from base of atom/examine(): (/mob, list/examine_text)
 #define COMSIG_ATOM_EXAMINE "atom_examine"
-///from base of atom/examine(): (/mob)
-#define COMSIG_PARENT_EXAMINE "atom_examine"
 /// from base of atom/examine(): (/mob, list/examine_text)
 #define COMSIG_CARBON_MID_EXAMINE "carbon_mid_examine"
 ///from base of atom/examine_tags(): (/mob, list/examine_tags)
@@ -124,3 +122,6 @@
 
 ///from base of atom/handle_atom_del(): (atom/deleted)
 #define COMSIG_ATOM_CONTENTS_DEL "atom_contents_del"
+
+///from base of atom/Exited(): (atom/exited, direction)
+#define COMSIG_ATOM_EXITING "atom_exiting"

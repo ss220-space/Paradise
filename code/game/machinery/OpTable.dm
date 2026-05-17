@@ -26,6 +26,10 @@
 		PREPOSITIONAL = "операционном столе",
 	)
 
+/obj/machinery/optable/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/elevation, pixel_shift = 6)
+
 /obj/machinery/optable/Initialize(mapload)
 	. = ..()
 	for(dir in list(NORTH,EAST,SOUTH,WEST))
@@ -52,7 +56,6 @@
 		return
 	add_fingerprint(user)
 	take_patient(O, user)
-	return TRUE
 
 /**
  * Updates the `patient` var to be the mob occupying the table

@@ -24,9 +24,6 @@
 	/// Also, note that for anything sharp, SURGERY_INITIATOR_ORGANIC should be set as well.
 	var/valid_starting_types = SURGERY_INITIATOR_ORGANIC
 
-	// Replace any other surgery initiator
-	dupe_type = /datum/component/surgery_initiator
-
 /**
  * Create a new surgery initiating component.
  *

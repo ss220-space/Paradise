@@ -112,7 +112,7 @@
 
 	blood_decal_crossed(arrived)
 
-/obj/effect/decal/cleanable/blood/proc/on_exited(datum/source, atom/movable/departed, atom/newLoc)
+/obj/effect/decal/cleanable/blood/proc/on_exited(datum/source, atom/movable/departed, direction)
 	SIGNAL_HANDLER
 
 	if(off_floor || !ishuman(departed))
@@ -389,7 +389,7 @@
 	if(isturf(loc) && !skip)
 		playsound(src, 'sound/effects/splatter.ogg', 60, TRUE, -1)
 		if(blood_dna_info)
-			loc.add_blood(blood_dna_info)
+			loc.add_blood(blood_dna_info, basecolor)
 	if(!QDELETED(src))
 		qdel(src)
 
@@ -419,7 +419,7 @@
 			continue
 		if(splatter_strength_cached <= 0)
 			break
-		iter_atom.add_blood(blood_dna_info)
+		iter_atom.add_blood(blood_dna_info, basecolor)
 
 	splatter_strength--
 	// we used all our blood so go away
@@ -428,15 +428,16 @@
 		return
 
 	if(!leave_blood)
-		loc.add_blood(blood_dna_info)
+		loc.add_blood(blood_dna_info, basecolor)
 		return
 
 	// make a trail
-	var/obj/effect/decal/cleanable/blood/fly_trail = new(loc, null, blood_dna_info)
+	var/obj/effect/decal/cleanable/blood/fly_trail = new(loc)
 	fly_trail.dir = dir
 	if(ISDIAGONALDIR(flight_dir))
 		fly_trail.transform = fly_trail.transform.Turn((flight_dir == NORTHEAST || flight_dir == SOUTHWEST) ? 135 : 45)
 	fly_trail.icon_state = pick("trails_1", "trails_2")
+	fly_trail.basecolor = basecolor
 	//fly_trail.adjust_bloodiness(fly_trail.bloodiness * -0.66)
 	fly_trail.update_appearance(UPDATE_ICON)
 
@@ -471,23 +472,27 @@
 			return
 
 	if(!leave_blood)
-		prev_loc.add_blood(blood_dna_info)
+		prev_loc.add_blood(blood_dna_info, basecolor)
 		return
 
-	var/obj/effect/decal/cleanable/blood/splatter/over_window/final_splatter = new(prev_loc, null, blood_dna_info)
+	var/obj/effect/decal/cleanable/blood/splatter/over_window/final_splatter = new(prev_loc)
+	final_splatter.basecolor = basecolor
+	final_splatter.update_appearance(UPDATE_ICON)
 	final_splatter.pixel_x = (dir == EAST ? 32 : (dir == WEST ? -32 : 0))
 	final_splatter.pixel_y = (dir == NORTH ? 32 : (dir == SOUTH ? -32 : 0))
 
 /// A special case for hitsplatters hitting windows, since those can actually be moved around, store it in the window and slap it in the vis_contents
 /obj/effect/decal/cleanable/blood/hitsplatter/proc/land_on_window(obj/structure/window/the_window)
 	if(!leave_blood)
-		the_window.add_blood(blood_dna_info)
+		the_window.add_blood(blood_dna_info, basecolor)
 		return TRUE
 
 	if(!the_window.fulltile)
 		return FALSE
 
-	var/obj/effect/decal/cleanable/final_splatter = new /obj/effect/decal/cleanable/blood/splatter/over_window(prev_loc, null, blood_dna_info)
+	var/obj/effect/decal/cleanable/blood/splatter/over_window/final_splatter = new(prev_loc)
+	final_splatter.basecolor = basecolor
+	final_splatter.update_appearance(UPDATE_ICON)
 	final_splatter.forceMove(the_window)
 	the_window.vis_contents += final_splatter
 	expire()

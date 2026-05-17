@@ -3,6 +3,21 @@
 	ammo_type = /obj/item/ammo_casing/a357
 	caliber = CALIBER_DOT_357
 
+/obj/item/ammo_box/magazine/internal/cylinder/get_ru_names()
+	return list(
+		NOMINATIVE = "барабан [gun_name] [get_cartridge_marking()]",
+		GENITIVE = "барабана [gun_name] [get_cartridge_marking()]",
+		DATIVE = "барабану [gun_name] [get_cartridge_marking()]",
+		ACCUSATIVE = "барабан [gun_name] [get_cartridge_marking()]",
+		INSTRUMENTAL = "барабаном [gun_name] [get_cartridge_marking()]",
+		PREPOSITIONAL = "барабане [gun_name] [get_cartridge_marking()]",
+	)
+
+/obj/item/ammo_box/magazine/internal/cylinder/update_desc(updates = ALL)
+	. = ..()
+	desc = "Барабан с каморами для [gun_name ? gun_name : "огнестрельного оружия"]. \
+			Предназначен для [get_ammo_descriptor()] [get_cartridge_marking()], вмещает вплоть до [max_ammo].[extra_info ? " " + extra_info : ""]"
+
 /obj/item/ammo_box/magazine/internal/cylinder/Initialize(mapload)
 	. = ..()
 	if(start_empty)

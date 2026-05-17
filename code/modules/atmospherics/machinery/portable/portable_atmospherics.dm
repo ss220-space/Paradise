@@ -11,6 +11,11 @@
 	var/volume = 0
 	var/maximum_pressure = 90 * ONE_ATMOSPHERE
 
+/obj/machinery/portable_atmospherics/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/climbable, climb_time = 3 SECONDS, climb_stun = 3 SECONDS)
+	AddElement(/datum/element/elevation, pixel_shift = 16)
+
 /obj/machinery/portable_atmospherics/Initialize(mapload)
 	. = ..()
 	SSair.atmos_machinery += src

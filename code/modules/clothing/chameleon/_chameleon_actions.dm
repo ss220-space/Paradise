@@ -35,7 +35,7 @@
 		for(var/datum/outfit/found_outfit as anything in subtypesof(/datum/outfit/job))
 			if(initial(found_outfit.can_be_admin_equipped))
 				standard_outfit_options[initial(found_outfit.name)] = new found_outfit
-		sortTim(standard_outfit_options, cmp = /proc/cmp_text_asc)
+		sortTim(standard_outfit_options, GLOBAL_PROC_REF(cmp_text_asc))
 
 	return standard_outfit_options
 

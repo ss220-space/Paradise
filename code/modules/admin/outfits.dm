@@ -32,7 +32,7 @@ ADMIN_VERB(outfit_manager, R_EVENT, "Outfit Manager", "View and edit outfits.", 
 	var/outfit_file = input(usr, "Pick outfit json file:", "File") as null|file
 	if(!outfit_file)
 		return
-	var/filedata = wrap_file2text(outfit_file)
+	var/filedata = WRAP_FILE2TEXT(outfit_file)
 	var/json = json_decode(filedata)
 	if(!json)
 		to_chat(admin,span_warning("JSON decode error."))

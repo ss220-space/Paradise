@@ -1,4 +1,4 @@
-#ifdef GAME_TESTS
+#ifdef UNIT_TESTS
 GLOBAL_VAR_INIT(mob_suspension, FALSE)
 #else
 GLOBAL_VAR_INIT(mob_suspension, TRUE)
@@ -7,13 +7,9 @@ GLOBAL_VAR_INIT(mob_suspension, TRUE)
 SUBSYSTEM_DEF(mobs)
 	name = "Mobs"
 	priority = FIRE_PRIORITY_MOBS
-	flags = SS_KEEP_TIMING
+	ss_flags = SS_KEEP_TIMING | SS_NO_INIT
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
 	wait = 2 SECONDS
-	init_order = INIT_ORDER_MOBS
-	offline_implications = "Mobs will no longer process. Immediate server restart recommended."
-	cpu_display = SS_CPUDISPLAY_HIGH
-	ss_id = "mobs"
 
 	var/list/currentrun = list()
 	var/static/list/clients_by_zlevel[][]

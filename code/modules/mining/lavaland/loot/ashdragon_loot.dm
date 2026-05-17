@@ -73,8 +73,8 @@
 		PREPOSITIONAL = "спектральном клинке",
 	)
 
-/obj/item/melee/ghost_sword/New()
-	..()
+/obj/item/melee/ghost_sword/Initialize(mapload)
+	. = ..()
 	spirits = list()
 	START_PROCESSING(SSobj, src)
 	GLOB.poi_list |= src
@@ -268,7 +268,7 @@
 		PREPOSITIONAL = "лавовом посохе",
 	)
 
-/obj/item/lava_staff/New()
+/obj/item/lava_staff/Initialize(mapload)
 	. = ..()
 	banned_turfs = typecacheof(list(/turf/space/transit, /turf/simulated/wall, /turf/simulated/mineral))
 

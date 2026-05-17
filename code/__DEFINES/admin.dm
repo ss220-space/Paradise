@@ -102,6 +102,7 @@
 #define ADMIN_COORDJMP(src) "[src ? "[COORD(src)] [ADMIN_JMP(src)]" : "nonexistent location"]"
 #define ADMIN_VERBOSEJMP(src) "[src ? "[AREACOORD(src)] [ADMIN_JMP(src)]" : "nonexistent location"]"
 #define ADMIN_SHOWDETAILS(mask, content) "<a href='byond://?_src_=holder;showdetails=[html_encode(content)]'>[mask]</a>"
+#define ADMIN_TAG(datum) "(<a href='byond://?src=[UID_of(src)];tag_datum=[UID_of(datum)]'>TAG</a>)"
 
 #define BAN_HOURS * 60
 #define BAN_DAYS BAN_HOURS * 24
@@ -111,5 +112,9 @@
 #define BLACKBOX_LOG_ADMIN_VERB(the_verb) SSblackbox.record_feedback("tally", "admin_verb", 1, the_verb)
 #define BLACKBOX_LOG_VUAP(the_verb) SSblackbox.record_feedback("tally", "VUAP", 1, the_verb)
 
-//How many things you can spawn at once with spawn verb/create panel
+/// How many things you can spawn at once with spawn verb/create panel
 #define ADMIN_SPAWN_CAP 100
+
+// LOG BROWSE TYPES
+#define BROWSE_ROOT_ALL_LOGS 1
+#define BROWSE_ROOT_CURRENT_LOGS 2

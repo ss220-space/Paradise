@@ -222,7 +222,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 /datum/objective/proc/alarm_changes()
 	for(var/datum/mind/user in get_owners())
 		to_chat(user.current, span_userdanger("<br>Вы чувствуете, что ваша цель больше не находится в пределах досягаемости. Время для плана [pick("A","B","C","D","X","Y","Z")]. Цели обновлены!"))
-		SEND_SOUND(user.current, sound('sound/ambience/alarm4.ogg'))
+		SEND_SOUND(user.current, sound('sound/ambience/misc/alarm4.ogg'))
 
 /**
  * Called a tick after when the objective's target goes to cryo.
@@ -613,7 +613,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 // This objective should only be given to a single owner. We can use `owner` and not `get_owners()`.
 /datum/objective/protect/mindslave/on_target_cryo()
 	if(owner?.current)
-		SEND_SOUND(owner.current, sound('sound/ambience/alarm4.ogg'))
+		SEND_SOUND(owner.current, sound('sound/ambience/misc/alarm4.ogg'))
 		owner.remove_antag_datum(/datum/antagonist/mindslave)
 		to_chat(owner.current, "<br>[span_userdanger("Вы замечаете, что ваш хозяин вошёл в криогенное хранилище и возвращаетесь к своему обычному состоянию.")]")
 		log_admin("[key_name(owner.current)]'s mindslave master has cryo'd, and is no longer a mindslave.")
@@ -1680,7 +1680,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	var/list/owners = get_owners()
 	for(var/datum/mind/user in owners)
 		to_chat(owner.current, span_userdanger("<br>Вы чувствуете, что ваша цель больше не находится в пределах досягаемости. Время для плана [pick("A","B","C","D","X","Y","Z")]. Цели обновлены!"))
-		SEND_SOUND(owner.current, sound('sound/ambience/alarm4.ogg'))
+		SEND_SOUND(owner.current, sound('sound/ambience/misc/alarm4.ogg'))
 
 	if(!completed)
 		target = null
@@ -1850,12 +1850,6 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 		return FALSE
 	return resolved_overmind.stat != DEAD
 
-// MARK: Xeno
-/datum/objective/xeno_genocide
-	name = "Геноцид разумной жизни"
-	needs_target = FALSE
-	explanation_text = "Убивайте всех, кто не является ксеноморфом. Утопите станцию в крови!"
-
 // MARK: Bingle
 /datum/objective/bingle_lord
 	needs_target = FALSE
@@ -1890,8 +1884,9 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 // MARK: Supermatter cascade
 /datum/objective/supermatter_cascade
 	name = "Destroy the station by causing a crystallizing resonance cascade"
-	explanation_text = "Destroy the station by causing a supermatter cascade. Go to %AREA% to retrieve the destabilizing crystal \
-		and use it on the supermatter."
+	antag_menu_name = "Каскадный резонанс суперматерии"
+	explanation_text = "Уничтожьте станцию с помощью каскадного резонанса суперматерии. Пройдите в %AREA% дабы получить дестабилизационный кристалл \
+		и используйте его на суперматерии."
 	needs_target = FALSE
 	special_object_type = /obj/item/destabilizing_crystal
 

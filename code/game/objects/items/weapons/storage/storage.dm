@@ -80,14 +80,14 @@
 	if(display_contents_with_number)
 		boxes = new /atom/movable/screen/storage()
 		boxes.name = "storage"
-		boxes.master = src
+		boxes.master_ref = WEAKREF(src)
 		boxes.icon_state = "block"
 		boxes.screen_loc = "7,7 to 10,8"
 		boxes.layer = HUD_LAYER
 		boxes.plane = HUD_PLANE
 
 	closer = new /atom/movable/screen/close()
-	closer.master = src
+	closer.master_ref = WEAKREF(src)
 
 	orient2hud()
 
@@ -127,48 +127,46 @@
 		target.handle_item_insertion(thing, user)
 
 /obj/item/storage/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
-	if(!isliving(usr))
-		return FALSE
+	if(!isliving(user))
+		return
 
 	// Stops inventory actions in a mech, while ventcrawling and while being incapacitated
 	if(ismecha(user.loc) || is_ventcrawling(user) || user.incapacitated())
-		return FALSE
+		return
 
 	if(over_object == user && IsReachableBy(user)) // this must come before the screen objects only block
 		open(user)
-		return FALSE
+		return
 
 	if(isstorage(over_object))
 		var/obj/item/storage = over_object
 		if(!(storage.item_flags & IN_STORAGE))
 			dump_storage(user, over_object)
-			return TRUE
+			return
 
-	if((!istype(src, /obj/item/storage/lockbox) && (istable(over_object) || isfloorturf(over_object)) \
-		&& length(contents) && loc == user && !user.incapacitated() && over_object.IsReachableBy(user)))
+	if(istype(src, /obj/item/storage/lockbox) || (!istable(over_object) && !isfloorturf(over_object)) \
+		|| !length(contents) || loc != user || user.incapacitated() || !over_object.IsReachableBy(user))
+		return
 
-		if(tgui_alert(user, "Опустошить содержимое [declent_ru(GENITIVE)] на [over_object.declent_ru(ACCUSATIVE)]?", "Подтверждение", list("Да", "Нет")) != "Да")
-			return FALSE
+	if(tgui_alert(user, "Опустошить содержимое [declent_ru(GENITIVE)] на [over_object.declent_ru(ACCUSATIVE)]?", "Подтверждение", list("Да", "Нет")) != "Да")
+		return
 
-		if(!user || !over_object || user.incapacitated() || loc != user || !over_object.IsReachableBy(user))
-			return FALSE
+	if(!user || !over_object || user.incapacitated() || loc != user || !over_object.IsReachableBy(user))
+		return
 
-		if(user.s_active == src)
-			close(user)
+	if(user.s_active == src)
+		close(user)
 
-		user.face_atom(over_object)
-		user.visible_message(
-			span_notice("[user] опустоша[PLUR_ET_YUT(user)] содерижмое [declent_ru(GENITIVE)] на [over_object.declent_ru(ACCUSATIVE)]."),
-			span_notice("Вы опустошаете содержимое [declent_ru(ACCUSATIVE)] на [over_object.declent_ru(ACCUSATIVE)]."),
-		)
-		var/turf/object_turf = get_turf(over_object)
-		for(var/obj/item/item in src)
-			remove_from_storage(item, object_turf)
+	user.face_atom(over_object)
+	user.visible_message(
+		span_notice("[user] опустоша[PLUR_ET_YUT(user)] содерижмое [declent_ru(GENITIVE)] на [over_object.declent_ru(ACCUSATIVE)]."),
+		span_notice("Вы опустошаете содержимое [declent_ru(ACCUSATIVE)] на [over_object.declent_ru(ACCUSATIVE)]."),
+	)
+	var/turf/object_turf = get_turf(over_object)
+	for(var/obj/item/item in src)
+		remove_from_storage(item, object_turf)
 
-		update_icon() // For content-sensitive icons
-		return FALSE
-
-	return ..()
+	update_appearance() // For content-sensitive icons
 
 /obj/item/storage/click_alt(mob/user)
 	if(isobserver(user))
@@ -393,33 +391,33 @@
 	/// Storage closer ref
 	var/atom/movable/screen/close/closer
 
-/datum/storage_box/New(master)
+/datum/storage_box/New(new_master)
 	// Making ref to parent storage
-	storage = master
+	storage = new_master
 
 	// Initialize screen objects
 	start = new
 	start.icon_state = "storage_start"
-	start.master = master
+	start.master_ref = WEAKREF(new_master)
 
 	end = new
 	end.icon_state = "storage_end"
-	end.master = master
+	end.master_ref = WEAKREF(new_master)
 
 	continued = new
 	continued.icon_state = "storage_continue"
-	continued.master = master
+	continued.master_ref = WEAKREF(new_master)
 
 	top = new
 	top.icon_state = "storage_top"
-	top.master = master
+	top.master_ref = WEAKREF(new_master)
 
 	bottom = new
 	bottom.icon_state = "storage_bottom"
-	bottom.master = master
+	bottom.master_ref = WEAKREF(new_master)
 
 	closer = new
-	closer.master = master
+	closer.master_ref = WEAKREF(new_master)
 
 	place_items = new
 
@@ -802,9 +800,9 @@
 	update_icon()
 	return TRUE
 
-/obj/item/storage/Exited(atom/movable/departed, atom/newLoc)
-	remove_from_storage(departed, newLoc) //worry not, comrade; this only gets called once
-	. = ..()
+/obj/item/storage/Exited(atom/movable/gone, direction)
+	remove_from_storage(gone) //worry not, comrade; this only gets called once
+	return ..()
 
 /obj/item/storage/deconstruct(disassembled = TRUE)
 	var/drop_loc = loc
@@ -903,11 +901,6 @@
 	for(var/obj/item/item in contents)
 		remove_from_storage(item, current_turf)
 		CHECK_TICK
-
-/obj/item/storage/proc/force_drop_inventory()
-	var/turf/T = get_turf(src)
-	for(var/obj/item/I in contents)
-		remove_from_storage(I, T)
 
 /**
  * Populates the container with items

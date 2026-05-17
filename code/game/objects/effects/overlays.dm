@@ -1,21 +1,20 @@
 /obj/effect/overlay
 	name = "overlay"
-	var/i_attached	//Added for possible image attachments to objects. For hallucinations and the like.
 
 /obj/effect/overlay/singularity_act()
 	return
 
-/obj/effect/overlay/singularity_pull()
+/obj/effect/overlay/singularity_pull(atom/singularity, current_size)
 	return
 
-/obj/effect/overlay/beam//Not actually a projectile, just an effect.
+// Not actually a projectile, just an effect.
+/obj/effect/overlay/beam
 	name = "beam"
 	icon = 'icons/effects/beam.dmi'
 	icon_state = "b_beam"
-	var/tmp/atom/BeamSource
 
-/obj/effect/overlay/beam/New()
-	..()
+/obj/effect/overlay/beam/Initialize(mapload)
+	. = ..()
 	QDEL_IN(src, 10)
 
 /obj/effect/overlay/palmtree_r
@@ -38,6 +37,7 @@
 	icon_state = "coconuts"
 
 /obj/effect/overlay/sparkles
+	gender = PLURAL
 	name = "sparkles"
 	icon_state = "shieldsparkles"
 
@@ -54,7 +54,7 @@
 	layer = 5
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
-/obj/effect/overlay/wall_rot/New()
-	..()
-	pixel_x += rand(-10, 10)
-	pixel_y += rand(-10, 10)
+/obj/effect/overlay/wall_rot/Initialize(mapload)
+	. = ..()
+	pixel_x = base_pixel_x + rand(-10, 10)
+	pixel_y = base_pixel_y + rand(-10, 10)

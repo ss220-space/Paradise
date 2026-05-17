@@ -8,14 +8,14 @@
 	w_class = WEIGHT_CLASS_TINY
 	var/list/evidence = list()
 
-/obj/item/sample/New(newloc, atom/supplied)
-	..(newloc)
+/obj/item/sample/Initialize(mapload, atom/supplied)
+	. = ..()
 	if(supplied)
 		copy_evidence(supplied)
 		name = "[initial(name)] (\the [supplied])"
 
-/obj/item/sample/print/New(newloc, atom/supplied)
-	..(newloc, supplied)
+/obj/item/sample/print/Initialize(mapload, atom/supplied)
+	. = ..()
 	if(evidence && length(evidence))
 		icon_state = "fingerprint1"
 
@@ -153,18 +153,10 @@
 		return ..()
 
 /obj/item/forensics/sample_kit/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
-	. = ..()
-	if(!.)
-		return FALSE
-
-	if(is_screen_atom(over_object))
-		return FALSE
-
-	if(loc != user || !ishuman(user))
-		return FALSE
+	if(is_screen_atom(over_object) || loc != user || !ishuman(user))
+		return
 
 	afterattack(over_object, user, TRUE, params)
-	return TRUE
 
 /obj/item/forensics/sample_kit/powder
 	name = "fingerprint powder"

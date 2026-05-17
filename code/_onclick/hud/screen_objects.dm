@@ -13,10 +13,11 @@
 	// NOTE: screen objects do NOT change their plane to match the z layer of their owner
 	// You shouldn't need this, but if you ever do and it's widespread, reconsider what you're doing.
 	plane = HUD_PLANE
-	appearance_flags = NO_CLIENT_COLOR
+	appearance_flags = APPEARANCE_UI
 	interaction_flags_atom = parent_type::interaction_flags_atom | INTERACT_ATOM_MOUSEDROP_IGNORE_CHECKS
 	flags = NO_SCREENTIPS
-	var/obj/master = null	//A reference to the object in the slot. Grabs or items, generally.
+	/// A reference to the object in the slot. Grabs or items, generally, but any datum will do.
+	var/datum/weakref/master_ref = null
 	VAR_PRIVATE/datum/hud/hud = null
 	/**
 	 * Map name assigned to this object.
@@ -33,6 +34,12 @@
 	var/del_on_map_removal = TRUE
 	/// If FALSE, this will not be cleared when calling /client/clear_screen()
 	var/clear_with_screen = TRUE
+	/// If TRUE, clicking the screen element will fall through and perform a default "Click" call
+	/// Obviously this requires your Click override, if any, to call parent on their own.
+	/// This is set to FALSE to default to dissade you from doing this.
+	/// Generally we don't want default Click stuff, which results in bugs like using Telekinesis on a screen element
+	/// or trying to point your gun at your screen.
+	var/default_click = FALSE
 
 /atom/movable/screen/Initialize(mapload, datum/hud/hud_owner)
 	. = ..()
@@ -41,13 +48,23 @@
 	set_new_hud(hud_owner)
 
 /atom/movable/screen/Destroy()
-	master = null
+	master_ref = null
 	hud = null
 	return ..()
+
+/atom/movable/screen/Click(location, control, params)
+	if(flags & INITIALIZED)
+		SEND_SIGNAL(src, COMSIG_SCREEN_ELEMENT_CLICK, location, control, params, usr)
+
+	if(default_click)
+		return ..()
 
 /// Screen elements are always on top of the players screen and don't move so yes they are adjacent
 /atom/movable/screen/Adjacent(atom/neighbor, atom/target, atom/movable/mover)
 	return TRUE
+
+/atom/movable/screen/examine(mob/user)
+	return list()
 
 /atom/movable/screen/proc/component_click(atom/movable/screen/component_button/component, params)
 	return
@@ -80,17 +97,23 @@
 	layer = ABOVE_HUD_LAYER
 	plane = ABOVE_HUD_PLANE
 	icon_state = "backpack_close"
+	mouse_over_pointer = MOUSE_HAND_POINTER
+
+/atom/movable/screen/close/Initialize(mapload, datum/hud/hud_owner, new_master)
+	. = ..()
+	master_ref = WEAKREF(new_master)
 
 /atom/movable/screen/close/Click()
-	if(master)
-		if(isstorage(master))
-			var/obj/item/storage/S = master
-			S.close(usr)
+	var/obj/item/storage/storage = master_ref?.resolve()
+	if(!istype(storage))
+		return
+	storage.close(usr)
 	return TRUE
 
 /atom/movable/screen/drop
 	name = "accurate drop"
 	icon_state = "act_drop"
+	mouse_over_pointer = MOUSE_HAND_POINTER
 
 /atom/movable/screen/drop/Click()
 	if(usr.stat == CONSCIOUS)
@@ -100,6 +123,7 @@
 	name = "intent"
 	icon_state = "help"
 	screen_loc = ui_acti
+	mouse_over_pointer = MOUSE_HAND_POINTER
 
 /atom/movable/screen/act_intent/Click(location, control, params)
 	if(ishuman(usr) || isdevil(usr))
@@ -129,6 +153,7 @@
 /atom/movable/screen/mov_intent
 	name = "run/walk toggle"
 	icon_state = "running"
+	mouse_over_pointer = MOUSE_HAND_POINTER
 
 /atom/movable/screen/mov_intent/update_icon_state()
 	if(hud?.mymob)
@@ -149,6 +174,7 @@
 	name = "stop pulling"
 	icon_state = "pull"
 	base_icon_state = "pull"
+	mouse_over_pointer = MOUSE_HAND_POINTER
 
 /atom/movable/screen/pull/Click()
 	if(isobserver(usr))
@@ -162,6 +188,7 @@
 	name = "resist"
 	icon = 'icons/mob/screen_midnight.dmi'
 	icon_state = "act_resist"
+	mouse_over_pointer = MOUSE_HAND_POINTER
 
 /atom/movable/screen/resist/Click()
 	if(isliving(usr))
@@ -172,6 +199,7 @@
 	name = "throw/catch"
 	icon = 'icons/mob/screen_midnight.dmi'
 	icon_state = "act_throw_off"
+	mouse_over_pointer = MOUSE_HAND_POINTER
 
 /atom/movable/screen/throw_catch/Click()
 	if(iscarbon(usr))
@@ -181,7 +209,15 @@
 /atom/movable/screen/storage
 	name = "storage"
 
+/atom/movable/screen/storage/Initialize(mapload, datum/hud/hud_owner, new_master)
+	. = ..()
+	master_ref = WEAKREF(new_master)
+
 /atom/movable/screen/storage/Click(location, control, params)
+	var/obj/item/storage/storage_master = master_ref?.resolve()
+	if(!istype(storage_master))
+		return FALSE
+
 	if(world.time <= usr.next_move)
 		return TRUE
 
@@ -194,48 +230,47 @@
 	if(is_ventcrawling(usr)) // stops inventory actions in vents
 		return TRUE
 
-	if(isstorage(master))
-		var/obj/item/storage/storage_master = master
-		var/obj/item/item = usr.get_active_hand()
-		storage_master.attempt_insert(item)
+	var/obj/item/inserted = usr.get_active_hand()
+	if(inserted)
+		storage_master.attempt_insert(inserted)
+
 	return TRUE
 
-/atom/movable/screen/storage/mouse_drop_receive(obj/item/I, mob/user, params)
-	if(!user || !master || !istype(I) || user.incapacitated(IGNORE_RESTRAINTS|IGNORE_GRAB) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || ismecha(user.loc))
-		return FALSE
+/atom/movable/screen/storage/mouse_drop_receive(obj/item/dropped, mob/user, params)
+	var/obj/item/storage/storage = master_ref?.resolve()
+	if(!istype(storage))
+		return
+
+	if(!user || !storage || !istype(dropped) || user.incapacitated(IGNORE_RESTRAINTS|IGNORE_GRAB) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || ismecha(user.loc))
+		return
 
 	if(is_ventcrawling(user))
-		return FALSE
+		return
 
-	var/obj/item/storage/S = master
-	if(!S)
-		return FALSE
+	if(dropped in storage.contents) // If the item is already in the storage, move them to the end of the list
+		if(storage.contents[length(storage.contents)] == dropped) // No point moving them at the end if they're already there!
+			return
 
-	if(I in S.contents) // If the item is already in the storage, move them to the end of the list
-		if(S.contents[length(S.contents)] == I) // No point moving them at the end if they're already there!
-			return FALSE
-
-		var/list/new_contents = S.contents.Copy()
-		if(S.display_contents_with_number)
-			// Basically move all occurences of I to the end of the list.
+		var/list/new_contents = storage.contents.Copy()
+		if(storage.display_contents_with_number)
+			// Basically move all occurences of dropped to the end of the list.
 			var/list/obj/item/to_append = list()
-			for(var/obj/item/stored_item in S.contents)
-				if(S.can_items_stack(stored_item, I))
+			for(var/obj/item/stored_item in storage.contents)
+				if(storage.can_items_stack(stored_item, dropped))
 					new_contents -= stored_item
 					to_append += stored_item
 
 			new_contents.Add(to_append)
 		else
-			new_contents -= I
-			new_contents += I // oof
-		S.contents = new_contents
+			new_contents -= dropped
+			new_contents += dropped // oof
+		storage.contents = new_contents
 
-		if(user.s_active == S)
-			S.orient2hud(user)
-			S.show_to(user)
+		if(user.s_active == storage)
+			storage.orient2hud(user)
+			storage.show_to(user)
 	else // If it's not in the storage, try putting it inside
-		S.attempt_insert(I)
-	return TRUE
+		storage.attempt_insert(dropped)
 
 /atom/movable/screen/storage/space_box
 	screen_loc = "7,7 to 10,8"
@@ -244,6 +279,7 @@
 	name = "damage zone"
 	icon_state = "zone_sel"
 	screen_loc = ui_zonesel
+	mouse_over_pointer = MOUSE_HAND_POINTER
 	var/overlay_file = 'icons/mob/zone_sel.dmi'
 	var/selecting = BODY_ZONE_CHEST
 	var/list/hover_overlays_cache
@@ -430,6 +466,7 @@
 	icon = 'icons/mob/screen_midnight.dmi'
 	icon_state = "craft"
 	screen_loc = ui_crafting
+	mouse_over_pointer = MOUSE_HAND_POINTER
 
 /atom/movable/screen/craft/Click()
 	if(isobserver(usr))
@@ -443,6 +480,7 @@
 	icon = 'icons/mob/screen_midnight.dmi'
 	icon_state = "talk_wheel"
 	screen_loc = ui_language_menu
+	mouse_over_pointer = MOUSE_HAND_POINTER
 
 /atom/movable/screen/language_menu/Click()
 	var/mob/M = usr
@@ -513,42 +551,42 @@
 
 	return TRUE
 
-/atom/movable/screen/inventory/mouse_drop_receive(obj/item/I, mob/user, params)
-	if(!user || !istype(I) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || ismecha(user.loc) || is_ventcrawling(user))
-		return FALSE
+/atom/movable/screen/inventory/mouse_drop_receive(obj/item/dropped, mob/user, params)
+	if(!user || !istype(dropped) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || ismecha(user.loc) || is_ventcrawling(user))
+		return
 
-	if(isalien(user) && !I.allowed_for_alien())	// We need to do this here
-		return FALSE
+	if(isalien(user) && !dropped.allowed_for_alien())	// We need to do this here
+		return
 
-	if(!in_range(get_turf(I), get_turf(user)))
-		return FALSE
+	if(!in_range(get_turf(dropped), get_turf(user)))
+		return
 
 	if(!hud?.mymob || !slot_id)
-		return FALSE
+		return
 
 	if(hud.mymob != user)
-		return FALSE
+		return
 
 	if(!(slot_id & ITEM_SLOT_HANDS))
-		return FALSE
+		return
 
-	if(I.loc == user)
-		if(I.equip_delay_self > 0 && !user.is_general_slot(user.get_slot_by_item(I)))
+	if(dropped.loc == user)
+		if(dropped.equip_delay_self > 0 && !user.is_general_slot(user.get_slot_by_item(dropped)))
 			user.visible_message(
-				span_notice("[user] начина[PLUR_ET_UT(user)] снимать [I.declent_ru(ACCUSATIVE)]..."),
-				span_notice("Вы начинаете снимать [I.declent_ru(ACCUSATIVE)]..."),
+				span_notice("[user] начина[PLUR_ET_UT(user)] снимать [dropped.declent_ru(ACCUSATIVE)]..."),
+				span_notice("Вы начинаете снимать [dropped.declent_ru(ACCUSATIVE)]..."),
 			)
-			if(!do_after(user, I.equip_delay_self, user, timed_action_flags = (DA_IGNORE_LYING|DA_IGNORE_USER_LOC_CHANGE), max_interact_count = 1, cancel_on_max = TRUE, cancel_message = span_warning("Снятие [I.declent_ru(GENITIVE)] было прервано!")))
-				return FALSE
+			if(!do_after(user, dropped.equip_delay_self, user, timed_action_flags = (DA_IGNORE_LYING|DA_IGNORE_USER_LOC_CHANGE), max_interact_count = 1, cancel_on_max = TRUE, cancel_message = span_warning("Снятие [dropped.declent_ru(GENITIVE)] было прервано!")))
+				return
 
-		if(!user.drop_item_ground(I))
-			return FALSE
+		if(!user.drop_item_ground(dropped))
+			return
 
-	if((slot_id == ITEM_SLOT_HAND_LEFT && !user.put_in_l_hand(I, ignore_anim = FALSE)) || \
-		(slot_id == ITEM_SLOT_HAND_RIGHT && !user.put_in_r_hand(I, ignore_anim = FALSE)))
-		return FALSE
+	if((slot_id == ITEM_SLOT_HAND_LEFT && !user.put_in_l_hand(dropped, ignore_anim = FALSE)) || \
+		(slot_id == ITEM_SLOT_HAND_RIGHT && !user.put_in_r_hand(dropped, ignore_anim = FALSE)))
+		return
 
-	I.pickup(user)
+	dropped.pickup(user)
 
 /atom/movable/screen/inventory/hand
 	//interaction_flags_atom = NONE //so dragging objects into hands icon don't skip adjacency & other checks
@@ -670,6 +708,7 @@
 
 /atom/movable/screen/swap_hand
 	name = "swap hand"
+	mouse_over_pointer = MOUSE_HAND_POINTER
 
 /atom/movable/screen/swap_hand/Click()
 	// At this point in client Click() code we have passed the 1/10 sec check and little else
@@ -755,12 +794,13 @@
 	var/filtered = FALSE //so we don't repeatedly create the mask of the mob every update
 
 /atom/movable/screen/component_button
+	mouse_over_pointer = MOUSE_HAND_POINTER
 	var/atom/movable/screen/parent
 
-/atom/movable/screen/component_button/Initialize(mapload, atom/movable/screen/new_parent)
+/atom/movable/screen/component_button/Initialize(mapload, atom/movable/screen/parent)
 	. = ..()
-	parent = new_parent
+	src.parent = parent
 
-/atom/movable/screen/component_button/Click(params)
+/atom/movable/screen/component_button/Click(location, control, params)
 	if(parent)
 		parent.component_click(src, params)
