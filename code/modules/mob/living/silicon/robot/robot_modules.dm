@@ -214,9 +214,9 @@
 	return
 
 /obj/item/robot_module/standard/respawn_consumable(mob/living/silicon/robot/R)
-	var/obj/item/reagent_containers/spray/cleaner/C = locate() in modules
-	C.reagents.add_reagent(/datum/reagent/space_cleaner, 3)
-	..()
+	var/obj/item/reagent_containers/spray/cleaner/cleaner = locate() in modules
+	cleaner.reagents.add_reagent(/datum/reagent/space_cleaner, 3)
+	return ..()
 
 /obj/item/robot_module/medical
 	name = "Medical"
@@ -530,9 +530,9 @@
 	fix_modules()
 
 /obj/item/robot_module/janitor/respawn_consumable(mob/living/silicon/robot/R)
-	var/obj/item/reagent_containers/spray/cleaner/C = locate() in modules
-	C.reagents.add_reagent(/datum/reagent/space_cleaner, 4)
-	..()
+	var/obj/item/reagent_containers/spray/cleaner/cleaner = locate() in modules
+	cleaner.reagents.add_reagent(/datum/reagent/space_cleaner, 4)
+	return ..()
 
 /obj/item/robot_module/butler
 	name = "Service"
@@ -617,7 +617,7 @@
 	var/obj/item/reagent_containers/spray/pestspray/spray = locate() in modules
 	spray?.reagents.add_reagent("pestkiller", 3)
 
-	..()
+	return ..()
 
 /obj/item/robot_module/butler/add_languages(mob/living/silicon/robot/R)
 	//full set of languages
@@ -1024,7 +1024,7 @@
 		var/obj/item/reagent_containers/spray/alien/acid/acidSpray = emag
 		acidSpray.reagents.add_reagent("sacid", 3)
 		acidSpray.reagents.add_reagent("facid", 3)
-	..()
+	return ..()
 
 /obj/item/robot_module/hunter/add_languages(mob/living/silicon/robot/R)
 	..()
@@ -1076,9 +1076,9 @@
 	return
 
 /obj/item/robot_module/drone/respawn_consumable(mob/living/silicon/robot/R)
-	var/obj/item/reagent_containers/spray/cleaner/C = locate() in modules
-	C.reagents.add_reagent(/datum/reagent/space_cleaner, 3)
-	..()
+	var/obj/item/reagent_containers/spray/cleaner/cleaner = locate() in modules
+	cleaner.reagents.add_reagent(/datum/reagent/space_cleaner, 3)
+	return ..()
 
 /obj/item/robot_module/drone/handle_death(mob/living/silicon/robot/R, gibbed)
 	var/obj/item/gripper/G = locate(/obj/item/gripper) in modules
