@@ -53,7 +53,7 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 		new /datum/stack_recipe("floor tile", /obj/item/stack/tile/plasteel, TRUE, 4, 20),
 		new /datum/stack_recipe/rods("metal rod", /obj/item/stack/rods, TRUE, 2, 50),
 		new /datum/stack_recipe("rack parts", /obj/item/rack_parts),
-		new /datum/stack_recipe("gun rack parts", /obj/item/gunrack_parts),
+		new /datum/stack_recipe("gun rack parts", /obj/item/rack_parts/gunrack_parts),
 		new /datum/stack_recipe("computer frame", /obj/structure/computerframe, 5, time = 2.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("machine frame", /obj/machinery/constructable_frame/machine_frame, 5, time = 2.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("closet", /obj/structure/closet, 2, time = 1.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),

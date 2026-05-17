@@ -51,8 +51,8 @@
 	icon_state = "waterballoon-e"
 	item_state = "waterballoon-e"
 
-/obj/item/toy/balloon/New()
-	..()
+/obj/item/toy/balloon/Initialize(mapload)
+	. = ..()
 	create_reagents(10)
 
 /obj/item/toy/balloon/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
@@ -478,8 +478,8 @@
 	var/cooldown = 0
 	resistance_flags = FLAMMABLE
 
-/obj/item/toy/therapy/New()
-	..()
+/obj/item/toy/therapy/Initialize(mapload)
+	. = ..()
 	if(item_color)
 		name = "[item_color] therapy doll"
 		desc += " This one is [item_color]."
@@ -1007,11 +1007,12 @@
 
 	// Generate a random valid lizard color for our plushie friend
 	var/generated_lizard_color = "#" + random_color()
-	var/temp_hsv = RGBtoHSV(generated_lizard_color)
+	var/list/lizard_hsv = rgb2hsv(generated_lizard_color)
 
 	// If our color is too dark, use the classic green lizard plush color
-	if(ReadHSV(temp_hsv)[3] < ReadHSV("#7f7f7f")[3])
+	if(lizard_hsv[3] < 50)
 		generated_lizard_color = "#66ff33"
+
 	// Set our greyscale colors to the lizard color we made + black eyes
 	set_greyscale_colors(colors = list(generated_lizard_color, COLOR_BLACK))
 
@@ -1029,8 +1030,8 @@
 	var/cooldown = FALSE
 	var/ashwalkerbite = 'sound/effects/unathihiss.ogg'
 
-/obj/item/toy/plushie/ashwalkerplushie/New()
-	..()
+/obj/item/toy/plushie/ashwalkerplushie/Initialize(mapload)
+	. = ..()
 	if(prob(50))
 		icon_state = "plushie_ashwalker2"
 
@@ -1400,19 +1401,14 @@
 			desc = "Watch out for angry voxes!"
 
 /obj/item/toy/plushie/pig/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
-	. = ..()
-	if(!.)
-		return FALSE
-
 	if(over_object != user || user.incapacitated() || !ishuman(user))
-		return FALSE
+		return
 
-	if(user.put_in_hands(src, ignore_anim = FALSE))
-		add_fingerprint(user)
-		user.visible_message(span_notice("[user] поднял [declent_ru(ACCUSATIVE)]."))
-		return TRUE
+	if(!user.put_in_hands(src, ignore_anim = FALSE))
+		return
 
-	return FALSE
+	add_fingerprint(user)
+	user.visible_message(span_notice("[user] поднял[GEND_A_O_I(user)] [declent_ru(ACCUSATIVE)]."))
 
 /obj/item/toy/plushie/bubblegumplushie
 	name = "bubblegum plushie"
@@ -1926,8 +1922,8 @@
 	playsound(loc, 'sound/weapons/gunshots/gunshot_strong.ogg', 50, TRUE)
 	return BRUTELOSS
 
-/obj/item/toy/russian_revolver/New()
-	..()
+/obj/item/toy/russian_revolver/Initialize(mapload)
+	. = ..()
 	spin_cylinder()
 
 /obj/item/toy/russian_revolver/attack_self(mob/user)
@@ -1995,8 +1991,8 @@
 		PREPOSITIONAL = "револьвере .357 калибра",
 	)
 
-/obj/item/toy/russian_revolver/trick_revolver/New()
-	..()
+/obj/item/toy/russian_revolver/trick_revolver/Initialize(mapload)
+	. = ..()
 	fake_bullets = rand(2, 7)
 
 /obj/item/toy/russian_revolver/trick_revolver/examine(mob/user) //Sneaky sneaky
@@ -2056,8 +2052,8 @@
 	var/cooldown = 0
 	var/toysay = "Чё за хуйню вы натворили?"
 
-/obj/item/toy/figure/New()
-	..()
+/obj/item/toy/figure/Initialize(mapload)
+	. = ..()
 	desc = "A \"Space Life\" brand [name]"
 
 /obj/item/toy/figure/attack_self(mob/user as mob)

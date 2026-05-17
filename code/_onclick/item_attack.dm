@@ -226,7 +226,9 @@
 	if(attempt_harvest(item, user))
 		return .|ATTACK_CHAIN_BLOCKED_ALL
 	if(item.sharp && item.damtype == BRUTE && !(HAS_TRAIT(item, TRAIT_SURGICAL) && body_position == LYING_DOWN && user.a_intent == INTENT_HELP) && !issyringe(item) && !isbot(src) && !(HAS_TRAIT(user, TRAIT_PACIFISM) || GLOB.pacifism_after_gt))
-		new /obj/effect/temp_visual/dir_setting/bloodsplatter(loc, get_angle(user, src), get_blood_color())
+		var/splatter_color = get_blood_color()
+		if(splatter_color)
+			new /obj/effect/temp_visual/dir_setting/bloodsplatter(loc, get_angle(user, src), splatter_color)
 	user.changeNext_move(item.attack_speed)
 	. |= item.attack(src, user, modifiers, user.zone_selected)
 
@@ -354,7 +356,7 @@
 		span_danger("Вы ударили [declent_ru(ACCUSATIVE)] [item.declent_ru(INSTRUMENTAL)]!"),
 	)
 	take_damage(item.get_final_force(user), item.damtype, MELEE, TRUE, get_dir(user, src), item.armour_penetration)
-	if(QDELETED(src))	// thats a pretty common behavior with objects, when they take damage
+	if(QDELETED(src)) // thats a pretty common behavior with objects, when they take damage
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 /mob/living/proceed_attack_results(obj/item/item, mob/living/user, list/modifiers, def_zone)
@@ -369,10 +371,10 @@
 	if(apply_damage_result && item.damtype == BRUTE && prob(33))
 		item.add_mob_blood(src)
 		add_splatter_floor()
-		if(get_dist(user, src) <= 1)	//people with TK won't get smeared with blood
+		if(get_dist(user, src) <= 1) //people with TK won't get smeared with blood
 			user.add_mob_blood(src)
 
-	if(QDELETED(src))	// rare, but better be safe
+	if(QDELETED(src)) // rare, but better be safe
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 /// Return sound volumet between 10 and 100, depending on the item weight class

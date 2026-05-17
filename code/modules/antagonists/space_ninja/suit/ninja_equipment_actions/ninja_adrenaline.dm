@@ -12,6 +12,18 @@
 	background_icon_state = "background_green_active"
 	action_initialisation_text = "Integrated Adrenaline Injector"
 
+/datum/action/item_action/advanced/ninja/ninjaboost/Grant(mob/living/carbon/human/ninja)
+	var/obj/item/clothing/suit/space/space_ninja/ninja_suit = target
+	if(ninja_suit && istype(ninja_suit))
+		ninja_suit.a_boost = src
+	return ..()
+
+/datum/action/item_action/advanced/ninja/ninjaboost/Remove(mob/living/carbon/human/ninja)
+	var/obj/item/clothing/suit/space/space_ninja/ninja_suit = target
+	if(ninja_suit && istype(ninja_suit))
+		ninja_suit.a_boost = null
+	return ..()
+
 /**
  * Proc called to activate space ninja's adrenaline.
  *
@@ -38,12 +50,11 @@
 	//Никакого омнизина как в трейторском адренале. Наш адренал не хилит!
 	ninja.say(pick(boost_phrases))
 	to_chat(ninja, span_notice("Вы чувствуете мощный прилив адреналина!"))
-	for(var/datum/action/item_action/advanced/ninja/ninjaboost/ninja_action in actions)
-		ninja_action.use_action()
-		if(!ninja_action.charge_counter)
-			ninja_action.action_ready = FALSE
-			ninja_action.toggle_button_on_off()
-		break
+	var/datum/action/item_action/advanced/ninja/ninjaboost/ninjaboost = locate() in ninja.actions
+	ninjaboost.use_action()
+	if(!ninjaboost.charge_counter)
+		ninjaboost.action_ready = FALSE
+		ninjaboost.toggle_button_on_off()
 	addtimer(CALLBACK(src, PROC_REF(ninjaboost_after)), 7 SECONDS)
 
 /**

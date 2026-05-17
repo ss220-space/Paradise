@@ -404,8 +404,8 @@
 		PREPOSITIONAL = "красном кубе",
 	)
 
-/obj/item/warp_cube/red/New()
-	..()
+/obj/item/warp_cube/red/Initialize(mapload)
+	. = ..()
 	if(!linked)
 		var/obj/item/warp_cube/blue = new(src.loc)
 		linked = blue

@@ -566,16 +566,16 @@
 	if(isclocker(target))
 		return
 	if(ishuman(target) && enchant_type == BLOODSHED_SPELL)
-		var/mob/living/carbon/human/human = target
-		var/obj/item/organ/external/bodypart = pick(human.bodyparts)
+		var/mob/living/carbon/human/human_target = target
+		var/obj/item/organ/external/bodypart = pick(human_target.bodyparts)
 		if(bodypart.internal_bleeding())
-			to_chat(user, span_warning("You tear through [human]'s skin releasing the blood from [human.p_their()] [bodypart.name]!"))
-			playsound(get_turf(human), 'sound/effects/pierce.ogg', 30, TRUE)
-			human.setBlood(max(human.blood_volume - 100, 0))
-			var/splatter_dir = get_angle(user, human)
-			blood_color = human.dna.species.blood_color
-			new /obj/effect/temp_visual/dir_setting/bloodsplatter(human.drop_location(), splatter_dir, blood_color)
-			human.emote("scream")
+			to_chat(user, span_warning("You tear through [human_target]'s skin releasing the blood from [human_target.p_their()] [bodypart.name]!"))
+			playsound(get_turf(human_target), 'sound/effects/pierce.ogg', 30, TRUE)
+			human_target.setBlood(max(human_target.blood_volume - 100, 0))
+			var/splatter_color = human_target.get_blood_color()
+			if(splatter_color)
+				new /obj/effect/temp_visual/dir_setting/bloodsplatter(human_target.drop_location(), get_angle(user, human_target), splatter_color)
+			human_target.emote("scream")
 			deplete_spell()
 	if(swordsman)
 		user.changeNext_move(CLICK_CD_RAPID)
@@ -695,7 +695,7 @@
 	item_state = "clockwork_robe"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	hoodtype = /obj/item/clothing/head/hooded/clockhood_fake
-	allowed = list(/obj/item/flashlight, /obj/item/tank, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe, /obj/item/twohanded/kinetic_crusher, /obj/item/hierophant_club, /obj/item/twohanded/fireaxe/boneaxe) // some miners stuff
+	allowed = ALLOWED_MINING_SUIT_ITEMS// necropolis loot for miners
 	armor = list(MELEE = 40, BULLET = 30, LASER = 40, ENERGY = 20, BOMB = 25, BIO = 10, FIRE = 10, ACID = 10)
 	flags_inv = HIDEJUMPSUIT
 	flags_inv_transparent = HIDEJUMPSUIT
@@ -833,7 +833,7 @@
 	item_state = "clockwork_cuirass"
 	w_class = WEIGHT_CLASS_BULKY
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	allowed = list(/obj/item/flashlight, /obj/item/tank, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe, /obj/item/twohanded/kinetic_crusher, /obj/item/hierophant_club, /obj/item/twohanded/fireaxe/boneaxe) // some miners stuff
+	allowed = ALLOWED_MINING_SUIT_ITEMS // some miners stuff
 	flags_inv = HIDEJUMPSUIT
 	flags_inv_transparent = HIDEGLOVES|HIDESHOES
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
@@ -1579,7 +1579,7 @@
 	. = ..()
 	playsound(src, soundin = 'sound/magic/clockwork/heart_beat.ogg', vol = 100, vary = FALSE, extrarange = radius, pressure_affected = FALSE, falloff_distance = radius)
 
-/obj/effect/temp_visual/ratvar/reconstruct/heart_pulse/New()
+/obj/effect/temp_visual/ratvar/reconstruct/heart_pulse/Initialize(mapload)
 	radius = GLOB.heart.pulse_range
 	sleep_time = 1 * GLOB.heart.pulse_range
 	duration = 1 * GLOB.heart.pulse_range

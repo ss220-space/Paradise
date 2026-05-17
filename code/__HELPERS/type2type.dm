@@ -1,10 +1,10 @@
 /*
  * Holds procs designed to change one type of value, into another.
  * Contains:
- *			file2list
- *			angle2dir
- *			angle2text
- *			worldtime2text
+ * file2list
+ * angle2dir
+ * angle2text
+ * worldtime2text
  */
 
 /// Splits the text of a file at seperator and returns them in a list.
@@ -150,12 +150,13 @@
 
 	return NONE
 
+GLOBAL_LIST_INIT(modulo_angle_to_dir, list(NORTH, NORTHEAST, EAST, SOUTHEAST, SOUTH, SOUTHWEST, WEST, NORTHWEST))
 /// Converts an angle (degrees) into an ss13 direction
-GLOBAL_LIST_INIT(modulo_angle_to_dir, list(NORTH,NORTHEAST,EAST,SOUTHEAST,SOUTH,SOUTHWEST,WEST,NORTHWEST))
-#define angle2dir(X) (GLOB.modulo_angle_to_dir[round((((X%360)+382.5)%360)/45)+1])
+#define angle2dir(X) (GLOB.modulo_angle_to_dir[round((((X % 360) + 382.5) % 360) / 45) + 1])
 
-/proc/angle2dir_cardinal(angle)
-	switch(round(angle, 0.1))
+/proc/angle2dir_cardinal(degree)
+	degree = SIMPLIFY_DEGREES(degree)
+	switch(round(degree, 0.1))
 		if(315.5 to 360, 0 to 45.5)
 			return NORTH
 		if(45.6 to 135.5)
@@ -312,18 +313,18 @@ GLOBAL_LIST_INIT(modulo_angle_to_dir, list(NORTH,NORTHEAST,EAST,SOUTHEAST,SOUTH,
 	var/hue=0;var/saturation=0;var/lightness=0;
 	lightness = (max + min)/2
 	if(range != 0)
-		if(lightness < 0.5)	saturation = range/(max+min)
-		else				saturation = range/(2-max-min)
+		if(lightness < 0.5) saturation = range/(max+min)
+		else saturation = range/(2-max-min)
 
 		var/dred = ((max-red)/(6*max)) + 0.5
 		var/dgreen = ((max-green)/(6*max)) + 0.5
 		var/dblue = ((max-blue)/(6*max)) + 0.5
 
-		if(max==red)		hue = dblue - dgreen
-		else if(max==green)	hue = dred - dblue + (1/3)
-		else				hue = dgreen - dred + (2/3)
-		if(hue < 0)			hue++
-		else if(hue > 1)	hue--
+		if(max==red) hue = dblue - dgreen
+		else if(max==green) hue = dred - dblue + (1/3)
+		else hue = dgreen - dred + (2/3)
+		if(hue < 0) hue++
+		else if(hue > 1) hue--
 
 	return list(hue, saturation, lightness)
 
@@ -335,8 +336,8 @@ GLOBAL_LIST_INIT(modulo_angle_to_dir, list(NORTH,NORTHEAST,EAST,SOUTHEAST,SOUTH,
 		blue = red
 	else
 		var/a;var/b;
-		if(lightness < 0.5)	b = lightness*(1+saturation)
-		else				b = (lightness+saturation) - (saturation*lightness)
+		if(lightness < 0.5) b = lightness*(1+saturation)
+		else b = (lightness+saturation) - (saturation*lightness)
 		a = 2*lightness - b
 
 		red = round(255 * hue2rgb(a, b, hue+(1/3)))
@@ -346,11 +347,11 @@ GLOBAL_LIST_INIT(modulo_angle_to_dir, list(NORTH,NORTHEAST,EAST,SOUTHEAST,SOUTH,
 	return list(red, green, blue)
 
 /proc/hue2rgb(a, b, hue)
-	if(hue < 0)			hue++
-	else if(hue > 1)	hue--
-	if(6*hue < 1)	return (a+(b-a)*6*hue)
-	if(2*hue < 1)	return b
-	if(3*hue < 2)	return (a+(b-a)*((2/3)-hue)*6)
+	if(hue < 0) hue++
+	else if(hue > 1) hue--
+	if(6*hue < 1) return (a+(b-a)*6*hue)
+	if(2*hue < 1) return b
+	if(3*hue < 2) return (a+(b-a)*((2/3)-hue)*6)
 	return a
 
 /proc/num2septext(theNum, sigFig = 7, sep=",") // default sigFig (1,000,000)
@@ -577,6 +578,9 @@ GLOBAL_LIST_INIT(modulo_angle_to_dir, list(NORTH,NORTHEAST,EAST,SOUTHEAST,SOUTH,
 			return "Звуки взаимодействия с предметами"
 		if(CHANNEL_BOSS_MUSIC)
 			return "Музыка боссов"
+		if(CHANNEL_ANNOUNCER)
+			return "Станционные оповещения"
+
 
 ///Get the dir to the RIGHT of dir if they were on a clock
 ///NORTH --> NORTHEAST
@@ -667,3 +671,22 @@ GLOBAL_LIST_INIT(modulo_angle_to_dir, list(NORTH,NORTHEAST,EAST,SOUTHEAST,SOUTH,
 			return list(-1, -1)
 		else
 			return list(0, 0)
+
+/**
+ * # WARNING!
+ * Using a matrix like this as a color value will simplify it back to a string after being set.
+ */
+/proc/color_hex2color_matrix(string)
+	var/length = length(string)
+	if((length != 7 && length != 9) || length != length_char(string))
+		return COLOR_MATRIX_IDENTITY
+	// For runtime safety
+	. = COLOR_MATRIX_IDENTITY
+	var/list/color = rgb2num(string)
+	var/red = color[1] / 255
+	var/green = color[2] / 255
+	var/blue = color[3] / 255
+	var/alpha = 1
+	if(length(color) == 4)
+		alpha = color[4] / 255
+	return list(red,0,0,0, 0,green,0,0, 0,0,blue,0, 0,0,0,alpha, 0,0,0,0)

@@ -118,6 +118,10 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	var/mutable_appearance/damage_overlay = mutable_appearance(dna.species.damage_overlays, "00", layer = -H_DAMAGE_LAYER)
 	overlays_standing[H_DAMAGE_LAYER] = damage_overlay
 
+	if(HAS_TRAIT(src, TRAIT_NO_BLOOD)) // no blood, no bleeding wounds to render
+		apply_overlay(H_DAMAGE_LAYER)
+		return
+
 	// blend the individual damage states with our icons
 	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
 		bodypart.update_state()
@@ -207,7 +211,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			if(husk)
 				base_icon.ColorTone(husk_color_mod)
 			else if(hulk)
-				var/list/tone = ReadRGB(hulk_color_mod)
+				var/list/tone = rgb2num(hulk_color_mod)
 				base_icon.MapColors(rgb(tone[1],0,0),rgb(0,tone[2],0),rgb(0,0,tone[3]))
 
 		//Handle husk overlay.
@@ -379,7 +383,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(gradient)
 		var/icon/icn_alpha_mask = icon(gradient.icon, gradient.icon_state)
 		var/icon/icn_gradient = icon(gradient.icon, "full")
-		var/list/icn_color = ReadRGB(head_organ.h_grad_colour)
+		var/list/icn_color = rgb2num(head_organ.h_grad_colour)
 		icn_gradient.MapColors(rgb(icn_color[1], 0, 0), rgb(0, icn_color[2], 0), rgb(0, 0, icn_color[3]))
 		icn_gradient.ChangeOpacity(head_organ.h_grad_alpha / 200)
 		icn_gradient.AddAlphaMask(icn_alpha_mask)

@@ -127,8 +127,8 @@
 	to_chat(src, "2. Ensure that the station is fit for invasion at a later date, do not perform actions that would render it dangerous or inhospitable.")
 	to_chat(src, "3. Biological and sentient resources will be harvested at a later date, do not harm them.")
 
-/mob/living/simple_animal/hostile/swarmer/New()
-	..()
+/mob/living/simple_animal/hostile/swarmer/Initialize(mapload)
+	. = ..()
 	add_language(LANGUAGE_HIVE_SWARMER, 1)
 	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
 		diag_hud.add_atom_to_hud(src)

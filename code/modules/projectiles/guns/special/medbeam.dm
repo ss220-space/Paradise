@@ -71,7 +71,8 @@
 	active = FALSE // skip qdelling the beam again if we're doing this proc
 	LoseTarget()
 
-/obj/item/gun/medbeam/process_fire(atom/target, mob/living/user, message = TRUE, list/modifiers, zone_override, bonus_spread = 0)
+/obj/item/gun/medbeam/process_fire(zone_override, secondary_fire = FALSE)
+	var/mob/living/user = gun_user
 	if(isliving(user))
 		add_fingerprint(user)
 
@@ -184,7 +185,7 @@
 
 	if(ishuman(target))
 		for(var/obj/item/organ/external/bodypart as anything in target.bodyparts)
-			if(bodypart.has_fracture() && prob(10))
+			if(bodypart.has_fracture() && bodypart.fracture.can_mend_by_aura_heal && prob(10))
 				bones_mended = TRUE
 				bodypart.mend_fracture()
 

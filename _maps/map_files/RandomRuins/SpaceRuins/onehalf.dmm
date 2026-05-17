@@ -218,10 +218,8 @@
 	dir = 4
 	},
 /obj/structure/cable,
-/obj/machinery/power/apc/noalarm{
-	keep_preset_name = 1;
-	name = "Hallway APC";
-	pixel_y = -24
+/obj/machinery/power/apc/noalarm/directional/south{
+	keep_preset_name = 1
 	},
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/onehalf/hallway)
@@ -364,11 +362,8 @@
 /obj/item/healthanalyzer,
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
-/obj/machinery/power/apc/noalarm{
-	dir = 4;
-	keep_preset_name = 1;
-	name = "Crew Quarters APC";
-	pixel_x = 27
+/obj/machinery/power/apc/noalarm/directional/east{
+	keep_preset_name = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -378,11 +373,8 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc/noalarm{
-	dir = 1;
-	keep_preset_name = 1;
-	name = "Mining Drone Bay APC";
-	pixel_y = 26
+/obj/machinery/power/apc/noalarm/directional/north{
+	keep_preset_name = 1
 	},
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel,
@@ -673,11 +665,8 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/noalarm{
-	dir = 1;
-	keep_preset_name = 1;
-	name = "Bridge APC";
-	pixel_y = 26
+/obj/machinery/power/apc/noalarm/directional/north{
+	keep_preset_name = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/onehalf/bridge)

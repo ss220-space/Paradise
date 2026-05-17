@@ -1288,15 +1288,14 @@
 /obj/machinery/vending/proc/do_vend(datum/data/vending_product/product_record, mob/user, list/greyscale_colors)
 	if(!item_slot || !inserted_item)
 		var/put_on_turf = TRUE
-		var/obj/item/vended = new product_record.product_path(drop_location())
+		var/obj/item/vended_item = new product_record.product_path(drop_location())
 		if(greyscale_colors)
-			vended.set_greyscale_colors(greyscale_colors)
-		if(istype(vended) && user && iscarbon(user) && user.Adjacent(src))
-			if(user.put_in_hands(vended, ignore_anim = FALSE))
-				put_on_turf = FALSE
+			vended_item.set_greyscale_colors(greyscale_colors)
+		if(IsReachableBy(user) && user.put_in_hands(vended_item, ignore_anim = FALSE))
+			put_on_turf = FALSE
 		if(put_on_turf)
-			var/turf/T = get_turf(src)
-			vended.forceMove(T)
+			var/turf/target_turf = get_turf(src)
+			vended_item.forceMove(target_turf)
 		return TRUE
 	return FALSE
 

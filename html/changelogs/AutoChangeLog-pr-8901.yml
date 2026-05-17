@@ -1,5 +1,0 @@
-author: "vovakons"
-delete-after: True
-changes:
-  - qol: "Модули худ-коллиматоров в вендор модулей. (PR #8901)"
-  - balance: "Ребаланс цен на оружейные модули. (PR #8901)"

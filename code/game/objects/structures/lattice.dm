@@ -167,7 +167,7 @@
 		to_chat(user, span_warning("Вам необходимо не прерывать процесс."))
 		return
 	to_chat(user, span_notice("Вы срезали усиленные прутья!"))
-	new /obj/item/stack/fireproof_rods(get_turf(src), 1)
+	new /obj/item/stack/rods/fireproof(get_turf(src), 1)
 	deconstruct()
 
 /obj/structure/lattice/catwalk/fireproof
@@ -186,7 +186,7 @@
 		to_chat(user, span_warning("Вам необходимо не прерывать процесс."))
 		return
 	to_chat(user, span_notice("Вы срезали усиленный мостик!"))
-	new /obj/item/stack/fireproof_rods(get_turf(src), 3)
+	new /obj/item/stack/rods/fireproof(get_turf(src), 3)
 	deconstruct()
 
 /obj/structure/lattice/catwalk/mapping

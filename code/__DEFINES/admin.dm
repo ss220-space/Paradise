@@ -102,6 +102,7 @@
 #define ADMIN_COORDJMP(src) "[src ? "[COORD(src)] [ADMIN_JMP(src)]" : "nonexistent location"]"
 #define ADMIN_VERBOSEJMP(src) "[src ? "[AREACOORD(src)] [ADMIN_JMP(src)]" : "nonexistent location"]"
 #define ADMIN_SHOWDETAILS(mask, content) "<a href='byond://?_src_=holder;showdetails=[html_encode(content)]'>[mask]</a>"
+#define ADMIN_TAG(datum) "(<a href='byond://?src=[UID_of(src)];tag_datum=[UID_of(datum)]'>TAG</a>)"
 
 #define BAN_HOURS * 60
 #define BAN_DAYS BAN_HOURS * 24

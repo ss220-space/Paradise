@@ -187,8 +187,8 @@
 	item_state = "waterbackpackatmos"
 	volume = 200
 
-/obj/item/watertank/atmos/New()
-	..()
+/obj/item/watertank/atmos/Initialize(mapload)
+	. = ..()
 	reagents.add_reagent("water", 200)
 
 /obj/item/watertank/atmos/make_noz()

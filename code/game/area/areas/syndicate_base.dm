@@ -5,7 +5,7 @@
 /area/syndicate/unpowered/syndicate_space_base
 	name = "Secret Space Base"
 	icon_state = "syndie-control"
-	ambientsounds = HIGHSEC_SOUNDS
+	ambience_index = AMBIENCE_DANGER
 	report_alerts = FALSE
 	hide_attacklogs = TRUE
 	sound_environment = SOUND_AREA_STANDARD_STATION
@@ -20,7 +20,7 @@
 
 /area/syndicate/unpowered/syndicate_space_base/medbay
 	name = "Syndicate Space Medbay"
-	ambientsounds = MEDICAL_SOUNDS
+	ambience_index = AMBIENCE_MEDICAL
 	icon_state = "taipan_medbay"
 
 /area/syndicate/unpowered/syndicate_space_base/medbay/surgery1
@@ -39,14 +39,14 @@
 /area/syndicate/unpowered/syndicate_space_base/medbay/morgue
 	name = "Syndicate Space Morgue"
 	icon_state = "taipan_morgue"
-	ambientsounds = SPOOKY_SOUNDS
+	ambience_index = AMBIENCE_SPOOKY
 	is_haunted = TRUE
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
 /area/syndicate/unpowered/syndicate_space_base/teleporter
 	name = "Syndicate Space Teleporter"
 	icon_state = "taipan_teleporter"
-	ambientsounds = ENGINEERING_SOUNDS
+	ambience_index = AMBIENCE_ENGI
 
 /area/syndicate/unpowered/syndicate_space_base/teleporter/arrivals
 	name = "Syndicate Space Arrivals"
@@ -154,7 +154,7 @@
 /area/syndicate/unpowered/syndicate_space_base/maintenance
 	name = "Syndicate Space Maintenance"
 	icon_state = "taipan_maint"
-	ambientsounds = MAINTENANCE_SOUNDS
+	ambience_index = AMBIENCE_MAINT
 	valid_territory = FALSE
 	sound_environment = SOUND_AREA_TUNNEL_ENCLOSED
 
@@ -196,6 +196,6 @@
 /area/syndicate/unpowered/syndicate_space_base/torture_room
 	name = "Syndicate Space Torture_room"
 	icon_state = "taipan_torture_room"
-	ambientsounds = SPOOKY_SOUNDS
+	ambience_index = AMBIENCE_SPOOKY
 	is_haunted = TRUE
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED

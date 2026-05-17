@@ -4,6 +4,9 @@
 /// Within given range, but not counting z-levels
 #define IN_GIVEN_RANGE(source, other, given_range) (get_dist(source, other) <= given_range && (get_step(source, 0)?:z) == (get_step(other, 0)?:z))
 
+/// Checks if potential_weakref is a weakref of thing.
+#define IS_WEAKREF_OF(thing, potential_weakref) (isdatum(thing) && !isnull(potential_weakref) && thing.weak_reference == potential_weakref)
+
 // Atoms
 #define isatom(A) (isloc(A))
 
@@ -15,7 +18,16 @@
 
 #define isimage(thing) (istype(thing, /image))
 
-#define IS_WEAKREF_OF(thing, potential_weakref) (isdatum(thing) && !isnull(potential_weakref) && thing.weak_reference == potential_weakref)
+GLOBAL_VAR_INIT(magic_appearance_detecting_image, new /image) // appearances are awful to detect safely, but this seems to be the best way ~ninjanomnom
+#define isappearance(thing) (!isimage(thing) && !ispath(thing) && istype(GLOB.magic_appearance_detecting_image, thing))
+
+// The filters list has the same ref type id as a filter, but isnt one and also isnt a list, so we have to check if the thing has Cut() instead
+GLOBAL_VAR_INIT(refid_filter, TYPEID(filter(type="angular_blur")))
+#define isfilter(thing) (!hascall(thing, "Cut") && TYPEID(thing) == GLOB.refid_filter)
+
+#define isgenerator(A) (istype(A, /generator))
+
+#define isalist(A) (istype(A, /alist))
 
 // Mobs
 
@@ -134,7 +146,7 @@
 #define is_internal_organ(A) (istype(A, /obj/item/organ/internal))
 #define is_internal_organ_brain(A) (istype(A, /obj/item/organ/internal/brain))
 
-#define	is_organ(A) (istype(A, /obj/item/organ))
+#define is_organ(A) (istype(A, /obj/item/organ))
 
 #define isbluespacecrystal(A) (istype(A, /obj/item/stack/ore/bluespace_crystal))
 
@@ -166,8 +178,9 @@
 
 #define is_module_input(A) (istype(A, /obj/item/circuit_component/module_input))
 
-
 #define is_mmi(A) (istype(A, /obj/item/mmi))
+
+#define is_syndi_camera_bug(A) (istype(A, /obj/item/camera_bug/syndicate))
 
 GLOBAL_LIST_INIT(pointed_types, typecacheof(list(
 	/obj/item/pen,
@@ -234,6 +247,9 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 #define ischasm(A) (istype(A, /turf/simulated/floor/chasm))
 
 #define issingularity(atom) (istype(atom, /obj/singularity))
+
+/// Not really closed, but the meaning is the same.
+#define isclosedturf(A) (iswallturf(A) || ismineralturf(A))
 
 //Structures
 #define isstructure(A) (istype(A, /obj/structure))
@@ -327,6 +343,8 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 #define isminion(A) (istype(A, /mob/living/simple_animal/hostile/blob_minion))
 #define isblobbernaut(M) (istype((M), /mob/living/simple_animal/hostile/blob_minion/blobbernaut))
 
+#define isdead(A) (istype(A, /mob/dead))
+
 #define isobserver(A) (istype(A, /mob/dead/observer))
 
 #define isnewplayer(A) (istype(A, /mob/new_player))
@@ -373,6 +391,8 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 #define iswryn(A) (is_species(A, /datum/species/wryn))
 #define ismoth(A) (is_species(A, /datum/species/moth))
 
+#define is_clown_job(job_type) (istype(job_type, /datum/job/service/clown))
+
 #define iswelder(A) (istype(A, /obj/item/weldingtool))
 
 #define iswirecutter(A) (istype(A, /obj/item/wirecutters))
@@ -387,7 +407,7 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 
 #define is_surgery_tool(W) (istype(W, /obj/item) && (W.tool_behaviour in GLOB.surgery_tool_behaviors))
 
-#define isspacearea(A)	(istype(A, /area/space))
+#define isspacearea(A) (istype(A, /area/space))
 
 #define isrelic(A) (istype(A, /obj/item/relic))
 
@@ -411,6 +431,3 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 
 #define is_cargo_shelf(A) (istype(A, /obj/structure/cargo_shelf))
 #define is_crate(A) (istype(A, /obj/structure/closet/crate))
-
-/// Not closed turf, but it means the same thing (almost).
-#define isclosedturf(A) (iswallturf(A) || ismineralturf(A))

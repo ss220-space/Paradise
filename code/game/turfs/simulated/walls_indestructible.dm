@@ -204,6 +204,8 @@
 	icon_state = "iron"
 	base_icon_state = "iron_wall"
 	smooth = SMOOTH_BITMASK
+	canSmoothWith = SMOOTH_GROUP_IRON_WALLS
+	smoothing_groups = SMOOTH_GROUP_IRON_WALLS
 
 /turf/simulated/wall/indestructible/bananium
 	name = "bananium wall"

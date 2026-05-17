@@ -4,14 +4,14 @@
 	name = "BFL Mining laser"
 
 /datum/station_goal/bfl/get_report()
-	return {"<b>Mining laser construcion</b><br>
-	Our surveillance drone detected an enormous deposit, oozing with plasma. We need you to construct a BFL system to collect plasma and send it to the Central Command via cargo shuttle.
+	return {"<b>Установка добывающего лазера</b><br>
+	Наши дроны слежки засекли огромное месторождение, с которого сочится плазма. Нам надо чтобы вы сооружили систему ОБЛ для сбора плазмы и отправили полученные ресурсы на ЦК по шаттлу снабжения.
 	<br>
-	Its base parts should be available for shipping by your cargo shuttle.
+	Базовые запчасти должны быть доступны в консоли заказов.
 	<br>
-	In order to complete the mission, you must to order a special pack in cargo called BFL Mission goal, and enjoy your reward.
+	Чтобы завершить миссию, вы должны заказать специальный заказ Награда за постройку ОБЛ, после чего наслаждайтесь наградой.
 	<br><br>
-	-Nanotrasen Naval Command"}
+	-Командование Флота \"Нанотрейзен\""}
 
 /datum/station_goal/bfl/on_report()
 	//Unlock BFL related things
@@ -549,38 +549,29 @@
 	desc = "Гигантский лазер, предназначенный для добычи руды."
 	icon = 'icons/obj/machines/bfl/laser.dmi'
 	icon_state = "Laser_Red"
-	speed_process = TRUE
-	var/move = 0
-	var/lavaland_z_lvl		// Определяется кодом по имени лаваленда
-
-/obj/singularity/bfl_red/move(force_move)
-	if(!move_self)
-		return 0
-
-	var/movement_dir = pick(GLOB.alldirs - last_failed_movement)
-
-	if(force_move)
-		movement_dir = force_move
-		step(src, movement_dir)
-	else
-		move++
-		forceMove(locate((move % 255) + 1, (sin(move + 1) + 1)*125 + 3, lavaland_z_lvl))
-
-/obj/singularity/bfl_red/expand()
-	. = ..()
-	icon = 'icons/obj/machines/bfl/laser.dmi'
-	icon_state = "Laser_Red"
 	pixel_x = -32
-	pixel_y = 0
-	grav_pull = 1
+	move_self = FALSE // we drive the sine-wave path ourselves in process()
+	dissipate = FALSE
+	maximum_stage = STAGE_ONE
+	ghost_notification_message = null // emitter announces the rise to lavaland viewers itself
+	speed_process = TRUE
+	/// Sine-wave step counter; emitter seeds this with the spawn x so the path varies per run.
+	var/move = 0
+	var/lavaland_z_lvl
 
-/obj/singularity/bfl_red/singularity_act()
-	return 0
-
-/obj/singularity/bfl_red/New(loc, starting_energy = 50, temp = 0)
-	starting_energy = 250
+/obj/singularity/bfl_red/Initialize(mapload)
+	. = ..()
 	lavaland_z_lvl = level_name_to_num(MINING)
-	. = ..(loc, starting_energy, temp)
+	var/datum/component/singularity/singularity = singularity_component?.resolve()
+	if(!singularity)
+		return
+	singularity.grav_pull = 1
+	singularity.consume_range = 0
+	singularity.bsa_targetable = FALSE
+
+/obj/singularity/bfl_red/process(seconds_per_tick)
+	move++
+	forceMove(locate((move % 255) + 1, (sin(move + 1) + 1) * 125 + 3, lavaland_z_lvl))
 
 /obj/effect/bfl_laser
 	name = "big laser beam"

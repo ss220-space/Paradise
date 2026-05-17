@@ -1,4 +1,0 @@
-author: "vovakons"
-delete-after: True
-changes:
-  - balance: "Снижена мощность взрыва когда два мага дают пять. (PR #8932)"

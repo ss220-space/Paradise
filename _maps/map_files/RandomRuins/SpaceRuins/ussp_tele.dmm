@@ -167,11 +167,7 @@
 /turf/simulated/wall,
 /area/derelict/teleporter)
 "B" = (
-/obj/machinery/power/apc/noalarm{
-	dir = 0;
-	name = "Worn-out APC";
-	pixel_y = -24
-	},
+/obj/machinery/power/apc/noalarm/directional/south,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "floorgrime"
 	},

@@ -138,13 +138,13 @@
 		GLOB.major_announcement.announce(
 			"Был вызван эвакуационный шаттл. [redAlert ? "Красный уровень угрозы подтверждён: отправлен приоритетный шаттл. " : "" ]Он прибудет в течение [timeLeft(600)] минут.[reason][SSshuttle.emergencyLastCallLoc ? "\n\nВызов шаттла отслежен. Результаты можно посмотреть на любой консоли связи." : "" ]",
 			new_title = ANNOUNCE_PRIORITY_RU,
-			new_sound = sound('sound/AI/eshuttle_call.ogg')
+			new_sound = ANNOUNCER_SHUTTLECALLED
 		)
 	else
 		GLOB.major_announcement.announce(
 			"Был вызван тра+нспортный шаттл. [redAlert ? "Красный уровень угрозы подтверждён: отправлен приоритетный шаттл. " : "" ]Он прибудет в течение [timeLeft(600)] минут.[reason]",
 			new_title = ANNOUNCE_PRIORITY_RU,
-			new_sound = sound('sound/AI/cshuttle.ogg')
+			new_sound = ANNOUNCER_SHUTTLECALLED
 		)
 
 /obj/docking_port/mobile/emergency/cancel(area/signalOrigin)
@@ -164,7 +164,7 @@
 	GLOB.major_announcement.announce(
 		"Эвакуационный шаттл был отозван.[SSshuttle.emergencyLastCallLoc ? " Отзыв шаттла отслежен. Результаты можно посмотреть на любой консоли связи." : "" ]",
 		new_title = ANNOUNCE_PRIORITY_RU,
-		new_sound = sound('sound/AI/eshuttle_recall.ogg')
+		new_sound = ANNOUNCER_SHUTTLERECALLED
 	)
 
 /obj/docking_port/mobile/emergency/proc/is_hijacked()
@@ -239,13 +239,13 @@
 					GLOB.major_announcement.announce(
 						"Эвакуационный шаттл совершил стыковку со станцией. У вас есть [timeLeft(600)] минуты, чтобы взобраться на борт эвакуационного шаттла.",
 						new_title = ANNOUNCE_PRIORITY_RU,
-						new_sound = sound('sound/AI/eshuttle_dock.ogg')
+						new_sound = ANNOUNCER_SHUTTLEDOCK
 					)
 				else
 					GLOB.major_announcement.announce(
 						"Транспортный шаттл совершил стыковку со станцией. У вас есть [timeLeft(600)] минуты, чтобы взобраться на борт транспортного шаттла.",
 						new_title = ANNOUNCE_PRIORITY_RU,
-						new_sound = sound('sound/AI/cshuttle_dock.ogg')
+						new_sound = ANNOUNCER_SHUTTLEDOCK
 					)
 		if(SHUTTLE_DOCKED)
 

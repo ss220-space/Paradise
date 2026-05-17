@@ -138,7 +138,7 @@
 /obj/structure/cable/attack_tk(mob/user)
 	return
 
-/obj/structure/cable/attackby(obj/item/I, mob/user, params)
+/obj/structure/cable/attackby(obj/item/I, mob/user, list/modifiers)
 	var/turf/our_turf = get_turf(src)
 	if(!our_turf)
 		return ATTACK_CHAIN_BLOCKED_ALL

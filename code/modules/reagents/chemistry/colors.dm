@@ -31,7 +31,8 @@ GLOBAL_LIST_INIT(random_color_list, list("#00aedb","#a200ff","#f47835","#d41243"
 	return color
 
 /proc/get_color_matrix_from_reagents(reagents)
-	var/list/mixed_color = ReadRGB(mix_color_from_reagents(reagents))
+	var/color_str = mix_color_from_reagents(reagents)
+	var/list/mixed_color = rgb2num(color_str)
 
 	var/r = mixed_color[1] / 255
 	var/g = mixed_color[2] / 255

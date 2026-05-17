@@ -31,8 +31,6 @@
 			QUEUE_SMOOTH(src)
 			QUEUE_SMOOTH_NEIGHBORS(src)
 		icon_state = ""
-	if(climbable)
-		verbs += /obj/structure/proc/climb_on
 	if(SSticker)
 		GLOB.cameranet.updateVisibility(src)
 
@@ -45,7 +43,7 @@
 			QUEUE_SMOOTH_NEIGHBORS(T)
 	if(creates_cover && isturf(loc))
 		REMOVE_TRAIT(loc, TRAIT_TURF_COVERED, UNIQUE_TRAIT_SOURCE(src))
-	if(isprocessing)
+	if(datum_flags & DF_ISPROCESSING)
 		STOP_PROCESSING(SSobj, src)
 	return ..()
 
@@ -77,19 +75,11 @@
 		add_fingerprint(user)
 	return ..()
 
-/obj/structure/proc/climb_on()
-
-	set name = "Climb structure"
-	set desc = "Climbs onto a structure."
-	set src in oview(1)
-
-	do_climb(usr)
-
 /obj/structure/mouse_drop_receive(atom/movable/dropping, mob/user, params)
 	. = ..()
 	if(!. && dropping == user)
 		do_climb(user)
-		return TRUE
+		return
 
 /obj/structure/proc/density_check(mob/living/user)
 	var/turf/source_turf = get_turf(src)
@@ -101,7 +91,6 @@
 			if((check.flags & ON_BORDER) && user.loc != loc && border_dir != check.dir)
 				continue
 			return check
-	return null
 
 /obj/structure/proc/do_climb(mob/living/user)
 	if(!can_touch(user) || !climbable)

@@ -83,15 +83,33 @@
 
 /datum/gear/cards
 	index_name = "a deck of standard cards"
+	display_name = "Колода карт"
 	path = /obj/item/deck/cards
 
 /datum/gear/doublecards
 	index_name = "a double deck of standard cards"
+	display_name = "Двойная колода карт"
 	path = /obj/item/deck/cards/doublecards
 
 /datum/gear/tarot
 	index_name = "a deck of tarot cards"
+	display_name = "Колода карт таро"
 	path = /obj/item/deck/tarot
+
+/datum/gear/unum
+	index_name = "a deck of UNUM cards"
+	display_name = "Колода карт UNUM"
+	path = /obj/item/deck/unum
+
+/datum/gear/cards_tiny
+	index_name = "a deck of tiny cards"
+	display_name = "Колода миниатюрных карт"
+	path = /obj/item/deck/cards/tiny
+
+/datum/gear/doublecards_tiny
+	index_name = "a double deck of tiny cards"
+	display_name = "Двойная колода миниатюрных карт"
+	path = /obj/item/deck/cards/tiny/doublecards
 
 /datum/gear/headphones
 	index_name = "a pair of headphones"
@@ -166,6 +184,11 @@
 		/obj/item/lipstick/lime
 	)
 	gear_tweaks += new /datum/gear_tweak/path(lips, src, TRUE)
+
+/datum/gear/spraycan
+	index_name = "Nanotrasen-brand Rapid Paint Applicator"
+	display_name = "Баллончик с краской"
+	path = /obj/item/toy/crayon/spraycan
 
 //////////////////////
 //		Mugs		//

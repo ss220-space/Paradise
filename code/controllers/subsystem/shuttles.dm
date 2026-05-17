@@ -54,6 +54,9 @@ SUBSYSTEM_DEF(shuttle)
 	var/list/hidden_shuttle_turfs = list() //all turfs hidden from navigation computers associated with a list containing the image hiding them and the type of the turf they are pretending to be
 	var/list/hidden_shuttle_turf_images = list() //only the images from the above list
 
+	/// Did the supermatter start a cascade event?
+	var/supermatter_cascade = FALSE
+
 /datum/controller/subsystem/shuttle/Initialize()
 	ordernum = rand(1,9000)
 
@@ -238,6 +241,9 @@ SUBSYSTEM_DEF(shuttle)
 	return 1
 
 /datum/controller/subsystem/shuttle/proc/autoEvac()
+	if(!SSticker.IsRoundInProgress() || supermatter_cascade)
+		return
+
 	var/callShuttle = TRUE
 
 	for(var/thing in GLOB.shuttle_caller_list)

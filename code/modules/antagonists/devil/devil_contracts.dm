@@ -15,7 +15,7 @@
 		/obj/item/gun/projectile/automatic/ik60,\
 		/obj/item/gun/projectile/automatic/cats,\
 		/obj/item/gun/projectile/automatic/ak814,\
-		/obj/item/gun/projectile/automatic/sfg\
+		/obj/item/gun/projectile/automatic/smg/sfg\
 	)
 
 GLOBAL_LIST_INIT(devil_guns, (GLOB.summoned_guns - NOT_DEVIL_GUNS + DEVIL_GUNS))

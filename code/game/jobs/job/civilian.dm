@@ -3,8 +3,8 @@
 	flag = JOB_FLAG_CIVILIAN
 	department_flag = JOBCAT_SUPPORT
 	department = STATION_DEPARTMENT_CIVILIAN
-	total_positions = -1
-	spawn_positions = -1
+	total_positions = JOB_UNLIMITED_POSITION
+	spawn_positions = JOB_UNLIMITED_POSITION
 	supervisors = "Главой персонала"
 	department_head = list(JOB_TITLE_HOP)
 	selection_color = "#e6e6e6"
@@ -25,6 +25,15 @@
 	jobtype = /datum/job/civilian
 
 	uniform = /obj/item/clothing/under/color/random
+
+/datum/outfit/job/assistant/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	if(!HAS_TRAIT(SSstation, STATION_TRAIT_CLASSIC_ASSISTANTS))
+		return
+
+	uniform = /obj/item/clothing/under/color/grey
+	mask = /obj/item/clothing/mask/gas
+	gloves = /obj/item/clothing/gloves/color/yellow/fake
 
 /datum/job/civilian/prisoner
 	title = JOB_TITLE_PRISONER

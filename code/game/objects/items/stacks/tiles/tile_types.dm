@@ -42,9 +42,8 @@
 		if(!R && replace)
 			user.put_in_hands(new_item)
 
-/obj/item/stack/tile/handle_openspace_click(turf/target, mob/user, proximity_flag, list/modifiers)
-	if(proximity_flag)
-		melee_attack_chain(user, target, modifiers)
+/obj/item/stack/tile/handle_openspace_click(turf/target, mob/user, list/modifiers)
+	target.attackby(src, user, list2params(modifiers))
 
 // GRASS
 /obj/item/stack/tile/grass

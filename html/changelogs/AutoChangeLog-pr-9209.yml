@@ -1,0 +1,4 @@
+author: "dageavtobusnick"
+delete-after: True
+changes:
+  - bugfix: "CTRL и ALT клики больше не вызывают выстрел. (PR #9209)"

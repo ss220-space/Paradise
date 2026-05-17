@@ -329,7 +329,7 @@
  * * user - The mob unbuckling target
  */
 /atom/movable/proc/user_unbuckle_mob(mob/living/target, mob/living/user)
-	if(!(target in buckled_mobs) || !user.Adjacent(target))
+	if(!(target in buckled_mobs) || !target.IsReachableBy(user))
 		return
 	var/mob/living/buckled_mob = unbuckle_mob(target)
 	if(buckled_mob)

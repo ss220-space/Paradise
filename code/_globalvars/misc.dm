@@ -25,11 +25,11 @@ GLOBAL_VAR_INIT(global_announcer_base_text, "$name, $rank, $join_message.")
 		GLOB.global_announcer = new(null)
 	return
 
-GLOBAL_LIST_INIT(paper_tag_whitelist, list("center","p","div","span","h1","h2","h3","h4","h5","h6","hr","pre",	\
-	"big","small","font","i","u","b","s","sub","sup","tt","br","hr","ol","ul","li","caption","col",	\
+GLOBAL_LIST_INIT(paper_tag_whitelist, list("center","p","div","span","h1","h2","h3","h4","h5","h6","hr","pre", \
+	"big","small","font","i","u","b","s","sub","sup","tt","br","hr","ol","ul","li","caption","col", \
 	"table","td","th","tr"))
-GLOBAL_LIST_INIT(paper_blacklist, list("java","onblur","onchange","onclick","ondblclick","onfocus","onkeydown",	\
-	"onkeypress","onkeyup","onload","onmousedown","onmousemove","onmouseout","onmouseover",	\
+GLOBAL_LIST_INIT(paper_blacklist, list("java","onblur","onchange","onclick","ondblclick","onfocus","onkeydown", \
+	"onkeypress","onkeyup","onload","onmousedown","onmousemove","onmouseout","onmouseover", \
 	"onmouseup","onreset","onselect","onsubmit","onunload"))
 
 //Reverse of dir

@@ -2,6 +2,8 @@
 	var/obj/item/item_in_hand = get_active_hand()
 
 	if(SEND_SIGNAL(src, COMSIG_MOB_SWAPPING_HANDS, item_in_hand) & COMPONENT_BLOCK_SWAP)
+		if(item_in_hand)
+			SEND_SIGNAL(item_in_hand, COMSIG_ITEM_SWAP_BLOCKED, src)
 		balloon_alert(src, "ваши руки заняты!")
 		return FALSE
 

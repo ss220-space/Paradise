@@ -21,12 +21,12 @@
 		PREPOSITIONAL = "антенне",
 	)
 
-/obj/item/organ/internal/wryn/hivenode/New(mob/living/carbon/carbon)
-	if(istype(carbon))
+/obj/item/organ/internal/wryn/hivenode/Initialize(mapload)
+	if(iscarbon(loc))
+		var/mob/living/carbon/carbon = loc
 		var/obj/item/organ/external/head/head_organ = carbon.get_organ(BODY_ZONE_HEAD)
 		hair_style = head_organ.h_style
-
-	return ..(carbon)
+	. = ..()
 
 /obj/item/organ/internal/wryn/hivenode/insert(mob/living/carbon/human/human, special = ORGAN_MANIPULATION_DEFAULT)
 	. = ..()

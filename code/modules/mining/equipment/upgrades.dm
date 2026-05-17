@@ -76,8 +76,6 @@
 	switch(target.type)
 		if(/obj/item/gun/energy/kinetic_accelerator/experimental)
 			var/obj/item/gun/energy/kinetic_accelerator/gun = target
-			if(gun.bayonet)
-				gun.set_bayonet(null)
 			if(gun.gun_light)
 				gun.set_gun_light(null)
 			gun.deattach_modkits()

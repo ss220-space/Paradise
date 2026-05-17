@@ -508,11 +508,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/livingcomplex)
 "nG" = (
-/obj/machinery/power/apc/worn_out{
-	cell_type = 0;
-	dir = 8;
-	pixel_x = -26
-	},
+/obj/machinery/power/apc/worn_out/directional/west,
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
@@ -531,9 +527,7 @@
 /turf/simulated/floor/carpet/royalblue,
 /area/maintenance/livingcomplex)
 "ot" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_x = 26
-	},
+/obj/structure/extinguisher_cabinet/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/pod,
 /area/maintenance/abandonedwarehouse)
@@ -931,9 +925,7 @@
 	},
 /obj/effect/decal/warning_stripes/southeastcorner,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/apc{
-	pixel_y = -26
-	},
+/obj/machinery/power/apc/directional/south,
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
@@ -1000,9 +992,7 @@
 /turf/simulated/floor/pod,
 /area/maintenance/abandonedwarehouse)
 "AQ" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -26
-	},
+/obj/structure/extinguisher_cabinet/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/reagent_dispensers/watertank,
 /turf/simulated/floor/pod,
@@ -1421,10 +1411,7 @@
 	dir = 4
 	},
 /obj/machinery/light_construct,
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -26
-	},
+/obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/carpet/royalblue,
 /area/maintenance/livingcomplex)
 "Mv" = (
@@ -1575,10 +1562,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -26
-	},
+/obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/pod,
 /area/maintenance/abandonedwarehouse)
 "RY" = (

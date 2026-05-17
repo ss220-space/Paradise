@@ -1,0 +1,4 @@
+author: "dageavtobusnick"
+delete-after: True
+changes:
+  - bugfix: "Теперь bullet_act( не уходит в рекурсию, если у куклы нет органа-груди. (PR #9162)"
