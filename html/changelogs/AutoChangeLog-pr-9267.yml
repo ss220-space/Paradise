@@ -1,0 +1,4 @@
+author: "DraumLord"
+delete-after: True
+changes:
+  - bugfix: "Больше нельзя стабилизировать сгнившее и стабилизированное ядро (PR #9267)"

@@ -104,20 +104,20 @@
 			M.Weaken(10 SECONDS)
 
 		if(ear_safety)
-			return
+			continue
 
 		M.apply_damage(15, STAMINA)
 		M.Weaken(status_duration * pressure_factor)
 		M.Deaf(30 SECONDS * pressure_factor)
 
 		if(!iscarbon(M))
-			return
+			continue
 
 		var/mob/living/carbon/C = M
 		var/obj/item/organ/internal/ears/ears = C.get_int_organ(/obj/item/organ/internal/ears)
 
 		if(!istype(ears))
-			return
+			continue
 
 		if(HAS_TRAIT(M, TRAIT_WEAK_EARS))
 			ears.internal_receive_damage(10)
@@ -127,7 +127,7 @@
 			to_chat(M, span_warning("У вас начинает очень сильно звенеть в ушах!"))
 			if(prob(ears.damage - 5))
 				to_chat(M, span_warning("Вы ничего не слышите!"))
-			return
+			continue
 
 		if(ears.damage >= 5)
 			to_chat(M, span_warning("У вас начинает звенеть в ушах."))

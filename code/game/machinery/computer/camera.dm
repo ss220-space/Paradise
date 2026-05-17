@@ -282,7 +282,7 @@
 	. = ..()
 	RegisterSignal(src, COMSIG_MOB_ATTACKED_RANGED, PROC_REF(on_ranged_attack))
 	RegisterSignal(src, COMSIG_MONITOR_CAMERA_SWITCHED, PROC_REF(on_camera_switch))
-	RegisterSignal(GLOB.cameranet, list(COMSIG_CAMERANET_CAMERA_ADDED, COMSIG_CAMERANET_CAMERA_REMOVED), PROC_REF(on_cameranet_camera_update))
+	RegisterSignals(GLOB.cameranet, list(COMSIG_CAMERANET_CAMERA_ADDED, COMSIG_CAMERANET_CAMERA_REMOVED), PROC_REF(on_cameranet_camera_update))
 
 /obj/machinery/computer/security/telescreen/entertainment/Destroy()
 	. = ..()

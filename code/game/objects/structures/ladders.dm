@@ -70,7 +70,7 @@
 	else	//wtf make your ladders properly assholes
 		icon_state = "ladder00"
 
-/obj/structure/ladder/singularity_pull()
+/obj/structure/ladder/singularity_pull(atom/singularity, current_size)
 	if(!(resistance_flags & INDESTRUCTIBLE))
 		visible_message(span_danger("[src] is torn to pieces by the gravitational pull!"))
 		qdel(src)

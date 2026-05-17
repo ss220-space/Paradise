@@ -49,7 +49,7 @@
 /datum/antagonist/sintouched/roundend_report()
 	var/text
 	var/traitorwin = TRUE
-	text += "<br>[owner.get_display_key()] был [owner.name]("
+	text += "<br>[owner.get_mind_key()] был [owner.name]("
 	if(owner.current)
 		if(owner.current.stat == DEAD)
 			text += "умер"

@@ -1,4 +1,0 @@
-author: "littleboobs"
-delete-after: True
-changes:
-  - admin: "Изменение названия в VV теперь изменяет рунеймсы. (PR #9199)"

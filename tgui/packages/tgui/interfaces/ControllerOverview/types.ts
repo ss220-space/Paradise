@@ -5,6 +5,7 @@ export type SubsystemData = {
   cost_ms: number;
   doesnt_fire: BooleanLike;
   init_order: number;
+  initialization_failure_message: string | undefined;
   initialized: BooleanLike;
   last_fire: number;
   name: string;

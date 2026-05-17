@@ -57,7 +57,7 @@
 
 	next_move = 1
 
-	SSdemo.write_event_line("setmob [client.ckey] \ref[src]")
+	//SSdemo.write_event_line("setmob [client.ckey] \ref[src]")
 
 	add_sight(SEE_SELF)
 

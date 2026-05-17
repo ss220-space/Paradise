@@ -1,8 +1,7 @@
 SUBSYSTEM_DEF(overlays)
 	name = "Overlay"
-	flags = SS_NO_FIRE
-	offline_implications = "Overlays may look strange. No immediate action is needed."
-	ss_id = "overlays"
+	ss_flags = SS_NO_FIRE
+
 	var/list/stats
 
 /datum/controller/subsystem/overlays/PreInit()

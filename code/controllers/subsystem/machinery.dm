@@ -5,11 +5,10 @@
 
 SUBSYSTEM_DEF(machines)
 	name = "Machines"
-	init_order = INIT_ORDER_MACHINES
-	flags = SS_KEEP_TIMING
-	offline_implications = "Machinery will no longer process. Shuttle call recommended."
-	cpu_display = SS_CPUDISPLAY_HIGH
-	ss_id = "machines"
+	dependencies = list(
+		/datum/controller/subsystem/atoms,
+	)
+	ss_flags = SS_KEEP_TIMING
 	wait = 2 SECONDS
 
 	/// Associative list of all machines that exist.

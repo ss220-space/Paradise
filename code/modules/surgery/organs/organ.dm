@@ -421,6 +421,19 @@
 /obj/item/organ/proc/is_robotic()
 	return (status & ORGAN_ROBOT)
 
+///Organs don't die instantly, and neither should you when you get fucked up
+/obj/item/organ/proc/handle_failing_organs(seconds_per_tick)
+	return
+
+/** organ_failure
+ * generic proc for handling dying organs
+ *
+ * Arguments:
+ * seconds_per_tick - seconds since last tick
+ */
+/obj/item/organ/proc/organ_failure(seconds_per_tick)
+	return
+
 /obj/item/organ/serialize()
 	var/data = ..()
 

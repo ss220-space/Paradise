@@ -47,8 +47,10 @@
 /area/maintenance/abandonedclub)
 "by" = (
 /obj/structure/reagent_dispensers/fueltank,
-/obj/effect/decal/warning_stripes/green,
-/obj/effect/decal/warning_stripes/southeast,
+/obj/effect/turf_decal/delivery/green,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine,
 /area/maintenance/tourist)
@@ -61,8 +63,10 @@
 /obj/random/tool,
 /obj/random/tool,
 /obj/effect/spawner/lootdrop/maintenance,
-/obj/effect/decal/warning_stripes/green,
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/delivery/green,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random_spawners/cobweb_right_rare,
 /turf/simulated/floor/engine,
@@ -92,7 +96,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/abandonedclub)
 "cD" = (
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/machinery/power/port_gen/pacman,
 /turf/simulated/floor/plasteel,
 /area/maintenance/consarea)
@@ -183,13 +187,17 @@
 	},
 /obj/random/tool,
 /obj/effect/spawner/lootdrop/maintenance,
-/obj/effect/decal/warning_stripes/green,
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/delivery/green,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine,
 /area/maintenance/tourist)
 "gJ" = (
-/obj/effect/decal/warning_stripes/northwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
 /obj/item/restraints/handcuffs/cable/random,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -262,7 +270,7 @@
 "jj" = (
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance/double,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/consarea)
@@ -294,7 +302,7 @@
 	},
 /area/maintenance/abandonedclub)
 "jT" = (
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/structure/closet,
 /obj/effect/spawner/lootdrop/maintenance/double,
 /obj/item/multitool,
@@ -326,7 +334,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/tourist)
 "km" = (
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/structure/table,
 /obj/machinery/cell_charger,
 /obj/item/stock_parts/cell/high/plus,
@@ -447,7 +455,9 @@
 /turf/simulated/floor/wood/dark,
 /area/maintenance/abandonedclub)
 "mY" = (
-/obj/effect/decal/warning_stripes/northwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/maintenance/consarea)
@@ -455,7 +465,9 @@
 /obj/structure/railing{
 	dir = 8
 	},
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/effect/decal/remains/mouse,
 /obj/effect/decal/ants,
 /obj/item/trash/semki{
@@ -482,7 +494,9 @@
 /obj/structure/railing{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/effect/decal/remains/human,
 /obj/item/trash/tapetrash/thick{
 	pixel_y = 10;
@@ -513,7 +527,9 @@
 /obj/structure/railing{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/effect/decal/remains/mouse,
 /obj/item/trash/tapetrash,
 /obj/item/reagent_containers/glass/beaker/waterbottle/large/empty{
@@ -603,7 +619,9 @@
 /turf/simulated/floor/engine,
 /area/maintenance/tourist)
 "pZ" = (
-/obj/effect/decal/warning_stripes/northeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
 	dir = 4
@@ -666,7 +684,9 @@
 /obj/structure/railing{
 	dir = 8
 	},
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/effect/decal/ants,
 /obj/item/trash/syndi_cakes{
 	pixel_y = 13
@@ -695,7 +715,9 @@
 /obj/structure/railing{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/effect/decal/ants,
 /obj/item/trash/doshik{
 	pixel_x = -5;
@@ -817,8 +839,10 @@
 /obj/structure/sign/poster/contraband/missing_gloves{
 	pixel_x = 32
 	},
-/obj/effect/decal/warning_stripes/green,
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/delivery/green,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
 	dir = 4
@@ -870,7 +894,9 @@
 /obj/structure/railing{
 	dir = 8
 	},
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/effect/decal/remains/mouse,
 /obj/item/trash/can{
 	pixel_x = 7;
@@ -885,7 +911,9 @@
 /area/maintenance/tourist)
 "xf" = (
 /obj/machinery/portable_atmospherics/canister/oxygen,
-/obj/effect/decal/warning_stripes/southeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/maintenance/consarea)
@@ -961,7 +989,9 @@
 /turf/simulated/floor/wood/dark,
 /area/maintenance/abandonedclub)
 "yZ" = (
-/obj/effect/decal/warning_stripes/southwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/maintenance/consarea)
@@ -974,7 +1004,9 @@
 /obj/structure/railing{
 	dir = 8
 	},
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/item/trash/sosjerky{
 	pixel_x = 7
 	},
@@ -984,8 +1016,10 @@
 "zZ" = (
 /obj/structure/closet/toolcloset,
 /obj/effect/spawner/lootdrop/maintenance,
-/obj/effect/decal/warning_stripes/green,
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/delivery/green,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine,
 /area/maintenance/tourist)
@@ -1035,7 +1069,7 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/consarea)
 "Bv" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/sign/poster/contraband/missing_gloves{
 	pixel_x = -32
 	},
@@ -1125,7 +1159,9 @@
 /turf/template_noop,
 /area/template_noop)
 "EF" = (
-/obj/effect/decal/warning_stripes/southwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
@@ -1170,7 +1206,7 @@
 	},
 /area/maintenance/abandonedclub)
 "GP" = (
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/structure/rack,
 /obj/random/tool,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -1178,7 +1214,7 @@
 /area/maintenance/consarea)
 "Hx" = (
 /obj/machinery/floodlight,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/consarea)
@@ -1201,7 +1237,7 @@
 /turf/simulated/floor/vault,
 /area/maintenance/tourist)
 "Ir" = (
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/maintenance/consarea)
@@ -1241,8 +1277,10 @@
 /area/maintenance/tourist)
 "Ju" = (
 /obj/structure/reagent_dispensers/watertank,
-/obj/effect/decal/warning_stripes/green,
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/delivery/green,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine,
 /area/maintenance/tourist)
@@ -1299,8 +1337,10 @@
 /area/maintenance/abandonedclub)
 "Mx" = (
 /obj/effect/spawner/random_spawners/crate_spawner,
-/obj/effect/decal/warning_stripes/green,
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/delivery/green,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine,
 /area/maintenance/tourist)
@@ -1323,7 +1363,7 @@
 /turf/simulated/floor/wood/dark,
 /area/maintenance/abandonedclub)
 "Nb" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
@@ -1402,13 +1442,17 @@
 /obj/structure/sign/poster/contraband/tools{
 	pixel_x = -32
 	},
-/obj/effect/decal/warning_stripes/green,
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/delivery/green,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine,
 /area/maintenance/tourist)
 "OK" = (
-/obj/effect/decal/warning_stripes/northeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
 /obj/structure/rack{
 	dir = 8;
 	layer = 2.9
@@ -1450,7 +1494,9 @@
 /obj/structure/railing{
 	dir = 8
 	},
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/effect/decal/ants,
 /obj/item/trash/fried_vox,
 /obj/item/reagent_containers/syringe{
@@ -1482,7 +1528,7 @@
 	},
 /area/maintenance/abandonedclub)
 "Rq" = (
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/machinery/papershredder,
 /turf/simulated/floor/plasteel,
 /area/maintenance/consarea)
@@ -1574,14 +1620,16 @@
 /turf/simulated/floor/plating,
 /area/maintenance/abandonedclub)
 "Ta" = (
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/structure/rack,
 /obj/item/storage/fancy/cigarettes/cigpack_random,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plasteel,
 /area/maintenance/consarea)
 "Td" = (
-/obj/effect/decal/warning_stripes/northeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/maintenance/consarea)
@@ -1604,7 +1652,9 @@
 /obj/structure/railing{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/effect/decal/remains/robot,
 /obj/effect/decal/ants,
 /obj/item/trash/popcorn{
@@ -1722,7 +1772,9 @@
 /obj/structure/railing{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/item/trash/broken_ashtray,
 /obj/item/trash/cheesie{
 	pixel_y = -18;

@@ -7,6 +7,7 @@
 	material_drop = /obj/item/stack/sheet/wood
 	material_drop_amount = 4
 	integrity_failure = 0
+	elevation = 22
 	/// What animal type this crate contains
 	var/animal_type
 

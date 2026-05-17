@@ -5,6 +5,7 @@ GLOBAL_PROTECT(AdminProcCallHandler)
 /// Has to be a mob because IsAdminAdvancedProcCall() checks usr, which is a mob variable.
 /// So usr is set to this for any proccalls that don't have any usr mob/client to refer to.
 /mob/proccall_handler
+	abstract_type = /mob/proccall_handler
 	name = "ProcCall Handler"
 	desc = "If you are seeing this, tell a coder."
 
@@ -235,7 +236,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		log_admin("[key_name(usr)] attempted to call world/proc/[procname] with arguments: [english_list(arguments)]l")
 
 /proc/IsAdminAdvancedProcCall()
-#if defined(GAME_TESTS) || defined(MAP_TESTS) || defined(TESTING)
+#if defined(UNIT_TESTS) || defined(MAP_TESTS) || defined(TESTING)
 	return FALSE
 #else
 	return (GLOB.AdminProcCaller && GLOB.AdminProcCaller == usr?.client?.ckey) || (GLOB.AdminProcCallHandler && usr == GLOB.AdminProcCallHandler)
