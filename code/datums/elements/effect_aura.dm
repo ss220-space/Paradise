@@ -86,8 +86,8 @@
 	var/list/inside = list()
 
 /datum/proximity_monitor/advanced/aura/New(atom/_host, range, _ignore_if_not_on_turf = TRUE, datum/element/effect_aura/_owner, atom/_aura_owner)
-	owner = _owner
-	aura_owner = _aura_owner
+	src.owner = _owner
+	src.aura_owner = _aura_owner
 	..()
 	recalculate_field(TRUE)
 
@@ -144,9 +144,7 @@
 /datum/proximity_monitor/advanced/aura/field_turf_uncrossed(atom/movable/movable, turf/old_location, turf/new_location)
 	handle_exit_if_outside(movable, new_location)
 
-
 //MARK: NO RANGED
-
 
 /datum/element/effect_aura/no_ranged
 

@@ -354,3 +354,6 @@
 
 /// Called when attempting to swap two-handed weapons
 #define COMSIG_ITEM_SWAP_BLOCKED "item_swap_blocked"
+
+/// Called when we are enabling effect aura (/datum/element/effect_aura)
+#define COMSIG_AURA_SET_ENABLED "aura_set_enabled"
