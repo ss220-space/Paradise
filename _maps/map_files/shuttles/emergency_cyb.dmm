@@ -305,7 +305,6 @@
 /area/shuttle/escape)
 "ba" = (
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/shuttle/escape)
@@ -460,7 +459,6 @@
 	req_access = list(2,19)
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/shuttle/escape)
@@ -791,7 +789,6 @@
 	name = "Escape Shuttle Infirmary"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/shuttle/escape)

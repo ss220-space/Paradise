@@ -35,7 +35,6 @@
 /obj/item/clothing/suit/space/syndicate/black/red,
 /obj/item/clothing/head/helmet/space/syndicate/black/red,
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/coldcolony/ruin/syndie_outpost)
@@ -367,7 +366,6 @@
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "darkredfull"
 	},
 /area/shuttle/pirate_corvette)
@@ -606,7 +604,6 @@
 /obj/item/flag/mime,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "tranquillite"
 	},
 /area/coldcolony/malta/resid_serv/mimeoffice)
@@ -970,7 +967,6 @@
 "ard" = (
 /obj/structure/statue/tranquillite/mime/unique,
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "tranquillite"
 	},
 /area/coldcolony/malta/resid_serv/mimeoffice)
@@ -1233,7 +1229,6 @@
 	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/coldcolony/ruin/syndie_outpost)
@@ -1696,7 +1691,6 @@
 "aCR" = (
 /obj/structure/chair/office/dark,
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/coldcolony/ruin/syndie_outpost)
@@ -2328,7 +2322,6 @@
 /obj/structure/cable,
 /obj/item/clothing/head/beanie/striped,
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "tranquillite"
 	},
 /area/coldcolony/malta/resid_serv/mimeoffice)
@@ -2427,7 +2420,6 @@
 "aQw" = (
 /obj/effect/baseturf_helper/asteroid,
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/coldcolony/ruin/syndie_outpost)
@@ -4945,7 +4937,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/coldcolony/ruin/syndie_outpost)
@@ -5334,7 +5325,6 @@
 	pixel_y = 7
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/coldcolony/ruin/syndie_outpost)
@@ -5795,7 +5785,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "tranquillite"
 	},
 /area/coldcolony/malta/engineering/storage)
@@ -7049,7 +7038,6 @@
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/coldcolony/ruin/syndie_outpost)
@@ -8249,7 +8237,6 @@
 	},
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/coldcolony/ruin/syndie_outpost)
@@ -8317,7 +8304,6 @@
 /obj/effect/mob_spawn/human/corpse/tacticool,
 /obj/effect/decal/cleanable/vomit,
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/coldcolony/ruin/syndie_outpost)
@@ -8898,7 +8884,6 @@
 "dhP" = (
 /obj/structure/closet/secure_closet/mime,
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "tranquillite"
 	},
 /area/coldcolony/malta/resid_serv/mimeoffice)
@@ -9002,7 +8987,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/start/mime,
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "tranquillite"
 	},
 /area/coldcolony/malta/resid_serv/mimeoffice)
@@ -9597,7 +9581,6 @@
 /obj/structure/table,
 /obj/item/reagent_containers/food/snacks/syndicake,
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/coldcolony/ruin/syndie_outpost)
@@ -10508,7 +10491,6 @@
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/coldcolony/ruin/syndie_outpost)
@@ -10578,7 +10560,6 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/spawner/random_spawners/syndicate/loot/stetchkin,
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/coldcolony/ruin/syndie_outpost)
@@ -14244,7 +14225,6 @@
 /obj/item/pen,
 /obj/item/paper/monitorkey,
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/coldcolony/ruin/syndie_outpost)
@@ -14615,7 +14595,6 @@
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/shuttle/pirate_corvette)
@@ -15502,7 +15481,6 @@
 /obj/item/reagent_containers/food/snacks/bun,
 /obj/item/reagent_containers/food/snacks/meat,
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/coldcolony/ruin/syndie_outpost)
@@ -17627,7 +17605,6 @@
 /obj/item/reagent_containers/spray/waterflower,
 /obj/structure/table/wood,
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "tranquillite"
 	},
 /area/coldcolony/malta/resid_serv/mimeoffice)
@@ -17702,7 +17679,6 @@
 	req_access = list(46)
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "tranquillite"
 	},
 /area/coldcolony/malta/resid_serv/mimeoffice)
@@ -19573,7 +19549,6 @@
 "hoD" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/shuttle/pirate_corvette)
@@ -19624,7 +19599,6 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/shuttle/pirate_corvette)
@@ -20033,7 +20007,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/item/stack/sheet/metal,
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/shuttle/pirate_corvette)
@@ -20696,7 +20669,6 @@
 	network = list("SS13","Research Outpost","Mining Outpost")
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/coldcolony/ruin/syndie_outpost)
@@ -20745,7 +20717,6 @@
 	},
 /obj/item/radio/intercom/syndicate/directional/south,
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/shuttle/pirate_corvette)
@@ -21088,7 +21059,6 @@
 /obj/machinery/computer/message_monitor,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/coldcolony/ruin/syndie_outpost)
@@ -22495,7 +22465,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "tranquillite"
 	},
 /area/coldcolony/malta/resid_serv/mimeoffice)
@@ -22751,7 +22720,6 @@
 	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/shuttle/pirate_corvette)
@@ -23153,7 +23121,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/coldcolony/ruin/syndie_outpost)
@@ -23359,7 +23326,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/baseturf_helper/asteroid,
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "tranquillite"
 	},
 /area/coldcolony/malta/resid_serv/mimeoffice)
@@ -24302,7 +24268,6 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "tranquillite"
 	},
 /area/coldcolony/malta/resid_serv/mimeoffice)
@@ -24760,7 +24725,6 @@
 	},
 /obj/structure/closet/radiation,
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/coldcolony/ruin/syndie_outpost)
@@ -25063,7 +25027,6 @@
 	result = list(/obj/item/storage/toolbox/syndicate = 1, /obj/item/storage/fancy/cigarettes/cigpack_syndicate = 1, /obj/item/deck/cards/syndicate = 1, /obj/item/storage/secure/briefcase/syndie = 1, /obj/item/toy/syndicateballoon = 1, /obj/item/soap/syndie = 1, /obj/item/clothing/under/syndicate = 1, /obj/item/clothing/under/syndicate/tacticool = 1, /obj/item/clothing/mask/gas/syndicate = 1, /obj/item/gun_module/muzzle/suppressor = 1, /obj/item/coin/antagtoken/syndicate = 1, /obj/item/storage/box/syndie_kit/cutouts = 1)
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/coldcolony/ruin/syndie_outpost)
@@ -27322,7 +27285,6 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/coldcolony/ruin/syndie_outpost)
@@ -29803,7 +29765,6 @@
 	pixel_y = 7
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/coldcolony/ruin/syndie_outpost)
@@ -30706,7 +30667,6 @@
 "lty" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "darkredfull"
 	},
 /area/shuttle/pirate_corvette)
@@ -31629,7 +31589,6 @@
 /obj/structure/table/wood,
 /obj/item/kitchen/utensil/pspork,
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/coldcolony/ruin/syndie_outpost)
@@ -32537,7 +32496,6 @@
 /obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/portable_atmospherics/canister/carbon_dioxide,
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "tranquillite"
 	},
 /area/coldcolony/malta/engineering/storage)
@@ -33291,7 +33249,6 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/shuttle/pirate_corvette)
@@ -36859,7 +36816,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/shuttle/pirate_corvette)
@@ -37749,7 +37705,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/storage/firstaid/syndie/empty,
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/coldcolony/ruin/syndie_outpost)
@@ -42048,7 +42003,6 @@
 	},
 /obj/structure/table/wood,
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "tranquillite"
 	},
 /area/coldcolony/malta/resid_serv/mimeoffice)
@@ -42419,7 +42373,6 @@
 "pMG" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/coldcolony/ruin/syndie_outpost)
@@ -46675,7 +46628,6 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/shuttle/pirate_corvette)
@@ -46867,7 +46819,6 @@
 	spent = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/coldcolony/ruin/syndie_outpost)
@@ -47825,7 +47776,6 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "tranquillite"
 	},
 /area/coldcolony/malta/resid_serv/mimeoffice)
@@ -51103,7 +51053,6 @@
 "tcz" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/coldcolony/ruin/syndie_outpost)
@@ -51145,7 +51094,6 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/shuttle/pirate_corvette)
@@ -51313,7 +51261,6 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "tranquillite"
 	},
 /area/coldcolony/malta/resid_serv/mimeoffice)
@@ -53557,7 +53504,6 @@
 "tXH" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/shuttle/pirate_corvette)
@@ -57348,7 +57294,6 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/coldcolony/ruin/syndie_outpost)
@@ -58381,7 +58326,6 @@
 /area/coldcolony/malta/medical/medbay)
 "vPm" = (
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/coldcolony/ruin/syndie_outpost)
@@ -61616,7 +61560,6 @@
 "wXQ" = (
 /mob/living/simple_animal/hostile/bear/polar,
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/shuttle/pirate_corvette)
@@ -61650,7 +61593,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/shuttle/pirate_corvette)
@@ -62132,7 +62074,6 @@
 /obj/effect/spawner/random_spawners/syndicate/loot/stetchkin,
 /obj/structure/closet/cabinet,
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/coldcolony/ruin/syndie_outpost)
@@ -62513,7 +62454,6 @@
 /obj/structure/table,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/coldcolony/ruin/syndie_outpost)
@@ -63892,7 +63832,6 @@
 /obj/structure/table/wood,
 /obj/item/lipstick/white,
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "tranquillite"
 	},
 /area/coldcolony/malta/resid_serv/mimeoffice)
@@ -64637,7 +64576,6 @@
 	loot = list(/obj/effect/mob_spawn/human/corpse/pirate)
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/shuttle/pirate_corvette)

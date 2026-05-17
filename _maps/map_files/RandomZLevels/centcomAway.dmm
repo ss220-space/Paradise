@@ -699,8 +699,7 @@
 /area/awaymission/centcom_away/cafe)
 "cc" = (
 /obj/structure/cable{
-	icon_state = "0-2";
-	d2 = 2
+	icon_state = "0-2"
 	},
 /obj/machinery/power/solar{
 	id = "centcomawaysolar";
@@ -1695,8 +1694,7 @@
 	},
 /obj/structure/cable{
 	icon_state = "0-2";
-	pixel_y = 1;
-	d2 = 2
+	pixel_y = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -2699,7 +2697,6 @@
 /area/awaymission/centcom_away/general)
 "hO" = (
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/machinery/computer/monitor,
@@ -2882,7 +2879,6 @@
 "il" = (
 /obj/machinery/power/terminal,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plasteel,
@@ -2935,8 +2931,7 @@
 	},
 /obj/structure/cable{
 	icon_state = "0-2";
-	pixel_y = 1;
-	d2 = 2
+	pixel_y = 1
 	},
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -3072,7 +3067,6 @@
 	output_level = 100000
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plasteel,
@@ -3273,8 +3267,7 @@
 	},
 /obj/structure/cable{
 	icon_state = "0-2";
-	pixel_y = 1;
-	d2 = 2
+	pixel_y = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "vault";
@@ -4045,8 +4038,7 @@
 "ln" = (
 /obj/machinery/mech_bay_recharge_port,
 /obj/structure/cable{
-	icon_state = "0-2";
-	d2 = 2
+	icon_state = "0-2"
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/centcom_away/hangar)
