@@ -2689,7 +2689,7 @@
 /area/tdome/newtdome/CQC)
 "EU" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/automatic/pistol/APS,
+/obj/item/gun/projectile/automatic/pistol/aps,
 /turf/simulated/floor/wood,
 /area/admin)
 "EV" = (

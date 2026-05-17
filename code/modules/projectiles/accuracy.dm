@@ -133,7 +133,7 @@ GLOBAL_DATUM_INIT(gun_accuracy_sniper, /datum/gun_accuracy, GUN_ACCURACY_SNIPER)
 	max_spread = 10
 	spread_increase_step = 2
 
-/datum/gun_accuracy/pistol/uplink/automatic
+/datum/gun_accuracy/pistol/uplink/scarecrow
 	min_spread = 10
 	max_spread = 35
 	spread_increase_step = 1
