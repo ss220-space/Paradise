@@ -5,7 +5,7 @@
 	if(!subject)
 		CRASH("No subject provided for investigate_log")
 
-	var/file = wrap_file("[GLOB.log_directory]/[subject].html")
+	var/file = WRAP_FILE("[GLOB.log_directory]/[subject].html")
 	var/source = "[src]"
 	if(isliving(src))
 		var/mob/living/source_mob = src
@@ -63,7 +63,7 @@ ADMIN_VERB(investigate_show, R_ADMIN, "Investigate", "Browse various detailed lo
 			if(config && CONFIG_GET(flag/log_hrefs))
 				if(GLOB.world_href_log)
 					var/datum/browser/popup = new(user, "investigate[selected]", capitalize("investigate[selected]"), 800, 300)
-					popup.set_content(wrap_file(GLOB.world_href_log))
+					popup.set_content(WRAP_FILE(GLOB.world_href_log))
 					popup.open(FALSE)
 				else
 					to_chat(user, span_red("Error: admin_investigate: No href logfile found."))
@@ -78,7 +78,7 @@ ADMIN_VERB(investigate_show, R_ADMIN, "Investigate", "Browse various detailed lo
 				to_chat(user, span_danger("No [selected] logfile was found."), confidential = TRUE)
 				return
 
-			file = wrap_file2text(file)
+			file = WRAP_FILE2TEXT(file)
 			var/datum/browser/popup = new(user, "investigate[selected]", capitalize("investigate[selected]"), 800, 300)
 			popup.set_content(file)
 			popup.open(FALSE)

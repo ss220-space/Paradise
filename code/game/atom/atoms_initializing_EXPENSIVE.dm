@@ -1,8 +1,8 @@
-// This is distinct from /tg/ because of our space management system
-// This is overriden in /atom/movable and the parent isn't called if the SMS wants to deal with it's init
+/// This is distinct from /tg/ because of our space management system
+/// This is overriden in /atom/movable and the parent isn't called if the SMS wants to deal with it's init
 /atom/proc/attempt_init(...)
-	var/do_initialize = SSatoms.initialized
-	if(do_initialize != INITIALIZATION_INSSATOMS)
+	var/do_initialize = SSatoms?.initialized
+	if(!isnull(do_initialize) && do_initialize != INITIALIZATION_INSSATOMS)
 		args[1] = do_initialize == INITIALIZATION_INNEW_MAPLOAD
 		if(SSatoms.InitAtom(src, args))
 			// we were deleted
@@ -15,7 +15,6 @@
  * [Initialization][/atom/proc/Initialize] proc, mostly we run the preloader
  * if the preloader is being used and then call [InitAtom][/datum/controller/subsystem/atoms/proc/InitAtom] of which the ultimate
  * result is that the Initialize proc is called.
- *
  */
 /atom/New(loc, ...)
 	SHOULD_CALL_PARENT(TRUE)
@@ -23,8 +22,8 @@
 		GLOB._preloader.load(src)
 	. = ..()
 	attempt_init(arglist(args))
-	if(SSdemo?.initialized)
-		SSdemo.mark_new(src)
+	//if(SSdemo?.initialized)
+	//	SSdemo.mark_new(src)
 
 /**
  * The primary method that objects are setup in SS13 with

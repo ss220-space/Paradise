@@ -1040,10 +1040,10 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	else
 		target.apply_damage(7)
 
-/obj/item/singularity_pull(S, current_size)
+/obj/item/singularity_pull(atom/singularity, current_size)
 	..()
 	if(current_size >= STAGE_FOUR)
-		throw_at(S, 14, 3, spin = 0)
+		throw_at(singularity, 14, 3, spin = 0)
 	else
 		return
 
@@ -1530,3 +1530,12 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 /obj/item/proc/on_tripwire_trigger(obj/item/tripwire/base, mob/user)
 	SIGNAL_HANDLER
 	return
+
+/obj/item/vv_get_header()
+	. = ..()
+	. += {"
+		<br><font size='1'>
+			DAMTYPE: <font size='1'><a href='byond://?_src_=vars;item_to_tweak=[UID_of(src)];var_tweak=damtype' id='damtype'>[uppertext(damtype)]</a>
+			FORCE: <font size='1'><a href='byond://?_src_=vars;item_to_tweak=[UID_of(src)];var_tweak=force' id='force'>[force]</a>
+		</font>
+	"}

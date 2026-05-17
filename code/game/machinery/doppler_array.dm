@@ -95,7 +95,7 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 	if(!length(logged_explosions))
 		atom_say("No logs currently stored in internal database.")
 		return
-	if(active_timers)
+	if(_active_timers)
 		to_chat(user, span_notice("[src] is already printing something, please wait."))
 		return
 	atom_say("Printing explosive log. Standby...")
@@ -203,7 +203,7 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 	data["explosion_target"] = explosion_target
 	data["toxins_tech"] = toxins_tech.level
 	data["records"] = records
-	data["printing"] = active_timers
+	data["printing"] = _active_timers
 	return data
 
 /obj/machinery/doppler_array/ui_act(action, params)

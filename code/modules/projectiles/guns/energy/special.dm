@@ -416,7 +416,7 @@
 	item_flags = DROPDEL
 	ammo_type = list(/obj/item/ammo_casing/energy/chrono_beam)
 	can_charge = FALSE
-	fire_delay = 50
+	fire_delay = 5 SECONDS
 	var/obj/item/chrono_eraser/TED = null
 	var/obj/structure/chrono_field/field = null
 	var/turf/startpos = null
@@ -533,11 +533,15 @@
 	name = "robotic shuriken emitter"
 	desc = "A device sneakily hidden inside your robotic hand. Shoots 3 energy shurikens that slows and temporary blinds their targets"
 	ammo_type = list(/obj/item/ammo_casing/energy/shuriken/borg)
-	// Эти два значения не нужны боргам — они не носят ниндзя костюм
+	item_flags = ABSTRACT|NOBLUDGEON
+	// These two values are not needed for borgs - they don't wear a ninja suit
 	cost = null
 	my_suit = null
 
 /obj/item/gun/energy/shuriken_emitter/borg/equip_to_best_slot(mob/M)
+	return
+
+/obj/item/gun/energy/shuriken_emitter/borg/run_drop_held_item(mob/user)
 	return
 
 /obj/item/gun/energy/shuriken_emitter/borg/can_shoot(mob/user)

@@ -10,7 +10,7 @@
 	can_holster = FALSE
 	w_class = WEIGHT_CLASS_BULKY
 	weapon_weight = WEAPON_HEAVY
-	fire_delay = 1.8
+	fire_delay = 0.18 SECONDS
 	var/pump_cooldown = 0.5 SECONDS
 	COOLDOWN_DECLARE(last_pump)
 	accuracy = GUN_ACCURACY_MINIMAL

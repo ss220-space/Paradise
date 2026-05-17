@@ -206,6 +206,7 @@
 	overlay_locked = "largemetalr"
 	overlay_unlocked = "largemetalg"
 	overlay_broken = ""
+	elevation = 22
 
 /obj/structure/closet/crate/secure/large/close()
 	. = ..()

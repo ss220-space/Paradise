@@ -487,13 +487,20 @@
 	icon = 'icons/obj/flora/plants.dmi'
 	icon_state = "strawbail1"
 	density = TRUE
-	climbable = 1 // you can climb all over them.
+	var/elevation = 16
+
+/obj/structure/flora/straw_bail/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/climbable)
+	AddElement(/datum/element/elevation, pixel_shift = elevation)
 
 /obj/structure/flora/straw_bail/alt_1
 	icon_state = "strawbail2"
+	elevation = 26
 
 /obj/structure/flora/straw_bail/alt_2
 	icon_state = "strawbail3"
+	elevation = 22
 
 /obj/structure/bush
 	name = "foliage"

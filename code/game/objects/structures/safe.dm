@@ -75,6 +75,13 @@ GLOBAL_LIST_EMPTY(safes)
 		PREPOSITIONAL = "сейфе",
 	)
 
+/obj/structure/safe/ComponentInitialize()
+	. = ..()
+	if(!density)
+		return
+	AddElement(/datum/element/climbable)
+	AddElement(/datum/element/elevation, pixel_shift = 26)
+
 /obj/structure/safe/Initialize(mapload)
 	. = ..()
 	GLOB.safes += src

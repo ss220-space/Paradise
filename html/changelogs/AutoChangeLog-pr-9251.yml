@@ -1,0 +1,4 @@
+author: "littleboobs"
+delete-after: True
+changes:
+  - admin: "Теперь можно модифицировать movement_type трейты. (PR #9251)"

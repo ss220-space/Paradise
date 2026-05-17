@@ -20,7 +20,7 @@
 /queue/Destroy(force)
 	head = null
 	tail = null
-	. = ..()
+	return ..()
 
 /*
 * Adding an element to the end of the queue

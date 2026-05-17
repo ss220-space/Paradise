@@ -31,16 +31,13 @@
 /obj/effect/clockwork/overlay/singularity_act()
 	return
 
-/obj/effect/clockwork/overlay/singularity_pull()
-	return
-
-/obj/effect/clockwork/overlay/singularity_pull(S, current_size)
+/obj/effect/clockwork/overlay/singularity_pull(atom/singularity, current_size)
 	return
 
 /obj/effect/clockwork/overlay/Destroy()
 	if(linked)
 		linked = null
-	. = ..()
+	return ..()
 
 /obj/effect/clockwork/overlay/wall
 	name = "clockwork wall"
@@ -136,11 +133,15 @@
 /obj/structure/clockwork/wall_gear
 	name = "massive gear"
 	icon_state = "gear"
-	climbable = TRUE
 	max_integrity = 100
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	desc = "A massive brass gear. You could probably secure or unsecure it with a wrench, or just climb over it."
 	var/metal_type = /obj/item/stack/sheet/brass
+
+/obj/structure/clockwork/wall_gear/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/climbable)
+	AddElement(/datum/element/elevation, pixel_shift = 16)
 
 /obj/structure/clockwork/wall_gear/displaced
 	anchored = FALSE

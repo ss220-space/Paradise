@@ -29,7 +29,7 @@
 
 /mob/living/simple_animal/hostile/guardian/healer/Initialize(mapload)
 	. = ..()
-	AddSpell(new /obj/effect/proc_holder/spell/guardian_quickmend(summoner))
+	AddSpell(new /obj/effect/proc_holder/spell/guardian_quickmend(src, summoner))
 
 /mob/living/simple_animal/hostile/guardian/healer/Life(seconds, times_fired)
 	..()
@@ -176,7 +176,7 @@
 	for(var/target in targets)
 		if(target != summoner)
 			to_chat(user, "Это не ваш хозяин.")
-			return 0
+			return FALSE
 	to_chat(user, "Проверка ран хозяина..")
 	if(do_after(user, cast_time, summoner))
 		if(prob(chance_to_mend))
@@ -192,7 +192,8 @@
 				if((injures[injure]).len > 0)
 					available_cures.Add(injure)
 			if(!length(available_cures))
-				return 0
+				revert_cast(user)
+				return FALSE
 			var/random_cure = pick(available_cures)
 			to_chat(user, "Найдена травма. Попытка исцеления..")
 			switch(random_cure)
@@ -202,31 +203,32 @@
 					limb.stop_arterial_bleeding()
 					limb.stop_bleeding()
 					to_chat(user, "Кровотечение остановлено.")
-					return 1
+					return TRUE
 				if("fractures")
 					var/obj/item/organ/external/limb = pick(injures["fractures"])
 					limb.mend_fracture()
 					to_chat(user, "Перелом зафиксирован.")
-					return 1
+					return TRUE
 				if("infections")
 					var/obj/item/organ/internal/organ = pick(injures["infections"])
 					organ.germ_level = 0
 					to_chat(user, "Очищено тело хозяина от инфекции.")
-					return 1
+					return TRUE
 				if("embedded")
 					var/obj/item/organ/external/limb = safepick(injures["embedded"])
 					var/obj/item/item = safepick(limb?.embedded_objects)
 					limb?.remove_embedded_object(item)
 					to_chat(user, "Удалось вытащить застрявший предмет.")
-					return 1
+					return TRUE
 				if("damaged_organs")
 					var/obj/item/organ/internal/organ = pick(injures["damaged_organs"])
 					organ.damage = 0
 					to_chat(user, "Восстановлен поврежденный орган.")
-					return 1
+					return TRUE
 		else
 			to_chat(user, "Проверка окончилась неудачей.")
-			return 1
+			return TRUE
 	else
 		to_chat(user, "Нужно стоять смирно!")
-		return 0
+		revert_cast(user)
+		return FALSE

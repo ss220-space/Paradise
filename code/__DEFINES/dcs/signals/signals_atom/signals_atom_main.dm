@@ -122,3 +122,6 @@
 
 ///from base of atom/handle_atom_del(): (atom/deleted)
 #define COMSIG_ATOM_CONTENTS_DEL "atom_contents_del"
+
+///from base of atom/Exited(): (atom/exited, direction)
+#define COMSIG_ATOM_EXITING "atom_exiting"

@@ -52,7 +52,8 @@
 		return
 	if(catchphrase)
 		user.say(catchphrase)
-	playsound(get_turf(user), on_use_sound, 50, TRUE)
+	if(on_use_sound)
+		playsound(get_turf(user), on_use_sound, 50, TRUE)
 	if(attached_spell)
 		attached_spell.perform(list())
 	qdel(src)
