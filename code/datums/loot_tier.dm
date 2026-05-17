@@ -353,7 +353,7 @@
 			/obj/item/ammo_box/speedloader/a357,
 		),
 		list(
-			/obj/item/gun/projectile/automatic/pistol/APS,
+			/obj/item/gun/projectile/automatic/pistol/aps,
 			/obj/item/ammo_box/magazine/pistolm9mm,
 			/obj/item/ammo_box/magazine/pistolm9mm,
 			/obj/item/ammo_box/magazine/pistolm9mm,

@@ -5,7 +5,7 @@
 	icon = 'icons/obj/weapons/pistols.dmi'
 	icon_state = "pistol"
 	w_class = WEIGHT_CLASS_SMALL
-	origin_tech = "combat=3;materials=2;syndicate=1"
+	origin_tech = "combat=3;materials=2;syndicate=3"
 	can_holster = TRUE
 	fire_sound = 'sound/weapons/gunshots/1stechkin.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/pistol_magin.ogg'
@@ -145,7 +145,7 @@
 	AddElement(/datum/element/item_skins)
 
 // MARK: APS Pistol
-/obj/item/gun/projectile/automatic/pistol/APS
+/obj/item/gun/projectile/automatic/pistol/aps
 	name = "stechkin APS pistol"
 	desc = "The original russian version of a widely used Syndicate sidearm. Uses 9mm ammo."
 	icon_state = "aps"
@@ -160,3 +160,35 @@
 	)
 	gun_firemode_list = list(GUN_FIREMODE_SEMIAUTO, GUN_FIREMODE_BURSTFIRE, GUN_FIREMODE_AUTOMATIC)
 	magazine_icon = "aps_mag"
+
+/obj/item/gun/projectile/automatic/pistol/aps/scarecrow
+	name = "scarecrow"
+	desc = "Крайне нелегальный автоматический пистолет. Прозван \"Пугалом\" за способность разгонять толпу громкой стрельбой и высокой скорострельностью. \
+		На деле — дешёвая поделка из бракованных компонентов: кучность падает с каждым выстрелом, а мощность оставляет желать лучшего. \
+		Хорош только против безоружных зевак. Против сотрудников СБ в броне от него мало толку, но лучше, чем ничего, верно"
+	icon_state = "scarecrow"
+	fire_sound = 'sound/weapons/gunshots/1scarecrow.ogg'
+	magin_sound = 'sound/weapons/gun_interactions/scarecrowmagin.ogg'
+	magout_sound = 'sound/weapons/gun_interactions/scarecrowmagout.ogg'
+	origin_tech = "combat=3;materials=2;syndicate=1"
+	w_class = WEIGHT_CLASS_SMALL
+	magazine_icon = "pistol_mag"
+	damage_mod = 0.5
+	mag_type = /obj/item/ammo_box/magazine/m10mm
+	accuracy = GUN_ACCURACY_PISTOL_UPLINK_SCARECROW
+	burst_amount = 4
+	fire_delay = 0.15 SECONDS
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 15, ATTACHMENT_OFFSET_Y = 3),
+		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 3, ATTACHMENT_OFFSET_Y = 7),
+	)
+
+/obj/item/gun/projectile/automatic/pistol/aps/scarecrow/get_ru_names()
+	return list(
+		NOMINATIVE = "Пугало",
+		GENITIVE = "Пугала",
+		DATIVE = "Пугалу",
+		ACCUSATIVE = "Пугало",
+		INSTRUMENTAL = "Пугалом",
+		PREPOSITIONAL = "Пугале",
+	)

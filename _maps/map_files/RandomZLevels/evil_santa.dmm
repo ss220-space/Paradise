@@ -2869,7 +2869,7 @@
 /turf/simulated/floor/plating/asteroid,
 /area/vision_change_area/awaymission/evil_santa/mine)
 "xQ" = (
-/obj/item/gun/projectile/automatic/pistol/APS,
+/obj/item/gun/projectile/automatic/pistol/aps,
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/mine/labyrinth_l)
 "xS" = (

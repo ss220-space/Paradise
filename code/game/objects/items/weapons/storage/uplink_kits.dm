@@ -976,8 +976,7 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/clothing/gloves/combat(src)
 	new /obj/item/flashlight(src)
 	new /obj/item/reagent_containers/food/snacks/donkpocket(src)
-	new	/obj/item/storage/box/syndie_kit/stechkin_pistol(src)
-	new /obj/item/gun_module/muzzle/suppressor(src)
+	new	/obj/item/gun/projectile/automatic/pistol/aps/scarecrow(src)
 
 /obj/item/storage/box/syndie_kit/rsh12_revolver
 	name = "RSh-12 revolver kit"
