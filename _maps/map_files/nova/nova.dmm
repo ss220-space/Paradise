@@ -5623,7 +5623,7 @@
 	dir = 1;
 	id = "QMLoad2"
 	},
-/obj/structure/plasticflaps/mining,
+/obj/structure/plasticflaps,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Cargo_lockdown";
 	name = "Cargo Lockdown"
@@ -18716,7 +18716,7 @@
 	dir = 1;
 	id = "QMLoad2"
 	},
-/obj/structure/plasticflaps/mining,
+/obj/structure/plasticflaps,
 /turf/simulated/floor/plating,
 /area/quartermaster/delivery)
 "cKD" = (
@@ -83167,7 +83167,7 @@
 /obj/machinery/conveyor{
 	id = "QMLoad"
 	},
-/obj/structure/plasticflaps/mining,
+/obj/structure/plasticflaps,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Cargo_lockdown";
 	name = "Cargo Lockdown"
@@ -89887,7 +89887,7 @@
 /obj/machinery/conveyor{
 	id = "QMLoad"
 	},
-/obj/structure/plasticflaps/mining,
+/obj/structure/plasticflaps,
 /turf/simulated/floor/plating,
 /area/quartermaster/delivery)
 "nCC" = (

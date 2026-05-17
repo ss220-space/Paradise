@@ -78455,7 +78455,7 @@
 	},
 /area/toxins/mixing)
 "sJo" = (
-/obj/structure/plasticflaps/mining,
+/obj/structure/plasticflaps,
 /obj/machinery/conveyor{
 	dir = 4;
 	id = "QMLoad2"
@@ -80276,7 +80276,7 @@
 	},
 /area/hallway/primary/port)
 "tst" = (
-/obj/structure/plasticflaps/mining,
+/obj/structure/plasticflaps,
 /obj/machinery/conveyor{
 	dir = 8;
 	id = "QMLoad"

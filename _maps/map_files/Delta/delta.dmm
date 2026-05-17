@@ -8985,7 +8985,7 @@
 /turf/simulated/floor/plasteel,
 /area/engineering/mechanic_workshop/expedition)
 "brF" = (
-/obj/structure/plasticflaps/mining,
+/obj/structure/plasticflaps,
 /obj/effect/spawner/lootdrop/maintenance/double,
 /obj/machinery/conveyor{
 	dir = 8;
@@ -17434,7 +17434,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "clQ" = (
-/obj/structure/plasticflaps/mining,
+/obj/structure/plasticflaps,
 /obj/machinery/conveyor{
 	dir = 8;
 	id = "QMLoad2"
@@ -27165,7 +27165,7 @@
 /turf/simulated/floor/carpet/royalblack,
 /area/maintenance/asmaint3)
 "dkw" = (
-/obj/structure/plasticflaps/mining,
+/obj/structure/plasticflaps,
 /obj/machinery/conveyor{
 	dir = 4;
 	id = "QMLoad"

@@ -58,8 +58,11 @@
 	var/list/image/hud_list = null
 	///all of this atom's HUD images which can actually be seen by players with that hud
 	var/list/image/active_hud_list = null
-	//HUD images that this atom can provide.
+	///HUD images that this atom can provide.
 	var/list/hud_possible
+
+	///vis overlays managed by SSvis_overlays to automaticaly turn them like other overlays.
+	var/list/managed_vis_overlays
 
 	//Value used to increment ex_act() if reactionary_explosions is on
 	var/explosion_block = 0
