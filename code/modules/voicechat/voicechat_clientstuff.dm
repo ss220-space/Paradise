@@ -2,16 +2,24 @@
 	if(!C)
 		return
 	RegisterSignal(C, COMSIG_TOPIC, PROC_REF(voicechat_topic), override=TRUE)
-	C << browse({"
-	<html><h4>If this window doesnt close briefly, something is broken</h4>
-	<script>window.location.href += `?src=[ref(src)];origin=${window.location.origin};external=[external]`</script></html>
-	"},"window=origin_locator")
+
+	var/dat = {"
+	<html>
+		<h4>Если это окно не закроется через несколько секунд, то это значит, что что-то сломалось.</h4>
+	<script>
+		window.location.href += `?src=[ref(src)];origin=${window.location.origin};external=[external]`
+		</script>
+	</html>"}
+
+	var/datum/browser/popup = new(C, "origin_locator", "", 400, 500)
+	popup.set_content(dat)
+	popup.open()
 	///join_vc -> Topic -> open_vc
 
 /datum/controller/subsystem/voicechat/proc/voicechat_topic(atom/source, mob/user, href_list)
 	var/client/C = user.client
 	if(href_list["origin"])
-		C << browse(null, "window=origin_locator")
+		close_window(C,"origin_locator")
 		UnregisterSignal(C, COMSIG_TOPIC)
 		open_vc(C, href_list["origin"], href_list["external"])
 
@@ -46,10 +54,18 @@
 	C << browse_rsc('voicechat/node/public/fastclown.gif')
 
 	// opens voicechat
-	var/node_port = CONFIG_GET(number/port_voicechat)
-	var/web_link = "[origin]/voicechat.html?sessionId=[sessionId]&socket_address=[world.internet_address]:[node_port]"
+	var/web_link = "[origin]/voicechat.html?sessionId=[sessionId]&socket_address=[world.internet_address]:3000"
 	if(text2num(external))
-		C << browse("<html><h4>[web_link]</h4><p>Paste into a browser that supports webRTC (firefox is recommended).</p></html>", "window=voicechat_help")
+		var/dat = {"
+		<html>
+			<h4>[web_link]</h4>
+			<p>
+				Вставьте эту ссылку в браузер, поддерживающий технологию WebRTC (Браузер Firefox работает с этим лучше всего).
+			</p>
+		</html>"}
+		var/datum/browser/popup = new(C, "voicechat_help", "", 400, 500)
+		popup.set_content(dat)
+		popup.open()
 	else
 		C << link(web_link)
 

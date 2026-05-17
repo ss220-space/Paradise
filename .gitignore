@@ -128,14 +128,3 @@ node_modules/
 npm-debug.log
 package-lock.json
 
-# pipelib specific
-*.o
-*.so
-*.dll
-#visual studio
-Release
-x86
-x64
-Debug
-.vs/
-*.user

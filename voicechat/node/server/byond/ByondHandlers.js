@@ -101,7 +101,7 @@ function handleRequest(data, byondPort, io, shutdown_function) {
                     sendJSON({ error: errorMsg, data: data }, byondPort);
                     return;
                 }
-                socket.emit('mute_usercode', {userCode: userCodeMutin, mute: muting})
+                socket.emit('mute_usercode', {userCode: userCodeMuting, mute: muting})
             }
         };
 

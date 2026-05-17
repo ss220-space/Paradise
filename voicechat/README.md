@@ -16,7 +16,7 @@ I dont understand most ss13 build systems so you will have to run a few commands
 * or all at once: **run from project root**
 
     ```bash
-    sudo apt install g++-multilib npm -y && cd voicechat/pipes/unix && make && cd ../node && npm install && cd ../..
+    sudo apt install g++-multilib npm -y && cd voicechat/pipes && make && cd ../node && npm install && cd ../..
     ```
 
 1. ensure you have **g++-multilib** and **npm** installed

@@ -1,4 +1,6 @@
 #define NODE_SERVER_PATH "voicechat/node/server/main.js"
+#define LIBPATH_UNIX "voicechat/pipes/unix/byondsocket"
+#define LIBPATH_WINDOWS "voicechat/pipes/windows/byondsocket"
 SUBSYSTEM_DEF(voicechat)
 	name = "Voice Chat"
 	/// faster tick times means smoother proximity. If machine is lagging, increase.
@@ -23,27 +25,45 @@ SUBSYSTEM_DEF(voicechat)
 	var/list/userCodes_active = list()
 	// each speaker per userCode
 	var/list/userCodes_speaking_icon = alist()
+	// SS_INIT_NO_NEED still sets initialized to true, so we use this instead
+	var/actually_initialized = FALSE
+	// path to pipe dll or .so
+	var/lib_path = null
 
 /datum/controller/subsystem/voicechat/Initialize()
 	. = ..()
 
 	if(!CONFIG_GET(flag/enable_voicechat))
+
 		return SS_INIT_NO_NEED
 
+	// Windows: just start process (no RUN_SERVER.bat in this build). Unix: wait for exit code.
+	lib_path = world.system_type == MS_WINDOWS ? \
+			LIBPATH_WINDOWS : \
+			LIBPATH_UNIX
+
 	if(!test_library())
-		message_admins("library test failed cant start voicechat")
+		message_admins("SSVoiceChat dynamic library test failed. Can't start voicechat")
 		return SS_INIT_FAILURE
+
+	// Setting the byond port to .dll server
+	var/set_port_retured = call_ext(lib_path, "byond:SetByondPort")(world.port)
+	if(set_port_retured != world.port)
+		message_admins("SSVoiceChat dynamic library can't set byond port")
 
 	add_rooms(list("living", "ghost"))
 	add_rooms(list("lobby"), proximity_mode = FALSE)
 	start_node()
-	initialized = TRUE
 
 	RegisterSignal(SSticker, COMSIG_TICKER_ROUND_ENDED, PROC_REF(on_round_end)) //moves everyone to no prox room at round end.
+	actually_initialized = TRUE
 	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/voicechat/proc/restart()
-	to_chat(world, span_announce("Voicechat restarting in a few seconds, please reconnect with join"))
+	to_chat(world, span_announce({"
+SERVER: подсистема SSVoicechat перезапустится через несколько секунд.
+Переподключитесь при помощи кнопки [span_bold("\"Join\"")] в панели [span_bold("\"ProxyChat\"")]"})
+	)
 	disconnect_all_clients()
 	stop_node()
 	addtimer(CALLBACK(src, PROC_REF(start_node), 4 SECONDS))
@@ -59,24 +79,33 @@ SUBSYSTEM_DEF(voicechat)
 /datum/controller/subsystem/voicechat/proc/start_node()
 	var/byond_port = world.port
 	var/node_port = CONFIG_GET(number/port_voicechat)
-	var/pid = world.vars["process"]
+	var/pid = UNLINT(world.process)
 	if(!byond_port || !node_port || !pid)
 		message_admins("missing variable {byond_port:[byond_port], node_port:[node_port], pid:[pid]}")
 		return FALSE
-	var/cmd = "node [NODE_SERVER_PATH] --node-port=[node_port] --byond-port=[byond_port] --byond-pid=[pid] &"
-	var/exit_code = shell(cmd)
-	if(exit_code != 0)
-		message_admins("launching node failed {exit_code: [exit_code || "null"], cmd: [cmd || "null"]}")
-		return FALSE
-	else
-		return TRUE
 
+	// if windows then just start proccess(because this build do not have RUN_SERVER.bat on his own), if unix then wait for exit_code
+	var/cmd = "start \"Node voicechat server\" cmd /k \"node [NODE_SERVER_PATH] --node-port=[node_port] --byond-port=[byond_port] --byond-pid=[pid] &\""
+	if(world.system_type == UNIX)
+		cmd = "node [NODE_SERVER_PATH] --node-port=[node_port] --byond-port=[byond_port] --byond-pid=[pid] &"
+		var/exit_code = shell(cmd)
+		if(exit_code != 0)
+			message_admins("launching node failed {exit_code: [exit_code || "null"], cmd: [cmd || "null"]}")
+			return FALSE
+		else
+			return TRUE
+
+	else
+		shell(cmd)
+	return TRUE
 
 /datum/controller/subsystem/voicechat/Shutdown()
-	disconnect_all_clients()
-	stop_node()
-	to_chat(world, span_announce("voicechat stopped"))
+	if(actually_initialized)
+		disconnect_all_clients()
+		stop_node()
+		to_chat(world, span_announce("SERVER: подсистема SSVoicechat остановлена!"))
 	. = ..()
+
 
 /datum/controller/subsystem/voicechat/proc/disconnect_all_clients()
 	for(var/userCode in vc_clients)
@@ -110,8 +139,10 @@ SUBSYSTEM_DEF(voicechat)
 /datum/controller/subsystem/voicechat/fire()
 	send_locations()
 
+
 /datum/controller/subsystem/voicechat/proc/on_node_start()
 	return
+
 
 /datum/controller/subsystem/voicechat/proc/add_rooms(list/rooms, proximity_mode = TRUE)
 	if(!islist(rooms))
@@ -134,6 +165,7 @@ SUBSYSTEM_DEF(voicechat)
 		current_rooms.Remove(room)
 		room_has_proximity.Remove(room)
 
+
 /// remove user from room
 /datum/controller/subsystem/voicechat/proc/clear_userCode(userCode)
 	var/own_room = userCode_room_map[userCode]
@@ -141,6 +173,7 @@ SUBSYSTEM_DEF(voicechat)
 		current_rooms[own_room] -= userCode
 
 	userCode_room_map[userCode] = null
+
 
 /datum/controller/subsystem/voicechat/proc/move_userCode_to_room(userCode, room)
 	if(!room || !current_rooms.Find(room))
@@ -161,6 +194,7 @@ SUBSYSTEM_DEF(voicechat)
 		return
 	userCode_client_map[userCode] = client
 	client_userCode_map[client] = userCode
+
 
 // faster the better
 /datum/controller/subsystem/voicechat/proc/send_locations()
@@ -198,4 +232,6 @@ SUBSYSTEM_DEF(voicechat)
 	for(var/userCode in vc_clients)
 		move_userCode_to_room(userCode, "lobby")
 
+#undef LIBPATH_WINDOWS
+#undef LIBPATH_UNIX
 #undef NODE_SERVER_PATH
