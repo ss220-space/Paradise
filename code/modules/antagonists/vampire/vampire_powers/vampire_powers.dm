@@ -57,7 +57,6 @@
 	gain_desc = "Теперь ваша способность \"Вспышка\" не зависит от направления взгляда."
 
 /obj/effect/proc_holder/spell/vampire
-	name = "Report Me"
 	desc = "You shouldn't see this!"
 	school = "vampire"
 	action_background_icon_state = "bg_vampire"

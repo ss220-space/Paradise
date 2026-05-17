@@ -184,7 +184,7 @@ GLOBAL_VAR_INIT(tdome_arena_melee, locate(/area/tdome/newtdome/CQC))
 	if(dead_fighter in fighters)
 		fighters -= dead_fighter
 	if(!length(fighters) && !is_cleansing_going)
-		for(var/datum/timedevent/timer in active_timers)
+		for(var/datum/timedevent/timer in _active_timers)
 			qdel(timer)
 		is_cleansing_going = TRUE
 		addtimer(CALLBACK(src, PROC_REF(clear_thunderdome)), 5 SECONDS) //Everyone died. Time to reset.

@@ -183,7 +183,7 @@
 /obj/effect/chronos_cam/singularity_act()
 	return
 
-/obj/effect/chronos_cam/singularity_pull()
+/obj/effect/chronos_cam/singularity_pull(atom/singularity, current_size)
 	return
 
 /obj/effect/chronos_cam/relaymove(mob/user, direction)

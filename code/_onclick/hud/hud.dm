@@ -6,11 +6,14 @@
 
 /datum/hud
 	var/mob/mymob
-
-	var/hud_shown = TRUE			//Used for the HUD toggle (F12)
-	var/hud_version = 1				//Current displayed version of the HUD
-	var/inventory_shown = FALSE		//Equipped item inventory
-	var/hotkey_ui_hidden = FALSE	//This is to hide the buttons that can be used via hotkeys. (hotkeybuttons list of buttons)
+	/// Used for the HUD toggle (F12)
+	var/hud_shown = TRUE
+	/// Current displayed version of the HUD
+	var/hud_version = HUD_STYLE_STANDARD
+	/// Equipped item inventory
+	var/inventory_shown = FALSE
+	/// This is to hide the buttons that can be used via hotkeys. (hotkeybuttons list of buttons)
+	var/hotkey_ui_hidden = FALSE
 
 	var/atom/movable/screen/lingchemdisplay
 	var/atom/movable/screen/lingstingdisplay
@@ -331,7 +334,7 @@
 	persistent_inventory_update(screenmob)
 	// Gives all of the actions the screenmob owes to their hud
 	screenmob.update_action_buttons(TRUE)
-	reorganize_alerts()
+	reorganize_alerts(screenmob)
 	reload_fullscreen()
 	if(screenmob == mymob)
 		update_parallax_pref(screenmob)

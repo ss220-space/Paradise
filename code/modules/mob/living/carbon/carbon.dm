@@ -2,6 +2,7 @@
 	. = ..()
 	GLOB.carbon_list += src
 	AddComponent(/datum/component/anti_juggling)
+	ADD_TRAIT(src, TRAIT_CAN_HOLD_ITEMS, INNATE_TRAIT) // Carbons are assumed to be innately capable of having arms, we check their arms count instead
 
 /mob/living/carbon/Destroy()
 	// We need to delete the back slot first, for modsuits. Otherwise, we have issues.
@@ -473,7 +474,7 @@
 		return .
 
 	var/alien_trait = HAS_TRAIT(src, TRAIT_VENTCRAWLER_ALIEN)
-	if(alien_trait && length(get_equipped_items(INCLUDE_HELD)))
+	if(alien_trait && !is_hands_free())
 		if(provide_feedback)
 			balloon_alert(src, "ваши руки заняты!")
 		return FALSE

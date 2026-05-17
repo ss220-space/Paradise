@@ -155,7 +155,7 @@
 	return original_mob_UID == o_mob.UID()
 
 // Do not use for admin related things as this can hide the mob's ckey
-/datum/mind/proc/get_display_key()
+/datum/mind/proc/get_mind_key()
 	// Lets try find a client so we can check their prefs
 	var/client/C = null
 
@@ -171,17 +171,7 @@
 
 	// Ok we found a client, be it their active or their last
 	// Now we see if we need to respect their privacy
-	var/out_ckey
-	if(C)
-		if(C.prefs.toggles2 & PREFTOGGLE_2_ANON)
-			out_ckey = "(Anon)"
-		else
-			out_ckey = C.ckey
-	else
-		// No client. Just mark as DC'd.
-		out_ckey = "(Disconnected)"
-
-	return out_ckey
+	return get_display_key(C)
 
 /datum/mind/proc/transfer_to(mob/living/new_character)
 	if(!istype(new_character))

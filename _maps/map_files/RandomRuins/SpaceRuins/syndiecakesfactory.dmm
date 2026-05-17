@@ -535,11 +535,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/powered)
 "Vf" = (
-/obj/machinery/power/apc/noalarm/directional/west{
-	keep_preset_name = 1;
-	locked = 0;
-	start_charge = -1
-	},
+/obj/machinery/power/apc/noalarm/directional/west,
 /obj/structure/cable{
 	d2 = 4;
 	icon_state = "0-4"
@@ -561,14 +557,7 @@
 /turf/space,
 /area/ruin/space)
 "Xd" = (
-/obj/machinery/power/apc/noalarm/directional/south{
-	keep_preset_name = 1;
-	light_power = 0;
-	locked = 0;
-	max_integrity = 0;
-	shorted = 1;
-	start_charge = -1
-	},
+/obj/machinery/power/apc/noalarm/directional/south,
 /obj/structure/cable{
 	d2 = 4;
 	icon_state = "0-4"

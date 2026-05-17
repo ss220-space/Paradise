@@ -66,7 +66,7 @@
 
 	INVOKE_ASYNC(src, PROC_REF(trigger))
 
-/obj/effect/portal_sensor/proc/on_exited(datum/source, atom/movable/departed, atom/newLoc)
+/obj/effect/portal_sensor/proc/on_exited(datum/source, atom/movable/departed, direction)
 	SIGNAL_HANDLER
 
 	INVOKE_ASYNC(src, PROC_REF(trigger))

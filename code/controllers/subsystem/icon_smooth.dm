@@ -1,12 +1,12 @@
 SUBSYSTEM_DEF(icon_smooth)
 	name = "Icon Smoothing"
-	init_order = INIT_ORDER_ICON_SMOOTHING
+	dependencies = list(
+		/datum/controller/subsystem/atoms,
+	)
 	wait = 1
 	priority = FIRE_PRIORITY_SMOOTHING
-	flags = SS_TICKER|SS_HIBERNATE
-	offline_implications = "Objects will no longer smooth together properly. No immediate action is needed."
-	cpu_display = SS_CPUDISPLAY_LOW
-	ss_id = "icon_smooth"
+	ss_flags = SS_TICKER|SS_HIBERNATE
+
 	/**
 	 *	Used to track instances of icon smooth halters. Does not apply to roundstart loading, however.
 	 *  Always make sure to remove halt source from this list on the end of operation.

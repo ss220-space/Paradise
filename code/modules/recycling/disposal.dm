@@ -124,10 +124,11 @@
 		trunk = null
 	return ..()
 
-/obj/machinery/disposal/singularity_pull(S, current_size)
+/obj/machinery/disposal/singularity_pull(atom/singularity, current_size)
 	..()
-	if(current_size >= STAGE_FIVE)
-		deconstruct()
+	if(current_size < STAGE_FIVE)
+		return
+	deconstruct()
 
 //This proc returns TRUE if the item can be picked up and FALSE if it can't.
 //Set the stop_messages to stop it from printing messages

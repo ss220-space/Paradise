@@ -222,10 +222,11 @@
 	else
 		return FALSE
 
-/obj/structure/cable/singularity_pull(S, current_size)
+/obj/structure/cable/singularity_pull(atom/singularity, current_size)
 	..()
-	if(current_size >= STAGE_FIVE)
-		deconstruct()
+	if(current_size < STAGE_FIVE)
+		return
+	deconstruct()
 
 /obj/structure/cable/proc/cable_color(colorC)
 	if(!colorC)

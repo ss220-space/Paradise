@@ -171,6 +171,8 @@ GLOBAL_LIST_INIT(gun_module_slot_ru_name, list(
 #define GUN_ACCURACY_PISTOL_ENFORCER new /datum/gun_accuracy/pistol/enforcer()
 /// Uplink pistol accuracy (better than normal pistols)
 #define GUN_ACCURACY_PISTOL_UPLINK new /datum/gun_accuracy/pistol/uplink()
+/// Scarecrow accuracy
+#define GUN_ACCURACY_PISTOL_UPLINK_SCARECROW new /datum/gun_accuracy/pistol/uplink/scarecrow()
 /// Stechkin accuracy
 #define GUN_ACCURACY_PISTOL_STECHKIN new /datum/gun_accuracy/pistol/stechkin()
 /// Rifle accuracy (more than default)
