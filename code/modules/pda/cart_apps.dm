@@ -434,7 +434,7 @@
 	for(var/obj/item/mop/mop in janitorial_equipment_chached)
 		var/turf/item_turf = get_turf(mop)
 		if(item_turf)
-			if(item_turf.z != pda_turf.z)
+			if(!is_valid_z_level(item_turf, pda_turf))
 				continue
 			var/direction = get_dir(pda, mop)
 			mop_data[++mop_data.len] = list ("x" = item_turf.x, "y" = item_turf.y, "dir" = uppertext(dir2rustext(direction)), "status" = mop.reagents.total_volume ? "Мокрая" : "Сухая")
@@ -443,7 +443,7 @@
 	for(var/obj/structure/mopbucket/bucket in janitorial_equipment_chached)
 		var/turf/item_turf = get_turf(bucket)
 		if(item_turf)
-			if(item_turf.z != pda_turf.z)
+			if(!is_valid_z_level(item_turf, pda_turf))
 				continue
 			var/direction = get_dir(pda, bucket)
 			bucket_data[++bucket_data.len] = list ("x" = item_turf.x, "y" = item_turf.y, "dir" = uppertext(dir2rustext(direction)), "volume" = bucket.reagents.total_volume, "max_volume" = bucket.reagents.maximum_volume)
@@ -452,7 +452,7 @@
 	for(var/mob/living/simple_animal/bot/cleanbot/clean_bot in bots_list_chached)
 		var/turf/item_turf = get_turf(clean_bot)
 		if(item_turf)
-			if(item_turf.z != pda_turf.z)
+			if(!is_valid_z_level(item_turf, pda_turf))
 				continue
 			var/direction = get_dir(pda, clean_bot)
 			cleanbot_data[++cleanbot_data.len] = list("x" = item_turf.x, "y" = item_turf.y, "dir" = uppertext(dir2rustext(direction)), "status" = clean_bot.on ? "Включён" : "Выключен")
@@ -461,7 +461,7 @@
 	for(var/obj/structure/janitorialcart/jan_cart_structure in janitorial_equipment_chached)
 		var/turf/item_turf = get_turf(jan_cart_structure)
 		if(item_turf)
-			if(item_turf.z != pda_turf.z)
+			if(!is_valid_z_level(item_turf, pda_turf))
 				continue
 			var/direction = get_dir(pda, jan_cart_structure)
 			jancart_data[++jancart_data.len] = list("x" = item_turf.x, "y" = item_turf.y, "dir" = uppertext(dir2rustext(direction)), "volume" = jan_cart_structure.reagents.total_volume, "max_volume" = jan_cart_structure.reagents.maximum_volume)
@@ -470,7 +470,7 @@
 	for(var/obj/item/key/janitor/jan_key in janitorial_equipment_chached)
 		var/turf/item_turf = get_turf(jan_key)
 		if(item_turf)
-			if(item_turf.z != pda_turf.z)
+			if(!is_valid_z_level(item_turf, pda_turf))
 				continue
 			var/direction = get_dir(pda, jan_key)
 			cart_key_data[++cart_key_data.len] = list("x" = item_turf.x, "y" = item_turf.y, "dir" = uppertext(dir2rustext(direction)))
@@ -479,7 +479,7 @@
 	for(var/obj/vehicle/ridden/janicart/janicart in janitorial_equipment_chached)
 		var/turf/item_turf = get_turf(janicart)
 		if(item_turf)
-			if(item_turf.z != pda_turf.z)
+			if(!is_valid_z_level(item_turf, pda_turf))
 				continue
 			var/direction = get_dir(pda, janicart)
 			vehicle_cart_data[++vehicle_cart_data.len] = list("x" = item_turf.x, "y" = item_turf.y, "dir" = uppertext(dir2rustext(direction)))
