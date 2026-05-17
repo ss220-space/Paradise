@@ -480,11 +480,10 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 					DM = subject
 				if(check_rights(R_ADMIN|R_MOD, FALSE, M))							// What admins see
 					lname = "[keyname][display == ANON_KEY ? "\[ANON\]" : ""] ([name])"
-				else
-					if(DM)									// Non-anons
-						lname = "[display] ([name])"
-					else 										// Everyone else (dead people who didn't ghost yet, etc.)
-						lname = name
+				else if(DM)									// Non-anons
+					lname = "[display] ([name])"
+				else 										// Everyone else (dead people who didn't ghost yet, etc.)
+					lname = name
 				lname = "[span_name("[lname]")] "
 			to_chat(M, span_deadsay("[follow][lname][message]"))
 
