@@ -229,7 +229,7 @@
 #define PREF_EXOFRAME_REINFORCED "EXO_REINFORCED"
 #define PREF_EXOFRAME_INDUSTRIAL "EXO_INDUSTRIAL"
 
-// Anonymous player display label
+/// Anonymous player display label
 #define ANON_KEY "(Anon)"
 
 /// This isnt in client_defines due to scoping issues
