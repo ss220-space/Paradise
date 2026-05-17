@@ -282,7 +282,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 /datum/syndie_supply_packs/security/mini_uzi
 	name = "Пистолет пулемет \"Узи\""
 	contains = list(
-		/obj/item/gun/projectile/automatic/mini_uzi,
+		/obj/item/gun/projectile/automatic/smg/mini_uzi,
 		/obj/item/ammo_box/magazine/uzim9mm,
 		/obj/item/ammo_box/magazine/uzim9mm,
 	)
@@ -2790,7 +2790,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 		/obj/item/pen/edagger,
 		/obj/item/card/id/syndicate,
 		/obj/item/clothing/shoes/chameleon/noslip,
-		/obj/item/camera_bug,
+		/obj/item/camera_bug/syndicate,
 		/obj/item/multitool/ai_detect,
 		/obj/item/encryptionkey/syndicate,
 		/obj/item/twohanded/garrote,
@@ -2849,7 +2849,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	contains = list(
 		/obj/item/grenade/plastic/c4,
 		/obj/item/grenade/plastic/c4,
-		/obj/item/camera_bug,
+		/obj/item/camera_bug/syndicate,
 		/obj/item/powersink,
 		/obj/item/cartridge/syndicate,
 		/obj/item/rcd/preloaded,
@@ -2868,7 +2868,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	name = "Syndicate 'PayDay' Bundle"
 	contains = list(
 		/obj/item/implanter/freedom/prototype,
-		/obj/item/gun/projectile/automatic/mini_uzi,
+		/obj/item/gun/projectile/automatic/smg/mini_uzi,
 		/obj/item/ammo_box/magazine/uzim9mm,
 		/obj/item/ammo_box/magazine/uzim9mm,
 		/obj/item/card/emag,
@@ -2907,7 +2907,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 		/obj/item/melee/energy/sword/saber,
 		/obj/item/card/id/syndicate,
 		/obj/item/storage/box/syndie_kit/emp,
-		/obj/item/camera_bug,
+		/obj/item/camera_bug/syndicate,
 		/obj/item/door_remote/omni/access_tuner,
 		/obj/item/implanter/freedom/prototype,
 		/obj/item/ai_module/syndicate,

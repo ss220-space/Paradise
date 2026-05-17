@@ -1,5 +1,5 @@
 /datum/event_meta
-	var/name		= ""
+	var/name = ""
 	/// Whether or not the event is available for random selection at all.
 	var/enabled	= TRUE
 	/// The base weight of this event. A zero means it may never fire, but see get_weight()
@@ -13,7 +13,7 @@
 	/// If true, then the event will not be re-added to the list of available events
 	var/one_shot
 	/// A modifier applied to all event weights (role and base), respects min and max
-	var/weight_mod	= 1
+	var/weight_mod = 1
 	/// A list of roles that add weight to the event
 	var/list/role_weights = list()
 	/// Whether or not the event will be return to event container.

@@ -517,16 +517,16 @@
 	else if(ismob(src.loc))
 		switch(sensor_mode)
 			if(0)
-				for(var/mob/V in viewers(user, 1))
+				for(var/mob/V in viewers(1, user))
 					V.show_message(span_warning("[user] отключа[PLUR_ET_YUT(user)] датчики [src.loc]."), 1)
 			if(1)
-				for(var/mob/V in viewers(user, 1))
+				for(var/mob/V in viewers(1, user))
 					V.show_message("[user] устанавлива[PLUR_ET_YUT(user)] датчики [src.loc] в бинарный режим.", 1)
 			if(2)
-				for(var/mob/V in viewers(user, 1))
+				for(var/mob/V in viewers(1, user))
 					V.show_message("[user] устанавлива[PLUR_ET_YUT(user)] датчики [src.loc] в режим мониторинга жизненных показателей.", 1)
 			if(3)
-				for(var/mob/V in viewers(user, 1))
+				for(var/mob/V in viewers(1, user))
 					V.show_message("[user] устанавлива[PLUR_ET_YUT(user)] датчики [src.loc] в режим мониторинга жизненных показателей и текущего местоположения.", 1)
 		if(ishuman(src))
 			var/mob/living/carbon/human/H = src
@@ -953,6 +953,9 @@
 		if(adjust_flavour)
 			flavour = "[adjust_flavour]"
 		to_chat(user, "You [flavour] [src].")
+
+/obj/item/clothing/suit/attack_self(mob/user)
+	adjustsuit(user)
 
 /obj/item/clothing/suit/update_icon_state()
 	// Trims the '_open' off the end of the icon state, thus avoiding a case where jackets that start open will

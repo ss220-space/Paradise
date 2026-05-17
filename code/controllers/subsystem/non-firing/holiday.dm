@@ -1,8 +1,10 @@
 SUBSYSTEM_DEF(holiday)
 	name = "Holiday"
-	init_order = INIT_ORDER_HOLIDAY // 4
-	flags = SS_NO_FIRE
-	ss_id = "holiday"
+	dependents = list(
+		/datum/controller/subsystem/mapping,
+	)
+	ss_flags = SS_NO_FIRE
+
 	var/list/holidays
 
 /datum/controller/subsystem/holiday/Initialize()

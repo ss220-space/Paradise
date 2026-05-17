@@ -10,6 +10,7 @@
 
 	hud_type = /datum/hud/simple_animal
 	abstract_type = /mob/living/simple_animal
+	interaction_flags_mouse_drop = NEED_HANDS
 	var/icon_living = ""
 	var/icon_dead = ""
 	var/icon_resting = ""
@@ -843,14 +844,14 @@
 	leash_radius = radius
 
 /mob/living/simple_animal/deadchat_plays(mode = DEADCHAT_ANARCHY_MODE, cooldown = 12 SECONDS)
-	. = AddComponent(/datum/component/deadchat_control/cardinal_movement, mode, list(), cooldown, CALLBACK(src, PROC_REF(end_dchat_plays)))
+	. = AddComponent(/datum/component/deadchat_control/cardinal_movement, mode, list(), cooldown, CALLBACK(src, PROC_REF(stop_deadchat_plays)))
 
 	if(. == COMPONENT_INCOMPATIBLE)
 		return
 
 	stop_automated_movement = TRUE
 
-/mob/living/simple_animal/proc/end_dchat_plays()
+/mob/living/simple_animal/proc/stop_deadchat_plays()
 	stop_automated_movement = FALSE
 
 /mob/living/simple_animal/can_use_machinery(obj/machinery/mach)

@@ -141,9 +141,11 @@ tier 3 - 10-12 range, 125 energy per teleport, 1 sec teleport
 	if(!istype(target_turf))
 		balloon_alert(mod.wearer, "неподходящая цель!")
 		return
-	if(target_turf.density)
+
+	if(target_turf.is_blocked_turf_ignore_climbable() || !los_check(mod.wearer, target, pass_args = PASSTABLE|PASSGLASS|PASSGRILLE|PASSMOB|PASSMACHINE|PASSSTRUCTURE|PASSFLAPS))
 		balloon_alert(mod.wearer, "невозможно!")
 		return
+
 	if(!is_teleport_allowed(target_turf.z))
 		balloon_alert(mod.wearer, "сбой в работе!")
 		return

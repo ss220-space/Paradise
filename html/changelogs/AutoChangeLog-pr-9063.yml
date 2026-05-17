@@ -1,0 +1,4 @@
+author: "KefirTT"
+delete-after: True
+changes:
+  - add: "КПБ могут присоединять отсутствующие конечности сами себе. (PR #9063)"

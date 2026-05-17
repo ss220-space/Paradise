@@ -1,29 +1,3 @@
-// Exist only for sdql2, deleted by official paradise
-/obj/effect/statclick
-	name = "Initializing..."
-	var/target
-
-INITIALIZE_IMMEDIATE(/obj/effect/statclick)
-
-/obj/effect/statclick/Initialize(mapload, text, target)
-	. = ..()
-	name = text
-	src.target = target
-	if(isdatum(target)) //Harddel man bad
-		RegisterSignal(target, COMSIG_QDELETING, PROC_REF(cleanup))
-
-/obj/effect/statclick/Destroy()
-	target = null
-	return ..()
-
-/obj/effect/statclick/proc/cleanup()
-	SIGNAL_HANDLER
-	qdel(src)
-
-/obj/effect/statclick/proc/update(text)
-	name = text
-	return src
-
 //SDQL2 datumized, /tg/station special!
 
 /*
@@ -1058,6 +1032,9 @@ GLOBAL_DATUM_INIT(sdql2_vv_statobj, /obj/effect/statclick/sdql2_vv_all, new(null
 		var/datum/located = locate(pointer) || locateUID(pointer)
 		if(!istype(located))
 			to_chat(usr, span_danger("Invalid pointer: [expression[start + 1]] - null or not datum"), confidential = TRUE)
+			return null
+		if(!located.can_vv_mark())
+			to_chat(usr, span_danger("Pointer [expression[start+1]] cannot be marked"), confidential = TRUE)
 			return null
 		v = located
 		start++

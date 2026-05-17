@@ -10,10 +10,9 @@
 
 	var/obj/machinery/atmospherics/node
 
-/obj/machinery/atmospherics/pipe/cap/New()
-	..()
+/obj/machinery/atmospherics/pipe/cap/Initialize(mapload)
+	. = ..()
 	initialize_directions = dir
-
 
 /obj/machinery/atmospherics/pipe/cap/pipeline_expansion()
 	return list(node)

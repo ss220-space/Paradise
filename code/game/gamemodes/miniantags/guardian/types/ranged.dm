@@ -138,6 +138,6 @@
 /obj/effect/snare/singularity_act()
 	return
 
-/obj/effect/snare/singularity_pull()
+/obj/effect/snare/singularity_pull(atom/singularity, current_size)
 	return
 

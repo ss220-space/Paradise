@@ -74,9 +74,6 @@
 	///From base of mob/living/MobBump() (mob/living)
 #define COMSIG_LIVING_MOB_BUMP "living_mob_bump"
 
-///from base of /mob/living/examine(): (mob/user, list/.)
-#define COMSIG_LIVING_EXAMINE "living_examine"
-
 /// Source: /mob/living/AdjustBlood(amount)
 #define COMSIG_LIVING_BLOOD_ADJUST "living_blood_adjust"
 	#define COMPONENT_PREVENT_BLOODLOSS (1<<0)
@@ -155,3 +152,6 @@
 ///from base of /obj/item/bodypart/proc/attach_limb(): (new_limb, special) allows you to fail limb attachment
 #define COMSIG_LIVING_ATTACH_LIMB "living_attach_limb"
 	#define COMPONENT_NO_ATTACH (1<<0)
+
+/// From /mob/living/update_offsets(animate) : (new_x, new_y, new_w, new_z, animate)
+#define COMSIG_LIVING_UPDATE_OFFSETS "living_update_offsets"

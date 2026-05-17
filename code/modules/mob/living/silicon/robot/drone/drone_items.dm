@@ -142,7 +142,8 @@
 		PREPOSITIONAL = "древнем захвате",
 	)
 
-/obj/item/gripper/cogscarab/New()
+/obj/item/gripper/cogscarab/Initialize(mapload)
+	. = ..()
 	//Has a list of items that it can hold.
 	can_hold += list(
 		/obj/item/clockwork/integration_cog,
@@ -150,7 +151,6 @@
 		/obj/item/stack/sheet,
 		/obj/item/mmi/robotic_brain/clockwork
 	)
-	..()
 
 /obj/item/gripper/universal
 	name = "Universal gripper"
@@ -228,8 +228,8 @@
 		PREPOSITIONAL = "ядерном захвате",
 	)
 
-/obj/item/gripper/New()
-	..()
+/obj/item/gripper/Initialize(mapload)
+	. = ..()
 	can_hold = typecacheof(can_hold)
 
 /obj/item/gripper/verb/drop_item_gripped()
@@ -316,8 +316,8 @@
 			gripped_item = I
 			I.update_icon(UPDATE_OVERLAYS) //Some items change their appearance upon being pulled (IV drip as an example)
 			update_icon(UPDATE_OVERLAYS)
-			RegisterSignal(I, list(COMSIG_MOVABLE_MOVED, COMSIG_QDELETING), PROC_REF(handle_item_moving))
-			RegisterSignal(I, list(COMSIG_ATOM_UPDATED_ICON), PROC_REF(handle_item_icon_update))
+			RegisterSignals(I, list(COMSIG_MOVABLE_MOVED, COMSIG_QDELETING), PROC_REF(handle_item_moving))
+			RegisterSignals(I, list(COMSIG_ATOM_UPDATED_ICON), PROC_REF(handle_item_icon_update))
 		else
 			balloon_alert(user, "невозможно взять!")
 

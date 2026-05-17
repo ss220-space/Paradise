@@ -781,6 +781,10 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
 	)
 
+/obj/item/clothing/suit/tracksuit/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/right_click_mapper/attack_self, "Открыть/Закрыть [declent_ru(ACCUSATIVE)]")
+
 /obj/item/clothing/suit/tracksuit/green
 	name = "green tracksuit"
 	icon_state = "trackjacketgreen_open"
@@ -908,7 +912,6 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
-	actions_types = list(/datum/action/item_action/zipper)
 	adjust_flavour = "unzip"
 
 	sprite_sheets = list(
@@ -920,6 +923,10 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
 	)
+
+/obj/item/clothing/suit/jacket/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/right_click_mapper/attack_self, "Застегнуть/Расстегнуть [declent_ru(ACCUSATIVE)]")
 
 /obj/item/clothing/suit/jacket/pilot
 	name = "security bomber jacket"

@@ -1,7 +1,7 @@
 /obj/effect/proc_holder/spell/touch/alien_spell
 	name = "Basetype Alien spell"
 	desc = "You should not see this in game, if you do file a github report!"
-	hand_path = "/obj/item/melee/touch_attack/alien"
+	hand_path = /obj/item/melee/touch_attack/alien
 	action_icon_state = "gib"
 	action_background_icon_state = "bg_alien"
 	/// Extremely fast cooldown, only present so the cooldown system doesn't explode

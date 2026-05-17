@@ -143,9 +143,11 @@
 	name = "Syndicate Stirke Team Officer"
 	pda = /obj/item/pinpointer
 
-/datum/outfit/admin/syndicate_strike_team/officer/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	.=..()
-	H.back.contents += new /obj/item/disk/nuclear/unrestricted
+/datum/outfit/admin/syndicate_strike_team/officer/post_equip(mob/living/carbon/human/officer, visualsOnly = FALSE)
+	. = ..()
+	if(visualsOnly)
+		return
+	officer.equip_or_collect(new /obj/item/disk/nuclear/unrestricted, ITEM_SLOT_BACKPACK)
 
 /datum/outfit/admin/syndicate_strike_team/full_gear
 	can_be_admin_equipped = TRUE
@@ -219,11 +221,11 @@
 	id = /obj/item/card/id/centcom
 
 	backpack_contents = list(
-		/obj/item/gun/projectile/automatic/pistol/sp8/sp8ar = 1,
+		/obj/item/gun/projectile/automatic/pistol/sp8 = 1,
 		/obj/item/ammo_box/magazine/sp8 = 2,
 		/obj/item/storage/box/survival/responseteam = 1,
 		/obj/item/gun/energy/gun/blueshield = 1,
-		/obj/item/gun/projectile/automatic/proto = 1,
+		/obj/item/gun/projectile/automatic/smg/saber = 1,
 		/obj/item/ammo_box/magazine/smgm9mm = 4,
 		/obj/item/shield/riot/tele = 1,
 		/obj/item/gun_module/muzzle/suppressor = 1,
@@ -430,9 +432,11 @@
 	name = "NT Death Commando officer"
 	can_be_admin_equipped = FALSE
 
-/datum/outfit/admin/death_commando/officer/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	.=..()
-	H.back.contents += new /obj/item/disk/nuclear/unrestricted
+/datum/outfit/admin/death_commando/officer/post_equip(mob/living/carbon/human/officer, visualsOnly = FALSE)
+	. = ..()
+	if(visualsOnly)
+		return
+	officer.equip_or_collect(new /obj/item/disk/nuclear/unrestricted, ITEM_SLOT_BACKPACK)
 
 /datum/outfit/admin/pirate
 	name = "Space Pirate"
@@ -754,7 +758,7 @@
 	suit = /obj/item/clothing/suit/sovietcoat
 	glasses = /obj/item/clothing/glasses/sunglasses
 	r_pocket = /obj/item/flashlight/seclite
-	belt = /obj/item/gun/projectile/automatic/pistol/APS
+	belt = /obj/item/gun/projectile/automatic/pistol/aps
 
 	backpack_contents = list(
 		/obj/item/lighter = 1,
@@ -794,7 +798,7 @@
 	suit_store = /obj/item/tank/internals/emergency_oxygen/double
 
 	backpack_contents = list(
-		/obj/item/gun/projectile/automatic/pistol/APS = 1,
+		/obj/item/gun/projectile/automatic/pistol/aps = 1,
 		/obj/item/ammo_box/magazine/pistolm9mm = 1,
 		/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 1,
 		/obj/item/lighter/zippo = 1,
@@ -1108,7 +1112,7 @@
 	head = /obj/item/clothing/head/det_hat
 	glasses = /obj/item/clothing/glasses/thermal/monocle
 	l_pocket = /obj/item/ammo_box/speedloader/a357
-	r_hand = /obj/item/gun/projectile/automatic/proto
+	r_hand = /obj/item/gun/projectile/automatic/smg/saber
 
 /datum/outfit/admin/tournament_chef //Steven Seagal FTW
 	name = "Tournament Chef"

@@ -38,8 +38,7 @@
 	return ..()
 
 /obj/structure/coatrack/mouse_drop_receive(obj/item/I, mob/user, params)
-	. = TRUE
-	move_on_rack(I, user)
+	return move_on_rack(I, user)
 
 /obj/structure/coatrack/Bumped(atom/movable/moving_atom)
 	. = ..()

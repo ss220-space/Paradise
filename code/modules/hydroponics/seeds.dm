@@ -50,10 +50,10 @@ GLOBAL_LIST_EMPTY(plant_seeds)
 		return declent_ru(NOMINATIVE)
 	return plantname
 
-/obj/item/seeds/New(loc, nogenes = FALSE)
-	..()
-	pixel_x = rand(-8, 8)
-	pixel_y = rand(-8, 8)
+/obj/item/seeds/Initialize(mapload, nogenes = FALSE)
+	. = ..()
+	pixel_x = base_pixel_x + rand(-8, 8)
+	pixel_y = base_pixel_y + rand(-8, 8)
 
 	if(!icon_grow)
 		icon_grow = "[species]-grow"
@@ -63,13 +63,9 @@ GLOBAL_LIST_EMPTY(plant_seeds)
 
 	if(!icon_harvest && !get_gene(/datum/plant_gene/trait/plant_type/fungal_metabolism) && yield != -1)
 		icon_harvest = "[species]-harvest"
+
 	src.nogenes = nogenes
 	GLOB.plant_seeds += src
-
-/obj/item/seeds/Initialize(mapload)
-	. = ..()
-	pixel_x = base_pixel_x + rand(-8, 8)
-	pixel_y = base_pixel_y + rand(-8, 8)
 
 	if(!nogenes) // not used on Copy()
 		genes += new /datum/plant_gene/core/lifespan(lifespan)
@@ -378,7 +374,7 @@ GLOBAL_LIST_EMPTY(plant_seeds)
 		GetComponent(/datum/component/label).apply_label() // Don't delete labels
 
 // Checks plants for broken tray icons. Use Advanced Proc Call to activate.
-// Maybe some day it would be used as game test.
+// Maybe some day it would be used as unit test.
 /proc/check_plants_growth_stages_icons()
 	var/list/states = icon_states('icons/obj/hydroponics/growing.dmi')
 	states |= icon_states('icons/obj/hydroponics/growing_fruits.dmi')

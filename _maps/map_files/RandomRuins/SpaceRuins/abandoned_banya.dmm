@@ -137,8 +137,8 @@
 /area/ruin/USSP_SpaceBanya)
 "eY" = (
 /obj/structure/closet/secure_closet/guncabinet,
-/obj/item/camera_bug,
-/obj/item/gun/projectile/automatic/c20r/toy,
+/obj/item/camera_bug/syndicate,
+/obj/item/gun/projectile/automatic/smg/c20r/toy,
 /obj/effect/decal/cleanable/cobweb2,
 /obj/item/clothing/head/soviethelmet,
 /turf/simulated/floor/wood,

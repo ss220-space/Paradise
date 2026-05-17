@@ -13,8 +13,8 @@
 	fire_sound = 'sound/weapons/gunshots/1sniper.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
-	fire_delay = 40
-	burst_size = 1
+	fire_delay = 4 SECONDS
+	burst_amount = 1
 	origin_tech = "combat=7"
 	can_suppress = TRUE
 	slot_flags = ITEM_SLOT_BACK
@@ -27,7 +27,17 @@
 		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 12, ATTACHMENT_OFFSET_Y = -4),
 	)
 	recoil = GUN_RECOIL_MEGA
-	fire_modes = GUN_MODE_SINGLE_ONLY
+	gun_firemode_list = list(GUN_FIREMODE_SEMIAUTO)
+
+/obj/item/gun/projectile/automatic/sniper_rifle/update_icon_state()
+	icon_state = base_icon_state
+
+/obj/item/gun/projectile/automatic/sniper_rifle/update_overlays()
+	. = ..()
+	if(!magazine)
+		return
+	. += mutable_appearance(icon, "[base_icon_state]_mag", layer = FLOAT_LAYER - 0.01)
+
 
 // MARK: Syndicate SR
 /obj/item/gun/projectile/automatic/sniper_rifle/syndicate
@@ -60,19 +70,22 @@
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 21, ATTACHMENT_OFFSET_Y = 1),
 		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 6, ATTACHMENT_OFFSET_Y = 5),
-		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 12, ATTACHMENT_OFFSET_Y = -4),
+		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 8, ATTACHMENT_OFFSET_Y = -4),
 	)
 
 // MARK: AXMC
 /obj/item/gun/projectile/automatic/sniper_rifle/axmc
 	name = "axmc sniper rifle"
 	desc = "Новейшая модель снайперской винтовки калибра .338, разработанная и изготовленная одной из дочерних компаний \"Нанотрейзен\". Обладает схожими со снайперской винтовкой \"Синдиката\" характеристиками."
-	icon = 'icons/obj/weapons/projectile.dmi'
-	icon_state = "AXMC"
+	icon_state = "axmc"
 	item_state = "AXMC"
 	mag_type = /obj/item/ammo_box/magazine/a338
 	fire_delay = 5.5 SECONDS
-	attachable_allowed = GUN_MODULE_CLASS_NONE
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 36, ATTACHMENT_OFFSET_Y = 2),
+		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 10, ATTACHMENT_OFFSET_Y = 6),
+		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 17, ATTACHMENT_OFFSET_Y = -4),
+	)
 
 /obj/item/gun/projectile/automatic/sniper_rifle/axmc/get_ru_names()
 	return list(
@@ -83,30 +96,3 @@
 		INSTRUMENTAL = "снайперской винтовкой axmc",
 		PREPOSITIONAL = "снайперской винтовке axmc",
 	)
-
-/obj/item/gun/projectile/automatic/sniper_rifle/axmc/attackby(obj/item/item, mob/user, params)
-	//TODO: remove it after normal sprite for AXMC
-	if(istype(item, /obj/item/gun_module/muzzle/suppressor))
-		add_fingerprint(user)
-		var/obj/item/gun_module/muzzle/suppressor/suppressor = item
-		if(!can_suppress)
-			balloon_alert(user, "несовместимо!")
-			return ATTACK_CHAIN_PROCEED
-		if(suppressed)
-			balloon_alert(user, "уже установлено!")
-			return ATTACK_CHAIN_PROCEED
-		if(!user.drop_transfer_item_to_loc(suppressor, src))
-			return ..()
-		balloon_alert(user, "установлено")
-		playsound(loc, 'sound/items/screwdriver.ogg', 40, TRUE)
-		suppressed = suppressor
-		suppressor.oldsound = fire_sound
-		suppressor.initial_w_class = w_class
-		fire_sound = 'sound/weapons/gunshots/1suppres.ogg'
-		w_class = WEIGHT_CLASS_NORMAL //so pistols do not fit in pockets when suppressed
-		update_icon()
-		return ATTACK_CHAIN_BLOCKED_ALL
-	return ..()
-
-/obj/item/gun/projectile/automatic/sniper_rifle/axmc/update_icon_state()
-	icon_state = "[initial(icon_state)][magazine ? "-mag" : ""][suppressed ? "-suppressed" : ""]"

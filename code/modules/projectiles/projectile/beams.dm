@@ -2,7 +2,7 @@
 	name = "laser"
 	icon_state = "laser"
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
-	damage = 23
+	damage = 25
 	damage_type = BURN
 	hitsound = 'sound/weapons/sear.ogg'
 	hitsound_wall = 'sound/weapons/effects/searwall.ogg'
@@ -130,6 +130,7 @@
 	tile_dropoff = 0.75
 	forcedodge = -1
 	range = 15
+	armour_penetration = 100
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser
 	light_color = LIGHT_COLOR_GREEN
 	tracer_type = /obj/effect/projectile/tracer/xray
@@ -149,7 +150,6 @@
 /obj/projectile/beam/disabler
 	name = "disabler beam"
 	icon_state = "omnilaser"
-	damage = 25
 	shockbull = TRUE
 	damage_type = STAMINA
 	flag = ENERGY
@@ -173,7 +173,6 @@
 
 /obj/projectile/beam/specter/laser
 	name = "specter laser beam"
-	damage = 25
 
 /obj/projectile/beam/specter/disabler
 	name = "specter paralyzer beam"
@@ -284,8 +283,8 @@
 	// Add this to SM psi coefficient on hit for lasers
 	var/psi_change
 
-/obj/projectile/beam/emitter/singularity_pull()
-	return //don't want the emitters to miss
+/obj/projectile/beam/emitter/singularity_pull(atom/singularity, current_size)
+	return // don't want the emitters to miss
 
 /obj/projectile/beam/emitter/hitscan/bluelens
 	name = "electrodisruptive beam"
@@ -658,7 +657,6 @@
 /obj/projectile/beam/dominator/paralyzer
 	name = "paralyzer beam"
 	icon_state = "omnilaser"
-	damage = 25
 	shockbull = TRUE
 	damage_type = STAMINA
 	flag = ENERGY

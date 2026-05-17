@@ -421,7 +421,7 @@
 /turf/simulated/floor/glass/reinforced/plasma,
 /area/shuttle/administration)
 "Gz" = (
-/obj/machinery/disco/immobile,
+/obj/machinery/jukebox/disco/indestructible,
 /turf/simulated/floor/light/colour_cycle/dancefloor_a,
 /area/shuttle/administration)
 "Hi" = (

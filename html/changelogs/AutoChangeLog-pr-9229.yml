@@ -1,0 +1,4 @@
+author: "littleboobs"
+delete-after: True
+changes:
+  - bugfix: "Грязный космос после синги синги. В некоторых местах декали всё равно будут оставаться. (PR #9229)"

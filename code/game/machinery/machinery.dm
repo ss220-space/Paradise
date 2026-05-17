@@ -169,12 +169,10 @@
 	if(myArea == get_area(src))
 		return
 	LAZYREMOVE(myArea.machinery_cache, src)
-	//message_admins("[src] exited [myArea]") Uncomment for debugging
 	myArea = get_area(src)
 	if(!myArea)
 		return
 	LAZYADD(myArea.machinery_cache, src)
-	//message_admins("[src] entered [myArea]")
 	power_change()
 
 /// Helper proc for telling a machine to start processing with the subsystem type that is located in its `subsystem_type` var.

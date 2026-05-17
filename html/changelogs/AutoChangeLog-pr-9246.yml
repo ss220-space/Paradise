@@ -1,0 +1,4 @@
+author: "Infaselt"
+delete-after: True
+changes:
+  - bugfix: "Ходячие грибы больше не убивают сами себя (PR #9246)"

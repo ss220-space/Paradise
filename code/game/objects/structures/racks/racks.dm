@@ -25,6 +25,10 @@
 		PREPOSITIONAL = "стеллаже",
 	)
 
+/obj/structure/rack/ComponentInitialize()
+	AddElement(/datum/element/climbable)
+	AddElement(/datum/element/elevation, pixel_shift = 12)
+
 /obj/structure/rack/Initialize(mapload)
 	. = ..()
 	register_context()
@@ -53,11 +57,10 @@
 
 /obj/structure/rack/mouse_drop_receive(obj/item/dropped_item, mob/user, params)
 	if(!isitem(dropped_item) || user.get_active_hand() != dropped_item || isrobot(user))
-		return FALSE
+		return
 	if(dropped_item.loc != loc && user.transfer_item_to_loc(dropped_item, loc))
 		add_fingerprint(user)
-		return TRUE
-	return FALSE
+		return
 
 /obj/structure/rack/base_item_interaction(mob/living/user, obj/item/tool, list/modifiers)
 	. = ..()
@@ -211,10 +214,6 @@
 
 /obj/structure/rack/wooden/add_debris_element()
 	AddElement(/datum/element/debris, DEBRIS_WOOD, -40, 5)
-
-/obj/structure/rack/wooden/mouse_drop_receive(obj/item/dropped_item, mob/user, params)
-	. = ..()
-	update_icon(UPDATE_OVERLAYS)
 
 /obj/structure/rack/wooden/update_overlays()
 	. = ..()

@@ -53,7 +53,8 @@
 	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/plasmaman
 
 	speciesbox = /obj/item/storage/box/survival/species/plasmaman
-	flesh_color = "#8b3fba"
+	flesh_color = BLOOD_COLOR_PLASMAMAN
+	//blood_color = BLOOD_COLOR_PLASMAMAN
 
 	toxic_food = NONE
 	disliked_food = NONE
@@ -252,7 +253,7 @@
 	H.update_fire()
 	..()
 	if(H.reagents.get_reagent_amount("pure_plasma") < 5) //increasing chock_reduction by 20
-		H.reagents.add_reagent("pure_plasma", 5)
+		H.reagents.add_reagent("pure_plasma", 1)
 
 /datum/species/plasmaman/proc/on_fracture(mob/living/carbon/human/user, datum/fracture_type/fracture)
 	SIGNAL_HANDLER

@@ -585,8 +585,8 @@ ADMIN_VERB(cmd_admin_create_centcom_report, R_SERVER|R_EVENT, "Create Communicat
 
 	var/list/message_sound = list(
 		"Уведомление *бип*" = 'sound/misc/notice2.ogg',
-		"Перехвачены вражеские сообщения" = 'sound/AI/intercept.ogg',
-		"Составлен отчёт о новой команде" = 'sound/AI/commandreport.ogg'
+		"Перехвачено вражеское сообщение" = ANNOUNCER_INTERCEPT,
+		"Составлен отчёт о новой команде" = SSstation.announcer.get_rand_report_sound(),
 	)
 
 	var/type = tgui_input_list(user, "Выберите тип сообщения для отправки.", "Тип сообщения", message_type, "")
@@ -623,37 +623,6 @@ ADMIN_VERB(cmd_admin_create_centcom_report, R_SERVER|R_EVENT, "Create Communicat
 	BLACKBOX_LOG_ADMIN_VERB("Create Comms Report")
 
 #undef CUSTOM_MESSAGE_TYPE
-
-ADMIN_VERB_AND_CONTEXT_MENU(cmd_admin_delete, R_ADMIN, "Delete", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, atom/target as obj|mob|turf in world)
-	user.admin_delete(target)
-
-/client/proc/admin_delete(datum/D)
-	if(istype(D) && !D.can_vv_delete())
-		to_chat(src, "[D] rejected your deletion", confidential = TRUE)
-		return
-	var/atom/A = D
-	var/coords = ""
-	var/jmp_coords = ""
-	if(istype(A))
-		var/turf/T = get_turf(A)
-		if(T)
-			coords = "at [COORD(T)]"
-			jmp_coords = "at [ADMIN_COORDJMP(T)]"
-		else
-			jmp_coords = coords = "in nullspace"
-
-	if(tgui_alert(src, "Are you sure you want to delete:\n[D]\n[coords]?", "Confirmation", list("Yes", "No")) == "Yes")
-		log_admin("[key_name(usr)] deleted [D] [coords]")
-		message_admins("[key_name_admin(usr)] deleted [D] [jmp_coords]")
-		BLACKBOX_LOG_ADMIN_VERB("Delete")
-		if(isturf(D))
-			var/turf/T = D
-			T.ChangeTurf(T.baseturf)
-		else
-			vv_update_display(D, "deleted", VV_MSG_DELETED)
-			qdel(D)
-			if(!QDELETED(D))
-				vv_update_display(D, "deleted", "")
 
 ADMIN_VERB(list_open_jobs, R_ADMIN, "List free slots", "List available station jobs.", ADMIN_CATEGORY_MAIN)
 	if(SSjobs)
@@ -749,7 +718,7 @@ ADMIN_VERB(gib_self, R_ADMIN|R_EVENT, "Gibself", "Give yourself the same treatme
 ADMIN_VERB_AND_CONTEXT_MENU(cmd_check_contents, R_ADMIN, "Check Contents", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, mob/living/target as mob in GLOB.mob_list)
 	var/list/mob_contents = target.get_contents()
 	for(var/atom/content in mob_contents)
-		to_chat(user, "[content] [ADMIN_VV(content, "VV")]", confidential = TRUE)
+		to_chat(user, "[content] [ADMIN_VV(content, "VV")] [ADMIN_TAG(content)]", confidential = TRUE)
 	BLACKBOX_LOG_ADMIN_VERB("Check Contents")
 
 ADMIN_VERB(toggle_view_range, R_ADMIN, "Change View Range", "Switch between 1x and custom views.", ADMIN_CATEGORY_GAME)
@@ -1003,50 +972,6 @@ ADMIN_VERB(modify_goals, R_EVENT, "Modify Goals", "Modify the station goals for 
 	var/datum/browser/popup = new(usr, "goals", "Modify Goals", 400, 400)
 	popup.set_content(dat)
 	popup.open(FALSE)
-
-/// Allow admin to add or remove traits of datum
-/datum/admins/proc/modify_traits(datum/D)
-	if(!D)
-		return
-
-	var/add_or_remove = tgui_input_list(usr, "Remove/Add?", "Trait Remove/Add", list("Add", "Remove"))
-	if(!add_or_remove)
-		return
-	var/list/availible_traits = list()
-
-	switch(add_or_remove)
-		if("Add")
-			for(var/key in GLOB.traits_by_type)
-				if(istype(D,key))
-					availible_traits += GLOB.traits_by_type[key]
-		if("Remove")
-			if(!GLOB.global_trait_name_map)
-				GLOB.global_trait_name_map = generate_global_trait_name_map()
-			for(var/trait in D._status_traits)
-				var/name = GLOB.global_trait_name_map[trait] || trait
-				availible_traits[name] = trait
-
-	var/chosen_trait = tgui_input_list(usr, "Select trait to modify", "Trait", availible_traits)
-	if(!chosen_trait)
-		return
-	chosen_trait = availible_traits[chosen_trait]
-
-	var/source = "adminabuse"
-	switch(add_or_remove)
-		if("Add") //Not doing source choosing here intentionally to make this bit faster to use, you can always vv it.
-			ADD_TRAIT(D, chosen_trait, source)
-		if("Remove")
-			var/specific = tgui_input_list(usr, "All or specific source ?", "Trait Remove/Add", list("All","Specific"))
-			if(!specific)
-				return
-			switch(specific)
-				if("All")
-					source = null
-				if("Specific")
-					source = tgui_input_list(usr, "Source to be removed", "Trait Remove/Add", D._status_traits[chosen_trait])
-					if(!source)
-						return
-			REMOVE_TRAIT(D, chosen_trait, source)
 
 ADMIN_VERB(change_command_name, R_EVENT, "Change Command Name", "Change the name of Central Command.", ADMIN_CATEGORY_EVENTS)
 	var/input = tgui_input_text(user, "Введите имя для Центрального командования.", "Что?", "", encode = FALSE)

@@ -30,7 +30,8 @@
 		return COMPONENT_INCOMPATIBLE
 	RegisterSignal(parent, COMSIG_ATOM_ORBIT_BEGIN, PROC_REF(orbit_begin))
 	RegisterSignal(parent, COMSIG_ATOM_ORBIT_STOP, PROC_REF(orbit_stop))
-	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
+	RegisterSignal(parent, COMSIG_VV_TOPIC, PROC_REF(handle_vv_topic))
+	RegisterSignal(parent, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
 	deadchat_mode = _deadchat_mode
 	inputs = _inputs
 	input_cooldown = _input_cooldown
@@ -191,9 +192,30 @@
 		return WAIVE_AUTOMUTE_CHECK
 	return NONE
 
+/// Allows for this component to be removed via a dedicated VV dropdown entry.
+/datum/component/deadchat_control/proc/handle_vv_topic(datum/source, mob/user, list/href_list)
+	SIGNAL_HANDLER
+	if(!href_list[VV_HK_DEADCHAT_PLAYS] || !check_rights(R_EVENT))
+		return
+	. = COMPONENT_VV_HANDLED
+	INVOKE_ASYNC(src, PROC_REF(async_handle_vv_topic), user, href_list)
+
+/// Async proc handling the alert input and associated logic for an admin removing this component via the VV dropdown.
+/datum/component/deadchat_control/proc/async_handle_vv_topic(mob/user, list/href_list)
+	if(tgui_alert(user, "Remove deadchat control from [parent]?", "Deadchat Plays [parent]", list("Remove", "Cancel")) == "Remove")
+		// Quick sanity check as this is an async call.
+		if(QDELETED(src))
+			return
+
+		to_chat(user, span_notice("Deadchat can no longer control [parent]."))
+		log_admin("[key_name(user)] has removed deadchat control from [parent]")
+		message_admins(span_notice("[key_name(user)] has removed deadchat control from [parent]"))
+
+		qdel(src)
+
 /// Informs any examiners to the inputs available as part of deadchat control, as well as the current operating mode and cooldowns.
 /datum/component/deadchat_control/proc/on_examine(atom/object, mob/user, list/examine_list)
-	SIGNAL_HANDLER  // COMSIG_PARENT_EXAMINE
+	SIGNAL_HANDLER  // COMSIG_ATOM_EXAMINE
 
 	if(!isobserver(user))
 		return

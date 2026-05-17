@@ -243,9 +243,6 @@
 		PREPOSITIONAL = "звуковом отбойным молоте",
 	)
 
-/obj/item/pickaxe/drill/jackhammer/phantom
-	w_class = WEIGHT_CLASS_NORMAL
-
 /obj/item/shovel
 	name = "shovel"
 	desc = "Массивный инструмент для вскапывания и перемещения земли."

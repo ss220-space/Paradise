@@ -1,6 +1,8 @@
 /mob/living/carbon/Initialize(mapload)
 	. = ..()
 	GLOB.carbon_list += src
+	AddComponent(/datum/component/anti_juggling)
+	ADD_TRAIT(src, TRAIT_CAN_HOLD_ITEMS, INNATE_TRAIT) // Carbons are assumed to be innately capable of having arms, we check their arms count instead
 
 /mob/living/carbon/Destroy()
 	// We need to delete the back slot first, for modsuits. Otherwise, we have issues.
@@ -472,7 +474,7 @@
 		return .
 
 	var/alien_trait = HAS_TRAIT(src, TRAIT_VENTCRAWLER_ALIEN)
-	if(alien_trait && length(get_equipped_items(INCLUDE_HELD)))
+	if(alien_trait && !is_hands_free())
 		if(provide_feedback)
 			balloon_alert(src, "ваши руки заняты!")
 		return FALSE
@@ -562,7 +564,8 @@
 	in_throw_mode = FALSE
 	if(throw_icon) //in case we don't have the HUD and we use the hotkey
 		throw_icon.icon_state = "act_throw_off"
-	if(client?.mouse_pointer_icon == THROW_MODE_ICON)
+	if(client?.mouse_override_icon == THROW_MODE_ICON)
+		client.mouse_override_icon = null
 		client.mouse_pointer_icon = initial(client.mouse_pointer_icon)
 
 /mob/living/carbon/proc/throw_mode_on()
@@ -572,7 +575,8 @@
 	in_throw_mode = TRUE
 	if(throw_icon)
 		throw_icon.icon_state = "act_throw_on"
-	if(client?.mouse_pointer_icon == initial(client.mouse_pointer_icon))
+	if(!client.mouse_override_icon)
+		client.mouse_override_icon = THROW_MODE_ICON
 		client.mouse_pointer_icon = THROW_MODE_ICON
 	// we nullify click cd when someone tries to throw a grabbed mob
 	// improves combat robustness a lot
@@ -1084,3 +1088,14 @@ so that different stomachs can handle things in different ways VB*/
 	if(affect_robotic && !affected_organ.is_robotic())
 		return FALSE
 	return affected_organ.internal_receive_damage(min(amount, maximum))
+
+/mob/living/carbon/proc/spew_organ(power = 5, amt = 1)
+	for(var/i in 1 to amt)
+		if(!length(internal_organs))
+			break //Guess we're out of organs!
+		var/obj/item/organ/guts = pick(internal_organs)
+		var/turf/current_turf = get_turf(src)
+		guts.remove(src)
+		guts.forceMove(current_turf)
+		var/atom/throw_target = get_edge_target_turf(guts, dir)
+		guts.throw_at(throw_target, power, 4, src)

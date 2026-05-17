@@ -104,7 +104,7 @@
 
 	var/static/list/global_frozen_atoms = list()
 
-/datum/proximity_monitor/advanced/timestop/New(atom/_host, range, _ignore_if_not_on_turf = TRUE, list/immune, antimagic_flags, channelled, timefreeze, color_matrix)
+/datum/proximity_monitor/advanced/timestop/New(atom/_host, range, works_when_not_on_turf = FALSE, list/immune, antimagic_flags, channelled, timefreeze, color_matrix)
 	..()
 	src.immune = immune.Copy()
 	src.antimagic_flags = antimagic_flags

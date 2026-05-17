@@ -1,0 +1,4 @@
+author: "SCPfollower"
+delete-after: True
+changes:
+  - bugfix: "Исправлено не убираемое замедление у боргов после эффекта сильной гравитации (PR #9266)"

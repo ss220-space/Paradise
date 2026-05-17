@@ -279,7 +279,7 @@
 /area/admin)
 "cH" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/automatic/mini_uzi,
+/obj/item/gun/projectile/automatic/smg/mini_uzi,
 /turf/simulated/floor/wood,
 /area/admin)
 "cP" = (
@@ -302,7 +302,7 @@
 /area/tdome/arena_source)
 "cR" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/automatic/c20r,
+/obj/item/gun/projectile/automatic/smg/c20r,
 /turf/simulated/floor/wood,
 /area/admin)
 "cV" = (
@@ -424,7 +424,7 @@
 "eo" = (
 /obj/machinery/vending/toyliberationstation{
 	contraband = null;
-	products = list(/obj/item/gun/projectile/automatic/toy = 10, /obj/item/gun/projectile/automatic/toy/pistol = 10, /obj/item/gun/projectile/shotgun/toy = 10, /obj/item/toy/sword = 10, /obj/item/ammo_box/foambox = 20, /obj/item/toy/foamblade = 10, /obj/item/toy/syndicateballoon = 10, /obj/item/clothing/suit/syndicatefake = 5, /obj/item/clothing/head/syndicatefake = 5, /obj/item/gun/projectile/shotgun/toy/crossbow = 10, /obj/item/gun/projectile/automatic/c20r/toy/riot = 10, /obj/item/gun/projectile/automatic/l6_saw/toy/riot = 10, /obj/item/gun/projectile/automatic/sniper_rifle/toy = 10, /obj/item/ammo_box/foambox/riot = 20, /obj/item/toy/katana = 10, /obj/item/twohanded/dualsaber/toy = 5, /obj/item/deck/cards/syndicate = 10)
+	products = list(/obj/item/gun/projectile/automatic/toy = 10, /obj/item/gun/projectile/automatic/toy/pistol = 10, /obj/item/gun/projectile/shotgun/toy = 10, /obj/item/toy/sword = 10, /obj/item/ammo_box/foambox = 20, /obj/item/toy/foamblade = 10, /obj/item/toy/syndicateballoon = 10, /obj/item/clothing/suit/syndicatefake = 5, /obj/item/clothing/head/syndicatefake = 5, /obj/item/gun/projectile/shotgun/toy/crossbow = 10, /obj/item/gun/projectile/automatic/smg/c20r/toy/riot = 10, /obj/item/gun/projectile/automatic/l6_saw/toy/riot = 10, /obj/item/gun/projectile/automatic/sniper_rifle/toy = 10, /obj/item/ammo_box/foambox/riot = 20, /obj/item/toy/katana = 10, /obj/item/twohanded/dualsaber/toy = 5, /obj/item/deck/cards/syndicate = 10)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -813,7 +813,7 @@
 /area/admin)
 "io" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/automatic/wt550,
+/obj/item/gun/projectile/automatic/smg/wt550,
 /turf/simulated/floor/wood,
 /area/admin)
 "iu" = (
@@ -1149,7 +1149,7 @@
 /turf/simulated/floor/wood,
 /area/admin)
 "lq" = (
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/machinery/bluespace_beacon/syndicate,
 /turf/simulated/floor/wood,
 /area/admin)
@@ -1254,7 +1254,7 @@
 /area/admin)
 "mX" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/automatic/proto,
+/obj/item/gun/projectile/automatic/smg/saber,
 /turf/simulated/floor/wood,
 /area/admin)
 "nc" = (
@@ -1447,7 +1447,7 @@
 	},
 /area/tdome/arena)
 "pK" = (
-/obj/effect/decal/warning_stripes/blue,
+/obj/effect/turf_decal/delivery/blue,
 /turf/simulated/wall/indestructible,
 /area/admin)
 "pL" = (
@@ -2545,7 +2545,7 @@
 	},
 /area/holodeck/source_knightarena)
 "CJ" = (
-/obj/item/gun/energy/shock_revolver,
+/obj/item/gun/energy/tesla_cannon,
 /obj/structure/table/wood,
 /turf/simulated/floor/wood,
 /area/admin)
@@ -2689,7 +2689,7 @@
 /area/tdome/newtdome/CQC)
 "EU" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/automatic/pistol/APS,
+/obj/item/gun/projectile/automatic/pistol/aps,
 /turf/simulated/floor/wood,
 /area/admin)
 "EV" = (
@@ -3036,7 +3036,7 @@
 /area/admin)
 "IF" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/automatic/c20r/sc_c20r,
+/obj/item/gun/projectile/automatic/smg/c20r/sc_c20r,
 /turf/simulated/floor/wood,
 /area/admin)
 "IN" = (
@@ -3153,7 +3153,7 @@
 /area/admin)
 "Ke" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/automatic/c20r/toy,
+/obj/item/gun/projectile/automatic/smg/c20r/toy,
 /turf/simulated/floor/carpet/arcade,
 /area/admin)
 "Kp" = (
@@ -3381,7 +3381,7 @@
 /area/admin)
 "Nt" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/automatic/pistol/deagle/camo,
+/obj/item/gun/projectile/automatic/pistol/deagle,
 /turf/simulated/floor/wood,
 /area/admin)
 "NA" = (
@@ -3692,11 +3692,6 @@
 /obj/item/toy/katana,
 /turf/simulated/floor/carpet/arcade,
 /area/admin)
-"Sq" = (
-/obj/structure/table/wood,
-/obj/item/gun/projectile/automatic/pistol/deagle/gold,
-/turf/simulated/floor/wood,
-/area/admin)
 "Su" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/kinetic_accelerator/experimental,
@@ -3734,7 +3729,7 @@
 /area/admin)
 "SN" = (
 /obj/structure/table/wood,
-/obj/item/gun/projectile/automatic/c20r/toy/riot,
+/obj/item/gun/projectile/automatic/smg/c20r/toy/riot,
 /turf/simulated/floor/carpet/arcade,
 /area/admin)
 "SP" = (
@@ -3784,7 +3779,7 @@
 /obj/machinery/teleport/hub/upgraded{
 	admin_usage = 1
 	},
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -4236,11 +4231,6 @@
 	},
 /turf/simulated/floor/holofloor/burn_mix_floor,
 /area/holodeck/source_burntest)
-"Yc" = (
-/obj/structure/table/wood,
-/obj/item/gun/projectile/automatic/pistol/deagle,
-/turf/simulated/floor/wood,
-/area/admin)
 "Yf" = (
 /obj/effect/turf_decal{
 	dir = 1;
@@ -9296,7 +9286,7 @@ qE
 qE
 eo
 fE
-Sq
+Nt
 EU
 iz
 IU
@@ -9554,7 +9544,7 @@ qE
 dX
 fE
 Nt
-Yc
+Nt
 dz
 IU
 Ge

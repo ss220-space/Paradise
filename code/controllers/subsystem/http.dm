@@ -1,12 +1,9 @@
 SUBSYSTEM_DEF(http)
 	name = "HTTP"
-	flags = SS_TICKER | SS_BACKGROUND | SS_NO_INIT // Measure in ticks, but also only run if we have the spare CPU. We also dont init.
+	ss_flags = SS_TICKER | SS_BACKGROUND | SS_NO_INIT // Measure in ticks, but also only run if we have the spare CPU. We also dont init.
 	wait = 1
 	runlevels = RUNLEVELS_DEFAULT | RUNLEVEL_LOBBY // All the time
-	// Assuming for the worst, since only discord is hooked into this for now, but that may change
-	offline_implications = "The server is no longer capable of making async HTTP requests. Shuttle call recommended."
-	cpu_display = SS_CPUDISPLAY_LOW
-	ss_id = "http_requests"
+
 	/// List of all async HTTP requests in the processing chain
 	var/list/datum/http_request/active_async_requests = list()
 	/// Variable to define if logging is enabled or not. Disabled by default since we know the requests the server is making. Enable with VV if you need to debug requests
@@ -88,7 +85,7 @@ SUBSYSTEM_DEF(http)
 	active_async_requests += req
 	total_requests++
 
-	// if(logging_enabled)
+	//if(logging_enabled)
 	//	// Create a log holder
 	//	var/list/log_data = list()
 	//	log_data += "BEGIN ASYNC REQUEST (ID: [req.id])"
@@ -97,7 +94,6 @@ SUBSYSTEM_DEF(http)
 	//	log_data += "\tRequest headers: [req.headers]"
 	//	log_data += "END ASYNC REQUEST (ID: [req.id])"
 	//	log_data = replacetext_char(log_data, CONFIG_GET(string/tts_token_silero), "TOKEN")
-
 	//	// Write the log data
 	//	WRITE_LOG(GLOB.http_log, log_data.Join("\n[GLOB.log_end]"))
 

@@ -246,14 +246,14 @@
 		RegisterSignal(mod.wearer, COMSIG_LIVING_MOB_BUMP, PROC_REF(unstealth))
 	RegisterSignal(mod.wearer, COMSIG_HUMAN_MELEE_UNARMED_ATTACK, PROC_REF(on_unarmed_attack))
 	RegisterSignal(mod.wearer, COMSIG_ATOM_BULLET_ACT, PROC_REF(on_bullet_act)) //TODO QWERTY: A LOT OF THESE SIGNALS AINT TRIGGERING. or at least this one.
-	RegisterSignal(mod.wearer, list(COMSIG_MOB_ITEM_ATTACK, COMSIG_PARENT_ATTACKBY, COMSIG_ATOM_ATTACK_HAND, COMSIG_ATOM_HITBY, COMSIG_ATOM_HULK_ATTACK, COMSIG_ATOM_ATTACK_PAW), PROC_REF(unstealth))
+	RegisterSignals(mod.wearer, list(COMSIG_MOB_ITEM_ATTACK, COMSIG_ATOM_ATTACKBY, COMSIG_ATOM_ATTACK_HAND, COMSIG_ATOM_HITBY, COMSIG_ATOM_HULK_ATTACK, COMSIG_ATOM_ATTACK_PAW), PROC_REF(unstealth))
 	animate(mod.wearer, alpha = stealth_alpha, time = 1.5 SECONDS)
 	drain_power(use_energy_cost)
 
 /obj/item/mod/module/stealth/on_deactivation(display_message = TRUE, deleting = FALSE)
 	if(bumpoff)
 		UnregisterSignal(mod.wearer, COMSIG_LIVING_MOB_BUMP)
-	UnregisterSignal(mod.wearer, list(COMSIG_HUMAN_MELEE_UNARMED_ATTACK, COMSIG_MOB_ITEM_ATTACK, COMSIG_PARENT_ATTACKBY, COMSIG_ATOM_ATTACK_HAND, COMSIG_ATOM_BULLET_ACT, COMSIG_ATOM_HITBY, COMSIG_ATOM_HULK_ATTACK, COMSIG_ATOM_ATTACK_PAW))
+	UnregisterSignal(mod.wearer, list(COMSIG_HUMAN_MELEE_UNARMED_ATTACK, COMSIG_MOB_ITEM_ATTACK, COMSIG_ATOM_ATTACKBY, COMSIG_ATOM_ATTACK_HAND, COMSIG_ATOM_BULLET_ACT, COMSIG_ATOM_HITBY, COMSIG_ATOM_HULK_ATTACK, COMSIG_ATOM_ATTACK_PAW))
 	animate(mod.wearer, alpha = 255, time = 1.5 SECONDS)
 
 /obj/item/mod/module/stealth/proc/unstealth(datum/source)
@@ -567,8 +567,8 @@
 	idle_power_cost = DEFAULT_CHARGE_DRAIN * 3
 	use_energy_cost = DEFAULT_CHARGE_DRAIN * 75
 	accepted_anomalies = list(/obj/item/assembly/signaler/core/energetic)
-	incompatible_modules = list(/obj/item/mod/module/energy_shield, /obj/item/mod/module/anomaly_locked)
-	required_slots = list(ITEM_SLOT_BACK|ITEM_SLOT_BELT)
+	incompatible_modules = list(/obj/item/mod/module/energy_shield, /obj/item/mod/module/anomaly_locked, /obj/item/mod/module/emp_shield)
+	required_slots = list(ITEM_SLOT_HEAD|ITEM_SLOT_MASK, ITEM_SLOT_CLOTH_OUTER|ITEM_SLOT_CLOTH_INNER, ITEM_SLOT_GLOVES, ITEM_SLOT_FEET)
 	///Copy paste of shielded code wheeeey
 	/// Max charges of the shield.
 	var/max_charges = 80 // Less charges because not gamma / this one is real shocking
@@ -614,16 +614,16 @@
 	charges = max_charges
 
 /*
-tier 1 - 15-20 damage absorb, 5 recharge per 10 seconds, no melee arc flash, tesla zap range 2-3 tiles and 7 damage
-tier 2 - 30-40 damage absorb, 11 recharge per 10 seconds, no melee arc flash,  tesla zap range 5-6 tiles and 14 damage
-tier 3 - 60-70 damage absorb, 23 recharge per 10 seconds, melee arc flash, tesla zap range 7 tiles, and 28-30 damage
+tier 1 - 7-10 damage absorb, 5 recharge per 10 seconds, no melee arc flash, tesla zap range 2-3 tiles and 7 damage
+tier 2 - 15-20 damage absorb, 11 recharge per 10 seconds, no melee arc flash,  tesla zap range 5-6 tiles and 14 damage
+tier 3 - 30-35 damage absorb, 23 recharge per 10 seconds, melee arc flash, tesla zap range 7 tiles, and 28-30 damage
 please, keep this up to date
 */
-#define PROTECTION_DIVIDING_MODIFICATOR 3
+#define PROTECTION_DIVIDING_MODIFICATOR 6
 #define CHARGE_DIVIDING_MODIFICATOR 9
 #define RANGE_DIVIDING_MODIFICATOR 20
 #define DAMAGE_DIVIDING_MODIFICATOR 7
-#define TESLA_ZAP_STRENGTH_REQ 200
+#define TESLA_ZAP_STRENGTH_REQ 250
 
 /obj/item/mod/module/anomaly_locked/teslawall/update_core_powers()
 	if(!core)
@@ -693,14 +693,12 @@ please, keep this up to date
 	if(isitem(hitby) && isliving(hitby.loc))
 		var/mob/living/living_target = hitby.loc
 		living_target.electrocute_act(shock_damage, owner)
-		living_target.Knockdown(3 SECONDS)
 		return
 	if(!isliving(hitby))
 		return
 
 	var/mob/living/living_target = hitby
 	living_target.electrocute_act(shock_damage, owner)
-	living_target.Knockdown(3 SECONDS)
 
 /obj/item/mod/module/anomaly_locked/teslawall/prebuilt
 	prebuilt = TRUE

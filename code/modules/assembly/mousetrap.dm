@@ -78,7 +78,7 @@
 		mouse.splat(src)
 
 	playsound(loc, 'sound/effects/snap.ogg', 50, TRUE)
-	layer = MOB_LAYER - 0.2
+	layer = BELOW_MOB_LAYER
 	armed = FALSE
 	update_icon()
 	pulse(FALSE, target)

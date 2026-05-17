@@ -91,8 +91,8 @@
 	desc = "Old and worn out insulated gloves, hopefully they still work."
 	name = "worn out insulated gloves"
 
-/obj/item/clothing/gloves/color/fyellow/old/New()
-	..()
+/obj/item/clothing/gloves/color/fyellow/old/Initialize(mapload)
+	. = ..()
 	siemens_coefficient = pick(0,0,0,0.5,0.5,0.5,0.75)
 
 /obj/item/clothing/gloves/color/black
@@ -358,6 +358,7 @@
 
 /obj/item/clothing/gloves/color/latex/inugami/ComponentInitialize()
 	. = ..()
+	AddElement(/datum/element/right_click_mapper/attack_self, "Включить/выключить встроенный дефибриллятор")
 	AddComponent(/datum/component/defib, ignore_hardsuits = TRUE, safe_by_default = TRUE, emp_proof = TRUE, emag_proof = TRUE)
 
 /obj/item/clothing/gloves/color/latex/inugami/attack_self(mob/living/carbon/human/user)

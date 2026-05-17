@@ -200,15 +200,16 @@
 	if(istype(entered))
 		entered.fire_act()
 
-/obj/effect/hotspot/singularity_pull()
+/obj/effect/hotspot/singularity_pull(atom/singularity, current_size)
 	return
 
 /// Largely for the fireflash procs below
 /obj/effect/hotspot/fake
 	var/burn_time = 3 SECONDS
 
-/obj/effect/hotspot/fake/New()
-	..()
+/obj/effect/hotspot/fake/Initialize(mapload)
+	. = ..()
+
 	if(burn_time)
 		QDEL_IN(src, burn_time)
 

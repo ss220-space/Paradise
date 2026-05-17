@@ -463,7 +463,7 @@
 		msg += "\n[p_they(TRUE)] [p_are()] [pose]"
 
 	. = list(msg)
-	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
+	SEND_SIGNAL(src, COMSIG_ATOM_EXAMINE, user, .)
 
 /mob/living/carbon/human/get_examine_time()
 	return 1 SECONDS

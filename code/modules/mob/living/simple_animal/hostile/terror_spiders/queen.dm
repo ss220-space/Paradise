@@ -73,8 +73,8 @@
 		PREPOSITIONAL = "Королеве Ужаса",
 	)
 
-/mob/living/simple_animal/hostile/poison/terror_spider/queen/New()
-	..()
+/mob/living/simple_animal/hostile/poison/terror_spider/queen/Initialize(mapload)
+	. = ..()
 	ventsmash_action = new()
 	ventsmash_action.Grant(src)
 	remoteview_action = new()

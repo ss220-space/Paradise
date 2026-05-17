@@ -1366,11 +1366,11 @@
 		),
 	)
 /datum/armor/mod_theme_magnate
-	melee = 50
-	bullet = 50
-	laser = 50
-	energy = 15
-	bomb = 15
+	melee = 40
+	bullet = 30
+	laser = 30
+	energy = 30
+	bomb = 30
 	bio = 100
 	fire = 100
 	acid = 100

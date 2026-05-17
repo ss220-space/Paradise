@@ -1,11 +1,11 @@
 /obj/item/clothing/head/helmet
 	name = "helmet"
 	desc = "Standard Security gear. Protects the head from impacts."
-	icon_state = "helmetmaterials"
+	icon_state = "helmet_sec"
 	w_class = WEIGHT_CLASS_NORMAL
 	item_flags = BANGPROTECT_MINOR
 	flags_cover = HEADCOVERSEYES
-	item_state = "helmetmaterials"
+	item_state = "helmet_sec"
 	armor = list(MELEE = 35, BULLET = 30, LASER = 30,ENERGY = 10, BOMB = 25, BIO = 0, FIRE = 50, ACID = 50)
 	clothing_flags = parent_type::clothing_flags|STACKABLE_HELMET_EXEMPT
 	flags_inv = HIDEHEADSETS|HIDEGLASSES
@@ -29,6 +29,10 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
 	)
+
+/obj/item/clothing/head/helmet/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/item_skins)
 
 /obj/item/clothing/head/helmet/adjust_headgear(mob/user)
 	. = ..()
@@ -86,6 +90,8 @@
 /obj/item/clothing/head/helmet/material
 	name = "material visor helmet"
 	desc = "A helmet with a built-in material scanning visor."
+	icon_state = "helmetmaterials"
+	item_state = "helmetmaterials"
 	vision_flags = SEE_OBJS
 
 /obj/item/clothing/head/helmet/night
@@ -156,12 +162,15 @@
 	icon_state = "justice"
 	toggle_on_message = "You turn off the lights on"
 	toggle_off_message = "You turn on the lights on"
-	actions_types = list(/datum/action/item_action/toggle_helmet_light)
 	can_toggle = TRUE
 	toggle_cooldown = 20
 	active_sound = 'sound/items/weeoo1.ogg'
 	active_sound_volume = 50
 	dog_fashion = null
+
+/obj/item/clothing/head/helmet/justice/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/right_click_mapper/attack_self, "Переключить фонарь шлема")
 
 /obj/item/clothing/head/helmet/justice/escape
 	name = "alarm helmet"
@@ -243,11 +252,14 @@
 	flags_inv = parent_type::flags_inv|HIDEMASK|HIDEHAIR
 	toggle_on_message = "You attach the face shield to the"
 	toggle_off_message = "You remove the face shield from the"
-	actions_types = list(/datum/action/item_action/toggle_helmet_mode)
 	can_toggle = TRUE
 	toggle_cooldown = 20
 	toggle_sound = 'sound/items/zippoclose.ogg'
 	dog_fashion = null
+
+/obj/item/clothing/head/helmet/gladiator/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/right_click_mapper/attack_self, "Переключить режим костюма")
 
 /obj/item/clothing/head/helmet/redtaghelm
 	name = "red laser tag helmet"

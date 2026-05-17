@@ -531,7 +531,7 @@
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered)
 "wI" = (
-/obj/effect/decal/warning_stripes/white,
+/obj/effect/turf_decal/delivery/white,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered)
 "wL" = (

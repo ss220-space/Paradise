@@ -26,14 +26,18 @@
 			. += filling
 
 /obj/machinery/iv_drip/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || !ishuman(usr) || !ishuman(over_object) || !Adjacent(over_object) || !usr.Adjacent(over_object))
-		return FALSE
+	if(user.incapacitated())
+		return
 
-	add_fingerprint(usr)
+	if(!ishuman(user) || !ishuman(over_object))
+		to_chat(user, span_warning("You can't do that!"))
+		return
+
+	add_fingerprint(user)
 	if(!bag)
-		to_chat(usr, span_warning("There's no IV bag connected to [src]!"))
-		return FALSE
-	bag.attack(over_object, usr)
+		to_chat(user, span_warning("There's no IV bag connected to [src]!"))
+		return
+	bag.attack(over_object, user)
 	START_PROCESSING(SSmachines, src)
 
 /obj/machinery/iv_drip/attack_hand(mob/user)

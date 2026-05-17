@@ -9,10 +9,15 @@
 #define COMSIG_COMPONENT_REMOVING "component_removing"
 /// before a datum's Destroy() is called: (force), returning a nonzero value will cancel the qdel operation
 #define COMSIG_PREQDELETED "parent_preqdeleted"
+/// Called whenever an admin manually deletes an object, via the "Delete" verb, before qdel() is called: (client/deleting_admin)
+#define COMSIG_ADMIN_DELETING "parent_admin_deleting"
 /// just before a datum's Destroy() is called: (force), at this point none of the other components chose to interrupt qdel and Destroy will be called
 #define COMSIG_QDELETING "parent_qdeleting"
 /// generic topic handler (usr, href_list)
 #define COMSIG_TOPIC "handle_topic"
+/// handler for vv_do_topic (usr, href_list)
+#define COMSIG_VV_TOPIC "vv_topic"
+	#define COMPONENT_VV_HANDLED (1<<0)
 /// Forces you to equip a hood
 #define COMSIG_EQUIP_HOOD "force_hood_equip"
 
@@ -145,8 +150,6 @@
 #define COMSIG_REAGENT_INJECTED "reagent_inject"
 
 // /datum/element/movetype_handler signals
-/// Called when the floating anim has to be temporarily stopped and restarted later: (timer)
-#define COMSIG_PAUSE_FLOATING_ANIM "pause_floating_anim"
 /// From base of datum/element/movetype_handler/on_movement_type_trait_gain: (flag, old_movement_type)
 #define COMSIG_MOVETYPE_FLAG_ENABLED "movetype_flag_enabled"
 /// From base of datum/element/movetype_handler/on_movement_type_trait_loss: (flag, old_movement_type)

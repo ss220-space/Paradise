@@ -1,0 +1,4 @@
+author: "Infaselt"
+delete-after: True
+changes:
+  - bugfix: "Автомат Мистера Чанга снова можно собрать. (PR #9243)"

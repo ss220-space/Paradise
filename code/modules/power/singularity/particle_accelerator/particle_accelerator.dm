@@ -1,63 +1,3 @@
-/*Composed of 7 parts
-3 Particle emitters
-proc
-emit_particle()
-
-1 power box
-the only part of this thing that uses power, can hack to mess with the pa/make it better
-
-1 fuel chamber
-contains procs for mixing gas and whatever other fuel it uses
-mix_gas()
-
-1 gas holder WIP
-acts like a tank valve on the ground that you wrench gas tanks onto
-proc
-extract_gas()
-return_gas()
-attach_tank()
-remove_tank()
-get_available_mix()
-
-1 End Cap
-
-1 Control computer
-interface for the pa, acts like a computer with an html menu for diff parts and a status report
-all other parts contain only a ref to this
-a /machine/, tells the others to do work
-contains ref for all parts
-proc
-process()
-check_build()
-
-* Setup map
-*   |EC|
-* CC|FC|
-*   |PB|
-* PE|PE|PE
-
-Icon Addemdum
-Icon system is much more robust, and the icons are all variable based.
-Each part has a reference string, powered, strength, and contruction values.
-Using this the update_icon() proc is simplified a bit (using for absolutely was problematic with naming),
-so the icon_state comes out be:
-"[reference][strength]", with a switch controlling construction_states and ensuring that it doesn't
-power on while being contructed, and all these variables are set by the computer through it's scan list
-Essential order of the icons:
-Standard - [reference]
-Wrenched - [reference]
-Wired    - [reference]w
-Closed   - [reference]c
-Powered  - [reference]p[strength]
-Strength being set by the computer and a null strength (Computer is powered off or inactive) returns a 'null', counting as empty
-So, hopefully this is helpful if any more icons are to be added/changed/wondering what the hell is going on here
-*/
-
-#define ACCELERATOR_UNWRENCHED 0
-#define ACCELERATOR_WRENCHED 1
-#define ACCELERATOR_WIRED 2
-#define ACCELERATOR_READY 3
-
 /obj/structure/particle_accelerator
 	name = "Particle Accelerator"
 	desc = "Part of a Particle Accelerator."
@@ -66,22 +6,27 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	density = TRUE
 	max_integrity = 500
 	armor = list(MELEE = 30, BULLET = 20, LASER = 20, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 90, ACID = 80)
+	/// The control computer this part is bound to.
 	var/obj/machinery/particle_accelerator/control_box/master = null
-	var/construction_state = 0
+	/// Current assembly stage.
+	var/construction_state = ACCELERATOR_UNWRENCHED
+	/// icon_state prefix identifying which accelerator part this is (e.g. "end_cap").
 	var/reference = null
+	/// Whether the part is currently powered on. Affects which icon_state is chosen.
 	var/powered = 0
+	/// Current power level. Set by the control computer, used in icon_state.
 	var/strength = null
+	/// Description swapped into desc once the part is fully assembled and powered.
 	var/desc_holder = null
 
-/obj/structure/particle_accelerator/examine(mob/user)
-	. = ..()
-	. += span_notice("<b>Alt-click</b> to rotate.")
-
 /obj/structure/particle_accelerator/Destroy()
-	construction_state = 0
+	construction_state = ACCELERATOR_UNWRENCHED
+	update_master_ui()
+	return ..()
+
+/obj/structure/particle_accelerator/proc/update_master_ui()
 	if(master)
 		SStgui.update_uis(master)
-	return ..()
 
 /obj/structure/particle_accelerator/end_cap
 	name = "Alpha Particle Generation Array"
@@ -105,13 +50,13 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	. = ..()
 	switch(construction_state)
 		if(ACCELERATOR_UNWRENCHED)
-			. += span_notice("\The [name]'s <i>anchoring bolts</i> are loose.")
+			. += span_notice("[name]'s <i>anchoring bolts</i> are loose.")
 		if(ACCELERATOR_WRENCHED)
-			. += span_notice("\The [name]'s anchoring bolts are <b>wrenched</b> in place, but it lacks <i>wiring</i>.")
+			. += span_notice("[name]'s anchoring bolts are <b>wrenched</b> in place, but it lacks <i>wiring</i>.")
 		if(ACCELERATOR_WIRED)
-			. +=  span_notice("\The [name] is <b>wired</b>, but the maintenance panel is <i>unscrewed and open</i>.")
+			. += span_notice("[name] is <b>wired</b>, but the maintenance panel is <i>unscrewed and open</i>.")
 		if(ACCELERATOR_READY)
-			. += span_notice("\The [name] is assembled and the maintenence panel is <b>screwed shut</b>.")
+			. += span_notice("[name] is assembled and the maintenence panel is <b>screwed shut</b>.")
 			if(powered)
 				desc = desc_holder
 	if(!anchored)
@@ -119,7 +64,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 
 /obj/structure/particle_accelerator/deconstruct(disassembled = TRUE)
 	if(!(obj_flags & NODECONSTRUCT))
-		new /obj/item/stack/sheet/metal (loc, 5)
+		new /obj/item/stack/sheet/metal(drop_location(src), 5)
 	qdel(src)
 
 /obj/structure/particle_accelerator/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
@@ -131,111 +76,99 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 /obj/structure/particle_accelerator/update_icon_state()
 	switch(construction_state)
 		if(ACCELERATOR_UNWRENCHED, ACCELERATOR_WRENCHED)
-			icon_state="[reference]"
+			icon_state = "[reference]"
 		if(ACCELERATOR_WIRED)
-			icon_state="[reference]w"
+			icon_state = "[reference]w"
 		if(ACCELERATOR_READY)
-			if(powered)
-				icon_state="[reference]p[strength]"
-			else
-				icon_state="[reference]c"
+			icon_state = powered ? "[reference]p[strength]" : "[reference]c"
 
 /obj/structure/particle_accelerator/proc/update_state()
 	if(master)
 		master.update_state()
-		return 0
+		return ACCELERATOR_UNWRENCHED
 
-/obj/structure/particle_accelerator/proc/report_ready(obj/O)
-	if(O && (O == master))
-		if(construction_state >= 3)
-			return 1
-	return 0
+/obj/structure/particle_accelerator/proc/report_ready(obj/requester)
+	if(requester && (requester == master))
+		if(construction_state >= ACCELERATOR_READY)
+			return ACCELERATOR_WRENCHED
+	return ACCELERATOR_UNWRENCHED
 
 /obj/structure/particle_accelerator/proc/report_master()
 	if(master)
 		return master
-	return 0
+	return ACCELERATOR_UNWRENCHED
 
-/obj/structure/particle_accelerator/proc/connect_master(obj/O)
-	if(O && istype(O,/obj/machinery/particle_accelerator/control_box))
-		if(O.dir == dir)
-			master = O
-			return 1
-	return 0
+/obj/structure/particle_accelerator/proc/connect_master(obj/candidate)
+	if(candidate && istype(candidate, /obj/machinery/particle_accelerator/control_box))
+		if(candidate.dir == dir)
+			master = candidate
+			return ACCELERATOR_WRENCHED
+	return ACCELERATOR_UNWRENCHED
 
-/obj/structure/particle_accelerator/attackby(obj/item/I, mob/user, params)
-	if(user.a_intent == INTENT_HARM)
-		return ..()
+/obj/structure/particle_accelerator/item_interaction(mob/living/user, obj/item/tool, list/modifiers)
+	if(user.a_intent == INTENT_HARM || !iscoil(tool))
+		return NONE
+	add_fingerprint(user)
+	if(construction_state != ACCELERATOR_WRENCHED)
+		to_chat(user, span_warning("The [name] should be secured to the floor."))
+		return ITEM_INTERACT_BLOCKING
+	var/obj/item/stack/cable_coil/coil = tool
+	var/cached_sound = coil.usesound
+	if(!coil.use(1))
+		to_chat(user, span_warning("You need at least one length of the cable to proceed."))
+		return ITEM_INTERACT_BLOCKING
+	playsound(loc, cached_sound, 50, TRUE)
+	user.visible_message(
+		span_notice("[user] has wired [src]."),
+		span_notice("You have wired [src]."),
+	)
+	construction_state = ACCELERATOR_WIRED
+	update_icon(UPDATE_ICON_STATE)
+	update_master_ui()
+	return ITEM_INTERACT_SUCCESS
 
-	if(iscoil(I))
-		add_fingerprint(user)
-		var/obj/item/stack/cable_coil/coil = I
-		if(construction_state != ACCELERATOR_WRENCHED)
-			to_chat(user, span_warning("The [name] should be secured to the floor."))
-			return ATTACK_CHAIN_PROCEED
-		var/cached_sound = coil.usesound
-		if(!coil.use(1))
-			to_chat(user, span_warning("You need at least one length of the cable to proceed."))
-			return ATTACK_CHAIN_PROCEED
-		playsound(loc, cached_sound, 50, TRUE)
-		user.visible_message(
-			span_notice("[user] has wired [src]."),
-			span_notice("You have wired [src]."),
-		)
-		construction_state = ACCELERATOR_WIRED
-		update_icon(UPDATE_ICON_STATE)
-		if(master)
-			SStgui.update_uis(master)
-		return ATTACK_CHAIN_PROCEED_SUCCESS
-
-	return ..()
-
-/obj/structure/particle_accelerator/screwdriver_act(mob/user, obj/item/I)
+/obj/structure/particle_accelerator/screwdriver_act(mob/user, obj/item/tool)
 	if(construction_state != ACCELERATOR_WIRED && construction_state != ACCELERATOR_READY)
 		return
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!tool.use_tool(src, user, 0, volume = tool.tool_volume))
 		return
 	if(construction_state == ACCELERATOR_WIRED)
 		SCREWDRIVER_CLOSE_PANEL_MESSAGE
 		construction_state = ACCELERATOR_READY
-
 	else
-		construction_state = ACCELERATOR_WIRED
 		SCREWDRIVER_OPEN_PANEL_MESSAGE
+		construction_state = ACCELERATOR_WIRED
 	update_state()
 	update_icon(UPDATE_ICON_STATE)
-	if(master)
-		SStgui.update_uis(master)
+	update_master_ui()
 
-/obj/structure/particle_accelerator/wirecutter_act(mob/user, obj/item/I)
+/obj/structure/particle_accelerator/wirecutter_act(mob/user, obj/item/tool)
 	if(construction_state != ACCELERATOR_WIRED)
 		return
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!tool.use_tool(src, user, 0, volume = tool.tool_volume))
 		return
 	WIRECUTTER_SNIP_MESSAGE
 	construction_state = ACCELERATOR_WRENCHED
-	if(master)
-		SStgui.update_uis(master)
+	update_master_ui()
 
-/obj/structure/particle_accelerator/wrench_act(mob/user, obj/item/I)
+/obj/structure/particle_accelerator/wrench_act(mob/user, obj/item/tool)
 	if(construction_state != ACCELERATOR_UNWRENCHED && construction_state != ACCELERATOR_WRENCHED)
 		return
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!tool.use_tool(src, user, 0, volume = tool.tool_volume))
 		return
-	if(construction_state == ACCELERATOR_UNWRENCHED)
-		set_anchored(TRUE)
+	var/anchoring = (construction_state == ACCELERATOR_UNWRENCHED)
+	set_anchored(anchoring)
+	if(anchoring)
 		WRENCH_ANCHOR_MESSAGE
 		construction_state = ACCELERATOR_WRENCHED
 	else
-		set_anchored(FALSE)
 		WRENCH_UNANCHOR_MESSAGE
 		construction_state = ACCELERATOR_UNWRENCHED
 	update_icon(UPDATE_ICON_STATE)
-	if(master)
-		SStgui.update_uis(master)
+	update_master_ui()
 
 /obj/machinery/particle_accelerator
 	name = "Particle Accelerator"
@@ -244,12 +177,14 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	icon_state = null
 	density = TRUE
 	use_power = NO_POWER_USE
-	var/construction_state = 0
-	var/active = 0
+	/// Current assembly stage.
+	var/construction_state = ACCELERATOR_UNWRENCHED
+	/// Whether the machine is running (control computer is active and processing ticks).
+	var/active = FALSE
+	/// icon_state prefix identifying which accelerator part this is.
 	var/reference = null
-	var/powered = null
+	/// Current power level. Set by the control computer, used in icon_state.
 	var/strength = 0
-	var/desc_holder = null
 
 /obj/machinery/particle_accelerator/examine(mob/user)
 	. = ..()
@@ -267,69 +202,65 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 		return
 	dir = turn(dir, 270)
 
-/obj/machinery/particle_accelerator/attackby(obj/item/I, mob/user, params)
-	if(user.a_intent == INTENT_HARM)
-		return ..()
+/obj/machinery/particle_accelerator/item_interaction(mob/living/user, obj/item/tool, list/modifiers)
+	if(user.a_intent == INTENT_HARM || !iscoil(tool))
+		return NONE
+	add_fingerprint(user)
+	if(construction_state != ACCELERATOR_WRENCHED)
+		to_chat(user, span_warning("The [name] should be secured to the floor."))
+		return ITEM_INTERACT_BLOCKING
+	var/obj/item/stack/cable_coil/coil = tool
+	var/cached_sound = coil.usesound
+	if(!coil.use(1))
+		to_chat(user, span_warning("You need at least one length of the cable to proceed."))
+		return ITEM_INTERACT_BLOCKING
+	playsound(loc, cached_sound, 50, TRUE)
+	user.visible_message(
+		span_notice("[user] has wired [src]."),
+		span_notice("You have wired [src]."),
+	)
+	construction_state = ACCELERATOR_WIRED
+	update_icon()
+	return ITEM_INTERACT_SUCCESS
 
-	if(iscoil(I))
-		add_fingerprint(user)
-		var/obj/item/stack/cable_coil/coil = I
-		if(construction_state != ACCELERATOR_WRENCHED)
-			to_chat(user, span_warning("The [name] should be secured to the floor."))
-			return ATTACK_CHAIN_PROCEED
-		var/cached_sound = coil.usesound
-		if(!coil.use(1))
-			to_chat(user, span_warning("You need at least one length of the cable to proceed."))
-			return ATTACK_CHAIN_PROCEED
-		playsound(loc, cached_sound, 50, TRUE)
-		user.visible_message(
-			span_notice("[user] has wired [src]."),
-			span_notice("You have wired [src]."),
-		)
-		construction_state = ACCELERATOR_WIRED
-		update_icon()
-		return ATTACK_CHAIN_PROCEED_SUCCESS
-
-	return ..()
-
-/obj/machinery/particle_accelerator/screwdriver_act(mob/user, obj/item/I)
+/obj/machinery/particle_accelerator/screwdriver_act(mob/user, obj/item/tool)
 	if(construction_state != ACCELERATOR_WIRED && construction_state != ACCELERATOR_READY)
 		return
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!tool.use_tool(src, user, 0, volume = tool.tool_volume))
 		return
 	if(construction_state == ACCELERATOR_WIRED)
 		SCREWDRIVER_CLOSE_PANEL_MESSAGE
 		construction_state = ACCELERATOR_READY
 		use_power = IDLE_POWER_USE
 	else
-		construction_state = ACCELERATOR_WIRED
 		SCREWDRIVER_OPEN_PANEL_MESSAGE
+		construction_state = ACCELERATOR_WIRED
 		use_power = NO_POWER_USE
 		update_state()
 	update_icon()
 
-/obj/machinery/particle_accelerator/wirecutter_act(mob/user, obj/item/I)
+/obj/machinery/particle_accelerator/wirecutter_act(mob/user, obj/item/tool)
 	if(construction_state != ACCELERATOR_WIRED)
 		return
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!tool.use_tool(src, user, 0, volume = tool.tool_volume))
 		return
 	WIRECUTTER_SNIP_MESSAGE
 	construction_state = ACCELERATOR_WRENCHED
 
-/obj/machinery/particle_accelerator/wrench_act(mob/user, obj/item/I)
+/obj/machinery/particle_accelerator/wrench_act(mob/user, obj/item/tool)
 	if(construction_state != ACCELERATOR_UNWRENCHED && construction_state != ACCELERATOR_WRENCHED)
 		return
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!tool.use_tool(src, user, 0, volume = tool.tool_volume))
 		return
-	if(construction_state == ACCELERATOR_UNWRENCHED)
-		set_anchored(TRUE)
+	var/anchoring = (construction_state == ACCELERATOR_UNWRENCHED)
+	set_anchored(anchoring)
+	if(anchoring)
 		WRENCH_ANCHOR_MESSAGE
 		construction_state = ACCELERATOR_WRENCHED
 	else
-		set_anchored(FALSE)
 		WRENCH_UNANCHOR_MESSAGE
 		construction_state = ACCELERATOR_UNWRENCHED
 	update_icon()
@@ -337,7 +268,3 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 /obj/machinery/particle_accelerator/proc/update_state()
 	return FALSE
 
-#undef ACCELERATOR_UNWRENCHED
-#undef ACCELERATOR_WRENCHED
-#undef ACCELERATOR_WIRED
-#undef ACCELERATOR_READY

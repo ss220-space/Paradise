@@ -48,7 +48,7 @@
 /obj/item/fish_eggs/salmon,
 /obj/item/fish_eggs/shrimp,
 /obj/item/fish_eggs/shrimp,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -710,7 +710,7 @@
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
 "gm" = (
 /obj/structure/closet/secure_closet/freezer/meat,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -805,7 +805,7 @@
 /obj/structure/closet/secure_closet/freezer/kitchen{
 	req_access = list()
 	},
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -1155,7 +1155,7 @@
 /turf/simulated/floor/wood,
 /area/vision_change_area/awaymission/evil_santa/hut_w)
 "jo" = (
-/obj/item/gun/projectile/automatic/proto,
+/obj/item/gun/projectile/automatic/smg/saber,
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/mine/labyrinth_m)
 "jq" = (
@@ -1196,7 +1196,7 @@
 	pixel_y = 3
 	},
 /obj/item/clothing/mask/cigarette/cigar,
-/obj/item/lighter/zippo/fluff/purple,
+/obj/item/lighter/zippo/purple,
 /obj/item/clothing/mask/cigarette/cigar{
 	pixel_x = -5;
 	pixel_y = 5
@@ -1257,7 +1257,7 @@
 	},
 /area/vision_change_area/awaymission/evil_santa/spawn_s)
 "jY" = (
-/obj/item/gun/projectile/automatic/wt550,
+/obj/item/gun/projectile/automatic/smg/wt550,
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/mine/labyrinth_r)
 "jZ" = (
@@ -1388,7 +1388,7 @@
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
 "lf" = (
 /obj/structure/closet/secure_closet/freezer/meat,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -1774,7 +1774,7 @@
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
 "om" = (
-/obj/item/gun/projectile/automatic/sfg{
+/obj/item/gun/projectile/automatic/smg/sfg{
 	name = "Engraved SFG-5"
 	},
 /obj/item/ammo_box/magazine/sfg9mm,
@@ -2869,7 +2869,7 @@
 /turf/simulated/floor/plating/asteroid,
 /area/vision_change_area/awaymission/evil_santa/mine)
 "xQ" = (
-/obj/item/gun/projectile/automatic/pistol/APS,
+/obj/item/gun/projectile/automatic/pistol/aps,
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/mine/labyrinth_l)
 "xS" = (
@@ -3017,7 +3017,9 @@
 /area/vision_change_area/awaymission/evil_santa/end/hall)
 "zs" = (
 /obj/machinery/gibber,
-/obj/effect/decal/warning_stripes/southwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
 /turf/simulated/floor/plasteel,
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
 "zw" = (
@@ -3099,7 +3101,7 @@
 /area/vision_change_area/awaymission/evil_santa/mine)
 "Ac" = (
 /obj/structure/kitchenspike,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
 "Ad" = (
@@ -4568,7 +4570,9 @@
 /turf/simulated/floor/carpet/red,
 /area/vision_change_area/awaymission/evil_santa/end/exit)
 "Nz" = (
-/obj/effect/decal/warning_stripes/northeastcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
 /turf/simulated/floor/plating/asteroid,
 /area/vision_change_area/awaymission/evil_santa/mine)
 "NB" = (
@@ -4629,7 +4633,9 @@
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
 "NZ" = (
 /obj/machinery/chem_master/condimaster,
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /turf/simulated/floor/plasteel,
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
 "Oa" = (
@@ -5330,7 +5336,9 @@
 /turf/simulated/floor/plating/asteroid,
 /area/vision_change_area/awaymission/evil_santa/mine)
 "TG" = (
-/obj/effect/decal/warning_stripes/northwestcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
 /turf/simulated/floor/plating/asteroid,
 /area/vision_change_area/awaymission/evil_santa/mine)
 "TI" = (
@@ -5515,12 +5523,12 @@
 /turf/simulated/floor/wood/fancy/light,
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
 "Vm" = (
-/obj/machinery/disco/immobile,
+/obj/machinery/jukebox/disco/indestructible,
 /turf/simulated/floor/light/colour_cycle/dancefloor_b,
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
 "Vn" = (
 /obj/structure/closet/crate/freezer,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -5722,7 +5730,9 @@
 	},
 /area/vision_change_area/awaymission/evil_santa/spawn_nw)
 "WT" = (
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plating/asteroid,
 /area/vision_change_area/awaymission/evil_santa/mine)
 "WV" = (
