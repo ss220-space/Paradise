@@ -73,9 +73,15 @@
  *
  */
 SUBSYSTEM_DEF(spatial_grid)
-	can_fire = FALSE
-	init_order = INIT_ORDER_SPATIAL_GRID
 	name = "Spatial Grid"
+	can_fire = FALSE
+	dependencies = list(
+		/datum/controller/subsystem/mapping,
+	)
+	dependents = list(
+		/datum/controller/subsystem/atoms,
+	)
+
 	///list of the spatial_grid_cell datums per z level, arranged in the order of y index then x index
 	var/list/grids_by_z_level = list()
 	var/list/waiting_to_add_by_type = list(SPATIAL_GRID_CONTENTS_TYPE_HEARING = list(), SPATIAL_GRID_CONTENTS_TYPE_CLIENTS = list(), SPATIAL_GRID_CONTENTS_TYPE_ATMOS = list())
@@ -524,7 +530,7 @@ SUBSYSTEM_DEF(spatial_grid)
 		remove_from_pre_init_queue(to_remove)//the spatial grid doesnt exist yet, so just take it out of the queue
 		return
 
-	#ifdef GAME_TESTS
+	#ifdef UNIT_TESTS
 	if(untracked_movable_error(to_remove))
 		find_hanging_cell_refs_for_movable(to_remove, remove_from_cells=FALSE) //dont remove from cells because we should be able to see 2 errors
 		return

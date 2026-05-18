@@ -61,9 +61,9 @@
 	return TRUE
 
 /datum/game_mode/proc/auto_declare_completion_blob()
-	var/list/blob_infected = blobs["infected"]
-	var/list/blob_offsprings = blobs["offsprings"]
-	var/list/minions = blobs["minions"]
+	var/list/blob_infected = blobs[BLOB_GROUP_INFECTED]
+	var/list/blob_offsprings = blobs[BLOB_GROUP_OFFSPRINGS]
+	var/list/minions = blobs[BLOB_GROUP_MINIONS]
 	if(length(blob_infected))
 		declare_blob_completion()
 		var/list/text = list("<br/><span style='font-size: 2;'><b>Блоб[(length(blob_infected) > 1 ? "ами были" : "ом был")]:</b></pan>")

@@ -1,5 +1,5 @@
 import { type Dispatch, useEffect, useState } from 'react';
-import { Button, Section, Stack, Table } from 'tgui/components';
+import { Button, Section, Stack, Table } from '../../components';
 
 import { useBackend } from '../../backend';
 import { SORTING_TYPES } from './contants';

@@ -158,16 +158,15 @@
 
 	/// List of of blobs, their offsprings and blobburnouts spawned by them
 	var/list/blobs = list(
-		"infected" = list(),
-		"offsprings" = list(),
-		"minions" = list()
+		BLOB_GROUP_INFECTED = list(),
+		BLOB_GROUP_OFFSPRINGS = list(),
+		BLOB_GROUP_MINIONS = list()
 	)
 	/// Count of blob tiles to blob win
 	var/blob_win_count = BLOB_BASE_TARGET_POINT
 	/// Number of resource produced by the core
 	var/blob_point_rate = 3
-	/// Number of bursted blob infected
-	var/bursted_blobs_count = 0
+
 	/// Total blob submode stage
 	var/blob_stage = BLOB_STAGE_NONE
 	/// The need to delay the end of the game when the blob wins
@@ -755,7 +754,7 @@
 	if(player.assigned_role)
 		jobtext = " the <b>[player.assigned_role]</b>"
 
-	var/text = "<b>[player.get_display_key()]</b> was <b>[player.name]</b>[jobtext] and"
+	var/text = "<b>[player.get_mind_key()]</b> was <b>[player.name]</b>[jobtext] and"
 	if(player.current)
 		if(player.current.stat == DEAD)
 			text += " [span_redtext("died")]"
@@ -776,7 +775,7 @@
 	return text
 
 /proc/printeventplayer(datum/mind/player)
-	var/text = "<b>[player.get_display_key()]</b> was <b>[player.name]</b>"
+	var/text = "<b>[player.get_mind_key()]</b> was <b>[player.name]</b>"
 	if(player.special_role != SPECIAL_ROLE_EVENTMISC)
 		text += " the [player.special_role]"
 
@@ -817,7 +816,7 @@
 		if(!goal.can_gain())
 			continue
 
-		#ifndef GAME_TESTS
+		#ifndef UNIT_TESTS
 		possible += goal
 		#endif
 

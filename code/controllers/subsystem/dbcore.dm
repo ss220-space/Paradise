@@ -1,10 +1,10 @@
 SUBSYSTEM_DEF(dbcore)
 	name = "Database"
-	flags = SS_BACKGROUND
-	wait = 1 MINUTES
-	init_order = INIT_ORDER_DBCORE
-	cpu_display = SS_CPUDISPLAY_LOW
-	ss_id = "database_core"
+	ss_flags = SS_TICKER
+	init_stage = INITSTAGE_FIRST
+	wait = 1 MINUTES // Not seconds because we're running on SS_TICKER
+	runlevels = RUNLEVEL_LOBBY|RUNLEVELS_DEFAULT
+	priority = FIRE_PRIORITY_DATABASE
 
 	/// Is the DB schema valid
 	var/schema_valid = TRUE
@@ -23,8 +23,6 @@ SUBSYSTEM_DEF(dbcore)
 
 	/// Connection handle. This is an arbitrary handle returned from rust_g.
 	var/connection
-
-	offline_implications = "The server will no longer check for undeleted SQL Queries. No immediate action is needed."
 
 /datum/controller/subsystem/dbcore/get_stat_details()
 	return "A: [length(active_queries)]"
@@ -112,8 +110,8 @@ SUBSYSTEM_DEF(dbcore)
  */
 /datum/controller/subsystem/dbcore/proc/CheckSchemaVersion()
 	if(CONFIG_GET(flag/sql_enabled))
-		// The game tests have their own version of this check, which wont hold the server up infinitely, so this is disabled if we are running game tests
-		#ifndef GAME_TESTS
+		// The unit tests have their own version of this check, which wont hold the server up infinitely, so this is disabled if we are running unit tests
+		#ifndef UNIT_TESTS
 		if(CONFIG_GET(flag/sql_enabled) && CONFIG_GET(number/db_version) != SQL_VERSION)
 			CONFIG_SET(flag/sql_enabled, FALSE)
 			schema_valid = FALSE

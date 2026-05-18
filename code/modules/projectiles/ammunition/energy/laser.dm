@@ -7,7 +7,6 @@
 
 /obj/item/ammo_casing/energy/laser/light
 	projectile_type = /obj/projectile/beam/laser/light
-	delay = /obj/item/gun/energy/gun/minigun::fire_delay
 
 /obj/item/ammo_casing/energy/laser/cyborg //to balance cyborg energy cost seperately
 	e_cost = 250

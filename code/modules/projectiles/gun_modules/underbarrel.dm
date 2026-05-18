@@ -359,10 +359,10 @@
 		return
 
 	RegisterSignal(gun, COMSIG_RANGED_ITEM_INTERACTING_WITH_ATOM_SECONDARY, PROC_REF(on_fire_from_internal_gun))
-	RegisterSignal(gun, COMSIG_PARENT_ATTACKBY, PROC_REF(on_gun_pre_attack_by))
+	RegisterSignal(gun, COMSIG_ATOM_ATTACKBY, PROC_REF(on_gun_pre_attack_by))
 
 /obj/item/gun_module/under/gun/on_detach(obj/item/gun/target_gun, mob/user)
-	UnregisterSignal(gun, list(COMSIG_RANGED_ITEM_INTERACTING_WITH_ATOM_SECONDARY, COMSIG_PARENT_ATTACKBY))
+	UnregisterSignal(gun, list(COMSIG_RANGED_ITEM_INTERACTING_WITH_ATOM_SECONDARY, COMSIG_ATOM_ATTACKBY))
 
 /obj/item/gun_module/under/gun/proc/on_fire_from_internal_gun(obj/item/item, mob/user, atom/target, list/modifiers)
 	SIGNAL_HANDLER

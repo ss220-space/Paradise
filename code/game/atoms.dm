@@ -58,8 +58,11 @@
 	var/list/image/hud_list = null
 	///all of this atom's HUD images which can actually be seen by players with that hud
 	var/list/image/active_hud_list = null
-	//HUD images that this atom can provide.
+	///HUD images that this atom can provide.
 	var/list/hud_possible
+
+	///vis overlays managed by SSvis_overlays to automaticaly turn them like other overlays.
+	var/list/managed_vis_overlays
 
 	//Value used to increment ex_act() if reactionary_explosions is on
 	var/explosion_block = 0
@@ -261,6 +264,12 @@
 		QDEL_NULL(light)
 	if(length(light_sources))
 		light_sources.Cut()
+
+	for(var/mob/orbiter as anything in orbiters)
+		if(orbiter && orbiter.orbiting == src)
+			orbiter.orbiting = null
+
+	LAZYCLEARLIST(orbiters)
 
 	if(smooth & SMOOTH_QUEUED)
 		SSicon_smooth.remove_from_queues(src)
@@ -617,7 +626,7 @@
 /atom/proc/remove_persistent_overlay(id)
 	if(!istext(id))
 		CRASH("Non-text argument passed as an ID.")
-	var/all_persistent = datum_components?[/datum/component/persistent_overlay]
+	var/all_persistent = _datum_components?[/datum/component/persistent_overlay]
 	if(!all_persistent)
 		return
 	if(!islist(all_persistent))
@@ -1155,7 +1164,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
  *
  * Default behaviour is to send [COMSIG_ATOM_SING_PULL] and return
  */
-/atom/proc/singularity_pull(obj/singularity/singularity, current_size)
+/atom/proc/singularity_pull(atom/singularity, current_size)
 	SEND_SIGNAL(src, COMSIG_ATOM_SING_PULL, singularity, current_size)
 
 /**
@@ -1278,11 +1287,11 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
  *
  * Default behaviour is to send the [COMSIG_ATOM_EXIT]
  */
-/atom/Exit(atom/movable/leaving, atom/newLoc)
+/atom/Exit(atom/movable/leaving, direction)
 	// Don't call `..()` here, otherwise `Uncross()` gets called.
 	// See the doc comment on `Uncross()` to learn why this is bad.
 
-	if(SEND_SIGNAL(src, COMSIG_ATOM_EXIT, leaving, newLoc) & COMPONENT_ATOM_BLOCK_EXIT)
+	if(SEND_SIGNAL(src, COMSIG_ATOM_EXIT, leaving, direction) & COMPONENT_ATOM_BLOCK_EXIT)
 		return FALSE
 
 	return TRUE
@@ -1292,8 +1301,9 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
  *
  * Default behaviour is to send the [COMSIG_ATOM_EXITED]
  */
-/atom/Exited(atom/movable/departed, atom/newLoc)
-	SEND_SIGNAL(src, COMSIG_ATOM_EXITED, departed, newLoc)
+/atom/Exited(atom/movable/gone, direction)
+	SEND_SIGNAL(src, COMSIG_ATOM_EXITED, gone, direction)
+	SEND_SIGNAL(gone, COMSIG_ATOM_EXITING, src, direction)
 
 /** Call this when you want to present a renaming prompt to the user.
 

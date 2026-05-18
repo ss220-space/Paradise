@@ -93,7 +93,7 @@
 		RegisterSignal(src, COMSIG_MOVABLE_SET_ANCHORED, PROC_REF(on_set_anchored))
 	target.set_buckled(src)
 	buckled_mobs |= target
-	target.throw_alert(ALERT_BUCKLED, /atom/movable/screen/alert/restrained/buckled)
+	target.throw_alert(ALERT_BUCKLED, /atom/movable/screen/alert/buckled)
 	target.set_glide_size(glide_size)
 	target.setDir(dir)
 

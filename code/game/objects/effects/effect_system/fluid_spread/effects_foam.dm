@@ -34,8 +34,9 @@
 /obj/effect/particle_effect/fluid/foam/Initialize(mapload)
 	. = ..()
 	if(slippery_foam)
-		AddComponent(/datum/component/slippery, 100)
-
+		AddComponent(/datum/component/slippery, 100, can_slip_callback = CALLBACK(src, PROC_REF(try_slip)))
+	if(HAS_TRAIT(loc, TRAIT_ELEVATED_TURF))
+		layer = WATER_LEVEL_LAYER
 	create_reagents(1000)
 	playsound(src, 'sound/effects/bubbles2.ogg', 80, TRUE, -3)
 	SSfoam.start_processing(src)
@@ -90,10 +91,14 @@
 		for(var/obj/object in turf_location)
 			if(object == src)
 				continue
+			if(HAS_TRAIT(loc, TRAIT_ELEVATED_TURF) && !HAS_TRAIT(object, TRAIT_ELEVATING_OBJECT))
+				continue // Do expose tables, don't expose items on tables
 			reagents.reaction(object, REAGENT_TOUCH, fraction)
 
 	var/hit = 0
 	for(var/mob/living/foamer in loc)
+		if(HAS_TRAIT(foamer, TRAIT_MOB_ELEVATED))
+			continue
 		hit += foam_mob(foamer, seconds_per_tick)
 	if(hit)
 		lifetime += ds_seconds_per_tick //this is so the decrease from mobs hit and the natural decrease don't cumulate.
@@ -123,6 +128,9 @@
 	lifetime -= seconds_per_tick
 	return TRUE
 
+/obj/effect/particle_effect/fluid/foam/proc/try_slip(mob/living/slipper, mob/living/slippee)
+	return !HAS_TRAIT(slippee, TRAIT_MOB_ELEVATED)
+
 /obj/effect/particle_effect/fluid/foam/spread(seconds_per_tick = 0.2 SECONDS)
 	if(group.total_size > group.target_size)
 		return
@@ -145,6 +153,8 @@
 			continue
 
 		for(var/mob/living/foaming in spread_turf)
+			if(HAS_TRAIT(foaming, TRAIT_MOB_ELEVATED))
+				continue
 			foam_mob(foaming, seconds_per_tick)
 
 		var/obj/effect/particle_effect/fluid/foam/spread_foam = new type(spread_turf, group, src)

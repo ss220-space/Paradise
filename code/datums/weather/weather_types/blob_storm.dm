@@ -24,7 +24,7 @@
 	immunity_type = TRAIT_BLOBSTORM_IMMUNE
 
 /datum/weather/blob_storm/telegraph()
-	var/list/blobs = SSticker?.mode?.blobs["infected"] + SSticker?.mode?.blobs["offsprings"]
+	var/list/blobs = SSticker?.mode?.blobs[BLOB_GROUP_INFECTED] + SSticker?.mode?.blobs[BLOB_GROUP_OFFSPRINGS]
 	var/color
 	var/mass = 0
 	for(var/datum/mind/blob in blobs)

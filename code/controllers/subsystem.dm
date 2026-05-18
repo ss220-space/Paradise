@@ -1,28 +1,31 @@
 /**
-	* # Subsystem base class
-	*
-	* Defines a subsystem to be managed by the [Master Controller][/datum/controller/master]
-	*
-	* Simply define a child of this subsystem, using the [SUBSYSTEM_DEF] macro, and the MC will handle registration.
-	* Changing the name is required
-**/
+ * # Subsystem base class
+ *
+ * Defines a subsystem to be managed by the [Master Controller][/datum/controller/master]
+ *
+ * Simply define a child of this subsystem, using the [SUBSYSTEM_DEF] macro, and the MC will handle registration.
+ * Changing the name is required
+ */
 /datum/controller/subsystem
 	// Metadata; you should define these.
 
 	/// Name of the subsystem - you must change this.
 	name = "fire codertrain"
 
-	/// SS ID - Again, change this but keep it snake_case
-	var/ss_id = "fire_codertrain_again"
+	/// Determines which subsystems this subsystem is dependant on to initialize. Will initialize after all specified subsystems.
+	/// If init_stage is earlier than a dependent subsystem, will throw an error and push the init stage forward to that subsystem.
+	/// Usage: Put the typepaths of the subsystems that need to init before this one in this list.
+	var/list/dependencies = list()
 
-	/// What are the implications of this SS being offlined?
-	var/offline_implications = "None. No immediate action is needed."
+	/// The inverse of the dependencies. Can be set manually, but will also get evaluated at runtime. Turns into a list of instances at runtime.
+	/// Usage: Put the typepaths of the subsystems that need to init after this one in this list.
+	var/list/dependents
 
-	/// Tab to display in under the MC subtabs
-	var/cpu_display = SS_CPUDISPLAY_DEFAULT
+	/// ID of the subsystem. Set automatically when the dependency graph is evaluated. Used primarily in determining order.
+	var/ordering_id = 0
 
-	/// Order of initialization. Higher numbers are initialized first, lower numbers later. Use or create defines such as [INIT_ORDER_DEFAULT] so we can see the order in one file.
-	var/init_order = INIT_ORDER_DEFAULT
+	/// Do not modify. Automatically set when the dependency graph is evaluated. Similar to ordering_id, but evaluated after init_stage.
+	var/init_order = 0
 
 	/// Time to wait (in deciseconds) between each call to fire(). Must be a positive integer.
 	var/wait = 20
@@ -31,7 +34,7 @@
 	var/priority = FIRE_PRIORITY_DEFAULT
 
 	/// [Subsystem Flags][SS_NO_INIT] to control binary behavior. Flags must be set at compile time or before preinit finishes to take full effect. (You can also restart the mc to force them to process again)
-	var/flags = NONE
+	var/ss_flags = NONE
 
 	/// Set to 0 to prevent fire() calls, mostly for admin use or subsystems that may be resumed later
 	/// use the [SS_NO_FIRE] flag instead for systems that never fire to keep it from even being added to list that is checked every tick
@@ -43,9 +46,7 @@
 	///A list of var names present on this subsystem to be checked during CheckQueue. See [SS_HIBERNATE] for usage.
 	var/list/hibernate_checks
 
-	/*
-	 * The following variables are managed by the MC and should not be modified directly.
-	 */
+	/* The following variables are managed by the MC and should not be modified directly. */
 
 	/// Which stage does this subsystem init at. Earlier stages can fire while later stages init.
 	var/init_stage = INITSTAGE_MAIN
@@ -60,7 +61,7 @@
 	var/next_fire = 0
 
 	/// The subsystem had no work during CheckQueue and was not queued.
-	var/hibernating
+	var/hibernation_state
 
 	/// Running average of the amount of milliseconds it takes the subsystem to complete a run (including all resumes but not the time spent paused)
 	var/cost = 0
@@ -115,10 +116,13 @@
 	/// Previous subsystem in the queue of subsystems to run this tick
 	var/datum/controller/subsystem/queue_prev
 
-	//Do not blindly add vars here to the bottom, put it where it goes above
-	//If your var only has two values, put it in as a flag.
+	/// String to store an applicable error message for a subsystem crashing, used to help debug crashes in contexts such as Continuous Integration/Unit Tests
+	var/initialization_failure_message = null
 
-//Do not override
+	// Do not blindly add vars here to the bottom, put it where it goes above
+	// If your var only has two values, put it in as a flag.
+
+// Do not override
 ///datum/controller/subsystem/New()
 
 /// Used to initialize the subsystem BEFORE the map has loaded
@@ -140,7 +144,7 @@
 /datum/controller/subsystem/Destroy()
 	dequeue()
 	can_fire = FALSE
-	flags |= SS_NO_FIRE
+	ss_flags |= SS_NO_FIRE
 	if(Master)
 		Master.subsystems -= src
 	return ..()
@@ -179,14 +183,14 @@
 ///fire() seems more suitable. This is the procedure that gets called every 'wait' deciseconds.
 ///Sleeping in here prevents future fires until returned.
 /datum/controller/subsystem/proc/fire(resumed = FALSE)
-	flags |= SS_NO_FIRE
+	ss_flags |= SS_NO_FIRE
 	CRASH("Subsystem [src]([type]) does not fire() but did not set the SS_NO_FIRE flag. Please add the SS_NO_FIRE flag to any subsystem that doesn't fire so it doesn't get added to the processing list and waste cpu.")
 
 /** Update next_fire for the next run.
  *  reset_time (bool) - Ignore things that would normally alter the next fire, like tick_overrun, and last_fire. (also resets postpone)
  */
 /datum/controller/subsystem/proc/update_nextfire(reset_time = FALSE)
-	var/queue_node_flags = flags
+	var/queue_node_flags = ss_flags
 
 	if(reset_time)
 		postponed_fires = 0
@@ -209,17 +213,17 @@
 /// (we loop thru a linked list until we get to the end or find the right point)
 /// (this lets us sort our run order correctly without having to re-sort the entire already sorted list)
 /datum/controller/subsystem/proc/enqueue()
-	hibernating = FALSE
+	hibernation_state = hibernation_state == SS_IS_HIBERNATING ? SS_WAKING_UP : SS_NOT_HIBERNATING
 
 	var/SS_priority = priority
-	var/SS_flags = flags
+	var/SS_flags = ss_flags
 	var/datum/controller/subsystem/queue_node
 	var/queue_node_priority
 	var/queue_node_flags
 
 	for(queue_node = Master.queue_head; queue_node; queue_node = queue_node.queue_next)
 		queue_node_priority = queue_node.queued_priority
-		queue_node_flags = queue_node.flags
+		queue_node_flags = queue_node.ss_flags
 
 		if(queue_node_flags & (SS_TICKER|SS_BACKGROUND) == SS_TICKER)
 			if((SS_flags & (SS_TICKER|SS_BACKGROUND)) != SS_TICKER)
@@ -296,7 +300,7 @@
 /datum/controller/subsystem/stat_entry(msg)
 	var/ss_info = get_stat_details()
 
-	if(can_fire && !(SS_NO_FIRE & flags) && init_stage <= Master.init_stage_completed)
+	if(can_fire && !(SS_NO_FIRE & ss_flags) && init_stage <= Master.init_stage_completed)
 		msg = "[get_cost()]ms | [round(tick_usage, 1)]%([round(tick_overrun, 1)]%) | [round(ticks, 0.1)]\t[ss_info]"
 	else
 		msg = "OFFLINE\t[ss_info]"
@@ -304,8 +308,8 @@
 	return ..()
 
 /datum/controller/subsystem/proc/state_letter()
-	if(hibernating)
-		return "H"
+	if(hibernation_state)
+		return hibernation_state == SS_WAKING_UP ? "W" : "H"
 
 	switch(state)
 		if(SS_RUNNING)
@@ -320,8 +324,8 @@
 			. = " "
 
 /datum/controller/subsystem/proc/state_colour()
-	if(hibernating) // If its hibernating, colour it grey
-		return "<font color='#808080'>"
+	if(hibernation_state)
+		return hibernation_state == SS_WAKING_UP ? "<font color='#b0b0b0'>" : "<font color='#808080'>"
 
 	switch(state)
 		if(SS_RUNNING) // If its actively processing, colour it green

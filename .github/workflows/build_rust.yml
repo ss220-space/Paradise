@@ -17,7 +17,7 @@ jobs:
        github.event.comment.author_association == 'MEMBER' ||
        github.event.comment.author_association == 'OWNER')
 
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
 
     steps:
       - name: Install jq
@@ -100,7 +100,7 @@ jobs:
           cp target/$LINUX_TARGET/release/librustlibs.so ../librustlibs_prod.so
 
       - name: Upload Linux artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: linux-libraries
           path: |
@@ -162,18 +162,46 @@ jobs:
           rustup default stable-x86_64-pc-windows-msvc
           rustup target add i686-pc-windows-msvc
 
+      - name: Setup MSYS2
+        uses: msys2/setup-msys2@v2
+        with:
+          msystem: MINGW32
+          install: mingw-w64-i686-gcc
+
       - name: Build Windows DLL (MSVC)
+        env:
+          RUSTFLAGS: '-C target-cpu=x86-64'
         run: |
           cd rust
           cargo build --release --target i686-pc-windows-msvc
           copy target\i686-pc-windows-msvc\release\rustlibs.dll ..\rustlibs.dll
 
+      - name: Build Windows DLL (GNU)
+        env:
+          RUSTFLAGS: '-C target-cpu=x86-64'
+        shell: msys2 {0}
+        run: |
+          export PATH="/c/Users/runneradmin/.cargo/bin:$PATH"
+          which cargo || echo "Cargo not found, installing..."
+
+          if ! command -v cargo &> /dev/null; then
+            curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --default-host x86_64-pc-windows-gnu
+            export PATH="$HOME/.cargo/bin:$PATH"
+          fi
+
+          rustup target add i686-pc-windows-gnu
+
+          cd rust
+          cargo build --release --target i686-pc-windows-gnu
+          cp target/i686-pc-windows-gnu/release/rustlibs.dll ../rustlibs_gnu.dll
+
       - name: Upload Windows artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: windows-libraries
           path: |
             rustlibs.dll
+            rustlibs_gnu.dll
 
   commit-and-push:
     permissions:
@@ -188,7 +216,7 @@ jobs:
        github.event.comment.author_association == 'OWNER')
 
     needs: [build-linux, build-windows]
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
 
     steps:
       - name: Extract PR info
@@ -207,23 +235,23 @@ jobs:
           fetch-depth: 1
 
       - name: Download Linux artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: linux-libraries
           path: .
 
       - name: Download Windows artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: windows-libraries
           path: .
 
       - name: Generate App Token
         id: app-token-generation
-        uses: actions/create-github-app-token@v3
+        uses: actions/create-github-app-token@v3.2.0
         if: env.APP_PRIVATE_KEY != '' && env.APP_ID != ''
         with:
-          app-id: ${{ secrets.CHANGELOGBOT_APPID }}
+          client-id: ${{ secrets.CHANGELOGBOT_APPID }}
           private-key: ${{ secrets.CHANGELOGBOT_PRIVATEKEY }}
         env:
           APP_PRIVATE_KEY: ${{ secrets.CHANGELOGBOT_PRIVATEKEY }}
@@ -236,7 +264,7 @@ jobs:
           git config --local user.name "Rust Builder"
           git config --local user.email "action@github.com"
 
-          git add --force librustlibs.so librustlibs_prod.so tools/ci/librustlibs.so rustlibs.dll
+          git add --force librustlibs.so librustlibs_prod.so tools/ci/librustlibs.so rustlibs.dll rustlibs_gnu.dll
           git commit -m "Build Rust library for Linux and Windows" || echo "No changes to commit"
           git push origin
 

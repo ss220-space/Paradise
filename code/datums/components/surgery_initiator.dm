@@ -325,6 +325,16 @@
 /datum/component/surgery_initiator/limb
 	can_cancel = FALSE  // don't let a leg cancel a surgery
 
+/datum/component/surgery_initiator/limb/initiate_surgery_moment(datum/source, atom/target, mob/user)
+	var/old_forced = forced_surgery
+	var/old_anywhere = can_start_anywhere
+	if(target == user && ismachineperson(user) && isexternalorgan(parent))
+		forced_surgery = /datum/surgery/attach_robotic_limb/self_attach_ipc
+		can_start_anywhere = TRUE
+	. = ..()
+	forced_surgery = old_forced
+	can_start_anywhere = old_anywhere
+
 /datum/component/surgery_initiator/robo
 	valid_starting_types = SURGERY_INITIATOR_ROBOTIC
 
