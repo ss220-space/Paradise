@@ -301,7 +301,7 @@
 			var/obj/item/stack/stack_offhand = user.get_inactive_hand()
 			if(istype(stack_dropped) && istype(stack_offhand) && stack_offhand.can_merge(stack_dropped, inhand = TRUE))
 				user.put_in_hands(stack_dropped, ignore_anim = FALSE)
-	return ChangeTurf(/turf/simulated/floor/abductor2)
+	return ChangeTurf(/turf/simulated/floor/plating/abductor2)
 
 /turf/simulated/floor/mineral/abductor/lavaland_air
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
@@ -310,12 +310,13 @@
 /turf/simulated/floor/mineral/abductor/cold
 	atmos_environment = ENVIRONMENT_COLD
 
-/turf/simulated/floor/abductor2
+/turf/simulated/floor/plating/abductor2
 	name = "alien plating"
+	icon = 'icons/turf/floors.dmi'
 	icon_state = "alienplating"
 
-/turf/simulated/floor/abductor2/break_tile()
+/turf/simulated/floor/plating/abductor2/break_tile()
 	return //unbreakable
 
-/turf/simulated/floor/abductor2/burn_tile()
+/turf/simulated/floor/plating/abductor2/burn_tile()
 	return //unburnable
