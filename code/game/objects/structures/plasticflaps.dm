@@ -124,6 +124,8 @@
 
 /obj/structure/plasticflaps/proc/gen_overlay()
 	var/turf/our_turf = get_turf(src)
+	if(!our_turf)
+		return
 	//you see mobs under it, but you hit them like they are above it
 	SSvis_overlays.add_vis_overlay(src, icon, icon_state,
 		layer = flaps_layer,
@@ -161,7 +163,7 @@
 		SCREWDRIVER_ATTEMPT_UNSCREW_MESSAGE
 	else
 		SCREWDRIVER_ATTEMPT_SCREW_MESSAGE
-	if(!item.use_tool(src, user, 180, volume = item.tool_volume, extra_checks = CALLBACK(src, PROC_REF(check_anchored_state), anchored)))
+	if(!item.use_tool(src, user, 10 SECONDS, volume = item.tool_volume, extra_checks = CALLBACK(src, PROC_REF(check_anchored_state), anchored)))
 		return TRUE
 	if(anchored)
 		SCREWDRIVER_UNSCREW_MESSAGE
@@ -186,14 +188,13 @@
 	if(!item.tool_use_check(user, 0))
 		return
 	WELDER_ATTEMPT_SLICING_MESSAGE
-	if(!item.use_tool(src, user, 120, volume = item.tool_volume))
+	if(!item.use_tool(src, user, 5 SECONDS, volume = item.tool_volume))
 		return
 	if(anchored)
 		return
 	WELDER_SLICING_SUCCESS_MESSAGE
 	var/obj/item/stack/sheet/plastic/five/plastic = new(drop_location())
-	if(!QDELETED(plastic))
-		plastic.add_fingerprint(user)
+	plastic.add_fingerprint(user)
 	qdel(src)
 
 /obj/structure/plasticflaps/proc/check_anchored_state(check_anchored)
