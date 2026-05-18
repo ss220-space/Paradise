@@ -58,7 +58,6 @@
 	},
 /obj/item/flag/mime,
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "tranquillite"
 	},
 /area/mimeoffice)
@@ -92,7 +91,6 @@
 /obj/machinery/alarm/directional/east,
 /obj/structure/closet/secure_closet/mime,
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "tranquillite"
 	},
 /area/mimeoffice)
@@ -118,7 +116,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "tranquillite"
 	},
 /area/mimeoffice)
@@ -135,7 +132,6 @@
 	pixel_x = 5
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "tranquillite"
 	},
 /area/mimeoffice)
@@ -163,7 +159,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "tranquillite"
 	},
 /area/mimeoffice)
@@ -266,7 +261,6 @@
 	},
 /obj/item/reagent_containers/spray/waterflower,
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "tranquillite"
 	},
 /area/mimeoffice)
@@ -280,7 +274,6 @@
 	c_tag = "Mime Office"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "tranquillite"
 	},
 /area/mimeoffice)
@@ -304,7 +297,6 @@
 	},
 /obj/effect/landmark/start/mime,
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "tranquillite"
 	},
 /area/mimeoffice)
@@ -338,7 +330,6 @@
 "L" = (
 /obj/structure/statue/tranquillite/mime/unique,
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "tranquillite"
 	},
 /area/mimeoffice)
@@ -376,7 +367,6 @@
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /obj/effect/landmark/start/mime,
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "tranquillite"
 	},
 /area/mimeoffice)
@@ -384,7 +374,6 @@
 /obj/machinery/vending/autodrobe,
 /obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "tranquillite"
 	},
 /area/mimeoffice)
@@ -397,7 +386,6 @@
 	pixel_y = -10
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "tranquillite"
 	},
 /area/mimeoffice)

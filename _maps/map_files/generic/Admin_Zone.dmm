@@ -209,6 +209,11 @@
 	icon_state = "redgreenfull"
 	},
 /area/holodeck/source_thunderdomecourt)
+"co" = (
+/obj/structure/table/wood,
+/obj/item/gun/energy/spike,
+/turf/simulated/floor/wood,
+/area/admin)
 "cv" = (
 /obj/structure/rack,
 /obj/item/clothing/shoes/color/brown,
@@ -312,11 +317,6 @@
 	icon_state = "vault"
 	},
 /area/tdome/arena_source)
-"cW" = (
-/obj/structure/table/wood,
-/obj/item/gun/energy/spike,
-/turf/simulated/floor/wood,
-/area/admin)
 "cX" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/arg,
@@ -377,6 +377,16 @@
 	icon_state = "darkgrey"
 	},
 /area/tdome/tdome1)
+"dT" = (
+/obj/structure/table/wood,
+/obj/item/holosign_creator/atmos,
+/obj/item/holosign_creator/atmos,
+/obj/item/holosign_creator/atmos,
+/obj/item/holosign_creator/atmos,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/adminconstruction)
 "dU" = (
 /obj/structure/table/wood,
 /obj/item/toy/sword,
@@ -402,13 +412,6 @@
 /obj/item/gun/energy/mimicgun,
 /turf/simulated/floor/wood,
 /area/admin)
-"ee" = (
-/obj/item/card/id/admin,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/tdome/arena_source)
 "eg" = (
 /turf/simulated/floor/holofloor{
 	icon_state = "red"
@@ -477,28 +480,6 @@
 	icon_state = "vault"
 	},
 /area/tdome/arena)
-"eI" = (
-/obj/machinery/door/poddoor/shutters{
-	dir = 2;
-	id_tag = "TD_Strela";
-	name = "Strela"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/tdome/arena_source)
-"eO" = (
-/obj/machinery/door/poddoor/shutters{
-	dir = 2;
-	id_tag = "TD_Bojutsu";
-	name = "Bojutsu"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/tdome/arena_source)
 "eP" = (
 /obj/structure/table/wood,
 /obj/item/gun/magic/tentacle,
@@ -518,17 +499,6 @@
 	icon_state = "snow"
 	},
 /area/holodeck/source_snowfield)
-"eY" = (
-/obj/machinery/door/poddoor/shutters{
-	dir = 2;
-	id_tag = "TD_Mecha";
-	name = "Mecha"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/tdome/arena_source)
 "fa" = (
 /turf/simulated/floor/holofloor{
 	dir = 4;
@@ -540,16 +510,6 @@
 /obj/item/gun/projectile/revolver/grenadelauncher,
 /turf/simulated/floor/wood,
 /area/admin)
-"fd" = (
-/obj/machinery/door/poddoor/shutters{
-	id_tag = "TD_Baseball";
-	name = "4-shot base/ball"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/tdome/arena_source)
 "fh" = (
 /obj/structure/chair/stool/holostool,
 /turf/simulated/floor/holofloor{
@@ -573,17 +533,6 @@
 	icon_state = "darkgrey"
 	},
 /area/admin)
-"fs" = (
-/obj/machinery/door/poddoor/shutters{
-	dir = 8;
-	id_tag = "TD_Baseball";
-	name = "4-shot base/ball"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/tdome/arena_source)
 "fA" = (
 /obj/machinery/bodyscanner{
 	dir = 4
@@ -609,17 +558,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/admin)
-"fL" = (
-/obj/machinery/door/poddoor/shutters{
-	dir = 1;
-	id_tag = "TD_Shitcurity";
-	name = "Shitcurity"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/tdome/arena_source)
 "fQ" = (
 /obj/structure/rack,
 /obj/item/clothing/under/color/red,
@@ -665,14 +603,14 @@
 /obj/machinery/sleeper/upgraded,
 /turf/simulated/floor/wood,
 /area/admin)
-"gt" = (
-/obj/machinery/door/poddoor/shutters{
-	dir = 1;
-	id_tag = "TD_Robaster";
-	name = "Robaster"
-	},
+"gx" = (
+/obj/structure/rack,
+/obj/item/clothing/shoes/color/brown,
+/obj/item/clothing/head/helmet/thunderdome,
+/obj/item/clothing/suit/armor/tdome/green,
+/obj/item/melee/energy/sword/saber/blue,
+/obj/item/clothing/under/color/blue,
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/tdome/arena_source)
@@ -884,12 +822,16 @@
 /obj/item/gun/projectile/automatic/sniper_rifle/toy,
 /turf/simulated/floor/carpet/arcade,
 /area/admin)
-"iQ" = (
+"iU" = (
+/obj/machinery/door/poddoor/shutters{
+	dir = 8;
+	id_tag = "TD_Baseball";
+	name = "4-shot base/ball"
+	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
-/area/tdome/tdome2)
+/area/tdome/arena)
 "iZ" = (
 /obj/structure/table/wood,
 /obj/item/gun_module/muzzle/suppressor,
@@ -921,17 +863,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/admin)
-"ji" = (
-/obj/machinery/door/poddoor/shutters{
-	dir = 1;
-	id_tag = "TD_Cowboy";
-	name = "Cowboy"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/tdome/arena_source)
 "jo" = (
 /obj/structure/table,
 /obj/random/toolbox,
@@ -1061,6 +992,16 @@
 	icon_state = "grimy"
 	},
 /area/admin)
+"ka" = (
+/obj/machinery/door/poddoor/shutters{
+	dir = 8;
+	id_tag = "TD_Baseball";
+	name = "4-shot base/ball"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/tdome/arena_source)
 "kg" = (
 /obj/structure/table,
 /obj/item/stack/cable_coil,
@@ -1076,6 +1017,15 @@
 "kw" = (
 /turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air,
 /area/tdome/newtdome)
+"kz" = (
+/obj/machinery/door/poddoor/shutters{
+	id_tag = "TD_Baseball";
+	name = "4-shot base/ball"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/tdome/arena)
 "kD" = (
 /obj/structure/table/wood,
 /obj/item/kitchen/knife/envy,
@@ -1158,6 +1108,16 @@
 	icon_state = "grimy"
 	},
 /area/holodeck/source_meetinghall)
+"lB" = (
+/obj/machinery/door/poddoor/shutters{
+	dir = 1;
+	id_tag = "TD_Shitcurity";
+	name = "Shitcurity"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/tdome/arena_source)
 "lM" = (
 /turf/simulated/floor/carpet/black,
 /area/tdome/tdomeobserve)
@@ -1252,6 +1212,11 @@
 	icon_state = "hierophant1"
 	},
 /area/admin)
+"mR" = (
+/obj/structure/table/wood,
+/obj/item/gun/projectile/automatic/pistol/aps,
+/turf/simulated/floor/wood,
+/area/admin)
 "mX" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/smg/saber,
@@ -1337,17 +1302,6 @@
 /obj/item/gun/energy/laser/retro/old,
 /turf/simulated/floor/wood,
 /area/admin)
-"ok" = (
-/obj/machinery/door/poddoor/shutters{
-	dir = 1;
-	id_tag = "TD_Cowboy";
-	name = "Cowboy"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/tdome/arena)
 "ol" = (
 /obj/effect/landmark/spawner/holocarp,
 /turf/simulated/floor/holofloor{
@@ -1398,6 +1352,16 @@
 /obj/item/toy/russian_revolver/trick_revolver,
 /turf/simulated/floor/carpet/arcade,
 /area/admin)
+"pd" = (
+/obj/machinery/door/poddoor/shutters{
+	dir = 1;
+	id_tag = "TD_Robaster";
+	name = "Robaster"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/tdome/arena)
 "ph" = (
 /obj/structure/table/holotable,
 /obj/item/clothing/suit/armor/riot/knight/red,
@@ -1456,16 +1420,16 @@
 	icon_state = "darkred"
 	},
 /area/tdome/tdome1)
-"pY" = (
+"pO" = (
 /obj/machinery/door/poddoor/shutters{
-	id_tag = "TD_Baseball";
-	name = "4-shot base/ball"
+	dir = 2;
+	id_tag = "TD_Mecha";
+	name = "Mecha"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
-/area/tdome/arena)
+/area/tdome/arena_source)
 "qc" = (
 /obj/structure/flora/ausbushes/brflowers,
 /turf/simulated/floor/holofloor/grass,
@@ -1540,17 +1504,6 @@
 	icon_state = "blue"
 	},
 /area/holodeck/source_knightarena)
-"qI" = (
-/obj/machinery/door/poddoor/shutters{
-	dir = 1;
-	id_tag = "TD_Shitcurity";
-	name = "Shitcurity"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/tdome/arena)
 "qJ" = (
 /obj/structure/holowindow,
 /turf/simulated/floor/holofloor{
@@ -1693,13 +1646,6 @@
 /obj/item/gun/energy/laser/captain/scattershot,
 /turf/simulated/floor/wood,
 /area/admin)
-"tq" = (
-/obj/item/card/id/admin,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/tdome/arena)
 "tG" = (
 /obj/structure/table/wood,
 /obj/item/gun/magic/staff/slipping/honkmother,
@@ -1742,6 +1688,16 @@
 /obj/structure/table/wood,
 /turf/simulated/floor/wood,
 /area/admin)
+"uk" = (
+/obj/machinery/door/poddoor/shutters{
+	dir = 2;
+	id_tag = "TD_Strela";
+	name = "Strela"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/tdome/arena)
 "un" = (
 /obj/structure/chair/stool/holostool,
 /turf/simulated/floor/holofloor{
@@ -1749,6 +1705,16 @@
 	icon_state = "carpet11-0"
 	},
 /area/holodeck/source_meetinghall)
+"us" = (
+/obj/machinery/door/poddoor/shutters{
+	dir = 2;
+	id_tag = "TD_Bojutsu";
+	name = "Bojutsu"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/tdome/arena_source)
 "ut" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/light/small{
@@ -1786,17 +1752,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/admin)
-"uW" = (
-/obj/structure/table/wood,
-/obj/item/holosign_creator/atmos,
-/obj/item/holosign_creator/atmos,
-/obj/item/holosign_creator/atmos,
-/obj/item/holosign_creator/atmos,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/adminconstruction)
 "uZ" = (
 /obj/structure/rack,
 /obj/item/clothing/under/color/red,
@@ -1845,6 +1800,16 @@
 	icon_state = "asteroid"
 	},
 /area/holodeck/source_picnicarea)
+"vq" = (
+/obj/machinery/door/poddoor/shutters{
+	dir = 1;
+	id_tag = "TD_Robaster";
+	name = "Robaster"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/tdome/arena_source)
 "vw" = (
 /obj/effect/overlay/palmtree_l,
 /obj/effect/overlay/coconut,
@@ -2187,6 +2152,12 @@
 	icon_state = "vault"
 	},
 /area/tdome/arena)
+"zg" = (
+/obj/item/card/id/admin,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/tdome/arena)
 "zh" = (
 /obj/structure/table/wood,
 /obj/item/gun/throw/piecannon,
@@ -2337,6 +2308,12 @@
 	icon_state = "blue"
 	},
 /area/holodeck/source_knightarena)
+"AU" = (
+/obj/item/card/id/admin,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/tdome/arena_source)
 "AV" = (
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -2391,19 +2368,6 @@
 /obj/item/grenade/clusterbuster/syndieminibomb,
 /turf/simulated/floor/wood,
 /area/admin)
-"Bp" = (
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/tdome/arena)
-"Br" = (
-/obj/structure/table/wood,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/adminconstruction)
 "Bs" = (
 /turf/simulated/floor/holofloor{
 	dir = 4;
@@ -2421,6 +2385,16 @@
 	icon_state = "vault"
 	},
 /area/tdome/arena_source)
+"Bw" = (
+/obj/machinery/door/poddoor/shutters{
+	dir = 1;
+	id_tag = "TD_Cowboy";
+	name = "Cowboy"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/tdome/arena)
 "Bx" = (
 /obj/effect/landmark/costume/random,
 /obj/structure/rack/holorack,
@@ -2544,11 +2518,21 @@
 	icon_state = "red"
 	},
 /area/holodeck/source_knightarena)
+"CI" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/tdome/tdome1)
 "CJ" = (
 /obj/item/gun/energy/tesla_cannon,
 /obj/structure/table/wood,
 /turf/simulated/floor/wood,
 /area/admin)
+"CS" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/tdome/arena_source)
 "CY" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/shotgun/boltaction/enchanted/arcane_barrage/blood,
@@ -2605,6 +2589,16 @@
 /obj/item/gun/magic/wand/fireball,
 /turf/simulated/floor/wood,
 /area/admin)
+"DG" = (
+/obj/machinery/door/poddoor/shutters{
+	dir = 1;
+	id_tag = "TD_Shitcurity";
+	name = "Shitcurity"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/tdome/arena)
 "DM" = (
 /turf/simulated/wall/indestructible/fakeglass,
 /area/space)
@@ -2687,11 +2681,6 @@
 	},
 /turf/simulated/floor/indestructible/asteroid,
 /area/tdome/newtdome/CQC)
-"EU" = (
-/obj/structure/table/wood,
-/obj/item/gun/projectile/automatic/pistol/APS,
-/turf/simulated/floor/wood,
-/area/admin)
 "EV" = (
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -2728,12 +2717,6 @@
 	icon_state = "vault"
 	},
 /area/tdome/arena)
-"Ff" = (
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/tdome/arena_source)
 "Fi" = (
 /turf/simulated/wall/indestructible{
 	icon = 'icons/turf/walls/coated_reinforced_wall.dmi';
@@ -2760,6 +2743,15 @@
 	icon_state = "grimy"
 	},
 /area/admin)
+"Fw" = (
+/obj/machinery/door/poddoor/shutters{
+	id_tag = "TD_Baseball";
+	name = "4-shot base/ball"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/tdome/arena_source)
 "Fx" = (
 /obj/structure/rack,
 /obj/item/clothing/under/color/red,
@@ -3146,6 +3138,16 @@
 	icon_state = "green"
 	},
 /area/holodeck/source_basketball)
+"JS" = (
+/obj/machinery/door/poddoor/shutters{
+	dir = 2;
+	id_tag = "TD_Bojutsu";
+	name = "Bojutsu"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/tdome/arena)
 "JV" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/gun/pdw9,
@@ -3282,6 +3284,16 @@
 /obj/item/gun/energy/kinetic_accelerator/crossbow/large,
 /turf/simulated/floor/wood,
 /area/admin)
+"Mi" = (
+/obj/machinery/door/poddoor/shutters{
+	dir = 1;
+	id_tag = "TD_Cowboy";
+	name = "Cowboy"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/tdome/arena_source)
 "Mj" = (
 /turf/simulated/floor/holofloor{
 	dir = 5;
@@ -3293,17 +3305,6 @@
 /obj/item/gun/energy/pulse/pistol,
 /turf/simulated/floor/wood,
 /area/admin)
-"Mo" = (
-/obj/machinery/door/poddoor/shutters{
-	dir = 2;
-	id_tag = "TD_Bojutsu";
-	name = "Bojutsu"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/tdome/arena)
 "Mz" = (
 /turf/simulated/floor/holofloor{
 	dir = 9;
@@ -3342,6 +3343,11 @@
 	icon_state = "red"
 	},
 /area/holodeck/source_boxingcourt)
+"MV" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/tdome/tdome2)
 "Nc" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/mindflayer,
@@ -3400,17 +3406,6 @@
 /obj/item/gun/energy/gun/blueshield,
 /turf/simulated/floor/wood,
 /area/admin)
-"NL" = (
-/obj/machinery/door/poddoor/shutters{
-	dir = 2;
-	id_tag = "TD_Strela";
-	name = "Strela"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/tdome/arena)
 "NR" = (
 /obj/machinery/light/small{
 	brightness_range = 6;
@@ -3499,6 +3494,11 @@
 /obj/item/reagent_containers/glass/bottle/adminordrazine,
 /turf/simulated/floor/wood,
 /area/admin)
+"Pk" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/tdome/arena)
 "Pn" = (
 /obj/structure/table/wood,
 /obj/item/gun/magic/staff/animate,
@@ -3649,17 +3649,6 @@
 /obj/item/clothing/shoes/color/black,
 /turf/simulated/floor/wood,
 /area/admin)
-"Rj" = (
-/obj/machinery/door/poddoor/shutters{
-	dir = 1;
-	id_tag = "TD_Robaster";
-	name = "Robaster"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/tdome/arena)
 "Rx" = (
 /obj/machinery/chem_heater,
 /turf/simulated/floor/wood,
@@ -3738,17 +3727,6 @@
 	icon_state = "carpet4-0"
 	},
 /area/holodeck/source_meetinghall)
-"SQ" = (
-/obj/machinery/door/poddoor/shutters{
-	dir = 8;
-	id_tag = "TD_Baseball";
-	name = "4-shot base/ball"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/tdome/arena)
 "Tb" = (
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -3760,6 +3738,12 @@
 /obj/machinery/syndicatebomb/emp,
 /turf/simulated/floor/wood,
 /area/admin)
+"Te" = (
+/obj/structure/table/wood,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/adminconstruction)
 "Tg" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/gun/advtaser/cyborg,
@@ -3824,18 +3808,16 @@
 	},
 /turf/simulated/floor/wood,
 /area/admin)
-"TM" = (
-/obj/structure/rack,
-/obj/item/clothing/shoes/color/brown,
-/obj/item/clothing/head/helmet/thunderdome,
-/obj/item/clothing/suit/armor/tdome/green,
-/obj/item/melee/energy/sword/saber/blue,
-/obj/item/clothing/under/color/blue,
+"TR" = (
+/obj/machinery/door/poddoor/shutters{
+	dir = 2;
+	id_tag = "TD_Mecha";
+	name = "Mecha"
+	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
-/area/tdome/arena_source)
+/area/tdome/arena)
 "TU" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/pistol/m1911,
@@ -4055,6 +4037,11 @@
 /obj/structure/closet/secure_closet/personal,
 /turf/simulated/floor/wood,
 /area/admin)
+"VS" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/adminconstruction)
 "VU" = (
 /obj/item/gun/syringe/syndicate,
 /obj/structure/table/wood,
@@ -4146,6 +4133,16 @@
 /obj/structure/table/wood,
 /turf/simulated/floor/wood,
 /area/admin)
+"Xt" = (
+/obj/machinery/door/poddoor/shutters{
+	dir = 2;
+	id_tag = "TD_Strela";
+	name = "Strela"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/tdome/arena_source)
 "Xw" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/decloner,
@@ -4331,12 +4328,6 @@
 /obj/structure/table/wood,
 /turf/simulated/floor/wood,
 /area/admin)
-"Zo" = (
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/adminconstruction)
 "Zs" = (
 /obj/machinery/door/poddoor{
 	id_tag = "thunderdome";
@@ -4358,12 +4349,6 @@
 /obj/item/gun/energy/laser/retro,
 /turf/simulated/floor/wood,
 /area/admin)
-"ZE" = (
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/tdome/tdome1)
 "ZG" = (
 /turf/simulated/floor/carpet,
 /area/admin)
@@ -4377,17 +4362,6 @@
 /obj/item/gun/projectile/automatic/m90,
 /turf/simulated/floor/wood,
 /area/admin)
-"ZO" = (
-/obj/machinery/door/poddoor/shutters{
-	dir = 2;
-	id_tag = "TD_Mecha";
-	name = "Mecha"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/tdome/arena)
 "ZR" = (
 /turf/simulated/floor/holofloor{
 	icon_state = "asteroid"
@@ -6228,29 +6202,29 @@ EK
 EK
 Lr
 bq
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
 Vb
-Zo
+VS
 Vb
-Zo
+VS
 Vb
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
 zq
 Lr
 EK
@@ -6484,31 +6458,31 @@ EK
 Lr
 EK
 Lr
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
 Lr
 EK
 Lr
@@ -6741,31 +6715,31 @@ EK
 EK
 EK
 Lr
-Zo
-Zo
+VS
+VS
 bq
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
+VS
+VS
+VS
+VS
+VS
+VS
+VS
 Vb
-Zo
+VS
 Vb
-Zo
+VS
 Vb
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
+VS
+VS
+VS
+VS
+VS
+VS
+VS
 zq
-Zo
-Zo
+VS
+VS
 Lr
 EK
 EK
@@ -6998,31 +6972,31 @@ EK
 Lr
 EK
 Lr
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
 Lr
 EK
 Lr
@@ -7255,31 +7229,31 @@ EK
 EK
 EK
 Lr
-Zo
-Zo
-Zo
-Zo
+VS
+VS
+VS
+VS
 bq
-Zo
-Zo
-Zo
-Zo
-Zo
+VS
+VS
+VS
+VS
+VS
 Vb
-Zo
+VS
 Vb
-Zo
+VS
 Vb
-Zo
-Zo
-Zo
-Zo
-Zo
+VS
+VS
+VS
+VS
+VS
 zq
-Zo
-Zo
-Zo
-Zo
+VS
+VS
+VS
+VS
 Lr
 EK
 EK
@@ -7512,31 +7486,31 @@ EK
 Lr
 EK
 Lr
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
 Lr
 EK
 Lr
@@ -7755,7 +7729,7 @@ fE
 Uu
 PB
 oK
-cW
+co
 ZG
 ZG
 ax
@@ -7769,31 +7743,31 @@ EK
 EK
 EK
 Lr
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
+VS
+VS
+VS
+VS
+VS
+VS
 bq
-Zo
-Zo
-Zo
+VS
+VS
+VS
 Vb
-Zo
+VS
 Vb
-Zo
+VS
 Vb
-Zo
-Zo
-Zo
+VS
+VS
+VS
 zq
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
+VS
+VS
+VS
+VS
+VS
+VS
 Lr
 EK
 EK
@@ -8026,31 +8000,31 @@ EK
 Lr
 EK
 Lr
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
 Lr
 EK
 Lr
@@ -8283,31 +8257,31 @@ EK
 EK
 EK
 Lr
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
 bq
-Zo
+VS
 Vb
-Zo
+VS
 Vb
-Zo
+VS
 Vb
-Zo
+VS
 zq
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
 Lr
 EK
 EK
@@ -8540,31 +8514,31 @@ Lr
 Lr
 Lr
 Lr
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
 Lr
 EK
 Lr
@@ -8791,36 +8765,36 @@ fE
 fE
 fE
 Lr
-Br
-Br
-Br
-Br
-Br
+Te
+Te
+Te
+Te
+Te
 Lr
 zO
-Zo
+VS
 zO
-Zo
+VS
 zO
-Zo
+VS
 zO
-Zo
+VS
 zO
-Zo
+VS
 bq
-Zo
+VS
 Vb
-Zo
+VS
 zq
-Zo
+VS
 iw
-Zo
+VS
 iw
-Zo
+VS
 iw
-Zo
+VS
 iw
-Zo
+VS
 iw
 Lr
 EK
@@ -9054,31 +9028,31 @@ Ug
 Ug
 Ug
 Ug
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
 Lr
 EK
 Lr
@@ -9287,7 +9261,7 @@ qE
 eo
 fE
 Nt
-EU
+mR
 iz
 IU
 jN
@@ -9312,29 +9286,29 @@ Ug
 Ug
 Ug
 zO
-Zo
+VS
 zO
-Zo
+VS
 zO
-Zo
+VS
 zO
-Zo
+VS
 zO
-Zo
+VS
 zO
-Zo
+VS
 GQ
-Zo
+VS
 iw
-Zo
+VS
 iw
-Zo
+VS
 iw
-Zo
+VS
 iw
-Zo
+VS
 iw
-Zo
+VS
 iw
 Lr
 EK
@@ -9568,31 +9542,31 @@ Ug
 Ug
 Ug
 Ug
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
 Lr
 EK
 Lr
@@ -9819,36 +9793,36 @@ rK
 lX
 Za
 Lr
-uW
-uW
-uW
-uW
-uW
+dT
+dT
+dT
+dT
+dT
 Lr
 zO
-Zo
+VS
 zO
-Zo
+VS
 zO
-Zo
+VS
 zO
-Zo
+VS
 zO
-Zo
+VS
 yt
-Zo
+VS
 xT
-Zo
+VS
 Dp
-Zo
+VS
 iw
-Zo
+VS
 iw
-Zo
+VS
 iw
-Zo
+VS
 iw
-Zo
+VS
 iw
 Lr
 EK
@@ -10082,31 +10056,31 @@ Lr
 Lr
 Lr
 Lr
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
 Lr
 EK
 Lr
@@ -10339,31 +10313,31 @@ EK
 EK
 EK
 Lr
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
 yt
-Zo
+VS
 xT
-Zo
+VS
 xT
-Zo
+VS
 xT
-Zo
+VS
 Dp
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
 Lr
 EK
 EK
@@ -10596,31 +10570,31 @@ EK
 Lr
 EK
 Lr
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
 Lr
 EK
 Lr
@@ -10853,31 +10827,31 @@ EK
 EK
 EK
 Lr
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
+VS
+VS
+VS
+VS
+VS
+VS
 yt
-Zo
-Zo
-Zo
+VS
+VS
+VS
 xT
-Zo
+VS
 xT
-Zo
+VS
 xT
-Zo
-Zo
-Zo
+VS
+VS
+VS
 Dp
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
+VS
+VS
+VS
+VS
+VS
+VS
 Lr
 EK
 EK
@@ -11110,31 +11084,31 @@ EK
 Lr
 EK
 Lr
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
 Lr
 EK
 Lr
@@ -11367,31 +11341,31 @@ EK
 EK
 EK
 Lr
-Zo
-Zo
-Zo
-Zo
+VS
+VS
+VS
+VS
 yt
-Zo
-Zo
-Zo
-Zo
-Zo
+VS
+VS
+VS
+VS
+VS
 xT
-Zo
+VS
 xT
-Zo
+VS
 xT
-Zo
-Zo
-Zo
-Zo
-Zo
+VS
+VS
+VS
+VS
+VS
 Dp
-Zo
-Zo
-Zo
-Zo
+VS
+VS
+VS
+VS
 Lr
 EK
 EK
@@ -11624,31 +11598,31 @@ EK
 Lr
 EK
 Lr
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
 Lr
 EK
 Lr
@@ -11881,31 +11855,31 @@ EK
 EK
 EK
 Lr
-Zo
-Zo
+VS
+VS
 yt
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
+VS
+VS
+VS
+VS
+VS
+VS
+VS
 xT
-Zo
+VS
 xT
-Zo
+VS
 xT
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
+VS
+VS
+VS
+VS
+VS
+VS
+VS
 Dp
-Zo
-Zo
+VS
+VS
 Lr
 EK
 EK
@@ -12138,31 +12112,31 @@ EK
 Lr
 EK
 Lr
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
 Lr
 EK
 Lr
@@ -12396,29 +12370,29 @@ EK
 EK
 Lr
 yt
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
 xT
-Zo
+VS
 xT
-Zo
+VS
 xT
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
-Zo
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
+VS
 Dp
 Lr
 EK
@@ -56063,7 +56037,7 @@ pI
 Fi
 Fi
 yV
-Bp
+Pk
 yV
 Fi
 Fi
@@ -56083,7 +56057,7 @@ Fx
 Fi
 Fi
 Bu
-Ff
+CS
 Bu
 Fi
 Fi
@@ -56315,17 +56289,17 @@ Fi
 Fi
 Fi
 pI
-Bp
-Bp
-Bp
+Pk
+Pk
+Pk
 Fi
 yV
-Bp
+Pk
 yV
 Fi
-Bp
-Bp
-Bp
+Pk
+Pk
+Pk
 hS
 Fi
 Fi
@@ -56335,17 +56309,17 @@ Fi
 Fi
 Fi
 Fx
-Ff
-Ff
-Ff
+CS
+CS
+CS
 Fi
 Bu
-Ff
+CS
 Bu
 Fi
-Ff
-Ff
-Ff
+CS
+CS
+CS
 uZ
 Fi
 Fi
@@ -56571,19 +56545,19 @@ Yq
 Fi
 Fi
 pI
-Bp
-Bp
-Bp
-Bp
+Pk
+Pk
+Pk
+Pk
 Fi
 Fi
-pY
+kz
 Fi
 Fi
-Bp
-Bp
-Bp
-Bp
+Pk
+Pk
+Pk
+Pk
 fQ
 Fi
 Fi
@@ -56591,19 +56565,19 @@ Yq
 Fi
 Fi
 Fx
-Ff
-Ff
-Ff
-Ff
+CS
+CS
+CS
+CS
 Fi
 Fi
-fd
+Fw
 Fi
 Fi
-Ff
-Ff
-Ff
-Ff
+CS
+CS
+CS
+CS
 xS
 Fi
 Fi
@@ -56828,19 +56802,19 @@ Yq
 Fi
 Fi
 pI
-Bp
-Bp
-Bp
-Mo
+Pk
+Pk
+Pk
+JS
 UN
-iQ
+MV
 Tb
-iQ
+MV
 Sm
-qI
-Bp
-Bp
-Bp
+DG
+Pk
+Pk
+Pk
 fQ
 Fi
 Fi
@@ -56848,19 +56822,19 @@ Yq
 Fi
 Fi
 Fx
-Ff
-Ff
-Ff
-eO
+CS
+CS
+CS
+us
 Fi
 Fi
 Fi
 Fi
 Fi
-fL
-Ff
-Ff
-Ff
+lB
+CS
+CS
+CS
 xS
 Fi
 Fi
@@ -57085,19 +57059,19 @@ Yq
 Fi
 Fi
 Fi
-Bp
-Bp
-Mo
+Pk
+Pk
+JS
 UN
-iQ
-iQ
+MV
+MV
 XO
-iQ
-iQ
+MV
+MV
 Sm
-qI
-Bp
-Bp
+DG
+Pk
+Pk
 Fi
 Fi
 Fi
@@ -57105,9 +57079,9 @@ Yq
 Fi
 Fi
 Fi
-Ff
-Ff
-eO
+CS
+CS
+us
 Fi
 Fi
 Fi
@@ -57115,9 +57089,9 @@ Fi
 Fi
 Fi
 Fi
-fL
-Ff
-Ff
+lB
+CS
+CS
 Fi
 Fi
 Fi
@@ -57345,13 +57319,13 @@ Fi
 Fi
 Fi
 UN
-iQ
-iQ
-iQ
+MV
+MV
+MV
 Tb
-iQ
-iQ
-iQ
+MV
+MV
+MV
 Sm
 Fi
 Fi
@@ -57601,15 +57575,15 @@ Fi
 Ca
 Ca
 Fi
-iQ
-iQ
-iQ
-iQ
+MV
+MV
+MV
+MV
 Tb
-iQ
-iQ
-iQ
-iQ
+MV
+MV
+MV
+MV
 Fi
 Zg
 Zg
@@ -57855,9 +57829,9 @@ Yq
 Yq
 Fi
 Ca
-Bp
-Bp
-NL
+Pk
+Pk
+uk
 Tb
 XO
 Tb
@@ -57867,17 +57841,17 @@ Tb
 Tb
 XO
 Tb
-ok
-Bp
-Bp
+Bw
+Pk
+Pk
 Zg
 Fi
 Yq
 Fi
 bn
-Ff
-Ff
-eI
+CS
+CS
+Xt
 Fi
 Fi
 Fi
@@ -57887,9 +57861,9 @@ Fi
 Fi
 Fi
 Fi
-ji
-Ff
-Ff
+Mi
+CS
+CS
 jx
 Fi
 Yq
@@ -58115,15 +58089,15 @@ Fi
 Ca
 Ca
 Fi
-iQ
-iQ
-iQ
-iQ
+MV
+MV
+MV
+MV
 Tb
-iQ
-iQ
-iQ
-iQ
+MV
+MV
+MV
+MV
 Fi
 Zg
 Zg
@@ -58373,13 +58347,13 @@ Fi
 Fi
 Fi
 wo
-iQ
-iQ
-iQ
+MV
+MV
+MV
 Tb
-iQ
-iQ
-iQ
+MV
+MV
+MV
 AV
 Fi
 Fi
@@ -58627,19 +58601,19 @@ Yq
 Fi
 Fi
 Fi
-Bp
-Bp
-ZO
+Pk
+Pk
+TR
 wo
-iQ
-iQ
+MV
+MV
 XO
-iQ
-iQ
+MV
+MV
 AV
-Rj
-Bp
-Bp
+pd
+Pk
+Pk
 Fi
 Fi
 Fi
@@ -58647,9 +58621,9 @@ Yq
 Fi
 Fi
 Fi
-Ff
-Ff
-eY
+CS
+CS
+pO
 Fi
 Fi
 Fi
@@ -58657,9 +58631,9 @@ Fi
 Fi
 Fi
 Fi
-gt
-Ff
-Ff
+vq
+CS
+CS
 Fi
 Fi
 Fi
@@ -58884,19 +58858,19 @@ Yq
 Fi
 Fi
 kE
-tq
-Bp
-Bp
-ZO
+zg
+Pk
+Pk
+TR
 wo
-iQ
+MV
 Tb
-iQ
+MV
 AV
-Rj
-Bp
-Bp
-Bp
+pd
+Pk
+Pk
+Pk
 Fk
 Fi
 Fi
@@ -58904,19 +58878,19 @@ Yq
 Fi
 Fi
 cQ
-ee
-Ff
-Ff
-eY
+AU
+CS
+CS
+pO
 Fi
 Fi
 Fi
 Fi
 Fi
-gt
-Ff
-Ff
-Ff
+vq
+CS
+CS
+CS
 wa
 Fi
 Fi
@@ -59141,19 +59115,19 @@ Yq
 Fi
 Fi
 kE
-tq
-tq
-Bp
-Bp
+zg
+zg
+Pk
+Pk
 Fi
-iQ
+MV
 Tb
-iQ
+MV
 Fi
-Bp
-Bp
-Bp
-Bp
+Pk
+Pk
+Pk
+Pk
 Fk
 Fi
 Fi
@@ -59161,19 +59135,19 @@ Yq
 Fi
 Fi
 cQ
-ee
-ee
-Ff
-Ff
+AU
+AU
+CS
+CS
 Fi
 Fi
 Fi
 Fi
 Fi
-Ff
-Ff
-Ff
-Ff
+CS
+CS
+CS
+CS
 wa
 Fi
 Fi
@@ -59399,17 +59373,17 @@ Fi
 Fi
 Fi
 kE
-tq
-tq
-Bp
+zg
+zg
+Pk
 Fi
-iQ
+MV
 Tb
-iQ
+MV
 Fi
-Bp
-Bp
-Bp
+Pk
+Pk
+Pk
 Fk
 Fi
 Fi
@@ -59419,17 +59393,17 @@ Fi
 Fi
 Fi
 cQ
-ee
-ee
-Ff
+AU
+AU
+CS
 Fi
 Fi
 Fi
 Fi
 Fi
-Ff
-Ff
-Ff
+CS
+CS
+CS
 wa
 Fi
 Fi
@@ -59660,9 +59634,9 @@ kE
 kE
 Fi
 Fi
-iQ
+MV
 Tb
-iQ
+MV
 Fi
 Fi
 Fk
@@ -60173,11 +60147,11 @@ lM
 Oq
 DM
 DM
-Bp
-Bp
+Pk
+Pk
 EV
-Bp
-Bp
+Pk
+Pk
 DM
 DM
 db
@@ -60193,11 +60167,11 @@ Yq
 Yq
 DM
 DM
-Ff
-Ff
+CS
+CS
 QM
-Ff
-Ff
+CS
+CS
 DM
 DM
 Yq
@@ -60429,13 +60403,13 @@ vY
 vY
 DM
 DM
-Bp
-Bp
-Bp
+Pk
+Pk
+Pk
 EV
-Bp
-Bp
-Bp
+Pk
+Pk
+Pk
 DM
 DM
 Uq
@@ -60449,13 +60423,13 @@ Yq
 Yq
 DM
 DM
-Ff
-Ff
-Ff
+CS
+CS
+CS
 QM
-Ff
-Ff
-Ff
+CS
+CS
+CS
 DM
 DM
 Yq
@@ -60685,15 +60659,15 @@ lM
 vY
 nR
 DM
-Bp
-Bp
-Bp
-Bp
+Pk
+Pk
+Pk
+Pk
 EV
-Bp
-Bp
-Bp
-Bp
+Pk
+Pk
+Pk
+Pk
 DM
 nR
 Uq
@@ -60705,15 +60679,15 @@ Yq
 Yq
 Yq
 DM
-Ff
-Ff
-Ff
-Ff
+CS
+CS
+CS
+CS
 QM
-Ff
-Ff
-Ff
-Ff
+CS
+CS
+CS
+CS
 DM
 Yq
 Yq
@@ -60942,15 +60916,15 @@ lM
 vY
 vY
 DM
-Bp
-Bp
-Bp
-Bp
+Pk
+Pk
+Pk
+Pk
 EV
-Bp
-Bp
-Bp
-Bp
+Pk
+Pk
+Pk
+Pk
 DM
 Uq
 Uq
@@ -60962,15 +60936,15 @@ Yq
 Yq
 Yq
 DM
-Ff
-Ff
-Ff
-Ff
+CS
+CS
+CS
+CS
 QM
-Ff
-Ff
-Ff
-Ff
+CS
+CS
+CS
+CS
 DM
 Yq
 Yq
@@ -61199,15 +61173,15 @@ lM
 vY
 vY
 DM
-Bp
-Bp
-Bp
-Bp
+Pk
+Pk
+Pk
+Pk
 EV
-Bp
-Bp
-Bp
-Bp
+Pk
+Pk
+Pk
+Pk
 DM
 Uq
 Uq
@@ -61219,15 +61193,15 @@ Yq
 Yq
 Yq
 DM
-Ff
-Ff
-Ff
-Ff
+CS
+CS
+CS
+CS
 QM
-Ff
-Ff
-Ff
-Ff
+CS
+CS
+CS
+CS
 DM
 Yq
 Yq
@@ -61456,15 +61430,15 @@ lM
 vY
 nR
 DM
-Bp
-Bp
-Bp
-Bp
+Pk
+Pk
+Pk
+Pk
 EV
-Bp
-Bp
-Bp
-Bp
+Pk
+Pk
+Pk
+Pk
 DM
 nR
 Uq
@@ -61476,15 +61450,15 @@ Yq
 Yq
 Yq
 DM
-Ff
-Ff
-Ff
-Ff
+CS
+CS
+CS
+CS
 QM
-Ff
-Ff
-Ff
-Ff
+CS
+CS
+CS
+CS
 DM
 Yq
 Yq
@@ -61713,15 +61687,15 @@ lM
 vY
 vY
 DM
-Bp
-Bp
-Bp
-Bp
+Pk
+Pk
+Pk
+Pk
 EV
-Bp
-Bp
-Bp
-Bp
+Pk
+Pk
+Pk
+Pk
 DM
 Uq
 Uq
@@ -61733,15 +61707,15 @@ Yq
 Yq
 Yq
 DM
-Ff
-Ff
-Ff
-Ff
+CS
+CS
+CS
+CS
 QM
-Ff
-Ff
-Ff
-Ff
+CS
+CS
+CS
+CS
 DM
 Yq
 Yq
@@ -61970,15 +61944,15 @@ lM
 lM
 lM
 DM
-Bp
-Bp
-Bp
-Bp
+Pk
+Pk
+Pk
+Pk
 EV
-Bp
-Bp
-Bp
-Bp
+Pk
+Pk
+Pk
+Pk
 Fi
 Fi
 Fi
@@ -61990,15 +61964,15 @@ Yq
 Yq
 Yq
 DM
-Ff
-Ff
-Ff
-Ff
+CS
+CS
+CS
+CS
 QM
-Ff
-Ff
-Ff
-Ff
+CS
+CS
+CS
+CS
 DM
 Yq
 Yq
@@ -62484,15 +62458,15 @@ lM
 lM
 lM
 DM
-Bp
-Bp
-Bp
-Bp
+Pk
+Pk
+Pk
+Pk
 EV
-Bp
-Bp
-Bp
-Bp
+Pk
+Pk
+Pk
+Pk
 Fi
 Fi
 Fi
@@ -62504,15 +62478,15 @@ Yq
 Yq
 Yq
 DM
-Ff
-Ff
-Ff
-Ff
+CS
+CS
+CS
+CS
 QM
-Ff
-Ff
-Ff
-Ff
+CS
+CS
+CS
+CS
 DM
 Yq
 Yq
@@ -62741,15 +62715,15 @@ lM
 vY
 vY
 DM
-Bp
-Bp
-Bp
-Bp
+Pk
+Pk
+Pk
+Pk
 EV
-Bp
-Bp
-Bp
-Bp
+Pk
+Pk
+Pk
+Pk
 DM
 Uq
 Uq
@@ -62761,15 +62735,15 @@ Yq
 Yq
 Yq
 DM
-Ff
-Ff
-Ff
-Ff
+CS
+CS
+CS
+CS
 QM
-Ff
-Ff
-Ff
-Ff
+CS
+CS
+CS
+CS
 DM
 Yq
 Yq
@@ -62998,15 +62972,15 @@ lM
 vY
 nR
 DM
-Bp
-Bp
-Bp
-Bp
+Pk
+Pk
+Pk
+Pk
 EV
-Bp
-Bp
-Bp
-Bp
+Pk
+Pk
+Pk
+Pk
 DM
 nR
 Uq
@@ -63018,15 +62992,15 @@ Yq
 Yq
 Yq
 DM
-Ff
-Ff
-Ff
-Ff
+CS
+CS
+CS
+CS
 QM
-Ff
-Ff
-Ff
-Ff
+CS
+CS
+CS
+CS
 DM
 Yq
 Yq
@@ -63255,15 +63229,15 @@ lM
 vY
 vY
 DM
-Bp
-Bp
-Bp
-Bp
+Pk
+Pk
+Pk
+Pk
 EV
-Bp
-Bp
-Bp
-Bp
+Pk
+Pk
+Pk
+Pk
 DM
 Uq
 Uq
@@ -63275,15 +63249,15 @@ Yq
 Yq
 Yq
 DM
-Ff
-Ff
-Ff
-Ff
+CS
+CS
+CS
+CS
 QM
-Ff
-Ff
-Ff
-Ff
+CS
+CS
+CS
+CS
 DM
 Yq
 Yq
@@ -63512,15 +63486,15 @@ lM
 vY
 vY
 DM
-Bp
-Bp
-Bp
-Bp
+Pk
+Pk
+Pk
+Pk
 EV
-Bp
-Bp
-Bp
-Bp
+Pk
+Pk
+Pk
+Pk
 DM
 Uq
 Uq
@@ -63532,15 +63506,15 @@ Yq
 Yq
 Yq
 DM
-Ff
-Ff
-Ff
-Ff
+CS
+CS
+CS
+CS
 QM
-Ff
-Ff
-Ff
-Ff
+CS
+CS
+CS
+CS
 DM
 Yq
 Yq
@@ -63769,15 +63743,15 @@ lM
 vY
 nR
 DM
-Bp
-Bp
-Bp
-Bp
+Pk
+Pk
+Pk
+Pk
 EV
-Bp
-Bp
-Bp
-Bp
+Pk
+Pk
+Pk
+Pk
 DM
 nR
 Uq
@@ -63789,15 +63763,15 @@ Yq
 Yq
 Yq
 DM
-Ff
-Ff
-Ff
-Ff
+CS
+CS
+CS
+CS
 QM
-Ff
-Ff
-Ff
-Ff
+CS
+CS
+CS
+CS
 DM
 Yq
 Yq
@@ -64027,13 +64001,13 @@ vY
 vY
 DM
 DM
-Bp
-Bp
-Bp
+Pk
+Pk
+Pk
 EV
-Bp
-Bp
-Bp
+Pk
+Pk
+Pk
 DM
 DM
 Uq
@@ -64047,13 +64021,13 @@ Yq
 Yq
 DM
 DM
-Ff
-Ff
-Ff
+CS
+CS
+CS
 QM
-Ff
-Ff
-Ff
+CS
+CS
+CS
 DM
 DM
 Yq
@@ -64285,11 +64259,11 @@ lM
 Oq
 DM
 DM
-Bp
-Bp
+Pk
+Pk
 EV
-Bp
-Bp
+Pk
+Pk
 DM
 DM
 db
@@ -64305,11 +64279,11 @@ Yq
 Yq
 DM
 DM
-Ff
-Ff
+CS
+CS
 QM
-Ff
-Ff
+CS
+CS
 DM
 DM
 Yq
@@ -64800,9 +64774,9 @@ sm
 sm
 Fi
 Fi
-ZE
+CI
 yI
-ZE
+CI
 Fi
 Fi
 sU
@@ -64825,8 +64799,8 @@ Fi
 Fi
 Fi
 Fi
-TM
-TM
+gx
+gx
 Fi
 Fi
 Fi
@@ -65053,17 +65027,17 @@ Fi
 Fi
 Fi
 sm
-tq
-tq
-Bp
+zg
+zg
+Pk
 Fi
-ZE
+CI
 yI
-ZE
+CI
 Fi
-Bp
-Bp
-Bp
+Pk
+Pk
+Pk
 sU
 Fi
 Fi
@@ -65073,17 +65047,17 @@ Fi
 Fi
 Fi
 cV
-ee
-ee
-Ff
+AU
+AU
+CS
 Fi
 Fi
 Fi
 Fi
 Fi
-Ff
-Ff
-Ff
+CS
+CS
+CS
 VA
 Fi
 Fi
@@ -65309,19 +65283,19 @@ Yq
 Fi
 Fi
 sm
-tq
-tq
-Bp
-Bp
+zg
+zg
+Pk
+Pk
 Fi
-ZE
+CI
 yI
-ZE
+CI
 Fi
-Bp
-Bp
-Bp
-Bp
+Pk
+Pk
+Pk
+Pk
 sU
 Fi
 Fi
@@ -65329,19 +65303,19 @@ Yq
 Fi
 Fi
 cV
-ee
-ee
-Ff
-Ff
+AU
+AU
+CS
+CS
 Fi
 Fi
 Fi
 Fi
 Fi
-Ff
-Ff
-Ff
-Ff
+CS
+CS
+CS
+CS
 VA
 Fi
 Fi
@@ -65566,19 +65540,19 @@ Yq
 Fi
 Fi
 sm
-tq
-Bp
-Bp
-ZO
+zg
+Pk
+Pk
+TR
 zy
-ZE
+CI
 yI
-ZE
+CI
 JB
-Rj
-Bp
-Bp
-Bp
+pd
+Pk
+Pk
+Pk
 sU
 Fi
 Fi
@@ -65586,19 +65560,19 @@ Yq
 Fi
 Fi
 cV
-ee
-Ff
-Ff
-eY
+AU
+CS
+CS
+pO
 Fi
 Fi
 Fi
 Fi
 Fi
-gt
-Ff
-Ff
-Ff
+vq
+CS
+CS
+CS
 VA
 Fi
 Fi
@@ -65823,19 +65797,19 @@ Yq
 Fi
 Fi
 Fi
-Bp
-Bp
-ZO
+Pk
+Pk
+TR
 zy
-ZE
-ZE
+CI
+CI
 yC
-ZE
-ZE
+CI
+CI
 JB
-Rj
-Bp
-Bp
+pd
+Pk
+Pk
 Fi
 Fi
 Fi
@@ -65843,9 +65817,9 @@ Yq
 Fi
 Fi
 Fi
-Ff
-Ff
-eY
+CS
+CS
+pO
 Fi
 Fi
 Fi
@@ -65853,9 +65827,9 @@ Fi
 Fi
 Fi
 Fi
-gt
-Ff
-Ff
+vq
+CS
+CS
 Fi
 Fi
 Fi
@@ -66083,13 +66057,13 @@ Fi
 Fi
 Fi
 zy
-ZE
-ZE
-ZE
+CI
+CI
+CI
 yI
-ZE
-ZE
-ZE
+CI
+CI
+CI
 JB
 Fi
 Fi
@@ -66339,15 +66313,15 @@ Fi
 XZ
 XZ
 Fi
-ZE
-ZE
-ZE
-ZE
+CI
+CI
+CI
+CI
 yI
-ZE
-ZE
-ZE
-ZE
+CI
+CI
+CI
+CI
 Fi
 Fb
 Fb
@@ -66593,9 +66567,9 @@ Yq
 Yq
 Fi
 XZ
-Bp
-Bp
-NL
+Pk
+Pk
+uk
 yI
 yI
 yC
@@ -66605,17 +66579,17 @@ yI
 yI
 yC
 yI
-ok
-Bp
-Bp
+Bw
+Pk
+Pk
 Fb
 Fi
 Yq
 Fi
 yu
-Ff
-Ff
-eI
+CS
+CS
+Xt
 Fi
 Fi
 Fi
@@ -66625,9 +66599,9 @@ Fi
 Fi
 Fi
 Fi
-ji
-Ff
-Ff
+Mi
+CS
+CS
 jO
 Fi
 Yq
@@ -66853,15 +66827,15 @@ Fi
 XZ
 XZ
 Fi
-ZE
-ZE
-ZE
-ZE
+CI
+CI
+CI
+CI
 yI
-ZE
-ZE
-ZE
-ZE
+CI
+CI
+CI
+CI
 Fi
 Fb
 Fb
@@ -67111,13 +67085,13 @@ Fi
 Fi
 Fi
 pL
-ZE
-ZE
-ZE
+CI
+CI
+CI
 yI
-ZE
-ZE
-ZE
+CI
+CI
+CI
 ra
 Fi
 Fi
@@ -67365,19 +67339,19 @@ Yq
 Fi
 Fi
 Fi
-Bp
-Bp
-Mo
+Pk
+Pk
+JS
 pL
-ZE
-ZE
+CI
+CI
 yC
-ZE
-ZE
+CI
+CI
 ra
-qI
-Bp
-Bp
+DG
+Pk
+Pk
 Fi
 Fi
 Fi
@@ -67385,9 +67359,9 @@ Yq
 Fi
 Fi
 Fi
-Ff
-Ff
-eO
+CS
+CS
+us
 Fi
 Fi
 Fi
@@ -67395,9 +67369,9 @@ Fi
 Fi
 Fi
 Fi
-fL
-Ff
-Ff
+lB
+CS
+CS
 Fi
 Fi
 Fi
@@ -67622,19 +67596,19 @@ Yq
 Fi
 Fi
 ez
-Bp
-Bp
-Bp
-Mo
+Pk
+Pk
+Pk
+JS
 pL
-ZE
+CI
 yI
-ZE
+CI
 ra
-qI
-Bp
-Bp
-Bp
+DG
+Pk
+Pk
+Pk
 cv
 Fi
 Fi
@@ -67642,19 +67616,19 @@ Yq
 Fi
 Fi
 hu
-Ff
-Ff
-Ff
-eO
+CS
+CS
+CS
+us
 Fi
 Fi
 Fi
 Fi
 Fi
-fL
-Ff
-Ff
-Ff
+lB
+CS
+CS
+CS
 sL
 Fi
 Fi
@@ -67879,19 +67853,19 @@ Yq
 Fi
 Fi
 ez
-Bp
-Bp
-Bp
-Bp
+Pk
+Pk
+Pk
+Pk
 Fi
 Fi
-SQ
+iU
 Fi
 Fi
-Bp
-Bp
-Bp
-Bp
+Pk
+Pk
+Pk
+Pk
 cv
 Fi
 Fi
@@ -67899,19 +67873,19 @@ Yq
 Fi
 Fi
 hu
-Ff
-Ff
-Ff
-Ff
+CS
+CS
+CS
+CS
 Fi
 Fi
-fs
+ka
 Fi
 Fi
-Ff
-Ff
-Ff
-Ff
+CS
+CS
+CS
+CS
 sL
 Fi
 Fi
@@ -68137,17 +68111,17 @@ Fi
 Fi
 Fi
 ez
-Bp
-Bp
-Bp
+Pk
+Pk
+Pk
 Fi
 yV
-Bp
+Pk
 yV
 Fi
-Bp
-Bp
-Bp
+Pk
+Pk
+Pk
 HQ
 Fi
 Fi
@@ -68157,17 +68131,17 @@ Fi
 Fi
 Fi
 hu
-Ff
-Ff
-Ff
+CS
+CS
+CS
 Fi
 Bu
-Ff
+CS
 Bu
 Fi
-Ff
-Ff
-Ff
+CS
+CS
+CS
 mI
 Fi
 Fi
@@ -68399,7 +68373,7 @@ ez
 Fi
 Fi
 yV
-Bp
+Pk
 yV
 Fi
 Fi
@@ -68419,7 +68393,7 @@ hu
 Fi
 Fi
 Bu
-Ff
+CS
 Bu
 Fi
 Fi
