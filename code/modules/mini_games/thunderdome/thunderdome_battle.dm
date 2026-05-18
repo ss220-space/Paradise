@@ -174,7 +174,8 @@ GLOBAL_VAR_INIT(tdome_arena_melee, locate(/area/tdome/newtdome/CQC))
 		return
 	for(var/mob/living/mob in zone)
 		if(mob.ckey)
-			addtimer(CALLBACK(src, PROC_REF(restore_ghost_state), mob.ckey), 5 SECONDS)
+			continue
+		addtimer(CALLBACK(src, PROC_REF(restore_ghost_state), mob.ckey), 5 SECONDS)
 		mob.melt()
 
 	for(var/obj/object_in_zone in zone)

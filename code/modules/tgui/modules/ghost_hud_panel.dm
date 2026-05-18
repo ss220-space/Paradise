@@ -58,7 +58,7 @@ GLOBAL_DATUM_INIT(ghost_hud_panel, /datum/ui_module/ghost_hud_panel, new)
 				to_chat(ghost, span_warning("Администраторы отключили это для данного раунда."))
 				return FALSE
 
-			var/datum/persistent_client/persistent = ghost.client.persistent_client
+			var/datum/persistent_client/persistent = ghost.client?.persistent_client
 			if(!persistent)
 				return FALSE
 			// Check if this is the first time they're turning on Antag HUD.
