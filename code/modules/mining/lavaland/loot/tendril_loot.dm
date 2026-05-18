@@ -256,6 +256,7 @@
 	light_range = 7
 	var/obj/effect/wisp/wisp
 	var/sight_flags = SEE_MOBS
+	var/mob/previous_user
 	var/lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	light_system = MOVABLE_LIGHT
 	light_on = FALSE
@@ -292,10 +293,11 @@
 		set_light_on(FALSE)
 
 		user.update_sight()
-
+		previous_user = user
 		SSblackbox.record_feedback("tally", "wisp_lantern", 1, "Freed") // freed
 	else
 		UnregisterSignal(user, COMSIG_MOB_UPDATE_SIGHT)
+		UnregisterSignal(previous_user, COMSIG_MOB_UPDATE_SIGHT)
 
 		balloon_alert(user, "дух возвращён")
 		wisp.stop_orbit()
@@ -303,7 +305,6 @@
 		set_light_on(TRUE)
 
 		user.update_sight()
-
 		update_icon(UPDATE_ICON_STATE)
 		SSblackbox.record_feedback("tally", "wisp_lantern", 1, "Returned") // returned
 
