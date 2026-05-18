@@ -269,22 +269,22 @@
 	var/is_tech_unique = FALSE
 	var/is_access_unique = FALSE
 
-	for(var/obj/I as anything in items_list)
-		if(I.anchored)
+	for(var/obj/item as anything in items_list)
+		if(item.anchored)
 			continue
 
-		if(is_cash(I) || isvoxcash(I))
+		if(is_cash(item) || isvoxcash(item))
 			continue
 
 		var/temp_values_sum = 0
 		var/temp_values_sum_precious = 0
 
-		if(I.obj_integrity > 0)
-			temp_values_sum += round((I.obj_integrity / I.max_integrity) * integrity_reward)
+		if(item.obj_integrity > 0)
+			temp_values_sum += round((item.obj_integrity / item.max_integrity) * integrity_reward)
 
-		if(length(I.armor))
+		if(length(item.armor))
 			var/temp_val = 0
-			var/list/armor_list = I.armor.getList()
+			var/list/armor_list = item.armor.getList()
 			for(var/param in armor_list)
 				var/param_value = armor_list[param] == INFINITY ? 500 : armor_list[param]
 				if(param_value == 0)
@@ -297,17 +297,17 @@
 				temp_values_sum += temp_val
 				is_equip = TRUE
 
-		if(I.force || I.throwforce)
-			temp_values_sum += round((I.force + I.throwforce) * force_mult + (throw_speed * throw_range))
+		if(item.force || item.throwforce)
+			temp_values_sum += round((item.force + item.throwforce) * force_mult + (throw_speed * throw_range))
 
-		if(istype(I, /obj/item/disk/tech_disk))
-			var/obj/item/disk/tech_disk/disk = I
+		if(istype(item, /obj/item/disk/tech_disk))
+			var/obj/item/disk/tech_disk/disk = item
 			var/datum/tech/disk_tech = disk.stored
 			if(disk_tech.id)
-				I.origin_tech = "[disk_tech.id]=[disk_tech.level]"
+				item.origin_tech = "[disk_tech.id]=[disk_tech.level]"
 
-		if(I.origin_tech)
-			var/list/tech_list = params2list(I.origin_tech)
+		if(item.origin_tech)
+			var/list/tech_list = params2list(item.origin_tech)
 			for(var/tech in tech_list)
 				var/temp_mult = 1
 				var/tech_value = text2num(tech_list[tech])
@@ -329,16 +329,16 @@
 				temp_values_sum += round(tech_value * temp_mult * excess_mult)
 				is_tech = TRUE
 
-		if(istype(I, /obj/item/stack))
-			var/obj/item/stack/stack = I
+		if(istype(item, /obj/item/stack))
+			var/obj/item/stack/stack = item
 			var/point_value = 1
-			if(istype(I, /obj/item/stack/sheet))
+			if(istype(item, /obj/item/stack/sheet))
 				var/obj/item/stack/sheet/sheet = stack
 				point_value += sheet.point_value
 			temp_values_sum *= round(stack.amount / stack_div * point_value)
 
-		if(istype(I, /obj/item/card/id))
-			var/obj/item/card/id/id = I
+		if(istype(item, /obj/item/card/id))
+			var/obj/item/card/id/id = item
 			for(var/access in id.access)
 				if(access in collected_access_list)
 					continue
@@ -349,9 +349,9 @@
 					temp_values_sum_precious += value_access_reward
 				accepted_access += access
 
-		if(isitem(I))
+		if(isitem(item))
 			var/temp_value = 0
-			var/obj/item/item = I
+			var/obj/item/item = item
 			temp_value += temp_values_sum / item.toolspeed
 			if(item.max_heat_protection_temperature)
 				temp_value += item.max_heat_protection_temperature / temp_div
@@ -365,12 +365,12 @@
 					is_weight = TRUE
 			temp_values_sum += round(temp_value)
 
-		if(istype(I, /obj/item/stock_parts))
-			var/obj/item/stock_parts/part = I
+		if(istype(item, /obj/item/stock_parts))
+			var/obj/item/stock_parts/part = item
 			temp_values_sum += part.rating * stock_parts_rating_reward
 
 		for(var/datum/theft_objective/objective in highrisk_list)
-			if(!istype(I, objective.typepath))
+			if(!istype(item, objective.typepath))
 				continue
 			var/temp_value = highrisk_reward
 			if(objective.special_equipment)
@@ -378,24 +378,24 @@
 			if(objective.protected_jobs)
 				for(var/job in objective.protected_jobs)
 					switch(job)
-						if("Captain", "Head Of Security")
+						if(JOB_TITLE_CAPTAIN, JOB_TITLE_HOS)
 							temp_value *= 2
 						else
 							temp_value *= 1.5
 			temp_values_sum_precious += temp_value
 
-			if(I in valuable_highrisk_list)
+			if(item in valuable_highrisk_list)
 				temp_values_sum_precious += valuable_highrisk_reward
 
 		for(var/valuable_type in valuable_objects_dict)
-			if(!istype(I, valuable_type))
+			if(!istype(item, valuable_type))
 				continue
 			temp_values_sum_precious += valuable_objects_dict[valuable_type]
 			break
 
-		if(istype(I, /obj/item/gun))
+		if(istype(item, /obj/item/gun))
 			for(var/valuable_type in valuable_guns_dict)
-				if(!istype(I, valuable_type))
+				if(!istype(item, valuable_type))
 					continue
 				temp_values_sum_precious += valuable_guns_dict[valuable_type]
 				break
@@ -403,7 +403,7 @@
 		temp_values_sum /= denomination_div
 
 		if(!is_visuale_only)
-			precious_grading(user, I, temp_values_sum + temp_values_sum_precious)
+			precious_grading(user, item, temp_values_sum + temp_values_sum_precious)
 
 		// ____________________________
 		// Завершаем рассчет
@@ -411,11 +411,11 @@
 		values_sum_precious += temp_values_sum_precious
 
 		if(!is_visuale_only && (temp_values_sum + temp_values_sum_precious) >= 0)
-			var/obj/O = I
-			if(ismob(O.loc))	// Cyborg Parts, wearing clothes, but not contents
-				var/mob/M = O
-				M.temporarily_remove_item_from_inventory(I)
-			qdel(I)
+			var/atom/item_location = item.loc
+			if(ismob(item_location))	// Cyborg Parts, wearing clothes, but not contents
+				var/mob/user = item_location
+				user.temporarily_remove_item_from_inventory(item)
+			qdel(item)
 
 	var/list/addition_text = list()
 	if(length(accepted_access))
@@ -477,10 +477,10 @@
 	if(object_value >= precious_value)
 		var/precious_data = precious_collected_dict[object_name]
 		if(!precious_data)
-			precious_collected_dict[object_name] = list("count" = 1, "value" = object_value)
+			precious_collected_dict[object_name] = list(VOX_TRADER_COUNT = 1, VOX_TRADER_VALUE = object_value)
 		else
-			precious_data["count"]++
-			precious_data["value"] = max(precious_data["value"], object_value)
+			precious_data[VOX_TRADER_COUNT]++
+			precious_data[VOX_TRADER_VALUE] = max(precious_data[VOX_TRADER_VALUE], object_value)
 
 /obj/machinery/vox_trader/proc/synchronize_traders_stats()
 	for(var/obj/machinery/vox_trader/trader as anything in SSmachines.get_by_type(/obj/machinery/vox_trader))
@@ -501,7 +501,7 @@
 			collected_tech_dict += tech
 
 		for(var/dict in trader.precious_collected_dict)
-			update_precious_collected_dict(trader.precious_collected_dict[dict], trader.precious_collected_dict[dict]["value"])
+			update_precious_collected_dict(trader.precious_collected_dict[dict], trader.precious_collected_dict[dict][VOX_TRADER_VALUE])
 
 /obj/machinery/vox_trader/proc/get_trade_contents(mob/user)
 	var/turf/current_turf = get_turf(src)

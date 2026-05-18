@@ -14,3 +14,6 @@
 #define VOX_PACK_DART "Дротики"
 #define VOX_PACK_BIO "Биооружие"
 #define VOX_PACK_MELEE "Ближний Контакт"
+
+#define VOX_TRADER_COUNT "count"
+#define VOX_TRADER_VALUE "value"

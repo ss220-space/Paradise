@@ -30,7 +30,7 @@
 		return
 	trader.synchronize_traders_stats()
 	for(var/I in trader.precious_collected_dict)
-		list_count += trader.precious_collected_dict[I]["count"]
+		list_count += trader.precious_collected_dict[I][VOX_TRADER_COUNT]
 	if(list_count >= precious_amount)
 		return TRUE
 	return FALSE

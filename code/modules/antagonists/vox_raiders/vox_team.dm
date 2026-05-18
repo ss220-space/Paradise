@@ -81,16 +81,16 @@
 
 	var/precious_count = 0
 	var/biggest_index
-	for(var/I in trader.precious_collected_dict)
-		var/value = trader.precious_collected_dict[I]["value"]
-		var/count = trader.precious_collected_dict[I]["count"]
+	for(var/item in trader.precious_collected_dict)
+		var/value = trader.precious_collected_dict[item][VOX_TRADER_VALUE]
+		var/count = trader.precious_collected_dict[item][VOX_TRADER_COUNT]
 		precious_count += count
-		if(!biggest_index || trader.precious_collected_dict[biggest_index]["value"] <= value)
-			biggest_index = I
+		if(!biggest_index || trader.precious_collected_dict[biggest_index][VOX_TRADER_VALUE] <= value)
+			biggest_index = item
 
 	. += "<br><b>Самый дорогой проданный товар:</b> \
-		<br>[biggest_index] ([trader.precious_collected_dict[biggest_index]["value"]]), \
-		всего продано [trader.precious_collected_dict[biggest_index]["count"]] штук."
+		<br>[biggest_index] ([trader.precious_collected_dict[biggest_index][VOX_TRADER_VALUE]]), \
+		всего продано [trader.precious_collected_dict[biggest_index][VOX_TRADER_COUNT]] штук."
 
 	. += "<br><br><b>Собраны доступы:<br></b>"
 	var/list/checked_accesses = list()
