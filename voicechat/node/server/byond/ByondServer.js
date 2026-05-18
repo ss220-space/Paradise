@@ -12,12 +12,12 @@ function startByondServer(byondPort, io, shutdown_function) {
 
             try {
                 const json = JSON.parse(jsonStr);
-                handleRequest(json, byondPort, io, shutdown_function);
+                handleRequest(json, byondPort + 1, io, shutdown_function);
             }
             catch (err) {
                 console.log(jsonStr);
                 console.error('Invalid JSON:', err);
-                sendJSON({ error: 'invalid JSON', data: err.toString() }, byondPort);
+                sendJSON({ error: 'invalid JSON', data: err.toString() }, byondPort + 1);
             }
         });
 
@@ -26,8 +26,8 @@ function startByondServer(byondPort, io, shutdown_function) {
         });
     });
 
-    ByondServer.listen(byondPort, HOST, () => {
-        console.log(`BYOND bridge listening on ${HOST}:${byondPort}`);
+    ByondServer.listen(byondPort + 1, HOST, () => {
+        console.log(`BYOND bridge listening on ${HOST}:${byondPort + 1}`);
     });
 
     ByondServer.on('error', (err) => {

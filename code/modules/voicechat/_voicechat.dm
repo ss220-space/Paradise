@@ -46,11 +46,6 @@ SUBSYSTEM_DEF(voicechat)
 		message_admins("SSVoiceChat dynamic library test failed. Can't start voicechat")
 		return SS_INIT_FAILURE
 
-	// Setting the byond port to .dll server
-	var/set_port_retured = call_ext(lib_path, "byond:SetByondPort")(world.port)
-	if(set_port_retured != world.port)
-		message_admins("SSVoiceChat dynamic library can't set byond port")
-
 	add_rooms(list("living", "ghost"))
 	add_rooms(list("lobby"), proximity_mode = FALSE)
 	start_node()
@@ -77,26 +72,34 @@ SERVER: подсистема SSVoicechat перезапустится через
 
 
 /datum/controller/subsystem/voicechat/proc/start_node()
-	var/byond_port = world.port
+	var/byond_port = UNLINT(world.port)
 	var/node_port = CONFIG_GET(number/port_voicechat)
 	var/pid = UNLINT(world.process)
+
 	if(!byond_port || !node_port || !pid)
 		message_admins("missing variable {byond_port:[byond_port], node_port:[node_port], pid:[pid]}")
 		return FALSE
 
-	// if windows then just start proccess(because this build do not have RUN_SERVER.bat on his own), if unix then wait for exit_code
-	var/cmd = "start \"Node voicechat server\" cmd /k \"node [NODE_SERVER_PATH] --node-port=[node_port] --byond-port=[byond_port] --byond-pid=[pid] &\""
+	var/sbp_returned = call_ext(lib_path, "byond:SetBridgePort")(world.port)
+	if(sbp_returned != byond_port)
+		message_admins("SetBridgePort proc return [sbp_returned], what's wrong, excepts [world.port]")
+		return FALSE
+
+	var/cmd
+
 	if(world.system_type == UNIX)
 		cmd = "node [NODE_SERVER_PATH] --node-port=[node_port] --byond-port=[byond_port] --byond-pid=[pid] &"
 		var/exit_code = shell(cmd)
 		if(exit_code != 0)
 			message_admins("launching node failed {exit_code: [exit_code || "null"], cmd: [cmd || "null"]}")
 			return FALSE
-		else
-			return TRUE
+		return TRUE
 
 	else
-		shell(cmd)
+		cmd = "cmd /c start \"Voicechat\" node \"[NODE_SERVER_PATH]\" --node-port=[node_port] --byond-port=[byond_port] --byond-pid=[pid]"
+		world.log << "VOICECHAT CMD: [cmd]"
+		var/exit_code = shell(cmd)
+		world.log << "VOICECHAT EXIT: [exit_code]"
 	return TRUE
 
 /datum/controller/subsystem/voicechat/Shutdown()
