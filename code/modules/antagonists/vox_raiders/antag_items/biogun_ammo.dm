@@ -47,7 +47,7 @@
 			continue
 
 		for(var/j in 1 to rand(1, 3))
-			step(x, pick(cardinals))
+			step(spawned_item, pick(cardinals))
 
 	do_sparks(5, TRUE, location)
 	qdel(src)
