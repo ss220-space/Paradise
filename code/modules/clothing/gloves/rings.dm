@@ -66,7 +66,7 @@
 
 /obj/item/clothing/gloves/ring/gold/omnipotence
 	name = "omnipotence ring"
-	desc = "Кольцо отобранное у группы карликов на Лаваленде. История не важна. Главное - что оно было для них важно и оно блестит!"
+	desc = "Кольцо отобранное у группы карликов на Лаваленде. История не важна. Главное — что оно было для них важно и оно блестит!"
 
 /obj/item/clothing/gloves/ring/gold/omnipotence/get_ru_names()
 	return list(

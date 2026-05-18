@@ -9,7 +9,7 @@
 	if(!random_subtype)
 		return
 	var/list/possible_types = list(random_subtype) + subtypesof(random_subtype)
-	var/choosen_type = pick(possible_types)
+	var/choosen_type = safepick(possible_types)
 	contains.Add(choosen_type)
 
 /datum/vox_pack/goods/figure
@@ -122,7 +122,8 @@
 	desc = "Мясу понравится этот товар."
 	reference = "G_ENF"
 	cost = 1000
-	contains = list(/obj/item/gun/projectile/automatic/pistol/enforcer,
+	contains = list(
+		/obj/item/gun/projectile/automatic/pistol/enforcer,
 		/obj/item/ammo_box/magazine/enforcer,
 		/obj/item/ammo_box/magazine/enforcer,
 		/obj/item/ammo_box/magazine/enforcer,

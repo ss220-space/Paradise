@@ -66,7 +66,7 @@
 	species_restricted = list(SPECIES_VOX,SPECIES_VOX_ARMALIS)
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
-		SPECIES_VOX_ARMALIS = 'icons/mob/clothing/species/armalis/suit.dmi'
+		SPECIES_VOX_ARMALIS = 'icons/mob/clothing/species/armalis/suit.dmi',
 	)
 
 /datum/gear/racial/vox_jumpsuit

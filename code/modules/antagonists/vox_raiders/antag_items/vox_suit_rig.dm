@@ -7,7 +7,7 @@
 	species_restricted = list(SPECIES_VOX)
 	icon = 'icons/obj/clothing/species/vox/suits.dmi'
 	sprite_sheets = list(
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi'
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
 	)
 	allowed = list(
 		/obj/item/flashlight,

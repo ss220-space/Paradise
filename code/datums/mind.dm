@@ -2528,7 +2528,7 @@
 				transform_body_vox_raider(current)
 
 			if("landmark")
-				var/picked_landmark = pick(GLOB.raider_spawn)
+				var/picked_landmark = safepick(GLOB.raider_spawn)
 				var/turf/loc_spawn = get_turf(picked_landmark)
 				current.forceMove(loc_spawn)
 

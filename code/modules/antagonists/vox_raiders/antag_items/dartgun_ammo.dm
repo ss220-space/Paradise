@@ -138,7 +138,7 @@
 		/datum/reagent/space_drugs = 5,
 		/datum/reagent/lsd = 5,
 		/datum/reagent/fliptonium = 2,
-		/datum/reagent/jenkem = 2
+		/datum/reagent/jenkem = 2,
 	)
 
 /obj/item/reagent_containers/syringe/dart/antiviral

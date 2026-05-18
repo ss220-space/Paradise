@@ -35,7 +35,7 @@
 			for(var/object_type in pack.contains)
 				var/obj/object = new object_type()
 				pack_contents.Add(object)
-			var/pack_trader_cost = trader.get_value(null, pack_contents, TRUE)
+			var/pack_trader_cost = trader?.get_value(null, pack_contents, TRUE) || 0
 			QDEL_LIST(pack_contents)
 			pack.cost += pack_trader_cost
 		if(!shop_items[pack.category])

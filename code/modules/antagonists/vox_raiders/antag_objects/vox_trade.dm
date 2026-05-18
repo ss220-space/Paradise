@@ -430,11 +430,11 @@
 			addition_text += span_good("\nИмеются ценные доступы. Очень ценно!")
 
 	if(is_weight)
-		addition_text += span_notice("\nТяжесть - значит надежность.")
+		addition_text += span_notice("\nТяжесть — значит надежность.")
 	if(is_equip)
 		addition_text += span_notice("\nХорошее снаряжение. Ценно.")
 	if(is_tech)
-		addition_text += span_notice("\nТехнологии - ценно!")
+		addition_text += span_notice("\nТехнологии — ценно!")
 	if(is_tech_unique)
 		addition_text += span_notice("\nНовые технологии! Очень ценно! Необходимо!")
 	if(is_tech_valuable)
