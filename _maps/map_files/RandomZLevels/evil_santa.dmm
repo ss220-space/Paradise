@@ -80,7 +80,6 @@
 "aD" = (
 /obj/machinery/vending/cigarette,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
@@ -99,7 +98,6 @@
 /obj/structure/table/wood/fancy/royalblack,
 /obj/machinery/chem_dispenser/soda,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
@@ -583,7 +581,6 @@
 	},
 /obj/machinery/vending/boozeomat,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
@@ -1950,7 +1947,6 @@
 	on = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
@@ -2707,7 +2703,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
@@ -3085,7 +3080,6 @@
 /obj/item/reagent_containers/food/drinks/cans/non_alcoholic_beer,
 /obj/item/reagent_containers/food/drinks/cans/non_alcoholic_beer,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
@@ -3304,7 +3298,6 @@
 /obj/structure/table/wood/fancy/royalblack,
 /obj/machinery/chem_dispenser/beer,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
@@ -4821,7 +4814,6 @@
 /obj/structure/table/wood/fancy/royalblack,
 /obj/item/reagent_containers/glass/rag,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
@@ -4893,7 +4885,6 @@
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
 "Qb" = (
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/vision_change_area/awaymission/evil_santa/end/lounge)

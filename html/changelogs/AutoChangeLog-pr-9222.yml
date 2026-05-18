@@ -1,5 +1,0 @@
-author: "Donwaste"
-delete-after: True
-changes:
-  - refactor: "Интерфейс книги заклинаний переведён с browser popup на tgui (PR #9222)"
-  - code_imp: "Структуризация и очистка кода spellbook.dm и apprentice.dm (PR #9222)"
