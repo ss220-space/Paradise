@@ -828,14 +828,14 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 /obj/effect/landmark/start_override/prisoner
 	connected_outfit = /datum/outfit/job/assistant/prisoner
 
-// MARK: Game Tests
+// MARK: Unit Tests
 /// Marks the bottom left of the testing zone.
-/obj/effect/landmark/game_test/bottom_left_corner
-	name = "game test zone bottom left"
+/obj/effect/landmark/unit_test/bottom_left_corner
+	name = "unit test zone bottom left"
 
 /// Marks the top right of the testing zone.
-/obj/effect/landmark/game_test/top_right_corner
-	name = "game test zone top right"
+/obj/effect/landmark/unit_test/top_right_corner
+	name = "unit test zone top right"
 
 /obj/effect/landmark/start/hangover
 	name = "hangover spawn"

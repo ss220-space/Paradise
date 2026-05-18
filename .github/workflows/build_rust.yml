@@ -17,7 +17,7 @@ jobs:
        github.event.comment.author_association == 'MEMBER' ||
        github.event.comment.author_association == 'OWNER')
 
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
 
     steps:
       - name: Install jq
@@ -169,16 +169,19 @@ jobs:
           install: mingw-w64-i686-gcc
 
       - name: Build Windows DLL (MSVC)
+        env:
+          RUSTFLAGS: '-C target-cpu=x86-64'
         run: |
           cd rust
           cargo build --release --target i686-pc-windows-msvc
           copy target\i686-pc-windows-msvc\release\rustlibs.dll ..\rustlibs.dll
 
       - name: Build Windows DLL (GNU)
+        env:
+          RUSTFLAGS: '-C target-cpu=x86-64'
         shell: msys2 {0}
         run: |
           export PATH="/c/Users/runneradmin/.cargo/bin:$PATH"
-
           which cargo || echo "Cargo not found, installing..."
 
           if ! command -v cargo &> /dev/null; then
@@ -213,7 +216,7 @@ jobs:
        github.event.comment.author_association == 'OWNER')
 
     needs: [build-linux, build-windows]
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
 
     steps:
       - name: Extract PR info
@@ -245,10 +248,10 @@ jobs:
 
       - name: Generate App Token
         id: app-token-generation
-        uses: actions/create-github-app-token@v3
+        uses: actions/create-github-app-token@v3.2.0
         if: env.APP_PRIVATE_KEY != '' && env.APP_ID != ''
         with:
-          app-id: ${{ secrets.CHANGELOGBOT_APPID }}
+          client-id: ${{ secrets.CHANGELOGBOT_APPID }}
           private-key: ${{ secrets.CHANGELOGBOT_PRIVATEKEY }}
         env:
           APP_PRIVATE_KEY: ${{ secrets.CHANGELOGBOT_PRIVATEKEY }}

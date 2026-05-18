@@ -371,6 +371,10 @@
 		/obj/item/clothing/under/pants/track,
 		/obj/item/clothing/under/pants/khaki,
 		/obj/item/clothing/under/pants/camo,
+		/obj/item/clothing/under/pants/combat,
+		/obj/item/clothing/under/pants/sandpants,
+		/obj/item/clothing/under/pants/galifepants,
+
 	)
 	gear_tweaks += new /datum/gear_tweak/path(pants, src, TRUE)
 
@@ -405,11 +409,3 @@
 /datum/gear/uniform/dress50s
 	index_name = "old Soviet dress"
 	path = /obj/item/clothing/under/dress50s
-
-/datum/gear/uniform/galifepants
-	index_name = "check breeches"
-	path = /obj/item/clothing/under/pants/galifepants
-
-/datum/gear/uniform/sandpants
-	index_name = "long sand pants"
-	path = /obj/item/clothing/under/pants/sandpants

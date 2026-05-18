@@ -1,7 +1,7 @@
 /// Ensures subystem flags are set in a coherent way
-/datum/game_test/subsystem_flags
+/datum/unit_test/subsystem_flags
 
-/datum/game_test/subsystem_flags/Run()
+/datum/unit_test/subsystem_flags/Run()
 	for(var/datum/controller/subsystem/sub_lad as anything in subtypesof(/datum/controller/subsystem))
 		if((sub_lad::ss_flags & (SS_TICKER | SS_KEEP_TIMING)) == (SS_TICKER | SS_KEEP_TIMING))
 			var/list/matching = get_matching_bitflags("ss_flags", sub_lad::ss_flags)

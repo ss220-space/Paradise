@@ -32,7 +32,7 @@
 	/// Reserved z-level used only by shuttles
 	#define RESERVED_LEVEL "Transit/Reserved"
 	/// A level used for spawning map areas in tests
-	#define GAME_TEST_LEVEL "Game Test Level"
+	#define UNIT_TEST_LEVEL "Unit Test Level"
 	#define ZTRAIT_SNOWSTORM "Weather_Snowstorm"
 	#define ZTRAIT_ASHSTORM "Weather_Ashstorm"
 
