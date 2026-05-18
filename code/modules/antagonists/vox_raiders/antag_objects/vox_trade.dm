@@ -351,17 +351,17 @@
 
 		if(isitem(item))
 			var/temp_value = 0
-			var/obj/item/item = item
-			temp_value += temp_values_sum / item.toolspeed
-			if(item.max_heat_protection_temperature)
-				temp_value += item.max_heat_protection_temperature / temp_div
-			if(item.siemens_coefficient)
-				temp_value += electroprotect_reward * (1 - item.siemens_coefficient)
-			if(item.permeability_coefficient)
-				temp_value += permeability_reward * (1 - item.permeability_coefficient)
-			if(item.w_class)
-				temp_value += item.w_class * weight_mult
-				if(item.w_class >= WEIGHT_CLASS_BULKY)
+			var/obj/item/typed_item = item
+			temp_value += temp_values_sum / typed_item.toolspeed
+			if(typed_item.max_heat_protection_temperature)
+				temp_value += typed_item.max_heat_protection_temperature / temp_div
+			if(typed_item.siemens_coefficient)
+				temp_value += electroprotect_reward * (1 - typed_item.siemens_coefficient)
+			if(typed_item.permeability_coefficient)
+				temp_value += permeability_reward * (1 - typed_item.permeability_coefficient)
+			if(typed_item.w_class)
+				temp_value += typed_item.w_class * weight_mult
+				if(typed_item.w_class >= WEIGHT_CLASS_BULKY)
 					is_weight = TRUE
 			temp_values_sum += round(temp_value)
 
@@ -413,8 +413,8 @@
 		if(!is_visuale_only && (temp_values_sum + temp_values_sum_precious) >= 0)
 			var/atom/item_location = item.loc
 			if(ismob(item_location))	// Cyborg Parts, wearing clothes, but not contents
-				var/mob/user = item_location
-				user.temporarily_remove_item_from_inventory(item)
+				var/mob/mob_location = item_location
+				mob_location.temporarily_remove_item_from_inventory(item)
 			qdel(item)
 
 	var/list/addition_text = list()
