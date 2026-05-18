@@ -366,7 +366,6 @@
 "aV" = (
 /obj/machinery/gateway,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -788,14 +787,12 @@
 	outputting = 0
 	},
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
 /area/moonoutpost19/syndicateoutpost)
 "bT" = (
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/machinery/computer/monitor,
@@ -991,7 +988,6 @@
 	dir = 1
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -1607,7 +1603,6 @@
 	name = "S.U.P.E.R.P.A.C.M.A.N.-type portable generator"
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/effect/mapping_helpers/turfs/damage,
@@ -2000,7 +1995,6 @@
 /area/moonoutpost19/mo19research)
 "ek" = (
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/machinery/shieldwallgen{
@@ -2008,7 +2002,6 @@
 	req_access = null
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plating,
@@ -2167,7 +2160,6 @@
 /area/moonoutpost19/mo19research)
 "ez" = (
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/door/poddoor/preopen{
@@ -2390,7 +2382,6 @@
 	name = "P.A.C.M.A.N.-type portable generator"
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plating,
@@ -2414,7 +2405,6 @@
 /area/moonoutpost19/mo19utilityroom)
 "fb" = (
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/power/smes{
@@ -2431,7 +2421,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/alarm/all_access/directional/north,
@@ -2555,7 +2544,6 @@
 "fo" = (
 /obj/structure/cable,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/door/poddoor/preopen{
@@ -3003,7 +2991,6 @@
 /area/moonoutpost19/mo19research)
 "gc" = (
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/structure/grille,
@@ -3242,7 +3229,6 @@
 /area/moonoutpost19/mo19research)
 "gv" = (
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/structure/disposalpipe/segment{
@@ -3480,7 +3466,6 @@
 	name = "Acid-Proof containment chamber blast door"
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/structure/grille,
@@ -5284,7 +5269,6 @@
 /area/moonoutpost19/mo19arrivals)
 "kD" = (
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/power/apc/noalarm/directional/north{
