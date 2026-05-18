@@ -8,6 +8,7 @@
 	requires_tcomms = FALSE
 	instant = TRUE // Work instantly if there are no comms
 	freqlock = TRUE
+	default_frequency = VOX_RAID_FREQ
 
 /obj/item/radio/headset/vox/get_ru_names()
 	return list(

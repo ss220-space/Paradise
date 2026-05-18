@@ -31,9 +31,9 @@
 	var/num = length(syringes)
 	if(num)
 		pixel_y_offset = -(pixel_y_overlay_div - pixel_y_overlay_div * num / max_syringes) * pixel_y_overlay_offset
-	. += image(icon = icon, icon_state = cartridge_overlay,  pixel_y = pixel_y_offset)
+	. += image(icon = icon, icon_state = cartridge_overlay,  pixel_z = pixel_y_offset)
 	if(cartridge_loaded.overlay_state_color)
-		. += image(icon = icon, icon_state = "[cartridge_overlay]_[cartridge_loaded.overlay_state_color]",  pixel_y = pixel_y_offset)
+		. += image(icon = icon, icon_state = "[cartridge_overlay]_[cartridge_loaded.overlay_state_color]",  pixel_z = pixel_y_offset)
 	. += icon_state
 
 /obj/item/gun/syringe/dart_gun/item_interaction(mob/living/user, obj/item/tool, list/modifiers)

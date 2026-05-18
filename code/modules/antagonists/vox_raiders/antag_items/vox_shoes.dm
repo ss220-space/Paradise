@@ -14,7 +14,7 @@
 		SPECIES_VOX_ARMALIS = 'icons/mob/clothing/species/armalis/feet.dmi',
 	)
 	w_class = WEIGHT_CLASS_NORMAL
-	armor = list(MELEE = 15, BULLET = 15, LASER = 15, ENERGY = 15, BOMB = 50, RAD = 0, FIRE = 115, ACID = 50)
+	armor = list(MELEE = 15, BULLET = 15, LASER = 15, ENERGY = 15, BOMB = 50, FIRE = 115, ACID = 50)
 	strip_delay = 7 SECONDS
 	resistance_flags = NONE
 	slowdown = 0
@@ -54,7 +54,7 @@
 	item_state = "boots-vox-combat"
 	icon_state = "boots-vox-combat"
 	permeability_coefficient = 0.01
-	armor = list(MELEE = 50, BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 80, RAD = 50, FIRE = 450, ACID = 50)
+	armor = list(MELEE = 50, BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 80, FIRE = 450, ACID = 50)
 	strip_delay = 10 SECONDS
 	slowdown_active = SHOES_SLOWDOWN + 0.5
 
@@ -65,10 +65,14 @@
 	icon_state = "boots-vox-heavy"
 	body_parts_covered = FEET|LEGS
 	permeability_coefficient = 0.01
-	armor = list(MELEE = 115, BULLET = 50, LASER = 75, ENERGY = 50, BOMB = 200, RAD = 200, FIRE = 450, ACID = 200)
+	armor = list(MELEE = 115, BULLET = 50, LASER = 75, ENERGY = 50, BOMB = 200, FIRE = 450, ACID = 200)
 	strip_delay = 14 SECONDS
 	slowdown_passive = SHOES_SLOWDOWN + 1
 	slowdown_active = SHOES_SLOWDOWN + 3
+
+/obj/item/clothing/shoes/magboots/vox/heavy/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/radiation_protected_clothing)
 
 /obj/item/clothing/shoes/magboots/vox/scout
 	name = "vox scout magclaws"

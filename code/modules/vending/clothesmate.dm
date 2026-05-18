@@ -156,3 +156,6 @@
 		INSTRUMENTAL = "торговым автоматом ClothesMate",
 		PREPOSITIONAL = "торговом автомате ClothesMate",
 	)
+
+/obj/machinery/vending/clothesmate/free
+	all_products_free = TRUE

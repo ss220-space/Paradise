@@ -497,25 +497,7 @@ ADMIN_VERB(one_click_antag, R_SERVER|R_EVENT, "Create Antagonist", "Auto-create 
 	if(!amount || amount <= 0)
 		return FALSE
 
-
-	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you wish to be considered for a vox raiding party arriving on the station?", ROLE_VOX_RAIDER)
-
-	if(!length(candidates))
-		return FALSE
-
-	var/num = min(length(candidates), amount)
-	var/list/assigned = list()
-	for(var/i in 1 to num)
-		if(i >= amount)
-			break
-		var/H = pick(candidates)
-		assigned.Add(H)
-		candidates.Remove(H)
-
-	//antag_datum.offer_to_equip(owner, assigned)
-	//qdel(antag_datum)
-
-	new /datum/team/vox_raiders(assigned, TRUE)
+	create_vox_team(amount)
 
 	log_admin("[key_name(owner)] tried making Vox Raiders with One-Click-Antag")
 	message_admins("[key_name_admin(owner)] tried making Vox Raiders with One-Click-Antag")

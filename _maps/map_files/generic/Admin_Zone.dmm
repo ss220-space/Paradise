@@ -314,7 +314,7 @@
 /area/tdome/arena_source)
 "cW" = (
 /obj/structure/table/wood,
-/obj/item/gun/energy/spikethrower,
+/obj/item/gun/energy/spike,
 /turf/simulated/floor/wood,
 /area/admin)
 "cX" = (

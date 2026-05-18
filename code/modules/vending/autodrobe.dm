@@ -230,3 +230,6 @@
 		INSTRUMENTAL = "торговым автоматом AutoDrobe",
 		PREPOSITIONAL = "торговом автомате AutoDrobe",
 	)
+
+/obj/machinery/vending/autodrobe/free
+	all_products_free = TRUE

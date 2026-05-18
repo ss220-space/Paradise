@@ -232,6 +232,10 @@
 	opacity = FALSE
 	glass = TRUE
 
+/obj/machinery/door/airlock/survival_pod/glass/secure
+	aiControlDisabled = TRUE
+	hackProof = TRUE
+
 /obj/structure/door_assembly/door_assembly_pod
 	name = "pod airlock assembly"
 	icon = 'icons/obj/doors/airlocks/survival/survival.dmi'

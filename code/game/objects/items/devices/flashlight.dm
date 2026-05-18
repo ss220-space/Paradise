@@ -384,6 +384,9 @@
 	. = ..()
 	turn_on()
 
+/obj/item/flashlight/flare/used
+	fuel = 0
+
 /// Special flare subtype for the illumination flare shell
 /// Acts like a flare, just even stronger, and set length
 /obj/item/flashlight/flare/on/illumination
@@ -439,7 +442,7 @@
 
 /obj/item/flashlight/flare/glowstick/Initialize(mapload)
 	light_color = color
-	. = ..()
+	return ..()
 
 /obj/item/flashlight/flare/glowstick/update_icon_state()
 	if(!fuel)
@@ -451,6 +454,9 @@
 		var/mutable_appearance/glowstick_overlay = mutable_appearance(icon, "glowstick-glow")
 		glowstick_overlay.color = color
 		. += glowstick_overlay
+
+/obj/item/flashlight/flare/glowstick/used
+	fuel = 0
 
 /obj/item/flashlight/flare/glowstick/red
 	name = "red glowstick"

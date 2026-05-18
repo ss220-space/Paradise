@@ -2,7 +2,7 @@
 	name = "Vox Raiders"
 	antag_datum_type = /datum/antagonist/vox_raider
 
-/datum/team/vox_raiders/New(list/starting_members, add_antag_datum)
+/datum/team/vox_raiders/New(list/starting_members)
 	. = ..()
 	forge_objectives()
 
@@ -141,3 +141,68 @@
 		. += "<br>[i]: [trader.collected_tech_dict[i]]"
 
 	. += "<br>"
+
+/proc/create_vox_team(count)
+	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you wish to be considered for a vox raiding party arriving on the station?", ROLE_VOX_RAIDER)
+
+	if(!length(candidates))
+		return FALSE
+
+	var/num = min(length(candidates), count)
+	list_clear_nulls(candidates)
+	var/list/assigned = list()
+	for(var/i in 1 to num)
+		if(i >= count)
+			break
+		var/candidate = pick(candidates)
+		assigned.Add(candidate)
+		candidates.Remove(candidate)
+
+	for(var/mob/dead/observer/candidate as anything in assigned)
+		var/mob/living/carbon/human/body = new(pick(GLOB.raider_spawn))
+		body.possess_by_player(candidate.ckey)
+		body.mind.add_antag_datum(/datum/antagonist/vox_raider, /datum/team/vox_raiders)
+		transform_body_vox_raider(body)
+		body.equipOutfit(/datum/outfit/vox)
+
+/proc/transform_body_vox_raider(mob/living/carbon/human/target)
+
+	var/sounds = rand(2, 8)
+	var/i = 0
+	var/list/newname = list()
+
+	while(i <= sounds)
+		i++
+		newname += pick(list("ti", "hi", "ki", "ya", "ta", "ha", "ka", "ya", "chi", "cha", "kah"))
+
+	var/mob/living/carbon/human/vox = target
+	var/obj/item/organ/external/head/head_organ = vox.get_organ(BODY_ZONE_HEAD)
+
+	vox.real_name = capitalize(newname.Join(""))
+	vox.dna.real_name = vox.real_name
+	vox.name = vox.real_name
+	target.mind?.name = vox.name
+	vox.age = rand(12, 20)
+	vox.set_species(/datum/species/vox)
+	vox.s_tone = rand(1, 6)
+	LAZYREINITLIST(vox.languages)
+	vox.flavor_text = ""
+	vox.add_language(LANGUAGE_VOX)
+	vox.add_language(LANGUAGE_GALACTIC_COMMON)
+	vox.add_language(LANGUAGE_TRADER)
+	head_organ.h_style = "Short Vox Quills"
+	head_organ.f_style = "Shaved"
+	vox.change_hair_color(97, 79, 25)
+	vox.change_eye_color(rand(1, 255), rand(1, 255), rand(1, 255))
+	vox.underwear = "Nude"
+	vox.undershirt = "Nude"
+	vox.socks = "Nude"
+	vox.force_update_limbs()
+	vox.update_dna()
+	vox.update_eyes()
+
+	for(var/obj/item/organ/external/limb as anything in vox.bodyparts)
+		limb.status &= ~ORGAN_ROBOT
+
+	var/obj/item/implant/cortical/stack = new(vox)
+	stack.implant(vox)

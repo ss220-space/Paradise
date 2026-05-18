@@ -15,7 +15,7 @@
 	heat_protection = HANDS
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	resistance_flags = NONE
-	armor = list(MELEE = 30, BULLET = 0, LASER = 10, ENERGY = 10, BOMB = 0, RAD = 0, FIRE = 200, ACID = 50)
+	armor = list(MELEE = 30, BULLET = 0, LASER = 10, ENERGY = 10, BOMB = 0, FIRE = 200, ACID = 50)
 
 /obj/item/clothing/gloves/color/yellow/vox
 	name = "insulated vox gauntlets"
@@ -37,4 +37,4 @@
 	resistance_flags = NONE
 	siemens_coefficient = 0
 	permeability_coefficient = 0.05
-	armor = list(MELEE = 30, BULLET = 0, LASER = 25, ENERGY = 25, BOMB = 0, RAD = 0, FIRE = 200, ACID = 50)
+	armor = list(MELEE = 30, BULLET = 0, LASER = 25, ENERGY = 25, BOMB = 0, FIRE = 200, ACID = 50)

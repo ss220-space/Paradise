@@ -136,7 +136,7 @@
 /obj/machinery/vox_shop/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "Shop", name)
+		ui = new(user, src, "VoxShop", name)
 		ui.open()
 
 /obj/machinery/vox_shop/ui_data(mob/user)
@@ -150,8 +150,6 @@
 	for(var/datum/team/vox_raiders/team in subtypesof(/datum/team/vox_raiders))
 		vox_raider_members.Add(team.members)
 	data["vox_members"] = vox_raider_members
-	// data["crewmembers"] = GLOB.crew_repository.health_data(viewing_current_z_level)
-	// data["critThreshold"] = HEALTH_THRESHOLD_CRIT
 
 	return data
 
@@ -160,7 +158,6 @@
 
 	if(!packs_cats || !packs_items)
 		generate_pack_lists(user)
-	//static_data["packs"] = packs_items
 	static_data["cats"] = packs_cats
 
 	return static_data

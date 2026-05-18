@@ -47,3 +47,6 @@
 		INSTRUMENTAL = "торговым автоматом Shoelord 9000",
 		PREPOSITIONAL = "торговом автомате Shoelord 9000",
 	)
+
+/obj/machinery/vending/shoedispenser/free
+	all_products_free = TRUE

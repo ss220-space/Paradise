@@ -8211,9 +8211,7 @@
 /turf/space,
 /area/space/nearstation)
 "xI" = (
-/obj/structure/closet/crate/secure/bin{
-	anchored = 1
-	},
+/obj/structure/closet/crate/secure/bin/anchored,
 /obj/item/flashlight/seclite,
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -9991,9 +9989,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/spacebattle/turret9)
 "CI" = (
-/obj/structure/closet/crate/secure/bin{
-	anchored = 1
-	},
+/obj/structure/closet/crate/secure/bin/anchored,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 6;

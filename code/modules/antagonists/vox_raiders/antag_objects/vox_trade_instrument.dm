@@ -3,8 +3,12 @@
 	desc = "Приспособление воксов для оценки стоимости объекта."
 	icon = 'icons/obj/machines/trader_machine.dmi'
 	icon_state = "valuer"
+	base_icon_state = "valuer"
 	item_state = "camera_bug"
 	var/datum/weakref/connected_trader
+
+/obj/item/hand_valuer/update_icon_state()
+	icon_state = "[base_icon_state]-on"
 
 /obj/item/hand_valuer/examine(mob/user)
 	. = ..()
@@ -44,5 +48,5 @@
 /obj/item/hand_valuer/proc/connect(mob/living/user, obj/machinery/vox_trader/input_trader)
 	to_chat(user, span_green("Устройство [connected_trader ? "пере" : ""]инициализировано в системе."))
 	playsound(src, 'sound/weapons/m79_unload.ogg', 50, 1)
-	icon_state = "[initial(icon_state)]-on"
 	connected_trader = input_trader
+	update_appearance(UPDATE_ICON_STATE)

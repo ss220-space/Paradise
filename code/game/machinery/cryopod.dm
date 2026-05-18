@@ -274,6 +274,10 @@
 	dir = WEST
 	syndicate = TRUE
 
+/obj/machinery/cryopod/offstation
+	// Won't announce when used for cryoing.
+	syndicate = TRUE
+
 /obj/machinery/cryopod/Initialize(mapload)
 	. = ..()
 	icon_state = base_icon_state

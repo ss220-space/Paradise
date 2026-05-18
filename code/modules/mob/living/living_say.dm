@@ -112,6 +112,8 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	":$" = ERT_FREQ_NAME,				"#$" = ERT_FREQ_NAME,			"№$" = ERT_FREQ_NAME,			".$" = ERT_FREQ_NAME,
 	":_" = SYNDTEAM_FREQ_NAME,		"#_" = SYNDTEAM_FREQ_NAME,		"№_" = SYNDTEAM_FREQ_NAME,		"._" = SYNDTEAM_FREQ_NAME,
 	":-" = DTH_FREQ_NAME,				"#-" = DTH_FREQ_NAME,			"№-" = DTH_FREQ_NAME,			".-" = DTH_FREQ_NAME,
+	":vr" = VOX_RAID_FREQ_NAME,		"#vr" = VOX_RAID_FREQ_NAME,		".vr" = VOX_RAID_FREQ_NAME,		":мк" = VOX_RAID_FREQ_NAME,
+	"#мк" = VOX_RAID_FREQ_NAME,		".мк" = VOX_RAID_FREQ_NAME,
 	":+" = SPEC_FREQ_NAME,			"#+" = SPEC_FREQ_NAME,			"№+" = SPEC_FREQ_NAME,			".+" = SPEC_FREQ_NAME //activate radio-specific special functions
 ))
 

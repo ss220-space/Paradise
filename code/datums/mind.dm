@@ -701,6 +701,8 @@
 	if(has_antag_datum(/datum/antagonist/vox_raider))
 		. += "<b><font color='red'>VOX RAIDER</font></b>|<a href='byond://?src=[UID()];vox_raider=clear'>Remove</a>"
 		. += "<br><a href='byond://?src=[UID()];vox_raider=landmark'>To Vox Base</a>."
+		. += "<br><a href='byond://?src=[UID()];vox_raider=equip'>Equip</a>."
+		. += "<br><a href='byond://?src=[UID()];vox_raider=body'>Transform body</a>."
 	else
 		. += "<a href='byond://?src=[UID()];vox_raider=make'>Make Vox Raider</a>"
 
@@ -756,6 +758,8 @@
 		sections["thief"] = memory_edit_thief()
 		/** TRAITOR ***/
 		sections["traitor"] = memory_edit_traitor()
+		/** VOX RAIDER ***/
+		sections["vox raider"] = memory_edit_vox_raider()
 
 	if(isAI(current))
 		sections["malf_ai"] = memory_edit_malf_ai()
@@ -2511,6 +2515,17 @@
 
 			if("make")
 				add_antag_datum(/datum/antagonist/vox_raider, /datum/team/vox_raiders)
+
+			if("equip")
+				if(!ishuman(current))
+					return
+				var/mob/living/carbon/human/current_human = current
+				current_human.equipOutfit(/datum/outfit/vox)
+
+			if("body")
+				if(!ishuman(current))
+					return
+				transform_body_vox_raider(current)
 
 			if("landmark")
 				var/picked_landmark = pick(GLOB.raider_spawn)

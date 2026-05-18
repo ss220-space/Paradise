@@ -373,6 +373,8 @@
 
 /obj/item/card/id/syndicate/vox
 	initial_access = list(ACCESS_MAINT_TUNNELS, ACCESS_VOX, ACCESS_EXTERNAL_AIRLOCKS)
+	cart_prefix = "`s Legitimate Human ID Card"
+	assignment = "Торговец"
 
 //MARK: Taipan variants
 

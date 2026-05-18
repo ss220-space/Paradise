@@ -87,7 +87,7 @@ GLOBAL_LIST_INIT(special_roles, list(
 	ROLE_TRADER, // Trader
 	ROLE_TRAITOR = /datum/game_mode/traitor, // Traitor
 	ROLE_VAMPIRE = /datum/game_mode/vampire, // Vampire
-	ROLE_RAIDER = /datum/game_mode/heist, // Vox raider
+	ROLE_VOX_RAIDER, // Vox raider
 	ROLE_WIZARD = /datum/game_mode/wizard, // Wizard
 	ROLE_ALIEN, // Xenomorph
 	ROLE_BINGLE, // Bingle

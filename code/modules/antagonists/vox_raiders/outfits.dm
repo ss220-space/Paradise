@@ -7,6 +7,7 @@
 	l_ear = /obj/item/radio/headset/vox
 	id = /obj/item/card/id/syndicate/vox
 	l_pocket = /obj/item/melee/baton/telescopic
+	id = /obj/item/card/id/syndicate/vox
 
 	back = /obj/item/storage/backpack/vox
 	backpack_contents = list(

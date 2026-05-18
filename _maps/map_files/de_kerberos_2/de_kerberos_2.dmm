@@ -147,19 +147,6 @@
 	dir = 5
 	},
 /area/maintenance/trading)
-"aas" = (
-/obj/docking_port/stationary{
-	dir = 2;
-	dwidth = 2;
-	height = 18;
-	id = "skipjack_ne";
-	name = "northeast of station";
-	width = 19
-	},
-/turf/space{
-	icon_state = "black"
-	},
-/area/space)
 "aat" = (
 /obj/structure/bed/dogbed,
 /obj/effect/decal/cleanable/dirt,
@@ -869,19 +856,6 @@
 /obj/structure/cable,
 /turf/space,
 /area/solar/starboard)
-"aiZ" = (
-/obj/docking_port/stationary{
-	dir = 2;
-	dwidth = 2;
-	height = 18;
-	id = "skipjack_nw";
-	name = "northwest of station";
-	width = 19
-	},
-/turf/space{
-	icon_state = "black"
-	},
-/area/space)
 "ajg" = (
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -33255,9 +33229,7 @@
 /obj/machinery/shower{
 	dir = 4
 	},
-/obj/structure/curtain/open/shower{
-	anchored = 1
-	},
+/obj/structure/curtain/open/shower/anchored,
 /obj/item/soap/homemade_banana,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -76351,19 +76323,6 @@
 	icon_state = "purplefull"
 	},
 /area/toxins/test_chamber)
-"mQL" = (
-/obj/docking_port/stationary{
-	dir = 2;
-	dwidth = 2;
-	height = 18;
-	id = "skipjack_sw";
-	name = "southwest of station";
-	width = 19
-	},
-/turf/space{
-	icon_state = "black"
-	},
-/area/space)
 "mQO" = (
 /obj/machinery/door/airlock/maintenance,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -122166,9 +122125,7 @@
 /obj/machinery/shower{
 	dir = 4
 	},
-/obj/structure/curtain/open/shower{
-	anchored = 1
-	},
+/obj/structure/curtain/open/shower/anchored,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -129748,9 +129705,7 @@
 /obj/machinery/shower{
 	pixel_y = 22
 	},
-/obj/structure/curtain/open/shower{
-	anchored = 1
-	},
+/obj/structure/curtain/open/shower/anchored,
 /mob/living/simple_animal/frog,
 /obj/item/reagent_containers/syringe/steroids,
 /turf/simulated/floor/plasteel{
@@ -143515,7 +143470,7 @@ aaq
 aaq
 aaq
 aaq
-mQL
+yhg
 yhg
 yhg
 yhg
@@ -145636,7 +145591,7 @@ aaq
 aaq
 aaq
 aaq
-aiZ
+yhg
 yhg
 yhg
 yhg
@@ -190105,7 +190060,7 @@ aaq
 aaq
 aaq
 aaq
-aas
+yhg
 yhg
 yhg
 yhg

@@ -26,6 +26,8 @@
 		PREPOSITIONAL = "унитазе",
 	)
 
+MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/structure/toilet, 8, -8, 0, 0)
+
 /obj/structure/toilet/Initialize(mapload)
 	. = ..()
 	open = round(rand(0, 1))
@@ -402,6 +404,8 @@
 		QDEL_IN(mist, 25 SECONDS)
 	return ..()
 
+MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/machinery/shower, 16, -5, 0, 0)
+
 //add heat controls? when emagged, you can freeze to death in it?
 
 /obj/effect/mist
@@ -595,6 +599,8 @@
 	var/busy = 0	//Something's being washed at the moment
 	var/can_move = 1	//if the sink can be disconnected and moved
 	var/can_rotate = 1	//if the sink can be rotated to face alternate directions
+
+MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/structure/sink, 18, -4, 0, 0)
 
 /obj/structure/sink/attack_hand(mob/user as mob)
 	if(!user || !istype(user))

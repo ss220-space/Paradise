@@ -505,7 +505,7 @@
 
 /obj/machinery/vox_trader/proc/get_trade_contents(mob/user)
 	var/turf/current_turf = get_turf(src)
-	var/list/items_list = current_turf.get_all_contents(7)
+	var/list/items_list = current_turf.get_all_contents(ON_BORDER|HOLOGRAM) - current_turf
 
 	for(var/I in items_list)
 		for(var/blacklist_object in blacklist_objects)
