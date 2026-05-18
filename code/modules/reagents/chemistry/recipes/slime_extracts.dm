@@ -696,9 +696,10 @@
 
 /datum/chemical_reaction/slimestop/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
-	var/mob/living/carbon/human/user = get_mob_by_key(holder.my_atom.fingerprintslast)
-	new /obj/effect/timestop(get_turf(holder.my_atom), 2, 8 SECONDS, list(user))
-	user.adjustCloneLoss(10)
+	addtimer(CALLBACK(src, PROC_REF(spawn_stoptime), holder), 3 SECONDS)
+
+/datum/chemical_reaction/slimestop/proc/spawn_stoptime(datum/reagents/holder)
+	new /obj/effect/timestop(get_turf(holder.my_atom), 2, 8 SECONDS)
 
 /datum/chemical_reaction/slimepotionlaser
 	name = "Slime Laser Resistence Potion"
