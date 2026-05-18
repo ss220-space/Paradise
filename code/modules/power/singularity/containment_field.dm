@@ -8,6 +8,7 @@
 	move_resist = INFINITY
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	use_power = NO_POWER_USE
+	interaction_flags_atom = NONE
 	light_range = 4
 	layer = ABOVE_OBJ_LAYER
 	explosion_block = INFINITY

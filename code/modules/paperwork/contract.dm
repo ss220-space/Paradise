@@ -17,11 +17,10 @@
 	icon_state = "good_contract"
 	signed = TRUE
 
-/obj/item/paper/contract/employment/New(atom/loc, mob/living/nOwner)
+/obj/item/paper/contract/employment/Initialize(mapload, mob/living/nOwner)
 	. = ..()
 	if(!nOwner || !nOwner.mind)
-		qdel(src)
-		return -1
+		return INITIALIZE_HINT_QDEL
 	target = nOwner.mind
 	update_text()
 	GLOB.employmentContracts |= src
@@ -176,7 +175,7 @@
 		to_chat(user, span_notice("У вас нет души для продажи!"))
 		return FALSE
 
-	if(HAS_TRAIT(user.mind, TRAIT_BAD_SOUL))
+	if(HAS_MIND_TRAIT(user, TRAIT_BAD_SOUL))
 		to_chat(user, span_notice("Ваша душа искажена после возвращения и не может быть продана повторно!"))
 		return FALSE
 

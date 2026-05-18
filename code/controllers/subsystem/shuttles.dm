@@ -4,12 +4,14 @@
 SUBSYSTEM_DEF(shuttle)
 	name = "Shuttle"
 	wait = 1 SECONDS
-	init_order = INIT_ORDER_SHUTTLE
-	flags = SS_KEEP_TIMING
+	dependencies = list(
+		/datum/controller/subsystem/mapping,
+		/datum/controller/subsystem/atoms,
+		/datum/controller/subsystem/air,
+	)
+	ss_flags = SS_KEEP_TIMING
 	runlevels = RUNLEVEL_SETUP | RUNLEVEL_GAME
-	offline_implications = "Shuttles will no longer function and cargo will not generate points. Immediate server restart recommended."
-	cpu_display = SS_CPUDISPLAY_LOW
-	ss_id = "shuttle"
+
 	var/list/mobile = list()
 	var/list/stationary = list()
 	var/list/transit = list()
@@ -53,6 +55,9 @@ SUBSYSTEM_DEF(shuttle)
 	var/sold_atoms = ""
 	var/list/hidden_shuttle_turfs = list() //all turfs hidden from navigation computers associated with a list containing the image hiding them and the type of the turf they are pretending to be
 	var/list/hidden_shuttle_turf_images = list() //only the images from the above list
+
+	/// Did the supermatter start a cascade event?
+	var/supermatter_cascade = FALSE
 
 /datum/controller/subsystem/shuttle/Initialize()
 	ordernum = rand(1,9000)
@@ -238,6 +243,9 @@ SUBSYSTEM_DEF(shuttle)
 	return 1
 
 /datum/controller/subsystem/shuttle/proc/autoEvac()
+	if(!SSticker.IsRoundInProgress() || supermatter_cascade)
+		return
+
 	var/callShuttle = TRUE
 
 	for(var/thing in GLOB.shuttle_caller_list)

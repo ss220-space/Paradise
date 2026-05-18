@@ -25,11 +25,11 @@ GLOBAL_VAR_INIT(global_announcer_base_text, "$name, $rank, $join_message.")
 		GLOB.global_announcer = new(null)
 	return
 
-GLOBAL_LIST_INIT(paper_tag_whitelist, list("center","p","div","span","h1","h2","h3","h4","h5","h6","hr","pre",	\
-	"big","small","font","i","u","b","s","sub","sup","tt","br","hr","ol","ul","li","caption","col",	\
+GLOBAL_LIST_INIT(paper_tag_whitelist, list("center","p","div","span","h1","h2","h3","h4","h5","h6","hr","pre", \
+	"big","small","font","i","u","b","s","sub","sup","tt","br","hr","ol","ul","li","caption","col", \
 	"table","td","th","tr"))
-GLOBAL_LIST_INIT(paper_blacklist, list("java","onblur","onchange","onclick","ondblclick","onfocus","onkeydown",	\
-	"onkeypress","onkeyup","onload","onmousedown","onmousemove","onmouseout","onmouseover",	\
+GLOBAL_LIST_INIT(paper_blacklist, list("java","onblur","onchange","onclick","ondblclick","onfocus","onkeydown", \
+	"onkeypress","onkeyup","onload","onmousedown","onmousemove","onmouseout","onmouseover", \
 	"onmouseup","onreset","onselect","onsubmit","onunload"))
 
 //Reverse of dir
@@ -42,8 +42,11 @@ GLOBAL_VAR_INIT(recall_time_limit, 72000) //apparently used for the comm console
 
 GLOBAL_VAR_INIT(timezoneOffset, 0) // The difference betwen midnight (of the host computer) and 0 world.ticks.
 
-// For FTP requests. (i.e. downloading runtime logs.)
-// However it'd be ok to use for accessing attack logs and such too, which are even laggier.
+/**
+ * For FTP requests. (i.e. downloading runtime logs.)
+ *
+ * However it'd be ok to use for accessing attack logs and such too, which are even laggier.
+ */
 GLOBAL_VAR_INIT(fileaccess_timer, 0)
 
 GLOBAL_VAR_INIT(gametime_offset, 432000) // 12:00 in seconds
@@ -93,3 +96,5 @@ GLOBAL_VAR_INIT(all_robot_skins_permited, FALSE)
 
 /// Global list of all /datum/mod_theme
 GLOBAL_LIST_INIT(mod_themes, setup_mod_themes())
+
+GLOBAL_DATUM(lone_operative_meta, /datum/event_meta/lone_operative)

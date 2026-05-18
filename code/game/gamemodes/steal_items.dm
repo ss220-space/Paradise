@@ -807,7 +807,7 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 
 /datum/theft_objective/collect/number/wt550
 	id = "collect_num_wt550"
-	typepath = /obj/item/gun/projectile/automatic/wt550
+	typepath = /obj/item/gun/projectile/automatic/smg/wt550
 	name = "пистолеты-пулемёты WT550"
 	min=2
 	max=6

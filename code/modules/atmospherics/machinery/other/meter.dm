@@ -113,7 +113,7 @@
 
 /obj/machinery/atmospherics/meter/examine(mob/user)
 	. = ..()
-	if(get_dist(user, src) > 3 && !(isAI(user) || istype(user, /mob/dead)))
+	if(get_dist(user, src) > 3 && !(isAI(user) || isdead(user)))
 		. += span_boldnotice("You are too far away to read it.")
 
 	else if(stat & (NOPOWER|BROKEN))
@@ -140,11 +140,10 @@
 		new /obj/item/pipe_meter(loc)
 	qdel(src)
 
-/obj/machinery/atmospherics/meter/singularity_pull(S, current_size)
+/obj/machinery/atmospherics/meter/singularity_pull(atom/singularity, current_size)
 	..()
 	if(current_size >= STAGE_FIVE)
 		deconstruct()
-
 
 /obj/item/circuit_component/atmos_meter
 	display_name = "Атмосферный измеритель"

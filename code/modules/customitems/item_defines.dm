@@ -92,8 +92,8 @@
 		ink.color = rgb(tattoo_r, tattoo_g, tattoo_b, 190)
 		. += ink
 
-/obj/item/fluff/tattoo_gun/New()
-	..()
+/obj/item/fluff/tattoo_gun/Initialize(mapload)
+	. = ..()
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/fluff/tattoo_gun/elliot_cybernetic_tat
@@ -205,8 +205,8 @@
 		PREPOSITIONAL = "комплекте модификаций для инвалидной коляски",
 	)
 
-/obj/item/fluff/rapid_wheelchair_kit/afterattack(obj/vehicle/ridden/wheelchair/target, mob/user, proximity, params)
-	if(!proximity || !ishuman(user) || user.incapacitated())
+/obj/item/fluff/rapid_wheelchair_kit/afterattack(obj/vehicle/ridden/wheelchair/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag || !ishuman(user) || user.incapacitated())
 		return
 
 	if(istype(target))
@@ -215,31 +215,6 @@
 
 	to_chat(user, span_warning("Вы не можете модифицировать [target.declent_ru(ACCUSATIVE)]!"))
 
-/obj/item/lighter/zippo/fluff/purple // GodOfOreos: Jason Conrad
-	name = "purple engraved zippo"
-	desc = "All craftsspacemanship is of the highest quality. It is encrusted with refined plasma sheets. On the item is an image of a dwarf and the words 'Strike the Earth!' etched onto the side."
-	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "purple_zippo_off"
-	item_state = "purplezippo"
-	icon_on = "purple_zippo_on"
-	icon_off = "purple_zippo_off"
-
-/obj/item/lighter/zippo/fluff/michael_guess_1 // mrbits: Callista Gold
-	name = "engraved lighter"
-	desc = "A golden lighter, engraved with some ornaments."
-	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "guessip"
-	item_state = "rubysfluffzippo"
-	icon_on = "guessipon"
-	icon_off = "guessip"
-
-/obj/item/lighter/zippo/fluff/duckchan // Duckchan: Rybys Romney
-	name = "Monogrammed Zippo"
-	desc = " A shiny purple zippo lighter, engraved with Rybys Romney and BuzzPing's name, with a festive green flame."
-	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "rybysfluff"
-	icon_on = "rybysfluffopen"
-	icon_off = "rybysfluff"
 
 /obj/item/fluff/dogwhistle //phantasmicdream: Zeke Varloss
 	name = "Sax's whistle"
@@ -309,8 +284,8 @@
 	icon_state = "modkit"
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/fluff/desolate_coat_kit/afterattack(atom/target, mob/user, proximity, params)
-	if(!proximity || !ishuman(user) || user.incapacitated())
+/obj/item/fluff/desolate_coat_kit/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag || !ishuman(user) || user.incapacitated())
 		return
 
 	if(!istype(target, /obj/item/clothing/suit/armor/hos))
@@ -341,8 +316,8 @@
 	icon_state = "modkit"
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/fluff/fei_gasmask_kit/afterattack(atom/target, mob/user, proximity, params)
-	if(!proximity || !ishuman(user) || user.incapacitated())
+/obj/item/fluff/fei_gasmask_kit/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag || !ishuman(user) || user.incapacitated())
 		return
 
 	if(istype(target, /obj/item/clothing/mask/gas) && !istype(target, /obj/item/clothing/mask/gas/welding))
@@ -373,8 +348,8 @@
 	icon_state = "scifikit"
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/fluff/desolate_baton_kit/afterattack(atom/target, mob/user, proximity, params)
-	if(!proximity || !ishuman(user) || user.incapacitated())
+/obj/item/fluff/desolate_baton_kit/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag || !ishuman(user) || user.incapacitated())
 		return
 
 	if(istype(target, /obj/item/melee/baton/security) && !istype(target, /obj/item/melee/baton/security/cattleprod))
@@ -397,8 +372,8 @@
 	icon_state = "modkit"
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/fluff/cardgage_helmet_kit/afterattack(atom/target, mob/user, proximity, params)
-	if(!proximity || !ishuman(user) || user.incapacitated())
+/obj/item/fluff/cardgage_helmet_kit/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag || !ishuman(user) || user.incapacitated())
 		return
 
 	if(istype(target, /obj/item/clothing/head/welding))
@@ -417,8 +392,8 @@
 	icon_state = "modkit"
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/fluff/merchant_sallet_modkit/afterattack(atom/target, mob/user, proximity, params)
-	if(!proximity || !ishuman(user) || user.incapacitated())
+/obj/item/fluff/merchant_sallet_modkit/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag || !ishuman(user) || user.incapacitated())
 		return
 
 	var/mob/living/carbon/human/H = user
@@ -458,8 +433,8 @@
 	icon_state = "modkit"
 	w_class = 2
 
-/obj/item/fluff/k3_webbing_modkit/afterattack(atom/target, mob/user, proximity, params)
-	if(!proximity || !ishuman(user) || user.incapacitated())
+/obj/item/fluff/k3_webbing_modkit/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag || !ishuman(user) || user.incapacitated())
 		return
 
 	if(istype(target, /obj/item/clothing/suit/storage/labcoat) || istype(target, /obj/item/clothing/suit/storage/hazardvest))
@@ -483,7 +458,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 
 /*
-/obj/item/fluff/pyro_wintersec_kit/afterattack(atom/target, mob/user, proximity, params)
+/obj/item/fluff/pyro_wintersec_kit/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(!proximity || !ishuman(user) || user.incapacitated())
 		return
 	var/mob/living/carbon/human/H = user
@@ -538,7 +513,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 
 /*
-/obj/item/fluff/sylus_conversion_kit/afterattack(atom/target, mob/user, proximity, params)
+/obj/item/fluff/sylus_conversion_kit/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(!proximity || !ishuman(user) || user.incapacitated())
 		return
 	var/mob/living/carbon/human/H = user
@@ -651,8 +626,8 @@
 	name = "The Sobriety Skullcap"
 	desc = "A hat suited for the king of the pirates"
 
-/obj/item/clothing/head/pirate/fluff/stumpy/New()
-	..()
+/obj/item/clothing/head/pirate/fluff/stumpy/Initialize(mapload)
+	. = ..()
 	START_PROCESSING(SSobj, src)
 
 /obj/item/clothing/head/pirate/fluff/stumpy/Destroy()
@@ -1339,12 +1314,6 @@
 	item_state = "vest_black"
 	sprite_sheets = null
 
-/obj/item/clothing/under/pants/fluff/combat
-	name = "combat pants"
-	desc = "Medium style tactical pants, for the fashion aware combat units out there."
-	icon_state = "combat_pants"
-	item_color = "combat_pants"
-
 /obj/item/clothing/suit/jacket/fluff/elliot_windbreaker // DaveTheHeadcrab: Elliot Campbell
 	name = "nylon windbreaker"
 	desc = "A cheap nylon windbreaker, according to the tag it was manufactured in New Chiba, Earth.<br>The color reminds you of a television tuned to a dead channel."
@@ -1476,8 +1445,8 @@
 	desc = "a kit on tools and a blueprint detailing how to reconfigure a spacepod"
 	icon_state = "modkit"
 
-/obj/item/fluff/decemviri_spacepod_kit/afterattack(atom/target, mob/user, proximity, params)
-	if(!proximity || !ishuman(user) || user.incapacitated())
+/obj/item/fluff/decemviri_spacepod_kit/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag || !ishuman(user) || user.incapacitated())
 		return
 
 	if(!isspacepod(target))

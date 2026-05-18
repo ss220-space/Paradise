@@ -179,10 +179,10 @@
 	attack(target, user, params, def_zone)
 	attack_in_progress = FALSE
 
-/obj/item/melee/mantisblade/afterattack(atom/target, mob/user, proximity)
+/obj/item/melee/mantisblade/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	. = ..()
 
-	if(!proximity)
+	if(!proximity_flag)
 		return
 
 	if(prob(25))
@@ -281,7 +281,7 @@
 		no_multi_hit = TRUE \
 	)
 
-/obj/item/melee/flyswatter/afterattack(atom/target, mob/user, proximity_flag, params)
+/obj/item/melee/flyswatter/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	. = ..()
 	if(proximity_flag)
 		if(is_type_in_typecache(target, strong_against))
@@ -289,7 +289,7 @@
 			to_chat(user, span_warning("You easily splat the [target]."))
 			if(isliving(target))
 				var/mob/living/bug = target
-				bug.death(1)
+				bug.death(TRUE)
 			else
 				qdel(target)
 
@@ -303,10 +303,12 @@
 	item_state = "big_iron"
 	attack_verb = list("опалил", "задоминировал", "заробастил")
 
-/obj/item/melee/bigiron/afterattack(atom/target, mob/user, proximity, params)
+/obj/item/melee/bigiron/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	. = ..()
-	if(!proximity)
+
+	if(!proximity_flag)
 		return
+
 	if(ishuman(target))
 		if(!ishumanbasic(target))
 			var/mob/living/victim = target

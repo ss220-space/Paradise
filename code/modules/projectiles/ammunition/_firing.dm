@@ -1,4 +1,4 @@
-/obj/item/ammo_casing/proc/fire(atom/target, mob/living/user, params, distro, quiet, zone_override = "", spread, atom/firer_source_atom, damage_mod = 1, stamina_mod = 1)
+/obj/item/ammo_casing/proc/fire(atom/target, mob/living/user, list/modifiers, distro, quiet, zone_override = "", spread, atom/firer_source_atom, damage_mod = 1, stamina_mod = 1)
 	distro += variance
 	for(var/i = max(1, pellets), i > 0, i--)
 		var/targloc = get_turf(target)
@@ -8,7 +8,7 @@
 				spread = round((rand() - 0.5) * distro)
 			else //Smart spread
 				spread = round((i / pellets - 0.5) * distro)
-		if(isnull(throw_proj(target, targloc, user, params, spread, firer_source_atom)))
+		if(isnull(throw_proj(target, targloc, user, modifiers, spread, firer_source_atom)))
 			return FALSE
 		if(i > 1)
 			newshot()
@@ -18,7 +18,7 @@
 		user.changeNext_move(CLICK_CD_RANGE)
 	user.newtonian_move(get_dir(target, user))
 	update_icon()
-	SEND_SIGNAL(src, COMSIG_FIRE_CASING, target, user, firer_source_atom, randomspread, spread, zone_override, params, distro)
+	SEND_SIGNAL(src, COMSIG_FIRE_CASING, target, user, firer_source_atom, randomspread, spread, zone_override, modifiers, distro)
 	return TRUE
 
 /obj/item/ammo_casing/proc/ready_proj(atom/target, mob/living/user, quiet, zone_override = "", atom/firer_source_atom, damage_mod = 1, stamina_mod = 1)
@@ -39,7 +39,7 @@
 		reagents.trans_to(BB, reagents.total_volume) //For chemical darts/bullets
 		qdel(reagents)
 
-/obj/item/ammo_casing/proc/throw_proj(atom/target, turf/targloc, mob/living/user, params, spread, atom/firer_source_atom)
+/obj/item/ammo_casing/proc/throw_proj(atom/target, turf/targloc, mob/living/user, list/modifiers, spread, atom/firer_source_atom)
 	var/turf/curloc = get_turf(firer_source_atom)
 	if(!istype(targloc) || !istype(curloc) || !BB)
 		return
@@ -59,7 +59,6 @@
 		QDEL_NULL(BB)
 		return TRUE
 
-	var/modifiers = params2list(params)
 	BB.preparePixelProjectile(target, user, modifiers, spread)
 
 	if(BB)

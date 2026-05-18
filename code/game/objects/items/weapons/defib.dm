@@ -50,7 +50,7 @@
 
 /obj/item/defibrillator/Initialize(mapload) // Base version starts without a cell for rnd
 	. = ..()
-	paddles = new paddle_type(src)
+	paddles = new paddle_type(src, src)
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/defibrillator/Destroy()
@@ -96,7 +96,7 @@
 		. += "[icon_state]-emagged"
 	if(powered && cell)
 		var/ratio = cell.charge / cell.maxcharge
-		ratio = CEILING(ratio*4, 1) * 25
+		ratio = ceil(ratio*4) * 25
 		. += "[icon_state]-charge[ratio]"
 	if(!cell)
 		. += "[icon_state]-nocell"
@@ -405,7 +405,7 @@
 		PREPOSITIONAL = "электродах боевого дефибриллятора",
 	)
 
-/obj/item/twohanded/shockpaddles/New(mainunit)
+/obj/item/twohanded/shockpaddles/Initialize(mapload, mainunit)
 	. = ..()
 	add_defib_component(mainunit)
 

@@ -15,6 +15,7 @@
 
 /obj/item/implant/sad_trombone/activate(cause)
 	playsound(loc, 'sound/misc/sadtrombone.ogg', 50, FALSE)
+	return ..()
 
 /obj/item/implanter/sad_trombone
 	name = "bio-chip implanter (sad trombone)"

@@ -114,7 +114,7 @@
 /mob/living/carbon/true_devil/assess_threat()
 	return 666
 
-/mob/living/carbon/true_devil/OnUnarmedAttack(atom/atom, proximity)
+/mob/living/carbon/true_devil/OnUnarmedAttack(atom/atom, proximity_flag, list/modifiers)
 	if(!ishuman(atom))
 		// `attack_hand` on mobs assumes the attacker is a human
 		// I am the worst

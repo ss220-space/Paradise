@@ -49,3 +49,15 @@
 	COOLDOWN_DECLARE(pain_cd)
 
 	var/list/overlays_standing[TOTAL_LAYERS]
+
+/mob/living/carbon/vv_edit_var(var_name, var_value)
+	switch(var_name)
+		if(NAMEOF(src, handcuffed))
+			set_handcuffed(var_value)
+			. = TRUE
+
+	if(!isnull(.))
+		datum_flags |= DF_VAR_EDITED
+		return
+
+	return ..()

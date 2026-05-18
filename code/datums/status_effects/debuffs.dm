@@ -188,7 +188,7 @@
 	bleed_underlay = mutable_appearance('icons/effects/bleed.dmi', "bleed[bleed_amount]")
 	var/icon_height = owner.get_cached_height()
 	bleed_overlay.pixel_w = -owner.pixel_x
-	bleed_overlay.pixel_z = FLOOR(icon_height * 0.25, 1)
+	bleed_overlay.pixel_z = floor(icon_height * 0.25)
 	bleed_overlay.transform = matrix() * (icon_height / ICON_SIZE_Y) //scale the bleed overlay's size based on the target's icon size
 	bleed_underlay.pixel_w = -owner.pixel_x
 	bleed_underlay.transform = matrix() * (icon_height / ICON_SIZE_Y) * 3
@@ -222,15 +222,17 @@
 		qdel(src)
 
 /datum/status_effect/saw_bleed/on_remove()
+	var/turf/current_turf = get_turf(owner)
 	if(needs_to_bleed)
-		var/turf/T = get_turf(owner)
-		new /obj/effect/temp_visual/bleed/explode(T)
-		for(var/d in GLOB.alldirs)
-			new /obj/effect/temp_visual/dir_setting/bloodsplatter(T, d)
-		playsound(T, SFX_DESECRATION, 200, TRUE, -1)
+		new /obj/effect/temp_visual/bleed/explode(current_turf)
+		var/splatter_color = owner.get_blood_color()
+		if(splatter_color)
+			for(var/splatter_dir in GLOB.alldirs)
+				new /obj/effect/temp_visual/dir_setting/bloodsplatter(current_turf, dir2angle(splatter_dir), splatter_color)
+		playsound(current_turf, SFX_DESECRATION, 200, TRUE, -1)
 		owner.adjustBruteLoss(bleed_damage)
 	else
-		new /obj/effect/temp_visual/bleed(get_turf(owner))
+		new /obj/effect/temp_visual/bleed(current_turf)
 
 /datum/status_effect/saw_bleed/bloodletting
 	id = "bloodletting"
@@ -241,11 +243,14 @@
 // MARK: stamina_dot
 /datum/status_effect/stamina_dot
 	id = "stamina_dot"
-	duration = 130
+	duration = 13 SECONDS
 	alert_type = null
 
 /datum/status_effect/stamina_dot/tick(seconds_between_ticks)
 	owner.adjustStaminaLoss(10)
+
+	if(owner.getStaminaLoss() >= owner.max_stamina)
+		qdel(src)
 
 // MARK: oxy_dot
 /datum/status_effect/oxy_dot
@@ -390,7 +395,7 @@
 				owner.a_intent_change(INTENT_HARM)
 			if(owner.hand && owner.l_hand != found_gun)
 				owner.swap_hand()
-			found_gun.process_fire(target, owner, zone_override = BODY_ZONE_HEAD)	// hell yeah! few headshots for mr. vampire!
+			found_gun.fast_fire(target, owner, zone_override = BODY_ZONE_HEAD)	// hell yeah! few headshots for mr. vampire!
 			found_gun.attack(owner, owner, def_zone = BODY_ZONE_HEAD)	// attack ourselves also in case gun has no ammo
 
 // start of `living` level status procs.
@@ -535,6 +540,8 @@
 
 /datum/status_effect/transient/drowsiness/on_apply()
 	. = ..()
+	if(HAS_TRAIT(owner, TRAIT_SLEEPIMMUNE) || !(owner.status_flags & CANUNCONSCIOUS))
+		return FALSE
 	delay_diff = CONFIG_GET(number/movedelay/walk_delay) - CONFIG_GET(number/movedelay/run_delay)
 	RegisterSignal(owner, COMSIG_MOB_MOVE_INTENT_TOGGLED, PROC_REF(on_move_intent_toggle))
 	on_move_intent_toggle()
@@ -943,6 +950,10 @@
 /datum/status_effect/transient/jittery/calc_decay()
 	return (-0.2 + (owner.resting ? -0.8 : 0)) SECONDS
 
+/datum/status_effect/transient/jittery/on_remove()
+	. = ..()
+	owner.update_offsets()
+
 /datum/status_effect/transient/jittery/get_examine_text()
 	switch(strength)
 		if(600 SECONDS to INFINITY)
@@ -1021,7 +1032,7 @@
 		return FALSE
 
 	// Refresh the blur when a client jumps into the mob, in case we get put on a clientless mob with no hud
-	RegisterSignal(owner, list(COMSIG_MOB_LOGIN, SIGNAL_ADDTRAIT(TRAIT_SIGHT_BYPASS), SIGNAL_REMOVETRAIT(TRAIT_SIGHT_BYPASS)), PROC_REF(update_blur))
+	RegisterSignals(owner, list(COMSIG_MOB_LOGIN, SIGNAL_ADDTRAIT(TRAIT_SIGHT_BYPASS), SIGNAL_REMOVETRAIT(TRAIT_SIGHT_BYPASS)), PROC_REF(update_blur))
 
 	// Apply initial blur
 	update_blur()

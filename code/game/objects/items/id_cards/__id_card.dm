@@ -320,3 +320,11 @@
 	..()
 
 #undef DATA_NOT_SPECIFIED
+
+/obj/item/card/id/vv_edit_var(var_name, var_value)
+	. = ..()
+	if(.)
+		switch(var_name)
+			if(NAMEOF(src, assignment), NAMEOF(src, registered_name), NAMEOF(src, age))
+				update_label()
+				update_appearance()

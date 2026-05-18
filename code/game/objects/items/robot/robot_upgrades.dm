@@ -614,6 +614,13 @@
 		robot.module.emag = satchel
 		robot.module.emag.update_icon(UPDATE_ICON_STATE)
 
+	if(istype(robot.module, /obj/item/robot_module/janitor))
+		for(var/obj/item/storage/bag/trash/cyborg/bag in robot.module.modules)
+			qdel(bag)
+
+		robot.module.modules += new /obj/item/storage/bag/trash/bluespace/cyborg(robot.module)
+		robot.module.rebuild()
+
 	for(var/datum/robot_energy_storage/energy_storage in robot.module.storages)
 		energy_storage.max_energy *= 3
 		energy_storage.recharge_rate *= 2
@@ -630,6 +637,13 @@
 		satchel.upgraded = FALSE
 		robot.module.emag = satchel
 		robot.module.emag.update_icon(UPDATE_ICON_STATE)
+
+	if(istype(robot.module, /obj/item/robot_module/janitor))
+		for(var/obj/item/storage/bag/trash/bluespace/cyborg/bag in robot.module.modules)
+			qdel(bag)
+
+		robot.module.modules += new /obj/item/storage/bag/trash/cyborg(robot.module)
+		robot.module.rebuild()
 
 	for(var/datum/robot_energy_storage/energy_storage in robot.module.storages)
 		energy_storage.max_energy = initial(energy_storage.max_energy)

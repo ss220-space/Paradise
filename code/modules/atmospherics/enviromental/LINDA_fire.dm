@@ -93,7 +93,7 @@
 	if(cached_temperature < FREON_MAXIMUM_BURN_TEMPERATURE && coldfire_possible)
 		heat_r = 0
 		heat_g = LERP(255, cached_temperature, 1.2)
-		heat_b = LERP(255, cached_temperature, 0.9)
+		heat_b = max(100, LERP(255, cached_temperature, 0.9))
 		heat_a = 100
 
 	else if(cached_temperature < 5000) //This is where fire is very orange, we turn it into the normal fire texture here.
@@ -200,15 +200,16 @@
 	if(istype(entered))
 		entered.fire_act()
 
-/obj/effect/hotspot/singularity_pull()
+/obj/effect/hotspot/singularity_pull(atom/singularity, current_size)
 	return
 
 /// Largely for the fireflash procs below
 /obj/effect/hotspot/fake
 	var/burn_time = 3 SECONDS
 
-/obj/effect/hotspot/fake/New()
-	..()
+/obj/effect/hotspot/fake/Initialize(mapload)
+	. = ..()
+
 	if(burn_time)
 		QDEL_IN(src, burn_time)
 

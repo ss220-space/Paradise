@@ -37,6 +37,9 @@
 #define LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE 128
 #define LIGHTING_PLANE_ALPHA_INVISIBLE 0
 
+/// The amount of lumcount on a tile for it to be considered dark (used to determine reading and nyctophobia)
+#define LIGHTING_TILE_IS_DARK 0.2
+
 #define standartize_alpha(__alpha) (__alpha / LIGHTING_PLANE_ALPHA_VISIBLE)
 
 #define ALPHA_SOURCE_DEFAULT "default"
@@ -74,23 +77,14 @@
 /// A globaly cached version of [EM_MASK_MATRIX] for quick access.
 GLOBAL_LIST_INIT(em_mask_matrix, EM_MASK_MATRIX)
 
-/// Returns the red part of a #RRGGBB hex sequence as number
-#define GETREDPART(hexa) hex2num(copytext(hexa, 2, 4))
-
-/// Returns the green part of a #RRGGBB hex sequence as number
-#define GETGREENPART(hexa) hex2num(copytext(hexa, 4, 6))
-
-/// Returns the blue part of a #RRGGBB hex sequence as number
-#define GETBLUEPART(hexa) hex2num(copytext(hexa, 6, 8))
-
 /// Parse the hexadecimal color into lumcounts of each perspective.
 #define PARSE_LIGHT_COLOR(source) \
 do { \
 	if(source.light_color) { \
-		var/__light_color = source.light_color; \
-		source.lum_r = GETREDPART(__light_color) / 255; \
-		source.lum_g = GETGREENPART(__light_color) / 255; \
-		source.lum_b = GETBLUEPART(__light_color) / 255; \
+		var/list/color_parts = rgb2num(source.light_color); \
+		source.lum_r = color_parts[1] / 255; \
+		source.lum_g = color_parts[2] / 255; \
+		source.lum_b = color_parts[3] / 255; \
 	} else { \
 		source.lum_r = 1; \
 		source.lum_g = 1; \

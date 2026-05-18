@@ -446,11 +446,12 @@
 		used = TRUE
 		set_light_range_power_color(3, 2, "#ac2626")
 
-/obj/item/gem/bloodstone/afterattack(obj/item/I, mob/user, proximity, params)
-	if(!proximity)
+/obj/item/gem/bloodstone/afterattack(obj/item/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag)
 		return
-	if(istype(I) && I.hidden_uplink && I.hidden_uplink.active)
-		I.hidden_uplink.uses += charges
+
+	if(istype(target) && target.hidden_uplink && target.hidden_uplink.active)
+		target.hidden_uplink.uses += charges
 		qdel(src)
 		to_chat(user, span_notice("Вы вставляете [declent_ru(ACCUSATIVE)] внутрь вашего апплинка, заряжая его."))
 

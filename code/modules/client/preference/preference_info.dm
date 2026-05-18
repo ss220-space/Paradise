@@ -138,9 +138,6 @@ GLOBAL_LIST_EMPTY(preferences_info)
 /datum/preference_info/item_description_tips
 	name = "Item Description Tips"
 
-/datum/preference_info/facing_to_mouse
-	name = "Facing to mouse"
-
 /datum/preference_info/take_out_of_the_round_without_obj
 	name = "Take out from round without objective"
 
@@ -263,9 +260,6 @@ GLOBAL_LIST_EMPTY(preferences_info)
 
 /datum/preference_info/item_description_tips/get_preference_toggle()
 	return GLOB.preference_toggles[/datum/preference_toggle/toggle_item_description_tips]
-
-/datum/preference_info/facing_to_mouse/get_preference_toggle()
-	return GLOB.preference_toggles[/datum/preference_toggle/toggle_facing_to_mouse]
 
 /datum/preference_info/take_out_of_the_round_without_obj/get_preference_toggle()
 	return GLOB.preference_toggles[/datum/preference_toggle/toggle_take_out_of_the_round_without_obj]

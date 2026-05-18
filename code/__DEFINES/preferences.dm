@@ -83,7 +83,7 @@
 
 #define PREFTOGGLE_3_DNR_AFTER_DEATH (1<<0) // 1
 #define PREFTOGGLE_3_UI_SCALE (1<<1) // 2
-#define PREFTOGGLE_3_FACING_TO_MOUSE (1<<2) // 4
+//#define PREFTOGGLE_3_FACING_TO_MOUSE (1<<2) // 4
 #define PREFTOGGLE_3_PAIN_BLURB (1<<3) // 8
 #define PREFTOGGLE_3_STORAGE_NEUTRAL (1<<4) // 16
 #define PREFTOGGLE_3_STORAGE_COLORFY (1<<5) // 32
@@ -91,7 +91,7 @@
 
 #define TOGGLES_3_TOTAL 127 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
 
-#define TOGGLES_3_DEFAULT (PREFTOGGLE_3_FACING_TO_MOUSE|PREFTOGGLE_3_RUNECHAT_LOOC)
+#define TOGGLES_3_DEFAULT (PREFTOGGLE_3_RUNECHAT_LOOC)
 
 #if TOGGLES_3_TOTAL > 16777215
 #error toggles_3 bitflag over 16777215. Please make an issue report and postpone the feature you are working on.
@@ -228,6 +228,9 @@
 // Exoframes (machines only)
 #define PREF_EXOFRAME_REINFORCED "EXO_REINFORCED"
 #define PREF_EXOFRAME_INDUSTRIAL "EXO_INDUSTRIAL"
+
+/// Anonymous player display label
+#define ANON_KEY "(Anon)"
 
 /// This isnt in client_defines due to scoping issues
 #define DEFAULT_CLIENT_VIEWSIZE "17x15"

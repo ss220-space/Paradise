@@ -76,18 +76,20 @@
 
 /mob/living/simple_animal/mouse/handle_automated_action()
 	if(prob(chew_probability) && isturf(loc))
-		var/turf/simulated/floor/F = get_turf(src)
-		if(istype(F) && !F.intact && !F.transparent_floor)
-			var/obj/structure/cable/C = locate() in F
-			if(C && prob(15))
-				if(C.avail())
-					visible_message(span_warning("[src] chews through [C]. It's toast!"))
-					playsound(src, 'sound/effects/sparks2.ogg', 100, TRUE)
-					toast() // mmmm toasty.
-				else
-					visible_message(span_warning("[src] chews through [C]."))
-				investigate_log("was chewed through by a mouse at [COORD(F)]", INVESTIGATE_WIRES)
-				C.deconstruct()
+		var/turf/simulated/floor/our_floor = get_turf(src)
+		if(!istype(our_floor))
+			return
+		var/obj/structure/cable/thing_to_eat = locate() in our_floor
+		if(!(thing_to_eat && !HAS_TRAIT(thing_to_eat, TRAIT_UNDERFLOOR) && prob(15)))
+			return
+		if(thing_to_eat.avail())
+			visible_message(span_warning("[src] chews through [thing_to_eat]. It's toast!"))
+			playsound(src, 'sound/effects/sparks2.ogg', 100, TRUE)
+			toast() // mmmm toasty.
+		else
+			visible_message(span_warning("[src] chews through [thing_to_eat]."))
+		investigate_log("was chewed through by a mouse at [COORD(our_floor)]", INVESTIGATE_WIRES)
+		thing_to_eat.deconstruct()
 
 /mob/living/simple_animal/mouse/handle_automated_speech()
 	..()
@@ -119,10 +121,10 @@
 	if(is_type_in_list(src, animated_mouses, FALSE))
 		return TRUE
 
-/mob/living/simple_animal/mouse/New()
-	..()
-	pixel_x = rand(-6, 6)
-	pixel_y = rand(0, 10)
+/mob/living/simple_animal/mouse/Initialize(mapload)
+	. = ..()
+	pixel_x = base_pixel_x + rand(-6, 6)
+	pixel_y = base_pixel_y + rand(0, 10)
 
 	if(is_available_for_anim())
 		add_verb(src, /mob/living/simple_animal/mouse/proc/sniff)

@@ -6,7 +6,9 @@
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/transport)
 "b" = (
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
@@ -17,7 +19,9 @@
 /area/shuttle/transport)
 "d" = (
 /obj/machinery/vending/autodrobe,
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/structure/window/plasmareinforced{
 	dir = 8
 	},
@@ -28,7 +32,9 @@
 /area/shuttle/transport)
 "e" = (
 /obj/machinery/vending/artvend,
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/structure/window/plasmareinforced{
 	dir = 8
 	},
@@ -38,7 +44,9 @@
 	},
 /area/shuttle/transport)
 "m" = (
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/structure/chair/comfy/shuttle,
 /turf/simulated/floor/noslip{
 	icon = 'icons/turf/shuttle/floors.dmi';
@@ -68,7 +76,9 @@
 /turf/simulated/wall/shuttle,
 /area/shuttle/transport)
 "s" = (
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/machinery/light/spot,
 /obj/machinery/computer/shuttle/ferry/request{
 	dir = 8
@@ -80,7 +90,9 @@
 /area/shuttle/transport)
 "v" = (
 /obj/machinery/vending/autodrobe,
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /turf/simulated/floor/noslip{
 	icon = 'icons/turf/shuttle/floors.dmi';
 	icon_state = "floor"
@@ -102,7 +114,9 @@
 /obj/structure/curtain/open,
 /obj/structure/curtain/open,
 /obj/structure/curtain/open,
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/noslip{
 	icon = 'icons/turf/shuttle/floors.dmi';
 	icon_state = "floor"
@@ -115,7 +129,9 @@
 /area/shuttle/transport)
 "D" = (
 /obj/machinery/vending/suitdispenser,
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/machinery/light/spot{
 	dir = 1
 	},
@@ -126,7 +142,9 @@
 /area/shuttle/transport)
 "F" = (
 /obj/machinery/vending/hatdispenser,
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /turf/simulated/floor/noslip{
 	icon = 'icons/turf/shuttle/floors.dmi';
 	icon_state = "floor"
@@ -137,7 +155,9 @@
 /area/shuttle/transport)
 "H" = (
 /obj/machinery/vending/shoedispenser,
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /turf/simulated/floor/noslip{
 	icon = 'icons/turf/shuttle/floors.dmi';
 	icon_state = "floor"
@@ -164,7 +184,9 @@
 /obj/item/instrument/bikehorn,
 /obj/item/instrument/banjo,
 /obj/item/instrument/accordion,
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/noslip{
 	icon = 'icons/turf/shuttle/floors.dmi';
 	icon_state = "floor"
@@ -172,7 +194,9 @@
 /area/shuttle/transport)
 "N" = (
 /obj/structure/dresser,
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/machinery/light/spot,
 /turf/simulated/floor/noslip{
 	icon = 'icons/turf/shuttle/floors.dmi';
@@ -188,7 +212,9 @@
 /turf/simulated/floor/shuttle,
 /area/shuttle/transport)
 "R" = (
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/structure/chair/comfy/shuttle,
 /obj/machinery/light/spot{
 	dir = 1
@@ -237,7 +263,9 @@
 /obj/item/stack/tile/carpet/royalblue{
 	amount = 60
 	},
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/noslip{
 	icon = 'icons/turf/shuttle/floors.dmi';
 	icon_state = "floor"

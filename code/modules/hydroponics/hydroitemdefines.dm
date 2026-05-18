@@ -260,7 +260,7 @@
 	desc = "Пластиковая канистра для различных жидкостей."
 	icon_state = "plastic_jug"
 	item_state = "plastic_jug"
-	possible_transfer_amounts = list(1,2,5,10,20,40,80)
+	possible_transfer_amounts = list(1, 2, 5, 10, 20, 40, 80)
 	volume = 80
 	hitsound = 'sound/weapons/jug_empty_impact.ogg'
 	mob_throw_hit_sound = 'sound/weapons/jug_empty_impact.ogg'
@@ -277,11 +277,11 @@
 		PREPOSITIONAL = "канистре",
 	)
 
-/obj/item/reagent_containers/glass/bottle/nutrient/New()
-	..()
+/obj/item/reagent_containers/glass/bottle/nutrient/Initialize(mapload)
+	. = ..()
 	add_lid()
-	pixel_x = rand(-5, 5)
-	pixel_y = rand(-5, 5)
+	pixel_x = base_pixel_x + rand(-5, 5)
+	pixel_y = base_pixel_y + rand(-5, 5)
 
 /obj/item/reagent_containers/glass/bottle/nutrient/on_reagent_change()
 	. = ..()
@@ -374,10 +374,10 @@
 /obj/item/reagent_containers/glass/bottle/nutrient/killer
 	icon_state = "plastic_jug_k"
 
-/obj/item/reagent_containers/glass/bottle/nutrient/killer/New()
-	..()
-	pixel_x = rand(-5, 5)
-	pixel_y = rand(-5, 5)
+/obj/item/reagent_containers/glass/bottle/nutrient/killer/Initialize(mapload)
+	. = ..()
+	pixel_x = base_pixel_x + rand(-5, 5)
+	pixel_y = base_pixel_y + rand(-5, 5)
 
 /obj/item/reagent_containers/glass/bottle/nutrient/killer/weedkiller
 	name = "jug of weed killer"

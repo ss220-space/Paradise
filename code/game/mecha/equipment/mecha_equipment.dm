@@ -29,7 +29,7 @@
 	var/selectable = MODULE_SELECTABLE_FULL
 	var/harmful = FALSE //Controls if equipment can be used to attack by a pacifist.
 	var/integrated = FALSE // Preventing modules from getting detached.
-	var/alert_category = "mecha_module" //change if you want custom alerts
+	var/stored_in
 
 /obj/item/mecha_parts/mecha_equipment/Destroy()//missiles detonating, teleporter creating singularity?
 	if(chassis)
@@ -102,7 +102,7 @@
 	var/dir_to_target = get_dir(chassis, target)
 	return dir_to_target == chassis.dir || dir_to_target == get_clockwise_dir(chassis.dir) || dir_to_target == get_anticlockwise_dir(chassis.dir)
 
-/obj/item/mecha_parts/mecha_equipment/proc/action(atom/target)
+/obj/item/mecha_parts/mecha_equipment/proc/action(atom/target, list/modifiers)
 	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/proc/start_cooldown()
@@ -124,7 +124,7 @@
 	chassis.use_power(energy_drain)
 	. = do_after(chassis.occupant, equip_cooldown, target, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM, category = DA_CAT_TOOL)
 	set_ready_state(TRUE)
-	if(!chassis ||	chassis.loc != C || src != chassis.selected || !(get_dir(chassis, target) & chassis.dir))
+	if(!chassis ||	chassis.loc != C || (stored_in && src != chassis.selected_equipment_in_hands[stored_in]) || !(get_dir(chassis, target) & chassis.dir))
 		return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/proc/do_after_mecha(atom/target, delay)
@@ -132,7 +132,7 @@
 		return
 	var/C = chassis.loc
 	. = do_after(chassis.occupant, delay, target, category = DA_CAT_TOOL)
-	if(!chassis ||	chassis.loc != C || src != chassis.selected || !(get_dir(chassis, target) & chassis.dir))
+	if(!chassis ||	chassis.loc != C || (stored_in && src != chassis.selected_equipment_in_hands[stored_in]) || !(get_dir(chassis, target) & chassis.dir))
 		return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/proc/can_attach(obj/mecha/M)
@@ -147,13 +147,20 @@
 		return FALSE
 	return TRUE
 
-/obj/item/mecha_parts/mecha_equipment/proc/attach(obj/mecha/M)
+/obj/item/mecha_parts/mecha_equipment/proc/attach(obj/mecha/M, hand_slot = null)
 	M.equipment += src
 	chassis = M
 	if(loc != M)
 		forceMove(M)
-	if(!M.selected)
-		select_module()
+
+	if(hand_slot)
+		LAZYINITLIST(M.equipment_in_hands)
+		var/list/equipment_list = M.equipment_in_hands
+		LAZYINITLIST(equipment_list[hand_slot])
+		equipment_list[hand_slot] += src
+		stored_in = hand_slot
+		if(!M.selected_equipment_in_hands[hand_slot])
+			select_module()
 	attach_act(M)
 	ADD_TRAIT(src, TRAIT_NODROP, MECHA_EQUIPMENT_TRAIT)
 	if(M.occupant)
@@ -179,16 +186,16 @@
 		return
 	if(chassis.occupant)
 		remove_targeted_action()
-		if(chassis.selected == src)
-			if(selectable == MODULE_SELECTABLE_FULL)
-				chassis.occupant.clear_alert(alert_category)
 	detach_act()
 	moveto = moveto || get_turf(chassis)
 	if(Move(moveto))
 		chassis.equipment -= src
-		if(chassis.selected == src)
-			chassis.selected = null
+		if(stored_in)
+			LAZYREMOVE(chassis.equipment_in_hands?[stored_in], src)
+			if(chassis.selected_equipment_in_hands[stored_in] == src)
+				chassis.selected_equipment_in_hands[stored_in] = null
 		chassis = null
+		stored_in = null
 		REMOVE_TRAIT(src, TRAIT_NODROP, MECHA_EQUIPMENT_TRAIT)
 		set_ready_state(TRUE)
 
@@ -211,6 +218,8 @@
 
 /obj/item/mecha_parts/mecha_equipment/proc/set_active(state)
 	active = state
+	if(chassis.occupant)
+		chassis.occupant.update_action_buttons_icon()
 
 /obj/item/mecha_parts/mecha_equipment/proc/occupant_message(message)
 	if(chassis)
@@ -220,33 +229,17 @@
 	return
 
 /obj/item/mecha_parts/mecha_equipment/proc/select_module()
-	select_set_alert()
-	chassis.selected?.set_active(FALSE)
-	chassis.selected = src
-	chassis.selected.set_active(TRUE)
+	var/cached_stored_in = stored_in
+	if(!cached_stored_in)
+		return
+	chassis.selected_equipment_in_hands[cached_stored_in]?.set_active(FALSE)
+	chassis.selected_equipment_in_hands[cached_stored_in] = src
+	chassis.selected_equipment_in_hands[cached_stored_in].set_active(TRUE)
 	chassis.occupant_message(span_notice("You switch to [src]."))
+	if(chassis.occupant)
+		chassis.balloon_alert(chassis.occupant, "выбран [declent_ru(NOMINATIVE)]")
+		chassis.occupant.update_action_buttons_icon()
 	chassis.visible_message("[chassis] raises [src]")
-
-/obj/item/mecha_parts/mecha_equipment/proc/select_set_alert()
-	if(selectable == MODULE_SELECTABLE_FULL)
-		var/mob/living/carbon/occupant = chassis.occupant
-		if(chassis.selected)
-			occupant.clear_alert(chassis.selected.alert_category)
-		return throw_default_alert(occupant)
-	return FALSE
-
-/obj/item/mecha_parts/mecha_equipment/proc/throw_default_alert(mob/living/carbon/occupant)
-	if(!occupant || !occupant.client)
-		return FALSE
-
-	if(alert_category != "mecha_module")
-		return FALSE
-
-	var/atom/movable/screen/alert/empty_alert/default_alert = occupant.throw_alert(alert_category, /atom/movable/screen/alert/empty_alert, new_master = src)
-	default_alert.name = name
-	default_alert.desc = "Выбран модуль [declent_ru(NOMINATIVE)]"
-
-	return TRUE
 
 /obj/item/mecha_parts/mecha_equipment/proc/toggle_module()
 	return

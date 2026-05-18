@@ -95,6 +95,7 @@
 	pass_flags_self = PASSMACHINE|LETPASSCLICKS
 	pull_push_slowdown = 1.3
 	interaction_flags_click = NEED_HANDS | ALLOW_RESTING
+	interaction_flags_atom = INTERACT_ATOM_ATTACK_HAND | INTERACT_ATOM_UI_INTERACT
 	var/stat = 0
 	var/use_power = IDLE_POWER_USE
 		//0 = dont run the auto
@@ -168,12 +169,10 @@
 	if(myArea == get_area(src))
 		return
 	LAZYREMOVE(myArea.machinery_cache, src)
-	//message_admins("[src] exited [myArea]") Uncomment for debugging
 	myArea = get_area(src)
 	if(!myArea)
 		return
 	LAZYADD(myArea.machinery_cache, src)
-	//message_admins("[src] entered [myArea]")
 	power_change()
 
 /// Helper proc for telling a machine to start processing with the subsystem type that is located in its `subsystem_type` var.

@@ -87,7 +87,7 @@
 	qdel(src)
 	return
 
-/obj/item/gun/projectile/revolver/fingergun/afterattack(atom/target, mob/living/user, flag, params)
+/obj/item/gun/projectile/revolver/fingergun/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(!user.mind?.miming)
 		to_chat(user, span_notice("You must dedicate yourself to silence first. Use your fingers if you wish to holster them."))
 		return
@@ -123,7 +123,6 @@
 	icon_state = "12garevolver"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/ga12
 	fire_sound = 'sound/weapons/gunshots/1rev12.ogg'
-	fire_delay = 5
 	accuracy = new /datum/gun_accuracy/pistol/extends_spread()
 	accuracy = GUN_ACCURACY_PISTOL
 	recoil = GUN_RECOIL_HIGH
@@ -244,8 +243,8 @@
 	else
 		balloon_alert(user, "уже разряжено!")
 
-/obj/item/gun/projectile/revolver/russian/afterattack(atom/target, mob/living/user, flag, params)
-	if(flag)
+/obj/item/gun/projectile/revolver/russian/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(proximity_flag)
 		if(!(target in user.contents) && ismob(target))
 			if(user.a_intent == INTENT_HARM) // Flogging action
 				return
@@ -339,7 +338,7 @@
 			barrel_icon.Shift(WEST, 5)
 		. += barrel_icon
 
-/obj/item/gun/projectile/revolver/improvised/afterattack(atom/target, mob/living/user, flag, params)
+/obj/item/gun/projectile/revolver/improvised/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(unscrewed)
 		shoot_with_empty_chamber(user)
 		return

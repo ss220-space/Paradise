@@ -10,7 +10,7 @@
 	icon_state = "crossbow"
 	item_state = "crossbow-solid"
 	fire_sound = 'sound/weapons/grenadelaunch.ogg'
-	fire_delay = 25
+	fire_delay = 2.5 SECONDS
 
 	valid_projectile_type = /obj/item/arrow
 
@@ -154,20 +154,20 @@
 
 	switch(choice)
 		if(XBOW_TENSION_20)
-			drawtension = CEILING(0.2 * maxtension, 1)
+			drawtension = ceil(0.2 * maxtension)
 		if(XBOW_TENSION_40)
-			drawtension = CEILING(0.4 * maxtension, 1)
+			drawtension = ceil(0.4 * maxtension)
 		if(XBOW_TENSION_60)
-			drawtension = CEILING(0.6 * maxtension, 1)
+			drawtension = ceil(0.6 * maxtension)
 		if(XBOW_TENSION_80)
-			drawtension = CEILING(0.8 * maxtension, 1)
+			drawtension = ceil(0.8 * maxtension)
 		if(XBOW_TENSION_FULL)
 			drawtension = maxtension
 
 	to_chat(usr, span_notice("You set the draw tension to <b>[choice]</b>."))
 
-/obj/item/gun/throw/crossbow/process_fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, message = 1, params, zone_override)
-	..()
+/obj/item/gun/throw/crossbow/process_fire(zone_override, secondary_fire = FALSE)
+	. = ..()
 	tension = 0
 	update_icon()
 

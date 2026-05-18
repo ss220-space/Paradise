@@ -48,7 +48,7 @@
 #define INTERNAL_ORGAN_HIVECORE "hivecore"
 #define INTERNAL_ORGAN_PARASITE_EGG "parasite_egg"
 
-#define INTERNAL_ORGAN_HAIR "hair_organ"	// yeah thats a thing
+#define INTERNAL_ORGAN_HAIR "hair_organ" // yeah thats a thing
 #define INTERNAL_ORGAN_HONK_BLADDER "honk_bladder"
 #define INTERNAL_ORGAN_BRAIN_TUMOR "brain_tumor"
 #define INTERNAL_ORGAN_HIGHRP_TUMOR "highrp_tumor"
@@ -66,3 +66,11 @@
 // Species organs
 #define DRASK_LUNGS_COOLING_START_TEMP 280
 #define DRASK_LUNGS_COOLING_STOP_TEMP 400
+
+// Fracture types
+#define FRACTURE_TYPE_CRACK GLOB.fracture_type_crack
+#define FRACTURE_TYPE_CLOSED GLOB.fracture_type_closed
+#define FRACTURE_TYPE_OPEN GLOB.fracture_type_open
+
+#define FRACTURE_CLOSED_ITEM_DROP_CHANCE 5
+#define FRACTURE_OPEN_ITEM_DROP_CHANCE 30

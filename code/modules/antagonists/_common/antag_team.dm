@@ -47,6 +47,8 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 	var/datum/antagonist/team_antag = get_antag_datum_from_member(new_member)
 	members |= new_member
 	if(add_objectives && team_antag)
+		for(var/datum/objective/objective as anything in objectives)
+			objective.on_add_objective(new_member)
 		team_antag.objectives |= objectives
 
 /**
@@ -66,6 +68,8 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 	SHOULD_CALL_PARENT(TRUE)
 	var/datum/antagonist/A = get_antag_datum_from_member(member)
 	members -= member
+	for(var/datum/objective/objective as anything in objectives)
+		objective.on_remove_objective(member)
 	A.objectives -= objectives
 
 /**
@@ -92,6 +96,7 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 /datum/team/proc/add_objective_to_members(datum/objective/objective, list/member_blacklist)
 	for(var/datum/mind/member as anything in (members - member_blacklist))
 		var/datum/antagonist/antag = get_antag_datum_from_member(member)
+		objective.on_add_objective(member)
 		antag.objectives |= objective
 	objectives |= objective
 
@@ -101,6 +106,7 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 /datum/team/proc/remove_objective_from_members(datum/objective/objective)
 	for(var/datum/mind/member as anything in members)
 		var/datum/antagonist/antag = get_antag_datum_from_member(member)
+		objective.on_remove_objective(member)
 		antag.objectives -= objective
 	objectives -= objective
 	qdel(objective)

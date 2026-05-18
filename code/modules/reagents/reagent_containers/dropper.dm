@@ -51,9 +51,10 @@
 /obj/item/reagent_containers/dropper/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	return ATTACK_CHAIN_PROCEED
 
-/obj/item/reagent_containers/dropper/afterattack(atom/target, mob/user, proximity, params)
-	if(!proximity)
+/obj/item/reagent_containers/dropper/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag)
 		return
+
 	var/to_transfer = 0
 	if(iscarbon(target))
 		var/mob/living/carbon/C = target

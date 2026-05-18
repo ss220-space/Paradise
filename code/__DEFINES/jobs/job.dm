@@ -70,6 +70,7 @@
 #define JOB_FLAG_EXPLORER (1<<14)
 #define JOB_FLAG_MINING_MEDIC (1<<15)
 #define JOB_FLAG_PRISONER (1<<16)
+#define JOB_FLAG_INVESTOR (1<<17)
 
 #define JOBCAT_KARMA (1<<3) // DELETE THIS SHIT!!!
 
@@ -96,3 +97,4 @@
 #define TAIPAN_HUD_RD 8
 #define TAIPAN_HUD_CYBORG 9
 
+#define JOB_UNLIMITED_POSITION -1

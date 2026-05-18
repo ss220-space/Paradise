@@ -8,13 +8,11 @@
 	force = 10
 	mag_type = /obj/item/ammo_box/magazine/internal/speargun
 	fire_sound = 'sound/weapons/genhit.ogg'
-	burst_size = 1
-	fire_delay = 0
-	select = 0
+	burst_amount = 1
 	actions_types = null
 	accuracy = GUN_ACCURACY_DEFAULT
 	recoil = null
-	fire_modes = GUN_MODE_SINGLE_ONLY
+	gun_firemode_list = list(GUN_FIREMODE_SEMIAUTO)
 
 /obj/item/gun/projectile/automatic/speargun/update_icon_state()
 	return

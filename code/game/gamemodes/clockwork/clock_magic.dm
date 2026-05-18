@@ -285,9 +285,9 @@
 
 	var/datum/action/innate/clockwork/hand_spell/source
 
-/obj/item/melee/clock_magic/New(loc, spell)
+/obj/item/melee/clock_magic/Initialize(mapload, spell)
+	. = ..()
 	source = spell
-	..()
 
 /obj/item/melee/clock_magic/Destroy()
 	if(!QDELETED(source))
@@ -310,7 +310,7 @@
 	[CLOCK_METAL_TO_BRASS] metal into a brass\n
 	Robots into cult"}
 
-/obj/item/melee/clock_magic/construction/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/melee/clock_magic/construction/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(!proximity_flag)
 		return
 	if(channeling)

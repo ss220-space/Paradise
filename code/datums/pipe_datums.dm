@@ -1,14 +1,14 @@
-GLOBAL_LIST_EMPTY(construction_pipe_list)	//List of all pipe datums
-GLOBAL_LIST_EMPTY(rpd_pipe_list)			//Some pipes we don't want to be dispensable by the RPD, so we have a separate thing
+GLOBAL_LIST_EMPTY(construction_pipe_list) //List of all pipe datums
+GLOBAL_LIST_EMPTY(rpd_pipe_list) //Some pipes we don't want to be dispensable by the RPD, so we have a separate thing
 
 /datum/pipes
-	var/pipe_name		//What the pipe is called in the interface
-	var/pipe_id			//Use the pipe define for this
-	var/pipe_type		//Atmos, disposals etc.
-	var/pipe_category	//What category of pipe
-	var/bendy = FALSE	//Is this pipe bendy?
-	var/orientations	//Number of orientations (for interface purposes)
-	var/pipe_icon		//icon_state of the dispensed pipe (for interface purposes)
+	var/pipe_name //What the pipe is called in the interface
+	var/pipe_id //Use the pipe define for this
+	var/pipe_type //Atmos, disposals etc.
+	var/pipe_category //What category of pipe
+	var/bendy = FALSE //Is this pipe bendy?
+	var/orientations //Number of orientations (for interface purposes)
+	var/pipe_icon //icon_state of the dispensed pipe (for interface purposes)
 	var/pipe_icon_file
 	var/rpd_dispensable = FALSE
 

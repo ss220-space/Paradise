@@ -5,7 +5,6 @@
 	icon_state = "pit1"
 	anchored = TRUE
 	armor = list(melee = 50, bullet = 100, laser = 100, energy = 50, bomb = 50, bio = 50, fire = 50, acid = 50)
-	layer = 2.9
 	var/storage_capacity = 30
 	var/open = TRUE
 	var/icon_floor_type = null
@@ -134,7 +133,7 @@
 					M.overlay_fullscreen("tint", /atom/movable/screen/fullscreen/blind)
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/structure/pit/container_resist(mob/escapee)
+/obj/structure/pit/container_resist_act(mob/escapee)
 	var/breakout_time = 1.5 //2 minutes by default
 
 	if(open)

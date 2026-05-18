@@ -57,7 +57,7 @@
 	qdel(user)
 	return OBLITERATION
 
-/obj/item/hierophant_club/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/hierophant_club/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	..()
 	if(world.time < timer)
 		return

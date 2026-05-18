@@ -1,7 +1,7 @@
 /obj/item/gun/projectile
 	name = "projectile gun"
 	desc = "Now comes in flavors like GUN. Uses 10mm ammo, for some reason."
-	icon_state = "pistol"
+	icon_state = "default"
 	origin_tech = "combat=2;materials=2"
 	materials = list(MAT_METAL=1000)
 	recoil = GUN_RECOIL_LOW
@@ -19,7 +19,9 @@
 		magazine = new mag_type(src)
 	chamber_round()
 	update_weight()
-	update_icon()
+	if(!base_icon_state)
+		base_icon_state = initial(icon_state)
+	update_appearance(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
 
 /obj/item/gun/projectile/examine_more(mob/user)
 	. = ..()
@@ -67,11 +69,6 @@
 		icon_state = "[current_skin][sawn_state ? "-sawn" : ""]"
 	else
 		icon_state = "[initial(icon_state)][sawn_state ? "-sawn" : ""][bolt_open ? "-open" : ""]"
-
-/obj/item/gun/projectile/update_overlays()
-	. = ..()
-	if(bayonet && bayonet_overlay)
-		. += bayonet_overlay
 
 /obj/item/gun/proc/update_weight()
 	return
@@ -218,7 +215,7 @@
 		user.visible_message(span_suicide("[user] is putting the barrel of the [name] in [user.p_their()] mouth.  It looks like [user.p_theyre()] trying to commit suicide."))
 		sleep(25)
 		if(user.l_hand == src || user.r_hand == src)
-			process_fire(user, user, 0, zone_override = BODY_ZONE_HEAD)
+			fast_fire(user, user, zone_override = BODY_ZONE_HEAD)
 			user.visible_message(span_suicide("[user] blows [user.p_their()] brains out with the [name]!"))
 			return BRUTELOSS
 		else
@@ -234,9 +231,6 @@
 	if(sawn_state == SAWN_OFF)
 		balloon_alert(user, "уже укорочено!")
 		return .
-	if(bayonet)
-		balloon_alert(user, "мешает штык-нож!")
-		return .
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.visible_message("[user] begins to shorten \the [src].", span_notice("You begin to shorten \the [src]..."))
 
@@ -250,7 +244,7 @@
 			return .
 		user.visible_message("[user] shortens \the [src]!", span_notice("You shorten \the [src]."))
 		w_class = WEIGHT_CLASS_NORMAL
-		item_state = "gun"//phil235 is it different with different skin?
+		item_state = "[item_state]-sawn"
 		slot_flags &= ~ITEM_SLOT_BACK	//you can't sling it on your back
 		slot_flags |= ITEM_SLOT_BELT		//but you can wear it on your belt (poorly concealed under a trenchcoat, ideally)
 		sawn_state = SAWN_OFF
@@ -263,5 +257,5 @@
 	. = FALSE
 	for(var/obj/item/ammo_casing/AC in magazine.stored_ammo)
 		if(AC.BB)
-			process_fire(user, user,0)
+			fast_fire(user, user)
 			. = TRUE

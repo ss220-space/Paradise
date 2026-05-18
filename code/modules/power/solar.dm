@@ -131,7 +131,7 @@
 	if(p_angle > 90)			// if facing more than 90deg from sun, zero output
 		sunfrac = 0
 		return
-		
+
 	var/cos_p_angle = cos(p_angle)
 
 	sunfrac = POW2(cos_p_angle)
@@ -158,9 +158,6 @@
 	stat |= BROKEN
 	unset_control()
 	update_icon(UPDATE_OVERLAYS)
-
-/obj/machinery/power/solar/fake/New(turf/loc, obj/item/solar_assembly/S)
-	..(loc, S, 0)
 
 /obj/machinery/power/solar/fake/process()
 	. = PROCESS_KILL

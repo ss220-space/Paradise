@@ -116,7 +116,7 @@
 	visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] размахивает своими мечами и отталкивает [arrived]!"))
 	arrived.Weaken(4 SECONDS)
 
-/mob/living/simple_animal/bot/secbot/griefsky/OnUnarmedAttack(atom/atom) //like secbots its only possible with admin intervention
+/mob/living/simple_animal/bot/secbot/griefsky/OnUnarmedAttack(atom/atom, proximity_flag, list/modifiers) //like secbots its only possible with admin intervention
 	if(!iscarbon(atom))
 		return
 

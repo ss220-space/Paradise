@@ -290,7 +290,7 @@
 	var/is_big_delivery = istype(target_object, /obj/structure/bigDelivery)
 	if(is_big_delivery)
 		var/obj/structure/bigDelivery/delivery = target_object
-		if(istype(delivery.wrapped, /obj/structure/closet/crate))
+		if(is_crate(delivery.wrapped))
 			is_correct_delivery = TRUE
 
 	if(iscloset(target_object) || is_big_delivery)

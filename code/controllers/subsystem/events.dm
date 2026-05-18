@@ -3,12 +3,12 @@
 
 SUBSYSTEM_DEF(events)
 	name = "Events"
-	init_order = INIT_ORDER_EVENTS
+	dependencies = list(
+		/datum/controller/subsystem/processing/station,
+	)
 	runlevels = RUNLEVEL_GAME
-	flags = SS_KEEP_TIMING
-	offline_implications = "Random events will no longer happen. No immediate action is needed."
-	cpu_display = SS_CPUDISPLAY_LOW
-	ss_id = "events"
+	ss_flags = SS_KEEP_TIMING
+
 	var/list/current_run
 	var/stage = EVENTS_STAGE_EVENTS
 	// Report events at the end of the rouund
@@ -30,8 +30,8 @@ SUBSYSTEM_DEF(events)
 	var/list/allEvents
 	var/list/event_containers = list(
 			EVENT_LEVEL_MUNDANE	= new/datum/event_container/mundane,
-			EVENT_LEVEL_MODERATE	= new/datum/event_container/moderate,
-			EVENT_LEVEL_MAJOR		= new/datum/event_container/major
+			EVENT_LEVEL_MODERATE = new/datum/event_container/moderate,
+			EVENT_LEVEL_MAJOR = new/datum/event_container/major
 		)
 
 	var/datum/event_meta/new_event = new

@@ -13,7 +13,7 @@
 	dir = 4;
 	id = "QMLoad2"
 	},
-/obj/structure/plasticflaps/mining,
+/obj/structure/plasticflaps,
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/supply)
 "h" = (
@@ -67,7 +67,7 @@
 	dir = 8;
 	id = "QMLoad"
 	},
-/obj/structure/plasticflaps/mining,
+/obj/structure/plasticflaps,
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/supply)
 "o" = (

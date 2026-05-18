@@ -356,12 +356,9 @@
 	pixel_y = -29;
 	req_access = list(101)
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "asclblast";
-	name = "Blast Door";
-	opacity = 0
+	name = "Blast Door"
 	},
 /obj/docking_port/mobile{
 	dir = 8;
@@ -403,12 +400,9 @@
 	name = "Ship External Access";
 	req_access = list(101)
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "asclblast";
-	name = "Blast Door";
-	opacity = 0
+	name = "Blast Door"
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -500,12 +494,9 @@
 	name = "NRV Sparta";
 	req_access = list(101)
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "asclblast";
-	name = "Blast Door";
-	opacity = 0
+	name = "Blast Door"
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -1512,12 +1503,9 @@
 /area/shuttle/administration)
 "UX" = (
 /obj/effect/spawner/window/shuttle/gray,
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "asclblast";
-	name = "Blast Door";
-	opacity = 0
+	name = "Blast Door"
 	},
 /obj/structure/fans/tiny/invisible,
 /turf/simulated/floor/shuttle/plating,

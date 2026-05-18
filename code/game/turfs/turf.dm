@@ -10,6 +10,10 @@
 	var/turf_flags = NONE
 
 	var/intact = TRUE
+
+	/// Can you interact or see underfloor things. Can be HIDDEN, VISIBLE and INTERACTABLE
+	var/underfloor_accessibility = UNDERFLOOR_HIDDEN
+
 	var/turf/baseturf = /turf/baseturf_bottom
 	/// negative for faster, positive for slower
 	var/slowdown = 0
@@ -119,6 +123,21 @@
 		OPEN_HEAT_TRANSFER_COEFFICIENT)
 	var/list/milla_data = list()
 
+/turf/vv_edit_var(var_name, new_value)
+	var/static/list/banned_edits = list(NAMEOF_STATIC(src, x), NAMEOF_STATIC(src, y), NAMEOF_STATIC(src, z))
+	if(var_name in banned_edits)
+		return FALSE
+	return ..()
+
+/**
+ * Turf Initialize
+ *
+ * Doesn't call parent, see [/atom/proc/Initialize]
+ * Please note, space tiles do not run this code.
+ * This is done because it's called so often that any extra code just slows things down too much
+ * If you add something relevant here add it there too
+ * [/turf/space/Initialize]
+ */
 /turf/Initialize(mapload)
 	SHOULD_CALL_PARENT(FALSE)
 	if(flags & INITIALIZED)
@@ -223,21 +242,28 @@
 /turf/proc/blob_consume()
 	return
 
-/turf/rpd_act(mob/user, obj/item/rpd/our_rpd) //This is the default turf behaviour for the RPD; override it as required
-	if(our_rpd.mode == RPD_ATMOS_MODE)
-		our_rpd.create_atmos_pipe(user, src)
-	else if(our_rpd.mode == RPD_DISPOSALS_MODE)
-		for(var/obj/machinery/door/airlock/A in src)
-			if(A.density)
+/turf/rpd_act(mob/user, obj/item/rpd/our_rpd, mode)//This is the default turf behaviour for the RPD; override it as required
+	switch(mode)
+		if(RPD_ATMOS_MODE)
+			our_rpd.create_atmos_pipe(user, src)
+
+		if(RPD_DISPOSALS_MODE)
+			for(var/obj/machinery/door/airlock/A in src)
+				if(!A.density)
+					continue
+
 				to_chat(user, span_warning("That type of pipe won't fit under [A]!"))
 				return
-		our_rpd.create_disposals_pipe(user, src)
-	else if(our_rpd.mode == RPD_ROTATE_MODE)
-		our_rpd.rotate_all_pipes(user, src)
-	else if(our_rpd.mode == RPD_FLIP_MODE)
-		our_rpd.flip_all_pipes(user, src)
-	else if(our_rpd.mode == RPD_DELETE_MODE)
-		our_rpd.delete_all_pipes(user, src)
+			our_rpd.create_disposals_pipe(user, src)
+
+		if(RPD_ROTATE_MODE)
+			our_rpd.rotate_all_pipes(user, src)
+
+		if(RPD_FLIP_MODE)
+			our_rpd.flip_all_pipes(user, src)
+
+		if(RPD_DELETE_MODE)
+			our_rpd.delete_all_pipes(user, src)
 
 /turf/bullet_act(obj/projectile/proj)
 	if(istype(proj, /obj/projectile/bullet/gyro))
@@ -318,13 +344,7 @@
 /turf/proc/levelupdate()
 	for(var/obj/object in src)
 		if(object.level == 1 && (object.flags & INITIALIZED)) // Only do this if the object has initialized
-			object.hide(intact)
-
-// override for space turfs, since they should never hide anything
-/turf/space/levelupdate()
-	for(var/obj/object in src)
-		if(object.level == 1 && (object.flags & INITIALIZED))
-			object.hide(FALSE)
+			SEND_SIGNAL(object, COMSIG_OBJ_HIDE, underfloor_accessibility)
 
 // Removes all signs of lattice on the pos of the turf -Donkieyo
 /turf/proc/RemoveLattice()
@@ -373,8 +393,8 @@
 	changing_turf = TRUE
 	qdel(src)	//Just get the side effects and call Destroy
 	//We do this here so anything that doesn't want to persist can clear itself
-	var/list/old_comp_lookup = comp_lookup?.Copy()
-	var/list/old_signal_procs = signal_procs?.Copy()
+	var/list/old_comp_lookup = _listen_lookup?.Copy()
+	var/list/old_signal_procs = _signal_procs?.Copy()
 	var/carryover_turf_flags = (RESERVATION_TURF | UNUSED_RESERVATION_TURF) & turf_flags
 	var/turf/W = new path(src)
 	W.turf_flags |= carryover_turf_flags
@@ -383,9 +403,9 @@
 	// Turfs DO NOT lose their signals when they get replaced, REMEMBER THIS
 	// It's possible because turfs are fucked, and if you have one in a list and it's replaced with another one, the list ref points to the new turf
 	if(old_comp_lookup)
-		LAZYOR(W.comp_lookup, old_comp_lookup)
+		LAZYOR(W._listen_lookup, old_comp_lookup)
 	if(old_signal_procs)
-		LAZYOR(W.signal_procs, old_signal_procs)
+		LAZYOR(W._signal_procs, old_signal_procs)
 
 	for(var/datum/callback/callback as anything in post_change_callbacks)
 		callback.InvokeAsync(W)
@@ -448,7 +468,7 @@
 		var/area/our_area = W.loc
 		if(our_area.lighting_effects)
 			W.add_overlay(our_area.lighting_effects[SSmapping.z_level_to_plane_offset[z] + 1])
-	SSdemo.mark_turf(W)
+	//SSdemo.mark_turf(W)
 
 	return W
 
@@ -585,24 +605,24 @@
 	faller.drop_from_hands()
 
 /turf/singularity_act()
-	if(intact)
-		for(var/obj/O in contents) //this is for deleting things like wires contained in the turf
-			if(O.level != 1)
+	if(underfloor_accessibility < UNDERFLOOR_INTERACTABLE)
+		for(var/obj/on_top in contents) //this is for deleting things like wires contained in the turf
+			if(on_top.level != 1)
 				continue
-			if(O.invisibility == INVISIBILITY_MAXIMUM || O.invisibility == INVISIBILITY_ABSTRACT)
-				O.singularity_act()
+			if(HAS_TRAIT(on_top, TRAIT_UNDERFLOOR))
+				on_top.singularity_act()
 	ChangeTurf(baseturf)
 	return 2
 
-/turf/attackby(obj/item/I, mob/user, params)
+/turf/attackby(obj/item/used, mob/user, params)
 	. = ..()
 
 	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !can_lay_cable())
 		return .
 
-	if(iscoil(I))
+	if(iscoil(used))
 		add_fingerprint(user)
-		var/obj/item/stack/cable_coil/coil = I
+		var/obj/item/stack/cable_coil/coil = used
 		for(var/obj/structure/cable/local_cable in src)
 			if(local_cable.d1 == 0 || local_cable.d2 == 0)
 				local_cable.attackby(coil, user, params)
@@ -612,9 +632,9 @@
 		. |= (ATTACK_CHAIN_BLOCKED_ALL)
 		return .
 
-	if(istype(I, /obj/item/twohanded/rcl))
+	if(istype(used, /obj/item/twohanded/rcl))
 		add_fingerprint(user)
-		var/obj/item/twohanded/rcl/rcl = I
+		var/obj/item/twohanded/rcl/rcl = used
 		if(!rcl.loaded)
 			to_chat(user, span_warning("The [rcl.name] has no cable!"))
 			return .
@@ -632,7 +652,7 @@
 	return TRUE
 
 /turf/proc/can_lay_cable()
-	return can_have_cabling() && !intact && transparent_floor != TURF_TRANSPARENT
+	return can_have_cabling() && underfloor_accessibility == UNDERFLOOR_INTERACTABLE
 
 /turf/proc/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	underlay_appearance.icon = icon
@@ -1093,13 +1113,13 @@
 	// No, I don't think I will.
 	return FALSE
 
-/obj/effect/abstract/pressure_overlay/singularity_pull()
+/obj/effect/abstract/pressure_overlay/singularity_pull(atom/singularity, current_size)
 	// I am not a physical object, you have no control over me!
-	return FALSE
+	return
 
 /obj/effect/abstract/pressure_overlay/singularity_act()
 	// I don't taste good, either!
-	return FALSE
+	return
 
 /turf/proc/ensure_pressure_overlay()
 	if(isnull(pressure_overlay))
@@ -1116,3 +1136,16 @@
 		pressure_overlay.Initialize()
 
 	return pressure_overlay
+/**
+ * Checks whether the specified turf is blocked by something dense inside it, but ignores anything with the climbable trait
+ *
+ * Works similar to is_blocked_turf(), but ignores climbables and has less options. Primarily added for jaunting checks
+ */
+/turf/proc/is_blocked_turf_ignore_climbable()
+	if(density)
+		return TRUE
+
+	for(var/atom/movable/atom_content as anything in contents)
+		if(atom_content.density && !(atom_content.flags & ON_BORDER) && !HAS_TRAIT(atom_content, TRAIT_CLIMBABLE))
+			return TRUE
+	return FALSE

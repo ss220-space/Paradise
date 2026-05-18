@@ -413,7 +413,7 @@
 	applied_modules = list(
 		/obj/item/mod/module/storage/bluespace,
 		/obj/item/mod/module/welding,
-		/obj/item/mod/module/emp_shield,
+		/obj/item/mod/module/dna_lock/emp_shield,
 		/obj/item/mod/module/status_readout,
 		/obj/item/mod/module/flashlight,
 		/obj/item/mod/module/magboot/advanced,
@@ -424,6 +424,7 @@
 	default_pins = list(
 		/obj/item/mod/module/magboot/advanced,
 		/obj/item/mod/module/jetpack/advanced,
+		/obj/item/mod/module/dna_lock/emp_shield,
 	)
 	/// The insignia type, insignias show what sort of member of the ERT you're dealing with.
 	var/insignia_type = /obj/item/mod/module/insignia
@@ -471,7 +472,7 @@
 	applied_modules = list(
 		/obj/item/mod/module/storage/bluespace,
 		/obj/item/mod/module/welding,
-		/obj/item/mod/module/emp_shield,
+		/obj/item/mod/module/dna_lock/emp_shield,
 		/obj/item/mod/module/status_readout,
 		/obj/item/mod/module/flashlight,
 		/obj/item/mod/module/magboot/advanced/elite,
@@ -484,6 +485,7 @@
 	default_pins = list(
 		/obj/item/mod/module/magboot/advanced/elite,
 		/obj/item/mod/module/jetpack/advanced,
+		/obj/item/mod/module/dna_lock/emp_shield,
 	)
 
 /obj/item/mod/control/pre_equipped/responsory/inquisitory/commander
@@ -509,7 +511,7 @@
 	applied_modules = list(
 		/obj/item/mod/module/storage/bluespace,
 		/obj/item/mod/module/welding,
-		/obj/item/mod/module/emp_shield,
+		/obj/item/mod/module/dna_lock/emp_shield,
 		/obj/item/mod/module/jetpack/advanced,
 		/obj/item/mod/module/status_readout,
 		/obj/item/mod/module/magboot/advanced/elite,
@@ -517,18 +519,21 @@
 		/obj/item/mod/module/jump_jet,
 		/obj/item/mod/module/longfall,
 		/obj/item/mod/module/hearing_protection,
+		/obj/item/mod/module/visor/thermal,
 	)
 	default_pins = list(
 		/obj/item/mod/module/power_kick,
 		/obj/item/mod/module/jetpack/advanced,
 		/obj/item/mod/module/magboot/advanced/elite,
+		/obj/item/mod/module/visor/thermal,
+		/obj/item/mod/module/dna_lock/emp_shield,
 	)
 
 /obj/item/mod/control/pre_equipped/apocryphal/officer
 	applied_modules = list(
 		/obj/item/mod/module/storage/bluespace,
 		/obj/item/mod/module/welding,
-		/obj/item/mod/module/emp_shield,
+		/obj/item/mod/module/dna_lock/emp_shield,
 		/obj/item/mod/module/jetpack/advanced,
 		/obj/item/mod/module/status_readout,
 		/obj/item/mod/module/magboot/advanced/elite,
@@ -538,6 +543,7 @@
 	default_pins = list(
 		/obj/item/mod/module/jetpack/advanced,
 		/obj/item/mod/module/magboot/advanced/elite,
+		/obj/item/mod/module/dna_lock/emp_shield,
 		/obj/item/mod/module/power_kick, //If you are not drop kicking a xenomorph, what are you doing as an DS commander?
 	)
 
@@ -556,6 +562,7 @@
 		/obj/item/mod/module/jump_jet,
 		/obj/item/mod/module/longfall,
 		/obj/item/mod/module/hat_stabilizer,
+		/obj/item/mod/module/chameleon,
 	)
 	default_pins = list(
 		/obj/item/mod/module/anomaly_locked/kinesis/plus,

@@ -9,7 +9,7 @@
 	anchored = TRUE
 	density = TRUE
 	max_integrity = 250
-
+	interaction_flags_mouse_drop = NEED_DEXTERITY
 	var/obj/item/clothing/suit/space/suit = null
 	var/obj/item/clothing/head/helmet/space/helmet = null
 	var/obj/item/clothing/mask/mask = null
@@ -21,6 +21,8 @@
 	var/mask_type = null
 	var/magboots_type = null
 	var/storage_type = null
+	/// This variable acts for replacing modsuits with hardsuits with station trait
+	var/hardsuit_type = null
 
 	var/controls_inside = FALSE
 	var/locked = FALSE
@@ -70,6 +72,7 @@
 /obj/machinery/suit_storage_unit/engine
 	name = "engineering suit storage unit"
 	suit_type    = /obj/item/mod/control/pre_equipped/engineering
+	hardsuit_type = /obj/item/clothing/suit/space/hardsuit/engine
 	mask_type    = /obj/item/clothing/mask/breath
 	magboots_type = /obj/item/clothing/shoes/magboots
 	req_access = list(ACCESS_ENGINE_EQUIP)
@@ -77,6 +80,7 @@
 /obj/machinery/suit_storage_unit/ce
 	name = "chief engineer's suit storage unit"
 	suit_type    = /obj/item/mod/control/pre_equipped/advanced
+	hardsuit_type = /obj/item/clothing/suit/space/hardsuit/engine/elite
 	storage_type = /obj/item/tank/internals/oxygen
 	mask_type    = /obj/item/clothing/mask/gas
 	magboots_type = /obj/item/clothing/shoes/magboots/advance
@@ -85,6 +89,7 @@
 /obj/machinery/suit_storage_unit/security
 	name = "security suit storage unit"
 	suit_type    = /obj/item/mod/control/pre_equipped/security
+	hardsuit_type = /obj/item/clothing/suit/space/hardsuit/security
 	mask_type    = /obj/item/clothing/mask/gas/sechailer
 	storage_type = /obj/item/tank/internals/oxygen
 	magboots_type = /obj/item/clothing/shoes/magboots/security
@@ -93,11 +98,13 @@
 /obj/machinery/suit_storage_unit/security/hos
 	name = "head of security suit storage unit"
 	suit_type = /obj/item/mod/control/pre_equipped/safeguard_mk_two
+	hardsuit_type = /obj/item/clothing/suit/space/hardsuit/security/hos
 	req_access = list(ACCESS_HOS)
 
 /obj/machinery/suit_storage_unit/security/warden
 	name = "warden's suit storage unit"
 	suit_type = /obj/item/mod/control/pre_equipped/safeguard_mk_one
+	hardsuit_type = /obj/item/clothing/suit/space/hardsuit/security/warden
 	req_access = list(ACCESS_ARMORY)
 
 /obj/machinery/suit_storage_unit/security/pod_pilot
@@ -108,6 +115,7 @@
 /obj/machinery/suit_storage_unit/brigmed
 	name = "brig physician suit storage unit"
 	suit_type    = /obj/item/mod/control/pre_equipped/brigmed
+	hardsuit_type = /obj/item/clothing/suit/space/hardsuit/security/brigmed
 	mask_type    = /obj/item/clothing/mask/gas/sechailer
 	storage_type = /obj/item/tank/jetpack/oxygen
 	magboots_type = /obj/item/clothing/shoes/magboots/security
@@ -115,6 +123,7 @@
 /obj/machinery/suit_storage_unit/atmos
 	name = "atmospherics suit storage unit"
 	suit_type    = /obj/item/mod/control/pre_equipped/atmospheric
+	hardsuit_type = /obj/item/clothing/suit/space/hardsuit/engine/atmos
 	mask_type    = /obj/item/clothing/mask/gas
 	magboots_type = /obj/item/clothing/shoes/magboots/atmos
 	req_access = list(ACCESS_ATMOSPHERICS)
@@ -142,6 +151,7 @@
 /obj/machinery/suit_storage_unit/cmo
 	name = "CMO suit storage unit"
 	suit_type = /obj/item/mod/control/pre_equipped/rescue
+	hardsuit_type = /obj/item/clothing/suit/space/hardsuit/medical
 	storage_type = /obj/item/tank/internals/oxygen
 	mask_type = /obj/item/clothing/mask/breath
 	req_access = list(ACCESS_CMO)
@@ -155,6 +165,7 @@
 /obj/machinery/suit_storage_unit/medical
 	name = "medical suit storage unit"
 	suit_type = /obj/item/mod/control/pre_equipped/medical
+	hardsuit_type = /obj/item/clothing/suit/space/hardsuit/medical
 	mask_type = /obj/item/clothing/mask/breath
 	req_access = list(ACCESS_MEDICAL)
 
@@ -166,6 +177,7 @@
 /obj/machinery/suit_storage_unit/blueshield
 	name = "blueshield suit storage unit"
 	suit_type = /obj/item/mod/control/pre_equipped/praetorian
+	hardsuit_type = /obj/item/clothing/suit/space/hardsuit/blueshield
 	magboots_type = /obj/item/clothing/shoes/magboots/security
 	storage_type = /obj/item/tank/internals/oxygen
 	req_access = list(ACCESS_BLUESHIELD)
@@ -173,6 +185,7 @@
 /obj/machinery/suit_storage_unit/rd
 	name = "research director's suit storage unit"
 	suit_type = /obj/item/mod/control/pre_equipped/research
+	hardsuit_type = /obj/item/clothing/suit/space/hardsuit/rd
 	mask_type = /obj/item/clothing/mask/gas
 	magboots_type = /obj/item/clothing/shoes/magboots
 	req_access = list(ACCESS_RD)
@@ -186,6 +199,7 @@
 /obj/machinery/suit_storage_unit/syndicate
 	name = "syndicate suit storage unit"
 	suit_type  	 = /obj/item/mod/control/pre_equipped/nuclear
+	hardsuit_type = /obj/item/clothing/suit/space/hardsuit/syndi
 	mask_type   	= /obj/item/clothing/mask/gas/syndicate
 	storage_type	= /obj/item/tank/jetpack/oxygen/harness
 	req_access = list(ACCESS_SYNDICATE)
@@ -262,7 +276,9 @@
 /obj/machinery/suit_storage_unit/Initialize(mapload)
 	. = ..()
 	wires = new(src)
-	if(suit_type)
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_OUTDATED_HARDSUITS) && !isnull(hardsuit_type))
+		suit = new hardsuit_type(src)
+	if(isnull(suit) && suit_type)
 		suit = new suit_type(src)
 	if(helmet_type)
 		helmet = new helmet_type(src)
@@ -396,10 +412,9 @@
 		new /obj/item/stack/sheet/metal (loc, 2)
 	qdel(src)
 
-/obj/machinery/suit_storage_unit/MouseDrop_T(atom/A, mob/user, params)
+/obj/machinery/suit_storage_unit/mouse_drop_receive(atom/A, mob/user, params)
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user) || !Adjacent(A) || !isliving(A))
 		return
-	. = TRUE
 	var/mob/living/target = A
 	if(!state_open)
 		to_chat(user, span_warning("The [src]'s doors are shut!"))
@@ -509,27 +524,33 @@
 	open_machine()
 	dump_contents()
 
-/obj/machinery/suit_storage_unit/container_resist(mob/living/user)
+/obj/machinery/suit_storage_unit/container_resist_act(mob/living/user)
 	if(!locked)
 		open_machine()
 		dump_contents()
 		return
-	user.visible_message(span_notice("You see [user] kicking against the doors of [src]!"), \
-		span_notice("You start kicking against the doors... (this will take about [DisplayTimeText(breakout_time)].)"), \
-		span_italics("You hear a thump from [src]."))
-	if(do_after(user,(breakout_time), src))
+	user.visible_message(
+		span_notice("You see [user] kicking against the doors of [src]!"),
+		span_notice("You start kicking against the doors... (this will take about [DisplayTimeText(breakout_time)].)"),
+		span_hear("You hear a thump from [src]."),
+	)
+	if(do_after(user, (breakout_time), target = src))
 		if(!user || user.stat != CONSCIOUS || user.loc != src)
 			return
-		user.visible_message(span_warning("[user] successfully broke out of [src]!"), \
-			span_notice("You successfully break out of [src]!"))
+		user.visible_message(
+			span_warning("[user] successfully broke out of [src]!"),
+			span_notice("You successfully break out of [src]!"),
+		)
 		open_machine()
 		dump_contents()
 
 	add_fingerprint(user)
 	if(locked)
-		visible_message(span_notice("You see [user] kicking against the doors of [src]!"), \
-			span_notice("You start kicking against the doors..."))
-		addtimer(CALLBACK(src, PROC_REF(resist_open), user), 300)
+		visible_message(
+			span_notice("You see [user] kicking against the doors of [src]!"),
+			span_notice("You start kicking against the doors..."),
+		)
+		addtimer(CALLBACK(src, PROC_REF(resist_open), user), 30 SECONDS)
 	else
 		open_machine()
 		dump_contents()

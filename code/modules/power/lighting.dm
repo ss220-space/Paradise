@@ -745,7 +745,13 @@
 	// create a light tube/bulb item and put it in the user's hand
 	drop_light_tube(user)
 
-// break the light and make sparks if was on
+/obj/machinery/light/proc/set_major_emergency_light()
+	emergency_mode = TRUE //major_emergency = TRUE
+	update()
+
+/obj/machinery/light/proc/unset_major_emergency_light()
+	emergency_mode = TRUE //major_emergency = FALSE
+	update()
 
 /obj/machinery/light/proc/drop_light_tube(mob/user)
 	if(status == LIGHT_EMPTY)

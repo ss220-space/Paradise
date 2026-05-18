@@ -19,6 +19,10 @@
 		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 7, ATTACHMENT_OFFSET_Y = -6),
 	)
 
+/obj/item/gun/projectile/shotgun/riot/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/item_skins, item_path = /obj/item/gun/projectile/shotgun/riot)
+
 /obj/item/gun/projectile/shotgun/riot/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/circular_saw) || istype(I, /obj/item/gun/energy/plasmacutter))
 		add_fingerprint(user)
@@ -187,7 +191,7 @@
 	pb_knockback = 0 // no knockback for this gun
 	fire_sound = 'sound/weapons/gunshots/1shotgun.ogg'
 	suppressed_fire_sound = 'sound/weapons/gunshots/shotgunsupp.ogg'
-	attachable_allowed = GUN_MODULE_CLASS_SHOTGUN_MUZZLE | GUN_MODULE_CLASS_SHOTGUN_RAIL | GUN_MODULE_CLASS_SHOTGUN_UNDER
+	attachable_allowed = GUN_MODULE_CLASS_SHOTGUN_MUZZLE | GUN_MODULE_CLASS_SHOTGUN_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 23, ATTACHMENT_OFFSET_Y = 2),
 		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 5, ATTACHMENT_OFFSET_Y = 5),
@@ -208,11 +212,33 @@
 /obj/item/gun/projectile/shotgun/winchester/ComponentInitialize()
 	. = ..()
 	AddElement(/datum/element/item_emote_observer, emote_key = "twirl")
+	AddElement(/datum/element/item_skins)
 
 /obj/item/gun/projectile/shotgun/winchester/do_pointblank_shot(mob/living/user, atom/target)
 	. = ..()
 	addtimer(CALLBACK(src, PROC_REF(pump), user), 1) //auto reload after point blank shot
 
+/// MARK: Cargo defender
+/obj/item/gun/projectile/shotgun/winchester/cargo
+	name = "cargo defender shotgun"
+	desc = "Раритетное ружье рычажного действия под калибр 12х70 мм. Имеет позолоченное покрытие и гравировку \"Защитник карго\"."
+	icon_state = "winchester_cargo"
+	item_state = "winchester_cargo"
+	mag_type = /obj/item/ammo_box/magazine/internal/shot/winchester/cargo
+
+/obj/item/gun/projectile/shotgun/winchester/cargo/get_ru_names()
+	return list(
+		NOMINATIVE = "дробовик \"Защитник карго\"",
+		GENITIVE = "дробовика \"Защитник карго\"",
+		DATIVE = "дробовику \"Защитник карго\"",
+		ACCUSATIVE = "дробовик \"Защитник карго\"",
+		INSTRUMENTAL = "дробовиком \"Защитник карго\"",
+		PREPOSITIONAL = "дробовике \"Защитник карго\"",
+	)
+
+/obj/item/gun/projectile/shotgun/winchester/cargo/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/high_value_item)
 
 // MARK: Rusted shotgun
 /obj/item/gun/projectile/shotgun/lethal/rusted
@@ -314,17 +340,16 @@
 	suppressed_fire_sound = 'sound/weapons/gunshots/shotgunsupp.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
-	burst_size = 1
-	fire_delay = 0
+	burst_amount = 1
 	accuracy = GUN_ACCURACY_SHOTGUN
-	attachable_allowed = GUN_MODULE_CLASS_SHOTGUN_MUZZLE | GUN_MODULE_CLASS_SHOTGUN_RAIL | GUN_MODULE_CLASS_SHOTGUN_UNDER
+	attachable_allowed = GUN_MODULE_CLASS_SHOTGUN_MUZZLE | GUN_MODULE_CLASS_SHOTGUN_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 23, ATTACHMENT_OFFSET_Y = 2),
 		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 7, ATTACHMENT_OFFSET_Y = 9),
 		ATTACHMENT_SLOT_UNDER = list(ATTACHMENT_OFFSET_X = 10, ATTACHMENT_OFFSET_Y = -6),
 	)
 	recoil = GUN_RECOIL_HIGH
-	fire_modes = GUN_MODE_SINGLE_ONLY
+	gun_firemode_list = list(GUN_FIREMODE_SEMIAUTO)
 
 /obj/item/gun/projectile/automatic/shotgun/bulldog/ComponentInitialize()
 	. = ..()
@@ -375,9 +400,9 @@
 	suppressed_fire_sound = 'sound/weapons/gunshots/shotgunsupp.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/autoshotgun_mag_in.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/autoshotgun_mag_out.ogg'
-	fire_delay = 1.5
+	fire_delay = 0.15 SECONDS
 	accuracy = GUN_ACCURACY_SHOTGUN
-	attachable_allowed = GUN_MODULE_CLASS_SHOTGUN_MUZZLE | GUN_MODULE_CLASS_SHOTGUN_RAIL | GUN_MODULE_CLASS_SHOTGUN_UNDER
+	attachable_allowed = GUN_MODULE_CLASS_SHOTGUN_MUZZLE | GUN_MODULE_CLASS_SHOTGUN_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 	attachable_offset = list(
 		ATTACHMENT_SLOT_MUZZLE = list(ATTACHMENT_OFFSET_X = 23, ATTACHMENT_OFFSET_Y = 0),
 		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 1, ATTACHMENT_OFFSET_Y = 4),
@@ -389,9 +414,9 @@
 	. = ..()
 	AddElement(/datum/element/ammo_alarm, 'sound/weapons/smg_empty_alarm.ogg')
 
-/obj/item/gun/projectile/automatic/shotgun/minotaur/New()
+/obj/item/gun/projectile/automatic/shotgun/minotaur/Initialize(mapload)
+	. = ..()
 	magazine = new/obj/item/ammo_box/magazine/m12g/XtrLrg
-	..()
 
 // MARK: C.A.T.S.
 /obj/item/gun/projectile/automatic/cats
@@ -400,10 +425,9 @@
 	icon_state = "tla_cats"
 	item_state = "arg"
 	mag_type = /obj/item/ammo_box/magazine/cats12g
-	fire_delay = 0
 	fire_sound = 'sound/weapons/gunshots/1shotgun.ogg'
 	suppressed_fire_sound = 'sound/weapons/gunshots/shotgunsupp.ogg'
-	burst_size = 2
+	burst_amount = 2
 	accuracy = GUN_ACCURACY_SHOTGUN
 	attachable_allowed = GUN_MODULE_CLASS_SHOTGUN_MUZZLE | GUN_MODULE_CLASS_SHOTGUN_RAIL
 	attachable_offset = list(
@@ -419,8 +443,8 @@
 /obj/item/gun/projectile/revolver/doublebarrel
 	name = "double-barreled shotgun"
 	desc = "A true classic."
-	icon_state = "dshotgun"
-	item_state = "shotgun"
+	icon_state = "dshotgun-base"
+	item_state = "dshotgun-base"
 	w_class = WEIGHT_CLASS_BULKY
 	weapon_weight = WEAPON_HEAVY
 	force = 10

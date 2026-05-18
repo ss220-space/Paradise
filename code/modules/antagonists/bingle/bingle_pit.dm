@@ -444,7 +444,6 @@
 	smooth = SMOOTH_BITMASK
 	canSmoothWith = SMOOTH_GROUP_BINGLE_PIT
 	smoothing_groups = SMOOTH_GROUP_BINGLE_PIT
-	layer = BELOW_OBJ_LAYER
 	anchored = TRUE
 	mouse_opacity = MOUSE_OPACITY_OPAQUE
 	var/obj/structure/bingle_hole/parent_pit
@@ -567,13 +566,10 @@
 /obj/structure/bingle_hole/singularity_act()
 	return
 
-/obj/structure/bingle_hole/singularity_pull(obj/singularity/S, current_size)
+/obj/structure/bingle_hole/singularity_pull(atom/singularity, current_size)
 	return
 
 /obj/structure/bingle_pit_overlay/singularity_act()
-	return
-
-/obj/structure/bingle_hole/singularity_pull(obj/singularity/S, current_size)
 	return
 
 /area/misc/bingle_pit

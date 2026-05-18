@@ -190,7 +190,7 @@
 
 		return
 
-/obj/item/gun/dartgun/afterattack(atom/target, mob/living/user, flag, params)
+/obj/item/gun/dartgun/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(!isturf(target.loc) || target == user)
 		return
 	..()
@@ -264,10 +264,10 @@
 	src.updateUsrDialog()
 	return
 
-/obj/item/gun/dartgun/process_fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, message = 1, params, zone_override)
+/obj/item/gun/dartgun/process_fire(zone_override, secondary_fire = FALSE)
 	if(cartridge)
 		spawn(0)
-			fire_dart(target,user)
+			fire_dart(target, gun_user)
 	else
 		to_chat(usr, span_warning("[src] is empty."))
 

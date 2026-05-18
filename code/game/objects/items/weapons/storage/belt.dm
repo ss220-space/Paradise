@@ -414,7 +414,8 @@
 		/obj/item/flash,
 		/obj/item/clothing/glasses,
 		/obj/item/ammo_casing/shotgun,
-		/obj/item/ammo_box,
+		/obj/item/ammo_box/magazine,
+		/obj/item/ammo_box/speedloader,
 		/obj/item/reagent_containers/food/snacks/donut,
 		/obj/item/reagent_containers/food/snacks/candy/confectionery/toffee,
 		/obj/item/kitchen/knife/combat,
@@ -470,16 +471,87 @@
 
 /obj/item/storage/belt/security/webbing
 	name = "security webbing"
-	desc = "Unique and versatile chest rig, can hold security gear."
+	desc = "Универсальная разгрузка, вмещающая снаряжение службы безопасности."
 	icon_state = "securitywebbing"
 	item_state = "securitywebbing"
 	storage_slots = 6
 	use_item_overlays = FALSE
-	custom_price = PAYCHECK_MAX // 1 extra slot, so lil bit more expensive
+	custom_price = 2 * PAYCHECK_MAX
+	/// Fast reload duration
+	var/fast_reload_delay = 1.5 SECONDS
+
+/obj/item/storage/belt/security/webbing/get_ru_names()
+	return list(
+		NOMINATIVE = "разгрузка СБ",
+		GENITIVE = "разгрузки СБ",
+		DATIVE = "разгрузке СБ",
+		ACCUSATIVE = "разгрузку СБ",
+		INSTRUMENTAL = "разгрузкой СБ",
+		PREPOSITIONAL = "разгрузке СБ",
+	)
+
+/obj/item/storage/belt/security/webbing/ComponentInitialize()
+	. = ..()
+	var/static/list/hovering_item_typechecks = list(
+		/obj/item/gun/projectile/automatic = list(
+			SCREENTIP_CONTEXT_LMB = "Быстрая перезарядка",
+		),
+	)
+	AddElement(/datum/element/contextual_screentip_item_typechecks, hovering_item_typechecks)
+	AddElement(/datum/element/contextual_screentip_bare_hands, ctrl_lmb_text = "Достать магазин")
+
+/obj/item/storage/belt/security/webbing/attackby(obj/item/attack_item, mob/user, list/modifiers)
+	if(!istype(attack_item, /obj/item/gun/projectile/automatic))
+		return ..()
+
+	add_fingerprint(user)
+	var/obj/item/gun/projectile/automatic/gun = attack_item
+	for(var/obj/item/ammo_box/magazine/magazine in contents)
+		if(!istype(magazine, gun.mag_type))
+			continue
+		INVOKE_ASYNC(src, PROC_REF(do_fast_reload), user, gun, magazine, modifiers)
+		break
+	return ATTACK_CHAIN_PROCEED_SUCCESS
+
+
+/obj/item/storage/belt/security/webbing/CtrlClick(mob/user)
+	if(!IsReachableBy(user) || user.incapacitated())
+		return ..()
+	for(var/obj/item/ammo_box/magazine/magazine in contents)
+		user.put_in_active_hand(magazine)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	return ..()
+
+/obj/item/storage/belt/security/webbing/proc/do_fast_reload(mob/user, obj/item/gun/projectile/automatic/gun, obj/item/ammo_box/magazine/magazine, params)
+	if(!do_after(user, fast_reload_delay, src, DA_IGNORE_USER_LOC_CHANGE | DA_IGNORE_LYING, max_interact_count = 1))
+		return
+	if(QDELETED(src) || QDELETED(user) || QDELETED(gun) || QDELETED(magazine) || magazine.loc != src || !user.is_in_hands(gun) || !IsReachableBy(user))
+		return
+
+	var/obj/item/ammo_box/magazine/gun_magazine = gun.magazine
+	gun.attackby(magazine, user, params)
+	var/mag_changed = (gun_magazine && gun_magazine.loc != gun)
+	if(!mag_changed || !can_be_inserted(gun_magazine))
+		return
+
+	handle_item_insertion(gun_magazine)
+	gun_magazine.update_appearance()
+
 
 /obj/item/storage/belt/security/webbing/srt
 	name = "SRT webbing"
-	desc = "Unique and versatile chest rig, can hold SRT gear."
+	desc = "Уникальная и универсальная нагрудная разгрузочная система, вмещающая снаряжение отряда специального назначения."
+
+/obj/item/storage/belt/security/webbing/srt/get_ru_names()
+	return list(
+		NOMINATIVE = "разгрузка ОСН",
+		GENITIVE = "разгрузки ОСН",
+		DATIVE = "разгрузке ОСН",
+		ACCUSATIVE = "разгрузку ОСН",
+		INSTRUMENTAL = "разгрузкой ОСН",
+		PREPOSITIONAL = "разгрузке ОСН",
+	)
 
 /obj/item/storage/belt/security/webbing/srt/full/populate_contents()
 	new /obj/item/flashlight/seclite(src)
@@ -489,6 +561,48 @@
 	new /obj/item/grenade/flashbang(src)
 	new /obj/item/grenade/flashbang(src)
 	update_icon()
+
+/obj/item/storage/belt/security/webbing/pouch
+	name = "pouch"
+	desc = "Подсумок на два магазина."
+	icon = 'icons/obj/storage.dmi'
+	icon_state = "pouch"
+	item_state = "pouch"
+	storage_slots = 2
+	w_class = WEIGHT_CLASS_TINY
+	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_POCKETS
+	can_hold = list(/obj/item/ammo_box/magazine)
+	custom_price = PAYCHECK_MAX
+	fast_reload_delay = 2 SECONDS
+
+/obj/item/storage/belt/security/webbing/pouch/get_ru_names()
+	return list(
+		NOMINATIVE = "подсумок",
+		GENITIVE = "подсумка",
+		DATIVE = "подсумку",
+		ACCUSATIVE = "подсумок",
+		INSTRUMENTAL = "подсумком",
+		PREPOSITIONAL = "подсумке",
+	)
+
+/obj/item/storage/belt/security/webbing/pouch/fast
+	name = "fast pouch"
+	desc = "Подсумок на два магазина, модифицированный для быстрой перезарядки."
+	icon_state = "pouch_fast"
+	item_state = "pouch_fast"
+	custom_price = 4 * PAYCHECK_MAX
+	fast_reload_delay = 0.2 SECONDS
+
+/obj/item/storage/belt/security/webbing/pouch/fast/get_ru_names()
+	return list(
+		NOMINATIVE = "продвинутый подсумок",
+		GENITIVE = "продвинутого подсумка",
+		DATIVE = "продвинутому подсумку",
+		ACCUSATIVE = "продвинутый подсумок",
+		INSTRUMENTAL = "продвинутым подсумком",
+		PREPOSITIONAL = "продвинутом подсумке",
+	)
+
 
 /obj/item/storage/belt/soulstone
 	name = "soul stone belt"
@@ -694,9 +808,9 @@
 	new /obj/item/storage/pill_bottle/sovietstimulants(src)
 
 /obj/item/storage/belt/military/assault/gammaert/full/populate_contents()
-	new /obj/item/storage/pouch/fast(src)
-	new /obj/item/storage/pouch/fast(src)
-	new /obj/item/storage/pouch/fast(src)
+	new /obj/item/storage/belt/security/webbing/pouch/fast(src)
+	new /obj/item/storage/belt/security/webbing/pouch/fast(src)
+	new /obj/item/storage/belt/security/webbing/pouch/fast(src)
 	new /obj/item/melee/baton/telescopic(src)
 
 /obj/item/storage/belt/military/assault/rsh_12/full/populate_contents()
@@ -1198,7 +1312,6 @@
 	icon_state = "hunter_belt"
 	item_state = "ebelt"
 	use_item_overlays = TRUE
-	max_w_class = WEIGHT_CLASS_NORMAL
 	can_hold = list(
 		/obj/item/hatchet,
 		/obj/item/flashlight/lantern,
@@ -1227,6 +1340,9 @@
 		/obj/item/shovel/spade/wooden,
 		/obj/item/hatchet/wooden,
 		/obj/item/cultivator/wooden,
+	)
+	cant_hold = list(
+		/obj/item/pickaxe/drill,
 	)
 
 /obj/item/storage/belt/mining/primitive/get_ru_names()

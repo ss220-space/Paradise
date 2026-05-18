@@ -34,10 +34,6 @@
 #define AICONTROLDISABLED_BYPASS 2 // Silicons can control the airlock because they succeeded on the hack
 #define AICONTROLDISABLED_PERMA 3 // Wire cutting an airlock on AICONTROLDISABLED_BYPASS toggles it between AICONTROLDISABLED_BYPASS and this.
 
-//plastic flaps construction states
-#define PLASTIC_FLAPS_NORMAL 0
-#define PLASTIC_FLAPS_DETACHED 1
-
 //ai core defines
 #define EMPTY_CORE 0
 #define CIRCUIT_CORE 1
@@ -75,3 +71,13 @@
 // Mounted Frames BITMASK
 #define MOUNTED_FRAME_SIMFLOOR (1<<0)
 #define MOUNTED_FRAME_NOSPACE (1<<1)
+
+//Defines for amount of material retrieved from sheets & other items
+/// The amount of materials you get from a sheet of mineral like iron/diamond/glass etc. 100 Units.
+#define SHEET_MATERIAL_AMOUNT MINERAL_MATERIAL_AMOUNT
+/// The amount of materials you get from half a sheet. Used in standard object quantities. 50 units.
+#define HALF_SHEET_MATERIAL_AMOUNT (SHEET_MATERIAL_AMOUNT / 2)
+/// The amount of materials used in the smallest of objects, like pens and screwdrivers. 10 units.
+#define SMALL_MATERIAL_AMOUNT (HALF_SHEET_MATERIAL_AMOUNT / 5)
+/// The amount of material that goes into a coin, which determines the value of the coin.
+#define COIN_MATERIAL_AMOUNT (HALF_SHEET_MATERIAL_AMOUNT * 0.4)

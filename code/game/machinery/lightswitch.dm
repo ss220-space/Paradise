@@ -5,6 +5,7 @@
 	icon = 'icons/obj/engines_and_power/power.dmi'
 	icon_state = "light1"
 	anchored = TRUE
+	mouse_over_pointer = MOUSE_HAND_POINTER
 	/// Set this to a string, path, or area instance to control that area instead of the switch's location.
 	var/area/area = null
 	/// Should this lightswitch automatically rename itself to match the area it's in?
@@ -20,7 +21,7 @@
 		PREPOSITIONAL = "выключателе света"
 	)
 
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/light_switch, 26)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/light_switch, 26, 26)
 
 /obj/machinery/light_switch/Initialize(mapload, direction)
 	. = ..()

@@ -546,12 +546,10 @@
 /area/ae13/hall)
 "oB" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/apc/noalarm{
+/obj/machinery/power/apc/noalarm/directional/south{
 	environment_channel = 0;
 	equipment_channel = 0;
 	lighting_channel = 0;
-	name = "IPC area power controller";
-	pixel_y = -28;
 	req_access = list(111);
 	start_charge = 0
 	},
@@ -1004,12 +1002,10 @@
 /area/ae13/energy)
 "wL" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/apc/noalarm{
+/obj/machinery/power/apc/noalarm/directional/north{
 	environment_channel = 0;
 	equipment_channel = 0;
 	lighting_channel = 0;
-	name = "IPC area power controller";
-	pixel_y = 32;
 	req_access = list(111);
 	start_charge = 0
 	},
@@ -1460,12 +1456,10 @@
 /area/ae13/hall)
 "FZ" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/apc/noalarm{
+/obj/machinery/power/apc/noalarm/directional/south{
 	environment_channel = 0;
 	equipment_channel = 0;
 	lighting_channel = 0;
-	name = "IPC area power controller";
-	pixel_y = -28;
 	req_access = list(111);
 	start_charge = 0
 	},
@@ -1703,12 +1697,10 @@
 	pixel_y = 3
 	},
 /obj/item/clothing/shoes/magboots,
-/obj/machinery/power/apc/noalarm{
+/obj/machinery/power/apc/noalarm/directional/north{
 	environment_channel = 0;
 	equipment_channel = 0;
 	lighting_channel = 0;
-	name = "IPC area power controller";
-	pixel_y = 28;
 	req_access = list(111);
 	start_charge = 0
 	},
@@ -2048,12 +2040,10 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/obj/machinery/power/apc/noalarm{
+/obj/machinery/power/apc/noalarm/directional/north{
 	environment_channel = 0;
 	equipment_channel = 0;
 	lighting_channel = 0;
-	name = "IPC area power controller";
-	pixel_y = 28;
 	req_access = list(111);
 	start_charge = 0
 	},

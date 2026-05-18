@@ -37,7 +37,6 @@
 	w_class = WEIGHT_CLASS_SMALL
 	ammo_x_offset = 2
 	charge_sections = 3
-	accuracy = GUN_ACCURACY_PISTOL
 	attachable_allowed = GUN_MODULE_CLASS_ENERGY_WEAPON
 
 /obj/item/gun/energy/gun/mini/Initialize(mapload, ...)
@@ -60,7 +59,6 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode/hos, /obj/item/ammo_casing/energy/disabler/hos, /obj/item/ammo_casing/energy/laser/hos, /obj/item/ammo_casing/energy/dominator/slaughter)
 	ammo_x_offset = 4
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-	accuracy = GUN_ACCURACY_RIFLE
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER
 	attachable_offset = list(
 		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 5, ATTACHMENT_OFFSET_Y = 10),
@@ -81,7 +79,6 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode/blueshield, /obj/item/ammo_casing/energy/disabler/blueshield, /obj/item/ammo_casing/energy/laser/blueshield)
 	ammo_x_offset = 1
 	shaded_charge = TRUE
-	accuracy = GUN_ACCURACY_PISTOL
 	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 /obj/item/gun/energy/gun/blueshield/can_shoot(mob/user)
@@ -176,6 +173,13 @@
 	accuracy = new /datum/gun_accuracy/minimal/gatling()
 	recoil = GUN_RECOIL_LOW
 	attachable_allowed = GUN_MODULE_CLASS_NONE
+	fire_delay = 0.4 SECONDS
+	windup_autofire = TRUE
+	windup_autofire_reduction_multiplier = 0.05
+	windup_autofire_cap = 0.25
+	windup_spindown = 1 SECONDS
+	gun_firemode = GUN_FIREMODE_AUTOMATIC
+	gun_firemode_list = list(GUN_FIREMODE_AUTOMATIC)
 	var/force_unwielded = 10
 	var/force_wielded = 20
 
@@ -196,15 +200,6 @@
 		force_wielded = src.force_wielded, \
 		require_twohands = TRUE \
 	)
-	AddComponent( \
-		/datum/component/automatic_fire, \
-		0.4 SECONDS, \
-		TRUE, \
-		0.05, \
-		0.25, \
-		1 SECONDS \
-	)
-
 
 /obj/item/gun/energy/gun/minigun/can_be_pulled(atom/movable/user, force, show_message = FALSE)
 	..()
@@ -221,7 +216,7 @@
 		return .
 
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
-	var/charge_amount = round(cell.charge / (shot.e_cost * burst_size))
+	var/charge_amount = round(cell.charge / (shot.e_cost * burst_amount))
 
 	. += span_notice("Индикатор батареи сообщает: заряда хватит на <b>[charge_amount]</b> [declension_ru(charge_amount, "выстрел", "выстрела", "выстрелов")].")
 

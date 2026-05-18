@@ -29,15 +29,10 @@
 	if(defib)
 		return defib.get_cell()
 
-/obj/machinery/defibrillator_mount/New(location, direction, building = 0)
-	..()
-
-	if(location)
-		loc = location
-
+/obj/machinery/defibrillator_mount/Initialize(mapload, direction, building = FALSE)
+	. = ..()
 	if(direction)
 		setDir(direction)
-
 	if(building)
 		set_pixel_offsets_from_dir(30, -30, 30, -30)
 
@@ -72,7 +67,7 @@
 		if(defib.powered)
 			. += "[defib.safety ? "online" : "emagged"]"
 			var/ratio = defib.cell.charge / defib.cell.maxcharge
-			ratio = CEILING(ratio * 4, 1) * 25
+			ratio = ceil(ratio * 4) * 25
 			. += "charge[ratio]"
 		if(clamps_locked)
 			. += "clamps"

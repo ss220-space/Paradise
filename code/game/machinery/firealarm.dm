@@ -22,6 +22,7 @@ GLOBAL_LIST_EMPTY(firealarms)
 	power_channel = ENVIRON
 	resistance_flags = FIRE_PROOF
 	cares_about_temperature = TRUE
+	mouse_over_pointer = MOUSE_HAND_POINTER
 
 	var/buildstage = FIRE_ALARM_READY
 	var/wiresexposed = FALSE
@@ -240,10 +241,10 @@ GLOBAL_LIST_EMPTY(firealarms)
 			if(prob(33))
 				alarm()
 
-/obj/machinery/firealarm/singularity_pull(S, current_size)
+/obj/machinery/firealarm/singularity_pull(atom/singularity, current_size)
 	if(current_size >= STAGE_FIVE) // If the singulo is strong enough to pull anchored objects, the fire alarm experiences integrity failure
 		deconstruct()
-	..()
+	return ..()
 
 /obj/machinery/firealarm/obj_break(damage_flag)
 	if(!(stat & BROKEN) && !(obj_flags & NODECONSTRUCT) && buildstage != 0) //can't break the electronics if there isn't any inside.
@@ -425,3 +426,9 @@ Just a object used in constructing fire alarms
 #undef FIRE_ALARM_UNWIRED
 #undef FIRE_ALARM_READY
 
+// MARK: Mapping Dir Helpers
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/firealarm, 26, 26)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/firealarm/no_alarm, 26, 26)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/firealarm/triggered_nosignals, 26, 26)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/firealarm/syndicate, 26, 26)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/firealarm/syndicate/taipan, 26, 26)

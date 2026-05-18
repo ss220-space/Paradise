@@ -61,15 +61,15 @@ jobs:
     with:
       stations: ${{ needs.collect_data.outputs.stations }}
 
-  game_tests:
-    name: SQL Validation + Game Tests
+  unit_tests:
+    name: SQL Validation + Unit Tests
     needs: [collect_data, setup_build_artifacts]
-    uses: ./.github/workflows/run_game_tests.yml
+    uses: ./.github/workflows/run_unit_tests.yml
 
   completion_gate:
     if: always() && !cancelled()
     name: Completion Gate
-    needs: [run_linters, compile_all_maps, station_mapload_tests, game_tests]
+    needs: [run_linters, compile_all_maps, station_mapload_tests, unit_tests]
     runs-on: ubuntu-24.04
     steps:
       - name: Decide whether the needed jobs succeeded or failed

@@ -14,12 +14,13 @@
 			Использует широкий спектр материалов в качестве сырья."
 	icon = 'icons/obj/machines/robotics.dmi'
 	icon_state = "fabricator"
-	var/icon_open = "fabricator_unscrewed"
-	var/icon_closed = "fabricator"
+	interaction_flags_atom = parent_type::interaction_flags_atom | INTERACT_ATOM_MOUSEDROP_IGNORE_CHECKS
 	density = TRUE
 	anchored = TRUE
 	idle_power_usage = 20
 	active_power_usage = 5000
+	var/icon_open = "fabricator_unscrewed"
+	var/icon_closed = "fabricator"
 	/// Bitflags of design types that can be produced.
 	var/allowed_design_types = MECHFAB
 	/// List of categories to display in the UI. Designs intended for each respective category need to have the name in [/datum/design/category]. Defined in [Initialize()][/atom/proc/Initialize].

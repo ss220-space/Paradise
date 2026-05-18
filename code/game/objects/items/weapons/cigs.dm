@@ -208,16 +208,16 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 	return ..()
 
-/obj/item/clothing/mask/cigarette/afterattack(obj/item/reagent_containers/glass/glass, mob/user, proximity, params)
-	..()
-	if(!proximity)
+/obj/item/clothing/mask/cigarette/afterattack(obj/item/reagent_containers/glass/target, mob/user, proximity_flag, list/modifiers, status)
+	. = ..()
+	if(!proximity_flag)
 		return
-	if(istype(glass))	//you can dip cigarettes into beakers
-		var/transfered = glass.reagents.trans_to(src, chem_volume)
+	if(istype(target))	//you can dip cigarettes into beakers
+		var/transfered = target.reagents.trans_to(src, chem_volume)
 		if(transfered)	//if reagents were transfered, show the message
-			to_chat(user, span_notice("Вы окунаете [declent_ru(ACCUSATIVE)] в [glass.declent_ru(ACCUSATIVE)]."))
+			to_chat(user, span_notice("Вы окунаете [declent_ru(ACCUSATIVE)] в [target.declent_ru(ACCUSATIVE)]."))
 		else			//if not, either the beaker was empty, or the cigarette was full
-			if(!glass.reagents.total_volume)
+			if(!target.reagents.total_volume)
 				user.balloon_alert(usr, "пусто!")
 			else
 				user.balloon_alert(usr, "уже заполнено!")
@@ -360,9 +360,9 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/clothing/mask/cigarette/random
 
-/obj/item/clothing/mask/cigarette/random/New()
+/obj/item/clothing/mask/cigarette/random/Initialize(mapload)
 	list_reagents = list("nicotine" = 40, pick("fuel","saltpetre","synaptizine","green_vomit","potass_iodide","msg","lexorin","mannitol","spaceacillin","cryoxadone","holywater","tea","egg","haloperidol","mutagen","omnizine","carpet","aranesp","cryostylane","chocolate","bilk","cheese","rum","blood","charcoal","coffee","ectoplasm","space_drugs","milk","mutadone","antihol","teporone","insulin","salbutamol","toxin") = 20)
-	..()
+	. = ..()
 
 /obj/item/clothing/mask/cigarette/syndicate
 	list_reagents = list("nicotine" = 40, "syndiezine" = 20)
@@ -686,8 +686,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 		PREPOSITIONAL = "папиросной бумаге",
 	)
 
-/obj/item/rollingpaper/afterattack(atom/target, mob/user, proximity, params)
-	if(!proximity)
+/obj/item/rollingpaper/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag)
 		return
 	if(istype(target, /obj/item/reagent_containers/food/snacks/grown))
 		var/obj/item/reagent_containers/food/snacks/grown/O = target

@@ -16,6 +16,7 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, FIRE = 30, ACID = 30)
 	vent_movement = VENTCRAWL_CAN_SEE
 	flags = PREVENT_CLICK_UNDER | IGNORE_TURF_PIXEL_OFFSET
+	interaction_flags_mouse_drop = NEED_DEXTERITY
 	var/temperature_archived
 	var/mob/living/carbon/occupant
 	/// A separate effect for the occupant, as you can't animate overlays reliably and constantly removing and adding overlays is spamming the subsystem.
@@ -129,7 +130,7 @@
 		beaker.forceMove(drop_location())
 		beaker = null
 
-/obj/machinery/atmospherics/unary/cryo_cell/MouseDrop_T(atom/movable/O, mob/living/user, params)
+/obj/machinery/atmospherics/unary/cryo_cell/mouse_drop_receive(atom/movable/O, mob/living/user, params)
 	if(O.loc == user) //no you can't pull things out of your ass
 		return
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) //are you cuffed, dying, lying, stunned or other
@@ -148,26 +149,26 @@
 		return
 	if(occupant)
 		balloon_alert(user, "внутри кто-то есть!")
-		return TRUE
+		return
 	var/mob/living/L = O
 	if(!istype(L) || L.buckled)
 		return
 	if(L.abiotic())
 		balloon_alert(user, "руки субъекта заняты!")
-		return TRUE
+		return
 	if(L.has_buckled_mobs()) //mob attached to us
 		to_chat(user, span_warning("[L] не помест[PLUR_IT_YAT(L)]ся в [declent_ru(ACCUSATIVE)], пока на [GEND_ON_IN_HIM(L)] сидит слайм!"))
-		return TRUE
-	. = TRUE
-	if(put_mob(L))
-		if(L == user)
-			visible_message("[user] начинает[PLUR_ET_YUT(user)] залезать в [declent_ru(ACCUSATIVE)].")
-		else
-			visible_message("[user] начина[PLUR_ET_YUT(user)] укладывать [L] в [declent_ru(ACCUSATIVE)].")
-			add_attack_logs(user, L, "put into a cryo cell at [COORD(src)].", ATKLOG_ALL)
-			if(user.pulling == L)
-				user.stop_pulling()
-		SStgui.update_uis(src)
+		return
+	if(!put_mob(L))
+		return
+	if(L == user)
+		visible_message("[user] начинает[PLUR_ET_YUT(user)] залезать в [declent_ru(ACCUSATIVE)].")
+	else
+		visible_message("[user] начина[PLUR_ET_YUT(user)] укладывать [L] в [declent_ru(ACCUSATIVE)].")
+		add_attack_logs(user, L, "put into a cryo cell at [COORD(src)].", ATKLOG_ALL)
+		if(user.pulling == L)
+			user.stop_pulling()
+	SStgui.update_uis(src)
 
 /obj/machinery/atmospherics/unary/cryo_cell/process()
 	..()

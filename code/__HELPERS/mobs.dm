@@ -73,6 +73,9 @@
 		if(!LAZYIN(style.species_allowed, species.name))
 			continue
 
+		if(style.wizard_only)
+			continue
+
 		if(gender == style.unsuitable_gender)
 			continue
 
@@ -96,6 +99,8 @@
 
 		if(facialhairstyle == "Shaved") //Just in case.
 			valid_facial_hairstyles += facialhairstyle
+			continue
+		if(S.wizard_only)
 			continue
 		if(gender == S.unsuitable_gender)
 			continue
@@ -140,11 +145,11 @@
 		if(S.name == "None")
 			valid_markings += marking
 			continue
-		if(S.marking_location != location)	// If the marking isn't for the location we desire, skip.
+		if(S.marking_location != location) // If the marking isn't for the location we desire, skip.
 			continue
-		if(gender == S.unsuitable_gender)	// If the marking isn't allowed for the user's gender, skip.
+		if(gender == S.unsuitable_gender) // If the marking isn't allowed for the user's gender, skip.
 			continue
-		if(!(species in S.species_allowed))	// If the user's head is not of a species the marking style allows, skip it. Otherwise, add it to the list.
+		if(!(species in S.species_allowed)) // If the user's head is not of a species the marking style allows, skip it. Otherwise, add it to the list.
 			continue
 		if(!S.pickable) //If our markings are unpickable in normal ways, skip it
 			continue
@@ -335,7 +340,7 @@
 	if(interaction_key) //Do we have a interaction_key now?
 		var/current_interaction_count = LAZYACCESS(user.do_afters, interaction_key) || 0
 		if(current_interaction_count >= max_interact_count) //We are at our peak
-			if(cancel_on_max && current_interaction_count == max_interact_count)	// we are adding extra one, to catch this on while loop
+			if(cancel_on_max && current_interaction_count == max_interact_count) // we are adding extra one, to catch this on while loop
 				LAZYSET(user.do_afters, interaction_key, current_interaction_count + 1)
 			return FALSE
 		LAZYSET(user.do_afters, interaction_key, current_interaction_count + 1)
@@ -443,7 +448,7 @@
 		. = TRUE
 
 /proc/is_monkeybasic(mob/living/carbon/human/target)
-	return ishuman(target) && target.dna.species.is_monkeybasic	// we deserve a runtime if a human has no DNA
+	return ishuman(target) && target.dna.species.is_monkeybasic // we deserve a runtime if a human has no DNA
 
 /proc/is_evolvedslime(mob/living/carbon/human/target)
 	if(!ishuman(target) || !isslimeperson(target))
@@ -451,19 +456,21 @@
 	var/datum/species/slime/species = target.dna.species
 	return species.evolved_slime
 
-/proc/spawn_atom_to_turf(spawn_type, target, amount, admin_spawn=FALSE, list/extra_args)
-	var/turf/T = get_turf(target)
-	if(!T)
+/proc/spawn_atom_to_turf(spawn_type, target, amount, admin_spawn = FALSE, list/extra_args)
+	var/turf/turf = get_turf(target)
+	if(!turf)
 		CRASH("attempt to spawn atom type: [spawn_type] in nullspace")
 
-	var/list/new_args = list(T)
+	var/list/new_args = list(turf)
 	if(extra_args)
 		new_args += extra_args
 
+	var/atom/atom
 	for(var/j in 1 to amount)
-		var/atom/X = new spawn_type(arglist(new_args))
+		atom = new spawn_type(arglist(new_args))
 		if(admin_spawn)
-			X.flags |= ADMIN_SPAWNED
+			atom.flags |= ADMIN_SPAWNED
+	return atom // return the last mob spawned
 
 /proc/admin_mob_info(mob/subject, mob/user = usr)
 	if(!ismob(subject))
@@ -627,11 +634,11 @@
 	var/datum/mind/M = P.mind
 	if(!M)
 		return
-	return M.playtime_role ? M.playtime_role : M.assigned_role	//returns current role
+	return M.playtime_role ? M.playtime_role : M.assigned_role //returns current role
 
-/**	checks the security force on station and returns a list of numbers, of the form:
- *	total, active, dead, antag
- *	where active is defined as conscious (STAT = 0) and not an antag
+/** checks the security force on station and returns a list of numbers, of the form:
+ * total, active, dead, antag
+ * where active is defined as conscious (STAT = 0) and not an antag
 */
 /proc/check_active_security_force()
 	var/sec_positions = GLOB.security_positions - JOB_TITLE_MAGISTRATE - JOB_TITLE_BRIGDOC
@@ -639,8 +646,8 @@
 	var/active = 0
 	var/dead = 0
 	var/antag = 0
-	for(var/p in GLOB.human_list)	//contains only human mobs, so no type check needed
-		var/mob/living/carbon/human/player = p	//need to tell it what type it is or we can't access stat without the dreaded :
+	for(var/p in GLOB.human_list) //contains only human mobs, so no type check needed
+		var/mob/living/carbon/human/player = p //need to tell it what type it is or we can't access stat without the dreaded :
 		if(determine_role(player) in sec_positions)
 			total++
 			if(player.stat == DEAD)
@@ -671,19 +678,8 @@
 		C = M.client
 	else if(M.last_known_ckey in GLOB.directory)
 		C = GLOB.directory[M.last_known_ckey]
-
-	// Now we see if we need to respect their privacy
-	var/out_ckey
-	if(C)
-		if(C.prefs.toggles2 & PREFTOGGLE_2_ANON)
-			out_ckey = "(Anon)"
-		else
-			out_ckey = C.ckey
-	else
-		// No client. Just mark as DC'd.
-		out_ckey = "(Disconnected)"
-
-	return out_ckey
+// Now we see if we need to respect their privacy
+	return get_display_key(C)
 
 ///Returns a list of strings for a given slot flag.
 /proc/parse_slot_flags(slot_flags)
@@ -924,6 +920,10 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 	return mob_map
 
+/// Gets the client of the mob, allowing for mocking of the client.
+/// You only need to use this if you know you're going to be mocking clients somewhere else.
+#define GET_CLIENT(mob) (##mob.client/* || ##mob.mock_client*/)
+
 /// Orders mobs by type then by name
 /proc/sort_mobs()
 	var/list/mob_list = list()
@@ -982,8 +982,14 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		if(!QDELETED(brain.brainmob?.mind))
 			return brain.brainmob.mind
 
-/// Returns a string for the specified body zone. If we have a bodypart in this zone, refers to its plaintext_zone instead.
-/mob/living/proc/parse_zone_with_bodypart(zone)
-	var/obj/item/organ/external/part = get_bodypart(zone)
-
-	return part?.plaintext_zone || parse_zone(zone)
+/proc/dance_rotate(atom/movable/target_movable, datum/callback/call_per_rotate, set_original_dir = FALSE)
+	set waitfor = FALSE
+	var/original_dir = target_movable.dir
+	for(var/i in list(NORTH, SOUTH, EAST, WEST, EAST, SOUTH, NORTH, SOUTH, EAST, WEST, EAST, SOUTH))
+		if(!target_movable)
+			return
+		target_movable.setDir(i)
+		call_per_rotate?.Invoke()
+		sleep(0.1 SECONDS)
+	if(set_original_dir)
+		target_movable.setDir(original_dir)

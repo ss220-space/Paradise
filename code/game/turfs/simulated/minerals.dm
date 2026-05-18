@@ -194,8 +194,12 @@
 
 	if(ismecha(moving_atom))
 		var/obj/mecha/mecha = moving_atom
-		if(istype(mecha.selected, /obj/item/mecha_parts/mecha_equipment/drill))
-			mecha.selected.action(src)
+		for(var/key, item in mecha.selected_equipment_in_hands)
+			if(!istype(item, /obj/item/mecha_parts/mecha_equipment/drill))
+				continue
+			var/obj/item/mecha_parts/mecha_equipment/selected_item = item
+			selected_item.action(src)
+			return
 
 /turf/simulated/mineral/acid_melt()
 	ChangeTurf(baseturf)

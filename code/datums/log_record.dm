@@ -1,10 +1,10 @@
 /datum/log_record
-	var/log_type		// Type of log
-	var/raw_time		// When did this happen?
-	var/what			// What happened
-	var/who				// Who did it
-	var/target			// Who/what was targeted
-	var/where			// Where did it happen
+	var/log_type // Type of log
+	var/raw_time // When did this happen?
+	var/what // What happened
+	var/who // Who did it
+	var/target // Who/what was targeted
+	var/where // Where did it happen
 
 /datum/log_record/New(_log_type, _who, _what, _target, _where, _raw_time)
 	log_type = _log_type

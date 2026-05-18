@@ -1,10 +1,8 @@
 SUBSYSTEM_DEF(tts)
 	name = "Text-to-Speech"
-	init_order = INIT_ORDER_DEFAULT
 	wait = 1 SECONDS
+	priority = FIRE_PRIORITY_TTS
 	runlevels = RUNLEVEL_LOBBY | RUNLEVELS_DEFAULT
-	cpu_display = SS_CPUDISPLAY_HIGH
-	ss_id = "text_to_speech"
 
 	var/tts_wanted = 0
 	var/tts_request_failed = 0
@@ -168,6 +166,12 @@ SUBSYSTEM_DEF(tts)
 
 	var/list/tts_effect_map
 
+/datum/controller/subsystem/tts/vv_edit_var(var_name, var_value)
+	// tts being enabled depends on whether it actually exists
+	if(NAMEOF(src, is_enabled) == var_name)
+		return FALSE
+	return ..()
+
 /datum/controller/subsystem/tts/get_stat_details()
 	var/list/msg = list()
 	msg += "tRPS:[tts_trps] "
@@ -200,7 +204,7 @@ SUBSYSTEM_DEF(tts)
 		tts_seeds[seed.name] = seed
 		tts_seeds_names += seed.name
 		tts_seeds_names_by_donator_levels["[seed.donator_level]"] += list(seed.name)
-	tts_seeds_names = sortTim(tts_seeds_names, cmp = /proc/cmp_text_asc)
+	sortTim(tts_seeds_names, GLOBAL_PROC_REF(cmp_text_asc))
 
 	tts_effect_map = list(
 		"[SOUND_EFFECT_ROBOT]" = list(
@@ -218,7 +222,7 @@ SUBSYSTEM_DEF(tts)
 /datum/controller/subsystem/tts/Initialize()
 	is_enabled = CONFIG_GET(flag/tts_enabled)
 	if(!is_enabled)
-		flags |= SS_NO_FIRE
+		ss_flags |= SS_NO_FIRE
 	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/tts/fire()

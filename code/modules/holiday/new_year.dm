@@ -7,7 +7,6 @@
 	icon = 'icons/obj/new_year/decorations.dmi'
 	icon_state = "garland_on"
 	max_integrity = 24 //can be removed easily (also, symbolism)
-	layer = BELOW_OBJ_LAYER
 	anchored = TRUE
 
 /obj/structure/garland/wirecutter_act(mob/living/user, obj/item/wirecutters/I)

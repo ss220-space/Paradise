@@ -12,6 +12,8 @@
 	if(isnull(user))
 		return
 
+	SEND_SIGNAL(user, COMSIG_ATOM_MOUSE_ENTERED, src)
+
 	// Screentips
 	var/datum/hud/active_hud = user.hud_used
 	if(!active_hud)

@@ -104,20 +104,20 @@ Note: Must be placed within 3 tiles of the R&D Console
 	addtimer(CALLBACK(src, PROC_REF(reset_processing)), 1 SECONDS)
 	return ATTACK_CHAIN_BLOCKED_ALL
 
-/obj/machinery/r_n_d/destructive_analyzer/screwdriver_act(mob/living/user, obj/item/I)
+/obj/machinery/r_n_d/destructive_analyzer/screwdriver_act_secondary(mob/living/user, obj/item/tool)
 	if(shocked && shock(user, 50))
 		add_fingerprint(user)
 		return TRUE
-	. = default_deconstruction_screwdriver(user, "[base_icon_state]_unscrewed", base_icon_state, I)
+	. = default_deconstruction_screwdriver(user, "[base_icon_state]_unscrewed", base_icon_state, tool)
 	if(. && linked_console)
 		linked_console.linked_destroy = null
 		linked_console = null
 
-/obj/machinery/r_n_d/destructive_analyzer/crowbar_act(mob/living/user, obj/item/I)
+/obj/machinery/r_n_d/destructive_analyzer/crowbar_act_secondary(mob/living/user, obj/item/tool)
 	if(shocked && shock(user, 50))
 		add_fingerprint(user)
 		return TRUE
-	return default_deconstruction_crowbar(user, I)
+	return default_deconstruction_crowbar(user, tool)
 
 /obj/machinery/r_n_d/destructive_analyzer/proc/reset_processing()
 	busy = FALSE

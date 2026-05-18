@@ -4,7 +4,7 @@
 /obj/machinery/navbeacon
 
 	icon = 'icons/obj/objects.dmi'
-	icon_state = "navbeacon0-f"
+	icon_state = "navbeacon0"
 	name = "navigation beacon"
 	desc = "A radio beacon used for bot navigation."
 	level = 1		// underfloor
@@ -13,11 +13,18 @@
 	anchored = TRUE
 	max_integrity = 500
 	armor = list(melee = 70, bullet = 70, laser = 70, energy = 70, bomb = 0, bio = 0, fire = 80, acid = 80)
-	var/open = 0		// true if cover is open
-	var/locked = 1		// true if controls are locked
-	var/location = ""	// location response text
-	var/list/codes		// assoc. list of transponder codes
-	var/codes_txt = ""	// codes as set on map: "tag1;tag2" or "tag1=value;tag2=value"
+	// TRUE if cover is open
+	var/open = FALSE
+	// TRUE if controls are locked
+	var/locked = TRUE
+	// TRUE if it's should not have undertile component (shouldn't be a "real" thing)
+	var/theoretical = FALSE
+	// Location response text
+	var/location = ""
+	// Assoc. list of transponder codes
+	var/list/codes
+	// Codes as set on map: "tag1;tag2" or "tag1=value;tag2=value"
+	var/codes_txt = ""
 
 	req_access = list(ACCESS_ENGINE, ACCESS_ROBOTICS)
 
@@ -26,15 +33,17 @@
 
 	set_codes()
 
-	var/turf/T = loc
-	if(!T.transparent_floor)
-		hide(T.intact)
+	if(!theoretical)
+		AddElement(/datum/element/undertile)
+
 	if(!codes || !length(codes))
 		stack_trace("Empty codes datum at ([x],[y],[z]) (codes_txt: [codes_txt])")
+
 	if("patrol" in codes)
 		if(!GLOB.navbeacons["[z]"])
 			GLOB.navbeacons["[z]"] = list()
 		GLOB.navbeacons["[z]"] += src //Register with the patrol list!
+
 	if("delivery" in codes)
 		GLOB.deliverybeacons += src
 		GLOB.deliverybeacontags += location
@@ -71,21 +80,9 @@
 		else
 			codes[e] = "1"
 
-// called when turf state changes
-// hide the object if turf is intact
-/obj/machinery/navbeacon/hide(intact)
-	invisibility = intact ? INVISIBILITY_MAXIMUM : 0
-	update_icon(UPDATE_ICON_STATE)
-
-// update the icon_state
-/obj/machinery/navbeacon/update_icon_state()
-	// if invisible, set icon to faded version
-	// in case revealed by T-scanner
-	icon_state = "navbeacon[open][invisibility ? "-f" : ""]"
-
 /obj/machinery/navbeacon/attackby(obj/item/I, mob/user, params)
 	var/turf/our_turf = loc
-	if(!isturf(our_turf) || our_turf.intact || our_turf.transparent_floor == TURF_TRANSPARENT)	// prevent intraction when T-scanner revealed
+	if(!isturf(our_turf) || our_turf.underfloor_accessibility < UNDERFLOOR_INTERACTABLE)	// prevent intraction when T-scanner revealed
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(user.a_intent == INTENT_HARM)
@@ -107,8 +104,7 @@
 	return ..()
 
 /obj/machinery/navbeacon/screwdriver_act(mob/living/user, obj/item/I)
-	var/turf/T = get_turf(src)
-	if(T.intact)
+	if(HAS_TRAIT(src, TRAIT_UNDERFLOOR))
 		return FALSE
 	open = !open
 	user.visible_message(
@@ -126,8 +122,7 @@
 	interact(user, 0)
 
 /obj/machinery/navbeacon/interact(mob/user, ai = 0)
-	var/turf/T = get_turf(src)
-	if(T.intact)
+	if(HAS_TRAIT(src, TRAIT_UNDERFLOOR))
 		return		// prevent intraction when T-scanner revealed
 
 	if(!open && !ai)	// can't alter controls if not open, unless you're an AI
@@ -223,7 +218,4 @@ Transponder Codes:<ul>"}
 
 /obj/machinery/navbeacon/invisible
 	invisibility = INVISIBILITY_ABSTRACT
-
-/obj/machinery/navbeacon/invisible/hide(intact)
-	invisibility = INVISIBILITY_ABSTRACT
-	update_icon(UPDATE_ICON_STATE)
+	theoretical = TRUE // this can not be underfloor, cause bot patrols asteroid

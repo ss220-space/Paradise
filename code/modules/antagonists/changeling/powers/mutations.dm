@@ -190,10 +190,10 @@
 	parent_action.UnregisterSignal(parent_action.owner, COMSIG_MOB_WEAPON_APPEARS)
 	parent_action = null
 
-/obj/item/melee/changeling/arm_blade/afterattack(atom/target, mob/user, proximity, params)
+/obj/item/melee/changeling/arm_blade/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	. = ..()
 
-	if(!proximity)
+	if(!proximity_flag)
 		return
 
 	if(is_airlock(target))
@@ -295,10 +295,10 @@
 	parent_action.UnregisterSignal(parent_action.owner, COMSIG_MOB_WEAPON_APPEARS)
 	parent_action = null
 
-/obj/item/melee/changeling/fleshy_maul/afterattack(atom/target, mob/living/user, proximity, params)
+/obj/item/melee/changeling/fleshy_maul/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	. = ..()
 
-	if(!proximity)
+	if(!proximity_flag)
 		return
 
 	if(isstructure(target))

@@ -23,12 +23,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/plaza)
 "af" = (
-/obj/machinery/alarm/monitor{
-	dir = 4;
-	locked = 0;
-	pixel_x = -23;
-	req_access = null
-	},
+/obj/machinery/alarm/all_access/directional/west,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -38,17 +33,23 @@
 /area/awaymission/UO71/plaza)
 "ag" = (
 /obj/machinery/r_n_d/destructive_analyzer,
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/science)
 "ah" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/science)
 "ai" = (
 /obj/machinery/r_n_d/protolathe,
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/science)
 "aj" = (
@@ -87,7 +88,9 @@
 	},
 /area/awaymission/UO71/plaza)
 "ap" = (
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -185,9 +188,7 @@
 "aE" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/table/wood,
-/obj/machinery/newscaster{
-	pixel_x = 30
-	},
+/obj/machinery/newscaster/directional/east,
 /obj/item/gun/energy/laser/retro,
 /obj/item/paper/terrorspiders8,
 /obj/machinery/light/small{
@@ -219,12 +220,7 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/plaza)
 "aJ" = (
-/obj/machinery/alarm/monitor{
-	dir = 4;
-	locked = 0;
-	pixel_x = -23;
-	req_access = null
-	},
+/obj/machinery/alarm/all_access/directional/west,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/plaza)
 "aK" = (
@@ -288,9 +284,7 @@
 	},
 /area/awaymission/UO71/plaza)
 "aS" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -25
-	},
+/obj/structure/extinguisher_cabinet/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/plaza)
@@ -359,12 +353,7 @@
 /area/awaymission/UO71/plaza)
 "bc" = (
 /obj/machinery/light/small,
-/obj/machinery/alarm/monitor{
-	dir = 1;
-	locked = 0;
-	pixel_y = -23;
-	req_access = null
-	},
+/obj/machinery/alarm/all_access/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -390,10 +379,7 @@
 	},
 /area/awaymission/UO71/plaza)
 "bf" = (
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = 24
-	},
+/obj/machinery/firealarm/directional/east,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -404,9 +390,7 @@
 	dir = 1
 	},
 /obj/structure/table/wood,
-/obj/machinery/newscaster{
-	pixel_x = 30
-	},
+/obj/machinery/newscaster/directional/east,
 /obj/item/gun/energy/laser/awaymission_aeg,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/plaza)
@@ -716,18 +700,12 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/machinery/alarm/monitor{
-	locked = 0;
-	pixel_y = 23;
-	req_access = null
-	},
+/obj/machinery/alarm/all_access/directional/north,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/plaza)
 "ch" = (
 /obj/structure/table/wood,
-/obj/machinery/newscaster{
-	pixel_x = -30
-	},
+/obj/machinery/newscaster/directional/west,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/plaza)
 "ci" = (
@@ -739,20 +717,14 @@
 "ck" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/table/wood,
-/obj/machinery/newscaster{
-	pixel_x = 30
-	},
+/obj/machinery/newscaster/directional/east,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/plaza)
 "cl" = (
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/machinery/alarm/monitor{
-	locked = 0;
-	pixel_y = 23;
-	req_access = null
-	},
+/obj/machinery/alarm/all_access/directional/north,
 /obj/structure/chair/wood{
 	dir = 4
 	},
@@ -939,7 +911,9 @@
 /obj/structure/sign/nosmoking_2{
 	pixel_x = -32
 	},
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -968,7 +942,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 6
 	},
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
@@ -976,9 +952,7 @@
 	},
 /area/awaymission/UO71/science)
 "cW" = (
-/obj/machinery/firealarm{
-	pixel_y = 24
-	},
+/obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/plaza)
 "cX" = (
@@ -1108,11 +1082,7 @@
 	},
 /area/awaymission/UO71/plaza)
 "dm" = (
-/obj/machinery/alarm/monitor{
-	locked = 0;
-	pixel_y = 23;
-	req_access = null
-	},
+/obj/machinery/alarm/all_access/directional/north,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -1169,9 +1139,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/firealarm{
-	pixel_y = 24
-	},
+/obj/machinery/firealarm/directional/north,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -1402,12 +1370,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/plaza)
 "dZ" = (
-/obj/machinery/alarm/monitor{
-	dir = 4;
-	locked = 0;
-	pixel_x = -23;
-	req_access = null
-	},
+/obj/machinery/alarm/all_access/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/computer/security{
 	network = list("UO71")
@@ -1502,9 +1465,7 @@
 /obj/machinery/recharger{
 	pixel_y = 4
 	},
-/obj/machinery/newscaster/security_unit{
-	pixel_x = -30
-	},
+/obj/machinery/newscaster/security_unit/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -1669,16 +1630,13 @@
 	dir = 1;
 	network = list("UO71")
 	},
-/obj/machinery/power/apc/noalarm{
+/obj/machinery/power/apc/noalarm/directional/south{
 	cell_type = 15000;
 	locked = 0;
-	name = "Hydroponics APC";
-	pixel_y = -25;
 	req_access = list();
 	start_charge = 5
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -1698,9 +1656,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/structure/extinguisher_cabinet{
-	pixel_y = -28
-	},
+/obj/structure/extinguisher_cabinet/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "green"
 	},
@@ -1756,12 +1712,7 @@
 	},
 /area/awaymission/UO71/plaza)
 "eM" = (
-/obj/machinery/alarm/monitor{
-	dir = 8;
-	locked = 0;
-	pixel_x = 23;
-	req_access = null
-	},
+/obj/machinery/alarm/all_access/directional/east,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -1958,12 +1909,7 @@
 /area/awaymission/UO71/centralhall)
 "fl" = (
 /obj/machinery/light/small,
-/obj/machinery/alarm/monitor{
-	dir = 1;
-	locked = 0;
-	pixel_y = -23;
-	req_access = null
-	},
+/obj/machinery/alarm/all_access/directional/south,
 /obj/machinery/atmospherics/unary/vent_scrubber{
 	dir = 1;
 	on = 1
@@ -1973,9 +1919,7 @@
 /area/awaymission/UO71/plaza)
 "fm" = (
 /obj/structure/table/wood,
-/obj/machinery/newscaster{
-	pixel_y = -28
-	},
+/obj/machinery/newscaster/directional/south,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/plaza)
 "fn" = (
@@ -1989,17 +1933,12 @@
 	},
 /area/awaymission/UO71/plaza)
 "fo" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_y = -28
-	},
+/obj/structure/extinguisher_cabinet/directional/south,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/plaza)
 "fp" = (
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -24
-	},
+/obj/machinery/firealarm/directional/south,
 /obj/machinery/camera{
 	c_tag = "Central Hallway";
 	dir = 1;
@@ -2204,7 +2143,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -2400,9 +2341,7 @@
 	},
 /area/awaymission/UO71/science)
 "gw" = (
-/obj/machinery/firealarm{
-	pixel_y = 24
-	},
+/obj/machinery/firealarm/directional/north,
 /obj/item/robot_parts/l_arm,
 /obj/item/robot_parts/r_arm,
 /obj/item/robot_parts/l_leg,
@@ -2416,11 +2355,7 @@
 /turf/simulated/floor/vault,
 /area/awaymission/UO71/prince)
 "gy" = (
-/obj/machinery/alarm/monitor{
-	locked = 0;
-	pixel_y = 23;
-	req_access = null
-	},
+/obj/machinery/alarm/all_access/directional/north,
 /obj/machinery/camera{
 	c_tag = "Research Lab";
 	network = list("UO71")
@@ -2460,12 +2395,7 @@
 	},
 /area/awaymission/UO71/science)
 "gC" = (
-/obj/machinery/alarm/monitor{
-	dir = 8;
-	locked = 0;
-	pixel_x = 23;
-	req_access = null
-	},
+/obj/machinery/alarm/all_access/directional/east,
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 8;
 	on = 1
@@ -2477,10 +2407,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/machinery/firealarm{
-	dir = 8;
-	pixel_x = -24
-	},
+/obj/machinery/firealarm/directional/west,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8;
 	initialize_directions = 7
@@ -2553,9 +2480,7 @@
 	},
 /area/awaymission/UO71/centralhall)
 "gN" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -25
-	},
+/obj/structure/extinguisher_cabinet/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -2571,12 +2496,7 @@
 	},
 /area/awaymission/UO71/centralhall)
 "gP" = (
-/obj/machinery/alarm/monitor{
-	dir = 8;
-	locked = 0;
-	pixel_x = 23;
-	req_access = null
-	},
+/obj/machinery/alarm/all_access/directional/east,
 /obj/machinery/camera{
 	c_tag = "Kitchen";
 	dir = 8;
@@ -2663,7 +2583,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/northwestcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -2696,12 +2618,7 @@
 	},
 /area/awaymission/UO71/science)
 "hd" = (
-/obj/machinery/alarm/monitor{
-	dir = 4;
-	locked = 0;
-	pixel_x = -23;
-	req_access = null
-	},
+/obj/machinery/alarm/all_access/directional/west,
 /obj/machinery/camera{
 	c_tag = "Gateway Chamber";
 	dir = 4;
@@ -2879,7 +2796,6 @@
 "hw" = (
 /obj/machinery/gateway,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -2888,12 +2804,7 @@
 	},
 /area/awaymission/UO71/gateway)
 "hx" = (
-/obj/machinery/alarm/monitor{
-	dir = 8;
-	locked = 0;
-	pixel_x = 23;
-	req_access = null
-	},
+/obj/machinery/alarm/all_access/directional/east,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/chair{
 	dir = 8
@@ -2930,22 +2841,14 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/science)
 "hD" = (
-/obj/machinery/firealarm{
-	dir = 8;
-	pixel_x = -24
-	},
+/obj/machinery/firealarm/directional/west,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
 /turf/simulated/floor/vault,
 /area/awaymission/UO71/prince)
 "hE" = (
-/obj/machinery/alarm/monitor{
-	dir = 8;
-	locked = 0;
-	pixel_x = 23;
-	req_access = null
-	},
+/obj/machinery/alarm/all_access/directional/east,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /turf/simulated/floor/vault,
 /area/awaymission/UO71/prince)
@@ -3025,10 +2928,7 @@
 	},
 /area/awaymission/UO71/centralhall)
 "hP" = (
-/obj/machinery/firealarm{
-	dir = 8;
-	pixel_x = -24
-	},
+/obj/machinery/firealarm/directional/west,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -3113,12 +3013,16 @@
 /area/awaymission/UO71/gateway)
 "ib" = (
 /obj/structure/closet/l3closet/scientist,
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/gateway)
 "ic" = (
 /obj/structure/closet/l3closet/scientist,
-/obj/effect/decal/warning_stripes/northeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/gateway)
 "if" = (
@@ -3135,11 +3039,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/science)
 "ih" = (
-/obj/machinery/alarm/monitor{
-	locked = 0;
-	pixel_y = 23;
-	req_access = null
-	},
+/obj/machinery/alarm/all_access/directional/north,
 /obj/machinery/camera{
 	c_tag = "Gateway Ready Room";
 	network = list("UO71")
@@ -3166,7 +3066,9 @@
 	dir = 4;
 	on = 1
 	},
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/gateway)
 "ik" = (
@@ -3271,7 +3173,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/gateway)
 "iv" = (
@@ -3301,7 +3205,7 @@
 /area/awaymission/UO71/gateway)
 "iz" = (
 /obj/machinery/door/firedoor,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -3381,12 +3285,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/machinery/alarm/monitor{
-	dir = 4;
-	locked = 0;
-	pixel_x = -23;
-	req_access = null
-	},
+/obj/machinery/alarm/all_access/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -3446,7 +3345,6 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -3467,7 +3365,9 @@
 /obj/structure/sign/nosmoking_2{
 	pixel_x = -32
 	},
-/obj/effect/decal/warning_stripes/northwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -3588,10 +3488,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/centralhall)
 "jt" = (
-/obj/machinery/firealarm{
-	dir = 8;
-	pixel_x = -24
-	},
+/obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -3660,7 +3557,9 @@
 /obj/machinery/shower{
 	pixel_y = 15
 	},
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -3669,7 +3568,9 @@
 /obj/structure/sink{
 	pixel_y = 25
 	},
-/obj/effect/decal/warning_stripes/northeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -3700,12 +3601,7 @@
 	},
 /area/awaymission/UO71/gateway)
 "jJ" = (
-/obj/machinery/alarm/monitor{
-	dir = 8;
-	locked = 0;
-	pixel_x = 23;
-	req_access = null
-	},
+/obj/machinery/alarm/all_access/directional/east,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4;
 	initialize_directions = 11
@@ -3780,15 +3676,11 @@
 /area/awaymission/UO71/centralhall)
 "jU" = (
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/noalarm{
+/obj/machinery/power/apc/noalarm/directional/north{
 	cell_type = 15000;
-	dir = 1;
 	locked = 0;
-	name = "UO71 Bar APC";
-	pixel_y = 25;
 	req_access = list();
 	start_charge = 100
 	},
@@ -4036,11 +3928,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/centralhall)
 "kv" = (
-/obj/machinery/alarm/monitor{
-	locked = 0;
-	pixel_y = 23;
-	req_access = null
-	},
+/obj/machinery/alarm/all_access/directional/north,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/centralhall)
 "kw" = (
@@ -4075,10 +3963,7 @@
 	dir = 4;
 	initialize_directions = 11
 	},
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = 24
-	},
+/obj/machinery/firealarm/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -4180,11 +4065,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/machinery/alarm/monitor{
-	locked = 0;
-	pixel_y = 23;
-	req_access = null
-	},
+/obj/machinery/alarm/all_access/directional/north,
 /turf/simulated/floor/plasteel/hight_cap{
 	dir = 4;
 	icon_state = "whitepurplecorner"
@@ -4244,7 +4125,9 @@
 /obj/machinery/atmospherics/unary/vent_scrubber{
 	on = 1
 	},
-/obj/effect/decal/warning_stripes/southwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -4284,20 +4167,14 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/extinguisher_cabinet{
-	pixel_y = 30
-	},
+/obj/structure/extinguisher_cabinet/directional/north,
 /turf/simulated/floor/plasteel/hight_cap{
 	dir = 4;
 	icon_state = "whitepurplecorner"
 	},
 /area/awaymission/UO71/science)
 "kX" = (
-/obj/machinery/alarm/monitor{
-	locked = 0;
-	pixel_y = 23;
-	req_access = null
-	},
+/obj/machinery/alarm/all_access/directional/north,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -4375,7 +4252,9 @@
 /obj/structure/closet/firecloset,
 /obj/machinery/light/small,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -4386,7 +4265,9 @@
 	dir = 4;
 	on = 1
 	},
-/obj/effect/decal/warning_stripes/southeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -4401,9 +4282,7 @@
 "lk" = (
 /obj/structure/table,
 /obj/item/newspaper,
-/obj/machinery/newscaster{
-	pixel_x = 30
-	},
+/obj/machinery/newscaster/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/centralhall)
@@ -4427,10 +4306,7 @@
 	},
 /area/awaymission/UO71/centralhall)
 "ln" = (
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -24
-	},
+/obj/machinery/firealarm/directional/south,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -4459,9 +4335,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
 	},
-/obj/machinery/newscaster{
-	pixel_y = -28
-	},
+/obj/machinery/newscaster/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -4473,12 +4347,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/alarm/monitor{
-	dir = 1;
-	locked = 0;
-	pixel_y = -23;
-	req_access = null
-	},
+/obj/machinery/alarm/all_access/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -4641,10 +4510,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -24
-	},
+/obj/machinery/firealarm/directional/south,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -4736,14 +4602,11 @@
 /area/awaymission/UO71/science)
 "lQ" = (
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc/noalarm{
+/obj/machinery/power/apc/noalarm/directional/south{
 	cell_type = 15000;
 	locked = 0;
-	name = "UO71 Research Division APC";
-	pixel_y = -25;
 	req_access = list();
 	start_charge = 100
 	},
@@ -4764,10 +4627,7 @@
 /obj/structure/disposalpipe/junction{
 	dir = 8
 	},
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -24
-	},
+/obj/machinery/firealarm/directional/south,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplecorner"
@@ -4814,10 +4674,7 @@
 	},
 /area/awaymission/UO71/science)
 "lW" = (
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -24
-	},
+/obj/machinery/firealarm/directional/south,
 /obj/machinery/camera{
 	c_tag = "Research Division East";
 	dir = 1;
@@ -5039,10 +4896,7 @@
 /area/awaymission/UO71/eng)
 "mA" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/firealarm{
-	dir = 8;
-	pixel_x = -24
-	},
+/obj/machinery/firealarm/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/centralhall)
@@ -5065,18 +4919,12 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/machinery/alarm/monitor{
-	locked = 0;
-	pixel_y = 23;
-	req_access = null
-	},
+/obj/machinery/alarm/all_access/directional/north,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/centralhall)
 "mE" = (
 /obj/structure/table/wood,
-/obj/machinery/newscaster{
-	pixel_x = -30
-	},
+/obj/machinery/newscaster/directional/west,
 /obj/item/paper/terrorspiders4,
 /obj/item/reagent_containers/food/pill/charcoal{
 	pixel_x = 3
@@ -5095,11 +4943,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/machinery/alarm/monitor{
-	locked = 0;
-	pixel_y = 23;
-	req_access = null
-	},
+/obj/machinery/alarm/all_access/directional/north,
 /obj/structure/chair/wood{
 	dir = 8
 	},
@@ -5118,7 +4962,7 @@
 	dir = 10;
 	initialize_directions = 10
 	},
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/eng)
 "mJ" = (
@@ -5170,9 +5014,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/gateway)
 "mN" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_y = -28
-	},
+/obj/structure/extinguisher_cabinet/directional/south,
 /obj/structure/rack{
 	dir = 8;
 	layer = 2.9
@@ -5189,19 +5031,14 @@
 	layer = 2.9
 	},
 /obj/item/clothing/shoes/magboots,
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -24
-	},
+/obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/gateway)
 "mP" = (
 /obj/structure/cable,
-/obj/machinery/power/apc/noalarm{
+/obj/machinery/power/apc/noalarm/directional/south{
 	cell_type = 15000;
 	locked = 0;
-	name = "UO71 Gateway APC";
-	pixel_y = -25;
 	req_access = list();
 	start_charge = 100
 	},
@@ -5329,9 +5166,7 @@
 /area/awaymission/UO71/science)
 "ne" = (
 /obj/structure/table,
-/obj/machinery/newscaster{
-	pixel_x = -30
-	},
+/obj/machinery/newscaster/directional/west,
 /obj/item/book/manual/security_space_law,
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 1;
@@ -5464,7 +5299,7 @@
 /area/awaymission/UO71/centralhall)
 "nu" = (
 /obj/machinery/portable_atmospherics/canister/air,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/eng)
 "nv" = (
@@ -5839,12 +5674,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/science)
 "oh" = (
-/obj/machinery/alarm/monitor{
-	dir = 4;
-	locked = 0;
-	pixel_x = -23;
-	req_access = null
-	},
+/obj/machinery/alarm/all_access/directional/west,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -5975,12 +5805,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/science)
 "or" = (
-/obj/machinery/alarm/monitor{
-	dir = 4;
-	locked = 0;
-	pixel_x = -23;
-	req_access = null
-	},
+/obj/machinery/alarm/all_access/directional/west,
 /obj/item/radio/off,
 /obj/machinery/light/small{
 	dir = 8
@@ -6017,12 +5842,7 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/alarm/monitor{
-	dir = 4;
-	locked = 0;
-	pixel_x = -23;
-	req_access = null
-	},
+/obj/machinery/alarm/all_access/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutral"
@@ -6145,11 +5965,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/alarm/monitor{
-	locked = 0;
-	pixel_y = 23;
-	req_access = null
-	},
+/obj/machinery/alarm/all_access/directional/north,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -6228,10 +6044,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/machinery/firealarm{
-	dir = 8;
-	pixel_x = -24
-	},
+/obj/machinery/firealarm/directional/west,
 /obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/eng)
@@ -6485,9 +6298,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/extinguisher_cabinet{
-	pixel_y = -28
-	},
+/obj/structure/extinguisher_cabinet/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
@@ -6507,10 +6318,7 @@
 	dir = 1;
 	on = 1
 	},
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -24
-	},
+/obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -6569,12 +6377,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/alarm/monitor{
-	dir = 8;
-	locked = 0;
-	pixel_x = 23;
-	req_access = null
-	},
+/obj/machinery/alarm/all_access/directional/east,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -6625,11 +6428,9 @@
 	},
 /obj/item/wrench,
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
@@ -6643,7 +6444,6 @@
 	name = "P.A.C.M.A.N.-type portable generator"
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
@@ -6666,7 +6466,6 @@
 	name = "P.A.C.M.A.N.-type portable generator"
 	},
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
@@ -6753,10 +6552,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = 24
-	},
+/obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutral"
@@ -6880,7 +6676,7 @@
 /area/awaymission/UO71/science)
 "qd" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/eng)
 "qe" = (
@@ -7150,11 +6946,7 @@
 /area/awaymission/UO71/medical)
 "qH" = (
 /obj/structure/table,
-/obj/machinery/alarm/monitor{
-	locked = 0;
-	pixel_y = 23;
-	req_access = null
-	},
+/obj/machinery/alarm/all_access/directional/north,
 /obj/item/hand_labeler,
 /obj/item/clothing/accessory/stethoscope,
 /turf/simulated/floor/plasteel{
@@ -7192,21 +6984,11 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/machinery/alarm/monitor{
-	dir = 8;
-	locked = 0;
-	pixel_x = 23;
-	req_access = null
-	},
+/obj/machinery/alarm/all_access/directional/east,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/centralhall)
 "qN" = (
-/obj/machinery/alarm/monitor{
-	dir = 8;
-	locked = 0;
-	pixel_x = 23;
-	req_access = null
-	},
+/obj/machinery/alarm/all_access/directional/east,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/centralhall)
 "qO" = (
@@ -7220,12 +7002,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/machinery/alarm/monitor{
-	dir = 4;
-	locked = 0;
-	pixel_x = -23;
-	req_access = null
-	},
+/obj/machinery/alarm/all_access/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -7259,7 +7036,6 @@
 /area/awaymission/UO71/eng)
 "qU" = (
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/machinery/computer/monitor{
@@ -7343,10 +7119,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/machinery/alarm/monitor/server{
-	dir = 4;
-	pixel_x = -22
-	},
+/obj/machinery/alarm/monitor/server/directional/west,
 /obj/machinery/r_n_d/server/core{
 	id_with_download_string = "3";
 	id_with_upload_string = "3";
@@ -7374,9 +7147,7 @@
 /obj/item/storage/toolbox/mechanical{
 	pixel_y = 5
 	},
-/obj/machinery/firealarm{
-	pixel_y = 24
-	},
+/obj/machinery/firealarm/directional/north,
 /obj/item/multitool,
 /obj/machinery/light/small{
 	dir = 1
@@ -7416,7 +7187,7 @@
 	dir = 1
 	},
 /obj/machinery/portable_atmospherics/canister/air,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/eng)
 "rg" = (
@@ -7496,9 +7267,7 @@
 /area/awaymission/UO71/bridge)
 "rt" = (
 /obj/structure/table/wood,
-/obj/machinery/newscaster{
-	pixel_y = -28
-	},
+/obj/machinery/newscaster/directional/south,
 /obj/item/pen,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/centralhall)
@@ -7510,9 +7279,7 @@
 /area/awaymission/UO71/centralhall)
 "rv" = (
 /obj/structure/table/wood,
-/obj/machinery/newscaster{
-	pixel_x = -30
-	},
+/obj/machinery/newscaster/directional/west,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/centralhall)
 "rw" = (
@@ -7552,12 +7319,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/centralhall)
 "rA" = (
-/obj/machinery/alarm/monitor{
-	dir = 1;
-	locked = 0;
-	pixel_y = -23;
-	req_access = null
-	},
+/obj/machinery/alarm/all_access/directional/south,
 /obj/machinery/atmospherics/pipe/simple/visible/purple{
 	dir = 5;
 	initialize_directions = 5
@@ -7567,18 +7329,14 @@
 /area/awaymission/UO71/eng)
 "rB" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -25
-	},
+/obj/structure/extinguisher_cabinet/directional/west,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/centralhall)
 "rC" = (
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	dir = 4
 	},
-/obj/structure/extinguisher_cabinet{
-	pixel_y = -30
-	},
+/obj/structure/extinguisher_cabinet/directional/south,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/eng)
@@ -7606,9 +7364,7 @@
 /turf/simulated/wall,
 /area/awaymission/UO71/eng)
 "rH" = (
-/obj/machinery/firealarm{
-	pixel_y = 24
-	},
+/obj/machinery/firealarm/directional/north,
 /obj/structure/dispenser{
 	pixel_x = -1
 	},
@@ -7649,9 +7405,7 @@
 /obj/item/clothing/mask/breath{
 	pixel_x = 4
 	},
-/obj/machinery/newscaster{
-	pixel_y = 32
-	},
+/obj/machinery/newscaster/directional/north,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -7660,14 +7414,10 @@
 /area/awaymission/UO71/eng)
 "rK" = (
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/noalarm{
+/obj/machinery/power/apc/noalarm/directional/west{
 	cell_type = 15000;
-	dir = 8;
-	name = "UO71 Engineering APC";
-	pixel_x = -25;
 	req_access = list();
 	start_charge = 100
 	},
@@ -7707,7 +7457,9 @@
 /area/awaymission/UO71/eng)
 "rP" = (
 /obj/structure/closet/firecloset,
-/obj/effect/decal/warning_stripes/northwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/science)
 "rQ" = (
@@ -7724,7 +7476,9 @@
 	dir = 8;
 	initialize_directions = 11
 	},
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/science)
 "rS" = (
@@ -7738,7 +7492,9 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/effect/decal/warning_stripes/northeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/science)
 "rT" = (
@@ -7771,10 +7527,7 @@
 /area/awaymission/UO71/loot)
 "rX" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -24
-	},
+/obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria"
@@ -7981,11 +7734,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/alarm/monitor{
-	locked = 0;
-	pixel_y = 23;
-	req_access = null
-	},
+/obj/machinery/alarm/all_access/directional/north,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -8158,7 +7907,9 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/portable_atmospherics/scrubber,
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/science)
 "sF" = (
@@ -8275,16 +8026,12 @@
 	},
 /area/awaymission/UO71/medical)
 "sS" = (
-/obj/machinery/power/apc/noalarm{
+/obj/machinery/power/apc/noalarm/directional/west{
 	cell_type = 15000;
-	dir = 8;
-	name = "UO71 Medical APC";
-	pixel_x = -25;
 	req_access = list();
 	start_charge = 100
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -8326,10 +8073,7 @@
 	pixel_y = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -24
-	},
+/obj/machinery/firealarm/directional/south,
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 8;
 	on = 1
@@ -8410,10 +8154,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -24
-	},
+/obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "cautioncorner"
@@ -8531,7 +8272,9 @@
 /area/awaymission/UO71/eng)
 "tp" = (
 /obj/machinery/atmospherics/binary/valve,
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/science)
 "tq" = (
@@ -8639,11 +8382,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/machinery/alarm/monitor{
-	locked = 0;
-	pixel_y = 23;
-	req_access = null
-	},
+/obj/machinery/alarm/all_access/directional/north,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -8876,7 +8615,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/eng)
 "ui" = (
@@ -8906,7 +8645,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/eng)
 "un" = (
@@ -8999,12 +8738,14 @@
 	name = "engineering security door"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/eng)
 "uv" = (
 /obj/machinery/portable_atmospherics/scrubber,
-/obj/effect/decal/warning_stripes/southwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/science)
 "uw" = (
@@ -9146,7 +8887,9 @@
 	dir = 1
 	},
 /obj/machinery/portable_atmospherics/canister/air,
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/science)
 "uL" = (
@@ -9183,7 +8926,9 @@
 	dir = 1
 	},
 /obj/machinery/portable_atmospherics/canister/air,
-/obj/effect/decal/warning_stripes/southeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/science)
 "uP" = (
@@ -9396,7 +9141,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/eng)
 "vp" = (
@@ -9449,7 +9194,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/eng)
 "vx" = (
@@ -9457,7 +9202,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/eng)
 "vy" = (
@@ -9587,12 +9332,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/mining)
 "vL" = (
-/obj/machinery/alarm/monitor{
-	dir = 4;
-	locked = 0;
-	pixel_x = -23;
-	req_access = null
-	},
+/obj/machinery/alarm/all_access/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/mining)
@@ -9623,10 +9363,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -24
-	},
+/obj/machinery/firealarm/directional/south,
 /obj/structure/closet/secure_closet/miner{
 	req_access = list(271)
 	},
@@ -9723,7 +9460,9 @@
 /obj/machinery/conveyor{
 	id = "UO71_mining"
 	},
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/mining)
 "wb" = (
@@ -9794,7 +9533,9 @@
 	input_dir = 4;
 	output_dir = 8
 	},
-/obj/effect/decal/warning_stripes/northeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/mining)
 "wj" = (
@@ -9845,10 +9586,10 @@
 /turf/simulated/floor/engine/o2,
 /area/awaymission/UO71/eng)
 "wp" = (
-/obj/effect/decal/warning_stripes/yellow/partial{
+/obj/effect/turf_decal/delivery/partial{
 	dir = 8
 	},
-/obj/effect/decal/warning_stripes/arrow{
+/obj/effect/turf_decal/arrows/black{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -9871,12 +9612,7 @@
 /area/awaymission/UO71/eng)
 "ws" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/alarm/monitor{
-	dir = 8;
-	locked = 0;
-	pixel_x = 23;
-	req_access = null
-	},
+/obj/machinery/alarm/all_access/directional/east,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -9964,7 +9700,9 @@
 /obj/structure/sign/nosmoking_2{
 	pixel_x = -32
 	},
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/mining)
 "wE" = (
@@ -9992,7 +9730,9 @@
 /obj/machinery/mineral/processing_unit{
 	dir = 1
 	},
-/obj/effect/decal/warning_stripes/northeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/mining)
 "wI" = (
@@ -10062,17 +9802,16 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/mining)
 "wO" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 9
 	},
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -24
-	},
+/obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitehall"
@@ -10128,10 +9867,7 @@
 /turf/simulated/wall,
 /area/awaymission/UO71/mining)
 "wX" = (
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -24
-	},
+/obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/bridge)
 "wY" = (
@@ -10190,18 +9926,18 @@
 	input_dir = 8;
 	output_dir = 4
 	},
-/obj/effect/decal/warning_stripes/northeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/mining)
 "xf" = (
 /obj/structure/grille,
 /obj/structure/window/full/reinforced,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
@@ -10211,7 +9947,6 @@
 /obj/structure/window/full/reinforced,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
@@ -10283,7 +10018,6 @@
 "xo" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plasteel,
@@ -10360,10 +10094,10 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/mining)
 "xw" = (
-/obj/effect/decal/warning_stripes/yellow/partial{
+/obj/effect/turf_decal/delivery/partial{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/arrow{
+/obj/effect/turf_decal/arrows/black{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -10466,10 +10200,7 @@
 /area/awaymission/UO71/mining)
 "xJ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = 24
-	},
+/obj/machinery/firealarm/directional/east,
 /obj/item/stack/sheet/mineral/plasma{
 	amount = 6
 	},
@@ -10517,12 +10248,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/machinery/alarm/monitor{
-	dir = 8;
-	locked = 0;
-	pixel_x = 23;
-	req_access = null
-	},
+/obj/machinery/alarm/all_access/directional/east,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -10544,11 +10270,9 @@
 /area/awaymission/UO71/mining)
 "xQ" = (
 /obj/structure/cable,
-/obj/machinery/power/apc/noalarm{
+/obj/machinery/power/apc/noalarm/directional/south{
 	cell_type = 15000;
 	locked = 0;
-	name = "UO71 Mining APC";
-	pixel_y = -25;
 	req_access = list();
 	start_charge = 1
 	},
@@ -10640,9 +10364,7 @@
 	dir = 1;
 	on = 1
 	},
-/obj/machinery/newscaster{
-	pixel_y = -28
-	},
+/obj/machinery/newscaster/directional/south,
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
@@ -10737,11 +10459,8 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/mining)
 "yh" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
+/obj/structure/sign/vacuum/external{
 	layer = 4;
-	name = "EXTERNAL AIRLOCK";
 	pixel_x = 32
 	},
 /obj/machinery/light/small{
@@ -10808,12 +10527,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/mining)
 "yr" = (
-/obj/machinery/alarm/monitor{
-	dir = 4;
-	locked = 0;
-	pixel_x = -23;
-	req_access = null
-	},
+/obj/machinery/alarm/all_access/directional/west,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -10950,7 +10664,6 @@
 	dir = 8
 	},
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
@@ -10980,7 +10693,6 @@
 "yM" = (
 /obj/machinery/computer/mech_bay_power_console,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plasteel,
@@ -11152,9 +10864,7 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/loot)
 "zu" = (
-/obj/machinery/newscaster{
-	pixel_x = 30
-	},
+/obj/machinery/newscaster/directional/east,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/loot)
 "zv" = (
@@ -11287,10 +10997,7 @@
 /turf/simulated/floor/wood,
 /area/awaymission/UO71/queen)
 "Ad" = (
-/obj/machinery/firealarm{
-	dir = 8;
-	pixel_x = -24
-	},
+/obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/wood,
 /area/awaymission/UO71/queen)
 "Ae" = (
@@ -11374,7 +11081,9 @@
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/science)
 "HH" = (
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},

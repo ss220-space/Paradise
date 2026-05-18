@@ -63,6 +63,7 @@
 	idle_power_usage = 50
 	active_power_usage = 300
 	interact_offline = 1
+	interaction_flags_mouse_drop = NEED_DEXTERITY
 	var/locked = FALSE
 	var/mob/living/carbon/occupant = null
 	var/obj/item/reagent_containers/glass/beaker = null
@@ -148,39 +149,38 @@
 		for(var/mob/M in src)//Failsafe so you can get mobs out
 			M.forceMove(get_turf(src))
 
-/obj/machinery/dna_scannernew/MouseDrop_T(atom/movable/O, mob/user, params)
-	if(!istype(O))
+/obj/machinery/dna_scannernew/mouse_drop_receive(atom/movable/dropped, mob/user, params)
+	if(!istype(dropped))
 		return
-	if(O.loc == user) //no you can't pull things out of your ass
+	if(dropped.loc == user) //no you can't pull things out of your ass
 		return
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) //are you cuffed, dying, lying, stunned or other
 		return
-	if(O.anchored || get_dist(user, src) > 1 || get_dist(user, O) > 1 || user.contents.Find(src)) // is the mob anchored, too far away from you, or are you too far away from the source
+	if(dropped.anchored || get_dist(user, src) > 1 || get_dist(user, dropped) > 1 || user.contents.Find(src)) // is the mob anchored, too far away from you, or are you too far away from the source
 		return
-	if(!ismob(O)) //humans only
+	if(!ismob(dropped)) //humans only
 		return
-	if(isanimal(O) || issilicon(O)) //animals and robutts dont fit
+	if(isanimal(dropped) || issilicon(dropped)) //animals and robutts dont fit
 		return
 	if(!ishuman(user) && !isrobot(user)) //No ghosts or mice putting people into the sleeper
 		return
 	if(user.loc==null) // just in case someone manages to get a closet into the blue light dimension, as unlikely as that seems
 		return
-	if(!isturf(user.loc) || !isturf(O.loc)) // are you in a container/closet/pod/etc?
+	if(!isturf(user.loc) || !isturf(dropped.loc)) // are you in a container/closet/pod/etc?
 		return
 	if(occupant)
 		balloon_alert(user, "внутри кто-то есть!")
-		return TRUE
-	var/mob/living/L = O
-	if(!istype(L) || L.buckled)
 		return
-	if(L.abiotic())
+	var/mob/living/living_mob = dropped
+	if(!istype(living_mob) || living_mob.buckled)
+		return
+	if(living_mob.abiotic())
 		balloon_alert(user, "руки субъекта заняты!")
-		return TRUE
-	if(L.has_buckled_mobs()) //mob attached to us
-		to_chat(user, span_warning("[L] не помест[PLUR_IT_YAT(L)]ся в [declent_ru(ACCUSATIVE)], пока на [GEND_ON_IN_HIM(L)] сидит слайм!"))
-		return TRUE
-	put_in(L, user)
-	return TRUE
+		return
+	if(living_mob.has_buckled_mobs()) //mob attached to us
+		to_chat(user, span_warning("[living_mob] не помест[PLUR_IT_YAT(living_mob)]ся в [declent_ru(ACCUSATIVE)], пока на [GEND_ON_IN_HIM(living_mob)] сидит слайм!"))
+		return
+	put_in(living_mob, user)
 
 /obj/machinery/dna_scannernew/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -314,6 +314,9 @@
 	icon_screen = "dna"
 	icon_keyboard = "med_key"
 	circuit = /obj/item/circuitboard/scan_consolenew
+	interaction_flags_click = ALLOW_SILICON_REACH
+	idle_power_usage = 10
+	active_power_usage = 400
 	var/selected_ui_block = 1
 	var/selected_ui_subblock = 1
 	var/selected_se_block = 1
@@ -328,8 +331,6 @@
 	var/obj/machinery/dna_scannernew/connected = null
 	var/obj/item/disk/data/disk = null
 	var/selected_menu_key = PAGE_UI
-	idle_power_usage = 10
-	active_power_usage = 400
 
 /obj/machinery/computer/scan_consolenew/get_ru_names()
 	return list(

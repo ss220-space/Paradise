@@ -43,7 +43,7 @@
 /datum/disease/virus/try_increase_stage()
 	if(prob(affected_mob.reagents?.has_reagent("spaceacillin") ? stage_prob/2 : stage_prob))
 		stage = min(stage + 1,max_stages)
-		if(!discovered && stage >= CEILING(max_stages * discovery_threshold, 1)) // Once we reach a late enough stage, medical HUDs can pick us up even if we regress
+		if(!discovered && stage >= ceil(max_stages * discovery_threshold)) // Once we reach a late enough stage, medical HUDs can pick us up even if we regress
 			discovered = TRUE
 			affected_mob.med_hud_set_status()
 

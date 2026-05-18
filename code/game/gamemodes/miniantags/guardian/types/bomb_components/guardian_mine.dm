@@ -15,20 +15,20 @@
 	addtimer(CALLBACK(src, PROC_REF(defuse)), MINE_LIFE_TIME)
 
 /datum/component/guardian_mine/RegisterWithParent()
-	RegisterSignal(parent, list(
+	RegisterSignals(parent, list(
 		COMSIG_ATOM_ATTACK_HAND,
 		COMSIG_ITEM_PICKUP,
 		COMSIG_CLICK_ALT,
 		COMSIG_ATOM_BUMPED,
 		COMSIG_ATOM_START_PULL,
 		COMSIG_ATOM_ATTACK,
-		COMSIG_PARENT_ATTACKBY,
+		COMSIG_ATOM_ATTACKBY,
 		COMSIG_MOVABLE_BUCKLE,
 		COMSIG_MOVABLE_IMPACT
 		),
 		PROC_REF(explode))
 
-	RegisterSignal(parent, list(COMSIG_PARENT_EXAMINE), PROC_REF(examine_mined))
+	RegisterSignals(parent, list(COMSIG_ATOM_EXAMINE), PROC_REF(examine_mined))
 
 /datum/component/guardian_mine/UnregisterFromParent()
 	UnregisterSignal(parent, list(
@@ -38,12 +38,12 @@
 		COMSIG_ATOM_BUMPED,
 		COMSIG_ATOM_START_PULL,
 		COMSIG_ATOM_ATTACK,
-		COMSIG_PARENT_ATTACKBY,
+		COMSIG_ATOM_ATTACKBY,
 		COMSIG_MOVABLE_BUCKLE,
 		COMSIG_MOVABLE_IMPACT)
 		)
 
-	UnregisterSignal(parent, list(COMSIG_PARENT_EXAMINE))
+	UnregisterSignal(parent, list(COMSIG_ATOM_EXAMINE))
 
 /datum/component/guardian_mine/proc/defuse()
 	if(is_exploded)

@@ -52,14 +52,9 @@
 /area/djstation)
 "au" = (
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/noalarm{
-	dir = 0;
-	name = "Worn-out APC";
-	pixel_y = -24
-	},
+/obj/machinery/power/apc/noalarm/directional/south,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/djstation)
@@ -68,10 +63,7 @@
 	icon_state = "4-8"
 	},
 /obj/item/storage/box/lights/mixed,
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'HIGH VOLTAGE'";
-	icon_state = "shock";
-	name = "HIGH VOLTAGE";
+/obj/structure/sign/electricshock{
 	pixel_y = -32
 	},
 /turf/simulated/floor/plating,
@@ -415,7 +407,6 @@
 "bP" = (
 /obj/machinery/power/solar/fake,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -448,7 +439,6 @@
 "bU" = (
 /obj/machinery/power/terminal,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
@@ -528,7 +518,6 @@
 "lv" = (
 /obj/machinery/power/solar/fake,
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -554,9 +543,7 @@
 /turf/simulated/floor/plating,
 /area/djstation)
 "qn" = (
-/obj/machinery/newscaster{
-	pixel_y = 32
-	},
+/obj/machinery/newscaster/directional/north,
 /obj/machinery/vending/cigarette{
 	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Russian cigarette!","Cigarettes! Now with 100% less capitalism.")
 	},

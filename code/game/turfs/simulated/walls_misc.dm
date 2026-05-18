@@ -149,11 +149,11 @@
 /turf/simulated/wall/clockwork/devastate_wall()
 	new sheet_type(src, sheet_amount)
 
-/turf/simulated/wall/clockwork/mech_melee_attack(obj/mecha/M)
+/turf/simulated/wall/clockwork/mech_melee_attack(obj/mecha/mech, obj/item/mecha_parts/mecha_equipment/selected_module = null)
 	..()
 	if(heated)
-		to_chat(M.occupant, span_userdanger("The wall's intense heat completely reflects your [M.name]'s attack!"))
-		M.take_damage(20, BURN)
+		to_chat(mech.occupant, span_userdanger("The wall's intense heat completely reflects your [mech.name]'s attack!"))
+		mech.take_damage(20, BURN)
 
 /turf/simulated/wall/clockwork/proc/turn_up_the_heat()
 	if(!heated)
