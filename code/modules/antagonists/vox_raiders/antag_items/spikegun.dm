@@ -5,14 +5,10 @@
 	icon = 'icons/obj/weapons/vox_guns.dmi'
 	icon_state = "spike"
 	item_state = "spike"
-	charge_sections = 4
-	w_class = WEIGHT_CLASS_NORMAL
 	fire_sound_text = "air gap"
-	can_suppress = FALSE
 	burst_amount = 3
 	shaded_charge = TRUE
 	can_charge = FALSE
-	charge_delay = 4
 	cell_type = /obj/item/stock_parts/cell/vox_spike
 	ammo_type = list(/obj/item/ammo_casing/energy/vox_spike)
 	restricted_species = (/datum/species/vox)
@@ -48,7 +44,6 @@
 	item_state = "spike_long"
 	charge_sections = 6
 	selfcharge = TRUE
-	charge_delay = 4
 	ammo_type = list(/obj/item/ammo_casing/energy/vox_spike/long)
 
 /obj/item/gun/energy/spike/long/process()
@@ -64,7 +59,6 @@
 	icon_state = "spike_bio"
 	item_state = "spike_bio"
 	w_class = WEIGHT_CLASS_HUGE
-	charge_sections = 4
 	ammo_type = list(/obj/item/ammo_casing/energy/vox_spike/big)
 	selfcharge = TRUE
 	can_reload = FALSE

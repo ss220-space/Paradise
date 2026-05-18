@@ -6,12 +6,9 @@
 	anchored = TRUE
 	layer = ABOVE_ALL_MOB_LAYER
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | FREEZE_PROOF | ACID_PROOF | UNACIDABLE
-	light_color = COLOR_WHITE
-	light_power = 1
 	light_range = 8
 
 /obj/structure/light_fake/small
-	name = "light fixture"
 	desc = "A small lighting fixture."
 	icon_state = "bulb1"
 	light_color = "#a0a080"

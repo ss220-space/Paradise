@@ -52,7 +52,6 @@
 	max_w_class = WEIGHT_CLASS_NORMAL
 	resistance_flags = FIRE_PROOF
 	use_item_overlays = TRUE // Will show the tools on the sprite
-	storage_slots = 7
 	max_combined_w_class = 25
 	can_hold = list(
 		/obj/item/crowbar,

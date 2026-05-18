@@ -45,7 +45,6 @@
 	name = "Биоядро (Таракикан х1)"
 	desc = "Броневой биомеханизм, приспособленный для вышибания дверей."
 	reference = "B_B_TAT"
-	cost = 400
 	contains = list(/obj/item/biocore/taran)
 
 /datum/vox_pack/bio/core/tox

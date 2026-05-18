@@ -36,7 +36,7 @@
 	contains = list(/obj/item/storage/dart_cartridge)
 
 /datum/vox_pack/dart/cartridge/extended
-	name = "Картридж (5+1)"
+	name = "Картридж (5+1) расширенный"
 	desc = "Расширенная подставка для дротиков и шприцов. Пустая."
 	reference = "D_C_EXT"
 	cost = 50

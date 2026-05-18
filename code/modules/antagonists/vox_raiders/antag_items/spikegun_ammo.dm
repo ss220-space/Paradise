@@ -3,7 +3,6 @@
 	desc = "Зарядная пурпурная светящаяся стандартная ячейка для шипометов."
 	icon = 'icons/obj/weapons/ammo.dmi'
 	icon_state = "spike_cell"
-	maxcharge = 1000
 
 /obj/item/ammo_casing/energy/vox_spike
 	name = "spike"
@@ -22,7 +21,6 @@
 	icon_state = "magspear"
 	armour_penetration = 20
 	damage = 7
-	knockdown = 0
 	var/bleed_loss = 5
 
 /obj/projectile/bullet/vox_spike/on_hit(atom/target, blocked = 0)

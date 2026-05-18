@@ -25,7 +25,6 @@
 	desc = "Наушник дальней связи для поддержания связи со стаей. Защищает ушные раковины от громких звуков"
 	icon_state = "com_headset_alt"
 	item_state = "com_headset_alt"
-	origin_tech = "syndicate=3"
 	item_flags = BANGPROTECT_MINOR
 
 /obj/item/radio/headset/vox/alt/get_ru_names()

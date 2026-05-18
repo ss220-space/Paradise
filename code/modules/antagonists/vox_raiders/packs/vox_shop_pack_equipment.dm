@@ -48,13 +48,6 @@
 	cost = 500
 	contains = list(/obj/item/jammer)
 
-/datum/vox_pack/equipment/jammer
-	name = "Глушилка"
-	desc = "Глушитель связи."
-	reference = "E_JAM"
-	cost = 500
-	contains = list(/obj/item/jammer)
-
 /datum/vox_pack/equipment/ai_detector
 	name = "Детектор"
 	desc = "Детектор искусственного интеллекта замаскированного под мультиметр."

@@ -140,9 +140,7 @@
 
 /datum/vox_pack/goods/space/green
 	name = "Космический Старый Костюм \"NasaVoid\" - Зеленый"
-	desc = "Мясу понравится этот товар."
 	reference = "G_SP_G"
-	cost = 200
 	contains = list(
 		/obj/item/clothing/head/helmet/space/nasavoid/green,
 		/obj/item/clothing/suit/space/nasavoid/green,
@@ -150,7 +148,6 @@
 
 /datum/vox_pack/goods/space/ntblue
 	name = "Космический Старый Костюм \"NasaVoid\" - NT Синий"
-	desc = "Мясу понравится этот товар."
 	reference = "G_SP_NTB"
 	cost = 250
 	contains = list(
@@ -160,9 +157,7 @@
 
 /datum/vox_pack/goods/space/purple
 	name = "Космический Старый Костюм \"NasaVoid\" - Фиолетовый"
-	desc = "Мясу понравится этот товар."
 	reference = "G_SP_P"
-	cost = 200
 	contains = list(
 		/obj/item/clothing/head/helmet/space/nasavoid/purple,
 		/obj/item/clothing/suit/space/nasavoid/purple,
@@ -170,9 +165,7 @@
 
 /datum/vox_pack/goods/space/yellow
 	name = "Космический Старый Костюм \"NasaVoid\" - Желтый"
-	desc = "Мясу понравится этот товар."
 	reference = "G_SP_Y"
-	cost = 200
 	contains = list(
 		/obj/item/clothing/head/helmet/space/nasavoid/yellow,
 		/obj/item/clothing/suit/space/nasavoid/yellow,
@@ -180,9 +173,7 @@
 
 /datum/vox_pack/goods/space/ltblue
 	name = "Космический Старый Костюм \"NasaVoid\" - Светло-синий"
-	desc = "Мясу понравится этот товар."
 	reference = "G_SP_LTB"
-	cost = 200
 	contains = list(
 		/obj/item/clothing/head/helmet/space/nasavoid/ltblue,
 		/obj/item/clothing/suit/space/nasavoid/ltblue,

@@ -18,14 +18,13 @@
 		/obj/item/melee/baton,
 		/obj/item/melee/energy/sword,
 		/obj/item/shield/energy,
-		/obj/item/restraints/handcuffs
+		/obj/item/restraints/handcuffs,
 	)
 	body_parts_covered = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
 	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
 	heat_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	armor = list(MELEE = 75, BULLET = 50, LASER = 30, ENERGY = 20, BOMB = 25, FIRE = 80, ACID = 200)
-	strip_delay = 8 SECONDS
 	put_on_delay = 6 SECONDS
 	slowdown = 0
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/vox
@@ -42,7 +41,7 @@
 	species_restricted = list(SPECIES_VOX)
 	icon = 'icons/obj/clothing/species/vox/hats.dmi'
 	sprite_sheets = list(
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/head.dmi'
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/head.dmi',
 	)
 	clothing_flags = STOPSPRESSUREDAMAGE | THICKMATERIAL
 	resistance_flags = FIRE_PROOF | ACID_PROOF
@@ -124,7 +123,7 @@
 		/obj/item/reagent_containers/food/pill,
 		/obj/item/storage/pill_bottle,
 		/obj/item/paper,
-		/obj/item/robotanalyzer
+		/obj/item/robotanalyzer,
 	)
 
 /obj/item/clothing/head/helmet/space/hardsuit/vox/medic

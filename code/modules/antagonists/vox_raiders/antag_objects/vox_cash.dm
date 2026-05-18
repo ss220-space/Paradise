@@ -7,7 +7,6 @@
 	force = 1
 	throwforce = 1
 	throw_speed = 1
-	throw_range = 7
 	w_class = WEIGHT_CLASS_TINY
 	max_amount = /obj/item/stack/spacecash::max_amount
 	merge_type = /obj/item/stack/vox_cash

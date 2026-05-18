@@ -6,7 +6,6 @@
 	max_integrity = 5000
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	anchored = TRUE
-	density = FALSE
 	var/icon_state_on = "trader-idle"
 
 	var/cooldown = 3 SECONDS
@@ -329,7 +328,7 @@
 				temp_values_sum += round(tech_value * temp_mult * excess_mult)
 				is_tech = TRUE
 
-		if(istype(item, /obj/item/stack))
+		if(isstack(item))
 			var/obj/item/stack/stack = item
 			var/point_value = 1
 			if(istype(item, /obj/item/stack/sheet))
@@ -337,7 +336,7 @@
 				point_value += sheet.point_value
 			temp_values_sum *= round(stack.amount / stack_div * point_value)
 
-		if(istype(item, /obj/item/card/id))
+		if(is_id_card(item))
 			var/obj/item/card/id/id = item
 			for(var/access in id.access)
 				if(access in collected_access_list)
@@ -393,7 +392,7 @@
 			temp_values_sum_precious += valuable_objects_dict[valuable_type]
 			break
 
-		if(istype(item, /obj/item/gun))
+		if(isgun(item))
 			for(var/valuable_type in valuable_guns_dict)
 				if(!istype(item, valuable_type))
 					continue
@@ -507,28 +506,28 @@
 	var/turf/current_turf = get_turf(src)
 	var/list/items_list = current_turf.get_all_contents(ON_BORDER|HOLOGRAM) - current_turf
 
-	for(var/I in items_list)
+	for(var/item in items_list)
 		for(var/blacklist_object in blacklist_objects)
-			if(istype(I, blacklist_object))
-				items_list.Remove(I)
+			if(istype(item, blacklist_object))
+				items_list.Remove(item)
 				continue
-		if(istype(I, /obj/item/organ)) // Inner organs
-			var/obj/item/organ/organ = I
+		if(isorgan(item)) // Inner organs
+			var/obj/item/organ/organ = item
 			if(organ.owner)
-				items_list.Remove(I)
+				items_list.Remove(item)
 			continue
-		if(isobj(I))
-			var/obj/O = I
-			if(ismob(O.loc))	// Cyborg Parts, wearing clothes, but not contents
-				items_list.Remove(I)
+		if(isobj(item))
+			var/obj/object = item
+			if(ismob(object.loc))	// Cyborg Parts, wearing clothes, but not contents
+				items_list.Remove(item)
 				continue
-		if(isliving(I))
-			var/mob/living/M = I
-			items_list.Remove(I)
-			if(isvox(M))
-				make_new_vox_raider(user, M)
+		if(isliving(item))
+			var/mob/living/mob = item
+			items_list.Remove(item)
+			if(isvox(mob))
+				make_new_vox_raider(user, mob)
 				continue
-			send_to_station(M)
+			send_to_station(mob)
 
 	return items_list
 

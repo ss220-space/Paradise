@@ -44,20 +44,16 @@
 
 /mob/living/simple_animal/hostile/viscerator/vox
 	name = "vox viscerator"
-	icon = 'icons/mob/critter.dmi'
 	icon_state = "viscerator_vox_attack"
 	icon_living = "viscerator_vox_attack"
 	faction = list("Vox")
 	//mob_biotypes = MOB_ROBOTIC
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	damage_coeff = list(BRUTE = 1, BURN = 0.5, TOX = -1, CLONE = -1, STAMINA = 0, OXY = 0)
-	can_be_on_fire = FALSE
 	fire_damage = 1
 	unsuitable_atmos_damage = 0
-	mob_size = MOB_SIZE_TINY
 	flying = FALSE
 	melee_damage_lower = 10
-	melee_damage_upper = 15
 
 /mob/living/simple_animal/hostile/viscerator/vox/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	return TRUE
@@ -68,7 +64,6 @@
 	icon_state = "stamina"
 	icon_living = "stamina"
 	density = FALSE
-	obj_damage = 0
 	speed = 0.25
 	melee_damage_type = STAMINA
 	melee_damage_lower = 5
@@ -89,7 +84,6 @@
 	maxHealth = 50
 	obj_damage = 20
 	melee_damage_type = BURN
-	melee_damage_lower = 10
 	melee_damage_upper = 30
 	attacktext = "выжигает"
 	mob_size = MOB_SIZE_SMALL
@@ -105,7 +99,6 @@
 	icon_living = "kusaka"
 	density = FALSE
 	speed = 0.5
-	obj_damage = 0
 	melee_damage_lower = 5
 	melee_damage_upper = 10
 	armour_penetration = 30
@@ -125,7 +118,6 @@
 	health = 100
 	maxHealth = 100
 	obj_damage = 50
-	melee_damage_lower = 10
 	melee_damage_upper = 20
 	armour_penetration = 20
 	attacktext = "таранит"
@@ -143,7 +135,6 @@
 	density = FALSE
 	melee_damage_type = TOX
 	melee_damage_lower = 5
-	melee_damage_upper = 15
 	armour_penetration = 80
 	attacktext = "вонзается"
 

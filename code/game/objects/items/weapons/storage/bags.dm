@@ -798,7 +798,6 @@
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "surgical_tray"
 	storage_slots = 22 // 11 Items, x2 to be sure
-	w_class = WEIGHT_CLASS_BULKY
 	max_w_class = WEIGHT_CLASS_GIGANTIC
 	max_combined_w_class = 38 // Items listed add up to 19, x2 to be sure
 	can_hold = list(

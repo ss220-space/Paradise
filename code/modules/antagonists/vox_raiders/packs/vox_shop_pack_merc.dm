@@ -11,8 +11,8 @@
 	cost = 500
 	contains = list(
 		/obj/item/clothing/suit/armor/vox_merc/laminar,
-		/obj/item/clothing/head/helmet/vox_merc/laminar
-		)
+		/obj/item/clothing/head/helmet/vox_merc/laminar,
+	)
 
 /datum/vox_pack/mercenary/stormtrooper
 	name = "Штурмовой Бронекостюм"
@@ -22,8 +22,8 @@
 	cost = 2500
 	contains = list(
 		/obj/item/clothing/suit/armor/vox_merc/stormtrooper,
-		/obj/item/clothing/head/helmet/vox_merc/stormtrooper
-		)
+		/obj/item/clothing/head/helmet/vox_merc/stormtrooper,
+	)
 
 /datum/vox_pack/mercenary/fieldmedic
 	name = "Медицинский Полевой Костюм"
@@ -33,8 +33,8 @@
 	cost = 1000
 	contains = list(
 		/obj/item/clothing/suit/armor/vox_merc/fieldmedic,
-		/obj/item/clothing/head/helmet/vox_merc/fieldmedic
-		)
+		/obj/item/clothing/head/helmet/vox_merc/fieldmedic,
+	)
 
 /datum/vox_pack/mercenary/lamilar/scout
 	name = "Ламилярный Костюм Разведчика"
@@ -43,8 +43,8 @@
 	cost = 1000
 	contains = list(
 		/obj/item/clothing/suit/armor/vox_merc/laminar/scout,
-		/obj/item/clothing/head/helmet/vox_merc/laminar
-		)
+		/obj/item/clothing/head/helmet/vox_merc/laminar,
+	)
 
 /datum/vox_pack/mercenary/bomber
 	name = "Взрывозащитный Костюм"
@@ -54,8 +54,8 @@
 	cost = 1500
 	contains = list(
 		/obj/item/clothing/suit/armor/vox_merc/bomber,
-		/obj/item/clothing/head/helmet/vox_merc/bomber
-		)
+		/obj/item/clothing/head/helmet/vox_merc/bomber,
+	)
 
 /datum/vox_pack/mercenary/stealth
 	name = "Маскировочный Костюм"
@@ -66,4 +66,4 @@
 	contains = list(
 		/obj/item/clothing/suit/armor/vox_merc/stealth,
 		/obj/item/clothing/head/helmet/vox_merc/stealth,
-		)
+	)

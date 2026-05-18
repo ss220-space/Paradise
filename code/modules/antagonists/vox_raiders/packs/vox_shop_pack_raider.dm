@@ -10,7 +10,7 @@
 	cost = 6000
 	time_until_available = 60
 	contains = list(
-		/obj/item/clothing/suit/space/hardsuit/vox/trooper
+		/obj/item/clothing/suit/space/hardsuit/vox/trooper,
 	)
 
 /datum/vox_pack/raider/scout
@@ -21,7 +21,7 @@
 	cost = 4000
 	time_until_available = 45
 	contains = list(
-		/obj/item/clothing/suit/space/hardsuit/vox/scout
+		/obj/item/clothing/suit/space/hardsuit/vox/scout,
 	)
 
 /datum/vox_pack/raider/medic
@@ -32,7 +32,7 @@
 	cost = 3500
 	time_until_available = 45
 	contains = list(
-		/obj/item/clothing/suit/space/hardsuit/vox/medic
+		/obj/item/clothing/suit/space/hardsuit/vox/medic,
 	)
 
 /datum/vox_pack/raider/mechanic
@@ -43,7 +43,7 @@
 	cost = 4000
 	time_until_available = 45
 	contains = list(
-		/obj/item/clothing/suit/space/hardsuit/vox/mechanic
+		/obj/item/clothing/suit/space/hardsuit/vox/mechanic,
 	)
 
 /datum/vox_pack/raider/heavy
@@ -54,5 +54,5 @@
 	cost = 20000
 	time_until_available = 90
 	contains = list(
-		/obj/item/clothing/suit/space/hardsuit/vox/heavy
+		/obj/item/clothing/suit/space/hardsuit/vox/heavy,
 	)

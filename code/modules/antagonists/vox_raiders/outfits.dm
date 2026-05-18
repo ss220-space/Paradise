@@ -62,10 +62,6 @@
 		H.internal = H.get_item_by_slot(internals_slot)
 		H.update_action_buttons_icon()
 
-/obj/item/card/id/syndicate/vox
-	name = "vox data card"
-	icon_state = "data"
-
 /datum/outfit/vox/raider
 	name = "vox raider"
 	suit = /obj/item/clothing/suit/space/hardsuit/vox

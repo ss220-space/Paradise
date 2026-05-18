@@ -301,6 +301,7 @@
 	var/fuel_lower = 800
 	/// Maximum amount on initialization
 	var/fuel_upp = 1000
+	var/spawn_fuel = TRUE
 
 /obj/item/flashlight/flare/get_ru_names()
 	return list(
@@ -313,8 +314,9 @@
 	)
 
 /obj/item/flashlight/flare/Initialize(mapload)
-	fuel = rand(fuel_lower, fuel_upp)
-	. = ..()
+	if(spawn_fuel)
+		fuel = rand(fuel_lower, fuel_upp)
+	return ..()
 
 /obj/item/flashlight/flare/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -385,7 +387,7 @@
 	turn_on()
 
 /obj/item/flashlight/flare/used
-	fuel = 0
+	spawn_fuel= FALSE
 
 /// Special flare subtype for the illumination flare shell
 /// Acts like a flare, just even stronger, and set length
@@ -456,7 +458,7 @@
 		. += glowstick_overlay
 
 /obj/item/flashlight/flare/glowstick/used
-	fuel = 0
+	spawn_fuel = FALSE
 
 /obj/item/flashlight/flare/glowstick/red
 	name = "red glowstick"

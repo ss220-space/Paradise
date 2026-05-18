@@ -8,7 +8,7 @@
 	species_restricted = list(SPECIES_VOX)
 	icon = 'icons/obj/clothing/species/vox/suits.dmi'
 	sprite_sheets = list(
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi'
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
 	)
 	allowed = list(
 		/obj/item/gun,
@@ -18,7 +18,7 @@
 		/obj/item/melee/energy/sword,
 		/obj/item/shield/energy,
 		/obj/item/restraints/handcuffs,
-		/obj/item/tank/internals
+		/obj/item/tank/internals,
 	)
 	body_parts_covered = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
 	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
@@ -40,14 +40,11 @@
 	species_restricted = list(SPECIES_VOX)
 	icon = 'icons/obj/clothing/species/vox/hats.dmi'
 	sprite_sheets = list(
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/head.dmi'
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/head.dmi',
 	)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	armor = list(MELEE = 35, BULLET = 50, LASER = 20, ENERGY = 20, BOMB = 25, FIRE = 50, ACID = 50)
 	flags_inv = HIDEMASK | HIDEHEADSETS | HIDEHEADHAIR
-	flags_cover = HEADCOVERSEYES
-	cold_protection = HEAD
-	heat_protection = HEAD
 	dog_fashion = null
 
 /obj/item/clothing/head/helmet/vox_merc/ComponentInitialize()
@@ -69,7 +66,6 @@
 	slowdown = 1
 
 /obj/item/clothing/head/helmet/vox_merc/stormtrooper
-	name = "vox mercenary helmet"
 	icon_state = "vox-merc-stormtrooper"
 	item_color = "vox-merc-stormtrooper"
 	armor = list(MELEE = 115, BULLET = 115, LASER = 50, ENERGY = 30, BOMB = 15, FIRE = 50, ACID = 50)
@@ -189,7 +185,7 @@
 /datum/action/cooldown/disguise_self/vox
 	name = "Маскировка"
 	desc = "Замаскируйтесь под члена экипажа с его голосом в текущей зоне. \
-			Внимательный осмотр выдаст вас. Если повредить маскировку - она сбросится."
+			Внимательный осмотр выдаст вас. Если повредить маскировку — она сбросится."
 
 /datum/action/cooldown/disguise_self
 	name = "Disguise Self"

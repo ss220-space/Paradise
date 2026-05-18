@@ -205,7 +205,6 @@ GLOBAL_LIST_EMPTY(dug_up_basalt)
 			B.set_light(1.4, 0.6, LIGHT_COLOR_LAVA) //barely anything!
 
 /turf/simulated/floor/plating/asteroid/ancient
-	digResult = /obj/item/stack/ore/glass/basalt
 	baseturf = /turf/simulated/floor/plating/asteroid/ancient/airless
 
 /turf/simulated/floor/plating/asteroid/ancient/airless

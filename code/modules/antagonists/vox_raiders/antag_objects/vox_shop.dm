@@ -194,7 +194,7 @@
 					continue
 				var/list/purchase_list = mass_purchase(pack, pack ? pack.reference : "", amount)
 				if(!length(purchase_list))
-					to_chat(ui.user, span_warning("[pack.name] - превысил допустимое возможное количество для покупки."))
+					to_chat(ui.user, span_warning("[pack.name] — превысил допустимое возможное количество для покупки."))
 					return
 				bought_typepath_objects += purchase_list
 

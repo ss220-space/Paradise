@@ -15,10 +15,7 @@
 	)
 	w_class = WEIGHT_CLASS_NORMAL
 	armor = list(MELEE = 15, BULLET = 15, LASER = 15, ENERGY = 15, BOMB = 50, FIRE = 115, ACID = 50)
-	strip_delay = 7 SECONDS
 	resistance_flags = NONE
-	slowdown = 0
-	slowdown_passive = 0
 	slowdown_active = 1
 
 /obj/item/clothing/shoes/magboots/vox/toggle_magpulse(mob/living/user, silent = FALSE)

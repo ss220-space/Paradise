@@ -47,7 +47,6 @@
 	desc = "Дротик содержащий химические коктейли."
 	icon = 'icons/obj/dart.dmi'
 	amount_per_transfer_from_this = 15
-	volume = 15
 
 /obj/item/storage/dart_cartridge/extended
 	name = "extended dart cartridge"

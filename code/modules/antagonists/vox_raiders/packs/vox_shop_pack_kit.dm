@@ -38,7 +38,7 @@
 		/datum/vox_pack/mercenary/lamilar,
 		/datum/vox_pack/clothes/magboots,
 		/datum/vox_pack/clothes/gloves,
-		)
+	)
 	discount_div = 0.65
 
 	// !!!!!!!!! TEST
@@ -57,7 +57,7 @@
 		/datum/vox_pack/clothes/pressure,
 		/datum/vox_pack/equipment/mask,
 		/datum/vox_pack/equipment/nitrogen,
-		)
+	)
 
 // ============== Наборы Наемников ==============
 
@@ -81,7 +81,7 @@
 		/datum/vox_pack/spike/cell,
 		/datum/vox_pack/spike/cell,
 		/datum/vox_pack/bio/core/taran,
-		)
+	)
 
 /datum/vox_pack/kit/fieldmedic
 	name = "Набор Полевого Медика"
@@ -104,7 +104,7 @@
 		/datum/vox_pack/medicine/dart/heal,
 		/datum/vox_pack/medicine/dart/stabilizing,
 		/datum/vox_pack/medicine/dart/stabilizing,
-		)
+	)
 	contains_addition = list(
 		/obj/item/storage/firstaid/adv,
 		/obj/item/storage/firstaid/toxin,
@@ -126,7 +126,7 @@
 		/datum/vox_pack/equipment/stealth,
 		/datum/vox_pack/consumables/t4,
 		/datum/vox_pack/consumables/t4,
-		)
+	)
 	discount_div = 0.65
 
 /datum/vox_pack/kit/bomber
@@ -153,7 +153,7 @@
 		/datum/vox_pack/melee/inflatable,
 		/datum/vox_pack/melee/inflatable,
 		/datum/vox_pack/melee/inflatable,
-		)
+	)
 	contains_addition = list(
 		/obj/item/clothing/glasses/hud/diagnostic/sunglasses,
 	)
@@ -184,7 +184,7 @@
 		/datum/vox_pack/consumables/c4,
 		/datum/vox_pack/consumables/c4,
 		/datum/vox_pack/consumables/c4,
-		)
+	)
 	contains_addition = list(
 		/obj/item/clothing/mask/breath/vox/respirator,
 		/obj/item/tank/internals/emergency_oxygen/double/vox,
@@ -202,7 +202,7 @@
 		/datum/vox_pack/clothes/radio/alt,
 		/datum/vox_pack/equipment/ai_detector,
 		/datum/vox_pack/equipment/jammer,
-		)
+	)
 	contains_addition = list(
 		/obj/item/clothing/mask/breath/vox/respirator,
 		/obj/item/tank/internals/emergency_oxygen/double/vox,
@@ -235,7 +235,7 @@
 		/datum/vox_pack/medicine/dart/heal,
 		/datum/vox_pack/medicine/dart/stabilizing,
 		/datum/vox_pack/medicine/dart/stabilizing,
-		)
+	)
 	discount_div = 0.65
 	contains_addition = list(
 		/obj/item/clothing/mask/breath/vox,
@@ -258,7 +258,7 @@
 		/datum/vox_pack/melee/inflatable,
 		/datum/vox_pack/melee/inflatable,
 		/datum/vox_pack/melee/inflatable,
-		)
+	)
 	contains_addition = list(
 		/obj/item/clothing/glasses/hud/diagnostic/night,
 		/obj/item/clothing/mask/breath/vox,
@@ -280,8 +280,8 @@
 		/datum/vox_pack/clothes/gloves/insulated,
 		/datum/vox_pack/clothes/sechud,
 		/datum/vox_pack/clothes/radio/alt,
-		/datum/vox_pack/clothes/belt
-		)
+		/datum/vox_pack/clothes/belt,
+	)
 	contains_addition = list(
 		/obj/item/clothing/mask/breath/vox/respirator,
 		/obj/item/tank/internals/emergency_oxygen/double/vox,
@@ -311,13 +311,12 @@
 		/datum/vox_pack/spike/cell,
 		/datum/vox_pack/spike/cell,
 		/datum/vox_pack/clothes/eye_night,
-		)
+	)
 
 /datum/vox_pack/kit/kigyar/long
 	name = "Набор Киг-Йар Пронзателя"
 	desc = "Набор Киг-Йар для ведения боевых действий сквозь укрытия."
 	reference = "K_KIG_LONG"
-	cost = 100
 	packs_list = list(
 		/datum/vox_pack/mercenary/lamilar/scout,
 		/datum/vox_pack/clothes/magboots/scout,
@@ -329,7 +328,7 @@
 		/datum/vox_pack/spike/cell,
 		/datum/vox_pack/spike/cell,
 		/datum/vox_pack/spike/cell,
-		)
+	)
 	contains_addition = list(
 		/obj/item/clothing/glasses/thermal/monocle,
 	)
@@ -338,7 +337,6 @@
 	name = "Набор Киг-Йар Биоштурмовика"
 	desc = "Набор Киг-Йар для ведения боевых действий в ближнем бою"
 	reference = "K_KIG_BIO"
-	cost = 100
 	packs_list = list(
 		/datum/vox_pack/mercenary/bomber,
 		/datum/vox_pack/clothes/magboots/combat,
@@ -352,7 +350,7 @@
 		/datum/vox_pack/consumables/food,
 		/datum/vox_pack/consumables/food,
 		/datum/vox_pack/consumables/food,
-		)
+	)
 	contains_addition = list(
 		/obj/item/clothing/glasses/sunglasses/big,
 	)
@@ -361,7 +359,6 @@
 	name = "Набор Киг-Йар Биотехника"
 	desc = "Набор Киг-Йар хозяина биоядер."
 	reference = "K_KIG_BIOTECH"
-	cost = 100
 	packs_list = list(
 		/datum/vox_pack/mercenary/fieldmedic,
 		/datum/vox_pack/clothes/magboots/scout,
@@ -379,7 +376,7 @@
 		/datum/vox_pack/bio/core/tox,
 		/datum/vox_pack/bio/core/acid,
 		/datum/vox_pack/bio/core/acid,
-		)
+	)
 	contains_addition = list(
 		/obj/item/clothing/glasses/sunglasses/big,
 	)

@@ -12,8 +12,8 @@
 	shuttleId = "vox_shuttle"
 	shuttlePortId = "skipjack_custom"
 	view_range = 13
-	x_offset = 0
-	y_offset = 0
+	x_offset = 4
+	y_offset = -8
 	resistance_flags = INDESTRUCTIBLE
 	obj_flags = NODECONSTRUCT
 
@@ -21,9 +21,6 @@
 	id = "vox_shuttle"
 	name = "scavenger shuttle"
 	dir = SOUTH
-	port_direction = NORTH
-	preferred_direction = NORTH
 	width = 19
 	height = 18
 	dwidth = 13
-	dheight = 0

@@ -12,32 +12,32 @@
 	contains = list(/obj/item/clothing/under/vox/jumpsuit)
 
 /datum/vox_pack/clothes/jumpsuit/red
-	name = "Рабочая одежда - Красная"
+	name = "Рабочая одежда — Красная"
 	reference = "C_JR"
 	contains = list(/obj/item/clothing/under/vox/jumpsuit/red)
 
 /datum/vox_pack/clothes/jumpsuit/teal
-	name = "Рабочая одежда - Бирюза"
+	name = "Рабочая одежда — Бирюза"
 	reference = "C_JT"
 	contains = list(/obj/item/clothing/under/vox/jumpsuit/teal)
 
 /datum/vox_pack/clothes/jumpsuit/blue
-	name = "Рабочая одежда - Синий"
+	name = "Рабочая одежда — Синий"
 	reference = "C_JB"
 	contains = list(/obj/item/clothing/under/vox/jumpsuit/blue)
 
 /datum/vox_pack/clothes/jumpsuit/green
-	name = "Рабочая одежда - Зеленый"
+	name = "Рабочая одежда — Зеленый"
 	reference = "C_JG"
 	contains = list(/obj/item/clothing/under/vox/jumpsuit/green)
 
 /datum/vox_pack/clothes/jumpsuit/yellow
-	name = "Рабочая одежда - Желтый"
+	name = "Рабочая одежда — Желтый"
 	reference = "C_JY"
 	contains = list(/obj/item/clothing/under/vox/jumpsuit/yellow)
 
 /datum/vox_pack/clothes/jumpsuit/purple
-	name = "Рабочая одежда - Фиолетовый"
+	name = "Рабочая одежда — Фиолетовый"
 	reference = "C_JP"
 	contains = list(/obj/item/clothing/under/vox/jumpsuit/purple)
 
@@ -108,7 +108,7 @@
 /datum/vox_pack/clothes/eye_meson
 	name = "Мезонный Глаз"
 	desc = "Мезонный кибернетический глаз с системой вставки в глазной разъем. Полностью заменяет функционирующий глаз или его полость. \
-	ВНИМАНИЕ! Глаз возможно удалить только хирургическим путем. Из-за своего размера - не позволяет надевать прочие приблуды на глаза, заменяя очки."
+	ВНИМАНИЕ! Глаз возможно удалить только хирургическим путем. Из-за своего размера — не позволяет надевать прочие приблуды на глаза, заменяя очки."
 	reference = "C_EYE_ME"
 	cost = 1000
 	contains = list(/obj/item/clothing/glasses/meson/cyber/vox)
@@ -116,7 +116,7 @@
 /datum/vox_pack/clothes/eye_thermal
 	name = "Термальный Глаз"
 	desc = "Термальный кибернетический глаз с системой вставки в глазной разъем. Полностью заменяет функционирующий глаз или его полость. \
-	ВНИМАНИЕ! Глаз возможно удалить только хирургическим путем. Из-за своего размера - не позволяет надевать прочие приблуды на глаза, заменяя очки."
+	ВНИМАНИЕ! Глаз возможно удалить только хирургическим путем. Из-за своего размера — не позволяет надевать прочие приблуды на глаза, заменяя очки."
 	reference = "C_EYE_TH"
 	cost = 4500
 	time_until_available = 45

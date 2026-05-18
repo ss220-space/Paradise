@@ -20,13 +20,13 @@
 
 /datum/team/vox_raiders/add_member(datum/mind/new_member, add_objectives)
 	. = ..()
-	update_name()
+	update_team_name()
 
 /datum/team/vox_raiders/remove_member(datum/mind/member, force = FALSE)
 	. = ..()
-	update_name()
+	update_team_name()
 
-/datum/team/vox_raiders/proc/update_name()
+/datum/team/vox_raiders/proc/update_team_name()
 	PRIVATE_PROC(TRUE)
 	var/new_name = get_raider_names_text()
 	if(!new_name)

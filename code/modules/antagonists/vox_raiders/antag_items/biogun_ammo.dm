@@ -5,7 +5,6 @@
 	icon_state = "biocore"
 	item_state = "cottoncandy_purple"
 	throwforce = 20
-	w_class = WEIGHT_CLASS_NORMAL
 	var/mob/living/mob_spawner_type = /mob/living/simple_animal/hostile/creature
 	var/spawn_amount = 1	// сколько в одном ядре
 	var/is_spin = TRUE
@@ -74,7 +73,6 @@
 
 /obj/item/biocore/acid
 	name = "biocore (acikikid)"
-	spawn_amount = 1
 	mob_spawner_type = /mob/living/simple_animal/hostile/viscerator/vox/acid
 
 /obj/item/biocore/kusaka
@@ -84,7 +82,6 @@
 
 /obj/item/biocore/taran
 	name = "biocore (tarakikan)"
-	spawn_amount = 1
 	mob_spawner_type = /mob/living/simple_animal/hostile/viscerator/vox/taran
 
 /obj/item/biocore/tox
