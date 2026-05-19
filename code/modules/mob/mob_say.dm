@@ -156,11 +156,14 @@
 //standard mode is the mode returned for the special ';' radio code.
 /mob/proc/parse_message_mode(message, standard_mode = HEADSET_MODE)
 	if(length(message) >= 1 && copytext(message, 1, 2) == ";")
-		return standard_mode
+		return list(standard_mode, copytext(message, 2))
 
 	if(length(message) >= 2)
-		var/channel_prefix = copytext_char(message, 1 ,3)
-		return GLOB.department_radio_keys[channel_prefix]
+		var/list/parts = splittext(message, " ")
+		var/channel_prefix = parts[1]
+		if(length(parts) > 1)
+			return list(GLOB.department_radio_keys[channel_prefix] || null, parts[2])
+		return list(null, parts[1])
 
 	return null
 

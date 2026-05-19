@@ -245,14 +245,11 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 		first_piece.speaking.broadcast(src, first_piece.message)
 		return TRUE
 
-	var/message_mode = parse_message_mode(first_piece.message, HEADSET_MODE)
-
-	//parse the radio code and consume it
-	if(message_mode)
-		if(message_mode == HEADSET_MODE)
-			first_piece.message = copytext_char(first_piece.message, 2)	//it would be really nice if the parse procs could do this for us.
-		else
-			first_piece.message = copytext_char(first_piece.message, 3)
+	var/list/parsed_mesage = parse_message_mode(first_piece.message, HEADSET_MODE)
+	var/message_mode = null
+	if(parsed_mesage)
+		first_piece.message = parsed_mesage[2]
+		message_mode = parsed_mesage[1]
 
 	//And only after everything is done, we hissin'
 	for(var/datum/multilingual_say_piece/piece as anything in message_pieces)
