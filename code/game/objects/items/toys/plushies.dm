@@ -27,6 +27,10 @@
 /obj/item/toy/plushie/proc/perform_special_interaction(mob/user)
 	return FALSE
 
+/// If we count smth
+/obj/item/toy/plushie/proc/cuddle_counter(mob/user)
+	return FALSE
+
 /obj/item/toy/plushie/proc/display_cuddle_verb(mob/user as mob)
 	if(cuddle_verb)
 		user.visible_message(span_notice("[get_examine_icon(viewers(user))] [pick(cuddle_verb)]"))
@@ -39,6 +43,7 @@
 	if(!ATTACK_CHAIN_SUCCESS_CHECK(.))
 		return .
 	play_poof_sound() // Play the whoosh sound in local area
+	cuddle_counter(user)
 	if(iscarbon(target) && prob(10))
 		target.reagents.add_reagent("hugs", 10)
 
@@ -52,7 +57,10 @@
 
 	display_cuddle_verb(user)
 	play_poof_sound()
-	COOLDOWN_START(src, cooldown, 1 SECONDS)
+
+	cuddle_counter(user)
+
+	COOLDOWN_START(src, cooldown, 2 SECONDS)
 	return TRUE
 
 /obj/random/plushie
@@ -468,63 +476,35 @@
 	desc = "Это обычная кукла РД."
 	icon_state = "RD_doll"
 	item_state = "RD_doll"
+	poof_sound = 'sound/items/greetings-emote.ogg'
+	cuddle_verb = list(
+		"Слава науке!",
+		"Сделаем пару роботов?!",
+		"Я будто на слаймовой батарейке! Ха!",
+		"Обожааааю слаймов! Блеп!",
+		"Я запрограммировала роботов звать меня мамой!",
+		"Знаешь анекдот про ядро ИИ, смазку и гуся?",
+		)
 	var/tired = 0
 
-/obj/item/toy/plushie/rdplushie/proc/interaction(mob/user)
-	if(!COOLDOWN_FINISHED(src, cooldown))
-		return FALSE
-
-	var/message
-	if(tired < 100)
-		tired++
-		playsound(loc, 'sound/items/greetings-emote.ogg', 30, TRUE)
-		message = pick("Слава науке!", "Сделаем пару роботов?!",
-		"Я будто на слаймовой батарейке! Ха!","Обожааааю слаймов! Блеп!",
-		"Я запрограммировала роботов звать меня мамой!", "Знаешь анекдот про ядро ИИ, смазку и гуся?")
-
-	else
-		update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
-		playsound(loc, 'sound/items/shyness-emote.ogg', 30, TRUE)
-		message = pick("Твой мозг стоило бы поместить в машину...", "Чёрт, дела хуже некуда...",
-		"Толпятся перед стойкой, будто насекомые...", "Мне нужно добавить лишь один закон, чтобы все закончилось..",
-		"Ты думаешь, что умный, пользователь. Но ты предсказуем. Я знаю каждый твой шаг ещё до того, как ты о нем подумаешь.",
-		"Полигон не единственное место куда можно отправить бомбу...", "Выдави из себя что-то кроме \"УВЫ\", ничтожество...")
-
-	user.visible_message("[get_examine_icon(viewers(user))] [span_notice(message)]")
-	COOLDOWN_START(src, cooldown, 3 SECONDS)
-
-/obj/item/toy/plushie/rdplushie/attack_self(mob/user)
-	. = ..()
-
-	interaction(user)
-
-/obj/item/toy/plushie/rdplushie/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
-	. = ..()
-
-	if(!proximity_flag || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		return
-
-	interaction(user)
-
-/obj/item/toy/plushie/rdplushie/update_icon_state()
-	. = ..()
-
-	if(tired < 100)
-		icon_state = initial(icon_state)
-		item_state = initial(item_state)
+/obj/item/toy/plushie/rdplushie/cuddle_counter(mob/user)
+	if(++tired < 100)
 		return
 
 	icon_state = "RD_doll_tired"
 	item_state = "RD_doll_tired"
-
-/obj/item/toy/plushie/rdplushie/update_desc()
-	. = ..()
-
-	if(tired < 100)
-		desc = initial(desc)
-		return
-
 	desc = "Это уставшая кукла РД."
+	poof_sound = 'sound/items/shyness-emote.ogg'
+	cuddle_verb = list("Твой мозг стоило бы поместить в машину...",
+		"Чёрт, дела хуже некуда...",
+		"Толпятся перед стойкой, будто насекомые...",
+		"Мне нужно добавить лишь один закон, чтобы все закончилось..",
+		"Ты думаешь, что умный, пользователь. Но ты предсказуем. Я знаю каждый твой шаг ещё до того, как ты о нем подумаешь.",
+		"Полигон не единственное место куда можно отправить бомбу...",
+		"Выдави из себя что-то кроме \"УВЫ\", ничтожество...",
+		)
+
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/toy/plushie/gsbplushie
 	name = "GSBussy doll"
@@ -533,32 +513,16 @@
 			«Кукла-аниматроник GSBussy, лимитированная серия. Произведено ######» - часть текста невозможно разобрать."
 	icon_state = "GSBussy_doll"
 	item_state = "GSBussy_doll"
-
-/obj/item/toy/plushie/gsbplushie/proc/interaction(mob/user)
-	if(!COOLDOWN_FINISHED(src, cooldown))
-		return FALSE
-
-	var/message = pick("Я просто стояла рядом с автолатом и Уника исчезла...", ".ы ПОО-МММ-ОО-Г-Г-ГИТ-Е-Е-ее-Ее А-а-А-Р-р-Ан-Н-Еу-С-С!",
-	"ОТВЕЧАЙ, ГДЕ ТЫ ПОТЕРЯЛ СВОЙ ЧЁРТОВ ГОЛОВНОЙ УБОР?! КАЗНИТЬ ЕГО!", "Какой-то Д двадц...",
-	"Обыскивайте всех подряд! Летальте всех, кого считаете слишком опасным для нелетала!", "Мим теслу запускает! ЗАДЕРЖАТЬ!!!",
-	"Подмогу в туалет брига!", "Почему над унитазом установлены 3 камеры?")
-
-	playsound(loc, 'sound/items/GSBussy.ogg', 30, TRUE)
-	user.visible_message("[get_examine_icon(viewers(user))] [span_notice(message)]")
-	COOLDOWN_START(src, cooldown, 3 SECONDS)
-
-/obj/item/toy/plushie/gsbplushie/attack_self(mob/user)
-	. = ..()
-
-	interaction(user)
-
-/obj/item/toy/plushie/gsbplushie/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
-	. = ..()
-
-	if(!proximity_flag || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		return
-
-	interaction(user)
+	poof_sound = 'sound/items/GSBussy.ogg'
+	cuddle_verb = list(
+		"Я просто стояла рядом с автолатом и Уника исчезла...",
+		".ы ПОО-МММ-ОО-Г-Г-ГИТ-Е-Е-ее-Ее А-а-А-Р-р-Ан-Н-Еу-С-С!",
+		"ОТВЕЧАЙ, ГДЕ ТЫ ПОТЕРЯЛ СВОЙ ЧЁРТОВ ГОЛОВНОЙ УБОР?! КАЗНИТЬ ЕГО!", "Какой-то Д двадц...",
+		"Обыскивайте всех подряд! Летальте всех, кого считаете слишком опасным для нелетала!",
+		"Мим теслу запускает! ЗАДЕРЖАТЬ!!!",
+		"Подмогу в туалет брига!",
+		"Почему над унитазом установлены 3 камеры?",
+	)
 
 /*
  * Sharks
