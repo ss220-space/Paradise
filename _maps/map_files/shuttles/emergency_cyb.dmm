@@ -8,8 +8,7 @@
 /obj/item/pen,
 /obj/item/radio/intercom/directional/west,
 /obj/machinery/light{
-	dir = 1;
-	on = 1
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -65,8 +64,7 @@
 /obj/machinery/cell_charger,
 /obj/item/stock_parts/cell/high,
 /obj/machinery/light{
-	dir = 1;
-	on = 1
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -132,10 +130,7 @@
 /obj/item/tank/internals/emergency_oxygen/engi,
 /obj/item/tank/internals/emergency_oxygen/engi,
 /obj/item/tank/internals/emergency_oxygen/engi,
-/obj/machinery/light{
-	dir = 1;
-	on = 1
-	},
+/obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "bot"
@@ -176,7 +171,9 @@
 	},
 /area/shuttle/escape)
 "aA" = (
-/obj/machinery/light,
+/obj/machinery/light{
+	dir = 1
+	},
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
@@ -185,7 +182,9 @@
 	},
 /area/shuttle/escape)
 "aB" = (
-/obj/machinery/light,
+/obj/machinery/light{
+	dir = 1
+	},
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
@@ -209,6 +208,9 @@
 /area/shuttle/escape)
 "aG" = (
 /obj/structure/table/reinforced,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/simulated/floor/shuttle/objective_check{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "darkreddarkfull"
@@ -221,19 +223,23 @@
 	},
 /area/shuttle/escape)
 "aI" = (
-/obj/machinery/light{
-	dir = 1;
-	on = 1
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
 	},
-/obj/structure/chair/comfy/shuttle,
-/turf/simulated/floor/shuttle/objective_check{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "darkreddarkfull"
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "bot"
 	},
 /area/shuttle/escape)
 "aJ" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/fancy/donut_box,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/simulated/floor/shuttle/objective_check{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "darkreddarkfull"
@@ -243,8 +249,7 @@
 /obj/structure/table/reinforced,
 /obj/item/storage/firstaid/regular,
 /obj/machinery/light{
-	dir = 1;
-	on = 1
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -277,11 +282,10 @@
 /obj/structure/closet/fireaxecabinet{
 	pixel_x = 32
 	},
-/obj/machinery/light{
-	dir = 1;
-	on = 1
-	},
 /obj/structure/chair/comfy/shuttle,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutralcorner"
@@ -290,18 +294,10 @@
 "aS" = (
 /obj/item/storage/firstaid/o2,
 /obj/structure/table,
-/turf/simulated/floor/plasteel,
-/area/shuttle/escape)
-"aT" = (
 /obj/machinery/light{
-	dir = 1;
-	on = 1
+	dir = 1
 	},
-/obj/structure/chair/comfy/shuttle,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "bot"
-	},
+/turf/simulated/floor/plasteel,
 /area/shuttle/escape)
 "aU" = (
 /obj/structure/chair/comfy/shuttle,
@@ -476,8 +472,16 @@
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
 "bz" = (
-/obj/machinery/light,
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/closet/crate/internals,
+/obj/item/clothing/mask/breath,
+/obj/item/clothing/mask/breath,
+/obj/item/clothing/mask/breath,
+/obj/item/clothing/mask/breath,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/obj/machinery/light{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -535,21 +539,8 @@
 "bE" = (
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
-"bF" = (
-/obj/machinery/light{
-	dir = 1;
-	on = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutral"
-	},
-/area/shuttle/escape)
 "bG" = (
 /obj/machinery/mech_bay_recharge_port,
-/obj/machinery/light{
-	dir = 1;
-	on = 1
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "bot"
@@ -569,8 +560,7 @@
 	pixel_y = 10
 	},
 /obj/machinery/light{
-	dir = 1;
-	on = 1
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -585,11 +575,12 @@
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
 "bK" = (
-/obj/item/twohanded/required/kirbyplants,
 /obj/machinery/light{
-	dir = 4
+	dir = 1
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutral"
+	},
 /area/shuttle/escape)
 "bL" = (
 /obj/structure/reagent_dispensers/fueltank/chem{
@@ -688,9 +679,6 @@
 /obj/structure/table,
 /obj/machinery/cell_charger,
 /obj/item/stock_parts/cell/high,
-/obj/machinery/light/small{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "bot"
@@ -769,7 +757,7 @@
 	pixel_x = -2;
 	pixel_y = 4
 	},
-/obj/machinery/light/small,
+/obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "bot"
@@ -894,18 +882,6 @@
 	icon_state = "whiteblue"
 	},
 /area/shuttle/escape)
-"cA" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/structure/chair/comfy/shuttle{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "bot"
-	},
-/area/shuttle/escape)
 "cB" = (
 /obj/structure/table/reinforced,
 /obj/machinery/light{
@@ -926,6 +902,7 @@
 /obj/structure/table/reinforced,
 /obj/item/storage/backpack/medic,
 /obj/item/storage/belt/medical,
+/obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"
 	},
@@ -947,6 +924,7 @@
 /obj/structure/table/reinforced,
 /obj/item/clothing/gloves/color/latex/nitrile,
 /obj/item/clothing/mask/breath,
+/obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"
 	},
@@ -959,6 +937,7 @@
 	dir = 1
 	},
 /obj/item/radio/intercom/custom/directional/south,
+/obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "bot"
@@ -1085,11 +1064,11 @@ bE
 cj
 bE
 KR
+aI
 bP
 bP
 bP
-cA
-aV
+at
 cH
 bu
 bw
@@ -1132,7 +1111,7 @@ aa
 aa
 aa
 MI
-aI
+aO
 aH
 aH
 aN
@@ -1230,7 +1209,7 @@ bc
 gS
 Ow
 wB
-bF
+bg
 ba
 ba
 ba
@@ -1261,7 +1240,7 @@ aY
 bk
 br
 wB
-bg
+bK
 ba
 bQ
 bQ
@@ -1354,7 +1333,7 @@ bd
 bf
 bx
 wB
-bg
+bK
 ba
 ba
 ba
@@ -1385,11 +1364,11 @@ be
 be
 Ow
 cH
-at
-bK
+aV
+cb
 bE
 bE
-bQ
+ck
 pA
 bQ
 ck
@@ -1398,7 +1377,7 @@ bQ
 ba
 ba
 bQ
-ck
+bQ
 aV
 MI
 bu
@@ -1442,10 +1421,10 @@ MI
 wB
 cH
 cH
-aT
+aU
 bg
 bl
-bz
+bB
 cH
 bG
 bL
@@ -1535,7 +1514,7 @@ aa
 aa
 aa
 wB
-aV
+bz
 bh
 bm
 aV

@@ -16,6 +16,12 @@
 	pixel_y = 30
 	},
 /obj/item/storage/toolbox/surgery/advanced,
+/obj/item/storage/firstaid/tactical,
+/obj/item/storage/firstaid/tactical,
+/obj/item/storage/box/bodybags,
+/obj/machinery/light/spot{
+	dir = 1
+	},
 /turf/simulated/floor/pod,
 /area/shuttle/administration)
 "bQ" = (
@@ -207,8 +213,7 @@
 	dir = 8
 	},
 /obj/structure/shuttle/engine/platform{
-	dir = 4;
-	layer = 2.9
+	dir = 4
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "vfloor"
@@ -264,9 +269,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/machinery/computer/card{
-	dir = 1
-	},
+/obj/machinery/computer/card,
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "dark"
@@ -276,15 +279,13 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 5
 	},
-/obj/machinery/door/window/brigdoor{
-	color = "#22aab7";
-	dir = 1;
-	icon_state = "rightsecure";
-	req_access = list(101)
+/obj/structure/window/reinforced{
+	dir = 4
 	},
+/obj/structure/rack,
+/obj/structure/closet/crate/secure/mortar/mortar_shells/frag,
 /turf/simulated/floor/shuttle{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "dark"
+	icon_state = "floor4"
 	},
 /area/shuttle/administration)
 "ig" = (
@@ -296,8 +297,7 @@
 	dir = 8
 	},
 /obj/structure/shuttle/engine/platform{
-	dir = 4;
-	layer = 2.9
+	dir = 4
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "vfloor"
@@ -335,8 +335,7 @@
 	dir = 8
 	},
 /obj/structure/shuttle/engine/platform{
-	dir = 4;
-	layer = 2.9
+	dir = 4
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "vfloor"
@@ -487,12 +486,6 @@
 	icon_state = "router_dir"
 	},
 /area/shuttle/administration)
-"qQ" = (
-/obj/structure/sign/poster/official/explosionsafe,
-/turf/simulated/wall/shuttle{
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
-	},
-/area/shuttle/administration)
 "rA" = (
 /obj/machinery/light/spot{
 	dir = 8
@@ -527,7 +520,6 @@
 	icon_state = "gs_deadlock"
 	},
 /obj/machinery/computer/camera_advanced/shuttle_docker/admin{
-	dir = 1;
 	name = "NRV Sparta shuttle navigation computer"
 	},
 /turf/simulated/floor/shuttle{
@@ -585,6 +577,7 @@
 /obj/machinery/vending/nta{
 	all_products_free = 1
 	},
+/obj/machinery/light/spot,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
@@ -685,9 +678,6 @@
 	},
 /area/shuttle/administration)
 "xZ" = (
-/obj/machinery/light/spot{
-	dir = 8
-	},
 /obj/machinery/recharger/wallcharger{
 	pixel_y = 30
 	},
@@ -762,13 +752,6 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced,
-/obj/structure/closet/crate/secure/mortar/mortar_shells/frag,
-/obj/machinery/door/window/brigdoor{
-	color = "#22aab7";
-	dir = 1;
-	icon_state = "rightsecure";
-	req_access = list(101)
-	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
@@ -781,7 +764,6 @@
 	},
 /area/shuttle/administration)
 "BZ" = (
-/obj/machinery/light/spot,
 /obj/machinery/porta_turret{
 	installation = /obj/item/gun/energy/gun
 	},
@@ -811,8 +793,7 @@
 	dir = 8
 	},
 /obj/structure/shuttle/engine/platform{
-	dir = 4;
-	layer = 2.9
+	dir = 4
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "vfloor"
@@ -835,12 +816,6 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/administration)
-"Ev" = (
-/obj/structure/sign/poster/official/hardwork,
-/turf/simulated/wall/shuttle{
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
-	},
-/area/shuttle/administration)
 "EQ" = (
 /turf/simulated/floor/shuttle{
 	dir = 1;
@@ -850,8 +825,7 @@
 /area/shuttle/administration)
 "Fd" = (
 /obj/structure/shuttle/engine/platform{
-	dir = 8;
-	layer = 2.9
+	dir = 8
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "vfloor"
@@ -877,10 +851,11 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/structure/closet/crate/secure/mortar/mortar_shells/flare,
+/obj/structure/closet/crate/secure/mortar/mortar_kit,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
+/obj/structure/rack,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
@@ -895,8 +870,7 @@
 	dir = 8
 	},
 /obj/structure/shuttle/engine/platform{
-	dir = 4;
-	layer = 2.9
+	dir = 4
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "vfloor"
@@ -1006,8 +980,7 @@
 	dir = 8
 	},
 /obj/structure/shuttle/engine/platform{
-	dir = 4;
-	layer = 2.9
+	dir = 4
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "vfloor"
@@ -1075,16 +1048,6 @@
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
-/area/shuttle/administration)
-"Mj" = (
-/obj/structure/table/reinforced,
-/obj/item/storage/firstaid,
-/obj/item/storage/firstaid/brute,
-/obj/item/storage/box/bodybags,
-/obj/item/storage/firstaid/surgery,
-/obj/item/storage/firstaid/tactical,
-/obj/item/storage/firstaid/tactical,
-/turf/simulated/floor/pod,
 /area/shuttle/administration)
 "Mv" = (
 /turf/simulated/floor/shuttle{
@@ -1172,7 +1135,6 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/structure/closet/crate/secure/mortar/mortar_kit,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
@@ -1192,15 +1154,10 @@
 "Rh" = (
 /obj/structure/window/reinforced,
 /obj/structure/closet/crate/secure/mortar/mortar_shells/he,
-/obj/machinery/door/window/brigdoor{
-	color = "#22aab7";
-	dir = 1;
-	icon_state = "rightsecure";
-	req_access = list(101)
-	},
 /obj/structure/window/reinforced{
 	dir = 4
 	},
+/obj/structure/rack,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
@@ -1239,14 +1196,11 @@
 /area/shuttle/administration)
 "Ti" = (
 /obj/machinery/door/window/brigdoor{
-	color = "#22aab7";
-	dir = 1;
-	icon_state = "rightsecure";
+	dir = 8;
 	req_access = list(101)
 	},
 /turf/simulated/floor/shuttle{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "dark"
+	icon_state = "floor4"
 	},
 /area/shuttle/administration)
 "TF" = (
@@ -1296,6 +1250,7 @@
 /obj/machinery/vending/gun_mods/advanced{
 	all_products_free = 1
 	},
+/obj/machinery/light/spot,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
@@ -1371,7 +1326,7 @@ Vc
 Vc
 Az
 Az
-Mj
+mw
 aP
 dP
 Az
@@ -1390,7 +1345,7 @@ Vc
 (3,1,1) = {"
 Az
 Az
-mw
+Cl
 Cl
 Cl
 Qt
@@ -1525,7 +1480,7 @@ VQ
 VQ
 VQ
 Vi
-qQ
+Az
 "}
 (10,1,1) = {"
 UX
@@ -1545,7 +1500,7 @@ VQ
 VQ
 VQ
 vz
-Ev
+Az
 "}
 (11,1,1) = {"
 rW

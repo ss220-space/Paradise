@@ -111,18 +111,18 @@
 	},
 /area/shuttle/escape)
 "aA" = (
-/obj/machinery/light,
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
+/obj/machinery/light,
 /turf/simulated/floor/carpet/royalblack,
 /area/shuttle/escape)
 "aB" = (
-/obj/machinery/light,
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
 /obj/item/radio/intercom/directional/south,
+/obj/machinery/light,
 /turf/simulated/floor/carpet/royalblack,
 /area/shuttle/escape)
 "aC" = (
@@ -171,6 +171,9 @@
 /obj/structure/table/reinforced,
 /obj/item/storage/fancy/donut_box,
 /obj/item/restraints/handcuffs,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/simulated/floor/shuttle/objective_check{
 	dir = 1;
 	icon = 'icons/turf/floors.dmi';
@@ -196,8 +199,7 @@
 	dir = 8
 	},
 /obj/machinery/light{
-	dir = 1;
-	on = 1
+	dir = 1
 	},
 /turf/simulated/floor/carpet/cyan,
 /area/shuttle/escape)
@@ -244,8 +246,7 @@
 	dir = 8
 	},
 /obj/machinery/light{
-	dir = 1;
-	on = 1
+	dir = 1
 	},
 /turf/simulated/floor/shuttle/objective_check{
 	icon = 'icons/turf/floors.dmi';
@@ -385,12 +386,6 @@
 /obj/structure/shuttle/engine/propulsion,
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/escape)
-"bx" = (
-/obj/structure/bed/roller,
-/obj/machinery/iv_drip,
-/obj/machinery/light,
-/turf/simulated/floor/carpet/cyan,
-/area/shuttle/escape)
 "by" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
@@ -436,16 +431,6 @@
 	},
 /turf/simulated/floor/carpet/purple,
 /area/shuttle/escape)
-"bF" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 4
-	},
-/obj/machinery/light{
-	dir = 1;
-	on = 1
-	},
-/turf/simulated/floor/carpet/cyan,
-/area/shuttle/escape)
 "bG" = (
 /obj/machinery/status_display,
 /turf/simulated/wall/shuttle,
@@ -479,18 +464,15 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
+/obj/structure/extinguisher_cabinet/directional/west,
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/structure/extinguisher_cabinet/directional/west,
 /turf/simulated/floor/carpet/orange,
 /area/shuttle/escape)
 "bM" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
-	},
-/obj/machinery/light{
-	dir = 4
 	},
 /obj/structure/extinguisher_cabinet/directional/east,
 /turf/simulated/floor/carpet/purple,
@@ -537,10 +519,10 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
+/obj/structure/extinguisher_cabinet/directional/west,
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/structure/extinguisher_cabinet/directional/west,
 /turf/simulated/floor/carpet/purple,
 /area/shuttle/escape)
 "bT" = (
@@ -613,9 +595,6 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/obj/machinery/light{
-	dir = 4
-	},
 /obj/structure/extinguisher_cabinet/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -647,6 +626,9 @@
 /area/shuttle/escape)
 "cE" = (
 /obj/structure/bed/roller,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/simulated/floor/carpet/cyan,
 /area/shuttle/escape)
 "cG" = (
@@ -729,12 +711,12 @@
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/machinery/light,
 /turf/simulated/floor/carpet/cyan,
 /area/shuttle/escape)
 "yW" = (
 /obj/machinery/light{
-	dir = 1;
-	on = 1
+	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
@@ -777,19 +759,6 @@
 /obj/item/reagent_containers/food/snacks/vulpix/cheese,
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
-"CJ" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 4
-	},
-/obj/machinery/light{
-	dir = 1;
-	on = 1
-	},
-/turf/simulated/floor/shuttle/objective_check{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "darkreddarkfull"
-	},
-/area/shuttle/escape)
 "GC" = (
 /turf/simulated/floor/shuttle/objective_check{
 	icon = 'icons/turf/floors.dmi';
@@ -809,10 +778,6 @@
 "LE" = (
 /obj/machinery/bodyscanner{
 	dir = 2
-	},
-/obj/machinery/light{
-	dir = 1;
-	on = 1
 	},
 /turf/simulated/floor/carpet/cyan,
 /area/shuttle/escape)
@@ -860,10 +825,6 @@
 /area/shuttle/escape)
 "Wy" = (
 /obj/structure/chair/comfy/shuttle,
-/obj/machinery/light{
-	dir = 1;
-	on = 1
-	},
 /turf/simulated/floor/shuttle/objective_check{
 	dir = 1;
 	icon = 'icons/turf/floors.dmi';
@@ -916,7 +877,7 @@ aa
 (2,1,1) = {"
 aa
 VF
-CJ
+bl
 bl
 bH
 RT
@@ -926,11 +887,11 @@ sN
 bp
 cH
 aT
-bO
 bP
 bP
 bP
-bO
+bP
+bP
 aT
 aT
 aT
@@ -938,7 +899,7 @@ bR
 bP
 bP
 bP
-bP
+bO
 bP
 cH
 cH
@@ -964,7 +925,7 @@ aT
 aT
 aT
 aT
-aT
+ca
 bV
 aT
 aT
@@ -1018,7 +979,7 @@ GC
 GC
 bg
 qS
-aT
+yW
 bP
 bP
 bP
@@ -1057,7 +1018,7 @@ aT
 aT
 aT
 aT
-ca
+aT
 IB
 bY
 VF
@@ -1119,7 +1080,7 @@ bP
 bP
 bP
 aT
-aT
+ca
 bU
 bJ
 bJ
@@ -1204,7 +1165,7 @@ VF
 aL
 ac
 bb
-yW
+aT
 bQ
 bQ
 bQ
@@ -1243,7 +1204,7 @@ bP
 bP
 bP
 aT
-ca
+aT
 IB
 bY
 VF
@@ -1295,9 +1256,9 @@ cH
 bc
 cp
 cp
-bx
+cw
 La
-aT
+yW
 aT
 aU
 aU
@@ -1305,7 +1266,7 @@ aU
 aU
 aO
 aT
-aT
+ca
 bC
 bz
 bz
@@ -1319,7 +1280,7 @@ cH
 (15,1,1) = {"
 aa
 VF
-bF
+aM
 aM
 zJ
 Qf
@@ -1359,7 +1320,7 @@ cp
 cp
 xD
 cH
-yW
+aT
 aT
 aT
 aT

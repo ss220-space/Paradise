@@ -148,7 +148,6 @@
 /area/shuttle/administration)
 "jU" = (
 /obj/machinery/computer/shuttle/admin{
-	dir = 1;
 	name = "NTV Athena shuttle console"
 	},
 /obj/effect/turf_decal/stripes/gold{
@@ -508,9 +507,7 @@
 /obj/effect/turf_decal/stripes/gold{
 	dir = 6
 	},
-/obj/machinery/computer/communications{
-	dir = 1
-	},
+/obj/machinery/computer/communications,
 /obj/machinery/door_control{
 	id = "adminshuttleblast";
 	name = "Blast door control";
@@ -757,7 +754,6 @@
 	icon_state = "gs_deadlock"
 	},
 /obj/machinery/computer/camera_advanced/shuttle_docker/admin{
-	dir = 1;
 	name = "NTV Athena shuttle navigation computer"
 	},
 /turf/simulated/floor/carpet/royalblack,
@@ -825,12 +821,8 @@
 /obj/effect/turf_decal/stripes/gold{
 	dir = 5
 	},
-/obj/machinery/computer/communications{
-	dir = 1
-	},
-/obj/machinery/computer/card{
-	dir = 1
-	},
+/obj/machinery/computer/communications,
+/obj/machinery/computer/card,
 /obj/machinery/light{
 	dir = 8
 	},
