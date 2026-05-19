@@ -74,7 +74,8 @@ GLOBAL_DATUM_INIT(overlay_manager, /datum/overlay_manager, new())
 	STAT_STOP_STOPWATCH
 	STAT_LOG_ENTRY(GLOB.overlay_manager.stats, type)
 
-/atom/proc/copy_overlays(atom/other, cut_old) //copys our_overlays from another atom
+///copys our_overlays from another atom
+/atom/proc/copy_overlays(atom/other, cut_old)
 	if(!other)
 		if(cut_old)
 			cut_overlays()

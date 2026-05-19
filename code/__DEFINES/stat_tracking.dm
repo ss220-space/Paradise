@@ -29,7 +29,7 @@
 	INIT_COST_STATIC() \
 	if(GLOB){\
 		costs = hidden_static_list_for_fun1; \
-		counting = hidden_static_list_for_fun2 ; \
+		counting = hidden_static_list_for_fun2; \
 	} \
 	_usage = TICK_USAGE;
 
@@ -67,7 +67,7 @@
 	do { \
 		var/static/last_export = 0; \
 		/* Need to always run if we haven't yet, since this code can be placed ANYWHERE */ \
-		if (world.time - last_export > 1.1 SECONDS || (last_export == 0)) { \
+		if(world.time - last_export > 1.1 SECONDS || (last_export == 0)) { \
 			last_export = world.time; \
 			/* spawn() is used here because this is often used to track init times, where timers act oddly. */ \
 			/* I was making timers and even after init times were complete, the timers didn't run :shrug: */ \
