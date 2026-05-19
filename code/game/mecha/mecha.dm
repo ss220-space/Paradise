@@ -1459,12 +1459,12 @@
 		return TRUE
 	return FALSE
 
-/obj/mecha/Exited(atom/movable/departed, atom/newLoc)
+/obj/mecha/Exited(atom/movable/gone, direction)
 	. = ..()
-	if(occupant && occupant == departed) // The occupant exited the mech without calling go_out()
-		go_out(TRUE, newLoc)
+	if(occupant && occupant == gone) // The occupant exited the mech without calling go_out()
+		go_out(TRUE)
 
-/obj/mecha/Exit(atom/movable/leaving, atom/newLoc)
+/obj/mecha/Exit(atom/movable/leaving, direction)
 	if(leaving in cargo)
 		return FALSE
 	return ..()

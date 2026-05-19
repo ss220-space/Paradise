@@ -453,7 +453,7 @@
 		quest.id.robo_bounty = null
 		quest = null
 
-/obj/machinery/roboquest_pad/proc/on_exited(datum/source, atom/movable/departed, atom/newLoc)
+/obj/machinery/roboquest_pad/proc/on_exited(datum/source, atom/movable/departed, direction)
 	SIGNAL_HANDLER
 
 	if(ismecha(departed) && console)

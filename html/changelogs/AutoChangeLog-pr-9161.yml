@@ -1,4 +1,0 @@
-author: "littleboobs"
-delete-after: True
-changes:
-  - tweak: "Уменьшен неадекватный шанс спавна камеры в техах. (PR #9161)"

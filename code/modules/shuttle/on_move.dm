@@ -7,7 +7,7 @@
 		shuttleRotate(rotation)
 
 	forceMove(T1)
-	SSdemo.mark_dirty(src)
+	//SSdemo.mark_dirty(src)
 
 	return TRUE
 

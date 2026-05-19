@@ -1,4 +1,0 @@
-author: "PlayerUnknown14"
-delete-after: True
-changes:
-  - bugfix: "ID-карта клоуна корректно переименовывается при заходе в раунд. (PR #9132)"

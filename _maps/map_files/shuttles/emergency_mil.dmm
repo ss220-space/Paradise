@@ -52,7 +52,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/shuttle/escape)
@@ -164,7 +163,6 @@
 /area/shuttle/escape)
 "aI" = (
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/shuttle/escape)
@@ -338,7 +336,6 @@
 	req_access = list(19)
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/shuttle/escape)
@@ -367,7 +364,6 @@
 	name = "Shuttle Hatch"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/shuttle/escape)
@@ -434,14 +430,12 @@
 	name = "Shuttle Hatch"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/shuttle/escape)
 "br" = (
 /mob/living/simple_animal/bot/secbot,
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/shuttle/escape)
@@ -501,7 +495,6 @@
 	icon_state = "ntsing_alt2"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/shuttle/escape)
@@ -521,7 +514,6 @@
 	icon_state = "ntsing_alt5"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/shuttle/escape)
@@ -608,7 +600,6 @@
 	icon_state = "ntsing_alt4"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/shuttle/escape)
@@ -618,7 +609,6 @@
 	icon_state = "ntsing_alt3"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/shuttle/escape)
@@ -631,7 +621,6 @@
 	icon_state = "ntsing_alt"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/shuttle/escape)
@@ -656,7 +645,6 @@
 "XP" = (
 /obj/structure/closet/walllocker/emerglocker/directional/east,
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/shuttle/escape)

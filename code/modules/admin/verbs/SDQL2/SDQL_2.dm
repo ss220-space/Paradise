@@ -1,29 +1,3 @@
-// Exist only for sdql2, deleted by official paradise
-/obj/effect/statclick
-	name = "Initializing..."
-	var/target
-
-INITIALIZE_IMMEDIATE(/obj/effect/statclick)
-
-/obj/effect/statclick/Initialize(mapload, text, target)
-	. = ..()
-	name = text
-	src.target = target
-	if(isdatum(target)) //Harddel man bad
-		RegisterSignal(target, COMSIG_QDELETING, PROC_REF(cleanup))
-
-/obj/effect/statclick/Destroy()
-	target = null
-	return ..()
-
-/obj/effect/statclick/proc/cleanup()
-	SIGNAL_HANDLER
-	qdel(src)
-
-/obj/effect/statclick/proc/update(text)
-	name = text
-	return src
-
 //SDQL2 datumized, /tg/station special!
 
 /*

@@ -82,7 +82,7 @@
 		),
 	)
 
-#ifdef GAME_TESTS
+#ifdef UNIT_TESTS
 /datum/mod_theme/New()
 	var/list/skin_parts = list()
 	for(var/variant in variants)

@@ -162,11 +162,14 @@
 	proj_pass_rate = 20
 	pass_flags_self = LETPASSTHROW
 	bar_material = SAND
-	climbable = TRUE
 	smooth = SMOOTH_BITMASK
 	smoothing_groups = SMOOTH_GROUP_SANDBAGS
 	canSmoothWith = SMOOTH_GROUP_SECURITY_BARRICADE + SMOOTH_GROUP_SANDBAGS + SMOOTH_GROUP_WALLS
 	stacktype = null
+
+/obj/structure/barricade/sandbags/ComponentInitialize()
+	AddElement(/datum/element/climbable)
+	AddElement(/datum/element/elevation, pixel_shift = 12)
 
 /**
  * MARK: Security Barrier

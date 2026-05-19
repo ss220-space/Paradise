@@ -216,6 +216,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		INVOKE_ASYNC(src, PROC_REF(transform_animation), icon_state, TRUE)
 
 	add_strippable_element()
+	AddComponent(/datum/component/anti_juggling)
 
 //If there's an MMI in the robot, have it ejected when the mob goes away. --NEO
 //Improved /N

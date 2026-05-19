@@ -148,7 +148,6 @@
 	mag_type = /obj/item/ammo_box/magazine/m75
 	can_holster = TRUE // Override default automatic setting since it is a handgun sized gun
 	burst_amount = 1
-	fire_delay = 0
 	actions_types = null
 	accuracy = GUN_ACCURACY_MINIMAL
 	gun_firemode_list = list(GUN_FIREMODE_SEMIAUTO)

@@ -120,10 +120,11 @@
 	holder.vent_gas(expel_to)
 	qdel(holder)
 
-/obj/structure/disposalpipe/singularity_pull(S, current_size)
+/obj/structure/disposalpipe/singularity_pull(atom/singularity, current_size)
 	..()
-	if(current_size >= STAGE_FIVE)
-		deconstruct()
+	if(current_size < STAGE_FIVE)
+		return
+	deconstruct()
 
 // pipe affected by explosion
 /obj/structure/disposalpipe/ex_act(severity, target)
@@ -268,7 +269,7 @@
 /obj/structure/disposalpipe/trunk/proc/null_linked_refs() //disposals is well-coded
 	if(!linked)
 		return
-	if(istype(linked, /obj/machinery/disposal))
+	if(isdisposalunit(linked))
 		var/obj/machinery/disposal/disposal = linked
 		disposal.trunk = null
 	else if(istype(linked, /obj/structure/disposaloutlet))

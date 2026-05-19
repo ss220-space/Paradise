@@ -2,10 +2,8 @@
 SUBSYSTEM_DEF(processing)
 	name = "Processing"
 	priority = FIRE_PRIORITY_PROCESS
-	flags = SS_BACKGROUND|SS_POST_FIRE_TIMING|SS_NO_INIT|SS_HIBERNATE
+	ss_flags = SS_BACKGROUND|SS_POST_FIRE_TIMING|SS_NO_INIT|SS_HIBERNATE
 	wait = 1 SECONDS
-	ss_id = "processing"
-	offline_implications = "Objects using the default processor will no longer process. Shuttle call recommended."
 
 	/// Used for logging
 	var/stat_tag = "P"

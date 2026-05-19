@@ -71,3 +71,23 @@
 	if(!buffered_overlay_unfold)
 		buffered_overlay_unfold = mutable_appearance(icon, overlay_state + "_on", layer = FLOAT_LAYER - 1)
 	return buffered_overlay_unfold
+
+/obj/item/gun_module/stock/integrated_kedr
+	icon_state = "stock_kedr"
+	item_state = "stock_kedr"
+	overlay_state = "stock_kedr_o"
+	overlay_offset = list(ATTACHMENT_OFFSET_X = 14, ATTACHMENT_OFFSET_Y = 0)
+	can_detach = FALSE
+	var/list/unfold_overlay_offset = list(ATTACHMENT_OFFSET_X = 6, ATTACHMENT_OFFSET_Y = 4)
+	var/list/fold_overlay_offset
+
+/obj/item/gun_module/stock/integrated_kedr/Initialize(mapload)
+	. = ..()
+	fold_overlay_offset = overlay_offset
+
+/obj/item/gun_module/stock/integrated_kedr/create_overlay()
+	if(unfolded)
+		overlay_offset = unfold_overlay_offset
+	else
+		overlay_offset = fold_overlay_offset
+	. = ..()
