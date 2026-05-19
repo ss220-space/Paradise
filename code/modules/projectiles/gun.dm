@@ -373,6 +373,9 @@
 	if(user.in_throw_mode)
 		return
 
+	if(!user.loc?.allow_click())
+		return
+
 	if(HAS_TRAIT(src, TRAIT_GIVE_READY))
 		return
 
@@ -406,12 +409,7 @@
 	set_target(get_turf_on_clickcatcher(object, user, params))
 	src.modifiers = modifiers
 	if(gun_firemode == GUN_FIREMODE_SEMIAUTO)
-		var/fire_return // todo fix: code expecting return values from async
-		ASYNC
-			fire_return = process_fire()
-		if(!fire_return)
-			return
-		reset_fire()
+		INVOKE_ASYNC(src, PROC_REF(do_semiauto_fire))
 		return
 	SEND_SIGNAL(src, COMSIG_GUN_FIRE)
 	update_mouse_pointer()
@@ -483,6 +481,11 @@
 		gun.stop_fire()
 	sound_loop?.stop()
 	SEND_SIGNAL(src, COMSIG_GUN_STOP_FIRE)
+
+/// Single-shot fire path, runs process_fire and resets state on success.
+/obj/item/gun/proc/do_semiauto_fire()
+	if(process_fire())
+		reset_fire()
 
 ///Clean all references
 /obj/item/gun/proc/reset_fire()

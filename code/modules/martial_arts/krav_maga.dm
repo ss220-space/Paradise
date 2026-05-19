@@ -138,26 +138,25 @@
 	)
 	return TRUE
 
-/datum/martial_art/krav_maga/disarm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
+/datum/martial_art/krav_maga/disarm_act(mob/living/carbon/human/attacker, mob/living/carbon/human/defender)
 	MARTIAL_ARTS_ACT_CHECK
-	if(prob(60))
-		if(D.hand)
-			if(isitem(D.l_hand))
-				var/obj/item/I = D.l_hand
-				if(D.drop_from_active_hand())
-					A.put_in_hands(I, ignore_anim = FALSE)
-		else
-			if(isitem(D.r_hand))
-				var/obj/item/I = D.r_hand
-				if(D.drop_from_active_hand())
-					A.put_in_hands(I, ignore_anim = FALSE)
-		D.visible_message(span_danger("[A] has disarmed [D]!"), \
-							span_userdanger("[A] has disarmed [D]!"))
-		playsound(D, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
-	else
-		D.visible_message(span_danger("[A] attempted to disarm [D]!"), \
-							span_userdanger("[A] attempted to disarm [D]!"))
-		playsound(D, 'sound/weapons/punchmiss.ogg', 25, TRUE, -1)
+	if(!prob(60))
+		defender.visible_message(
+			span_danger("[attacker] attempted to disarm [defender]!"),
+			span_userdanger("[attacker] attempted to disarm [defender]!"),
+		)
+		playsound(defender, 'sound/weapons/punchmiss.ogg', 25, TRUE, -1)
+		return TRUE
+
+	var/obj/item/disarmed_item = defender.hand ? defender.l_hand : defender.r_hand
+	if(isitem(disarmed_item) && defender.drop_from_active_hand())
+		attacker.put_in_hands(disarmed_item, ignore_anim = FALSE)
+
+	defender.visible_message(
+		span_danger("[attacker] has disarmed [defender]!"),
+		span_userdanger("[attacker] has disarmed [defender]!"),
+	)
+	playsound(defender, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 	return TRUE
 
 //Krav Maga Gloves
@@ -166,13 +165,22 @@
 	var/datum/martial_art/krav_maga/style
 	can_be_cut = FALSE
 
+/obj/item/clothing/gloves/color/black/krav_maga/get_ru_names()
+	return list(
+		NOMINATIVE = "перчатки \"Крав-мага\"",
+		GENITIVE = "перчаток \"Крав-мага\"",
+		DATIVE = "перчаткам \"Крав-мага\"",
+		ACCUSATIVE = "перчатки \"Крав-мага\"",
+		INSTRUMENTAL = "перчатками \"Крав-мага\"",
+		PREPOSITIONAL = "перчатках \"Крав-мага\""
+	)
+
 /obj/item/clothing/gloves/color/black/krav_maga/Initialize(mapload)
 	. = ..()
 	style = new()
 
 /obj/item/clothing/gloves/color/black/krav_maga/Destroy()
 	QDEL_NULL(style)
-
 	return ..()
 
 /obj/item/clothing/gloves/color/black/krav_maga/equipped(mob/user, slot, initial = FALSE)

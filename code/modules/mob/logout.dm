@@ -16,7 +16,7 @@
 			message_admins("Admin logout: [key_name_admin(src)]")
 			var/list/admincounter = staff_countup(R_BAN)
 			if(admincounter[1] == 0) // No active admins
-				SSdiscord.send2discord_simple(DISCORD_WEBHOOK_ADMIN, "[key_name(src)] logged out - No active admins, [admincounter[2]] non-admin staff, [admincounter[3]] inactive staff.")
+				GLOB.discord_manager.send2discord_simple(DISCORD_WEBHOOK_ADMIN, "[key_name(src)] logged out - No active admins, [admincounter[2]] non-admin staff, [admincounter[3]] inactive staff.")
 
 	..()
 
