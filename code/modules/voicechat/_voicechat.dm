@@ -1,6 +1,4 @@
 #define NODE_SERVER_PATH "voicechat/node/server/main.js"
-#define LIBPATH_UNIX "voicechat/pipes/unix/byondsocket"
-#define LIBPATH_WINDOWS "voicechat/pipes/windows/byondsocket"
 SUBSYSTEM_DEF(voicechat)
 	name = "Voice Chat"
 	/// faster tick times means smoother proximity. If machine is lagging, increase.
@@ -72,34 +70,22 @@ SERVER: подсистема SSVoicechat перезапустится через
 
 
 /datum/controller/subsystem/voicechat/proc/start_node()
-	var/byond_port = UNLINT(world.port)
+	var/byond_port = world.port
 	var/node_port = CONFIG_GET(number/port_voicechat)
 	var/pid = UNLINT(world.process)
-
 	if(!byond_port || !node_port || !pid)
 		message_admins("missing variable {byond_port:[byond_port], node_port:[node_port], pid:[pid]}")
 		return FALSE
-
-	var/sbp_returned = call_ext(lib_path, "byond:SetBridgePort")(world.port)
-	if(sbp_returned != byond_port)
-		message_admins("SetBridgePort proc return [sbp_returned], what's wrong, excepts [world.port]")
-		return FALSE
-
 	var/cmd
-
-	if(world.system_type == UNIX)
+	if(world.system_type == MS_WINDOWS)
+		cmd = "cmd /c start \"Voicechat\" node \"[NODE_SERVER_PATH]\" --node-port=[node_port] --byond-port=[byond_port] --byond-pid=[pid]"
+		shell(cmd)
+	else
 		cmd = "node [NODE_SERVER_PATH] --node-port=[node_port] --byond-port=[byond_port] --byond-pid=[pid] &"
 		var/exit_code = shell(cmd)
 		if(exit_code != 0)
 			message_admins("launching node failed {exit_code: [exit_code || "null"], cmd: [cmd || "null"]}")
 			return FALSE
-		return TRUE
-
-	else
-		cmd = "cmd /c start \"Voicechat\" node \"[NODE_SERVER_PATH]\" --node-port=[node_port] --byond-port=[byond_port] --byond-pid=[pid]"
-		world.log << "VOICECHAT CMD: [cmd]"
-		var/exit_code = shell(cmd)
-		world.log << "VOICECHAT EXIT: [exit_code]"
 	return TRUE
 
 /datum/controller/subsystem/voicechat/Shutdown()
@@ -235,6 +221,4 @@ SERVER: подсистема SSVoicechat перезапустится через
 	for(var/userCode in vc_clients)
 		move_userCode_to_room(userCode, "lobby")
 
-#undef LIBPATH_WINDOWS
-#undef LIBPATH_UNIX
 #undef NODE_SERVER_PATH
