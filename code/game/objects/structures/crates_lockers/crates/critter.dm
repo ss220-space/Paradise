@@ -11,7 +11,7 @@
 	ignore_shoves = TRUE
 	elevation = 21
 	elevation_open = 0
-	var/already_opened = TRUE
+	var/already_opened = FALSE
 	var/content_mob = null
 	var/amount = 1
 	var/datum/gas_mixture/air // Do it using internals/emergency_oxygen ??
