@@ -340,7 +340,7 @@ GLOBAL_PROTECT(syndicat_bantype_meta)
 	message_admins("SyndiCat has added a [bantype_str] for [ckey] [job ? "([job])" : ""] [duration > 0 ? "([duration] minutes)" : ""] with the reason: \"[reason]\" to the ban database.")
 
 	if(meta["announce"])
-		SSdiscord.send2discord_simple(DISCORD_WEBHOOK_ADMIN, "**BAN ALERT** SyndiCat applied a [bantype_str] on [ckey]")
+		GLOB.discord_manager.send2discord_simple(DISCORD_WEBHOOK_ADMIN, "**BAN ALERT** SyndiCat applied a [bantype_str] on [ckey]")
 
 	if(meta["kick"] && banned_mob?.client && banned_mob.client.ckey == ckey)
 		qdel(banned_mob.client)
