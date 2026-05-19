@@ -143,6 +143,7 @@
 	giver = holder.mob
 	giving_item = giver.get_active_hand()
 	to_chat(giver, span_notice("ЛКМ по игроку — предложить предмет в руке."))
+	ADD_TRAIT(giving_item, TRAIT_GIVE_READY, GIVE_TRAIT)
 	RegisterSignals(giving_item, list(COMSIG_QDELETING, COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED), PROC_REF(signal_qdel))
 	RegisterSignals(giver, list(COMSIG_QDELETING, COMSIG_MOB_SWAP_HANDS, SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED)), PROC_REF(signal_qdel))
 
@@ -154,6 +155,7 @@
 		to_chat(giver, span_notice("Вы прекратили попытку передачи предмета."))
 	if(giving_item)
 		UnregisterSignal(giving_item, list(COMSIG_QDELETING, COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED))
+		REMOVE_TRAIT(giving_item, TRAIT_GIVE_READY, GIVE_TRAIT)
 		giving_item = null
 	if(giver)
 		UnregisterSignal(giver, list(COMSIG_QDELETING, COMSIG_MOB_SWAP_HANDS, SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED)))

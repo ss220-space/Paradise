@@ -262,6 +262,12 @@
 	if(length(light_sources))
 		light_sources.Cut()
 
+	for(var/mob/orbiter as anything in orbiters)
+		if(orbiter && orbiter.orbiting == src)
+			orbiter.orbiting = null
+
+	LAZYCLEARLIST(orbiters)
+
 	if(smooth & SMOOTH_QUEUED)
 		SSicon_smooth.remove_from_queues(src)
 
