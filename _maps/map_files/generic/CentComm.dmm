@@ -9093,7 +9093,6 @@
 	master_tag = "vox_west_control";
 	req_access = list(152)
 	},
-/obj/effect/mapping_helpers/airlock/locked,
 /obj/machinery/door/airlock/hatch/secure{
 	frequency = 1331;
 	id_tag = "vox_northwest_lock";
