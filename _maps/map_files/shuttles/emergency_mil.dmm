@@ -277,14 +277,6 @@
 	icon_state = "dark"
 	},
 /area/shuttle/escape)
-"bg" = (
-/obj/machinery/door/airlock/medical/glass{
-	id_tag = "ShuttleMedbay";
-	name = "Shuttle Medbay";
-	req_access = list(5)
-	},
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/escape)
 "bh" = (
 /obj/machinery/door/airlock/hatch,
 /obj/structure/fans/tiny,
@@ -416,15 +408,6 @@
 	icon_state = "router_dir"
 	},
 /area/shuttle/escape)
-"he" = (
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	icon = 'icons/obj/decals.dmi';
-	icon_state = "ntsing_alt2"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/shuttle/escape)
 "hC" = (
 /obj/machinery/light/spot{
 	dir = 1
@@ -433,16 +416,6 @@
 	pixel_y = 30
 	},
 /obj/structure/chair/comfy/shuttle/dark,
-/turf/simulated/floor/shuttle/objective_check,
-/area/shuttle/escape)
-"jn" = (
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	icon = 'icons/obj/decals.dmi';
-	icon_state = "ntsing_alt5"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
 /turf/simulated/floor/shuttle/objective_check,
 /area/shuttle/escape)
 "jJ" = (
@@ -677,8 +650,8 @@ au
 Lj
 aG
 as
-jn
-jn
+aO
+aO
 aX
 bd
 bs
