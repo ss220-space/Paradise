@@ -526,6 +526,7 @@
 			var/mob/living/mob = item
 			items_list.Remove(item)
 			if(isvox(mob))
+				atom_say("Поприветствуйте нового члена стаи — [mob.declent_ru(NOMINATIVE)]")
 				make_new_vox_raider(user, mob)
 				continue
 			send_to_station(mob)
