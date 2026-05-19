@@ -126,6 +126,7 @@
 		/obj/item/gun/projectile/automatic/sniper_rifle = 2000,
 		/obj/item/gun/projectile/automatic = 500,
 		/obj/item/gun/projectile = 300,
+		/obj/item/gun/projectile/shotgun/winchester/cargo = 500,
 
 		/obj/item/gun/rocketlauncher = 1000,
 		/obj/item/gun/medbeam = 2000,

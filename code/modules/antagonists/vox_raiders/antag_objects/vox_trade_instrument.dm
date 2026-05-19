@@ -48,5 +48,5 @@
 /obj/item/hand_valuer/proc/connect(mob/living/user, obj/machinery/vox_trader/input_trader)
 	to_chat(user, span_green("Устройство [connected_trader ? "пере" : ""]инициализировано в системе."))
 	playsound(src, 'sound/weapons/m79_unload.ogg', 50, 1)
-	connected_trader = input_trader
+	connected_trader = WEAKREF(input_trader)
 	update_appearance(UPDATE_ICON_STATE)

@@ -1324,7 +1324,6 @@
 	dir = 8;
 	id_tag = "voxshutters"
 	},
-/obj/structure/closet/walllocker/emerglocker/directional/north,
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/shuttle/vox)
 "aHS" = (
@@ -5699,9 +5698,9 @@
 /area/centcom/zone1)
 "cSW" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/walllocker/emerglocker/directional/north,
 /obj/effect/turf_decal/box/red,
 /obj/machinery/light/directional/north,
+/obj/structure/extinguisher_cabinet/directional/north,
 /turf/simulated/floor/mineral/plastitanium/nitrogen/yellow,
 /area/vox_station)
 "cTj" = (
@@ -8579,6 +8578,7 @@
 /area/centcom/zone1)
 "ekI" = (
 /obj/machinery/door/airlock/hatch/secure{
+	frequency = 1331;
 	id_tag = "vox_southeast_lock";
 	req_access = list(152)
 	},
@@ -9082,13 +9082,6 @@
 	pixel_y = 11;
 	width = 19
 	},
-/obj/machinery/door/airlock/hatch{
-	aiControlDisabled = 1;
-	frequency = 1331;
-	hackProof = 1;
-	id_tag = "vox_northwest_lock";
-	req_access = list(152)
-	},
 /obj/structure/fans/tiny,
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 1;
@@ -9098,6 +9091,12 @@
 	command = "cycle_exterior";
 	frequency = 1331;
 	master_tag = "vox_west_control";
+	req_access = list(152)
+	},
+/obj/effect/mapping_helpers/airlock/locked,
+/obj/machinery/door/airlock/hatch/secure{
+	frequency = 1331;
+	id_tag = "vox_northwest_lock";
 	req_access = list(152)
 	},
 /turf/simulated/floor/mineral/plastitanium/nitrogen/yellow,
@@ -11288,9 +11287,9 @@
 /turf/simulated/floor/carpet,
 /area/centcom/zone1)
 "ftW" = (
-/obj/structure/closet/walllocker/emerglocker/directional/south,
 /obj/effect/turf_decal/box/red,
 /obj/item/reagent_containers/food/pill/random_drugs,
+/obj/structure/extinguisher_cabinet/directional/south,
 /turf/simulated/floor/mineral/plastitanium/nitrogen/pink,
 /area/vox_station)
 "fuF" = (
@@ -15702,7 +15701,7 @@
 /area/syndicate_mothership)
 "hDE" = (
 /obj/machinery/door/window/brigdoor/normal{
-	color = "red";
+	color = null;
 	dir = 1;
 	req_access = list(152)
 	},
@@ -38356,9 +38355,9 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/syndicate_mothership/elite_squad)
 "rAk" = (
-/obj/structure/closet/walllocker/emerglocker/directional/north,
 /obj/effect/turf_decal/box/red,
 /obj/machinery/light/directional/north,
+/obj/structure/extinguisher_cabinet/directional/north,
 /turf/simulated/floor/mineral/plastitanium/nitrogen/yellow,
 /area/vox_station)
 "rAu" = (
@@ -46778,7 +46777,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/machinery/light/directional/north,
-/obj/structure/closet/walllocker/emerglocker/directional/north,
+/obj/structure/extinguisher_cabinet/directional/north,
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/vox_station)
 "vfR" = (
@@ -50487,6 +50486,15 @@
 	pixel_x = 8;
 	pixel_y = -4
 	},
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen,
+/area/shuttle/vox)
+"wZw" = (
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 8;
+	id_tag = "voxshutters"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/extinguisher_cabinet/directional/south,
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/shuttle/vox)
 "wZz" = (
@@ -61573,7 +61581,7 @@ eVH
 eVH
 aHB
 fXg
-fXg
+wZw
 eVH
 fOQ
 fOQ

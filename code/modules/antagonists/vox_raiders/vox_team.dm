@@ -143,7 +143,8 @@
 	. += "<br>"
 
 /proc/create_vox_team(count)
-	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you wish to be considered for a vox raiding party arriving on the station?", ROLE_VOX_RAIDER)
+	var/image/source = image('icons/obj/cardboard_cutout.dmi', "vox_raider")
+	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Вы хотите стать частью стаи воксов-рейдеров, прибывающей на станцию?", ROLE_VOX_RAIDER, source = source, role_cleanname = "Вокса-рейдера")
 
 	if(!length(candidates))
 		return FALSE
