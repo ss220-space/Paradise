@@ -167,7 +167,7 @@
 /obj/machinery/station_map/proc/check_position(mob/moved_mob)
 	SIGNAL_HANDLER
 
-	if(!moved_mob || (moved_mob.loc != loc) || (dir != moved_mob.dir))
+	if(!moved_mob || !IsReachableBy(moved_mob))
 		close_map()
 
 /obj/machinery/station_map/proc/close_map()
