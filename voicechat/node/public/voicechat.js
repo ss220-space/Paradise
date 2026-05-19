@@ -569,9 +569,39 @@ function toggleSettings() {
 
 // Initialization
 async function init() {
+    // Try primary address first
     socket = io(socket_address, { rejectUnauthorized: false });
-    socket.emit('join', { sessionId: sessionId });
-    setupSocketHandlers();
+    socket.on('connect', () => {
+        socket.emit('join', { sessionId: sessionId });
+        setupSocketHandlers();
+    });
+
+    // If initial connection fails, try the page host, then 127.0.0.1
+    socket.on('connect_error', (err) => {
+        console.warn('Socket connect_error to', socket_address, err);
+        const hostFallbacks = [];
+        try {
+            const pageHost = window.location.hostname;
+            if (pageHost && !socket_address.includes(pageHost))
+                hostFallbacks.push(pageHost + ':3000');
+        } catch (e) {}
+        if (!socket_address.includes('127.0.0.1'))
+            hostFallbacks.push('127.0.0.1:3000');
+
+        if (hostFallbacks.length > 0) {
+            const tryHost = hostFallbacks.shift();
+            console.log('Attempting fallback socket:', tryHost);
+            socket = io(tryHost, { rejectUnauthorized: false });
+            socket.on('connect', () => {
+                socket.emit('join', { sessionId: sessionId });
+                setupSocketHandlers();
+            });
+            socket.on('connect_error', (err2) => {
+                console.warn('Fallback connect_error to', tryHost, err2);
+            });
+        }
+    });
+
     setupUIListeners();
     await getMic();
 }

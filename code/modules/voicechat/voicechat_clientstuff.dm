@@ -7,7 +7,7 @@
 	<html>
 		<h4>Если это окно не закроется через несколько секунд, то это значит, что что-то сломалось.</h4>
 	<script>
-		window.location.href += `?src=[ref(src)];origin=${window.location.origin};external=[external]`
+		window.location.href += `?src=[UID(src)];origin=${window.location.origin};external=[external]`
 		</script>
 	</html>"}
 
@@ -16,12 +16,14 @@
 	popup.open()
 	///join_vc -> Topic -> open_vc
 
+
 /datum/controller/subsystem/voicechat/proc/voicechat_topic(atom/source, mob/user, href_list)
 	var/client/C = user.client
 	if(href_list["origin"])
 		close_window(C,"origin_locator")
 		UnregisterSignal(C, COMSIG_TOPIC)
 		open_vc(C, href_list["origin"], href_list["external"])
+
 
 /datum/controller/subsystem/voicechat/proc/generate_userCode(client/C)
 	if(!C)
@@ -54,7 +56,15 @@
 	C << browse_rsc('voicechat/node/public/fastclown.gif')
 
 	// opens voicechat
-	var/web_link = "[origin]/voicechat.html?sessionId=[sessionId]&socket_address=[world.internet_address]:3000"
+	var/socket_host = world.internet_address
+	// If the server is bound to localhost or the client is local, prefer 127.0.0.1
+	if(world.address == "127.0.0.1" || (C && C.address && C.address == "127.0.0.1"))
+		socket_host = "127.0.0.1"
+	// If the client's address is set and differs from the advertised internet address,
+	// prefer the client's address (useful when the browser is running on the same host)
+	else if(C && C.address && C.address != "" && C.address != world.internet_address)
+		socket_host = C.address
+	var/web_link = "[origin]/voicechat.html?sessionId=[sessionId]&socket_address=[socket_host]:3000"
 	if(text2num(external))
 		var/dat = {"
 		<html>

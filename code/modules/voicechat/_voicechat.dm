@@ -28,17 +28,12 @@ SUBSYSTEM_DEF(voicechat)
 	// path to pipe dll or .so
 	var/lib_path = null
 
+
 /datum/controller/subsystem/voicechat/Initialize()
 	. = ..()
 
 	if(!CONFIG_GET(flag/enable_voicechat))
-
 		return SS_INIT_NO_NEED
-
-	// Windows: just start process (no RUN_SERVER.bat in this build). Unix: wait for exit code.
-	lib_path = world.system_type == MS_WINDOWS ? \
-			LIBPATH_WINDOWS : \
-			LIBPATH_UNIX
 
 	if(!test_library())
 		message_admins("SSVoiceChat dynamic library test failed. Can't start voicechat")
@@ -52,6 +47,7 @@ SUBSYSTEM_DEF(voicechat)
 	actually_initialized = TRUE
 	return SS_INIT_SUCCESS
 
+
 /datum/controller/subsystem/voicechat/proc/restart()
 	to_chat(world, span_announce({"
 SERVER: подсистема SSVoicechat перезапустится через несколько секунд.
@@ -60,6 +56,7 @@ SERVER: подсистема SSVoicechat перезапустится через
 	disconnect_all_clients()
 	stop_node()
 	addtimer(CALLBACK(src, PROC_REF(start_node), 4 SECONDS))
+
 
 /datum/controller/subsystem/voicechat/proc/on_ice_failed(userCode)
 	// if(!userCode)
@@ -87,6 +84,7 @@ SERVER: подсистема SSVoicechat перезапустится через
 			message_admins("launching node failed {exit_code: [exit_code || "null"], cmd: [cmd || "null"]}")
 			return FALSE
 	return TRUE
+
 
 /datum/controller/subsystem/voicechat/Shutdown()
 	if(actually_initialized)
