@@ -1,5 +1,5 @@
-// A reasonable number of maximum overlays an object needs
-// If you think you need more, rethink it
+/// A reasonable number of maximum overlays an object needs.
+/// If you think you need more, rethink it.
 #define MAX_ATOM_OVERLAYS 100
 
 /// Checks if an atom has reached the overlay limit, and make a loud error if it does.
@@ -12,7 +12,7 @@
 		changed_on.add_overlay(mutable_appearance('icons/testing/greyscale_error.dmi')); \
 	} \
 
-/// Performs any operations that ought to run after an appearance change
+/// Performs any operations that ought to run after an appearance change.
 #define POST_OVERLAY_CHANGE(changed_on) \
 	if(alternate_appearances) { \
 		for(var/I in changed_on.alternate_appearances){\
@@ -23,32 +23,9 @@
 		} \
 	}
 
-/*
-// Roden's version idk, no implementation
-#define POST_OVERLAY_CHANGE(changed_on) \
-	if(length(changed_on.overlays) >= MAX_ATOM_OVERLAYS) { \
-		var/text_lays = overlays2text(changed_on.overlays); \
-		stack_trace("Too many overlays on [changed_on.type] - [length(changed_on.overlays)], refusing to update and cutting.\
-			\n What follows is a printout of all existing overlays at the time of the overflow \n[text_lays]"); \
-		changed_on.overlays.Cut(); \
-		changed_on.add_overlay(mutable_appearance('icons/Testing/greyscale_error.dmi')); \
-	} \
-	if(alternate_appearances) { \
-		for(var/I in changed_on.alternate_appearances){\
-			var/datum/atom_hud/alternate_appearance/AA = changed_on.alternate_appearances[I];\
-			if(AA.transfer_overlays){\
-				AA.copy_overlays(changed_on, TRUE);\
-			}\
-		} \
-	}\
-	if(isturf(changed_on)){SSdemo.mark_turf(changed_on);}\
-	if(isobj(changed_on) || ismob(changed_on)){SSdemo.mark_dirty(changed_on);}\
-*/
-
 // Float layers for closets
 #define CLOSET_OLAY_LAYER_CONTENTS -5
 #define CLOSET_OLAY_LAYER_DOOR -4
 #define CLOSET_OLAY_LAYER_LOCK_FRAME -3
 #define CLOSET_OLAY_LAYER_LOCK_INDICATOR -2
 #define CLOSET_OLAY_LAYER_WELDED -1
-
