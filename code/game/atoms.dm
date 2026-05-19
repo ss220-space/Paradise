@@ -179,6 +179,7 @@
 	/// List of underlay "keys" (info about the appearance) -> mutable versions of static appearances
 	/// Drawn from the underlays list
 	var/list/realized_underlays
+
 	/// Sources that changes gravity of object. Treated as lazy list.
 	var/list/gravity_sources
 	/// Sources that 100% won't changes gravity of object. Treated as lazy list.
@@ -1406,9 +1407,6 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(pass_info.pass_flags & pass_flags_self)
 		return TRUE
 	. = !density
-
-/atom/proc/get_examine_time() // Used only in /mob/living/carbon/human and /mob/living/simple_animal/hostile/morph
-	return 0 SECONDS
 
 /atom/proc/get_visible_gender() // Used only in /mob/living/carbon/human and /mob/living/simple_animal/hostile/morph
 	return gender
