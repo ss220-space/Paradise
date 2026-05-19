@@ -566,13 +566,10 @@
 /obj/structure/bingle_hole/singularity_act()
 	return
 
-/obj/structure/bingle_hole/singularity_pull(obj/singularity/S, current_size)
+/obj/structure/bingle_hole/singularity_pull(atom/singularity, current_size)
 	return
 
 /obj/structure/bingle_pit_overlay/singularity_act()
-	return
-
-/obj/structure/bingle_hole/singularity_pull(obj/singularity/S, current_size)
 	return
 
 /area/misc/bingle_pit

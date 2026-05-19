@@ -423,8 +423,8 @@
 	attack_verb = list("хлестнул", "стегнул")
 	hitsound = 'sound/weapons/slash.ogg'
 
-/obj/item/nullrod/whip/New()
-	..()
+/obj/item/nullrod/whip/Initialize(mapload)
+	. = ..()
 	desc = "What a terrible night to be on the [station_name()]."
 
 /obj/item/nullrod/whip/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
@@ -566,8 +566,8 @@
 	throwforce = 0
 	var/praying = FALSE
 
-/obj/item/nullrod/rosary/New()
-	..()
+/obj/item/nullrod/rosary/Initialize(mapload)
+	. = ..()
 	START_PROCESSING(SSobj, src)
 
 /obj/item/nullrod/rosary/Destroy()
@@ -749,8 +749,8 @@
 	. = ..()
 	. += span_warning("This seemingly standard holy staff is actually a disguised neurotransmitter capable of inducing blind zealotry in its victims. It must be allowed to recharge in the presence of a linked set of missionary robes. Activate the staff while wearing robes to link, then aim the staff at your victim to try and convert them.")
 
-/obj/item/nullrod/missionary_staff/New()
-	..()
+/obj/item/nullrod/missionary_staff/Initialize(mapload)
+	. = ..()
 	team_color = pick("red", "blue")
 	icon_state = "godstaff-[team_color]"
 	item_state = "godstaff-[team_color]"

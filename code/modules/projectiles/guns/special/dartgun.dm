@@ -264,10 +264,10 @@
 	src.updateUsrDialog()
 	return
 
-/obj/item/gun/dartgun/process_fire(atom/target, mob/living/user, message = TRUE, list/modifiers, zone_override, bonus_spread = 0)
+/obj/item/gun/dartgun/process_fire(zone_override, secondary_fire = FALSE)
 	if(cartridge)
 		spawn(0)
-			fire_dart(target,user)
+			fire_dart(target, gun_user)
 	else
 		to_chat(usr, span_warning("[src] is empty."))
 

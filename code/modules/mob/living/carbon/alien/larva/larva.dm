@@ -22,7 +22,8 @@
 	var/temperature_resistance = T0C+75
 
 //This is fine right now, if we're adding organ specific damage this needs to be updated
-/mob/living/carbon/alien/larva/New()
+/mob/living/carbon/alien/larva/Initialize(mapload)
+	. = ..()
 	if(name == "alien larva")
 		name = "alien larva ([rand(1, 1000)])"
 	real_name = name
@@ -31,7 +32,6 @@
 	add_language(LANGUAGE_HIVE_XENOS)
 	hide_action = new
 	hide_action.Grant(src)
-	..()
 	AddSpell(new /obj/effect/proc_holder/spell/alien_spell/evolve/larva)
 
 /mob/living/carbon/alien/larva/Destroy()

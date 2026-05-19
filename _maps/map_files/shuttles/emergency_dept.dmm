@@ -221,7 +221,10 @@
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/escape)
 "aT" = (
-/turf/simulated/floor/plasteel/dark,
+/obj/item/twohanded/required/kirbyplants,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
 /area/shuttle/escape)
 "aU" = (
 /obj/structure/chair/stool/bar/dark{
@@ -254,8 +257,9 @@
 	},
 /area/shuttle/escape)
 "ba" = (
-/mob/living/simple_animal/bot/secbot,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
 /area/shuttle/escape)
 "bb" = (
 /obj/structure/sign/medbay/greencross,
@@ -329,7 +333,9 @@
 	normalspeed = 0;
 	req_access = list(50)
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
 /area/shuttle/escape)
 "bl" = (
 /obj/structure/chair/comfy/shuttle{
@@ -569,11 +575,15 @@
 /area/shuttle/escape)
 "bZ" = (
 /obj/machinery/recharge_station/upgraded,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
 /area/shuttle/escape)
 "ca" = (
 /obj/machinery/light,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
 /area/shuttle/escape)
 "cb" = (
 /obj/machinery/door/airlock/engineering/glass{

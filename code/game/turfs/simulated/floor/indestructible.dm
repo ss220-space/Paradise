@@ -10,7 +10,7 @@
 /turf/simulated/floor/indestructible/singularity_act()
 	return
 
-/turf/simulated/floor/indestructible/singularity_pull(S, current_size)
+/turf/simulated/floor/indestructible/singularity_pull(atom/singularity, current_size)
 	return
 
 /turf/simulated/floor/indestructible/narsie_act()
@@ -228,11 +228,11 @@
 		creature.ExtinguishMob()
 	linkedcontroller.mobinpool += arrived
 
-/turf/simulated/floor/indestructible/beach/water/Exited(atom/movable/departed, atom/newLoc)
+/turf/simulated/floor/indestructible/beach/water/Exited(atom/movable/gone, direction)
 	. = ..()
-	if(!linkedcontroller || !ismob(departed))
+	if(!linkedcontroller || !ismob(gone))
 		return .
-	linkedcontroller.mobinpool -= departed
+	linkedcontroller.mobinpool -= gone
 
 /turf/simulated/floor/indestructible/beach/water/proc/initialized_on(atom/target)
 	if(!linkedcontroller)

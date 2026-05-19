@@ -1,6 +1,7 @@
 /datum/station_trait/carp_infestation
 	name = "Миграция космической фауны"
 	trait_type = STATION_TRAIT_NEGATIVE
+	trait_flags = STATION_TRAIT_SPACE_BOUND
 	weight = 5
 	show_in_report = TRUE
 	report_message = "Сканеры дальнего действия регистрируют массивную миграцию космических карпов в вашем секторе. Соблюдайте осторожность при работе в космосе."
@@ -178,6 +179,7 @@
 	name = "Ионная буря"
 	report_message = "Станция была расположена в эпицентре ионизированной туманности. Ожидайте повышенную вероятность ионных штормов, влияющих на работу роботизированных систем."
 	trait_type = STATION_TRAIT_NEGATIVE
+	trait_flags = STATION_TRAIT_SPACE_BOUND
 	weight = 3
 	event_names = list(EVENT_ION_TYPHOON)
 	event_severity = /datum/event_container/moderate
@@ -188,6 +190,7 @@
 	name = "Радиационная буря"
 	report_message = "Звезда системы вошла в цикл повышенной активности. Ожидайте повышенную вероятность радиационных штормов."
 	trait_type = STATION_TRAIT_NEGATIVE
+	trait_flags = STATION_TRAIT_SPACE_BOUND
 	weight = 2
 	event_names = list(EVENT_RADIATION_STORM)
 	event_severity = /datum/event_container/moderate
@@ -198,6 +201,7 @@
 	name = "Метеорный дождь"
 	report_message = "Орбита объекта пересекается с метеоритным потоком. Инженерам рекомендуется проверить системы защиты от метеоритов."
 	trait_type = STATION_TRAIT_NEGATIVE
+	trait_flags = STATION_TRAIT_SPACE_BOUND
 	weight = 2
 	event_names = list(EVENT_METEOR_WAVE)
 	event_severity = /datum/event_container/moderate
@@ -207,6 +211,7 @@
 	name = "Аномальное созвездие"
 	report_message = "Сканеры дальнего действия фиксируют истончение ткани реальности в вашем секторе. Ожидается повышенная аномальная активность."
 	trait_type = STATION_TRAIT_NEGATIVE
+	trait_flags = STATION_TRAIT_SPACE_BOUND
 	weight = 2
 	event_names = list(EVENT_ANOMALY, EVENT_WORMHOLES)
 	event_severity = /datum/event_container/moderate
@@ -216,6 +221,7 @@
 	name = "Вражеская активность"
 	report_message = "Разведка докладывает о присутствии враждебных кораблей в секторе. Экипажу объекта соблюдать полную боевую готовность."
 	trait_type = STATION_TRAIT_NEGATIVE
+	trait_flags = STATION_TRAIT_SPACE_BOUND
 	weight = 2
 	event_names = list(EVENT_SPACE_NINJA, EVENT_LONE_OPERATIVE, EVENT_DRIFTING_CONTRACTOR)
 	event_severity = /datum/event_container/moderate

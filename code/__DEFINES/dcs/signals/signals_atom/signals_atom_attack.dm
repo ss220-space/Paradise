@@ -3,7 +3,7 @@
 // All signals send the source datum of the signal as the first argument
 
 ///from base of atom/attackby(): (/obj/item, /mob/living, params)
-#define COMSIG_PARENT_ATTACKBY "atom_attackby"
+#define COMSIG_ATOM_ATTACKBY "atom_attackby"
 /// From base of [atom/proc/attacby_secondary()]: (/obj/item/weapon, /mob/user, list/modifiers)
 #define COMSIG_ATOM_ATTACKBY_SECONDARY "atom_attackby_secondary"
 /// from /datum/component/cleave_attack/proc/hit_atoms_on_turf(): (atom/target, obj/item, mob/user)

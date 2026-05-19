@@ -465,9 +465,6 @@
 	. = list(msg)
 	SEND_SIGNAL(src, COMSIG_ATOM_EXAMINE, user, .)
 
-/mob/living/carbon/human/get_examine_time()
-	return 1 SECONDS
-
 /**
  * Shows any and all examine text related to any status effects the user has.
  */

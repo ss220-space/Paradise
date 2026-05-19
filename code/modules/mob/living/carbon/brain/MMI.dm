@@ -258,10 +258,10 @@
 	if(radio && isbrain(arrived))
 		radio_action.Grant(arrived)
 
-/obj/item/mmi/Exited(atom/movable/departed, atom/newLoc)
+/obj/item/mmi/Exited(atom/movable/gone, direction)
 	. = ..()
-	if(radio && isbrain(departed))
-		radio_action.Remove(departed)
+	if(radio && isbrain(gone))
+		radio_action.Remove(gone)
 
 /obj/item/mmi/syndie
 	name = "Syndicate Man-Machine Interface"

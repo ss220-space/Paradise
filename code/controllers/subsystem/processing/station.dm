@@ -1,10 +1,9 @@
 PROCESSING_SUBSYSTEM_DEF(station)
 	name = "Station"
-	flags = SS_BACKGROUND
+	ss_flags = SS_BACKGROUND
 	runlevels = RUNLEVEL_GAME
 	wait = 5 SECONDS
-	offline_implications = "Station traits will no longer process. No intervention needed at this time."
-	init_order = INIT_ORDER_STATION // in order to capture signals from other subsystems
+
 	///A list of currently active station traits
 	var/list/station_traits = list()
 	///Assoc list of trait type || assoc list of traits with weighted value. Used for picking traits from a specific category.
@@ -17,7 +16,7 @@ PROCESSING_SUBSYSTEM_DEF(station)
 	var/list/antag_restricted_roles = list()
 
 /datum/controller/subsystem/processing/station/Initialize()
-	#ifndef GAME_TESTS
+	#ifndef UNIT_TESTS
 	SetupTraits()
 	#endif
 	announcer = new announcer() //Initialize the station's announcer datum
@@ -73,6 +72,13 @@ PROCESSING_SUBSYSTEM_DEF(station)
 			continue
 
 		selectable_traits_by_types[trait_typepath.trait_type][trait_typepath] = trait_typepath.weight
+
+// Most of the traits depend on some kind of station feature that FAST_LOAD map lacks, so for now,
+// to avoid inconvenience with runtimes and until we maybe have better map for testing,
+// FAST_LOAD disables random station traits from generation. You still can force them though.
+#ifdef FAST_LOAD
+	return
+#endif
 
 	var/positive_trait_budget = text2num(pick_weight_classic(CONFIG_GET(keyed_list/positive_station_traits)))
 	var/neutral_trait_budget = text2num(pick_weight_classic(CONFIG_GET(keyed_list/neutral_station_traits)))

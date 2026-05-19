@@ -6,7 +6,7 @@
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/transport)
 "b" = (
-/obj/effect/decal/warning_stripes/white/hollow,
+/obj/effect/turf_decal/delivery/white/hollow,
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance{
 	lootcount = 4;
@@ -27,7 +27,7 @@
 	},
 /area/shuttle/transport)
 "i" = (
-/obj/effect/decal/warning_stripes/white/hollow,
+/obj/effect/turf_decal/delivery/white/hollow,
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/trade_sol/civ,
 /obj/structure/window/plasmareinforced{
@@ -39,7 +39,7 @@
 	},
 /area/shuttle/transport)
 "k" = (
-/obj/effect/decal/warning_stripes/white/hollow,
+/obj/effect/turf_decal/delivery/white/hollow,
 /obj/structure/closet/crate/secure/gear,
 /obj/effect/spawner/lootdrop/trade_sol/sec,
 /turf/simulated/floor/plasteel{
@@ -90,7 +90,7 @@
 	},
 /area/shuttle/transport)
 "s" = (
-/obj/effect/decal/warning_stripes/white/hollow,
+/obj/effect/turf_decal/delivery/white/hollow,
 /obj/structure/closet/crate/engineering,
 /obj/effect/spawner/lootdrop/trade_sol/eng,
 /obj/machinery/light/spot{
@@ -116,7 +116,7 @@
 	},
 /area/shuttle/transport)
 "x" = (
-/obj/effect/decal/warning_stripes/white/hollow,
+/obj/effect/turf_decal/delivery/white/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbrown"
 	},
@@ -125,7 +125,7 @@
 /turf/simulated/wall/shuttle,
 /area/shuttle/transport)
 "B" = (
-/obj/effect/decal/warning_stripes/white/hollow,
+/obj/effect/turf_decal/delivery/white/hollow,
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/trade_sol/donksoft,
 /turf/simulated/floor/plasteel{
@@ -147,7 +147,7 @@
 	},
 /area/shuttle/transport)
 "F" = (
-/obj/effect/decal/warning_stripes/white/hollow,
+/obj/effect/turf_decal/delivery/white/hollow,
 /obj/structure/closet/crate/sci,
 /obj/effect/spawner/lootdrop/trade_sol/sci,
 /obj/machinery/light/spot,
@@ -162,7 +162,7 @@
 	},
 /area/shuttle/transport)
 "L" = (
-/obj/effect/decal/warning_stripes/white/hollow,
+/obj/effect/turf_decal/delivery/white/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkbrown"
@@ -224,7 +224,7 @@
 	},
 /area/shuttle/transport)
 "Z" = (
-/obj/effect/decal/warning_stripes/white/hollow,
+/obj/effect/turf_decal/delivery/white/hollow,
 /obj/structure/closet/crate/medical,
 /obj/effect/spawner/lootdrop/trade_sol/med,
 /turf/simulated/floor/plasteel{

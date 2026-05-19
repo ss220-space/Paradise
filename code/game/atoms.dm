@@ -58,8 +58,11 @@
 	var/list/image/hud_list = null
 	///all of this atom's HUD images which can actually be seen by players with that hud
 	var/list/image/active_hud_list = null
-	//HUD images that this atom can provide.
+	///HUD images that this atom can provide.
 	var/list/hud_possible
+
+	///vis overlays managed by SSvis_overlays to automaticaly turn them like other overlays.
+	var/list/managed_vis_overlays
 
 	//Value used to increment ex_act() if reactionary_explosions is on
 	var/explosion_block = 0
@@ -176,6 +179,7 @@
 	/// List of underlay "keys" (info about the appearance) -> mutable versions of static appearances
 	/// Drawn from the underlays list
 	var/list/realized_underlays
+
 	/// Sources that changes gravity of object. Treated as lazy list.
 	var/list/gravity_sources
 	/// Sources that 100% won't changes gravity of object. Treated as lazy list.
@@ -261,6 +265,12 @@
 		QDEL_NULL(light)
 	if(length(light_sources))
 		light_sources.Cut()
+
+	for(var/mob/orbiter as anything in orbiters)
+		if(orbiter && orbiter.orbiting == src)
+			orbiter.orbiting = null
+
+	LAZYCLEARLIST(orbiters)
 
 	if(smooth & SMOOTH_QUEUED)
 		SSicon_smooth.remove_from_queues(src)
@@ -617,7 +627,7 @@
 /atom/proc/remove_persistent_overlay(id)
 	if(!istext(id))
 		CRASH("Non-text argument passed as an ID.")
-	var/all_persistent = datum_components?[/datum/component/persistent_overlay]
+	var/all_persistent = _datum_components?[/datum/component/persistent_overlay]
 	if(!all_persistent)
 		return
 	if(!islist(all_persistent))
@@ -1146,11 +1156,17 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /atom/proc/handle_fall(mob/living/carbon/faller)
 	return
 
+/// Respond to the singularity eating this atom
 /atom/proc/singularity_act()
 	return
 
-/atom/proc/singularity_pull(obj/singularity/S, current_size)
-	SEND_SIGNAL(src, COMSIG_ATOM_SING_PULL, S, current_size)
+/**
+ * Respond to the singularity pulling on us
+ *
+ * Default behaviour is to send [COMSIG_ATOM_SING_PULL] and return
+ */
+/atom/proc/singularity_pull(atom/singularity, current_size)
+	SEND_SIGNAL(src, COMSIG_ATOM_SING_PULL, singularity, current_size)
 
 /**
  * Respond to acid being used on our atom
@@ -1190,7 +1206,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		if(M.client)
 			speech_bubble_hearers += M.client
 
-			if(!M.can_hear() || M.stat == UNCONSCIOUS)
+			if(HAS_TRAIT(M, TRAIT_DEAF) || M.stat == UNCONSCIOUS)
 				continue
 
 			if(M.client.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
@@ -1247,98 +1263,6 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 	runechat_emote(src, emote)
 
-/**
- * Call back when a var is edited on this atom
- *
- * Can be used to implement special handling of vars
- *
- * At the atom level, if you edit a var named "color" it will add the atom colour with
- * admin level priority to the atom colours list
- *
- * Also, if GLOB.debugging_enabled is FALSE, it sets the [ADMIN_SPAWNED] flag on [flags][/atom/var/flags], which signifies
- * the object has been admin edited
- */
-/atom/vv_edit_var(var_name, var_value)
-	var/old_light_flags = light_flags
-	switch(var_name)
-		if(NAMEOF(src, light_range))
-			if(light_system == STATIC_LIGHT)
-				set_light(l_range = var_value)
-			else
-				set_light_range(var_value)
-			. = TRUE
-
-		if(NAMEOF(src, light_power))
-			if(light_system == STATIC_LIGHT)
-				set_light(l_power = var_value)
-			else
-				set_light_power(var_value)
-			. = TRUE
-
-		if(NAMEOF(src, light_color))
-			if(light_system == STATIC_LIGHT)
-				set_light(l_color = var_value)
-			else
-				set_light_color(var_value)
-			. = TRUE
-
-		if(NAMEOF(src, light_on))
-			if(light_system == STATIC_LIGHT)
-				set_light(l_on = var_value)
-			else
-				set_light_on(var_value)
-			. = TRUE
-
-		if(NAMEOF(src, light_flags))
-			set_light_flags(var_value)
-			// I'm sorry
-			old_light_flags = var_value
-			. = TRUE
-
-		if(NAMEOF(src, opacity))
-			set_opacity(var_value)
-			. = TRUE
-
-		if(NAMEOF(src, density))
-			set_density(var_value)
-			. = TRUE
-
-		if(NAMEOF(src, base_pixel_x))
-			set_base_pixel_x(var_value)
-			. = TRUE
-
-		if(NAMEOF(src, base_pixel_y))
-			set_base_pixel_y(var_value)
-			. = TRUE
-
-	light_flags = old_light_flags
-	if(!isnull(.))
-		datum_flags |= DF_VAR_EDITED
-		return .
-
-	if(!GLOB.debugging_enabled)
-		flags |= ADMIN_SPAWNED
-
-	. = ..()
-
-	switch(var_name)
-		if(NAMEOF(src, color))
-			add_atom_colour(color, ADMIN_COLOUR_PRIORITY)
-			update_appearance()
-
-/atom/vv_get_dropdown()
-	. = ..()
-	var/turf/curturf = get_turf(src)
-	if(curturf)
-		.["Jump to turf"] = "byond://?_src_=holder;adminplayerobservecoodjump=1;X=[curturf.x];Y=[curturf.y];Z=[curturf.z]"
-	.["Atom say"] = "byond://?_src_=vars;atom_say=[UID()]"
-	.["Add reagent"] = "byond://?_src_=vars;addreagent=[UID()]"
-	.["Edit reagents"] = "byond://?_src_=vars;editreagents=[UID()]"
-	.["Transform editor"] = "byond://?_src_=vars;matrix_tester=[UID()]"
-	.["Trigger explosion"] = "byond://?_src_=vars;explode=[UID()]"
-	.["Trigger EM pulse"] = "byond://?_src_=vars;emp=[UID()]"
-	.["Modify greyscale colors"] = "byond://?_src_=vars;modify_greyscale=[UID()]"
-
 /// Are you allowed to drop stuff inside this atom
 /atom/proc/AllowDrop()
 	return FALSE
@@ -1364,11 +1288,11 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
  *
  * Default behaviour is to send the [COMSIG_ATOM_EXIT]
  */
-/atom/Exit(atom/movable/leaving, atom/newLoc)
+/atom/Exit(atom/movable/leaving, direction)
 	// Don't call `..()` here, otherwise `Uncross()` gets called.
 	// See the doc comment on `Uncross()` to learn why this is bad.
 
-	if(SEND_SIGNAL(src, COMSIG_ATOM_EXIT, leaving, newLoc) & COMPONENT_ATOM_BLOCK_EXIT)
+	if(SEND_SIGNAL(src, COMSIG_ATOM_EXIT, leaving, direction) & COMPONENT_ATOM_BLOCK_EXIT)
 		return FALSE
 
 	return TRUE
@@ -1378,8 +1302,9 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
  *
  * Default behaviour is to send the [COMSIG_ATOM_EXITED]
  */
-/atom/Exited(atom/movable/departed, atom/newLoc)
-	SEND_SIGNAL(src, COMSIG_ATOM_EXITED, departed, newLoc)
+/atom/Exited(atom/movable/gone, direction)
+	SEND_SIGNAL(src, COMSIG_ATOM_EXITED, gone, direction)
+	SEND_SIGNAL(gone, COMSIG_ATOM_EXITING, src, direction)
 
 /** Call this when you want to present a renaming prompt to the user.
 
@@ -1482,9 +1407,6 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(pass_info.pass_flags & pass_flags_self)
 		return TRUE
 	. = !density
-
-/atom/proc/get_examine_time() // Used only in /mob/living/carbon/human and /mob/living/simple_animal/hostile/morph
-	return 0 SECONDS
 
 /atom/proc/get_visible_gender() // Used only in /mob/living/carbon/human and /mob/living/simple_animal/hostile/morph
 	return gender

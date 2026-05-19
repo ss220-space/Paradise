@@ -119,10 +119,10 @@
 	view_range = num
 	GLOB.cameranet.updateVisibility(src, opacity_check = FALSE)
 
-/obj/machinery/camera/singularity_pull(S, current_size)
+/obj/machinery/camera/singularity_pull(atom/singularity, current_size)
 	if(status && current_size >= STAGE_FIVE) // If the singulo is strong enough to pull anchored objects and the camera is still active, turn off the camera as it gets ripped off the wall.
 		toggle_cam(null, 0)
-	..()
+	return ..()
 
 /obj/machinery/camera/attackby(obj/item/I, mob/living/user, params)
 	if(user.a_intent == INTENT_HARM)

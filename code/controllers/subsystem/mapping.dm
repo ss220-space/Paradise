@@ -1,8 +1,12 @@
 SUBSYSTEM_DEF(mapping)
 	name = "Mapping"
-	init_order = INIT_ORDER_MAPPING // 7
+	dependencies = list(
+		/datum/controller/subsystem/jobs,
+		/datum/controller/subsystem/processing/station,
+	//	/datum/controller/subsystem/processing/reagents,
+	)
 	runlevels = ALL
-	ss_id = "mapping"
+
 	/// What map datum are we using
 	var/datum/map/map_datum
 	/// What map will be used next round
@@ -166,9 +170,9 @@ SUBSYSTEM_DEF(mapping)
 		handleRuins()
 
 	var/empty_z_traits = list(REACHABLE)
-#ifdef GAME_TESTS
+#ifdef UNIT_TESTS
 	preloadTemplates(path = "_maps/map_files/tests/")
-	empty_z_traits |= GAME_TEST_LEVEL
+	empty_z_traits |= UNIT_TEST_LEVEL
 #endif
 
 	// Makes a blank space level for the sake of randomness
@@ -399,7 +403,7 @@ SUBSYSTEM_DEF(mapping)
 	else
 		var/s_traits = map_datum.traits ? map_datum.traits : DEFAULT_STATION_TRATS
 		map_z_level = GLOB.space_manager.add_new_zlevel(MAIN_STATION, linkage = map_datum.linkage, traits = s_traits)
-	GLOB.maploader.load_map(wrap_file(map_datum.map_path), z_offset = map_z_level)
+	GLOB.maploader.load_map(WRAP_FILE(map_datum.map_path), z_offset = map_z_level)
 
 	if(map_datum?.forced_mode)
 		GLOB.master_mode = map_datum.forced_mode.name
@@ -843,10 +847,10 @@ SUBSYSTEM_DEF(mapping)
 	return target.lazy_load()
 
 /datum/controller/subsystem/mapping/Recover()
-	flags |= SS_NO_INIT
+	ss_flags |= SS_NO_INIT
 	loaded_lazy_templates = SSmapping.loaded_lazy_templates
 
 /// Returns true if the map we're playing on is on a planet
 /datum/controller/subsystem/mapping/proc/is_planetary()
-	return SSmapping.map_datum.planetary
+	return map_datum.planetary
 

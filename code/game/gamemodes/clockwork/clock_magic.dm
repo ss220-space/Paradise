@@ -285,9 +285,9 @@
 
 	var/datum/action/innate/clockwork/hand_spell/source
 
-/obj/item/melee/clock_magic/New(loc, spell)
+/obj/item/melee/clock_magic/Initialize(mapload, spell)
+	. = ..()
 	source = spell
-	..()
 
 /obj/item/melee/clock_magic/Destroy()
 	if(!QDELETED(source))

@@ -57,12 +57,14 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 		PREPOSITIONAL = "консоли связи",
 	)
 
-/obj/machinery/computer/communications/New()
-	GLOB.shuttle_caller_list += src
-	..()
-
 /obj/machinery/computer/communications/Initialize(mapload)
 	. = ..()
+	GLOB.shuttle_caller_list += src
+
+/obj/machinery/computer/communications/Destroy()
+	GLOB.shuttle_caller_list -= src
+	SSshuttle.autoEvac()
+	return ..()
 
 /obj/machinery/computer/communications/proc/is_authenticated(mob/user, message = TRUE)
 	if(user.can_admin_interact())
@@ -662,14 +664,9 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 
 		display.update()
 
-/obj/machinery/computer/communications/Destroy()
-	GLOB.shuttle_caller_list -= src
-	SSshuttle.autoEvac()
-	return ..()
-
-/obj/item/circuitboard/communications/New()
+/obj/item/circuitboard/communications/Initialize(mapload)
+	. = ..()
 	GLOB.shuttle_caller_list += src
-	..()
 
 /obj/item/circuitboard/communications/Destroy()
 	GLOB.shuttle_caller_list -= src

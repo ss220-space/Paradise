@@ -2,10 +2,9 @@ GLOBAL_LIST_EMPTY(explosions)
 
 SUBSYSTEM_DEF(explosions)
 	name = "Explosions"
-	init_order = INIT_ORDER_EXPLOSIONS
 	priority = FIRE_PRIORITY_EXPLOSIONS
 	wait = 1
-	flags = SS_TICKER
+	ss_flags = SS_TICKER
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
 
 	var/priority_queue/explosion_queue
@@ -267,11 +266,11 @@ SUBSYSTEM_DEF(explosions)
 
 /datum/explosion_data/proc/create_effect(smoke)
 	if(devastation_range > 0)
-		new /obj/effect/temp_visual/explosion(epicenter, max_range, FALSE, TRUE)
+		new /obj/effect/temp_visual/explosion(epicenter, max_range, LIGHT_COLOR_LAVA, FALSE, TRUE)
 	else if(heavy_impact_range > 0)
-		new /obj/effect/temp_visual/explosion(epicenter, max_range, FALSE, FALSE)
+		new /obj/effect/temp_visual/explosion(epicenter, max_range, LIGHT_COLOR_LAVA, FALSE, FALSE)
 	else if(light_impact_range > 0)
-		new /obj/effect/temp_visual/explosion(epicenter, max_range, TRUE, FALSE)
+		new /obj/effect/temp_visual/explosion(epicenter, max_range, LIGHT_COLOR_LAVA, TRUE, FALSE)
 
 	if(max_range >= 6 || heavy_impact_range)
 		new /obj/effect/temp_visual/shockwave(epicenter, max_range)

@@ -28,7 +28,7 @@
 	RegisterSignal(parent, COMSIG_ITEM_DROPPED, PROC_REF(on_drop))
 
 	// Wear & Remove
-	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, PROC_REF(on_attackby))
+	RegisterSignal(parent, COMSIG_ATOM_ATTACKBY, PROC_REF(on_attackby))
 	RegisterSignal(parent, COMSIG_CLICK_ALT, PROC_REF(on_alt_click))
 
 	// Overlays
@@ -52,7 +52,7 @@
 /datum/component/hat_stabilizer/UnregisterFromParent()
 	if(attached_hat)
 		remove_hat()
-	UnregisterSignal(parent, list(COMSIG_ATOM_EXAMINE, COMSIG_PARENT_ATTACKBY,
+	UnregisterSignal(parent, list(COMSIG_ATOM_EXAMINE, COMSIG_ATOM_ATTACKBY,
 	COMSIG_CLICK_ALT, COMSIG_MODULE_GENERATE_WORN_OVERLAY,
 	COMSIG_ITEM_GET_SEPARATE_WORN_OVERLAYS, COMSIG_ATOM_UPDATE_OVERLAYS, COMSIG_QDELETING,
 	COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED))
@@ -66,7 +66,7 @@
 	var/obj/item/our_item = parent
 	if(!(slot & our_item.slot_flags))
 		return
-	RegisterSignal(equipper, list(COMSIG_MOB_SLIPPED, COMSIG_MOVABLE_POST_THROW), PROC_REF(throw_hat))
+	RegisterSignals(equipper, list(COMSIG_MOB_SLIPPED, COMSIG_MOVABLE_POST_THROW), PROC_REF(throw_hat))
 	RegisterSignal(equipper, COMSIG_LIVING_THUD, PROC_REF(drop_hat))
 
 /datum/component/hat_stabilizer/proc/on_drop(datum/source, mob/dropper)

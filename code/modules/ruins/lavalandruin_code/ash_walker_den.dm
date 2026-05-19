@@ -131,7 +131,7 @@
 	new_spawn.rename_character(new_spawn.real_name, new_spawn.dna.species.get_random_name(new_spawn.gender))
 	new_spawn.faction += "ashwalker"
 
-/obj/effect/mob_spawn/human/ash_walker/New()
+/obj/effect/mob_spawn/human/ash_walker/Initialize(mapload)
 	. = ..()
 	var/area/A = get_area(src)
 	if(A)

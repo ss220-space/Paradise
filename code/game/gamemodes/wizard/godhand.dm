@@ -21,13 +21,10 @@
 	/// Current owner of the item
 	var/mob/living/carbon/owner
 
-/obj/item/melee/touch_attack/New(spell, owner)
+/obj/item/melee/touch_attack/Initialize(mapload, spell, owner)
+	. = ..()
 	attached_spell = spell
 	src.owner = owner
-	..()
-
-/obj/item/melee/touch_attack/Initialize(mapload)
-	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
 
 /obj/item/melee/touch_attack/Destroy()
@@ -55,7 +52,8 @@
 		return
 	if(catchphrase)
 		user.say(catchphrase)
-	playsound(get_turf(user), on_use_sound, 50, TRUE)
+	if(on_use_sound)
+		playsound(get_turf(user), on_use_sound, 50, TRUE)
 	if(attached_spell)
 		attached_spell.perform(list())
 	qdel(src)

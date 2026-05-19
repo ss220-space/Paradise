@@ -26,6 +26,10 @@
 		PREPOSITIONAL = "операционном столе",
 	)
 
+/obj/machinery/optable/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/elevation, pixel_shift = 6)
+
 /obj/machinery/optable/Initialize(mapload)
 	. = ..()
 	for(dir in list(NORTH,EAST,SOUTH,WEST))

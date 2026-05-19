@@ -1,4 +1,0 @@
-author: "vovakons"
-delete-after: True
-changes:
-  - del: "Удалены оверлеи маркировки типов боеприпасов у магазинов. (PR #9147)"

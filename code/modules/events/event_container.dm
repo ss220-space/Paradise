@@ -272,8 +272,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 			EVENT_LEVEL_MODERATE, EVENT_AIRLOCK_MALFUNCTION, /datum/event/door_runtime, 50, list(ASSIGNMENT_ENGINEER = 25, ASSIGNMENT_AI = 150), TRUE),
 		new /datum/event_meta(
 			EVENT_LEVEL_MODERATE, EVENT_SPACE_NINJA, /datum/event/space_ninja, 40, list(ASSIGNMENT_SECURITY = 10), is_one_shot = TRUE),
-		new /datum/event_meta(
-			EVENT_LEVEL_MODERATE, EVENT_LONE_OPERATIVE, /datum/event/lone_operative, 40, list(ASSIGNMENT_SECURITY = 10), is_one_shot = TRUE),
+		new /datum/event_meta/lone_operative(),
 		new /datum/event_meta(
 			EVENT_LEVEL_MODERATE, EVENT_DRIFTING_CONTRACTOR, /datum/event/drifting_contractor, 60, list(ASSIGNMENT_SECURITY = 10)),
 		new /datum/event_meta(

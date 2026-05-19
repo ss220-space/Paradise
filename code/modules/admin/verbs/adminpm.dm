@@ -251,7 +251,7 @@ ADMIN_VERB(admin_pm_by_key_panel, R_ADMIN|R_MENTOR, "Admin PM Key", "Send a PM b
 		to_chat(src, span_notice("[msg]"), confidential = TRUE)
 		return
 
-	SSdiscord.send2discord_simple(DISCORD_WEBHOOK_ADMIN, "PM from [key_name(src)]: [html_decode(msg)]")
+	GLOB.discord_manager.send2discord_simple(DISCORD_WEBHOOK_ADMIN, "PM from [key_name(src)]: [html_decode(msg)]")
 
 	to_chat(src, span_discordpm("PM to-<b>Discord Admins</b>: [msg]"), MESSAGE_TYPE_ADMINPM, confidential = TRUE)
 

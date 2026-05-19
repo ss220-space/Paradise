@@ -6,14 +6,16 @@
 	icon = 'icons/mob/alien.dmi'
 	icon_state = "nest"
 	max_integrity = 120
-	var/image/nest_overlay
+	elevation = 0
 	comfort = 0
 	obj_flags = NODECONSTRUCT
+	allow_tucking = FALSE
+	var/image/nest_overlay
 	var/ghost_timer
 
 /obj/structure/bed/nest/Initialize(mapload)
 	. = ..()
-	nest_overlay = image('icons/mob/alien.dmi', "nestoverlay", layer=MOB_LAYER - 0.2)
+	nest_overlay = image('icons/mob/alien.dmi', "nestoverlay", layer=BELOW_MOB_LAYER)
 
 /obj/structure/bed/nest/Destroy()
 	playsound(get_turf(src), 'sound/creatures/alien/xeno_resin_break.ogg', 80, TRUE)
@@ -88,15 +90,13 @@
 
 /obj/structure/bed/nest/post_buckle_mob(mob/living/target)
 	ADD_TRAIT(target, TRAIT_RESTRAINED, type)
-	target.pixel_y = target.base_pixel_y
-	target.pixel_x = target.base_pixel_x + 2
+	target.add_offsets(UID(), y_add = 10)
 	target.layer = BELOW_MOB_LAYER
 	add_overlay(nest_overlay)
 
 /obj/structure/bed/nest/post_unbuckle_mob(mob/living/target)
 	REMOVE_TRAIT(target, TRAIT_RESTRAINED, type)
-	target.pixel_x = target.base_pixel_x + target.body_position_pixel_x_offset
-	target.pixel_y = target.base_pixel_y + target.body_position_pixel_y_offset
+	target.remove_offsets(UID())
 	target.layer = initial(target.layer)
 	cut_overlay(nest_overlay)
 	deltimer(ghost_timer)

@@ -39,7 +39,8 @@
 /obj/item/gun/rocketlauncher/can_shoot(mob/user)
 	return rockets.len
 
-/obj/item/gun/rocketlauncher/process_fire(atom/target, mob/living/user, message = TRUE, list/modifiers, zone_override, bonus_spread = 0)
+/obj/item/gun/rocketlauncher/process_fire(zone_override, secondary_fire = FALSE)
+	var/mob/living/user = gun_user
 	if(length(rockets))
 		var/obj/item/ammo_casing/rocket/I = rockets[1]
 		var/obj/item/missile/M = new /obj/item/missile(user.loc)

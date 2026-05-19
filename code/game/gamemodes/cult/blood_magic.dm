@@ -458,22 +458,28 @@
 	if(iscultist(target))
 		return
 
-	user.visible_message(	span_warning("[user] holds up [user.p_their()] hand, which explodes in a flash of red light!"), \
-							span_cultitalic("You attempt to stun [L] with the spell!"))
+	user.visible_message(
+		span_warning("[user] holds up [user.p_their()] hand, which explodes in a flash of red light!"),
+		span_cultitalic("You attempt to stun [L] with the spell!"),
+	)
 
 	user.mob_light(LIGHT_COLOR_BLOOD_MAGIC, 3, _duration = 2)
 
 	var/obj/item/nullrod/N = locate() in target
 
 	if(N)
-		target.visible_message(span_warning("Святое оружие [target.declent_ru(GENITIVE)] поглощает красный свет!"), \
-								span_userdanger("Ваше святое оружие поглощает ослепляющий свет!"))
+		target.visible_message(
+			span_warning("Святое оружие [target.declent_ru(GENITIVE)] поглощает красный свет!"),
+			span_userdanger("Ваше святое оружие поглощает ослепляющий свет!"),
+		)
 		uses--
 		return ..()
 
 	if(ismindshielded(L))
-		target.visible_message(span_warning("Имплант [target.declent_ru(GENITIVE)] блокирует красный свет!"), \
-								span_userdanger("Ваш имплант блокирует ослепляющий свет!"))
+		target.visible_message(
+			span_warning("Имплант [target.declent_ru(GENITIVE)] блокирует красный свет!"),
+			span_userdanger("Ваш имплант блокирует ослепляющий свет!"),
+		)
 		return ..()
 
 	to_chat(user, span_cultitalic("In a brilliant flash of red, [L] falls to the ground!"))
