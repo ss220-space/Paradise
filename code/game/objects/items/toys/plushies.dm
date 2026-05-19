@@ -487,8 +487,18 @@
 		)
 	var/tired = 0
 
+/obj/item/toy/plushie/rdplushie/get_ru_names()
+	return list(
+		NOMINATIVE = "плюшевая кукла РД",
+		GENITIVE = "плюшевой куклы РД",
+		DATIVE = "плюшевой кукле РД",
+		ACCUSATIVE = "плюшевую куклу РД",
+		INSTRUMENTAL = "плюшевой куклой РД",
+		PREPOSITIONAL = "плюшевой кукле РД",
+	)
+
 /obj/item/toy/plushie/rdplushie/cuddle_counter(mob/user)
-	if(++tired < 100)
+	if(++tired < 50)
 		return
 
 	icon_state = "RD_doll_tired"
@@ -523,6 +533,60 @@
 		"Подмогу в туалет брига!",
 		"Почему над унитазом установлены 3 камеры?",
 	)
+
+/obj/item/toy/plushie/gsbplushie/get_ru_names()
+	return list(
+		NOMINATIVE = "плюшевая кукла ГСБ",
+		GENITIVE = "плюшевой куклы ГСБ",
+		DATIVE = "плюшевой кукле ГСБ",
+		ACCUSATIVE = "плюшевую куклу ГСБ",
+		INSTRUMENTAL = "плюшевой куклой ГСБ",
+		PREPOSITIONAL = "плюшевой кукле ГСБ",
+	)
+
+/obj/item/toy/plushie/cmoplushie
+	name = "CMO doll"
+	desc = "PLACEHOLDER"
+	icon_state = "CMO_doll"
+	item_state = "CMO_doll"
+	poof_sound = 'sound/items/greetings-emote.ogg'
+	cuddle_verb = list(
+		"PLACEHOLDER",
+	)
+	var/high = FALSE
+
+/obj/item/toy/plushie/cmoplushie/get_ru_names()
+	return list(
+		NOMINATIVE = "плюшевая кукла СМО",
+		GENITIVE = "плюшевой куклы СМО",
+		DATIVE = "плюшевой кукле СМО",
+		ACCUSATIVE = "плюшевую куклу СМО",
+		INSTRUMENTAL = "плюшевой куклой СМО",
+		PREPOSITIONAL = "плюшевой кукле СМО",
+	)
+
+// Smoking CMO
+/obj/item/toy/plushie/cmoplushie/attackby(obj/item/I, mob/user, params)
+	if(high)
+		return
+
+	if(istype(I, /obj/item/clothing/mask/cigarette))
+		add_fingerprint(user)
+		to_chat(user, span_notice("Вы передаёте сигарету игрушке."))
+		playsound(loc, 'sound/items/lighter/light.ogg', 50, TRUE)
+		qdel(I)
+		high = TRUE
+		icon_state = "CMO_doll_high"
+		return ATTACK_CHAIN_BLOCKED_ALL
+		update_icon(UPDATE_ICON_STATE)
+		addtimer(CALLBACK(src, PROC_REF(stop_smoking)), 180 SECONDS)
+
+	return ..()
+
+/obj/item/toy/plushie/cmoplushie/proc/stop_smoking()
+	high = FALSE
+	icon_state = "CMO_doll"
+	update_icon(UPDATE_ICON_STATE)
 
 /*
  * Sharks
