@@ -71,7 +71,7 @@
 	invisibility = INVISIBILITY_ABSTRACT
 
 	// Creating a new borg here will connect them to a default AI and notify that AI, if `connect_to_default_AI` is TRUE.
-	var/mob/living/silicon/robot/O = new /mob/living/silicon/robot(loc, connect_to_AI = connect_to_default_AI)
+	var/mob/living/silicon/robot/O = new /mob/living/silicon/robot(loc, FALSE, FALSE, FALSE, connect_to_default_AI)
 
 	// If `AI` is passed in, we want to connect to that AI specifically.
 	if(AI)

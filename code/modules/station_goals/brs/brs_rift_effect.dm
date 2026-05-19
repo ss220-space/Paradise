@@ -102,7 +102,8 @@
 	Use this before doing anything destructive.
 */
 /obj/effect/abstract/bluespace_rift/proc/is_close_to_singularity(radius = 15)
-	for(var/obj/singularity/singulo in GLOB.singularities)
+	for(var/datum/component/singularity/singulo_component as anything in GLOB.singularities)
+		var/atom/singulo = singulo_component.parent
 		if(src.z != singulo.z)
 			continue
 		if(get_dist(src, singulo) <= radius)

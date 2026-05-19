@@ -61,3 +61,10 @@
 		/datum/ai_planning_subtree/random_speech/mothroach,
 		/datum/ai_planning_subtree/find_and_hunt_target/mothroach,
 	)
+
+/mob/living/basic/mothroach/attack_hand(mob/living/carbon/human/user)
+	if(!user)
+		return
+	if(user.a_intent == INTENT_GRAB)
+		get_scooped(user)
+	return ..()

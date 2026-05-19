@@ -4,7 +4,7 @@
 SUBSYSTEM_DEF(asset_loading)
 	name = "Asset Loading"
 	priority = FIRE_PRIORITY_ASSETS
-	flags = SS_NO_INIT|SS_HIBERNATE
+	ss_flags = SS_NO_INIT|SS_HIBERNATE
 	runlevels = RUNLEVEL_LOBBY|RUNLEVELS_DEFAULT
 	var/assets_generating = 0
 	var/list/datum/asset/generate_queue = list()

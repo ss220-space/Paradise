@@ -5,9 +5,9 @@
 #define USE_RUSTG_ICONFORGE_GAGS
 PROCESSING_SUBSYSTEM_DEF(greyscale)
 	name = "Greyscale"
-	flags = SS_BACKGROUND
-	init_order = INIT_ORDER_GREYSCALE
+	ss_flags = SS_BACKGROUND
 	wait = 3 SECONDS
+	init_stage = INITSTAGE_EARLY
 
 	var/list/datum/greyscale_config/configurations = list()
 	var/list/datum/greyscale_layer/layer_types = list()

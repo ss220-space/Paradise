@@ -52,8 +52,8 @@
 		PREPOSITIONAL = "Рыцаре Ужаса",
 	)
 
-/mob/living/simple_animal/hostile/poison/terror_spider/knight/New()
-	..()
+/mob/living/simple_animal/hostile/poison/terror_spider/knight/Initialize(mapload)
+	. = ..()
 	attackmaction = new()
 	attackmaction.Grant(src)
 	defencemaction = new()

@@ -393,8 +393,8 @@
 	changing_turf = TRUE
 	qdel(src)	//Just get the side effects and call Destroy
 	//We do this here so anything that doesn't want to persist can clear itself
-	var/list/old_comp_lookup = comp_lookup?.Copy()
-	var/list/old_signal_procs = signal_procs?.Copy()
+	var/list/old_comp_lookup = _listen_lookup?.Copy()
+	var/list/old_signal_procs = _signal_procs?.Copy()
 	var/carryover_turf_flags = (RESERVATION_TURF | UNUSED_RESERVATION_TURF) & turf_flags
 	var/turf/W = new path(src)
 	W.turf_flags |= carryover_turf_flags
@@ -403,9 +403,9 @@
 	// Turfs DO NOT lose their signals when they get replaced, REMEMBER THIS
 	// It's possible because turfs are fucked, and if you have one in a list and it's replaced with another one, the list ref points to the new turf
 	if(old_comp_lookup)
-		LAZYOR(W.comp_lookup, old_comp_lookup)
+		LAZYOR(W._listen_lookup, old_comp_lookup)
 	if(old_signal_procs)
-		LAZYOR(W.signal_procs, old_signal_procs)
+		LAZYOR(W._signal_procs, old_signal_procs)
 
 	for(var/datum/callback/callback as anything in post_change_callbacks)
 		callback.InvokeAsync(W)
@@ -468,7 +468,7 @@
 		var/area/our_area = W.loc
 		if(our_area.lighting_effects)
 			W.add_overlay(our_area.lighting_effects[SSmapping.z_level_to_plane_offset[z] + 1])
-	SSdemo.mark_turf(W)
+	//SSdemo.mark_turf(W)
 
 	return W
 
@@ -605,12 +605,12 @@
 	faller.drop_from_hands()
 
 /turf/singularity_act()
-	if(intact)
-		for(var/obj/O in contents) //this is for deleting things like wires contained in the turf
-			if(O.level != 1)
+	if(underfloor_accessibility < UNDERFLOOR_INTERACTABLE)
+		for(var/obj/on_top in contents) //this is for deleting things like wires contained in the turf
+			if(on_top.level != 1)
 				continue
-			if(O.invisibility == INVISIBILITY_MAXIMUM || O.invisibility == INVISIBILITY_ABSTRACT)
-				O.singularity_act()
+			if(HAS_TRAIT(on_top, TRAIT_UNDERFLOOR))
+				on_top.singularity_act()
 	ChangeTurf(baseturf)
 	return 2
 
@@ -1113,13 +1113,13 @@
 	// No, I don't think I will.
 	return FALSE
 
-/obj/effect/abstract/pressure_overlay/singularity_pull()
+/obj/effect/abstract/pressure_overlay/singularity_pull(atom/singularity, current_size)
 	// I am not a physical object, you have no control over me!
-	return FALSE
+	return
 
 /obj/effect/abstract/pressure_overlay/singularity_act()
 	// I don't taste good, either!
-	return FALSE
+	return
 
 /turf/proc/ensure_pressure_overlay()
 	if(isnull(pressure_overlay))
@@ -1136,3 +1136,16 @@
 		pressure_overlay.Initialize()
 
 	return pressure_overlay
+/**
+ * Checks whether the specified turf is blocked by something dense inside it, but ignores anything with the climbable trait
+ *
+ * Works similar to is_blocked_turf(), but ignores climbables and has less options. Primarily added for jaunting checks
+ */
+/turf/proc/is_blocked_turf_ignore_climbable()
+	if(density)
+		return TRUE
+
+	for(var/atom/movable/atom_content as anything in contents)
+		if(atom_content.density && !(atom_content.flags & ON_BORDER) && !HAS_TRAIT(atom_content, TRAIT_CLIMBABLE))
+			return TRUE
+	return FALSE

@@ -29,6 +29,7 @@
 	del_on_death = 1
 	var/passive_mode = TRUE // if true, don't target anything.
 	var/datum/effect_system/trail_follow/ion/ion_trail
+	var/static/list/drone_list = valid_subtypesof(/obj/item/circuitboard/drone)
 
 /mob/living/simple_animal/hostile/malf_drone/Initialize(mapload)
 	. = ..()
@@ -129,67 +130,12 @@
 	K = new /obj/item/stack/sheet/plasteel(T, pick(1, 2, 3, 4))
 	step_to(K, get_turf(pick(view(7, src))))
 
-	//also drop dummy circuit boards deconstructable for research (loot)
-	var/obj/item/circuitboard/C
-
 	//spawn 1-4 boards of a random type
-	var/spawnees = 0
 	var/num_boards = rand(1, 4)
-	var/list/options = list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512)
-	for(var/i=0, i<num_boards, i++)
-		var/chosen = pick(options)
-		options.Remove(options.Find(chosen))
-		spawnees |= chosen
-
-	if(spawnees & 1)
-		C = new(T)
-		C.name = "Drone CPU motherboard"
-		C.origin_tech = "programming=[rand(3, 6)]"
-
-	if(spawnees & 2)
-		C = new(T)
-		C.name = "Drone neural interface"
-		C.origin_tech = "biotech=[rand(3, 6)]"
-
-	if(spawnees & 4)
-		C = new(T)
-		C.name = "Drone suspension processor"
-		C.origin_tech = "magnets=[rand(3, 6)]"
-
-	if(spawnees & 8)
-		C = new(T)
-		C.name = "Drone shielding controller"
-		C.origin_tech = "bluespace=[rand(3, 6)]"
-
-	if(spawnees & 16)
-		C = new(T)
-		C.name = "Drone power capacitor"
-		C.origin_tech = "powerstorage=[rand(3, 6)]"
-
-	if(spawnees & 32)
-		C = new(T)
-		C.name = "Drone hull reinforcer"
-		C.origin_tech = "materials=[rand(3, 6)]"
-
-	if(spawnees & 64)
-		C = new(T)
-		C.name = "Drone auto-repair system"
-		C.origin_tech = "engineering=[rand(3, 6)]"
-
-	if(spawnees & 128)
-		C = new(T)
-		C.name = "Drone plasma overcharge counter"
-		C.origin_tech = "plasmatech=[rand(3, 6)]"
-
-	if(spawnees & 256)
-		C = new(T)
-		C.name = "Drone targetting circuitboard"
-		C.origin_tech = "combat=[rand(3, 6)]"
-
-	if(spawnees & 512)
-		C = new(T)
-		C.name = "Corrupted drone morality core"
-		C.origin_tech = "syndicate=[rand(3, 6)]"
+	var/list/options = drone_list.Copy()
+	for(var/i in 1 to num_boards)
+		var/chosen = pick_n_take(options)
+		new chosen(T)
 
 /mob/living/simple_animal/hostile/malf_drone/syndicate
 	stop_automated_movement_when_pulled = TRUE

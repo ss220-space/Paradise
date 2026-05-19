@@ -165,8 +165,6 @@
 	anchored = 1
 	},
 /obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable/yellow,
@@ -250,7 +248,9 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/effect/decal/warning_stripes/eastsouthwest,
+/obj/effect/turf_decal/stripes/end{
+	dir = 2
+	},
 /turf/simulated/floor/plating,
 /area/mine/production)
 "cW" = (
@@ -1155,7 +1155,7 @@
 /obj/structure/stone_tile{
 	dir = 8
 	},
-/obj/structure/closet/crate/necropolis,
+/obj/structure/closet/crate/necropolis/tendril,
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors/necropolis)
 "kp" = (
@@ -2351,7 +2351,9 @@
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
 "sG" = (
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/structure/marker_beacon{
 	icon_state = "markerburgundy-on"
 	},
@@ -2940,7 +2942,9 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/safe_cave)
 "yr" = (
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered)
 "yJ" = (
@@ -3176,8 +3180,12 @@
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
 "AY" = (
-/obj/effect/decal/warning_stripes/west,
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/machinery/mass_driver{
 	dir = 1;
 	id_tag = "trash1"
@@ -3630,7 +3638,6 @@
 	dir = 1
 	},
 /obj/structure/cable/yellow{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -3791,7 +3798,9 @@
 /obj/structure/marker_beacon{
 	icon_state = "markerburgundy-on"
 	},
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /turf/simulated/floor/indestructible/plating,
 /area/ruin/unpowered)
 "Hy" = (
@@ -4250,8 +4259,12 @@
 	name = "Trash Driver Access"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/east,
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/simulated/floor/plating,
 /area/mine/production)
 "Lx" = (
@@ -4713,7 +4726,6 @@
 	charge = 1e+006
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -5322,7 +5334,9 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "Yh" = (
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /turf/simulated/floor/indestructible/plating,
 /area/ruin/unpowered)
 "Yj" = (

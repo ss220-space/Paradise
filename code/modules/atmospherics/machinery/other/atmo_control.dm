@@ -156,7 +156,7 @@
 	return GLOB.default_state
 
 /obj/machinery/computer/general_air_control/ui_interact(mob/user, datum/tgui/ui = null)
-	if(!isprocessing)
+	if(!(datum_flags & DF_ISPROCESSING))
 		START_PROCESSING(SSmachines, src)
 
 	ui = SStgui.try_update_ui(user, src, ui)

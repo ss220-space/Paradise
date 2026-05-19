@@ -12,12 +12,9 @@
 	var/offset_z
 	var/global/list/levels[0]
 
-/obj/effect/levelref/New()
-	..()
-	levels += src
-
 /obj/effect/levelref/Initialize(mapload)
 	. = ..()
+	levels += src
 	for(var/obj/effect/levelref/O in levels)
 		if(id == O.id && O != src)
 			other = O
@@ -69,7 +66,7 @@
 
 	INVOKE_ASYNC(src, PROC_REF(trigger))
 
-/obj/effect/portal_sensor/proc/on_exited(datum/source, atom/movable/departed, atom/newLoc)
+/obj/effect/portal_sensor/proc/on_exited(datum/source, atom/movable/departed, direction)
 	SIGNAL_HANDLER
 
 	INVOKE_ASYNC(src, PROC_REF(trigger))

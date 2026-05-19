@@ -37,8 +37,8 @@
 		PREPOSITIONAL = "батарее А",
 	)
 
-/obj/item/stock_parts/cell/New()
-	..()
+/obj/item/stock_parts/cell/Initialize(mapload)
+	. = ..()
 	START_PROCESSING(SSobj, src)
 	charge = maxcharge
 	update_icon(UPDATE_OVERLAYS)
@@ -212,8 +212,8 @@
 	return ELECTROCUTE_DAMAGE(charge / max(0.001 * STANDARD_CELL_CHARGE, 1))
 
 // MARK: Cell variants
-/obj/item/stock_parts/cell/empty/New()
-	..()
+/obj/item/stock_parts/cell/empty/Initialize(mapload)
+	. = ..()
 	charge = 0
 
 /obj/item/stock_parts/cell/upgraded
@@ -281,8 +281,8 @@
 		PREPOSITIONAL = "батарее АА+",
 	)
 
-/obj/item/stock_parts/cell/high/empty/New()
-	..()
+/obj/item/stock_parts/cell/high/empty/Initialize(mapload)
+	. = ..()
 	charge = 0
 	update_icon(UPDATE_OVERLAYS)
 
@@ -305,8 +305,8 @@
 		PREPOSITIONAL = "батарее ААА",
 	)
 
-/obj/item/stock_parts/cell/super/empty/New()
-	..()
+/obj/item/stock_parts/cell/super/empty/Initialize(mapload)
+	. = ..()
 	charge = 0
 	update_icon(UPDATE_OVERLAYS)
 
@@ -329,8 +329,8 @@
 		PREPOSITIONAL = "батарее АААА",
 	)
 
-/obj/item/stock_parts/cell/hyper/empty/New()
-	..()
+/obj/item/stock_parts/cell/hyper/empty/Initialize(mapload)
+	. = ..()
 	charge = 0
 	update_icon(UPDATE_OVERLAYS)
 
@@ -355,8 +355,8 @@
 		PREPOSITIONAL = "блюспейс-батарее",
 	)
 
-/obj/item/stock_parts/cell/bluespace/empty/New()
-	..()
+/obj/item/stock_parts/cell/bluespace/empty/Initialize(mapload)
+	. = ..()
 	charge = 0
 	update_icon(UPDATE_OVERLAYS)
 
@@ -463,8 +463,8 @@
 		PREPOSITIONAL = "ЭМИ-защищённой батарее А",
 	)
 
-/obj/item/stock_parts/cell/emproof/empty/New()
-	..()
+/obj/item/stock_parts/cell/emproof/empty/Initialize(mapload)
+	. = ..()
 	charge = 0
 	update_icon(UPDATE_OVERLAYS)
 

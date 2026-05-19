@@ -51,7 +51,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/shuttle/escape)
@@ -145,7 +144,6 @@
 /area/shuttle/escape)
 "aI" = (
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/shuttle/escape)
@@ -271,6 +269,15 @@
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "bf" = (
+/obj/machinery/door/airlock/command/glass{
+	name = "Escape Shuttle Cockpit";
+	req_access = list(19)
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/shuttle/escape)
+"bg" = (
 /obj/machinery/door/airlock/medical/glass{
 	id_tag = "ShuttleMedbay";
 	name = "Shuttle Medbay";
@@ -289,7 +296,6 @@
 	port_direction = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/shuttle/escape)
@@ -352,15 +358,13 @@
 /obj/machinery/door/airlock/hatch,
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/shuttle/escape)
 "br" = (
 /mob/living/simple_animal/bot/ed209,
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "navybluefull"
+	icon_state = "dark"
 	},
 /area/shuttle/escape)
 "bs" = (
@@ -412,6 +416,15 @@
 	icon_state = "router_dir"
 	},
 /area/shuttle/escape)
+"he" = (
+/obj/structure/sign/poster/official/nanotrasen_logo{
+	icon = 'icons/obj/decals.dmi';
+	icon_state = "ntsing_alt2"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/shuttle/escape)
 "hC" = (
 /obj/machinery/light/spot{
 	dir = 1
@@ -423,8 +436,12 @@
 /turf/simulated/floor/shuttle/objective_check,
 /area/shuttle/escape)
 "jn" = (
-/obj/structure/chair/comfy/shuttle/dark{
-	dir = 8
+/obj/structure/sign/poster/official/nanotrasen_logo{
+	icon = 'icons/obj/decals.dmi';
+	icon_state = "ntsing_alt5"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
 	},
 /turf/simulated/floor/shuttle/objective_check,
 /area/shuttle/escape)
@@ -487,14 +504,12 @@
 	},
 /obj/machinery/light/spot,
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/shuttle/escape)
 "Ap" = (
 /obj/structure/extinguisher_cabinet/directional/south,
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/shuttle/escape)
@@ -510,7 +525,6 @@
 	},
 /obj/machinery/light/spot,
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/shuttle/escape)
@@ -547,8 +561,7 @@
 "XP" = (
 /obj/structure/closet/walllocker/emerglocker/directional/east,
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "navybluefull"
+	icon_state = "dark"
 	},
 /area/shuttle/escape)
 

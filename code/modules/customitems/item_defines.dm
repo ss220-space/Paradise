@@ -92,8 +92,8 @@
 		ink.color = rgb(tattoo_r, tattoo_g, tattoo_b, 190)
 		. += ink
 
-/obj/item/fluff/tattoo_gun/New()
-	..()
+/obj/item/fluff/tattoo_gun/Initialize(mapload)
+	. = ..()
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/fluff/tattoo_gun/elliot_cybernetic_tat
@@ -215,31 +215,6 @@
 
 	to_chat(user, span_warning("Вы не можете модифицировать [target.declent_ru(ACCUSATIVE)]!"))
 
-/obj/item/lighter/zippo/fluff/purple // GodOfOreos: Jason Conrad
-	name = "purple engraved zippo"
-	desc = "All craftsspacemanship is of the highest quality. It is encrusted with refined plasma sheets. On the item is an image of a dwarf and the words 'Strike the Earth!' etched onto the side."
-	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "purple_zippo_off"
-	item_state = "purplezippo"
-	icon_on = "purple_zippo_on"
-	icon_off = "purple_zippo_off"
-
-/obj/item/lighter/zippo/fluff/michael_guess_1 // mrbits: Callista Gold
-	name = "engraved lighter"
-	desc = "A golden lighter, engraved with some ornaments."
-	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "guessip"
-	item_state = "rubysfluffzippo"
-	icon_on = "guessipon"
-	icon_off = "guessip"
-
-/obj/item/lighter/zippo/fluff/duckchan // Duckchan: Rybys Romney
-	name = "Monogrammed Zippo"
-	desc = " A shiny purple zippo lighter, engraved with Rybys Romney and BuzzPing's name, with a festive green flame."
-	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "rybysfluff"
-	icon_on = "rybysfluffopen"
-	icon_off = "rybysfluff"
 
 /obj/item/fluff/dogwhistle //phantasmicdream: Zeke Varloss
 	name = "Sax's whistle"
@@ -651,8 +626,8 @@
 	name = "The Sobriety Skullcap"
 	desc = "A hat suited for the king of the pirates"
 
-/obj/item/clothing/head/pirate/fluff/stumpy/New()
-	..()
+/obj/item/clothing/head/pirate/fluff/stumpy/Initialize(mapload)
+	. = ..()
 	START_PROCESSING(SSobj, src)
 
 /obj/item/clothing/head/pirate/fluff/stumpy/Destroy()
@@ -1338,12 +1313,6 @@
 	icon_state = "vest_black"
 	item_state = "vest_black"
 	sprite_sheets = null
-
-/obj/item/clothing/under/pants/fluff/combat
-	name = "combat pants"
-	desc = "Medium style tactical pants, for the fashion aware combat units out there."
-	icon_state = "combat_pants"
-	item_color = "combat_pants"
 
 /obj/item/clothing/suit/jacket/fluff/elliot_windbreaker // DaveTheHeadcrab: Elliot Campbell
 	name = "nylon windbreaker"

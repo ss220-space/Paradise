@@ -78,7 +78,8 @@
 /obj/item/gun/throw/can_shoot(mob/user)
 	return to_launch
 
-/obj/item/gun/throw/process_fire(atom/target, mob/living/user, message = TRUE, list/modifiers, zone_override, bonus_spread = 0)
+/obj/item/gun/throw/process_fire(zone_override, secondary_fire = FALSE)
+	var/mob/living/user = gun_user
 	add_fingerprint(user)
 	if(fire_cd)
 		return

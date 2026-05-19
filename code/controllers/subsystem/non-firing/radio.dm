@@ -1,7 +1,6 @@
 SUBSYSTEM_DEF(radio)
 	name = "Radio"
-	flags = SS_NO_FIRE
-	ss_id = "radio"
+	ss_flags = SS_NO_FIRE
 
 	var/list/radiochannels = list(
 		PUB_FREQ_NAME = PUB_FREQ,

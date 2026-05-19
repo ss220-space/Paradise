@@ -91,7 +91,7 @@
 
 /datum/station_trait/birthday/New()
 	. = ..()
-	RegisterSignal(SSdcs, list(COMSIG_GLOB_JOB_AFTER_SPAWN), PROC_REF(on_job_after_spawn))
+	RegisterSignals(SSdcs, list(COMSIG_GLOB_JOB_AFTER_SPAWN), PROC_REF(on_job_after_spawn))
 
 /datum/station_trait/birthday/revert()
 	for(var/obj/effect/landmark/start/hangover/party_spot in GLOB.start_landmarks_list)

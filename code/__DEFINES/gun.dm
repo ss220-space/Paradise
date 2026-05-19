@@ -46,13 +46,6 @@ GLOBAL_LIST_INIT(gun_module_slot_ru_name, list(
 	ATTACHMENT_SLOT_UNDER = "цевьё",
 	ATTACHMENT_SLOT_SIBYL = "курок"
 ))
-//MARK: Firemodes
-/// Single shot firemode
-#define GUN_SINGLE_MODE 0
-/// Burst fire mode
-#define GUN_BURST_MODE 1
-/// Full auto firemode
-#define GUN_AUTO_MODE 2
 
 #define GUN_MODE_SINGLE_ONLY 1
 #define GUN_MODE_SINGLE_BURST 2
@@ -178,6 +171,8 @@ GLOBAL_LIST_INIT(gun_module_slot_ru_name, list(
 #define GUN_ACCURACY_PISTOL_ENFORCER new /datum/gun_accuracy/pistol/enforcer()
 /// Uplink pistol accuracy (better than normal pistols)
 #define GUN_ACCURACY_PISTOL_UPLINK new /datum/gun_accuracy/pistol/uplink()
+/// Scarecrow accuracy
+#define GUN_ACCURACY_PISTOL_UPLINK_SCARECROW new /datum/gun_accuracy/pistol/uplink/scarecrow()
 /// Stechkin accuracy
 #define GUN_ACCURACY_PISTOL_STECHKIN new /datum/gun_accuracy/pistol/stechkin()
 /// Rifle accuracy (more than default)
@@ -194,3 +189,13 @@ GLOBAL_LIST_INIT(gun_module_slot_ru_name, list(
 // Chrono beam stuff
 #define CHRONO_BEAM_RANGE 3
 #define CHRONO_FRAME_COUNT 22
+
+// MARK: Firemodes
+#define GUN_FIREMODE_SEMIAUTO "semi-auto fire mode"
+#define GUN_FIREMODE_BURSTFIRE "burst-fire mode"
+#define GUN_FIREMODE_AUTOMATIC "automatic fire mode"
+#define GUN_FIREMODE_AUTOBURST "auto-burst-fire mode"
+
+//autofire component fire callback callback return flags
+#define AUTOFIRE_CONTINUE (1<<0)
+#define AUTOFIRE_SUCCESS (1<<1)

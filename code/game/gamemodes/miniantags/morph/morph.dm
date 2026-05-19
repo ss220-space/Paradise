@@ -59,6 +59,8 @@
 	var/obj/effect/proc_holder/spell/morph_spell/pass_airlock/pass_airlock_spell
 	/// The spell the morph uses to open vent when crawling in them
 	var/obj/effect/proc_holder/spell/morph_spell/open_vent/open_vent_spell
+	/// The spell the morph uses to reproduce
+	var/obj/effect/proc_holder/spell/morph_spell/reproduce/reproduce_spell
 
 	/// How much the morph has gathered in terms of food. Used to reproduce and such
 	var/gathered_food = 20 // Start with a bit to use abilities
@@ -94,6 +96,8 @@
 	AddSpell(open_vent_spell)
 	pass_airlock_spell = new
 	AddSpell(pass_airlock_spell)
+	reproduce_spell = new
+	AddSpell(reproduce_spell)
 	GLOB.morphs_alive_list += src
 	check_morphs()
 
@@ -106,6 +110,8 @@
 	open_vent_spell = null
 	RemoveSpell(pass_airlock_spell)
 	pass_airlock_spell = null
+	RemoveSpell(reproduce_spell)
+	reproduce_spell = null
 	return ..()
 
 /mob/living/simple_animal/hostile/morph/ComponentInitialize()
@@ -121,12 +127,7 @@
  * * boolean - TRUE = enabled, FALSE = disabled
  */
 /mob/living/simple_animal/hostile/morph/proc/enable_reproduce(boolean)
-	if(boolean)
-		can_reproduce = TRUE
-		AddSpell(new /obj/effect/proc_holder/spell/morph_spell/reproduce)
-	else
-		can_reproduce = FALSE
-		RemoveSpell(/obj/effect/proc_holder/spell/morph_spell/reproduce)
+	can_reproduce = boolean
 
 /mob/living/simple_animal/hostile/morph/get_status_tab_items()
 	var/list/status_tab_data = ..()
@@ -148,7 +149,7 @@
 		PREPOSITIONAL = "магическом морфе",
 	)
 
-/mob/living/simple_animal/hostile/morph/wizard/New()
+/mob/living/simple_animal/hostile/morph/wizard/Initialize(mapload)
 	. = ..()
 	var/obj/effect/proc_holder/spell/smoke/smoke = new
 	var/obj/effect/proc_holder/spell/forcewall/forcewall = new
@@ -249,10 +250,12 @@
 	mimic_spell.perfect_disguise = FALSE // Reset the perfect disguise
 	remove_status_effect(/datum/status_effect/morph_ambush)
 	UnregisterSignal(src, COMSIG_MOVABLE_MOVED)
+	add_to_all_human_data_huds()
 
 /mob/living/simple_animal/hostile/morph/proc/perfect_ambush()
 	mimic_spell.perfect_disguise = TRUE // Reset the perfect disguise
 	to_chat(src, span_sinister("Вы стали совершенной копией... Они даже не заподозрят подмену."))
+	remove_from_all_data_huds()
 
 /mob/living/simple_animal/hostile/morph/proc/on_move()
 	failed_ambush()
@@ -260,6 +263,7 @@
 
 /mob/living/simple_animal/hostile/morph/death(gibbed)
 	. = ..()
+	add_to_all_human_data_huds()
 	if(stat == DEAD && gibbed)
 		for(var/atom/movable/eaten_thing in src)
 			eaten_thing.forceMove(loc)
@@ -324,16 +328,16 @@
 		return TRUE
 	restore_form()
 
-/mob/living/simple_animal/hostile/morph/attack_larva(mob/living/carbon/alien/larva/L)
+/mob/living/simple_animal/hostile/morph/attack_larva(mob/living/carbon/alien/larva/larva_attacker)
 	restore_form()
 
-/mob/living/simple_animal/hostile/morph/attack_alien(mob/living/carbon/alien/humanoid/M)
+/mob/living/simple_animal/hostile/morph/attack_alien(mob/living/carbon/alien/humanoid/alien_attacker)
 	restore_form()
 
 /mob/living/simple_animal/hostile/morph/attack_tk(mob/user)
 	restore_form()
 
-/mob/living/simple_animal/hostile/morph/attack_slime(mob/living/simple_animal/slime/M)
+/mob/living/simple_animal/hostile/morph/attack_slime(mob/living/simple_animal/slime/slime_attacker)
 	restore_form()
 
 /mob/living/simple_animal/hostile/morph/water_act(volume, temperature, source, method)
@@ -360,16 +364,25 @@
 	vision_range = initial(vision_range)
 
 /mob/living/simple_animal/hostile/morph/proc/allowed(atom/movable/item)
-	var/list/not_allowed = list(/atom/movable/screen, /obj/singularity, /mob/living/simple_animal/hostile/morph)
+	var/list/not_allowed = list(
+		/atom/movable/screen,
+		/obj/singularity,
+		/obj/energy_ball,
+		/obj/god,
+		/mob/living/simple_animal/hostile/morph,
+		/obj/effect,
+	)
 	return !is_type_in_list(item, not_allowed)
 
 /mob/living/simple_animal/hostile/morph/AIShouldSleep(list/possible_targets)
 	. = ..()
 	if(. && !morphed)
 		var/list/things = list()
-		for(var/atom/movable/item_in_view in view(src))
+		for(var/atom/movable/item_in_view in oview(src))
 			if(isobj(item_in_view) && allowed(item_in_view))
 				things += item_in_view
+		if(!length(things))
+			return
 		var/atom/movable/picked_thing = pick(things)
 		if(picked_thing)
 			mimic_spell.take_form(new /datum/mimic_form(picked_thing, src), src)
@@ -430,9 +443,6 @@
 		messages.Add(mind.prepare_announce_objectives(FALSE))
 
 	to_chat(src, chat_box_red(messages.Join("<br>")))
-
-/mob/living/simple_animal/hostile/morph/get_examine_time()
-	return morphed ? mimic_spell.selected_form.examine_time : ..()
 
 /mob/living/simple_animal/hostile/morph/get_visible_gender()
 	return morphed ? mimic_spell.selected_form.examine_gender : ..()

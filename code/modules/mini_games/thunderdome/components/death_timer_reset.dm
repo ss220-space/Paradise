@@ -11,7 +11,7 @@
 
 /datum/component/death_timer_reset/Initialize(death_time)
 	death_time_before = death_time
-	RegisterSignal(parent, list(COMSIG_MOB_GHOSTIZE), PROC_REF(reset_death_time))
+	RegisterSignals(parent, list(COMSIG_MOB_GHOSTIZE), PROC_REF(reset_death_time))
 
 /**
  * A bit of a trick with ghostized dead without possibility to return to left body. (Because it resets time of death to world.time)

@@ -81,8 +81,8 @@
 	visuals = new beam_type()
 	set_up_effect(visuals, icon_state)
 	Draw()
-	RegisterSignal(origin, list(COMSIG_MOVABLE_MOVED, COMSIG_QDELETING), PROC_REF(redrawing))
-	RegisterSignal(target, list(COMSIG_MOVABLE_MOVED, COMSIG_QDELETING), PROC_REF(redrawing))
+	RegisterSignals(origin, list(COMSIG_MOVABLE_MOVED, COMSIG_QDELETING), PROC_REF(redrawing))
+	RegisterSignals(target, list(COMSIG_MOVABLE_MOVED, COMSIG_QDELETING), PROC_REF(redrawing))
 
 /**
  * Triggered by signals set up when the beam is set up. If it's still sane to create a beam, it removes the old beam, creates a new one. Otherwise it kills the beam.
@@ -294,7 +294,7 @@
 
 	beam_entered(entered)
 
-/obj/effect/ebeam/reacting/proc/on_exited(datum/source, atom/movable/exited)
+/obj/effect/ebeam/reacting/proc/on_exited(datum/source, atom/movable/exited, direction)
 	SIGNAL_HANDLER
 
 	if(isnull(owner))

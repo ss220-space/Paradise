@@ -371,8 +371,9 @@
 	/// whether our robopad is advanced
 	var/advanced = FALSE
 
-/obj/machinery/roboquest_pad/New()
-	..()
+/obj/machinery/roboquest_pad/Initialize(mapload)
+	. = ..()
+
 	component_parts = list()
 	component_parts += new /obj/item/stack/ore/bluespace_crystal/artificial(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
@@ -391,8 +392,9 @@
 	icon_state = "advqpad"
 	advanced = TRUE
 
-/obj/machinery/roboquest_pad/advanced/New()
-	..()
+/obj/machinery/roboquest_pad/advanced/Initialize(mapload)
+	. = ..()
+
 	component_parts = list()
 	component_parts += new /obj/item/stack/ore/bluespace_crystal/artificial(null)
 	component_parts += new /obj/item/stock_parts/capacitor(null)
@@ -451,7 +453,7 @@
 		quest.id.robo_bounty = null
 		quest = null
 
-/obj/machinery/roboquest_pad/proc/on_exited(datum/source, atom/movable/departed, atom/newLoc)
+/obj/machinery/roboquest_pad/proc/on_exited(datum/source, atom/movable/departed, direction)
 	SIGNAL_HANDLER
 
 	if(ismecha(departed) && console)
@@ -483,7 +485,7 @@
 	/// Penalty, given by console check
 	var/penalty = 0
 
-/obj/structure/closet/crate/critter/mecha/New(loc, datum/roboquest/quest, obj/machinery/computer/roboquest/console, penalty)
+/obj/structure/closet/crate/critter/mecha/Initialize(mapload, datum/roboquest/quest, obj/machinery/computer/roboquest/console, penalty)
 	. = ..()
 	src.quest = quest
 	src.console = console

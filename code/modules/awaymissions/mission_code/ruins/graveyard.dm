@@ -5,12 +5,12 @@
 /area/ruin/space/graveyard/church
 	name = "Space Graveyard Church"
 	icon_state = "away1"
-	ambientsounds = list('sound/ambience/ambicha4.ogg', 'sound/ambience/ambilava1.ogg', 'sound/ambience/ambilava3.ogg', 'sound/ambience/ambimo2.ogg', 'sound/ambience/ambiruin6.ogg')
+	ambience_index = AMBIENCE_MINING
 
 /area/ruin/space/graveyard/graves
 	name = "Space Graveyard Graves"
 	icon_state = "away2"
-	ambientsounds = list('sound/ambience/apathy.ogg')
+	ambientsounds = list('sound/ambience/spooky/apathy.ogg')
 
 ///// The Undertaker Shuttle
 
@@ -167,7 +167,6 @@
 	icon_state = "socle"
 	pass_flags = LETPASSTHROW
 	can_be_flipped = FALSE
-	climbable = FALSE
 	smooth = NONE
 
 /obj/effect/spawner/graveyard_statues
@@ -175,16 +174,16 @@
 	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "x3"
 
-/obj/effect/spawner/graveyard_statues/New()
+/obj/effect/spawner/graveyard_statues/Initialize(mapload)
+	. = ..()
 	var/monument
 	var/offset = 0
-	switch(pick("big","small"))
+	switch(pick("big", "small"))
 		if("big")
 			monument = pick(
 				/obj/structure/statue/unknown,
 				/obj/structure/statue/death,
 			)
-
 		if("small")
 			monument = pick(
 				/obj/structure/statue/noble,
@@ -193,11 +192,8 @@
 			offset = 16
 	var/obj/structure/statue/statue = new monument(get_turf(src))
 	statue.pixel_x = offset
-	..()
-
-/obj/effect/spawner/graveyard_statues/Initialize(mapload)
-	. = ..()
 	return INITIALIZE_HINT_QDEL
+
 
 /obj/item/book/philosophy_of_death
 	name = "Философия смерти"

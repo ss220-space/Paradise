@@ -45,10 +45,10 @@
 	if(length(stack_overlays))
 		. += stack_overlays
 
-/obj/item/stack/ore/Initialize(mapload, new_amount , merge = TRUE)
+/obj/item/stack/ore/Initialize(mapload, new_amount, merge = TRUE)
 	. = ..()
-	pixel_x = rand(0, 16) - 8
-	pixel_y = rand(0, 8) - 8
+	pixel_x = base_pixel_x + rand(0, 16) - 8
+	pixel_y = base_pixel_y + rand(0, 8) - 8
 
 /obj/item/stack/ore/welder_act(mob/user, obj/item/I)
 	. = TRUE
@@ -547,10 +547,10 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		PREPOSITIONAL = "монете",
 	)
 
-/obj/item/coin/New()
-	..()
-	pixel_x = rand(0,16)-8
-	pixel_y = rand(0,8)-8
+/obj/item/coin/Initialize(mapload)
+	. = ..()
+	pixel_x = base_pixel_x + rand(-8, 8)
+	pixel_y = base_pixel_y + rand(-8, 8)
 
 	icon_state = "coin_[cmineral]_[sideslist[1]]"
 	if(cmineral && name_by_cmineral)

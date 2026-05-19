@@ -1,4 +1,0 @@
-author: "svotnik"
-delete-after: True
-changes:
-  - bugfix: "фикс опечатки в описании импланта! (PR #9134)"

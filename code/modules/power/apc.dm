@@ -239,41 +239,74 @@
 	if(terminal)
 		terminal.connect_to_network()
 
-/obj/machinery/power/apc/New(turf/loc, direction, building = 0)
+/obj/machinery/power/apc/Initialize(mapload, direction, building = FALSE)
+	. = ..()
 	if(!armor)
 		armor = list(MELEE = 20, BULLET = 20, LASER = 10, ENERGY = 100, BOMB = 30, BIO = 100, FIRE = 90, ACID = 50)
-	..()
+
 	GLOB.apcs += src
 	GLOB.apcs = sortAtom(GLOB.apcs)
 
 	wires = new(src)
 
-	if(is_taipan(z)) // Синдидоступ при сборке на тайпане
-		req_access = list(ACCESS_SYNDICATE)
+	var/area/apc_area = get_area(src)
+
+	if(keep_preset_name)
+		if(isarea(apc_area))
+			area = apc_area
+		// no-op, keep the name
+	else if(isarea(apc_area) && !areastring)
+		area = apc_area
+		name = "[area.name] APC"
+	else
+		name = "[get_area_name(area, TRUE)] APC"
 
 	if(building)
 		// Offset 24 pixels in direction of dir. This allows the APC to be embedded in a wall, yet still inside an area
 		setDir(direction) // This is only used for pixel offsets, and later terminal placement. APC dir doesn't affect its sprite since it only has one orientation.
 		set_pixel_offsets_from_dir(24, -24, 24, -24)
-
-		area = get_area(src)
-		area.apc |= src
 		opened = APC_OPENED
 		operating = FALSE
-		name = "[area.name] APC"
 		stat |= MAINT
-		update_icon()
-		addtimer(CALLBACK(src, PROC_REF(update)), 5)
+	else
+		electronics_state = APC_ELECTRONICS_SECURED
+		// is starting with a power cell installed, create it and set its charge level
+		if(cell_type)
+			cell = new/obj/item/stock_parts/cell/upgraded(src)
+			cell.maxcharge = cell_type	// cell_type is maximum charge (old default was 1000 or 2500 (values one and two respectively)
+			cell.charge = start_charge * cell.maxcharge / 100 // (convert percentage to actual value)
+		make_terminal()
+
+	if(is_taipan(z)) // Синдидоступ при сборке на тайпане
+		req_access = list(ACCESS_SYNDICATE)
+	cog = null // Or you can't put it in
+
+	//if area isn't specified use current
+	area.apc |= src
+
+	// Make the apc visually interactive
+	register_context()
+	addtimer(CALLBACK(src, PROC_REF(update)), 0.5 SECONDS)
+	update_appearance()
+
+	var/static/list/hovering_mob_typechecks = list(
+		/mob/living/silicon = list(
+			SCREENTIP_CONTEXT_CTRL_LMB = "Вкл/выкл питание",
+			SCREENTIP_CONTEXT_RMB = "Разблокировать/Заблокировать",
+		)
+	)
+	AddElement(/datum/element/contextual_screentip_mob_typechecks, hovering_mob_typechecks)
 
 /obj/machinery/power/apc/Destroy(force)
 	SStgui.close_uis(wires)
 	GLOB.apcs -= src
 	if(malfai && operating)
 		malfai.malf_picker.processing_time = clamp(malfai.malf_picker.processing_time - 10,0,1000)
-	area.power_light = 0
-	area.power_equip = 0
-	area.power_environ = 0
-	area.power_change()
+	if(area)
+		area.power_light = FALSE
+		area.power_equip = FALSE
+		area.power_environ = FALSE
+		area.power_change()
 	if(occupier)
 		malfvacate(TRUE)
 	QDEL_NULL(wires)
@@ -290,46 +323,6 @@
 	terminal = new/obj/machinery/power/terminal(get_turf(src))
 	terminal.setDir(dir)
 	terminal.master = src
-
-/obj/machinery/power/apc/Initialize(mapload)
-	var/area/A = get_area(src)
-	//if area isn't specified use current
-	if(keep_preset_name)
-		if(isarea(A))
-			area = A
-		// no-op, keep the name
-	else if(isarea(A) && !areastring)
-		area = A
-		name = "[area.name] APC"
-	else
-		name = "[get_area_name(area, TRUE)] APC"
-	area.apc |= src
-	. = ..()
-	if(!mapload)
-		return
-	electronics_state = APC_ELECTRONICS_SECURED
-	// is starting with a power cell installed, create it and set its charge level
-	if(cell_type)
-		cell = new/obj/item/stock_parts/cell/upgraded(src)
-		cell.maxcharge = cell_type	// cell_type is maximum charge (old default was 1000 or 2500 (values one and two respectively)
-		cell.charge = start_charge * cell.maxcharge / 100		// (convert percentage to actual value)
-
-	cog = null // Or you can't put it in
-
-	update_icon()
-
-	make_terminal()
-
-	addtimer(CALLBACK(src, PROC_REF(update)), 5)
-
-	var/static/list/hovering_mob_typechecks = list(
-		/mob/living/silicon = list(
-			SCREENTIP_CONTEXT_CTRL_LMB = "Вкл/выкл питание",
-			SCREENTIP_CONTEXT_RMB = "Разблокировать/Заблокировать",
-		)
-	)
-
-	AddElement(/datum/element/contextual_screentip_mob_typechecks, hovering_mob_typechecks)
 
 /obj/machinery/power/apc/examine(mob/user)
 	. = ..()
@@ -1171,6 +1164,7 @@
 		area.power_light = (lighting_channel > CHANNEL_SETTING_AUTO_OFF)
 		area.power_equip = (equipment_channel > CHANNEL_SETTING_AUTO_OFF)
 		area.power_environ = (environment_channel > CHANNEL_SETTING_AUTO_OFF)
+		playsound(loc, 'sound/machines/terminal_on.ogg', 50, FALSE)
 		if(lighting_channel)
 			emergency_power = TRUE
 			if(emergency_power_timer)
@@ -1182,6 +1176,7 @@
 		area.power_light = FALSE
 		area.power_equip = FALSE
 		area.power_environ = FALSE
+		playsound(loc, 'sound/machines/terminal_off.ogg', 50, FALSE)
 		emergency_power_timer = addtimer(CALLBACK(src, PROC_REF(turn_emergency_power_off)), 10 MINUTES, TIMER_UNIQUE|TIMER_STOPPABLE)
 	area.power_change()
 

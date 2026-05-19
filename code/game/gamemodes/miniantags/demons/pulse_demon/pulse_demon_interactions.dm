@@ -17,7 +17,7 @@
 		var/obj/item/gun/energy/G = current_weapon
 		// we probably shouldn't be firing from inside a recharger or someone's bag
 		if(iscarbon(G.loc) || isturf(G.loc))
-			G.process_fire(A, src, FALSE)
+			G.fast_fire(A, src)
 			visible_message(span_danger("[G] fires itself at [A]!"), span_danger("You force [G] to fire at [A]!"), span_italics("You hear \a [G.fire_sound_text]!"))
 			changeNext_click(CLICK_CD_RANGE) // I can't actually find what the default gun fire cooldown is, so it's 1 second until someone enlightens me
 			return

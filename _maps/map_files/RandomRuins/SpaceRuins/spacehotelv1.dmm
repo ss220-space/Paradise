@@ -19,10 +19,10 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/foremaints)
 "ak" = (
-/obj/effect/decal/warning_stripes/yellow/partial{
+/obj/effect/turf_decal/delivery/partial{
 	dir = 1
 	},
-/obj/effect/decal/warning_stripes/arrow,
+/obj/effect/turf_decal/arrows/black,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
@@ -51,9 +51,15 @@
 /turf/space,
 /area/space)
 "az" = (
-/obj/effect/decal/warning_stripes/north,
-/obj/effect/decal/warning_stripes/west,
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/spacehotelv1/tcomms)
 "aD" = (
@@ -209,7 +215,7 @@
 /obj/item/clothing/mask/breath,
 /obj/item/clothing/mask/breath,
 /obj/item/clothing/mask/breath,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/cargostorage)
 "bs" = (
@@ -332,11 +338,13 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/foremaints)
 "ct" = (
-/obj/effect/decal/warning_stripes/northwestsouth,
+/obj/effect/turf_decal/stripes/end{
+	dir = 8
+	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/spacehotelv1/tcomms)
 "cu" = (
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/structure/closet/crate/freezer,
 /obj/item/reagent_containers/food/snacks/grown/carrot,
 /obj/item/reagent_containers/food/snacks/grown/carrot,
@@ -400,7 +408,6 @@
 /obj/structure/lattice/catwalk,
 /obj/machinery/power/apc/directional/west,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/space,
@@ -489,7 +496,6 @@
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "dQ" = (
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/machinery/power/terminal,
@@ -497,7 +503,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi2)
 "dT" = (
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/cargostorage)
 "dW" = (
@@ -582,7 +588,6 @@
 	},
 /obj/machinery/power/apc/generator/directional/east,
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
@@ -640,7 +645,6 @@
 	name = "Aft Starboard Solar Panel"
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -692,7 +696,6 @@
 "fF" = (
 /obj/machinery/power/tracker,
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -702,7 +705,6 @@
 "fI" = (
 /obj/machinery/power/apc/directional/north,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -833,7 +835,6 @@
 	input_level = 200000
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
@@ -866,9 +867,15 @@
 	},
 /area/ruin/space/spacehotelv1/entryhallway)
 "hg" = (
-/obj/effect/decal/warning_stripes/south,
-/obj/effect/decal/warning_stripes/west,
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/spacehotelv1/tcomms)
 "hi" = (
@@ -952,7 +959,6 @@
 "hL" = (
 /obj/machinery/power/apc/directional/west,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/wood,
@@ -1033,8 +1039,12 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/guestroom6)
 "ir" = (
-/obj/effect/decal/warning_stripes/south,
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
@@ -1070,9 +1080,15 @@
 	},
 /area/ruin/space/spacehotelv1/bar)
 "iH" = (
-/obj/effect/decal/warning_stripes/south,
-/obj/effect/decal/warning_stripes/north,
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/spacehotelv1/decals)
 "iK" = (
@@ -1179,8 +1195,12 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/evamaints)
 "jo" = (
-/obj/effect/decal/warning_stripes/west,
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/spacehotelv1/decals)
 "jr" = (
@@ -1460,9 +1480,15 @@
 	},
 /area/ruin/space/spacehotelv1/cargostorage)
 "lo" = (
-/obj/effect/decal/warning_stripes/south,
-/obj/effect/decal/warning_stripes/north,
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/spacehotelv1/decals)
 "lq" = (
@@ -1495,12 +1521,18 @@
 	},
 /area/ruin/space/spacehotelv1/entryhallway)
 "lK" = (
-/obj/effect/decal/warning_stripes/south,
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/spacehotelv1/decals)
 "lL" = (
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/item/stack/cable_coil,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/spacehotelv1/tcomms)
@@ -1719,7 +1751,6 @@
 /area/ruin/space/spacehotelv1/guestroom2)
 "nO" = (
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/machinery/power/solar_control/autostart,
@@ -1786,7 +1817,6 @@
 "om" = (
 /obj/machinery/power/apc/directional/north,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/wood,
@@ -2116,7 +2146,6 @@
 "qM" = (
 /obj/machinery/power/apc/directional/north,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden{
@@ -2144,7 +2173,6 @@
 /area/ruin/space/spacehotelv1/centralhallway)
 "qY" = (
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/machinery/power/apc/directional/south,
@@ -2188,7 +2216,6 @@
 	name = "Aft Starboard Solar Panel"
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/structure/cable{
@@ -2289,7 +2316,6 @@
 	},
 /obj/machinery/power/apc/directional/south,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plasteel/grimy,
@@ -2347,7 +2373,6 @@
 	name = "Aft Starboard Solar Panel"
 	},
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -2383,7 +2408,6 @@
 	name = "Grid Power Monitoring Computer"
 	},
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
@@ -2408,7 +2432,7 @@
 	},
 /area/ruin/space/spacehotelv1/kitchen)
 "sQ" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/rack,
 /obj/item/storage/box/lights/mixed,
 /obj/item/stack/sheet/glass{
@@ -2457,7 +2481,6 @@
 /area/ruin/space/spacehotelv1/cargostorage)
 "tb" = (
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/machinery/power/terminal,
@@ -2708,7 +2731,6 @@
 "uR" = (
 /obj/machinery/power/apc/directional/south,
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/structure/table/reinforced/brass,
@@ -2743,7 +2765,6 @@
 /obj/item/clothing/under/kilt,
 /obj/item/clothing/head/beret,
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/structure/closet/cabinet,
@@ -2783,7 +2804,6 @@
 "vt" = (
 /obj/machinery/power/apc/directional/west,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/structure/sign/poster/contraband/random{
@@ -2904,7 +2924,6 @@
 "wy" = (
 /obj/machinery/power/apc/directional/south,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/structure/table/wood/fancy/black,
@@ -2978,7 +2997,6 @@
 	input_level = 200000
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
@@ -3176,7 +3194,7 @@
 /turf/space,
 /area/space)
 "yK" = (
-/obj/machinery/disco,
+/obj/machinery/jukebox/disco,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/bar)
 "yN" = (
@@ -3218,7 +3236,7 @@
 	},
 /area/ruin/space/spacehotelv1/bar)
 "yY" = (
-/obj/effect/decal/warning_stripes/yellow/partial{
+/obj/effect/turf_decal/delivery/partial{
 	dir = 1
 	},
 /obj/machinery/door_control{
@@ -3227,13 +3245,13 @@
 	pixel_x = 26;
 	pixel_y = 6
 	},
-/obj/effect/decal/warning_stripes/arrow,
+/obj/effect/turf_decal/arrows/black,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
 /area/ruin/space/spacehotelv1/entryhallway)
 "zh" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/rack,
 /obj/item/crowbar/red,
 /obj/item/stack/sheet/metal{
@@ -3416,7 +3434,9 @@
 	},
 /area/ruin/space/spacehotelv1/entryhallway)
 "AC" = (
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
@@ -3540,7 +3560,6 @@
 	name = "Aft Starboard Solar Panel"
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/structure/cable{
@@ -3681,7 +3700,6 @@
 /area/ruin/space/spacehotelv1/forehallway)
 "CO" = (
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/power/apc/directional/north,
@@ -3740,8 +3758,12 @@
 /turf/simulated/wall,
 /area/ruin/space/spacehotelv1/restoraunt2)
 "Dr" = (
-/obj/effect/decal/warning_stripes/south,
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/spacehotelv1/tcomms)
 "Dt" = (
@@ -3940,7 +3962,7 @@
 "Ex" = (
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/cargostorage)
 "Ez" = (
@@ -4099,7 +4121,6 @@
 /obj/effect/spawner/lootdrop/maintenance/tripple,
 /obj/machinery/power/apc/directional/north,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plating,
@@ -4144,8 +4165,12 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/forehallway)
 "FP" = (
-/obj/effect/decal/warning_stripes/south,
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -4164,7 +4189,6 @@
 "FX" = (
 /obj/machinery/power/apc/directional/south,
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/vehicle/ridden/janicart{
@@ -4300,7 +4324,6 @@
 	name = "Aft Starboard Solar Panel"
 	},
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/structure/cable{
@@ -4374,7 +4397,6 @@
 "HP" = (
 /obj/machinery/power/apc/directional/north,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/structure/filingcabinet,
@@ -4413,7 +4435,7 @@
 /turf/simulated/floor/light/airless,
 /area/ruin/space/spacehotelv1/tcomms)
 "Ik" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/cargostorage)
 "Io" = (
@@ -4520,7 +4542,6 @@
 	name = "Aft Starboard Solar Panel"
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -4643,7 +4664,9 @@
 	},
 /area/ruin/space/spacehotelv1/kitchen)
 "JS" = (
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/spacehotelv1/tcomms)
 "JT" = (
@@ -5281,7 +5304,6 @@
 "NW" = (
 /obj/machinery/power/apc/directional/north,
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/structure/table/abductor,
@@ -5423,7 +5445,6 @@
 "OX" = (
 /obj/machinery/power/tracker,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -5712,7 +5733,6 @@
 	},
 /obj/machinery/power/apc/directional/west,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
@@ -5880,7 +5900,9 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/spacehotelv1/restoraunt)
 "Sf" = (
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/item/stack/sheet/glass{
 	amount = 4
 	},
@@ -6190,7 +6212,6 @@
 "Uo" = (
 /obj/machinery/power/apc/generator/directional/east,
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -6274,7 +6295,6 @@
 "UM" = (
 /obj/machinery/power/apc/directional/south,
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -6406,7 +6426,6 @@
 "Wc" = (
 /obj/machinery/power/apc/directional/south,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -6460,7 +6479,7 @@
 "Ws" = (
 /obj/structure/chair/office/light,
 /obj/structure/safe/floor,
-/obj/item/camera_bug,
+/obj/item/camera_bug/syndicate,
 /obj/item/flash{
 	pixel_x = -4;
 	pixel_y = 2
@@ -6841,8 +6860,8 @@
 /turf/simulated/wall,
 /area/ruin/space/spacehotelv1/forehallway)
 "Zm" = (
-/obj/effect/decal/warning_stripes/yellow/partial,
-/obj/effect/decal/warning_stripes/arrow,
+/obj/effect/turf_decal/delivery/partial,
+/obj/effect/turf_decal/arrows/black,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/spacehotelv1/entryhallway)
 "Zn" = (
@@ -6951,7 +6970,6 @@
 "ZP" = (
 /obj/machinery/power/apc/directional/north,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/wood,

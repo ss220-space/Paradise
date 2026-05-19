@@ -1,4 +1,5 @@
-/mob/Destroy()//This makes sure that mobs with clients/keys are not just deleted from the game.
+// This makes sure that mobs with clients/keys are not just deleted from the game.
+/mob/Destroy()
 	persistent_client?.set_mob(null)
 	remove_from_mob_list()
 	remove_from_alive_mob_list()
@@ -15,8 +16,14 @@
 		spellremove(src)
 	mobspellremove(src)
 	QDEL_LIST(diseases)
+
+	if(length(progressbars))
+		stack_trace("[src] destroyed with elements in its progressbars list")
+		progressbars = null
+
 	for(var/alert in alerts)
-		clear_alert(alert)
+		clear_alert(alert, TRUE)
+
 	if(client)
 		clear_client_in_contents()
 	ghostize()
@@ -154,7 +161,7 @@
 			type = alt_type
 			. = FALSE
 
-		if(type & EMOTE_AUDIBLE && !can_hear())	//Hearing related
+		if(type & EMOTE_AUDIBLE && HAS_TRAIT(src, TRAIT_DEAF))	//Hearing related
 			if(!alt_msg)
 				return FALSE
 			msg = alt_msg
@@ -1156,36 +1163,6 @@
 
 	target += new_log
 
-/mob/vv_get_dropdown()
-	. = ..()
-	.["Show player panel"] = "byond://?_src_=vars;mob_player_panel=[UID()]"
-
-	.["Give Spell"] = "byond://?_src_=vars;give_spell=[UID()]"
-	.["Give Martial Art"] = "byond://?_src_=vars;givemartialart=[UID()]"
-	.["Give Disease"] = "byond://?_src_=vars;give_disease=[UID()]"
-	.["Give Taipan Hud"] = "byond://?_src_=vars;give_taipan_hud=[UID()]"
-	.["Toggle Godmode"] = "byond://?_src_=vars;godmode=[UID()]"
-	.["Toggle Build Mode"] = "byond://?_src_=vars;build_mode=[UID()]"
-
-	.["Make 2spooky"] = "byond://?_src_=vars;make_skeleton=[UID()]"
-
-	.["Assume Direct Control"] = "byond://?_src_=vars;direct_control=[UID()]"
-	.["Offer Control to Ghosts"] = "byond://?_src_=vars;offer_control=[UID()]"
-	.["Drop Everything"] = "byond://?_src_=vars;drop_everything=[UID()]"
-
-	.["Regenerate Icons"] = "byond://?_src_=vars;regenerateicons=[UID()]"
-	.["Add Language"] = "byond://?_src_=vars;addlanguage=[UID()]"
-	.["Remove Language"] = "byond://?_src_=vars;remlanguage=[UID()]"
-	.["Grant All Language"] = "byond://?_src_=vars;grantalllanguage=[UID()]"
-	.["Change Voice"] = "byond://?_src_=vars;changevoice=[UID()]"
-	.["Add Organ"] = "byond://?_src_=vars;addorgan=[UID()]"
-	.["Remove Organ"] = "byond://?_src_=vars;remorgan=[UID()]"
-
-	.["Add Verb"] = "byond://?_src_=vars;addverb=[UID()]"
-	.["Remove Verb"] = "byond://?_src_=vars;remverb=[UID()]"
-
-	.["Gib"] = "byond://?_src_=vars;gib=[UID()]"
-
 ///Can this mob resist (default FALSE)
 /mob/proc/can_resist()
 	return FALSE		//overridden in living.dm
@@ -1512,3 +1489,20 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 
 /mob/compressor_grind()
 	gib()
+
+/**
+ * Checks if there is enough light where the mob is located
+ *
+ * Args:
+ *  light_amount (optional) - A decimal amount between 1.0 through 0.0 (default is 0.2)
+ */
+/mob/proc/has_light_nearby(light_amount = LIGHTING_TILE_IS_DARK)
+	var/turf/mob_location = get_turf(src)
+	var/area/mob_area = get_area(src)
+
+	if(mob_location.get_lumcount() > light_amount)
+		return TRUE
+	else if(!mob_area.static_lighting)
+		return TRUE
+
+	return FALSE

@@ -504,8 +504,8 @@
 		PREPOSITIONAL = "волшебном банане",
 	)
 
-/obj/projectile/magic/slipping/New()
-	..()
+/obj/projectile/magic/slipping/Initialize(mapload)
+	. = ..()
 	SpinAnimation()
 
 /obj/projectile/magic/slipping/on_hit(atom/target, blocked = 0)
