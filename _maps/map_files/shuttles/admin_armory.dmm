@@ -680,9 +680,6 @@
 	},
 /area/shuttle/administration)
 "xZ" = (
-/obj/machinery/recharger/wallcharger{
-	pixel_y = 30
-	},
 /obj/machinery/bodyscanner{
 	dir = 4
 	},
