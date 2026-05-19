@@ -264,7 +264,6 @@
 "aT" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/shuttle/escape)
@@ -296,7 +295,6 @@
 /area/shuttle/escape)
 "ba" = (
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/shuttle/escape)
@@ -386,7 +384,6 @@
 	req_access = list(50)
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/shuttle/escape)
@@ -675,14 +672,12 @@
 "bZ" = (
 /obj/machinery/recharge_station/upgraded,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/shuttle/escape)
 "ca" = (
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/shuttle/escape)

@@ -56,8 +56,7 @@
 		if(length(embeds) > 10)
 			embeds.len = 10 // Cut to 10 embeds because thats the limit of the Discord API
 
-		for(var/e in embeds)
-			var/datum/discord_embed/embed = e
+		for(var/datum/discord_embed/embed as anything in embeds)
 			json["embeds"] += list(embed.serialize2list())
 
 	return json_encode(json)
@@ -106,8 +105,7 @@
 	// Now serialize the fields
 	if(length(fields))
 		json["fields"] = list()
-		for(var/f in fields)
-			var/datum/discord_embed_field/field = f
+		for(var/datum/discord_embed_field/field as anything in fields)
 			json["fields"] += list(field.serialize2list())
 
 	return json

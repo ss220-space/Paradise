@@ -54,7 +54,6 @@
 	health = 85
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_regular_floor = "yellowsiding";
 	icon_state = "tranquillite"
 	},
@@ -126,7 +125,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/shuttle/abandoned)
@@ -200,7 +198,6 @@
 	specialfunctions = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/shuttle/abandoned)
@@ -269,7 +266,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/blood/tracks,
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/shuttle/abandoned)
@@ -352,7 +348,6 @@
 	},
 /obj/item/clothing/gloves/color/red/insulated,
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_regular_floor = "yellowsiding";
 	icon_state = "tranquillite"
 	},
@@ -432,7 +427,6 @@
 /obj/effect/decal/cleanable/blood,
 /obj/effect/decal/cleanable/blood/gibs,
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/shuttle/abandoned)
@@ -701,7 +695,6 @@
 /obj/effect/decal/cleanable/blood/tracks,
 /obj/effect/decal/cleanable/blood/drip,
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/shuttle/abandoned)
@@ -879,7 +872,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/shuttle/abandoned)
@@ -1186,7 +1178,6 @@
 	health = 20
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/shuttle/abandoned)
@@ -1320,7 +1311,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/item/storage/belt/medical,
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/shuttle/abandoned)
@@ -1602,7 +1592,6 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/shuttle/abandoned)
@@ -1724,7 +1713,6 @@
 	health = 20
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/shuttle/abandoned)
@@ -1834,7 +1822,6 @@
 	health = 85
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/shuttle/abandoned)
@@ -1946,7 +1933,6 @@
 	health = 45
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/shuttle/abandoned)
@@ -2036,7 +2022,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/vomit,
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/shuttle/abandoned)
@@ -2144,7 +2129,6 @@
 "VD" = (
 /obj/item/kitchen/utensil/spoon,
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/shuttle/abandoned)
@@ -2175,7 +2159,6 @@
 	pixel_y = 11
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/shuttle/abandoned)
@@ -2209,7 +2192,6 @@
 	pixel_y = 11
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/shuttle/abandoned)
@@ -2237,7 +2219,6 @@
 	health = 65
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/shuttle/abandoned)
@@ -2314,7 +2295,6 @@
 "Zr" = (
 /obj/item/gun/energy/gun/mini,
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/shuttle/abandoned)
