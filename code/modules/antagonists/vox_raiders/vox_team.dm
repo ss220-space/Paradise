@@ -162,8 +162,8 @@
 	for(var/mob/dead/observer/candidate as anything in assigned)
 		var/mob/living/carbon/human/body = new(pick(GLOB.raider_spawn))
 		body.possess_by_player(candidate.ckey)
-		body.mind.add_antag_datum(/datum/antagonist/vox_raider, /datum/team/vox_raiders)
 		transform_body_vox_raider(body)
+		body.mind.add_antag_datum(/datum/antagonist/vox_raider, /datum/team/vox_raiders)
 		body.equipOutfit(/datum/outfit/vox)
 
 /proc/transform_body_vox_raider(mob/living/carbon/human/target)

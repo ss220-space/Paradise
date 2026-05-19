@@ -5,6 +5,8 @@
 	special_role = SPECIAL_ROLE_VOX_RAIDER
 	antag_hud_name = "hudvoxraider"
 	antag_hud_type = ANTAG_HUD_VOX_RAIDER
+	show_in_orbit = FALSE
+	show_in_roundend = FALSE
 	wiki_page_name = "vox_raiders"
 	russian_wiki_name = "Вокс-Рейдер"
 	antag_memory = "<b> Я Вокс-Рейдер, основа моя: беречь стаю, тащить ценности. </b>."
