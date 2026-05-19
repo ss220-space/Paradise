@@ -87,6 +87,6 @@
 		return
 	var/mob/living/carbon/human/human_owner = owner
 	human_owner.name_override = null
-	human_owner.overlays.Cut()
+	human_owner.regenerate_icons()
 	human_owner.sec_hud_set_ID()
 	qdel(src)
