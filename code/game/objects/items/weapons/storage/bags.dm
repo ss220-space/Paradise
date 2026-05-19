@@ -101,14 +101,15 @@
 		item.do_pickup_animation(user)
 		handle_item_insertion(item, prevent_warning = TRUE)
 
-	if(success)
-		playsound(src, SFX_PICK_UP, 50, TRUE)
-		if(!failure)
-			user.balloon_alert(user, "успешно собрано!")
-		else
-			user.balloon_alert(user, "почти все собрано!")
-	else
+	if(!success)
 		user.balloon_alert(user, "не удалось собрать!")
+		return
+
+	playsound(src, SFX_PICK_UP, 50, TRUE)
+	if(failure)
+		user.balloon_alert(user, "почти всё собрано!")
+		return
+	user.balloon_alert(user, "успешно собрано!")
 
 ////////////////////////////////////////
 // MARK:	Plastic bag
