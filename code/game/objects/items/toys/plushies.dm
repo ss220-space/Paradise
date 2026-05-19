@@ -568,7 +568,7 @@
 // Smoking CMO
 /obj/item/toy/plushie/cmoplushie/attackby(obj/item/I, mob/user, params)
 	if(high)
-		return
+		return ATTACK_CHAIN_BLOCKED
 
 	if(istype(I, /obj/item/clothing/mask/cigarette))
 		add_fingerprint(user)
