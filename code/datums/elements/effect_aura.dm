@@ -85,7 +85,7 @@
 	var/atom/aura_owner
 	var/list/inside = list()
 
-/datum/proximity_monitor/advanced/aura/New(atom/_host, range, _ignore_if_not_on_turf = TRUE, datum/element/effect_aura/_owner, atom/_aura_owner)
+/datum/proximity_monitor/advanced/aura/New(atom/_host, range, works_when_not_on_turf = FALSE, datum/element/effect_aura/_owner, atom/_aura_owner)
 	src.owner = _owner
 	src.aura_owner = _aura_owner
 	..()
