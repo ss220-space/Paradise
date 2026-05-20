@@ -58,8 +58,11 @@
 	var/list/image/hud_list = null
 	///all of this atom's HUD images which can actually be seen by players with that hud
 	var/list/image/active_hud_list = null
-	//HUD images that this atom can provide.
+	///HUD images that this atom can provide.
 	var/list/hud_possible
+
+	///vis overlays managed by SSvis_overlays to automaticaly turn them like other overlays.
+	var/list/managed_vis_overlays
 
 	//Value used to increment ex_act() if reactionary_explosions is on
 	var/explosion_block = 0
@@ -176,6 +179,7 @@
 	/// List of underlay "keys" (info about the appearance) -> mutable versions of static appearances
 	/// Drawn from the underlays list
 	var/list/realized_underlays
+
 	/// Sources that changes gravity of object. Treated as lazy list.
 	var/list/gravity_sources
 	/// Sources that 100% won't changes gravity of object. Treated as lazy list.
@@ -1403,9 +1407,6 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(pass_info.pass_flags & pass_flags_self)
 		return TRUE
 	. = !density
-
-/atom/proc/get_examine_time() // Used only in /mob/living/carbon/human and /mob/living/simple_animal/hostile/morph
-	return 0 SECONDS
 
 /atom/proc/get_visible_gender() // Used only in /mob/living/carbon/human and /mob/living/simple_animal/hostile/morph
 	return gender

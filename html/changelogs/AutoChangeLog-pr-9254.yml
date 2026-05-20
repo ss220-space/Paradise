@@ -1,4 +1,0 @@
-author: "littleboobs"
-delete-after: True
-changes:
-  - bugfix: "Теперь расчёт дальности активации спеллов уважает ширину экрана. (PR #9254)"

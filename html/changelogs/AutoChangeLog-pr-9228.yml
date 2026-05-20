@@ -1,4 +1,0 @@
-author: "Ksaikok46"
-delete-after: True
-changes:
-  - bugfix: "Исправлен баг с синим экраном у консоли карго. (PR #9228)"

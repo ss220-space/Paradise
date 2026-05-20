@@ -8,8 +8,8 @@
             "type": "byond",
             "request": "launch",
             "name": "Launch DreamSeeker",
-            "preLaunchTask": "dm: build - ${command:CurrentDME}",
-            "dmb": "${workspaceFolder}/${command:CurrentDMB}",
+            "preLaunchTask": "dm: build - paradise.dme",
+            "dmb": "${workspaceFolder}/paradise.dmb",
         },
 		{
             "type": "byond",

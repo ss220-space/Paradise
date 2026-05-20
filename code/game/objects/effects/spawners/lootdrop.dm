@@ -134,7 +134,7 @@
 		////////////////CONTRABAND STUFF//////////////////
 		/obj/item/grenade/clown_grenade = 3,
 		/obj/item/seeds/ambrosia/cruciatus = 3,
-		/obj/item/gun/projectile/automatic/pistol = 1,
+		/obj/item/gun/projectile/automatic/pistol/aps/scarecrow = 1,
 		/obj/item/ammo_box/magazine/m10mm = 4,
 		/obj/item/implanter/fake_mindshield = 1,
 		/obj/item/soap/syndie = 7,
