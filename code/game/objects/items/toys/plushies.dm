@@ -169,7 +169,6 @@
 	desc = "Кот с конусом на макушке. Интересно, что же сделало его таким умным?"
 	icon_state = "razymist_cat"
 	cuddle_verb = list("Я знаю всё обо всём, спроси меня о чём-нибудь!", "Сегодня я особенно мудр!", "Мяу!", "Мурр!")
-	gender = MALE
 
 /obj/item/toy/plushie/cat/kotrazumist/get_ru_names()
 	return list(
@@ -186,7 +185,6 @@
 	desc = "Белая плюшевая кошка в соломенной шляпе, полученной за тяжелый труд на рисовом поле."
 	icon_state = "ricehat_cat"
 	cuddle_verb = list("Добро пожаловать на рисовые поля!", "Где мой рис?!", "Мяу!", "Мурр!")
-	gender = MALE
 
 /obj/item/toy/plushie/cat/ricehat/get_ru_names()
 	return list(
@@ -451,7 +449,7 @@
 	item_state = "plushie_nian"
 	poof_sound = 'sound/voice/scream_moth.ogg'
 	cuddle_verb = list("Бжжж!", "Бззз!", "Жуж!")
-	gender = FEMALE
+	gender = MALE
 
 /obj/item/toy/plushie/nianplushie/get_ru_names()
 	return list(
@@ -571,7 +569,7 @@
 		"Датчики вызывают рак!",
 		"А что такое клятва Гиппократа?",
 		"Датчики в третий!",
-		"Несмотря на все старания врачей - больной выжил...",
+		"Несмотря на все старания врачей — больной выжил...",
 		"Вскрытие показало, что больной спал",
 		"Ну что, будем лечить или пусть живет?",
 		"Ещё минута и я активирую уголь!",
@@ -620,7 +618,6 @@
 /obj/item/toy/plushie/blahaj
 	name = "shark plushie"
 	desc = "Уменьшенная, более дружелюбная и пушистая версия чем настоящая."
-	gender = MALE
 	icon_state = "blahaj"
 	item_state = "blahaj"
 	attack_verb = list("жеванул", "обглодал", "укусил")
@@ -640,7 +637,6 @@
 /obj/item/toy/plushie/blahaj/twohanded
 	name = "akula plushie"
 	desc = "Старшая и более милая сестричка акулёнка. Она может издавать забавные звуки при нажатии кнопки на животе. Бейби шарк ту ту туру туру!"
-	gender = FEMALE
 	w_class = WEIGHT_CLASS_NORMAL
 	icon_state = "plushie_akula"
 	item_state = "plushie_akula"
