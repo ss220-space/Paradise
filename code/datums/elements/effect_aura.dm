@@ -3,19 +3,21 @@
 	var/list/range_by_target = list()
 	var/list/active_by_target = list()
 	var/list/monitor_by_target = list()
+	var/list/works_when_not_on_turf_by_target = list()
 
-/datum/element/effect_aura/Attach(datum/target, range = 1, enabled = TRUE)
+/datum/element/effect_aura/Attach(datum/target, range = 1, enabled = TRUE, works_when_not_on_turf = FALSE)
 	. = ..()
 	if(!isatom(target) || isarea(target))
 		return ELEMENT_INCOMPATIBLE
 	var/atom/atom_target = target
 	range_by_target[atom_target] = max(0, range)
 	active_by_target[atom_target] = enabled
+	works_when_not_on_turf_by_target[atom_target] = works_when_not_on_turf
 	RegisterSignal(atom_target, COMSIG_AURA_SET_ENABLED, PROC_REF(on_set_enabled))
 
 	if(!enabled)
 		return
-	var/datum/proximity_monitor/advanced/aura/mon = new(atom_target, range_by_target[atom_target], FALSE, src, atom_target)
+	var/datum/proximity_monitor/advanced/aura/mon = new(atom_target, range_by_target[atom_target], works_when_not_on_turf_by_target[atom_target], src, atom_target)
 	monitor_by_target[atom_target] = mon
 
 /datum/element/effect_aura/Detach(datum/source, ...)
@@ -26,6 +28,7 @@
 	range_by_target -= source
 	active_by_target -= source
 	monitor_by_target -= source
+	works_when_not_on_turf_by_target -= source
 	return ..()
 
 /datum/element/effect_aura/Destroy(force)
@@ -34,6 +37,7 @@
 	LAZYCLEARLIST(range_by_target)
 	LAZYCLEARLIST(active_by_target)
 	LAZYCLEARLIST(monitor_by_target)
+	LAZYCLEARLIST(works_when_not_on_turf_by_target)
 	return ..()
 
 /datum/element/effect_aura/proc/enable_aura(atom/target, enabled = TRUE)
@@ -50,7 +54,7 @@
 		return TRUE
 	if(mon)
 		return TRUE
-	mon = new(target, range_by_target[target], FALSE, src, target)
+	mon = new(target, range_by_target[target], works_when_not_on_turf_by_target[target], src, target)
 	monitor_by_target[target] = mon
 	return TRUE
 

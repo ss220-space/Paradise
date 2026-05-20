@@ -576,7 +576,7 @@ effective or pretty fucking useless.
 
 /obj/item/ranged_stasis_generator/Initialize(mapload)
 	. = ..()
-	AddElement(/datum/element/effect_aura/no_ranged, 3, TRUE)
+	AddElement(/datum/element/effect_aura/no_ranged, 3, FALSE, TRUE)
 
 /obj/item/ranged_stasis_generator/update_icon_state()
 	icon_state = aura_on ? "stasis_generator_1" : "stasis_generator_0"
