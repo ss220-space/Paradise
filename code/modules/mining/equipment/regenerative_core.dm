@@ -46,12 +46,16 @@
 	. = ..()
 	if(!proximity_flag)
 		return
-	var/obj/item/organ/internal/regenerative_core/C = target
-	if(!istype(C))
+	var/obj/item/organ/internal/regenerative_core/core = target
+	if(!istype(core))
 		to_chat(user, span_warning("Стабилизатор работает только с определёнными типами органов монстров, обычно регенеративной природы."))
-		return ..()
+		return
 
-	C.preserved()
+	if(core.preserved || core.inert)
+		to_chat(user, span_warning("Это ядро уже [core.inert ? "сгнило" : "стабилизировано"]!"))
+		return
+
+	core.preserved()
 	balloon_alert(user, "ядро стабилизировано!") //replace to "organ" when there is more than one kind of regenerative organ
 	qdel(src)
 
@@ -201,6 +205,10 @@
 
 /obj/item/organ/internal/regenerative_core/legion/pre_preserved
 	preserved = TRUE
+
+/obj/item/organ/internal/regenerative_core/legion/inert/Initialize(mapload)
+	. = ..()
+	go_inert()
 
 /obj/item/organ/internal/regenerative_core/legion/Initialize(mapload)
 	. = ..()

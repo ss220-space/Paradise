@@ -1,4 +1,0 @@
-author: "littleboobs"
-delete-after: True
-changes:
-  - bugfix: "В \"Телепортирование к существу\" больше не показываются лишние мобы. (PR #9242)"

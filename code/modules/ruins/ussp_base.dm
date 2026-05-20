@@ -46,7 +46,7 @@
 	gloves = /obj/item/clothing/gloves/combat
 	r_ear = /obj/item/radio/headset/alt/soviet // See del_types above
 	back = /obj/item/storage/backpack
-	belt = /obj/item/gun/projectile/automatic/pistol/APS
+	belt = /obj/item/gun/projectile/automatic/pistol/aps
 	l_pocket = /obj/item/melee/baton/telescopic
 	r_pocket = /obj/item/ammo_box/magazine/pistolm9mm
 	id = /obj/item/card/id/ussp_general

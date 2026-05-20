@@ -474,7 +474,7 @@
 		return .
 
 	var/alien_trait = HAS_TRAIT(src, TRAIT_VENTCRAWLER_ALIEN)
-	if(alien_trait && length(get_equipped_items(INCLUDE_HELD)))
+	if(alien_trait && !is_hands_free())
 		if(provide_feedback)
 			balloon_alert(src, "ваши руки заняты!")
 		return FALSE
