@@ -1,4 +1,0 @@
-author: "Ksaikok46"
-delete-after: True
-changes:
-  - bugfix: "Ксеноморфы снова могут залезать в вентиляции с пустыми руками. (PR #9261)"

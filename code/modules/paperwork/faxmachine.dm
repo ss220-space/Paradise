@@ -51,7 +51,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 
 /obj/machinery/photocopier/faxmachine/Initialize(mapload)
 	. = ..()
-	
+
 	GLOB.allfaxes += src
 	update_network()
 
@@ -447,7 +447,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 		embed.embed_colour = replacetext(font_colour, "#", "")
 		payload.embeds += embed
 		payload.webhook_content = "**\[FAX\]** [sender.client.ckey]/([sender.name]) sent a Paper Fax at [get_area(src)]"
-		SSdiscord.send2discord_complex(DISCORD_WEBHOOK_REQUESTS, payload)
+		GLOB.discord_manager.send2discord_complex(DISCORD_WEBHOOK_REQUESTS, payload)
 	else if(istype(sent, /obj/item/paper_bundle))
 		var/obj/item/paper_bundle/bundle = sent
 		for(var/obj/item/paper/P in bundle)
@@ -463,7 +463,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 			embed.embed_content = P.log_text
 			payload.embeds += embed
 		payload.webhook_content = "**\[FAX\]** [sender.client.ckey]/([sender.name]) sent a Bundle Fax at [get_area(src)]"
-		SSdiscord.send2discord_complex(DISCORD_WEBHOOK_REQUESTS, payload)
+		GLOB.discord_manager.send2discord_complex(DISCORD_WEBHOOK_REQUESTS, payload)
 	else if(istype(sent, /obj/item/photo))
 		var/obj/item/photo/P = sent
 		var/datum/discord_embed/embed = new()
@@ -472,7 +472,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 		embed.embed_content = P.log_text
 		payload.embeds += embed
 		payload.webhook_content = "**\[FAX\]** [sender.client.ckey]/([sender.name]) sent a Photo at [get_area(src)]"
-		SSdiscord.send2discord_complex(DISCORD_WEBHOOK_REQUESTS, payload)
+		GLOB.discord_manager.send2discord_complex(DISCORD_WEBHOOK_REQUESTS, payload)
 
 /obj/machinery/photocopier/faxmachine/proc/sanitize_paper(obj/item/paper/paper) // html to discord markdown-101
 	var/text = "[paper.header][paper.info][paper.footer]"

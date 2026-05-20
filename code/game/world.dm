@@ -142,6 +142,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 			return ..(1)
 
 	// If we got here, we are in a "normal" reboot
+	GLOB.overlay_manager.dump_stats()
 	Master.Shutdown() // Shutdown subsystems
 
 	// If we were running unit tests, finish that run
