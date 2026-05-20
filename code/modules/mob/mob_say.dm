@@ -161,9 +161,8 @@
 	if(length(message) >= 2)
 		var/list/parts = splittext(message, " ")
 		var/channel_prefix = parts[1]
-		if(length(parts) > 1)
-			return list(GLOB.department_radio_keys[channel_prefix] || null, parts[2])
-		return list(null, parts[1])
+		if(length(parts) > 1 && GLOB.department_radio_keys[channel_prefix])
+			return list(GLOB.department_radio_keys[channel_prefix], replacetext(message, channel_prefix, ""))
 
 	return null
 
