@@ -7,7 +7,7 @@
 	build_type = PODFAB
 	materials = list(MAT_METAL=5000)
 	build_path = /obj/item/circuitboard/mecha/pod
-	category = list("Pod_Parts")
+	category = list(POD_FAB_CATEGORY_PARTS)
 
 //////////////////////////////////////////////////
 /////////SPACEPOD PARTS///////////////////////////
@@ -21,7 +21,7 @@
 	build_type = PODFAB
 	req_tech = list(RESEARCH_TREE_MATERIALS = 1)
 	build_path = /obj/item/pod_parts/pod_frame/fore_port
-	category = list("Pod_Frame")
+	category = list(POD_FAB_CATEGORY_FRAME)
 	materials = list(MAT_METAL=15000,MAT_GLASS=5000)
 
 /datum/design/podframe_ap
@@ -32,7 +32,7 @@
 	build_type = PODFAB
 	req_tech = list(RESEARCH_TREE_MATERIALS = 1)
 	build_path = /obj/item/pod_parts/pod_frame/aft_port
-	category = list("Pod_Frame")
+	category = list(POD_FAB_CATEGORY_FRAME)
 	materials = list(MAT_METAL=15000,MAT_GLASS=5000)
 
 /datum/design/podframe_fs
@@ -43,7 +43,7 @@
 	build_type = PODFAB
 	req_tech = list(RESEARCH_TREE_MATERIALS = 1)
 	build_path = /obj/item/pod_parts/pod_frame/fore_starboard
-	category = list("Pod_Frame")
+	category = list(POD_FAB_CATEGORY_FRAME)
 	materials = list(MAT_METAL=15000,MAT_GLASS=5000)
 
 /datum/design/podframe_as
@@ -54,7 +54,7 @@
 	build_type = PODFAB
 	req_tech = list(RESEARCH_TREE_MATERIALS = 1)
 	build_path = /obj/item/pod_parts/pod_frame/aft_starboard
-	category = list("Pod_Frame")
+	category = list(POD_FAB_CATEGORY_FRAME)
 	materials = list(MAT_METAL=15000,MAT_GLASS=5000)
 
 //////////////////////////
@@ -69,7 +69,7 @@
 	build_type = MECHFAB | PODFAB
 	req_tech = list(RESEARCH_TREE_MATERIALS = 1)
 	build_path = /obj/item/pod_parts/core
-	category = list("Pod_Parts")
+	category = list(POD_FAB_CATEGORY_PARTS)
 	materials = list(MAT_METAL=5000,MAT_URANIUM=1000,MAT_PLASMA=5000)
 
 //////////////////////////////////////////
@@ -84,7 +84,7 @@
 	build_type = PODFAB
 	req_tech = list(RESEARCH_TREE_MATERIALS = 1)
 	build_path = /obj/item/pod_parts/armor
-	category = list("Pod_Armor")
+	category = list(POD_FAB_CATEGORY_ARMOR)
 	materials = list(MAT_METAL=15000,MAT_GLASS=5000,MAT_PLASMA=10000)
 
 //////////////////////////////////////////
@@ -99,7 +99,7 @@
 	build_type = PODFAB
 	req_tech = list(RESEARCH_TREE_MATERIALS = 2, RESEARCH_TREE_COMBAT = 2)
 	build_path = /obj/item/spacepod_equipment/weaponry/taser
-	category = list("Pod_Weaponry")
+	category = list(POD_FAB_CATEGORY_WEAPONRY)
 	materials = list(MAT_METAL = 15000)
 	locked = 1
 
@@ -111,7 +111,7 @@
 	build_type = PODFAB
 	req_tech = list(RESEARCH_TREE_MATERIALS = 3, RESEARCH_TREE_COMBAT = 3)
 	build_path = /obj/item/spacepod_equipment/weaponry/burst_taser
-	category = list("Pod_Weaponry")
+	category = list(POD_FAB_CATEGORY_WEAPONRY)
 	materials = list(MAT_METAL = 15000,MAT_PLASMA=2000)
 	locked = 1
 
@@ -123,7 +123,7 @@
 	build_type = PODFAB
 	req_tech = list(RESEARCH_TREE_MATERIALS = 3, RESEARCH_TREE_COMBAT = 3, RESEARCH_TREE_PLASMA = 2)
 	build_path = /obj/item/spacepod_equipment/weaponry/laser
-	category = list("Pod_Weaponry")
+	category = list(POD_FAB_CATEGORY_WEAPONRY)
 	materials = list(MAT_METAL=10000,MAT_GLASS=5000,MAT_GOLD=1000,MAT_SILVER=2000)
 	locked = 1
 
@@ -135,7 +135,7 @@
 	build_type = PODFAB
 	req_tech = list(RESEARCH_TREE_COMBAT = 4, RESEARCH_TREE_MAGNETS = 4, RESEARCH_TREE_ENGINEERING = 4)
 	build_path = /obj/item/spacepod_equipment/weaponry/solaris
-	category = list("Pod_Weaponry")
+	category = list(POD_FAB_CATEGORY_WEAPONRY)
 	materials = list(MAT_METAL=20000,MAT_GLASS=10000,MAT_GOLD=2000,MAT_SILVER=4000)
 	locked = 1
 
@@ -148,7 +148,7 @@
 	build_type = PODFAB
 	materials = list(MAT_METAL = 10000, MAT_GLASS = 5000, MAT_SILVER = 2000, MAT_URANIUM = 2000)
 	build_path = /obj/item/spacepod_equipment/weaponry/mining_laser_basic
-	category = list("Pod_Weaponry")
+	category = list(POD_FAB_CATEGORY_WEAPONRY)
 
 /datum/design/pod_mining_laser
 	construction_time = 200
@@ -159,7 +159,7 @@
 	build_type = PODFAB
 	materials = list(MAT_METAL = 10000, MAT_GLASS = 5000, MAT_SILVER = 2000, MAT_GOLD = 2000, MAT_DIAMOND = 2000)
 	build_path = /obj/item/spacepod_equipment/weaponry/mining_laser
-	category = list("Pod_Weaponry")
+	category = list(POD_FAB_CATEGORY_WEAPONRY)
 
 //////////////////////////////////////////
 //////SPACEPOD MISC. ITEMS////////////////
@@ -174,7 +174,7 @@
 	build_type = PODFAB
 	materials = list(MAT_METAL=5000)
 	build_path = /obj/item/spacepod_equipment/misc/tracker
-	category = list("Pod_Parts")
+	category = list(POD_FAB_CATEGORY_PARTS)
 
 //////////////////////////////////////////
 //////SPACEPOD CARGO ITEMS////////////////
@@ -189,7 +189,7 @@
 	build_type = PODFAB
 	materials = list(MAT_METAL=20000, MAT_GLASS=2000)
 	build_path = /obj/item/spacepod_equipment/cargo/ore
-	category = list("Pod_Cargo")
+	category = list(POD_FAB_CATEGORY_CARGO)
 
 /datum/design/pod_cargo_crate
 	construction_time = 100
@@ -200,7 +200,7 @@
 	build_type = PODFAB
 	materials = list(MAT_METAL=25000)
 	build_path = /obj/item/spacepod_equipment/cargo/crate
-	category = list("Pod_Cargo")
+	category = list(POD_FAB_CATEGORY_CARGO)
 
 //////////////////////////////////////////
 //////SPACEPOD SEC CARGO ITEMS////////////
@@ -215,7 +215,7 @@
 	build_type = PODFAB
 	materials = list(MAT_METAL=7500, MAT_GLASS=2500)
 	build_path = /obj/item/spacepod_equipment/sec_cargo/chair
-	category = list("Pod_Cargo")
+	category = list(POD_FAB_CATEGORY_CARGO)
 
 /datum/design/loot_box
 	construction_time = 100
@@ -226,7 +226,7 @@
 	build_type = PODFAB
 	materials = list(MAT_METAL=7500, MAT_GLASS=2500)
 	build_path = /obj/item/spacepod_equipment/sec_cargo/loot_box
-	category = list("Pod_Cargo")
+	category = list(POD_FAB_CATEGORY_CARGO)
 
 //////////////////////////////////////////
 //////SPACEPOD LOCK ITEMS////////////////
@@ -240,7 +240,7 @@
 	build_type = PODFAB
 	materials = list(MAT_METAL=4500)
 	build_path = /obj/item/spacepod_equipment/lock/keyed
-	category = list("Pod_Parts")
+	category = list(POD_FAB_CATEGORY_PARTS)
 
 /datum/design/pod_key
 	construction_time = 100
@@ -251,7 +251,7 @@
 	build_type = PODFAB
 	materials = list(MAT_METAL=500)
 	build_path = /obj/item/spacepod_equipment/key
-	category = list("Pod_Parts")
+	category = list(POD_FAB_CATEGORY_PARTS)
 
 //////////////////////////////////////////
 //////SPACEPOD LOCATORS////////////////
@@ -265,4 +265,4 @@
 	build_type = PODFAB
 	materials = list(MAT_METAL=1000, MAT_GLASS=2000, MAT_SILVER=1000)
 	build_path = /obj/item/spacepod_equipment/locators/basic_pod_locator
-	category = list("Pod_Parts")
+	category = list(POD_FAB_CATEGORY_PARTS)
