@@ -897,14 +897,15 @@
 
 /obj/item/toy/plushie/snail
 	name = "'snail' plushie"
-	desc = "It looks quite familiar, right?"
+	desc = "Плюшевая улитка. Выглядит довольно знакомо, не правда ли?"
 	icon_state = "snailplushie"
 	item_state = "snailplushie"
+	gender = FEMALE
 
 /obj/item/toy/plushie/snail/get_ru_names()
 	return list(
 		NOMINATIVE = "плюшевая улитка",
-		GENITIVE = "плюшевой улитки ",
+		GENITIVE = "плюшевой улитки",
 		DATIVE = "плюшевой улитке",
 		ACCUSATIVE = "плюшевую улитку",
 		INSTRUMENTAL = "плюшевой улиткой",
@@ -914,52 +915,149 @@
 /obj/item/toy/plushie/octopus
 	name = "octopus plushie"
 	icon_state = "loveable"
+	gender = MALE
+
+/obj/item/toy/plushie/octopus/get_ru_names()
+	return list(
+		NOMINATIVE = "плюшевый осьминог",
+		GENITIVE = "плюшевого осьминога",
+		DATIVE = "плюшевому осьминогу",
+		ACCUSATIVE = "плюшевого осьминога",
+		INSTRUMENTAL = "плюшевым осьминогом",
+		PREPOSITIONAL = "плюшевом осьминоге",
+	)
 
 /obj/item/toy/plushie/face_hugger
 	name = "facehugger plushie"
 	icon_state = "huggable"
+	gender = MALE
+
+/obj/item/toy/plushie/face_hugger/get_ru_names()
+	return list(
+		NOMINATIVE = "плюшевый лицехват",
+		GENITIVE = "плюшевого лицехвата",
+		DATIVE = "плюшевому лицехвату",
+		ACCUSATIVE = "плюшевого лицехвата",
+		INSTRUMENTAL = "плюшевым лицехватом",
+		PREPOSITIONAL = "плюшевом лицехвате",
+	)
 
 /obj/item/toy/plushie/deer
 	name = "deer plushie"
 	icon_state = "deer"
+	gender = MALE
+
+/obj/item/toy/plushie/deer/get_ru_names()
+	return list(
+		NOMINATIVE = "плюшевый олень",
+		GENITIVE = "плюшевого оленя",
+		DATIVE = "плюшевому оленю",
+		ACCUSATIVE = "плюшевого оленя",
+		INSTRUMENTAL = "плюшевым оленем",
+		PREPOSITIONAL = "плюшевом олене",
+	)
 
 /obj/item/toy/plushie/snakeplushie
 	name = "snake plushie"
-	desc = "An adorable stuffed toy that resembles a snake. Not to be mistaken for the real thing."
+	desc = "Очаровательная плюшевая игрушка, похожая на змею. Не путать с настоящей."
 	icon_state = "plushie_snake"
 	item_state = "plushie_snake"
+	gender = FEMALE
+
+/obj/item/toy/plushie/snakeplushie/get_ru_names()
+	return list(
+		NOMINATIVE = "плюшевая змея",
+		GENITIVE = "плюшевой змеи",
+		DATIVE = "плюшевой змее",
+		ACCUSATIVE = "плюшевую змею",
+		INSTRUMENTAL = "плюшевой змеёй",
+		PREPOSITIONAL = "плюшевой змее",
+	)
 
 /obj/item/toy/plushie/nukeplushie
 	name = "operative plushie"
-	desc = "An stuffed toy that resembles a syndicate nuclear operative. The tag claims operatives to be purely fictitious."
+	desc = "Мягкая игрушка, напоминающая ядерного оперативника \"Синдиката\". На этикетке указано, что оперативники вымышленые."
 	icon_state = "plushie_nuke"
 	item_state = "plushie_nuke"
 
+/obj/item/toy/plushie/nukeplushie/get_ru_names()
+	return list(
+		NOMINATIVE = "плюшевый оперативник \"Синдиката\"",
+		GENITIVE = "плюшевого оперативника \"Синдиката\"",
+		DATIVE = "плюшевому оперативнику \"Синдиката\"",
+		ACCUSATIVE = "плюшевого оперативника \"Синдиката\"",
+		INSTRUMENTAL = "плюшевым оперативником \"Синдиката\"",
+		PREPOSITIONAL = "плюшевом оперативнике \"Синдиката\"",
+	)
+
 /obj/item/toy/plushie/slimeplushie
 	name = "slime plushie"
-	desc = "An adorable stuffed toy that resembles a slime. It is practically just a hacky sack."
+	desc = "Очаровательная мягкая игрушка, похожая на слайма. На самом деле это просто плюшевый мячик с лицом. Настоящий антистресс."
 	icon_state = "plushie_slime"
 	item_state = "plushie_slime"
+	gender = MALE
 
-/obj/item/toy/plushie/foxplushie
-	name = "fox plushie"
-	desc = "An adorable stuffed toy resembling a cute fox."
+/obj/item/toy/plushie/slimeplushie/get_ru_names()
+	return list(
+		NOMINATIVE = "плюшевый слайм",
+		GENITIVE = "плюшевого слайма",
+		DATIVE = "плюшевому слайму",
+		ACCUSATIVE = "плюшевого слайма",
+		INSTRUMENTAL = "плюшевым слаймом",
+		PREPOSITIONAL = "плюшевом слайме",
+	)
+
+/obj/item/toy/plushie/fennecplushie
+	name = "fennec plushie"
+	desc = "Очаровательная плюшевая игрушка, похожая на милого фенека."
 	icon_state = "fox"
 	item_state = "fox"
+	gender = MALE
+
+/obj/item/toy/plushie/fennecplushie/get_ru_names()
+	return list(
+		NOMINATIVE = "плюшевый фенек",
+		GENITIVE = "плюшевого фенека",
+		DATIVE = "плюшевому фенеку",
+		ACCUSATIVE = "плюшевого фенека",
+		INSTRUMENTAL = "плюшевым фенеком",
+		PREPOSITIONAL = "плюшевом фенеке",
+	)
 
 /obj/item/toy/plushie/beepsky
 	name = "plush Officer Sweepsky"
-	desc = "A plushie of a popular industrious cleaning robot! If it could feel emotions, it would love you."
+	desc = "Плюшевая игрушка в виде популярного и трудолюбивого робота-уборщика! Он бы полюбил вас, будь у него эмоции."
 	icon_state = "beepskyplushie"
+
+/obj/item/toy/plushie/beepsky/get_ru_names()
+	return list(
+		NOMINATIVE = "плюшевый робот уборщик",
+		GENITIVE = "плюшевого робота уборщика",
+		DATIVE = "плюшевому роботу уборщику",
+		ACCUSATIVE = "плюшевого робота уборщика",
+		INSTRUMENTAL = "плюшевым роботом уборщиком",
+		PREPOSITIONAL = "плюшевом роботе уборщике",
+	)
 
 /obj/item/toy/plushie/axolotlplushie
 	name = "axolotl plushie"
-	desc = "An adorable stuffed toy that resembles an axolotl. Not to be mistaken for the real thing."
+	desc = "Плюшевый аксолотль. Он такой милый!"
 	icon_state = "plushie_axolotl"
 	item_state = "axolotl"
 	attack_verb = list("ущипнул", "чмокнул")
 	poof_sound = 'sound/items/axolotl.ogg'
 	cuddle_verb = "Squeeek!"
+	gender = MALE
+
+/obj/item/toy/plushie/axolotlplushie/get_ru_names()
+	return list(
+		NOMINATIVE = "плюшевый аксолотль",
+		GENITIVE = "плюшевого аксолотля",
+		DATIVE = "плюшевому аксолотлю",
+		ACCUSATIVE = "плюшевого аксолотля",
+		INSTRUMENTAL = "плюшевым аксолотлем",
+		PREPOSITIONAL = "плюшевом аксолотле",
+	)
 
 /obj/item/toy/plushie/realgoat
 	name = "goat plushie"
