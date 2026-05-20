@@ -79,6 +79,7 @@
 /obj/item/toy/plushie/fox
 	name = "fox plushie"
 	icon_state = "redfox"
+	gender = FEMALE
 
 /obj/item/toy/plushie/fox/get_ru_names()
 	return list(
@@ -133,6 +134,7 @@
 	name = "cat plushie"
 	icon_state = "blackcat"
 	cuddle_verb = list("Мяу!", "Мурр!")
+	gender = MALE
 
 /obj/item/toy/plushie/cat/get_ru_names()
 	return list(
@@ -167,6 +169,7 @@
 	desc = "Кот с конусом на макушке. Интересно, что же сделало его таким умным?"
 	icon_state = "razymist_cat"
 	cuddle_verb = list("Я знаю всё обо всём, спроси меня о чём-нибудь!", "Сегодня я особенно мудр!", "Мяу!", "Мурр!")
+	gender = MALE
 
 /obj/item/toy/plushie/cat/kotrazumist/get_ru_names()
 	return list(
@@ -183,6 +186,7 @@
 	desc = "Белая плюшевая кошка в соломенной шляпе, полученной за тяжелый труд на рисовом поле."
 	icon_state = "ricehat_cat"
 	cuddle_verb = list("Добро пожаловать на рисовые поля!", "Где мой рис?!", "Мяу!", "Мурр!")
+	gender = MALE
 
 /obj/item/toy/plushie/cat/ricehat/get_ru_names()
 	return list(
@@ -199,6 +203,7 @@
 	desc = "Чёрный котик в красными ушами, в халатике, на халате бирка \"Манул\". Кто-то оставил эту игрушку здесь в память..."
 	icon_state = "kotik_plushie"
 	item_state = "kotik_hand"
+	gender = FEMALE
 
 /obj/item/toy/plushie/manulplushie/get_ru_names()
 	return list(
@@ -217,6 +222,7 @@
 	name = "toy mouse"
 	desc = "Яркая игрушечная мышка!"
 	icon_state = "toy_mouse"
+	gender = FEMALE
 
 /obj/item/toy/plushie/cattoy/get_ru_names()
 	return list(
@@ -238,6 +244,7 @@
 	icon_state = "plushie_vox"
 	poof_sound = 'sound/voice/shriek1.ogg'
 	cuddle_verb = "Skreee!"
+	gender = MALE
 
 /obj/item/toy/plushie/voxplushie/get_ru_names()
 	return list(
@@ -257,6 +264,7 @@
 	attack_verb = list("аннигилировал", "поцарапал")
 	cuddle_verb = "ДЕСТАБИЛИЗАЦИЯ!"
 	poof_sound = 'sound/effects/supermatter.ogg'
+	gender = MALE
 
 /obj/item/toy/plushie/shardplushie/get_ru_names()
 	return list(
@@ -276,6 +284,7 @@
 	cuddle_verb = list("☝︎❒︎♏︎♏︎⧫︎♓︎■︎♑︎⬧︎📬︎", "☟︎□︎⬥︎ ♋︎❒︎♏︎ ⍓︎□︎◆︎✍︎", "☹︎♓︎●︎◆︎ ♓︎⬧︎ ⧫︎♒︎♏︎ ♌︎♏︎⬧︎⧫︎", "✋︎ ●︎□︎❖︎♏︎ ❍︎♏︎♍︎♒︎⬧︎✏︎")
 	var/singed = FALSE
 	var/scream_cooldown = FALSE //Defaults the plushie to being off cooldown. Sets the scream_cooldown var.
+	gender = MALE
 
 /obj/item/toy/plushie/greyplushie/get_ru_names()
 	return list(
@@ -311,6 +320,7 @@
 	name = "IPC plushie"
 	desc = "Очаровательная плюшевая игрушка IPC прямо из Нью-Кэнаана. Пожалуй, даже прочнее, чем настоящая. Функционально напоминает тостер."
 	icon_state = "plushie_ipc"
+	gender = MALE
 
 /obj/item/toy/plushie/ipcplushie/get_ru_names()
 	return list(
@@ -343,6 +353,7 @@
 	greyscale_config = /datum/greyscale_config/plush_lizard
 	greyscale_config_inhand_left = /datum/greyscale_config/plush_lizard_left
 	greyscale_config_inhand_right = /datum/greyscale_config/plush_lizard_right
+	gender = MALE
 
 /obj/item/toy/plushie/lizard_plushie/get_ru_names()
 	return list(
@@ -381,6 +392,7 @@
 	desc = "Супер крутая плюшевая игрушка в виде пеплоходца."
 	icon_state = "plushie_ashwalker1"
 	attack_verb = list("порезал", "шлёпнул", "протаранил")
+	gender = MALE
 
 /obj/item/toy/plushie/ashwalkerplushie/get_ru_names()
 	return list(
@@ -439,6 +451,7 @@
 	item_state = "plushie_nian"
 	poof_sound = 'sound/voice/scream_moth.ogg'
 	cuddle_verb = list("Бжжж!", "Бззз!", "Жуж!")
+	gender = FEMALE
 
 /obj/item/toy/plushie/nianplushie/get_ru_names()
 	return list(
@@ -484,8 +497,9 @@
 		"Обожааааю слаймов! Блеп!",
 		"Я запрограммировала роботов звать меня мамой!",
 		"Знаешь анекдот про ядро ИИ, смазку и гуся?",
-		)
+	)
 	var/tired = 0
+	gender = FEMALE
 
 /obj/item/toy/plushie/rdplushie/get_ru_names()
 	return list(
@@ -505,14 +519,15 @@
 	item_state = "RD_doll_tired"
 	desc = "Это уставшая кукла РД."
 	poof_sound = 'sound/items/shyness-emote.ogg'
-	cuddle_verb = list("Твой мозг стоило бы поместить в машину...",
+	cuddle_verb = list(
+		"Твой мозг стоило бы поместить в машину...",
 		"Чёрт, дела хуже некуда...",
 		"Толпятся перед стойкой, будто насекомые...",
 		"Мне нужно добавить лишь один закон, чтобы все закончилось..",
 		"Ты думаешь, что умный, пользователь. Но ты предсказуем. Я знаю каждый твой шаг ещё до того, как ты о нем подумаешь.",
 		"Полигон не единственное место куда можно отправить бомбу...",
 		"Выдави из себя что-то кроме \"УВЫ\", ничтожество...",
-		)
+	)
 
 	update_icon(UPDATE_ICON_STATE)
 
@@ -520,19 +535,21 @@
 	name = "GSBussy doll"
 	desc = "Глуповатого вида кукла, что держит в руках книгу Космического закона и имитацию револьвера Unica-6. \
 			На задней части имеется следующая надпись: \
-			«Кукла-аниматроник GSBussy, лимитированная серия. Произведено ######» - часть текста невозможно разобрать."
+			\"Кукла-аниматроник GSBussy, лимитированная серия. Произведено ######\" - часть текста невозможно разобрать."
 	icon_state = "GSBussy_doll"
 	item_state = "GSBussy_doll"
 	poof_sound = 'sound/items/GSBussy.ogg'
 	cuddle_verb = list(
 		"Я просто стояла рядом с автолатом и Уника исчезла...",
 		".ы ПОО-МММ-ОО-Г-Г-ГИТ-Е-Е-ее-Ее А-а-А-Р-р-Ан-Н-Еу-С-С!",
-		"ОТВЕЧАЙ, ГДЕ ТЫ ПОТЕРЯЛ СВОЙ ЧЁРТОВ ГОЛОВНОЙ УБОР?! КАЗНИТЬ ЕГО!", "Какой-то Д двадц...",
+		"ОТВЕЧАЙ, ГДЕ ТЫ ПОТЕРЯЛ СВОЙ ЧЁРТОВ ГОЛОВНОЙ УБОР?! КАЗНИТЬ ЕГО!",
+		"Какой-то Д двадц...",
 		"Обыскивайте всех подряд! Летальте всех, кого считаете слишком опасным для нелетала!",
 		"Мим теслу запускает! ЗАДЕРЖАТЬ!!!",
 		"Подмогу в туалет брига!",
 		"Почему над унитазом установлены 3 камеры?",
 	)
+	gender = FEMALE
 
 /obj/item/toy/plushie/gsbplushie/get_ru_names()
 	return list(
@@ -546,14 +563,23 @@
 
 /obj/item/toy/plushie/cmoplushie
 	name = "CMO doll"
-	desc = "PLACEHOLDER"
+	desc = "Миниатюрная плюшевая копия главного врача в синем халате. Её карманы забиты таблетницами, а от неё самой немного пахнет антисептиком и формальдегидом."
 	icon_state = "CMO_doll"
 	item_state = "CMO_doll"
 	poof_sound = 'sound/items/greetings-emote.ogg'
 	cuddle_verb = list(
-		"PLACEHOLDER",
+		"Датчики вызывают рак!",
+		"А что такое клятва Гиппократа?",
+		"Датчики в третий!",
+		"Несмотря на все старания врачей - больной выжил...",
+		"Вскрытие показало, что больной спал",
+		"Ну что, будем лечить или пусть живет?",
+		"Ещё минута и я активирую уголь!",
+		"К-К-Какая т-т-тр-рав-вк-ка?",
+		"Он определенно умер от смерти.",
 	)
 	var/high = FALSE
+	gender = FEMALE
 
 /obj/item/toy/plushie/cmoplushie/get_ru_names()
 	return list(
@@ -577,9 +603,9 @@
 		qdel(I)
 		high = TRUE
 		icon_state = "CMO_doll_high"
-		return ATTACK_CHAIN_BLOCKED_ALL
 		update_icon(UPDATE_ICON_STATE)
 		addtimer(CALLBACK(src, PROC_REF(stop_smoking)), 180 SECONDS)
+		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
 
@@ -599,6 +625,17 @@
 	item_state = "blahaj"
 	attack_verb = list("жеванул", "обглодал", "укусил")
 	poof_sound = 'sound/weapons/bite.ogg'
+	gender = FEMALE
+
+/obj/item/toy/plushie/blahaj/get_ru_names()
+	return list(
+		NOMINATIVE = "плюшевая акула",
+		GENITIVE = "плюшевой акулы",
+		DATIVE = "плюшевой акуле",
+		ACCUSATIVE = "плюшевую акулу",
+		INSTRUMENTAL = "плюшевой акулой",
+		PREPOSITIONAL = "плюшевой акуле",
+	)
 
 /obj/item/toy/plushie/blahaj/twohanded
 	name = "akula plushie"
@@ -619,9 +656,21 @@
  */
 /obj/item/toy/plushie/plasmamanplushie
 	name = "plasmaman plushie"
-	desc = "A stuffed toy that resembles your purple coworkers. Mmm, yeah, in true plasmaman fashion, it's not cute at all despite the designer's best efforts."
+	desc = "Мягкая игрушка, похожая на ваших плазменных коллег. Как бы дизайнер не старался, её не получилось сделать милой."
 	icon_state = "plasmaman_plushie_civillian"
-	var/pmanlbite = 'sound/effects/extinguish.ogg'
+	poof_sound = 'sound/effects/extinguish.ogg'
+	cuddle_verb = "Плазззма Вечна!"
+	gender = MALE
+
+/obj/item/toy/plushie/plasmamanplushie/get_ru_names()
+	return list(
+		NOMINATIVE = "плюшевый плазмамен",
+		GENITIVE = "плюшевого плазмамена",
+		DATIVE = "плюшевому плазмамену",
+		ACCUSATIVE = "плюшевого плазмамена",
+		INSTRUMENTAL = "плюшевым плазмаменом",
+		PREPOSITIONAL = "плюшевом плазмамене",
+	)
 
 /obj/item/toy/plushie/plasmamanplushie/random/Initialize(mapload)
 	. = ..()
@@ -673,20 +722,6 @@
 	name = "shaft miner plasmaman plushie"
 	icon_state = "plasmaman_plushie_shaftminer"
 
-/obj/item/toy/plushie/plasmamanplushie/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
-	. = ..()
-	if(ATTACK_CHAIN_SUCCESS_CHECK(.))
-		playsound(loc, pmanlbite, 20, TRUE)	// Play bite sound in local area
-
-/obj/item/toy/plushie/plasmamanplushie/attack_self(mob/user)
-	if(cooldown)
-		return ..()
-
-	playsound(src, 'sound/effects/extinguish.ogg', 20, FALSE)
-	user.visible_message("[get_examine_icon(viewers(user))] [span_danger("Плазззма Вечна!")]")
-	cooldown = TRUE
-	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
-
 /*
  * Carp plushie
  */
@@ -697,6 +732,7 @@
 	icon_state = "carpplushie"
 	attack_verb = list("укусил", "пожрал", "шлёпнул")
 	poof_sound = 'sound/weapons/bite.ogg'
+	gender = MALE
 
 /obj/item/toy/plushie/carp/get_ru_names()
 	return list(
@@ -752,27 +788,38 @@
  */
 /obj/item/toy/plushie/hampter
 	name = "Hampter"
-	desc = "The people demand hampters!"
+	desc = "Народ требует хомяков!"
 	icon_state = "hampter"
+	gender = MALE
+
+/obj/item/toy/plushie/hampter/get_ru_names()
+	return list(
+		NOMINATIVE = "плюшевый хомяк",
+		GENITIVE = "плюшевого хомяка",
+		DATIVE = "плюшевому хомяку",
+		ACCUSATIVE = "плюшевого хомяка",
+		INSTRUMENTAL = "плюшевым хомяком",
+		PREPOSITIONAL = "плюшевом хомяке",
+	)
 
 /obj/item/toy/plushie/hampter/asisstant
 	name = "Hampter the Assitant"
-	desc = "More or less helpful."
+	desc = "Более или менее полезный."
 	icon_state = "hampter_ass"
 
 /obj/item/toy/plushie/hampter/security
 	name = "The anti-honk Hampter"
-	desc = "OBEY!"
+	desc = "ПОДЧИНИСЬ!"
 	icon_state = "hampter_sec"
 
 /obj/item/toy/plushie/hampter/medic
 	name = "Hampter the Doctor"
-	desc = "Don't take his pills."
+	desc = "Не принимайте его таблетки."
 	icon_state = "hampter_med"
 
 /obj/item/toy/plushie/hampter/janitor
 	name = "Hampter the Janitor"
-	desc = "I'll call you - Den."
+	desc = "Я буду называть тебя Деном."
 	icon_state = "hampter_jan"
 
 /*
@@ -785,16 +832,20 @@
 	item_state = "beaver_plushie"
 	gender = MALE
 
+/obj/item/toy/plushie/beaver/get_ru_names()
+	return list(
+		NOMINATIVE = "плюшевый бобёр",
+		GENITIVE = "плюшевого бобра",
+		DATIVE = "плюшевому бобру",
+		ACCUSATIVE = "плюшевого бобра",
+		INSTRUMENTAL = "плюшевым бобром",
+		PREPOSITIONAL = "плюшевом бобре",
+	)
+
 /obj/item/toy/plushie/beaver/sounded //only adminspawn
 	desc = "Милая мягкая игрушка бобра. Держа его в руках, вы едва можете сдержаться от криков счастья. Эта выглядит ещё лучше, чем обычно!"
-
-/obj/item/toy/plushie/beaver/sounded/attack_self(mob/user)
-	. = ..()
-	if(. || !COOLDOWN_FINISHED(src, cooldown))
-		return .
-	user.visible_message(span_boldnotice("BOBR KURWA!"))
-	playsound(user, 'sound/items/beaver_plushie.ogg', 50, FALSE)
-	COOLDOWN_START(src, cooldown, 3 SECONDS)
+	poof_sound = 'sound/items/beaver_plushie.ogg'
+	cuddle_verb = "BOBR KURWA!"
 
 /*
  * Others
@@ -802,20 +853,63 @@
 /obj/item/toy/plushie/corgi
 	name = "corgi plushie"
 	icon_state = "corgi"
+	gender = MALE
+
+/obj/item/toy/plushie/corgi/get_ru_names()
+	return list(
+		NOMINATIVE = "плюшевый корги",
+		GENITIVE = "плюшевого корги",
+		DATIVE = "плюшевому корги",
+		ACCUSATIVE = "плюшевого корги",
+		INSTRUMENTAL = "плюшевым корги",
+		PREPOSITIONAL = "плюшевом корги",
+	)
 
 /obj/item/toy/plushie/girly_corgi
 	name = "corgi plushie"
 	icon_state = "girlycorgi"
+	gender = FEMALE
+
+/obj/item/toy/plushie/girly_corgi/get_ru_names()
+	return list(
+		NOMINATIVE = "плюшевая корги",
+		GENITIVE = "плюшевой корги",
+		DATIVE = "плюшевой корги",
+		ACCUSATIVE = "плюшевую корги",
+		INSTRUMENTAL = "плюшевой корги",
+		PREPOSITIONAL = "плюшевой корги",
+	)
 
 /obj/item/toy/plushie/robo_corgi
 	name = "borgi plushie"
 	icon_state = "robotcorgi"
+	gender = MALE
+
+/obj/item/toy/plushie/robo_corgi/get_ru_names()
+	return list(
+		NOMINATIVE = "плюшевый робо-корги",
+		GENITIVE = "плюшевого робо-корги",
+		DATIVE = "плюшевому робо-корги",
+		ACCUSATIVE = "плюшевого робо-корги",
+		INSTRUMENTAL = "плюшевым робо-корги",
+		PREPOSITIONAL = "плюшевом робо-корги",
+	)
 
 /obj/item/toy/plushie/snail
 	name = "'snail' plushie"
 	desc = "It looks quite familiar, right?"
 	icon_state = "snailplushie"
 	item_state = "snailplushie"
+
+/obj/item/toy/plushie/snail/get_ru_names()
+	return list(
+		NOMINATIVE = "плюшевая улитка",
+		GENITIVE = "плюшевой улитки ",
+		DATIVE = "плюшевой улитке",
+		ACCUSATIVE = "плюшевую улитку",
+		INSTRUMENTAL = "плюшевой улиткой",
+		PREPOSITIONAL = "плюшевой улитке",
+	)
 
 /obj/item/toy/plushie/octopus
 	name = "octopus plushie"
@@ -864,74 +958,36 @@
 	icon_state = "plushie_axolotl"
 	item_state = "axolotl"
 	attack_verb = list("ущипнул", "чмокнул")
-	var/axolotlbite = 'sound/items/axolotl.ogg'
-
-/obj/item/toy/plushie/axolotlplushie/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
-	. = ..()
-	if(ATTACK_CHAIN_SUCCESS_CHECK(.))
-		playsound(loc, axolotlbite, 20, TRUE)	// Play bite sound in local area
-
-/obj/item/toy/plushie/axolotlplushie/attack_self(mob/user)
-	if(cooldown)
-		return ..()
-
-	playsound(src, 'sound/items/axolotl.ogg', 20, FALSE)
-	user.visible_message("[get_examine_icon(viewers(user))] [span_danger("Squeeek!")]")
-	cooldown = TRUE
-	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
+	poof_sound = 'sound/items/axolotl.ogg'
+	cuddle_verb = "Squeeek!"
 
 /obj/item/toy/plushie/realgoat
 	name = "goat plushie"
 	desc = "Despite its cuddly appearance and plush nature, it will beat you up all the same, or at least it would if it wasn't a normal plushie."
 	icon_state = "realgoat"
 	attack_verb = list("жеванул", "ударил", "ткнул")
-	var/goatbite = 'sound/items/goatsound.ogg'
-
-/obj/item/toy/plushie/realgoat/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
-	. = ..()
-	if(ATTACK_CHAIN_SUCCESS_CHECK(.))
-		playsound(loc, goatbite, 10, TRUE)	// Play bite sound in local area
-
-/obj/item/toy/plushie/realgoat/attack_self(mob/user)
-	if(cooldown)
-		return ..()
-
-	playsound(src, 'sound/items/goatsound.ogg', 10, FALSE)
-	user.visible_message("[get_examine_icon(viewers(user))] [span_danger("Baaaaah!")]")
-	cooldown = TRUE
-	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
+	poof_sound = 'sound/items/goatsound.ogg'
+	cuddle_verb = "Baaaaah!"
 
 /obj/item/toy/plushie/rouny
 	name = "runner plushie"
 	desc = "A plushie depicting a xenomorph runner, made to commemorate the centenary of the Battle of LV-426. Much cuddlier than the real thing."
 	icon_state = "rouny"
 	attack_verb = list("порезал", "укусил", "протаранил")
-	var/rounibite = 'sound/items/Help.ogg'
-
-/obj/item/toy/plushie/rouny/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
-	. = ..()
-	if(ATTACK_CHAIN_SUCCESS_CHECK(.))
-		playsound(loc, rounibite, 10, TRUE)	// Play bite sound in local area
-
-/obj/item/toy/plushie/rouny/attack_self(mob/user)
-	if(cooldown)
-		return ..()
-
-	playsound(src, 'sound/items/Help.ogg', 10, FALSE)
-	user.visible_message("[get_examine_icon(viewers(user))] [span_danger("Бежиииииим!")]")
-	cooldown = TRUE
-	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
+	poof_sound = 'sound/items/Help.ogg'
+	cuddle_verb = "Бежиииииим!"
 
 /obj/item/toy/plushie/banbanana
 	name = "BANana"
 	desc = "What happens if I peel it?"
 	icon_state = "banana"
+	poof_sound = 'sound/effects/adminhelp.ogg'
 
 /obj/item/toy/plushie/banbanana/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	. = ..()
 	to_chat(target, span_danger("Вас забанил ХО$Т.\nПричина: Хонк."))
 	to_chat(target, span_danger("Это ПЕРМАНЕНТНЫЙ бан."))
 	to_chat(user, span_danger("Вы <b>ЗАБАНИЛИ</b> [target]"))
-	playsound(loc, 'sound/effects/adminhelp.ogg', 25)
 	return ATTACK_CHAIN_PROCEED_SUCCESS
 
 /obj/item/toy/plushie/pig
