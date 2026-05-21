@@ -45,17 +45,18 @@
 		if(!do_teleport(user, target_turf))
 			user.balloon_alert(user, "нельзя телепортироваться!")
 			return FALSE
+		var/turf/final_turf = get_turf(user)
 		var/obj/spot1 = new phaseout(starting_turf, user.dir)
-		playsound(target_turf, dash_sound, 25, TRUE)
-		var/obj/spot2 = new phasein(target_turf, user.dir)
+		playsound(final_turf, dash_sound, 25, TRUE)
+		var/obj/spot2 = new phasein(final_turf, user.dir)
 		spot1.Beam(spot2,beam_effect,time=2 SECONDS)
 		current_charges--
 		if(owner)
 			owner.update_action_buttons_icon()
 		addtimer(CALLBACK(src, PROC_REF(charge)), charge_rate)
 		last_used = world.time
-		if(istype(pulled_mob) && !get_teleport_blocking_living(pulled_mob) && !get_bluespace_interference_generator(get_turf(pulled_mob)) && !get_bluespace_interference_generator(target_turf))
-			pulled_mob.forceMove(target_turf)
+		if(istype(pulled_mob) && final_turf && !get_teleport_blocking_living(pulled_mob) && !get_bluespace_interference_generator(get_turf(pulled_mob)))
+			pulled_mob.forceMove(final_turf)
 // user.start_pulling(pulled_mob) // Не работает, как задумано... Персонаж просто не берёт другого в пул после телепортации. Пока оставлю так
 		return TRUE
 

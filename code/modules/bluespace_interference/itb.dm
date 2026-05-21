@@ -14,7 +14,7 @@
 	icon_state = "ITB"
 	item_state = "neck_ITB"
 	w_class = WEIGHT_CLASS_SMALL
-	body_parts_covered = HEAD
+	body_parts_covered = NONE
 	resistance_flags = FIRE_PROOF
 
 	var/locked = FALSE
@@ -243,9 +243,9 @@
 
 /obj/item/clothing/neck/itb/proc/refresh_state()
 	if(locked && tamper_stage != ITB_TAMPER_LOCK_BYPASSED)
-		ADD_TRAIT(src, TRAIT_NODROP, MUZZLE_TRAIT)
+		ADD_TRAIT(src, TRAIT_NODROP, UNIQUE_TRAIT_SOURCE(src))
 	else
-		REMOVE_TRAIT(src, TRAIT_NODROP, MUZZLE_TRAIT)
+		REMOVE_TRAIT(src, TRAIT_NODROP, UNIQUE_TRAIT_SOURCE(src))
 
 	if(locked && tamper_stage < ITB_TAMPER_WIRES_CUT)
 		apply_interference()

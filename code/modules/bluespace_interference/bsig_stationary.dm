@@ -5,6 +5,7 @@
 #define BSIG_S_CAPACITOR_RATING_LOAD_REDUCTION 25
 #define BSIG_S_FIELD_COLOR "#3aa6ff"
 #define BSIG_S_DIAG_FIELD_ALPHA 150
+#define BSIG_S_TOGGLE_COOLDOWN (2 SECONDS)
 
 /obj/item/circuitboard/machine/bsig_stationary
 	board_name = "BSIG-S"
@@ -72,17 +73,16 @@
 	var/field_range = BSIG_S_MIN_RANGE
 	var/power_usage = BSIG_S_REQUIRED_CAPACITORS * BSIG_S_CAPACITOR_BASE_LOAD
 	var/list/field_visuals = list()
+	var/next_toggle_time = 0
 
 /obj/machinery/power/bluespace_interference_generator/stationary/Initialize(mapload)
 	. = ..()
-	GLOB.poi_list |= src
 	new_component_parts()
 	connect_to_network()
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/power/bluespace_interference_generator/stationary/Destroy()
 	set_field_active(FALSE)
-	GLOB.poi_list -= src
 	return ..()
 
 /obj/machinery/power/bluespace_interference_generator/stationary/on_construction()
@@ -297,7 +297,13 @@
 	if(stat & BROKEN)
 		to_chat(user, span_warning("[src] сломан."))
 		return TRUE
+	if(user.default_can_use_topic(src) != UI_INTERACTIVE)
+		return TRUE
+	if(world.time < next_toggle_time)
+		to_chat(user, span_warning("[src] ещё стабилизирует блюспейс-поле."))
+		return TRUE
 
+	next_toggle_time = world.time + BSIG_S_TOGGLE_COOLDOWN
 	enabled = !enabled
 	if(!enabled)
 		set_cable_powered(FALSE)
@@ -345,9 +351,11 @@
 	if(!target_turf || !length(GLOB.active_bluespace_interference_generators))
 		return null
 
-	for(var/obj/machinery/power/bluespace_interference_generator/stationary/generator as anything in GLOB.active_bluespace_interference_generators)
+	var/list/generators = GLOB.active_bluespace_interference_generators
+	for(var/i = length(generators), i >= 1, i--)
+		var/obj/machinery/power/bluespace_interference_generator/stationary/generator = generators[i]
 		if(QDELETED(generator) || !generator.field_active)
-			GLOB.active_bluespace_interference_generators -= generator
+			generators.Cut(i, i + 1)
 			continue
 		if(generator.blocks_turf(target_turf))
 			return generator
@@ -361,3 +369,4 @@
 #undef BSIG_S_CAPACITOR_RATING_LOAD_REDUCTION
 #undef BSIG_S_FIELD_COLOR
 #undef BSIG_S_DIAG_FIELD_ALPHA
+#undef BSIG_S_TOGGLE_COOLDOWN
