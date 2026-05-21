@@ -118,15 +118,18 @@
 		do_sparks(5, 1, get_turf(src))
 		return
 
-	if(length(objs_for_contain))
-		for(var/obj/obj as anything in objs_for_contain)
-			if(!isitem(obj))
-				obj.forceMove(get_turf(src))
-				continue
+	if(!length(objs_for_contain))
+		do_sparks(5, 1, get_turf(src))
+		return
 
-			if(!user.put_in_any_hand_if_possible(obj) && ishuman(user))
-				var/mob/living/carbon/human/human_user = user
-				human_user.equip_or_collect(obj, ITEM_SLOT_BACKPACK)
+	for(var/obj/obj as anything in objs_for_contain)
+		if(!isitem(obj))
+			obj.forceMove(get_turf(src))
+			continue
+
+		if(!user.put_in_any_hand_if_possible(obj) && ishuman(user))
+			var/mob/living/carbon/human/human_user = user
+			human_user.equip_or_collect(obj, ITEM_SLOT_BACKPACK)
 
 	do_sparks(5, 1, get_turf(src))
 

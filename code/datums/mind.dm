@@ -699,7 +699,7 @@
 /datum/mind/proc/memory_edit_vox_raider()
 	. = _memory_edit_header("vox raider")
 	if(has_antag_datum(/datum/antagonist/vox_raider))
-		. += "<b><font color='red'>VOX RAIDER</font></b>|<a href='byond://?src=[UID()];vox_raider=clear'>Remove</a>"
+		. += "<b>[span_color("VOX RAIDER", "red")]</b>|<a href='byond://?src=[UID()];vox_raider=clear'>Remove</a>"
 		. += "<br><a href='byond://?src=[UID()];vox_raider=landmark'>To Vox Base</a>."
 		. += "<br><a href='byond://?src=[UID()];vox_raider=equip'>Equip</a>."
 		. += "<br><a href='byond://?src=[UID()];vox_raider=body'>Transform body</a>."

@@ -2,8 +2,6 @@
 	name = "DEBUG Melee Vox Pack"
 	category = VOX_PACK_MELEE
 
-// ============== Гарпун ==============
-
 /datum/vox_pack/melee/harpoon
 	name = "Гарпун"
 	desc = "Инструмент для охоты на космических китов."
@@ -11,17 +9,12 @@
 	cost = 100
 	contains = list(/obj/item/harpoon)
 
-// ============== Щиты ==============
-
 /datum/vox_pack/melee/shield
 	name = "Энергощит"
 	desc = "Энергетический компактный ручной щит, пособный отражать энергетические снаряды, но не может блокировать прямые воздействия."
 	reference = "MEL_SH"
 	cost = 4000
 	contains = list(/obj/item/shield/energy)
-
-
-// ============== Мечи ==============
 
 /datum/vox_pack/melee/sword
 	name = "Энергосабля"
@@ -69,9 +62,6 @@
 	reference = "MEL_FLY"
 	cost = 150
 	contains = list(/obj/item/melee/flyswatter)
-
-
-// ============== Раскладываемое ==============
 
 /datum/vox_pack/melee/dropwall
 	name = "Генератор щита"

@@ -52,16 +52,21 @@
 		if(get_area(tmp) == caster_area && length(tmp.req_access)) //Ignore airlocks that arent in area or are public airlocks
 			airlock = tmp
 			break
-	for(var/mob/living/carbon/human/disguise_source as anything in player_list) //Pick a random crewmember with access to this room
-		if((ACCESS_CAPTAIN in disguise_source.get_access()) || (ACCESS_HOP in disguise_source.get_access()) || (ACCESS_CLOWN in disguise_source.get_access()))
-			continue //We don't want the cap, HOP or clown as a disguise, too remarkable. If you're spotted by the Cap or HOP in their own office, disguising as them wont help you either
-		if((!airlock || airlock.allowed(disguise_source)) && !disguise_source.mind.offstation_role && disguise_source != owner)
-			return disguise_source
-	for(var/mob/living/carbon/human/backup_source as anything in player_list) //Pick a random crewmember if there's no one with access to the current room
-		if((ACCESS_CAPTAIN in backup_source.get_access()) || (ACCESS_HOP in backup_source.get_access()) || (ACCESS_CLOWN in backup_source.get_access()))
-			continue //ditto
-		if(!backup_source.mind.offstation_role && backup_source != owner)
-			return backup_source
+	var/mob/living/carbon/human/selected_disguise
+
+	for(var/mob/living/carbon/human/target as anything in player_list)
+		if((ACCESS_CAPTAIN in target.get_access()) || (ACCESS_HOP in target.get_access()) || (ACCESS_CLOWN in target.get_access()))
+			continue
+
+		if(target.mind.offstation_role || target == owner)
+			continue
+
+		if(airlock && airlock.allowed(target))
+			return target
+
+		if(!selected_disguise)
+			selected_disguise = target
+	return selected_disguise
 
 /datum/status_effect/magic_disguise/proc/create_disguise(mob/living/carbon/human/disguise_source)
 	var/datum/icon_snapshot/temp = new

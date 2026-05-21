@@ -16,7 +16,6 @@
 	cost = 25
 	contains = list(/obj/item/reagent_containers/syringe/dart/medical)
 
-// 1 уровень
 /datum/vox_pack/medicine/dart/tainted
 	name = "Медицинский дротик — Просрочен"
 	desc = "Просроченный и списанный медицинский дротик."
@@ -24,7 +23,6 @@
 	cost = 10
 	contains = list(/obj/item/reagent_containers/syringe/dart/medical/tainted)
 
-// 2 уровень
 /datum/vox_pack/medicine/dart/heal
 	name = "Медицинский дротик — Лечебный"
 	desc = "Медицинский дротик для лечения тяжелых травм."
@@ -39,7 +37,6 @@
 	cost = 80
 	contains = list(/obj/item/reagent_containers/syringe/dart/medical/stabilizing)
 
-// 3 уровень (1 час)
 /datum/vox_pack/medicine/dart/advanced
 	name = "Медицинский дротик — Продвинутый регенеративный"
 	desc = "Медицинский дротик стимулирующий быструю регенерацию."
@@ -48,7 +45,6 @@
 	cost = 200
 	contains = list(/obj/item/reagent_containers/syringe/dart/medical/advanced)
 
-// 4 уровень (2 час)
 /datum/vox_pack/medicine/dart/combat
 	name = "Медицинский дротик — Боевой стимулянт"
 	desc = "передовой дротик с эксперементальными стимулянтами."

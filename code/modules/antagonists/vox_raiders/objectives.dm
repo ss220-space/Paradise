@@ -29,8 +29,8 @@
 	if(!trader)
 		return
 	trader.synchronize_traders_stats()
-	for(var/I in trader.precious_collected_dict)
-		list_count += trader.precious_collected_dict[I][VOX_TRADER_COUNT]
+	for(var/index, value in trader.precious_collected_dict)
+		list_count += value[VOX_TRADER_COUNT]
 	if(list_count >= precious_amount)
 		return TRUE
 	return FALSE
@@ -103,8 +103,8 @@
 		if(!length(trader.collected_tech_dict))
 			continue
 		var/count = 0
-		for(var/tech in trader.collected_tech_dict)
-			if(trader.collected_tech_dict[tech] >= tech_min_level)
+		for(var/tech, level in trader.collected_tech_dict)
+			if(level >= tech_min_level)
 				count++
 		if(count >= tech_amount)
 			return TRUE

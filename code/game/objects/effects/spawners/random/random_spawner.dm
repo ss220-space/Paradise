@@ -89,50 +89,55 @@
 	if(spawn_loot_split)
 		pixel_placer = new(spawn_loot_split_pixel_offsets, spawn_random_offset_max_pixels)
 
-	if(length(loot_list))
-		var/loot_spawned = 0
-		while((spawn_loot_count-loot_spawned) && length(loot_list) && safe_failure_count <= 10)
-			loot_spawned++
-			var/lootspawn = pick_weight_recursive(loot_list)
+	if(!length(loot_list))
+		return
 
-			if(!check_safe(lootspawn))
-				safe_failure_count++
-				continue
+	var/loot_spawned = 0
+	while((spawn_loot_count-loot_spawned) && length(loot_list) && safe_failure_count <= 10)
+		loot_spawned++
+		var/lootspawn = pick_weight_recursive(loot_list)
 
-			if(!spawn_loot_double)
-				loot_list.Remove(lootspawn)
-			if(lootspawn)
-				var/turf/spawn_loc = loc
-				if(spawn_scatter_radius > 0 && length(spawn_locations))
-					spawn_loc = pick(spawn_locations)
+		if(!check_safe(lootspawn))
+			safe_failure_count++
+			continue
 
-				if(ispath(lootspawn, /turf))
-					spawn_loc.ChangeTurf(lootspawn)
-					continue
+		if(!spawn_loot_double)
+			loot_list.Remove(lootspawn)
 
-				var/atom/movable/spawned_loot = make_item(spawn_loc, lootspawn)
+		if(!lootspawn)
+			return
 
-				// If we make something that then makes something else and gets itself
-				// qdel'd, we'll have a null result here. This doesn't necessarily mean
-				// that nothing's been spawned, so it's not necessarily a failure.
-				if(!spawned_loot)
-					continue
+		var/turf/spawn_loc = loc
+		if(spawn_scatter_radius > 0 && length(spawn_locations))
+			spawn_loc = pick(spawn_locations)
 
-				spawned_loot.setDir(dir)
+		if(isturf(lootspawn))
+			spawn_loc.ChangeTurf(lootspawn)
+			continue
 
-				if(!spawn_loot_split && !spawn_random_offset)
-					if(pixel_x != 0)
-						spawned_loot.pixel_x = pixel_x
-					if(pixel_y != 0)
-						spawned_loot.pixel_y = pixel_y
-				else if(spawn_random_offset)
-					spawned_loot.pixel_x = rand(-spawn_random_offset_max_pixels, spawn_random_offset_max_pixels)
-					spawned_loot.pixel_y = rand(-spawn_random_offset_max_pixels, spawn_random_offset_max_pixels)
-				else if(spawn_loot_split && loot_spawned)
-					pixel_placer.place(spawned_loot, loot_spawned)
+		var/atom/movable/spawned_loot = make_item(spawn_loc, lootspawn)
 
-				if(container)
-					spawned_loot.forceMove(container)
+		// If we make something that then makes something else and gets itself
+		// qdel'd, we'll have a null result here. This doesn't necessarily mean
+		// that nothing's been spawned, so it's not necessarily a failure.
+		if(!spawned_loot)
+			continue
+
+		spawned_loot.setDir(dir)
+
+		if(!spawn_loot_split && !spawn_random_offset)
+			if(pixel_x != 0)
+				spawned_loot.pixel_x = pixel_x
+			if(pixel_y != 0)
+				spawned_loot.pixel_y = pixel_y
+		else if(spawn_random_offset)
+			spawned_loot.pixel_x = rand(-spawn_random_offset_max_pixels, spawn_random_offset_max_pixels)
+			spawned_loot.pixel_y = rand(-spawn_random_offset_max_pixels, spawn_random_offset_max_pixels)
+		else if(spawn_loot_split && loot_spawned)
+			pixel_placer.place(spawned_loot, loot_spawned)
+
+		if(container)
+			spawned_loot.forceMove(container)
 
 /**
  *  Makes the actual item related to our spawner. If `record_spawn` is `TRUE`,

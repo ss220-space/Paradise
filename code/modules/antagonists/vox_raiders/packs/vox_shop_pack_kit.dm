@@ -1,4 +1,3 @@
-// Цельные наборы
 /datum/vox_pack/kit
 	name = "DEBUG Kit Vox Pack"
 	category = VOX_PACK_KIT
@@ -26,8 +25,6 @@
 
 	cost = round(temp_cost * discount_div)
 	return TRUE
-
-// ============== Дешевые Наборы ==============
 
 /datum/vox_pack/kit/lamilar
 	name = "Лёгкий Набор"
@@ -58,8 +55,6 @@
 		/datum/vox_pack/equipment/mask,
 		/datum/vox_pack/equipment/nitrogen,
 	)
-
-// ============== Наборы Наемников ==============
 
 /datum/vox_pack/kit/stormtrooper
 	name = "Штурмовой Набор"
@@ -158,9 +153,6 @@
 		/obj/item/clothing/glasses/hud/diagnostic/sunglasses,
 	)
 	discount_div = 0.5
-
-
-// ============== Наборы Рейдеров ==============
 
 /datum/vox_pack/kit/trooper
 	name = "Набор Космического Штурмовика"
@@ -287,9 +279,6 @@
 		/obj/item/tank/internals/emergency_oxygen/double/vox,
 		/obj/item/clothing/glasses/thermal/monocle,
 	)
-
-// ============== Наборы Киг-Йар ==============
-// Наборы с щитами и "полезными невостребованными вещами" для востребования покупки.
 
 /datum/vox_pack/kit/kigyar
 	name = "Набор Киг-Йар"

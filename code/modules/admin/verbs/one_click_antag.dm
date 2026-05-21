@@ -489,7 +489,7 @@ ADMIN_VERB(one_click_antag, R_SERVER|R_EVENT, "Create Antagonist", "Auto-create 
 	return 0
 
 /datum/admins/proc/makeVoxRaiders()
-	var/confirm = tgui_alert(usr, "Создать новую команду?", "Подтверждение", list("Да", "Нет"))
+	var/confirm = tgui_alert(usr, "Создать команду воксов-рейдеров?", "Подтверждение", list("Да", "Нет"))
 	if(confirm != "Да")
 		return FALSE
 

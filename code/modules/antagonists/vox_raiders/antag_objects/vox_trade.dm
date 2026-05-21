@@ -11,10 +11,8 @@
 	var/cooldown = 3 SECONDS
 	var/is_trading_now = FALSE
 
-	var/list/connected_instruments = list()
-
 	var/angry_count = 0
-	var/list/blacklist_users = list()
+	var/static/list/blacklist_users = list()
 
 	var/precious_collected_dict = list()
 	var/all_values_sum = 0
@@ -24,121 +22,28 @@
 
 	var/list/blacklist_objects = list()
 
-
-	var/tech_mult = 6
-	var/weight_mult = 3
-	var/force_mult = 5
-
-	var/armor_div = 10
-	var/stack_div = 8
-	var/temp_div = 5
-	var/no_unique_tech_div = 4
 	var/denomination_div = 5
 
-	var/integrity_reward = 5
-	var/electroprotect_reward = 50
-	var/permeability_reward	= 20
-	var/highrisk_reward = 2500
-	var/valuable_highrisk_reward = 5000
-	var/value_access_reward = 100
-	var/valuable_access_reward = 500
-	var/unique_tech_level_reward = 300	// учитываем также множитель за технологии
-	var/stock_parts_rating_reward = 50
-
-	var/list/highrisk_list = list()
-	var/list/valuable_highrisk_list = list(
-		/obj/item/areaeditor/blueprints/ce,
-		/obj/item/disk/nuclear,
-		/obj/item/clothing/suit/armor/reactive,
-		/obj/item/documents,
-	)
-	var/list/valuable_access_list = list()
-	var/list/valuable_tech_list = list(
-		RESEARCH_TREE_BLUESPACE,
-		RESEARCH_TREE_ILLEGAL,
-		RESEARCH_TREE_COMBAT,
-		RESEARCH_TREE_ALIEN,
-	)
-
-	// дополнительные суммы за ценности
-	var/list/valuable_objects_dict = list(
-		/obj/machinery/nuclearbomb = 5000, // Ядро внутри является хайриском, оно дороже и учитывается при продаже. ~12.5k
-		/obj/item/mod/core = 1000,
-		/obj/item/mod = 300,
-		/obj/machinery/power/port_gen = 800,
-		/obj/machinery/power = 600,
-		/obj/machinery/the_singularitygen/tesla = 8000,
-		/obj/machinery/the_singularitygen = 6000,
-		/obj/structure/particle_accelerator = 3000,
-		/obj/machinery/power/emitter = 500,
-		/obj/machinery/power/supermatter_crystal = 15000,
-		/obj/machinery/satellite/meteor_shield = 1200,
-		/obj/item/circuitboard/computer/sat_control = 2000,
-		/obj/item/dna_probe = 150,
-		/obj/item/circuitboard/machine/dna_vault = 3000,
-		/obj/item/circuitboard/machine/bluespace_tap = 4500,
-		/obj/item/circuitboard/machine/bsa = 800,
-		/obj/machinery/snow_machine = 750,
-		/obj/structure/toilet/bluespace = 5000,
-		/obj/structure/toilet/captain_toilet = 3500,
-		///obj/structure/toilet/material/king = 2250,
-		/obj/structure/toilet/golden_toilet = 1250,
-		/obj/structure/toilet = 250,
-		/obj/machinery/shower = 150,
-		/obj/structure/urinal = 150,
-	)
-
-	var/list/valuable_guns_dict = list(
-		/obj/item/gun/energy/taser = 300,
-		/obj/item/gun/energy/disabler = 100,
-		/obj/item/gun/energy/lasercannon = 400,
-
-		/obj/item/gun/energy/gun/blueshield = 300,
-		/obj/item/gun/energy/gun/nuclear = 300,
-		/obj/item/gun/energy/gun/advtaser = 500,
-		/obj/item/gun/energy/gun = 150,
-
-		/obj/item/gun/energy/pulse = 3000,
-		/obj/item/gun/energy/ionrifle = 1000,
-		/obj/item/gun/energy/decloner = 500,
-		/obj/item/gun/energy/floragun = 500,
-		/obj/item/gun/energy/meteorgun = 500,
-		/obj/item/gun/energy/mindflayer = 500,
-		/obj/item/gun/energy/wormhole_projector = 800,
-		/obj/item/gun/energy/laser/instakill = 10000,
-		/obj/item/gun/energy/laser/scatter = 500,
-		/obj/item/gun/energy/sniperrifle = 1000,
-		/obj/item/gun/energy/specter = 200,
-		/obj/item/gun/energy/anomaly_stabilizer = 100,
-		/obj/item/gun/energy/plasmacutter/adv = 300,
-		/obj/item/gun/energy/laser = 200,
-		/obj/item/gun/energy/kinetic_accelerator/crossbow = 500,
-
-		/obj/item/gun/magic/staff = 10000,
-		/obj/item/gun/magic/wand = 5000,
-		/obj/item/gun/magic = 2000,
-
-		/obj/item/gun/projectile/automatic/toy = 10,
-		/obj/item/gun/projectile/automatic/lr30 = 800,
-		/obj/item/gun/projectile/automatic/ik60 = 1000,
-		/obj/item/gun/projectile/automatic/pistol = 300,
-		/obj/item/gun/projectile/automatic/l6_saw = 3000,
-		/obj/item/gun/projectile/automatic/sniper_rifle = 2000,
-		/obj/item/gun/projectile/automatic = 500,
-		/obj/item/gun/projectile = 300,
-		/obj/item/gun/projectile/shotgun/winchester/cargo = 500,
-
-		/obj/item/gun/rocketlauncher = 1000,
-		/obj/item/gun/medbeam = 2000,
-		/obj/item/gun/throw/crossbow = 300,
-		/obj/item/gun/syringe = 200,
+	var/static/list/datum/get_cost_step/get_value_steps = list(
+		new /datum/get_cost_step/integrity_step,
+		new /datum/get_cost_step/armor_step,
+		new /datum/get_cost_step/force_step,
+		new /datum/get_cost_step/get_tech_from_disk,
+		new /datum/get_cost_step/get_tech,
+		new /datum/get_cost_step/tech_step,
+		new /datum/get_cost_step/stack_step,
+		new /datum/get_cost_step/id_cart_step,
+		new /datum/get_cost_step/item_step,
+		new /datum/get_cost_step/stock_parts_step,
+		new /datum/get_cost_step/gas_step,
+		new /datum/get_cost_step/highrisk_step,
+		new /datum/get_cost_step/valuable_objects_step,
+		new /datum/get_cost_step/valuable_guns_step,
 	)
 
 /obj/machinery/vox_trader/Initialize(mapload)
 	. = ..()
-	for(var/theft_type in subtypesof(/datum/theft_objective))
-		highrisk_list += new theft_type
-	valuable_access_list += get_region_accesses(REGION_COMMAND) + get_all_centcom_access() + get_all_syndicate_access() + get_all_misc_access()
+	register_context()
 
 /obj/machinery/vox_trader/add_context(atom/source, list/context, obj/item/held_item, mob/user)
 	. = ..()
@@ -262,12 +167,7 @@
 	var/values_sum_precious = 0
 	var/accepted_access = list()
 
-	var/is_weight = FALSE
-	var/is_equip = FALSE
-	var/is_tech = FALSE
-	var/is_tech_valuable = FALSE
-	var/is_tech_unique = FALSE
-	var/is_access_unique = FALSE
+	var/tech_flag
 
 	for(var/obj/item as anything in items_list)
 		if(item.anchored)
@@ -278,138 +178,30 @@
 
 		var/temp_values_sum = 0
 		var/temp_values_sum_precious = 0
+		var/list/temp_values = list(
+			TRAIDER_VALUE_TEMP_VALUES_SUM = 0,
+			TRAIDER_VALUE_TEMP_VALUES_SUM_PRECIOUS = 0,
+			TRAIDER_VALUE_ORIGIN_TECH = null,
+			TRAIDER_VALUE_TECH_FLAG = NONE,
+			TRAIDER_VALUE_IS_VISUALISE_ONLY = is_visuale_only,
+			TRAIDER_VALUE_ACCEPTED_ACCESS = list()
+		)
+		for(var/datum/get_cost_step/step in get_value_steps)
+			if(step.can_process_object(item, src, temp_values))
+				step.process_object(item, src, temp_values)
 
-		if(item.obj_integrity > 0)
-			temp_values_sum += round((item.obj_integrity / item.max_integrity) * integrity_reward)
-
-		if(length(item.armor))
-			var/temp_val = 0
-			var/list/armor_list = item.armor.getList()
-			for(var/param in armor_list)
-				var/param_value = armor_list[param] == INFINITY ? 500 : armor_list[param]
-				if(param_value == 0)
-					continue
-				var/div = 1
-				if(param in list(FIRE, ACID))
-					div = armor_div
-				temp_val += div > 1 ? round(param_value / div) : temp_val
-			if(temp_val)
-				temp_values_sum += temp_val
-				is_equip = TRUE
-
-		if(item.force || item.throwforce)
-			temp_values_sum += round((item.force + item.throwforce) * force_mult + (throw_speed * throw_range))
-
-		if(istype(item, /obj/item/disk/tech_disk))
-			var/obj/item/disk/tech_disk/disk = item
-			var/datum/tech/disk_tech = disk.stored
-			if(disk_tech.id)
-				item.origin_tech = "[disk_tech.id]=[disk_tech.level]"
-
-		if(item.origin_tech)
-			var/list/tech_list = params2list(item.origin_tech)
-			for(var/tech in tech_list)
-				var/temp_mult = 1
-				var/tech_value = text2num(tech_list[tech])
-				if(tech in collected_tech_dict)
-					if(collected_tech_dict[tech] < tech_value)
-						temp_values_sum_precious += unique_tech_level_reward * (tech_value - collected_tech_dict[tech])
-						if(!is_visuale_only)
-							collected_tech_dict[tech] = tech_value
-						is_tech_unique = TRUE
-				else
-					temp_values_sum_precious += unique_tech_level_reward * tech_value
-					if(!is_visuale_only)
-						collected_tech_dict += list("[tech]" = tech_value)
-					is_tech_unique = TRUE
-				if(tech in valuable_tech_list)
-					temp_mult = tech_value
-					is_tech_valuable = TRUE
-				var/excess_mult = text2num(tech_value) > 7 ? 2 : 1	// переизбыток
-				temp_values_sum += round(tech_value * temp_mult * excess_mult)
-				is_tech = TRUE
-
-		if(isstack(item))
-			var/obj/item/stack/stack = item
-			var/point_value = 1
-			if(istype(item, /obj/item/stack/sheet))
-				var/obj/item/stack/sheet/sheet = stack
-				point_value += sheet.point_value
-			temp_values_sum *= round(stack.amount / stack_div * point_value)
-
-		if(is_id_card(item))
-			var/obj/item/card/id/id = item
-			for(var/access in id.access)
-				if(access in collected_access_list)
-					continue
-				if(access in valuable_access_list)
-					temp_values_sum_precious += valuable_access_reward
-					is_access_unique = TRUE
-				else
-					temp_values_sum_precious += value_access_reward
-				accepted_access += access
-
-		if(isitem(item))
-			var/temp_value = 0
-			var/obj/item/typed_item = item
-			temp_value += temp_values_sum / typed_item.toolspeed
-			if(typed_item.max_heat_protection_temperature)
-				temp_value += typed_item.max_heat_protection_temperature / temp_div
-			if(typed_item.siemens_coefficient)
-				temp_value += electroprotect_reward * (1 - typed_item.siemens_coefficient)
-			if(typed_item.permeability_coefficient)
-				temp_value += permeability_reward * (1 - typed_item.permeability_coefficient)
-			if(typed_item.w_class)
-				temp_value += typed_item.w_class * weight_mult
-				if(typed_item.w_class >= WEIGHT_CLASS_BULKY)
-					is_weight = TRUE
-			temp_values_sum += round(temp_value)
-
-		if(istype(item, /obj/item/stock_parts))
-			var/obj/item/stock_parts/part = item
-			temp_values_sum += part.rating * stock_parts_rating_reward
-
-		for(var/datum/theft_objective/objective in highrisk_list)
-			if(!istype(item, objective.typepath))
-				continue
-			var/temp_value = highrisk_reward
-			if(objective.special_equipment)
-				temp_value *= 2
-			if(objective.protected_jobs)
-				for(var/job in objective.protected_jobs)
-					switch(job)
-						if(JOB_TITLE_CAPTAIN, JOB_TITLE_HOS)
-							temp_value *= 2
-						else
-							temp_value *= 1.5
-			temp_values_sum_precious += temp_value
-
-			if(item in valuable_highrisk_list)
-				temp_values_sum_precious += valuable_highrisk_reward
-
-		for(var/valuable_type in valuable_objects_dict)
-			if(!istype(item, valuable_type))
-				continue
-			temp_values_sum_precious += valuable_objects_dict[valuable_type]
-			break
-
-		if(isgun(item))
-			for(var/valuable_type in valuable_guns_dict)
-				if(!istype(item, valuable_type))
-					continue
-				temp_values_sum_precious += valuable_guns_dict[valuable_type]
-				break
+		temp_values_sum = temp_values[TRAIDER_VALUE_TEMP_VALUES_SUM]
+		temp_values_sum_precious = temp_values[TRAIDER_VALUE_TEMP_VALUES_SUM_PRECIOUS]
 
 		temp_values_sum /= denomination_div
 
 		if(!is_visuale_only)
 			precious_grading(user, item, temp_values_sum + temp_values_sum_precious)
 
-		// ____________________________
-		// Завершаем рассчет
 		values_sum += temp_values_sum
 		values_sum_precious += temp_values_sum_precious
-
+		tech_flag |= temp_values[TRAIDER_VALUE_TECH_FLAG]
+		accepted_access |= temp_values[TRAIDER_VALUE_ACCEPTED_ACCESS]
 		if(!is_visuale_only && (temp_values_sum + temp_values_sum_precious) >= 0)
 			var/atom/item_location = item.loc
 			if(ismob(item_location))	// Cyborg Parts, wearing clothes, but not contents
@@ -427,21 +219,21 @@
 			if(!access_desc)
 				continue
 			addition_text += span_notice("[access_desc]; ")
-		if(is_access_unique)
+		if(tech_flag & VOX_TRADER_ACCESS_UNIQUE)
 			addition_text += span_good("\nИмеются ценные доступы. Очень ценно!")
 
-	if(is_weight)
+	if(tech_flag & VOX_TRADER_WEIGHT)
 		addition_text += span_notice("\nТяжесть — значит надежность.")
-	if(is_equip)
+	if(tech_flag & VOX_TRADER_EQUIP)
 		addition_text += span_notice("\nХорошее снаряжение. Ценно.")
-	if(is_tech)
+	if(tech_flag & VOX_TRADER_TECH)
 		addition_text += span_notice("\nТехнологии — ценно!")
-	if(is_tech_unique)
+	if(tech_flag & VOX_TRADER_UNIQUE_TECH)
 		addition_text += span_notice("\nНовые технологии! Очень ценно! Необходимо!")
-	if(is_tech_valuable)
+	if(tech_flag & VOX_TRADER_VALUABLE_TECH)
 		addition_text += span_notice("\nЦенные технологии! Крайне ценно!")
 
-	if(!is_visuale_only && is_tech_unique)
+	if(!is_visuale_only && (tech_flag & VOX_TRADER_UNIQUE_TECH))
 		update_shops()
 		addition_text += span_notice("\nЦены на некоторые товары снижены!")
 

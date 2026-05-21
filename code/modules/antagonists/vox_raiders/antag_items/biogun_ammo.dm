@@ -59,8 +59,6 @@
 	var/mob/living/hit_mob = hit_atom
 	hit_mob.apply_effects(stun, weaken, knockdown, paralyze, irradiate, slur, stutter, eyeblur, drowsy, 0, stamina, jitter)
 
-// ============== Ядра ==============
-
 /obj/item/biocore/viscerator
 	name = "biocore (viscerator)"
 	spawn_amount = 3

@@ -17,3 +17,17 @@
 
 #define VOX_TRADER_COUNT "count"
 #define VOX_TRADER_VALUE "value"
+
+#define TRAIDER_VALUE_TEMP_VALUES_SUM "temp_values_sum"
+#define TRAIDER_VALUE_TEMP_VALUES_SUM_PRECIOUS "temp_values_sum_precious"
+#define TRAIDER_VALUE_ORIGIN_TECH "origin_tech"
+#define TRAIDER_VALUE_TECH_FLAG "tech_flag"
+#define TRAIDER_VALUE_IS_VISUALISE_ONLY "is_visuale_only"
+#define TRAIDER_VALUE_ACCEPTED_ACCESS "accepted_access"
+
+#define VOX_TRADER_EQUIP (1<<0)
+#define VOX_TRADER_WEIGHT (1<<1)
+#define VOX_TRADER_TECH (1<<2)
+#define VOX_TRADER_UNIQUE_TECH (1<<3)
+#define VOX_TRADER_VALUABLE_TECH (1<<4)
+#define VOX_TRADER_ACCESS_UNIQUE (1<<5)
