@@ -1,4 +1,4 @@
-ADMIN_VERB(upload_jukebox_music, R_SERVER, "Jukebox Upload Music", "Upload a valid .ogg file to be accessed via the jukebox.", ADMIN_CATEGORY_SERVER)
+ADMIN_VERB(upload_jukebox_music, R_SOUNDS, "Jukebox Upload Music", "Upload a valid .ogg file to be accessed via the jukebox.", ADMIN_CATEGORY_SERVER)
 	var/file = input(user, "Select a .ogg file to upload to the jukebox.") as sound|null
 	if(!file)
 		return
@@ -25,7 +25,7 @@ ADMIN_VERB(upload_jukebox_music, R_SERVER, "Jukebox Upload Music", "Upload a val
 	message_admins("[key_name_admin(user)] uploaded [clean_name] to the jukebox!")
 	to_chat(user, span_notice("Successfully uploaded [clean_name]!"))
 
-ADMIN_VERB(browse_jukebox_music, R_SERVER, "Jukebox Browse Music", "Browse music files for moderation.", ADMIN_CATEGORY_SERVER)
+ADMIN_VERB(browse_jukebox_music, R_SOUNDS, "Jukebox Browse Music", "Browse music files for moderation.", ADMIN_CATEGORY_SERVER)
 	var/list/files = flist(CONFIG_JUKEBOX_SOUNDS)
 	// Filter out things that are not sound files, like the exclude
 	for(var/thing in files)

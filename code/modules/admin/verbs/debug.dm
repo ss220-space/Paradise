@@ -610,8 +610,8 @@ ADMIN_VERB(toggle_medal_disable, R_DEBUG, "Toggle Medal Disable", "Toggles the s
 	log_and_message_admins("[SSachievements.achievements_enabled? "disabled" : "enabled"] the medal hub lockout.")
 	BLACKBOX_LOG_ADMIN_VERB("Toggle Medal Disable")
 
-ADMIN_VERB(display_overlay_log, R_DEBUG, "Display Overlay Log", "Display SSoverlays log of everything that's passed through it.", ADMIN_CATEGORY_DEBUG)
-	render_stats(SSoverlays.stats, user)
+ADMIN_VERB(display_overlay_log, R_DEBUG, "Display Overlay Log", "Display the overlay manager log of everything that's passed through it.", ADMIN_CATEGORY_DEBUG)
+	render_stats(GLOB.overlay_manager.stats, user)
 
 ADMIN_VERB(clear_turf_reservations, R_DEBUG, "Clear Dynamic Turf Reservations", "Deallocates all reserved space, restoring it to round start conditions.", ADMIN_CATEGORY_DEBUG)
 	var/answer = tgui_alert(user, "WARNING: THIS WILL WIPE ALL RESERVED SPACE TO A CLEAN SLATE! ANY MOVING SHUTTLES, ELEVATORS, OR IN-PROGRESS PHOTOGRAPHY WILL BE DELETED!", "Really wipe dynamic turfs?", list("YES", "NO"))
