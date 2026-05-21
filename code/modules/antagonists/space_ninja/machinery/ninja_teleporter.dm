@@ -16,7 +16,7 @@
 				var/turf/T = get_turf(user)
 				var/turf/destination = pick(GLOB.ninja_teleport)
 				if(get_teleport_blocking_living(user) || get_bluespace_interference_generator(T) || get_bluespace_interference_generator(destination))
-					to_chat(user, span_warning("Bluespace interference prevents the teleport!"))
+					to_chat(user, span_warning("Блюспейс-помехи предотвращают телепортацию!"))
 					return
 				add_fingerprint(user)
 				user.forceMove(destination)

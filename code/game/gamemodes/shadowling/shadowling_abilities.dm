@@ -101,7 +101,7 @@
 	for(var/turf/turf in targets)
 		turf.extinguish_light()
 		for(var/atom/atom in turf.contents)
-			if(atom in blacklisted_lights)
+			if(is_type_in_list(atom, blacklisted_lights))
 				continue
 			atom.extinguish_light()
 

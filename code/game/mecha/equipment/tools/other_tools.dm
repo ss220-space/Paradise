@@ -22,10 +22,10 @@
 	if(!T)
 		return FALSE
 	if(get_teleport_blocking_living(chassis))
-		occupant_message(span_warning("Bluespace interference prevents the teleport!"))
+		occupant_message(span_warning("Блюспейс-помехи предотвращают телепортацию!"))
 		return FALSE
 	if(get_bluespace_interference_generator(get_turf(chassis)) || get_bluespace_interference_generator(T))
-		occupant_message(span_warning("Bluespace interference prevents the teleport!"))
+		occupant_message(span_warning("Блюспейс-помехи предотвращают телепортацию!"))
 		return FALSE
 	chassis.use_power(energy_drain)
 	var/turf/user_turf = get_turf(src)
@@ -59,10 +59,10 @@
 	if(!portal_turf)
 		return FALSE
 	if(get_teleport_blocking_living(chassis))
-		occupant_message(span_warning("Bluespace interference prevents the wormhole from forming!"))
+		occupant_message(span_warning("Блюспейс-помехи не дают сформировать червоточину!"))
 		return FALSE
 	if(get_bluespace_interference_generator(get_turf(chassis)) || get_bluespace_interference_generator(portal_turf))
-		occupant_message(span_warning("Bluespace interference prevents the wormhole from forming!"))
+		occupant_message(span_warning("Блюспейс-помехи не дают сформировать червоточину!"))
 		return FALSE
 	var/list/theareas = get_areas_in_range(100, chassis)
 	if(!length(theareas))

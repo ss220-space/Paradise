@@ -138,7 +138,7 @@
 
 	var/mob/living/teleport_blocker = get_teleport_blocking_living(teleatom)
 	if(teleport_blocker)
-		to_chat(teleport_blocker, span_warning("Bluespace interference prevents the teleport!"))
+		to_chat(teleport_blocker, span_warning("Блюспейс-помехи предотвращают телепортацию!"))
 		return FALSE
 
 	if(!ignore_bluespace_interference)
@@ -146,7 +146,7 @@
 		if(origin_interference)
 			if(isliving(teleatom))
 				var/mob/living/L = teleatom
-				to_chat(L, span_warning("Bluespace interference prevents the teleport!"))
+				to_chat(L, span_warning("Блюспейс-помехи предотвращают телепортацию!"))
 			return FALSE
 
 		var/obj/machinery/power/bluespace_interference_generator/stationary/destination_interference = get_bluespace_interference_generator(destturf)
@@ -157,7 +157,7 @@
 			destturf = interference_edge
 			if(isliving(teleatom))
 				var/mob/living/L = teleatom
-				to_chat(L, span_warning("Bluespace interference shunts the teleport to the edge of the field!"))
+				to_chat(L, span_warning("Блюспейс-помехи выбрасывают телепорт на край поля!"))
 
 	if(!is_teleport_allowed(destturf.z) && !ignore_area_flag)
 		return FALSE

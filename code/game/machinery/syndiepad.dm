@@ -210,12 +210,12 @@
 
 	if(get_bluespace_interference_generator(get_turf(src)))
 		if(user)
-			to_chat(user, span_warning("[src] cannot form a redspace lock through the local bluespace interference."))
+			to_chat(user, span_warning("[src] не может установить редспейс-связь через локальные блюспейс-помехи."))
 		return TRUE
 
 	if(get_bluespace_interference_generator(get_turf(linked_pad)))
 		if(user)
-			to_chat(user, span_warning("[src] cannot form a redspace lock through the bluespace interference around the target pad."))
+			to_chat(user, span_warning("[src] не может установить редспейс-связь через блюспейс-помехи вокруг целевой платформы."))
 		return TRUE
 
 	return FALSE

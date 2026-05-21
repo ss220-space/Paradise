@@ -15,7 +15,7 @@
 		visible_message(span_warning("Костюм начинает светиться... Но потом останавливается!"))
 		return
 	if(get_teleport_blocking_living(ninja) || get_bluespace_interference_generator(get_turf(ninja)))
-		to_chat(ninja, span_warning("Bluespace interference prevents the teleport!"))
+		to_chat(ninja, span_warning("Блюспейс-помехи предотвращают телепортацию!"))
 		return
 	if(!ninjacost(1500))
 		var/turf/T = get_turf(ninja)

@@ -183,7 +183,7 @@
 	var/turf/source = get_turf(occupant)
 	var/turf/destination = pick(GLOB.ninja_teleport)
 	if(get_teleport_blocking_living(occupant) || get_bluespace_interference_generator(source) || get_bluespace_interference_generator(destination))
-		to_chat(occupant, span_warning("Bluespace interference prevents the teleport!"))
+		to_chat(occupant, span_warning("Блюспейс-помехи предотвращают телепортацию!"))
 		return
 	occupant.forceMove(destination)
 	var/teleport_loc = occupant.loc

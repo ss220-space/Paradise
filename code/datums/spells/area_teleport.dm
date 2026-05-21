@@ -14,15 +14,6 @@
 	/// Currently selected area.
 	var/area/selected_area
 
-/obj/effect/proc_holder/spell/area_teleport/can_cast(mob/living/user = usr, charge_check = TRUE, show_message = FALSE)
-	if(!..())
-		return FALSE
-	if(has_active_itb_teleport_block(user))
-		if(show_message)
-			to_chat(user, span_warning("ITB подавляет телепортационную матрицу заклинания."))
-		return FALSE
-	return TRUE
-
 /obj/effect/proc_holder/spell/area_teleport/before_cast(list/targets, mob/user)
 	..()
 	selected_area = null // Reset it

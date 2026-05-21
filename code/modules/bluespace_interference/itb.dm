@@ -64,20 +64,20 @@
 	return CONTEXTUAL_SCREENTIP_SET
 
 /obj/item/clothing/neck/itb/attack_hand_secondary(mob/user, list/modifiers)
-	if(!ishuman(user))
+	if(!isliving(user))
 		to_chat(user, span_warning("Вам нужна ID-карта с доступом брига для управления [src]."))
 		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
-	var/mob/living/carbon/human/human_user = user
+	var/mob/living/living_user = user
 	var/mob/living/target = get_worn_target()
 	if(!target)
 		to_chat(user, span_warning("[src] должен быть надет, прежде чем его можно будет закрыть или открыть."))
 		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
 	if(locked)
-		do_unlock(human_user, target)
+		do_unlock(living_user, target)
 	else
-		do_lock(human_user, target)
+		do_lock(living_user, target)
 
 	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
@@ -204,7 +204,7 @@
 
 	return ..()
 
-/obj/item/clothing/neck/itb/proc/do_lock(mob/living/carbon/human/user, mob/living/target)
+/obj/item/clothing/neck/itb/proc/do_lock(mob/living/user, mob/living/target)
 	if(target)
 		wearer = target
 	if(!is_worn())
@@ -222,7 +222,7 @@
 	refresh_state()
 	return TRUE
 
-/obj/item/clothing/neck/itb/proc/do_unlock(mob/living/carbon/human/user, mob/living/target)
+/obj/item/clothing/neck/itb/proc/do_unlock(mob/living/user, mob/living/target)
 	if(target)
 		wearer = target
 	if(!has_itb_access(user))
@@ -234,7 +234,7 @@
 	refresh_state()
 	return TRUE
 
-/obj/item/clothing/neck/itb/proc/has_itb_access(mob/living/carbon/human/user)
+/obj/item/clothing/neck/itb/proc/has_itb_access(mob/living/user)
 	if(!user)
 		return FALSE
 	return ACCESS_BRIG in user.get_access()

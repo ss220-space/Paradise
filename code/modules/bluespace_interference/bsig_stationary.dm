@@ -96,7 +96,6 @@
 		set_field_active(FALSE)
 		return
 
-	power_change()
 	if(!can_operate())
 		set_cable_powered(FALSE)
 		set_field_active(FALSE)

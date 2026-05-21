@@ -20,15 +20,6 @@
 /obj/effect/proc_holder/spell/turf_teleport/create_new_targeting()
 	return new /datum/spell_targeting/self
 
-/obj/effect/proc_holder/spell/turf_teleport/can_cast(mob/living/user = usr, charge_check = TRUE, show_message = FALSE)
-	if(!..())
-		return FALSE
-	if(has_active_itb_teleport_block(user))
-		if(show_message)
-			to_chat(user, span_warning("ITB подавляет телепортационную матрицу заклинания."))
-		return FALSE
-	return TRUE
-
 /obj/effect/proc_holder/spell/turf_teleport/cast(list/targets,mob/living/user = usr)
 	if(sound_in)
 		playsound(get_turf(user), sound_in, 50, TRUE)
