@@ -288,9 +288,9 @@
 
 /obj/effect/proc_holder/spell/vampire/vamp_extinguish/cast(list/targets, mob/user = usr)
 	for(var/turf/T in targets)
-		T.extinguish_light()
+		T.extinguish_light(force = TRUE)
 		for(var/atom/A in T.contents)
-			A.extinguish_light()
+			A.extinguish_light(force = TRUE)
 
 /obj/effect/proc_holder/spell/vampire/shadow_boxing
 	name = "Бой с тенью"
@@ -351,9 +351,9 @@
 			L.adjust_bodytemperature(-40 * TEMPERATURE_DAMAGE_COEFFICIENT)
 
 	for(var/turf/turf as anything in RANGE_TURFS(4, get_turf(owner)))
-		turf.extinguish_light()
+		turf.extinguish_light(force = TRUE)
 		for(var/atom/atom as anything in turf.contents)
-			atom.extinguish_light()
+			atom.extinguish_light(force = TRUE)
 
 	V.bloodusable = max(V.bloodusable - 5, 0)
 

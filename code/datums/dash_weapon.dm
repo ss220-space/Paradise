@@ -55,9 +55,10 @@
 			owner.update_action_buttons_icon()
 		addtimer(CALLBACK(src, PROC_REF(charge)), charge_rate)
 		last_used = world.time
-		if(istype(pulled_mob) && !QDELETED(pulled_mob) && final_turf && !get_teleport_blocking_living(pulled_mob) && !get_bluespace_interference_generator(get_turf(pulled_mob)))
-			if(!final_turf.is_blocked_turf(exclude_mobs = TRUE))
-				pulled_mob.forceMove(final_turf)
+		var/can_move_pulled = istype(pulled_mob) && !QDELETED(pulled_mob) && final_turf
+		var/pulled_blocked = can_move_pulled && (get_teleport_blocking_living(pulled_mob) || get_bluespace_interference_generator(get_turf(pulled_mob)))
+		if(can_move_pulled && !pulled_blocked && !final_turf.is_blocked_turf(exclude_mobs = TRUE))
+			pulled_mob.forceMove(final_turf)
 // user.start_pulling(pulled_mob) // Не работает, как задумано... Персонаж просто не берёт другого в пул после телепортации. Пока оставлю так
 		return TRUE
 
