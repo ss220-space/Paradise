@@ -88,6 +88,7 @@
 
 	if(!wearer || QDELETED(wearer) || !is_worn_on_hands(wearer))
 		remove_interference()
+		wearer = null
 		return PROCESS_KILL
 
 	if(!cell || !cell.use(BSIG_P_POWER_DRAIN * seconds_per_tick))
