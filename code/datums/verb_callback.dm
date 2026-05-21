@@ -8,7 +8,7 @@
 	creation_time = DS2TICKS(world.time)
 	. = ..()
 
-#ifndef GAME_TESTS
+#ifndef UNIT_TESTS
 /datum/callback/verb_callback/Invoke(...)
 	if(isnull(user))
 		return

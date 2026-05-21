@@ -75,8 +75,8 @@ This applies to all STANDARD station areas
 /area/space/firereset(obj/source)
 	return
 
-/area/game_test
-	name = "Game Test Area"
+/area/unit_test
+	name = "Unit Test Area"
 	icon_state = "test_room"
 	requires_power = FALSE
 

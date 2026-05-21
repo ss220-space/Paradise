@@ -10,6 +10,9 @@ SUBSYSTEM_DEF(capitalism)
 	dependencies = list(
 		/datum/controller/subsystem/mapping,
 	)
+	dependents = list(
+		/datum/controller/subsystem/shuttle,
+	)
 	runlevels = RUNLEVEL_GAME
 	wait = 5 MINUTES
 	ss_flags = SS_BACKGROUND | SS_KEEP_TIMING

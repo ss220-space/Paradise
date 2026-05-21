@@ -1032,7 +1032,7 @@
 		return FALSE
 
 	// Refresh the blur when a client jumps into the mob, in case we get put on a clientless mob with no hud
-	RegisterSignal(owner, list(COMSIG_MOB_LOGIN, SIGNAL_ADDTRAIT(TRAIT_SIGHT_BYPASS), SIGNAL_REMOVETRAIT(TRAIT_SIGHT_BYPASS)), PROC_REF(update_blur))
+	RegisterSignals(owner, list(COMSIG_MOB_LOGIN, SIGNAL_ADDTRAIT(TRAIT_SIGHT_BYPASS), SIGNAL_REMOVETRAIT(TRAIT_SIGHT_BYPASS)), PROC_REF(update_blur))
 
 	// Apply initial blur
 	update_blur()

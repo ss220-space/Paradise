@@ -24,6 +24,8 @@ GLOBAL_LIST_INIT(bitfields, generate_bitfields())
 
 /// Returns an associative list of bitflag name -> number for all valid bitflags in the passed in field
 /proc/get_valid_bitflags(var_name)
+	if(!istext(var_name))
+		return list()
 	return GLOB.bitfields[var_name] || list()
 
 /proc/get_random_bitflag(var_name)

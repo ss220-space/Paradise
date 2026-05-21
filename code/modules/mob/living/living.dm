@@ -777,6 +777,8 @@
 	return
 
 /mob/living/proc/revive()
+	if(QDELETED(src))
+		return FALSE
 	rejuvenate()
 	if(iscarbon(src))
 		var/mob/living/carbon/C = src
@@ -1341,11 +1343,12 @@
 	return HEARING_PROTECTION_NONE
 
 /mob/living/singularity_act()
-	investigate_log("([key_name_log(src)]) has been consumed by the singularity.", INVESTIGATE_ENGINE) //Oh that's where the clown ended up!
+	investigate_log("has been consumed by the singularity.", INVESTIGATE_ENGINE) //Oh that's where the clown ended up!
+	investigate_log("has been gibbed by the singularity.", INVESTIGATE_DEATHS)
 	gib()
 	return 20
 
-/mob/living/singularity_pull(singularity, current_size)
+/mob/living/singularity_pull(atom/singularity, current_size)
 	..()
 	if(move_resist == INFINITY)
 		return
@@ -1464,11 +1467,17 @@
 	visible_message(span_notice("[DECLENT_RU_CAP(user, NOMINATIVE)] разделывает [declent_ru(ACCUSATIVE)]."))
 	gib()
 
-/mob/living/proc/can_use_guns(obj/item/gun/G)
-	if(G.trigger_guard != TRIGGER_GUARD_ALLOW_ALL && !IsAdvancedToolUser() && !is_monkeybasic(src))
+/mob/living/proc/can_use_guns(obj/item/gun/gun)
+	if(gun.trigger_guard != TRIGGER_GUARD_ALLOW_ALL && !IsAdvancedToolUser() && !is_monkeybasic(src))
 		to_chat(src, span_warning("У вас недостаточно ловкости для этого!"))
-		return 0
-	return 1
+		return FALSE
+	if(gun.trigger_guard == TRIGGER_GUARD_NONE)
+		to_chat(src, span_warning("Вы не можете стрелять из этого!"))
+		return FALSE
+	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
+		balloon_alert(src, "руки скованы!")
+		return FALSE
+	return TRUE
 
 /mob/living/can_be_pulled(atom/movable/puller, grab_state, force, supress_message)
 	return ..() && !(buckled?.buckle_prevents_pull)
@@ -2353,3 +2362,9 @@
 /mob/living/set_base_pixel_y(new_value)
 	. = ..()
 	update_offsets()
+
+/// Returns a string for the specified body zone. If we have a bodypart in this zone, refers to its plaintext_zone instead.
+/mob/living/proc/parse_zone_with_bodypart(zone)
+	var/obj/item/organ/external/part = get_bodypart(zone)
+
+	return part?.plaintext_zone || parse_zone(zone)

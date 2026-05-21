@@ -1,21 +1,18 @@
-/**
- * # Unique Datum Identifiers
- *
- * A replacement for plain \refs. Ensures the reference still points to the exact same datum/client,
- * but doesn't prevent GC like tags do.
- *
- * An unintended side effect of how UIDs are formatted: locate() ignores the number and attempts
- * to locate the reference. This is considered a feature — backwards compatibility.
- *
- * Before:
- *   var/my_ref = "\ref[my_datum]"
- *   var/datum/thing = locate(my_ref)
- *
- * After:
- *   var/my_UID = my_datum.UID()
- *   var/datum/thing = locateUID(my_UID)
- */
-/* --- */
+//! # Unique Datum Identifiers
+//!
+//! A replacement for plain \refs. Ensures the reference still points to the exact same datum/client,
+//! but doesn't prevent GC like tags do.
+//!
+//! An unintended side effect of how UIDs are formatted: locate() ignores the number and attempts
+//! to locate the reference. This is considered a feature — backwards compatibility.
+//!
+//! Before:
+//!   var/my_ref = "\ref[my_datum]"
+//!   var/datum/thing = locate(my_ref)
+//!
+//! After:
+//!   var/my_UID = my_datum.UID()
+//!   var/datum/thing = locateUID(my_UID)
 
 /// Log of all UIDs created in the round. Assoc list with type as key and amount as value
 GLOBAL_LIST_EMPTY(uid_log)
@@ -23,7 +20,7 @@ GLOBAL_LIST_EMPTY(uid_log)
 /**
  * Gets or creates the UID of a datum
  *
- * BYOND refs are recycled, so this system prevents that. If a datum does not have a UID when this proc is ran, one will be created
+ * BYOND refs are recycled, so this system prevents that. If a datum does not have a UID when this proc is ran, one will be created.
  *
  * Returns: the UID of the datum
  */
@@ -35,21 +32,17 @@ GLOBAL_LIST_EMPTY(uid_log)
 	return unique_datum_id
 
 /**
- * Returns the UID of a datum or a text ref of a list. Crashes on non-datum, non-list.
+ * Input is not a typed variable, which allows you to use it anywhere,
+ * especially if you don't want to track datum/non-datum typing.
  *
- * * target - A datum or a list.
- *
- * Returns: UID string if datum, text_ref if list.
+ * Returns: `UID` string if input is datum, `text_ref` if other.
  */
-/proc/UID_of(target)
-	if(islist(target) || isappearance(target))
-		return text_ref(target)
+/proc/UID_of(input)
+	if(!isdatum(input))
+		return text_ref(input)
 
-	if(!isdatum(target))
-		CRASH("Non-datum, non-list passed as argument: '[target]'")
-
-	var/datum/target_datum = target
-	return target_datum.UID()
+	var/datum/datum = input
+	return datum.UID()
 
 /**
  * Locates a datum based off of the UID
@@ -73,8 +66,9 @@ GLOBAL_LIST_EMPTY(uid_log)
 
 	for(var/datum_UID in UID_list)
 		var/datum/current_thing = locateUID(datum_UID)
-		if(istype(thing, current_thing))
-			return datum_UID
+		if(!istype(thing, current_thing))
+			continue
+		return datum_UID
 
 /**
  * Opens a lof of UIDs
@@ -84,8 +78,8 @@ GLOBAL_LIST_EMPTY(uid_log)
 ADMIN_VERB(uid_log, R_DEBUG, "View UID Log", "Shows the log of created UIDs this round.", ADMIN_CATEGORY_DEBUG)
 	var/list/sorted = sortTim(GLOB.uid_log, GLOBAL_PROC_REF(cmp_numeric_dsc), associative = TRUE)
 	var/list/text = list("<h1>UID Log</h1>", "<p>Current UID: [RUSTLIB_CALL(get_uuid_counter_value)]</p>", "<ul>")
-	for(var/key in sorted)
-		text += "<li>[key] - [sorted[key]]</li>"
+	for(var/key, value in sorted)
+		text += "<li>[key] - [value]</li>"
 
 	text += "</ul>"
 	var/datum/browser/popup = new(user, "uidlog", "UID log")

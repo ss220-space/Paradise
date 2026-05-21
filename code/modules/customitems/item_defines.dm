@@ -1314,12 +1314,6 @@
 	item_state = "vest_black"
 	sprite_sheets = null
 
-/obj/item/clothing/under/pants/fluff/combat
-	name = "combat pants"
-	desc = "Medium style tactical pants, for the fashion aware combat units out there."
-	icon_state = "combat_pants"
-	item_color = "combat_pants"
-
 /obj/item/clothing/suit/jacket/fluff/elliot_windbreaker // DaveTheHeadcrab: Elliot Campbell
 	name = "nylon windbreaker"
 	desc = "A cheap nylon windbreaker, according to the tag it was manufactured in New Chiba, Earth.<br>The color reminds you of a television tuned to a dead channel."

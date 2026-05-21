@@ -411,7 +411,7 @@
 	if(escaped_on_pod_5)
 		SSblackbox.record_feedback("nested tally", "round_end_stats", escaped_on_pod_5, list("escapees", "on_pod_5"))
 
-	SSdiscord.send2discord_simple(DISCORD_WEBHOOK_PRIMARY, "A round of [name] has ended - [surviving_total] survivors, [ghosts] ghosts. Round ID - [GLOB.round_id]. Duration - [ROUND_TIME_TEXT()]")
+	GLOB.discord_manager.send2discord_simple(DISCORD_WEBHOOK_PRIMARY, "A round of [name] has ended - [surviving_total] survivors, [ghosts] ghosts. Round ID - [GLOB.round_id]. Duration - [ROUND_TIME_TEXT()]")
 
 	if(!SSredis.connected)
 		return FALSE
@@ -754,7 +754,7 @@
 	if(player.assigned_role)
 		jobtext = " the <b>[player.assigned_role]</b>"
 
-	var/text = "<b>[player.get_display_key()]</b> was <b>[player.name]</b>[jobtext] and"
+	var/text = "<b>[player.get_mind_key()]</b> was <b>[player.name]</b>[jobtext] and"
 	if(player.current)
 		if(player.current.stat == DEAD)
 			text += " [span_redtext("died")]"
@@ -775,7 +775,7 @@
 	return text
 
 /proc/printeventplayer(datum/mind/player)
-	var/text = "<b>[player.get_display_key()]</b> was <b>[player.name]</b>"
+	var/text = "<b>[player.get_mind_key()]</b> was <b>[player.name]</b>"
 	if(player.special_role != SPECIAL_ROLE_EVENTMISC)
 		text += " the [player.special_role]"
 
@@ -816,7 +816,7 @@
 		if(!goal.can_gain())
 			continue
 
-		#ifndef GAME_TESTS
+		#ifndef UNIT_TESTS
 		possible += goal
 		#endif
 

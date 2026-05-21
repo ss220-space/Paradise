@@ -334,7 +334,7 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 /obj/effect/gateway/singularity_act()
 	return
 
-/obj/effect/gateway/singularity_pull()
+/obj/effect/gateway/singularity_pull(atom/singularity, current_size)
 	return
 
 /obj/effect/gateway/Bumped(atom/movable/moving_atom)

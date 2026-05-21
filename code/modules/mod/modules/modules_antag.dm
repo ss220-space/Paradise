@@ -246,14 +246,14 @@
 		RegisterSignal(mod.wearer, COMSIG_LIVING_MOB_BUMP, PROC_REF(unstealth))
 	RegisterSignal(mod.wearer, COMSIG_HUMAN_MELEE_UNARMED_ATTACK, PROC_REF(on_unarmed_attack))
 	RegisterSignal(mod.wearer, COMSIG_ATOM_BULLET_ACT, PROC_REF(on_bullet_act)) //TODO QWERTY: A LOT OF THESE SIGNALS AINT TRIGGERING. or at least this one.
-	RegisterSignal(mod.wearer, list(COMSIG_MOB_ITEM_ATTACK, COMSIG_PARENT_ATTACKBY, COMSIG_ATOM_ATTACK_HAND, COMSIG_ATOM_HITBY, COMSIG_ATOM_HULK_ATTACK, COMSIG_ATOM_ATTACK_PAW), PROC_REF(unstealth))
+	RegisterSignals(mod.wearer, list(COMSIG_MOB_ITEM_ATTACK, COMSIG_ATOM_ATTACKBY, COMSIG_ATOM_ATTACK_HAND, COMSIG_ATOM_HITBY, COMSIG_ATOM_HULK_ATTACK, COMSIG_ATOM_ATTACK_PAW), PROC_REF(unstealth))
 	animate(mod.wearer, alpha = stealth_alpha, time = 1.5 SECONDS)
 	drain_power(use_energy_cost)
 
 /obj/item/mod/module/stealth/on_deactivation(display_message = TRUE, deleting = FALSE)
 	if(bumpoff)
 		UnregisterSignal(mod.wearer, COMSIG_LIVING_MOB_BUMP)
-	UnregisterSignal(mod.wearer, list(COMSIG_HUMAN_MELEE_UNARMED_ATTACK, COMSIG_MOB_ITEM_ATTACK, COMSIG_PARENT_ATTACKBY, COMSIG_ATOM_ATTACK_HAND, COMSIG_ATOM_BULLET_ACT, COMSIG_ATOM_HITBY, COMSIG_ATOM_HULK_ATTACK, COMSIG_ATOM_ATTACK_PAW))
+	UnregisterSignal(mod.wearer, list(COMSIG_HUMAN_MELEE_UNARMED_ATTACK, COMSIG_MOB_ITEM_ATTACK, COMSIG_ATOM_ATTACKBY, COMSIG_ATOM_ATTACK_HAND, COMSIG_ATOM_BULLET_ACT, COMSIG_ATOM_HITBY, COMSIG_ATOM_HULK_ATTACK, COMSIG_ATOM_ATTACK_PAW))
 	animate(mod.wearer, alpha = 255, time = 1.5 SECONDS)
 
 /obj/item/mod/module/stealth/proc/unstealth(datum/source)
@@ -919,11 +919,11 @@ please, keep this up to date
 /obj/item/mod/module/active_chameleon/on_activation()
 	cached_default_skin = mod.theme.default_skin
 	var/list/choices = list(
-		"civilian" = image(icon = 'icons/mob/clothing/modsuit/mod_clothing.dmi', icon_state = "ref_civillian_sealed"),
-		"mining" = image(icon = 'icons/mob/clothing/modsuit/mod_clothing.dmi', icon_state = "ref_mining_sealed"),
-		"medical" = image(icon = 'icons/mob/clothing/modsuit/mod_clothing.dmi', icon_state = "ref_medical_sealed"),
-		"security" = image(icon = 'icons/mob/clothing/modsuit/mod_clothing.dmi', icon_state = "ref_security_sealed"),
-		"engineering" = image(icon = 'icons/mob/clothing/modsuit/mod_clothing.dmi', icon_state = "ref_engineering_sealed")
+		MOD_VARIANT_CIVILIAN = image(icon = 'icons/mob/clothing/modsuit/mod_clothing.dmi', icon_state = "ref_civillian_sealed"),
+		MOD_VARIANT_MINING = image(icon = 'icons/mob/clothing/modsuit/mod_clothing.dmi', icon_state = "ref_mining_sealed"),
+		MOD_VARIANT_MEDICAL = image(icon = 'icons/mob/clothing/modsuit/mod_clothing.dmi', icon_state = "ref_medical_sealed"),
+		MOD_VARIANT_SECURITY = image(icon = 'icons/mob/clothing/modsuit/mod_clothing.dmi', icon_state = "ref_security_sealed"),
+		MOD_VARIANT_ENGINEERING = image(icon = 'icons/mob/clothing/modsuit/mod_clothing.dmi', icon_state = "ref_engineering_sealed")
 	)
 	var/choosed_skin
 	var/choosed_name
@@ -932,23 +932,21 @@ please, keep this up to date
 	if(!selected_chameleon)
 		return
 
-	switch(selected_chameleon)
-		if("civilian")
-			choosed_name = "модели \"Путник\""
-			choosed_skin = MOD_VARIANT_CIVILIAN
-		if("mining")
-			choosed_name = "модели \"Первопроходец\""
-			choosed_skin = MOD_VARIANT_MINING
-		if("medical")
-			choosed_name = "модели \"Пульс\""
-			choosed_skin = MOD_VARIANT_MEDICAL
-		if("security")
-			choosed_name = "модели \"Страж\""
-			choosed_skin = MOD_VARIANT_SECURITY
-		if("engineering")
-			choosed_name = "модели \"Искра\""
-			choosed_skin = MOD_VARIANT_ENGINEERING
+	choosed_skin = selected_chameleon
 
+	switch(selected_chameleon)
+		if(MOD_VARIANT_CIVILIAN)
+			choosed_name = "модели \"Путник\""
+		if(MOD_VARIANT_MINING)
+			choosed_name = "модели \"Первопроходец\""
+		if(MOD_VARIANT_MEDICAL)
+			choosed_name = "модели \"Пульс\""
+		if(MOD_VARIANT_SECURITY)
+			choosed_name = "модели \"Страж\""
+		if(MOD_VARIANT_ENGINEERING)
+			choosed_name = "модели \"Искра\""
+
+	choosed_name = choosed_name || ""
 	addtimer(CALLBACK(src, PROC_REF(activate_chameleon), choosed_name, choosed_skin), chameleon_timer)
 
 /obj/item/mod/module/active_chameleon/proc/activate_chameleon(choosed_name, choosed_skin)
@@ -963,8 +961,11 @@ please, keep this up to date
 			DATIVE = part.ru_names[DATIVE] + " [choosed_name]",
 			ACCUSATIVE = part.ru_names[ACCUSATIVE] + " [choosed_name]",
 			INSTRUMENTAL = part.ru_names[INSTRUMENTAL] + " [choosed_name]",
-			PREPOSITIONAL = part.ru_names[PREPOSITIONAL] + " [choosed_name]"
-			)
+			PREPOSITIONAL = part.ru_names[PREPOSITIONAL] + " [choosed_name]",
+		)
+
+	if(!choosed_skin)
+		return
 
 	mod.theme.default_skin = choosed_skin
 	mod.theme.set_only_visual_skin(mod, choosed_skin)

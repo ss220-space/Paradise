@@ -1,18 +1,18 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
 /turf/simulated/floor/plasteel,
-/area/game_test)
+/area/unit_test)
 "G" = (
 /turf/simulated/wall/indestructible,
-/area/game_test)
+/area/unit_test)
 "R" = (
-/obj/effect/landmark/game_test/bottom_left_corner,
+/obj/effect/landmark/unit_test/bottom_left_corner,
 /turf/simulated/floor/plasteel,
-/area/game_test)
+/area/unit_test)
 "Y" = (
-/obj/effect/landmark/game_test/top_right_corner,
+/obj/effect/landmark/unit_test/top_right_corner,
 /turf/simulated/floor/plasteel,
-/area/game_test)
+/area/unit_test)
 
 (1,1,1) = {"
 G

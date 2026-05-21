@@ -71,6 +71,8 @@
 #define TRAIT_TESLA_SHOCKIMMUNE "tesla_shock_immunity"
 /// Are we immune to wet effect
 #define TRAIT_WET_IMMUNITY "wet_immunity"
+/// This just means that the carbon will always have functional liverless metabolism
+#define TRAIT_LIVERLESS_METABOLISM "liverless_metabolism"
 
 /// Makes the user handcuff others faster
 #define TRAIT_FAST_CUFFING "fast_cuffing"
@@ -568,3 +570,8 @@
 #define TRAIT_ON_CLIMBABLE "on_climbable"
 
 #define TRAIT_DISK_VERIFIER "disk-verifier"
+
+/// Trait which means whatever has this is dancing by a dance machine
+#define TRAIT_DISCO_DANCER "disco_dancer"
+
+#define TRAIT_GIVE_READY "give_ready"
