@@ -12,6 +12,7 @@ import {
   Stack,
   Table,
   RestrictedInput,
+  Slider,
 } from '../components';
 import { Window } from '../layouts';
 import { LoginInfo } from './common/LoginInfo';
@@ -303,13 +304,14 @@ const DetailedAccountInfo = (_properties) => {
                 (диапазон: –95% … +95%).
               </Box>
               <Stack>
-                <Stack.Item grow>
-                  <RestrictedInput
+                <Stack.Item grow maxWidth="50%">
+                  <Slider
                     value={selectedValue}
-                    onChange={(val) => setSelectedValue(val)}
                     minValue={-95}
                     maxValue={95}
+                    step={1}
                     width="100%"
+                    onChange={(e, value) => setSelectedValue(value)}
                   />
                 </Stack.Item>
                 <Stack.Item>
@@ -356,9 +358,8 @@ const DetailedAccountInfo = (_properties) => {
               )}
               <Box className="text-muted" mt={0.5} fontSize="11px">
                 <Icon name="info-circle" mr={0.5} />
-                Важно: Для отрицательного модификатора сначала укажите цифру,
-                затем знак «минус». Изменения будут применены автоматически со
-                следующего расчётного периода.
+                Важно: Изменения будут применены автоматически со следующего
+                расчётного периода.
               </Box>
             </LabeledList.Item>
           </LabeledList>

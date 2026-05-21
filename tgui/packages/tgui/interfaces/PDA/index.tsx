@@ -15,7 +15,7 @@ const PDA_UI = {
 const RequirePDAInterface = require.context('.', false, /\.tsx$/);
 
 const THEME_MAP: Record<string, string> = {
-  'pda_bank': 'raingor_company',
+  'pda_bank': 'brg',
 };
 
 const THEME_NAMES: Record<string, string> = {
