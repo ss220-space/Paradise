@@ -516,6 +516,11 @@
 	if(!iscultist(target) || !proximity_flag)
 		to_chat(user, span_warning("You can only teleport adjacent cultists with this spell!"))
 		return
+	if(isliving(target))
+		var/mob/living/teleport_target = target
+		if(has_active_itb_teleport_block(teleport_target))
+			to_chat(user, span_warning("ITB на [teleport_target] подавляет кровавый телепорт."))
+			return
 	for(var/R in GLOB.teleport_runes)
 		var/obj/effect/rune/teleport/T = R
 		var/resultkey = T.listkey
@@ -549,6 +554,10 @@
 	if(!do_after(user, 2 SECONDS, user, max_interact_count = 1, cancel_on_max = TRUE, cancel_message = "") || !destination)
 		teleporting_mob.color = mob_color
 		balloon_alert(user, "телепорт прерван!")
+		return
+	if(has_active_itb_teleport_block(teleporting_mob))
+		teleporting_mob.color = mob_color
+		to_chat(user, span_warning("ITB на [teleporting_mob] подавляет кровавый телепорт."))
 		return
 
 	playsound(origin, 'sound/misc/enter_blood.ogg', 50, TRUE, -1)

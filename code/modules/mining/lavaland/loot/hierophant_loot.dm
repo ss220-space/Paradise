@@ -176,6 +176,11 @@
 	if(!isturf(user.loc))
 		to_chat(user, span_warning("Здесь недостаточно места для телепортации!"))
 		return
+	if(isliving(user))
+		var/mob/living/living_user = user
+		if(has_active_itb_teleport_block(living_user))
+			to_chat(user, span_warning("ITB блокирует телепорт Иерофанта!"))
+			return
 	teleporting = TRUE //start channel
 	user.update_action_buttons_icon()
 	user.visible_message(span_hierophant_warning("[user] начина[PLUR_ET_YUT(user)] слабо светиться..."))
@@ -186,6 +191,17 @@
 	var/obj/effect/temp_visual/hierophant/telegraph/edge/TE1 = new /obj/effect/temp_visual/hierophant/telegraph/edge(user.loc)
 	var/obj/effect/temp_visual/hierophant/telegraph/edge/TE2 = new /obj/effect/temp_visual/hierophant/telegraph/edge(beacon.loc)
 	if(do_after(user, 4 SECONDS, user) && user && beacon)
+		if(isliving(user))
+			var/mob/living/living_user_after = user
+			if(has_active_itb_teleport_block(living_user_after))
+				to_chat(user, span_warning("ITB блокирует телепорт Иерофанта!"))
+				teleporting = FALSE
+				user.update_action_buttons_icon()
+				timer = world.time
+				INVOKE_ASYNC(src, PROC_REF(prepare_icon_update))
+				beacon.teleporting = FALSE
+				beacon.update_icon(UPDATE_ICON_STATE)
+				return
 		var/turf/source = get_turf(user)
 		if(beacon_turf.is_blocked_turf(exclude_mobs = TRUE))
 			teleporting = FALSE
@@ -247,6 +263,11 @@
 		user.update_action_buttons_icon()
 
 /obj/item/hierophant_club/proc/teleport_mob(turf/source, mob/M, turf/target, mob/user)
+	if(isliving(M))
+		var/mob/living/living_target = M
+		if(has_active_itb_teleport_block(living_target))
+			to_chat(living_target, span_warning("ITB блокирует телепорт Иерофанта!"))
+			return
 	var/turf/turf_to_teleport_to = get_step(target, get_dir(source, M)) //get position relative to caster
 	if(!turf_to_teleport_to || turf_to_teleport_to.is_blocked_turf(exclude_mobs = TRUE))
 		return
@@ -258,6 +279,12 @@
 	sleep(2)
 	if(!M)
 		return
+	if(isliving(M))
+		var/mob/living/living_target_after = M
+		if(has_active_itb_teleport_block(living_target_after))
+			to_chat(living_target_after, span_warning("ITB блокирует телепорт Иерофанта!"))
+			animate(M, alpha = 255, time = 2, easing = EASE_IN)
+			return
 	M.forceMove(turf_to_teleport_to)
 	sleep(1)
 	if(!M)
@@ -470,6 +497,10 @@
 	var/turf/target_turf = get_turf(targets[1])
 	for(var/mob/living/carbon/human/H in GLOB.human_list)
 		if(H.ckey == user.master)
+			if(has_active_itb_teleport_block(H))
+				to_chat(user, span_hierophant("ITB блокирует телепорт Иерофанта вашего хозяина!"))
+				to_chat(H, span_warning("ITB блокирует телепорт Иерофанта!"))
+				return
 			var/turf/start_turf = get_turf(H)
 			H.forceMove(target_turf)
 			new /obj/effect/temp_visual/hierophant/telegraph(target_turf, src)

@@ -177,12 +177,15 @@
 
 	var/turf/start_turf = get_turf(user)
 	var/turf/end_turf = get_turf(anchor)
-	QDEL_NULL(anchor)
 	if(end_turf.z != start_turf.z)
 		return
 	if(!is_teleport_allowed(end_turf.z))
 		return
+	if(has_active_itb_teleport_block(user))
+		to_chat(user, span_warning("ITB блокирует вашу связь с теневым якорем!"))
+		return
 
+	QDEL_NULL(anchor)
 	user.forceMove(end_turf)
 
 	if(end_turf.z == start_turf.z)
@@ -246,6 +249,15 @@
 	T.allowed_type = /turf/simulated
 	return T
 
+/obj/effect/proc_holder/spell/vampire/dark_passage/can_cast(mob/living/user = usr, charge_check = TRUE, show_message = FALSE)
+	if(!..())
+		return FALSE
+	if(has_active_itb_teleport_block(user))
+		if(show_message)
+			to_chat(user, span_warning("ITB подавляет теневой проход заклинания."))
+		return FALSE
+	return TRUE
+
 /obj/effect/proc_holder/spell/vampire/dark_passage/cast(list/targets, mob/user)
 	var/turf/target = get_turf(targets[1])
 	new /obj/effect/temp_visual/vamp_mist_out(get_turf(user))
@@ -275,10 +287,10 @@
 	return T
 
 /obj/effect/proc_holder/spell/vampire/vamp_extinguish/cast(list/targets, mob/user = usr)
-	for(var/turf/turf in targets)
-		turf.extinguish_light(force = TRUE)
-		for(var/atom/atom in turf.contents)
-			atom.extinguish_light(force = TRUE)
+	for(var/turf/T in targets)
+		T.extinguish_light()
+		for(var/atom/A in T.contents)
+			A.extinguish_light()
 
 /obj/effect/proc_holder/spell/vampire/shadow_boxing
 	name = "Бой с тенью"
@@ -339,9 +351,9 @@
 			L.adjust_bodytemperature(-40 * TEMPERATURE_DAMAGE_COEFFICIENT)
 
 	for(var/turf/turf as anything in RANGE_TURFS(4, get_turf(owner)))
-		turf.extinguish_light(force = TRUE)
+		turf.extinguish_light()
 		for(var/atom/atom as anything in turf.contents)
-			atom.extinguish_light(force = TRUE)
+			atom.extinguish_light()
 
 	V.bloodusable = max(V.bloodusable - 5, 0)
 
@@ -350,4 +362,3 @@
 
 /datum/vampire_passive/xray
 	gain_desc = "Теперь вы можете видеть сквозь стены, если вы не заметили."
-

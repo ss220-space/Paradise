@@ -6,6 +6,25 @@
 		return TRUE
 	return FALSE
 
+/proc/get_teleport_blocking_living(atom/movable/teleatom)
+	if(!teleatom)
+		return null
+	if(isliving(teleatom))
+		var/mob/living/living_teleatom = teleatom
+		if(HAS_TRAIT(living_teleatom, TRAIT_NO_TELEPORT))
+			return living_teleatom
+	if(teleatom.has_buckled_mobs())
+		for(var/mob/living/buckled_living as anything in teleatom.buckled_mobs)
+			if(HAS_TRAIT(buckled_living, TRAIT_NO_TELEPORT))
+				return buckled_living
+			var/mob/living/nested_blocker = get_teleport_blocking_living(buckled_living)
+			if(nested_blocker)
+				return nested_blocker
+	for(var/mob/living/contained_living as anything in teleatom.search_contents_for(/mob/living))
+		if(HAS_TRAIT(contained_living, TRAIT_NO_TELEPORT))
+			return contained_living
+	return null
+
 /datum/teleport
 	var/atom/movable/teleatom //atom to teleport
 	var/atom/destination //destination to teleport to
@@ -16,6 +35,7 @@
 	var/soundout //soundfile to play after teleportation
 	var/force_teleport = 1 //if false, teleport will use Move() proc (dense objects will prevent teleportation)
 	var/ignore_area_flag = FALSE
+	var/ignore_bluespace_interference = FALSE
 
 /datum/teleport/proc/start(ateleatom, adestination, aprecision = 0, afteleport = 1, aeffectin = null, aeffectout = null, asoundin = null, asoundout = null, bypass_area_flag = FALSE, ignore_bluespace_interference = FALSE)
 	if(!initTeleport(arglist(args)))
@@ -33,6 +53,7 @@
 	setForceTeleport(afteleport)
 	setSounds(asoundin, asoundout)
 	ignore_area_flag = bypass_area_flag
+	src.ignore_bluespace_interference = ignore_bluespace_interference
 	return TRUE
 
 //must succeed
@@ -112,6 +133,32 @@
 	else
 		destturf = get_turf(destination)
 
+	if(!destturf || !curturf)
+		return FALSE
+
+	var/mob/living/teleport_blocker = get_teleport_blocking_living(teleatom)
+	if(teleport_blocker)
+		to_chat(teleport_blocker, span_warning("Bluespace interference prevents the teleport!"))
+		return FALSE
+
+	if(!ignore_bluespace_interference)
+		var/obj/machinery/power/bluespace_interference_generator/stationary/origin_interference = get_bluespace_interference_generator(curturf)
+		if(origin_interference)
+			if(isliving(teleatom))
+				var/mob/living/L = teleatom
+				to_chat(L, span_warning("Bluespace interference prevents the teleport!"))
+			return FALSE
+
+		var/obj/machinery/power/bluespace_interference_generator/stationary/destination_interference = get_bluespace_interference_generator(destturf)
+		if(destination_interference)
+			var/turf/interference_edge = destination_interference.get_edge_turf(curturf, destturf)
+			if(!interference_edge)
+				return FALSE
+			destturf = interference_edge
+			if(isliving(teleatom))
+				var/mob/living/L = teleatom
+				to_chat(L, span_warning("Bluespace interference shunts the teleport to the edge of the field!"))
+
 	if(!is_teleport_allowed(destturf.z) && !ignore_area_flag)
 		return FALSE
 	// Only check the destination zlevel for is_teleport_allowed. Checking origin as well breaks ERT teleporters.
@@ -123,9 +170,6 @@
 			return FALSE
 		if(destarea.tele_proof)
 			return FALSE
-
-	if(!destturf || !curturf)
-		return FALSE
 
 	if(SEND_SIGNAL(teleatom, COMSIG_MOVABLE_TELEPORTING, curturf, destturf) & COMPONENT_BLOCK_TELEPORT)
 		return FALSE

@@ -1,6 +1,6 @@
 /obj/machinery/syndiepad
 	name = "Syndicate quantum pad"
-	desc = "Syndicate redspace quantumpads! Can transport goods through galaxies and completely ignores bluespace interference!"
+	desc = "Syndicate redspace quantumpads! Can transport goods through galaxies."
 	icon = 'icons/obj/telescience.dmi'
 	icon_state = "sqpad"
 	anchored = TRUE
@@ -199,7 +199,26 @@
 		to_chat(user, span_warning("Linked pad is not responding to ping."))
 		return
 
+	if(bluespace_interference_blocked(user))
+		return
+
 	return doteleport(usr)
+
+/obj/machinery/syndiepad/proc/bluespace_interference_blocked(mob/user)
+	if(!linked_pad || QDELETED(linked_pad))
+		return FALSE
+
+	if(get_bluespace_interference_generator(get_turf(src)))
+		if(user)
+			to_chat(user, span_warning("[src] cannot form a redspace lock through the local bluespace interference."))
+		return TRUE
+
+	if(get_bluespace_interference_generator(get_turf(linked_pad)))
+		if(user)
+			to_chat(user, span_warning("[src] cannot form a redspace lock through the bluespace interference around the target pad."))
+		return TRUE
+
+	return FALSE
 
 /obj/machinery/syndiepad/proc/sparks()
 	do_sparks(5, TRUE, get_turf(src))
@@ -224,7 +243,9 @@
 				to_chat(user, span_warning("Linked pad is not responding to ping. Teleport aborted."))
 				teleporting = 0
 				return
-
+			if(bluespace_interference_blocked(user))
+				teleporting = 0
+				return
 			teleporting = 0
 			last_teleport = world.time
 			// use a lot of power
@@ -274,4 +295,3 @@
 				if(!tele_success)
 					to_chat(user, span_warning("Object '[ROI]'' was not teleported for unknown reason!"))
 			return
-

@@ -46,6 +46,11 @@
 	return
 
 /obj/item/teleportation_scroll/proc/teleportscroll(mob/user)
+	if(isliving(user))
+		var/mob/living/living_user = user
+		if(has_active_itb_teleport_block(living_user))
+			to_chat(user, span_warning("ITB подавляет магическое перемещение свитка."))
+			return
 
 	var/A
 

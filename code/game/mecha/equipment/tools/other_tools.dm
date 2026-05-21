@@ -21,6 +21,12 @@
 	var/turf/T = get_turf(target)
 	if(!T)
 		return FALSE
+	if(get_teleport_blocking_living(chassis))
+		occupant_message(span_warning("Bluespace interference prevents the teleport!"))
+		return FALSE
+	if(get_bluespace_interference_generator(get_turf(chassis)) || get_bluespace_interference_generator(T))
+		occupant_message(span_warning("Bluespace interference prevents the teleport!"))
+		return FALSE
 	chassis.use_power(energy_drain)
 	var/turf/user_turf = get_turf(src)
 	do_teleport(chassis, T, tele_precision)
@@ -48,6 +54,15 @@
 	if(!action_checks(target) || !is_teleport_allowed(loc.z))
 		return FALSE
 	if(!is_faced_target(target))
+		return FALSE
+	var/turf/portal_turf = get_turf(target)
+	if(!portal_turf)
+		return FALSE
+	if(get_teleport_blocking_living(chassis))
+		occupant_message(span_warning("Bluespace interference prevents the wormhole from forming!"))
+		return FALSE
+	if(get_bluespace_interference_generator(get_turf(chassis)) || get_bluespace_interference_generator(portal_turf))
+		occupant_message(span_warning("Bluespace interference prevents the wormhole from forming!"))
 		return FALSE
 	var/list/theareas = get_areas_in_range(100, chassis)
 	if(!length(theareas))

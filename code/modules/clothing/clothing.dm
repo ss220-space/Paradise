@@ -1402,6 +1402,8 @@
 		return ..()
 	if(prob(5))
 		var/mob/living/carbon/human/H = owner
+		if(HAS_TRAIT(H, TRAIT_NO_TELEPORT))
+			return ..()
 		owner.visible_message(span_danger("The teleport slime potion flings [H] clear of [attack_text]!"))
 		var/list/turfs = new/list()
 		for(var/turf/T in orange(3, H))

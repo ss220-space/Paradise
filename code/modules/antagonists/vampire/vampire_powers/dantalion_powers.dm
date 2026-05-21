@@ -185,8 +185,21 @@
 	T.allowed_type = /mob/living
 	return T
 
+/obj/effect/proc_holder/spell/vampire/switch_places/can_cast(mob/living/user = usr, charge_check = TRUE, show_message = FALSE)
+	if(!..())
+		return FALSE
+	if(has_active_itb_teleport_block(user))
+		if(show_message)
+			to_chat(user, span_warning("ITB подавляет подпространственный обмен заклинания."))
+		return FALSE
+	return TRUE
+
 /obj/effect/proc_holder/spell/vampire/switch_places/cast(list/targets, mob/user)
 	var/mob/living/target = targets[1]
+	if(has_active_itb_teleport_block(target))
+		to_chat(user, span_warning("ITB на [target] предотвращает подпространственный обмен."))
+		revert_cast()
+		return
 	if(isAI(target))
 		to_chat(user, span_warning("Заклинание не действует на ядро ИИ!"))
 		revert_cast()
@@ -288,4 +301,3 @@
 		target.Slowed(4 SECONDS)
 		target.flash_eyes(2, TRUE) // flash to give them a second to lose track of who is who
 		new /obj/effect/hallucination/delusion(get_turf(user), target, skip_nearby = FALSE)
-

@@ -393,6 +393,9 @@
 	addtimer(CALLBACK(src, PROC_REF(reset_cooldown)),cooldown_time)
 
 /obj/item/gem/void/proc/teleport(mob/living/L)
+	if(has_active_itb_teleport_block(L))
+		to_chat(L, span_warning("ITB подавляет пустотное перемещение [src]."))
+		return
 	if(!is_teleport_allowed(L.z))
 		src.visible_message(span_warning("Кажется, [declent_ru(NOMINATIVE)] начинает дрожать!"))
 		return

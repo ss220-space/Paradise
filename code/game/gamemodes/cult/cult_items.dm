@@ -450,6 +450,11 @@
 	var/mob/living/carbon/C = user
 	if(C.pulling)
 		var/atom/movable/pulled = C.pulling
+		if(isliving(pulled))
+			var/mob/living/pulled_living = pulled
+			if(has_active_itb_teleport_block(pulled_living))
+				to_chat(user, span_warning("ITB на [pulled_living] удерживает [pulled_living.p_them()] от сдвига завесы."))
+				return
 		pulled.forceMove(T)
 		. = pulled
 
@@ -457,12 +462,19 @@
 	if(!uses || !iscarbon(user))
 		to_chat(user, span_warning("[src] is dull and unmoving in your hands."))
 		return
+	var/mob/living/living_user = user
+	if(has_active_itb_teleport_block(living_user))
+		to_chat(user, span_warning("ITB подавляет сдвиг завесы [src]."))
+		return
 	if(!iscultist(user))
 		user.drop_item_ground(src, force = TRUE)
 		step(src, pick(GLOB.alldirs))
 		to_chat(user, span_warning("[src] flickers out of your hands, too eager to move!"))
 		return
 	if(!do_after(user, 1 SECONDS, user))
+		return
+	if(has_active_itb_teleport_block(living_user))
+		to_chat(user, span_warning("ITB подавляет сдвиг завесы [src]."))
 		return
 
 	var/outer_tele_radius = 9
@@ -795,4 +807,3 @@
 	item_state = "summoning_orb"
 	desc = "It's an orb of crystalized blood. Can be used to transfer blood between cultists."
 	var/blood = 50
-

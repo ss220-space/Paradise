@@ -13,9 +13,13 @@
 				if(user.z != src.z)
 					return
 
-				add_fingerprint(user)
 				var/turf/T = get_turf(user)
-				user.forceMove(pick(GLOB.ninja_teleport))
+				var/turf/destination = pick(GLOB.ninja_teleport)
+				if(get_teleport_blocking_living(user) || get_bluespace_interference_generator(T) || get_bluespace_interference_generator(destination))
+					to_chat(user, span_warning("Bluespace interference prevents the teleport!"))
+					return
+				add_fingerprint(user)
+				user.forceMove(destination)
 				user.investigate_log("VOID-shifted from [COORD(T)] to [COORD(user)].", INVESTIGATE_TELEPORTATION)
 				playsound(user.loc, 'sound/effects/phasein.ogg', 25, TRUE)
 				playsound(user.loc, 'sound/effects/sparks2.ogg', 50, TRUE)

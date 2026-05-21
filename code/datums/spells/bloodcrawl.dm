@@ -37,6 +37,9 @@
 		if(phasein(target, user))
 			phased = FALSE
 	else
+		if(has_active_itb_teleport_block(user))
+			to_chat(user, span_warning("ITB подавляет магическое перемещение [src]."))
+			return
 		if(phaseout(target, user))
 			phased = TRUE
 	cooldown_handler.start_recharge()
@@ -291,4 +294,3 @@
 		return
 	var/mob/living/simple_animal/demon/shadow/demon = user
 	demon.RegisterSignal(holder, COMSIG_MOVABLE_MOVED, TYPE_PROC_REF(/mob/living/simple_animal/demon/shadow, check_darkness))
-

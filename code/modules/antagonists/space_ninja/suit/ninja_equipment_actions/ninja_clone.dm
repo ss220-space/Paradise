@@ -36,4 +36,7 @@
 			if(ismindshielded(in_turf_mob))
 				ninja_clone.GiveTarget(in_turf_mob)
 				break
+	if(get_teleport_blocking_living(ninja) || get_bluespace_interference_generator(get_turf(ninja)))
+		to_chat(ninja, span_warning("Bluespace interference prevents the teleport!"))
+		return
 	do_teleport(ninja, get_turf(ninja), 2, asoundin = 'sound/effects/phasein.ogg')

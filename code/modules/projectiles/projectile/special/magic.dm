@@ -196,6 +196,11 @@
 		teleloc = target.loc
 	for(var/atom/movable/stuff in teleloc)
 		if(!stuff.anchored && stuff.loc)
+			if(isliving(stuff))
+				var/mob/living/living_stuff = stuff
+				if(has_active_itb_teleport_block(living_stuff))
+					to_chat(living_stuff, span_warning("ITB подавляет магическое перемещение телепортационного снаряда."))
+					continue
 			teleammount++
 			do_teleport(stuff, stuff, 10)
 			var/datum/effect_system/fluid_spread/smoke/smoke = new

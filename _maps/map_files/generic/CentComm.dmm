@@ -9583,6 +9583,9 @@
 /obj/structure/closet/cabinet{
 	req_access = list(114)
 	},
+/obj/item/clothing/gloves/bsig_personal,
+/obj/item/clothing/gloves/bsig_personal,
+/obj/item/clothing/gloves/bsig_personal,
 /turf/simulated/floor/wood/fancy/light,
 /area/centcom/specops)
 "eCq" = (

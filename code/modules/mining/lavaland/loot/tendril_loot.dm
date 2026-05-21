@@ -375,7 +375,17 @@
 	if(is_in_teleport_proof_area(user) || is_in_teleport_proof_area(linked))
 		balloon_alert(user, "куб искрится и шипит")
 		return
+	if(isliving(user))
+		var/mob/living/living_user = user
+		if(has_active_itb_teleport_block(living_user))
+			balloon_alert(user, "ITB блокирует куб")
+			return
 	if(do_after(user, 1.5 SECONDS, user))
+		if(isliving(user))
+			var/mob/living/living_user_after = user
+			if(has_active_itb_teleport_block(living_user_after))
+				balloon_alert(user, "ITB блокирует куб")
+				return
 		var/datum/effect_system/fluid_spread/smoke/smoke = new
 		smoke.set_up(amount = 1, location = user.loc)
 		smoke.start()

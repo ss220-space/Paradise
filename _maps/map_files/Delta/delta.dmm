@@ -40706,10 +40706,10 @@
 /area/crew_quarters/locker)
 "ffp" = (
 /obj/machinery/firealarm/directional/east,
-/obj/machinery/flasher/portable,
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/machinery/power/bluespace_interference_generator/stationary,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -71095,6 +71095,7 @@
 	known_by = list("hos")
 	},
 /obj/item/gun/projectile/bombarda/secgl/x4,
+/obj/item/clothing/neck/itb,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

@@ -287,6 +287,12 @@ effective or pretty fucking useless.
 		return
 
 	var/turf/mobloc = get_turf(user)
+	if(HAS_TRAIT(user, TRAIT_NO_TELEPORT))
+		to_chat(user, span_warning("[src] fails to activate due to the local bluespace interference."))
+		return
+	if(bluespace_interference_blocked(user, mobloc))
+		return
+
 	var/list/turfs = list()
 	var/found_turf = FALSE
 	var/list/bagholding = user.search_contents_for(/obj/item/storage/backpack/holding)
@@ -313,13 +319,17 @@ effective or pretty fucking useless.
 	if(user.loc != mobloc) // No locker / mech / sleeper teleporting, that breaks stuff
 		to_chat(user, span_danger("[src] will not work here!"))
 
+	var/turf/destination = pick(turfs)
+	destination = get_bluespace_interference_destination(user, mobloc, destination)
+	if(!destination)
+		return
+
 	if(charges > 0) //While we want EMP triggered teleports to drain charge, we also do not want it to go negative charge, as such we need this check here
 		charges--
 		update_icon(UPDATE_ICON_STATE)
 		if(!(datum_flags & DF_ISPROCESSING))
 			START_PROCESSING(SSobj, src)
 
-	var/turf/destination = pick(turfs)
 	if(tile_check(destination) || flawless) // Why is there so many bloody floor types
 		var/turf/fragging_location = destination
 		telefrag(fragging_location, user)
@@ -333,6 +343,25 @@ effective or pretty fucking useless.
 		panic_teleport(user, destination, direction)
 	else // Emp activated? Bag of holding? No saving throw for you
 		get_fragged(user, destination)
+
+/obj/item/teleporter/proc/bluespace_interference_blocked(mob/living/user, turf/source_turf)
+	if(!get_bluespace_interference_generator(source_turf))
+		return FALSE
+	to_chat(user, span_warning("[src] fails to activate due to the local bluespace interference."))
+	return TRUE
+
+/obj/item/teleporter/proc/get_bluespace_interference_destination(mob/living/user, turf/source_turf, turf/destination)
+	var/obj/machinery/power/bluespace_interference_generator/stationary/interference = get_bluespace_interference_generator(destination)
+	if(!interference)
+		return destination
+
+	var/turf/edge_turf = interference.get_edge_turf(source_turf, destination)
+	if(!edge_turf)
+		to_chat(user, span_warning("[src] fails to find a stable point outside the bluespace interference."))
+		return null
+
+	to_chat(user, span_warning("[src] shunts you to the edge of a bluespace interference field."))
+	return edge_turf
 
 /obj/item/teleporter/proc/tile_check(turf/check_turf)
 	return isfloorturf(check_turf) || isspaceturf(check_turf) || isopenspaceturf(check_turf)
@@ -381,6 +410,10 @@ effective or pretty fucking useless.
 		return
 
 	var/turf/new_destination = pick(turfs)
+	new_destination = get_bluespace_interference_destination(user, mobloc, new_destination)
+	if(!new_destination)
+		return
+
 	var/turf/fragging_location = new_destination
 	telefrag(fragging_location, user)
 	user.forceMove(new_destination)
@@ -391,6 +424,10 @@ effective or pretty fucking useless.
 
 /obj/item/teleporter/proc/get_fragged(mob/user, turf/destination)
 	var/turf/mobloc = get_turf(user)
+	destination = get_bluespace_interference_destination(user, mobloc, destination)
+	if(!destination)
+		return
+
 	user.forceMove(destination)
 	playsound(mobloc, SFX_SPARKS, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(mobloc)

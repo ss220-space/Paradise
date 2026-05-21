@@ -197,7 +197,6 @@
 	action_background_icon_state = "bg_demon"
 
 	phase_allowed = TRUE
-
 	clothes_req = FALSE
 	human_req = FALSE
 
@@ -232,6 +231,9 @@
 			return ..()
 
 	else
+		if(has_active_itb_teleport_block(user))
+			to_chat(user, span_warning("ITB подавляет магическое перемещение [src]."))
+			return
 		user.fakefire()
 		to_chat(user, span_warning("Адское пламя выплёскивает вас обратно в реальность."))
 		if(do_after(user, 10 SECONDS, user, NONE))
@@ -579,4 +581,3 @@
 			continue
 		to_chat(player_mob, message)
 		INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, user, player_mob, message, user.tts_seed, TRUE)
-

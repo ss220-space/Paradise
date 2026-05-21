@@ -480,6 +480,12 @@ structure_check() searches for nearby cultist structures required for the invoca
 	var/movedsomething = FALSE
 	var/moveuser = FALSE
 	for(var/atom/movable/movable in rune_turf)
+		if(isliving(movable))
+			var/mob/living/living_movable = movable
+			if(has_active_itb_teleport_block(living_movable))
+				if(living_movable == user)
+					to_chat(user, span_warning("ITB подавляет телепорт руны."))
+				continue
 		if(ishuman(movable))
 			if(movable != user) // Teleporting someone else
 				INVOKE_ASYNC(src, PROC_REF(teleport_effect), movable, rune_turf, target)
@@ -734,6 +740,11 @@ structure_check() searches for nearby cultist structures required for the invoca
 		return
 	if(is_away_level(cultist_to_summon.z))
 		to_chat(user, span_cultitalic("[cultist_to_summon] is not in our dimension!"))
+		fail_invoke()
+		return
+	if(has_active_itb_teleport_block(cultist_to_summon))
+		to_chat(user, span_cultitalic("ITB на [cultist_to_summon] подавляет призыв."))
+		to_chat(cultist_to_summon, span_cult("Вы чувствуете тянущее ощущение, но ваш ITB удерживает вас на месте!"))
 		fail_invoke()
 		return
 

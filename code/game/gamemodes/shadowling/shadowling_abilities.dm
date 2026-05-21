@@ -101,7 +101,7 @@
 	for(var/turf/turf in targets)
 		turf.extinguish_light()
 		for(var/atom/atom in turf.contents)
-			if(is_type_in_list(atom, blacklisted_lights))
+			if(atom in blacklisted_lights)
 				continue
 			atom.extinguish_light()
 
@@ -115,6 +115,15 @@
 
 /obj/effect/proc_holder/spell/shadowling_shadow_walk/create_new_targeting()
 	return new /datum/spell_targeting/self
+
+/obj/effect/proc_holder/spell/shadowling_shadow_walk/can_cast(mob/living/user = usr, charge_check = TRUE, show_message = FALSE)
+	if(!..())
+		return FALSE
+	if(has_active_itb_teleport_block(user))
+		if(show_message)
+			to_chat(user, span_warning("ITB подавляет ваш проход сквозь тени."))
+		return FALSE
+	return TRUE
 
 /obj/effect/proc_holder/spell/shadowling_shadow_walk/cast(list/targets, mob/living/user = usr)
 	if(!shadowling_check(user))
