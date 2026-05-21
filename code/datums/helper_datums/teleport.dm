@@ -6,7 +6,9 @@
 		return TRUE
 	return FALSE
 
-/proc/get_teleport_blocking_living(atom/movable/teleatom)
+#define TELEPORT_BLOCKER_MAX_DEPTH 2
+
+/proc/get_teleport_blocking_living(atom/movable/teleatom, depth = 0)
 	if(!teleatom)
 		return null
 	if(isliving(teleatom))
@@ -17,13 +19,18 @@
 		for(var/mob/living/buckled_living as anything in teleatom.buckled_mobs)
 			if(HAS_TRAIT(buckled_living, TRAIT_NO_TELEPORT))
 				return buckled_living
-			var/mob/living/nested_blocker = get_teleport_blocking_living(buckled_living)
+			var/mob/living/nested_blocker = get_teleport_blocking_living(buckled_living, depth + 1)
 			if(nested_blocker)
 				return nested_blocker
-	for(var/mob/living/contained_living as anything in teleatom.search_contents_for(/mob/living))
-		if(HAS_TRAIT(contained_living, TRAIT_NO_TELEPORT))
-			return contained_living
+	if(depth >= TELEPORT_BLOCKER_MAX_DEPTH)
+		return null
+	for(var/atom/movable/contained_atom as anything in teleatom.contents)
+		var/mob/living/nested_blocker = get_teleport_blocking_living(contained_atom, depth + 1)
+		if(nested_blocker)
+			return nested_blocker
 	return null
+
+#undef TELEPORT_BLOCKER_MAX_DEPTH
 
 /datum/teleport
 	var/atom/movable/teleatom //atom to teleport

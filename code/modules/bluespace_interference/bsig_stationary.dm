@@ -6,6 +6,7 @@
 #define BSIG_S_FIELD_COLOR "#3aa6ff"
 #define BSIG_S_DIAG_FIELD_ALPHA 150
 #define BSIG_S_TOGGLE_COOLDOWN (2 SECONDS)
+#define DECL_BSIG_S_TILE(num) declension_ru(num, "", "а", "ов")
 
 /obj/item/circuitboard/machine/bsig_stationary
 	board_name = "BSIG-S"
@@ -182,7 +183,8 @@
 	clear_field_visuals()
 	if(!field_active)
 		return
-	for(var/turf/current_turf as anything in circle_range_turfs(src, field_range))
+	var/range = field_range
+	for(var/turf/current_turf as anything in circle_range_turfs(src, range))
 		var/image/field_visual = image('icons/effects/alphacolors.dmi', current_turf, "blue", ABOVE_OPEN_TURF_LAYER)
 		field_visual.alpha = BSIG_S_DIAG_FIELD_ALPHA
 		field_visual.color = BSIG_S_FIELD_COLOR
@@ -252,7 +254,7 @@
 
 /obj/machinery/power/bluespace_interference_generator/stationary/examine(mob/user)
 	. = ..()
-	. += span_notice("Дисплей показывает радиус помех в [field_range] тайл[declension_ru(field_range, "", "а", "ов")] и потребление [power_usage] Вт.")
+	. += span_notice("Дисплей показывает радиус помех в [field_range] тайл[DECL_BSIG_S_TILE(field_range)] и потребление [power_usage] Вт.")
 	. += span_notice("[src] сейчас [enabled ? "включён" : "выключен"].")
 	if(enabled && !field_active)
 		if(stat & NOPOWER)
@@ -343,3 +345,4 @@
 #undef BSIG_S_FIELD_COLOR
 #undef BSIG_S_DIAG_FIELD_ALPHA
 #undef BSIG_S_TOGGLE_COOLDOWN
+#undef DECL_BSIG_S_TILE

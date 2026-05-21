@@ -271,11 +271,8 @@
 	if(!target)
 		return FALSE
 
-	for(var/obj/item/clothing/neck/itb/itb in target)
-		if(itb.locked && itb.tamper_stage < ITB_TAMPER_WIRES_CUT && itb.is_worn())
-			return TRUE
-
-	return FALSE
+	var/obj/item/clothing/neck/itb/itb = target.get_item_by_slot(ITEM_SLOT_NECK)
+	return istype(itb) && itb.locked && itb.tamper_stage < ITB_TAMPER_WIRES_CUT
 
 #undef ITB_TAMPER_SECURE
 #undef ITB_TAMPER_PANEL_OPEN
