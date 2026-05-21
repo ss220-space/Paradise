@@ -72,7 +72,7 @@
 			user.mind.store_memory("<b>Мы забыли речевые шаблоны [target].</b>")
 			to_chat(user, span_boldnotice("Мы забыли речевые шаблоны [target]."))
 
-		var/datum/antagonist/changeling/target_cling = target?.mind?.has_antag_datum(/datum/antagonist/changeling)
+		var/datum/antagonist/changeling/target_cling = IS_CHANGELING(target)
 		if(target_cling)//If the target was a changeling, suck out their extra juice and objective points!
 			cling.chem_charges += min(target_cling.chem_charges, cling.chem_storage)
 			cling.chem_storage += CLING_CHEM_STORAGE_STEAL

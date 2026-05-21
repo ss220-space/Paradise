@@ -3,7 +3,6 @@
 	desc = "Мы погружаемся в стазис, который позволяет регенерировать любые повреждения и обмануть наших врагов."
 	button_icon_state = "fake_death"
 	power_type = CHANGELING_INNATE_POWER
-	req_dna = 1
 	req_stat = DEAD
 
 /datum/action/changeling/fakedeath/sting_action(mob/living/user)
@@ -15,7 +14,6 @@
 
 	ADD_TRAIT(user, TRAIT_FAKEDEATH, CHANGELING_TRAIT)		//play dead
 	user.updatehealth("fakedeath sting")
-	cling.regenerating = TRUE
 
 	var/stasis_delay = CLING_FAKEDEATH_TIME + cling.fakedeath_delay
 	addtimer(CALLBACK(src, PROC_REF(ready_to_regenerate), user), stasis_delay)

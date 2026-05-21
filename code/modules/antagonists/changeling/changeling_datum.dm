@@ -58,8 +58,6 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	var/datum/dna/chosen_dna
 	/// The current sting power the changeling has active.
 	var/datum/action/changeling/sting/chosen_sting
-	/// If the changeling is in the process of regenerating from their fake death.
-	var/regenerating = FALSE
 	/// A name that will display in place of the changeling's real name when speaking.
 	var/mimicking = ""
 	/// TTS seed used in mimic voice ability.
