@@ -2417,8 +2417,6 @@
 #include "code\modules\antagonists\vox_raiders\get_cost_steps\integrity_step.dm"
 #include "code\modules\antagonists\vox_raiders\get_cost_steps\get_cost_step.dm"
 #include "code\modules\antagonists\vox_raiders\get_cost_steps\armor_step.dm"
-#include "code\modules\antagonists\vox_raiders\get_cost_steps\armor_step.dm"
-#include "code\modules\antagonists\vox_raiders\get_cost_steps\armor_step.dm"
 #include "code\modules\antagonists\vox_raiders\get_cost_steps\item_step.dm"
 #include "code\modules\antagonists\vox_raiders\get_cost_steps\stack_step.dm"
 #include "code\modules\antagonists\vox_raiders\get_cost_steps\stock_parts_step.dm"
