@@ -3,12 +3,9 @@
 /obj/item/clothing/gloves/bsig_personal
 	name = "BSIG-P"
 	desc = "Персональный генератор блюспейс-помех, встроенный в наручный браслет. В активном состоянии предотвращает блюспейс-смещение владельца."
-	icon = 'icons/obj/clothing/gloves.dmi'
 	icon_state = "BSIG-P"
 	item_state = "BSIG-P"
-	w_class = WEIGHT_CLASS_SMALL
 	siemens_coefficient = 0.25
-	body_parts_covered = ARMS
 	clothing_flags = NONE
 	actions_types = list(/datum/action/item_action/toggle)
 
@@ -99,8 +96,6 @@
 		if(old_wearer)
 			to_chat(old_wearer, span_warning("[src] выключается из-за разряда батареи."))
 		return PROCESS_KILL
-
-	apply_interference()
 
 /obj/item/clothing/gloves/bsig_personal/attackby(obj/item/I, mob/living/user, params)
 	if(iscell(I))

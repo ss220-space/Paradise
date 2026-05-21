@@ -10,10 +10,8 @@
 /obj/item/clothing/neck/itb
 	name = "ITB"
 	desc = "Тюремный ошейник-блокиратор телепортации. В закрытом состоянии предотвращает любую телепортацию и схожее перемещение владельца."
-	icon = 'icons/obj/clothing/neck.dmi'
 	icon_state = "ITB"
 	item_state = "neck_ITB"
-	w_class = WEIGHT_CLASS_SMALL
 	body_parts_covered = NONE
 	resistance_flags = FIRE_PROOF
 
@@ -187,7 +185,7 @@
 	refresh_state()
 
 /obj/item/clothing/neck/itb/attackby(obj/item/I, mob/living/user, params)
-	if(istype(I, /obj/item/stack/cable_coil))
+	if(iscoil(I))
 		if(tamper_stage < ITB_TAMPER_WIRES_CUT)
 			to_chat(user, span_warning("Проводка [src] не требует замены."))
 			return ATTACK_CHAIN_PROCEED
@@ -267,10 +265,7 @@
 		wearer = loc
 	if(!wearer)
 		return FALSE
-	if(ishuman(wearer))
-		var/mob/living/carbon/human/human_wearer = wearer
-		return human_wearer.neck == src
-	return loc == wearer
+	return wearer.get_slot_by_item(src) == ITEM_SLOT_NECK
 
 /proc/has_active_itb_teleport_block(mob/living/target)
 	if(!target)

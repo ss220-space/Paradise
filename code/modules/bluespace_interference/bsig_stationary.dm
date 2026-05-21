@@ -19,49 +19,12 @@
 		/obj/item/stack/ore/bluespace_crystal = 5,
 	)
 
-/obj/effect/bsig_stationary_field
-	name = "поле блюспейс-помех"
-	desc = "Едва заметное синее искажение локального блюспейса."
-	icon = 'icons/effects/alphacolors.dmi'
-	icon_state = "blue"
-	layer = ABOVE_OPEN_TURF_LAYER
-	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	anchored = TRUE
-	alpha = 0
-	hud_possible = list(DIAG_HUD)
-	var/obj/machinery/power/bluespace_interference_generator/stationary/generator
-
-/obj/effect/bsig_stationary_field/Initialize(mapload, obj/machinery/power/bluespace_interference_generator/stationary/new_generator)
-	. = ..()
-	generator = new_generator
-	prepare_huds()
-	var/image/diag_field = hud_list[DIAG_HUD]
-	diag_field.loc = get_turf(src)
-	diag_field.icon = icon
-	diag_field.icon_state = icon_state
-	diag_field.layer = layer
-	diag_field.alpha = BSIG_S_DIAG_FIELD_ALPHA
-	diag_field.color = BSIG_S_FIELD_COLOR
-	var/datum/atom_hud/data/diagnostic/basic_diag_hud = GLOB.huds[DATA_HUD_DIAGNOSTIC]
-	basic_diag_hud?.add_atom_to_hud(src)
-	var/datum/atom_hud/data/diagnostic/advanced_diag_hud = GLOB.huds[DATA_HUD_DIAGNOSTIC_ADVANCED]
-	advanced_diag_hud?.add_atom_to_hud(src)
-
-/obj/effect/bsig_stationary_field/Destroy()
-	var/datum/atom_hud/data/diagnostic/basic_diag_hud = GLOB.huds[DATA_HUD_DIAGNOSTIC]
-	basic_diag_hud?.remove_atom_from_hud(src)
-	var/datum/atom_hud/data/diagnostic/advanced_diag_hud = GLOB.huds[DATA_HUD_DIAGNOSTIC_ADVANCED]
-	advanced_diag_hud?.remove_atom_from_hud(src)
-	return ..()
-
 /obj/machinery/power/bluespace_interference_generator/stationary
 	name = "BSIG-S"
 	desc = "Стационарный генератор блюспейс-помех. Предотвращает блюспейс-перемещение в небольшом радиусе при подключении к запитанному АПЦ и рабочему узлу электросети."
 	icon = 'icons/obj/machines/BSIG-S.dmi'
 	icon_state = "BSIS_G_static"
-	dir = SOUTH
 	pixel_x = -16
-	pixel_y = 0
 	density = TRUE
 	max_integrity = 300
 	integrity_failure = 100
@@ -184,7 +147,7 @@
 	return powernet ? TRUE : FALSE
 
 /obj/machinery/power/bluespace_interference_generator/stationary/proc/can_operate()
-	if(!enabled || panel_open || !anchored || (stat & (BROKEN|NOPOWER)))
+	if(!enabled || !anchored || !is_operational())
 		return FALSE
 	return has_powernet_node()
 
@@ -209,16 +172,27 @@
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/power/bluespace_interference_generator/stationary/proc/clear_field_visuals()
-	QDEL_LIST(field_visuals)
+	var/datum/atom_hud/data/diagnostic/basic_diag_hud = GLOB.huds[DATA_HUD_DIAGNOSTIC]
+	basic_diag_hud?.remove_atom_from_hud(src)
+	var/datum/atom_hud/data/diagnostic/advanced_diag_hud = GLOB.huds[DATA_HUD_DIAGNOSTIC_ADVANCED]
+	advanced_diag_hud?.remove_atom_from_hud(src)
 	field_visuals = list()
+	LAZYREMOVE(active_hud_list, DIAG_HUD)
 
 /obj/machinery/power/bluespace_interference_generator/stationary/proc/refresh_field_visuals()
 	clear_field_visuals()
 	if(!field_active)
 		return
 	for(var/turf/current_turf as anything in circle_range_turfs(src, field_range))
-		var/obj/effect/bsig_stationary_field/field_visual = new(current_turf, src)
+		var/image/field_visual = image('icons/effects/alphacolors.dmi', current_turf, "blue", ABOVE_OPEN_TURF_LAYER)
+		field_visual.alpha = BSIG_S_DIAG_FIELD_ALPHA
+		field_visual.color = BSIG_S_FIELD_COLOR
 		field_visuals += field_visual
+	LAZYSET(active_hud_list, DIAG_HUD, field_visuals)
+	var/datum/atom_hud/data/diagnostic/basic_diag_hud = GLOB.huds[DATA_HUD_DIAGNOSTIC]
+	basic_diag_hud?.add_atom_to_hud(src)
+	var/datum/atom_hud/data/diagnostic/advanced_diag_hud = GLOB.huds[DATA_HUD_DIAGNOSTIC_ADVANCED]
+	advanced_diag_hud?.add_atom_to_hud(src)
 
 /obj/machinery/power/bluespace_interference_generator/stationary/proc/blocks_turf(turf/target_turf)
 	if(!field_active || !target_turf)
