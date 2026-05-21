@@ -37,6 +37,8 @@
 	var/field_range = BSIG_S_MIN_RANGE
 	var/power_usage = BSIG_S_REQUIRED_CAPACITORS * BSIG_S_CAPACITOR_BASE_LOAD
 	var/list/field_visuals = list()
+	var/turf/cached_center_turf
+	var/cached_field_radius_squared = 0
 	var/next_toggle_time = 0
 
 /obj/machinery/power/bluespace_interference_generator/stationary/Initialize(mapload)
@@ -68,15 +70,18 @@
 	var/range_part_count = 0
 	var/total_range_rating = 0
 	power_usage = 0
+	var/list/parts = component_parts
 
-	for(var/obj/item/stock_parts/capacitor/capacitor in component_parts)
+	for(var/obj/item/stock_parts/capacitor/capacitor in parts)
 		capacitor_count++
-		power_usage += max(0, BSIG_S_CAPACITOR_BASE_LOAD - (BSIG_S_CAPACITOR_RATING_LOAD_REDUCTION * capacitor.rating))
-		total_range_rating += capacitor.rating
+		var/rating = capacitor.rating
+		power_usage += max(0, BSIG_S_CAPACITOR_BASE_LOAD - (BSIG_S_CAPACITOR_RATING_LOAD_REDUCTION * rating))
+		total_range_rating += rating
 		range_part_count++
 
-	for(var/obj/item/stock_parts/manipulator/manipulator in component_parts)
-		total_range_rating += manipulator.rating
+	for(var/obj/item/stock_parts/manipulator/manipulator in parts)
+		var/rating = manipulator.rating
+		total_range_rating += rating
 		range_part_count++
 
 	if(capacitor_count < BSIG_S_REQUIRED_CAPACITORS)
@@ -88,6 +93,7 @@
 	else
 		field_range = BSIG_S_MIN_RANGE
 
+	update_cached_field_data()
 	if(field_active)
 		refresh_field_visuals()
 
@@ -163,13 +169,19 @@
 	field_active = new_field_active
 	if(field_active)
 		GLOB.active_bluespace_interference_generators |= src
+		update_cached_field_data()
 		refresh_field_visuals()
 		set_light(2, 0.6, BSIG_S_FIELD_COLOR, l_on = TRUE)
 	else
 		GLOB.active_bluespace_interference_generators -= src
+		cached_center_turf = null
 		clear_field_visuals()
 		set_light(0, 0)
 	update_icon(UPDATE_ICON_STATE)
+
+/obj/machinery/power/bluespace_interference_generator/stationary/proc/update_cached_field_data()
+	cached_center_turf = get_turf(src)
+	cached_field_radius_squared = field_range * (field_range + 0.5)
 
 /obj/machinery/power/bluespace_interference_generator/stationary/proc/clear_field_visuals()
 	var/datum/atom_hud/data/diagnostic/basic_diag_hud = GLOB.huds[DATA_HUD_DIAGNOSTIC]
@@ -198,12 +210,12 @@
 /obj/machinery/power/bluespace_interference_generator/stationary/proc/blocks_turf(turf/target_turf)
 	if(!field_active || !target_turf)
 		return FALSE
-	var/turf/center_turf = get_turf(src)
+	var/turf/center_turf = cached_center_turf
 	if(!center_turf || target_turf.z != center_turf.z)
 		return FALSE
 	var/dx = target_turf.x - center_turf.x
 	var/dy = target_turf.y - center_turf.y
-	return (dx * dx + dy * dy) <= field_range * (field_range + 0.5)
+	return (dx * dx + dy * dy) <= cached_field_radius_squared
 
 /obj/machinery/power/bluespace_interference_generator/stationary/proc/get_edge_turf(turf/origin, turf/intended_destination)
 	if(!blocks_turf(intended_destination))
@@ -327,10 +339,10 @@
 		return null
 
 	var/list/generators = GLOB.active_bluespace_interference_generators
-	for(var/i = length(generators), i >= 1, i--)
+	var/gen_len = length(generators)
+	for(var/i = gen_len, i >= 1, i--)
 		var/obj/machinery/power/bluespace_interference_generator/stationary/generator = generators[i]
 		if(QDELETED(generator) || !generator.field_active)
-			generators.Cut(i, i + 1)
 			continue
 		if(generator.blocks_turf(target_turf))
 			return generator

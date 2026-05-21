@@ -56,8 +56,10 @@
 		addtimer(CALLBACK(src, PROC_REF(charge)), charge_rate)
 		last_used = world.time
 		var/can_move_pulled = istype(pulled_mob) && !QDELETED(pulled_mob) && final_turf
-		var/pulled_blocked = can_move_pulled && (get_teleport_blocking_living(pulled_mob) || get_bluespace_interference_generator(get_turf(pulled_mob)))
-		if(can_move_pulled && !pulled_blocked && !final_turf.is_blocked_turf(exclude_mobs = TRUE))
+		var/pulled_has_personal_blocker = can_move_pulled && get_teleport_blocking_living(pulled_mob)
+		var/pulled_in_bsig_field = can_move_pulled && get_bluespace_interference_generator(get_turf(pulled_mob))
+		var/pulled_destination_blocked = can_move_pulled && final_turf.is_blocked_turf(exclude_mobs = TRUE)
+		if(can_move_pulled && !pulled_has_personal_blocker && !pulled_in_bsig_field && !pulled_destination_blocked)
 			pulled_mob.forceMove(final_turf)
 // user.start_pulling(pulled_mob) // Не работает, как задумано... Персонаж просто не берёт другого в пул после телепортации. Пока оставлю так
 		return TRUE
