@@ -316,17 +316,18 @@
 		return
 	if(bundle_name == "Random")
 		bundle_name = pick(unselected)
-	var/obj/item/storage/box/your_bundle = new(user.loc, bundles[bundle_name])
+	var/obj/item/storage/box/syndicate/your_bundle = new(user.loc, bundles[bundle_name])
 	to_chat(user, span_notice("Welcome to [station_name()], [bundle_name]."))
 	user.drop_item_ground(src)
 	user.put_in_hands(your_bundle)
-	var/obj/item/uplink/hidden/traitor_uplink = locate(/obj/item/uplink/hidden) in user
-	if(traitor_uplink && your_bundle && length(your_bundle.contents))
-		for(var/obj/item/bundle_item in your_bundle.contents)
-			var/list/item_contents = bundle_item.get_uplink_log_items()
-			for(var/atom/atom_to_display in item_contents)
-				traitor_uplink.purchase_log += span_fontsize4(icon2base64html(atom_to_display))
 	qdel(src)
+	var/obj/item/uplink/hidden/traitor_uplink = user.mind?.find_syndicate_uplink()
+	if(!traitor_uplink || !your_bundle || !length(your_bundle.contents))
+		return
+	for(var/obj/item/bundle_item in your_bundle.contents)
+		var/list/item_contents = bundle_item.get_uplink_log_items()
+		for(var/atom/atom_to_display in item_contents)
+			traitor_uplink.purchase_log += span_fontsize4(icon2base64html(atom_to_display))
 
 /obj/item/beacon/syndicate/bundle/check_uplink_validity()
 	return !used
