@@ -678,7 +678,7 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 		gps_locators[G.gpstag] = G
 	var/list/options = gps_locators
 	if(area_aim)
-		options += target_all_areas ? SSmapping.ghostteleportlocs : SSmapping.teleportlocs
+		options += target_all_areas ? SSmapping.ghostteleportlocs : GLOB.teleportlocs
 	var/choose = tgui_input_list(user, "Выберите цель", "Наведение", options)
 	if(!choose)
 		return
