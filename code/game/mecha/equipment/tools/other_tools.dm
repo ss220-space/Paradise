@@ -21,15 +21,8 @@
 	var/turf/T = get_turf(target)
 	if(!T)
 		return FALSE
-	var/turf/source_turf = get_turf(chassis)
-	if(get_teleport_blocking_living(chassis))
-		occupant_message(span_warning("Блюспейс-помехи предотвращают телепортацию!"))
-		return FALSE
-	if(get_bluespace_interference_generator(source_turf) || get_bluespace_interference_generator(T))
-		occupant_message(span_warning("Блюспейс-помехи предотвращают телепортацию!"))
-		return FALSE
 	var/turf/user_turf = get_turf(src)
-	if(!do_teleport(chassis, T, tele_precision, ignore_bluespace_interference = TRUE))
+	if(!do_teleport(chassis, T, tele_precision))
 		return FALSE
 	chassis.use_power(energy_drain)
 	chassis.investigate_log("[key_name_log(chassis.occupant)] mecha-teleported from [COORD(user_turf)] to [COORD(chassis)].", INVESTIGATE_TELEPORTATION)

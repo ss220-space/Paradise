@@ -150,7 +150,8 @@
 			if(mob.buckled && mob.buckled.anchored)
 				continue
 
-		do_teleport(target, target_turf, block_bluespace_interference = TRUE)
+		if(!do_teleport(target, target_turf, block_bluespace_interference = TRUE) && user)
+			to_chat(user, span_warning("Teleport failed!"))
 
 /obj/item/circuit_component/quantumpad
 	display_name = "Квантовая платформа"

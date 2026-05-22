@@ -155,24 +155,24 @@
 		var/obj/machinery/power/bluespace_interference_generator/stationary/origin_interference = get_bluespace_interference_generator(curturf)
 		if(origin_interference)
 			if(isliving(teleatom))
-				var/mob/living/L = teleatom
-				to_chat(L, span_warning("Блюспейс-помехи предотвращают телепортацию!"))
+				var/mob/living/living_teleatom = teleatom
+				to_chat(living_teleatom, span_warning("Блюспейс-помехи предотвращают телепортацию!"))
 			return FALSE
 
 		var/obj/machinery/power/bluespace_interference_generator/stationary/destination_interference = get_bluespace_interference_generator(destturf)
 		if(destination_interference)
 			if(block_bluespace_interference)
 				if(isliving(teleatom))
-					var/mob/living/L = teleatom
-					to_chat(L, span_warning("Блюспейс-помехи предотвращают телепортацию!"))
+					var/mob/living/living_teleatom = teleatom
+					to_chat(living_teleatom, span_warning("Блюспейс-помехи предотвращают телепортацию!"))
 				return FALSE
 			var/turf/interference_edge = destination_interference.get_edge_turf(curturf, destturf)
 			if(!interference_edge)
 				return FALSE
 			destturf = interference_edge
 			if(isliving(teleatom))
-				var/mob/living/L = teleatom
-				to_chat(L, span_warning("Блюспейс-помехи выбрасывают телепорт на край поля!"))
+				var/mob/living/living_teleatom = teleatom
+				to_chat(living_teleatom, span_warning("Блюспейс-помехи выбрасывают телепорт на край поля!"))
 
 	if(!is_teleport_allowed(destturf.z) && !ignore_area_flag)
 		return FALSE
@@ -197,11 +197,11 @@
 		playSpecials(destturf, effectout, soundout)
 
 	if(isliving(teleatom))
-		var/mob/living/L = teleatom
-		if(L.buckled)
-			L.buckled.unbuckle_mob(L, force = TRUE)
-		if(L.has_buckled_mobs())
-			L.unbuckle_all_mobs(force = TRUE)
+		var/mob/living/living_teleatom = teleatom
+		if(living_teleatom.buckled)
+			living_teleatom.buckled.unbuckle_mob(living_teleatom, force = TRUE)
+		if(living_teleatom.has_buckled_mobs())
+			living_teleatom.unbuckle_all_mobs(force = TRUE)
 
 	teleatom.on_teleported()
 

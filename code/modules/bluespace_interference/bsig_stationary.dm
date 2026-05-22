@@ -6,6 +6,7 @@
 #define BSIG_S_FIELD_COLOR "#3aa6ff"
 #define BSIG_S_DIAG_FIELD_ALPHA 150
 #define BSIG_S_TOGGLE_COOLDOWN (2 SECONDS)
+#define BSIG_S_SHUNT_MARGIN 2
 #define DECL_BSIG_S_TILE(num) declension_ru(num, "", "а", "ов")
 
 /obj/item/circuitboard/machine/bsig_stationary
@@ -222,7 +223,7 @@
 
 	if(origin && origin.z == intended_destination.z)
 		var/turf/current_turf = intended_destination
-		for(var/i in 1 to BSIG_S_MAX_RANGE + 2)
+		for(var/i in 1 to BSIG_S_MAX_RANGE + BSIG_S_SHUNT_MARGIN)
 			current_turf = get_step_towards(current_turf, origin)
 			if(!current_turf)
 				break
@@ -338,9 +339,7 @@
 		return null
 
 	var/list/generators = GLOB.active_bluespace_interference_generators
-	var/gen_len = length(generators)
-	for(var/i in gen_len to 1 step -1)
-		var/obj/machinery/power/bluespace_interference_generator/stationary/generator = generators[i]
+	for(var/obj/machinery/power/bluespace_interference_generator/stationary/generator in generators)
 		if(!generator || QDELETED(generator) || !generator.field_active)
 			continue
 		if(generator.blocks_turf(target_turf))
@@ -356,4 +355,5 @@
 #undef BSIG_S_FIELD_COLOR
 #undef BSIG_S_DIAG_FIELD_ALPHA
 #undef BSIG_S_TOGGLE_COOLDOWN
+#undef BSIG_S_SHUNT_MARGIN
 #undef DECL_BSIG_S_TILE
