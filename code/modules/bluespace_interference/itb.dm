@@ -65,7 +65,8 @@
 
 /obj/item/clothing/neck/itb/attack_hand_secondary(mob/user, list/modifiers)
 	if(!isliving(user))
-		to_chat(user, span_warning("Вам нужна ID-карта с доступом брига для управления [src]."))
+		if(!isobserver(user))
+			to_chat(user, span_warning("Вам нужна ID-карта с доступом брига для управления [src]."))
 		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
 	var/mob/living/living_user = user
