@@ -1,3 +1,5 @@
+#define TELEPORT_BLOCKER_CONTENT_SEARCH_DEPTH 3
+
 //wrapper
 // Set *ignore_bluespace_interference* to TRUE if you don't want your teleportation to be affected by BoH, SoH and stationary BSIG fields.
 // TRAIT_NO_TELEPORT blockers are still respected.
@@ -19,6 +21,29 @@
 				return buckled_living
 	return null
 
+/proc/get_contained_teleport_blocker(atom/movable/container)
+	var/list/atoms_to_check = list(container)
+	var/list/depths_to_check = list(0)
+	var/check_index = 1
+	while(check_index <= length(atoms_to_check))
+		var/atom/movable/current_atom = atoms_to_check[check_index]
+		var/current_depth = depths_to_check[check_index]
+		check_index++
+		if(current_depth >= TELEPORT_BLOCKER_CONTENT_SEARCH_DEPTH)
+			continue
+
+		var/list/current_contents = current_atom.contents
+		for(var/atom/movable/contained_atom as anything in current_contents)
+			if(isliving(contained_atom))
+				var/mob/living/contained_living = contained_atom
+				var/mob/living/contained_blocker = get_living_teleport_blocker(contained_living)
+				if(contained_blocker)
+					return contained_blocker
+			if(length(contained_atom.contents))
+				atoms_to_check += contained_atom
+				depths_to_check += current_depth + 1
+	return null
+
 /proc/get_teleport_blocking_living(atom/movable/teleatom)
 	if(!teleatom)
 		return null
@@ -35,12 +60,7 @@
 		var/mob/living/mecha_blocker = get_living_teleport_blocker(mecha.occupant)
 		if(mecha_blocker)
 			return mecha_blocker
-	var/list/atom_contents = teleatom.contents
-	for(var/mob/living/contained_living in atom_contents)
-		var/mob/living/contained_blocker = get_living_teleport_blocker(contained_living)
-		if(contained_blocker)
-			return contained_blocker
-	return null
+	return get_contained_teleport_blocker(teleatom)
 
 /datum/teleport
 	var/atom/movable/teleatom //atom to teleport
@@ -359,3 +379,5 @@
 
 	// DING! You have passed the gauntlet, and are "probably" safe.
 	return TRUE
+
+#undef TELEPORT_BLOCKER_CONTENT_SEARCH_DEPTH

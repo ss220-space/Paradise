@@ -1,6 +1,6 @@
 /obj/machinery/syndiepad
 	name = "Syndicate quantum pad"
-	desc = "Syndicate redspace quantumpads! Can transport goods through galaxies."
+	desc = "Syndicate redspace quantumpads! Can transport goods through galaxies and ignore local bluespace interference."
 	icon = 'icons/obj/telescience.dmi'
 	icon_state = "sqpad"
 	anchored = TRUE
