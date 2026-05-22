@@ -52,6 +52,7 @@
 				/obj/item/storage/belt/security/webbing = 2,
 				/obj/item/storage/belt/security/webbing/pouch = 2,
 				/obj/item/clothing/mask/gas/sechailer/tactical = 5,
+				/obj/item/clothing/mask/whistle = 3,
 				/obj/item/storage/belt/security/judobelt = 3,
 				/obj/item/eftpos/sec = 4,
 				/obj/item/flashlight/seclite = 4,

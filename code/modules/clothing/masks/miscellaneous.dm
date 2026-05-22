@@ -781,9 +781,12 @@
 	desc = "Компактное сигнальное устройство, издающее громкий и четкий звук, используемое для подачи сигналов, привлечения внимания и координации действий в различных ситуациях, от спортивных мероприятий до чрезвычайных происшествий."
 	icon_state = "whistle"
 	item_state = "whistle"
+	gender = MALE
 	w_class = WEIGHT_CLASS_TINY
-	var/activate_sound = 'sound/items/whistle.ogg'
 	actions_types = list(/datum/action/item_action/activate)
+	custom_price = PAYCHECK_MIN
+	/// Sound use for activate whistle
+	var/activate_sound = 'sound/items/whistle.ogg'
 	COOLDOWN_DECLARE(use_cd)
 
 /obj/item/clothing/mask/whistle/get_ru_names()
