@@ -43,7 +43,10 @@
 
 /obj/machinery/power/bluespace_interference_generator/stationary/Initialize(mapload)
 	. = ..()
-	new_component_parts()
+	if(!LAZYLEN(component_parts))
+		new_component_parts()
+	else
+		RefreshParts()
 	connect_to_network()
 	update_icon(UPDATE_ICON_STATE)
 
@@ -338,8 +341,7 @@
 	var/gen_len = length(generators)
 	for(var/i in gen_len to 1 step -1)
 		var/obj/machinery/power/bluespace_interference_generator/stationary/generator = generators[i]
-		if(QDELETED(generator) || !generator.field_active)
-			generators.Cut(i, i + 1)
+		if(!generator || QDELETED(generator) || !generator.field_active)
 			continue
 		if(generator.blocks_turf(target_turf))
 			return generator

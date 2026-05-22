@@ -76,10 +76,8 @@
 
 /obj/item/clothing/gloves/bsig_personal/dropped(mob/living/user, slot, silent = FALSE)
 	if(slot == ITEM_SLOT_GLOVES)
-		remove_interference()
+		set_active(FALSE)
 		wearer = null
-		if(active)
-			STOP_PROCESSING(SSobj, src)
 	. = ..()
 
 /obj/item/clothing/gloves/bsig_personal/process(seconds_per_tick)
@@ -87,7 +85,7 @@
 		return PROCESS_KILL
 
 	if(!wearer || QDELETED(wearer) || !is_worn_on_hands(wearer))
-		remove_interference()
+		set_active(FALSE)
 		wearer = null
 		return PROCESS_KILL
 
