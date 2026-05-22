@@ -807,5 +807,5 @@
 	if(!COOLDOWN_FINISHED(src, use_cd))
 		return FALSE
 	COOLDOWN_START(src, use_cd, 2 SECONDS)
-	user.visible_message(span_userdanger("[user.declent_ru(NOMINATIVE)] дует в свисток!"))
-	playsound(user.loc, activate_sound, 100, TRUE)
+	user.visible_message(span_warning("[DECLENT_RU_CAP(user, NOMINATIVE)] дует в свисток!"))
+	playsound(user, activate_sound, 70, TRUE)
