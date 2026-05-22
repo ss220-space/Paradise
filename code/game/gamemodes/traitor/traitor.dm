@@ -99,7 +99,7 @@
 			var/purchases = ""
 
 			for(var/obj/item/uplink/uplink in GLOB.world_uplinks)
-				if(uplink?.uplink_owner && uplink.uplink_owner == traitor.key)
+				if(uplink?.uplink_owner && ckey(uplink.uplink_owner) == ckey(traitor.key))
 					TC_uses += uplink.used_TC
 					purchases += uplink.purchase_log
 					used_uplink = TRUE
