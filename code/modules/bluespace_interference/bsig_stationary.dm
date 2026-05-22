@@ -169,7 +169,7 @@
 		return
 	field_active = new_field_active
 	if(field_active)
-		GLOB.active_bluespace_interference_generators |= src
+		GLOB.active_bluespace_interference_generators |= list(src)
 		update_cached_field_data()
 		refresh_field_visuals()
 		set_light(2, 0.6, BSIG_S_FIELD_COLOR, l_on = TRUE)
@@ -334,8 +334,9 @@
 	if(!target_turf || !length(generators))
 		return null
 
+	var/target_z = target_turf.z
 	for(var/obj/machinery/power/bluespace_interference_generator/stationary/generator in generators)
-		if(!generator || QDELETED(generator) || !generator.field_active)
+		if(!generator || QDELETED(generator) || !generator.field_active || generator.z != target_z)
 			continue
 		if(generator.blocks_turf(target_turf))
 			return generator
