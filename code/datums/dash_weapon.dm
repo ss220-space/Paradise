@@ -59,7 +59,6 @@
 		var/pulled_destination_blocked = can_move_pulled && final_turf.is_blocked_turf(exclude_mobs = TRUE)
 		if(can_move_pulled && !pulled_destination_blocked)
 			do_teleport(pulled_mob, final_turf)
-// user.start_pulling(pulled_mob) // Не работает, как задумано... Персонаж просто не берёт другого в пул после телепортации. Пока оставлю так
 		return TRUE
 
 	return FALSE

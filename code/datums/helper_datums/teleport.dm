@@ -1,5 +1,6 @@
 //wrapper
-// Set *ignore_bluespace_interference* to TRUE if you don't want your teleportation to be affected by BoH, SoH and other bluespace stuff
+// Set *ignore_bluespace_interference* to TRUE if you don't want your teleportation to be affected by BoH, SoH and stationary BSIG fields.
+// TRAIT_NO_TELEPORT blockers are still respected.
 // Set *block_bluespace_interference* to TRUE if BSIG fields should fully block the teleport instead of shunting it.
 /proc/do_teleport(ateleatom, adestination, aprecision = 0, afteleport = 1, aeffectin = null, aeffectout = null, asoundin = null, asoundout = null, bypass_area_flag = FALSE, ignore_bluespace_interference = FALSE, block_bluespace_interference = FALSE)
 	var/datum/teleport/instant/science/D = new
@@ -7,31 +8,38 @@
 		return TRUE
 	return FALSE
 
-#define TELEPORT_BLOCKER_MAX_DEPTH 2
+/proc/get_living_teleport_blocker(mob/living/living_teleatom)
+	if(!living_teleatom)
+		return null
+	if(HAS_TRAIT(living_teleatom, TRAIT_NO_TELEPORT))
+		return living_teleatom
+	if(living_teleatom.has_buckled_mobs())
+		for(var/mob/living/buckled_living as anything in living_teleatom.buckled_mobs)
+			if(HAS_TRAIT(buckled_living, TRAIT_NO_TELEPORT))
+				return buckled_living
+	return null
 
-/proc/get_teleport_blocking_living(atom/movable/teleatom, depth = 0)
+/proc/get_teleport_blocking_living(atom/movable/teleatom)
 	if(!teleatom)
 		return null
 	if(isliving(teleatom))
 		var/mob/living/living_teleatom = teleatom
-		if(HAS_TRAIT(living_teleatom, TRAIT_NO_TELEPORT))
-			return living_teleatom
+		return get_living_teleport_blocker(living_teleatom)
 	if(teleatom.has_buckled_mobs())
 		for(var/mob/living/buckled_living as anything in teleatom.buckled_mobs)
-			if(HAS_TRAIT(buckled_living, TRAIT_NO_TELEPORT))
-				return buckled_living
-			var/mob/living/nested_blocker = get_teleport_blocking_living(buckled_living, depth + 1)
-			if(nested_blocker)
-				return nested_blocker
-	if(depth >= TELEPORT_BLOCKER_MAX_DEPTH)
-		return null
-	for(var/atom/movable/contained_atom as anything in teleatom.contents)
-		var/mob/living/nested_blocker = get_teleport_blocking_living(contained_atom, depth + 1)
-		if(nested_blocker)
-			return nested_blocker
+			var/mob/living/buckled_blocker = get_living_teleport_blocker(buckled_living)
+			if(buckled_blocker)
+				return buckled_blocker
+	if(ismecha(teleatom))
+		var/obj/mecha/mecha = teleatom
+		var/mob/living/mecha_blocker = get_living_teleport_blocker(mecha.occupant)
+		if(mecha_blocker)
+			return mecha_blocker
+	for(var/mob/living/contained_living in teleatom.contents)
+		var/mob/living/contained_blocker = get_living_teleport_blocker(contained_living)
+		if(contained_blocker)
+			return contained_blocker
 	return null
-
-#undef TELEPORT_BLOCKER_MAX_DEPTH
 
 /datum/teleport
 	var/atom/movable/teleatom //atom to teleport

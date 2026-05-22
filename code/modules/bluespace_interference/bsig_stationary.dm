@@ -74,8 +74,9 @@
 	var/range_part_count = 0
 	var/total_range_rating = 0
 	power_usage = 0
+	var/list/parts = component_parts
 
-	for(var/obj/item/part as anything in component_parts)
+	for(var/obj/item/part as anything in parts)
 		if(istype(part, /obj/item/stock_parts/capacitor))
 			var/obj/item/stock_parts/capacitor/capacitor = part
 			capacitor_count++
@@ -227,7 +228,7 @@
 			current_turf = get_step_towards(current_turf, origin)
 			if(!current_turf)
 				break
-			if(!blocks_turf(current_turf) && !current_turf.density)
+			if(!blocks_turf(current_turf) && !current_turf.is_blocked_turf(exclude_mobs = TRUE))
 				return current_turf
 
 	return get_nearest_edge_turf(intended_destination)
@@ -238,25 +239,19 @@
 	var/list/edge_turfs = turf_peel(field_range + 1, max(field_range - 1, 0), src)
 	var/turf/best_turf
 	var/best_distance
-	var/turf/fallback_turf
-	var/fallback_distance
 
 	for(var/turf/current_turf as anything in edge_turfs)
 		if(!current_turf || current_turf.z != from_turf.z || blocks_turf(current_turf))
 			continue
+		if(current_turf.is_blocked_turf(exclude_mobs = TRUE))
+			continue
 
 		var/current_distance = get_dist(current_turf, from_turf)
-		if(!fallback_turf || current_distance < fallback_distance)
-			fallback_turf = current_turf
-			fallback_distance = current_distance
-
-		if(current_turf.density)
-			continue
 		if(!best_turf || current_distance < best_distance)
 			best_turf = current_turf
 			best_distance = current_distance
 
-	return best_turf ? best_turf : fallback_turf
+	return best_turf
 
 /obj/machinery/power/bluespace_interference_generator/stationary/update_icon_state()
 	if(field_active)
