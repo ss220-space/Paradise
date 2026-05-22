@@ -2,8 +2,8 @@ on:
   workflow_call:
 
 jobs:
-  setup_build_artifact_game_tests:
-    name: Setup build artifact # GAME_TESTS
+  setup_build_artifact_unit_tests:
+    name: Setup build artifact # UNIT_TESTS
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     strategy:
@@ -24,11 +24,11 @@ jobs:
         with:
           release: ${{ matrix.byondtype }}
 
-      - name: Compile with GAME_TESTS
+      - name: Compile with UNIT_TESTS
         run: |
           tools/ci/install_byond.sh '${{ matrix.byondtype }}'
           source $HOME/BYOND/byond/bin/byondsetup
-          tools/ci/dm.sh -DGAME_TESTS -DMULTIINSTANCE -DCIBUILDING paradise.dme
+          tools/ci/dm.sh -DUNIT_TESTS -DMULTIINSTANCE -DCIBUILDING paradise.dme
 
       - name: Setup variable for output path
         run: |

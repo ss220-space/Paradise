@@ -1,0 +1,4 @@
+author: "littleboobs"
+delete-after: True
+changes:
+  - bugfix: "Исправлено начисление часов на ролях. (PR #9250)"

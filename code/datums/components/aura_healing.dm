@@ -124,8 +124,7 @@
 
 	for(var/mob/living/candidate as anything in to_heal)
 		if(!current_alerts[candidate])
-			var/atom/movable/screen/alert/aura_healing/alert = candidate.throw_alert(alert_category, /atom/movable/screen/alert/aura_healing, new_master = parent)
-			alert.desc = "Аура, исходящая от [parent], исцеляет вас."
+			candidate.throw_alert(alert_category, /atom/movable/screen/alert/aura_healing, new_master = parent)
 			current_alerts[candidate] = TRUE
 			if(ishuman(candidate))
 				var/mob/living/carbon/human/human_candidate = candidate
@@ -239,6 +238,11 @@
 
 /atom/movable/screen/alert/aura_healing
 	name = "Исцеляющая аура"
-	icon_state = "template"
+	clickable_glow = TRUE
+	click_master = FALSE
+
+/atom/movable/screen/alert/aura_healing/update_desc(updates)
+	. = ..()
+	desc = "Аура, исходящая от [master_ref?.resolve()], исцеляет вас."
 
 #undef HEAL_EFFECT_COOLDOWN

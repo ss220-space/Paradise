@@ -262,6 +262,12 @@
 	if(length(light_sources))
 		light_sources.Cut()
 
+	for(var/mob/orbiter as anything in orbiters)
+		if(orbiter && orbiter.orbiting == src)
+			orbiter.orbiting = null
+
+	LAZYCLEARLIST(orbiters)
+
 	if(smooth & SMOOTH_QUEUED)
 		SSicon_smooth.remove_from_queues(src)
 
@@ -617,7 +623,7 @@
 /atom/proc/remove_persistent_overlay(id)
 	if(!istext(id))
 		CRASH("Non-text argument passed as an ID.")
-	var/all_persistent = datum_components?[/datum/component/persistent_overlay]
+	var/all_persistent = _datum_components?[/datum/component/persistent_overlay]
 	if(!all_persistent)
 		return
 	if(!islist(all_persistent))
@@ -1155,7 +1161,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
  *
  * Default behaviour is to send [COMSIG_ATOM_SING_PULL] and return
  */
-/atom/proc/singularity_pull(obj/singularity/singularity, current_size)
+/atom/proc/singularity_pull(atom/singularity, current_size)
 	SEND_SIGNAL(src, COMSIG_ATOM_SING_PULL, singularity, current_size)
 
 /**

@@ -3,7 +3,6 @@ SUBSYSTEM_DEF(jobs)
 	dependencies = list(
 		/datum/controller/subsystem/processing/station,
 	)
-	ss_flags = SS_NO_FIRE
 	wait = 5 MINUTES // Dont ever make this a super low value since EXP updates are calculated from this value
 	runlevels = RUNLEVEL_GAME
 

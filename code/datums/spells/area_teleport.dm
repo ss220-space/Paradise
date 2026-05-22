@@ -1,5 +1,4 @@
 /obj/effect/proc_holder/spell/area_teleport
-	name = "Area teleport"
 	desc = "This spell teleports you to a type of area of your selection."
 	nonabstract_req = TRUE
 
