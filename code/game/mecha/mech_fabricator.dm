@@ -526,15 +526,13 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
 
-/obj/machinery/mecha_part_fabricator/spacepod/Initialize(mapload)
-	. = ..()
 	categories = list(
-		"Pod_Weaponry",
-		"Pod_Armor",
-		"Pod_Cargo",
-		"Pod_Parts",
-		"Pod_Frame",
-		"Misc",
+		POD_FAB_CATEGORY_WEAPONRY,
+		POD_FAB_CATEGORY_ARMOR,
+		POD_FAB_CATEGORY_CARGO,
+		POD_FAB_CATEGORY_PARTS,
+		POD_FAB_CATEGORY_FRAME,
+		POD_FAB_CATEGORY_MISC,
 	)
 
 /**

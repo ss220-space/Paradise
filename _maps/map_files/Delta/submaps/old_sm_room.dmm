@@ -747,7 +747,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/power/apc/worn_out/directional/north,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2";
 	pixel_y = 1
 	},
@@ -1590,7 +1589,6 @@
 /obj/structure/curtain/black,
 /obj/effect/spawner/random_spawners/grille_50,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2";
 	pixel_y = 1
 	},
