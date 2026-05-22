@@ -151,6 +151,10 @@
 
 	var/obj/machinery/bfl_receiver/receiver = receiver_ref?.resolve()
 
+	if(QDELETED(receiver))
+		receiver = null
+		receiver_ref = null
+
 	if(!receiver || !receiver.state || emag || !receiver.lens || !receiver.lens.anchored)
 		var/turf/rand_location = locate(rand((2*TRANSITIONEDGE), world.maxx - (2*TRANSITIONEDGE)), rand((2*TRANSITIONEDGE), world.maxy - (2*TRANSITIONEDGE)), lavaland_z_lvl)
 		laser = new (rand_location)
@@ -187,6 +191,7 @@
 
 	if(QDELETED(receiver))
 		receiver = null
+		receiver_ref = null
 
 	if(!receiver)
 		for(var/obj/machinery/bfl_receiver/bfl_receiver in SSmachines.get_by_type(/obj/machinery/bfl_receiver))
@@ -200,6 +205,10 @@
 
 /obj/machinery/power/bfl_emitter/proc/emitter_deactivate()
 	var/obj/machinery/bfl_receiver/receiver = receiver_ref?.resolve()
+	if(QDELETED(receiver))
+		receiver = null
+		receiver_ref = null
+
 	state = FALSE
 	update_icon(UPDATE_ICON_STATE)
 	if(receiver)
