@@ -95,7 +95,7 @@
 
 	if(range_part_count)
 		var/average_rating = total_range_rating / range_part_count
-		field_range = clamp(BSIG_S_MIN_RANGE + round((average_rating - 1) * ((BSIG_S_MAX_RANGE - BSIG_S_MIN_RANGE) / 4)), BSIG_S_MIN_RANGE, BSIG_S_MAX_RANGE)
+		field_range = clamp(BSIG_S_MIN_RANGE + round((average_rating - 1) * ((BSIG_S_MAX_RANGE - BSIG_S_MIN_RANGE) / 3)), BSIG_S_MIN_RANGE, BSIG_S_MAX_RANGE)
 	else
 		field_range = BSIG_S_MIN_RANGE
 
@@ -330,10 +330,10 @@
 	set_field_active(FALSE)
 
 /proc/get_bluespace_interference_generator(turf/target_turf)
-	if(!target_turf || !length(GLOB.active_bluespace_interference_generators))
+	var/list/generators = GLOB.active_bluespace_interference_generators
+	if(!target_turf || !length(generators))
 		return null
 
-	var/list/generators = GLOB.active_bluespace_interference_generators
 	for(var/obj/machinery/power/bluespace_interference_generator/stationary/generator in generators)
 		if(!generator || QDELETED(generator) || !generator.field_active)
 			continue

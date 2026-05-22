@@ -35,7 +35,8 @@
 		var/mob/living/mecha_blocker = get_living_teleport_blocker(mecha.occupant)
 		if(mecha_blocker)
 			return mecha_blocker
-	for(var/mob/living/contained_living in teleatom.contents)
+	var/list/atom_contents = teleatom.contents
+	for(var/mob/living/contained_living in atom_contents)
 		var/mob/living/contained_blocker = get_living_teleport_blocker(contained_living)
 		if(contained_blocker)
 			return contained_blocker
