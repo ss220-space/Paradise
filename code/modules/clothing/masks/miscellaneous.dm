@@ -774,3 +774,35 @@
 	if(!living || slot != ITEM_SLOT_HEAD)
 		return .
 	living.overlay_fullscreen("fullyblack", /atom/movable/screen/fullscreen/fullyblack)
+
+// MARK: Whistle
+/obj/item/clothing/mask/whistle
+	name = "whistle"
+	desc = "Компактное сигнальное устройство, издающее громкий и четкий звук, используемое для подачи сигналов, привлечения внимания и координации действий в различных ситуациях, от спортивных мероприятий до чрезвычайных происшествий."
+	icon_state = "whistle"
+	item_state = "whistle"
+	w_class = WEIGHT_CLASS_TINY
+	var/activate_sound = 'sound/items/whistle.ogg'
+	actions_types = list(/datum/action/item_action/activate)
+	COOLDOWN_DECLARE(use_cd)
+
+/obj/item/clothing/mask/whistle/get_ru_names()
+	return list(
+		NOMINATIVE = "свисток",
+		GENITIVE = "свистка",
+		DATIVE = "свистку",
+		ACCUSATIVE = "свисток",
+		INSTRUMENTAL = "свистком",
+		PREPOSITIONAL = "свистке",
+	)
+
+/obj/item/clothing/mask/whistle/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/item_skins)
+
+/obj/item/clothing/mask/whistle/attack_self(mob/user)
+	if(!COOLDOWN_FINISHED(src, use_cd))
+		return FALSE
+	COOLDOWN_START(src, use_cd, 2 SECONDS)
+	user.visible_message(span_userdanger("[user.declent_ru(NOMINATIVE)] дует в свисток!"))
+	playsound(user.loc, activate_sound, 100, TRUE)
