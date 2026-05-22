@@ -100,16 +100,6 @@
 /obj/machinery/computer/secure_data,
 /turf/simulated/floor/carpet/royalblack,
 /area/shuttle/escape)
-"az" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 4
-	},
-/turf/simulated/floor/shuttle/objective_check{
-	dir = 9;
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "darkred"
-	},
-/area/shuttle/escape)
 "aA" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
@@ -152,20 +142,11 @@
 	icon_state = "darkreddarkfull"
 	},
 /area/shuttle/escape)
-"aH" = (
-/turf/simulated/floor/shuttle/objective_check{
-	dir = 1;
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "darkred"
-	},
-/area/shuttle/escape)
 "aI" = (
 /obj/machinery/door/airlock/medical/glass{
 	name = "Escape Shuttle Infirmary"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cmo"
-	},
+/turf/simulated/floor/carpet/cyan,
 /area/shuttle/escape)
 "aJ" = (
 /obj/structure/table/reinforced,
@@ -175,9 +156,8 @@
 	dir = 1
 	},
 /turf/simulated/floor/shuttle/objective_check{
-	dir = 1;
 	icon = 'icons/turf/floors.dmi';
-	icon_state = "darkred"
+	icon_state = "darkreddarkfull"
 	},
 /area/shuttle/escape)
 "aL" = (
@@ -212,19 +192,13 @@
 	},
 /turf/simulated/floor/shuttle/objective_check{
 	icon = 'icons/turf/floors.dmi';
-	icon_state = "darkred"
+	icon_state = "darkreddarkfull"
 	},
 /area/shuttle/escape)
 "aS" = (
 /obj/structure/table/abductor,
 /obj/item/reagent_containers/food/snacks/vulpix/chilli,
 /turf/simulated/floor/plasteel/dark,
-/area/shuttle/escape)
-"aT" = (
-/obj/item/twohanded/required/kirbyplants,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
 /area/shuttle/escape)
 "aU" = (
 /obj/structure/chair/stool/bar/dark{
@@ -242,7 +216,10 @@
 	normalspeed = 0;
 	req_access = list(63)
 	},
-/turf/simulated/floor/shuttle/objective_check,
+/turf/simulated/floor/shuttle/objective_check{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "darkreddarkfull"
+	},
 /area/shuttle/escape)
 "aX" = (
 /obj/structure/chair/comfy/shuttle{
@@ -301,7 +278,7 @@
 /obj/machinery/light,
 /turf/simulated/floor/shuttle/objective_check{
 	icon = 'icons/turf/floors.dmi';
-	icon_state = "darkred"
+	icon_state = "darkreddarkfull"
 	},
 /area/shuttle/escape)
 "bh" = (
@@ -366,13 +343,6 @@
 /turf/simulated/floor/shuttle/objective_check{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "darkredcorners"
-	},
-/area/shuttle/escape)
-"bp" = (
-/turf/simulated/floor/shuttle/objective_check{
-	dir = 10;
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "darkred"
 	},
 /area/shuttle/escape)
 "br" = (
@@ -556,9 +526,8 @@
 	pixel_x = -24
 	},
 /turf/simulated/floor/shuttle/objective_check{
-	dir = 8;
 	icon = 'icons/turf/floors.dmi';
-	icon_state = "darkred"
+	icon_state = "darkreddarkfull"
 	},
 /area/shuttle/escape)
 "bX" = (
@@ -660,13 +629,6 @@
 /obj/structure/extinguisher_cabinet/directional/west,
 /turf/simulated/floor/carpet/cyan,
 /area/shuttle/escape)
-"jo" = (
-/turf/simulated/floor/shuttle/objective_check{
-	dir = 6;
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "darkred"
-	},
-/area/shuttle/escape)
 "kR" = (
 /turf/simulated/wall/shuttle/nodiagonal,
 /area/shuttle/escape)
@@ -698,20 +660,11 @@
 	},
 /turf/simulated/floor/carpet/cyan,
 /area/shuttle/escape)
-"sN" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 4
-	},
-/obj/structure/extinguisher_cabinet/directional/west,
-/turf/simulated/floor/shuttle/objective_check{
-	dir = 8;
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "darkred"
-	},
-/area/shuttle/escape)
 "un" = (
 /obj/structure/extinguisher_cabinet/directional/north,
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
 /area/shuttle/escape)
 "xD" = (
 /obj/structure/table/reinforced,
@@ -728,7 +681,9 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
 /area/shuttle/escape)
 "zJ" = (
 /obj/structure/chair/comfy/shuttle{
@@ -757,12 +712,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/carpet/orange,
-/area/shuttle/escape)
-"Be" = (
-/turf/simulated/floor/shuttle/objective_check{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "darkred"
-	},
 /area/shuttle/escape)
 "CE" = (
 /obj/structure/table/abductor,
@@ -822,34 +771,14 @@
 "TX" = (
 /turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal,
 /area/shuttle/escape)
-"UN" = (
-/obj/structure/chair/comfy/shuttle,
-/turf/simulated/floor/shuttle/objective_check{
-	dir = 5;
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "darkred"
-	},
-/area/shuttle/escape)
 "VF" = (
 /turf/simulated/wall/shuttle/onlyselfsmooth,
 /area/shuttle/escape)
 "Wy" = (
 /obj/structure/chair/comfy/shuttle,
 /turf/simulated/floor/shuttle/objective_check{
-	dir = 1;
 	icon = 'icons/turf/floors.dmi';
-	icon_state = "darkred"
-	},
-/area/shuttle/escape)
-"Zu" = (
-/obj/machinery/door/airlock/security/glass{
-	name = "Escape Shuttle Brig";
-	normalspeed = 0;
-	req_access = list(63)
-	},
-/turf/simulated/floor/shuttle/objective_check{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "darkredcorners"
+	icon_state = "darkreddarkfull"
 	},
 /area/shuttle/escape)
 
@@ -891,20 +820,20 @@ bl
 bl
 bH
 RT
-az
+bl
 bW
-sN
-bp
+bH
+GC
 cH
-aT
+ba
 bP
 bP
 bP
 bP
 bP
-aT
-aT
-aT
+ba
+ba
+ba
 bR
 bP
 bP
@@ -922,26 +851,26 @@ GC
 GC
 GC
 bj
-aH
 GC
 GC
-Be
+GC
+GC
 cH
-aT
-aT
-aT
-aT
-aT
-aT
-aT
-aT
+ba
+ba
+ba
+ba
+ba
+ba
+ba
+ba
 ca
 bV
-aT
-aT
-aT
-aT
-aT
+ba
+ba
+ba
+ba
+ba
 RT
 bu
 bw
@@ -953,26 +882,26 @@ aX
 mM
 mM
 RT
-aH
+GC
 GC
 GC
 aR
 cH
-aT
+ba
 bQ
 bQ
 bQ
 bQ
 bQ
 bQ
-aT
-aT
+ba
+ba
 bk
-aT
-aT
-aT
-aT
-aT
+ba
+ba
+ba
+ba
+ba
 RT
 bu
 bw
@@ -996,8 +925,8 @@ bP
 bP
 bP
 bP
-aT
-aT
+ba
+ba
 bR
 bQ
 ck
@@ -1018,17 +947,17 @@ bG
 aJ
 GC
 GC
-Be
+GC
 aW
-aT
-aT
-aT
-aT
-aT
-aT
-aT
-aT
-aT
+ba
+ba
+ba
+ba
+ba
+ba
+ba
+ba
+ba
 IB
 bY
 VF
@@ -1046,20 +975,20 @@ an
 as
 aA
 cH
-UN
+Wy
 aG
 GC
-jo
+GC
 aW
-aT
+ba
 bQ
 bQ
 bQ
 bQ
 bQ
 bQ
-aT
-aT
+ba
+ba
 bR
 bI
 bS
@@ -1079,7 +1008,7 @@ bh
 kR
 cH
 VF
-Zu
+aW
 ac
 VF
 yW
@@ -1089,7 +1018,7 @@ bP
 bP
 bP
 bP
-aT
+ba
 ca
 bU
 bJ
@@ -1113,15 +1042,15 @@ an
 an
 an
 aE
-aT
-aT
-aT
-aT
-aT
-aT
-aT
-aT
-aT
+ba
+ba
+ba
+ba
+ba
+ba
+ba
+ba
+ba
 cd
 bJ
 bJ
@@ -1144,14 +1073,14 @@ an
 an
 an
 aE
-aT
-aT
-aT
-aT
-aT
-aT
-aT
-aT
+ba
+ba
+ba
+ba
+ba
+ba
+ba
+ba
 ba
 bR
 bJ
@@ -1175,15 +1104,15 @@ VF
 aL
 ac
 bb
-aT
+yW
 bQ
 bQ
 bQ
 bQ
 bQ
 bQ
-aT
-aT
+ba
+ba
 bR
 bK
 bM
@@ -1206,15 +1135,15 @@ gi
 cp
 cp
 aI
-aT
+ba
 bP
 bP
 bP
 bP
 bP
 bP
-aT
-aT
+ba
+ba
 IB
 bY
 VF
@@ -1237,15 +1166,15 @@ cp
 cp
 cp
 aI
-aT
-aT
-aT
-aT
-aT
-aT
-aT
-aT
-aT
+ba
+ba
+ba
+ba
+ba
+ba
+ba
+ba
+ba
 bR
 by
 bL
@@ -1269,13 +1198,13 @@ cp
 cw
 La
 yW
-aT
+ba
 aU
 aU
 aU
 aU
 aO
-aT
+ba
 ca
 bC
 bz
@@ -1300,14 +1229,14 @@ cp
 cw
 cH
 un
-aT
+ba
 aV
 CE
 Rq
 aV
 db
-aT
-aT
+ba
+ba
 cb
 bz
 bz
@@ -1330,15 +1259,15 @@ cp
 cp
 xD
 cH
-aT
-aT
-aT
-aT
-aT
+ba
+ba
+ba
+ba
+ba
 aS
 db
-aT
-aT
+ba
+ba
 bR
 bz
 bz
@@ -1361,8 +1290,8 @@ PY
 cD
 bf
 cH
-aT
-aT
+ba
+ba
 bd
 be
 bi

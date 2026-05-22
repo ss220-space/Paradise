@@ -273,9 +273,7 @@
 	name = "Escape Shuttle Cockpit";
 	req_access = list(19)
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "bh" = (
 /obj/machinery/door/airlock/hatch,

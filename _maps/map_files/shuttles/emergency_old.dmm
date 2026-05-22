@@ -204,14 +204,16 @@
 	name = "Shuttle Cargo Hatch"
 	},
 /turf/simulated/floor/shuttle{
-	icon_state = "floor3"
+	icon_state = "floor2"
 	},
 /area/shuttle/escape)
 "aV" = (
 /obj/machinery/door/airlock/medical/glass{
 	name = "Escape Shuttle Infirmary"
 	},
-/turf/simulated/floor/shuttle,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor3"
+	},
 /area/shuttle/escape)
 "aW" = (
 /obj/machinery/door/airlock/shuttle{
@@ -308,7 +310,7 @@
 	name = "Escape Shuttle Cell";
 	req_access = list(63)
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/shuttle/objective_check,
 /area/shuttle/escape)
 "ev" = (
 /obj/machinery/sleeper{

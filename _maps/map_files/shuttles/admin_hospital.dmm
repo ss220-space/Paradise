@@ -77,8 +77,7 @@
 	dir = 8
 	},
 /obj/structure/shuttle/engine/platform{
-	dir = 4;
-	layer = 2.9
+	dir = 4
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "vfloor"
@@ -86,8 +85,7 @@
 /area/shuttle/administration)
 "aC" = (
 /obj/structure/shuttle/engine/platform{
-	dir = 8;
-	layer = 2.9
+	dir = 8
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "vfloor"
@@ -143,6 +141,22 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 9
 	},
+/obj/structure/closet/crate/freezer,
+/obj/item/reagent_containers/food/snacks/meat,
+/obj/item/reagent_containers/food/snacks/meat,
+/obj/item/reagent_containers/food/snacks/meat,
+/obj/item/reagent_containers/food/snacks/meat,
+/obj/item/reagent_containers/food/snacks/meat,
+/obj/item/reagent_containers/food/snacks/meat,
+/obj/item/reagent_containers/food/snacks/meat,
+/obj/item/reagent_containers/food/snacks/meat,
+/obj/item/reagent_containers/food/snacks/meat,
+/obj/item/reagent_containers/food/snacks/meat,
+/obj/item/reagent_containers/food/snacks/meat,
+/obj/item/reagent_containers/food/snacks/meat,
+/obj/item/reagent_containers/food/snacks/meat,
+/obj/item/reagent_containers/food/snacks/meat,
+/obj/item/reagent_containers/food/snacks/meat,
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "titanium_blue"
@@ -302,7 +316,10 @@
 	},
 /area/shuttle/administration)
 "bR" = (
-/obj/machinery/chem_dispenser/supgraded,
+/obj/machinery/optable,
+/obj/machinery/shower{
+	dir = 1
+	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "titanium_blue"
@@ -317,31 +334,25 @@
 	},
 /area/shuttle/administration)
 "bW" = (
-/obj/machinery/bodyscanner,
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/machinery/chem_heater,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor3"
 	},
 /area/shuttle/administration)
 "bX" = (
-/obj/structure/table/glass,
-/obj/item/reagent_containers/spray/cleaner{
-	desc = "Someone has crossed out the Space from Space Cleaner and written in Surgery. 'Do not remove under punishment of death!!!' is scrawled on the back.";
-	name = "Surgery Cleaner"
-	},
-/obj/item/reagent_containers/spray/cleaner{
-	desc = "Someone has crossed out the Space from Space Cleaner and written in Surgery. 'Do not remove under punishment of death!!!' is scrawled on the back.";
-	name = "Surgery Cleaner"
-	},
 /obj/structure/extinguisher_cabinet/directional/north,
+/obj/structure/closet/secure_closet/reagents,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor3"
 	},
 /area/shuttle/administration)
 "bY" = (
-/obj/structure/closet/secure_closet/medical3,
+/obj/machinery/vending/nta/ertarmory/medical{
+	all_products_free = 1
+	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor3"
 	},
@@ -350,8 +361,9 @@
 /turf/space,
 /area/space)
 "cg" = (
+/obj/item/storage/box/syringes,
+/obj/machinery/reagentgrinder,
 /obj/structure/table/reinforced,
-/obj/item/storage/toolbox/surgery/advanced,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor3"
 	},
@@ -378,29 +390,34 @@
 	},
 /area/shuttle/administration)
 "cl" = (
-/obj/machinery/computer/operating,
+/obj/machinery/chem_master,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor3"
 	},
 /area/shuttle/administration)
 "cm" = (
-/obj/machinery/optable,
-/obj/machinery/shower{
-	dir = 1
-	},
+/obj/machinery/chem_dispenser/supgraded,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor3"
 	},
 /area/shuttle/administration)
 "cn" = (
 /obj/machinery/light,
-/obj/machinery/bodyscanner,
+/obj/machinery/chem_heater,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor3"
 	},
 /area/shuttle/administration)
 "co" = (
-/obj/structure/closet/secure_closet/medical2,
+/obj/structure/closet/secure_closet/chemical,
+/obj/item/storage/pill_bottle/bluespace,
+/obj/item/storage/pill_bottle/bluespace,
+/obj/item/storage/bag/trash/bluespace,
+/obj/item/storage/bag/trash/bluespace,
+/obj/item/reagent_containers/spray/blue_cleaner,
+/obj/item/reagent_containers/spray/blue_cleaner,
+/obj/item/storage/bag/chemistry,
+/obj/item/storage/bag/chemistry,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor3"
 	},
@@ -412,16 +429,16 @@
 	},
 /area/shuttle/administration)
 "cr" = (
-/obj/machinery/chem_master,
+/obj/machinery/computer/operating,
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "titanium_blue"
 	},
 /area/shuttle/administration)
 "cs" = (
-/obj/machinery/chem_heater,
 /obj/machinery/light,
 /obj/structure/extinguisher_cabinet/directional/south,
+/obj/machinery/bodyscanner,
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "titanium_blue"
@@ -445,25 +462,13 @@
 /turf/simulated/wall/shuttle/onlyselfsmooth,
 /area/shuttle/administration)
 "cE" = (
-/obj/structure/closet/secure_closet/reagents,
-/obj/item/storage/bag/chemistry,
-/obj/item/storage/bag/chemistry,
+/obj/structure/chair/comfy/shuttle,
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
-	icon_state = "titanium_blue"
+	icon_state = "white"
 	},
 /area/shuttle/administration)
 "ec" = (
-/obj/structure/table/reinforced,
-/obj/item/reagent_containers/dropper,
-/obj/item/reagent_containers/spray/cleaner{
-	desc = "Someone has crossed out the 'Space' from Space Cleaner and written in Chemistry. Scrawled on the back is, 'Okay, whoever filled this with polytrinic acid, it was only funny the first time. It was hard enough replacing the CMO's first cat!'";
-	name = "Chemistry Cleaner"
-	},
-/obj/item/reagent_containers/glass/bucket,
-/obj/item/reagent_containers/glass/bucket,
-/obj/item/reagent_containers/glass/bucket,
-/obj/item/reagent_containers/glass/bucket,
 /obj/structure/reagent_dispensers/fueltank/chem{
 	pixel_x = -32
 	},
@@ -471,6 +476,14 @@
 	pixel_x = -32;
 	pixel_y = 32
 	},
+/obj/structure/table/reinforced,
+/obj/item/storage/toolbox/surgery/advanced,
+/obj/item/reagent_containers/spray/cleaner{
+	desc = "Someone has crossed out the Space from Space Cleaner and written in Surgery. 'Do not remove under punishment of death!!!' is scrawled on the back.";
+	name = "Surgery Cleaner"
+	},
+/obj/item/reagent_containers/glass/bottle/ether,
+/obj/item/reagent_containers/syringe,
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "titanium_blue"
@@ -559,11 +572,10 @@
 	},
 /area/shuttle/administration)
 "oa" = (
-/obj/structure/chair/comfy/shuttle,
-/turf/simulated/floor/shuttle{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "titanium_blue"
+/obj/structure/sign/chemistry{
+	pixel_y = 1
 	},
+/turf/simulated/wall/shuttle,
 /area/shuttle/administration)
 "oL" = (
 /obj/structure/shuttle/engine/heater{
@@ -575,15 +587,14 @@
 	dir = 8
 	},
 /obj/structure/shuttle/engine/platform{
-	dir = 4;
-	layer = 2.9
+	dir = 4
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "vfloor"
 	},
 /area/shuttle/administration)
 "qg" = (
-/obj/machinery/chem_heater,
+/obj/machinery/bodyscanner,
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "titanium_blue"
@@ -626,11 +637,15 @@
 	},
 /area/shuttle/administration)
 "sx" = (
-/obj/item/reagent_containers/iv_bag,
-/obj/machinery/iv_drip,
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/dropper,
+/obj/item/reagent_containers/spray/cleaner{
+	desc = "Someone has crossed out the 'Space' from Space Cleaner and written in Chemistry. Scrawled on the back is, 'Okay, whoever filled this with polytrinic acid, it was only funny the first time. It was hard enough replacing the CMO's first cat!'";
+	name = "Chemistry Cleaner"
+	},
+/obj/item/storage/box/beakers/bluespace,
 /turf/simulated/floor/shuttle{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "titanium_blue"
+	icon_state = "floor3"
 	},
 /area/shuttle/administration)
 "sM" = (
@@ -708,10 +723,16 @@
 	},
 /area/shuttle/administration)
 "Ad" = (
-/obj/machinery/optable,
-/obj/machinery/shower,
+/obj/structure/closet/crate/freezer,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/machinery/iv_drip,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/simulated/floor/shuttle{
-	icon_state = "floor3"
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "titanium_blue"
 	},
 /area/shuttle/administration)
 "Ay" = (
@@ -779,19 +800,26 @@
 /turf/simulated/floor/plating,
 /area/shuttle/administration)
 "HU" = (
-/obj/structure/closet/secure_closet/chemical,
+/obj/structure/closet/secure_closet/medical2,
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "titanium_blue"
 	},
 /area/shuttle/administration)
 "Ie" = (
-/obj/machinery/light,
-/obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
+/obj/structure/closet/bluespace,
+/obj/item/bodybag/bluespace,
+/obj/item/bodybag/bluespace,
+/obj/item/bodybag/bluespace,
+/obj/item/bodybag/bluespace,
+/obj/item/bodybag/bluespace,
+/obj/item/lightreplacer/bluespace,
+/obj/item/storage/box/lights/mixed,
+/obj/item/gun/syringe/rapidsyringe,
+/obj/item/gun/syringe/rapidsyringe,
+/obj/item/storage/box/syringes,
+/obj/item/defibrillator/compact/advanced/loaded,
+/obj/item/defibrillator/compact/advanced/loaded,
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "titanium_blue"
@@ -807,8 +835,7 @@
 	dir = 8
 	},
 /obj/structure/shuttle/engine/platform{
-	dir = 4;
-	layer = 2.9
+	dir = 4
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "vfloor"
@@ -828,12 +855,16 @@
 /area/shuttle/administration)
 "NA" = (
 /obj/structure/table/reinforced,
-/obj/item/storage/box/syringes,
-/obj/item/storage/box/beakers,
-/obj/machinery/reagentgrinder,
-/obj/structure/reagent_dispensers/fueltank/chem{
+/obj/item/storage/toolbox/surgery/advanced,
+/obj/item/reagent_containers/spray/cleaner{
+	desc = "Someone has crossed out the Space from Space Cleaner and written in Surgery. 'Do not remove under punishment of death!!!' is scrawled on the back.";
+	name = "Surgery Cleaner"
+	},
+/obj/structure/reagent_dispensers/spacecleanertank{
 	pixel_x = -32
 	},
+/obj/item/reagent_containers/glass/bottle/ether,
+/obj/item/reagent_containers/syringe,
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "titanium_blue"
@@ -866,16 +897,30 @@
 /obj/structure/closet/crate/freezer,
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
-/obj/machinery/iv_drip,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
+/obj/machinery/light,
 /turf/simulated/floor/shuttle{
-	icon_state = "floor3"
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "titanium_blue"
+	},
+/area/shuttle/administration)
+"SK" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "white"
 	},
 /area/shuttle/administration)
 "Tl" = (
-/obj/structure/sign/chemistry{
-	pixel_y = 1
+/obj/machinery/optable,
+/obj/machinery/shower,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "titanium_blue"
 	},
-/turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal,
 /area/shuttle/administration)
 "TE" = (
 /obj/structure/window/plasmareinforced{
@@ -981,7 +1026,7 @@ bC
 cj
 ct
 cl
-cg
+sx
 OA
 cg
 cl
@@ -1000,10 +1045,10 @@ bq
 PI
 gQ
 ct
-Ad
+cm
+SK
 cp
-cp
-cp
+cE
 cm
 ct
 "}
@@ -1019,7 +1064,7 @@ CG
 br
 br
 gT
-ct
+oa
 bW
 cp
 cp
@@ -1064,7 +1109,7 @@ bY
 aw
 cp
 aw
-RA
+bQ
 ct
 "}
 (7,1,1) = {"
@@ -1120,10 +1165,10 @@ ck
 ck
 gX
 OK
-bR
-kd
+Tl
+ci
 ck
-oa
+ci
 bR
 ct
 "}
@@ -1138,12 +1183,12 @@ nU
 ci
 ck
 ck
-Ie
-Tl
+gX
+OK
 qg
 ci
 ck
-sx
+ci
 cs
 ct
 "}
@@ -1158,12 +1203,12 @@ bd
 ci
 ck
 ck
-gX
-bQ
-ci
+RA
+cj
+Ad
 ci
 ck
-cE
+ci
 HU
 cj
 "}
@@ -1221,7 +1266,7 @@ ex
 Zu
 cv
 aX
-ci
+Ie
 vV
 sj
 sM
