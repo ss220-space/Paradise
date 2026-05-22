@@ -84,9 +84,10 @@
 	if(!active)
 		return PROCESS_KILL
 
-89:    if(!wearer || QDELETED(wearer) || !is_worn_on_hands(wearer))
-90:        set_active(FALSE)
-91:        return PROCESS_KILL
+	if(!wearer || QDELETED(wearer) || !is_worn_on_hands(wearer))
+		set_active(FALSE)
+		wearer = null
+		return PROCESS_KILL
 
 	if(!cell || !cell.use(BSIG_P_POWER_DRAIN * seconds_per_tick))
 		var/mob/living/old_wearer = wearer

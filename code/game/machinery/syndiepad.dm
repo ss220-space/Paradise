@@ -199,28 +199,7 @@
 		to_chat(user, span_warning("Linked pad is not responding to ping."))
 		return
 
-	if(bluespace_interference_blocked(user))
-		return
-
 	return doteleport(usr)
-
-/obj/machinery/syndiepad/proc/bluespace_interference_blocked(mob/user)
-	if(!linked_pad || QDELETED(linked_pad))
-		return FALSE
-
-	var/turf/source_turf = get_turf(src)
-	if(get_bluespace_interference_generator(source_turf))
-		if(user)
-			to_chat(user, span_warning("[src] не может установить редспейс-связь через локальные блюспейс-помехи."))
-		return TRUE
-
-	var/turf/destination_turf = get_turf(linked_pad)
-	if(get_bluespace_interference_generator(destination_turf))
-		if(user)
-			to_chat(user, span_warning("[src] не может установить редспейс-связь через блюспейс-помехи вокруг целевой платформы."))
-		return TRUE
-
-	return FALSE
 
 /obj/machinery/syndiepad/proc/sparks()
 	do_sparks(5, TRUE, get_turf(src))
@@ -243,9 +222,6 @@
 				return
 			if(!linked_pad || QDELETED(linked_pad) || linked_pad.stat & NOPOWER)
 				to_chat(user, span_warning("Linked pad is not responding to ping. Teleport aborted."))
-				teleporting = 0
-				return
-			if(bluespace_interference_blocked(user))
 				teleporting = 0
 				return
 			teleporting = 0
@@ -293,5 +269,5 @@
 								continue
 						else if(!isobserver(ROI))
 							continue
-				do_teleport(ROI, destination_turf, bypass_area_flag = force_ignore_teleport_blocking)
+				do_teleport(ROI, destination_turf, bypass_area_flag = force_ignore_teleport_blocking, ignore_bluespace_interference = TRUE)
 			return
