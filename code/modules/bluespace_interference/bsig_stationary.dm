@@ -70,19 +70,20 @@
 	var/range_part_count = 0
 	var/total_range_rating = 0
 	power_usage = 0
-	var/list/parts = component_parts
 
-	for(var/obj/item/stock_parts/capacitor/capacitor in parts)
-		capacitor_count++
-		var/rating = capacitor.rating
-		power_usage += max(0, BSIG_S_CAPACITOR_BASE_LOAD - (BSIG_S_CAPACITOR_RATING_LOAD_REDUCTION * rating))
-		total_range_rating += rating
-		range_part_count++
-
-	for(var/obj/item/stock_parts/manipulator/manipulator in parts)
-		var/rating = manipulator.rating
-		total_range_rating += rating
-		range_part_count++
+	for(var/obj/item/part as anything in component_parts)
+		if(istype(part, /obj/item/stock_parts/capacitor))
+			var/obj/item/stock_parts/capacitor/capacitor = part
+			capacitor_count++
+			var/capacitor_rating = capacitor.rating
+			power_usage += max(0, BSIG_S_CAPACITOR_BASE_LOAD - (BSIG_S_CAPACITOR_RATING_LOAD_REDUCTION * capacitor_rating))
+			total_range_rating += capacitor_rating
+			range_part_count++
+		else if(istype(part, /obj/item/stock_parts/manipulator))
+			var/obj/item/stock_parts/manipulator/manipulator = part
+			var/manipulator_rating = manipulator.rating
+			total_range_rating += manipulator_rating
+			range_part_count++
 
 	if(capacitor_count < BSIG_S_REQUIRED_CAPACITORS)
 		power_usage += (BSIG_S_REQUIRED_CAPACITORS - capacitor_count) * BSIG_S_CAPACITOR_BASE_LOAD
@@ -98,11 +99,6 @@
 		refresh_field_visuals()
 
 /obj/machinery/power/bluespace_interference_generator/stationary/process(seconds_per_tick)
-	if(stat & BROKEN)
-		set_cable_powered(FALSE)
-		set_field_active(FALSE)
-		return
-
 	if(!can_operate())
 		set_cable_powered(FALSE)
 		set_field_active(FALSE)
@@ -340,9 +336,10 @@
 
 	var/list/generators = GLOB.active_bluespace_interference_generators
 	var/gen_len = length(generators)
-	for(var/i = gen_len, i >= 1, i--)
+	for(var/i in gen_len to 1 step -1)
 		var/obj/machinery/power/bluespace_interference_generator/stationary/generator = generators[i]
 		if(QDELETED(generator) || !generator.field_active)
+			generators.Cut(i, i + 1)
 			continue
 		if(generator.blocks_turf(target_turf))
 			return generator

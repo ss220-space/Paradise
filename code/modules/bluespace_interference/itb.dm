@@ -240,7 +240,7 @@
 	return ACCESS_BRIG in user.get_access()
 
 /obj/item/clothing/neck/itb/proc/refresh_state()
-	if(locked && tamper_stage != ITB_TAMPER_LOCK_BYPASSED)
+	if(locked && tamper_stage != ITB_TAMPER_LOCK_BYPASSED && is_worn())
 		ADD_TRAIT(src, TRAIT_NODROP, UNIQUE_TRAIT_SOURCE(src))
 	else
 		REMOVE_TRAIT(src, TRAIT_NODROP, UNIQUE_TRAIT_SOURCE(src))

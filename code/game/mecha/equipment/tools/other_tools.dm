@@ -21,15 +21,17 @@
 	var/turf/T = get_turf(target)
 	if(!T)
 		return FALSE
+	var/turf/source_turf = get_turf(chassis)
 	if(get_teleport_blocking_living(chassis))
 		occupant_message(span_warning("Блюспейс-помехи предотвращают телепортацию!"))
 		return FALSE
-	if(get_bluespace_interference_generator(get_turf(chassis)) || get_bluespace_interference_generator(T))
+	if(get_bluespace_interference_generator(source_turf) || get_bluespace_interference_generator(T))
 		occupant_message(span_warning("Блюспейс-помехи предотвращают телепортацию!"))
 		return FALSE
-	chassis.use_power(energy_drain)
 	var/turf/user_turf = get_turf(src)
-	do_teleport(chassis, T, tele_precision)
+	if(!do_teleport(chassis, T, tele_precision, ignore_bluespace_interference = TRUE))
+		return FALSE
+	chassis.use_power(energy_drain)
 	chassis.investigate_log("[key_name_log(chassis.occupant)] mecha-teleported from [COORD(user_turf)] to [COORD(chassis)].", INVESTIGATE_TELEPORTATION)
 	start_cooldown()
 
@@ -58,10 +60,11 @@
 	var/turf/portal_turf = get_turf(target)
 	if(!portal_turf)
 		return FALSE
+	var/turf/source_turf = get_turf(chassis)
 	if(get_teleport_blocking_living(chassis))
 		occupant_message(span_warning("Блюспейс-помехи не дают сформировать червоточину!"))
 		return FALSE
-	if(get_bluespace_interference_generator(get_turf(chassis)) || get_bluespace_interference_generator(portal_turf))
+	if(get_bluespace_interference_generator(source_turf) || get_bluespace_interference_generator(portal_turf))
 		occupant_message(span_warning("Блюспейс-помехи не дают сформировать червоточину!"))
 		return FALSE
 	var/list/theareas = get_areas_in_range(100, chassis)

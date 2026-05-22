@@ -460,14 +460,11 @@
 	desc = "Someone seperated our Research Director from his own head!"
 	var/tele_range = 2
 
-/obj/item/clothing/suit/armor/reactive/teleport/proc/can_reactive_teleport(mob/living/carbon/human/owner, turf/destination = null)
+/obj/item/clothing/suit/armor/reactive/teleport/proc/can_reactive_teleport(mob/living/carbon/human/owner)
 	if(HAS_TRAIT(owner, TRAIT_NO_TELEPORT))
 		return FALSE
 
 	if(get_bluespace_interference_generator(get_turf(owner)))
-		return FALSE
-
-	if(destination && get_bluespace_interference_generator(destination))
 		return FALSE
 
 	return TRUE
@@ -503,9 +500,8 @@
 		var/turf/picked = pick(turfs)
 		if(!isturf(picked))
 			return
-		if(!can_reactive_teleport(H, picked))
+		if(!do_teleport(H, picked, block_bluespace_interference = TRUE))
 			return 0
-		H.forceMove(picked)
 		return 1
 	return 0
 

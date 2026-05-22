@@ -208,12 +208,14 @@
 	if(!linked_pad || QDELETED(linked_pad))
 		return FALSE
 
-	if(get_bluespace_interference_generator(get_turf(src)))
+	var/turf/source_turf = get_turf(src)
+	if(get_bluespace_interference_generator(source_turf))
 		if(user)
 			to_chat(user, span_warning("[src] не может установить редспейс-связь через локальные блюспейс-помехи."))
 		return TRUE
 
-	if(get_bluespace_interference_generator(get_turf(linked_pad)))
+	var/turf/destination_turf = get_turf(linked_pad)
+	if(get_bluespace_interference_generator(destination_turf))
 		if(user)
 			to_chat(user, span_warning("[src] не может установить редспейс-связь через блюспейс-помехи вокруг целевой платформы."))
 		return TRUE
@@ -255,8 +257,8 @@
 			flick("[initial(icon_state)]-beam", src)
 			playsound(get_turf(src), 'sound/weapons/emitter2.ogg', 25, TRUE)
 			flick("[initial(linked_pad.icon_state)]-beam", linked_pad)
-			playsound(get_turf(linked_pad), 'sound/weapons/emitter2.ogg', 25, TRUE)
-			var/tele_success = FALSE
+			var/turf/destination_turf = get_turf(linked_pad)
+			playsound(destination_turf, 'sound/weapons/emitter2.ogg', 25, TRUE)
 
 			for(var/atom/movable/ROI in get_turf(src))
 				// if is living, check if allowed, don't let through if not
@@ -291,7 +293,5 @@
 								continue
 						else if(!isobserver(ROI))
 							continue
-				tele_success = do_teleport(ROI, get_turf(linked_pad), bypass_area_flag = force_ignore_teleport_blocking)
-				if(!tele_success)
-					to_chat(user, span_warning("Object '[ROI]'' was not teleported for unknown reason!"))
+				do_teleport(ROI, destination_turf, bypass_area_flag = force_ignore_teleport_blocking)
 			return
