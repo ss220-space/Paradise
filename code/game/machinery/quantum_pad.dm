@@ -151,7 +151,7 @@
 				continue
 
 		if(!do_teleport(target, target_turf, block_bluespace_interference = TRUE) && user)
-			to_chat(user, span_warning("Teleport failed!"))
+			to_chat(user, span_warning("Телепортация провалена!"))
 
 /obj/item/circuit_component/quantumpad
 	display_name = "Квантовая платформа"

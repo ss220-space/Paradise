@@ -288,7 +288,7 @@ effective or pretty fucking useless.
 
 	var/turf/mobloc = get_turf(user)
 	if(HAS_TRAIT(user, TRAIT_NO_TELEPORT))
-		to_chat(user, span_warning("[src] fails to activate due to the local bluespace interference."))
+		to_chat(user, span_warning("[src] не удается активировать из-за локальных блюспейс-помех."))
 		return
 	if(bluespace_interference_blocked(user, mobloc))
 		return
@@ -347,7 +347,7 @@ effective or pretty fucking useless.
 /obj/item/teleporter/proc/bluespace_interference_blocked(mob/living/user, turf/source_turf)
 	if(!get_bluespace_interference_generator(source_turf))
 		return FALSE
-	to_chat(user, span_warning("[src] fails to activate due to the local bluespace interference."))
+	to_chat(user, span_warning("[src] не удается активировать из-за локальных блюспейс-помех."))
 	return TRUE
 
 /obj/item/teleporter/proc/get_bluespace_interference_destination(mob/living/user, turf/source_turf, turf/destination)
@@ -357,10 +357,10 @@ effective or pretty fucking useless.
 
 	var/turf/edge_turf = interference.get_edge_turf(source_turf, destination)
 	if(!edge_turf)
-		to_chat(user, span_warning("[src] fails to find a stable point outside the bluespace interference."))
+		to_chat(user, span_warning("[src] не удается найти стабильную точку за пределами блюспейс-помех."))
 		return null
 
-	to_chat(user, span_warning("[src] shunts you to the edge of a bluespace interference field."))
+	to_chat(user, span_warning("[src] выбрасывает вас на край поля блюспейс-помех."))
 	return edge_turf
 
 /obj/item/teleporter/proc/tile_check(turf/check_turf)
