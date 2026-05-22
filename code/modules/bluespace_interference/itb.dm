@@ -20,6 +20,16 @@
 	var/tamper_stage = ITB_TAMPER_SECURE
 	var/mob/living/wearer
 
+/obj/item/clothing/neck/itb/get_ru_names()
+	return list(
+		NOMINATIVE = "ITB",
+		GENITIVE = "ITB",
+		DATIVE = "ITB",
+		ACCUSATIVE = "ITB",
+		INSTRUMENTAL = "ITB",
+		PREPOSITIONAL = "ITB",
+	)
+
 /obj/item/clothing/neck/itb/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/high_value_item)

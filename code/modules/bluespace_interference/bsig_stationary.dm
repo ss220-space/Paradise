@@ -21,6 +21,16 @@
 		/obj/item/stack/ore/bluespace_crystal = 5,
 	)
 
+/obj/item/circuitboard/machine/bsig_stationary/get_ru_names()
+	return list(
+		NOMINATIVE = "плата BSIG-S",
+		GENITIVE = "платы BSIG-S",
+		DATIVE = "плате BSIG-S",
+		ACCUSATIVE = "плату BSIG-S",
+		INSTRUMENTAL = "платой BSIG-S",
+		PREPOSITIONAL = "плате BSIG-S",
+	)
+
 /obj/machinery/power/bluespace_interference_generator/stationary
 	name = "BSIG-S"
 	desc = "Стационарный генератор блюспейс-помех. Предотвращает блюспейс-перемещение в небольшом радиусе при подключении к запитанному АПЦ и рабочему узлу электросети."
@@ -41,6 +51,16 @@
 	var/turf/cached_center_turf
 	var/cached_field_radius_squared = 0
 	var/next_toggle_time = 0
+
+/obj/machinery/power/bluespace_interference_generator/stationary/get_ru_names()
+	return list(
+		NOMINATIVE = "BSIG-S",
+		GENITIVE = "BSIG-S",
+		DATIVE = "BSIG-S",
+		ACCUSATIVE = "BSIG-S",
+		INSTRUMENTAL = "BSIG-S",
+		PREPOSITIONAL = "BSIG-S",
+	)
 
 /obj/machinery/power/bluespace_interference_generator/stationary/Initialize(mapload)
 	. = ..()

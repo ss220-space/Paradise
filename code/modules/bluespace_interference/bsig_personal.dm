@@ -13,6 +13,16 @@
 	var/obj/item/stock_parts/cell/cell
 	var/mob/living/wearer
 
+/obj/item/clothing/gloves/bsig_personal/get_ru_names()
+	return list(
+		NOMINATIVE = "BSIG-P",
+		GENITIVE = "BSIG-P",
+		DATIVE = "BSIG-P",
+		ACCUSATIVE = "BSIG-P",
+		INSTRUMENTAL = "BSIG-P",
+		PREPOSITIONAL = "BSIG-P",
+	)
+
 /obj/item/clothing/gloves/bsig_personal/build_worn_icon(default_layer = 0, default_icon_file = null, isinhands = FALSE, override_state = null, override_file = null, use_item_state = FALSE)
 	if(!isinhands && !override_state)
 		override_state = "bsig"
