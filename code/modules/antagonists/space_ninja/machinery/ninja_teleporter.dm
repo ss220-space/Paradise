@@ -15,11 +15,9 @@
 
 				var/turf/T = get_turf(user)
 				var/turf/destination = pick(GLOB.ninja_teleport)
-				if(get_teleport_blocking_living(user) || get_bluespace_interference_generator(T) || get_bluespace_interference_generator(destination))
-					to_chat(user, span_warning("Блюспейс-помехи предотвращают телепортацию!"))
+				if(!do_teleport(user, destination, block_bluespace_interference = TRUE))
 					return
 				add_fingerprint(user)
-				user.forceMove(destination)
 				user.investigate_log("VOID-shifted from [COORD(T)] to [COORD(user)].", INVESTIGATE_TELEPORTATION)
 				playsound(user.loc, 'sound/effects/phasein.ogg', 25, TRUE)
 				playsound(user.loc, 'sound/effects/sparks2.ogg', 50, TRUE)

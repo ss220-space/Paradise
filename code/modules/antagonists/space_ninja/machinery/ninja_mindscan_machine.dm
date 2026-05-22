@@ -180,12 +180,9 @@
 /obj/machinery/ninja_mindscan_machine/proc/teleport_out()
 	if(!occupant)
 		return
-	var/turf/source = get_turf(occupant)
 	var/turf/destination = pick(GLOB.ninja_teleport)
-	if(get_teleport_blocking_living(occupant) || get_bluespace_interference_generator(source) || get_bluespace_interference_generator(destination))
-		to_chat(occupant, span_warning("Блюспейс-помехи предотвращают телепортацию!"))
+	if(!do_teleport(occupant, destination, block_bluespace_interference = TRUE))
 		return
-	occupant.forceMove(destination)
 	var/teleport_loc = occupant.loc
 	var/effect_dir = occupant.dir
 	occupant = null
