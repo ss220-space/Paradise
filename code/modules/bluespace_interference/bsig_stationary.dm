@@ -76,6 +76,12 @@
 	set_field_active(FALSE)
 	return ..()
 
+/obj/machinery/power/bluespace_interference_generator/stationary/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
+	. = ..()
+	if(field_active)
+		update_cached_field_data()
+		refresh_field_visuals()
+
 /obj/machinery/power/bluespace_interference_generator/stationary/on_construction()
 	connect_to_network()
 

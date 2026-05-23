@@ -177,6 +177,9 @@
 	var/mob/living/teleport_blocker = get_teleport_blocking_living(tele_atom)
 	if(teleport_blocker)
 		to_chat(teleport_blocker, span_warning("Блюспейс-помехи предотвращают телепортацию!"))
+		if(isliving(tele_atom) && tele_atom != teleport_blocker)
+			var/mob/living/living_teleatom = tele_atom
+			to_chat(living_teleatom, span_warning("Блюспейс-помехи предотвращают телепортацию!"))
 		return FALSE
 
 	if(!ignore_bluespace_interference)
