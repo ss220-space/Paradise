@@ -10,6 +10,7 @@
 	actions_types = list(/datum/action/item_action/toggle)
 
 	var/active = FALSE
+	var/panel_open = FALSE
 	var/obj/item/stock_parts/cell/cell
 	var/mob/living/wearer
 
@@ -47,6 +48,7 @@
 		. += span_notice("Заряд установленной батареи: <b>[round(cell.percent())]%</b>.")
 	else
 		. += span_warning("Батарея не установлена.")
+	. += span_notice("Сервисная панель [panel_open ? "открыта" : "закрыта"].")
 	. += span_notice("Сейчас [src] [active ? "активен" : "неактивен"].")
 
 /obj/item/clothing/gloves/bsig_personal/attack_self(mob/user)
@@ -108,6 +110,9 @@
 
 /obj/item/clothing/gloves/bsig_personal/attackby(obj/item/I, mob/living/user, params)
 	if(iscell(I))
+		if(!panel_open)
+			balloon_alert(user, "панель закрыта")
+			return ATTACK_CHAIN_PROCEED
 		add_fingerprint(user)
 		if(cell)
 			balloon_alert(user, "батарея уже установлена")
@@ -120,8 +125,11 @@
 
 	return ..()
 
-/obj/item/clothing/gloves/bsig_personal/wirecutter_act(mob/user, obj/item/I)
+/obj/item/clothing/gloves/bsig_personal/crowbar_act(mob/user, obj/item/I)
 	. = TRUE
+	if(!panel_open)
+		balloon_alert(user, "панель закрыта")
+		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	eject_cell(user)
@@ -130,7 +138,8 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	eject_cell(user)
+	panel_open = !panel_open
+	balloon_alert(user, "панель [panel_open ? "открыта" : "закрыта"]")
 
 /obj/item/clothing/gloves/bsig_personal/proc/eject_cell(mob/user)
 	if(!cell)
