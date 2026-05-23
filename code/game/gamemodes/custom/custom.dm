@@ -11,9 +11,9 @@
 	var/changeling_protected_species = list(SPECIES_MACNINEPERSON, SPECIES_PLASMAMAN)
 	var/vampire_protected_species = list(SPECIES_MACNINEPERSON, SPECIES_PLASMAMAN, SPECIES_SLIMEPERSON)
 	var/vampire_restricted_jobs = list(JOB_TITLE_CHAPLAIN)
-	var/list/custom_antag_counts = list()
+	var/list/antag_counts = list()
 	var/list/pre_antags = list()
-	var/list/custom_antag_roles = MAIN_ANTAG_ROLES
+	var/list/antag_roles = MAIN_ANTAG_ROLES
 
 /datum/game_mode/custom/announce()
 	to_chat(world, "<b>The current game mode is - Custom</b>")
@@ -22,31 +22,31 @@
 	if(CONFIG_GET(flag/protect_roles_from_antagonist))
 		restricted_jobs += protected_jobs
 
-	custom_antag_counts = build_custom_antag_counts()
+	antag_counts = build_antag_counts()
 	var/list/antag_possibilities = list()
-	for(var/role in custom_antag_counts)
-		if(custom_antag_counts[role] > 0)
-			antag_possibilities[role] = get_custom_antag_candidates(role)
+	for(var/role in antag_counts)
+		if(antag_counts[role] > 0)
+			antag_possibilities[role] = get_antag_candidates(role)
 
-	return roll_custom_antags(antag_possibilities)
+	return roll_antags(antag_possibilities)
 
 /datum/game_mode/custom/post_setup()
 	addtimer(CALLBACK(src, PROC_REF(initiate_antags), TRUE), rand(1 SECONDS, 10 SECONDS))
 	..()
 
-/datum/game_mode/custom/proc/build_custom_antag_counts()
-	var/list/custom_counts = list()
-	for(var/role in custom_antag_roles)
-		custom_counts[role] = 0
+/datum/game_mode/custom/proc/build_antag_counts()
+	var/list/antag_counts = list()
+	for(var/role in antag_roles)
+		antag_counts[role] = 0
 
 	if(GLOB.custom_antag_counts)
-		for(var/role in custom_antag_roles)
+		for(var/role in antag_roles)
 			if(role in GLOB.custom_antag_counts)
-				custom_counts[role] = GLOB.custom_antag_counts[role]
+				antag_counts[role] = GLOB.custom_antag_counts[role]
 
-	return custom_counts.Copy()
+	return antag_counts.Copy()
 
-/datum/game_mode/custom/proc/get_custom_antag_candidates(var/role)
+/datum/game_mode/custom/proc/get_antag_candidates(var/role)
 	switch(role)
 		if(ROLE_TRAITOR)
 			return get_players_for_role(ROLE_TRAITOR)
@@ -71,10 +71,10 @@
 	for(var/role in antag_possibilities)
 		list_clear_duplicates(antag, antag_possibilities[role])
 
-/datum/game_mode/custom/proc/roll_custom_antags(list/antag_possibilities)
+/datum/game_mode/custom/proc/roll_antags(list/antag_possibilities)
 	pre_antags = list()
 	for(var/role in antag_possibilities)
-		var/target_count = custom_antag_counts[role]
+		var/target_count = antag_counts[role]
 		if(target_count <= 0)
 			continue
 
