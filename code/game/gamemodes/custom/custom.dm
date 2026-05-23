@@ -8,15 +8,15 @@
 	restricted_jobs = list(JOB_TITLE_CYBORG, JOB_TITLE_AI)
 	forbidden_antag_jobs = list(ROLE_VAMPIRE = list(JOB_TITLE_CHAPLAIN))
 	var/list/protected_jobs_AI = list(JOB_TITLE_CIVILIAN, JOB_TITLE_PRISONER, JOB_TITLE_CHIEF_ENGINEER, JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_ATMOSTECH, JOB_TITLE_SPACEPOD_TECHNICIAN, JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_MEDICAL_INTERN, JOB_TITLE_CORONER, JOB_TITLE_CHEMIST, JOB_TITLE_GENETICIST, JOB_TITLE_VIROLOGIST, JOB_TITLE_PSYCHIATRIST, JOB_TITLE_PARAMEDIC, JOB_TITLE_RD, JOB_TITLE_SCIENTIST, JOB_TITLE_SCIENCE_STUDENT, JOB_TITLE_ROBOTICIST, JOB_TITLE_HOP, JOB_TITLE_CHAPLAIN, JOB_TITLE_BARTENDER, JOB_TITLE_CHEF, JOB_TITLE_BOTANIST, JOB_TITLE_QUARTERMASTER, JOB_TITLE_CARGOTECH, JOB_TITLE_MINER, JOB_TITLE_MINING_MEDIC, JOB_TITLE_CLOWN, JOB_TITLE_MIME, JOB_TITLE_JANITOR, JOB_TITLE_LIBRARIAN, JOB_TITLE_EXPLORER)
-	var/changeling_protected_species = list(SPECIES_MACNINEPERSON, SPECIES_PLASMAMAN)
-	var/vampire_protected_species = list(SPECIES_MACNINEPERSON, SPECIES_PLASMAMAN, SPECIES_SLIMEPERSON)
+	var/changeling_protected_species = list(SPECIES_MACHINEPERSON, SPECIES_PLASMAMAN)
+	var/vampire_protected_species = list(SPECIES_MACHINEPERSON, SPECIES_PLASMAMAN, SPECIES_SLIMEPERSON)
 	var/vampire_restricted_jobs = list(JOB_TITLE_CHAPLAIN)
 	var/list/antag_counts = list()
 	var/list/pre_antags = list()
 	var/list/antag_roles = MAIN_ANTAG_ROLES
 
 /datum/game_mode/custom/announce()
-	to_chat(world, "<b>The current game mode is - Custom</b>")
+	to_chat(world, "<b>Текущий режим игры — Кастомный</b>")
 
 /datum/game_mode/custom/pre_setup()
 	if(CONFIG_GET(flag/protect_roles_from_antagonist))
@@ -69,7 +69,7 @@
 
 /datum/game_mode/custom/proc/remove_chosen_mind_from_all_lists(datum/mind/antag, list/antag_possibilities)
 	for(var/role in antag_possibilities)
-		list_clear_duplicates(antag, antag_possibilities[role])
+		antag_possibilities[role] -= antag
 
 /datum/game_mode/custom/proc/roll_antags(list/antag_possibilities)
 	pre_antags = list()
@@ -85,10 +85,10 @@
 			if(antag.special_role)
 				continue
 			if(role == ROLE_CHANGELING)
-				if(antag.current.client.prefs.species in changeling_protected_species)
+				if(antag.current.client.prefs?.species in changeling_protected_species)
 					continue
 			if(role == ROLE_VAMPIRE)
-				if(antag.current.client.prefs.species in vampire_protected_species)
+				if(antag.current.client.prefs?.species in vampire_protected_species)
 					continue
 			eligible += antag
 
@@ -141,7 +141,7 @@
 	return TRUE
 
 /datum/game_mode/custom/proc/initiate_antags(roundstart = FALSE)
-	for(var/datum/mind/antag as anything in pre_antags)
+	or(var/datum/mind/antag in pre_antags)
 		switch(pre_antags[antag])
 			if(ROLE_HIJACKER)
 				var/datum/antagonist/traitor/hijacker_datum = new
@@ -169,8 +169,8 @@
 			if(ROLE_THIEF)
 				antag.add_antag_datum(/datum/antagonist/thief)
 			if(ROLE_DEVIL)
-				var/datum/antagonist/devil/divil_datum = new
-				antag.add_antag_datum(divil_datum)
+				var/datum/antagonist/devil/devil_datum = new
+				antag.add_antag_datum(devil_datum)
 			if(ROLE_NINJA)
 				if(length(GLOB.ninjastart))
 					if(antag.current)
