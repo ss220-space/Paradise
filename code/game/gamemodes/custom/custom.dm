@@ -44,7 +44,7 @@
 			if(role in GLOB.custom_antag_counts)
 				antag_counts[role] = GLOB.custom_antag_counts[role]
 
-	return antag_counts.Copy()
+	return antag_counts
 
 /datum/game_mode/custom/proc/get_antag_candidates(var/role)
 	switch(role)
@@ -73,8 +73,9 @@
 
 /datum/game_mode/custom/proc/roll_antags(list/antag_possibilities)
 	pre_antags = list()
+	var/list/counts = antag_counts
 	for(var/role in antag_possibilities)
-		var/target_count = antag_counts[role]
+		var/target_count = counts[role]
 		if(target_count <= 0)
 			continue
 
@@ -85,10 +86,12 @@
 			if(antag.special_role)
 				continue
 			if(role == ROLE_CHANGELING)
-				if(antag.current.client.prefs?.species in changeling_protected_species)
+				var/datum/preferences/prefs = antag.current.client.prefs
+				if(prefs && (prefs.species in changeling_protected_species))
 					continue
 			if(role == ROLE_VAMPIRE)
-				if(antag.current.client.prefs?.species in vampire_protected_species)
+				var/datum/preferences/prefs = antag.current.client.prefs
+				if(prefs && (prefs.species in vampire_protected_species))
 					continue
 			eligible += antag
 
@@ -141,8 +144,11 @@
 	return TRUE
 
 /datum/game_mode/custom/proc/initiate_antags(roundstart = FALSE)
-	for(var/datum/mind/antag in pre_antags)
-		switch(pre_antags[antag])
+	var/list/antags = pre_antags
+	for(var/datum/mind/antag in antags)
+		if(!antag.current)
+			continue
+		switch(antags[antag])
 			if(ROLE_HIJACKER)
 				var/datum/antagonist/traitor/hijacker_datum = new
 				hijacker_datum.is_hijacker = TRUE

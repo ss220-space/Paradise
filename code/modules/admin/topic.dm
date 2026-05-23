@@ -1333,7 +1333,7 @@
 
 		var/list/dat = list("<b>Configure the number of antagonists for Custom mode.</b><hr>")
 		var/list/antags_list
-		var/list/custom_antag_roles = (MAIN_ANTAG_ROLES).Copy()
+		var/list/custom_antag_roles = MAIN_ANTAG_ROLES
 		if(GLOB.custom_antag_counts)
 			antags_list = GLOB.custom_antag_counts.Copy()
 		else
