@@ -108,7 +108,7 @@
 /obj/item/clothing/neck/itb/proc/get_active_hand_zone(mob/user)
 	if(!ishuman(user))
 		return BODY_ZONE_CHEST
-	return user.hand == ACTIVE_HAND_LEFT ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND
+	return user.hand == ACTIVE_HAND_LEFT ? BODY_ZONE_L_ARM : BODY_ZONE_R_ARM
 
 /obj/item/clothing/neck/itb/proc/has_insulated_gloves(mob/living/user)
 	if(!ishuman(user))
