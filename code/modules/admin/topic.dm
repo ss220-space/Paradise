@@ -1323,6 +1323,57 @@
 			log_and_message_admins(span_notice("set the weight for [capitalize(antag)] as special antagonist to [choice] in Antag Paradise gamemode."))
 		.(href, list("change_weights"=1))
 
+	else if(href_list["change_custom_antags"])
+		if(!check_rights(R_ADMIN))
+			return
+		if(SSticker?.mode)
+			return tgui_alert(usr, "The game has already started.")
+		if(GLOB.master_mode != "custom" && GLOB.secret_force_mode != "custom")
+			return tgui_alert(usr, "The game mode has to be Custom!")
+
+		var/list/dat = list("<b>Configure the number of antagonists for Custom mode.</b><hr>")
+		var/list/antags_list
+		var/list/custom_antag_roles = (MAIN_ANTAG_ROLES).Copy()
+		if(GLOB.custom_antag_counts)
+			antags_list = GLOB.custom_antag_counts.Copy()
+		else
+			antags_list = list()
+
+		for(var/role in custom_antag_roles)
+			if(!(role in antags_list))
+				antags_list[role] = 0
+
+		dat += {"<table><tr><td><b>Antag</b></td><td><b>Count</b></td></tr>"}
+		for(var/antag in antags_list)
+			dat += {"<tr><td>[capitalize(antag)]</td><td><a href='byond://?src=[UID()];set_custom_antag_count=counts_[antag]'>[antags_list[antag]]</a></td></tr>"}
+		dat += {"</table>"}
+
+		var/datum/browser/popup = new(usr, "change_custom_antags", "<div align='center'>Custom Antag Counts</div>", 650, 450)
+		popup.set_content(dat)
+		popup.set_window_options("can_close=1;can_minimize=0;can_maximize=0;can_resize=0;titlebar=1;")
+		popup.open(TRUE)
+		onclose(usr, "change_custom_antags")
+
+	else if(href_list["set_custom_antag_count"])
+		if(!check_rights(R_ADMIN))
+			return
+		if(SSticker?.mode)
+			return tgui_alert(usr, "The game has already started.")
+		if(GLOB.master_mode != "custom" && GLOB.secret_force_mode != "custom")
+			return tgui_alert(usr, "The game mode has to be Custom!")
+
+		var/command = href_list["set_custom_antag_count"]
+		if(findtext(command, "counts_"))
+			if(!GLOB.custom_antag_counts)
+				GLOB.custom_antag_counts = list()
+			var/antag = replacetext(command, "counts_", "")
+			var/choice = tgui_input_number(usr, "Set the count for [capitalize(antag)]", "Custom Antag Count", 0, min_value = 0, max_value = 20)
+			if(isnull(choice))
+				return
+			GLOB.custom_antag_counts[antag] = choice
+			log_and_message_admins(span_notice("set [capitalize(antag)] count to [choice] for Custom gamemode."))
+		.(href, list("change_custom_antags"=1))
+
 	else if(href_list["monkeyone"])
 		if(!check_rights(R_SPAWN))
 			return

@@ -53,6 +53,7 @@
 
 #define ROLE_NONE "nothing" // special define used as a marker
 #define ROLE_HIJACKER "hijacker" // another marker
+#define MAIN_ANTAG_ROLES list(ROLE_TRAITOR, ROLE_THIEF, ROLE_VAMPIRE, ROLE_CHANGELING, ROLE_MALF_AI, ROLE_DEVIL, ROLE_NINJA, ROLE_HIJACKER)
 
 //Missing assignment means it's not a gamemode specific role, IT'S NOT A BUG OR ERROR.
 //The gamemode specific ones are just so the gamemodes can query whether a player is old enough

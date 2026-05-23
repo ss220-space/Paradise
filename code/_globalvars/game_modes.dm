@@ -27,6 +27,9 @@ GLOBAL_LIST(antag_paradise_weights)
 /// Weights for all special antags in ANTAG-PARADISE gamemode.
 GLOBAL_LIST(antag_paradise_special_weights)
 
+/// Custom antag counts for CUSTOM gamemode.
+GLOBAL_LIST(custom_antag_counts)
+
 GLOBAL_VAR_INIT(gamma_ship_location, 1) // 0 = station , 1 = space
 
 GLOBAL_VAR_INIT(respawn_delay, 20)

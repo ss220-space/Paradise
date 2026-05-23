@@ -336,6 +336,8 @@ ADMIN_VERB(vpn_whitelist, R_BAN, "VPN Ckey Whitelist", "Modify ckey's presence o
 		dat += "<p><a href='byond://?src=[cached_UID];f_secret=1'>(Force Secret Mode)</a><br></p>"
 	if(GLOB.master_mode == "antag-paradise" || GLOB.secret_force_mode == "antag-paradise")
 		dat += "<p><a href='byond://?src=[cached_UID];change_weights=1'>Change Antag Weights</a><br></p>"
+	if(GLOB.master_mode == "custom" || GLOB.secret_force_mode == "custom")
+		dat += "<p><a href='byond://?src=[cached_UID];change_custom_antags=1'>Change Custom Antag Counts</a><br></p>"
 
 	dat += "<hr><br>"
 	dat += "<a href='byond://?src=[cached_UID];spawn_panel=1'>Spawn Panel</a><br>"

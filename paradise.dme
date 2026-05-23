@@ -1223,6 +1223,7 @@
 #include "code\game\gamemodes\cult\cult_structures.dm"
 #include "code\game\gamemodes\cult\ritual.dm"
 #include "code\game\gamemodes\cult\runes.dm"
+#include "code\game\gamemodes\custom\custom.dm"
 #include "code\game\gamemodes\de_kerberos_2\de_kerberos_2.dm"
 #include "code\game\gamemodes\devil\game_mode.dm"
 #include "code\game\gamemodes\devil\objectives.dm"
