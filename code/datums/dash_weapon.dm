@@ -41,7 +41,9 @@
 	var/turf/target_turf = get_turf(target)
 	var/turf/starting_turf = get_turf(user)
 	if(!user.Adjacent(target) && (target in view(user.client.view, user)))
-		var/atom/movable/pulled_atom = user.pulling
+		var/mob/living/pulled_mob
+		if(isliving(user.pulling))
+			pulled_mob = user.pulling
 		if(!do_teleport(user, target_turf))
 			user.balloon_alert(user, "нельзя телепортироваться!")
 			return FALSE
@@ -55,10 +57,10 @@
 			owner.update_action_buttons_icon()
 		addtimer(CALLBACK(src, PROC_REF(charge)), charge_rate)
 		last_used = world.time
-		var/can_move_pulled = isliving(pulled_atom) && !QDELETED(pulled_atom) && final_turf
+		var/can_move_pulled = pulled_mob && !QDELETED(pulled_mob)
 		var/pulled_destination_blocked = can_move_pulled && final_turf.is_blocked_turf(exclude_mobs = TRUE)
 		if(can_move_pulled && !pulled_destination_blocked)
-			do_teleport(pulled_atom, final_turf)
+			do_teleport(pulled_mob, final_turf)
 		return TRUE
 
 	return FALSE

@@ -244,12 +244,16 @@
 		return intended_destination
 
 	if(origin && origin.z == intended_destination.z)
+		var/turf/center_turf = cached_center_turf
+		var/radius_squared = cached_field_radius_squared
 		var/turf/current_turf = intended_destination
 		for(var/i in 1 to BSIG_S_MAX_RANGE + BSIG_S_SHUNT_MARGIN)
 			current_turf = get_step_towards(current_turf, origin)
 			if(!current_turf)
 				break
-			if(!blocks_turf(current_turf) && !current_turf.is_blocked_turf(exclude_mobs = TRUE))
+			var/dx = current_turf.x - center_turf.x
+			var/dy = current_turf.y - center_turf.y
+			if((dx * dx + dy * dy) > radius_squared && !current_turf.is_blocked_turf(exclude_mobs = TRUE))
 				return current_turf
 
 	return get_nearest_edge_turf(intended_destination)
@@ -260,9 +264,18 @@
 	var/list/edge_turfs = turf_peel(field_range + 1, max(field_range - 1, 0), src)
 	var/turf/best_turf
 	var/best_distance
+	var/turf/center_turf = cached_center_turf
+	if(!center_turf)
+		return null
+	var/radius_squared = cached_field_radius_squared
+	var/target_z = from_turf.z
 
 	for(var/turf/current_turf as anything in edge_turfs)
-		if(!current_turf || current_turf.z != from_turf.z || blocks_turf(current_turf))
+		if(!current_turf || current_turf.z != target_z)
+			continue
+		var/dx = current_turf.x - center_turf.x
+		var/dy = current_turf.y - center_turf.y
+		if((dx * dx + dy * dy) <= radius_squared)
 			continue
 		if(current_turf.is_blocked_turf(exclude_mobs = TRUE))
 			continue

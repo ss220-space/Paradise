@@ -21,29 +21,20 @@
 				return buckled_living
 	return null
 
-/proc/get_contained_teleport_blocker(atom/movable/container)
-	var/list/atoms_to_check = list(container)
-	var/list/depths_to_check = list(0)
-	var/check_index = 1
-	while(check_index <= length(atoms_to_check))
-		var/atom/movable/current_atom = atoms_to_check[check_index]
-		var/current_depth = depths_to_check[check_index]
-		check_index++
-		if(!current_atom)
-			continue
-		if(current_depth >= TELEPORT_BLOCKER_CONTENT_SEARCH_DEPTH)
-			continue
+/proc/get_contained_teleport_blocker(atom/movable/container, depth = 0)
+	if(!container || depth >= TELEPORT_BLOCKER_CONTENT_SEARCH_DEPTH)
+		return null
 
-		var/list/current_contents = current_atom.contents
-		for(var/atom/movable/contained_atom as anything in current_contents)
-			if(isliving(contained_atom))
-				var/mob/living/contained_living = contained_atom
-				var/mob/living/contained_blocker = get_living_teleport_blocker(contained_living)
-				if(contained_blocker)
-					return contained_blocker
-			if(length(contained_atom.contents))
-				atoms_to_check += contained_atom
-				depths_to_check += current_depth + 1
+	for(var/atom/movable/contained_atom as anything in container.contents)
+		if(isliving(contained_atom))
+			var/mob/living/contained_living = contained_atom
+			var/mob/living/contained_blocker = get_living_teleport_blocker(contained_living)
+			if(contained_blocker)
+				return contained_blocker
+		if(length(contained_atom.contents))
+			var/mob/living/found_blocker = get_contained_teleport_blocker(contained_atom, depth + 1)
+			if(found_blocker)
+				return found_blocker
 	return null
 
 /proc/get_teleport_blocking_living(atom/movable/teleatom)
@@ -161,8 +152,9 @@
 //do the monkey dance
 /datum/teleport/proc/doTeleport()
 
+	var/atom/movable/tele_atom = teleatom
 	var/turf/destturf
-	var/turf/curturf = get_turf(teleatom)
+	var/turf/curturf = get_turf(tele_atom)
 	var/area/curarea = get_area(curturf)
 
 	if(precision)
@@ -179,7 +171,7 @@
 	if(!destturf || !curturf)
 		return FALSE
 
-	var/mob/living/teleport_blocker = get_teleport_blocking_living(teleatom)
+	var/mob/living/teleport_blocker = get_teleport_blocking_living(tele_atom)
 	if(teleport_blocker)
 		to_chat(teleport_blocker, span_warning("Блюспейс-помехи предотвращают телепортацию!"))
 		return FALSE
@@ -187,25 +179,33 @@
 	if(!ignore_bluespace_interference)
 		var/obj/machinery/power/bluespace_interference_generator/stationary/origin_interference = get_bluespace_interference_generator(curturf)
 		if(origin_interference)
-			if(isliving(teleatom))
-				var/mob/living/living_teleatom = teleatom
+			if(isliving(tele_atom))
+				var/mob/living/living_teleatom = tele_atom
 				to_chat(living_teleatom, span_warning("Блюспейс-помехи предотвращают телепортацию!"))
 			return FALSE
 
 		var/obj/machinery/power/bluespace_interference_generator/stationary/destination_interference = get_bluespace_interference_generator(destturf)
-		if(destination_interference)
+		var/hit_interference = FALSE
+		var/list/active_generators = GLOB.active_bluespace_interference_generators
+		var/shunt_attempts = length(active_generators) + 1
+		while(destination_interference && shunt_attempts > 0)
+			shunt_attempts--
+			hit_interference = TRUE
 			if(block_bluespace_interference)
-				if(isliving(teleatom))
-					var/mob/living/living_teleatom = teleatom
+				if(isliving(tele_atom))
+					var/mob/living/living_teleatom = tele_atom
 					to_chat(living_teleatom, span_warning("Блюспейс-помехи предотвращают телепортацию!"))
 				return FALSE
 			var/turf/interference_edge = destination_interference.get_edge_turf(curturf, destturf)
-			if(!interference_edge)
+			if(!interference_edge || interference_edge == destturf)
 				return FALSE
 			destturf = interference_edge
-			if(isliving(teleatom))
-				var/mob/living/living_teleatom = teleatom
-				to_chat(living_teleatom, span_warning("Блюспейс-помехи выбрасывают телепорт на край поля!"))
+			destination_interference = get_bluespace_interference_generator(destturf)
+		if(destination_interference)
+			return FALSE
+		if(hit_interference && isliving(tele_atom))
+			var/mob/living/living_teleatom = tele_atom
+			to_chat(living_teleatom, span_warning("Блюспейс-помехи выбрасывают телепорт на край поля!"))
 
 	if(!is_teleport_allowed(destturf.z) && !ignore_area_flag)
 		return FALSE
@@ -219,24 +219,24 @@
 		if(destarea.tele_proof)
 			return FALSE
 
-	if(SEND_SIGNAL(teleatom, COMSIG_MOVABLE_TELEPORTING, curturf, destturf) & COMPONENT_BLOCK_TELEPORT)
+	if(SEND_SIGNAL(tele_atom, COMSIG_MOVABLE_TELEPORTING, curturf, destturf) & COMPONENT_BLOCK_TELEPORT)
 		return FALSE
 	if(SEND_SIGNAL(destturf, COMSIG_ATOM_INTERCEPT_TELEPORTING, curturf) & COMPONENT_BLOCK_TELEPORT)
 		return FALSE
 
 	playSpecials(curturf, effectin, soundin)
-	var/success = teleatom.forceMove(destturf)
+	var/success = tele_atom.forceMove(destturf)
 	if(success)
 		playSpecials(destturf, effectout, soundout)
 
-	if(isliving(teleatom))
-		var/mob/living/living_teleatom = teleatom
+	if(isliving(tele_atom))
+		var/mob/living/living_teleatom = tele_atom
 		if(living_teleatom.buckled)
 			living_teleatom.buckled.unbuckle_mob(living_teleatom, force = TRUE)
 		if(living_teleatom.has_buckled_mobs())
 			living_teleatom.unbuckle_all_mobs(force = TRUE)
 
-	teleatom.on_teleported()
+	tele_atom.on_teleported()
 
 	return TRUE
 

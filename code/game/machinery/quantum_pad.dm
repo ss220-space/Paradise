@@ -141,6 +141,7 @@
 	flick("[initial(target_pad.icon_state)]-beam", target_pad)
 	var/turf/target_turf = get_turf(target_pad)
 	playsound(target_turf, 'sound/weapons/emitter2.ogg', 25, TRUE)
+	var/teleport_failed = FALSE
 	for(var/atom/movable/target in get_turf(src))
 		if(target.anchored)
 			continue
@@ -151,7 +152,9 @@
 				continue
 
 		if(!do_teleport(target, target_turf, block_bluespace_interference = TRUE) && user)
-			to_chat(user, span_warning("Телепортация провалена!"))
+			teleport_failed = TRUE
+	if(teleport_failed)
+		to_chat(user, span_warning("Часть объектов не удалось телепортировать; возможны блюспейс-помехи."))
 
 /obj/item/circuit_component/quantumpad
 	display_name = "Квантовая платформа"

@@ -16,7 +16,6 @@
 	resistance_flags = FIRE_PROOF
 
 	var/locked = FALSE
-	var/security_lock = TRUE
 	var/tamper_stage = ITB_TAMPER_SECURE
 	var/mob/living/wearer
 
