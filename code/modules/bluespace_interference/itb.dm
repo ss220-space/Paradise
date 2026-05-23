@@ -69,11 +69,13 @@
 		return
 	if(!get_worn_target())
 		return
+	if(!has_itb_access(user))
+		return
 	context[SCREENTIP_CONTEXT_RMB] = locked ? "Разблокировать" : "Заблокировать"
 	return CONTEXTUAL_SCREENTIP_SET
 
 /obj/item/clothing/neck/itb/attack_hand_secondary(mob/user, list/modifiers)
-	if(!isliving(user))
+	if(!has_itb_access(user))
 		if(!isobserver(user))
 			to_chat(user, span_warning("Вам нужна ID-карта с доступом брига для управления [src]."))
 		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN

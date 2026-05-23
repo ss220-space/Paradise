@@ -41,9 +41,7 @@
 	var/turf/target_turf = get_turf(target)
 	var/turf/starting_turf = get_turf(user)
 	if(!user.Adjacent(target) && (target in view(user.client.view, user)))
-		var/mob/living/pulled_mob
-		if(isliving(user.pulling))
-			pulled_mob = user.pulling
+		var/mob/living/pulled_mob = isliving(user.pulling) ? user.pulling : null
 		if(!do_teleport(user, target_turf))
 			user.balloon_alert(user, "нельзя телепортироваться!")
 			return FALSE

@@ -363,6 +363,9 @@
 	set_cable_powered(FALSE)
 	set_field_active(FALSE)
 
+/**
+ * Returns the active stationary bluespace interference generator blocking the given turf, if any.
+ */
 /proc/get_bluespace_interference_generator(turf/target_turf)
 	var/list/generators = GLOB.active_bluespace_interference_generators
 	if(!target_turf || !length(generators))
