@@ -245,10 +245,11 @@
 	refresh_state()
 	return TRUE
 
-/obj/item/clothing/neck/itb/proc/has_itb_access(mob/living/user)
-	if(!user)
+/obj/item/clothing/neck/itb/proc/has_itb_access(mob/user)
+	if(!isliving(user))
 		return FALSE
-	return ACCESS_BRIG in user.get_access()
+	var/mob/living/living_user = user
+	return ACCESS_BRIG in living_user.get_access()
 
 /obj/item/clothing/neck/itb/proc/refresh_state()
 	if(locked && tamper_stage != ITB_TAMPER_LOCK_BYPASSED && is_worn())

@@ -29,6 +29,8 @@
 		var/atom/movable/current_atom = atoms_to_check[check_index]
 		var/current_depth = depths_to_check[check_index]
 		check_index++
+		if(!current_atom)
+			continue
 		if(current_depth >= TELEPORT_BLOCKER_CONTENT_SEARCH_DEPTH)
 			continue
 
