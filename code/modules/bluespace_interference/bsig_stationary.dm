@@ -263,21 +263,17 @@
 /obj/machinery/power/bluespace_interference_generator/stationary/proc/get_nearest_edge_turf(turf/from_turf)
 	if(!from_turf)
 		return null
-	var/list/edge_turfs = turf_peel(field_range + 1, max(field_range - 1, 0), src)
-	var/turf/best_turf
-	var/best_distance
 	var/turf/center_turf = cached_center_turf
 	if(!center_turf)
 		return null
-	var/radius_squared = cached_field_radius_squared
 	var/target_z = from_turf.z
+	var/range = field_range + 1
+	var/turf/best_turf
+	var/best_distance
 
-	for(var/turf/current_turf as anything in edge_turfs)
+	for(var/direction in GLOB.alldirs)
+		var/turf/current_turf = get_ranged_target_turf(center_turf, direction, range)
 		if(!current_turf || current_turf.z != target_z)
-			continue
-		var/dx = current_turf.x - center_turf.x
-		var/dy = current_turf.y - center_turf.y
-		if((dx * dx + dy * dy) <= radius_squared)
 			continue
 		if(current_turf.is_blocked_turf(exclude_mobs = TRUE))
 			continue
