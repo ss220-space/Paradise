@@ -7,6 +7,7 @@
 #define BSIG_S_DIAG_FIELD_ALPHA 150
 #define BSIG_S_TOGGLE_COOLDOWN (2 SECONDS)
 #define BSIG_S_SHUNT_MARGIN 2
+#define BSIG_S_MAX_RATING_OFFSET 3
 #define DECL_BSIG_S_TILE(num) declension_ru(num, "", "а", "ов")
 
 /obj/item/circuitboard/machine/bsig_stationary
@@ -115,7 +116,7 @@
 
 	if(range_part_count)
 		var/average_rating = total_range_rating / range_part_count
-		field_range = clamp(BSIG_S_MIN_RANGE + round((average_rating - 1) * ((BSIG_S_MAX_RANGE - BSIG_S_MIN_RANGE) / 3)), BSIG_S_MIN_RANGE, BSIG_S_MAX_RANGE)
+		field_range = clamp(BSIG_S_MIN_RANGE + round((average_rating - 1) * ((BSIG_S_MAX_RANGE - BSIG_S_MIN_RANGE) / BSIG_S_MAX_RATING_OFFSET)), BSIG_S_MIN_RANGE, BSIG_S_MAX_RANGE)
 	else
 		field_range = BSIG_S_MIN_RANGE
 
@@ -372,4 +373,5 @@
 #undef BSIG_S_DIAG_FIELD_ALPHA
 #undef BSIG_S_TOGGLE_COOLDOWN
 #undef BSIG_S_SHUNT_MARGIN
+#undef BSIG_S_MAX_RATING_OFFSET
 #undef DECL_BSIG_S_TILE

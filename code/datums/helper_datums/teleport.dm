@@ -49,7 +49,9 @@
 		return null
 	if(isliving(teleatom))
 		var/mob/living/living_teleatom = teleatom
-		return get_living_teleport_blocker(living_teleatom)
+		var/mob/living/living_blocker = get_living_teleport_blocker(living_teleatom)
+		if(living_blocker)
+			return living_blocker
 	if(teleatom.has_buckled_mobs())
 		for(var/mob/living/buckled_living as anything in teleatom.buckled_mobs)
 			var/mob/living/buckled_blocker = get_living_teleport_blocker(buckled_living)

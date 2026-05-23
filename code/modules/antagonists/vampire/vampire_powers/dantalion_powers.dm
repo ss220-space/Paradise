@@ -176,6 +176,7 @@
 	action_icon_state = "subspace_swap"
 	required_blood = 15
 	need_active_overlay = TRUE
+	itb_blocks_spell = TRUE
 
 /obj/effect/proc_holder/spell/vampire/switch_places/create_new_targeting()
 	var/datum/spell_targeting/click/T = new
@@ -184,15 +185,6 @@
 	T.try_auto_target = FALSE
 	T.allowed_type = /mob/living
 	return T
-
-/obj/effect/proc_holder/spell/vampire/switch_places/can_cast(mob/living/user = usr, charge_check = TRUE, show_message = FALSE)
-	if(!..())
-		return FALSE
-	if(has_active_itb_teleport_block(user))
-		if(show_message)
-			to_chat(user, span_warning("ITB подавляет подпространственный обмен заклинания."))
-		return FALSE
-	return TRUE
 
 /obj/effect/proc_holder/spell/vampire/switch_places/cast(list/targets, mob/user)
 	var/mob/living/target = targets[1]
