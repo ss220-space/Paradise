@@ -154,7 +154,7 @@
 		if(!do_teleport(target, target_turf, block_bluespace_interference = TRUE))
 			teleport_failed = TRUE
 	if(teleport_failed && user)
-		to_chat(user, span_warning("Часть объектов не удалось телепортировать; возможны блюспейс-помехи."))
+		to_chat(user, span_warning("Часть объектов не удалось телепортировать, возможны блюспейс-помехи."))
 
 /obj/item/circuit_component/quantumpad
 	display_name = "Квантовая платформа"
