@@ -267,20 +267,22 @@
 		return null
 	var/target_z = from_turf.z
 	var/range = field_range + 1
+	var/list/directions = GLOB.alldirs
 	var/turf/best_turf
 	var/best_distance
 
-	for(var/direction in GLOB.alldirs)
-		var/turf/current_turf = get_ranged_target_turf(center_turf, direction, range)
-		if(!current_turf || current_turf.z != target_z)
-			continue
-		if(current_turf.is_blocked_turf(exclude_mobs = TRUE))
-			continue
+	for(var/distance in range to range + 1)
+		for(var/direction in directions)
+			var/turf/current_turf = get_ranged_target_turf(center_turf, direction, distance)
+			if(!current_turf || current_turf.z != target_z)
+				continue
+			if(current_turf.is_blocked_turf(exclude_mobs = TRUE))
+				continue
 
-		var/current_distance = get_dist(current_turf, from_turf)
-		if(!best_turf || current_distance < best_distance)
-			best_turf = current_turf
-			best_distance = current_distance
+			var/current_distance = get_dist(current_turf, from_turf)
+			if(!best_turf || current_distance < best_distance)
+				best_turf = current_turf
+				best_distance = current_distance
 
 	return best_turf
 

@@ -1,5 +1,5 @@
 #define TELEPORT_BLOCKER_CONTENT_SEARCH_DEPTH 3
-#define BLUESPACE_INTERFERENCE_SHUNT_ATTEMPTS 8
+#define BLUESPACE_INTERFERENCE_SHUNT_ATTEMPTS 15
 
 //wrapper
 // Set *ignore_bluespace_interference* to TRUE if you don't want your teleportation to be affected by BoH, SoH and stationary BSIG fields.
