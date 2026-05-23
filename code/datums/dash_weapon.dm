@@ -56,8 +56,7 @@
 		addtimer(CALLBACK(src, PROC_REF(charge)), charge_rate)
 		last_used = world.time
 		var/can_move_pulled = pulled_mob && !QDELETED(pulled_mob)
-		var/pulled_destination_blocked = can_move_pulled && final_turf.is_blocked_turf(exclude_mobs = TRUE)
-		if(can_move_pulled && !pulled_destination_blocked)
+		if(can_move_pulled)
 			do_teleport(pulled_mob, final_turf)
 		return TRUE
 
