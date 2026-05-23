@@ -173,13 +173,16 @@ const CataloguePane = (properties: CataloguePaneProps) => {
 
   const cratesToShow = flow([
     (supply_packs) =>
-      filter<SupplyPack>(
-        supply_packs,
-        (pack) =>
+      filter<SupplyPack>(supply_packs, (pack) => {
+        if (searchText) {
+          return true;
+        }
+        return (
           pack.cat ===
-          (filter(categories, (c) => c.name === category)[0].category ||
-            searchText)
-      ),
+          (filter(categories, (c) => c.name === category)[0]?.category ||
+            category)
+        );
+      }),
     (supply_packs) =>
       searchText ? filter<SupplyPack>(supply_packs, packSearch) : supply_packs,
     (supply_packs) =>
