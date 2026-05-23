@@ -120,11 +120,6 @@
 				antag.special_role = SPECIAL_ROLE_MALFAI
 				antag.restricted_roles = (restricted_jobs|protected_jobs|protected_jobs_AI)
 				antag.restricted_roles -= JOB_TITLE_AI
-			if(role == ROLE_ESCAPING_PRISONER)
-				antag.special_role = SPECIAL_ROLE_ESCAPING_PRISONER
-				antag.restricted_roles = (restricted_jobs|protected_jobs|protected_jobs_AI)
-				antag.restricted_roles += JOB_TITLE_AI
-				antag.restricted_roles -= JOB_TITLE_PRISONER
 			if(role == ROLE_DEVIL)
 				antag.special_role = SPECIAL_ROLE_DEVIL
 				antag.restricted_roles = restricted_jobs
@@ -173,9 +168,6 @@
 				antag.add_antag_datum(/datum/antagonist/changeling)
 			if(ROLE_THIEF)
 				antag.add_antag_datum(/datum/antagonist/thief)
-			if(ROLE_ESCAPING_PRISONER)
-				var/datum/antagonist/traitor/prisoner/datum = new
-				antag.add_antag_datum(datum)
 			if(ROLE_DEVIL)
 				var/datum/antagonist/devil/divil_datum = new
 				antag.add_antag_datum(divil_datum)
