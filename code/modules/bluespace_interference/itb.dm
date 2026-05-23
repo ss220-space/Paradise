@@ -75,17 +75,19 @@
 	return CONTEXTUAL_SCREENTIP_SET
 
 /obj/item/clothing/neck/itb/attack_hand_secondary(mob/user, list/modifiers)
-	if(!has_itb_access(user))
-		if(!isobserver(user))
-			to_chat(user, span_warning("Вам нужна ID-карта с доступом брига для управления [src]."))
+	if(isobserver(user))
 		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
-	var/mob/living/living_user = user
 	var/mob/living/target = get_worn_target()
 	if(!target && loc != user)
 		to_chat(user, span_warning("[src] должен быть надет, прежде чем его можно будет закрыть или открыть."))
 		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
+	if(!has_itb_access(user))
+		to_chat(user, span_warning("Вам нужна ID-карта с доступом брига для управления [src]."))
+		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+
+	var/mob/living/living_user = user
 	if(locked)
 		do_unlock(living_user, target)
 	else
