@@ -243,8 +243,10 @@
 	if(!blocks_turf(intended_destination))
 		return intended_destination
 
-	if(origin && origin.z == intended_destination.z)
+	if(origin && origin != intended_destination && origin.z == intended_destination.z)
 		var/turf/center_turf = cached_center_turf
+		if(!center_turf)
+			return null
 		var/radius_squared = cached_field_radius_squared
 		var/turf/current_turf = intended_destination
 		for(var/i in 1 to BSIG_S_MAX_RANGE + BSIG_S_SHUNT_MARGIN)

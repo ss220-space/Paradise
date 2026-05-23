@@ -1,4 +1,5 @@
 #define TELEPORT_BLOCKER_CONTENT_SEARCH_DEPTH 3
+#define BLUESPACE_INTERFERENCE_SHUNT_ATTEMPTS 8
 
 //wrapper
 // Set *ignore_bluespace_interference* to TRUE if you don't want your teleportation to be affected by BoH, SoH and stationary BSIG fields.
@@ -26,6 +27,8 @@
 		return null
 
 	for(var/atom/movable/contained_atom as anything in container.contents)
+		if(QDELETED(contained_atom))
+			continue
 		if(isliving(contained_atom))
 			var/mob/living/contained_living = contained_atom
 			var/mob/living/contained_blocker = get_living_teleport_blocker(contained_living)
@@ -186,8 +189,7 @@
 
 		var/obj/machinery/power/bluespace_interference_generator/stationary/destination_interference = get_bluespace_interference_generator(destturf)
 		var/hit_interference = FALSE
-		var/list/active_generators = GLOB.active_bluespace_interference_generators
-		var/shunt_attempts = length(active_generators) + 1
+		var/shunt_attempts = BLUESPACE_INTERFERENCE_SHUNT_ATTEMPTS
 		while(destination_interference && shunt_attempts > 0)
 			shunt_attempts--
 			hit_interference = TRUE
@@ -300,6 +302,8 @@
 				var/mob/living/MM = teleatom
 				to_chat(MM, span_warning("The bluespace interface on your mining satchel of holding interferes with the teleport!"))
 	return TRUE
+
+#undef BLUESPACE_INTERFERENCE_SHUNT_ATTEMPTS
 
 // Random safe location finder
 /proc/find_safe_turf(zlevel, list/zlevels)
