@@ -130,13 +130,12 @@
 		set_field_active(FALSE)
 		return
 
-	var/current_power_need = power_usage * seconds_per_tick
-	if(surplus() < current_power_need)
+	if(surplus() < power_usage)
 		set_cable_powered(FALSE)
 		set_field_active(FALSE)
 		return
 
-	add_load(current_power_need)
+	add_load(power_usage)
 	set_cable_powered(TRUE)
 	set_field_active(TRUE)
 

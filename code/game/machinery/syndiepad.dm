@@ -269,5 +269,6 @@
 								continue
 						else if(!isobserver(ROI))
 							continue
-				do_teleport(ROI, destination_turf, bypass_area_flag = force_ignore_teleport_blocking, ignore_bluespace_interference = TRUE)
+				if(!do_teleport(ROI, destination_turf, bypass_area_flag = force_ignore_teleport_blocking, ignore_bluespace_interference = TRUE) && user)
+					to_chat(user, span_warning("Object '[ROI]' was not teleported!"))
 			return
