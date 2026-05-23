@@ -51,7 +51,7 @@
 	var/list/field_visuals = list()
 	var/turf/cached_center_turf
 	var/cached_field_radius_squared = 0
-	var/next_toggle_time = 0
+	COOLDOWN_DECLARE(toggle_cooldown)
 
 /obj/machinery/power/bluespace_interference_generator/stationary/get_ru_names()
 	return list(
@@ -78,6 +78,10 @@
 
 /obj/machinery/power/bluespace_interference_generator/stationary/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
+	var/turf/old_turf = get_turf(old_loc)
+	var/turf/current_turf = get_turf(src)
+	if(old_turf == current_turf)
+		return
 	if(field_active)
 		update_cached_field_data()
 		refresh_field_visuals()
@@ -320,11 +324,11 @@
 		return TRUE
 	if(user.default_can_use_topic(src) != UI_INTERACTIVE)
 		return TRUE
-	if(world.time < next_toggle_time)
+	if(!COOLDOWN_FINISHED(src, toggle_cooldown))
 		to_chat(user, span_warning("[src] ещё стабилизирует блюспейс-поле."))
 		return TRUE
 
-	next_toggle_time = world.time + BSIG_S_TOGGLE_COOLDOWN
+	COOLDOWN_START(src, toggle_cooldown, BSIG_S_TOGGLE_COOLDOWN)
 	enabled = !enabled
 	if(!enabled)
 		set_cable_powered(FALSE)

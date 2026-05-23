@@ -17,7 +17,8 @@
 	if(HAS_TRAIT(living_teleatom, TRAIT_NO_TELEPORT))
 		return living_teleatom
 	if(living_teleatom.has_buckled_mobs())
-		for(var/mob/living/buckled_living as anything in living_teleatom.buckled_mobs)
+		var/list/buckled = living_teleatom.buckled_mobs
+		for(var/mob/living/buckled_living as anything in buckled)
 			if(HAS_TRAIT(buckled_living, TRAIT_NO_TELEPORT))
 				return buckled_living
 	return null
@@ -26,7 +27,8 @@
 	if(!container || depth >= TELEPORT_BLOCKER_CONTENT_SEARCH_DEPTH)
 		return null
 
-	for(var/atom/movable/contained_atom as anything in container.contents)
+	var/list/contents = container.contents
+	for(var/atom/movable/contained_atom as anything in contents)
 		if(QDELETED(contained_atom))
 			continue
 		if(isliving(contained_atom))
@@ -34,7 +36,8 @@
 			var/mob/living/contained_blocker = get_living_teleport_blocker(contained_living)
 			if(contained_blocker)
 				return contained_blocker
-		if(length(contained_atom.contents))
+		var/list/contained_contents = contained_atom.contents
+		if(length(contained_contents))
 			var/mob/living/found_blocker = get_contained_teleport_blocker(contained_atom, depth + 1)
 			if(found_blocker)
 				return found_blocker
@@ -49,7 +52,8 @@
 		if(living_blocker)
 			return living_blocker
 	if(teleatom.has_buckled_mobs())
-		for(var/mob/living/buckled_living as anything in teleatom.buckled_mobs)
+		var/list/buckled = teleatom.buckled_mobs
+		for(var/mob/living/buckled_living as anything in buckled)
 			var/mob/living/buckled_blocker = get_living_teleport_blocker(buckled_living)
 			if(buckled_blocker)
 				return buckled_blocker
