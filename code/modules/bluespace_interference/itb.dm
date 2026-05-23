@@ -79,7 +79,7 @@
 		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
 	var/mob/living/target = get_worn_target()
-	if(!target && loc != user)
+	if(!target)
 		to_chat(user, span_warning("[src] должен быть надет, прежде чем его можно будет закрыть или открыть."))
 		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
@@ -223,8 +223,8 @@
 /obj/item/clothing/neck/itb/proc/do_lock(mob/living/user, mob/living/target)
 	if(target)
 		wearer = target
-	if(!is_worn() && loc != user)
-		to_chat(user, span_warning("[src] должен быть надет или находиться в руках, прежде чем его можно будет закрыть."))
+	if(!is_worn())
+		to_chat(user, span_warning("[src] должен быть надет, прежде чем его можно будет закрыть."))
 		return FALSE
 	if(tamper_stage != ITB_TAMPER_SECURE)
 		to_chat(user, span_warning("[src] нельзя закрыть, пока сервисная панель открыта или повреждена."))

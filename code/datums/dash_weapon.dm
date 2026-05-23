@@ -56,8 +56,8 @@
 		addtimer(CALLBACK(src, PROC_REF(charge)), charge_rate)
 		last_used = world.time
 		var/can_move_pulled = pulled_mob && !QDELETED(pulled_mob)
-		if(can_move_pulled)
-			do_teleport(pulled_mob, final_turf)
+		if(can_move_pulled && !do_teleport(pulled_mob, final_turf))
+			user.balloon_alert(user, "цель не последовала")
 		return TRUE
 
 	return FALSE

@@ -66826,7 +66826,7 @@
 /area/maintenance/apmaint)
 "oaf" = (
 /obj/effect/turf_decal/delivery/red/hollow,
-/obj/machinery/flasher/portable,
+/obj/machinery/power/bluespace_interference_generator/stationary,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkred"
