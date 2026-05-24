@@ -47,16 +47,6 @@
 	id = "paint_violet"
 	color = "#FF00FF"
 
-/datum/reagent/paint/pink
-	name = "Розовая краска"
-	id = "paint_pink"
-	color = "#FF62D6"
-
-/datum/reagent/paint/orange
-	name = "Оранжевая краска"
-	id = "paint_orange"
-	color = "#FF6F00"
-
 /datum/reagent/paint/black
 	name = "Чёрная краска"
 	id = "paint_black"
