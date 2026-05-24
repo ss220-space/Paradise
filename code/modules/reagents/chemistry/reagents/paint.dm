@@ -18,8 +18,9 @@
 		target_mob.add_atom_colour(color, WASHABLE_COLOUR_PRIORITY)
 	else if(ishuman(target_mob))
 		var/mob/living/carbon/human/target_human = target_mob
+		var/paint_color = color
 		for(var/obj/item/item in target_human.get_visible_items())
-			item.add_atom_colour(color, WASHABLE_COLOUR_PRIORITY)
+			item.add_atom_colour(paint_color, WASHABLE_COLOUR_PRIORITY)
 	..()
 
 /datum/reagent/paint/red
