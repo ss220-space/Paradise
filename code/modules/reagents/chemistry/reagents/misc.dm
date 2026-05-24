@@ -288,9 +288,13 @@
 			H.dna.species.blood_color = "#[num2hex(rand(0, 255), 2)][num2hex(rand(0, 255), 2)][num2hex(rand(0, 255), 2)]"
 	return ..()
 
-/datum/reagent/colorful_reagent/reaction_mob(mob/living/simple_animal/M, method=REAGENT_TOUCH, volume)
-	if(isanimal(M))
-		M.color = pick(GLOB.random_color_list)
+/datum/reagent/colorful_reagent/reaction_mob(mob/living/target_mob, method=REAGENT_TOUCH, volume)
+	if(isanimal(target_mob))
+		target_mob.color = pick(GLOB.random_color_list)
+	else if(ishuman(target_mob))
+		var/mob/living/carbon/human/target_human = target_mob
+		for(var/obj/item/item in target_human.get_visible_items())
+			item.color = pick(GLOB.random_color_list)
 	..()
 
 /datum/reagent/colorful_reagent/reaction_obj(obj/O, volume)
