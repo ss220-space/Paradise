@@ -16,6 +16,11 @@
 /datum/reagent/paint/reaction_mob(mob/living/simple_animal/target_mob, method = REAGENT_TOUCH, volume, show_message = TRUE, touch_protection = 0)
 	if(isanimal(target_mob))
 		target_mob.add_atom_colour(color, WASHABLE_COLOUR_PRIORITY)
+	else if(ishuman(target_mob))
+		for(var/obj/item/item in user)
+			if(!istype(item, /obj/item/clothing))
+				continue
+			item.add_atom_colour(color, WASHABLE_COLOUR_PRIORITY)
 	..()
 
 /datum/reagent/paint/red
