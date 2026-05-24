@@ -4,7 +4,7 @@
 	result = "paint_red"
 	required_reagents = list("water" = 1, "iron" = 1, "oxygen" = 1)
 	result_amount = 3
-  mix_message = "Вещество приобретает красный цвет"
+  	mix_message = "Вещество приобретает красный цвет"
 
 /datum/chemical_reaction/paint_green
 	name = "Green paint"
@@ -12,7 +12,7 @@
 	result = "paint_green"
 	required_reagents = list("water" = 1, "chromium" = 1, "oxygen" = 1)
 	result_amount = 3
-  mix_message = "Вещество приобретает зеленый цвет"
+  	mix_message = "Вещество приобретает зеленый цвет"
 
 /datum/chemical_reaction/paint_blue
 	name = "Blue paint"
@@ -20,7 +20,7 @@
 	result = "paint_blue"
 	required_reagents = list("water" = 1, "copper" = 1, "silicon" = 1)
 	result_amount = 3
-  mix_message = "Вещество приобретает синий цвет"
+  	mix_message = "Вещество приобретает синий цвет"
 
 /datum/chemical_reaction/paint_yellow
 	name = "Yellow paint"
@@ -28,7 +28,7 @@
 	result = "paint_yellow"
 	required_reagents = list("paint_red" = 1, "paint_green" = 1)
 	result_amount = 2
-  mix_message = "Вещество приобретает желтый цвет"
+  	mix_message = "Вещество приобретает желтый цвет"
 
 /datum/chemical_reaction/paint_violet
 	name = "Violet paint"
@@ -36,7 +36,7 @@
 	result = "paint_violet"
 	required_reagents = list("paint_red" = 1, "paint_blue" = 1)
 	result_amount = 2
-  mix_message = "Вещество приобретает фиолетовый цвет"
+  	mix_message = "Вещество приобретает фиолетовый цвет"
 
 /datum/chemical_reaction/paint_green_from_paints
 	name = "Green paint from paints"
@@ -44,7 +44,7 @@
 	result = "paint_green"
 	required_reagents = list("paint_blue" = 1, "paint_yellow" = 1)
 	result_amount = 2
-  mix_message = "Вещество приобретает зеленый цвет"
+  	mix_message = "Вещество приобретает зеленый цвет"
 
 /datum/chemical_reaction/paint_black
 	name = "Black paint"
@@ -52,7 +52,7 @@
 	result = "paint_black"
 	required_reagents = list("water" = 1, "charcoal" = 1)
 	result_amount = 2
-  mix_message = "Вещество приобретает черный цвет"
+  	mix_message = "Вещество приобретает черный цвет"
 
 /datum/chemical_reaction/paint_remover
 	name = "Paint remover"
