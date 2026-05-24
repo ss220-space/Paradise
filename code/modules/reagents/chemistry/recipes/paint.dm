@@ -33,9 +33,9 @@
 	required_reagents = list("paint_red" = 1, "paint_blue" = 1)
 	result_amount = 2
 
-/datum/chemical_reaction/paint_green_from_paints
+/datum/chemical_reaction/paint_green_alt
 	name = "Green paint from paints"
-	id = "paint_green"
+	id = "paint_green_alt"
 	result = "paint_green"
 	required_reagents = list("paint_blue" = 1, "paint_yellow" = 1)
 	result_amount = 2
