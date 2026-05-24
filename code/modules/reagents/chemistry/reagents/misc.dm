@@ -474,7 +474,7 @@
 			"Зловещий смех отдаётся в ваших ушах.",
 			"Ваши ноги словно желе.",
 			"Вам хочется рассказать анекдот.")
-			to_chat(M, span_warning("[pick(clown_message)]"))
+			to_chat(target_mob, span_warning("[pick(clown_message)]"))
 		if(target_mob?.mind.assigned_role == JOB_TITLE_MIME)
 			update_flags |= target_mob.adjustToxLoss(0.75)
 	return ..() | update_flags
@@ -538,7 +538,7 @@
 
 /datum/reagent/pax/on_mob_add(mob/living/target_mob)
 	..()
-	ADD_TRAIT(M, TRAIT_PACIFISM, id)
+	ADD_TRAIT(target_mob, TRAIT_PACIFISM, id)
 
 /datum/reagent/pax/on_mob_delete(mob/living/target_mob)
 	REMOVE_TRAIT(target_mob, TRAIT_PACIFISM, id)
