@@ -1,10 +1,11 @@
 /datum/reagent/paint
 	name = "Краска"
 	id = "paint_"
-	description = "Краска, используемая для покраски полов."
+	description = "Краска, используемая для покраски объектов."
 	reagent_state = LIQUID
 	color = "#808080"
 	taste_description = "краски"
+	var min_volume_to_paint_clothes = 70
 
 /datum/reagent/paint/reaction_turf(turf/target_turf, volume)
 	if(!isspaceturf(target_turf))
@@ -13,13 +14,12 @@
 /datum/reagent/paint/reaction_obj(obj/target_obj, volume)
 	target_obj.add_atom_colour(color, WASHABLE_COLOUR_PRIORITY)
 
-/datum/reagent/paint/reaction_mob(mob/living/simple_animal/target_mob, method = REAGENT_TOUCH, volume, show_message = TRUE, touch_protection = 0)
+/datum/reagent/paint/reaction_mob(mob/living/target_mob, method = REAGENT_TOUCH, volume, show_message = TRUE, touch_protection = 0)
 	if(isanimal(target_mob))
 		target_mob.add_atom_colour(color, WASHABLE_COLOUR_PRIORITY)
-	else if(ishuman(target_mob))
-		for(var/obj/item/item in user)
-			if(!istype(item, /obj/item/clothing))
-				continue
+	else if(ishuman(target_mob) && volume >= min_volume_to_paint_clothes)
+		var mob/living/carbon/human/target_human = target_mob
+		for(var/obj/item/item in target_human.get_visible_items())
 			item.add_atom_colour(color, WASHABLE_COLOUR_PRIORITY)
 	..()
 
@@ -61,7 +61,7 @@
 /datum/reagent/paint_remover
 	name = "Средство для удаления краски"
 	id = "paint_remover"
-	description = "Вещество, используемое для удаления краски с пола."
+	description = "Вещество, используемое для удаления краски с объектов."
 	reagent_state = LIQUID
 	color = "#808080"
 	taste_description = "спирта"
@@ -73,7 +73,11 @@
 /datum/reagent/paint_remover/reaction_obj(obj/target_obj, volume)
 	target_obj.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
 
-/datum/reagent/paint_remover/reaction_mob(mob/living/simple_animal/target_mob, method = REAGENT_TOUCH, volume, show_message = TRUE, touch_protection = 0)
+/datum/reagent/paint_remover/reaction_mob(mob/living/target_mob, method = REAGENT_TOUCH, volume, show_message = TRUE, touch_protection = 0)
 	if(isanimal(target_mob))
 		target_mob.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
+	else if(ishuman(target_mob) && volume >= min_volume_to_paint_clothes)
+		var mob/living/carbon/human/target_human = target_mob
+		for(var/obj/item/item in target_human.get_visible_items())
+			item.add_atom_colour(color, WASHABLE_COLOUR_PRIORITY)
 	..()
