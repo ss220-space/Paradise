@@ -84,11 +84,11 @@
 	if(safety)
 		safety = FALSE
 		playsound(get_turf(unit), 'sound/machines/defib_saftyoff.ogg', 50, FALSE)
-		unit.atom_say("Протоколы безопасности деактивированы!")
+		unit.atom_say("Протоколы безопасности деактивированы!", FALSE)
 	else
 		safety = TRUE
 		playsound(get_turf(unit), 'sound/machines/defib_saftyon.ogg', 50, FALSE)
-		unit.atom_say("Протоколы безопасности активированы!")
+		unit.atom_say("Протоколы безопасности активированы!", FALSE)
 
 /datum/component/defib/proc/on_emag(obj/item/unit, mob/user)
 	SIGNAL_HANDLER  // COMSIG_ATOM_EMAG_ACT
@@ -144,7 +144,7 @@
 
 	if(application_result & COMPONENT_BLOCK_DEFIB_DEAD)
 		playsound(get_turf(defib_ref), 'sound/machines/defib_failed.ogg', 50, FALSE)
-		defib_ref.atom_say("Недостаточно энергии!")
+		defib_ref.atom_say("Недостаточно энергии!", FALSE)
 		return DEFIB_NO_SHOCK
 
 	if(on_cooldown)
@@ -212,7 +212,7 @@
 
 	if(istype(target.wear_suit, /obj/item/clothing/suit/space) && !ignore_hardsuits)
 		playsound(get_turf(defib_ref), 'sound/machines/defib_failed.ogg', 50, FALSE)
-		defib_ref.atom_say("Грудь пациента закрыта. Операция отменена.")
+		defib_ref.atom_say("Грудь пациента закрыта. Операция отменена.", FALSE)
 		return DEFIB_NO_SHOCK
 
 	// --- CARDIAC ARREST PATH ---
@@ -221,15 +221,15 @@
 		if(!heart || heart.is_dead())
 			playsound(get_turf(defib_ref), 'sound/machines/defib_failed.ogg', 50, FALSE)
 			if(!heart)
-				defib_ref.atom_say("Реанимация не удалась — электрическая активность сердца не зафиксирована!")
+				defib_ref.atom_say("Реанимация не удалась — электрическая активность сердца не зафиксирована!", FALSE)
 			else
-				defib_ref.atom_say("Реанимация не удалась — обнаружен некроз сердца!")
+				defib_ref.atom_say("Реанимация не удалась — обнаружен некроз сердца!", FALSE)
 			return DEFIB_NO_SHOCK
 
 		target.set_heartattack(FALSE)
 		SEND_SIGNAL(target, COMSIG_LIVING_MINOR_SHOCK, 100)
 		set_cooldown(cooldown)
-		defib_ref.atom_say("Сердечная аритмия устранена!")
+		defib_ref.atom_say("Сердечная аритмия устранена!", FALSE)
 		target.visible_message(
 			span_warning("Тело [target] слегка вздрагивает."),
 			span_userdanger("Вы чувствуете мощный удар током, после которого ритм вашего сердца приходит в норму.")
@@ -243,7 +243,7 @@
 	// --- NOT DEAD CHECK ---
 	if(target.stat != DEAD && !HAS_TRAIT(target, TRAIT_FAKEDEATH))
 		playsound(get_turf(defib_ref), 'sound/machines/defib_failed.ogg', 50, FALSE)
-		defib_ref.atom_say("Пациент не подлежит реанимации. Операция отменена.")
+		defib_ref.atom_say("Пациент не подлежит реанимации. Операция отменена.", FALSE)
 		return DEFIB_NO_SHOCK
 
 	// --- REVIVE PATH ---
@@ -258,25 +258,25 @@
 	var/time_dead = world.time - target.timeofdeath
 
 	if((time_dead > DEFIB_TIME_LIMIT) || !target.get_organ_slot(INTERNAL_ORGAN_HEART))
-		defib_ref.atom_say("Реанимация не удалась — обнаружены необратимые повреждения сердца!")
+		defib_ref.atom_say("Реанимация не удалась — обнаружены необратимые повреждения сердца!", FALSE)
 		defib_success = FALSE
 	else if(target.getBruteLoss() >= 180 || target.getFireLoss() >= 180 || target.getCloneLoss() >= 180)
-		defib_ref.atom_say("Реанимация не удалась — обнаружены обширные повреждения тканей!")
+		defib_ref.atom_say("Реанимация не удалась — обнаружены обширные повреждения тканей!", FALSE)
 		defib_success = FALSE
 	else if(target.blood_volume < BLOOD_VOLUME_SURVIVE)
-		defib_ref.atom_say("Реанимация не удалась — объём крови в организме пациента на критически низком уровне!")
+		defib_ref.atom_say("Реанимация не удалась — объём крови в организме пациента на критически низком уровне!", FALSE)
 		defib_success = FALSE
 	else if(!target.get_organ_slot(INTERNAL_ORGAN_BRAIN))  //So things like headless clings don't get outed
-		defib_ref.atom_say("Реанимация не удалась — мозг в теле пациента не обнаружен!")
+		defib_ref.atom_say("Реанимация не удалась — мозг в теле пациента не обнаружен!", FALSE)
 		defib_success = FALSE
 	else if(ghost)
 		if(!ghost.can_reenter_corpse || target.suiciding) // DNR or AntagHUD
-			defib_ref.atom_say("Реанимация не удалась — электрическая активность мозга не зафиксирована!")
+			defib_ref.atom_say("Реанимация не удалась — электрическая активность мозга не зафиксирована!", FALSE)
 		else
-			defib_ref.atom_say("Реанимация не удалась — мозг пациента не отреагировал!")
+			defib_ref.atom_say("Реанимация не удалась — мозг пациента не отреагировал!", FALSE)
 		defib_success = FALSE
 	else if(HAS_TRAIT(target, TRAIT_NO_CLONE) || !target.mind || !(target.mind.is_revivable()) || HAS_TRAIT(target, TRAIT_FAKEDEATH) || target.suiciding)  // these are a bit more arbitrary
-		defib_ref.atom_say("Реанимация не удалась!")
+		defib_ref.atom_say("Реанимация не удалась!", FALSE)
 		defib_success = FALSE
 
 	if(!defib_success)
@@ -301,11 +301,11 @@
 
 	if(target.getBrainLoss() >= 100)
 		playsound(get_turf(defib_ref), 'sound/machines/defib_saftyoff.ogg', 50, FALSE)
-		defib_ref.atom_say("Реанимация успешна. Критически слабая активность мозга пациента.")
+		defib_ref.atom_say("Реанимация успешна. Критически слабая активность мозга пациента.", FALSE)
 	else
 		playsound(get_turf(defib_ref), 'sound/machines/defib_success.ogg', 50, FALSE)
 
-	defib_ref.atom_say("Реанимация успешна!")
+	defib_ref.atom_say("Реанимация успешна!", FALSE)
 
 	SEND_SIGNAL(target, COMSIG_LIVING_MINOR_SHOCK, 100)
 	if(ishuman(target.pulledby)) // for some reason, pulledby isnt a list despite it being possible to be pulled by multiple people
