@@ -260,9 +260,9 @@
 	color = "#474747"
 	taste_description = "средства для снятия лака с ногтей"
 
-/datum/reagent/acetone/on_mob_life(mob/living/target_mod)
+/datum/reagent/acetone/on_mob_life(mob/living/target_mob)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= target_mod.adjustToxLoss(1.5, FALSE)
+	update_flags |= target_mob.adjustToxLoss(1.5, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/saltpetre
@@ -281,9 +281,9 @@
 	color = "#FFFFFF"
 	taste_description = "радуги"
 
-/datum/reagent/colorful_reagent/on_mob_life(mob/living/target_mod)
-	if(ishuman(target_mod))
-		var/mob/living/carbon/human/target_human = target_mod
+/datum/reagent/colorful_reagent/on_mob_life(mob/living/target_mob)
+	if(ishuman(target_mob))
+		var/mob/living/carbon/human/target_human = target_mob
 		if(!HAS_TRAIT(target_human, TRAIT_NO_BLOOD) && !HAS_TRAIT(target_human, TRAIT_EXOTIC_BLOOD))
 			target_human.dna.species.blood_color = "#[num2hex(rand(0, 255), 2)][num2hex(rand(0, 255), 2)][num2hex(rand(0, 255), 2)]"
 	return ..()
@@ -395,7 +395,7 @@
 	process_flags = ORGANIC | SYNTHETIC // That's the power of love~
 	taste_description = "<font color='pink'><b>любви</b></font>"
 
-/datum/reagent/love/on_mob_add(mob/living/target_living)
+/datum/reagent/love/on_mob_add(mob/living/target_mob)
 	..()
 	if(target_living.a_intent != INTENT_HELP)
 		target_living.a_intent_change(INTENT_HELP)
@@ -718,5 +718,5 @@
 
 /datum/reagent/bugmilk/on_mob_life(mob/living/target_mob)
 	target_mob.reagents.add_reagent("cream", 0.4)
-	target_mob.reagents.add_reagent("salglu_solution", 0,4)
+	target_mob.reagents.add_reagent("salglu_solution", 0.4)
 	return ..()
