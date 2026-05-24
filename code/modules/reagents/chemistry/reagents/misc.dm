@@ -397,9 +397,9 @@
 
 /datum/reagent/love/on_mob_add(mob/living/target_mob)
 	..()
-	if(target_living.a_intent != INTENT_HELP)
-		target_living.a_intent_change(INTENT_HELP)
-	target_living.can_change_intents = FALSE //Now you have no choice but to be helpful.
+	if(target_mob.a_intent != INTENT_HELP)
+		target_mob.a_intent_change(INTENT_HELP)
+	target_mob.can_change_intents = FALSE //Now you have no choice but to be helpful.
 
 /datum/reagent/love/on_mob_life(mob/living/target_mob)
 	if(prob(8))
