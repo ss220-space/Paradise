@@ -78,5 +78,5 @@
 	else if(ishuman(target_mob))
 		var/mob/living/carbon/human/target_human = target_mob
 		for(var/obj/item/item in target_human.get_visible_items())
-			item.add_atom_colour(color, WASHABLE_COLOUR_PRIORITY)
+			item.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
 	..()
