@@ -181,12 +181,12 @@
 		return
 	if(!is_teleport_allowed(end_turf.z))
 		return
-	if(has_active_itb_teleport_block(user))
-		to_chat(user, span_warning("ITB блокирует вашу связь с теневым якорем!"))
+	if(itb_blocks_teleport(user, user, "ITB блокирует вашу связь с теневым якорем!"))
 		return
 
 	QDEL_NULL(anchor)
-	user.forceMove(end_turf)
+	if(!do_magic_direct_teleport(user, end_turf, notified_user = user, block_message = "ITB блокирует вашу связь с теневым якорем!"))
+		return
 
 	if(end_turf.z == start_turf.z)
 		shadow_to_animation(start_turf, end_turf, user)
@@ -242,6 +242,7 @@
 	action_icon_state = "dark_passage"
 	sound = 'sound/magic/teleport_app.ogg'
 	need_active_overlay = TRUE
+	itb_blocks_spell = TRUE
 
 /obj/effect/proc_holder/spell/vampire/dark_passage/create_new_targeting()
 	var/datum/spell_targeting/click/T = new
@@ -249,19 +250,11 @@
 	T.allowed_type = /turf/simulated
 	return T
 
-/obj/effect/proc_holder/spell/vampire/dark_passage/can_cast(mob/living/user = usr, charge_check = TRUE, show_message = FALSE)
-	if(!..())
-		return FALSE
-	if(has_active_itb_teleport_block(user))
-		if(show_message)
-			to_chat(user, span_warning("ITB подавляет теневой проход заклинания."))
-		return FALSE
-	return TRUE
-
 /obj/effect/proc_holder/spell/vampire/dark_passage/cast(list/targets, mob/user)
 	var/turf/target = get_turf(targets[1])
 	new /obj/effect/temp_visual/vamp_mist_out(get_turf(user))
-	user.forceMove(target)
+	if(!do_magic_direct_teleport(user, target, notified_user = user, block_message = "ITB подавляет теневой проход заклинания."))
+		return
 	new /obj/effect/temp_visual/vamp_mist_in(get_turf(user))
 
 /obj/effect/temp_visual/vamp_mist_out

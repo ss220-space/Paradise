@@ -14,7 +14,7 @@
 	if(!is_teleport_allowed(ninja.z))
 		visible_message(span_warning("Костюм начинает светиться... Но потом останавливается!"))
 		return
-	if(get_teleport_blocking_living(ninja) || get_bluespace_interference_generator(get_turf(ninja)))
+	if(get_teleport_blocking_living(ninja))
 		to_chat(ninja, span_warning("Блюспейс-помехи предотвращают телепортацию!"))
 		return
 	if(!ninjacost(1500))
@@ -22,7 +22,7 @@
 		if(auto_smoke)
 			if(locate(/datum/action/item_action/advanced/ninja/ninja_smoke_bomb) in ninja.actions)
 				prime_smoke(lowcost = TRUE)
-		if(!do_teleport(ninja, T, 8, asoundin = 'sound/effects/phasein.ogg'))
+		if(!do_teleport(ninja, T, 8, asoundin = 'sound/effects/phasein.ogg', block_bluespace_interference = TRUE))
 			return
 		add_attack_logs(ninja, null, "Emergency blinked from [COORD(T)] to [COORD(ninja)].")
 		investigate_log("[key_name_log(ninja)] Emergency blinked from [COORD(T)] to [COORD(ninja)].", INVESTIGATE_TELEPORTATION)

@@ -8,6 +8,8 @@
 #define BSIG_S_TOGGLE_COOLDOWN (2 SECONDS)
 #define BSIG_S_SHUNT_MARGIN 2
 #define BSIG_S_MAX_RATING_OFFSET 3
+#define BSIG_S_FIELD_TURFS_KEY "field_turfs"
+#define BSIG_S_EDGE_TURFS_KEY "edge_turfs"
 #define DECL_BSIG_S_TILE(num) declension_ru(num, "", "а", "ов")
 
 /obj/item/circuitboard/machine/bsig_stationary
@@ -32,6 +34,143 @@
 		PREPOSITIONAL = "плате BSIG-S",
 	)
 
+/datum/proximity_monitor/advanced/bsig_stationary
+	var/obj/machinery/power/bluespace_interference_generator/stationary/generator
+	var/list/interfered_movables
+	var/static/list/bsig_loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+		COMSIG_ATOM_EXITED = PROC_REF(on_uncrossed),
+		COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZED_ON = PROC_REF(on_initialized),
+		COMSIG_ATOM_INTERCEPT_TELEPORTING = PROC_REF(intercept_teleporting),
+	)
+
+/datum/proximity_monitor/advanced/bsig_stationary/New(atom/_host, range, works_when_not_on_turf = FALSE, obj/machinery/power/bluespace_interference_generator/stationary/new_generator)
+	generator = new_generator
+	interfered_movables = list()
+	..(_host, range, works_when_not_on_turf)
+	recalculate_field(full_recalc = TRUE)
+
+/datum/proximity_monitor/advanced/bsig_stationary/Destroy()
+	clear_interfered_movables()
+	generator = null
+	return ..()
+
+/datum/proximity_monitor/advanced/bsig_stationary/set_range(range, force_rebuild = FALSE)
+	if(!force_rebuild && range == current_range)
+		return FALSE
+	. = TRUE
+	current_range = range
+	AddComponent(/datum/component/connect_range, host, bsig_loc_connections, range, works_when_not_on_turf)
+	recalculate_field(full_recalc = force_rebuild)
+
+/datum/proximity_monitor/advanced/bsig_stationary/recalculate_field(full_recalc = FALSE)
+	. = ..()
+	generator?.refresh_field_visuals()
+
+/datum/proximity_monitor/advanced/bsig_stationary/update_new_turfs()
+	if(!host)
+		return list(BSIG_S_FIELD_TURFS_KEY = list(), BSIG_S_EDGE_TURFS_KEY = list())
+	if(!works_when_not_on_turf && !isturf(host.loc))
+		return list(BSIG_S_FIELD_TURFS_KEY = list(), BSIG_S_EDGE_TURFS_KEY = list())
+
+	var/turf/center_turf = get_turf(host)
+	if(!center_turf)
+		return list(BSIG_S_FIELD_TURFS_KEY = list(), BSIG_S_EDGE_TURFS_KEY = list())
+
+	var/list/local_field_turfs = circle_range_turfs(center_turf, current_range)
+	var/list/local_edge_turfs = circle_range_turfs(center_turf, current_range + BSIG_S_SHUNT_MARGIN) - local_field_turfs
+	return list(BSIG_S_FIELD_TURFS_KEY = local_field_turfs, BSIG_S_EDGE_TURFS_KEY = local_edge_turfs)
+
+/datum/proximity_monitor/advanced/bsig_stationary/proc/blocks_turf(turf/target_turf)
+	return generator?.field_active && target_turf && (target_turf in field_turfs)
+
+/datum/proximity_monitor/advanced/bsig_stationary/on_entered(turf/source, atom/movable/entered, turf/old_loc)
+	SIGNAL_HANDLER
+
+	if(source in field_turfs)
+		field_turf_crossed(entered, old_loc, source)
+	else if(source in edge_turfs)
+		field_edge_crossed(entered, old_loc, source)
+
+/datum/proximity_monitor/advanced/bsig_stationary/on_uncrossed(turf/source, atom/movable/gone, direction)
+	SIGNAL_HANDLER
+
+	if(source in field_turfs)
+		field_turf_uncrossed(gone, source, get_turf(gone))
+	else if(source in edge_turfs)
+		field_edge_uncrossed(gone, source, get_turf(gone))
+
+/datum/proximity_monitor/advanced/bsig_stationary/setup_field_turf(turf/target)
+	for(var/atom/movable/movable as anything in target)
+		register_interfered_movable(movable)
+
+/datum/proximity_monitor/advanced/bsig_stationary/cleanup_field_turf(turf/target)
+	for(var/atom/movable/movable as anything in target)
+		unregister_interfered_movable(movable)
+
+/datum/proximity_monitor/advanced/bsig_stationary/field_turf_crossed(atom/movable/movable, turf/old_location, turf/new_location)
+	register_interfered_movable(movable)
+
+/datum/proximity_monitor/advanced/bsig_stationary/field_turf_uncrossed(atom/movable/movable, turf/old_location, turf/new_location)
+	unregister_interfered_movable(movable)
+
+/datum/proximity_monitor/advanced/bsig_stationary/proc/register_interfered_movable(atom/movable/movable)
+	if(!movable || QDELETED(movable))
+		return
+	if(movable in interfered_movables)
+		return
+	interfered_movables += movable
+	RegisterSignal(movable, COMSIG_MOVABLE_TELEPORTING, PROC_REF(block_movable_teleport))
+	RegisterSignal(movable, COMSIG_QDELETING, PROC_REF(on_interfered_movable_deleted))
+
+/datum/proximity_monitor/advanced/bsig_stationary/proc/unregister_interfered_movable(atom/movable/movable)
+	if(!(movable in interfered_movables))
+		return
+	interfered_movables -= movable
+	UnregisterSignal(movable, list(COMSIG_MOVABLE_TELEPORTING, COMSIG_QDELETING))
+
+/datum/proximity_monitor/advanced/bsig_stationary/proc/clear_interfered_movables()
+	if(!length(interfered_movables))
+		return
+	for(var/atom/movable/movable as anything in interfered_movables.Copy())
+		unregister_interfered_movable(movable)
+
+/datum/proximity_monitor/advanced/bsig_stationary/proc/on_interfered_movable_deleted(atom/movable/movable)
+	SIGNAL_HANDLER
+
+	interfered_movables -= movable
+
+/datum/proximity_monitor/advanced/bsig_stationary/proc/block_movable_teleport(atom/movable/movable, turf/origin, turf/destination, list/teleport_data)
+	SIGNAL_HANDLER
+
+	if(!generator?.field_active || !blocks_turf(get_turf(movable)))
+		return
+	if(teleport_data && teleport_data[TELEPORT_INTERCEPT_IGNORE_BLUESPACE])
+		return
+	if(teleport_data)
+		teleport_data[TELEPORT_INTERCEPT_BLUESPACE_BLOCKED] = TRUE
+	return COMPONENT_BLOCK_TELEPORT
+
+/datum/proximity_monitor/advanced/bsig_stationary/proc/intercept_teleporting(turf/target_turf, turf/origin, list/teleport_data)
+	SIGNAL_HANDLER
+
+	if(!generator?.field_active || !(target_turf in field_turfs))
+		return
+	if(teleport_data && teleport_data[TELEPORT_INTERCEPT_IGNORE_BLUESPACE])
+		return
+	if(teleport_data && teleport_data[TELEPORT_INTERCEPT_BLOCK_BLUESPACE])
+		teleport_data[TELEPORT_INTERCEPT_BLUESPACE_BLOCKED] = TRUE
+		return COMPONENT_BLOCK_TELEPORT
+
+	var/turf/interference_edge = generator.get_edge_turf(origin, target_turf)
+	if(!interference_edge || interference_edge == target_turf)
+		if(teleport_data)
+			teleport_data[TELEPORT_INTERCEPT_BLUESPACE_BLOCKED] = TRUE
+		return COMPONENT_BLOCK_TELEPORT
+	if(teleport_data)
+		teleport_data[TELEPORT_INTERCEPT_DESTINATION] = interference_edge
+		teleport_data[TELEPORT_INTERCEPT_BLUESPACE_SHUNTED] = TRUE
+
 /obj/machinery/power/bluespace_interference_generator/stationary
 	name = "BSIG-S"
 	desc = "Стационарный генератор блюспейс-помех. Предотвращает блюспейс-перемещение в небольшом радиусе при подключении к запитанному АПЦ и рабочему узлу электросети."
@@ -49,8 +188,7 @@
 	var/field_range = BSIG_S_MIN_RANGE
 	var/power_usage = BSIG_S_REQUIRED_CAPACITORS * BSIG_S_CAPACITOR_BASE_LOAD
 	var/list/field_visuals = list()
-	var/turf/cached_center_turf
-	var/cached_field_radius_squared = 0
+	var/datum/proximity_monitor/advanced/bsig_stationary/interference_field
 	COOLDOWN_DECLARE(toggle_cooldown)
 
 /obj/machinery/power/bluespace_interference_generator/stationary/get_ru_names()
@@ -75,16 +213,6 @@
 /obj/machinery/power/bluespace_interference_generator/stationary/Destroy()
 	set_field_active(FALSE)
 	return ..()
-
-/obj/machinery/power/bluespace_interference_generator/stationary/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
-	. = ..()
-	var/turf/old_turf = get_turf(old_loc)
-	var/turf/current_turf = get_turf(src)
-	if(old_turf == current_turf)
-		return
-	if(field_active)
-		update_cached_field_data()
-		refresh_field_visuals()
 
 /obj/machinery/power/bluespace_interference_generator/stationary/on_construction()
 	connect_to_network()
@@ -130,9 +258,8 @@
 	else
 		field_range = BSIG_S_MIN_RANGE
 
-	update_cached_field_data()
 	if(field_active)
-		refresh_field_visuals()
+		interference_field?.set_range(field_range, TRUE)
 
 /obj/machinery/power/bluespace_interference_generator/stationary/process(seconds_per_tick)
 	if(!can_operate())
@@ -199,20 +326,14 @@
 		return
 	field_active = new_field_active
 	if(field_active)
-		GLOB.active_bluespace_interference_generators |= list(src)
-		update_cached_field_data()
+		interference_field = new /datum/proximity_monitor/advanced/bsig_stationary(src, field_range, FALSE, src)
 		refresh_field_visuals()
 		set_light(2, 0.6, BSIG_S_FIELD_COLOR, l_on = TRUE)
 	else
-		GLOB.active_bluespace_interference_generators -= src
-		cached_center_turf = null
+		QDEL_NULL(interference_field)
 		clear_field_visuals()
 		set_light(0, 0)
 	update_icon(UPDATE_ICON_STATE)
-
-/obj/machinery/power/bluespace_interference_generator/stationary/proc/update_cached_field_data()
-	cached_center_turf = get_turf(src)
-	cached_field_radius_squared = field_range * (field_range + 0.5)
 
 /obj/machinery/power/bluespace_interference_generator/stationary/proc/clear_field_visuals()
 	var/datum/atom_hud/data/diagnostic/basic_diag_hud = GLOB.huds[DATA_HUD_DIAGNOSTIC]
@@ -224,10 +345,9 @@
 
 /obj/machinery/power/bluespace_interference_generator/stationary/proc/refresh_field_visuals()
 	clear_field_visuals()
-	if(!field_active)
+	if(!field_active || !interference_field)
 		return
-	var/range = field_range
-	for(var/turf/current_turf as anything in circle_range_turfs(src, range))
+	for(var/turf/current_turf as anything in interference_field.field_turfs)
 		var/image/field_visual = image('icons/effects/alphacolors.dmi', current_turf, "blue", ABOVE_OPEN_TURF_LAYER)
 		field_visual.alpha = BSIG_S_DIAG_FIELD_ALPHA
 		field_visual.color = BSIG_S_FIELD_COLOR
@@ -239,32 +359,19 @@
 	advanced_diag_hud?.add_atom_to_hud(src)
 
 /obj/machinery/power/bluespace_interference_generator/stationary/proc/blocks_turf(turf/target_turf)
-	if(!field_active || !target_turf)
-		return FALSE
-	var/turf/center_turf = cached_center_turf
-	if(!center_turf || target_turf.z != center_turf.z)
-		return FALSE
-	var/dx = target_turf.x - center_turf.x
-	var/dy = target_turf.y - center_turf.y
-	return (dx * dx + dy * dy) <= cached_field_radius_squared
+	return interference_field?.blocks_turf(target_turf)
 
 /obj/machinery/power/bluespace_interference_generator/stationary/proc/get_edge_turf(turf/origin, turf/intended_destination)
 	if(!blocks_turf(intended_destination))
 		return intended_destination
 
 	if(origin && origin != intended_destination && origin.z == intended_destination.z)
-		var/turf/center_turf = cached_center_turf
-		if(!center_turf)
-			return null
-		var/radius_squared = cached_field_radius_squared
 		var/turf/current_turf = intended_destination
 		for(var/i in 1 to BSIG_S_MAX_RANGE + BSIG_S_SHUNT_MARGIN)
 			current_turf = get_step_towards(current_turf, origin)
 			if(!current_turf)
 				break
-			var/dx = current_turf.x - center_turf.x
-			var/dy = current_turf.y - center_turf.y
-			if((dx * dx + dy * dy) > radius_squared && !current_turf.is_blocked_turf(exclude_mobs = TRUE))
+			if(!blocks_turf(current_turf) && !current_turf.is_blocked_turf(exclude_mobs = TRUE))
 				return current_turf
 
 	return get_nearest_edge_turf(intended_destination)
@@ -272,27 +379,22 @@
 /obj/machinery/power/bluespace_interference_generator/stationary/proc/get_nearest_edge_turf(turf/from_turf)
 	if(!from_turf)
 		return null
-	var/turf/center_turf = cached_center_turf
-	if(!center_turf)
+	if(!interference_field)
 		return null
 	var/target_z = from_turf.z
-	var/range = field_range + 1
-	var/list/directions = GLOB.alldirs
 	var/turf/best_turf
 	var/best_distance
 
-	for(var/distance in range to range + 1)
-		for(var/direction in directions)
-			var/turf/current_turf = get_ranged_target_turf(center_turf, direction, distance)
-			if(!current_turf || current_turf.z != target_z)
-				continue
-			if(current_turf.is_blocked_turf(exclude_mobs = TRUE))
-				continue
+	for(var/turf/current_turf as anything in interference_field.edge_turfs)
+		if(!current_turf || current_turf.z != target_z)
+			continue
+		if(current_turf.is_blocked_turf(exclude_mobs = TRUE))
+			continue
 
-			var/current_distance = get_dist(current_turf, from_turf)
-			if(!best_turf || current_distance < best_distance)
-				best_turf = current_turf
-				best_distance = current_distance
+		var/current_distance = get_dist(current_turf, from_turf)
+		if(!best_turf || current_distance < best_distance)
+			best_turf = current_turf
+			best_distance = current_distance
 
 	return best_turf
 
@@ -372,23 +474,6 @@
 	set_cable_powered(FALSE)
 	set_field_active(FALSE)
 
-/**
- * Returns the active stationary bluespace interference generator blocking the given turf, if any.
- */
-/proc/get_bluespace_interference_generator(turf/target_turf)
-	var/list/generators = GLOB.active_bluespace_interference_generators
-	if(!target_turf || !length(generators))
-		return null
-
-	var/target_z = target_turf.z
-	for(var/obj/machinery/power/bluespace_interference_generator/stationary/generator in generators)
-		if(!generator || QDELETED(generator) || !generator.field_active || generator.z != target_z)
-			continue
-		if(generator.blocks_turf(target_turf))
-			return generator
-
-	return null
-
 #undef BSIG_S_MIN_RANGE
 #undef BSIG_S_MAX_RANGE
 #undef BSIG_S_REQUIRED_CAPACITORS
@@ -399,4 +484,6 @@
 #undef BSIG_S_TOGGLE_COOLDOWN
 #undef BSIG_S_SHUNT_MARGIN
 #undef BSIG_S_MAX_RATING_OFFSET
+#undef BSIG_S_FIELD_TURFS_KEY
+#undef BSIG_S_EDGE_TURFS_KEY
 #undef DECL_BSIG_S_TILE

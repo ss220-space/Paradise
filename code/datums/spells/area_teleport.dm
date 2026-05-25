@@ -44,6 +44,9 @@
 	smoke_type = SMOKE_HARMLESS
 	playsound(get_turf(user), sound_in, 50, TRUE)
 	for(var/mob/living/target in targets)
+		if(itb_blocks_teleport(target, target, "ITB подавляет магическое перемещение [src]."))
+			continue
+
 		var/list/area_turfs = list()
 		for(var/turf/area_turf in get_area_turfs(selected_area.type))
 			if(!area_turf.density)
@@ -66,7 +69,7 @@
 		if(target?.has_buckled_mobs())
 			target.unbuckle_all_mobs(force = TRUE)
 
-		var/list/area_turfs_temp = area_turfs
+		var/list/area_turfs_temp = area_turfs.Copy()
 		var/attempt = null
 		var/success = FALSE
 		while(length(area_turfs_temp))
@@ -78,7 +81,8 @@
 				break
 
 		if(!success)
-			target.forceMove(pick(area_turfs))
+			if(!do_magic_direct_teleport(target, pick(area_turfs), notified_user = target, block_message = "ITB подавляет магическое перемещение [src]."))
+				continue
 			playsound(get_turf(user), sound_out, 50, TRUE)
 
 		user.update_action_buttons_icon()  //Update action buttons as some spells might now be castable

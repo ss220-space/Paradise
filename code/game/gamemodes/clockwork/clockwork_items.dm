@@ -70,9 +70,7 @@
 		update_appearance(UPDATE_ICON_STATE|UPDATE_NAME|UPDATE_DESC)
 
 	if(enchant_type == TELEPORT_SPELL)
-		var/mob/living/living_user = user
-		if(has_active_itb_teleport_block(living_user))
-			to_chat(user, span_warning("ITB подавляет часовой телепорт."))
+		if(itb_blocks_teleport(user, user, "ITB подавляет часовой телепорт."))
 			return
 		var/list/possible_altars = list()
 		var/list/altars = list()
@@ -105,9 +103,11 @@
 		var/turf/destination = possible_altars[selected_altar]
 		to_chat(user, span_notice(" You start invoking teleportation..."))
 		animate(user, color = COLOR_PURPLE, time = 1.5 SECONDS)
-		if(do_after(user, 1.5 SECONDS, user) && destination && !has_active_itb_teleport_block(living_user))
+		if(do_after(user, 1.5 SECONDS, user) && destination && !itb_blocks_teleport(user, user, "ITB подавляет часовой телепорт."))
 			do_sparks(4, FALSE, user)
-			user.forceMove(get_turf(destination))
+			if(!do_magic_direct_teleport(user, get_turf(destination), notified_user = user, block_message = "ITB подавляет часовой телепорт."))
+				user.color = null
+				return
 			playsound(user, 'sound/effects/phasein.ogg', 20, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 			add_attack_logs(user, destination, "Teleported to by [src]", ATKLOG_ALL)
 			deplete_spell()
@@ -183,8 +183,7 @@
 			else
 				to_chat(user, span_warning("You can use only on doors and closets!"))
 		if(TELEPORT_SPELL)
-			if(has_active_itb_teleport_block(user))
-				to_chat(user, span_warning("ITB подавляет часовой телепорт."))
+			if(itb_blocks_teleport(user, user, "ITB подавляет часовой телепорт."))
 				return
 			if(target.density && !proximity_flag)
 				to_chat(user, span_warning(">The path is blocked!"))
@@ -196,9 +195,11 @@
 				return
 			to_chat(user, span_notice("You start invoking teleportation..."))
 			animate(user, color = COLOR_PURPLE, time = 1.5 SECONDS)
-			if(do_after(user, 1.5 SECONDS, user) && !has_active_itb_teleport_block(user))
+			if(do_after(user, 1.5 SECONDS, user) && !itb_blocks_teleport(user, user, "ITB подавляет часовой телепорт."))
 				do_sparks(4, FALSE, user)
-				user.forceMove(get_turf(target))
+				if(!do_magic_direct_teleport(user, get_turf(target), notified_user = user, block_message = "ITB подавляет часовой телепорт."))
+					user.color = null
+					return
 				playsound(user, 'sound/effects/phasein.ogg', 20, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 				add_attack_logs(user, target, "Teleported to by [src]", ATKLOG_ALL)
 				deplete_spell()

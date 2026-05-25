@@ -480,12 +480,9 @@ structure_check() searches for nearby cultist structures required for the invoca
 	var/movedsomething = FALSE
 	var/moveuser = FALSE
 	for(var/atom/movable/movable in rune_turf)
-		if(isliving(movable))
-			var/mob/living/living_movable = movable
-			if(has_active_itb_teleport_block(living_movable))
-				if(living_movable == user)
-					to_chat(user, span_warning("ITB подавляет телепорт руны."))
-				continue
+		var/mob/notified_user = movable == user ? user : null
+		if(itb_blocks_teleport(movable, notified_user, "ITB подавляет телепорт руны."))
+			continue
 		if(ishuman(movable))
 			if(movable != user) // Teleporting someone else
 				INVOKE_ASYNC(src, PROC_REF(teleport_effect), movable, rune_turf, target)
@@ -498,8 +495,8 @@ structure_check() searches for nearby cultist structures required for the invoca
 			movedsomething = TRUE
 			continue
 		if(!movable.anchored)
-			movedsomething = TRUE
-			movable.forceMove(target)
+			if(do_magic_direct_teleport(movable, target, block_message = "ITB подавляет телепорт руны."))
+				movedsomething = TRUE
 
 	if(movedsomething)
 		..()
@@ -514,7 +511,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 			span_cult("You[moveuser ? "r vision blurs, and you suddenly appear somewhere else":" send everything above the rune away"].")
 		)
 		if(moveuser)
-			user.forceMove(target)
+			do_magic_direct_teleport(user, target, notified_user = user, block_message = "ITB подавляет телепорт руны.")
 	else
 		fail_invoke()
 
@@ -742,9 +739,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		to_chat(user, span_cultitalic("[cultist_to_summon] is not in our dimension!"))
 		fail_invoke()
 		return
-	if(has_active_itb_teleport_block(cultist_to_summon))
-		to_chat(user, span_cultitalic("ITB на [cultist_to_summon] подавляет призыв."))
-		to_chat(cultist_to_summon, span_cult("Вы чувствуете тянущее ощущение, но ваш ITB удерживает вас на месте!"))
+	if(itb_blocks_teleport(cultist_to_summon, user, "ITB подавляет призыв культиста."))
 		fail_invoke()
 		return
 
@@ -755,7 +750,9 @@ structure_check() searches for nearby cultist structures required for the invoca
 	..()
 	INVOKE_ASYNC(src, PROC_REF(teleport_effect), cultist_to_summon, get_turf(cultist_to_summon), src)
 	visible_message(span_warning("[src] begins to bubble and rises into the form of [cultist_to_summon]!"))
-	cultist_to_summon.forceMove(get_turf(src))
+	if(!do_magic_direct_teleport(cultist_to_summon, get_turf(src), notified_user = user, block_message = "ITB подавляет призыв культиста."))
+		fail_invoke()
+		return
 	qdel(src)
 
 /**

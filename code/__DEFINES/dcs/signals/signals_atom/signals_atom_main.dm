@@ -82,9 +82,15 @@
 ///from base of atom/get_gravity(): (turf/location, list/forced_gravities)
 #define COMSIG_ATOM_HAS_GRAVITY "atom_has_gravity"
 
-///called when teleporting into a possibly protected turf: (turf/origin)
+///called when teleporting into a possibly protected turf: (turf/origin, list/teleport_data)
 #define COMSIG_ATOM_INTERCEPT_TELEPORTING "intercept_teleporting"
 	#define COMPONENT_BLOCK_TELEPORT (1<<0)
+	#define TELEPORT_INTERCEPT_TELEATOM "teleatom"
+	#define TELEPORT_INTERCEPT_DESTINATION "destination"
+	#define TELEPORT_INTERCEPT_IGNORE_BLUESPACE "ignore_bluespace_interference"
+	#define TELEPORT_INTERCEPT_BLOCK_BLUESPACE "block_bluespace_interference"
+	#define TELEPORT_INTERCEPT_BLUESPACE_BLOCKED "bluespace_interference_blocked"
+	#define TELEPORT_INTERCEPT_BLUESPACE_SHUNTED "bluespace_interference_shunted"
 
 ///called when an atom is added to the hearers on get_hearers_in_view(): (list/processing_list, list/hearers)
 #define COMSIG_ATOM_HEARER_IN_VIEW "atom_hearer_in_view"

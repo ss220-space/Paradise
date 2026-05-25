@@ -13,6 +13,8 @@
 	var/panel_open = FALSE
 	var/obj/item/stock_parts/cell/cell
 	var/mob/living/wearer
+	var/interference_applied = FALSE
+	var/mob/living/interference_wearer
 
 /obj/item/clothing/gloves/bsig_personal/get_ru_names()
 	return list(
@@ -171,13 +173,23 @@
 
 /obj/item/clothing/gloves/bsig_personal/proc/apply_interference()
 	if(!active || !wearer || !is_worn_on_hands(wearer))
+		remove_interference()
 		return
-	ADD_TRAIT(wearer, TRAIT_NO_TELEPORT, UNIQUE_TRAIT_SOURCE(src))
+	if(interference_applied && interference_wearer == wearer)
+		return
+	if(interference_applied && interference_wearer && !QDELETED(interference_wearer))
+		REMOVE_TRAIT(interference_wearer, TRAIT_NO_TELEPORT, UNIQUE_TRAIT_SOURCE(src))
+	interference_wearer = wearer
+	interference_applied = TRUE
+	ADD_TRAIT(interference_wearer, TRAIT_NO_TELEPORT, UNIQUE_TRAIT_SOURCE(src))
 
 /obj/item/clothing/gloves/bsig_personal/proc/remove_interference()
-	if(!wearer)
+	if(!interference_applied)
 		return
-	REMOVE_TRAIT(wearer, TRAIT_NO_TELEPORT, UNIQUE_TRAIT_SOURCE(src))
+	if(interference_wearer && !QDELETED(interference_wearer))
+		REMOVE_TRAIT(interference_wearer, TRAIT_NO_TELEPORT, UNIQUE_TRAIT_SOURCE(src))
+	interference_applied = FALSE
+	interference_wearer = null
 
 /obj/item/clothing/gloves/bsig_personal/proc/is_worn_on_hands(mob/user)
 	if(!user)

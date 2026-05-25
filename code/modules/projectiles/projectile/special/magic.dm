@@ -196,13 +196,12 @@
 		teleloc = target.loc
 	for(var/atom/movable/stuff in teleloc)
 		if(!stuff.anchored && stuff.loc)
+			var/mob/living/notified_living
 			if(isliving(stuff))
-				var/mob/living/living_stuff = stuff
-				if(has_active_itb_teleport_block(living_stuff))
-					to_chat(living_stuff, span_warning("ITB подавляет магическое перемещение телепортационного снаряда."))
-					continue
+				notified_living = stuff
+			if(!do_magic_teleport(stuff, stuff, 10, notified_user = notified_living, block_message = "ITB подавляет магическое перемещение телепортационного снаряда."))
+				continue
 			teleammount++
-			do_teleport(stuff, stuff, 10)
 			var/datum/effect_system/fluid_spread/smoke/smoke = new
 			smoke.set_up(amount = max(round(10 - teleammount),1), location = stuff.loc) //Smoke drops off if a lot of stuff is moved for the sake of sanity
 			smoke.start()

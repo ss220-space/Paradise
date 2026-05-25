@@ -49,7 +49,6 @@ GLOBAL_LIST_EMPTY(ioncallers_list)										// For ioncaller mass icon updating.
 GLOBAL_LIST_EMPTY(meteor_list)											//list of all meteors
 GLOBAL_LIST_EMPTY(poi_list)												//list of points of interest for observe/follow
 GLOBAL_LIST_EMPTY(active_jammers)										// List of active radio jammers
-GLOBAL_LIST_EMPTY(active_bluespace_interference_generators)				// List of active stationary bluespace interference generators
 GLOBAL_LIST_EMPTY(ladders)
 GLOBAL_LIST_EMPTY(mirrors)												//list of all mirrors and mirror shields.
 GLOBAL_LIST_EMPTY(lavaland_points_of_interest)							//for use in founding world anvil and other stuff

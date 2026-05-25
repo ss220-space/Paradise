@@ -464,9 +464,6 @@
 	if(HAS_TRAIT(owner, TRAIT_NO_TELEPORT))
 		return FALSE
 
-	if(get_bluespace_interference_generator(get_turf(owner)))
-		return FALSE
-
 	return TRUE
 
 /obj/item/clothing/suit/armor/reactive/teleport/Initialize(mapload)

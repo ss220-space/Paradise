@@ -188,8 +188,7 @@
 
 /obj/effect/proc_holder/spell/vampire/switch_places/cast(list/targets, mob/user)
 	var/mob/living/target = targets[1]
-	if(has_active_itb_teleport_block(target))
-		to_chat(user, span_warning("ITB на [target] предотвращает подпространственный обмен."))
+	if(itb_blocks_teleport(user, user, "ITB предотвращает подпространственный обмен.") || itb_blocks_teleport(target, user, "ITB предотвращает подпространственный обмен."))
 		revert_cast()
 		return
 	if(isAI(target))
@@ -198,8 +197,12 @@
 		return
 	var/turf/user_turf = get_turf(user)
 	var/turf/target_turf = get_turf(target)
-	target.forceMove(user_turf)
-	user.forceMove(target_turf)
+	if(!do_magic_direct_teleport(target, user_turf, notified_user = user, block_message = "ITB предотвращает подпространственный обмен."))
+		revert_cast()
+		return
+	if(!do_magic_direct_teleport(user, target_turf, notified_user = user, block_message = "ITB предотвращает подпространственный обмен."))
+		revert_cast()
+		return
 	var/sound/sound = sound('sound/magic/mindswap.ogg')
 	sound.volume = 30
 	SEND_SOUND(user, sound)

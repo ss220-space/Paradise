@@ -450,21 +450,14 @@
 	var/mob/living/carbon/C = user
 	if(C.pulling)
 		var/atom/movable/pulled = C.pulling
-		if(isliving(pulled))
-			var/mob/living/pulled_living = pulled
-			if(has_active_itb_teleport_block(pulled_living))
-				to_chat(user, span_warning("ITB на [pulled_living] удерживает [pulled_living.p_them()] от сдвига завесы."))
-				return
-		pulled.forceMove(T)
-		. = pulled
+		if(do_magic_direct_teleport(pulled, T, notified_user = user, block_message = "ITB подавляет сдвиг завесы."))
+			. = pulled
 
 /obj/item/cult_shift/attack_self(mob/user)
 	if(!uses || !iscarbon(user))
 		to_chat(user, span_warning("[src] is dull and unmoving in your hands."))
 		return
-	var/mob/living/living_user = user
-	if(has_active_itb_teleport_block(living_user))
-		to_chat(user, span_warning("ITB подавляет сдвиг завесы [src]."))
+	if(itb_blocks_teleport(user, user, "ITB подавляет сдвиг завесы [src]."))
 		return
 	if(!iscultist(user))
 		user.drop_item_ground(src, force = TRUE)
@@ -473,8 +466,7 @@
 		return
 	if(!do_after(user, 1 SECONDS, user))
 		return
-	if(has_active_itb_teleport_block(living_user))
-		to_chat(user, span_warning("ITB подавляет сдвиг завесы [src]."))
+	if(itb_blocks_teleport(user, user, "ITB подавляет сдвиг завесы [src]."))
 		return
 
 	var/outer_tele_radius = 9
@@ -506,7 +498,8 @@
 		new /obj/effect/temp_visual/dir_setting/cult/phase/out(mobloc, C.dir)
 
 		var/atom/movable/pulled = handle_teleport_grab(destination, C)
-		C.forceMove(destination)
+		if(!do_magic_direct_teleport(C, destination, notified_user = user, block_message = "ITB подавляет сдвиг завесы [src]."))
+			return
 		if(pulled)
 			if(C.pull_hand == PULL_WITHOUT_HANDS)
 				C.start_pulling(pulled) //forcemove resets pulls, so we need to re-pull

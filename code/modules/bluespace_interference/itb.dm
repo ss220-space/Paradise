@@ -6,6 +6,7 @@
 #define ITB_TAMPER_FAILURE_CHANCE 25
 #define ITB_SCREWDRIVER_FAILURE_DAMAGE 10
 #define ITB_SHOCK_FAILURE_DAMAGE 15
+#define ITB_TELEPORT_BLOCK_MESSAGE "ITB подавляет телепортацию."
 
 /obj/item/clothing/neck/itb
 	name = "ITB"
@@ -18,6 +19,9 @@
 	var/locked = FALSE
 	var/tamper_stage = ITB_TAMPER_SECURE
 	var/mob/living/wearer
+	var/interference_applied = FALSE
+	var/mob/living/interference_wearer
+	var/nodrop_applied = FALSE
 
 /obj/item/clothing/neck/itb/get_ru_names()
 	return list(
@@ -257,25 +261,41 @@
 	return ACCESS_BRIG in living_user.get_access()
 
 /obj/item/clothing/neck/itb/proc/refresh_state()
-	if(locked && tamper_stage != ITB_TAMPER_LOCK_BYPASSED && is_worn())
+	var/worn = is_worn()
+	set_nodrop(locked && tamper_stage != ITB_TAMPER_LOCK_BYPASSED && worn)
+	set_interference(locked && tamper_stage < ITB_TAMPER_WIRES_CUT && worn)
+
+/obj/item/clothing/neck/itb/proc/set_nodrop(new_nodrop)
+	if(nodrop_applied == new_nodrop)
+		return
+	nodrop_applied = new_nodrop
+	if(nodrop_applied)
 		ADD_TRAIT(src, TRAIT_NODROP, UNIQUE_TRAIT_SOURCE(src))
 	else
 		REMOVE_TRAIT(src, TRAIT_NODROP, UNIQUE_TRAIT_SOURCE(src))
 
-	if(locked && tamper_stage < ITB_TAMPER_WIRES_CUT)
-		apply_interference()
-	else
-		remove_interference()
+/obj/item/clothing/neck/itb/proc/set_interference(new_interference)
+	if(new_interference && !is_worn())
+		new_interference = FALSE
+	if(interference_applied == new_interference && (!new_interference || interference_wearer == wearer))
+		return
+	if(interference_applied && interference_wearer && !QDELETED(interference_wearer))
+		REMOVE_TRAIT(interference_wearer, TRAIT_NO_TELEPORT, UNIQUE_TRAIT_SOURCE(src))
+		REMOVE_TRAIT(interference_wearer, TRAIT_ITB_TELEPORT_BLOCK, UNIQUE_TRAIT_SOURCE(src))
+	interference_applied = FALSE
+	interference_wearer = null
+	if(!new_interference)
+		return
+	interference_wearer = wearer
+	interference_applied = TRUE
+	ADD_TRAIT(interference_wearer, TRAIT_NO_TELEPORT, UNIQUE_TRAIT_SOURCE(src))
+	ADD_TRAIT(interference_wearer, TRAIT_ITB_TELEPORT_BLOCK, UNIQUE_TRAIT_SOURCE(src))
 
 /obj/item/clothing/neck/itb/proc/apply_interference()
-	if(!is_worn())
-		return
-	ADD_TRAIT(wearer, TRAIT_NO_TELEPORT, UNIQUE_TRAIT_SOURCE(src))
+	set_interference(TRUE)
 
 /obj/item/clothing/neck/itb/proc/remove_interference()
-	if(!wearer)
-		return
-	REMOVE_TRAIT(wearer, TRAIT_NO_TELEPORT, UNIQUE_TRAIT_SOURCE(src))
+	set_interference(FALSE)
 
 /obj/item/clothing/neck/itb/proc/is_worn()
 	if(!wearer && isliving(loc))
@@ -284,12 +304,21 @@
 		return FALSE
 	return wearer.get_slot_by_item(src) == ITEM_SLOT_NECK
 
-/proc/has_active_itb_teleport_block(mob/living/target)
-	if(!target)
-		return FALSE
+/proc/get_itb_teleport_blocking_living(atom/movable/teleatom)
+	return get_teleport_blocking_living(teleatom, TRAIT_ITB_TELEPORT_BLOCK)
 
-	var/obj/item/clothing/neck/itb/itb = target.get_item_by_slot(ITEM_SLOT_NECK)
-	return istype(itb) && itb.locked && itb.tamper_stage < ITB_TAMPER_WIRES_CUT
+/proc/itb_blocks_teleport(atom/movable/teleatom, mob/notified_user = null, block_message = ITB_TELEPORT_BLOCK_MESSAGE)
+	var/mob/living/blocker = get_itb_teleport_blocking_living(teleatom)
+	if(!blocker)
+		return FALSE
+	if(!block_message)
+		block_message = ITB_TELEPORT_BLOCK_MESSAGE
+	if(!notified_user)
+		return TRUE
+	to_chat(notified_user, span_warning(block_message))
+	if(blocker != notified_user)
+		to_chat(blocker, span_warning(block_message))
+	return TRUE
 
 #undef ITB_TAMPER_SECURE
 #undef ITB_TAMPER_PANEL_OPEN
@@ -299,3 +328,4 @@
 #undef ITB_TAMPER_FAILURE_CHANCE
 #undef ITB_SCREWDRIVER_FAILURE_DAMAGE
 #undef ITB_SHOCK_FAILURE_DAMAGE
+#undef ITB_TELEPORT_BLOCK_MESSAGE

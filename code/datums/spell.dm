@@ -576,11 +576,9 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	if(HAS_TRAIT(user, TRAIT_NO_SPELLS))
 		return FALSE
 
-	if(itb_blocks_spell && isliving(user))
-		var/mob/living/living_user = user
-		if(has_active_itb_teleport_block(living_user))
-			if(show_message)
-				to_chat(user, span_warning("ITB подавляет магическое перемещение [src]."))
+	if(itb_blocks_spell)
+		var/mob/notified_user = show_message ? user : null
+		if(itb_blocks_teleport(user, notified_user, "ITB подавляет магическое перемещение [src]."))
 			return FALSE
 
 	if(!centcom_cancast) //Certain spells are not allowed on the centcom zlevel

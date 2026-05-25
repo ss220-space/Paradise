@@ -61,6 +61,7 @@
 		if(!picked || !isturf(picked))
 			return
 
-		target.forceMove(picked)
+		if(!do_magic_direct_teleport(target, picked, notified_user = target, block_message = "ITB подавляет магическое перемещение [src]."))
+			return
 		if(sound_out)
 			playsound(get_turf(user), sound_out, 50, TRUE)
