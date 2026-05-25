@@ -89,13 +89,13 @@
 			return ATTACK_CHAIN_BLOCKED_ALL
 		if(!anchored && !isfloorturf(loc))
 			to_chat(user, span_warning("A floor must be present to secure [src]!"))
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 		if(locate(/obj/structure/clockwork) in (loc.contents-src))
 			to_chat(user, span_warning("There is a structure here!"))
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 		if(locate(/obj/structure/falsewall) in loc)
 			to_chat(user, span_warning("There is a structure here!"))
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 		set_anchored(!anchored)
 		to_chat(user, span_notice("You [anchored ? "":"un"]secure [src] [anchored ? "to":"from"] the floor."))
 		update_icon(UPDATE_ICON_STATE)
@@ -281,13 +281,13 @@
 			return ATTACK_CHAIN_BLOCKED_ALL
 		if(!anchored && !isfloorturf(loc))
 			to_chat(user, span_warning("A floor must be present to secure [src]!"))
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 		if(!anchored && locate(/obj/structure/clockwork) in (loc.contents-src))
 			to_chat(user, span_warning("There is a structure here!"))
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 		if(locate(/obj/structure/falsewall) in loc)
 			to_chat(user, span_warning("There is a structure here!"))
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 		set_anchored(!anchored)
 		update_icon(UPDATE_ICON_STATE)
 		to_chat(user, span_notice("You [anchored ? "":"un"]secure [src] [anchored ? "to":"from"] the floor."))
@@ -481,13 +481,13 @@
 		add_fingerprint(user)
 		if(!anchored && !isfloorturf(loc))
 			to_chat(user, span_warning("A floor must be present to secure [src]!"))
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 		if(locate(/obj/structure/clockwork) in (loc.contents-src))
 			to_chat(user, span_warning("There is a structure here!"))
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 		if(locate(/obj/structure/falsewall) in loc)
 			to_chat(user, span_warning("There is a structure here!"))
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 		set_anchored(!anchored)
 		update_icon(UPDATE_ICON_STATE)
 		to_chat(user, span_notice("You [anchored ? "":"un"]secure [src] [anchored ? "to":"from"] the floor."))

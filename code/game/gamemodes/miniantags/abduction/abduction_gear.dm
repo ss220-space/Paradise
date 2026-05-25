@@ -185,10 +185,10 @@
 
 /obj/item/abductor/gizmo/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!ScientistCheck(user))
-		return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+		return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 	if(!console)
 		to_chat(user, span_warning("The device is not linked to console!"))
-		return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+		return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 
 	. = ATTACK_CHAIN_PROCEED_SUCCESS
 
@@ -254,7 +254,7 @@
 
 /obj/item/abductor/silencer/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!isgrey(user) && !AbductorCheck(user))
-		return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+		return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 	. = ATTACK_CHAIN_PROCEED_SUCCESS
 	radio_off(target, user)
 
