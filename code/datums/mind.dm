@@ -2810,7 +2810,7 @@
 		return null
 	var/my_ckey = ckey(key)
 	for(var/obj/item/uplink/uplink in GLOB.world_uplinks)
-		if(uplink?.uplink_owner && ckey(uplink.uplink_owner) == my_ckey)
+		if(uplink.uplink_owner && ckey(uplink.uplink_owner) == my_ckey)
 			return uplink
 	return null
 
