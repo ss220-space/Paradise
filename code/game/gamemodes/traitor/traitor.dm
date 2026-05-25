@@ -98,7 +98,7 @@
 			var/used_uplink = FALSE
 			var/purchases = ""
 
-			var/obj/item/uplink/hidden/traitor_uplink = traitor.find_syndicate_uplink() || find_uplink_owner_from_mind(traitor)
+			var/obj/item/uplink/hidden/traitor_uplink = traitor.find_syndicate_uplink() || traitor.find_uplink_by_key()
 
 			if(traitor_uplink && (traitor_uplink.used_TC > 0 || traitor_uplink.purchase_log != ""))
 				TC_uses += traitor_uplink.used_TC
