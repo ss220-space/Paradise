@@ -187,7 +187,8 @@
 	it explodes properly when it gets a signal (and it does).
 	*/
 
-/obj/item/transfer_valve/proc/toggle_valve(mob/user)
+/obj/item/transfer_valve/proc/toggle_valve(mob/user, change_volume = TRUE)
+	playsound(src, 'sound/effects/valve_opening.ogg', 50)
 	if(!valve_open && tank_one && tank_two)
 		valve_open = TRUE
 		var/turf/bombturf = get_turf(src)
