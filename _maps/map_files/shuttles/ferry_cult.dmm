@@ -10,6 +10,7 @@
 	pixel_x = 7;
 	pixel_y = 14
 	},
+/obj/structure/torch_holder,
 /turf/simulated/floor/engine/cult,
 /area/shuttle/transport)
 "d" = (
@@ -64,6 +65,10 @@
 "x" = (
 /turf/simulated/floor/engine/cult,
 /area/shuttle/transport)
+"z" = (
+/obj/item/flashlight/flare/torch,
+/turf/simulated/floor/engine/cult,
+/area/shuttle/transport)
 "D" = (
 /obj/effect/spawner/random_spawners/blood_20,
 /turf/simulated/floor/engine/cult,
@@ -102,6 +107,10 @@
 /area/shuttle/transport)
 "M" = (
 /turf/simulated/wall/cult,
+/area/shuttle/transport)
+"Q" = (
+/obj/structure/torch_holder,
+/turf/simulated/floor/engine/cult,
 /area/shuttle/transport)
 "S" = (
 /obj/item/candle/eternal{
@@ -154,7 +163,7 @@ M
 m
 D
 u
-x
+Q
 m
 "}
 (5,1,1) = {"
@@ -180,7 +189,7 @@ M
 "}
 (8,1,1) = {"
 m
-x
+z
 D
 p
 m
