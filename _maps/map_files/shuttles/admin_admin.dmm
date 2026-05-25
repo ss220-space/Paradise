@@ -48,8 +48,7 @@
 	dir = 8
 	},
 /obj/structure/shuttle/engine/platform{
-	dir = 4;
-	layer = 2.9
+	dir = 4
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "vfloor"
@@ -156,8 +155,7 @@
 	dir = 8
 	},
 /obj/structure/shuttle/engine/platform{
-	dir = 4;
-	layer = 2.9
+	dir = 4
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "vfloor"
@@ -194,16 +192,13 @@
 	},
 /area/shuttle/administration)
 "aY" = (
-/obj/machinery/computer/camera_advanced/shuttle_docker/admin{
-	dir = 1;
-	name = "NTV Argos shuttle navigation computer"
-	},
 /obj/effect/turf_decal/stripes/gold{
 	dir = 5
 	},
 /obj/machinery/light/small{
 	dir = 1
 	},
+/obj/machinery/computer/card,
 /turf/simulated/floor/carpet/royalblack,
 /area/shuttle/administration)
 "bc" = (
@@ -380,8 +375,7 @@
 	dir = 8
 	},
 /obj/structure/shuttle/engine/platform{
-	dir = 4;
-	layer = 2.9
+	dir = 4
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "vfloor"
@@ -672,6 +666,14 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/shuttle/administration)
+"sK" = (
+/obj/item/twohanded/required/kirbyplants,
+/obj/structure/extinguisher_cabinet/directional/north,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
+/area/shuttle/administration)
 "tW" = (
 /obj/structure/table/reinforced,
 /obj/item/clothing/gloves/color/latex/nitrile,
@@ -729,12 +731,12 @@
 /turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal,
 /area/shuttle/administration)
 "AE" = (
-/obj/machinery/computer/card{
-	dir = 1
-	},
 /obj/effect/turf_decal/stripes/gold{
 	dir = 5;
 	icon_state = "gs_deadlock"
+	},
+/obj/machinery/computer/camera_advanced/shuttle_docker/admin{
+	name = "NTV Argos shuttle navigation computer"
 	},
 /turf/simulated/floor/carpet/royalblack,
 /area/shuttle/administration)
@@ -750,6 +752,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/structure/extinguisher_cabinet/directional/north,
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "darkgrey"
@@ -940,8 +943,7 @@
 /area/shuttle/administration)
 "Ki" = (
 /obj/structure/shuttle/engine/platform{
-	dir = 8;
-	layer = 2.9
+	dir = 8
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "vfloor"
@@ -1024,6 +1026,17 @@
 "Rp" = (
 /turf/simulated/wall/shuttle/nodiagonal,
 /area/shuttle/administration)
+"RB" = (
+/obj/effect/turf_decal/stripes/black,
+/obj/effect/turf_decal/stripes/black{
+	dir = 1
+	},
+/obj/structure/extinguisher_cabinet/directional/north,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "white"
+	},
+/area/shuttle/administration)
 "RD" = (
 /obj/machinery/atmospherics/unary/tank/air{
 	dir = 8
@@ -1034,6 +1047,14 @@
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "podfloor_dark"
+	},
+/area/shuttle/administration)
+"RW" = (
+/obj/item/twohanded/required/kirbyplants,
+/obj/structure/extinguisher_cabinet/directional/west,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
 	},
 /area/shuttle/administration)
 "Ts" = (
@@ -1059,6 +1080,19 @@
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "darkgrey"
+	},
+/area/shuttle/administration)
+"TK" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/black{
+	dir = 4
+	},
+/obj/structure/extinguisher_cabinet/directional/west,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "podfloor_dark"
 	},
 /area/shuttle/administration)
 "UB" = (
@@ -1234,11 +1268,11 @@ Ys
 Ts
 Ts
 Ys
-YV
+RW
 cU
 Hd
 Fr
-QB
+RB
 uX
 Fr
 "}
@@ -1284,7 +1318,7 @@ Fr
 "}
 (9,1,1) = {"
 Ys
-YV
+sK
 aE
 aA
 Pz
@@ -1329,7 +1363,7 @@ Yu
 bw
 Ys
 qT
-qT
+TK
 ry
 Yu
 Yu

@@ -329,3 +329,11 @@
 		occupant = null
 		update_icon(UPDATE_ICON_STATE)
 		use_power = IDLE_POWER_USE
+
+/obj/machinery/recharge_station/attack_hand(mob/user)
+	if(user.a_intent == INTENT_GRAB)
+		if(!user.can_perform_action(src))
+			return
+		go_out()
+
+	return ..()

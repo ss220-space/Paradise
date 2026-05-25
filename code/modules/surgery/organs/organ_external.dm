@@ -17,7 +17,7 @@
 /// Chance for arterial bleeding based on inflicting damage
 #define LIMB_ARTERIAL_BLEEDING_CHANCE_MOD 0.5
 /// Arterial bleeding size
-#define LIMB_ARTERIAL_BLEEDING_SIZE 21
+#define LIMB_ARTERIAL_BLEEDING_SIZE 25
 
 // MARK: External organs
 
