@@ -36,7 +36,7 @@
 		user.visible_message(span_notice("[get_examine_icon(viewers(user))] [pick(cuddle_verb)]"))
 	else
 		var/list/defauld_cuddle = list("обнима[PLUR_ET_YUT(user)]", "тиска[PLUR_ET_YUT(user)]", "прижима[PLUR_ET_YUT(user)]")
-		user.visible_message(span_notice("[user] [pick(defauld_cuddle)] the [src]."))
+		user.visible_message(span_notice("[user] [pick(defauld_cuddle)] [src]."))
 
 /obj/item/toy/plushie/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ..()
@@ -237,7 +237,6 @@
  */
 /obj/item/toy/plushie/voxplushie
 	name = "vox plushie"
-	desc = "A stitched-together vox, fresh from the skipjack. Press its belly to hear it skree!"
 	desc = "Сшитый из разных кусков вокc, только что со своего Скипджека. Нажмите на живот, чтобы услышать его нереальный визг!"
 	icon_state = "plushie_vox"
 	poof_sound = 'sound/voice/shriek1.ogg'
