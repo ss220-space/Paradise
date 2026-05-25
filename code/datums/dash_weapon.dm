@@ -41,7 +41,7 @@
 	var/turf/target_turf = get_turf(target)
 	var/turf/starting_turf = get_turf(user)
 	if(!user.Adjacent(target) && (target in view(user.client.view, user)))
-		var/mob/living/pulled_mob = isliving(user.pulling) ? user.pulling : null
+		var/atom/movable/pulled_thing = user.pulling
 		if(!do_teleport(user, target_turf))
 			user.balloon_alert(user, "нельзя телепортироваться!")
 			return FALSE
@@ -55,8 +55,8 @@
 			owner.update_action_buttons_icon()
 		addtimer(CALLBACK(src, PROC_REF(charge)), charge_rate)
 		last_used = world.time
-		var/can_move_pulled = pulled_mob && !QDELETED(pulled_mob)
-		if(can_move_pulled && !do_teleport(pulled_mob, final_turf))
+		var/can_move_pulled = pulled_thing && !QDELETED(pulled_thing)
+		if(can_move_pulled && !do_teleport(pulled_thing, final_turf))
 			user.balloon_alert(user, "цель не последовала")
 		return TRUE
 

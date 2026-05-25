@@ -48,7 +48,6 @@
 	generator = new_generator
 	interfered_movables = list()
 	..(_host, range, works_when_not_on_turf)
-	recalculate_field(full_recalc = TRUE)
 
 /datum/proximity_monitor/advanced/bsig_stationary/Destroy()
 	clear_interfered_movables()
@@ -82,19 +81,22 @@
 	return list(BSIG_S_FIELD_TURFS_KEY = local_field_turfs, BSIG_S_EDGE_TURFS_KEY = local_edge_turfs)
 
 /datum/proximity_monitor/advanced/bsig_stationary/proc/blocks_turf(turf/target_turf)
-	return generator?.field_active && target_turf && (target_turf in field_turfs)
+	var/list/current_field_turfs = field_turfs
+	return generator?.field_active && target_turf && (target_turf in current_field_turfs)
+
+/datum/proximity_monitor/advanced/bsig_stationary/on_initialized(turf/location, atom/created, init_flags)
+	if(!ismovable(created))
+		return
+	var/atom/movable/created_movable = created
+	on_entered(location, created_movable, null)
 
 /datum/proximity_monitor/advanced/bsig_stationary/on_entered(turf/source, atom/movable/entered, turf/old_loc)
-	SIGNAL_HANDLER
-
 	if(source in field_turfs)
 		field_turf_crossed(entered, old_loc, source)
 	else if(source in edge_turfs)
 		field_edge_crossed(entered, old_loc, source)
 
 /datum/proximity_monitor/advanced/bsig_stationary/on_uncrossed(turf/source, atom/movable/gone, direction)
-	SIGNAL_HANDLER
-
 	if(source in field_turfs)
 		field_turf_uncrossed(gone, source, get_turf(gone))
 	else if(source in edge_turfs)
@@ -112,19 +114,27 @@
 	register_interfered_movable(movable)
 
 /datum/proximity_monitor/advanced/bsig_stationary/field_turf_uncrossed(atom/movable/movable, turf/old_location, turf/new_location)
+	if(blocks_turf(new_location))
+		return
 	unregister_interfered_movable(movable)
+
+/datum/proximity_monitor/advanced/bsig_stationary/field_edge_crossed(atom/movable/movable, turf/old_location, turf/new_location)
+	return
+
+/datum/proximity_monitor/advanced/bsig_stationary/field_edge_uncrossed(atom/movable/movable, turf/old_location, turf/new_location)
+	return
 
 /datum/proximity_monitor/advanced/bsig_stationary/proc/register_interfered_movable(atom/movable/movable)
 	if(!movable || QDELETED(movable))
 		return
-	if(movable in interfered_movables)
+	if(interfered_movables[movable])
 		return
-	interfered_movables += movable
+	interfered_movables[movable] = TRUE
 	RegisterSignal(movable, COMSIG_MOVABLE_TELEPORTING, PROC_REF(block_movable_teleport))
 	RegisterSignal(movable, COMSIG_QDELETING, PROC_REF(on_interfered_movable_deleted))
 
 /datum/proximity_monitor/advanced/bsig_stationary/proc/unregister_interfered_movable(atom/movable/movable)
-	if(!(movable in interfered_movables))
+	if(!interfered_movables[movable])
 		return
 	interfered_movables -= movable
 	UnregisterSignal(movable, list(COMSIG_MOVABLE_TELEPORTING, COMSIG_QDELETING))
@@ -154,7 +164,8 @@
 /datum/proximity_monitor/advanced/bsig_stationary/proc/intercept_teleporting(turf/target_turf, turf/origin, list/teleport_data)
 	SIGNAL_HANDLER
 
-	if(!generator?.field_active || !(target_turf in field_turfs))
+	var/list/current_field_turfs = field_turfs
+	if(!generator?.field_active || !(target_turf in current_field_turfs))
 		return
 	if(teleport_data && teleport_data[TELEPORT_INTERCEPT_IGNORE_BLUESPACE])
 		return
@@ -254,7 +265,7 @@
 
 	if(range_part_count)
 		var/average_rating = total_range_rating / range_part_count
-		field_range = clamp(BSIG_S_MIN_RANGE + round((average_rating - 1) * ((BSIG_S_MAX_RANGE - BSIG_S_MIN_RANGE) / BSIG_S_MAX_RATING_OFFSET)), BSIG_S_MIN_RANGE, BSIG_S_MAX_RANGE)
+		field_range = clamp(BSIG_S_MIN_RANGE + round((average_rating - 1) * (BSIG_S_MAX_RANGE - BSIG_S_MIN_RANGE) / BSIG_S_MAX_RATING_OFFSET), BSIG_S_MIN_RANGE, BSIG_S_MAX_RANGE)
 	else
 		field_range = BSIG_S_MIN_RANGE
 
@@ -347,7 +358,8 @@
 	clear_field_visuals()
 	if(!field_active || !interference_field)
 		return
-	for(var/turf/current_turf as anything in interference_field.field_turfs)
+	var/list/current_field_turfs = interference_field.field_turfs
+	for(var/turf/current_turf as anything in current_field_turfs)
 		var/image/field_visual = image('icons/effects/alphacolors.dmi', current_turf, "blue", ABOVE_OPEN_TURF_LAYER)
 		field_visual.alpha = BSIG_S_DIAG_FIELD_ALPHA
 		field_visual.color = BSIG_S_FIELD_COLOR
@@ -384,8 +396,9 @@
 	var/target_z = from_turf.z
 	var/turf/best_turf
 	var/best_distance
+	var/list/current_edge_turfs = interference_field.edge_turfs
 
-	for(var/turf/current_turf as anything in interference_field.edge_turfs)
+	for(var/turf/current_turf as anything in current_edge_turfs)
 		if(!current_turf || current_turf.z != target_z)
 			continue
 		if(current_turf.is_blocked_turf(exclude_mobs = TRUE))

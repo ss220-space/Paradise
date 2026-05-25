@@ -113,9 +113,11 @@
 				return buckled_blocker
 	if(ismecha(teleatom))
 		var/obj/mecha/mecha = teleatom
-		var/mob/living/mecha_blocker = get_living_teleport_blocker(mecha.occupant, blocking_trait)
-		if(mecha_blocker)
-			return mecha_blocker
+		if(isliving(mecha.occupant))
+			var/mob/living/mecha_occupant = mecha.occupant
+			var/mob/living/mecha_blocker = get_living_teleport_blocker(mecha_occupant, blocking_trait)
+			if(mecha_blocker)
+				return mecha_blocker
 	return get_contained_teleport_blocker(teleatom, blocking_trait)
 
 /proc/notify_bluespace_interference(atom/movable/notified_atom, atom/movable/teleatom)
