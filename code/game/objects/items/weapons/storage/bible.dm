@@ -1,3 +1,5 @@
+#define SECT_BIBLE_BLESS_BLOCKED -1
+
 /obj/item/storage/bible
 	name = "bible"
 	desc = "Многократно прислоняйте к голове."
@@ -13,6 +15,7 @@
 	pickup_sound =  'sound/items/handling/pickup/book_pickup.ogg'
 	var/mob/affecting = null
 	var/deity_name = "Господь-Бог"
+	var/datum/religion_sect/bound_sect
 	/// Is the sprite of this bible customisable
 	var/customisable = FALSE
 	var/god_punishment = 0 //used for diffrent abuse with bible (healing self is one of them)
@@ -35,6 +38,32 @@
 		"Некрономикон" =	 	list("state" = "bible_necronomicon",	"inhand" = "necronomicon"),
 		"Грин текст" =			list("state" = "bible_greentext",	  	"inhand" = "greentext"),
 )
+
+/obj/item/storage/bible/Destroy(force)
+	bound_sect = null
+	return ..()
+
+/obj/item/storage/bible/examine(mob/user)
+	. = ..()
+	var/datum/religion_sect/current_sect = get_bound_sect()
+	if(current_sect)
+		. += span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] привязана к вере \"[current_sect.name]\" и богу \"[current_sect.deity_name]\".")
+
+/obj/item/storage/bible/proc/bind_to_sect(datum/religion_sect/new_sect, mob/user)
+	if(!new_sect || QDELETED(new_sect))
+		return FALSE
+	bound_sect = new_sect
+	deity_name = new_sect.deity_name
+	icon_state = new_sect.bible_icon_state
+	item_state = "bible"
+	customisable = FALSE
+	new_sect.on_bible_bind(src, user)
+	return TRUE
+
+/obj/item/storage/bible/proc/get_bound_sect()
+	if(QDELETED(bound_sect))
+		bound_sect = null
+	return bound_sect
 
 /obj/item/storage/bible/get_ru_names()
 	return list(
@@ -103,7 +132,7 @@
 	god_punishment = max(0, god_punishment - round((world.time - last_used) / (30 SECONDS))) //forgive 1 sin every 30 seconds
 	last_used = world.time
 
-/obj/item/storage/bible/attack(mob/living/carbon/human/target, mob/living/carbon/human/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/storage/bible/attack(mob/living/target, mob/living/carbon/human/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ATTACK_CHAIN_PROCEED
 
 	if(!ishuman(user) || is_monkeybasic(user))
@@ -112,7 +141,7 @@
 
 	god_forgive()
 
-	if(!user.mind || !user.mind.isholy)
+	if(!is_holy_person(user))
 		to_chat(user, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] начинает шипеть в ваших руках."))
 		add_attack_logs(user, target, "Hit themselves with [src]")
 		user.take_organ_damage(0, 10)
@@ -140,13 +169,21 @@
 		playsound(loc, SFX_PUNCH, 25, TRUE, -1)
 		return .|ATTACK_CHAIN_SUCCESS
 
+	var/datum/religion_sect/current_sect = get_bound_sect()
+	var/sect_bless_result = current_sect?.on_bible_bless(src, target, user)
+	if(sect_bless_result == SECT_BIBLE_BLESS_BLOCKED)
+		playsound(loc, SFX_PUNCH, 25, TRUE, -1)
+		return .|ATTACK_CHAIN_SUCCESS
+
 	if(!ishuman(target))
 		return .
+	var/mob/living/carbon/human/human_target = target
 
 	. |= ATTACK_CHAIN_SUCCESS
 
 	if(prob(60))
-		bless(target)
+		if(!sect_bless_result)
+			bless(human_target)
 		if(user == target)
 			target.visible_message(
 				span_danger("[user] излечива[PLUR_ET_YUT(user)] себя с силой Бога \"[deity_name]\"!"),
@@ -159,9 +196,9 @@
 			)
 		playsound(loc, SFX_PUNCH, 25, TRUE, -1)
 	else
-		if(!istype(target.head, /obj/item/clothing/head/helmet))
-			target.apply_damage(10, BRAIN)
-			to_chat(target, span_warning("Вы ощущаете себя глупее, чем раньше."))
+		if(!istype(human_target.head, /obj/item/clothing/head/helmet))
+			human_target.apply_damage(10, BRAIN)
+			to_chat(human_target, span_warning("Вы ощущаете себя глупее, чем раньше."))
 		if(user == target)
 			target.visible_message(
 				span_danger("[user] огрева[PLUR_ET_YUT(user)] себя [declent_ru(INSTRUMENTAL)] по голове!"),
@@ -191,16 +228,16 @@
 
 	if(isfloorturf(target))
 		to_chat(user, span_notice("Вы ударяете пол [declent_ru(INSTRUMENTAL)]."))
-		if(user.mind?.isholy)
+		if(is_holy_person(user))
 			for(var/obj/O in target)
 				O.cult_reveal()
 	if(is_airlock(target))
 		to_chat(user, span_notice("Вы ударяете шлюз [declent_ru(INSTRUMENTAL)]."))
-		if(user.mind?.isholy)
+		if(is_holy_person(user))
 			var/obj/airlock = target
 			airlock.cult_reveal()
 
-	if(user.mind?.isholy && target.reagents)
+	if(is_holy_person(user) && target.reagents)
 		add_holy_water(user, target)
 
 /obj/item/storage/bible/proc/add_holy_water(mob/user, atom/target)
@@ -218,7 +255,7 @@
 
 /obj/item/storage/bible/attack_self(mob/user)
 	. = ..()
-	if(!customisable || !user.mind?.isholy)
+	if(!customisable || !is_holy_person(user))
 		return
 
 	var/list/skins = list()
@@ -244,7 +281,7 @@
 		SSticker.Bible_item_state = item_state
 
 /obj/item/storage/bible/proc/radial_check(mob/user)
-	if(!user?.mind.isholy || !ishuman(user))
+	if(!is_holy_person(user) || !ishuman(user))
 		return FALSE
 	var/mob/living/carbon/human/H = user
 	if(!src || !H.is_type_in_hands(src) || H.incapacitated())
