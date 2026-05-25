@@ -188,9 +188,9 @@
 	*/
 
 /obj/item/transfer_valve/proc/toggle_valve(mob/user)
+	playsound(src, 'sound/effects/valve_opening.ogg', 50)
 	if(!valve_open && tank_one && tank_two)
 		valve_open = TRUE
-		playsound(src, 'sound/effects/valve_opening.ogg', 50)
 		var/turf/bombturf = get_turf(src)
 
 		var/mob/mob = get_mob_by_key(src.fingerprintslast)
