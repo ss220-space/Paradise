@@ -1,0 +1,4 @@
+author: "SCPfollower"
+delete-after: True
+changes:
+  - tweak: "Возможность вытаскивать засевших в заряднике в граб интенте (PR #9294)"

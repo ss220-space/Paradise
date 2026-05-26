@@ -13,12 +13,6 @@
 /obj/structure/window/full/shuttle,
 /turf/simulated/floor/plating,
 /area/shuttle/transport)
-"f" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 5;
-	icon_state = "white_walls_corners"
-	},
-/area/shuttle/transport)
 "g" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 8;
@@ -171,12 +165,6 @@
 	icon_state = "freezerfloor"
 	},
 /area/shuttle/transport)
-"y" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 6;
-	icon_state = "white_walls_corners"
-	},
-/area/shuttle/transport)
 "G" = (
 /turf/simulated/wall/shuttle/onlyselfsmooth,
 /area/shuttle/transport)
@@ -265,9 +253,9 @@ w
 c
 "}
 (12,1,1) = {"
-f
-e
+G
+c
 r
-e
-y
+c
+G
 "}

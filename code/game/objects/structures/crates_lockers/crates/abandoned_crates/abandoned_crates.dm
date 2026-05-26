@@ -252,7 +252,7 @@
 			emag_act(user)
 			return ATTACK_CHAIN_BLOCKED_ALL
 		add_fingerprint(user)
-		return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+		return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 	return ..()
 
 /obj/structure/closet/crate/secure/loot/emag_act(mob/user)

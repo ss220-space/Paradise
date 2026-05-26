@@ -94,7 +94,7 @@
 				span_notice("Вы начинаете чистить [declent_ru(ACCUSATIVE)]..."),
 			)
 			if(!do_after(user, 2 SECONDS * I.toolspeed, src, category = DA_CAT_TOOL))
-				return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+				return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 			dirty = NO_DIRT // It's clean!
 			update_icon(UPDATE_ICON_STATE)
 			if(broken == BROKEN_NONE)
@@ -107,12 +107,12 @@
 
 		//Otherwise bad luck!!
 		balloon_alert(user, "нужно почистить!")
-		return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+		return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 
 	if(is_type_in_list(I, GLOB.cooking_ingredients[recipe_type]) || istype(I, /obj/item/mixing_bowl))
 		if(length(contents) >= max_n_of_items)
 			balloon_alert(user, "нет места!")
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 		var/obj/item/stack/stack = I
 		if(!isstack(I) || stack.get_amount() <= 1)
 			if(!add_item(I, user))
@@ -137,11 +137,11 @@
 		var/obj/item/reagent_containers/container = I
 		if(!container.reagents || !container.reagents.total_volume)
 			balloon_alert(user, "ёмкость пуста!")
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 		for(var/datum/reagent/reagent as anything in container.reagents.reagent_list)
 			if(!(reagent.id in GLOB.cooking_reagents[recipe_type]))
 				balloon_alert(user, "содержит непригодные вещества!")
-				return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+				return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 		container.reagents.trans_to(src, container.amount_per_transfer_from_this)
 		user.visible_message(
 			span_notice("[user] добавля[PLUR_ET_YUT(user)] несколько ингредиентов из [container.declent_ru(GENITIVE)]."),
@@ -151,7 +151,7 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS|ATTACK_CHAIN_NO_AFTERATTACK
 
 	to_chat(user, span_warning("Вы не представляете, как готовить [I.declent_ru(GENITIVE)]..."))
-	return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+	return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 
 /obj/machinery/kitchen_machine/examine(mob/user)
 	. = ..()
