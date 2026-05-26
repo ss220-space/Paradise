@@ -35,18 +35,26 @@
 /// Oxy damage if use tourniquet on head
 #define MAX_SUPPRESS_BLEEDING_BY_HAND 15
 
-
 // MARK: Sybsystem
 SUBSYSTEM_DEF(blood)
 	name = "Blood"
 	priority = FIRE_PRIORITY_MOBS
-	ss_flags = SS_KEEP_TIMING
+	ss_flags = SS_KEEP_TIMING | SS_NO_INIT
+	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
 	wait = 2 SECONDS
 	/// List of current processing humans
 	var/list/currentrun = list()
 
+/datum/controller/subsystem/blood/get_metrics()
+	. = ..()
+	var/list/custom_data = list()
+	custom_data["processing"] = length(GLOB.human_list)
+	.["custom"] = custom_data
 
-/datum/controller/subsystem/blood/fire(resumed = 0)
+/datum/controller/subsystem/blood/get_stat_details()
+	return "P:[length(GLOB.human_list)]"
+
+/datum/controller/subsystem/blood/fire(resumed = FALSE)
 	if(!resumed)
 		src.currentrun = GLOB.human_list.Copy()
 
@@ -70,7 +78,6 @@ SUBSYSTEM_DEF(blood)
 	apply_current_blood_level_effect(target)
 	process_bleeding(target)
 
-
 /datum/controller/subsystem/blood/proc/restore_blood_volume(mob/living/carbon/human/target)
 	if(target.stat == DEAD)
 		return // death human can not restore blood
@@ -78,9 +85,16 @@ SUBSYSTEM_DEF(blood)
 		return // specific trait for disable restore blood
 	if(target.blood_volume >= BLOOD_VOLUME_NORMAL)
 		return // already max blood in body
-	target.AdjustBlood(BLOOD_REGENERATION)
-	//TODO vakons: add iron reagent in blood for increase blood regeneration mod
+	var/regen_mod = calculate_reagents_regen_mod(target)
+	target.AdjustBlood(BLOOD_REGENERATION * regen_mod)
 
+/datum/controller/subsystem/blood/proc/calculate_reagents_regen_mod(mob/living/carbon/human/target)
+	// calculate blood regeneration speed-up from reagents
+	var/mod = 1
+	var/iron_amount = target.reagents.get_reagent_amount(/datum/reagent/iron)
+	if(iron_amount > 0)
+		mod += round(clamp((iron_amount / 10), 0, 1) * 8, 0.05) // iron speeds up blood regeneration up to x9
+	return mod
 
 /datum/controller/subsystem/blood/proc/apply_current_blood_level_effect(mob/living/carbon/human/target)
 	if(target.stat == DEAD)
@@ -173,7 +187,7 @@ SUBSYSTEM_DEF(blood)
 			bodypart_bleeding = max(0, bodypart_bleeding - MAX_SUPPRESS_BLEEDING_BY_HAND)
 
 		current_bleed += bodypart_bleeding
-		var/embedded_length = LAZYLEN(bodypart.embedded_objects)
+		var/embedded_length = length(bodypart.embedded_objects)
 
 		if(embedded_length && bodypart.bleedsuppress > 0)
 			current_bleed += EMBEDDED_ITEM_BLEEDING * embedded_length
@@ -211,15 +225,14 @@ SUBSYSTEM_DEF(blood)
 	if(has_arterial_bleed && target.stat != DEAD)
 		create_arterial_bleeding_splatter(target)
 
-
 /datum/controller/subsystem/blood/proc/calculate_reagents_bleed_mod(mob/living/carbon/human/target)
 	// calculate addition bleeding from reagents
 	var/mod = 1
-	var/heparin_amount = target.reagents.get_reagent_amount("heparin")
+	var/heparin_amount = target.reagents.get_reagent_amount(/datum/reagent/heparin)
 	if(heparin_amount > 0)
 		mod += round(clamp((heparin_amount / 20), 0, 1) * 0.75, 0.05) //heparin worsens existing bleeding
 
-	var/traneksam_amount = target.reagents.get_reagent_amount("traneksam_acid")
+	var/traneksam_amount = target.reagents.get_reagent_amount(/datum/reagent/medicine/traneksam_acid)
 	if(traneksam_amount > 0)
 		mod -= round(clamp((traneksam_amount / 10), 0, 1) * 0.75, 0.05) //traneksam acid suppress existing bleeding
 
@@ -239,13 +252,11 @@ SUBSYSTEM_DEF(blood)
 	var/temperature_percent = clamp((target.bodytemperature - T0C) / (BODYTEMP_NORMAL * 0.75 - T0C), 0, 1)
 	return BLOODLOSS_SPEED_BY_TEMP_MIN + (BLOODLOSS_SPEED_BY_TEMP_MAX - BLOODLOSS_SPEED_BY_TEMP_MIN) * temperature_percent
 
-
 /datum/controller/subsystem/blood/proc/create_arterial_bleeding_splatter(mob/living/carbon/human/target)
 	var/splatter_color = target.get_blood_color()
 	if(!splatter_color)
 		return
 	new /obj/effect/temp_visual/dir_setting/bloodsplatter(get_turf(target), rand(0, 360), splatter_color)
-
 
 #undef BLOOD_REGENERATION
 #undef BLOOD_PALE_DAMAGE
