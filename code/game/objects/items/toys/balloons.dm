@@ -114,7 +114,7 @@
 	icon_state = "balloon_long"
 	w_class = WEIGHT_CLASS_NORMAL
 	/// Combinations of balloon colours to make specific animals.
-	var/list/balloon_combos = list(
+	var/static/list/balloon_combos = list(
 		list("red", "blue") = /obj/item/toy/balloon_animal/guy,
 		list("red", "green") = /obj/item/toy/balloon_animal/nukie,
 		list("red", "yellow") = /obj/item/toy/balloon_animal/clown,
