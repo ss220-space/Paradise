@@ -158,7 +158,7 @@
 		if(KNOCK_SPELL)
 			if(!proximity_flag) //magical key only works if you're close enough
 				return
-			if(istype(target, /obj/machinery/door))
+			if(is_door(target))
 				var/obj/machinery/door/door = target
 				if(istype(door, /obj/machinery/door/airlock/hatch/gamma))
 					return

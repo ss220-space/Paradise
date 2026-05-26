@@ -3957,6 +3957,7 @@
 #include "code\modules\spells\spell_types\list_target\_list_target.dm"
 #include "code\modules\spells\spell_types\pointed\_pointed.dm"
 #include "code\modules\spells\spell_types\proejctile\_basic_projectile.dm"
+#include "code\modules\spells\spell_types\self\mutate.dm"
 #include "code\modules\spells\spell_types\self\no_clothes.dm"
 #include "code\modules\spells\spell_types\shapeshift\_shape_status.dm"
 #include "code\modules\spells\spell_types\shapeshift\_shapeshift.dm"

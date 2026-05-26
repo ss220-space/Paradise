@@ -24,7 +24,6 @@
 
 /// Gives magic projectiles an area of effect radius that will bump into any nearby mobs
 /obj/projectile/magic/aoe
-	damage = 0
 
 	/// The AOE radius that the projectile will trigger on people.
 	var/trigger_range = 1
@@ -97,7 +96,6 @@
 	icon_state = "bike_horn"
 
 	trail_icon = 'icons/obj/items.dmi'
-	trail = TRUE
 	trail_lifespan = 5
 	trail_icon_state = "bike_horn"
 

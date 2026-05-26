@@ -21,8 +21,6 @@
 /datum/status_effect/no_clothes/on_apply()
 	return TRUE
 
-/datum/status_effect/no_clothes/on_remove()
-
 /atom/movable/screen/alert/status_effect/no_clothes
 	name = "Усиление магии"
 	desc = "Вам больше не нужна одежда для использования заклинаний!"
