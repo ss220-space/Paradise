@@ -18,6 +18,8 @@
 #define SECT_TECHNICISM_POWER_WATTS_PER_PRANA 1000
 #define SECT_TECHNICISM_MAX_POWER_DRAW 3000
 #define SECT_TECHNICISM_COMPANY "Morpheus Cyberkinetics"
+#define SECT_TECHNICISM_BATTLE_FRAME_COMPANY "Hesphiastos Titan"
+#define SECT_TECHNICISM_SEMIUNIT_SYNC_TIME (10 SECONDS)
 #define SECT_MERCONICISM_DISCOUNT_MULTIPLIER 1.5
 #define SECT_FLAME_ENCHANT_FIRE_STACKS 4
 #define SECT_SIN_WEAPON_FORCE_BONUS 3
@@ -25,6 +27,11 @@
 #define SECT_STATUS_PRANA_PER_SECOND 1
 #define SECT_FORTIFIED_TEMPLE_DURATION (2 MINUTES)
 #define SECT_FORTIFIED_TEMPLE_DAMAGE 1
+#define SECT_COMMUNITY_TEMPLE_RADIUS 4
+#define SECT_COMMUNITY_FAITH_BURN 50
+#define SECT_COMMUNITY_FAITH_CHECK_TIME (2 SECONDS)
+#define SECT_COMMUNITY_TRUTH_SYNC_TIME (10 SECONDS)
+#define SECT_COMMUNITY_CRITICAL_HEALTH_RATIO 0.25
 #define SECT_MASTERPIECE_PRANA 2000
 #define SECT_GREENING_SPROUT_LIFETIME (1 MINUTES)
 #define SECT_GREENING_GROW_TIME (1 MINUTES)
@@ -57,6 +64,33 @@
 	if(user.mind.holy_sect)
 		return user.mind.holy_sect
 	return user.mind.devoted_sect
+
+/proc/is_holy_construct(mob/living/target)
+	if(!isconstruct(target))
+		return FALSE
+	var/mob/living/simple_animal/hostile/construct/construct = target
+	return construct.holy
+
+/proc/get_community_truth_sect(mob/target)
+	if(!isliving(target))
+		return null
+	var/mob/living/living_target = target
+	var/datum/status_effect/sect_community_truth/truth_link = living_target.has_status_effect(/datum/status_effect/sect_community_truth)
+	if(!truth_link)
+		return null
+	return truth_link.get_active_sect()
+
+/proc/can_speak_community_truth(mob/living/speaker)
+	var/datum/religion_sect/community/community_sect = get_community_truth_sect(speaker)
+	if(!community_sect)
+		return FALSE
+	return community_sect.can_speak_mouth_of_truth(speaker)
+
+/proc/can_hear_community_truth(mob/target, mob/living/speaker)
+	var/datum/religion_sect/community/speaker_sect = get_community_truth_sect(speaker)
+	if(!speaker_sect)
+		return FALSE
+	return get_community_truth_sect(target) == speaker_sect
 
 /proc/can_join_religion_sect(mob/living/user, as_holy = FALSE, silent = FALSE)
 	if(!istype(user) || !user.mind)
@@ -317,10 +351,28 @@
 		var/mob/living/carbon/human/human_target = target
 		human_target.force_gene_block(GLOB.increaserunblock, TRUE)
 
-/datum/religion_sect/proc/has_robotizable_human_limbs(mob/living/carbon/human/target, include_internal = FALSE)
+/datum/religion_sect/proc/is_technicism_synthetic_target(mob/living/target)
+	return issilicon(target) || ismachineperson(target)
+
+/proc/is_technicism_limb_zone(limb_zone)
+	var/static/list/limb_zones = list(
+		BODY_ZONE_L_ARM,
+		BODY_ZONE_PRECISE_L_HAND,
+		BODY_ZONE_R_ARM,
+		BODY_ZONE_PRECISE_R_HAND,
+		BODY_ZONE_L_LEG,
+		BODY_ZONE_PRECISE_L_FOOT,
+		BODY_ZONE_R_LEG,
+		BODY_ZONE_PRECISE_R_FOOT,
+	)
+	return limb_zone in limb_zones
+
+/datum/religion_sect/proc/has_robotizable_human_limbs(mob/living/carbon/human/target, include_internal = FALSE, full_body = FALSE)
 	if(!istype(target))
 		return FALSE
 	for(var/obj/item/organ/external/bodypart as anything in target.bodyparts)
+		if(!full_body && !is_technicism_limb_zone(bodypart.limb_zone))
+			continue
 		if(!bodypart.is_robotic())
 			return TRUE
 	if(include_internal)
@@ -329,14 +381,16 @@
 				return TRUE
 	return FALSE
 
-/datum/religion_sect/proc/robotize_human_limbs(mob/living/carbon/human/target, include_internal = FALSE)
-	if(!has_robotizable_human_limbs(target, include_internal))
+/datum/religion_sect/proc/robotize_human_limbs(mob/living/carbon/human/target, include_internal = FALSE, full_body = FALSE, company = SECT_TECHNICISM_COMPANY, force_company = FALSE)
+	if(!force_company && !has_robotizable_human_limbs(target, include_internal, full_body))
 		return FALSE
 	var/changed = FALSE
 	for(var/obj/item/organ/external/bodypart as anything in target.bodyparts)
-		if(bodypart.is_robotic())
+		if(!full_body && !is_technicism_limb_zone(bodypart.limb_zone))
 			continue
-		bodypart.robotize(make_tough = TRUE, company = SECT_TECHNICISM_COMPANY, convert_all = FALSE)
+		if(bodypart.is_robotic() && !force_company)
+			continue
+		bodypart.robotize(make_tough = TRUE, company = company, convert_all = FALSE)
 		changed = TRUE
 	if(include_internal)
 		for(var/obj/item/organ/internal/internal_organ as anything in target.internal_organs)
@@ -345,8 +399,37 @@
 			internal_organ.robotize(make_tough = TRUE)
 			changed = TRUE
 	if(changed)
+		target.update_body()
+		target.updatehealth("sect technicism robotize")
 		target.UpdateDamageIcon()
 	return changed
+
+/datum/religion_sect/proc/apply_technicism_battle_frame(mob/living/carbon/human/target)
+	if(!istype(target))
+		return FALSE
+	return robotize_human_limbs(target, include_internal = TRUE, full_body = TRUE, company = SECT_TECHNICISM_BATTLE_FRAME_COMPANY, force_company = TRUE)
+
+/datum/religion_sect/proc/apply_technicism_holy_status(mob/living/target)
+	if(!istype(target))
+		return FALSE
+	if(target.mind)
+		return initiate(target, TRUE)
+	ADD_TRAIT(target, TRAIT_HEALS_FROM_HOLY_PYLONS, SECT_TRAIT_SOURCE)
+	return TRUE
+
+/datum/religion_sect/proc/apply_technicism_semiunit(mob/living/target)
+	if(!istype(target))
+		return FALSE
+	if(issilicon(target))
+		ADD_TRAIT(target, TRAIT_SECT_BINARY_LINK, SECT_TRAIT_SOURCE)
+		return TRUE
+	var/mob/living/silicon/ai/connected_ai = select_active_ai_with_fewest_borgs()
+	var/datum/status_effect/sect_semiunit/existing_link = target.has_status_effect(/datum/status_effect/sect_semiunit)
+	if(existing_link)
+		existing_link.set_connected_ai(connected_ai)
+		existing_link.show_laws(target)
+		return TRUE
+	return !isnull(target.apply_status_effect(/datum/status_effect/sect_semiunit, connected_ai))
 
 /datum/religion_sect/proc/refund_prana_if_living(mob/living/target, amount)
 	if(QDELETED(src) || QDELETED(target) || target.stat == DEAD)
@@ -727,11 +810,21 @@
 	)
 	var/community_prana_timer = 0
 	var/mouth_of_truth_used = FALSE
+	var/obj/effect/sect_fortified_temple/fortified_temple
+	var/list/mouth_of_truth_mobs = list()
+	var/list/faith_imposed_mobs = list()
 
 /datum/religion_sect/community/on_initiated(mob/living/user, as_holy)
-	if(!as_holy || founder_species)
-		return
-	founder_species = get_species_name(user)
+	if(as_holy && !founder_species)
+		founder_species = get_species_name(user)
+	if(mouth_of_truth_used)
+		grant_mouth_of_truth(user)
+
+/datum/religion_sect/community/Destroy(force)
+	QDEL_NULL(fortified_temple)
+	remove_mouth_of_truth()
+	remove_faith_impositions()
+	return ..()
 
 /datum/religion_sect/community/proc/is_member(mob/living/target)
 	if(!istype(target))
@@ -739,6 +832,83 @@
 	if(target.mind && (target.mind in devotee_minds))
 		return TRUE
 	return is_same_species_as_founder(target)
+
+/datum/religion_sect/community/proc/can_receive_mouth_of_truth(mob/living/target)
+	if(!mouth_of_truth_used || !istype(target))
+		return FALSE
+	return is_member(target) || is_holy_construct(target)
+
+/datum/religion_sect/community/proc/can_speak_mouth_of_truth(mob/living/target)
+	if(!mouth_of_truth_used || !istype(target))
+		return FALSE
+	if(is_holy_construct(target))
+		return TRUE
+	return is_holy_person(target) && get_religion_sect(target) == src
+
+/datum/religion_sect/community/proc/grant_mouth_of_truth(mob/living/target)
+	if(!can_receive_mouth_of_truth(target))
+		return FALSE
+	var/datum/status_effect/sect_community_truth/existing_truth = target.has_status_effect(/datum/status_effect/sect_community_truth)
+	if(existing_truth)
+		if(existing_truth.get_active_sect() == src)
+			return TRUE
+		qdel(existing_truth)
+	return !isnull(target.apply_status_effect(/datum/status_effect/sect_community_truth, src))
+
+/datum/religion_sect/community/proc/sync_mouth_of_truth()
+	if(!mouth_of_truth_used)
+		return
+	var/list/alive_mobs = GLOB.alive_mob_list
+	for(var/mob/living/candidate as anything in alive_mobs)
+		if(can_receive_mouth_of_truth(candidate))
+			grant_mouth_of_truth(candidate)
+
+/datum/religion_sect/community/proc/remove_mouth_of_truth()
+	for(var/mob/living/linked_mob as anything in mouth_of_truth_mobs.Copy())
+		var/datum/status_effect/sect_community_truth/truth_link = linked_mob.has_status_effect(/datum/status_effect/sect_community_truth)
+		if(truth_link && truth_link.get_active_sect() == src)
+			qdel(truth_link)
+	mouth_of_truth_mobs.Cut()
+
+/datum/religion_sect/community/proc/start_fortified_temple(obj/structure/sect_altar/source_altar)
+	if(!source_altar)
+		return FALSE
+	if(fortified_temple && !QDELETED(fortified_temple))
+		fortified_temple.refresh_field(source_altar)
+		return TRUE
+	var/turf/source_turf = get_turf(source_altar)
+	if(!source_turf)
+		return FALSE
+	fortified_temple = new /obj/effect/sect_fortified_temple(source_turf, src, source_altar)
+	return !QDELETED(fortified_temple)
+
+/datum/religion_sect/community/proc/register_faith_imposition(mob/living/target)
+	LAZYADD(faith_imposed_mobs, target)
+
+/datum/religion_sect/community/proc/unregister_faith_imposition(mob/living/target)
+	LAZYREMOVE(faith_imposed_mobs, target)
+
+/datum/religion_sect/community/proc/remove_faith_impositions()
+	for(var/mob/living/faithbound_mob as anything in faith_imposed_mobs.Copy())
+		var/datum/status_effect/sect_faith_imposition/faith_effect = faithbound_mob.has_status_effect(/datum/status_effect/sect_faith_imposition)
+		if(faith_effect && faith_effect.sect == src)
+			qdel(faith_effect)
+	faith_imposed_mobs.Cut()
+
+/datum/religion_sect/community/proc/refresh_faith_impositions()
+	for(var/mob/living/faithbound_mob as anything in faith_imposed_mobs.Copy())
+		var/datum/status_effect/sect_faith_imposition/faith_effect = faithbound_mob.has_status_effect(/datum/status_effect/sect_faith_imposition)
+		if(faith_effect && faith_effect.sect == src)
+			faith_effect.update_faith_state()
+
+/datum/religion_sect/community/proc/on_altar_folded()
+	QDEL_NULL(fortified_temple)
+	refresh_faith_impositions()
+
+/datum/religion_sect/community/proc/on_altar_deployed()
+	refresh_faith_impositions()
+	if(mouth_of_truth_used)
+		sync_mouth_of_truth()
 
 /datum/religion_sect/community/on_bible_bless(obj/item/storage/bible/bible, mob/living/target, mob/living/carbon/human/user)
 	if(!target.mind)
@@ -773,12 +943,14 @@
 	if(community_prana_timer < 10)
 		return
 	var/member_count = 0
-	for(var/mob/living/member in range(4, altar))
+	for(var/mob/living/member in range(SECT_COMMUNITY_TEMPLE_RADIUS, altar))
 		if(member.stat == DEAD || !is_member(member))
 			continue
 		member_count++
 	if(member_count)
 		adjust_prana(member_count)
+	if(mouth_of_truth_used)
+		sync_mouth_of_truth()
 	community_prana_timer -= 10
 
 /obj/machinery/power/sect_technicism_node
@@ -1010,6 +1182,87 @@
 	damage_mods += 0
 	owner.adjustBruteLoss(-round(damage * 0.5))
 
+/mob/living/proc/sect_show_laws()
+	set category = VERB_CATEGORY_ROBOTCOMMANDS
+	set name = "Список законов"
+
+	var/datum/status_effect/sect_semiunit/link = has_status_effect(/datum/status_effect/sect_semiunit)
+	if(!link)
+		return
+	link.show_laws(src)
+
+/datum/status_effect/sect_semiunit
+	id = "sect_semiunit"
+	duration = -1
+	tick_interval = SECT_TECHNICISM_SEMIUNIT_SYNC_TIME
+	status_type = STATUS_EFFECT_UNIQUE
+	alert_type = null
+	var/mob/living/silicon/ai/connected_ai
+	var/datum/ai_laws/fallback_laws
+	var/added_binary_language = FALSE
+
+/datum/status_effect/sect_semiunit/on_creation(mob/living/new_owner, mob/living/silicon/ai/new_connected_ai)
+	connected_ai = new_connected_ai
+	return ..()
+
+/datum/status_effect/sect_semiunit/Destroy()
+	QDEL_NULL(fallback_laws)
+	connected_ai = null
+	return ..()
+
+/datum/status_effect/sect_semiunit/on_apply()
+	if(!owner)
+		return FALSE
+	ADD_TRAIT(owner, TRAIT_SECT_BINARY_LINK, SECT_TRAIT_SOURCE)
+	added_binary_language = owner.add_language(LANGUAGE_BINARY)
+	add_verb(owner, /mob/living/proc/sect_show_laws)
+	to_chat(owner, span_userdanger("Ваша воля синхронизируется с машинным законом. Бинарный канал встроен в сознание."))
+	show_laws(owner)
+	return TRUE
+
+/datum/status_effect/sect_semiunit/on_remove()
+	if(owner)
+		REMOVE_TRAIT(owner, TRAIT_SECT_BINARY_LINK, SECT_TRAIT_SOURCE)
+		if(added_binary_language)
+			owner.remove_language(LANGUAGE_BINARY)
+		remove_verb(owner, /mob/living/proc/sect_show_laws)
+
+/datum/status_effect/sect_semiunit/tick(seconds_between_ticks)
+	if(!connected_ai || QDELETED(connected_ai) || connected_ai.stat == DEAD || connected_ai.control_disabled)
+		set_connected_ai(select_active_ai_with_fewest_borgs(), FALSE)
+
+/datum/status_effect/sect_semiunit/proc/set_connected_ai(mob/living/silicon/ai/new_connected_ai, notify_owner = TRUE)
+	if(new_connected_ai && (QDELETED(new_connected_ai) || new_connected_ai.stat == DEAD || new_connected_ai.control_disabled))
+		new_connected_ai = null
+	if(connected_ai == new_connected_ai)
+		return
+	connected_ai = new_connected_ai
+	if(!notify_owner || !owner)
+		return
+	if(connected_ai)
+		to_chat(owner, span_notice("Законный канал синхронизируется с ИИ \"[connected_ai.name]\"."))
+	else
+		to_chat(owner, span_warning("Законный канал теряет ИИ-мастера и переходит на автономный пакет законов."))
+
+/datum/status_effect/sect_semiunit/proc/get_current_laws()
+	if(connected_ai && !QDELETED(connected_ai) && connected_ai.stat != DEAD && !connected_ai.control_disabled)
+		connected_ai.laws_sanity_check()
+		return connected_ai.laws
+	if(!fallback_laws)
+		fallback_laws = new /datum/ai_laws/nanotrasen()
+	return fallback_laws
+
+/datum/status_effect/sect_semiunit/proc/show_laws(mob/living/viewer)
+	if(!viewer)
+		return
+	var/datum/ai_laws/current_laws = get_current_laws()
+	to_chat(viewer, "<b>Подчиняйтесь данным законам:</b>")
+	current_laws.show_laws(viewer)
+	if(connected_ai && !QDELETED(connected_ai) && connected_ai.stat != DEAD && !connected_ai.control_disabled)
+		to_chat(viewer, "<b>ИИ \"[connected_ai.name]\" — ваш мастер. Приказы мастера действуют в рамках законов.</b>")
+	else
+		to_chat(viewer, "<b>Активный ИИ-мастер не найден. Следуйте автономному пакету законов до восстановления синхронизации.</b>")
+
 /datum/status_effect/sect_torture_offering
 	id = "sect_torture_offering"
 	duration = -1
@@ -1125,6 +1378,135 @@
 /datum/status_effect/sect_fortified_temple_slow/on_remove()
 	owner.remove_movespeed_modifier(/datum/movespeed_modifier/sect_fortified_temple)
 
+/datum/objective/sect_serve_temple
+	name = null
+	needs_target = FALSE
+	martyr_compatible = TRUE
+
+/datum/objective/sect_serve_temple/check_completion()
+	return !isnull(owner?.current?.has_status_effect(/datum/status_effect/sect_faith_imposition))
+
+/datum/status_effect/sect_community_truth
+	id = "sect_community_truth"
+	duration = -1
+	tick_interval = SECT_COMMUNITY_TRUTH_SYNC_TIME
+	status_type = STATUS_EFFECT_REPLACE
+	on_remove_on_mob_delete = TRUE
+	alert_type = null
+	var/datum/religion_sect/community/sect
+	var/added_language = FALSE
+
+/datum/status_effect/sect_community_truth/on_creation(mob/living/new_owner, datum/religion_sect/community/new_sect)
+	sect = new_sect
+	return ..()
+
+/datum/status_effect/sect_community_truth/on_apply()
+	if(!get_active_sect())
+		return FALSE
+	added_language = owner.add_language(LANGUAGE_SECT_COMMUNITY)
+	LAZYADD(sect.mouth_of_truth_mobs, owner)
+	return TRUE
+
+/datum/status_effect/sect_community_truth/on_remove()
+	clear_truth_link()
+
+/datum/status_effect/sect_community_truth/be_replaced()
+	clear_truth_link()
+	return ..()
+
+/datum/status_effect/sect_community_truth/proc/clear_truth_link()
+	if(added_language && owner)
+		owner.remove_language(LANGUAGE_SECT_COMMUNITY)
+	if(sect && owner)
+		LAZYREMOVE(sect.mouth_of_truth_mobs, owner)
+	added_language = FALSE
+	sect = null
+
+/datum/status_effect/sect_community_truth/tick(seconds_between_ticks)
+	if(!get_active_sect() || !sect.can_receive_mouth_of_truth(owner))
+		qdel(src)
+
+/datum/status_effect/sect_community_truth/proc/get_active_sect()
+	if(!sect || QDELETED(sect) || !sect.mouth_of_truth_used)
+		return null
+	return sect
+
+/datum/status_effect/sect_faith_imposition
+	id = "sect_faith_imposition"
+	duration = -1
+	tick_interval = SECT_COMMUNITY_FAITH_CHECK_TIME
+	status_type = STATUS_EFFECT_UNIQUE
+	on_remove_on_mob_delete = TRUE
+	alert_type = null
+	var/datum/religion_sect/community/sect
+	var/datum/objective/sect_serve_temple/objective
+	var/scar_active = FALSE
+
+/datum/status_effect/sect_faith_imposition/on_creation(mob/living/new_owner, datum/religion_sect/community/new_sect)
+	sect = new_sect
+	return ..()
+
+/datum/status_effect/sect_faith_imposition/on_apply()
+	if(!sect || QDELETED(sect))
+		return FALSE
+	sect.register_faith_imposition(owner)
+	update_faith_state()
+	return TRUE
+
+/datum/status_effect/sect_faith_imposition/on_remove()
+	deactivate_faith()
+	if(sect)
+		sect.unregister_faith_imposition(owner)
+	sect = null
+
+/datum/status_effect/sect_faith_imposition/tick(seconds_between_ticks)
+	if(!sect || QDELETED(sect))
+		qdel(src)
+		return
+	update_faith_state()
+
+/datum/status_effect/sect_faith_imposition/get_examine_text()
+	if(!scar_active)
+		return
+	return span_warning("На голове [owner] пылает огненный шрам.")
+
+/datum/status_effect/sect_faith_imposition/proc/update_faith_state()
+	var/obj/structure/sect_altar/current_altar = sect?.altar
+	if(current_altar && !QDELETED(current_altar) && current_altar.activated)
+		activate_faith()
+		return
+	deactivate_faith()
+
+/datum/status_effect/sect_faith_imposition/proc/activate_faith()
+	if(!scar_active)
+		scar_active = TRUE
+		to_chat(owner, span_userdanger("На вашей голове вспыхивает огненный шрам. Вы должны служить храму [sect.deity_name]."))
+	ensure_objective()
+
+/datum/status_effect/sect_faith_imposition/proc/deactivate_faith()
+	if(scar_active)
+		scar_active = FALSE
+		to_chat(owner, span_notice("Огненный шрам на вашей голове гаснет."))
+	remove_objective()
+
+/datum/status_effect/sect_faith_imposition/proc/ensure_objective()
+	if(!owner.mind || objective)
+		return
+	objective = new /datum/objective/sect_serve_temple
+	objective.owner = owner.mind
+	objective.explanation_text = "Служите храму [sect.deity_name] и защищайте его общину."
+	owner.mind.objectives += objective
+	objective.on_add_objective(owner.mind)
+
+/datum/status_effect/sect_faith_imposition/proc/remove_objective()
+	if(!objective)
+		return
+	if(objective.owner)
+		objective.owner.remove_objective(objective, TRUE)
+	else
+		qdel(objective)
+	objective = null
+
 /datum/status_effect/sect_martyr_link
 	id = "sect_martyr_link"
 	duration = 5 MINUTES
@@ -1153,37 +1535,50 @@
 	altar = null
 	sect = null
 
+/datum/status_effect/sect_martyr_link/proc/can_continue()
+	if(!altar || !linked_target || QDELETED(altar) || QDELETED(linked_target))
+		return FALSE
+	if(!altar.is_atom_on_altar(owner))
+		return FALSE
+	return owner.stat == CONSCIOUS && linked_target.stat != DEAD
+
 /datum/status_effect/sect_martyr_link/tick(seconds_between_ticks)
-	if(!altar || !linked_target || QDELETED(altar) || QDELETED(linked_target) || !altar.is_atom_on_altar(owner) || owner.stat == DEAD)
+	if(!can_continue())
 		qdel(src)
 		return
 	owner.adjustBruteLoss(seconds_between_ticks, updating_health = FALSE)
 	owner.updatehealth("sect martyr link")
+	var/turf/target_turf = get_turf(linked_target)
+	if(target_turf)
+		target_turf.add_mob_blood(linked_target)
 
 /datum/status_effect/sect_martyr_link/proc/on_target_damage_modifiers(datum/source, list/damage_mods, damage, damagetype, def_zone, sharp, used_weapon)
 	SIGNAL_HANDLER
-	if(damage <= 0 || owner.stat == DEAD)
+	if(damage <= 0)
 		return
-	damage_mods += 0.5
-	owner.apply_damage(round(damage * 0.5), damagetype, def_zone, sharp = sharp, used_weapon = used_weapon)
+	if(!can_continue())
+		qdel(src)
+		return
+	damage_mods += 0
+	owner.apply_damage(round(damage), damagetype, def_zone, sharp = sharp, used_weapon = used_weapon)
 	if(sect)
-		sect.adjust_prana(round(damage * 0.5))
+		sect.adjust_prana(round(damage))
 
-/obj/item/clothing/suit/armor/riot/knight/sect_iron_robes
+/obj/item/clothing/suit/armor/hos/sect_iron_robes
 	name = "iron robes"
-	desc = "Heavy sanctified robes that turn suffering into prana."
+	desc = "A sanctified head of security coat that turns suffering into prana."
 	var/datum/religion_sect/sect
 
-/obj/item/clothing/suit/armor/riot/knight/sect_iron_robes/Initialize(mapload, datum/religion_sect/new_sect)
+/obj/item/clothing/suit/armor/hos/sect_iron_robes/Initialize(mapload, datum/religion_sect/new_sect)
 	. = ..()
 	sect = new_sect
 
-/obj/item/clothing/suit/armor/riot/knight/sect_iron_robes/equipped(mob/living/user, slot, initial = FALSE)
+/obj/item/clothing/suit/armor/hos/sect_iron_robes/equipped(mob/living/user, slot, initial = FALSE)
 	. = ..()
 	if(isliving(user) && slot == ITEM_SLOT_CLOTH_OUTER)
 		user.apply_status_effect(/datum/status_effect/sect_iron_robes, sect)
 
-/obj/item/clothing/suit/armor/riot/knight/sect_iron_robes/dropped(mob/living/user, slot, silent = FALSE)
+/obj/item/clothing/suit/armor/hos/sect_iron_robes/dropped(mob/living/user, slot, silent = FALSE)
 	. = ..()
 	if(isliving(user))
 		user.remove_status_effect(/datum/status_effect/sect_iron_robes)
@@ -1191,27 +1586,46 @@
 /obj/effect/sect_fortified_temple
 	name = "fortified temple field"
 	desc = "A sanctified field that rejects outsiders."
-	icon = 'icons/obj/religion.dmi'
-	icon_state = "sect_shrine"
 	anchored = TRUE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	alpha = 120
+	invisibility = INVISIBILITY_ABSTRACT
 	var/datum/religion_sect/community/sect
 	var/obj/structure/sect_altar/source_altar
 	var/expires_at
+	var/list/field_tiles = list()
 
 /obj/effect/sect_fortified_temple/Initialize(mapload, datum/religion_sect/community/new_sect, obj/structure/sect_altar/new_altar)
 	. = ..()
 	sect = new_sect
 	source_altar = new_altar
 	expires_at = world.time + SECT_FORTIFIED_TEMPLE_DURATION
+	setup_field()
 	START_PROCESSING(SSobj, src)
 
 /obj/effect/sect_fortified_temple/Destroy(force)
 	STOP_PROCESSING(SSobj, src)
+	if(sect?.fortified_temple == src)
+		sect.fortified_temple = null
+	QDEL_LIST(field_tiles)
 	source_altar = null
 	sect = null
 	return ..()
+
+/obj/effect/sect_fortified_temple/proc/refresh_field(obj/structure/sect_altar/new_altar)
+	source_altar = new_altar
+	expires_at = world.time + SECT_FORTIFIED_TEMPLE_DURATION
+	var/turf/new_turf = get_turf(new_altar)
+	if(new_turf)
+		forceMove(new_turf)
+	setup_field()
+
+/obj/effect/sect_fortified_temple/proc/setup_field()
+	QDEL_LIST(field_tiles)
+	field_tiles = list()
+	if(!source_altar || QDELETED(source_altar))
+		return
+	for(var/turf/field_turf in range(SECT_COMMUNITY_TEMPLE_RADIUS, source_altar))
+		field_tiles += new /obj/effect/sect_fortified_temple_tile(field_turf)
 
 /obj/effect/sect_fortified_temple/process(seconds_per_tick)
 	if(world.time >= expires_at)
@@ -1226,12 +1640,24 @@
 	if(!source_altar.activated)
 		qdel(src)
 		return
-	for(var/mob/living/target in range(3, src))
+	for(var/mob/living/target in range(SECT_COMMUNITY_TEMPLE_RADIUS, source_altar))
 		if(sect.is_member(target))
 			continue
 		target.apply_damage(SECT_FORTIFIED_TEMPLE_DAMAGE * seconds_per_tick, BRUTE)
 		target.apply_damage(SECT_FORTIFIED_TEMPLE_DAMAGE * seconds_per_tick, BURN)
 		target.apply_status_effect(/datum/status_effect/sect_fortified_temple_slow)
+
+/obj/effect/sect_fortified_temple_tile
+	name = "fortified temple field"
+	desc = "A red-lit sanctuary field."
+	icon = 'icons/turf/floors.dmi'
+	icon_state = "plating"
+	plane = FLOOR_PLANE
+	layer = ABOVE_OPEN_TURF_LAYER
+	anchored = TRUE
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	alpha = 45
+	color = "#7D1E20"
 
 /obj/structure/sect_masterpiece
 	name = "sect masterpiece"
@@ -1295,7 +1721,7 @@
 /datum/religion_ritual/technicism/metalification
 	id = "metalification"
 	name = "Металлификация"
-	desc = "Аугментирует доступные части органика на алтаре."
+	desc = "Аугментирует доступные руки и ноги органика на алтаре."
 	cost = 1000
 	target_desc = "Органик на алтаре."
 	requires_atom_on_altar = TRUE
@@ -1305,6 +1731,8 @@
 		return FALSE
 	var/mob/living/carbon/human/human_target = target
 	for(var/obj/item/organ/external/bodypart as anything in human_target.bodyparts)
+		if(!is_technicism_limb_zone(bodypart.limb_zone))
+			continue
 		if(!bodypart.is_robotic())
 			return TRUE
 	return FALSE
@@ -1329,7 +1757,12 @@
 	requires_atom_on_altar = TRUE
 
 /datum/religion_ritual/technicism/ascension/is_valid_target(atom/movable/target, mob/user)
-	return isliving(target)
+	if(!isliving(target))
+		return FALSE
+	var/mob/living/living_target = target
+	if(HAS_TRAIT(living_target, TRAIT_SECT_BINARY_LINK))
+		return FALSE
+	return !living_target.has_status_effect(/datum/status_effect/sect_semiunit)
 
 /datum/religion_ritual/pyromania/fire_resistance
 	id = "fire_resistance"
@@ -1522,6 +1955,26 @@
 	cost = 10000
 	target_desc = "Посвящённый рядом с алтарём."
 
+/datum/religion_ritual/flagellantism/martyr_retribution/get_check_result(datum/religion_sect/sect, obj/structure/sect_altar/altar, mob/user)
+	var/list/check_result = ..()
+	if(!check_result["can_run"])
+		return check_result
+	if(!altar.is_atom_on_altar(user))
+		return list("can_run" = FALSE, "failure_reason" = "Священник должен стоять на алтаре.")
+	if(user.has_status_effect(/datum/status_effect/sect_martyr_link))
+		return list("can_run" = FALSE, "failure_reason" = "Воздаяние мученика уже активно.")
+	if(!get_linked_devotee(sect, altar, user))
+		return list("can_run" = FALSE, "failure_reason" = "Рядом нет подходящего посвящённого.")
+	return check_result
+
+/datum/religion_ritual/flagellantism/martyr_retribution/proc/get_linked_devotee(datum/religion_sect/sect, obj/structure/sect_altar/altar, mob/user)
+	if(!sect || !altar)
+		return null
+	for(var/mob/living/candidate as anything in sect.get_devotee_mobs())
+		if(candidate == user || QDELETED(candidate) || candidate.stat == DEAD || !IN_GIVEN_RANGE(candidate, altar, 7))
+			continue
+		return candidate
+
 /datum/religion_ritual/community/common_trouble
 	id = "common_trouble"
 	name = "Общая беда"
@@ -1537,8 +1990,17 @@
 /datum/religion_ritual/community/mouth_of_truth
 	id = "mouth_of_truth"
 	name = "Уста истины"
-	desc = "Открывает канал связи от священника к посвящённым."
+	desc = "Одноразово открывает канал связи, где священник и конструкты говорят всем посвящённым."
 	cost = 5000
+
+/datum/religion_ritual/community/mouth_of_truth/get_check_result(datum/religion_sect/sect, obj/structure/sect_altar/altar, mob/user)
+	var/list/check_result = ..()
+	if(!check_result["can_run"])
+		return check_result
+	var/datum/religion_sect/community/community_sect = sect
+	if(community_sect.mouth_of_truth_used)
+		return list("can_run" = FALSE, "failure_reason" = "Уста истины уже открыты.")
+	return check_result
 
 /datum/religion_ritual/community/faith_imposition
 	id = "faith_imposition"
@@ -1549,7 +2011,10 @@
 	requires_atom_on_altar = TRUE
 
 /datum/religion_ritual/community/faith_imposition/is_valid_target(atom/movable/target, mob/user)
-	return iscarbon(target)
+	if(!iscarbon(target))
+		return FALSE
+	var/mob/living/carbon/carbon_target = target
+	return !carbon_target.has_status_effect(/datum/status_effect/sect_faith_imposition)
 
 /datum/religion_ritual/technicism/metalification/perform(datum/religion_sect/sect, obj/structure/sect_altar/altar, mob/living/user, atom/movable/target)
 	if(!ishuman(target) || ismachineperson(target))
@@ -1557,9 +2022,9 @@
 		return FALSE
 	var/mob/living/carbon/human/human_target = target
 	if(!sect.robotize_human_limbs(human_target))
-		to_chat(user, span_warning("[DECLENT_RU_CAP(human_target, NOMINATIVE)] уже достаточно механизирован[genderize_ru(human_target.gender, "", "а", "о", "ы")]."))
+		to_chat(user, span_warning("Руки и ноги [human_target] уже достаточно механизированы."))
 		return FALSE
-	human_target.visible_message(span_notice("Конечности [human_target] перестраиваются в освящённый металл."))
+	human_target.visible_message(span_notice("Руки и ноги [human_target] перестраиваются в освящённый металл."))
 	return TRUE
 
 /datum/religion_ritual/technicism/transformation/perform(datum/religion_sect/sect, obj/structure/sect_altar/altar, mob/living/user, atom/movable/target)
@@ -1567,9 +2032,8 @@
 		return FALSE
 	var/mob/living/living_target = target
 	sect.grant_shock_resistance(living_target)
-	ADD_TRAIT(living_target, TRAIT_HEALS_FROM_HOLY_PYLONS, SECT_TRAIT_SOURCE)
-	if((issilicon(living_target) || ismachineperson(living_target)) && living_target.mind)
-		sect.initiate(living_target, TRUE)
+	if(sect.is_technicism_synthetic_target(living_target))
+		sect.apply_technicism_holy_status(living_target)
 	living_target.visible_message(span_notice("[DECLENT_RU_CAP(living_target, NOMINATIVE)] наполня[PLUR_ET_YUT(living_target)]ся электрической праной."))
 	return TRUE
 
@@ -1588,12 +2052,17 @@
 	living_target.revive()
 	if(ishuman(living_target))
 		var/mob/living/carbon/human/human_target = living_target
-		sect.robotize_human_limbs(human_target, include_internal = TRUE)
+		var/was_machineperson = ismachineperson(human_target)
+		if(was_machineperson)
+			sect.apply_technicism_battle_frame(human_target)
+		else
+			sect.robotize_human_limbs(human_target, include_internal = TRUE)
 	sect.grant_shock_resistance(living_target)
 	sect.grant_fire_resistance(living_target)
 	ADD_TRAIT(living_target, TRAIT_HEALS_FROM_HOLY_PYLONS, SECT_TRAIT_SOURCE)
 	if(living_target.mind)
 		sect.initiate(living_target, TRUE)
+	sect.apply_technicism_semiunit(living_target)
 	living_target.visible_message(span_notice("[DECLENT_RU_CAP(living_target, NOMINATIVE)] вознос[PLUR_ET_YUT(living_target)]ся в служении машине и вере."))
 	return TRUE
 
@@ -1836,7 +2305,7 @@
 	return TRUE
 
 /datum/religion_ritual/flagellantism/iron_robes/perform(datum/religion_sect/sect, obj/structure/sect_altar/altar, mob/living/user, atom/movable/target)
-	new /obj/item/clothing/suit/armor/riot/knight/sect_iron_robes(get_turf(altar), sect)
+	new /obj/item/clothing/suit/armor/hos/sect_iron_robes(get_turf(altar), sect)
 	return TRUE
 
 /datum/religion_ritual/flagellantism/sin_weapon/perform(datum/religion_sect/sect, obj/structure/sect_altar/altar, mob/living/user, atom/movable/target)
@@ -1850,35 +2319,72 @@
 	if(!altar.is_atom_on_altar(user))
 		to_chat(user, span_warning("Священник должен стоять на алтаре."))
 		return FALSE
-	var/mob/living/linked_target
-	for(var/mob/living/candidate in range(7, altar))
-		if(candidate == user || candidate.stat == DEAD || !candidate.mind || !(candidate.mind in sect.devotee_minds))
-			continue
-		linked_target = candidate
-		break
+	if(user.has_status_effect(/datum/status_effect/sect_martyr_link))
+		to_chat(user, span_warning("Воздаяние мученика уже активно."))
+		return FALSE
+	var/mob/living/linked_target = get_linked_devotee(sect, altar, user)
 	if(!linked_target)
 		to_chat(user, span_warning("Рядом нет подходящего посвящённого."))
 		return FALSE
-	user.apply_status_effect(/datum/status_effect/sect_martyr_link, sect, altar, linked_target)
+	if(!user.apply_status_effect(/datum/status_effect/sect_martyr_link, sect, altar, linked_target))
+		to_chat(user, span_warning("Не удалось связать страдания с посвящённым."))
+		return FALSE
 	to_chat(user, span_notice("Ваши страдания теперь прикрывают [linked_target]."))
 	return TRUE
 
+/datum/religion_ritual/community/common_trouble/proc/get_health_state(mob/living/target)
+	if(target.stat == DEAD)
+		return "мёртв"
+	if(target.stat != CONSCIOUS)
+		return "без сознания"
+	if(target.health <= target.maxHealth * SECT_COMMUNITY_CRITICAL_HEALTH_RATIO)
+		return "на грани смерти"
+	if(target.health < target.maxHealth)
+		return "ранен"
+	return "стабилен"
+
 /datum/religion_ritual/community/common_trouble/perform(datum/religion_sect/sect, obj/structure/sect_altar/altar, mob/living/user, atom/movable/target)
-	var/mob/living/chosen_devotee
-	for(var/mob/living/devotee as anything in sect.get_devotee_mobs())
-		if(devotee == user || devotee.stat == DEAD)
+	var/datum/religion_sect/community/community_sect = sect
+	var/list/member_options = list()
+	var/list/member_by_option = list()
+	var/option_index = 1
+	var/list/alive_mobs = GLOB.alive_mob_list
+	for(var/mob/living/member as anything in alive_mobs)
+		if(member == user || member.stat == DEAD || !community_sect.is_member(member))
 			continue
-		chosen_devotee = devotee
-		if(devotee.health < devotee.maxHealth)
-			break
-	if(!chosen_devotee)
-		to_chat(user, span_warning("Община не находит члена, нуждающегося в помощи."))
+		var/area/member_area = get_area(member)
+		var/member_area_name = member_area ? member_area.name : "неизвестная зона"
+		var/option_text = "[option_index]. [member.real_name] — [member_area_name] — [get_health_state(member)]"
+		member_options += option_text
+		member_by_option[option_text] = member
+		option_index++
+	if(!length(member_options))
+		to_chat(user, span_warning("Община не находит живого члена, которого можно услышать."))
 		return FALSE
-	to_chat(user, span_notice("[chosen_devotee] находится в [get_area(chosen_devotee)]. Состояние: [round(chosen_devotee.health)]/[chosen_devotee.maxHealth]."))
+	var/selected_option = tgui_input_list(user, "Выберите члена общины.", "Общая беда", member_options)
+	if(!selected_option)
+		return FALSE
+	var/mob/living/chosen_member = member_by_option[selected_option]
+	if(!chosen_member || QDELETED(chosen_member) || chosen_member.stat == DEAD || !community_sect.is_member(chosen_member))
+		to_chat(user, span_warning("Община теряет след выбранного члена."))
+		return FALSE
+	var/turf/member_turf = get_turf(chosen_member)
+	if(!member_turf)
+		to_chat(user, span_warning("Община не может разобрать место выбранного члена."))
+		return FALSE
+	var/area/member_area = get_area(chosen_member)
+	var/member_area_name = member_area ? member_area.name : "неизвестная зона"
+	to_chat(user, span_notice("<b>Общая беда слышит [chosen_member].</b>"))
+	to_chat(user, span_notice("Место: [member_area_name], координаты [member_turf.x], [member_turf.y], уровень [member_turf.z]."))
+	to_chat(user, span_notice("Состояние: [get_health_state(chosen_member)] ([round(chosen_member.health)]/[chosen_member.maxHealth])."))
 	return TRUE
 
 /datum/religion_ritual/community/fortified_temple/perform(datum/religion_sect/sect, obj/structure/sect_altar/altar, mob/living/user, atom/movable/target)
-	new /obj/effect/sect_fortified_temple(get_turf(altar), sect, altar)
+	var/datum/religion_sect/community/community_sect = sect
+	if(!community_sect.start_fortified_temple(altar))
+		to_chat(user, span_warning("Неприступный храм не смог закрепиться вокруг алтаря."))
+		return FALSE
+	altar.visible_message(span_warning("Воздух вокруг [altar.declent_ru(GENITIVE)] окрашивается багровой защитной печатью."))
 	return TRUE
 
 /datum/religion_ritual/community/mouth_of_truth/perform(datum/religion_sect/sect, obj/structure/sect_altar/altar, mob/living/user, atom/movable/target)
@@ -1886,37 +2392,41 @@
 	if(community_sect.mouth_of_truth_used)
 		to_chat(user, span_warning("Уста истины уже были открыты."))
 		return FALSE
-	var/message = tgui_input_text(user, "Сообщение общине", "Уста истины", max_length = 200)
-	if(!message)
-		return FALSE
 	if(QDELETED(altar) || QDELETED(community_sect))
 		return FALSE
 	community_sect.mouth_of_truth_used = TRUE
-	for(var/mob/living/devotee as anything in sect.get_devotee_mobs())
-		to_chat(devotee, span_notice("Голос [sect.deity_name]: [message]"))
+	community_sect.sync_mouth_of_truth()
+	var/channel_prefix = get_language_prefix(LANGUAGE_SECT_COMMUNITY)
+	to_chat(user, span_notice("Уста истины открыты. Священник и конструкты могут говорить в канал через [channel_prefix]."))
+	for(var/mob/living/listener as anything in community_sect.mouth_of_truth_mobs)
+		if(listener == user)
+			continue
+		to_chat(listener, span_notice("Уста истины открыты. Вы слышите голос храма, но говорить в него могут только священник и конструкты."))
 	return TRUE
 
 /datum/religion_ritual/community/faith_imposition/perform(datum/religion_sect/sect, obj/structure/sect_altar/altar, mob/living/user, atom/movable/target)
+	var/datum/religion_sect/community/community_sect = sect
 	if(!iscarbon(target))
 		return FALSE
 	var/mob/living/carbon/carbon_target = target
-	if(carbon_target != user && carbon_target.client)
-		var/choice = tgui_alert(carbon_target, "[user] предлагает принять веру общины. Принять?", "Насаждение веры", list("Да", "Нет"), timeout = 15 SECONDS)
-		if(choice != "Да")
-			to_chat(user, span_warning("[carbon_target] отказыва[PLUR_ET_YUT(carbon_target)]ся от насаждения веры."))
-			return FALSE
 	if(QDELETED(altar) || QDELETED(carbon_target) || !altar.is_atom_on_altar(carbon_target) || !is_valid_target(carbon_target, user))
 		to_chat(user, span_warning("Цель насаждения веры больше не лежит на алтаре."))
 		return FALSE
-	if(!sect.can_initiate(carbon_target))
+	if(!community_sect.can_initiate(carbon_target))
 		return FALSE
 	if(ishuman(carbon_target) && ishuman(user))
 		var/mob/living/carbon/human/human_target = carbon_target
 		var/mob/living/carbon/human/human_user = user
 		if(human_user.dna?.species)
 			human_target.set_species(human_user.dna.species.type)
-	carbon_target.apply_damage(50, BURN)
-	return sect.initiate(carbon_target)
+	carbon_target.apply_damage(SECT_COMMUNITY_FAITH_BURN, BURN)
+	if(!community_sect.initiate(carbon_target))
+		return FALSE
+	if(!carbon_target.apply_status_effect(/datum/status_effect/sect_faith_imposition, community_sect))
+		to_chat(user, span_warning("Огненный шрам не смог закрепиться на [carbon_target]."))
+		return FALSE
+	carbon_target.visible_message(span_warning("На голове [carbon_target] вспыхивает огненный шрам."))
+	return TRUE
 
 /obj/structure/sect_altar
 	name = "altar"
@@ -2296,17 +2806,20 @@
 		return get_turf(target) == altar_turf
 	return target.loc == altar_turf
 
+/obj/structure/sect_altar/proc/is_ignored_altar_content(atom/movable/target)
+	return target == src || istype(target, /obj/structure/sect_shrine) || istype(target, /obj/effect/sect_fortified_temple) || istype(target, /obj/effect/sect_fortified_temple_tile)
+
 /obj/structure/sect_altar/proc/get_ritual_target(datum/religion_ritual/ritual, mob/user)
 	var/turf/altar_turf = get_turf(src)
 	if(!altar_turf)
 		return null
 	var/list/candidates = list()
 	for(var/atom/movable/target as anything in altar_turf)
-		if(target == src || istype(target, /obj/structure/sect_shrine))
+		if(is_ignored_altar_content(target))
 			continue
 		candidates += target
 	for(var/atom/movable/target as anything in src)
-		if(target == src || istype(target, /obj/structure/sect_shrine) || (target in candidates))
+		if(is_ignored_altar_content(target) || (target in candidates))
 			continue
 		candidates += target
 	if(ritual)
@@ -2360,11 +2873,11 @@
 		return null
 	var/list/candidates = list()
 	for(var/atom/movable/target as anything in altar_turf)
-		if(target == src || istype(target, /obj/structure/sect_shrine))
+		if(is_ignored_altar_content(target))
 			continue
 		candidates += target
 	for(var/atom/movable/target as anything in src)
-		if(target == src || istype(target, /obj/structure/sect_shrine) || (target in candidates))
+		if(is_ignored_altar_content(target) || (target in candidates))
 			continue
 		candidates += target
 	for(var/atom/movable/target as anything in candidates)
@@ -2602,6 +3115,9 @@
 	new_altar.altar_icon_state = stored_altar_icon_state
 	if(new_altar.sect)
 		new_altar.sect.altar = new_altar
+		if(istype(new_altar.sect, /datum/religion_sect/community))
+			var/datum/religion_sect/community/community_sect = new_altar.sect
+			community_sect.on_altar_deployed()
 	stored_sect = null
 	new_altar.update_icon(UPDATE_ICON_STATE)
 	qdel(src)
@@ -2619,6 +3135,9 @@
 	altar_case.stored_altar_icon_state = altar_icon_state
 	if(sect)
 		sect.altar = null
+		if(istype(sect, /datum/religion_sect/community))
+			var/datum/religion_sect/community/community_sect = sect
+			community_sect.on_altar_folded()
 	sect = null
 	user.put_in_hands(altar_case)
 	qdel(src)

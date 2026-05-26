@@ -260,7 +260,9 @@
 	return returns
 
 /mob/living/carbon/human/binarycheck()
-	. = FALSE
+	. = ..()
+	if(.)
+		return TRUE
 	var/obj/item/radio/headset/R
 	if(istype(l_ear, /obj/item/radio/headset))
 		R = l_ear
@@ -305,4 +307,3 @@
 				say(temp)
 
 			winset(client, "input", "text=[null]")
-
