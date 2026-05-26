@@ -21,6 +21,76 @@
 		PREPOSITIONAL = "разряде пустоты",
 	)
 
+
+/// Gives magic projectiles an area of effect radius that will bump into any nearby mobs
+/obj/projectile/magic/aoe
+	damage = 0
+
+	/// The AOE radius that the projectile will trigger on people.
+	var/trigger_range = 1
+	/// Whether our projectile will only be able to hit the original target / clicked on atom
+	var/can_only_hit_target = FALSE
+		/// Whether our projectile leaves a trail behind it  as it moves.
+	var/trail = FALSE
+	/// The duration of the trail before deleting.
+	var/trail_lifespan = 0 SECONDS
+	/// The icon the trail uses.
+	var/trail_icon = 'icons/obj/magic.dmi'
+	/// The icon state the trail uses.
+	var/trail_icon_state = "arrow"
+	/// Can we spawn a trail effect again?
+	COOLDOWN_DECLARE(trail_cooldown)
+
+/obj/projectile/magic/aoe/Range()
+	if(trigger_range >= 1)
+		for(var/mob/living/nearby_guy in range(trigger_range, get_turf(src)))
+			if(nearby_guy.stat == DEAD)
+				continue
+			if(nearby_guy == firer)
+				continue
+			// Bump handles anti-magic checks for us, conveniently.
+			return Bump(nearby_guy)
+
+	return ..()
+
+/obj/projectile/magic/aoe/prehit(atom/target)
+	if(can_only_hit_target && target != original)
+		return
+	return ..()
+
+/obj/projectile/magic/aoe/magic_missile
+	name = "magic missile"
+	icon_state = "magicm"
+	range = 100
+	speed = 15
+	trigger_range = 0
+	can_only_hit_target = TRUE
+	paralyze = 6 SECONDS
+	hitsound = 'sound/magic/mm_hit.ogg'
+
+	trail = TRUE
+	trail_lifespan = 0.5 SECONDS
+	trail_icon_state = "magicmd"
+
+/obj/projectile/magic/aoe/magic_missile/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change)
+	. = ..()
+	if(!trail || paused || QDELETED(src) || !COOLDOWN_FINISHED(src, trail_cooldown))
+		return
+
+	var/obj/effect/overlay/trail_effect = new /obj/effect/overlay(loc)
+	trail_effect.pixel_x = pixel_x
+	trail_effect.pixel_y = pixel_y
+	trail_effect.icon = trail_icon
+	trail_effect.icon_state = trail_icon_state
+	trail_effect.set_density(FALSE)
+	trail_effect.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	QDEL_IN(trail_effect, trail_lifespan)
+	COOLDOWN_START(src, trail_cooldown, trail_lifespan)
+
+/obj/projectile/magic/aoe/magic_missile/lesser
+	color = "red" //Looks more culty this way
+	range = 10
+
 // MARK: Death Bolt
 /obj/projectile/magic/death
 	name = "bolt of death"
