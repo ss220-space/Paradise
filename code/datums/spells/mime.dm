@@ -15,7 +15,7 @@
 
 /obj/effect/proc_holder/spell/aoe/conjure/build/mime_wall/Click()
 	if(usr?.mind)
-		if(!HAS_TRAIT(usr.mind, TRAIT_MIMING))
+		if(!HAS_MIND_TRAIT(usr, TRAIT_MIMING))
 			to_chat(usr, span_warning("Сначала вы должны принять обет молчания!"))
 			return
 		invocation = "<b>[usr]</b> выглядит так, как будто бы перед н[GEND_IM_EI_IM_IMI(usr)] находится стена."
@@ -42,7 +42,7 @@
 	if(!ishuman(usr))
 		return
 	var/mob/living/carbon/human/user = usr
-	if(HAS_TRAIT(user.mind, TRAIT_MIMING))
+	if(HAS_MIND_TRAIT(user, TRAIT_MIMING))
 		still_recharging_msg = span_warning("Вы не можете так быстро нарушить свой обет молчания!")
 	else
 		still_recharging_msg = span_warning("Вам придётся подождать, прежде чем вы сможете снова дать обет молчания!")
@@ -54,7 +54,7 @@
 	if(!target.mind)
 		return
 
-	if(HAS_TRAIT(user.mind, TRAIT_MIMING))
+	if(HAS_MIND_TRAIT(user, TRAIT_MIMING))
 		REMOVE_TRAIT(user.mind, TRAIT_MIMING, "mime_vow")
 		to_chat(target, span_notice("Вы нарушаете свой обет молчания."))
 	else
@@ -87,7 +87,7 @@
 
 /obj/effect/proc_holder/spell/forcewall/mime/Click()
 	if(usr?.mind)
-		if(!HAS_TRAIT(usr.mind, TRAIT_MIMING))
+		if(!HAS_MIND_TRAIT(usr, TRAIT_MIMING))
 			to_chat(usr, span_warning("Сначала вы должны принять обет молчания!"))
 			return
 		invocation = "<b>[usr]</b> выглядит так, как будто бы перед н[GEND_IM_EI_IM_IMI(usr)] находится стена."

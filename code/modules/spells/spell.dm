@@ -182,7 +182,7 @@
 		return FALSE
 
 	if(ishuman(owner))
-		if(spell_requirements & SPELL_REQUIRES_WIZARD_GARB)
+		if(spell_requirements & SPELL_REQUIRES_WIZARD_GARB & !owner.has_status_effect(/datum/status_effect/no_clothes))
 			var/mob/living/carbon/human/human_owner = owner
 			if(!(human_owner.wear_suit?.clothing_flags & CASTING_CLOTHES) && !ismonkey(human_owner)) // Monkeys don't need robes to cast as they are inherently imbued with power from the banana dimension
 				if(feedback)

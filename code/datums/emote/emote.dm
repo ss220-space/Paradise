@@ -215,7 +215,7 @@
 			for(var/mob/dead/observer/ghost in viewers(user))
 				ghost.show_message(span_deadsay("[displayed_msg]"), EMOTE_VISIBLE, chat_message_type = MESSAGE_TYPE_LOCALCHAT)
 
-		else if((emote_type & (EMOTE_AUDIBLE|EMOTE_SOUND)) && user.mind && !HAS_TRAIT(user.mind, TRAIT_MIMING))
+		else if((emote_type & (EMOTE_AUDIBLE|EMOTE_SOUND)) && user.mind && !HAS_MIND_TRAIT(user, TRAIT_MIMING))
 			user.audible_message(displayed_msg, deaf_message = span_emote("You see how <b>[user]</b> [msg]"))
 		else
 			user.visible_message(displayed_msg)

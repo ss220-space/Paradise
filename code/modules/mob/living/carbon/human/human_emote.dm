@@ -29,7 +29,7 @@
 		return custom_message
 
 /datum/emote/living/carbon/human/run_emote(mob/living/carbon/human/user, params, type_override, intentional)
-	if((emote_type & EMOTE_MOUTH) && (user.mind && !HAS_TRAIT(user.mind, TRAIT_MIMING)))
+	if((emote_type & EMOTE_MOUTH) && (user.mind && !HAS_MIND_TRAIT(user, TRAIT_MIMING)))
 		if(user.getOxyLoss() > 35 || user.AmountLoseBreath() >= 8 SECONDS)	// no screaming if you don't have enough breath to scream
 			user.emote("gasp")
 			return TRUE

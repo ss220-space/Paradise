@@ -444,7 +444,7 @@
 	// 	spell.action.enable_invisibility(TRUE)
 	// 	return
 
-	if(HAS_TRAIT(user.mind, TRAIT_MIMING))
+	if(HAS_MIND_TRAIT(user, TRAIT_MIMING))
 		spell.cast(list(user))
 	user.mind.RemoveSpell(spell)
 

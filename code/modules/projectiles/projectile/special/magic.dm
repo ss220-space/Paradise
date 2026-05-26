@@ -69,7 +69,7 @@
 	hitsound = 'sound/magic/mm_hit.ogg'
 
 	trail = TRUE
-	trail_lifespan = 0.5 SECONDS
+	trail_lifespan = 20
 	trail_icon_state = "magicmd"
 
 /obj/projectile/magic/aoe/magic_missile/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change)
@@ -90,6 +90,16 @@
 /obj/projectile/magic/aoe/magic_missile/lesser
 	color = "red" //Looks more culty this way
 	range = 10
+
+/obj/projectile/magic/aoe/magic_missile/honk
+	name = "A bike horn"
+	icon = 'icons/obj/items.dmi'
+	icon_state = "bike_horn"
+
+	trail_icon = 'icons/obj/items.dmi'
+	trail = TRUE
+	trail_lifespan = 5
+	trail_icon_state = "bike_horn"
 
 // MARK: Death Bolt
 /obj/projectile/magic/death
@@ -475,7 +485,6 @@
 			return
 
 	add_attack_logs(null, M, "became [new_mob.real_name]", ATKLOG_ALL)
-	SEND_SIGNAL(M, COMSIG_LIVING_ON_WABBAJACKED, new_mob)
 	new_mob.a_intent = INTENT_HARM
 	if(M.mind)
 		M.mind.transfer_to(new_mob)
@@ -491,7 +500,7 @@
 	to_chat(new_mob, span_danger("ТЕПЕРЬ ВЫ [uppertext(randomize)]"))
 	if(briefing_msg)
 		to_chat(new_mob, chat_box_red(span_userdanger("[briefing_msg]")))
-
+	SEND_SIGNAL(M, COMSIG_LIVING_ON_WABBAJACKED, new_mob)
 	qdel(M)
 	return new_mob
 

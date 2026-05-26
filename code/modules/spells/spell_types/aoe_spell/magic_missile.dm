@@ -52,3 +52,12 @@
 	max_targets = 6
 	shuffle_targets_list = TRUE
 	projectile_type = /obj/projectile/magic/aoe/magic_missile/lesser
+
+/datum/action/cooldown/spell/aoe/magic_missile/honk_missile
+	name = "Honk Missile"
+	desc = "This spell fires several, slow moving, magic bikehorns at nearby targets."
+	projectile_type = /obj/projectile/magic/aoe/magic_missile/honk
+	cooldown_reduction_per_rank = 2.5 SECONDS
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
+	invocation = "HONK GY AMA"
+	sound = 'sound/items/bikehorn.ogg'
