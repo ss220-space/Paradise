@@ -117,10 +117,10 @@
 		var/obj/item/toy/crayon/spraycan/can = I
 		if(can.capped)
 			balloon_alert(user, "баллончик закрыт!")
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 		if(can.uses < 2)
 			balloon_alert(user, "недостаточно краски!")
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 		balloon_alert(user, "покрашено")
 		playsound(user.loc, 'sound/effects/spray.ogg', 20, TRUE)
 		paint_color = can.colour
@@ -427,10 +427,10 @@
 		if(can.capped)
 			balloon_alert(user, )
 			balloon_alert(user, "баллончик закрыт!")
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 		if(can.uses <= 0)
 			balloon_alert(user, "недостаточно краски!")
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 		var/static/list/injector_icons = list(
 			"Completely Blue" = image('icons/obj/hypo.dmi', "ablueinjector"),
 			"Blue" = image('icons/obj/hypo.dmi', "blueinjector"),
@@ -443,7 +443,7 @@
 		)
 		var/choice = show_radial_menu(user, user, injector_icons, radius = 48, custom_check = CALLBACK(src, PROC_REF(check_reskin), user))
 		if(!choice || loc != user || can.loc != user || !can.uses || user.incapacitated())
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 		balloon_alert(user, "покрашено")
 		playsound(user.loc, 'sound/effects/spray.ogg', 20, TRUE)
 		current_skin = choice

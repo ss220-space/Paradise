@@ -237,18 +237,18 @@
 		add_fingerprint(user)
 		if(explosive)
 			to_chat(user, span_warning("There is already a device attached behind [src], remove it first."))
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 		if(!tilted)
 			to_chat(user, span_warning("The [name] needs to be tilted before being rigged with [I]."))
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 		user.visible_message(
 			span_warning("[user] starts to fiddle around behind [src]."),
 			span_notice("You start to secure [I] behind [src]."),
 		)
 		if(!do_after(user, 15 SECONDS * I.toolspeed, src, category = DA_CAT_TOOL) || explosive || tilted)
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 		if(!user.drop_transfer_item_to_loc(I, src))
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 		playsound(loc, 'sound/weapons/handcuffs.ogg', 50, TRUE)
 		explosive = I
 		user.visible_message(

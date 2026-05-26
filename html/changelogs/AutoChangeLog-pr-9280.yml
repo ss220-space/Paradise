@@ -1,4 +1,0 @@
-author: "littleboobs"
-delete-after: True
-changes:
-  - refactor: "SS overlays to datum (PR #9280)"
