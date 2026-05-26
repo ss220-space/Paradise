@@ -739,18 +739,21 @@
 	if(.)
 		return
 
-	if(user.zone_selected != BODY_ZONE_PRECISE_MOUTH || user != interacting_with)
+	if(user.zone_selected != BODY_ZONE_PRECISE_MOUTH || !isliving(interacting_with))
 		return
 
 	if(interacting_with == user && HAS_TRAIT(user, TRAIT_BADASS))
 		user.visible_message(span_danger("[user] сдул[GEND_A_O_I(user)] дым с дула [declent_ru(GENITIVE)]. Как же [GEND_HE_SHE(user)] хорош[GEND_A_O_I(user)]!"))
-	else
-		handle_suicide(user, interacting_with, modifiers)
+		return ITEM_INTERACT_BLOCKING
+
+	handle_suicide(user, interacting_with, modifiers)
 	return ITEM_INTERACT_SUCCESS
 
 /obj/item/gun/proc/start_attack_chain_check(mob/user, atom/target)
-	if(user == target && user.zone_selected == BODY_ZONE_PRECISE_MOUTH)
+	if(isliving(target) && user.zone_selected == BODY_ZONE_PRECISE_MOUTH)
 		return TRUE
+	if(isturf(target)) // let the gun fire toward them even in harm intent
+		return FALSE
 	if(user.a_intent == INTENT_HARM)
 		return TRUE
 	if(isitem(target) || iscloset(target) || istable(target) || is_screen_atom(target) || isdisposalunit(target) || istype(target, /obj/machinery/recharger))
@@ -916,7 +919,7 @@
 	if(chambered?.BB)
 		chambered.BB.damage *= 15
 
-	var/fired = fast_fire(user, user, BODY_ZONE_HEAD)
+	var/fired = fast_fire(target, user, BODY_ZONE_HEAD)
 	if(!fired && chambered?.BB)
 		chambered.BB.damage /= 15
 

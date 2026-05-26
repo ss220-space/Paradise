@@ -92,7 +92,7 @@
 	var/emag = FALSE
 	var/state = FALSE
 	var/obj/singularity/bfl_red/laser = null
-	var/obj/machinery/bfl_receiver/receiver = FALSE
+	var/datum/weakref/receiver_ref
 	var/list/obj/effect/bfl_laser/turf_lasers = list()
 	var/deactivate_time = 0
 	var/list/obj/structure/fillers = list()
@@ -149,6 +149,8 @@
 	if(laser)
 		return
 
+	var/obj/machinery/bfl_receiver/receiver = receiver_ref?.resolve()
+
 	if(!receiver || !receiver.state || emag || !receiver.lens || !receiver.lens.anchored)
 		var/turf/rand_location = locate(rand((2*TRANSITIONEDGE), world.maxx - (2*TRANSITIONEDGE)), rand((2*TRANSITIONEDGE), world.maxy - (2*TRANSITIONEDGE)), lavaland_z_lvl)
 		laser = new (rand_location)
@@ -163,6 +165,7 @@
 				receiver.lens.deactivate_lens()
 
 /obj/machinery/power/bfl_emitter/proc/receiver_test()
+	var/obj/machinery/bfl_receiver/receiver = receiver_ref?.resolve()
 	if(receiver)
 		if(receiver.state && receiver.lens)
 			receiver.lens.activate_lens()
@@ -176,24 +179,25 @@
 	location.ChangeTurf(location.baseturf)
 	working_sound()
 	var/turf/below = GET_TURF_BELOW(location)
+	var/obj/machinery/bfl_receiver/receiver = receiver_ref?.resolve()
 	while(below)
 		var/obj/effect/bfl_laser/turf_laser = new(below)
 		turf_lasers += turf_laser
 		below = GET_TURF_BELOW(below) // dig deeper and try another laser
-
-	if(QDELETED(receiver))
-		receiver = null
 
 	if(!receiver)
 		for(var/obj/machinery/bfl_receiver/bfl_receiver in SSmachines.get_by_type(/obj/machinery/bfl_receiver))
 			var/turf/receiver_turf = get_turf(bfl_receiver)
 			if(receiver_turf.z == lavaland_z_lvl)
 				receiver = bfl_receiver
+				receiver_ref = WEAKREF(bfl_receiver)
 				break
 
 	receiver_test()
 
 /obj/machinery/power/bfl_emitter/proc/emitter_deactivate()
+	var/obj/machinery/bfl_receiver/receiver = receiver_ref?.resolve()
+
 	state = FALSE
 	update_icon(UPDATE_ICON_STATE)
 	if(receiver)
