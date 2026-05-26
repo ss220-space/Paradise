@@ -35,6 +35,7 @@
 		/obj/item/stack/tile/light,
 		/obj/item/stack/ore/bluespace_crystal,
 		/obj/item/stack/sheet/plasteel,
+		/obj/item/stack/tile/wood,
 	)
 
 	//Item currently being held.
