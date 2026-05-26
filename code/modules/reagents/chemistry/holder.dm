@@ -752,10 +752,15 @@
 	return FALSE
 
 /datum/reagents/proc/get_reagent_amount(reagent_id)
+	if(ispath(reagent_id))
+		var/datum/reagent/found_reagent = locate(reagent_id) in reagent_list
+		return found_reagent ? found_reagent.volume : 0
+
 	for(var/datum/reagent/current_reagent as anything in reagent_list)
 		if(current_reagent.id != reagent_id)
 			continue
 		return current_reagent.volume
+
 	return FALSE
 
 /datum/reagents/proc/get_reagents()
