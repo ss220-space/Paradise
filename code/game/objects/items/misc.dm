@@ -234,7 +234,7 @@
 	if(!src)
 		return
 
-	do_smoke(range = (cycle_count / 10), location = get_turf(usr), smoke_type = /obj/effect/particle_effect/fluid/smoke/chem/quick/vapor)
+		do_smoke(range = round(clamp(cycle_count / 10, 0, 4)), location = get_turf(src), smoke_type = /obj/effect/particle_effect/fluid/smoke/chem/quick/vapor)
 
 /obj/item/ecig/syndi
 	name = "suspicious e-cigarette"
