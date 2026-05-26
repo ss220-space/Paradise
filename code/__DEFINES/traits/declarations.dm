@@ -588,3 +588,5 @@
 #define TRAIT_DISCO_DANCER "disco_dancer"
 
 #define TRAIT_GIVE_READY "give_ready"
+
+#define TRAIT_NO_WIZARD_CLOTHES "no_wizard_clothes"

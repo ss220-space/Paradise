@@ -102,8 +102,6 @@
 /// Prevents you from automatically grabbing walls to stop moving in space.
 #define STATUS_EFFECT_UNBALANCED /datum/status_effect/unbalanced
 
-#define STATUS_EFFECT_NO_CLOTHES /datum/status_effect/no_clothes
-
 #define STATUS_EFFECT_MUTATION /datum/status_effect/mutation
 
 /////////////

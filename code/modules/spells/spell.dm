@@ -182,7 +182,7 @@
 		return FALSE
 
 	if(ishuman(owner))
-		if(spell_requirements & SPELL_REQUIRES_WIZARD_GARB & !owner.has_status_effect(/datum/status_effect/no_clothes))
+		if(spell_requirements & SPELL_REQUIRES_WIZARD_GARB && !HAS_MIND_TRAIT(owner, TRAIT_NO_WIZARD_CLOTHES))
 			var/mob/living/carbon/human/human_owner = owner
 			if(!(human_owner.wear_suit?.clothing_flags & CASTING_CLOTHES) && !ismonkey(human_owner)) // Monkeys don't need robes to cast as they are inherently imbued with power from the banana dimension
 				if(feedback)
@@ -205,7 +205,7 @@
 			return FALSE
 
 		// Otherwise, we can check for contents if they have wizardly apparel. This isn't *quite* perfect, but it'll do, especially since many of the edge cases (gorilla holding a wizard hat) still more or less make sense.
-		if(spell_requirements & SPELL_REQUIRES_WIZARD_GARB)
+		if(spell_requirements & SPELL_REQUIRES_WIZARD_GARB && !HAS_MIND_TRAIT(owner, TRAIT_NO_WIZARD_CLOTHES))
 			var/any_casting = FALSE
 			for(var/obj/item/clothing/item in owner)
 				if(item.clothing_flags & CASTING_CLOTHES)

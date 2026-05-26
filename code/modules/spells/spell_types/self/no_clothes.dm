@@ -10,18 +10,5 @@
 	. = ..()
 	var/mob/living/caster = cast_on
 	to_chat(caster, span_notice("Вы активировали заклинание, отныне вам не нужна одежда для использования заклинаний!"))
-	caster.mind.AddElement(/datum/element/no_clothes)
+	ADD_TRAIT(caster.mind, TRAIT_NO_WIZARD_CLOTHES, MAGIC_TRAIT)
 	qdel(src)
-
-/datum/status_effect/no_clothes
-	id = "no_clothes"
-	alert_type = /atom/movable/screen/alert/status_effect/no_clothes
-	on_remove_on_mob_delete = TRUE
-
-/datum/status_effect/no_clothes/on_apply()
-	return TRUE
-
-/atom/movable/screen/alert/status_effect/no_clothes
-	name = "Усиление магии"
-	desc = "Вам больше не нужна одежда для использования заклинаний!"
-	icon_state = "no_clothes"
