@@ -261,7 +261,7 @@
 	if(isgrenade(I))
 		if(boobytrap)
 			to_chat(user, span_warning("There is already [boobytrap] installed."))
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 		boobytrap = I

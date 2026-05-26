@@ -355,8 +355,6 @@
 /datum/jukebox/proc/update_listener(mob/listener)
 	PROTECTED_PROC(TRUE)
 
-	active_song_sound.status = listeners[listener] || NONE
-
 	var/turf/sound_turf = get_turf(parent)
 	var/turf/listener_turf = get_turf(listener)
 	if(isnull(sound_turf) || isnull(listener_turf)) // ??
@@ -384,8 +382,13 @@
 			listeners[listener] |= SOUND_MUTE
 		else
 			unmute_listener(listener, MUTE_PREF)
-			active_song_sound.volume = volume
+			// Scale by the listener's volume mixer setting so mixer changes are honored here.
+			var/mixer_mult = listener.client?.prefs?.get_channel_volume(CHANNEL_JUKEBOX)
+			active_song_sound.volume = volume * (isnull(mixer_mult) ? 1 : mixer_mult)
 
+	// Assign status AFTER mute/unmute decisions so SEND_SOUND reflects the current state,
+	// not the state from the previous update.
+	active_song_sound.status = listeners[listener] || NONE
 	SEND_SOUND(listener, active_song_sound)
 
 /// When the jukebox moves, we need to update all listeners.

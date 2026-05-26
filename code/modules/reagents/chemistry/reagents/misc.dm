@@ -142,14 +142,6 @@
 	color = "#C8A5DC" // rgb: 200, 165, 220
 	taste_description = "железа"
 
-/datum/reagent/iron/on_mob_life(mob/living/target_mob)
-	if(ishuman(target_mob))
-		var/mob/living/carbon/human/target_human = target_mob
-		if(!HAS_TRAIT(target_human, TRAIT_NO_BLOOD) && !HAS_TRAIT(target_human, TRAIT_NO_BLOOD_RESTORE) && target_human.blood_volume < BLOOD_VOLUME_NORMAL)
-			target_human.AdjustBlood(0.8)
-
-	return ..()
-
 //foam
 /datum/reagent/fluorosurfactant
 	name = "Фтортензид"

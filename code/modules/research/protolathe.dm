@@ -112,7 +112,7 @@ Note: Must be placed west/left of and R&D console to function.
 	if(is_open_container)
 		if(panel_open)
 			balloon_alert(user, "техпанель открыта!")
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 		return ATTACK_CHAIN_PROCEED	// afterattack will handle this
 
 	return ..()
