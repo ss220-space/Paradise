@@ -520,57 +520,14 @@
 		H.mind.isholy = TRUE
 		ADD_TRAIT(H, TRAIT_HEALS_FROM_HOLY_PYLONS, INNATE_TRAIT)
 
-	INVOKE_ASYNC(src, PROC_REF(religion_pick), H)
+	give_starting_bible(H)
 
-/datum/outfit/job/chaplain/proc/religion_pick(mob/living/carbon/human/user)
+/datum/outfit/job/chaplain/proc/give_starting_bible(mob/living/carbon/human/user)
+	if(QDELETED(user))
+		return
 	var/obj/item/storage/bible/bible = new /obj/item/storage/bible(get_turf(user))
 	bible.customisable = TRUE // Only the initial bible is customisable
 	user.put_in_l_hand(bible)
-
-	var/religion_name = "Christianity"
-	var/new_religion = tgui_input_text(user, "You are the Chaplain. What name do you give your beliefs? Default is Christianity.", "Name change", religion_name, max_length = MAX_NAME_LEN)
-
-	if(!new_religion)
-		new_religion = religion_name
-
-	switch(lowertext(new_religion))
-		if("christianity")
-			bible.name = "The Holy Bible"
-		if("satanism")
-			bible.name = "The Unholy Bible"
-		if("cthulu")
-			bible.name = "The Necronomicon"
-		if("islam")
-			bible.name = "Quran"
-		if("scientology")
-			bible.name = pick("The Biography of L. Ron Hubbard", "Dianetics")
-		if("chaos")
-			bible.name = "The Book of Lorgar"
-		if("imperium")
-			bible.name = "Uplifting Primer"
-		if("toolboxia")
-			bible.name = "Toolbox Manifesto Robusto"
-		if("science")
-			bible.name = pick("Principle of Relativity", "Quantum Enigma: Physics Encounters Consciousness", "Programming the Universe", "Quantum Physics and Theology", "String Theory for Dummies", "How To: Build Your Own Warp Drive", "The Mysteries of Bluespace", "Playing God: Collector's Edition")
-		else
-			bible.name = "The Holy Book of [new_religion]"
-	SSblackbox.record_feedback("text", "religion_name", 1, "[new_religion]", 1)
-
-	var/deity_name = "Space Jesus"
-	var/new_deity = tgui_input_text(user, "Who or what do you worship? Default is Space Jesus.", "Name change", deity_name, max_length = MAX_NAME_LEN)
-
-	if(!length(new_deity) || (new_deity == "Space Jesus"))
-		new_deity = deity_name
-	bible.deity_name = new_deity
-	if(user.mind?.holy_sect)
-		user.mind.holy_sect.deity_name = new_deity
-	SSblackbox.record_feedback("text", "religion_deity", 1, "[new_deity]", 1)
-
-	if(!user.mind?.holy_sect)
-		user.AddSpell(new /obj/effect/proc_holder/spell/chaplain_bless(null))
-
-	if(SSticker)
-		SSticker.Bible_deity_name = bible.deity_name
 
 /datum/job/service/explorer
 	title = JOB_TITLE_EXPLORER

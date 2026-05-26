@@ -2,6 +2,7 @@
 #define SECT_PORTABLE_ALTAR_DEPLOY_TIME (4 SECONDS)
 #define SECT_SHRINE_PRANA_PER_SECOND 2
 #define SECT_DEFAULT_DEITY_NAME "Безымянный бог"
+#define SECT_RITUAL_TIME (3 SECONDS)
 #define SECT_SACRIFICE_TIME (5 SECONDS)
 #define SECT_ALTAR_PLACE_TIME (2 SECONDS)
 #define SECT_DEAD_BODY_PRANA 500
@@ -810,7 +811,6 @@
 		qdel(src)
 		return
 	if(!powernet)
-		ensure_cable_node()
 		connect_to_network()
 	if(!powernet)
 		last_power_draw = 0
@@ -916,6 +916,27 @@
 		to_chat(user, span_warning("Эффект ритуала \"[name]\" ещё не реализован. Проверки стоимости и цели пройдены."))
 		return FALSE
 	var/atom/movable/target = get_target(altar, user)
+	var/atom/do_after_target = target
+	if(!do_after_target)
+		do_after_target = altar
+	user.visible_message(
+		span_notice("[user] начина[PLUR_ET_YUT(user)] проводить ритуал \"[name]\" на [altar.declent_ru(PREPOSITIONAL)]."),
+		span_notice("Вы начинаете проводить ритуал \"[name]\"."),
+	)
+	if(!do_after(user, SECT_RITUAL_TIME, do_after_target))
+		return FALSE
+	if(QDELETED(sect) || QDELETED(altar))
+		return FALSE
+	if(requires_atom_on_altar)
+		if(QDELETED(target) || !altar.is_atom_on_altar(target) || !is_valid_target(target, user))
+			to_chat(user, span_warning("Цель ритуала больше не лежит на алтаре."))
+			return FALSE
+	check_result = get_check_result(sect, altar, user)
+	if(!check_result["can_run"])
+		to_chat(user, span_warning(check_result["failure_reason"]))
+		return FALSE
+	if(!requires_atom_on_altar)
+		target = get_target(altar, user)
 	if(!perform(sect, altar, user, target))
 		return FALSE
 	sect.adjust_prana(-cost)
@@ -986,8 +1007,8 @@
 	SIGNAL_HANDLER
 	if(damagetype != BURN || damage <= 0)
 		return
-	damage_mods += 0.5
-	owner.adjustBruteLoss(-round(damage * 0.5), updating_health = FALSE)
+	damage_mods += 0
+	owner.adjustBruteLoss(-round(damage * 0.5))
 
 /datum/status_effect/sect_torture_offering
 	id = "sect_torture_offering"
