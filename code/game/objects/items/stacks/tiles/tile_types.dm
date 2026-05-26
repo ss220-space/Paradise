@@ -69,7 +69,7 @@
 	energy_type = /datum/robot_energy_storage/wood
 
 /obj/item/stack/tile/wood/decompile_act(obj/item/matter_decompiler/C, mob/user)
-	C.stored_comms["wood"] += 2
+	C.stored_comms["wood"] += 1
 	qdel(src)
 	return TRUE
 
