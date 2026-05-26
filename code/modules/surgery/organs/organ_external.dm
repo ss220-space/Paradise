@@ -250,11 +250,14 @@
 			var/atom/movable/thing = childpart.remove(organ_owner, special)
 			if(!QDELETED(thing))
 				thing.forceMove(src)
-		organ_owner.updatehealth("limb remove")
 
 	release_restraints(organ_owner)
 	organ_owner.bodyparts -= src
 	organ_owner.bodyparts_by_name[limb_zone] = null	// Remove from owner's vars.
+
+	// Must happen after bodyparts cleanup
+	if(!ignore_children)
+		organ_owner.updatehealth("limb remove")
 
 	//Robotic limbs explode if sabotaged.
 	if(is_robotic() && sabotaged && !special)

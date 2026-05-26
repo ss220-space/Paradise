@@ -255,7 +255,7 @@
 
 /datum/security_voucher_kit/officer/enforcer
 	kit_box = /obj/item/storage/box/enforcer_kit
-	icon = 'icons/obj/weapons/projectile.dmi'
+	icon = 'icons/obj/weapons/pistols.dmi'
 	icon_state = "enforcer_grey"
 
 /datum/security_voucher_kit/officer/specter
