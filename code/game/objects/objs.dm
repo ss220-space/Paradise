@@ -365,3 +365,17 @@
 	RETURN_TYPE(/list)
 	SHOULD_CALL_PARENT(FALSE)
 	return list(src)
+
+/// In case of not standard situation when need add something in purchase log
+/obj/proc/log_contents_to_uplink(obj/item/uplink/target_uplink)
+	if(!target_uplink || QDELETED(target_uplink))
+		return
+
+	var/new_purchase_logs = ""
+	var/list/items_to_log = get_uplink_log_items()
+	if(!length(items_to_log))
+		return
+
+	for(var/atom/atom_to_display in items_to_log)
+		new_purchase_logs += span_fontsize4(icon2base64html(atom_to_display))
+	target_uplink.purchase_log += new_purchase_logs

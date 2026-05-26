@@ -324,12 +324,7 @@
 	var/obj/item/uplink/hidden/traitor_uplink = user.mind?.find_syndicate_uplink()
 	if(!traitor_uplink || !your_bundle || !length(your_bundle.contents))
 		return
-	var/new_purchase_logs = ""
-	for(var/obj/item/bundle_item in your_bundle.contents)
-		var/list/item_contents = bundle_item.get_uplink_log_items()
-		for(var/atom/atom_to_display in item_contents)
-			new_purchase_logs += span_fontsize4(icon2base64html(atom_to_display))
-	traitor_uplink.purchase_log += new_purchase_logs
+	your_bundle.log_contents_to_uplink(traitor_uplink)
 
 /obj/item/beacon/syndicate/bundle/check_uplink_validity()
 	return !used
