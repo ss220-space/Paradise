@@ -234,6 +234,7 @@
 	if(!src)
 		return
 
+
 		do_smoke(range = round(clamp(cycle_count / 10, 0, 4)), location = get_turf(src), smoke_type = /obj/effect/particle_effect/fluid/smoke/chem/quick/vapor)
 
 /obj/item/ecig/syndi
