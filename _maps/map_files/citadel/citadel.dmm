@@ -147,11 +147,13 @@
 /turf/simulated/floor/grass,
 /area/space)
 "aF" = (
-/obj/structure/disposalpipe/segment,
-/obj/structure/cable{
-	icon_state = "1-2"
+/obj/structure/table,
+/obj/item/paper_bin{
+	pixel_x = -3;
+	pixel_y = 7
 	},
-/turf/space/openspace,
+/obj/item/pen,
+/turf/simulated/floor/plasteel,
 /area/space)
 "aK" = (
 /obj/structure/chair/comfy/brown{
@@ -369,13 +371,9 @@
 	},
 /area/space)
 "bK" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/turf/space/openspace,
+/obj/structure/table/wood,
+/obj/item/book/manual/security_space_law,
+/turf/simulated/floor/plasteel,
 /area/space)
 "bL" = (
 /obj/structure/chair/sofa/corp/right,
@@ -762,10 +760,11 @@
 	},
 /area/space)
 "da" = (
-/obj/structure/cable{
-	icon_state = "1-4"
+/obj/machinery/optable,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkblue"
 	},
-/turf/space/openspace,
 /area/space)
 "dd" = (
 /obj/structure/chair/office/dark{
@@ -812,6 +811,13 @@
 	dir = 8
 	},
 /turf/simulated/floor/wood/fancy/light,
+/area/space)
+"dk" = (
+/obj/structure/table/wood,
+/obj/machinery/computer/security/wooden_tv{
+	network = list("SS13","Research Outpost","Mining Outpost")
+	},
+/turf/simulated/floor/carpet/green,
 /area/space)
 "dl" = (
 /obj/item/reagent_containers/glass/bucket,
@@ -1010,10 +1016,13 @@
 /turf/simulated/floor/carpet/royalblack,
 /area/space)
 "dZ" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 8
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 2;
+	id_tag = "brig_detprivacy";
+	name = "Detective Privacy Shutters"
 	},
-/turf/space/openspace,
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
 /area/space)
 "ea" = (
 /obj/effect/turf_decal/siding/wood,
@@ -1269,6 +1278,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/space)
+"eV" = (
+/obj/structure/table/wood,
+/obj/item/toy/figure/detective,
+/obj/item/clipboard,
+/turf/simulated/floor/wood,
+/area/space)
 "eW" = (
 /obj/structure/table/glass,
 /obj/machinery/reagentgrinder{
@@ -1499,6 +1514,16 @@
 /obj/item/razor,
 /obj/machinery/light,
 /turf/simulated/floor/carpet/royalblue,
+/area/space)
+"fZ" = (
+/obj/machinery/dnaforensics,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkblue"
+	},
 /area/space)
 "ga" = (
 /obj/structure/table,
@@ -1828,6 +1853,12 @@
 	},
 /turf/simulated/floor/carpet/red,
 /area/space)
+"hj" = (
+/obj/structure/chair/sofa/corp/right{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/space)
 "hr" = (
 /obj/structure/safe/floor{
 	known_by = list("captain")
@@ -1940,10 +1971,10 @@
 /turf/space/openspace,
 /area/space)
 "hT" = (
-/obj/structure/disposalpipe/segment{
-	dir = 10
-	},
-/turf/space/openspace,
+/obj/structure/table/wood,
+/obj/item/storage/fancy/cigarettes/dromedaryco,
+/obj/effect/spawner/lootdrop/officetoys,
+/turf/simulated/floor/carpet/green,
 /area/space)
 "hU" = (
 /obj/structure/chair/sofa/corp/right{
@@ -2134,10 +2165,14 @@
 	},
 /area/space)
 "iQ" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
+/obj/machinery/photocopier,
+/obj/machinery/door_control{
+	id = "brig_detprivacy";
+	name = "Detective Privacy Shutters Control";
+	pixel_x = -6;
+	pixel_y = 22
 	},
-/turf/space/openspace,
+/turf/simulated/floor/carpet/green,
 /area/space)
 "iT" = (
 /obj/structure/chair/sofa/corp{
@@ -2193,6 +2228,12 @@
 /obj/structure/flora/ausbushes/stalkybush,
 /obj/item/stack/spacecash/c100,
 /turf/simulated/floor/grass,
+/area/space)
+"je" = (
+/obj/structure/chair/sofa/corp{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
 /area/space)
 "jf" = (
 /obj/structure/lattice,
@@ -2538,6 +2579,13 @@
 	dir = 6
 	},
 /turf/simulated/floor/carpet/red,
+/area/space)
+"kP" = (
+/obj/machinery/door/window/eastright{
+	name = "Forensic laboratory";
+	req_access = list(4)
+	},
+/turf/simulated/floor/wood,
 /area/space)
 "kQ" = (
 /obj/machinery/door/airlock{
@@ -2907,7 +2955,15 @@
 /obj/structure/chair/comfy/brown{
 	dir = 4
 	},
+/obj/effect/landmark/start/lawyer,
 /turf/simulated/floor/carpet,
+/area/space)
+"mC" = (
+/obj/machinery/door/airlock/security{
+	name = "Detective";
+	req_access = list(4)
+	},
+/turf/simulated/floor/wood,
 /area/space)
 "mD" = (
 /obj/effect/turf_decal/siding/yellow/corner{
@@ -3200,6 +3256,11 @@
 	dir = 6;
 	icon_state = "whitepurple"
 	},
+/area/space)
+"nF" = (
+/obj/machinery/vending/coffee,
+/obj/effect/turf_decal/delivery,
+/turf/simulated/floor/plasteel,
 /area/space)
 "nG" = (
 /obj/structure/chair/comfy/red,
@@ -3513,6 +3574,10 @@
 	icon_state = "freezerfloor"
 	},
 /area/space)
+"oM" = (
+/obj/structure/sign/security,
+/turf/simulated/wall/r_wall,
+/area/space)
 "oN" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/flora/ausbushes/stalkybush,
@@ -3542,6 +3607,10 @@
 /turf/simulated/floor/carpet/royalblack,
 /area/space)
 "oR" = (
+/turf/simulated/floor/wood,
+/area/space)
+"oU" = (
+/obj/structure/closet/secure_closet/cabinet/detective,
 /turf/simulated/floor/wood,
 /area/space)
 "oV" = (
@@ -3946,6 +4015,12 @@
 /obj/structure/flora/ausbushes/genericbush,
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/grass,
+/area/space)
+"qo" = (
+/obj/structure/chair/sofa/corp/corner{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
 /area/space)
 "qp" = (
 /obj/machinery/door_control{
@@ -4410,6 +4485,14 @@
 	icon_state = "bar"
 	},
 /area/space)
+"sb" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/mob/living/simple_animal/pet/dog/security/detective,
+/obj/structure/bed/dogbed,
+/turf/simulated/floor/wood,
+/area/space)
 "sc" = (
 /obj/structure/table/wood/poker,
 /obj/item/stack/spacechips/c100,
@@ -4687,10 +4770,8 @@
 /turf/simulated/floor/carpet,
 /area/space)
 "ti" = (
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/turf/space/openspace,
+/obj/machinery/photocopier,
+/turf/simulated/floor/plasteel,
 /area/space)
 "tj" = (
 /obj/effect/decal/cleanable/dirt,
@@ -5035,10 +5116,17 @@
 /turf/simulated/floor/carpet/royalblack,
 /area/space)
 "uK" = (
-/obj/structure/cable{
-	icon_state = "0-4"
+/obj/structure/table/wood,
+/obj/item/pen/multi{
+	pixel_x = -7;
+	pixel_y = 5
 	},
-/turf/space/openspace,
+/obj/item/paper_bin{
+	pixel_x = -3;
+	pixel_y = 7
+	},
+/obj/item/book/manual/security_space_law,
+/turf/simulated/floor/carpet/green,
 /area/space)
 "uL" = (
 /obj/effect/spawner/window/reinforced,
@@ -5322,10 +5410,8 @@
 /turf/simulated/floor/carpet/red,
 /area/space)
 "wa" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/turf/space/openspace,
+/obj/structure/table/wood,
+/turf/simulated/floor/plasteel,
 /area/space)
 "wb" = (
 /obj/machinery/door/airlock/external{
@@ -5428,6 +5514,7 @@
 "wx" = (
 /obj/structure/bed,
 /obj/item/bedsheet/wiz,
+/obj/effect/landmark/start/lawyer,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/space)
 "wy" = (
@@ -5877,6 +5964,13 @@
 	icon_state = "whitebluecorner"
 	},
 /area/space)
+"yo" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/item/twohanded/required/kirbyplants,
+/turf/simulated/floor/wood,
+/area/space)
 "ys" = (
 /obj/machinery/alarm{
 	pixel_y = 22
@@ -5919,6 +6013,16 @@
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
+	},
+/area/space)
+"yA" = (
+/obj/structure/table,
+/obj/machinery/microscope{
+	pixel_y = 6
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkblue"
 	},
 /area/space)
 "yB" = (
@@ -6004,10 +6108,10 @@
 	},
 /area/space)
 "yT" = (
-/obj/structure/cable{
-	icon_state = "0-8"
+/obj/structure/chair/sofa/corp{
+	dir = 1
 	},
-/turf/space/openspace,
+/turf/simulated/floor/plasteel,
 /area/space)
 "yU" = (
 /obj/structure/table,
@@ -6341,6 +6445,13 @@
 	icon_state = "dark"
 	},
 /area/space)
+"An" = (
+/obj/structure/morgue,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "darkblue"
+	},
+/area/space)
 "Ao" = (
 /obj/machinery/papershredder,
 /turf/simulated/floor/wood,
@@ -6364,6 +6475,12 @@
 	},
 /turf/simulated/floor/carpet/royalblue,
 /area/space)
+"Au" = (
+/obj/structure/chair/sofa/corp/left{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/space)
 "Aw" = (
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -6386,10 +6503,8 @@
 /turf/simulated/floor/carpet/royalblack,
 /area/space)
 "Az" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/space/openspace,
+/obj/machinery/disposal,
+/turf/simulated/floor/plasteel,
 /area/space)
 "AB" = (
 /obj/machinery/prize_counter,
@@ -6400,6 +6515,11 @@
 "AC" = (
 /obj/machinery/computer/communications,
 /turf/simulated/floor/carpet/royalblue,
+/area/space)
+"AD" = (
+/obj/structure/table,
+/obj/machinery/recharger,
+/turf/simulated/floor/plasteel,
 /area/space)
 "AE" = (
 /obj/structure/bed,
@@ -6455,6 +6575,10 @@
 "AQ" = (
 /obj/machinery/vending/cigarette,
 /turf/simulated/floor/plasteel,
+/area/space)
+"AR" = (
+/obj/structure/filingcabinet/chestdrawer,
+/turf/simulated/floor/wood,
 /area/space)
 "AT" = (
 /obj/item/twohanded/required/kirbyplants,
@@ -7160,14 +7284,14 @@
 	},
 /area/space)
 "DS" = (
-/obj/structure/cable{
-	icon_state = "1-2"
+/obj/structure/table/wood,
+/obj/item/flashlight/lamp/green{
+	on = 0;
+	pixel_x = -6;
+	pixel_y = 14
 	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/space/openspace,
+/obj/item/lighter/zippo/detective,
+/turf/simulated/floor/carpet/green,
 /area/space)
 "DT" = (
 /obj/structure/filingcabinet/chestdrawer,
@@ -7267,6 +7391,11 @@
 	pixel_y = 32
 	},
 /turf/simulated/floor/wood/dark,
+/area/space)
+"Em" = (
+/obj/structure/table/wood,
+/obj/machinery/recharger,
+/turf/simulated/floor/wood,
 /area/space)
 "Eo" = (
 /obj/machinery/computer/security/wooden_tv,
@@ -7725,16 +7854,20 @@
 /turf/simulated/floor/grass,
 /area/space)
 "Go" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
+/obj/structure/rack,
+/obj/item/camera_film,
+/obj/item/camera{
+	desc = "A one use - polaroid camera. 30 photos left.";
+	name = "detectives camera";
+	pictures_left = 30
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/space/openspace,
+/obj/item/taperecorder,
+/obj/item/storage/briefcase,
+/obj/item/hand_labeler,
+/obj/item/storage/box/evidence,
+/obj/item/storage/box/evidence,
+/obj/item/storage/box/tapes,
+/turf/simulated/floor/wood,
 /area/space)
 "Gq" = (
 /obj/structure/table,
@@ -7851,16 +7984,10 @@
 	},
 /area/space)
 "GM" = (
-/obj/structure/cable{
-	icon_state = "2-4"
+/obj/machinery/computer/secure_data,
+/turf/simulated/floor/plasteel{
+	icon_state = "redfull"
 	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/turf/space/openspace,
 /area/space)
 "GP" = (
 /obj/structure/closet/crate/hydroponics/prespawned,
@@ -7890,6 +8017,7 @@
 /area/space)
 "GV" = (
 /obj/structure/chair/comfy/brown,
+/obj/effect/landmark/start/lawyer,
 /turf/simulated/floor/carpet,
 /area/space)
 "GY" = (
@@ -7936,13 +8064,14 @@
 /turf/simulated/floor/plating,
 /area/space)
 "Hk" = (
-/obj/structure/cable{
-	icon_state = "4-8"
+/obj/vehicle/ridden/wheelchair{
+	desc = "Это кресло осталось от одного из предыдущих детективов. Говорят, что тот открыл в себе псионические способности и ушёл работать в федерацию магов.";
+	name = "Старое инвалидное кресло"
 	},
-/obj/structure/disposalpipe/trunk{
-	dir = 8
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkblue"
 	},
-/turf/space/openspace,
 /area/space)
 "Hp" = (
 /obj/structure/chair/sofa/corp/corner{
@@ -8053,6 +8182,14 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/space)
+"HE" = (
+/obj/machinery/vending/snack,
+/obj/effect/turf_decal/delivery,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/space)
 "HF" = (
 /obj/structure/chair/office/light,
 /mob/living/simple_animal/mouse/rat/white/Brain,
@@ -8143,6 +8280,10 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
+/area/space)
+"Ie" = (
+/obj/machinery/papershredder,
+/turf/simulated/floor/plasteel,
 /area/space)
 "Ih" = (
 /obj/effect/turf_decal/siding/yellow{
@@ -8626,19 +8767,14 @@
 	},
 /area/space)
 "JU" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
+/obj/machinery/camera{
+	c_tag = "Detective's Lab";
+	network = list("SS13","Security")
 	},
-/obj/structure/cable{
-	icon_state = "1-8"
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkblue"
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 9
-	},
-/turf/space/openspace,
 /area/space)
 "JX" = (
 /obj/structure/flora/ausbushes/genericbush,
@@ -9009,6 +9145,22 @@
 	},
 /turf/simulated/floor/carpet/red,
 /area/space)
+"Lo" = (
+/obj/structure/closet/secure_closet{
+	anchored = 1;
+	name = "Evidence Storage";
+	req_access = list(4)
+	},
+/obj/item/storage/box/bodybags,
+/obj/item/reagent_containers/spray/cleaner/brig,
+/obj/item/folder/red,
+/obj/item/folder/red,
+/obj/item/folder/red,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "darkblue"
+	},
+/area/space)
 "Lu" = (
 /obj/effect/spawner/window/reinforced,
 /turf/space,
@@ -9299,6 +9451,7 @@
 "Mo" = (
 /obj/structure/bed,
 /obj/item/bedsheet/yellow,
+/obj/effect/landmark/start/lawyer,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/space)
 "Mr" = (
@@ -11000,6 +11153,22 @@
 	icon_state = "freezerfloor"
 	},
 /area/space)
+"Tr" = (
+/obj/structure/table,
+/obj/effect/landmark/start/hangover,
+/obj/item/clothing/gloves/color/latex/nitrile,
+/obj/item/autopsy_scanner,
+/obj/item/scalpel,
+/obj/machinery/requests_console{
+	department = "Detective";
+	name = "Detective Requests Console";
+	pixel_x = -32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "darkblue"
+	},
+/area/space)
 "Ts" = (
 /obj/machinery/door/airlock/glass{
 	name = "Chapel"
@@ -11157,16 +11326,12 @@
 /turf/simulated/floor/carpet/royalblue,
 /area/space)
 "TZ" = (
-/obj/structure/cable{
-	icon_state = "1-2"
+/obj/structure/table/reinforced,
+/obj/machinery/door/window/brigdoor{
+	name = "Security Reception";
+	req_access = list(1)
 	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 5
-	},
-/turf/space/openspace,
+/turf/simulated/floor/plasteel,
 /area/space)
 "Ua" = (
 /obj/structure/toilet{
@@ -11574,11 +11739,10 @@
 /turf/simulated/floor/engine,
 /area/space)
 "Vw" = (
-/obj/structure/cable{
-	icon_state = "1-2"
+/obj/structure/chair/comfy/brown{
+	dir = 8
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber/on,
-/turf/space/openspace,
+/turf/simulated/floor/carpet/green,
 /area/space)
 "Vx" = (
 /obj/item/twohanded/required/kirbyplants,
@@ -11997,6 +12161,10 @@
 /obj/structure/grille,
 /turf/simulated/floor/shuttle/plating,
 /area/space)
+"Xd" = (
+/obj/structure/sign/security,
+/turf/simulated/wall,
+/area/space)
 "Xe" = (
 /obj/structure/dispenser/oxygen,
 /turf/simulated/floor/plasteel{
@@ -12149,6 +12317,13 @@
 	},
 /turf/simulated/floor/carpet/green,
 /area/space)
+"XG" = (
+/obj/item/twohanded/required/kirbyplants,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "darkblue"
+	},
+/area/space)
 "XH" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -12219,6 +12394,14 @@
 /obj/structure/lattice,
 /obj/structure/grille,
 /turf/space/openspace,
+/area/space)
+"Yf" = (
+/obj/machinery/vending/cola,
+/obj/effect/turf_decal/delivery,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
 /area/space)
 "Yg" = (
 /obj/structure/table/reinforced,
@@ -12340,6 +12523,11 @@
 	req_access = list(73)
 	},
 /turf/simulated/floor/carpet/royalblack,
+/area/space)
+"YF" = (
+/obj/structure/table/wood,
+/obj/item/flashlight/lamp,
+/turf/simulated/floor/plasteel,
 /area/space)
 "YH" = (
 /obj/structure/table/glass,
@@ -12501,6 +12689,14 @@
 	dir = 1
 	},
 /turf/simulated/floor/carpet/red,
+/area/space)
+"Zn" = (
+/obj/machinery/computer/security{
+	network = list("SS13","Research Outpost","Mining Outpost")
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "redfull"
+	},
 /area/space)
 "Zr" = (
 /obj/effect/decal/cleanable/dirt,
@@ -163155,9 +163351,9 @@ Iw
 Iw
 Iw
 Iw
-uK
-Go
-uK
+Iw
+Iw
+Iw
 Iw
 Iw
 Iw
@@ -163367,11 +163563,11 @@ Gd
 Gd
 Gd
 Gd
-Iw
-Iw
-Iw
-Iw
-Iw
+Gd
+Gd
+Gd
+Gd
+Gd
 Gd
 Gd
 Gd
@@ -163407,14 +163603,14 @@ Iw
 Iw
 Iw
 Iw
-aF
-TZ
-Az
-Az
-Vw
-DS
-JU
-wa
+Iw
+Iw
+Iw
+Iw
+Iw
+Iw
+Iw
+Iw
 Iw
 Iw
 Iw
@@ -163621,17 +163817,17 @@ Iw
 Gd
 Gd
 Gd
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
 Gd
 Gd
 Gd
@@ -163664,13 +163860,13 @@ Iw
 Iw
 Iw
 Iw
-uK
-Hk
 Iw
 Iw
 Iw
 Iw
-iQ
+Iw
+Iw
+Iw
 Iw
 Iw
 Iw
@@ -163878,17 +164074,6 @@ Gd
 Gd
 Gd
 Gd
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
 Gd
 Gd
 Gd
@@ -163900,6 +164085,17 @@ Gd
 Gd
 Gd
 Gd
+Gd
+Gd
+Gd
+Gd
+dP
+dP
+dP
+dP
+dP
+dP
+dP
 dP
 dP
 lT
@@ -163921,13 +164117,13 @@ Iw
 Iw
 Iw
 Iw
-GM
-bK
 Iw
 Iw
 Iw
 Iw
-iQ
+Iw
+Iw
+Iw
 Iw
 Iw
 Iw
@@ -164132,30 +164328,30 @@ Iw
 Iw
 Gd
 Gd
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+dP
+Gd
+Gd
+Gd
+Gd
+Gd
 Gd
 dP
 px
@@ -164178,13 +164374,13 @@ Iw
 Iw
 Iw
 Iw
-yT
-ti
-da
 Iw
 Iw
 Iw
-dZ
+Iw
+Iw
+Iw
+Iw
 Iw
 Iw
 Iw
@@ -164388,31 +164584,31 @@ Iw
 Iw
 Gd
 Gd
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+dP
+Gd
+Gd
+Gd
+Gd
+Gd
 Gd
 dP
 px
@@ -164436,8 +164632,8 @@ Iw
 Iw
 Iw
 Iw
-hT
-yT
+Iw
+Iw
 Iw
 Iw
 Iw
@@ -164644,32 +164840,32 @@ Iw
 Iw
 Gd
 Gd
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+dP
+Zn
+Gd
+Gd
+Gd
+Gd
 Gd
 dP
 px
@@ -164900,33 +165096,33 @@ Iw
 Gd
 Gd
 Gd
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+dP
+GM
+Gd
+Gd
+Gd
+Gd
 Gd
 dP
 px
@@ -165155,36 +165351,36 @@ Iw
 Iw
 Iw
 Gd
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
 Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+dP
+TZ
+TZ
+vR
+dP
+dP
+dP
 dP
 px
 px
@@ -165412,36 +165608,36 @@ Iw
 Iw
 Iw
 Gd
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
 Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+vR
+Zl
+Zl
+qd
+hj
+je
+qo
 dP
 px
 px
@@ -165669,36 +165865,36 @@ Iw
 Iw
 Iw
 Gd
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
 Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+vR
+Zl
+Zl
+Zl
+YF
+wa
+yT
 dP
 px
 px
@@ -165926,36 +166122,36 @@ Iw
 Iw
 Iw
 Gd
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
 Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+dP
+AD
+Zl
+Zl
+wa
+bK
+Au
 dP
 px
 px
@@ -166183,36 +166379,36 @@ fE
 fE
 fE
 Gd
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
 Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+dP
+aF
+Zl
+Zl
+Zl
+Zl
+qd
 dP
 px
 px
@@ -166440,36 +166636,36 @@ fE
 fE
 fE
 Gd
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
 Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+vR
+ti
+Zl
+Zl
+Zl
+Zl
+Yf
 dP
 px
 px
@@ -166697,36 +166893,36 @@ fE
 fE
 fE
 Gd
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
 Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+vR
+Az
+Zl
+Zl
+Zl
+Zl
+nF
 dP
 px
 px
@@ -166954,37 +167150,37 @@ fE
 fE
 fE
 Gd
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
 Gd
 dP
+Ie
+Zl
+Zl
+Zl
+Zl
+HE
+Xd
 px
 px
 px
@@ -167211,37 +167407,37 @@ fE
 fE
 fE
 Gd
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
 Gd
-dP
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+uH
+Zl
+Zl
+Zl
+Zl
+Zl
+Zl
+uH
 px
 px
 px
@@ -167468,37 +167664,37 @@ fE
 fE
 fE
 Gd
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
 Gd
-dP
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+uH
+Zl
+Zl
+Zl
+Zl
+Zl
+Zl
+uH
 px
 px
 px
@@ -167725,37 +167921,37 @@ fE
 fE
 fE
 Gd
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
 Gd
-dP
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+uH
+Zl
+Zl
+Zl
+Zl
+Zl
+Zl
+uH
 px
 px
 px
@@ -167982,37 +168178,37 @@ fE
 fE
 fE
 Gd
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
 Gd
-dP
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Lf
+dZ
+dZ
+mC
+dZ
+dZ
+Lf
+oM
 px
 px
 px
@@ -168239,37 +168435,37 @@ fE
 fE
 fE
 Gd
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
 Gd
-dP
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Lf
+FI
+oR
+oR
+Em
+eV
+oU
+Lf
 px
 px
 px
@@ -168496,37 +168692,37 @@ fE
 fE
 fE
 Gd
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
 Gd
-dP
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Lf
+tu
+sC
+oR
+oR
+oR
+oR
+dZ
 px
 px
 px
@@ -168753,37 +168949,37 @@ fE
 fE
 fE
 Gd
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
 Gd
-dP
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Lf
+dk
+DS
+uK
+oR
+oR
+AR
+dZ
 px
 px
 px
@@ -169010,37 +169206,37 @@ fE
 fE
 fE
 Gd
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
 Gd
-dP
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Lf
+iQ
+Vw
+hT
+oR
+oR
+Go
+dZ
 px
 px
 px
@@ -169267,37 +169463,37 @@ fE
 fE
 fE
 Gd
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
 Gd
-dP
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Lf
+ZJ
+ZJ
+ZJ
+oR
+oR
+Ao
+dZ
 px
 px
 px
@@ -169524,37 +169720,37 @@ fE
 fE
 fE
 Gd
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
 Gd
-dP
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Lf
+Lf
+Lf
+Lf
+sb
+kP
+yo
+Lf
 px
 px
 px
@@ -169781,37 +169977,37 @@ fE
 fE
 fE
 Gd
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
 Gd
-dP
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Lf
+Tr
+yA
+fZ
+Hk
+px
+An
+Lf
 px
 px
 px
@@ -170038,37 +170234,37 @@ fE
 fE
 fE
 Gd
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
 Gd
-dP
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Lf
+JU
+px
+px
+px
+px
+Uz
+Lf
 px
 px
 px
@@ -170295,37 +170491,37 @@ fE
 fE
 fE
 Gd
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
 Gd
-dP
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Gd
+Lf
+Lo
+RJ
+da
+RJ
+RJ
+XG
+Lf
 px
 px
 px
@@ -170552,13 +170748,6 @@ fE
 fE
 fE
 Gd
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
-Iw
 Gd
 Gd
 Gd
@@ -170582,7 +170771,14 @@ Gd
 Gd
 Gd
 Gd
-dP
+Lf
+Lf
+Lf
+Lf
+Lf
+Lf
+Lf
+Lf
 px
 px
 px
@@ -170808,15 +171004,15 @@ fE
 fE
 fE
 fE
-Gd
-Gd
-Gd
-Gd
-Gd
-Iw
-Iw
-Iw
-Gd
+fE
+fE
+fE
+fE
+fE
+fE
+fE
+fE
+fE
 fE
 fE
 fE
@@ -171069,11 +171265,11 @@ fE
 fE
 fE
 fE
-Gd
-Gd
-Gd
-Gd
-Gd
+fE
+fE
+fE
+fE
+fE
 fE
 fE
 fE
