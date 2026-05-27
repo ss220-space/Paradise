@@ -373,8 +373,8 @@
 	. = ..()
 	if(!.)
 		return
-	var/datum/component/gunpoint/gunpoint = owner.GetComponent(/datum/component/gunpoint)
-	gunpoint?.cancel()
+
+	SEND_SIGNAL(owner, COMSIG_LIVING_GUNPOINT_CANCEL)
 
 //this effect gives the user an alert they can use to surrender quickly
 /datum/status_effect/grouped/surrender
@@ -393,5 +393,7 @@
 	. = ..()
 	if(!.)
 		return
-
-	owner.emote("surrender")
+	var/mob/living/surrendered_mob = owner
+	if(surrendered_mob)
+		surrendered_mob.emote("surrender")
+		SEND_SIGNAL(surrendered_mob, COMSIG_LIVING_GUNPOINT_CANCEL)

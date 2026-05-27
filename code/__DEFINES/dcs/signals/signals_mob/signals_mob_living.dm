@@ -98,8 +98,13 @@
 
 /// From /obj/item/gun/interact_with_atom_secondary(): (mob/user)
 /// Sent to a target mob to determine if they are currently being held up at gunpoint.
-#define COMSIG_LIVING_CHECK_HELD_UP "living_check_held_up"
-	// Return COMPONENT_CANCEL_ATTACK_CHAIN if the target is already held up.
+#define COMSIG_LIVING_GUNPOINT_START "living_gunpoint_start"
+	/// Return this flag if the target is already held up by another shooter.
+	#define COMPONENT_LIVING_ALREADY_HELD_UP (1<<0)
+
+/// From /atom/movable/screen/alert/status_effect/holdup/Click(): ()
+/// Sent to the owner mob when they click the "Holding Up" alert to break their aim.
+#define COMSIG_LIVING_GUNPOINT_CANCEL "living_gunpoint_cancel"
 
 // Organ signals
 ///from [/obj/item/organ/internal/insert]:

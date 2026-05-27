@@ -33,18 +33,6 @@
 	target = targ
 	weapon = wep
 
-	RegisterSignals(targ, list(
-		COMSIG_MOVABLE_MOVED,
-		COMSIG_MOB_FIRED_GUN,
-		COMSIG_LIVING_START_PULL,
-		COMSIG_MOB_ITEM_ATTACK), PROC_REF(trigger_reaction))
-
-	RegisterSignal(targ, COMSIG_ATOM_EXAMINE, PROC_REF(examine_target))
-	RegisterSignals(weapon, list(COMSIG_ITEM_DROPPED, COMSIG_ITEM_EQUIPPED), PROC_REF(cancel))
-	RegisterSignal(targ, COMSIG_QDELETING, PROC_REF(cancel))
-	RegisterSignal(wep, COMSIG_QDELETING, PROC_REF(cancel))
-	RegisterSignal(targ, COMSIG_LIVING_CHECK_HELD_UP, PROC_REF(block_duplicate_gunpoint))
-
 	var/distance = max(get_dist(shooter, target), 1)
 	var/distance_description = (distance <= 1 ? "в упор" : "")
 
@@ -83,13 +71,53 @@
 	RegisterSignal(parent, COMSIG_MOB_UPDATE_SIGHT, PROC_REF(check_deescalate))
 	RegisterSignals(parent, list(COMSIG_LIVING_START_PULL, COMSIG_MOVABLE_BUMP), PROC_REF(check_bump))
 	RegisterSignal(parent, COMSIG_ATOM_EXAMINE, PROC_REF(examine))
+	RegisterSignal(parent, COMSIG_HUMAN_DISARM_HIT, PROC_REF(trigger_reaction))
+	RegisterSignal(parent, COMSIG_LIVING_GUNPOINT_CANCEL, PROC_REF(cancel))
+
+	RegisterSignals(target, list(
+		COMSIG_MOVABLE_MOVED,
+		COMSIG_MOB_FIRED_GUN,
+		COMSIG_LIVING_START_PULL,
+		COMSIG_MOB_ITEM_ATTACK), PROC_REF(trigger_reaction))
+	RegisterSignal(target, COMSIG_ATOM_EXAMINE, PROC_REF(examine_target))
+	RegisterSignal(target, COMSIG_QDELETING, PROC_REF(cancel))
+	RegisterSignal(target, COMSIG_LIVING_GUNPOINT_START, PROC_REF(block_duplicate_gunpoint))
+	RegisterSignal(target, COMSIG_LIVING_GUNPOINT_CANCEL, PROC_REF(cancel))
+
+	RegisterSignals(weapon, list(COMSIG_ITEM_DROPPED, COMSIG_ITEM_EQUIPPED), PROC_REF(cancel))
+	RegisterSignal(weapon, COMSIG_QDELETING, PROC_REF(cancel))
 
 /datum/component/gunpoint/UnregisterFromParent()
-	UnregisterSignal(parent, COMSIG_MOVABLE_MOVED)
-	UnregisterSignal(parent, COMSIG_MOB_APPLY_DAMAGE)
-	UnregisterSignal(parent, COMSIG_MOB_UPDATE_SIGHT)
-	UnregisterSignal(parent, list(COMSIG_LIVING_START_PULL, COMSIG_MOVABLE_BUMP))
-	UnregisterSignal(parent, COMSIG_ATOM_EXAMINE)
+	UnregisterSignal(parent, list(
+		COMSIG_MOVABLE_MOVED,
+		COMSIG_MOB_APPLY_DAMAGE,
+		COMSIG_MOB_UPDATE_SIGHT,
+		COMSIG_LIVING_START_PULL,
+		COMSIG_MOVABLE_BUMP,
+		COMSIG_ATOM_EXAMINE,
+		COMSIG_MOB_ATTACK_HAND,
+		COMSIG_HUMAN_DISARM_HIT,
+		COMSIG_LIVING_GUNPOINT_CANCEL,
+	))
+
+	if(target)
+		UnregisterSignal(target, list(
+			COMSIG_MOVABLE_MOVED,
+			COMSIG_MOB_FIRED_GUN,
+			COMSIG_LIVING_START_PULL,
+			COMSIG_MOB_ITEM_ATTACK,
+			COMSIG_ATOM_EXAMINE,
+			COMSIG_QDELETING,
+			COMSIG_LIVING_GUNPOINT_START,
+			COMSIG_LIVING_GUNPOINT_CANCEL,
+		))
+
+	if(weapon)
+		UnregisterSignal(weapon, list(
+			COMSIG_ITEM_DROPPED,
+			COMSIG_ITEM_EQUIPPED,
+			COMSIG_QDELETING,
+		))
 
 ///If the shooter bumps the target, cancel the holdup to avoid cheesing and forcing the charged shot
 /datum/component/gunpoint/proc/check_bump(datum/source, atom/bumped_atom)
@@ -223,7 +251,7 @@
 /datum/component/gunpoint/proc/block_duplicate_gunpoint(mob/living/source)
 	SIGNAL_HANDLER
 
-	return COMPONENT_CANCEL_ATTACK_CHAIN
+	return COMPONENT_LIVING_ALREADY_HELD_UP
 
 #undef GUNPOINT_DELAY_STAGE_2
 #undef GUNPOINT_DELAY_STAGE_3
