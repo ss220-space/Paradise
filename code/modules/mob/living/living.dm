@@ -28,6 +28,8 @@
 	if(length(weather_immunities))
 		add_traits(weather_immunities, INNATE_TRAIT)
 
+	register_context()
+
 	GLOB.mob_living_list += src
 
 /mob/living/Destroy()
@@ -2368,3 +2370,15 @@
 	var/obj/item/organ/external/part = get_bodypart(zone)
 
 	return part?.plaintext_zone || parse_zone(zone)
+
+/mob/living/add_context(atom/source, list/context, obj/item/held_item, mob/user)
+	. = ..()
+	if(!isgun(held_item))
+		return
+
+	var/obj/item/gun/held_gun = held_item
+	if(!held_gun.can_hold_up || user.a_intent != INTENT_HARM)
+		return
+
+	context[SCREENTIP_CONTEXT_RMB] = "Взять на мушку"
+	return CONTEXTUAL_SCREENTIP_SET
