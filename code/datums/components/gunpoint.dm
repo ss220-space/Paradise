@@ -1,0 +1,234 @@
+/// How long it takes from the gunpoint is initiated to reach stage 2
+#define GUNPOINT_DELAY_STAGE_2 (2.5 SECONDS)
+/// How long it takes from stage 2 starting to move up to stage 3
+#define GUNPOINT_DELAY_STAGE_3 (7.5 SECONDS)
+/// How much the damage and wound bonus mod is multiplied when you're on stage 1
+#define GUNPOINT_MULT_STAGE_1 1.25
+/// As above, for stage 2
+#define GUNPOINT_MULT_STAGE_2 2
+/// As above, for stage 3
+#define GUNPOINT_MULT_STAGE_3 2.5
+
+
+/datum/component/gunpoint
+	dupe_mode = COMPONENT_DUPE_UNIQUE
+
+	/// Who we're holding up
+	var/mob/living/target
+	/// The gun we're holding them up with
+	var/obj/item/gun/weapon
+
+	/// Which stage we're on
+	var/stage = 1
+	/// How much the damage and wound values will be multiplied by
+	var/damage_mult = GUNPOINT_MULT_STAGE_1
+	/// If TRUE, we're committed to firing the shot, for async purposes
+	var/point_of_no_return = FALSE
+
+/datum/component/gunpoint/Initialize(mob/living/targ, obj/item/gun/wep)
+	if(!isliving(parent))
+		return COMPONENT_INCOMPATIBLE
+
+	var/mob/living/shooter = parent
+	target = targ
+	weapon = wep
+
+	RegisterSignals(targ, list(
+		COMSIG_MOVABLE_MOVED,
+		COMSIG_MOB_FIRED_GUN,
+		COMSIG_LIVING_START_PULL,
+		COMSIG_MOB_ITEM_ATTACK), PROC_REF(trigger_reaction))
+
+	RegisterSignal(targ, COMSIG_ATOM_EXAMINE, PROC_REF(examine_target))
+	RegisterSignals(weapon, list(COMSIG_ITEM_DROPPED, COMSIG_ITEM_EQUIPPED), PROC_REF(cancel))
+
+	var/distance = max(get_dist(shooter, target), 1)
+	var/distance_description = (distance <= 1 ? "в упор" : "")
+
+	shooter.visible_message(
+		span_danger("[shooter] нацели[GEND_PAST_L(shooter)]ся из [weapon.declent_ru(GENITIVE)] на [target.declent_ru(ACCUSATIVE)] [distance_description]!"), \
+		span_danger("Вы нацелились из [weapon.declent_ru(GENITIVE)] на [target.declent_ru(ACCUSATIVE)] [distance_description]!"), \
+		ignored_mobs = target
+	)
+	to_chat(target, span_userdanger("[shooter] нацели[GEND_PAST_L(shooter)]ся из [weapon.declent_ru(GENITIVE)] на вас [distance_description]!"))
+
+	if(shooter.a_intent == INTENT_HELP)
+		shooter.Immobilize(0.75 SECONDS / distance)
+
+	shooter.apply_status_effect(/datum/status_effect/holdup, shooter)
+	target.apply_status_effect(/datum/status_effect/grouped/heldup)
+	do_alert_animation(target)
+	playsound(target.loc, 'sound/machines/chime.ogg', 50, TRUE)
+
+	addtimer(CALLBACK(src, PROC_REF(update_stage), 2), GUNPOINT_DELAY_STAGE_2)
+
+/datum/component/gunpoint/Destroy(force)
+	var/mob/living/shooter = parent
+	shooter.remove_status_effect(/datum/status_effect/holdup)
+	target.remove_status_effect(/datum/status_effect/grouped/heldup, UID_of(shooter))
+	return ..()
+
+/datum/component/gunpoint/RegisterWithParent()
+	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(check_deescalate))
+	RegisterSignal(parent, COMSIG_MOB_APPLY_DAMAGE, PROC_REF(flinch))
+	RegisterSignal(parent, COMSIG_MOB_UPDATE_SIGHT, PROC_REF(check_deescalate))
+	RegisterSignals(parent, list(COMSIG_LIVING_START_PULL, COMSIG_MOVABLE_BUMP), PROC_REF(check_bump))
+	RegisterSignal(parent, COMSIG_ATOM_EXAMINE, PROC_REF(examine))
+
+
+/datum/component/gunpoint/UnregisterFromParent()
+	UnregisterSignal(parent, COMSIG_MOVABLE_MOVED)
+	UnregisterSignal(parent, COMSIG_MOB_APPLY_DAMAGE)
+	UnregisterSignal(parent, COMSIG_MOB_UPDATE_SIGHT)
+	UnregisterSignal(parent, list(COMSIG_LIVING_START_PULL, COMSIG_MOVABLE_BUMP))
+	UnregisterSignal(parent, COMSIG_ATOM_EXAMINE)
+
+///If the shooter bumps the target, cancel the holdup to avoid cheesing and forcing the charged shot
+/datum/component/gunpoint/proc/check_bump(atom/atom_B, atom/atom_A)
+	SIGNAL_HANDLER
+
+	if(atom_A != target)
+		return
+	var/mob/living/shooter = parent
+	shooter.visible_message(
+		span_danger("[shooter] вреза[GEND_PAST_L(shooter)]ся в [target.declent_ru(ACCUSATIVE)] и сби[GEND_PAST_L(shooter)] себе прицел!"), \
+		span_danger("Вы врезались в [target.declent_ru(ACCUSATIVE)] и сбили себе прицел!"), \
+		ignored_mobs = target
+	)
+	to_chat(target, span_userdanger("[shooter] вреза[GEND_PAST_L(shooter)]ся в вас и сби[GEND_PAST_L(shooter)] себе прицел!"))
+	qdel(src)
+
+///If the shooter shoves or grabs the target, cancel the holdup to avoid cheesing and forcing the charged shot
+/datum/component/gunpoint/proc/check_shove(mob/living/carbon/shooter, mob/shooter_again, mob/living/T, datum/martial_art/attacker_style, modifiers)
+	SIGNAL_HANDLER
+
+	if(T != target || LAZYACCESS(modifiers, RIGHT_CLICK))
+		return
+	shooter.visible_message(
+		span_danger("[shooter] вреза[GEND_PAST_L(shooter)]ся в [target.declent_ru(ACCUSATIVE)] и сби[GEND_PAST_L(shooter)] себе прицел!"), \
+		span_danger("Вы врезались в [target.declent_ru(ACCUSATIVE)] и сбили себе прицел!"), \
+		ignored_mobs = target
+	)
+	to_chat(target, span_userdanger("[shooter] вреза[GEND_PAST_L(shooter)]ся в вас и сби[GEND_PAST_L(shooter)] себе прицел!"))
+	qdel(src)
+
+///Update the damage multiplier for whatever stage we're entering into
+/datum/component/gunpoint/proc/update_stage(new_stage)
+	var/mob/living/shooter = parent
+	if(check_deescalate())
+		return
+	stage = new_stage
+	if(stage == 2)
+		to_chat(shooter, span_danger("Вы наставили [weapon.declent_ru(ACCUSATIVE)] на [target.declent_ru(ACCUSATIVE)]."))
+		to_chat(target, span_userdanger("[shooter] настави[GEND_PAST_L(shooter)] [weapon.declent_ru(ACCUSATIVE)] на вас!"))
+		damage_mult = GUNPOINT_MULT_STAGE_2
+		addtimer(CALLBACK(src, PROC_REF(update_stage), 3), GUNPOINT_DELAY_STAGE_3)
+	else if(stage == 3)
+		to_chat(shooter, span_danger("Вы намертво зафиксировали прицел [weapon.declent_ru(GENITIVE)] на [target.declent_ru(PREPOSITIONAL)]."))
+		to_chat(target, span_userdanger("[shooter] намертво зафиксирова[GEND_PAST_L(shooter)] прицел [weapon.declent_ru(GENITIVE)] на вас!"))
+		damage_mult = GUNPOINT_MULT_STAGE_3
+
+///Cancel the holdup if the shooter moves out of sight or out of range of the target
+/datum/component/gunpoint/proc/check_deescalate()
+	SIGNAL_HANDLER
+
+	if(!can_line(parent, target, GUNPOINT_SHOOTER_STRAY_RANGE))
+		cancel()
+		return TRUE
+
+///Bang bang, we're firing a charged shot off
+/datum/component/gunpoint/proc/trigger_reaction(...)
+	SIGNAL_HANDLER
+
+	if(target && target.has_status_effect(STATUS_EFFECT_CAPITULATED))
+		return FALSE
+
+	INVOKE_ASYNC(src, PROC_REF(async_trigger_reaction))
+	return TRUE
+
+/datum/component/gunpoint/proc/async_trigger_reaction(...)
+	var/mob/living/shooter = parent
+
+	if(!shooter || !target || !weapon)
+		return
+
+	shooter.remove_status_effect(/datum/status_effect/holdup)
+	target.remove_status_effect(/datum/status_effect/grouped/heldup)
+
+	if(point_of_no_return)
+		return
+	point_of_no_return = TRUE
+
+	if(weapon.chambered && weapon.chambered.BB)
+		weapon.chambered.BB.damage *= damage_mult
+
+	var/def_zone = null
+	if(ishuman(shooter))
+		var/mob/living/carbon/human/H_shooter = shooter
+		def_zone = H_shooter.zone_selected
+
+	var/turf/target_turf = get_turf(target)
+	var/fired = weapon.fast_fire(target_turf, shooter, def_zone)
+
+	if(!fired)
+		if(weapon.chambered && weapon.chambered.BB)
+			weapon.chambered.BB.damage /= damage_mult
+
+	qdel(src)
+
+///Shooter canceled their shot, either by dropping/equipping their weapon, leaving sight/range, or clicking on the alert
+/datum/component/gunpoint/proc/cancel()
+	SIGNAL_HANDLER
+
+	var/mob/living/shooter = parent
+	shooter.visible_message(
+		span_danger("[shooter] опусти[GEND_PAST_L(shooter)] [weapon.declent_ru(ACCUSATIVE)] и больше не цели[GEND_PAST_L(shooter)]ся в [target.declent_ru(ACCUSATIVE)]!"), \
+		span_danger("Вы больше не целитесь из [weapon.declent_ru(GENITIVE)] в [target.declent_ru(ACCUSATIVE)]."), \
+		ignored_mobs = target
+	)
+	to_chat(target, span_userdanger("[shooter] опусти[GEND_PAST_L(shooter)] [weapon.declent_ru(ACCUSATIVE)] и больше не цели[GEND_PAST_L(shooter)]ся в вас!"))
+
+	if(target)
+		target.remove_status_effect(STATUS_EFFECT_CAPITULATED)
+
+	qdel(src)
+
+///If the shooter is hit by an attack, they have a 50% chance to flinch and fire. If it hit the arm holding the trigger, it's an 80% chance to fire instead
+/datum/component/gunpoint/proc/flinch(mob/living/source, damage_amount, damagetype, def_zone, blocked, wound_bonus, exposed_wound_bonus, sharpness, attack_direction, attacking_item)
+	SIGNAL_HANDLER
+
+	var/flinch_chance = 50
+	var/obj/item/held_hand = source.is_in_hands(weapon)
+
+	if(held_hand)
+		var/gun_hand = (held_hand == source.l_hand) ? BODY_ZONE_L_ARM : BODY_ZONE_R_ARM
+
+		if(def_zone == gun_hand)
+			flinch_chance = 80
+
+	if(prob(flinch_chance))
+		source.visible_message(
+			span_danger("[source] вздрагивает от боли!"),
+			span_danger("Вы вздрагиваете от боли!"),
+		)
+		INVOKE_ASYNC(src, PROC_REF(trigger_reaction))
+
+///Shows if the parent is holding someone at gunpoint
+/datum/component/gunpoint/proc/examine(datum/source, mob/user, list/examine_list)
+	SIGNAL_HANDLER
+	var/mob/living/shooter = parent
+	if(user in viewers(target))
+		examine_list += span_boldwarning("[shooter] держ[PLUR_IT_AT(shooter)] [target] на мушке [weapon.declent_ru(GENITIVE)]!")
+
+///Shows if the examine target is being held at gunpoint
+/datum/component/gunpoint/proc/examine_target(datum/source, mob/user, list/examine_list)
+	SIGNAL_HANDLER
+	var/mob/living/shooter = parent
+	if(user in viewers(parent))
+		examine_list += span_boldwarning("[target] на мушке у [shooter]!")
+
+#undef GUNPOINT_DELAY_STAGE_2
+#undef GUNPOINT_DELAY_STAGE_3
+#undef GUNPOINT_MULT_STAGE_1
+#undef GUNPOINT_MULT_STAGE_2
+#undef GUNPOINT_MULT_STAGE_3

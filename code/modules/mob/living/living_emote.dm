@@ -456,6 +456,19 @@
 	emote_type = EMOTE_AUDIBLE|EMOTE_MOUTH
 	muzzled_noises = list("тихие", "жалкие")
 
+/datum/emote/living/surrender
+	key = "surrender"
+	key_third_person = "surrenders"
+	message = "puts their hands on their head and falls to the ground, they surrender%s!"
+	emote_type = EMOTE_VISIBLE | EMOTE_AUDIBLE
+
+/datum/emote/living/surrender/run_emote(mob/user, params, type_override, intentional)
+	. = ..()
+	if(isliving(user))
+		var/mob/living/living = user
+		living.apply_status_effect(STATUS_EFFECT_CAPITULATED)
+		living.remove_status_effect(/datum/status_effect/grouped/surrender)
+
 /datum/emote/living/custom
 	key = "me"
 	key_third_person = "custom"
