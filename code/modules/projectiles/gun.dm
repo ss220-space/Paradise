@@ -716,8 +716,8 @@
 	if(user.a_intent != INTENT_HARM || user == interacting_with || !isliving(interacting_with) || !can_hold_up)
 		return ..()
 
-		if(SEND_SIGNAL(interacting_with, COMSIG_LIVING_GUNPOINT_START, user) & COMPONENT_LIVING_ALREADY_HELD_UP)
-			balloon_alert(user, "уже на мушке!")
+	if(SEND_SIGNAL(interacting_with, COMSIG_LIVING_GUNPOINT_START, user) & COMPONENT_LIVING_ALREADY_HELD_UP)
+		balloon_alert(user, "уже на мушке!")
 		return ITEM_INTERACT_BLOCKING
 
 	if(do_after(user, 0.5 SECONDS, interacting_with))
