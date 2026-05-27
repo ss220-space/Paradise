@@ -349,8 +349,8 @@
 
 /datum/status_effect/grouped/heldup/on_remove()
 	var/has_other_heldup = FALSE
-	for(var/datum/status_effect/grouped/heldup/H in owner.status_effects)
-		if(H != src)
+	for(var/datum/status_effect/grouped/heldup/heldup_effect in owner.status_effects)
+		if(heldup_effect != src)
 			has_other_heldup = TRUE
 			break
 	if(!has_other_heldup)

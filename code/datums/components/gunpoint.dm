@@ -71,6 +71,8 @@
 		shooter.remove_status_effect(/datum/status_effect/holdup)
 	if(target)
 		target.remove_status_effect(/datum/status_effect/grouped/heldup, UID_of(shooter))
+		if(!target.has_status_effect(STATUS_EFFECT_HELD_UP))
+			target.remove_status_effect(STATUS_EFFECT_CAPITULATED)
 		target = null
 	weapon = null
 	return ..()
@@ -90,10 +92,10 @@
 	UnregisterSignal(parent, COMSIG_ATOM_EXAMINE)
 
 ///If the shooter bumps the target, cancel the holdup to avoid cheesing and forcing the charged shot
-/datum/component/gunpoint/proc/check_bump(atom/atom_B, atom/atom_A)
+/datum/component/gunpoint/proc/check_bump(datum/source, atom/bumped_atom)
 	SIGNAL_HANDLER
 
-	if(atom_A != target)
+	if(bumped_atom != target)
 		return
 	var/mob/living/shooter = parent
 	shooter.visible_message(
@@ -124,7 +126,7 @@
 /datum/component/gunpoint/proc/check_deescalate()
 	SIGNAL_HANDLER
 
-	if(!can_line(parent, target, GUNPOINT_SHOOTER_STRAY_RANGE))
+	if(!parent || !target || !can_line(parent, target, GUNPOINT_SHOOTER_STRAY_RANGE))
 		cancel()
 		return TRUE
 
@@ -180,13 +182,6 @@
 			ignored_mobs = target
 		)
 		to_chat(target, span_userdanger("[shooter] опустил[GEND_A_O_I(shooter)] [weapon.declent_ru(ACCUSATIVE)] и больше не целится в вас!"))
-
-	if(target)
-		var/heldup_count = 0
-		for(var/datum/status_effect/grouped/heldup/who_held_up in target.status_effects)
-			heldup_count++
-		if(heldup_count <= 1)
-			target.remove_status_effect(STATUS_EFFECT_CAPITULATED)
 
 	qdel(src)
 
