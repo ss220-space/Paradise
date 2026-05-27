@@ -335,9 +335,7 @@
 // heldup is for the person being aimed at
 /datum/status_effect/grouped/heldup
 	id = "heldup"
-	duration = STATUS_EFFECT_PERMANENT
 	tick_interval = STATUS_EFFECT_NO_TICK
-	status_type = STATUS_EFFECT_MULTIPLE
 	alert_type = /atom/movable/screen/alert/status_effect/heldup
 
 /atom/movable/screen/alert/status_effect/heldup
@@ -350,15 +348,19 @@
 	return ..()
 
 /datum/status_effect/grouped/heldup/on_remove()
-	owner.remove_status_effect(/datum/status_effect/grouped/surrender)
+	var/has_other_heldup = FALSE
+	for(var/datum/status_effect/grouped/heldup/H in owner.status_effects)
+		if(H != src)
+			has_other_heldup = TRUE
+			break
+	if(!has_other_heldup)
+		owner.remove_status_effect(/datum/status_effect/grouped/surrender)
 	return ..()
 
 // holdup is for the person aiming
 /datum/status_effect/holdup
 	id = "holdup"
-	duration = STATUS_EFFECT_PERMANENT
 	tick_interval = STATUS_EFFECT_NO_TICK
-	status_type = STATUS_EFFECT_UNIQUE
 	alert_type = /atom/movable/screen/alert/status_effect/holdup
 
 /atom/movable/screen/alert/status_effect/holdup
@@ -377,7 +379,6 @@
 //this effect gives the user an alert they can use to surrender quickly
 /datum/status_effect/grouped/surrender
 	id = "surrender"
-	duration = STATUS_EFFECT_PERMANENT
 	tick_interval = STATUS_EFFECT_NO_TICK
 	status_type = STATUS_EFFECT_UNIQUE
 	alert_type = /atom/movable/screen/alert/status_effect/surrender

@@ -41,6 +41,8 @@
 
 	RegisterSignal(targ, COMSIG_ATOM_EXAMINE, PROC_REF(examine_target))
 	RegisterSignals(weapon, list(COMSIG_ITEM_DROPPED, COMSIG_ITEM_EQUIPPED), PROC_REF(cancel))
+	RegisterSignal(targ, COMSIG_QDELETING, PROC_REF(cancel))
+	RegisterSignal(wep, COMSIG_QDELETING, PROC_REF(cancel))
 
 	var/distance = max(get_dist(shooter, target), 1)
 	var/distance_description = (distance <= 1 ? "в упор" : "")
@@ -56,7 +58,7 @@
 		shooter.Immobilize(0.75 SECONDS / distance)
 
 	shooter.apply_status_effect(/datum/status_effect/holdup, shooter)
-	target.apply_status_effect(/datum/status_effect/grouped/heldup)
+	target.apply_status_effect(/datum/status_effect/grouped/heldup, UID_of(shooter))
 	do_alert_animation(target)
 	playsound(target.loc, 'sound/machines/chime.ogg', 50, TRUE)
 
@@ -64,8 +66,12 @@
 
 /datum/component/gunpoint/Destroy(force)
 	var/mob/living/shooter = parent
-	shooter.remove_status_effect(/datum/status_effect/holdup)
-	target.remove_status_effect(/datum/status_effect/grouped/heldup, UID_of(shooter))
+	if(shooter)
+		shooter.remove_status_effect(/datum/status_effect/holdup)
+	if(target)
+		target.remove_status_effect(/datum/status_effect/grouped/heldup, UID_of(shooter))
+		target = null
+	weapon = null
 	return ..()
 
 /datum/component/gunpoint/RegisterWithParent()
@@ -90,20 +96,6 @@
 	if(atom_A != target)
 		return
 	var/mob/living/shooter = parent
-	shooter.visible_message(
-		span_danger("[shooter] вреза[GEND_PAST_L(shooter)]ся в [target.declent_ru(ACCUSATIVE)] и сби[GEND_PAST_L(shooter)] себе прицел!"), \
-		span_danger("Вы врезались в [target.declent_ru(ACCUSATIVE)] и сбили себе прицел!"), \
-		ignored_mobs = target
-	)
-	to_chat(target, span_userdanger("[shooter] вреза[GEND_PAST_L(shooter)]ся в вас и сби[GEND_PAST_L(shooter)] себе прицел!"))
-	qdel(src)
-
-///If the shooter shoves or grabs the target, cancel the holdup to avoid cheesing and forcing the charged shot
-/datum/component/gunpoint/proc/check_shove(mob/living/carbon/shooter, mob/shooter_again, mob/living/T, datum/martial_art/attacker_style, modifiers)
-	SIGNAL_HANDLER
-
-	if(T != target || LAZYACCESS(modifiers, RIGHT_CLICK))
-		return
 	shooter.visible_message(
 		span_danger("[shooter] вреза[GEND_PAST_L(shooter)]ся в [target.declent_ru(ACCUSATIVE)] и сби[GEND_PAST_L(shooter)] себе прицел!"), \
 		span_danger("Вы врезались в [target.declent_ru(ACCUSATIVE)] и сбили себе прицел!"), \
@@ -153,7 +145,7 @@
 		return
 
 	shooter.remove_status_effect(/datum/status_effect/holdup)
-	target.remove_status_effect(/datum/status_effect/grouped/heldup)
+	target.remove_status_effect(/datum/status_effect/grouped/heldup, UID_of(shooter))
 
 	if(point_of_no_return)
 		return
@@ -181,15 +173,20 @@
 	SIGNAL_HANDLER
 
 	var/mob/living/shooter = parent
-	shooter.visible_message(
-		span_danger("[shooter] опусти[GEND_PAST_L(shooter)] [weapon.declent_ru(ACCUSATIVE)] и больше не цели[GEND_PAST_L(shooter)]ся в [target.declent_ru(ACCUSATIVE)]!"), \
-		span_danger("Вы больше не целитесь из [weapon.declent_ru(GENITIVE)] в [target.declent_ru(ACCUSATIVE)]."), \
-		ignored_mobs = target
-	)
-	to_chat(target, span_userdanger("[shooter] опусти[GEND_PAST_L(shooter)] [weapon.declent_ru(ACCUSATIVE)] и больше не цели[GEND_PAST_L(shooter)]ся в вас!"))
+	if(shooter && weapon && target)
+		shooter.visible_message(
+			span_danger("[shooter] опусти[GEND_PAST_L(shooter)] [weapon.declent_ru(ACCUSATIVE)] и больше не цели[GEND_PAST_L(shooter)]ся в [target.declent_ru(ACCUSATIVE)]!"), \
+			span_danger("Вы больше не целитесь из [weapon.declent_ru(GENITIVE)] в [target.declent_ru(ACCUSATIVE)]."), \
+			ignored_mobs = target
+		)
+		to_chat(target, span_userdanger("[shooter] опусти[GEND_PAST_L(shooter)] [weapon.declent_ru(ACCUSATIVE)] и больше не цели[GEND_PAST_L(shooter)]ся в вас!"))
 
 	if(target)
-		target.remove_status_effect(STATUS_EFFECT_CAPITULATED)
+		var/heldup_count = 0
+		for(var/datum/status_effect/grouped/heldup/who_held_up in target.status_effects)
+			heldup_count++
+		if(heldup_count <= 1)
+			target.remove_status_effect(STATUS_EFFECT_CAPITULATED)
 
 	qdel(src)
 
@@ -198,13 +195,14 @@
 	SIGNAL_HANDLER
 
 	var/flinch_chance = 50
-	var/obj/item/held_hand = source.is_in_hands(weapon)
 
-	if(held_hand)
-		var/gun_hand = (held_hand == source.l_hand) ? BODY_ZONE_L_ARM : BODY_ZONE_R_ARM
-
-		if(def_zone == gun_hand)
-			flinch_chance = 80
+	if(iscarbon(source))
+		var/mob/living/carbon/carbon_source = source
+		var/obj/item/held_hand = carbon_source.is_in_hands(weapon)
+		if(held_hand)
+			var/gun_hand = (held_hand == carbon_source.l_hand) ? BODY_ZONE_L_ARM : BODY_ZONE_R_ARM
+			if(def_zone == gun_hand)
+				flinch_chance = 80
 
 	if(prob(flinch_chance))
 		source.visible_message(

@@ -722,6 +722,8 @@
 		return ITEM_INTERACT_BLOCKING
 
 	if(do_after(user, 0.5 SECONDS, interacting_with))
+		if(!user.is_in_hands(src))
+			return ITEM_INTERACT_BLOCKING
 		user.AddComponent(/datum/component/gunpoint, interacting_with, src)
 	return ITEM_INTERACT_SUCCESS
 
