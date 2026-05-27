@@ -66,13 +66,13 @@
 	return ..()
 
 /datum/component/gunpoint/RegisterWithParent()
-	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(check_deescalate))
+	RegisterSignals(parent, list(COMSIG_MOVABLE_MOVED, COMSIG_MOB_UPDATE_SIGHT), PROC_REF(check_deescalate))
 	RegisterSignal(parent, COMSIG_MOB_APPLY_DAMAGE, PROC_REF(flinch))
-	RegisterSignal(parent, COMSIG_MOB_UPDATE_SIGHT, PROC_REF(check_deescalate))
 	RegisterSignals(parent, list(COMSIG_LIVING_START_PULL, COMSIG_MOVABLE_BUMP), PROC_REF(check_bump))
 	RegisterSignal(parent, COMSIG_ATOM_EXAMINE, PROC_REF(examine))
 	RegisterSignal(parent, COMSIG_HUMAN_DISARM_HIT, PROC_REF(trigger_reaction))
 	RegisterSignal(parent, COMSIG_LIVING_GUNPOINT_CANCEL, PROC_REF(cancel))
+	RegisterSignal(parent, COMSIG_LIVING_GUNPOINT_START, PROC_REF(block_duplicate_gunpoint))
 
 	RegisterSignals(target, list(
 		COMSIG_MOVABLE_MOVED,
@@ -80,12 +80,10 @@
 		COMSIG_LIVING_START_PULL,
 		COMSIG_MOB_ITEM_ATTACK), PROC_REF(trigger_reaction))
 	RegisterSignal(target, COMSIG_ATOM_EXAMINE, PROC_REF(examine_target))
-	RegisterSignal(target, COMSIG_QDELETING, PROC_REF(cancel))
+	RegisterSignals(target, list(COMSIG_QDELETING, COMSIG_LIVING_GUNPOINT_CANCEL), PROC_REF(cancel))
 	RegisterSignal(target, COMSIG_LIVING_GUNPOINT_START, PROC_REF(block_duplicate_gunpoint))
-	RegisterSignal(target, COMSIG_LIVING_GUNPOINT_CANCEL, PROC_REF(cancel))
 
-	RegisterSignals(weapon, list(COMSIG_ITEM_DROPPED, COMSIG_ITEM_EQUIPPED), PROC_REF(cancel))
-	RegisterSignal(weapon, COMSIG_QDELETING, PROC_REF(cancel))
+	RegisterSignals(weapon, list(COMSIG_ITEM_DROPPED, COMSIG_ITEM_EQUIPPED, COMSIG_QDELETING), PROC_REF(cancel))
 
 /datum/component/gunpoint/UnregisterFromParent()
 	UnregisterSignal(parent, list(
@@ -98,6 +96,7 @@
 		COMSIG_MOB_ATTACK_HAND,
 		COMSIG_HUMAN_DISARM_HIT,
 		COMSIG_LIVING_GUNPOINT_CANCEL,
+		COMSIG_LIVING_GUNPOINT_START,
 	))
 
 	if(target)
