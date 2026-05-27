@@ -27,7 +27,7 @@
 #define SECT_STATUS_PRANA_PER_SECOND 1
 #define SECT_FORTIFIED_TEMPLE_DURATION (2 MINUTES)
 #define SECT_FORTIFIED_TEMPLE_DAMAGE 1
-#define SECT_COMMUNITY_TEMPLE_RADIUS 4
+#define SECT_COMMUNITY_PRANA_RADIUS 4
 #define SECT_COMMUNITY_FAITH_BURN 50
 #define SECT_COMMUNITY_FAITH_CHECK_TIME (2 SECONDS)
 #define SECT_COMMUNITY_TRUTH_SYNC_TIME (10 SECONDS)
@@ -870,15 +870,22 @@
 			qdel(truth_link)
 	mouth_of_truth_mobs.Cut()
 
+/datum/religion_sect/community/proc/can_fortify_temple_turf(turf/field_turf)
+	if(!field_turf)
+		return FALSE
+	return istype(get_area(field_turf), /area/chapel/main)
+
 /datum/religion_sect/community/proc/start_fortified_temple(obj/structure/sect_altar/source_altar)
 	if(!source_altar)
+		return FALSE
+	var/turf/source_turf = get_turf(source_altar)
+	if(!source_turf)
+		return FALSE
+	if(!can_fortify_temple_turf(source_turf))
 		return FALSE
 	if(fortified_temple && !QDELETED(fortified_temple))
 		fortified_temple.refresh_field(source_altar)
 		return TRUE
-	var/turf/source_turf = get_turf(source_altar)
-	if(!source_turf)
-		return FALSE
 	fortified_temple = new /obj/effect/sect_fortified_temple(source_turf, src, source_altar)
 	return !QDELETED(fortified_temple)
 
@@ -943,7 +950,7 @@
 	if(community_prana_timer < 10)
 		return
 	var/member_count = 0
-	for(var/mob/living/member in range(SECT_COMMUNITY_TEMPLE_RADIUS, altar))
+	for(var/mob/living/member in range(SECT_COMMUNITY_PRANA_RADIUS, altar))
 		if(member.stat == DEAD || !is_member(member))
 			continue
 		member_count++
@@ -1591,7 +1598,9 @@
 	invisibility = INVISIBILITY_ABSTRACT
 	var/datum/religion_sect/community/sect
 	var/obj/structure/sect_altar/source_altar
+	var/area/field_area
 	var/expires_at
+	var/list/field_turfs = list()
 	var/list/field_tiles = list()
 
 /obj/effect/sect_fortified_temple/Initialize(mapload, datum/religion_sect/community/new_sect, obj/structure/sect_altar/new_altar)
@@ -1607,6 +1616,8 @@
 	if(sect?.fortified_temple == src)
 		sect.fortified_temple = null
 	QDEL_LIST(field_tiles)
+	field_turfs.Cut()
+	field_area = null
 	source_altar = null
 	sect = null
 	return ..()
@@ -1615,16 +1626,30 @@
 	source_altar = new_altar
 	expires_at = world.time + SECT_FORTIFIED_TEMPLE_DURATION
 	var/turf/new_turf = get_turf(new_altar)
-	if(new_turf)
-		forceMove(new_turf)
+	if(!sect || !sect.can_fortify_temple_turf(new_turf))
+		qdel(src)
+		return
+	forceMove(new_turf)
 	setup_field()
 
 /obj/effect/sect_fortified_temple/proc/setup_field()
 	QDEL_LIST(field_tiles)
 	field_tiles = list()
+	field_turfs = list()
 	if(!source_altar || QDELETED(source_altar))
 		return
-	for(var/turf/field_turf in range(SECT_COMMUNITY_TEMPLE_RADIUS, source_altar))
+	if(!sect || QDELETED(sect))
+		return
+	var/turf/source_turf = get_turf(source_altar)
+	if(!sect.can_fortify_temple_turf(source_turf))
+		return
+	field_area = get_area(source_turf)
+	if(!field_area)
+		return
+	for(var/turf/field_turf as anything in field_area.get_turfs_by_zlevel(source_turf.z))
+		if(!sect.can_fortify_temple_turf(field_turf))
+			continue
+		field_turfs += field_turf
 		field_tiles += new /obj/effect/sect_fortified_temple_tile(field_turf)
 
 /obj/effect/sect_fortified_temple/process(seconds_per_tick)
@@ -1640,12 +1665,20 @@
 	if(!source_altar.activated)
 		qdel(src)
 		return
-	for(var/mob/living/target in range(SECT_COMMUNITY_TEMPLE_RADIUS, source_altar))
-		if(sect.is_member(target))
-			continue
-		target.apply_damage(SECT_FORTIFIED_TEMPLE_DAMAGE * seconds_per_tick, BRUTE)
-		target.apply_damage(SECT_FORTIFIED_TEMPLE_DAMAGE * seconds_per_tick, BURN)
-		target.apply_status_effect(/datum/status_effect/sect_fortified_temple_slow)
+	var/turf/source_turf = get_turf(source_altar)
+	if(!sect.can_fortify_temple_turf(source_turf))
+		qdel(src)
+		return
+	if(get_area(source_turf) != field_area)
+		qdel(src)
+		return
+	for(var/turf/field_turf as anything in field_turfs)
+		for(var/mob/living/target in field_turf)
+			if(sect.is_member(target))
+				continue
+			target.apply_damage(SECT_FORTIFIED_TEMPLE_DAMAGE * seconds_per_tick, BRUTE)
+			target.apply_damage(SECT_FORTIFIED_TEMPLE_DAMAGE * seconds_per_tick, BURN)
+			target.apply_status_effect(/datum/status_effect/sect_fortified_temple_slow)
 
 /obj/effect/sect_fortified_temple_tile
 	name = "fortified temple field"
@@ -3123,21 +3156,4 @@
 	qdel(src)
 
 /obj/structure/sect_altar/click_alt(mob/living/user)
-	if(!is_holy_person(user))
-		return ..()
-	to_chat(user, span_notice("Вы начинаете складывать [declent_ru(ACCUSATIVE)]."))
-	if(!do_after(user, SECT_PORTABLE_ALTAR_DEPLOY_TIME, user))
-		return
-	var/obj/item/sect_portable_altar_case/altar_case = new(get_turf(src))
-	altar_case.stored_activated = activated
-	altar_case.stored_sect = sect
-	altar_case.stored_preselected_sect_type = preselected_sect_type
-	altar_case.stored_altar_icon_state = altar_icon_state
-	if(sect)
-		sect.altar = null
-		if(istype(sect, /datum/religion_sect/community))
-			var/datum/religion_sect/community/community_sect = sect
-			community_sect.on_altar_folded()
-	sect = null
-	user.put_in_hands(altar_case)
-	qdel(src)
+	return NONE

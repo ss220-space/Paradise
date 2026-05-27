@@ -54,7 +54,8 @@
 		return FALSE
 	bound_sect = new_sect
 	deity_name = new_sect.deity_name
-	icon_state = new_sect.bible_icon_state
+	var/sect_icon_state = new_sect.bible_icon_state
+	icon_state = icon_exists(icon, sect_icon_state) ? sect_icon_state : initial(icon_state)
 	item_state = "bible"
 	customisable = FALSE
 	new_sect.on_bible_bind(src, user)
