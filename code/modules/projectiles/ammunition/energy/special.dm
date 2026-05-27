@@ -4,6 +4,8 @@
 	muzzle_flash_color = LIGHT_COLOR_BLUE
 	select_name = "ion"
 	fire_sound = 'sound/weapons/ionrifle.ogg'
+	delay = 3
+	e_cost = 250
 
 // MARK: Declone
 /obj/item/ammo_casing/energy/declone
