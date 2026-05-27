@@ -76,7 +76,6 @@
 #define GEND_II_AYA_II_IE(target) genderize_ru(target.gender, "ий", "ая", "ий", "ие")
 // Макросы для случаев, когда обычные не применимы.
 #define GEND_SHEL(target) genderize_ru(target.gender, "шёл", "шла", "шло", "шли")
-#define GEND_PAST_L(target) genderize_ru(target.gender, "л", "ла", "ло", "ли")
 
 /**
  * Возвращает форму единственного или множественного числа в зависимости от грамматического рода.

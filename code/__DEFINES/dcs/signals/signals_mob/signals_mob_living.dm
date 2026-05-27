@@ -96,6 +96,11 @@
 #define COMSIG_LIVING_PERCEIVE_EXAMINE_NAME "living_perceive_examine_name"
 	#define COMPONENT_EXAMINE_NAME_OVERRIDEN (1<<0)
 
+/// From /obj/item/gun/interact_with_atom_secondary(): (mob/user)
+/// Sent to a target mob to determine if they are currently being held up at gunpoint.
+#define COMSIG_LIVING_CHECK_HELD_UP "living_check_held_up"
+	// Return COMPONENT_CANCEL_ATTACK_CHAIN if the target is already held up.
+
 // Organ signals
 ///from [/obj/item/organ/internal/insert]:
 #define COMSIG_ORGAN_IMPLANTED "organ_implanted"

@@ -340,7 +340,7 @@
 
 /atom/movable/screen/alert/status_effect/heldup
 	name = "На мушке"
-	desc = "Любое движение и этот псих выстрелит!"
+	desc = "Любое движение спровоцирует выстрел!"
 	icon_state = "aimed"
 
 /datum/status_effect/grouped/heldup/on_apply()

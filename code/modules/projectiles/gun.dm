@@ -716,15 +716,16 @@
 	if(user.a_intent != INTENT_HARM || user == interacting_with || !isliving(interacting_with) || !can_hold_up)
 		return ..()
 
-	var/datum/component/gunpoint/gunpoint_component = user.GetComponent(/datum/component/gunpoint)
-	if(gunpoint_component)
+	if(SEND_SIGNAL(interacting_with, COMSIG_LIVING_CHECK_HELD_UP, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		balloon_alert(user, "уже на мушке!")
 		return ITEM_INTERACT_BLOCKING
 
 	if(do_after(user, 0.5 SECONDS, interacting_with))
 		if(!user.is_in_hands(src))
 			return ITEM_INTERACT_BLOCKING
+
 		user.AddComponent(/datum/component/gunpoint, interacting_with, src)
+
 	return ITEM_INTERACT_SUCCESS
 
 /obj/item/gun/ranged_interact_with_atom_secondary(atom/interacting_with, mob/living/user, list/modifiers)

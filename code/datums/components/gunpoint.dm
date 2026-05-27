@@ -43,16 +43,17 @@
 	RegisterSignals(weapon, list(COMSIG_ITEM_DROPPED, COMSIG_ITEM_EQUIPPED), PROC_REF(cancel))
 	RegisterSignal(targ, COMSIG_QDELETING, PROC_REF(cancel))
 	RegisterSignal(wep, COMSIG_QDELETING, PROC_REF(cancel))
+	RegisterSignal(targ, COMSIG_LIVING_CHECK_HELD_UP, PROC_REF(block_duplicate_gunpoint))
 
 	var/distance = max(get_dist(shooter, target), 1)
 	var/distance_description = (distance <= 1 ? "в упор" : "")
 
 	shooter.visible_message(
-		span_danger("[shooter] нацели[GEND_PAST_L(shooter)]ся из [weapon.declent_ru(GENITIVE)] на [target.declent_ru(ACCUSATIVE)] [distance_description]!"), \
-		span_danger("Вы нацелились из [weapon.declent_ru(GENITIVE)] на [target.declent_ru(ACCUSATIVE)] [distance_description]!"), \
+		span_danger("[shooter] [distance_description] нацелил[GEND_A_O_I(shooter)] [weapon.declent_ru(ACCUSATIVE)] на [target.declent_ru(ACCUSATIVE)]!"), \
+		span_danger("Вы [distance_description] нацелили [weapon.declent_ru(ACCUSATIVE)] на [target.declent_ru(ACCUSATIVE)]!"), \
 		ignored_mobs = target
 	)
-	to_chat(target, span_userdanger("[shooter] нацели[GEND_PAST_L(shooter)]ся из [weapon.declent_ru(GENITIVE)] на вас [distance_description]!"))
+	to_chat(target, span_userdanger("[shooter] [distance_description] нацелил[GEND_A_O_I(shooter)] на вас [weapon.declent_ru(ACCUSATIVE)]!"))
 
 	if(shooter.a_intent == INTENT_HELP)
 		shooter.Immobilize(0.75 SECONDS / distance)
@@ -81,7 +82,6 @@
 	RegisterSignals(parent, list(COMSIG_LIVING_START_PULL, COMSIG_MOVABLE_BUMP), PROC_REF(check_bump))
 	RegisterSignal(parent, COMSIG_ATOM_EXAMINE, PROC_REF(examine))
 
-
 /datum/component/gunpoint/UnregisterFromParent()
 	UnregisterSignal(parent, COMSIG_MOVABLE_MOVED)
 	UnregisterSignal(parent, COMSIG_MOB_APPLY_DAMAGE)
@@ -97,11 +97,11 @@
 		return
 	var/mob/living/shooter = parent
 	shooter.visible_message(
-		span_danger("[shooter] вреза[GEND_PAST_L(shooter)]ся в [target.declent_ru(ACCUSATIVE)] и сби[GEND_PAST_L(shooter)] себе прицел!"), \
+		span_danger("[shooter] врезал[GEND_SYA_AS_OS_IS(shooter)] в [target.declent_ru(ACCUSATIVE)] и сбил[GEND_A_O_I(shooter)] себе прицел!"), \
 		span_danger("Вы врезались в [target.declent_ru(ACCUSATIVE)] и сбили себе прицел!"), \
 		ignored_mobs = target
 	)
-	to_chat(target, span_userdanger("[shooter] вреза[GEND_PAST_L(shooter)]ся в вас и сби[GEND_PAST_L(shooter)] себе прицел!"))
+	to_chat(target, span_userdanger("[shooter] врезал[GEND_SYA_AS_OS_IS(shooter)] в вас и сбил[GEND_A_O_I(shooter)] себе прицел!"))
 	qdel(src)
 
 ///Update the damage multiplier for whatever stage we're entering into
@@ -112,12 +112,12 @@
 	stage = new_stage
 	if(stage == 2)
 		to_chat(shooter, span_danger("Вы наставили [weapon.declent_ru(ACCUSATIVE)] на [target.declent_ru(ACCUSATIVE)]."))
-		to_chat(target, span_userdanger("[shooter] настави[GEND_PAST_L(shooter)] [weapon.declent_ru(ACCUSATIVE)] на вас!"))
+		to_chat(target, span_userdanger("[shooter] наставил[GEND_A_O_I(shooter)] [weapon.declent_ru(ACCUSATIVE)] на вас!"))
 		damage_mult = GUNPOINT_MULT_STAGE_2
 		addtimer(CALLBACK(src, PROC_REF(update_stage), 3), GUNPOINT_DELAY_STAGE_3)
 	else if(stage == 3)
 		to_chat(shooter, span_danger("Вы намертво зафиксировали прицел [weapon.declent_ru(GENITIVE)] на [target.declent_ru(PREPOSITIONAL)]."))
-		to_chat(target, span_userdanger("[shooter] намертво зафиксирова[GEND_PAST_L(shooter)] прицел [weapon.declent_ru(GENITIVE)] на вас!"))
+		to_chat(target, span_userdanger("[shooter] намертво зафиксировал[GEND_A_O_I(shooter)] прицел [weapon.declent_ru(GENITIVE)] на вас!"))
 		damage_mult = GUNPOINT_MULT_STAGE_3
 
 ///Cancel the holdup if the shooter moves out of sight or out of range of the target
@@ -175,11 +175,11 @@
 	var/mob/living/shooter = parent
 	if(shooter && weapon && target)
 		shooter.visible_message(
-			span_danger("[shooter] опусти[GEND_PAST_L(shooter)] [weapon.declent_ru(ACCUSATIVE)] и больше не цели[GEND_PAST_L(shooter)]ся в [target.declent_ru(ACCUSATIVE)]!"), \
+			span_danger("[shooter] опустил[GEND_A_O_I(shooter)] [weapon.declent_ru(ACCUSATIVE)] и больше не целится в [target.declent_ru(ACCUSATIVE)]!"), \
 			span_danger("Вы больше не целитесь из [weapon.declent_ru(GENITIVE)] в [target.declent_ru(ACCUSATIVE)]."), \
 			ignored_mobs = target
 		)
-		to_chat(target, span_userdanger("[shooter] опусти[GEND_PAST_L(shooter)] [weapon.declent_ru(ACCUSATIVE)] и больше не цели[GEND_PAST_L(shooter)]ся в вас!"))
+		to_chat(target, span_userdanger("[shooter] опустил[GEND_A_O_I(shooter)] [weapon.declent_ru(ACCUSATIVE)] и больше не целится в вас!"))
 
 	if(target)
 		var/heldup_count = 0
@@ -224,6 +224,11 @@
 	var/mob/living/shooter = parent
 	if(user in viewers(parent))
 		examine_list += span_boldwarning("[target] на мушке у [shooter]!")
+
+/datum/component/gunpoint/proc/block_duplicate_gunpoint(mob/living/source)
+	SIGNAL_HANDLER
+
+	return COMPONENT_CANCEL_ATTACK_CHAIN
 
 #undef GUNPOINT_DELAY_STAGE_2
 #undef GUNPOINT_DELAY_STAGE_3
