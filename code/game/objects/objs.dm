@@ -366,7 +366,7 @@
 	SHOULD_CALL_PARENT(FALSE)
 	return list(src)
 
-/// In case of not standard situation when need add something in purchase log
+/// Adds icons of contents (with get_uplink_log_items()) into uplink
 /obj/proc/log_contents_to_uplink(obj/item/uplink/target_uplink)
 	if(!target_uplink || QDELETED(target_uplink))
 		return
