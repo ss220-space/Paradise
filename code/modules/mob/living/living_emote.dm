@@ -459,7 +459,7 @@
 /datum/emote/living/surrender
 	key = "surrender"
 	key_third_person = "surrenders"
-	message = "puts their hands on their head and falls to the ground, they surrender%s!"
+	message = "поднимает руки вверх и сдаётся!"
 	emote_type = EMOTE_VISIBLE | EMOTE_AUDIBLE
 
 /datum/emote/living/surrender/run_emote(mob/user, params, type_override, intentional)
