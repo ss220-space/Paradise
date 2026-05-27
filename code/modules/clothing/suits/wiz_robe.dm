@@ -327,6 +327,7 @@
 	flags_inv = HIDESHOES|HIDEJUMPSUIT|HIDETAIL
 	slowdown = 0
 	magical = TRUE
+	clothing_flags = CASTING_CLOTHES
 
 /obj/item/clothing/head/helmet/space/hardsuit/wizard
 	name = "battlemage helmet"
@@ -340,6 +341,7 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	actions_types = null //No inbuilt light
 	magical = TRUE
+	clothing_flags = CASTING_CLOTHES
 
 /obj/item/clothing/head/helmet/space/hardsuit/wizard/attack_self(mob/user)
 	return
