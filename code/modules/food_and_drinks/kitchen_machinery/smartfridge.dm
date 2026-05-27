@@ -202,7 +202,7 @@
 /obj/machinery/smartfridge/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/card/emag))
 		balloon_alert(user, "невозможно!")
-		return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+		return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 
 	if(user.a_intent == INTENT_HARM)
 		return ..()

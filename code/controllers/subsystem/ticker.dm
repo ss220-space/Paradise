@@ -379,7 +379,7 @@ SUBSYSTEM_DEF(ticker)
 			var/datum/holiday/holiday = SSholiday.holidays[holidayname]
 			to_chat(world, "<h4>[holiday.greet()]</h4>")
 
-	SSdiscord.send2discord_simple_noadmins("**\[Info]** Round has started")
+	GLOB.discord_manager.send2discord_simple_noadmins("**\[Info]** Round has started")
 	auto_toggle_ooc(FALSE) // Turn it off
 	time_game_started = world.time
 
