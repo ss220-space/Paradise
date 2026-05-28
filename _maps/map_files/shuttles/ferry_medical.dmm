@@ -49,10 +49,7 @@
 /area/shuttle/transport)
 "h" = (
 /obj/structure/table/reinforced,
-/obj/item/storage/toolbox/surgery{
-	pixel_x = -1;
-	pixel_y = 2
-	},
+/obj/item/storage/toolbox/surgery/advanced,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
