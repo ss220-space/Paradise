@@ -234,8 +234,9 @@
 	if(!src)
 		return
 
-
-		do_smoke(range = round(clamp(cycle_count / 10, 0, 4)), location = get_turf(src), smoke_type = /obj/effect/particle_effect/fluid/smoke/chem/quick/vapor)
+	var/datum/effect_system/fluid_spread/smoke/chem/quick/vapor/smoke = new
+	smoke.set_up(range = round(clamp(cycle_count / 10, 0, 4)), location = get_turf(usr))
+	smoke.start()
 
 /obj/item/ecig/syndi
 	name = "suspicious e-cigarette"
