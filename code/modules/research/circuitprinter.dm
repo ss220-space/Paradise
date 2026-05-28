@@ -333,7 +333,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 
 	var/current_size = 0
 
-	for(var/component_data as anything in dupe_data["components"])
+	for(var/component_data in dupe_data["components"])
 		var/path = text2path(dupe_data["components"][component_data]["type"])
 		if(!path)
 			continue
