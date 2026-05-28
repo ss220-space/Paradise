@@ -1423,14 +1423,6 @@
 	surplus = 50
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
-/datum/uplink_item/stealthy_weapons/RSG
-	name = "Барабанный шприцемёт"
-	desc = "В барабане можно разместить шесть шприцов, что позволяет быстро и эффективно поражать цели. \
-			Прекрасно подходит для использования со шприцами \"Биотеррор\"."
-	item = /obj/item/gun/syringe/rapidsyringe
-	cost = 20
-	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-
 /datum/uplink_item/stealthy_weapons/silencer
 	name = "Универсальный глушитель"
 	desc = "Обеспечивает повышенную скрытность, заглушая звуки выстрелов."
