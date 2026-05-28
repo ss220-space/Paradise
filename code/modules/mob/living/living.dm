@@ -619,13 +619,7 @@
 			visible_message("<b>[declent_ru(NOMINATIVE)]</b> указыва[PLUR_ET_YUT(src)] [hand_item.declent_ru(INSTRUMENTAL)] на [pointed_object].")
 			return TRUE
 
-		target.visible_message(
-			span_danger("[declent_ru(NOMINATIVE)] направля[PLUR_ET_YUT(src)] [hand_item.declent_ru(INSTRUMENTAL)] на [pointed_object]!"),
-			span_userdanger("[declent_ru(NOMINATIVE)] направля[PLUR_ET_YUT(src)] [hand_item.declent_ru(INSTRUMENTAL)] на вас!"),
-		)
-		SEND_SOUND(target, sound('sound/weapons/targeton.ogg'))
-		SEND_SOUND(src, sound('sound/weapons/targeton.ogg'))
-		add_emote_logs(src, "point [hand_item] HARM to [key_name(target)] [COORD(target)]")
+		hand_item.interact_with_atom_secondary(target, src)
 		return TRUE
 
 	if(istype(hand_item, /obj/item/toy/russian_revolver/trick_revolver) && target != hand_item)
