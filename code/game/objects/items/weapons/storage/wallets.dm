@@ -40,7 +40,7 @@
 
 /obj/item/storage/wallet/Initialize(mapload)
 	. = ..()
-	RegisterSignal(src, COMSIG_CARD_DECAL_APPLIED, PROC_REF(refresh_ID))
+	RegisterSignal(src, COMSIG_CARD_DECAL_APPLIED, PROC_REF(refresh_on_signal))
 
 /obj/item/storage/wallet/remove_from_storage(obj/item/I, atom/new_location)
 	. = ..()
@@ -59,6 +59,11 @@
 
 /obj/item/storage/wallet/orient2hud(mob/user)
 	. = ..()
+	refresh_ID()
+
+/obj/item/storage/wallet/proc/refresh_on_signal(datum/source)
+	SIGNAL_HANDLER
+
 	refresh_ID()
 
 /obj/item/storage/wallet/proc/refresh_ID()
