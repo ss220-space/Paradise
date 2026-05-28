@@ -498,17 +498,16 @@
 
 	var/where = "[AREACOORD(location)]"
 	var/contained = length(contained_reagents) ? "\[[contained_reagents.Join(", ")]\] @ [chemholder.chem_temp]K" : null
-	if(carry)
-		if(carry.my_atom?.fingerprintslast) //Some reagents don't have a my_atom in some cases
-			var/mob/M = get_mob_by_key(carry.my_atom.fingerprintslast)
-			var/more = ""
-			if(M)
-				more = "[ADMIN_LOOKUPFLW(M)] "
-			message_admins("Smoke: ([ADMIN_VERBOSEJMP(location)])[contained]. Key: [more ? more : carry.my_atom.fingerprintslast].")
-			log_game("A chemical smoke reaction has taken place in ([where])[contained]. Last touched by [carry.my_atom.fingerprintslast].")
-		else
-			message_admins("Smoke: ([ADMIN_VERBOSEJMP(location)])[contained]. No associated key.")
-			log_game("A chemical smoke reaction has taken place in ([where])[contained]. No associated key.")
+	if(carry && carry.my_atom?.fingerprintslast)
+		var/mob/M = get_mob_by_key(carry.my_atom.fingerprintslast)
+		var/more = ""
+		if(M)
+			more = "[ADMIN_LOOKUPFLW(M)] "
+		message_admins("Smoke: ([ADMIN_VERBOSEJMP(location)])[contained]. Key: [more ? more : carry.my_atom.fingerprintslast].")
+		log_game("A chemical smoke reaction has taken place in ([where])[contained]. Last touched by [carry.my_atom.fingerprintslast].")
+	else
+		message_admins("Smoke: ([ADMIN_VERBOSEJMP(location)])[contained]. No associated key.")
+		log_game("A chemical smoke reaction has taken place in ([where])[contained]. No associated key.")
 
 /datum/effect_system/fluid_spread/smoke/chem/start(log = FALSE)
 	var/start_loc = holder ? get_turf(holder) : src.location
