@@ -506,6 +506,34 @@
 		user.do_cpr(target)
 
 /datum/species/proc/grab(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
+	if(user == target)
+		if(user.zone_selected == BODY_ZONE_PRECISE_MOUTH && !user.get_active_hand())
+			if(!get_location_accessible(target, BODY_ZONE_PRECISE_MOUTH))
+				user.balloon_alert(user, "ваш рот закрыт!")
+				return TRUE
+			if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+				user.balloon_alert(user, "руки заняты!")
+				return TRUE
+
+			user.visible_message(
+				span_notice("[user] подносит пальцы ко рту..."),
+				span_notice("Вы начинаете давить на корень языка.")
+			)
+			if(!do_after(user, 2 SECONDS, target = user))
+				return TRUE
+			user.visible_message(
+				span_warning("[user] начинает давиться!"),
+				span_warning("Вас начинает мутить...")
+			)
+			if(!do_after(user, 3 SECONDS, target = user))
+				return TRUE
+
+			user.vomit()
+			return TRUE
+		else
+			return FALSE
+
+
 	var/message = span_warning("[target.declent_ru(NOMINATIVE)] блокиру[PLUR_ET_YUT(target)] попытку захвата [user.declent_ru(GENITIVE)]!")
 	if(target.check_martial_art_defense(target, user, null, message))
 		return FALSE

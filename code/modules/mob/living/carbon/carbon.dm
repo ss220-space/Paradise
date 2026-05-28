@@ -109,6 +109,11 @@
 						span_userdanger("Вы блюёте!"))
 
 	playsound(get_turf(src), 'sound/effects/splat.ogg', 50, TRUE)
+
+	if(reagents)
+		for(var/datum/reagent/R in reagents.reagent_list)
+			reagents.remove_reagent(R.id, 5)
+
 	var/turf/turf = get_turf(src)
 
 	if(!turf)
@@ -124,7 +129,8 @@
 			adjust_nutrition(-lost_nutrition)
 
 			if(stun)
-				adjustToxLoss(-3)
+				adjustToxLoss(-5)
+				AdjustDrunk(-10 SECONDS)
 
 		if(mode & VOMIT_BLOOD)
 			add_splatter_floor(turf)
