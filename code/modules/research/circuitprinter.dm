@@ -320,16 +320,26 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 	if(!can_save_circuit_by_import(user, data))
 		return
 
-	var/list/dupe_data = json_decode(data["dupe_data"])
+	var/list/dupe_data = data["dupe_data"]
+	if(istext(dupe_data))
+		dupe_data = json_decode(dupe_data)
 
 	if(!islist(dupe_data) || !islist(dupe_data["components"]))
 		tgui_alert(user, "Некорректный формат данных схемы!", "Ошибка импорта")
 		return
 
-	for(var/list/component_data as anything in scanned_designs)
-		if(component_data["name"] == data["name"])
-			balloon_alert(user, "название занято!")
-			return
+	for(var/component_data in dupe_data["components"])
+		var/list/comp = dupe_data["components"][component_data]
+		if(!islist(comp))
+			comp = component_data
+		var/path = text2path(comp["type"])
+		if(!path)
+			continue
+		if(!ispath(path, /obj/item/circuit_component))
+			continue
+		var/obj/item/circuit_component/component_type = path
+
+		current_size += initial(component_type.circuit_size)
 
 	var/current_size = 0
 
@@ -346,9 +356,10 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 
 	var/materials = list(MAT_GLASS = current_size * cost_per_component)
 
-	var/datum/design/integrated_circuit/circuit_design
-	for(var/material_type in circuit_design::materials)
-		materials[material_type] += circuit_design::materials[material_type]
+	if(data["integrated_circuit"])
+		var/datum/design/integrated_circuit/circuit_design
+		for(var/material_type in circuit_design::materials)
+			materials[material_type] += circuit_design::materials[material_type]
 
 	data["materials"] = materials
 
@@ -456,7 +467,23 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 			var/mob/user = ui.user
 
 			var/json_base64 = params["import"]
-			var/list/data = json_decode(rustg_decode_base64(json_base64))
+			if(!json_base64)
+				return TRUE
+
+			var/decoded = rustg_decode_base64(json_base64)
+			if(!decoded)
+				tgui_alert(user, "Не удалось декодировать Base64!", "Ошибка импорта")
+				return TRUE
+
+			var/list/data = json_decode(decoded)
+			if(!islist(data))
+				tgui_alert(user, "Некорректный формат JSON!", "Ошибка импорта")
+				return TRUE
+
+			if(data["name"])
+				data["name"] = sanitize(data["name"])
+			if(data["desc"])
+				data["desc"] = sanitize(data["desc"])
 
 			save_circuit_by_import(user, data)
 

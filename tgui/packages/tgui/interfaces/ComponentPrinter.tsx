@@ -39,7 +39,7 @@ export const ComponentPrinter = (props) => {
               accept=".txt"
               onSelectFiles={(value) => act('import', { import: value })}
             >
-              {toTitleCase('Импорт')}
+              Импорт
             </Button.File>
           }
         />
@@ -97,7 +97,7 @@ export const ComponentPrinter = (props) => {
                     })
                   }
                 >
-                  {toTitleCase('Экспорт')}
+                  Экспорт
                 </Button>
                 <Button
                   icon="trash-can"
