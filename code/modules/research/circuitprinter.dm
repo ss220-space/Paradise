@@ -328,6 +328,13 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 		tgui_alert(user, "Некорректный формат данных схемы!", "Ошибка импорта")
 		return
 
+	for(var/list/component_data as anything in scanned_designs)
+		if(component_data["name"] == data["name"])
+			balloon_alert(user, "название занято!")
+			return
+
+	var/current_size = 0
+
 	for(var/component_data in dupe_data["components"])
 		var/list/comp = dupe_data["components"][component_data]
 		if(!islist(comp))
@@ -340,19 +347,6 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 		var/obj/item/circuit_component/component_type = path
 
 		current_size += initial(component_type.circuit_size)
-
-	var/current_size = 0
-
-	for(var/component_data in dupe_data["components"])
-		var/path = text2path(dupe_data["components"][component_data]["type"])
-		if(!path)
-			continue
-		if(!ispath(path, /obj/item/circuit_component))
-			continue
-		var/obj/item/circuit_component/component = new path
-
-		current_size += component.circuit_size
-		qdel(component)
 
 	var/materials = list(MAT_GLASS = current_size * cost_per_component)
 
