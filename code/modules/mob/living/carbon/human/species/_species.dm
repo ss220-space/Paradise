@@ -508,6 +508,10 @@
 /datum/species/proc/grab(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(user == target)
 		if(user.zone_selected == BODY_ZONE_PRECISE_MOUTH && !user.get_active_hand())
+			var/obj/item/organ/external/hand/active_hand = user.get_organ(user.hand == ACTIVE_HAND_LEFT ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
+			if(!active_hand || !active_hand.is_usable())
+				user.balloon_alert(user, "рука не работает!")
+				return TRUE
 			if(!get_location_accessible(target, BODY_ZONE_PRECISE_MOUTH))
 				user.balloon_alert(user, "ваш рот закрыт!")
 				return TRUE

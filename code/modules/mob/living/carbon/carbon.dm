@@ -110,9 +110,10 @@
 
 	playsound(get_turf(src), 'sound/effects/splat.ogg', 50, TRUE)
 
-	if(reagents)
-		for(var/datum/reagent/R in reagents.reagent_list)
-			reagents.remove_reagent(R.id, 5)
+	var/datum/reagents/R_holder = reagents
+	if(R_holder)
+		for(var/datum/reagent/R in R_holder.reagent_list.Copy())
+			R_holder.remove_reagent(R.id, 5)
 
 	var/turf/turf = get_turf(src)
 
