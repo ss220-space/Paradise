@@ -37,7 +37,7 @@
 	var/mob/living/carbon/human/H = usr
 	if(!( ishuman(H)))
 		return 1
-	if((usr == src.loc || (in_range(src, usr) && istype(src.loc, /turf))))
+	if((usr == src.loc || (in_range(src, usr) && isturf(src.loc))))
 		usr.set_machine(src)
 		if(href_list["spell_teleport"])
 			if(src.uses >= 1)
@@ -58,7 +58,7 @@
 
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
-	if(!((user == loc || (in_range(src, user) && istype(src.loc, /turf)))))
+	if(!((user == loc || (in_range(src, user) && isturf(src.loc)))))
 		return
 
 	if(thearea.tele_proof && !istype(thearea, /area/wizard_station))

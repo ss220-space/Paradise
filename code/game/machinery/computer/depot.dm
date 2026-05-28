@@ -103,7 +103,7 @@
 	. = FALSE
 	if(!allowed(usr))
 		to_chat(usr, span_warning("Access denied."))
-		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
+		playsound(src, SFX_BUTTON_DENIED, 20)
 		return
 	switch(action)
 		if("primary")
@@ -394,7 +394,7 @@
 /obj/machinery/computer/syndicate_depot/teleporter/taipan
 	req_access = list(154)
 	circuit = /obj/item/circuitboard/syndicate_teleporter
-	armor = list(MELEE = 0, BULLET = 100, LASER = 40, ENERGY = 0, BOMB = 20, BIO = 0, RAD = 0, FIRE = 40, ACID = 20)
+	armor = list(MELEE = 0, BULLET = 100, LASER = 40, ENERGY = 0, BOMB = 20, BIO = 0, FIRE = 40, ACID = 20)
 
 /obj/machinery/computer/syndicate_depot/teleporter/Initialize(mapload)
 	..()

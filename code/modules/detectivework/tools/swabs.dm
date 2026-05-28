@@ -78,12 +78,11 @@
 		swab.gsr = target_gsr
 		swab.set_used(sample_type, target)
 
-/obj/item/forensics/swab/afterattack(atom/A, mob/user, proximity, params)
-
-	if(!proximity || istype(A, /obj/machinery/dnaforensics))
+/obj/item/forensics/swab/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag || istype(proximity_flag, /obj/machinery/dnaforensics))
 		return
 
-	if(isliving(A))
+	if(isliving(target))
 		return
 
 	if(is_used())
@@ -95,14 +94,14 @@
 	to_chat(user, span_notice("You begin collecting evidence."))
 	if(do_after(user, 2 SECONDS, src))
 		var/list/choices = list()
-		if(A.blood_DNA)
+		if(target.blood_DNA)
 			choices |= "Blood"
-		if(isclothing(A))
+		if(isclothing(target))
 			choices |= "Gunshot Residue"
 
 		var/choice
 		if(!length(choices))
-			to_chat(user, span_warning("There is no evidence on \the [A]."))
+			to_chat(user, span_warning("There is no evidence on \the [target]."))
 			inuse = 0
 			return
 		else if(length(choices) == 1)
@@ -118,32 +117,32 @@
 		var/target_dna
 		var/target_gsr
 		if(choice == "Blood")
-			if(!A.blood_DNA || !length(A.blood_DNA))
+			if(!target.blood_DNA || !length(target.blood_DNA))
 				inuse = 0
 				return
-			target_dna = A.blood_DNA.Copy()
+			target_dna = target.blood_DNA.Copy()
 			sample_type = "blood"
 
 		else if(choice == "Gunshot Residue")
-			var/obj/item/clothing/B = A
+			var/obj/item/clothing/B = target
 			if(!istype(B) || !B.gunshot_residue)
-				to_chat(user, span_warning("There is no residue on \the [A]."))
+				to_chat(user, span_warning("There is no residue on \the [target]."))
 				inuse = 0
 				return
 			target_gsr = B.gunshot_residue
 			sample_type = "residue"
 
 		if(sample_type)
-			user.visible_message("\The [user] swabs \the [A] for a sample.", "You swab \the [A] for a sample.")
+			user.visible_message("\The [user] swabs \the [target] for a sample.", "You swab \the [target] for a sample.")
 			if(!dispenser)
 				dna = target_dna
 				gsr = target_gsr
-				set_used(sample_type, A)
+				set_used(sample_type, target)
 			else
 				var/obj/item/forensics/swab/S = new(get_turf(user))
 				S.dna = target_dna
 				S.gsr = target_gsr
-				S.set_used(sample_type, A)
+				S.set_used(sample_type, target)
 	inuse = 0
 
 /obj/item/forensics/swab/proc/set_used(sample_str, atom/source)

@@ -8,7 +8,7 @@
 	icon_state = null
 	item_state = null
 	amount_per_transfer_from_this = 10
-	possible_transfer_amounts = list(5,10,15,25,30,50)
+	possible_transfer_amounts = list(5, 10, 15, 25, 30, 50)
 	volume = 50
 	container_type = OPENCONTAINER
 	has_lid = TRUE
@@ -16,14 +16,14 @@
 	blocks_emissive = FALSE
 	var/label_text = ""
 
-/obj/item/reagent_containers/glass/New()
-	..()
+/obj/item/reagent_containers/glass/Initialize(mapload)
+	. = ..()
 	base_name = name
 
 /obj/item/reagent_containers/glass/examine(mob/user)
 	. = ..()
 	if(get_dist(user, src) <= 2 && !is_open_container())
-		. += span_notice("Закрыто герметичной крышкой.")
+		. += span_boldnotice("Крышка надета.")
 
 	. += span_notice("Вмещает до <b>[reagents.maximum_volume]</b> единиц[declension_ru(reagents.maximum_volume, "ы", "", "")] вещества.")
 
@@ -41,7 +41,7 @@
 	for(var/datum/reagent/reagent as anything in reagents.reagent_list)
 		transferred += reagent.name
 
-	var/contained = english_list(transferred)
+	var/contained = russian_list(transferred)
 
 	if(user.a_intent == INTENT_HARM)
 		target.visible_message(
@@ -84,8 +84,8 @@
 	addtimer(CALLBACK(reagents, TYPE_PROC_REF(/datum/reagents, trans_to), target, 5), 5)
 	playsound(target.loc,'sound/items/drink.ogg', rand(10,50), TRUE)
 
-/obj/item/reagent_containers/glass/afterattack(obj/target, mob/user, proximity, params)
-	if((!proximity) ||  !check_allowed_items(target,target_self = TRUE))
+/obj/item/reagent_containers/glass/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if((!proximity_flag) ||  !check_allowed_items(target,target_self = TRUE))
 		return
 
 	if(!is_open_container())
@@ -171,7 +171,7 @@
 /obj/item/reagent_containers/glass/beaker/update_overlays()
 	. = ..()
 	if(reagents.total_volume)
-		var/image/filling = image('icons/obj/reagentfillings.dmi', src, "[icon_state]10")
+		var/mutable_appearance/filling = mutable_appearance('icons/obj/reagentfillings.dmi', "[icon_state]10")
 
 		var/percent = round((reagents.total_volume / volume) * 100)
 		switch(percent)
@@ -190,7 +190,7 @@
 			if(91 to INFINITY)
 				filling.icon_state = "[icon_state]100"
 
-		filling.icon += mix_color_from_reagents(reagents.reagent_list)
+		filling.color = get_color_matrix_from_reagents(reagents.reagent_list)
 		. += filling
 
 	if(!is_open_container())
@@ -269,7 +269,7 @@
 	materials = list(MAT_GLASS=2500)
 	custom_price = PAYCHECK_MIN / 2
 	volume = 100
-	possible_transfer_amounts = list(5,10,15,25,30,50,100)
+	possible_transfer_amounts = list(5, 10, 15, 25, 30, 50, 100)
 
 /obj/item/reagent_containers/glass/beaker/large/get_ru_names()
 	return list(
@@ -286,9 +286,9 @@
 	desc = "Небольшая стеклянная колбочка, часто используемая вирусологами в работе."
 	icon_state = "vial"
 	belt_icon = "vial"
-	materials = list(MAT_GLASS=250)
+	materials = list(MAT_GLASS = 250)
 	volume = 25
-	possible_transfer_amounts = list(5,10,15,25)
+	possible_transfer_amounts = list(5, 10, 15, 25)
 	can_assembly = 0
 
 /obj/item/reagent_containers/glass/beaker/vial/get_ru_names()
@@ -322,7 +322,7 @@
 
 /obj/item/reagent_containers/glass/beaker/thermite
 	name = "Thermite load"
-	desc = "Пластиковый пакетик, надпись на этикетке - \"Термит\"."
+	desc = "Пластиковый пакетик, надпись на этикетке – \"Термит\"."
 	icon_state = "baggie"
 	amount_per_transfer_from_this = 25
 	possible_transfer_amounts = null
@@ -358,8 +358,8 @@
 		PREPOSITIONAL = "криостазином мерном стакане",
 	)
 
-/obj/item/reagent_containers/glass/beaker/noreact/New()
-	..()
+/obj/item/reagent_containers/glass/beaker/noreact/Initialize(mapload)
+	. = ..()
 	reagents.set_reacting(FALSE)
 
 /obj/item/reagent_containers/glass/beaker/bluespace
@@ -368,7 +368,7 @@
 	icon_state = "beakerbluespace"
 	materials = list(MAT_GLASS=3000)
 	volume = 300
-	possible_transfer_amounts = list(5,10,15,25,30,50,100,300)
+	possible_transfer_amounts = list(5, 10, 15, 25, 30, 50, 100, 300)
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	origin_tech = "bluespace=5;materials=4;plasmatech=4"
 
@@ -403,12 +403,12 @@
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "bucket"
 	item_state = "bucket"
-	materials = list(MAT_METAL=200)
+	materials = list(MAT_METAL = 200)
 	w_class = WEIGHT_CLASS_NORMAL
 	amount_per_transfer_from_this = 20
-	possible_transfer_amounts = list(5,10,15,20,25,30,50,80,100,120)
+	possible_transfer_amounts = list(5, 10, 15, 20, 25, 30, 50, 80, 100, 120)
 	volume = 120
-	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 75, ACID = 50) //Weak melee protection, because you can wear it on your head
+	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 75, ACID = 50) //Weak melee protection, because you can wear it on your head
 	slot_flags = ITEM_SLOT_HEAD
 	resistance_flags = NONE
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
@@ -436,10 +436,10 @@
 		var/obj/item/toy/crayon/spraycan/can = I
 		if(!paintable)
 			balloon_alert(user, "нельзя покрасить!")
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 		if(can.capped)
 			balloon_alert(user, "закрыто крышкой!")
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 		balloon_alert(user, "перекрашено!")
 		playsound(user.loc, 'sound/effects/spray.ogg', 20, TRUE)
 		color = can.colour
@@ -458,7 +458,7 @@
 		add_fingerprint(user)
 		balloon_alert(user, "прикреплено")
 		to_chat(user, span_notice("Вы прикрепили [I.declent_ru(ACCUSATIVE)] к [declent_ru(DATIVE)]."))
-		var/obj/item/bucket_sensor/bucket_sensor = new(drop_location())
+		var/obj/item/bot_assembly/bucket_sensor/bucket_sensor = new(drop_location())
 		transfer_fingerprints_to(bucket_sensor)
 		I.transfer_fingerprints_to(bucket_sensor)
 		bucket_sensor.add_fingerprint(user)
@@ -494,7 +494,7 @@
 	icon_state = "woodbucket"
 	item_state = "woodbucket"
 	materials = null
-	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 50)
+	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 0, ACID = 50)
 	resistance_flags = FLAMMABLE
 	paintable = FALSE
 
@@ -591,7 +591,7 @@
 		var/obj/item/toy/crayon/spraycan/can = I
 		if(can.capped)
 			balloon_alert(user, "закрыто крышкой!")
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 		balloon_alert(user, "перекрашено")
 		playsound(user.loc, 'sound/effects/spray.ogg', 20, TRUE)
 		color = can.colour
@@ -634,3 +634,48 @@
 		reagents.remove_any(1)
 		playsound(pet.loc, 'sound/items/drink.ogg', rand(10, 30), TRUE)
 
+//Coffeepot: for reference, a standard cup is 30u, to allow 20u for sugar/sweetener/milk/creamer
+/obj/item/reagent_containers/glass/coffeepot
+	name = "coffeepot"
+	desc = "Термостойкий контейнер, предназначенный для приготовления и разлива кофе. \
+			Такие поставляются в комплекте с кофемашинами. Достаточно хрупкий."
+	gender = MALE
+	w_class = WEIGHT_CLASS_NORMAL
+	amount_per_transfer_from_this = 15
+	possible_transfer_amounts = list(10, 15, 30, 50, 100)
+	volume = 150
+	has_lid = FALSE
+	icon = 'icons/obj/drinks.dmi'
+	icon_state = "coffeepot"
+	materials = list(MAT_METAL = 1000, MAT_GLASS = 3500)
+
+/obj/item/reagent_containers/glass/coffeepot/get_ru_names()
+	return list(
+		NOMINATIVE = "кофейник",
+		GENITIVE = "кофейника",
+		DATIVE = "кофейнику",
+		ACCUSATIVE = "кофейник",
+		INSTRUMENTAL = "кофейником",
+		PREPOSITIONAL = "кофейнике"
+	)
+
+/obj/item/reagent_containers/glass/coffeepot/on_reagent_change()
+	update_icon(UPDATE_OVERLAYS)
+
+/obj/item/reagent_containers/glass/coffeepot/update_overlays()
+	. = ..()
+	if(!reagents.total_volume)
+		return
+
+	var/mutable_appearance/filling = mutable_appearance('icons/obj/reagentfillings.dmi', "[icon_state]30")
+	var/percent = round((reagents.total_volume / volume) * 100)
+	switch(percent)
+		if(0 to 30)
+			filling.icon_state = "[icon_state]30"
+		if(30 to 60)
+			filling.icon_state = "[icon_state]60"
+		if(60 to INFINITY)
+			filling.icon_state = "[icon_state]100"
+
+	filling.color = get_color_matrix_from_reagents(reagents.reagent_list)
+	. += filling

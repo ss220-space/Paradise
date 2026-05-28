@@ -114,9 +114,8 @@
 	return ..()
 
 /obj/item/storage/secure/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
-	if(!try_to_open(usr))
-		return FALSE
-	return ..()
+	if(!try_to_open(user))
+		return
 
 /obj/item/storage/secure/proc/try_to_open(mob/living/user)
 	if(!istype(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
@@ -266,3 +265,9 @@
 
 /obj/item/storage/secure/safe/attack_hand(mob/user)
 	return attack_self(user)
+
+/obj/item/storage/secure/safe/CMO/populate_contents()
+	new /obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis(src)
+	new /obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis(src)
+	new /obj/item/reagent_containers/glass/bottle/reagent/synaptizine(src)
+	new /obj/item/reagent_containers/glass/bottle/reagent/omnizine(src)

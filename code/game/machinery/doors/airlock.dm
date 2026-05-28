@@ -59,6 +59,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	smoothing_groups = SMOOTH_GROUP_AIRLOCK
 	interaction_flags_click = ALLOW_SILICON_REACH
 	cares_about_temperature = TRUE
+	rad_insulation = RAD_MEDIUM_INSULATION
 
 	var/security_level = 0 //How much are wires secured
 	var/aiControlDisabled = AICONTROLDISABLED_OFF
@@ -82,7 +83,8 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	var/obj/item/access_control/access_electronics
 	var/has_access_electronics = TRUE
 	var/shockCooldown = FALSE //Prevents multiple shocks from happening
-	var/obj/item/note //Any papers pinned to the airlock
+	/// Any papers pinned to the airlock
+	var/obj/item/note
 	var/previous_airlock = /obj/structure/door_assembly //what airlock assembly mineral plating was applied to
 	var/airlock_material //material of inner filling; if its an airlock with glass, this should be set to "glass"
 	var/overlays_file = 'icons/obj/doors/airlocks/station/overlays.dmi'
@@ -211,9 +213,8 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		note = null
 		update_icon()
 
-/obj/machinery/door/airlock/MouseDrop_T(atom/dropping, mob/user, params)
+/obj/machinery/door/airlock/mouse_drop_receive(atom/dropping, mob/user, params)
 	. = ..()
-
 	//Adds the component only once. We do it here & not in Initialize() because there are tons of airlocks & we don't want to add to their init times
 	LoadComponent(/datum/component/leanable, dropping)
 
@@ -1303,7 +1304,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 			to_chat(user, span_warning("Despite your attempts, [src] refuses to open."))
 		return
 
-	if(istype(I, /obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw))
+	if(ispowertool(I))
 		playsound(src, 'sound/machines/airlock_force_open.ogg', 100, TRUE) //scary
 		if(do_after(user, 4 SECONDS, src, max_interact_count = 1, category = DA_CAT_TOOL) && !open(TRUE) && density) // faster because of ITS A MECH
 			to_chat(user, span_warning("Despite your attempts, [src] refuses to open."))
@@ -1614,7 +1615,8 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	access_electronics.selected_accesses = length(req_access) ? req_access : list()
 	access_electronics.one_access = check_one_access
 
-/obj/machinery/door/airlock/proc/note_type() //Returns a string representing the type of note pinned to this airlock
+/// Returns a string representing the type of note pinned to this airlock
+/obj/machinery/door/airlock/proc/note_type()
 	if(!note)
 		return
 	if(istype(note, /obj/item/paper))
@@ -1626,7 +1628,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	if(istype(note, /obj/item/photo))
 		return "photo"
 
-//Removes the current note on the door if any. Returns if a note is removed
+/// Removes the current note on the door if any. Returns if a note is removed
 /obj/machinery/door/airlock/proc/remove_airlock_note(mob/user, wirecutters_used = TRUE)
 	if(!note)
 		return FALSE
@@ -1647,6 +1649,9 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	note = null
 	update_icon()
 	return TRUE
+
+/obj/machinery/door/airlock/IsContainedAtomAccessible(atom/contained, atom/movable/user)
+	return ..() || (contained == note)
 
 /obj/machinery/door/airlock/narsie_act(weak = FALSE)
 	var/turf/T = get_turf(src)

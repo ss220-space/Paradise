@@ -43,8 +43,8 @@
 	var/mob/living/carbon/human/target = user.pulling
 
 	to_chat(user, span_notice("We tighten our grip. We must hold still..."))
-	target.do_jitter_animation(500, 30)
-	user.do_jitter_animation(500, 30)
+	target.Jitter(10 SECONDS)
+	user.Jitter(10 SECONDS)
 
 	if(!do_after(user, 10 SECONDS, target, NONE))
 		to_chat(user, span_warning("The body swap has been interrupted!"))

@@ -19,11 +19,12 @@ GLOBAL_LIST_EMPTY(radial_menus)
 	icon_state = "radial_slice"
 	var/choice
 	var/next_page = FALSE
+	var/tooltip_theme
 
 /atom/movable/screen/radial/slice/MouseEntered(location, control, params)
 	. = ..()
 	icon_state = "radial_slice_focus"
-	openToolTip(usr, src, params, title = name)
+	openToolTip(usr, src, params, title = name, theme = tooltip_theme)
 
 /atom/movable/screen/radial/slice/MouseExited(location, control, params)
 	. = ..()
@@ -35,7 +36,7 @@ GLOBAL_LIST_EMPTY(radial_menus)
 		if(next_page)
 			parent.next_page()
 		else
-			parent.element_chosen(choice,usr)
+			parent.element_chosen(choice, usr)
 
 /atom/movable/screen/radial/center
 	name = "Close Menu"
@@ -214,13 +215,16 @@ GLOBAL_LIST_EMPTY(radial_menus)
 			E.name = AM.name
 
 		E.choice = choice_id
+		E.tooltip_theme = choice_datum?.tooltip_theme
 		E.maptext = null
 		E.next_page = FALSE
 		if(choices_icons[choice_id])
 			E.add_overlay(choices_icons[choice_id])
 
 		if(choice_datum?.info)
-			var/obj/effect/info/info_button = new(E, choice_datum.info)
+			var/obj/effect/abstract/info/info_button = new(E, choice_datum.info)
+			info_button.name = "Справка: [E.name]"
+			info_button.tooltip_theme = choice_datum.tooltip_theme
 			SET_PLANE_EXPLICIT(info_button, ABOVE_HUD_PLANE, anchor)
 			info_button.layer = RADIAL_CONTENT_LAYER
 			E.vis_contents += info_button
@@ -380,7 +384,10 @@ GLOBAL_LIST_EMPTY(radial_menus)
 	/// If provided, will display an info button that will put this text in your chat
 	var/info
 
-/datum/radial_menu_choice/Destroy(force, ...)
+	/// If provided, changes the tooltip theme for this choice
+	var/tooltip_theme
+
+/datum/radial_menu_choice/Destroy(force)
 	. = ..()
 	QDEL_NULL(image)
 

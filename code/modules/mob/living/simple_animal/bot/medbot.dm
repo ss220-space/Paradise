@@ -170,6 +170,11 @@
 	if(new_skin)
 		skin = new_skin
 	update_icon()
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_MEDBOT_MANIA) && is_station_level(z))
+		treatment_brute = "bicaridine"
+		treatment_fire = "kelotane"
+		treatment_oxy = "perfluorodecalin"
+		treatment_tox = "pen_acid"
 
 /mob/living/simple_animal/bot/medbot/bot_reset()
 	..()
@@ -288,14 +293,14 @@
 		step_to(src, (get_step_away(src, user)))	//if medbot took some damage
 		return .
 
-	if(istype(I, /obj/item/reagent_containers/glass))
+	if(isglassreagentcontainer(I))
 		add_fingerprint(user)
 		if(locked)
 			balloon_alert(user, "техпанель заблокирована!")
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 		if(reagent_glass)
 			balloon_alert(user, "слот для ёмкости занят!")
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..() | ATTACK_CHAIN_NO_AFTERATTACK
 		reagent_glass = I
@@ -479,7 +484,7 @@
 	if(!isnull(select_medication(C, assess_beaker_injection(C))))
 		return TRUE //If a valid medicine option for the patient exists, they require treatment
 
-/mob/living/simple_animal/bot/medbot/OnUnarmedAttack(atom/A)
+/mob/living/simple_animal/bot/medbot/OnUnarmedAttack(atom/A, proximity_flag, list/modifiers)
 	if(iscarbon(A))
 		var/mob/living/carbon/C = A
 		patient = C

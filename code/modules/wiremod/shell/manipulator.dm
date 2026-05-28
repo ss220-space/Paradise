@@ -2,7 +2,7 @@
  * # Manipulator
  *
  * Immobile shells that can move objects
- * 
+ *
  */
 /obj/structure/wiremod_manipulator
 	name = "manipulator"
@@ -47,6 +47,14 @@
 
 	var/obj/structure/wiremod_manipulator/attached_bot
 
+/obj/item/circuit_component/wiremod_manipulator/Destroy()
+	if(attached_bot)
+		unregister_shell(attached_bot)
+	image_pixel_x = null
+	image_pixel_y = null
+	target = null
+	. = ..()
+
 /obj/item/circuit_component/wiremod_manipulator/populate_ports()
 	target = add_input_port("Цель", PORT_TYPE_ATOM)
 	image_pixel_x = add_input_port("X", PORT_TYPE_NUMBER)
@@ -78,7 +86,7 @@
 	var/target_y = image_pixel_y.value
 	if(!target_atom || !target_x || !target_y)
 		return
-	
+
 	var/turf/target_turf = locate(target_x, target_y, target_atom.z)
 	if(get_dist(attached_bot, target_atom) > 1 || attached_bot.z != target_atom.z || iswallturf(target_turf))
 		return
@@ -94,7 +102,7 @@
 /obj/item/circuit_component/wiremod_manipulator/proc/finish_move(atom/movable/target_atom, turf/target_turf)
 	if(!target_atom || target_atom.anchored || !attached_bot?.anchored || get_dist(attached_bot, target_atom) > 1)
 		return
-	
+
 	attached_bot.visible_message(span_danger("[attached_bot] с громким жужжанием перемещает [target_atom]"))
 	target_atom.forceMove(target_turf)
 	target_atom.SpinAnimation(speed = 5, loops = 1, parallel = FALSE)

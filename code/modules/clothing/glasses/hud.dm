@@ -64,13 +64,9 @@
 	var/datum/atom_hud/oldHUD = GLOB.huds[HUDType]
 	var/hudMode = null
 
-	// DATA_HUD_MEDICAL_ADVANCED ->  DATA_HUD_SECURITY_BASIC -> DATA_HUD_SECURITY_ADVANCED
+	// DATA_HUD_MEDICAL_ADVANCED ->  DATA_HUD_SECURITY_ADVANCED
 	switch(HUDType)
 		if(DATA_HUD_MEDICAL_ADVANCED)
-			HUDType = DATA_HUD_SECURITY_BASIC
-			examine_extensions = EXAMINE_HUD_SKILLS
-			hudMode = "навыков"
-		if(DATA_HUD_SECURITY_BASIC)
 			HUDType = DATA_HUD_SECURITY_ADVANCED
 			examine_extensions = EXAMINE_HUD_SECURITY_READ | EXAMINE_HUD_SECURITY_WRITE
 			hudMode = "охраны"
@@ -391,7 +387,6 @@ SECURITY
 	over_hat = TRUE
 	can_toggle = TRUE
 	visor_vars_to_toggle = VISOR_FLASHPROTECT | VISOR_TINT | VISOR_DARKNESSVIEW | VISOR_FULL_HUD
-	actions_types = list(/datum/action/item_action/toggle)
 	visor_flags_cover = GLASSESCOVERSEYES
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/eyes.dmi',
@@ -403,6 +398,10 @@ SECURITY
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/eyes.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/eyes.dmi',
 	)
+
+/obj/item/clothing/glasses/hud/security/sunglasses/tacticool/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/right_click_mapper/attack_self, "Переключить [declent_ru(ACCUSATIVE)]")
 
 /obj/item/clothing/glasses/hud/security/sunglasses/tacticool/attack_self(mob/user)
 	weldingvisortoggle(user)
@@ -651,6 +650,16 @@ SKILLS
 	flash_protect = FLASH_PROTECTION_FLASH
 	tint = 1
 	HUDType = DATA_HUD_MEDICAL_ADVANCED
+	sprite_sheets = list(
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/eyes.dmi',
+		SPECIES_GREY  = 'icons/mob/clothing/species/grey/eyes.dmi',
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/eyes.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/eyes.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/eyes.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/eyes.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/eyes.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/eyes.dmi',
+	)
 
 /obj/item/clothing/glasses/hud/blueshield/get_ru_names()
 	return list(
@@ -661,6 +670,10 @@ SKILLS
 		INSTRUMENTAL = "много-режимными HUD-очками",
 		PREPOSITIONAL = "много-режимных HUD-очках",
 	)
+
+/obj/item/clothing/glasses/hud/blueshield/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/right_click_mapper/attack_self, "Переключить [declent_ru(ACCUSATIVE)]")
 
 /obj/item/clothing/glasses/hud/blueshield/cap
 	name = "Gold multi-mod HUD glasses"
@@ -696,6 +709,7 @@ SKILLS
 	desc = "Технологичный визор для глаз. Корпус выполнен из прочного титана, а на лицевой части устройства расположены датчики, камеры и сенсоры, способные получать, обрабатывать и передавать на сетчатку носителя данные об окружающем пространстве."
 	icon_state = "skillvisor"
 	item_state = "skillvisor"
+	flash_protect = FLASH_PROTECTION_FLASH
 
 /obj/item/clothing/glasses/hud/skills/visor/get_ru_names()
 	return list(

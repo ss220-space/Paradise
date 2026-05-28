@@ -16,6 +16,12 @@
 		"id-card" = "access",
 	)
 
+/obj/item/circuit_component/compare/access/Destroy()
+	subject_accesses = null
+	required_accesses = null
+	check_any = null
+	. = ..()
+
 /obj/item/circuit_component/compare/access/get_ui_notices()
 	. = ..()
 	. += create_ui_notice("Когда поле \"Любой\" истинно, возвращает истину если поле \"ID-карта\" содержит любой доступ из поля \"Доступ\".", "orange", "info")
@@ -57,7 +63,7 @@
 	return check_access_list(subject_accesses.value)
 
 /obj/item/circuit_component/compare/access/ui_perform_action(mob/user, action)
-	if(length(required_accesses.connected_ports))
+	if(LAZYLEN(required_accesses.connected_ports))
 		balloon_alert(user, "отключите порт перед ручной настройкой!")
 		return
 

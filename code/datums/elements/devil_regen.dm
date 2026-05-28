@@ -142,6 +142,7 @@
 		TRUE,
 		TRUE
 	)
+	human.cure_radiation()
 
 	apply_status_effects(human, regen_amount)
 	apply_cure(human, devil)
@@ -189,7 +190,6 @@
 	human.CureAllDiseases(FALSE)
 	human.surgeries.Cut()
 	human.set_bodytemperature(human.dna ? human.dna.species.body_temperature : BODYTEMP_NORMAL)
-	human.radiation = 0
 	human.CureBlind()
 	human.CureNearsighted()
 	human.CureMute()

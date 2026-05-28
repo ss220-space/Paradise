@@ -511,3 +511,208 @@
 		'sound/effects/industrial_scan/industrial_scan2.ogg',
 		'sound/effects/industrial_scan/industrial_scan3.ogg',
 	)
+
+/datum/sound_effect/sizzle
+	key = SFX_SIZZLE
+	file_paths = list(
+		'sound/effects/wounds/sizzle1.ogg',
+		'sound/effects/wounds/sizzle2.ogg',
+	)
+
+/datum/sound_effect/closet_toggle_lock
+	key = SFX_CLOSET_TOGGLE_LOCK
+	file_paths = list(
+		'sound/machines/lock_1.ogg',
+		'sound/machines/lock_2.ogg',
+		'sound/machines/lock_3.ogg',
+	)
+
+/datum/sound_effect/button_denied
+	key = SFX_BUTTON_DENIED
+	file_paths = list(
+		'sound/machines/button.ogg',
+		'sound/machines/button_alternate.ogg',
+		'sound/machines/button_meloboom.ogg',
+	)
+
+/datum/sound_effect/sm_calm
+	key = SFX_SM_CALM
+	file_paths = list(
+		'sound/machines/sm/accent/normal/1.ogg',
+		'sound/machines/sm/accent/normal/2.ogg',
+		'sound/machines/sm/accent/normal/3.ogg',
+		'sound/machines/sm/accent/normal/4.ogg',
+		'sound/machines/sm/accent/normal/5.ogg',
+		'sound/machines/sm/accent/normal/6.ogg',
+		'sound/machines/sm/accent/normal/7.ogg',
+		'sound/machines/sm/accent/normal/8.ogg',
+		'sound/machines/sm/accent/normal/9.ogg',
+		'sound/machines/sm/accent/normal/10.ogg',
+		'sound/machines/sm/accent/normal/11.ogg',
+		'sound/machines/sm/accent/normal/12.ogg',
+		'sound/machines/sm/accent/normal/13.ogg',
+		'sound/machines/sm/accent/normal/14.ogg',
+		'sound/machines/sm/accent/normal/15.ogg',
+		'sound/machines/sm/accent/normal/16.ogg',
+		'sound/machines/sm/accent/normal/17.ogg',
+		'sound/machines/sm/accent/normal/18.ogg',
+		'sound/machines/sm/accent/normal/19.ogg',
+		'sound/machines/sm/accent/normal/20.ogg',
+		'sound/machines/sm/accent/normal/21.ogg',
+		'sound/machines/sm/accent/normal/22.ogg',
+		'sound/machines/sm/accent/normal/23.ogg',
+		'sound/machines/sm/accent/normal/24.ogg',
+		'sound/machines/sm/accent/normal/25.ogg',
+		'sound/machines/sm/accent/normal/26.ogg',
+		'sound/machines/sm/accent/normal/27.ogg',
+		'sound/machines/sm/accent/normal/28.ogg',
+		'sound/machines/sm/accent/normal/29.ogg',
+		'sound/machines/sm/accent/normal/30.ogg',
+		'sound/machines/sm/accent/normal/31.ogg',
+		'sound/machines/sm/accent/normal/32.ogg',
+		'sound/machines/sm/accent/normal/33.ogg',
+	)
+
+/datum/sound_effect/sm_delam
+	key = SFX_SM_DELAM
+	file_paths = list(
+		'sound/machines/sm/accent/delam/1.ogg',
+		'sound/machines/sm/accent/delam/2.ogg',
+		'sound/machines/sm/accent/delam/3.ogg',
+		'sound/machines/sm/accent/delam/4.ogg',
+		'sound/machines/sm/accent/delam/5.ogg',
+		'sound/machines/sm/accent/delam/6.ogg',
+		'sound/machines/sm/accent/delam/7.ogg',
+		'sound/machines/sm/accent/delam/8.ogg',
+		'sound/machines/sm/accent/delam/9.ogg',
+		'sound/machines/sm/accent/delam/10.ogg',
+		'sound/machines/sm/accent/delam/11.ogg',
+		'sound/machines/sm/accent/delam/12.ogg',
+		'sound/machines/sm/accent/delam/13.ogg',
+		'sound/machines/sm/accent/delam/14.ogg',
+		'sound/machines/sm/accent/delam/15.ogg',
+		'sound/machines/sm/accent/delam/16.ogg',
+		'sound/machines/sm/accent/delam/17.ogg',
+		'sound/machines/sm/accent/delam/18.ogg',
+		'sound/machines/sm/accent/delam/19.ogg',
+		'sound/machines/sm/accent/delam/20.ogg',
+		'sound/machines/sm/accent/delam/21.ogg',
+		'sound/machines/sm/accent/delam/22.ogg',
+		'sound/machines/sm/accent/delam/23.ogg',
+		'sound/machines/sm/accent/delam/24.ogg',
+		'sound/machines/sm/accent/delam/25.ogg',
+		'sound/machines/sm/accent/delam/26.ogg',
+		'sound/machines/sm/accent/delam/27.ogg',
+		'sound/machines/sm/accent/delam/28.ogg',
+		'sound/machines/sm/accent/delam/29.ogg',
+		'sound/machines/sm/accent/delam/30.ogg',
+		'sound/machines/sm/accent/delam/31.ogg',
+		'sound/machines/sm/accent/delam/32.ogg',
+		'sound/machines/sm/accent/delam/33.ogg',
+	)
+
+/datum/sound_effect/hypertorus_calm
+	key = SFX_HYPERTORUS_CALM
+	file_paths = list(
+		'sound/machines/sm/accent/normal/1.ogg',
+		'sound/machines/sm/accent/normal/2.ogg',
+		'sound/machines/sm/accent/normal/3.ogg',
+		'sound/machines/sm/accent/normal/4.ogg',
+		'sound/machines/sm/accent/normal/5.ogg',
+		'sound/machines/sm/accent/normal/6.ogg',
+		'sound/machines/sm/accent/normal/7.ogg',
+		'sound/machines/sm/accent/normal/8.ogg',
+		'sound/machines/sm/accent/normal/9.ogg',
+		'sound/machines/sm/accent/normal/10.ogg',
+		'sound/machines/sm/accent/normal/11.ogg',
+		'sound/machines/sm/accent/normal/12.ogg',
+		'sound/machines/sm/accent/normal/13.ogg',
+		'sound/machines/sm/accent/normal/14.ogg',
+		'sound/machines/sm/accent/normal/15.ogg',
+		'sound/machines/sm/accent/normal/16.ogg',
+		'sound/machines/sm/accent/normal/17.ogg',
+		'sound/machines/sm/accent/normal/18.ogg',
+		'sound/machines/sm/accent/normal/19.ogg',
+		'sound/machines/sm/accent/normal/20.ogg',
+		'sound/machines/sm/accent/normal/21.ogg',
+		'sound/machines/sm/accent/normal/22.ogg',
+		'sound/machines/sm/accent/normal/23.ogg',
+		'sound/machines/sm/accent/normal/24.ogg',
+		'sound/machines/sm/accent/normal/25.ogg',
+		'sound/machines/sm/accent/normal/26.ogg',
+		'sound/machines/sm/accent/normal/27.ogg',
+		'sound/machines/sm/accent/normal/28.ogg',
+		'sound/machines/sm/accent/normal/29.ogg',
+		'sound/machines/sm/accent/normal/30.ogg',
+		'sound/machines/sm/accent/normal/31.ogg',
+		'sound/machines/sm/accent/normal/32.ogg',
+		'sound/machines/sm/accent/normal/33.ogg',
+	)
+
+/datum/sound_effect/bullet_miss
+	key = SFX_BULLET_MISS
+	file_paths = list(
+		'sound/effects/bullet_miss_1.ogg',
+		'sound/effects/bullet_miss_2.ogg',
+		'sound/effects/bullet_miss_3.ogg',
+		'sound/effects/bullet_miss_4.ogg',
+		'sound/effects/bullet_miss_5.ogg',
+		'sound/effects/bullet_miss_6.ogg',
+	)
+
+/datum/sound_effect/energy_miss
+	key = SFX_ENERGY_MISS
+	file_paths = list(
+		'sound/effects/laser_miss_1.ogg',
+		'sound/effects/laser_miss_2.ogg',
+		'sound/effects/laser_miss_3.ogg',
+		'sound/effects/laser_miss_4.ogg',
+		'sound/effects/laser_miss_5.ogg',
+	)
+
+/datum/sound_effect/arrow_miss
+	key = SFX_ARROW_MISS
+	file_paths = list(
+		'sound/effects/arrow_miss_1.ogg',
+		'sound/effects/arrow_miss_2.ogg',
+		'sound/effects/arrow_miss_3.ogg',
+		'sound/effects/arrow_miss_4.ogg',
+		'sound/effects/arrow_miss_5.ogg',
+	)
+
+/datum/sound_effect/polaroid
+	key = SFX_POLAROID_PHOTO_PRINTING
+	file_paths = list(
+		'sound/items/polaroid1.ogg',
+		'sound/items/polaroid2.ogg',
+	)
+
+/datum/sound_effect/tray_pickup
+	key = SFX_TRAY_PICKUP
+	file_paths = list(
+		'sound/items/tray/tray_pickup1.ogg',
+		'sound/items/tray/tray_pickup2.ogg',
+		'sound/items/tray/tray_pickup3.ogg',
+	)
+
+/datum/sound_effect/tray_drop
+	key = SFX_TRAY_DROP
+	file_paths = list(
+		'sound/items/tray/tray_drop1.ogg',
+		'sound/items/tray/tray_drop2.ogg',
+		'sound/items/tray/tray_drop3.ogg',
+	)
+
+/datum/sound_effect/mender
+	key = SFX_MENDER
+	file_paths = list(
+		'sound/goonstation/items/mender.ogg',
+		'sound/goonstation/items/mender2.ogg',
+	)
+
+/datum/sound_effect/glitched_pda
+	key = SFX_GLITCHED_PDA_RINGTONE
+	file_paths = list(
+		'sound/machines/twobeep_voice1.ogg',
+		'sound/machines/twobeep_voice2.ogg',
+	)

@@ -66,6 +66,15 @@
 	build_path = /obj/item/flash/synthetic
 	category = list(MECH_FAB_CATEGORY_CYBORG)
 
+/datum/design/aishell_module
+	id = "aishellmod"
+	build_type = MECHFAB
+	req_tech = list(RESEARCH_TREE_ENGINEERING = 5, RESEARCH_TREE_PROGRAMMING = 6, RESEARCH_TREE_BLUESPACE = 6)
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 1000, MAT_GOLD = 500, MAT_PLASMA = 1000, MAT_DIAMOND = 100, MAT_BLUESPACE = 100, )
+	construction_time = 5 SECONDS
+	build_path = /obj/item/borg/upgrade/ai
+	category = list(MECH_FAB_CATEGORY_CYBORG)
+
 //Robot repair
 /datum/design/borg_binary_communication
 	id = "borg_binary_communication"
@@ -1125,15 +1134,6 @@
 	construction_time = 10 SECONDS
 	category = list(MECH_FAB_CATEGORY_EXOSUIT_EQUIPMENT)
 
-/datum/design/mech_generator_nuclear
-	id = "mech_generator_nuclear"
-	build_type = MECHFAB
-	req_tech = list(RESEARCH_TREE_POWERSTORAGE= 5, RESEARCH_TREE_ENGINEERING = 4, RESEARCH_TREE_MATERIALS = 3)
-	build_path = /obj/item/mecha_parts/mecha_equipment/generator/nuclear
-	materials = list(MAT_METAL=10000, MAT_GLASS=1000, MAT_SILVER=500)
-	construction_time = 10 SECONDS
-	category = list(MECH_FAB_CATEGORY_EXOSUIT_EQUIPMENT)
-
 /datum/design/mech_banana_mortar
 	id = "mech_banana_mortar"
 	req_tech = list(RESEARCH_TREE_COMBAT = 2)
@@ -1417,8 +1417,17 @@
 	id = "borg_upgrade_mounted_seat"
 	build_type = MECHFAB
 	build_path = /obj/item/borg/upgrade/mounted_seat
-	req_tech = list(RESEARCH_TREE_ENGINEERING = 4, RESEARCH_TREE_MATERIALS = 4)
+	req_tech = list(RESEARCH_TREE_ENGINEERING = 7, RESEARCH_TREE_MATERIALS = 6, RESEARCH_TREE_MAGNETS = 6)
 	materials = list(MAT_METAL = 80000)
+	construction_time = 12 SECONDS
+	category = list(MECH_FAB_CATEGORY_CYBORG_EQUIPMENT)
+
+/datum/design/borg_upgrade_mining_satchel_magnet
+	id = "borg_upgrade_mining_satchel_magnet"
+	build_type = MECHFAB
+	build_path = /obj/item/borg/upgrade/borg_mining_sat_upgr
+	req_tech = list(RESEARCH_TREE_ENGINEERING = 3, RESEARCH_TREE_MATERIALS = 2, RESEARCH_TREE_MAGNETS = 4)
+	materials = list(MAT_METAL = 15000, MAT_GOLD = 100, MAT_URANIUM = 300)
 	construction_time = 12 SECONDS
 	category = list(MECH_FAB_CATEGORY_CYBORG_EQUIPMENT)
 

@@ -10,11 +10,9 @@
 SUBSYSTEM_DEF(tgui)
 	name = "TGUI"
 	wait = 9
-	flags = SS_NO_INIT
+	ss_flags = SS_NO_INIT
 	priority = FIRE_PRIORITY_TGUI
 	runlevels = RUNLEVEL_LOBBY | RUNLEVELS_DEFAULT
-	offline_implications = "All TGUIs will no longer process. Shuttle call recommended."
-	ss_id = "tgui"
 
 	/// A list of UIs scheduled to process
 	var/list/current_run = list()
@@ -338,7 +336,7 @@ SUBSYSTEM_DEF(tgui)
 	// The old mob had no open UIs.
 	if(length(source?.tgui_open_uis) == 0)
 		return FALSE
-	if(isnull(target.tgui_open_uis) || !istype(target.tgui_open_uis, /list))
+	if(isnull(target.tgui_open_uis) || !islist(target.tgui_open_uis))
 		target.tgui_open_uis = list()
 	// Transfer all the UIs.
 	for(var/datum/tgui/ui in source.tgui_open_uis)

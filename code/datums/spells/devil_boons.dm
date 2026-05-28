@@ -53,11 +53,11 @@
 	)
 
 /obj/effect/proc_holder/spell/view_range/Destroy(force)
-	UnregisterSignal(action.owner, COMSIG_LIVING_DEATH)
-	if(selected_view == "default" || QDELETED(action.owner) || !action.owner.client)
-		return ..()
-	ASYNC
-		action.owner.client.change_view(action.owner.client.prefs.viewrange)
+	if(action)
+		UnregisterSignal(action.owner, COMSIG_LIVING_DEATH)
+		if(selected_view == "default" || QDELETED(action.owner) || !action.owner.client)
+			return ..()
+		INVOKE_ASYNC(action.owner.client, TYPE_PROC_REF(/client, change_view), action.owner.client.prefs.viewrange)
 	return ..()
 
 /obj/effect/proc_holder/spell/view_range/proc/make_view_normal(mob/user)
@@ -150,7 +150,7 @@
 		PREPOSITIONAL = "воскрешающем касании",
 	)
 
-/obj/item/melee/touch_attack/revive_touch/afterattack(atom/target, mob/living/carbon/user, proximity, params)
+/obj/item/melee/touch_attack/revive_touch/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	. = ..()
 
 	if(!isliving(target))

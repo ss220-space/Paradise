@@ -36,16 +36,9 @@
 	color = "#C8A5DC" // rgb: 200, 165, 220
 	taste_description = "антисептика"
 
-	//makes you squeaky clean
-/datum/reagent/medicine/sterilizine/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
+/datum/reagent/medicine/sterilizine/reaction_mob(mob/living/exposed_mob, method=REAGENT_TOUCH, volume)
 	if(method == REAGENT_TOUCH)
-		M.germ_level -= min(volume*20, M.germ_level)
-
-/datum/reagent/medicine/sterilizine/reaction_obj(obj/O, volume)
-	O.germ_level -= min(volume*20, O.germ_level)
-
-/datum/reagent/medicine/sterilizine/reaction_turf(turf/T, volume)
-	T.germ_level -= min(volume*20, T.germ_level)
+		exposed_mob.add_surgery_speed_mod(type, 0.8, min(volume * 1 MINUTES, 5 MINUTES))
 
 /datum/reagent/medicine/synaptizine
 	name = "Синаптизин"
@@ -113,7 +106,7 @@
 	return ..()
 
 /datum/reagent/medicine/mitocholide/reaction_obj(obj/O, volume)
-	if(istype(O, /obj/item/organ))
+	if(is_organ(O))
 		var/obj/item/organ/Org = O
 		if(!Org.is_robotic())
 			Org.rejuvenate()
@@ -574,37 +567,29 @@
 	reagent_state = LIQUID
 	color = "#B4DCBE"
 	taste_description = "очищения"
+	metabolization_rate = 2 * REAGENTS_METABOLISM
+	metabolized_traits = list(TRAIT_HALT_RADIATION_EFFECTS)
 
-/datum/reagent/medicine/potass_iodide/on_mob_life(mob/living/M)
-	if(prob(80))
-		M.radiation = max(0, M.radiation-1)
-	return ..()
+/datum/reagent/medicine/potass_iodide/on_mob_life(mob/living/affected_mob)
+	var/update_flags = STATUS_UPDATE_NONE
+	if(HAS_TRAIT(affected_mob, TRAIT_IRRADIATED))
+		update_flags |= affected_mob.adjustToxLoss(-1 * REM, updating_health = FALSE)
+	return ..() | update_flags
 
 /datum/reagent/medicine/pen_acid
 	name = "Пентетовая кислота"
 	id = "pen_acid"
-	description = "Диэтилентриаминпентаацетат (сокращённо \"пентетовая кислота\" или \"ДТПА\") - агрессивный хелатирующий агент. Может вызвать повреждение тканей. Используйте с осторожностью."
+	description = "Диэтилентриаминпентаацетат (сокращённо \"ДТПА\") — уменьшает огромное количество токсинов, одновременно выводя из организма другие химические вещества."
 	reagent_state = LIQUID
 	color = "#C8A5DC"
 	harmless = FALSE
 	taste_description = "очищения"
+	metabolization_rate = 0.5 * REAGENTS_METABOLISM
+	metabolized_traits = list(TRAIT_HALT_RADIATION_EFFECTS)
 
-/datum/reagent/medicine/pen_acid/on_mob_life(mob/living/M)
+/datum/reagent/medicine/pen_acid/on_mob_life(mob/living/affected_mob)
 	var/update_flags = STATUS_UPDATE_NONE
-	for(var/datum/reagent/R in M.reagents.reagent_list)
-		if(R != src)
-			M.reagents.remove_reagent(R.id,4)
-	M.radiation = max(0, M.radiation-7)
-	if(prob(75))
-		update_flags |= M.adjustToxLoss(-2, FALSE)
-	if(prob(33))
-		if(ishuman(M))
-			var/mob/living/carbon/human/human = M
-			human.take_overall_damage(0.5, 0.5, updating_health = FALSE, affect_robotic = FALSE)
-		else
-			update_flags |= M.adjustBruteLoss(0.5, FALSE)
-			update_flags |= M.adjustFireLoss(0.5, FALSE)
-
+	update_flags |= affected_mob.adjustToxLoss(-2 * REM, updating_health = FALSE)
 	return ..() | update_flags
 
 /datum/reagent/medicine/sal_acid
@@ -835,6 +820,7 @@
 	overdose_threshold = 25
 	harmless = FALSE
 	taste_description = "передышки"
+	metabolized_traits = list(TRAIT_PREVENT_IMPLANT_AUTO_EXPLOSION)
 
 /datum/reagent/medicine/atropine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -1063,7 +1049,7 @@
 	color = "#C8A5DC"
 	harmless = FALSE
 	can_synth = FALSE
-	taste_description = span_userdanger("нереальной бодрости")
+	taste_description = span_userdanger_alt("нереальной бодрости")
 	var/absorption_applied = FALSE
 
 /datum/reagent/medicine/stimulants/on_mob_life(mob/living/M)
@@ -1543,7 +1529,7 @@
 			else
 				for(var/obj/item/organ/external/bodypart as anything in M.bodyparts)
 					if(prob(50)) // Each tick has a 50% chance of repearing a bone.
-						if(bodypart.has_fracture()) //I can't just check for !E.status
+						if(bodypart.has_fracture() && bodypart.fracture != FRACTURE_TYPE_OPEN) //I can't just check for !E.status
 							to_chat(M, span_notice("Вы чувствуете жжение в ваш[GEND_EM_EI_EM_IH(bodypart)] [bodypart.declent_ru(PREPOSITIONAL)], по мере того как [GEND_HE_SHE(bodypart)] применяют правильную форму!"))
 							bodypart.mend_fracture()
 						if(bodypart.has_internal_bleeding())
@@ -1630,7 +1616,7 @@
 		update_flags |= M.adjustBruteLoss(-0.25, FALSE, affect_robotic = FALSE)
 		update_flags |= M.adjustFireLoss(-0.25, FALSE, affect_robotic = FALSE)
 	else
-		update_flags |= M.adjustToxLoss(4, FALSE)
+		update_flags |= M.adjustToxLoss(2, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/medicine/grubjuice

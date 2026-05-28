@@ -43,11 +43,10 @@
 			to_chat(ninja, span_notice("Теперь вы можете пройти почти через все."))	// Если же невидимы — пишем только себе
 		ninja.pass_flags |= PASSEVERYTHING
 		drop_restraints()
-		for(var/datum/action/item_action/advanced/ninja/ninja_spirit_form/ninja_action in actions)
-			ninja_action.use_action()
-			ninja_action.action_ready = TRUE
-			ninja_action.toggle_button_on_off()
-			break
+		var/datum/action/item_action/advanced/ninja/ninja_spirit_form/ninja_spirit_form = locate() in ninja.actions
+		ninja_spirit_form.use_action()
+		ninja_spirit_form.action_ready = TRUE
+		ninja_spirit_form.toggle_button_on_off()
 
 /**
  * Proc called to cancel spirit form.
@@ -71,9 +70,9 @@
 		else
 			to_chat(ninja, span_notice("Вы теряете способность проходить сквозь материальные объекты.")) // Если же невидимы — пишем только себе
 		ninja.pass_flags = 0	//Отнимать этот флаг - "PASS_EVERYTHING" по нормальному он не хочет, значит сделаем полный сброс.
-		for(var/datum/action/item_action/advanced/ninja/ninja_spirit_form/ninja_action in actions)
-			ninja_action.action_ready = FALSE
-			ninja_action.toggle_button_on_off()
+		var/datum/action/item_action/advanced/ninja/ninja_spirit_form/ninja_spirit_form = locate() in ninja.actions
+		ninja_spirit_form.action_ready = FALSE
+		ninja_spirit_form.toggle_button_on_off()
 		return TRUE
 	return FALSE
 
@@ -87,7 +86,7 @@
 		restraint = ninja.get_item_by_slot(ITEM_SLOT_LEGCUFFED)
 		restraint.visible_message(span_warning("[DECLENT_RU_CAP(restraint, NOMINATIVE)] спада[PLUR_ET_YUT(restraint)] с ног [ninja.declent_ru(GENITIVE)]!"))
 	ninja.uncuff()
-	if(istype(ninja.loc, /obj/structure/closet))
+	if(iscloset(ninja.loc))
 		var/obj/structure/closet/restraint_closet = ninja.loc
 		if(!istype(restraint_closet))
 			return FALSE

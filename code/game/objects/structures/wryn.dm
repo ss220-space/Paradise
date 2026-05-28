@@ -48,7 +48,7 @@
 	. = ..()
 	move_update_air(T)
 
-/obj/structure/wryn/wax/CanAtmosPass(turf/T, vertical)
+/obj/structure/wryn/wax/CanAtmosPass(direction)
 	return !density
 
 // Structure themself
@@ -135,8 +135,9 @@
 	for(var/obj/structure/wryn/floor/floor in range(1,src))
 		floor.update_icon(UPDATE_OVERLAYS)
 
-/obj/structure/wryn/floor/New(pos)
-	..()
+/obj/structure/wryn/floor/Initialize(mapload)
+	. = ..()
+	
 	var/picked = pick(icons)
 	icon_state = picked
 	fullUpdateWeedOverlays()

@@ -14,7 +14,7 @@
 	dir = EAST
 	set_dir_on_move = FALSE
 	max_integrity = 150 //If you change this, consider changing ../door/window/brigdoor/ max_integrity at the bottom of this .dm file
-	armor = list(MELEE = 20, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 10, BIO = 100, RAD = 100, FIRE = 70, ACID = 100)
+	armor = list(MELEE = 20, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 10, BIO = 100, FIRE = 70, ACID = 100)
 	cares_about_temperature = TRUE
 	var/obj/item/access_control/electronics
 	var/base_state = "left"
@@ -141,7 +141,7 @@
 /obj/machinery/door/window/CanAStarPass(to_dir, datum/can_pass_info/pass_info)
 	return !density || (dir != to_dir) || (check_access_list(pass_info.access) && hasPower() && !pass_info.no_id)
 
-/obj/machinery/door/window/proc/on_exit(datum/source, atom/movable/leaving, atom/newLoc)
+/obj/machinery/door/window/proc/on_exit(datum/source, atom/movable/leaving, direction)
 	SIGNAL_HANDLER
 
 	if(leaving.movement_type & PHASING)
@@ -153,7 +153,7 @@
 	if(leaving.pass_flags == PASSEVERYTHING || (pass_flags_self & leaving.pass_flags) || ((pass_flags_self & LETPASSTHROW) && leaving.throwing))
 		return
 
-	if(density && dir == get_dir(leaving, newLoc))
+	if(density && dir == direction)
 		leaving.Bump(src)
 		return COMPONENT_ATOM_BLOCK_EXIT
 
@@ -166,7 +166,7 @@
 		else
 			icon_state = "[base_state][density ? "" : "open"]"
 
-	SSdemo.mark_dirty(src)
+	//SSdemo.mark_dirty(src)
 
 /obj/machinery/door/window/open(forced=0)
 

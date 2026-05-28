@@ -29,7 +29,7 @@
 	item_state = "staffofhealing"
 	fire_sound = 'sound/magic/staff_healing.ogg'
 
-/obj/item/gun/magic/staff/healing/handle_suicide() //Stops people trying to commit suicide to heal themselves
+/obj/item/gun/magic/staff/healing/handle_suicide(mob/living/carbon/human/user, mob/living/carbon/human/target, list/modifiers) //Stops people trying to commit suicide to heal themselves
 	return
 
 /obj/item/gun/magic/staff/chaos

@@ -6,45 +6,70 @@
 	var/eye_prefix = "robot"
 	var/required_permit
 	var/donator_tier
+	var/move_x = 0
+
+/datum/robot_skin/proc/get_riding_offsets()
+	return CYBORG_RIDING_OFFSET_STANDART
 
 /datum/robot_skin/tall
 	icon_file = 'icons/mob/tallrobot.dmi'
 
+/datum/robot_skin/tall/get_riding_offsets()
+	return CYBORG_RIDING_OFFSET_MEKA
+
 /datum/robot_skin/tall/meka
 	name = "Meka"
 	required_permit = MEKA_PERMISSION
+	donator_tier = 4
 
 /datum/robot_skin/tall/fmeka
 	name = "Female Meka"
 	required_permit = FMEKA_PERMISSION
+	donator_tier = 4
 
 /datum/robot_skin/tall/mmeka
 	name = "Male Meka"
 	required_permit = MMEKA_PERMISSION
+	donator_tier = 4
 
 /datum/robot_skin/paladin
 	name = "Paladin"
 	panelprefix = "paladin"
 	eye_prefix = "paladin"
 	required_permit = PALADIN_PERMISSION
+	donator_tier = 1
+
+/datum/robot_skin/paladin/get_riding_offsets()
+	return CYBORG_RIDING_OFFSET_TALL
 
 /datum/robot_skin/robot_drone
 	name = "Robot drone"
 	panelprefix = "robot_drone"
 	eye_prefix = ""
 	required_permit = ROBOT_DRONE_PERMISSION
+	donator_tier = 3
+
+/datum/robot_skin/robot_drone/get_riding_offsets()
+	return CYBORG_RIDING_OFFSET_FLYING
 
 /datum/robot_skin/protectron
 	name = "Protectron"
 	panelprefix = "protectron"
 	eye_prefix = ""
 	required_permit = FALLOUT_PERMISSION
+	donator_tier = 2
+
+/datum/robot_skin/protectron/get_riding_offsets()
+	return CYBORG_RIDING_OFFSET_TALL
 
 /datum/robot_skin/coffin
 	name = "Coffin"
 	panelprefix = "coffin"
 	eye_prefix = ""
 	required_permit = COFFIN_PERMISSION
+
+/datum/robot_skin/coffin/get_riding_offsets()
+	return CYBORG_RIDING_OFFSET_TALL
 
 /datum/robot_skin/burger
 	name = "Burger"
@@ -57,46 +82,77 @@
 	panelprefix = "raptor"
 	eye_prefix = ""
 	required_permit = RAPTOR_PERMISSION
+	donator_tier = 3
+
+/datum/robot_skin/raptor/get_riding_offsets()
+	return CYBORG_RIDING_OFFSET_RAPTOR
 
 /datum/robot_skin/doll
 	name = "Doll"
 	eye_prefix = ""
 	required_permit = DOLL_PERMISSION
+	donator_tier = 2
+
+/datum/robot_skin/doll/get_riding_offsets()
+	return CYBORG_RIDING_OFFSET_TALL
 
 /datum/robot_skin/buddy
 	name = "Buddy"
 	panelprefix = "buddy"
 	eye_prefix = ""
 	required_permit = BUDDY_PERMISSION
+	donator_tier = 2
+
+/datum/robot_skin/buddy/get_riding_offsets()
+	return CYBORG_RIDING_OFFSET_TALL
 
 /datum/robot_skin/mine
 	name = "Mine"
 	required_permit = MINE_PERMISSION
+	donator_tier = 3
+
+/datum/robot_skin/mine/get_riding_offsets()
+	return CYBORG_RIDING_OFFSET_LANDMINE
 
 /datum/robot_skin/eyebot
 	name = "Eyebot"
 	required_permit = EYEBOT_PERMISSION
+	donator_tier = 3
+
+/datum/robot_skin/eyebot/get_riding_offsets()
+	return CYBORG_RIDING_OFFSET_FLYING
 
 /datum/robot_skin/seek
 	name = "Seek"
 	required_permit = SEEK_PERMISSION
+	donator_tier = 1
+
+/datum/robot_skin/seek/get_riding_offsets()
+	return CYBORG_RIDING_OFFSET_TALL
 
 /datum/robot_skin/noble_h
 	panelprefix = "Noble"
 	eye_prefix = "Noble-H"
 	required_permit = SEEK_PERMISSION
+	donator_tier = 1
+
+/datum/robot_skin/noble_h/get_riding_offsets()
+	return CYBORG_RIDING_OFFSET_TALL
 
 /datum/robot_skin/mech
 	name = "Mech"
 	required_permit = MECH_PERMISSION
+	donator_tier = 1
 
 /datum/robot_skin/heavy
 	name = "Heavy"
 	required_permit = HEAVY_PERMISSION
+	donator_tier = 1
 
 /datum/robot_skin/spider
 	name = "Spider"
 	required_permit = SPIDER_PERMISSION
+	donator_tier = 1
 
 /datum/robot_skin/robot
 	name = "Robot"
@@ -104,6 +160,9 @@
 /datum/robot_skin/basic
 	name = "Basic"
 	eye_prefix = "Robot"
+
+/datum/robot_skin/basic/get_riding_offsets()
+	return CYBORG_RIDING_OFFSET_TALL
 
 /datum/robot_skin/default
 	name = "Standard"
@@ -113,10 +172,16 @@
 	panelprefix = "Noble"
 	eye_prefix = "Noble"
 
+/datum/robot_skin/noble/get_riding_offsets()
+	return CYBORG_RIDING_OFFSET_TALL
+
 /datum/robot_skin/cricket
 	name = "Cricket"
 	panelprefix = "Cricket"
 	eye_prefix = "Cricket"
+
+/datum/robot_skin/cricket/get_riding_offsets()
+	return CYBORG_RIDING_OFFSET_TALL
 
 /datum/robot_skin/basic/std
 	icon_base_prefix = "Robot-STD"
@@ -263,24 +328,39 @@
 	eye_prefix = "wall-a"
 	required_permit = WALLE_PERMISSION
 
+/datum/robot_skin/walla/get_riding_offsets()
+	return CYBORG_RIDING_OFFSET_WALLE
+
 /datum/robot_skin/surgeon
 	name = "Surgeon"
 	icon_base_prefix = "surgeon"
 	eye_prefix = "surgeon"
+
+/datum/robot_skin/surgeon/get_riding_offsets()
+	return CYBORG_RIDING_OFFSET_TALL_AND_WIDE
 
 /datum/robot_skin/chiefbot
 	name = "Chiefbot"
 	icon_base_prefix = "chiefbot"
 	eye_prefix = "chiefbot"
 
+/datum/robot_skin/chiefbot/get_riding_offsets()
+	return CYBORG_RIDING_OFFSET_TALL_AND_WIDE
+
 /datum/robot_skin/droid_medical
 	name = "Advanced Droid"
 	icon_base_prefix = "droid-medical"
 	eye_prefix = "droid-medical"
 
+/datum/robot_skin/droid_medical/get_riding_offsets()
+	return CYBORG_RIDING_OFFSET_TALL
+
 /datum/robot_skin/basic/needles
 	name = "Needles"
 	icon_base_prefix = "Robot-SRG"
+
+/datum/robot_skin/basic/needles/get_riding_offsets()
+	return CYBORG_RIDING_OFFSET_TALL
 
 /datum/robot_skin/default/eng
 	icon_base_prefix = "Standard-Engi"
@@ -368,6 +448,10 @@
 	icon_base_prefix = "handyeng"
 	eye_prefix = "handyeng"
 	required_permit = FALLOUT_PERMISSION
+	donator_tier = 2
+
+/datum/robot_skin/handy_eng/get_riding_offsets()
+	return CYBORG_RIDING_OFFSET_TALL
 
 /datum/robot_skin/basic/antique
 	name = "Antique"
@@ -469,6 +553,10 @@
 	icon_base_prefix = "securitron"
 	eye_prefix = "securitron"
 	required_permit = FALLOUT_PERMISSION
+	donator_tier = 2
+
+/datum/robot_skin/securitron/get_riding_offsets()
+	return CYBORG_RIDING_OFFSET_TALL
 
 /datum/robot_skin/eve
 	name = "Eve"
@@ -476,20 +564,32 @@
 	eye_prefix = "eve"
 	required_permit = WALLE_PERMISSION
 
+/datum/robot_skin/eve/get_riding_offsets()
+	return CYBORG_RIDING_OFFSET_TALL
+
 /datum/robot_skin/redknight
 	name = "Red Knight"
 	icon_base_prefix = "Security"
 	eye_prefix = "Security"
+
+/datum/robot_skin/redknight/get_riding_offsets()
+	return CYBORG_RIDING_OFFSET_TALL
 
 /datum/robot_skin/blackknight
 	name = "Black Knight"
 	icon_base_prefix = "securityrobot"
 	eye_prefix = "securityrobot"
 
+/datum/robot_skin/blackknight/get_riding_offsets()
+	return CYBORG_RIDING_OFFSET_TALL
+
 /datum/robot_skin/bloodhound
 	name = "Bloodhound"
 	icon_base_prefix = "bloodhound"
 	eye_prefix = "bloodhound"
+
+/datum/robot_skin/bloodhound/get_riding_offsets()
+	return CYBORG_RIDING_OFFSET_TALL
 
 /datum/robot_skin/default/jan
 	icon_base_prefix = "Standard-Jani"
@@ -652,6 +752,10 @@
 	icon_base_prefix = "handy-service"
 	eye_prefix = "handy-service"
 	required_permit = FALLOUT_PERMISSION
+	donator_tier = 2
+
+/datum/robot_skin/handy_serv/get_riding_offsets()
+	return  CYBORG_RIDING_OFFSET_TALL
 
 /datum/robot_skin/basic/waitress
 	name = "Waitress"
@@ -665,6 +769,9 @@
 	name = "Kent"
 	icon_base_prefix = "toiletbot"
 	eye_prefix = "toiletbot"
+
+/datum/robot_skin/toiletbot/get_riding_offsets()
+	return CYBORG_RIDING_OFFSET_TALL_AND_WIDE
 
 /datum/robot_skin/maximillion
 	name = "Rich"
@@ -751,35 +858,56 @@
 	eye_prefix = "wall-e"
 	required_permit = WALLE_PERMISSION
 
+/datum/robot_skin/walle/get_riding_offsets()
+	return CYBORG_RIDING_OFFSET_WALLE
+
 /datum/robot_skin/droid_miner
 	name = "Advanced Droid"
 	icon_base_prefix = "droid-miner"
 	eye_prefix = "droid-miner"
+
+/datum/robot_skin/droid_miner/get_riding_offsets()
+	return CYBORG_RIDING_OFFSET_TALL
 
 /datum/robot_skin/treadhead
 	name = "Treadhead"
 	icon_base_prefix = "Miner"
 	eye_prefix = "Miner"
 
+/datum/robot_skin/treadhead/get_riding_offsets()
+	return CYBORG_RIDING_OFFSET_TALL
+
 /datum/robot_skin/lavaland
 	name = "Lavaland"
 	icon_base_prefix = "lavaland"
 	eye_prefix = "lavaland"
+
+/datum/robot_skin/lavaland/get_riding_offsets()
+	return CYBORG_RIDING_OFFSET_TALL
 
 /datum/robot_skin/deathsquad
 	name = "Deathsquad"
 	icon_base_prefix = "nano_bloodhound"
 	eye_prefix = "nano_bloodhound"
 
+/datum/robot_skin/deathsquad/get_riding_offsets()
+	return CYBORG_RIDING_OFFSET_TALL_AND_WIDE
+
 /datum/robot_skin/syndie_bloodhound
 	name = "Syndicate Bloodhound"
 	icon_base_prefix = "syndie_bloodhound"
 	eye_prefix = "syndie_bloodhound"
 
+/datum/robot_skin/syndie_bloodhound/get_riding_offsets()
+	return CYBORG_RIDING_OFFSET_TALL_AND_WIDE
+
 /datum/robot_skin/syndie_medi
 	name = "Syndicate Medical"
 	icon_base_prefix = "syndi-medi"
 	eye_prefix = "syndi-medi"
+
+/datum/robot_skin/syndie_medi/get_riding_offsets()
+	return CYBORG_RIDING_OFFSET_TALL_AND_WIDE
 
 /datum/robot_skin/syndi_engi
 	name = "Syndicate Saboteur"
@@ -814,10 +942,16 @@
 	icon_base_prefix = "droidcombat"
 	eye_prefix = "droidcombat"
 
+/datum/robot_skin/droidcombat/get_riding_offsets()
+	return CYBORG_RIDING_OFFSET_DESTROYER
+
 /datum/robot_skin/ertgamma
 	name = "ERT-GAMMA"
 	icon_base_prefix = "ertgamma"
 	eye_prefix = "ertgamma"
+
+/datum/robot_skin/ertgamma/get_riding_offsets()
+	return CYBORG_RIDING_OFFSET_TALL_AND_WIDE
 
 /datum/robot_skin/paladin/combat
 	icon_base_prefix = "paladin-Combat"
@@ -852,11 +986,18 @@
 	icon_base_prefix = "mrgutsy"
 	eye_prefix = "mrgutsy"
 	required_permit = FALLOUT_PERMISSION
+	donator_tier = 2
+
+/datum/robot_skin/mrgutsy/get_riding_offsets()
+	return CYBORG_RIDING_OFFSET_TALL
 
 /datum/robot_skin/xenoborg
 	name = "Xenoborg"
 	icon_base_prefix = "xenoborg"
 	eye_prefix = "xenoborg"
+
+/datum/robot_skin/xenoborg/get_riding_offsets()
+	return CYBORG_RIDING_OFFSET_TALL
 
 /datum/robot_skin/clockwork
 	name = "Clockwork"
@@ -864,10 +1005,16 @@
 	icon_base_prefix = "cyborg"
 	eye_prefix = "cyborg"
 
+/datum/robot_skin/clockwork/get_riding_offsets()
+	return CYBORG_RIDING_OFFSET_TALL
+
 /datum/robot_skin/ninja
 	name = "Ninja"
 	icon_base_prefix = "ninja"
 	eye_prefix = "ninja"
+
+/datum/robot_skin/ninja/get_riding_offsets()
+	return CYBORG_RIDING_OFFSET_TALL
 
 /datum/robot_skin/tall/meka/ninja
 	icon_base_prefix = "mekaninja"
@@ -897,15 +1044,66 @@
 	icon_base_prefix = "ninja_sec"
 	eye_prefix = "ninja_sec"
 	required_permit = NINJA_ALT_PERMISSION
+	donator_tier = 1
+
+/datum/robot_skin/ninja_sec/get_riding_offsets()
+	return CYBORG_RIDING_OFFSET_TALL_AND_WIDE
 
 /datum/robot_skin/ninja_engi
 	name = "Ninja engi"
 	icon_base_prefix = "ninja_engi"
 	eye_prefix = "ninja_engi"
 	required_permit = NINJA_ALT_PERMISSION
+	donator_tier = 1
 
 /datum/robot_skin/ninja_medical
 	name = "Ninja medical"
 	icon_base_prefix = "ninja_medical"
 	eye_prefix = "ninja_medical"
 	required_permit = NINJA_ALT_PERMISSION
+	donator_tier = 1
+
+/datum/robot_skin/ninja_medical/get_riding_offsets()
+	return CYBORG_RIDING_OFFSET_TALL_AND_WIDE
+
+/datum/robot_skin/wide
+	icon_file = 'icons/mob/64x32robots.dmi'
+	name = "Drake"
+	panelprefix = "ov-drake"
+	required_permit = DRAKE_PERMISSION
+	move_x = -16
+
+/datum/robot_skin/wide/get_riding_offsets()
+	return CYBORG_RIDING_OFFSET_DRAKE
+
+/datum/robot_skin/wide/drake/std
+	icon_base_prefix = "drakestd"
+	eye_prefix = "drakestd"
+
+/datum/robot_skin/wide/drake/medical
+	icon_base_prefix = "drakemedical"
+	eye_prefix = "drakemedical"
+
+/datum/robot_skin/wide/drake/eng
+	icon_base_prefix = "drakeeng"
+	eye_prefix = "drakeeng"
+
+/datum/robot_skin/wide/drake/sec
+	icon_base_prefix = "drakesec"
+	eye_prefix = "drakesec"
+
+/datum/robot_skin/wide/drake/jan
+	icon_base_prefix = "drakejan"
+	eye_prefix = "drakejan"
+
+/datum/robot_skin/wide/drake/srv
+	icon_base_prefix = "drakesrv"
+	eye_prefix = "drakesrv"
+
+/datum/robot_skin/wide/drake/mnr
+	icon_base_prefix = "drakemnr"
+	eye_prefix = "drakemnr"
+
+/datum/robot_skin/wide/drake/syn
+	icon_base_prefix = "drakesyn"
+	eye_prefix = "drakesyn"

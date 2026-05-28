@@ -153,7 +153,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 	if(is_open_container)
 		if(panel_open)
 			balloon_alert(user, "панель открыта!")
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 		return ATTACK_CHAIN_PROCEED	// afterattack will handle this
 
 	if(is_circuit(tool))
@@ -260,7 +260,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 
 	var/list/data = list()
 
-	if(istype(circuit, /obj/item/circuit_component/module))
+	if(is_module_circuit(circuit))
 		var/obj/item/circuit_component/module/module = circuit
 
 		data["dupe_data"] = list()
@@ -490,7 +490,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 
 	return data
 
-/obj/machinery/r_n_d/circuit_imprinter/screwdriver_act(mob/living/user, obj/item/tool)
+/obj/machinery/r_n_d/circuit_imprinter/screwdriver_act_secondary(mob/living/user, obj/item/tool)
 	if(shocked && shock(user, 50))
 		add_fingerprint(user)
 		return TRUE

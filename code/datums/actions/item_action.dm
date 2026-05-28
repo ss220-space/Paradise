@@ -38,8 +38,25 @@
 
 /datum/action/item_action/proc/call_effect_proc()
 	var/obj/item/item_target = target
-	item_target.ui_action_click(owner, src)
+	item_target.ui_action_click(owner, src, TRUE)
 
+
+/datum/action/item_action/AltTrigger(mob/clicker, trigger_flags)
+	. = ..()
+	if(!.)
+		return FALSE
+	return do_alt_effect(trigger_flags)
+
+/datum/action/item_action/proc/do_alt_effect(trigger_flags)
+	if(!target)
+		return FALSE
+	call_alt_effect_proc()
+	UpdateButtonIcon()
+	return TRUE
+
+/datum/action/item_action/proc/call_alt_effect_proc()
+	var/obj/item/item_target = target
+	item_target.ui_action_click(owner, src, FALSE)
 
 // MARK: Actions
 
@@ -51,6 +68,9 @@
 
 /datum/action/item_action/toggle_firemode
 	name = "Сменить режим огня"
+
+/datum/action/item_action/toggle_buttstock
+	name = "Разложить/сложить приклад"
 
 /datum/action/item_action/toggle_defibrillator
 	name = "Включить/выключить встроенный дефибриллятор"
@@ -85,6 +105,9 @@
 
 /datum/action/item_action/set_internals
 	name = "Переключить баллон"
+
+/datum/action/item_action/sving_medal
+	name = "Щегольнуть медалью"
 
 /datum/action/item_action/set_internals/is_action_active(atom/movable/screen/movable/action_button/current_button)
 	if(iscarbon(owner))
@@ -196,6 +219,7 @@
 
 /datum/action/item_action/halt
 	name = "СТОЯТЬ!"
+	desc = "Левая кнопка — активировать.\nПравая кнопка — сменить фразу."
 
 /datum/action/item_action/selectphrase
 	name = "Сменить фразу"
@@ -361,35 +385,8 @@
 /datum/action/item_action/change_holotool_color
 	name = "Сменить цвет голотула"
 
-// MARK: Cleave attack
-/datum/action/item_action/toggle_cleave_attack
-	name = "Переключить режим атаки со взмахом"
-	check_flags = NONE
-
-
-/datum/action/item_action/toggle_cleave_attack/is_action_active(atom/movable/screen/movable/action_button/current_button)
-	. = ..()
-	return !HAS_TRAIT(target, TRAIT_CLEAVE_BLOCKED)
-
-
-/datum/action/item_action/toggle_cleave_attack/do_effect(trigger_flags)
-	if(!target)
-		return
-
-	if(HAS_TRAIT_NOT_FROM(target, TRAIT_CLEAVE_BLOCKED, BUTTON_TRAIT))
-		to_chat(usr, span_warning("Включение атаки со взмахом заблокировано."))
-		return
-
-	var/has_trait = HAS_TRAIT_FROM(target, TRAIT_CLEAVE_BLOCKED, BUTTON_TRAIT)
-
-	if(has_trait)
-		REMOVE_TRAIT(target, TRAIT_CLEAVE_BLOCKED, BUTTON_TRAIT)
-	else
-		ADD_TRAIT(target, TRAIT_CLEAVE_BLOCKED, BUTTON_TRAIT)
-
-	UpdateButtonIcon()
-	to_chat(usr, span_notice("Вы [!has_trait ? "включаете" : "отключаете"] атаку со взмахом."))
-
+/datum/action/item_action/show_head_strip
+	name = "Показать нашивку"
 
 // MARK: Jump boots
 /datum/action/item_action/bhop
@@ -445,11 +442,29 @@
 	name = "Установить голос"
 
 /datum/action/item_action/voice_changer/voice/do_effect(trigger_flags)
-	if(!IsAvailable())
-		return FALSE
+	var/obj/item/voice_changer/voice_changer = target
+	voice_changer.set_voice(usr)
 
-	var/obj/item/voice_changer/V = target
-	V.set_voice(usr)
+/datum/action/item_action/voice_changer/toggle/Grant(mob/grant_to)
+	var/obj/item/voice_changer/changer = target
+	if(istype(changer) && istype(changer.parent, /obj/item/clothing/mask/chameleon))
+		var/obj/item/clothing/mask/chameleon/mask = changer.parent
+		var/datum/action/item_action/chameleon/change/mask_action = locate() in mask.actions
+		if(mask_action)
+			if(!mask_action.check_chameleon_access(grant_to))
+				return FALSE
+
+	return ..()
+
+/datum/action/item_action/voice_changer/voice/Grant(mob/grant_to)
+	var/obj/item/voice_changer/changer = target
+	if(istype(changer) && istype(changer.parent, /obj/item/clothing/mask/chameleon))
+		var/obj/item/clothing/mask/chameleon/mask = changer.parent
+		var/datum/action/item_action/chameleon/change/mask_action = locate() in mask.actions
+		if(mask_action && !mask_action.check_chameleon_access(grant_to))
+			return FALSE
+
+	return ..()
 
 // for clothing accessories like holsters
 /datum/action/item_action/accessory
@@ -494,7 +509,7 @@
 	var/charge_max = 100 //recharge time in deciseconds if charge_type = "recharge" or "toggle_recharge", alternatively counts as starting charges if charge_type = "charges"
 	var/charge_counter = 0 //can only use if it equals "recharge" or "toggle_recharge", ++ each decisecond if charge_type = "recharge" or -- each cast if charge_type = "charges"
 	var/starts_charged = TRUE //Does this action start ready to go?
-	var/still_recharging_msg = span_notice(" действие всё ещё перезаряжается.")
+	var/still_recharging_msg = span_notice_alt(" действие всё ещё перезаряжается.")
 	//toggle and toggle_recharge stuff
 	var/action_ready = TRUE //Only for toggle and toggle_recharge charge_type. Toggle it via code yourself. Haha 'toggle', get it?
 	var/icon_state_active = "bg_default_on"	//What icon_state we switch to when we toggle action active in "toggle" actions

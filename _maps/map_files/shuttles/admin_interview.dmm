@@ -1,24 +1,4 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"av" = (
-/obj/machinery/door_control{
-	id = "adminshuttleblast";
-	name = "Blast door control";
-	pixel_x = -5;
-	pixel_y = -23;
-	req_access = list(101)
-	},
-/obj/machinery/door_control{
-	id = "adminshuttleshutters";
-	name = "Shutter control";
-	pixel_x = 5;
-	pixel_y = -23;
-	req_access = list(101)
-	},
-/turf/simulated/floor/shuttle{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "dark"
-	},
-/area/shuttle/administration)
 "aw" = (
 /obj/structure/chair{
 	dir = 4
@@ -104,8 +84,7 @@
 "hG" = (
 /obj/structure/shuttle/engine/heater{
 	dir = 4;
-	icon_state = "heater3x3_side_inv";
-	tag = "icon-heater (NORTH)"
+	icon_state = "heater3x3_side_inv"
 	},
 /obj/structure/shuttle/engine/platform{
 	dir = 4;
@@ -169,8 +148,7 @@
 /area/shuttle/administration)
 "jU" = (
 /obj/machinery/computer/shuttle/admin{
-	dir = 1;
-	name = "NTV Argos shuttle console"
+	name = "NTV Athena shuttle console"
 	},
 /obj/effect/turf_decal/stripes/gold{
 	dir = 6;
@@ -191,21 +169,15 @@
 "lX" = (
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 1;
-	icon_state = "open";
 	id_tag = "adminshuttleprivateshutters";
-	name = "Private Shutters";
-	opacity = 0
+	name = "Private Shutters"
 	},
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 1;
-	icon_state = "open";
 	id_tag = "adminshuttleshutters";
-	name = "Blast Shutters";
-	opacity = 0
+	name = "Blast Shutters"
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/administration)
@@ -223,8 +195,7 @@
 "mZ" = (
 /obj/structure/shuttle/engine/heater{
 	dir = 4;
-	icon_state = "heater3x3";
-	tag = "icon-heater (NORTH)"
+	icon_state = "heater3x3"
 	},
 /obj/structure/shuttle/engine/platform{
 	dir = 4;
@@ -245,7 +216,7 @@
 /obj/item/ammo_box/magazine/smgm9mm,
 /obj/item/ammo_box/magazine/smgm9mm,
 /obj/item/ammo_box/magazine/smgm9mm,
-/obj/item/gun/projectile/automatic/proto,
+/obj/item/gun/projectile/automatic/smg/saber,
 /obj/item/gun/energy/gun/blueshield,
 /obj/item/clothing/glasses/hud/security/sunglasses/aviators,
 /obj/item/reagent_containers/food/snacks/candy/mre,
@@ -405,12 +376,9 @@
 	name = "Ship External Access";
 	req_access = list(101)
 	},
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/shutters/preopen{
 	id_tag = "adminshuttleshutters";
-	name = "Blast Shutters";
-	opacity = 0
+	name = "Blast Shutters"
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -419,6 +387,13 @@
 /area/shuttle/administration)
 "sq" = (
 /turf/simulated/floor/wood/fancy/cherry,
+/area/shuttle/administration)
+"sv" = (
+/obj/structure/window/full/reinforced{
+	armor = list("melee"=80,"bullet"=80,"laser"=0,"energy"=0,"bomb"=80,"bio"=100,"fire"=80,"acid"=100)
+	},
+/obj/structure/flora/ausbushes/genericbush,
+/turf/simulated/floor/grass,
 /area/shuttle/administration)
 "sG" = (
 /turf/simulated/floor/plasteel{
@@ -438,8 +413,8 @@
 /area/shuttle/administration)
 "tu" = (
 /obj/effect/turf_decal/siding/blue/corner{
-	dir = 1;
-	color = "#444444"
+	color = "#444444";
+	dir = 1
 	},
 /obj/machinery/light,
 /turf/simulated/floor/wood/fancy/cherry,
@@ -490,13 +465,10 @@
 "ye" = (
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 1;
-	icon_state = "open";
 	id_tag = "adminshuttleshutters";
-	name = "Blast Shutters";
-	opacity = 0
+	name = "Blast Shutters"
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/administration)
@@ -532,13 +504,28 @@
 	},
 /area/shuttle/administration)
 "zi" = (
-/obj/machinery/computer/communications{
-	dir = 1
-	},
 /obj/effect/turf_decal/stripes/gold{
 	dir = 6
 	},
-/obj/machinery/light/small,
+/obj/machinery/computer/communications,
+/obj/machinery/door_control{
+	id = "adminshuttleblast";
+	name = "Blast door control";
+	pixel_x = -5;
+	pixel_y = -23;
+	req_access = list(101)
+	},
+/obj/machinery/door_control{
+	id = "adminshuttleshutters";
+	name = "Shutter control";
+	pixel_x = 5;
+	pixel_y = -23;
+	req_access = list(101)
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/structure/extinguisher_cabinet/directional/west,
 /turf/simulated/floor/carpet/royalblack,
 /area/shuttle/administration)
 "zA" = (
@@ -558,8 +545,8 @@
 /area/shuttle/administration)
 "AN" = (
 /obj/machinery/door/airlock/centcom{
-	name = "Interview room";
-	id = "Interview"
+	id = "Interview";
+	name = "Interview room"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -596,24 +583,12 @@
 "Ca" = (
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
-	icon_state = "open";
 	id_tag = "adminshuttleshutters";
-	name = "Blast Shutters";
-	opacity = 0
+	name = "Blast Shutters"
 	},
 /turf/simulated/floor/plating,
-/area/shuttle/administration)
-"Cv" = (
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	frequency = 1331;
-	id_tag = "admin_s_pump"
-	},
-/turf/simulated/floor/shuttle{
-	icon_state = "vfloor"
-	},
 /area/shuttle/administration)
 "Dd" = (
 /turf/simulated/floor/plasteel{
@@ -635,17 +610,10 @@
 /area/shuttle/administration)
 "EL" = (
 /obj/effect/turf_decal/siding/blue/corner{
-	dir = 8;
-	color = "#444444"
+	color = "#444444";
+	dir = 8
 	},
 /turf/simulated/floor/wood/fancy/cherry,
-/area/shuttle/administration)
-"Gs" = (
-/obj/item/twohanded/required/kirbyplants,
-/turf/simulated/floor/shuttle{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "dark"
-	},
 /area/shuttle/administration)
 "Hs" = (
 /obj/machinery/light{
@@ -713,9 +681,9 @@
 /area/shuttle/administration)
 "LH" = (
 /obj/machinery/ticket_machine{
-	pixel_y = 32;
+	id = 2;
 	pixel_x = 32;
-	id = 2
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -730,11 +698,11 @@
 	height = 18;
 	id = "admin";
 	name = "administration shuttle";
+	port_direction = 2;
+	preferred_direction = 8;
 	roundstart_move = "admin_away";
 	timid = 1;
-	width = 18;
-	port_direction = 2;
-	preferred_direction = 8
+	width = 18
 	},
 /obj/machinery/door/airlock/external{
 	frequency = 1331;
@@ -750,12 +718,9 @@
 	pixel_y = -29;
 	req_access = list(0)
 	},
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/shutters/preopen{
 	id_tag = "adminshuttleshutters";
-	name = "Blast Shutters";
-	opacity = 0
+	name = "Blast Shutters"
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -784,25 +749,20 @@
 /turf/simulated/floor/carpet/royalblack,
 /area/shuttle/administration)
 "Oy" = (
-/obj/machinery/computer/card{
-	dir = 1
-	},
 /obj/effect/turf_decal/stripes/gold{
 	dir = 5;
 	icon_state = "gs_deadlock"
 	},
+/obj/machinery/computer/camera_advanced/shuttle_docker/admin{
+	name = "NTV Athena shuttle navigation computer"
+	},
 /turf/simulated/floor/carpet/royalblack,
 /area/shuttle/administration)
 "OZ" = (
+/obj/structure/extinguisher_cabinet/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkredalt"
-	},
-/area/shuttle/administration)
-"Pv" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden,
-/turf/simulated/floor/shuttle{
-	icon_state = "vfloor"
 	},
 /area/shuttle/administration)
 "PT" = (
@@ -822,6 +782,10 @@
 /area/shuttle/administration)
 "Qn" = (
 /obj/machinery/door/airlock/centcom,
+/turf/simulated/floor/wood/fancy/cherry,
+/area/shuttle/administration)
+"QK" = (
+/obj/structure/extinguisher_cabinet/directional/west,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/shuttle/administration)
 "QT" = (
@@ -854,15 +818,13 @@
 	},
 /area/shuttle/administration)
 "RA" = (
-/obj/machinery/computer/camera_advanced/shuttle_docker/admin{
-	dir = 1;
-	name = "NTV Argos shuttle navigation computer"
-	},
 /obj/effect/turf_decal/stripes/gold{
 	dir = 5
 	},
-/obj/machinery/light/small{
-	dir = 1
+/obj/machinery/computer/communications,
+/obj/machinery/computer/card,
+/obj/machinery/light{
+	dir = 8
 	},
 /turf/simulated/floor/carpet/royalblack,
 /area/shuttle/administration)
@@ -884,19 +846,16 @@
 "RR" = (
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/shutters/preopen{
 	id_tag = "adminshuttleshutters";
-	name = "Blast Shutters";
-	opacity = 0
+	name = "Blast Shutters"
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/administration)
 "Sg" = (
 /obj/effect/turf_decal/siding/blue/corner{
-	dir = 4;
-	color = "#444444"
+	color = "#444444";
+	dir = 4
 	},
 /obj/machinery/light,
 /turf/simulated/floor/wood/fancy/cherry,
@@ -911,8 +870,7 @@
 "SE" = (
 /obj/structure/shuttle/engine/heater{
 	dir = 4;
-	icon_state = "heater3x3_side";
-	tag = "icon-heater (NORTH)"
+	icon_state = "heater3x3_side"
 	},
 /obj/structure/shuttle/engine/platform{
 	dir = 4;
@@ -955,7 +913,7 @@
 /obj/item/ammo_box/magazine/smgm9mm,
 /obj/item/ammo_box/magazine/smgm9mm,
 /obj/item/ammo_box/magazine/smgm9mm,
-/obj/item/gun/projectile/automatic/proto,
+/obj/item/gun/projectile/automatic/smg/saber,
 /obj/item/gun/energy/gun/blueshield,
 /obj/item/clothing/glasses/hud/security/sunglasses/aviators,
 /obj/item/reagent_containers/food/snacks/candy/mre,
@@ -1017,9 +975,9 @@
 /area/shuttle/administration)
 "Uj" = (
 /obj/machinery/door_control{
-	normaldoorcontrol = 1;
-	name = "Interview room door-control";
 	id = "Interview";
+	name = "Interview room door-control";
+	normaldoorcontrol = 1;
 	pixel_y = -34
 	},
 /obj/machinery/door_control{
@@ -1033,13 +991,6 @@
 	icon_state = "dark"
 	},
 /area/shuttle/administration)
-"VE" = (
-/obj/structure/window/full/reinforced{
-	armor = list("melee"=80,"bullet"=80,"laser"=0,"energy"=0,"bomb"=80,"bio"=100,"rad"=100,"fire"=80,"acid"=100)
-	},
-/obj/structure/flora/ausbushes/genericbush,
-/turf/simulated/floor/grass,
-/area/shuttle/administration)
 "VV" = (
 /turf/simulated/floor/shuttle{
 	icon_state = "vfloor"
@@ -1047,6 +998,7 @@
 /area/shuttle/administration)
 "Xb" = (
 /obj/item/flag/nt,
+/obj/structure/extinguisher_cabinet/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -1093,7 +1045,7 @@
 /obj/item/ammo_box/magazine/smgm9mm,
 /obj/item/ammo_box/magazine/smgm9mm,
 /obj/item/ammo_box/magazine/smgm9mm,
-/obj/item/gun/projectile/automatic/proto,
+/obj/item/gun/projectile/automatic/smg/saber,
 /obj/item/gun/energy/gun/blueshield,
 /obj/item/clothing/glasses/hud/security/sunglasses/aviators,
 /obj/item/reagent_containers/food/snacks/candy/mre,
@@ -1234,10 +1186,10 @@ TC
 cl
 vb
 Xl
-Gs
+cN
 jI
 NW
-Gs
+cN
 ZZ
 Tl
 Ak
@@ -1256,7 +1208,7 @@ hA
 vk
 vk
 cN
-av
+cN
 zA
 hA
 hA
@@ -1279,8 +1231,8 @@ BJ
 BJ
 Ti
 dq
-sq
-sq
+QK
+QK
 sq
 sq
 Bs
@@ -1288,7 +1240,7 @@ hA
 "}
 (7,1,1) = {"
 Ca
-Ir
+Sq
 Tl
 Tl
 Tl
@@ -1328,7 +1280,7 @@ Ti
 "}
 (9,1,1) = {"
 Ca
-Sq
+Ir
 Tl
 sg
 sg
@@ -1367,12 +1319,12 @@ jH
 ye
 "}
 (11,1,1) = {"
-Ti
+zA
 hA
 yW
 hA
-VE
-VE
+sv
+sv
 hA
 QT
 Tl
@@ -1457,7 +1409,7 @@ vk
 Ti
 Ru
 iK
-vk
+hA
 vk
 Re
 hA
@@ -1475,8 +1427,8 @@ hA
 hA
 hA
 PT
-Cv
-Pv
+VV
+sY
 VV
 hA
 hA
@@ -1496,7 +1448,7 @@ dj
 hA
 qS
 VV
-sY
+VV
 kP
 hA
 dj

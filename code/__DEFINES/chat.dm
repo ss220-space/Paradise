@@ -23,19 +23,19 @@
 
 // Debug printing macros (for development and testing)
 /// Used for debug messages to the world
-#define debug_world(msg) if(GLOB.Debug2) to_chat(world, \
+#define debug_world(msg) if(GLOB.debugging_enabled) to_chat(world, \
 	type = MESSAGE_TYPE_DEBUG, \
 	text = "DEBUG: [msg]")
 /// Used for debug messages to the player
-#define debug_usr(msg) if(GLOB.Debug2 && usr) to_chat(usr, \
+#define debug_usr(msg) if(GLOB.debugging_enabled && usr) to_chat(usr, \
 	type = MESSAGE_TYPE_DEBUG, \
 	text = "DEBUG: [msg]")
 /// Used for debug messages to the admins
-#define debug_admins(msg) if(GLOB.Debug2) to_chat(GLOB.admins, \
+#define debug_admins(msg) if(GLOB.debugging_enabled) to_chat(GLOB.admins, \
 	type = MESSAGE_TYPE_DEBUG, \
 	text = "DEBUG: [msg]")
 /// Used for debug messages to the server
-#define debug_world_log(msg) if(GLOB.Debug2) log_world("DEBUG: [msg]")
+#define debug_world_log(msg) if(GLOB.debugging_enabled) log_world("DEBUG: [msg]")
 
 /// Wraps text in a standard boxed message container
 #define chat_box_regular(str) ("<div class='boxed_message'>" + str + "</div>")
@@ -60,6 +60,9 @@
 /// Creates a notice-bordered box for mentor help messages (mhelp)
 #define chat_box_mhelp(str) ("<div class='boxed_message notice_border'>" + str + "</div>")
 
+/// Makes a fieldset with a neaty styled name. Can apply additional classes.
+#define fieldset_block(title, content, classes) ("<fieldset class='fieldset " + classes + "'><legend class='fieldset_legend'>" + title + "</legend>" + content + "</fieldset>")
+
 /// Replaces name of someone if we shouldn't know that
 #define UNKNOWN_NAME_RUS "Неизвестный"
 /// Replaces something (job, sec status, disease' name, etc) if we shouldn't know that
@@ -69,3 +72,6 @@
 
 /// The cooldown on OOC messages such as OOC, LOOC, praying and adminhelps
 #define OOC_COOLDOWN 5
+
+/// Handles text formatting for item use hints in examine text
+#define EXAMINE_HINT(text) ("<b>" + text + "</b>")

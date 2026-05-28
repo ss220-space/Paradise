@@ -9,7 +9,7 @@
 	pass_flags_self = PASSBLOB
 	layer = BELOW_MOB_LAYER
 	can_astar_pass = CANASTARPASS_ALWAYS_PROC
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 70)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 80, ACID = 70)
 	creates_cover = TRUE
 	obj_flags = BLOCK_Z_OUT_DOWN | BLOCK_Z_IN_UP // stops blob mobs from falling on multiz.
 	max_integrity = BLOB_REGULAR_MAX_HP
@@ -43,7 +43,6 @@
 /obj/structure/blob/Initialize(mapload, owner_overmind)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_CHASM_DESTROYED, INNATE_TRAIT)
-	GLOB.blobs |= src
 	if(owner_overmind && isovermind(owner_overmind))
 		link_to_overmind(owner_overmind)
 	setDir(pick(GLOB.cardinal))
@@ -61,8 +60,7 @@
 	if(atmosblock)
 		atmosblock = FALSE
 		recalculate_atmos_connectivity()
-	GLOB.blobs -= src
-	SSticker?.mode?.legit_blobs -= src
+	SSticker?.mode?.remove_blob_tile(src)
 	if(overmind)
 		overmind.all_blobs -= src
 		overmind.blobs_legit -= src  //if it was in the legit blobs list, it isn't now
@@ -90,7 +88,7 @@
 						result++
 		. -= result - 1
 
-/obj/structure/blob/CanAtmosPass(turf/T, vertical)
+/obj/structure/blob/CanAtmosPass(direction)
 	return !atmosblock
 
 /obj/structure/blob/get_superconductivity(direction)
@@ -125,7 +123,7 @@
 
 /obj/structure/blob/proc/ConsumeTile()
 	for(var/atom/thing in loc)
-		if(!thing.can_blob_attack())
+		if(QDELETED(thing) || !thing.can_blob_attack())
 			continue
 		if(isliving(thing) && overmind && !HAS_TRAIT(thing, TRAIT_BLOB_ALLY)) // Make sure to inject strain-reagents with automatic attacks when needed.
 			overmind.blobstrain.attack_living(thing)
@@ -204,7 +202,7 @@
 			if(Ablob.area_flags & BLOBS_ALLOWED) //Is this area allowed for winning as blob?
 				if(overmind)
 					overmind.blobs_legit |= B
-				SSticker?.mode?.legit_blobs |= B
+				SSticker?.mode?.add_blob_tile(B)
 			else if(controller)
 				B.balloon_alert(overmind, "вне станции, не считается!")
 				offstation = TRUE

@@ -25,6 +25,13 @@
 	/// seconds, minutes, hours.
 	var/datum/port/output/num_output
 
+/obj/item/circuit_component/timepiece/Destroy()
+	format = null
+	time_unit = null
+	text_output = null
+	num_output = null
+	. = ..()
+
 /obj/item/circuit_component/timepiece/populate_ports()
 	text_output = add_output_port("Формат", PORT_TYPE_STRING)
 	num_output = add_output_port("Единица", PORT_TYPE_NUMBER)

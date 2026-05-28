@@ -70,6 +70,7 @@
 
 	SEND_SIGNAL(mob, COMSIG_MOB_KEYDOWN, _key, src, full_key)
 	mob.focus?.key_down(_key, src, full_key)
+	mob.update_mouse_pointer()
 
 /client/verb/KeyUp(_key as text)
 	set instant = TRUE
@@ -98,4 +99,4 @@
 			break
 
 	mob.focus?.key_up(_key, src)
-
+	mob.update_mouse_pointer()

@@ -5,15 +5,17 @@
 /obj/item/storage/internal
 	var/obj/item/master_item
 
-/obj/item/storage/internal/New(obj/item/MI)
-	master_item = MI
-	loc = master_item
+/obj/item/storage/internal/Initialize(mapload)
+	. = ..()
+	var/obj/item/master_item = loc
+	if(!istype(master_item))
+		return
+	src.master_item = master_item
 	name = master_item.name
-	..()
 
 /obj/item/storage/internal/Destroy()
 	master_item = null
-	return ..()
+	. = ..()
 
 /obj/item/storage/internal/attack_hand()
 	return		//make sure this is never picked up
@@ -33,7 +35,7 @@
  */
 /obj/item/storage/internal/proc/handle_mousedrop(mob/living/carbon/human/user, obj/over_object)
 	. = FALSE
-	if(over_object == user && ishuman(user) && !user.incapacitated() && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) && !ismecha(user.loc) && !is_ventcrawling(user) && user.Adjacent(master_item))
+	if(over_object == user && ishuman(user) && !user.incapacitated() && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) && !ismecha(user.loc) && !is_ventcrawling(user) && master_item.IsReachableBy(user))
 		open(user)
 		master_item.add_fingerprint(user)
 		return TRUE

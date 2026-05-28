@@ -46,7 +46,7 @@ ADMIN_VERB(borg_panel_in_list, R_ADMIN, "Show Borg Panel in List", "Open Borg Pa
 		var/obj/item/borg/upgrade/upgrade = upgradetype
 		if(!borg.module && initial(upgrade.require_module)) //Borg needs to select a module first
 			continue
-		if(initial(upgrade.module_type) && (borg.module != initial(upgrade.module_type))) // Upgrade requires a different module
+		if(initial(upgrade.module_type) && !istype(borg.module, initial(upgrade.module_type))) // Upgrade requires a different module
 			continue
 		var/installed = FALSE
 		if(locate(upgradetype) in borg)
@@ -229,14 +229,14 @@ ADMIN_VERB(borg_panel_in_list, R_ADMIN, "Show Borg Panel in List", "Open Borg Pa
 			if(!check_rights(R_SKINS, FALSE))
 				return
 
-			if(!borg?.mmi)
+			if(!borg?.mind)
 				return
 
-			var/permissions = length(borg?.mmi?.skin_permissions)? borg?.mmi?.skin_permissions : GLOB.all_skin_permissions
+			var/permissions = length(borg?.mind?.cyborg_skin_permissions)? borg?.mind?.cyborg_skin_permissions : GLOB.all_skin_permissions
 
 			var/new_permissions = tgui_input_checkbox_list(usr, "Выберите разрешенные скины", "Разрешенные скины", permissions) || list()
 
-			borg?.mmi?.skin_permissions = new_permissions
+			borg?.mind?.cyborg_skin_permissions = new_permissions
 			message_admins("[key_name_admin(user)] set skin permissions to [ADMIN_LOOKUPFLW(borg)].")
 			log_admin("[key_name(user)] set skin permissions to [key_name(borg)].")
 

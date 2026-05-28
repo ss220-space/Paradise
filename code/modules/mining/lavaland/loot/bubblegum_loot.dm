@@ -237,8 +237,6 @@
 	RegisterSignal(soul, COMSIG_MOB_ATTACK_RANGED, PROC_REF(on_attack))
 	RegisterSignal(soul, COMSIG_LIVING_UNARMED_ATTACK, PROC_REF(on_attack))
 	RegisterSignal(soul, COMSIG_MOB_ATTACK_RANGED_SECONDARY, PROC_REF(on_secondary_attack))
-	RegisterSignal(soul, COMSIG_MOB_LOGIN, PROC_REF(on_login))
-	RegisterSignal(soul, COMSIG_MOB_LOGOUT, PROC_REF(on_logout))
 	RegisterSignal(src, COMSIG_OBJ_INTEGRITY_CHANGED, PROC_REF(on_integrity_change))
 	RegisterSignal(soul, COMSIG_BLOOD_LEVEL_TICK, PROC_REF(on_blood_level_tick))
 	ADD_TRAIT(src, TRAIT_CHASM_DESTROYED, INNATE_TRAIT)
@@ -278,14 +276,6 @@
 	. = ..()
 	if(soul.ckey)
 		reset_spin() //resume spinnage
-
-/obj/item/soulscythe/proc/on_login(mob/source)
-	SIGNAL_HANDLER
-	source.client.show_popup_menus = FALSE
-
-/obj/item/soulscythe/proc/on_logout(mob/source)
-	SIGNAL_HANDLER
-	source?.canon_client?.show_popup_menus = TRUE
 
 /obj/item/soulscythe/attack_self(mob/user, modifiers)
 	if(using || soul.ckey || soul.stat)
@@ -451,7 +441,7 @@
 	projectile.preparePixelProjectile(attacked_atom, soul)
 	projectile.firer = soul
 	projectile.firer_source_atom = src
-	projectile.fire(null, attacked_atom)
+	projectile.fire()
 	visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] стреля[PLUR_ET_YUT(src)] в [attacked_atom.declent_ru(ACCUSATIVE)]!"), span_notice("Вы стреляете в [attacked_atom.declent_ru(ACCUSATIVE)]!"))
 	playsound(src, 'sound/magic/fireball.ogg', 50, TRUE)
 
@@ -544,33 +534,6 @@
 
 /mob/living/simple_animal/soulscythe/adjustHealth(amount, updating_health, blocked, damage_type, forced)
 	return STATUS_UPDATE_NONE
-
-/obj/projectile/soulscythe
-	name = "soulslash"
-	icon_state = "soulslash"
-	flag = MELEE //jokair
-	damage = 15
-	light_range = 1
-	light_color = LIGHT_COLOR_BLOOD_MAGIC
-
-/obj/projectile/soulscythe/get_ru_names()
-	return list(
-		NOMINATIVE = "рассечение души",
-		GENITIVE = "рассечения души",
-		DATIVE = "рассечению души",
-		ACCUSATIVE = "рассечение души",
-		INSTRUMENTAL = "рассечением души",
-		PREPOSITIONAL = "рассечении души",
-	)
-
-/obj/projectile/soulscythe/on_hit(atom/target, blocked = 0, pierce_hit)
-	if(isliving(target))
-		var/mob/living/as_living = target
-		if(firer.faction_check_mob(as_living))
-			damage *= 0
-		if(faction_check(as_living.faction, MINING_FACTIONS))
-			damage *= 2
-	return ..()
 
 #undef MAX_BLOOD_LEVEL
 #undef BLOOD_LEVEL_PER_SECOND

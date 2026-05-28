@@ -57,8 +57,9 @@
 		PREPOSITIONAL = "аптечке первой помощи (Терм.)",
 	)
 
-/obj/item/storage/firstaid/fire/New()
-	..()
+/obj/item/storage/firstaid/fire/Initialize(mapload)
+	. = ..()
+
 	icon_state = pick("ointment", "firefirstaid")
 
 /obj/item/storage/firstaid/fire/populate_contents()
@@ -198,8 +199,9 @@
 		PREPOSITIONAL = "аптечке первой помощи (Мех.)",
 	)
 
-/obj/item/storage/firstaid/brute/New()
-	..()
+/obj/item/storage/firstaid/brute/Initialize(mapload)
+	. = ..()
+
 	icon_state = pick("brute", "brute2")
 
 /obj/item/storage/firstaid/brute/populate_contents()
@@ -242,6 +244,35 @@
 /obj/item/storage/firstaid/adv/empty/populate_contents()
 	return
 
+/obj/item/storage/firstaid/premium
+	name = "premium first-aid kit"
+	desc = "Это аптечка для экстренной первой помощи, премиальная версия."
+	icon_state = "advfirstaid"
+	item_state = "medkit_advanced"
+	med_bot_skin = "adv"
+
+/obj/item/storage/firstaid/premium/get_ru_names()
+	return list(
+		NOMINATIVE = "аптечка первой помощи (Премиум)",
+		GENITIVE = "аптечки первой помощи (Премиум)",
+		DATIVE = "аптечке первой помощи (Премиум)",
+		ACCUSATIVE = "аптечку первой помощи (Премиум)",
+		INSTRUMENTAL = "аптечкой первой помощи (Премиум)",
+		PREPOSITIONAL = "аптечке первой помощи (Премиум)",
+	)
+
+/obj/item/storage/firstaid/premium/populate_contents()
+	new /obj/item/stack/medical/bruise_pack/extended(src)
+	new /obj/item/stack/medical/bruise_pack/extended(src)
+	new /obj/item/stack/medical/ointment/extended(src)
+	new /obj/item/stack/medical/ointment/extended(src)
+	new /obj/item/stack/medical/suture/advanced(src)
+	new /obj/item/stack/medical/suture/advanced(src)
+	new /obj/item/stack/medical/splint(src)
+
+/obj/item/storage/firstaid/premium/empty/populate_contents()
+	return
+
 /obj/item/storage/firstaid/paramed
 	name = "paramed first-aid kit"
 	desc = "Это аптечка для экстренной первой помощи при, специализированная версия для Парамедика."
@@ -264,10 +295,9 @@
 	new /obj/item/reagent_containers/hypospray/autoinjector/salbutamol(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector/charcoal(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector/traneksam(src)
-	new /obj/item/reagent_containers/food/pill/patch/styptic(src)
-	new	/obj/item/reagent_containers/food/pill/patch/silver_sulf(src)
-	new /obj/item/stack/medical/bruise_pack(src)
-	new /obj/item/stack/medical/ointment(src)
+	new /obj/item/stack/medical/bruise_pack/synthflesh_kit(src)
+	new /obj/item/stack/medical/bruise_pack/synthflesh_kit(src)
+	new /obj/item/stack/medical/suture/advanced(src)
 
 /obj/item/storage/firstaid/paramed/empty/populate_contents()
 	return
@@ -454,8 +484,8 @@
 /obj/item/storage/firstaid/crew
 	name = "crewmember first aid kit"
 	desc = "Небольшого размера подсумок, содержащий в себе минимальный набор медикаментов для экстренных ситуаций. Выдаётся сотрудникам \"Нанотрейзен\" в обязательным порядке."
-	icon = 'icons/obj/storage.dmi'
-	icon_state = "crew_medpouch"
+	icon_state = "blue_medpack"
+	item_state = "blue_medpack"
 	w_class = WEIGHT_CLASS_SMALL
 	can_hold = list(
 		/obj/item/reagent_containers/hypospray/autoinjector,
@@ -477,7 +507,13 @@
 		PREPOSITIONAL = "экстренной аптечке",
 	)
 
-/obj/item/storage/firstaid/crew/populate_contents()
+/obj/item/storage/firstaid/crew/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/item_skins, item_path = /obj/item/storage/firstaid/crew)
+
+/obj/item/storage/firstaid/crew/full
+
+/obj/item/storage/firstaid/crew/full/populate_contents()
 	new /obj/item/reagent_containers/hypospray/autoinjector(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector/salbutamol(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector/charcoal(src)
@@ -571,6 +607,7 @@
 	use_sound = SFX_PILLBOTTLE
 	pickup_sound = 'sound/items/handling/pickup/pillbottle_pickup.ogg'
 	drop_sound = 'sound/items/handling/drop/pillbottle_drop.ogg'
+	interaction_flags_mouse_drop = NEED_HANDS
 	var/base_name = ""
 	var/label_text = ""
 	var/applying_meds = FALSE //To Prevent spam clicking and generating runtimes from apply a deleting pill multiple times.
@@ -628,22 +665,36 @@
 	new /obj/item/reagent_containers/food/pill/charcoal(src)
 	new /obj/item/reagent_containers/food/pill/charcoal(src)
 
-/obj/item/storage/pill_bottle/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params) // Best utilized if you're a cantankerous doctor with a Vicodin habit.
-	if(iscarbon(user) && src == user.get_active_hand() && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) && over_object == user)
-		if(!length(contents))
-			balloon_alert(user, "пусто!")
-			return FALSE
+/obj/item/storage/pill_bottle/filled/populate_contents()
+	for(var/i in 1 to 5)
+		new /obj/item/reagent_containers/food/pill/mannitol(src)
+	for(var/i in 1 to 5)
+		new /obj/item/reagent_containers/food/pill/salbutamol(src)
+	for(var/i in 1 to 3)
+		new /obj/item/reagent_containers/food/pill/charcoal(src)
 
-		user.visible_message(span_danger("[user] открыва[PLUR_ET_YUT(user)] крышку [declent_ru(GENITIVE)] и начина[PLUR_ET_YUT(user)] глотать содержимое!"))
-		if(!do_after(user, 10 SECONDS, user, NONE) || src != user.get_active_hand())
-			return FALSE
+/obj/item/storage/pill_bottle/proc/get_use_start_message(mob/user)
+	return user.visible_message(span_danger("[user] открыва[PLUR_ET_YUT(user)] крышку [declent_ru(GENITIVE)] и начина[PLUR_ET_YUT(user)] глотать содержимое!"))
 
-		for(var/obj/item/reagent_containers/food/pill/pill in src)
-			pill.attack(user, user)
-		user.visible_message(span_danger("[user] проглатыва[PLUR_ET_YUT(user)] всё содержимое [declent_ru(GENITIVE)] за раз!"))
-		return FALSE
+/obj/item/storage/pill_bottle/proc/get_use_end_message(mob/user)
+	return user.visible_message(span_danger("[user] проглатыва[PLUR_ET_YUT(user)] всё содержимое [declent_ru(GENITIVE)] за раз!"))
 
-	return ..()
+/obj/item/storage/pill_bottle/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
+	if(!iscarbon(user) || src != user.get_active_hand() || over_object != user)
+		return ..()
+
+	if(!length(contents))
+		balloon_alert(user, "пусто!")
+		return
+
+	get_use_start_message(user)
+
+	for(var/obj/item/reagent_containers/food/pill/pill in src)
+		if(!do_after(user, 2 SECONDS, user, NONE) || src != user.get_active_hand())
+			return
+		pill.attack(user, user)
+
+	get_use_end_message(user)
 
 /obj/item/storage/pill_bottle/attackby(obj/item/I, mob/user, params)
 	if(is_pen(I) || istype(I, /obj/item/flashlight/pen))
@@ -675,28 +726,17 @@
 	)
 
 /obj/item/storage/pill_bottle/patch_pack/filled/populate_contents()
-	for(var/I in 1 to 10)
+	for(var/i in 1 to 10)
 		new /obj/item/reagent_containers/food/pill/patch/silver_sulf(src)
 
-	for(var/I in 1 to 10)
+	for(var/i in 1 to 10)
 		new /obj/item/reagent_containers/food/pill/patch/styptic(src)
 
-/obj/item/storage/pill_bottle/patch_pack/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params) // Best utilized if you're a cantankerous doctor with a Vicodin habit.
-	if(iscarbon(user) && src == user.get_active_hand() && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) && over_object == user)
-		if(!length(contents))
-			balloon_alert(user, "пусто!")
-			return FALSE
+/obj/item/storage/pill_bottle/patch_pack/get_use_start_message(mob/user)
+	return user.visible_message(span_danger("[user] откиды[PLUR_ET_YUT(user)] крышку [declent_ru(GENITIVE)] и начина[PLUR_ET_YUT(user)] стремительно клеить пластыри оттуда на свою кожу!"))
 
-		user.visible_message(span_danger("[user] откиды[PLUR_ET_YUT(user)] крышку [declent_ru(GENITIVE)] и начина[PLUR_ET_YUT(user)] стремительно клеить пластыри оттуда на свою кожу!"))
-		if(!do_after(user, 10 SECONDS, user, NONE) || src != user.get_active_hand())
-			return FALSE
-
-		for(var/obj/item/reagent_containers/food/pill/pill in src)
-			pill.attack(user, user)
-		user.visible_message(span_danger("[user] обклеива[PLUR_ET_YUT(user)] себя всеми пластырями, которые были в [declent_ru(PREPOSITIONAL)]!"))
-		return FALSE
-
-	return ..()
+/obj/item/storage/pill_bottle/patch_pack/get_use_end_message(mob/user)
+	return user.visible_message(span_danger("[user] обклеива[PLUR_ET_YUT(user)] себя всеми пластырями, которые были в [declent_ru(PREPOSITIONAL)]!"))
 
 /obj/item/storage/pill_bottle/bluespace
 	name = "advanced drug storage"

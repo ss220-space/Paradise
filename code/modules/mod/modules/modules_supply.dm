@@ -63,7 +63,7 @@
 		return
 	if(!mod.wearer.Adjacent(target))
 		return
-	if(istype(target, /obj/structure/closet/crate) || istype(target, /obj/structure/closet/critter/mecha))
+	if(is_crate(target) || istype(target, /obj/structure/closet/crate/critter/mecha))
 		var/obj/structure/closet/picked_crate = target
 		if(!check_crate_pickup(picked_crate))
 			return
@@ -366,7 +366,7 @@
 		)
 
 /obj/item/mod/module/magnet/on_deactivation(display_message = TRUE, deleting = FALSE)
-	if(istype(mod.wearer.pulling, /obj/structure/closet))
+	if(iscloset(mod.wearer.pulling))
 		mod.wearer.stop_pulling()
 
 /obj/item/mod/module/magnet/proc/check_locker(obj/structure/closet/locker)
@@ -421,7 +421,7 @@
 	return ..()
 
 /obj/item/mod/armor/mod_ash_accretion
-	armor = list(MELEE = 4, BULLET = 1, LASER = 2, ENERGY = 1, BOMB = 4, RAD = 0, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 4, BULLET = 1, LASER = 2, ENERGY = 1, BOMB = 4, FIRE = 0, ACID = 0)
 
 /obj/item/mod/module/ash_accretion/Initialize(mapload)
 	. = ..()
@@ -478,7 +478,7 @@
 		if(traveled_tiles == max_traveled_tiles - 1) // Just lost our speed buff
 			mod.update_speed()
 		for(var/obj/item/part as anything in mod.get_parts(all = TRUE))
-			part.armor = part.armor.detachArmor(armor_mod_1.armor)
+			part.armor = part.armor?.detachArmor(armor_mod_1.armor)
 		if(traveled_tiles <= 0)
 			balloon_alert(mod.wearer, "недостаточно пепла!")
 		return
@@ -487,7 +487,7 @@
 		return
 	traveled_tiles++
 	for(var/obj/item/part as anything in mod.get_parts(all = TRUE))
-		part.armor = part.armor.attachArmor(armor_mod_1.armor)
+		part.armor = part.armor?.attachArmor(armor_mod_1.armor)
 	if(traveled_tiles < max_traveled_tiles)
 		return
 	balloon_alert(mod.wearer, "полное покрытие пеплом")
@@ -550,7 +550,7 @@
 	mod.wearer.add_filter("mod_ball", 1, alpha_mask_filter(icon = icon('icons/mob/clothing/modsuit/mod_modules.dmi', "ball_mask"), flags = MASK_INVERSE))
 	mod.wearer.add_filter("mod_blur", 2, angular_blur_filter(size = 15))
 	mod.wearer.add_filter("mod_outline", 3, outline_filter(color = "#000000AA"))
-	animate(mod.wearer, animate_time, pixel_y = mod.wearer.pixel_y - 4, flags = ANIMATION_PARALLEL)
+	mod.wearer.add_offsets(UID(), y_add = -4)
 	mod.wearer.SpinAnimation(1.5)
 	mod.wearer.add_traits(user_traits, MODSUIT_TRAIT)
 	mod.wearer.add_movespeed_modifier(/datum/movespeed_modifier/sphere)
@@ -559,7 +559,7 @@
 /obj/item/mod/module/sphere_transform/on_deactivation(display_message = TRUE, deleting = FALSE)
 	if(!deleting)
 		playsound(src, 'sound/items/modsuit/ballin.ogg', 100, TRUE, frequency = -1)
-	animate(mod.wearer, animate_time, pixel_y = 0)
+	mod.wearer.remove_offsets(UID())
 	addtimer(CALLBACK(mod.wearer, TYPE_PROC_REF(/datum, remove_filter), list("mod_ball", "mod_blur", "mod_outline")), animate_time)
 	mod.wearer.remove_traits(user_traits, MODSUIT_TRAIT)
 	mod.wearer.remove_movespeed_modifier(/datum/movespeed_modifier/sphere)
@@ -598,29 +598,6 @@
 	if(!mod.wearer.stat)
 		return
 	on_deactivation()
-
-// MARK: Mining bomb
-/obj/projectile/bullet/reusable/mining_bomb
-	name = "mining bomb"
-	desc = "Это бомба. Может не стоит её так долго разглядывать?"
-	icon_state = "mine_bomb"
-	icon = 'icons/obj/clothing/modsuit/mod_modules.dmi'
-	damage = 0
-	range = 6
-	flag = "bomb"
-	light_range = 1
-	light_color = LIGHT_COLOR_ORANGE
-	ammo_type = /obj/structure/mining_bomb
-
-/obj/projectile/bullet/reusable/mining_bomb/get_ru_names()
-	return list(
-		NOMINATIVE = "шахтёрская бомба",
-		GENITIVE = "шахтёрской бомбы",
-		DATIVE = "шахтёрскую бомбу",
-		ACCUSATIVE = "шахтёрскую бомбу",
-		INSTRUMENTAL = "шахтёрской бомбой",
-		PREPOSITIONAL = "шахтёрской бомбе",
-	)
 
 /obj/structure/mining_bomb
 	name = "mining bomb"

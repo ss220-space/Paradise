@@ -30,6 +30,12 @@
 		"minus" = "remove",
 	)
 
+/obj/item/circuit_component/arithmetic/Destroy()
+	arithmetic_option = null
+	output = null
+	LAZYCLEARLIST(arithmetic_ports)
+	. = ..()
+
 /obj/item/circuit_component/arithmetic/populate_options()
 	var/static/component_options = list(
 		COMP_ARITHMETIC_ADD,

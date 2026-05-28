@@ -56,7 +56,7 @@
 	SIGNAL_HANDLER
 	if(ismovable(created_atom))
 		//Drop it only when it's finished initializing, not before.
-		addtimer(CALLBACK(src, PROC_REF(zfall_if_on_turf), created_atom), 0 SECONDS)
+		zfall_if_on_turf(created_atom)
 
 /turf/space/openspace/proc/zfall_if_on_turf(atom/movable/movable)
 	if(QDELETED(movable) || movable.loc != src)
@@ -142,8 +142,8 @@
 		ChangeTurf(/turf/simulated/floor/plating)
 		return .|ATTACK_CHAIN_BLOCKED_ALL
 
-	if(istype(I, /obj/item/stack/fireproof_rods))
-		var/obj/item/stack/fireproof_rods/rods = I
+	if(istype(I, /obj/item/stack/rods/fireproof))
+		var/obj/item/stack/rods/fireproof/rods = I
 		if(locate(/obj/structure/lattice/catwalk/fireproof, src))
 			to_chat(user, span_warning("Здесь уже есть мостик!"))
 			return .

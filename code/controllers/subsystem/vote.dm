@@ -1,11 +1,8 @@
 SUBSYSTEM_DEF(vote)
 	name = "Vote"
 	wait = 1 SECONDS
-	flags = SS_KEEP_TIMING|SS_NO_INIT
+	ss_flags = SS_KEEP_TIMING|SS_NO_INIT
 	runlevels = RUNLEVEL_LOBBY | RUNLEVELS_DEFAULT
-	offline_implications = "Votes (Endround shuttle) will no longer function. Shuttle call recommended."
-	cpu_display = SS_CPUDISPLAY_LOW
-	ss_id = "vote"
 
 	/// Active vote, if any
 	var/datum/vote/active_vote

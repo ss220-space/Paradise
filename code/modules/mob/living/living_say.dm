@@ -216,6 +216,13 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 	if(!(ending in list("!", "?", ",", ".")) && length(message) != 0)
 		message += "."
 
+	sigreturn = SEND_SIGNAL(src, COMSIG_MOB_SAY, args)
+	if(sigreturn & COMPONENT_UPPERCASE_SPEECH)
+		message = uppertext(message)
+
+	if(sigreturn & COMPONENT_SMALL_SPEECH)
+		message = span_small(message)
+
 	//parse the language code and consume it
 	var/list/message_pieces = list()
 	if(ignore_languages)
@@ -416,7 +423,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 				else
 					O.hear_talk(M, message_pieces, verbage)
 
-/mob/living/whisper(message as text)
+/mob/living/whisper(message)
 	message = trim_strip_html_properly(message, 512)
 
 	if(!message)
@@ -434,13 +441,13 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 		return TRUE
 	// Log it here since it skips the default way say handles it
 	create_log(SAY_LOG, "(whisper) '[message]'")
-	SSspeech_controller.queue_say_for_mob(src, message_pieces, SPEECH_CONTROLLER_QUEUE_WHISPER_VERB)
+	whisper_say(message_pieces)
 
 // for weird circumstances where you're inside an atom that is also you, like pai's
 /mob/living/proc/get_whisper_loc()
 	return src
 
-/mob/living/whisper_say(list/message_pieces, verb = "шепч%(ет,ут)%")
+/mob/living/proc/whisper_say(list/message_pieces, verb = "шепч%(ет,ут)%")
 	if(client && check_mute(client.ckey, MUTE_IC))
 		to_chat(src, span_boldwarning("Вы не можете отправлять IC сообщения (мут)."))
 		return

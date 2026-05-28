@@ -15,6 +15,8 @@
 	slot = parent_organ_zone + "_device"
 
 /obj/item/organ/internal/cyberimp/leg/emp_act(severity)
+	if(emp_shielded(severity))
+		return
 	. = ..()
 	if(emp_proof)
 		return
@@ -124,7 +126,8 @@
 	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED|AB_CHECK_IMMOBILE //lying jumps is real
 
 /datum/action/bhop/Trigger(mob/clicker, trigger_flags)
-	if(!IsAvailable())
+	. = ..()
+	if(!.)
 		return
 
 	if(recharging_time > world.time)

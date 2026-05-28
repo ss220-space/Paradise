@@ -41,7 +41,6 @@
 	desc = "A playing card. You can only see the back."
 	w_class = WEIGHT_CLASS_TINY
 	var/used = FALSE //has this been used before? If not, give no hints about it's nature
-	description_antag = "Hold this in your hand when you are getting shot at to steal your opponent's gun. You'll lose this, so be careful!"
 
 /obj/item/syndicate_reverse_card/update_icon_state()
 	. = ..()
@@ -61,7 +60,7 @@
 /obj/item/syndicate_reverse_card/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	if(attack_type != PROJECTILE_ATTACK)
 		return FALSE //this means the attack goes through
-	if(istype(hitby, /obj/projectile))
+	if(isprojectile(hitby))
 		var/obj/projectile/P = hitby
 		if(P?.firer && P.firer_source_atom && (P.firer != P.firer_source_atom)) //if the projectile comes from YOU, like your spit or some shit, you can't steal that bro. Also protects mechs
 			if(iscarbon(P.firer)) //You can't switcharoo with turrets or simplemobs, or borgs
@@ -236,7 +235,7 @@
 		return
 
 	var/datum/effect_system/fluid_spread/smoke/chem/quick/vapor/smoke = new
-	smoke.set_up(range = round(clamp(cycle_count/10, 0, 4)), location = loc)
+	smoke.set_up(range = round(clamp(cycle_count / 10, 0, 4)), location = get_turf(usr))
 	smoke.start()
 
 /obj/item/ecig/syndi

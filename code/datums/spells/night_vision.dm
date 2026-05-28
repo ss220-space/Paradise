@@ -6,7 +6,7 @@
 	clothes_req = FALSE
 	human_req = FALSE
 
-	message = span_notice("You toggle your night vision!")
+	message = span_notice_alt("You toggle your night vision!")
 
 /obj/effect/proc_holder/spell/night_vision/create_new_targeting()
 	return new /datum/spell_targeting/self

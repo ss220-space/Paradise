@@ -23,6 +23,14 @@
 	var/min_lightness = 40
 	var/shell_light_color
 
+/obj/item/circuit_component/light/Destroy()
+	red = null
+	green = null
+	blue = null
+	brightness = null
+	on = null
+	. = ..()
+
 /obj/item/circuit_component/light/get_ui_notices()
 	. = ..()
 	. += create_ui_notice("Максимальная яркость: [max_power]", "orange", "lightbulb")

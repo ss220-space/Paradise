@@ -84,8 +84,3 @@
 				to_chat(C, span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] врезается в тебя!"))
 				C.reagents.add_reagent("terror_black_toxin", 45)
 
-/obj/projectile/terrorspider/widow
-	name = "widow venom"
-	icon_state = "toxin5"
-	damage = 15
-	stamina = 24

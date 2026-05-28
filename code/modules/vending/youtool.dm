@@ -9,7 +9,7 @@
 	broken_lightmask_overlay = "tool_broken_lightmask"
 	deny_overlay = "tool_deny"
 	refill_canister = /obj/item/vending_refill/youtool
-	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 70)
+	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, bio = 0, fire = 100, acid = 70)
 	resistance_flags = FIRE_PROOF
 	default_price = PAYCHECK_LOWER
 	default_premium_price = PAYCHECK_CREW

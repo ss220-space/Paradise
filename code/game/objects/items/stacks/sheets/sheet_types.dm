@@ -49,10 +49,11 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 		new /datum/stack_recipe("torch holder", /obj/item/mounted/frame/torch_holder, 2, time = 3 SECONDS),
 	)),
 	new /datum/stack_recipe_list("construction", list(
+		new /datum/stack_recipe("crate shelf parts", /obj/item/rack_parts/cargo_shelf),
 		new /datum/stack_recipe("floor tile", /obj/item/stack/tile/plasteel, TRUE, 4, 20),
 		new /datum/stack_recipe/rods("metal rod", /obj/item/stack/rods, TRUE, 2, 50),
 		new /datum/stack_recipe("rack parts", /obj/item/rack_parts),
-		new /datum/stack_recipe("gun rack parts", /obj/item/gunrack_parts),
+		new /datum/stack_recipe("gun rack parts", /obj/item/rack_parts/gunrack_parts),
 		new /datum/stack_recipe("computer frame", /obj/structure/computerframe, 5, time = 2.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("machine frame", /obj/machinery/constructable_frame/machine_frame, 5, time = 2.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("closet", /obj/structure/closet, 2, time = 1.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
@@ -151,7 +152,7 @@ GLOBAL_LIST_INIT(plasteel_recipes, list(
 	icon_state = "sheet-plasteel"
 	item_state = "sheet-plasteel"
 	materials = list(MAT_METAL=2000, MAT_PLASMA=2000)
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 80)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 100, ACID = 80)
 	resistance_flags = FIRE_PROOF
 	throwforce = 10
 	flags = CONDUCT
@@ -245,18 +246,21 @@ GLOBAL_LIST_INIT(wood_recipes, list(
 	sheettype = "wood"
 	origin_tech = "materials=1;biotech=1"
 	resistance_flags = FLAMMABLE
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 50, ACID = 0)
 	merge_type = /obj/item/stack/sheet/wood
+
+/obj/item/stack/sheet/wood/Initialize(mapload, new_amount, merge = TRUE)
+	. = ..()
+	recipes = GLOB.wood_recipes
+
+/obj/item/stack/sheet/wood/fifty
+	amount = 50
 
 /obj/item/stack/sheet/wood/cyborg
 	is_cyborg = TRUE
 	cyborg_construction_stack = /obj/item/stack/sheet/wood
 	energy_type = /datum/robot_energy_storage/wood
 	cost = 4
-
-/obj/item/stack/sheet/wood/Initialize(mapload, new_amount, merge = TRUE)
-	. = ..()
-	recipes = GLOB.wood_recipes
 
 // MARK: CLOTH
 GLOBAL_LIST_INIT(cloth_recipes, list(
@@ -328,6 +332,9 @@ GLOBAL_LIST_INIT(cloth_recipes, list(
 /obj/item/stack/sheet/cloth/ten
 	amount = 10
 
+/obj/item/stack/sheet/cloth/fifty
+	amount = 50
+
 // MARK: DURATHREAD
 GLOBAL_LIST_INIT(durathread_recipes, list(
 	new/datum/stack_recipe("durathread bandana", /obj/item/clothing/mask/bandana/durathread, time = 2.5 SECONDS),
@@ -352,6 +359,9 @@ GLOBAL_LIST_INIT(durathread_recipes, list(
 /obj/item/stack/sheet/durathread/Initialize(mapload, new_amount, merge = TRUE)
 	. = ..()
 	recipes = GLOB.durathread_recipes
+
+/obj/item/stack/sheet/durathread/fifty
+	amount = 50
 
 /obj/item/stack/sheet/cotton
 	name = "raw cotton bundle"
@@ -400,6 +410,19 @@ GLOBAL_LIST_INIT(cardboard_recipes, list(
 	null,
 ))
 
+/obj/item/stack/sheet/cardboard
+	name = "cardboard"
+	desc = "Large sheets of card, like boxes folded flat."
+	singular_name = "cardboard sheet"
+	icon_state = "sheet-card"
+	item_state = "sheet-card"
+	resistance_flags = FLAMMABLE
+	merge_type = /obj/item/stack/sheet/cardboard
+
+/obj/item/stack/sheet/cardboard/Initialize(mapload, new_amount, merge = TRUE)
+	. = ..()
+	recipes = GLOB.cardboard_recipes
+
 /obj/item/stack/sheet/cardboard/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stamp/clown) && !isstorage(loc))
 		add_fingerprint(user)
@@ -415,18 +438,8 @@ GLOBAL_LIST_INIT(cardboard_recipes, list(
 
 	return ..()
 
-/obj/item/stack/sheet/cardboard	//BubbleWrap
-	name = "cardboard"
-	desc = "Large sheets of card, like boxes folded flat."
-	singular_name = "cardboard sheet"
-	icon_state = "sheet-card"
-	item_state = "sheet-card"
-	resistance_flags = FLAMMABLE
-	merge_type = /obj/item/stack/sheet/cardboard
-
-/obj/item/stack/sheet/cardboard/Initialize(mapload, new_amount, merge = TRUE)
-	. = ..()
-	recipes = GLOB.cardboard_recipes
+/obj/item/stack/sheet/cardboard/fifty
+	amount = 50
 
 // MARK: RUNED METAL
 GLOBAL_LIST_INIT(cult_recipes, list(
@@ -513,6 +526,9 @@ GLOBAL_LIST_INIT(cult_fake_recipes, list(
 
 /obj/item/stack/sheet/runed_metal/fifty
 	amount = 50
+
+/obj/item/stack/sheet/runed_metal_fake/ten
+	amount = 10
 
 /obj/item/stack/sheet/runed_metal_fake/fifty
 	amount = 50
@@ -611,7 +627,7 @@ GLOBAL_LIST_INIT(fake_brass_recipes, list(
 
 /obj/item/stack/sheet/brass/cyborg
 	materials = list()
-	is_cyborg = 1
+	is_cyborg = TRUE
 	cyborg_construction_stack = /obj/item/stack/sheet/brass
 	energy_type = /datum/robot_energy_storage/brass
 
@@ -736,6 +752,7 @@ GLOBAL_LIST_INIT(plastic_recipes, list(
 		new /datum/stack_recipe("custodian", /obj/structure/sign/custodian, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("dangerous alien life", /obj/structure/sign/xeno_warning_mining, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("deathsposal", /obj/structure/sign/deathsposal, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("doors", /obj/structure/sign/doors, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("drop pods", /obj/structure/sign/drop, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("engineering department", /obj/structure/sign/directions/engineering, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("engineering", /obj/structure/sign/engineering, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
@@ -746,16 +763,17 @@ GLOBAL_LIST_INIT(plastic_recipes, list(
 		new /datum/stack_recipe("explosives alt", /obj/structure/sign/explosives/alt, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("external airlock", /obj/structure/sign/vacuum/external, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("fire", /obj/structure/sign/fire, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("green cross", /obj/structure/sign/greencross, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("green cross", /obj/structure/sign/medbay/greencross, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("hazardous radiation", /obj/structure/sign/radiation, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("high voltage", /obj/structure/sign/electricshock, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("holy", /obj/structure/sign/holy, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("medical bay", /obj/structure/sign/directions/medical, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("medical lifestar", /obj/structure/sign/medbay, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("no smoking", /obj/structure/sign/nosmoking_1, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("no smoking alt", /obj/structure/sign/nosmoking_2, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("pods", /obj/structure/sign/pods, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("radioactive area", /obj/structure/sign/radiation/rad_area, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-		new /datum/stack_recipe("red cross", /obj/structure/sign/redcross, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("red cross", /obj/structure/sign/medbay/redcross, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("research division", /obj/structure/sign/directions/science, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("restroom", /obj/structure/sign/restroom, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("science", /obj/structure/sign/science, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
@@ -764,6 +782,7 @@ GLOBAL_LIST_INIT(plastic_recipes, list(
 		new /datum/stack_recipe("security department", /obj/structure/sign/directions/security, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("vacuum", /obj/structure/sign/vacuum, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("xenobio", /obj/structure/sign/xenobio, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("xenobio slime", /obj/structure/sign/xenobio/slime, 10, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	)),
 ))
 
@@ -783,11 +802,14 @@ GLOBAL_LIST_INIT(plastic_recipes, list(
 	. = ..()
 	recipes = GLOB.plastic_recipes
 
-/obj/item/stack/sheet/plastic/fifty
-	amount = 50
-
 /obj/item/stack/sheet/plastic/five
 	amount = 5
+
+/obj/item/stack/sheet/plastic/ten
+	amount = 10
+
+/obj/item/stack/sheet/plastic/fifty
+	amount = 50
 
 // MARK: BAMBOO
 GLOBAL_LIST_INIT(bamboo_recipes, list(
@@ -806,7 +828,7 @@ GLOBAL_LIST_INIT(bamboo_recipes, list(
 	sheettype = "bamboo"
 	force = 10
 	throwforce = 10
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 50, ACID = 0)
 	resistance_flags = FLAMMABLE
 	merge_type = /obj/item/stack/sheet/bamboo
 
@@ -854,11 +876,11 @@ GLOBAL_LIST_INIT(gingerbread_recipes, list(
 	throwforce = 2
 	merge_type = /obj/item/stack/sheet/gingerbread
 
-/obj/item/stack/sheet/gingerbread/fifty
-	amount = 50
-
 /obj/item/stack/sheet/gingerbread/five
 	amount = 5
+
+/obj/item/stack/sheet/gingerbread/fifty
+	amount = 50
 
 /obj/item/stack/sheet/gingerbread/Initialize(mapload, new_amount, merge = TRUE)
 	. = ..()

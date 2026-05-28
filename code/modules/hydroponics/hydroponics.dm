@@ -752,20 +752,20 @@
 	if(istype(I, /obj/item/reagent_containers))  // Syringe stuff (and other reagent containers now too)
 		add_fingerprint(user)
 		var/obj/item/reagent_containers/reagent_source = I
-		var/is_syringe = istype(reagent_source, /obj/item/reagent_containers/syringe)
+		var/is_syringe = issyringe(reagent_source)
 		if(is_syringe)
 			var/obj/item/reagent_containers/syringe/syringe = reagent_source
 			if(syringe.mode != 1)
 				to_chat(user, span_warning("You cannot get any extract out of this plant."))		//That. Gives me an idea...
-				return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+				return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 
 		if(!reagent_source.reagents.total_volume)
 			to_chat(user, span_warning("The [reagent_source.name] is empty."))
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 
 		if(reagent_source.has_lid && !reagent_source.is_drainable()) //if theres a LID then cannot transfer reagents.
 			to_chat(user, span_warning("You need to open [reagent_source] first."))
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 
 		var/list/trays = list(src)//makes the list just this in cases of syringes and compost etc
 		var/target = myseed ? myseed.plantname : name
@@ -1069,7 +1069,7 @@
 ///Diona Nymph Related Procs///
 
 /obj/machinery/hydroponics/attack_animal(mob/living/user)
-	if(istype(user, /mob/living/simple_animal/diona))
+	if(isnymph(user))
 		if(weedlevel > 0)
 			user.adjust_nutrition(weedlevel * 15)
 			adjustWeeds(-10)

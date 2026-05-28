@@ -226,8 +226,7 @@
 	gas_transfer_coefficient = 0.90
 	permeability_coefficient = 0.01
 	can_toggle = TRUE
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 25, RAD = 0, FIRE = 0, ACID = 0)
-	actions_types = list(/datum/action/item_action/adjust)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 25, FIRE = 0, ACID = 0)
 
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/mask.dmi',
@@ -257,6 +256,10 @@
 		PREPOSITIONAL = "стерильной маске",
 	)
 
+/obj/item/clothing/mask/surgical/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/right_click_mapper/attack_self, "Поднять/Опустить [declent_ru(ACCUSATIVE)]")
+
 /obj/item/clothing/mask/surgical/attack_self(mob/user)
 	adjustmask(user)
 
@@ -265,7 +268,6 @@
 	desc = "moustache is totally real."
 	icon_state = "fake-moustache"
 	flags_inv = HIDENAME
-	actions_types = list(/datum/action/item_action/pontificate)
 	dog_fashion = /datum/dog_fashion/head/not_ian
 
 	sprite_sheets = list(
@@ -284,6 +286,10 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/mask.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/mask.dmi',
 	)
+
+/obj/item/clothing/mask/fakemoustache/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/right_click_mapper/attack_self, "Изменить")
 
 /obj/item/clothing/mask/fakemoustache/attack_self(mob/user)
 	pontificate(user)
@@ -544,8 +550,11 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/mask.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/mask.dmi',
 	)
-	actions_types = list(/datum/action/item_action/adjust)
 	dying_key = DYE_REGISTRY_BANDANA
+
+/obj/item/clothing/mask/bandana/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/right_click_mapper/attack_self, "Поднять/Опустить [declent_ru(ACCUSATIVE)]")
 
 /obj/item/clothing/mask/bandana/attack_self(mob/user)
 	adjustmask(user)
@@ -694,10 +703,9 @@
 	can_toggle = TRUE
 	strip_delay = 20
 	put_on_delay = 20
-	armor = list(MELEE = 5, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 10, RAD = 0, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 5, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 10, FIRE = 0, ACID = 0)
 	gas_transfer_coefficient = 0.90
 	permeability_coefficient = 0.90
-	actions_types = list(/datum/action/item_action/adjust)
 
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/mask.dmi',
@@ -712,6 +720,10 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/mask.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/mask.dmi',
 	)
+
+/obj/item/clothing/mask/secscarf/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/right_click_mapper/attack_self, "Поднять/Опустить [declent_ru(ACCUSATIVE)]")
 
 /obj/item/clothing/mask/secscarf/attack_self(mob/user)
 	adjustmask(user)
@@ -762,3 +774,38 @@
 	if(!living || slot != ITEM_SLOT_HEAD)
 		return .
 	living.overlay_fullscreen("fullyblack", /atom/movable/screen/fullscreen/fullyblack)
+
+// MARK: Whistle
+/obj/item/clothing/mask/whistle
+	name = "whistle"
+	desc = "Компактное сигнальное устройство, издающее громкий и четкий звук, используемое для подачи сигналов, привлечения внимания и координации действий в различных ситуациях, от спортивных мероприятий до чрезвычайных происшествий."
+	icon_state = "whistle"
+	item_state = "whistle"
+	gender = MALE
+	w_class = WEIGHT_CLASS_TINY
+	actions_types = list(/datum/action/item_action/activate)
+	custom_price = PAYCHECK_MIN
+	/// Sound use for activate whistle
+	var/activate_sound = 'sound/items/whistle.ogg'
+	COOLDOWN_DECLARE(use_cd)
+
+/obj/item/clothing/mask/whistle/get_ru_names()
+	return list(
+		NOMINATIVE = "свисток",
+		GENITIVE = "свистка",
+		DATIVE = "свистку",
+		ACCUSATIVE = "свисток",
+		INSTRUMENTAL = "свистком",
+		PREPOSITIONAL = "свистке",
+	)
+
+/obj/item/clothing/mask/whistle/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/item_skins)
+
+/obj/item/clothing/mask/whistle/attack_self(mob/user)
+	if(!COOLDOWN_FINISHED(src, use_cd))
+		return FALSE
+	COOLDOWN_START(src, use_cd, 2 SECONDS)
+	user.visible_message(span_warning("[DECLENT_RU_CAP(user, NOMINATIVE)] дует в свисток!"))
+	playsound(user, activate_sound, 70, TRUE)

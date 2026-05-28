@@ -1,6 +1,7 @@
 ///////////////////////////////////
 // POWERS
 ///////////////////////////////////
+#define HULK_HUMANBODY_MULTIPLIER 1.25
 
 /datum/dna/gene/basic/nobreath
 	name = "Нет дыхания"
@@ -133,6 +134,7 @@
 	instability = GENE_INSTABILITY_MAJOR
 	traits_to_add = list(TRAIT_HULK)
 	activation_prob = 15
+	var/hulk_humanbody_size = RESIZE_DEFAULT_SIZE * HULK_HUMANBODY_MULTIPLIER
 
 /datum/dna/gene/basic/hulk/New()
 	..()
@@ -143,12 +145,14 @@
 	mutant.AddSpell(new /obj/effect/proc_holder/spell/hulk_transform)
 	mutant.change_eye_color("red", FALSE)
 	mutant.update_body(TRUE)
+	mutant.update_transform(hulk_humanbody_size / RESIZE_DEFAULT_SIZE)
 
 /datum/dna/gene/basic/hulk/deactivate(mob/living/carbon/human/mutant, flags)
 	. = ..()
 	mutant.RemoveSpell(/obj/effect/proc_holder/spell/hulk_transform)
 	mutant.change_eye_color(mutant.original_eye_color, FALSE)
 	mutant.update_body(TRUE)
+	mutant.update_transform(RESIZE_DEFAULT_SIZE / hulk_humanbody_size)
 
 /datum/dna/gene/basic/xray
 	name = "Рентгеновское зрение"
@@ -205,3 +209,4 @@
 	. = ..()
 	mutant.RemoveSpell(/obj/effect/proc_holder/spell/view_range/genetic)
 
+#undef HULK_HUMANBODY_MULTIPLIER

@@ -289,6 +289,9 @@
 /obj/effect/turf_decal/sand,
 /turf/simulated/floor/plating,
 /area/ruin/powered/beach)
+"if" = (
+/turf/simulated/floor/pod/light,
+/area/ruin/powered/beach)
 "iD" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/effect/turf_decal/caution,
@@ -577,7 +580,7 @@
 /turf/simulated/wall/mineral/sandstone,
 /area/ruin/powered/beach)
 "Ns" = (
-/obj/machinery/disco/immobile,
+/obj/machinery/jukebox/disco/indestructible,
 /turf/simulated/floor/light/colour_cycle,
 /area/ruin/powered/beach)
 "NQ" = (
@@ -1334,7 +1337,7 @@ bE
 bE
 bA
 bG
-QB
+if
 bE
 bR
 bT

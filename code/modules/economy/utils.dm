@@ -16,7 +16,7 @@
 		return acct
 
 /proc/get_card_account(mob/user)
-	if(issilicon(user) && !istype(user, /mob/living/silicon/robot/drone))
+	if(issilicon(user) && !isdrone(user))
 		return GLOB.station_account
 	var/obj/item/card/id/id = null
 	var/mob/living/carbon/human/H = null

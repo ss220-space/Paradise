@@ -42,7 +42,7 @@
 /obj/docking_port/take_damage()
 	return
 
-/obj/docking_port/singularity_pull()
+/obj/docking_port/singularity_pull(atom/singularity, current_size)
 	return
 
 /obj/docking_port/singularity_act()
@@ -410,12 +410,12 @@
 	var/obj/docking_port/stationary/S1 = assigned_transit
 	if(S1)
 		if(dock(S1, transit = TRUE))
-			log_runtime(EXCEPTION("shuttle \"[id]\" could not enter transit space. Docked at [S0 ? S0.id : "null"]. Transit dock [S1 ? S1.id : "null"]."))
+			WARNING("shuttle \"[id]\" could not enter transit space. Docked at [S0 ? S0.id : "null"]. Transit dock [S1 ? S1.id : "null"].")
 		else
 			previous = S0
 			return TRUE
 	else
-		log_runtime(EXCEPTION("shuttle \"[id]\" could not enter transit space. S0=[S0 ? S0.id : "null"] S1=[S1 ? S1.id : "null"]"))
+		WARNING("shuttle \"[id]\" could not enter transit space. S0=[S0 ? S0.id : "null"] S1=[S1 ? S1.id : "null"]")
 
 /obj/docking_port/mobile/proc/jumpToNullSpace()
 	// Destroys the docking port and the shuttle contents.
@@ -829,14 +829,12 @@
 	var/max_connect_range = 7
 	var/moved = FALSE	//workaround for nukie shuttle, hope I find a better way to do this...
 
-/obj/machinery/computer/shuttle/New(location, obj/item/circuitboard/shuttle/C)
-	..()
+/obj/machinery/computer/shuttle/Initialize(mapload, obj/item/circuitboard/shuttle/C)
+	. = ..()
 	if(istype(C))
 		possible_destinations = C.possible_destinations
 		shuttleId = C.shuttleId
 
-/obj/machinery/computer/shuttle/Initialize(mapload)
-	. = ..()
 	if(mapload)
 		return INITIALIZE_HINT_LATELOAD
 
@@ -933,7 +931,7 @@
 		return TRUE
 	if(!allowed(usr))
 		to_chat(usr, span_danger("Access denied."))
-		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
+		playsound(src, SFX_BUTTON_DENIED, 20)
 		return	TRUE
 	if(!can_call_shuttle(usr, action))
 		return TRUE

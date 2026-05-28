@@ -227,6 +227,8 @@
 	incompatible_modules = list(/obj/item/mod/module/rad_protection)
 	required_slots = list(ITEM_SLOT_BACK|ITEM_SLOT_BELT)
 	tgui_id = "rad_counter"
+	/// Radiation threat level being perceived.
+	var/perceived_threat_level
 
 /obj/item/mod/module/rad_protection/get_ru_names()
 	return list(
@@ -238,11 +240,32 @@
 		PREPOSITIONAL = "модуле радиационного сканирования",
 	)
 
+/obj/item/mod/module/rad_protection/on_part_activation()
+	AddComponent(/datum/component/geiger_sound)
+	ADD_TRAIT(mod.wearer, TRAIT_BYPASS_EARLY_IRRADIATED_CHECK, UID())
+	RegisterSignal(mod.wearer, COMSIG_IN_RANGE_OF_IRRADIATION, PROC_REF(on_pre_potential_irradiation))
+	for(var/obj/item/part in mod.get_parts(all = TRUE))
+		ADD_TRAIT(part, TRAIT_RADIATION_PROTECTED_CLOTHING, MODSUIT_TRAIT)
+
+/obj/item/mod/module/rad_protection/on_part_deactivation(deleting = FALSE)
+	qdel(GetComponent(/datum/component/geiger_sound))
+	REMOVE_TRAIT(mod.wearer, TRAIT_BYPASS_EARLY_IRRADIATED_CHECK, UID())
+	UnregisterSignal(mod.wearer, COMSIG_IN_RANGE_OF_IRRADIATION)
+	for(var/obj/item/part in mod.get_parts(all = TRUE))
+		REMOVE_TRAIT(part, TRAIT_RADIATION_PROTECTED_CLOTHING, MODSUIT_TRAIT)
+
 /obj/item/mod/module/rad_protection/add_ui_data()
 	. = ..()
-	.["is_user_irradiated"] = mod.wearer?.radiation || 0
+	.["is_user_irradiated"] = mod.wearer ? HAS_TRAIT(mod.wearer, TRAIT_IRRADIATED) : FALSE
+	.["background_radiation_level"] = perceived_threat_level
 	.["health_max"] = mod.wearer?.getMaxHealth() || 0
 	.["loss_tox"] = mod.wearer?.getToxLoss() || 0
+
+/obj/item/mod/module/rad_protection/proc/on_pre_potential_irradiation(datum/source, datum/radiation_pulse_information/pulse_information, insulation_to_target)
+	SIGNAL_HANDLER
+
+	perceived_threat_level = get_perceived_radiation_danger(pulse_information, insulation_to_target)
+	addtimer(VARSET_CALLBACK(src, perceived_threat_level, null), TIME_WITHOUT_RADIATION_BEFORE_RESET, TIMER_UNIQUE | TIMER_OVERRIDE)
 
 // MARK: Grappling hook
 /// Emergency Tether - Shoots a grappling hook projectile in 0g that throws the user towards it.
@@ -288,34 +311,6 @@
 	playsound(src, 'sound/weapons/batonextend.ogg', 25, TRUE)
 	INVOKE_ASYNC(tether, TYPE_PROC_REF(/obj/projectile/tether, make_chain))
 	drain_power(use_energy_cost)
-
-/obj/projectile/tether
-	name = "tether"
-	icon_state = "tether_projectile"
-	icon = 'icons/obj/clothing/modsuit/mod_modules.dmi'
-	speed = 2
-	damage = 15
-	range = 20
-	hitsound = 'sound/weapons/batonextend.ogg'
-	hitsound_wall = 'sound/weapons/batonextend.ogg'
-	ricochet_chance = 0
-
-/obj/projectile/tether/proc/make_chain()
-	if(!firer)
-		return
-	chain = Beam(firer, icon_state = "line", icon = 'icons/obj/clothing/modsuit/mod_modules.dmi', time = 10 SECONDS, maxdistance = 15)
-
-/obj/projectile/tether/on_hit(atom/target)
-	. = ..()
-	if(!firer || !isliving(firer))
-		return
-	var/mob/living/living_firer = firer
-	living_firer.apply_status_effect(STATUS_EFFECT_IMPACT_IMMUNE)
-	living_firer.throw_at(target, 15, 1, living_firer, FALSE, FALSE, callback = CALLBACK(living_firer, TYPE_PROC_REF(/mob/living, remove_status_effect), STATUS_EFFECT_IMPACT_IMMUNE))
-
-/obj/projectile/tether/Destroy()
-	QDEL_NULL(chain)
-	return ..()
 
 /obj/item/mod/module/grappling_hook/upgraded
 	name = "MOD upgraded grappling hook module"
@@ -423,7 +418,7 @@
 		if(METAL_FOAM)
 			. += span_notice("Выбранный режим — <b>распылитель металлической пены</b>.")
 
-/obj/item/extinguisher/mini/mod/afterattack(atom/target, mob/user)
+/obj/item/extinguisher/mini/mod/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	var/is_adjacent = user.Adjacent(target)
 	if(is_adjacent && AttemptRefill(target, user))
 		return

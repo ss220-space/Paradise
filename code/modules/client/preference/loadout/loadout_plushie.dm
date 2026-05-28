@@ -77,43 +77,13 @@
 	index_name = "Hampter"
 	path = /obj/item/toy/plushie/hampter
 
-/datum/gear/plushie/hampter_assistant
-	index_name = "Hampter, Assitant"
-	path = /obj/item/toy/plushie/hampter/asisstant
-
-/datum/gear/plushie/hampter_security
-	index_name = "Hampter, Security"
-	path = /obj/item/toy/plushie/hampter/security
-
-/datum/gear/plushie/hampter_medic
-	index_name = "Hampter, Doctor"
-	path = /obj/item/toy/plushie/hampter/medic
-
-/datum/gear/plushie/hampter_janitor
-	index_name = "Hampter, Janitor"
-	path = /obj/item/toy/plushie/hampter/janitor
-
-/datum/gear/plushie/hampter_captain
-	index_name = "Hampter, Captain"
-	path = /obj/item/toy/plushie/hampter/captain
-
-/datum/gear/plushie/hampter_old_captain
-	index_name = "Hampter, Old Captain"
-	path = /obj/item/toy/plushie/hampter/captain/old
-
-/datum/gear/plushie/hampter_syndi
-	index_name = "Hampter, Syndi"
-	path = /obj/item/toy/plushie/hampter/syndi
-
-/datum/gear/plushie/hampter_death_squad
-	index_name = "Hampter, Grandpa"
-	path = /obj/item/toy/plushie/hampter/death_squad
-
-/datum/gear/plushie/hampter_ert_squad
-	index_name = "Hampter, ERT"
-	path = /obj/item/toy/plushie/hampter/ert_squad
-
-/datum/gear/plushie/blahaj
-	index_name = "Shark Plushie"
-	path = /obj/item/toy/plushie/blahaj
-
+/datum/gear/plushie/hampter/New()
+	..()
+	var/list/hampters = list(
+		/obj/item/toy/plushie/hampter,
+		/obj/item/toy/plushie/hampter/asisstant,
+		/obj/item/toy/plushie/hampter/security,
+		/obj/item/toy/plushie/hampter/medic,
+		/obj/item/toy/plushie/hampter/janitor
+	)
+	gear_tweaks += new /datum/gear_tweak/path(hampters, src, TRUE)

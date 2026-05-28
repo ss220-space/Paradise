@@ -12,8 +12,10 @@
 	base_icon_state = "control"
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK
+	interaction_flags_click = NEED_HANDS
+	interaction_flags_mouse_drop = NEED_DEXTERITY | NEED_HANDS | ALLOW_RESTING
 	strip_delay = 10 SECONDS
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, FIRE = 0, ACID = 0)
 	actions_types = list(
 		/datum/action/item_action/mod/deploy,
 		/datum/action/item_action/mod/activate,
@@ -22,6 +24,9 @@
 	)
 	onmob_sheets = list(
 		ITEM_SLOT_BACK_STRING = 'icons/mob/clothing/modsuit/mod_clothing.dmi',
+	)
+	sprite_sheets = list(
+		SPECIES_GREY = 'icons/mob/clothing/modsuit/species/grey/mod_clothing.dmi',
 	)
 	max_heat_protection_temperature = SPACE_SUIT_MAX_TEMP_PROTECT
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
@@ -148,10 +153,9 @@
 		else
 			. += span_notice("Слот для ядра пуст.")
 
-/obj/item/mod/control/get_description_info()
-	if(extended_desc)
-		return extended_desc
-	return
+/obj/item/mod/control/examine_more(mob/user)
+	. = ..()
+	. += "<i>[extended_desc]</i>"
 
 /obj/item/mod/control/process()
 	if(seconds_electrified > 0)
@@ -191,36 +195,27 @@
 		return
 	clean_up()
 
-/obj/item/mod/control/mouse_drop_dragged(atom/over, mob/user, src_location, over_location, params)
-	if(!iscarbon(usr))
-		return
-	var/mob/living/carbon/carbon_mob = usr
-	if(get_dist(usr, src) > 1) //1 as we want to access it if beside the user
+/obj/item/mod/control/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
+	if(!iscarbon(user) || !over_object || ismecha(user.loc))
 		return
 
-	if(!over)
-		return
-
-	if(ismecha(carbon_mob.loc))
-		return
-
-	if(HAS_TRAIT(carbon_mob, TRAIT_RESTRAINED) || carbon_mob.stat) //restrained or unconsious
-		return
-
+	var/mob/living/carbon/carbon_mob = user
 	playsound(loc, SFX_RUSTLE, 50, TRUE, -5)
 
-	if(istype(over, /atom/movable/screen/inventory/hand))
+	if(istype(over_object, /atom/movable/screen/inventory/hand))
 		for(var/obj/item/part as anything in get_parts())
 			if(part.loc != src)
 				balloon_alert(wearer, "сверните костюм!")
 				playsound(src, 'sound/machines/scanbuzz.ogg', 25, FALSE, SILENCED_SOUND_EXTRARANGE)
 				return
-		if(!carbon_mob.temporarily_remove_item_from_inventory(src, silent = TRUE))
-			return
-		carbon_mob.put_in_active_hand(src)
-	else if(bag)
-		bag.forceMove(usr)
-		bag.show_to(usr)
+
+		if(carbon_mob.temporarily_remove_item_from_inventory(src, silent = TRUE))
+			carbon_mob.put_in_any_hand_if_possible(src, TRUE)
+		return
+
+	if(bag)
+		bag.forceMove(user)
+		bag.show_to(user)
 
 	add_fingerprint(carbon_mob)
 
@@ -329,7 +324,7 @@
 		attacking_core.install(src)
 		update_charge_alert()
 		return ATTACK_CHAIN_PROCEED
-	if(istype(attacking_item, /obj/item/multitool) && open)
+	if(ismultitool(attacking_item) && open)
 		if(seconds_electrified && get_charge() && shock(user))
 			return ATTACK_CHAIN_PROCEED
 		wires.Interact(user)
@@ -337,7 +332,7 @@
 	if(open && attacking_item.GetID())
 		update_access(user, attacking_item.GetID())
 		return ATTACK_CHAIN_PROCEED
-	if(istype(attacking_item, /obj/item/stock_parts/cell))
+	if(iscell(attacking_item))
 		if(!core)
 			balloon_alert(user, "ядро отсутствует!")
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)

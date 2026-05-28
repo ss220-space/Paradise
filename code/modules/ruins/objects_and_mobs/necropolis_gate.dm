@@ -68,15 +68,15 @@
 	else
 		return QDEL_HINT_LETMELIVE
 
-/obj/structure/necropolis_gate/singularity_pull()
-	return 0
+/obj/structure/necropolis_gate/singularity_pull(atom/singularity, current_size)
+	return
 
 /obj/structure/necropolis_gate/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(border_dir != dir)
 		return TRUE
 
-/obj/structure/necropolis_gate/proc/on_exit(datum/source, atom/movable/leaving, atom/newLoc)
+/obj/structure/necropolis_gate/proc/on_exit(datum/source, atom/movable/leaving, direction)
 	SIGNAL_HANDLER
 
 	if(leaving.movement_type & PHASING)
@@ -88,7 +88,7 @@
 	if(pass_flags_self & leaving.pass_flags)
 		return
 
-	if(density && dir == get_dir(leaving, newLoc))
+	if(density && dir == direction)
 		leaving.Bump(src)
 		return COMPONENT_ATOM_BLOCK_EXIT
 
@@ -102,8 +102,8 @@
 	opacity = TRUE
 	anchored = TRUE
 
-/obj/structure/opacity_blocker/singularity_pull()
-	return 0
+/obj/structure/opacity_blocker/singularity_pull(atom/singularity, current_size)
+	return
 
 /obj/structure/opacity_blocker/Destroy(force)
 	if(force)
@@ -275,8 +275,8 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 	top_overlay.layer = EDGED_TURF_LAYER
 	add_overlay(top_overlay)
 
-/obj/structure/necropolis_arch/singularity_pull()
-	return 0
+/obj/structure/necropolis_arch/singularity_pull(atom/singularity, current_size)
+	return
 
 /obj/structure/necropolis_arch/Destroy(force)
 	if(force)
@@ -341,7 +341,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 	else
 		return QDEL_HINT_LETMELIVE
 
-/obj/structure/stone_tile/singularity_pull()
+/obj/structure/stone_tile/singularity_pull(atom/singularity, current_size)
 	return
 
 /obj/structure/stone_tile/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)

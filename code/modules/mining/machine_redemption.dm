@@ -244,7 +244,7 @@
 	if(!powered())
 		return ..()
 
-	if(istype(I, /obj/item/card/id))
+	if(is_id_card(I))
 		add_fingerprint(user)
 		if(!try_insert_id(user))
 			return ..()

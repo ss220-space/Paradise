@@ -46,7 +46,7 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 		OBJ.req_access = list(text2num(object.access))
 
 	//create the manifest slip
-	var/obj/item/paper/manifest/slip = new /obj/item/paper/manifest()
+	var/obj/item/paper/manifest/slip = new()
 	slip.erroneous = errors
 	slip.points = object.cost
 	slip.ordernumber = ordernum
@@ -85,8 +85,8 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 			AO.amount = object.amount
 		slip.info += "<li>[A.name]</li>"	//add the item to the manifest (even if it was misplaced)
 
-	if(istype(crate, /obj/structure/closet/critter)) // critter crates do not actually spawn mobs yet and have no contains var, but the manifest still needs to list them
-		var/obj/structure/closet/critter/CritCrate = crate
+	if(istype(crate, /obj/structure/closet/crate/critter)) // critter crates do not actually spawn mobs yet and have no contains var, but the manifest still needs to list them
+		var/obj/structure/closet/crate/critter/CritCrate = crate
 		if(CritCrate.content_mob)
 			var/mob/crittername = CritCrate.content_mob
 			slip.info += "<li>[initial(crittername.name)]</li>"
@@ -105,14 +105,10 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 	slip.info += "</ul><br>"
 	slip.info += "CHECK CONTENTS AND STAMP BELOW THE LINE TO CONFIRM RECEIPT OF GOODS<hr>" // And now this is actually meaningful.
 	slip.loc = crate
-	if(istype(crate, /obj/structure/closet/crate))
+	if(is_crate(crate))
 		var/obj/structure/closet/crate/CR = crate
-		CR.manifest = slip
-		CR.update_icon(UPDATE_OVERLAYS)
-	if(istype(crate, /obj/structure/largecrate))
-		var/obj/structure/largecrate/LC = crate
-		LC.manifest = slip
-		LC.update_icon(UPDATE_OVERLAYS)
+		CR.manifest = WEAKREF(slip)
+		CR.update_appearance()
 
 /***************************
 	Хранилище данных.
@@ -297,7 +293,7 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 
 	for(var/datum/syndie_supply_order/SO in data_storage.shoppinglist)
 		if(!SO.object)
-			throw EXCEPTION("Supply Order [SO] has no object associated with it.")
+			stack_trace("Supply Order [SO] has no object associated with it.")
 			continue
 
 		var/turf/T = pick_n_take(spawnTurfs)		//turf we will place it in
@@ -348,7 +344,7 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 			data_storage.sold_atoms += "[MA.name]"
 
 			// Must be in a crate (or a critter crate)!
-			if(istype(MA,/obj/structure/closet/crate) || istype(MA,/obj/structure/closet/critter))
+			if(is_crate(MA) || istype(MA,/obj/structure/closet/crate/critter))
 				data_storage.sold_atoms += ":"
 				if(!length(MA.contents))
 					data_storage.sold_atoms += " (empty)"
@@ -505,7 +501,7 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 
 	if(!allowed(user) && !isobserver(user))
 		to_chat(user, span_warning("Access denied."))
-		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
+		playsound(src, SFX_BUTTON_DENIED, 20)
 		return 1
 	add_fingerprint(user)
 	ui_interact(user)
@@ -515,7 +511,7 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 	if(user.a_intent == INTENT_HARM || !powered() || !ishuman(user))
 		return ..()
 
-	if(istype(I, /obj/item/stack/spacecash))
+	if(is_cash(I))
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 		add_fingerprint(user)

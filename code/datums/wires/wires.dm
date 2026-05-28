@@ -186,9 +186,12 @@
 
 	if(ismecha(user.loc))
 		var/obj/mecha/mecha = user.loc
-		if(istype(mecha.selected, /obj/item/mecha_parts/mecha_equipment/eng_toolset))
-			var/obj/item/mecha_parts/mecha_equipment/eng_toolset/toolset = mecha.selected
+		for(var/key, item in mecha.selected_equipment_in_hands)
+			if(!istype(item, /obj/item/mecha_parts/mecha_equipment/eng_toolset))
+				continue
+			var/obj/item/mecha_parts/mecha_equipment/eng_toolset/toolset = item
 			I = toolset.selected_item
+			return
 
 	else
 		I = user.get_active_hand()
@@ -257,7 +260,7 @@
 	if(user.can_admin_interact())
 		return TRUE
 
-	if(istype(user.get_active_hand(), /obj/item/multitool))
+	if(ismultitool(user.get_active_hand()))
 		var/obj/item/multitool/M = user.get_active_hand()
 		if(M.shows_wire_information)
 			return TRUE

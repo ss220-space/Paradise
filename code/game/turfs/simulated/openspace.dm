@@ -14,6 +14,7 @@
 	heat_capacity = 10000
 	transparent_floor = TURF_FULLTRANSPARENT // bruh
 	intact = FALSE //this means wires go on top
+	underfloor_accessibility = UNDERFLOOR_INTERACTABLE //this means wires go o- you can touch wires, yes
 
 /turf/simulated/openspace/airless
 	temperature = TCMB
@@ -21,16 +22,10 @@
 	nitrogen = 0
 
 /turf/simulated/openspace/lavaland
-	oxygen = LAVALAND_OXYGEN
-	nitrogen = LAVALAND_NITROGEN
-	temperature = LAVALAND_TEMPERATURE
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
 	atmos_environment = ENVIRONMENT_LAVALAND
 
 /turf/simulated/openspace/snow_atmosphere
-	oxygen = 22
-	nitrogen = 82
-	temperature = 180
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
 	atmos_environment = ENVIRONMENT_COLD
 
@@ -169,8 +164,8 @@
 		ChangeTurf(/turf/simulated/floor/plating)
 		return .|ATTACK_CHAIN_BLOCKED_ALL
 
-	if(istype(I, /obj/item/stack/fireproof_rods))
-		var/obj/item/stack/fireproof_rods/rods = I
+	if(istype(I, /obj/item/stack/rods/fireproof))
+		var/obj/item/stack/rods/fireproof/rods = I
 		if(locate(/obj/structure/lattice/catwalk/fireproof, src))
 			to_chat(user, span_warning("Здесь уже есть мостик!"))
 			return .

@@ -54,7 +54,7 @@ def check_alphabetical_sort(filename):
     # Check sorting in single pass
     for i in range(1, len(lines)):
         if lines[i].lower() < lines[i-1].lower():
-            return [Failure(str(filename), None, f"File is not sorted alphabetically.")]
+            return [Failure(str(filename), None, f"File is not sorted alphabetically. You can use any convenient way to sort the list in alphabetical order. For example, you can refer to the website `https://spiskin.ru/scripts/sort_alphabet/`, which offers a convenient function for sorting.")]
 
     return []
 

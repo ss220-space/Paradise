@@ -33,7 +33,7 @@
 				return ATTACK_CHAIN_BLOCKED_ALL
 
 		if(SCREWED_CORE)
-			if(istype(I, /obj/item/stack/cable_coil))
+			if(iscoil(I))
 				add_fingerprint(user)
 				var/obj/item/stack/cable_coil/coil = I
 				if(coil.get_amount() < 5)

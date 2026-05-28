@@ -16,8 +16,7 @@
 /obj/effect/decal/cleanable/blood/tracks,
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken7";
-	tag = "icon-wood-broken7"
+	icon_state = "wood-broken7"
 	},
 /area/ruin/unpowered/misc_lavaruin)
 "f" = (
@@ -34,8 +33,7 @@
 "i" = (
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken";
-	tag = "icon-wood-broken"
+	icon_state = "wood-broken"
 	},
 /area/ruin/unpowered/misc_lavaruin)
 "k" = (
@@ -84,8 +82,7 @@
 	broken = 1
 	},
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken3";
-	tag = "icon-wood-broken3"
+	icon_state = "wood-broken3"
 	},
 /area/ruin/unpowered/misc_lavaruin)
 "u" = (
@@ -116,15 +113,13 @@
 /area/ruin/unpowered/misc_lavaruin)
 "B" = (
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken5";
-	tag = "icon-wood-broken5"
+	icon_state = "wood-broken5"
 	},
 /area/ruin/unpowered/misc_lavaruin)
 "C" = (
 /obj/effect/decal/cleanable/blood/tracks,
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken6";
-	tag = "icon-wood-broken6"
+	icon_state = "wood-broken6"
 	},
 /area/ruin/unpowered/misc_lavaruin)
 "F" = (
@@ -195,8 +190,7 @@
 /obj/effect/decal/cleanable/cobweb,
 /obj/item/book/manual/chef_recipes,
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken6";
-	tag = "icon-wood-broken6"
+	icon_state = "wood-broken6"
 	},
 /area/ruin/unpowered/misc_lavaruin)
 "W" = (

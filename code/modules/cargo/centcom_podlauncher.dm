@@ -81,7 +81,7 @@
 		pod_style_lookup[style::id] = style
 
 /datum/centcom_podlauncher/proc/setup(user) //H can either be a client or a mob
-	if(istype(user,/client))
+	if(isclient(user))
 		var/client/user_client = user
 		holder = user_client //if its a client, assign it to holder
 	else
@@ -589,7 +589,7 @@
 
 	if(launcherActivated)
 		//Clicking on UI elements shouldn't launch a pod
-		if(istype(target,/atom/movable/screen))
+		if(is_screen_atom(target))
 			return FALSE
 
 		. = TRUE
@@ -637,7 +637,7 @@
 					sleep(rand()*2) //looks cooler than them all appearing at once. Gives the impression of burst fire.
 	else if(picking_dropoff_turf)
 		//Clicking on UI elements shouldn't pick a dropoff turf
-		if(istype(target,/atom/movable/screen))
+		if(is_screen_atom(target))
 			return FALSE
 
 		. = TRUE

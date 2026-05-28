@@ -109,7 +109,8 @@ export const GasFreezer = (props: unknown) => {
                 maxValue={Math.round(max)}
                 step={5}
                 stepPixelSize={3}
-                onDrag={(value) =>
+                tickWhileDragging
+                onChange={(value) =>
                   act('temp', {
                     temp: value,
                   })

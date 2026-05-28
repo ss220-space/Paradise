@@ -89,6 +89,14 @@
 
 #define TURF_FROM_COORDS_LIST(List) (locate(List[1], List[2], List[3]))
 
+//Interactability underfloor things
+/// The pipes, disposals, and wires are hidden
+#define UNDERFLOOR_HIDDEN 0
+/// The pipes, disposals, and wires are visible but cannot be interacted with
+#define UNDERFLOOR_VISIBLE 1
+/// The pipes, disposals, and wires are visible and can be interacted with
+#define UNDERFLOOR_INTERACTABLE 2
+
 /// Maximum amount of time, (in deciseconds) a tile can be wet for.
 #define MAXIMUM_WET_TIME (5 MINUTES)
 
@@ -121,3 +129,15 @@
 #define get_area(A) (isarea(A) ? A : get_step(A, 0)?.loc)
 
 #define ATOM_COORDS(A) list(A.x, A.y, A.z)
+
+
+/// Define the alpha for holiday/colored tile decals. Probably not implemented yet
+#define DECAL_ALPHA 60
+/// Generate horizontal striped color turf decals
+#define PATTERN_DEFAULT "default"
+/// Generate vertical striped color turf decals
+#define PATTERN_VERTICAL_STRIPE "vertical"
+/// Generate random color turf decals
+#define PATTERN_RANDOM "random"
+/// Generate rainbow color turf decals
+#define PATTERN_RAINBOW "rainbow"

@@ -20,7 +20,7 @@
 	anchored = TRUE
 	layer = FLY_LAYER
 	max_integrity = 50
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 0, ACID = 0)
 	/// Construction stage
 	var/stage = LIGHT_CONSTRUCT_EMPTY_FRAME
 	/// Light bulb type
@@ -177,7 +177,7 @@
 	anchored = TRUE
 	layer = FLY_LAYER
 	max_integrity = 10
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 0, ACID = 0)
 	use_power = ACTIVE_POWER_USE
 	idle_power_usage = 2
 	active_power_usage = 20
@@ -745,7 +745,13 @@
 	// create a light tube/bulb item and put it in the user's hand
 	drop_light_tube(user)
 
-// break the light and make sparks if was on
+/obj/machinery/light/proc/set_major_emergency_light()
+	emergency_mode = TRUE //major_emergency = TRUE
+	update()
+
+/obj/machinery/light/proc/unset_major_emergency_light()
+	emergency_mode = TRUE //major_emergency = FALSE
+	update()
 
 /obj/machinery/light/proc/drop_light_tube(mob/user)
 	if(status == LIGHT_EMPTY)
@@ -964,7 +970,7 @@
 			desc = "A broken [name]."
 
 /obj/item/light/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/reagent_containers/syringe))
+	if(issyringe(I))
 		add_fingerprint(user)
 		var/obj/item/reagent_containers/syringe/syringe = I
 		if(syringe.mode != 1)	// injecting

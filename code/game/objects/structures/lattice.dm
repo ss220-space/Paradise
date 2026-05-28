@@ -5,7 +5,7 @@
 	icon_state = "lattice-31"
 	base_icon_state = "lattice"
 	anchored = TRUE
-	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 50)
+	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 80, ACID = 50)
 	max_integrity = 50
 	layer = LATTICE_LAYER //under pipes
 	plane = FLOOR_PLANE // I'd set to GAME_PLANE, but may fuck with pipes, srubbers and pumps. Also you see better lower floor under catwalk.
@@ -51,11 +51,11 @@
 		C.deconstruct()
 	..()
 
-/obj/structure/lattice/attackby(obj/item/I, mob/user, params)
+/obj/structure/lattice/attackby(obj/item/I, mob/user, list/modifiers)
 	if((resistance_flags & INDESTRUCTIBLE) || !isturf(loc))
 		return ATTACK_CHAIN_BLOCKED_ALL
 	add_fingerprint(user)
-	I.melee_attack_chain(user, loc, params)	// hand this off to the turf instead (for building plating, catwalks, etc)
+	I.melee_attack_chain(user, loc, modifiers)	// hand this off to the turf instead (for building plating, catwalks, etc)
 	return ATTACK_CHAIN_BLOCKED_ALL
 
 /obj/structure/lattice/ratvar_act()
@@ -65,7 +65,7 @@
 /obj/structure/lattice/blob_act(obj/structure/blob/B)
 	return
 
-/obj/structure/lattice/singularity_pull(S, current_size)
+/obj/structure/lattice/singularity_pull(atom/singularity, current_size)
 	if(current_size >= STAGE_FOUR)
 		deconstruct()
 
@@ -158,7 +158,7 @@
 	desc = "A lightweight support lattice made of heat-resistance alloy."
 	icon = 'icons/obj/smooth_structures/lattice_f.dmi'
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-	armor = list(MELEE = 70, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 40, BIO = 0, RAD = 0, FIRE = 100, ACID = 70)
+	armor = list(MELEE = 70, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 40, BIO = 0, FIRE = 100, ACID = 70)
 	max_integrity = 100
 
 /obj/structure/lattice/fireproof/wirecutter_act(mob/living/user, obj/item/I)
@@ -167,13 +167,13 @@
 		to_chat(user, span_warning("Вам необходимо не прерывать процесс."))
 		return
 	to_chat(user, span_notice("Вы срезали усиленные прутья!"))
-	new /obj/item/stack/fireproof_rods(get_turf(src), 1)
+	new /obj/item/stack/rods/fireproof(get_turf(src), 1)
 	deconstruct()
 
 /obj/structure/lattice/catwalk/fireproof
 	name = "strong catwalk"
 	desc = "Усиленный мостик, способный выдерживать высокие температуры и сильные нагрузки."
-	armor = list(MELEE = 70, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 50, BIO = 0, RAD = 0, FIRE = 100, ACID = 80)
+	armor = list(MELEE = 70, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 50, BIO = 0, FIRE = 100, ACID = 80)
 	max_integrity = 150
 	icon = 'icons/obj/smooth_structures/strong_catwalk.dmi'
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
@@ -186,7 +186,7 @@
 		to_chat(user, span_warning("Вам необходимо не прерывать процесс."))
 		return
 	to_chat(user, span_notice("Вы срезали усиленный мостик!"))
-	new /obj/item/stack/fireproof_rods(get_turf(src), 3)
+	new /obj/item/stack/rods/fireproof(get_turf(src), 3)
 	deconstruct()
 
 /obj/structure/lattice/catwalk/mapping

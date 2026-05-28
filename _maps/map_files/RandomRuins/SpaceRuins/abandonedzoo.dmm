@@ -379,10 +379,7 @@
 	},
 /area/ruin/unpowered)
 "vS" = (
-/obj/machinery/power/apc/worn_out{
-	dir = 8;
-	pixel_x = -24
-	},
+/obj/machinery/power/apc/worn_out/directional/west,
 /obj/structure/rack,
 /obj/item/melee/baton/security/cattleprod,
 /obj/effect/spawner/lootdrop/maintenance,

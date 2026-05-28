@@ -6,7 +6,7 @@ on:
 jobs:
   compile_all_stations:
     name: Compile All Station Maps
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     timeout-minutes: 5
 
     steps:
@@ -15,13 +15,13 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version: 22.11.0
-          cache: 'yarn'
+          cache: "yarn"
           cache-dependency-path: ./tgui/yarn.lock
 
       - name: Restore BYOND from Cache
         uses: ./.github/actions/restore_or_install_byond
         with:
-          release: 'STABLE'
+          release: "STABLE"
 
       - name: Compile All Maps
         run: |

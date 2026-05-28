@@ -24,13 +24,13 @@ GLOBAL_LIST_INIT(strippable_alien_humanoid_items, create_strippable_list(list(
 )))
 
 //This is fine right now, if we're adding organ specific damage this needs to be updated
-/mob/living/carbon/alien/humanoid/New()
+/mob/living/carbon/alien/humanoid/Initialize(mapload)
 	if(name == "alien")
 		name = text("alien ([rand(1, 1000)])")
 	real_name = name
 	add_language(LANGUAGE_XENOS)
 	add_language(LANGUAGE_HIVE_XENOS)
-	..()
+	. = ..()
 	AddSpell(new /obj/effect/proc_holder/spell/alien_spell/regurgitate)
 	AddElement(/datum/element/footstep, FOOTSTEP_MOB_CLAW, 0.5, -11)
 	AddElement(/datum/element/strippable, GLOB.strippable_alien_humanoid_items)

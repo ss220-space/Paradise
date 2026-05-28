@@ -7,7 +7,7 @@
 	dir_in = 1 //Facing North.
 	max_integrity = 1000 // мы ОЧЕНЬ хотим пострелять
 	deflect_chance = 0 // никакого рандома
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0) // мех для тестов, не для боя
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 0, ACID = 0) // мех для тестов, не для боя
 	max_temperature = 15000
 	wreckage = /obj/structure/mecha_wreckage/sidewinder
 	maint_access = TRUE
@@ -44,48 +44,48 @@
 	ME.attach(src)
 	//lethal
 	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser
-	ME.attach(src)
+	ME.attach(src, MECH_HAND_LEFT)
 	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/heavy
-	ME.attach(src)
+	ME.attach(src, MECH_HAND_LEFT)
 	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/energy/ion
-	ME.attach(src)
+	ME.attach(src, MECH_HAND_RIGHT)
 	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/energy/ionshotgun
-	ME.attach(src)
+	ME.attach(src, MECH_HAND_RIGHT)
 	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/energy/tesla
-	ME.attach(src)
+	ME.attach(src, MECH_HAND_RIGHT)
 	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/energy/xray
-	ME.attach(src)
+	ME.attach(src, MECH_HAND_LEFT)
 	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/energy/xray/triple
-	ME.attach(src)
+	ME.attach(src, MECH_HAND_LEFT)
 	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/energy/immolator
-	ME.attach(src)
+	ME.attach(src, MECH_HAND_LEFT)
 	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/energy/pulse
-	ME.attach(src)
+	ME.attach(src, MECH_HAND_LEFT)
 	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/carbine
-	ME.attach(src)
+	ME.attach(src, MECH_HAND_LEFT)
 	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot
-	ME.attach(src)
+	ME.attach(src, MECH_HAND_RIGHT)
 	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot/riot
-	ME.attach(src)
+	ME.attach(src, MECH_HAND_RIGHT)
 	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot/syndi
-	ME.attach(src)
+	ME.attach(src, MECH_HAND_RIGHT)
 	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg
-	ME.attach(src)
+	ME.attach(src, MECH_HAND_LEFT)
 	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg/syndi
-	ME.attach(src)
+	ME.attach(src, MECH_HAND_LEFT)
 	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg/dual
-	ME.attach(src)
+	ME.attach(src, MECH_HAND_LEFT)
 	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/amlg
-	ME.attach(src)
+	ME.attach(src, MECH_HAND_LEFT)
 	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack
-	ME.attach(src)
+	ME.attach(src, MECH_HAND_RIGHT)
 	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/medium
-	ME.attach(src)
+	ME.attach(src, MECH_HAND_RIGHT)
 	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/heavy
-	ME.attach(src)
+	ME.attach(src, MECH_HAND_RIGHT)
 	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang
-	ME.attach(src)
+	ME.attach(src, MECH_HAND_RIGHT)
 	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang/clusterbang
-	ME.attach(src)
+	ME.attach(src, MECH_HAND_RIGHT)
 	ME = new /obj/item/mecha_parts/mecha_equipment/cage
-	ME.attach(src)
+	ME.attach(src, MECH_HAND_RIGHT)

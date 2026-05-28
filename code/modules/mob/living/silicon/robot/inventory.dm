@@ -25,6 +25,7 @@
 	if(!O)
 		return 0
 
+	O.dropped(src)
 	O.mouse_opacity = MOUSE_OPACITY_OPAQUE
 
 	if(client)
@@ -77,6 +78,7 @@
 		observer_screen_update(O, TRUE)
 		contents += O
 		set_actions(O)
+		O.equipped(src, ITEM_SLOT_HANDS)
 	else if(!module_state_2)
 		O.mouse_opacity = initial(O.mouse_opacity)
 		module_state_2 = O
@@ -86,6 +88,7 @@
 		observer_screen_update(O, TRUE)
 		contents += O
 		set_actions(O)
+		O.equipped(src, ITEM_SLOT_HANDS)
 	else if(!module_state_3)
 		O.mouse_opacity = initial(O.mouse_opacity)
 		module_state_3 = O
@@ -95,6 +98,7 @@
 		observer_screen_update(O, TRUE)
 		contents += O
 		set_actions(O)
+		O.equipped(src, ITEM_SLOT_HANDS)
 	else
 		to_chat(src, "You need to disable a module first!")
 	check_module_damage(FALSE)

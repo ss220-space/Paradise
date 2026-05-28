@@ -338,6 +338,14 @@
 	SET_PLANE(underlay_appearance, PLANE_SPACE, src)
 	return TRUE
 
+/turf/simulated/floor/holofloor/burn_mix_floor
+	name = "Burn-Mix Floor"
+	icon_state = "engine"
+	nitrogen = 0
+	oxygen = 2500
+	temperature = 370
+	toxins = 5000
+
 /obj/structure/table/holotable/has_prints()
 	return FALSE
 
@@ -416,11 +424,11 @@
 	block_chance = 50
 	var/active = 0
 
-/obj/item/holo/esword/green/New()
+/obj/item/holo/esword/green/Initialize(mapload)
 	. = ..()
 	item_color = "green"
 
-/obj/item/holo/esword/red/New()
+/obj/item/holo/esword/red/Initialize(mapload)
 	. = ..()
 	item_color = "red"
 
@@ -429,7 +437,7 @@
 		return ..()
 	return 0
 
-/obj/item/holo/esword/New()
+/obj/item/holo/esword/Initialize(mapload)
 	. = ..()
 	item_color = pick("red","blue","green","purple")
 

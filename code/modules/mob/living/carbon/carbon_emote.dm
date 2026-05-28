@@ -216,8 +216,46 @@
 /datum/emote/living/carbon/twirl
 	key = "twirl"
 	key_third_person = "twirls"
-	message = "верт%(ит,ят)% что-то в руках."
 	hands_use_check = TRUE
+
+#define BUBBLE_TIME 4 SECONDS
+
+/atom/movable/proc/spinning_item_in_bubble(atom/displayed_atom)
+	if(!displayed_atom)
+		return
+	var/obj/effect/thought_bubble_effect = new
+	var/mutable_appearance/thought_bubble = mutable_appearance(
+		'icons/effects/effects.dmi',
+		thought_bubble_image,
+		layer = POINT_LAYER,
+		offset_spokesman = src,
+		plane = POINT_PLANE,
+		appearance_flags = KEEP_APART,
+	)
+
+	thought_bubble.pixel_w = 16
+	thought_bubble.alpha = 200
+	thought_bubble.transform = matrix().Translate(0, 32)
+
+	thought_bubble_effect.appearance = thought_bubble
+	vis_contents += thought_bubble_effect
+	LAZYADD(update_on_z, thought_bubble_effect)
+
+	var/obj/effect/spinner = new
+	spinner.appearance = displayed_atom.appearance
+	spinner.plane = FLOAT_PLANE
+	spinner.layer = FLOAT_LAYER
+
+	spinner.SpinAnimation(6, 1, TRUE, 6)
+	thought_bubble_effect.vis_contents += spinner
+
+	addtimer(CALLBACK(src, PROC_REF(clear_point_bubble), thought_bubble_effect), BUBBLE_TIME)
+	QDEL_IN(spinner, BUBBLE_TIME)
+
+	thought_bubble_effect.alpha = 0
+	animate(thought_bubble_effect, alpha = 255, time = 0.5 SECONDS, easing = EASE_OUT)
+	animate(alpha = 255, time = BUBBLE_TIME - 1 SECONDS)
+	animate(alpha = 0, time = 0.5 SECONDS, easing = EASE_IN)
 
 /datum/emote/living/carbon/twirl/run_emote(mob/living/user, params, type_override, intentional)
 	var/mob/living/grabbed_mob
@@ -237,10 +275,14 @@
 		if(held_item.item_flags & ABSTRACT)
 			user.balloon_alert(user, "неподходящий предмет!")
 			return TRUE
-		message = "верт%(ит,ят)% [held_item.declent_ru(ACCUSATIVE)] в руках!"
+		held_item.SpinAnimation(6, 1, TRUE, 6)
+		user.spinning_item_in_bubble(held_item)
+
 	else if(grabbed_mob)
 		message = "крут%(ит,ят)% <b>[grabbed_mob.name]</b>, удерживая [GEND_HIS_HER(grabbed_mob)] в захвате!"
 		grabbed_mob.spin(32, 1)
 
 	. = ..()
 	message = initial(message)
+
+#undef BUBBLE_TIME

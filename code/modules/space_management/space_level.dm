@@ -149,7 +149,7 @@ GLOBAL_LIST_INIT(maploader_typecache, typecacheof(/obj/effect/landmark/map_loade
 
 /datum/space_level/proc/resume_init()
 	if(dirt_count > 0)
-		throw EXCEPTION("Init told to resume when z-level still dirty. Z level: '[zpos]'")
+		CRASH("Init told to resume when z-level still dirty. Z level: '[zpos]'")
 	log_debug("Releasing freeze on z-level '[zpos]'!")
 	log_debug("Beginning initialization!")
 	var/list/our_atoms = init_list // OURS NOW!!! (Keeping this list to ourselves will prevent hijack)

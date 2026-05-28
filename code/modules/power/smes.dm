@@ -130,7 +130,7 @@
 		to_chat(user, span_warning("You should open the maintenance panel first."))
 		return FALSE
 	var/turf/terminal_turf = get_step(src, REVERSE_DIR(terminal_dir))
-	if(!terminal_turf.can_have_cabling() || terminal_turf.intact)	//is the floor plating removed or is it a spaceturf ?
+	if(!terminal_turf.can_have_cabling() || terminal_turf.underfloor_accessibility != UNDERFLOOR_INTERACTABLE)	//is the floor plating removed or is it a spaceturf ?
 		to_chat(user, span_warning("You should remove or change the floor plating beneath you."))
 		return FALSE
 	if(user.loc == loc)	// somehow???
@@ -144,7 +144,7 @@
 		span_notice("You start to construct the cable terminal for the SMES..."),
 	)
 	coil.play_tool_sound(src)
-	if(!do_after(user, 5 SECONDS * coil.toolspeed, src, category = DA_CAT_TOOL) || (panel_check && !panel_open) || !terminal_turf.can_have_cabling() || terminal_turf.intact || QDELETED(coil))
+	if(!do_after(user, 5 SECONDS * coil.toolspeed, src, category = DA_CAT_TOOL) || (panel_check && !panel_open) || !terminal_turf.can_have_cabling() || terminal_turf.underfloor_accessibility != UNDERFLOOR_INTERACTABLE || QDELETED(coil))
 		return FALSE
 	var/obj/structure/cable/node = terminal_turf.get_cable_node()
 	if(check_electrocute(user, node, node))
@@ -206,8 +206,7 @@
 	if(QDELETED(terminal))
 		to_chat(user, span_warning("The [name] has no power terminal."))
 		return FALSE
-	var/turf/terminal_turf = get_turf(terminal)
-	if(terminal_turf.intact)
+	if(HAS_TRAIT(terminal, TRAIT_UNDERFLOOR))
 		to_chat(user, span_warning("You should expose the power terminal first."))
 		return FALSE
 	if(panel_check && !panel_open)
@@ -218,7 +217,7 @@
 		span_notice("[user] starts to dismantle the power terminal."),
 		span_notice("You start to dismantle the power terminal..."),
 	)
-	if(!tool.use_tool(src, user, 5 SECONDS, volume = tool.tool_volume) || QDELETED(terminal) || terminal_turf.intact || (panel_check && !panel_open))
+	if(!tool.use_tool(src, user, 5 SECONDS, volume = tool.tool_volume) || QDELETED(terminal) || HAS_TRAIT(terminal, TRAIT_UNDERFLOOR) || (panel_check && !panel_open))
 		return FALSE
 	if(check_electrocute(user, terminal.powernet, terminal)) //animate the electrocution if uncautious and unlucky
 		return FALSE
@@ -481,8 +480,12 @@
 	log_smes()
 	..()
 
+/obj/machinery/power/smes/full
+	charge = 50 * STANDARD_BATTERY_CHARGE
+
 /obj/machinery/power/smes/engineering
-	charge = 2e6 // Engineering starts with some charge for singulo
+	charge = 50 * STANDARD_BATTERY_CHARGE // Engineering starts with some charge for singulo //sorry little one, singulo as engine is gone
+	output_level = 90 KILO WATTS
 
 /obj/machinery/power/smes/magical
 	name = "magical power storage unit"

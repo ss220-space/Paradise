@@ -14,7 +14,7 @@
 
 	unarmed_type = /datum/unarmed_attack/claws
 
-	blood_color = "#CCCCCC"
+	blood_color = BLOOD_COLOR_SHADOW
 	flesh_color = "#AAAAAA"
 
 	has_organ = list(
@@ -28,6 +28,7 @@
 		TRAIT_NO_BREATH,
 		TRAIT_RADIMMUNE,
 		TRAIT_VIRUSIMMUNE,
+		TRAIT_LIVERLESS_METABOLISM,
 	)
 	dies_at_threshold = TRUE
 

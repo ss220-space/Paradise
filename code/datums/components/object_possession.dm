@@ -26,7 +26,7 @@
 	screen_alert_ref = WEAKREF(user.throw_alert(ALERT_UNPOSSESS_OBJECT, /atom/movable/screen/alert/unpossess_object))
 
 /datum/component/object_possession/RegisterWithParent()
-	RegisterSignal(parent, list(COMSIG_MOB_CLIENT_PRE_LIVING_MOVE, COMSIG_MOB_CLIENT_PRE_NON_LIVING_MOVE), PROC_REF(on_move))
+	RegisterSignals(parent, list(COMSIG_MOB_CLIENT_PRE_LIVING_MOVE, COMSIG_MOB_CLIENT_PRE_NON_LIVING_MOVE), PROC_REF(on_move))
 	RegisterSignal(parent, COMSIG_MOB_GHOSTIZE, PROC_REF(end_possession))
 
 /datum/component/object_possession/UnregisterFromParent()
@@ -58,7 +58,7 @@
 /// Binds the mob to the object and sets up the naming and everything.
 /// Returns FALSE if we don't bind, TRUE if we succeed.
 /datum/component/object_possession/proc/bind_to_new_object(obj/target)
-	if(issingularity(target) && CONFIG_GET(flag/forbid_singulo_possession))
+	if((target.obj_flags & DANGEROUS_POSSESSION) && CONFIG_GET(flag/forbid_singulo_possession))
 		to_chat(parent, "[target] сопротивляется вашему контролю.", confidential = TRUE)
 		return FALSE
 

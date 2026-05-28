@@ -81,7 +81,7 @@
 		SStgui.update_uis(src)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	if(istype(I, /obj/item/reagent_containers/glass))
+	if(isglassreagentcontainer(I))
 		add_fingerprint(user)
 		if(beaker)
 			balloon_alert(user, "слот для ёмкости занят!")

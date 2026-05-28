@@ -6,7 +6,7 @@ on:
 jobs:
   linters:
     name: Linters
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
 
     steps:
@@ -20,22 +20,31 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-spacemandmm-
 
+      - name: Restore Bootstrap cache
+        uses: actions/cache@v5
+        with:
+          path: tools/bootstrap/.cache
+          key: ${{ runner.os }}-bootstrap-${{ hashFiles('tools/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-bootstrap-
+
       - uses: actions/setup-python@v6
         with:
-          python-version: '3.13'
-          cache: 'pip'
+          python-version: "3.13"
+          cache: "pip"
 
       - uses: actions/setup-node@v6
         with:
           node-version: 22.11.0
-          cache: 'yarn'
+          cache: "yarn"
           cache-dependency-path: ./tgui/yarn.lock
 
-      - name: Install python packages
+      - name: Install Python packages
         run: pip install -r tools/requirements.txt
 
       - name: Install Tools
         run: |
+          pip install setuptools
           bash tools/ci/install_build_deps.sh
           bash tools/ci/install_dreamchecker.sh
 
@@ -45,7 +54,7 @@ jobs:
           dotnet-version: 9.x
 
       - name: Install OpenDream
-        uses: robinraju/release-downloader@v1.12
+        uses: robinraju/release-downloader@v1.13
         with:
           repository: "OpenDreamProject/OpenDream"
           tag: "latest"
@@ -61,6 +70,10 @@ jobs:
         run: |
           python tools/ci/check_grep.py
           python tools/ci/check_grep2.py
+
+      - name: Check Unescaped Brackets
+        if: steps.linter-setup.conclusion == 'success' && !cancelled()
+        run: python tools/ci/catch_unescaped_brackets.py
 
       - name: Check Line Endings
         if: steps.linter-setup.conclusion == 'success' && !cancelled()
@@ -102,6 +115,10 @@ jobs:
         if: steps.linter-setup.conclusion == 'success' && !cancelled()
         run: python tools/ci/check_ru_names.py
 
+      - name: Check istype Macros Usage
+        if: steps.linter-setup.conclusion == 'success' && !cancelled()
+        run: python tools/ci/check_istype_macros.py
+
       - name: Run DreamChecker
         if: steps.linter-setup.conclusion == 'success' && !cancelled()
         shell: bash
@@ -111,15 +128,29 @@ jobs:
         if: steps.linter-setup.conclusion == 'success' && !cancelled()
         run: ./DMCompiler_linux-x64/DMCompiler paradise.dme --suppress-unimplemented --define=CIBUILDING | bash tools/ci/annotate_od.sh
 
+      - name: Check for Map & Maplint File Edits
+        id: map-filter
+        uses: dorny/paths-filter@v4
+        with:
+          filters: |
+            run_maps:
+              - '**.dmm'
+              - 'tools/maplint/**'
+              - 'tools/mapmerge2/**'
+
       - name: Run Map Checks
-        if: steps.linter-setup.conclusion == 'success' && !cancelled()
+        if: steps.linter-setup.conclusion == 'success' && !cancelled() && steps.map-filter.outputs.run_maps == 'true'
         run: |
           tools/bootstrap/python -m mapmerge2.dmm_test
-          python -m tools.maplint.source --github
+          tools/bootstrap/python -m tools.maplint.source --github
 
       - name: Run DMI Tests
         if: steps.linter-setup.conclusion == 'success' && !cancelled()
         run: tools/bootstrap/python -m dmi.test
+
+      - name: Check Changelogs
+        if: steps.linter-setup.conclusion == 'success' && !cancelled()
+        run: bash tools/ci/check_changelogs.sh
 
       - name: Run JSON Checks
         if: steps.linter-setup.conclusion == 'success' && !cancelled()

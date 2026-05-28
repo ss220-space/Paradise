@@ -1,5 +1,11 @@
+#define RD_SERVER_SCREEN_MAIN 0
+#define RD_SERVER_SCREEN_ACCESS 1
+#define RD_SERVER_SCREEN_DATA 2
+#define RD_SERVER_SCREEN_LOGS 3
 /obj/machinery/r_n_d/server
 	name = "R&D Server"
+	desc = "Центральный сервер отдела НИО. Предназначен для хранения и управления базой данных шаблонов печати. \
+			Обеспечивает синхронизацию данных между подключёнными консолями и научным оборудованием."
 	icon_state = "server"
 	base_icon_state = "server"
 	var/datum/research/files
@@ -18,6 +24,17 @@
 	var/list/usage_logs
 	var/list/logs_for_logs_clearing
 	var/static/logs_decryption_key = null
+	var/list/design_blacklist = list()
+
+/obj/machinery/r_n_d/server/get_ru_names()
+	return list(
+		NOMINATIVE = "сервер НИО",
+		GENITIVE = "сервера НИО",
+		DATIVE = "серверу НИО",
+		ACCUSATIVE = "сервер НИО",
+		INSTRUMENTAL = "сервером НИО",
+		PREPOSITIONAL = "сервере НИО",
+	)
 
 /obj/machinery/r_n_d/server/Initialize(mapload)
 	. = ..()
@@ -89,11 +106,11 @@
 		var/updateRD = 0
 		files.known_designs = list()
 		for(var/v in files.known_tech)
-			var/datum/tech/T = files.known_tech[v]
+			var/datum/tech/tech = files.known_tech[v]
 			// Slowly decrease research if health drops below 0
 			if(prob(1))
 				updateRD++
-				T.level--
+				tech.level--
 		if(updateRD)
 			files.RefreshResearch()
 	if(delay)
@@ -172,7 +189,7 @@
 		return .
 	if(!panel_open)
 		add_fingerprint(user)
-		to_chat(user, span_warning("Open the maintenance panel first."))
+		to_chat(user, span_warning("Сначала откройте техническую панель."))
 		return .
 	griefProtection()
 	default_deconstruction_crowbar(user, I)
@@ -192,13 +209,13 @@
 /obj/machinery/r_n_d/server/proc/add_usage_log(mob/user, datum/design/built_design, obj/machinery/r_n_d/machine)
 	var/time_created = station_time_timestamp()
 	var/user_name = user.name
-	var/user_job = "no job"
+	var/user_job = NOJOB_STATUS_RUS
 	if(ishuman(user))
 		var/mob/living/carbon/human/human_user = user
 		user_name = human_user.get_authentification_name()
 		user_job = human_user.get_assignment()
-	var/blueprint_name = built_design.name
-	var/used_machine = machine.name
+	var/blueprint_name = built_design.build_object_name || built_design.name || "Неизвестный шаблон"
+	var/used_machine = machine.declent_ru(ACCUSATIVE)
 
 	LAZYINITLIST(usage_logs)
 	usage_logs.len++
@@ -209,7 +226,7 @@
 		return
 	var/time_cleared = station_time_timestamp()
 	var/user_name = user.name
-	var/user_job = "no job"
+	var/user_job = NOJOB_STATUS_RUS
 	if(ishuman(user))
 		var/mob/living/carbon/human/human_user = user
 		user_name = human_user.get_authentification_name()
@@ -221,240 +238,12 @@
 
 	LAZYCLEARLIST(usage_logs)
 
-/obj/machinery/r_n_d/server/centcom
-	name = "CentComm. Central R&D Database"
-	server_id = -1
+/obj/machinery/r_n_d/server/proc/is_design_blacklisted(design_id)
+	return (design_id in design_blacklist)
 
-/obj/machinery/r_n_d/server/centcom/Initialize(mapload)
-	. = ..()
-	var/list/no_id_servers = list()
-	var/list/server_ids = list()
-	for(var/obj/machinery/r_n_d/server/S in SSmachines.get_by_type(/obj/machinery/r_n_d/server))
-		switch(S.server_id)
-			if(-1)
-				continue
-			if(0)
-				no_id_servers += S
-			else
-				server_ids += S.server_id
-
-	for(var/obj/machinery/r_n_d/server/S in no_id_servers)
-		var/num = 1
-		while(!S.server_id)
-			if(num in server_ids)
-				num++
-			else
-				S.server_id = num
-				server_ids += num
-		no_id_servers -= S
-
-/obj/machinery/r_n_d/server/centcom/process()
-	return PROCESS_KILL	//don't need process()
-
-/obj/machinery/computer/rdservercontrol
-	name = "R&D server controller"
-	icon_screen = "rdcomp"
-	icon_keyboard = "rd_key"
-	light_color = LIGHT_COLOR_LAVENDER
-	circuit = /obj/item/circuitboard/rdservercontrol
-	var/screen = 0
-	var/obj/machinery/r_n_d/server/temp_server
-	var/list/servers = list()
-	var/list/consoles = list()
-	var/badmin = 0
-	var/syndicate = 0 //добавленный для синдибазы флаг
-
-/obj/machinery/computer/rdservercontrol/Initialize(mapload)
-	. = ..()
-	if(is_taipan(z))
-		syndicate = 1
-		req_access = list(ACCESS_SYNDICATE_RESEARCH_DIRECTOR)
-
-/obj/machinery/computer/rdservercontrol/Topic(href, href_list)
-	if(..())
-		return
-
-	add_fingerprint(usr)
-	usr.set_machine(src)
-	if(!src.allowed(usr) && !emagged)
-		to_chat(usr, span_warning("You do not have the required access level"))
-		return
-
-	if(href_list["main"])
-		screen = 0
-
-	else if(href_list["access"] || href_list["data"] || href_list["transfer"] || href_list["logs"])
-		temp_server = null
-		consoles = list()
-		servers = list()
-		for(var/obj/machinery/r_n_d/server/S in SSmachines.get_by_type(/obj/machinery/r_n_d/server))
-			if(S.server_id == text2num(href_list["access"]) || S.server_id == text2num(href_list["data"]) || S.server_id == text2num(href_list["logs"]) || S.server_id == text2num(href_list["transfer"]))
-				temp_server = S
-				break
-		if(href_list["access"])
-			screen = 1
-			for(var/obj/machinery/computer/rdconsole/C in SSmachines.get_by_type(/obj/machinery/computer/rdconsole))
-				if(C.sync)
-					consoles += C
-		else if(href_list["data"])
-			screen = 2
-		else if(href_list["logs"])
-			var/awaiting_input = tgui_input_text(usr, "Please input access key", "Security check")
-			if(awaiting_input != temp_server.logs_decryption_key)
-				return
-			screen = 3
-		else if(href_list["transfer"])
-			screen = 4
-			for(var/obj/machinery/r_n_d/server/S in SSmachines.get_by_type(/obj/machinery/r_n_d/server))
-				if(S == src)
-					continue
-				servers += S
-
-	else if(href_list["upload_toggle"])
-		var/num = text2num(href_list["upload_toggle"])
-		if(num in temp_server.id_with_upload)
-			temp_server.id_with_upload -= num
-		else
-			temp_server.id_with_upload += num
-
-	else if(href_list["download_toggle"])
-		var/num = text2num(href_list["download_toggle"])
-		if(num in temp_server.id_with_download)
-			temp_server.id_with_download -= num
-		else
-			temp_server.id_with_download += num
-
-	else if(href_list["reset_tech"])
-		var/choice = tgui_alert(usr, "Technology Data Reset", "Are you sure you want to reset this technology to its default data? Data lost cannot be recovered.", list("Continue", "Cancel"))
-		if(choice == "Continue")
-			for(var/I in temp_server.files.known_tech)
-				var/datum/tech/T = temp_server.files.known_tech[I]
-				if(T.id == href_list["reset_tech"])
-					T.level = 1
-					break
-		temp_server.files.RefreshResearch()
-
-	else if(href_list["reset_design"])
-		var/choice = tgui_alert(usr, "Design Data Deletion", "Are you sure you want to blacklist this design? Ensure you sync servers after this decision.", list("Continue", "Cancel"))
-		if(choice == "Continue")
-			for(var/I in temp_server.files.known_designs)
-				var/datum/design/D = temp_server.files.known_designs[I]
-				if(D.id == href_list["reset_design"])
-					temp_server.files.known_designs -= D.id
-					break
-		temp_server.files.RefreshResearch()
-
-	else if(href_list["clear_logs"])
-		temp_server.clear_logs(usr)
-
-	updateUsrDialog()
-	return
-
-/obj/machinery/computer/rdservercontrol/attack_hand(mob/user as mob)
-	if(stat & (BROKEN|NOPOWER))
-		return
-	if(..())
-		return TRUE
-	add_fingerprint(user)
-	user.set_machine(src)
-	var/dat = ""
-
-	switch(screen)
-		if(0) //Main Menu
-			dat += "Connected Servers:<br><br>"
-
-			for(var/obj/machinery/r_n_d/server/S in SSmachines.get_by_type(/obj/machinery/r_n_d/server))
-				if(istype(S, /obj/machinery/r_n_d/server/centcom) && !badmin)
-					continue
-				if(S.syndicate != syndicate) // Флаг в действии
-					continue
-				dat += "[S.name] || "
-				dat += "<a href='byond://?src=[UID()];access=[S.server_id]'>Access Rights</a> | "
-				dat += "<a href='byond://?src=[UID()];data=[S.server_id]'>Data Management</a> | "
-				dat += "<a href='byond://?src=[UID()];logs=[S.server_id]'>Logs</a>"
-				if(badmin)
-					dat += " | <a href='byond://?src=[UID()];transfer=[S.server_id]'>Server-to-Server Transfer</a>"
-				dat += "<br>"
-
-		if(1) //Access rights menu
-			dat += "[temp_server.name] Access Rights<br><br>"
-			dat += "Consoles with Upload Access<br>"
-			for(var/obj/machinery/computer/rdconsole/C in consoles)
-				if(C.syndicate != syndicate) // Флаг в действии 2
-					continue
-				var/turf/console_turf = get_turf(C)
-				dat += "* <a href='byond://?src=[UID()];upload_toggle=[C.id]'>[console_turf.loc]" //FYI, these are all numeric ids, eventually.
-				if(C.id in temp_server.id_with_upload)
-					dat += " (Remove)</a><br>"
-				else
-					dat += " (Add)</a><br>"
-			dat += "Consoles with Download Access<br>"
-			for(var/obj/machinery/computer/rdconsole/C in consoles)
-				if(C.syndicate != syndicate) // Флаг в действии 3
-					continue
-				var/turf/console_turf = get_turf(C)
-				dat += "* <a href='byond://?src=[UID()];download_toggle=[C.id]'>[console_turf.loc]"
-				if(C.id in temp_server.id_with_download)
-					dat += " (Remove)</a><br>"
-				else
-					dat += " (Add)</a><br>"
-			dat += "<hr><a href='byond://?src=[UID()];main=1'>Main Menu</a>"
-
-		if(2) //Data Management menu
-			dat += "[temp_server.name] Data Management<br><br>"
-			dat += "Known Technologies<br>"
-			for(var/I in temp_server.files.known_tech)
-				var/datum/tech/T = temp_server.files.known_tech[I]
-				if(T.level <= 0)
-					continue
-				dat += "* [T.name] "
-				dat += "<a href='byond://?src=[UID()];reset_tech=[T.id]'>(Reset)</a><br>" //FYI, these are all strings.
-			dat += "Known Designs<br>"
-			for(var/I in temp_server.files.known_designs)
-				var/datum/design/D = temp_server.files.known_designs[I]
-				dat += "* [D.name] "
-				dat += "<a href='byond://?src=[UID()];reset_design=[D.id]'>(Delete)</a><br>"
-			dat += "<hr><a href='byond://?src=[UID()];main=1'>Main Menu</a>"
-
-		if(3) //Logs menu
-			dat += "[temp_server.name] Logs viewing<br><br>"
-			for(var/who_cleared in temp_server.logs_for_logs_clearing)
-				var/clear_time = who_cleared[1]
-				var/user_name = who_cleared[2]
-				var/user_job = who_cleared[3]
-				dat += "[clear_time]: [user_name] ([user_job]) cleared logs<br>"
-
-			for(var/use_log in temp_server.usage_logs)
-				var/log_time = use_log[1]
-				var/user_name = use_log[2]
-				var/user_job = use_log[3]
-				var/blueprint_printed = use_log[4]
-				var/machine_name = use_log[5]
-				dat += "[log_time]: [user_name] ([user_job]) printed [blueprint_printed] using [machine_name]<br>"
-
-			dat += "<br><hr><a href='byond://?src=[UID()];clear_logs=1'>Clear Logs</a>"
-			dat += "<br><hr><a href='byond://?src=[UID()];main=1'>Main Menu</a>"
-
-		if(4) //Server Data Transfer
-			dat += "[temp_server.name] Server to Server Transfer<br><br>"
-			dat += "Send Data to what server?<br>"
-			for(var/obj/machinery/r_n_d/server/S in servers)
-				dat += "[S.name] <a href='byond://?src=[UID()];send_to=[S.server_id]'> (Transfer)</a><br>"
-			dat += "<hr><a href='byond://?src=[UID()];main=1'>Main Menu</a>"
-	var/datum/browser/popup = new(user, "server_control", "R&D Server Control", 575, 400)
-	popup.set_content("<hr>[dat]")
-	popup.open(TRUE)
-	onclose(user, "server_control")
-	return
-
-/obj/machinery/computer/rdservercontrol/emag_act(mob/user)
-	if(!emagged)
-		add_attack_logs(user, src, "emagged")
-		playsound(src.loc, 'sound/effects/sparks4.ogg', 75, TRUE)
-		emagged = 1
-		if(user)
-			to_chat(user, span_notice("You you disable the security protocols"))
-	src.updateUsrDialog()
+/**
+ * MARK: R&D Server variations
+ */
 
 /obj/machinery/r_n_d/server/core
 	name = "Core R&D Server"
@@ -463,8 +252,303 @@
 	server_id = 1
 	plays_sound = 1
 
+/obj/machinery/r_n_d/server/core/get_ru_names()
+	return list(
+		NOMINATIVE = "центральный сервер НИО",
+		GENITIVE = "центрального сервера НИО",
+		DATIVE = "центральному серверу НИО",
+		ACCUSATIVE = "центральный сервер НИО",
+		INSTRUMENTAL = "центральным сервером НИО",
+		PREPOSITIONAL = "центральном сервере НИО",
+	)
+
 /obj/machinery/r_n_d/server/robotics
 	name = "Robotics and Mechanic R&D Server"
 	id_with_upload_string = "1;2;4;6"
 	id_with_download_string = "1;2;4;6"
 	server_id = 2
+
+/obj/machinery/r_n_d/server/robotics/get_ru_names()
+	return list(
+		NOMINATIVE = "сервер робототехники и механики НИО",
+		GENITIVE = "сервера робототехники и механики НИО",
+		DATIVE = "серверу робототехники и механики НИО",
+		ACCUSATIVE = "сервер робототехники и механики НИО",
+		INSTRUMENTAL = "сервером робототехники и механики НИО",
+		PREPOSITIONAL = "сервере робототехники и механики НИО",
+	)
+
+/obj/machinery/r_n_d/server/centcom
+	name = "CentComm. Central R&D Database"
+	server_id = -1
+
+/obj/machinery/r_n_d/server/centcom/get_ru_names()
+	return list(
+		NOMINATIVE = "сервер НИО ЦК",
+		GENITIVE = "сервера НИО ЦК",
+		DATIVE = "серверу НИО ЦК",
+		ACCUSATIVE = "сервер НИО ЦК",
+		INSTRUMENTAL = "сервером НИО ЦК",
+		PREPOSITIONAL = "сервере НИО ЦК",
+	)
+
+/obj/machinery/r_n_d/server/centcom/Initialize(mapload)
+	. = ..()
+	var/list/no_id_servers = list()
+	var/list/server_ids = list()
+	for(var/obj/machinery/r_n_d/server/server as anything in SSmachines.get_by_type(/obj/machinery/r_n_d/server))
+		switch(server.server_id)
+			if(-1)
+				continue
+			if(0)
+				no_id_servers += server
+			else
+				server_ids += server.server_id
+
+	for(var/obj/machinery/r_n_d/server/server as anything in no_id_servers)
+		var/num = 1
+		while(!server.server_id)
+			if(num in server_ids)
+				num++
+			else
+				server.server_id = num
+				server_ids += num
+		no_id_servers -= server
+
+/obj/machinery/r_n_d/server/centcom/process()
+	return PROCESS_KILL	//don't need process()
+
+/**
+ * MARK: R&D Server Controller
+ */
+
+/obj/machinery/computer/rdservercontrol
+	name = "R&D server controller"
+	desc = "Комьютер, предназначенный для администрирования системы серверов НИО."
+	icon_screen = "rdcomp"
+	icon_keyboard = "rd_key"
+	light_color = LIGHT_COLOR_LAVENDER
+	circuit = /obj/item/circuitboard/rdservercontrol
+	req_access = list(ACCESS_RD)
+	var/screen = 0
+	var/obj/machinery/r_n_d/server/temp_server
+	var/list/servers = list()
+	var/list/consoles = list()
+	var/badmin = 0
+	var/syndicate = 0 //добавленный для синдибазы флаг
+
+/obj/machinery/computer/rdservercontrol/get_ru_names()
+	return list(
+		NOMINATIVE = "консоль управления серверами НИО",
+		GENITIVE = "консоли управления серверами НИО",
+		DATIVE = "консоли управления серверами НИО",
+		ACCUSATIVE = "консоль управления серверами НИО",
+		INSTRUMENTAL = "консолью управления серверами НИО",
+		PREPOSITIONAL = "консоли управления серверами НИО",
+	)
+
+/obj/machinery/computer/rdservercontrol/Initialize(mapload)
+	. = ..()
+	if(is_taipan(z))
+		syndicate = 1
+		req_access = list(ACCESS_SYNDICATE_RESEARCH_DIRECTOR)
+
+/obj/machinery/computer/rdservercontrol/emag_act(mob/user)
+	if(emagged)
+		return FALSE
+
+	add_attack_logs(user, src, "emagged")
+	playsound(src, 'sound/effects/sparks4.ogg', 75, TRUE)
+	emagged = TRUE
+	req_access = list()
+
+	if(user)
+		balloon_alert(user, "протоколы безопасности взломаны")
+
+	SStgui.update_uis(src)
+	return TRUE
+
+/obj/machinery/computer/rdservercontrol/attack_hand(mob/user as mob)
+	if(stat & (BROKEN|NOPOWER))
+		return
+
+	if(!allowed(user) && !isobserver(user))
+		playsound(src, 'sound/machines/buzz-sigh.ogg', 50, TRUE)
+		balloon_alert(user, "отказано в доступе!")
+		return
+
+	if(..())
+		return TRUE
+	ui_interact(user)
+
+/obj/machinery/computer/rdservercontrol/ui_interact(mob/user, datum/tgui/ui)
+	if(!length(servers) || !length(consoles))
+		refresh_cache()
+
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "RdServerControl", DECLENT_RU_CAP(src, NOMINATIVE))
+		ui.open()
+
+/obj/machinery/computer/rdservercontrol/ui_data(mob/user)
+	var/list/data = list()
+	data["screen"] = screen
+	var/list/server_list = list()
+	for(var/obj/machinery/r_n_d/server/server as anything in servers)
+		if(!server || QDELETED(server))
+			continue
+
+		server_list += list(list(
+			"name" = DECLENT_RU_CAP(server, NOMINATIVE),
+			"id" = server.server_id
+		))
+
+	data["servers"] = server_list
+
+	if(temp_server)
+		data["temp_server_name"] = DECLENT_RU_CAP(temp_server, NOMINATIVE)
+		var/list/tech_list = list()
+		for(var/tech_id, tech in temp_server.files.known_tech)
+			var/datum/tech/T = tech // Вот здесь мы объясняем компилятору тип
+			if(!T || T.level < 1)
+				continue
+			tech_list += list(list(
+				"name" = T.name,
+				"id" = T.id,
+				"level" = T.level
+			))
+		data["technologies"] = tech_list
+
+		var/list/design_list = list()
+		for(var/id, design in temp_server.files.known_designs)
+			var/datum/design/D = design // Объясняем тип
+			if(!D)
+				continue
+			var/display_name = D.build_object_name || D.name || "Неизвестный шаблон"
+			design_list += list(list(
+				"name" = display_name,
+				"id" = D.id,
+				"blacklisted" = (D.id in temp_server.design_blacklist)
+			))
+		data["designs"] = design_list
+
+		var/list/console_data = list()
+		for(var/obj/machinery/computer/rdconsole/console as anything in consoles)
+			if(!console || QDELETED(console))
+				continue
+			var/turf/console_turf = get_turf(console)
+			console_data += list(list(
+				"id" = console.id,
+				"loc" = (console_turf && console_turf.loc) ? console_turf.loc.name : "Неизвестно",
+				"upload" = (console.id in temp_server.id_with_upload) ? 1 : 0,
+				"download" = (console.id in temp_server.id_with_download) ? 1 : 0
+			))
+		data["consoles"] = console_data
+
+		if(screen == RD_SERVER_SCREEN_LOGS)
+			data["usage_logs"] = temp_server.usage_logs || list()
+			data["clear_logs"] = temp_server.logs_for_logs_clearing || list()
+		else
+			data["usage_logs"] = list()
+			data["clear_logs"] = list()
+
+	return data
+
+/obj/machinery/computer/rdservercontrol/ui_act(action, list/params)
+	if(..())
+		return
+
+	if(!allowed(usr) && !isobserver(usr))
+		to_chat(usr, span_warning("Отказано в доступе!"))
+		return
+
+	var/is_syndicate = syndicate
+
+	switch(action)
+		if("select_server")
+			var/target_id = text2num(params["id"])
+			for(var/obj/machinery/r_n_d/server/server as anything in servers)
+				if(!server || QDELETED(server))
+					continue
+				if(server.server_id == target_id)
+					if(server.syndicate != is_syndicate)
+						continue
+
+					temp_server = server
+					screen = RD_SERVER_SCREEN_DATA
+					return TRUE
+
+		if("set_screen")
+			var/new_screen = text2num(params["target"])
+			if(new_screen == RD_SERVER_SCREEN_LOGS)
+				if(!temp_server || QDELETED(temp_server))
+					return FALSE
+				var/key = tgui_input_text(usr, "Введите ключ дешифровки", "Проверка безопасности")
+				if(key != temp_server.logs_decryption_key)
+					to_chat(usr, span_danger("Неверный ключ!"))
+					return FALSE
+
+			if(new_screen == RD_SERVER_SCREEN_MAIN)
+				temp_server = null
+
+			screen = new_screen
+			return TRUE
+
+		if("reset_tech")
+			if(!temp_server || QDELETED(temp_server))
+				return
+			var/tech_id = params["tech_id"]
+			var/choice = tgui_alert(usr, "Сбросить уровень технологии?", "Внимание", list("Да", "Нет"))
+			if(choice == "Да")
+				var/datum/tech/tech = temp_server.files.known_tech[tech_id]
+				if(tech)
+					tech.level = 1
+				temp_server.files.RefreshResearch()
+			return TRUE
+
+		if("toggle_access")
+			if(!temp_server ||  QDELETED(temp_server))
+				return
+			var/c_id = text2num(params["console_id"])
+			var/type = params["type"]
+			var/list/target_list = (type == "upload") ? temp_server.id_with_upload : temp_server.id_with_download
+			if(c_id in target_list)
+				target_list -= c_id
+			else
+				target_list += c_id
+			return TRUE
+
+		if("clear_logs")
+			if(temp_server && !QDELETED(temp_server) && screen == RD_SERVER_SCREEN_LOGS)
+				temp_server.clear_logs(usr)
+				return TRUE
+
+		if("toggle_blacklist")
+			if(!temp_server || QDELETED(temp_server))
+				return
+			var/d_id = params["design_id"]
+			if(d_id in temp_server.design_blacklist)
+				temp_server.design_blacklist -= d_id
+			else
+				temp_server.design_blacklist += d_id
+			return TRUE
+
+	return ..()
+
+/obj/machinery/computer/rdservercontrol/proc/refresh_cache()
+	servers = list()
+	consoles = list()
+	var/is_syndicate = syndicate
+
+	for(var/obj/machinery/r_n_d/server/server as anything in SSmachines.get_by_type(/obj/machinery/r_n_d/server))
+		if(server.syndicate == is_syndicate)
+			servers += server
+
+	for(var/obj/machinery/computer/rdconsole/console as anything in SSmachines.get_by_type(/obj/machinery/computer/rdconsole))
+		if(console.syndicate == is_syndicate)
+			consoles += console
+
+#undef RD_SERVER_SCREEN_MAIN
+#undef RD_SERVER_SCREEN_ACCESS
+#undef RD_SERVER_SCREEN_DATA
+#undef RD_SERVER_SCREEN_LOGS

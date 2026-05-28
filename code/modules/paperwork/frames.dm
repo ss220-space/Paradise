@@ -12,8 +12,8 @@
 		"poster22_legit", "poster23", "poster23_legit", "poster24", "poster24_legit",
 		"poster25", "poster27_legit", "poster28", "poster29")
 
-/obj/item/picture_frame/New(loc, obj/item/D)
-	..()
+/obj/item/picture_frame/Initialize(mapload, obj/item/D)
+	. = ..()
 	if(D)
 		insert(D)
 	update_icon()
@@ -110,7 +110,7 @@
 	displayed = null
 	qdel(src)
 
-/obj/item/picture_frame/afterattack(atom/target, mob/user, proximity_flag, params)
+/obj/item/picture_frame/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(proximity_flag && iswallturf(target))
 		place(target, user)
 	else
@@ -176,8 +176,8 @@
 	icon_base = "wood"
 	icon_state = "wood-poster"
 
-/obj/item/picture_frame/wooden/New()
-	..()
+/obj/item/picture_frame/wooden/Initialize(mapload)
+	. = ..()
 	new /obj/item/stack/sheet/wood(src, 1)
 
 /obj/structure/sign/picture_frame
@@ -190,8 +190,9 @@
 	var/tilted = 0
 	var/tilt_transform = null
 
-/obj/structure/sign/picture_frame/New(loc, F)
-	..()
+/obj/structure/sign/picture_frame/Initialize(mapload, F)
+	. = ..()
+
 	frame = F
 	frame.pixel_x = 0
 	frame.pixel_y = 0
@@ -226,7 +227,7 @@
 		. += getFlatIcon(frame)
 
 /obj/structure/sign/picture_frame/attackby(obj/item/I, mob/user, params)
-	var/bomb = istype(I, /obj/item/grenade) || istype(I, /obj/item/grenade/plastic/c4)
+	var/bomb = isgrenade(I) || istype(I, /obj/item/grenade/plastic/c4)
 	if(user.a_intent == INTENT_HARM)
 		if(bomb)
 			return ..() | ATTACK_CHAIN_NO_AFTERATTACK
@@ -236,18 +237,18 @@
 		add_fingerprint(user)
 		if(explosive)
 			to_chat(user, span_warning("There is already a device attached behind [src], remove it first."))
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 		if(!tilted)
 			to_chat(user, span_warning("The [name] needs to be tilted before being rigged with [I]."))
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 		user.visible_message(
 			span_warning("[user] starts to fiddle around behind [src]."),
 			span_notice("You start to secure [I] behind [src]."),
 		)
 		if(!do_after(user, 15 SECONDS * I.toolspeed, src, category = DA_CAT_TOOL) || explosive || tilted)
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 		if(!user.drop_transfer_item_to_loc(I, src))
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 		playsound(loc, 'sound/weapons/handcuffs.ogg', 50, TRUE)
 		explosive = I
 		user.visible_message(
@@ -300,7 +301,7 @@
 	..(severity)
 
 /obj/structure/sign/picture_frame/proc/explode()
-	if(istype(explosive, /obj/item/grenade))
+	if(isgrenade(explosive))
 		var/obj/item/grenade/G = explosive
 		explosive = null
 		G.prime()

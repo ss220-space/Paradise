@@ -112,16 +112,16 @@ Note: Must be placed west/left of and R&D console to function.
 	if(is_open_container)
 		if(panel_open)
 			balloon_alert(user, "техпанель открыта!")
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 		return ATTACK_CHAIN_PROCEED	// afterattack will handle this
 
 	return ..()
 
-/obj/machinery/r_n_d/protolathe/screwdriver_act(mob/living/user, obj/item/I)
+/obj/machinery/r_n_d/protolathe/screwdriver_act_secondary(mob/living/user, obj/item/tool)
 	if(shocked && shock(user, 50))
 		add_fingerprint(user)
 		return TRUE
-	. = default_deconstruction_screwdriver(user, "[base_icon_state]_unscrewed", base_icon_state, I)
+	. = default_deconstruction_screwdriver(user, "[base_icon_state]_unscrewed", base_icon_state, tool)
 	if(. && linked_console)
 		linked_console.linked_lathe = null
 		linked_console = null

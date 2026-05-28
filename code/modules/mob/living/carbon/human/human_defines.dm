@@ -72,7 +72,6 @@
 	var/decaylevel = 0 // For rotting bodies
 	var/max_blood = BLOOD_VOLUME_NORMAL // For stuff in the vessel
 	var/bleed_rate = 0
-	var/bleedsuppress = 0 //for stopping bloodloss
 
 	var/heartbeat = 0
 	var/receiving_cpr = FALSE
@@ -109,3 +108,6 @@
 	var/emp_damage_multiplier_internal = 1
 	/// EMP damage multiplier for external organs
 	var/emp_damage_multiplier_external = 1
+
+	/// Bleeding bodyparts (optimisation)
+	var/list/bleeding_bodyparts = list()

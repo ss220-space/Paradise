@@ -7,7 +7,6 @@
 	icon = 'icons/obj/new_year/decorations.dmi'
 	icon_state = "garland_on"
 	max_integrity = 24 //can be removed easily (also, symbolism)
-	layer = BELOW_OBJ_LAYER
 	anchored = TRUE
 
 /obj/structure/garland/wirecutter_act(mob/living/user, obj/item/wirecutters/I)
@@ -30,8 +29,8 @@
 	icon_state = "red_furhat"
 	item_state = "red_furhat"
 	resistance_flags = INDESTRUCTIBLE
-	clothing_flags = STOPSPRESSUREDMAGE|THICKMATERIAL
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 50, FIRE = 80, ACID = 70)
+	clothing_flags = STOPSPRESSUREDAMAGE|THICKMATERIAL
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, FIRE = 80, ACID = 70)
 	cold_protection = HEAD
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
 	heat_protection = HEAD
@@ -56,7 +55,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS|TAIL|WING
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/gun/magic/staff/frost)
 	slowdown = FALSE
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 50, FIRE = 80, ACID = 70)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, FIRE = 80, ACID = 70)
 	flags_inv = NONE
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	sprite_sheets = list(
@@ -101,24 +100,6 @@
 /datum/milla_safe/magic_staff_freese/on_run(turf/turf)
 	var/datum/gas_mixture/environment = get_turf_air(turf)
 	environment.set_temperature(T0C)
-
-/obj/item/ammo_casing/magic/frost
-	projectile_type = /obj/projectile/magic/frost
-
-/obj/projectile/magic/frost
-	name = "bolt of frost"
-	icon_state = "ice_2"
-	hitsound = 'sound/effects/hit_on_shattered_glass.ogg'
-	hitsound_wall = 'sound/effects/hit_on_shattered_glass.ogg'
-
-/obj/projectile/magic/frost/on_hit(atom/target, blocked, hit_zone)
-	. = ..()
-	if(isliving(target))
-		var/mob/living/victim = target
-		freeze(victim)
-
-/obj/projectile/magic/frost/proc/freeze(mob/living/target)
-	target.apply_status_effect(/datum/status_effect/freon/frost)
 
 /datum/status_effect/freon/frost
 	ice_state = "ice_shell"

@@ -315,7 +315,6 @@
 		/obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster = 10,
 		/obj/item/mecha_parts/mecha_equipment/repair_droid = 10,
 		/obj/item/mecha_parts/mecha_equipment/tesla_energy_relay = 10,
-		/obj/item/mecha_parts/mecha_equipment/generator/nuclear = 10,
 	)
 
 /obj/machinery/vending/mech/ntc/equipment/get_ru_names()

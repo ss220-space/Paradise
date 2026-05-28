@@ -43,14 +43,14 @@
 /mob/living/proc/is_eyes_covered(check_glasses = TRUE, check_head = TRUE, check_mask = TRUE)
 	return FALSE
 
-/mob/living/bullet_act(obj/projectile/P, def_zone)
+/mob/living/bullet_act(obj/projectile/proj, def_zone)
 	//Armor
-	var/armor = run_armor_check(def_zone, P.flag, armour_penetration = P.armour_penetration)
-	if(!P.nodamage)
-		apply_damage(P.damage, P.damage_type, def_zone, armor)
-		if(P.dismemberment)
-			check_projectile_dismemberment(P, def_zone)
-	return P.on_hit(src, armor, def_zone)
+	var/armor = run_armor_check(def_zone, proj.flag, armour_penetration = proj.armour_penetration)
+	if(!proj.nodamage)
+		apply_damage(proj.damage, proj.damage_type, def_zone, armor)
+		if(proj.dismemberment)
+			check_projectile_dismemberment(proj, def_zone)
+	return proj.on_hit(src, armor, def_zone)
 
 /mob/living/proc/check_projectile_dismemberment(obj/projectile/P, def_zone)
 	return 0
@@ -59,7 +59,7 @@
 /mob/living/proc/electrocute_act(shock_damage, atom/source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
 	if(SEND_SIGNAL(src, COMSIG_LIVING_ELECTROCUTE_ACT, shock_damage, source, siemens_coeff, flags) & COMPONENT_LIVING_BLOCK_SHOCK)
 		return FALSE
-	if(HAS_TRAIT(src, TRAIT_GODMODE))	//godmode
+	if(HAS_TRAIT(src, TRAIT_GODMODE)) //godmode
 		return FALSE
 	shock_damage *= siemens_coeff
 	if(!(flags & SHOCK_IGNORE_IMMUNITY))
@@ -72,6 +72,9 @@
 	var/is_atom_source = istype(source)
 	if(!(flags & SHOCK_ILLUSION))
 		apply_damage(shock_damage, BURN, spread_damage = TRUE)
+		if(getFireLoss() > 100)
+			add_shared_particles(/particles/smoke/burning)
+			addtimer(CALLBACK(src, TYPE_PROC_REF(/atom/movable, remove_shared_particles), /particles/smoke/burning), 10 SECONDS)
 		if(shock_damage > 200)
 			visible_message(
 				span_danger("[capitalize(is_atom_source? source.declent_ru(NOMINATIVE) : "[source]")] поразил электрической дугой [declent_ru(ACCUSATIVE)]!"),
@@ -154,43 +157,45 @@
 /mob/living/proc/is_strong()
 	return FALSE
 
-/mob/living/mech_melee_attack(obj/mecha/M)
-	if(M.occupant.a_intent == INTENT_HARM)
-		if(HAS_TRAIT(M.occupant, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
-			to_chat(M.occupant, span_warning("Вы не хотите навредить живым существам!"))
+/mob/living/mech_melee_attack(obj/mecha/mech, obj/item/mecha_parts/mecha_equipment/selected_module = null)
+	if(mech.occupant.a_intent == INTENT_HARM)
+		if(HAS_TRAIT(mech.occupant, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
+			to_chat(mech.occupant, span_warning("Вы не хотите навредить живым существам!"))
 			return
-		M.do_attack_animation(src)
-		if(M.damtype == "brute" && !is_strong())
-			step_away(src,M,15)
-		switch(M.damtype)
-			if("brute")
+		mech.do_attack_animation(src, used_item = selected_module)
+		if(mech.damtype == BRUTE && !is_strong())
+			step_away(src, mech, 15)
+		switch(mech.damtype)
+			if(BRUTE)
 				if(!is_strong())
 					Weaken(3 SECONDS)
-				take_overall_damage(rand(M.force/2, M.force))
+				take_overall_damage(rand(mech.force / 2, mech.force))
 				playsound(src, 'sound/weapons/punch4.ogg', 50, TRUE)
-			if("fire")
-				take_overall_damage(0, rand(M.force/2, M.force))
+			if(FIRE)
+				take_overall_damage(0, rand(mech.force / 2, mech.force))
 				playsound(src, 'sound/items/welder.ogg', 50, TRUE)
-			if("tox")
-				M.mech_toxin_damage(src)
+			if(TOX)
+				mech.mech_toxin_damage(src)
 			else
 				return
-		M.occupant_message(span_danger("Вы ударяете [declent_ru(ACCUSATIVE)]."))
-		visible_message(span_danger("[DECLENT_RU_CAP(M, NOMINATIVE)] ударя[PLUR_ET_YUT(M)] [declent_ru(ACCUSATIVE)]!"), span_userdanger("[DECLENT_RU_CAP(M, NOMINATIVE)] ударя[PLUR_ET_YUT(M)] вас!"))
-		add_attack_logs(M.occupant, src, "Mecha-meleed with [M]")
+		mech.occupant_message(span_danger("Вы ударяете [declent_ru(ACCUSATIVE)]."))
+		visible_message(span_danger("[DECLENT_RU_CAP(mech, NOMINATIVE)] ударя[PLUR_ET_YUT(mech)] [declent_ru(ACCUSATIVE)]!"), span_userdanger("[DECLENT_RU_CAP(mech, NOMINATIVE)] ударя[PLUR_ET_YUT(mech)] вас!"))
+		add_attack_logs(mech.occupant, src, "Mecha-meleed with [mech]")
 	else
 		if(!is_strong())
-			step_away(src,M)
-			add_attack_logs(M.occupant, src, "Mecha-pushed with [M]", ATKLOG_ALL)
-			M.occupant_message(span_warning("Вы толкаете [declent_ru(ACCUSATIVE)] в сторону."))
-			visible_message(span_warning("[DECLENT_RU_CAP(M, NOMINATIVE)] отталкива[PLUR_ET_YUT(M)] [declent_ru(ACCUSATIVE)] в сторону."))
+			step_away(src, mech)
+			add_attack_logs(mech.occupant, src, "Mecha-pushed with [mech]", ATKLOG_ALL)
+			mech.occupant_message(span_warning("Вы толкаете [declent_ru(ACCUSATIVE)] в сторону."))
+			visible_message(span_warning("[DECLENT_RU_CAP(mech, NOMINATIVE)] отталкива[PLUR_ET_YUT(mech)] [declent_ru(ACCUSATIVE)] в сторону."))
 		else
-			M.occupant_message(span_warning("Вы пытаетесь оттолкнуть [declent_ru(ACCUSATIVE)] в сторону, но это не срабатывает."))
-			visible_message(span_warning("[DECLENT_RU_CAP(M, NOMINATIVE)] безуспешно пытается оттолкнуть [declent_ru(ACCUSATIVE)] в сторону."))
+			mech.occupant_message(span_warning("Вы пытаетесь оттолкнуть [declent_ru(ACCUSATIVE)] в сторону, но это не срабатывает."))
+			visible_message(span_warning("[DECLENT_RU_CAP(mech, NOMINATIVE)] безуспешно пытается оттолкнуть [declent_ru(ACCUSATIVE)] в сторону."))
 
 //Mobs on Fire
 /mob/living/proc/IgniteMob()
 	if(fire_stacks > 0 && !on_fire)
+		if(HAS_TRAIT(src, TRAIT_NO_FIRE))
+			return FALSE
 		on_fire = TRUE
 		visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] загора[PLUR_ET_YUT(src)]ся!"), span_userdanger("Вы загораетесь!"))
 		set_light_range(light_range + 3)

@@ -73,8 +73,8 @@
 		PREPOSITIONAL = "спектральном клинке",
 	)
 
-/obj/item/melee/ghost_sword/New()
-	..()
+/obj/item/melee/ghost_sword/Initialize(mapload)
+	. = ..()
 	spirits = list()
 	START_PROCESSING(SSobj, src)
 	GLOB.poi_list |= src
@@ -226,9 +226,9 @@
 	severity = DISEASE_SEVERITY_BIOHAZARD
 	stage1	= list("Ваши кости ноют.")
 	stage2	= list("Ваша кожа кажется чешуйчатой.")
-	stage3	= list(span_danger("Вы чувствуете непреодолимое желание напугать пару крестьян."), span_danger("Ваши зубы кажутся острее."))
-	stage4	= list(span_danger("Ваша кровь кипит!"))
-	stage5	= list(span_danger("Вы, блять, дракон! Однако любые прежние обязательства всё ещё действуют. Было бы крайне невежливо съесть своих всё ещё человеческих друзей без причины."))
+	stage3	= list(span_danger_alt("Вы чувствуете непреодолимое желание напугать пару крестьян."), span_danger_alt("Ваши зубы кажутся острее."))
+	stage4	= list(span_danger_alt("Ваша кровь кипит!"))
+	stage5	= list(span_danger_alt("Вы, блять, дракон! Однако любые прежние обязательства всё ещё действуют. Было бы крайне невежливо съесть своих всё ещё человеческих друзей без причины."))
 	new_form = /mob/living/simple_animal/hostile/megafauna/dragon/lesser
 
 //Lava Staff
@@ -268,11 +268,11 @@
 		PREPOSITIONAL = "лавовом посохе",
 	)
 
-/obj/item/lava_staff/New()
+/obj/item/lava_staff/Initialize(mapload)
 	. = ..()
 	banned_turfs = typecacheof(list(/turf/space/transit, /turf/simulated/wall, /turf/simulated/mineral))
 
-/obj/item/lava_staff/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/lava_staff/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	..()
 	if(timer > world.time)
 		return

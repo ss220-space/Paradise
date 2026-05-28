@@ -9,6 +9,8 @@
 	idle_power_usage = 2
 	active_power_usage = 4
 
+	mouse_over_pointer = MOUSE_HAND_POINTER
+
 	var/ai_control = TRUE
 	var/is_animating = FALSE
 
@@ -238,7 +240,7 @@
 	if(!allowed(user) && !user.can_advanced_admin_interact())
 		to_chat(user, span_warning("Access Denied."))
 		flick("[base_icon_state]-denied",src)
-		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
+		playsound(src, SFX_BUTTON_DENIED, 20)
 		return
 
 	use_power(5)

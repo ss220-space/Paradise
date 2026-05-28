@@ -74,6 +74,10 @@
 	bitesize_mod = 2
 	distill_reagent = "kahlua"
 
+/obj/item/reagent_containers/food/snacks/grown/coffee/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/coffeemaker_item_loader)
+
 // Coffee Robusta
 /obj/item/seeds/coffee/robusta
 	name = "pack of coffee robusta seeds"

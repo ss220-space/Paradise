@@ -1,0 +1,19 @@
+<div class="motd-card">
+    <h1>Добро пожаловать на сервер проекта SS1984!</h1>
+    <p>Наш сервер использует модифицированный билд <a href="https://www.paradisestation.org">Paradise Station</a>.<br>Регулярные обновления можно найти в <span class="accent">"Журнале обновлений"</span>. Он расположен на титульном экране, во вкладке OOC, а также в Esc-меню.</p>
+    <div>
+        <strong>➤ <a href="http://discord.ss220.space/">Discord нашего проекта!</a></strong><br>
+        <strong>➤ <a href="https://wiki.ss220.space/">Wiki нашего проекта!</a></strong><br>
+        <strong>➤ <a href="https://github.com/ss220-space/Paradise/">GitHub нашего проекта!</a></strong>
+    </div>
+    <div class="warning">
+        <h2>⚠ ВНИМАНИЕ! ⚠</h2>
+        <p>Сервер работает на версии <span class="accent">BYOND 516.1666</span><br><br>
+            <strong>➤ Скачать необходимую версию <span class="accent">BYOND</span> можно по прямой ссылке с <a href="https://www.byond.com/download/build/516/516.1666_byond.exe">САЙТА BYOND</a> или в нашем <a href="https://discord.com/channels/617003227182792704/756409070721957918/1445050731156738089">DISCORD</a></strong>
+        </p>
+    </div>
+    <h2>Поддержать проект</h2>
+    <p>Если вам нравится наш проект <span class="accent">SS1984</span> и вы хотите поддержать нас, то у вас есть возможность сделать пожертвование. В благодарность вы получите косметическое вознаграждение! Более подробную информацию можно найти по ссылке ниже.<br>
+        <strong>➤ <a href="https://discord.com/channels/617003227182792704/952603671475155035/952696004367495188">Канал в нашем DISCORD с подробной информацией!</a></strong>
+    </p>
+</div>

@@ -11,6 +11,7 @@
 	var/desc = "Если вы это увидели, пишите баг-репорт."
 	var/logmsg
 	var/category = SMITE_CATEGORY_GENERAL
+	var/permissions = R_ADMIN|R_EVENT
 
 /datum/smite/proc/activate(mob/living/target, reason = DEFAULT_SMITE_REASON)
 	apply_effect(target, reason)
@@ -375,7 +376,7 @@
 	GLOB.major_announcement.announce(
 		message = "[target.real_name] настоящим приказом был понижен до Гражданского. Немедленно обработайте этот запрос. Невыполнение этих распоряжений является основанием для расторжения контракта.",
 		new_title = ANNOUNCE_CCDEMOTE_RU,
-		new_sound = 'sound/AI/commandreport.ogg'
+		new_sound = SSstation.announcer.get_rand_report_sound(),
 	)
 
 	for(var/datum/data/record/record in sortRecord(GLOB.data_core.security))
@@ -416,6 +417,7 @@
 	desc = "Запустите по грешнику ракетой."
 	logmsg = "supply pod."
 	category = SMITE_CATEGORY_DEATH
+	permissions = R_EVENT
 
 /datum/smite/pod/activate(mob/living/target, reason)
 	var/datum/centcom_podlauncher/launcher = new(usr, reason)
@@ -433,7 +435,7 @@
 	GLOB.major_announcement.announce(
 		message = "[target.real_name] настоящим приказом был лишён защиты Космического Закона и приговорён к смертной казни. Всему экипажу разрешено и рекомендуется исполнить приговор. Между членами экипажа принявшими участие в процессе казни будет автоматически распределено денежное вознаграждение в размере [bounty] кредит[DECL_CREDIT(bounty)].",
 		new_title = ANNOUNCE_CCKILL_RU,
-		new_sound = 'sound/AI/commandreport.ogg'
+		new_sound = SSstation.announcer.get_rand_report_sound(),
 	)
 	ADD_TRAIT(target, TRAIT_NO_CLONE, ADMIN_TRAIT)
 	target.AddComponent(/datum/component/killing_reward, bounty)
@@ -495,6 +497,7 @@
 	var/turf/target_turf = get_turf(target)
 	var/obj/fallen = new type(target_turf)
 	target_turf.zImpact(fallen, 1)
+	playsound(fallen, 'sound/misc/metal_pipe_falling.ogg', 50, FALSE, 3)
 	to_chat(target, span_userdanger(
 		"Откуда-то сверху на вас пада[PLUR_ET_YUT(fallen)] [fallen.declent_ru(NOMINATIVE)]! \
 		Вам почему-то кажется, что это наказание за [reason]." \
@@ -581,6 +584,18 @@
 	ADD_TRAIT(target, TRAIT_AIRLOCK_HIT, ADMIN_TRAIT)
 	to_chat(target, span_userdanger("Вы чувствуете что стали на пару сантиметров выше. К чему бы это? Может это наказание за [reason]?"))
 
+// MARK: Self Control
+/datum/smite/self_control
+	name = SMITE_SELF_CONTROL
+	desc = "Покажите свои возможности к самоконтролю!"
+	logmsg = "self control watermelon"
+	category = SMITE_CATEGORY_CONTROL
+
+/datum/smite/self_control/apply_effect(mob/living/target, reason)
+	var/obj/item/reagent_containers/food/snacks/watermelonslice/self_control_slice/self_control_watermelon = new()
+	target.put_in_any_hand_if_possible(self_control_watermelon)
+	to_chat(target, span_userdanger("Вы чувствуете, что в вашей руке появилась долька арбуза. Но что она значит?"))
+
 // MARK: Admin smite proc
 ADMIN_VERB_ONLY_CONTEXT_MENU(admin_smite, R_ADMIN|R_EVENT, "Smite", mob/living/target in GLOB.mob_list)
 	if(!istype(target))
@@ -631,6 +646,8 @@ ADMIN_VERB(admin_smite_in_list, R_ADMIN|R_EVENT, "Smite in List", "Smite a playe
 	var/list/categorized_smites = list()
 	for(var/name in all_smites)
 		var/datum/smite/smite_type = all_smites[name]
+		if(!check_rights(smite_type.permissions, FALSE, user))
+			continue
 		var/category = initial(smite_type.category)
 		if(!categorized_smites[category])
 			categorized_smites[category] = list()

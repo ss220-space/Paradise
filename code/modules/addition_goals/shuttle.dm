@@ -98,7 +98,7 @@
 	for(var/turf/turf in turfs)
 		//open all containers before delete
 		for(var/atom/movable/content in turf.contents)
-			if(istype(content, /obj/structure/closet))
+			if(iscloset(content))
 				var/obj/structure/closet/closet = content
 				closet.open()
 		//delete all
@@ -110,7 +110,7 @@
 			if(is_highrisk_item(content))
 				teleportate_item_to_station(content)
 				continue
-			if(istype(content, /mob/living/))
+			if(isliving(content))
 				var/mob/living/living = content
 				if(living.mind) // this is player
 					teleportate_player_to_station(living)

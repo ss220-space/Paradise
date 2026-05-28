@@ -55,6 +55,8 @@
 #define GLAND_HUD "25"
 /// Pressure coloring for tiles
 #define PRESSURE_HUD "26"
+/// AI shell status
+#define DIAG_AISHELL_STAT_HUD "27"
 /// Telepathy bubbles
 #define THOUGHT_HUD "thoughts_hud"
 /// Kidan pheromones hud
@@ -178,3 +180,6 @@
 
 //Blobbernauts
 #define ui_blobbernaut_overmind_health "EAST-1:28,CENTER+0:19"
+
+/// The filter name for the hover outline
+#define HOVER_OUTLINE_FILTER "hover_outline"

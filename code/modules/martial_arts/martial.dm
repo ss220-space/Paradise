@@ -51,7 +51,7 @@
 	/// Set to TRUE to prevent users of this style from using stun batons (and stunprods)
 	var/no_baton = FALSE
 	/// Message displayed when someone uses a baton when its forbidden by a martial art
-	var/no_baton_reason = span_warning("Из-за занятий по боевым искусствам вы не можете крепко схватиться за станбатон!")
+	var/no_baton_reason = span_warning_alt("Из-за занятий по боевым искусствам вы не можете крепко схватиться за станбатон!")
 	/// Whether or not you can grab someone while horizontal with this Martial Art
 	var/can_horizontally_grab = TRUE
 	/// If falce, doesn't change strength and strength limit.
@@ -74,7 +74,7 @@
 	return act(MARTIAL_COMBO_STEP_HELP, A, D)
 
 /datum/martial_art/proc/can_use(mob/living/carbon/human/human)
-	return !HAS_TRAIT(human, TRAIT_PACIFISM)
+	return !HAS_TRAIT(human, TRAIT_PACIFISM) && !HAS_TRAIT(human, TRAIT_MARTIAL_ARTS_SUPPRESSED)
 
 /datum/martial_art/proc/act(step, mob/living/carbon/human/user, mob/living/carbon/human/target, could_start_new_combo = TRUE)
 	if(!can_use(user))
@@ -179,7 +179,7 @@
 	return TRUE
 
 /datum/martial_art/proc/attack_reaction(mob/living/carbon/human/defender, mob/living/carbon/human/attacker, obj/item/I, visible_message, self_message)
-	if(can_use(defender) && defender.in_throw_mode && !defender.incapacitated(INC_IGNORE_GRABBED))
+	if(can_use(defender) && defender.in_throw_mode && !defender.incapacitated(IGNORE_GRAB))
 		if(prob(block_chance))
 			if(visible_message || self_message)
 				defender.visible_message(visible_message, self_message)
@@ -289,6 +289,11 @@
 
 // Put after the header and before the footer in the explaination text
 /datum/martial_art/proc/explaination_combos(user)
+	var/mob/living/carbon/human/human = user
+	if(HAS_TRAIT(human, TRAIT_MARTIAL_ARTS_SUPPRESSED))
+		to_chat(user, span_warning("Что-то подавляет ваши боевые навыки... Вы не можете вспомнить техники."))
+		return
+
 	if(HAS_COMBOS)
 		for(var/combo_type in combos)
 			var/datum/martial_combo/MC = new combo_type()
@@ -303,6 +308,8 @@
 	return
 
 /datum/martial_art/proc/try_deflect(mob/user)
+	if(HAS_TRAIT(user, TRAIT_MARTIAL_ARTS_SUPPRESSED))
+		return FALSE
 	return prob(deflection_chance)
 
 /datum/martial_art/proc/explaination_notice(user)

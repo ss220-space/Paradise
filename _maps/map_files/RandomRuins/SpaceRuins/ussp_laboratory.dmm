@@ -56,18 +56,17 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/ussp_xeno/medbay)
 "bT" = (
-/obj/effect/decal/warning_stripes/south,
-/obj/machinery/power/apc{
-	equipment_channel = 0;
-	pixel_y = 27
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
+/obj/machinery/power/apc/directional/north{
+	equipment_channel = 0
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/structure/reagent_dispensers/fueltank,
@@ -77,13 +76,14 @@
 	},
 /area/ruin/ussp_xeno/engi)
 "bU" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "whiteblue";
-	tag = "icon-whitehall (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/ussp_xeno/medbay)
 "bV" = (
@@ -120,12 +120,8 @@
 	},
 /area/ruin/ussp_xeno/gym_ussp)
 "cb" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1;
 	welded = 1
 	},
 /obj/structure/cable{
@@ -157,8 +153,7 @@
 	layer = 2.9
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "whitebluecorner";
-	tag = "icon-whitebluecorner"
+	icon_state = "whitebluecorner"
 	},
 /area/ruin/ussp_xeno/medbay)
 "dh" = (
@@ -167,9 +162,7 @@
 	pixel_y = 17
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/newscaster{
-	pixel_x = 32
-	},
+/obj/machinery/newscaster/directional/east,
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -181,25 +174,25 @@
 	pixel_x = -4;
 	pixel_y = 3
 	},
-/obj/effect/decal/warning_stripes/yellow,
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
 /area/ruin/ussp_xeno/entrance)
 "dt" = (
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/structure/rack,
 /obj/item/reagent_containers/glass/beaker/waterbottle/large{
 	pixel_x = -2;
 	pixel_y = 9
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	dir = 1;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -233,14 +226,12 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/ussp_xeno/medbay)
 "dQ" = (
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken5";
-	tag = "icon-wood-broken5"
+	icon_state = "wood-broken5"
 	},
 /area/ruin/ussp_xeno/out)
 "ef" = (
@@ -251,12 +242,8 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/ussp_xeno/out)
 "en" = (
-/obj/machinery/newscaster{
-	pixel_x = 32
-	},
-/obj/structure/extinguisher_cabinet{
-	pixel_y = -30
-	},
+/obj/machinery/newscaster/directional/east,
+/obj/structure/extinguisher_cabinet/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkred"
@@ -286,7 +273,9 @@
 	},
 /area/ruin/ussp_xeno/entrance)
 "fo" = (
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light{
 	dir = 1;
@@ -327,20 +316,20 @@
 	},
 /area/ruin/ussp_xeno/dorms_ussp)
 "fz" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whiteblue";
-	tag = "icon-whitehall (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/ussp_xeno/medbay)
 "fL" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/structure/cable{
@@ -402,7 +391,6 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkredfull"
 	},
 /area/ruin/ussp_xeno/storage)
@@ -414,15 +402,12 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "vault";
-	tag = "icon-vault (WEST)"
+	icon_state = "vault"
 	},
 /area/ruin/ussp_xeno/medbay)
 "gG" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/alarm{
-	dir = 1;
-	pixel_y = -22;
+/obj/machinery/alarm/directional/south{
 	alarm_frequency = 1200
 	},
 /obj/structure/alien/weeds,
@@ -456,8 +441,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "vault";
-	tag = "icon-vault (WEST)"
+	icon_state = "vault"
 	},
 /area/ruin/ussp_xeno/medbay)
 "gW" = (
@@ -492,7 +476,9 @@
 	},
 /area/ruin/ussp_xeno/admiral)
 "hn" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/effect/decal/cleanable/blood/xeno,
 /obj/structure/disposalpipe/segment{
 	dir = 9
@@ -506,8 +492,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whiteblue";
-	tag = "icon-whitehall (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/ussp_xeno/medbay)
 "hr" = (
@@ -569,7 +554,7 @@
 	},
 /area/ruin/ussp_xeno/entrance)
 "ig" = (
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/sofa/right{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -630,8 +615,12 @@
 /area/ruin/ussp_xeno/gym_ussp)
 "jj" = (
 /obj/structure/rack,
-/obj/effect/decal/warning_stripes/northeastcorner,
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/item/flashlight/seclite{
 	pixel_y = -9
 	},
@@ -679,7 +668,9 @@
 	},
 /area/ruin/ussp_xeno/entrance)
 "jA" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -691,8 +682,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whiteblue";
-	tag = "icon-whitehall (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/ussp_xeno/medbay)
 "jC" = (
@@ -713,7 +703,9 @@
 	pixel_x = 7;
 	pixel_y = -8
 	},
-/obj/effect/decal/warning_stripes/northeastsouth,
+/obj/effect/turf_decal/stripes/end{
+	dir = 4
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -738,7 +730,7 @@
 /area/ruin/ussp_xeno/medbay)
 "kA" = (
 /obj/structure/weightmachine/weightlifter,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -754,8 +746,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "vault";
-	tag = "icon-vault (WEST)"
+	icon_state = "vault"
 	},
 /area/ruin/ussp_xeno/medbay)
 "kR" = (
@@ -798,8 +789,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "whitebluecorner";
-	tag = "icon-whitebluecorner"
+	icon_state = "whitebluecorner"
 	},
 /area/ruin/ussp_xeno/medbay)
 "lt" = (
@@ -894,8 +884,7 @@
 /area/ruin/ussp_xeno/out)
 "no" = (
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken6";
-	tag = "icon-wood-broken6"
+	icon_state = "wood-broken6"
 	},
 /area/ruin/ussp_xeno/out)
 "nq" = (
@@ -961,13 +950,10 @@
 /area/ruin/ussp_xeno/dorms_ussp)
 "oA" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/apc{
-	dir = 1;
-	equipment_channel = 0;
-	pixel_y = -26
+/obj/machinery/power/apc/directional/south{
+	equipment_channel = 0
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -1030,7 +1016,9 @@
 "pG" = (
 /obj/machinery/portable_atmospherics/canister/air,
 /obj/machinery/atmospherics/unary/portables_connector,
-/obj/effect/decal/warning_stripes/southeastcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 2
+	},
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -1055,8 +1043,7 @@
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "whitebluecorner";
-	tag = "icon-whitebluecorner"
+	icon_state = "whitebluecorner"
 	},
 /area/ruin/ussp_xeno/medbay)
 "qb" = (
@@ -1064,8 +1051,10 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/yellow,
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkred"
@@ -1088,8 +1077,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (NORTH)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/ussp_xeno/medbay)
 "qy" = (
@@ -1164,7 +1152,6 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkredfull"
 	},
 /area/ruin/ussp_xeno/admiral)
@@ -1191,20 +1178,13 @@
 /obj/structure/bed,
 /obj/item/bedsheet/red,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -6;
-	pixel_y = -30
-	},
+/obj/structure/extinguisher_cabinet/directional/south,
 /obj/machinery/light{
 	on = 1
 	},
 /obj/structure/alien/weeds,
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	dir = 1;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -1214,8 +1194,7 @@
 /obj/structure/closet/firecloset,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (NORTH)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/ussp_xeno/medbay)
 "sG" = (
@@ -1251,7 +1230,7 @@
 "sZ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small,
-/obj/effect/decal/warning_stripes/yellow/partial{
+/obj/effect/turf_decal/delivery/partial{
 	dir = 8
 	},
 /obj/structure/sign/vacuum/external{
@@ -1259,8 +1238,7 @@
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8;
-	frequency = 1379;
-	tag = "SSSP_Xeno_pump"
+	frequency = 1379
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -1316,7 +1294,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkredfull"
 	},
 /area/ruin/ussp_xeno/storage)
@@ -1447,8 +1424,7 @@
 /obj/item/organ/internal/brain/xeno,
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "vault";
-	tag = "icon-vault (WEST)"
+	icon_state = "vault"
 	},
 /area/ruin/ussp_xeno/medbay)
 "vL" = (
@@ -1471,8 +1447,10 @@
 	pixel_x = 8;
 	pixel_y = 10
 	},
-/obj/effect/decal/warning_stripes/yellow,
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/item/flashlight/seclite,
 /obj/machinery/light{
 	on = 1
@@ -1483,7 +1461,9 @@
 	},
 /area/ruin/ussp_xeno/entrance)
 "vP" = (
-/obj/effect/decal/warning_stripes/northeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
 /obj/structure/rack,
 /obj/item/reagent_containers/food/drinks/cans/beer{
 	pixel_x = -7;
@@ -1554,9 +1534,10 @@
 	},
 /area/ruin/ussp_xeno/medbay)
 "wi" = (
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/power/smes/engineering{
@@ -1603,8 +1584,7 @@
 /obj/machinery/smartfridge/secure/extract,
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "whitebluecorner";
-	tag = "icon-whiteblue (NORTH)"
+	icon_state = "whitebluecorner"
 	},
 /area/ruin/ussp_xeno/medbay)
 "wO" = (
@@ -1632,8 +1612,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/ussp_xeno/medbay)
 "xi" = (
@@ -1655,23 +1634,18 @@
 	name = "Старая бутылка водки";
 	pixel_x = -5
 	},
-/obj/effect/decal/warning_stripes/north,
-/obj/structure/extinguisher_cabinet{
-	pixel_x = 25;
-	pixel_y = 3
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
 	},
+/obj/structure/extinguisher_cabinet/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
 	},
 /area/ruin/ussp_xeno/storage)
 "xz" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	dir = 4;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/alien/weeds,
@@ -1711,8 +1685,12 @@
 	pixel_x = -12;
 	pixel_y = -11
 	},
-/obj/effect/decal/warning_stripes/north,
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/structure/alien/weeds,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
@@ -1724,8 +1702,10 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/effect/decal/warning_stripes/yellow,
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/machinery/suit_storage_unit/standard_unit,
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -1754,10 +1734,11 @@
 	pixel_x = 2;
 	pixel_y = 2
 	},
-/obj/effect/decal/warning_stripes/yellow,
-/obj/effect/decal/warning_stripes/south,
-/obj/machinery/alarm{
-	pixel_y = 24;
+/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
+/obj/machinery/alarm/directional/north{
 	alarm_frequency = 1200
 	},
 /turf/simulated/floor/plasteel{
@@ -1781,7 +1762,6 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkredfull"
 	},
 /area/ruin/ussp_xeno/medbay)
@@ -1789,8 +1769,10 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/effect/decal/warning_stripes/yellow,
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/machinery/suit_storage_unit/standard_unit,
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -1830,12 +1812,11 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/north,
-/obj/machinery/portable_atmospherics/scrubber,
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -6;
-	pixel_y = -30
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
 	},
+/obj/machinery/portable_atmospherics/scrubber,
+/obj/structure/extinguisher_cabinet/directional/south,
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution"
@@ -1848,7 +1829,9 @@
 	pixel_x = 1;
 	pixel_y = 1
 	},
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -1890,8 +1873,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "ramptop";
-	tag = "icon-stage_stairs"
+	icon_state = "ramptop"
 	},
 /area/ruin/ussp_xeno/gym_ussp)
 "AX" = (
@@ -1912,10 +1894,8 @@
 /turf/simulated/wall/r_wall,
 /area/ruin/ussp_xeno/storage)
 "Bn" = (
-/obj/machinery/power/apc{
-	dir = 1;
-	equipment_channel = 0;
-	pixel_y = -26
+/obj/machinery/power/apc/directional/south{
+	equipment_channel = 0
 	},
 /obj/structure/cable,
 /obj/structure/alien/weeds,
@@ -1924,9 +1904,7 @@
 	},
 /area/ruin/ussp_xeno/gym_ussp)
 "Br" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_y = 32
-	},
+/obj/structure/extinguisher_cabinet/directional/north,
 /obj/machinery/light_switch/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -2032,10 +2010,11 @@
 /area/ruin/ussp_xeno/dorms_ussp)
 "Cx" = (
 /obj/machinery/floodlight,
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/alarm{
-	pixel_y = 24;
+/obj/machinery/alarm/directional/north{
 	alarm_frequency = 1200
 	},
 /turf/simulated/floor/plasteel{
@@ -2045,7 +2024,7 @@
 /area/ruin/ussp_xeno/engi)
 "CL" = (
 /obj/structure/weightmachine/stacklifter,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plasteel{
@@ -2055,13 +2034,11 @@
 "CV" = (
 /obj/item/reagent_containers/glass/beaker,
 /obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 8;
-	tag = "SSSP_Xeno_pump"
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "whitebluecorner";
-	tag = "icon-whiteblue (NORTH)"
+	icon_state = "whitebluecorner"
 	},
 /area/ruin/ussp_xeno/medbay)
 "CX" = (
@@ -2095,7 +2072,6 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkredfull"
 	},
 /area/ruin/ussp_xeno/storage)
@@ -2104,7 +2080,9 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/northeastcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "caution"
@@ -2142,9 +2120,7 @@
 /area/ruin/ussp_xeno/out)
 "Eo" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/alarm{
-	dir = 1;
-	pixel_y = -22;
+/obj/machinery/alarm/directional/south{
 	alarm_frequency = 1200
 	},
 /obj/structure/sink{
@@ -2152,8 +2128,7 @@
 	},
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plasteel{
-	icon_state = "whiteblue";
-	tag = "icon-whitehall (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/ussp_xeno/medbay)
 "Fd" = (
@@ -2161,7 +2136,9 @@
 /obj/item/weldingtool{
 	pixel_x = -4
 	},
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -2192,19 +2169,16 @@
 	pixel_y = 10
 	},
 /obj/effect/decal/cleanable/cobweb,
-/obj/effect/decal/warning_stripes/southeastcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 2
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
 	},
 /area/ruin/ussp_xeno/storage)
 "Fx" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
-	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -2245,14 +2219,15 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 5
 	},
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/power/port_gen/pacman,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -2285,8 +2260,7 @@
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "vault";
-	tag = "icon-vault (WEST)"
+	icon_state = "vault"
 	},
 /area/ruin/ussp_xeno/medbay)
 "GC" = (
@@ -2316,8 +2290,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken7";
-	tag = "icon-wood-broken7"
+	icon_state = "wood-broken7"
 	},
 /area/ruin/ussp_xeno/out)
 "GH" = (
@@ -2355,9 +2328,7 @@
 	},
 /area/ruin/ussp_xeno/dorms_ussp)
 "GU" = (
-/obj/machinery/newscaster{
-	pixel_x = 32
-	},
+/obj/machinery/newscaster/directional/east,
 /obj/structure/alien/weeds,
 /obj/structure/alien/egg/burst,
 /turf/simulated/floor/plasteel{
@@ -2373,7 +2344,9 @@
 	},
 /obj/item/storage/belt/utility,
 /obj/item/crowbar/red,
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1;
 	welded = 1
@@ -2384,7 +2357,7 @@
 	},
 /area/ruin/ussp_xeno/engi)
 "GW" = (
-/obj/effect/decal/warning_stripes/yellow/partial{
+/obj/effect/turf_decal/delivery/partial{
 	dir = 8
 	},
 /obj/machinery/airlock_sensor{
@@ -2402,8 +2375,7 @@
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8;
-	frequency = 1379;
-	tag = "SSSP_Xeno_pump"
+	frequency = 1379
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredcorners"
@@ -2415,8 +2387,7 @@
 /obj/structure/alien/egg/burst,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "whitebluecorner";
-	tag = "icon-whitebluecorner"
+	icon_state = "whitebluecorner"
 	},
 /area/ruin/ussp_xeno/medbay)
 "Hi" = (
@@ -2441,20 +2412,16 @@
 /obj/item/clothing/head/ushanka,
 /obj/item/clothing/mask/gas,
 /turf/simulated/floor/plasteel{
-	icon_state = "whitebluecorner";
-	tag = "icon-whitebluecorner"
+	icon_state = "whitebluecorner"
 	},
 /area/ruin/ussp_xeno/medbay)
 "HV" = (
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken7";
-	tag = "icon-wood-broken7"
+	icon_state = "wood-broken7"
 	},
 /area/ruin/ussp_xeno/out)
 "HW" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_y = -30
-	},
+/obj/structure/extinguisher_cabinet/directional/south,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -2475,7 +2442,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/portable_atmospherics/pump,
 /obj/structure/alien/weeds,
@@ -2518,12 +2487,7 @@
 	pixel_y = 20
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
-	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkredcorners"
@@ -2703,7 +2667,9 @@
 	dir = 9
 	},
 /obj/machinery/portable_atmospherics/canister/oxygen,
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution"
@@ -2723,8 +2689,7 @@
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "vault";
-	tag = "icon-vault (WEST)"
+	icon_state = "vault"
 	},
 /area/ruin/ussp_xeno/medbay)
 "Mg" = (
@@ -2737,19 +2702,18 @@
 	},
 /area/ruin/ussp_xeno/gym_ussp)
 "Mk" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/apc{
-	dir = 1;
-	equipment_channel = 0;
-	pixel_y = -26
+/obj/machinery/power/apc/directional/south{
+	equipment_channel = 0
 	},
 /obj/structure/cable,
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plasteel{
 	dir = 6;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (SOUTHEAST)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/ussp_xeno/medbay)
 "Mn" = (
@@ -2759,12 +2723,8 @@
 "Mu" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/alien/weeds,
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	dir = 8;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -2778,9 +2738,7 @@
 /obj/effect/decal/cleanable/blood,
 /obj/item/clothing/under/soviet,
 /obj/item/clothing/head/ushanka,
-/obj/machinery/alarm{
-	dir = 4;
-	pixel_x = -22;
+/obj/machinery/alarm/directional/west{
 	alarm_frequency = 1200
 	},
 /turf/simulated/floor/plasteel{
@@ -2802,10 +2760,8 @@
 "MC" = (
 /obj/structure/bed,
 /obj/item/bedsheet/rainbow,
-/obj/machinery/power/apc{
-	dir = 1;
-	equipment_channel = 0;
-	pixel_y = -26
+/obj/machinery/power/apc/directional/south{
+	equipment_channel = 0
 	},
 /obj/structure/cable,
 /turf/simulated/floor/plasteel{
@@ -2823,23 +2779,12 @@
 /obj/structure/filingcabinet/chestdrawer,
 /turf/simulated/floor/plasteel{
 	dir = 10;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (SOUTHWEST)"
-	},
-/area/ruin/ussp_xeno/medbay)
-"Nf" = (
-/obj/effect/decal/cleanable/blood,
-/obj/structure/alien/weeds,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault";
-	tag = "icon-vault (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/ussp_xeno/medbay)
 "Nh" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -2874,7 +2819,9 @@
 	},
 /area/ruin/ussp_xeno/out)
 "NC" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/light{
 	dir = 4
@@ -2882,8 +2829,7 @@
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whiteblue";
-	tag = "icon-whitehall (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/ussp_xeno/medbay)
 "NL" = (
@@ -2896,8 +2842,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "whitebluecorner";
-	tag = "icon-whiteblue (NORTH)"
+	icon_state = "whitebluecorner"
 	},
 /area/ruin/ussp_xeno/medbay)
 "NO" = (
@@ -2918,7 +2863,9 @@
 	},
 /area/ruin/ussp_xeno/baracks)
 "NU" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/machinery/light{
 	dir = 4
 	},
@@ -2927,8 +2874,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whiteblue";
-	tag = "icon-whitehall (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/ussp_xeno/medbay)
 "Oa" = (
@@ -2939,10 +2885,7 @@
 	dir = 9
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/alarm{
-	dir = 8;
-	pixel_x = 24
-	},
+/obj/machinery/alarm/directional/east,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -2957,7 +2900,9 @@
 	},
 /area/ruin/ussp_xeno/storage)
 "Oc" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -2968,8 +2913,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whiteblue";
-	tag = "icon-whitehall (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/ussp_xeno/medbay)
 "Ol" = (
@@ -3005,7 +2949,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkredfull"
 	},
 /area/ruin/ussp_xeno/baracks)
@@ -3076,7 +3019,9 @@
 	},
 /obj/item/storage/box/lights/mixed,
 /obj/item/clothing/gloves/color/fyellow,
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/structure/sign/poster/official/random{
 	pixel_y = 32
 	},
@@ -3085,7 +3030,6 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/power/terminal{
@@ -3097,7 +3041,9 @@
 	},
 /area/ruin/ussp_xeno/storage)
 "Pc" = (
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/structure/reagent_dispensers/watertank,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -3105,7 +3051,7 @@
 	},
 /area/ruin/ussp_xeno/engi)
 "PG" = (
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/sofa/left{
 	dir = 4
 	},
 /obj/structure/sign/poster/official/random{
@@ -3136,8 +3082,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whitebluecorner";
-	tag = "icon-whitebluecorner"
+	icon_state = "whitebluecorner"
 	},
 /area/ruin/ussp_xeno/medbay)
 "Qa" = (
@@ -3174,8 +3119,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/ussp_xeno/medbay)
 "Qi" = (
@@ -3194,12 +3138,11 @@
 /obj/structure/chair/office/light{
 	dir = 8
 	},
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whitebluecorner";
-	tag = "icon-whitebluecorner"
+	icon_state = "whitebluecorner"
 	},
 /area/ruin/ussp_xeno/medbay)
 "Rl" = (
@@ -3225,7 +3168,6 @@
 "RO" = (
 /obj/effect/decal/cleanable/blood/writing,
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkredfull"
 	},
 /area/ruin/ussp_xeno/dorms_ussp)
@@ -3239,7 +3181,9 @@
 	pixel_x = 1;
 	pixel_y = 6
 	},
-/obj/effect/decal/warning_stripes/northwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -3285,9 +3229,7 @@
 /area/ruin/ussp_xeno/dorms_ussp)
 "Tc" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/newscaster{
-	pixel_x = 32
-	},
+/obj/machinery/newscaster/directional/east,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -3301,8 +3243,7 @@
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/plasteel{
 	dir = 9;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (NORTHWEST)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/ussp_xeno/medbay)
 "Tr" = (
@@ -3321,7 +3262,9 @@
 /obj/item/extinguisher/mini{
 	pixel_x = -5
 	},
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/machinery/light{
 	dir = 8
 	},
@@ -3376,14 +3319,13 @@
 /obj/structure/chair/office/light{
 	dir = 8
 	},
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whitebluecorner";
-	tag = "icon-whitebluecorner"
+	icon_state = "whitebluecorner"
 	},
 /area/ruin/ussp_xeno/medbay)
 "TX" = (
@@ -3403,8 +3345,12 @@
 	pixel_x = -3;
 	pixel_y = 2
 	},
-/obj/effect/decal/warning_stripes/north,
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -3421,8 +3367,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	icon_state = "whitebluecorner";
-	tag = "icon-whitebluecorner"
+	icon_state = "whitebluecorner"
 	},
 /area/ruin/ussp_xeno/medbay)
 "Un" = (
@@ -3434,8 +3379,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/ussp_xeno/medbay)
 "UM" = (
@@ -3444,14 +3388,14 @@
 	pixel_x = -4;
 	pixel_y = 3
 	},
-/obj/effect/decal/warning_stripes/yellow,
-/obj/effect/decal/warning_stripes/south,
-/obj/machinery/power/apc{
-	equipment_channel = 0;
-	pixel_y = 27
+/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
+/obj/machinery/power/apc/directional/north{
+	equipment_channel = 0
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -3530,15 +3474,14 @@
 	pixel_x = -9;
 	pixel_y = 8
 	},
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/apc{
-	dir = 8;
-	equipment_channel = 0;
-	pixel_x = -27
+/obj/machinery/power/apc/directional/west{
+	equipment_channel = 0
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -3564,7 +3507,6 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkredfull"
 	},
 /area/ruin/ussp_xeno/dorms_ussp)
@@ -3575,8 +3517,7 @@
 /obj/structure/bed,
 /obj/item/bedsheet/red,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/alarm{
-	pixel_y = 24;
+/obj/machinery/alarm/directional/north{
 	alarm_frequency = 1200
 	},
 /obj/machinery/light{
@@ -3597,8 +3538,7 @@
 	},
 /area/ruin/ussp_xeno/medbay)
 "Xh" = (
-/obj/machinery/alarm{
-	pixel_y = 24;
+/obj/machinery/alarm/directional/north{
 	alarm_frequency = 1200
 	},
 /obj/structure/chair/comfy/red{
@@ -3626,13 +3566,10 @@
 "XV" = (
 /obj/effect/decal/remains/xeno,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/extinguisher_cabinet{
-	pixel_y = -32
-	},
+/obj/structure/extinguisher_cabinet/directional/south,
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plasteel{
-	icon_state = "whiteblue";
-	tag = "icon-whitehall (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/ussp_xeno/medbay)
 "Ym" = (
@@ -3641,12 +3578,12 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/yellow,
-/obj/effect/decal/warning_stripes/south,
-/obj/effect/decal/cleanable/cobweb2,
-/obj/structure/extinguisher_cabinet{
-	pixel_y = 32
+/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
 	},
+/obj/effect/decal/cleanable/cobweb2,
+/obj/structure/extinguisher_cabinet/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkred"
@@ -3721,12 +3658,10 @@
 	},
 /area/ruin/ussp_xeno/gym_ussp)
 "Zg" = (
-/obj/machinery/power/apc{
-	equipment_channel = 0;
-	pixel_y = 27
+/obj/machinery/power/apc/directional/north{
+	equipment_channel = 0
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/structure/chair/comfy/red{
@@ -3794,7 +3729,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkredfull"
 	},
 /area/ruin/ussp_xeno/gym_ussp)
@@ -4678,7 +4612,7 @@ kr
 wb
 Jt
 BA
-Nf
+Xd
 GB
 kr
 KY

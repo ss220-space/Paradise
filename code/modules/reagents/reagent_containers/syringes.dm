@@ -60,8 +60,8 @@
 /obj/item/reagent_containers/syringe/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	return ATTACK_CHAIN_PROCEED
 
-/obj/item/reagent_containers/syringe/afterattack(atom/target, mob/user, proximity, params)
-	if(!proximity)
+/obj/item/reagent_containers/syringe/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag)
 		return
 	if(!target.reagents)
 		return
@@ -175,8 +175,8 @@
 	var/rounded_vol
 	if(reagents?.total_volume)
 		rounded_vol = clamp(round((reagents.total_volume / volume * 15), 5), 1, 15)
-		var/image/filling_overlay = mutable_appearance('icons/obj/reagentfillings.dmi', "syringe[rounded_vol]")
-		filling_overlay.icon += mix_color_from_reagents(reagents.reagent_list)
+		var/mutable_appearance/filling_overlay = mutable_appearance('icons/obj/reagentfillings.dmi', "syringe[rounded_vol]")
+		filling_overlay.color = get_color_matrix_from_reagents(reagents.reagent_list)
 		. += filling_overlay
 	if(ismob(loc) || istype(loc, /obj/item/gripper))
 		var/injoverlay
@@ -187,11 +187,6 @@
 				injoverlay = "inject"
 		. += injoverlay
 		update_equipped_item(update_speedmods = FALSE)
-
-/obj/item/reagent_containers/syringe/traitor_random/Initialize(mapload)
-	list_reagents = list()
-	list_reagents[pick_list(CHEMISTRY_TOOLS_FILE, "traitor_poison_bottle")] = volume
-	. = ..()
 
 /obj/item/reagent_containers/syringe/antiviral
 	name = "Syringe (spaceacillin)"

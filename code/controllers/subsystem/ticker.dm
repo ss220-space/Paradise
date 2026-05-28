@@ -1,13 +1,8 @@
 SUBSYSTEM_DEF(ticker)
 	name = "Ticker"
-	init_order = INIT_ORDER_TICKER
-
 	priority = FIRE_PRIORITY_TICKER
-	flags = SS_KEEP_TIMING
+	ss_flags = SS_KEEP_TIMING
 	runlevels = RUNLEVEL_LOBBY | RUNLEVEL_SETUP | RUNLEVEL_GAME
-	offline_implications = "The game is no longer aware of when the round ends. Immediate server restart recommended."
-	cpu_display = SS_CPUDISPLAY_LOW
-	ss_id = "ticker"
 
 	/// Time the game should start, relative to world.time
 	var/round_start_time = 0
@@ -19,8 +14,6 @@ SUBSYSTEM_DEF(ticker)
 	var/current_state = GAME_STATE_STARTUP
 	/// Do we want to force-start as soon as we can
 	var/force_start = FALSE
-	/// Do we want to crew members to start on the shuttle?
-	var/shuttle_start = FALSE
 	/// Do we want to force-end as soon as we can
 	var/force_ending = FALSE
 	/// Leave here at FALSE ! setup() will take care of it when needed for Secret mode -walter0o
@@ -99,9 +92,10 @@ SUBSYSTEM_DEF(ticker)
 	switch(current_state)
 		if(GAME_STATE_STARTUP)
 			// This is ran as soon as the MC starts firing, and should only run ONCE, unless startup fails
-			round_start_time = world.time + (CONFIG_GET(number/pregame_timestart) SECONDS)
+			var/pregame_timestart = CONFIG_GET(number/pregame_timestart)
+			round_start_time = world.time + (pregame_timestart SECONDS)
 			to_chat(world, span_darkmblue("<b>Добро пожаловать в предыгровое лобби!</b>"))
-			to_chat(world, "Пожалуйста, настройте своего персонажа и выберите опцию <b>\"Готово\"</b>. Игра начнётся через [CONFIG_GET(number/pregame_timestart)] секунд[DECL_SEC_MIN(CONFIG_GET(number/pregame_timestart))].")
+			to_chat(world, "Пожалуйста, настройте своего персонажа и выберите опцию <b>\"Готово\"</b>. Игра начнётся через [pregame_timestart] секунд[DECL_SEC_MIN(pregame_timestart)].")
 			change_state(GAME_STATE_PREGAME)
 			fire() // TG says this is a good idea
 		if(GAME_STATE_PREGAME)
@@ -174,6 +168,24 @@ SUBSYSTEM_DEF(ticker)
 				to_chat(world, "<b>Следующая карта — [SSmapping.next_map.name]!</b>")
 
 			SSachievements.save_achievements_to_db()
+
+/datum/controller/subsystem/ticker/Recover()
+	current_state = SSticker.current_state
+	force_ending = SSticker.force_ending
+	login_music = SSticker.login_music
+	minds = SSticker.minds
+	delay_end = SSticker.delay_end
+	tipped = SSticker.tipped
+	selected_tip = SSticker.selected_tip
+	round_start_time = SSticker.round_start_time
+	if(Master) //Set Masters run level if it exists
+		switch(current_state)
+			if(GAME_STATE_SETTING_UP)
+				Master.SetRunLevel(RUNLEVEL_SETUP)
+			if(GAME_STATE_PLAYING)
+				Master.SetRunLevel(RUNLEVEL_GAME)
+			if(GAME_STATE_FINISHED)
+				Master.SetRunLevel(RUNLEVEL_POSTGAME)
 
 /datum/controller/subsystem/ticker/proc/call_reboot()
 	if(mode.station_was_nuked)
@@ -299,8 +311,6 @@ SUBSYSTEM_DEF(ticker)
 		minds += player.mind
 
 	watch = start_watch()
-	if(prob(5))
-		SSticker.shuttle_start = TRUE
 
 	equip_characters() // Apply outfits and loadouts to the characters
 	log_debug("Equipping characters took [stop_watch(watch)]s")
@@ -308,6 +318,8 @@ SUBSYSTEM_DEF(ticker)
 	watch = start_watch()
 	GLOB.data_core.manifest() // Create the manifest
 	log_debug("Manifest creation took [stop_watch(watch)]s")
+
+	SEND_SIGNAL(src, COMSIG_TICKER_ROUND_STARTING, world.time)
 
 	// Update the MC and state to game playing
 	change_state(GAME_STATE_PLAYING)
@@ -354,8 +366,12 @@ SUBSYSTEM_DEF(ticker)
 			qdel(S)
 
 	SSdbcore.SetRoundStart()
-	to_chat(world, span_darkmblue("<b>Приятной игры!</b>"))
-	SEND_SOUND(world, sound('sound/AI/welcome.ogg'))
+	to_chat(world, span_darkmblue(span_bold("Добро пожаловать на [station_name()], желаем вам приятного пребывания!")))
+	SEND_SOUND(world, sound(
+			SSstation.announcer.get_rand_welcome_sound(),
+			channel = CHANNEL_ANNOUNCER,
+			volume = 40,
+		))
 
 	if(SSholiday.holidays)
 		to_chat(world, span_darkmblue("и..."))
@@ -363,9 +379,10 @@ SUBSYSTEM_DEF(ticker)
 			var/datum/holiday/holiday = SSholiday.holidays[holidayname]
 			to_chat(world, "<h4>[holiday.greet()]</h4>")
 
-	SSdiscord.send2discord_simple_noadmins("**\[Info]** Round has started")
+	GLOB.discord_manager.send2discord_simple_noadmins("**\[Info]** Round has started")
 	auto_toggle_ooc(FALSE) // Turn it off
 	time_game_started = world.time
+
 
 	if(CONFIG_GET(number/restrict_maint))
 		for(var/obj/machinery/door/airlock/maintenance/M in GLOB.airlocks)

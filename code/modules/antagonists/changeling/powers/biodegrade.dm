@@ -11,7 +11,7 @@
 /datum/action/changeling/biodegrade/sting_action(mob/living/carbon/human/user)
 	var/used = FALSE // only one form of shackles removed per use
 
-	if(!HAS_TRAIT(user, TRAIT_RESTRAINED) && !istype(user.loc, /obj/structure/closet) && !istype(user.loc, /obj/structure/spider/cocoon) && !user.pulledby)
+	if(!HAS_TRAIT(user, TRAIT_RESTRAINED) && !iscloset(user.loc) && !istype(user.loc, /obj/structure/spider/cocoon) && !user.pulledby)
 		to_chat(user, span_warning("We are already free!"))
 		return FALSE
 
@@ -62,7 +62,7 @@
 		user.forceMove(get_turf(container))
 		container.prisoner = null
 
-	if(istype(user.loc, /obj/structure/closet) && !used)
+	if(iscloset(user.loc) && !used)
 		var/obj/structure/closet/closet = user.loc
 		if(!istype(closet))
 			return FALSE

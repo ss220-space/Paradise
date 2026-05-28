@@ -1,3 +1,24 @@
+/mob/living/carbon/human/get_examine_name(mob/user)
+	var/displayed_species = get_visible_species()
+	var/examine_color = dna.species.flesh_color
+	var/skipjumpsuit = FALSE
+	var/skipface = FALSE
+
+	//exosuits and helmets obscure our view and stuff.
+	if(wear_suit)
+		skipjumpsuit = wear_suit.flags_inv & HIDEJUMPSUIT
+
+	if(head)
+		skipface = head.flags_inv & HIDENAME
+
+	if(wear_mask)
+		skipface |= wear_mask.flags_inv & HIDENAME
+
+	if(skipjumpsuit && (skipface || HAS_TRAIT(src, TRAIT_NO_SPECIES_EXAMINE))) //either obscured or on the nospecies list
+		return ..() //omit the species when examining
+	else
+		return "[..()],<b><font color='[examine_color]'> [GET_RU_SPECIES_NAME(displayed_species)]</font></b>"
+
 /mob/living/carbon/human/examine(mob/user)
 	var/skipgloves = 0
 	var/skipsuitstorage = 0
@@ -28,66 +49,7 @@
 		skipeyes |= wear_mask.flags_inv & HIDEGLASSES
 		skipears |= wear_mask.flags_inv & HIDEHEADSETS
 
-	var/msg = "Это <em>[name]</em>"
-
-	var/displayed_species = get_visible_species()
-	var/examine_color = dna.species.flesh_color
-	var/ru_species = list(
-		SPECIES_ABDUCTOR = "абдуктор",
-		SPECIES_DIONA = "диона",
-		SPECIES_DRASK = "драск",
-		SPECIES_GOLEM_BASIC = "голем",
-		SPECIES_GOLEM_RANDOM = "случайный голем",
-		SPECIES_GOLEM_ADAMANTINE = "адамантиновый голем",
-		SPECIES_GOLEM_PLASMA = "плазменный голем",
-		SPECIES_GOLEM_DIAMOND = "алмазный голем",
-		SPECIES_GOLEM_GOLD = "золотой голем",
-		SPECIES_GOLEM_SILVER = "серебряный голем",
-		SPECIES_GOLEM_PLASTEEL = "пласталевый голем",
-		SPECIES_GOLEM_TITANIUM = "титановый голем",
-		SPECIES_GOLEM_PLASTITANIUM = "пластитановый голем",
-		SPECIES_GOLEM_ALLOY = "голем из инопланетных сплавов",
-		SPECIES_GOLEM_WOOD = "деревянный голем",
-		SPECIES_GOLEM_URANIUM = "урановый голем",
-		SPECIES_GOLEM_PLASTIC = "пластиковый голем",
-		SPECIES_GOLEM_SAND = "песчаный голем",
-		SPECIES_GOLEM_GLASS = "стеклянный голем",
-		SPECIES_GOLEM_BLUESPACE = "блюспейс-голем",
-		SPECIES_GOLEM_BANANIUM = "бананиевый голем",
-		SPECIES_GOLEM_TRANQUILLITITE = "транквилитовый голем",
-		SPECIES_GOLEM_CLOCKWORK = "латунный голем",
-		SPECIES_GREY = "серый",
-		SPECIES_HUMAN = "человек",
-		SPECIES_KIDAN = "кидан",
-		SPECIES_MACNINEPERSON = "КПБ",
-		SPECIES_MONKEY = "шимпанзе",
-		SPECIES_FARWA = "фарва",
-		SPECIES_WOLPIN = "вульпин",
-		SPECIES_NEARA = "неара",
-		SPECIES_STOK = "сток",
-		SPECIES_MOTH = "ниан",
-		SPECIES_NUCLEATION = "нуклеация",
-		SPECIES_PLASMAMAN = "плазмолюд",
-		SPECIES_SHADOW_BASIC = "тень",
-		SPECIES_SHADOWLING = "тенеморф",
-		SPECIES_LESSER_SHADOWLING = "низший тенеморф",
-		SPECIES_SKELETON = "скелет",
-		SPECIES_SKRELL = "скрелл",
-		SPECIES_SLIMEPERSON = "слаймолюд",
-		SPECIES_TAJARAN = "таяран",
-		SPECIES_UNATHI = "унати",
-		SPECIES_ASHWALKER_BASIC = "пеплоходец",
-		SPECIES_ASHWALKER_SHAMAN = "шаман пеплоходец",
-		SPECIES_DRACONOID = "драконид",
-		SPECIES_VOX = "вокс",
-		SPECIES_VOX_ARMALIS = "вокс армалис",
-		SPECIES_VULPKANIN = "вульпканин",
-		SPECIES_WRYN = "врин"
-	)
-	if(skipjumpsuit && (skipface || HAS_TRAIT(src, TRAIT_NO_SPECIES_EXAMINE))) //either obscured or on the nospecies list
-		msg += ".\n"    //omit the species when examining
-	else
-		msg += ",<b><font color='[examine_color]'> [ru_species[displayed_species]]</font></b>.\n"
+	var/msg = ""
 
 	//uniform
 	if(w_uniform && !skipjumpsuit && !(w_uniform.item_flags & ABSTRACT))
@@ -216,15 +178,17 @@
 	if(wear_id)
 		msg += "[GEND_HE_SHE_CAP(src)] нос[PLUR_IT_YAT(src)] [icon2html(wear_id, user)] <b>[wear_id.declent_ru(ACCUSATIVE)]</b> на креплении ID-карты.\n"
 
-	var/rolled_down = FALSE
-	if(w_uniform && istype(w_uniform, /obj/item/clothing/under))
-		var/obj/item/clothing/under/jumpsuit = w_uniform
-		rolled_down = jumpsuit.rolled_down
-
 	var/list/strength_list = list()
 	SEND_SIGNAL(src, COMSIG_GET_STRENGTH, strength_list)
 	var/datum/strength_level/strength_level = !length(strength_list) ? STRENGTH_LEVEL_DEFAULT : strength_list[1]
-	if((rolled_down || !w_uniform || (w_uniform.item_flags & ABSTRACT)) && (!wear_suit || (wear_suit.item_flags & ABSTRACT)) && strength_level != STRENGTH_LEVEL_DEFAULT)
+
+	// Check if the clothes hide the uniform
+	var/hides_uniform = FALSE
+	if(wear_suit && (wear_suit.flags_inv & HIDEJUMPSUIT))
+		hides_uniform = TRUE
+
+	// Show strength if clothing does not hide the uniform
+	if(!hides_uniform && strength_level != STRENGTH_LEVEL_DEFAULT)
 		msg += span_notice("[GEND_HE_SHE_CAP(src)] выгляд[PLUR_IT_YAT(src)] [strength_level.strength_examine][GEND_YM_OI_YM_YMI(src)].\n")
 
 	//Status effects
@@ -374,6 +338,11 @@
 		msg += span_warning("<a href='byond://?src=[UID()];tourniquet_object=[bodypart.tourniquet.UID()];limb=[bodypart.UID()]' class='warning'>[GEND_HIS_HER_CAP(src)] [bodypart.declent_ru(NOMINATIVE)] пережат[GEND_A_O_Y(src)] [icon2html(bodypart.tourniquet, src)] [bodypart.tourniquet.declent_ru(INSTRUMENTAL)]!</a>\n")
 
 	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
+		if(!bodypart.has_fracture() || bodypart.fracture != FRACTURE_TYPE_OPEN)
+			continue
+		msg += span_warning("<a href='byond://?src=[UID()];open_fracture_limb=[bodypart.UID()]' class='warning'>Из [GEND_HIS_HER(src)] [bodypart.declent_ru(GENITIVE)] торчит кость!</a>\n")
+
+	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
 		if(!bodypart.bleeding_amount)
 			if(bodypart.bleedsuppress)
 				msg += span_warning("У н[GEND_HIS_HER(src)] [bodypart.declent_ru(NOMINATIVE)] перевязан[GEND_A_O_Y(src)] чем-то.\n")
@@ -494,10 +463,7 @@
 		msg += "\n[p_they(TRUE)] [p_are()] [pose]"
 
 	. = list(msg)
-	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
-
-/mob/living/carbon/human/get_examine_time()
-	return 1 SECONDS
+	SEND_SIGNAL(src, COMSIG_ATOM_EXAMINE, user, .)
 
 /**
  * Shows any and all examine text related to any status effects the user has.

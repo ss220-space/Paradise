@@ -6,13 +6,17 @@
 	color = "#808080"
 	taste_description = "краски"
 
-/datum/reagent/paint/reaction_turf(turf/T, volume)
-	if(!isspaceturf(T))
-		T.add_atom_colour(color, WASHABLE_COLOUR_PRIORITY)
+/datum/reagent/paint/reaction_turf(turf/target_turf, volume)
+	if(!isspaceturf(target_turf))
+		target_turf.add_atom_colour(color, WASHABLE_COLOUR_PRIORITY)
 
-/datum/reagent/paint/reaction_obj(obj/O, volume)
-	if(istype(O, /obj/item/light))
-		O.add_atom_colour(color, WASHABLE_COLOUR_PRIORITY)
+/datum/reagent/paint/reaction_obj(obj/target_obj, volume)
+	target_obj.add_atom_colour(color, WASHABLE_COLOUR_PRIORITY)
+
+/datum/reagent/paint/reaction_mob(mob/living/simple_animal/target_mob, method = REAGENT_TOUCH, volume, show_message = TRUE, touch_protection = 0)
+	if(isanimal(target_mob))
+		target_mob.add_atom_colour(color, WASHABLE_COLOUR_PRIORITY)
+	..()
 
 /datum/reagent/paint/red
 	name = "Красная краска"
@@ -57,6 +61,14 @@
 	color = "#808080"
 	taste_description = "спирта"
 
-/datum/reagent/paint_remover/reaction_turf(turf/T, volume)
-	if(!isspaceturf(T))
-		T.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
+/datum/reagent/paint_remover/reaction_turf(turf/target_turf, volume)
+	if(!isspaceturf(target_turf))
+		target_turf.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
+
+/datum/reagent/paint_remover/reaction_obj(obj/target_obj, volume)
+	target_obj.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
+
+/datum/reagent/paint_remover/reaction_mob(mob/living/simple_animal/target_mob, method = REAGENT_TOUCH, volume, show_message = TRUE, touch_protection = 0)
+	if(isanimal(target_mob))
+		target_mob.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
+	..()

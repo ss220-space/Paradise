@@ -4,15 +4,15 @@
 	var/goal = 25000
 
 /datum/station_goal/bluespace_tap/get_report()
-	return {"<b>Bluespace Harvester Experiment</b><br>
-	Another research station has developed a device called a Bluespace Harvester.
-	It reaches through bluespace into other dimensions to shift through them for interesting objects.<br>
-	Due to unforseen circumstances the large-scale test of the prototype could not be completed on the original research station. It will instead be carried out on your station.
-	Acquire the circuit board, construct the device over a wire knot and feed it enough power to generate [goal] mining points by shift end.
+	return {"<b>Эксперимент \"Блюспейс Сборщик\"</b><br>
+	Очередная исследовательская станция изобрела устройство под названием Блюспейс Сборщик.
+	Оно проходит через блюспейс в другие измерения и ищет полезные, интересные вещи.<br>
+	Из-за непредвиденных обстоятельств, крупномасштабная проверка прототипа была отменена на оригинальной станции. Она запланирована на вашем объекте.
+	Добудьте плату, создайте Блюспейс Сборщик и подключите к нему провод питания. Добудьте [goal] очков добычи до конца смены.
 	<br><br>
-	Be advised that the device is experimental and might act in slightly unforseen ways if sufficiently powered.
+	Помните, что прототип — экспериментальный и может вести себя непредвиденно при высоких нагрузках.
 	<br>
-	Nanotrasen Science Directorate"}
+	Научное Управление \"Нанотрейзен\""}
 
 /datum/station_goal/bluespace_tap/on_report()
 	var/datum/supply_packs/misc/station_goal/bluespace_tap/P = SSshuttle.supply_packs["[/datum/supply_packs/misc/station_goal/bluespace_tap]"]
@@ -31,7 +31,7 @@
 /datum/station_goal/bluespace_tap/print_result()
 	..()
 	var/highscore = get_highscore()
-	to_chat(world, "[span_bold("Bluespace Harvester Highscore")]: [highscore >= goal ? "[span_greenannounce(highscore)]": "[span_boldannounceooc(highscore)]"]")
+	to_chat(world, "[span_bold("Bluespace Harvester Highscore")]: [highscore >= goal ? "[span_greenannounce("[highscore]")]": "[span_boldannounceooc("[highscore]")]"]")
 
 //needed for the vending part of it
 /datum/data/bluespace_tap_product
@@ -95,7 +95,7 @@
 		/obj/item/lighter/zippo/gonzofist = 5,
 		/obj/item/lighter/zippo/engraved = 5,
 		/obj/item/lighter/zippo/nt_rep = 5,
-		/obj/item/gun/projectile/automatic/c20r/toy = 1,
+		/obj/item/gun/projectile/automatic/smg/c20r/toy = 1,
 		/obj/item/gun/projectile/automatic/l6_saw/toy = 1,
 		/obj/item/gun/projectile/automatic/toy/pistol = 2,
 		/obj/item/gun/projectile/automatic/toy/pistol/enforcer/riot = 1,

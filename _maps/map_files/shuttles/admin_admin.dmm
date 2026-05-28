@@ -41,16 +41,14 @@
 "at" = (
 /obj/structure/shuttle/engine/heater{
 	dir = 4;
-	icon_state = "heater3x3_side_inv";
-	tag = "icon-heater (NORTH)"
+	icon_state = "heater3x3_side_inv"
 	},
 /obj/structure/window/plasmareinforced{
 	color = "#22aab7";
 	dir = 8
 	},
 /obj/structure/shuttle/engine/platform{
-	dir = 4;
-	layer = 2.9
+	dir = 4
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "vfloor"
@@ -150,16 +148,14 @@
 "aN" = (
 /obj/structure/shuttle/engine/heater{
 	dir = 4;
-	icon_state = "heater3x3";
-	tag = "icon-heater (NORTH)"
+	icon_state = "heater3x3"
 	},
 /obj/structure/window/plasmareinforced{
 	color = "#22aab7";
 	dir = 8
 	},
 /obj/structure/shuttle/engine/platform{
-	dir = 4;
-	layer = 2.9
+	dir = 4
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "vfloor"
@@ -196,16 +192,13 @@
 	},
 /area/shuttle/administration)
 "aY" = (
-/obj/machinery/computer/camera_advanced/shuttle_docker/admin{
-	dir = 1;
-	name = "NTV Argos shuttle navigation computer"
-	},
 /obj/effect/turf_decal/stripes/gold{
 	dir = 5
 	},
 /obj/machinery/light/small{
 	dir = 1
 	},
+/obj/machinery/computer/card,
 /turf/simulated/floor/carpet/royalblack,
 /area/shuttle/administration)
 "bc" = (
@@ -269,15 +262,6 @@
 	icon_state = "vfloor"
 	},
 /area/shuttle/administration)
-"bq" = (
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	frequency = 1331;
-	id_tag = "admin_s_pump"
-	},
-/turf/simulated/floor/shuttle{
-	icon_state = "vfloor"
-	},
-/area/shuttle/administration)
 "br" = (
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	dir = 8;
@@ -296,11 +280,11 @@
 	height = 18;
 	id = "admin";
 	name = "administration shuttle";
+	port_direction = 2;
+	preferred_direction = 8;
 	roundstart_move = "admin_away";
 	timid = 1;
-	width = 18;
-	port_direction = 2;
-	preferred_direction = 8
+	width = 18
 	},
 /obj/machinery/door/airlock/external{
 	frequency = 1331;
@@ -336,12 +320,9 @@
 "bv" = (
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/shutters/preopen{
 	id_tag = "adminshuttleshutters";
-	name = "Blast Shutters";
-	opacity = 0
+	name = "Blast Shutters"
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/administration)
@@ -387,16 +368,14 @@
 "dX" = (
 /obj/structure/shuttle/engine/heater{
 	dir = 4;
-	icon_state = "heater3x3_side";
-	tag = "icon-heater (NORTH)"
+	icon_state = "heater3x3_side"
 	},
 /obj/structure/window/plasmareinforced{
 	color = "#22aab7";
 	dir = 8
 	},
 /obj/structure/shuttle/engine/platform{
-	dir = 4;
-	layer = 2.9
+	dir = 4
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "vfloor"
@@ -415,22 +394,13 @@
 	icon_state = "white"
 	},
 /area/shuttle/administration)
-"ey" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden,
-/turf/simulated/floor/shuttle{
-	icon_state = "vfloor"
-	},
-/area/shuttle/administration)
 "ft" = (
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 1;
-	icon_state = "open";
 	id_tag = "adminshuttleshutters";
-	name = "Blast Shutters";
-	opacity = 0
+	name = "Blast Shutters"
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/administration)
@@ -488,13 +458,10 @@
 "ks" = (
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
-	icon_state = "open";
 	id_tag = "adminshuttleshutters";
-	name = "Blast Shutters";
-	opacity = 0
+	name = "Blast Shutters"
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/administration)
@@ -699,6 +666,14 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/shuttle/administration)
+"sK" = (
+/obj/item/twohanded/required/kirbyplants,
+/obj/structure/extinguisher_cabinet/directional/north,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
+/area/shuttle/administration)
 "tW" = (
 /obj/structure/table/reinforced,
 /obj/item/clothing/gloves/color/latex/nitrile,
@@ -756,12 +731,12 @@
 /turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal,
 /area/shuttle/administration)
 "AE" = (
-/obj/machinery/computer/card{
-	dir = 1
-	},
 /obj/effect/turf_decal/stripes/gold{
 	dir = 5;
 	icon_state = "gs_deadlock"
+	},
+/obj/machinery/computer/camera_advanced/shuttle_docker/admin{
+	name = "NTV Argos shuttle navigation computer"
 	},
 /turf/simulated/floor/carpet/royalblack,
 /area/shuttle/administration)
@@ -777,6 +752,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/structure/extinguisher_cabinet/directional/north,
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "darkgrey"
@@ -967,8 +943,7 @@
 /area/shuttle/administration)
 "Ki" = (
 /obj/structure/shuttle/engine/platform{
-	dir = 8;
-	layer = 2.9
+	dir = 8
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "vfloor"
@@ -1051,6 +1026,17 @@
 "Rp" = (
 /turf/simulated/wall/shuttle/nodiagonal,
 /area/shuttle/administration)
+"RB" = (
+/obj/effect/turf_decal/stripes/black,
+/obj/effect/turf_decal/stripes/black{
+	dir = 1
+	},
+/obj/structure/extinguisher_cabinet/directional/north,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "white"
+	},
+/area/shuttle/administration)
 "RD" = (
 /obj/machinery/atmospherics/unary/tank/air{
 	dir = 8
@@ -1061,6 +1047,14 @@
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "podfloor_dark"
+	},
+/area/shuttle/administration)
+"RW" = (
+/obj/item/twohanded/required/kirbyplants,
+/obj/structure/extinguisher_cabinet/directional/west,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
 	},
 /area/shuttle/administration)
 "Ts" = (
@@ -1086,6 +1080,19 @@
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "darkgrey"
+	},
+/area/shuttle/administration)
+"TK" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/black{
+	dir = 4
+	},
+/obj/structure/extinguisher_cabinet/directional/west,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "podfloor_dark"
 	},
 /area/shuttle/administration)
 "UB" = (
@@ -1261,11 +1268,11 @@ Ys
 Ts
 Ts
 Ys
-YV
+RW
 cU
 Hd
 Fr
-QB
+RB
 uX
 Fr
 "}
@@ -1311,7 +1318,7 @@ Fr
 "}
 (9,1,1) = {"
 Ys
-YV
+sK
 aE
 aA
 Pz
@@ -1356,7 +1363,7 @@ Yu
 bw
 Ys
 qT
-qT
+TK
 ry
 Yu
 Yu
@@ -1458,8 +1465,8 @@ Fr
 Fr
 Fr
 yg
-bq
-ey
+bp
+br
 bp
 Fr
 Fr
@@ -1479,7 +1486,7 @@ aa
 Fr
 bf
 bp
-br
+bp
 Kn
 Fr
 aa

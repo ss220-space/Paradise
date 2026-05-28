@@ -50,7 +50,9 @@
 			"icon" = "vest-patches",
 			"products" = list(
 				/obj/item/storage/belt/security/webbing = 2,
+				/obj/item/storage/belt/security/webbing/pouch = 2,
 				/obj/item/clothing/mask/gas/sechailer/tactical = 5,
+				/obj/item/clothing/mask/whistle = 3,
 				/obj/item/storage/belt/security/judobelt = 3,
 				/obj/item/eftpos/sec = 4,
 				/obj/item/flashlight/seclite = 4,
@@ -253,7 +255,7 @@
 
 /datum/security_voucher_kit/officer/enforcer
 	kit_box = /obj/item/storage/box/enforcer_kit
-	icon = 'icons/obj/weapons/projectile.dmi'
+	icon = 'icons/obj/weapons/pistols.dmi'
 	icon_state = "enforcer_grey"
 
 /datum/security_voucher_kit/officer/specter

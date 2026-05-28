@@ -101,7 +101,6 @@
 						vaccine_name = disease.name
 
 				if(vaccine_type)
-
 					B.name = "вакцина [capitalize(vaccine_name)]"
 					B.ru_names = list(
 						NOMINATIVE = "вакцина [capitalize(vaccine_name)]",
@@ -359,6 +358,16 @@
 			return ..()
 		beaker = I
 		balloon_alert(user, "ёмкость вставлена")
+		var/datum/reagents/reagents = beaker.reagents
+		for(var/datum/reagent/reagent as anything in reagents.reagent_list)
+			var/list/reagent_data = reagent.data
+			if((reagent.id in GLOB.diseases_carrier_reagents) && reagent_data && reagent_data["resistances"])
+				var/list/original_resistances = reagent_data["resistances"]
+				var/list/resistances = original_resistances.Copy()
+				for(var/path in resistances)
+					var/datum/disease/virus/virus_res = path
+					if(virus_res.no_vaccine)
+						reagent_data["resistances"] -= path
 		updateUsrDialog()
 		update_icon(UPDATE_ICON_STATE)
 		return ATTACK_CHAIN_BLOCKED_ALL
@@ -381,4 +390,3 @@
 
 /obj/machinery/computer/pandemic/wrench_act(mob/living/user, obj/item/I)
 	return default_unfasten_wrench(user, I)
-

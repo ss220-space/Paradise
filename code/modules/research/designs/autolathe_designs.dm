@@ -316,6 +316,20 @@
 	build_path = /obj/item/reagent_containers/food/drinks/shaker
 	category = list(PRINTER_CATEGORY_INITIAL, AUTOLATHE_CATEGORY_DINNERWARE)
 
+/datum/design/coffeepot
+	id = "coffeepot"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 1000, MAT_GLASS = 3500)
+	build_path = /obj/item/reagent_containers/glass/coffeepot
+	category = list(PRINTER_CATEGORY_INITIAL, AUTOLATHE_CATEGORY_DINNERWARE)
+
+/datum/design/syrup_bottle
+	id = "syrup_bottle"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 150, MAT_GLASS = 500)
+	build_path = /obj/item/reagent_containers/glass/bottle/syrup_bottle
+	category = list(PRINTER_CATEGORY_INITIAL, AUTOLATHE_CATEGORY_DINNERWARE)
+
 /datum/design/cultivator
 	id = "cultivator"
 	build_type = AUTOLATHE
@@ -719,15 +733,8 @@
 	id = "9mmTEbox"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 30500)
-	build_path = /obj/item/ammo_box/c9mmte
+	build_path = /obj/item/ammo_box/dot45NR
 	category = list(PRINTER_CATEGORY_HACKED, AUTOLATHE_CATEGORY_SECURITY)
-
-/datum/design/enforcer/disable
-	id = "enforcer_disable"
-	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 25000)
-	build_path = /obj/item/ammo_box/enforcer/disabler
-	category = list(PRINTER_CATEGORY_INITIAL, AUTOLATHE_CATEGORY_SECURITY)
 
 /datum/design/spectermag_disabler
 	id = "spectermag"
@@ -818,7 +825,7 @@
 	id = "c10mm"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 45500)
-	build_path = /obj/item/ammo_box/c10mm
+	build_path = /obj/item/ammo_box/m10mm
 	category = list(PRINTER_CATEGORY_HACKED, AUTOLATHE_CATEGORY_SECURITY)
 
 /datum/design/c45
@@ -954,3 +961,43 @@
 	materials = list(MAT_METAL = 100)
 	build_path = /obj/item/ammo_box/speedloader/caps
 	category = list(PRINTER_CATEGORY_INITIAL, AUTOLATHE_CATEGORY_MISC)
+
+//MARK: unlockable ammo
+/datum/design/sfg9mm
+	id = "sfg_mag_empty"
+	req_tech = list(RESEARCH_TREE_COMBAT = 8)
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 3000)
+	build_path = /obj/item/ammo_box/magazine/sfg9mm/empty
+	category = list(AUTOLATHE_CATEGORY_IMPORTED)
+
+/datum/design/smgm9mm
+	id = "saber_mag_empty"
+	req_tech = list(RESEARCH_TREE_COMBAT = 8)
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 3000)
+	build_path = /obj/item/ammo_box/magazine/smgm9mm/empty
+	category = list(AUTOLATHE_CATEGORY_IMPORTED)
+
+/datum/design/ak814_mag
+	id = "ak814_mag_empty"
+	req_tech = list(RESEARCH_TREE_COMBAT = 8)
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 3000)
+	build_path = /obj/item/ammo_box/magazine/ak814/fusty/empty
+	category = list(AUTOLATHE_CATEGORY_IMPORTED)
+
+/datum/design/aksu_ammo_box
+	id = "aksu_ammo_box"
+	req_tech = list(RESEARCH_TREE_COMBAT = 8)
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 35000)
+	build_path = /obj/item/ammo_box/a545x39/fusty
+	category = list(AUTOLATHE_CATEGORY_IMPORTED)
+
+/datum/design/laser_carbine_mag
+	id = "lk_mag_empty"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 3000)
+	build_path = /obj/item/ammo_box/magazine/ik60mag/empty
+	category = list(AUTOLATHE_CATEGORY_IMPORTED)

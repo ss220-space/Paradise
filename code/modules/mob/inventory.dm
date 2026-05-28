@@ -222,13 +222,6 @@
 		return r_hand
 	return null
 
-/mob/proc/is_in_hands_to_flag(obj/item/I)
-	if(I == l_hand)
-		return ITEM_SLOT_HAND_LEFT
-	if(I == r_hand)
-		return ITEM_SLOT_HAND_RIGHT
-	return NONE
-
 /**
  * Returns `TRUE` if mob's hands free
  */
@@ -576,7 +569,7 @@
 				I.forceMove(newloc)
 		I.dropped(src, slot, silent, newloc)
 
-	SEND_SIGNAL(I, COMSIG_ITEM_POST_UNEQUIP, force, newloc, no_move, invdrop, silent)
+	SEND_SIGNAL(I, COMSIG_ITEM_POST_UNEQUIP, force, newloc, no_move, invdrop, silent, src)
 	SEND_SIGNAL(src, COMSIG_MOB_UNEQUIPPED_ITEM, I, force, newloc, no_move, invdrop, silent)
 	if(!not_handled)
 		update_equipment_speed_mods()

@@ -28,6 +28,16 @@
 
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL
 
+/obj/item/circuit_component/list_pick/Destroy()
+	list_options = null
+	input_list = null
+	user = null
+	input_name = null
+	output = null
+	success = null
+	failure = null
+	. = ..()
+
 /obj/item/circuit_component/list_pick/proc/make_list_port()
 	input_list = add_input_port("Список", PORT_TYPE_LIST(PORT_TYPE_STRING))
 

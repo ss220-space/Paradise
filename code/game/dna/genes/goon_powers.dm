@@ -122,8 +122,8 @@
 	base_cooldown = 120 SECONDS
 	clothes_req = FALSE
 
-	selection_activated_message	= span_notice("Ваш разум становится холодным. Нажмите на цель, чтобы произнести заклинание.")
-	selection_deactivated_message = span_notice("Ваш разум возвращается в нормальное состояние.")
+	selection_activated_message	= span_notice_alt("Ваш разум становится холодным. Нажмите на цель, чтобы произнести заклинание.")
+	selection_deactivated_message = span_notice_alt("Ваш разум возвращается в нормальное состояние.")
 
 	var/list/compatible_mobs = list(/mob/living/carbon/human)
 
@@ -167,18 +167,6 @@
 
 		C.visible_message(span_warning("[user] распыля[PLUR_ET_YUT(user)] облако мелких ледяных кристаллов, поглощая [C]!"))
 		add_attack_logs(user, C, "Cryokinesis- NO SUIT/INTERNALS")
-
-/obj/effect/self_deleting
-	icon = null
-	desc = ""
-	//layer = 15
-
-/obj/effect/self_deleting/New(atom/location, icon/I, duration = 20, oname = "something")
-	. = ..()
-	name = oname
-	loc=location
-	icon = I
-	QDEL_IN(src, duration)
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 
@@ -255,7 +243,7 @@
 			revert_cast()
 			return FALSE
 
-		if(istype(limb,/obj/item/organ/external/chest))
+		if(ischest(limb))
 			// Bullshit, but prevents being able to instagib someone.
 			to_chat(user, span_warning("Вы пытаетесь уместить туловище у себя во рту, но у вас ничего не получается!"))
 			revert_cast()
@@ -312,7 +300,7 @@
 
 /obj/effect/proc_holder/spell/leap/cast(list/targets, mob/living/user = usr)
 	var/failure = FALSE
-	if(ismob(user.loc) || user.incapacitated(INC_IGNORE_RESTRAINED) || user.buckled)
+	if(ismob(user.loc) || user.incapacitated(IGNORE_RESTRAINTS) || user.buckled)
 		to_chat(user, span_warning("Вы не можете прыгнуть прямо сейчас!"))
 		return
 	var/turf/turf_to_check = get_turf(user)
@@ -337,6 +325,8 @@
 							span_notice("Вы слышите, как напрягаются мощные мышцы, и внезапно раздается грохот, когда тело падает на пол."))
 			return FALSE
 		var/prevLayer = user.layer
+		var/old_pixel_x = user.pixel_x
+		var/old_pixel_y = user.pixel_y
 		user.layer = LOW_LANDMARK_LAYER
 
 		ADD_TRAIT(user, TRAIT_MOVE_FLYING, SPELL_LEAP_TRAIT)
@@ -357,6 +347,8 @@
 			user.AdjustWeakened(20 SECONDS)
 
 		user.layer = prevLayer
+		user.pixel_x = old_pixel_x
+		user.pixel_y = old_pixel_y
 
 	if(isobj(user.loc))
 		var/obj/container = user.loc
@@ -399,8 +391,8 @@
 
 	clothes_req = FALSE
 
-	selection_activated_message	= span_notice("Ваше тело становится нестабильным.")
-	selection_deactivated_message = span_notice("Ваше тело возвращается в норму.")
+	selection_activated_message	= span_notice_alt("Ваше тело становится нестабильным.")
+	selection_deactivated_message = span_notice_alt("Ваше тело возвращается в норму.")
 
 	action_icon_state = "genetic_poly"
 	need_active_overlay = TRUE
@@ -486,9 +478,6 @@
 		if(M.fire_stacks)
 			pain_condition -= 0.5
 			thoughts = "поглощен[GEND_A_O_Y(M)] огнем"
-
-		if(M.radiation)
-			pain_condition -= 0.25
 
 		switch(pain_condition)
 			if(0.81 to INFINITY)

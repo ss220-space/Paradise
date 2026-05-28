@@ -285,9 +285,9 @@
 
 	var/datum/action/innate/clockwork/hand_spell/source
 
-/obj/item/melee/clock_magic/New(loc, spell)
+/obj/item/melee/clock_magic/Initialize(mapload, spell)
+	. = ..()
 	source = spell
-	..()
 
 /obj/item/melee/clock_magic/Destroy()
 	if(!QDELETED(source))
@@ -310,7 +310,7 @@
 	[CLOCK_METAL_TO_BRASS] metal into a brass\n
 	Robots into cult"}
 
-/obj/item/melee/clock_magic/construction/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/melee/clock_magic/construction/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(!proximity_flag)
 		return
 	if(channeling)
@@ -358,7 +358,7 @@
 		to_chat(user, span_warning("With you magic hand you re-materialize brass into [O.name]!"))
 		playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE)
 
-	else if(istype(target, /mob/living/silicon/robot))
+	else if(isrobot(target))
 		var/mob/living/silicon/robot/candidate = target
 		if(candidate.stat != DEAD || !isclocker(candidate))
 			channeling = TRUE
@@ -366,14 +366,14 @@
 			playsound(get_turf(src), 'sound/machines/airlockforced.ogg', 80, TRUE)
 			do_sparks(5, TRUE, target)
 			if(do_after(user, 9 SECONDS, candidate))
-				candidate.emp_act(EMP_HEAVY)
+				candidate.Stun(6 SECONDS)
 				candidate.ratvar_act(weak = TRUE)
 				SSticker?.score?.save_silicon_laws(candidate, user, "Ratvar act", log_all_laws = TRUE)
 				channeling = FALSE
 			else
 				channeling = FALSE
 				return
-	else if(istype(target, /mob/living/silicon/ai))
+	else if(isAI(target))
 		var/mob/living/silicon/ai/candidate = target
 		if(candidate.stat != DEAD || !isclocker(candidate))
 			channeling = TRUE

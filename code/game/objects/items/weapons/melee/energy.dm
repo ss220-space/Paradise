@@ -4,13 +4,14 @@
 	w_class = WEIGHT_CLASS_SMALL
 	hitsound = 'sound/weapons/blade1.ogg' // Probably more appropriate than the previous hitsound. -- Dave
 	usesound = 'sound/weapons/blade1.ogg'
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 30)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 100, ACID = 30)
 	resistance_flags = FIRE_PROOF
 	item_flags = NOSHARPENING
 	light_power = 2
 	light_range = 2
 	light_system = MOVABLE_LIGHT
 	light_on = FALSE
+	heat = T3500K
 	var/active = 0
 	var/force_on = 30 //force when active
 	var/throwforce_on = 20
@@ -80,8 +81,8 @@
 	add_fingerprint(user)
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/item/melee/energy/get_heat()
-	return active * 3500
+/obj/item/melee/energy/get_temperature()
+	return active * heat
 
 /obj/item/melee/energy/axe
 	name = "energy axe"
@@ -140,8 +141,8 @@
 		swing_sound = SFX_ENERGY_SWORD_SWING \
 	)
 
-/obj/item/melee/energy/sword/New()
-	..()
+/obj/item/melee/energy/sword/Initialize(mapload)
+	. = ..()
 	if(item_color == null)
 		item_color = pick("red", "blue", "green", "purple", "yellow", "pink", "darkblue", "orange")
 
@@ -175,8 +176,8 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	tool_behaviour = TOOL_SAW
 
-/obj/item/melee/energy/sword/cyborg/saw/New()
-	..()
+/obj/item/melee/energy/sword/cyborg/saw/Initialize(mapload)
+	. = ..()
 	item_color = null
 
 /obj/item/melee/energy/sword/cyborg/saw/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
@@ -385,7 +386,7 @@
 	transform_weapon(user, TRUE)
 	return BRUTELOSS
 
-/obj/item/melee/energy/cleaving_saw/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/melee/energy/cleaving_saw/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	var/turf/user_turf = get_turf(user)
 	var/turf/target_turf = get_turf(target)
 	if(!active || swiping || user_turf == target_turf)
@@ -404,7 +405,7 @@
 		var/turf/check_turf = get_step(user_turf, turn(dir_to_target, i))
 		for(var/mob/living/mob in check_turf)
 			if(user.Adjacent(mob) && mob.body_position == STANDING_UP)
-				melee_attack_chain(user, mob, params)
+				melee_attack_chain(user, mob, modifiers)
 	swiping = FALSE
 	return ATTACK_CHAIN_BLOCKED_ALL
 

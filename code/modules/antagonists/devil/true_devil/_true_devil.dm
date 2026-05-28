@@ -72,7 +72,7 @@
 	drop_all_held_items()
 
 /mob/living/carbon/true_devil/examine(mob/user)
-	var/msg = span_notice("Это [icon2html(src, user)] <b>[declent_ru(NOMINATIVE)]</b>!\n")
+	var/msg = span_notice("Это [get_examine_icon(user)] <b>[declent_ru(NOMINATIVE)]</b>!\n")
 
 	//left hand
 	if(l_hand && !(l_hand.item_flags & ABSTRACT))
@@ -114,7 +114,7 @@
 /mob/living/carbon/true_devil/assess_threat()
 	return 666
 
-/mob/living/carbon/true_devil/OnUnarmedAttack(atom/atom, proximity)
+/mob/living/carbon/true_devil/OnUnarmedAttack(atom/atom, proximity_flag, list/modifiers)
 	if(!ishuman(atom))
 		// `attack_hand` on mobs assumes the attacker is a human
 		// I am the worst

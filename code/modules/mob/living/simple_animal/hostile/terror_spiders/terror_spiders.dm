@@ -246,8 +246,8 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 		if(killcount >= 1)
 			. += span_warning("Разбрызгивает во все стороны алую кровь, струяющуюся из пасти.")
 
-/mob/living/simple_animal/hostile/poison/terror_spider/New()
-	..()
+/mob/living/simple_animal/hostile/poison/terror_spider/Initialize(mapload)
+	. = ..()
 	GLOB.ts_spiderlist += src
 	add_language(LANGUAGE_HIVE_TERRORSPIDER)
 	for(var/spell in special_abillity)
@@ -360,7 +360,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/CheckFaction()
 	if(length(faction) != 2 || (!("terrorspiders" in faction)) || master_commander != null)
 		to_chat(src, span_userdanger("Ваша связь с коллективным разумом разрывается!"))
-		log_runtime(EXCEPTION("Terror spider with incorrect faction list at: [atom_loc_line(src)]"))
+		stack_trace("Terror spider with incorrect faction list at: [atom_loc_line(src)]")
 		gib()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/try_open_airlock(obj/machinery/door/airlock/D)
@@ -435,9 +435,3 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 /mob/living/simple_animal/hostile/poison/terror_spider/experience_pressure_difference(pressure_difference, direction)
 	if(!HAS_TRAIT(src, TRAIT_NEGATES_GRAVITY))
 		return ..()
-
-/obj/projectile/terrorspider
-	name = "basic"
-	damage = 0
-	icon_state = "toxin"
-	damage_type = TOX

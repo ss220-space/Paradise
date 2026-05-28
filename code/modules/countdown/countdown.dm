@@ -76,7 +76,7 @@
 /obj/effect/countdown/ex_act(severity, target) //immune to explosions
 	return
 
-/obj/effect/countdown/singularity_pull()
+/obj/effect/countdown/singularity_pull(atom/singularity, current_size)
 	return
 
 /obj/effect/countdown/singularity_act()
@@ -115,7 +115,7 @@
 
 /obj/effect/countdown/clockworkgate
 	name = "gateway countdown"
-	color = "#BE8700"
+	color = COLOR_CULT_RATVAR
 
 /obj/effect/countdown/clockworkgate/get_value()
 	var/obj/structure/clockwork/functional/celestial_gateway/gateway = attached_to
@@ -143,11 +143,11 @@
 
 /obj/effect/countdown/supermatter/attach(atom/attached_atom)
 	. = ..()
-	if(istype(attached_atom, /obj/machinery/atmospherics/supermatter_crystal/shard))
+	if(istype(attached_atom, /obj/machinery/power/supermatter_crystal/shard))
 		pixel_y = -12
 
 /obj/effect/countdown/supermatter/get_value()
-	var/obj/machinery/atmospherics/supermatter_crystal/supermatter = attached_to
+	var/obj/machinery/power/supermatter_crystal/supermatter = attached_to
 	if(!istype(supermatter))
 		return
 	return "<div align='center' valign='bottom' style='position:relative; top:0px; left:0px'>[round(supermatter.get_integrity_percent())]%</div>"

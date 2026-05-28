@@ -96,7 +96,7 @@
 	SSticker.mode.traitors -= owner
 
 /datum/antagonist/traitor/add_antag_hud(mob/living/antag_mob)
-	if(locate(/datum/objective/hijack) in owner.get_all_objectives())
+	if(HAS_TRAIT(owner, TRAIT_HIJACK))
 		antag_hud_name = hijack_antag_hud_name
 	else
 		antag_hud_name = syndicate_antag_hud_name
@@ -109,6 +109,12 @@
 	var/hijacker_antag = (GLOB.master_mode == "antag-paradise" || GLOB.secret_force_mode == "antag-paradise") ? is_hijacker : prob(10)
 
 	// delete these end
+
+	// Give them an get equipment objective if they don't have one already.
+	var/all_objectives = owner.get_all_objectives()
+	if(!(locate(/datum/objective/get_equipment) in all_objectives))
+		if(owner.current?.client?.get_exp_type_num(EXP_TYPE_SPECIAL) < 300 HOURS)
+			add_objective(/datum/objective/get_equipment)
 
 	var/objective_count = hijacker_antag			//Hijacking counts towards number of objectives
 	if(!SSticker.mode.exchange_blue && length(SSticker.mode.traitors) >= EXCHANGE_OBJECTIVE_TRAITORS_REQUIRED)	//Set up an exchange if there are enough traitors
@@ -123,8 +129,13 @@
 	var/objective_amount = CONFIG_GET(number/traitor_objectives_amount)
 
 	if(hijacker_antag && objective_count <= objective_amount) //Don't assign hijack if it would exceed the number of objectives set in CONFIG_GET(number/traitor_objectives_amount)
-		if(!(locate(/datum/objective/hijack) in owner.get_all_objectives()))
-			add_objective(/datum/objective/hijack)
+		if(!(HAS_TRAIT(owner, TRAIT_HIJACK)))
+			if(!prob(40))
+				add_objective(/datum/objective/hijack)
+				return
+
+			add_objective(/datum/objective/supermatter_cascade)
+			add_objective(/datum/objective/survive)
 			return
 
 	for(var/i = objective_count, i < objective_amount)
@@ -143,9 +154,11 @@
 			return
 
 	// Give them an escape objective if they don't have one already.
-	var/all_objectives = owner.get_all_objectives()
 	if(!(locate(/datum/objective/escape) in all_objectives) && !(locate(/datum/objective/survive) in all_objectives))
 		add_objective(/datum/objective/escape)
+
+/datum/antagonist/traitor/get_steal_objective_type()
+	return /datum/objective/steal/with_special_items
 
 /**
  * Assigning exchange role.
@@ -322,11 +335,11 @@
 
 	if(is_pda(uplink_holder))
 		var/obj/item/pda/pda_uplink = uplink_holder
-		to_chat(owner.current, "The Syndicate have cunningly disguised a Syndicate Uplink as your [uplink_holder.name]. Simply enter the code \"[pda_uplink.lock_code]\" into the ringtone select to unlock its hidden features.")
+		to_chat(owner.current, span_notice("The Syndicate have cunningly disguised a Syndicate Uplink as your [uplink_holder.name]. Simply enter the code \"[pda_uplink.lock_code]\" into the ringtone select to unlock its hidden features."))
 
 	else if(isradio(uplink_holder))
 		var/obj/item/radio/radio_uplink = uplink_holder
-		to_chat(owner.current, "The Syndicate have cunningly disguised a Syndicate Uplink as your [uplink_holder.name]. Simply dial the frequency [format_frequency(radio_uplink.traitor_frequency)] to unlock its hidden features.")
+		to_chat(owner.current, span_notice("The Syndicate have cunningly disguised a Syndicate Uplink as your [uplink_holder.name]. Simply dial the frequency [format_frequency(radio_uplink.traitor_frequency)] to unlock its hidden features."))
 
 	else
 		to_chat(owner.current, span_warning("Unfortunately, the Syndicate wasn't able to get you a radio."))

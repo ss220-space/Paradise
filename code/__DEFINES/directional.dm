@@ -32,28 +32,6 @@
 ///Flips the dir for east/west directions
 #define EWDIRFLIP(d) (d ^ (EAST|WEST))
 
-/// Create directional subtypes for a path to simplify mapping.
-#define MAPPING_DIRECTIONAL_HELPERS(path, offset) \
-##path/directional {\
-	abstract_type = ##path/directional; \
-} \
-##path/directional/north {\
-	dir = NORTH; \
-	pixel_y = offset; \
-} \
-##path/directional/south {\
-	dir = SOUTH; \
-	pixel_y = -offset; \
-} \
-##path/directional/east {\
-	dir = EAST; \
-	pixel_x = offset; \
-} \
-##path/directional/west {\
-	dir = WEST; \
-	pixel_x = -offset; \
-}
-
 // Names for directions (English)
 #define DIR_NAME_ENG_NORTH "NORTH"
 #define DIR_NAME_ENG_SOUTH "SOUTH"

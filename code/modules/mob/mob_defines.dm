@@ -1,3 +1,11 @@
+/**
+ * The mob, usually meant to be a creature of some type
+ *
+ * Has a client attached that is a living person (most of the time), although I have to admit
+ * sometimes it's hard to tell they're sentient
+ *
+ * Has a lot of the creature game world logic, such as health etc
+ */
 /mob
 	density = TRUE
 	layer = MOB_LAYER
@@ -176,11 +184,8 @@
 	var/job = null // Living
 
 	var/datum/dna/dna = null // Carbon
-	var/radiation = 0 // Carbon
-	var/max_radiation = CARBON_MAX_RADIATION // Carbon
 
 	//see: setup.dm for list of mutations
-
 	var/voice_name = "неизвестный голос"
 
 	/// Used for checking whether hostile simple animals will attack you, possibly more stuff later
@@ -213,7 +218,7 @@
 	mouse_drag_pointer = MOUSE_ACTIVE_POINTER
 
 	/// Bitflags defining which status effects can be inflicted (replaces canweaken, canstun, etc)
-	var/status_flags = CANSTUN|CANWEAKEN|CANKNOCKDOWN|CANPARALYSE|CANPUSH
+	var/status_flags = CANSTUN|CANWEAKEN|CANKNOCKDOWN|CANPARALYSE|CANPUSH|CANUNCONSCIOUS
 
 	var/area/lastarea = null
 
@@ -326,3 +331,19 @@
 
 	/// It's like a client, but persists! Persistent clients will stick to a mob until the client in question is logged into a different mob.
 	var/datum/persistent_client/persistent_client
+
+	var/tts_effect_override = SOUND_EFFECT_NONE
+	/// Item that set current tts_effect_override, used to avoid clobbering when(if) multiple sources exist
+	var/obj/item/tts_effect_override_source = null
+
+	/// Mob bitflags
+	var/mob_flags = NONE
+
+	/// A ref of the area we're taking our ambient loop from.
+	var/area/ambience_tracked_area
+
+	var/shift_to_open_context_menu = TRUE
+
+	///Cursor icon used when holding shift over things
+	var/examine_cursor_icon = 'icons/effects/mouse_pointers/examine_pointer.dmi'
+

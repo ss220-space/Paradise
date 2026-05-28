@@ -12,7 +12,6 @@
 	new /obj/item/areaeditor/blueprints/ce(src)
 	new /obj/item/storage/box/permits(src)
 	new /obj/item/clothing/glasses/welding/superior(src)
-	new /obj/item/clothing/gloves/color/yellow(src)
 	new /obj/item/tank/jetpack/suit(src)
 	new /obj/item/cartridge/ce(src)
 	new /obj/item/radio/headset/heads/ce(src)
@@ -42,7 +41,6 @@
 	custom_door_overlay = "engelec"
 
 /obj/structure/closet/secure_closet/engineering_electrical/populate_contents()
-	new /obj/item/clothing/gloves/color/yellow(src)
 	new /obj/item/storage/toolbox/electrical(src)
 	new /obj/item/storage/toolbox/electrical(src)
 	new /obj/item/storage/toolbox/electrical(src)

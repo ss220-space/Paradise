@@ -13,6 +13,7 @@
 	init_air = FALSE
 	turf_flags = NOJAUNT
 	baseturf = /turf/cordon
+	rad_insulation = RAD_FULL_INSULATION
 
 /turf/cordon/acid_act()
 	return FALSE
