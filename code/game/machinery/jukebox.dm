@@ -93,6 +93,9 @@
 	. = ..()
 	if(. == SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN || !allowed(user) || !anchored)
 		return .
+	if(need_coin && !payment && isnull(music_player.active_song_sound))
+		balloon_alert(user, "нужна монета для воспроизведения!")
+		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 	toggle_playing(user)
 	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 

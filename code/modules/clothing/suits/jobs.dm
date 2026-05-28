@@ -685,10 +685,10 @@
 		var/obj/item/toy/crayon/spraycan/can = I
 		if(!paintable)
 			to_chat(user, span_warning("You cannot paint [src]."))
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 		if(can.capped)
 			to_chat(user, span_warning("The cap on [can] is sealed."))
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 		to_chat(user, span_notice("You paint [src]."))
 		playsound(user.loc, 'sound/effects/spray.ogg', 20, TRUE)
 		color = can.colour

@@ -325,6 +325,8 @@
 							span_notice("Вы слышите, как напрягаются мощные мышцы, и внезапно раздается грохот, когда тело падает на пол."))
 			return FALSE
 		var/prevLayer = user.layer
+		var/old_pixel_x = user.pixel_x
+		var/old_pixel_y = user.pixel_y
 		user.layer = LOW_LANDMARK_LAYER
 
 		ADD_TRAIT(user, TRAIT_MOVE_FLYING, SPELL_LEAP_TRAIT)
@@ -345,6 +347,8 @@
 			user.AdjustWeakened(20 SECONDS)
 
 		user.layer = prevLayer
+		user.pixel_x = old_pixel_x
+		user.pixel_y = old_pixel_y
 
 	if(isobj(user.loc))
 		var/obj/container = user.loc

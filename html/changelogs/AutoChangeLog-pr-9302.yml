@@ -1,0 +1,4 @@
+author: "littleboobs"
+delete-after: True
+changes:
+  - admin: "Логирование загрузившего музыку в джукбокс и перевод окошек вербов модерации. (PR #9302)"
