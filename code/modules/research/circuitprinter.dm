@@ -309,6 +309,58 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 
 	update_static_data_for_all_viewers()
 
+/obj/machinery/r_n_d/circuit_imprinter/proc/can_save_circuit_by_import(mob/living/user, list/data)
+	var/list/required_keys = list("dupe_data", "name", "integrated_circuit", "Icon", "IconState", "desc")
+	for(var/key in required_keys)
+		if(!LAZYACCESS(data, key))
+			return FALSE
+	return TRUE
+
+/obj/machinery/r_n_d/circuit_imprinter/proc/save_circuit_by_import(mob/living/user, list/data)
+	if(!can_save_circuit_by_import(user, data))
+		return
+
+	var/list/dupe_data = json_decode(data["dupe_data"])
+
+	if(!islist(dupe_data) || !islist(dupe_data["components"]))
+		tgui_alert(user, "Некорректный формат данных схемы!", "Ошибка импорта")
+		return
+
+	for(var/list/component_data as anything in scanned_designs)
+		if(component_data["name"] == data["name"])
+			balloon_alert(user, "название занято!")
+			return
+
+	var/current_size = 0
+
+	for(var/component_data as anything in dupe_data["components"])
+		var/path = text2path(dupe_data["components"][component_data]["type"])
+		var/obj/item/circuit_component/component = new path
+
+		current_size += component.circuit_size
+
+	var/materials = list(MAT_GLASS = current_size * cost_per_component)
+
+	var/datum/design/integrated_circuit/circuit_design
+	for(var/material_type in circuit_design::materials)
+		materials[material_type] += circuit_design::materials[material_type]
+
+	data["materials"] = materials
+
+	if(!length(data))
+		return
+
+	if(!data["name"])
+		balloon_alert(user, "требуется название!")
+		return
+
+	LAZYADD(scanned_designs, list(data))
+
+	balloon_alert(user, "схема сохранена")
+	playsound(src, 'sound/machines/ping.ogg', 50)
+
+	update_static_data_for_all_viewers()
+
 /obj/machinery/r_n_d/circuit_imprinter/proc/print_module(list/design)
 	flick("[base_icon_state]_ani", src)
 
@@ -376,6 +428,32 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 			LAZYREMOVE(scanned_designs, design)
 
 			update_static_data_for_all_viewers()
+
+		if("export")
+			var/mob/user= ui.user
+			var/design_id = text2num(params["designId"])
+
+			if(design_id < 1 || design_id > length(scanned_designs))
+				return TRUE
+
+			var/list/design = LAZYACCESS(scanned_designs, design_id)
+
+			var/list/data = list("dupe_data" = design["dupe_data"], "name" = design["name"], "desc" = design["desc"], "integrated_circuit" = design["integrated_circuit"], "Icon" = design["Icon"], "IconState" = design["IconState"])
+			var/json_base64 = rustg_encode_base64(json_encode(data))
+
+			if(!json_base64)
+				tgui_alert(user, message="Ошибка экспорта!", title="Ошибка!")
+				return
+
+			tgui_input_text(user, "Скопируйте текст схемы:", "Экспорт схемы", default = json_base64)
+
+		if("import")
+			var/mob/user = ui.user
+
+			var/json_base64 = params["import"]
+			var/list/data = json_decode(rustg_decode_base64(json_base64))
+
+			save_circuit_by_import(user, data)
 
 	return TRUE
 

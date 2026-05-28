@@ -34,12 +34,13 @@ export const ComponentPrinter = (props) => {
         <Section
           title="Сохранённые схемы"
           buttons={
-            <Button
-              icon="file-import"
-              onClick={() => act('import')}
-            >
+            <Button.File
+            icon="upload"
+            accept=".txt"
+            onSelectFiles={(value) => act('import', { import: value })}
+          >
               {toTitleCase("Import")}
-            </Button>
+            </Button.File>
           }
         />
         <Box>
