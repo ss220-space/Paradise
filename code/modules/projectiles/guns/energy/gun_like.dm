@@ -225,7 +225,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/ion)
 	ammo_x_offset = 3
 	accuracy = GUN_ACCURACY_RIFLE_LASER
-	fire_deley = 25
+	fire_delay = 2.5 SECONDS
 
 /obj/item/gun/energy/ionrifle/emp_act(severity)
 	return
@@ -237,7 +237,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	slot_flags = ITEM_SLOT_BELT
 	zoomable = FALSE
-	fire_deley = 40
+	fire_delay = 4 SECONDS
 	ammo_x_offset = 2
 	accuracy = GUN_ACCURACY_RIFLE_LASER
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
