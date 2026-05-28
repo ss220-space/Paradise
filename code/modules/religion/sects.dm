@@ -21,7 +21,12 @@
 #define SECT_TECHNICISM_BATTLE_FRAME_COMPANY "Hesphiastos Titan"
 #define SECT_TECHNICISM_SEMIUNIT_SYNC_TIME (10 SECONDS)
 #define SECT_MERCONICISM_DISCOUNT_MULTIPLIER 1.5
+#define SECT_MERCONICISM_STALL_MAX_PRODUCTS 20
+#define SECT_MERCONICISM_STALL_MIN_STOCK 1
+#define SECT_MERCONICISM_STALL_MAX_STOCK 3
 #define SECT_FLAME_ENCHANT_FIRE_STACKS 4
+#define SECT_FLAME_ENCHANT_MARKS_TO_IGNITE 3
+#define SECT_FLAME_ENCHANT_MARK_DECAY_TIME (6 SECONDS)
 #define SECT_SIN_WEAPON_FORCE_BONUS 3
 #define SECT_SIN_WEAPON_HAND_DAMAGE 3
 #define SECT_STATUS_PRANA_PER_SECOND 1
@@ -367,7 +372,7 @@
 	)
 	return limb_zone in limb_zones
 
-/datum/religion_sect/proc/has_robotizable_human_limbs(mob/living/carbon/human/target, include_internal = FALSE, full_body = FALSE)
+/datum/religion_sect/proc/has_augmentable_human_body(mob/living/carbon/human/target, include_internal = FALSE, full_body = FALSE)
 	if(!istype(target))
 		return FALSE
 	for(var/obj/item/organ/external/bodypart as anything in target.bodyparts)
@@ -381,8 +386,8 @@
 				return TRUE
 	return FALSE
 
-/datum/religion_sect/proc/robotize_human_limbs(mob/living/carbon/human/target, include_internal = FALSE, full_body = FALSE, company = SECT_TECHNICISM_COMPANY, force_company = FALSE)
-	if(!force_company && !has_robotizable_human_limbs(target, include_internal, full_body))
+/datum/religion_sect/proc/augment_human_body(mob/living/carbon/human/target, include_internal = FALSE, full_body = FALSE, company = SECT_TECHNICISM_COMPANY, force_company = FALSE)
+	if(!force_company && !has_augmentable_human_body(target, include_internal, full_body))
 		return FALSE
 	var/changed = FALSE
 	for(var/obj/item/organ/external/bodypart as anything in target.bodyparts)
@@ -407,7 +412,7 @@
 /datum/religion_sect/proc/apply_technicism_battle_frame(mob/living/carbon/human/target)
 	if(!istype(target))
 		return FALSE
-	return robotize_human_limbs(target, include_internal = TRUE, full_body = TRUE, company = SECT_TECHNICISM_BATTLE_FRAME_COMPANY, force_company = TRUE)
+	return augment_human_body(target, include_internal = TRUE, full_body = TRUE, company = SECT_TECHNICISM_BATTLE_FRAME_COMPANY, force_company = TRUE)
 
 /datum/religion_sect/proc/apply_technicism_holy_status(mob/living/target)
 	if(!istype(target))
@@ -602,13 +607,14 @@
 /datum/religion_sect/merconicism/process(seconds_per_tick)
 	if(!altar)
 		return
+	var/area/altar_area = get_area(altar)
+	if(!altar_area)
+		return
 	var/statue_prana = 0
-	for(var/obj/structure/statue/gold/gold_statue in range(7, altar))
-		if(get_area(gold_statue) == get_area(altar))
-			statue_prana += 1
-	for(var/obj/structure/statue/diamond/diamond_statue in range(7, altar))
-		if(get_area(diamond_statue) == get_area(altar))
-			statue_prana += 5
+	for(var/obj/structure/statue/gold/gold_statue in altar_area)
+		statue_prana += 1
+	for(var/obj/structure/statue/diamond/diamond_statue in altar_area)
+		statue_prana += 5
 	if(statue_prana)
 		adjust_prana(statue_prana * seconds_per_tick)
 
@@ -1139,8 +1145,69 @@
 	SIGNAL_HANDLER
 	if(!isliving(target))
 		return
-	target.adjust_fire_stacks(SECT_FLAME_ENCHANT_FIRE_STACKS)
-	target.IgniteMob()
+	var/datum/status_effect/sect_flame_mark/flame_mark = target.has_status_effect(/datum/status_effect/sect_flame_mark)
+	if(!flame_mark)
+		flame_mark = target.apply_status_effect(/datum/status_effect/sect_flame_mark)
+	if(!flame_mark)
+		return
+	flame_mark.add_mark()
+
+/datum/status_effect/sect_flame_mark
+	id = "sect_flame_mark"
+	duration = -1
+	tick_interval = SECT_FLAME_ENCHANT_MARK_DECAY_TIME
+	status_type = STATUS_EFFECT_UNIQUE
+	alert_type = null
+	var/flame_marks = 0
+	var/mutable_appearance/flame_overlay
+
+/datum/status_effect/sect_flame_mark/Destroy()
+	if(owner && flame_overlay)
+		owner.cut_overlay(flame_overlay)
+	QDEL_NULL(flame_overlay)
+	return ..()
+
+/datum/status_effect/sect_flame_mark/on_apply()
+	flame_overlay = mutable_appearance('icons/goonstation/effects/fire.dmi', "1")
+	flame_overlay.blend_mode = BLEND_ADD
+	flame_overlay.alpha = 190
+	flame_overlay.layer = ABOVE_MOB_LAYER
+	var/matrix/flame_transform = matrix()
+	flame_transform.Scale(0.45, 0.45)
+	flame_overlay.transform = flame_transform
+	flame_overlay.pixel_w = -owner.pixel_x + rand(-3, 3)
+	flame_overlay.pixel_z = floor(owner.get_cached_height() * 0.45)
+	return TRUE
+
+/datum/status_effect/sect_flame_mark/tick(seconds_between_ticks)
+	add_mark(-1)
+
+/datum/status_effect/sect_flame_mark/proc/add_mark(amount = 1)
+	if(!owner)
+		qdel(src)
+		return
+	if(flame_overlay)
+		owner.cut_overlay(flame_overlay)
+	flame_marks += amount
+	if(flame_marks >= SECT_FLAME_ENCHANT_MARKS_TO_IGNITE)
+		ignite_owner()
+		qdel(src)
+		return
+	if(flame_marks <= 0)
+		qdel(src)
+		return
+	update_flame_overlay()
+
+/datum/status_effect/sect_flame_mark/proc/update_flame_overlay()
+	if(!flame_overlay)
+		return
+	flame_overlay.icon_state = "[min(flame_marks, 2)]"
+	owner.add_overlay(flame_overlay)
+
+/datum/status_effect/sect_flame_mark/proc/ignite_owner()
+	owner.adjust_fire_stacks(SECT_FLAME_ENCHANT_FIRE_STACKS)
+	owner.IgniteMob()
+	owner.visible_message(span_warning("[owner] вспыхивает от накопленного священного пламени!"))
 
 /datum/component/sect_sin_weapon
 	dupe_mode = COMPONENT_DUPE_UNIQUE
@@ -1754,7 +1821,7 @@
 /datum/religion_ritual/technicism/metalification
 	id = "metalification"
 	name = "Металлификация"
-	desc = "Аугментирует доступные руки и ноги органика на алтаре."
+	desc = "Аугментирует все доступные части тела органика на алтаре."
 	cost = 1000
 	target_desc = "Органик на алтаре."
 	requires_atom_on_altar = TRUE
@@ -1764,8 +1831,6 @@
 		return FALSE
 	var/mob/living/carbon/human/human_target = target
 	for(var/obj/item/organ/external/bodypart as anything in human_target.bodyparts)
-		if(!is_technicism_limb_zone(bodypart.limb_zone))
-			continue
 		if(!bodypart.is_robotic())
 			return TRUE
 	return FALSE
@@ -1806,7 +1871,7 @@
 /datum/religion_ritual/pyromania/flame_enchant
 	id = "flame_enchant"
 	name = "Зачарование пламенем"
-	desc = "Зачаровывает предмет на алтаре."
+	desc = "Зачаровывает предмет на алтаре. Три удара по одной цели поджигают её."
 	cost = 2500
 	target_desc = "Предмет на алтаре."
 	requires_atom_on_altar = TRUE
@@ -1854,6 +1919,15 @@
 	name = "Доказательство успешности"
 	desc = "Дарует случайный небезопасный предмет и объявляет об успехе."
 	cost = 10000
+
+/datum/religion_ritual/merconicism/proof_of_success/get_check_result(datum/religion_sect/sect, obj/structure/sect_altar/altar, mob/user)
+	var/list/check_result = ..()
+	if(!check_result["can_run"])
+		return check_result
+	var/datum/religion_sect/merconicism/merc_sect = sect
+	if(merc_sect?.proof_of_success_used)
+		return list("can_run" = FALSE, "failure_reason" = "Доказательство успешности уже было предъявлено.")
+	return check_result
 
 /datum/religion_ritual/dogmatism/oath
 	id = "oath"
@@ -2054,10 +2128,10 @@
 		to_chat(user, span_warning("Для металлификации нужен органик-гуманоид на алтаре."))
 		return FALSE
 	var/mob/living/carbon/human/human_target = target
-	if(!sect.robotize_human_limbs(human_target))
-		to_chat(user, span_warning("Руки и ноги [human_target] уже достаточно механизированы."))
+	if(!sect.augment_human_body(human_target, full_body = TRUE))
+		to_chat(user, span_warning("Тело [human_target] уже достаточно механизировано."))
 		return FALSE
-	human_target.visible_message(span_notice("Руки и ноги [human_target] перестраиваются в освящённый металл."))
+	human_target.visible_message(span_notice("Тело [human_target] перестраивается в освящённый металл."))
 	return TRUE
 
 /datum/religion_ritual/technicism/transformation/perform(datum/religion_sect/sect, obj/structure/sect_altar/altar, mob/living/user, atom/movable/target)
@@ -2089,10 +2163,7 @@
 		if(was_machineperson)
 			sect.apply_technicism_battle_frame(human_target)
 		else
-			sect.robotize_human_limbs(human_target, include_internal = TRUE)
-	sect.grant_shock_resistance(living_target)
-	sect.grant_fire_resistance(living_target)
-	ADD_TRAIT(living_target, TRAIT_HEALS_FROM_HOLY_PYLONS, SECT_TRAIT_SOURCE)
+			sect.augment_human_body(human_target, include_internal = TRUE, full_body = TRUE)
 	if(living_target.mind)
 		sect.initiate(living_target, TRUE)
 	sect.apply_technicism_semiunit(living_target)
@@ -2140,11 +2211,11 @@
 	return TRUE
 
 /datum/religion_ritual/merconicism/divine_stall/perform(datum/religion_sect/sect, obj/structure/sect_altar/altar, mob/living/user, atom/movable/target)
-	var/obj/machinery/vending/tool/stall = spawn_on_altar(altar, /obj/machinery/vending/tool)
+	var/datum/religion_sect/merconicism/merc_sect = sect
+	var/obj/machinery/vending/tool/sect_merconicism/stall = spawn_on_altar(altar, /obj/machinery/vending/tool/sect_merconicism)
 	if(!stall)
 		return FALSE
-	stall.name = "divine stall"
-	stall.desc = "A tool vendor blessed by a profitable faith."
+	stall.bound_sect = merc_sect
 	return TRUE
 
 /datum/religion_ritual/merconicism/universal_discount/perform(datum/religion_sect/sect, obj/structure/sect_altar/altar, mob/living/user, atom/movable/target)
@@ -2159,11 +2230,14 @@
 		to_chat(user, span_warning("Доказательство успешности уже было предъявлено."))
 		return FALSE
 	merc_sect.proof_of_success_used = TRUE
-	var/list/rewards = list(
-		/obj/item/storage/belt/utility/full,
+	var/static/list/rewards = list(
+		/obj/item/bodybag/bluespace,
+		/obj/item/disk/design_disk/roboquest/bluespace_bag_disk,
+		/obj/item/rcd/preloaded,
+		/obj/item/rpd/bluespace,
+		/obj/item/storage/backpack/holding,
 		/obj/item/storage/bag/ore/holding,
-		/obj/item/reagent_containers/food/drinks/bottle/champagne,
-		/obj/item/clothing/suit/storage/internalaffairs
+		/obj/item/storage/part_replacer/bluespace/experimental
 	)
 	spawn_on_altar(altar, pick(rewards))
 	GLOB.major_announcement.announce(
@@ -2538,7 +2612,7 @@
 /obj/structure/sect_altar/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return
-	var/mob/living/user = usr
+	var/mob/living/user = ui.user
 	if(!can_use_altar(user))
 		return
 	switch(action)
