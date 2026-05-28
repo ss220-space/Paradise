@@ -396,4 +396,3 @@
 	var/mob/living/surrendered_mob = owner
 	if(surrendered_mob)
 		surrendered_mob.emote("surrender")
-		SEND_SIGNAL(surrendered_mob, COMSIG_LIVING_GUNPOINT_CANCEL)

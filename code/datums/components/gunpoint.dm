@@ -182,18 +182,20 @@
 
 	if(weapon.chambered && weapon.chambered.BB)
 		weapon.chambered.BB.damage *= damage_mult
+		weapon.chambered.BB.forced_accuracy = TRUE
 
 	var/def_zone = null
+
 	if(ishuman(shooter))
 		var/mob/living/carbon/human/H_shooter = shooter
 		def_zone = H_shooter.zone_selected
 
-	var/turf/target_turf = get_turf(target)
-	var/fired = weapon.fast_fire(target_turf, shooter, def_zone)
+	var/fired = weapon.fast_fire(target, shooter, def_zone)
 
 	if(!fired)
 		if(weapon.chambered && weapon.chambered.BB)
 			weapon.chambered.BB.damage /= damage_mult
+			weapon.chambered.BB.forced_accuracy = FALSE
 
 	qdel(src)
 

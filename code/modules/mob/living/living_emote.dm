@@ -468,6 +468,7 @@
 		var/mob/living/living = user
 		living.apply_status_effect(STATUS_EFFECT_CAPITULATED)
 		living.remove_status_effect(/datum/status_effect/grouped/surrender)
+		SEND_SIGNAL(living, COMSIG_LIVING_GUNPOINT_CANCEL)
 
 /datum/emote/living/custom
 	key = "me"
