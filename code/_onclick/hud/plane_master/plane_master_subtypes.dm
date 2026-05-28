@@ -335,3 +335,35 @@
 	blend_mode = BLEND_ADD
 	render_target = GRAVITY_PULSE_RENDER_TARGET
 	render_relay_planes = list()
+
+/atom/movable/screen/plane_master/escape_menu
+	name = "Escape Menu"
+	documentation = "Anything relating to the escape menu."
+	plane = ESCAPE_MENU_PLANE
+	appearance_flags = PLANE_MASTER|NO_CLIENT_COLOR
+	render_relay_planes = list(RENDER_PLANE_MASTER)
+	offsetting_flags = BLOCKS_PLANE_OFFSETTING|OFFSET_RELAYS_MATCH_HIGHEST
+
+/atom/movable/screen/plane_master/escape_menu/show_to(mob/mymob)
+	. = ..()
+	if(!.)
+		return
+
+	var/datum/hud/our_hud = home.our_hud
+	if(!our_hud)
+		return
+
+	RegisterSignal(our_hud, SIGNAL_ADDTRAIT(TRAIT_ESCAPE_MENU_OPEN), PROC_REF(escape_opened), override = TRUE)
+	RegisterSignal(our_hud, SIGNAL_REMOVETRAIT(TRAIT_ESCAPE_MENU_OPEN), PROC_REF(escape_closed), override = TRUE)
+	if(!HAS_TRAIT(our_hud, TRAIT_ESCAPE_MENU_OPEN))
+		escape_closed()
+
+/atom/movable/screen/plane_master/escape_menu/proc/escape_opened(datum/source)
+	SIGNAL_HANDLER
+	var/mob/our_mob = home?.our_hud?.mymob
+	unhide_plane(our_mob)
+
+/atom/movable/screen/plane_master/escape_menu/proc/escape_closed(datum/source)
+	SIGNAL_HANDLER
+	var/mob/our_mob = home?.our_hud?.mymob
+	hide_plane(our_mob)

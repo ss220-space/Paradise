@@ -30,13 +30,16 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 	w_class = WEIGHT_CLASS_TINY
 	item_flags = DENY_UI_BLOCKED
 	slot_flags = ITEM_SLOT_ID|ITEM_SLOT_PDA|ITEM_SLOT_BELT
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 100)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 100, ACID = 100)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	origin_tech = "programming=2"
 
 	light_on = FALSE
 	light_system = MOVABLE_LIGHT_DIRECTIONAL
 	light_range = 2
+
+	interaction_flags_atom = parent_type::interaction_flags_atom | INTERACT_ATOM_ALLOW_USER_LOCATION | INTERACT_ATOM_IGNORE_MOBILITY
+	interaction_flags_mouse_drop = NEED_HANDS
 
 	//Main variables
 	var/owner = null
@@ -62,12 +65,24 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 	var/ttone = "beep" //The ringtone!
 	var/list/ttone_sound = list(
 		"beep" = 'sound/machines/twobeep.ogg',
-		"boom" = 'sound/effects/explosionfar.ogg',
+		"boop" = 'sound/machines/boop.ogg',
+		"blup" = 'sound/misc/blup.ogg',
+		"chime" = 'sound/machines/notif2.ogg',
 		"slip" = 'sound/misc/slip.ogg',
 		"honk" = 'sound/items/bikehorn.ogg',
 		"SKREE" = 'sound/voice/shriek1.ogg',
 		"holy" = 'sound/items/PDA/ambicha4-short.ogg',
+		"boom" = 'sound/effects/explosionfar.ogg',
+		"gavel" = 'sound/items/gavel.ogg',
 		"xeno" = 'sound/voice/hiss1.ogg',
+		"smoke" = 'sound/magic/smoke.ogg',
+		"shatter" = 'sound/effects/pylon_shatter.ogg',
+		"energy" = 'sound/weapons/egloves.ogg',
+		"flare" = 'sound/goonstation/misc/matchstick_light.ogg',
+		"interference" = 'sound/misc/interference.ogg',
+		"zap" = 'sound/effects/eleczap.ogg',
+		"disgusting" = 'sound/effects/blobattack.ogg',
+		"hungry" = 'sound/weapons/bite.ogg',
 		"stalk" = 'sound/items/PDA/stalk1.ogg',
 		"stalk2" = 'sound/items/PDA/stalk2.ogg',
 	)
@@ -78,7 +93,8 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 		new/datum/data/pda/app/messenger,
 		new/datum/data/pda/app/manifest,
 		new/datum/data/pda/app/atmos_scanner,
-		new/datum/data/pda/utility/flashlight)
+		new/datum/data/pda/utility/flashlight,
+	)
 	var/list/shortcut_cache = list()
 	var/list/shortcut_cat_order = list()
 	var/list/notifying_programs = list()
@@ -101,6 +117,7 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 	/// Current PDA painting applied by /obj/machinery/pdapainter.
 	/// Saved in and associatove list format: "icon" -> icon_state/item_state, "base64" - > base64icon, "desc" -> desc
 	var/list/current_painting
+	var/current_theme = "nanotrasen"
 
 /obj/item/pda/emag_act(mob/user)
 	if(!user.mind.special_role && !is_admin(user) || !hidden_uplink)
@@ -169,13 +186,10 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 	return id ? id : ..()
 
 /obj/item/pda/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
-	. = ..()
-
-	if(!ishuman(user) || !Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		return FALSE
+	if(!ishuman(user))
+		return
 
 	attack_self(user)
-	return TRUE
 
 /obj/item/pda/attack_self(mob/user as mob)
 	user.set_machine(src)
@@ -290,7 +304,7 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 		if(O)
 			to_chat(user, span_notice("You remove \the [O] from [src]."))
 			playsound(src, 'sound/machines/pda_button2.ogg', 50, TRUE)
-			if(istype(loc, /mob))
+			if(ismob(loc))
 				var/mob/M = loc
 				if(M.get_active_hand() == null)
 					M.put_in_hands(O)
@@ -307,7 +321,7 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 			remove_id(user)
 			return TRUE
 		var/obj/item/I = user.get_active_hand()
-		if(istype(I, /obj/item/card/id) && user.drop_transfer_item_to_loc(I, src))
+		if(is_id_card(I) && user.drop_transfer_item_to_loc(I, src))
 			id = I
 			cartridge?.on_id_updated()
 			request_cartridge?.on_id_updated()
@@ -315,7 +329,7 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 			return TRUE
 		return FALSE
 	var/obj/item/card/id/I = user.get_active_hand()
-	if(istype(I, /obj/item/card/id) && I.registered_name && user.drop_transfer_item_to_loc(I, src))
+	if(is_id_card(I) && I.registered_name && user.drop_transfer_item_to_loc(I, src))
 		if(id)
 			id.forceMove_turf()
 			user.put_in_hands(id)
@@ -448,7 +462,7 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 		playsound(src, 'sound/machines/pda_button1.ogg', 50, TRUE)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(istype(I, /obj/item/card/id))
+	if(is_id_card(I))
 		add_fingerprint(user)
 		var/obj/item/card/id/id_card = I
 		if(!id_card.registered_name)
@@ -513,9 +527,9 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 		. |= ATTACK_CHAIN_SUCCESS
 		scanmode.scan_mob(target, user)
 
-/obj/item/pda/afterattack(atom/A, mob/user, proximity, params)
-	if(proximity && scanmode)
-		scanmode.scan_atom(A, user)
+/obj/item/pda/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(proximity_flag && scanmode)
+		scanmode.scan_atom(target, user)
 
 /obj/item/pda/proc/explode() //This needs tuning.
 	if(!detonate)
@@ -538,29 +552,50 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 	for(var/atom/A in src)
 		A.emp_act(severity)
 
-/obj/item/pda/proc/play_ringtone()
-	var/sound
-
-	if(ttone in ttone_sound)
-		sound = ttone_sound[ttone]
-	else
-		sound = 'sound/machines/twobeep_high.ogg'
-	playsound(loc, sound, 50, TRUE)
-	audible_message("[icon2html(src, hearers(3, loc))] *[ttone]*", hearing_distance = 3)
+/obj/item/pda/proc/play_ringtone(list/balloon_alertees)
+	var/sound_file = ttone_sound[ttone] ? ttone_sound[ttone] : 'sound/machines/twobeep_high.ogg'
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_PDA_GLITCHED))
+		sound_file = SFX_GLITCHED_PDA_RINGTONE
+	playsound(loc, sound_file, 50, TRUE)
+	var/ring_message = "*[ttone]*"
+	audible_message(ring_message)
+	for(var/mob/living/alertee in balloon_alertees)
+		alertee.balloon_alert(alertee, ring_message)
 
 /obj/item/pda/proc/set_ringtone(mob/user)
-	var/new_tone = tgui_input_text(user, "Please enter new ringtone", name, ttone, max_length = 20, encode = FALSE)
-	if(in_range(src, usr) && loc == usr)
-		if(new_tone)
-			if(hidden_uplink && hidden_uplink.check_trigger(usr, trim(lowertext(new_tone)), lowertext(lock_code)))
-				to_chat(usr, "The PDA softly beeps.")
-				close(usr)
-			else
-				ttone = new_tone
-			return 1
-	else
-		close(usr)
-	return 0
+	var/new_tone = tgui_input_text(user, "Введите новый рингтон", name, ttone, max_length = 20, encode = FALSE)
+	new_tone = trim(new_tone)
+
+	if(!in_range(src, user) || loc != user)
+		close(user)
+		return FALSE
+
+	if(!new_tone)
+		return FALSE
+
+	if(hidden_uplink && hidden_uplink.check_trigger(user, lowertext(new_tone), lowertext(lock_code)))
+		to_chat(user, span_notice("КПК издает тихий звуковой сигнал."))
+		close(user)
+		return TRUE
+
+	ttone = new_tone
+	return TRUE
+
+/obj/item/pda/proc/vpn_connect(mob/user)
+	var/input = tgui_input_text(user, "Введите хэш-ключ подключения", "VPN", "", max_length = 20)
+
+	if(!input)
+		return FALSE
+
+	input = lowertext(trim(input))
+
+	if(hidden_uplink && hidden_uplink.check_trigger(user, input, lowertext(lock_code)))
+		to_chat(user, span_notice("Соединение установлено."))
+		close(user)
+		return TRUE
+
+	to_chat(user, span_warning("Хэш-ключ заблокирован ЦентКомНадзором."))
+	return FALSE
 
 /obj/item/pda/process()
 	if(current_app)

@@ -4,8 +4,12 @@
 #define LIMB_THRESH_INT_DMG 10
 /// Probability of taking internal damage from sufficient force, while otherwise healthy
 #define LIMB_DMG_PROB 5
-/// Threshold needed to have a chance of inflicting fracture
-#define LIMB_FRACTURE_MIN_DMG 15
+/// Threshold needed to have a chance of inflicting bone crack
+#define LIMB_BONE_CRACK_MIN_DMG 10
+/// Threshold needed to have a chance of inflicting closed fracture
+#define LIMB_CLOSED_FRACTURE_MIN_DMG 20
+/// Threshold needed to have a chance of inflicting open fracture
+#define LIMB_OPEN_FRACTURE_MIN_DMG 40
 /// Threshold needed to have a chance of inflicting internal bleeding
 #define LIMB_INT_BLEEDING_MIN_DMG 15
 /// Threshold needed to have a chance of inflicting arterial bleeding
@@ -15,13 +19,15 @@
 /// Arterial bleeding size
 #define LIMB_ARTERIAL_BLEEDING_SIZE 21
 
-/****************************************************
-				EXTERNAL ORGANS
-****************************************************/
+// MARK: External organs
+
 /obj/item/organ/external
 	name = "external"
 	max_damage = 0
 	blocks_emissive = FALSE
+	light_system = MOVABLE_LIGHT
+	light_on = FALSE
+
 	/// External body part zone
 	var/limb_zone
 	/// Used to calculate protection from armor
@@ -70,6 +76,8 @@
 	var/burn_dam = 0
 	/// Damage equal to brute damage after bodypart breaks. Used to calculate bodypart overall damage
 	var/perma_injury = 0
+	/// Fracture type
+	var/datum/fracture_type/fracture = null
 
 	/// Whether bodypart can be amputated
 	var/cannot_amputate = FALSE
@@ -106,9 +114,6 @@
 	/// If the organ has been properly attached or not. Limbs on mobs and robotic ones
 	var/properly_attached = FALSE
 
-	light_system = MOVABLE_LIGHT
-	light_on = FALSE
-
 	/// How many bleeding stopped
 	var/bleedsuppress = 0
 	/// Timer for stop blood loss
@@ -118,6 +123,8 @@
 	/// Applyed tourniquet, suppress any bloddloss, but can necrotize bodypart after timer
 	var/obj/item/tourniquet/tourniquet = null
 
+	/// The body zone of this part in english ("chest", "left arm", etc) without the species attached to it
+	var/plaintext_zone
 
 /obj/item/organ/external/Initialize(mapload, special = ORGAN_MANIPULATION_NOEFFECT)
 	. = ..()
@@ -171,6 +178,7 @@
 	if(owner)
 		owner.bodyparts_by_name[limb_zone] = null
 		LAZYREMOVE(owner.splinted_limbs, src)
+		owner.bleeding_bodyparts -= src
 
 	QDEL_LIST(embedded_objects)
 	QDEL_NULL(hidden)
@@ -179,6 +187,7 @@
 		QDEL_NULL(tourniquet)
 
 	tourniquet = null
+	fracture = null
 
 	if(owner && !owner.has_embedded_objects())
 		owner.clear_alert(ALERT_EMBEDDED)
@@ -205,6 +214,8 @@
 
 	owner.bodyparts_by_name[limb_zone] = src
 	owner.bodyparts |= src
+	if(bleeding_amount > 0 || has_internal_bleeding() || LAZYLEN(embedded_objects) || open)
+		owner.bleeding_bodyparts |= src
 
 	for(var/atom/movable/thing in src)
 		thing.attempt_become_organ(src, owner, special)
@@ -223,6 +234,7 @@
 	remove_splint(silent = TRUE)
 	remove_all_embedded_objects()
 	remove_tourniquet()
+	owner.bleeding_bodyparts -= src
 
 	. = ..()
 
@@ -264,9 +276,7 @@
 /obj/item/organ/external/update_health()
 	damage = min(max_damage, (brute_dam + burn_dam))
 
-/****************************************************
-				DAMAGE PROCS
-****************************************************/
+// MARK: Damage procs
 
 /**
  * Applies damage to external organs.
@@ -319,7 +329,11 @@
 			burn *= owner.get_incoming_damage_modifier(burn, BURN, limb_zone, sharp, used_weapon)
 
 		// High brute damage or sharp objects may damage internal organs; distributed damage doesn't inflict it
-		if(LAZYLEN(internal_organs) && (brute_dam >= max_damage || (((sharp && brute >= LIMB_SHARP_THRESH_INT_DMG) || brute >= LIMB_THRESH_INT_DMG) && prob(LIMB_DMG_PROB))))
+		var/pass_internal_organ_damage = brute_dam >= max_damage
+		pass_internal_organ_damage = pass_internal_organ_damage || (prob(LIMB_DMG_PROB) && ((sharp && brute >= LIMB_SHARP_THRESH_INT_DMG) || brute >= LIMB_THRESH_INT_DMG))
+		pass_internal_organ_damage = pass_internal_organ_damage || (has_fracture() && fracture.pass_internal_organ_damage)
+		pass_internal_organ_damage = pass_internal_organ_damage && LAZYLEN(internal_organs)
+		if(pass_internal_organ_damage)
 			var/obj/item/organ/internal/internal_organ = pick(internal_organs)
 			// Pass full damage if an internal organ is dead
 			var/internal_damage = min(internal_organ.max_damage - internal_organ.damage, brute * 0.5)
@@ -464,6 +478,7 @@
 
 			bleeding_amount += round(bleeding, BLEEDING_PRECISION)
 			bleeding_amount = min(bleeding_amount, max_bleeding_amount)
+			owner?.add_bleeding_bodypart(src)
 
 /obj/item/organ/external/proc/heal_damage(brute, burn, internal = FALSE, robo_repair = FALSE, updating_health = TRUE)
 	if(is_robotic() && !robo_repair)
@@ -502,6 +517,8 @@
 
 /obj/item/organ/external/emp_act(severity)
 	if(!is_robotic() || emp_proof)
+		return
+	if(emp_shielded(severity))
 		return
 	if(tough) // Augmented limbs (remember they take -5 brute/-4 burn damage flat so any value below is compensated)
 		switch(severity)
@@ -558,6 +575,7 @@ This function completely restores a damaged organ to perfect condition.
 	bleeding_amount = 0
 	bleedsuppress = 0
 	open = ORGAN_CLOSED //Closing all wounds.
+	fracture = null
 
 	// handle internal organs
 	for(var/obj/item/organ/internal/organ as anything in internal_organs)
@@ -587,12 +605,9 @@ This function completely restores a damaged organ to perfect condition.
 	if(flags_to_heal & ORGAN_DISFIGURED)
 		undisfigure()
 
-/****************************************************
-				PROCESSING & UPDATING
-****************************************************/
+// MARK: Processing & Updating
 
 //Determines if we even need to process this organ.
-
 /obj/item/organ/external/process()
 	if(owner)
 		//Chem traces slowly vanish
@@ -668,14 +683,26 @@ Note that amputating the affected organ does in fact remove the infection from t
 		germ_level += germs_amount
 		owner.adjustToxLoss(1)
 
+
 /obj/item/organ/external/proc/try_fracture(inflicted_damage, silent = FALSE)
-	if(inflicted_damage <= LIMB_FRACTURE_MIN_DMG)
-		return FALSE
+	if(inflicted_damage < LIMB_BONE_CRACK_MIN_DMG)
+		return FALSE //too low damage - no fracture
+
 	if(brute_dam + burn_dam + inflicted_damage <= min_broken_damage)
-		return FALSE
+		return FALSE //bodypart is not damaged enough - no fracture
+
 	if(!prob(inflicted_damage * owner.dna.species.bonefragility * owner.physiology.bone_fragility))
-		return FALSE
-	if(fracture(silent))
+		return FALSE // bad luck - no fracture
+
+	var/fracture
+	if(inflicted_damage >= LIMB_OPEN_FRACTURE_MIN_DMG)
+		fracture = FRACTURE_TYPE_OPEN
+	else if(inflicted_damage >= LIMB_CLOSED_FRACTURE_MIN_DMG)
+		fracture = FRACTURE_TYPE_CLOSED
+	else
+		fracture = FRACTURE_TYPE_CRACK
+
+	if(fracture(silent, fracture))
 		add_attack_logs(owner, null, "Suffered fracture to [src](Damage: [inflicted_damage], Organ HP: [max_damage - (brute_dam + burn_dam) ])")
 		return TRUE
 	return FALSE
@@ -733,9 +760,8 @@ Note that amputating the affected organ does in fact remove the infection from t
 		tbrute = 3
 	return "[tbrute][tburn]"
 
-/****************************************************
-				DISMEMBERMENT
-****************************************************/
+// MARK: Dismemberment
+
 /obj/item/organ/external/proc/droplimb(clean = FALSE, disintegrate = DROPLIMB_SHARP, ignore_children = FALSE, nodamage = FALSE, silent = FALSE)
 	if(!owner || cannot_amputate)
 		return
@@ -751,14 +777,14 @@ Note that amputating the affected organ does in fact remove the infection from t
 					owner.visible_message(
 						span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] [owner] отрыва[PLUR_ET_YUT(src)]ся!"),
 						span_userdanger("Ваш[GEND_A_E_I(src)] [declent_ru(NOMINATIVE)] отрыва[PLUR_ET_YUT(src)]ся!"),
-						span_italics("Вы слышите звук [gore_sound]!"),
+						span_hear("Вы слышите звук [gore_sound]!"),
 					)
 			if(DROPLIMB_BURN)
 				var/gore_sound = "[is_robotic() ? "бульканья расплавленного металла" : "шипения горящей плоти"]"
 				owner.visible_message(
 					span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] [owner] испепеля[PLUR_ET_YUT(src)]ся!"),
 					span_userdanger("Ваш[GEND_A_E_I(src)] [declent_ru(NOMINATIVE)] испепеля[PLUR_ET_YUT(src)]ся!"),
-					span_italics("Вы слышите звук [gore_sound]!"),
+					span_hear("Вы слышите звук [gore_sound]!"),
 				)
 			if(DROPLIMB_BLUNT)
 				var/gore = "[is_robotic() ? "брызги масла и куски скомканного металла": "брызги крови и ошмётки плоти"]"
@@ -766,7 +792,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 				owner.visible_message(
 					span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] [owner] отрыва[PLUR_ET_YUT(src)]ся, оставляя после себя [gore]!"),
 					span_userdanger("Ваш[GEND_A_E_I(src)] [declent_ru(NOMINATIVE)] отрыва[PLUR_ET_YUT(src)]ся, оставляя после себя [gore]!"),
-					span_italics("Вы слышите звук [gore_sound]!")
+					span_hear("Вы слышите звук [gore_sound]!")
 				)
 
 	var/mob/living/carbon/human/victim = owner //Keep a reference for post-removed().
@@ -844,6 +870,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		)
 
 	open = ORGAN_ORGANIC_OPEN
+	owner.add_bleeding_bodypart(src)
 	return TRUE
 
 /obj/item/organ/external/chest/droplimb(clean = FALSE, disintegrate = DROPLIMB_SHARP, ignore_children = FALSE, nodamage = FALSE, silent = FALSE)
@@ -936,9 +963,8 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(need_compile)
 		compile_icon()
 
-/****************************************************
-				HELPERS
-****************************************************/
+// MARK: Helpers
+
 /obj/item/organ/external/proc/release_restraints(mob/living/carbon/human/holder, silent = FALSE)
 	if(!holder)
 		holder = owner
@@ -972,6 +998,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		return FALSE
 
 	status |= ORGAN_INT_BLEED
+	owner.add_bleeding_bodypart(src)
 	INVOKE_ASYNC(owner, TYPE_PROC_REF(/mob, emote), "scream")
 
 	if(owner && !silent)
@@ -1005,6 +1032,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		return FALSE
 
 	bleeding_amount = LIMB_ARTERIAL_BLEEDING_SIZE
+	owner.add_bleeding_bodypart(src)
 	INVOKE_ASYNC(owner, TYPE_PROC_REF(/mob, emote), "scream")
 
 	if(owner && !silent)
@@ -1036,14 +1064,14 @@ Note that amputating the affected organ does in fact remove the infection from t
 /obj/item/organ/external/proc/stop_bleeding()
 	bleeding_amount = 0
 
-/obj/item/organ/external/proc/fracture(silent = FALSE)
+/obj/item/organ/external/proc/fracture(silent = FALSE, datum/fracture_type/new_fracture = FRACTURE_TYPE_CLOSED)
 	if(!CONFIG_GET(flag/bones_can_break))
 		return FALSE
 	if(owner && HAS_TRAIT(owner, TRAIT_GODMODE))
 		return FALSE
-	if(is_robotic())
+	if(is_robotic() || cannot_break)
 		return FALSE
-	if(has_fracture() || cannot_break)
+	if(has_fracture() && fracture.power >= new_fracture.power)
 		return FALSE
 
 	if(owner && !silent)
@@ -1051,7 +1079,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		owner.visible_message(
 			span_warning("Вы слышите громкий хруст, исходящий от [owner]."),
 			null,
-			span_italics("Вы слышите громкий хруст."),
+			span_hear("Вы слышите громкий хруст."),
 		)
 
 		playsound(owner, SFX_BONEBREAK, 150, TRUE)
@@ -1059,19 +1087,21 @@ Note that amputating the affected organ does in fact remove the infection from t
 		if(owner.has_pain())
 			INVOKE_ASYNC(owner, TYPE_PROC_REF(/mob, emote), "scream")
 
+	fracture = new_fracture
 	status |= ORGAN_BROKEN
-	broken_description = pick("Смещение кости", "Перелом", "Микротрещина")
+	broken_description = fracture.description
 	perma_injury = brute_dam
+	owner.apply_status_effect(/datum/status_effect/ignore_fracture, 10 SECONDS)
 
 	// Fractures have a chance of getting you out of restraints
 	if(prob(25))
 		release_restraints(silent = silent)
 
-	SEND_SIGNAL(owner, COMSIG_CARBON_RECEIVE_FRACTURE)
+	SEND_SIGNAL(owner, COMSIG_CARBON_RECEIVE_FRACTURE, fracture)
 	return TRUE
 
 /obj/item/organ/external/proc/has_fracture()
-	return (status & ORGAN_BROKEN)
+	return (status & ORGAN_BROKEN) && fracture != null
 
 /obj/item/organ/external/proc/mend_fracture()
 	if(is_robotic())
@@ -1080,6 +1110,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		return FALSE
 
 	status &= ~ORGAN_BROKEN
+	fracture = null
 	perma_injury = 0
 	remove_splint()
 
@@ -1089,6 +1120,10 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(is_splinted())
 		return FALSE
 	if(!has_fracture())
+		return FALSE
+
+	if(!fracture.can_splint)
+		balloon_alert(usr, "наложение шины невозможно!")
 		return FALSE
 
 	status |= ORGAN_SPLINTED
@@ -1116,7 +1151,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 				owner.visible_message(
 					span_danger("Шина спадает с [declent_ru(GENITIVE)] [owner], заставляя [GEND_HIS_HER(owner)] кричать от боли!"),
 					span_userdanger("Шина спадает с [GEND_YOURS(src)] [declent_ru(GENITIVE)], заставляя вас кричать от боли!"),
-					span_italics("Вы слышите глухой звук падения чего-то, сопровождающийся громким криком!")
+					span_hear("Вы слышите глухой звук падения чего-то, сопровождающийся громким криком!")
 				)
 			else if(!silent)
 				owner.visible_message(
@@ -1241,7 +1276,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 			owner.visible_message(
 				span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] [owner] превраща[PLUR_ET_YUT(src)]ся в кровавую кашу, издавая тошнотворный звук!"),
 				span_userdanger("Ваш[GEND_A_E_I(src)] [declent_ru(NOMINATIVE)] превраща[PLUR_ET_YUT(src)]ся в кровавую кашу!"),
-				span_italics("Вы слышите тошнотворный звук.")
+				span_hear("Вы слышите тошнотворный звук.")
 			)
 		owner.update_hud_set()
 
@@ -1329,6 +1364,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 /obj/item/organ/external/proc/add_embedded_object(obj/item/thing, throw_alert = TRUE)
 	LAZYOR(embedded_objects, thing)
+	owner?.add_bleeding_bodypart(src)
 	thing.forceMove(src)
 	if(throw_alert)
 		owner?.throw_alert(ALERT_EMBEDDED, /atom/movable/screen/alert/embeddedobject)
@@ -1343,8 +1379,10 @@ Note that amputating the affected organ does in fact remove the infection from t
 #undef LIMB_SHARP_THRESH_INT_DMG
 #undef LIMB_THRESH_INT_DMG
 #undef LIMB_DMG_PROB
-#undef LIMB_FRACTURE_MIN_DMG
 #undef LIMB_INT_BLEEDING_MIN_DMG
 #undef LIMB_ARTERIAL_BLEEDING_MIN_DMG
 #undef LIMB_ARTERIAL_BLEEDING_CHANCE_MOD
 #undef LIMB_ARTERIAL_BLEEDING_SIZE
+#undef LIMB_BONE_CRACK_MIN_DMG
+#undef LIMB_CLOSED_FRACTURE_MIN_DMG
+#undef LIMB_OPEN_FRACTURE_MIN_DMG

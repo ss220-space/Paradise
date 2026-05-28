@@ -58,7 +58,7 @@
 	density = TRUE
 	max_integrity = 300
 	integrity_failure = 100
-	armor = list(melee = 20, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 70)
+	armor = list(MELEE = 20, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 50, ACID = 70)
 	abstract_type = /obj/machinery/vending
 
 	// All the overlay controlling variables
@@ -252,6 +252,11 @@
 	 * Defaults to null, set it to TRUE or FALSE explicitly on a per-machine basis if you want to force it to be a certain value.
 	 */
 	var/all_products_free
+	/**
+	 * If this is set to TRUE, the free item distribution process will not drop products, but the machine can still tilt.
+	 * Otherwise, free buy works normally.
+	 */
+	var/vandal_secure = FALSE
 
 /obj/machinery/vending/get_ru_names()
 	return list(
@@ -786,6 +791,10 @@
  * freebies - number of free items to vend
  */
 /obj/machinery/vending/proc/freebie(mob/user, num_freebies)
+	if(vandal_secure)
+		visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] дребезжит, но ничего не выдаёт!"))
+		return
+
 	visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] товар[declension_ru(num_freebies, "", "ы", "ы")] из своего ассортимента[credits_contained > 0 ? " и купюры" : ""]!"))
 
 	for(var/i in 1 to num_freebies)
@@ -1217,7 +1226,7 @@
 	currently_vending = product_record
 	var/paid = FALSE
 
-	if(istype(usr.get_active_hand(), /obj/item/stack/spacecash))
+	if(is_cash(usr.get_active_hand()))
 		var/obj/item/stack/spacecash/cash = usr.get_active_hand()
 		paid = pay_with_cash(cash, usr, currently_vending.price, currently_vending.name)
 	else if(get_card_account(usr))
@@ -1279,15 +1288,14 @@
 /obj/machinery/vending/proc/do_vend(datum/data/vending_product/product_record, mob/user, list/greyscale_colors)
 	if(!item_slot || !inserted_item)
 		var/put_on_turf = TRUE
-		var/obj/item/vended = new product_record.product_path(drop_location())
+		var/obj/item/vended_item = new product_record.product_path(drop_location())
 		if(greyscale_colors)
-			vended.set_greyscale_colors(greyscale_colors)
-		if(istype(vended) && user && iscarbon(user) && user.Adjacent(src))
-			if(user.put_in_hands(vended, ignore_anim = FALSE))
-				put_on_turf = FALSE
+			vended_item.set_greyscale_colors(greyscale_colors)
+		if(IsReachableBy(user) && user.put_in_hands(vended_item, ignore_anim = FALSE))
+			put_on_turf = FALSE
 		if(put_on_turf)
-			var/turf/T = get_turf(src)
-			vended.forceMove(T)
+			var/turf/target_turf = get_turf(src)
+			vended_item.forceMove(target_turf)
 		return TRUE
 	return FALSE
 
@@ -1327,7 +1335,7 @@
 	if(!message)
 		return
 
-	atom_say(message)
+	atom_say(message, use_tts = FALSE)
 
 /obj/machinery/vending/obj_break(damage_flag)
 	if(stat & BROKEN)
@@ -1335,6 +1343,9 @@
 
 	stat |= BROKEN
 	update_icon(UPDATE_OVERLAYS)
+
+	if(vandal_secure)
+		return
 
 	var/dump_amount = 0
 	var/found_anything = TRUE

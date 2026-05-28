@@ -61,6 +61,7 @@
 		TRAIT_TEMPERATURE_MOVEMENT,
 		TRAIT_STRONG_PULLING,
 		TRAIT_RESIST_COLD,
+		TRAIT_LIVERLESS_METABOLISM,
 	)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_COLOR | HAS_BODY_ACCESSORY
@@ -70,7 +71,7 @@
 	reagent_tag = ORGANIC
 	base_color = "#704300"
 	flesh_color = "#704300"
-	blood_color = "#FFFF99"
+	blood_color = BLOOD_COLOR_WRYN
 	blood_species = "Wryn"
 	//Default styles for created mobs.
 	default_hair = "Normal antennae"

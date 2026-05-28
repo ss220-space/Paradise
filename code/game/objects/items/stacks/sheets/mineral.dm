@@ -121,10 +121,10 @@ GLOBAL_LIST_INIT(snow_recipes, list(
 /obj/item/stack/sheet/mineral
 	throw_speed = 3
 
-/obj/item/stack/sheet/mineral/New(loc, new_amount, merge = TRUE)
-	..()
-	pixel_x = rand(0,4)-4
-	pixel_y = rand(0,4)-4
+/obj/item/stack/sheet/mineral/Initialize(mapload, new_amount, merge = TRUE)
+	. = ..()
+	pixel_x = base_pixel_x + rand(0, 4) - 4
+	pixel_y = base_pixel_y + rand(0, 4) - 4
 
 /obj/item/stack/sheet/mineral/sandstone
 	name = "sandstone brick"
@@ -249,7 +249,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 	return TRUE
 
 /obj/item/stack/sheet/mineral/plasma/attackby(obj/item/I, mob/user, params)
-	if(I.get_heat())
+	if(I.get_temperature())
 		log_and_set_aflame(user, I)
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()

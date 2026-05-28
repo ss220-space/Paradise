@@ -91,6 +91,13 @@
 	/// Delay between each movement
 	var/move_delay = 0.4 SECONDS
 
+/obj/item/circuit_component/bot_circuit/Destroy()
+	north = null
+	east = null
+	south = null
+	west = null
+	. = ..()
+
 /obj/item/circuit_component/bot_circuit/register_shell(atom/movable/shell)
 	. = ..()
 	if(!ismob(shell))

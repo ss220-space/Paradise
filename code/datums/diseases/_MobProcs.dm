@@ -83,7 +83,7 @@
 	if(!zone)
 		zone_text = pick(40; BODY_ZONE_HEAD, 40; BODY_ZONE_CHEST, 10; BODY_ZONE_L_ARM, 10; BODY_ZONE_L_LEG)
 	else
-		if(istype(zone, /obj/item/organ/external))
+		if(isexternalorgan(zone))
 			var/obj/item/organ/external/E = zone
 			zone_text = E.limb_zone
 		else

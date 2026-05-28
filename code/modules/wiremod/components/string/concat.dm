@@ -19,6 +19,11 @@
 		"minus" = "remove",
 	)
 
+/obj/item/circuit_component/concat/Destroy()
+	LAZYCLEARLIST(concat_ports)
+	output = null
+	. = ..()
+
 /obj/item/circuit_component/concat/populate_ports()
 	AddComponent(/datum/component/circuit_component_add_port, \
 		port_list = concat_ports, \

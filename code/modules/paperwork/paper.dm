@@ -63,18 +63,16 @@
 		PREPOSITIONAL = "бумаге",
 	)
 
-//lipstick wiping is in code/game/objects/items/weapons/cosmetics.dm!
-
 /obj/item/paper/Initialize(mapload)
 	. = ..()
-	pixel_y = rand(-8, 8)
-	pixel_x = rand(-9, 9)
-	base_pixel_x = pixel_x
-	base_pixel_y = pixel_y
+	pixel_x = base_pixel_x + rand(-9, 9)
+	pixel_y = base_pixel_y + rand(-8, 8)
 
-	spawn(2)
-		update_icon()
-		updateinfolinks()
+	addtimer(CALLBACK(src, PROC_REF(update_paper)), 1 DECISECONDS)
+
+/obj/item/paper/proc/update_paper()
+	update_appearance()
+	updateinfolinks()
 
 /obj/item/paper/update_icon_state()
 	icon_state = "paper[info ? "_words" : ""]"
@@ -86,7 +84,7 @@
 	. = ..()
 	. += span_notice("<b>Alt-Click</b> the [initial(name)] with a pen in hand to rename it.")
 	if(user.is_literate())
-		if(in_range(user, src) || istype(user, /mob/dead/observer))
+		if(in_range(user, src) || isobserver(user))
 			show_content(user)
 		else
 			. += span_notice("You have to go closer if you want to read it.")
@@ -347,7 +345,7 @@
 /obj/item/paper/proc/topic_href_write(mob/user, id, input_element)
 	var/obj/item/item_write = user.get_active_hand() // Check to see if he still got that darn pen, also check if he's using a crayon or pen.
 	add_hiddenprint(user) // No more forging nasty documents as someone else, you jerks
-	if(!is_pen(item_write) && !istype(item_write, /obj/item/toy/crayon))
+	if(!is_pen(item_write) && !iscrayon(item_write))
 		return
 	if(loc != user && !Adjacent(user, recurse = 2) && !loc.Adjacent(user))
 		return // If paper is not in usr, then it must be near them
@@ -393,7 +391,7 @@
 			menu_list.Add(usr.name)
 
 		if(usr.job)
-			menu_list.Add(usr.job)	// job
+			menu_list.Add(get_job_title_ru(usr.job))	// job
 
 		menu_list.Add(sign_text)	//signature
 
@@ -447,7 +445,7 @@
 	if(resistance_flags & ON_FIRE)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(I.get_heat())
+	if(I.get_temperature())
 		if(!Adjacent(user)) //to prevent issues as a result of telepathically lighting a paper
 			return ATTACK_CHAIN_BLOCKED_ALL
 
@@ -470,7 +468,7 @@
 		fire_act()
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(is_pen(I) || istype(I, /obj/item/toy/crayon))
+	if(is_pen(I) || iscrayon(I))
 		add_fingerprint(user)
 		if(!user.is_literate())
 			to_chat(user, span_warning("You don't know how to write!"))
@@ -654,7 +652,7 @@
 
 /obj/item/paper/blueshield
 	name = "paper- 'Blueshield Mission Briefing'"
-	info = "<b>Blueshield Mission Briefing</b><br>You are charged with the defence of any persons of importance within the station. This includes, but is not limited to, The Captain, The Heads of Staff and Central Command staff. You answer directly to the Nanotrasen Representative who will assist you in achieving your mission.<br>When required to achieve your primary responsibility, you should liaise with security and share resources; however, the day to day security operations of the station are outside of your jurisdiction.<br>Monitor the health and safety of your principals, identify any potential risks and threats, then alert the proper departments to resolve the situation. You are authorized to act as bodyguard to any of the station heads that you determine are most in need of protection; however, additional access to their departments shall be granted solely at their discretion.<br>Observe the station alert system and carry your armaments only as required by the situation, or when authorized by the Head of Security or Captain in exceptional cases.<br>Remember, as an agent of Nanotrasen it is your responsibility to conduct yourself appropriately and you will be held to the highest standard. You will be held accountable for your actions. Security is authorized to search, interrogate or detain you as required by their own procedures. Internal affairs will also monitor and observe your conduct, and their mandate applies equally to security and Blueshield operations."
+	info = "<b>Blueshield Mission Briefing</b><br>You are charged with the defence of any persons of importance within the station. This includes, but is not limited to, The Captain, The Heads of Staff and Central Command staff. You answer directly to the Nanotrasen Representative who will assist you in achieving your mission.<br>When required to achieve your primary responsibility, you should liaise with security and share resources; however, the day to day security operations of the station are outside of your jurisdiction.<br>Monitor the health and safety of your principals, identify any potential risks and threats, then alert the proper departments to resolve the situation. You are authorized to act as bodyguard to any of the station heads that you determine are most in need of protection; however, additional access to their departments shall be granted solely at their discretion.<br>Observe the station alert system and carry your armaments only as required by the situation, or when authorized by the Head of Security or Captain in exceptional cases.<br>Remember, as an agent of Nanotrasen it is your responsibility to conduct yourself appropriately and you will be held to the highest standard. You will be held accountable for your actions. Security is authorized to search, interrogate or detain you as required by their own procedures. Lawyers will also monitor and observe your conduct, and their mandate applies equally to security and Blueshield operations."
 
 /obj/item/paper/ntrep
 	name = "paper- 'Nanotrasen Representative Mission Briefing'"
@@ -871,7 +869,7 @@
 		GLOB.major_announcement.announce(
 			message = "[target.real_name] настоящим приказом был понижен до Гражданского. Немедленно обработайте этот запрос. Невыполнение этих распоряжений является основанием для расторжения контракта.",
 			new_title = ANNOUNCE_CCDEMOTE_RU,
-			new_sound = 'sound/AI/commandreport.ogg'
+			new_sound = SSstation.announcer.get_rand_report_sound(),
 		)
 		for(var/datum/data/record/R in sortRecord(GLOB.data_core.security))
 			if(R.fields["name"] == target.real_name)
@@ -883,7 +881,7 @@
 		GLOB.major_announcement.announce(
 			message = "[target.real_name] настоящим приказом был понижен до Гражданского. Немедленно обработайте этот запрос. Невыполнение этих распоряжений является основанием для расторжения контракта.",
 			new_title = ANNOUNCE_CCDEMOTE_RU,
-			new_sound = 'sound/AI/commandreport.ogg'
+			new_sound = SSstation.announcer.get_rand_report_sound(),
 		)
 		for(var/datum/data/record/R in sortRecord(GLOB.data_core.security))
 			if(R.fields["name"] == target.real_name)

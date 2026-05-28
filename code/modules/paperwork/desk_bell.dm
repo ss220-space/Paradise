@@ -5,6 +5,7 @@
 	desc = "The cornerstone of any customer service job. You feel an unending urge to ring it. It looks like it can be wrenched or screwdrivered."
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "desk_bell"
+	interaction_flags_mouse_drop = NEED_HANDS
 	/// The amount of times this bell has been rang, used to check the chance it breaks
 	var/times_rang = 0
 	/// Is this bell broken?
@@ -29,21 +30,17 @@
 	return TRUE
 
 /obj/item/desk_bell/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
-	. = ..()
-	if(!.)
-		return FALSE
-
-	if(over_object != user || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !ishuman(user))
-		return FALSE
+	if(over_object != user || !ishuman(user))
+		return
 
 	set_anchored(FALSE)
-	if(user.put_in_hands(src, ignore_anim = FALSE))
-		add_fingerprint(user)
-		user.visible_message(span_notice("[user] picks up [src]."))
-		return TRUE
+	if(!user.put_in_hands(src, ignore_anim = FALSE))
+		set_anchored(TRUE)
+		return
 
-	set_anchored(TRUE)
-	return FALSE
+	add_fingerprint(user)
+	user.visible_message(span_notice("[user] picks up [src]."))
+	return TRUE
 
 // Fix the clapper
 /obj/item/desk_bell/screwdriver_act(mob/living/user, obj/item/tool)

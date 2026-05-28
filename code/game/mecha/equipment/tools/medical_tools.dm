@@ -61,10 +61,10 @@
 		AM.forceMove(get_turf(src))
 	return ..()
 
-/obj/item/mecha_parts/mecha_equipment/medical/sleeper/Exit(atom/movable/leaving, atom/newLoc)
+/obj/item/mecha_parts/mecha_equipment/medical/sleeper/Exit(atom/movable/leaving, direction)
 	return FALSE
 
-/obj/item/mecha_parts/mecha_equipment/medical/sleeper/action(mob/living/carbon/target)
+/obj/item/mecha_parts/mecha_equipment/medical/sleeper/action(mob/living/carbon/target, list/modifiers)
 	if(!action_checks(target))
 		return FALSE
 	if(!istype(target))
@@ -199,7 +199,7 @@
 		chosen_reagent.trans_to(patient, to_inject)
 		start_cooldown()
 
-/obj/item/mecha_parts/mecha_equipment/medical/sleeper/container_resist()
+/obj/item/mecha_parts/mecha_equipment/medical/sleeper/container_resist_act()
 	go_out(TRUE)
 
 /obj/item/mecha_parts/mecha_equipment/medical/sleeper/process()
@@ -330,10 +330,10 @@
 
 	return FALSE
 
-/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/action(atom/movable/target)
+/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/action(atom/movable/target, list/modifiers)
 	if(!action_checks(target))
 		return FALSE
-	if(istype(target, /obj/item/reagent_containers/syringe) || isstorage(target))
+	if(issyringe(target) || isstorage(target))
 		if(get_dist(src, target) < 2)
 			for(var/obj/structure/D in target.loc)//Basic level check for structures in the way (Like grilles and windows)
 				if(!(D.CanPass(target, get_dir(D, loc))))
@@ -420,7 +420,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/proc/start_syringe_loading(obj/item/ammunition)
 	var/lock_n_load = 0
-	if(istype(ammunition, /obj/item/reagent_containers/syringe))
+	if(issyringe(ammunition))
 		if(!load_syringe(ammunition))
 			return FALSE
 	else
@@ -439,7 +439,7 @@
 	if(get_dist(src, A) >= 4)
 		occupant_message("The object is too far away.")
 		return FALSE
-	if(!A.reagents || istype(A,/mob))
+	if(!A.reagents || ismob(A))
 		occupant_message(span_alert("No reagent info gained from [A]."))
 		return FALSE
 	occupant_message("Analyzing reagents...")
@@ -504,7 +504,7 @@
 	energy_drain = 10
 	var/dam_force = 20
 
-/obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw/action(atom/target)
+/obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw/action(atom/target, list/modifiers)
 	if(!action_checks(target))
 		return FALSE
 	if(isobj(target))
@@ -583,8 +583,8 @@
 		occupant_message("[src] deactivated - no power.")
 		return TRUE
 
-/obj/item/mecha_parts/mecha_equipment/medical/beamgun/action(mob/target)
-	if(!mbeam.process_fire(target, loc))
+/obj/item/mecha_parts/mecha_equipment/medical/beamgun/action(mob/target, list/modifiers)
+	if(!mbeam.fast_fire(target, loc))
 		STOP_PROCESSING(SSobj, src)
 		return
 

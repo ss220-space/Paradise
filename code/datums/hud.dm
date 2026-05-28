@@ -82,6 +82,9 @@ GLOBAL_LIST_INIT(huds, list( \
 		hud_atoms += list(list())
 		hud_users += list(list())
 
+	if(LAZYLEN(hud_icons))
+		hud_icons = string_list(hud_icons)
+
 	RegisterSignal(SSdcs, COMSIG_GLOB_NEW_Z, PROC_REF(add_z_level_huds))
 
 	if(uses_global_hud_category)
@@ -249,6 +252,9 @@ GLOBAL_LIST_INIT(huds, list( \
 
 	var/turf/atom_turf = get_turf(hud_atom_to_remove)
 	if(!atom_turf)
+		for(var/z, list in hud_atoms)
+			var/list/huds_list = list
+			LAZYREMOVE(huds_list, hud_atom_to_remove)
 		return TRUE
 
 	hud_atoms[atom_turf.z] -= hud_atom_to_remove

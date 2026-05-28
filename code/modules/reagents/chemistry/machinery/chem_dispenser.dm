@@ -270,7 +270,7 @@
 		SStgui.update_uis(src)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	if(istype(I, /obj/item/reagent_containers/glass) || istype(I, /obj/item/reagent_containers/food/drinks))
+	if(isglassreagentcontainer(I) || istype(I, /obj/item/reagent_containers/food/drinks))
 		add_fingerprint(user)
 		if(panel_open)
 			balloon_alert(user, "техпанель открыта!")
@@ -378,9 +378,9 @@
 	icon_state = "soda_dispenser"
 	beaker_overlay_name = "bar_beaker"
 	ui_title = "Фонтан Напитков 10000"
-	dispensable_reagents = list("water", "ice", "soymilk", "coffee", "tea", "hot_coco", "cola", "spacemountainwind", "dr_gibb", "space_up",
-	"tonic", "sodawater", "lemon_lime", "grapejuice", "sugar", "orangejuice", "lemonjuice", "limejuice", "tomatojuice", "banana",
-	"watermelonjuice", "carrotjuice", "potato", "berryjuice")
+	dispensable_reagents = list("banana", "berryjuice", "carrotjuice", "coffee", "cola", "dr_gibb", "grapejuice", "hot_coco", "ice", "lemon_lime",
+	"lemonjuice", "limejuice", "milk", "orangejuice", "potato", "sodawater", "soymilk", "space_up", "spacemountainwind", "sugar",
+	"tea", "tomatojuice", "tonic", "water", "watermelonjuice")
 	upgrade_reagents = list("bananahonk", "milkshake", "cafe_latte", "cafe_mocha", "triple_citrus", "icecoffe","icetea")
 	hacked_reagents = list("thirteenloko")
 	var/list/hackedupgrade_reagents = list("zaza") //I possess zaza
@@ -562,8 +562,8 @@
 /obj/item/handheld_chem_dispenser/get_cell()
 	return cell
 
-/obj/item/handheld_chem_dispenser/afterattack(obj/target, mob/user, proximity)
-	if(!proximity || !current_reagent || !amount)
+/obj/item/handheld_chem_dispenser/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag || !current_reagent || !amount)
 		return
 
 	if(!check_allowed_items(target,target_self = TRUE) || !target.is_refillable())
@@ -651,7 +651,7 @@
 /obj/item/handheld_chem_dispenser/update_overlays()
 	. = ..()
 	if(cell?.charge)
-		var/image/power_light = image('icons/obj/chemical.dmi', src, "light_low")
+		var/mutable_appearance/power_light = mutable_appearance('icons/obj/chemical.dmi', "light_low")
 		var/percent = round((cell.charge / cell.maxcharge) * 100)
 		switch(percent)
 			if(0 to 33)
@@ -662,13 +662,12 @@
 				power_light.icon_state = "light_full"
 		. += power_light
 
-		var/image/mode_light = image('icons/obj/chemical.dmi', src, "light_remove")
-		mode_light.icon_state = "light_[mode]"
+		var/mutable_appearance/mode_light = mutable_appearance('icons/obj/chemical.dmi', "light_[mode]")
 		. += mode_light
 
-		var/image/chamber_contents = image('icons/obj/chemical.dmi', src, "reagent_filling")
+		var/mutable_appearance/chamber_contents = mutable_appearance('icons/obj/chemical.dmi', "reagent_filling")
 		var/datum/reagent/R = GLOB.chemical_reagents_list[current_reagent]
-		chamber_contents.icon += R.color
+		chamber_contents.color = R.color
 		. += chamber_contents
 
 /obj/item/handheld_chem_dispenser/process()

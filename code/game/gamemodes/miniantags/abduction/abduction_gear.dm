@@ -7,15 +7,15 @@
 	item_state = "armor"
 	blood_overlay_type = "armor"
 	origin_tech = "magnets=7;biotech=4;powerstorage=4;abductor=4"
-	armor = list(MELEE = 15, BULLET = 15, LASER = 15, ENERGY = 15, BOMB = 15, BIO = 15, RAD = 15, FIRE = 70, ACID = 70)
+	armor = list(MELEE = 15, BULLET = 15, LASER = 15, ENERGY = 15, BOMB = 15, BIO = 15, FIRE = 70, ACID = 70)
 	actions_types = list(/datum/action/item_action/hands_free/activate)
 	allowed = list(/obj/item/abductor, /obj/item/melee/baton, /obj/item/gun/energy, /obj/item/restraints/handcuffs)
 	var/mode = VEST_STEALTH
 	var/stealth_active = 0
 	var/combat_cooldown = 10
 	var/datum/icon_snapshot/disguise
-	var/stealth_armor = list(MELEE = 15, BULLET = 15, LASER = 15, ENERGY = 15, BOMB = 15, BIO = 15, RAD = 15, FIRE = 70, ACID = 70)
-	var/combat_armor = list(MELEE = 50, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 50, BIO = 50, RAD = 50, FIRE = 90, ACID = 90)
+	var/stealth_armor = list(MELEE = 15, BULLET = 15, LASER = 15, ENERGY = 15, BOMB = 15, BIO = 15, FIRE = 70, ACID = 70)
+	var/combat_armor = list(MELEE = 50, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 50, BIO = 50, FIRE = 90, ACID = 90)
 	sprite_sheets = null
 
 /obj/item/clothing/suit/armor/abductor/vest/Initialize(mapload)
@@ -198,8 +198,8 @@
 		if(GIZMO_MARK)
 			mark(target, user)
 
-/obj/item/abductor/gizmo/afterattack(atom/target, mob/living/user, flag, params)
-	if(flag)
+/obj/item/abductor/gizmo/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(proximity_flag)
 		return
 	if(!ScientistCheck(user))
 		return
@@ -258,8 +258,8 @@
 	. = ATTACK_CHAIN_PROCEED_SUCCESS
 	radio_off(target, user)
 
-/obj/item/abductor/silencer/afterattack(atom/target, mob/living/user, flag, params)
-	if(flag)
+/obj/item/abductor/silencer/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(proximity_flag)
 		return
 	if(!isgrey(user) && !AbductorCheck(user))
 		return
@@ -310,7 +310,7 @@
 	update_icon(UPDATE_ICON_STATE)
 	to_chat(user, span_notice("You switch the device to [mode == MIND_DEVICE_MESSAGE ? "TRANSMISSION" : "COMMAND"] MODE"))
 
-/obj/item/abductor/mind_device/afterattack(atom/target, mob/living/user, flag, params)
+/obj/item/abductor/mind_device/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(!ScientistCheck(user))
 		return
 
@@ -420,7 +420,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	item_state = "wonderprod"
 	origin_tech = "materials=4;combat=4;biotech=7;abductor=4"
 	force = 7
-	affect_cyborgs = TRUE
+	affect_cyborg = TRUE
 	affect_bots = TRUE
 	cooldown = 0 SECONDS
 	stamina_damage = 0
@@ -458,7 +458,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	var/is_stun_mode = (mode == BATON_STUN)
 	var/is_stun_or_sleep = (mode == BATON_STUN) || (mode == BATON_SLEEP)
 
-	affect_cyborgs = is_stun_mode
+	affect_cyborg = is_stun_mode
 	affect_bots = is_stun_mode
 	log_stun_attack = is_stun_mode // other modes have their own log entries.
 	skip_harm_attack = !is_stun_or_sleep
@@ -528,7 +528,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	target.Weaken(knockdown_time)
 
 /obj/item/melee/baton/abductor/proc/SleepAttack(mob/living/target, mob/living/user)
-	if(target.incapacitated(INC_IGNORE_RESTRAINED|INC_IGNORE_GRABBED))
+	if(target.incapacitated(IGNORE_RESTRAINTS|IGNORE_GRAB))
 		target.visible_message(
 			span_danger("[user] induces sleep in [target] with [src]!"),
 			span_userdanger("You suddenly feel very drowsy!"),
@@ -795,6 +795,11 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	icon_state = "alien_mender_empty"
 	item_state = "alien_mender"
 	icon = 'icons/obj/abductor.dmi'
+	greyscale_config = null
+	greyscale_colors = null
+	greyscale_config_inhand_left = null
+	greyscale_config_inhand_right = null
+	greyscale_config_belt = null
 	emagged = TRUE
 	ignore_flags = TRUE
 	var/base_icon = "alien_mender_brute"
@@ -851,7 +856,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	)
 
 /obj/item/reagent_containers/applicator/abductor/industrial //пока виталя не отрефакторил менднеры будет находиться в абдукторсих итемах ибо тут код по лучше
-	name = "industrial auto-mender" 
+	name = "industrial auto-mender"
 	desc = "Прототип улучшенного авто-мендера, созданного компанией \"Вита-пром\" как альтернатива стандартным мендерам \"Нанотрейзен\". \
 	Обладает увеличенным объёмом хранилища веществ и возможностью пробивать плотные материалы. Не попал в серийное производство из-за сложности и дороговизны, но всё ещё встречается на рынке в качестве единичных экземплеров."
 	volume = 500
@@ -859,7 +864,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	icon_state = "mender2_empty"
 	item_state = "mender2"
 	base_icon = "mender2"
-	
+
 	emagged = FALSE
 
 /obj/item/reagent_containers/applicator/abductor/industrial/get_ru_names()

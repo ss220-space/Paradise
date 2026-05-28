@@ -37,7 +37,7 @@
 		/obj/item/reagent_containers/syringe/antiviral = 4,
 		/obj/item/reagent_containers/food/pill/tox = 1,
 	)
-	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 70)
+	armor = list(MELEE = 50, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 0, BIO = 0, FIRE = 100, ACID = 70)
 	resistance_flags = FIRE_PROOF
 	refill_canister = /obj/item/vending_refill/wallmed
 	tiltable = FALSE

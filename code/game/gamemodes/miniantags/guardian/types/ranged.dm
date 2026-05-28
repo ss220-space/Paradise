@@ -1,9 +1,3 @@
-/obj/projectile/guardian
-	name = "crystal spray"
-	icon_state = "guardian"
-	damage = 20
-	armour_penetration = 100
-
 /mob/living/simple_animal/hostile/guardian/ranged
 	friendly = "quietly assesses"
 	melee_damage_lower = 10
@@ -144,6 +138,6 @@
 /obj/effect/snare/singularity_act()
 	return
 
-/obj/effect/snare/singularity_pull()
+/obj/effect/snare/singularity_pull(atom/singularity, current_size)
 	return
 

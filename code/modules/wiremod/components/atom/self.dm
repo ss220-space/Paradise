@@ -15,6 +15,11 @@
 	/// The signal sent when the status is updated.
 	var/datum/port/output/shell_received
 
+/obj/item/circuit_component/self/Destroy()
+	output = null
+	shell_received = null
+	. = ..()
+
 /obj/item/circuit_component/self/populate_ports()
 	output = add_output_port("Оболочка", PORT_TYPE_ATOM)
 	shell_received = add_output_port("Вызвано", PORT_TYPE_SIGNAL)

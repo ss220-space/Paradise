@@ -23,7 +23,7 @@
 /datum/dna2/record/Destroy(force)
 	dna = null
 	mind = null
-	. = ..()
+	return ..()
 
 /datum/dna2/record/proc/GetData()
 	var/list/ser=list("data" = null, "owner" = null, "label" = null, "type" = null, "ue" = 0)
@@ -63,6 +63,7 @@
 	idle_power_usage = 50
 	active_power_usage = 300
 	interact_offline = 1
+	interaction_flags_mouse_drop = NEED_DEXTERITY
 	var/locked = FALSE
 	var/mob/living/carbon/occupant = null
 	var/obj/item/reagent_containers/glass/beaker = null
@@ -142,45 +143,44 @@
 /obj/machinery/dna_scannernew/proc/eject_occupant(user, force)
 	go_out(user, force)
 	for(var/obj/O in src)
-		if(!istype(O,/obj/item/circuitboard/clonescanner) && !istype(O,/obj/item/stock_parts) && !istype(O,/obj/item/stack/cable_coil) && O != beaker)
+		if(!istype(O,/obj/item/circuitboard/clonescanner) && !istype(O,/obj/item/stock_parts) && !iscoil(O) && O != beaker)
 			O.forceMove(get_turf(src))//Ejects items that manage to get in there (exluding the components and beaker)
 	if(!occupant)
 		for(var/mob/M in src)//Failsafe so you can get mobs out
 			M.forceMove(get_turf(src))
 
-/obj/machinery/dna_scannernew/MouseDrop_T(atom/movable/O, mob/user, params)
-	if(!istype(O))
+/obj/machinery/dna_scannernew/mouse_drop_receive(atom/movable/dropped, mob/user, params)
+	if(!istype(dropped))
 		return
-	if(O.loc == user) //no you can't pull things out of your ass
+	if(dropped.loc == user) //no you can't pull things out of your ass
 		return
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) //are you cuffed, dying, lying, stunned or other
 		return
-	if(O.anchored || get_dist(user, src) > 1 || get_dist(user, O) > 1 || user.contents.Find(src)) // is the mob anchored, too far away from you, or are you too far away from the source
+	if(dropped.anchored || get_dist(user, src) > 1 || get_dist(user, dropped) > 1 || user.contents.Find(src)) // is the mob anchored, too far away from you, or are you too far away from the source
 		return
-	if(!ismob(O)) //humans only
+	if(!ismob(dropped)) //humans only
 		return
-	if(isanimal(O) || istype(O, /mob/living/silicon)) //animals and robutts dont fit
+	if(isanimal(dropped) || issilicon(dropped)) //animals and robutts dont fit
 		return
 	if(!ishuman(user) && !isrobot(user)) //No ghosts or mice putting people into the sleeper
 		return
 	if(user.loc==null) // just in case someone manages to get a closet into the blue light dimension, as unlikely as that seems
 		return
-	if(!istype(user.loc, /turf) || !istype(O.loc, /turf)) // are you in a container/closet/pod/etc?
+	if(!isturf(user.loc) || !isturf(dropped.loc)) // are you in a container/closet/pod/etc?
 		return
 	if(occupant)
 		balloon_alert(user, "внутри кто-то есть!")
-		return TRUE
-	var/mob/living/L = O
-	if(!istype(L) || L.buckled)
 		return
-	if(L.abiotic())
+	var/mob/living/living_mob = dropped
+	if(!istype(living_mob) || living_mob.buckled)
+		return
+	if(living_mob.abiotic())
 		balloon_alert(user, "руки субъекта заняты!")
-		return TRUE
-	if(L.has_buckled_mobs()) //mob attached to us
-		to_chat(user, span_warning("[L] не помест[PLUR_IT_YAT(L)]ся в [declent_ru(ACCUSATIVE)], пока на [GEND_ON_IN_HIM(L)] сидит слайм!"))
-		return TRUE
-	put_in(L, user)
-	return TRUE
+		return
+	if(living_mob.has_buckled_mobs()) //mob attached to us
+		to_chat(user, span_warning("[living_mob] не помест[PLUR_IT_YAT(living_mob)]ся в [declent_ru(ACCUSATIVE)], пока на [GEND_ON_IN_HIM(living_mob)] сидит слайм!"))
+		return
+	put_in(living_mob, user)
 
 /obj/machinery/dna_scannernew/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -189,7 +189,7 @@
 	if(exchange_parts(user, I))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	if(istype(I, /obj/item/reagent_containers/glass))
+	if(isglassreagentcontainer(I))
 		add_fingerprint(user)
 		if(beaker)
 			balloon_alert(user, "слот для ёмкости занят!")
@@ -308,41 +308,29 @@
 		update_icon()
 		SStgui.update_uis(src)
 
-// Checks if occupants can be irradiated/mutated - prevents exploits where wearing full rad protection would still let you gain mutations
-/obj/machinery/dna_scannernew/proc/radiation_check()
-	if(!occupant)
-		return TRUE
-
-	if(HAS_TRAIT(occupant, TRAIT_NO_DNA))
-		return TRUE
-
-	var/radiation_protection = occupant.run_armor_check(null, "rad", "Ваша одежда кажется теплой.", "Ваша одежда кажется теплой.")
-	if(radiation_protection > NEGATE_MUTATION_THRESHOLD)
-		return TRUE
-	return FALSE
-
 /obj/machinery/computer/scan_consolenew
 	name = "DNA Modifier access console"
 	desc = "Консоль для работы с ДНК-модификатором."
 	icon_screen = "dna"
 	icon_keyboard = "med_key"
 	circuit = /obj/item/circuitboard/scan_consolenew
-	var/selected_ui_block = 1.0
-	var/selected_ui_subblock = 1.0
-	var/selected_se_block = 1.0
-	var/selected_se_subblock = 1.0
+	interaction_flags_click = ALLOW_SILICON_REACH
+	idle_power_usage = 10
+	active_power_usage = 400
+	var/selected_ui_block = 1
+	var/selected_ui_subblock = 1
+	var/selected_se_block = 1
+	var/selected_se_subblock = 1
 	var/selected_ui_target = 1
 	var/selected_ui_target_hex = 1
-	var/radiation_duration = 2.0
-	var/radiation_intensity = 1.0
+	var/radiation_duration = 2
+	var/radiation_intensity = 1
 	var/list/datum/dna2/record/buffers[3]
 	var/irradiating = 0
 	var/injector_ready = FALSE	//Quick fix for issue 286 (screwdriver the screen twice to restore injector)	-Pete
 	var/obj/machinery/dna_scannernew/connected = null
 	var/obj/item/disk/data/disk = null
 	var/selected_menu_key = PAGE_UI
-	idle_power_usage = 10
-	active_power_usage = 400
 
 /obj/machinery/computer/scan_consolenew/get_ru_names()
 	return list(
@@ -495,9 +483,11 @@
 		occupantData["uniqueEnzymes"] = connected.occupant.dna.unique_enzymes
 		occupantData["uniqueIdentity"] = connected.occupant.dna.uni_identity
 		occupantData["structuralEnzymes"] = connected.occupant.dna.struc_enzymes
-		occupantData["radiationLevel"] = connected.occupant.radiation
-	data["occupant"] = occupantData
 
+		var/datum/status_effect/genetic_damage/genetic_damage = connected.occupant.has_status_effect(/datum/status_effect/genetic_damage)
+		data["radiationLevel"] = genetic_damage ? round((genetic_damage.total_damage / genetic_damage.minimum_before_tox_damage) * 100, 0.1) : 0
+
+	data["occupant"] = occupantData
 	data["isBeakerLoaded"] = connected.beaker ? 1 : 0
 	data["beakerLabel"] = null
 	data["beakerVolume"] = 0
@@ -515,7 +505,7 @@
 /obj/machinery/computer/scan_consolenew/ui_act(action, params)
 	if(..())
 		return FALSE // don't update uis
-	if(!istype(usr.loc, /turf))
+	if(!isturf(usr.loc))
 		return FALSE // don't update uis
 	if(!src || !connected)
 		return FALSE // don't update uis
@@ -530,6 +520,8 @@
 		return TRUE
 
 	. = TRUE
+
+	var/radiation = rand((100 + radiation_intensity + radiation_duration) / connected.damage_coeff, (200 + radiation_intensity + radiation_duration) / connected.damage_coeff)
 	switch(action)
 		if("selectMenuKey")
 			var/key = params["key"]
@@ -553,10 +545,7 @@
 			if(!connected.occupant)
 				return
 
-			var/radiation = (((radiation_intensity * 3) + radiation_duration * 3) / connected.damage_coeff)
-			connected.occupant.apply_effect(radiation, IRRADIATE, 0)
-			if(connected.radiation_check())
-				return
+			connected.occupant.apply_status_effect(/datum/status_effect/genetic_damage, radiation)
 
 			if(prob(95))
 				if(prob(75))
@@ -601,20 +590,13 @@
 				return
 
 			if(prob((80 + (radiation_duration / 2))))
-				var/radiation = (radiation_intensity + radiation_duration)
-				connected.occupant.apply_effect(radiation,IRRADIATE,0)
-
-				if(connected.radiation_check())
-					return
+				connected.occupant.apply_status_effect(/datum/status_effect/genetic_damage, radiation)
 
 				block = miniscrambletarget(num2text(selected_ui_target), radiation_intensity, radiation_duration)
 				connected.occupant.dna.SetUISubBlock(selected_ui_block, selected_ui_subblock, block)
 				connected.occupant.UpdateAppearance()
 			else
-				var/radiation = ((radiation_intensity * 2) + radiation_duration)
-				connected.occupant.apply_effect(radiation, IRRADIATE, 0)
-				if(connected.radiation_check())
-					return
+				connected.occupant.apply_status_effect(/datum/status_effect/genetic_damage, radiation)
 
 				if(prob(20 + radiation_intensity))
 					randmutb(connected.occupant)
@@ -655,13 +637,11 @@
 			irradiating = 0
 			connected.locked = lock_state
 
-			if(connected.occupant)
-				if(prob((80 + ((radiation_duration / 2) + (connected.precision_coeff ** 3)))))
-					var/radiation = ((radiation_intensity + radiation_duration) / connected.damage_coeff)
-					connected.occupant.apply_effect(radiation, IRRADIATE, 0)
+			var/precision_coeff = connected.precision_coeff
 
-					if(connected.radiation_check())
-						return 1
+			if(connected.occupant)
+				if(prob((80 + ((radiation_duration / 2) + POW3(precision_coeff)))))
+					connected.occupant.apply_status_effect(/datum/status_effect/genetic_damage, radiation)
 
 					var/real_SE_block=selected_se_block
 					block = miniscramble(block, radiation_intensity, radiation_duration)
@@ -675,11 +655,7 @@
 					connected.occupant.dna.SetSESubBlock(real_SE_block, selected_se_subblock, block)
 					connected.occupant.check_genes()
 				else
-					var/radiation = (((radiation_intensity * 2) + radiation_duration) / connected.damage_coeff)
-					connected.occupant.apply_effect(radiation, IRRADIATE, 0)
-
-					if(connected.radiation_check())
-						return
+					connected.occupant.apply_status_effect(/datum/status_effect/genetic_damage, radiation)
 
 					if(prob(80 - radiation_duration))
 						//testing("Random bad mut!")
@@ -752,11 +728,7 @@
 					irradiating = 0
 					connected.locked = lock_state
 
-					var/radiation = (rand(20,50) / connected.damage_coeff)
-					connected.occupant.apply_effect(radiation, IRRADIATE, 0)
-
-					if(connected.radiation_check())
-						return
+					connected.occupant.apply_status_effect(/datum/status_effect/genetic_damage, radiation)
 
 					var/datum/dna2/record/buf = buffers[bufferId]
 

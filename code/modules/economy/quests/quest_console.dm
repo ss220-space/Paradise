@@ -119,7 +119,7 @@
 	var/mob/user = usr
 	if(!allowed(user) && !user.can_admin_interact())
 		balloon_alert(user, "отказано в доступе!")
-		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
+		playsound(src, SFX_BUTTON_DENIED, 20)
 		return
 
 	if(!SSshuttle)
@@ -173,20 +173,20 @@
 				return FALSE
 			if(quest.time_add_count > 4)
 				to_chat(user, span_warning("Достигнут предел продления времени!"))
-				playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
+				playsound(src, SFX_BUTTON_DENIED, 20)
 				return FALSE
 			quest.add_time()
 
 		if("buy_tech")
 			if(hightech_recovery)
 				to_chat(user, span_warning("Институт ЦК не может поделиться с вами данной технологий в данный момент."))
-				playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
+				playsound(src, SFX_BUTTON_DENIED, 20)
 				return FALSE
 			var/datum/money_account/cargo_money_account = GLOB.department_accounts[STATION_DEPARTMENT_SUPPLY]
 			var/attempt_pin = tgui_input_number(user, "Введите пароль", "Транзакция с ЦК")
 			if(..() || !attempt_account_access(cargo_money_account.account_number, attempt_pin, 2))
 				to_chat(user, span_warning("Не удаётся получить доступ к учётной записи: неверные учётные данные."))
-				playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
+				playsound(src, SFX_BUTTON_DENIED, 20)
 				return FALSE
 			if(cargo_money_account.charge(transaction_amount = text2num(params["cost"]), transaction_purpose = "Купить дискету технологий", terminal_name = "Терминал Института \"Нанотрейзен\" №[rand(111,333)]", dest_name = "Институт \"Нанотрейзен\""))
 				hightech_recovery = TRUE
@@ -368,7 +368,9 @@
 	integrated_console.parent = src
 
 /obj/item/qm_quest_tablet/Destroy()
-	QDEL_NULL(integrated_console)
+	if(integrated_console)
+		integrated_console.parent = null
+		QDEL_NULL(integrated_console)
 	return ..()
 
 /obj/item/qm_quest_tablet/attack_self(mob/user as mob)

@@ -3,14 +3,8 @@
 SUBSYSTEM_DEF(blackbox)
 	name = "Blackbox"
 	// On Master.Shutdown(), it shuts down subsystems in the REVERSE order
-	// The database SS has INIT_ORDER_DBCORE=16, and this SS has INIT_ORDER_BLACKBOX=15
-	// So putting this ensures it shuts down in the right order
-	ss_id = "blackbox"
-	init_order = INIT_ORDER_BLACKBOX
 	wait = 10 MINUTES
 	runlevels = RUNLEVEL_LOBBY | RUNLEVELS_DEFAULT
-	offline_implications = "Player count and admin count statistics will no longer be logged to the database. No immediate action is needed."
-	cpu_display = SS_CPUDISPLAY_LOW
 
 	/// List of all recorded feedback
 	var/list/datum/feedback_variable/feedback = list()
@@ -23,7 +17,7 @@ SUBSYSTEM_DEF(blackbox)
 
 /datum/controller/subsystem/blackbox/Initialize()
 	if(!SSdbcore.IsConnected())
-		flags |= SS_NO_FIRE // Disable firing if SQL is disabled
+		ss_flags |= SS_NO_FIRE // Disable firing if SQL is disabled
 	record_feedback("amount", "dm_version", DM_VERSION)
 	record_feedback("amount", "dm_build", DM_BUILD)
 	record_feedback("amount", "byond_version", world.byond_version)

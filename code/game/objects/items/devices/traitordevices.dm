@@ -123,6 +123,7 @@ effective or pretty fucking useless.
 	used = TRUE
 	update_icon(UPDATE_ICON_STATE)
 	addtimer(CALLBACK(src, PROC_REF(reset_cooldown)), cooldown)
+	to_chat(user, span_warning("[target] успешно облучен[GEND_A_O_Y(target)]."))
 	addtimer(CALLBACK(src, PROC_REF(delayed_effect), target), (wavelength + (intensity * 4)) SECONDS)
 
 /obj/item/rad_laser/proc/reset_cooldown()
@@ -133,8 +134,7 @@ effective or pretty fucking useless.
 	if(QDELETED(target))
 		return
 	if(intensity >= 5)
-		target.Paralyse((intensity * 40 / 3) SECONDS)
-		target.apply_effect(intensity * 10, IRRADIATE)
+		target.apply_effect(round(intensity / 0.075), EFFECT_UNCONSCIOUS) // to save you some math, this is a round(intensity * (4/3)) second long knockout
 
 /obj/item/rad_laser/attack_self(mob/user)
 	..()
@@ -173,12 +173,26 @@ effective or pretty fucking useless.
 	attack_self(usr)
 	add_fingerprint(usr)
 
+/// Checks if a given atom is in range of a radio jammer, returns TRUE if it is.
+/proc/is_within_radio_jammer_range(atom/source)
+	var/turf/source_turf = get_turf(source)
+	if(!source_turf)
+		return FALSE
+	for(var/obj/item/jammer/jammer as anything in GLOB.active_jammers)
+		var/turf/jammer_turf = get_turf(jammer)
+		if(!jammer_turf)
+			continue
+		if(IN_GIVEN_RANGE(source_turf, jammer_turf, jammer.range))
+			return TRUE
+	return FALSE
+
 /obj/item/jammer
 	name = "radio jammer"
 	desc = "Device used to disrupt nearby radio communication."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "jammer"
 	var/active = FALSE
+	/// The range of devices to disable while active
 	var/range = 12
 
 /obj/item/jammer/Destroy()
@@ -214,7 +228,7 @@ effective or pretty fucking useless.
 	var/flawless = FALSE
 
 /obj/item/teleporter/Destroy()
-	if(isprocessing)
+	if(datum_flags & DF_ISPROCESSING)
 		STOP_PROCESSING(SSobj, src)
 	return ..()
 
@@ -302,7 +316,7 @@ effective or pretty fucking useless.
 	if(charges > 0) //While we want EMP triggered teleports to drain charge, we also do not want it to go negative charge, as such we need this check here
 		charges--
 		update_icon(UPDATE_ICON_STATE)
-		if(!isprocessing)
+		if(!(datum_flags & DF_ISPROCESSING))
 			START_PROCESSING(SSobj, src)
 
 	var/turf/destination = pick(turfs)
@@ -427,7 +441,7 @@ effective or pretty fucking useless.
 	flawless = TRUE
 
 /obj/item/teleporter/admin/update_icon_state()
-	icon_state = "[base_icon_state]-[CEILING(charges / 2, 1)]"
+	icon_state = "[base_icon_state]-[ceil(charges / 2)]"
 
 #define ION_CALLER_AI_TARGETING "AI targeting"
 #define ION_CALLER_COMMS_TARGETING "Telecomms targeting"

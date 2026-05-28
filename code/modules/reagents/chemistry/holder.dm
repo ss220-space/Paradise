@@ -21,6 +21,16 @@
 	if(temperature_maximum)
 		temperature_max = temperature_maximum
 
+/datum/reagents/Destroy()
+	. = ..()
+	QDEL_LIST(reagent_list)
+	reagent_list = null
+	QDEL_LIST(addiction_list)
+	addiction_list = null
+	if(my_atom && my_atom.reagents == src)
+		my_atom.reagents = null
+		my_atom = null
+
 /datum/reagents/proc/remove_any(amount = 1)
 	var/list/cached_reagents = reagent_list
 	var/total_transfered = 0
@@ -285,7 +295,7 @@
 				if(overdose_results) // to protect against poorly-coded overdose procs
 					update_flags |= overdose_results[REAGENT_OVERDOSE_FLAGS]
 				else
-					log_runtime(EXCEPTION("Reagent '[reagent.name]' does not return an overdose info list!"))
+					stack_trace("Reagent '[reagent.name]' does not return an overdose info list!")
 
 	for(var/AB in addiction_list)
 		var/datum/reagent/R = AB
@@ -487,7 +497,7 @@
 	for(var/A in reagent_list)
 		var/datum/reagent/R = A
 		if(R.id == reagent)
-			R.volume = FLOOR(R.volume, 1)
+			R.volume = floor(R.volume)
 			update_total()
 			return TRUE
 	return FALSE
@@ -642,7 +652,7 @@
 	var/list/cached_reagents = reagent_list
 	for(var/A in cached_reagents)
 		var/datum/reagent/R = A
-		if(R.id == reagent)
+		if(R.id == reagent || R.type == reagent)
 			R.volume += amount
 			update_total()
 
@@ -683,7 +693,7 @@
 		return FALSE
 
 	else
-		warning("[my_atom] attempted to add a reagent called '[reagent]' which doesn't exist. ([usr])")
+		stack_trace("[my_atom] attempted to add a reagent called '[reagent]' which doesn't exist. ([usr])")
 
 	handle_reactions()
 	return TRUE
@@ -838,7 +848,7 @@
 /datum/reagents/proc/copy_data(datum/reagent/current_reagent)
 	if(!current_reagent || !current_reagent.data)
 		return null
-	if(!istype(current_reagent.data, /list))
+	if(!islist(current_reagent.data))
 		return current_reagent.data
 
 	var/list/trans_data = current_reagent.data.Copy()
@@ -939,15 +949,6 @@
 		clothing_pen += reagent.clothing_penetration * (reagent.volume / total_volume)
 
 	return clothing_pen
-
-/datum/reagents/Destroy()
-	. = ..()
-	QDEL_LIST(reagent_list)
-	reagent_list = null
-	QDEL_LIST(addiction_list)
-	addiction_list = null
-	if(my_atom && my_atom.reagents == src)
-		my_atom.reagents = null
 
 #undef ADDICTION_TIME
 #undef MINOR_ADDICTION_TIME

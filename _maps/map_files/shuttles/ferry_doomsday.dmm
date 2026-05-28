@@ -1,8 +1,7 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
 /obj/structure/shuttle/engine/propulsion{
-	dir = 8;
-	tag = "icon-propulsion (EAST)"
+	dir = 8
 	},
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/transport)
@@ -36,11 +35,6 @@
 /obj/effect/decal/cleanable/blood/bubblegum,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
-	},
-/area/shuttle/transport)
-"q" = (
-/turf/simulated/wall/shuttle{
-	tag = "icon-swall2"
 	},
 /area/shuttle/transport)
 "t" = (
@@ -232,6 +226,6 @@ E
 E
 b
 C
-q
+E
 E
 "}

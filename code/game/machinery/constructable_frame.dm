@@ -629,7 +629,7 @@ to destroy them and players will be able to make replacements.
 
 /obj/item/circuitboard/tesla_coil
 	board_name = "Tesla Coil"
-	build_path = /obj/machinery/power/tesla_coil
+	build_path = /obj/machinery/power/energy_accumulator/tesla_coil
 	board_type = "machine"
 	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
 	origin_tech = "programming=3;magnets=3;powerstorage=3"
@@ -639,7 +639,7 @@ to destroy them and players will be able to make replacements.
 
 /obj/item/circuitboard/grounding_rod
 	board_name = "Grounding Rod"
-	build_path = /obj/machinery/power/grounding_rod
+	build_path = /obj/machinery/power/energy_accumulator/grounding_rod
 	board_type = "machine"
 	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
 	origin_tech = "programming=3;powerstorage=3;magnets=3;plasmatech=2"
@@ -1341,9 +1341,33 @@ to destroy them and players will be able to make replacements.
 	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
 	origin_tech = "programming=3;engineering=3"
 	req_components = list(
-		/obj/item/stock_parts/micro_laser = 2,
-		/obj/item/stock_parts/matter_bin = 2,
-		/obj/item/stock_parts/capacitor = 1,
+		/obj/item/stock_parts/manipulator = 2,
+		/obj/item/stock_parts/capacitor = 2,
 		/obj/item/stack/cable_coil = 5,
 	)
 
+/obj/item/circuitboard/coffeemaker/standard
+	board_name = "Кофемашина \"Моделло 3\""
+	build_path = /obj/machinery/coffeemaker/standard
+	board_type = "machine"
+	greyscale_colors = CIRCUIT_COLOR_SERVICE
+	origin_tech = "programming=2;magnets=2"
+	req_components = list(
+		/obj/item/stack/sheet/glass = 1,
+		/obj/item/stock_parts/matter_bin = 1,
+		/obj/item/stock_parts/capacitor = 1,
+		/obj/item/stock_parts/micro_laser = 1,
+	)
+
+/obj/item/circuitboard/coffeemaker/impressa
+	board_name = "Кофемашина \"Импресса Моделло 5\""
+	build_path = /obj/machinery/coffeemaker/impressa
+	board_type = "machine"
+	greyscale_colors = CIRCUIT_COLOR_SERVICE
+	origin_tech = "programming=3;magnets=3"
+	req_components = list(
+		/obj/item/stack/sheet/glass = 1,
+		/obj/item/stock_parts/matter_bin = 1,
+		/obj/item/stock_parts/capacitor/adv = 1,
+		/obj/item/stock_parts/micro_laser/high = 2,
+	)

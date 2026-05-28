@@ -174,7 +174,7 @@
 		redeem_voucher(I, user)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(istype(I, /obj/item/card/id))
+	if(is_id_card(I))
 		add_fingerprint(user)
 		if(inserted_id)
 			to_chat(user, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] уже содержит другую ID-карту."))
@@ -225,6 +225,7 @@
 			new /obj/item/extinguisher/mini(drop_location)
 			new /obj/item/resonator(drop_location)
 			new /obj/item/storage/bag/ore/bigger(drop_location)
+			new /obj/item/mining_satchel_upgrade(drop_location)
 		if(VENDOR_MINEBOT_KIT)
 			new /obj/item/storage/backpack/duffel/minebot_kit(drop_location)
 		if(VENDOR_EXTRACTION_KIT)
@@ -233,6 +234,7 @@
 			new /obj/item/gun/energy/plasmacutter(drop_location)
 			new /obj/item/t_scanner/adv_mining_scanner/lesser(drop_location)
 			new /obj/item/storage/bag/ore/bigger(drop_location)
+			new /obj/item/mining_satchel_upgrade(drop_location)
 		if(VENDOR_EXPLOSIVES_KIT)
 			new /obj/item/storage/backpack/duffel/miningcharges(drop_location)
 		if(VENDOR_CRUSHER_KIT)
@@ -245,6 +247,8 @@
 			new /obj/item/borg/upgrade/modkit/cooldown/haste(drop_location)
 			new /obj/item/borg/upgrade/modkit/range(drop_location)
 			new /obj/item/storage/bag/ore/bigger(drop_location)
+			new /obj/item/mining_satchel_upgrade(drop_location)
+			new /obj/item/gun_module/under/bayonet(drop_location)
 
 	qdel(voucher)
 
@@ -423,14 +427,14 @@
 		PREPOSITIONAL = "карте доступа шахтёра",
 	)
 
-/obj/item/card/mining_access_card/afterattack(atom/movable/AM, mob/user, proximity, params)
-	if(!istype(AM, /obj/item/card/id))
+/obj/item/card/mining_access_card/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!is_id_card(target))
 		return
 
-	if(!proximity)
+	if(!proximity_flag)
 		return
 
-	var/obj/item/card/id/I = AM
+	var/obj/item/card/id/I = target
 	I.access |= list(
 		ACCESS_MAILSORTING,
 		ACCESS_CARGO,

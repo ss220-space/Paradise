@@ -193,7 +193,7 @@
 /mob/living/simple_animal/bot/ed209/syndicate/emp_act(severity)
 	return
 
-/mob/living/simple_animal/bot/ed209/syndicate/OnUnarmedAttack(atom/A)
+/mob/living/simple_animal/bot/ed209/syndicate/OnUnarmedAttack(atom/A, proximity_flag, list/modifiers)
 	return shootAt(A)
 
 /mob/living/simple_animal/bot/ed209/syndicate/start_cuffing(mob/living/carbon/C)

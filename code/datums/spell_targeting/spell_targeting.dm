@@ -80,9 +80,14 @@
  * * spell - The spell being cast
  * * check_if_in_range - If a view/range check has to be done to see if the target is valid
  */
-/datum/spell_targeting/proc/valid_target(target, user, obj/effect/proc_holder/spell/spell, check_if_in_range = TRUE)
+/datum/spell_targeting/proc/valid_target(atom/target, mob/user, obj/effect/proc_holder/spell/spell, check_if_in_range = TRUE)
 	SHOULD_CALL_PARENT(TRUE)
-	return istype(target, allowed_type) && (include_user || target != user) && \
-		spell.valid_target(target, user) && (!check_if_in_range || (target in view_or_range(range, use_turf_of_user ? get_turf(user) : user, selection_type))) \
-		&& (!use_obstacle_check || is_path_exist(user, target, PASSTABLE|PASSFENCE))
+	if(!istype(target, allowed_type) || (!include_user && target == user) || !spell.valid_target(target, user))
+		return FALSE
+	if(use_obstacle_check && !is_path_exist(user, target, PASSTABLE|PASSFENCE))
+		return FALSE
+	if(!check_if_in_range)
+		return TRUE
+	var/effective_range = (range >= world.view && user?.client?.view) || range
+	return target in view_or_range(effective_range, use_turf_of_user ? get_turf(user) : user, selection_type)
 

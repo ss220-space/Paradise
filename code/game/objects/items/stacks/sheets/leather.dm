@@ -254,13 +254,15 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 		PREPOSITIONAL = "пластине шкуры голиафа",
 	)
 
-/obj/item/stack/sheet/animalhide/goliath_hide/afterattack(atom/target, mob/user, proximity_flag, params)
+/obj/item/stack/sheet/animalhide/goliath_hide/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(!proximity_flag)
 		return
+
 	var/uplatable_armor = is_type_in_typecache(target, override_unplatable_armor_typecache)
 	if(uplatable_armor)
 		balloon_alert(user, "нельзя улучшить!")
 		return
+
 	var/platable_armor_with_icon = is_type_in_typecache(target, goliath_platable_armor_with_icon_typecache)
 	if(is_type_in_typecache(target, goliath_platable_armor_typecache) || platable_armor_with_icon)
 		var/obj/item/clothing/C = target
@@ -311,9 +313,10 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 	item_flags = NOBLUDGEON
 	layer = MOB_LAYER
 
-/obj/item/stack/sheet/armour_plate/afterattack(atom/target, mob/user, proximity_flag, params)
+/obj/item/stack/sheet/armour_plate/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(!proximity_flag)
 		return
+
 	if(istype(target, /obj/mecha/working/ripley))
 		var/obj/mecha/working/ripley/D = target
 		if(D.plates < 3)

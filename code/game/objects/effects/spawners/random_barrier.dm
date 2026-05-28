@@ -18,8 +18,7 @@
 	. = ..()
 	var/turf/T = get_turf(src)
 	if(!T)
-		log_runtime(EXCEPTION("Barrier spawner placed in nullspace!"), src)
-		return
+		CRASH("Barrier spawner placed in nullspace!")
 	var/thing_to_place = pickweight(result)
 	if(ispath(thing_to_place, /turf))
 		T.ChangeTurf(thing_to_place)

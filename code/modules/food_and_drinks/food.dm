@@ -49,7 +49,7 @@
 
 /obj/item/reagent_containers/food/Destroy()
 	ant_location = null
-	if(isprocessing)
+	if(datum_flags & DF_ISPROCESSING)
 		STOP_PROCESSING(SSobj, src)
 	return ..()
 
@@ -59,13 +59,9 @@
 	if(world.time > last_ant_time + 5 MINUTES)
 		check_for_ants()
 
-/obj/item/reagent_containers/food/set_APTFT()
-	set hidden = TRUE
-	..()
-
 /obj/item/reagent_containers/food/empty()
 	set hidden = TRUE
-	..()
+	return
 
 /obj/item/reagent_containers/food/proc/check_for_ants()
 	var/turf/T = get_turf(src)

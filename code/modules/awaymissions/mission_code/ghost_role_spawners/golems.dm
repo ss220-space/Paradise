@@ -126,7 +126,9 @@
 
 /obj/effect/mob_spawn/human/golem/special(mob/living/new_spawn, name)
 	var/datum/species/golem/X = mob_species
-	to_chat(new_spawn, "[initial(X.info_text)]")
+	var/info_text = initial(X.info_text)
+	if(info_text)
+		to_chat(new_spawn, info_text)
 	if(!owner)
 		to_chat(new_spawn, span_notice("В обществах свободных големов принято уважать адамантиновых големов как старейшин, однако вы не обязаны подчиняться им. Адамантиновые големы — единственные, кто может резонировать со всеми големами."))
 		to_chat(new_spawn, "Создавайте оболочки големов в автолате и добавляйте обработанные минеральные листы в оболочки, чтобы оживить их! Вы — мирная группа, если вас не провоцировать.")

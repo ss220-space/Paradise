@@ -12,12 +12,12 @@
 	// escape out of whatever we've hijacked first
 	if(isapc(A) && !isturf(loc) && (A in hijacked_apcs))
 		A.attack_pulsedemon(src)
-	else if(current_weapon && istype(current_weapon, /obj/item/gun/energy))
+	else if(current_weapon && isenergygun(current_weapon))
 		// ironically, because ion guns override their emp_act, it's perfectly safe to be in one and be emp'd
 		var/obj/item/gun/energy/G = current_weapon
 		// we probably shouldn't be firing from inside a recharger or someone's bag
 		if(iscarbon(G.loc) || isturf(G.loc))
-			G.process_fire(A, src, FALSE)
+			G.fast_fire(A, src)
 			visible_message(span_danger("[G] fires itself at [A]!"), span_danger("You force [G] to fire at [A]!"), span_italics("You hear \a [G.fire_sound_text]!"))
 			changeNext_click(CLICK_CD_RANGE) // I can't actually find what the default gun fire cooldown is, so it's 1 second until someone enlightens me
 			return

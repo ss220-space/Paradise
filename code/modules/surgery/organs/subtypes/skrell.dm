@@ -50,8 +50,8 @@
 		PREPOSITIONAL = "головном кармане",
 	)
 
-/obj/item/organ/internal/headpocket/New()
-	..()
+/obj/item/organ/internal/headpocket/Initialize(mapload)
+	. = ..()
 	pocket = new /obj/item/storage/internal(src)
 	pocket.storage_slots = 1
 	// Allow adjacency calculation to work properly
@@ -88,6 +88,8 @@
 	return pocket.contents
 
 /obj/item/organ/internal/headpocket/emp_act(severity)
+	if(emp_shielded(severity))
+		return
 	pocket.emp_act(severity)
 	..()
 

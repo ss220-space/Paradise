@@ -19,6 +19,12 @@
 
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL|CIRCUIT_FLAG_OUTPUT_SIGNAL
 
+/obj/item/circuit_component/split/Destroy()
+	input_port = null
+	separator = null
+	output = null
+	. = ..()
+
 /obj/item/circuit_component/split/populate_ports()
 	input_port = add_input_port("Ввод", PORT_TYPE_STRING)
 	separator = add_input_port("Разделитель", PORT_TYPE_STRING)

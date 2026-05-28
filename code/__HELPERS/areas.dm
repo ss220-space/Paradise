@@ -40,7 +40,7 @@
 				return FALSE
 
 			var/static/list/cardinal_directions = list("[NORTH]" = TRUE, "[EAST]" = TRUE, "[SOUTH]" = TRUE, "[WEST]" = TRUE)
-			if(!cardinal_directions["[direction]"] || adjacent_turf.blocks_air || !current_turf.CanAtmosPass(adjacent_turf))
+			if(!cardinal_directions["[direction]"] || adjacent_turf.blocks_air || !current_turf.CanAtmosPass(direction))
 				continue
 
 			turfs_to_process += adjacent_turf
@@ -165,7 +165,7 @@
 /// Returns a sorted version of GLOB.areas, by name
 /proc/get_sorted_areas()
 	if(!GLOB.sortedAreas)
-		GLOB.sortedAreas = sortTim(GLOB.areas.Copy(), /proc/cmp_name_asc)
+		GLOB.sortedAreas = sortTim(GLOB.areas.Copy(), GLOBAL_PROC_REF(cmp_name_asc))
 	return GLOB.sortedAreas
 
 /// Simple datum for storing coordinates.
@@ -179,8 +179,8 @@
 	//Takes: Area. Optional: If it should copy to areas that don't have plating
 	//Returns: Nothing.
 	//Notes: Attempts to move the contents of one area to another area.
-	//	   Movement based on lower left corner. Tiles that do not fit
-	//		 into the new area will not be moved.
+	//    Movement based on lower left corner. Tiles that do not fit
+	//  into the new area will not be moved.
 
 	if(!A || !src)
 		return FALSE
@@ -192,17 +192,17 @@
 	var/src_min_y = 0
 	for(var/turf/T in turfs_src)
 		if(T.x < src_min_x || !src_min_x)
-			src_min_x	= T.x
+			src_min_x = T.x
 		if(T.y < src_min_y || !src_min_y)
-			src_min_y	= T.y
+			src_min_y = T.y
 
 	var/trg_min_x = 0
 	var/trg_min_y = 0
 	for(var/turf/T in turfs_trg)
 		if(T.x < trg_min_x || !trg_min_x)
-			trg_min_x	= T.x
+			trg_min_x = T.x
 		if(T.y < trg_min_y || !trg_min_y)
-			trg_min_y	= T.y
+			trg_min_y = T.y
 
 	var/list/refined_src = new/list()
 	for(var/turf/T in turfs_src)
@@ -251,7 +251,7 @@
 						copiedobjs += DuplicateObject(M, perfect_copy, newloc = X)
 
 					for(var/V in T.vars)
-						if(!(V in list("type","loc","locs","vars", "parent", "parent_type","verbs","ckey","key","x","y","z","destination_z", "destination_x", "destination_y","contents", "luminosity", "group")))
+						if(!(V in list("type","loc","locs","vars", "parent", "parent_type", "pixloc", "verbs", "ckey", "key", "x", "y", "z","destination_z", "destination_x", "destination_y","contents", "luminosity", "group")))
 							X.vars[V] = T.vars[V]
 
 					toupdate += X
@@ -298,6 +298,19 @@
 			turfs += zlevel_turfs
 
 	return turfs
+
+///Takes: list of area types
+///Returns: all mobs that are in an area type
+/proc/mobs_in_area_type(list/area/checked_areas)
+	var/list/mobs_in_area = list()
+	for(var/mob/living/mob as anything in GLOB.mob_living_list)
+		if(QDELETED(mob))
+			continue
+		for(var/area in checked_areas)
+			if(istype(get_area(mob), area))
+				mobs_in_area += mob
+				break
+	return mobs_in_area
 
 ///Takes: Area type as text string or as typepath OR an instance of the area.
 ///Returns: A list of all areas of that type in the world.

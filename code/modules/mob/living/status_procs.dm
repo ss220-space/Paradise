@@ -469,6 +469,8 @@
 
 /// SLEEPING
 /mob/living/proc/IsSleeping()
+	if(HAS_TRAIT(src, TRAIT_SLEEPIMMUNE))
+		return
 	return has_status_effect(STATUS_EFFECT_SLEEPING)
 
 /mob/living/proc/AmountSleeping() //How many deciseconds remain in our sleep
@@ -482,6 +484,8 @@
 		return
 	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return
+	if(HAS_TRAIT(src, TRAIT_SLEEPIMMUNE))
+		return
 	var/datum/status_effect/incapacitating/sleeping/S = IsSleeping()
 	if(S)
 		S.duration = max(world.time + amount, S.duration)
@@ -493,6 +497,8 @@
 	if(SEND_SIGNAL(src, COMSIG_LIVING_STATUS_SLEEP, amount) & COMPONENT_NO_EFFECT)
 		return
 	if(HAS_TRAIT(src, TRAIT_GODMODE))
+		return
+	if(HAS_TRAIT(src, TRAIT_SLEEPIMMUNE))
 		return
 	if(frozen) // If the mob has been admin frozen, sleeping should not be changeable
 		return
@@ -515,7 +521,7 @@
 		return
 	var/datum/status_effect/incapacitating/sleeping/S = IsSleeping()
 	if(S)
-		S.duration = -1
+		S.duration = STATUS_EFFECT_PERMANENT
 	else
 		S = apply_status_effect(STATUS_EFFECT_SLEEPING, -1)
 	return S
@@ -948,6 +954,12 @@
 
 /mob/living/proc/IsFrozen()
 	return has_status_effect(/datum/status_effect/freon)
+
+/mob/living/proc/cure_radiation()
+	var/radiation = GetComponent(/datum/component/irradiated)
+	if(!radiation)
+		return
+	qdel(GetComponent(/datum/component/irradiated))
 
 #undef RETURN_STATUS_EFFECT_STRENGTH
 #undef SET_STATUS_EFFECT_STRENGTH

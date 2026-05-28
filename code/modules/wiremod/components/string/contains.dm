@@ -11,14 +11,14 @@
 	var/datum/port/input/needle
 	var/datum/port/input/haystack
 
-/obj/item/circuit_component/compare/contains/populate_custom_ports()
-	haystack = add_input_port("Строка", PORT_TYPE_STRING)
-	needle = add_input_port("Подстрока", PORT_TYPE_STRING)
-
 /obj/item/circuit_component/compare/contains/Destroy()
 	needle = null
 	haystack = null
-	return ..()
+	. = ..()
+
+/obj/item/circuit_component/compare/contains/populate_custom_ports()
+	haystack = add_input_port("Строка", PORT_TYPE_STRING)
+	needle = add_input_port("Подстрока", PORT_TYPE_STRING)
 
 /obj/item/circuit_component/compare/contains/do_comparisons()
 	var/to_find = needle.value

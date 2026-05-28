@@ -1,4 +1,4 @@
-name: 'Testmerge Conflict Detection'
+name: "Testmerge Conflict Detection"
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
 
 jobs:
   triage:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Git checkout
         uses: actions/checkout@v6
@@ -36,11 +36,11 @@ jobs:
         uses: jburgess/AddRemovePrLabels@v1.0.4
         if: steps.check.outputs.success == 0
         with:
-          githubToken: '${{ secrets.GITHUB_TOKEN }}'
-          labelsToAdd: 'Testmerge Conflict'
+          githubToken: "${{ secrets.GITHUB_TOKEN }}"
+          labelsToAdd: "Testmerge Conflict"
       - name: Unlabel PR
         uses: jburgess/AddRemovePrLabels@v1.0.4
         if: steps.check.outputs.success == 1
         with:
-          githubToken: '${{ secrets.GITHUB_TOKEN }}'
-          labelsToRemove: 'Testmerge Conflict'
+          githubToken: "${{ secrets.GITHUB_TOKEN }}"
+          labelsToRemove: "Testmerge Conflict"

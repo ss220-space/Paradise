@@ -1,4 +1,5 @@
 /atom/movable
+	abstract_type = /atom/movable
 	layer = OBJ_LAYER
 	appearance_flags = TILE_BOUND|PIXEL_SCALE|LONG_GLIDE
 	glide_size = DEFAULT_GLIDE_SIZE // Default, adjusted when mobs move based on their movement delays
@@ -92,9 +93,6 @@
 
 	///is the mob currently ascending or descending through z levels?
 	var/currently_z_moving
-
-	/// Whether a user will face atoms on entering them with a mouse. Despite being a mob variable, it is here for performance
-	var/face_mouse = FALSE
 
 	/// The degree of thermal insulation that mobs in list/contents have from the external environment, between 0 and 1
 	var/contents_thermal_insulation = 0
@@ -236,21 +234,21 @@
 
 	switch(var_name)
 		if(NAMEOF(src, x))
-			var/turf/T = locate(var_value, y, z)
-			if(T)
-				admin_teleport(T)
+			var/turf/current_turf = locate(var_value, y, z)
+			if(current_turf)
+				admin_teleport(current_turf)
 				return TRUE
 			return FALSE
 		if(NAMEOF(src, y))
-			var/turf/T = locate(x, var_value, z)
-			if(T)
-				admin_teleport(T)
+			var/turf/current_turf = locate(x, var_value, z)
+			if(current_turf)
+				admin_teleport(current_turf)
 				return TRUE
 			return FALSE
 		if(NAMEOF(src, z))
-			var/turf/T = locate(x, y, var_value)
-			if(T)
-				admin_teleport(T)
+			var/turf/current_turf = locate(x, y, var_value)
+			if(current_turf)
+				admin_teleport(current_turf)
 				return TRUE
 			return FALSE
 		if(NAMEOF(src, loc))
@@ -260,6 +258,9 @@
 			return FALSE
 		if(NAMEOF(src, anchored))
 			set_anchored(var_value)
+			. = TRUE
+		if(NAMEOF(src, pulledby))
+			set_pulledby(var_value)
 			. = TRUE
 		if(NAMEOF(src, glide_size))
 			set_glide_size(var_value)
@@ -433,7 +434,7 @@
 			if(. >= GRAB_KILL) // Grab got downgraded from kill grab.
 				REMOVE_TRAIT(pulling, TRAIT_FLOORED, CHOKEHOLD_TRAIT)
 		if(GRAB_KILL)
-			if(. <= GRAB_KILL)	// Grab got ugraded from neck grab.
+			if(. <= GRAB_KILL) // Grab got ugraded from neck grab.
 				ADD_TRAIT(pulling, TRAIT_FLOORED, CHOKEHOLD_TRAIT)
 
 /// Use this to override topmost bump thing in [/turf/proc/Enter()].
@@ -497,7 +498,7 @@
 	if(!direct)
 		direct = get_dir(src, newloc)
 
-	if(set_dir_on_move && dir != direct && update_dir && !face_mouse) //for facing direction on harm - face_mouse
+	if(set_dir_on_move && dir != direct && update_dir && !HAS_TRAIT(src, TRAIT_FACING_TO_MOUSE)) //for facing direction on harm - face_mouse
 		setDir(direct)
 
 	var/is_multi_tile = is_multi_tile_object(src)
@@ -506,10 +507,10 @@
 	if(is_multi_tile && isturf(loc))
 		old_locs = locs // locs is a special list, this is effectively the same as .Copy() but with less steps
 		for(var/atom/exiting_loc as anything in old_locs)
-			if(!exiting_loc.Exit(src, newloc))
+			if(!exiting_loc.Exit(src, direct))
 				return .
 	else
-		if(!loc.Exit(src, newloc))
+		if(!loc.Exit(src, direct))
 			return .
 
 	var/list/new_locs
@@ -519,7 +520,7 @@
 		var/dz = newloc.z
 		new_locs = block(
 			dx, dy, dz,
-			dx + (CEILING(bound_width / ICON_SIZE_X, 1) - 1), dy + (CEILING(bound_height / ICON_SIZE_X, 1) - 1), dz
+			dx + (ceil(bound_width / ICON_SIZE_X) - 1), dy + (ceil(bound_height / ICON_SIZE_X) - 1), dz
 		) // If this is a multi-tile object then we need to predict the new locs and check if they allow our entrance.
 		for(var/atom/entering_loc as anything in new_locs)
 			if(!entering_loc.Enter(src))
@@ -544,11 +545,11 @@
 
 	if(old_locs) // This condition will only be true if it is a multi-tile object.
 		for(var/atom/exited_loc as anything in (old_locs - new_locs))
-			exited_loc.Exited(src, newloc)
+			exited_loc.Exited(src, direct)
 	else // Else there's just one loc to be exited.
-		oldloc.Exited(src, newloc)
+		oldloc.Exited(src, direct)
 	if(oldarea != newarea)
-		oldarea.Exited(src, newarea)
+		oldarea.Exited(src, direct)
 
 	if(new_locs) // Same here, only if multi-tile.
 		for(var/atom/entered_loc as anything in (new_locs - old_locs))
@@ -570,6 +571,8 @@
 		return FALSE
 
 	var/atom/oldloc = loc
+
+	var/face_mouse = HAS_TRAIT(src, TRAIT_FACING_TO_MOUSE)
 
 	//Early override for some cases like diagonal movement
 	if(glide_size_override && glide_size != glide_size_override)
@@ -757,7 +760,7 @@
 		else if(new_turf && !old_turf)
 			SSspatial_grid.enter_cell(src, new_turf)
 
-	SSdemo.mark_dirty(src)
+	//SSdemo.mark_dirty(src)
 	return TRUE
 
 /**
@@ -853,6 +856,7 @@
 		var/same_loc = oldloc == destination
 		var/area/old_area = get_area(oldloc)
 		var/area/destarea = get_area(destination)
+		var/movement_dir = get_dir(src, destination)
 
 		moving_diagonally = NONE
 
@@ -871,14 +875,14 @@
 				var/dz = destination.z
 				var/list/new_locs = block(
 					dx, dy, dz,
-					dx + (CEILING(bound_width / ICON_SIZE_X, 1) - 1), dy + (CEILING(bound_height / ICON_SIZE_Y, 1) - 1), dz
+					dx + (ceil(bound_width / ICON_SIZE_X) - 1), dy + (ceil(bound_height / ICON_SIZE_Y) - 1), dz
 				)
 
 				if(old_area && old_area != destarea)
-					old_area.Exited(src, destarea)
+					old_area.Exited(src, movement_dir)
 
 				for(var/atom/left_loc as anything in (locs - new_locs))
-					left_loc.Exited(src, destination)
+					left_loc.Exited(src, movement_dir)
 
 				for(var/atom/entering_loc as anything in (new_locs - locs))
 					entering_loc.Entered(src, oldloc)
@@ -889,7 +893,7 @@
 				if(oldloc)
 					oldloc.Exited(src, destination)
 					if(old_area && old_area != destarea)
-						old_area.Exited(src, destarea)
+						old_area.Exited(src, movement_dir)
 
 				destination.Entered(src, oldloc)
 				if(destarea && old_area != destarea)
@@ -906,12 +910,12 @@
 			var/area/old_area = get_area(oldloc)
 			if(is_multi_tile && isturf(oldloc))
 				for(var/atom/old_loc as anything in locs)
-					old_loc.Exited(src, null)
+					old_loc.Exited(src, NONE)
 			else
-				oldloc.Exited(src, null)
+				oldloc.Exited(src, NONE)
 
 			if(old_area)
-				old_area.Exited(src, null)
+				old_area.Exited(src, NONE)
 
 	RESOLVE_ACTIVE_MOVEMENT
 
@@ -1356,9 +1360,9 @@
 	. = ..()
 	verbs.Cut()
 
-/atom/movable/overlay/attackby(obj/item/I, mob/user, params)
+/atom/movable/overlay/attackby(obj/item/I, mob/user, list/modifiers)
 	if(master)
-		I.melee_attack_chain(user, master, params)
+		I.melee_attack_chain(user, master, modifiers)
 	return ATTACK_CHAIN_BLOCKED_ALL
 
 /atom/movable/overlay/attack_hand(mob/user)
@@ -1537,7 +1541,7 @@
 	if(!can_devour(gourmet))
 		return FALSE
 
-	var/mob/living/victim = src	// its just living mobs now, subject to change later
+	var/mob/living/victim = src // its just living mobs now, subject to change later
 
 	var/target = isturf(loc) ? src : gourmet
 
@@ -1609,19 +1613,6 @@
 /atom/movable/proc/deadchat_plays(mode = DEADCHAT_ANARCHY_MODE, cooldown = 12 SECONDS)
 	return AddComponent(/datum/component/deadchat_control/cardinal_movement, mode, list(), cooldown)
 
-/// Easy way to remove the component when the fun has been played out
-/atom/movable/proc/stop_deadchat_plays()
-	var/datum/component/deadchat_control/comp = GetComponent(/datum/component/deadchat_control)
-	if(!QDELETED(comp))
-		qdel(comp)
-
-/atom/movable/vv_get_dropdown()
-	. = ..()
-	if(!GetComponent(/datum/component/deadchat_control))
-		.["Give deadchat control"] = "byond://?_src_=vars;grantdeadchatcontrol=[UID()]"
-	else
-		.["Remove deadchat control"] = "byond://?_src_=vars;removedeadchatcontrol=[UID()]"
-
 /atom/movable/proc/fall_up_in_space()
 	visible_message(span_boldwarning("[declent_ru(NOMINATIVE)] улетает вверх под воздействием отрицательной гравитации!"),
 					span_userdanger("Вы улетаете вверх под воздействием отрицательной гравитации!"))
@@ -1666,3 +1657,7 @@
 
 /atom/movable/proc/compressor_grind()
 	ex_act(EXPLODE_DEVASTATE)
+
+/// Called when a mob resists while inside a container that is itself inside something.
+/atom/movable/proc/relay_container_resist_act(mob/living/user, obj/container)
+	return

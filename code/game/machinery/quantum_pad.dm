@@ -166,6 +166,13 @@
 
 	var/obj/machinery/quantumpad/attached_pad
 
+/obj/item/circuit_component/quantumpad/Destroy()
+	if(attached_pad)
+		unregister_usb_parent(attached_pad)
+	target_pad = null
+	failed = null
+	. = ..()
+
 /obj/item/circuit_component/quantumpad/populate_ports()
 	target_pad = add_input_port("Платформа", PORT_TYPE_ATOM)
 	failed = add_output_port("Ошибка", PORT_TYPE_SIGNAL)

@@ -88,7 +88,7 @@
 	// The machine is all dirty so can't be used!
 	if(dirty == MAX_DIRT)
 		// If they're trying to clean it then let them
-		if(istype(I, /obj/item/reagent_containers/spray/cleaner) || istype(I, /obj/item/soap))
+		if(istype(I, /obj/item/reagent_containers/spray/cleaner) || issoap(I))
 			user.visible_message(
 				span_notice("[user] начина[PLUR_ET_YUT(user)] чистить [declent_ru(ACCUSATIVE)]."),
 				span_notice("Вы начинаете чистить [declent_ru(ACCUSATIVE)]..."),

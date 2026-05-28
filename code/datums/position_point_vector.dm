@@ -6,7 +6,9 @@
 	return P
 
 /proc/pixel_length_between_points(datum/point_precise/a, datum/point_precise/b)
-	return sqrt(((b.x - a.x) ** 2) + ((b.y - a.y) ** 2))
+	var/dx = (b.x - a.x)
+	var/dy = (b.y - a.y)
+	return MAGNITUDE(dx, dy)
 
 /proc/angle_between_points(datum/point_precise/a, datum/point_precise/b)
 	return ATAN2((b.y - a.y), (b.x - a.x))
@@ -107,10 +109,10 @@
 	AM.pixel_y = return_py()
 
 /datum/point_precise/proc/return_turf()
-	return locate(CEILING(x / ICON_SIZE_X, 1), CEILING(y / ICON_SIZE_Y, 1), z)
+	return locate(ceil(x / ICON_SIZE_X), ceil(y / ICON_SIZE_Y), z)
 
 /datum/point_precise/proc/return_coordinates() //[turf_x, turf_y, z]
-	return list(CEILING(x / ICON_SIZE_X, 1), CEILING(y / ICON_SIZE_Y, 1), z)
+	return list(ceil(x / ICON_SIZE_X), ceil(y / ICON_SIZE_Y), z)
 
 /datum/point_precise/proc/return_position()
 	return new /datum/position(src)

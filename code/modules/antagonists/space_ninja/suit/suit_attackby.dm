@@ -17,7 +17,7 @@
 		balloon_alert(ninja, "пополнено")
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	if(istype(I, /obj/item/stack/ore/bluespace_crystal))
+	if(isbluespacecrystal(I))
 		add_fingerprint(ninja)
 		var/obj/item/stack/ore/bluespace_crystal/crystal_stack = I
 		if(heal_chems.charge_counter >= heal_chems.charge_max)

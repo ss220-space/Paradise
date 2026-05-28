@@ -33,9 +33,8 @@
 
 	action_icon_state = "glare"
 
-	selection_activated_message		= span_notice("Вы приготовились к тому, что ваши глаза станут ослепительно яркими! <b>ЛКМ по цели, чтобы применить!</b>")
-	selection_deactivated_message	= span_notice("Ваши глаза расслабляются... пока что.")
-	need_active_overlay = TRUE
+	selection_activated_message = span_notice_alt("Вы приготовились к тому, что ваши глаза станут ослепительно яркими! <b>ЛКМ по цели, чтобы применить!</b>")
+	selection_deactivated_message = span_notice_alt("Ваши глаза расслабляются... пока что.")
 
 /obj/effect/proc_holder/spell/shadowling_glare/create_new_targeting()
 	var/datum/spell_targeting/targeted/T = new()
@@ -102,7 +101,7 @@
 	for(var/turf/turf in targets)
 		turf.extinguish_light()
 		for(var/atom/atom in turf.contents)
-			if(atom in blacklisted_lights)
+			if(is_type_in_list(atom, blacklisted_lights))
 				continue
 			atom.extinguish_light()
 
@@ -253,8 +252,8 @@
 	base_cooldown = 3 SECONDS
 	clothes_req = FALSE
 	action_icon_state = "enthrall"
-	selection_activated_message		= span_notice("Вы готовите свой разум к тому, чтобы проникнуть в чужое сознание. <b>ЛКМ по цели, чтобы применить!</b>")
-	selection_deactivated_message	= span_notice("Ваш разум расслабляется.")
+	selection_activated_message = span_notice_alt("Вы готовите свой разум к тому, чтобы проникнуть в чужое сознание. <b>ЛКМ по цели, чтобы применить!</b>")
+	selection_deactivated_message = span_notice_alt("Ваш разум расслабляется.")
 	need_active_overlay = TRUE
 	var/enthralling = FALSE
 
@@ -366,15 +365,15 @@
 	if(QDELETED(user))
 		return
 
-	if(thralls >= CEILING(1 * SSticker.mode.thrall_ratio, 1) && !blind_smoke_acquired)
+	if(thralls >= ceil(1 * SSticker.mode.thrall_ratio) && !blind_smoke_acquired)
 		blind_smoke_acquired = TRUE
 		user.mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_blindness_smoke(null))
 
-	if(thralls >= CEILING(3 * SSticker.mode.thrall_ratio, 1) && !screech_acquired)
+	if(thralls >= ceil(3 * SSticker.mode.thrall_ratio) && !screech_acquired)
 		screech_acquired = TRUE
 		user.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/shadowling_screech(null))
 
-	if(thralls >= CEILING(5 * SSticker.mode.thrall_ratio, 1) && !revive_thrall_acquired)
+	if(thralls >= ceil(5 * SSticker.mode.thrall_ratio) && !revive_thrall_acquired)
 		revive_thrall_acquired = TRUE
 		user.mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_revive_thrall(null))
 
@@ -441,18 +440,18 @@
 	if(QDELETED(user))
 		return
 
-	if(thralls >= CEILING(1 * SSticker.mode.thrall_ratio, 1) && !blind_smoke_acquired)
+	if(thralls >= ceil(1 * SSticker.mode.thrall_ratio) && !blind_smoke_acquired)
 		blind_smoke_acquired = TRUE
 		to_chat(user, span_shadowling("<i>The power of your thralls has granted you the <b>Blinding Smoke</b> ability. \
 			It will create a choking cloud that will blind any non-thralls who enter.</i>"))
 		user.mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_blindness_smoke(null))
 
-	if(thralls >= CEILING(3 * SSticker.mode.thrall_ratio, 1) && !screech_acquired)
+	if(thralls >= ceil(3 * SSticker.mode.thrall_ratio) && !screech_acquired)
 		screech_acquired = TRUE
 		to_chat(user, span_shadowling("<i>The power of your thralls has granted you the <b>Null Charge</b> ability. This ability will drain an APC's contents to the void, preventing it from recharging or sending power until repaired.</i>"))
 		user.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/shadowling_screech(null))
 
-	if(thralls >= CEILING(5 * SSticker.mode.thrall_ratio, 1) && !revive_thrall_acquired)
+	if(thralls >= ceil(5 * SSticker.mode.thrall_ratio) && !revive_thrall_acquired)
 		revive_thrall_acquired = TRUE
 		to_chat(user, span_shadowling("<i>The power of your thralls has granted you the <b>Black Recuperation</b> ability. \
 			This will, after a short time, bring a dead thrall completely back to life with no bodily defects.</i>"))
@@ -638,8 +637,8 @@
 	base_cooldown = 1 MINUTES
 	clothes_req = FALSE
 	action_icon_state = "revive_thrall"
-	selection_activated_message		= span_notice("Вы начинаете направлять свои силы на заживление ран ваших союзников. ")
-	selection_deactivated_message	= span_notice("Ваш разум расслабляется.")
+	selection_activated_message = span_notice_alt("Вы начинаете направлять свои силы на заживление ран ваших союзников. ")
+	selection_deactivated_message = span_notice_alt("Ваш разум расслабляется.")
 	need_active_overlay = TRUE
 	/// Whether the EMPOWERED_THRALL_LIMIT limit is ignored or not
 	var/ignore_prer = FALSE
@@ -755,8 +754,8 @@
 	desc = "Extends the time of the emergency shuttle's arrival by ten minutes using a life force of our enemy. Shuttle will be unable to be recalled. This can only be used once."
 	clothes_req = FALSE
 	base_cooldown = 3 SECONDS
-	selection_activated_message		= span_notice("Вы начинаете накапливать силы, чтобы задержать шаттл. <b>ЛКМ по цели, чтобы применить!</b>")
-	selection_deactivated_message	= span_notice("Ваш разум расслабляется.")
+	selection_activated_message = span_notice_alt("Вы начинаете накапливать силы, чтобы задержать шаттл. <b>ЛКМ по цели, чтобы применить!</b>")
+	selection_deactivated_message = span_notice_alt("Ваш разум расслабляется.")
 	action_icon_state = "extend_shuttle"
 	need_active_overlay = TRUE
 	var/global/extend_limit_pressed = FALSE
@@ -829,8 +828,8 @@
 	clothes_req = FALSE
 	human_req = FALSE
 	action_icon_state = "annihilate"
-	selection_activated_message		= span_notice("Вы готовите свой разум к разрушительной атаке. <b>ЛКМ по цели, чтобы применить!</b>")
-	selection_deactivated_message	= span_notice("Ваш разум расслабляется.")
+	selection_activated_message = span_notice_alt("Вы готовите свой разум к разрушительной атаке. <b>ЛКМ по цели, чтобы применить!</b>")
+	selection_deactivated_message = span_notice_alt("Ваш разум расслабляется.")
 	need_active_overlay = TRUE
 
 /obj/effect/proc_holder/spell/ascendant_annihilate/create_new_targeting()
@@ -881,8 +880,8 @@
 	clothes_req = FALSE
 	human_req = FALSE
 	action_icon_state = "enthrall"
-	selection_activated_message		= span_notice("Вы готовите свой разум к тому, чтобы промыть чужое сознание. <b>ЛКМ по цели, чтобы применить!</b>")
-	selection_deactivated_message	= span_notice("Ваш разум расслабляется.")
+	selection_activated_message = span_notice_alt("Вы готовите свой разум к тому, чтобы промыть чужое сознание. <b>ЛКМ по цели, чтобы применить!</b>")
+	selection_deactivated_message = span_notice_alt("Ваш разум расслабляется.")
 	need_active_overlay = TRUE
 
 /obj/effect/proc_holder/spell/ascendant_hypnosis/create_new_targeting()

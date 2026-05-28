@@ -404,3 +404,21 @@
 	if(!gun || !istype(gun))
 		return .
 	SEND_SIGNAL(gun, COMSIG_KEYBINDING_GUN_LASER_SIGHT, human, gun)
+
+/datum/keybinding/mob/toggle_facing_to_mouse
+	name = "Включить/выключить слежку моба за курсором"
+	keys = list("P")
+
+/datum/keybinding/mob/toggle_facing_to_mouse/down(client/user)
+	. = ..()
+	var/mob/living/mob = user.mob
+
+	if(!istype(mob))
+		return .
+
+	if(HAS_TRAIT(mob, TRAIT_FACING_TO_MOUSE))
+		mob.RemoveElement(/datum/element/facing_to_mouse)
+		mob.balloon_alert(mob, "в направлении движения")
+	else
+		mob.AddElement(/datum/element/facing_to_mouse)
+		mob.balloon_alert(mob, "за курсором мыши")

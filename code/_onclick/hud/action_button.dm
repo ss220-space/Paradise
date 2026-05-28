@@ -66,8 +66,11 @@
 		our_hud.position_action(src, SCRN_OBJ_DEFAULT)
 		return TRUE
 	var/trigger_flags
-	if(LAZYACCESS(modifiers, CTRL_CLICK))
+
+	if(LAZYACCESS(modifiers, RIGHT_CLICK))
 		trigger_flags |= TRIGGER_SECONDARY_ACTION
+
+	if(LAZYACCESS(modifiers, CTRL_CLICK))
 		linked_action.AltTrigger(usr, trigger_flags = trigger_flags)
 		linked_action.UpdateButtonIcon()
 		return TRUE
@@ -143,7 +146,7 @@
 	our_hud.hide_landings()
 
 /atom/movable/screen/movable/action_button/proc/save_position()
-	var/mob/user = our_hud.mymob
+	var/mob/user = our_hud?.mymob
 	if(!user?.client)
 		return
 	var/position_info = ""

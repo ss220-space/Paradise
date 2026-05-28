@@ -26,7 +26,7 @@
 /obj/item/lazarus_injector/update_icon_state()
 	icon_state = "lazarus_[loaded ? "hypo" : "empty"]"
 
-/obj/item/lazarus_injector/afterattack(atom/target, mob/user, proximity_flag, params)
+/obj/item/lazarus_injector/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(!loaded)
 		return
 	if(isliving(target) && proximity_flag)
@@ -39,7 +39,7 @@
 				M.faction = list("neutral")
 				M.revive()
 				M.can_collar = 1
-				if(istype(target, /mob/living/simple_animal/hostile))
+				if(ishostile(target))
 					var/mob/living/simple_animal/hostile/H = M
 					if(malfunctioning)
 						H.faction |= list("lazarus", PERSONAL_FACTION(user))

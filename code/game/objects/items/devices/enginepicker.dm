@@ -68,6 +68,8 @@
 			G = /obj/machinery/the_singularitygen/tesla
 		if(ENGTYPE_SING)
 			G = /obj/machinery/the_singularitygen
+		if(ENGTYPE_TEG)
+			G = /obj/structure/closet/crate/secure/engineering/teg
 
 	if(G)	//This can only be not-null if the switch operation was successful
 		issuccessful = TRUE

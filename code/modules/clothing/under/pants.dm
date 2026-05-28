@@ -111,7 +111,7 @@
 	item_color = "camopants"
 
 /obj/item/clothing/under/pants/camo/commando
-	armor = list(MELEE = 10, BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
+	armor = list(MELEE = 10, BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 50, ACID = 50)
 
 /obj/item/clothing/under/pants/galifepants
 	name = "check breeches"
@@ -155,4 +155,17 @@
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi',
+	)
+
+/obj/item/clothing/under/pants/combat
+	name = "combat pants"
+	desc = "Тактические штаны для бойцов, следящих за модой."
+	icon_state = "combat_pants"
+	item_color = "combat_pants"
+	sprite_sheets = list(
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/uniform.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi',
+		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/uniform.dmi',
+		SPECIES_KIDAN = 'icons/mob/clothing/species/kidan/uniform.dmi',
 	)

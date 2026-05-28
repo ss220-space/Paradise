@@ -40,8 +40,8 @@
 		PREPOSITIONAL = "Императрице Ужаса",
 	)
 
-/mob/living/simple_animal/hostile/poison/terror_spider/queen/empress/New()
-	..()
+/mob/living/simple_animal/hostile/poison/terror_spider/queen/empress/Initialize(mapload)
+	. = ..()
 	grant_actions()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/empress/proc/grant_actions()
@@ -131,12 +131,6 @@
 	var/datum/team/terror_spiders/spider_team = GLOB.antagonist_teams[/datum/team/terror_spiders]
 	spider_team?.erase_eggs()
 	to_chat(src, span_userdanger("Все пауки ужаса, кроме вас, вскоре вымрут."))
-
-/obj/projectile/terrorspider/empress
-	name = "empress venom"
-	icon_state = "toxin5"
-	damage = 90
-	damage_type = BRUTE
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/empress/weak
 	canlay = 10

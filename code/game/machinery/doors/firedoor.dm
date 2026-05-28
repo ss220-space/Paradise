@@ -26,7 +26,7 @@
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	auto_close_time = 5 SECONDS
 	assemblytype = /obj/structure/firelock_frame
-	armor = list(MELEE = 30, BULLET = 30, LASER = 20, ENERGY = 20, BOMB = 10, BIO = 100, RAD = 100, FIRE = 95, ACID = 70)
+	armor = list(MELEE = 30, BULLET = 30, LASER = 20, ENERGY = 20, BOMB = 10, BIO = 100, FIRE = 95, ACID = 70)
 	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
 	cares_about_temperature = TRUE
 	/// How long does opening by hand take, in deciseconds.
@@ -126,11 +126,17 @@
 
 	user.changeNext_move(CLICK_CD_MELEE)
 
+	var/open_time = manual_open_time
+	if(ishuman(user))
+		var/datum/strength_level/level = user.get_strength_level()
+		if(level)
+			open_time = manual_open_time / max(0.1, level.door_open_speed_modifier)
+
 	user.visible_message(
 		span_notice("[user] tries to open [src] manually."),
 		span_notice("You operate the manual lever on [src]."))
 
-	if(do_after(user, manual_open_time, src))
+	if(do_after(user, open_time, src))
 		add_fingerprint(user)
 		user.visible_message(
 			span_notice("[user] opens [src]."),
@@ -236,7 +242,7 @@
 
 /obj/machinery/door/firedoor/update_icon_state()
 	icon_state = "door_[density ? "closed" : "open"]"
-	SSdemo.mark_dirty(src)
+	//SSdemo.mark_dirty(src)
 
 /obj/machinery/door/firedoor/update_overlays()
 	. = ..()
@@ -246,7 +252,7 @@
 		if(light_on)
 			. += emissive_appearance('icons/obj/doors/doorfire.dmi', "alarmlights_lightmask", src)
 		. += image('icons/obj/doors/doorfire.dmi', "alarmlights")
-	SSdemo.mark_dirty(src)
+	//SSdemo.mark_dirty(src)
 
 /obj/machinery/door/firedoor/proc/activate_alarm()
 	active_alarm = TRUE
@@ -331,7 +337,7 @@
 /obj/machinery/door/firedoor/border_only/CanAStarPass(to_dir, datum/can_pass_info/pass_info)
 	return !density || (dir != to_dir)
 
-/obj/machinery/door/firedoor/border_only/proc/on_exit(datum/source, atom/movable/leaving, atom/newLoc)
+/obj/machinery/door/firedoor/border_only/proc/on_exit(datum/source, atom/movable/leaving, direction)
 	SIGNAL_HANDLER
 
 	if(leaving.movement_type & PHASING)
@@ -343,7 +349,7 @@
 	if(leaving.pass_flags == PASSEVERYTHING || (pass_flags_self & leaving.pass_flags) || ((pass_flags_self & LETPASSTHROW) && leaving.throwing))
 		return
 
-	if(density && dir == get_dir(leaving, newLoc))
+	if(density && dir == direction)
 		leaving.Bump(src)
 		return COMPONENT_ATOM_BLOCK_EXIT
 

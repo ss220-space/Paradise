@@ -34,6 +34,10 @@ LINEN BINS
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/neck.dmi',
 	)
 
+/obj/item/bedsheet/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/bed_tuckable, mapload, 0, 0, 0)
+
 /obj/item/bedsheet/attack_self(mob/user)
 	user.drop_from_active_hand()
 	if(layer == initial(layer))

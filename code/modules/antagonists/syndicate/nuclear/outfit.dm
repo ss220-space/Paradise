@@ -16,7 +16,7 @@
 	implants = list(/obj/item/implant/explosive)
 	internals_slot = ITEM_SLOT_SUITSTORE
 
-	id_access = SYNDICATE_OPERATIVE
+	id_access = JOB_TITLE_SYNDICATE_OPERATIVE
 
 	backpack_contents = list(
 		/obj/item/storage/box/survival/survival_syndi = 1,
@@ -63,7 +63,7 @@
 /datum/outfit/admin/syndicate/operative/nuclear/leader
 	name = "Syndicate Nuclear Operative Leader"
 	l_hand = /obj/item/nuclear_challenge
-	id_access = SYNDICATE_OPERATIVE_LEADER
+	id_access = JOB_TITLE_SYNDICATE_OPERATIVE_LEADER
 
 /datum/outfit/admin/syndicate/operative/nuclear/vox
 	name = "Syndicate Nuclear Operative (vox)"

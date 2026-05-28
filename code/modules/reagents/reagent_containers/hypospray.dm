@@ -9,7 +9,7 @@
 	item_state = "hypo"
 	icon_state = "hypo"
 	belt_icon = "hypospray"
-	possible_transfer_amounts = list(1,2,3,4,5,10,15,20,25,30)
+	possible_transfer_amounts = list(1, 2, 3, 4, 5, 10, 15, 20, 25, 30)
 	resistance_flags = ACID_PROOF
 	container_type = OPENCONTAINER
 	slot_flags = ITEM_SLOT_BELT
@@ -128,7 +128,7 @@
 		update_state()
 		return ATTACK_CHAIN_PROCEED_SUCCESS|ATTACK_CHAIN_NO_AFTERATTACK
 
-	if(istype(I, /obj/item/soap) && paint_color)
+	if(issoap(I) && paint_color)
 		add_fingerprint(user)
 		balloon_alert(user, "краска смыта")
 		paint_color = null
@@ -143,7 +143,7 @@
 	item_state = "upg_hypo"
 	icon_state = "upg_hypo"
 	volume = 60
-	possible_transfer_amounts = list(1,2,5,10,15,20,25,30,40,60)
+	possible_transfer_amounts = list(1, 2, 5, 10, 15, 20, 25, 30, 40, 60)
 	color_overlay = "colour_upgradedhypo"
 
 /obj/item/reagent_containers/hypospray/safety/upgraded/get_ru_names()
@@ -178,7 +178,7 @@
 
 /obj/item/reagent_containers/hypospray/CMO
 	volume = 250
-	possible_transfer_amounts = list(1,2,3,4,5,10,15,20,25,30,35,40,45,50)
+	possible_transfer_amounts = list(1, 2, 3, 4, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50)
 	list_reagents = list("omnizine" = 100)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
@@ -223,7 +223,7 @@
 	volume = 90
 	ignore_flags = 1
 	icon_state = "combat_hypo"
-	possible_transfer_amounts = list(1,2,3,4,5,10,15,20,25,30)
+	possible_transfer_amounts = list(1, 2, 3, 4, 5, 10, 15, 20, 25, 30)
 
 /obj/item/reagent_containers/hypospray/ertm/hydrocodone
 	amount_per_transfer_from_this = 10
@@ -484,48 +484,6 @@
 	else
 		. += span_notice("Использовано.")
 
-/obj/item/reagent_containers/hypospray/autoinjector/death_book
-	icon = 'icons/obj/death_book.dmi'
-	icon_state = null
-
-/obj/item/reagent_containers/hypospray/autoinjector/death_book/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
-	if(!do_after(user, 5 SECONDS, target, DEFAULT_DOAFTER_IGNORE))
-		balloon_alert(user, "не двигайся!")
-		return ATTACK_CHAIN_PROCEED
-	. = ..()
-
-/obj/item/reagent_containers/hypospray/autoinjector/death_book/eggs_terror
-	name = "Зловещий зелёный инъектор"
-	desc = "Содержит в себе яйца настоящего ужаса, готового сокрушить станцию."
-	icon_state = "spider-injector"
-	list_reagents = list("terror_phantom_eggs" = 10)
-
-/obj/item/reagent_containers/hypospray/autoinjector/death_book/eggs_terror/get_ru_names()
-	return list(
-		NOMINATIVE = "зловещий зелёный инъектор",
-		GENITIVE = "зловещего зелёного инъектора",
-		DATIVE = "зловещему зелёному инъектору",
-		ACCUSATIVE = "зловещий зелёный инъектор",
-		INSTRUMENTAL = "зловещим зелёным инъектором",
-		PREPOSITIONAL = "зловещем зелёном инъекторе",
-	)
-
-/obj/item/reagent_containers/hypospray/autoinjector/death_book/xeno
-	name = "Зловещий фиолетовый инъектор"
-	desc = "Содержит в себе агрессивные ксеномикробы. Не облизывать!"
-	list_reagents = list("xenomicrobes_phantom" = 10)
-	icon_state = "xeno-injector"
-
-/obj/item/reagent_containers/hypospray/autoinjector/death_book/xeno/get_ru_names()
-	return list(
-		NOMINATIVE = "зловещий фиолетовый инъектор",
-		GENITIVE = "зловещего фиолетового инъектора",
-		DATIVE = "зловещему фиолетовому инъектору",
-		ACCUSATIVE = "зловещий фиолетовый инъектор",
-		INSTRUMENTAL = "зловещим фиолетовым инъектором",
-		PREPOSITIONAL = "зловещем фиолетовом инъекторе",
-	)
-
 /obj/item/reagent_containers/hypospray/autoinjector/teporone //basilisks
 	name = "teporone autoinjector"
 	desc = "Маленький инъектор в форме ручки, содержащий внутри дозу тепорона. Быстрый способ восстановления температуры тела до естественных показателей."
@@ -614,7 +572,7 @@
 
 /obj/item/reagent_containers/hypospray/autoinjector/survival
 	name = "survival medipen"
-	desc = "Маленький инъектор в форме ручки, содержащий внутри дозу веществ для спасения во время экстренных ситуаций, которые могут произойти на пустошах Лазиса.\n" + span_boldwarning("ПРЕДУПРЕЖДЕНИЕ: Не используйте более одного за раз!")
+	desc = "Маленький инъектор в форме ручки, содержащий внутри дозу веществ для спасения во время экстренных ситуаций, которые могут произойти на пустошах Лазиса.\n" + span_boldwarning_alt("ПРЕДУПРЕЖДЕНИЕ: Не используйте более одного за раз!")
 	icon_state = "stimpen"
 	belt_icon = "survival_medipen"
 	volume = 42
@@ -633,7 +591,7 @@
 
 /obj/item/reagent_containers/hypospray/autoinjector/survival/luxury
 	name = "luxury medipen"
-	desc = "Улучшенная версия стандартного автоинъектора выживания, вмещающая в себя до 40 единиц мощных медикаментов." + span_boldwarning("ПРЕДУПРЕЖДЕНИЕ: Не используйте более одного за раз!")
+	desc = "Улучшенная версия стандартного автоинъектора выживания, вмещающая в себя до 40 единиц мощных медикаментов." + span_boldwarning_alt("ПРЕДУПРЕЖДЕНИЕ: Не используйте более одного за раз!")
 	icon_state = "redinjector"
 	volume = 40
 	amount_per_transfer_from_this = 40

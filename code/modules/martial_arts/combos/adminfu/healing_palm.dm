@@ -8,7 +8,7 @@
 	target.visible_message(span_warning("[user] smacks [target] in the forehead!"))
 
 		//its the staff of healing code..hush
-	if(istype(target,/mob))
+	if(ismob(target))
 		var/old_stat = target.stat
 		if(isanimal(target) && target.stat == DEAD)
 			var/mob/living/simple_animal/O = target

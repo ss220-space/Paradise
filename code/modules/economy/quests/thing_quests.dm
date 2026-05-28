@@ -30,9 +30,9 @@
 /datum/cargo_quest/thing/add_goal(difficultly)
 	var/list/difficult_list = generate_goal_list(difficultly)
 	var/obj/item_path = pick(difficult_list)
-	var/atom/AM = new item_path(locate(1, 1, 1))
-	var/object_name = AM.declent_ru(NOMINATIVE)
-	qdel(AM)
+	var/atom/dummy = new item_path(locate(1, 1, 1))
+	var/object_name = dummy.declent_ru(NOMINATIVE)
+	qdel(dummy)
 
 	q_storage.reward += difficult_list[item_path]
 	if(unique_things)
@@ -79,7 +79,7 @@
 		JOB_TITLE_VIROLOGIST,
 		JOB_TITLE_PARAMEDIC,
 		JOB_TITLE_CORONER,
-		JOB_TITLE_INTERN,
+		JOB_TITLE_MEDICAL_INTERN,
 	)
 	linked_departament = "Science"
 
@@ -127,7 +127,7 @@
 		JOB_TITLE_VIROLOGIST,
 		JOB_TITLE_PARAMEDIC,
 		JOB_TITLE_CORONER,
-		JOB_TITLE_INTERN,
+		JOB_TITLE_MEDICAL_INTERN,
 	)
 	linked_departament = "Medical"
 
@@ -369,9 +369,9 @@
 	required_minerals[item_path] += difficult_list[item_path]["amount"]
 	desc = list()
 	for(var/mineral in required_minerals)
-		var/atom/AM = new mineral(locate(1, 1, 1))
-		var/object_name = AM.declent_ru(NOMINATIVE)
-		qdel(AM)
+		var/atom/dummy = new mineral(locate(1, 1, 1))
+		var/object_name = dummy.declent_ru(NOMINATIVE)
+		qdel(dummy)
 
 		desc += "[capitalize(object_name)]<br>Объём: [required_minerals[mineral]]<br>"
 	if(item_path in unique_minerals)
@@ -408,7 +408,7 @@
 /datum/cargo_quest/thing/minerals/length_quest()
 	var/stack_length
 	for(var/mineral in required_minerals)
-		stack_length += CEILING(required_minerals[mineral]/50, 1)
+		stack_length += ceil(required_minerals[mineral]/50)
 	return stack_length
 
 /datum/cargo_quest/thing/minerals/plasma
@@ -808,9 +808,9 @@
 /datum/cargo_quest/thing/capsule/add_goal(difficultly)
 	var/list/difficult_list = generate_goal_list(difficultly)
 	var/mob/item_path = pick(difficult_list)
-	var/atom/AM = new item_path(locate(1, 1, 1))
-	var/object_name = AM.declent_ru(NOMINATIVE)
-	qdel(AM)
+	var/atom/dummy = new item_path(locate(1, 1, 1))
+	var/object_name = dummy.declent_ru(NOMINATIVE)
+	qdel(dummy)
 
 	cargo_quest_reward = difficult_list[item_path]
 	q_storage.reward += cargo_quest_reward

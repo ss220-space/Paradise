@@ -197,7 +197,7 @@
 /proc/shadow_to_animation(turf/start_turf, turf/end_turf, mob/user)
 	var/x_difference = end_turf.x - start_turf.x
 	var/y_difference = end_turf.y - start_turf.y
-	var/distance = sqrt(x_difference ** 2 + y_difference ** 2) // pythag baby
+	var/distance = MAGNITUDE(x_difference, y_difference) // pythag baby
 
 	var/obj/effect/immortality_talisman/effect = new(start_turf)
 	effect.dir = user.dir
@@ -275,10 +275,10 @@
 	return T
 
 /obj/effect/proc_holder/spell/vampire/vamp_extinguish/cast(list/targets, mob/user = usr)
-	for(var/turf/T in targets)
-		T.extinguish_light()
-		for(var/atom/A in T.contents)
-			A.extinguish_light()
+	for(var/turf/turf in targets)
+		turf.extinguish_light(force = TRUE)
+		for(var/atom/atom in turf.contents)
+			atom.extinguish_light(force = TRUE)
 
 /obj/effect/proc_holder/spell/vampire/shadow_boxing
 	name = "Бой с тенью"
@@ -339,9 +339,9 @@
 			L.adjust_bodytemperature(-40 * TEMPERATURE_DAMAGE_COEFFICIENT)
 
 	for(var/turf/turf as anything in RANGE_TURFS(4, get_turf(owner)))
-		turf.extinguish_light()
+		turf.extinguish_light(force = TRUE)
 		for(var/atom/atom as anything in turf.contents)
-			atom.extinguish_light()
+			atom.extinguish_light(force = TRUE)
 
 	V.bloodusable = max(V.bloodusable - 5, 0)
 

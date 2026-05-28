@@ -17,8 +17,7 @@
 	dir = 8
 	},
 /obj/structure/window/plasmareinforced{
-	color = "#22aab7";
-	dir = 2
+	color = "#22aab7"
 	},
 /obj/structure/table/glass,
 /obj/item/paper_bin{
@@ -110,9 +109,7 @@
 "bj" = (
 /obj/structure/rack,
 /obj/item/clothing/mask/fakemoustache,
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 2
-	},
+/obj/machinery/atmospherics/unary/vent_pump/on,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -289,17 +286,14 @@
 	},
 /area/maintenance/abandonedoffices)
 "dm" = (
-/obj/structure/chair/sofa/corp/right{
+/obj/structure/chair/sofa/corp/left{
 	dir = 8
 	},
 /obj/machinery/light{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dust,
-/obj/machinery/alarm{
-	dir = 8;
-	pixel_x = 22
-	},
+/obj/machinery/alarm/directional/east,
 /turf/simulated/floor/plating,
 /area/maintenance/abandonedoffices)
 "du" = (
@@ -344,12 +338,8 @@
 /area/maintenance/fore2)
 "eg" = (
 /obj/item/twohanded/required/kirbyplants,
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	dir = 8;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
@@ -582,8 +572,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
@@ -627,14 +615,9 @@
 	dir = 1
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/worn_out{
-	cell_type = 0;
-	dir = 8;
-	pixel_x = -26
-	},
+/obj/machinery/power/apc/worn_out/directional/west,
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken3"
 	},
@@ -825,8 +808,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken6";
-	tag = "icon-wood-broken6"
+	icon_state = "wood-broken6"
 	},
 /area/maintenance/backstage)
 "iB" = (
@@ -917,13 +899,9 @@
 "kb" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc{
-	name = "south bump";
-	pixel_y = -26
-	},
+/obj/machinery/power/apc/directional/south,
 /turf/simulated/floor/plating,
 /area/maintenance/fore2)
 "kh" = (
@@ -957,8 +935,7 @@
 	dir = 4
 	},
 /obj/structure/window/plasmareinforced{
-	color = "#22aab7";
-	dir = 2
+	color = "#22aab7"
 	},
 /obj/structure/table_frame,
 /obj/effect/decal/cleanable/glass,
@@ -1070,8 +1047,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/tomato_smudge,
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken3";
-	tag = "icon-wood-broken3"
+	icon_state = "wood-broken3"
 	},
 /area/maintenance/backstage)
 "mr" = (
@@ -1084,7 +1060,6 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "tranquillite"
 	},
 /area/maintenance/backstage)
@@ -1103,8 +1078,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
@@ -1121,8 +1094,6 @@
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plating,
@@ -1138,9 +1109,7 @@
 	dir = 8
 	},
 /obj/structure/closet/crate/can,
-/obj/item/trash/semki{
-	pixel_y = 0
-	},
+/obj/item/trash/semki,
 /turf/simulated/floor/carpet/black,
 /area/maintenance/abandonedoffices)
 "nJ" = (
@@ -1182,8 +1151,6 @@
 	dir = 8
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/cable{
@@ -1258,7 +1225,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light_construct,
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/sofa/right{
 	color = "#85130b";
 	dir = 8
 	},
@@ -1397,8 +1364,6 @@
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/carpet/black,
@@ -1422,17 +1387,14 @@
 	},
 /area/maintenance/abandonedoffices)
 "rr" = (
-/obj/structure/chair/sofa/corp/left{
+/obj/structure/chair/sofa/corp/right{
 	dir = 4
 	},
 /obj/machinery/light_construct{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/firealarm{
-	dir = 8;
-	pixel_x = -26
-	},
+/obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutral"
@@ -1443,8 +1405,6 @@
 	dir = 9
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -1463,14 +1423,12 @@
 "rx" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken7";
-	tag = "icon-wood-broken7"
+	icon_state = "wood-broken7"
 	},
 /area/maintenance/abandonedoffices)
 "rz" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/clown{
-	pixel_y = 0;
 	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
@@ -1524,8 +1482,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken7";
-	tag = "icon-wood-broken7"
+	icon_state = "wood-broken7"
 	},
 /area/maintenance/backstage)
 "so" = (
@@ -1564,8 +1521,6 @@
 "sA" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -1685,8 +1640,7 @@
 /area/maintenance/abandonedoffices)
 "tN" = (
 /obj/structure/window/plasmareinforced{
-	color = "#22aab7";
-	dir = 2
+	color = "#22aab7"
 	},
 /obj/structure/table/glass,
 /obj/machinery/computer/library/public{
@@ -1834,11 +1788,7 @@
 /obj/machinery/light_construct{
 	dir = 4
 	},
-/obj/machinery/firealarm{
-	dir = 4;
-	name = "east fire alarm";
-	pixel_x = 26
-	},
+/obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -1859,8 +1809,7 @@
 /area/maintenance/fore2)
 "vR" = (
 /obj/structure/window/plasmareinforced{
-	color = "#22aab7";
-	dir = 2
+	color = "#22aab7"
 	},
 /obj/structure/table/glass,
 /obj/item/paper{
@@ -1908,8 +1857,6 @@
 	icon_state = "1-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/cable{
@@ -1928,8 +1875,6 @@
 	dir = 8
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/cable{
@@ -2012,7 +1957,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fore2)
 "wO" = (
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/sofa/left{
 	dir = 4;
 	color = "#85130b"
 	},
@@ -2180,21 +2125,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fore2)
-"zi" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/fore2)
 "zm" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/firecloset,
@@ -2278,13 +2208,8 @@
 	},
 /area/maintenance/starboard)
 "zO" = (
-/obj/machinery/power/apc/worn_out{
-	cell_type = 0;
-	dir = 4;
-	pixel_x = 26
-	},
+/obj/machinery/power/apc/worn_out/directional/east,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/item/trash/spentcasing,
@@ -2296,14 +2221,11 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/lootdrop/maintenance/double,
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "tranquillite"
 	},
 /area/maintenance/backstage)
 "Ac" = (
-/obj/machinery/vending/chinese{
-	pixel_y = 0
-	},
+/obj/machinery/vending/chinese,
 /turf/simulated/floor/plating,
 /area/maintenance/abandonedoffices)
 "Ad" = (
@@ -2460,8 +2382,7 @@
 /area/maintenance/fore2)
 "Bv" = (
 /obj/structure/window/plasmareinforced{
-	color = "#22aab7";
-	dir = 2
+	color = "#22aab7"
 	},
 /obj/structure/table/glass,
 /obj/item/flashlight/lamp,
@@ -2475,8 +2396,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/cable{
@@ -2553,7 +2472,6 @@
 	},
 /obj/effect/spawner/random_spawners/grille_13,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plating,
@@ -2625,8 +2543,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/cable{
@@ -2641,8 +2557,7 @@
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken";
-	tag = "icon-wood-broken"
+	icon_state = "wood-broken"
 	},
 /area/maintenance/abandonedoffices)
 "Dm" = (
@@ -2777,10 +2692,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/alarm{
-	dir = 4;
-	pixel_x = -22
-	},
+/obj/machinery/alarm/directional/west,
 /turf/simulated/floor/plating,
 /area/crew_quarters/trading)
 "EP" = (
@@ -2826,12 +2738,7 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/abandonedoffices)
 "Fj" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
-	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating,
 /area/maintenance/abandonedoffices)
@@ -2871,9 +2778,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fore2)
 "FA" = (
-/obj/machinery/vending/coffee{
-	pixel_y = 0
-	},
+/obj/machinery/vending/coffee,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood,
 /area/maintenance/abandonedoffices)
@@ -2907,12 +2812,7 @@
 	},
 /area/maintenance/fore2)
 "FX" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
-	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/effect/decal/cleanable/dust,
 /obj/effect/decal/cleanable/blood/tracks{
 	layer = 3;
@@ -3052,8 +2952,6 @@
 "Hi" = (
 /obj/structure/girder,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -3194,8 +3092,6 @@
 /area/maintenance/abandonedoffices)
 "IL" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -3264,8 +3160,6 @@
 "IU" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -3284,8 +3178,6 @@
 	dir = 5
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plating,
@@ -3347,13 +3239,9 @@
 	dir = 8
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plating,
@@ -3420,8 +3308,6 @@
 "Ke" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -3593,7 +3479,6 @@
 	dir = 1
 	},
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
@@ -3624,8 +3509,7 @@
 /obj/structure/table/wood,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken6";
-	tag = "icon-wood-broken6"
+	icon_state = "wood-broken6"
 	},
 /area/maintenance/backstage)
 "Nx" = (
@@ -3637,8 +3521,7 @@
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken6";
-	tag = "icon-wood-broken6"
+	icon_state = "wood-broken6"
 	},
 /area/maintenance/abandonedoffices)
 "NF" = (
@@ -3653,7 +3536,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/crayon,
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "tranquillite"
 	},
 /area/maintenance/backstage)
@@ -3674,7 +3556,7 @@
 /turf/simulated/floor/carpet/blue,
 /area/maintenance/abandonedoffices)
 "NP" = (
-/obj/structure/chair/sofa/corp/left{
+/obj/structure/chair/sofa/corp/right{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -3823,8 +3705,6 @@
 	dir = 5
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -3862,7 +3742,6 @@
 	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "tranquillite"
 	},
 /area/maintenance/backstage)
@@ -3896,8 +3775,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/cable{
@@ -3937,9 +3814,7 @@
 	},
 /area/maintenance/backstage)
 "QR" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 2
-	},
+/obj/machinery/atmospherics/unary/vent_pump/on,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -4001,9 +3876,7 @@
 /area/maintenance/abandonedoffices)
 "RG" = (
 /obj/effect/spawner/lootdrop/maintenance,
-/obj/machinery/power/apc/worn_out{
-	pixel_y = -26
-	},
+/obj/machinery/power/apc/worn_out/directional/south,
 /obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -4147,12 +4020,8 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fore2)
 "Tx" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	dir = 4;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 4
 	},
 /turf/simulated/floor/carpet/red,
 /area/maintenance/backstage)
@@ -4197,8 +4066,6 @@
 	dir = 9
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -4259,13 +4126,9 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -4319,8 +4182,6 @@
 "Vl" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -4441,8 +4302,6 @@
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plating,
@@ -4481,9 +4340,7 @@
 /turf/simulated/floor/carpet/black,
 /area/maintenance/abandonedoffices)
 "WC" = (
-/obj/structure/sign/poster/contraband/random{
-	pixel_y = 0
-	},
+/obj/structure/sign/poster/contraband/random,
 /turf/simulated/wall,
 /area/maintenance/starboard)
 "WD" = (
@@ -4527,7 +4384,7 @@
 /turf/simulated/floor/carpet/black,
 /area/maintenance/abandonedoffices)
 "Xb" = (
-/obj/structure/chair/sofa/corp/right{
+/obj/structure/chair/sofa/corp/left{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dust,
@@ -4536,8 +4393,7 @@
 "Xd" = (
 /obj/structure/table/glass,
 /obj/item/paper/safe_code{
-	owner = "office";
-	pixel_y = 0
+	owner = "office"
 	},
 /obj/item/paper{
 	pixel_x = -5;
@@ -4609,8 +4465,6 @@
 	dir = 5
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -5175,7 +5029,7 @@ Fb
 Fb
 Fb
 PQ
-zi
+FY
 Za
 PQ
 PQ
@@ -5249,7 +5103,7 @@ Fb
 Fb
 Fb
 PQ
-zi
+FY
 co
 co
 PQ

@@ -19,7 +19,7 @@
 		/obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/tank,
 		/obj/item/stock_parts/cell, /obj/item/grenade/plastic/c4/ninja, /obj/item/melee/energy_katana)
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-	armor = list(MELEE = 40, BULLET = 30, LASER = 20,ENERGY = 30, BOMB = 30, BIO = 100, RAD = 100, FIRE = 100, ACID = 100)
+	armor = list(MELEE = 40, BULLET = 30, LASER = 20,ENERGY = 30, BOMB = 30, BIO = 100, FIRE = 100, ACID = 100)
 	strip_delay = 12
 	permeability_coefficient = 1
 	flags_inv = HIDEGLOVES|HIDEJUMPSUIT|HIDETAIL
@@ -694,8 +694,8 @@
 	var/mob/living/carbon/human/ninja = affecting
 	if(prob(stealth_ambient_chance))
 		var/sounds = pick(
-			'sound/ambience/ambifailure.ogg',
-			'sound/ambience/ambigen5.ogg',
+			'sound/ambience/misc/ambifailure.ogg',
+			'sound/ambience/general/ambigen5.ogg',
 			'sound/machines/ventcrawl.ogg',
 			'sound/effects/noise_scan.ogg',
 			'sound/effects/footstep/wood1.ogg',

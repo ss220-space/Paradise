@@ -41,8 +41,7 @@
 "at" = (
 /obj/structure/shuttle/engine/heater{
 	dir = 4;
-	icon_state = "heater3x3_side_inv";
-	tag = "icon-heater (NORTH)"
+	icon_state = "heater3x3_side_inv"
 	},
 /obj/structure/window/plasmareinforced{
 	color = "#22aab7";
@@ -150,8 +149,7 @@
 "aN" = (
 /obj/structure/shuttle/engine/heater{
 	dir = 4;
-	icon_state = "heater3x3";
-	tag = "icon-heater (NORTH)"
+	icon_state = "heater3x3"
 	},
 /obj/structure/window/plasmareinforced{
 	color = "#22aab7";
@@ -269,15 +267,6 @@
 	icon_state = "vfloor"
 	},
 /area/shuttle/administration)
-"bq" = (
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	frequency = 1331;
-	id_tag = "admin_s_pump"
-	},
-/turf/simulated/floor/shuttle{
-	icon_state = "vfloor"
-	},
-/area/shuttle/administration)
 "br" = (
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	dir = 8;
@@ -296,11 +285,11 @@
 	height = 18;
 	id = "admin";
 	name = "administration shuttle";
+	port_direction = 2;
+	preferred_direction = 8;
 	roundstart_move = "admin_away";
 	timid = 1;
-	width = 18;
-	port_direction = 2;
-	preferred_direction = 8
+	width = 18
 	},
 /obj/machinery/door/airlock/external{
 	frequency = 1331;
@@ -336,12 +325,9 @@
 "bv" = (
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/shutters/preopen{
 	id_tag = "adminshuttleshutters";
-	name = "Blast Shutters";
-	opacity = 0
+	name = "Blast Shutters"
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/administration)
@@ -387,8 +373,7 @@
 "dX" = (
 /obj/structure/shuttle/engine/heater{
 	dir = 4;
-	icon_state = "heater3x3_side";
-	tag = "icon-heater (NORTH)"
+	icon_state = "heater3x3_side"
 	},
 /obj/structure/window/plasmareinforced{
 	color = "#22aab7";
@@ -415,22 +400,13 @@
 	icon_state = "white"
 	},
 /area/shuttle/administration)
-"ey" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden,
-/turf/simulated/floor/shuttle{
-	icon_state = "vfloor"
-	},
-/area/shuttle/administration)
 "ft" = (
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 1;
-	icon_state = "open";
 	id_tag = "adminshuttleshutters";
-	name = "Blast Shutters";
-	opacity = 0
+	name = "Blast Shutters"
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/administration)
@@ -488,13 +464,10 @@
 "ks" = (
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
-/obj/machinery/door/poddoor/shutters{
-	density = 0;
+/obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
-	icon_state = "open";
 	id_tag = "adminshuttleshutters";
-	name = "Blast Shutters";
-	opacity = 0
+	name = "Blast Shutters"
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/administration)
@@ -1458,8 +1431,8 @@ Fr
 Fr
 Fr
 yg
-bq
-ey
+bp
+br
 bp
 Fr
 Fr
@@ -1479,7 +1452,7 @@ aa
 Fr
 bf
 bp
-br
+bp
 Kn
 Fr
 aa

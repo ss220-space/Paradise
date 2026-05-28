@@ -1,4 +1,4 @@
-//Damage things	//TODO: merge these down to reduce on defines
+//Damage things //TODO: merge these down to reduce on defines
 //Way to waste perfectly good damagetype names (BRUTE) on this... If you were really worried about case sensitivity, you could have just used lowertext(damagetype) in the proc...
 #define BRUTE "brute"
 #define BURN "fire"
@@ -15,13 +15,18 @@
 #define ENERGY "energy"
 #define BOMB "bomb"
 #define BIO "bio"
-#define RAD "rad"
 #define FIRE "fire"
 #define ACID "acid"
 #define MAGIC "magic"
 
-/// All armors
-#define ARMOR_LIST_ALL(...) list(ACID, BIO, BOMB, BULLET, ENERGY, FIRE, LASER, MAGIC, MELEE, RAD)
+/// Armor values that are used for damage
+#define ARMOR_LIST_DAMAGE list(BOMB, BULLET, ENERGY, LASER, MELEE)
+
+/// Armor values that are used for durability
+#define ARMOR_LIST_DURABILITY list(ACID, BIO, FIRE, MAGIC)
+
+/// All armors, preferable in the order as seen above
+#define ARMOR_LIST_ALL(...) list(ACID, BIO, BOMB, BULLET, ENERGY, FIRE, LASER, MAGIC, MELEE)
 
 #define STUN "stun"
 #define WEAKEN "weaken"
@@ -30,13 +35,13 @@
 #define PARALYZE "paralize"
 #define SLEEP "sleep"
 #define IMMOBILIZE "immobilize"
-#define IRRADIATE "irradiate"
 #define STUTTER "stutter"
 #define SLUR "slur"
 #define EYE_BLUR "eye_blur"
 #define DROWSY "drowsy"
 #define JITTER "jitter"
 #define CONFUSED "confused"
+#define EFFECT_UNCONSCIOUS "unconscious"
 
 //I hate adding defines like this but I'd much rather deal with bitflags than lists and string searches
 #define BRUTELOSS (1<<0)
@@ -273,3 +278,19 @@ GLOBAL_LIST_INIT(body_zones, list(
 #define TRIGGER_GUARD_ALLOW_ALL -1
 #define TRIGGER_GUARD_NONE 0
 #define TRIGGER_GUARD_NORMAL 1
+
+/// The amount of energy needed to increase the burn force by 1 damage during electrocution.
+#define JOULES_PER_DAMAGE (25 KILO JOULES)
+/// Calculates the amount of burn force when applying this much energy to a mob via electrocution from an energy source.
+#define ELECTROCUTE_DAMAGE(energy) (energy >= 1 KILO JOULES ? clamp(20 + round(energy / JOULES_PER_DAMAGE), 20, 195) + rand(-5,5) : 0)
+
+/// Alternate attack defines. Return these at the end of procs like afterattack_secondary.
+/// Calls the normal attack proc. For example, if returned in afterattack_secondary, will call afterattack.
+/// Will continue the chain depending on the return value of the non-alternate proc, like with normal attacks.
+#define SECONDARY_ATTACK_CALL_NORMAL 1
+
+/// Cancels the attack chain entirely.
+#define SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN 2
+
+/// Proceed with the attack chain, but don't call the normal methods.
+#define SECONDARY_ATTACK_CONTINUE_CHAIN 3

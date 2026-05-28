@@ -132,6 +132,9 @@
 /turf/simulated/floor/plating/asteroid/welder_act(mob/user, obj/item/I)
 	return
 
+/turf/simulated/floor/plating/asteroid/cold
+	atmos_environment = ENVIRONMENT_COLD
+
 /// Used by ashstorms to replenish basalt tiles that have been dug up without going through all of them.
 GLOBAL_LIST_EMPTY(dug_up_basalt)
 
@@ -203,17 +206,11 @@ GLOBAL_LIST_EMPTY(dug_up_basalt)
 ///////Surface. The surface is warm, but survivable without a suit. Internals are required. The floors break to chasms, which drop you into the underground.
 
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
-	oxygen = LAVALAND_OXYGEN
-	nitrogen = LAVALAND_NITROGEN
-	temperature = LAVALAND_TEMPERATURE
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
 	atmos_environment = ENVIRONMENT_LAVALAND
 	baseturf = /turf/simulated/floor/lava/mapping_lava
 
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface_hard
-	oxygen = LAVALAND_OXYGEN
-	nitrogen = LAVALAND_NITROGEN
-	temperature = LAVALAND_TEMPERATURE
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
 	atmos_environment = ENVIRONMENT_LAVALAND
 	baseturf = /turf/simulated/floor/lava/lava_land_surface
@@ -231,7 +228,6 @@ GLOBAL_LIST_EMPTY(dug_up_basalt)
 	baseturf = /turf/simulated/floor/plating/asteroid/snow
 	icon_state = "snow"
 	icon_plating = "snow"
-	temperature = 180
 	slowdown = 2
 	environment_type = "snow"
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
@@ -269,9 +265,8 @@ GLOBAL_LIST_EMPTY(dug_up_basalt)
 /turf/simulated/floor/plating/asteroid/snow/atmosphere
 	atmos_mode = ATMOS_MODE_SEALED
 
+/turf/simulated/floor/plating/asteroid/snow/atmosphere/temperature
+	atmos_environment = ENVIRONMENT_TEMPERATE
+
 /turf/simulated/floor/plating/asteroid/snow/temperature
 	temperature = 255.37
-
-/turf/simulated/floor/plating/asteroid/snow/planet
-	oxygen = 22
-	nitrogen = 82

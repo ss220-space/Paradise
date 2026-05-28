@@ -1,5 +1,4 @@
 GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
-#define CLEAR_RUST_CACHE rustlib_clear_uuid_storage(); rustlib_iconforge_cleanup_all(); milla_reset();
 
 #ifdef TEST_RUNNER
 GLOBAL_DATUM(test_runner, /datum/test_runner)
@@ -130,7 +129,6 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 			log_and_message_admins("has requested an immediate world restart via client side debugging tools")
 			to_chat(world, span_boldannounceooc("Rebooting world immediately due to host request"))
 		rustg_log_close_all() // Past this point, no logging procs can be used, at risk of data loss.
-		CLEAR_RUST_CACHE
 		// Now handle a reboot
 		if(config && CONFIG_GET(flag/shutdown_on_reboot))
 			sleep(0)
@@ -144,9 +142,10 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 			return ..(1)
 
 	// If we got here, we are in a "normal" reboot
+	GLOB.overlay_manager.dump_stats()
 	Master.Shutdown() // Shutdown subsystems
 
-	// If we were running game tests, finish that run
+	// If we were running unit tests, finish that run
 	#ifdef TEST_RUNNER
 	GLOB.test_runner.Finalize()
 	return
@@ -166,7 +165,6 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 
 	// And begin the real shutdown
 	rustg_log_close_all() // Past this point, no logging procs can be used, at risk of data loss.
-	CLEAR_RUST_CACHE
 	if(config && CONFIG_GET(flag/shutdown_on_reboot))
 		sleep(0)
 		if(GLOB.shutdown_shell_command)
@@ -276,6 +274,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	GLOB.http_log = "[GLOB.log_directory]/http.log"
 	GLOB.sql_log = "[GLOB.log_directory]/sql.log"
 	GLOB.mapmanip_log = "[GLOB.log_directory]/mapmanip.log"
+	GLOB.signal_log = "[GLOB.log_directory]/signal.log"
 
 	start_log(GLOB.world_game_log)
 	start_log(GLOB.world_href_log)
@@ -285,6 +284,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	start_log(GLOB.http_log)
 	start_log(GLOB.sql_log)
 	start_log(GLOB.mapmanip_log)
+	start_log(GLOB.signal_log)
 
 	#ifdef REFERENCE_TRACKING
 	GLOB.gc_log = "[GLOB.log_directory]/gc_debug.log"
@@ -312,7 +312,6 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 
 /world/Del()
 	rustg_close_async_http_client() // Close the HTTP client. If you dont do this, youll get phantom threads which can crash DD from memory access violations
-	CLEAR_RUST_CACHE
 	var/debug_server = world.GetConfig("env", "AUXTOOLS_DEBUG_DLL")
 	if(debug_server)
 		CALL_EXT(debug_server, "auxtools_shutdown")()
@@ -362,4 +361,3 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	SSmobs.MaxZChanged()
 	SSidlenpcpool.MaxZChanged()
 
-#undef CLEAR_RUST_CACHE

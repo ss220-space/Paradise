@@ -32,8 +32,8 @@
 	if(ticket_id != -1)
 		message["ticket_id"] = ticket_id
 
-	if(!confidential)
-		SSdemo.write_chat(target, message)
+	//if(!confidential)
+	//	SSdemo.write_chat(target, message)
 
 	// send it immediately
 	SSchat.send_immediate(target, message)

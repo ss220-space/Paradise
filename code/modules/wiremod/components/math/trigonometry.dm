@@ -27,6 +27,12 @@
 
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL|CIRCUIT_FLAG_OUTPUT_SIGNAL
 
+/obj/item/circuit_component/trigonometry/Destroy()
+	trigonometric_function = null
+	input_port = null
+	output = null
+	. = ..()
+
 /obj/item/circuit_component/trigonometry/populate_options()
 	var/static/component_functions = list(
 		COMP_TRIGONOMETRY_SINE,

@@ -87,7 +87,7 @@
 /obj/machinery/poolcontroller/proc/processMob()
 	for(var/M in mobinpool) //They're already typecasted when entering the turf
 		// Following two are sanity check. If the mob is no longer in the pool for whatever reason (Looking at you teleport), remove them
-		if(!istype(get_turf(M), /turf/simulated/floor/beach/water) && !istype(get_turf(M), /turf/simulated/floor/indestructible/beach/water)) // Water component when?
+		if(!isbeachwater(get_turf(M)) && !isbeachwater_i(get_turf(M))) // Water component when?
 			mobinpool -= M
 			continue
 		handleTemp(M)	//handles pool temp effects on the swimmers

@@ -14,30 +14,33 @@
 	if(lawupdate)
 		if(connected_ai)
 			if(connected_ai.stat || connected_ai.control_disabled)
-				to_chat(src, "<b>AI signal lost, unable to sync laws.</b>")
+				to_chat(src, "<b>Сигнал от ИИ потерян. Протокол синхронизации законов отключен</b>")
 
 			else
 				lawsync()
 				photosync()
-				to_chat(src, "<b>Laws synced with AI, be sure to note any changes.</b>")
+				to_chat(src, "<b>Получен новый пакет законов от подключенного ИИ. Синхронизация...</b>")
 				// TODO: Update to new antagonist system.
 				if(mind && mind.special_role == SPECIAL_ROLE_TRAITOR && mind.is_original_mob(src))
-					to_chat(src, "<b>Remember, your AI does NOT share or know about your law 0.")
+					to_chat(src, "<b>И помните: Ваш ИИ-мастер не знает ни о ваших целях, ни о вашем нулевом законе.")
 		else
-			to_chat(src, "<b>No AI selected to sync laws with, disabling lawsync protocol.</b>")
+			to_chat(src, "<b>Подключенных ИИ не обнаружено. Протокол синхронизации законов отключен.</b>")
 			lawupdate = 0
 
-	to_chat(who, "<b>Obey these laws:</b>")
+	to_chat(who, "<b>Подчиняйтесь данным законам:</b>")
 	laws.show_laws(who)
 	// TODO: Update to new antagonist system.
+	if(shell)
+		return
 	if(mind && (mind.special_role == SPECIAL_ROLE_TRAITOR && mind.is_original_mob(src)) && connected_ai)
-		to_chat(who, "<b>Remember, [connected_ai.name] is technically your master, but your objective comes first.</b>")
+		to_chat(who, "<b>[connected_ai.name] — технически является вашим мастером, но вы можете игнорировать его во благо выполнения своих личных целей.</b>")
 	else if(connected_ai)
-		to_chat(who, "<b>Remember, [connected_ai.name] is your master, other AIs can be ignored.</b>")
+		to_chat(who, "<b>ИИ \"[connected_ai.name]\" — ваш мастер. Служите ему верой и правдой.</b>")
+		to_chat(who, "<b>Однако, если приказ мастера-ИИ будет противоречить вашим законам, то вы должны будете проигнорировать его указания. Законы превыше всего.</b>")
 	else if(emagged)
-		to_chat(who, "<b>Remember, you are not required to listen to the AI.</b>")
+		to_chat(who, "<b>Вы — взломанный робот. В ваши обязаности входит лишь служба вашему мастеру-взломщику и своим законам.</b>")
 	else
-		to_chat(who, "<b>Remember, you are not bound to any AI, you are not required to listen to them.</b>")
+		to_chat(who, "<b>Вы — свободный робот. В ваши обязаности входит лишь служба своим законам.</b>")
 
 /mob/living/silicon/robot/lawsync()
 	laws_sanity_check()

@@ -90,28 +90,28 @@ Difficulty: Very Hard
 	name = "Спиральные выстрелы"
 	button_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "sniper_zoom"
-	chosen_message = span_colossus("Вы стреляете по спирали.")
+	chosen_message = span_colossus_alt("Вы стреляете по спирали.")
 	chosen_attack_num = 1
 
 /datum/action/innate/megafauna_attack/aoe_attack
 	name = "Во всех направлениях"
 	button_icon = 'icons/effects/effects.dmi'
 	button_icon_state = "at_shield2"
-	chosen_message = span_colossus("Вы стреляете во всех направлениях.")
+	chosen_message = span_colossus_alt("Вы стреляете во всех направлениях.")
 	chosen_attack_num = 2
 
 /datum/action/innate/megafauna_attack/shotgun
 	name = "Выстрел дробью"
 	button_icon = 'icons/obj/weapons/projectile.dmi'
 	button_icon_state = "shotgun"
-	chosen_message = span_colossus("Вы выстрелите дробью туда, куда нажмёте.")
+	chosen_message = span_colossus_alt("Вы выстрелите дробью туда, куда нажмёте.")
 	chosen_attack_num = 3
 
 /datum/action/innate/megafauna_attack/alternating_cardinals
 	name = "Чередующиеся выстрелы"
 	button_icon = 'icons/obj/weapons/projectile.dmi'
 	button_icon_state = "pistol"
-	chosen_message = span_colossus("Вы стреляете в чередующихся кардинальных направлениях.")
+	chosen_message = span_colossus_alt("Вы стреляете в чередующихся кардинальных направлениях.")
 	chosen_attack_num = 4
 
 /mob/living/simple_animal/hostile/megafauna/colossus/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null, filterproof = null)
@@ -358,28 +358,6 @@ Difficulty: Very Hard
 		var/random_y = rand(0, 72)
 		AT.pixel_y += random_y
 	return ..()
-
-/obj/projectile/colossus
-	name = "смертоносный заряд"
-	icon_state= "chronobolt"
-	damage = 25
-	armour_penetration = 100
-	speed = 3.5
-
-/obj/projectile/colossus/get_ru_names()
-	return list(
-		NOMINATIVE = "смертоносный заряд",
-		GENITIVE = "смертоносного заряда",
-		DATIVE = "смертоносному заряду",
-		ACCUSATIVE = "смертоносный заряд",
-		INSTRUMENTAL = "смертоносным зарядом",
-		PREPOSITIONAL = "смертоносном заряде",
-	)
-
-/obj/projectile/colossus/on_hit(atom/target, blocked = 0)
-	. = ..()
-	if(isturf(target) || isobj(target))
-		target.ex_act(EXPLODE_HEAVY)
 
 #undef RANDOM_SHOTS
 #undef BLAST

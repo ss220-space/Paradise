@@ -4,10 +4,9 @@
 SUBSYSTEM_DEF(title)
 	name = "Title Screen"
 	wait = 30 SECONDS
-	init_order = INIT_ORDER_TITLE
 	init_stage = INITSTAGE_EARLY
-	runlevels = RUNLEVELS_DEFAULT|RUNLEVEL_LOBBY
-	ss_id = "title_screen"
+	runlevels = RUNLEVELS_DEFAULT | RUNLEVEL_LOBBY
+
 	/// Basic html that includes styles. Can be customised by host
 	var/base_html
 	/// Currently set title screen
@@ -22,7 +21,7 @@ SUBSYSTEM_DEF(title)
 	fill_title_images_pool()
 
 	if(!CONFIG_GET(flag/enable_multi_instance))
-		flags |= SS_NO_FIRE
+		ss_flags |= SS_NO_FIRE
 	else
 		update_servers_info()
 
@@ -114,7 +113,7 @@ SUBSYSTEM_DEF(title)
  * Show the title screen to specific client.
  */
 /datum/controller/subsystem/title/proc/show_title_screen_to(client/viewer)
-	if(!viewer || !current_title_screen)
+	if(!viewer || !current_title_screen || SEND_SIGNAL(viewer, COMSIG_TILE_MENU_OPEN) & COMPONENT_BLOCK_OPEN)
 		return
 
 	INVOKE_ASYNC(current_title_screen, TYPE_PROC_REF(/datum/title_screen, show_to), viewer)

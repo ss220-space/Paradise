@@ -133,8 +133,8 @@
 		C.equip(H)
 		affected_targets.Add(H)
 
-/obj/machinery/anomalous_crystal/honk/New()
-	..()
+/obj/machinery/anomalous_crystal/honk/Initialize(mapload)
+	. = ..()
 	activation_method = pick("mob_bump","speech")
 
 /obj/machinery/anomalous_crystal/theme_warp //Warps the area you're in to look like a new one
@@ -199,7 +199,7 @@
 					C.dir = Original.dir
 					qdel(Stuff)
 					continue
-				if(istype(Stuff, /obj/structure/table) && NewTerrainTables)
+				if(istable(Stuff) && NewTerrainTables)
 					var/obj/structure/table/Original = Stuff
 					var/obj/structure/table/T = new NewTerrainTables(Original.loc)
 					T.dir = Original.dir

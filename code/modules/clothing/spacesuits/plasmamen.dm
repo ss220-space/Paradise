@@ -7,7 +7,7 @@
 	strip_delay = 200
 	tint = 2
 	HUDType = 0
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, RAD = 0, FIRE = 100, ACID = 75)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, FIRE = 100, ACID = 75)
 	resistance_flags = FIRE_PROOF
 	light_range = 4
 	light_on = FALSE
@@ -114,7 +114,7 @@
 	desc = "Шлем защитного костюма плазмолюда, созданный специально для офицеров службы безопасности."
 	icon_state = "security_envirohelm"
 	item_state = "security_envirohelm"
-	armor = list(MELEE = 35, BULLET = 30, LASER = 30,ENERGY = 10, BOMB = 25, BIO = 100, RAD = 0, FIRE = 100, ACID = 50)
+	armor = list(MELEE = 35, BULLET = 30, LASER = 30,ENERGY = 10, BOMB = 25, BIO = 100, FIRE = 100, ACID = 50)
 	HUDType = DATA_HUD_SECURITY_ADVANCED
 	examine_extensions = EXAMINE_HUD_SECURITY_READ | EXAMINE_HUD_SECURITY_WRITE
 
@@ -133,7 +133,7 @@
 	desc = "Шлем защитного костюма плазмолюда, созданный специально для детектива."
 	icon_state = "white_envirohelm"
 	item_state = "white_envirohelm"
-	armor = list(MELEE = 25, BULLET = 5, LASER = 25, ENERGY = 10, BOMB = 0, BIO = 100, RAD = 0, FIRE = 100, ACID = 50)
+	armor = list(MELEE = 25, BULLET = 5, LASER = 25, ENERGY = 10, BOMB = 0, BIO = 100, FIRE = 100, ACID = 50)
 	examine_extensions = EXAMINE_HUD_SECURITY_READ | EXAMINE_HUD_SECURITY_WRITE | EXAMINE_HUD_SCIENCE
 
 /obj/item/clothing/head/helmet/space/plasmaman/security/dec/get_ru_names()
@@ -391,7 +391,7 @@
 	desc = "Шлем защитного костюма плазмолюда, созданный специально для инженеров."
 	icon_state = "engineer_envirohelm"
 	item_state = "engineer_envirohelm"
-	armor = list(MELEE = 15, BULLET = 5, LASER = 20, ENERGY = 10, BOMB = 20, BIO = 100, RAD = 0, FIRE = 100, ACID = 50)
+	armor = list(MELEE = 15, BULLET = 5, LASER = 20, ENERGY = 10, BOMB = 20, BIO = 100, FIRE = 100, ACID = 50)
 	vision_flags = SEE_TURFS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 
@@ -428,7 +428,7 @@
 	icon_state = "ce_envirohelm"
 	item_state = "ce_envirohelm"
 	gas_transfer_coefficient = 0.01
-	armor = list(MELEE = 40, BULLET = 5, LASER = 10, ENERGY = 25, BOMB = 50, BIO = 100, RAD = 0, FIRE = 100, ACID = 90)
+	armor = list(MELEE = 40, BULLET = 5, LASER = 10, ENERGY = 25, BOMB = 50, BIO = 100, FIRE = 100, ACID = 90)
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 
 /obj/item/clothing/head/helmet/space/plasmaman/engineering/ce/get_ru_names()
@@ -446,7 +446,7 @@
 	desc = "Шлем защитного костюма плазмолюда, созданный специально для атмосферных техников."
 	icon_state = "atmos_envirohelm"
 	item_state = "atmos_envirohelm"
-	armor = list(MELEE = 15, BULLET = 5, LASER = 20, ENERGY = 10, BOMB = 20, BIO = 100, RAD = 0, FIRE = 100, ACID = 50)
+	armor = list(MELEE = 15, BULLET = 5, LASER = 20, ENERGY = 10, BOMB = 20, BIO = 100, FIRE = 100, ACID = 50)
 	vision_flags = SEE_TURFS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
@@ -499,7 +499,7 @@
 	icon_state = "explorer_envirohelm"
 	item_state = "explorer_envirohelm"
 	visor_icon = "explorer_envisor"
-	armor = list(MELEE = 30, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 50, BIO = 100, RAD = 0, FIRE = 100, ACID = 50)
+	armor = list(MELEE = 30, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 50, BIO = 100, FIRE = 100, ACID = 50)
 	vision_flags = SEE_TURFS
 	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
 	max_heat_protection_temperature = FIRE_HELM_MAX_TEMP_PROTECT
@@ -520,7 +520,7 @@
 	desc = "Шлем защитного костюма плазмолюда, созданный специально для священника."
 	icon_state = "chap_envirohelm"
 	item_state = "chap_envirohelm"
-	armor = list(MELEE = 20, BULLET = 7, LASER = 2, ENERGY = 2, BOMB = 2, BIO = 100, RAD = 0, FIRE = 100, ACID = 80)
+	armor = list(MELEE = 20, BULLET = 7, LASER = 2, ENERGY = 2, BOMB = 2, BIO = 100, FIRE = 100, ACID = 80)
 
 /obj/item/clothing/head/helmet/space/plasmaman/chaplain/get_ru_names()
 	return list(
@@ -693,7 +693,7 @@
 	desc = "Шлем защитного костюма плазмолюда, созданный специально для главы персонала."
 	icon_state = "hop_envirohelm"
 	item_state = "hop_envirohelm"
-	armor = list(MELEE = 25, BULLET = 15, LASER = 25, ENERGY = 10, BOMB = 25, BIO = 100, RAD = 0, FIRE = 100, ACID = 50)
+	armor = list(MELEE = 25, BULLET = 15, LASER = 25, ENERGY = 10, BOMB = 25, BIO = 100, FIRE = 100, ACID = 50)
 	HUDType = DATA_HUD_SECURITY_BASIC
 	examine_extensions = EXAMINE_HUD_SKILLS
 
@@ -712,7 +712,7 @@
 	desc = "Шлем защитного костюма плазмолюда, имеющий множество эмблем и маркировок, демонстрирующих, что их владелец — капитан."
 	icon_state = "cap_envirohelm"
 	item_state = "cap_envirohelm"
-	armor = list(MELEE = 25, BULLET = 15, LASER = 25, ENERGY = 10, BOMB = 25, BIO = 100, RAD = 0, FIRE = 100, ACID = 50)
+	armor = list(MELEE = 25, BULLET = 15, LASER = 25, ENERGY = 10, BOMB = 25, BIO = 100, FIRE = 100, ACID = 50)
 	HUDType = DATA_HUD_SECURITY_BASIC
 	examine_extensions = EXAMINE_HUD_SKILLS
 
@@ -731,7 +731,7 @@
 	desc = "Шлем защитного костюма плазмолюда, созданный специально для офицера \"Синий Щит\"."
 	icon_state = "bs_envirohelm"
 	item_state = "bs_envirohelm"
-	armor = list(MELEE = 35, BULLET = 30, LASER = 30,ENERGY = 10, BOMB = 25, BIO = 100, RAD = 0, FIRE = 100, ACID = 50)
+	armor = list(MELEE = 35, BULLET = 30, LASER = 30,ENERGY = 10, BOMB = 25, BIO = 100, FIRE = 100, ACID = 50)
 	HUDType = DATA_HUD_MEDICAL_ADVANCED
 	examine_extensions = EXAMINE_HUD_MEDICAL
 
@@ -751,7 +751,7 @@
 	icon_state = "wizard_envirohelm"
 	item_state = "wizard_envirohelm"
 	gas_transfer_coefficient = 0.01
-	armor = list(MELEE = 30, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 20, BIO = 100, RAD = 0, FIRE = 100, ACID = 100)
+	armor = list(MELEE = 30, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 20, BIO = 100, FIRE = 100, ACID = 100)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	magical = TRUE
 

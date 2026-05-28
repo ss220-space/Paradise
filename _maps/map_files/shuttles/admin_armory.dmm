@@ -303,15 +303,6 @@
 	icon_state = "vfloor"
 	},
 /area/shuttle/administration)
-"iK" = (
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	frequency = 1331;
-	id_tag = "admin_s_pump"
-	},
-/turf/simulated/floor/shuttle{
-	icon_state = "vfloor"
-	},
-/area/shuttle/administration)
 "iZ" = (
 /obj/machinery/recharge_station/upgraded,
 /turf/simulated/floor/shuttle{
@@ -322,8 +313,7 @@
 "jF" = (
 /obj/structure/shuttle/engine/heater{
 	dir = 4;
-	icon_state = "heater3x3";
-	tag = "icon-heater (NORTH)"
+	icon_state = "heater3x3"
 	},
 /obj/structure/window/plasmareinforced{
 	color = "#22aab7";
@@ -366,12 +356,9 @@
 	pixel_y = -29;
 	req_access = list(101)
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "asclblast";
-	name = "Blast Door";
-	opacity = 0
+	name = "Blast Door"
 	},
 /obj/docking_port/mobile{
 	dir = 8;
@@ -379,11 +366,11 @@
 	height = 18;
 	id = "admin";
 	name = "NRV Sparta";
+	port_direction = 2;
+	preferred_direction = 8;
 	roundstart_move = "admin_away";
 	timid = 1;
-	width = 18;
-	port_direction = 2;
-	preferred_direction = 8
+	width = 18
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -413,12 +400,9 @@
 	name = "Ship External Access";
 	req_access = list(101)
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "asclblast";
-	name = "Blast Door";
-	opacity = 0
+	name = "Blast Door"
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -504,24 +488,15 @@
 	icon_state = "dark"
 	},
 /area/shuttle/administration)
-"pc" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden,
-/turf/simulated/floor/shuttle{
-	icon_state = "vfloor"
-	},
-/area/shuttle/administration)
 "pK" = (
 /obj/structure/fans/tiny,
 /obj/machinery/door/airlock/hatch{
 	name = "NRV Sparta";
 	req_access = list(101)
 	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "asclblast";
-	name = "Blast Door";
-	opacity = 0
+	name = "Blast Door"
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -554,8 +529,7 @@
 "rA" = (
 /obj/item/flag/nt,
 /obj/machinery/light/spot{
-	dir = 8;
-	tag = "icon-tube1 (WEST)"
+	dir = 8
 	},
 /turf/simulated/floor/shuttle{
 	dir = 8;
@@ -818,8 +792,7 @@
 	pixel_y = 3
 	},
 /obj/machinery/light/spot{
-	dir = 8;
-	tag = "icon-tube1 (WEST)"
+	dir = 8
 	},
 /obj/item/clothing/mask/breath{
 	pixel_x = -3;
@@ -994,8 +967,7 @@
 "Du" = (
 /obj/structure/shuttle/engine/heater{
 	dir = 4;
-	icon_state = "heater3x3_side_inv";
-	tag = "icon-heater (NORTH)"
+	icon_state = "heater3x3_side_inv"
 	},
 /obj/structure/window/plasmareinforced{
 	color = "#22aab7";
@@ -1087,8 +1059,7 @@
 "Gn" = (
 /obj/structure/shuttle/engine/heater{
 	dir = 4;
-	icon_state = "heater3x3_side";
-	tag = "icon-heater (NORTH)"
+	icon_state = "heater3x3_side"
 	},
 /obj/structure/window/plasmareinforced{
 	color = "#22aab7";
@@ -1391,8 +1362,7 @@
 "Pj" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/light/spot{
-	dir = 1;
-	tag = "icon-tube1 (NORTH)"
+	dir = 1
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -1533,12 +1503,9 @@
 /area/shuttle/administration)
 "UX" = (
 /obj/effect/spawner/window/shuttle/gray,
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
+/obj/machinery/door/poddoor/preopen{
 	id_tag = "asclblast";
-	name = "Blast Door";
-	opacity = 0
+	name = "Blast Door"
 	},
 /obj/structure/fans/tiny/invisible,
 /turf/simulated/floor/shuttle/plating,
@@ -1931,8 +1898,8 @@ Az
 Az
 Az
 fq
-iK
-pc
+iz
+yu
 iz
 Az
 Az
@@ -1952,7 +1919,7 @@ Pn
 Az
 eG
 iz
-yu
+iz
 sq
 Az
 Pn

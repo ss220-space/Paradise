@@ -1053,7 +1053,7 @@
 	if(isslimeperson(user))
 		return TRUE
 	for(var/obj/item/organ/external/bodypart as anything in user.bodyparts) // if your limbs are squishy you can squish too!
-		if(bodypart.dna && istype(bodypart.dna.species, /datum/species/slime))
+		if(bodypart.dna && isslimeperson(bodypart))
 			return TRUE
 	return FALSE
 
@@ -1114,7 +1114,7 @@
 		if(!source_env)
 			return
 		for(var/mob/living/carbon/human/H in range(4, user))
-			if(!isvulpkanin(H) || !H.can_hear() || H.stat != CONSCIOUS)
+			if(!isvulpkanin(H) || HAS_TRAIT(H, TRAIT_DEAF) || H.stat != CONSCIOUS)
 				continue
 			var/turf/T = get_turf(H)
 			var/datum/gas_mixture/hearer_env = T.get_readonly_air()

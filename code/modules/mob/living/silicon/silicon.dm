@@ -4,6 +4,8 @@
 	has_unlimited_silicon_privilege = TRUE
 	weather_immunities = list(TRAIT_WEATHER_IMMUNE)
 	abstract_type = /mob/living/silicon
+	looting_icon_mode = LOOT_ICON_FLAT_ICON
+	examine_cursor_icon = null
 	var/syndicate = 0
 	var/obj/item/gps/cyborg/gps
 	var/const/MAIN_CHANNEL = "Main Frequency"
@@ -27,7 +29,7 @@
 
 	//var/sensor_mode = 0 //Determines the current HUD.
 
-	hud_possible = list(SPECIALROLE_HUD, DIAG_STAT_HUD, DIAG_HUD)
+	hud_possible = list(SPECIALROLE_HUD, DIAG_STAT_HUD, DIAG_HUD, DIAG_AISHELL_STAT_HUD)
 
 	var/med_hud = DATA_HUD_MEDICAL_ADVANCED //Determines the med hud to use
 	var/sec_hud = DATA_HUD_SECURITY_ADVANCED //Determines the sec hud to use
@@ -98,6 +100,7 @@
 	diag_hud_set_health()
 
 	ADD_TRAIT(src, TRAIT_WET_IMMUNITY, INNATE_TRAIT)
+	ADD_TRAIT(src, TRAIT_FENCE_CLIMBER, INNATE_TRAIT)
 
 	RegisterSignal(GLOB.alarm_manager, COMSIG_TRIGGERED_ALARM, PROC_REF(alarm_triggered))
 	RegisterSignal(GLOB.alarm_manager, COMSIG_CANCELLED_ALARM, PROC_REF(alarm_cancelled))
@@ -387,6 +390,10 @@
 		if("Disable")
 			to_chat(src, "Sensor augmentations disabled.")
 
+// Returns AI that is bounded to us. Like a AI itself or a AI-pilot of shell
+/mob/living/silicon/proc/try_get_ai()
+	return null
+
 /mob/living/silicon/adjustToxLoss(
 	amount = 0,
 	updating_health = TRUE,
@@ -410,8 +417,6 @@
 	return 1
 
 /////////////////////////////////// EAR DAMAGE ////////////////////////////////////
-/mob/living/silicon/can_hear()
-	return TRUE
 
 /mob/living/silicon/put_in_hand_check() // This check is for borgs being able to receive items, not put them in others' hands.
 	return FALSE

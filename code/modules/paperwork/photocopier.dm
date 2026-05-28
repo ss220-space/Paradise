@@ -14,6 +14,7 @@
 	max_integrity = 300
 	integrity_failure = 100
 	atom_say_verb = "пищит"
+	interaction_flags_mouse_drop = NEED_DEXTERITY | ALLOW_RESTING
 
 	COOLDOWN_DECLARE(copying_cooldown)
 
@@ -93,6 +94,9 @@
 		INSTRUMENTAL = "ксероксом \"Синдиката\"",
 		PREPOSITIONAL = "ксероксе \"Синдиката\"",
 	)
+
+/obj/machinery/photocopier/ComponentInitialize()
+	AddElement(/datum/element/elevation, pixel_shift = 8) //enough to look like your bums are on the machine.
 
 /obj/machinery/photocopier/Initialize(mapload)
 	. = ..()
@@ -248,7 +252,7 @@
 		temp_img = icon('icons/obj/butts.dmi', "xeno")
 	else
 		return
-	var/obj/item/photo/p = new /obj/item/photo (loc)
+	var/obj/item/photo/p = new /obj/item/photo(loc)
 	if(scanning)
 		p.forceMove(src)
 	else if(folder)
@@ -693,7 +697,7 @@
 			new /obj/effect/decal/cleanable/blood/oil(get_turf(src))
 			toner = 0
 
-/obj/machinery/photocopier/MouseDrop_T(mob/target, mob/living/user)
+/obj/machinery/photocopier/mouse_drop_receive(mob/target, mob/living/user, params)
 	if(!istype(target) || target.buckled || get_dist(user, src) > 1 || get_dist(user, target) > 1 || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || isAI(user))
 		return
 	if(check_mob()) //is target mob or another mob on this photocopier already?
@@ -714,7 +718,6 @@
 	playsound(loc, 'sound/machines/ping.ogg', 50, FALSE)
 	atom_say("Внимание: На стеклянной плаформе обнаружены ягодицы!", FALSE)
 	SStgui.update_uis(src)
-	return TRUE
 
 /obj/machinery/photocopier/Destroy()
 	QDEL_LIST(saved_documents)

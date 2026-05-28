@@ -11,6 +11,7 @@
 	holder_type = /obj/item/holder/pai
 	can_buckle_to = FALSE
 	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
+	interaction_flags_mouse_drop = NEED_HANDS | ALLOW_PAI
 
 	var/ram = 100	// Used as currency to purchase different abilities
 	var/userDNA		// The DNA string of our assigned user
@@ -215,7 +216,7 @@
 		return list("Перезагрузка систем связи через:", "[(timeleft / 60) % 60]:[add_zero(num2text(timeleft % 60), 2)]")
 
 /mob/living/silicon/pai/init_subsystems()
-	gps = new(src, gpstag = "pAI0", upgraded = TRUE, tracking = FALSE)
+	gps = new(src, "pAI0", TRUE, FALSE)
 
 /mob/living/silicon/pai/get_status_tab_items()
 	var/list/status_tab_data = ..()
@@ -636,24 +637,22 @@
 	return H
 
 /mob/living/silicon/pai/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
-	if(!ishuman(user) || !Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		return ..()
+	if(!ishuman(user))
+		return
 
-	if(usr == src)
-		switch(tgui_alert(user, "[src] хочет, чтобы вы его подобрали. Подобрать?", "Подбор", list("Да", "Нет")))
-			if("Да")
-				if(Adjacent(user))
-					get_scooped(user)
-				else
-					to_chat(src, span_warning("Вам нужно подойти поближе."))
-
-			if("Нет")
-				to_chat(src, span_warning("[user] не хо[PLUR_CHET_TYAT(user)] вас подбирать..."))
-	else
-		if(Adjacent(user))
+	if(user != src)
+		if(user.IsReachableBy(src))
 			get_scooped(user)
-		else
-			return ..()
+		return
+
+	switch(tgui_alert(user, "[src] хочет, чтобы вы его подобрали. Подобрать?", "Подбор", list("Да", "Нет")))
+		if("Да")
+			if(!user.IsReachableBy(src))
+				to_chat(src, span_warning("Вам нужно подойти поближе."))
+				return
+			get_scooped(user)
+		if("Нет")
+			to_chat(src, span_warning("[user] не хо[PLUR_CHET_TYAT(user)] вас подбирать..."))
 
 /mob/living/silicon/pai/extinguish_light(force = FALSE)
 	flashlight_on = FALSE

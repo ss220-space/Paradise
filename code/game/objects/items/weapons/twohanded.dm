@@ -115,7 +115,7 @@
 	attack_verb = list("атаковал", "рубанул", "поранил", "порезал")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	usesound = 'sound/items/crowbar.ogg'
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 30)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 100, ACID = 30)
 	resistance_flags = FIRE_PROOF
 
 /obj/item/twohanded/fireaxe/ComponentInitialize()
@@ -134,13 +134,13 @@
 /obj/item/twohanded/fireaxe/update_icon_state()  //Currently only here to fuck with the on-mob icons.
 	icon_state = "fireaxe[HAS_TRAIT(src, TRAIT_WIELDED)]"
 
-/obj/item/twohanded/fireaxe/afterattack(atom/A, mob/user, proximity, params)
+/obj/item/twohanded/fireaxe/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	. = ..()
-	if(!proximity)
+	if(!proximity_flag)
 		return
 	if(HAS_TRAIT(src, TRAIT_WIELDED)) //destroys windows and grilles in one hit
-		if(istype(A, /obj/structure/window) || istype(A, /obj/structure/grille))
-			var/obj/structure/W = A
+		if(is_window(target) || istype(target, /obj/structure/grille))
+			var/obj/structure/W = target
 			W.obj_destruction("fireaxe")
 
 /obj/item/twohanded/fireaxe/boneaxe  // Blatant imitation of the fireaxe, but made out of bone.
@@ -200,13 +200,6 @@
 
 /obj/item/twohanded/fireaxe/boneaxe/guillotine/update_icon_state()
 	icon_state = "guillotine[HAS_TRAIT(src, TRAIT_WIELDED)]"
-
-/obj/item/twohanded/fireaxe/boneaxe/guillotine/sharped
-	desc = "Массивный, грозно выглядящий пилотопор, созданный с использованием костяного нароста ослеплённого жнеца. Идеален для убийства и последующей разделки чудовищ. Выглядит острее обычного"
-
-/obj/item/twohanded/fireaxe/boneaxe/guillotine/sharped/Initialize(mapload)
-	. = ..()
-	SEND_SIGNAL(src, COMSIG_ITEM_SHARPEN_ACT, 4, 30)
 
 /obj/item/twohanded/fireaxe/energized
 	desc = "Someone with a love for fire axes decided to turn this one into a high-powered energy weapon. Seems excessive."
@@ -285,7 +278,7 @@
 	attack_verb = list("атаковал", "полоснул", "уколол", "поранил", "порезал")
 	block_chance = 75
 	sharp_when_wielded = TRUE // only sharp when wielded
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 70)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 100, ACID = 70)
 	resistance_flags = FIRE_PROOF
 	light_power = 2
 	light_range = 2
@@ -420,7 +413,7 @@
 	embedded_ignore_throwspeed_threshold = TRUE
 	no_spin_thrown = TRUE
 	var/obj/item/grenade/explosive = null
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 30)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 50, ACID = 30)
 	needs_permit = TRUE
 	var/icon_prefix = "spearglass"
 
@@ -448,14 +441,14 @@
 	qdel(tip)
 	..()
 
-/obj/item/twohanded/spear/afterattack(atom/movable/AM, mob/user, proximity, params)
+/obj/item/twohanded/spear/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	. = ..()
-	if(!proximity)
+	if(!proximity_flag)
 		return
-	if(isturf(AM)) //So you can actually melee with it
+	if(isturf(target)) //So you can actually melee with it
 		return
 	if(explosive && HAS_TRAIT(src, TRAIT_WIELDED))
-		explosive.forceMove(AM)
+		explosive.forceMove(target)
 		explosive.prime()
 		qdel(src)
 
@@ -554,20 +547,20 @@
 	force_unwielded = 15
 	force_wielded = 25
 
-/obj/item/twohanded/spear/grey_tide/afterattack(atom/movable/AM, mob/living/user, proximity, params)
-	..()
-	if(!proximity)
+/obj/item/twohanded/spear/grey_tide/afterattack(atom/target, mob/living/user, proximity_flag, list/modifiers, status)
+	. = ..()
+	if(!proximity_flag)
 		return
 	user.faction |= "greytide([user.UID()])"
-	if(isliving(AM))
-		var/mob/living/L = AM
+	if(isliving(target))
+		var/mob/living/L = target
 		if(istype (L, /mob/living/simple_animal/hostile/illusion))
 			return
 		if(!L.stat && prob(50))
 			var/mob/living/simple_animal/hostile/illusion/M = new(user.loc)
 			M.faction = user.faction.Copy()
 			M.attack_sound = hitsound
-			M.Copy_Parent(user, 100, user.health/2.5, 12, 30)
+			M.Copy_Parent(user, 100, user.health / 2.5, 12, 30)
 			M.GiveTarget(L)
 
 /obj/item/twohanded/spear/attackby(obj/item/I, mob/living/user, params)
@@ -689,7 +682,7 @@
 /obj/item/twohanded/chainsaw_handmade/unwield(obj/item/source, mob/living/carbon/user)
 	soundloop.stop()
 	hitsound = SFX_SWING_HIT
-	to_chat(user, "Вы дёргаете стартовый шнур [declent_ru(GENITIVE)], и цепь останавливается.")
+	to_chat(user, "Вы заглушаете [declent_ru(ACCUSATIVE)], и цепь останавливается.")
 
 /obj/item/twohanded/chainsaw/update_icon_state()
 	icon_state = "chainsaw_handmade[HAS_TRAIT(src, TRAIT_WIELDED)]"
@@ -701,7 +694,7 @@
 
 /obj/item/twohanded/chainsaw_handmade/doomslayer
 	name = "OOOH BABY"
-	desc = span_warning("VRRRRRRR!!!")
+	desc = span_warning_alt("VRRRRRRR!!!")
 	armour_penetration = 100
 	force_wielded = 30
 
@@ -731,6 +724,7 @@
 	embed_chance = 10
 	embedded_ignore_throwspeed_threshold = TRUE
 	var/datum/looping_sound/chainsaw/soundloop
+	COOLDOWN_DECLARE(revs_cooldown)
 
 /obj/item/twohanded/chainsaw/get_ru_names()
 	return list(
@@ -745,6 +739,16 @@
 /obj/item/twohanded/chainsaw/Initialize(mapload)
 	. = ..()
 	soundloop = new(src)
+	RegisterSignal(src, COMSIG_ITEM_SWAP_BLOCKED, PROC_REF(on_swap_blocked))
+
+/obj/item/twohanded/chainsaw/proc/on_swap_blocked()
+	SIGNAL_HANDLER
+
+	if(!COOLDOWN_FINISHED(src, revs_cooldown))
+		return
+
+	COOLDOWN_START(src, revs_cooldown, 10 SECONDS)
+	playsound(src, 'sound/weapons/chainsawrevs.ogg', 75, FALSE)
 
 /obj/item/twohanded/chainsaw/ComponentInitialize()
 	. = ..()
@@ -759,6 +763,7 @@
 	)
 
 /obj/item/twohanded/chainsaw/Destroy(force)
+	UnregisterSignal(src, COMSIG_ITEM_SWAP_BLOCKED)
 	QDEL_NULL(soundloop)
 	return ..()
 
@@ -771,7 +776,7 @@
 /obj/item/twohanded/chainsaw/unwield(obj/item/source, mob/living/carbon/user)
 	soundloop.stop()
 	hitsound = SFX_SWING_HIT
-	to_chat(user, "Вы дёргаете стартовый шнур [declent_ru(GENITIVE)], и цепь останавливается.")
+	to_chat(user, "Вы заглушаете [declent_ru(ACCUSATIVE)], и цепь останавливается.")
 	REMOVE_TRAIT(src, TRAIT_NODROP, CHAINSAW_TRAIT)
 
 /obj/item/twohanded/chainsaw/update_icon_state()
@@ -791,7 +796,7 @@
 	var/damage_cap = 60
 	if(target_limb == BODY_ZONE_HEAD)
 		damage_cap = 85
-	if(!(target_limb.brute_dam >= damage_cap))
+	if(!(target_limb?.brute_dam >= damage_cap))
 		return
 	target_limb.droplimb()
 
@@ -808,7 +813,7 @@
 	throwforce = 15
 	throw_range = 1
 	w_class = WEIGHT_CLASS_HUGE
-	armor = list(MELEE = 50, BULLET = 50, LASER = 50, ENERGY = 0, BOMB = 50, BIO = 0, RAD = 0, FIRE = 100, ACID = 100)
+	armor = list(MELEE = 50, BULLET = 50, LASER = 50, ENERGY = 0, BOMB = 50, BIO = 0, FIRE = 100, ACID = 100)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/charged = 5
 	origin_tech = "combat=4;bluespace=4;plasmatech=7"
@@ -841,21 +846,21 @@
 /obj/item/twohanded/singularityhammer/update_icon_state()  //Currently only here to fuck with the on-mob icons.
 	icon_state = "mjollnir[HAS_TRAIT(src, TRAIT_WIELDED)]"
 
-/obj/item/twohanded/singularityhammer/afterattack(atom/A, mob/user, proximity, params)
+/obj/item/twohanded/singularityhammer/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	. = ..()
-	if(!proximity || charged < 5 || !HAS_TRAIT(src, TRAIT_WIELDED))
+	if(!proximity_flag || charged < 5 || !HAS_TRAIT(src, TRAIT_WIELDED))
 		return
 
 	charged = 0
-	var/turf/target = get_turf(A)
-	playsound(target, 'sound/weapons/marauder.ogg', 50, TRUE)
+	var/turf/target_turf = get_turf(target)
+	playsound(target_turf, 'sound/weapons/marauder.ogg', 50, TRUE)
 
-	if(isliving(A))
-		var/mob/living/victim = A
+	if(isliving(target))
+		var/mob/living/victim = target
 		victim.take_organ_damage(20)
 
-	for(var/atom/pulled_thing as anything in (orange(5, target) - user))
-		pulled_thing.singularity_hammer_act(target)
+	for(var/atom/pulled_thing as anything in (orange(5, target_turf) - user))
+		pulled_thing.singularity_hammer_act(target_turf)
 
 /atom/proc/singularity_hammer_act(turf/pull)
 	return
@@ -909,13 +914,13 @@
 		swing_sound = SFX_BLUNT_SWING_HEAVY \
 	)
 
-/obj/item/twohanded/mjollnir/proc/shock(mob/living/target)
+/obj/item/twohanded/mjollnir/proc/yeet_shock(mob/living/target)
 	target.Stun(4 SECONDS)
 	do_sparks(5, TRUE, target.loc)
 	target.visible_message(
 		span_danger("[DECLENT_RU_CAP(target, NOMINATIVE)] поражён[GEND_A_O_Y(target)] разрядом [declent_ru(GENITIVE)]!"),
 		span_userdanger("Мощный разряд пронзает ваше тело, отбрасывая вас!"),
-		span_italics("Раздаётся оглушительный электрический треск!")
+		span_hear("Раздаётся оглушительный электрический треск!")
 	)
 	var/atom/throw_target = get_edge_target_turf(target, get_dir(src, get_step_away(target, src)))
 	INVOKE_ASYNC(target, TYPE_PROC_REF(/atom/movable, throw_at), throw_target, 200, 4)
@@ -924,12 +929,12 @@
 	. = ..()
 	if(!ATTACK_CHAIN_SUCCESS_CHECK(.) || !HAS_TRAIT(src, TRAIT_WIELDED))
 		return .
-	shock(target)
+	yeet_shock(target)
 
 /obj/item/twohanded/mjollnir/throw_impact(atom/target, datum/thrownthing/throwingdatum)
 	. = ..()
-	if(isliving(target))
-		shock(target)
+	if(!QDELETED(target) && isliving(target))
+		yeet_shock(target)
 
 /obj/item/twohanded/mjollnir/update_icon_state()  //Currently only here to fuck with the on-mob icons.
 	icon_state = "mjollnir[HAS_TRAIT(src, TRAIT_WIELDED)]"
@@ -977,14 +982,14 @@
 /obj/item/twohanded/knighthammer/update_icon_state()  //Currently only here to fuck with the on-mob icons.
 	icon_state = "knighthammer[HAS_TRAIT(src, TRAIT_WIELDED)]"
 
-/obj/item/twohanded/knighthammer/afterattack(atom/A, mob/user, proximity, params)
+/obj/item/twohanded/knighthammer/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	. = ..()
-	if(!proximity)
+	if(!proximity_flag)
 		return
 	if(charged == 5)
 		charged = 0
-		if(isliving(A))
-			var/mob/living/Z = A
+		if(isliving(target))
+			var/mob/living/Z = target
 			if(Z.health >= 1)
 				Z.visible_message(
 					span_danger("[DECLENT_RU_CAP(Z, NOMINATIVE)] отброшен[GEND_A_O_Y(Z)] сокрушительным ударом [declent_ru(GENITIVE)]!"),
@@ -1003,13 +1008,13 @@
 				Z.gib()
 				playsound(user, 'sound/weapons/marauder.ogg', 50, TRUE)
 		if(HAS_TRAIT(src, TRAIT_WIELDED))
-			if(iswallturf(A))
-				var/turf/simulated/wall/Z = A
+			if(iswallturf(target))
+				var/turf/simulated/wall/Z = target
 				Z.ex_act(EXPLODE_HEAVY)
 				charged = 3
 				playsound(user, 'sound/weapons/marauder.ogg', 50, TRUE)
-			else if(isstructure(A) || ismecha(A))
-				var/obj/Z = A
+			else if(isstructure(target) || ismecha(target))
+				var/obj/Z = target
 				Z.ex_act(EXPLODE_HEAVY)
 				charged = 3
 				playsound(user, 'sound/weapons/marauder.ogg', 50, TRUE)
@@ -1025,7 +1030,7 @@
 	force_wielded = 15
 	attack_verb = list("атаковал", "пронзил", "проколол")
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 30)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 100, ACID = 30)
 	resistance_flags = FIRE_PROOF
 
 /obj/item/twohanded/pitchfork/demonic
@@ -1066,8 +1071,8 @@
 	force_unwielded = 100
 	force_wielded = 500000 // Kills you DEAD.
 
-/obj/item/twohanded/pitchfork/demonic/greater/krampus/afterattack(atom/target, mob/user, proximity, params)
-	if(!proximity || !HAS_TRAIT(src, TRAIT_WIELDED))
+/obj/item/twohanded/pitchfork/demonic/greater/krampus/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag || !HAS_TRAIT(src, TRAIT_WIELDED))
 		return
 
 	if(is_airlock(target))
@@ -1076,7 +1081,7 @@
 		playsound(target, 'sound/magic/Disintegrate.ogg', 100, TRUE)
 		airlock.deconstruct()
 		return TRUE
-	..()
+	return ..()
 
 /obj/item/twohanded/pitchfork/update_icon_state()
 	icon_state = "pitchfork[HAS_TRAIT(src, TRAIT_WIELDED)]"
@@ -1118,8 +1123,8 @@
 	user.apply_damage(rand(user.health / 2, force), BURN, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
 
 // It's no fun being the lord of all hell if you can't get out of a simple room
-/obj/item/twohanded/pitchfork/demonic/ascended/afterattack(atom/target, mob/user, proximity, params)
-	if(!proximity || !HAS_TRAIT(src, TRAIT_WIELDED))
+/obj/item/twohanded/pitchfork/demonic/ascended/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag || !HAS_TRAIT(src, TRAIT_WIELDED))
 		return
 
 	if(iswallturf(target))
@@ -1172,7 +1177,7 @@
 	force_wielded = 35
 	armour_penetration = 40
 	attack_verb = list("атаковал", "ударил", "шибанул", "долбанул", "припечатал")
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 50)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 100, ACID = 50)
 	resistance_flags = FIRE_PROOF
 	item_flags = SLOWS_WHILE_IN_HAND
 
@@ -1221,21 +1226,21 @@
 		balloon_alert(user, "вы слишком устали!")
 		return .|ATTACK_CHAIN_BLOCKED
 
-/obj/item/twohanded/sechammer/afterattack(atom/A, mob/living/user, proximity, params)
+/obj/item/twohanded/sechammer/afterattack(atom/target, mob/living/user, proximity_flag, list/modifiers, status)
 	. = ..()
-	if(!proximity || !HAS_TRAIT(src, TRAIT_WIELDED))
+	if(!proximity_flag || !HAS_TRAIT(src, TRAIT_WIELDED))
 		return
-	if(iswallturf(A))
-		var/turf/simulated/wall/W = A
+	if(iswallturf(target))
+		var/turf/simulated/wall/W = target
 		user.changeNext_move(attack_speed)
 		user.do_attack_animation(src)
 		playsound(src, 'sound/weapons/smash.ogg', 50, TRUE)
 		W.take_damage(wall_damage)
 	if(user.getStaminaLoss() < max_stamina_damage)
-		if(istype(A, /obj/structure/girder))
-			var/obj/structure/G = A
+		if(istype(target, /obj/structure/girder))
+			var/obj/structure/G = target
 			G.take_damage(extra_girder_damage)
-		else if(istype(A, /obj/machinery/door))
-			var/obj/machinery/D = A
+		else if(istype(target, /obj/machinery/door))
+			var/obj/machinery/D = target
 			D.take_damage(extra_door_damage)
 	user.adjustStaminaLoss(stamina_drain)

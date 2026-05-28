@@ -81,9 +81,14 @@
 /datum/event/anomaly/start()
 	for(var/ind = 0; ind < spawn_num; ++ind)
 		if(random_types)
-			anomaly_path = text2path("/obj/effect/anomaly/[pick(GLOB.anomaly_types[TIER1])]/tier[tier]")
+			var/path_text = "/obj/effect/anomaly/[pick(GLOB.anomaly_types[TIER1])]/tier[tier]"
+			anomaly_path = text2path(path_text)
+			if(!anomaly_path)
+				log_debug("Anomaly event failed to create path from [path_text]")
+				continue
 
-		announce_to_ghosts(new anomaly_path(target_turf))
+		if(anomaly_path)
+			announce_to_ghosts(new anomaly_path(target_turf))
 
 /datum/event/anomaly/admin_setup()
 	if(!check_rights(R_EVENT))

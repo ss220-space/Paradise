@@ -25,7 +25,7 @@
 	implants = list(/obj/item/implant/mindshield/ert, /obj/item/implant/death_alarm)
 
 /datum/outfit/job/team/team1
-	name = "Команда 1"
+	name = JOB_TITLE_RU_TEAM1
 	jobtype = /datum/job/civilian/team1
 
 	uniform = /obj/item/clothing/under/color/green
@@ -50,7 +50,7 @@
 	return get_all_accesses()
 
 /datum/outfit/job/team/team2
-	name = "Команда 2"
+	name = JOB_TITLE_RU_TEAM2
 	jobtype = /datum/job/civilian/team2
 
 	uniform = /obj/item/clothing/under/color/blue
@@ -75,7 +75,7 @@
 	return get_all_accesses()
 
 /datum/outfit/job/team/team3
-	name = "Команда 3"
+	name = JOB_TITLE_RU_TEAM3
 	jobtype = /datum/job/civilian/team3
 
 	uniform = /obj/item/clothing/under/color/red

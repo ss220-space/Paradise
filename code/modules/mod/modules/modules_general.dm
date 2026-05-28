@@ -49,8 +49,10 @@
 	bag.source = src
 
 /obj/item/mod/module/storage/Destroy()
+	if(mod && mod.bag == bag)
+		mod.bag = null
 	QDEL_NULL(bag)
-	return ..()
+	. = ..()
 
 /obj/item/mod/module/storage/on_install()
 	. = ..()
@@ -65,6 +67,8 @@
 		bag.forceMove(src)
 		mod.bag = null
 		return
+	if(mod && mod.bag == bag)
+		mod.bag = null
 	qdel(bag)
 	var/obj/item/clothing/suit = mod.get_part_from_slot(ITEM_SLOT_CLOTH_OUTER)
 	if(istype(suit))
@@ -174,7 +178,14 @@
 
 /obj/item/storage/backpack/modstorage/Destroy()
 	STOP_PROCESSING(SSobj, src)
-	return ..()
+	if(source)
+		var/obj/item/mod/module/storage/cached_source = source
+		if(cached_source.bag == src)
+			source.bag = null
+		if(cached_source.mod?.bag == src)
+			source.bag = null
+		source = null
+	. = ..()
 
 /obj/item/storage/backpack/modstorage/process()
 	update_viewers()

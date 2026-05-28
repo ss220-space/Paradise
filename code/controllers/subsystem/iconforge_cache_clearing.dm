@@ -1,6 +1,6 @@
 SUBSYSTEM_DEF(iconforge_cache_clearing)
 	name = "Iconforge cache clearing"
-	flags = SS_NO_INIT
+	ss_flags = SS_NO_INIT
 	runlevels = RUNLEVEL_LOBBY|RUNLEVELS_DEFAULT
 	wait = 30 MINUTES
 

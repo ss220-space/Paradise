@@ -10,15 +10,15 @@
 	//Server linked to.
 	var/obj/machinery/message_server/linkedServer = null
 	//Messages - Saves me time if I want to change something.
-	var/noserver = span_alert("ALERT: No server detected.")
-	var/incorrectkey = span_warning("ALERT: Incorrect decryption key!")
-	var/defaultmsg = span_notice("Welcome. Please select an option.")
-	var/rebootmsg = span_warning("%$&(�: Critical %$$@ Error // !RestArting! <lOadiNg backUp iNput ouTput> - ?pLeaSe wAit!")
+	var/noserver = span_alert_alt("ALERT: No server detected.")
+	var/incorrectkey = span_warning_alt("ALERT: Incorrect decryption key!")
+	var/defaultmsg = span_notice_alt("Welcome. Please select an option.")
+	var/rebootmsg = span_warning_alt("%$&(�: Critical %$$@ Error // !RestArting! <lOadiNg backUp iNput ouTput> - ?pLeaSe wAit!")
 	//Computer properties
 	var/screen = 0		// 0 = Main menu, 1 = Message Logs, 2 = Hacked screen, 3 = Custom Message
 	var/hacking = 0		// Is it being hacked into by the AI/Cyborg
 	var/emag = 0		// When it is emagged.
-	var/message = span_notice("System bootup complete. Please select an option.")	// The message that shows on the main menu.
+	var/message = span_notice_alt("System bootup complete. Please select an option.")	// The message that shows on the main menu.
 	var/auth = 0 // Are they authenticated?
 	var/optioncount = 8
 	// Custom Message Properties
@@ -154,7 +154,7 @@
 			dat += "</table>"
 		//Hacking screen.
 		if(2)
-			if(istype(user, /mob/living/silicon/ai) || istype(user, /mob/living/silicon/robot))
+			if(isAI(user) || isrobot(user))
 				dat += "Brute-forcing for server key.<br> It will take 20 seconds for every character that the password has."
 				dat += "In the meantime, this console can reveal your true intentions if you let someone access it. Make sure no humans enter the room during that time."
 			else
@@ -271,7 +271,7 @@
 /obj/machinery/computer/message_monitor/Topic(href, href_list)
 	if(..(href, href_list))
 		return 1
-	if((usr.contents.Find(src) || (in_range(src, usr) && istype(src.loc, /turf))) || (istype(usr, /mob/living/silicon)))
+	if((usr.contents.Find(src) || (in_range(src, usr) && isturf(src.loc))) || (issilicon(usr)))
 		//Authenticate
 		if(href_list["auth"])
 			if(auth)

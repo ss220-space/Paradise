@@ -88,9 +88,7 @@
 /area/maintenance/trading)
 "gc" = (
 /obj/structure/computerframe,
-/obj/item/circuitboard/secure_data{
-	pixel_y = 0
-	},
+/obj/item/circuitboard/secure_data,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
@@ -118,13 +116,6 @@
 /obj/effect/map_effect/marker/mapmanip/submap/extract/nova/AbondonedLibrary,
 /turf/template_noop,
 /area/template_noop)
-"hB" = (
-/obj/item/reagent_containers/food/drinks/coffee,
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/maintenance/electrical_shop)
 "hK" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden{
 	dir = 1
@@ -163,12 +154,16 @@
 	pixel_x = 9;
 	pixel_y = -9
 	},
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -26
-	},
+/obj/machinery/firealarm/directional/south,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood,
+/area/maintenance/electrical_shop)
+"jl" = (
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
 /area/maintenance/electrical_shop)
 "jC" = (
 /obj/machinery/atmospherics/binary/pump{
@@ -237,13 +232,6 @@
 /obj/machinery/light_construct{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/maintenance/electrical_shop)
-"ne" = (
-/obj/item/radio/intercom/directional/west,
-/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -693,10 +681,7 @@
 /area/maintenance/trading)
 "Fv" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/extinguisher_cabinet{
-	name = "east extinguisher cabinet";
-	pixel_x = 27
-	},
+/obj/structure/extinguisher_cabinet/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -786,6 +771,16 @@
 "LF" = (
 /turf/simulated/wall,
 /area/maintenance/electrical_shop)
+"LV" = (
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/light_switch/directional/west,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/maintenance/electrical_shop)
 "Ma" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -802,10 +797,7 @@
 	},
 /area/maintenance/electrical_shop)
 "MC" = (
-/obj/machinery/power/apc/worn_out{
-	cell_type = 0;
-	pixel_y = -26
-	},
+/obj/machinery/power/apc/worn_out/directional/south,
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
@@ -817,10 +809,7 @@
 /area/maintenance/trading)
 "Ny" = (
 /obj/effect/decal/cleanable/dust,
-/obj/machinery/alarm{
-	dir = 8;
-	pixel_x = 22
-	},
+/obj/machinery/alarm/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -845,6 +834,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/trading)
+"Oi" = (
+/obj/item/radio/intercom/directional/west,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/maintenance/electrical_shop)
 "Ov" = (
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/light{
@@ -937,16 +933,6 @@
 /obj/item/clothing/under/barber,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood,
-/area/maintenance/electrical_shop)
-"RE" = (
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/light_switch/directional/west,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
 /area/maintenance/electrical_shop)
 "RM" = (
 /obj/machinery/papershredder,
@@ -1245,7 +1231,7 @@ DQ
 IQ
 lW
 my
-ne
+Oi
 pl
 Lx
 Rx
@@ -1377,7 +1363,7 @@ tY
 pC
 yS
 tC
-RE
+LV
 kL
 hZ
 hZ
@@ -1496,7 +1482,7 @@ hb
 uN
 zY
 uY
-hB
+jl
 pA
 ea
 ea

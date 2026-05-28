@@ -9,7 +9,7 @@
 	access = list(
 		ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_FORENSICS_LOCKERS,
 		ACCESS_MEDICAL, ACCESS_ENGINE, ACCESS_CHANGE_IDS, ACCESS_EVA, ACCESS_HEADS,
-		ACCESS_ALL_PERSONAL_LOCKERS, ACCESS_MAINT_TUNNELS, ACCESS_BAR, ACCESS_JANITOR, ACCESS_CONSTRUCTION, ACCESS_MORGUE,
+		ACCESS_ALL_PERSONAL_LOCKERS, ACCESS_BAR, ACCESS_JANITOR, ACCESS_CONSTRUCTION, ACCESS_MORGUE,
 		ACCESS_CREMATORIUM, ACCESS_KITCHEN, ACCESS_HYDROPONICS, ACCESS_LAWYER,
 		ACCESS_THEATRE, ACCESS_CHAPEL_OFFICE, ACCESS_LIBRARY, ACCESS_RESEARCH, ACCESS_HEADS_VAULT, ACCESS_MINING_STATION,
 		ACCESS_CLOWN, ACCESS_MIME, ACCESS_HOP, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM
@@ -17,16 +17,20 @@
 	minimal_access = list(
 		ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_FORENSICS_LOCKERS,
 		ACCESS_MEDICAL, ACCESS_ENGINE, ACCESS_CHANGE_IDS, ACCESS_EVA, ACCESS_HEADS,
-		ACCESS_ALL_PERSONAL_LOCKERS, ACCESS_MAINT_TUNNELS, ACCESS_BAR, ACCESS_JANITOR, ACCESS_CONSTRUCTION, ACCESS_MORGUE,
+		ACCESS_ALL_PERSONAL_LOCKERS, ACCESS_BAR, ACCESS_JANITOR, ACCESS_CONSTRUCTION, ACCESS_MORGUE,
 		ACCESS_CREMATORIUM, ACCESS_KITCHEN, ACCESS_HYDROPONICS, ACCESS_LAWYER,
 		ACCESS_THEATRE, ACCESS_CHAPEL_OFFICE, ACCESS_LIBRARY, ACCESS_RESEARCH, ACCESS_HEADS_VAULT, ACCESS_MINING_STATION,
 		ACCESS_CLOWN, ACCESS_MIME, ACCESS_HOP, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM
+	)
+	alt_titles = list(
+		ALT_JOB_TITLE_RU_HR_DIRECTOR,
+		ALT_JOB_TITLE_RU_PERSONNEL_MANAGER,
 	)
 	exp_type = EXP_TYPE_SERVICE
 	outfit = /datum/outfit/job/hop
 
 /datum/outfit/job/hop
-	name = JOB_TITLE_HOP
+	name = JOB_TITLE_RU_HOP
 	jobtype = /datum/job/head_of_staff/hop
 	uniform = /obj/item/clothing/under/rank/head_of_personnel_alt
 	suit = /obj/item/clothing/suit/hop_jacket
@@ -45,6 +49,7 @@
 	implants = list()
 
 /datum/job/service
+	abstract_type = /datum/job/service
 	department = STATION_DEPARTMENT_SERVICE
 	department_flag = JOBCAT_SUPPORT
 	is_service = 1
@@ -60,13 +65,15 @@
 	flag = JOB_FLAG_BARTENDER
 	total_positions = 1
 	spawn_positions = 1
-	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_MORGUE, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM, ACCESS_MAINT_TUNNELS)
-	minimal_access = list(ACCESS_BAR, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM, ACCESS_MAINT_TUNNELS)
-	alt_titles = list("Barman", "Barkeeper", "Drink Artist")
+	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_MORGUE, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM)
+	minimal_access = list(ACCESS_BAR, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM)
+	alt_titles = list(
+		ALT_JOB_TITLE_RU_BARISTA,
+	)
 	outfit = /datum/outfit/job/bartender
 
 /datum/outfit/job/bartender
-	name = JOB_TITLE_BARTENDER
+	name = JOB_TITLE_RU_BARTENDER
 	jobtype = /datum/job/service/bartender
 
 	uniform = /obj/item/clothing/under/rank/bartender
@@ -91,13 +98,17 @@
 	flag = JOB_FLAG_CHEF
 	total_positions = 1
 	spawn_positions = 1
-	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS)
-	minimal_access = list(ACCESS_KITCHEN, ACCESS_MAINT_TUNNELS)
-	alt_titles = list("Cook", "Culinary Artist", "Butcher")
+	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_MORGUE)
+	minimal_access = list(ACCESS_KITCHEN)
+	alt_titles = list(
+		ALT_JOB_TITLE_RU_SOUS_CHEF,
+		ALT_JOB_TITLE_RU_CHEF,
+		ALT_JOB_TITLE_RU_ART_CHEF,
+	)
 	outfit = /datum/outfit/job/chef
 
 /datum/outfit/job/chef
-	name = JOB_TITLE_CHEF
+	name = JOB_TITLE_RU_CHEF
 	jobtype = /datum/job/service/chef
 
 	uniform = /obj/item/clothing/under/rank/chef
@@ -121,7 +132,7 @@
 	. = ..()
 	if(H.mind && H.mind.role_alt_title)
 		switch(H.mind.role_alt_title)
-			if("Culinary Artist")
+			if(ALT_JOB_TITLE_RU_ART_CHEF)
 				uniform = /obj/item/clothing/under/artist
 				belt = /obj/item/storage/belt/chef/artistred
 				head = /obj/item/clothing/head/chefcap
@@ -132,13 +143,18 @@
 	flag = JOB_FLAG_BOTANIST
 	total_positions = 2
 	spawn_positions = 2
-	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS)
-	minimal_access = list(ACCESS_HYDROPONICS, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS)
-	alt_titles = list("Hydroponicist", "Botanical Researcher")
+	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_MORGUE)
+	minimal_access = list(ACCESS_HYDROPONICS, ACCESS_MORGUE)
+	alt_titles = list(
+		ALT_JOB_TITLE_RU_HYDROPONICS_TECH,
+		ALT_JOB_TITLE_RU_BOTANICAL_RESEARCHER,
+		ALT_JOB_TITLE_RU_AGRONOMIST,
+		ALT_JOB_TITLE_RU_AGROBIOLOGIST,
+	)
 	outfit = /datum/outfit/job/botanist
 
 /datum/outfit/job/botanist
-	name = JOB_TITLE_BOTANIST
+	name = JOB_TITLE_RU_BOTANIST
 	jobtype = /datum/job/service/botanist
 
 	uniform = /obj/item/clothing/under/rank/hydroponics
@@ -157,13 +173,17 @@
 	flag = JOB_FLAG_CLOWN
 	total_positions = 1
 	spawn_positions = 1
-	access = list(ACCESS_CLOWN, ACCESS_THEATRE, ACCESS_MAINT_TUNNELS)
-	minimal_access = list(ACCESS_CLOWN, ACCESS_THEATRE, ACCESS_MAINT_TUNNELS)
-	alt_titles = list("Performance Artist", "Comedian", "Jester")
+	access = list(ACCESS_CLOWN, ACCESS_THEATRE)
+	minimal_access = list(ACCESS_CLOWN, ACCESS_THEATRE)
+	alt_titles = list(
+		ALT_JOB_TITLE_RU_COMEDIAN,
+		ALT_JOB_TITLE_RU_JESTER,
+		ALT_JOB_TITLE_RU_COMEDIANT,
+	)
 	outfit = /datum/outfit/job/clown
 
 /datum/outfit/job/clown
-	name = JOB_TITLE_CLOWN
+	name = JOB_TITLE_RU_CLOWN
 	jobtype = /datum/job/service/clown
 
 	uniform = /obj/item/clothing/under/rank/clown
@@ -193,6 +213,8 @@
 
 /datum/outfit/job/clown/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_BANANIUM_SHIPMENTS))
+		backpack_contents[/obj/item/stack/sheet/mineral/bananium/fifty] = 1
 	if(H.gender == FEMALE)
 		mask = /obj/item/clothing/mask/gas/clown_hat/sexy
 		uniform = /obj/item/clothing/under/rank/clown/sexy
@@ -366,13 +388,15 @@
 	flag = JOB_FLAG_MIME
 	total_positions = 1
 	spawn_positions = 1
-	access = list(ACCESS_MIME, ACCESS_THEATRE, ACCESS_MAINT_TUNNELS)
-	minimal_access = list(ACCESS_MIME, ACCESS_THEATRE, ACCESS_MAINT_TUNNELS)
-	alt_titles = list("Panthomimist")
+	access = list(ACCESS_MIME, ACCESS_THEATRE)
+	minimal_access = list(ACCESS_MIME, ACCESS_THEATRE)
+	alt_titles = list(
+		ALT_JOB_TITLE_RU_PANTHOMIMIST,
+	)
 	outfit = /datum/outfit/job/mime
 
 /datum/outfit/job/mime
-	name = JOB_TITLE_MIME
+	name = JOB_TITLE_RU_MIME
 	jobtype = /datum/job/service/mime
 
 	uniform = /obj/item/clothing/under/mime
@@ -393,6 +417,8 @@
 
 /datum/outfit/job/mime/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_MIMANIUM_SHIPMENTS))
+		backpack_contents[/obj/item/stack/sheet/mineral/tranquillite/fifty] = 1
 	if(H.gender == FEMALE)
 		uniform = /obj/item/clothing/under/mimeskirt
 		mask = /obj/item/clothing/mask/gas/mime/sexy
@@ -414,11 +440,13 @@
 	spawn_positions = 1
 	access = list(ACCESS_JANITOR, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_JANITOR, ACCESS_MAINT_TUNNELS)
-	alt_titles = list("Custodial Technician", "Sanitation Technician")
+	alt_titles = list(
+		ALT_JOB_TITLE_RU_CLEANING_SPECIALIST,
+	)
 	outfit = /datum/outfit/job/janitor
 
 /datum/outfit/job/janitor
-	name = JOB_TITLE_JANITOR
+	name = JOB_TITLE_RU_JANITOR
 	jobtype = /datum/job/service/janitor
 
 	uniform = /obj/item/clothing/under/rank/janitor
@@ -432,11 +460,16 @@
 	spawn_positions = 1
 	access = list(ACCESS_LIBRARY, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_LIBRARY, ACCESS_MAINT_TUNNELS)
-	alt_titles = list("Journalist")
+	alt_titles = list(
+		ALT_JOB_TITLE_RU_ARCHIVIST,
+		ALT_JOB_TITLE_RU_JOURNALIST,
+		ALT_JOB_TITLE_RU_PRESS_SECRETARY,
+		ALT_JOB_TITLE_RU_CORRESPONDENT,
+	)
 	outfit = /datum/outfit/job/librarian
 
 /datum/outfit/job/librarian
-	name = JOB_TITLE_LIBRARIAN
+	name = JOB_TITLE_RU_LIBRARIAN
 	jobtype = /datum/job/service/librarian
 
 	uniform = /obj/item/clothing/under/suit_jacket/red
@@ -446,7 +479,7 @@
 	l_hand = /obj/item/storage/bag/books
 	pda = /obj/item/pda/librarian
 	backpack_contents = list(
-		/obj/item/videocam = 1,
+		/obj/item/broadcast_camera = 1,
 	)
 
 /datum/job/service/chaplain
@@ -454,13 +487,19 @@
 	flag = JOB_FLAG_CHAPLAIN
 	total_positions = 1
 	spawn_positions = 1
-	access = list(ACCESS_MORGUE, ACCESS_CHAPEL_OFFICE, ACCESS_CREMATORIUM, ACCESS_MAINT_TUNNELS)
-	minimal_access = list(ACCESS_MORGUE, ACCESS_CHAPEL_OFFICE, ACCESS_CREMATORIUM, ACCESS_MAINT_TUNNELS)
-	alt_titles = list("Priest", "Monk", "Preacher", "Reverend", "Oracle", "Nun", "Imam", "Exorcist")
+	access = list(ACCESS_MORGUE, ACCESS_CHAPEL_OFFICE, ACCESS_CREMATORIUM)
+	minimal_access = list(ACCESS_MORGUE, ACCESS_CHAPEL_OFFICE, ACCESS_CREMATORIUM)
+	alt_titles = list(
+		ALT_JOB_TITLE_RU_CHAPLAIN,
+		ALT_JOB_TITLE_RU_PREACHER,
+		ALT_JOB_TITLE_RU_REVEREND,
+		ALT_JOB_TITLE_RU_THEOLOGIAN,
+		ALT_JOB_TITLE_RU_SPIRITUAL_MENTOR,
+	)
 	outfit = /datum/outfit/job/chaplain
 
 /datum/outfit/job/chaplain
-	name = JOB_TITLE_CHAPLAIN
+	name = JOB_TITLE_RU_CHAPLAIN
 	jobtype = /datum/job/service/chaplain
 
 	uniform = /obj/item/clothing/under/rank/chaplain
@@ -541,6 +580,6 @@
 /datum/outfit/job/explorer
 	// This outfit is never used, because there are no slots for this job.
 	// To get it, you have to go to the HOP and ask for a transfer to it.
-	name = JOB_TITLE_EXPLORER
+	name = JOB_TITLE_RU_EXPLORER
 	jobtype = /datum/job/service/explorer
 	uniform = /obj/item/clothing/under/color/random

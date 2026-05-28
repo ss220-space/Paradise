@@ -542,7 +542,7 @@
 	if(held_item)
 		balloon_alert(src, "вы уже что-то держите!")
 		return 1
-	if(istype(loc, /obj/machinery/disposal) || istype(loc, /obj/structure/disposalholder))
+	if(isdisposalunit(loc) || istype(loc, /obj/structure/disposalholder))
 		balloon_alert(src, "невозможно!")
 		return 1
 	for(var/obj/item/I in view(1, src))
@@ -619,7 +619,7 @@
 		return 0
 
 	if(!drop_gently)
-		if(istype(held_item, /obj/item/grenade))
+		if(isgrenade(held_item))
 			var/obj/item/grenade/G = held_item
 			G.forceMove(loc)
 			G.do_drop_animation(src)

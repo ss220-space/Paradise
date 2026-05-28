@@ -49,6 +49,7 @@
 	desc = "Chips for playing poker"
 	typepath = /obj/item/stack/spacechips/c2000
 	cost = 100
+
 /datum/storeitem/dnd
 	name = "Dungeons & Dragons Set"
 	desc = "A box containing minifigures suitable for a good game of D&D."
@@ -61,11 +62,47 @@
 	typepath = /obj/item/storage/box/dice
 	cost = 100
 
+/datum/storeitem/cards
+	name = "Колода карт"
+	desc = "Простая колода игральных карт."
+	typepath = /obj/item/deck/cards
+	cost = 100
+
+/datum/storeitem/tarot
+	name = "Колода карт таро"
+	desc = "Для всех ваших оккультных нужд!"
+	typepath = /obj/item/deck/tarot
+	cost = 100
+
+/datum/storeitem/unum
+	name = "Колода карт UNUM!"
+	desc = "Колода карт UNUM! Правила для домашних ссор не входят в комплект."
+	typepath = /obj/item/deck/unum
+	cost = 100
+
+/datum/storeitem/cards_tiny
+	name = "Колода миниатюрных карт"
+	desc = "Простая колода миниатюрных игральных карт."
+	typepath = /obj/item/deck/cards/tiny
+	cost = 100
+
 /datum/storeitem/candle
 	name = "Candles"
 	desc = "A box of candles. Use them to fool others into thinking you're out for a romantic dinner...or something."
 	typepath = /obj/item/storage/fancy/candle_box/full
 	cost = 100
+
+/datum/storeitem/doublecards
+	name = "Двойная колода карт"
+	desc = "Простая колода игральных карт. Удвоенная. Может быть, играть с такой будет в два раза интереснее?"
+	typepath = /obj/item/deck/cards/doublecards
+	cost = 175
+
+/datum/storeitem/doublecards_tiny
+	name = "Двойная колода миниатюрных карт"
+	desc = "Простая колода миниатюрных игральных карт. Удвоенная. Может быть, играть с такой будет в два раза интереснее?"
+	typepath = /obj/item/deck/cards/tiny/doublecards
+	cost = 175
 
 /datum/storeitem/crayons
 	name = "Crayons"

@@ -62,6 +62,13 @@
 	/// Attached shell
 	var/obj/structure/money_bot/attached_bot
 
+/obj/item/circuit_component/money_dispenser/Destroy()
+	if(attached_bot)
+		unregister_shell(attached_bot)
+	dispense_amount = null
+	on_fail = null
+	. = ..()
+
 /obj/item/circuit_component/money_dispenser/populate_ports()
 	dispense_amount = add_input_port("Количество", PORT_TYPE_NUMBER)
 	on_fail = add_output_port("Провал", PORT_TYPE_SIGNAL)
@@ -105,6 +112,15 @@
 	/// Attached shell
 	var/obj/structure/money_bot/attached_bot
 
+/obj/item/circuit_component/money_bot/Destroy()
+	if(attached_bot)
+		unregister_shell(attached_bot)
+	total_money = null
+	money_input = null
+	money_trigger = null
+	entity = null
+	. = ..()
+
 /obj/item/circuit_component/money_bot/populate_ports()
 	total_money = add_output_port("Всего денег", PORT_TYPE_NUMBER)
 	money_input = add_output_port("Последняя транзакция", PORT_TYPE_NUMBER)
@@ -118,14 +134,14 @@
 
 	attached_bot = shell
 	total_money.set_output(attached_bot.stored_money)
-	RegisterSignal(shell, COMSIG_PARENT_ATTACKBY, PROC_REF(handle_money_insert))
+	RegisterSignal(shell, COMSIG_ATOM_ATTACKBY, PROC_REF(handle_money_insert))
 	RegisterSignal(shell, COMSIG_MONEYBOT_ADD_MONEY, PROC_REF(handle_money_update))
 	RegisterSignal(parent, COMSIG_CIRCUIT_SET_LOCKED, PROC_REF(on_set_locked))
 	attached_bot.locked = parent.locked
 
 /obj/item/circuit_component/money_bot/unregister_shell(atom/movable/shell)
 	UnregisterSignal(shell, list(
-		COMSIG_PARENT_ATTACKBY,
+		COMSIG_ATOM_ATTACKBY,
 		COMSIG_MONEYBOT_ADD_MONEY,
 	))
 	total_money.set_output(null)

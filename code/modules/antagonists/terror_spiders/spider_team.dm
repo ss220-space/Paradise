@@ -64,7 +64,7 @@ GLOBAL_VAR_INIT(global_degenerate, FALSE)
 	GLOB.major_announcement.announce(
 		message = "Подтверждено наличие Императрицы Ужаса на борту [station_name()]. Станция переклассифицированна в гнездо биоугрозы 3-го уровня. Взведение устройства самоуничтожения персоналом или внешними силами в данный момент не представляется возможным. Активация протоколов изоляции.",
 		new_title = "Отчёт об объекте [station_name()].",
-		new_sound = 'sound/AI/commandreport.ogg'
+		new_sound = SSstation.announcer.get_rand_report_sound(),
 	)
 
 /datum/team/terror_spiders/proc/get_main_spiders()
@@ -240,7 +240,8 @@ GLOBAL_VAR_INIT(global_degenerate, FALSE)
 	var/list/terror_defilers = main_spiders[TERROR_DEFILER]
 
 	if(length(terror_queens) || length(terror_princes) || length(terror_princesses) || length(terror_defilers))
-		var/list/text= declare_results()
+		var/list/text = list()
+		text += declare_results()
 		text += span_fontsize2("<br/><b>Основа гнезда:</b>")
 		if(length(terror_queens))
 			text += span_fontsize1("<br/><b>Королев[(length(terror_queens)> 1 ? "ами были" : "ой был")]:</b>")

@@ -139,11 +139,13 @@
 	state = LIGHTFLOOR_CYCLEB
 
 /turf/simulated/floor/light/lavaland_air
-	oxygen = LAVALAND_OXYGEN
-	nitrogen = LAVALAND_NITROGEN
-	temperature = LAVALAND_TEMPERATURE
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
 	atmos_environment = ENVIRONMENT_LAVALAND
+
+/turf/simulated/floor/light/airless
+	oxygen = 0
+	nitrogen = 0
+	temperature = TCMB
 
 #undef LIGHTFLOOR_ON
 #undef LIGHTFLOOR_WHITE

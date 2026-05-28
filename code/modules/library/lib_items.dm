@@ -21,7 +21,7 @@
 	opacity = TRUE
 	resistance_flags = FLAMMABLE
 	max_integrity = 200
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 50, ACID = 0)
 	/// Typecache of the things allowed in the bookcase. Populated in [/proc/generate_allowed_books()] on Initialize.
 	var/list/allowed_books
 	/// When enabled, books_to_load number of random books will be generated for this bookcase when first interacted with.
@@ -77,7 +77,7 @@
 	if(update)
 		update_icon(UPDATE_ICON_STATE)
 
-/obj/structure/bookcase/MouseDrop_T(atom/movable/thing, mob/user, params)
+/obj/structure/bookcase/mouse_drop_receive(atom/movable/thing, mob/user, params)
 	if(!istype(user, /mob/living/simple_animal/pet/library_owl))
 		return
 	if(!is_type_in_typecache(thing, allowed_books))
@@ -269,7 +269,7 @@
 /obj/item/book/examine(mob/user)
 	. = ..()
 	if(user.is_literate())
-		if(in_range(user, src) || istype(user, /mob/dead/observer))
+		if(in_range(user, src) || isobserver(user))
 			attack_self(user)
 		else
 			. += span_notice("Вам стоит подойти ближе, чтобы её прочесть.")
@@ -403,7 +403,7 @@
 /obj/item/book/proc/carve_book(mob/user, obj/item/I)
 	if(I.tool_behaviour != TOOL_WIRECUTTER) //Only sharp and wirecutter things can carve books
 		return FALSE
-	if(I.sharp)
+	if(!I.sharp)
 		balloon_alert(user, "недостаточно острое!")
 		return FALSE
 	if(carved)

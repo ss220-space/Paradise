@@ -13,7 +13,7 @@
 	mob_size = MOB_SIZE_LARGE
 
 	radio_channel = SEC_FREQ_NAME
-	bot_type = SEC_BOT
+	bot_type = ADVANCED_SEC_BOT
 	bot_filter = RADIO_SECBOT
 	model = "ED-209"
 	bot_purpose = "найти преступников, задержать их и доложить службе безопасности"
@@ -406,7 +406,7 @@
 	visible_message(span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] разлетается на части!"))
 	var/turf/Tsec = get_turf(src)
 
-	var/obj/item/ed209_assembly/Sa = new /obj/item/ed209_assembly(Tsec)
+	var/obj/item/bot_assembly/ed209_assembly/Sa = new /obj/item/bot_assembly/ed209_assembly(Tsec)
 	Sa.build_step = 1
 	Sa.add_overlay(image('icons/obj/aibots.dmi', "hs_hole"))
 	Sa.created_name = name
@@ -561,7 +561,7 @@
 /mob/living/simple_animal/bot/ed209/redtag
 	lasercolor = "r"
 
-/mob/living/simple_animal/bot/ed209/OnUnarmedAttack(atom/A)
+/mob/living/simple_animal/bot/ed209/OnUnarmedAttack(atom/A, proximity_flag, list/modifiers)
 	if(iscarbon(A))
 		var/mob/living/carbon/C = A
 		if(C.staminaloss < 110 || arrest_type && !baton_delayed)

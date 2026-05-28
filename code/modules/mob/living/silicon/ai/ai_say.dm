@@ -40,6 +40,7 @@
 
 	var/track = ""
 	var/mob/mob_to_track = null
+
 	if(changed_voice)
 		if(impersonating)
 			mob_to_track = impersonating
@@ -52,8 +53,8 @@
 			mob_to_track = speaker
 
 	if(mob_to_track)
-		track = "<a href='byond://?src=[UID()];track=[mob_to_track.UID()]'>[speaker_name] ([jobname])</a>"
-		track += "&nbsp;<a href='byond://?src=[UID()];open=[mob_to_track.UID()]'>\[Open\]</a>"
+		track = "<a href='byond://?src=[UID()];track=[mob_to_track.UID()]'>\[СЛЕД\]</a>"
+		track += "&nbsp;<a href='byond://?src=[UID()];open=[mob_to_track.UID()]'>\[ОТКР\]</a>"
 
 	return track
 
@@ -149,7 +150,7 @@ GLOBAL_VAR_INIT(announcing_vox, 0) // Stores the time of the last announcement
 	for(var/mob/player_mob as anything in GLOB.player_list)
 		if(player_mob.client && !(player_mob.client.prefs.sound & SOUND_AI_VOICE))
 			var/turf/player_turf = get_turf(player_mob)
-			if(player_turf && player_turf.z == z && player_mob.can_hear())
+			if(player_turf && player_turf.z == z && !HAS_TRAIT(player_mob, TRAIT_DEAF))
 				SEND_SOUND(player_mob, announce_sound)
 				to_chat(player_mob, formatted_message)
 
@@ -168,7 +169,7 @@ GLOBAL_VAR_INIT(announcing_vox, 0) // Stores the time of the last announcement
 				if(player_mob.client && player_mob.client.prefs.sound & SOUND_AI_VOICE)
 					var/turf/player_turf = get_turf(player_mob)
 
-					if(player_turf && player_turf.z == z_level && player_mob.can_hear())
+					if(player_turf && player_turf.z == z_level && !HAS_TRAIT(player_mob, TRAIT_DEAF))
 						voice.volume = 100 * player_mob.client.prefs.get_channel_volume(CHANNEL_VOX)
 						SEND_SOUND(player_mob, voice)
 		else

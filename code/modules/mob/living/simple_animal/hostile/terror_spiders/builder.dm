@@ -91,16 +91,3 @@
 		INSTRUMENTAL = "паутиной Дрона Ужаса",
 		PREPOSITIONAL = "паутине Дрона Ужаса",
 	)
-
-/obj/projectile/terrorspider/builder
-	name = "drone venom"
-	icon_state = "toxin2"
-	damage = 15
-	stamina = 15
-
-/obj/projectile/terrorspider/drone/on_hit(atom/target, blocked = 0, hit_zone)
-	if((blocked != 100) && iscarbon(target))
-		var/mob/living/carbon/C = target
-		C.Slowed(2 SECONDS)
-
-	return ..()

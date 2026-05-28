@@ -151,8 +151,8 @@
 	var/type1 = "meat_drask"
 	var/type2 = "meat_drask2"
 
-/obj/item/reagent_containers/food/snacks/meat/humanoid/drask/New()
-	..()
+/obj/item/reagent_containers/food/snacks/meat/humanoid/drask/Initialize(mapload)
+	. = ..()
 	icon_state = pick(type1, type2)
 
 /obj/item/reagent_containers/food/snacks/meat/humanoid/grey
@@ -164,8 +164,8 @@
 	var/type1 = "meat_grey"
 	var/type2 = "meat_grey2"
 
-/obj/item/reagent_containers/food/snacks/meat/humanoid/grey/New()
-	..()
+/obj/item/reagent_containers/food/snacks/meat/humanoid/grey/Initialize(mapload)
+	. = ..()
 	icon_state = pick(type1, type2)
 
 /obj/item/reagent_containers/food/snacks/meat/humanoid/skrell
@@ -696,9 +696,13 @@
 	tastes = list("bacon" = 1)
 	foodtype = MEAT
 
-/obj/item/reagent_containers/food/snacks/telebacon/New()
-	..()
+/obj/item/reagent_containers/food/snacks/telebacon/Initialize(mapload)
+	. = ..()
 	baconbeacon = new /obj/item/beacon/bacon(src)
+
+/obj/item/reagent_containers/food/snacks/telebacon/Destroy()
+	QDEL_NULL(baconbeacon)
+	return ..()
 
 /obj/item/reagent_containers/food/snacks/telebacon/On_Consume(mob/M, mob/user)
 	if(!reagents.total_volume)
@@ -940,7 +944,7 @@
 	icon_state = "egg[item_color ? "-[item_color]" : ""]"
 
 /obj/item/reagent_containers/food/snacks/egg/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/toy/crayon))
+	if(iscrayon(I))
 		var/obj/item/toy/crayon/crayon = I
 		var/crayon_color = crayon.colourName
 		var/static/list/acceptable_colors = list("blue","green","mime","orange","purple","rainbow","red","yellow")

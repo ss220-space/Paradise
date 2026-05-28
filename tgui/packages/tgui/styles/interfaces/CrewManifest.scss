@@ -1,0 +1,66 @@
+@use '../colors';
+
+$status-colors: (
+  'active': colors.$green,
+  'активный': colors.$green,
+  'стабильное': colors.$green,
+  'unconscious': colors.$yellow,
+  'крс': colors.$yellow,
+  'нетрудоспособность': colors.$yellow,
+  'physically unfit': colors.$orange,
+  'ограниченные возможности': colors.$orange,
+  'deceased': colors.$red,
+  'смерть': colors.$red,
+);
+
+.row-even {
+  background-color: hsla(0, 0%, 50%, 0.1);
+}
+
+.row-odd {
+  background-color: hsla(0, 0%, 0%, 0.1);
+}
+
+// Тёмный фон для секций департаментов
+.CrewManifest__dept {
+  background-color: rgba(10, 10, 10, 0.75);
+}
+
+.CrewManifest__dept-command .Section__title {
+  border-bottom-color: colors.$dept-command;
+}
+
+.CrewManifest__dept-procedure .Section__title {
+  border-bottom-color: colors.$dept-procedure;
+}
+
+.CrewManifest__dept-security .Section__title {
+  border-bottom-color: colors.$dept-security;
+}
+
+.CrewManifest__dept-engineering .Section__title {
+  border-bottom-color: colors.$dept-engineering;
+}
+
+.CrewManifest__dept-medical .Section__title {
+  border-bottom-color: colors.$dept-medical;
+}
+
+.CrewManifest__dept-science .Section__title {
+  border-bottom-color: colors.$dept-science;
+}
+
+.CrewManifest__dept-service .Section__title {
+  border-bottom-color: colors.$dept-service;
+}
+
+.CrewManifest__dept-supply .Section__title {
+  border-bottom-color: colors.$dept-supply;
+}
+
+@each $status, $color in $status-colors {
+  // !important необходим для переопределения цвета, наследуемого от Table.Row
+  .manifest-indicator-#{$status} {
+    color: $color !important;
+  }
+}

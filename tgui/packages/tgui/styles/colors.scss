@@ -33,6 +33,18 @@ $bad: hsl(0, 72%, 50%) !default;
 $label: hsl(210, 18%, 58%) !default;
 $gold: hsl(42, 89%, 52%) !default;
 
+// Department colors
+$dept-command: #526aff;
+$dept-procedure: #e3027a;
+$dept-security: #cf0000;
+$dept-engineering: #a66300;
+$dept-medical: #009190;
+$dept-science: #993399;
+$dept-service: #80a000;
+$dept-supply: #9f8545;
+$dept-centcom: #78789b;
+$dept-other: #c38312;
+
 // Background and foreground color lightness ratios
 $bg-lightness: -15% !default;
 $fg-lightness: 10% !default;

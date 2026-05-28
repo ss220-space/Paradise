@@ -57,7 +57,6 @@
 	gain_desc = "Теперь ваша способность \"Вспышка\" не зависит от направления взгляда."
 
 /obj/effect/proc_holder/spell/vampire
-	name = "Report Me"
 	desc = "You shouldn't see this!"
 	school = "vampire"
 	action_background_icon_state = "bg_vampire"
@@ -462,6 +461,7 @@
 			if(prob(25))
 				bodypart.mend_fracture()
 				bodypart.stop_internal_bleeding()
+				bodypart.stop_bleeding()
 
 		return
 	if(H.stat != DEAD)

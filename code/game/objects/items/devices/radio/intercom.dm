@@ -204,6 +204,8 @@
  * source - the area that just had a power change.
  */
 /obj/item/radio/intercom/proc/AreaPowerCheck(datum/source)
+	SIGNAL_HANDLER
+
 	var/area/current_area = get_area(src)
 	if(!current_area)
 		set_on(FALSE)
@@ -483,16 +485,16 @@
 #undef INTERCOM_BUILD_SECURED
 
 // MARK: Mapping Dir Helpers
-MAPPING_DIRECTIONAL_HELPERS(/obj/item/radio/intercom, 27)
-MAPPING_DIRECTIONAL_HELPERS(/obj/item/radio/intercom/custom, 27)
-MAPPING_DIRECTIONAL_HELPERS(/obj/item/radio/intercom/interrogation, 27)
-MAPPING_DIRECTIONAL_HELPERS(/obj/item/radio/intercom/private, 27)
-MAPPING_DIRECTIONAL_HELPERS(/obj/item/radio/intercom/command, 27)
-MAPPING_DIRECTIONAL_HELPERS(/obj/item/radio/intercom/specops, 27)
-MAPPING_DIRECTIONAL_HELPERS(/obj/item/radio/intercom/department/medbay, 27)
-MAPPING_DIRECTIONAL_HELPERS(/obj/item/radio/intercom/department/security, 27)
-MAPPING_DIRECTIONAL_HELPERS(/obj/item/radio/intercom/syndicate, 27)
-MAPPING_DIRECTIONAL_HELPERS(/obj/item/radio/intercom/pirate, 27)
-MAPPING_DIRECTIONAL_HELPERS(/obj/item/radio/intercom/locked/ai_private, 27)
-MAPPING_DIRECTIONAL_HELPERS(/obj/item/radio/intercom/locked/confessional, 27)
-MAPPING_DIRECTIONAL_HELPERS(/obj/item/radio/intercom/locked/prison, 27)
+MAPPING_DIRECTIONAL_HELPERS(/obj/item/radio/intercom, 27, 27)
+MAPPING_DIRECTIONAL_HELPERS(/obj/item/radio/intercom/custom, 27, 27)
+MAPPING_DIRECTIONAL_HELPERS(/obj/item/radio/intercom/interrogation, 27, 27)
+MAPPING_DIRECTIONAL_HELPERS(/obj/item/radio/intercom/private, 27, 27)
+MAPPING_DIRECTIONAL_HELPERS(/obj/item/radio/intercom/command, 27, 27)
+MAPPING_DIRECTIONAL_HELPERS(/obj/item/radio/intercom/specops, 27, 27)
+MAPPING_DIRECTIONAL_HELPERS(/obj/item/radio/intercom/department/medbay, 27, 27)
+MAPPING_DIRECTIONAL_HELPERS(/obj/item/radio/intercom/department/security, 27, 27)
+MAPPING_DIRECTIONAL_HELPERS(/obj/item/radio/intercom/syndicate, 27, 27)
+MAPPING_DIRECTIONAL_HELPERS(/obj/item/radio/intercom/pirate, 27, 27)
+MAPPING_DIRECTIONAL_HELPERS(/obj/item/radio/intercom/locked/ai_private, 27, 27)
+MAPPING_DIRECTIONAL_HELPERS(/obj/item/radio/intercom/locked/confessional, 27, 27)
+MAPPING_DIRECTIONAL_HELPERS(/obj/item/radio/intercom/locked/prison, 27, 27)

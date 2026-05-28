@@ -1,6 +1,7 @@
 /mob/living/silicon/robot/gib()
 	if(!death(TRUE) && stat != DEAD)
 		return FALSE
+	evacuate_ai(DANGER_LVL_MAY_DIE)
 	//robots don't die when gibbed. instead they drop their MMI'd brain
 	var/atom/movable/overlay/animation = null
 	ADD_TRAIT(src, TRAIT_NO_TRANSFORM, PERMANENT_TRANSFORMATION_TRAIT)
@@ -32,6 +33,7 @@
 /mob/living/silicon/robot/dust()
 	if(!death(TRUE) && stat != DEAD)
 		return FALSE
+	evacuate_ai(DANGER_LVL_MAY_DIE)
 	ADD_TRAIT(src, TRAIT_NO_TRANSFORM, PERMANENT_TRANSFORMATION_TRAIT)
 	icon = null
 	invisibility = INVISIBILITY_ABSTRACT
@@ -54,6 +56,8 @@
 /mob/living/silicon/robot/death(gibbed)
 	if(can_die() && module)
 		module.handle_death(src, gibbed)
+
+	evacuate_ai(DANGER_LVL_MAY_DIE)
 
 	// Only execute the below if we successfully died
 	. = ..(gibbed)

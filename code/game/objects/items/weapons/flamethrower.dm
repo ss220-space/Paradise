@@ -37,7 +37,7 @@
 		STOP_PROCESSING(SSobj, src)
 		return null
 	var/turf/location = loc
-	if(istype(location, /mob/))
+	if(ismob(location))
 		var/mob/M = location
 		if(M.l_hand == src || M.r_hand == src)
 			location = M.loc
@@ -67,10 +67,11 @@
 	else
 		return TRUE
 
-/obj/item/flamethrower/afterattack(atom/target, mob/user, flag, params)
+/obj/item/flamethrower/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	. = ..()
-	if(flag)
+	if(proximity_flag)
 		return // too close
+
 	if(user && user.get_active_hand() == src) // Make sure our user is still holding us
 		var/turf/target_turf = get_turf(target)
 		if(target_turf)

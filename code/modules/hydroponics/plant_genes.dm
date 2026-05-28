@@ -227,7 +227,7 @@
 	// Also splashes everything in target turf with reagents and applies other trait effects (teleporting, etc) to the target by on_squash.
 	// For code, see grown.dm
 	name = "Liquid Contents"
-	examine_line = span_notice("It has a lot of liquid contents inside.")
+	examine_line = span_notice_alt("It has a lot of liquid contents inside.")
 	origin_tech = list(RESEARCH_TREE_BIOTECH = 5)
 	dangerous = TRUE
 
@@ -236,7 +236,7 @@
 	// Applies other trait effects (teleporting, etc) to the target by on_slip.
 	name = "Slippery Skin"
 	rate = 0.1
-	examine_line = span_notice("It has a very slippery skin.")
+	examine_line = span_notice_alt("It has a very slippery skin.")
 	dangerous = TRUE
 
 /datum/plant_gene/trait/slip/on_new(obj/item/reagent_containers/food/snacks/grown/our_plant)
@@ -315,7 +315,7 @@
 	// Adds (20+potency)*rate light range and potency*rate light_power to products.
 	name = "Bioluminescence"
 	rate = 0.02
-	examine_line = span_notice("It emits a soft glow.")
+	examine_line = span_notice_alt("It emits a soft glow.")
 	trait_id = "glow"
 	var/glow_color = "#C3E381"
 
@@ -450,7 +450,7 @@
 	name = "Capacitive Cell Production"
 
 /datum/plant_gene/trait/battery/on_attackby(obj/item/reagent_containers/food/snacks/grown/G, obj/item/I, mob/user)
-	if(istype(I, /obj/item/stack/cable_coil))
+	if(iscoil(I))
 		var/obj/item/stack/cable_coil/C = I
 		if(C.use(5))
 			to_chat(user, span_notice("You add some cable to [G] and slide it inside the battery encasing."))
@@ -492,7 +492,7 @@
 			var/reglist = ""
 			for(var/datum/reagent/R in G.reagents.reagent_list)
 				reglist += "[R.name] [R.volume], "
-			target.investigate_log("got throw-pricked with [G]. [reglist]")
+			target.investigate_log("got throw-pricked with [G]. [reglist]", INVESTIGATE_BOTANY)
 
 /datum/plant_gene/trait/smoke
 	name = "Gaseous Decomposition"
@@ -504,7 +504,7 @@
 	var/reglist = ""
 	for(var/datum/reagent/R in G.reagents.reagent_list)
 		reglist += "[R.name] [R.volume], "
-	target.investigate_log("started a chemical smoke, squashing [G]. [reglist]")
+	target.investigate_log("started a chemical smoke, squashing [G]. [reglist]", INVESTIGATE_BOTANY)
 	var/datum/effect_system/fluid_spread/smoke/chem/smoke = new
 	smoke.set_up(amount = smoke_amount, location = splat_location, carry = G.reagents)
 	addtimer(CALLBACK(smoke, TYPE_PROC_REF(/datum/effect_system/fluid_spread/smoke/chem, start)), 1 * rand(1, 8), TIMER_STOPPABLE | TIMER_DELETE_ME)

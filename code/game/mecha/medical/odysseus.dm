@@ -52,19 +52,20 @@
 	name = "Тестовый Одиссей"
 	desc = "Специальная версия \"Одиссея\", созданная с одной целью — проверять все модули разом. Конструкция не позволяет меху быть массовым образцом, выпущенная специально для ведущих инженеров-роботехников."
 	strafe_allowed = TRUE
-	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 0, acid = 0) // для тестов урона
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, fire = 0, acid = 0) // для тестов урона
 	max_integrity = 1000
 	deflect_chance = 0 // нахуй рандом
 	mech_enter_time = 1
 
-/obj/mecha/medical/odysseus/full_load/New()
+/obj/mecha/medical/odysseus/full_load/Initialize(mapload)
 	. = ..()
+	
 	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/medical/sleeper
-	ME.attach(src)
+	ME.attach(src, MECH_HAND_LEFT)
 	ME = new /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun
-	ME.attach(src)
+	ME.attach(src, MECH_HAND_LEFT)
 	ME = new /obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw
-	ME.attach(src)
+	ME.attach(src, MECH_HAND_RIGHT)
 	ME = new /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun_upgrade
 	ME.attach(src)
 

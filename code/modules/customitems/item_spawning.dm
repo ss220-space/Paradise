@@ -36,7 +36,7 @@
 		var/obj/item/Item = new path()
 		var/description = query.item[4]
 		var/newname = query.item[5]
-		if(istype(Item,/obj/item/card/id))
+		if(is_id_card(Item))
 			var/obj/item/card/id/I = Item
 			for(var/obj/item/card/id/C in M)
 				//default settings

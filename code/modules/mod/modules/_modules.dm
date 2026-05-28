@@ -4,6 +4,7 @@
 	gender = MALE
 	icon = 'icons/obj/clothing/modsuit/mod_modules.dmi'
 	icon_state = "module"
+	abstract_type = /obj/item/mod/module
 	/// If it can be removed
 	var/removable = TRUE
 	/// If it's passive, togglable, usable or active
@@ -59,8 +60,8 @@
 		SPECIES_VULPKANIN = 'icons/mob/clothing/modsuit/species/vulpkanin/mod_modules.dmi',
 		SPECIES_TAJARAN = 'icons/mob/clothing/modsuit/species/tajaran/mod_modules.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/modsuit/species/unathi/mod_modules.dmi',
-		SPECIES_DRASK = 'icons/mob/clothing/modsuit/species/grey/mod_modules.dmi',
-		SPECIES_GREY = 'icons/mob/clothing/modsuit/species/drask/mod_modules.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/modsuit/species/grey/mod_modules.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/modsuit/species/drask/mod_modules.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/modsuit/species/vox/mod_modules.dmi',
 	)
 
@@ -89,11 +90,13 @@
 	device.w_class = WEIGHT_CLASS_HUGE
 	device.materials = null
 
+	ADD_TRAIT(device, TRAIT_NODROP, MODSUIT_TRAIT)
 	RegisterSignal(device, COMSIG_QDELETING, PROC_REF(on_device_deletion))
 	RegisterSignal(src, COMSIG_ATOM_EXITED, PROC_REF(on_exit))
 
 /obj/item/mod/module/Destroy()
 	mod?.uninstall(src)
+	mod = null
 	if(device)
 		UnregisterSignal(device, COMSIG_QDELETING)
 		QDEL_NULL(device)

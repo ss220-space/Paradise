@@ -40,7 +40,7 @@
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
-	if(istype(I, /obj/item/toy/crayon))
+	if(iscrayon(I))
 		add_fingerprint(user)
 		var/new_color = tgui_input_color(user, "Choose Color")
 		if(isnull(new_color))

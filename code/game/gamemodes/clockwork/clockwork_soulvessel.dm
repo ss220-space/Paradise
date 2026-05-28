@@ -102,7 +102,7 @@
 		if(istype(victim_brain, /obj/item/mmi/robotic_brain))
 			var/obj/item/mmi/robotic_brain/r_brain = victim_brain
 			living = r_brain.brainmob
-		if(istype(victim_brain, /obj/item/organ/internal/brain))
+		if(is_internal_organ_brain(victim_brain))
 			var/obj/item/organ/internal/brain/o_brain = victim_brain
 			living = o_brain.brainmob
 		if(istype(victim_brain, /obj/item/organ/external/head))

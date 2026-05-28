@@ -295,7 +295,7 @@
 			if(!eating)
 				for(var/turf/T as anything in get_line(src, get_turf(H)))
 					for(var/obj/structure/O in T)
-						if(istype(O, /obj/structure/closet))
+						if(iscloset(O))
 							var/obj/structure/closet/locker = O
 							locker.bust_open()
 						if(O.density || is_airlock(O))
@@ -410,8 +410,9 @@
 	duration = 150
 	randomdir = FALSE
 
-/obj/effect/temp_visual/fcluwne_manifest/New()
+/obj/effect/temp_visual/fcluwne_manifest/Initialize(mapload)
 	. = ..()
+	
 	playsound(src, 'sound/spookoween/scary_clown_appear.ogg', 100, TRUE)
 
 #undef STAGE_HAUNT

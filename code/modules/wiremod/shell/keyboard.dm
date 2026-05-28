@@ -34,6 +34,12 @@
 	/// The string, entity typed and submitted
 	var/datum/port/output/output
 
+/obj/item/circuit_component/keyboard_shell/Destroy()
+	signal = null
+	entity = null
+	output = null
+	. = ..()
+
 /obj/item/circuit_component/keyboard_shell/examine(mob/user)
 	. = ..()
 	. += span_notice("<b>Используйте в руке</b>, чтобы открыть панель ввода.")

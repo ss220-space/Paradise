@@ -56,6 +56,12 @@
 	/// Is this object emagged?
 	var/emagged = FALSE
 
+/obj/vv_edit_var(var_name, var_value)
+	if(var_name == NAMEOF(src, obj_flags))
+		if((obj_flags & DANGEROUS_POSSESSION) && !(var_value & DANGEROUS_POSSESSION))
+			return FALSE
+	return ..()
+
 /obj/Initialize(mapload)
 	. = ..()
 	if(obj_integrity == null)
@@ -74,6 +80,16 @@
 		T.add_blueprints_preround(src)
 
 	add_debris_element()
+
+/obj/Destroy(force)
+	if(!ismachinery(src))
+		if(!speed_process)
+			STOP_PROCESSING(SSobj, src) // TODO: Have a processing bitflag to reduce on unnecessary loops through the processing lists
+		else
+			STOP_PROCESSING(SSfastprocess, src)
+	SStgui.close_uis(src)
+	QDEL_NULL(multitool_menu)
+	return ..()
 
 /obj/Topic(href, href_list, nowindow = FALSE, datum/ui_state/state = GLOB.default_state)
 	// Calling Topic without a corresponding window open causes runtime errors
@@ -97,16 +113,6 @@
 	// Nada
 	return
 
-/obj/Destroy(force)
-	if(!ismachinery(src))
-		if(!speed_process)
-			STOP_PROCESSING(SSobj, src) // TODO: Have a processing bitflag to reduce on unnecessary loops through the processing lists
-		else
-			STOP_PROCESSING(SSfastprocess, src)
-	SStgui.close_uis(src)
-	QDEL_NULL(multitool_menu)
-	return ..()
-
 //user: The mob that is suiciding
 //damagetype: The type of damage the item will inflict on the user
 //BRUTELOSS = 1
@@ -118,7 +124,7 @@
 
 //Output a creative message and then return the damagetype done
 /obj/proc/suicide_act(mob/user)
-	return FALSE
+	return NONE
 
 /obj/proc/handle_internal_lifeform(mob/lifeform_inside_me, breath_request, datum/gas_mixture/environment)
 	//Return: (NONSTANDARD)
@@ -147,7 +153,7 @@
 			if(M.client && M.machine == src)
 				is_in_use = TRUE
 				src.attack_hand(M)
-		if(istype(usr, /mob/living/silicon/ai) || istype(usr, /mob/living/silicon/robot))
+		if(isAI(usr) || isrobot(usr))
 			if(!(usr in nearby))
 				if(usr.client && usr.machine==src) // && M.machine == src is omitted because if we triggered this by using the dialog, it doesn't matter if our machine changed in between triggering it and this - the dialog is probably still supposed to refresh.
 					is_in_use = TRUE
@@ -207,9 +213,6 @@
 	if(istype(M) && M.client && M.machine == src)
 		src.attack_self(M)
 
-/obj/proc/hide(h)
-	return
-
 /obj/proc/hear_talk(mob/speaker, list/message_pieces)
 	SHOULD_CALL_PARENT(TRUE)
 	SEND_SIGNAL(src, COMSIG_MOVABLE_HEAR, speaker, message_pieces)
@@ -257,13 +260,12 @@
 	extinguish()
 	acid_level = 0
 
-/obj/singularity_pull(S, current_size)
+/obj/singularity_pull(atom/singularity, current_size)
 	..()
+	if(move_resist == INFINITY)
+		return
 	if(!anchored || current_size >= STAGE_FIVE)
-		step_towards(src, S)
-
-/obj/proc/container_resist(mob/living)
-	return
+		step_towards(src, singularity)
 
 /obj/proc/on_mob_move(mob/user, dir)
 	return
@@ -281,15 +283,6 @@
 	speed_process = FALSE
 	START_PROCESSING(SSobj, src)
 	STOP_PROCESSING(SSfastprocess, src)
-
-/obj/vv_get_dropdown()
-	. = ..()
-	.["Delete all of type"] = "byond://?_src_=vars;delall=[UID()]"
-	if(!speed_process)
-		.["Make speed process"] = "byond://?_src_=vars;makespeedy=[UID()]"
-	else
-		.["Make normal process"] = "byond://?_src_=vars;makenormalspeed=[UID()]"
-	.["Modify armor values"] = "byond://?_src_=vars;modifyarmor=[UID()]"
 
 /obj/proc/check_uplink_validity()
 	return TRUE
@@ -363,3 +356,12 @@
 /// ImageButton element in TGUI, for example
 /obj/proc/get_short_name()
 	return declent_ru(NOMINATIVE)
+
+/**
+ * Returns a list of obj's that should be displayed in the uplink purchase log.
+ * Override for specific types.
+ */
+/obj/proc/get_uplink_log_items()
+	RETURN_TYPE(/list)
+	SHOULD_CALL_PARENT(FALSE)
+	return list(src)

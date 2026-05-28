@@ -534,14 +534,6 @@
 	nutritional_value = 50, \
 	)
 
-/obj/item/card/data/clown/add_eatable_component()
-	AddComponent( \
-	/datum/component/eatable, \
-	material_type = MATERIAL_CLASS_TECH, \
-	max_bites = 1000, \
-	nutritional_value = 1, \
-	)
-
 /obj/item/access_control/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \

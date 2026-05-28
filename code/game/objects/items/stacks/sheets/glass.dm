@@ -18,7 +18,7 @@ GLOBAL_LIST_INIT(glass_recipes, list(
 	protolathe_name = "glass"
 	item_state = "sheet-glass"
 	materials = list(MAT_GLASS=MINERAL_MATERIAL_AMOUNT)
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 100)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 50, ACID = 100)
 	resistance_flags = ACID_PROOF
 	created_window = /obj/structure/window/basic
 	full_window = /obj/structure/window/full/basic
@@ -89,7 +89,7 @@ GLOBAL_LIST_INIT(reinforced_glass_recipes, list (
 	singular_name = "reinforced glass sheet"
 	icon_state = "sheet-rglass"
 	materials = list(MAT_METAL=MINERAL_MATERIAL_AMOUNT/2, MAT_GLASS=MINERAL_MATERIAL_AMOUNT)
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 70, ACID = 100)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 70, ACID = 100)
 	resistance_flags = ACID_PROOF
 	origin_tech = "materials=2"
 	created_window = /obj/structure/window/reinforced
@@ -138,7 +138,7 @@ GLOBAL_LIST_INIT(pglass_recipes, list (
 	icon_state = "sheet-plasmaglass"
 	item_state = "sheet-pglass"
 	materials = list(MAT_PLASMA = MINERAL_MATERIAL_AMOUNT, MAT_GLASS = MINERAL_MATERIAL_AMOUNT)
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 75, ACID = 100)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 75, ACID = 100)
 	resistance_flags = ACID_PROOF
 	origin_tech = "plasmatech=2;materials=2"
 	created_window = /obj/structure/window/plasmabasic
@@ -185,7 +185,7 @@ GLOBAL_LIST_INIT(prglass_recipes, list (
 	icon_state = "sheet-plasmarglass"
 	item_state = "sheet-prglass"
 	materials = list(MAT_METAL=MINERAL_MATERIAL_AMOUNT/2, MAT_GLASS=MINERAL_MATERIAL_AMOUNT, MAT_PLASMA = MINERAL_MATERIAL_AMOUNT)
-	armor = list(MELEE = 20, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 100)
+	armor = list(MELEE = 20, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 80, ACID = 100)
 	resistance_flags = ACID_PROOF
 	origin_tech = "plasmatech=2;materials=2"
 	created_window = /obj/structure/window/plasmareinforced
@@ -211,7 +211,7 @@ GLOBAL_LIST_INIT(titaniumglass_recipes, list(
 	icon_state = "sheet-titaniumglass"
 	item_state = "sheet-rglass"
 	materials = list(MAT_TITANIUM=MINERAL_MATERIAL_AMOUNT, MAT_GLASS=MINERAL_MATERIAL_AMOUNT)
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 100)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 80, ACID = 100)
 	resistance_flags = ACID_PROOF
 	merge_type = /obj/item/stack/sheet/titaniumglass
 	full_window = /obj/structure/window/full/shuttle
@@ -235,7 +235,7 @@ GLOBAL_LIST_INIT(plastitaniumglass_recipes, list(
 	icon_state = "sheet-plastitaniumglass"
 	item_state = "sheet-rglass"
 	materials = list(MAT_TITANIUM=MINERAL_MATERIAL_AMOUNT, MAT_PLASMA=MINERAL_MATERIAL_AMOUNT, MAT_GLASS=MINERAL_MATERIAL_AMOUNT)
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 100)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 80, ACID = 100)
 	resistance_flags = ACID_PROOF
 	merge_type = /obj/item/stack/sheet/plastitaniumglass
 	full_window = /obj/structure/window/plastitanium
@@ -260,7 +260,7 @@ GLOBAL_LIST_INIT(alglass_recipes, list (
 	icon_state = "sheet-alienglass"
 	item_state = "sheet-alienglass"
 	materials = list(MAT_METAL=MINERAL_MATERIAL_AMOUNT/2, MAT_GLASS=MINERAL_MATERIAL_AMOUNT, MAT_PLASMA = MINERAL_MATERIAL_AMOUNT)
-	armor = list(MELEE = 20, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 100)
+	armor = list(MELEE = 20, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 0, ACID = 100)
 	resistance_flags = ACID_PROOF
 	created_window = /obj/structure/window/abductor
 	full_window = /obj/structure/window/full/abductor

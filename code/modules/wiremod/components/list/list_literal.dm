@@ -24,6 +24,12 @@
 
 	var/max_list_count = 100
 
+/obj/item/circuit_component/list_literal/Destroy()
+	list_options = null
+	LAZYCLEARLIST(entry_ports)
+	list_output = null
+	. = ..()
+
 /obj/item/circuit_component/list_literal/populate_options()
 	list_options = add_option_port("Тип", GLOB.wiremod_basic_types)
 

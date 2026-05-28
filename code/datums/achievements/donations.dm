@@ -15,12 +15,18 @@
 
 /datum/award/achievement/donations/bronze_sponsor
 	name = "Бронзовый спонсор"
-	desc = "Благодаря вашему вкладу в 5000 рублей проект продолжает жить и развиваться. Большое спасибо за поддержку!"
+	desc = "Благодаря вашему вкладу в 5 000 рублей проект продолжает жить и развиваться. Большое спасибо за поддержку!"
 	database_id = MEDAL_DONATION_BRONZE_SPONSOR
 	icon_state = "bronze_sponsor"
 
 /datum/award/achievement/donations/platinum_sponsor
 	name = "Платиновый спонсор"
-	desc = "Ваш вклад в 30000 рублей стал настоящей опорой для проекта. Такая поддержка бесценна — огромное вам спасибо!"
+	desc = "Ваш вклад в 30 000 рублей стал настоящей опорой для проекта. Такая поддержка бесценна — огромное вам спасибо!"
 	database_id = MEDAL_DONATION_PLATINUM_SPONSOR
 	icon_state = "platinum_sponsor"
+
+/datum/award/achievement/donations/project_pillar
+	name = "Опора проекта"
+	desc = "Ваш вклад в 50 000 рублей стал фундаментальной опорой для развития проекта! Открывает роль \"Инвестор\""
+	database_id = MEDAL_DONATION_PROJECT_PILLAR
+	icon_state = "outdebted"

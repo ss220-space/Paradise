@@ -1,0 +1,32 @@
+/turf:
+    banned_variables:
+    - scrub
+    - oxygen
+    - carbon_dioxide
+    - nitrogen
+    - toxins
+    - sleeping_agent
+    - agent_b
+    - hydrogen
+    - water_vapor
+    - hypernoblium
+    - nitrium
+    - tritium
+    - bz
+    - pluoxium
+    - miasma
+    - freon
+    - healium
+    - proto_nitrate
+    - zauker
+    - halon
+    - helium
+    - antinoblium
+    - thermal_conductivity
+    - heat_capacity
+    - temperature
+    - pressure_difference
+    - pressure_direction
+    - atmos_supeconductivity
+    - atmos_mode
+    - atmos_environment
