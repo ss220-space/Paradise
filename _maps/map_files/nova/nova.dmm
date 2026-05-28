@@ -146752,10 +146752,10 @@
 /area/maintenance/fore2)
 "vXV" = (
 /obj/structure/chair/sofa/right,
-/obj/random/therapy,
 /obj/machinery/light/small{
 	dir = 1
 	},
+/obj/random/plushie,
 /turf/simulated/floor/wood,
 /area/medical/psych)
 "vYa" = (

@@ -47659,7 +47659,7 @@
 	},
 /obj/machinery/power/apc/directional/north,
 /obj/structure/bed/psych,
-/obj/random/therapy,
+/obj/random/plushie,
 /turf/simulated/floor/wood/fancy/light,
 /area/medical/psych)
 "gqu" = (

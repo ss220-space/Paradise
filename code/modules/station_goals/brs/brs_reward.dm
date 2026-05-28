@@ -126,7 +126,6 @@
 		/obj/random/figure,
 		/obj/random/mech,
 		/obj/random/plushie,
-		/obj/random/therapy,
 		/obj/random/carp_plushie,
 		/obj/item/toy/balloon,
 		/obj/item/toy/spinningtoy,

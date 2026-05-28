@@ -108,7 +108,6 @@
 		/obj/item/clothing/head/kitty = 5,
 		/obj/item/coin/antagtoken = 5,
 		/obj/item/toy/prizeball/figure = 15,
-		/obj/item/toy/prizeball/therapy = 10,
 		/obj/item/bedsheet/patriot = 2,
 		/obj/item/bedsheet/rainbow = 2,
 		/obj/item/bedsheet/captain = 2,
