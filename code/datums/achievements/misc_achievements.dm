@@ -89,8 +89,8 @@
 	icon_state = "deep_draw"
 
 /datum/award/achievement/misc/rocket_holdup
-	name = "Ваш диск, пожалуста!"
-	desc = "Тот парень, что наставил на тебя ракетницу, реально готов нажать на курок? Ты точно хочешь это выяснить?"
+	name = "Ваш диск, пожалуйста!"
+	desc = "Тот парень, что наставил на тебя ракетницу, реально готов нажать на спуск? Ты точно хочешь это выяснить?"
 	database_id = MEDAL_DISKPLEASE
 	icon_state = "rocket_holdup"
 
