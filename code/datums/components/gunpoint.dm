@@ -53,6 +53,8 @@
 
 	addtimer(CALLBACK(src, PROC_REF(update_stage), 2), GUNPOINT_DELAY_STAGE_2)
 
+	check_and_award_achievements(shooter)
+
 /datum/component/gunpoint/Destroy(force)
 	var/mob/living/shooter = parent
 	if(shooter)
@@ -253,6 +255,20 @@
 	SIGNAL_HANDLER
 
 	return COMPONENT_LIVING_ALREADY_HELD_UP
+
+/// Achievements time
+/datum/component/gunpoint/proc/check_and_award_achievements(mob/living/shooter)
+	if(!shooter || !shooter.client || !target || !target.client)
+		return
+	var/turf/shooter_turf = get_turf(shooter)
+	if(!shooter_turf || is_admin_level(shooter_turf.z))
+		return
+
+	if(istype(weapon, /obj/item/gun/rocketlauncher) && weapon.chambered)
+		if(target.stat == CONSCIOUS && shooter.mind.has_antag_datum(/datum/antagonist/nuclear_operative) && !target.mind.has_antag_datum(/datum/antagonist/nuclear_operative))
+			if(locate(/obj/item/disk/nuclear) in target.get_contents())
+				target.client.give_award(/datum/award/achievement/misc/rocket_holdup, target)
+				return
 
 #undef GUNPOINT_DELAY_STAGE_2
 #undef GUNPOINT_DELAY_STAGE_3
