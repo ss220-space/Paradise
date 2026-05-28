@@ -38,6 +38,10 @@
 	var/obj/item/card/id/front_id = null
 	var/image/front_id_overlay = null
 
+/obj/item/storage/wallet/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_CARD_DECAL_APPLIED, PROC_REF(refresh_ID))
+
 /obj/item/storage/wallet/remove_from_storage(obj/item/I, atom/new_location)
 	. = ..()
 	if(. && is_id_card(I))
