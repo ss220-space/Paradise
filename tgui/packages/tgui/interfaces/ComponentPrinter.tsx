@@ -35,11 +35,11 @@ export const ComponentPrinter = (props) => {
           title="Сохранённые схемы"
           buttons={
             <Button.File
-            icon="upload"
-            accept=".txt"
-            onSelectFiles={(value) => act('import', { import: value })}
-          >
-              {toTitleCase("Import")}
+              icon="upload"
+              accept=".txt"
+              onSelectFiles={(value) => act('import', { import: value })}
+            >
+              {toTitleCase('Импорт')}
             </Button.File>
           }
         />
@@ -50,7 +50,7 @@ export const ComponentPrinter = (props) => {
             </Stack.Item>
           )}
           {Object.values(designs).map((design) => (
-            <Section key={design.id} style={{ position: 'relative'}}>
+            <Section key={design.id} style={{ position: 'relative' }}>
               <DmIcon
                 icon={design.icon}
                 icon_state={design.IconState}
@@ -97,7 +97,7 @@ export const ComponentPrinter = (props) => {
                     })
                   }
                 >
-                  {toTitleCase("Export")}
+                  {toTitleCase('Экспорт')}
                 </Button>
                 <Button
                   icon="trash-can"
