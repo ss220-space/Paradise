@@ -335,9 +335,14 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 
 	for(var/component_data as anything in dupe_data["components"])
 		var/path = text2path(dupe_data["components"][component_data]["type"])
+		if(!path)
+			continue
+		if(!ispath(path, /obj/item/circuit_component))
+			continue
 		var/obj/item/circuit_component/component = new path
 
 		current_size += component.circuit_size
+		qdel(component)
 
 	var/materials = list(MAT_GLASS = current_size * cost_per_component)
 
