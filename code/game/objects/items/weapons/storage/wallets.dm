@@ -40,7 +40,7 @@
 
 /obj/item/storage/wallet/Initialize(mapload)
 	. = ..()
-	RegisterSignal(src, COMSIG_CARD_DECAL_APPLIED, PROC_REF(refresh_on_signal))
+	RegisterSignal(src, COMSIG_CARD_DECAL_APPLIED, PROC_REF(refresh_id_on_signal))
 
 /obj/item/storage/wallet/remove_from_storage(obj/item/I, atom/new_location)
 	. = ..()
