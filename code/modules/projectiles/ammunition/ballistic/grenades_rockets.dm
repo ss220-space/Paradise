@@ -27,7 +27,6 @@
 	desc = "Осколочно-фугасная ракета. Предназначена для поражения пехоты."
 	caliber = CALIBER_84MM
 	w_class = WEIGHT_CLASS_NORMAL //thats the rocket!
-	icon = 'icons/obj/weapons/guns/projectiles.dmi'
 	icon_state = "84mm-he"
 	projectile_type = /obj/projectile/bullet/a84mm_he
 	casing_drop_sound = 'sound/weapons/gun_interactions/shotgun_fall.ogg'	// better than default casing but not ideal

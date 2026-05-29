@@ -1,0 +1,5 @@
+author: "vovakons"
+delete-after: True
+changes:
+  - balance: "Баланс кровотечений. (PR #9157)"
+  - refactor: "Подсистема кровотечений. (PR #9157)"
