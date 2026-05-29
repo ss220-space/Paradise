@@ -151,7 +151,7 @@
 			if(mob.buckled && mob.buckled.anchored)
 				continue
 
-		if(!do_teleport(target, target_turf, block_bluespace_interference = TRUE))
+		if(!do_teleport(target, target_turf, blocked_when_interfered = TRUE))
 			teleport_failed = TRUE
 	if(teleport_failed && user)
 		to_chat(user, span_warning("Часть объектов не удалось телепортировать, возможны блюспейс-помехи."))

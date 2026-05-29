@@ -22,7 +22,7 @@
 	if(!T)
 		return FALSE
 	var/turf/user_turf = get_turf(src)
-	if(!do_teleport(chassis, T, tele_precision, block_bluespace_interference = TRUE))
+	if(!do_teleport(chassis, T, tele_precision, blocked_when_interfered = TRUE))
 		return FALSE
 	chassis.use_power(energy_drain)
 	chassis.investigate_log("[key_name_log(chassis.occupant)] mecha-teleported from [COORD(user_turf)] to [COORD(chassis)].", INVESTIGATE_TELEPORTATION)
@@ -57,7 +57,7 @@
 	if(get_teleport_blocking_living(chassis))
 		occupant_message(span_warning("Блюспейс-помехи не дают сформировать червоточину!"))
 		return FALSE
-	if(!get_teleport_intercepted_destination(chassis, source_turf, portal_turf, block_bluespace_interference = TRUE, notify = FALSE))
+	if(!get_teleport_intercepted_destination(chassis, source_turf, portal_turf, blocked_when_interfered = TRUE, notify = FALSE))
 		occupant_message(span_warning("Блюспейс-помехи не дают сформировать червоточину!"))
 		return FALSE
 	var/list/theareas = get_areas_in_range(100, chassis)

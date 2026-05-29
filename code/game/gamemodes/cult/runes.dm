@@ -506,12 +506,12 @@ structure_check() searches for nearby cultist structures required for the invoca
 			actual_selected_rune.handle_portal("lava")
 		else if(!is_station_level(z) || isspacearea(get_area(src)))
 			actual_selected_rune.handle_portal("space", rune_turf)
-		user.visible_message(
-			span_warning("There is a sharp crack of inrushing air, and everything above the rune disappears!"),
-			span_cult("You[moveuser ? "r vision blurs, and you suddenly appear somewhere else":" send everything above the rune away"].")
-		)
-		if(moveuser)
-			do_magic_direct_teleport(user, target, notified_user = user, block_message = "ITB подавляет телепорт руны.")
+		// Сначала перемещаем самого заклинателя, иначе сообщение об успехе покажется даже при блоке.
+		if(moveuser && !do_magic_direct_teleport(user, target, notified_user = user, block_message = "ITB подавляет телепорт руны."))
+			fail_invoke()
+			return
+		rune_turf.visible_message(span_warning("There is a sharp crack of inrushing air, and everything above the rune disappears!"))
+		to_chat(user, span_cult("You[moveuser ? "r vision blurs, and you suddenly appear somewhere else":" send everything above the rune away"]."))
 	else
 		fail_invoke()
 
@@ -743,16 +743,19 @@ structure_check() searches for nearby cultist structures required for the invoca
 		fail_invoke()
 		return
 
+	var/turf/summon_origin = get_turf(cultist_to_summon)
+	var/turf/summon_destination = get_turf(src)
 	cultist_to_summon.visible_message(
 		span_warning("[cultist_to_summon] suddenly disappears in a flash of red light!"), \
 		span_cultitalic("<b>Overwhelming vertigo consumes you as you are hurled through the air!</b>")
 	)
-	..()
-	INVOKE_ASYNC(src, PROC_REF(teleport_effect), cultist_to_summon, get_turf(cultist_to_summon), src)
-	visible_message(span_warning("[src] begins to bubble and rises into the form of [cultist_to_summon]!"))
-	if(!do_magic_direct_teleport(cultist_to_summon, get_turf(src), notified_user = user, block_message = "ITB подавляет призыв культиста."))
+	// Перемещаем культиста до эффекта и сообщения об успехе, чтобы при блоке они не показывались.
+	if(!do_magic_direct_teleport(cultist_to_summon, summon_destination, notified_user = user, block_message = "ITB подавляет призыв культиста."))
 		fail_invoke()
 		return
+	..()
+	INVOKE_ASYNC(src, PROC_REF(teleport_effect), cultist_to_summon, summon_origin, summon_destination)
+	visible_message(span_warning("[src] begins to bubble and rises into the form of [cultist_to_summon]!"))
 	qdel(src)
 
 /**

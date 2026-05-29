@@ -22,7 +22,10 @@
 		if(auto_smoke)
 			if(locate(/datum/action/item_action/advanced/ninja/ninja_smoke_bomb) in ninja.actions)
 				prime_smoke(lowcost = TRUE)
-		if(!do_teleport(ninja, T, 8, asoundin = 'sound/effects/phasein.ogg', block_bluespace_interference = TRUE))
+		// Стационарное поле BSIG-S должно полностью гасить экстренный блинк, а не смещать ниндзя
+		// к краю поля — иначе security-генератор бесполезен против побега. Персональные блокираторы
+		// (ITB / BSIG-P) уже отсекаются проверкой get_teleport_blocking_living выше.
+		if(!do_teleport(ninja, T, 8, asoundin = 'sound/effects/phasein.ogg', blocked_when_interfered = TRUE))
 			return
 		add_attack_logs(ninja, null, "Emergency blinked from [COORD(T)] to [COORD(ninja)].")
 		investigate_log("[key_name_log(ninja)] Emergency blinked from [COORD(T)] to [COORD(ninja)].", INVESTIGATE_TELEPORTATION)

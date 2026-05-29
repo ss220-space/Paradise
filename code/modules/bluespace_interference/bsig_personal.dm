@@ -12,9 +12,11 @@
 	var/active = FALSE
 	var/panel_open = FALSE
 	var/obj/item/stock_parts/cell/cell
-	var/mob/living/wearer
+	/// Weakref to the mob currently wearing the device.
+	var/datum/weakref/wearer_ref
 	var/interference_applied = FALSE
-	var/mob/living/interference_wearer
+	/// Weakref to the mob the teleport-block trait is currently applied to.
+	var/datum/weakref/interference_wearer_ref
 
 /obj/item/clothing/gloves/bsig_personal/get_ru_names()
 	return list(
@@ -38,7 +40,7 @@
 /obj/item/clothing/gloves/bsig_personal/Destroy()
 	set_active(FALSE)
 	QDEL_NULL(cell)
-	wearer = null
+	wearer_ref = null
 	return ..()
 
 /obj/item/clothing/gloves/bsig_personal/get_cell()
@@ -91,16 +93,17 @@
 /obj/item/clothing/gloves/bsig_personal/dropped(mob/living/user, slot, silent = FALSE)
 	if(slot == ITEM_SLOT_GLOVES)
 		set_active(FALSE)
-		wearer = null
+		wearer_ref = null
 	. = ..()
 
 /obj/item/clothing/gloves/bsig_personal/process(seconds_per_tick)
 	if(!active)
 		return PROCESS_KILL
 
-	if(!wearer || QDELETED(wearer) || !is_worn_on_hands(wearer))
+	var/mob/living/wearer = wearer_ref?.resolve()
+	if(!wearer || !is_worn_on_hands(wearer))
 		set_active(FALSE)
-		wearer = null
+		wearer_ref = null
 		return PROCESS_KILL
 
 	if(!cell || !cell.use(BSIG_P_POWER_DRAIN * seconds_per_tick))
@@ -166,30 +169,33 @@
 		STOP_PROCESSING(SSobj, src)
 
 /obj/item/clothing/gloves/bsig_personal/proc/set_wearer(mob/living/new_wearer)
-	if(wearer == new_wearer)
+	if(wearer_ref?.resolve() == new_wearer)
 		return
 	remove_interference()
-	wearer = new_wearer
+	wearer_ref = WEAKREF(new_wearer)
 
 /obj/item/clothing/gloves/bsig_personal/proc/apply_interference()
+	var/mob/living/wearer = wearer_ref?.resolve()
 	if(!active || !wearer || !is_worn_on_hands(wearer))
 		remove_interference()
 		return
+	var/mob/living/interference_wearer = interference_wearer_ref?.resolve()
 	if(interference_applied && interference_wearer == wearer)
 		return
-	if(interference_applied && interference_wearer && !QDELETED(interference_wearer))
+	if(interference_applied && interference_wearer)
 		REMOVE_TRAIT(interference_wearer, TRAIT_NO_TELEPORT, UNIQUE_TRAIT_SOURCE(src))
-	interference_wearer = wearer
+	interference_wearer_ref = wearer_ref
 	interference_applied = TRUE
-	ADD_TRAIT(interference_wearer, TRAIT_NO_TELEPORT, UNIQUE_TRAIT_SOURCE(src))
+	ADD_TRAIT(wearer, TRAIT_NO_TELEPORT, UNIQUE_TRAIT_SOURCE(src))
 
 /obj/item/clothing/gloves/bsig_personal/proc/remove_interference()
 	if(!interference_applied)
 		return
-	if(interference_wearer && !QDELETED(interference_wearer))
+	var/mob/living/interference_wearer = interference_wearer_ref?.resolve()
+	if(interference_wearer)
 		REMOVE_TRAIT(interference_wearer, TRAIT_NO_TELEPORT, UNIQUE_TRAIT_SOURCE(src))
 	interference_applied = FALSE
-	interference_wearer = null
+	interference_wearer_ref = null
 
 /obj/item/clothing/gloves/bsig_personal/proc/is_worn_on_hands(mob/user)
 	if(!user)

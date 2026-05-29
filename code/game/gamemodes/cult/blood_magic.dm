@@ -575,9 +575,9 @@
 	else
 		teleporting_mob.visible_message(span_warning("Dust flows from [user]'s hand, and [teleporting_mob] disappears in a flash of red light!"), \
 		span_cultitalic("You suddenly find yourself somewhere else!"))
-	destination.visible_message(span_warning("There is a boom of outrushing air as something appears above the rune!"), null, "<i>You hear a boom.</i>")
 	if(!do_magic_direct_teleport(teleporting_mob, destination, notified_user = user, block_message = "ITB подавляет кровавый телепорт."))
 		return
+	destination.visible_message(span_warning("There is a boom of outrushing air as something appears above the rune!"), null, "<i>You hear a boom.</i>")
 	playsound(destination, 'sound/misc/exit_blood.ogg', 50, TRUE, -1)
 	return ..()
 

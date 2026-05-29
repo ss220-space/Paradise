@@ -28,7 +28,7 @@
 	var/can_multitool_to_remove = FALSE
 	var/can_mecha_pass = FALSE
 	var/ignore_tele_proof_area_setting = FALSE
-	var/ignore_bluespace_interference = FALSE
+	var/always_precise = FALSE
 	/// Does this portal go away after one teleport?
 	var/one_use = FALSE
 	/// Does this portal bypass teleport restrictions? like TRAIT_NO_TELEPORT
@@ -180,7 +180,7 @@
 	if(!use_effects)
 		effect = NONE // No effect
 
-	if(!do_teleport(victim, destination, variance, force_teleport, effect, effect, bypass_area_flag = ignore_tele_proof_area_setting, ignore_bluespace_interference = ignore_bluespace_interference))
+	if(!do_teleport(victim, destination, variance, force_teleport, effect, effect, bypass_area_flag = ignore_tele_proof_area_setting, always_precise = always_precise))
 		invalid_teleport()
 		return FALSE
 	effect_cooldown = world.time + EFFECT_COOLDOWN
@@ -235,7 +235,7 @@
 	base_icon_state = "portal-syndicate"
 	failchance = 0
 	ignore_tele_proof_area_setting = TRUE
-	ignore_bluespace_interference = TRUE
+	always_precise = TRUE
 
 /obj/effect/portal/wormhole_projector
 	icon_state = "portal-projector0"

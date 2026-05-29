@@ -71095,7 +71095,7 @@
 	known_by = list("hos")
 	},
 /obj/item/gun/projectile/bombarda/secgl/x4,
-/obj/item/clothing/neck/itb,
+/obj/item/clothing/suit/itb,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

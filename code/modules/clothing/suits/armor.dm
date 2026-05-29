@@ -497,7 +497,10 @@
 		var/turf/picked = pick(turfs)
 		if(!isturf(picked))
 			return
-		if(!do_teleport(H, picked, block_bluespace_interference = TRUE))
+		// always_precise: реактивная броня телепортирует точно в радиусе tele_range и не даёт
+		// абузить разброс точности через Мешок Хватания (SoH). Запрет телепорта носителя
+		// (ITB / BSIG-P) уже отсекается через can_reactive_teleport выше.
+		if(!do_teleport(H, picked, always_precise = TRUE))
 			return 0
 		return 1
 	return 0

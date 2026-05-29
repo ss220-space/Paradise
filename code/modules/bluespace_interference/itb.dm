@@ -8,22 +8,28 @@
 #define ITB_SHOCK_FAILURE_DAMAGE 15
 #define ITB_TELEPORT_BLOCK_MESSAGE "ITB подавляет телепортацию."
 
-/obj/item/clothing/neck/itb
+/obj/item/clothing/suit/itb
 	name = "ITB"
 	desc = "Тюремный ошейник-блокиратор телепортации. В закрытом состоянии предотвращает любую телепортацию и схожее перемещение владельца."
+	icon = 'icons/obj/clothing/neck.dmi'
 	icon_state = "ITB"
 	item_state = "neck_ITB"
 	body_parts_covered = NONE
 	resistance_flags = FIRE_PROOF
+	// Носится в слоте брони, но визуально и по спрайтам остаётся ошейником из neck.dmi.
+	allowed = list()
+	sprite_sheets = null
 
 	var/locked = FALSE
 	var/tamper_stage = ITB_TAMPER_SECURE
-	var/mob/living/wearer
+	/// Weakref to the mob currently wearing the collar.
+	var/datum/weakref/wearer_ref
 	var/interference_applied = FALSE
-	var/mob/living/interference_wearer
+	/// Weakref to the mob the teleport-block traits are currently applied to.
+	var/datum/weakref/interference_wearer_ref
 	var/nodrop_applied = FALSE
 
-/obj/item/clothing/neck/itb/get_ru_names()
+/obj/item/clothing/suit/itb/get_ru_names()
 	return list(
 		NOMINATIVE = "ITB",
 		GENITIVE = "ITB",
@@ -33,22 +39,25 @@
 		PREPOSITIONAL = "ITB",
 	)
 
-/obj/item/clothing/neck/itb/Initialize(mapload)
+/obj/item/clothing/suit/itb/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/high_value_item)
 	register_context()
 
-/obj/item/clothing/neck/itb/Destroy()
+/obj/item/clothing/suit/itb/Destroy()
 	remove_interference()
-	wearer = null
+	wearer_ref = null
 	return ..()
 
-/obj/item/clothing/neck/itb/build_worn_icon(default_layer = 0, default_icon_file = null, isinhands = FALSE, override_state = null, override_file = null, use_item_state = FALSE)
-	if(!isinhands && !override_state)
-		override_state = "neck_ITB"
+/obj/item/clothing/suit/itb/build_worn_icon(default_layer = 0, default_icon_file = null, isinhands = FALSE, override_state = null, override_file = null, use_item_state = FALSE)
+	if(!isinhands)
+		if(!override_state)
+			override_state = "neck_ITB"
+		if(!override_file)
+			override_file = DEFAULT_ICON_NECK
 	return ..()
 
-/obj/item/clothing/neck/itb/examine(mob/user)
+/obj/item/clothing/suit/itb/examine(mob/user)
 	. = ..()
 	. += span_notice("Замок [locked ? "закрыт" : "открыт"].")
 	switch(tamper_stage)
@@ -64,10 +73,10 @@
 			. += span_warning("Замок был обойдён.")
 			. += span_notice("Перерезанную проводку нужно починить <i>мотком проводов</i>, прежде чем панель можно будет закрепить.")
 
-/obj/item/clothing/neck/itb/attack_self(mob/user)
+/obj/item/clothing/suit/itb/attack_self(mob/user)
 	to_chat(user, span_notice("Используйте ПКМ по [src], чтобы закрыть или открыть замок."))
 
-/obj/item/clothing/neck/itb/add_context(atom/source, list/context, obj/item/held_item, mob/user)
+/obj/item/clothing/suit/itb/add_context(atom/source, list/context, obj/item/held_item, mob/user)
 	. = ..()
 	if(held_item || !ishuman(user))
 		return
@@ -78,7 +87,7 @@
 	context[SCREENTIP_CONTEXT_RMB] = locked ? "Разблокировать" : "Заблокировать"
 	return CONTEXTUAL_SCREENTIP_SET
 
-/obj/item/clothing/neck/itb/attack_hand_secondary(mob/user, list/modifiers)
+/obj/item/clothing/suit/itb/attack_hand_secondary(mob/user, list/modifiers)
 	if(isobserver(user))
 		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
@@ -99,29 +108,30 @@
 
 	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
-/obj/item/clothing/neck/itb/proc/get_worn_target()
+/obj/item/clothing/suit/itb/proc/get_worn_target()
 	if(ishuman(loc))
 		var/mob/living/carbon/human/human_wearer = loc
-		if(human_wearer.neck == src)
+		if(human_wearer.wear_suit == src)
 			return human_wearer
 		return null
+	var/mob/living/wearer = wearer_ref?.resolve()
 	if(wearer && is_worn())
 		return wearer
 	return null
 
-/obj/item/clothing/neck/itb/proc/get_active_hand_zone(mob/user)
+/obj/item/clothing/suit/itb/proc/get_active_hand_zone(mob/user)
 	if(!ishuman(user))
 		return BODY_ZONE_CHEST
 	return user.hand == ACTIVE_HAND_LEFT ? BODY_ZONE_L_ARM : BODY_ZONE_R_ARM
 
-/obj/item/clothing/neck/itb/proc/has_insulated_gloves(mob/living/user)
+/obj/item/clothing/suit/itb/proc/has_insulated_gloves(mob/living/user)
 	if(!ishuman(user))
 		return FALSE
 	var/mob/living/carbon/human/human_user = user
 	var/obj/item/clothing/gloves/gloves = human_user.gloves
 	return gloves?.siemens_coefficient == 0
 
-/obj/item/clothing/neck/itb/proc/try_screwdriver_tamper(mob/living/user)
+/obj/item/clothing/suit/itb/proc/try_screwdriver_tamper(mob/living/user)
 	if(!prob(ITB_TAMPER_FAILURE_CHANCE))
 		return TRUE
 
@@ -129,7 +139,7 @@
 	user.apply_damage(ITB_SCREWDRIVER_FAILURE_DAMAGE, BRUTE, get_active_hand_zone(user))
 	return FALSE
 
-/obj/item/clothing/neck/itb/proc/try_electrical_tamper(mob/living/user)
+/obj/item/clothing/suit/itb/proc/try_electrical_tamper(mob/living/user)
 	if(!prob(ITB_TAMPER_FAILURE_CHANCE))
 		return TRUE
 
@@ -140,20 +150,20 @@
 		user.apply_damage(ITB_SHOCK_FAILURE_DAMAGE, BURN, get_active_hand_zone(user))
 	return FALSE
 
-/obj/item/clothing/neck/itb/equipped(mob/living/user, slot, initial)
+/obj/item/clothing/suit/itb/equipped(mob/living/user, slot, initial)
 	. = ..()
-	if(slot != ITEM_SLOT_NECK)
+	if(slot != ITEM_SLOT_CLOTH_OUTER)
 		return
-	wearer = user
+	wearer_ref = WEAKREF(user)
 	refresh_state()
 
-/obj/item/clothing/neck/itb/dropped(mob/living/user, slot, silent = FALSE)
-	if(slot == ITEM_SLOT_NECK)
+/obj/item/clothing/suit/itb/dropped(mob/living/user, slot, silent = FALSE)
+	if(slot == ITEM_SLOT_CLOTH_OUTER)
 		remove_interference()
-		wearer = null
+		wearer_ref = null
 	. = ..()
 
-/obj/item/clothing/neck/itb/screwdriver_act(mob/living/user, obj/item/I)
+/obj/item/clothing/suit/itb/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
 	var/stage_before = tamper_stage
 	if(!I.use_tool(src, user, ITB_TAMPER_TIME, volume = I.tool_volume) || tamper_stage != stage_before)
@@ -173,7 +183,7 @@
 
 	refresh_state()
 
-/obj/item/clothing/neck/itb/wirecutter_act(mob/living/user, obj/item/I)
+/obj/item/clothing/suit/itb/wirecutter_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(tamper_stage != ITB_TAMPER_PANEL_OPEN)
 		to_chat(user, span_warning("Сначала нужно открыть сервисную панель [src]."))
@@ -188,7 +198,7 @@
 	to_chat(user, span_notice("Вы перерезаете управляющую проводку [src]."))
 	refresh_state()
 
-/obj/item/clothing/neck/itb/multitool_act(mob/living/user, obj/item/I)
+/obj/item/clothing/suit/itb/multitool_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(tamper_stage != ITB_TAMPER_WIRES_CUT)
 		to_chat(user, span_warning("Перед обходом замка [src] нужно перерезать управляющую проводку."))
@@ -204,7 +214,7 @@
 	to_chat(user, span_notice("Вы обходите замок [src]."))
 	refresh_state()
 
-/obj/item/clothing/neck/itb/attackby(obj/item/I, mob/living/user, params)
+/obj/item/clothing/suit/itb/attackby(obj/item/I, mob/living/user, params)
 	if(iscoil(I))
 		if(tamper_stage < ITB_TAMPER_WIRES_CUT)
 			to_chat(user, span_warning("Проводка [src] не требует замены."))
@@ -224,9 +234,9 @@
 
 	return ..()
 
-/obj/item/clothing/neck/itb/proc/do_lock(mob/living/user, mob/living/target)
+/obj/item/clothing/suit/itb/proc/do_lock(mob/living/user, mob/living/target)
 	if(target)
-		wearer = target
+		wearer_ref = WEAKREF(target)
 	if(!is_worn())
 		to_chat(user, span_warning("[src] должен быть надет, прежде чем его можно будет закрыть."))
 		return FALSE
@@ -242,9 +252,9 @@
 	refresh_state()
 	return TRUE
 
-/obj/item/clothing/neck/itb/proc/do_unlock(mob/living/user, mob/living/target)
+/obj/item/clothing/suit/itb/proc/do_unlock(mob/living/user, mob/living/target)
 	if(target)
-		wearer = target
+		wearer_ref = WEAKREF(target)
 	if(!has_itb_access(user))
 		to_chat(user, span_warning("Для открытия [src] требуется доступ брига."))
 		return FALSE
@@ -254,18 +264,18 @@
 	refresh_state()
 	return TRUE
 
-/obj/item/clothing/neck/itb/proc/has_itb_access(mob/user)
+/obj/item/clothing/suit/itb/proc/has_itb_access(mob/user)
 	if(!isliving(user))
 		return FALSE
 	var/mob/living/living_user = user
 	return ACCESS_BRIG in living_user.get_access()
 
-/obj/item/clothing/neck/itb/proc/refresh_state()
+/obj/item/clothing/suit/itb/proc/refresh_state()
 	var/worn = is_worn()
 	set_nodrop(locked && tamper_stage != ITB_TAMPER_LOCK_BYPASSED && worn)
 	set_interference(locked && tamper_stage < ITB_TAMPER_WIRES_CUT && worn)
 
-/obj/item/clothing/neck/itb/proc/set_nodrop(new_nodrop)
+/obj/item/clothing/suit/itb/proc/set_nodrop(new_nodrop)
 	if(nodrop_applied == new_nodrop)
 		return
 	nodrop_applied = new_nodrop
@@ -274,35 +284,36 @@
 	else
 		REMOVE_TRAIT(src, TRAIT_NODROP, UNIQUE_TRAIT_SOURCE(src))
 
-/obj/item/clothing/neck/itb/proc/set_interference(new_interference)
+/obj/item/clothing/suit/itb/proc/set_interference(new_interference)
 	if(new_interference && !is_worn())
 		new_interference = FALSE
+	var/mob/living/wearer = wearer_ref?.resolve()
+	var/mob/living/interference_wearer = interference_wearer_ref?.resolve()
 	if(interference_applied == new_interference && (!new_interference || interference_wearer == wearer))
 		return
-	if(interference_applied && interference_wearer && !QDELETED(interference_wearer))
+	if(interference_applied && interference_wearer)
 		REMOVE_TRAIT(interference_wearer, TRAIT_NO_TELEPORT, UNIQUE_TRAIT_SOURCE(src))
 		REMOVE_TRAIT(interference_wearer, TRAIT_ITB_TELEPORT_BLOCK, UNIQUE_TRAIT_SOURCE(src))
 	interference_applied = FALSE
-	interference_wearer = null
-	if(!new_interference)
+	interference_wearer_ref = null
+	if(!new_interference || !wearer)
 		return
-	interference_wearer = wearer
+	interference_wearer_ref = wearer_ref
 	interference_applied = TRUE
-	ADD_TRAIT(interference_wearer, TRAIT_NO_TELEPORT, UNIQUE_TRAIT_SOURCE(src))
-	ADD_TRAIT(interference_wearer, TRAIT_ITB_TELEPORT_BLOCK, UNIQUE_TRAIT_SOURCE(src))
+	ADD_TRAIT(wearer, TRAIT_NO_TELEPORT, UNIQUE_TRAIT_SOURCE(src))
+	ADD_TRAIT(wearer, TRAIT_ITB_TELEPORT_BLOCK, UNIQUE_TRAIT_SOURCE(src))
 
-/obj/item/clothing/neck/itb/proc/apply_interference()
-	set_interference(TRUE)
-
-/obj/item/clothing/neck/itb/proc/remove_interference()
+/obj/item/clothing/suit/itb/proc/remove_interference()
 	set_interference(FALSE)
 
-/obj/item/clothing/neck/itb/proc/is_worn()
+/obj/item/clothing/suit/itb/proc/is_worn()
+	var/mob/living/wearer = wearer_ref?.resolve()
 	if(!wearer && isliving(loc))
 		wearer = loc
+		wearer_ref = WEAKREF(wearer)
 	if(!wearer)
 		return FALSE
-	return wearer.get_slot_by_item(src) == ITEM_SLOT_NECK
+	return wearer.get_slot_by_item(src) == ITEM_SLOT_CLOTH_OUTER
 
 /proc/get_itb_teleport_blocking_living(atom/movable/teleatom)
 	return get_teleport_blocking_living(teleatom, TRAIT_ITB_TELEPORT_BLOCK)

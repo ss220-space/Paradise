@@ -177,14 +177,14 @@
 
 	var/turf/start_turf = get_turf(user)
 	var/turf/end_turf = get_turf(anchor)
+	// Якорь расходуется при любой попытке отзыва, даже если телепорт заблокирован — иначе он может
+	// остаться в недосягаемом месте, и новый создать уже не получится.
+	QDEL_NULL(anchor)
 	if(end_turf.z != start_turf.z)
 		return
 	if(!is_teleport_allowed(end_turf.z))
 		return
-	if(itb_blocks_teleport(user, user, "ITB блокирует вашу связь с теневым якорем!"))
-		return
 
-	QDEL_NULL(anchor)
 	if(!do_magic_direct_teleport(user, end_turf, notified_user = user, block_message = "ITB блокирует вашу связь с теневым якорем!"))
 		return
 
@@ -280,10 +280,10 @@
 	return T
 
 /obj/effect/proc_holder/spell/vampire/vamp_extinguish/cast(list/targets, mob/user = usr)
-	for(var/turf/T in targets)
-		T.extinguish_light(force = TRUE)
-		for(var/atom/A in T.contents)
-			A.extinguish_light(force = TRUE)
+	for(var/turf/turf in targets)
+		turf.extinguish_light(force = TRUE)
+		for(var/atom/atom in turf.contents)
+			atom.extinguish_light(force = TRUE)
 
 /obj/effect/proc_holder/spell/vampire/shadow_boxing
 	name = "Бой с тенью"

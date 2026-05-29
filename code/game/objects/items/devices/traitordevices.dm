@@ -328,7 +328,7 @@ effective or pretty fucking useless.
 	if(tile_check(destination) || flawless) // Why is there so many bloody floor types
 		var/turf/fragging_location = destination
 		telefrag(fragging_location, user)
-		if(!do_direct_teleport(user, destination, ignore_bluespace_interference = TRUE))
+		if(!do_direct_teleport(user, destination))
 			return
 		playsound(mobloc, SFX_SPARKS, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		new/obj/effect/temp_visual/teleport_abductor/syndi_teleporter(mobloc)
@@ -394,7 +394,7 @@ effective or pretty fucking useless.
 
 	var/turf/fragging_location = new_destination
 	telefrag(fragging_location, user)
-	if(!do_direct_teleport(user, new_destination, ignore_bluespace_interference = TRUE))
+	if(!do_direct_teleport(user, new_destination))
 		return
 	playsound(mobloc, SFX_SPARKS, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(mobloc)
@@ -407,7 +407,7 @@ effective or pretty fucking useless.
 	if(!destination)
 		return
 
-	if(!do_direct_teleport(user, destination, ignore_bluespace_interference = TRUE))
+	if(!do_direct_teleport(user, destination, always_precise = TRUE))
 		return
 	playsound(mobloc, SFX_SPARKS, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(mobloc)

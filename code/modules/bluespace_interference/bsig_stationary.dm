@@ -10,7 +10,6 @@
 #define BSIG_S_MAX_RATING_OFFSET 3
 #define BSIG_S_FIELD_TURFS_KEY "field_turfs"
 #define BSIG_S_EDGE_TURFS_KEY "edge_turfs"
-#define DECL_BSIG_S_TILE(num) declension_ru(num, "", "а", "ов")
 
 /obj/item/circuitboard/machine/bsig_stationary
 	board_name = "BSIG-S"
@@ -148,7 +147,7 @@
 /datum/proximity_monitor/advanced/bsig_stationary/proc/on_interfered_movable_deleted(atom/movable/movable)
 	SIGNAL_HANDLER
 
-	interfered_movables -= movable
+	unregister_interfered_movable(movable)
 
 /datum/proximity_monitor/advanced/bsig_stationary/proc/block_movable_teleport(atom/movable/movable, turf/origin, turf/destination, list/teleport_data)
 	SIGNAL_HANDLER
@@ -419,7 +418,7 @@
 
 /obj/machinery/power/bluespace_interference_generator/stationary/examine(mob/user)
 	. = ..()
-	. += span_notice("Дисплей показывает радиус помех в [field_range] тайл[DECL_BSIG_S_TILE(field_range)] и потребление [power_usage] Вт.")
+	. += span_notice("Дисплей показывает радиус помех в [field_range] [declension_ru(field_range, "тайл", "тайла", "тайлов")] и потребление [power_usage] Вт.")
 	. += span_notice("[src] сейчас [enabled ? "включён" : "выключен"].")
 	if(enabled && !field_active)
 		if(stat & NOPOWER)
@@ -499,4 +498,3 @@
 #undef BSIG_S_MAX_RATING_OFFSET
 #undef BSIG_S_FIELD_TURFS_KEY
 #undef BSIG_S_EDGE_TURFS_KEY
-#undef DECL_BSIG_S_TILE
