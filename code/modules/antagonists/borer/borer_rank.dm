@@ -51,15 +51,19 @@
 
 /datum/borer_rank/mature/on_apply()
 	parent.user.update_transform(2)
+	parent.user.pixel_y = 0
 	parent.user.maxHealth += 5
+	parent.user.updatehealth()
 	return TRUE
 
 /datum/borer_rank/adult/on_apply()
 	parent.user.maxHealth += 5
+	parent.user.updatehealth()
 	return TRUE
 
 /datum/borer_rank/elder/on_apply()
 	parent.user.maxHealth += 10
+	parent.user.updatehealth()
 	return TRUE
 
 /datum/borer_rank/young/tick()
