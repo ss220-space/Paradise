@@ -1,4 +1,0 @@
-author: "dageavtobusnick"
-delete-after: True
-changes:
-  - bugfix: "Теперь мод контрактора работает корректно. (PR #9282)"
