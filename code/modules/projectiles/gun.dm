@@ -982,23 +982,10 @@
 
 		user.client.pixel_x = ICON_SIZE_X*_x
 		user.client.pixel_y = ICON_SIZE_Y*_y
-
-		for(var/mob/dead/observer/observe in user.inventory_observers)
-			if(!observe.client)
-				LAZYREMOVE(user.inventory_observers, observe)
-				continue
-			observe.client.pixel_x = ICON_SIZE_X*_x
-			observe.client.pixel_y = ICON_SIZE_Y*_y
 	else
 		user.client.pixel_x = 0
 		user.client.pixel_y = 0
-
-		for(var/mob/dead/observer/observe in user.inventory_observers)
-			if(!observe.client)
-				LAZYREMOVE(user.inventory_observers, observe)
-				continue
-			observe.client.pixel_x = 0
-			observe.client.pixel_y = 0
+	SEND_SIGNAL(user, COMSIG_MOB_ZOOMED)
 
 //Proc, so that gun accessories/scopes/etc. can easily add zooming.
 /obj/item/gun/proc/build_zooming()

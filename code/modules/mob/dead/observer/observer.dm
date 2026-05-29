@@ -47,7 +47,6 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	///does the ghost have plant scanner mode on? by default it should be off
 	var/plant_analyzer = FALSE
 	var/datum/orbit_menu/orbit_menu
-	var/mob/living/do_observe_target = null
 
 /mob/dead/observer/Initialize(mapload, flags = 1)
 	set_invisibility(GLOB.observer_default_invisibility)
@@ -129,7 +128,6 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	if(orbit_menu)
 		SStgui.close_uis(orbit_menu)
 		QDEL_NULL(orbit_menu)
-	do_observe_target = null
 	GLOB.respawnable_list -= src
 	return ..()
 
@@ -145,11 +143,6 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	lighting_alpha = client.prefs.ghost_darkness_level //Remembers ghost lighting pref
 	update_sight()
 
-/mob/dead/observer/proc/cleanup_observe()
-	client?.perspective = initial(client.perspective)
-	set_sight(SEE_TURFS | SEE_MOBS | SEE_OBJS | SEE_SELF)
-	if(do_observe_target)
-		hide_other_mob_action_buttons(do_observe_target)
 
 // This seems stupid, but it's the easiest way to avoid absolutely ridiculous shit from happening
 // Copying an appearance directly from a mob includes it's verb list, it's invisibility, it's alpha, and it's density
@@ -700,7 +693,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	// Проверка типа и существования моба для наблюдения
 	if(!client || !mob_eye || !istype(mob_eye) || isobserver(mob_eye))
-		cleanup_observe()
 		return
 
 	// Ограничение видимости для админских зон
@@ -711,55 +703,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(!mob_eye.hud_used)
 		return
 
-	// Регистрация сигналов и установка параметров наблюдения
-	RegisterSignal(src, COMSIG_ORBITER_ORBIT_STOP, PROC_REF(handle_when_autoobserve_move), TRUE)
-	RegisterSignal(mob_eye, COMSIG_MOB_UPDATE_SIGHT, PROC_REF(handle_when_autoobserve_sight_updated), TRUE)
-
-	client.set_eye(mob_eye)
-	sight = mob_eye.sight
-	lighting_alpha = mob_eye.lighting_alpha
-	update_sight()
-
-	client.clear_screen()
-	LAZYOR(mob_eye.inventory_observers, src)
-	mob_eye.hud_used.show_hud(mob_eye.hud_used.hud_version, src)
-
-	do_observe_target = mob_eye
-	ADD_TRAIT(src, TRAIT_OBSERVING_INVENTORY, UNIQUE_TRAIT_SOURCE(src))
-
-/mob/dead/observer/proc/handle_when_autoobserve_move()
-	SIGNAL_HANDLER
-
-	reset_perspective()
-	cleanup_observe()
-
-	hud_used?.plane_master_controllers[PLANE_MASTERS_GAME].remove_filter("eye_blur")
-	lighting_alpha = client?.prefs.ghost_darkness_level
-	update_sight()
-
-	if(do_observe_target)
-		LAZYREMOVE(do_observe_target.inventory_observers, src)
-
-	clear_fullscreens()
-
-	if(client)
-		UnregisterSignal(src, COMSIG_ORBITER_ORBIT_STOP)
-		if(do_observe_target)
-			UnregisterSignal(do_observe_target, COMSIG_MOB_UPDATE_SIGHT)
-
-	do_observe_target = null
-	REMOVE_TRAIT(src, TRAIT_OBSERVING_INVENTORY, UNIQUE_TRAIT_SOURCE(src))
-
-/mob/dead/observer/proc/handle_when_autoobserve_sight_updated()
-	SIGNAL_HANDLER
-
-	if(!orbiting || !client)
-		return
-
-	// idk why, but we need to hold '?' here, else this runtimes sometimes
-	sight = do_observe_target?.sight
-	lighting_alpha = do_observe_target?.lighting_alpha
-	update_sight()
+	AddComponent(/datum/component/true_observer)
 
 /mob/dead/observer/verb/toggle_ghostsee()
 	set name = "Видимость призраков"

@@ -1522,13 +1522,6 @@
 		return
 	var/atom/old_eye = eye
 	eye = new_eye
-
-	for(var/mob/dead/observer/observe in mob.inventory_observers)
-		if(!observe.client)
-			LAZYREMOVE(mob.inventory_observers, observe)
-			continue
-		observe.client.eye = new_eye
-
 	SEND_SIGNAL(src, COMSIG_CLIENT_SET_EYE, old_eye, new_eye)
 
 /**

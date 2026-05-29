@@ -1046,13 +1046,6 @@
 	var/atom/movable/plane_master_controller/game_plane_master_controller = owner.hud_used.plane_master_controllers[PLANE_MASTERS_GAME]
 	game_plane_master_controller.remove_filter("eye_blur")
 
-	// Maybe this should be bad for server perfomance, but i dont test it on production server
-	for(var/mob/dead/observer/observe in owner.inventory_observers)
-		if(!observe.client)
-			LAZYREMOVE(owner.inventory_observers, observe)
-			continue
-		game_plane_master_controller = observe.hud_used.plane_master_controllers[PLANE_MASTERS_GAME]
-		game_plane_master_controller.remove_filter("eye_blur")
 
 /// Updates the blur of the owner of the status effect.
 /// Also a signal proc for [COMSIG_MOB_LOGIN], to trigger then when the mob gets a client.
@@ -1067,13 +1060,6 @@
 	var/atom/movable/plane_master_controller/game_plane_master_controller = owner.hud_used.plane_master_controllers[PLANE_MASTERS_GAME]
 	game_plane_master_controller.add_filter("eye_blur", 1, gauss_blur_filter(amount_of_blur))
 
-	// Maybe this should be bad for server perfomance, but i dont test it on production server
-	for(var/mob/dead/observer/observe in owner.inventory_observers)
-		if(!observe.client)
-			LAZYREMOVE(owner.inventory_observers, observe)
-			continue
-		game_plane_master_controller = observe.hud_used.plane_master_controllers[PLANE_MASTERS_GAME]
-		game_plane_master_controller.add_filter("eye_blur", 1, gauss_blur_filter(amount_of_blur))
 
 // Blur lessens the closer we are to expiring, so we update per tick.
 /datum/status_effect/transient/eye_blurry/tick(seconds_between_ticks)

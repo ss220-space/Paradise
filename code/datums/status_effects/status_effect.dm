@@ -45,6 +45,7 @@
 		return FALSE
 	if(owner)
 		LAZYADD(owner.status_effects, src)
+		SEND_SIGNAL(owner, COMSIG_MOB_STATUS_EFFECT_CREATED, src)
 	if(duration != -1)
 		duration = world.time + duration
 	if(tick_interval != -1)

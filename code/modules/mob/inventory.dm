@@ -554,12 +554,6 @@
 	if(I)
 		if(client)
 			client.screen -= I
-		// For inventory observing
-		for(var/mob/dead/observer/observe as anything in inventory_observers)
-			if(!observe.client)
-				LAZYREMOVE(inventory_observers, observe)
-				continue
-			observe.client.screen -= I
 		I.layer = initial(I.layer)
 		SET_PLANE_EXPLICIT(I, initial(I.plane), newloc)
 		if(!no_move && !(I.item_flags & DROPDEL)) // Item may be moved/qdel'd immedietely, don't bother moving it

@@ -230,3 +230,10 @@
 /// Sent from /client/MouseDrag(): (atom/src_object, atom/over_object, turf/src_location, turf/over_location, src_control, over_control, params)
 #define COMSIG_MOB_MOUSEDRAG "mob_mousedrag"
 	#define COMSIG_MOB_CLICK_CANCELED (1<<0)
+
+/// Sent from any proc where we see 'client.screen |= or -=': (atom/element, is_added)
+#define COMSIG_CLIENT_SCREEN_ELEMENT "client_screen_element"
+/// From /obj/item/gun/proc/zoom(mob/living/user, forced_zoom): ()
+#define COMSIG_MOB_ZOOMED "mob_zoomed"
+/// From balloon_alert_perform(mob/viewer, text): (atom/source, text)
+#define COMSIG_MOB_BALOON_ALERT "mob_ballon_alert"

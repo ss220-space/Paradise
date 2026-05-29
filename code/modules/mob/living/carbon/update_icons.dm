@@ -146,20 +146,7 @@
 	client.screen += worn_item
 	worn_item.screen_loc = ui_screen_loc
 
-	update_observer_view(worn_item, togleable_inventory)
-
-/mob/living/carbon/proc/update_observer_view(obj/item/worn_item, inventory)
-	for(var/mob/dead/observer/observe as anything in inventory_observers)
-		if(!observe.client || observe.client.eye != src || !observe.do_observe_target != src)
-			LAZYREMOVE(inventory_observers, observe)
-			continue
-
-		if(!observe.hud_used)
-			continue
-
-		if(inventory && !observe.hud_used.inventory_shown)
-			continue
-		observe.client.screen += worn_item
+	SEND_SIGNAL(src, COMSIG_CLIENT_SCREEN_ELEMENT, worn_item, TRUE)
 
 /mob/living/carbon/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer, notify_contents)
 	. = ..()

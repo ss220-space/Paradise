@@ -235,11 +235,7 @@
 	if(from_inv_observers)
 		return
 
-	for(var/mob/dead/observer/observe in user.inventory_observers)
-		if(!observe.client)
-			LAZYREMOVE(user.inventory_observers, observe)
-			continue
-		show_to(observe, TRUE)
+	SEND_SIGNAL(user, COMSIG_LIVING_STORAGE_SHOW_TO, src)
 
 /obj/item/storage/proc/hide_from(mob/user, from_inv_observers = FALSE)
 	LAZYREMOVE(mobs_viewing, user) // Remove clientless mobs too
@@ -260,11 +256,7 @@
 	if(from_inv_observers)
 		return
 
-	for(var/mob/dead/observer/observe in user.inventory_observers)
-		if(!observe.client)
-			LAZYREMOVE(user.inventory_observers, observe)
-			continue
-		hide_from(observe, TRUE)
+	SEND_SIGNAL(user, COMSIG_LIVING_STORAGE_HIDE_FROM, src)
 
 /obj/item/storage/proc/on_mob_qdeleting(mob/source, force)
 	SIGNAL_HANDLER
@@ -731,12 +723,7 @@
 	if(usr)
 		if(usr.client && usr.s_active != src)
 			usr.client.screen -= W
-
-		for(var/mob/dead/observer/observe in usr.inventory_observers)
-			if(!observe.client)
-				LAZYREMOVE(usr.inventory_observers, observe)
-				continue
-			observe.client.screen -= W
+		SEND_SIGNAL(usr, COMSIG_CLIENT_SCREEN_ELEMENT, W, FALSE)
 
 		add_fingerprint(usr)
 

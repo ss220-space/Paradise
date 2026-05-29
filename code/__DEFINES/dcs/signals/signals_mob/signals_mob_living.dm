@@ -155,3 +155,9 @@
 
 /// From /mob/living/update_offsets(animate) : (new_x, new_y, new_w, new_z, animate)
 #define COMSIG_LIVING_UPDATE_OFFSETS "living_update_offsets"
+
+/// from /obj/item/storage/proc/show_to(mob/user, from_inv_observers = FALSE) : (obj/item/storage/storage)
+#define COMSIG_LIVING_STORAGE_SHOW_TO "living_storage_show_to"
+
+/// from /obj/item/storage/proc/hide_from(mob/user, from_inv_observers = FALSE) : (obj/item/storage/storage)
+#define COMSIG_LIVING_STORAGE_HIDE_FROM "living_storage_hide_from"

@@ -5,11 +5,6 @@
 	remove_from_alive_mob_list()
 	remove_from_dead_mob_list()
 	focus = null
-	for(var/mob/dead/observer/observe in orbiters)
-		if(!istype(observe))
-			continue
-		observe.stop_orbit()
-		observe.reset_perspective(null)
 	QDEL_NULL(hud_used)
 	lose_hearing_sensitivity()
 	if(mind && mind.current == src)
@@ -1242,11 +1237,6 @@
 	QDEL_NULL(vision_type)
 	if(O) //in case of null
 		vision_type = new O
-		for(var/mob/dead/observer/observe as anything in inventory_observers)
-			if(!observe.client)
-				LAZYREMOVE(inventory_observers, observe)
-				continue
-			observe.vision_type = vision_type
 	update_sight()
 
 /mob/proc/sync_lighting_plane_alpha()

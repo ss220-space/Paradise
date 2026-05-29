@@ -106,11 +106,7 @@
 		hud_used.reorganize_alerts()
 		client.screen -= alert
 
-		for(var/mob/dead/observer/observe as anything in inventory_observers)
-			if(!observe.client)
-				LAZYREMOVE(inventory_observers, observe)
-				continue
-			observe.client.screen -= alert
+	SEND_SIGNAL(src, COMSIG_CLIENT_SCREEN_ELEMENT, alert, FALSE)
 
 	qdel(alert)
 
@@ -904,13 +900,7 @@
 	if(!hud_shown)
 		for(var/i in 1 to length(alerts))
 			screenmob.client.screen -= alerts[alerts[i]]
-
-			for(var/mob/dead/observer/observe in mymob.inventory_observers)
-				if(!observe.client)
-					LAZYREMOVE(mymob.inventory_observers, observe)
-					continue
-				observe.client.screen -= alerts[alerts[i]]
-
+			SEND_SIGNAL(screenmob, COMSIG_CLIENT_SCREEN_ELEMENT, alerts[alerts[i]], FALSE)
 		return TRUE
 
 	var/icon_pref
@@ -922,13 +912,7 @@
 			alert.icon = icon_pref
 		alert.screen_loc = get_ui_alert_placement(i)
 		screenmob.client.screen |= alert
-
-		for(var/mob/dead/observer/observe in mymob.inventory_observers)
-			if(!observe.client)
-				LAZYREMOVE(mymob.inventory_observers, observe)
-				continue
-			observe.client.screen |= alert
-
+		SEND_SIGNAL(screenmob, COMSIG_CLIENT_SCREEN_ELEMENT, alert, FALSE)
 	return TRUE
 
 /// Gives the player the option to succumb while in critical condition

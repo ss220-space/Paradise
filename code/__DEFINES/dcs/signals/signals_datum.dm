@@ -57,6 +57,8 @@
 #define COMSIG_ARMGUARD_ACTION_TOGGLE "armguard_action_toggle"
 
 // //datum/status_effect
+/// from base of /datum/status_effect/on_creation() : (effect_type)
+#define COMSIG_MOB_STATUS_EFFECT_CREATED "mob_status_effect_created"
 /// from base of /datum/status_effect/Destroy() : (effect_type)
 #define COMSIG_MOB_STATUS_EFFECT_ENDED "mob_status_effect_ended"
 

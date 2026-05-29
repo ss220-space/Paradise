@@ -57,10 +57,9 @@
 	if(auto_observe)
 		var/mob/eye_mob = poi
 		if(istype(eye_mob) && eye_mob.client)
-			owner.handle_when_autoobserve_move()
-			owner.do_observe(eye_mob)
+			AddComponent(/datum/component/true_observer, owner, eye_mob)
 		else
-			owner.handle_when_autoobserve_move()
+			qdel(owner.GetComponent(/datum/component/true_observer))
 			to_chat(owner, span_alert("Объект, за которым Вы следуете, не имеет за собой игрока! Показать инвентарь <b>невозможно</b>."))
 
 	owner.ManualFollow(poi)
@@ -69,7 +68,7 @@
 	auto_observe = !auto_observe
 
 	if(!owner.orbiting)
-		owner.handle_when_autoobserve_move()
+		qdel(owner.GetComponent(/datum/component/true_observer))
 		return
 
 	if(auto_observe)
@@ -82,7 +81,7 @@
 
 	var/atom/movable/eye_mob = owner.orbiting
 	owner.orbiting = null
-	owner.handle_when_autoobserve_move()
+	qdel(owner.GetComponent(/datum/component/true_observer))
 	owner.orbiting = eye_mob
 
 /datum/orbit_menu/ui_data(mob/user)
