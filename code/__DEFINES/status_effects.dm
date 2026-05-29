@@ -161,6 +161,7 @@
 #define STATUS_EFFECT_DIRECTIONAL_SLOW /datum/status_effect/incapacitating/directional_slow
 #define STATUS_EFFECT_PARALYZED /datum/status_effect/incapacitating/paralyzed
 #define STATUS_EFFECT_KNOCKDOWN /datum/status_effect/incapacitating/knockdown
+#define STATUS_EFFECT_CAPITULATED /datum/status_effect/incapacitating/capitulated
 #define STATUS_EFFECT_ARMBAR /datum/status_effect/judo_armbar
 
 // transient
@@ -196,6 +197,9 @@
 #define STATUS_EFFECT_LUNGING /datum/status_effect/lunging
 
 #define STATUS_EFFECT_DROPNROLL /datum/status_effect/stop_drop_roll
+
+#define STATUS_EFFECT_HELD_UP /datum/status_effect/grouped/heldup
+#define STATUS_EFFECT_HOLDUP /datum/status_effect/holdup
 
 //#define STATUS_EFFECT_SIGILMARK /datum/status_effect/sigil_mark
 
