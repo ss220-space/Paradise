@@ -8,7 +8,10 @@
 #define GUNPOINT_MULT_STAGE_2 2
 /// As above, for stage 3
 #define GUNPOINT_MULT_STAGE_3 2.5
-
+/// Stages defines
+#define GUNPOINT_ESCALATE_STAGE_1 1
+#define GUNPOINT_ESCALATE_STAGE_2 2
+#define GUNPOINT_ESCALATE_STAGE_3 3
 
 /datum/component/gunpoint
 	dupe_mode = COMPONENT_DUPE_UNIQUE
@@ -19,7 +22,7 @@
 	var/obj/item/gun/weapon
 
 	/// Which stage we're on
-	var/stage = 1
+	var/stage = GUNPOINT_ESCALATE_STAGE_1
 	/// How much the damage and wound values will be multiplied by
 	var/damage_mult = GUNPOINT_MULT_STAGE_1
 	/// If TRUE, we're committed to firing the shot, for async purposes
@@ -47,11 +50,11 @@
 		shooter.Immobilize(0.75 SECONDS / distance)
 
 	shooter.apply_status_effect(/datum/status_effect/holdup, shooter)
-	target.apply_status_effect(/datum/status_effect/grouped/heldup, UID_of(shooter))
+	target.apply_status_effect(/datum/status_effect/grouped/heldup, shooter.UID())
 	do_alert_animation(target)
 	playsound(target.loc, 'sound/machines/chime.ogg', 50, TRUE)
 
-	addtimer(CALLBACK(src, PROC_REF(update_stage), 2), GUNPOINT_DELAY_STAGE_2)
+	addtimer(CALLBACK(src, PROC_REF(update_stage), GUNPOINT_ESCALATE_STAGE_2), GUNPOINT_DELAY_STAGE_2)
 
 	check_and_award_achievements(shooter)
 
@@ -60,7 +63,7 @@
 	if(shooter)
 		shooter.remove_status_effect(/datum/status_effect/holdup)
 	if(target)
-		target.remove_status_effect(/datum/status_effect/grouped/heldup, UID_of(shooter))
+		target.remove_status_effect(/datum/status_effect/grouped/heldup, shooter.UID())
 		if(!target.has_status_effect(STATUS_EFFECT_HELD_UP))
 			target.remove_status_effect(STATUS_EFFECT_CAPITULATED)
 		target = null
@@ -141,12 +144,12 @@
 	if(check_deescalate())
 		return
 	stage = new_stage
-	if(stage == 2)
+	if(stage == GUNPOINT_ESCALATE_STAGE_2)
 		to_chat(shooter, span_danger("Вы наставили [weapon.declent_ru(ACCUSATIVE)] на [target.declent_ru(ACCUSATIVE)]."))
 		to_chat(target, span_userdanger("[shooter] наставил[GEND_A_O_I(shooter)] [weapon.declent_ru(ACCUSATIVE)] на вас!"))
 		damage_mult = GUNPOINT_MULT_STAGE_2
-		addtimer(CALLBACK(src, PROC_REF(update_stage), 3), GUNPOINT_DELAY_STAGE_3)
-	else if(stage == 3)
+		addtimer(CALLBACK(src, PROC_REF(update_stage), GUNPOINT_ESCALATE_STAGE_3), GUNPOINT_DELAY_STAGE_3)
+	else if(stage == GUNPOINT_ESCALATE_STAGE_3)
 		to_chat(shooter, span_danger("Вы намертво зафиксировали прицел [weapon.declent_ru(GENITIVE)] на [target.declent_ru(PREPOSITIONAL)]."))
 		to_chat(target, span_userdanger("[shooter] намертво зафиксировал[GEND_A_O_I(shooter)] прицел [weapon.declent_ru(GENITIVE)] на вас!"))
 		damage_mult = GUNPOINT_MULT_STAGE_3
@@ -176,7 +179,7 @@
 		return
 
 	shooter.remove_status_effect(/datum/status_effect/holdup)
-	target.remove_status_effect(/datum/status_effect/grouped/heldup, UID_of(shooter))
+	target.remove_status_effect(/datum/status_effect/grouped/heldup, shooter.UID())
 
 	if(point_of_no_return)
 		return
@@ -225,10 +228,9 @@
 	if(iscarbon(source))
 		var/mob/living/carbon/carbon_source = source
 		var/obj/item/held_hand = carbon_source.is_in_hands(weapon)
-		if(held_hand)
-			var/gun_hand = (held_hand == carbon_source.l_hand) ? BODY_ZONE_L_ARM : BODY_ZONE_R_ARM
-			if(def_zone == gun_hand)
-				flinch_chance = 80
+
+		if(held_hand && def_zone == ((held_hand == source.l_hand) ? BODY_ZONE_L_ARM : BODY_ZONE_R_ARM))
+			flinch_chance = 80
 
 	if(prob(flinch_chance))
 		source.visible_message(
@@ -275,3 +277,6 @@
 #undef GUNPOINT_MULT_STAGE_1
 #undef GUNPOINT_MULT_STAGE_2
 #undef GUNPOINT_MULT_STAGE_3
+#undef GUNPOINT_ESCALATE_STAGE_1
+#undef GUNPOINT_ESCALATE_STAGE_2
+#undef GUNPOINT_ESCALATE_STAGE_3
