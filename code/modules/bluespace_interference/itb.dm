@@ -14,7 +14,6 @@
 	icon = 'icons/obj/clothing/neck.dmi'
 	icon_state = "ITB"
 	item_state = "neck_ITB"
-	body_parts_covered = NONE
 	resistance_flags = FIRE_PROOF
 	// Носится в слоте брони, но визуально и по спрайтам остаётся ошейником из neck.dmi.
 	allowed = list()
