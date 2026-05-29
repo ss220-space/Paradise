@@ -61,7 +61,7 @@
 	. = ..()
 	refresh_ID()
 
-/obj/item/storage/wallet/proc/refresh_on_signal(datum/source)
+/obj/item/storage/wallet/proc/refresh_id_on_signal(datum/source)
 	SIGNAL_HANDLER
 
 	refresh_ID()
