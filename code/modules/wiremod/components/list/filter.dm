@@ -91,10 +91,11 @@
 
 		if(isnull(result))
 			balloon_alert_to_viewers("начинает перегреваться!")
+			finished_list.set_output(null)
 			on_failed.set_output(COMPONENT_SIGNAL)
 			return
 
-		if(LAZYACCESS(result, "accept_entry"))
+		if(result["accept_entry"])
 			filtered_list += list(element_in_list)
 			continue
 
