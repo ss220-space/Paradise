@@ -30,10 +30,6 @@
 	/// A signal that is sent when the filtering has failed
 	var/datum/port/output/on_failed
 
-	ui_buttons = list(
-		"plus" = "increase",
-	)
-
 	/// The limit of iterations before it breaks. Used to prevent from someone iterating a massive list constantly
 	var/limit = 300
 
