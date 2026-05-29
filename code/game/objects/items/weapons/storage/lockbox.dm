@@ -64,8 +64,7 @@
 
 /obj/item/storage/lockbox/dump_storage(mob/user, obj/item/storage/target)
 	if(locked)
-		if(user)
-			balloon_alert(user, "заперто!")
+		user?.balloon_alert(user, "заперто")
 		return
 	return ..()
 
