@@ -513,8 +513,7 @@
 
 		return (have_hud_exam & hud_exam)
 
-	else if(isrobot(M) || isAI(M)) //Stand-in/Stopgap to prevent pAIs from freely altering records, pending a more advanced Records system
-
+	else if(isrobot(M))
 		var/mob/living/silicon/robot/R = M
 		var/is_hydro_hud_active = 0
 		for(var/datum/action/innate/A in R.module_actions)
@@ -522,6 +521,9 @@
 				is_hydro_hud_active = A.active ? EXAMINE_HUD_BOTANY : 0
 
 		return hud_exam & is_hydro_hud_active || hud_exam & EXAMINE_HUD_SECURITY_READ || hud_exam & EXAMINE_HUD_SECURITY_WRITE || hud_exam & EXAMINE_HUD_MEDICAL
+
+	else if(isAI(M)) //Stand-in/Stopgap to prevent pAIs from freely altering records, pending a more advanced Records system
+		return hud_exam & EXAMINE_HUD_SECURITY_READ || hud_exam & EXAMINE_HUD_SECURITY_WRITE || hud_exam & EXAMINE_HUD_MEDICAL
 
 	else if(ispAI(M))
 		var/mob/living/silicon/pai/P = M
