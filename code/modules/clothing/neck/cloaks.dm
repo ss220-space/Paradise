@@ -205,8 +205,8 @@
 		SPECIES_WOLPIN = 'icons/mob/clothing/neck.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/neck.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/neck.dmi',
-		SPECIES_PLASMAMAN = 'icons/mob/clothing/neck.dmi'
-		)
+		SPECIES_PLASMAMAN = 'icons/mob/clothing/neck.dmi',
+	)
 
 /obj/item/clothing/neck/cloak/hos_cape/get_ru_names()
 	return list(
