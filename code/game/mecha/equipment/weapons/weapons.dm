@@ -23,9 +23,9 @@
 	. = ..()
 
 /obj/item/mecha_parts/mecha_equipment/weapon/check_allowed_equipment(obj/mecha/M)
-    if(M.allowed_equipment & MECH_EQUIPMENT_COMBAT || M.emagged)
-        return TRUE
-    . = ..()
+	if(M.allowed_equipment & MECH_EQUIPMENT_COMBAT || M.emagged)
+		return TRUE
+	. = ..()
 
 /obj/item/mecha_parts/mecha_equipment/weapon/proc/get_shot_amount()
 	return projectiles_per_shot
@@ -199,9 +199,9 @@
 	range = MECHA_MELEE | MECHA_RANGED
 
 /obj/item/mecha_parts/mecha_equipment/weapon/honker/check_allowed_equipment(obj/mecha/M)
-    if(M.allowed_equipment & MECH_EQUIPMENT_CLOWN || M.allowed_equipment & MECH_EQUIPMENT_ALL)
-        return TRUE
-    return FALSE
+	if(M.allowed_equipment & MECH_EQUIPMENT_CLOWN || M.allowed_equipment & MECH_EQUIPMENT_ALL)
+		return TRUE
+	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/honker/action(target, list/modifiers)
 	if(!chassis)
@@ -302,9 +302,9 @@
 	projectile_energy_cost = 50
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/carbine/silenced/check_allowed_equipment(obj/mecha/M)
-    if(M.allowed_equipment & MECH_EQUIPMENT_MIME || M.allowed_equipment & MECH_EQUIPMENT_ALL)
-        return TRUE
-    return FALSE
+	if(M.allowed_equipment & MECH_EQUIPMENT_MIME || M.allowed_equipment & MECH_EQUIPMENT_ALL)
+		return TRUE
+	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot
 	name = "LBX AC 10 \"Scattershot\""
@@ -548,9 +548,9 @@
 	harmful = FALSE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/mousetrap_mortar/check_allowed_equipment(obj/mecha/M)
-    if(M.allowed_equipment & MECH_EQUIPMENT_CLOWN || M.allowed_equipment & MECH_EQUIPMENT_ALL)
-        return TRUE
-    return FALSE
+	if(M.allowed_equipment & MECH_EQUIPMENT_CLOWN || M.allowed_equipment & MECH_EQUIPMENT_ALL)
+		return TRUE
+	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/mousetrap_mortar/action(target, list/modifiers)
 	if(!action_checks(target))
