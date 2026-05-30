@@ -26,9 +26,7 @@
 	},
 /area/shuttle/transport)
 "d" = (
-/obj/machinery/defibrillator_mount/loaded{
-	pixel_y = 32
-	},
+/obj/machinery/defibrillator_mount/loaded/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
@@ -96,9 +94,7 @@
 	},
 /area/shuttle/transport)
 "s" = (
-/obj/machinery/defibrillator_mount/loaded{
-	pixel_y = -32
-	},
+/obj/machinery/defibrillator_mount/loaded/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},

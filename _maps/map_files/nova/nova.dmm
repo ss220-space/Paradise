@@ -61627,9 +61627,7 @@
 	},
 /area/security/permabrig)
 "jns" = (
-/obj/machinery/defibrillator_mount/loaded{
-	pixel_y = 32
-	},
+/obj/machinery/defibrillator_mount/loaded/directional/north,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
 	},
@@ -125848,9 +125846,7 @@
 	},
 /area/security/prison/cell_block/A)
 "teL" = (
-/obj/machinery/defibrillator_mount/loaded{
-	pixel_y = -32
-	},
+/obj/machinery/defibrillator_mount/loaded/directional/south,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4

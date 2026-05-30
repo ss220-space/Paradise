@@ -747,9 +747,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
 "cv" = (
-/obj/machinery/defibrillator_mount{
-	pixel_y = -32
-	},
+/obj/machinery/defibrillator_mount/directional/south,
 /obj/effect/mob_spawn/carp,
 /obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/plating/airless,

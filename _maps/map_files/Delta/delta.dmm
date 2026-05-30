@@ -61769,9 +61769,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/defibrillator_mount/loaded{
-	pixel_y = -32
-	},
+/obj/machinery/defibrillator_mount/loaded/directional/south,
 /obj/effect/landmark/start/doctor,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
@@ -86915,9 +86913,7 @@
 	},
 /area/maintenance/asmaint4)
 "pzO" = (
-/obj/machinery/defibrillator_mount/loaded{
-	pixel_y = 32
-	},
+/obj/machinery/defibrillator_mount/loaded/directional/north,
 /obj/effect/landmark/start/doctor,
 /turf/simulated/floor/plasteel{
 	dir = 1;

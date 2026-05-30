@@ -1,0 +1,9 @@
+/obj/machinery/defibrillator_mount {pixel_x=32} : /obj/machinery/defibrillator_mount/directional/east
+/obj/machinery/defibrillator_mount {pixel_x=-32} : /obj/machinery/defibrillator_mount/directional/west
+/obj/machinery/defibrillator_mount {pixel_y=32} : /obj/machinery/defibrillator_mount/directional/north
+/obj/machinery/defibrillator_mount {pixel_y=-32} : /obj/machinery/defibrillator_mount/directional/south
+
+/obj/machinery/defibrillator_mount/loaded {pixel_x=32} : /obj/machinery/defibrillator_mount/loaded/directional/east
+/obj/machinery/defibrillator_mount/loaded {pixel_x=-32} : /obj/machinery/defibrillator_mount/loaded/directional/west
+/obj/machinery/defibrillator_mount/loaded {pixel_y=32} : /obj/machinery/defibrillator_mount/loaded/directional/north
+/obj/machinery/defibrillator_mount/loaded {pixel_y=-32} : /obj/machinery/defibrillator_mount/loaded/directional/south
