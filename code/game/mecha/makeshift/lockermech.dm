@@ -36,7 +36,6 @@
 /obj/mecha/makeshift/lockersyndie
 	desc = "Шкафчик с украденными проводами, распорками, электроникой и сервоприводами шлюза, грубо собранными во что-то, напоминающее меха. Окрашен в темно-красный цвет."
 	name = "Syndie Locker Mech"
-	icon = 'icons/obj/mecha/lockermech.dmi'
 	icon_state = "syndielockermech"
 	initial_icon = "syndielockermech"
 	max_integrity = 250 //its made of scraps
