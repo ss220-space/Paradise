@@ -22,9 +22,7 @@ ADMIN_VERB(upload_jukebox_music, R_SOUNDS, "Jukebox Upload Music", "Загруз
 	// Copy uploaded file to the server
 	fcopy(file, save_path)
 
-	var/msg = "[key_name_admin(user)] uploaded [clean_name] to the jukebox!"
-	message_admins(msg)
-	log_admin(msg)
+	log_and_message_admins("uploaded [clean_name] to the jukebox!")
 	SSblackbox.record_feedback("associative", "jukebox_upload", 1, list("round_id" = "[GLOB.round_id]", "uploader" = "[key_name_admin(user)]", "uploaded" = "[clean_name]"))
 	to_chat(user, span_notice("[clean_name] успешно загружен!"))
 
@@ -49,9 +47,7 @@ ADMIN_VERB(browse_jukebox_music, R_SOUNDS, "Jukebox Browse Music", "Просмо
 			SEND_SOUND(user, sound(path))
 		if("Удалить")
 			fdel(path)
-			var/msg = "[key_name_admin(user)] deleted [choice] from the jukebox!"
-			message_admins(msg)
-			log_admin(msg)
+			log_and_message_admins("deleted [choice] from the jukebox!")
 			SSblackbox.record_feedback("associative", "jukebox_deletion", 1, list("round_id" = "[GLOB.round_id]", "deletor" = "[key_name_admin(user)]", "deleted" = "[choice]"))
 		if("Скачать")
 			user << ftp(WRAP_FILE(path))

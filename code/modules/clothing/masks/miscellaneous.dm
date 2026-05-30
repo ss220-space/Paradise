@@ -681,6 +681,7 @@
 
 /obj/item/clothing/mask/gas/voice_modulator/Initialize(mapload)
 	. = ..()
+	AddElement(/datum/element/tts_modifier, SOUND_EFFECT_MASKFILTER)
 	voice_modulator = new(src)
 
 /obj/item/clothing/mask/gas/voice_modulator/Destroy()
