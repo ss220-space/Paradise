@@ -8724,9 +8724,7 @@
 /area/ruin/space/pirate_base/atmos)
 "AF" = (
 /obj/machinery/optable,
-/obj/machinery/defibrillator_mount/loaded{
-	pixel_y = -30
-	},
+/obj/machinery/defibrillator_mount/loaded/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"
 	},

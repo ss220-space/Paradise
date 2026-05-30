@@ -43941,9 +43941,7 @@
 	},
 /area/medical/medbay2)
 "fzQ" = (
-/obj/machinery/defibrillator_mount/loaded{
-	pixel_x = -30
-	},
+/obj/machinery/defibrillator_mount/loaded/directional/west,
 /obj/structure/table/glass,
 /obj/item/storage/toolbox/surgery{
 	pixel_x = -1;

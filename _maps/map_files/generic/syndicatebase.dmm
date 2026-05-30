@@ -20710,9 +20710,7 @@
 /area/space)
 "tjA" = (
 /obj/machinery/optable,
-/obj/machinery/defibrillator_mount/loaded{
-	pixel_x = 30
-	},
+/obj/machinery/defibrillator_mount/loaded/directional/east,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -24735,9 +24733,7 @@
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "wmf" = (
 /obj/machinery/optable,
-/obj/machinery/defibrillator_mount/loaded{
-	pixel_x = 30
-	},
+/obj/machinery/defibrillator_mount/loaded/directional/east,
 /obj/machinery/light/small{
 	dir = 4
 	},

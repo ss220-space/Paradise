@@ -22438,9 +22438,7 @@
 	dir = 1;
 	in_use = 1
 	},
-/obj/machinery/defibrillator_mount/loaded{
-	pixel_y = 26
-	},
+/obj/machinery/defibrillator_mount/loaded/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
