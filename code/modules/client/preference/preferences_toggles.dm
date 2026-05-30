@@ -323,7 +323,7 @@
 	blackbox_message = "Toggle Runechat LOOC"
 
 /datum/preference_toggle/toggle_runechat_dead
-	name = "Rune-Deadchat"
+	name = "Runechat для призраков"
 	description = "Переключает видимость Runechat облаков с сообщениями умерших игроков."
 	preftoggle_bitflag = PREFTOGGLE_3_RUNECHAT_DEAD
 	preftoggle_toggle = PREFTOGGLE_TOGGLE3

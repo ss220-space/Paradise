@@ -78,10 +78,12 @@
 	add_deadchat_logs(src, message)
 
 	// rune chat
+	var/current_game_state = SSticker.current_state
+	var/speaker_invisibility = invisibility
 	for(var/mob/mobs_hearing as anything in viewers(src))
-		if(SSticker.current_state != GAME_STATE_FINISHED && (mobs_hearing.see_invisible < invisibility || !isdead(mobs_hearing)))
+		if(current_game_state != GAME_STATE_FINISHED && (mobs_hearing.see_invisible < speaker_invisibility || !isdead(mobs_hearing)))
 			continue
-		if(mobs_hearing.client && mobs_hearing.client.prefs.toggles3 & PREFTOGGLE_3_RUNECHAT_DEAD && mobs_hearing)
+		if(mobs_hearing.client && (mobs_hearing.client.prefs.toggles3 & PREFTOGGLE_3_RUNECHAT_DEAD))
 			mobs_hearing.create_chat_message(src, message)
 /**
  * Checks if the mob can understand the other speaker
