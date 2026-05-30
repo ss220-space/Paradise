@@ -1,29 +1,29 @@
 
-// Drill, Diamond drill, Mining scanner
+// Drill, Diamond drill, Mining	scanner
 
-#define DRILL_BASIC 1
-#define DRILL_HARDENED 2
+#define	DRILL_BASIC	1
+#define	DRILL_HARDENED 2
 
 /obj/item/mecha_parts/mecha_equipment/drill
-	name = "exosuit drill"
-	desc = "Equipment for engineering and combat exosuits. This is the drill that'll pierce the heavens!"
+	name = "exosuit	drill"
+	desc = "Equipment for engineering and combat exosuits. This	is the drill that'll pierce	the	heavens!"
 	icon_state = "mecha_drill"
 	equip_cooldown = 1.5 SECONDS
 	energy_drain = 10
-	force = 15
-	harmful = TRUE
-	sharp = TRUE
-	var/drill_delay = 7
-	var/drill_level = DRILL_BASIC
+	force =	15
+	harmful	= TRUE
+	sharp =	TRUE
+	var/drill_delay	= 7
+	var/drill_level	= DRILL_BASIC
 
 /obj/item/mecha_parts/mecha_equipment/drill/action_checks(atom/target)
-	. = ..()
+	. =	..()
 	if(!.)
 		return
 
 	return chassis.Adjacent(target)
 
-/obj/item/mecha_parts/mecha_equipment/drill/action(atom/target, list/modifiers)
+/obj/item/mecha_parts/mecha_equipment/drill/action(atom/target,	list/modifiers)
 	if(!action_checks(target))
 		return FALSE
 	if(isspaceturf(target))
@@ -33,7 +33,7 @@
 		if(target_obj.resistance_flags & UNACIDABLE)
 			return FALSE
 	target.visible_message(
-		span_warning("[chassis] starts to drill [target]."),
+		span_warning("[chassis]	starts to drill	[target]."),
 		span_userdanger("[chassis] starts to drill [target]..."),
 		span_italics("You hear drilling.")
 	)
@@ -49,8 +49,8 @@
 				drill_mob(target, chassis.occupant)
 				playsound(src, 'sound/weapons/drill.ogg', 40, TRUE)
 			else if(isobj(target))
-				var/obj/O = target
-				O.take_damage(15, BRUTE, 0, FALSE, get_dir(chassis, target))
+				var/obj/O =	target
+				O.take_damage(15, BRUTE, 0, FALSE, get_dir(chassis,	target))
 				playsound(src, 'sound/weapons/drill.ogg', 40, TRUE)
 			else
 				set_ready_state(TRUE)
@@ -78,76 +78,76 @@
 	drill.move_ores()
 
 /turf/simulated/floor/plating/asteroid/drill_act(obj/item/mecha_parts/mecha_equipment/drill/drill)
-	for(var/turf/simulated/floor/plating/asteroid/M in range(1, drill.chassis))
-		if((get_dir(drill.chassis, M) & drill.chassis.dir) && !M.dug)
+	for(var/turf/simulated/floor/plating/asteroid/M	in range(1,	drill.chassis))
+		if((get_dir(drill.chassis, M) &	drill.chassis.dir) && !M.dug)
 			M.getDug()
 	drill.move_ores()
 
 /obj/item/mecha_parts/mecha_equipment/drill/proc/move_ores()
-	if((locate(/obj/item/mecha_parts/mecha_equipment/hydraulic_clamp) in chassis.equipment) && istype(chassis, /obj/mecha/working))
-		var/obj/mecha/working/R = chassis //we could assume that it's a ripley because it has a clamp, but that's ~unsafe~ and ~bad practice~
+	if((locate(/obj/item/mecha_parts/mecha_equipment/hydraulic_clamp) in chassis.equipment)	&& istype(chassis, /obj/mecha/working))
+		var/obj/mecha/working/R	= chassis //we could assume	that it's a	ripley because it has a	clamp, but that's ~unsafe~ and ~bad	practice~
 		R.collect_ore()
 
 /obj/item/mecha_parts/mecha_equipment/drill/check_allowed_equipment(obj/mecha/M)
-	if(M.allowed_equipment & MECH_EQUIPMENT_WORKING || M.allowed_equipment & MECH_EQUIPMENT_COMBAT)
+	if(M.allowed_equipment & MECH_EQUIPMENT_WORKING	|| M.allowed_equipment & MECH_EQUIPMENT_COMBAT)
 		return TRUE
-	. = ..()
+	. =	..()
 
 /obj/item/mecha_parts/mecha_equipment/drill/proc/drill_mob(mob/living/target, mob/user)
 	target.visible_message(
-		span_danger("[chassis] is drilling [target] with [src]!"),
-		span_userdanger("[chassis] is drilling you with [src]!")
+		span_danger("[chassis] is drilling [target]	with [src]!"),
+		span_userdanger("[chassis] is drilling you with	[src]!")
 	)
-	add_attack_logs(user, target, "DRILLED with [src] ([uppertext(user.a_intent)]) ([uppertext(damtype)])")
-	if(target.stat == DEAD && target.getBruteLoss() >= 200)
+	add_attack_logs(user, target, "DRILLED with	[src] ([uppertext(user.a_intent)]) ([uppertext(damtype)])")
+	if(target.stat == DEAD && target.getBruteLoss()	>= 200)
 		add_attack_logs(user, target, "gibbed")
 		if(LAZYLEN(target.butcher_results) || is_monkeybasic(target))
-			target.harvest(chassis) // Butcher the mob with our drill.
+			target.harvest(chassis)	// Butcher the mob with	our	drill.
 		else
 			target.gib()
 	else
-		var/splatter_angle = get_angle(chassis, target)
+		var/splatter_angle = get_angle(chassis,	target)
 		if(ishuman(target))
 			var/mob/living/carbon/human/target_human = target
-			var/obj/item/organ/external/target_part = target_human.get_organ(ran_zone(BODY_ZONE_CHEST))
-			target_human.apply_damage(10, BRUTE, BODY_ZONE_CHEST, target_human.run_armor_check(target_part, MELEE))
+			var/obj/item/organ/external/target_part	= target_human.get_organ(ran_zone(BODY_ZONE_CHEST))
+			target_human.apply_damage(10, BRUTE, BODY_ZONE_CHEST, target_human.run_armor_check(target_part,	MELEE))
 
-			//blood splatters
+			//blood	splatters
 			var/splatter_color = target_human.get_blood_color()
 			if(splatter_color)
-				new /obj/effect/temp_visual/dir_setting/bloodsplatter(target_human.drop_location(), splatter_angle, splatter_color)
+				new	/obj/effect/temp_visual/dir_setting/bloodsplatter(target_human.drop_location(),	splatter_angle,	splatter_color)
 
 			//organs go everywhere
-			if(target_part && prob(10 * drill_level))
+			if(target_part && prob(10 *	drill_level))
 				target_part.droplimb()
 		else
 			target.adjustBruteLoss(10)
 			if(isalien(target))
 				var/splatter_color = target.get_blood_color()
 				if(splatter_color)
-					new /obj/effect/temp_visual/dir_setting/bloodsplatter/xenosplatter(target.drop_location(), splatter_angle, splatter_color)
+					new	/obj/effect/temp_visual/dir_setting/bloodsplatter/xenosplatter(target.drop_location(), splatter_angle, splatter_color)
 
 /obj/item/mecha_parts/mecha_equipment/drill/diamonddrill
 	name = "diamond-tipped exosuit drill"
-	desc = "Equipment for engineering and combat exosuits. This is an upgraded version of the drill that'll pierce the heavens!"
+	desc = "Equipment for engineering and combat exosuits. This	is an upgraded version of the drill	that'll	pierce the heavens!"
 	icon_state = "mecha_diamond_drill"
-	origin_tech = "materials=4;engineering=4"
+	origin_tech	= "materials=4;engineering=4"
 	equip_cooldown = 1 SECONDS
-	drill_delay = 4
-	drill_level = DRILL_HARDENED
+	drill_delay	= 4
+	drill_level	= DRILL_HARDENED
 
 /obj/item/mecha_parts/mecha_equipment/drill/giga
-	name = "Old giant steel drill"
-	desc = "Time-tested giant diamond-coated steel drill. This giant will drill anything!"
+	name = "Old	giant steel	drill"
+	desc = "Time-tested	giant diamond-coated steel drill. This giant will drill	anything!"
 	icon_state = "mech_gigadrill"
 	equip_cooldown = 0.5 SECONDS
-	drill_delay = 2
-	drill_level = DRILL_HARDENED
+	drill_delay	= 2
+	drill_level	= DRILL_HARDENED
 	integrated = TRUE
 
 /obj/item/mecha_parts/mecha_equipment/mining_scanner
-	name = "exosuit mining scanner"
-	desc = "Equipment for engineering and combat exosuits. It will automatically check surrounding rock for useful minerals."
+	name = "exosuit	mining scanner"
+	desc = "Equipment for engineering and combat exosuits. It will automatically check surrounding rock	for	useful minerals."
 	icon_state = "mecha_analyzer"
 	equip_cooldown = 1.5 SECONDS
 
@@ -159,7 +159,7 @@
 	return TRUE
 
 /obj/item/mecha_parts/mecha_equipment/mining_scanner/attach_act(obj/mecha/M)
-	START_PROCESSING(SSobj, src)
+	START_PROCESSING(SSobj,	src)
 
 /obj/item/mecha_parts/mecha_equipment/mining_scanner/detach_act(obj/mecha/M)
 	STOP_PROCESSING(SSobj, src)
@@ -171,7 +171,7 @@
 	if(!action_checks(src))
 		return FALSE
 	if(istype(loc, /obj/mecha/working))
-		var/obj/mecha/working/mecha = loc
+		var/obj/mecha/working/mecha	= loc
 		if(!mecha.occupant)
 			return FALSE
 		mineral_scan_pulse(get_turf(src))

@@ -1,18 +1,18 @@
-//Hydraulic clamp, Kill clamp, RCD, Mime RCD, ATMOS module(Extinguisher, Cable layer, Holowall), Engineering toolset.
+//Hydraulic	clamp, Kill	clamp, RCD,	Mime RCD, ATMOS	module(Extinguisher, Cable layer, Holowall), Engineering toolset.
 
 /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp
 	name = "hydraulic clamp"
-	desc = "Equipment for engineering exosuits. Lifts objects and loads them into cargo."
+	desc = "Equipment for engineering exosuits.	Lifts objects and loads	them into cargo."
 	icon_state = "mecha_clamp"
 	equip_cooldown = 1.5 SECONDS
 	energy_drain = 10
-	var/dam_force = 20
-	harmful = TRUE
+	var/dam_force =	20
+	harmful	= TRUE
 
 /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/check_allowed_equipment(obj/mecha/M)
 	if(M.allowed_equipment & MECH_EQUIPMENT_WORKING)
 		return TRUE
-	. = ..()
+	. =	..()
 
 /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/action(atom/target, list/modifiers)
 	if(!action_checks(target))
@@ -20,8 +20,8 @@
 	if(!chassis)
 		return FALSE
 	if(isobj(target))
-		var/obj/O = target
-		if(ismecha(O) || isspacepod(O)) //no fun allowed
+		var/obj/O =	target
+		if(ismecha(O) || isspacepod(O))	//no fun allowed
 			return FALSE
 		if(!O.anchored)
 			if(length(chassis.cargo) < chassis.cargo_capacity)
@@ -29,16 +29,16 @@
 				O.set_anchored(TRUE)
 				if(do_after_cooldown(target))
 					LAZYADD(chassis.cargo, O)
-					O.loc = chassis
+					O.loc =	chassis
 					O.set_anchored(FALSE)
-					occupant_message(span_notice("[target] successfully loaded."))
+					occupant_message(span_notice("[target] successfully	loaded."))
 					return TRUE
 				else
 					O.set_anchored(initial(O.anchored))
 			else
-				occupant_message(span_warning("Not enough room in cargo compartment!"))
+				occupant_message(span_warning("Not enough room in cargo	compartment!"))
 		else
-			occupant_message(span_warning("[target] is firmly secured!"))
+			occupant_message(span_warning("[target]	is firmly secured!"))
 		return FALSE
 	if(isliving(target))
 		var/mob/living/M = target
@@ -47,14 +47,14 @@
 			if(!M)
 				return FALSE
 			M.apply_damage(round(dam_force/2), OXY)
-			target.visible_message(span_danger("[chassis] squeezes [target]."), \
-								span_userdanger("[chassis] squeezes [target]."),\
+			target.visible_message(span_danger("[chassis] squeezes [target]."),	\
+								span_userdanger("[chassis] squeezes	[target]."),\
 								span_italics("You hear something crack."))
-			add_attack_logs(chassis.occupant, M, "Squeezed with [src] ([uppertext(chassis.occupant.a_intent)]) ([uppertext(damtype)])")
+			add_attack_logs(chassis.occupant, M, "Squeezed with	[src] ([uppertext(chassis.occupant.a_intent)]) ([uppertext(damtype)])")
 			start_cooldown()
 		else if(M.stat == DEAD && issilicon(M) || chassis.cargo_expanded)
 			if(ismegafauna(M))
-				occupant_message(span_warning("БЕГИ, ИДИОТ, НЕ ВРЕМЯ ДЛЯ ОБНИМАШЕК!!!"))
+				occupant_message(span_warning("БЕГИ, ИДИОТ,	НЕ ВРЕМЯ ДЛЯ ОБНИМАШЕК!!!"))
 				return FALSE
 			if(!M.anchored)
 				if(length(chassis.cargo) < chassis.cargo_capacity)
@@ -62,20 +62,20 @@
 					M.set_anchored(TRUE)
 					if(do_after_cooldown(target))
 						LAZYADD(chassis.cargo, M)
-						M.loc = chassis
+						M.loc =	chassis
 						M.set_anchored(FALSE)
-						occupant_message(span_notice("[target] successfully loaded."))
+						occupant_message(span_notice("[target] successfully	loaded."))
 						return TRUE
 					else
 						M.set_anchored(initial(M.anchored))
 				else
-					occupant_message(span_warning("Not enough room in cargo compartment!"))
+					occupant_message(span_warning("Not enough room in cargo	compartment!"))
 			else
-				occupant_message(span_warning("[target] is buckled to something!"))
+				occupant_message(span_warning("[target]	is buckled to something!"))
 			return FALSE
 		else
 			step_away(M,chassis)
-			occupant_message(span_notice("You push [target] out of the way."))
+			occupant_message(span_notice("You push [target]	out	of the way."))
 			chassis.visible_message(span_notice("[chassis] pushes [target] out of the way."))
 			start_cooldown()
 		return TRUE
@@ -83,7 +83,7 @@
 //This is pretty much just for the death-ripley
 /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/kill
 	name = "KILL CLAMP"
-	desc = "They won't know what clamped them!"
+	desc = "They won't know	what clamped them!"
 	energy_drain = 0
 
 /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/kill/action(atom/target, list/modifiers)
@@ -100,8 +100,8 @@
 		return FALSE
 	if(chassis.occupant.a_intent == INTENT_HARM)
 		target.visible_message(
-			span_danger("[chassis] destroys [target] in an unholy fury."),
-			span_userdanger("[chassis] destroys [target] in an unholy fury.")
+			span_danger("[chassis] destroys	[target] in an unholy fury."),
+			span_userdanger("[chassis] destroys	[target] in an unholy fury.")
 		)
 		M.gib()
 	else
@@ -111,16 +111,16 @@
 	return TRUE
 
 /obj/item/mecha_parts/mecha_equipment/cargo_upgrade
-	name = "Cargo expansion upgrade"
-	desc = "A working exosuit module that allows you to turn your Ripley into a hearse, zoo, or armored personnel carrier."
+	name = "Cargo expansion	upgrade"
+	desc = "A working exosuit module that allows you to turn your Ripley into a	hearse,	zoo, or armored	personnel carrier."
 	icon_state = "tesla"
-	origin_tech = "materials=5;bluespace=6;"
+	origin_tech	= "materials=5;bluespace=6;"
 	selectable = MODULE_SELECTABLE_NONE
 
 /obj/item/mecha_parts/mecha_equipment/cargo_upgrade/check_allowed_equipment(obj/mecha/M)
 	if(M.allowed_equipment & MECH_EQUIPMENT_WORKING)
 		return TRUE
-	. = ..()
+	. =	..()
 
 /obj/item/mecha_parts/mecha_equipment/cargo_upgrade/attach_act(obj/mecha/M)
 	chassis.cargo_expanded = TRUE
@@ -131,12 +131,12 @@
 	chassis.cargo_capacity = initial(chassis.cargo_capacity)
 
 /obj/item/mecha_parts/mecha_equipment/rcd
-	name = "Mounted RCD"
+	name = "Mounted	RCD"
 	desc = "An exosuit-mounted Rapid Construction Device. (Can be attached to: Any exosuit)"
 	icon_state = "mecha_rcd"
-	origin_tech = "materials=4;bluespace=3;magnets=4;powerstorage=4;engineering=4"
+	origin_tech	= "materials=4;bluespace=3;magnets=4;powerstorage=4;engineering=4"
 	energy_drain = 500
-	range = MECHA_MELEE|MECHA_RANGED
+	range =	MECHA_MELEE|MECHA_RANGED
 	item_flags = NO_MAT_REDEMPTION
 	var/obj/item/rcd/mecha_ref/rcd_holder
 	usesound = 'sound/items/deconstruct.ogg'
@@ -144,9 +144,9 @@
 /obj/item/mecha_parts/mecha_equipment/rcd/Initialize(mapload)
 	GLOB.rcd_list += src
 	rcd_holder = new(loc)
-	rcd_holder.power_use_multiplier = energy_drain
-	rcd_holder.canRwall = TRUE
-	. = ..()
+	rcd_holder.power_use_multiplier	= energy_drain
+	rcd_holder.canRwall	= TRUE
+	. =	..()
 
 /obj/item/mecha_parts/mecha_equipment/rcd/Destroy()
 	GLOB.rcd_list -= src
@@ -160,14 +160,14 @@
 /obj/item/mecha_parts/mecha_equipment/rcd/action(atom/target, list/modifiers)
 	if(!action_checks(target) || get_dist(chassis, target)>3)
 		return FALSE
-	var/area/check_area = get_area(target)
-	if(check_area?.type in rcd_holder.areas_blacklist)
-		to_chat(chassis.occupant, span_warning("Something prevents you from using [rcd_holder] in here..."))
+	var/area/check_area	= get_area(target)
+	if(check_area?.type	in rcd_holder.areas_blacklist)
+		to_chat(chassis.occupant, span_warning("Something prevents you from	using [rcd_holder] in here..."))
 		return FALSE
 	playsound(chassis, 'sound/machines/click.ogg', 50, TRUE)
-	chassis.can_move = world.time + 2 SECONDS	// We don't move while we build
+	chassis.can_move = world.time +	2 SECONDS	// We don't	move while we build
 	var/rcd_act_result = target.rcd_act(chassis.occupant, rcd_holder, rcd_holder.mode)
-	if(rcd_act_result == RCD_NO_ACT) //if our rcd_act was not implemented/impossible to do - we can move again
+	if(rcd_act_result == RCD_NO_ACT) //if our rcd_act was not implemented/impossible to do - we can	move again
 		chassis.can_move = 0
 
 /obj/item/mecha_parts/mecha_equipment/rcd/proc/check_menu(mob/living/carbon/user)
@@ -180,19 +180,19 @@
 	if(!check_menu(user))
 		return
 	var/list/choices = list(
-		RCD_MODE_AIRLOCK = image(icon = 'icons/obj/interface.dmi', icon_state = "airlock"),
-		RCD_MODE_DECON = image(icon = 'icons/obj/interface.dmi', icon_state = "delete"),
-		RCD_MODE_WINDOW = image(icon = 'icons/obj/interface.dmi', icon_state = "grillewindow"),
-		RCD_MODE_TURF = image(icon = 'icons/obj/interface.dmi', icon_state = "wallfloor"),
-		RCD_MODE_FIRELOCK = image(icon = 'icons/obj/interface.dmi', icon_state = "firelock"),
+		RCD_MODE_AIRLOCK = image(icon =	'icons/obj/interface.dmi', icon_state =	"airlock"),
+		RCD_MODE_DECON = image(icon	= 'icons/obj/interface.dmi', icon_state	= "delete"),
+		RCD_MODE_WINDOW	= image(icon = 'icons/obj/interface.dmi', icon_state = "grillewindow"),
+		RCD_MODE_TURF =	image(icon = 'icons/obj/interface.dmi',	icon_state = "wallfloor"),
+		RCD_MODE_FIRELOCK =	image(icon = 'icons/obj/interface.dmi',	icon_state = "firelock"),
 	)
-	choices -= rcd_holder.mode // Get rid of the current mode, clicking it won't do anything.
-	var/choice = show_radial_menu(user, chassis, choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user))
+	choices	-= rcd_holder.mode // Get rid of the current mode, clicking	it won't do anything.
+	var/choice = show_radial_menu(user,	chassis, choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user))
 	if(!check_menu(user))
 		return
 	switch(choice)
 		if(RCD_MODE_AIRLOCK, RCD_MODE_DECON, RCD_MODE_WINDOW, RCD_MODE_TURF, RCD_MODE_FIRELOCK)
-			rcd_holder.mode = choice
+			rcd_holder.mode	= choice
 		else
 			return
 	switch(rcd_holder.mode)
@@ -201,31 +201,31 @@
 		if(RCD_MODE_TURF)
 			occupant_message("Switched RCD to Construct.")
 		if(RCD_MODE_AIRLOCK)
-			occupant_message("Switched RCD to Construct Airlock.")
+			occupant_message("Switched RCD to Construct	Airlock.")
 		if(RCD_MODE_WINDOW)
-			occupant_message("Switched RCD to Construct Windows.")
+			occupant_message("Switched RCD to Construct	Windows.")
 		if(RCD_MODE_FIRELOCK)
-			occupant_message("Switched RCD to Construct Firelock.")
+			occupant_message("Switched RCD to Construct	Firelock.")
 	playsound(get_turf(chassis), 'sound/effects/pop.ogg', 50, FALSE)
 
 /obj/item/mecha_parts/mecha_equipment/rcd/Topic(href,href_list)
 	..()
 	if(href_list["mode"])
-		rcd_holder.mode = href_list["mode"]
+		rcd_holder.mode	= href_list["mode"]
 		switch(rcd_holder.mode)
 			if(RCD_MODE_DECON)
 				occupant_message("Switched RCD to Deconstruct.")
 			if(RCD_MODE_TURF)
 				occupant_message("Switched RCD to Construct.")
 			if(RCD_MODE_AIRLOCK)
-				occupant_message("Switched RCD to Construct Airlock.")
+				occupant_message("Switched RCD to Construct	Airlock.")
 			if(RCD_MODE_WINDOW)
-				occupant_message("Switched RCD to Construct Windows.")
+				occupant_message("Switched RCD to Construct	Windows.")
 			if(RCD_MODE_FIRELOCK)
-				occupant_message("Switched RCD to Construct Firelock.")
+				occupant_message("Switched RCD to Construct	Firelock.")
 
 /obj/item/mecha_parts/mecha_equipment/rcd/get_snowflake_data()
-	var/list/data = list(
+	var/list/data =	list(
 		"snowflake_id" = MECHA_SNOWFLAKE_ID_MODE,
 		"mode" = rcd_holder.mode,
 		"mode_label" = "РЦД"
@@ -233,26 +233,26 @@
 
 	return data
 
-/obj/item/mecha_parts/mecha_equipment/rcd/handle_ui_act(action, list/params)
-	var/static/list/modes = list(RCD_MODE_TURF = 2, RCD_MODE_AIRLOCK = 3, RCD_MODE_WINDOW = 4, RCD_MODE_DECON = 5,  RCD_MODE_FIRELOCK = 1) // cursed, need another way
+/obj/item/mecha_parts/mecha_equipment/rcd/handle_ui_act(action,	list/params)
+	var/static/list/modes =	list(RCD_MODE_TURF = 2, RCD_MODE_AIRLOCK = 3, RCD_MODE_WINDOW =	4, RCD_MODE_DECON =	5,	RCD_MODE_FIRELOCK =	1) // cursed, need another way
 	if(action == "change_mode")
-		rcd_holder.mode = modes[modes[rcd_holder.mode]]
+		rcd_holder.mode	= modes[modes[rcd_holder.mode]]
 
 		return TRUE
 
 /obj/item/mecha_parts/mecha_equipment/mimercd
-	name = "mounted MRCD"
-	desc = "An exosuit-mounted Mime Rapid Construction Device. (Can be attached to: Reticence)"
+	name = "mounted	MRCD"
+	desc = "An exosuit-mounted Mime	Rapid Construction Device. (Can	be attached	to:	Reticence)"
 	icon_state = "mecha_rcd"
-	origin_tech = "materials=4;bluespace=3;magnets=4;powerstorage=4;engineering=4"
+	origin_tech	= "materials=4;bluespace=3;magnets=4;powerstorage=4;engineering=4"
 	equip_cooldown = 1 SECONDS
 	energy_drain = 250
-	range = MECHA_MELEE | MECHA_RANGED
+	range =	MECHA_MELEE	| MECHA_RANGED
 
 /obj/item/mecha_parts/mecha_equipment/mimercd/check_allowed_equipment(obj/mecha/M)
 	if(M.allowed_equipment & MECH_EQUIPMENT_MIME)
 		return TRUE
-	. = ..()
+	. =	..()
 
 /obj/item/mecha_parts/mecha_equipment/mimercd/action(atom/target, list/modifiers)
 	if(istype(target, /turf/space/transit))//>implying these are ever made -Sieve
@@ -265,31 +265,31 @@
 	if(isfloorturf(target))
 		occupant_message("Building Wall...")
 		if(do_after_cooldown(target))
-			new /obj/structure/barricade/mime/mrcd(target)
+			new	/obj/structure/barricade/mime/mrcd(target)
 			chassis.spark_system.start()
 
 /obj/item/mecha_parts/mecha_equipment/multimodule
 	name = "multi module"
 	var/list/modules = list()
 	var/obj/item/mecha_parts/mecha_equipment/targeted_module
-	range = MECHA_MELEE | MECHA_RANGED
+	range =	MECHA_MELEE	| MECHA_RANGED
 
 /obj/item/mecha_parts/mecha_equipment/multimodule/Initialize(mapload)
-	. = ..()
+	. =	..()
 	for(var/module in modules)
-		var/obj/item/mecha_parts/mecha_equipment/new_module = new module(src)
-		modules[module] = new_module
+		var/obj/item/mecha_parts/mecha_equipment/new_module	= new module(src)
+		modules[module]	= new_module
 
 /obj/item/mecha_parts/mecha_equipment/multimodule/Destroy()
 	for(var/key, value in modules)
 		if(!value)
 			return
 		qdel(value)
-		modules -= key
-	targeted_module = null
-	. = ..()
+		modules	-= key
+	targeted_module	= null
+	. =	..()
 
-/obj/item/mecha_parts/mecha_equipment/multimodule/is_ranged()//add a distance restricted equipment. Why not?
+/obj/item/mecha_parts/mecha_equipment/multimodule/is_ranged()//add a distance restricted equipment.	Why	not?
 	return targeted_module?.is_ranged()
 
 /obj/item/mecha_parts/mecha_equipment/multimodule/is_melee()
@@ -300,13 +300,13 @@
 
 /obj/item/mecha_parts/mecha_equipment/multimodule/attach_act(obj/mecha/M)
 	for(var/thing in modules)
-		var/obj/item/mecha_parts/mecha_equipment/module = modules[thing]
+		var/obj/item/mecha_parts/mecha_equipment/module	= modules[thing]
 		module.chassis = chassis
 		module.attach_act(M)
 
 /obj/item/mecha_parts/mecha_equipment/multimodule/detach_act()
 	for(var/thing in modules)
-		var/obj/item/mecha_parts/mecha_equipment/module = modules[thing]
+		var/obj/item/mecha_parts/mecha_equipment/module	= modules[thing]
 		module.detach_act()
 		module.chassis = null
 		module.set_ready_state(TRUE)
@@ -323,38 +323,38 @@
 /obj/item/mecha_parts/mecha_equipment/multimodule/proc/radial_menu(mob/living/carbon/user)
 	var/list/choices = list()
 	for(var/thing in modules)
-		var/obj/item/mecha_parts/mecha_equipment/module = modules[thing]
-		choices["[module.name]"] = image(icon = module.icon, icon_state = module.icon_state)
-	var/choice = show_radial_menu(user, chassis, choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user))
+		var/obj/item/mecha_parts/mecha_equipment/module	= modules[thing]
+		choices["[module.name]"] = image(icon =	module.icon, icon_state	= module.icon_state)
+	var/choice = show_radial_menu(user,	chassis, choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user))
 	if(!check_menu(user))
 		return
 	var/obj/item/mecha_parts/mecha_equipment/selected
 	for(var/thing in modules)
-		var/obj/item/mecha_parts/mecha_equipment/module = modules[thing]
+		var/obj/item/mecha_parts/mecha_equipment/module	= modules[thing]
 		if(module.name == choice)
 			selected = module
 			break
 	if(selected)
-		targeted_module = selected
+		targeted_module	= selected
 		occupant_message("Switched to [targeted_module]")
 
 /obj/item/mecha_parts/mecha_equipment/multimodule/get_snowflake_data()
-	var/list/data = list(
+	var/list/data =	list(
 		"snowflake_id" = MECHA_SNOWFLAKE_ID_MULTI,
 	)
 
 	if(!targeted_module)
 		return data
 
-	data["targeted_module"] = list("name" = targeted_module.declent_ru(NOMINATIVE),
-		"snowflake" = targeted_module.get_snowflake_data(),
-		"ref" = targeted_module.UID())
+	data["targeted_module"]	= list("name" =	targeted_module.declent_ru(NOMINATIVE),
+		"snowflake"	= targeted_module.get_snowflake_data(),
+		"ref" =	targeted_module.UID())
 
 	return data
 
-/obj/item/mecha_parts/mecha_equipment/multimodule/handle_ui_act(action, list/params)
+/obj/item/mecha_parts/mecha_equipment/multimodule/handle_ui_act(action,	list/params)
 	if(action == "switch_module")
-		targeted_module = locateUID(params["module"])
+		targeted_module	= locateUID(params["module"])
 		occupant_message("Switched to [targeted_module]")
 		return TRUE
 
@@ -371,9 +371,9 @@
 
 /obj/item/mecha_parts/mecha_equipment/multimodule/atmos_module
 	name = "ATMOS module"
-	desc = "Equipment for engineering exosuits. Lays cable along the exosuit's path."
+	desc = "Equipment for engineering exosuits.	Lays cable along the exosuit's path."
 	icon_state = "mecha_atmos"
-	modules = list(
+	modules	= list(
 		/obj/item/mecha_parts/mecha_equipment/cable_layer,
 		/obj/item/mecha_parts/mecha_equipment/extinguisher,
 		/obj/item/mecha_parts/mecha_equipment/holowall,
@@ -381,28 +381,28 @@
 
 /obj/item/mecha_parts/mecha_equipment/cable_layer
 	name = "cable layer"
-	desc = "Equipment for engineering exosuits. Lays cable along the exosuit's path."
+	desc = "Equipment for engineering exosuits.	Lays cable along the exosuit's path."
 	icon_state = "mecha_wire"
 	var/obj/structure/cable/last_piece
 	var/obj/item/stack/cable_coil/cable
-	var/max_cable = 1000
+	var/max_cable =	1000
 
 /obj/item/mecha_parts/mecha_equipment/cable_layer/Initialize(mapload)
-	cable = new(src, 0)
-	. = ..()
+	cable =	new(src, 0)
+	. =	..()
 
 /obj/item/mecha_parts/mecha_equipment/cable_layer/Destroy()
 	QDEL_NULL(cable)
 	last_piece = null
-	. = ..()
+	. =	..()
 
 /obj/item/mecha_parts/mecha_equipment/cable_layer/check_allowed_equipment(obj/mecha/M)
 	if(M.allowed_equipment & MECH_EQUIPMENT_WORKING)
 		return TRUE
-	. = ..()
+	. =	..()
 
 /obj/item/mecha_parts/mecha_equipment/cable_layer/attach_act()
-	RegisterSignal(chassis, COMSIG_MOVABLE_MOVED, PROC_REF(layCable))
+	RegisterSignal(chassis,	COMSIG_MOVABLE_MOVED, PROC_REF(layCable))
 
 /obj/item/mecha_parts/mecha_equipment/cable_layer/detach_act()
 	UnregisterSignal(chassis, COMSIG_MOVABLE_MOVED)
@@ -411,51 +411,51 @@
 	if(!action_checks(target))
 		return FALSE
 	if(iscoil(target))
-		var/obj/item/stack/cable_coil/target_coil = target
-		var/cur_amount = cable? cable.amount : 0
-		var/to_load = max(max_cable - cur_amount,0)
+		var/obj/item/stack/cable_coil/target_coil =	target
+		var/cur_amount = cable?	cable.amount : 0
+		var/to_load	= max(max_cable	- cur_amount,0)
 		if(to_load)
-			to_load = min(target_coil.amount, to_load)
+			to_load	= min(target_coil.amount, to_load)
 			if(!cable)
-				cable = new(src, 0)
+				cable =	new(src, 0)
 			cable.amount += to_load
 			target_coil.use(to_load)
-			occupant_message(span_notice("[to_load] meters of cable successfully loaded."))
+			occupant_message(span_notice("[to_load]	meters of cable	successfully loaded."))
 			return TRUE
 		else
-			occupant_message(span_warning("Reel is full."))
+			occupant_message(span_warning("Reel	is full."))
 	if(isturf(target))
 		target.attackby(cable, chassis)
 		return TRUE
 	else
-		occupant_message(span_warning("Unable to load from [target] - no cable found."))
+		occupant_message(span_warning("Unable to load from [target]	- no cable found."))
 	return FALSE
 
-/obj/item/mecha_parts/mecha_equipment/cable_layer/handle_ui_act(action, list/params)
+/obj/item/mecha_parts/mecha_equipment/cable_layer/handle_ui_act(action,	list/params)
 	switch(action)
 		if("toggle")
 			set_ready_state(!equip_ready)
-			occupant_message("[src] [equip_ready?"dea":"a"]ctivated.")
+			occupant_message("[src]	[equip_ready?"dea":"a"]ctivated.")
 			return TRUE
 
 		if("cut")
 			if(!cable || !cable.amount)
-				occupant_message("There's no more cable on the reel.")
+				occupant_message("There's no more cable	on the reel.")
 				return FALSE
 
-			var/m = round(tgui_input_number(chassis.occupant, "Please specify the length of cable to cut", "Cut cable", min(cable.amount,30)), 1)
-			m = min(m, cable.amount)
+			var/m =	round(tgui_input_number(chassis.occupant, "Please specify the length of cable to cut", "Cut	cable",	min(cable.amount,30)), 1)
+			m =	min(m, cable.amount)
 			if(m)
 				use_cable(m)
-				new /obj/item/stack/cable_coil(get_turf(chassis), m)
+				new	/obj/item/stack/cable_coil(get_turf(chassis), m)
 			return TRUE
 
 	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/cable_layer/get_snowflake_data()
-	var/list/data = list(
+	var/list/data =	list(
 		"snowflake_id" = MECHA_SNOWFLAKE_ID_CABLE,
-		"cable" = cable?.amount
+		"cable"	= cable?.amount
 	)
 
 	return data
@@ -463,10 +463,10 @@
 /obj/item/mecha_parts/mecha_equipment/cable_layer/proc/use_cable(amount)
 	if(!cable || cable.amount<1)
 		set_ready_state(TRUE)
-		occupant_message("Cable depleted, [src] deactivated.")
+		occupant_message("Cable	depleted, [src]	deactivated.")
 		return FALSE
-	if(cable.amount < amount)
-		occupant_message("No enough cable to finish the task.")
+	if(cable.amount	< amount)
+		occupant_message("No enough	cable to finish	the	task.")
 		return FALSE
 	cable.use(amount)
 	return TRUE
@@ -481,32 +481,32 @@
 			T.make_plating(TRUE)
 	return !new_turf.intact
 
-/obj/item/mecha_parts/mecha_equipment/cable_layer/proc/layCable(obj/mecha/M, atom/OldLoc, Dir, Forced = FALSE)
-	var/turf/new_turf = get_turf(M)
-	if(equip_ready || !istype(new_turf) || !dismantleFloor(new_turf))
+/obj/item/mecha_parts/mecha_equipment/cable_layer/proc/layCable(obj/mecha/M, atom/OldLoc, Dir, Forced =	FALSE)
+	var/turf/new_turf =	get_turf(M)
+	if(equip_ready || !istype(new_turf)	|| !dismantleFloor(new_turf))
 		return reset()
-	var/fdirn = turn(Dir, 180)
-	for(var/obj/structure/cable/LC in new_turf)		// check to make sure there's not a cable there already
+	var/fdirn =	turn(Dir, 180)
+	for(var/obj/structure/cable/LC in new_turf)		// check to make sure there's not a	cable there	already
 		if(LC.d1 == fdirn || LC.d2 == fdirn)
 			return reset()
 	if(!use_cable(1))
 		return reset()
 	var/obj/structure/cable/NC = new(new_turf)
 	NC.cable_color("red")
-	NC.d1 = 0
-	NC.d2 = fdirn
+	NC.d1 =	0
+	NC.d2 =	fdirn
 	NC.update_icon(UPDATE_ICON_STATE)
 
 	var/datum/powernet/PN
 	if(last_piece && last_piece.d2 != Dir)
-		last_piece.d1 = min(last_piece.d2, Dir)
-		last_piece.d2 = max(last_piece.d2, Dir)
+		last_piece.d1 =	min(last_piece.d2, Dir)
+		last_piece.d2 =	max(last_piece.d2, Dir)
 		last_piece.update_icon(UPDATE_ICON_STATE)
 		PN = last_piece.powernet
 
 	if(!PN)
 		PN = new()
-	NC.powernet = PN
+	NC.powernet	= PN
 	PN.cables += NC
 	NC.mergeConnectedNetworks(NC.d2)
 
@@ -516,51 +516,51 @@
 
 /obj/item/mecha_parts/mecha_equipment/extinguisher
 	name = "extinguisher"
-	desc = "Equipment for engineering exosuits. A rapid-firing high capacity fire extinguisher."
+	desc = "Equipment for engineering exosuits.	A rapid-firing high	capacity fire extinguisher."
 	icon_state = "mecha_exting"
 	equip_cooldown = 1.5 SECONDS
-	range = MECHA_MELEE | MECHA_RANGED
+	range =	MECHA_MELEE	| MECHA_RANGED
 
 /obj/item/mecha_parts/mecha_equipment/extinguisher/Initialize(mapload)
 	create_reagents(1000)
 	reagents.add_reagent("water", 1000)
-	. = ..()
+	. =	..()
 
-/obj/item/mecha_parts/mecha_equipment/extinguisher/action(atom/target, list/modifiers) //copypasted from extinguisher. TODO: Rewrite from scratch.
+/obj/item/mecha_parts/mecha_equipment/extinguisher/action(atom/target, list/modifiers) //copypasted	from extinguisher. TODO: Rewrite from scratch.
 	if(!action_checks(target) || get_dist(chassis, target)>3)
 		return FALSE
 
 	if(istype(target, /obj/structure/reagent_dispensers/watertank) && get_dist(chassis,target) <= 1)
-		var/obj/structure/reagent_dispensers/watertank/WT = target
+		var/obj/structure/reagent_dispensers/watertank/WT =	target
 		WT.reagents.trans_to(src, 1000)
 		occupant_message(span_notice("Extinguisher refilled."))
 		playsound(chassis, 'sound/effects/refill.ogg', 50, TRUE, -6)
 	else
 		if(reagents.total_volume > 0)
 			playsound(chassis, 'sound/effects/extinguish.ogg', 75, TRUE, -3)
-			var/direction = get_dir(chassis,target)
+			var/direction =	get_dir(chassis,target)
 			var/turf/T = get_turf(target)
-			var/turf/T1 = get_step(T,turn(direction, 90))
-			var/turf/T2 = get_step(T,turn(direction, -90))
+			var/turf/T1	= get_step(T,turn(direction, 90))
+			var/turf/T2	= get_step(T,turn(direction, -90))
 
 			var/list/the_targets = list(T, T1, T2)
 			start_cooldown()
 			water_effect(the_targets)
 
 /obj/item/mecha_parts/mecha_equipment/extinguisher/proc/water_effect(list/the_targets)
-	set waitfor = FALSE
+	set	waitfor	= FALSE
 
 	for(var/i in 0 to 5)
-		var/obj/effect/particle_effect/water/water_effect = new (get_turf(chassis))
+		var/obj/effect/particle_effect/water/water_effect =	new	(get_turf(chassis))
 
 		if(!water_effect)
 			return
 
 		var/turf/my_target = pick(the_targets)
-		var/datum/reagents/reagents = new (5)
-		water_effect.reagents = reagents
+		var/datum/reagents/reagents	= new (5)
+		water_effect.reagents =	reagents
 		reagents.my_atom = water_effect
-		reagents.trans_to(water_effect, 1)
+		reagents.trans_to(water_effect,	1)
 
 		for(var/j in 0 to 3)
 			if(QDELETED(water_effect) || !water_effect.reagents)
@@ -571,7 +571,7 @@
 			if(QDELETED(water_effect) || !water_effect.reagents)
 				return
 
-			var/turf/water_turf = get_turf(water_effect)
+			var/turf/water_turf	= get_turf(water_effect)
 			if(!water_turf)
 				continue
 
@@ -580,11 +580,11 @@
 				if(QDELETED(water_effect) || !water_effect.reagents)
 					return
 				water_effect.reagents.reaction(atom)
-				if(isliving(atom)) //For extinguishing mobs on fire
-					var/mob/living/living_mob = atom
+				if(isliving(atom)) //For extinguishing mobs	on fire
+					var/mob/living/living_mob =	atom
 					living_mob.ExtinguishMob()
 
-			if(water_effect.loc == my_target)
+			if(water_effect.loc	== my_target)
 				break
 
 			sleep(2)
@@ -593,9 +593,9 @@
 	return
 
 /obj/item/mecha_parts/mecha_equipment/extinguisher/check_allowed_equipment(obj/mecha/M)
-    if(M.allowed_equipment & MECH_EQUIPMENT_WORKING)
-        return TRUE
-    . = ..()
+	if(M.allowed_equipment & MECH_EQUIPMENT_WORKING)
+		return TRUE
+	. =	..()
 
 /obj/item/mecha_parts/mecha_equipment/extinguisher/get_snowflake_data()
 	return list(
@@ -606,21 +606,21 @@
 
 /obj/item/mecha_parts/mecha_equipment/holowall
 	name = "holowall module"
-	desc = "Equipment for engineering exosuits. With it, you can build atmos holographic barriers."
+	desc = "Equipment for engineering exosuits.	With it, you can build atmos holographic barriers."
 	icon_state = "mecha_wholegen"
 	energy_drain = 100
 	equip_cooldown = 0.5 SECONDS
-	range = MECHA_MELEE | MECHA_RANGED
+	range =	MECHA_MELEE	| MECHA_RANGED
 	var/max_barriers = 5
-	var/list/barriers = list()
-	var/creation_time = 0 //time to create a holosbarriers in deciseconds.
-	var/holocreator_busy = FALSE //to prevent placing multiple holo barriers at once
+	var/list/barriers =	list()
+	var/creation_time =	0 //time to create a holosbarriers in deciseconds.
+	var/holocreator_busy = FALSE //to prevent placing multiple holo	barriers at once
 
 /obj/item/mecha_parts/mecha_equipment/holowall/Destroy()
 	QDEL_LIST(barriers)
-	. = ..()
+	. =	..()
 
-/obj/item/mecha_parts/mecha_equipment/holowall/action(atom/target, list/modifiers) //copypasted from extinguisher. TODO: Rewrite from scratch.
+/obj/item/mecha_parts/mecha_equipment/holowall/action(atom/target, list/modifiers) //copypasted	from extinguisher. TODO: Rewrite from scratch.
 	if(!action_checks(target) || get_dist(chassis, target) > 5)
 		return FALSE
 
@@ -630,15 +630,15 @@
 	var/turf/T = get_turf(target)
 	var/obj/structure/holosign/barrier/atmos/H = locate() in T
 	if(H)
-		occupant_message(span_notice("You use [src] to deactivate [H]."))
+		occupant_message(span_notice("You use [src]	to deactivate [H]."))
 		qdel(H)
 	else
-		if(!T.is_blocked_turf(exclude_mobs = TRUE)) //can't put holograms on a tile that has dense stuff
+		if(!T.is_blocked_turf(exclude_mobs = TRUE))	//can't	put	holograms on a tile	that has dense stuff
 			if(holocreator_busy)
-				occupant_message(span_notice("[src] is busy creating a hologram."))
+				occupant_message(span_notice("[src]	is busy	creating a hologram."))
 				return FALSE
-			if(length(barriers) >= max_barriers)
-				occupant_message(span_notice("[src] is projecting at max capacity!"))
+			if(length(barriers)	>= max_barriers)
+				occupant_message(span_notice("[src]	is projecting at max capacity!"))
 				return FALSE
 			else
 				playsound(loc, 'sound/machines/click.ogg', 20, TRUE)
@@ -648,17 +648,17 @@
 						holocreator_busy = FALSE
 						return
 					holocreator_busy = FALSE
-					if(length(barriers) >= max_barriers)
+					if(length(barriers)	>= max_barriers)
 						return
-					if(T.is_blocked_turf(exclude_mobs = TRUE)) //don't try to sneak dense stuff on our tile during the wait.
+					if(T.is_blocked_turf(exclude_mobs =	TRUE)) //don't try to sneak	dense stuff	on our tile	during the wait.
 						return
-				H = new /obj/structure/holosign/barrier/atmos(T, src)
+				H =	new	/obj/structure/holosign/barrier/atmos(T, src)
 				chassis.use_power(energy_drain)
 				occupant_message(span_notice("You create [H] with [src]."))
 				start_cooldown()
 
 /obj/item/mecha_parts/mecha_equipment/holowall/get_snowflake_data()
-	var/list/data = list(
+	var/list/data =	list(
 		"snowflake_id" = MECHA_SNOWFLAKE_ID_HOLO,
 		"max_barriers" = max_barriers,
 		"total_barriers" = length(barriers)
@@ -673,64 +673,64 @@
 
 		for(var/H in barriers)
 			qdel(H)
-		occupant_message(span_notice("You clear all active holobarriers."))
+		occupant_message(span_notice("You clear	all	active holobarriers."))
 		return TRUE
 
 	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/holowall/check_allowed_equipment(obj/mecha/M)
-    if(M.allowed_equipment & MECH_EQUIPMENT_WORKING)
-        return TRUE
-    . = ..()
+	if(M.allowed_equipment & MECH_EQUIPMENT_WORKING)
+		return TRUE
+	. =	..()
 
 /obj/item/mecha_parts/mecha_equipment/eng_toolset
-	name = "Engineering toolset"
-	desc = "Equipment for engineering exosuits. Gives a set of good tools."
+	name = "Engineering	toolset"
+	desc = "Equipment for engineering exosuits.	Gives a	set	of good	tools."
 	icon_state = "mecha_toolset"
 	item_state = "toolbox_green"
-	lefthand_file = 'icons/goonstation/mob/inhands/items_lefthand.dmi'
+	lefthand_file =	'icons/goonstation/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/goonstation/mob/inhands/items_righthand.dmi'
-	force = 10
+	force =	10
 	equip_cooldown = 1.5 SECONDS
 	energy_drain = 100
-	harmful = TRUE
-	var/list/items_list = newlist(/obj/item/screwdriver/cyborg, /obj/item/wrench/cyborg, /obj/item/weldingtool/experimental/mecha,
-		/obj/item/crowbar/cyborg, /obj/item/wirecutters/cyborg, /obj/item/multitool/cyborg)
+	harmful	= TRUE
+	var/list/items_list	= newlist(/obj/item/screwdriver/cyborg,	/obj/item/wrench/cyborg, /obj/item/weldingtool/experimental/mecha,
+		/obj/item/crowbar/cyborg, /obj/item/wirecutters/cyborg,	/obj/item/multitool/cyborg)
 	var/obj/item/selected_item
-	var/emag_item = /obj/item/kitchen/knife/combat/cyborg/mecha
+	var/emag_item =	/obj/item/kitchen/knife/combat/cyborg/mecha
 
 /obj/item/mecha_parts/mecha_equipment/eng_toolset/Initialize(mapload)
-	. = ..()
+	. =	..()
 	for(var/obj/item/item as anything in items_list)
-		ADD_TRAIT(item, TRAIT_NODROP, type)
-		item.resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
-		item.slot_flags = NONE
+		ADD_TRAIT(item,	TRAIT_NODROP, type)
+		item.resistance_flags =	INDESTRUCTIBLE | LAVA_PROOF	| FIRE_PROOF | UNACIDABLE |	ACID_PROOF
+		item.slot_flags	= NONE
 		item.w_class = WEIGHT_CLASS_HUGE
 		item.materials = null
-		item.tool_enabled = TRUE
-	selected_item = pick(items_list)
+		item.tool_enabled =	TRUE
+	selected_item =	pick(items_list)
 
 /obj/item/mecha_parts/mecha_equipment/eng_toolset/check_allowed_equipment(obj/mecha/M)
-    if(M.allowed_equipment & MECH_EQUIPMENT_WORKING)
-        return TRUE
-    . = ..()
+	if(M.allowed_equipment & MECH_EQUIPMENT_WORKING)
+		return TRUE
+	. =	..()
 
 /obj/item/mecha_parts/mecha_equipment/eng_toolset/get_snowflake_data()
-	var/list/data = list(
+	var/list/data =	list(
 		"snowflake_id" = MECHA_SNOWFLAKE_ID_TOOLSET,
-		"selected_item" = selected_item.declent_ru(NOMINATIVE),
+		"selected_item"	= selected_item.declent_ru(NOMINATIVE),
 	)
 
 	var/list/items = list()
 	for(var/obj/item/cur_item as anything in items_list)
 		items[cur_item.declent_ru(NOMINATIVE)] = cur_item.UID()
-	data["items"] = items
+	data["items"] =	items
 
 	return data
 
-/obj/item/mecha_parts/mecha_equipment/eng_toolset/handle_ui_act(action, list/params)
+/obj/item/mecha_parts/mecha_equipment/eng_toolset/handle_ui_act(action,	list/params)
 	if(action == "change_tool")
-		selected_item = locateUID(params["selected_item"])
+		selected_item =	locateUID(params["selected_item"])
 		occupant_message("Switched to [selected_item]")
 		return TRUE
 
@@ -754,8 +754,8 @@
 /obj/item/mecha_parts/mecha_equipment/eng_toolset/proc/radial_menu(mob/living/carbon/user)
 	var/list/choices = list()
 	for(var/obj/item/I as anything in items_list)
-		choices["[I.name]"] = image(icon = I.icon, icon_state = I.icon_state)
-	var/choice = show_radial_menu(user, chassis, choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user))
+		choices["[I.name]"]	= image(icon = I.icon, icon_state =	I.icon_state)
+	var/choice = show_radial_menu(user,	chassis, choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user))
 	if(!check_menu(user))
 		return
 	var/obj/item/selected
@@ -767,15 +767,15 @@
 		extend(selected)
 
 /obj/item/mecha_parts/mecha_equipment/eng_toolset/proc/extend(obj/item/selected)
-	if(selected in items_list)
-		selected_item = selected
+	if(selected	in items_list)
+		selected_item =	selected
 		occupant_message("Switched to [selected_item]")
 
 /obj/item/mecha_parts/mecha_equipment/eng_toolset/emag_act(mob/user)
 	if(!emagged)
-		var/obj/item/emag_thing = new emag_item
+		var/obj/item/emag_thing	= new emag_item
 		items_list.Add(emag_thing)
-		ADD_TRAIT(emag_thing, TRAIT_NODROP, type)
-		emagged = TRUE
-		user.visible_message(span_warning("Sparks fly out of [name]"), span_notice("You short out the safeties on [name]."))
-		playsound(loc, 'sound/effects/sparks4.ogg', 50, TRUE)
+		ADD_TRAIT(emag_thing, TRAIT_NODROP,	type)
+		emagged	= TRUE
+		user.visible_message(span_warning("Sparks fly out of [name]"), span_notice("You	short out the safeties on [name]."))
+		playsound(loc, 'sound/effects/sparks4.ogg',	50,	TRUE)
