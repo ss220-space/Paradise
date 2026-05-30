@@ -263,7 +263,7 @@
 	victim.death()
 	on_victim_consumed(victim, jaunter)
 
-	if(!istype(jaunter, /mob/living/simple_animal/demon/slaughter))
+	if(!isslaughterdemon(jaunter))
 		return
 	var/mob/living/simple_animal/demon/slaughter/demon = jaunter
 	LAZYADD(demon.consumed_mobs, victim)
