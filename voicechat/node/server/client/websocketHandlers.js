@@ -12,7 +12,7 @@ function createConnectionHandler(byondPort, io) {
                 socket.disconnect()
             }
         }, 5000);
-        socket.on('join', (data) => {
+		socket.on('join', (data) => {
             const sessionId = data.sessionId;
             const userCode = sessionIdToUserCode.get(sessionId);
             if (userCode) {
@@ -26,6 +26,7 @@ function createConnectionHandler(byondPort, io) {
                     socketIdToUserCode.set(socket.id, userCode);
                     sessionIdToUserCode.delete(sessionId);
                     socket.userCode = userCode;
+                    socket.sessionId = sessionId;
                     console.log(`Associated userCode ${userCode} with socket ${socket.id}`);
                     socket.emit('update', { type: 'status', data: 'Connected successfully' });
                     // sendJSON({ 'registered': userCode }, byondPort);
@@ -36,11 +37,11 @@ function createConnectionHandler(byondPort, io) {
                 socket.disconnect();
                 revokeCredential(sessionId);
             }
-        });    
+        });
         socket.on('mic_access_granted', () => {
             const userCode = socketIdToUserCode.get(socket.id);
             if(userCode) sendJSON({ 'confirmed': userCode }, byondPort);
-        })    
+        })
         socket.on('disconnect_page', () => {
             const userCode = socketIdToUserCode.get(socket.id);
             if (userCode) {
@@ -52,7 +53,7 @@ function createConnectionHandler(byondPort, io) {
             socket.emit('update', { type: 'status', data: 'Disconnecting...'});
             socket.disconnect();
             console.log('User disconnected:', socket.id);
-            revokeCredential(sessionId);
+            revokeCredential(socket.sessionId);
         });
 
         socket.on('offer', (data) => {

@@ -38,6 +38,8 @@
 		return
 
 	var/list/data = json_decode(T)
+	if(!data)
+		return
 	if(data["error"])
 		message_admins(T)
 		return

@@ -64,7 +64,8 @@
 	// prefer the client's address (useful when the browser is running on the same host)
 	else if(C && C.address && C.address != "" && C.address != world.internet_address)
 		socket_host = C.address
-	var/web_link = "[origin]/voicechat.html?sessionId=[sessionId]&socket_address=[socket_host]:3000"
+	var/voicechat_port = CONFIG_GET(number/port_voicechat) || 3000
+	var/web_link = "[origin]/voicechat.html?sessionId=[sessionId]&socket_address=[socket_host]:[voicechat_port]"
 	if(text2num(external))
 		var/dat = {"
 		<html>
@@ -96,8 +97,11 @@
 	if(!userCode || (userCode in vc_clients))
 		return
 	var/client/C = userCode_client_map[userCode]
+	if(!C)
+		disconnect(userCode)
+		return
 	var/mob/M = C.mob
-	if(!C || !M)
+	if(!M)
 		disconnect(userCode)
 		return
 	mob_client_map[M] = C
@@ -131,16 +135,17 @@
 
 /datum/controller/subsystem/voicechat/proc/on_mob_changed(mob/M)
 	var/client/C = mob_client_map[M]
-	var/mob/new_mob = C.mob
-	if(!C || !new_mob)
+	if(!C)
 		return
 
 	mob_client_map.Remove(M)
-	mob_client_map[new_mob] = C
 	unregister_mob_signals(M)
 
-	register_mob_signals(new_mob)
-	check_mob_conditions(new_mob)
+	var/mob/new_mob = C.mob
+	if(new_mob)
+		mob_client_map[new_mob] = C
+		register_mob_signals(new_mob)
+		check_mob_conditions(new_mob)
 
 /datum/controller/subsystem/voicechat/proc/unregister_mob_signals(mob/M)
 	UnregisterSignal(M, COMSIG_MOB_LOGOUT)
@@ -233,26 +238,25 @@
 	clear_userCode(userCode)
 
 	var/client/C = userCode_client_map[userCode]
+	var/mob/M
 	if(C)
+		M = C.mob
 		userCode_client_map.Remove(userCode)
 		client_userCode_map.Remove(C)
 		userCode_room_map.Remove(userCode)
 		vc_clients -= userCode
 
-	var/mob/M = C.mob
-
-	if(userCodes_speaking_icon[userCode])
-		if(C && M)
+	if(M)
+		unregister_mob_signals(M)
+		mob_client_map.Remove(M)
+		if(userCodes_speaking_icon[userCode])
 			M.cut_overlay(userCodes_speaking_icon[userCode])
-			unregister_mob_signals(M)
+
+	userCode_mob_map.Remove(userCode)
+	userCodes_speaking_icon.Remove(userCode)
 
 	if(from_byond)
 		send_json(alist(cmd= "disconnect", userCode= userCode))
-	//for lobby chat
-
-	if(SSticker.current_state < GAME_STATE_PLAYING)
-		send_locations()
-
 
 
 // Toggles the speaker overlay for a user

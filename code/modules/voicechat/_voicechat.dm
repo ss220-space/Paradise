@@ -198,6 +198,8 @@ SERVER: подсистема SSVoicechat перезапустится через
 			continue
 		if(room_has_proximity[room])
 			var/turf/T = get_turf(M)
+			if(!T)
+				continue
 			var/localroom = "[T.z]_[room]"
 			if(!packet[localroom])
 				packet[localroom] = list()

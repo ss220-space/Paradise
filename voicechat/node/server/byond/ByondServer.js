@@ -8,19 +8,21 @@ const BYOND_SERVER_PORT = 27000;
 
 function startByondServer(byondPort, io, shutdown_function) {
     const ByondServer = net.createServer((stream) => {
+        let buffer = '';
         stream.on('data', (data) => {
-            const jsonStr = data.toString('utf-8');
-            try {
-                const json = JSON.parse(jsonStr);
-                // console.log('Received JSON:', json);
-                handleRequest(json, byondPort, io, shutdown_function);
-            } catch (err) {
-                console.log(jsonStr);
-                console.error('Invalid JSON:', err);
-                sendJSON({ error: 'invalid JSON', data: err }, byondPort)
-            }
+            buffer += data.toString('utf-8');
         });
         stream.on('end', () => {
+            try {
+                if (buffer) {
+                    const json = JSON.parse(buffer);
+                    handleRequest(json, byondPort, io, shutdown_function);
+                }
+            } catch (err) {
+                console.log(buffer);
+                console.error('Invalid JSON:', err);
+                sendJSON({ error: 'invalid JSON', data: err.message }, byondPort)
+            }
         });
     });
 

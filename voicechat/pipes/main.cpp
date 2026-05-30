@@ -62,12 +62,12 @@ extern "C" BYOND_EXPORT CByondValue SendJSON(u4c n, ByondValue v[]) {
 
 #ifdef _WIN32
     // Windows: Use TCP socket to localhost:27000
-    WSADATA wsaData;
-    int iResult = WSAStartup(MAKEWORD(2, 2), &wsaData);
-    if (iResult != 0) {
-        delete[] buf;
-        ByondValue_SetNum(&ret, 0.0f);
-        return ret;
+    static bool wsa_initialized = false;
+    if (!wsa_initialized) {
+        WSADATA wsaData;
+        if (WSAStartup(MAKEWORD(2, 2), &wsaData) == 0) {
+            wsa_initialized = true;
+        }
     }
 
     sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
