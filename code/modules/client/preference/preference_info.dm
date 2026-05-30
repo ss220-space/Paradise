@@ -78,6 +78,9 @@ GLOBAL_LIST_EMPTY(preferences_info)
 /datum/preference_info/runechat_looc
 	name = "Runechat LOOC"
 
+/datum/preference_info/runechat_dead
+	name = "Rune-Deadchat"
+
 /datum/preference_info/ghost_death_notifs
 	name = "Ghost Death Notifications"
 
@@ -203,6 +206,9 @@ GLOBAL_LIST_EMPTY(preferences_info)
 
 /datum/preference_info/runechat_looc/get_preference_toggle()
 	return GLOB.preference_toggles[/datum/preference_toggle/toggle_runechat_looc]
+
+/datum/preference_info/runechat_dead/get_preference_toggle()
+	return GLOB.preference_toggles[/datum/preference_toggle/toggle_runechat_dead]
 
 /datum/preference_info/ghost_death_notifs/get_preference_toggle()
 	return GLOB.preference_toggles[/datum/preference_toggle/toggle_ghost_death_notifs]

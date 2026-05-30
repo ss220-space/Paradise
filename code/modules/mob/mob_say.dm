@@ -77,6 +77,12 @@
 	say_dead_direct("[pick("жалуется", "стонет", "хнычет", "причитает", "рыдает", "ноет")], \"[span_message(message)]\"", src)
 	add_deadchat_logs(src, message)
 
+	// rune chat
+	for(var/mob/mobs_hearing as anything in viewers(src))
+		if(SSticker.current_state != GAME_STATE_FINISHED && (mobs_hearing.see_invisible < invisibility || !isdead(mobs_hearing)))
+			continue
+		if(mobs_hearing.client && mobs_hearing.client.prefs.toggles3 & PREFTOGGLE_3_RUNECHAT_DEAD && mobs_hearing)
+			mobs_hearing.create_chat_message(src, message)
 /**
  * Checks if the mob can understand the other speaker
  *
@@ -239,4 +245,3 @@
 	. = trim_right(.)
 
 #undef ILLEGAL_CHARACTERS_LIST
-
