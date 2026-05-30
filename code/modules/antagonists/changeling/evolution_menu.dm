@@ -94,20 +94,20 @@
 		return FALSE
 
 	if(power_type in purchased_abilities)
-		owner.balloon_alert(owner, "способность уже развита")
+		to_chat(owner, span_warning("Мы уже развили эту способность!"))
 		return FALSE
 
 	var/datum/action/changeling/power = power_type
 	if(cling.absorbed_count < initial(power.req_dna))
-		owner.balloon_alert(owner, "нужно больше ДНК")
+		to_chat(owner, span_warning("Мы должны поглотить больше ДНК для развития этой способности!"))
 		return FALSE
 
 	if(cling.genetic_points < initial(power.dna_cost))
-		owner.balloon_alert(owner, "нет очков развития")
+		to_chat(owner, span_warning("Нам не хватает очков развития для этой способности!"))
 		return FALSE
 
 	if(HAS_TRAIT(owner, TRAIT_FAKEDEATH)) // To avoid potential exploits by buying new powers while in stasis, which clears your verblist.
-		owner.balloon_alert(owner, "мы заняты регенерацией")
+		to_chat(owner, span_warning("Мы заняты регенерацией и у нас не хватит сил для развития!"))
 		return FALSE
 
 	cling.give_power(new power_type)
