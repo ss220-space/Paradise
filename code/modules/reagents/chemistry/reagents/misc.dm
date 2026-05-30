@@ -285,7 +285,7 @@
 		target_mob.color = pick(GLOB.random_color_list)
 	else if(ishuman(target_mob))
 		var/mob/living/carbon/human/target_human = target_mob
-		for(var/obj/item/item in target_human.get_visible_items())
+		for(var/obj/item/item as anything in target_human.get_visible_items())
 			item.add_atom_colour(pick(GLOB.random_color_list), WASHABLE_COLOUR_PRIORITY)
 	..()
 
