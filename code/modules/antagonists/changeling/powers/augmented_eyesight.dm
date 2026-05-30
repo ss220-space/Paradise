@@ -86,12 +86,12 @@
 
 /obj/item/organ/internal/cyberimp/eyes/thermals/ling/get_ru_names()
 	return list(
-		NOMINATIVE = "тепловой рецептор",
-		GENITIVE = "теплового рецептора",
-		DATIVE = "тепловому рецептору",
-		ACCUSATIVE = "тепловой рецептор",
-		INSTRUMENTAL = "тепловым рецептором",
-		PREPOSITIONAL = "тепловом рецепторе",
+		NOMINATIVE = "тепловые рецепторы",
+		GENITIVE = "тепловых рецепторов",
+		DATIVE = "тепловым рецепторам",
+		ACCUSATIVE = "тепловые рецепторы",
+		INSTRUMENTAL = "тепловыми рецепторами",
+		PREPOSITIONAL = "тепловых рецепторах",
 	)
 
 /obj/item/organ/internal/cyberimp/eyes/thermals/ling/emp_act(severity)

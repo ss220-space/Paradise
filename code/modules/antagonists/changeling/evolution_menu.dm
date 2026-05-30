@@ -42,7 +42,7 @@
 /datum/action/changeling/evolution_menu/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "EvolutionMenu", "Меню эволюции")
+		ui = new(user, src, "EvolutionMenu", "[name]")
 		ui.set_autoupdate(FALSE)
 		ui.open()
 

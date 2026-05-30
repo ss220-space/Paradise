@@ -20,8 +20,6 @@
 
 	var/mimic_voice
 	var/mimic_voice_tts
-
-	//var/mimic_option = alert(user, "Чей голос мы хотим повторить?", "Подражание голоса", CLING_MIMICVOICE_PICKVOICE, CLING_MIMICVOICE_WRITEVOICE, CLING_MIMICVOICE_CANCEL)
 	var/mimic_option = tgui_alert(user, "Чей голос мы хотим повторить?", "Подражание голоса", list(CLING_MIMICVOICE_PICKVOICE, CLING_MIMICVOICE_WRITEVOICE, CLING_MIMICVOICE_CANCEL))
 
 	switch(mimic_option)

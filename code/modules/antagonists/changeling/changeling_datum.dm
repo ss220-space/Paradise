@@ -110,7 +110,7 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 		to_chat(owner.current, span_userdanger("Вы были киборгизированы!"))
 		to_chat(owner.current, span_danger("Вы должны подчиняться законам синтетиков и служить вашему ИИ мастеру! Ваши цели будут считать вас мёртвым."))
 	else
-		to_chat(owner.current, span_fontsize3("<span style='color: red;'><b>Вы потеряли ваши способности! Теперь вы не генокрад и застряли в своём текущем теле!</b></span>"))
+		to_chat(owner.current, span_danger("Вы потеряли ваши способности! Теперь вы не генокрад и застряли в своём текущем теле!"))
 
 /datum/antagonist/changeling/apply_innate_effects(mob/living/mob_override)
 	var/mob/living/user = ..()
