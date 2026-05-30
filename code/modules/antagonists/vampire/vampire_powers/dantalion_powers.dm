@@ -28,11 +28,30 @@
 						span_warning("Вы кусаете [target] за шею и впускаете поток силы."))
 	to_chat(target, span_warning("Вы чувствуете, как в ваш разум проникают потоки нечистой силы."))
 	if(do_after(user, 15 SECONDS, target, NONE))
+		if(target.stat == DEAD && isvampirethrall(target))
+			var/datum/antagonist/mindslave/thrall/thrall = target.mind.has_antag_datum(/datum/antagonist/mindslave/thrall)
+			if(thrall && thrall.master == user.mind)
+				target.revive()
+				target.update_revive()
+				var/datum/spell_handler/vampire/vamp = custom_handler
+				var/blood_cost = vamp.calculate_blood_cost(vampire)
+				vampire.bloodusable -= blood_cost //we take the blood after enthralling, not before
+				user.create_log(CONVERSION_LOG, "revived thrall", target)
+				target.create_log(CONVERSION_LOG, "was revived by vampire master", user)
+				return
+			else
+				to_chat(user, span_warning("Это не ваш раб."))
+				revert_cast(user)
+				return
+
 		if(can_enthrall(user, target))
 			handle_enthrall(user, target)
 			var/datum/spell_handler/vampire/V = custom_handler
 			var/blood_cost = V.calculate_blood_cost(vampire)
 			vampire.bloodusable -= blood_cost //we take the blood after enthralling, not before
+		else
+			revert_cast(user)
+			to_chat(user, span_warning("Вы или ваша цель сдвинулись с места."))
 	else
 		revert_cast(user)
 		to_chat(user, span_warning("Вы или ваша цель сдвинулись с места."))
