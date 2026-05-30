@@ -307,7 +307,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		//We also need to update name of internal camera.
 		camera?.c_tag = newname
 
-		gps?.gpstag = custom_name + " (Robot)"
+		gps?.gpstag = "[newname] (Robot)"
 
 	if(mmi?.brainmob)
 		mmi.brainmob.name = newname

@@ -394,7 +394,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		// Set ai pda name
 		aiPDA?.set_name_and_job(newname, JOB_TITLE_AI)
 
-		gps?.gpstag = newname + " (AI)"
+		gps?.gpstag = "[newname] (AI)"
 
 	return TRUE
 
