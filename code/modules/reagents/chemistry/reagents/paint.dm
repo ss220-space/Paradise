@@ -19,7 +19,7 @@
 	else if(ishuman(target_mob) && method == REAGENT_TOUCH)
 		var/mob/living/carbon/human/target_human = target_mob
 		var/paint_color = color
-		for(var/obj/item/item in target_human.get_visible_items())
+		for(var/obj/item/item as anything in target_human.get_visible_items())
 			item.add_atom_colour(paint_color, WASHABLE_COLOUR_PRIORITY)
 	..()
 
@@ -78,6 +78,6 @@
 		target_mob.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
 	else if(ishuman(target_mob) && method == REAGENT_TOUCH)
 		var/mob/living/carbon/human/target_human = target_mob
-		for(var/obj/item/item in target_human.get_visible_items())
+		for(var/obj/item/item as anything in target_human.get_visible_items())
 			item.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
 	..()
