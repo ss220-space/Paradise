@@ -135,8 +135,8 @@
 		SPECIES_WOLPIN = 'icons/mob/clothing/neck.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/neck.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/neck.dmi',
-		SPECIES_PLASMAMAN = 'icons/mob/clothing/neck.dmi'
-		)
+		SPECIES_PLASMAMAN = 'icons/mob/clothing/neck.dmi',
+	)
 
 /obj/item/clothing/neck/cloak/civil_cape/get_ru_names()
 	return list(
@@ -158,8 +158,8 @@
 		SPECIES_WOLPIN = 'icons/mob/clothing/neck.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/neck.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/neck.dmi',
-		SPECIES_PLASMAMAN = 'icons/mob/clothing/neck.dmi'
-		)
+		SPECIES_PLASMAMAN = 'icons/mob/clothing/neck.dmi',
+	)
 
 
 /obj/item/clothing/neck/cloak/commander_cape/get_ru_names()
@@ -182,8 +182,8 @@
 		SPECIES_WOLPIN = 'icons/mob/clothing/neck.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/neck.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/neck.dmi',
-		SPECIES_PLASMAMAN = 'icons/mob/clothing/neck.dmi'
-		)
+		SPECIES_PLASMAMAN = 'icons/mob/clothing/neck.dmi',
+	)
 
 /obj/item/clothing/neck/cloak/sec_cape/get_ru_names()
 	return list(
