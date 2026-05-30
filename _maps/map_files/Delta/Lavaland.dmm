@@ -7107,9 +7107,7 @@
 	},
 /area/mine/laborcamp)
 "NE" = (
-/obj/machinery/defibrillator_mount/loaded{
-	pixel_y = 24
-	},
+/obj/machinery/defibrillator_mount/loaded/directional/north,
 /obj/machinery/camera{
 	c_tag = "Mining Medpoint";
 	network = list("Mining Outpost")
