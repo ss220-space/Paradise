@@ -2810,8 +2810,9 @@
 		return
 	var/my_ckey = ckey(key)
 	for(var/obj/item/uplink/uplink as anything in GLOB.world_uplinks)
-		if(uplink.uplink_owner && ckey(uplink.uplink_owner) == my_ckey)
-			return uplink
+		if(!uplink.uplink_owner || ckey(uplink.uplink_owner) != my_ckey)
+			continue
+		return uplink
 
 /datum/mind/proc/make_Traitor()
 	if(!has_antag_datum(/datum/antagonist/traitor))
