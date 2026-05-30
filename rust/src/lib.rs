@@ -8,5 +8,6 @@ mod logging;
 mod mapmanip;
 mod milla;
 mod rand_replace;
+mod send_json;
 mod sound_len;
 mod uuid;
