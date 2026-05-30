@@ -28,6 +28,8 @@
 	if(length(weather_immunities))
 		add_traits(weather_immunities, INNATE_TRAIT)
 
+	register_context()
+
 	GLOB.mob_living_list += src
 
 /mob/living/Destroy()
@@ -617,13 +619,7 @@
 			visible_message("<b>[declent_ru(NOMINATIVE)]</b> указыва[PLUR_ET_YUT(src)] [hand_item.declent_ru(INSTRUMENTAL)] на [pointed_object].")
 			return TRUE
 
-		target.visible_message(
-			span_danger("[declent_ru(NOMINATIVE)] направля[PLUR_ET_YUT(src)] [hand_item.declent_ru(INSTRUMENTAL)] на [pointed_object]!"),
-			span_userdanger("[declent_ru(NOMINATIVE)] направля[PLUR_ET_YUT(src)] [hand_item.declent_ru(INSTRUMENTAL)] на вас!"),
-		)
-		SEND_SOUND(target, sound('sound/weapons/targeton.ogg'))
-		SEND_SOUND(src, sound('sound/weapons/targeton.ogg'))
-		add_emote_logs(src, "point [hand_item] HARM to [key_name(target)] [COORD(target)]")
+		hand_item.interact_with_atom_secondary(target, src)
 		return TRUE
 
 	if(istype(hand_item, /obj/item/toy/russian_revolver/trick_revolver) && target != hand_item)
@@ -2368,3 +2364,15 @@
 	var/obj/item/organ/external/part = get_bodypart(zone)
 
 	return part?.plaintext_zone || parse_zone(zone)
+
+/mob/living/add_context(atom/source, list/context, obj/item/held_item, mob/user)
+	. = ..()
+	if(!isgun(held_item))
+		return
+
+	var/obj/item/gun/held_gun = held_item
+	if(!held_gun.can_hold_up || user.a_intent != INTENT_HARM)
+		return
+
+	context[SCREENTIP_CONTEXT_RMB] = "Взять на мушку"
+	return CONTEXTUAL_SCREENTIP_SET
