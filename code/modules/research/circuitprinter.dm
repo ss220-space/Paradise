@@ -310,7 +310,9 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 	update_static_data_for_all_viewers()
 
 /obj/machinery/r_n_d/circuit_imprinter/proc/can_save_circuit_by_import(mob/living/user, list/data)
-	var/list/required_keys = list("dupe_data", "name", "integrated_circuit", "Icon", "IconState", "desc")
+	if(isnull(data) || !islist(data))
+		return FALSE
+	var/list/required_keys = list("dupe_data", "name", "Icon", "IconState", "desc")
 	for(var/key in required_keys)
 		if(!LAZYACCESS(data, key))
 			return FALSE
@@ -318,6 +320,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 
 /obj/machinery/r_n_d/circuit_imprinter/proc/save_circuit_by_import(mob/living/user, list/data)
 	if(!can_save_circuit_by_import(user, data))
+		tgui_alert(user, "Невозможно сохранить схему!", "Ошибка импорта")
 		return
 
 	var/list/dupe_data = data["dupe_data"]
