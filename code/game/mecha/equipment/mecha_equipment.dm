@@ -136,9 +136,14 @@
 		return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/proc/can_attach(obj/mecha/M)
-	if(istype(M))
+	if(check_allowed_equipment(M))
 		if(length(M.equipment) < M.max_equip)
 			return TRUE
+	return FALSE
+
+/obj/item/mecha_parts/mecha_equipment/proc/check_allowed_equipment(obj/mecha/M)
+	if(M.allowed_equipment & MECH_EQUIPMENT_ALL)
+		return TRUE
 	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/proc/can_detach()

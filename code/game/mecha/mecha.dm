@@ -53,6 +53,10 @@
 	var/cargo_capacity = 1
 	/// for wide cargo module
 	var/cargo_expanded = FALSE
+	/// emp protection
+	var/emp_protection = FALSE
+	/// mech equipment types
+	var/allowed_equipment = MECH_EQUIPMENT_ALL
 
 	//inner atmos
 	var/use_internal_tank = FALSE
@@ -867,7 +871,9 @@
 
 //TODO
 /obj/mecha/emp_act(severity)
-	if(get_charge())
+	if(emp_protection)
+		return FALSE
+	else if(get_charge())
 		use_power((cell.charge/3)/(severity*2))
 		take_damage(30 / severity, BURN, ENERGY, 1)
 	check_for_internal_damage(list(MECHA_INT_FIRE, MECHA_INT_TEMP_CONTROL, MECHA_INT_CONTROL_LOST, MECHA_INT_SHORT_CIRCUIT), 1)

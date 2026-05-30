@@ -9,11 +9,10 @@
 	var/dam_force = 20
 	harmful = TRUE
 
-/obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/can_attach(obj/mecha/M)
-	if(..())
-		if(istype(M, /obj/mecha/working) || istype(M, /obj/mecha/combat/lockersyndie))
-			return TRUE
-	return FALSE
+/obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/check_allowed_equipment(obj/mecha/M)
+	if(M.allowed_equipment & MECH_EQUIPMENT_WORKING)
+		return TRUE
+	. = ..()
 
 /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/action(atom/target, list/modifiers)
 	if(!action_checks(target))
@@ -118,11 +117,10 @@
 	origin_tech = "materials=5;bluespace=6;"
 	selectable = MODULE_SELECTABLE_NONE
 
-/obj/item/mecha_parts/mecha_equipment/cargo_upgrade/can_attach(obj/mecha/M)
-	if(..())
-		if(istype(M, /obj/mecha/working))
-			return TRUE
-	return FALSE
+/obj/item/mecha_parts/mecha_equipment/cargo_upgrade/check_allowed_equipment(obj/mecha/M)
+	if(M.allowed_equipment & MECH_EQUIPMENT_WORKING)
+		return TRUE
+	. = ..()
 
 /obj/item/mecha_parts/mecha_equipment/cargo_upgrade/attach_act(obj/mecha/M)
 	chassis.cargo_expanded = TRUE
@@ -251,11 +249,10 @@
 	energy_drain = 250
 	range = MECHA_MELEE | MECHA_RANGED
 
-/obj/item/mecha_parts/mecha_equipment/mimercd/can_attach(obj/mecha/combat/M)
-	if(..())
-		if(istype(M, /obj/mecha/combat/reticence) || istype(M, /obj/mecha/combat/lockersyndie))
-			return TRUE
-	return FALSE
+/obj/item/mecha_parts/mecha_equipment/mimercd/check_allowed_equipment(obj/mecha/M)
+	if(M.allowed_equipment & MECH_EQUIPMENT_MIME)
+		return TRUE
+	. = ..()
 
 /obj/item/mecha_parts/mecha_equipment/mimercd/action(atom/target, list/modifiers)
 	if(istype(target, /turf/space/transit))//>implying these are ever made -Sieve
@@ -298,12 +295,7 @@
 /obj/item/mecha_parts/mecha_equipment/multimodule/is_melee()
 	return targeted_module?.is_melee()
 
-/obj/item/mecha_parts/mecha_equipment/multimodule/can_attach(obj/mecha/M)
-	if(!..())
-		return FALSE
-	for(var/obj/item/mecha_parts/mecha_equipment/module in modules)
-		if(!module.can_attach(M))
-			return FALSE
+/obj/item/mecha_parts/mecha_equipment/multimodule/check_allowed_equipment(obj/mecha/M)
 	return TRUE
 
 /obj/item/mecha_parts/mecha_equipment/multimodule/attach_act(obj/mecha/M)
@@ -404,11 +396,10 @@
 	last_piece = null
 	. = ..()
 
-/obj/item/mecha_parts/mecha_equipment/cable_layer/can_attach(obj/mecha/M)
-	if(..())
-		if(istype(M, /obj/mecha/working) || istype(M, /obj/mecha/combat/lockersyndie))
-			return TRUE
-	return FALSE
+/obj/item/mecha_parts/mecha_equipment/cable_layer/check_allowed_equipment(obj/mecha/M)
+	if(M.allowed_equipment & MECH_EQUIPMENT_WORKING)
+		return TRUE
+	. = ..()
 
 /obj/item/mecha_parts/mecha_equipment/cable_layer/attach_act()
 	RegisterSignal(chassis, COMSIG_MOVABLE_MOVED, PROC_REF(layCable))
@@ -601,11 +592,10 @@
 /obj/item/mecha_parts/mecha_equipment/extinguisher/on_reagent_change()
 	return
 
-/obj/item/mecha_parts/mecha_equipment/extinguisher/can_attach(obj/mecha/M)
-	if(..())
-		if(istype(M, /obj/mecha/working) || istype(M, /obj/mecha/combat/lockersyndie))
-			return TRUE
-	return FALSE
+/obj/item/mecha_parts/mecha_equipment/extinguisher/check_allowed_equipment(obj/mecha/M)
+    if(M.allowed_equipment & MECH_EQUIPMENT_WORKING)
+        return TRUE
+    . = ..()
 
 /obj/item/mecha_parts/mecha_equipment/extinguisher/get_snowflake_data()
 	return list(
@@ -688,11 +678,10 @@
 
 	return FALSE
 
-/obj/item/mecha_parts/mecha_equipment/holowall/can_attach(obj/mecha/M)
-	if(..())
-		if(istype(M, /obj/mecha/working) || istype(M, /obj/mecha/combat/lockersyndie))
-			return TRUE
-	return FALSE
+/obj/item/mecha_parts/mecha_equipment/holowall/check_allowed_equipment(obj/mecha/M)
+    if(M.allowed_equipment & MECH_EQUIPMENT_WORKING)
+        return TRUE
+    . = ..()
 
 /obj/item/mecha_parts/mecha_equipment/eng_toolset
 	name = "Engineering toolset"
@@ -721,11 +710,10 @@
 		item.tool_enabled = TRUE
 	selected_item = pick(items_list)
 
-/obj/item/mecha_parts/mecha_equipment/eng_toolset/can_attach(obj/mecha/M)
-	if(..())
-		if(istype(M, /obj/mecha/working) || istype(M, /obj/mecha/combat/lockersyndie))
-			return TRUE
-	return FALSE
+/obj/item/mecha_parts/mecha_equipment/eng_toolset/check_allowed_equipment(obj/mecha/M)
+    if(M.allowed_equipment & MECH_EQUIPMENT_WORKING)
+        return TRUE
+    . = ..()
 
 /obj/item/mecha_parts/mecha_equipment/eng_toolset/get_snowflake_data()
 	var/list/data = list(

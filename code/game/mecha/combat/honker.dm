@@ -17,7 +17,7 @@
 	var/squeak = 0
 	ui_theme = "honker"
 	ui_honked = TRUE
-
+	allowed_equipment = MECH_EQUIPMENT_CLOWN | MECH_EQUIPMENT_COMBAT
 	mech_type = MECH_TYPE_HONKER
 
 /obj/mecha/combat/honker/loaded/Initialize(mapload)

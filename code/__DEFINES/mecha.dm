@@ -1,3 +1,12 @@
+// Mech equipment types
+#define MECH_EQUIPMENT_ALL (1<<0)
+#define MECH_EQUIPMENT_WORKING (1<<1)
+#define MECH_EQUIPMENT_COMBAT (1<<2)
+#define MECH_EQUIPMENT_MEDICAL (1<<3)
+#define MECH_EQUIPMENT_MAKESHIFT (1<<4)
+#define MECH_EQUIPMENT_MIME (1<<5)
+#define MECH_EQUIPMENT_CLOWN (1<<6)
+
 #define MECHA_INT_FIRE (1<<0)
 #define MECHA_INT_TEMP_CONTROL (1<<1)
 #define MECHA_INT_SHORT_CIRCUIT (1<<2)

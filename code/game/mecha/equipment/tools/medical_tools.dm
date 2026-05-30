@@ -6,11 +6,10 @@
 	. = ..()
 	START_PROCESSING(SSobj, src)
 
-/obj/item/mecha_parts/mecha_equipment/medical/can_attach(obj/mecha/M)
-	if(..())
-		if(istype(M, /obj/mecha/medical) || istype(M, /obj/mecha/combat/lockersyndie))
-			return TRUE
-	return FALSE
+/obj/item/mecha_parts/mecha_equipment/medical/check_allowed_equipment(obj/mecha/M)
+    if(M.allowed_equipment & MECH_EQUIPMENT_MEDICAL)
+        return TRUE
+    . = ..()
 
 /obj/item/mecha_parts/mecha_equipment/medical/attach_act(obj/mecha/M)
 	START_PROCESSING(SSobj, src)
@@ -262,12 +261,6 @@
 	..()
 	if(reagents)
 		reagents.set_reacting(TRUE)
-
-/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/can_attach(obj/mecha/M)
-	if(..())
-		if(istype(M, /obj/mecha/medical) || istype(M, /obj/mecha/combat/lockersyndie))
-			return TRUE
-	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/get_snowflake_data()
 	var/list/analyzed_reagents = list() // we need to make this list because .tsk wont map over an indexed array
@@ -538,11 +531,10 @@
 			else
 				step(L, SOUTH)
 
-/obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw/can_attach(obj/mecha/M)
-	if(istype(M, /obj/mecha/medical) || istype(M, /obj/mecha/working/ripley/firefighter) || istype(M, /obj/mecha/combat/lockersyndie))	//Odys or firefighters or syndielocker
-		if(length(M.equipment) < M.max_equip)
-			return TRUE
-	return FALSE
+/obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw/check_allowed_equipment(obj/mecha/M)
+    if(M.allowed_equipment & MECH_EQUIPMENT_WORKING || istype(M, /obj/mecha/working/ripley/firefighter))
+        return TRUE
+    . = ..()
 
 /obj/item/mecha_parts/mecha_equipment/medical/beamgun
 	name = "Medical Beamgun"

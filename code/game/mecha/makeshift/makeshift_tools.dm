@@ -5,10 +5,9 @@
 	force = 10 //Its not very strong
 	drill_delay = 15
 
-/obj/item/mecha_parts/mecha_equipment/drill/makeshift/can_attach(obj/mecha/M)
-	if(istype(M, /obj/mecha/makeshift) || istype(M, /obj/mecha/combat/lockersyndie))
-		if(length(M.equipment) < M.max_equip)
-			return TRUE
+/obj/item/mecha_parts/mecha_equipment/drill/makeshift/check_allowed_equipment(obj/mecha/M)
+	if(M.allowed_equipment & MECH_EQUIPMENT_ALL || M.allowed_equipment & MECH_EQUIPMENT_MAKESHIFT)
+		return TRUE
 	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/makeshift
@@ -17,8 +16,7 @@
 	equip_cooldown = 2.5 SECONDS
 	dam_force = 10
 
-/obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/makeshift/can_attach(obj/mecha/M)
-	if(istype(M, /obj/mecha/makeshift) || istype(M, /obj/mecha/combat/lockersyndie))
-		if(length(M.equipment) < M.max_equip)
-			return TRUE
+/obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/makeshift/check_allowed_equipment(obj/mecha/M)
+	if(M.allowed_equipment & MECH_EQUIPMENT_ALL || M.allowed_equipment & MECH_EQUIPMENT_MAKESHIFT)
+		return TRUE
 	return FALSE

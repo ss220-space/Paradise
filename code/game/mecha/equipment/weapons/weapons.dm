@@ -14,15 +14,18 @@
 	var/projectiles
 	var/projectile_energy_cost
 
-/obj/item/mecha_parts/mecha_equipment/weapon/can_attach(obj/mecha/combat/M)
-	if(..())
-		if(istype(M))
-			if(size > M.maxsize)
-				return FALSE
-			return TRUE
-		else if(M.emagged == TRUE)
-			return TRUE
-	return FALSE
+/obj/item/mecha_parts/mecha_equipment/weapon/can_attach(obj/mecha/M)
+	if(!istype(M, /obj/mecha/combat))
+		return ..()
+	var/obj/mecha/combat/combat = M
+	if(size > combat.maxsize)
+		return FALSE
+	. = ..()
+
+/obj/item/mecha_parts/mecha_equipment/weapon/check_allowed_equipment(obj/mecha/M)
+    if(M.allowed_equipment & MECH_EQUIPMENT_COMBAT || M.emagged)
+        return TRUE
+    . = ..()
 
 /obj/item/mecha_parts/mecha_equipment/weapon/proc/get_shot_amount()
 	return projectiles_per_shot
@@ -195,11 +198,10 @@
 	equip_cooldown = 15 SECONDS
 	range = MECHA_MELEE | MECHA_RANGED
 
-/obj/item/mecha_parts/mecha_equipment/weapon/honker/can_attach(obj/mecha/combat/M)
-	if(..())
-		if(istype(M, /obj/mecha/combat/honker) || istype(M, /obj/mecha/combat/lockersyndie))
-			return TRUE
-	return FALSE
+/obj/item/mecha_parts/mecha_equipment/weapon/honker/check_allowed_equipment(obj/mecha/M)
+    if(M.allowed_equipment & MECH_EQUIPMENT_CLOWN || M.allowed_equipment & MECH_EQUIPMENT_ALL)
+        return TRUE
+    return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/honker/action(target, list/modifiers)
 	if(!chassis)
@@ -299,11 +301,10 @@
 	projectiles = 20
 	projectile_energy_cost = 50
 
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/carbine/silenced/can_attach(obj/mecha/combat/M)
-	if(..())
-		if(istype(M, /obj/mecha/combat/reticence) || istype(M, /obj/mecha/combat/lockersyndie))
-			return TRUE
-	return FALSE
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/carbine/silenced/check_allowed_equipment(obj/mecha/M)
+    if(M.allowed_equipment & MECH_EQUIPMENT_MIME || M.allowed_equipment & MECH_EQUIPMENT_ALL)
+        return TRUE
+    return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot
 	name = "LBX AC 10 \"Scattershot\""
@@ -519,10 +520,9 @@
 	equip_cooldown = 2 SECONDS
 	harmful = FALSE
 
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/banana_mortar/can_attach(obj/mecha/combat/M)
-	if(..())
-		if(istype(M, /obj/mecha/combat/honker) || istype(M, /obj/mecha/combat/lockersyndie))
-			return TRUE
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/banana_mortar/check_allowed_equipment(obj/mecha/M)
+	if(M.allowed_equipment & MECH_EQUIPMENT_CLOWN || M.allowed_equipment & MECH_EQUIPMENT_ALL)
+		return TRUE
 	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/banana_mortar/action(target, list/modifiers)
@@ -547,11 +547,10 @@
 	equip_cooldown = 1 SECONDS
 	harmful = FALSE
 
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/mousetrap_mortar/can_attach(obj/mecha/combat/M)
-	if(..())
-		if(istype(M, /obj/mecha/combat/honker) || istype(M, /obj/mecha/combat/lockersyndie))
-			return TRUE
-	return FALSE
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/mousetrap_mortar/check_allowed_equipment(obj/mecha/M)
+    if(M.allowed_equipment & MECH_EQUIPMENT_CLOWN || M.allowed_equipment & MECH_EQUIPMENT_ALL)
+        return TRUE
+    return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/mousetrap_mortar/action(target, list/modifiers)
 	if(!action_checks(target))
@@ -577,11 +576,10 @@
 	equip_cooldown = 1 SECONDS
 	harmful = FALSE
 
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/bola/can_attach(obj/mecha/combat/M)
-	if(..())
-		if(istype(M, /obj/mecha/combat/gygax) || istype(M, /obj/mecha/combat/lockersyndie))
-			return TRUE
-	return FALSE
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/bola/check_allowed_equipment(obj/mecha/M)
+    if(istype(M, /obj/mecha/combat/gygax))
+        return TRUE
+    return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/bola/action(target, list/modifiers)
 	if(!action_checks(target))
@@ -608,11 +606,10 @@
 	fire_sound = 'sound/weapons/gunshots/1laser5.ogg'
 	harmful = TRUE
 
-/obj/item/mecha_parts/mecha_equipment/weapon/energy/plasma/can_attach(obj/mecha/M)
-	if(istype(M, /obj/mecha/working) || istype(M, /obj/mecha/combat/lockersyndie))
-		if(length(M.equipment)<M.max_equip)
-			return TRUE
-	return FALSE
+/obj/item/mecha_parts/mecha_equipment/weapon/energy/plasma/check_allowed_equipment(obj/mecha/M)
+    if(M.allowed_equipment & MECH_EQUIPMENT_WORKING || M.allowed_equipment & MECH_EQUIPMENT_ALL)
+        return TRUE
+    return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/mecha_kineticgun
 	equip_cooldown = 1 SECONDS
@@ -623,9 +620,3 @@
 	size = 1
 	projectile = /obj/projectile/kinetic/mech
 	fire_sound = 'sound/weapons/kenetic_accel.ogg'
-
-/obj/item/mecha_parts/mecha_equipment/weapon/energy/mecha_kineticgun/can_attach(obj/mecha/M)
-	if(istype(M))
-		if(length(M.equipment) < M.max_equip)
-			return TRUE
-	return FALSE

@@ -19,9 +19,8 @@
 	stepsound = null
 	turnsound = null
 	starting_voice = /obj/item/mecha_modkit/voice/silent
-
+	allowed_equipment = MECH_EQUIPMENT_MIME | MECH_EQUIPMENT_COMBAT
 	mech_type = MECH_TYPE_RETICENCE
-
 	ui_theme = "ntos_lightmode"
 
 /obj/mecha/combat/reticence/loaded/Initialize(mapload)
