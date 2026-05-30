@@ -25,10 +25,12 @@
 	var/obj/item/twohanded/shockpaddles/paddles
 	/// Ref to internal power cell.
 	var/obj/item/stock_parts/cell/high/cell = null
-	/// If false, using harm intent will let you zap people. Note that any updates to this after init will only impact icons.
+	/// If false, using harm/disarm intent will let you zap people. Note that any updates to this after init will only impact icons.
 	var/safety = TRUE
 	/// If true, this can be used through hardsuits
 	var/ignore_hardsuits = FALSE
+	/// Chance to cause cardiac arrest when used in Harm mode with safety protocols disabled.
+	var/heart_attack_probability = 30
 	/// If this is vulnerable to EMPs.
 	var/hardened = FALSE
 	/// If this can be emagged.
@@ -255,6 +257,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	slot_flags = ITEM_SLOT_BELT
 	origin_tech = "biotech=5"
+	heart_attack_probability = 10
 
 /obj/item/defibrillator/compact/get_ru_names()
 	return list(
@@ -283,6 +286,7 @@
 	paddle_type = /obj/item/twohanded/shockpaddles/syndicate
 	ignore_hardsuits = TRUE
 	safety = FALSE
+	heart_attack_probability = 100
 
 /obj/item/defibrillator/compact/combat/get_ru_names()
 	return list(
@@ -307,6 +311,7 @@
 	paddle_type = /obj/item/twohanded/shockpaddles/advanced
 	ignore_hardsuits = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF //Objective item, better not have it destroyed.
+	heart_attack_probability = 100
 
 	var/next_emp_message //to prevent spam from the emagging message on the advanced defibrillator
 
@@ -405,10 +410,11 @@
 	add_defib_component(mainunit)
 
 /obj/item/twohanded/shockpaddles/proc/add_defib_component(mainunit)
-	if(!check_defib_exists(mainunit))
-		return
-	update_icon(UPDATE_ICON_STATE)
-	AddComponent(/datum/component/defib, actual_unit = defib, ignore_hardsuits = defib.ignore_hardsuits, safe_by_default = defib.safety, emp_proof = defib.hardened, emag_proof = defib.emag_proof)
+	if(check_defib_exists(mainunit))
+		update_icon(UPDATE_ICON_STATE)
+		AddComponent(/datum/component/defib, actual_unit = defib, ignore_hardsuits = defib.ignore_hardsuits, safe_by_default = defib.safety, emp_proof = defib.hardened, emag_proof = defib.emag_proof, heart_attack_chance = defib.heart_attack_probability)
+	else
+		AddComponent(/datum/component/defib)
 	RegisterSignal(src, COMSIG_DEFIB_READY, PROC_REF(on_cooldown_expire))
 	RegisterSignal(src, COMSIG_DEFIB_SHOCK_APPLIED, PROC_REF(after_shock))
 	RegisterSignal(src, COMSIG_DEFIB_PADDLES_APPLIED, PROC_REF(on_application))

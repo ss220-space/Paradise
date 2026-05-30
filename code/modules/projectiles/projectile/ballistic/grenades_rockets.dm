@@ -3,6 +3,7 @@
 	name = "HEDP rocket"
 	desc = "ИСПОЛЬЗУЙ ПНЕВМАТИЧЕСКИЙ ПИСТОЛЕТ"
 	icon_state = "84mm-hedp"
+	icon = 'icons/obj/weapons/ammo.dmi'
 	damage = 80
 	//shrapnel thing
 	var/shrapnel_range = 5
@@ -33,7 +34,7 @@
 				embed_shrapnel(H, shrapnel_amount)
 
 /obj/projectile/bullet/a84mm_hedp/proc/embed_shrapnel(mob/living/carbon/human/H, amount)
-	for(var/i = 0, i < amount, i++)
+	for(var/i in 0 to amount)
 		if(prob(embed_prob - H.getarmor(attack_flag = BOMB)))
 			var/obj/item/embedded/S = new embedded_type(src)
 			H.hitby(S, skipcatch = 1)
@@ -48,6 +49,7 @@
 	name = "HE missile"
 	desc = "Boom."
 	icon_state = "84mm-he"
+	icon = 'icons/obj/weapons/ammo.dmi'
 	damage = 30
 	speed = 0.8
 	ricochets_max = 0
@@ -172,7 +174,7 @@
 /obj/item/grenade/frag/less
 	range = 2
 	shrapnel_radius = 3
-	
+
 /obj/projectile/grenade/a40mm/secgl/paint
 	icon_state = "secgl_projectile_paint"
 	var/paint_color = "#e99518"

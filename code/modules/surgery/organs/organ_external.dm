@@ -17,7 +17,7 @@
 /// Chance for arterial bleeding based on inflicting damage
 #define LIMB_ARTERIAL_BLEEDING_CHANCE_MOD 0.5
 /// Arterial bleeding size
-#define LIMB_ARTERIAL_BLEEDING_SIZE 21
+#define LIMB_ARTERIAL_BLEEDING_SIZE 25
 
 // MARK: External organs
 
@@ -250,11 +250,14 @@
 			var/atom/movable/thing = childpart.remove(organ_owner, special)
 			if(!QDELETED(thing))
 				thing.forceMove(src)
-		organ_owner.updatehealth("limb remove")
 
 	release_restraints(organ_owner)
 	organ_owner.bodyparts -= src
 	organ_owner.bodyparts_by_name[limb_zone] = null	// Remove from owner's vars.
+
+	// Must happen after bodyparts cleanup
+	if(!ignore_children)
+		organ_owner.updatehealth("limb remove")
 
 	//Robotic limbs explode if sabotaged.
 	if(is_robotic() && sabotaged && !special)

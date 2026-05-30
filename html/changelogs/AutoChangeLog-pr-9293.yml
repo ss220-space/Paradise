@@ -1,0 +1,4 @@
+author: "Dimempers"
+delete-after: True
+changes:
+  - spellcheck: "У ИИ больше не может быть раундстарт имени \"Фагот\" (PR #9293)"

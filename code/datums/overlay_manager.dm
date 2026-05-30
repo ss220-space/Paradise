@@ -1,27 +1,19 @@
-SUBSYSTEM_DEF(overlays)
-	name = "Overlay"
-	ss_flags = SS_NO_FIRE
+GLOBAL_DATUM_INIT(overlay_manager, /datum/overlay_manager, new())
 
-	var/list/stats
+/datum/overlay_manager
+	/// Stat tracking entries for overlay operations, written out at shutdown.
+	var/list/stats = list()
 
-/datum/controller/subsystem/overlays/PreInit()
-	stats = list()
-
-/datum/controller/subsystem/overlays/Initialize()
-	return SS_INIT_SUCCESS
-
-/datum/controller/subsystem/overlays/Shutdown()
+/// Writes the collected overlay stats to the round log directory. Invoked from world/Reboot().
+/datum/overlay_manager/proc/dump_stats()
 	text2file(render_stats(stats), "[GLOB.log_directory]/overlay.log")
-
-/datum/controller/subsystem/overlays/Recover()
-	stats = SSoverlays.stats
 
 /// Converts an overlay list into text for debug printing
 /// Of note: overlays aren't actually mutable appearances, they're just appearances
 /// Don't have access to that type tho, so this is the best you're gonna get
 /proc/overlays2text(list/overlays)
 	var/list/unique_overlays = list()
-	// As anything because we're basically doing type coerrsion, rather then actually filtering for mutable apperances
+	// As anything because we're basically doing type coercion, rather then actually filtering for mutable appearances
 	for(var/mutable_appearance/overlay as anything in overlays)
 		var/key = "[overlay.icon]-[overlay.icon_state]-[overlay.dir]"
 		unique_overlays[key] += 1
@@ -31,13 +23,13 @@ SUBSYSTEM_DEF(overlays)
 	return output_text.Join("\n")
 
 /proc/iconstate2appearance(icon, iconstate)
-	var/static/image/stringbro = new
+	var/static/image/stringbro = new()
 	stringbro.icon = icon
 	stringbro.icon_state = iconstate
 	return stringbro.appearance
 
 /proc/icon2appearance(icon)
-	var/static/image/iconbro = new
+	var/static/image/iconbro = new()
 	iconbro.icon = icon
 	return iconbro.appearance
 
@@ -59,18 +51,18 @@ SUBSYSTEM_DEF(overlays)
 /atom/proc/cut_overlays()
 	STAT_START_STOPWATCH
 	overlays = null
-	//POST_OVERLAY_CHANGE(src)
+	POST_OVERLAY_CHANGE(src)
 	STAT_STOP_STOPWATCH
-	STAT_LOG_ENTRY(SSoverlays.stats, type)
+	STAT_LOG_ENTRY(GLOB.overlay_manager.stats, type)
 
 /atom/proc/cut_overlay(list/remove_overlays)
 	if(!overlays)
 		return
 	STAT_START_STOPWATCH
 	overlays -= build_appearance_list(remove_overlays)
-	//POST_OVERLAY_CHANGE(src)
+	POST_OVERLAY_CHANGE(src)
 	STAT_STOP_STOPWATCH
-	STAT_LOG_ENTRY(SSoverlays.stats, type)
+	STAT_LOG_ENTRY(GLOB.overlay_manager.stats, type)
 
 /atom/proc/add_overlay(list/add_overlays)
 	if(!overlays)
@@ -78,11 +70,12 @@ SUBSYSTEM_DEF(overlays)
 	STAT_START_STOPWATCH
 	overlays += build_appearance_list(add_overlays)
 	VALIDATE_OVERLAY_LIMIT(src)
-	//POST_OVERLAY_CHANGE(src)
+	POST_OVERLAY_CHANGE(src)
 	STAT_STOP_STOPWATCH
-	STAT_LOG_ENTRY(SSoverlays.stats, type)
+	STAT_LOG_ENTRY(GLOB.overlay_manager.stats, type)
 
-/atom/proc/copy_overlays(atom/other, cut_old = FALSE) //copys our_overlays from another atom
+///copys our_overlays from another atom
+/atom/proc/copy_overlays(atom/other, cut_old)
 	if(!other)
 		if(cut_old)
 			cut_overlays()
@@ -96,15 +89,15 @@ SUBSYSTEM_DEF(overlays)
 		else
 			overlays = null
 		VALIDATE_OVERLAY_LIMIT(src)
-		//POST_OVERLAY_CHANGE(src)
+		POST_OVERLAY_CHANGE(src)
 		STAT_STOP_STOPWATCH
-		STAT_LOG_ENTRY(SSoverlays.stats, type)
+		STAT_LOG_ENTRY(GLOB.overlay_manager.stats, type)
 	else if(cached_other)
 		overlays += cached_other
 		VALIDATE_OVERLAY_LIMIT(src)
-		//POST_OVERLAY_CHANGE(src)
+		POST_OVERLAY_CHANGE(src)
 		STAT_STOP_STOPWATCH
-		STAT_LOG_ENTRY(SSoverlays.stats, type)
+		STAT_LOG_ENTRY(GLOB.overlay_manager.stats, type)
 
 //TODO: Better solution for these?
 /image/proc/add_overlay(x)
@@ -131,7 +124,6 @@ SUBSYSTEM_DEF(overlays)
 	else if(cut_old)
 		cut_overlays()
 
-// Debug procs
 /image
 	/// List of overlay "keys" (info about the appearance) -> mutable versions of static appearances
 	/// Drawn from the overlays list
@@ -161,7 +153,7 @@ SUBSYSTEM_DEF(overlays)
 		var/mutable_appearance/appearance = queue[queue_index]
 		if(!appearance) // Who fucking adds nulls to their sublists god you people are the worst
 			continue
-		var/mutable_appearance/new_appearance = new
+		var/mutable_appearance/new_appearance = new /mutable_appearance()
 		new_appearance.appearance = appearance
 		var/key = "[appearance.icon]-[appearance.icon_state]-[appearance.plane]-[appearance.layer]-[appearance.dir]-[appearance.color]"
 		var/tmp_key = key
@@ -197,8 +189,8 @@ SUBSYSTEM_DEF(overlays)
 			continue
 		if(name == "vars") // Go away
 			continue
-		//if(name == "_listen_lookup") // This is just gonna happen with marked datums, don't care
-		//	continue
+		if(name == "_listen_lookup") // This is just gonna happen with marked datums, don't care
+			continue
 		if(name == "overlays")
 			first.realize_overlays()
 			second.realize_overlays()

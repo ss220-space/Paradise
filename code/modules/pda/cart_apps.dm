@@ -420,52 +420,74 @@
 	update = PDA_APP_UPDATE_SLOW
 
 /datum/data/pda/app/janitor/update_ui(mob/user as mob, list/data)
-	var/list/JaniData = list()
-	var/turf/cl = get_turf(pda)
+	var/list/jani_data = list()
+	var/turf/pda_turf = get_turf(pda)
+	var/janitorial_equipment_chached = GLOB.janitorial_equipment
+	var/bots_list_chached = GLOB.bots_list
 
-	if(cl)
-		JaniData["user_loc"] = list("x" = cl.x, "y" = cl.y)
+	if(pda_turf)
+		jani_data["user_loc"] = list("x" = pda_turf.x, "y" = pda_turf.y)
 	else
-		JaniData["user_loc"] = list("x" = 0, "y" = 0)
+		jani_data["user_loc"] = list("x" = 0, "y" = 0)
 
-	var/list/MopData = list()
-	for(var/obj/item/mop/M in GLOB.janitorial_equipment)
-		var/turf/ml = get_turf(M)
-		if(ml)
-			if(ml.z != cl.z)
+	var/list/mop_data = list()
+	for(var/obj/item/mop/mop in janitorial_equipment_chached)
+		var/turf/item_turf = get_turf(mop)
+		if(item_turf)
+			if(!is_valid_z_level(item_turf, pda_turf))
 				continue
-			var/direction = get_dir(pda, M)
-			MopData[++MopData.len] = list ("x" = ml.x, "y" = ml.y, "dir" = uppertext(dir2text(direction)), "status" = M.reagents.total_volume ? "Wet" : "Dry")
+			var/direction = get_dir(pda, mop)
+			mop_data[++mop_data.len] = list ("x" = item_turf.x, "y" = item_turf.y, "dir" = uppertext(dir2rustext(direction)), "status" = mop.reagents.total_volume ? "Мокрая" : "Сухая")
 
-	var/list/BucketData = list()
-	for(var/obj/structure/mopbucket/B in GLOB.janitorial_equipment)
-		var/turf/bl = get_turf(B)
-		if(bl)
-			if(bl.z != cl.z)
+	var/list/bucket_data = list()
+	for(var/obj/structure/mopbucket/bucket in janitorial_equipment_chached)
+		var/turf/item_turf = get_turf(bucket)
+		if(item_turf)
+			if(!is_valid_z_level(item_turf, pda_turf))
 				continue
-			var/direction = get_dir(pda,B)
-			BucketData[++BucketData.len] = list ("x" = bl.x, "y" = bl.y, "dir" = uppertext(dir2text(direction)), "volume" = B.reagents.total_volume, "max_volume" = B.reagents.maximum_volume)
+			var/direction = get_dir(pda, bucket)
+			bucket_data[++bucket_data.len] = list ("x" = item_turf.x, "y" = item_turf.y, "dir" = uppertext(dir2rustext(direction)), "volume" = bucket.reagents.total_volume, "max_volume" = bucket.reagents.maximum_volume)
 
-	var/list/CbotData = list()
-	for(var/mob/living/simple_animal/bot/cleanbot/B in GLOB.bots_list)
-		var/turf/bl = get_turf(B)
-		if(bl)
-			if(bl.z != cl.z)
+	var/list/cleanbot_data = list()
+	for(var/mob/living/simple_animal/bot/cleanbot/clean_bot in bots_list_chached)
+		var/turf/item_turf = get_turf(clean_bot)
+		if(item_turf)
+			if(!is_valid_z_level(item_turf, pda_turf))
 				continue
-			var/direction = get_dir(pda,B)
-			CbotData[++CbotData.len] = list("x" = bl.x, "y" = bl.y, "dir" = uppertext(dir2text(direction)), "status" = B.on ? "Online" : "Offline")
+			var/direction = get_dir(pda, clean_bot)
+			cleanbot_data[++cleanbot_data.len] = list("x" = item_turf.x, "y" = item_turf.y, "dir" = uppertext(dir2rustext(direction)), "status" = clean_bot.on ? "Включён" : "Выключен")
 
-	var/list/CartData = list()
-	for(var/obj/structure/janitorialcart/B in GLOB.janitorial_equipment)
-		var/turf/bl = get_turf(B)
-		if(bl)
-			if(bl.z != cl.z)
+	var/list/jancart_data = list()
+	for(var/obj/structure/janitorialcart/jan_cart_structure in janitorial_equipment_chached)
+		var/turf/item_turf = get_turf(jan_cart_structure)
+		if(item_turf)
+			if(!is_valid_z_level(item_turf, pda_turf))
 				continue
-			var/direction = get_dir(pda,B)
-			CartData[++CartData.len] = list("x" = bl.x, "y" = bl.y, "dir" = uppertext(dir2text(direction)), "volume" = B.reagents.total_volume, "max_volume" = B.reagents.maximum_volume)
+			var/direction = get_dir(pda, jan_cart_structure)
+			jancart_data[++jancart_data.len] = list("x" = item_turf.x, "y" = item_turf.y, "dir" = uppertext(dir2rustext(direction)), "volume" = jan_cart_structure.reagents.total_volume, "max_volume" = jan_cart_structure.reagents.maximum_volume)
 
-	JaniData["mops"] = length(MopData) ? MopData : null
-	JaniData["buckets"] = length(BucketData) ? BucketData : null
-	JaniData["cleanbots"] = length(CbotData) ? CbotData : null
-	JaniData["carts"] = length(CartData) ? CartData : null
-	data["janitor"] = JaniData
+	var/list/cart_key_data = list()
+	for(var/obj/item/key/janitor/jan_key in janitorial_equipment_chached)
+		var/turf/item_turf = get_turf(jan_key)
+		if(item_turf)
+			if(!is_valid_z_level(item_turf, pda_turf))
+				continue
+			var/direction = get_dir(pda, jan_key)
+			cart_key_data[++cart_key_data.len] = list("x" = item_turf.x, "y" = item_turf.y, "dir" = uppertext(dir2rustext(direction)))
+
+	var/list/vehicle_cart_data = list()
+	for(var/obj/vehicle/ridden/janicart/janicart in janitorial_equipment_chached)
+		var/turf/item_turf = get_turf(janicart)
+		if(item_turf)
+			if(!is_valid_z_level(item_turf, pda_turf))
+				continue
+			var/direction = get_dir(pda, janicart)
+			vehicle_cart_data[++vehicle_cart_data.len] = list("x" = item_turf.x, "y" = item_turf.y, "dir" = uppertext(dir2rustext(direction)))
+
+	jani_data["mops"] = length(mop_data) ? mop_data : null
+	jani_data["buckets"] = length(bucket_data) ? bucket_data : null
+	jani_data["pda_turfeanbots"] = length(cleanbot_data) ? cleanbot_data : null
+	jani_data["carts"] = length(jancart_data) ? jancart_data : null
+	jani_data["keys"] = length(cart_key_data) ? cart_key_data : null
+	jani_data["janicarts"] = length(vehicle_cart_data) ? vehicle_cart_data : null
+	data["janitor"] = jani_data

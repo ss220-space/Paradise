@@ -1,0 +1,4 @@
+author: "kkadmor"
+delete-after: True
+changes:
+  - bugfix: "GPS показывает имена боргов и ИИ (PR #9320)"
