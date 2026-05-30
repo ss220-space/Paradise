@@ -37,10 +37,8 @@
 	remove_from_all_data_huds()
 	ADD_TRAIT(src, TRAIT_BLOODCRAWL_EAT, TRAIT_BLOODCRAWL_EAT)
 	ADD_TRAIT(src, TRAIT_HEALS_FROM_HELL_RIFTS, INNATE_TRAIT)
-	var/obj/effect/proc_holder/spell/bloodcrawl/bloodspell = new
-	AddSpell(bloodspell)
-	if(istype(loc, /obj/effect/dummy/slaughter))
-		bloodspell.phased = TRUE
+	var/datum/action/cooldown/spell/jaunt/bloodcrawl/slaughter_demon/action = new()
+	action.Grant(src)
 
 /mob/living/simple_animal/demon/slaughter/Destroy()
 	// Only execute the below if we successfully died
@@ -213,13 +211,15 @@
 
 /obj/item/organ/internal/heart/demon/slaughter/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	. = ..()
-	M?.mind?.AddSpell(new /obj/effect/proc_holder/spell/bloodcrawl(null))
+	var/datum/action/cooldown/spell/jaunt/bloodcrawl/slaughter_demon/action = new()
+	action.Grant(M)
 
 /obj/item/organ/internal/heart/demon/slaughter/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	if(M.mind)
 		REMOVE_TRAIT(M, TRAIT_BLOODCRAWL, TRAIT_BLOODCRAWL)
 		REMOVE_TRAIT(M, TRAIT_BLOODCRAWL_EAT, TRAIT_BLOODCRAWL_EAT)
-		M.mind.RemoveSpell(/obj/effect/proc_holder/spell/bloodcrawl)
+		var/datum/action/cooldown/spell/jaunt/bloodcrawl/slaughter_demon/action = locate() in M.actions
+		action.Remove(M)
 	. = ..()
 
 /**

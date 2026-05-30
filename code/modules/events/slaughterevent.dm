@@ -23,9 +23,10 @@
 	var/datum/mind/player_mind = new /datum/mind(key_of_slaughter)
 	player_mind.active = TRUE
 	var/turf/spawn_loc = get_spawn_loc(player_mind.current)
-	var/obj/effect/dummy/slaughter/holder = new /obj/effect/dummy/slaughter(spawn_loc)
+	var/obj/effect/dummy/phased_mob/blood/holder = new /obj/effect/dummy/phased_mob/blood(spawn_loc)
 	var/mob/living/simple_animal/demon/new_demon = new demon(holder)
 	new_demon.holder = holder
+	holder.jaunter = new_demon
 	player_mind.transfer_to(new_demon)
 	player_mind.assigned_role = ROLE_DEMON
 	player_mind.special_role = SPECIAL_ROLE_DEMON
@@ -49,10 +50,10 @@
 	return pick(spawn_locs)
 
 /datum/event/spawn_slaughter/start()
-	if(num_station_players() <= minplayers)
-		var/datum/event_container/EC = SSevents.event_containers[EVENT_LEVEL_MAJOR]
-		EC.next_event_time = world.time + (60 * 10)
-		return	//we don't spawn demons on lowpop. Instead, we reroll!
+	// if(num_station_players() <= minplayers)
+	// 	var/datum/event_container/EC = SSevents.event_containers[EVENT_LEVEL_MAJOR]
+	// 	EC.next_event_time = world.time + (60 * 10)
+	// 	return	//we don't spawn demons on lowpop. Instead, we reroll!
 
 	INVOKE_ASYNC(src, PROC_REF(get_slaughter))
 

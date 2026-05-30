@@ -30,12 +30,11 @@
 	remove_from_all_data_huds()
 	AddSpell(new /obj/effect/proc_holder/spell/fireball/shadow_grapple)
 	ADD_TRAIT(src, TRAIT_HEALS_FROM_HELL_RIFTS, INNATE_TRAIT)
-	var/obj/effect/proc_holder/spell/bloodcrawl/shadow_crawl/crawl = new
-	AddSpell(crawl)
+	var/datum/action/cooldown/spell/jaunt/bloodcrawl/shadow_crawl/action = new()
+	action.Grant(src)
 	whisper_action.button_icon_state = "shadow_whisper"
 	whisper_action.background_icon_state = "shadow_demon_bg"
-	if(istype(loc, /obj/effect/dummy/slaughter))
-		crawl.phased = TRUE
+	if(istype(loc, /obj/effect/dummy/phased_mob/blood))
 		RegisterSignal(loc, COMSIG_MOVABLE_MOVED, TYPE_PROC_REF(/mob/living/simple_animal/demon/shadow, check_darkness))
 	RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(check_darkness))
 	add_overlay(emissive_appearance(icon, "shadow_demon_eye_glow_overlay", src))
@@ -43,7 +42,7 @@
 /mob/living/simple_animal/demon/shadow/Life(seconds, times_fired)
 	. = ..()
 	var/lum_count = check_darkness()
-	var/damage_mod = istype(loc, /obj/effect/dummy/slaughter) ? 0.5 : 1
+	var/damage_mod = istype(loc, /obj/effect/dummy/phased_mob/blood) ? 0.5 : 1
 	if(lum_count > 0.2)
 		adjustBruteLoss(30 * damage_mod) // 20 seconds in light and you are done
 		SEND_SOUND(src, sound('sound/weapons/sear.ogg'))

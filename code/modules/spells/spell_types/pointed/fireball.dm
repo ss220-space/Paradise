@@ -10,5 +10,4 @@
 	deactive_msg = span_notice_alt("You extinguish your fireball...for now.")
 	projectile_type = /obj/projectile/magic/fireball
 	button_icon_state = "fireball0"
-	background_icon_state_active = "bg_spell"
 	sound = 'sound/magic/fireball.ogg'

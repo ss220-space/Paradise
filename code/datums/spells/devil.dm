@@ -213,7 +213,7 @@
 		return FALSE
 
 /obj/effect/proc_holder/spell/infernal_jaunt/cast(list/targets, mob/living/user = usr)
-	if(istype(user.loc, /obj/effect/dummy/slaughter))
+	if(istype(user.loc, /obj/effect/dummy/phased_mob/blood))
 		var/continuing = 0
 		if(istype(get_area(user), /area/shuttle)) // Can always phase in in a shuttle.
 			continuing = TRUE
@@ -251,7 +251,7 @@
 	visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] исчезает в огненной вспышке!"))
 	playsound(get_turf(src), 'sound/misc/enter_blood.ogg', 100, TRUE, -1)
 
-	var/obj/effect/dummy/slaughter/s_holder = new(loc)
+	var/obj/effect/dummy/phased_mob/blood/s_holder = new(loc)
 
 	ExtinguishMob()
 	forceMove(s_holder)

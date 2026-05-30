@@ -145,7 +145,7 @@
 
 /datum/devil_rank/true_devil/apply_rank()
 	var/mob/devil_mob = devil.owner.current
-	if(istype(devil_mob.loc, /obj/effect/dummy/slaughter))
+	if(istype(devil_mob.loc, /obj/effect/dummy/phased_mob/blood))
 		devil_mob.forceMove(get_turf(devil_mob))
 	if(isdevil(devil_mob))
 		to_chat(devil_mob, span_revenbignotice("Вы чувствуете, как ваше тело меняется."))
@@ -170,7 +170,7 @@
 
 /datum/devil_rank/ascend/apply_rank()
 	var/mob/devil_mob = devil.owner.current
-	if(istype(devil_mob.loc, /obj/effect/dummy/slaughter))
+	if(istype(devil_mob.loc, /obj/effect/dummy/phased_mob/blood))
 		devil_mob.forceMove(get_turf(devil_mob))
 	var/mob/living/carbon/true_devil/ascended/true_devil
 	if(isascendeddevil(devil_mob))
