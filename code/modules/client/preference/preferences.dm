@@ -2196,8 +2196,8 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 						if(limb == BODY_ZONE_HEAD)
 							ha_style = "None"
 							alt_head = null
-							h_style = GLOB.hair_styles_public_list["Bald"]
-							f_style = GLOB.facial_hair_styles_list["Shaved"]
+							h_style = "Bald"
+							f_style = "Shaved"
 							m_styles["head"] = "None"
 						rlimb_data[limb] = choice
 						organ_data[limb] = PREF_ORGANSTATUS_CYBORG_ENG
@@ -2286,8 +2286,8 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 						if(PREF_ORGANSTATUS_ORGANIC_RUS)
 							if(limb == BODY_ZONE_HEAD)
 								m_styles["head"] = "None"
-								h_style = GLOB.hair_styles_public_list["Bald"]
-								f_style = GLOB.facial_hair_styles_list["Shaved"]
+								h_style = "Bald"
+								f_style = "Shaved"
 							organ_data[limb] = null
 							rlimb_data[limb] = null
 							if(third_limb)
@@ -2337,8 +2337,8 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 								if(limb == BODY_ZONE_HEAD)
 									ha_style = "None"
 									alt_head = null
-									h_style = GLOB.hair_styles_public_list["Bald"]
-									f_style = GLOB.facial_hair_styles_list["Shaved"]
+									h_style = "Bald"
+									f_style = "Shaved"
 									m_styles["head"] = "None"
 							rlimb_data[limb] = choice
 							organ_data[limb] = PREF_ORGANSTATUS_CYBORG_ENG

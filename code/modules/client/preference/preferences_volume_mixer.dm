@@ -84,6 +84,13 @@
 			owner_mob.refresh_looping_ambience()
 		return
 
+	// Jukebox sounds are positional — let active jukeboxes re-emit a proper sound (with x/z)
+	// instead of clobbering the channel via a flat send_volume_update that resets directionality.
+	if(channel == CHANNEL_JUKEBOX)
+		if(!isnull(owner_mob))
+			SEND_SIGNAL(owner_mob, COMSIG_MOB_JUKEBOX_PREFERENCE_APPLIED)
+		return
+
 	send_volume_update(channel, volume)
 
 /datum/preferences/proc/send_volume_update(channel, volume)

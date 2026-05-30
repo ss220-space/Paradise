@@ -1,0 +1,7 @@
+author: "SCPfollower"
+delete-after: True
+changes:
+  - add: "Добавлен компонент Gunpoint (удерживание на мушке). (PR #9304)"
+  - add: "Добавлена эмоция *surrender дающая неснимаемый стан 20 секунд для компонента Gunpoint. (PR #9304)"
+  - image: "Добавлены иконки для Surrender, Hold Up для компонента Gunpoint. (PR #9304)"
+  - local: "Локализован компонент Gunpoint c ТГ. (PR #9304)"
