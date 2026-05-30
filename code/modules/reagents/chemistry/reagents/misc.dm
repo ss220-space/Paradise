@@ -90,9 +90,9 @@
 	color = "#1C1300" // rgb: 30, 20, 0
 	taste_description = "пишущей части карандаша"
 
-/datum/reagent/carbon/reaction_turf(turf/T, volume)
-	if(!(locate(/obj/effect/decal/cleanable/dirt) in T) && !isspaceturf(T)) // Only add one dirt per turf.  Was causing people to crash.
-		new /obj/effect/decal/cleanable/dirt(T)
+/datum/reagent/carbon/reaction_turf(turf/target_turf, volume)
+	if(!(locate(/obj/effect/decal/cleanable/dirt) in target_turf) && !isspaceturf(target_turf)) // Only add one dirt per turf.  Was causing people to crash.
+		new /obj/effect/decal/cleanable/dirt(target_turf)
 
 /datum/reagent/gold
 	name = "Золото"
@@ -180,23 +180,23 @@
 
 /datum/reagent/oil/reaction_temperature(exposed_temperature, exposed_volume)
 	if(exposed_temperature > T0C + 600)
-		var/turf/T = get_turf(holder.my_atom)
+		var/turf/target_turf = get_turf(holder.my_atom)
 		holder.my_atom.visible_message("<b>Масло горит!</b>")
 		var/datum/reagents/old_holder = holder
 		fire_flash_log(holder, id)
 		if(holder)
 			holder.del_reagent(id) // Remove first. Else fireflash triggers a reaction again
 
-		fireflash(T, min(max(0, volume / 40), 8))
+		fireflash(target_turf, min(max(0, volume / 40), 8))
 		var/datum/effect_system/fluid_spread/smoke/bad/smoke = new
-		smoke.set_up(amount = 1, location = T)
+		smoke.set_up(amount = 1, location = target_turf)
 		smoke.start()
 		if(!QDELETED(old_holder))
 			old_holder.add_reagent("ash", round(volume * 0.5))
 
-/datum/reagent/oil/reaction_turf(turf/T, volume)
-	if(volume >= 3 && !isspaceturf(T) && !locate(/obj/effect/decal/cleanable/blood/oil) in T)
-		new /obj/effect/decal/cleanable/blood/oil(T)
+/datum/reagent/oil/reaction_turf(turf/target_turf, volume)
+	if(volume >= 3 && !isspaceturf(target_turf) && !locate(/obj/effect/decal/cleanable/blood/oil) in target_turf)
+		new /obj/effect/decal/cleanable/blood/oil(target_turf)
 
 /datum/reagent/iodine
 	name = "Йод"
@@ -214,10 +214,10 @@
 	color = "#701345"
 	taste_description = "старого ковра"
 
-/datum/reagent/carpet/reaction_turf(turf/simulated/T, volume)
-	if(istype(T, /turf/simulated/floor/plating) || istype(T, /turf/simulated/floor/plasteel))
-		var/turf/simulated/floor/F = T
-		F.ChangeTurf(/turf/simulated/floor/carpet)
+/datum/reagent/carpet/reaction_turf(turf/simulated/target_turf, volume)
+	if(istype(target_turf, /turf/simulated/floor/plating) || istype(target_turf, /turf/simulated/floor/plasteel))
+		var/turf/simulated/floor/target_floor = target_turf
+		target_floor.ChangeTurf(/turf/simulated/floor/carpet)
 	..()
 
 /datum/reagent/bromine
@@ -252,9 +252,9 @@
 	color = "#474747"
 	taste_description = "средства для снятия лака с ногтей"
 
-/datum/reagent/acetone/on_mob_life(mob/living/M)
+/datum/reagent/acetone/on_mob_life(mob/living/target_mob)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustToxLoss(1.5, FALSE)
+	update_flags |= target_mob.adjustToxLoss(1.5, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/saltpetre
@@ -273,23 +273,27 @@
 	color = "#FFFFFF"
 	taste_description = "радуги"
 
-/datum/reagent/colorful_reagent/on_mob_life(mob/living/M)
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		if(!HAS_TRAIT(H, TRAIT_NO_BLOOD) && !HAS_TRAIT(H, TRAIT_EXOTIC_BLOOD))
-			H.dna.species.blood_color = "#[num2hex(rand(0, 255), 2)][num2hex(rand(0, 255), 2)][num2hex(rand(0, 255), 2)]"
+/datum/reagent/colorful_reagent/on_mob_life(mob/living/target_mob)
+	if(ishuman(target_mob))
+		var/mob/living/carbon/human/target_human = target_mob
+		if(!HAS_TRAIT(target_human, TRAIT_NO_BLOOD) && !HAS_TRAIT(target_human, TRAIT_EXOTIC_BLOOD))
+			target_human.dna.species.blood_color = "#[num2hex(rand(0, 255), 2)][num2hex(rand(0, 255), 2)][num2hex(rand(0, 255), 2)]"
 	return ..()
 
-/datum/reagent/colorful_reagent/reaction_mob(mob/living/simple_animal/M, method=REAGENT_TOUCH, volume)
-	if(isanimal(M))
-		M.color = pick(GLOB.random_color_list)
+/datum/reagent/colorful_reagent/reaction_mob(mob/living/target_mob, method=REAGENT_TOUCH, volume)
+	if(isanimal(target_mob))
+		target_mob.color = pick(GLOB.random_color_list)
+	else if(ishuman(target_mob))
+		var/mob/living/carbon/human/target_human = target_mob
+		for(var/obj/item/item as anything in target_human.get_visible_items())
+			item.add_atom_colour(pick(GLOB.random_color_list), WASHABLE_COLOUR_PRIORITY)
 	..()
 
-/datum/reagent/colorful_reagent/reaction_obj(obj/O, volume)
-	O.color = pick(GLOB.random_color_list)
+/datum/reagent/colorful_reagent/reaction_obj(obj/target_obj, volume)
+	target_obj.color = pick(GLOB.random_color_list)
 
-/datum/reagent/colorful_reagent/reaction_turf(turf/T, volume)
-	T.color = pick(GLOB.random_color_list)
+/datum/reagent/colorful_reagent/reaction_turf(turf/target_turf, volume)
+	target_turf.color = pick(GLOB.random_color_list)
 
 /datum/reagent/hair_dye
 	name = "Квантовая краска для волос"
@@ -299,16 +303,16 @@
 	color = "#960096"
 	taste_description = "осеннего выпуска каталога Le Jeune Homme для профессиональных парикмахеров от 2559 года"
 
-/datum/reagent/hair_dye/reaction_mob(mob/living/M, volume)
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		var/obj/item/organ/external/head/head_organ = H.get_organ(BODY_ZONE_HEAD)
+/datum/reagent/hair_dye/reaction_mob(mob/living/target_mob, volume)
+	if(ishuman(target_mob))
+		var/mob/living/carbon/human/target_human = target_mob
+		var/obj/item/organ/external/head/head_organ = target_human.get_organ(BODY_ZONE_HEAD)
 		head_organ.facial_colour = rand_hex_color()
 		head_organ.sec_facial_colour = rand_hex_color()
 		head_organ.hair_colour = rand_hex_color()
 		head_organ.sec_hair_colour = rand_hex_color()
-		H.update_hair()
-		H.update_fhair()
+		target_human.update_hair()
+		target_human.update_fhair()
 	..()
 
 /datum/reagent/hairgrownium
@@ -320,14 +324,14 @@
 	penetrates_skin = TRUE
 	taste_description = "волос"
 
-/datum/reagent/hairgrownium/reaction_mob(mob/living/M, volume)
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		var/obj/item/organ/external/head/head_organ = H.get_organ(BODY_ZONE_HEAD)
-		head_organ.h_style = random_hair_style(H.gender, head_organ.dna.species.name, human = H)
-		head_organ.f_style = random_facial_hair_style(H.gender, head_organ.dna.species.name)
-		H.update_hair()
-		H.update_fhair()
+/datum/reagent/hairgrownium/reaction_mob(mob/living/target_mob, volume)
+	if(ishuman(target_mob))
+		var/mob/living/carbon/human/target_human = target_mob
+		var/obj/item/organ/external/head/head_organ = target_human.get_organ(BODY_ZONE_HEAD)
+		head_organ.h_style = random_hair_style(target_human.gender, head_organ.dna.species.name, human = target_human)
+		head_organ.f_style = random_facial_hair_style(target_human.gender, head_organ.dna.species.name)
+		target_human.update_hair()
+		target_human.update_fhair()
 	..()
 
 /datum/reagent/super_hairgrownium
@@ -339,31 +343,31 @@
 	penetrates_skin = TRUE
 	taste_description = "кучи волос"
 
-/datum/reagent/super_hairgrownium/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
+/datum/reagent/super_hairgrownium/reaction_mob(mob/living/target_mob, method=REAGENT_TOUCH, volume)
 	if(volume < 5)
 		return ..()
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		var/obj/item/organ/external/head/head_organ = H.get_organ(BODY_ZONE_HEAD)
+	if(ishuman(target_mob))
+		var/mob/living/carbon/human/target_human = target_mob
+		var/obj/item/organ/external/head/head_organ = target_human.get_organ(BODY_ZONE_HEAD)
 		var/datum/sprite_accessory/tmp_hair_style = GLOB.hair_styles_full_list["Very Long Hair"]
 		var/datum/sprite_accessory/tmp_facial_hair_style = GLOB.facial_hair_styles_list["Very Long Beard"]
 
 		if(head_organ.dna.species.name in tmp_hair_style.species_allowed) //If 'Very Long Hair' is a style the person's species can have, give it to them.
 			head_organ.h_style = "Very Long Hair"
 		else //Otherwise, give them a random hair style.
-			head_organ.h_style = random_hair_style(H.gender, head_organ.dna.species, human = H)
+			head_organ.h_style = random_hair_style(target_human.gender, head_organ.dna.species, human = target_human)
 		if(head_organ.dna.species.name in tmp_facial_hair_style.species_allowed) //If 'Very Long Beard' is a style the person's species can have, give it to them.
 			head_organ.f_style = "Very Long Beard"
 		else //Otherwise, give them a random facial hair style.
-			head_organ.f_style = random_facial_hair_style(H.gender, head_organ.dna.species.name)
-		H.update_hair()
-		H.update_fhair()
-		if(!H.wear_mask || H.wear_mask && !istype(H.wear_mask, /obj/item/clothing/mask/fakemoustache) && !(H.wear_mask.resistance_flags & NO_MOUSTACHING))
-			if(H.wear_mask)
-				H.drop_item_ground(H.wear_mask, force = TRUE)
+			head_organ.f_style = random_facial_hair_style(target_human.gender, head_organ.dna.species.name)
+		target_human.update_hair()
+		target_human.update_fhair()
+		if(!target_human.wear_mask || target_human.wear_mask && !istype(target_human.wear_mask, /obj/item/clothing/mask/fakemoustache) && !(target_human.wear_mask.resistance_flags & NO_MOUSTACHING))
+			if(target_human.wear_mask)
+				target_human.drop_item_ground(target_human.wear_mask, force = TRUE)
 			var/obj/item/clothing/mask/fakemoustache = new /obj/item/clothing/mask/fakemoustache
-			H.equip_to_slot(fakemoustache, ITEM_SLOT_MASK)
-			to_chat(H, span_notice("Ваши волосы начинают стремительно расти!"))
+			target_human.equip_to_slot(fakemoustache, ITEM_SLOT_MASK)
+			to_chat(target_human, span_notice("Ваши волосы начинают стремительно расти!"))
 	..()
 
 /datum/reagent/hugs
@@ -383,33 +387,33 @@
 	process_flags = ORGANIC | SYNTHETIC // That's the power of love~
 	taste_description = "<font color='pink'><b>любви</b></font>"
 
-/datum/reagent/love/on_mob_add(mob/living/L)
+/datum/reagent/love/on_mob_add(mob/living/target_mob)
 	..()
-	if(L.a_intent != INTENT_HELP)
-		L.a_intent_change(INTENT_HELP)
-	L.can_change_intents = FALSE //Now you have no choice but to be helpful.
+	if(target_mob.a_intent != INTENT_HELP)
+		target_mob.a_intent_change(INTENT_HELP)
+	target_mob.can_change_intents = FALSE //Now you have no choice but to be helpful.
 
-/datum/reagent/love/on_mob_life(mob/living/M)
+/datum/reagent/love/on_mob_life(mob/living/target_mob)
 	if(prob(8))
 		var/lovely_phrase = pick("оценивают по достоинству", "любят", "ценят", "уважают", "признают")
-		to_chat(M, span_notice("Вы чувствуете, что вас [lovely_phrase]."))
+		to_chat(target_mob, span_notice("Вы чувствуете, что вас [lovely_phrase]."))
 
-	else if(!M.incapacitated() && !HAS_TRAIT(M, TRAIT_HANDS_BLOCKED))
-		for(var/mob/living/carbon/C in orange(1, M))
-			if(C)
-				if(C == M)
+	else if(!target_mob.incapacitated() && !HAS_TRAIT(target_mob, TRAIT_HANDS_BLOCKED))
+		for(var/mob/living/carbon/target_carbon in orange(1, target_mob))
+			if(target_carbon)
+				if(target_carbon == target_mob)
 					continue
-				if(!C.stat)
-					C.attack_hand(M)  //now real hugs, not fake
+				if(!target_carbon.stat)
+					target_carbon.attack_hand(target_mob)  //now real hugs, not fake
 					break
 	return ..()
 
-/datum/reagent/love/on_mob_delete(mob/living/M)
-	M.can_change_intents = TRUE
+/datum/reagent/love/on_mob_delete(mob/living/target_mob)
+	target_mob.can_change_intents = TRUE
 	..()
 
-/datum/reagent/love/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
-	to_chat(M, span_notice("Вы чувствуете, что вас любят!"))
+/datum/reagent/love/reaction_mob(mob/living/target_mob, method=REAGENT_TOUCH, volume)
+	to_chat(target_mob, span_notice("Вы чувствуете, что вас любят!"))
 
 /datum/reagent/jestosterone //Formerly known as Nitrogen tungstide hypochlorite before NT fired the chemists for trying to be funny
 	name = "Шутостерон"
@@ -421,35 +425,35 @@
 
 /datum/reagent/jestosterone/on_new()
 	..()
-	var/mob/living/carbon/C = holder.my_atom
-	if(!istype(C))
+	var/mob/living/carbon/target_carbon = holder.my_atom
+	if(!istype(target_carbon))
 		return
-	if(C.mind)
-		if(C.mind.assigned_role == JOB_TITLE_CLOWN || C.mind.assigned_role == SPECIAL_ROLE_HONKSQUAD)
-			to_chat(C, span_notice("Что бы это ни было, ощущения великолепные!"))
-		else if(C.mind.assigned_role == JOB_TITLE_MIME)
-			to_chat(C, span_warning("Вы чувствете тошноту."))
-			C.AdjustDizzy(volume STATUS_EFFECT_CONSTANT)
+	if(target_carbon.mind)
+		if(target_carbon.mind.assigned_role == JOB_TITLE_CLOWN || target_carbon.mind.assigned_role == SPECIAL_ROLE_HONKSQUAD)
+			to_chat(target_carbon, span_notice("Что бы это ни было, ощущения великолепные!"))
+		else if(target_carbon.mind.assigned_role == JOB_TITLE_MIME)
+			to_chat(target_carbon, span_warning("Вы чувствете тошноту."))
+			target_carbon.AdjustDizzy(volume STATUS_EFFECT_CONSTANT)
 		else
-			to_chat(C, span_warning("Вы чувствуете себя странно и дискомфортно."))
-			C.AdjustDizzy(volume STATUS_EFFECT_CONSTANT)
-	ADD_TRAIT(C, TRAIT_JESTER, id)
-	squeak = C.AddComponent(/datum/component/squeak, null, null, null, null, null, TRUE, falloff_exponent = 20)
-	C.AddElement(/datum/element/waddling)
+			to_chat(target_carbon, span_warning("Вы чувствуете себя странно и дискомфортно."))
+			target_carbon.AdjustDizzy(volume STATUS_EFFECT_CONSTANT)
+	ADD_TRAIT(target_carbon, TRAIT_JESTER, id)
+	squeak = target_carbon.AddComponent(/datum/component/squeak, null, null, null, null, null, TRUE, falloff_exponent = 20)
+	target_carbon.AddElement(/datum/element/waddling)
 
-/datum/reagent/jestosterone/on_mob_life(mob/living/carbon/M)
-	if(!istype(M))
+/datum/reagent/jestosterone/on_mob_life(mob/living/carbon/target_mob)
+	if(!istype(target_mob))
 		return ..()
 	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(10))
-		M.emote("giggle")
-	if(M?.mind.assigned_role == JOB_TITLE_CLOWN || M?.mind.assigned_role == SPECIAL_ROLE_HONKSQUAD)
-		update_flags |= M.adjustBruteLoss(-1.5, affect_robotic = FALSE) //Screw those pesky clown beatings!
+		target_mob.emote("giggle")
+	if(target_mob?.mind.assigned_role == JOB_TITLE_CLOWN || target_mob?.mind.assigned_role == SPECIAL_ROLE_HONKSQUAD)
+		update_flags |= target_mob.adjustBruteLoss(-1.5, affect_robotic = FALSE) //Screw those pesky clown beatings!
 	else
-		M.AdjustDizzy(20 SECONDS, 0, 1000 SECONDS)
-		M.Druggy(30 SECONDS)
+		target_mob.AdjustDizzy(20 SECONDS, 0, 1000 SECONDS)
+		target_mob.Druggy(30 SECONDS)
 		if(prob(10))
-			M.EyeBlurry(10 SECONDS)
+			target_mob.EyeBlurry(10 SECONDS)
 		if(prob(6))
 			var/list/clown_message = list("Вы чувствуете головокружение.",
 			"Вы не можете видеть прямо.",
@@ -462,15 +466,15 @@
 			"Зловещий смех отдаётся в ваших ушах.",
 			"Ваши ноги словно желе.",
 			"Вам хочется рассказать анекдот.")
-			to_chat(M, span_warning("[pick(clown_message)]"))
-		if(M?.mind.assigned_role == JOB_TITLE_MIME)
-			update_flags |= M.adjustToxLoss(0.75)
+			to_chat(target_mob, span_warning("[pick(clown_message)]"))
+		if(target_mob?.mind.assigned_role == JOB_TITLE_MIME)
+			update_flags |= target_mob.adjustToxLoss(0.75)
 	return ..() | update_flags
 
-/datum/reagent/jestosterone/on_mob_delete(mob/living/M)
+/datum/reagent/jestosterone/on_mob_delete(mob/living/target_mob)
 	..()
-	REMOVE_TRAIT(M, TRAIT_JESTER, id)
-	M.RemoveElement(/datum/element/waddling)
+	REMOVE_TRAIT(target_mob, TRAIT_JESTER, id)
+	target_mob.RemoveElement(/datum/element/waddling)
 	QDEL_NULL(squeak)
 
 /datum/reagent/royal_bee_jelly
@@ -480,9 +484,9 @@
 	color = "#00ff80"
 	taste_description = "сладости"
 
-/datum/reagent/royal_bee_jelly/on_mob_life(mob/living/M)
+/datum/reagent/royal_bee_jelly/on_mob_life(mob/living/target_mob)
 	if(prob(2))
-		M.say(pick("Бзззз...","БЗЗ БЗЗ","Бззззззззз..."))
+		target_mob.say(pick("Бзззз...","БЗЗ БЗЗ","Бззззззззз..."))
 	return ..()
 
 /datum/reagent/growthserum
@@ -493,7 +497,7 @@
 	var/current_size = RESIZE_DEFAULT_SIZE
 	taste_description = "увеличения"
 
-/datum/reagent/growthserum/on_mob_life(mob/living/carbon/H)
+/datum/reagent/growthserum/on_mob_life(mob/living/carbon/target_human)
 	var/newsize = current_size
 	switch(volume)
 		if(0 to 19)
@@ -507,12 +511,12 @@
 		if(200 to INFINITY)
 			newsize = 1.5 * RESIZE_DEFAULT_SIZE
 
-	H.update_transform(newsize/current_size)
+	target_human.update_transform(newsize/current_size)
 	current_size = newsize
 	return ..()
 
-/datum/reagent/growthserum/on_mob_delete(mob/living/M)
-	M.update_transform(RESIZE_DEFAULT_SIZE/current_size)
+/datum/reagent/growthserum/on_mob_delete(mob/living/target_mob)
+	target_mob.update_transform(RESIZE_DEFAULT_SIZE/current_size)
 	current_size = RESIZE_DEFAULT_SIZE
 	..()
 
@@ -524,12 +528,12 @@
 	taste_description = "странной воды"
 	metabolization_rate = 0.25 * REAGENTS_METABOLISM
 
-/datum/reagent/pax/on_mob_add(mob/living/M)
+/datum/reagent/pax/on_mob_add(mob/living/target_mob)
 	..()
-	ADD_TRAIT(M, TRAIT_PACIFISM, id)
+	ADD_TRAIT(target_mob, TRAIT_PACIFISM, id)
 
-/datum/reagent/pax/on_mob_delete(mob/living/M)
-	REMOVE_TRAIT(M, TRAIT_PACIFISM, id)
+/datum/reagent/pax/on_mob_delete(mob/living/target_mob)
+	REMOVE_TRAIT(target_mob, TRAIT_PACIFISM, id)
 	..()
 
 /datum/reagent/toxin/coffeepowder
@@ -557,10 +561,10 @@
 	var/tox_prob = 0
 	taste_description = "puke"
 
-/datum/reagent/plantnutriment/on_mob_life(mob/living/M)
+/datum/reagent/plantnutriment/on_mob_life(mob/living/target_mob)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(tox_prob))
-		update_flags |= M.adjustToxLoss(0.5, FALSE)
+		update_flags |= target_mob.adjustToxLoss(0.5, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/plantnutriment/eznutriment
@@ -638,34 +642,34 @@
 	overdose_threshold = 11 //Slightly more than one un-nozzled spraybottle.
 	taste_description = "кислых апельсинов"
 
-/datum/reagent/spraytan/reaction_mob(mob/living/M, method=REAGENT_TOUCH, reac_volume, show_message = 1)
-	if(ishuman(M))
+/datum/reagent/spraytan/reaction_mob(mob/living/target_mob, method=REAGENT_TOUCH, reac_volume, show_message = 1)
+	if(ishuman(target_mob))
 		if(method == REAGENT_TOUCH)
-			var/mob/living/carbon/human/N = M
-			set_skin_color(N)
+			var/mob/living/carbon/human/target_human = target_mob
+			set_skin_color(target_human)
 
 		if(method == REAGENT_INGEST)
 			if(show_message)
-				to_chat(M, span_notice("Это было отвратительно."))
+				to_chat(target_mob, span_notice("Это было отвратительно."))
 	..()
 
-/datum/reagent/spraytan/overdose_process(mob/living/M)
+/datum/reagent/spraytan/overdose_process(mob/living/target_mob)
 	metabolization_rate = 1 * REAGENTS_METABOLISM
 
-	if(ishuman(M) && is_species(M, /datum/species/human))
-		var/mob/living/carbon/human/N = M
-		N.change_hair("Spiky")
-		N.change_facial_hair("Shaved")
-		N.change_hair_color("#000000")
-		N.change_facial_hair_color("#000000")
-		set_skin_color(N)
+	if(ishuman(target_mob) && is_species(target_mob, /datum/species/human))
+		var/mob/living/carbon/human/target_human = target_mob
+		target_human.change_hair("Spiky")
+		target_human.change_facial_hair("Shaved")
+		target_human.change_hair_color("#000000")
+		target_human.change_facial_hair_color("#000000")
+		set_skin_color(target_human)
 		if(prob(7))
-			if(N.w_uniform)
-				M.visible_message(span_notice(pick("Воротник [M] приподнимается без предупреждения.", "[M] игра[PLUR_ET_YUT(M)] своими бицепсами.")))
+			if(target_human.w_uniform)
+				target_mob.visible_message(span_notice(pick("Воротник [target_mob] приподнимается без предупреждения.", "[target_mob] игра[PLUR_ET_YUT(target_mob)] своими бицепсами.")))
 			else
-				M.visible_message(span_notice("[M] игра[PLUR_ET_YUT(M)] своими бицепсами."))
+				target_mob.visible_message(span_notice("[target_mob] игра[PLUR_ET_YUT(target_mob)] своими бицепсами."))
 	if(prob(10))
-		M.say(pick(
+		target_mob.say(pick(
 			"Это было ПРОСТО ОХУИТЕЛЬНО.",
 			"Вы — зло этого мира.",
 			"А каким спортом вы занимаетесь кроме дрочки на голых анимешных тянок?",
@@ -676,12 +680,12 @@
 
 	return list(0, STATUS_UPDATE_NONE)
 
-/datum/reagent/spraytan/proc/set_skin_color(mob/living/carbon/human/H)
-	if(H.dna.species.bodyflags & HAS_SKIN_TONE)
-		H.change_skin_tone(-30)
+/datum/reagent/spraytan/proc/set_skin_color(mob/living/carbon/human/target_human)
+	if(target_human.dna.species.bodyflags & HAS_SKIN_TONE)
+		target_human.change_skin_tone(-30)
 
-	if(H.dna.species.bodyflags & HAS_SKIN_COLOR) //take current alien color and darken it slightly
-		H.change_skin_color("#9B7653")
+	if(target_human.dna.species.bodyflags & HAS_SKIN_COLOR) //take current alien color and darken it slightly
+		target_human.change_skin_color("#9B7653")
 
 /datum/reagent/monkeylanguage
 	name = "Обезьяний язык"
@@ -690,9 +694,9 @@
 	color = "#f0d18f" // rgb: 128, 128, 128
 	taste_description = "чего-то странного"
 
-/datum/reagent/monkeylanguage/on_mob_life(mob/living/M)
+/datum/reagent/monkeylanguage/on_mob_life(mob/living/target_mob)
 	if(volume > 4)
-		M.add_language(LANGUAGE_MONKEY_HUMAN)
+		target_mob.add_language(LANGUAGE_MONKEY_HUMAN)
 	return ..()
 
 /datum/reagent/bugmilk
@@ -704,7 +708,7 @@
 	taste_description = "густого молока"
 	metabolization_rate = 2 * REAGENTS_METABOLISM
 
-/datum/reagent/bugmilk/on_mob_life(mob/living/M)
-	M.reagents.add_reagent("cream", 0.4)
-	M.reagents.add_reagent("salglu_solution", 0,4)
+/datum/reagent/bugmilk/on_mob_life(mob/living/target_mob)
+	target_mob.reagents.add_reagent("cream", 0.4)
+	target_mob.reagents.add_reagent("salglu_solution", 0.4)
 	return ..()
