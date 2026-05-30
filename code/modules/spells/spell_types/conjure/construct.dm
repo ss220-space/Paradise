@@ -2,7 +2,6 @@
 	name = "Artificer"
 	desc = "This spell conjures a construct which may be controlled by Shades"
 
-	school = SCHOOL_CONJURATION
 	cooldown_time = 60 SECONDS
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 

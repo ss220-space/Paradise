@@ -1,7 +1,6 @@
 /datum/action/cooldown/spell/conjure/carp
 	name = "Summon Carp"
 	desc = "This spell conjures a simple carp."
-	school = SCHOOL_CONJURATION
 	cooldown_time = 2 MINUTES
 	invocation = "NOUK FHUNMM SACP RISSKA"
 	invocation_type = INVOCATION_SHOUT

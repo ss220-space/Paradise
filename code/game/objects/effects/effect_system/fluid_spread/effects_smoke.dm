@@ -154,11 +154,6 @@
 /obj/effect/particle_effect/fluid/smoke/transparent
 	opacity = FALSE
 
-/////////////////////////////////////////////
-// Bad smoke
-/////////////////////////////////////////////
-/datum/effect_system/fluid_spread/smoke/bad
-	effect_type = /obj/effect/particle_effect/fluid/smoke/bad
 /**
  * A helper proc used to spawn small puffs of smoke.
  *

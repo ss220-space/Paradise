@@ -46,7 +46,8 @@
 	background_icon_state = "bg_spell"
 	button_icon_state = "spell_default"
 	overlay_icon_state = "bg_spell_border"
-	active_overlay_icon_state = "bg_spell_border_active_red"
+	active_overlay_icon_state = "targeting"
+	background_icon_state_active = "bg_spell"
 	check_flags = AB_CHECK_CONSCIOUS //|AB_CHECK_PHASED
 	panel = "Spells"
 

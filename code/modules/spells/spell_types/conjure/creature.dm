@@ -2,7 +2,6 @@
 	name = "Summon Creature Swarm"
 	desc = "This spell tears the fabric of reality, allowing horrific daemons to spill forth"
 
-	school = SCHOOL_CONJURATION
 	cooldown_time = 2 MINUTES
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 	invocation = "IA IA"
