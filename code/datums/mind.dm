@@ -2804,6 +2804,16 @@
 
 	qdel(uplink)
 
+/// Old uplink's owner search via "owner" var in uplink in GLOB.world_uplinks and traitor "key"
+/datum/mind/proc/find_uplink_by_key()
+	if(!key)
+		return
+	var/my_ckey = ckey(key)
+	for(var/obj/item/uplink/uplink as anything in GLOB.world_uplinks)
+		if(!uplink.uplink_owner || ckey(uplink.uplink_owner) != my_ckey)
+			continue
+		return uplink
+
 /datum/mind/proc/make_Traitor()
 	if(!has_antag_datum(/datum/antagonist/traitor))
 		add_antag_datum(/datum/antagonist/traitor)

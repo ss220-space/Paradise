@@ -1,0 +1,4 @@
+author: "makaroshka003"
+delete-after: True
+changes:
+  - balance: "meat hook с лавы теперь летит значительно медленее, дальность уменьшена до 15 тайлов (PR #9317)"
