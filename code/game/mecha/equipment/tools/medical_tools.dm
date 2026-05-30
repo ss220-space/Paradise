@@ -532,7 +532,7 @@
 				step(L, SOUTH)
 
 /obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw/check_allowed_equipment(obj/mecha/M)
-    if(M.allowed_equipment & MECH_EQUIPMENT_WORKING || istype(M, /obj/mecha/working/ripley/firefighter))
+    if(M.allowed_equipment & MECH_EQUIPMENT_MEDICAL || istype(M, /obj/mecha/working/ripley/firefighter))
         return TRUE
     . = ..()
 
