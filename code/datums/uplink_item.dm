@@ -170,10 +170,7 @@
 		buyer.put_in_any_hand_if_possible(spawned)
 
 	// Append item icons to the uplink's purchase log
-	var/list/items_to_log = spawned.get_uplink_log_items()
-	for(var/atom/atom_to_display in items_to_log)
-		target_uplink.purchase_log += span_fontsize4(icon2base64html(atom_to_display))
-
+	spawned.log_contents_to_uplink(target_uplink)
 	return spawned
 
 /// Handles refund tracking for discount category items.

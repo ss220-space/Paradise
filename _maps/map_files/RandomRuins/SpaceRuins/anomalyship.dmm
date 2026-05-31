@@ -889,9 +889,7 @@
 /obj/machinery/computer/operating{
 	dir = 8
 	},
-/obj/machinery/defibrillator_mount/loaded{
-	pixel_y = -34
-	},
+/obj/machinery/defibrillator_mount/loaded/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkblue"

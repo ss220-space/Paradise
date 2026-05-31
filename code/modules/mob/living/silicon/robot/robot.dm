@@ -305,8 +305,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		setup_PDA()
 
 		//We also need to update name of internal camera.
-		if(camera)
-			camera.c_tag = newname
+		camera?.c_tag = newname
+
+		gps?.gpstag = "[newname] (Robot)"
 
 	if(mmi?.brainmob)
 		mmi.brainmob.name = newname

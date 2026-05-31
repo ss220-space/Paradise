@@ -1,0 +1,4 @@
+author: "kkadmor"
+delete-after: True
+changes:
+  - bugfix: "Можно закрывать ящики возле настенного шкафа (PR #9322)"

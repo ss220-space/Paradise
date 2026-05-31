@@ -250,10 +250,12 @@
 	mimic_spell.perfect_disguise = FALSE // Reset the perfect disguise
 	remove_status_effect(/datum/status_effect/morph_ambush)
 	UnregisterSignal(src, COMSIG_MOVABLE_MOVED)
+	add_to_all_human_data_huds()
 
 /mob/living/simple_animal/hostile/morph/proc/perfect_ambush()
 	mimic_spell.perfect_disguise = TRUE // Reset the perfect disguise
 	to_chat(src, span_sinister("Вы стали совершенной копией... Они даже не заподозрят подмену."))
+	remove_from_all_data_huds()
 
 /mob/living/simple_animal/hostile/morph/proc/on_move()
 	failed_ambush()
@@ -261,6 +263,7 @@
 
 /mob/living/simple_animal/hostile/morph/death(gibbed)
 	. = ..()
+	add_to_all_human_data_huds()
 	if(stat == DEAD && gibbed)
 		for(var/atom/movable/eaten_thing in src)
 			eaten_thing.forceMove(loc)
@@ -375,9 +378,11 @@
 	. = ..()
 	if(. && !morphed)
 		var/list/things = list()
-		for(var/atom/movable/item_in_view in view(src))
+		for(var/atom/movable/item_in_view in oview(src))
 			if(isobj(item_in_view) && allowed(item_in_view))
 				things += item_in_view
+		if(!length(things))
+			return
 		var/atom/movable/picked_thing = pick(things)
 		if(picked_thing)
 			mimic_spell.take_form(new /datum/mimic_form(picked_thing, src), src)
@@ -438,9 +443,6 @@
 		messages.Add(mind.prepare_announce_objectives(FALSE))
 
 	to_chat(src, chat_box_red(messages.Join("<br>")))
-
-/mob/living/simple_animal/hostile/morph/get_examine_time()
-	return morphed ? mimic_spell.selected_form.examine_time : ..()
 
 /mob/living/simple_animal/hostile/morph/get_visible_gender()
 	return morphed ? mimic_spell.selected_form.examine_gender : ..()
