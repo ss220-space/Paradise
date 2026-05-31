@@ -106,8 +106,16 @@
 	H.create_log(CONVERSION_LOG, "was vampire enthralled", user)
 
 /obj/effect/proc_holder/spell/vampire/enthrall/proc/revive_thrall_step1(mob/living/target, obj/effect/abstract/vampire/target_image, turf/location, mob/living/user, datum/antagonist/vampire/vampire)
-	if(QDELETED(target) || QDELETED(target_image) || QDELETED(user) || QDELETED(vampire))
+	if(QDELETED(target) || QDELETED(target_image))
+		if(!QDELETED(target_image))
+			qdel(target_image)
 		return
+
+	if(QDELETED(user) || QDELETED(vampire))
+		target.forceMove(location)
+		qdel(target_image)
+		return
+
 	target.revive()
 	target.update_revive()
 	new /obj/effect/temp_visual/cult/sparks(location)
@@ -115,11 +123,16 @@
 	addtimer(CALLBACK(src, PROC_REF(revive_thrall_step2), target, target_image, location, user, vampire), 0.5 SECONDS)
 
 /// Second stage: return the thrall to the tile and complete the ritual
-/obj/effect/proc_holder/spell/vampire/enthrall/proc/revive_thrall_step2(mob/living/target, obj/effect/abstract/vampire/target_image, turf/location, mob/living/user, datum/antagonist/vampire/vampire)
-	if(QDELETED(target) || QDELETED(target_image) || QDELETED(user) || QDELETED(vampire))
+	if(QDELETED(target) || QDELETED(target_image))
+		if(!QDELETED(target_image))
+			qdel(target_image)
 		return
+
 	target.forceMove(location)
 	qdel(target_image)
+
+	if(QDELETED(user) || QDELETED(vampire))
+		return
 
 	var/datum/spell_handler/vampire/vamp = custom_handler
 	var/blood_cost = vamp.calculate_blood_cost(vampire)
