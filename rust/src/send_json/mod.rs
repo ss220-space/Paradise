@@ -1,2 +1,2 @@
-pub mod api;
+mod api;
 mod socket;

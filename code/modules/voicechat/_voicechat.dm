@@ -35,10 +35,6 @@ SUBSYSTEM_DEF(voicechat)
 	if(!CONFIG_GET(flag/enable_voicechat))
 		return SS_INIT_NO_NEED
 
-	if(!test_library())
-		message_admins("SSVoiceChat dynamic library test failed. Can't start voicechat")
-		return SS_INIT_FAILURE
-
 	add_rooms(list("living", "ghost"))
 	add_rooms(list("lobby"), proximity_mode = FALSE)
 	start_node()
@@ -59,10 +55,6 @@ SERVER: подсистема SSVoicechat перезапустится через
 
 
 /datum/controller/subsystem/voicechat/proc/on_ice_failed(userCode)
-	// if(!userCode)
-	// 	CRASH("ice_failed error without usercode {userCode: [userCode || "null"]")
-	// var/client/C = userCode_client_map[userCode]
-	// message_admins("voicechat peer connection failed for [C || userCode]")
 	return
 
 

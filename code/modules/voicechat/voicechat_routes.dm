@@ -1,20 +1,6 @@
 //uncomment to show traffic
 // #define LOG_TRAFFIC
 
-/datum/controller/subsystem/voicechat/proc/test_library()
-	var/text = "hello world"
-	var/out = call_ext(get_library_path(), "byond:Echo")(text)
-	var/confirmed = (out == text)
-	return confirmed
-
-
-/datum/controller/subsystem/voicechat/proc/get_library_path()
-	if(world.system_type == MS_WINDOWS)
-		return "voicechat/pipes/windows/byondsocket"
-	else
-		return "voicechat/pipes/unix/byondsocket"
-
-
 /proc/json_encode_sanitize(list/data)
 	. = json_encode(data)
 	//NOT in: alphanumeric, ", {}, :, commas, spaces, []
@@ -29,7 +15,7 @@
 	#ifdef LOG_TRAFFIC
 	message_admins("BYOND: [json]")
 	#endif
-	call_ext(get_library_path(), "byond:SendJSON")(json)
+	RUSTLIB_CALL(send_json, json)
 
 
 /datum/controller/subsystem/voicechat/proc/handle_topic(T, addr)
