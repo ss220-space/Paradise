@@ -8,7 +8,7 @@
 
 /obj/effect/proc_holder/spell/vampire/enthrall
 	name = "Порабощение"
-	desc = "Вы используете значительную часть своей силы, чтобы поработить разум другого гуманоида."
+	desc = "Вы используете значительную часть своей силы, чтобы поработить разум другого гуманоида или оживить своего раба."
 	gain_desc = "Вы обрели способность подчинять людей своей воле."
 	action_icon_state = "vampire_enthrall"
 	need_active_overlay = TRUE
@@ -31,13 +31,18 @@
 		if(target.stat == DEAD && isvampirethrall(target))
 			var/datum/antagonist/mindslave/thrall/thrall = target.mind.has_antag_datum(/datum/antagonist/mindslave/thrall)
 			if(thrall && thrall.master == user.mind)
-				target.revive()
-				target.update_revive()
-				var/datum/spell_handler/vampire/vamp = custom_handler
-				var/blood_cost = vamp.calculate_blood_cost(vampire)
-				vampire.bloodusable -= blood_cost //we take the blood after enthralling, not before
-				user.create_log(CONVERSION_LOG, "revived thrall", target)
-				target.create_log(CONVERSION_LOG, "was revived by vampire master", user)
+				var/turf/T = get_turf(target)
+				playsound(T, 'sound/magic/staff_healing.ogg', 50, TRUE)
+
+				var/obj/effect/abstract/vampire/target_image = new(T)
+				target_image.add_overlay(target)
+				target.forceMove(target_image)
+
+
+				animate(target_image, pixel_y = 16, time = 2 SECONDS, easing = BOUNCE_EASING|EASE_IN)
+				animate(pixel_y = 0, time = 0.5 SECONDS, easing = BOUNCE_EASING|EASE_OUT)
+
+				addtimer(CALLBACK(src, PROC_REF(revive_thrall_step1), target, target_image, T, user, vampire), 1.8 SECONDS)
 				return
 			else
 				to_chat(user, span_warning("Это не ваш раб."))
@@ -48,7 +53,7 @@
 			handle_enthrall(user, target)
 			var/datum/spell_handler/vampire/V = custom_handler
 			var/blood_cost = V.calculate_blood_cost(vampire)
-			vampire.bloodusable -= blood_cost //we take the blood after enthralling, not before
+			vampire.bloodusable -= blood_cost
 		else
 			revert_cast(user)
 			to_chat(user, span_warning("Вы или ваша цель сдвинулись с места."))
@@ -99,6 +104,28 @@
 	H.Stun(4 SECONDS)
 	user.create_log(CONVERSION_LOG, "vampire enthralled", H)
 	H.create_log(CONVERSION_LOG, "was vampire enthralled", user)
+
+/obj/effect/proc_holder/spell/vampire/enthrall/proc/revive_thrall_step1(mob/living/target, obj/effect/abstract/vampire/target_image, turf/location, mob/living/user, datum/antagonist/vampire/vampire)
+	if(QDELETED(target) || QDELETED(target_image))
+		return
+	target.revive()
+	target.update_revive()
+	new /obj/effect/temp_visual/cult/sparks(location)
+	// Start the second stage after 0.5 seconds, when the animation is completely finished
+	addtimer(CALLBACK(src, PROC_REF(revive_thrall_step2), target, target_image, location, user, vampire), 0.5 SECONDS)
+
+/// Second stage: return the thrall to the tile and complete the ritual
+/obj/effect/proc_holder/spell/vampire/enthrall/proc/revive_thrall_step2(mob/living/target, obj/effect/abstract/vampire/target_image, turf/location, mob/living/user, datum/antagonist/vampire/vampire)
+	if(QDELETED(target) || QDELETED(target_image))
+		return
+	target.forceMove(location)
+	qdel(target_image)
+
+	var/datum/spell_handler/vampire/vamp = custom_handler
+	var/blood_cost = vamp.calculate_blood_cost(vampire)
+	vampire.bloodusable -= blood_cost
+	user.create_log(CONVERSION_LOG, "revived thrall", target)
+	target.create_log(CONVERSION_LOG, "was revived by vampire master", user)
 
 /obj/effect/proc_holder/spell/vampire/thrall_commune
 	name = "Телепатическая связь"
