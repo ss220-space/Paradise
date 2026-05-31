@@ -123,6 +123,7 @@
 	addtimer(CALLBACK(src, PROC_REF(revive_thrall_step2), target, target_image, location, user, vampire), 0.5 SECONDS)
 
 /// Second stage: return the thrall to the tile and complete the ritual
+/obj/effect/proc_holder/spell/vampire/enthrall/proc/revive_thrall_step2(mob/living/target, obj/effect/abstract/vampire/target_image, turf/location, mob/living/user, datum/antagonist/vampire/vampire)
 	if(QDELETED(target) || QDELETED(target_image))
 		if(!QDELETED(target_image))
 			qdel(target_image)
