@@ -87,7 +87,8 @@ SERVER: подсистема SSVoicechat перезапустится через
 
 
 /datum/controller/subsystem/voicechat/proc/disconnect_all_clients()
-	for(var/userCode in vc_clients)
+	var/list/clients_to_disconnect = vc_clients.Copy()
+	for(var/userCode in clients_to_disconnect)
 		disconnect(userCode, from_byond = TRUE)
 
 
