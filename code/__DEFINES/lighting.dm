@@ -44,6 +44,7 @@
 
 #define ALPHA_SOURCE_DEFAULT "default"
 #define ALPHA_SOURCE_CHAMELEON "chameleon_gene"
+#define ALPHA_SOURCE_CHAMELEON_CLING "chameleon_changeling"
 #define ALPHA_SOURCE_SHADOW_CLOAK "shadow_cloak_gene"
 #define ALPHA_SOURCE_VAMPIRE "vampire"
 #define ALPHA_SOURCE_SHADOW_THRALL "shadowling_thrall"

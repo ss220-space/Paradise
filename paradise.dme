@@ -58,6 +58,7 @@
 #include "code\__DEFINES\cameranets.dm"
 #include "code\__DEFINES\cargo.dm"
 #include "code\__DEFINES\cargo_quests.dm"
+#include "code\__DEFINES\changeling.dm"
 #include "code\__DEFINES\chat.dm"
 #include "code\__DEFINES\cinematic.dm"
 #include "code\__DEFINES\cleaning.dm"

@@ -13,8 +13,8 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	antag_hud_type = ANTAG_HUD_CHANGELING
 	wiki_page_name = "Changeling"
 	russian_wiki_name = "Генокрад"
-	clown_gain_text = "You have evolved beyond your clownish nature, allowing you to wield weapons without harming yourself."
-	clown_removal_text = "As your changeling nature fades, you return to your own clumsy, clownish self."
+	clown_gain_text = "Мы преодолели свою клоунскую природу, что позволяет нам использовать оружие, не причиняя нам вреда."
+	clown_removal_text = "С потерей нашей памяти генокрада, к нам возвращается клоунская неуклюжесть."
 	antag_menu_name = "Генокрад"
 	/// List of [/datum/dna] which have been absorbed through the DNA sting or absorb power.
 	var/list/absorbed_dna
@@ -35,18 +35,16 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	/// The current amount of chemicals the changeling has stored.
 	var/chem_charges = 20
 	/// The amount of chemicals that recharges per `Life()` call.
-	var/chem_recharge_rate = 1
+	var/chem_recharge_rate = CLING_CHEM_RECHARGE_RATE
 	/// Amount of chemical recharge slowdown, calculated as `chem_recharge_rate - chem_recharge_slowdown`
 	var/chem_recharge_slowdown = 0
 	/// The total amount of chemicals able to be stored.
-	var/chem_storage = 75
+	var/chem_storage = 100
 	/// The range of changeling stings.
 	var/sting_range = 2
 	/// The changeling's identifier when speaking in the hivemind, i.e. "Mr. Delta 123".
 	var/changelingID = "Changeling"
-	/// The current amount of genetic damage incurred from power use.
-	var/genetic_damage = 0
-	/// This variable is applied to default [LING_FAKEDEATH_TIME]
+	/// This variable is applied to default [CLING_FAKEDEATH_TIME]
 	var/fakedeath_delay = 0 SECONDS
 	/// If the changeling is in the process of absorbing someone.
 	var/is_absorbing = FALSE
@@ -60,8 +58,6 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	var/datum/dna/chosen_dna
 	/// The current sting power the changeling has active.
 	var/datum/action/changeling/sting/chosen_sting
-	/// If the changeling is in the process of regenerating from their fake death.
-	var/regenerating = FALSE
 	/// A name that will display in place of the changeling's real name when speaking.
 	var/mimicking = ""
 	/// TTS seed used in mimic voice ability.
@@ -111,10 +107,10 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 
 /datum/antagonist/changeling/farewell()
 	if(issilicon(owner.current))
-		to_chat(owner.current, span_userdanger("You have been robotized!"))
-		to_chat(owner.current, span_danger("You must obey your silicon laws and master AI above all else. Your objectives will consider you to be dead."))
+		to_chat(owner.current, span_userdanger("Вы были киборгизированы!"))
+		to_chat(owner.current, span_danger("Вы должны подчиняться законам синтетиков и служить вашему ИИ мастеру! Ваши цели будут считать вас мёртвым."))
 	else
-		to_chat(owner.current, span_fontsize3("<span style='color: red;'><b>You lose your powers! You are no longer a changeling and are stuck in your current form!</b></span>"))
+		to_chat(owner.current, span_danger("Вы потеряли ваши способности! Теперь вы не генокрад и застряли в своём текущем теле!"))
 
 /datum/antagonist/changeling/apply_innate_effects(mob/living/mob_override)
 	var/mob/living/user = ..()
@@ -243,11 +239,9 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 
 	if(h_owner.stat == DEAD)
 		chem_charges = clamp(0, chem_charges + chem_recharge_rate - chem_recharge_slowdown, chem_storage * 0.5)
-		genetic_damage = directional_bounded_sum(genetic_damage, -1, LING_DEAD_GENETIC_DAMAGE_HEAL_CAP, 0)
 
-	else // Not dead? no chem/genetic_damage caps.
+	else // Not dead? no chem caps.
 		chem_charges = clamp(0, chem_charges + chem_recharge_rate - chem_recharge_slowdown, chem_storage)
-		genetic_damage = max(0, genetic_damage - 1)
 
 /**
  * Signal proc for [COMSIG_MOB_MIDDLECLICKON](not yet) and [COMSIG_MOB_ALTCLICKON].
@@ -276,16 +270,16 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 /datum/antagonist/changeling/proc/try_respec()
 	var/mob/living/carbon/human/user = owner.current
 	if(!istype(user) || is_monkeybasic(user))
-		to_chat(user, span_danger("We can't readapt our evolutions in this form!"))
+		user.balloon_alert(user, "неподходящая форма")
 		return FALSE
 	if(can_respec)
-		to_chat(user, span_changeling("We have removed our evolutions from this form, and are now ready to readapt."))
+		to_chat(user, span_changeling("Мы отринули наше развитие и теперь готовы к новой реадаптации."))
 		remove_changeling_mutations(user)
 		respec()
 		can_respec = FALSE
 		return TRUE
 	else
-		to_chat(user, span_danger("You lack the power to readapt your evolutions!"))
+		user.balloon_alert(user, "нужно поглотить жертву")
 		return FALSE
 
 /**
@@ -301,7 +295,6 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	chem_recharge_rate = initial(chem_recharge_rate)
 	chem_charges = min(chem_charges, chem_storage)
 	chem_recharge_slowdown = initial(chem_recharge_slowdown)
-	genetic_damage = initial(genetic_damage)
 	mimicking = ""
 	tts_mimicking = ""
 
@@ -490,28 +483,24 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 /datum/antagonist/changeling/proc/can_absorb_dna(mob/living/carbon/target)
 	var/mob/living/carbon/user = owner.current
 	if(using_stale_dna())	//If our current DNA is the stalest, we gotta ditch it.
-		to_chat(user, span_warning("The DNA we are wearing is stale. Transform and try again."))
+		user.balloon_alert(user, "сначала нужно трансформироваться")
 		return FALSE
 
 	if(!target || !target.dna)
-		to_chat(user, span_warning("This creature does not have any DNA."))
+		user.balloon_alert(user, "жертва без ДНК")
 		return FALSE
 
 	var/mob/living/carbon/human/human_target = target
 	if(!istype(human_target) || is_monkeybasic(human_target))
-		to_chat(user, span_warning("[human_target] is not compatible with our biology."))
+		user.balloon_alert(user, "жертва не подойдёт")
 		return FALSE
 
-	if(HAS_TRAIT(human_target, TRAIT_HUSK) || HAS_TRAIT(human_target, TRAIT_SKELETON) || HAS_TRAIT(human_target, TRAIT_NO_CLONE))
-		to_chat(user, span_warning("DNA of [target] is ruined beyond usability!"))
-		return FALSE
-
-	if(HAS_TRAIT(human_target, TRAIT_NO_DNA))
-		to_chat(user, span_warning("This creature does not have DNA!"))
+	if(HAS_TRAIT(human_target, TRAIT_HUSK) || HAS_TRAIT(human_target, TRAIT_NO_DNA) || HAS_TRAIT(human_target, TRAIT_SKELETON) || HAS_TRAIT(human_target, TRAIT_NO_CLONE))
+		user.balloon_alert(user, "жертва без ДНК")
 		return FALSE
 
 	if(get_dna(target.dna))
-		to_chat(user, span_warning("We already have this DNA in storage!"))
+		user.balloon_alert(user, "уже есть это ДНК")
 		return FALSE
 
 	return TRUE
@@ -544,25 +533,19 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	addtimer(CALLBACK(src, PROC_REF(calculate_stasis_delay), user), 0)	// We need this timer to register missing head
 
 	if(!h_user.get_organ_slot("brain"))
-		to_chat(user, span_changeling("The brain is a useless organ to us, we are able to regenerate!"))
+		to_chat(user, span_changeling("Мозги не обязательный орган для нас, мы способны к его регенерации!"))
 	else
-		to_chat(user, span_changeling("While our current form may be lifeless, this is not the end for us as we can still regenerate!"))
+		to_chat(user, span_changeling("Хотя наш сосуд мёртв, для нас это ещё не конец. Мы можем регенерировать!"))
 
 /**
  * Additional stasis delay from different sources.
  */
 /datum/antagonist/changeling/proc/calculate_stasis_delay(mob/living/user)
-
 	if(QDELETED(src) || QDELETED(user) || !istype(user))
 		return
 
-	// 1 SECOND for each point of genetic damage.
-	fakedeath_delay = genetic_damage * 1 SECONDS
-
-	// 20 SECONDS delay if cling was on fire while dying and 2 SECONDS for each fire stack.
-	// 60 SECONDS of delay overall.
+	// 2 SECONDS for each fire stack.
 	if(user.on_fire)
-		fakedeath_delay += 20 SECONDS
 		fakedeath_delay += round(user.fire_stacks) * 2 SECONDS
 
 	if(!ishuman(user))

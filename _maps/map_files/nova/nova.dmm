@@ -22438,9 +22438,7 @@
 	dir = 1;
 	in_use = 1
 	},
-/obj/machinery/defibrillator_mount/loaded{
-	pixel_y = 26
-	},
+/obj/machinery/defibrillator_mount/loaded/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -37854,6 +37852,7 @@
 /area/toxins/xenobiology)
 "fFN" = (
 /obj/structure/table/reinforced,
+/obj/machinery/defibrillator_mount/loaded,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteblue"
@@ -48108,6 +48107,7 @@
 /area/bridge)
 "hiz" = (
 /obj/structure/table/reinforced,
+/obj/machinery/defibrillator_mount/loaded,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
@@ -61627,9 +61627,6 @@
 	},
 /area/security/permabrig)
 "jns" = (
-/obj/machinery/defibrillator_mount/loaded{
-	pixel_y = 32
-	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
 	},
@@ -125848,9 +125845,6 @@
 	},
 /area/security/prison/cell_block/A)
 "teL" = (
-/obj/machinery/defibrillator_mount/loaded{
-	pixel_y = -32
-	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4

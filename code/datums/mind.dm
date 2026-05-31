@@ -1584,7 +1584,7 @@
 					cling.give_objectives = FALSE
 					add_antag_datum(cling)
 					to_chat(usr, span_notice("Changeling [key] has no objectives. You can add custom ones or generate random set by using <b>Randomize!</b> button."))
-					to_chat(current, span_biggerdanger("Your powers have awoken. A flash of memory returns to us... we are a changeling!"))
+					to_chat(current, span_biggerdanger("Наши способности пробудились. Мы вернули обрывки воспоминаний... Мы ГЕНОКРАД!"))
 					log_admin("[key_name(usr)] has changelinged [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has changelinged [key_name_admin(current)]")
 
