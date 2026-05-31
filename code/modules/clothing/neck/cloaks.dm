@@ -129,6 +129,14 @@
 	name = "standard cape cloak"
 	desc = "Тёмная, почти чёрная накидка из плотной ткани. По краям — глубокие синие вставки. Застёгивается на два металлические заклепки. Известна тем, что при намокании начинает источать слабый запах формальдегида — производственный брак, который так и не исправили.."
 	icon_state = "civil_cape"
+	sprite_sheets = list(
+		SPECIES_MONKEY = 'icons/mob/clothing/neck.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/neck.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/neck.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/neck.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/neck.dmi',
+		SPECIES_PLASMAMAN = 'icons/mob/clothing/neck.dmi',
+	)
 
 /obj/item/clothing/neck/cloak/civil_cape/get_ru_names()
 	return list(
@@ -144,6 +152,15 @@
 	name = "commander cape cloak"
 	desc = "Тёмно-антрацитовая накидка с крупными синими вставками. По синему фону идёт аккуратная золотая вышивка. Застёжки титановые, с чернёным золотом. Изнутри подкладка темно-синего цвета с вышитой золотом надписью \"Per aspera ad astra\"."
 	icon_state = "commander_cape"
+	sprite_sheets = list(
+		SPECIES_MONKEY = 'icons/mob/clothing/neck.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/neck.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/neck.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/neck.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/neck.dmi',
+		SPECIES_PLASMAMAN = 'icons/mob/clothing/neck.dmi',
+	)
+
 
 /obj/item/clothing/neck/cloak/commander_cape/get_ru_names()
 	return list(
@@ -159,6 +176,14 @@
 	name = "security officer cape cloak"
 	desc = "Тёмная вытянутая накидка из армированной ткани с красной окантовкой. На заклёпке виднеется логотип НТ. Красная окантовка выполнена из материала, что темнеет при контакте с кровью...правда вы всё равно этого не заметите покуда будете ходить в крови с ног до головы."
 	icon_state = "sec_cape"
+	sprite_sheets = list(
+		SPECIES_MONKEY = 'icons/mob/clothing/neck.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/neck.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/neck.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/neck.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/neck.dmi',
+		SPECIES_PLASMAMAN = 'icons/mob/clothing/neck.dmi',
+	)
 
 /obj/item/clothing/neck/cloak/sec_cape/get_ru_names()
 	return list(
@@ -174,6 +199,14 @@
 	name = "marine cape cloak"
 	desc = "Накидка из матовой ткани, почти не отражающая свет. Заклёпка выглядит как медаль за проявленный героизм. Края накидки у ног выглядят так будто их выжигали кислотой. Пахнет напалмом. Изнутри накидки золотыми нитями вышито \"Gloria dei T.S.F.\"."
 	icon_state = "hos_cape"
+	sprite_sheets = list(
+		SPECIES_MONKEY = 'icons/mob/clothing/neck.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/neck.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/neck.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/neck.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/neck.dmi',
+		SPECIES_PLASMAMAN = 'icons/mob/clothing/neck.dmi',
+	)
 
 /obj/item/clothing/neck/cloak/hos_cape/get_ru_names()
 	return list(

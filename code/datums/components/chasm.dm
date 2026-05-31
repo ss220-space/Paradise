@@ -10,6 +10,7 @@
 	var/static/list/forbidden_types = typecacheof(list(
 		/mob/living/simple_animal/hostile/asteroid/elite,
 		/mob/living/simple_animal/hostile/megafauna,
+		/obj/bfl_crack,
 		/obj/docking_port,
 		/obj/effect/abstract,
 		/obj/effect/collapse,

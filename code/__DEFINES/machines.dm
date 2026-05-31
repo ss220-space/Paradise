@@ -200,6 +200,15 @@
 #define MECH_FAB_CATEGORY_DARK_GYGAX "Тёмный Гигакс"
 #define MECH_FAB_CATEGORY_SYNDICATE "Синдикат"
 
+
+// Pod fabricator categories
+#define POD_FAB_CATEGORY_WEAPONRY "Вооружение"
+#define POD_FAB_CATEGORY_ARMOR "Броня"
+#define POD_FAB_CATEGORY_CARGO "Хранилища"
+#define POD_FAB_CATEGORY_PARTS "Детали"
+#define POD_FAB_CATEGORY_FRAME "Корпус"
+#define POD_FAB_CATEGORY_MISC "Разное"
+
 // Engine types
 #define ENGTYPE_SING "Сингулярность"
 #define ENGTYPE_TESLA "Тесла"

@@ -389,12 +389,12 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(oldname != real_name)
 		announcer.author = name
 
-		if(eyeobj)
-			eyeobj.name = "[newname] (AI Eye)"
+		eyeobj?.name = "[newname] (AI Eye)"
 
 		// Set ai pda name
-		if(aiPDA)
-			aiPDA.set_name_and_job(newname, JOB_TITLE_AI)
+		aiPDA?.set_name_and_job(newname, JOB_TITLE_AI)
+
+		gps?.gpstag = "[newname] (AI)"
 
 	return TRUE
 

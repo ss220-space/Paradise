@@ -1,24 +1,23 @@
 /datum/action/changeling/headslug
-	name = "Last Resort"
-	desc = "We sacrifice our current body in a moment of need, placing us in control of a vessel that can plant our likeness in a new host. Costs 20 chemicals."
-	helptext = "We will be placed in control of a small, fragile creature. We may attack a corpse like this to plant an egg which will slowly mature into a new form for us."
+	name = "Новая надежда"
+	desc = "Мы жертвуем своим нынешним телом, чтобы сбежать."
+	helptext = "Мы становимся маленьким и хрупким существом, которое может подсадить яйцо в новое тело для нас. Можно использовать будучи мёртвым. Можно использовать в низшей форме."
 	button_icon_state = "last_resort"
 	power_type = CHANGELING_PURCHASABLE_POWER
 	dna_cost = 1
-	chemical_cost = 20
-	req_human = TRUE
+	req_stat = DEAD
+	bypass_fake_death = TRUE
 
 /datum/action/changeling/headslug/try_to_sting(mob/user, mob/target)
-	if(tgui_alert(user, "Are you sure you wish to do this? This action cannot be undone.", "Sting", list("Yes", "No")) != "Yes")
+	if(tgui_alert(user, "Мы уверены, что покидаем это тело?", "Sting", list("Да", "Нет")) != "Да")
 		return
 	..()
 
 /datum/action/changeling/headslug/sting_action(mob/user)
-
 	explosion(get_turf(user), devastation_range = 0, heavy_impact_range = 0, light_impact_range = 2, flash_range = 0, silent = TRUE)
 
 	for(var/mob/living/carbon/human/victim in range(2, user))
-		to_chat(victim, span_userdanger("You are blinded by a shower of blood!"))
+		to_chat(victim, span_userdanger("Вас ослепил фонтан крови!"))
 		victim.Stun(2 SECONDS)
 		victim.EyeBlurry(40 SECONDS)
 		var/obj/item/organ/internal/eyes/eyes = victim.get_int_organ(/obj/item/organ/internal/eyes)
@@ -27,7 +26,7 @@
 		victim.AdjustConfused(6 SECONDS)
 
 	for(var/mob/living/silicon/silicon in range(2, user))
-		to_chat(silicon, span_userdanger("Your sensors are disabled by a shower of blood!"))
+		to_chat(silicon, span_userdanger("Ваши сенсоры залиты кровью!"))
 		silicon.Weaken(6 SECONDS)
 
 	var/turf/our_turf = get_turf(user)
@@ -51,7 +50,6 @@
 	if(crab.origin)
 		crab.origin.active = TRUE
 		crab.origin.transfer_to(crab)
-		to_chat(crab, span_warning("You burst out of the remains of your former body in a shower of gore!"))
-		to_chat(crab, span_changeling("Our eggs can be laid in any dead humanoid, but not in small ones. Use <b>Alt-Click</b> on the valid mob and keep calm for 5 seconds."))
-		to_chat(crab, span_notice("Though this form shall perish after laying the egg, our true self shall be reborn in time."))
-
+		to_chat(crab, span_warning("Вы вырываетесь из останков своего прежнего тела в потоке крови!"))
+		to_chat(crab, span_changeling("Наши яйца могут быть отложены в любом мертвом гуманоиде, но не в низших формах. Используйте <b>Alt-Click</b> на подходящем мобе и сохраняйте спокойствие в течение 5 секунд."))
+		to_chat(crab, span_notice("Хотя эта форма погибнет после откладывания яйца, наше истинное «я» возродится со временем."))

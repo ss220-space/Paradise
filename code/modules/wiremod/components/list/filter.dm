@@ -30,10 +30,6 @@
 	/// A signal that is sent when the filtering has failed
 	var/datum/port/output/on_failed
 
-	ui_buttons = list(
-		"plus" = "increase",
-	)
-
 	/// The limit of iterations before it breaks. Used to prevent from someone iterating a massive list constantly
 	var/limit = 300
 
@@ -92,14 +88,16 @@
 		on_next_index.set_output(COMPONENT_SIGNAL)
 		index += 1
 		var/list/result = SScircuit_component.execute_instant_run()
-		if(LAZYACCESS(result, "accept_entry"))
+
+		if(isnull(result))
+			balloon_alert_to_viewers("начинает перегреваться!")
+			finished_list.set_output(null)
+			on_failed.set_output(COMPONENT_SIGNAL)
+			return
+
+		if(result["accept_entry"])
 			filtered_list += list(element_in_list)
 			continue
-
-		balloon_alert_to_viewers("начинает перегреваться!")
-		on_failed.set_output(COMPONENT_SIGNAL)
-		return
-
 
 	finished_list.set_output(filtered_list)
 	on_finished.set_output(COMPONENT_SIGNAL)

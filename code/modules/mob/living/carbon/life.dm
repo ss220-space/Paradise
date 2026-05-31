@@ -20,9 +20,6 @@
 	if(QDELETED(src))
 		return
 
-	if(.) //not dead
-		handle_blood()
-
 	if(LAZYLEN(processing_patches))
 		handle_patches()
 
@@ -219,10 +216,6 @@
 /mob/living/carbon/proc/handle_organs()
 	for(var/obj/item/organ/internal/organ as anything in internal_organs)
 		organ.on_life()
-
-//remember to remove the "proc" of the child procs of these.
-/mob/living/carbon/proc/handle_blood()
-	return
 
 /mob/living/carbon/handle_chemicals_in_body()
 	reagents.metabolize(src)

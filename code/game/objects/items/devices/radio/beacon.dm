@@ -316,11 +316,15 @@
 		return
 	if(bundle_name == "Random")
 		bundle_name = pick(unselected)
-	var/your_bundle = new /obj/item/storage/box/syndicate(user.loc, bundles[bundle_name])
+	var/obj/item/storage/box/syndicate/your_bundle = new(user.loc, bundles[bundle_name])
 	to_chat(user, span_notice("Welcome to [station_name()], [bundle_name]."))
 	user.drop_item_ground(src)
-	qdel(src)
 	user.put_in_hands(your_bundle)
+	qdel(src)
+	var/obj/item/uplink/hidden/traitor_uplink = user.mind?.find_syndicate_uplink()
+	if(!traitor_uplink || !your_bundle || !length(your_bundle.contents))
+		return
+	your_bundle.log_contents_to_uplink(traitor_uplink)
 
 /obj/item/beacon/syndicate/bundle/check_uplink_validity()
 	return !used
