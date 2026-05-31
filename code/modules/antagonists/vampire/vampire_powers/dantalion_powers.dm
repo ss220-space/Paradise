@@ -42,7 +42,7 @@
 				animate(target_image, pixel_y = 16, time = 2 SECONDS, easing = BOUNCE_EASING|EASE_IN)
 				animate(pixel_y = 0, time = 0.5 SECONDS, easing = BOUNCE_EASING|EASE_OUT)
 
-				addtimer(CALLBACK(src, PROC_REF(revive_thrall_step1), target, target_image, T, user, vampire), 1.8 SECONDS)
+				addtimer(CALLBACK(src, PROC_REF(revive_thrall_step1), target, target_image, T, user, vampire), 2 SECONDS)
 				return
 			else
 				to_chat(user, span_warning("Это не ваш раб."))
@@ -106,7 +106,7 @@
 	H.create_log(CONVERSION_LOG, "was vampire enthralled", user)
 
 /obj/effect/proc_holder/spell/vampire/enthrall/proc/revive_thrall_step1(mob/living/target, obj/effect/abstract/vampire/target_image, turf/location, mob/living/user, datum/antagonist/vampire/vampire)
-	if(QDELETED(target) || QDELETED(target_image))
+	if(QDELETED(target) || QDELETED(target_image) || QDELETED(user) || QDELETED(vampire))
 		return
 	target.revive()
 	target.update_revive()
@@ -116,7 +116,7 @@
 
 /// Second stage: return the thrall to the tile and complete the ritual
 /obj/effect/proc_holder/spell/vampire/enthrall/proc/revive_thrall_step2(mob/living/target, obj/effect/abstract/vampire/target_image, turf/location, mob/living/user, datum/antagonist/vampire/vampire)
-	if(QDELETED(target) || QDELETED(target_image))
+	if(QDELETED(target) || QDELETED(target_image) || QDELETED(user) || QDELETED(vampire))
 		return
 	target.forceMove(location)
 	qdel(target_image)
