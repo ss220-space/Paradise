@@ -90,10 +90,9 @@
 	qdel(D)
 
 /obj/item/reagent_containers/spray/attack_self(mob/user)
-
 	amount_per_transfer_from_this = (amount_per_transfer_from_this == 10 ? 5 : 10)
 	spray_currentrange = (spray_currentrange == 1 ? spray_maxrange : 1)
-	to_chat(user, span_notice("Вы [amount_per_transfer_from_this == 10 ? "снимаете" : "надеваете"] насадку. Теперь вы будете распылять по [amount_per_transfer_from_this] единиц[declension_ru(amount_per_transfer_from_this, "е", "ы", "")] содержимого за раз."))
+	user.balloon_alert(user, "насадка на [amount_per_transfer_from_this] ед")
 
 /obj/item/reagent_containers/spray/examine(mob/user)
 	. = ..()

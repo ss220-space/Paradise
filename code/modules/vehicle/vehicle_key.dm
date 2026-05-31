@@ -18,6 +18,14 @@
 	desc = "A keyring with a small steel key, and a pink fob reading \"Pussy Wagon\"."
 	icon_state = "keyjanitor"
 
+/obj/item/key/janitor/Initialize(mapload)
+	. = ..()
+	GLOB.janitorial_equipment += src
+
+/obj/item/key/janitor/Destroy()
+	GLOB.janitorial_equipment -= src
+	return ..()
+
 /obj/item/key/security
 	desc = "A keyring with a small steel key, and a rubber stun baton accessory."
 	icon_state = "keysec"
@@ -25,4 +33,4 @@
 /obj/item/key/snowmobile
 	name = "snowmobile key"
 	desc = "A keyring with a small steel key, and tag with a red cross on it; clearly it's not implying you're going to the hospital for this..."
-	icon_state = "keydoc" //get a better icon, sometime.
+	icon_state = "keydoc" //get a better icon, sometime

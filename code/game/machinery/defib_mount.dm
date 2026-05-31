@@ -179,3 +179,7 @@
 	new /obj/machinery/defibrillator_mount(get_turf(src), get_dir(user, on_wall), 1)
 	playsound(src, 'sound/machines/click.ogg', 50, TRUE)
 	qdel(src)
+
+// MARK: Mapping Dir Helpers
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/defibrillator_mount, 32, 32)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/defibrillator_mount/loaded, 32, 32)

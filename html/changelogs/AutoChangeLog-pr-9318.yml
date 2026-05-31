@@ -1,0 +1,4 @@
+author: "makaroshka003"
+delete-after: True
+changes:
+  - bugfix: "Метку крашера можно вешать на большого легиона с некрополя (не мегафауна) (PR #9318)"

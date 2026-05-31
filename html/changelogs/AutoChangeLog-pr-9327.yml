@@ -1,0 +1,4 @@
+author: "SCPfollower"
+delete-after: True
+changes:
+  - tweak: "Новые ПМки для банхамера; админ не получит ПМку от самого себя. (PR #9327)"

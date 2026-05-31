@@ -34,17 +34,10 @@ GLOBAL_LIST_INIT(changeling_mutations, list(
 	var/req_human = FALSE
 	/// What `stat` value the changeling needs to have to use this power. Will be CONSCIOUS, UNCONSCIOUS or DEAD.
 	var/req_stat = CONSCIOUS
-	/// Genetic damage caused by using the sting. Nothing to do with cloneloss.
-	var/genetic_damage = 0
-	/// Hard counter for spamming abilities.
-	var/max_genetic_damage = 100
-	// For passive abilities like hivemind that dont need a button
-	//var/needs_button = TRUE
 	/// If this power is active or not. Used for toggleable abilities.
 	var/active = FALSE
 	/// If this power can be used while the changeling has the `TRAIT_FAKE_DEATH` trait.
 	var/bypass_fake_death = FALSE
-
 /**
  * Changeling code relies on on_purchase to grant powers.
  * The same goes for Remove(). if you override Remove(), call parent or else your power wont be removed on respec
@@ -76,7 +69,7 @@ GLOBAL_LIST_INIT(changeling_mutations, list(
 
 	try_to_sting(owner)
 
-/datum/action/changeling/proc/try_to_sting(mob/user, mob/target)
+/datum/action/changeling/proc/try_to_sting(mob/living/carbon/human/user, mob/target)
 	user.changeNext_click(5)
 	if(!can_sting(user, target))
 		return
@@ -93,7 +86,6 @@ GLOBAL_LIST_INIT(changeling_mutations, list(
 
 /datum/action/changeling/proc/take_chemical_cost()
 	cling.chem_charges -= chemical_cost
-	cling.genetic_damage += genetic_damage
 
 /**
  * Fairly important to remember to return `TRUE` on success >.<
@@ -102,27 +94,23 @@ GLOBAL_LIST_INIT(changeling_mutations, list(
 	SHOULD_CALL_PARENT(TRUE)
 
 	if(req_human && (!ishuman(user) || is_monkeybasic(user)))
-		to_chat(user, span_warning("We cannot do that in this form!"))
+		user.balloon_alert(user, "неподходящая форма")
 		return FALSE
 
 	if(cling.chem_charges < chemical_cost)
-		to_chat(user, span_warning("We require at least [chemical_cost] unit\s of chemicals to do that!"))
+		user.balloon_alert(user, "нужно [chemical_cost] химикатов")
 		return FALSE
 
 	if(cling.absorbed_count < req_dna)
-		to_chat(user, span_warning("We require at least [req_dna] sample\s of compatible DNA."))
+		user.balloon_alert(user, "нужно [req_dna] ДНК")
 		return FALSE
 
 	if(req_stat < user.stat)
-		to_chat(user, span_warning("We are incapacitated."))
-		return FALSE
-
-	if(cling.genetic_damage > max_genetic_damage)
-		to_chat(user, span_warning("Our genomes are still reassembling. We need time to recover first."))
+		user.balloon_alert(user, "мы обездвижены")
 		return FALSE
 
 	if(HAS_TRAIT(user, TRAIT_FAKEDEATH) && !bypass_fake_death)
-		to_chat(user, span_warning("We are incapacitated."))
+		user.balloon_alert(user, "мы обездвижены")
 		return FALSE
 
 	return TRUE
