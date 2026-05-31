@@ -1,7 +1,7 @@
-/datum/controller/subsystem/voicechat/proc/join_vc(client/C, external=FALSE)
-	if(!C)
+/datum/controller/subsystem/voicechat/proc/join_vc(client/userClient, external=FALSE)
+	if(!userClient)
 		return
-	RegisterSignal(C, COMSIG_TOPIC, PROC_REF(voicechat_topic), override=TRUE)
+	RegisterSignal(userClient, COMSIG_TOPIC, PROC_REF(voicechat_topic), override=TRUE)
 
 	var/dat = {"
 	<html>
@@ -11,59 +11,59 @@
 		</script>
 	</html>"}
 
-	var/datum/browser/popup = new(C, "origin_locator", "", 400, 500)
+	var/datum/browser/popup = new(userClient, "origin_locator", "", 400, 500)
 	popup.set_content(dat)
 	popup.open()
 	///join_vc -> Topic -> open_vc
 
 
 /datum/controller/subsystem/voicechat/proc/voicechat_topic(atom/source, mob/user, href_list)
-	var/client/C = user.client
+	var/client/userClient = user.client
 	if(href_list["origin"])
-		close_window(C,"origin_locator")
-		UnregisterSignal(C, COMSIG_TOPIC)
-		open_vc(C, href_list["origin"], href_list["external"])
+		close_window(userClient,"origin_locator")
+		UnregisterSignal(userClient, COMSIG_TOPIC)
+		open_vc(userClient, href_list["origin"], href_list["external"])
 
 
-/datum/controller/subsystem/voicechat/proc/generate_userCode(client/C)
-	if(!C)
+/datum/controller/subsystem/voicechat/proc/generate_userCode(client/userClient)
+	if(!userClient)
 		// CRASH("no client")
 		return
-	. = copytext(md5("[C.computer_id][C.address][rand()]"),-4)
+	. = copytext(md5("[userClient.computer_id][userClient.address][rand()]"),-4)
 	//ensure unique
 	while(. in userCode_client_map)
-		. = copytext(md5("[C.computer_id][C.address][rand()]"),-4)
+		. = copytext(md5("[userClient.computer_id][userClient.address][rand()]"),-4)
 	return .
 
 // Connects a client to voice chat via an external browser
-/datum/controller/subsystem/voicechat/proc/open_vc(client/C, origin, external)
-	if(!C || !origin)
+/datum/controller/subsystem/voicechat/proc/open_vc(client/userClient, origin, external)
+	if(!userClient || !origin)
 		return
 	// Disconnect existing session if present
-	var/existing_userCode = client_userCode_map[C]
+	var/existing_userCode = client_userCode_map[userClient]
 	if(existing_userCode)
 		disconnect(existing_userCode, from_byond = TRUE)
 	// Generate unique session and user codes
-	var/sessionId = md5("[world.time][rand()][world.realtime][rand(0,9999)][C.address][C.computer_id]")
-	var/userCode = generate_userCode(C)
+	var/sessionId = md5("[world.time][rand()][world.realtime][rand(0,9999)][userClient.address][userClient.computer_id]")
+	var/userCode = generate_userCode(userClient)
 	// "deliver" voicechat assets
-	C << browse_rsc('voicechat/node/public/voicechat.html')
-	C << browse_rsc('voicechat/node/public/voicechat.js')
-	C << browse_rsc('voicechat/node/public/style.css')
-	C << browse_rsc('voicechat/node/public/stopclown.png')
-	C << browse_rsc('voicechat/node/public/socketio.js')
-	C << browse_rsc('voicechat/node/public/megaphone.png')
-	C << browse_rsc('voicechat/node/public/fastclown.gif')
+	userClient << browse_rsc('voicechat/node/public/voicechat.html')
+	userClient << browse_rsc('voicechat/node/public/voicechat.js')
+	userClient << browse_rsc('voicechat/node/public/style.css')
+	userClient << browse_rsc('voicechat/node/public/stopclown.png')
+	userClient << browse_rsc('voicechat/node/public/socketio.js')
+	userClient << browse_rsc('voicechat/node/public/megaphone.png')
+	userClient << browse_rsc('voicechat/node/public/fastclown.gif')
 
 	// opens voicechat
 	var/socket_host = world.internet_address
 	// If the server is bound to localhost or the client is local, prefer 127.0.0.1
-	if(world.address == "127.0.0.1" || (C && C.address && C.address == "127.0.0.1"))
+	if(world.address == "127.0.0.1" || (userClient && userClient.address && userClient.address == "127.0.0.1"))
 		socket_host = "127.0.0.1"
 	// If the client's address is set and differs from the advertised internet address,
 	// prefer the client's address (useful when the browser is running on the same host)
-	else if(C && C.address && C.address != "" && C.address != world.internet_address)
-		socket_host = C.address
+	else if(userClient && userClient.address && userClient.address != "" && userClient.address != world.internet_address)
+		socket_host = userClient.address
 	var/voicechat_port = CONFIG_GET(number/port_voicechat) || 3000
 	var/web_link = "[origin]/voicechat.html?sessionId=[sessionId]&socket_address=[socket_host]:[voicechat_port]"
 	if(text2num(external))
@@ -74,11 +74,11 @@
 				Вставьте эту ссылку в браузер, поддерживающий технологию WebRTC (Браузер Firefox работает с этим лучше всего).
 			</p>
 		</html>"}
-		var/datum/browser/popup = new(C, "voicechat_help", "", 400, 500)
+		var/datum/browser/popup = new(userClient, "voicechat_help", "", 400, 500)
 		popup.set_content(dat)
 		popup.open()
 	else
-		C << link(web_link)
+		userClient << link(web_link)
 
 	send_json(alist(
 		cmd = "register",
@@ -87,8 +87,8 @@
 	))
 
 	// Link client to userCode
-	userCode_client_map[userCode] = C
-	client_userCode_map[C] = userCode
+	userCode_client_map[userCode] = userClient
+	client_userCode_map[userClient] = userCode
 	// Confirmation handled in confirm_usekrCode
 
 
@@ -96,61 +96,61 @@
 /datum/controller/subsystem/voicechat/proc/confirm_userCode(userCode)
 	if(!userCode || (userCode in vc_clients))
 		return
-	var/client/C = userCode_client_map[userCode]
-	if(!C)
+	var/client/userClient = userCode_client_map[userCode]
+	if(!userClient)
 		disconnect(userCode)
 		return
-	var/mob/M = C.mob
-	if(!M)
+	var/mob/userMob = userClient.mob
+	if(!userMob)
 		disconnect(userCode)
 		return
-	mob_client_map[M] = C
+	mob_client_map[userMob] = userClient
 
 	vc_clients += userCode
-	register_mob_signals(M)
-	check_mob_conditions(M)
-	RegisterSignal(C, COMSIG_QDELETING, PROC_REF(on_client_leaving_game))
+	register_mob_signals(userMob)
+	check_mob_conditions(userMob)
+	RegisterSignal(userClient, COMSIG_QDELETING, PROC_REF(on_client_leaving_game))
 
 /// the big ugly.
-/datum/controller/subsystem/voicechat/proc/register_mob_signals(mob/M)
+/datum/controller/subsystem/voicechat/proc/register_mob_signals(mob/userMob)
 	SIGNAL_HANDLER
 	// whenever client switches to a different mob, setup signals
-	RegisterSignal(M, COMSIG_MOB_LOGOUT, PROC_REF(on_mob_changed))
+	RegisterSignal(userMob, COMSIG_MOB_LOGOUT, PROC_REF(on_mob_changed))
 
-	if(isliving(M))
-		RegisterSignals(M, list(\
+	if(isliving(userMob))
+		RegisterSignals(userMob, list(\
 			SIGNAL_ADDTRAIT(TRAIT_KNOCKEDOUT),
 			SIGNAL_ADDTRAIT(TRAIT_DEAF),
 			SIGNAL_ADDTRAIT(TRAIT_MUTE),
 			), PROC_REF(clear_from_room))
-		RegisterSignals(M, list(\
+		RegisterSignals(userMob, list(\
 			SIGNAL_REMOVETRAIT(TRAIT_KNOCKEDOUT),
 			SIGNAL_REMOVETRAIT(TRAIT_DEAF),
 			SIGNAL_REMOVETRAIT(TRAIT_MUTE),
 			), PROC_REF(add_to_room))
 
-		RegisterSignal(M, COMSIG_LIVING_DEATH, PROC_REF(on_mob_death))
-		RegisterSignal(M, COMSIG_LIVING_REVIVE, PROC_REF(on_mob_revive))
+		RegisterSignal(userMob, COMSIG_LIVING_DEATH, PROC_REF(on_mob_death))
+		RegisterSignal(userMob, COMSIG_LIVING_REVIVE, PROC_REF(on_mob_revive))
 
 
-/datum/controller/subsystem/voicechat/proc/on_mob_changed(mob/M)
-	var/client/C = mob_client_map[M]
-	if(!C)
+/datum/controller/subsystem/voicechat/proc/on_mob_changed(mob/userMob)
+	var/client/userClient = mob_client_map[userMob]
+	if(!userClient)
 		return
 
-	mob_client_map.Remove(M)
-	unregister_mob_signals(M)
+	mob_client_map.Remove(userMob)
+	unregister_mob_signals(userMob)
 
-	var/mob/new_mob = C.mob
+	var/mob/new_mob = userClient.mob
 	if(new_mob)
-		mob_client_map[new_mob] = C
+		mob_client_map[new_mob] = userClient
 		register_mob_signals(new_mob)
 		check_mob_conditions(new_mob)
 
-/datum/controller/subsystem/voicechat/proc/unregister_mob_signals(mob/M)
-	UnregisterSignal(M, COMSIG_MOB_LOGOUT)
-	if(isliving(M))
-		UnregisterSignal(M, list(\
+/datum/controller/subsystem/voicechat/proc/unregister_mob_signals(mob/userMob)
+	UnregisterSignal(userMob, COMSIG_MOB_LOGOUT)
+	if(isliving(userMob))
+		UnregisterSignal(userMob, list(\
 			SIGNAL_ADDTRAIT(TRAIT_KNOCKEDOUT),
 			SIGNAL_ADDTRAIT(TRAIT_DEAF),
 			SIGNAL_ADDTRAIT(TRAIT_MUTE),
@@ -162,45 +162,45 @@
 		))
 
 
-/datum/controller/subsystem/voicechat/proc/clear_from_room(mob/M)
+/datum/controller/subsystem/voicechat/proc/clear_from_room(mob/userMob)
 	SIGNAL_HANDLER
-	if(!M)
+	if(!userMob)
 		// CRASH("signal called without user {usr: [usr || "null"]}")
 		return
-	var/client/C = M.client
-	var/userCode = client_userCode_map[C]
-	if(!C || !userCode)
+	var/client/userClient = userMob.client
+	var/userCode = client_userCode_map[userClient]
+	if(!userClient || !userCode)
 		return
 	clear_userCode(userCode)
 
-/datum/controller/subsystem/voicechat/proc/add_to_room(mob/M)
+/datum/controller/subsystem/voicechat/proc/add_to_room(mob/userMob)
 	SIGNAL_HANDLER
-	if(!M)
+	if(!userMob)
 		// CRASH("signal called without user {usr: [usr || "null"]}")
 		return
-	var/client/C = M.client
-	var/userCode = client_userCode_map[C]
-	if(!C || !userCode)
+	var/client/userClient = userMob.client
+	var/userCode = client_userCode_map[userClient]
+	if(!userClient || !userCode)
 		return
 	move_userCode_to_room(userCode, "living")
 
-/datum/controller/subsystem/voicechat/proc/on_mob_death(mob/M)
+/datum/controller/subsystem/voicechat/proc/on_mob_death(mob/userMob)
 	SIGNAL_HANDLER
-	check_mob_conditions(M)
+	check_mob_conditions(userMob)
 
-/datum/controller/subsystem/voicechat/proc/on_mob_revive(mob/M)
+/datum/controller/subsystem/voicechat/proc/on_mob_revive(mob/userMob)
 	SIGNAL_HANDLER
-	check_mob_conditions(M)
+	check_mob_conditions(userMob)
 
 
-/datum/controller/subsystem/voicechat/proc/check_mob_conditions(mob/M)
-	if(!M)
+/datum/controller/subsystem/voicechat/proc/check_mob_conditions(mob/userMob)
+	if(!userMob)
 		return
 
-	var/client/C = M.client
-	var/userCode = client_userCode_map[C]
+	var/client/userClient = userMob.client
+	var/userCode = client_userCode_map[userClient]
 
-	if(!C || !userCode)
+	if(!userClient || !userCode)
 		return
 
 
@@ -208,15 +208,15 @@
 	var/room
 
 	// everyone goes to no prox to yell at each other at round end and round start.
-	if(isnewplayer(M) || SSticker.current_state == GAME_STATE_FINISHED)
+	if(isnewplayer(userMob) || SSticker.current_state == GAME_STATE_FINISHED)
 		room = "lobby"
 
-	else if(isdead(M) || M.stat == DEAD)
+	else if(isdead(userMob) || userMob.stat == DEAD)
 		room = "ghost"
 
-	else if(isliving(M))
-		if(HAS_TRAIT(M, TRAIT_KNOCKEDOUT) || HAS_TRAIT(M, TRAIT_DEAF)|| HAS_TRAIT(M, TRAIT_MUTE))
-			clear_from_room(M)
+	else if(isliving(userMob))
+		if(HAS_TRAIT(userMob, TRAIT_KNOCKEDOUT) || HAS_TRAIT(userMob, TRAIT_DEAF)|| HAS_TRAIT(userMob, TRAIT_MUTE))
+			clear_from_room(userMob)
 		else
 			room = "living"
 
@@ -226,8 +226,8 @@
 		if(SSticker.current_state < GAME_STATE_PLAYING)
 			send_locations()
 
-/datum/controller/subsystem/voicechat/proc/on_client_leaving_game(client/C)
-	var/userCode = client_userCode_map[C]
+/datum/controller/subsystem/voicechat/proc/on_client_leaving_game(client/userClient)
+	var/userCode = client_userCode_map[userClient]
 	disconnect(userCode, from_byond = TRUE)
 
 // Disconnects a user from voice chat
@@ -237,20 +237,20 @@
 	toggle_active(userCode, FALSE)
 	clear_userCode(userCode)
 
-	var/client/C = userCode_client_map[userCode]
-	var/mob/M
-	if(C)
-		M = C.mob
+	var/client/userClient = userCode_client_map[userCode]
+	var/mob/userMob
+	if(userClient)
+		userMob = userClient.mob
 		userCode_client_map.Remove(userCode)
-		client_userCode_map.Remove(C)
+		client_userCode_map.Remove(userClient)
 		userCode_room_map.Remove(userCode)
 		vc_clients -= userCode
 
-	if(M)
-		unregister_mob_signals(M)
-		mob_client_map.Remove(M)
+	if(userMob)
+		unregister_mob_signals(userMob)
+		mob_client_map.Remove(userMob)
 		if(userCodes_speaking_icon[userCode])
-			M.cut_overlay(userCodes_speaking_icon[userCode])
+			userMob.cut_overlay(userCodes_speaking_icon[userCode])
 
 	userCode_mob_map.Remove(userCode)
 	userCodes_speaking_icon.Remove(userCode)
@@ -263,11 +263,11 @@
 /datum/controller/subsystem/voicechat/proc/toggle_active(userCode, is_active)
 	if(!userCode || isnull(is_active))
 		return
-	var/client/C = userCode_client_map[userCode]
+	var/client/userClient = userCode_client_map[userCode]
 
-	if(!C || !C.mob)
+	if(!userClient || !userClient.mob)
 		return
-	var/mob/M = C.mob
+	var/mob/userMob = userClient.mob
 	var/image/speaker
 	if(!userCodes_speaking_icon[userCode])
 		speaker = image('icons/mob/talk.dmi', icon_state = "voice")
@@ -277,27 +277,27 @@
 		speaker = userCodes_speaking_icon[userCode]
 
 	var/mob/old_mob = userCode_mob_map[userCode]
-	if(M != old_mob)
+	if(userMob != old_mob)
 		if(old_mob)
 			old_mob.overlays -= speaker
-		userCode_mob_map[userCode] = M
+		userCode_mob_map[userCode] = userMob
 
 	var/room = userCode_room_map[userCode]
 
 	//stat is used to ensure dead people dont have talking overlays
-	if(is_active && room && !M.stat)
+	if(is_active && room && !userMob.stat)
 		userCodes_active |= userCode
-		M.add_overlay(speaker)
+		userMob.add_overlay(speaker)
 	else
 		userCodes_active -= userCode
-		M.cut_overlay(speaker)
+		userMob.cut_overlay(speaker)
 
 
 // Mutes or deafens a user's microphone
-/datum/controller/subsystem/voicechat/proc/mute_mic(client/C, deafen = FALSE)
-	if(!C)
+/datum/controller/subsystem/voicechat/proc/mute_mic(client/userClient, deafen = FALSE)
+	if(!userClient)
 		return
-	var/userCode = client_userCode_map[C]
+	var/userCode = client_userCode_map[userClient]
 	if(!userCode)
 		return
 	send_json(list(

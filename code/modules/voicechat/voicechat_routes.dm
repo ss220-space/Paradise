@@ -18,20 +18,20 @@
 	RUSTLIB_CALL(send_json, json)
 
 
-/datum/controller/subsystem/voicechat/proc/handle_topic(T, addr)
+/datum/controller/subsystem/voicechat/proc/handle_topic(text, addr)
 	//sanity check
 	if(addr != "127.0.0.1")
 		return
 
-	var/list/data = json_decode(T)
+	var/list/data = json_decode(text)
 	if(!data)
 		return
 	if(data["error"])
-		message_admins(T)
+		message_admins(text)
 		return
 
 	#ifdef LOG_TRAFFIC
-	message_admins("NODE: [T]")
+	message_admins("NODE: [text]")
 	#endif
 
 	if(data["node_started"])

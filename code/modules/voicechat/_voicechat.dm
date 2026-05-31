@@ -181,21 +181,21 @@ SERVER: подсистема SSVoicechat перезапустится через
 	var/locs_sent = 0
 
 	for(var/userCode in vc_clients)
-		var/client/C = userCode_client_map[userCode]
+		var/client/userClient = userCode_client_map[userCode]
 		var/room =  userCode_room_map[userCode]
-		if(!room || !C)
+		if(!room || !userClient)
 			continue
-		var/mob/M = C.mob
-		if(!M)
+		var/mob/userMob = userClient.mob
+		if(!userMob)
 			continue
 		if(room_has_proximity[room])
-			var/turf/T = get_turf(M)
-			if(!T)
+			var/turf/userTurf = get_turf(userMob)
+			if(!userTurf)
 				continue
-			var/localroom = "[T.z]_[room]"
+			var/localroom = "[userTurf.z]_[room]"
 			if(!packet[localroom])
 				packet[localroom] = list()
-			packet[localroom][userCode] = list(T.x, T.y)
+			packet[localroom][userCode] = list(userTurf.x, userTurf.y)
 		else
 			var/room_noprox = room + "_noprox"
 			if(!packet[room_noprox])
