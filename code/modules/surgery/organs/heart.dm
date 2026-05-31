@@ -136,6 +136,7 @@
 
 /datum/action/item_action/organ_action/cursed_heart
 	name = "Подкачка крови"
+	stat_allowed = UNCONSCIOUS
 
 //You are now brea- pumping blood manually
 /datum/action/item_action/organ_action/cursed_heart/Trigger(mob/clicker, trigger_flags)
