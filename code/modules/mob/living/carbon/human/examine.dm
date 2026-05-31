@@ -517,8 +517,11 @@
 		var/mob/living/silicon/robot/robot = M
 		var/is_hydro_hud_active = FALSE
 		for(var/datum/action/innate/action as anything in robot.module_actions)
-			if(istype(action, /datum/action/innate/robot_sight_hydro))
-				is_hydro_hud_active = action.active ? EXAMINE_HUD_BOTANY : FALSE
+			if(!istype(action, /datum/action/innate/robot_sight_hydro))
+				continue
+
+			is_hydro_hud_active = action.active ? EXAMINE_HUD_BOTANY : FALSE
+			break
 
 		return hud_exam & is_hydro_hud_active || hud_exam & EXAMINE_HUD_SECURITY_READ || hud_exam & EXAMINE_HUD_SECURITY_WRITE || hud_exam & EXAMINE_HUD_MEDICAL
 
