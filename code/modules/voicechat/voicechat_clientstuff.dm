@@ -7,7 +7,7 @@
 	<html>
 		<h4>Если это окно не закроется через несколько секунд, то это значит, что что-то сломалось.</h4>
 	<script>
-		window.location.href += `?src=[UID(src)];origin=${window.location.origin};external=[external]`
+		window.location.href += `?src=[UID()];origin=${window.location.origin};external=[external]`
 		</script>
 	</html>"}
 
