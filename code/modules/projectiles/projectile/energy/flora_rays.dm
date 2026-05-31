@@ -21,20 +21,20 @@
 /obj/projectile/energy/floraalpha/prehit(atom/target)
 	if(target && !HAS_TRAIT(target, TRAIT_PLANT_ORIGIN)) // burn damage for only plant
 		damage = 0
-	. = ..()
+	return ..()
 
 /obj/projectile/energy/floraalpha/on_range()
 	strike_thing()
-	. = ..()
+	return ..()
 
 /obj/projectile/energy/floraalpha/on_hit(atom/target, blocked = 0, hit_zone)
 	strike_thing(target)
-	. = ..()
+	return ..()
 
 /obj/projectile/energy/floraalpha/proc/strike_thing(atom/target)
-	var/turf/target_turf = get_turf(target)
+	var/turf/target_turf = get_turf(target) || get_turf(src)
 	if(!target_turf)
-		target_turf = get_turf(src)
+		return
 	new /obj/effect/temp_visual/pka_explosion/florawave(target_turf)
 	for(var/currentTurf in RANGE_TURFS(1, target_turf))
 		for(var/object in currentTurf)
