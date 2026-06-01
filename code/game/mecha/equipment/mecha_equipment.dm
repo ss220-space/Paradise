@@ -30,6 +30,7 @@
 	var/harmful = FALSE //Controls if equipment can be used to attack by a pacifist.
 	var/integrated = FALSE // Preventing modules from getting detached.
 	var/stored_in
+	var/module_type = MECH_EQUIPMENT_ALL
 
 /obj/item/mecha_parts/mecha_equipment/Destroy()//missiles detonating, teleporter creating singularity?
 	if(chassis)
@@ -136,10 +137,13 @@
 		return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/proc/can_attach(obj/mecha/M)
-	if(istype(M))
-		if(length(M.equipment) < M.max_equip)
-			return TRUE
-	return FALSE
+	if(!istype(M))
+		return FALSE
+	if(!(allowed_equipment & module_type))
+		return FALSE
+	if(!length(M.equipment) < M.max_equip)
+		return FALSE
+	return TRUE
 
 /obj/item/mecha_parts/mecha_equipment/proc/can_detach()
 	if(integrated)

@@ -1,16 +1,12 @@
 // Sleeper, and Syringe gun
 
 /obj/item/mecha_parts/mecha_equipment/medical
+	module_type = MECH_EQUIPMENT_MEDICAL
+
 
 /obj/item/mecha_parts/mecha_equipment/medical/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
-
-/obj/item/mecha_parts/mecha_equipment/medical/can_attach(obj/mecha/M)
-	if(..())
-		if(istype(M, /obj/mecha/medical) || istype(M, /obj/mecha/combat/lockersyndie))
-			return TRUE
-	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/medical/attach_act(obj/mecha/M)
 	START_PROCESSING(SSobj, src)
@@ -263,12 +259,6 @@
 	if(reagents)
 		reagents.set_reacting(TRUE)
 
-/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/can_attach(obj/mecha/M)
-	if(..())
-		if(istype(M, /obj/mecha/medical) || istype(M, /obj/mecha/combat/lockersyndie))
-			return TRUE
-	return FALSE
-
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/get_snowflake_data()
 	var/list/analyzed_reagents = list() // we need to make this list because .tsk wont map over an indexed array
 
@@ -502,6 +492,7 @@
 	icon_state = "mecha_clamp"	//can work, might use a blue resprite later but I think it works for now
 	equip_cooldown = 1.5 SECONDS
 	energy_drain = 10
+	module_type = MECH_EQUIPMENT_MEDICAL | (M, /obj/mecha/working/ripley/firefighter)
 	var/dam_force = 20
 
 /obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw/action(atom/target, list/modifiers)
@@ -537,12 +528,6 @@
 				step(L, NORTH)
 			else
 				step(L, SOUTH)
-
-/obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw/can_attach(obj/mecha/M)
-	if(istype(M, /obj/mecha/medical) || istype(M, /obj/mecha/working/ripley/firefighter) || istype(M, /obj/mecha/combat/lockersyndie))	//Odys or firefighters or syndielocker
-		if(length(M.equipment) < M.max_equip)
-			return TRUE
-	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/medical/beamgun
 	name = "Medical Beamgun"

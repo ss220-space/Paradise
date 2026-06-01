@@ -53,6 +53,10 @@
 	var/cargo_capacity = 1
 	/// for wide cargo module
 	var/cargo_expanded = FALSE
+	/// emp protection
+	var/emp_protection = FALSE
+	/// mech equipment types
+	var/allowed_equipment = MECH_EQUIPMENT_WORKING
 
 	//inner atmos
 	var/use_internal_tank = FALSE
@@ -867,7 +871,9 @@
 
 //TODO
 /obj/mecha/emp_act(severity)
-	if(get_charge())
+	if(emp_protection)
+		return FALSE
+	else if(get_charge())
 		use_power((cell.charge/3)/(severity*2))
 		take_damage(30 / severity, BURN, ENERGY, 1)
 	check_for_internal_damage(list(MECHA_INT_FIRE, MECHA_INT_TEMP_CONTROL, MECHA_INT_CONTROL_LOST, MECHA_INT_SHORT_CIRCUIT), 1)
@@ -1259,7 +1265,7 @@
 	AI.can_shunt = FALSE //ONE AI ENTERS. NO AI LEAVES.
 	to_chat(AI, "[AI.can_dominate_mechs ? span_boldnotice("Takeover of [name] complete! You are now permanently loaded onto the onboard computer. Do not attempt to leave the station sector!") \
 	: span_notice("You have been uploaded to a mech's onboard computer.")]")
-	to_chat(AI, span_boldnotice("Use Middle-Mouse to activate mech functions and equipment. Click normally for AI interactions."))
+	to_chat(AI, span_boldnotice("Use Left-Mouse to activate the left-hand module and Right-Mouse to activate the right-hand module."))
 	if(interaction == AI_TRANS_FROM_CARD)
 		GrantActions(AI, FALSE)
 	else

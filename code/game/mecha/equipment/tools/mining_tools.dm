@@ -13,6 +13,7 @@
 	force = 15
 	harmful = TRUE
 	sharp = TRUE
+	module_type = MECH_EQUIPMENT_WORKING | MECH_EQUIPMENT_COMBAT
 	var/drill_delay = 7
 	var/drill_level = DRILL_BASIC
 
@@ -87,12 +88,6 @@
 	if((locate(/obj/item/mecha_parts/mecha_equipment/hydraulic_clamp) in chassis.equipment) && istype(chassis, /obj/mecha/working))
 		var/obj/mecha/working/R = chassis //we could assume that it's a ripley because it has a clamp, but that's ~unsafe~ and ~bad practice~
 		R.collect_ore()
-
-/obj/item/mecha_parts/mecha_equipment/drill/can_attach(obj/mecha/M)
-	if(..())
-		if(istype(M, /obj/mecha/working) || istype(M, /obj/mecha/combat))
-			return TRUE
-	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/drill/proc/drill_mob(mob/living/target, mob/user)
 	target.visible_message(

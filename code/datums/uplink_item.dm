@@ -490,10 +490,10 @@
 /datum/uplink_item/jobspecific/lockermech
 	name = "Синди-Шкафомех"
 	desc = "Массивный и невероятно смертоносный экзоскетлет \"Синдиката\" (на самом деле нет)."
-	item = /obj/mecha/combat/lockersyndie/loaded
+	item = /obj/item/mecha_drop
 	cost = 25
 	job = list(JOB_TITLE_CIVILIAN, JOB_TITLE_ROBOTICIST)
-	surplus = 0
+	surplus = 1
 
 /datum/uplink_item/jobspecific/combat_drone
 	name = "Руководство по эксплуатации боевого дрона"
@@ -693,7 +693,7 @@
 			Оно оснащено алгоритмами ближнего боя и имеет обновленные протоколы безопасности для работы с микробатареями."
 	item = /obj/item/ipc_combat_upgrade
 	cost = 11
-	race = list(SPECIES_MACNINEPERSON)
+	race = list(SPECIES_MACHINEPERSON)
 
 /datum/uplink_item/racial/supercharge
 	name = "Имплант cуперзаряда"
@@ -701,7 +701,7 @@
 			Он выпускает специальный химический коктейль, который снимает и значительно сокращает эффект оглушения, а также повышает скорость передвижения."
 	item = /obj/item/implanter/supercharge
 	cost = 40
-	race = list(SPECIES_MACNINEPERSON)
+	race = list(SPECIES_MACHINEPERSON)
 
 /datum/uplink_item/racial/combat_exoframe
 	name = "Боевой каркас экзоскелета"
@@ -710,7 +710,7 @@
 			Поставляется с одноразовым автоимплантером для установки на месте."
 	item = /obj/item/storage/box/syndie_kit/combat_exoframe
 	cost = 28
-	race = list(SPECIES_MACNINEPERSON)
+	race = list(SPECIES_MACHINEPERSON)
 
 //Slime People
 
@@ -2433,7 +2433,7 @@
 	name = "Электронная сигарета \"Синдиката\""
 	desc = "Со вкусом \"Двойное яблочко\"."
 	item = /obj/item/ecig/syndi
-	cost = 6
+	cost = 3
 
 /datum/uplink_item/badass/syndiecards
 	name = "Игральные карты \"Синдиката\""

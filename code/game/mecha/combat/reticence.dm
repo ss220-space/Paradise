@@ -19,10 +19,20 @@
 	stepsound = null
 	turnsound = null
 	starting_voice = /obj/item/mecha_modkit/voice/silent
-
+	allowed_equipment = MECH_EQUIPMENT_MIME
 	mech_type = MECH_TYPE_RETICENCE
-
 	ui_theme = "ntos_lightmode"
+
+/obj/mecha/combat/reticence/emag_act(mob/user)
+	if(!emagged)
+		add_attack_logs(user, src, "emagged")
+		emagged = TRUE
+		if(user)
+			to_chat(user, span_notice("You slide the card through [src]'s ID slot."))
+		playsound(loc, SFX_SPARKS, 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+		desc += span_danger("</br>The mech's equipment slots dangerously silent!")
+	else if(user)
+		to_chat(user, span_warning("[src]'s ID slot rejects the card."))
 
 /obj/mecha/combat/reticence/loaded/Initialize(mapload)
 	. = ..()
