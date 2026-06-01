@@ -231,7 +231,7 @@
 			H.dna.species.updatespeciescolor(H, 0) //The mob's species wasn't set, so it's almost certainly different than the character's species at the moment. Thus, we need to be owner-insensitive.
 
 			var/obj/item/organ/external/chest/C = H.get_organ(BODY_ZONE_CHEST)
-			icobase = C.icobase ? C.icobase : C.dna.species.icobase
+			icobase = (C?.icobase) ? C.icobase : current_species.icobase
 			if(H.dna.species.bodyflags & HAS_TAIL)
 				coloured_tail = H.tail ? H.tail : H.dna.species.tail
 

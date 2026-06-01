@@ -99,6 +99,9 @@
 		return
 
 	if(LAZYACCESS(modifiers, RIGHT_CLICK))
+		if(controlled_mech)
+			controlled_mech.click_action(A, src, modifiers)
+			return
 		var/secondary_result = A.attack_ai_secondary(src, modifiers)
 		if(secondary_result == SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN || secondary_result == SECONDARY_ATTACK_CONTINUE_CHAIN)
 			return
@@ -116,6 +119,10 @@
 	if(setting_waypoint)
 		setting_waypoint = FALSE
 		set_waypoint(A)
+		return
+
+	if(controlled_mech)
+		controlled_mech.click_action(A, src, modifiers)
 		return
 
 	A.add_hiddenprint(src)

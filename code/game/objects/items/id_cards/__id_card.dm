@@ -233,6 +233,7 @@
 		desc = decal.decal_desc
 		icon_state = decal.decal_icon_state
 		item_state = decal.decal_item_state
+		SEND_SIGNAL(loc, COMSIG_CARD_DECAL_APPLIED)
 		qdel(decal)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
