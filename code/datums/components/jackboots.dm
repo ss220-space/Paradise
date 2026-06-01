@@ -5,7 +5,7 @@
 		'sound/effects/jackboot/bigboot2.ogg' = 1,
 		'sound/effects/jackboot/bigboot3.ogg' = 1,
 		'sound/effects/jackboot/bigboot4.ogg' = 1,
-		'sound/effects/jackboot/bigboot5.ogg' = 1
+		'sound/effects/jackboot/bigboot5.ogg' = 1,
 	)
 	// This is so shoes don't squeak every step
 	var/steps = 0
