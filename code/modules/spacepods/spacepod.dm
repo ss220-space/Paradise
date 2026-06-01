@@ -476,6 +476,23 @@
 	if(!ATTACK_CHAIN_CANCEL_CHECK(.))
 		deal_damage(cached_damage)
 
+/obj/spacepod/examine(mob/user)
+	. = ..()
+	var/integrity = health * 100 / initial(health)
+	switch(integrity)
+		if(100)
+			. += span_notice("Он полностью невредим.")
+		if(85 to 99)
+			. += span_notice("Он незначительно повреждён.")
+		if(65 to 85)
+			. += span_notice("Он немного повреждён.")
+		if(45 to 65)
+			. += span_notice("Он сильно повреждён.")
+		if(25 to 45)
+			. += span_notice("Он тяжело повреждён.")
+		else
+			. += span_warning("Он вот-вот развалится.")
+
 /obj/spacepod/crowbar_act(mob/user, obj/item/I)
 	if(user.a_intent == INTENT_HARM)
 		return

@@ -1123,7 +1123,7 @@
 		return
 	WELDER_ATTEMPT_REPAIR_MESSAGE
 	repairing = TRUE
-	while(obj_integrity < max_integrity)
+	while(obj_integrity < max_integrity || (internal_damage & MECHA_INT_TANK_BREACH))
 		if(welder.use_tool(src, user, 15, volume = welder.tool_volume))
 			if(internal_damage & MECHA_INT_TANK_BREACH)
 				clearInternalDamage(MECHA_INT_TANK_BREACH)
