@@ -467,7 +467,7 @@
 	implant_overlay = null
 	origin_tech = "materials=3;engineering=4"
 	slot = INTERNAL_ORGAN_CHEST_EXOFRAME
-	species_restrictions = list(SPECIES_MACNINEPERSON)
+	species_restrictions = list(SPECIES_MACHINEPERSON)
 	var/id = "EXO_DEFAULT"
 	var/given_health = 0
 	var/repair_time = 1 SECONDS

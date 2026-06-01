@@ -949,7 +949,7 @@
 	item_state = "ghostface_mask"
 	flags_inv = HIDEGLASSES
 	flags_cover = HIDENAME|MASKCOVERSMOUTH|MASKCOVERSEYES
-	species_restricted = list(SPECIES_HUMAN, SPECIES_MACNINEPERSON, SPECIES_SKRELL, SPECIES_SLIMEPERSON, SPECIES_DIONA, SPECIES_NUCLEATION)
+	species_restricted = list(SPECIES_HUMAN, SPECIES_MACHINEPERSON, SPECIES_SKRELL, SPECIES_SLIMEPERSON, SPECIES_DIONA, SPECIES_NUCLEATION)
 
 /obj/item/clothing/mask/gas/ghostface/get_ru_names()
 	return list(
