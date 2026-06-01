@@ -16,6 +16,7 @@
 	SHOULD_NOT_OVERRIDE(TRUE)
 	if(case_id < NOMINATIVE || case_id > PREPOSITIONAL)
 		stack_trace("declent_ru() called with invalid case_id '[case_id]'")
+		return name
 	var/alist/list_to_use = ru_names || get_ru_names_cached()
 	if(length(list_to_use))
 		return list_to_use[case_id] || name
@@ -62,6 +63,7 @@
 	PROTECTED_PROC(TRUE)
 	SHOULD_NOT_OVERRIDE(TRUE)
 	var/alist/names = get_ru_names_cached()
-	ru_names = names ? names.Copy() : alist()
+	var/has_names = length(names)
+	ru_names = has_names ? names.Copy() : alist()
 	for(var/case_id in NOMINATIVE to PREPOSITIONAL)
-		ru_names[case_id] = "[names ? names[case_id] : initial(name)][suffix]"
+		ru_names[case_id] = "[has_names ? names[case_id] : initial(name)][suffix]"
