@@ -203,8 +203,6 @@
 	if(!userClient || !userCode)
 		return
 
-
-
 	var/room
 
 	// everyone goes to no prox to yell at each other at round end and round start.
