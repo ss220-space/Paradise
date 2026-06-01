@@ -1,4 +1,0 @@
-author: "wcatx"
-delete-after: True
-changes:
-  - balance: "Добавлена возможность остановить сердце взломанным дефибриллятором. (PR #8893)"

@@ -1,4 +1,0 @@
-author: "kkadmor"
-delete-after: True
-changes:
-  - bugfix: "Фикс бага с перекладыванием вещей из локбокса (PR #9314)"
