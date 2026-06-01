@@ -4,7 +4,7 @@ import { Window } from '../layouts';
 
 export const EvolutionMenu = (props: unknown) => {
   return (
-    <Window width={480} height={574} theme="changeling">
+    <Window width={500} height={800} theme="changeling">
       <Window.Content className="Layout__content--flexColumn" scrollable>
         <EvolutionPoints />
         <Abilities />
@@ -33,10 +33,10 @@ const EvolutionPoints = (props: unknown) => {
   const { act, data } = useBackend<EvolutionMenuData>();
   const { evo_points, can_respec } = data;
   return (
-    <Section title="Evolution Points" height={5.5}>
+    <Section title="Очки эволюции" height={5.5}>
       <Flex>
         <Flex.Item mt={0.5} color="label">
-          Points remaining:
+          Осталось очков:
         </Flex.Item>
         <Flex.Item mt={0.5} ml={2} bold color="#1b945c">
           {evo_points}
@@ -48,11 +48,10 @@ const EvolutionPoints = (props: unknown) => {
             icon="sync"
             onClick={() => act('readapt')}
           >
-            Readapt
+            Реадаптация
           </Button>
           <Button
-            tooltip="By transforming a humanoid into a husk, \
-              we gain the ability to readapt our chosen evolutions."
+            tooltip="Поглотив жертву мы получаем возможность перестроить выбранные нами очки эволюции."
             tooltipPosition="bottom"
             icon="question-circle"
           />
@@ -67,7 +66,7 @@ const Abilities = (props: unknown) => {
   const { evo_points, ability_list, purchased_abilities, view_mode } = data;
   return (
     <Section
-      title="Abilities"
+      title="Способности"
       flexGrow
       buttons={
         <>
@@ -80,7 +79,7 @@ const Abilities = (props: unknown) => {
               })
             }
           >
-            Compact
+            Компактный
           </Button>
           <Button
             icon={view_mode ? 'check-square-o' : 'square-o'}
@@ -91,7 +90,7 @@ const Abilities = (props: unknown) => {
               })
             }
           >
-            Expanded
+            Расширенный
           </Button>
         </>
       }
@@ -104,12 +103,12 @@ const Abilities = (props: unknown) => {
             </Flex.Item>
             {purchased_abilities.includes(ability.power_path) && (
               <Flex.Item ml={2} bold color="#1b945c">
-                (Purchased)
+                (развит)
               </Flex.Item>
             )}
             <Flex.Item mr={3} textAlign="right" grow={1}>
               <Box as="span" color="label">
-                Cost:{' '}
+                ДНК:{' '}
               </Box>
               <Box as="span" bold color="#1b945c">
                 {ability.cost}
@@ -128,7 +127,7 @@ const Abilities = (props: unknown) => {
                   })
                 }
               >
-                Evolve
+                Развить
               </Button>
             </Flex.Item>
           </Flex>

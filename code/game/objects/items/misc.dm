@@ -158,7 +158,7 @@
 	var/cycle_count = 0
 
 	while(amount_left > 0 && applying)
-		if(!do_after(user, 1 SECONDS, user, progress = TRUE, max_interact_count = 1))
+		if(!do_after(user, 1 SECONDS, user, DA_IGNORE_USER_LOC_CHANGE, progress = TRUE, max_interact_count = 1))
 			break
 
 		cycle_count++

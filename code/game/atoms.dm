@@ -267,8 +267,9 @@
 		light_sources.Cut()
 
 	for(var/mob/orbiter as anything in orbiters)
-		if(orbiter && orbiter.orbiting == src)
-			orbiter.orbiting = null
+		if(orbiter?.orbiting != src)
+			continue
+		orbiter.stop_orbit()
 
 	LAZYCLEARLIST(orbiters)
 
