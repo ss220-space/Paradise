@@ -1,24 +1,4 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"av" = (
-/obj/machinery/door_control{
-	id = "adminshuttleblast";
-	name = "Blast door control";
-	pixel_x = -5;
-	pixel_y = -23;
-	req_access = list(101)
-	},
-/obj/machinery/door_control{
-	id = "adminshuttleshutters";
-	name = "Shutter control";
-	pixel_x = 5;
-	pixel_y = -23;
-	req_access = list(101)
-	},
-/turf/simulated/floor/shuttle{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "dark"
-	},
-/area/shuttle/administration)
 "aw" = (
 /obj/structure/chair{
 	dir = 4
@@ -168,8 +148,7 @@
 /area/shuttle/administration)
 "jU" = (
 /obj/machinery/computer/shuttle/admin{
-	dir = 1;
-	name = "NTV Argos shuttle console"
+	name = "NTV Athena shuttle console"
 	},
 /obj/effect/turf_decal/stripes/gold{
 	dir = 6;
@@ -525,13 +504,28 @@
 	},
 /area/shuttle/administration)
 "zi" = (
-/obj/machinery/computer/communications{
-	dir = 1
-	},
 /obj/effect/turf_decal/stripes/gold{
 	dir = 6
 	},
-/obj/machinery/light/small,
+/obj/machinery/computer/communications,
+/obj/machinery/door_control{
+	id = "adminshuttleblast";
+	name = "Blast door control";
+	pixel_x = -5;
+	pixel_y = -23;
+	req_access = list(101)
+	},
+/obj/machinery/door_control{
+	id = "adminshuttleshutters";
+	name = "Shutter control";
+	pixel_x = 5;
+	pixel_y = -23;
+	req_access = list(101)
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/structure/extinguisher_cabinet/directional/west,
 /turf/simulated/floor/carpet/royalblack,
 /area/shuttle/administration)
 "zA" = (
@@ -620,13 +614,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/wood/fancy/cherry,
-/area/shuttle/administration)
-"Gs" = (
-/obj/item/twohanded/required/kirbyplants,
-/turf/simulated/floor/shuttle{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "dark"
-	},
 /area/shuttle/administration)
 "Hs" = (
 /obj/machinery/light{
@@ -762,16 +749,17 @@
 /turf/simulated/floor/carpet/royalblack,
 /area/shuttle/administration)
 "Oy" = (
-/obj/machinery/computer/card{
-	dir = 1
-	},
 /obj/effect/turf_decal/stripes/gold{
 	dir = 5;
 	icon_state = "gs_deadlock"
 	},
+/obj/machinery/computer/camera_advanced/shuttle_docker/admin{
+	name = "NTV Athena shuttle navigation computer"
+	},
 /turf/simulated/floor/carpet/royalblack,
 /area/shuttle/administration)
 "OZ" = (
+/obj/structure/extinguisher_cabinet/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkredalt"
@@ -794,6 +782,10 @@
 /area/shuttle/administration)
 "Qn" = (
 /obj/machinery/door/airlock/centcom,
+/turf/simulated/floor/wood/fancy/cherry,
+/area/shuttle/administration)
+"QK" = (
+/obj/structure/extinguisher_cabinet/directional/west,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/shuttle/administration)
 "QT" = (
@@ -826,15 +818,13 @@
 	},
 /area/shuttle/administration)
 "RA" = (
-/obj/machinery/computer/camera_advanced/shuttle_docker/admin{
-	dir = 1;
-	name = "NTV Argos shuttle navigation computer"
-	},
 /obj/effect/turf_decal/stripes/gold{
 	dir = 5
 	},
-/obj/machinery/light/small{
-	dir = 1
+/obj/machinery/computer/communications,
+/obj/machinery/computer/card,
+/obj/machinery/light{
+	dir = 8
 	},
 /turf/simulated/floor/carpet/royalblack,
 /area/shuttle/administration)
@@ -1008,6 +998,7 @@
 /area/shuttle/administration)
 "Xb" = (
 /obj/item/flag/nt,
+/obj/structure/extinguisher_cabinet/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -1195,10 +1186,10 @@ TC
 cl
 vb
 Xl
-Gs
+cN
 jI
 NW
-Gs
+cN
 ZZ
 Tl
 Ak
@@ -1217,7 +1208,7 @@ hA
 vk
 vk
 cN
-av
+cN
 zA
 hA
 hA
@@ -1240,8 +1231,8 @@ BJ
 BJ
 Ti
 dq
-sq
-sq
+QK
+QK
 sq
 sq
 Bs
@@ -1328,7 +1319,7 @@ jH
 ye
 "}
 (11,1,1) = {"
-Ti
+zA
 hA
 yW
 hA
@@ -1418,7 +1409,7 @@ vk
 Ti
 Ru
 iK
-vk
+hA
 vk
 Re
 hA

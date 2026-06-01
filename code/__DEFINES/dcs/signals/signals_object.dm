@@ -357,3 +357,6 @@
 
 /// Called when we are enabling effect aura (/datum/element/effect_aura)
 #define COMSIG_AURA_SET_ENABLED "aura_set_enabled"
+
+/// Called when card decal applied to ID card.
+#define COMSIG_CARD_DECAL_APPLIED "card_decal_applied"

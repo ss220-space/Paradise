@@ -116,7 +116,7 @@
 		return
 
 	if(ismecha(loc))
-		if(!locate(/turf) in list(A,A.loc)) // Prevents inventory from being drilled
+		if(!isturf(A) && !isturf(A.loc)) // Prevents inventory from being drilled
 			return
 		var/obj/mecha/M = loc
 		return M.click_action(A, src, modifiers)

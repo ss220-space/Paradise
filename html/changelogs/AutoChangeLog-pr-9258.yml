@@ -1,4 +1,0 @@
-author: "SansWD"
-delete-after: True
-changes:
-  - bugfix: "В гостчате администратор вновь видит сикей. (PR #9258)"

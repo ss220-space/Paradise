@@ -126,12 +126,6 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 	typepath = /obj/item/gun/projectile/bombarda/secgl/x4
 	protected_jobs = list(JOB_TITLE_HOS)
 
-/datum/theft_objective/highrisk/captains_jetpack
-	id = "cap_modsuit"
-	name = "the captain's Magnate MODsuit"
-	typepath = /obj/item/mod/control/pre_equipped/magnate
-	protected_jobs = list(JOB_TITLE_CAPTAIN)
-
 /datum/theft_objective/highrisk/captains_rapier
 	id = "cap_rapier"
 	name = "the captain's rapier"
@@ -321,10 +315,11 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 	typepath = /obj/item/gun/projectile/revolver/detective
 	name = ".38 Mars, заказной револьвер детектива"
 
-/datum/theft_objective/hard/space_cap
-	id = "cap_spacesuit"
-	typepath = /obj/item/clothing/suit/space/captain
-	name = "капитанский костюм для выхода в космос"
+/datum/theft_objective/hard/modsuit_cap
+	id = "cap_modsuit"
+	name = "капитанский МЭК модели \"Магнат\""
+	typepath = /obj/item/mod/control/pre_equipped/magnate
+	protected_jobs = list(JOB_TITLE_CAPTAIN)
 
 /datum/theft_objective/hard/magboots_cap
 	id = "cap_magboots"

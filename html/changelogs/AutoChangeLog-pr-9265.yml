@@ -1,4 +1,0 @@
-author: "DraumLord"
-delete-after: True
-changes:
-  - bugfix: "Исправлен скан руды у шахтёрского сканнера минералов. (PR #9265)"

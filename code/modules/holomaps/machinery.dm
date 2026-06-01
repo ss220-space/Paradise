@@ -31,7 +31,7 @@
 	/// Auto update timer id
 	var/auto_update_timer_id = null
 
-	// zLevel which the map is a map for. Change this to have mapload holomaps look at other zlevels.
+	/// zLevel which the map is a map for. Change this to have mapload holomaps look at other zlevels.
 	var/current_z_level
 
 	/// The various images and icons for the map are stored in here, as well as the actual big map itself.
@@ -149,15 +149,10 @@
 	return TRUE
 
 /obj/machinery/station_map/proc/redraw_map(mob/user)
-	if(!user  || !user.client || !user.client.images)
+	if(!user || !user.client || !user.client.images)
 		close_map()
 		return
-	user.client.images -= holomap_datum.base_map
-	var/turf/current_turf = get_turf(src)
-	holomap_datum.initialize_holomap(current_turf, current_z_level, reinit_base_map = TRUE, extra_overlays = handle_overlays())
-	holomap_datum.base_map.loc = user.hud_used.holomap
-	user.hud_used.holomap.used_base_map = holomap_datum.base_map
-	user.client.images |= holomap_datum.base_map
+	holomap_datum.update_map(handle_overlays())
 
 /obj/machinery/station_map/attack_ai(mob/living/silicon/robot/user)
 	attack_hand(user)
@@ -172,7 +167,7 @@
 /obj/machinery/station_map/proc/check_position(mob/moved_mob)
 	SIGNAL_HANDLER
 
-	if(!moved_mob || (moved_mob.loc != loc) || (dir != moved_mob.dir))
+	if(!moved_mob || !IsReachableBy(moved_mob))
 		close_map()
 
 /obj/machinery/station_map/proc/close_map()
@@ -408,7 +403,7 @@
 		if(!ismindshielded(check))
 			continue
 		var/turf/check_turf = get_turf(check)
-		if(!isnull(check_turf) || check_turf.z != loc.z)
+		if(isnull(check_turf) || check_turf.z != current_z_level)
 			continue
 		var/image/check_icon = image('icons/misc/8x8.dmi', icon_state = "security")
 		check_icon.pixel_w = check_turf.x + HOLOMAP_CENTER_X - 1

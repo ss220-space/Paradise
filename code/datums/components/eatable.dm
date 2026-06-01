@@ -168,7 +168,7 @@
 
 	if(!instant_application)
 		item.visible_message(span_warning("[user] пыта[PLUR_ET_YUT(user)]ся накормить [target], запихивая в рот [item.declent_ru(ACCUSATIVE)]."))
-		if(!do_after(user, target, 2 SECONDS, NONE))
+		if(!do_after(user, 2 SECONDS, target, NONE))
 			return FALSE
 
 	return TRUE
