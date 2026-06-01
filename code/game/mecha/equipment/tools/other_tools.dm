@@ -501,11 +501,17 @@
 	origin_tech = "materials=5;engineering=5;magnets=4;powerstorage=4"
 	energy_drain = 20
 	selectable = MODULE_SELECTABLE_NONE
+	module_type = MECH_EQUIPMENT_MEDICAL | MECH_EQUIPMENT_WORKING
 	var/ripley_step_in = 2.5
 	var/odyss_step_in = 1.8
 	var/clarke_step_in = 1.5
 	var/durand_step_in = 3.3
 	var/locker_step_in = 2
+
+/obj/item/mecha_parts/mecha_equipment/improved_exosuit_control_system/can_attach(obj/mecha/M)
+	if(istype(M, /obj/mecha/combat/durand) || ..())
+		return TRUE
+	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/improved_exosuit_control_system/attach_act()
 	if(istype(loc, /obj/mecha/working/ripley)) // for ripley/firefighter
@@ -543,11 +549,11 @@
 	equip_cooldown = 3 SECONDS
 	energy_drain = 500
 	salvageable = FALSE
-	module_type = combat
+	module_type = MECH_EQUIPMENT_COMBAT
 
-/obj/item/mecha_parts/mecha_equipment/weapon/can_attach(obj/mecha/M)
-	if(!M.allowed_equipment || !M.emagged)
-		return FALSE
+/obj/item/mecha_parts/mecha_equipment/cage/can_attach(obj/mecha/M)
+	if(M.emagged || ..())
+		return TRUE
 	if(locate(src) in M.equipment)
 		return FALSE
 	. = ..()

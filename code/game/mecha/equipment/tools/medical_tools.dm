@@ -495,6 +495,11 @@
 	module_type = MECH_EQUIPMENT_MEDICAL | (M, /obj/mecha/working/ripley/firefighter)
 	var/dam_force = 20
 
+/obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw/can_attach(obj/mecha/M)
+	if(istype(M, /obj/mecha/working/ripley/firefighter) || ..())
+		return TRUE
+	return FALSE
+
 /obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw/action(atom/target, list/modifiers)
 	if(!action_checks(target))
 		return FALSE

@@ -15,9 +15,7 @@
 	var/projectile_energy_cost
 
 /obj/item/mecha_parts/mecha_equipment/weapon/can_attach(obj/mecha/M)
-	if(..())
-		return TRUE
-	if(M.emagged)
+	if(M.emagged || ..())
 		return TRUE
 	return FALSE
 
@@ -549,7 +547,11 @@
 	projectile_energy_cost = 50
 	equip_cooldown = 1 SECONDS
 	harmful = FALSE
-	module_type = (M, /obj/mecha/combat/gygax)
+
+/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/bola/can_attach(obj/mecha/M)
+	if(istype (M, /obj/mecha/combat/gygax) || ..())
+		return TRUE
+	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/bola/action(target, list/modifiers)
 	if(!action_checks(target))
