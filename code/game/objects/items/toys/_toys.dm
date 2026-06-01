@@ -35,18 +35,38 @@
  */
 /obj/item/toy/spinningtoy
 	name = "Gravitational Singularity"
-	desc = "\"Singulo\" brand spinning toy."
+	desc = "Знаменитая вращающаяся игрушка марки \"Сингуло\"."
 	icon = 'icons/obj/engines_and_power/singularity.dmi'
 	icon_state = "singularity_s1"
 	item_flags = NO_PIXEL_RANDOM_DROP
 
+/obj/item/toy/spinningtoy/get_ru_names()
+	return list(
+		NOMINATIVE = "игрушечная сингулярность",
+		GENITIVE = "игрушечной сингулярности",
+		DATIVE = "игрушечной сингулярности",
+		ACCUSATIVE = "игрушечную сингулярность",
+		INSTRUMENTAL = "игрушечной сингулярностью",
+		PREPOSITIONAL = "игрушечной сингулярности",
+	)
+
 /obj/item/toy/nuke
 	name = "Nuclear Fission Explosive toy"
-	desc = "A plastic model of a Nuclear Fission Explosive."
+	desc = "Пластиковая модель ядерной боеголовки."
 	icon_state = "nuketoyidle"
 	w_class = WEIGHT_CLASS_SMALL
 	var/cooldown = 0
 	var/animation_stage = 0
+
+/obj/item/toy/nuke/get_ru_names()
+	return list(
+		NOMINATIVE = "игрушечная ядерная боеголовка",
+		GENITIVE = "игрушечной ядерной боеголовки",
+		DATIVE = "игрушечной ядерной боеголовке",
+		ACCUSATIVE = "игрушечную ядерную боеголовку",
+		INSTRUMENTAL = "игрушечной ядерной боеголовкой",
+		PREPOSITIONAL = "игрушечной ядерной боеголовке",
+	)
 
 /obj/item/toy/nuke/update_icon_state()
 	switch(animation_stage)
@@ -77,22 +97,24 @@
 	animation_stage = 0
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/item/inflatable_duck
-	name = "inflatable duck"
-	desc = "No bother to sink or swim when you can just float!"
-	icon_state = "inflatable"
-	item_state = "inflatable"
-	icon = 'icons/obj/clothing/belts.dmi'
-	slot_flags = ITEM_SLOT_BELT
-
 /*
  * Fake meteor
  */
 /obj/item/toy/minimeteor
 	name = "Mini-Meteor"
-	desc = "Relive the excitement of a meteor shower! SweetMeat-eor. Co is not responsible for any injuries, headaches or hearing loss caused by Mini-Meteor."
+	desc = "Вновь почувствуйте то волнение когда начинается метеоритный дождь! Компания \"Сладкие Мясо-риты\" не несёт ответственности за любые травмы, головные боли или потерю слуха."
 	icon_state = "minimeteor"
 	w_class = WEIGHT_CLASS_SMALL
+
+/obj/item/toy/minimeteor/get_ru_names()
+	return list(
+		NOMINATIVE = "мини-метеор",
+		GENITIVE = "мини-метеора",
+		DATIVE = "мини-метеору",
+		ACCUSATIVE = "мини-метеор",
+		INSTRUMENTAL = "мини-метеором",
+		PREPOSITIONAL = "мини-метеоре",
+	)
 
 /obj/item/toy/minimeteor/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	..()
@@ -152,3 +174,21 @@
 	icon = 'icons/obj/items.dmi'
 	icon_state = "naughty_coal"
 	resistance_flags = FLAMMABLE
+
+/obj/item/toy/inflatable_duck
+	name = "inflatable duck"
+	desc = "Не нужно беспокоиться о том, утонешь ты или выплывешь, когда можно просто держаться на плаву!"
+	icon = 'icons/obj/clothing/belts.dmi'
+	icon_state = "inflatable"
+	item_state = "inflatable"
+	slot_flags = ITEM_SLOT_BELT
+
+/obj/item/toy/inflatable_duck/get_ru_names()
+	return list(
+		NOMINATIVE = "надувная утка",
+		GENITIVE = "надувной утки",
+		DATIVE = "надувной утке",
+		ACCUSATIVE = "надувную утку",
+		INSTRUMENTAL = "надувной уткой",
+		PREPOSITIONAL = "надувной утке",
+	)

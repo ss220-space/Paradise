@@ -185,7 +185,7 @@
 	item_state = "flashtool"
 	w_class = WEIGHT_CLASS_TINY
 
-/obj/item/toy/foamblade/get_ru_names()
+/obj/item/toy/flash/get_ru_names()
 	return list(
 		NOMINATIVE = "игрушечный флешер",
 		GENITIVE = "игрушечного флешера",
@@ -213,7 +213,7 @@
 	wieldsound = 'sound/weapons/chainsaw_start.ogg'
 	attack_verb = list("пропилил", "порезал", "покромсал", "рубанул")
 
-/obj/item/toy/katana/get_ru_names()
+/obj/item/twohanded/toy/chainsaw/get_ru_names()
 	return list(
 		NOMINATIVE = "игрушечная бензопила",
 		GENITIVE = "игрушечной бензопилы",
