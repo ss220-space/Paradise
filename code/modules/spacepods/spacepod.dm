@@ -488,22 +488,24 @@
 	else
 		balloon_alert(user, "люк заблокирован!")
 
-/obj/spacepod/welder_act(mob/user, obj/item/I)
+/obj/spacepod/welder_act(mob/user, obj/item/welder)
 	if(user.a_intent == INTENT_HARM)
 		return
 	. = TRUE
-	if(!hatch_open)
-		balloon_alert(user, "откройте технический люк!")
-		return
 	if(health >= initial(health))
-		to_chat(user, span_boldnotice("[DECLENT_RU_CAP(src, NOMINATIVE)] полностью отремонтирован!"))
+		user.balloon_alert(user, "[DECLENT_RU_CAP(src, NOMINATIVE)] целый!")
 		return
-	if(!I.tool_use_check(user, 0))
+	if(!welder.tool_use_check(user, 0))
 		return
-	to_chat(user, span_notice("Вы начинаете сварку челнока..."))
-	if(I.use_tool(src, user, 20, 3, volume = I.tool_volume))
-		repair_damage(10)
-		to_chat(user, span_notice("Вы устраняете [pick("вмятины","повреждения","дефекты")] при помощи [I.declent_ru(GENITIVE)]."))
+	WELDER_ATTEMPT_REPAIR_MESSAGE
+	while(health < initial(health))
+		if(welder.use_tool(src, user, 20, volume = welder.tool_volume))
+			repair_damage(10)
+			to_chat(user, span_notice("Вы устраняете [pick("вмятины","повреждения","дефекты")] при помощи [welder.declent_ru(GENITIVE)]."))
+		else
+			break
+	if(health >= initial(health))
+		user.balloon_alert(user, "[DECLENT_RU_CAP(src, NOMINATIVE)] полностью отремонтирован!")
 
 /obj/spacepod/proc/add_equipment(mob/user, obj/item/spacepod_equipment/SPE, slot)
 	if(equipment_system.vars[slot])
