@@ -17,7 +17,7 @@
 	needs_permit = FALSE
 
 /obj/item/gun/energy/wiremod_gun/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сигнальная пушка",
 		GENITIVE = "сигнальной пушки",
 		DATIVE = "сигнальной пушке",

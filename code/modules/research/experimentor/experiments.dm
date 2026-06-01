@@ -449,7 +449,7 @@
 			if(!atom_movable.anchored)
 				throw_at.Add(atom_movable)
 
-		for(var/counter in 1 to throw_at.len)
+		for(var/counter in 1 to length(throw_at))
 			var/atom/movable/cast = throw_at[counter]
 			cast.throw_at(pick(throw_at), 10, 1)
 		return

@@ -50,7 +50,7 @@
 	var/list/mob/living/simple_animal/hostile/asteroid/elite/broodmother_child/children_list = list()
 
 /mob/living/simple_animal/hostile/asteroid/elite/broodmother/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "матка голиафов",
 		GENITIVE = "матки голиафов",
 		DATIVE = "матке голиафов",
@@ -227,7 +227,7 @@
 	var/mob/living/simple_animal/hostile/asteroid/elite/broodmother/mother = null
 
 /mob/living/simple_animal/hostile/asteroid/elite/broodmother_child/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "детёныш голиафа",
 		GENITIVE = "детёныша голиафа",
 		DATIVE = "детёнышу голиафа",
@@ -306,7 +306,7 @@
 	var/use_time
 
 /obj/item/crusher_trophy/broodmother_tongue/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "материнский язык",
 		GENITIVE = "материнского языка",
 		DATIVE = "материнскому языку",

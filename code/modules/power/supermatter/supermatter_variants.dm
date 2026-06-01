@@ -15,7 +15,7 @@
 	moveable = TRUE
 
 /obj/machinery/power/supermatter_crystal/shard/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "осколок суперматерии",
 		GENITIVE = "осколка суперматерии",
 		DATIVE = "осколку суперматерии",
@@ -42,7 +42,7 @@
 	moveable = FALSE
 
 /obj/machinery/power/supermatter_crystal/shard/engine/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "закрепленный осколок суперматерии",
 		GENITIVE = "закрепленного осколка суперматерии",
 		DATIVE = "закрепленному осколку суперматерии",
@@ -62,7 +62,7 @@
 	anchored = TRUE
 
 /obj/machinery/power/supermatter_crystal/shard/hugbox/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "закрепленный осколок суперматерии",
 		GENITIVE = "закрепленного осколка суперматерии",
 		DATIVE = "закрепленному осколку суперматерии",

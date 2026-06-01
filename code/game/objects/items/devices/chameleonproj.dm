@@ -16,7 +16,7 @@
 	var/saved_appearance = null
 
 /obj/item/chameleon/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "\"Хамелеон\"-проектор",
 		GENITIVE = "\"Хамелеон\"-проектора",
 		DATIVE = "\"Хамелеон\"-проектору",

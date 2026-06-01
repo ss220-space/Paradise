@@ -19,7 +19,7 @@
 	var/active_mind_control = FALSE
 
 /obj/item/organ/internal/heart/gland/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мясистая масса",
 		GENITIVE = "мясистой массы",
 		DATIVE = "мясистой массе",

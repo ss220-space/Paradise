@@ -9,7 +9,7 @@
 	var/radiation_chance = 30
 
 /obj/projectile/energy/declone/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "деклонер",
 		GENITIVE = "деклонера",
 		DATIVE = "деклонеру",

@@ -54,7 +54,7 @@
 	adjust_flavour = "unbutton"
 
 /obj/item/clothing/suit/storage/labcoat/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "лабораторный халат",
 		GENITIVE = "лабораторного халата",
 		DATIVE = "лабораторному халату",
@@ -74,7 +74,7 @@
 	item_state = "labcoat_cmo_open"
 
 /obj/item/clothing/suit/storage/labcoat/cmo/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "лабораторный халат главного врача",
 		GENITIVE = "лабораторного халата главного врача",
 		DATIVE = "лабораторному халату главного врача",
@@ -90,7 +90,7 @@
 	item_state = "labcoat_green_open"
 
 /obj/item/clothing/suit/storage/labcoat/mad/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "лабораторный халат безумного учёного",
 		GENITIVE = "лабораторного халата безумного учёного",
 		DATIVE = "лабораторному халату безумного учёного",
@@ -106,7 +106,7 @@
 	item_state = "labcoat_gen_open"
 
 /obj/item/clothing/suit/storage/labcoat/genetics/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "лабораторный халат генетика",
 		GENITIVE = "лабораторного халата генетика",
 		DATIVE = "лабораторному халату генетика",
@@ -122,7 +122,7 @@
 	item_state = "labcoat_chem_open"
 
 /obj/item/clothing/suit/storage/labcoat/chemist/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "лабораторный халат химика",
 		GENITIVE = "лабораторного халата химика",
 		DATIVE = "лабораторному халату химика",
@@ -137,7 +137,7 @@
 	icon_state = "labcoat_vir_open"
 
 /obj/item/clothing/suit/storage/labcoat/virologist/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "лабораторный халат вирусолога",
 		GENITIVE = "лабораторного халата вирусолога",
 		DATIVE = "лабораторному халату вирусолога",
@@ -153,7 +153,7 @@
 	item_state = "labcoat_tox_open"
 
 /obj/item/clothing/suit/storage/labcoat/science/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "лабораторный халат учёного",
 		GENITIVE = "лабораторного халата учёного",
 		DATIVE = "лабораторному халату учёного",
@@ -169,7 +169,7 @@
 	item_state = "labcoat_mort_open"
 
 /obj/item/clothing/suit/storage/labcoat/mortician/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "лабораторный халат патологоанатома",
 		GENITIVE = "лабораторного халата патологоанатома",
 		DATIVE = "лабораторному халату патологоанатома",
@@ -185,7 +185,7 @@
 	item_state = "labcoat_emt_open"
 
 /obj/item/clothing/suit/storage/labcoat/emt/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "лабораторный халат парамедика",
 		GENITIVE = "лабораторного халата парамедика",
 		DATIVE = "лабораторному халату парамедика",
@@ -201,7 +201,7 @@
 	item_state = "mining_labcoat_open"
 
 /obj/item/clothing/suit/storage/labcoat/mining_medic/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "лабораторный халат шахтёрского врача",
 		GENITIVE = "лабораторного халата шахтёрского врача",
 		DATIVE = "лабораторному халату шахтёрского врача",

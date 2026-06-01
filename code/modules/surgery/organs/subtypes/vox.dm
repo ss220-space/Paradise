@@ -8,7 +8,7 @@
 	sterile = TRUE
 
 /obj/item/organ/internal/liver/vox/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "печень вокса",
 		GENITIVE = "печени вокса",
 		DATIVE = "печени вокса",
@@ -26,7 +26,7 @@
 	sterile = TRUE
 
 /obj/item/organ/internal/eyes/vox/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "глаза вокса",
 		GENITIVE = "глаз вокса",
 		DATIVE = "глазам вокса",
@@ -41,7 +41,7 @@
 	desc = "Парный орган, отвечающий за аудиальное восприятие окружающей среды и получение информации о положении гуманоида в пространстве. Эти принадлежали воксу."
 
 /obj/item/organ/internal/ears/vox/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "уши вокса",
 		GENITIVE = "ушей вокса",
 		DATIVE = "ушам вокса",
@@ -60,7 +60,7 @@
 	sterile = TRUE
 
 /obj/item/organ/internal/heart/vox/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сердце вокса",
 		GENITIVE = "сердца вокса",
 		DATIVE = "сердцу вокса",
@@ -80,7 +80,7 @@
 	sterile = TRUE
 
 /obj/item/organ/internal/brain/vox/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мозговой стек",
 		GENITIVE = "мозгового стека",
 		DATIVE = "мозговому стеку",
@@ -98,7 +98,7 @@
 	sterile = TRUE
 
 /obj/item/organ/internal/kidneys/vox/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "почки вокса",
 		GENITIVE = "почек вокса",
 		DATIVE = "почкам вокса",
@@ -119,7 +119,7 @@
 	oxy_damage_type = TOX //And it poisons us
 
 /obj/item/organ/internal/lungs/vox/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "лёгкие вокса",
 		GENITIVE = "лёгких вокса",
 		DATIVE = "лёгким вокса",
@@ -137,7 +137,7 @@
 	min_broken_damage = 20
 
 /obj/item/organ/external/tail/vox/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "хвост вокса",
 		GENITIVE = "хвоста вокса",
 		DATIVE = "хвосту вокса",

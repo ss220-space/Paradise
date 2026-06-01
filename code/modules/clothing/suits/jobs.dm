@@ -721,7 +721,7 @@
 	allowed = list(/obj/item/scalpel, /obj/item/surgical_drapes, /obj/item/cautery, /obj/item/hemostat, /obj/item/retractor)
 
 /obj/item/clothing/suit/apron/surgical/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "хирургический фартук",
 		GENITIVE = "хирургического фартука",
 		DATIVE = "хирургическому фартуку",

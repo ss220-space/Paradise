@@ -29,7 +29,7 @@
 	item_state = "contractorballoon"
 
 /obj/item/toy/syndicateballoon/contractor/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "воздушный шарик контрактника",
 		GENITIVE = "воздушного шарика контрактника",
 		DATIVE = "воздушному шарику контрактника",

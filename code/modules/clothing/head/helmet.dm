@@ -347,7 +347,7 @@
 	)
 
 /obj/item/clothing/head/helmet/skull/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "костяной шлем",
 		GENITIVE = "костяного шлема",
 		DATIVE = "костяному шлему",
@@ -525,7 +525,7 @@
 	. += biker_overlay
 
 /obj/item/clothing/head/helmet/biker/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мотоциклетный шлем",
 		GENITIVE = "мотоциклетного шлема",
 		DATIVE = "мотоциклетному шлему",

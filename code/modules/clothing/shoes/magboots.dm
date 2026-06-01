@@ -130,7 +130,7 @@
 	var/enabled_waddle = TRUE
 
 /obj/item/clothing/shoes/magboots/clown/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "клоунские башмаки",
 		GENITIVE = "клоунских башмаков",
 		DATIVE = "клоунским башмакам",

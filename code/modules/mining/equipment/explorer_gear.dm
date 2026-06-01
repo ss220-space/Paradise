@@ -33,7 +33,7 @@
 	)
 
 /obj/item/clothing/suit/hooded/explorer/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "костюм исследователя",
 		GENITIVE = "костюма исследователя",
 		DATIVE = "костюму исследователя",
@@ -72,7 +72,7 @@
 	)
 
 /obj/item/clothing/head/hooded/explore/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "капюшон исследователя",
 		GENITIVE = "капюшона исследователя",
 		DATIVE = "капюшону исследователя",
@@ -105,7 +105,7 @@
 	)
 
 /obj/item/clothing/suit/space/hostile_environment/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Э.К.З.О. костюм",
 		GENITIVE = "Э.К.З.О. костюма ",
 		DATIVE = "Э.К.З.О. костюму",
@@ -153,7 +153,7 @@
 	)
 
 /obj/item/clothing/head/helmet/space/hostile_environment/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Э.К.З.О. шлем",
 		GENITIVE = "Э.К.З.О. шлема ",
 		DATIVE = "Э.К.З.О. шлему",
@@ -191,7 +191,7 @@
 	)
 
 /obj/item/clothing/head/helmet/space/hardsuit/champion/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "чемпионский шлем",
 		GENITIVE = "чемпионского шлема",
 		DATIVE = "чемпионскому шлему",
@@ -221,7 +221,7 @@
 	)
 
 /obj/item/clothing/suit/space/hardsuit/champion/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "чемпионская броня",
 		GENITIVE = "чемпионской брони",
 		DATIVE = "чемпионской броне",
@@ -236,7 +236,7 @@
 	item_color = "templar"
 
 /obj/item/clothing/head/helmet/space/hardsuit/champion/templar/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шлем Чёрного Храмовника",
 		GENITIVE = "шлема Чёрного Храмовника",
 		DATIVE = "шлему Чёрного Храмовника",
@@ -253,7 +253,7 @@
 	species_restricted = list(SPECIES_HUMAN, SPECIES_SLIMEPERSON, SPECIES_SKELETON, SPECIES_NUCLEATION, SPECIES_MACHINEPERSON, SPECIES_PLASMAMAN, SPECIES_DIONA, SPECIES_KIDAN, SPECIES_SHADOW_BASIC) // only humanoids. And we don't have animal sprites.
 
 /obj/item/clothing/suit/space/hardsuit/champion/templar/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "доспехи Чёрного Храмовника",
 		GENITIVE = "доспехов Чёрного Храмовника",
 		DATIVE = "доспехам Чёрного Храмовника",
@@ -268,7 +268,7 @@
 	item_color = "hightemplar"
 
 /obj/item/clothing/head/helmet/space/hardsuit/champion/templar/premium/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шлем высшего Чёрного Храмовника",
 		GENITIVE = "шлема высшего Чёрного Храмовника",
 		DATIVE = "шлему высшего Чёрного Храмовника",
@@ -284,7 +284,7 @@
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/champion/templar/premium
 
 /obj/item/clothing/suit/space/hardsuit/champion/templar/premium/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "доспехи высшего Чёрного Храмовника",
 		GENITIVE = "доспехов высшего Чёрного Храмовника",
 		DATIVE = "доспехам высшего Чёрного Храмовника",
@@ -299,7 +299,7 @@
 	item_color = "inquisitor"
 
 /obj/item/clothing/head/helmet/space/hardsuit/champion/inquisitor/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шлем инквизитора",
 		GENITIVE = "шлема инквизитора",
 		DATIVE = "шлему инквизитора",
@@ -315,7 +315,7 @@
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/champion/inquisitor
 
 /obj/item/clothing/suit/space/hardsuit/champion/inquisitor/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "скафандр инквизитора",
 		GENITIVE = "скафандра инквизитора",
 		DATIVE = "скафандру инквизитора",
@@ -353,7 +353,7 @@
 	)
 
 /obj/item/clothing/suit/hooded/pathfinder/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мантия первопроходца",
 		GENITIVE = "мантии первопроходца",
 		DATIVE = "мантии первопроходца",
@@ -384,7 +384,7 @@
 	)
 
 /obj/item/clothing/head/hooded/pathfinder/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "каса первопроходца",
 		GENITIVE = "касы первопроходца",
 		DATIVE = "касе первопроходца",
@@ -401,7 +401,7 @@
 	hoodtype = /obj/item/clothing/head/hooded/explorer/mining
 
 /obj/item/clothing/suit/hooded/explorer/mining/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "белый костюм исследователя",
 		GENITIVE = "белого костюма исследователя",
 		DATIVE = "белому костюму исследователя",
@@ -416,7 +416,7 @@
 	item_state = "mining_explorer"
 
 /obj/item/clothing/head/hooded/explorer/mining/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "белый капюшон исследователя",
 		GENITIVE = "белого капюшона исследователя",
 		DATIVE = "белому капюшону исследователя",

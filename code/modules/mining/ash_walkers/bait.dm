@@ -16,7 +16,7 @@
 	var/rod_overlay  = "ash_eater_rod"
 
 /obj/item/reagent_containers/food/snacks/bait/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "червяк",
 		GENITIVE = "червяков",
 		DATIVE = "червяку",
@@ -41,7 +41,7 @@
 	desc = "Маленький червячок со множеством невероятно острых зубов, покрывающих его ротовую полость. Ходят слухи, что эти крохи способны вырастать до размеров целого города. Пепел должен течь рекой."
 
 /obj/item/reagent_containers/food/snacks/bait/ash_eater/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пожиратель пепла",
 		GENITIVE = "пожирателя пепла",
 		DATIVE = "пожирателю пепла",
@@ -59,7 +59,7 @@
 	rod_overlay = "bloody_leach_rod"
 
 /obj/item/reagent_containers/food/snacks/bait/bloody_leach/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кровавая пиявка",
 		GENITIVE = "кровавой пиявки",
 		DATIVE = "кровавой пиявке",
@@ -77,7 +77,7 @@
 	rod_overlay = "goldgrub_larva_rod"
 
 /obj/item/reagent_containers/food/snacks/bait/goldgrub_larva/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "личинка златожора",
 		GENITIVE = "личинки златожора",
 		DATIVE = "личинке златожора",
@@ -99,8 +99,8 @@
 	tastes = list("пепла" = 5, "упущенных возможностей" = 1)
 	var/in_lava = FALSE
 
-/obj/item/reagent_containers/food/snacks/charred_krill/get_ru_names()\
-	return list(
+/obj/item/reagent_containers/food/snacks/charred_krill/get_ru_names()
+	return alist(
 		NOMINATIVE = "обугленная креветка",
 		GENITIVE = "обугленной креветки",
 		DATIVE = "обугленной креветке",

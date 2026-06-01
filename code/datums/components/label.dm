@@ -79,13 +79,13 @@
 /datum/component/label/proc/apply_label()
 	var/atom/owner = parent
 	owner.name += " ([label_name])"
-	var/list/names = owner.ru_names || owner.get_ru_names_cached()
+	var/alist/names = owner.ru_names || owner.get_ru_names_cached()
 	if(!names)
 		return
 
 	owner.ru_names = names.Copy()
-	for(var/i in NOMINATIVE to PREPOSITIONAL)
-		owner.ru_names[i] += " ([label_name])"
+	for(var/case_id in NOMINATIVE to PREPOSITIONAL)
+		owner.ru_names[case_id] += " ([label_name])"
 
 /// Removes the label from the parent's name
 /datum/component/label/proc/remove_label()

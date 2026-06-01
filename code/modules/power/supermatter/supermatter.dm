@@ -187,7 +187,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 
 
 /obj/machinery/power/supermatter_crystal/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кристалл суперматерии",
 		GENITIVE = "кристалла суперматерии",
 		DATIVE = "кристаллу суперматерии",

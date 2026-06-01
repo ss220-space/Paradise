@@ -8,7 +8,7 @@
 	var/isactive = FALSE
 
 /obj/item/enginepicker/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Блюспейс устройство доставки двигателя",
 		GENITIVE = "Блюспейс устройства доставки двигателя",
 		DATIVE = "Блюспейс устройству доставки двигателя",

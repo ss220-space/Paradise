@@ -6,7 +6,7 @@
 	weaken = 1 SECONDS
 
 /obj/projectile/bullet/neurotoxin/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "слюна с нейротоксином",
 		GENITIVE = "слюны с нейротоксином",
 		DATIVE = "слюне с нейротоксином",

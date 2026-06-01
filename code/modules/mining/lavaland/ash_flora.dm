@@ -24,7 +24,7 @@
 	var/regrowth_time_high = 16 MINUTES
 
 /obj/structure/flora/ash/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "крупные грибы",
 		GENITIVE = "крупных грибов",
 		DATIVE = "крупным грибам",
@@ -120,7 +120,7 @@
 	regrowth_time_high = 6000
 
 /obj/structure/flora/ash/leaf_shroom/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "лиственные грибы",
 		GENITIVE = "лиственных грибов",
 		DATIVE = "лиственным грибам",
@@ -146,7 +146,7 @@
 	regrowth_time_high = 5400
 
 /obj/structure/flora/ash/cap_shroom/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "высокие грибы",
 		GENITIVE = "высоких грибов",
 		DATIVE = "высоким грибам",
@@ -175,7 +175,7 @@
 	regrowth_time_high = 6000
 
 /obj/structure/flora/ash/stem_shroom/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "скопление грибов",
 		GENITIVE = "скопления грибов",
 		DATIVE = "скоплению грибов",
@@ -201,7 +201,7 @@
 	regrowth_time_high = 7200
 
 /obj/structure/flora/ash/cacti/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "фруктовый кактус",
 		GENITIVE = "фруктового кактуса",
 		DATIVE = "фруктовому кактусу",
@@ -235,7 +235,7 @@
 	regrowth_time_high = 4000
 
 /obj/structure/flora/ash/fireblossom/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "огнецвет",
 		GENITIVE = "огнецвета",
 		DATIVE = "огнецвету",
@@ -262,7 +262,7 @@
 	regrowth_time_high = 6000
 
 /obj/structure/flora/ash/coaltree/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "угледрево",
 		GENITIVE = "угледрева",
 		DATIVE = "угледреву",
@@ -281,7 +281,7 @@
 	wine_power = 0.2
 
 /obj/item/reagent_containers/food/snacks/grown/ash_flora/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "грибная стружка",
 		GENITIVE = "грибной стружки",
 		DATIVE = "грибной стружке",
@@ -305,7 +305,7 @@
 	wine_power = 0.4
 
 /obj/item/reagent_containers/food/snacks/grown/ash_flora/mushroom_leaf/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "грибной лист",
 		GENITIVE = "грибного листа",
 		DATIVE = "грибному листу",
@@ -322,7 +322,7 @@
 	wine_power = 0.7
 
 /obj/item/reagent_containers/food/snacks/grown/ash_flora/mushroom_cap/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "грибная шляпка",
 		GENITIVE = "грибной шляпки",
 		DATIVE = "грибной шляпке",
@@ -339,7 +339,7 @@
 	wine_power = 0.6
 
 /obj/item/reagent_containers/food/snacks/grown/ash_flora/mushroom_stem/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "грибная ножка",
 		GENITIVE = "грибной ножки",
 		DATIVE = "грибной ножке",
@@ -356,7 +356,7 @@
 	wine_power = 0.5
 
 /obj/item/reagent_containers/food/snacks/grown/ash_flora/cactus_fruit/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "плод кактуса",
 		GENITIVE = "плода кактуса",
 		DATIVE = "плоду кактуса",
@@ -374,7 +374,7 @@
 	wine_power = 0.4
 
 /obj/item/reagent_containers/food/snacks/grown/ash_flora/fireblossom/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "цветок огнецвета",
 		GENITIVE = "цветка огнецвета",
 		DATIVE = "цветку огнецвета",
@@ -396,7 +396,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/reagent_containers/food/snacks/grown/ash_flora/coaltree_log/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бревно угледрева",
 		GENITIVE = "бревна угледрева",
 		DATIVE = "бревну угледрева",
@@ -517,7 +517,7 @@
 	reagents_add = list("nutriment" = 0.04, "coaltree_extract" = 0.1)
 
 /obj/item/seeds/lavaland/coaltree/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пачка семян угледрева",
 		GENITIVE = "пачки семян угледрева",
 		DATIVE = "пачке семян угледрева",
@@ -544,7 +544,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/reagent_containers/food/drinks/mushroom_bowl/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "грибная чаша",
 		GENITIVE = "грибной чаши",
 		DATIVE = "грибной чаше",

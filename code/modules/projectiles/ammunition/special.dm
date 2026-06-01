@@ -91,7 +91,7 @@
 	icon_state = "kunai"
 
 /obj/item/ammo_casing/magic/johyo/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "джохё",
 		GENITIVE = "джохё",
 		DATIVE = "джохё",
@@ -111,7 +111,7 @@
 	caliber = "skulls"
 
 /obj/item/ammo_casing/magic/skull_gun_casing/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "гильза для черепного пистолета",
 		GENITIVE = "гильзы для черепного пистолета",
 		DATIVE = "гильзе для черепного пистолета",
@@ -134,7 +134,7 @@
 	muzzle_flash_effect = null
 
 /obj/item/ammo_casing/magic/hook/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "крюк",
 		GENITIVE = "крюка",
 		DATIVE = "крюку",
@@ -154,7 +154,7 @@
 	muzzle_flash_effect = null
 
 /obj/item/ammo_casing/magic/contractor_hook/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "крюк из твёрдого света",
 		GENITIVE = "крюка из твёрдого света",
 		DATIVE = "крюку из твёрдого света",

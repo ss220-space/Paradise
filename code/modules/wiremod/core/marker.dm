@@ -9,7 +9,7 @@
 	var/atom/marked_atom
 
 /obj/item/multitool/circuit/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мультиметр для схем",
 		GENITIVE = "мультиметра для схем",
 		DATIVE = "мультиметру для схем",
