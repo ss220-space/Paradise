@@ -135,10 +135,6 @@
 				deplete_spell()
 				return
 
-			if(ismindshielded(living))
-				target.visible_message(span_warning("Имплант [target.declent_ru(GENITIVE)] блокирует свет!"))
-				return
-
 			living.Knockdown(3 SECONDS)
 			living.apply_damage(55, STAMINA)
 			if(!ismindshielded(living))
