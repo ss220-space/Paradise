@@ -866,13 +866,9 @@
 
 	var/mob/living/silicon/robot/robot = usr
 	robot.toggle_seat()
-	switch(robot.can_buckle)
-		if(TRUE)
-			button_icon_state = "seat_on"
-			UpdateButtonIcon()
-		if(FALSE)
-			button_icon_state = "seat_off"
-			UpdateButtonIcon()
+
+	button_icon_state = robot.can_buckle ? "seat_on" : "seat_off"
+	UpdateButtonIcon()
 
 /datum/action/innate/launch_riders
 	name = "Выкинуть всех пассажиров"
