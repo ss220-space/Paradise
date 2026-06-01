@@ -8970,13 +8970,11 @@
 /area/centcom/specops)
 "exm" = (
 /obj/machinery/optable,
-/obj/machinery/defibrillator_mount/loaded{
-	pixel_y = 26
-	},
 /obj/item/organ/internal/brain,
 /obj/structure/light_fake/small{
 	dir = 1
 	},
+/obj/machinery/defibrillator_mount/loaded/directional/north,
 /turf/simulated/floor/mineral/plastitanium/nitrogen/blue,
 /area/vox_station)
 "exr" = (
@@ -10526,12 +10524,10 @@
 /turf/simulated/floor/carpet/green,
 /area/ninja/outpost)
 "fjg" = (
-/obj/machinery/defibrillator_mount/loaded{
-	pixel_y = 26
-	},
 /obj/machinery/sleeper/upgraded{
 	dir = 2
 	},
+/obj/machinery/defibrillator_mount/loaded/directional/north,
 /turf/simulated/floor/mineral/plastitanium/nitrogen/blue,
 /area/shuttle/vox)
 "fjj" = (
@@ -24753,12 +24749,10 @@
 /area/shuttle/gamma)
 "lKg" = (
 /obj/machinery/optable,
-/obj/machinery/defibrillator_mount/loaded{
-	pixel_y = 26
-	},
 /obj/structure/light_fake/small{
 	dir = 1
 	},
+/obj/machinery/defibrillator_mount/loaded/directional/north,
 /turf/simulated/floor/mineral/plastitanium/nitrogen/blue,
 /area/vox_station)
 "lKw" = (
