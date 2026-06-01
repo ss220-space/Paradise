@@ -370,7 +370,7 @@
 		if(ishuman(burn_living) && prob(65))
 			var/mob/living/carbon/human/burn_human = burn_living
 			var/datum/species/burn_species = burn_human.dna.species.name
-			if(burn_species != SPECIES_PLASMAMAN && burn_species != SPECIES_MACNINEPERSON) //ignore plasmamen/robotic species.
+			if(burn_species != SPECIES_PLASMAMAN && burn_species != SPECIES_MACHINEPERSON) //ignore plasmamen/robotic species.
 				burn_damage += human_tox_fire_damage
 				tox_damage += human_tox_fire_damage
 		burn_living.apply_damages(burn = burn_damage, tox = tox_damage, spread_damage = TRUE)	//Cold mutagen is bad for you, more at 11.
