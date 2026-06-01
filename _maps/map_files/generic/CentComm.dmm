@@ -1103,9 +1103,7 @@
 /obj/item/reagent_containers/food/snacks/meat,
 /obj/item/reagent_containers/food/snacks/meat,
 /obj/item/reagent_containers/food/snacks/meat,
-/obj/machinery/defibrillator_mount/loaded{
-	pixel_x = -30
-	},
+/obj/machinery/defibrillator_mount/loaded/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whiteblue"
@@ -10074,9 +10072,7 @@
 /area/syndicate_mothership)
 "eNW" = (
 /obj/machinery/optable,
-/obj/machinery/defibrillator_mount/loaded{
-	pixel_x = -30
-	},
+/obj/machinery/defibrillator_mount/loaded/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -10483,9 +10479,7 @@
 	},
 /area/centcom/zone3)
 "eWL" = (
-/obj/machinery/defibrillator_mount/loaded{
-	pixel_x = -30
-	},
+/obj/machinery/defibrillator_mount/loaded/directional/west,
 /obj/machinery/optable,
 /obj/machinery/shower{
 	pixel_y = 20
@@ -19349,10 +19343,7 @@
 /area/centcom/zone2)
 "jtn" = (
 /obj/machinery/optable,
-/obj/machinery/defibrillator_mount/loaded{
-	pixel_x = 30;
-	pixel_y = 3
-	},
+/obj/machinery/defibrillator_mount/loaded/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -32998,9 +32989,7 @@
 /area/centcom/specops)
 "pvX" = (
 /obj/machinery/optable,
-/obj/machinery/defibrillator_mount/loaded{
-	pixel_x = -30
-	},
+/obj/machinery/defibrillator_mount/loaded/directional/west,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -43635,9 +43624,7 @@
 /area/centcom/bridge)
 "ugU" = (
 /obj/structure/bed/roller,
-/obj/machinery/defibrillator_mount/loaded{
-	pixel_y = 30
-	},
+/obj/machinery/defibrillator_mount/loaded/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"
 	},
@@ -46083,9 +46070,7 @@
 /obj/item/reagent_containers/applicator/dual,
 /obj/item/reagent_containers/applicator/dual,
 /obj/item/healthanalyzer/advanced,
-/obj/machinery/defibrillator_mount/loaded{
-	pixel_y = 30
-	},
+/obj/machinery/defibrillator_mount/loaded/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

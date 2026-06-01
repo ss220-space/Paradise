@@ -3,7 +3,7 @@
 	config_tag = "thiefchan"
 	restricted_jobs = list(JOB_TITLE_AI, JOB_TITLE_CYBORG)
 	required_players = 15
-	var/protected_species_changeling = list(SPECIES_MACNINEPERSON)
+	var/protected_species_changeling = list(SPECIES_MACHINEPERSON)
 
 /datum/game_mode/thief/changeling/announce()
 	to_chat(world, "<b>The current game mode is - Thief+Changeling!</b>")

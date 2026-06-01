@@ -2599,7 +2599,7 @@
 	can_adjust = FALSE
 	icon_state = "masterli"
 	item_state = "masterli"
-	species_restricted = list(SPECIES_HUMAN, SPECIES_MACNINEPERSON, SPECIES_SKRELL, SPECIES_SLIMEPERSON, SPECIES_TAJARAN, SPECIES_NUCLEATION)
+	species_restricted = list(SPECIES_HUMAN, SPECIES_MACHINEPERSON, SPECIES_SKRELL, SPECIES_SLIMEPERSON, SPECIES_TAJARAN, SPECIES_NUCLEATION)
 
 /obj/item/clothing/under/martialsuit/masterli/get_ru_names()
 	return list(
@@ -2618,7 +2618,7 @@
 	can_adjust = FALSE
 	icon_state = "masterdragon"
 	item_state = "masterdragon"
-	species_restricted = list(SPECIES_HUMAN, SPECIES_MACNINEPERSON, SPECIES_SKRELL, SPECIES_SLIMEPERSON, SPECIES_TAJARAN, SPECIES_NUCLEATION)
+	species_restricted = list(SPECIES_HUMAN, SPECIES_MACHINEPERSON, SPECIES_SKRELL, SPECIES_SLIMEPERSON, SPECIES_TAJARAN, SPECIES_NUCLEATION)
 
 /obj/item/clothing/under/martialsuit/masterdragon/get_ru_names()
 	return list(
@@ -2637,7 +2637,7 @@
 	can_adjust = FALSE
 	icon_state = "redkunoichi"
 	item_state = "redkunoichi"
-	species_restricted = list(SPECIES_HUMAN, SPECIES_MACNINEPERSON, SPECIES_SKRELL, SPECIES_SLIMEPERSON, SPECIES_TAJARAN, SPECIES_NUCLEATION)
+	species_restricted = list(SPECIES_HUMAN, SPECIES_MACHINEPERSON, SPECIES_SKRELL, SPECIES_SLIMEPERSON, SPECIES_TAJARAN, SPECIES_NUCLEATION)
 
 /obj/item/clothing/under/martialsuit/redkunoichi/get_ru_names()
 	return list(
@@ -2656,7 +2656,7 @@
 	can_adjust = FALSE
 	icon_state = "bluekunoichi"
 	item_state = "bluekunoichi"
-	species_restricted = list(SPECIES_HUMAN, SPECIES_MACNINEPERSON, SPECIES_SKRELL, SPECIES_SLIMEPERSON, SPECIES_TAJARAN, SPECIES_NUCLEATION)
+	species_restricted = list(SPECIES_HUMAN, SPECIES_MACHINEPERSON, SPECIES_SKRELL, SPECIES_SLIMEPERSON, SPECIES_TAJARAN, SPECIES_NUCLEATION)
 
 /obj/item/clothing/under/martialsuit/bluekunoichi/get_ru_names()
 	return list(

@@ -1,5 +1,0 @@
-author: "SCPfollower"
-delete-after: True
-changes:
-  - bugfix: "Чинит падения разлома плазмы в чазм + чинит рантайм при запуске БФЛ (PR #9288)"
-  - refactor: "Перевод receiver на викрефы для фикса рантайма (PR #9288)"
