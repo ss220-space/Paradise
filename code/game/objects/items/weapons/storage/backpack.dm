@@ -65,7 +65,7 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 60, ACID = 50)
 
 /obj/item/storage/backpack/holding/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "блюспейс рюкзак",
 		GENITIVE = "блюспейс рюкзака",
 		DATIVE = "блюспейс рюкзаку",
@@ -126,7 +126,7 @@
 	item_state = "holdingsat"
 
 /obj/item/storage/backpack/holding/satchel/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "блюспейс сумка",
 		GENITIVE = "блюспейс сумки",
 		DATIVE = "блюспейс сумке",
@@ -147,7 +147,7 @@
 	max_combined_w_class = 40
 
 /obj/item/storage/backpack/holding/satchel/duffelbag/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "блюспейс спортивная сумка",
 		GENITIVE = "блюспейс спортивная сумки",
 		DATIVE = "блюспейс спортивная сумке",
@@ -164,7 +164,7 @@
 	max_combined_w_class = 60
 
 /obj/item/storage/backpack/santabag/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мешок с подарками",
 		GENITIVE = "мешка с подарками",
 		DATIVE = "мешку с подарками",
@@ -264,7 +264,7 @@
 	item_state = "explorerpack"
 
 /obj/item/storage/backpack/explorer/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "рюкзак исследователя",
 		GENITIVE = "рюкзака исследователя",
 		DATIVE = "рюкзаку исследователя",
@@ -438,7 +438,7 @@
 	item_state = "securitypack"
 
 /obj/item/storage/backpack/satchel_explorer/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сумка исследователя",
 		GENITIVE = "сумки исследователя",
 		DATIVE = "сумке исследователя",
@@ -635,7 +635,7 @@
 	desc = "Набор с необходимым минимумом, чтобы превратить рядового члена экипажа в Шахтёра."
 
 /obj/item/storage/backpack/duffel/mining_conscript/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "стартовый набор Шахтёра",
 		GENITIVE = "стартового набора Шахтёра",
 		DATIVE = "стартовому набору Шахтёра",
@@ -676,7 +676,7 @@
 	desc = "Набор, содержащий всё необходимое для спасения ваших товарищей-шахтёров от неминуемой смерти."
 
 /obj/item/storage/backpack/duffel/vendor_ext/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "набор для спасения и эвакуации",
 		GENITIVE = "набора для спасения и эвакуации",
 		DATIVE = "набору для спасения и эвакуации",

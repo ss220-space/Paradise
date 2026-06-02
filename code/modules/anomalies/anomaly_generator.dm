@@ -51,7 +51,7 @@
 	COOLDOWN_DECLARE(sound_cooldown)
 
 /obj/machinery/power/anomaly_generator/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "генератор аномалий", \
 		GENITIVE = "генератора аномалий", \
 		DATIVE = "генератору аномалий", \

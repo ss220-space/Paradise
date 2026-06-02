@@ -10,7 +10,7 @@
 	var/range = 5
 
 /obj/item/grenade/frag/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "осколочная граната",
 		GENITIVE = "осколочной гранаты",
 		DATIVE = "осколочной гранате",

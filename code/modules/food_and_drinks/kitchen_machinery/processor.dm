@@ -15,7 +15,7 @@
 	var/rating_amount = 0
 
 /obj/machinery/processor/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кухонный комбайн",
 		GENITIVE = "кухонного комбайна",
 		DATIVE = "кухонному комбайну",

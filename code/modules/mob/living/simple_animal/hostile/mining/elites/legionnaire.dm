@@ -56,7 +56,7 @@
 	var/charge_damage_first = 25
 
 /mob/living/simple_animal/hostile/asteroid/elite/legionnaire/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "легионер",
 		GENITIVE = "легионера",
 		DATIVE = "легионеру",
@@ -279,7 +279,7 @@
 	var/mob/living/simple_animal/hostile/asteroid/elite/legionnaire/body = null
 
 /mob/living/simple_animal/hostile/asteroid/elite/legionnairehead/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "голова легионера",
 		GENITIVE = "головы легионера",
 		DATIVE = "голове легионера",
@@ -307,7 +307,7 @@
 	var/mob/living/simple_animal/hostile/asteroid/elite/legionnaire/myowner = null
 
 /obj/structure/legionnaire_bonfire/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "груда костей",
 		GENITIVE = "груды костей",
 		DATIVE = "груде костей",
@@ -369,7 +369,7 @@
 	var/next_use_time
 
 /obj/item/crusher_trophy/legionnaire_spine/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "позвоночник легионера",
 		GENITIVE = "позвоночника легионера",
 		DATIVE = "позвоночнику легионера",

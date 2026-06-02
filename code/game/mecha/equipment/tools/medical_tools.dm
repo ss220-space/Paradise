@@ -1,15 +1,12 @@
 // Sleeper, and Syringe gun
 
 /obj/item/mecha_parts/mecha_equipment/medical
+	module_type = MECH_EQUIPMENT_MEDICAL
+
 
 /obj/item/mecha_parts/mecha_equipment/medical/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
-
-/obj/item/mecha_parts/mecha_equipment/medical/check_allowed_equipment(obj/mecha/M)
-	if(M.allowed_equipment & MECH_EQUIPMENT_MEDICAL)
-		return TRUE
-	. = ..()
 
 /obj/item/mecha_parts/mecha_equipment/medical/attach_act(obj/mecha/M)
 	START_PROCESSING(SSobj, src)
@@ -497,6 +494,11 @@
 	energy_drain = 10
 	var/dam_force = 20
 
+/obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw/can_attach(obj/mecha/M)
+	if(istype(M, /obj/mecha/working/ripley/firefighter) || ..())
+		return TRUE
+	return FALSE
+
 /obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw/action(atom/target, list/modifiers)
 	if(!action_checks(target))
 		return FALSE
@@ -531,11 +533,6 @@
 			else
 				step(L, SOUTH)
 
-/obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw/check_allowed_equipment(obj/mecha/M)
-	if(M.allowed_equipment & MECH_EQUIPMENT_WORKING || istype(M, /obj/mecha/working/ripley/firefighter))
-		return TRUE
-	. = ..()
-
 /obj/item/mecha_parts/mecha_equipment/medical/beamgun
 	name = "Medical Beamgun"
 	desc = "Передает целебные наниты своим сфокусированным лучом прямо из вашего уютного меха. Не скрещивайте лучи!"
@@ -547,7 +544,7 @@
 	var/obj/item/gun/medbeam/mech/mbeam
 
 /obj/item/mecha_parts/mecha_equipment/medical/beamgun/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Медицинская Лучпушка",
 		GENITIVE = "Медицинской Лучпушки",
 		DATIVE = "Медицинской Лучпушке",

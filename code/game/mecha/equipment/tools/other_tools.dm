@@ -32,9 +32,6 @@
 	desc = "An exosuit module that allows exosuits to teleport to any position in view. This is the high-precision, energy-efficient version."
 	energy_drain = 1000
 	tele_precision = 1
-
-/obj/item/mecha_parts/mecha_equipment/teleporter/check_allowed_equipment(obj/mecha/M)
-	return TRUE
 ////////////////////////////////////////////// WORMHOLE GENERATOR //////////////////////////////////////////
 
 /obj/item/mecha_parts/mecha_equipment/wormhole_generator
@@ -153,9 +150,6 @@
 		if(mode > CATAPULT_GRAVPUSH)
 			mode = CATAPULT_GRAVSLING
 		return TRUE
-
-/obj/item/mecha_parts/mecha_equipment/gravcatapult/check_allowed_equipment(obj/mecha/M)
-	return TRUE
 //////////////////////////// ARMOR BOOSTER MODULES //////////////////////////////////////////////////////////
 
 /obj/item/mecha_parts/mecha_equipment/anticcw_armor_booster //what is that noise? A BAWWW from TK mutants.
@@ -194,9 +188,6 @@
 	if(action_checks(src))
 		start_cooldown()
 		return TRUE
-
-/obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster/check_allowed_equipment(obj/mecha/M)
-	return TRUE
 ////////////////////////////////// REPAIR DROID //////////////////////////////////////////////////
 
 /obj/item/mecha_parts/mecha_equipment/repair_droid
@@ -267,9 +258,6 @@
 		chassis.cut_overlay(droid_overlay)
 		droid_overlay = new(icon, icon_state = "repair_droid")
 		chassis.add_overlay(droid_overlay)
-
-/obj/item/mecha_parts/mecha_equipment/repair_droid/check_allowed_equipment(obj/mecha/M)
-	return TRUE
 /////////////////////////////////// TESLA ENERGY RELAY ////////////////////////////////////////////////
 
 /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay
@@ -338,9 +326,6 @@
 				var/delta = min(20, chassis.cell.maxcharge-cur_charge)
 				chassis.give_power(delta)
 				A.use_power(delta*coeff, pow_chan)
-
-/obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/check_allowed_equipment(obj/mecha/M)
-	return TRUE
 /////////////////////////////////////////// GENERATOR /////////////////////////////////////////////
 
 /obj/item/mecha_parts/mecha_equipment/generator
@@ -476,9 +461,6 @@
 		use_fuel = fuel_per_cycle_active
 		chassis.give_power(power_per_cycle)
 	fuel_amount -= min(use_fuel, fuel_amount)
-
-/obj/item/mecha_parts/mecha_equipment/generator/check_allowed_equipment(obj/mecha/M)
-	return TRUE
 /////////////////////////////////// SERVO-HYDRAULIC ACTUATOR ////////////////////////////////////////////////
 
 /obj/item/mecha_parts/mecha_equipment/servo_hydra_actuator
@@ -488,9 +470,12 @@
 	origin_tech = "powerstorage=5;programming=5;engineering=5;combat=5"
 	selectable = MODULE_SELECTABLE_NONE
 	var/energy_per_step = 50 //How much energy this module drains per step in strafe mode
+	module_type = MECH_EQUIPMENT_MEDICAL | MECH_EQUIPMENT_WORKING
 
 /obj/item/mecha_parts/mecha_equipment/servo_hydra_actuator/can_attach(obj/mecha/M)
 	if(M.strafe_allowed)
+		return TRUE
+	if(istype(M, /obj/mecha/combat/durand) || ..())
 		return TRUE
 	. = ..()
 
@@ -524,16 +509,17 @@
 	origin_tech = "materials=5;engineering=5;magnets=4;powerstorage=4"
 	energy_drain = 20
 	selectable = MODULE_SELECTABLE_NONE
+	module_type = MECH_EQUIPMENT_MEDICAL | MECH_EQUIPMENT_WORKING
 	var/ripley_step_in = 2.5
 	var/odyss_step_in = 1.8
 	var/clarke_step_in = 1.5
 	var/durand_step_in = 3.3
 	var/locker_step_in = 2
 
-/obj/item/mecha_parts/mecha_equipment/improved_exosuit_control_system/check_allowed_equipment(obj/mecha/M)
-	if(M.allowed_equipment & MECH_EQUIPMENT_MEDICAL || M.allowed_equipment & MECH_EQUIPMENT_WORKING || istype(M, /obj/mecha/combat/durand))
+/obj/item/mecha_parts/mecha_equipment/improved_exosuit_control_system/can_attach(obj/mecha/M)
+	if(istype(M, /obj/mecha/combat/durand) || ..())
 		return TRUE
-	. = ..()
+	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/improved_exosuit_control_system/attach_act()
 	if(istype(loc, /obj/mecha/working/ripley)) // for ripley/firefighter
@@ -571,15 +557,21 @@
 	equip_cooldown = 3 SECONDS
 	energy_drain = 500
 	salvageable = FALSE
-
+	module_type = MECH_EQUIPMENT_COMBAT
 	var/mob/living/carbon/prisoner
 	var/mob/living/carbon/holding
 	///for custom icons
 	var/datum/action/innate/mecha/select_module/button
 	var/obj/effect/supress/supress_effect
 
+/obj/item/mecha_parts/mecha_equipment/cage/can_attach(obj/mecha/M)
+	if(locate(src) in M.equipment)
+		return FALSE
+	if(M.emagged || ..())
+		return FALSE
+
 /obj/item/mecha_parts/mecha_equipment/cage/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль \"Клетка SCS-3\"",
 		GENITIVE = "модуля \"Клетка SCS-3\"",
 		DATIVE = "модулю \"Клетка SCS-3\"",
@@ -587,16 +579,6 @@
 		INSTRUMENTAL = "модулем \"Клетка SCS-3\"",
 		PREPOSITIONAL = "модуле \"Клетка SCS-3\"",
 	)
-
-/obj/item/mecha_parts/mecha_equipment/cage/can_attach(obj/mecha/M)
-	if(locate(src) in M.equipment)
-		return FALSE
-	. = ..()
-
-/obj/item/mecha_parts/mecha_equipment/cage/check_allowed_equipment(obj/mecha/M)
-	if(istype(M, /obj/mecha/combat/gygax) || istype(M, /obj/mecha/combat/durand) || istype(M, /obj/mecha/combat/marauder) || M.emagged)
-		return TRUE
-	. = ..()
 
 /obj/item/mecha_parts/mecha_equipment/cage/Destroy()
 	for(var/atom/movable/AM in src)
@@ -792,7 +774,7 @@
 	plane = ABOVE_GAME_PLANE
 
 /obj/effect/supress/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "механические клешни",
 		GENITIVE = "механических клешней",
 		DATIVE = "механическим клешням",

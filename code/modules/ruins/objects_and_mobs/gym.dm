@@ -15,7 +15,7 @@
 	var/material_drop_amount = 10
 
 /obj/structure/punching_bag/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "боксёрская груша",
 		GENITIVE = "боксёрской груши",
 		DATIVE = "боксёрской груше",
@@ -73,7 +73,7 @@
 	var/material_drop_amount = 5
 
 /obj/structure/weightmachine/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "силовой тренажёр",
 		GENITIVE = "силового тренажёра",
 		DATIVE = "силовому тренажёру",
@@ -178,7 +178,7 @@
 	icon_state_inuse = "fitnesslifter2"
 
 /obj/structure/weightmachine/stacklifter/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "грузоблочный тренажёр",
 		GENITIVE = "грузоблочного тренажёра",
 		DATIVE = "грузоблочному тренажёру",
@@ -211,7 +211,7 @@
 	icon_state_inuse = "fitnessweight-c"
 
 /obj/structure/weightmachine/weightlifter/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "скамья для жима",
 		GENITIVE = "скамьи для жима",
 		DATIVE = "скамье для жима",
@@ -253,7 +253,7 @@
 	var/rod_y = 28
 
 /obj/structure/weightmachine/horizontalbar/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "турник",
 		GENITIVE = "турника",
 		DATIVE = "турнику",

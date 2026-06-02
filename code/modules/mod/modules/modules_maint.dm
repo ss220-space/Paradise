@@ -22,8 +22,9 @@
 	/// In order not to make 1000 snups, we make sanity check
 	COOLDOWN_DECLARE(springlock_cooldown)
 
-/obj/item/mod/module/holster/get_ru_names() //i have to look on fucking fnaf wiki to find out how to translate this shit
-	return list(
+//i have to look on fucking fnaf wiki to find out how to translate this shit
+/obj/item/mod/module/holster/get_ru_names()
+	return alist(
 		NOMINATIVE = "пружинный модуль",
 		GENITIVE = "пружинного модуля",
 		DATIVE = "пружинному модулю",
@@ -117,7 +118,7 @@
 	required_slots = list(ITEM_SLOT_HEAD|ITEM_SLOT_MASK)
 
 /obj/item/mod/module/balloon/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль надувания шариков",
 		GENITIVE = "модуля надувания шариков",
 		DATIVE = "модулю надувания шариков",
@@ -151,7 +152,7 @@
 	required_slots = list(ITEM_SLOT_GLOVES)
 
 /obj/item/mod/module/stamp/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль печати",
 		GENITIVE = "модуля печати",
 		DATIVE = "модулю печати",
@@ -170,7 +171,7 @@
 	var/stamp_mode = STAMP_MODE_OK
 
 /obj/item/stamp/mod/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "электропечать МЭК",
 		GENITIVE = "электропечати МЭК",
 		DATIVE = "электропечати МЭК",
@@ -214,7 +215,7 @@
 	var/num_sheets_dispensed = 0
 
 /obj/item/mod/module/paper_dispenser/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль выдачи бумаги",
 		GENITIVE = "модуля выдачи бумаги",
 		DATIVE = "модулю выдачи бумаги",

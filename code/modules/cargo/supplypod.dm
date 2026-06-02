@@ -58,7 +58,7 @@
 	var/list/reverse_option_list = list(MOB_OPTION=FALSE, UNANCHORED_OPTION=FALSE, ANCHORED_OPTION=FALSE, MECHA_OPTION=FALSE)
 
 /obj/structure/closet/supplypod/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "капсула снабжения",
 		GENITIVE = "капсулы снабжения",
 		DATIVE = "капсуле снабжения",
@@ -112,7 +112,7 @@
 	reverse_option_list = list(MOB_OPTION = FALSE, UNANCHORED_OPTION = FALSE, ANCHORED_OPTION = FALSE, MECHA_OPTION = FALSE)
 
 /obj/structure/closet/supplypod/extractionpod/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "капсула эвакуации \"Синдиката\"",
 		GENITIVE = "капсулы эвакуации \"Синдиката\"",
 		DATIVE = "капсуле эвакуации \"Синдиката\"",
@@ -202,7 +202,7 @@
 	specialised = TRUE
 
 /obj/structure/closet/supplypod/back_to_station/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кроваво-красная капсула снабжения",
 		GENITIVE = "кроваво-красной капсулы снабжения",
 		DATIVE = "кроваво-красной капсуле снабжения",
@@ -222,7 +222,7 @@
 	effectMissile = TRUE
 
 /obj/structure/closet/supplypod/deadmatch_missile/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "крылатая ракета",
 		GENITIVE = "крылатой ракеты",
 		DATIVE = "крылатой ракете",
@@ -738,7 +738,7 @@
 	var/verticle_offset = 0
 
 /obj/effect/supplypod_rubble/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "обломки",
 		GENITIVE = "обломков",
 		DATIVE = "обломкам",
@@ -799,7 +799,7 @@
 	var/list/smoke_effects = new /list(13)
 
 /obj/effect/pod_landingzone/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "индикатор зоны приземления",
 		GENITIVE = "индикатора зоны приземления",
 		DATIVE = "индикатору зоны приземления",

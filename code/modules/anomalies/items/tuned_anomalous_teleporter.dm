@@ -35,7 +35,7 @@
 	COOLDOWN_DECLARE(emp_cooldown) // declare cooldown for EMP
 
 /obj/item/assembly/tuned_anomalous_teleporter/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "настраеваемый аномальный телепортер", \
 		GENITIVE = "настраеваемого аномального телепортера", \
 		DATIVE = "настраеваемому аномальному телепортеру", \

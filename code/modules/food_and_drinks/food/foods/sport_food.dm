@@ -12,7 +12,7 @@
 	opened = FALSE
 
 /obj/item/reagent_containers/food/snacks/proteinbar_banana/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "протеиновый батончик \"Банановый рай\"",
 		GENITIVE = "протеинового батончика \"Банановый рай\"",
 		DATIVE = "протеиновому батончику \"Банановый рай\"",
@@ -35,7 +35,7 @@
 	opened = FALSE
 
 /obj/item/reagent_containers/food/snacks/proteinbar_cherry/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "протеиновый батончик \"Вишнёвая слаймодевочка\"",
 		GENITIVE = "протеинового батончика \"Вишнёвая слаймодевочка\"",
 		DATIVE = "протеиновому батончику \"Вишнёвая слаймодевочка\"",
@@ -58,7 +58,7 @@
 	opened = FALSE
 
 /obj/item/reagent_containers/food/snacks/proteinbar_beef/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "протеиновый батончик \"Наследие Бурёнки\"",
 		GENITIVE = "протеинового батончика \"Наследие Бурёнки\"",
 		DATIVE = "протеиновому батончику \"Наследие Бурёнки\"",
@@ -78,7 +78,7 @@
 	list_reagents = list("protein" = 80)
 
 /obj/item/reagent_containers/food/drinks/protein/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "банка протеина",
 		GENITIVE = "банки протеина",
 		DATIVE = "банке протеина",
@@ -94,7 +94,7 @@
 	list_reagents = list("protein" = 70, "zaza" = 10)
 
 /obj/item/reagent_containers/food/drinks/protein/zaza/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "банка протеина (Заза)",
 		GENITIVE = "банки протеина (Заза)",
 		DATIVE = "банке протеина (Заза)",
@@ -112,7 +112,7 @@
 	list_reagents = list("protein" = 70, "cherryshake" = 10)
 
 /obj/item/reagent_containers/food/drinks/protein/cherry/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "банка протеина (Вишня)",
 		GENITIVE = "банки протеина (Вишня)",
 		DATIVE = "банке протеина (Вишня)",
@@ -131,7 +131,7 @@
 	foodtype = SUGAR
 
 /obj/item/reagent_containers/food/drinks/protein/chocolate/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "банка протеина (Шоколад)",
 		GENITIVE = "банки протеина (Шоколад)",
 		DATIVE = "банке протеина (Шоколад)",
@@ -149,7 +149,7 @@
 	list_reagents = list("protein" = 70, "banana" = 5, "strawwberry" = 5)
 
 /obj/item/reagent_containers/food/drinks/protein/bananastrawberry/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "банка протеина (Банан и клубника)",
 		GENITIVE = "банки протеина (Банан и клубника)",
 		DATIVE = "банке протеина (Банан и клубника)",
@@ -167,7 +167,7 @@
 	list_reagents = list("guarana" = 10)
 
 /obj/item/reagent_containers/food/drinks/guarana/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ампула экстракта гуараны",
 		GENITIVE = "ампулы экстракта гуараны",
 		DATIVE = "ампуле экстракта гуараны",
@@ -185,7 +185,7 @@
 	list_reagents = list("creatine" = 10)
 
 /obj/item/reagent_containers/food/drinks/creatine/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бутылочка креатина",
 		GENITIVE = "бутылочкы креатина",
 		DATIVE = "бутылочке креатина",

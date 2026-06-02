@@ -14,7 +14,7 @@
 	var/list/drink_type = list("coffee" = 150)
 
 /obj/item/coffee_cartridge/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кофейный картридж \"Каффе Дженерико\"",
 		GENITIVE = "кофейного картриджа \"Каффе Дженерико\"",
 		DATIVE = "кофейному картриджу \"Каффе Дженерико\"",
@@ -48,7 +48,7 @@
 	var/datum/coffee_cartridge_type/cartridge_type
 
 /obj/item/coffee_cartridge/fancy/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кофе-картридж \"Каффе Фантазиосо\"",
 		GENITIVE = "кофе-картриджа \"Каффе Фантазиосо\"",
 		DATIVE = "кофе-картриджу \"Каффе Фантазиосо\"",
@@ -74,7 +74,7 @@
 	// Applying parameters from the datum
 	name = "coffeemaker cartridge – [cartridge_type.name_en]"
 	var/type_name = cartridge_type.ru_name_base
-	ru_names = list(
+	ru_names = alist(
 		NOMINATIVE = "кофейный картридж \"[type_name]\"",
 		GENITIVE = "кофейного картриджа \"[type_name]\"",
 		DATIVE = "кофейному картриджу \"[type_name]\"",
@@ -96,7 +96,7 @@
 	icon_state = "cartridge_decaf"
 
 /obj/item/coffee_cartridge/decaf/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кофе-картридж \"Каффе Декаффинато\"",
 		GENITIVE = "кофе-картриджа \"Каффе Декаффинато\"",
 		DATIVE = "кофе-картриджу \"Каффе Декаффинато\"",
@@ -117,7 +117,7 @@
 	icon_state = "cartridge_bootleg"
 
 /obj/item/coffee_cartridge/bootleg/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кофе-картридж \"Ботанический специальный\"",
 		GENITIVE = "кофе-картриджа \"Ботанический специальный\"",
 		DATIVE = "кофе-картриджу \"Ботанический специальный\"",
@@ -139,7 +139,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/blank_coffee_cartridge/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пустой кофе-картридж",
 		GENITIVE = "пустого кофе-картриджа",
 		DATIVE = "пустому кофе-картриджу",

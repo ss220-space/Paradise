@@ -145,7 +145,7 @@
 	collapse_shock_damage = 10
 
 /obj/effect/anomaly/energetic/tier1/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "малая энергетическая аномалия", \
 		GENITIVE = "малой энергетической аномалии", \
 		DATIVE = "малой энергетической аномалии", \
@@ -178,7 +178,7 @@
 	eballs_types = list(/obj/effect/energy_ball = 1)
 
 /obj/effect/anomaly/energetic/tier2/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "энергетическая аномалия", \
 		GENITIVE = "энергетической аномалии", \
 		DATIVE = "энергетической аномалии", \
@@ -210,7 +210,7 @@
 	eballs_types = list(/obj/effect/energy_ball = 3, /obj/effect/energy_ball/big = 1)
 
 /obj/effect/anomaly/energetic/tier3/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "большая энергетическая аномалия", \
 		GENITIVE = "большой энергетической аномалии", \
 		DATIVE = "большой энергетической аномалии", \
@@ -248,7 +248,7 @@
 	var/spawn_type = /obj/effect/anomaly/energetic/tier1
 
 /obj/effect/energy_ball/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "энергетический шар", \
 		GENITIVE = "энергетического шара", \
 		DATIVE = "энергетическому шару", \
@@ -352,7 +352,7 @@
 	eball_dist = 5
 
 /obj/effect/anomaly/energetic/tier4/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "колоссальная энергетическая аномалия", \
 		GENITIVE = "колоссальной энергетической аномалии", \
 		DATIVE = "колоссальной энергетической аномалии", \

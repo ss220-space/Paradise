@@ -15,9 +15,14 @@
 	max_integrity = 300 //max_integrity is base health
 	armor = list(melee = 20, bullet = 10, laser = 0, energy = 0, bomb = 0, bio = 0, fire = 100, acid = 100)
 	bubble_icon = "machine"
-	hud_possible = list (DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_TRACK_HUD)
+	hud_possible = list(
+		DIAG_STAT_HUD,
+		DIAG_BATT_HUD,
+		DIAG_MECH_HUD,
+		DIAG_TRACK_HUD,
+	)
 	cares_about_temperature = TRUE
-	var/list/facing_modifiers = list(MECHA_FRONT_ARMOUR = 1.5, MECHA_SIDE_ARMOUR = 1, MECHA_BACK_ARMOUR = 0.5)
+	var/alist/facing_modifiers = alist(MECHA_FRONT_ARMOUR = 1.5, MECHA_SIDE_ARMOUR = 1, MECHA_BACK_ARMOUR = 0.5)
 	var/ruin_mecha = FALSE //if the mecha starts on a ruin, don't automatically give it a tracking beacon to prevent metagaming.
 	var/initial_icon = null //Mech type for resetting icon. Only used for reskinning kits (see custom items)
 	var/can_move = 0 // time of next allowed movement
@@ -56,7 +61,11 @@
 	/// emp protection
 	var/emp_protection = FALSE
 	/// mech equipment types
-	var/allowed_equipment = MECH_EQUIPMENT_ALL
+	var/allowed_equipment = MECH_EQUIPMENT_WORKING
+
+	/// emag
+	var/emaggable = FALSE
+	var/emag_desc = span_danger_alt("</br>The mech's equipment slots spark dangerously!")
 
 	//inner atmos
 	var/use_internal_tank = FALSE
@@ -187,8 +196,8 @@
 	GLOB.poi_list |= src
 	GLOB.mechas_list += src //global mech list
 	prepare_huds()
-	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
-		diag_hud.add_atom_to_hud(src)
+	var/datum/atom_hud/data/diagnostic/diag_hud = GLOB.huds[DATA_HUD_DIAGNOSTIC]
+	diag_hud.add_atom_to_hud(src)
 	diag_hud_set_mechhealth()
 	diag_hud_set_mechcell()
 	diag_hud_set_mechstat()
@@ -1156,7 +1165,16 @@
 		. = ..()
 
 /obj/mecha/emag_act(mob/user)
-	if(user)
+	if(emagged)
+		return FALSE
+	if(emaggable)
+		add_attack_logs(user, src, "emagged")
+		emagged = TRUE
+		if(user)
+			to_chat(user, span_notice("You slide the card through [src]'s ID slot."))
+		playsound(loc, SFX_SPARKS, 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+		desc += emag_desc
+	else if(user)
 		to_chat(user, span_warning("[src]'s ID slot rejects the card."))
 
 /////////////////////////////////////

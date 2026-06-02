@@ -41,7 +41,7 @@
 	var/enemies_count_scale = 1.3 // 30% stronger per enemy
 
 /mob/living/simple_animal/hostile/asteroid/elite/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "элита",
 		GENITIVE = "элиты",
 		DATIVE = "элите",
@@ -237,7 +237,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	var/list/invaders = list()
 
 /obj/structure/elite_tumor/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пульсирующая опухоль",
 		GENITIVE = "пульсирующей опухоли",
 		DATIVE = "пульсирующей опухоли",
@@ -502,7 +502,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	throw_range = 5
 
 /obj/item/tumor_shard/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "осколок опухоли",
 		GENITIVE = "осколка опухоли",
 		DATIVE = "осколку опухоли",
@@ -556,7 +556,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	smoothing_groups = SMOOTH_GROUP_HIERO_VORTEX
 
 /obj/effect/temp_visual/elite_tumor_wall/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "магическая стена",
 		GENITIVE = "магической стены",
 		DATIVE = "магической стене",

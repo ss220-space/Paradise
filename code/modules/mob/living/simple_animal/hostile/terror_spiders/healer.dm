@@ -30,7 +30,7 @@
 	tts_seed = "Jolene"
 
 /mob/living/simple_animal/hostile/poison/terror_spider/healer/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Лекарь Ужаса",
 		GENITIVE = "Лекаря Ужаса",
 		DATIVE = "Лекарю Ужаса",
@@ -141,7 +141,7 @@
 	desc = "Эта паутина частично состоит из нитей зелёной слизи."
 
 /obj/structure/spider/terrorweb/green/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "скользкая паутина",
 		GENITIVE = "скользкой паутины",
 		DATIVE = "скользкой паутине",

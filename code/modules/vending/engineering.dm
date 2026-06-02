@@ -42,7 +42,7 @@
 	)
 
 /obj/machinery/vending/engineering/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат Robco Tool Maker",
 		GENITIVE = "торгового автомата Robco Tool Maker",
 		DATIVE = "торговому автомату Robco Tool Maker",

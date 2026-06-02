@@ -14,7 +14,7 @@
 	wreckage = /obj/structure/mecha_wreckage/ripley
 	var/hides = 0
 	var/plates = 0
-
+	emaggable = TRUE
 	mech_type = MECH_TYPE_RIPLEY
 
 /obj/mecha/working/ripley/Destroy()
@@ -151,17 +151,6 @@
 
 	var/obj/item/mecha_parts/mecha_equipment/mining_scanner/scanner = new
 	scanner.attach(src, MECH_HAND_RIGHT)
-
-/obj/mecha/working/ripley/emag_act(mob/user)
-	if(!emagged)
-		add_attack_logs(user, src, "emagged")
-		emagged = TRUE
-		if(user)
-			to_chat(user, span_notice("You slide the card through [src]'s ID slot."))
-		playsound(loc, SFX_SPARKS, 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-		desc += span_danger("</br>The mech's equipment slots spark dangerously!")
-	else if(user)
-		to_chat(user, span_warning("[src]'s ID slot rejects the card."))
 
 /obj/mecha/working/ripley/full_load
 	name = "Тестовый Рипли"

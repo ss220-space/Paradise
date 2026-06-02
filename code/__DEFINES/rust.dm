@@ -84,7 +84,7 @@
 
 #define rustlib_hash_string(algorithm, text) RUSTLIB_CALL(hash_string, algorithm, text)
 #define rustlib_hash_file(algorithm, fname) RUSTLIB_CALL(hash_file, algorithm, fname)
-#define rustlib_hash_generate_totp(seed)RUSTLIB_CALL(generate_totp, seed)
+#define rustlib_hash_generate_totp(seed) RUSTLIB_CALL(generate_totp, seed)
 #define rustlib_hash_generate_totp_tolerance(seed, tolerance) RUSTLIB_CALL(generate_totp_tolerance, seed, tolerance)
 
 #define RUSTLIB_HASH_MD5 "md5"

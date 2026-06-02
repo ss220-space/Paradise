@@ -8,11 +8,7 @@
 	energy_drain = 10
 	var/dam_force = 20
 	harmful = TRUE
-
-/obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/check_allowed_equipment(obj/mecha/M)
-	if(M.allowed_equipment & MECH_EQUIPMENT_WORKING)
-		return TRUE
-	. = ..()
+	module_type = MECH_EQUIPMENT_WORKING
 
 /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/action(atom/target, list/modifiers)
 	if(!action_checks(target))
@@ -116,11 +112,7 @@
 	icon_state = "tesla"
 	origin_tech = "materials=5;bluespace=6;"
 	selectable = MODULE_SELECTABLE_NONE
-
-/obj/item/mecha_parts/mecha_equipment/cargo_upgrade/check_allowed_equipment(obj/mecha/M)
-	if(M.allowed_equipment & MECH_EQUIPMENT_WORKING)
-		return TRUE
-	. = ..()
+	module_type = MECH_EQUIPMENT_WORKING
 
 /obj/item/mecha_parts/mecha_equipment/cargo_upgrade/attach_act(obj/mecha/M)
 	chassis.cargo_expanded = TRUE
@@ -140,6 +132,7 @@
 	item_flags = NO_MAT_REDEMPTION
 	var/obj/item/rcd/mecha_ref/rcd_holder
 	usesound = 'sound/items/deconstruct.ogg'
+	module_type = MECH_EQUIPMENT_WORKING
 
 /obj/item/mecha_parts/mecha_equipment/rcd/Initialize(mapload)
 	. = ..()
@@ -248,11 +241,7 @@
 	equip_cooldown = 1 SECONDS
 	energy_drain = 250
 	range = MECHA_MELEE | MECHA_RANGED
-
-/obj/item/mecha_parts/mecha_equipment/mimercd/check_allowed_equipment(obj/mecha/M)
-	if(M.allowed_equipment & MECH_EQUIPMENT_MIME)
-		return TRUE
-	. = ..()
+	module_type = MECH_EQUIPMENT_MIME
 
 /obj/item/mecha_parts/mecha_equipment/mimercd/action(atom/target, list/modifiers)
 	if(istype(target, /turf/space/transit))//>implying these are ever made -Sieve
@@ -294,9 +283,6 @@
 
 /obj/item/mecha_parts/mecha_equipment/multimodule/is_melee()
 	return targeted_module?.is_melee()
-
-/obj/item/mecha_parts/mecha_equipment/multimodule/check_allowed_equipment(obj/mecha/M)
-	return TRUE
 
 /obj/item/mecha_parts/mecha_equipment/multimodule/attach_act(obj/mecha/M)
 	for(var/thing in modules)
@@ -383,6 +369,7 @@
 	name = "cable layer"
 	desc = "Equipment for engineering exosuits. Lays cable along the exosuit's path."
 	icon_state = "mecha_wire"
+	module_type = MECH_EQUIPMENT_WORKING
 	var/obj/structure/cable/last_piece
 	var/obj/item/stack/cable_coil/cable
 	var/max_cable = 1000
@@ -394,11 +381,6 @@
 /obj/item/mecha_parts/mecha_equipment/cable_layer/Destroy()
 	QDEL_NULL(cable)
 	last_piece = null
-	. = ..()
-
-/obj/item/mecha_parts/mecha_equipment/cable_layer/check_allowed_equipment(obj/mecha/M)
-	if(M.allowed_equipment & MECH_EQUIPMENT_WORKING)
-		return TRUE
 	. = ..()
 
 /obj/item/mecha_parts/mecha_equipment/cable_layer/attach_act()
@@ -520,6 +502,7 @@
 	icon_state = "mecha_exting"
 	equip_cooldown = 1.5 SECONDS
 	range = MECHA_MELEE | MECHA_RANGED
+	module_type = MECH_EQUIPMENT_WORKING
 
 /obj/item/mecha_parts/mecha_equipment/extinguisher/Initialize(mapload)
 	create_reagents(1000)
@@ -592,11 +575,6 @@
 /obj/item/mecha_parts/mecha_equipment/extinguisher/on_reagent_change()
 	return
 
-/obj/item/mecha_parts/mecha_equipment/extinguisher/check_allowed_equipment(obj/mecha/M)
-	if(M.allowed_equipment & MECH_EQUIPMENT_WORKING)
-		return TRUE
-	. = ..()
-
 /obj/item/mecha_parts/mecha_equipment/extinguisher/get_snowflake_data()
 	return list(
 		"snowflake_id" = MECHA_SNOWFLAKE_ID_EXTINGUISHER,
@@ -611,6 +589,7 @@
 	energy_drain = 100
 	equip_cooldown = 0.5 SECONDS
 	range = MECHA_MELEE | MECHA_RANGED
+	module_type = MECH_EQUIPMENT_WORKING
 	var/max_barriers = 5
 	var/list/barriers = list()
 	var/creation_time = 0 //time to create a holosbarriers in deciseconds.
@@ -678,11 +657,6 @@
 
 	return FALSE
 
-/obj/item/mecha_parts/mecha_equipment/holowall/check_allowed_equipment(obj/mecha/M)
-	if(M.allowed_equipment & MECH_EQUIPMENT_WORKING)
-		return TRUE
-	. = ..()
-
 /obj/item/mecha_parts/mecha_equipment/eng_toolset
 	name = "Engineering toolset"
 	desc = "Equipment for engineering exosuits. Gives a set of good tools."
@@ -694,6 +668,7 @@
 	equip_cooldown = 1.5 SECONDS
 	energy_drain = 100
 	harmful = TRUE
+	module_type = MECH_EQUIPMENT_WORKING
 	var/list/items_list = newlist(/obj/item/screwdriver/cyborg, /obj/item/wrench/cyborg, /obj/item/weldingtool/experimental/mecha,
 		/obj/item/crowbar/cyborg, /obj/item/wirecutters/cyborg, /obj/item/multitool/cyborg)
 	var/obj/item/selected_item
@@ -709,11 +684,6 @@
 		item.materials = null
 		item.tool_enabled = TRUE
 	selected_item = pick(items_list)
-
-/obj/item/mecha_parts/mecha_equipment/eng_toolset/check_allowed_equipment(obj/mecha/M)
-	if(M.allowed_equipment & MECH_EQUIPMENT_WORKING)
-		return TRUE
-	. = ..()
 
 /obj/item/mecha_parts/mecha_equipment/eng_toolset/get_snowflake_data()
 	var/list/data = list(

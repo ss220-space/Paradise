@@ -32,7 +32,7 @@
 	var/max_loot = 15 // The maximum amount of ore that can be stored in this thing's gut
 
 /mob/living/simple_animal/hostile/asteroid/goldgrub/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "златожор",
 		GENITIVE = "златожора",
 		DATIVE = "златожору",

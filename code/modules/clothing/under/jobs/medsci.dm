@@ -10,7 +10,7 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 10, BIO = 10, FIRE = 0, ACID = 35)
 
 /obj/item/clothing/under/rank/research_director/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "комбинезон научного руководителя",
 		GENITIVE = "комбинезона научного руководителя",
 		DATIVE = "комбинезону научного руководителя",
@@ -28,7 +28,7 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 10, BIO = 0, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/under/rank/scientist/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "комбинезон учёного",
 		GENITIVE = "комбинезона учёного",
 		DATIVE = "комбинезону учёного",
@@ -44,7 +44,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
 /obj/item/clothing/under/rank/scientist/skirt/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "комбинезон-юбка учёного",
 		GENITIVE = "комбинезона-юбки учёного",
 		DATIVE = "комбинезону-юбке учёного",
@@ -60,7 +60,7 @@
 	item_color = "student"
 
 /obj/item/clothing/under/rank/scientist/student/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "комбинезон учёного-практиканта",
 		GENITIVE = "комбинезона учёного-практиканта",
 		DATIVE = "комбинезону учёного-практиканта",
@@ -77,7 +77,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
 /obj/item/clothing/under/rank/scientist/student/skirt/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "комбинезон-юбка учёного-практиканта",
 		GENITIVE = "комбинезона-юбки учёного-практиканта",
 		DATIVE = "комбинезону-юбке учёного-практиканта",
@@ -93,7 +93,7 @@
 	item_color = "sci_ass"
 
 /obj/item/clothing/under/rank/scientist/student/assistant/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "комбинезон научного ассистента",
 		GENITIVE = "комбинезона научного ассистента",
 		DATIVE = "комбинезону научного ассистента",
@@ -110,7 +110,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
 /obj/item/clothing/under/rank/scientist/student/assistant/skirt/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "комбинезон-юбка научного ассистента",
 		GENITIVE = "комбинезона-юбки научного ассистента",
 		DATIVE = "комбинезону-юбке научного ассистента",
@@ -128,7 +128,7 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 10, FIRE = 50, ACID = 65)
 
 /obj/item/clothing/under/rank/chemist/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "комбинезон химика",
 		GENITIVE = "комбинезона химика",
 		DATIVE = "комбинезону химика",
@@ -144,7 +144,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
 /obj/item/clothing/under/rank/chemist/skirt/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "комбинезон-юбка химика",
 		GENITIVE = "комбинезона-юбки химика",
 		DATIVE = "комбинезону-юбке химика",
@@ -165,7 +165,7 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 10, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/under/rank/chief_medical_officer/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "комбинезон главного врача",
 		GENITIVE = "комбинезона главного врача",
 		DATIVE = "комбинезону главного врача",
@@ -181,7 +181,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
 /obj/item/clothing/under/rank/chief_medical_officer/skirt/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "комбинезон-юбка главного врача",
 		GENITIVE = "комбинезона-юбки главного врача",
 		DATIVE = "комбинезону-юбке главного врача",
@@ -199,7 +199,7 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 10, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/under/rank/geneticist/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "комбинезон генетика",
 		GENITIVE = "комбинезона генетика",
 		DATIVE = "комбинезону генетика",
@@ -215,7 +215,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
 /obj/item/clothing/under/rank/geneticist/skirt/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "комбинезон-юбка генетика",
 		GENITIVE = "комбинезона-юбки генетика",
 		DATIVE = "комбинезону-юбке генетика",
@@ -233,7 +233,7 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 10, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/under/rank/virologist/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "комбинезон вирусолога",
 		GENITIVE = "комбинезона вирусолога",
 		DATIVE = "комбинезону вирусолога",
@@ -249,7 +249,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
 /obj/item/clothing/under/rank/virologist/skirt/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "комбинезон-юбка вирусолога",
 		GENITIVE = "комбинезона-юбки вирусолога",
 		DATIVE = "комбинезону-юбке вирусолога",
@@ -267,7 +267,7 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 10, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/under/rank/nursesuit/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "костюм медсестры",
 		GENITIVE = "костюма медсестры",
 		DATIVE = "костюму медсестры",
@@ -286,7 +286,7 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 10, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/under/rank/nurse/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "платье медсестры",
 		GENITIVE = "платья медсестры",
 		DATIVE = "платью медсестры",
@@ -305,7 +305,7 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 10, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/under/rank/orderly/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "униформа санитара",
 		GENITIVE = "униформы санитара",
 		DATIVE = "униформе санитара",
@@ -323,7 +323,7 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 10, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/under/rank/medical/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "комбинезон врача",
 		GENITIVE = "комбинезона врача",
 		DATIVE = "комбинезону врача",
@@ -343,7 +343,7 @@
 	item_state = "intern"
 
 /obj/item/clothing/under/rank/medical/intern/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "комбинезон интерна",
 		GENITIVE = "комбинезона интерна",
 		DATIVE = "комбинезону интерна",
@@ -359,7 +359,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
 /obj/item/clothing/under/rank/medical/intern/skirt/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "комбинезон-юбка интерна",
 		GENITIVE = "комбинезона-юбки интерна",
 		DATIVE = "комбинезону-юбке интерна",
@@ -375,7 +375,7 @@
 	item_state = "med_ass"
 
 /obj/item/clothing/under/rank/medical/intern/assistant/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "комбинезон ассистирующего врача",
 		GENITIVE = "комбинезона ассистирующего врача",
 		DATIVE = "комбинезону ассистирующего врача",
@@ -391,7 +391,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
 /obj/item/clothing/under/rank/medical/intern/assistant/skirt/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "комбинезон-юбка ассистирующего врача",
 		GENITIVE = "комбинезона-юбки ассистирующего врача",
 		DATIVE = "комбинезону-юбке ассистирующего врача",
@@ -407,7 +407,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
 /obj/item/clothing/under/rank/medical/skirt/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "комбинезон-юбка врача",
 		GENITIVE = "комбинезона-юбки врача",
 		DATIVE = "комбинезону-юбке врача",
@@ -424,7 +424,7 @@
 	item_state = "scrubsblue"
 
 /obj/item/clothing/under/rank/medical/blue/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "голубая медицинская одежда",
 		GENITIVE = "голубой медицинской одежды",
 		DATIVE = "голубой медицинской одежде",
@@ -441,7 +441,7 @@
 	item_state = "scrubsdarkgreen"
 
 /obj/item/clothing/under/rank/medical/green/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "тёмно-зелёная медицинская одежда",
 		GENITIVE = "тёмно-зелёной медицинской одежды",
 		DATIVE = "тёмно-зелёной медицинской одежде",
@@ -458,7 +458,7 @@
 	item_state = "scrubsgreen"
 
 /obj/item/clothing/under/rank/medical/lightgreen/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "зелёная медицинская одежда",
 		GENITIVE = "зелёной медицинской одежды",
 		DATIVE = "зелёной медицинской одежде",
@@ -475,7 +475,7 @@
 	item_state = "scrubspurple"
 
 /obj/item/clothing/under/rank/medical/purple/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "фиолетовая медицинская одежда",
 		GENITIVE = "фиолетовой медицинской одежды",
 		DATIVE = "фиолетовой медицинской одежде",
@@ -492,7 +492,7 @@
 	item_state = "scrubsblack"
 
 /obj/item/clothing/under/rank/medical/mortician/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "одежда патологоанатома",
 		GENITIVE = "одежды патологоанатома",
 		DATIVE = "одежде патологоанатома",
@@ -510,7 +510,7 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 10, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/under/rank/medical/paramedic/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "комбинезон парамедика",
 		GENITIVE = "комбинезона парамедика",
 		DATIVE = "комбинезону парамедика",
@@ -526,7 +526,7 @@
 	item_state = "paramedicf"
 
 /obj/item/clothing/under/rank/medical/paramedic/skirt/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "комбинезон-юбка парамедика",
 		GENITIVE = "комбинезона-юбки парамедика",
 		DATIVE = "комбинезону-юбке парамедика",
@@ -542,7 +542,7 @@
 	item_state = "psych"
 
 /obj/item/clothing/under/rank/psych/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "комбинезон психиатра",
 		GENITIVE = "комбинезона психиатра",
 		DATIVE = "комбинезону психиатра",
@@ -557,7 +557,7 @@
 	icon_state = "psychf"
 
 /obj/item/clothing/under/rank/psych/skirt/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "комбинезон-юбка психиатра",
 		GENITIVE = "комбинезона-юбки психиатра",
 		DATIVE = "комбинезону-юбке психиатра",
@@ -574,7 +574,7 @@
 	item_state = "psychturtle"
 
 /obj/item/clothing/under/rank/psych/turtleneck/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "водолазка психиатра",
 		GENITIVE = "водолазки психиатра",
 		DATIVE = "водолазке психиатра",
@@ -595,7 +595,7 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 10, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/under/rank/geneticist_new/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "комбинезон генетика",
 		GENITIVE = "комбинезона генетика",
 		DATIVE = "комбинезону генетика",
@@ -613,7 +613,7 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 10, FIRE = 50, ACID = 65)
 
 /obj/item/clothing/under/rank/chemist_new/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "комбинезон химика",
 		GENITIVE = "комбинезона химика",
 		DATIVE = "комбинезону химика",
@@ -631,7 +631,7 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 10, BIO = 0, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/under/rank/scientist_new/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "комбинезон учёного",
 		GENITIVE = "комбинезона учёного",
 		DATIVE = "комбинезону учёного",
@@ -649,7 +649,7 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 10, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/under/rank/virologist_new/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "комбинезон вирусолога",
 		GENITIVE = "комбинезона вирусолога",
 		DATIVE = "комбинезону вирусолога",
@@ -666,7 +666,7 @@
 	item_state = "mining_medic"
 
 /obj/item/clothing/under/rank/medical/mining_medic/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "комбинезон шахтёрского врача",
 		GENITIVE = "комбинезона шахтёрского врача",
 		DATIVE = "комбинезону шахтёрского врача",
@@ -683,7 +683,7 @@
 	item_state = "mining_medic_f"
 
 /obj/item/clothing/under/rank/medical/mining_medic/skirt/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "комбинезон-юбка шахтёрского врача",
 		GENITIVE = "комбинезона-юбки шахтёрского врача",
 		DATIVE = "комбинезону-юбке шахтёрского врача",
@@ -701,7 +701,7 @@
 	item_state = "scrubs_brown"
 
 /obj/item/clothing/under/rank/medical/brown/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "коричневая медицинская одежда",
 		GENITIVE = "коричневой медицинской одежды",
 		DATIVE = "коричневой медицинской одежде",
@@ -718,7 +718,7 @@
 	item_state = "mining_paramedic"
 
 /obj/item/clothing/under/rank/medical/mining_paramedic/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "комбинезон шахтёрского парамедика",
 		GENITIVE = "комбинезона шахтёрского парамедика",
 		DATIVE = "комбинезону шахтёрского парамедика",
@@ -735,7 +735,7 @@
 	item_state = "mining_paramedic_f"
 
 /obj/item/clothing/under/rank/medical/mining_paramedic/skirt/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "комбинезон-юбка шахтёрского парамедика",
 		GENITIVE = "комбинезона-юбки шахтёрского парамедика",
 		DATIVE = "комбинезону-юбке шахтёрского парамедика",

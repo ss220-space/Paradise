@@ -18,7 +18,7 @@
 	var/delay = CLICK_CD_RANGE * 2
 
 /obj/item/reagent_containers/spray/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "распылитель",
 		GENITIVE = "распылителя",
 		DATIVE = "распылителю",
@@ -109,7 +109,7 @@
 	spray_currentrange = 2
 
 /obj/item/reagent_containers/spray/cleaner/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "распылитель",
 		GENITIVE = "распылителя",
 		DATIVE = "распылителю",
@@ -125,7 +125,7 @@
 	item_state = "cleaner_brig"
 
 /obj/item/reagent_containers/spray/cleaner/brig/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "распылитель СБ",
 		GENITIVE = "распылителя СБ",
 		DATIVE = "распылителю СБ",
@@ -144,7 +144,7 @@
 	item_state = "cleaner_medchem"
 
 /obj/item/reagent_containers/spray/cleaner/chemical/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "химический распылитель",
 		GENITIVE = "химическего распылителя",
 		DATIVE = "химическому распылителю",
@@ -165,7 +165,7 @@
 	spray_currentrange = 6
 
 /obj/item/reagent_containers/spray/cleaner/janitor/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "распылитель уборщика",
 		GENITIVE = "распылителя уборщика",
 		DATIVE = "распылителю уборщика",
@@ -184,7 +184,7 @@
 	item_state = "cleaner_med"
 
 /obj/item/reagent_containers/spray/cleaner/medical/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "медицинский распылитель",
 		GENITIVE = "медицинского распылителя",
 		DATIVE = "медицинскому распылителю",
@@ -205,7 +205,7 @@
 	spray_currentrange = 5
 
 /obj/item/reagent_containers/spray/cleaner/tactical/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "тактический распылитель",
 		GENITIVE = "тактическего распылителя",
 		DATIVE = "тактическому распылителю",
@@ -224,7 +224,7 @@
 	volume = 450
 
 /obj/item/reagent_containers/spray/blue_cleaner/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "блюспейс распылитель",
 		GENITIVE = "блюспейс распылителя",
 		DATIVE = "блюспейс распылителю",
@@ -258,7 +258,7 @@
 	list_reagents = list("spraytan" = 50)
 
 /obj/item/reagent_containers/spray/spraytan/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "спрей для авто-загара",
 		GENITIVE = "спрея для авто-загара",
 		DATIVE = "спрею для авто-загара",
@@ -281,7 +281,7 @@
 	list_reagents = list("condensedcapsaicin" = 40)
 
 /obj/item/reagent_containers/spray/pepper/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "перцовый баллончик",
 		GENITIVE = "перцового баллончика",
 		DATIVE = "перцовому баллончику",
@@ -302,7 +302,7 @@
 	list_reagents = list("water" = 10)
 
 /obj/item/reagent_containers/spray/waterflower/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "водяной подсолнух",
 		GENITIVE = "водяного подсолнуха",
 		DATIVE = "водяному подсолнуху",
@@ -329,7 +329,7 @@
 	origin_tech = "combat=3;materials=3;engineering=3"
 
 /obj/item/reagent_containers/spray/chemsprayer/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "химический распылитель веществ",
 		GENITIVE = "химическего распылителя веществ",
 		DATIVE = "химическому распылителю веществ",
@@ -390,7 +390,7 @@
 	list_reagents = list("glyphosate" = 100)
 
 /obj/item/reagent_containers/spray/plantbgone/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "распылитель гербицидов \"Plant-B-Gone\"",
 		GENITIVE = "распылителя гербицидов \"Plant-B-Gone\"",
 		DATIVE = "распылителю гербицидов \"Plant-B-Gone\"",

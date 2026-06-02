@@ -7,7 +7,7 @@
 	alcohol_intensity = 0.8
 
 /obj/item/organ/internal/liver/unathi/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "печень унатха",
 		GENITIVE = "печени унатха",
 		DATIVE = "печени унатха",
@@ -25,7 +25,7 @@
 	see_in_dark = 3
 
 /obj/item/organ/internal/eyes/unathi/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "глаза унатха",
 		GENITIVE = "глаз унатха",
 		DATIVE = "глазам унатха",
@@ -40,7 +40,7 @@
 	desc = "Парный орган, отвечающий за аудиальное восприятие окружающей среды и получение информации о положении гуманоида в пространстве. Эти принадлежали унатху."
 
 /obj/item/organ/internal/ears/unathi/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "уши унатха",
 		GENITIVE = "ушей унатха",
 		DATIVE = "ушам унатха",
@@ -58,7 +58,7 @@
 	item_base = "unathi_heart"
 
 /obj/item/organ/internal/heart/unathi/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сердце унатха",
 		GENITIVE = "сердца унатха",
 		DATIVE = "сердцу унатха",
@@ -75,7 +75,7 @@
 	mmi_icon = 'icons/obj/species_organs/unathi.dmi'
 
 /obj/item/organ/internal/brain/unathi/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мозг унатха",
 		GENITIVE = "мозга унатха",
 		DATIVE = "мозгу унатха",
@@ -92,7 +92,7 @@
 	item_state = "unathi_lungs"
 
 /obj/item/organ/internal/lungs/unathi/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "лёгкие унатха",
 		GENITIVE = "лёгких унатха",
 		DATIVE = "лёгким унатха",
@@ -109,7 +109,7 @@
 	item_state = "unathi_kidneys"
 
 /obj/item/organ/internal/kidneys/unathi/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "почки унатха",
 		GENITIVE = "почек унатха",
 		DATIVE = "почкам унатха",
@@ -126,7 +126,7 @@
 	min_broken_damage = 20
 
 /obj/item/organ/external/tail/unathi/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "хвост унатха",
 		GENITIVE = "хвоста унатха",
 		DATIVE = "хвосту унатха",
@@ -144,7 +144,7 @@
 	BZ_trip_balls_min = 3
 
 /obj/item/organ/internal/lungs/unathi/ash_walker/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "лёгкие пеплоходца",
 		GENITIVE = "лёгких пеплоходца",
 		DATIVE = "лёгким пеплоходца",
@@ -160,7 +160,7 @@
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 
 /obj/item/organ/internal/eyes/unathi/ash_walker/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "глаза пеплоходца",
 		GENITIVE = "глаз пеплоходца",
 		DATIVE = "глазам пеплоходца",
@@ -176,7 +176,7 @@
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 
 /obj/item/organ/internal/eyes/unathi/ash_walker_shaman/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "глаза шамана пеплоходцев",
 		GENITIVE = "глаз шамана пеплоходцев",
 		DATIVE = "глазам шамана пеплоходцев",

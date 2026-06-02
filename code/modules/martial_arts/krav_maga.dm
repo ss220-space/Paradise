@@ -166,7 +166,7 @@
 	can_be_cut = FALSE
 
 /obj/item/clothing/gloves/color/black/krav_maga/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "перчатки \"Крав-мага\"",
 		GENITIVE = "перчаток \"Крав-мага\"",
 		DATIVE = "перчаткам \"Крав-мага\"",

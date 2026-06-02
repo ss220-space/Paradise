@@ -50,7 +50,7 @@
 	var/datum/action/innate/diona/steal_blood/steal_blood_action = new()
 
 /mob/living/simple_animal/diona/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "нимфа дионы",
 		GENITIVE = "нимфы дионы",
 		DATIVE = "нимфе дионы",

@@ -47,7 +47,7 @@
 	over_shoes = TRUE
 
 /obj/item/clothing/under/pants/lowjeans/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "заниженные джинсы",
 		GENITIVE = "заниженных джинсов",
 		DATIVE = "заниженным джинсам",

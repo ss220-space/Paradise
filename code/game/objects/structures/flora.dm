@@ -38,7 +38,7 @@
 	icon_state = "new_year_tree"
 
 /obj/structure/flora/tree/new_year/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "новогодняя ёлка",
 		GENITIVE = "новогодней ёлки",
 		DATIVE = "новогодней ёлке",
@@ -726,7 +726,7 @@
 	icon_state = "festivus_pole"
 
 /obj/structure/festivus/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "горшок силы",
 		GENITIVE = "горшка силы",
 		DATIVE = "горшка силы",
@@ -742,7 +742,7 @@
 	anchored = TRUE
 
 /obj/structure/festivus/anchored/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "остановленный стержень",
 		GENITIVE = "остановленного стерженя",
 		DATIVE = "остановленному стерженю",
