@@ -19,17 +19,8 @@
 	ui_honked = TRUE
 	allowed_equipment = MECH_EQUIPMENT_CLOWN
 	mech_type = MECH_TYPE_HONKER
-
-/obj/mecha/combat/honker/emag_act(mob/user)
-	if(!emagged)
-		add_attack_logs(user, src, "emagged")
-		emagged = TRUE
-		if(user)
-			to_chat(user, span_notice("You slide the card through [src]'s ID slot."))
-		playsound(loc, SFX_SPARKS, 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-		desc += span_danger("</br>The mech's equipment slots looks EXTREMELY fun!")
-	else if(user)
-		to_chat(user, span_warning("[src]'s ID slot rejects the card."))
+	emaggable = TRUE
+	emag_desc = span_danger_alt("</br>The mech's equipment slots looks EXTREMELY fun!")
 
 /obj/mecha/combat/honker/loaded/Initialize(mapload)
 	. = ..()

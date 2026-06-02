@@ -58,6 +58,10 @@
 	/// mech equipment types
 	var/allowed_equipment = MECH_EQUIPMENT_WORKING
 
+	/// emag
+	var/emaggable = FALSE
+	var/emag_desc = span_danger_alt("</br>The mech's equipment slots spark dangerously!")
+
 	//inner atmos
 	var/use_internal_tank = FALSE
 	var/internal_tank_valve = ONE_ATMOSPHERE
@@ -1156,7 +1160,16 @@
 		. = ..()
 
 /obj/mecha/emag_act(mob/user)
-	if(user)
+	if(emagged)
+		return FALSE
+	if(emaggable)
+		add_attack_logs(user, src, "emagged")
+		emagged = TRUE
+		if(user)
+			to_chat(user, span_notice("You slide the card through [src]'s ID slot."))
+		playsound(loc, SFX_SPARKS, 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+		desc += emag_desc
+	else if(user)
 		to_chat(user, span_warning("[src]'s ID slot rejects the card."))
 
 /////////////////////////////////////

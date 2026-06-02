@@ -141,7 +141,7 @@
 		return FALSE
 	if(!(M.allowed_equipment & module_type))
 		return FALSE
-	if(!length(M.equipment) < M.max_equip)
+	if(length(M.equipment) >= M.max_equip)
 		return FALSE
 	return TRUE
 
