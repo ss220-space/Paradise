@@ -31,7 +31,7 @@
 /obj/machinery/power/supermatter_crystal/shard/add_context(atom/source, list/context, obj/item/held_item, mob/user)
 	. = ..()
 	if(held_item?.tool_behaviour == TOOL_WRENCH)
-		context[SCREENTIP_CONTEXT_LMB] = anchored ? "Unanchor" : "Anchor"
+		context[SCREENTIP_CONTEXT_LMB] = anchored ? "Открутить" : "Прикрутить"
 		return CONTEXTUAL_SCREENTIP_SET
 
 /// Shard SM designated as the main engine.
