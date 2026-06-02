@@ -616,7 +616,7 @@
 	)
 
 /obj/item/clothing/head/scorched_skull/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "обожжённый череп",
 		GENITIVE = "обожжённого черепа",
 		DATIVE = "обожжённому черепу",
@@ -645,7 +645,7 @@
 	)
 
 /obj/item/clothing/head/roach/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "роуч",
 		GENITIVE = "роуча",
 		DATIVE = "роучу",
@@ -738,7 +738,7 @@
 	)
 
 /obj/item/clothing/head/colour/headband/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "повязка на голову",
 		GENITIVE = "повязки на голову",
 		DATIVE = "повязке на голову",

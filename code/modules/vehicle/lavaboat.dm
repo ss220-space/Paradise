@@ -8,7 +8,7 @@
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
 
 /obj/vehicle/ridden/lavaboat/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "лавовая лодка",
 		GENITIVE = "лавой лодки",
 		DATIVE = "лавовой лодке",
@@ -30,7 +30,7 @@
 	icon_state = "ship_bottle"
 
 /obj/item/ship_in_a_bottle/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "корабль в бутылке",
 		GENITIVE = "корабля в бутылке",
 		DATIVE = "кораблю в бутылке",
@@ -51,7 +51,7 @@
 	key_type = null
 
 /obj/vehicle/ridden/lavaboat/dragon/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "таинственная лодка",
 		GENITIVE = "таинственной лодки",
 		DATIVE = "таинственной лодке",
@@ -76,7 +76,7 @@
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
 
 /obj/item/oar/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "весло",
 		GENITIVE = "весла",
 		DATIVE = "веслу",

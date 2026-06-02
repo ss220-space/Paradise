@@ -100,7 +100,7 @@
 	var/list/reagent = list("nicotine")
 
 /obj/item/ecig/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "электронная сигарета",
 		GENITIVE = "электронной сигареты",
 		DATIVE = "электронной сигарете",
@@ -246,7 +246,7 @@
 	reagent = list("nicotine", "syndiezine")
 
 /obj/item/ecig/syndi/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "подозрительная электронная сигарета",
 		GENITIVE = "подозрительной электронной сигареты",
 		DATIVE = "подозрительной электронной сигарете",
@@ -276,7 +276,7 @@
 
 
 /obj/item/krampus_bag/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мешок Крампуса",
 		GENITIVE = "мешка Крампуса",
 		DATIVE = "мешку Крампуса",

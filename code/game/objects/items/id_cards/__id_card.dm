@@ -67,7 +67,7 @@
 	var/cart_prefix = "`s ID-card"
 
 /obj/item/card/id/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ID-карта",
 		GENITIVE = "ID-карты",
 		DATIVE = "ID-карте",
@@ -213,17 +213,14 @@
  * Takes optional newname and newjob parameters to set custom values.
  */
 /obj/item/card/id/proc/update_label(newname, newjob)
-	var/list/names = get_ru_names_cached()
-	ru_names = names ? names.Copy() : new /list(6)
-
 	if(!newname)
 		newname = registered_name
+
 	if(!newjob)
 		newjob = assignment
 
 	name = "[newname ? "[newname][cart_prefix]" : "identification card"][newjob ? " ([newjob])" : ""]"
-	for(var/i in 1 to 6)
-		ru_names[i] = "[names ? names[i] : initial(name)][newname ? " \"[newname]\"" : ""][newjob ? " ([newjob])" : ""]"
+	set_ru_names_suffix("[newname ? " \"[newname]\"" : ""][newjob ? " ([newjob])" : ""]")
 
 /obj/item/card/id/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/id_decal))

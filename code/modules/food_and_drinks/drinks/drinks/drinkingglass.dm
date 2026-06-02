@@ -16,7 +16,7 @@
 	custom_price = PAYCHECK_MIN * 0.2
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "стакан",
 		GENITIVE = "стакана",
 		DATIVE = "стакану",

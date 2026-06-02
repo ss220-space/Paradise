@@ -40,7 +40,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	var/destination
 
 /obj/machinery/photocopier/faxmachine/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "факс",
 		GENITIVE = "факса",
 		DATIVE = "факсу",

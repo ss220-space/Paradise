@@ -146,7 +146,7 @@
 	item_state = "bookmime"
 
 /obj/item/spellbook/oneuse/mime/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "руководство по пантомимам",
 		GENITIVE = "руководства по пантомимам",
 		DATIVE = "руководству по пантомимам",

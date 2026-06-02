@@ -56,7 +56,7 @@
 	var/drops_parts = TRUE
 
 /mob/living/simple_animal/bot/medbot/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "медбот",
 		GENITIVE = "медбота",
 		DATIVE = "медботу",
@@ -98,7 +98,7 @@
 	treatment_fire = "kelotane"
 
 /mob/living/simple_animal/bot/medbot/mysterious/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "загадочный медбот",
 		GENITIVE = "загадочного медбота",
 		DATIVE = "загадочному медботу",
@@ -122,7 +122,7 @@
 	radio_config = list(PUB_FREQ_NAME = 1, MED_FREQ_NAME = 1, SYND_FREQ_NAME = 1)
 
 /mob/living/simple_animal/bot/medbot/syndicate/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "подозрительный медбот",
 		GENITIVE = "подозрительного медбота",
 		DATIVE = "подозрительному медботу",

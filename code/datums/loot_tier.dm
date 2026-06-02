@@ -1,6 +1,6 @@
 /datum/loot_tier
 	var/name
-	var/list/ru_names
+	var/alist/ru_names
 	var/open_time = 5 SECONDS
 	var/list/loot_list
 	var/loot_count
@@ -24,7 +24,7 @@
 
 /datum/loot_tier/first
 	name = "снаряжение зеленого кода"
-	ru_names = list(
+	ru_names = alist(
 		NOMINATIVE = "снаряжение зеленого кода",
 		GENITIVE = "снаряжения зеленого кода",
 		DATIVE = "снаряжению зеленого кода",
@@ -90,7 +90,7 @@
 
 /datum/loot_tier/second
 	name = "снаряжение синего кода"
-	ru_names = list(
+	ru_names = alist(
 		NOMINATIVE = "снаряжение синего кода",
 		GENITIVE = "снаряжения синего кода",
 		DATIVE = "снаряжению синего кода",
@@ -240,7 +240,7 @@
 
 /datum/loot_tier/third
 	name = "снаряжение красного кода"
-	ru_names = list(
+	ru_names = alist(
 		NOMINATIVE = "снаряжение красного кода",
 		GENITIVE = "снаряжения красного кода",
 		DATIVE = "снаряжению красного кода",
@@ -449,7 +449,7 @@
 
 /datum/loot_tier/fourth
 	name = "снаряжение кода ГАММА"
-	ru_names = list(
+	ru_names = alist(
 		NOMINATIVE = "снаряжение кода ГАММА",
 		GENITIVE = "снаряжения кода ГАММА",
 		DATIVE = "снаряжению кода ГАММА",
@@ -577,7 +577,7 @@
 
 /datum/loot_tier/fifth
 	name = "снаряжение кода ЭПСИЛОН"
-	ru_names = list(
+	ru_names = alist(
 		NOMINATIVE = "снаряжение кода ЭПСИЛОН",
 		GENITIVE = "снаряжения кода ЭПСИЛОН",
 		DATIVE = "снаряжению кода ЭПСИЛОН",
@@ -637,7 +637,7 @@
 
 /datum/loot_tier/ammo
 	name = "патроны"
-	ru_names = list(
+	ru_names = alist(
 		NOMINATIVE = "патроны",
 		GENITIVE = "патронов",
 		DATIVE = "патронам",
@@ -794,7 +794,7 @@
 
 /datum/loot_tier/medical
 	name = "медикаменты"
-	ru_names = list(
+	ru_names = alist(
 		NOMINATIVE = "медикаменты",
 		GENITIVE = "медикаментов",
 		DATIVE = "медикаментам",

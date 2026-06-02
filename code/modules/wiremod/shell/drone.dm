@@ -20,7 +20,7 @@
 	healable = FALSE
 
 /mob/living/simple_animal/circuit_drone/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "программируемый дрон",
 		GENITIVE = "программируемого дрона",
 		DATIVE = "программируемому дрону",

@@ -173,7 +173,7 @@
 	var/obj/item/signmaker/projector = null
 
 /obj/structure/holosoap/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "голографическое мыло",
 		GENITIVE = "голографического мыла",
 		DATIVE = "голографическому мылу",

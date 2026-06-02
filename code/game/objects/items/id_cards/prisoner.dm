@@ -14,7 +14,7 @@
 	var/prisoner_number = "000"
 
 /obj/item/card/id/prisoner/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ID-карта заключённого",
 		GENITIVE = "ID-карты заключённого",
 		DATIVE = "ID-карте заключённого",

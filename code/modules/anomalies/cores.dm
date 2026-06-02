@@ -17,7 +17,7 @@
 	COOLDOWN_DECLARE(anomaly_toch_cooldown)
 
 /obj/item/assembly/signaler/core/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ядро аномалии", \
 		GENITIVE = "ядра аномалии", \
 		DATIVE = "ядру аномалии", \
@@ -72,7 +72,7 @@
 	tier = 1
 
 /obj/item/assembly/signaler/core/tier1/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пустое ядро малой аномалии", \
 		GENITIVE = "пустого ядра малой аномалии", \
 		DATIVE = "пустому ядру малой аномалии", \
@@ -90,7 +90,7 @@
 	tier = 1
 
 /obj/item/assembly/signaler/core/atmospheric/tier1/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ядро малой атмосферной аномалии", \
 		GENITIVE = "ядра малой атмосферной аномалии", \
 		DATIVE = "ядру малой атмосферной аномалии", \
@@ -108,7 +108,7 @@
 	tier = 1
 
 /obj/item/assembly/signaler/core/gravitational/tier1/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ядро малой гравитационной аномалии", \
 		GENITIVE = "ядра малой гравитационной аномалии", \
 		DATIVE = "ядру малой гравитационной аномалии", \
@@ -126,7 +126,7 @@
 	tier = 1
 
 /obj/item/assembly/signaler/core/energetic/tier1/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ядро малой ​​энергетической аномалии", \
 		GENITIVE = "ядра малой ​​энергетической аномалии", \
 		DATIVE = "ядру малой ​​энергетической аномалии", \
@@ -144,7 +144,7 @@
 	tier = 1
 
 /obj/item/assembly/signaler/core/bluespace/tier1/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ядро малой ​​блюспейс аномалии", \
 		GENITIVE = "ядра малой ​​блюспейс аномалии", \
 		DATIVE = "ядру малой ​​блюспейс аномалии", \
@@ -162,7 +162,7 @@
 	tier = 1
 
 /obj/item/assembly/signaler/core/vortex/tier1/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ядро малой вихревой аномалии", \
 		GENITIVE = "ядра малой вихревой аномалии", \
 		DATIVE = "ядру малой вихревой аномалии", \
@@ -182,7 +182,7 @@
 	tier = 2
 
 /obj/item/assembly/signaler/core/tier2/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пустое ядро аномалии", \
 		GENITIVE = "пустого ядра аномалии", \
 		DATIVE = "пустому ядру аномалии", \
@@ -208,7 +208,7 @@
 	tier = 2
 
 /obj/item/assembly/signaler/core/gravitational/tier2/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ядро гравитационной аномалии", \
 		GENITIVE = "ядра гравитационной аномалии", \
 		DATIVE = "ядру гравитационной аномалии", \
@@ -226,7 +226,7 @@
 	tier = 2
 
 /obj/item/assembly/signaler/core/energetic/tier2/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ядро ​​энергетической аномалии", \
 		GENITIVE = "ядра ​​энергетической аномалии", \
 		DATIVE = "ядру ​​энергетической аномалии", \
@@ -243,7 +243,7 @@
 	tier = 2
 
 /obj/item/assembly/signaler/core/bluespace/tier2/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ядро ​​блюспейс аномалии", \
 		GENITIVE = "ядра ​​блюспейс аномалии", \
 		DATIVE = "ядру ​​блюспейс аномалии", \
@@ -261,7 +261,7 @@
 	tier = 2
 
 /obj/item/assembly/signaler/core/vortex/tier2/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ядро ​​вихревой аномалии", \
 		GENITIVE = "ядра ​​вихревой аномалии", \
 		DATIVE = "ядру ​​вихревой аномалии", \
@@ -281,7 +281,7 @@
 	tier = 3
 
 /obj/item/assembly/signaler/core/tier3/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пустое ядро большой аномалии", \
 		GENITIVE = "пустого ядра большой аномалии", \
 		DATIVE = "пустому ядру большой аномалии", \
@@ -299,7 +299,7 @@
 	tier = 3
 
 /obj/item/assembly/signaler/core/atmospheric/tier3/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ядро большой атмосферной аномалии", \
 		GENITIVE = "ядра большой атмосферной аномалии", \
 		DATIVE = "ядру большой атмосферной аномалии", \
@@ -360,7 +360,7 @@
 	tier = 3
 
 /obj/item/assembly/signaler/core/gravitational/tier3/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ядро большой гравитационной аномалии", \
 		GENITIVE = "ядра большой гравитационной аномалии", \
 		DATIVE = "ядру большой гравитационной аномалии", \
@@ -416,7 +416,7 @@
 	tier = 3
 
 /obj/item/assembly/signaler/core/energetic/tier3/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ядро большой ​​энергетической аномалии", \
 		GENITIVE = "ядра большой ​​энергетической аномалии", \
 		DATIVE = "ядру большой ​​энергетической аномалии", \
@@ -461,7 +461,7 @@
 	tier = 3
 
 /obj/item/assembly/signaler/core/bluespace/tier3/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ядро большой ​​блюспейс аномалии", \
 		GENITIVE = "ядра большой ​​блюспейс аномалии", \
 		DATIVE = "ядру большой ​​блюспейс аномалии", \
@@ -507,7 +507,7 @@
 	tier = 3
 
 /obj/item/assembly/signaler/core/vortex/tier3/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ядро большой вихревой аномалии",
 		GENITIVE = "ядра большой вихревой аномалии",
 		DATIVE = "ядру большой вихревой аномалии",
@@ -526,7 +526,7 @@
 	tier = 4
 
 /obj/item/assembly/signaler/core/tier3/tier4/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пустое ядро колоссальной аномалии", \
 		GENITIVE = "пустого ядра колоссальной аномалии", \
 		DATIVE = "пустому ядру колоссальной аномалии", \
@@ -543,7 +543,7 @@
 	tier = 4
 
 /obj/item/assembly/signaler/core/atmospheric/tier3/tier4/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ядро колоссальной атмосферной аномалии", \
 		GENITIVE = "ядра колоссальной атмосферной аномалии", \
 		DATIVE = "ядру колоссальной атмосферной аномалии", \
@@ -560,7 +560,7 @@
 	tier = 4
 
 /obj/item/assembly/signaler/core/gravitational/tier3/tier4/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ядро колоссальной гравитационной аномалии", \
 		GENITIVE = "ядра колоссальной гравитационной аномалии", \
 		DATIVE = "ядру колоссальной гравитационной аномалии", \
@@ -577,7 +577,7 @@
 	tier = 4
 
 /obj/item/assembly/signaler/core/energetic/tier3/tier4/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ядро колоссальной ​​энергетической аномалии", \
 		GENITIVE = "ядра колоссальной ​​энергетической аномалии", \
 		DATIVE = "ядру колоссальной ​​энергетической аномалии", \
@@ -594,7 +594,7 @@
 	tier = 4
 
 /obj/item/assembly/signaler/core/bluespace/tier3/tier4/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ядро колоссальной ​​блюспейс аномалии", \
 		GENITIVE = "ядра колоссальной ​​блюспейс аномалии", \
 		DATIVE = "ядру колоссальной ​​блюспейс аномалии", \
@@ -611,7 +611,7 @@
 	tier = 4
 
 /obj/item/assembly/signaler/core/vortex/tier3/tier4/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ядро колоссальной вихревой аномалии", \
 		GENITIVE = "ядра колоссальной вихревой аномалии", \
 		DATIVE = "ядру колоссальной вихревой аномалии", \

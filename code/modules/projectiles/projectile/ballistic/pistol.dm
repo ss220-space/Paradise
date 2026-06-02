@@ -50,7 +50,7 @@
 	stamina = 20
 
 /obj/projectile/bullet/weakbullet3/fortynr/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пуля",
 		GENITIVE = "пули",
 		DATIVE = "пуле",
@@ -60,7 +60,7 @@
 	)
 
 /obj/projectile/bullet/weakbullet4/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "резиновая пуля",
 		GENITIVE = "резиновой пули",
 		DATIVE = "резиновой пуле",
@@ -130,7 +130,7 @@
 	ricochet_chance = 10
 
 /obj/projectile/bullet/ftt762/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "старая пуля FMJ 7,62x25 мм TT",
 		GENITIVE = "старой пули FMJ 7,62x25 мм TT",
 		DATIVE = "старой пуле FMJ 7,62x25 мм TT",

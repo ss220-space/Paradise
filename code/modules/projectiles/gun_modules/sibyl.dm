@@ -30,7 +30,7 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 	. = ..()
 
 /obj/item/gun_module/sibyl/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль Sibyl System",
 		GENITIVE = "модуля Sibyl System",
 		DATIVE = "модулю Sibyl System",

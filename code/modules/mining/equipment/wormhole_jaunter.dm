@@ -11,7 +11,7 @@
 	slot_flags = ITEM_SLOT_BELT
 
 /obj/item/wormhole_jaunter/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "генератор червоточин",
 		GENITIVE = "генератора червоточин",
 		DATIVE = "генератору червоточин",
@@ -96,7 +96,7 @@
 	light_on = FALSE
 
 /obj/effect/portal/jaunt_tunnel/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "стабильная червоточина",
 		GENITIVE = "стабильной червоточины",
 		DATIVE = "стабильной червоточине",
@@ -133,7 +133,7 @@
 	var/mob/living/thrower
 
 /obj/item/grenade/jaunter_grenade/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "граната спасения из пропасти",
 		GENITIVE = "гранаты спасения из пропасти",
 		DATIVE = "гранате спасения из пропасти",

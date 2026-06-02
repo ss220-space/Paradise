@@ -44,7 +44,7 @@
 	COOLDOWN_DECLARE(hit_cooldown)
 
 /obj/item/mod/module/anomaly_locked/kinesis/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль \"Кинезис\"",
 		GENITIVE = "модуля \"Кинезис\"",
 		DATIVE = "модулю \"Кинезис\"",
@@ -304,7 +304,7 @@ range 2-3
 	complexity = 0
 
 /obj/item/mod/module/anomaly_locked/kinesis/prebuilt/prototype/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "прототип модуля \"Кинезис\"",
 		GENITIVE = "прототипа модуля \"Кинезис\"",
 		DATIVE = "прототипу модуля \"Кинезис\"",
@@ -332,7 +332,7 @@ range 2-3
 	mob_stun_time = 10 SECONDS
 
 /obj/item/mod/module/anomaly_locked/kinesis/plus/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль \"Кинезис+\"",
 		GENITIVE = "модуля \"Кинезис+\"",
 		DATIVE = "модулю \"Кинезис+\"",

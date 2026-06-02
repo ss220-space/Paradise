@@ -7,7 +7,7 @@
 	icon_state = "Magmite ore"
 
 /obj/item/magmite/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "плазменный магмит",
 		GENITIVE = "плазменного магмита",
 		DATIVE = "плазменному магмиту",
@@ -25,7 +25,7 @@
 	var/inert = FALSE
 
 /obj/item/magmite_parts/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "плазменно-магмитовые детали улучшения",
 		GENITIVE = "плазменно-магмитовых деталей улучшения",
 		DATIVE = "плазменно-магмитовым деталям улучшения",

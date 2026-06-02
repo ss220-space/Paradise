@@ -5,7 +5,7 @@
 	see_in_dark = 8
 
 /obj/item/organ/internal/eyes/shadow/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "теневые сферы",
 		GENITIVE = "теневых сфер",
 		DATIVE = "теневым сферам",

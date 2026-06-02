@@ -23,7 +23,7 @@
 	var/patientStatusHolder //Hold the last instance of table.patient.status. When table.patient.status no longer matches this variable, the computer should tell the doctor
 
 /obj/machinery/computer/operating/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "операционный компьютер",
 		GENITIVE = "операционного компьютера",
 		DATIVE = "операционному компьютеру",

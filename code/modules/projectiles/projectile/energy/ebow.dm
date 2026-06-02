@@ -11,7 +11,7 @@
 	shockbull = TRUE
 
 /obj/projectile/energy/bolt/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "болт",
 		GENITIVE = "болта",
 		DATIVE = "болту",
@@ -53,7 +53,7 @@
 	shockbull = TRUE
 
 /obj/projectile/energy/bolttoy/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "игрушечный болт",
 		GENITIVE = "игрушечного болта",
 		DATIVE = "игрушечному болту",

@@ -52,7 +52,7 @@
 	)
 
 /obj/machinery/vending/crittercare/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат CritterCare",
 		GENITIVE = "торгового автомата CritterCare",
 		DATIVE = "торговому автомату CritterCare",

@@ -53,14 +53,14 @@
 	male_sneeze_sound = list('sound/voice/shrieksneeze.ogg')
 	female_sneeze_sound = list('sound/voice/shrieksneeze.ogg')
 
-	icon_skin_tones = list(
+	icon_skin_tones = alist(
 		1 = "Default Green",
 		2 = "Dark Green",
 		3 = "Brown",
 		4 = "Grey",
 		5 = "Emerald",
 		6 = "Azure"
-		)
+	)
 
 	has_organ = list(
 		INTERNAL_ORGAN_HEART = /obj/item/organ/internal/heart/vox,

@@ -67,7 +67,7 @@
 	custom_price = PAYCHECK_LOWER
 
 /obj/item/gun_module/under/flashlight/pistol/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "подствольный фонарь для пистолетов",
 		GENITIVE = "подствольного фонаря для пистолетов",
 		DATIVE = "подствольному фонарю для пистолетов",
@@ -87,7 +87,7 @@
 	custom_price = 1.5 * PAYCHECK_LOWER
 
 /obj/item/gun_module/under/flashlight/rifle/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "подствольный фонарь",
 		GENITIVE = "подствольного фонаря",
 		DATIVE = "подствольному фонарю",
@@ -131,7 +131,7 @@
 	custom_price = 2 * PAYCHECK_LOWER
 
 /obj/item/gun_module/under/hand/simple/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "прямая рукоятка",
 		GENITIVE = "прямой рукоятки",
 		DATIVE = "прямую рукоятку",
@@ -152,7 +152,7 @@
 	custom_price = 3 * PAYCHECK_LOWER
 
 /obj/item/gun_module/under/hand/angle/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "угловая рукоятка",
 		GENITIVE = "угловой рукоятки",
 		DATIVE = "угловой рукоятке",
@@ -236,7 +236,7 @@
 	component_type = /datum/component/laser_sight/ray
 
 /obj/item/gun_module/under/laser/ray/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "лазерный целеуказатель (луч)",
 		GENITIVE = "лазерного целеуказателя (луч)",
 		DATIVE = "лазерному целеуказателю (луч)",
@@ -250,7 +250,7 @@
 	component_type = /datum/component/laser_sight/point
 
 /obj/item/gun_module/under/laser/point/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "лазерный целеуказатель (точка)",
 		GENITIVE = "лазерного целеуказателя (точка)",
 		DATIVE = "лазерному целеуказателю (точка)",
@@ -284,7 +284,7 @@
 	var/old_sharp
 
 /obj/item/gun_module/under/bayonet/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "штык-нож",
 		GENITIVE = "штык-ножа",
 		DATIVE = "штык-ножу",
@@ -311,7 +311,7 @@
 	bonus_force = 10
 
 /obj/item/gun_module/under/bayonet/long/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "длинный штык-нож",
 		GENITIVE = "длинного штык-ножа",
 		DATIVE = "длинному штык-ножу",
@@ -395,7 +395,7 @@
 	internal_gun_type = /obj/item/gun/projectile/revolver/grenadelauncher
 
 /obj/item/gun_module/under/gun/grenade_launcher/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "подствольный гранатомёт",
 		GENITIVE = "подствольного гранатомёта",
 		DATIVE = "подствольному гранатомёту",
@@ -427,7 +427,7 @@
 	internal_gun_type = /obj/item/gun/projectile/shotgun/riot/short
 
 /obj/item/gun_module/under/gun/shotgun/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "подствольный дробовик",
 		GENITIVE = "подствольного дробовика",
 		DATIVE = "подствольному дробовику",
@@ -451,7 +451,7 @@
 	internal_gun_type = /obj/item/gun/energy/taser
 
 /obj/item/gun_module/under/gun/shotgun/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "подствольный тазер",
 		GENITIVE = "подствольного тазера",
 		DATIVE = "подствольному тазеру",

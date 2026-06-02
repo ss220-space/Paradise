@@ -70,7 +70,7 @@
 	activate("death")
 
 /obj/item/implant/deathrattle/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "имплант предсмертного отзвука",
 		GENITIVE = "импланта предсмертного отзвука",
 		DATIVE = "импланту предсмертного отзвука",
@@ -85,7 +85,7 @@
 	imp = /obj/item/implant/deathrattle
 
 /obj/item/implantcase/deathrattle/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кейс с имплантом предсмертного отзвука",
 		GENITIVE = "кейса с имплантом предсмертного отзвука",
 		DATIVE = "кейсу с имплантом предсмертного отзвука",

@@ -7,7 +7,7 @@
 	alcohol_intensity = 4
 
 /obj/item/organ/internal/liver/skrell/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "печень скрелла",
 		GENITIVE = "печени скрелла",
 		DATIVE = "печени скрелла",
@@ -41,7 +41,7 @@
 	var/obj/item/storage/internal/pocket
 
 /obj/item/organ/internal/headpocket/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "головной карман",
 		GENITIVE = "головного кармана",
 		DATIVE = "головному карману",
@@ -110,7 +110,7 @@
 	item_base = "skrell_heart"
 
 /obj/item/organ/internal/heart/skrell/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сердце скрелла",
 		GENITIVE = "сердца скрелла",
 		DATIVE = "сердцу скрелла",
@@ -127,7 +127,7 @@
 	mmi_icon = 'icons/obj/species_organs/skrell.dmi'
 
 /obj/item/organ/internal/brain/skrell/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мозг скрелла",
 		GENITIVE = "мозга скрелла",
 		DATIVE = "мозгу скрелла",
@@ -144,7 +144,7 @@
 	item_state = "skrell_lungs"
 
 /obj/item/organ/internal/lungs/skrell/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "лёгкие скрелла",
 		GENITIVE = "лёгких скрелла",
 		DATIVE = "лёгким скрелла",
@@ -161,7 +161,7 @@
 	item_state = "skrell_kidneys"
 
 /obj/item/organ/internal/kidneys/skrell/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "почки скрелла",
 		GENITIVE = "почек скрелла",
 		DATIVE = "почкам скрелла",
@@ -180,7 +180,7 @@
 	can_see_food = TRUE
 
 /obj/item/organ/internal/eyes/skrell/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "глаза скрелла",
 		GENITIVE = "глаз скрелла",
 		DATIVE = "глазам скрелла",
@@ -195,7 +195,7 @@
 	desc = "Парный орган, отвечающий за аудиальное восприятие окружающей среды и получение информации о положении гуманоида в пространстве. Эти принадлежали скреллу."
 
 /obj/item/organ/internal/ears/skrell/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "уши скрелла",
 		GENITIVE = "ушей скрелла",
 		DATIVE = "ушам скрелла",

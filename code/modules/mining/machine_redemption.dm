@@ -60,7 +60,7 @@
 	COOLDOWN_DECLARE(messages_cooldown)
 
 /obj/machinery/mineral/ore_redemption/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "печь для руды",
 		GENITIVE = "печи для руды",
 		DATIVE = "печи для руды",
@@ -132,7 +132,7 @@
 	anyone_claim = TRUE
 
 /obj/machinery/mineral/ore_redemption/labor/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "печь для руды трудового лагеря",
 		GENITIVE = "печи для руды трудового лагеря",
 		DATIVE = "печи для руды трудового лагеря",
