@@ -214,7 +214,7 @@
 			if(feedback)
 				owner.balloon_alert(owner, "must stand up!")
 			return FALSE
-		if((check_flags & AB_CHECK_CONSCIOUS) && (stat_allowed < owner.stat)) // If current state is "worse" than allowed
+	if((check_flags & AB_CHECK_CONSCIOUS) && (stat_allowed < owner.stat)) // If current state is "worse" than allowed
 		if(feedback)
 			switch(owner.stat)
 				if(UNCONSCIOUS)
