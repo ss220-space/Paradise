@@ -139,7 +139,7 @@
 /obj/item/mecha_parts/mecha_equipment/proc/can_attach(obj/mecha/M)
 	if(!istype(M))
 		return FALSE
-	if(!(allowed_equipment & module_type))
+	if(!(M.allowed_equipment & module_type))
 		return FALSE
 	if(!length(M.equipment) < M.max_equip)
 		return FALSE

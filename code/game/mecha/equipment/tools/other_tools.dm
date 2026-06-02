@@ -464,10 +464,12 @@
 	origin_tech = "powerstorage=5;programming=5;engineering=5;combat=5"
 	selectable = MODULE_SELECTABLE_NONE
 	var/energy_per_step = 50 //How much energy this module drains per step in strafe mode
-	module_type = MECH_EQUIPMENT_MEDICAL | MECH_EQUIPMENT_WORKING | (M, /obj/mecha/combat/durand)
+	module_type = MECH_EQUIPMENT_MEDICAL | MECH_EQUIPMENT_WORKING
 
 /obj/item/mecha_parts/mecha_equipment/servo_hydra_actuator/can_attach(obj/mecha/M)
 	if(M.strafe_allowed)
+		return TRUE
+	if(istype(M, /obj/mecha/combat/durand) || ..())
 		return TRUE
 	. = ..()
 
@@ -550,19 +552,17 @@
 	energy_drain = 500
 	salvageable = FALSE
 	module_type = MECH_EQUIPMENT_COMBAT
-
-/obj/item/mecha_parts/mecha_equipment/cage/can_attach(obj/mecha/M)
-	if(M.emagged || ..())
-		return TRUE
-	if(locate(src) in M.equipment)
-		return FALSE
-	. = ..()
-
 	var/mob/living/carbon/prisoner
 	var/mob/living/carbon/holding
 	///for custom icons
 	var/datum/action/innate/mecha/select_module/button
 	var/obj/effect/supress/supress_effect
+
+/obj/item/mecha_parts/mecha_equipment/cage/can_attach(obj/mecha/M)
+	if(locate(src) in M.equipment)
+		return FALSE
+	if(M.emagged || ..())
+		return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/cage/get_ru_names()
 	return list(
