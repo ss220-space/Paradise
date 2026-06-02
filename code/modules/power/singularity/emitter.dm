@@ -46,7 +46,7 @@
 	var/obj/item/emitter_disk/diskie
 
 /obj/machinery/power/emitter/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "эмиттер",
 		GENITIVE = "эмиттера",
 		DATIVE = "эмиттеру",

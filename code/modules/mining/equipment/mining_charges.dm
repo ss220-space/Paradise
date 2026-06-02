@@ -17,7 +17,7 @@
 	var/smoke_amount = 3
 
 /obj/item/grenade/plastic/miningcharge/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "промышленный шахтёрский заряд",
 		GENITIVE = "промышленного шахтёрского заряда",
 		DATIVE = "промышленному шахтёрскому заряду",
@@ -153,7 +153,7 @@
 	boom_sizes = list(1,2,3)
 
 /obj/item/grenade/plastic/miningcharge/lesser/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шахтёрский заряд",
 		GENITIVE = "шахтёрского заряда",
 		DATIVE = "шахтёрскому заряду",
@@ -171,7 +171,7 @@
 	boom_sizes = list(4,6,8) //did you see the price? It has to be better..
 
 /obj/item/grenade/plastic/miningcharge/mega/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "экспериментальный шахтёрский заряд",
 		GENITIVE = "экспериментального шахтёрского заряда",
 		DATIVE = "экспериментальному шахтёрскому заряду",
@@ -228,7 +228,7 @@
 	var/list/bombs = list()
 
 /obj/item/detonator/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "детонатор шахтёрских зарядов",
 		GENITIVE = "детонатора шахтёрских зарядов",
 		DATIVE = "детонатору шахтёрских зарядов",

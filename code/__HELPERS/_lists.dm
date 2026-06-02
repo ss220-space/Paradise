@@ -1285,10 +1285,10 @@
 	if(!islist(first_list) || !islist(second_list))
 		return FALSE
 
-	if(first_list.len != second_list.len)
+	if(length(first_list) != length(second_list))
 		return FALSE
 
-	for(var/current_index in 1 to first_list.len)
+	for(var/current_index in 1 to length(first_list))
 		if(first_list[current_index] != second_list[current_index])
 			return FALSE
 

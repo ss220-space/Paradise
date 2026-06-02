@@ -11,7 +11,7 @@
 	var/obj/item/organ/internal/cyberimp/storedorgan
 
 /obj/item/autoimplanter/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "автоимплантер",
 		GENITIVE = "автоимплантера",
 		DATIVE = "автоимплантеру",
@@ -140,7 +140,7 @@
 	icon_state = "autoimplanter"
 
 /obj/item/autoimplanter/oneuse/sec_hud/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "автоимплантер с охранным ИЛС",
 		GENITIVE = "автоимплантера с охранным ИЛС",
 		DATIVE = "автоимплантеру с охранным ИЛС",
@@ -156,7 +156,7 @@
 	icon_state = "autoimplanter"
 
 /obj/item/autoimplanter/oneuse/med_hud/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "автоимплантер с медицинским ИЛС",
 		GENITIVE = "автоимплантера с медицинским ИЛС",
 		DATIVE = "автоимплантеру с медицинским ИЛС",
@@ -172,7 +172,7 @@
 	icon_state = "autoimplanter"
 
 /obj/item/autoimplanter/oneuse/diagnostic_hud/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "автоимплантер с диагностическим ИЛС",
 		GENITIVE = "автоимплантера с диагностическим ИЛС",
 		DATIVE = "автоимплантеру с диагностическим ИЛС",
@@ -188,7 +188,7 @@
 	icon_state = "autoimplanter"
 
 /obj/item/autoimplanter/oneuse/meson_eyes/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "автоимплантер с мезонным ИЛС",
 		GENITIVE = "автоимплантера с мезонным ИЛС",
 		DATIVE = "автоимплантеру с мезонным ИЛС",

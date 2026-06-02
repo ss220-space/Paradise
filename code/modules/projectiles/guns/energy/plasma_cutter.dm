@@ -16,7 +16,7 @@
 	heat = T3800K
 
 /obj/item/gun/energy/plasmacutter/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "плазменный резак",
 		GENITIVE = "плазменного резака",
 		DATIVE = "плазменному резаку",
@@ -78,7 +78,7 @@
 	accuracy = GUN_ACCURACY_SNIPER
 
 /obj/item/gun/energy/plasmacutter/adv/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "продвинутый плазменный резак",
 		GENITIVE = "продвинутого плазменного резака",
 		DATIVE = "продвинутому плазменному резаку",
@@ -96,7 +96,7 @@
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL
 
 /obj/item/gun/energy/plasmacutter/adv/mega/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "магмитовый плазменный резак",
 		GENITIVE = "магмитового плазменного резака",
 		DATIVE = "магмитовому плазменному резаку",
@@ -117,7 +117,7 @@
 	accuracy = GUN_ACCURACY_SHOTGUN
 
 /obj/item/gun/energy/plasmacutter/shotgun/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "плазменный дробовик",
 		GENITIVE = "плазменного дробовика",
 		DATIVE = "плазменному дробовику",
@@ -135,7 +135,7 @@
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL
 
 /obj/item/gun/energy/plasmacutter/shotgun/mega/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "магмитовый плазменный дробовик",
 		GENITIVE = "магмитового плазменного дробовика",
 		DATIVE = "магмитовому плазменному дробовику",

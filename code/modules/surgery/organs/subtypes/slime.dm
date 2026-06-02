@@ -8,7 +8,7 @@
 	dead_icon = null
 
 /obj/item/organ/internal/heart/slime/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сердце слаймолюда",
 		GENITIVE = "сердца слаймолюда",
 		DATIVE = "сердцу слаймолюда",
@@ -28,7 +28,7 @@
 	item_state = "slime_lungs"
 
 /obj/item/organ/internal/lungs/slime/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "лёгкие слаймолюда",
 		GENITIVE = "лёгких слаймолюда",
 		DATIVE = "лёгким слаймолюда",
@@ -47,7 +47,7 @@
 	parent_organ_zone = BODY_ZONE_CHEST
 
 /obj/item/organ/internal/brain/slime/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ядро слаймолюда",
 		GENITIVE = "ядра слаймолюда",
 		DATIVE = "ядру слаймолюда",

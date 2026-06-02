@@ -2,7 +2,7 @@
 	name = "flayer ray"
 
 /obj/projectile/beam/mindflayer/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "заряд мозгоёба",
 		GENITIVE = "заряда мозгоёба",
 		DATIVE = "заряду мозгоёба",

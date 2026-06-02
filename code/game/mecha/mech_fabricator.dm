@@ -51,7 +51,7 @@
 	var/ui_theme = "nanotrasen"
 
 /obj/machinery/mecha_part_fabricator/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "фабрикатор экзоскелетов",
 		GENITIVE = "фабрикатора экзоскелетов",
 		DATIVE = "фабрикатору экзоскелетов",
@@ -232,7 +232,7 @@
 			real_item.forceMove(lockbox)
 			lockbox.name += " ([real_item.name])"
 			var/real_item_ru_name = DECLENT_RU_CAP(real_item, NOMINATIVE)
-			lockbox.ru_names = list(
+			lockbox.ru_names = alist(
 				NOMINATIVE = "защищённый кейс ([real_item_ru_name])",
 				GENITIVE = "защищённого кейса ([real_item_ru_name])",
 				DATIVE = "защищённому кейсу ([real_item_ru_name])",
@@ -547,7 +547,7 @@
 	categories = list(MECH_FAB_CATEGORY_CYBORG)
 
 /obj/machinery/mecha_part_fabricator/robot/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "фабрикатор роботов",
 		GENITIVE = "фабрикатора роботов",
 		DATIVE = "фабрикатору роботов",
@@ -564,7 +564,7 @@
 	ui_theme = "nologo"
 
 /obj/machinery/mecha_part_fabricator/syndicate/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "фабрикатор экзоскелетов \"Синдиката\"",
 		GENITIVE = "фабрикатора экзоскелетов \"Синдиката\"",
 		DATIVE = "фабрикатору экзоскелетов \"Синдиката\"",

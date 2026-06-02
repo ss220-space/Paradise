@@ -719,7 +719,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 	resistance_flags = FLAMMABLE
 
 /obj/item/voodoo/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "плетёная кукла",
 		GENITIVE = "плетёной куклы",
 		DATIVE = "плетёной кукле",

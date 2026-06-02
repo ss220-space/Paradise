@@ -260,7 +260,7 @@
 	smooth = SMOOTH_BITMASK
 
 /turf/simulated/wall/indestructible/bingle/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "яма Бинглов",
 		GENITIVE = "ямы Бинглов",
 		DATIVE = "яме Бинглов",

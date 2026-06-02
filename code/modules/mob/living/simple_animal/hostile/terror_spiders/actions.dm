@@ -159,7 +159,7 @@
 	var/creator_ckey = null
 
 /obj/structure/spider/terrorweb/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "паутина Ужаса",
 		GENITIVE = "паутины Ужаса",
 		DATIVE = "паутине Ужаса",

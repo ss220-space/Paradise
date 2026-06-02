@@ -33,7 +33,7 @@ Note: Must be placed west/left of and R&D console to function.
 	reagents = new()
 
 /obj/machinery/r_n_d/protolathe/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "протолат",
 		GENITIVE = "протолата",
 		DATIVE = "протолату",

@@ -47,7 +47,7 @@
 	)
 
 /obj/item/wirecutters/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кусачки",
 		GENITIVE = "кусачек",
 		DATIVE = "кусачкам",
@@ -104,7 +104,7 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
 /obj/item/wirecutters/brass/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "латунные кусачки",
 		GENITIVE = "латунных кусачек",
 		DATIVE = "латунным кусачкам",
@@ -132,7 +132,7 @@
 	greyscale_colors = null
 
 /obj/item/wirecutters/abductor/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "чужеродные кусачки",
 		GENITIVE = "чужеродных кусачек",
 		DATIVE = "чужеродным кусачкам",
@@ -149,7 +149,7 @@
 	flags = parent_type::flags | NO_NEW_GAGS_PREVIEW
 
 /obj/item/wirecutters/cyborg/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "автоматизированные кусачки",
 		GENITIVE = "автоматизированных кусачек",
 		DATIVE = "автоматизированным кусачкам",
@@ -181,7 +181,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/wirecutters/power/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "челюсти жизни",
 		GENITIVE = "челюстей жизни",
 		DATIVE = "челюстям жизни",
@@ -231,7 +231,7 @@
 	greyscale_colors = null
 
 /obj/item/wirecutters/industrial/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "продвинутые кусачки",
 		GENITIVE = "продвинутых кусачек",
 		DATIVE = "продвинутым кусачкам",

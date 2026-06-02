@@ -11,7 +11,7 @@
 	var/activated = FALSE
 
 /obj/effect/decal/ash_rune_centre/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пепельный сигил",
 		GENITIVE = "пепельного сигила",
 		DATIVE = "пепельному сигилу",
@@ -49,7 +49,7 @@
 	activated = TRUE
 	name = "ash rune"
 	desc = "Полностью функционирующая руна, готовая для ритуальных действий."
-	ru_names = list(
+	ru_names = alist(
 		NOMINATIVE = "пепельная руна",
 		GENITIVE = "пепельной руны",
 		DATIVE = "пепельной руне",
@@ -73,7 +73,7 @@
 	layer = TURF_DECAL_LAYER
 
 /obj/effect/rune_fluff_marks/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пепельная руна",
 		GENITIVE = "пепельной руны",
 		DATIVE = "пепельной руне",
@@ -102,7 +102,7 @@
 	layer = TURF_DECAL_LAYER
 
 /obj/effect/rune_animation_landmark/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пепельная руна",
 		GENITIVE = "пепельной руны",
 		DATIVE = "пепельной руне",

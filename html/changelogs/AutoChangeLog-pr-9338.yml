@@ -1,0 +1,5 @@
+author: "littleboobs"
+delete-after: True
+changes:
+  - tweak: "Стабильный СМ больше не спамит в рацию. (PR #9338)"
+  - local: "Кристалл суперматерии. (PR #9338)"

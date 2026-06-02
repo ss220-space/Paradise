@@ -72,7 +72,7 @@
 	)
 
 /obj/machinery/vending/cigarette/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат ShadyCigs Deluxe",
 		GENITIVE = "торгового автомата ShadyCigs Deluxe",
 		DATIVE = "торговому автомату ShadyCigs Deluxe",
@@ -159,7 +159,7 @@
 	)
 
 /obj/machinery/vending/cigarette/beach/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат ShadyCigs Ultra",
 		GENITIVE = "торгового автомата ShadyCigs Ultra",
 		DATIVE = "торговому автомату ShadyCigs Ultra",

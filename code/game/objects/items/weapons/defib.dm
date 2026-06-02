@@ -39,7 +39,7 @@
 	var/obj/item/twohanded/shockpaddles/paddle_type = /obj/item/twohanded/shockpaddles
 
 /obj/item/defibrillator/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "дефибриллятор",
 		GENITIVE = "дефибриллятора",
 		DATIVE = "дефибриллятору",
@@ -260,7 +260,7 @@
 	heart_attack_probability = 10
 
 /obj/item/defibrillator/compact/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "компактный дефибриллятор",
 		GENITIVE = "компактного дефибриллятора",
 		DATIVE = "компактному дефибриллятору",
@@ -289,7 +289,7 @@
 	heart_attack_probability = 100
 
 /obj/item/defibrillator/compact/combat/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "боевой дефибриллятор",
 		GENITIVE = "боевого дефибриллятора",
 		DATIVE = "боевому дефибриллятору",
@@ -316,7 +316,7 @@
 	var/next_emp_message //to prevent spam from the emagging message on the advanced defibrillator
 
 /obj/item/defibrillator/compact/advanced/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "продвинутый компактный дефибриллятор",
 		GENITIVE = "продвинутого компактного дефибриллятора",
 		DATIVE = "продвинутому компактному дефибриллятору",
@@ -361,7 +361,7 @@
 	var/on_cooldown = FALSE
 
 /obj/item/twohanded/shockpaddles/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "электроды дефибриллятора",
 		GENITIVE = "электродов дефибриллятора",
 		DATIVE = "электродам дефибриллятора",
@@ -378,7 +378,7 @@
 	base_icon_state = "ntpaddles"
 
 /obj/item/twohanded/shockpaddles/advanced/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "электроды продвинутого дефибриллятора",
 		GENITIVE = "электродов продвинутого дефибриллятора",
 		DATIVE = "электродам продвинутого дефибриллятора",
@@ -396,7 +396,7 @@
 	base_icon_state = "syndiepaddles"
 
 /obj/item/twohanded/shockpaddles/syndicate/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "электроды боевого дефибриллятора",
 		GENITIVE = "электродов боевого дефибриллятора",
 		DATIVE = "электродам боевого дефибриллятора",

@@ -41,7 +41,7 @@
 	)
 
 /obj/item/storage/garmentbag/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сумка для одежды",
 		GENITIVE = "сумки для одежды",
 		DATIVE = "сумке для одежды",

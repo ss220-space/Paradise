@@ -22,7 +22,7 @@
 	var/buildstage = INTERCOM_BUILD_NO_CIRCUIT
 
 /obj/item/radio/intercom/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "станционный интерком (Общий)",
 		GENITIVE = "станционного интеркома (Общий)",
 		DATIVE = "станционному интеркому (Общий)",
@@ -219,7 +219,7 @@
 	should_be_listening = FALSE
 
 /obj/item/radio/intercom/custom/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "станционный интерком (Персонализированный)",
 		GENITIVE = "станционного интеркома (Персонализированный)",
 		DATIVE = "станционному интеркому (Персонализированный)",
@@ -238,7 +238,7 @@
 	default_frequency = AIRLOCK_FREQ
 
 /obj/item/radio/intercom/interrogation/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "станционный интерком (Допросный)",
 		GENITIVE = "станционного интеркома (Допросный)",
 		DATIVE = "станционному интеркому (Допросный)",
@@ -257,7 +257,7 @@
 	default_frequency = AI_FREQ
 
 /obj/item/radio/intercom/private/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "станционный интерком (Приватный)",
 		GENITIVE = "станционного интеркома (Приватный)",
 		DATIVE = "станционному интеркому (Приватный)",
@@ -276,7 +276,7 @@
 	default_frequency = COMM_FREQ
 
 /obj/item/radio/intercom/command/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "станционный интерком (Командный)",
 		GENITIVE = "станционного интеркома (Командный)",
 		DATIVE = "станционному интеркому (Командный)",
@@ -295,7 +295,7 @@
 	default_frequency = ERT_FREQ
 
 /obj/item/radio/intercom/specops/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "интерком спецопераций",
 		GENITIVE = "интеркома спецопераций",
 		DATIVE = "интеркому спецопераций",
@@ -317,7 +317,7 @@
 	default_frequency = MED_I_FREQ
 
 /obj/item/radio/intercom/department/medbay/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "станционный интерком (Медицинский)",
 		GENITIVE = "станционного интеркома (Медицинский)",
 		DATIVE = "станционному интеркому (Медицинский)",
@@ -336,7 +336,7 @@
 	default_frequency = SEC_I_FREQ
 
 /obj/item/radio/intercom/department/security/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "станционный интерком (Служба безопасности)",
 		GENITIVE = "станционного интеркома (Служба безопасности)",
 		DATIVE = "станционному интеркому (Служба безопасности)",
@@ -362,7 +362,7 @@
 	default_frequency = SYND_FREQ
 
 /obj/item/radio/intercom/syndicate/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "нелегальный интерком",
 		GENITIVE = "нелегального интеркома",
 		DATIVE = "нелегальному интеркому",
@@ -382,7 +382,7 @@
 			позволяет подключаться к широкому диапазону радиочастот, однако не обладает протоколами защиты и шифрования."
 
 /obj/item/radio/intercom/pirate/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пиратский интерком",
 		GENITIVE = "пиратского интеркома",
 		DATIVE = "пиратскому интеркому",
@@ -408,7 +408,7 @@
 	usesound = 'sound/items/deconstruct.ogg'
 
 /obj/item/intercom_electronics/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "печатная плата интеркома",
 		GENITIVE = "печатной платы интеркома",
 		DATIVE = "печатной плате интеркома",
@@ -430,7 +430,7 @@
 	default_frequency = AI_FREQ
 
 /obj/item/radio/intercom/locked/ai_private/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "интерком ИИ",
 		GENITIVE = "интеркома ИИ",
 		DATIVE = "интеркому ИИ",
@@ -449,7 +449,7 @@
 	default_frequency = 1480
 
 /obj/item/radio/intercom/locked/confessional/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "исповедальный интерком",
 		GENITIVE = "исповедального интеркома",
 		DATIVE = "исповедальному интеркому",
@@ -466,7 +466,7 @@
 			на общую частоту. Возможность смены частоты заблокирована на уровне прошивки, а микрофон отключён на аппаратном уровне."
 
 /obj/item/radio/intercom/locked/prison/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "тюремный интерком",
 		GENITIVE = "тюремного интеркома",
 		DATIVE = "тюремному интеркому",

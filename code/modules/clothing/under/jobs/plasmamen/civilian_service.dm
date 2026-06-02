@@ -6,7 +6,7 @@
 	item_color = "cargo_envirosuit"
 
 /obj/item/clothing/under/plasmaman/cargo/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "защитный костюм грузчика",
 		GENITIVE = "защитного костюма грузчика",
 		DATIVE = "защитному костюму грузчика",
@@ -23,7 +23,7 @@
 	item_color = "explorer_envirosuit"
 
 /obj/item/clothing/under/plasmaman/mining/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "защитный костюм шахтёра",
 		GENITIVE = "защитного костюма шахтёра",
 		DATIVE = "защитному костюму шахтёра",
@@ -40,7 +40,7 @@
 	item_color = "qm_envirosuit"
 
 /obj/item/clothing/under/plasmaman/qm/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "защитный костюм Квартирмейстера",
 		GENITIVE = "защитного костюма Квартирмейстера",
 		DATIVE = "защитному костюму Квартирмейстера",
@@ -57,7 +57,7 @@
 	item_color = "chef_envirosuit"
 
 /obj/item/clothing/under/plasmaman/chef/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "защитный костюм повара",
 		GENITIVE = "защитного костюма повара",
 		DATIVE = "защитному костюму повара",
@@ -74,7 +74,7 @@
 	item_color = "ntrep_envirosuit"
 
 /obj/item/clothing/under/plasmaman/nt/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "защитный костюм представителя \"Нанотрейзен\"",
 		GENITIVE = "защитного костюма представителя \"Нанотрейзен\"",
 		DATIVE = "защитному костюму представителя \"Нанотрейзен\"",
@@ -92,7 +92,7 @@
 	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, FIRE = 95, ACID = 95)
 
 /obj/item/clothing/under/plasmaman/enviroslacks/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "защитный официальный костюм плазмолюда",
 		GENITIVE = "защитного официального костюма плазмолюда",
 		DATIVE = "защитному официальному костюму плазмолюда",
@@ -109,7 +109,7 @@
 	item_color = "chap_envirosuit"
 
 /obj/item/clothing/under/plasmaman/chaplain/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "защитный костюм священника",
 		GENITIVE = "защитного костюма священника",
 		DATIVE = "защитному костюму священника",
@@ -126,7 +126,7 @@
 	item_color = "prototype_envirosuit"
 
 /obj/item/clothing/under/plasmaman/librarian/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "защитный костюм библиотекаря",
 		GENITIVE = "защитного костюма библиотекаря",
 		DATIVE = "защитному костюму библиотекаря",
@@ -143,7 +143,7 @@
 	item_color = "janitor_envirosuit"
 
 /obj/item/clothing/under/plasmaman/janitor/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "защитный костюм уборщика",
 		GENITIVE = "защитного костюма уборщика",
 		DATIVE = "защитному костюму уборщика",
@@ -160,7 +160,7 @@
 	item_color = "botany_envirosuit"
 
 /obj/item/clothing/under/plasmaman/botany/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "защитный костюм ботаника",
 		GENITIVE = "защитного костюма ботаника",
 		DATIVE = "защитному костюму ботаника",
@@ -177,7 +177,7 @@
 	item_color = "mime_envirosuit"
 
 /obj/item/clothing/under/plasmaman/mime/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "защитный костюм мима",
 		GENITIVE = "защитного костюма мима",
 		DATIVE = "защитному костюму мима",
@@ -194,7 +194,7 @@
 	item_color = "clown_envirosuit"
 
 /obj/item/clothing/under/plasmaman/clown/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "защитный костюм клоуна",
 		GENITIVE = "защитного костюма клоуна",
 		DATIVE = "защитному костюму клоуна",
@@ -231,7 +231,7 @@
 	item_color = "hop_envirosuit"
 
 /obj/item/clothing/under/plasmaman/hop/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "защитный костюм главы персонала",
 		GENITIVE = "защитного костюма главы персонала",
 		DATIVE = "защитному костюму главы персонала",
@@ -249,7 +249,7 @@
 	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, FIRE = 95, ACID = 95)
 
 /obj/item/clothing/under/plasmaman/captain/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "защитный костюм капитана",
 		GENITIVE = "защитного костюма капитана",
 		DATIVE = "защитному костюму капитана",
@@ -267,7 +267,7 @@
 	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 100, FIRE = 95, ACID = 95)
 
 /obj/item/clothing/under/plasmaman/blueshield/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "защитный костюм офицера \"Синий Щит\"",
 		GENITIVE = "защитного костюма офицера \"Синий Щит\"",
 		DATIVE = "защитному костюму офицера \"Синий Щит\"",

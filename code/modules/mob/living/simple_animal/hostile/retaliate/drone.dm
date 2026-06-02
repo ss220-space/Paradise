@@ -244,7 +244,7 @@
 	item_state = "book7"
 
 /obj/item/drone_manual/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "странное руководство",
 		GENITIVE = "странного руководства",
 		DATIVE = "странному руководству",
