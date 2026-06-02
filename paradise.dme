@@ -383,6 +383,7 @@
 #include "code\__HELPERS\visual_effects.dm"
 #include "code\__HELPERS\data_struct\priority_queue.dm"
 #include "code\__HELPERS\data_struct\queue.dm"
+#include "code\__HELPERS\localization\_localization.dm"
 #include "code\__HELPERS\localization\declension_ru.dm"
 #include "code\__HELPERS\localization\genderize_decode.dm"
 #include "code\__HELPERS\localization\genderize_ru.dm"
