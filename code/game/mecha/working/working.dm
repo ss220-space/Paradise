@@ -3,7 +3,6 @@
 	cargo_capacity = 15
 	var/fast_pressure_step_in = 2
 	var/slow_pressure_step_in = 2
-	allowed_equipment = MECH_EQUIPMENT_WORKING
 
 /obj/mecha/working/Initialize(mapload)
 	. = ..()
