@@ -254,6 +254,9 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 
 	return TRUE
 
+/// Maximum number of characters in the description of the circuit
+#define MAX_CHAR_IN_DESC 200
+
 /obj/machinery/r_n_d/circuit_imprinter/proc/save_circuit(mob/living/user, obj/item/circuit)
 	if(!can_save_circuit(user, circuit))
 		return
@@ -298,7 +301,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 			balloon_alert(user, "название занято!")
 			return
 
-	var/circuit_desc = reject_bad_name(sanitize(tgui_input_text(user, "Введите описание схемы.", "Описание", "")), allow_numbers = TRUE)
+	var/circuit_desc = reject_bad_name(sanitize(tgui_input_text(user, "Введите описание схемы.", "Описание", "", max_length=MAX_CHAR_IN_DESC)), allow_numbers = TRUE)
 
 	data["desc"] = circuit_desc ? circuit_desc : "Схема, сохранённая пользователем \"[user]\"."
 
@@ -318,6 +321,8 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 			return FALSE
 	return TRUE
 
+#define MAX_COMPONENT_COUNT 200
+
 /obj/machinery/r_n_d/circuit_imprinter/proc/save_circuit_by_import(mob/living/user, list/data)
 	if(!can_save_circuit_by_import(user, data))
 		tgui_alert(user, "Невозможно сохранить схему!", "Ошибка импорта")
@@ -327,8 +332,8 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 	if(istext(dupe_data))
 		dupe_data = json_decode(dupe_data)
 
-	if(!islist(dupe_data) || !islist(dupe_data["components"]))
-		tgui_alert(user, "Некорректный формат данных схемы!", "Ошибка импорта")
+	if(!islist(dupe_data) || !islist(dupe_data["components"]) || length(dupe_data["components"]) > MAX_COMPONENT_COUNT)
+		tgui_alert(user, "Некорректный формат данных схемы или превышен лимит компонентов!", "Ошибка импорта")
 		return
 
 	for(var/list/component_data as anything in scanned_designs)
@@ -340,8 +345,12 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 
 	for(var/component_data in dupe_data["components"])
 		var/list/comp = dupe_data["components"][component_data]
+
 		if(!islist(comp))
+			if(!islist(component_data))
+				continue
 			comp = component_data
+
 		var/path = text2path(comp["type"])
 		if(!path)
 			continue
@@ -360,6 +369,10 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 
 	data["materials"] = materials
 
+	var/obj/item/integrated_circuit/circuit
+	data["Icon"] = circuit::icon
+	data["IconState"] = circuit::icon_state
+
 	if(!length(data))
 		return
 
@@ -373,6 +386,8 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 	playsound(src, 'sound/machines/ping.ogg', 50)
 
 	update_static_data_for_all_viewers()
+
+#undef MAX_COMPONENT_COUNT
 
 /obj/machinery/r_n_d/circuit_imprinter/proc/print_module(list/design)
 	flick("[base_icon_state]_ani", src)
@@ -412,6 +427,9 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 
 /obj/machinery/r_n_d/circuit_imprinter/proc/try_use_materials(list/design_materials)
 	return materials.use_amount(design_materials, efficiency_coeff)
+
+/// Maximum number of characters in the name of the circuit
+#define MAX_CHAR_IN_NAME 30
 
 /obj/machinery/r_n_d/circuit_imprinter/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()
@@ -467,6 +485,9 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 			if(!json_base64)
 				return TRUE
 
+			json_base64 = replacetext(json_base64, "\n", "")
+			json_base64 = trim(json_base64)
+
 			var/decoded = rustg_decode_base64(json_base64)
 			if(!decoded)
 				tgui_alert(user, "Не удалось декодировать Base64!", "Ошибка импорта")
@@ -478,13 +499,16 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 				return TRUE
 
 			if(data["name"])
-				data["name"] = sanitize(data["name"])
+				data["name"] = copytext(sanitize(data["name"]), 1, MAX_CHAR_IN_NAME)
 			if(data["desc"])
-				data["desc"] = sanitize(data["desc"])
+				data["desc"] = copytext(sanitize(data["desc"]), 1, MAX_CHAR_IN_DESC)
 
 			save_circuit_by_import(user, data)
 
 	return TRUE
+
+#undef MAX_CHAR_IN_NAME
+#undef MAX_CHAR_IN_DESC
 
 /obj/machinery/r_n_d/circuit_imprinter/ui_data(mob/user)
 	var/list/data = list()
