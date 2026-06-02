@@ -42,7 +42,7 @@
 				animate(target_image, pixel_y = 16, time = 2 SECONDS, easing = BOUNCE_EASING|EASE_IN)
 				animate(pixel_y = 0, time = 0.5 SECONDS, easing = BOUNCE_EASING|EASE_OUT)
 
-				addtimer(CALLBACK(src, PROC_REF(revive_thrall_step1), target, target_image, T, user, vampire), 2 SECONDS)
+				addtimer(CALLBACK(src, PROC_REF(revive_thrall_step1), target, target_image, T, user, vampire), 1.6 SECONDS)
 				return
 			else
 				to_chat(user, span_warning("Это не ваш раб."))
@@ -54,9 +54,6 @@
 			var/datum/spell_handler/vampire/V = custom_handler
 			var/blood_cost = V.calculate_blood_cost(vampire)
 			vampire.bloodusable -= blood_cost
-		else
-			revert_cast(user)
-			to_chat(user, span_warning("Вы или ваша цель сдвинулись с места."))
 	else
 		revert_cast(user)
 		to_chat(user, span_warning("Вы или ваша цель сдвинулись с места."))
