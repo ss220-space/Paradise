@@ -838,6 +838,6 @@ GLOBAL_LIST_EMPTY(multiverse)
 
 /obj/item/organ/internal/heart/cursed/wizard
 	pump_delay = 60
-	heal_brute = 25
-	heal_burn = 25
-	heal_oxy = 25
+	heal_brute = 15
+	heal_burn = 15
+	heal_oxy = 15
