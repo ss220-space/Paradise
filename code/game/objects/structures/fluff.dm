@@ -85,7 +85,7 @@
 	color = COLOR_YELLOW
 
 /obj/structure/fluff/drake_statue/great/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "cтатуя Великому Ящеру",
 		GENITIVE = "статуи Великого Ящера",
 		DATIVE = "статуе Великого Ящера",

@@ -105,7 +105,7 @@
 	icon_state = "voxmask2"
 
 /obj/item/clothing/mask/breath/vox/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "респиратор воксов",
 		GENITIVE = "респиратора воксов",
 		DATIVE = "респиратору воксов",

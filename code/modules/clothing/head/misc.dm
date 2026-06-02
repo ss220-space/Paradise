@@ -519,7 +519,7 @@
 	desc = "Шляпа снятая с головы самого адмирала флота НТ. Или ССП? ТСФ? Не важно. Она снята с головы о-о-очень важной шишки."
 
 /obj/item/clothing/head/lordadmiralhat/admiral/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "адмиральская шляпа",
 		GENITIVE = "адмиральской шляпы",
 		DATIVE = "адмиральской шляпе",

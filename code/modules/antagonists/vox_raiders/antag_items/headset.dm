@@ -11,7 +11,7 @@
 	default_frequency = VOX_RAID_FREQ
 
 /obj/item/radio/headset/vox/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "радиочастотная гарнитура воксов-рейдеров",
 		GENITIVE = "радиочастотную гарнитуру воксов-рейдеров",
 		DATIVE = "радиочастотной гарнитуры воксов-рейдеров",
@@ -28,7 +28,7 @@
 	item_flags = BANGPROTECT_MINOR
 
 /obj/item/radio/headset/vox/alt/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "тактическая гарнитура воксов-рейдеров",
 		GENITIVE = "тактическую гарнитуру воксов-рейдеров",
 		DATIVE = "тактической гарнитуры воксов-рейдеров",
@@ -47,7 +47,7 @@
 	syndie = TRUE
 
 /obj/item/encryptionkey/vox/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ключ-шифратор воксов-рейдеров",
 		GENITIVE = "ключа-шифратора воксов-рейдеров",
 		DATIVE = "ключу-шифратору воксов-рейдеров",

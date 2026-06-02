@@ -84,7 +84,7 @@
 	color = "#ff00fb"
 
 /turf/simulated/wall/indestructible/fakeglass/brass/showcase/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "витрина",
 		GENITIVE = "витрины",
 		DATIVE = "витрине",

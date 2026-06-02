@@ -90,7 +90,7 @@
 	decal_item_state = "clown-id"
 
 /obj/item/id_decal/prisoner/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "наклейка на ID-карту \"Клоун\"",
 		GENITIVE = "наклейки на ID-карту \"Клоун\"",
 		DATIVE = "наклейке на ID-карту \"Клоун\"",

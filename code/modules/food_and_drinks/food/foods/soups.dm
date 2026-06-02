@@ -191,7 +191,7 @@
 	randomize_position = FALSE
 
 /obj/item/reagent_containers/food/snacks/soup/stew/batya/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "великий суп",
 		GENITIVE = "великого супа",
 		DATIVE = "великому супу",

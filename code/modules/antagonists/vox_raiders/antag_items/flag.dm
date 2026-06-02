@@ -4,7 +4,7 @@
 	icon_state = "flag_vox_raider"
 
 /obj/item/flag/vox_raider/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "флаг воксов рейдеров",
 		GENITIVE = "флага воксов рейдеров",
 		DATIVE = "флагу воксов рейдеров",

@@ -254,7 +254,7 @@
 	icon_state = "Robot-MAN"
 
 /obj/structure/statue/silver/secborg/piano/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "робот-пианист в глубоком космосе",
 		GENITIVE = "робота-пианиста в глубоком космосе",
 		DATIVE = "роботу-пианисту в глубоком космосе",

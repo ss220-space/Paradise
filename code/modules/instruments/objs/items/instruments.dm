@@ -18,7 +18,7 @@
 	desc = "Золотая виолончель великого рок-виолончель музыканта. Говорят её до сих пор ищут целыми системами!"
 
 /obj/item/instrument/violin/golden/rock/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "золотая рок-виолончель",
 		GENITIVE = "золотой рок-виолончели",
 		DATIVE = "золотой рок-виолончели",

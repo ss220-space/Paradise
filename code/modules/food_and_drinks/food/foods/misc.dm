@@ -329,7 +329,7 @@
 	tastes = list("хлеб" = 3, "соль" = 1, "пепел" = 1)
 
 /obj/item/reagent_containers/food/snacks/disk/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "cухарики \"Диск\"",
 		GENITIVE = "cухариков \"Диск\"",
 		DATIVE = "cухарикам \"Диск\"",
@@ -344,7 +344,7 @@
 	item_state = "chips"
 
 /obj/item/trash/disk/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "cухарики \"Диск\"",
 		GENITIVE = "cухариков \"Диск\"",
 		DATIVE = "cухарикам \"Диск\"",

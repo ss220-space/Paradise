@@ -685,7 +685,7 @@
 	desc = "Омерзительно. Им кто-то недавно пользовался?!"
 
 /obj/item/reagent_containers/glass/bucket/wooden/shit/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сральное ведро",
 		GENITIVE = "срального ведра",
 		DATIVE = "сральному ведру",

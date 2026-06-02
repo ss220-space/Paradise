@@ -12,7 +12,7 @@
 	merge_type = /obj/item/stack/vox_cash
 
 /obj/item/stack/vox_cash/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кикиридиты",
 		GENITIVE = "кикиридитов",
 		DATIVE = "кикиридитам",

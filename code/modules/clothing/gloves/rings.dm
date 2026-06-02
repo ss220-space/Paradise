@@ -69,7 +69,7 @@
 	desc = "Кольцо отобранное у группы карликов на Лаваленде. История не важна. Главное — что оно было для них важно и оно блестит!"
 
 /obj/item/clothing/gloves/ring/gold/omnipotence/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "золотое кольцо всевластия",
 		GENITIVE = "золотого кольца всевластия",
 		DATIVE = "золотому кольцу всевластия",

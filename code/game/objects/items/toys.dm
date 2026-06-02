@@ -810,7 +810,7 @@
 	color = "#ff78f4"
 
 /obj/item/toy/plushie/voxplushie/brick/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Кирпич",
 		GENITIVE = "Кирпича",
 		DATIVE = "Кирпичу",
