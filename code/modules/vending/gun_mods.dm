@@ -41,7 +41,7 @@
 	)
 
 /obj/machinery/vending/gun_mods/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат ModTech",
 		GENITIVE = "торгового автомата ModTech",
 		DATIVE = "торговому автомату ModTech",

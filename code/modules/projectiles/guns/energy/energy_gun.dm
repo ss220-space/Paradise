@@ -184,7 +184,7 @@
 	var/force_wielded = 20
 
 /obj/item/gun/energy/gun/minigun/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Гатлинг-лазер",
 		GENITIVE = "Гатлинг-лазера",
 		DATIVE = "Гатлинг-лазеру",
@@ -230,7 +230,7 @@
 	cell_type = /obj/item/stock_parts/cell/infinite
 
 /obj/item/gun/energy/gun/minigun/pulse/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Гатлинг-пульсер",
 		GENITIVE = "Гатлинг-пульсера",
 		DATIVE = "Гатлинг-пульсеру",

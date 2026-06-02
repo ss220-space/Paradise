@@ -6,7 +6,7 @@
 	access = list(ACCESS_FREE_GOLEMS, ACCESS_ROBOTICS, ACCESS_CLOWN, ACCESS_MIME) //access to robots/mechs
 
 /obj/item/card/id/golem/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ID-карта свободного голема",
 		GENITIVE = "ID-карты свободного голема",
 		DATIVE = "ID-карте свободного голема",

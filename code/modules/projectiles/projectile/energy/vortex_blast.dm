@@ -8,7 +8,7 @@
 	suppressed = TRUE
 
 /obj/projectile/energy/vortex_blast/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "вортекс-выстрел",
 		GENITIVE = "вортекс-выстрела",
 		DATIVE = "вортекс-выстрелу",

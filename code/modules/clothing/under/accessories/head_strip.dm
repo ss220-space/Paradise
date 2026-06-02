@@ -1,6 +1,7 @@
 // MARK: Base
 /obj/item/clothing/accessory/head_strip
 	abstract_type = /obj/item/clothing/accessory/head_strip
+	name = "НАПИШИ БАГ-РЕПОРТ"
 	icon_state = null
 	item_state = null
 	gender = FEMALE
@@ -46,9 +47,9 @@
 
 /obj/item/clothing/accessory/head_strip/get_ru_names()
 	if(!strip_ru_name)
-		CRASH("head strip does not have a 'strip_ru_name'")
-	var/name_in_quotes = "\"[strip_ru_name]\""
-	return list(
+		stack_trace("head strip does not have a 'strip_ru_name'")
+	var/name_in_quotes = "\"[strip_ru_name]\"" || name
+	return alist(
 		NOMINATIVE = "нашивка [name_in_quotes]",
 		GENITIVE = "нашивки [name_in_quotes]",
 		DATIVE = "нашивке [name_in_quotes]",

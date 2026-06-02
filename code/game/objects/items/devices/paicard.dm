@@ -24,7 +24,7 @@
 	var/current_emotion = 1
 
 /obj/item/paicard/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "интелкарта пИИ",
 		GENITIVE = "интелкарты пИИ",
 		DATIVE = "интелкарте пИИ",

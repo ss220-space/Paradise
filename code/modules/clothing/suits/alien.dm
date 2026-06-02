@@ -18,7 +18,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 
 /obj/item/clothing/suit/unathi/robe/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "грубошерстные одеяния",
 		GENITIVE = "грубошерстных одеяний",
 		DATIVE = "грубошерстным одеяниям",
@@ -42,7 +42,7 @@
 	)
 
 /obj/item/clothing/neck/mantle/unathi/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "накидка из шкур",
 		GENITIVE = "накидки из шкур",
 		DATIVE = "накидке из шкур",

@@ -29,7 +29,7 @@
 	ai_controller = /datum/ai_controller/basic_controller/cockroach
 
 /mob/living/basic/cockroach/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "таракан",
 		GENITIVE = "таракана",
 		DATIVE = "таракану",
@@ -73,7 +73,7 @@
 	ai_controller = /datum/ai_controller/basic_controller/cockroach/glockroach
 
 /mob/living/basic/cockroach/glockroach/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "таракан с пушкой",
 		GENITIVE = "таракана с пушкой",
 		DATIVE = "таракану с пушкой",
@@ -114,7 +114,7 @@
 	ai_controller = /datum/ai_controller/basic_controller/cockroach/hauberoach
 
 /mob/living/basic/cockroach/hauberoach/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "таракан-солдат",
 		GENITIVE = "таракана-солдата",
 		DATIVE = "таракану-солдату",

@@ -23,7 +23,7 @@
 	var/printing = FALSE
 
 /obj/item/dna_notepad/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "планшет генетика",
 		GENITIVE = "планшета генетика",
 		DATIVE = "планшету генетика",

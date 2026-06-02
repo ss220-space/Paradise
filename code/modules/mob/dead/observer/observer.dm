@@ -408,8 +408,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(!check_rights((R_ADMIN | R_MOD), FALSE, user))
 		return
 	antagHUD = TRUE
-	for(var/datum/atom_hud/antag/H in GLOB.huds)
-		H.show_to(src)
+	for(var/hud_key, hud_type in GLOB.huds)
+		astype(hud_type, /datum/atom_hud/antag)?.show_to(src)
 
 /**
  * Toggles off all HUDs for the ghost player.
@@ -420,8 +420,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	remove_the_hud(DATA_HUD_SECURITY_ADVANCED)
 	remove_the_hud(DATA_HUD_MEDICAL_ADVANCED)
 	antagHUD = FALSE
-	for(var/datum/atom_hud/antag/H in GLOB.huds)
-		H.hide_from(src)
+	for(var/hud_key, hud_type in GLOB.huds)
+		astype(hud_type, /datum/atom_hud/antag)?.hide_from(src)
 
 /mob/dead/observer/verb/set_dnr()
 	set name = "Запретить реанимацию"

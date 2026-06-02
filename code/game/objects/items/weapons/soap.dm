@@ -14,7 +14,7 @@
 	var/cleanspeed = 50 //slower than mop
 
 /obj/item/soap/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мыло",
 		GENITIVE = "мыла",
 		DATIVE = "мылу",
@@ -221,7 +221,7 @@
 	item_state = "soapgibs"
 
 /obj/item/soap/ducttape/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мыло в изоленте",
 		GENITIVE = "мыла в изоленте",
 		DATIVE = "мылу в изоленте",

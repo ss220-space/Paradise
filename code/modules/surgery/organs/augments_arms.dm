@@ -410,13 +410,13 @@
 	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "duffel-med")
 
 /obj/item/organ/internal/cyberimp/arm/surgery/get_ru_names()
-		return list(
-			NOMINATIVE = "имплант хирургических инструментов",
-			GENITIVE = "импланта хирургических инструментов",
-			DATIVE = "импланту хирургических инструментов",
-			ACCUSATIVE = "имплант хирургических инструментов",
-			INSTRUMENTAL = "имплантом хирургических инструментов",
-			PREPOSITIONAL = "импланте хирургических инструментов",
+	return alist(
+		NOMINATIVE = "имплант хирургических инструментов",
+		GENITIVE = "импланта хирургических инструментов",
+		DATIVE = "импланту хирургических инструментов",
+		ACCUSATIVE = "имплант хирургических инструментов",
+		INSTRUMENTAL = "имплантом хирургических инструментов",
+		PREPOSITIONAL = "импланте хирургических инструментов",
 	)
 
 /obj/item/organ/internal/cyberimp/arm/surgery/adv
@@ -437,13 +437,13 @@
 	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "surgerykit_advanced")
 
 /obj/item/organ/internal/cyberimp/arm/surgery/adv/get_ru_names()
-		return list(
-			NOMINATIVE = "имплант Inugami",
-			GENITIVE = "импланта Inugami",
-			DATIVE = "импланту Inugami",
-			ACCUSATIVE = "имплант Inugami",
-			INSTRUMENTAL = "имплантом Inugami",
-			PREPOSITIONAL = "импланте Inugami",
+	return alist(
+		NOMINATIVE = "имплант Inugami",
+		GENITIVE = "импланта Inugami",
+		DATIVE = "импланту Inugami",
+		ACCUSATIVE = "имплант Inugami",
+		INSTRUMENTAL = "имплантом Inugami",
+		PREPOSITIONAL = "импланте Inugami",
 	)
 
 /obj/item/organ/internal/cyberimp/arm/surgery/adv/ert
@@ -464,13 +464,13 @@
 	emp_proof = 1
 
 /obj/item/organ/internal/cyberimp/arm/surgery/adv/ert/get_ru_names()
-		return list(
-			NOMINATIVE = "имплант NT-Med",
-			GENITIVE = "импланта NT-Med",
-			DATIVE = "импланту NT-Med",
-			ACCUSATIVE = "имплант NT-Med",
-			INSTRUMENTAL = "имплантом NT-Med",
-			PREPOSITIONAL = "импланте NT-Med",
+	return alist(
+		NOMINATIVE = "имплант NT-Med",
+		GENITIVE = "импланта NT-Med",
+		DATIVE = "импланту NT-Med",
+		ACCUSATIVE = "имплант NT-Med",
+		INSTRUMENTAL = "имплантом NT-Med",
+		PREPOSITIONAL = "импланте NT-Med",
 	)
 
 /obj/item/organ/internal/cyberimp/arm/surgery/alien
@@ -493,13 +493,13 @@
 	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "surgerykit_alien")
 
 /obj/item/organ/internal/cyberimp/arm/surgery/alien/get_ru_names()
-		return list(
-			NOMINATIVE = "инородный имплант",
-			GENITIVE = "инородного импланта",
-			DATIVE = "инородному импланту",
-			ACCUSATIVE = "инородный имплант",
-			INSTRUMENTAL = "инородным имплантом",
-			PREPOSITIONAL = "инородном импланте",
+	return alist(
+		NOMINATIVE = "инородный имплант",
+		GENITIVE = "инородного импланта",
+		DATIVE = "инородному импланту",
+		ACCUSATIVE = "инородный имплант",
+		INSTRUMENTAL = "инородным имплантом",
+		PREPOSITIONAL = "инородном импланте",
 	)
 
 /obj/item/organ/internal/cyberimp/arm/janitorial

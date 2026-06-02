@@ -118,7 +118,7 @@
 	refill_canister = /obj/item/vending_refill/medical
 
 /obj/machinery/vending/medical/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат NanoMed Plus",
 		GENITIVE = "торгового автомата NanoMed Plus",
 		DATIVE = "торговому автомату NanoMed Plus",
@@ -137,7 +137,7 @@
 	req_access = list(ACCESS_SYNDICATE)
 
 /obj/machinery/vending/medical/syndicate_access/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат SyndiMed Plus",
 		GENITIVE = "торгового автомата SyndiMed Plus",
 		DATIVE = "торговому автомату SyndiMed Plus",

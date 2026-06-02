@@ -9,7 +9,7 @@
 	var/affected_area = 2
 
 /obj/item/grenade/clown_grenade/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "банановая граната",
 		GENITIVE = "банановой гранаты",
 		DATIVE = "банановой гранате",

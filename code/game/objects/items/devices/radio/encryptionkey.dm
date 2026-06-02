@@ -17,7 +17,7 @@
 	var/list/channels = list()
 
 /obj/item/encryptionkey/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "стандартный ключ-шифратор",
 		GENITIVE = "стандартного ключа-шифратора",
 		DATIVE = "стандартному ключу-шифратору",
@@ -40,7 +40,7 @@
 	var/static/list/fakename_list
 
 /obj/item/encryptionkey/syndicate/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ключ-шифратор \"Синдиката\"",
 		GENITIVE = "ключа-шифратора \"Синдиката\"",
 		DATIVE = "ключу-шифратору \"Синдиката\"",
@@ -82,7 +82,7 @@
 	syndie = TRUE //Signifies that it de-crypts Syndicate transmissions
 
 /obj/item/encryptionkey/syndteam/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ключ-шифратор \"Синдиката\"",
 		GENITIVE = "ключа-шифратора \"Синдиката\"",
 		DATIVE = "ключу-шифратору \"Синдиката\"",
@@ -99,7 +99,7 @@
 	channels = list(SOV_FREQ_NAME = 1)
 
 /obj/item/encryptionkey/soviet/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ключ-шифратор СССП",
 		GENITIVE = "ключа-шифратора СССП",
 		DATIVE = "ключу-шифратору СССП",
@@ -118,7 +118,7 @@
 	origin_tech = "syndicate=1;engineering=4;bluespace=3"
 
 /obj/item/encryptionkey/binary/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ключ-переводчик бинарного канала",
 		GENITIVE = "ключа-переводчика бинарного канала",
 		DATIVE = "ключу-переводчику бинарного канала",
@@ -135,7 +135,7 @@
 	channels = list(SEC_FREQ_NAME = 1, PRS_FREQ_NAME = 1)
 
 /obj/item/encryptionkey/headset_sec/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ключ-шифратор канала охраны",
 		GENITIVE = "ключа-шифратора канала охраны",
 		DATIVE = "ключу-шифратор канала охраны",
@@ -151,7 +151,7 @@
 	channels = list(PRS_FREQ_NAME = 1)
 
 /obj/item/encryptionkey/prisoner/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ключ-шифратор канала заключенных",
 		GENITIVE = "ключа-шифратора канала заключенных",
 		DATIVE = "ключу-шифратор канала заключенных",
@@ -167,7 +167,7 @@
 	channels = list(GREEN_NAME = 1)
 
 /obj/item/encryptionkey/green/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ключ-шифратор канала зеленых",
 		GENITIVE = "ключа-шифратора канала зеленых",
 		DATIVE = "ключу-шифратор канала зеленых",
@@ -183,7 +183,7 @@
 	channels = list(BLUE_NAME = 1)
 
 /obj/item/encryptionkey/green/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ключ-шифратор канала синих",
 		GENITIVE = "ключа-шифратора канала синих",
 		DATIVE = "ключу-шифратор канала синих",
@@ -199,7 +199,7 @@
 	channels = list(RED_NAME = 1)
 
 /obj/item/encryptionkey/green/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ключ-шифратор канала красных",
 		GENITIVE = "ключа-шифратора канала красных",
 		DATIVE = "ключу-шифратор канала красных",
@@ -216,7 +216,7 @@
 	channels = list(SEC_FREQ_NAME = 1, PROC_FREQ_NAME = 1, PRS_FREQ_NAME = 1)
 
 /obj/item/encryptionkey/headset_iaa/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ключ-шифратор агента внутренних дел",
 		GENITIVE = "ключа-шифратора агента внутренних дел",
 		DATIVE = "ключу-шифратору агента внутренних дел",
@@ -233,7 +233,7 @@
 	channels = list(ENG_FREQ_NAME = 1)
 
 /obj/item/encryptionkey/headset_eng/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ключ-шифратор инженерного канала",
 		GENITIVE = "ключа-шифратора инженерного канала",
 		DATIVE = "ключу-шифратору инженерного канала",
@@ -250,7 +250,7 @@
 	channels = list(ENG_FREQ_NAME = 1, SCI_FREQ_NAME = 1)
 
 /obj/item/encryptionkey/headset_rob/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ключ-шифратор робототехников",
 		GENITIVE = "ключа-шифратора робототехников",
 		DATIVE = "ключу-шифратору робототехников",
@@ -267,7 +267,7 @@
 	channels = list(MED_FREQ_NAME = 1)
 
 /obj/item/encryptionkey/headset_med/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ключ-шифратор медицинского канала",
 		GENITIVE = "ключа-шифратора медицинского канала",
 		DATIVE = "ключу-шифратору медицинского канала",
@@ -284,7 +284,7 @@
 	channels = list(SCI_FREQ_NAME = 1)
 
 /obj/item/encryptionkey/headset_sci/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ключ-шифратор научного канала",
 		GENITIVE = "ключа-шифратора научного канала",
 		DATIVE = "ключу-шифратору научного канала",
@@ -301,7 +301,7 @@
 	channels = list(MED_FREQ_NAME = 1, SCI_FREQ_NAME = 1)
 
 /obj/item/encryptionkey/headset_medsci/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ключ-шифратор научного и медицинского канала",
 		GENITIVE = "ключа-шифратора научного и медицинского канала",
 		DATIVE = "ключу-шифратору научного и медицинского канала",
@@ -318,7 +318,7 @@
 	channels = list(SEC_FREQ_NAME = 1, MED_FREQ_NAME = 1)
 
 /obj/item/encryptionkey/headset_medsec/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ключ-шифратор охранного и медицинского канала",
 		GENITIVE = "ключа-шифратора охранного и медицинского канала",
 		DATIVE = "ключу-шифратору охранного и медицинского канала",
@@ -334,7 +334,7 @@
 	channels = list(COMM_FREQ_NAME = 1)
 
 /obj/item/encryptionkey/headset_com/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ключ-шифратор командного канала",
 		GENITIVE = "ключа-шифратора командного канала",
 		DATIVE = "ключу-шифратору командного канала",
@@ -354,7 +354,7 @@
 	channels = list(COMM_FREQ_NAME = 1, SEC_FREQ_NAME = 1, ENG_FREQ_NAME = 0, SCI_FREQ_NAME = 0, MED_FREQ_NAME = 0, SUP_FREQ_NAME = 0, SRV_FREQ_NAME = 0, PRS_FREQ_NAME = 0, PROC_FREQ_NAME = 1)
 
 /obj/item/encryptionkey/heads/captain/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ключ-шифратор капитана",
 		GENITIVE = "ключа-шифратора капитана",
 		DATIVE = "ключу-шифратору капитана",
@@ -371,7 +371,7 @@
 	channels = list(SCI_FREQ_NAME = 1, COMM_FREQ_NAME = 1)
 
 /obj/item/encryptionkey/heads/rd/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ключ-шифратор научного руководителя",
 		GENITIVE = "ключа-шифратора научного руководителя",
 		DATIVE = "ключу-шифратору научного руководителя",
@@ -388,7 +388,7 @@
 	channels = list(SEC_FREQ_NAME = 1, COMM_FREQ_NAME = 1, PRS_FREQ_NAME = 1)
 
 /obj/item/encryptionkey/heads/hos/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ключ-шифратор главы службы безопасности",
 		GENITIVE = "ключа-шифратора главы службы безопасности",
 		DATIVE = "ключу-шифратору главы службы безопасности",
@@ -405,7 +405,7 @@
 	channels = list(ENG_FREQ_NAME = 1, COMM_FREQ_NAME = 1)
 
 /obj/item/encryptionkey/heads/ce/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ключ-шифратор старшего инженера",
 		GENITIVE = "ключа-шифратора старшего инженера",
 		DATIVE = "ключу-шифратору старшего инженера",
@@ -422,7 +422,7 @@
 	channels = list(MED_FREQ_NAME = 1, COMM_FREQ_NAME = 1)
 
 /obj/item/encryptionkey/heads/cmo/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ключ-шифратор главного врача",
 		GENITIVE = "ключа-шифратора главного врача",
 		DATIVE = "ключу-шифратору главного врача",
@@ -439,7 +439,7 @@
 	channels = list(SRV_FREQ_NAME = 1, SEC_FREQ_NAME = 0, COMM_FREQ_NAME = 1)
 
 /obj/item/encryptionkey/heads/hop/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ключ-шифратор главы персонала",
 		GENITIVE = "ключа-шифратора главы персонала",
 		DATIVE = "ключу-шифратору главы персонала",
@@ -455,7 +455,7 @@
 	channels = list(SUP_FREQ_NAME = 1, COMM_FREQ_NAME = 1)
 
 /obj/item/encryptionkey/heads/qm/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ключ-шифратор Квартирмейстера",
 		GENITIVE = "ключа-шифратора Квартирмейстера",
 		DATIVE = "ключу-шифратору Квартирмейстера",
@@ -472,7 +472,7 @@
 	channels = list(COMM_FREQ_NAME = 1, SEC_FREQ_NAME = 0, PRS_FREQ_NAME = 0, ENG_FREQ_NAME = 0, SCI_FREQ_NAME = 0, MED_FREQ_NAME = 0, SUP_FREQ_NAME = 0, SRV_FREQ_NAME = 0, PROC_FREQ_NAME = 1)
 
 /obj/item/encryptionkey/heads/ntrep/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ключ-шифратор представителя \"Нанотрейзен\"",
 		GENITIVE = "ключа-шифратора представителя \"Нанотрейзен\"",
 		DATIVE = "ключу-шифратору представителя \"Нанотрейзен\"",
@@ -488,7 +488,7 @@
 	channels = list(COMM_FREQ_NAME = 1, SEC_FREQ_NAME = 1, PRS_FREQ_NAME = 1, PROC_FREQ_NAME = 1)
 
 /obj/item/encryptionkey/heads/magistrate/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ключ-шифратор магистрата",
 		GENITIVE = "ключа-шифратора магистрата",
 		DATIVE = "ключу-шифратору магистрата",
@@ -505,7 +505,7 @@
 	channels = list(COMM_FREQ_NAME = 1)
 
 /obj/item/encryptionkey/heads/blueshield/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ключ-шифратор офицера \"Синий Щит\"",
 		GENITIVE = "ключа-шифратора офицера \"Синий Щит\"",
 		DATIVE = "ключу-шифратору офицера \"Синий Щит\"",
@@ -528,7 +528,7 @@
 	channels = list(SUP_FREQ_NAME = 1)
 
 /obj/item/encryptionkey/headset_cargo/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ключ-шифратор канала снабжения",
 		GENITIVE = "ключа-шифратора канала снабжения",
 		DATIVE = "ключу-шифратору канала снабжения",
@@ -545,7 +545,7 @@
 	channels = list(SRV_FREQ_NAME = 1)
 
 /obj/item/encryptionkey/headset_service/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ключ-шифратор канала обслуживания",
 		GENITIVE = "ключа-шифратора канала обслуживания",
 		DATIVE = "ключу-шифратору канала обслуживания",
@@ -561,7 +561,7 @@
 	channels = list(ERT_FREQ_NAME = 1, SCI_FREQ_NAME = 1, COMM_FREQ_NAME = 1, MED_FREQ_NAME = 1, ENG_FREQ_NAME = 1, SEC_FREQ_NAME = 1, PRS_FREQ_NAME = 1, SUP_FREQ_NAME = 1, SRV_FREQ_NAME = 1, PROC_FREQ_NAME = 1)
 
 /obj/item/encryptionkey/ert/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ключ-шифратор ОБР",
 		GENITIVE = "ключа-шифратора ОБР",
 		DATIVE = "ключу-шифратору ОБР",
@@ -578,7 +578,7 @@
 	channels = list(ERT_FREQ_NAME = 1, DTH_FREQ_NAME = 1, SCI_FREQ_NAME = 1, COMM_FREQ_NAME = 1, MED_FREQ_NAME = 1, ENG_FREQ_NAME = 1, SEC_FREQ_NAME = 1, PRS_FREQ_NAME = 1, SUP_FREQ_NAME = 1, SRV_FREQ_NAME = 1, PROC_FREQ_NAME = 1)
 
 /obj/item/encryptionkey/centcom/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ключ-шифратор Центрального командования",
 		GENITIVE = "ключа-шифратора Центрального командования",
 		DATIVE = "ключу-шифратору Центрального командования",
@@ -595,7 +595,7 @@
 	channels = list(COMM_FREQ_NAME = 1, SEC_FREQ_NAME = 1, PRS_FREQ_NAME = 1, ENG_FREQ_NAME = 1, SCI_FREQ_NAME = 1, MED_FREQ_NAME = 1, SUP_FREQ_NAME = 1, SRV_FREQ_NAME = 1, AI_FREQ_NAME = 1, PROC_FREQ_NAME = 1)
 
 /obj/item/encryptionkey/heads/ai_integrated/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ключ-шифратор ИИ",
 		GENITIVE = "ключа-шифратора ИИ",
 		DATIVE = "ключу-шифратору ИИ",
@@ -613,7 +613,7 @@
 		ERT_FREQ_NAME = 1, DTH_FREQ_NAME = 1, SYND_TAIPAN_FREQ_NAME = 1, SYNDTEAM_FREQ_NAME = 1, SOV_FREQ_NAME = 1, MED_I_FREQ_NAME = 1, SEC_I_FREQ_NAME = 1, SPY_SPIDER_FREQ_NAME = 1, NINJA_FREQ_NAME = 1, EVENT_ALPHA_FREQ_NAME = 1, EVENT_BETA_FREQ_NAME = 1, EVENT_GAMMA_FREQ_NAME = 1)
 
 /obj/item/encryptionkey/admin/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ключ-шифратор админа",
 		GENITIVE = "ключа-шифратора админа",
 		DATIVE = "ключу-шифратору админа",
@@ -630,7 +630,7 @@
 	greyscale_colors = "#ffffff#a98a4a"
 
 /obj/item/encryptionkey/headset_mining_medic/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ключ-шифратор шахтёрского врача",
 		GENITIVE = "ключа-шифратора шахтёрского врача",
 		DATIVE = "ключу-шифратору шахтёрского врача",

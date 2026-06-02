@@ -20,7 +20,7 @@
 	mech_type = MECH_TYPE_LOCKER
 
 /obj/mecha/makeshift/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Шкафомех",
 		GENITIVE = "Шкафомеха",
 		DATIVE = "Шкафомеху",
@@ -47,7 +47,7 @@
 	allowed_equipment = MECH_EQUIPMENT_ALL
 
 /obj/mecha/makeshift/lockersyndie/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Синди-Шкафомех",
 		GENITIVE = "Синди-Шкафомеха",
 		DATIVE = "Синди-Шкафомеху",
@@ -91,7 +91,7 @@
 	var/used = FALSE
 
 /obj/item/mecha_drop/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "инструмент для доставки меха",
 		GENITIVE = "инструмента для доставки меха",
 		DATIVE = "инструменту для доставки меха",

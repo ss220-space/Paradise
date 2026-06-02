@@ -43,7 +43,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby|как пл
 	var/spans = null
 
 /obj/item/organ/internal/vocal_cords/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "голосовые связки",
 		GENITIVE = "голосовых связок",
 		DATIVE = "голосовым связкам",
@@ -69,7 +69,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby|как пл
 	icon_state = "adamantine_resonator"
 
 /obj/item/organ/internal/adamantine_resonator/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "адамантиновый резонатор",
 		GENITIVE = "адамантинового резонатора",
 		DATIVE = "адамантиновому резонатору",
@@ -85,7 +85,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby|как пл
 	icon_state = "adamantine_cords"
 
 /obj/item/organ/internal/vocal_cords/adamantine/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "адамантиновые голосовые связки",
 		GENITIVE = "адамантиновых голосовых связок",
 		DATIVE = "адамантиновым голосовым связкам",
@@ -123,7 +123,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby|как пл
 	spans = "colossus yell"
 
 /obj/item/organ/internal/vocal_cords/colossus/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "связки бога",
 		GENITIVE = "связок бога",
 		DATIVE = "связкам бога",

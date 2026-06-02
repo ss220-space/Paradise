@@ -170,7 +170,7 @@
 	desc = "В данном ящике хранится траурная одежда."
 
 /obj/structure/closet/burial/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ящик с траурной одеждой",
 		GENITIVE = "ящика с траурной одеждой",
 		DATIVE = "ящику с траурной одеждой",

@@ -65,7 +65,7 @@
 	emp_proof = TRUE
 
 /obj/item/organ/internal/cyberimp/brain/anti_drop/hardened/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "укрепленный имплант анти-дроп",
 		GENITIVE = "укрепленного импланта анти-дропа",
 		DATIVE = "укрепленному импланту анти-дропа",
@@ -480,7 +480,7 @@
 	var/coldmod = 1
 
 /obj/item/organ/internal/cyberimp/chest/exoframe/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "стандартный каркас экзоскелета",
 		GENITIVE = "стандартного каркаса экзоскелета",
 		DATIVE = "стандартному каркасу экзоскелета",
@@ -567,7 +567,7 @@
 	strength_gain = 3
 
 /obj/item/organ/internal/cyberimp/chest/exoframe/reinforced/get_ru_names()
-	return list(
+	return alist(
 			NOMINATIVE = "укрепленный каркас экзоскелета",
 			GENITIVE = "укрепленного каркаса экзоскелета",
 			DATIVE = "укрепленному каркасу экзоскелета",
@@ -589,7 +589,7 @@
 	external_emp_damage = 1.5
 
 /obj/item/organ/internal/cyberimp/chest/exoframe/industrial/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "промышленный каркас экзоскелета",
 		GENITIVE = "промышленного каркаса экзоскелета",
 		DATIVE = "промышленному каркасу экзоскелета",
@@ -614,7 +614,7 @@
 	actions_types = list(/datum/action/item_action/organ_action/toggle)
 
 /obj/item/organ/internal/cyberimp/chest/exoframe/combat/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "боевой каркас экзоскелета",
 		GENITIVE = "боевого каркаса экзоскелета",
 		DATIVE = "боевому каркасу экзоскелета",
