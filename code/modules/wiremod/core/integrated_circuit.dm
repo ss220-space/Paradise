@@ -90,7 +90,7 @@ GLOBAL_LIST_EMPTY_TYPED(integrated_circuits, /obj/item/integrated_circuit)
 	var/datum/weakref/linked_circuit_imprinter
 
 /obj/item/integrated_circuit/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "интегральная схема",
 		GENITIVE = "интегральной схемы",
 		DATIVE = "интегральной схеме",
@@ -832,21 +832,14 @@ GLOBAL_LIST_EMPTY_TYPED(integrated_circuits, /obj/item/integrated_circuit)
 	if(!shell)
 		return
 
-	if(display_name != "")
-		var/list/names = get_ru_names_cached()
-		ru_names = names ? names.Copy() : new /list(6)
-
-		if(!admin_only)
-			shell.name = "[initial(shell.name)] ([strip_html(display_name)])"
-			for(var/i = 1; i <= 6; i++)
-				ru_names[i] = "[names ? names[i] : initial(name)] ([strip_html(display_name)])"
-		else
-			shell.name = display_name
-			for(var/i = 1; i <= 6; i++)
-				ru_names[i] = "[names ? names[i] : initial(name)] ([display_name])"
-	else
+	if(display_name == "")
 		shell.name = initial(shell.name)
 		shell.ru_names = shell.get_ru_names_cached()
+		return
+
+	var/name_suffix = admin_only ? display_name : strip_html(display_name)
+	shell.name = admin_only ? display_name : "[initial(shell.name)] ([name_suffix])"
+	set_ru_names_suffix(" ([name_suffix])")
 
 /// Toggles the grid mode property for this circuit.
 /obj/item/integrated_circuit/proc/toggle_grid_mode()
@@ -888,7 +881,7 @@ GLOBAL_LIST_EMPTY_TYPED(integrated_circuits, /obj/item/integrated_circuit)
 	admin_only = TRUE
 
 /obj/item/integrated_circuit/admin/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "интегральная схема администрации",
 		GENITIVE = "интегральной схемы администрации",
 		DATIVE = "интегральной схеме администрации",

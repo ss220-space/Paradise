@@ -1575,3 +1575,17 @@
 	name = "Unbalanced"
 	desc = "You're being shoved around by airflow! You can resist this by moving, but moving against the wind will be slow."
 	icon_state = "unbalanced"
+
+// MARK: Capitulated
+/datum/status_effect/incapacitating/capitulated
+	id = "capitulated"
+	duration = 20 SECONDS
+	status_type = STATUS_EFFECT_UNIQUE
+	alert_type = null
+	traits_to_apply = list(TRAIT_INCAPACITATED, TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED)
+
+/datum/status_effect/incapacitating/capitulated/on_apply()
+	. = ..()
+	if(!.)
+		return
+	owner.drop_all_held_items()

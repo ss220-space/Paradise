@@ -46,7 +46,7 @@ GLOBAL_LIST_EMPTY(gear_datums)
 
 /datum/gear/proc/get_display_name()
 	var/atom/item = new path(src)
-	var/list/names = item.ru_names || item.get_ru_names_cached()
+	var/alist/names = item.ru_names || item.get_ru_names_cached()
 	return capitalize((display_name == /datum/gear::display_name)? (names ? names[NOMINATIVE] : item.name) : display_name)
 
 /datum/gear_data
@@ -63,6 +63,8 @@ GLOBAL_LIST_EMPTY(gear_datums)
 		tweak.tweak_gear_data(metadata["[tweak]"], gear_data)
 	var/gear_path = gear_data.path || path
 	var/item = new gear_path(gear_data.location)
+	if(!item)
+		return
 	for(var/datum/gear_tweak/tweak in gear_tweaks)
 		tweak.tweak_item(item, metadata["[tweak]"])
 	return item

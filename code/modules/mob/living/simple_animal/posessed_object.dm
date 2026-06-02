@@ -24,7 +24,7 @@
 	var/obj/item/possessed_item
 
 /mob/living/simple_animal/possessed_object/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "одержимая штука",
 		GENITIVE = "одержимой штуки",
 		DATIVE = "одержимой штуке",

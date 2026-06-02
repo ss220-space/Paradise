@@ -46,7 +46,7 @@
 	COOLDOWN_DECLARE(eject_effects_cd)
 
 /obj/machinery/disposal/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мусоропровод",
 		GENITIVE = "мусоропровода",
 		DATIVE = "мусоропроводу",
@@ -610,7 +610,7 @@
 	var/to_waste = TRUE
 
 /obj/machinery/disposal/deliveryChute/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "грузовой люк",
 		GENITIVE = "грузового люка",
 		DATIVE = "грузовому люку",

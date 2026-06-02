@@ -24,7 +24,7 @@
 		"hydrocodone" = list('icons/mob/actions/actions.dmi', "magicm"))
 
 /obj/item/reagent_containers/borghypo/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "робо-гипоспрей",
 		GENITIVE = "робо-гипоспрея",
 		DATIVE = "робо-гипоспрею",
@@ -49,7 +49,7 @@
 	upgrade_path = null //no upgrades
 
 /obj/item/reagent_containers/borghypo/syndicate/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Синди-робо-гипоспрей",
 		GENITIVE = "Синди-робо-гипоспрея",
 		DATIVE = "Синди-робо-гипоспрею",
@@ -74,7 +74,7 @@
 	upgrade_path = null //no upgrades
 
 /obj/item/reagent_containers/borghypo/upgraded/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "улучшенный робо-гипоспрей",
 		GENITIVE = "улучшенного робо-гипоспрея",
 		DATIVE = "улучшенному робо-гипоспрею",
@@ -212,7 +212,7 @@
 	upgrade_path = /obj/item/reagent_containers/borghypo/basic/upgraded
 
 /obj/item/reagent_containers/borghypo/basic/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "стандартный медицинский гипоспрей",
 		GENITIVE = "стандартного медицинского гипоспрея",
 		DATIVE = "стандартному медицинскому гипоспрею",
@@ -233,7 +233,7 @@
 	upgrade_path = null //no upgrades
 
 /obj/item/reagent_containers/borghypo/basic/upgraded/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "улучшенный медицинский гипоспрей",
 		GENITIVE = "улучшенного медицинского гипоспрея",
 		DATIVE = "улучшенному медицинскому гипоспрею",
@@ -257,7 +257,7 @@
 	upgrade_path = null //no upgrades
 
 /obj/item/reagent_containers/borghypo/emagged/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "0ШNBK4_IИБ3KT0Я",
 		GENITIVE = "0ШNBK4_IИБ3KT0Я",
 		DATIVE = "0ШNBK4_IИБ3KT0Я",

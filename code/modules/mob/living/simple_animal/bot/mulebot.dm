@@ -63,7 +63,7 @@
 	var/currentDNA = null
 
 /mob/living/simple_animal/bot/mulebot/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "МУЛбот",
 		GENITIVE = "МУЛбота",
 		DATIVE = "МУЛботу",

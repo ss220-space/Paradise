@@ -54,7 +54,7 @@
 	var/time = "00:00"
 
 /obj/item/paper/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бумага",
 		GENITIVE = "бумаги",
 		DATIVE = "бумаге",

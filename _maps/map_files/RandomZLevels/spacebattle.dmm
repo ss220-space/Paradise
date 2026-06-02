@@ -3184,9 +3184,7 @@
 /area/awaymission/spacebattle/hallway6)
 "jM" = (
 /obj/machinery/optable,
-/obj/machinery/defibrillator_mount/loaded{
-	pixel_y = -32
-	},
+/obj/machinery/defibrillator_mount/loaded/directional/south,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor3"
 	},

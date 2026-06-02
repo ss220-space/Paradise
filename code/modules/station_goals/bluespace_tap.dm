@@ -245,7 +245,7 @@
 	var/safe_levels = 10
 
 /obj/machinery/power/bluespace_tap/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "блюспейс сборщик",
 		GENITIVE = "блюспейс сборщика",
 		DATIVE = "блюспейс сборщику",

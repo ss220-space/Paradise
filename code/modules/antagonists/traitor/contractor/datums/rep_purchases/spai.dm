@@ -17,7 +17,7 @@
 	max_w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/storage/box/contractor/spai_kit/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "набор СПИИ Контрактника",
 		GENITIVE = "набора СПИИ Контрактника",
 		DATIVE = "набору СПИИ Контрактника",

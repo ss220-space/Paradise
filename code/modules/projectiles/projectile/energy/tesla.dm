@@ -9,7 +9,7 @@
 	var/power = 1e4
 
 /obj/projectile/energy/tesla/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шоковый заряд",
 		GENITIVE = "шокового заряда",
 		DATIVE = "шоковому заряду",

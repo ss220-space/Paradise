@@ -4,7 +4,7 @@
 	item_state = "ert-id"
 
 /obj/item/card/id/ert/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ID-карта ОБР",
 		GENITIVE = "ID-карты ОБР",
 		DATIVE = "ID-карте ОБР",
@@ -32,7 +32,7 @@
 	access = list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING, ACCESS_CENT_MEDICAL, ACCESS_CENT_SECURITY, ACCESS_CENT_STORAGE, ACCESS_CENT_SPECOPS, ACCESS_SALVAGE_CAPTAIN)
 
 /obj/item/card/id/ert/registration/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "изменяемая ID-карта ОБР",
 		GENITIVE = "изменяемой ID-карты ОБР",
 		DATIVE = "изменяемой ID-карте ОБР",

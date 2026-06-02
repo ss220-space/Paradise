@@ -38,7 +38,7 @@
 	var/datum/station_holomap/holomap_datum
 
 /obj/machinery/station_map/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "голокарта станции",
 		GENITIVE = "голокарты станции",
 		DATIVE = "голокарте станции",

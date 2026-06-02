@@ -16,7 +16,7 @@
 	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/meat/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кусок мяса",
 		GENITIVE = "куска мяса",
 		DATIVE = "куску мяса",
@@ -86,7 +86,7 @@
 	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/roasted_meat/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "жаренное мясо",
 		GENITIVE = "жаренного мяса",
 		DATIVE = "жаренному мясу",
@@ -456,7 +456,7 @@
 	tastes = list("паутины" = 1, "слабых подёргиваний во рту" = 1)
 
 /obj/item/reagent_containers/food/snacks/monstermeat/spiderleg/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "паучья лапка",
 		GENITIVE = "паучьей лапки",
 		DATIVE = "паучьей лапке",
@@ -494,7 +494,7 @@
 	tastes = list("жёсткого мяса" = 1)
 
 /obj/item/reagent_containers/food/snacks/monstermeat/goliath/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мясо голиафа",
 		GENITIVE = "мяса голиафа",
 		DATIVE = "мясу голиафа",
@@ -516,7 +516,7 @@
 	tastes = list("слизистого мяса" = 1)
 
 /obj/item/reagent_containers/food/snacks/monstermeat/goldgrub/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мясо златожора",
 		GENITIVE = "мяса златожора",
 		DATIVE = "мясу златожору",
@@ -783,7 +783,7 @@
 	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/goliath_steak/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "стейк из мяса голиафа",
 		GENITIVE = "стейка из мяса голиафа",
 		DATIVE = "стейку из мяса голиафа",
@@ -805,7 +805,7 @@
 	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/roasted_spiderleg/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "жаренная паучья лапка",
 		GENITIVE = "жаренной паучьей лапки",
 		DATIVE = "жаренной паучьей лапке",

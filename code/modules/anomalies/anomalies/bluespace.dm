@@ -76,7 +76,7 @@
 	collapse_tp_radius = 5
 
 /obj/effect/anomaly/bluespace/tier1/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "малая ​​блюспейс аномалия", \
 		GENITIVE = "малой ​​блюспейс аномалии", \
 		DATIVE = "малой ​​блюспейс аномалии", \
@@ -108,7 +108,7 @@
 	collapse_tp_radius = 50
 
 /obj/effect/anomaly/bluespace/tier2/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "​​блюспейс аномалия", \
 		GENITIVE = "​​блюспейс аномалии", \
 		DATIVE = "​​блюспейс аномалии", \
@@ -135,7 +135,7 @@
 	collapse_tp_radius = 50
 
 /obj/effect/anomaly/bluespace/tier3/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "большая ​​блюспейс аномалия", \
 		GENITIVE = "большой ​​блюспейс аномалии", \
 		DATIVE = "большой ​​блюспейс аномалии", \
@@ -184,7 +184,7 @@
 	collapse_tp_radius = 50
 
 /obj/effect/anomaly/bluespace/tier4/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "колоссальная ​​блюспейс аномалия", \
 		GENITIVE = "колоссальной ​​блюспейс аномалии", \
 		DATIVE = "колоссальной ​​блюспейс аномалии", \
@@ -195,7 +195,7 @@
 
 /obj/effect/anomaly/bluespace/tier4/Initialize(mapload, spawn_strength, spawn_stability)
 	. = ..()
-	
+
 	for(var/mob/mob as anything in GLOB.player_list)
 		if(mob.stat)
 			continue

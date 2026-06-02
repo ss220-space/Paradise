@@ -67,7 +67,7 @@
 	ricochets_max = 0
 
 /obj/projectile/bullet/a40mm/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "40мм граната",
 		GENITIVE = "40мм гранаты",
 		DATIVE = "40мм гранате",

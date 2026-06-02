@@ -8,7 +8,7 @@
 	var/used = FALSE
 
 /obj/item/dnascrambler/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шифратор ДНК",
 		GENITIVE = "шифратора ДНК",
 		DATIVE = "шифратору ДНК",

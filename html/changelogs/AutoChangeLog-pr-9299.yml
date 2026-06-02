@@ -1,5 +1,0 @@
-author: "littleboobs"
-delete-after: True
-changes:
-  - bugfix: "Исправлена инициализация SSBlood (PR #9299)"
-  - refactor: "Регенерация от железа перенесена в SSBlood (PR #9299)"

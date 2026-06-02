@@ -494,7 +494,7 @@
 	buildstacktype = null
 
 /obj/structure/chair/comfy/mouse/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кресло господина Мышкина",
 		GENITIVE = "кресла господина Мышкина",
 		DATIVE = "креслу господина Мышкина",

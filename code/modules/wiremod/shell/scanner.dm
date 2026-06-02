@@ -12,7 +12,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/wiremod_scanner/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сканер",
 		GENITIVE = "сканера",
 		DATIVE = "сканеру",

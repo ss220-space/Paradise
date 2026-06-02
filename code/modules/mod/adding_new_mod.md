@@ -221,7 +221,7 @@
 	icon_state = "neuron_healer"
 
 /obj/item/mod/module/neuron_healer/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль \"Нейронное лечение\"",
 		GENITIVE = "модуля \"Нейронное лечение\"",
 		DATIVE = "модулю \"Нейронное лечение\"",

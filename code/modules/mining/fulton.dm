@@ -15,7 +15,7 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 	var/max_force_fulton = MOVE_FORCE_STRONG
 
 /obj/item/extraction_pack/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "фултон",
 		GENITIVE = "фултона",
 		DATIVE = "фултону",
@@ -163,7 +163,7 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 	icon_state = "subspace_amplifier"
 
 /obj/item/fulton_core/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "маяк фултона",
 		GENITIVE = "маяка фултона",
 		DATIVE = "маяку фултона",
@@ -187,7 +187,7 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 	var/beacon_network = "station"
 
 /obj/structure/extraction_point/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "маяк фултона",
 		GENITIVE = "маяка фултона",
 		DATIVE = "маяку фултона",
@@ -200,7 +200,7 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 	. = ..()
 	var/random_value = "([rand(100, 999)]) ([get_location_name(src)])"
 	name += " [random_value]"
-	ru_names = list(
+	ru_names = alist(
 		NOMINATIVE = "маяк фултона [random_value]",
 		GENITIVE = "маяка фултона [random_value]",
 		DATIVE = "маяку фултона [random_value]",

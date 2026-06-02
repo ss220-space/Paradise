@@ -19,7 +19,7 @@
 	foodtype = MEAT | RAW
 
 /obj/item/reagent_containers/food/snacks/lavaland/soft_meat/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "нежная мясная вырезка",
 		GENITIVE = "нежной мясной вырезки",
 		DATIVE = "нежной мясной вырезке",
@@ -40,7 +40,7 @@
 	foodtype = MEAT | RAW
 
 /obj/item/reagent_containers/food/snacks/lavaland/eel_filet/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "филе угря",
 		GENITIVE = "филе угря",
 		DATIVE = "филе угря",
@@ -61,7 +61,7 @@
 	foodtype = MEAT | TOXIC | RAW
 
 /obj/item/reagent_containers/food/snacks/lavaland/predator_meat/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кусок мяса хищной рыбы",
 		GENITIVE = "куска мяса хищной рыбы",
 		DATIVE = "куску мяса хищной рыбы",
@@ -83,7 +83,7 @@
 	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/lavaland/soft_meat_cubes/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "нежные мясные кубики",
 		GENITIVE = "нежных мясных кубиков",
 		DATIVE = "нежным мясным кубикам",
@@ -104,7 +104,7 @@
 	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/lavaland/predatory_fish_slab/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "жаренный кусок мяса хищной рыбы",
 		GENITIVE = "жаренного куска мяса хищной рыбы",
 		DATIVE = "жаренному куску мяса хищной рыбы",
@@ -126,7 +126,7 @@
 	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/lavaland/eel_ringlets/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "колечки из угря",
 		GENITIVE = "колечек из угря",
 		DATIVE = "колечкам из угря",
@@ -144,7 +144,7 @@
 	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/lavaland/thali_lazis_bacon/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кусочек бекона Тали Лазис",
 		GENITIVE = "кусочка бекона Тали Лазис",
 		DATIVE = "кусочку бекона Тали Лазис",
@@ -162,7 +162,7 @@
 	foodtype = FRUIT
 
 /obj/item/reagent_containers/food/snacks/lavaland/thali_lazis_cacti/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кусочек кактуса Тали Лазис",
 		GENITIVE = "кусочка кактуса Тали Лазис",
 		DATIVE = "кусочку кактуса Тали Лазис",
@@ -180,7 +180,7 @@
 	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/lavaland/thali_lazis_wing/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кусочек крылышка Тали Лазис",
 		GENITIVE = "кусочка крылышка Тали Лазис",
 		DATIVE = "кусочку крылышка Тали Лазис",
@@ -198,7 +198,7 @@
 	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/lavaland/thali_lazis_fish/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кусочек рыбы Тали Лазис",
 		GENITIVE = "кусочка рыбы Тали Лазис",
 		DATIVE = "кусочку рыбы Тали Лазис",
@@ -216,7 +216,7 @@
 	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/lavaland/thali_lazis_crunchie/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "хрустящий кусочек Тали Лазис",
 		GENITIVE = "хрустящего кусочка Тали Лазис",
 		DATIVE = "хрустящему кусочку Тали Лазис",
@@ -234,7 +234,7 @@
 	foodtype = VEGETABLES
 
 /obj/item/reagent_containers/food/snacks/lavaland/thali_lazis_bungus/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "грибной кусочек Тали Лазис",
 		GENITIVE = "грибного кусочка Тали Лазис",
 		DATIVE = "грибному кусочку Тали Лазис",
@@ -258,7 +258,7 @@
 	eat_time = 5 SECONDS
 	foodtype = MEAT
 /obj/item/reagent_containers/food/snacks/lavaland_food/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "блюдо Лазиса",
 		GENITIVE = "блюда Лазиса",
 		DATIVE = "блюду Лазиса",
@@ -276,7 +276,7 @@
 	foodtype = MEAT|FRUIT
 
 /obj/item/reagent_containers/food/snacks/lavaland_food/fine_meal/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "изысканная еда Лазиса",
 		GENITIVE = "изысканной еды Лазиса",
 		DATIVE = "изысканной еде Лазиса",
@@ -297,7 +297,7 @@
 	tastes = list("тяжёлых времён" = 1)
 
 /obj/item/reagent_containers/food/snacks/lavaland_food/freaky_leg/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "блюдо \"Причудливые Ноги\"",
 		GENITIVE = "блюда \"Причудливые Ноги\"",
 		DATIVE = "блюду \"Причудливые Ноги\"",
@@ -320,7 +320,7 @@
 	foodtype = FRUIT|VEGETABLES
 
 /obj/item/reagent_containers/food/snacks/lavaland_food/veggie_meal/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "вегетарианское блюдо Лазиса",
 		GENITIVE = "вегетарианского блюда Лазиса",
 		DATIVE = "вегетарианскому блюду Лазиса",
@@ -340,7 +340,7 @@
 	icon_state = "hunters_treat"
 
 /obj/item/reagent_containers/food/snacks/lavaland_food/hunters_treat/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "блюдо \"Угощение Охотника\"",
 		GENITIVE = "блюда \"Угощение Охотника\"",
 		DATIVE = "блюду \"Угощение Охотника\"",
@@ -360,7 +360,7 @@
 	icon_state = "yum_grub"
 	list_reagents = list("oculine" = 12, "mannitol" = 12, "vitamin" = 3)
 /obj/item/reagent_containers/food/snacks/lavaland_food/yum_grub/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "блюдо \"Ям-Граб\"",
 		GENITIVE = "блюда \"Ям-Граб\"",
 		DATIVE = "блюду \"Ям-Граб\"",
@@ -377,7 +377,7 @@
 	list_reagents = list("nutriment" = 6, "protein" = 6, "ephedrine" = 10)
 
 /obj/item/reagent_containers/food/snacks/lavaland_food/ashie_kebab/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пепло-кебаб Лазиса",
 		GENITIVE = "пепло-кебаба Лазиса",
 		DATIVE = "пепло-кебАбу Газиса",
@@ -397,7 +397,7 @@
 	icon_state = "tail_o_dead"
 
 /obj/item/reagent_containers/food/snacks/lavaland_food/tail_o_dead/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "блюдо \"Отрезанный Хвост\"",
 		GENITIVE = "блюда \"Отрезанный Хвост\"",
 		DATIVE = "блюду \"Отрезанный Хвост\"",
@@ -418,7 +418,7 @@
 	var/active = FALSE
 
 /obj/item/reagent_containers/food/snacks/lavaland_food/cure_curse/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "блюдо \"Проклятое Лечение\"",
 		GENITIVE = "блюда \"Проклятое Лечение\"",
 		DATIVE = "блюду \"Проклятое Лечение\"",
@@ -465,7 +465,7 @@
 	icon_state = "wings_n_fangs_n_tentacles"
 
 /obj/item/reagent_containers/food/snacks/lavaland_food/wings_n_fangs_n_tentacles/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "блюдо \"Крылья, клыки и щупальца\"",
 		GENITIVE = "блюда \"Крылья, клыки и щупальца\"",
 		DATIVE = "блюду \"Крылья, клыки и щупальца\"",
@@ -491,7 +491,7 @@
 	eat_time = 0 SECONDS
 
 /obj/item/reagent_containers/food/snacks/lavaland_food/goli_kernels/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "блюдо \"Голи-кернельс\"",
 		GENITIVE = "блюда \"Голи-кернельс\"",
 		DATIVE = "блюду \"Голи-кернельс\"",
@@ -519,7 +519,7 @@
 	eat_time = 0 SECONDS
 
 /obj/item/reagent_containers/food/snacks/lavaland_food/grace_of_lazis/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "порция с постамента \"Благодать Лазис Ардакса\"",
 		GENITIVE = "порции с постамента \"Благодать Лазис Ардакса\"",
 		DATIVE = "порции с постамента \"Благодать Лазис Ардакса\"",
@@ -535,7 +535,7 @@
 	list_reagents = list("nutriment" = 4, "protein" = 6, "beer" = 7)
 
 /obj/item/reagent_containers/food/snacks/lavaland_food/beer_grub_stew/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "тушёное рагу",
 		GENITIVE = "тушёного рагу",
 		DATIVE = "тушёному рагу",
@@ -557,7 +557,7 @@
 	list_reagents = list("protein" = 2)
 
 /obj/item/reagent_containers/food/snacks/lavaland_food/thick_red_paste/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "густая красная паста",
 		GENITIVE = "густой красной пасты",
 		DATIVE = "густой красной пасте",
@@ -580,7 +580,7 @@
 	list_reagents = list("nutriment" = 4, "protein" = 3, "ashiezine" = 6)
 
 /obj/item/reagent_containers/food/snacks/lavaland_food/black_blood_sausage/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "черная кровяная колбаска",
 		GENITIVE = "черной кровяной колбаски",
 		DATIVE = "черной кровяной колбаске",
@@ -597,7 +597,7 @@
 	item_state = "xeno_sticks"
 
 /obj/item/reagent_containers/food/snacks/lavaland_food/xeno_sticks/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ксено-палочки",
 		GENITIVE = "ксено-палочек",
 		DATIVE = "ксено-палочкам",
@@ -618,7 +618,7 @@
 	list_reagents = list("nutriment" = 3, "protein" = 2, "pen_acid" = 4)
 
 /obj/item/reagent_containers/food/snacks/lavaland_food/filet_madras/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "блюдо \"Филе Мадрас\"",
 		GENITIVE = "блюда \"Филе Мадрас\"",
 		DATIVE = "блюду \"Филе Мадрас\"",
@@ -634,7 +634,7 @@
 	list_reagents = list("nutriment" = 3, "protein" = 2, "nicotine" = 6, "menthol" = 15)
 
 /obj/item/reagent_containers/food/snacks/lavaland_food/eel_katigo/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "блюдо \"Угорь Катиго\"",
 		GENITIVE = "блюда \"Угорь Катиго\"",
 		DATIVE = "блюду \"Угорь Катиго\"",
@@ -650,7 +650,7 @@
 	list_reagents = list("nutriment" = 3, "protein" = 2, "godblood" = 20)
 
 /obj/item/reagent_containers/food/snacks/lavaland_food/predatory_chowder/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "блюдо \"Похлёбка Хищника\"",
 		GENITIVE = "блюда \"Похлёбка Хищника\"",
 		DATIVE = "блюду \"Похлёбка Хищника\"",
@@ -665,7 +665,7 @@
 	icon_state = "abu_ghosh"
 
 /obj/item/reagent_containers/food/snacks/lavaland_food/abu_ghosh/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "блюдо \"Абу Гош\"",
 		GENITIVE = "блюда \"Абу Гош\"",
 		DATIVE = "блюду \"Абу Гош\"",
@@ -700,7 +700,7 @@
 	max_combined_w_class = 30
 
 /obj/item/storage/lava_tray/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "поднос \"Тали Лазис\"",
 		GENITIVE = "подноса \"Тали Лазис\"",
 		DATIVE = "подносу \"Тали Лазис\"",

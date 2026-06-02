@@ -170,7 +170,7 @@ MEDICAL
 	item_state = "medicalvisor"
 
 /obj/item/clothing/glasses/hud/health/visor/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "медицинский оптический визор",
 		GENITIVE = "медицинского оптического визора",
 		DATIVE = "медицинскому оптическому визору",
@@ -188,7 +188,7 @@ MEDICAL
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 
 /obj/item/clothing/glasses/hud/health/meson/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "медицинские мезонные ИЛС-очки",
 		GENITIVE = "медицинских мезонных ИЛС-очков",
 		DATIVE = "медицинским мезонным ИЛС-очкам",
@@ -284,7 +284,7 @@ DIAGNOSTIC
 	item_state = "diagvisor"
 
 /obj/item/clothing/glasses/hud/diagnostic/visor/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "диагностический оптический визор",
 		GENITIVE = "диагностического оптического визора",
 		DATIVE = "диагностическому оптическому визору",
@@ -456,7 +456,7 @@ SECURITY
 	item_state = "securityvisor"
 
 /obj/item/clothing/glasses/hud/security/sunglasses/visor/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "охранный оптический визор",
 		GENITIVE = "охранного оптического визора",
 		DATIVE = "охранному оптическому визору",
@@ -551,7 +551,7 @@ HYDROPONIC
 	item_state = "hydroponicvisor"
 
 /obj/item/clothing/glasses/hud/hydroponic/visor/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ботанический оптический визор",
 		GENITIVE = "ботанического оптического визора",
 		DATIVE = "ботаническому оптическому визору",
@@ -662,7 +662,7 @@ SKILLS
 	)
 
 /obj/item/clothing/glasses/hud/blueshield/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "много-режимные HUD-очки",
 		GENITIVE = "много-режимных HUD-очков",
 		DATIVE = "много-режимным HUD-очкам",
@@ -692,7 +692,7 @@ SKILLS
 	)
 
 /obj/item/clothing/glasses/hud/blueshield/cap/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "золотые много-режимные ИЛС-очки",
 		GENITIVE = "золотых много-режимных ИЛС-очков",
 		DATIVE = "золотым много-режимным ИЛС-очкам",
@@ -712,7 +712,7 @@ SKILLS
 	flash_protect = FLASH_PROTECTION_FLASH
 
 /obj/item/clothing/glasses/hud/skills/visor/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "оптический визор навыков",
 		GENITIVE = "оптического визора навыков",
 		DATIVE = "оптическому визору навыков",

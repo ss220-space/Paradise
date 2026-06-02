@@ -32,7 +32,7 @@
 	var/ui_tab = UI_TAB_CONFIG
 
 /obj/machinery/tcomms/core/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ядро телекоммуникаций",
 		GENITIVE = "ядра телекоммуникаций",
 		DATIVE = "ядру телекоммуникаций",
