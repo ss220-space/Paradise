@@ -168,7 +168,7 @@
 	item_state = "highjacks"
 
 /obj/item/clothing/shoes/jackboots/high/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "высокие берцы",
 		GENITIVE = "высоких берцов",
 		DATIVE = "высоким берцам",
@@ -231,7 +231,7 @@
 	resistance_flags = FIRE_PROOF
 
 /obj/item/clothing/shoes/workboots/mining/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шахтёрские ботинки",
 		GENITIVE = "шахтёрских ботинок",
 		DATIVE = "шахтёрским ботинкам",
@@ -484,7 +484,7 @@
 	paintable = FALSE
 
 /obj/item/clothing/shoes/footwraps/goliath/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "обмотки из шкуры голиафа",
 		GENITIVE = "обмоток из шкуры голиафа",
 		DATIVE = "обмоткам из шкуры голиафа",
@@ -503,7 +503,7 @@
 	paintable = FALSE
 
 /obj/item/clothing/shoes/footwraps/dragon/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "обмотки из шкуры пепельного дракона",
 		GENITIVE = "обмоток из шкуры пепельного дракона",
 		DATIVE = "обмоткам из шкуры пепельного дракона",
@@ -583,7 +583,7 @@
 	. += span_warning("Эти ботинки снабжены специальным механизмом для прыжков, работающим на основе технологии \"хонк-спейс\", позволяя выполнять захватывающие акробатические трюки!")
 
 /obj/item/clothing/shoes/bhop/clown/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "клоунские башмаки",
 		GENITIVE = "клоунских башмаков",
 		DATIVE = "клоунским башмакам",
@@ -684,7 +684,7 @@
 	species_restricted = list(SPECIES_HUMAN)
 
 /obj/item/clothing/shoes/chad/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сапоги Гигачада",
 		GENITIVE = "сапога Гигачада",
 		DATIVE = "сапогу Гигачада",

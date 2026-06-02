@@ -99,7 +99,7 @@
 	icon_state = "vaultcrate"
 
 /obj/structure/closet/crate/vault/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ящик с ценностями",
 		GENITIVE = "ящика с ценностями",
 		DATIVE = "ящику с ценностями",
@@ -114,7 +114,7 @@
 	icon_state = "wooden_crate"
 
 /obj/structure/closet/crate/wooden/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "деревянный ящик",
 		GENITIVE = "деревянного ящика",
 		DATIVE = "деревянному ящику",

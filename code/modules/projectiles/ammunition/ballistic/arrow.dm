@@ -12,7 +12,7 @@
 	no_update_desc = TRUE
 
 /obj/item/ammo_casing/caseless/arrow/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "деревянная стрела",
 		GENITIVE = "деревянной стрелы",
 		DATIVE = "деревянной стреле",
@@ -31,7 +31,7 @@
 	projectile_type = /obj/projectile/bullet/reusable/arrow/bone
 
 /obj/item/ammo_casing/caseless/arrow/bone_tipped/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "костяная стрела",
 		GENITIVE = "костяной стрелы",
 		DATIVE = "костяной стреле",
@@ -49,7 +49,7 @@
 	projectile_type = /obj/projectile/bullet/reusable/arrow/jagged
 
 /obj/item/ammo_casing/caseless/arrow/jagged/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "зазубренная стрела",
 		GENITIVE = "зазубренной стрелы",
 		DATIVE = "зазубренной стреле",

@@ -54,7 +54,7 @@
 	flags = parent_type::flags | NO_NEW_GAGS_PREVIEW
 
 /obj/item/clothing/under/color/black/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "чёрный комбинезон",
 		GENITIVE = "чёрного комбинезона",
 		DATIVE = "чёрному комбинезону",
@@ -73,7 +73,7 @@
 	flags = parent_type::flags | NO_NEW_GAGS_PREVIEW
 
 /obj/item/clothing/under/color/blackf/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "женственный чёрный комбинезон",
 		GENITIVE = "женственного чёрного комбинезона",
 		DATIVE = "женственному чёрному комбинезону",
@@ -89,7 +89,7 @@
 	greyscale_colors = "#52aecc"
 
 /obj/item/clothing/under/color/blue/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "синий комбинезон",
 		GENITIVE = "синего комбинезона",
 		DATIVE = "синему комбинезону",
@@ -111,7 +111,7 @@
 	greyscale_colors = "#9ed63a"
 
 /obj/item/clothing/under/color/green/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "зелёный комбинезон",
 		GENITIVE = "зелёного комбинезона",
 		DATIVE = "зелёному комбинезону",
@@ -127,7 +127,7 @@
 	greyscale_colors = "#b3b3b3"
 
 /obj/item/clothing/under/color/grey/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "серый комбинезон",
 		GENITIVE = "серого комбинезона",
 		DATIVE = "серому комбинезону",
@@ -148,7 +148,7 @@
 	desc = "Ужасно порваный и изношенный комбинезон. Выглядит так, будто его не стирали десятилетиями."
 
 /obj/item/clothing/under/color/grey/glorf/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "древний комбинезон",
 		GENITIVE = "древнего комбинезона",
 		DATIVE = "древнему комбинезону",
@@ -168,7 +168,7 @@
 	greyscale_colors = "#ff8c19"
 
 /obj/item/clothing/under/color/orange/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "оранжевый комбинезон",
 		GENITIVE = "оранжевого комбинезона",
 		DATIVE = "оранжевому комбинезону",
@@ -206,7 +206,7 @@
 	)
 
 /obj/item/clothing/under/color/orange/prison/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "старый тюремный комбинезон",
 		GENITIVE = "старый тюремный комбинезон",
 		DATIVE = "старому тюремному комбинезону",
@@ -226,7 +226,7 @@
 	flags = parent_type::flags | NO_NEW_GAGS_PREVIEW
 
 /obj/item/clothing/under/prison/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "тюремный комбинезон",
 		GENITIVE = "тюремный комбинезон",
 		DATIVE = "тюремному комбинезону",
@@ -242,7 +242,7 @@
 	greyscale_colors = "#ffa69b"
 
 /obj/item/clothing/under/color/pink/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "розовый комбинезон",
 		GENITIVE = "розового комбинезона",
 		DATIVE = "розовому комбинезону",
@@ -258,7 +258,7 @@
 	greyscale_colors = "#eb0c07"
 
 /obj/item/clothing/under/color/red/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "красный комбинезон",
 		GENITIVE = "красного комбинезона",
 		DATIVE = "красному комбинезону",
@@ -280,7 +280,7 @@
 	greyscale_colors = "#ffffff"
 
 /obj/item/clothing/under/color/white/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "белый комбинезон",
 		GENITIVE = "белого комбинезона",
 		DATIVE = "белому комбинезону",
@@ -295,7 +295,7 @@
 	greyscale_colors = "#ffe14d"
 
 /obj/item/clothing/under/color/yellow/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "жёлтый комбинезон",
 		GENITIVE = "жёлтого комбинезона",
 		DATIVE = "жёлтому комбинезону",
@@ -327,7 +327,7 @@
 	)
 
 /obj/item/clothing/under/psyche/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "психоделический комбинезон",
 		GENITIVE = "психоделического комбинезона",
 		DATIVE = "психоделическому комбинезону",
@@ -342,7 +342,7 @@
 	greyscale_colors = "#6eb6ff"
 
 /obj/item/clothing/under/color/lightblue/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "голубой комбинезон",
 		GENITIVE = "голубого комбинезона",
 		DATIVE = "голубому комбинезону",
@@ -357,7 +357,7 @@
 	greyscale_colors = "#00ffff"
 
 /obj/item/clothing/under/color/aqua/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "аквамариновый комбинезон",
 		GENITIVE = "аквамаринового комбинезона",
 		DATIVE = "аквамариновому комбинезону",
@@ -372,7 +372,7 @@
 	greyscale_colors = "#800080"
 
 /obj/item/clothing/under/color/purple/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "фиолетовый комбинезон",
 		GENITIVE = "фиолетового комбинезона",
 		DATIVE = "фиолетовому комбинезону",
@@ -392,7 +392,7 @@
 	greyscale_colors = "#9f70cc"
 
 /obj/item/clothing/under/color/lightpurple/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "светло-фиолетовый комбинезон",
 		GENITIVE = "светло-фиолетового комбинезона",
 		DATIVE = "светло-фиолетовому комбинезону",
@@ -407,7 +407,7 @@
 	greyscale_colors = "#90ee90"
 
 /obj/item/clothing/under/color/lightgreen/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "светло-зелёный комбинезон",
 		GENITIVE = "светло-зелёного комбинезона",
 		DATIVE = "светло-зелёному комбинезону",
@@ -422,7 +422,7 @@
 	greyscale_colors = "#c59431"
 
 /obj/item/clothing/under/color/lightbrown/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "светло-коричневый комбинезон",
 		GENITIVE = "светло-коричневого комбинезона",
 		DATIVE = "светло-коричневому комбинезону",
@@ -437,7 +437,7 @@
 	greyscale_colors = "#a17229"
 
 /obj/item/clothing/under/color/brown/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "коричневый комбинезон",
 		GENITIVE = "коричневого комбинезона",
 		DATIVE = "коричневому комбинезону",
@@ -452,7 +452,7 @@
 	greyscale_colors = "#9acd32"
 
 /obj/item/clothing/under/color/yellowgreen/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "лаймовый комбинезон",
 		GENITIVE = "лаймового комбинезона",
 		DATIVE = "лаймовому комбинезону",
@@ -467,7 +467,7 @@
 	greyscale_colors = "#3285ba"
 
 /obj/item/clothing/under/color/darkblue/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "тёмно-синяя юбка",
 		GENITIVE = "тёмно-синей юбки",
 		DATIVE = "тёмно-синей юбке",
@@ -482,7 +482,7 @@
 	greyscale_colors = "#ff6b6b"
 
 /obj/item/clothing/under/color/lightred/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "светло-красный комбинезон",
 		GENITIVE = "светло-красного комбинезона",
 		DATIVE = "светло-красному комбинезону",
@@ -497,7 +497,7 @@
 	greyscale_colors = "#8b0000"
 
 /obj/item/clothing/under/color/darkred/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бордовый комбинезон",
 		GENITIVE = "бордового комбинезона",
 		DATIVE = "бордовому комбинезону",
@@ -520,7 +520,7 @@
 	greyscale_config_worn_species = null
 
 /obj/item/clothing/under/color/red/jersey/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "джерси красной команды",
 		GENITIVE = "джерси красной команды",
 		DATIVE = "джерси красной команды",
@@ -543,7 +543,7 @@
 	greyscale_config_worn_species = null
 
 /obj/item/clothing/under/color/blue/jersey/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "джерси синей команды",
 		GENITIVE = "джерси синей команды",
 		DATIVE = "джерси синей команды",

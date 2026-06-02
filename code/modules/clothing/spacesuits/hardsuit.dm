@@ -568,7 +568,7 @@
 	desc = "A soviet military hardsuit designed for maximum speed and mobility. Proudly displays the U.S.S.P flag on the chest."
 	icon_state = "hardsuit-soviet"
 	item_state = "hardsuit-soviet"
-	species_restricted = list(SPECIES_HUMAN, SPECIES_SLIMEPERSON, SPECIES_SKELETON, SPECIES_NUCLEATION, SPECIES_MACNINEPERSON, SPECIES_KIDAN, SPECIES_PLASMAMAN)  // Until the xenos textures are created
+	species_restricted = list(SPECIES_HUMAN, SPECIES_SLIMEPERSON, SPECIES_SKELETON, SPECIES_NUCLEATION, SPECIES_MACHINEPERSON, SPECIES_KIDAN, SPECIES_PLASMAMAN)  // Until the xenos textures are created
 	slowdown = 0.5
 	armor = list(MELEE = 35, BULLET = 15, LASER = 30, ENERGY = 10, BOMB = 10, BIO = 100, FIRE = 75, ACID = 75)
 	allowed = list(/obj/item/gun,/obj/item/flashlight,/obj/item/tank/internals,/obj/item/melee/baton,/obj/item/reagent_containers/spray/pepper,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/restraints/handcuffs)

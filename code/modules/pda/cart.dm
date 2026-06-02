@@ -291,7 +291,7 @@
 	messenger_plugins = list(new/datum/data/pda/messenger_plugin/virus/frame)
 
 /obj/item/cartridge/frame/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "картридж П.О.Д.С.Т.А.В.А.",
 		GENITIVE = "картриджа П.О.Д.С.Т.А.В.А.",
 		DATIVE = "картриджу П.О.Д.С.Т.А.В.А.",

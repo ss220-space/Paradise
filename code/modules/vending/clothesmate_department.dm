@@ -39,7 +39,7 @@
 	vend_reply = "Спас+ибо за исп+ользование автом+ата-пом+ощника в в+ыборе од+ежды отд+ела!"
 
 /obj/machinery/vending/department_clothesmate/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сломанный торговый автомат Departament ClothesMate",
 		GENITIVE = "сломанного торгового автомата Departament ClothesMate",
 		DATIVE = "сломанному торговому автомату Departament ClothesMate",
@@ -152,7 +152,7 @@
 	)
 
 /obj/machinery/vending/department_clothesmate/security/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат Departament Security ClothesMate",
 		GENITIVE = "торгового автомата Departament Security ClothesMate",
 		DATIVE = "торговому автомату Departament Security ClothesMate",
@@ -285,7 +285,7 @@
 	)
 
 /obj/machinery/vending/department_clothesmate/medical/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат Departament Medical ClothesMate",
 		GENITIVE = "торгового автомата Departament Medical ClothesMate",
 		DATIVE = "торговому автомату Departament Medical ClothesMate",
@@ -381,7 +381,7 @@
 	)
 
 /obj/machinery/vending/department_clothesmate/engineering/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат Departament Engineering ClothesMat",
 		GENITIVE = "торгового автомата Departament Engineering ClothesMat",
 		DATIVE = "торговому автомату Departament Engineering ClothesMat",
@@ -469,7 +469,7 @@
 	)
 
 /obj/machinery/vending/department_clothesmate/science/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат Departament Science ClothesMate",
 		GENITIVE = "торгового автомата Departament Science ClothesMate",
 		DATIVE = "торговому автомату Departament Science ClothesMate",
@@ -561,7 +561,7 @@
 	)
 
 /obj/machinery/vending/department_clothesmate/cargo/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат Departament Cargo ClothesMate",
 		GENITIVE = "торгового автомата Departament Cargo ClothesMate",
 		DATIVE = "торговому автомату Departament Cargo ClothesMate",
@@ -646,7 +646,7 @@
 	)
 
 /obj/machinery/vending/department_clothesmate/law/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат Departament Law ClothesMate",
 		GENITIVE = "торгового автомата Departament Law ClothesMate",
 		DATIVE = "торговому автомату Departament Law ClothesMate",
@@ -663,7 +663,7 @@
 	refill_canister = /obj/item/vending_refill/clothing/service
 
 /obj/machinery/vending/department_clothesmate/service/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат Departament Service ClothesMate",
 		GENITIVE = "торгового автомата Departament Service ClothesMate",
 		DATIVE = "торговому автомату Departament Service ClothesMate",
@@ -741,7 +741,7 @@
 	)
 
 /obj/machinery/vending/department_clothesmate/service/chaplain/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат Departament Service ClothesMate Chaplain",
 		GENITIVE = "торгового автомата Departament Service ClothesMate Chaplain",
 		DATIVE = "торговому автомату Departament Service ClothesMate Chaplain",
@@ -821,7 +821,7 @@
 	)
 
 /obj/machinery/vending/department_clothesmate/service/botanical/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат Departament Service ClothesMate Botanical",
 		GENITIVE = "торгового автомата Departament Service ClothesMate Botanical",
 		DATIVE = "торговому автомату Departament Service ClothesMate Botanical",

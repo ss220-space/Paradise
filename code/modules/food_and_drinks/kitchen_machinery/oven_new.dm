@@ -13,7 +13,7 @@
 	open_icon = "oven_open"
 
 /obj/machinery/kitchen_machine/oven/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "духовка",
 		GENITIVE = "духовки",
 		DATIVE = "духовке",

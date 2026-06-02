@@ -18,7 +18,7 @@
 	var/locked = FALSE
 
 /obj/structure/dispenser_bot/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бот-раздатчик",
 		GENITIVE = "бота-раздатчика",
 		DATIVE = "боту-раздатчику",

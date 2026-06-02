@@ -47,7 +47,7 @@
 	)
 
 /obj/machinery/autolathe/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "автолат",
 		GENITIVE = "автолата",
 		DATIVE = "автолату",
@@ -508,7 +508,7 @@
 	adjust_hacked(TRUE)
 
 /obj/machinery/autolathe/security/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "автолат службы безопасности",
 		GENITIVE = "автолата службы безопасности",
 		DATIVE = "автолату службы безопасности",

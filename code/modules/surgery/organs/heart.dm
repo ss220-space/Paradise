@@ -11,7 +11,7 @@
 	var/item_base = "heart"
 
 /obj/item/organ/internal/heart/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сердце человека",
 		GENITIVE = "сердца человека",
 		DATIVE = "сердцу человека",
@@ -93,7 +93,7 @@
 	var/heal_oxy = 0
 
 /obj/item/organ/internal/heart/cursed/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "проклятое сердце",
 		GENITIVE = "проклятого сердца",
 		DATIVE = "проклятому сердцу",
@@ -176,7 +176,7 @@
 	drop_sound = 'sound/items/handling/drop/component_drop.ogg'
 
 /obj/item/organ/internal/heart/cybernetic/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кибернетическое сердце",
 		GENITIVE = "кибернетического сердца",
 		DATIVE = "кибернетическому сердцу",
@@ -194,7 +194,7 @@
 	var/attempted_restart = FALSE
 
 /obj/item/organ/internal/heart/cybernetic/upgraded/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "улучшенное кибернетическое сердце",
 		GENITIVE = "улучшенного кибернетического сердца",
 		DATIVE = "улучшенному кибернетическому сердцу",

@@ -50,7 +50,7 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 	var/ion = FALSE
 
 /obj/machinery/tcomms/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "устройство телекоммуникаций",
 		GENITIVE = "устройства телекоммуникаций",
 		DATIVE = "устройству телекоммуникаций",
@@ -438,7 +438,7 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 	desc = "Памятка, содержащая коды для изменения конфигурации телекоммуникационных систем."
 
 /obj/item/paper/tcommskey/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "\"Пароль привязки телекоммуникаций\"",
 		GENITIVE = "\"Пароль привязки телекоммуникаций\"",
 		DATIVE = "\"Пароль привязки телекоммуникаций\"",

@@ -29,7 +29,7 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 	var/last_drain_efficiency = 0
 
 /obj/machinery/power/energy_accumulator/rad_collector/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "радиационный коллектор",
 		GENITIVE = "радиационного коллектора",
 		DATIVE = "радиационному коллектору",

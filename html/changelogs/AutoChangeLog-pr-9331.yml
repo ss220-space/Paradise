@@ -1,0 +1,4 @@
+author: "Dimempers"
+delete-after: True
+changes:
+  - spellcheck: "Исправлена опечатка в дефайне расы КПБ (PR #9331)"

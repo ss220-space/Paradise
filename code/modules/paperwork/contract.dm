@@ -59,7 +59,7 @@
 	src.contract = contract
 	name = "адский контракт [contract.contract_subject]"
 	close_button = "<a href='byond://?src=[UID()];close_contract=1' class='close-button'>✖</a>"
-	ru_names = list(
+	ru_names = alist(
 		NOMINATIVE = "адский контракт [contract.contract_subject]",
 		GENITIVE = "адского контракта [contract.contract_subject]",
 		DATIVE = "адскому контракту [contract.contract_subject]",

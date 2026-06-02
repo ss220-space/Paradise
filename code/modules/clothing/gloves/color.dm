@@ -13,7 +13,7 @@
 	resistance_flags = NONE
 
 /obj/item/clothing/gloves/color/yellow/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "изоляционные перчатки",
 		GENITIVE = "изоляционных перчаток",
 		DATIVE = "изоляционным перчаткам",
@@ -109,7 +109,7 @@
 	var/can_be_cut = 1
 
 /obj/item/clothing/gloves/color/black/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "чёрные перчатки",
 		GENITIVE = "чёрных перчаток",
 		DATIVE = "чёрным перчаткам",
@@ -157,7 +157,7 @@
 	can_be_cut = FALSE
 
 /obj/item/clothing/gloves/color/black/goliath/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "перчатки из шкуры голиафа",
 		GENITIVE = "перчаток из шкуры голиафа",
 		DATIVE = "перчаткам из шкуры голиафа",
@@ -281,7 +281,7 @@
 	clothing_traits = list(TRAIT_QUICK_CARRY)
 
 /obj/item/clothing/gloves/color/latex/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "латексные перчатки",
 		GENITIVE = "латексных перчаток",
 		DATIVE = "латексным перчаткам",
@@ -302,7 +302,7 @@
 	clothing_traits = list(TRAIT_QUICKER_CARRY)
 
 /obj/item/clothing/gloves/color/latex/nitrile/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "нитриловые перчатки",
 		GENITIVE = "нитриловых перчаток",
 		DATIVE = "нитриловым перчаткам",
@@ -323,7 +323,7 @@
 	clothing_traits = list(TRAIT_QUICKER_CARRY)
 
 /obj/item/clothing/gloves/color/latex/modified/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модифицированные медицинские перчатки",
 		GENITIVE = "модифицированных медицинских перчаток",
 		DATIVE = "модифицированным медицинским перчаткам",
@@ -347,7 +347,7 @@
 	clothing_traits = list(TRAIT_QUICKER_CARRY)
 
 /obj/item/clothing/gloves/color/latex/inugami/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "медицинские перчатки Inugami",
 		GENITIVE = "медицинских перчаток Inugami",
 		DATIVE = "медицинским перчаткам Inugami",

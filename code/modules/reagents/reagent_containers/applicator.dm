@@ -34,7 +34,7 @@
 	var/apply_sounds = SFX_MENDER
 
 /obj/item/reagent_containers/applicator/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "авто-мендер",
 		GENITIVE = "авто-мендера",
 		DATIVE = "авто-мендеру",
@@ -173,7 +173,7 @@
 	list_reagents = list("styptic_powder" = 200)
 
 /obj/item/reagent_containers/applicator/brute/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "авто-мендер (Мех. Повреждения)",
 		GENITIVE = "авто-мендера (Мех. Повреждения)",
 		DATIVE = "авто-мендеру (Мех. Повреждения)",
@@ -190,7 +190,7 @@
 	list_reagents = list("silver_sulfadiazine" = 200)
 
 /obj/item/reagent_containers/applicator/burn/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "авто-мендер (Терм. Повреждения)",
 		GENITIVE = "авто-мендера (Терм. Повреждения)",
 		DATIVE = "авто-мендеру (Терм. Повреждения)",
@@ -207,7 +207,7 @@
 	list_reagents = list("synthflesh" = 200)
 
 /obj/item/reagent_containers/applicator/dual/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "авто-мендер (Синт-плоть)",
 		GENITIVE = "авто-мендера (Синт-плоть)",
 		DATIVE = "авто-мендеру (Синт-плоть)",

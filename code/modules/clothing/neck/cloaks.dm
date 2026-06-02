@@ -139,7 +139,7 @@
 	)
 
 /obj/item/clothing/neck/cloak/civil_cape/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "стандартная накидка",
 		GENITIVE = "стандартной накидки",
 		DATIVE = "стандартной накидке",
@@ -163,7 +163,7 @@
 
 
 /obj/item/clothing/neck/cloak/commander_cape/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "командная накидка",
 		GENITIVE = "командной накидки",
 		DATIVE = "командной накидке",
@@ -186,7 +186,7 @@
 	)
 
 /obj/item/clothing/neck/cloak/sec_cape/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "офицерская накидка",
 		GENITIVE = "офицерской накидки",
 		DATIVE = "офицерской накидке",
@@ -209,7 +209,7 @@
 	)
 
 /obj/item/clothing/neck/cloak/hos_cape/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "накидка морпехов",
 		GENITIVE = "накидки морпехов",
 		DATIVE = "накидке морпехов",

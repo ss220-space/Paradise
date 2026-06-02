@@ -17,7 +17,7 @@
 	var/upgradeable = 0			//Set to 1 if the machine supports upgrades / deconstruction, or else it will ignore stuff like screwdrivers and parts exchangers
 
 /obj/machinery/cooker/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кухонный аппарат",
 		GENITIVE = "кухонного аппарата",
 		DATIVE = "кухонному аппарату",
@@ -85,7 +85,7 @@
 		var/obj/effect/decal/cleanable/liquid_fuel/oil = new(drop_turf)
 		oil.name = "fat"
 		oil.desc = "Ой-ой, похоже это жир из [declent_ru(GENITIVE)]."
-		oil.ru_names = list(
+		oil.ru_names = alist(
 			NOMINATIVE = "жир",
 			GENITIVE = "жира",
 			DATIVE = "жиру",

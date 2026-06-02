@@ -35,7 +35,7 @@
 	tts_seed = "Lissandra"
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/princess/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Принцесса Ужаса",
 		GENITIVE = "Принцессы Ужаса",
 		DATIVE = "Принцессе Ужаса",

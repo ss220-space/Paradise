@@ -40,7 +40,7 @@
 	aug_message = "Мембраны приспосабливаются для защиты глаз от яркого света."
 
 /obj/item/organ/internal/cyberimp/eyes/shield/ling/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "защитные мембраны",
 		GENITIVE = "защитных мембран",
 		DATIVE = "защитным мембранам",
@@ -85,7 +85,7 @@
 	aug_message = "Рецепторы фокусируются и позволяют нам лучше видеть в темноте и сквозь препятствия."
 
 /obj/item/organ/internal/cyberimp/eyes/thermals/ling/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "тепловые рецепторы",
 		GENITIVE = "тепловых рецепторов",
 		DATIVE = "тепловым рецепторам",

@@ -14,7 +14,7 @@
 	var/used = FALSE
 
 /obj/item/dna_upgrader/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модификатор ДНК",
 		GENITIVE = "модификатора ДНК",
 		DATIVE = "модификатору ДНК",

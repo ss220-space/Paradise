@@ -58,7 +58,7 @@
 	max_ammo = 4
 
 /obj/item/ammo_box/magazine/internal/cylinder/improvised/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кустарный барабан [gun_name] [get_cartridge_marking()]",
 		GENITIVE = "кустарного барабана [gun_name] [get_cartridge_marking()]",
 		DATIVE = "кустарному барабану [gun_name] [get_cartridge_marking()]",
@@ -82,7 +82,7 @@
 	max_ammo = 6
 
 /obj/item/ammo_box/magazine/internal/cylinder/improvised/steel/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "стальной барабан [gun_name] [get_cartridge_marking()]",
 		GENITIVE = "стального барабана [gun_name] [get_cartridge_marking()]",
 		DATIVE = "стальному барабану [gun_name] [get_cartridge_marking()]",
