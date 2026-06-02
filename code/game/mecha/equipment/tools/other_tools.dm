@@ -79,9 +79,6 @@
 
 	start_cooldown()
 	QDEL_IN(P, rand(15 SECONDS, 30 SECONDS))
-
-/obj/item/mecha_parts/mecha_equipment/wormhole_generator/check_allowed_equipment(obj/mecha/M)
-	return TRUE
 /////////////////////////////////////// GRAVITATIONAL CATAPULT ///////////////////////////////////////////
 
 /obj/item/mecha_parts/mecha_equipment/gravcatapult
@@ -167,9 +164,6 @@
 /obj/item/mecha_parts/mecha_equipment/anticcw_armor_booster/proc/attack_react(mob/user)
 	if(action_checks(user))
 		start_cooldown()
-	return TRUE
-
-/obj/item/mecha_parts/mecha_equipment/anticcw_armor_booster/check_allowed_equipment(obj/mecha/M)
 	return TRUE
 
 /obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster

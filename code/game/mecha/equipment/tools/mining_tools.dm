@@ -151,9 +151,6 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/item/mecha_parts/mecha_equipment/mining_scanner/check_allowed_equipment(obj/mecha/M)
-	return TRUE
-
 /obj/item/mecha_parts/mecha_equipment/mining_scanner/attach_act(obj/mecha/M)
 	START_PROCESSING(SSobj, src)
 
