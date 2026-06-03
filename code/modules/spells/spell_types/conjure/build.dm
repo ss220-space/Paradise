@@ -4,7 +4,6 @@
 	button_icon_state = "floorconstruct"
 	background_icon_state = "bg_cult"
 	background_icon_state_active = "bg_cult"
-	school = SCHOOL_CONJURATION
 	cooldown_time = 2 SECONDS
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 	summon_type = list(/turf/simulated/floor/engine/cult)

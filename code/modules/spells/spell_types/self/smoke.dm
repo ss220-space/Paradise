@@ -8,3 +8,11 @@
 	smoke_type = /datum/effect_system/fluid_spread/smoke/bad
 	smoke_amt = 10
 	button_icon_state = "smoke"
+
+/datum/action/cooldown/spell/smoke/disable
+	name = "Paralysing Smoke"
+	desc = "This spell spawns a cloud of paralysing smoke."
+	button_icon_state = "parasmoke"
+	background_icon_state = "bg_cult"
+	cooldown_time = 20 SECONDS
+	smoke_type = /datum/effect_system/fluid_spread/smoke/sleeping

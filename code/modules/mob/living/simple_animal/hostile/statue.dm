@@ -56,7 +56,8 @@
 	// Give spells
 	AddSpell(new /obj/effect/proc_holder/spell/aoe/flicker_lights(null))
 	AddSpell(new /obj/effect/proc_holder/spell/aoe/blindness(null))
-	AddSpell(new /obj/effect/proc_holder/spell/night_vision(null))
+	var/datum/action/cooldown/spell/nightvision/nightvision = new()
+	nightvision.Grant(src)
 
 	// Set creator
 	if(creator)

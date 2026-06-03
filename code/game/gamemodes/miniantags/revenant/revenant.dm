@@ -217,7 +217,8 @@
 			to_chat(src, chat_box_red(messages.Join("<br>")))
 
 /mob/living/simple_animal/revenant/proc/giveSpells()
-	mind.AddSpell(new /obj/effect/proc_holder/spell/night_vision/revenant(null))
+	var/datum/action/cooldown/spell/nightvision/nightvision = new()
+	nightvision.Grant(src)
 	mind.AddSpell(new /obj/effect/proc_holder/spell/revenant_transmit(null))
 	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/revenant/defile(null))
 	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/revenant/malfunction(null))

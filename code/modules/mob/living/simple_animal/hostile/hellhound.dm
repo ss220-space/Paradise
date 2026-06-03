@@ -130,7 +130,8 @@
 /mob/living/simple_animal/hostile/hellhound/greater/Initialize(mapload)
 	. = ..()
 	// Movement
-	AddSpell(new /obj/effect/proc_holder/spell/ethereal_jaunt/shift)
+	var/datum/action/cooldown/spell/jaunt/ethereal_jaunt/shift/j_spell = new
+	j_spell.Grant(src)
 	var/obj/effect/proc_holder/spell/area_teleport/teleport/telespell = new
 	telespell.clothes_req = FALSE
 	telespell.human_req = FALSE
