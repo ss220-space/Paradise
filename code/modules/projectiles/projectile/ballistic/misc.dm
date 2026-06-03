@@ -8,7 +8,7 @@
 	ammo_type = /obj/item/ammo_casing/caseless/magspear
 
 /obj/projectile/bullet/reusable/magspear/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "магнитное копье",
 		GENITIVE = "магнитного копья",
 		DATIVE = "магнитному копью",

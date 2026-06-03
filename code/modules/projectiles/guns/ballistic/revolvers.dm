@@ -36,7 +36,7 @@
 	AddElement(/datum/element/item_skins)
 
 /obj/item/gun/projectile/revolver/taurus/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "револьвер \"Таурус\"",
 		GENITIVE = "револьвера \"Таурус\"",
 		DATIVE = "револьверу \"Таурус\"",
@@ -450,7 +450,7 @@
 	var/opened = FALSE
 
 /obj/item/gun/projectile/revolver/rsh_12/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "револьвер \"РШ-12\"",
 		GENITIVE = "револьвера \"РШ-12\"",
 		DATIVE = "револьверу \"РШ-12\"",

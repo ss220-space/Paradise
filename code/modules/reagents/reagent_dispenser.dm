@@ -81,7 +81,7 @@
 	icon_state = "holywater_tank"
 
 /obj/structure/reagent_dispensers/holywatertank/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бак святой воды",
 		GENITIVE = "бака святой воды",
 		DATIVE = "баку святой воды",

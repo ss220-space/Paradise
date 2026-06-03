@@ -5,7 +5,7 @@
 	flag = "energy"
 
 /obj/projectile/forcebolt/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "силовой импульс",
 		GENITIVE = "силового импульса",
 		DATIVE = "силовому импульсу",

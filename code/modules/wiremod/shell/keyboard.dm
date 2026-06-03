@@ -7,7 +7,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/keyboard_shell/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "оболочка клавиатуры",
 		GENITIVE = "оболочки клавиатуры",
 		DATIVE = "оболочке клавиатуры",

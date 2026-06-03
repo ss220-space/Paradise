@@ -336,7 +336,7 @@
 	var/pickedcard
 
 /obj/item/cardhand/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "игральные карты",
 		GENITIVE = "игральных карт",
 		DATIVE = "игральным картам",
@@ -571,7 +571,7 @@
 	. = ..()
 	if(LAZYLEN(cards) > 1)
 		name = "hand of [LAZYLEN(cards)] cards"
-		ru_names = list(
+		ru_names = alist(
 			NOMINATIVE = "[LAZYLEN(cards)] карт[declension_ru(LAZYLEN(cards), "а", "ы", "")]",
 			GENITIVE = "[LAZYLEN(cards)] карт[declension_ru(LAZYLEN(cards), "ы", "", "")]",
 			DATIVE = "[LAZYLEN(cards)] карт[declension_ru(LAZYLEN(cards), "е", "ам", "ам")]",
@@ -581,7 +581,7 @@
 		)
 	else
 		name = "playing card"
-		ru_names = list(
+		ru_names = alist(
 			NOMINATIVE = "игральная карта",
 			GENITIVE = "игральной карты",
 			DATIVE = "игральной карте",

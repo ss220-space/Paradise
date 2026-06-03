@@ -15,7 +15,7 @@
 	var/application_zone = null
 
 /obj/item/reagent_containers/food/pill/patch/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пластырь",
 		GENITIVE = "пластыря",
 		DATIVE = "пластырю",
@@ -51,7 +51,7 @@
 	list_reagents = list("styptic_powder" = 20)
 
 /obj/item/reagent_containers/food/pill/patch/styptic/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пластырь (Мех. Повреждения)",
 		GENITIVE = "пластыря (Мех. Повреждения)",
 		DATIVE = "пластырю (Мех. Повреждения)",
@@ -66,7 +66,7 @@
 	list_reagents = list("styptic_powder" = 10)
 
 /obj/item/reagent_containers/food/pill/patch/styptic/small/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мини-пластырь (Мех. Повреждения)",
 		GENITIVE = "мини-пластыря (Мех. Повреждения)",
 		DATIVE = "мини-пластырю (Мех. Повреждения)",
@@ -83,7 +83,7 @@
 	list_reagents = list("silver_sulfadiazine" = 20)
 
 /obj/item/reagent_containers/food/pill/patch/silver_sulf/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пластырь (Терм. Повреждения)",
 		GENITIVE = "пластыря (Терм. Повреждения)",
 		DATIVE = "пластырю (Терм. Повреждения)",
@@ -98,7 +98,7 @@
 	list_reagents = list("silver_sulfadiazine" = 10)
 
 /obj/item/reagent_containers/food/pill/patch/silver_sulf/small/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мини-пластырь (Терм. Повреждения)",
 		GENITIVE = "мини-пластыря (Терм. Повреждения)",
 		DATIVE = "мини-пластырю (Терм. Повреждения)",
@@ -115,7 +115,7 @@
 	list_reagents = list("synthflesh" = 10)
 
 /obj/item/reagent_containers/food/pill/patch/synthflesh/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пластырь (Синт-плоть)",
 		GENITIVE = "пластыря (Синт-плоть)",
 		DATIVE = "пластырю (Синт-плоть)",
@@ -130,7 +130,7 @@
 	list_reagents = list("nicotine" = 10)
 
 /obj/item/reagent_containers/food/pill/patch/nicotine/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пластырь (Никотин)",
 		GENITIVE = "пластыря (Никотин)",
 		DATIVE = "пластырю (Никотин)",
@@ -146,7 +146,7 @@
 	list_reagents = list("jestosterone" = 20)
 
 /obj/item/reagent_containers/food/pill/patch/jestosterone/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пластырь (Шутостерон)",
 		GENITIVE = "пластыря (Шутостерон)",
 		DATIVE = "пластырю (Шутостерон)",

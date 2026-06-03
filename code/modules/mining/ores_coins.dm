@@ -83,7 +83,7 @@
 	materials = list(MAT_URANIUM=MINERAL_MATERIAL_AMOUNT)
 
 /obj/item/stack/ore/uranium/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "урановая руда",
 		GENITIVE = "урановой руды",
 		DATIVE = "урановой руде",
@@ -101,7 +101,7 @@
 	materials = list(MAT_METAL=MINERAL_MATERIAL_AMOUNT)
 
 /obj/item/stack/ore/iron/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "железная руда",
 		GENITIVE = "железной руды",
 		DATIVE = "железной руде",
@@ -119,7 +119,7 @@
 	materials = list(MAT_GLASS=MINERAL_MATERIAL_AMOUNT)
 
 /obj/item/stack/ore/glass/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "песок",
 		GENITIVE = "песка",
 		DATIVE = "песку",
@@ -171,7 +171,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	desc = "Можно нанести на балку, чтобы создать ложную каменную стену"
 
 /obj/item/stack/ore/glass/basalt/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "вулканический пепел",
 		GENITIVE = "вулканического пепла",
 		DATIVE = "вулканическому пеплу",
@@ -190,7 +190,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	materials = list(MAT_PLASMA=MINERAL_MATERIAL_AMOUNT)
 
 /obj/item/stack/ore/plasma/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "плазменная руда",
 		GENITIVE = "плазменной руды",
 		DATIVE = "плазменной руде",
@@ -209,7 +209,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	materials = list(MAT_SILVER=MINERAL_MATERIAL_AMOUNT)
 
 /obj/item/stack/ore/silver/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "серебряная руда",
 		GENITIVE = "серебряной руды",
 		DATIVE = "серебряной руде",
@@ -228,7 +228,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	materials = list(MAT_GOLD=MINERAL_MATERIAL_AMOUNT)
 
 /obj/item/stack/ore/gold/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "золотая руда",
 		GENITIVE = "золотой руды",
 		DATIVE = "золотой руде",
@@ -247,7 +247,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	materials = list(MAT_DIAMOND=MINERAL_MATERIAL_AMOUNT)
 
 /obj/item/stack/ore/diamond/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "алмазная руда",
 		GENITIVE = "алмазной руды",
 		DATIVE = "алмазной руде",
@@ -266,7 +266,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	materials = list(MAT_BANANIUM=MINERAL_MATERIAL_AMOUNT)
 
 /obj/item/stack/ore/bananium/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бананиумная руда",
 		GENITIVE = "бананиумной руды",
 		DATIVE = "бананиумной руде",
@@ -285,7 +285,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	materials = list(MAT_TRANQUILLITE=MINERAL_MATERIAL_AMOUNT)
 
 /obj/item/stack/ore/tranquillite/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "транквиллитовая руда",
 		GENITIVE = "транквиллитовой руды",
 		DATIVE = "транквиллитовой руде",
@@ -303,7 +303,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	refined_type = /obj/item/stack/sheet/mineral/titanium
 
 /obj/item/stack/ore/titanium/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "титановая руда",
 		GENITIVE = "титановой руды",
 		DATIVE = "титановой руде",
@@ -319,7 +319,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	singular_name = "slag chunk"
 
 /obj/item/stack/ore/slag/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шлак",
 		GENITIVE = "шлака",
 		DATIVE = "шлаку",
@@ -347,7 +347,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	ADD_TRAIT(src, TRAIT_CAN_ATTACH_TO_TRIPWIRE, INNATE_TRAIT)
 
 /obj/item/twohanded/required/gibtonite/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "гибтонит",
 		GENITIVE = "гибтонита",
 		DATIVE = "гибтониту",
@@ -538,7 +538,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	var/credits = 10
 
 /obj/item/coin/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "монета",
 		GENITIVE = "монеты",
 		DATIVE = "монете",
@@ -636,7 +636,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	credits = 600
 
 /obj/item/coin/twoheaded/thief/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "монета Гильдии Воров",
 		GENITIVE = "монеты Гильдии Воров",
 		DATIVE = "монете Гильдии Воров",
@@ -655,7 +655,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	name_by_cmineral = FALSE
 
 /obj/item/coin/antagtoken/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "антаг токен",
 		GENITIVE = "антаг токена",
 		DATIVE = "антаг токену",
@@ -669,7 +669,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	credits = 160
 
 /obj/item/coin/antagtoken/syndicate/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "монета \"Синдиката\"",
 		GENITIVE = "монеты \"Синдиката\"",
 		DATIVE = "монете \"Синдиката\"",
@@ -688,7 +688,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	COOLDOWN_DECLARE(COIN_SUMMON_COOLDOWN)
 
 /obj/item/coin/magic/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "волшебная монета",
 		GENITIVE = "волшебной монеты",
 		DATIVE = "волшебной монете",

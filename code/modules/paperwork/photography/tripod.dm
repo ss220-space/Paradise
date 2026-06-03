@@ -26,14 +26,14 @@
 	var/obj/item/broadcast_camera/camera
 
 /obj/item/tripod/get_ru_names_cached()
-	return camera ? list(
+	return camera ? alist(
 		NOMINATIVE = "сложенный штатив с камерой",
 		GENITIVE = "сложенного штатива с камерой",
 		DATIVE = "сложенному штативу с камерой",
 		ACCUSATIVE = "сложенный штатив с камерой",
 		INSTRUMENTAL = "сложенным штативом с камерой",
 		PREPOSITIONAL = "сложенном штативе с камерой",
-	) : list(
+	) : alist(
 		NOMINATIVE = "сложенный штатив",
 		GENITIVE = "сложенного штатива",
 		DATIVE = "сложенному штативу",
@@ -299,14 +299,14 @@
 	return ..()
 
 /obj/structure/tripod/get_ru_names_cached()
-	return (tripod_item.camera) ? list(
+	return (tripod_item.camera) ? alist(
 		NOMINATIVE = "штатив с камерой",
 		GENITIVE = "штатива с камерой",
 		DATIVE = "штативу с камерой",
 		ACCUSATIVE = "штатив с камерой",
 		INSTRUMENTAL = "штативом с камерой",
 		PREPOSITIONAL = "штативе с камерой",
-	) : list(
+	) : alist(
 		NOMINATIVE = "штатив",
 		GENITIVE = "штатива",
 		DATIVE = "штативу",

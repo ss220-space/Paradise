@@ -167,7 +167,7 @@
 	volume = 40
 
 /obj/item/tank/jetpack/void/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "вакуумный реактивный ранец (Кислород)",
 		GENITIVE = "вакуумного реактивного ранца (Кислород)",
 		DATIVE = "вакуумному реактивному ранцу (Кислород)",

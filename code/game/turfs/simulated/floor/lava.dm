@@ -32,7 +32,7 @@
 	var/deep_water = TRUE
 
 /turf/simulated/floor/lava/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "лава",
 		GENITIVE = "лавы",
 		DATIVE = "лаве",
@@ -318,7 +318,7 @@
 	var/human_tox_fire_damage = 15
 
 /turf/simulated/floor/lava/lava_land_surface/plasma/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "жидкая плазма",
 		GENITIVE = "жидкой плазмы",
 		DATIVE = "жидкой плазме",

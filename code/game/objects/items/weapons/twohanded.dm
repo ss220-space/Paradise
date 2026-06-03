@@ -151,7 +151,7 @@
 	needs_permit = TRUE
 
 /obj/item/twohanded/fireaxe/boneaxe/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "костяной топор",
 		GENITIVE = "костяного топора",
 		DATIVE = "костяному топору",
@@ -177,7 +177,7 @@
 	has_speed_harvest = TRUE
 
 /obj/item/twohanded/fireaxe/boneaxe/guillotine/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "гильотина",
 		GENITIVE = "гильотины",
 		DATIVE = "гильотине",
@@ -285,13 +285,23 @@
 	light_on = FALSE
 	light_system = MOVABLE_LIGHT
 	needs_permit = TRUE
-	var/static/list/colormap = list(red=COLOR_SOFT_RED, blue=LIGHT_COLOR_BLUE, green=LIGHT_COLOR_GREEN, purple=LIGHT_COLOR_PURPLE, yellow=LIGHT_COLOR_BRIGHT_YELLOW, pink =LIGHT_COLOR_PURPLE, orange =LIGHT_COLOR_ORANGE, darkblue=LIGHT_COLOR_BLUE, rainbow=LIGHT_COLOR_DEFAULT)
+	var/static/alist/colormap = alist(
+		"red" = COLOR_SOFT_RED,
+		"blue" = LIGHT_COLOR_BLUE,
+		"green" = LIGHT_COLOR_GREEN,
+		"purple" = LIGHT_COLOR_PURPLE,
+		"yellow" = LIGHT_COLOR_BRIGHT_YELLOW,
+		"pink" = LIGHT_COLOR_PURPLE,
+		"orange" = LIGHT_COLOR_ORANGE,
+		"darkblue" = LIGHT_COLOR_BLUE,
+		"rainbow" = LIGHT_COLOR_DEFAULT,
+	)
 
 /obj/item/twohanded/dualsaber/Initialize(mapload)
 	. = ..()
 	RegisterSignal(src, COMSIG_TWOHANDED_WIELD, PROC_REF(on_wield))	//We need to listen for item wield
 	if(!blade_color)
-		blade_color = pick("red", "blue", "green", "purple", "yellow", "pink", "orange", "darkblue")
+		blade_color = pick("red", "blue", "green", "purple", "yellow", "pink", "orange", "darkblue", "rainbow")
 
 /obj/item/twohanded/dualsaber/ComponentInitialize()
 	. = ..()
@@ -418,7 +428,7 @@
 	var/icon_prefix = "spearglass"
 
 /obj/item/twohanded/spear/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "копьё",
 		GENITIVE = "копья",
 		DATIVE = "копью",
@@ -470,7 +480,7 @@
 	icon_prefix = "bone_spear"
 
 /obj/item/twohanded/spear/bonespear/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "костяное копьё",
 		GENITIVE = "костяного копья",
 		DATIVE = "костяному копью",
@@ -490,7 +500,7 @@
 	icon_prefix = "chitin_spear"
 
 /obj/item/twohanded/spear/bonespear/chitinspear/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "хитиновое копьё",
 		GENITIVE = "хитинового копья",
 		DATIVE = "хитиновому копью",
@@ -512,7 +522,7 @@
 	throwforce = 45
 
 /obj/item/twohanded/spear/bonespear/her_biting_embrace/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "копьё \"Её Обжигающие Объятия\"",
 		GENITIVE = "копья \"Её Обжигающие Объятия\"",
 		DATIVE = "копью \"Её Обжигающие Объятия\"",
@@ -599,7 +609,7 @@
 	var/obj/item/twohanded/spear/contained_spear = null
 
 /obj/structure/headspear/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "голова на копье",
 		GENITIVE = "головы на копье",
 		DATIVE = "голове на копье",
@@ -727,7 +737,7 @@
 	COOLDOWN_DECLARE(revs_cooldown)
 
 /obj/item/twohanded/chainsaw/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бензопила",
 		GENITIVE = "бензопилы",
 		DATIVE = "бензопиле",
@@ -1050,7 +1060,7 @@
 	gender = PLURAL
 
 /obj/item/twohanded/pitchfork/demonic/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "демонические вилы",
 		GENITIVE = "демонических вил",
 		DATIVE = "демоническим вилам",
@@ -1189,7 +1199,7 @@
 	var/max_stamina_damage = 40
 
 /obj/item/twohanded/sechammer/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "тактическая кувалда",
 		GENITIVE = "тактической кувалды",
 		DATIVE = "тактической кувалде",

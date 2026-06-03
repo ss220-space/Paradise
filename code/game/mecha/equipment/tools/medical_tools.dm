@@ -555,7 +555,7 @@
 	var/obj/item/gun/medbeam/mech/mbeam
 
 /obj/item/mecha_parts/mecha_equipment/medical/beamgun/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Медицинская Лучпушка",
 		GENITIVE = "Медицинской Лучпушки",
 		DATIVE = "Медицинской Лучпушке",

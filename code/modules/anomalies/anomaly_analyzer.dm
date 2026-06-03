@@ -14,7 +14,7 @@
 	var/scan_data
 
 /obj/item/anomaly_analyzer/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сканер аномалий", \
 		GENITIVE = "сканера аномалий", \
 		DATIVE = "сканеру аномалий", \

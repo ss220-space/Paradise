@@ -6,7 +6,7 @@
 	item_state = "w_suit"
 
 /obj/item/clothing/under/pj/red/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "красная пижама",
 		GENITIVE = "красной пижамы",
 		DATIVE = "красной пижаме",
@@ -23,7 +23,7 @@
 	item_state = "w_suit"
 
 /obj/item/clothing/under/pj/blue/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "синяя пижама",
 		GENITIVE = "синей пижамы",
 		DATIVE = "синей пижаме",
@@ -40,7 +40,7 @@
 	item_color = "ek"
 
 /obj/item/clothing/under/patriotsuit/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "костюм патриота",
 		GENITIVE = "костюма патриота",
 		DATIVE = "костюму патриота",
@@ -57,7 +57,7 @@
 	item_color = "captain_fly"
 
 /obj/item/clothing/under/captain_fly/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "униформа капитана-изгоя",
 		GENITIVE = "униформы капитана-изгоя",
 		DATIVE = "униформе капитана-изгоя",
@@ -74,7 +74,7 @@
 	item_color = "scratch"
 
 /obj/item/clothing/under/scratch/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "белый костюм",
 		GENITIVE = "белого костюма",
 		DATIVE = "белому костюму",
@@ -90,7 +90,7 @@
 	item_color = "sl_suit"
 
 /obj/item/clothing/under/sl_suit/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "деревенский костюм",
 		GENITIVE = "деревенского костюма",
 		DATIVE = "деревенскому костюму",
@@ -107,7 +107,7 @@
 	item_color = "waiter"
 
 /obj/item/clothing/under/waiter/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "костюм официанта",
 		GENITIVE = "костюма официанта",
 		DATIVE = "костюму официанта",
@@ -124,7 +124,7 @@
 	item_color = "mailman"
 
 /obj/item/clothing/under/rank/mailman/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "комбинезон почтальона",
 		GENITIVE = "комбинезона почтальона",
 		DATIVE = "комбинезону почтальона",
@@ -139,7 +139,7 @@
 	item_color = "mail_skirt"
 
 /obj/item/clothing/under/rank/mailman/skirt/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "юбка почтальона",
 		GENITIVE = "юбки почтальона",
 		DATIVE = "юбке почтальона",
@@ -156,7 +156,7 @@
 	item_color = "vice"
 
 /obj/item/clothing/under/rank/vice/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "комбинезон вице-офицера",
 		GENITIVE = "комбинезона вице-офицера",
 		DATIVE = "комбинезону вице-офицера",
@@ -187,7 +187,7 @@
 	item_color = "solgov_urban"
 
 /obj/item/clothing/under/solgov/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "униформа ВМС ТСФ",
 		GENITIVE = "униформы ВМС ТСФ",
 		DATIVE = "униформе ВМС ТСФ",
@@ -215,7 +215,7 @@
 	item_color = "solgovelite"
 
 /obj/item/clothing/under/solgov/elite/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "униформа спецназа ВМС ТСФ",
 		GENITIVE = "униформы спецназа ВМС ТСФ",
 		DATIVE = "униформе спецназа ВМС ТСФ",
@@ -232,7 +232,7 @@
 	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 30, ACID = 30)
 
 /obj/item/clothing/under/solgov/command/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "униформа лейтенанта ВМС ТСФ",
 		GENITIVE = "униформы лейтенанта ВМС ТСФ",
 		DATIVE = "униформе лейтенанта ВМС ТСФ",
@@ -248,7 +248,7 @@
 	item_color = "solgovcelite"
 
 /obj/item/clothing/under/solgov/command/elite/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "униформа лейтенанта спецназа ВМС ТСФ",
 		GENITIVE = "униформы лейтенанта спецназа ВМС ТСФ",
 		DATIVE = "униформе лейтенанта спецназа ВМС ТСФ",
@@ -264,7 +264,7 @@
 	item_color = "solgovr"
 
 /obj/item/clothing/under/solgov/rep/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "униформа представителя ТСФ",
 		GENITIVE = "униформы представителя ТСФ",
 		DATIVE = "униформе представителя ТСФ",
@@ -281,7 +281,7 @@
 	item_color = "officer"
 
 /obj/item/clothing/under/rank/centcom_officer/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "комбинезон офицера Центрального Командования",
 		GENITIVE = "комбинезона офицера Центрального Командования",
 		DATIVE = "комбинезону офицера Центрального Командования",
@@ -302,7 +302,7 @@
 	item_color = "centcom"
 
 /obj/item/clothing/under/rank/centcom_commander/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "комбинезон офицера Центрального Командования",
 		GENITIVE = "комбинезона офицера Центрального Командования",
 		DATIVE = "комбинезону офицера Центрального Командования",
@@ -321,7 +321,7 @@
 	displays_id = 0
 
 /obj/item/clothing/under/rank/centcom/officer/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "униформа офицера Флота \"Нанотрейзен\"",
 		GENITIVE = "униформы офицера Флота \"Нанотрейзен\"",
 		DATIVE = "униформе офицера Флота \"Нанотрейзен\"",
@@ -349,7 +349,7 @@
 	)
 
 /obj/item/clothing/under/rank/centcom/officer/skirt/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "юбка офицера Флота \"Нанотрейзен\"",
 		GENITIVE = "юбки офицера Флота \"Нанотрейзен\"",
 		DATIVE = "юбке офицера Флота \"Нанотрейзен\"",
@@ -368,7 +368,7 @@
 	displays_id = 0
 
 /obj/item/clothing/under/rank/centcom/captain/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "униформа капитана Флота \"Нанотрейзен\"",
 		GENITIVE = "униформы капитана Флота \"Нанотрейзен\"",
 		DATIVE = "униформе капитана Флота \"Нанотрейзен\"",
@@ -382,7 +382,7 @@
 	desc = "Золотая отделка на чёрной, как космос, ткани. Эта униформа обозначает звание \"Командир\" и несёт на левом плече нашивку АКН Трурль. Носится исключительно командирами Транс-Солнечной Федерации. Оснащён экзотическими материалами для защиты."
 
 /obj/item/clothing/under/rank/centcom/captain/solgov/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "униформа командира Транс-Солнечной Федерации",
 		GENITIVE = "униформы командира Транс-Солнечной Федерации",
 		DATIVE = "униформе командира Транс-Солнечной Федерации",
@@ -401,7 +401,7 @@
 	displays_id = 0
 
 /obj/item/clothing/under/rank/centcom/blueshield/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "парадная униформа Синего Щита",
 		GENITIVE = "парадной униформы Синего Щита",
 		DATIVE = "парадной униформе Синего Щита",
@@ -419,7 +419,7 @@
 	displays_id = 0
 
 /obj/item/clothing/under/rank/centcom/representative/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "парадная униформа Представителя \"Нанотрейзен\"",
 		GENITIVE = "парадной униформы Представителя \"Нанотрейзен\"",
 		DATIVE = "парадной униформе Представителя \"Нанотрейзен\"",
@@ -445,7 +445,7 @@
 	displays_id = 0
 
 /obj/item/clothing/under/rank/centcom/magistrate/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "парадная униформа Магистрата",
 		GENITIVE = "парадной униформы Магистрата",
 		DATIVE = "парадной униформе Магистрата",
@@ -471,7 +471,7 @@
 	displays_id = 0
 
 /obj/item/clothing/under/rank/centcom/diplomatic/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "парадная униформа дипломата \"Нанотрейзен\"",
 		GENITIVE = "парадной униформы дипломата \"Нанотрейзен\"",
 		DATIVE = "парадной униформе дипломата \"Нанотрейзен\"",
@@ -489,7 +489,7 @@
 	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 30, ACID = 30)
 
 /obj/item/clothing/under/rank/blueshield/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "униформа Синего Щита",
 		GENITIVE = "униформы Синего Щита",
 		DATIVE = "униформе Синего Щита",
@@ -506,7 +506,7 @@
 	item_color = "blueshieldf"
 
 /obj/item/clothing/under/rank/blueshield/skirt/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "юбка Синего Щита",
 		GENITIVE = "юбки Синего Щита",
 		DATIVE = "юбке Синего Щита",
@@ -532,7 +532,7 @@
 	resistance_flags = NONE
 
 /obj/item/clothing/under/space/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "комбинезон \"NASA\"",
 		GENITIVE = "комбинезона \"NASA\"",
 		DATIVE = "комбинезону \"NASA\"",
@@ -568,7 +568,7 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF | FREEZE_PROOF
 
 /obj/item/clothing/under/acj/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кибернетический комбинезон админа",
 		GENITIVE = "кибернетического комбинезона админа",
 		DATIVE = "кибернетическому комбинезону админа",
@@ -584,7 +584,7 @@
 	item_color = "johnny"
 
 /obj/item/clothing/under/johnny/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "комбинезон Джонни~~",
 		GENITIVE = "комбинезона Джонни~~",
 		DATIVE = "комбинезону Джонни~~",
@@ -602,7 +602,7 @@
 	dying_key = DYE_REGISTRY_UNDER
 
 /obj/item/clothing/under/rainbow/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "радуга",
 		GENITIVE = "радуги",
 		DATIVE = "радуге",
@@ -619,7 +619,7 @@
 	item_color = "psysuit"
 
 /obj/item/clothing/under/psysuit/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "чёрное нижнее бельё",
 		GENITIVE = "чёрного нижнего белья",
 		DATIVE = "чёрному нижнему белью",
@@ -636,7 +636,7 @@
 	item_color = "green_suit"
 
 /obj/item/clothing/under/gimmick/rank/captain/suit/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "капитанский костюм",
 		GENITIVE = "капитанского костюма",
 		DATIVE = "капитанскому костюму",
@@ -653,7 +653,7 @@
 	item_color = "teal_suit"
 
 /obj/item/clothing/under/gimmick/rank/head_of_personnel/suit/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "костюм главы персонала",
 		GENITIVE = "костюма главы персонала",
 		DATIVE = "костюму главы персонала",
@@ -670,7 +670,7 @@
 	item_color = "black_suit"
 
 /obj/item/clothing/under/suit_jacket/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "чёрный костюм",
 		GENITIVE = "чёрного костюма",
 		DATIVE = "чёрному костюму",
@@ -686,7 +686,7 @@
 	item_color = "really_black_suit"
 
 /obj/item/clothing/under/suit_jacket/really_black/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "официальный костюм",
 		GENITIVE = "официального костюма",
 		DATIVE = "официальному костюму",
@@ -703,7 +703,7 @@
 	item_color = "black_suit_fem"
 
 /obj/item/clothing/under/suit_jacket/female/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "официальный женский костюм",
 		GENITIVE = "официального женского костюма",
 		DATIVE = "официальному женскому костюму",
@@ -720,7 +720,7 @@
 	item_color = "red_suit"
 
 /obj/item/clothing/under/suit_jacket/red/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "красный костюм",
 		GENITIVE = "красного костюма",
 		DATIVE = "красному костюму",
@@ -741,7 +741,7 @@
 	)
 
 /obj/item/clothing/under/suit_jacket/red/skirt/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "красная юбка",
 		GENITIVE = "красной юбки",
 		DATIVE = "красной юбке",
@@ -758,7 +758,7 @@
 	item_color = "navy_suit"
 
 /obj/item/clothing/under/suit_jacket/navy/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "тёмно-синий костюм",
 		GENITIVE = "тёмно-синего костюма",
 		DATIVE = "тёмно-синему костюму",
@@ -775,7 +775,7 @@
 	item_color = "tan_suit"
 
 /obj/item/clothing/under/suit_jacket/tan/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бежевый костюм",
 		GENITIVE = "бежевого костюма",
 		DATIVE = "бежевому костюму",
@@ -792,7 +792,7 @@
 	item_color = "burgundy_suit"
 
 /obj/item/clothing/under/suit_jacket/burgundy/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "малиновый костюм",
 		GENITIVE = "малинового костюма",
 		DATIVE = "малиновому костюму",
@@ -809,7 +809,7 @@
 	item_color = "charcoal_suit"
 
 /obj/item/clothing/under/suit_jacket/charcoal/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "угольный костюм",
 		GENITIVE = "угольного костюма",
 		DATIVE = "угольному костюму",
@@ -826,7 +826,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
 /obj/item/clothing/under/blackskirt/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "чёрная юбка",
 		GENITIVE = "чёрной юбки",
 		DATIVE = "чёрной юбке",
@@ -844,7 +844,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
 /obj/item/clothing/under/schoolgirl/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "униформа школьницы",
 		GENITIVE = "униформы школьницы",
 		DATIVE = "униформе школьницы",
@@ -861,7 +861,7 @@
 	item_color = "overalls"
 
 /obj/item/clothing/under/overalls/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "рабочий комбинезон",
 		GENITIVE = "рабочего комбинезона",
 		DATIVE = "рабочему комбинезону",
@@ -878,7 +878,7 @@
 	item_color = "pirate"
 
 /obj/item/clothing/under/pirate/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "наряд пирата",
 		GENITIVE = "наряда пирата",
 		DATIVE = "наряду пирата",
@@ -895,7 +895,7 @@
 	item_color = "piraterags"
 
 /obj/item/clothing/under/pirate_rags/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "лохмотья пирата",
 		GENITIVE = "лохмотей пирата",
 		DATIVE = "лохмотьям пирата",
@@ -912,7 +912,7 @@
 	item_color = "soviet"
 
 /obj/item/clothing/under/soviet/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "советская униформа",
 		GENITIVE = "советской униформы",
 		DATIVE = "советской униформе",
@@ -929,7 +929,7 @@
 	item_color = "sovietofficer"
 
 /obj/item/clothing/under/sovietofficer/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "униформа советского офицера",
 		GENITIVE = "униформы советского офицера",
 		DATIVE = "униформе советского офицера",
@@ -946,7 +946,7 @@
 	item_color = "sovietadmiral"
 
 /obj/item/clothing/under/sovietadmiral/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "униформа советского адмирала",
 		GENITIVE = "униформы советского адмирала",
 		DATIVE = "униформе советского адмирала",
@@ -964,7 +964,7 @@
 	dying_key = DYE_REGISTRY_UNDER
 
 /obj/item/clothing/under/redcoat/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "красный мундир",
 		GENITIVE = "красного мундира",
 		DATIVE = "красному мундиру",
@@ -982,7 +982,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|FEET
 
 /obj/item/clothing/under/kilt/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "килт",
 		GENITIVE = "килта",
 		DATIVE = "килту",
@@ -1000,7 +1000,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
 /obj/item/clothing/under/sexymime/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сексуальная одежда мима",
 		GENITIVE = "секусальной одежды мима",
 		DATIVE = "сексуальной одежде мима",
@@ -1018,7 +1018,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
 /obj/item/clothing/under/mimeshorts/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шорты мима",
 		GENITIVE = "шорт мима",
 		DATIVE = "шортам мима",
@@ -1036,7 +1036,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
 /obj/item/clothing/under/mimeskirt/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сексуальная юбка мима",
 		GENITIVE = "сексуальной юбки мима",
 		DATIVE = "сексуальной юбке мима",
@@ -1055,7 +1055,7 @@
 	resistance_flags = NONE
 
 /obj/item/clothing/under/gladiator/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "униформа гладиатора",
 		GENITIVE = "униформы гладиатора",
 		DATIVE = "униформе гладиатора",
@@ -1073,7 +1073,7 @@
 	has_sensor = FALSE
 
 /obj/item/clothing/under/ash_walker/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "одеяние пеплоходца",
 		GENITIVE = "одеяния пеплоходца",
 		DATIVE = "одеянию пеплоходца",
@@ -1092,7 +1092,7 @@
 	species_restricted = list(SPECIES_UNATHI, SPECIES_ASHWALKER_BASIC, SPECIES_ASHWALKER_SHAMAN, SPECIES_DRACONOID)
 
 /obj/item/clothing/under/ash_walker_shaman/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "лохмотья шамана",
 		GENITIVE = "лохмотьев шамана",
 		DATIVE = "лохмотьям шамана",
@@ -1110,7 +1110,7 @@
 	item_color = "dress_fire"
 
 /obj/item/clothing/under/dress/dress_fire/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пламенное платье",
 		GENITIVE = "пламенного платья",
 		DATIVE = "пламенному платью",
@@ -1126,7 +1126,7 @@
 	item_color = "dress_green"
 
 /obj/item/clothing/under/dress/dress_green/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "зелёное платье",
 		GENITIVE = "зелёного платья",
 		DATIVE = "зелёному платью",
@@ -1143,7 +1143,7 @@
 	over_shoes = TRUE
 
 /obj/item/clothing/under/dress/dress_orange/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "оранжевое платье",
 		GENITIVE = "оранжевого платья",
 		DATIVE = "оранжевому платью",
@@ -1159,7 +1159,7 @@
 	item_color = "dress_pink"
 
 /obj/item/clothing/under/dress/dress_pink/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "розовое платье",
 		GENITIVE = "розового платья",
 		DATIVE = "розовому платью",
@@ -1175,7 +1175,7 @@
 	item_color = "dress_yellow"
 
 /obj/item/clothing/under/dress/dress_yellow/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "жёлтое платье",
 		GENITIVE = "жёлтого платья",
 		DATIVE = "жёлтому платью",
@@ -1191,7 +1191,7 @@
 	item_color = "dress_saloon"
 
 /obj/item/clothing/under/dress/dress_saloon/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "платье девушки из салуна",
 		GENITIVE = "платья девушки из салуна",
 		DATIVE = "платью девушки из салуна",
@@ -1207,7 +1207,7 @@
 	item_color = "dress_rd"
 
 /obj/item/clothing/under/dress/dress_rd/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "платье-униформа директора исследований",
 		GENITIVE = "платья-униформы директора исследований",
 		DATIVE = "платью-униформе директора исследований",
@@ -1223,7 +1223,7 @@
 	item_color = "dress_cap"
 
 /obj/item/clothing/under/dress/dress_cap/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "платье-униформа капитана",
 		GENITIVE = "платья-униформы капитана",
 		DATIVE = "платью-униформе капитана",
@@ -1239,7 +1239,7 @@
 	item_state = "dress_parade"
 
 /obj/item/clothing/under/dress/dress_parade/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "парадное платье-униформа капитана",
 		GENITIVE = "парадного платья-униформы капитана",
 		DATIVE = "парадному платью-униформе капитана",
@@ -1255,7 +1255,7 @@
 	item_color = "dress_hop"
 
 /obj/item/clothing/under/dress/dress_hop/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "платье-униформа главы персонала",
 		GENITIVE = "платья-униформы главы персонала",
 		DATIVE = "платью-униформе главы персонала",
@@ -1271,7 +1271,7 @@
 	item_color = "huresource"
 
 /obj/item/clothing/under/dress/dress_hr/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "платье-униформа директора персоналу",
 		GENITIVE = "платья-униформы директора персоналу.",
 		DATIVE = "платью-униформе директора персоналу.",
@@ -1287,7 +1287,7 @@
 	item_color = "plaid_blue"
 
 /obj/item/clothing/under/dress/plaid_blue/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "клетчатая синяя юбка",
 		GENITIVE = "клетчатой синей юбки",
 		DATIVE = "клетчатой синей юбке",
@@ -1303,7 +1303,7 @@
 	item_color = "plaid_red"
 
 /obj/item/clothing/under/dress/plaid_red/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "клетчатая красная юбка",
 		GENITIVE = "клетчатой красной юбки",
 		DATIVE = "клетчатой красной юбке",
@@ -1319,7 +1319,7 @@
 	item_color = "plaid_purple"
 
 /obj/item/clothing/under/dress/plaid_purple/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "клетчатая фиолетовая юбка",
 		GENITIVE = "клетчатой фиолетовой юбки",
 		DATIVE = "клетчатой фиолетовой юбке",
@@ -1338,7 +1338,7 @@
 	over_shoes = TRUE
 
 /obj/item/clothing/under/wedding/bride_orange/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "оранжевое свадебное платье",
 		GENITIVE = "оранжевого свадебного платья",
 		DATIVE = "оранжевому свадебному платью",
@@ -1355,7 +1355,7 @@
 	over_shoes = TRUE
 
 /obj/item/clothing/under/wedding/bride_purple/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "фиолетовое свадебное платье",
 		GENITIVE = "фиолетового свадебного платья",
 		DATIVE = "фиолетовому свадебному платью",
@@ -1372,7 +1372,7 @@
 	over_shoes = TRUE
 
 /obj/item/clothing/under/wedding/bride_blue/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "синее свадебное платье",
 		GENITIVE = "синего свадебного платья",
 		DATIVE = "синему свадебному платью",
@@ -1389,7 +1389,7 @@
 	over_shoes = TRUE
 
 /obj/item/clothing/under/wedding/bride_red/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "красное свадебное платье",
 		GENITIVE = "красного свадебного платья",
 		DATIVE = "красному свадебному платью",
@@ -1406,7 +1406,7 @@
 	over_shoes = TRUE
 
 /obj/item/clothing/under/wedding/bride_white/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "белое свадебное платье",
 		GENITIVE = "белого свадебного платья",
 		DATIVE = "белому свадебному платью",
@@ -1424,7 +1424,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
 /obj/item/clothing/under/sundress/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сарафан",
 		GENITIVE = "сарафана",
 		DATIVE = "сарафану",
@@ -1441,7 +1441,7 @@
 	item_color = "captain_parade"
 
 /obj/item/clothing/under/captainparade/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "капитанская парадная униформа",
 		GENITIVE = "капитанской парадной униформы",
 		DATIVE = "капитанской парадной униформе",
@@ -1468,7 +1468,7 @@
 	item_color = "cap_office"
 
 /obj/item/clothing/under/captainparade/office/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "капитанская офисная униформа",
 		GENITIVE = "капитанской офисной униформы",
 		DATIVE = "капитанской офисной униформе",
@@ -1487,7 +1487,7 @@
 	resistance_flags = NONE
 
 /obj/item/clothing/under/roman/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "римская броня",
 		GENITIVE = "римской брони",
 		DATIVE = "римской броне",
@@ -1505,7 +1505,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
 /obj/item/clothing/under/maid/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "костюм горничной",
 		GENITIVE = "костюма горничной",
 		DATIVE = "костюму горничной",
@@ -1523,7 +1523,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
 /obj/item/clothing/under/janimaid/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "униформа горничной",
 		GENITIVE = "униформы горничной",
 		DATIVE = "униформе горничной",
@@ -1541,7 +1541,7 @@
 	over_shoes = TRUE
 
 /obj/item/clothing/under/singery/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "одежда жёлтого исполнителя",
 		GENITIVE = "одежды жёлтого исполнителя",
 		DATIVE = "одежде жёлтого исполнителя",
@@ -1558,7 +1558,7 @@
 	item_color = "bsing"
 
 /obj/item/clothing/under/singerb/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "одежда синего исполнителя",
 		GENITIVE = "одежды синего исполнителя",
 		DATIVE = "одежде синего исполнителя",
@@ -1574,7 +1574,7 @@
 	item_color = "jester"
 
 /obj/item/clothing/under/jester/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "костюм шута",
 		GENITIVE = "костюма шута",
 		DATIVE = "костюму шута",
@@ -1591,7 +1591,7 @@
 	item_color = "flapper"
 
 /obj/item/clothing/under/flappers/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "флэпперсы",
 		GENITIVE = "флэпперсов",
 		DATIVE = "флэпперсам",
@@ -1608,7 +1608,7 @@
 	item_color = "mafia"
 
 /obj/item/clothing/under/mafia/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "одежда мафии",
 		GENITIVE = "одежды мафии",
 		DATIVE = "одежде мафии",
@@ -1625,7 +1625,7 @@
 	item_color = "mafiavest"
 
 /obj/item/clothing/under/mafia/vest/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "жилет мафии",
 		GENITIVE = "жилета мафии",
 		DATIVE = "жилету мафии",
@@ -1642,7 +1642,7 @@
 	item_color = "mafiawhite"
 
 /obj/item/clothing/under/mafia/white/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "белая одежда мафии",
 		GENITIVE = "белой одежды мафии",
 		DATIVE = "белой одежде мафии",
@@ -1659,7 +1659,7 @@
 	item_color = "suevest"
 
 /obj/item/clothing/under/mafia/sue/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "жилет мафии",
 		GENITIVE = "жилета мафии",
 		DATIVE = "жилету мафии",
@@ -1676,7 +1676,7 @@
 	item_color = "mafiatan"
 
 /obj/item/clothing/under/mafia/tan/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кожаная одежда мафии",
 		GENITIVE = "кожаной одежды мафии",
 		DATIVE = "кожаной одежде мафии",
@@ -1693,7 +1693,7 @@
 	item_color = "bane"
 
 /obj/item/clothing/under/bane/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "упряжь Бэйна",
 		GENITIVE = "упряжи Бэйна",
 		DATIVE = "упряже Бэйна",
@@ -1710,7 +1710,7 @@
 	item_color = "psyamp"
 
 /obj/item/clothing/under/psyjump/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "комбинезон с пси-усилением",
 		GENITIVE = "комбинезона с пси-усилением",
 		DATIVE = "комбинезону с пси-усилением",
@@ -1727,7 +1727,7 @@
 	item_color = "colin_earle"
 
 /obj/item/clothing/under/rebeloutfit/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "комбинезон сопротивления",
 		GENITIVE = "комбинезона сопротивления",
 		DATIVE = "комбинезону сопротивления",
@@ -1744,7 +1744,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
 /obj/item/clothing/under/officeruniform/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "комбинезон офицера клоуна",
 		GENITIVE = "комбинезона офицера клоуна",
 		DATIVE = "комбинезону офицера клоуна",
@@ -1761,7 +1761,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
 /obj/item/clothing/under/soldieruniform/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "комбинезон солдата клоуна",
 		GENITIVE = "комбинезона солдата клоуна",
 		DATIVE = "комбинезону солдата клоуна",
@@ -1778,7 +1778,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
 /obj/item/clothing/under/pennywise/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "костюм Пеннивайза",
 		GENITIVE = "костюма Пеннивайза",
 		DATIVE = "костюму Пеннивайза",
@@ -1804,7 +1804,7 @@
 	)
 
 /obj/item/clothing/under/sweettooth/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Костюм Сладкоежки",
 		GENITIVE = "Костюма Сладкоежки",
 		DATIVE = "Костюму Сладкоежки",
@@ -1829,7 +1829,7 @@
 	)
 
 /obj/item/clothing/under/rockso/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "костюм Роксо",
 		GENITIVE = "костюма Роксо",
 		DATIVE = "костюму Роксо",
@@ -1846,7 +1846,7 @@
 	item_color = "assistant_formal"
 
 /obj/item/clothing/under/assistantformal/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "парадная униформа ассистента",
 		GENITIVE = "парадной униформы ассистента",
 		DATIVE = "парадной униформе ассистента",
@@ -1864,7 +1864,7 @@
 	over_shoes = TRUE
 
 /obj/item/clothing/under/blacktango/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "чёрное платье танго",
 		GENITIVE = "чёрного платья танго",
 		DATIVE = "чёрному платью танго",
@@ -1881,7 +1881,7 @@
 	item_color = "striped_dress"
 
 /obj/item/clothing/under/stripeddress/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "полосатое платье",
 		GENITIVE = "полосатого платья",
 		DATIVE = "полосатому платью",
@@ -1898,7 +1898,7 @@
 	item_color = "sailor_dress"
 
 /obj/item/clothing/under/sailordress/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "платье-матрос",
 		GENITIVE = "платья-матроса",
 		DATIVE = "платью-матросу",
@@ -1916,7 +1916,7 @@
 	over_shoes = TRUE
 
 /obj/item/clothing/under/redeveninggown/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "красное вечернее платье",
 		GENITIVE = "красного вечернего платья",
 		DATIVE = "красному вечернему платью",
@@ -1933,7 +1933,7 @@
 	item_color = "checkered_suit"
 
 /obj/item/clothing/under/suit_jacket/checkered/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "клетчатый костюм",
 		GENITIVE = "клетчатого костюма",
 		DATIVE = "клетчатому костюму",
@@ -1949,7 +1949,7 @@
 	item_color = "owl"
 
 /obj/item/clothing/under/owl/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "костюм совы",
 		GENITIVE = "костюма совы",
 		DATIVE = "костюму совы",
@@ -1965,7 +1965,7 @@
 	item_color = "griffin"
 
 /obj/item/clothing/under/griffin/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "костюм грифона",
 		GENITIVE = "костюма грифона",
 		DATIVE = "костюму грифона",
@@ -1982,7 +1982,7 @@
 	item_state = "noble_clothes"
 
 /obj/item/clothing/under/noble_clothes/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "одежда знати",
 		GENITIVE = "одежды знати",
 		DATIVE = "одежде знати",
@@ -2001,7 +2001,7 @@
 	clothing_traits = list(TRAIT_VENTCRAWLER_ITEM_BASED)
 
 /obj/item/clothing/under/contortionist/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "комбинезон атмосферного техника",
 		GENITIVE = "комбинезона атмосферного техника",
 		DATIVE = "комбинезону атмосферного техника",
@@ -2038,7 +2038,7 @@
 	has_sensor = 0 // HUNKE
 
 /obj/item/clothing/under/cursedclown/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "проклятая одежда клоуна",
 		GENITIVE = "проклятой одежды клоуна",
 		DATIVE = "проклятой одежде клоуна",
@@ -2061,7 +2061,7 @@
 	over_shoes = TRUE
 
 /obj/item/clothing/under/victdress/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "чёрное викторианское платье",
 		GENITIVE = "чёрного викторианского платья",
 		DATIVE = "чёрному викторианскому платью",
@@ -2077,7 +2077,7 @@
 	item_color = "victorianreddress"
 
 /obj/item/clothing/under/victdress/red/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "красное викторианское платье",
 		GENITIVE = "красного викторианского платья",
 		DATIVE = "красному викторианскому платью",
@@ -2095,7 +2095,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
 /obj/item/clothing/under/victsuit/red/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "викторианский костюм",
 		GENITIVE = "викторианского костюма",
 		DATIVE = "викторианскому костюму",
@@ -2111,7 +2111,7 @@
 	item_color = "victorianblred"
 
 /obj/item/clothing/under/victsuit/redblk/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "красно-чёрный викторианский костюм",
 		GENITIVE = "красно-чёрного викторианского костюма",
 		DATIVE = "красно-чёрному викторианскому костюму",
@@ -2127,7 +2127,7 @@
 	item_color = "victorianredvest"
 
 /obj/item/clothing/under/victsuit/red/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "красный викторианский костюм",
 		GENITIVE = "красного викторианского костюма",
 		DATIVE = "красному викторианскому костюму",
@@ -2148,7 +2148,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
 /obj/item/clothing/under/medigown/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "медицинский халат",
 		GENITIVE = "медицинского халата",
 		DATIVE = "медицинскому халату",
@@ -2165,7 +2165,7 @@
 	item_color = "burial"
 
 /obj/item/clothing/under/burial/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "погребальная одежда",
 		GENITIVE = "погребальной одежды",
 		DATIVE = "погребальной одежде",
@@ -2182,7 +2182,7 @@
 	item_color = "hawaiianred"
 
 /obj/item/clothing/under/redhawaiianshirt/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "красная гавайская рубашка",
 		GENITIVE = "красной гавайской рубашки",
 		DATIVE = "красной гавайской рубашке",
@@ -2199,7 +2199,7 @@
 	item_color = "hawaiianpink"
 
 /obj/item/clothing/under/pinkhawaiianshirt/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "розовая гавайская рубашка",
 		GENITIVE = "розовой гавайской рубашки",
 		DATIVE = "розовой гавайской рубашке",
@@ -2216,7 +2216,7 @@
 	item_color = "hawaiianorange"
 
 /obj/item/clothing/under/orangehawaiianshirt/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "оранжевая гавайская рубашка",
 		GENITIVE = "оранжевой гавайской рубашки",
 		DATIVE = "оранжевой гавайской рубашке",
@@ -2233,7 +2233,7 @@
 	item_color = "hawaiianblue"
 
 /obj/item/clothing/under/bluehawaiianshirt/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "синяя гавайская рубашка",
 		GENITIVE = "синей гавайской рубашки",
 		DATIVE = "синей гавайской рубашке",
@@ -2251,7 +2251,7 @@
 	armor = list(melee = 10, bullet = 0, laser = 10, energy = 0, bomb = 5, bio = 0, fire = 0, acid = 0)
 
 /obj/item/clothing/under/misc/durathread/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "дюратканевый комбинезон",
 		GENITIVE = "дюратканевого комбинезона",
 		DATIVE = "дюратканевому комбинезона",
@@ -2268,7 +2268,7 @@
 	item_color = "cuban_suit"
 
 /obj/item/clothing/under/cuban_suit/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "наряд для румбы",
 		GENITIVE = "наряда для румбы",
 		DATIVE = "наряду для румбы",
@@ -2285,7 +2285,7 @@
 	item_color = "tourist"
 
 /obj/item/clothing/under/tourist_suit/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "наряд туриста",
 		GENITIVE = "наряда туриста",
 		DATIVE = "наряду туриста",
@@ -2303,7 +2303,7 @@
 	over_shoes = TRUE
 
 /obj/item/clothing/under/red_chaps/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "красные чапсы",
 		GENITIVE = "красных чапсов",
 		DATIVE = "красным чапсам",
@@ -2321,7 +2321,7 @@
 	over_shoes = TRUE
 
 /obj/item/clothing/under/white_chaps/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "белые чапсы",
 		GENITIVE = "белых чапсов",
 		DATIVE = "белым чапсам",
@@ -2339,7 +2339,7 @@
 	over_shoes = TRUE
 
 /obj/item/clothing/under/tan_chaps/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бежевые чапсы",
 		GENITIVE = "бежевых чапсов",
 		DATIVE = "бежевым чапсам",
@@ -2357,7 +2357,7 @@
 	over_shoes = TRUE
 
 /obj/item/clothing/under/brown_chaps/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "коричневые чапсы",
 		GENITIVE = "коричневых чапсов",
 		DATIVE = "коричневым чапсам",
@@ -2385,7 +2385,7 @@
 	)
 
 /obj/item/clothing/under/colour/skirt/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "окрашиваемая юбка",
 		GENITIVE = "окрашиваемой юбки",
 		DATIVE = "окрашиваемой юбке",
@@ -2406,7 +2406,7 @@
 	item_color = "ussptracksuit_red"
 
 /obj/item/clothing/under/ussptracksuit_red/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "красный спортивный костюм",
 		GENITIVE = "красного спортивного костюма",
 		DATIVE = "красному спортивному костюму",
@@ -2423,7 +2423,7 @@
 	item_color = "ussptracksuit_blue"
 
 /obj/item/clothing/under/ussptracksuit_blue/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "синий спортивный костюм",
 		GENITIVE = "синего спортивного костюма",
 		DATIVE = "синему спортивному костюму",
@@ -2440,7 +2440,7 @@
 	item_color = "ussptracksuit_black"
 
 /obj/item/clothing/under/ussptracksuit_black/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "чёрный спортивный костюм",
 		GENITIVE = "чёрного спортивного костюма",
 		DATIVE = "чёрному спортивному костюму",
@@ -2457,7 +2457,7 @@
 	item_color = "ussptracksuit_white"
 
 /obj/item/clothing/under/ussptracksuit_white/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "белый спортивный костюм",
 		GENITIVE = "белого спортивного костюма",
 		DATIVE = "белому спортивному костюму",
@@ -2476,7 +2476,7 @@
 	item_color = "night_dress"
 
 /obj/item/clothing/under/night_dress/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ночнушка",
 		GENITIVE = "ночнушки",
 		DATIVE = "ночнушке",
@@ -2584,7 +2584,7 @@
 	)
 
 /obj/item/clothing/under/satan/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сатанинские одеяния",
 		GENITIVE = "сатанинских одеяний",
 		DATIVE = "сатанинским одеяниям",
@@ -2602,7 +2602,7 @@
 	species_restricted = list(SPECIES_HUMAN, SPECIES_MACHINEPERSON, SPECIES_SKRELL, SPECIES_SLIMEPERSON, SPECIES_TAJARAN, SPECIES_NUCLEATION)
 
 /obj/item/clothing/under/martialsuit/masterli/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "костюм Мастера Ли",
 		GENITIVE = "костюма Мастера Ли",
 		DATIVE = "костюму Мастера Ли",
@@ -2621,7 +2621,7 @@
 	species_restricted = list(SPECIES_HUMAN, SPECIES_MACHINEPERSON, SPECIES_SKRELL, SPECIES_SLIMEPERSON, SPECIES_TAJARAN, SPECIES_NUCLEATION)
 
 /obj/item/clothing/under/martialsuit/masterdragon/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "костюм мастера Золотого дракона",
 		GENITIVE = "костюма мастера Золотого дракона",
 		DATIVE = "костюму мастера Золотого дракона",
@@ -2640,7 +2640,7 @@
 	species_restricted = list(SPECIES_HUMAN, SPECIES_MACHINEPERSON, SPECIES_SKRELL, SPECIES_SLIMEPERSON, SPECIES_TAJARAN, SPECIES_NUCLEATION)
 
 /obj/item/clothing/under/martialsuit/redkunoichi/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "красный костюм Куноичи",
 		GENITIVE = "красного костюма Куноичи",
 		DATIVE = "красному костюму Куноичи",
@@ -2659,7 +2659,7 @@
 	species_restricted = list(SPECIES_HUMAN, SPECIES_MACHINEPERSON, SPECIES_SKRELL, SPECIES_SLIMEPERSON, SPECIES_TAJARAN, SPECIES_NUCLEATION)
 
 /obj/item/clothing/under/martialsuit/bluekunoichi/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "голубой костюм Куноичи",
 		GENITIVE = "голубого костюма Куноичи",
 		DATIVE = "голубому костюму Куноичи",
@@ -2673,7 +2673,7 @@
 	icon_state = "masterli"
 
 /obj/item/clothing/under/martialsuit/random/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "случайный костюм боевых искусств",
 		GENITIVE = "случайного костюма боевых искусств",
 		DATIVE = "случайному костюму боевых искусств",
@@ -2699,7 +2699,7 @@
 	armor = list(MELEE = 10, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 30, ACID = 30)
 
 /obj/item/clothing/under/tchaikowsky/sechighwaist/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "униформа с завышенной талией",
 		GENITIVE = "униформы с завышенной талией",
 		DATIVE = "униформе с завышенной талией",
@@ -2715,7 +2715,7 @@
 	item_state = "formal_dress_blue"
 
 /obj/item/clothing/under/tchaikowsky/dress/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "синее платье",
 		GENITIVE = "синего платья",
 		DATIVE = "синему платью",
@@ -2731,7 +2731,7 @@
 	item_state = "formal_dress_black"
 
 /obj/item/clothing/under/tchaikowsky/dress/black/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "чёрное платье",
 		GENITIVE = "чёрного платья",
 		DATIVE = "чёрному платью",
@@ -2747,7 +2747,7 @@
 	item_state = "high_waist_pants"
 
 /obj/item/clothing/under/tchaikowsky/highwaistpants/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "штаны с завышенной талией",
 		GENITIVE = "штанов с завышенной талией",
 		DATIVE = "штанам с завышенной талией",
@@ -2763,7 +2763,7 @@
 	item_state = "evening_dress_black"
 
 /obj/item/clothing/under/tchaikowsky/evening_dress/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "чёрное платье",
 		GENITIVE = "чёрного платья",
 		DATIVE = "чёрному платью",
@@ -2778,7 +2778,7 @@
 	item_state = "evening_dress_cyan"
 
 /obj/item/clothing/under/tchaikowsky/evening_dress/cyan/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сине-зелёное платье",
 		GENITIVE = "сине-зелёного платья",
 		DATIVE = "сине-зелёному платью",
@@ -2794,7 +2794,7 @@
 	item_state = "baseball_uniform_blue"
 
 /obj/item/clothing/under/tchaikowsky/baseball/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "синяя бейсбольная униформа",
 		GENITIVE = "синей бейсбольной униформы",
 		DATIVE = "синей бейсбольной униформе",
@@ -2810,7 +2810,7 @@
 	item_state = "baseball_uniform_brown"
 
 /obj/item/clothing/under/tchaikowsky/baseball/brown/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "коричневая бейсбольная униформа",
 		GENITIVE = "коричневой бейсбольной униформы",
 		DATIVE = "коричневой бейсбольной униформе",

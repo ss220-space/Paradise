@@ -31,7 +31,7 @@
 	var/obj/item/gps/inserted_gps
 
 /obj/machinery/computer/telescience/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "консоль управления телепадом",
 		GENITIVE = "консоли управления телепадом",
 		DATIVE = "консоли управления телепадом",

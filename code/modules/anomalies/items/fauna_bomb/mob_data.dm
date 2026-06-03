@@ -32,7 +32,7 @@
 	name = "воздушная проекция [target.declent_ru(GENITIVE)]"
 	desc = "Уплотненная смесь газов, принявшая форму [target.declent_ru(GENITIVE)]."
 
-	ru_names = list(
+	ru_names = alist(
 		NOMINATIVE = "воздушная проекция [target.declent_ru(GENITIVE)]",
 		GENITIVE = "воздушной проекции [target.declent_ru(GENITIVE)]",
 		DATIVE = "воздушной проекции [target.declent_ru(GENITIVE)]",

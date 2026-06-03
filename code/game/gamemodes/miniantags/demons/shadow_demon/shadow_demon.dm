@@ -16,7 +16,7 @@
 	var/list/wrapped_victims
 
 /mob/living/simple_animal/demon/shadow/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "теневой демон",
 		GENITIVE = "теневого демона",
 		DATIVE = "теневому демону",
@@ -123,7 +123,7 @@
 	var/silent = TRUE
 
 /obj/structure/shadowcocoon/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "теневой кокон",
 		GENITIVE = "теневого кокона",
 		DATIVE = "теневому кокону",
@@ -210,7 +210,7 @@
 	color = COLOR_BLACK
 
 /obj/item/organ/internal/heart/demon/shadow/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сердце тьмы",
 		GENITIVE = "сердца тьмы",
 		DATIVE = "сердцу тьмы",

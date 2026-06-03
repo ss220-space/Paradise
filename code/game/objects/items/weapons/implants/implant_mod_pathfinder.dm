@@ -15,7 +15,7 @@
 	var/tries = 0
 
 /obj/item/implant/mod/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "био-чип для модуля \"Первопроходец\"",
 		GENITIVE = "био-чипа для модуля \"Первопроходец\"",
 		DATIVE = "био-чипу для модуля \"Первопроходец\"",

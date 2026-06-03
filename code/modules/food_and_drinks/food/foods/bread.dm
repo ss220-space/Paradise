@@ -140,7 +140,7 @@
 	list_reagents = list("nutriment" = 7, "bread" = 5)
 
 /obj/item/reagent_containers/food/snacks/breadslice/stale/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "чёрствый хлеб",
 		GENITIVE = "чёрствого хлеба",
 		DATIVE = "чёрствому хлебу",
@@ -156,7 +156,7 @@
 	list_reagents = list("nutriment" = 2, "bread" = 5, "fungus" = 1)
 
 /obj/item/reagent_containers/food/snacks/breadslice/moldy/get_ru_names()
-	return list(
+	return alist(
 			NOMINATIVE = "заплесневелый хлеб",
 			GENITIVE = "заплесневелого хлеба",
 			DATIVE = "заплесневелому хлебу",
@@ -240,7 +240,7 @@
 	slot_flags = ITEM_SLOT_BELT
 
 /obj/item/reagent_containers/food/snacks/baguette/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "багет",
 		GENITIVE = "багета",
 		DATIVE = "багету",

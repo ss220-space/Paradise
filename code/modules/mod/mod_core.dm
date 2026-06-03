@@ -94,7 +94,7 @@
 	var/obj/item/stock_parts/cell/cell
 
 /obj/item/mod/core/standard/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "стандартное ядро МЭК",
 		GENITIVE = "стандартного ядра МЭК",
 		DATIVE = "стандартному ядру МЭК",
@@ -289,7 +289,7 @@
 	var/list/charger_list = list(/obj/item/stack/ore/plasma, /obj/item/stack/sheet/mineral/plasma)
 
 /obj/item/mod/core/plasma/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "плазменное ядро МЭК",
 		GENITIVE = "плазменного ядра МЭК",
 		DATIVE = "плазменному ядру МЭК",

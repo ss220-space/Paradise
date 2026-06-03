@@ -14,7 +14,7 @@
 	var/static/list/sheet_values
 
 /obj/machinery/mineral/labor_claim_console/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "консоль учета добытой руды",
 		GENITIVE = "консоли учета добытой руды",
 		DATIVE = "консоли учета добытой руды",
@@ -172,7 +172,7 @@
 	anchored = TRUE
 
 /obj/machinery/mineral/labor_points_checker/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "консоль проверки очков",
 		GENITIVE = "консоли проверки очков",
 		DATIVE = "консоли проверки очков",

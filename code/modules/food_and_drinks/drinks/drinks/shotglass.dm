@@ -13,7 +13,7 @@
 	var/light_intensity = 2
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "рюмка",
 		GENITIVE = "рюмки",
 		DATIVE = "рюмке",
@@ -31,7 +31,7 @@
 	. = ..()
 	if(reagents.total_volume)
 		name = "shot glass of " + reagents.get_master_reagent_name() //No matter what, the glass will tell you the reagent's name. Might be too abusable in the future.
-		ru_names = list(
+		ru_names = alist(
 			NOMINATIVE = "рюмка — " + reagents.get_master_reagent_name(),
 			GENITIVE = "рюмки — " + reagents.get_master_reagent_name(),
 			DATIVE = "рюмке — " + reagents.get_master_reagent_name(),
@@ -50,7 +50,7 @@
 				ru_names[PREPOSITIONAL] = "горящей " + ru_names[PREPOSITIONAL]
 	else
 		name = "shot glass"
-		ru_names = list(
+		ru_names = alist(
 			NOMINATIVE = "рюмка",
 			GENITIVE = "рюмки",
 			DATIVE = "рюмке",

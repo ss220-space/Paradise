@@ -21,7 +21,7 @@
 	convertable_children = list(/obj/item/organ/external/groin)
 
 /obj/item/organ/external/chest/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "грудь",
 		GENITIVE = "груди",
 		DATIVE = "груди",
@@ -59,7 +59,7 @@
 	gendered_icon = TRUE
 
 /obj/item/organ/external/groin/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "живот",
 		GENITIVE = "живота",
 		DATIVE = "животу",
@@ -83,7 +83,7 @@
 	convertable_children = list(/obj/item/organ/external/hand)
 
 /obj/item/organ/external/arm/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "левая рука",
 		GENITIVE = "левой руки",
 		DATIVE = "левой руке",
@@ -146,7 +146,7 @@
 	convertable_children = list(/obj/item/organ/external/hand/right)
 
 /obj/item/organ/external/arm/right/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "правая рука",
 		GENITIVE = "правой руки",
 		DATIVE = "правой руке",
@@ -171,7 +171,7 @@
 	convertable_children = list(/obj/item/organ/external/foot)
 
 /obj/item/organ/external/leg/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "левая нога",
 		GENITIVE = "левой ноги",
 		DATIVE = "левой ноге",
@@ -247,7 +247,7 @@
 	convertable_children = list(/obj/item/organ/external/foot/right)
 
 /obj/item/organ/external/leg/right/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "правая нога",
 		GENITIVE = "правой ноги",
 		DATIVE = "правой ноге",
@@ -275,7 +275,7 @@
 	amputation_point = "левую лодыжку"
 
 /obj/item/organ/external/foot/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "левая ступня",
 		GENITIVE = "левой ступни",
 		DATIVE = "левой ступне",
@@ -391,7 +391,7 @@
 	amputation_point = "правую лодыжку"
 
 /obj/item/organ/external/foot/right/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "правая ступня",
 		GENITIVE = "правой ступни",
 		DATIVE = "правой ступне",
@@ -419,7 +419,7 @@
 	can_grasp = TRUE
 
 /obj/item/organ/external/hand/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "левая кисть",
 		GENITIVE = "левой кисти",
 		DATIVE = "левой кисти",
@@ -526,7 +526,7 @@
 	amputation_point = "правое запястье"
 
 /obj/item/organ/external/hand/right/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "правая кисть",
 		GENITIVE = "правой кисти",
 		DATIVE = "правой кисти",
@@ -572,7 +572,7 @@
 	var/f_style = "Shaved"
 
 /obj/item/organ/external/head/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "голова",
 		GENITIVE = "головы",
 		DATIVE = "голове",
@@ -682,7 +682,7 @@
 	s_col = "#000000"
 
 /obj/item/organ/external/tail/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "хвост",
 		GENITIVE = "хвоста",
 		DATIVE = "хвосту",
@@ -726,7 +726,7 @@
 	min_broken_damage = 10
 
 /obj/item/organ/external/tail/monkey/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "хвост обезьяны",
 		GENITIVE = "хвоста обезьяны",
 		DATIVE = "хвосту обезьяны",
@@ -742,7 +742,7 @@
 	species_type = /datum/species/monkey/tajaran
 
 /obj/item/organ/external/tail/monkey/tajaran/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "хвост фарвы",
 		GENITIVE = "хвоста фарвы",
 		DATIVE = "хвосту фарвы",
@@ -758,7 +758,7 @@
 	species_type = /datum/species/monkey/vulpkanin
 
 /obj/item/organ/external/tail/monkey/vulpkanin/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "хвост вульпина",
 		GENITIVE = "хвоста вульпина",
 		DATIVE = "хвосту вульпина",
@@ -774,7 +774,7 @@
 	species_type = /datum/species/monkey/unathi
 
 /obj/item/organ/external/tail/monkey/unathi/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "хвост стока",
 		GENITIVE = "хвоста стока",
 		DATIVE = "хвосту стока",
@@ -802,7 +802,7 @@
 	s_col = "#000000"
 
 /obj/item/organ/external/wing/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "крылья",
 		GENITIVE = "крыльев",
 		DATIVE = "крыльям",

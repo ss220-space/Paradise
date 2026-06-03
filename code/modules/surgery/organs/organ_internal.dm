@@ -210,7 +210,7 @@
 	var/inflamed = FALSE
 
 /obj/item/organ/internal/appendix/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "аппендикс",
 		GENITIVE = "аппендикса",
 		DATIVE = "аппендиксу",
@@ -255,7 +255,7 @@
 	max_integrity = 3
 
 /obj/item/organ/internal/shadowtumor/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "чёрная опухоль",
 		GENITIVE = "чёрной опухоли",
 		DATIVE = "чёрной опухоли",
@@ -302,7 +302,7 @@
 	var/datum/component/squeak
 
 /obj/item/organ/internal/honktumor/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "банановая опухоль",
 		GENITIVE = "банановой опухоли",
 		DATIVE = "банановой опухоли",
@@ -370,7 +370,7 @@
 	var/datum/component/squeak
 
 /obj/item/organ/internal/honkbladder/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "гудящий пузырь",
 		GENITIVE = "гудящего пузыря",
 		DATIVE = "гудящему пузырю",
@@ -398,7 +398,7 @@
 	slot = INTERNAL_ORGAN_HAIR
 
 /obj/item/organ/internal/beard/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бородатый орган",
 		GENITIVE = "бородатого органа",
 		DATIVE = "бородатому органу",

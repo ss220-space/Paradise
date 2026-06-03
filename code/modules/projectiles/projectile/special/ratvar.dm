@@ -10,7 +10,7 @@
 	reflectability = REFLECTABILITY_PHYSICAL
 
 /obj/projectile/energy/rat/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "латунная пуля",
 		GENITIVE = "латунной пули",
 		DATIVE = "латунной пуле",
@@ -23,7 +23,7 @@
 	name = "brass slug"
 
 /obj/projectile/energy/rat/slug/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "латунная пуля",
 		GENITIVE = "латунной пули",
 		DATIVE = "латунной пуле",
@@ -44,7 +44,7 @@
 	damage = 0
 
 /obj/projectile/energy/rat/slug/emp/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "латунная ЭМИ пуля",
 		GENITIVE = "латунной ЭМИ пули",
 		DATIVE = "латунной ЭМИ пуле",
@@ -69,7 +69,7 @@
 	damage = 25
 
 /obj/projectile/energy/rat/slug/heal/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "латунная исцеляющая пуля",
 		GENITIVE = "латунной исцеляющей пули",
 		DATIVE = "латунной исцеляющей пуле",
@@ -93,7 +93,7 @@
 	weaken = 10 SECONDS
 
 /obj/projectile/energy/rat/slug/stun/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "латунная оглушающая пуля",
 		GENITIVE = "латунной оглушающей пули",
 		DATIVE = "латунной оглушающей пуле",
@@ -118,7 +118,7 @@
 	knockdown = 2 SECONDS
 
 /obj/projectile/energy/rat/snipe/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "латунная снайперская пуля",
 		GENITIVE = "латунной снайперской пули",
 		DATIVE = "латунной снайперской пуле",
@@ -140,7 +140,7 @@
 	damage = 0
 
 /obj/projectile/energy/rat/snipe/emp/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "латунная снайперская ЭМИ пуля",
 		GENITIVE = "латунной снайперской ЭМИ пули",
 		DATIVE = "латунной снайперской ЭМИ пуле",
@@ -165,7 +165,7 @@
 	damage = 0
 
 /obj/projectile/energy/rat/snipe/heal/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "латунная снайперская исцеляющая пуля",
 		GENITIVE = "латунной снайперской исцеляющей пули",
 		DATIVE = "латунной снайперской исцеляющей пуле",
@@ -190,7 +190,7 @@
 	weaken = 15 SECONDS
 
 /obj/projectile/energy/rat/snipe/stun/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "латунная снайперская оглушающая пуля",
 		GENITIVE = "латунной снайперской оглушающей пули",
 		DATIVE = "латунной снайперской оглушающей пуле",
@@ -219,7 +219,7 @@
 	layer = ABOVE_ALL_MOB_LAYER + 0.1
 
 /obj/projectile/energy/sphere/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "энергетическая сфера",
 		GENITIVE = "энергетической сферы",
 		DATIVE = "энергетической сфере",

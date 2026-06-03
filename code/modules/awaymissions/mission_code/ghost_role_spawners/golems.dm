@@ -10,7 +10,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 
 /obj/item/golem_shell/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "незавершённая оболочка свободного голема",
 		GENITIVE = "незавершённой оболочки свободного голема",
 		DATIVE = "незавершённой оболочке свободного голема",
@@ -24,7 +24,7 @@
 	shell_type = /obj/effect/mob_spawn/human/golem/servant
 
 /obj/item/golem_shell/servant/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "незавершённая оболочка голема-слуги",
 		GENITIVE = "незавершённой оболочки голема-слуги",
 		DATIVE = "незавершённой оболочке голема-слуги",
@@ -100,7 +100,7 @@
 	flavour_text = "Вы — свободный голем. Ваш клан поклоняется Освободителю.\nВ своей бесконечной и божественной мудрости он освободил ваш клан, чтобы вы могли путешествовать по звёздам, сказав: \"Да делайте что хотите\".\nХотя вы связаны с тем, кто вас создал, в вашем обществе принято повторять эти же слова новорождённым големам, чтобы ни один голем больше не был вынужден служить."
 
 /obj/effect/mob_spawn/human/golem/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "инертная оболочка свободного голема",
 		GENITIVE = "инертной оболочки свободного голема",
 		DATIVE = "инертной оболочке свободного голема",
@@ -177,7 +177,7 @@
 	mob_name = "a servant golem"
 
 /obj/effect/mob_spawn/human/golem/servant/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "инертная оболочка голема-слуги",
 		GENITIVE = "инертной оболочки голема-слуги",
 		DATIVE = "инертной оболочке голема-слуги",
@@ -192,7 +192,7 @@
 	mob_species = /datum/species/golem/adamantine
 
 /obj/effect/mob_spawn/human/golem/adamantine/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "покрытая пылью оболочка свободного голема",
 		GENITIVE = "покрытой пылью оболочки свободного голема",
 		DATIVE = "покрытой пылью оболочке свободного голема",
@@ -215,7 +215,7 @@
 	flavour_text = "Вы — часовой голем, созданный для служения Ратвару."
 
 /obj/effect/mob_spawn/human/golem/clockwork/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "оболочка голема из плоти",
 		GENITIVE = "оболочки голема из плоти",
 		DATIVE = "оболочке голема из плоти",

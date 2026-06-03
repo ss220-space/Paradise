@@ -28,7 +28,7 @@
 		return
 	var/mob/living/carbon/human/organ_receiver = target
 	var/succeed = FALSE
-	if(organ_receiver.surgeries.len)
+	if(length(organ_receiver.surgeries))
 		for(var/datum/surgery/organ_manipulation/procedure in organ_receiver.surgeries)
 			if(procedure.location != organ.parent_organ_zone)
 				continue
