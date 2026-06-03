@@ -330,7 +330,7 @@
 		type = /mob/living/simple_animal/hostile/shitcur_goblin
 
 	var/mob/living/simple_animal/hostile/mob = new type(turf)
-	mob.GiveTarget(mob)
+	mob.GiveTarget(target)
 	mob.toggle_ai(AI_ON)
 	to_chat(target, span_userdanger("[DECLENT_RU_CAP(mob, NOMINATIVE)] появляется из воздуха! Боги наказали вас за [reason]!"))
 	logmsg = "summon angry [mob]."
