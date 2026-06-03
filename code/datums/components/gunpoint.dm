@@ -178,10 +178,10 @@
 		return FALSE
 
 	// If target walk and not run, don't shoot and escort it
-	if(target.m_intent == MOVE_INTENT_WALK)
+	if(target.m_intent == MOVE_INTENT_WALK && !target.pulledby)
 		return FALSE
 
-	INVOKE_ASYNC(src, PROC_REF(trigger_reaction))
+	trigger_reaction()
 
 /datum/component/gunpoint/proc/async_trigger_reaction(...)
 	var/mob/living/shooter = parent
