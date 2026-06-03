@@ -13,7 +13,7 @@
 	light_on = FALSE
 
 /obj/structure/bot/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бот",
 		GENITIVE = "бота",
 		DATIVE = "боту",

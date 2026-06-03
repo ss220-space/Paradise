@@ -6,7 +6,7 @@
 	var/used = FALSE
 
 /obj/item/laser_eyes_injector/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "инъектор лазерных глаз",
 		GENITIVE = "инъектора лазерных глаз",
 		DATIVE = "инъектору лазерных глаз",

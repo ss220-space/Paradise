@@ -91,7 +91,7 @@
 
 /datum/station_trait/birthday/New()
 	. = ..()
-	RegisterSignal(SSdcs, list(COMSIG_GLOB_JOB_AFTER_SPAWN), PROC_REF(on_job_after_spawn))
+	RegisterSignals(SSdcs, list(COMSIG_GLOB_JOB_AFTER_SPAWN), PROC_REF(on_job_after_spawn))
 
 /datum/station_trait/birthday/revert()
 	for(var/obj/effect/landmark/start/hangover/party_spot in GLOB.start_landmarks_list)
@@ -190,7 +190,7 @@
 	w_class = WEIGHT_CLASS_TINY
 
 /obj/item/birthday_invite/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "приглашение на день рождения",
 		GENITIVE = "приглашения на день рождения",
 		DATIVE = "приглашению на день рождения",

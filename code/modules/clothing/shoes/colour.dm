@@ -220,7 +220,7 @@
 	item_state = "prison_boots"
 
 /obj/item/clothing/shoes/prison/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "тюремные башмаки",
 		GENITIVE = "тюремные башмаки",
 		DATIVE = "тюремным башмакам",
@@ -236,7 +236,7 @@
 	item_state = "blackconvers"
 
 /obj/item/clothing/shoes/convers/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "чёрные высокие кеды",
 		GENITIVE = "чёрных высоких кедов",
 		DATIVE = "чёрным высоким кедам",
@@ -252,7 +252,7 @@
 	item_state = "redconvers"
 
 /obj/item/clothing/shoes/convers/red/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "красные высокие кеды",
 		GENITIVE = "красных высоких кедов",
 		DATIVE = "красным высоким кедам",

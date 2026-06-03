@@ -9,7 +9,7 @@
 	e_cost = 1
 
 /obj/item/ammo_casing/energy/rat/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "механическая энергоячейка",
 		GENITIVE = "механической энергоячейки",
 		DATIVE = "механической энергоячейке",

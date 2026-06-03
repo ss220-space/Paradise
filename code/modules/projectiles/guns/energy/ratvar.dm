@@ -24,7 +24,7 @@
 	blocks_emissive = FALSE
 
 /obj/item/gun/energy/clockwork/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "латунный дробовик",
 		GENITIVE = "латунного дробовика",
 		DATIVE = "латунному дробовику",
@@ -131,7 +131,7 @@
 	stun_bullet =/obj/item/ammo_casing/energy/rat/snipe/stun
 
 /obj/item/gun/energy/clockwork/sniper/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "латунная снайперская винтовка",
 		GENITIVE = "латунной снайперской винтовки",
 		DATIVE = "латунной снайперской винтовке",
@@ -168,7 +168,7 @@
 	var/heal_bullet = /obj/item/ammo_casing/energy/rat_sphere/heal
 
 /obj/item/gun/energy/gun/minigun/clockwork/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "латунный миниган",
 		GENITIVE = "латунного минигана",
 		DATIVE = "латунному минигану",

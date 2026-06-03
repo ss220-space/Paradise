@@ -1,9 +1,9 @@
 /datum/action/changeling/linglink
-	name = "Hivemind Link"
-	desc = "We link our victim's mind into the hivemind for personal interrogation."
-	helptext = "If we find a human mad enough to support our cause, this can be a helpful tool to stay in touch."
+	name = "Связь улья"
+	desc = "Мы создаём частичку улья в чужой разум для связи с нами."
+	helptext = "Если мы найдём подходящий сосуд, то мы сможем наделить его возможность общаться с нами через сеть улья."
 	button_icon_state = "hivemind_link"
-	power_type = CHANGELING_INNATE_POWER
+	power_type = CHANGELING_PURCHASABLE_POWER
 	req_human = TRUE
 
 /datum/action/changeling/linglink/can_sting(mob/living/carbon/user, ignore_linking = FALSE)
@@ -11,15 +11,15 @@
 		return FALSE
 
 	if(cling.is_linking && !ignore_linking)
-		to_chat(user, span_warning("We have already formed a link with the victim!"))
+		user.balloon_alert(user, "уже часть улья!")
 		return FALSE
 
 	if(!user.pulling || user.pull_hand != user.hand)
-		to_chat(user, span_warning("We must be tightly grabbing a creature in our active hand to link with them!"))
+		user.balloon_alert(user, "нужно схватить сосуд!")
 		return FALSE
 
 	if(user.grab_state < GRAB_NECK)
-		to_chat(user, span_warning("We must have a tighter grip to link with this creature!"))
+		user.balloon_alert(user, "нужно схватить крепче!")
 		return FALSE
 
 	var/mob/living/carbon/human/target = user.pulling
@@ -27,19 +27,19 @@
 		return FALSE
 
 	if(!target.mind)
-		to_chat(user, span_warning("The victim has no mind to link to!"))
+		user.balloon_alert(user, "цель неразумна!")
 		return FALSE
 
 	if(target.stat == DEAD)
-		to_chat(user, span_warning("The victim is dead, you cannot link to a dead mind!"))
+		user.balloon_alert(user, "нужен живой сосуд!")
 		return FALSE
 
 	if(target.has_brain_worms())
-		to_chat(user, span_warning("Alien intelligence in victims's body prevents us from linking!"))
+		user.balloon_alert(user, "в разуме паразит!")
 		return FALSE
 
 	if(target.mind.has_antag_datum(/datum/antagonist/changeling))
-		to_chat(user, span_warning("We can not form a link with our kin!"))
+		user.balloon_alert(user, "в сосуде собрат!")
 		return FALSE
 
 	return TRUE
@@ -48,10 +48,11 @@
 	var/mob/living/carbon/human/target = user.pulling
 	cling.is_linking = TRUE
 
-	var/time = tgui_input_number(user, "На сколько минут вы хотите предоставить жертве связь? Учтите, что связь не продержится больше двух часов.", "Hivemind", FALSE)
+	var/time = tgui_input_number(user, "На сколько минут нам следует поделиться связью с ульем?", "Связь улья", FALSE, 120, 0)
 
 	if(isnull(time) || time == 0)
-		to_chat(user, span_danger("Вы отказались от идеи связать ваши разумы."))
+		to_chat(user, span_danger("Мы отказались от идеи связать ваши разумы."))
+		cling?.is_linking = FALSE
 		return
 
 	time = clamp(time, 1, 120)
@@ -59,32 +60,31 @@
 	for(var/stage in 1 to 3)
 		switch(stage)
 			if(1)
-				to_chat(user, span_notice("This creature is compatible. We must hold still..."))
-
+				to_chat(user, span_notice("[target] нам подходит. Во время создания связи нам нельзя двигаться."))
 			if(2)
-				user.visible_message(span_warning("[user] extends a small proboscis!"), \
-									span_notice("We stealthily stab [target] with a minor proboscis..."))
-				to_chat(target, span_userdanger("You experience a stabbing sensation and your ears begin to ring..."))
-
+				user.balloon_alert(user, "скрытно втыкаем хоботок")
+				to_chat(target, span_userdanger("Вы чувствуете укол, и в ушах начинает звенеть"))
 			if(3)
-				to_chat(target, span_userdanger("A migraine throbs behind your eyes, you hear yourself screaming - but your mouth has not opened!"))
+				user.balloon_alert(user, "создаём связь...")
+				to_chat(target, span_userdanger("У вас начинается страшная мигрень, и вы слышите собственный крик, но ваш рот закрыт!"))
 
-		if(!do_after(user, 2 SECONDS, target, NONE) || !can_sting(user, TRUE))
-			to_chat(user, span_warning("Linking process was interrupted!"))
+		if(!do_after(user, 6 SECONDS, target, NONE) || !can_sting(user, TRUE))
+			user.balloon_alert(user, "создание связи прервано")
 			cling?.is_linking = FALSE
 			return FALSE
 
-	user.visible_message(span_danger("[user] stabs [target] with the proboscis!"), \
-						span_notice("You mold the [target]'s mind like clay, [target.p_they()] can now speak in the hivemind!"))
-	to_chat(target, "<font color=#800040>[span_boldannounceic("You can now communicate in the changeling hivemind, say '[get_language_prefix(LANGUAGE_HIVE_CHANGELING)]' to communicate!")]")
+	user.balloon_alert(user, "связь создана")
+	target.balloon_alert(target, "вы чувствуете связь")
+	to_chat(target, "[span_changeling("Вы часть коллективной связи улья, общайтесь в ней с помощью [get_language_prefix(LANGUAGE_HIVE_CHANGELING)].")]")
 
 	for(var/mob/ling in GLOB.mob_list)
 		if(LAZYIN(ling.languages, GLOB.all_languages[LANGUAGE_HIVE_CHANGELING]))
-			to_chat(ling, span_changeling("We can sense a foreign presence in the hivemind..."))
+			ling.balloon_alert(ling, "чужак в сети!")
+			to_chat(ling, span_changeling("Мы чувствуем разум [target.real_name] в нашей сети улья"))
 
 	cling?.is_linking = FALSE
 	target.add_language(LANGUAGE_HIVE_CHANGELING)
-	target.say("'[get_language_prefix(LANGUAGE_HIVE_CHANGELING)]'AAAAARRRRGGGGGHHHHH!!")
+	target.say("'[get_language_prefix(LANGUAGE_HIVE_CHANGELING)]'АААААААААААА!!")
 	target.reagents.add_reagent("salbutamol", 40) // So they don't choke to death while you interrogate them
 
 	addtimer(CALLBACK(src, PROC_REF(remove_language), target, user), time MINUTES, TIMER_UNIQUE | TIMER_NO_HASH_WAIT | TIMER_OVERRIDE)
@@ -98,8 +98,8 @@
 		return
 
 	target.remove_language(LANGUAGE_HIVE_CHANGELING)
-	to_chat(target, span_userdanger("The link cannot be sustained any longer, your connection to the hivemind has faded!"))
+	target.balloon_alert(target, "связь улья слабеет")
 
 	if(!QDELETED(user))
-		to_chat(user, span_changeling("You cannot sustain the connection any longer, your victim fades from the hivemind"))
-
+		user.balloon_alert(user, "связь ослабевает")
+		to_chat(user, span_changeling("Мы больше не можем поддерживать частичку улья в [target.real_name]."))

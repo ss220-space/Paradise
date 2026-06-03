@@ -31,7 +31,7 @@
 	)
 
 /obj/item/camera/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "фотоаппарат",
 		GENITIVE = "фотоаппарата",
 		DATIVE = "фотоаппарату",

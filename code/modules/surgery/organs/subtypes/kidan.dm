@@ -7,7 +7,7 @@
 	alcohol_intensity = 0.5
 
 /obj/item/organ/internal/liver/kidan/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "печень кидана",
 		GENITIVE = "печени кидана",
 		DATIVE = "печени кидана",
@@ -37,7 +37,7 @@
 	var/glowing = 0
 
 /obj/item/organ/internal/lantern/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "биолюминесцентная железа",
 		GENITIVE = "биолюминесцентной железы",
 		DATIVE = "биолюминесцентной железе",
@@ -147,7 +147,7 @@
 	item_state = "kidan_eyes"
 
 /obj/item/organ/internal/eyes/kidan/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "глаза кидана",
 		GENITIVE = "глаз кидана",
 		DATIVE = "глазам кидана",
@@ -162,7 +162,7 @@
 	desc = "Парный орган, отвечающий за аудиальное восприятие окружающей среды и получение информации о положении гуманоида в пространстве. Эти принадлежали кидану."
 
 /obj/item/organ/internal/ears/kidan/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "уши кидана",
 		GENITIVE = "ушей кидана",
 		DATIVE = "ушам кидана",
@@ -180,7 +180,7 @@
 	item_base = "kidan_heart"
 
 /obj/item/organ/internal/heart/kidan/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сердце кидана",
 		GENITIVE = "сердца кидана",
 		DATIVE = "сердцу кидана",
@@ -198,7 +198,7 @@
 	parent_organ_zone = BODY_ZONE_CHEST
 
 /obj/item/organ/internal/brain/kidan/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мозг кидана",
 		GENITIVE = "мозга кидана",
 		DATIVE = "мозгу кидана",
@@ -226,7 +226,7 @@
 	item_state = "kidan_lungs"
 
 /obj/item/organ/internal/lungs/kidan/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "лёгкие кидана",
 		GENITIVE = "лёгких кидана",
 		DATIVE = "лёгким кидана",
@@ -243,7 +243,7 @@
 	item_state = "kidan_kidneys"
 
 /obj/item/organ/internal/kidneys/kidan/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "почки кидана",
 		GENITIVE = "почек кидана",
 		DATIVE = "почкам кидана",

@@ -67,9 +67,9 @@ SUBSYSTEM_DEF(redis)
 // Redis integration stuff
 /datum/controller/subsystem/redis/proc/connect()
 	if(CONFIG_GET(flag/enable_redis))
-		#ifndef GAME_TESTS // CI uses linux so dont flag up a fail there
+		#ifndef UNIT_TESTS // CI uses linux so dont flag up a fail there
 		if(world.system_type == UNIX)
-			stack_trace("SSredis has known to be very buggy when running on Linux with random dropouts ocurring due to interrupted syscalls. You have been warned!")
+			WARNING("SSredis has known to be very buggy when running on Linux with random dropouts ocurring due to interrupted syscalls. You have been warned!")
 		#endif
 
 		var/conn = CONFIG_GET(string/redis_connstring)

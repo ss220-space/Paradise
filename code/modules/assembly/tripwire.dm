@@ -12,7 +12,7 @@
 	var/obj/item/tripwire/master_base
 
 /obj/structure/tripwire_bridge/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "провод растяжки",
 		GENITIVE = "провода растяжки",
 		DATIVE = "проводу растяжки",
@@ -92,7 +92,7 @@
 	var/datum/weakref/payload_mind = null
 
 /obj/item/tripwire/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "растяжка",
 		GENITIVE = "растяжки",
 		DATIVE = "растяжке",

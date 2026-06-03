@@ -12,7 +12,7 @@
 	no_update_names = TRUE
 
 /obj/item/ammo_casing/rocket/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ракета",
 		GENITIVE = "ракеты",
 		DATIVE = "ракете",
@@ -27,7 +27,6 @@
 	desc = "Осколочно-фугасная ракета. Предназначена для поражения пехоты."
 	caliber = CALIBER_84MM
 	w_class = WEIGHT_CLASS_NORMAL //thats the rocket!
-	icon = 'icons/obj/weapons/guns/projectiles.dmi'
 	icon_state = "84mm-he"
 	projectile_type = /obj/projectile/bullet/a84mm_he
 	casing_drop_sound = 'sound/weapons/gun_interactions/shotgun_fall.ogg'	// better than default casing but not ideal
@@ -49,7 +48,7 @@
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 
 /obj/item/ammo_casing/a40mm/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "выстрел [ammo_marking]",
 		GENITIVE = "выстрела [ammo_marking]",
 		DATIVE = "выстрелу [ammo_marking]",

@@ -93,7 +93,7 @@ LINEN BINS
 	nightmare_messages = list("тюрьме", "наручниках")
 
 /obj/item/bedsheet/patriot/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "амбассадор Заза",
 		GENITIVE = "амбассадора Заза",
 		DATIVE = "амбассадору Зазе",

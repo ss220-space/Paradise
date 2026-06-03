@@ -31,7 +31,7 @@
 	var/datum/martial_art/judo/style
 
 /obj/item/storage/belt/security/judobelt/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Пояс Корпоративного Дзюдо",
 		GENITIVE = "Пояса Корпоративного Дзюдо",
 		DATIVE = "Поясу Корпоративного Дзюдо",

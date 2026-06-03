@@ -5,7 +5,7 @@
 	assignment = JOB_TITLE_RU_CAPTAIN
 
 /obj/item/card/id/captains_spare/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "запасная ID-карта Капитана",
 		GENITIVE = "запасной ID-карты Капитана",
 		DATIVE = "запасной ID-карте Капитана",
@@ -60,7 +60,7 @@
 	untrackable = 1
 
 /obj/item/card/id/admin/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ID-карта Администрации",
 		GENITIVE = "ID-карты Администрации",
 		DATIVE = "ID-карте Администрации",
@@ -72,7 +72,7 @@
 /obj/item/card/id/admin/Initialize(mapload)
 	access = get_absolutely_all_accesses()
 	. = ..()
-	
+
 /obj/item/card/id/lifetime
 	name = "Lifetime ID Card"
 	desc = "Модифицированная ID-карта, которую выдают лишь тем людям, что посвятили свои жизни высшим интересам \"Нанотрейзен\". Она сияет голубым."

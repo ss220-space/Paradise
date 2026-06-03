@@ -4,7 +4,7 @@
 	protected_jobs = list(JOB_TITLE_OFFICER, JOB_TITLE_WARDEN, JOB_TITLE_DETECTIVE, JOB_TITLE_HOS, JOB_TITLE_CAPTAIN, JOB_TITLE_BLUESHIELD, JOB_TITLE_REPRESENTATIVE, JOB_TITLE_PILOT, JOB_TITLE_MAGISTRATE, JOB_TITLE_CHAPLAIN, JOB_TITLE_BRIGDOC, JOB_TITLE_CCOFFICER, JOB_TITLE_CCFIELD, JOB_TITLE_CCSPECOPS, JOB_TITLE_CCSUPREME, JOB_TITLE_PRISONER)
 	restricted_jobs = list(JOB_TITLE_AI, JOB_TITLE_CYBORG)
 	required_players = 15
-	var/protected_species_vampire = list(SPECIES_MACNINEPERSON)
+	var/protected_species_vampire = list(SPECIES_MACHINEPERSON)
 
 /datum/game_mode/thief/vampire/announce()
 	to_chat(world, "<b>The current game mode is - Thief+Vampire!</b>")

@@ -27,7 +27,7 @@
 
 
 /obj/item/handheld_defibrillator/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ручной дефибриллятор",
 		GENITIVE = "ручного дефибриллятора",
 		DATIVE = "ручному дефибриллятору",
@@ -143,7 +143,7 @@
 	shield_ignore = TRUE
 
 /obj/item/handheld_defibrillator/syndie/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "боевой ручной дефибриллятор",
 		GENITIVE = "боевого ручного дефибриллятора",
 		DATIVE = "боевому ручному дефибриллятору",
@@ -168,7 +168,7 @@
 	charge_time = 70
 
 /obj/item/handheld_defibrillator/advanced/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "продвинутый ручной дефибриллятор",
 		GENITIVE = " продвинутого ручного дефибриллятора",
 		DATIVE = "продвинутому ручному дефибриллятору",

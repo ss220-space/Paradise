@@ -50,7 +50,7 @@
 	species_restrictions = list(SPECIES_GREY, SPECIES_ABDUCTOR)
 
 /obj/item/organ/internal/cyberimp/mouth/translator/grey_retraslator/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ретранслятор псионического голоса",
 		GENITIVE = "ретранслятора псионического голоса",
 		DATIVE = "ретранслятору псионического голоса",
@@ -392,7 +392,7 @@
 	extra_slots = UPGRADE_SLOTS_GREY
 
 /obj/item/translator_upgrade/grey_retraslator/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль улучшения РПГ",
 		GENITIVE = "модуля улучшения РПГ",
 		DATIVE = "модулю улучшения РПГ",
@@ -414,7 +414,7 @@
 	var/stored_language_rus
 
 /obj/item/translator_chip/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "языковой чип",
 		GENITIVE = "языкового чипа",
 		DATIVE = "языковому чипу",

@@ -11,59 +11,52 @@
 	ignore_shoves = TRUE
 	elevation = 21
 	elevation_open = 0
-	var/already_opened = TRUE
+	/// Whether the crate has ever been opened — guards against spawning new animals on subsequent opens.
+	var/already_opened = FALSE
+	/// Type of animal to spawn on the first open.
 	var/content_mob = null
+	/// How many animals to spawn on the first open.
 	var/amount = 1
-	var/datum/gas_mixture/air // Do it using internals/emergency_oxygen ??
-
-/obj/structure/closet/crate/critter/proc/update_air()
-	if(!air)
-		air = new/datum/gas_mixture()
-	air.set_oxygen(MOLES_O2STANDARD)
-	air.set_nitrogen(MOLES_N2STANDARD)
-	air.set_carbon_dioxide(0)
-	air.set_temperature(T20C)
+	/// Internal oxygen tank providing breathable air during transport.
+	var/obj/item/tank/internals/emergency_oxygen/tank
 
 /obj/structure/closet/crate/critter/Initialize(mapload)
 	. = ..()
-	update_air()
+	tank = new
 
 /obj/structure/closet/crate/critter/Destroy()
-	QDEL_NULL(air)
+	if(tank)
+		tank.forceMove(get_turf(src))
+		tank = null
 	return ..()
 
 /obj/structure/closet/crate/critter/return_obj_air()
-	return air
+	if(tank)
+		return tank.return_obj_air()
+	return ..()
 
 /obj/structure/closet/crate/critter/return_analyzable_air()
-	return air
+	if(tank)
+		return tank.return_analyzable_air()
+	return ..()
 
 /obj/structure/closet/crate/critter/can_open()
-	if(welded)
-		return FALSE
-	return TRUE
+	return !welded
 
 /obj/structure/closet/crate/critter/open(mob/living/user, force = FALSE)
 	if(!can_open())
 		return FALSE
-
-	if(isnull(content_mob)) // making sure we don't spawn anything too eldritch
+	if(already_opened || isnull(content_mob))
 		already_opened = TRUE
 		return ..()
 
-	if(!isnull(content_mob) && already_opened == FALSE)
-		for(var/i in 1 to amount)
-			var/mob/living/simple_animal/pet = new content_mob(loc)
-			var/area/syndicate_area = get_area(src)
-			if(istype(syndicate_area, /area/syndicate/unpowered/syndicate_space_base))
-				pet.faction += "syndicate" // so that the turrets don't shoot at the animals from syndicate cargo
-		already_opened = TRUE
+	var/is_syndicate_area = istype(get_area(src), /area/syndicate/unpowered/syndicate_space_base)
+	for(var/i in 1 to amount)
+		var/mob/living/simple_animal/pet = new content_mob(loc)
+		if(is_syndicate_area)
+			pet.faction += "syndicate" // so that the turrets don't shoot at the animals from syndicate cargo
+	already_opened = TRUE
 	return ..()
-
-/obj/structure/closet/crate/critter/close()
-	update_air()
-	..()
-	return TRUE
 
 /obj/structure/closet/crate/critter/corgi
 	name = "dog corgi crate"

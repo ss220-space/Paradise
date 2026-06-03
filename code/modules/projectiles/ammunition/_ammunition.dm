@@ -146,7 +146,7 @@
 	if(BB)
 		gender = MALE
 		name = "[get_ammo_marking()] cartridge"
-		ru_names = string_list(list(
+		ru_names = string_list(alist(
 			NOMINATIVE = "патрон [get_ammo_marking()]",
 			GENITIVE = "патрона [get_ammo_marking()]",
 			DATIVE = "патрону [get_ammo_marking()]",
@@ -157,7 +157,7 @@
 	else
 		gender = FEMALE
 		name = "[caliber] bullet casing"
-		ru_names = string_list(list(
+		ru_names = string_list(alist(
 			NOMINATIVE = "гильза [caliber]",
 			GENITIVE = "гильзы [caliber]",
 			DATIVE = "гильзе [caliber]",
@@ -241,7 +241,7 @@
 		BB.name = initial(BB.name)
 	else
 		to_chat(user, span_notice("Вы наносите \"[label_text]\" на патрон."))
-		BB.ru_names = list(
+		BB.ru_names = alist(
 			NOMINATIVE = "пуля \"[label_text]\"",
 			GENITIVE = "пули \"[label_text]\"",
 			DATIVE = "пуле \"[label_text]\"",

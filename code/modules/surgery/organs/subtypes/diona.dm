@@ -13,7 +13,7 @@
 	convertable_children = list(/obj/item/organ/external/groin/diona)
 
 /obj/item/organ/external/chest/diona/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "основной ствол",
 		GENITIVE = "основного ствола",
 		DATIVE = "основному стволу",
@@ -32,7 +32,7 @@
 	gendered_icon = FALSE
 
 /obj/item/organ/external/groin/diona/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "нижнее разветвление",
 		GENITIVE = "нижнего разветвления",
 		DATIVE = "нижнему разветвлению",
@@ -52,7 +52,7 @@
 	convertable_children = list(/obj/item/organ/external/hand/diona)
 
 /obj/item/organ/external/arm/diona/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "левый верхний отросток",
 		GENITIVE = "левого верхнего отростка",
 		DATIVE = "левому верхнему отростку",
@@ -72,7 +72,7 @@
 	convertable_children = list(/obj/item/organ/external/hand/right/diona)
 
 /obj/item/organ/external/arm/right/diona/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "правый верхний отросток",
 		GENITIVE = "правого верхнего отростка",
 		DATIVE = "правому верхнему отростку",
@@ -92,7 +92,7 @@
 	convertable_children = list(/obj/item/organ/external/foot/diona)
 
 /obj/item/organ/external/leg/diona/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "левый нижний отросток",
 		GENITIVE = "левого нижнего отростка",
 		DATIVE = "левому нижнему отростку",
@@ -112,7 +112,7 @@
 	convertable_children = list(/obj/item/organ/external/foot/right/diona)
 
 /obj/item/organ/external/leg/right/diona/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "правый нижний отросток",
 		GENITIVE = "правого нижнего отростка",
 		DATIVE = "правому нижнему отростку",
@@ -141,7 +141,7 @@
 	amputation_point = "левую верхнюю ветку"
 
 /obj/item/organ/external/hand/diona/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "левый захват",
 		GENITIVE = "левого захвата",
 		DATIVE = "левому захвату",
@@ -158,7 +158,7 @@
 	amputation_point = "правую верхнюю ветку"
 
 /obj/item/organ/external/hand/right/diona/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "правый захват",
 		GENITIVE = "правого захвата",
 		DATIVE = "правому захвату",
@@ -181,7 +181,7 @@
 	encased = null
 
 /obj/item/organ/external/head/diona/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "верхнее ответвление",
 		GENITIVE = "верхнего ответвления",
 		DATIVE = "верхнему ответвлению",
@@ -205,7 +205,7 @@
 	actions_types = list(/datum/action/item_action/organ_action/diona_brain_evacuation)
 
 /obj/item/organ/internal/brain/diona/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "нейронная прослойка дионы",
 		GENITIVE = "нейронной прослойки дионы",
 		DATIVE = "нейронной прослойке дионы",
@@ -257,7 +257,7 @@
 	icon_state = "nymph"
 
 /obj/item/organ/internal/kidneys/diona/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "фильтрационные вакуоли",
 		GENITIVE = "фильтрационных вакуолей",
 		DATIVE = "фильтрационным вакуолям",
@@ -278,7 +278,7 @@
 	icon_state = "nymph"
 
 /obj/item/organ/internal/lungs/diona/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "газовые пузыри",
 		GENITIVE = "газовых пузырей",
 		DATIVE = "газовым пузырям",
@@ -299,7 +299,7 @@
 	icon_state = "nymph"
 
 /obj/item/organ/internal/appendix/diona/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сегментированный отросток",
 		GENITIVE = "сегментированного отростка",
 		DATIVE = "сегментированному отростку",
@@ -322,7 +322,7 @@
 	parent_organ_zone = BODY_ZONE_PRECISE_GROIN
 
 /obj/item/organ/internal/heart/diona/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "якорная связка",
 		GENITIVE = "якорной связки",
 		DATIVE = "якорной связке",
@@ -348,7 +348,7 @@
 	parent_organ_zone = BODY_ZONE_CHEST
 
 /obj/item/organ/internal/eyes/diona/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "рецепторный узел",
 		GENITIVE = "рецепторного узла",
 		DATIVE = "рецепторному узлу",
@@ -370,7 +370,7 @@
 	alcohol_intensity = 0.5
 
 /obj/item/organ/internal/liver/diona/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "питательная железа",
 		GENITIVE = "питательной железы",
 		DATIVE = "питательной железе",
@@ -393,7 +393,7 @@
 	parent_organ_zone = BODY_ZONE_PRECISE_GROIN
 
 /obj/item/organ/internal/ears/diona/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "колебательный уловитель",
 		GENITIVE = "колебательного уловителя",
 		DATIVE = "колебательному уловителю",

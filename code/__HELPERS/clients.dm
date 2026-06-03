@@ -70,6 +70,6 @@
 		return client.holder.fakekey
 
 	if(client.prefs && (client.prefs.toggles2 & PREFTOGGLE_2_ANON))
-		return "(Anon)"
+		return ANON_KEY
 
 	return client.key

@@ -11,7 +11,7 @@
 	attack_verb = list("предупредил", "насторожил")
 
 /obj/item/caution/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "знак мокрого пола",
 		GENITIVE = "знака мокрого пола",
 		DATIVE = "знаку мокрого пола",

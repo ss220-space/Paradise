@@ -196,7 +196,7 @@
 	var/new_desc = "Роскошная инвалидная коляска, когда-то принадлежавшая воксу."
 
 /obj/item/fluff/rapid_wheelchair_kit/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "комплект модификаций для инвалидной коляски",
 		GENITIVE = "комплекта модификаций для инвалидной коляски",
 		DATIVE = "комплекту модификаций для инвалидной коляски",
@@ -1313,12 +1313,6 @@
 	icon_state = "vest_black"
 	item_state = "vest_black"
 	sprite_sheets = null
-
-/obj/item/clothing/under/pants/fluff/combat
-	name = "combat pants"
-	desc = "Medium style tactical pants, for the fashion aware combat units out there."
-	icon_state = "combat_pants"
-	item_color = "combat_pants"
 
 /obj/item/clothing/suit/jacket/fluff/elliot_windbreaker // DaveTheHeadcrab: Elliot Campbell
 	name = "nylon windbreaker"

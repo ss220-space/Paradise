@@ -247,7 +247,7 @@
 	)
 
 /obj/item/clothing/mask/surgical/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "стерильная маска",
 		GENITIVE = "стерильной маски",
 		DATIVE = "стерильной маске",
@@ -498,7 +498,7 @@
 	)
 
 /obj/item/clothing/mask/gas/clown_hat/sweettooth/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Маска Сладкоежки",
 		GENITIVE = "Маски Сладкоежки",
 		DATIVE = "Маске Сладкоежки",
@@ -681,6 +681,7 @@
 
 /obj/item/clothing/mask/gas/voice_modulator/Initialize(mapload)
 	. = ..()
+	AddElement(/datum/element/tts_modifier, SOUND_EFFECT_MASKFILTER)
 	voice_modulator = new(src)
 
 /obj/item/clothing/mask/gas/voice_modulator/Destroy()
@@ -749,7 +750,7 @@
 	)
 
 /obj/item/clothing/head/paper_bag/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бумажный пакет",
 		GENITIVE = "бумажного пакета",
 		DATIVE = "бумажному пакету",
@@ -774,3 +775,38 @@
 	if(!living || slot != ITEM_SLOT_HEAD)
 		return .
 	living.overlay_fullscreen("fullyblack", /atom/movable/screen/fullscreen/fullyblack)
+
+// MARK: Whistle
+/obj/item/clothing/mask/whistle
+	name = "whistle"
+	desc = "Компактное сигнальное устройство, издающее громкий и четкий звук, используемое для подачи сигналов, привлечения внимания и координации действий в различных ситуациях, от спортивных мероприятий до чрезвычайных происшествий."
+	icon_state = "whistle"
+	item_state = "whistle"
+	gender = MALE
+	w_class = WEIGHT_CLASS_TINY
+	actions_types = list(/datum/action/item_action/activate)
+	custom_price = PAYCHECK_MIN
+	/// Sound use for activate whistle
+	var/activate_sound = 'sound/items/whistle.ogg'
+	COOLDOWN_DECLARE(use_cd)
+
+/obj/item/clothing/mask/whistle/get_ru_names()
+	return alist(
+		NOMINATIVE = "свисток",
+		GENITIVE = "свистка",
+		DATIVE = "свистку",
+		ACCUSATIVE = "свисток",
+		INSTRUMENTAL = "свистком",
+		PREPOSITIONAL = "свистке",
+	)
+
+/obj/item/clothing/mask/whistle/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/item_skins)
+
+/obj/item/clothing/mask/whistle/attack_self(mob/user)
+	if(!COOLDOWN_FINISHED(src, use_cd))
+		return FALSE
+	COOLDOWN_START(src, use_cd, 2 SECONDS)
+	user.visible_message(span_warning("[DECLENT_RU_CAP(user, NOMINATIVE)] дует в свисток!"))
+	playsound(user, activate_sound, 70, TRUE)

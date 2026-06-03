@@ -6,7 +6,7 @@
 	card_style = "unum"
 
 /obj/item/deck/unum/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "колода карт UNUM",
 		GENITIVE = "колоды карт UNUM",
 		DATIVE = "колоде карт UNUM",

@@ -1,10 +1,9 @@
-/proc/view_or_range(distance = world.view , center = usr , type)
+/proc/view_or_range(distance = world.view, center = usr, type)
 	switch(type)
-		if("view")
-			. = view(distance,center)
-		if("range")
-			. = range(distance,center)
-	return
+		if(SPELL_SELECTION_VIEW)
+			. = view(distance, center)
+		if(SPELL_SELECTION_RANGE)
+			. = range(distance, center)
 
 /proc/getviewsize(view = world.view)
 	SHOULD_BE_PURE(TRUE)

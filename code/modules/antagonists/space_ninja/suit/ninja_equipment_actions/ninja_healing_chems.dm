@@ -54,7 +54,7 @@
 	light_color = "#55ff63"
 
 /obj/effect/temp_visual/ninja_rend/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "разлом реальности",
 		GENITIVE = "разлома реальности",
 		DATIVE = "разлому реальности",
