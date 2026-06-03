@@ -393,7 +393,7 @@
 
 /// Different graphic for the position indicator
 /obj/effect/dummy/phased_mob/blood
-	phased_mob_icon_state = "mini_leaper"
+	phased_mob_icon_state = "blood_bolt"
 
 /datum/action/cooldown/spell/jaunt/bloodcrawl/shadow_crawl
 	name = "Теневой путь"

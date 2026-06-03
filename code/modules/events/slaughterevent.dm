@@ -50,10 +50,10 @@
 	return pick(spawn_locs)
 
 /datum/event/spawn_slaughter/start()
-	// if(num_station_players() <= minplayers)
-	// 	var/datum/event_container/EC = SSevents.event_containers[EVENT_LEVEL_MAJOR]
-	// 	EC.next_event_time = world.time + (60 * 10)
-	// 	return	//we don't spawn demons on lowpop. Instead, we reroll!
+	if(num_station_players() <= minplayers)
+		var/datum/event_container/EC = SSevents.event_containers[EVENT_LEVEL_MAJOR]
+		EC.next_event_time = world.time + (60 * 10)
+		return	//we don't spawn demons on lowpop. Instead, we reroll!
 
 	INVOKE_ASYNC(src, PROC_REF(get_slaughter))
 

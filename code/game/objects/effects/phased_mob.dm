@@ -101,7 +101,6 @@
 	var/turf/newloc = get_step_multiz(src,direction)
 	if(!newloc)
 		return
-	var/area/destination_area = newloc.loc
 	movedelay = world.time + movespeed
 
 	if(SEND_SIGNAL(src, COMSIG_MOB_PHASED_CHECK, user, newloc) & COMPONENT_BLOCK_PHASED_MOVE)
@@ -109,9 +108,6 @@
 
 	if(newloc.turf_flags & NOJAUNT)
 		to_chat(user, span_warning("Some strange aura is blocking the way."))
-		return
-	if(destination_area.area_flags & NOJAUNT)
-		to_chat(user, span_danger("Some dull, universal force is blocking the way. Its overwhelmingly oppressive force feels dangerous."))
 		return
 	if(direction == UP || direction == DOWN)
 		newloc = can_z_move(direction, get_turf(src), newloc, ZMOVE_INCAPACITATED_CHECKS | ZMOVE_FEEDBACK | ZMOVE_ALLOW_ANCHORED, user)

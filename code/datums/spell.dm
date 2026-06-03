@@ -10,6 +10,7 @@
 	return
 
 GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
+GLOBAL_LIST_INIT(spells_a, typesof(/datum/action/cooldown/spell))
 
 /obj/effect/proc_holder/proc/InterceptClickOn(mob/user, params, atom/target)
 	if(user.ranged_ability != src)

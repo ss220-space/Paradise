@@ -131,6 +131,7 @@
 #define VV_HK_GIVE_MOB_ACTION "give_mob_action"
 #define VV_HK_REMOVE_MOB_ACTION "remove_mob_action"
 #define VV_HK_GIVE_SPELL "give_spell"
+#define VV_HK_GIVE_SPELL_A "give_spell(A)"
 #define VV_HK_REMOVE_SPELL "remove_spell"
 #define VV_HK_GIVE_DISEASE "give_disease"
 #define VV_HK_GODMODE "godmode"

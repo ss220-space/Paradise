@@ -342,6 +342,21 @@ ADMIN_VERB(give_spell, R_EVENT, "Give Spell", ADMIN_VERB_NO_DESCRIPTION, ADMIN_C
 	BLACKBOX_LOG_ADMIN_VERB("Give Spell")
 	log_and_message_admins("gave [key_name_log(T)] the spell [S].")
 
+ADMIN_VERB(give_spell_a, R_EVENT, "Give Spell(A)", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, mob/T in GLOB.mob_list)
+	var/list/spell_list = list()
+	var/type_length = length("/datum/action/cooldown/spell") + 2
+	for(var/A in GLOB.spells_a)
+		spell_list[copytext("[A]", type_length)] = A
+	var/datum/action/cooldown/spell/S = tgui_input_list(user, "Choose the spell to give to that guy", "ABRAKADABRA", spell_list)
+	if(!S)
+		return
+	S = spell_list[S]
+	S = new S
+	S.Grant(T)
+
+	BLACKBOX_LOG_ADMIN_VERB("Give Spell")
+	log_and_message_admins("gave [key_name_log(T)] the spell [S].")
+
 ADMIN_VERB(give_disease, R_EVENT, "Give Disease", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, mob/target in GLOB.mob_list)
 	var/choosen_disease = tgui_input_list(user, "Choose the disease to give to that guy", "ACHOO", GLOB.diseases)
 	if(!choosen_disease)
