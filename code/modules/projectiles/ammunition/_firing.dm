@@ -58,8 +58,13 @@
 	if(!istype(targloc) || !istype(curloc) || !BB)
 		return
 
+	if(BB.loc != curloc)
+		BB.forceMove(curloc)
+
+	var/atom/origin_atom = (isliving(user) ? user : (firer_source_atom ? firer_source_atom : src))
+
 	// Point blank adjacent mob/object always gets hit.
-	if(target && !isturf(target) && get_dist(user, target) <= 1)
+	if(target && !isturf(target) && get_dist(origin_atom, target) <= 1)
 		BB.starting = curloc
 		BB.prehit(target)
 		target.bullet_act(BB, BB.def_zone)
