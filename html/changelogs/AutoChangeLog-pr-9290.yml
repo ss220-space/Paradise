@@ -1,4 +1,0 @@
-author: "SCPfollower"
-delete-after: True
-changes:
-  - qol: "Поиск по всем категориям в карго консоли. (PR #9290)"

@@ -1,59 +1,57 @@
 /datum/action/changeling/swap_form
-	name = "Swap Forms"
-	desc = "We force ourselves into the body of another form, pushing their consciousness into the form we left behind. Costs 40 chemicals."
-	helptext = "We will bring all our abilities with us, but we will lose our old form DNA in exchange for the new one. The process will seem suspicious to any observers."
+	name = "Обмен сосудами"
+	desc = "Мы силой забираем чужой сосуд, перенося сознание из него в наш старый сосуд. Требует 40 химикатов."
+	helptext = "Новый сосуд получит все наши способности, но мы потеряем ДНК оставленного сосуда взамен на ДНК нового. Для использования требуется душить жертву. Можно использовать в низшей форме."
 	button_icon_state = "mindswap"
 	power_type = CHANGELING_PURCHASABLE_POWER
-	chemical_cost = 40
 	dna_cost = 1
-	req_human = TRUE //Monkeys can't grab
+	chemical_cost = 40
 
 /datum/action/changeling/swap_form/can_sting(mob/living/carbon/user)
 	if(!..())
 		return FALSE
 
 	if(!user.pulling || user.pull_hand != user.hand || user.grab_state < GRAB_AGGRESSIVE)
-		to_chat(user, span_warning("We must have an aggressive grab on creature in our active hand to do this!"))
+		user.balloon_alert(user, "нужно схватить крепче!")
 		return FALSE
 
 	var/mob/living/carbon/human/target = user.pulling
 	if(!ishuman(target) || !target.mind || is_monkeybasic(target) || HAS_TRAIT(target, TRAIT_NO_DNA))
-		to_chat(user, span_warning("[target] is not compatible with this ability."))
+		user.balloon_alert(user, "[target] не подойдёт")
 		return FALSE
 
 	if(HAS_TRAIT(target, TRAIT_HUSK) || HAS_TRAIT(target, TRAIT_SKELETON) || HAS_TRAIT(target, TRAIT_NO_CLONE))
-		to_chat(user, span_warning("DNA of [target] is ruined beyond usability!"))
+		user.balloon_alert(user, UNLINT("ДНК [target] уничтожена!"))
 		return FALSE
 
 	if(ischangeling(target))
-		to_chat(user, span_warning("We are unable to swap forms with another changeling!"))
+		user.balloon_alert(user, "в сосуде собрат!")
 		return FALSE
 
 	if(isdevilantag(target))
-		to_chat(user, span_warning("Что бы это ни было, вы не хотите прикасаться к этому!"))
+		user.balloon_alert(user, "сосуд испорчен!")
 		return FALSE
 
 	if(target.has_brain_worms() || user.has_brain_worms())
-		to_chat(user, span_warning("A foreign presence repels us from this body!"))
+		user.balloon_alert(user, "в разуме паразит!")
 		return FALSE
 
 	return TRUE
 
 /datum/action/changeling/swap_form/sting_action(mob/living/carbon/user)
 	var/mob/living/carbon/human/target = user.pulling
-
-	to_chat(user, span_notice("We tighten our grip. We must hold still..."))
+	to_chat(user, span_notice("[target] нам подходит. Во время смены сосуда нам нельзя двигаться."))
 	target.Jitter(10 SECONDS)
 	user.Jitter(10 SECONDS)
 
 	if(!do_after(user, 10 SECONDS, target, NONE))
-		to_chat(user, span_warning("The body swap has been interrupted!"))
+		user.balloon_alert(user, "смена сосуда прервана!")
 		return FALSE
 
 	if(!can_sting(user))
 		return FALSE
 
-	to_chat(target, span_userdanger("[user] tightens [user.p_their()] grip as a painful sensation invades your body."))
+	to_chat(target, span_userdanger("[user] усиливает захват, и вы чувствуете, как что-то проникает в вас."))
 
 	var/datum/dna/DNA = cling.get_dna(user.dna)
 	cling.absorbed_dna -= DNA
@@ -76,11 +74,15 @@
 		user.possess_by_player(ghost.key)
 	qdel(ghost)
 
-	user.Paralyse(4 SECONDS)
 	user.regenerate_icons()
 
-	if(target.stat == DEAD && target.suiciding)  //If Target committed suicide, unset flag for User
-		target.suiciding = FALSE
+	if(target.stat == DEAD)
+		user.Paralyse(CLING_FAKEDEATH_TIME)
 
-	to_chat(target, span_warning("Our genes cry out as we swap our [user] form for [target]."))
+		if(target.suiciding) //If Target committed suicide, unset flag for User
+			target.suiciding = FALSE
+
+	else
+		user.Paralyse(10 SECONDS)
+
 	return TRUE

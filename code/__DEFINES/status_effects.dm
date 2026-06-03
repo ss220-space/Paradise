@@ -86,6 +86,9 @@
 /// Handles changeling speed boost and chemical cost.
 #define STATUS_EFFECT_SPEEDLEGS /datum/status_effect/speedlegs
 
+/// Handles changeling chameleon skin ability effects.
+#define STATUS_EFFECT_CHAMELEON /datum/status_effect/chameleon
+
 /// Handles changeling anatomic panacea ability effects.
 #define STATUS_EFFECT_PANACEA /datum/status_effect/panacea
 

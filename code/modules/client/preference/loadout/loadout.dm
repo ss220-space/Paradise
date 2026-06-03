@@ -63,6 +63,8 @@ GLOBAL_LIST_EMPTY(gear_datums)
 		tweak.tweak_gear_data(metadata["[tweak]"], gear_data)
 	var/gear_path = gear_data.path || path
 	var/item = new gear_path(gear_data.location)
+	if(!item)
+		return
 	for(var/datum/gear_tweak/tweak in gear_tweaks)
 		tweak.tweak_item(item, metadata["[tweak]"])
 	return item

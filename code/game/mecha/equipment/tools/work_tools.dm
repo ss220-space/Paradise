@@ -144,15 +144,15 @@
 	usesound = 'sound/items/deconstruct.ogg'
 
 /obj/item/mecha_parts/mecha_equipment/rcd/Initialize(mapload)
+	. = ..()
 	GLOB.rcd_list += src
-	rcd_holder = new(loc)
+	rcd_holder = new(src)
+	rcd_holder.holder_ref = WEAKREF(src)
 	rcd_holder.power_use_multiplier = energy_drain
 	rcd_holder.canRwall = TRUE
-	. = ..()
 
 /obj/item/mecha_parts/mecha_equipment/rcd/Destroy()
 	GLOB.rcd_list -= src
-	rcd_holder.chassis = null
 	QDEL_NULL(rcd_holder)
 	return ..()
 
