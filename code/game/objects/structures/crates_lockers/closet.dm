@@ -391,10 +391,14 @@ GLOBAL_LIST_EMPTY(closets)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(istype(used, /obj/item/hand_labeler))
-		add_fingerprint(user)
 		var/obj/item/hand_labeler/labeler = used
-		SEND_SIGNAL(src, COMSIG_ATOM_ATTACKBY, labeler, user, params)
-		return ATTACK_CHAIN_PROCEED
+		if(labeler.mode)
+			add_fingerprint(user)
+			return ATTACK_CHAIN_PROCEED
+		if(GetComponent(/datum/component/label))
+			add_fingerprint(user)
+			SEND_SIGNAL(src, COMSIG_ATOM_ATTACKBY, labeler, user, params)
+			return ATTACK_CHAIN_BLOCKED_ALL
 
 	var/is_emag = istype(used, /obj/item/card/emag)
 	if(is_emag || istype(used, /obj/item/melee/energy/blade))
