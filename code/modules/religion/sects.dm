@@ -17,7 +17,7 @@
 #define SECT_TRAIT_SOURCE "sect_ritual"
 #define SECT_TECHNICISM_POWER_WATTS_PER_PRANA 1000
 #define SECT_TECHNICISM_MAX_POWER_DRAW 3000
-#define SECT_TECHNICISM_COMPANY "Morpheus Cyberkinetics"
+#define SECT_TECHNICISM_COMPANY "Zeng-Hu Pharmaceuticals"
 #define SECT_TECHNICISM_BATTLE_FRAME_COMPANY "Hesphiastos Titan"
 #define SECT_TECHNICISM_SEMIUNIT_SYNC_TIME (10 SECONDS)
 #define SECT_MERCONICISM_DISCOUNT_MULTIPLIER 1.5
@@ -27,6 +27,8 @@
 #define SECT_FLAME_ENCHANT_FIRE_STACKS 4
 #define SECT_FLAME_ENCHANT_MARKS_TO_IGNITE 3
 #define SECT_FLAME_ENCHANT_MARK_DECAY_TIME (6 SECONDS)
+#define SECT_PYROMANIA_SACRIFICE_BURN_DAMAGE 1
+#define SECT_PYROMANIA_SACRIFICE_TICK_TIME (1 SECONDS)
 #define SECT_SIN_WEAPON_FORCE_BONUS 3
 #define SECT_SIN_WEAPON_HAND_DAMAGE 3
 #define SECT_STATUS_PRANA_PER_SECOND 1
@@ -316,7 +318,8 @@
 		bodypart.stop_bleeding()
 		closed_any = TRUE
 	if(closed_any)
-		target.calculate_current_bleeding()
+		target.bleeding_bodyparts.Cut()
+		target.bleed_rate = 0
 	return closed_any
 
 /datum/religion_sect/proc/remove_flagellant_bible_speed(mob/living/target)
@@ -405,7 +408,7 @@
 			changed = TRUE
 	if(changed)
 		target.update_body()
-		target.updatehealth("sect technicism robotize")
+		target.updatehealth("sect technicism augment")
 		target.UpdateDamageIcon()
 	return changed
 
@@ -503,12 +506,33 @@
 	altar_icon_state = "pyro"
 	sacrifice_desc = "Принимает горящее тело на алтаре. Огонь причиняет боль, а алтарь переводит её в прану."
 	sacrifice_consumes_offering = FALSE
+	var/next_sacrifice_prana_time = 0
 	ritual_types = list(
 		/datum/religion_ritual/pyromania/fire_resistance,
 		/datum/religion_ritual/pyromania/flame_enchant,
 		/datum/religion_ritual/pyromania/holy_flame,
 		/datum/religion_ritual/pyromania/flame_absorption,
 	)
+
+/datum/religion_sect/pyromania/process(seconds_per_tick)
+	if(!altar || world.time < next_sacrifice_prana_time)
+		return
+	var/atom/movable/offering = altar.get_sacrifice_target(null)
+	if(!isliving(offering))
+		return
+	var/sacrifice_value = get_sacrifice_value(offering, null)
+	if(sacrifice_value <= 0)
+		return
+	next_sacrifice_prana_time = world.time + SECT_PYROMANIA_SACRIFICE_TICK_TIME
+	consume_sacrifice(offering, null)
+	adjust_prana(sacrifice_value)
+	SStgui.update_uis(altar)
+
+/datum/religion_sect/pyromania/get_sacrifice_check_result(obj/structure/sect_altar/source_altar, mob/living/user, atom/movable/offering)
+	var/list/check_result = ..()
+	if(!check_result["can_sacrifice"])
+		return check_result
+	return list("can_sacrifice" = FALSE, "failure_reason" = "Горящее тело уже питает алтарь автоматически.")
 
 /datum/religion_sect/pyromania/get_sacrifice_value(atom/movable/offering, mob/living/user)
 	if(!isliving(offering))
@@ -527,8 +551,9 @@
 	if(!isliving(offering))
 		return
 	var/mob/living/living_offering = offering
-	add_attack_logs(user, living_offering, "Burned on pyromania sect altar")
-	living_offering.apply_damage(1, BURN)
+	if(user)
+		add_attack_logs(user, living_offering, "Burned on pyromania sect altar")
+	living_offering.apply_damage(SECT_PYROMANIA_SACRIFICE_BURN_DAMAGE, BURN)
 	living_offering.adjust_fire_stacks(1)
 	living_offering.IgniteMob()
 	return 0
@@ -1254,7 +1279,7 @@
 	if(damagetype != BURN || damage <= 0)
 		return
 	damage_mods += 0
-	owner.adjustBruteLoss(-round(damage * 0.5))
+	owner.adjustBruteLoss(-max(1, round(damage * 0.5)))
 
 /mob/living/proc/sect_show_laws()
 	set category = VERB_CATEGORY_ROBOTCOMMANDS
@@ -2997,7 +3022,7 @@
 			continue
 		if(sect.get_sacrifice_value(target, user) > 0)
 			return target
-	return get_ritual_target()
+	return null
 
 /obj/structure/sect_altar/proc/try_sacrifice(mob/living/user)
 	if(!sect)
