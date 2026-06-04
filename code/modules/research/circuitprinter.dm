@@ -153,7 +153,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 	if(is_open_container)
 		if(panel_open)
 			balloon_alert(user, "панель открыта!")
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 		return ATTACK_CHAIN_PROCEED	// afterattack will handle this
 
 	if(is_circuit(tool))
