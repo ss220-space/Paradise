@@ -129,10 +129,20 @@
  */
 /obj/item/toy/AI
 	name = "toy AI"
-	desc = "A little toy model AI core with real law announcing action!"
+	desc = "Небольшая игрушечная модель ядра станционного Искусственного Интеллекта с реальными функциями объявления законов!"
 	icon_state = "AI"
 	w_class = WEIGHT_CLASS_SMALL
 	var/cooldown = 0
+
+/obj/item/toy/AI/get_ru_names()
+	return list(
+		NOMINATIVE = "игрушка \"Искуственный Интеллект\"",
+		GENITIVE = "игрушки \"Искуственный Интеллект\"",
+		DATIVE = "игрушке \"Искуственный Интеллект\"",
+		ACCUSATIVE = "игрушку \"Искуственный Интеллект\"",
+		INSTRUMENTAL = "игрушкой \"Искуственный Интеллект\"",
+		PREPOSITIONAL = "игрушке \"Искуственный Интеллект\"",
+	)
 
 /obj/item/toy/AI/attack_self(mob/user)
 	if(!cooldown) //for the sanity of everyone
@@ -150,7 +160,7 @@
  */
 /obj/item/toy/pet_rock
 	name = "pet rock"
-	desc = "The perfect pet!"
+	desc = "Идеальный питомец!"
 	icon_state = "pet_rock"
 	w_class = WEIGHT_CLASS_SMALL
 	force = 5
@@ -158,22 +168,62 @@
 	attack_verb = list("атаковал", "ударил", "окаменил")
 	hitsound = SFX_SWING_HIT
 
+/obj/item/toy/pet_rock/get_ru_names()
+	return list(
+		NOMINATIVE = "камень-питомец",
+		GENITIVE = "камня-питомца",
+		DATIVE = "камню-питомцу",
+		ACCUSATIVE = "камень-питомец",
+		INSTRUMENTAL = "камнем-питомцем",
+		PREPOSITIONAL = "камне-питомце",
+	)
+
 /obj/item/toy/pet_rock/fred
 	name = "fred"
-	desc = "Fred, the bestest boy pet in the whole wide universe!"
+	desc = "Фред, самый хороший мальчик-питомец в галактике!"
 	icon_state = "fred"
+
+/obj/item/toy/pet_rock/fred/get_ru_names()
+	return list(
+		NOMINATIVE = "камень-питомец Фред",
+		GENITIVE = "камня-питомца Фреда",
+		DATIVE = "камню-питомцу Фреду",
+		ACCUSATIVE = "камень-питомец Фреда",
+		INSTRUMENTAL = "камнем-питомцем Фредом",
+		PREPOSITIONAL = "камне-питомце Фреде",
+	)
 
 /obj/item/toy/pet_rock/roxie
 	name = "roxie"
-	desc = "Roxie, the bestest girl pet in the whole wide universe!"
+	desc = "Рокси, самая хорошая девочка-питомец в галактике!"
 	icon_state = "roxie"
+
+/obj/item/toy/pet_rock/roxie/get_ru_names()
+	return list(
+		NOMINATIVE = "камень-питомец Рокси",
+		GENITIVE = "камня-питомца Рокси",
+		DATIVE = "камню-питомцу Рокси",
+		ACCUSATIVE = "камень-питомец Рокси",
+		INSTRUMENTAL = "камнем-питомцем Рокси",
+		PREPOSITIONAL = "камне-питомце Рокси",
+	)
 
 /obj/item/toy/pet_rock/naughty_coal
 	name = "Naughty coal"
-	desc = "You've been very bad this year! And the only thing you deserve as a gift is this piece of coal!"
+	desc = "Ты очень плохо себя вёл в этом году! И единственное, что ты заслуживаешь в подарок, — это этот кусок угля!"
 	icon = 'icons/obj/items.dmi'
 	icon_state = "naughty_coal"
 	resistance_flags = FLAMMABLE
+
+/obj/item/toy/pet_rock/naughty_coal/get_ru_names()
+	return list(
+		NOMINATIVE = "уголь для непослушных",
+		GENITIVE = "угля для непослушных",
+		DATIVE = "углю для непослушных",
+		ACCUSATIVE = "уголь для непослушных",
+		INSTRUMENTAL = "углём для непослушных",
+		PREPOSITIONAL = "угле для непослушных",
+	)
 
 /obj/item/toy/inflatable_duck
 	name = "inflatable duck"
