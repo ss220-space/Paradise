@@ -390,6 +390,12 @@ GLOBAL_LIST_EMPTY(closets)
 		rcs.try_send_container(user, src)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
+	if(istype(used, /obj/item/hand_labeler))
+		add_fingerprint(user)
+		var/obj/item/hand_labeler/labeler = used
+		SEND_SIGNAL(src, COMSIG_ATOM_ATTACKBY, labeler, user, params)
+		return ATTACK_CHAIN_PROCEED
+
 	var/is_emag = istype(used, /obj/item/card/emag)
 	if(is_emag || istype(used, /obj/item/melee/energy/blade))
 		add_fingerprint(user)
