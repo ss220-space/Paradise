@@ -15,6 +15,20 @@
 	var/icon_locked = "lockbox+l"
 	var/icon_closed = "lockbox"
 	var/icon_broken = "lockbox+b"
+	/// The currently placed thermal drill, if any.
+	var/obj/item/thermal_drill/drill = null
+	/// The [/proc/addtimer] handle for the current thermal drill.
+	var/drill_timer
+	/// Drill duration of the current thermal drill.
+	var/time_to_drill
+	/// The world.time at which drilling started.
+	var/drill_start_time
+	/// The drill overlay image to display during the drilling process.
+	var/image/drill_overlay
+	/// The progress bar image to display during the drilling process.
+	var/image/progress_bar
+	var/drill_x_offset = 0
+	var/drill_y_offset = -3
 
 /obj/item/storage/lockbox/update_icon_state()
 	if(broken)
@@ -22,7 +36,18 @@
 		return
 	icon_state = locked ? icon_locked : icon_closed
 
-/obj/item/storage/lockbox/attackby(obj/item/I, mob/user, params)
+/obj/item/storage/lockbox/update_overlays()
+	. = ..()
+	if(istype(drill, /obj/item/thermal_drill))
+		var/drill_icon = istype(drill, /obj/item/thermal_drill/diamond_drill) ? "d" : "h"
+		var/state = "floorsafe_[drill_icon]-drill-[drill_timer ? "on" : "off"]"
+		drill_overlay = image(icon = 'icons/effects/drill.dmi', icon_state = state)
+		drill_overlay.pixel_w = drill_x_offset
+		drill_overlay.pixel_z = drill_y_offset
+		drill_overlay.transform = matrix(0, 0, -1, 0, 1, 0)
+		. += drill_overlay
+
+/obj/item/storage/lockbox/attackby(obj/item/item, mob/user, params)
 	if(user.a_intent == INTENT_HARM)	// to allow storing special items
 		if(locked)
 			add_fingerprint(user)
@@ -30,12 +55,15 @@
 			return ATTACK_CHAIN_PROCEED
 		return ..()
 
-	if(I.GetID())
+	if(item.GetID())
 		add_fingerprint(user)
 		if(broken)
 			to_chat(user, span_warning("It appears to be broken."))
 			return ATTACK_CHAIN_PROCEED
-		if(!check_access(I))
+		if(drill && drill_timer)
+			to_chat(user, span_warning("Невозможно во время работы дрели."))
+			return ATTACK_CHAIN_PROCEED
+		if(!check_access(item))
 			to_chat(user, span_warning("Access denied."))
 			return ATTACK_CHAIN_PROCEED
 
@@ -50,10 +78,29 @@
 			origin_tech = null //wipe out any origin tech if it's unlocked in any way so you can't double-dip tech levels at R&D.
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	if((istype(I, /obj/item/card/emag) || (istype(I, /obj/item/melee/energy/blade)) && !broken))
+	if((istype(item, /obj/item/card/emag) || (istype(item, /obj/item/melee/energy/blade)) && !broken))
 		add_fingerprint(user)
 		emag_act(user)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	if(istype(item, /obj/item/thermal_drill) && !broken && locked)
+		if(drill)
+			user.balloon_alert(user, "дрель уже стоит!")
+			return ATTACK_CHAIN_PROCEED
+		user.balloon_alert(user, "установка началась")
+		if(!do_after(user, 2 SECONDS, src, category = DA_CAT_TOOL) || drill)
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(item, src))
+			return ATTACK_CHAIN_PROCEED
+		drill = item
+		time_to_drill = DRILL_TIME * drill.time_multiplier
+		update_icon()
+		drill_timer = addtimer(CALLBACK(src, PROC_REF(drill_open)), time_to_drill, TIMER_STOPPABLE)
+		drill_start_time = world.time
+		drill.soundloop.start()
+		update_icon()
+		START_PROCESSING(SSobj, src)
+		return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(locked)
 		add_fingerprint(user)
@@ -61,6 +108,11 @@
 		return ATTACK_CHAIN_PROCEED
 
 	return ..()
+
+/obj/item/storage/lockbox/attack_self(mob/user) 
+	if(!drill)
+		return
+	remove_drill(user)
 
 /obj/item/storage/lockbox/dump_storage(mob/user, obj/item/storage/target)
 	if(locked)
@@ -92,6 +144,22 @@
 		if(user)
 			to_chat(user, span_notice("You unlock \the [src]."))
 		origin_tech = null //wipe out any origin tech if it's unlocked in any way so you can't double-dip tech levels at R&D.
+
+/obj/item/storage/lockbox/proc/remove_drill(mob/user)
+	user.put_in_hands(drill)
+	drill = null
+	update_icon()
+	
+/obj/item/storage/lockbox/proc/drill_open()
+	broken = TRUE
+	locked = FALSE
+	drill_timer = null
+	drill.soundloop.stop()
+	update_icon()
+	playsound(loc, 'sound/machines/ding.ogg', 50, TRUE)
+	cut_overlay(progress_bar)
+	update_icon()
+	STOP_PROCESSING(SSobj, src)
 
 /obj/item/storage/lockbox/hear_talk(mob/living/M, list/message_pieces)
 	if(locked)
