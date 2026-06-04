@@ -13,10 +13,20 @@
  */
 /obj/item/toy/snappop
 	name = "snap pop"
-	desc = "Wow!"
+	desc = "Ого!"
 	icon_state = "snappop"
 	w_class = WEIGHT_CLASS_TINY
 	var/ash_type = /obj/effect/decal/cleanable/ash
+
+/obj/item/toy/snappop/get_ru_names()
+	return list(
+		NOMINATIVE = "хлопушка",
+		GENITIVE = "хлопушки",
+		DATIVE = "хлопушке",
+		ACCUSATIVE = "хлопушку",
+		INSTRUMENTAL = "хлопушкой",
+		PREPOSITIONAL = "хлопушке",
+	)
 
 /obj/item/toy/snappop/Initialize(mapload)
 	. = ..()
@@ -54,8 +64,18 @@
 
 /obj/item/toy/snappop/phoenix
 	name = "phoenix snap pop"
-	desc = "Wow! And wow! And wow!"
+	desc = "Ого! Ничего себе! Вот это да!"
 	ash_type = /obj/effect/decal/cleanable/ash/snappop_phoenix
+
+/obj/item/toy/snappop/phoenix/get_ru_names()
+	return list(
+		NOMINATIVE = "хлопушка \"Феникс\"",
+		GENITIVE = "хлопушки \"Феникс\"",
+		DATIVE = "хлопушке \"Феникс\"",
+		ACCUSATIVE = "хлопушку \"Феникс\"",
+		INSTRUMENTAL = "хлопушкой \"Феникс\"",
+		PREPOSITIONAL = "хлопушке \"Феникс\"",
+	)
 
 /obj/effect/decal/cleanable/ash/snappop_phoenix
 	var/respawn_time = 300
@@ -73,7 +93,7 @@
  */
 /obj/item/toy/codex_gigas
 	name = "Toy Codex Gigas"
-	desc = "A tool to help you write fictional devils!"
+	desc = "Книга, которая поможет вам выдумывать дьяволов!"
 	icon = 'icons/obj/library.dmi'
 	lefthand_file = 'icons/mob/inhands/equipment/library_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/library_righthand.dmi'
@@ -81,6 +101,16 @@
 	item_state = "demonomicon"
 	w_class = WEIGHT_CLASS_SMALL
 	COOLDOWN_DECLARE(cooldown)
+
+/obj/item/toy/codex_gigas/get_ru_names()
+	return list(
+		NOMINATIVE = "поддельный Кодекс Гигас",
+		GENITIVE = "поддельного Кодекса Гигаса",
+		DATIVE = "поддельному Кодексу Гигасу",
+		ACCUSATIVE = "поддельный Кодекс Гигаса",
+		INSTRUMENTAL = "поддельным Кодексом Гигасом",
+		PREPOSITIONAL = "поддельном Кодексе Гигасе",
+	)
 
 /obj/item/toy/codex_gigas/attack_self(mob/user)
 	if(!COOLDOWN_FINISHED(src, cooldown))
@@ -114,18 +144,27 @@
  */
 /obj/item/toy/minigibber
 	name = "miniature gibber"
-	desc = "A miniature recreation of Nanotrasen's famous meat grinder."
+	desc = "Миниатюрная копия знаменитой мясорубки компании \"Nanotrasen\"."
 	icon_state = "minigibber"
 	attack_verb = list("перемолол", "гибнул")
 	w_class = WEIGHT_CLASS_SMALL
 	var/cooldown = 0
-	var/obj/stored_minature = null
+	var/obj/stored_miniature = null
+
+/obj/item/toy/minigibber/get_ru_names()
+	return list(
+		NOMINATIVE = "миниатюрная мясорубка",
+		GENITIVE = "миниатюрной мясорубки",
+		DATIVE = "миниатюрной мясорубке",
+		ACCUSATIVE = "миниатюрную мясорубку",
+		INSTRUMENTAL = "миниатюрной мясорубкой",
+		PREPOSITIONAL = "миниатюрной мясорубке",
+	)
 
 /obj/item/toy/minigibber/attack_self(mob/user)
-
-	if(stored_minature)
+	if(stored_miniature)
 		user.visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] издаёт жуткий скрежет, уничтожая миниатюрную фигурку внутри!"))
-		QDEL_NULL(stored_minature)
+		QDEL_NULL(stored_miniature)
 		playsound(user, 'sound/goonstation/effects/gib.ogg', 20, TRUE)
 		cooldown = world.time
 
@@ -137,16 +176,16 @@
 /obj/item/toy/minigibber/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/toy/character))
 		add_fingerprint(user)
-		if(stored_minature)
-			to_chat(user, span_warning("Внутри уже есть [stored_minature.declent_ru(NOMINATIVE)]!"))
+		if(stored_miniature)
+			to_chat(user, span_warning("Внутри уже есть [stored_miniature.declent_ru(NOMINATIVE)]!"))
 			return ATTACK_CHAIN_PROCEED
 		user.visible_message(span_notice("[user] вставляет [icon2html(I, viewers(I))] [I.declent_ru(ACCUSATIVE)] в мини-приёмник [declent_ru(GENITIVE)]..."))
-		if(!do_after(user, 1 SECONDS, src, category = DA_CAT_TOOL) || stored_minature)
+		if(!do_after(user, 1 SECONDS, src, category = DA_CAT_TOOL) || stored_miniature)
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 		to_chat(user, span_notice("Вы вставили [icon2html(I, user)] [I.declent_ru(ACCUSATIVE)] в [declent_ru(GENITIVE)]!"))
-		stored_minature = I
+		stored_miniature = I
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
@@ -156,11 +195,21 @@
  */
 /obj/item/toy/redbutton
 	name = "big red button"
-	desc = "A big, plastic red button. Reads 'From HonkCo Pranks?' on the back."
+	desc = "Большая красная пластиковая кнопка. На обратной стороне надпись: \"От HonkCo Pranks?\"."
 	icon = 'icons/obj/assemblies.dmi'
 	icon_state = "bigred"
 	w_class = WEIGHT_CLASS_SMALL
 	var/cooldown = 0
+
+/obj/item/toy/redbutton/get_ru_names()
+	return list(
+		NOMINATIVE = "большая красная кнопка",
+		GENITIVE = "большой красной кнопки",
+		DATIVE = "большой красной кнопке",
+		ACCUSATIVE = "большую красную кнопку",
+		INSTRUMENTAL = "большой красной кнопкой",
+		PREPOSITIONAL = "большой красной кнопке",
+	)
 
 /obj/item/toy/redbutton/attack_self(mob/user)
 	if(cooldown < world.time)
@@ -189,11 +238,21 @@
  */
 /obj/item/toy/eight_ball
 	name = "Magic 8-Ball"
-	desc = "Mystical! Magical! Ages 8+!"
+	desc = "Мистический! Волшебный! Для детей от 8 лет!"
 	icon_state = "eight-ball"
 	var/use_action = "трясёт шар"
 	var/cooldown = 0
 	var/list/possible_answers = list("Определённо", "Все признаки указывают на \"да\".", "Скорее всего.", "Да.", "Спроси позже.", "Лучше не сейчас.", "Будущее неясно.", "Возможно.", "Сомнительно.", "Нет.", "Не рассчитывай на это.", "Никогда.")
+
+/obj/item/toy/eight_ball/get_ru_names()
+	return list(
+		NOMINATIVE = "бильярдный шар-восьмёрка",
+		GENITIVE = "бильярдного шара-восьмёрки",
+		DATIVE = "бильярдному шару-восьмёрке",
+		ACCUSATIVE = "бильярдный шар-восьмёрку",
+		INSTRUMENTAL = "бильярдным шаром-восьмёркой",
+		PREPOSITIONAL = "бильярдном шаре-восьмёрке",
+	)
 
 /obj/item/toy/eight_ball/attack_self(mob/user as mob)
 	if(!cooldown)
@@ -206,10 +265,20 @@
 
 /obj/item/toy/eight_ball/conch
 	name = "Magic Conch Shell"
-	desc = "All hail the Magic Conch!"
+	desc = "Да здравствует волшебная раковина!"
 	icon_state = "conch"
 	use_action = "тянет за верёвочку"
 	possible_answers = list("Да.", "Нет.", "Спроси ещё раз.", "Ничего.", "Я так не думаю.", "Ни то, ни другое.", "Может быть, когда-нибудь.")
+
+/obj/item/toy/eight_ball/conch/get_ru_names()
+	return list(
+		NOMINATIVE = "волшебная раковина",
+		GENITIVE = "волшебной раковины",
+		DATIVE = "волшебной раковине",
+		ACCUSATIVE = "волшебную раковину",
+		INSTRUMENTAL = "волшебной раковиной",
+		PREPOSITIONAL = "волшебной раковине",
+	)
 
 /*
 * Office desk toys
@@ -251,17 +320,49 @@
 
 /obj/item/toy/desk/officetoy
 	name = "office toy"
-	desc = "A generic microfusion powered office desk toy. Only generates magnetism and ennui."
+	desc = "Обычная офисная игрушка, работающая на энергии микротермоядерного синтеза. Генерирует только магнетизм и скуку."
 	icon_state= "desktoy"
+
+/obj/item/toy/desk/officetoy/get_ru_names()
+	return list(
+		NOMINATIVE = "офисная игрушка",
+		GENITIVE = "офисной игрушки",
+		DATIVE = "офисной игрушке",
+		ACCUSATIVE = "офисную игрушку",
+		INSTRUMENTAL = "офисной игрушкой",
+		PREPOSITIONAL = "офисной игрушке",
+	)
+
 /obj/item/toy/desk/dippingbird
 	name = "dipping bird toy"
-	desc = "A ancient human bird idol, worshipped by clerks and desk jockeys."
+	desc = "Древний человекоподобный идол птицы, которому поклонялись клерки и офисные работники."
 	icon_state= "dippybird"
+
+/obj/item/toy/desk/dippingbird/get_ru_names()
+	return list(
+		NOMINATIVE = "игрушка \"пьющая птичка\"",
+		GENITIVE = "игрушки \"пьющей птички\"",
+		DATIVE = "игрушке \"пьющей птички\"",
+		ACCUSATIVE = "игрушку \"пьющую птичку\"",
+		INSTRUMENTAL = "игрушкой \"пьющей птички\"",
+		PREPOSITIONAL = "игрушке \"пьющей птички\"",
+	)
+
 /obj/item/toy/desk/newtoncradle
 	name = "Newton's cradle"
-	desc = "A ancient 21th century super-weapon model demonstrating that Sir Isaac Newton is the deadliest sonuvabitch in space."
+	desc = "Древняя модель сверхмощного оружия XXI века, демонстрирующая, что сэр Исаак Ньютон — самый смертоносный ублюдок в космосе."
 	icon_state = "newtoncradle"
 	var/datum/looping_sound/newtonballs/soundloop
+
+/obj/item/toy/desk/newtoncradle/get_ru_names()
+	return list(
+		NOMINATIVE = "игрушка \"Колыбель Ньютона\"",
+		GENITIVE = "игрушки \"Колыбели Ньютона\"",
+		DATIVE = "игрушке \"Колыбели Ньютона\"",
+		ACCUSATIVE = "игрушку \"Колыбель Ньютона\"",
+		INSTRUMENTAL = "игрушкой \"Колыбелью Ньютона\"",
+		PREPOSITIONAL = "игрушке \"Колыбели Ньютона\"",
+	)
 
 /obj/item/toy/desk/newtoncradle/Initialize(mapload)
 	. = ..()
@@ -277,9 +378,19 @@
 
 /obj/item/toy/desk/fan
 	name = "office fan"
-	desc = "Your greatest fan"
+	desc = "Обычный офисный вентилятор."
 	icon_state = "fan"
 	var/datum/looping_sound/fanblow/soundloop
+
+/obj/item/toy/desk/fan/get_ru_names()
+	return list(
+		NOMINATIVE = "вентилятор",
+		GENITIVE = "вентилятора",
+		DATIVE = "вентилятору",
+		ACCUSATIVE = "вентилятор",
+		INSTRUMENTAL = "вентилятором",
+		PREPOSITIONAL = "вентиляторе",
+	)
 
 /obj/item/toy/desk/fan/Initialize(mapload)
 	. = ..()
