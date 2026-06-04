@@ -188,6 +188,7 @@
 /atom/movable/screen/alert/status_effect
 	name = "Проклятие Обыденности"
 	desc = "Вы не чувствуете никаких изменений..."
+	icon_state = "negative"
 	var/datum/status_effect/attached_effect
 
 /atom/movable/screen/alert/status_effect/Destroy()

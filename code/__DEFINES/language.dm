@@ -30,6 +30,7 @@
 #define LANGUAGE_HIVE_GOLEM "Псисвязь Големов"
 #define LANGUAGE_HIVE_BORER "Кортикальная связь"
 #define LANGUAGE_BINARY "Бинарный канал"
+#define LANGUAGE_SECT_COMMUNITY "Уста истины"
 #define LANGUAGE_DRONE_BINARY "Канал Дронов"
 #define LANGUAGE_DRONE "Дрон"
 #define LANGUAGE_HIVE_SWARMER "Связь Роевиков"

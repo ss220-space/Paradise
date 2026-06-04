@@ -128,6 +128,8 @@
 #define TRAIT_HEALS_FROM_CULT_PYLONS "heals_from_cult_pylons"
 /// This mob heals from holy pylons.
 #define TRAIT_HEALS_FROM_HOLY_PYLONS "heals_from_holy_pylons"
+/// This mob has an implanted sect binary link.
+#define TRAIT_SECT_BINARY_LINK "sect_binary_link"
 /// This mob heals from bingle holes.
 #define TRAIT_HEALS_FROM_BINGLE_HOLES "heals_from_bingle_holes"
 
