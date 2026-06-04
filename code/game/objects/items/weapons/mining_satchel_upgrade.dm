@@ -8,7 +8,7 @@
 	w_class = WEIGHT_CLASS_TINY
 
 /obj/item/mining_satchel_upgrade/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "магнитное улучшение сумок для руды",
 		GENITIVE = "магнитного улучшения сумок для руды",
 		DATIVE = "магнитному улучшению сумок для руды",

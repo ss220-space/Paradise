@@ -37,7 +37,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 	reagents = new()
 
 /obj/machinery/r_n_d/circuit_imprinter/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "принтер плат",
 		GENITIVE = "принтера плат",
 		DATIVE = "принтеру плат",

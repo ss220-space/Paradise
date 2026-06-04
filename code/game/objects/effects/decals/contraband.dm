@@ -14,7 +14,7 @@
 	var/is_unfurled = FALSE
 
 /obj/item/poster/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "свёрнутый постер",
 		GENITIVE = "свёрнутого постера",
 		DATIVE = "свёрнутому постеру",
@@ -132,7 +132,7 @@
 	var/poster_item_icon_state = "rolled_poster"
 
 /obj/structure/sign/poster/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "постер",
 		GENITIVE = "постера",
 		DATIVE = "постеру",
@@ -154,10 +154,10 @@
 /obj/structure/sign/poster/proc/build_poster_ru_names()
 	if(!original_name)
 		return
-	var/list/base_names = get_ru_names()
+	var/alist/base_names = get_ru_names()
 	if(!base_names)
 		return
-	return list(
+	return alist(
 		NOMINATIVE = "[base_names[NOMINATIVE]] \"[original_name]\"",
 		GENITIVE = "[base_names[GENITIVE]] \"[original_name]\"",
 		DATIVE = "[base_names[DATIVE]] \"[original_name]\"",
@@ -285,7 +285,7 @@
 	desc = "Вы не можете разобрать, что было изображено на постере. Он испорчен."
 
 /obj/structure/sign/poster/ripped/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "порванный постер",
 		GENITIVE = "порванного постера",
 		DATIVE = "порванному постеру",
@@ -306,7 +306,7 @@
 	poster_item_desc = "Этот постер оснащён собственной автоматической клеевой системой для удобного крепления на любую вертикальную поверхность. Его вульгарные темы сделали его контрабандой на объектах \"Нанотрейзен\"."
 
 /obj/structure/sign/poster/contraband/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "контрабандный постер",
 		GENITIVE = "контрабандного постера",
 		DATIVE = "контрабандному постеру",
@@ -633,7 +633,7 @@
 	poster_item_icon_state = "rolled_poster_legit"
 
 /obj/structure/sign/poster/official/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мотивационный постер",
 		GENITIVE = "мотивационного постера",
 		DATIVE = "мотивационному постеру",
@@ -1040,7 +1040,7 @@
 	poster_item_desc = "Крайне Секретный постер."
 
 /obj/structure/sign/poster/secret/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "секретный постер",
 		GENITIVE = "секретного постера",
 		DATIVE = "секретному постеру",

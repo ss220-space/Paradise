@@ -760,9 +760,7 @@
 /area/shuttle/administration)
 "BZ" = (
 /obj/machinery/optable,
-/obj/machinery/defibrillator_mount/loaded{
-	pixel_x = -30
-	},
+/obj/machinery/defibrillator_mount/loaded/directional/west,
 /obj/machinery/light{
 	dir = 8
 	},

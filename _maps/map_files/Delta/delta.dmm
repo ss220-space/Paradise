@@ -42637,9 +42637,6 @@
 	},
 /area/security/permabrig)
 "fzQ" = (
-/obj/machinery/defibrillator_mount/loaded{
-	pixel_x = -30
-	},
 /obj/structure/table/glass,
 /obj/item/storage/toolbox/surgery{
 	pixel_x = -1;
@@ -42648,6 +42645,7 @@
 /obj/item/reagent_containers/spray/cleaner/brig{
 	pixel_x = 4
 	},
+/obj/machinery/defibrillator_mount/loaded/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whitered"
@@ -45023,6 +45021,7 @@
 	network = list("SS13","Medical");
 	pixel_x = 30
 	},
+/obj/machinery/defibrillator_mount/loaded,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -61768,9 +61767,6 @@
 "jOB" = (
 /obj/structure/cable{
 	icon_state = "1-2"
-	},
-/obj/machinery/defibrillator_mount/loaded{
-	pixel_y = -32
 	},
 /obj/effect/landmark/start/doctor,
 /turf/simulated/floor/plasteel{
@@ -86915,9 +86911,6 @@
 	},
 /area/maintenance/asmaint4)
 "pzO" = (
-/obj/machinery/defibrillator_mount/loaded{
-	pixel_y = 32
-	},
 /obj/effect/landmark/start/doctor,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -116307,6 +116300,7 @@
 /area/security/nuke_storage)
 "vRl" = (
 /obj/structure/table/reinforced,
+/obj/machinery/defibrillator_mount/loaded,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},

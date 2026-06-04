@@ -146,6 +146,9 @@ SUBSYSTEM_DEF(blood)
 			target.death()
 
 /datum/controller/subsystem/blood/proc/process_bleeding(mob/living/carbon/human/target, seconds)
+	if(target.stat == DEAD)
+		return // dead bodies do not pump blood, so they neither bleed nor cough it up.
+
 	if(target.bodytemperature < TCRYO || HAS_TRAIT(target, TRAIT_NO_CLONE))
 		return // cryosleep or husked people do not pump the blood.
 
@@ -222,7 +225,7 @@ SUBSYSTEM_DEF(blood)
 		target.bleed(current_bleed * total_bleed_mod)
 
 	// make bloodsplatter for arterial bleeding
-	if(has_arterial_bleed && target.stat != DEAD)
+	if(has_arterial_bleed)
 		create_arterial_bleeding_splatter(target)
 
 /datum/controller/subsystem/blood/proc/calculate_reagents_bleed_mod(mob/living/carbon/human/target)

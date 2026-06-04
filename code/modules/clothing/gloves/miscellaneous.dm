@@ -23,7 +23,7 @@
 	var/stamdamage_high = 15
 
 /obj/item/clothing/gloves/fingerless/weaver/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "перчатки из хитина ткача",
 		GENITIVE = "перчаток из хитина ткача",
 		DATIVE = "перчаткам из хитина ткача",
@@ -117,7 +117,7 @@
 	armor = list(MELEE = 25, BULLET = 30, LASER = 20, ENERGY = 25, BOMB = 35, BIO = 10, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/gloves/bracer/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "костяные наручи",
 		GENITIVE = "костяных наручей",
 		DATIVE = "костяным наручам",
@@ -157,7 +157,7 @@
 	var/stun_cost = 1500
 
 /obj/item/clothing/gloves/color/yellow/stun/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "оглушающие перчатки",
 		GENITIVE = "оглушающих перчаток",
 		DATIVE = "оглушающим перчаткам",
@@ -481,7 +481,7 @@
 	var/hit_reflect_chance = 50
 
 /obj/item/clothing/gloves/reflector/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "рефлекторные перчатки",
 		GENITIVE = "рефлекторных перчаток",
 		DATIVE = "рефлекторнным перчаткам",
@@ -526,7 +526,7 @@
 	var/hit_reflect_chance = 50
 
 /obj/item/clothing/head/helmet/reflector/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "рефлекторная шляпа",
 		GENITIVE = "рефлекторную шляпу",
 		DATIVE = "рефлекторной шляпе",
@@ -565,7 +565,7 @@
 	var/hit_reflect_chance = 50
 
 /obj/item/clothing/shoes/reflector/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "рефлекторные ботинки",
 		GENITIVE = "рефлекторных ботинок",
 		DATIVE = "рефлекторным ботинкам",

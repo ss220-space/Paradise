@@ -473,7 +473,7 @@
 	item_state = "cqcmanual"
 
 /obj/item/CQC_manual/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "старое руководство",
 		GENITIVE = "старого руководства",
 		DATIVE = "старому руководству",
@@ -515,7 +515,7 @@
 	item_state = "syringe_0"
 
 /obj/item/CQC_manual/chef/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "имплант улучшения CQC",
 		GENITIVE = "импланта улучшения CQC",
 		DATIVE = "импланту улучшения CQC",
@@ -571,7 +571,7 @@
 	item_state = "mr_cheng_manual"
 
 /obj/item/mr_chang_technique/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "журнал \"Техника Агрессивного Маркетинга\"",
 		GENITIVE = "журнала \"Техника Агрессивного Маркетинга\"",
 		DATIVE = "журналу \"Техника Агрессивного Маркетинга\"",
@@ -601,7 +601,7 @@
 	item_state = "throwingknives"
 
 /obj/item/throwing_manual/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мануал \"Курс Техники метания ножей молодого Десантника\"",
 		GENITIVE = "мануала \"Курс Техники метания ножей молодого Десантника\"",
 		DATIVE = "мануалу \"Курс Техники метания ножей молодого Десантника\"",

@@ -32,7 +32,7 @@
 	var/deep_water = TRUE
 
 /turf/simulated/floor/lava/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "лава",
 		GENITIVE = "лавы",
 		DATIVE = "лаве",
@@ -318,7 +318,7 @@
 	var/human_tox_fire_damage = 15
 
 /turf/simulated/floor/lava/lava_land_surface/plasma/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "жидкая плазма",
 		GENITIVE = "жидкой плазмы",
 		DATIVE = "жидкой плазме",
@@ -370,7 +370,7 @@
 		if(ishuman(burn_living) && prob(65))
 			var/mob/living/carbon/human/burn_human = burn_living
 			var/datum/species/burn_species = burn_human.dna.species.name
-			if(burn_species != SPECIES_PLASMAMAN && burn_species != SPECIES_MACNINEPERSON) //ignore plasmamen/robotic species.
+			if(burn_species != SPECIES_PLASMAMAN && burn_species != SPECIES_MACHINEPERSON) //ignore plasmamen/robotic species.
 				burn_damage += human_tox_fire_damage
 				tox_damage += human_tox_fire_damage
 		burn_living.apply_damages(burn = burn_damage, tox = tox_damage, spread_damage = TRUE)	//Cold mutagen is bad for you, more at 11.

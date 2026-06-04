@@ -92,7 +92,7 @@
 
 
 /obj/item/mod/control/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "блок управления МЭК",
 		GENITIVE = "блока управления МЭК",
 		DATIVE = "блоку управления МЭК",

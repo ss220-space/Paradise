@@ -14,7 +14,7 @@
 	var/list/obj/item/circuit_component/equipment_action/action_comps
 
 /obj/item/mod/module/circuit/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль интегральной схемы",
 		GENITIVE = "модуля интегральной схемы",
 		DATIVE = "модулю интегральной схемы",

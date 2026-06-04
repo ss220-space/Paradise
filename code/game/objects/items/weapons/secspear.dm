@@ -33,7 +33,7 @@
 	var/charge_overlay_state = ""
 
 /obj/item/twohanded/spear/secspear/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "телескопическое энергетическое копьё",
 		GENITIVE = "телескопического энергетического копья",
 		DATIVE = "телескопическому энергетическому копью",

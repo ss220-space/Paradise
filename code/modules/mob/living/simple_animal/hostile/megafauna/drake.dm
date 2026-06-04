@@ -73,7 +73,7 @@ Difficulty: Medium
 	)
 
 /mob/living/simple_animal/hostile/megafauna/dragon/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пепельный дрейк",
 		GENITIVE = "пепельного дрейка",
 		DATIVE = "пепельному дрейку",
@@ -495,7 +495,7 @@ Difficulty: Medium
 	color = COLOR_DARK_ORANGE
 
 /obj/effect/temp_visual/drakewall/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "огненный барьер",
 		GENITIVE = "огненного барьера",
 		DATIVE = "огненному барьеру",
@@ -525,7 +525,7 @@ Difficulty: Medium
 	color = "#FF0000"
 
 /obj/effect/temp_visual/dragon_swoop/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "неизбежная смерть",
 		GENITIVE = "неизбежной смерти",
 		DATIVE = "неизбежной смерти",
@@ -579,7 +579,7 @@ Difficulty: Medium
 	pixel_z = 270
 
 /obj/effect/temp_visual/fireball/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "огненный шар",
 		GENITIVE = "огненного шара",
 		DATIVE = "огненному шару",
@@ -645,7 +645,7 @@ Difficulty: Medium
 	attack_action_types = list()
 
 /mob/living/simple_animal/hostile/megafauna/dragon/lesser/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "младший пепельный дрейк",
 		GENITIVE = "младшего пепельного дрейка",
 		DATIVE = "младшему пепельному дрейку",
@@ -694,7 +694,7 @@ Difficulty: Medium
 	attack_action_types = list()
 
 /mob/living/simple_animal/hostile/megafauna/dragon/space_dragon/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "космический дракон",
 		GENITIVE = "космического дракона",
 		DATIVE = "космическому дракону",

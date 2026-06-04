@@ -292,7 +292,7 @@
 	var/last_light_state_number = 0
 
 /obj/machinery/bfl_receiver/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "приёмник BFL",
 		GENITIVE = "приёмника BFL",
 		DATIVE = "приёмнику BFL",
@@ -448,7 +448,7 @@
 	var/state = FALSE
 
 /obj/machinery/bfl_lens/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "высокоточная линза",
 		GENITIVE = "высокоточной линзы",
 		DATIVE = "высокоточной линзе",
@@ -584,7 +584,7 @@
 	icon_state = "laser"
 
 /obj/effect/bfl_laser/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "луч мегалазера",
 		GENITIVE = "луча мегалазера",
 		DATIVE = "лучу мегалазера",

@@ -10,7 +10,7 @@
 	var/list/times
 
 /obj/item/grenade/iedcasing/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "самодельная взрывчатка",
 		GENITIVE = "самодельной взрывчатки",
 		DATIVE = "самодельной взрывчатке",

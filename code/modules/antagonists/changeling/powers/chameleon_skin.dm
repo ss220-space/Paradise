@@ -1,25 +1,20 @@
 /datum/action/changeling/chameleon_skin
-	name = "Chameleon Skin"
-	desc = "Our skin pigmentation rapidly changes to suit our current environment. Costs 25 chemicals."
-	helptext = "Allows us to become invisible after a few seconds of standing still. Can be toggled on and off."
+	name = "Кожа-Хамелеон"
+	desc = "Пигментация нашей кожи стремительно изменяется, чтобы сливаться с окружением. Требует 10 химикатов."
+	helptext = "Позволяет становиться невидимым. Можно использовать в низшей форме."
 	button_icon_state = "chameleon_skin"
 	power_type = CHANGELING_PURCHASABLE_POWER
-	dna_cost = 2
-	chemical_cost = 25
-	req_human = TRUE
+	dna_cost = 1
 
-/datum/action/changeling/chameleon_skin/sting_action(mob/user)
-	var/mob/living/carbon/human/h_owner = user
-	if(!istype(h_owner))	// SHOULD always be human, because req_human = TRUE, but better safe than sorry
-		return FALSE
-
-	h_owner.force_gene_block(GLOB.chameleonblock, !h_owner.dna.GetSEState(GLOB.chameleonblock))
+/datum/action/changeling/chameleon_skin/sting_action(mob/living/carbon/user)
+	if(!user.has_status_effect(STATUS_EFFECT_CHAMELEON))
+		user.apply_status_effect(STATUS_EFFECT_CHAMELEON)
+	else
+		user.remove_status_effect(STATUS_EFFECT_CHAMELEON)
 
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return TRUE
 
-/datum/action/changeling/chameleon_skin/Remove(mob/user)
-	var/mob/living/carbon/c_owner = user
-	if(!QDELETED(c_owner) && c_owner.dna?.GetSEState(GLOB.chameleonblock))
-		c_owner.force_gene_block(GLOB.chameleonblock, FALSE)
+/datum/action/changeling/chameleon_skin/Remove(mob/living/user)
+	user.remove_status_effect(STATUS_EFFECT_CHAMELEON)
 	..()

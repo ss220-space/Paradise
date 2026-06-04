@@ -10,7 +10,7 @@
 	var/machinedir = SOUTHEAST
 
 /obj/machinery/mineral/stacking_unit_console/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "консоль упаковочной машины",
 		GENITIVE = "консоли упаковочной машины",
 		DATIVE = "консоли упаковочной машины",
@@ -84,7 +84,7 @@
 	speed_process = TRUE
 
 /obj/machinery/mineral/stacking_machine/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "упаковочная машина",
 		GENITIVE = "упаковочной машины",
 		DATIVE = "упаковочной машине",

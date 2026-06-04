@@ -238,7 +238,7 @@
 	list_reagents = list("ice" = 30)
 
 /obj/item/reagent_containers/food/drinks/ice/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "стаканчик льда",
 		GENITIVE = "стаканчика льда",
 		DATIVE = "стаканчику льда",

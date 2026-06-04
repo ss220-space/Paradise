@@ -19,7 +19,7 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 	var/list/connected = list()
 
 /obj/machinery/monkey_recycler/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "утилизатор обезьян",
 		GENITIVE = "утилизатора обезьян",
 		DATIVE = "утилизатору обезьян",

@@ -31,7 +31,7 @@
 	var/is_drink = FALSE
 
 /obj/machinery/chem_dispenser/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "химический раздатчик",
 		GENITIVE = "химического раздатчика",
 		DATIVE = "химическому раздатчику",
@@ -103,7 +103,7 @@
 	upgrade_reagents = list()
 
 /obj/machinery/chem_dispenser/mutagensaltpeter/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ботанический раздатчик",
 		GENITIVE = "ботанического раздатчика",
 		DATIVE = "ботаническому раздатчику",
@@ -387,7 +387,7 @@
 	is_drink = TRUE
 
 /obj/machinery/chem_dispenser/soda/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "раздатчик напитков",
 		GENITIVE = "раздатчика напитков",
 		DATIVE = "раздатчику напитков",
@@ -443,7 +443,7 @@
 	is_drink = TRUE
 
 /obj/machinery/chem_dispenser/beer/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "раздатчик алкоголя",
 		GENITIVE = "раздатчика алкоголя",
 		DATIVE = "раздатчику алкоголя",
@@ -485,7 +485,7 @@
 	upgrade_reagents = list("atrazine", "glyphosate", "pestkiller", "diethylamine", "ash")
 
 /obj/machinery/chem_dispenser/botanical/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ботанический раздатчик",
 		GENITIVE = "ботанического раздатчика",
 		DATIVE = "ботаническому раздатчику",
@@ -538,7 +538,7 @@
 	var/recharge_rate = 1 // Keep this as an integer
 
 /obj/item/handheld_chem_dispenser/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ручной химический раздатчик",
 		GENITIVE = "ручного химического раздатчика",
 		DATIVE = "ручному химическому раздатчику",
@@ -727,7 +727,7 @@
 	"sake", "bitter", "champagne", "aperol", "noalco_beer")
 
 /obj/item/handheld_chem_dispenser/booze/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ручной алкогольный раздатчик",
 		GENITIVE = "ручного алкогольного раздатчика",
 		DATIVE = "ручному алкогольному раздатчику",
@@ -748,7 +748,7 @@
 	"triple_citrus", "icecoffe", "icetea", "thirteenloko")
 
 /obj/item/handheld_chem_dispenser/soda/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ручной раздатчик напитков",
 		GENITIVE = "ручного раздатчика напитков",
 		DATIVE = "ручному раздатчику напитков",
@@ -776,7 +776,7 @@
 	)
 
 /obj/item/handheld_chem_dispenser/botanical/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "компактный кухонный раздатчик",
 		GENITIVE = "компактного кухонного раздатчика",
 		DATIVE = "компактному кухонному раздатчику",
@@ -796,7 +796,7 @@
 	)
 
 /obj/item/handheld_chem_dispenser/cooking/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "компактный кухонный раздатчик",
 		GENITIVE = "компактного кухонного раздатчика",
 		DATIVE = "компактному кухонному раздатчику",

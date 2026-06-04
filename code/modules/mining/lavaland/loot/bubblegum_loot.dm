@@ -2,7 +2,7 @@
 	name = "bubblegum chest"
 
 /obj/structure/closet/crate/necropolis/bubblegum/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сундук Бубльгума",
 		GENITIVE = "сундука Бубльгума",
 		DATIVE = "сундуку Бубльгума",
@@ -21,7 +21,7 @@
 	name = "bloody bubblegum chest"
 
 /obj/structure/closet/crate/necropolis/bubblegum/crusher/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кровавый сундук Бубльгума",
 		GENITIVE = "кровавого сундука Бубльгума",
 		DATIVE = "кровавому сундуку Бубльгума",
@@ -43,7 +43,7 @@
 	icon_state = "vial"
 
 /obj/item/mayhem/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бутылка хаоса",
 		GENITIVE = "бутылки хаоса",
 		DATIVE = "бутылке хаоса",
@@ -72,7 +72,7 @@
 	var/used = FALSE
 
 /obj/item/blood_contract/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кровавый контракт",
 		GENITIVE = "кровавого контракта",
 		DATIVE = "кровавому контракту",
@@ -221,7 +221,7 @@
 	COOLDOWN_DECLARE(attack_cooldown)
 
 /obj/item/soulscythe/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "коса души",
 		GENITIVE = "косы души",
 		DATIVE = "косе души",
@@ -513,7 +513,7 @@
 	var/blood_level = MAX_BLOOD_LEVEL
 
 /mob/living/simple_animal/soulscythe/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "таинственный дух",
 		GENITIVE = "таинственного духа",
 		DATIVE = "таинственному духу",

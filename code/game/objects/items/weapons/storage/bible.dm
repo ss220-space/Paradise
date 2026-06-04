@@ -67,7 +67,7 @@
 	return bound_sect
 
 /obj/item/storage/bible/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Библия",
 		GENITIVE = "Библии",
 		DATIVE = "Библии",
@@ -94,7 +94,7 @@
 /obj/item/storage/bible/booze
 
 /obj/item/storage/bible/booze/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Библия",
 		GENITIVE = "Библии",
 		DATIVE = "Библии",

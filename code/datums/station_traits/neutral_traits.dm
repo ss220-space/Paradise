@@ -190,7 +190,7 @@
 	w_class = WEIGHT_CLASS_TINY
 
 /obj/item/birthday_invite/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "приглашение на день рождения",
 		GENITIVE = "приглашения на день рождения",
 		DATIVE = "приглашению на день рождения",

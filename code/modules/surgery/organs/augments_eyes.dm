@@ -182,7 +182,7 @@
 	aug_message = "Этот имплант не имеет смысла..."
 
 /obj/item/organ/internal/cyberimp/eyes/hud/universal/get_ru_names()
-		return list(
+	return alist(
 		NOMINATIVE = "универсальный ИЛС имплант",
 		GENITIVE = "универсального ИЛС импланта",
 		DATIVE = "универсальному ИЛС импланту",

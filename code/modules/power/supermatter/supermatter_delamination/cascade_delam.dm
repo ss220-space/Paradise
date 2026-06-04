@@ -27,17 +27,17 @@
 		return FALSE
 
 	radio_announce(
-		"DANGER: HYPERSTRUCTURE OSCILLATION FREQUENCY OUT OF BOUNDS.",
+		"ОПАСНОСТЬ: ЧАСТОТА КОЛЕБАНИЙ ГИПЕРСТРУКТУРЫ ВЫШЛА ЗА ДОПУСТИМЫЕ ПРЕДЕЛЫ.",
 		sm,
 		sm.damage >= sm.emergency_point ? sm.emergency_channel : sm.warning_channel,
 		sm,
 	)
 	var/list/messages = list(
-		"Space seems to be shifting around you...",
-		"You hear a high-pitched ringing sound.",
-		"You feel tingling going down your back.",
-		"Something feels very off.",
-		"A drowning sense of dread washes over you.",
+		"Пространство будто бы смещается вокруг вас...",
+		"Вы слышите высокий звенящий звук.",
+		"Вы чувствуете покалывание, бегущее по спине.",
+		"Что-то ощущается совершенно неправильно.",
+		"Гнетущее чувство ужаса захлёстывает вас.",
 	)
 	dispatch_announcement_to_players(span_danger(pick(messages)), should_play_sound = FALSE)
 
@@ -70,9 +70,9 @@
 	effect_cascade_demoralize()
 
 	GLOB.major_announcement.announce(
-		message = "A Type-C resonance shift event has occurred in your sector. Scans indicate local oscillation flux affecting spatial and gravitational substructure. \
-			Multiple resonance hotspots have formed. Please standby.",
-		new_title = "Nanotrasen Star Observation Association",
+		message = "В вашем секторе произошло событие резонансного сдвига типа C. Сканирование указывает на локальный поток колебаний, затрагивающий пространственную и гравитационную субструктуру. \
+			Образовалось множество резонансных очагов. Пожалуйста, ожидайте.",
+		new_title = "Ассоциация наблюдения за звёздами \"Нанотрейзен\"",
 		new_sound = 'sound/AI/spanomalies.ogg',
 	)
 
@@ -92,16 +92,16 @@
 	effect_crystal_mass(delam_sm, delam_rift)
 
 /datum/sm_delam/cascade/examine(obj/machinery/power/supermatter_crystal/sm)
-	return list(span_bolddanger("The crystal is vibrating at immense speeds, warping space around it!"))
+	return list(span_bolddanger("Кристалл вибрирует с невероятной скоростью, искривляя пространство вокруг себя!"))
 
 /datum/sm_delam/cascade/overlays(obj/machinery/power/supermatter_crystal/sm)
 	return list()
 
 /datum/sm_delam/cascade/count_down_messages(obj/machinery/power/supermatter_crystal/sm)
 	var/list/messages = list()
-	messages += "CRYSTAL DELAMINATION IMMINENT. The supermatter has reached critical integrity failure. Harmonic frequency limits exceeded. Causality destabilization field could not be engaged."
-	messages += "Crystalline hyperstructure returning to safe operating parameters. Harmonic frequency restored within emergency bounds. Anti-resonance filter initiated."
-	messages += "remain before resonance-induced stabilization."
+	messages += "РАССЛОЕНИЕ КРИСТАЛЛА НЕМИНУЕМО! Суперматерия достигла критического разрушения целостности. Превышены пределы гармонической частоты. Не удалось задействовать поле дестабилизации причинности."
+	messages += "Кристаллическая гиперструктура возвращается к безопасным рабочим параметрам. Гармоническая частота восстановлена в аварийных пределах. Запущен антирезонансный фильтр."
+	messages += "до стабилизации, вызванной резонансом."
 	return messages
 
 /datum/sm_delam/cascade/proc/announce_cascade(obj/machinery/power/supermatter_crystal/sm)
@@ -110,9 +110,9 @@
 	if(!can_select(sm))
 		return FALSE
 	GLOB.major_announcement.announce(
-		message = "A Type-C resonance shift event has occurred in your sector. Scans indicate local oscillation flux affecting spatial and gravitational substructure. \
-			Multiple resonance hotspots have formed. Please standby.",
-		new_title = "Nanotrasen Star Observation Association",
+		message = "В вашем секторе произошло событие резонансного сдвига типа C. Сканирование указывает на локальный поток колебаний, затрагивающий пространственную и гравитационную субструктуру. \
+			Образовалось множество резонансных очагов. Пожалуйста, ожидайте.",
+		new_title = "Ассоциация наблюдения за звёздами \"Нанотрейзен\"",
 		new_sound = 'sound/misc/airraid.ogg',
 	)
 	return TRUE
