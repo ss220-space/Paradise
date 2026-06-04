@@ -80,7 +80,7 @@
 ///from datum/component/drift/allow_final_movement(): ()
 #define COMSIG_MOVABLE_DRIFT_BLOCK_INPUT "movable_drift_block_input"
 	#define DRIFT_ALLOW_INPUT (1<<0)
-///Called before a movable is being teleported from `initTeleport()`: (turf/origin, turf/destination)
+///Called before a movable is being teleported: (turf/origin, turf/destination, list/teleport_data)
 #define COMSIG_MOVABLE_TELEPORTING "movable_teleporting"
 
 /// from /mob/living/can_z_move, sent to whatever the mob is buckled to. Only ridable movables should be ridden up or down btw.

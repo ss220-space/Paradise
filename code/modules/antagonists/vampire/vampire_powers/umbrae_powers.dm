@@ -177,13 +177,16 @@
 
 	var/turf/start_turf = get_turf(user)
 	var/turf/end_turf = get_turf(anchor)
+	// Якорь расходуется при любой попытке отзыва, даже если телепорт заблокирован — иначе он может
+	// остаться в недосягаемом месте, и новый создать уже не получится.
 	QDEL_NULL(anchor)
 	if(end_turf.z != start_turf.z)
 		return
 	if(!is_teleport_allowed(end_turf.z))
 		return
 
-	user.forceMove(end_turf)
+	if(!do_magic_direct_teleport(user, end_turf, notified_user = user, block_message = "ITB блокирует вашу связь с теневым якорем!"))
+		return
 
 	if(end_turf.z == start_turf.z)
 		shadow_to_animation(start_turf, end_turf, user)
@@ -239,6 +242,7 @@
 	action_icon_state = "dark_passage"
 	sound = 'sound/magic/teleport_app.ogg'
 	need_active_overlay = TRUE
+	itb_blocks_spell = TRUE
 
 /obj/effect/proc_holder/spell/vampire/dark_passage/create_new_targeting()
 	var/datum/spell_targeting/click/T = new
@@ -249,7 +253,8 @@
 /obj/effect/proc_holder/spell/vampire/dark_passage/cast(list/targets, mob/user)
 	var/turf/target = get_turf(targets[1])
 	new /obj/effect/temp_visual/vamp_mist_out(get_turf(user))
-	user.forceMove(target)
+	if(!do_magic_direct_teleport(user, target, notified_user = user, block_message = "ITB подавляет теневой проход заклинания."))
+		return
 	new /obj/effect/temp_visual/vamp_mist_in(get_turf(user))
 
 /obj/effect/temp_visual/vamp_mist_out
@@ -350,4 +355,3 @@
 
 /datum/vampire_passive/xray
 	gain_desc = "Теперь вы можете видеть сквозь стены, если вы не заметили."
-

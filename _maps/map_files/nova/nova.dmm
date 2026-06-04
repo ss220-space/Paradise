@@ -154875,6 +154875,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
+"xAU" = (
+/obj/effect/turf_decal/delivery/red/hollow,
+/obj/machinery/power/bluespace_interference_generator/stationary,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/security/securearmory)
 "xAY" = (
 /obj/machinery/vending/crittercare,
 /turf/simulated/floor/carpet,
@@ -240867,7 +240874,7 @@ tpw
 bhh
 fvn
 gHq
-dmu
+xAU
 xoL
 uck
 eJG

@@ -516,6 +516,11 @@
 	if(!iscultist(target) || !proximity_flag)
 		to_chat(user, span_warning("You can only teleport adjacent cultists with this spell!"))
 		return
+	if(!isliving(target))
+		return
+	var/mob/living/teleporting_mob = target
+	if(itb_blocks_teleport(teleporting_mob, user, "ITB подавляет кровавый телепорт."))
+		return
 	for(var/R in GLOB.teleport_runes)
 		var/obj/effect/rune/teleport/T = R
 		var/resultkey = T.listkey
@@ -536,7 +541,6 @@
 		to_chat(user, span_cultitalic("You are not in the right dimension!"))
 		return
 
-	var/mob/living/teleporting_mob = target
 	var/input_rune_key = tgui_input_list(user, "Choose a rune to teleport to.", "Rune to Teleport to", potential_runes) //we know what key they picked
 	var/obj/effect/rune/teleport/actual_selected_rune = potential_runes[input_rune_key] //what rune does that key correspond to?
 	var/turf/destination = get_turf(actual_selected_rune)
@@ -549,6 +553,9 @@
 	if(!do_after(user, 2 SECONDS, user, max_interact_count = 1, cancel_on_max = TRUE, cancel_message = "") || !destination)
 		teleporting_mob.color = mob_color
 		balloon_alert(user, "телепорт прерван!")
+		return
+	if(itb_blocks_teleport(teleporting_mob, user, "ITB подавляет кровавый телепорт."))
+		teleporting_mob.color = mob_color
 		return
 
 	playsound(origin, 'sound/misc/enter_blood.ogg', 50, TRUE, -1)
@@ -568,8 +575,9 @@
 	else
 		teleporting_mob.visible_message(span_warning("Dust flows from [user]'s hand, and [teleporting_mob] disappears in a flash of red light!"), \
 		span_cultitalic("You suddenly find yourself somewhere else!"))
+	if(!do_magic_direct_teleport(teleporting_mob, destination, notified_user = user, block_message = "ITB подавляет кровавый телепорт."))
+		return
 	destination.visible_message(span_warning("There is a boom of outrushing air as something appears above the rune!"), null, "<i>You hear a boom.</i>")
-	teleporting_mob.forceMove(destination)
 	playsound(destination, 'sound/misc/exit_blood.ogg', 50, TRUE, -1)
 	return ..()
 

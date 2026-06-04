@@ -28,6 +28,7 @@
 	var/can_multitool_to_remove = FALSE
 	var/can_mecha_pass = FALSE
 	var/ignore_tele_proof_area_setting = FALSE
+	var/always_precise = FALSE
 	/// Does this portal go away after one teleport?
 	var/one_use = FALSE
 	/// Does this portal bypass teleport restrictions? like TRAIT_NO_TELEPORT
@@ -94,7 +95,7 @@
 
 /obj/effect/portal/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
-	if(!force_teleport && (HAS_TRAIT(mover, TRAIT_NO_TELEPORT) || !can_teleport(mover)))
+	if(!force_teleport && (get_teleport_blocking_living(mover) || !can_teleport(mover)))
 		return TRUE
 
 /obj/effect/portal/Bumped(atom/movable/moving_atom)
@@ -134,6 +135,9 @@
 		return FALSE
 
 	if(!M.simulated || iseffect(M))
+		return FALSE
+
+	if(get_teleport_blocking_living(M))
 		return FALSE
 
 	if(!can_mecha_pass && M.anchored && ismecha(M))
@@ -176,7 +180,7 @@
 	if(!use_effects)
 		effect = NONE // No effect
 
-	if(!do_teleport(victim, destination, variance, force_teleport, effect, effect, bypass_area_flag = ignore_tele_proof_area_setting))
+	if(!do_teleport(victim, destination, variance, force_teleport, effect, effect, bypass_area_flag = ignore_tele_proof_area_setting, always_precise = always_precise))
 		invalid_teleport()
 		return FALSE
 	effect_cooldown = world.time + EFFECT_COOLDOWN
@@ -226,11 +230,12 @@
 
 /obj/effect/portal/redspace
 	name = "redspace portal"
-	desc = "A portal capable of bypassing bluespace interference."
+	desc = "A hardened redspace portal."
 	icon_state = "portal-syndicate"
 	base_icon_state = "portal-syndicate"
 	failchance = 0
 	ignore_tele_proof_area_setting = TRUE
+	always_precise = TRUE
 
 /obj/effect/portal/wormhole_projector
 	icon_state = "portal-projector0"

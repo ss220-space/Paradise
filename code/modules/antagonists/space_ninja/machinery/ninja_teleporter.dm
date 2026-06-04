@@ -13,9 +13,11 @@
 				if(user.z != src.z)
 					return
 
-				add_fingerprint(user)
 				var/turf/T = get_turf(user)
-				user.forceMove(pick(GLOB.ninja_teleport))
+				var/turf/destination = pick(GLOB.ninja_teleport)
+				if(!do_teleport(user, destination, blocked_when_interfered = TRUE))
+					return
+				add_fingerprint(user)
 				user.investigate_log("VOID-shifted from [COORD(T)] to [COORD(user)].", INVESTIGATE_TELEPORTATION)
 				playsound(user.loc, 'sound/effects/phasein.ogg', 25, TRUE)
 				playsound(user.loc, 'sound/effects/sparks2.ogg', 50, TRUE)

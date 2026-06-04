@@ -176,6 +176,7 @@
 	action_icon_state = "subspace_swap"
 	required_blood = 15
 	need_active_overlay = TRUE
+	itb_blocks_spell = TRUE
 
 /obj/effect/proc_holder/spell/vampire/switch_places/create_new_targeting()
 	var/datum/spell_targeting/click/T = new
@@ -187,14 +188,21 @@
 
 /obj/effect/proc_holder/spell/vampire/switch_places/cast(list/targets, mob/user)
 	var/mob/living/target = targets[1]
+	if(itb_blocks_teleport(user, user, "ITB предотвращает подпространственный обмен.") || itb_blocks_teleport(target, user, "ITB предотвращает подпространственный обмен."))
+		revert_cast()
+		return
 	if(isAI(target))
 		to_chat(user, span_warning("Заклинание не действует на ядро ИИ!"))
 		revert_cast()
 		return
 	var/turf/user_turf = get_turf(user)
 	var/turf/target_turf = get_turf(target)
-	target.forceMove(user_turf)
-	user.forceMove(target_turf)
+	if(!do_magic_direct_teleport(target, user_turf, notified_user = user, block_message = "ITB предотвращает подпространственный обмен."))
+		revert_cast()
+		return
+	if(!do_magic_direct_teleport(user, target_turf, notified_user = user, block_message = "ITB предотвращает подпространственный обмен."))
+		revert_cast()
+		return
 	var/sound/sound = sound('sound/magic/mindswap.ogg')
 	sound.volume = 30
 	SEND_SOUND(user, sound)
@@ -288,4 +296,3 @@
 		target.Slowed(4 SECONDS)
 		target.flash_eyes(2, TRUE) // flash to give them a second to lose track of who is who
 		new /obj/effect/hallucination/delusion(get_turf(user), target, skip_nearby = FALSE)
-

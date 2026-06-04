@@ -460,6 +460,12 @@
 	desc = "Someone seperated our Research Director from his own head!"
 	var/tele_range = 2
 
+/obj/item/clothing/suit/armor/reactive/teleport/proc/can_reactive_teleport(mob/living/carbon/human/owner)
+	if(HAS_TRAIT(owner, TRAIT_NO_TELEPORT))
+		return FALSE
+
+	return TRUE
+
 /obj/item/clothing/suit/armor/reactive/teleport/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/high_value_item)
@@ -469,6 +475,8 @@
 		return 0
 	if(prob(hit_reaction_chance))
 		var/mob/living/carbon/human/H = owner
+		if(!can_reactive_teleport(H))
+			return 0
 		owner.visible_message(
 			span_danger("Реактивная телепортная система отражает [attack_text] [H.declent_ru(GENITIVE)]!"),
 			projectile_message = (attack_type == PROJECTILE_ATTACK)
@@ -489,7 +497,11 @@
 		var/turf/picked = pick(turfs)
 		if(!isturf(picked))
 			return
-		H.forceMove(picked)
+		// always_precise: реактивная броня телепортирует точно в радиусе tele_range и не даёт
+		// абузить разброс точности через Мешок Хватания (SoH). Запрет телепорта носителя
+		// (ITB / BSIG-P) уже отсекается через can_reactive_teleport выше.
+		if(!do_teleport(H, picked, always_precise = TRUE))
+			return 0
 		return 1
 	return 0
 

@@ -137,7 +137,8 @@
 	fire_sound = 'sound/magic/wand_teleport.ogg'
 
 /obj/item/gun/magic/wand/teleport/zap_self(mob/living/user)
-	do_teleport(user, user, 10)
+	if(!do_magic_teleport(user, user, 10, notified_user = user, block_message = "ITB подавляет магическое перемещение [src]."))
+		return
 	var/datum/effect_system/fluid_spread/smoke/smoke = new
 	smoke.set_up(amount = 10, location = user.loc)
 	smoke.start()

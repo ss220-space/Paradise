@@ -197,7 +197,6 @@
 	action_background_icon_state = "bg_demon"
 
 	phase_allowed = TRUE
-
 	clothes_req = FALSE
 	human_req = FALSE
 
@@ -232,9 +231,15 @@
 			return ..()
 
 	else
+		if(itb_blocks_teleport(user, user, "ITB подавляет магическое перемещение [src]."))
+			return
 		user.fakefire()
 		to_chat(user, span_warning("Адское пламя выплёскивает вас обратно в реальность."))
 		if(do_after(user, 10 SECONDS, user, NONE))
+			if(itb_blocks_teleport(user, user, "ITB подавляет магическое перемещение [src]."))
+				user.ExtinguishMob()
+				user.fakefireextinguish()
+				return
 			ADD_TRAIT(user, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
 			user.infernalphaseout(src)
 		else
@@ -254,7 +259,11 @@
 	var/obj/effect/dummy/slaughter/s_holder = new(loc)
 
 	ExtinguishMob()
-	forceMove(s_holder)
+	if(!do_magic_direct_teleport(src, s_holder, notified_user = src, block_message = "ITB подавляет магическое перемещение [spell]."))
+		QDEL_NULL(s_holder)
+		REMOVE_TRAIT(src, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(spell))
+		fakefireextinguish()
+		return FALSE
 
 	holder = s_holder
 
@@ -267,7 +276,9 @@
 		return FALSE
 
 	fakefire()
-	forceMove(get_turf(src))
+	if(!do_magic_direct_teleport(src, get_turf(src), notified_user = src, block_message = "ITB подавляет магическое перемещение [spell]."))
+		fakefireextinguish()
+		return FALSE
 
 	visible_message(span_warning("<b>[DECLENT_RU_CAP(src, NOMINATIVE)] появляется в огненной вспышке!</b>"))
 	playsound(get_turf(src), 'sound/misc/exit_blood.ogg', 100, TRUE, -1)
@@ -579,4 +590,3 @@
 			continue
 		to_chat(player_mob, message)
 		INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, user, player_mob, message, user.tts_seed, TRUE)
-

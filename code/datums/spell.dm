@@ -133,6 +133,8 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	var/sparks_spread = FALSE
 	/// Amount of sparks if "sparks_spread" is set to `TRUE`.
 	var/sparks_amt = 0
+	/// Whether an active ITB should prevent this spell from moving the caster through magical displacement.
+	var/itb_blocks_spell = FALSE
 
 	///Determines if the spell has smoke, and if so what effect the smoke has. See spell defines.
 	var/smoke_type = SMOKE_NONE
@@ -573,6 +575,11 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 
 	if(HAS_TRAIT(user, TRAIT_NO_SPELLS))
 		return FALSE
+
+	if(itb_blocks_spell)
+		var/mob/notified_user = show_message ? user : null
+		if(itb_blocks_teleport(user, notified_user, "ITB подавляет магическое перемещение [src]."))
+			return FALSE
 
 	if(!centcom_cancast) //Certain spells are not allowed on the centcom zlevel
 		var/turf/user_turf = get_turf(user)

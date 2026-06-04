@@ -1,6 +1,6 @@
 /obj/machinery/syndiepad
 	name = "Syndicate quantum pad"
-	desc = "Syndicate redspace quantumpads! Can transport goods through galaxies and completely ignores bluespace interference!"
+	desc = "Синдикатовские квантовые платформы красного пространства. Способны перемещать грузы через галактики и игнорировать локальные блюспейс-помехи."
 	icon = 'icons/obj/telescience.dmi'
 	icon_state = "sqpad"
 	anchored = TRUE
@@ -224,7 +224,6 @@
 				to_chat(user, span_warning("Linked pad is not responding to ping. Teleport aborted."))
 				teleporting = 0
 				return
-
 			teleporting = 0
 			last_teleport = world.time
 			// use a lot of power
@@ -234,8 +233,8 @@
 			flick("[initial(icon_state)]-beam", src)
 			playsound(get_turf(src), 'sound/weapons/emitter2.ogg', 25, TRUE)
 			flick("[initial(linked_pad.icon_state)]-beam", linked_pad)
-			playsound(get_turf(linked_pad), 'sound/weapons/emitter2.ogg', 25, TRUE)
-			var/tele_success = FALSE
+			var/turf/destination_turf = get_turf(linked_pad)
+			playsound(destination_turf, 'sound/weapons/emitter2.ogg', 25, TRUE)
 
 			for(var/atom/movable/ROI in get_turf(src))
 				// if is living, check if allowed, don't let through if not
@@ -270,8 +269,6 @@
 								continue
 						else if(!isobserver(ROI))
 							continue
-				tele_success = do_teleport(ROI, get_turf(linked_pad), bypass_area_flag = force_ignore_teleport_blocking)
-				if(!tele_success)
-					to_chat(user, span_warning("Object '[ROI]'' was not teleported for unknown reason!"))
+				if(!do_teleport(ROI, destination_turf, bypass_area_flag = force_ignore_teleport_blocking, always_precise = TRUE) && user)
+					to_chat(user, span_warning("Object '[ROI]' was not teleported!"))
 			return
-

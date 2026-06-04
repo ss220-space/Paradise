@@ -23,6 +23,8 @@
 #define TRAIT_NO_IMMOBILIZE "no_immobilize"
 ///Chasms will be safe to cross if there is something with this trait on it
 #define TRAIT_CHASM_STOPPER "chasm_stopper"
+/// This atom is specifically blocked by the prisoner teleport blocker collar.
+#define TRAIT_ITB_TELEPORT_BLOCK "itb_teleport_block"
 /// `do_teleport` will not allow this atom to teleport
 #define TRAIT_NO_TELEPORT "no-teleport"
 

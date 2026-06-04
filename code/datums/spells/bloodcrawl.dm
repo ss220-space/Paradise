@@ -37,6 +37,8 @@
 		if(phasein(target, user))
 			phased = FALSE
 	else
+		if(itb_blocks_teleport(user, user, "ITB подавляет магическое перемещение [src]."))
+			return
 		if(phaseout(target, user))
 			phased = TRUE
 	cooldown_handler.start_recharge()
@@ -205,7 +207,10 @@
 	sink_animation(enter_point, user)
 	var/obj/effect/dummy/slaughter/holder = new /obj/effect/dummy/slaughter(mobloc)
 	var/victim = user.pulling
-	user.forceMove(holder)
+	if(!do_magic_direct_teleport(user, holder, notified_user = user, block_message = "ITB подавляет магическое перемещение [src]."))
+		QDEL_NULL(holder)
+		REMOVE_TRAIT(user, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
+		return
 	user.ExtinguishMob()
 	handle_consumption(user, victim, enter_point, holder)
 	post_phase_in(user, holder)
@@ -250,7 +255,8 @@
 		return FALSE
 	var/turf/tele_loc = isturf(enter_point) ? enter_point : enter_point.loc
 	var/holder = user.loc
-	user.forceMove(tele_loc)
+	if(!do_magic_direct_teleport(user, tele_loc, notified_user = user, block_message = "ITB подавляет магическое перемещение [src]."))
+		return FALSE
 	user.client.set_eye(user)
 
 	rise_animation(tele_loc, user, enter_point)
@@ -291,4 +297,3 @@
 		return
 	var/mob/living/simple_animal/demon/shadow/demon = user
 	demon.RegisterSignal(holder, COMSIG_MOVABLE_MOVED, TYPE_PROC_REF(/mob/living/simple_animal/demon/shadow, check_darkness))
-

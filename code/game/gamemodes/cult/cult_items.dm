@@ -450,12 +450,14 @@
 	var/mob/living/carbon/C = user
 	if(C.pulling)
 		var/atom/movable/pulled = C.pulling
-		pulled.forceMove(T)
-		. = pulled
+		if(do_magic_direct_teleport(pulled, T, notified_user = user, block_message = "ITB подавляет сдвиг завесы."))
+			. = pulled
 
 /obj/item/cult_shift/attack_self(mob/user)
 	if(!uses || !iscarbon(user))
 		to_chat(user, span_warning("[src] is dull and unmoving in your hands."))
+		return
+	if(itb_blocks_teleport(user, user, "ITB подавляет сдвиг завесы [src]."))
 		return
 	if(!iscultist(user))
 		user.drop_item_ground(src, force = TRUE)
@@ -463,6 +465,8 @@
 		to_chat(user, span_warning("[src] flickers out of your hands, too eager to move!"))
 		return
 	if(!do_after(user, 1 SECONDS, user))
+		return
+	if(itb_blocks_teleport(user, user, "ITB подавляет сдвиг завесы [src]."))
 		return
 
 	var/outer_tele_radius = 9
@@ -494,7 +498,8 @@
 		new /obj/effect/temp_visual/dir_setting/cult/phase/out(mobloc, C.dir)
 
 		var/atom/movable/pulled = handle_teleport_grab(destination, C)
-		C.forceMove(destination)
+		if(!do_magic_direct_teleport(C, destination, notified_user = user, block_message = "ITB подавляет сдвиг завесы [src]."))
+			return
 		if(pulled)
 			if(C.pull_hand == PULL_WITHOUT_HANDS)
 				C.start_pulling(pulled) //forcemove resets pulls, so we need to re-pull
@@ -795,4 +800,3 @@
 	item_state = "summoning_orb"
 	desc = "It's an orb of crystalized blood. Can be used to transfer blood between cultists."
 	var/blood = 50
-
