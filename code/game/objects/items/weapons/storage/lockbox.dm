@@ -27,11 +27,11 @@
 	/// The world.time at which drilling started.
 	var/drill_start_time
 	/// The drill overlay image to display during the drilling process.
-	var/image/drill_overlay
+	var/mutable_apperance/drill_overlay
 	/// The progress bar image to display during the drilling process.
 	var/image/progress_bar
 	var/drill_x_offset = 0
-	var/drill_y_offset = -3
+	var/drill_y_offset = 18
 
 /obj/item/storage/lockbox/update_icon_state()
 	if(broken)
@@ -44,10 +44,11 @@
 	if(istype(drill, /obj/item/thermal_drill))
 		var/drill_icon = istype(drill, /obj/item/thermal_drill/diamond_drill) ? "d" : "h"
 		var/state = "floorsafe_[drill_icon]-drill-[drill_timer ? "on" : "off"]"
-		drill_overlay = image(icon = 'icons/effects/drill.dmi', icon_state = state)
-		drill_overlay.pixel_w = drill_x_offset
-		drill_overlay.pixel_z = drill_y_offset
-		drill_overlay.transform = matrix(0, 0, -1, 0, 1, 0)
+		drill_overlay = mutable_apperance(icon = 'icons/effects/drill.dmi', icon_state = state)
+		var/matrix/matrix = matrix()
+		matrix.Translate(drill_x_offset, drill_y_offset)
+		matrix.Turn(180)
+		drill_overlay.transform = matrix
 		. += drill_overlay
 
 /obj/item/storage/lockbox/attackby(obj/item/item, mob/user, params)
@@ -111,6 +112,17 @@
 		return ATTACK_CHAIN_PROCEED
 
 	return ..()
+
+/obj/item/storage/lockbox/process()
+	if(!drill_timer)
+		return
+	cut_overlay(progress_bar)
+	progress_bar = image('icons/effects/progressbar.dmi', src, "prog_bar_[round((((world.time - drill_start_time) / time_to_drill) * 100), 5)]", HUD_LAYER)
+	add_overlay(progress_bar)
+	if(prob(DRILL_SPARK_CHANCE))
+		drill.spark_system.start()
+	if(!drill.spotted && drill.payback)
+		security_check()
 
 /obj/item/storage/lockbox/attack_self(mob/user) 
 	if(!drill)
