@@ -267,6 +267,7 @@ GLOBAL_LIST_INIT(job_titles_ru, list(
 #define ALT_JOB_TITLE_RU_TRAUMATOLOGIST "Травматолог"
 #define ALT_JOB_TITLE_RU_RESUSCITATOR "Реаниматолог"
 #define ALT_JOB_TITLE_RU_THERAPIST "Терапевт"
+#define ALT_JOB_TITLE_RU_NURSE "Медсестра"
 // Coroner
 #define ALT_JOB_TITLE_RU_THANATOLOGIST "Танатолог"
 // Chemist

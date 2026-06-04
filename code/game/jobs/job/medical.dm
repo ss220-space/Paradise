@@ -61,6 +61,7 @@
 		ALT_JOB_TITLE_RU_TRAUMATOLOGIST,
 		ALT_JOB_TITLE_RU_RESUSCITATOR,
 		ALT_JOB_TITLE_RU_THERAPIST,
+		ALT_JOB_TITLE_RU_NURSE,
 	)
 	outfit = /datum/outfit/job/doctor
 
@@ -91,6 +92,9 @@
 		if(ALT_JOB_TITLE_RU_SURGEON)
 			uniform = /obj/item/clothing/under/rank/medical/blue
 			head = /obj/item/clothing/head/surgery/blue
+		if(ALT_JOB_TITLE_RU_NURSE)
+			uniform = /obj/item/clothing/under/rank/nurse
+			head = /obj/item/clothing/head/nursehat
 
 /datum/job/medical/doctor/intern
 	title = JOB_TITLE_MEDICAL_INTERN
