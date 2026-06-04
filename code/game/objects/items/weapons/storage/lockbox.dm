@@ -1,3 +1,6 @@
+#define DRILL_SPARK_CHANCE 15
+#define DRILL_TIME 150 SECONDS
+
 /obj/item/storage/lockbox
 	name = "lockbox"
 	desc = "A locked box."
