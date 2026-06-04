@@ -192,3 +192,17 @@
 			component.restart_live_timer(amount = 25)
 			return
 		human.AddComponent(/datum/component/paint_splatter, color = paint_color, amount = 25, chance = 50, duration = 60 SECONDS)
+
+// MARK: 70mm HE
+/obj/projectile/bullet/a70mm_he
+	name = "70mm HE missile"
+	desc = "Small boom."
+	icon_state = "70mm-he"
+	icon = 'icons/obj/weapons/ammo.dmi'
+	damage = 25
+	speed = 0.9
+	ricochets_max = 0
+
+/obj/projectile/bullet/a70mm_he/on_hit(atom/target, blocked = 0)
+	..()
+	explosion(loc, devastation_range = 0, heavy_impact_range = 2, light_impact_range = 3, flash_range = 4, cause = src)
