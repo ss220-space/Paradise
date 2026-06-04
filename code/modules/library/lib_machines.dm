@@ -147,7 +147,7 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 	var/obj/item/book/cache
 
 /obj/machinery/libraryscanner/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сканер",
 		GENITIVE = "сканера",
 		DATIVE = "сканеру",
@@ -228,7 +228,7 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 	density = TRUE
 
 /obj/machinery/bookbinder/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "брошюратор",
 		GENITIVE = "брошюратора",
 		DATIVE = "брошюратору",
@@ -263,7 +263,7 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 	var/obj/item/book/new_book = new(loc)
 	new_book.dat = paper.info
 	new_book.name = "Print Job #[rand(100, 999)]"
-	new_book.ru_names = list(
+	new_book.ru_names = alist(
 		NOMINATIVE = "печатное издание №[rand(100, 999)]",
 		GENITIVE = "печатного издания №[rand(100, 999)]",
 		DATIVE = "печатному изданию №[rand(100, 999)]",

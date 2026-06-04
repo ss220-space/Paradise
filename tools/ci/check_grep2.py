@@ -343,17 +343,17 @@ def check_bitwise_operator_order(idx, line):
     if BITWISE_AMBIGUOUS_RE.search(line):
         return [(idx + 1, "Error in operator order when using bitwise OR. Use parentheses to indicate intent.")]
 
-IGNORE_LOCALIZATION_HELPERS_FILE = "localization.dm"
+IGNORE_LOCALIZATION_HELPERS_DIR = os.path.join("code", "__HELPERS", "localization")
 MACROED_PROCS = re.compile(r'genderize_ru|pluralize_ru')
 def check_localization_macro_usage(idx, line):
     if MACROED_PROCS.search(line):
         if 'UNLINT' not in line:
-            return [(idx + 1, "Do not use this proc directly. Use the ready-made macros in code/__HELPERS/localization.dm")]
+            return [(idx + 1, "Do not use this proc directly. Use the ready-made macros in code/__HELPERS/localization/")]
 
 CAPITALIZED_DECLENT_RU = re.compile(r'capitalize\(\w+\.declent_ru\(\w+\)\)|capitalize\(declent_ru_cap\((\w+)\)\)')
 def check_capitalized_declent_ru_usage(idx, line):
     if CAPITALIZED_DECLENT_RU.search(line):
-        return [(idx + 1, "Do not use `capitalize(declent_ru)` construction directly. Use the ready-made macros in code/__HELPERS/localization.dm")]
+        return [(idx + 1, "Do not use `capitalize(declent_ru)` construction directly. Use the ready-made macros in code/__HELPERS/localization/")]
 
 CODE_CHECKS = [
     check_space_indentation,
@@ -500,7 +500,7 @@ def lint_file(code_filepath: str) -> list[Failure]:
             extra_checks.append(check_manual_icon_updates)
         if filename == FAST_LOAD_FILENAME:
             extra_checks.append(check_fast_load_define)
-        if filename != IGNORE_LOCALIZATION_HELPERS_FILE:
+        if os.path.dirname(code_filepath) != IGNORE_LOCALIZATION_HELPERS_DIR:
             extra_checks.append(check_localization_macro_usage)
             extra_checks.append(check_capitalized_declent_ru_usage)
 

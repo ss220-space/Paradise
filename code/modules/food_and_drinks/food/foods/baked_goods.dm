@@ -874,7 +874,7 @@
 	foodtype = GRAIN
 
 /obj/item/reagent_containers/food/snacks/croissant/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "круассан",
 		GENITIVE = "круассана",
 		DATIVE = "круассану",

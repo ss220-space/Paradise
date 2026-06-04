@@ -7,7 +7,7 @@
 	if(!..()) // there's no point in being here.
 		return FALSE
 
-	if(!LAZYLEN(whitelisted_species)) // why are we here? allowed, but
+	if(!length(whitelisted_species)) // why are we here? allowed, but
 		stack_trace("Item with no racial list in loadout racial items: [index_name].")
 		return TRUE
 

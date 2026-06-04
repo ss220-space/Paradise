@@ -15,7 +15,6 @@
 	item_flags = SLOWS_WHILE_IN_HAND
 	slot_flags = ITEM_SLOT_BACK
 	weapon_weight = WEAPON_HEAVY
-	trigger_guard = TRIGGER_GUARD_NONE
 
 	var/draw_sound = 'sound/weapons/bows/bow_pull.ogg'
 	var/ready_to_fire = FALSE
@@ -24,7 +23,7 @@
 	recoil = null
 
 /obj/item/gun/projectile/bow/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "деревянный лук",
 		GENITIVE = "деревянного лука",
 		DATIVE = "деревянному луку",
@@ -108,7 +107,7 @@
 	accuracy = GUN_ACCURACY_RIFLE
 
 /obj/item/gun/projectile/bow/ashen/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "костяной лук",
 		GENITIVE = "костяного лука",
 		DATIVE = "костяному луку",
@@ -133,7 +132,7 @@
 	)
 
 /obj/item/storage/backpack/quiver/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "колчан",
 		GENITIVE = "колчана",
 		DATIVE = "колчану",
@@ -167,7 +166,7 @@
 	resistance_flags = FIRE_PROOF
 
 /obj/item/storage/belt/quiver_weaver/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "колчан из хитина ткача",
 		GENITIVE = "колчана из хитина ткача",
 		DATIVE = "колчану из хитина ткача",

@@ -24,7 +24,7 @@
 	light_system = MOVABLE_LIGHT
 
 /obj/item/radio/weather_monitor/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "метеорологическое радио",
 		GENITIVE = "метеорологического радио",
 		DATIVE = "метеорологическому радио",

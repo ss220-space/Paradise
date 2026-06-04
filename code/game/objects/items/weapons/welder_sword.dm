@@ -20,7 +20,7 @@
 	var/combinable = TRUE
 
 /obj/item/weldingtool/sword/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сварочный меч",
 		GENITIVE = "сварочного меча",
 		DATIVE = "сварочному мечу",
@@ -96,7 +96,7 @@
 	combinable = FALSE
 
 /obj/item/weldingtool/sword/double/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "двойной сварочный меч",
 		GENITIVE = "двойного сварочного меча",
 		DATIVE = "двойному сварочному мечу",

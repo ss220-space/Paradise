@@ -22,7 +22,7 @@
 	icon_state = "paint_red"
 
 /obj/item/pod_paint_bucket/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "набор для покраски челнока",
 		GENITIVE = "набора для покраски челнока",
 		DATIVE = "набору для покраски челнока",
@@ -98,7 +98,7 @@
 	var/datum/action/innate/pod/pod_misc/misc_action = new
 
 /obj/spacepod/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "космический челнок",
 		GENITIVE = "космического челнока",
 		DATIVE = "космическому челноку",
@@ -677,7 +677,7 @@
 	health = 600
 
 /obj/spacepod/sec/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "космический челнок охраны",
 		GENITIVE = "космического челнока охраны",
 		DATIVE = "космическому челноку охраны",
@@ -694,7 +694,7 @@
 	unlocked = FALSE
 
 /obj/spacepod/syndi/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "космический челнок \"Синдиката\"",
 		GENITIVE = "космического челнока \"Синдиката\"",
 		DATIVE = "космическому челноку \"Синдиката\"",

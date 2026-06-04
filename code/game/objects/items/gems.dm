@@ -38,7 +38,7 @@
 	base_pixel_y = pixel_y
 
 /obj/item/gem/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "самоцвет",
 		GENITIVE = "самоцвета",
 		DATIVE = "самоцвету",
@@ -108,7 +108,7 @@
 	COOLDOWN_DECLARE(radiation_cooldown)
 
 /obj/item/gem/rupee/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кристалл рупериума",
 		GENITIVE = "кристалла рупериума",
 		DATIVE = "кристаллу рупериума",
@@ -178,7 +178,7 @@
 	var/hot = TRUE
 
 /obj/item/gem/magma/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "окаменелый аурит",
 		GENITIVE = "окаменелого аурита",
 		DATIVE = "окаменелому ауриту",
@@ -227,7 +227,7 @@
 	sell_multiplier = 2
 
 /obj/item/gem/fdiamond/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "морозный бриллиант",
 		GENITIVE = "морозного бриллианта",
 		DATIVE = "морозному бриллианту",
@@ -276,7 +276,7 @@
 	light_system = MOVABLE_LIGHT
 
 /obj/item/gem/phoron/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "стабилизированный бароксильдиум",
 		GENITIVE = "стабилизированного бароксильдиума",
 		DATIVE = "стабилизированному бароксильдиуму",
@@ -301,7 +301,7 @@
 	var/obj/item/gps/internal
 
 /obj/item/gem/purple/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "уплотненный дилитиум",
 		GENITIVE = "уплотненного дилитиума",
 		DATIVE = "уплотненному дилитиуму",
@@ -340,7 +340,7 @@
 	light_system = MOVABLE_LIGHT
 
 /obj/item/gem/amber/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Драконий жемчуг",
 		GENITIVE = "драконего жемчуга",
 		DATIVE = "драконьему жемчугу",
@@ -365,7 +365,7 @@
 	var/cooldown_time = 40 SECONDS
 
 /obj/item/gem/void/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пустотный кристалл",
 		GENITIVE = "пустотного кристалла",
 		DATIVE = "пустотному кристаллу",
@@ -417,7 +417,7 @@
 	var/charges = 10
 
 /obj/item/gem/bloodstone/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кровавый ихор",
 		GENITIVE = "кровавого ихора",
 		DATIVE = "кровавому ихору",
@@ -472,7 +472,7 @@
 	sell_multiplier = 10
 
 /obj/item/gem/data/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "блюспейс кристалл данных",
 		GENITIVE = "блюспейс кристалла данных",
 		DATIVE = "блюспейс кристаллу данных",
@@ -503,7 +503,7 @@
 	sell_multiplier = 0.5
 
 /obj/item/gem/ruby/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "рубин",
 		GENITIVE = "рубина",
 		DATIVE = "рубину",
@@ -520,7 +520,7 @@
 	sell_multiplier = 0.5
 
 /obj/item/gem/sapphire/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сапфир",
 		GENITIVE = "сапфира",
 		DATIVE = "сапфиру",
@@ -537,7 +537,7 @@
 	sell_multiplier = 0.5
 
 /obj/item/gem/emerald/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "изумруд",
 		GENITIVE = "изумруда",
 		DATIVE = "изумруду",
@@ -554,7 +554,7 @@
 	sell_multiplier = 0.5
 
 /obj/item/gem/topaz/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "топаз",
 		GENITIVE = "топаза",
 		DATIVE = "топазу",

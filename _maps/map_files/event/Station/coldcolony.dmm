@@ -1518,10 +1518,7 @@
 	},
 /area/coldcolony/malta/hallway/service/south)
 "azt" = (
-/obj/machinery/defibrillator_mount/loaded{
-	pixel_x = -32;
-	pixel_y = -2
-	},
+/obj/machinery/defibrillator_mount/loaded/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "arrival"
@@ -36024,9 +36021,7 @@
 /obj/item/reagent_containers/spray/cleaner/brig{
 	pixel_x = 4
 	},
-/obj/machinery/defibrillator_mount/loaded{
-	pixel_y = 32
-	},
+/obj/machinery/defibrillator_mount/loaded/directional/north,
 /obj/structure/table/glass,
 /obj/machinery/light{
 	dir = 1

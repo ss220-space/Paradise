@@ -64,7 +64,7 @@
 	var/self_destroy = TRUE
 
 /obj/structure/energy_caltrops/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "энергетические шипы",
 		GENITIVE = "энергетических шипов",
 		DATIVE = "энергетическим шипам",

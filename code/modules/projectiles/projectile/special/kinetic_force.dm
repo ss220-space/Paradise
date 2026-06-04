@@ -15,7 +15,7 @@
 	var/obj/item/gun/energy/kinetic_accelerator/kinetic_gun
 
 /obj/projectile/kinetic/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кинетическая сила",
 		GENITIVE = "кинетической силы",
 		DATIVE = "кинетической силе",

@@ -1,4 +1,0 @@
-author: "makaroshka003"
-delete-after: True
-changes:
-  - tweak: "ТТС фильтр для voice_modulator маски (PR #9310)"

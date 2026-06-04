@@ -11,7 +11,7 @@
 	var/override_name = 0
 
 /obj/item/id_decal/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "наклейка на ID-карту",
 		GENITIVE = "наклейки на ID-карту",
 		DATIVE = "наклейке на ID-карту",
@@ -32,7 +32,7 @@
 	decal_item_state = "gold-id"
 
 /obj/item/id_decal/gold/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "наклейка на ID-карту \"Золото\"",
 		GENITIVE = "наклейки на ID-карту \"Золото\"",
 		DATIVE = "наклейке на ID-карту \"Золото\"",
@@ -53,7 +53,7 @@
 	decal_item_state = "silver-id"
 
 /obj/item/id_decal/silver/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "наклейка на ID-карту \"Серебро\"",
 		GENITIVE = "наклейки на ID-карту \"Серебро\"",
 		DATIVE = "наклейке на ID-карту \"Серебро\"",
@@ -73,7 +73,7 @@
 	decal_item_state = "orange-id"
 
 /obj/item/id_decal/prisoner/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "наклейка на ID-карту \"Заключённый\"",
 		GENITIVE = "наклейки на ID-карту \"Заключённый\"",
 		DATIVE = "наклейке на ID-карту \"Заключённый\"",
@@ -92,7 +92,7 @@
 	decal_icon_state = "centcom"
 
 /obj/item/id_decal/centcom/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "наклейка на ID-карту \"Центком\"",
 		GENITIVE = "наклейки на ID-карту \"Центком\"",
 		DATIVE = "наклейке на ID-карту \"Центком\"",
@@ -112,7 +112,7 @@
 	override_name = 1
 
 /obj/item/id_decal/emag/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "наклейка на ID-карту \"Криптографический считыватель\"",
 		GENITIVE = "наклейки на ID-карту \"Криптографический считыватель\"",
 		DATIVE = "наклейке на ID-карту \"Криптографический считыватель\"",
@@ -133,7 +133,7 @@
 	decal_item_state = "federal-id"
 
 /obj/item/id_decal/federal/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "наклейка на ID-карту \"ТСФ\"",
 		GENITIVE = "наклейки на ID-карту \"ТСФ\"",
 		DATIVE = "наклейке на ID-карту \"ТСФ\"",
@@ -154,7 +154,7 @@
 	decal_item_state = "comrad-id"
 
 /obj/item/id_decal/comrad/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "наклейка на ID-карту \"СССП\"",
 		GENITIVE = "наклейки на ID-карту \"СССП\"",
 		DATIVE = "наклейке на ID-карту \"СССП\"",
@@ -174,7 +174,7 @@
 	decal_item_state = "syndieciv-id"
 
 /obj/item/id_decal/syndie/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "наклейка на ID-карту \"Синдикат\"",
 		GENITIVE = "наклейки на ID-карту \"Синдикат\"",
 		DATIVE = "наклейке на ID-карту \"Синдикат\"",

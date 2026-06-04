@@ -18,7 +18,7 @@
 	var/list/targeted_turfs = list()
 
 /obj/item/storm_staff/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "посох бурь",
 		GENITIVE = "посоха бурь",
 		DATIVE = "посоху бурь",

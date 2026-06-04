@@ -60,7 +60,7 @@
 	)
 
 /obj/machinery/vending/ammo/get_ru_names()
-	return	list(
+	return alist(
 		NOMINATIVE = "торговый автомат Liberty",
 		GENITIVE = "торгового автомата Liberty",
 		DATIVE = "торговому автомату Liberty",

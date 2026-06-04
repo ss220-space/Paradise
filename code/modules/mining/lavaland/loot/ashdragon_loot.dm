@@ -2,7 +2,7 @@
 	name = "dragon chest"
 
 /obj/structure/closet/crate/necropolis/dragon/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "драконий сундук",
 		GENITIVE = "драконьего сундука",
 		DATIVE = "драконьему сундуку",
@@ -31,7 +31,7 @@
 	name = "firey dragon chest"
 
 /obj/structure/closet/crate/necropolis/dragon/crusher/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "огненный драконий сундук",
 		GENITIVE = "огненного драконьего сундука",
 		DATIVE = "огненному драконьему сундуку",
@@ -64,7 +64,7 @@
 	var/list/mob/dead/observer/spirits
 
 /obj/item/melee/ghost_sword/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "спектральный клинок",
 		GENITIVE = "спектрального клинка",
 		DATIVE = "спектральному клинку",
@@ -157,7 +157,7 @@
 	icon_state = "vial"
 
 /obj/item/dragons_blood/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бутылка драконьей крови",
 		GENITIVE = "бутылки драконьей крови",
 		DATIVE = "бутылке драконьей крови",
@@ -196,7 +196,7 @@
 	desc = "Вы ведь точно собираетесь это выпить, не так ли?"
 
 /obj/item/dragons_blood/refined/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бутылка очищенной драконьей крови",
 		GENITIVE = "бутылки очищенной драконьей крови",
 		DATIVE = "бутылке очищенной драконьей крови",
@@ -259,7 +259,7 @@
 	var/banned_turfs
 
 /obj/item/lava_staff/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "лавовый посох",
 		GENITIVE = "лавового посоха",
 		DATIVE = "лавовому посоху",

@@ -15,6 +15,7 @@
 /obj/vehicle/ridden/janicart/Initialize(mapload)
 	. = ..()
 	update_appearance()
+	GLOB.janitorial_equipment += src
 	AddElement(/datum/element/ridable, /datum/component/riding/vehicle/janicart)
 
 /obj/vehicle/ridden/janicart/Destroy()
@@ -22,6 +23,7 @@
 		QDEL_NULL(trash_bag)
 	if(installed_upgrade)
 		QDEL_NULL(installed_upgrade)
+	GLOB.janitorial_equipment -= src
 	return ..()
 
 /obj/vehicle/ridden/janicart/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)

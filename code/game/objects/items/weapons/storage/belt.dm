@@ -249,7 +249,7 @@
 	use_to_pickup = 1 //Allow medical belt to pick up medicine
 
 /obj/item/storage/belt/medical/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "медицинский пояс",
 		GENITIVE = "медицинского пояса",
 		DATIVE = "медицинскому поясу",
@@ -299,7 +299,7 @@
 	)
 
 /obj/item/storage/belt/medical/surgery/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "хирургический пояс",
 		GENITIVE = "хирургического пояса",
 		DATIVE = "хирургическому поясу",
@@ -353,7 +353,7 @@
 	)
 
 /obj/item/storage/belt/medical/surgery/abductor/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "инопланетный хирургический пояс",
 		GENITIVE = "инопланетного хирургического пояса",
 		DATIVE = "инопланетному хирургическому поясу",
@@ -481,7 +481,7 @@
 	var/fast_reload_delay = 1.5 SECONDS
 
 /obj/item/storage/belt/security/webbing/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "разгрузка СБ",
 		GENITIVE = "разгрузки СБ",
 		DATIVE = "разгрузке СБ",
@@ -544,7 +544,7 @@
 	desc = "Уникальная и универсальная нагрудная разгрузочная система, вмещающая снаряжение отряда специального назначения."
 
 /obj/item/storage/belt/security/webbing/srt/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "разгрузка ОСН",
 		GENITIVE = "разгрузки ОСН",
 		DATIVE = "разгрузке ОСН",
@@ -576,7 +576,7 @@
 	fast_reload_delay = 2 SECONDS
 
 /obj/item/storage/belt/security/webbing/pouch/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "подсумок",
 		GENITIVE = "подсумка",
 		DATIVE = "подсумку",
@@ -594,7 +594,7 @@
 	fast_reload_delay = 0.2 SECONDS
 
 /obj/item/storage/belt/security/webbing/pouch/fast/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "продвинутый подсумок",
 		GENITIVE = "продвинутого подсумка",
 		DATIVE = "продвинутому подсумку",
@@ -735,7 +735,7 @@
 	can_hold = /obj/item/ammo_casing/caseless/rocket
 
 /obj/item/storage/belt/rocketman/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пояс с ракетами",
 		GENITIVE = "пояса с ракетами",
 		DATIVE = "поясу с ракетами",
@@ -870,7 +870,7 @@
 	)
 
 /obj/item/storage/belt/lazarus/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пояс тренера",
 		GENITIVE = "пояса тренера",
 		DATIVE = "поясу тренера",
@@ -904,7 +904,7 @@
 	can_hold = list(/obj/item/ammo_casing/shotgun)
 
 /obj/item/storage/belt/bandolier/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "патронташ",
 		GENITIVE = "патронташа",
 		DATIVE = "патронташу",
@@ -1286,7 +1286,7 @@
 	)
 
 /obj/item/storage/belt/mining/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "разгрузка исследователя",
 		GENITIVE = "разгрузки исследователя",
 		DATIVE = "разгрузке исследователя",
@@ -1346,7 +1346,7 @@
 	)
 
 /obj/item/storage/belt/mining/primitive/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "охотничий пояс",
 		GENITIVE = "охотничьего пояса",
 		DATIVE = "охотничьему поясу",

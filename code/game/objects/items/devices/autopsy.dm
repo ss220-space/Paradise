@@ -18,7 +18,7 @@
 	STATIC_COOLDOWN_DECLARE(print_cooldown)
 
 /obj/item/autopsy_scanner/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сканер аутопсии",
 		GENITIVE = "сканера аутопсии",
 		DATIVE = "сканеру аутопсии",

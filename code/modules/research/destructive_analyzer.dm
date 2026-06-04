@@ -14,7 +14,7 @@ Note: Must be placed within 3 tiles of the R&D Console
 	var/decon_mod = 0
 
 /obj/machinery/r_n_d/destructive_analyzer/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "деструктивный анализатор",
 		GENITIVE = "деструктивного анализатора",
 		DATIVE = "деструктивному анализатору",

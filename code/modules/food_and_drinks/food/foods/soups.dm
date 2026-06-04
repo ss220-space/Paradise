@@ -104,7 +104,7 @@
 	foodtype = GROSS
 
 /obj/item/reagent_containers/food/snacks/soup/sawdustsoup/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "суп из опилок",
 		GENITIVE = "супа из опилок",
 		DATIVE = "супу из опилок",

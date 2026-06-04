@@ -6,7 +6,7 @@
 	gender = MALE
 
 /obj/item/radio/spy_spider/get_ru_names()
-	return list(
+	return alist(
 			NOMINATIVE = "жучок",
 			GENITIVE = "жучка",
 			DATIVE = "жучку",

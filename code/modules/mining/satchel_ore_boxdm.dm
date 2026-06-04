@@ -10,7 +10,7 @@
 	pressure_resistance = 5 * ONE_ATMOSPHERE
 
 /obj/structure/ore_box/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ящик для руды",
 		GENITIVE = "ящика для руды",
 		DATIVE = "ящику для руды",

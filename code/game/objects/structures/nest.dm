@@ -25,7 +25,7 @@
 	var/spawn_trigger_distance = 7	// The triggered nest will look this many tiles around itself to find other triggerable nests
 
 /obj/structure/nest/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "туннель",
 		GENITIVE = "туннеля",
 		DATIVE = "туннелю",

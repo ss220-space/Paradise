@@ -37,7 +37,7 @@
 	mmi_icon_state = "AlienMMI"
 
 /obj/item/organ/internal/brain/xeno/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мозг человека",
 		GENITIVE = "мозга человека",
 		DATIVE = "мозгу человека",
@@ -69,7 +69,7 @@
 	var/plasma_rate = 10
 
 /obj/item/organ/internal/xenos/plasmavessel/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "плазменная железа ксеноморфа",
 		GENITIVE = "плазменной железы ксеноморфа",
 		DATIVE = "плазменной железе ксеноморфа",
@@ -89,7 +89,7 @@
 	alien_powers = list(/obj/effect/proc_holder/spell/alien_spell/plant_weeds/queen, /obj/effect/proc_holder/spell/touch/alien_spell/transfer_plasma)
 
 /obj/item/organ/internal/xenos/plasmavessel/queen/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "плазменная железа королевы ксеноморфов",
 		GENITIVE = "плазменной железы королевы ксеноморфов",
 		DATIVE = "плазменной железе королевы ксеноморфов",
@@ -107,7 +107,7 @@
 	plasma_rate = 15
 
 /obj/item/organ/internal/xenos/plasmavessel/praetorian/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "плазменная железа преторианца",
 		GENITIVE = "плазменной железы преторианца",
 		DATIVE = "плазменной железе преторианца",
@@ -125,7 +125,7 @@
 	plasma_rate = 25
 
 /obj/item/organ/internal/xenos/plasmavessel/drone/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "плазменная железа рабочего",
 		GENITIVE = "плазменной железы рабочего",
 		DATIVE = "плазменной железе преторианца",
@@ -142,7 +142,7 @@
 	plasma_rate = 25
 
 /obj/item/organ/internal/xenos/plasmavessel/sentinel/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "плазменная железа часового",
 		GENITIVE = "плазменной железы часового",
 		DATIVE = "плазменной железе часового",
@@ -159,7 +159,7 @@
 	stored_plasma = 100
 
 /obj/item/organ/internal/xenos/plasmavessel/hunter/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "плазменная железа охотника",
 		GENITIVE = "плазменной железы охотника",
 		DATIVE = "плазменной железе охотника",
@@ -176,7 +176,7 @@
 	alien_powers = list()
 
 /obj/item/organ/internal/xenos/plasmavessel/larva/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "плазменная железа лярвы",
 		GENITIVE = "плазменной железы лярвы",
 		DATIVE = "плазменной железе лярвы",
@@ -238,7 +238,7 @@
 	alien_powers = list(/obj/effect/proc_holder/spell/touch/alien_spell/corrosive_acid)
 
 /obj/item/organ/internal/xenos/acidgland/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кислотная железа",
 		GENITIVE = "кислотной железы",
 		DATIVE = "кислотной железе",
@@ -253,7 +253,7 @@
 	alien_powers = list(/obj/effect/proc_holder/spell/touch/alien_spell/corrosive_acid/sentinel)
 
 /obj/item/organ/internal/xenos/acidgland/sentinel/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кислотная железа часового",
 		GENITIVE = "кислотной железы часового",
 		DATIVE = "кислотной железе часового",
@@ -268,7 +268,7 @@
 	alien_powers = list(/obj/effect/proc_holder/spell/touch/alien_spell/corrosive_acid/praetorian)
 
 /obj/item/organ/internal/xenos/acidgland/praetorian/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кислотная железа преторианца",
 		GENITIVE = "кислотной железы преторианца",
 		DATIVE = "кислотной железе преторианца",
@@ -283,7 +283,7 @@
 	alien_powers = list(/obj/effect/proc_holder/spell/touch/alien_spell/corrosive_acid/queen)
 
 /obj/item/organ/internal/xenos/acidgland/queen/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кислотная железа королевы ксеноморфов",
 		GENITIVE = "кислотной железы королевы ксеноморфов",
 		DATIVE = "кислотной железе королевы ксеноморфов",
@@ -303,7 +303,7 @@
 	alien_powers = list(/obj/effect/proc_holder/spell/alien_spell/whisper)
 
 /obj/item/organ/internal/xenos/hivenode/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "узел улья ксеноморфов",
 		GENITIVE = "узел улья ксеноморфов",
 		DATIVE = "узел улья ксеноморфов",
@@ -335,7 +335,7 @@
 	alien_powers = list(/obj/effect/proc_holder/spell/alien_spell/neurotoxin)
 
 /obj/item/organ/internal/xenos/neurotoxin/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "железа нейротоксина",
 		GENITIVE = "железы нейротоксина",
 		DATIVE = "железе нейротоксина",
@@ -350,7 +350,7 @@
 	alien_powers = list(/obj/effect/proc_holder/spell/alien_spell/neurotoxin/sentinel)
 
 /obj/item/organ/internal/xenos/neurotoxin/sentinel/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "железа нейротоксина стража",
 		GENITIVE = "железы нейротоксина стража",
 		DATIVE = "железе нейротоксина стража",
@@ -370,7 +370,7 @@
 	alien_powers = list(/obj/effect/proc_holder/spell/alien_spell/build_resin)
 
 /obj/item/organ/internal/xenos/resinspinner/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "смоляная железа",
 		GENITIVE = "смоляной железы",
 		DATIVE = "смоляной железе",
@@ -390,7 +390,7 @@
 	alien_powers = list(/obj/effect/proc_holder/spell/alien_spell/plant_weeds/eggs)
 
 /obj/item/organ/internal/xenos/eggsac/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "яйцевой мешок ксеноморфов",
 		GENITIVE = "яйцевого мешка ксеноморфов",
 		DATIVE = "яйцевоу мешку ксеноморфов",

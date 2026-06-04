@@ -32,7 +32,7 @@
 	var/prob_ai_massweb = 10
 
 /mob/living/simple_animal/hostile/poison/terror_spider/lurker/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Наблюдатель Ужаса",
 		GENITIVE = "Наблюдателя Ужаса",
 		DATIVE = "Наблюдателю Ужаса",
@@ -91,7 +91,7 @@
 	desc = "Эта паутина частично прозрачна, поэтому её труднее увидеть и легче попасться."
 
 /obj/structure/spider/terrorweb/gray/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "прозрачная паутина",
 		GENITIVE = "прозрачной паутины",
 		DATIVE = "прозрачной паутине",

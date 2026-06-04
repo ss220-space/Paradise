@@ -29,7 +29,7 @@
 	var/upgradable = FALSE
 
 /obj/item/clothing/head/helmet/space/plasmaman/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "защитный шлем плазмолюда",
 		GENITIVE = "защитного шлема плазмолюда",
 		DATIVE = "защитному шлему плазмолюда",
@@ -119,7 +119,7 @@
 	examine_extensions = EXAMINE_HUD_SECURITY_READ | EXAMINE_HUD_SECURITY_WRITE
 
 /obj/item/clothing/head/helmet/space/plasmaman/security/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "защитный шлем службы безопасности",
 		GENITIVE = "защитного шлема службы безопасности",
 		DATIVE = "защитному шлему службы безопасности",
@@ -137,7 +137,7 @@
 	examine_extensions = EXAMINE_HUD_SECURITY_READ | EXAMINE_HUD_SECURITY_WRITE | EXAMINE_HUD_SCIENCE
 
 /obj/item/clothing/head/helmet/space/plasmaman/security/dec/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "защитный шлем детектива",
 		GENITIVE = "защитного шлема детектива",
 		DATIVE = "защитному шлему детектива",
@@ -153,7 +153,7 @@
 	item_state = "warden_envirohelm"
 
 /obj/item/clothing/head/helmet/space/plasmaman/security/warden/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "защитный шлем смотрителя",
 		GENITIVE = "защитного шлема смотрителя",
 		DATIVE = "защитному шлему смотрителя",
@@ -169,7 +169,7 @@
 	item_state = "hos_envirohelm"
 
 /obj/item/clothing/head/helmet/space/plasmaman/security/hos/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "защитный шлем главы службы безопасности",
 		GENITIVE = "защитного шлема главы службы безопасности",
 		DATIVE = "защитному шлему главы службы безопасности",
@@ -187,7 +187,7 @@
 	examine_extensions = EXAMINE_HUD_MEDICAL
 
 /obj/item/clothing/head/helmet/space/plasmaman/medical/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "защитный шлем врача",
 		GENITIVE = "защитного шлема врача",
 		DATIVE = "защитному шлему врача",
@@ -203,7 +203,7 @@
 	item_state = "brigphysician_envirohelm"
 
 /obj/item/clothing/head/helmet/space/plasmaman/medical/brigphysician/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "защитный шлем бригмедика",
 		GENITIVE = "защитного шлема бригмедика",
 		DATIVE = "защитному шлему бригмедика",
@@ -219,7 +219,7 @@
 	item_state = "coroner_envirohelm"
 
 /obj/item/clothing/head/helmet/space/plasmaman/medical/coroner/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "защитный шлем патологоанатома",
 		GENITIVE = "защитного шлема патологоанатома",
 		DATIVE = "защитному шлему патологоанатома",
@@ -235,7 +235,7 @@
 	item_state = "paramedic_envirohelm"
 
 /obj/item/clothing/head/helmet/space/plasmaman/medical/paramedic/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "защитный шлем парамедика",
 		GENITIVE = "защитного шлема парамедика",
 		DATIVE = "защитному шлему парамедика",
@@ -254,7 +254,7 @@
 	examine_extensions = EXAMINE_HUD_MEDICAL | EXAMINE_HUD_SCIENCE
 
 /obj/item/clothing/head/helmet/space/plasmaman/cmo/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "защитный шлем главного врача",
 		GENITIVE = "защитного шлема главного врача",
 		DATIVE = "защитному шлему главного врача",
@@ -271,7 +271,7 @@
 	HUDType = DATA_HUD_MEDICAL_ADVANCED
 
 /obj/item/clothing/head/helmet/space/plasmaman/genetics/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "защитный шлем генетика",
 		GENITIVE = "защитного шлема генетика",
 		DATIVE = "защитному шлему генетика",
@@ -288,7 +288,7 @@
 	examine_extensions = EXAMINE_HUD_SCIENCE
 
 /obj/item/clothing/head/helmet/space/plasmaman/viro/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "защитный шлем вирусолога",
 		GENITIVE = "защитного шлема вирусолога",
 		DATIVE = "защитному шлему вирусолога",
@@ -306,7 +306,7 @@
 	examine_extensions = EXAMINE_HUD_SCIENCE
 
 /obj/item/clothing/head/helmet/space/plasmaman/chemist/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "защитный шлем химика",
 		GENITIVE = "защитного шлема химика",
 		DATIVE = "защитному шлему химика",
@@ -324,7 +324,7 @@
 	examine_extensions = EXAMINE_HUD_SCIENCE
 
 /obj/item/clothing/head/helmet/space/plasmaman/science/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "защитный шлем учёного",
 		GENITIVE = "защитного шлема учёного",
 		DATIVE = "защитному шлему учёного",
@@ -341,7 +341,7 @@
 	HUDType = DATA_HUD_MEDICAL_ADVANCED
 
 /obj/item/clothing/head/helmet/space/plasmaman/science/xeno/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "защитный шлем ксенобиолога",
 		GENITIVE = "защитного шлема ксенобиолога",
 		DATIVE = "защитному шлему ксенобиолога",
@@ -360,7 +360,7 @@
 	HUDType = DATA_HUD_DIAGNOSTIC
 
 /obj/item/clothing/head/helmet/space/plasmaman/rd/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "защитный шлем научного руководителя",
 		GENITIVE = "защитного шлема научного руководителя",
 		DATIVE = "защитному шлему научного руководителя",
@@ -377,7 +377,7 @@
 	HUDType = DATA_HUD_DIAGNOSTIC
 
 /obj/item/clothing/head/helmet/space/plasmaman/robotics/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "защитный шлем робототехника",
 		GENITIVE = "защитного шлема робототехника",
 		DATIVE = "защитному шлему робототехника",
@@ -396,7 +396,7 @@
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 
 /obj/item/clothing/head/helmet/space/plasmaman/engineering/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "защитный шлем инженера",
 		GENITIVE = "защитного шлема инженера",
 		DATIVE = "защитному шлему инженера",
@@ -413,7 +413,7 @@
 	HUDType = DATA_HUD_DIAGNOSTIC
 
 /obj/item/clothing/head/helmet/space/plasmaman/engineering/mecha/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "защитный шлем механика",
 		GENITIVE = "защитного шлема механика",
 		DATIVE = "защитному шлему механика",
@@ -432,7 +432,7 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 
 /obj/item/clothing/head/helmet/space/plasmaman/engineering/ce/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "защитный шлем старшего инженера",
 		GENITIVE = "защитного шлема старшего инженера",
 		DATIVE = "защитному шлему старшего инженера",
@@ -452,7 +452,7 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 
 /obj/item/clothing/head/helmet/space/plasmaman/atmospherics/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "защитный шлем атмосферного техника",
 		GENITIVE = "защитного шлема атмосферного техника",
 		DATIVE = "защитному шлему атмосферного техника",
@@ -468,7 +468,7 @@
 	item_state = "cargo_envirohelm"
 
 /obj/item/clothing/head/helmet/space/plasmaman/cargo/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "защитный шлем грузчика",
 		GENITIVE = "защитного шлема грузчика",
 		DATIVE = "защитному шлему грузчика",
@@ -484,7 +484,7 @@
 	item_state = "qm_envirohelm"
 
 /obj/item/clothing/head/helmet/space/plasmaman/qm/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "защитный шлем Квартирмейстера",
 		GENITIVE = "защитного шлема Квартирмейстера",
 		DATIVE = "защитному шлему Квартирмейстера",
@@ -506,7 +506,7 @@
 	upgradable = TRUE
 
 /obj/item/clothing/head/helmet/space/plasmaman/mining/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "защитный шлем шахтёра",
 		GENITIVE = "защитного шлема шахтёра",
 		DATIVE = "защитному шлему шахтёра",
@@ -523,7 +523,7 @@
 	armor = list(MELEE = 20, BULLET = 7, LASER = 2, ENERGY = 2, BOMB = 2, BIO = 100, FIRE = 100, ACID = 80)
 
 /obj/item/clothing/head/helmet/space/plasmaman/chaplain/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "защитный шлем священника",
 		GENITIVE = "защитного шлема священника",
 		DATIVE = "защитному шлему священника",
@@ -540,7 +540,7 @@
 	examine_extensions = EXAMINE_HUD_SCIENCE
 
 /obj/item/clothing/head/helmet/space/plasmaman/white/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "защитный шлем плазмолюда белого цвета",
 		GENITIVE = "защитного шлема плазмолюда белого цвета",
 		DATIVE = "защитному шлему плазмолюда белого цвета",
@@ -558,7 +558,7 @@
 	examine_extensions = EXAMINE_HUD_SECURITY_READ
 
 /obj/item/clothing/head/helmet/space/plasmaman/nt/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "защитный шлем \"Нанотрейзен\"",
 		GENITIVE = "защитного шлема \"Нанотрейзен\"",
 		DATIVE = "защитному шлему \"Нанотрейзен\"",
@@ -576,7 +576,7 @@
 	examine_extensions = EXAMINE_HUD_SKILLS
 
 /obj/item/clothing/head/helmet/space/plasmaman/nt_rep/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "защитный шлем представителя \"Нанотрейзен\"",
 		GENITIVE = "защитного шлема представителя \"Нанотрейзен\"",
 		DATIVE = "защитному шлему представителя \"Нанотрейзен\"",
@@ -592,7 +592,7 @@
 	item_state = "chef_envirohelm"
 
 /obj/item/clothing/head/helmet/space/plasmaman/chef/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "защитный шлем повара",
 		GENITIVE = "защитного шлема повара",
 		DATIVE = "защитному шлему повара",
@@ -610,7 +610,7 @@
 	visor_icon = "prototype_envisor"
 
 /obj/item/clothing/head/helmet/space/plasmaman/librarian/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "защитный шлем библиотекаря",
 		GENITIVE = "защитного шлема библиотекаря",
 		DATIVE = "защитному шлему библиотекаря",
@@ -629,7 +629,7 @@
 	examine_extensions = EXAMINE_HUD_BOTANY
 
 /obj/item/clothing/head/helmet/space/plasmaman/botany/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "защитный шлем ботаника",
 		GENITIVE = "защитного шлема ботаника",
 		DATIVE = "защитному шлему ботаника",
@@ -645,7 +645,7 @@
 	item_state = "janitor_envirohelm"
 
 /obj/item/clothing/head/helmet/space/plasmaman/janitor/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "защитный шлем уборщика",
 		GENITIVE = "защитного шлема уборщика",
 		DATIVE = "защитному шлему уборщика",
@@ -662,7 +662,7 @@
 	visor_icon = "mime_envisor"
 
 /obj/item/clothing/head/helmet/space/plasmaman/mime/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "защитный шлем мима",
 		GENITIVE = "защитного шлема мима",
 		DATIVE = "защитному шлему мима",
@@ -679,7 +679,7 @@
 	visor_icon = "clown_envisor"
 
 /obj/item/clothing/head/helmet/space/plasmaman/clown/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "защитный шлем клоуна",
 		GENITIVE = "защитного шлема клоуна",
 		DATIVE = "защитному шлему клоуна",
@@ -698,7 +698,7 @@
 	examine_extensions = EXAMINE_HUD_SKILLS
 
 /obj/item/clothing/head/helmet/space/plasmaman/hop/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "защитный шлем главы персонала",
 		GENITIVE = "защитного шлема главы персонала",
 		DATIVE = "защитному шлему главы персонала",
@@ -717,7 +717,7 @@
 	examine_extensions = EXAMINE_HUD_SKILLS
 
 /obj/item/clothing/head/helmet/space/plasmaman/captain/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "защитный шлем капитана",
 		GENITIVE = "защитного шлема капитана",
 		DATIVE = "защитному шлему капитана",
@@ -736,7 +736,7 @@
 	examine_extensions = EXAMINE_HUD_MEDICAL
 
 /obj/item/clothing/head/helmet/space/plasmaman/blueshield/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "защитный шлем офицера \"Синий Щит\"",
 		GENITIVE = "защитного шлема офицера \"Синий Щит\"",
 		DATIVE = "защитному шлему офицера \"Синий Щит\"",
@@ -756,7 +756,7 @@
 	magical = TRUE
 
 /obj/item/clothing/head/helmet/space/plasmaman/wizard/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "магический защитный шлем плазмолюда",
 		GENITIVE = "магического защитного шлема плазмолюда",
 		DATIVE = "магическому защитному шлему плазмолюда",
@@ -774,7 +774,7 @@
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 
 /obj/item/clothing/head/helmet/space/plasmaman/syndicate/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "защитный шлем офицера \"Синдиката\"",
 		GENITIVE = "защитного шлема офицера \"Синдиката\"",
 		DATIVE = "защитному шлему офицера \"Синдиката\"",
@@ -792,7 +792,7 @@
 	examine_extensions = EXAMINE_HUD_SKILLS
 
 /obj/item/clothing/head/helmet/space/plasmaman/centcomm/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "защитный шлем офицера ЦК \"Нанотрейзен\"",
 		GENITIVE = "защитного шлема офицера ЦК \"Нанотрейзен\"",
 		DATIVE = "защитному шлему офицера ЦК \"Нанотрейзен\"",
@@ -810,7 +810,7 @@
 	examine_extensions = EXAMINE_HUD_MEDICAL
 
 /obj/item/clothing/head/helmet/space/plasmaman/mining_medic/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "защитный шлем шахтёрского врача",
 		GENITIVE = "защитного шлема шахтёрского врача",
 		DATIVE = "защитному шлему шахтёрского врача",
@@ -827,7 +827,7 @@
 	item_color = "syndie_envirohelm"
 
 /obj/item/clothing/head/helmet/space/plasmaman/syndie/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "тактический защитный шлем",
 		GENITIVE = "тактического защитного шлема",
 		DATIVE = "тактическому защитному шлему",
