@@ -131,6 +131,7 @@
 		drill.soundloop.stop()
 		drill.forceMove(loc)
 		drill = null
+		drill_timer = null
 		tried_alert = null
 		security_alert_chance = null
 	QDEL_NULL(progress_bar)
@@ -138,6 +139,12 @@
 	return ..()
 
 /obj/item/storage/lockbox/process()
+	if(!drill)
+		drill_timer = null
+		drill.soundloop.stop()
+		cut_overlay(progress_bar)
+		update_icon()
+		STOP_PROCESSING(SSobj, src)
 	if(!drill_timer)
 		return
 	cut_overlay(progress_bar)
@@ -154,11 +161,15 @@
 /obj/item/storage/lockbox/attack_self(mob/user) 
 	if(drill && !broken)
 		switch(tgui_alert(user, "Что вы собираетесь сделать?", "Дрель с усиленным сверлом", list("[drill_timer ? "Выключить" : "Включить"]", "Убрать дрель", "Отмена")))
+			if(!drill || broken || !drill_timer)
+					return
 			if("Включить")
 				if(!locked)
 					user.balloon_alert(user, "уже открыто.")
 					return
 				if(do_after(user, 2 SECONDS, src))
+					if(!drill || !locked || !drill_timer)
+						return
 					drill_timer = addtimer(CALLBACK(src, PROC_REF(drill_open)), time_to_drill, TIMER_STOPPABLE)
 					drill_start_time = world.time
 					drill.soundloop.start()
@@ -166,6 +177,8 @@
 					START_PROCESSING(SSobj, src)
 			if("Выключить")
 				if(do_after(user, 10 SECONDS, src)) //Can't be too easy to turn off
+					if(!drill || !locked || !drill_timer)
+						return
 					deltimer(drill_timer)
 					drill_timer = null
 					drill.soundloop.stop()
@@ -176,7 +189,8 @@
 				if(drill_timer)
 					user.balloon_alert(user, "дрель работает!")
 				else if(do_after(user, 2 SECONDS, src))
-					remove_drill(user)
+					if(drill)
+						remove_drill(user)
 			if("Отмена")
 				return
 	else if(drill && broken)
@@ -219,6 +233,8 @@
 	update_icon()
 	
 /obj/item/storage/lockbox/proc/drill_open()
+	if(!drill)
+		return
 	broken = TRUE
 	locked = FALSE
 	drill_timer = null
