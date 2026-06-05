@@ -89,11 +89,11 @@
 		locked = !locked
 		update_icon()
 		if(locked)
-			to_chat(user, span_warning("Вы закрыли [declent_ru(NOMINATIVE)]!"))
+			to_chat(user, span_warning("Вы закрыли [declent_ru(ACCUSATIVE)]!"))
 			if(user.s_active == src)
 				user.s_active.close(user)
 		else
-			to_chat(user, span_warning("Вы открыли [declent_ru(NOMINATIVE)]!"))
+			to_chat(user, span_warning("Вы открыли [declent_ru(ACCUSATIVE)]!"))
 			origin_tech = null //wipe out any origin tech if it's unlocked in any way so you can't double-dip tech levels at R&D.
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
@@ -209,7 +209,7 @@
 		desc = "Похоже, оно сломано."
 		update_icon()
 		if(user)
-			to_chat(user, span_notice("Вы открыли [declent_ru(NOMINATIVE)]."))
+			to_chat(user, span_notice("Вы открыли [declent_ru(ACCUSATIVE)]."))
 		origin_tech = null //wipe out any origin tech if it's unlocked in any way so you can't double-dip tech levels at R&D.
 
 /obj/item/storage/lockbox/proc/remove_drill(mob/user)
