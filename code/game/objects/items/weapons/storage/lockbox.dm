@@ -1,5 +1,6 @@
 #define DRILL_SPARK_CHANCE 15
 #define DRILL_TIME 150 SECONDS
+#define DRILLING_PERCENT_TO_ALERT 30
 
 /obj/item/storage/lockbox
 	name = "lockbox"
@@ -32,6 +33,9 @@
 	var/image/progress_bar
 	var/drill_x_offset = 0
 	var/drill_y_offset = 18
+	var/security_alert_chance
+	var/tried_alert = FALSE
+	alert_channel = SEC_FREQ_NAME
 
 /obj/item/storage/lockbox/update_icon_state()
 	if(broken)
@@ -98,12 +102,8 @@
 			return ATTACK_CHAIN_PROCEED
 		drill = item
 		time_to_drill = DRILL_TIME * drill.time_multiplier
+		security_alert_chance = drill.security_alert_chance
 		update_icon()
-		drill_timer = addtimer(CALLBACK(src, PROC_REF(drill_open)), time_to_drill, TIMER_STOPPABLE)
-		drill_start_time = world.time
-		drill.soundloop.start()
-		update_icon()
-		START_PROCESSING(SSobj, src)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(locked)
@@ -111,6 +111,18 @@
 		to_chat(user, span_warning("It's locked!"))
 		return ATTACK_CHAIN_PROCEED
 
+	return ..()
+
+/obj/item/storage/lockbox/Destroy()
+	if(drill)
+		drill.soundloop.stop()
+		drill.forceMove(loc)
+		drill = null
+		tried_alert = null
+		security_alert_chance = null
+	QDEL_NULL(progress_bar)
+	QDEL_NULL(drill_overlay)
+	clear_payback()
 	return ..()
 
 /obj/item/storage/lockbox/process()
@@ -121,13 +133,36 @@
 	add_overlay(progress_bar)
 	if(prob(DRILL_SPARK_CHANCE))
 		drill.spark_system.start()
-	if(!drill.spotted && drill.payback)
-		security_check()
+	if(!tried_alert && (world.time - drill_start_time) / time_to_drill) * 100 >= DRILLING_PERCENT_TO_ALERT)
+		try_alert_security()
 
 /obj/item/storage/lockbox/attack_self(mob/user) 
-	if(!drill)
-		return
-	remove_drill(user)
+	if(drill && !broken)
+		switch(tgui_alert(user, "Что вы собираетесь сделать?", "Дрель с усиленным сверлом", list("[drill_timer ? "Выключить" : "Включить"]", "Убрать дрель", "Отмена")))
+			if("Включить")
+				if(do_after(user, 2 SECONDS, src))
+					drill_timer = addtimer(CALLBACK(src, PROC_REF(drill_open)), time_to_drill, TIMER_STOPPABLE)
+					drill_start_time = world.time
+					drill.soundloop.start()
+					update_icon()
+					START_PROCESSING(SSobj, src)
+			if("Выключить")
+				if(do_after(user, 10 SECONDS, src)) //Can't be too easy to turn off
+					deltimer(drill_timer)
+					drill_timer = null
+					drill.soundloop.stop()
+					cut_overlay(progress_bar)
+					update_icon()
+					STOP_PROCESSING(SSobj, src)
+			if("Убрать дрель")
+				if(drill_timer)
+					user.balloon_alert(user, "дрель работает!")
+				else if(do_after(user, 2 SECONDS, src))
+					remove_drill(user)
+			if("Отмена")
+				return
+	else if(drill && broken)
+		remove_drill(user)
 
 /obj/item/storage/lockbox/dump_storage(mob/user, obj/item/storage/target)
 	if(locked)
@@ -175,6 +210,13 @@
 	cut_overlay(progress_bar)
 	update_icon()
 	STOP_PROCESSING(SSobj, src)
+
+/obj/item/storage/lockbox/proc/try_alert_security()
+	if(security_alert_chance && prob(security_alert_chance))
+		var/area/location = get_area(src)
+		speak("Попытка незаконного доступа к содержимому кейса в локации <b>[location]</b>.", alert_channel)
+		playsound(src, 'sound/machines/burglar_alarm.ogg', 50, FALSE)
+		tried_alert = TRUE
 
 /obj/item/storage/lockbox/hear_talk(mob/living/M, list/message_pieces)
 	if(locked)
