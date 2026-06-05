@@ -3956,6 +3956,7 @@
 #include "code\modules\spells\spell_types\aoe_spell\repulse.dm"
 #include "code\modules\spells\spell_types\aoe_spell\sacred_flame.dm"
 #include "code\modules\spells\spell_types\charged\_charged.dm"
+#include "code\modules\spells\spell_types\charged\lightning.dm"
 #include "code\modules\spells\spell_types\cone\_cone.dm"
 #include "code\modules\spells\spell_types\conjure\_conjure.dm"
 #include "code\modules\spells\spell_types\conjure\build.dm"
