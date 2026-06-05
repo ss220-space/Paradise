@@ -103,7 +103,7 @@
 		emag_act(user)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	if(istype(item, /obj/item/thermal_drill) && !broken && locked)
+	if(istype(item, /obj/item/thermal_drill) && allow_drilling && !broken && locked)
 		if(drill)
 			user.balloon_alert(user, "дрель уже стоит!")
 			return ATTACK_CHAIN_PROCEED
