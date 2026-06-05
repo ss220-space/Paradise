@@ -10,6 +10,8 @@
 	var/datum/song/thermal_drill/song
 	var/datum/looping_sound/thermal_drill/soundloop
 	var/datum/effect_system/spark_spread/spark_system
+	/// When drilling security case
+	var/security_alert_chance = 10
 
 /obj/item/thermal_drill/Initialize(mapload)
 	. = ..()
@@ -51,6 +53,7 @@
 	name = "amplified thermal safe drill"
 	desc = "A tungsten carbide thermal drill with magnetic clamps for the purpose of drilling hardened objects. Comes with an inbuilt morale booster and security detector, to assist in drilling."
 	payback = TRUE
+	security_alert_chance = 3
 
 /obj/item/thermal_drill/diamond_drill
 	name = "diamond tipped thermal safe drill"
@@ -62,3 +65,4 @@
 	name = "amplified diamond tipped thermal safe drill"
 	desc = "A diamond tipped thermal drill with magnetic clamps for the purpose of quickly drilling hardened objects. Comes with an inbuilt morale booster and security detector, to assist in drilling."
 	payback = TRUE
+	security_alert_chance = 3
