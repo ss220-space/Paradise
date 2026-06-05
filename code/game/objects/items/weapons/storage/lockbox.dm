@@ -161,8 +161,6 @@
 /obj/item/storage/lockbox/attack_self(mob/user) 
 	if(drill && !broken)
 		switch(tgui_alert(user, "Что вы собираетесь сделать?", "Дрель с усиленным сверлом", list("[drill_timer ? "Выключить" : "Включить"]", "Убрать дрель", "Отмена")))
-			if(!drill || broken || !drill_timer)
-				return
 			if("Включить")
 				if(!locked)
 					user.balloon_alert(user, "уже открыто.")
