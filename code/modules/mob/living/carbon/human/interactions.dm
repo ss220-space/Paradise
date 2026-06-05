@@ -41,6 +41,31 @@
 
 /datum/interactions
 	var/mob/living/carbon/human/owner
+	var/list/datum/interaction/available_interactions
+
+/datum/interactions/New()
+	available_interactions = list(
+        new /datum/interaction/bow,
+		new /datum/interaction/bow_affably,
+		new /datum/interaction/hands/wave,
+		new /datum/interaction/hands/fuckyou,
+		new /datum/interaction/hands/threaten,
+		new /datum/interaction/hands/adjacent/handshake,
+		new /datum/interaction/hands/adjacent/hug,
+		new /datum/interaction/hands/adjacent/cheer,
+		new /datum/interaction/hands/adjacent/slap,
+		new /datum/interaction/hands/adjacent/knock,
+		new /datum/interaction/hands/adjacent/pullwing,
+		new /datum/interaction/hands/adjacent/pull,
+		new /datum/interaction/hands/adjacent/pet,
+		new /datum/interaction/hands/adjacent/scratch,
+		new /datum/interaction/hands/adjacent/mutual/five,
+		new /datum/interaction/hands/adjacent/mutual/give,
+		new /datum/interaction/mouth/kiss,
+		new /datum/interaction/mouth/tongue,
+		new /datum/interaction/mouth/adjacent/spit,
+		new /datum/interaction/mouth/adjacent/mutual/lick
+    )
 
 /datum/interactions/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -50,9 +75,6 @@
 
 /datum/interactions/ui_data(mob/user)
 	var/list/data = list()
-
-	data["interactions"] = list()
-
 	var/mob/living/carbon/human/H = user
 	var/mob/living/carbon/human/P = H.partner
 
@@ -61,154 +83,18 @@
 		data["interactions"] = list()
 		return data
 
-	data["partner"] = "[H.partner]"
+	data["partner"] = "[P]"
 
-	var/obj/item/organ/external/temp = H.bodyparts_by_name[BODY_ZONE_PRECISE_R_HAND]
-	var/hashands = (temp?.is_usable())
-	if(!hashands)
-		temp = H.bodyparts_by_name[BODY_ZONE_PRECISE_L_HAND]
-		hashands = (temp?.is_usable())
-	temp = P.bodyparts_by_name[BODY_ZONE_PRECISE_R_HAND]
-	var/hashands_p = (temp?.is_usable())
-	if(!hashands_p)
-		temp = P.bodyparts_by_name[BODY_ZONE_PRECISE_L_HAND]
-		hashands_p = (temp?.is_usable())
-	var/mouthfree = !((H.head && (H.head.flags_cover & HEADCOVERSMOUTH)) || (H.wear_mask && (H.wear_mask.flags_cover & MASKCOVERSMOUTH)))
-	var/mouthfree_p = !((P.head && (P.head.flags_cover & HEADCOVERSMOUTH)) || (P.wear_mask && (P.wear_mask.flags_cover & MASKCOVERSMOUTH)))
-
-	data["interactions"] += list(list(
-        	"category" = "",
-        	"action" = "bow",
-        	"label" = "Отвесить поклон.",
-        	"danger" = FALSE
-   		))
-	if(hashands)
-		// category, action, label, is_danger
-		data["interactions"] += list(list(
-        	"category" = "hands",
-        	"action" = "wave",
-        	"label" = "Приветливо помахать.",
-        	"danger" = FALSE
-   		))
-		data["interactions"] += list(list(
-        	"category" = "hands",
-        	"action" = "bow_affably",
-        	"label" = "Приветливо помахать.",
-        	"danger" = FALSE
-   		))
-		if(H.Adjacent(P))
-			data["interactions"] += list(list(
-        		"category" = "hands",
-        		"action" = "handshake",
-        		"label" = "Пожать руку.",
-        		"danger" = FALSE
-   			))
-			data["interactions"] += list(list(
-        		"category" = "hands",
-        		"action" = "hug",
-        		"label" = "Обнимашки!",
-        		"danger" = FALSE
-   			))
-			data["interactions"] += list(list(
-        		"category" = "hands",
-        		"action" = "cheer",
-        		"label" = "Похлопать по плечу",
-        		"danger" = FALSE
-   			))
-			data["interactions"] += list(list(
-        		"category" = "hands",
-        		"action" = "five",
-        		"label" = "Дать пять.",
-        		"danger" = FALSE
-   			))
-			if(hashands_p)
-				data["interactions"] += list(list(
-        			"category" = "hands",
-        			"action" = "give",
-        			"label" = "Передать предмет.",
-        			"danger" = FALSE
-   				))
-			data["interactions"] += list(list(
-        		"category" = "hands",
-        		"action" = "slap",
-        		"label" = "Дать пощечину!",
-        		"danger" = TRUE
-   			))
-			if(P.dna.species.name == SPECIES_MOTH)
-				data["interactions"] += list(list(
-        			"category" = "hands",
-        			"action" = "pullwing",
-        			"label" = "Дёрнуть за крылья!",
-        			"danger" = TRUE
-   				))
-			if((P.dna.species.name == SPECIES_TAJARAN)  || (P.dna.species.name == SPECIES_VOX)|| (P.dna.species.name == SPECIES_VULPKANIN) || (P.dna.species.name == SPECIES_UNATHI))
-				data["interactions"] += list(list(
-        			"category" = "hands",
-        			"action" = "pull",
-        			"label" = "Дёрнуть за хвост!",
-        			"danger" = TRUE
-   				))
-				if(P.can_inject(H))
-					data["interactions"] += list(list(
-        				"category" = "hands",
-        				"action" = "pet",
-        				"label" = "Погладить.",
-        				"danger" = FALSE
-   					))
-					data["interactions"] += list(list(
-        				"category" = "hands",
-        				"action" = "scratch",
-        				"label" = "Почесать",
-        				"danger" = FALSE
-   					))
-			data["interactions"] += list(list(
-        		"category" = "hands",
-        		"action" = "knock",
-        		"label" = "Дать подзатыльник.",
-        		"danger" = TRUE
-   			))
-		data["interactions"] += list(list(
-    		"category" = "hands",
-    		"action" = "fuckyou",
-    		"label" = "Показать средний палец.",
-    		"danger" = TRUE
-   		))
-		data["interactions"] += list(list(
-    		"category" = "hands",
-    		"action" = "threaten",
-    		"label" = "Погрозить кулаком.",
-    		"danger" = TRUE
-   		))
-
-	if(mouthfree && H.dna.species.name != SPECIES_DIONA)
-		data["interactions"] += list(list(
-    		"category" = "mouth",
-    		"action" = "kiss",
-    		"label" = "Поцеловать.",
-    		"danger" = FALSE
-   		))
-		if(H.Adjacent(P))
-			if(mouthfree_p)
-				data["interactions"] += list(list(
-    				"category" = "mouth",
-    				"action" = "lick",
-    				"label" = "Лизнуть в щеку.",
-    				"danger" = FALSE
-   				))
-
-			data["interactions"] += list(list(
-    				"category" = "mouth",
-    				"action" = "spit",
-    				"label" = "Плюнуть.",
-    				"danger" = TRUE
-   				))
-		data["interactions"] += list(list(
-			"category" = "mouth",
-			"action" = "tongue",
-			"label" = "Показать язык.",
-			"danger" = TRUE
-   		))
-
+	var/list/interactions = list()
+	for(var/datum/interaction/I in available_interactions)
+		if(I.is_available(H, P))
+			interactions += list(list(
+				"category" = I.category,
+				"action" = I.action,
+				"label" = I.label,
+				"danger" = I.danger
+			))
+	data["interactions"] = interactions
 	return data
 
 /datum/interactions/ui_act(action, params, datum/tgui/ui)
@@ -228,213 +114,11 @@
 
 	H.last_interract = world.time
 
-	switch(action)
-		if("bow")
-			H.custom_emote(message = "кланя[PLUR_ET_YUT(H)]ся [P].")
-
-		if("pet")
-			if(HAS_TRAIT(H, TRAIT_HANDS_BLOCKED) || !P.Adjacent(H.loc))
-				return
-
-			H.custom_emote(message = "[pick("глад[PLUR_IT_YAT(H)]", "поглажива[PLUR_ET_YUT(H)]")] [P].")
-
-		if("scratch")
-			if(HAS_TRAIT(H, TRAIT_HANDS_BLOCKED) || !P.Adjacent(H.loc))
-				return
-
-			if(H.zone_selected != BODY_ZONE_HEAD || ismachineperson(P) || isunathi(P) || isgrey(P))
-				H.custom_emote(message = "[pick("чеш[PLUR_ET_UT(H)]")] [P].")
-
-			else
-				H.custom_emote(message = "[pick("чеш[PLUR_ET_UT(H)] за ухом", "чеш[PLUR_ET_UT(H)] голову")] [P].")
-
-		if("give")
-			if(!P.Adjacent(H.loc))
-				return
-
-			H.give(P)
-
-		if("kiss")
-			if(!get_location_accessible(H, BODY_ZONE_PRECISE_MOUTH))
-				return
-
-			if(!P.Adjacent(H.loc))
-				H.custom_emote(message = "посыла[PLUR_ET_YUT(H)] [P] воздушный поцелуй.")
-
-			else if(get_location_accessible(P, BODY_ZONE_PRECISE_MOUTH))
-				H.custom_emote(message = "целу[PLUR_ET_YUT(H)] [P].")
-
-		if("lick")
-			if(!P.Adjacent(H.loc) || !get_location_accessible(H, BODY_ZONE_PRECISE_MOUTH) || !get_location_accessible(P, BODY_ZONE_PRECISE_MOUTH))
-				return
-
-			if(prob(90))
-				H.custom_emote(message = "лизнул[GEND_A_O_I(H)] [P] в щеку.")
-
-			else
-				H.custom_emote(message = "особо тщательно лизнул[GEND_A_O_I(H)] [P].")
-
-		if("hug")
-			if(HAS_TRAIT(H, TRAIT_HANDS_BLOCKED) || !P.Adjacent(H.loc))
-				return
-
-			H.custom_emote(message = "обнима[PLUR_ET_YUT(H)] [P].")
-			playsound(H.loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
-
-		if("cheer")
-			if(HAS_TRAIT(H, TRAIT_HANDS_BLOCKED) || !P.Adjacent(H.loc))
-				return
-
-			H.custom_emote(message = "похлопыва[PLUR_ET_YUT(H)] [P] по плечу.")
-
-		if("five")
-			if(HAS_TRAIT(H, TRAIT_HANDS_BLOCKED) || !P.Adjacent(H.loc))
-				return
-
-			H.custom_emote(message = "да[PLUR_YOT_YUT(H)] [P] пять.")
-			playsound(H.loc, 'sound/effects/snap.ogg', 25, TRUE, -1)
-
-		if("handshake")
-			if(HAS_TRAIT(H, TRAIT_HANDS_BLOCKED) || HAS_TRAIT(P, TRAIT_HANDS_BLOCKED) || !P.Adjacent(H.loc))
-				return
-
-			H.custom_emote(message = "жм[PLUR_YOT_UT(H)] руку [P].")
-
-		if("bow_affably")
-			H.custom_emote(message = "приветливо кивнул[GEND_A_O_I(H)] в сторону [P].")
-
-		if("wave")
-			if(HAS_TRAIT(H, TRAIT_HANDS_BLOCKED))
-				return
-
-			H.custom_emote(message = "приветливо маш[PLUR_ET_UT(H)] в сторону [P].")
-
-		if("slap")
-			if(HAS_TRAIT(H, TRAIT_HANDS_BLOCKED) || !P.Adjacent(H.loc))
-				return
-
-			var/obj/item/organ/external/targeted_organ = P.get_organ(H.zone_selected)
-			if(!targeted_organ)
-				return
-
-			switch(H.zone_selected)
-				if(BODY_ZONE_HEAD)
-					H.custom_emote(message = span_danger("да[PLUR_ET_YUT(H)] [P] пощечину!"))
-
-				if(BODY_ZONE_PRECISE_GROIN)
-					H.custom_emote(message = span_danger("шлёпа[PLUR_ET_YUT(H)] [P] по заднице!"))
-
-				if(BODY_ZONE_PRECISE_MOUTH)
-					H.custom_emote(message = span_danger("да[PLUR_ET_YUT(H)] [P] по губе!"))
-
-				else
-					return
-
-			if(targeted_organ.brute_dam < 5)
-				P.apply_damage(1, def_zone = targeted_organ)
-
-			playsound(H.loc, 'sound/effects/snap.ogg', 50, TRUE, -1)
-			H.do_attack_animation(P)
-
-		if("fuckyou")
-			if(HAS_TRAIT(H, TRAIT_HANDS_BLOCKED))
-				return
-
-			H.custom_emote(message = span_danger("показыва[PLUR_ET_YUT(H)] [P] средний палец!"))
-
-		if("knock")
-			if(HAS_TRAIT(H, TRAIT_HANDS_BLOCKED) || !P.Adjacent(H.loc))
-				return
-
-			var/obj/item/organ/external/head/head = P.get_organ(BODY_ZONE_HEAD)
-			if(!head)
-				return
-
-			if(head.brute_dam < 5)
-				P.apply_damage(1, def_zone = head)
-
-			H.custom_emote(message = span_danger("да[PLUR_ET_YUT(H)] [P] подзатыльник!"))
-			playsound(H.loc, 'sound/weapons/throwtap.ogg', 50, TRUE, -1)
-			H.do_attack_animation(P)
-
-		if("spit")
-			if(!P.Adjacent(H.loc) || !get_location_accessible(H, BODY_ZONE_PRECISE_MOUTH))
-				return
-
-			H.custom_emote(message = span_danger("плю[PLUR_YOT_YUT(H)] в [P]!"))
-
-			if(prob(20))
-				P.AdjustEyeBlurry(3 SECONDS)
-
-		if("threaten")
-			if(HAS_TRAIT(H, TRAIT_HANDS_BLOCKED))
-				return
-
-			H.custom_emote(message = span_danger("гроз[PLUR_IT_YAT(H)] [P] кулаком!"))
-
-		if("tongue")
-			if(!get_location_accessible(H, BODY_ZONE_PRECISE_MOUTH))
-				return
-
-			H.custom_emote(message = span_danger("показыва[PLUR_ET_YUT(H)] [P] язык!"))
-
-		if("pullwing")
-			if(HAS_TRAIT(H, TRAIT_HANDS_BLOCKED) || !P.Adjacent(H.loc))
-				return
-
-			var/obj/item/organ/external/wing/wing = P.get_organ(BODY_ZONE_WING)
-			if(!wing)
-				H.custom_emote(message = "пыта[PLUR_ET_YUT(H)]ся поймать [P] за крылья, [span_danger("КОТОРЫХ НЕТ!!!")]")
-				return
-
-			if(!prob(30))
-				H.custom_emote(message = "пыта[PLUR_ET_YUT(H)]ся поймать [P] за крылья!")
-				return
-
-			if((wing.is_dead() || wing.has_fracture()) && prob(20))
-				H.custom_emote(message = span_danger("отрыва[PLUR_ET_YUT(H)] [P] крылья!"))
-				wing.droplimb()
-				return
-
-			if(wing.brute_dam < 10)
-				P.apply_damage(1, def_zone = wing)
-
-			H.custom_emote(message = span_danger("дёрга[PLUR_ET_YUT(H)] [P] за крылья!"))
-
-		if("pull")
-			if(HAS_TRAIT(H, TRAIT_HANDS_BLOCKED) || !P.Adjacent(H.loc))
-				return
-
-			var/obj/item/organ/external/tail/tail = P.get_organ(BODY_ZONE_TAIL)
-			if(!tail)
-				H.custom_emote(message = "пыта[PLUR_ET_YUT(H)]ся поймать [P] за хвост, [span_danger("КОТОРОГО НЕТ!!!")]")
-				return
-
-			var/obj/item/organ/internal/cyberimp/tail/blade/implant = P.get_organ_slot(INTERNAL_ORGAN_TAIL_DEVICE)
-			if(istype(implant) && implant.activated)  // KEEP YOUR HANDS AWAY FROM ME!
-				if(H.has_pain())
-					H.emote("scream")
-
-				H.custom_emote(message = span_danger("пыта[PLUR_ET_YUT(H)]ся дёрнуть [P] за хвост, но резко одёргива[PLUR_ET_YUT(H)] руки!"))
-				H.apply_damage(5, implant.damage_type, BODY_ZONE_PRECISE_R_HAND)
-				H.apply_damage(5, implant.damage_type, BODY_ZONE_PRECISE_L_HAND)
-				return
-
-			if(prob(70))
-				H.custom_emote(message = "пыта[PLUR_ET_YUT(H)]ся поймать [P] за хвост!")
-				return
-
-			if((tail.is_dead() || tail.has_fracture()) && prob(20))
-				H.custom_emote(message = span_danger("отрыва[PLUR_ET_YUT(H)] [P] хвост!"))
-				tail.droplimb()
-				return
-
-			if(tail.brute_dam < 10)
-				P.apply_damage(1, def_zone = tail)
-
-			H.custom_emote(message = span_danger("дёрга[PLUR_ET_YUT(H)] [P] за хвост!"))
-	H.update_icon()
-	return TRUE
+	for(var/datum/interaction/I in available_interactions)
+		if(I.action == action && I.is_available(H, P))
+			I.execute(H, P)
+			H.update_icon()
+			return TRUE
 
 
 /datum/ui_state/interaction_state

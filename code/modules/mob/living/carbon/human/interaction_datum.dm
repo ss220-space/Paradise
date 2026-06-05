@@ -1,21 +1,24 @@
+/// Interaction without category
 /datum/interaction
 	var/category = ""
 	var/action
 	var/label
 	var/danger = FALSE
 
-/datum/interaction/proc/is_available(/mob/living/carbon/human/user, /mob/living/carbon/human/target)
+/// It is used to check for the possibility to use this interaction. Redefined for different types of interactions
+/datum/interaction/proc/is_available(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	return TRUE
 
-/datum/interaction/proc/execute(/mob/living/carbon/human/user, /mob/living/carbon/human/target)
+// Used to execute the interaction
+/datum/interaction/proc/execute(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	return
 
-/* Without category */
+
 /datum/interaction/bow
 	action = "bow"
 	label = "Отвесить поклон"
 
-/datum/interaction/bow/execute(/mob/living/carbon/human/user, /mob/living/carbon/human/target)
+/datum/interaction/bow/execute(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	user.custom_emote(message = "кланя[PLUR_ET_YUT(user)]ся [target].")
 
 
@@ -23,15 +26,15 @@
 	action = "bow_affably"
 	label = "Приветливо кивнуть"
 
-/datum/interaction/bow_affably/execute(/mob/living/carbon/human/user, /mob/living/carbon/human/target)
+/datum/interaction/bow_affably/execute(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	user.custom_emote(message = "приветливо кивнул[GEND_A_O_I(user)] в сторону [target].")
 
-/* Hands */
 
+/// Interaction with the Hands category requires ONLY the user to have hands
 /datum/interaction/hands
 	category = "hands"
 
-/datum/interaction/hands/is_available(/mob/living/carbon/human/user, /mob/living/carbon/human/target)
+/datum/interaction/hands/is_available(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return FALSE
 
@@ -46,7 +49,7 @@
 	action = "wave"
 	label = "Приветливо помахать"
 
-/datum/interaction/hands/wave/execute(/mob/living/carbon/human/user, /mob/living/carbon/human/target)
+/datum/interaction/hands/wave/execute(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	user.custom_emote(message = "приветливо маш[PLUR_ET_UT(user)] в сторону [target].")
 
 
@@ -55,7 +58,7 @@
 	label = "Показать средний палец"
 	danger = TRUE
 
-/datum/interaction/hands/fuckyou/execute(/mob/living/carbon/human/user, /mob/living/carbon/human/target)
+/datum/interaction/hands/fuckyou/execute(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	user.custom_emote(message = span_danger("показыва[PLUR_ET_YUT(user)] [target] средний палец!"))
 
 
@@ -63,13 +66,13 @@
 	action = "threaten"
 	label = "Погрозить кулаком"
 
-/datum/interaction/hands/threaten/execute(/mob/living/carbon/human/user, /mob/living/carbon/human/target)
+/datum/interaction/hands/threaten/execute(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	user.custom_emote(message = span_danger("гроз[PLUR_IT_YAT(user)] [target] кулаком!"))
 
-
+/// An interaction that requires to be adjacent
 /datum/interaction/hands/adjacent
 
-/datum/interaction/hands/adjacent/is_available(/mob/living/carbon/human/user, /mob/living/carbon/human/target)
+/datum/interaction/hands/adjacent/is_available(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	. = ..()
 	if(.)
 		. = user.Adjacent(target)
@@ -79,7 +82,7 @@
 	action = "handshake"
 	label = "Пожать руку"
 
-/datum/interaction/hands/adjacent/handshake/execute(/mob/living/carbon/human/user, /mob/living/carbon/human/target)
+/datum/interaction/hands/adjacent/handshake/execute(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	user.custom_emote(message = "жм[PLUR_YOT_UT(user)] руку [target].")
 
 
@@ -87,7 +90,7 @@
 	action = "hug"
 	label = "Обнимашки!"
 
-/datum/interaction/hands/adjacent/hug/execute(/mob/living/carbon/human/user, /mob/living/carbon/human/target)
+/datum/interaction/hands/adjacent/hug/execute(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	user.custom_emote(message = "обнима[PLUR_ET_YUT(user)] [target].")
 	playsound(user.loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 
@@ -96,7 +99,7 @@
 	action = "cheer"
 	label = "Похлопать по плечу"
 
-/datum/interaction/hands/adjacent/cheer/execute(/mob/living/carbon/human/user, /mob/living/carbon/human/target)
+/datum/interaction/hands/adjacent/cheer/execute(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	user.custom_emote(message = "похлопыва[PLUR_ET_YUT(user)] [target] по плечу.")
 
 
@@ -105,7 +108,7 @@
 	label = "Дать пощечину!"
 	danger = TRUE
 
-/datum/interaction/hands/adjacent/slap/execute(/mob/living/carbon/human/user, /mob/living/carbon/human/target)
+/datum/interaction/hands/adjacent/slap/execute(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	var/obj/item/organ/external/targeted_organ = target.get_organ(user.zone_selected)
 	if(!targeted_organ)
 		return
@@ -131,7 +134,7 @@
 	label = "Дать подзатыльник"
 	danger = TRUE
 
-/datum/interaction/hands/adjacent/knock/execute(/mob/living/carbon/human/user, /mob/living/carbon/human/target)
+/datum/interaction/hands/adjacent/knock/execute(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	var/obj/item/organ/external/head/head = target.get_organ(BODY_ZONE_HEAD)
 	if(!head)
 		return
@@ -148,12 +151,12 @@
 	action = "pullwing"
 	label = "Дёрнуть за крылья!"
 
-/datum/interaction/hands/adjacent/pullwing/is_available(/mob/living/carbon/human/user, /mob/living/carbon/human/target)
+/datum/interaction/hands/adjacent/pullwing/is_available(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	. = ..()
 	if(.)
 		return target.dna.species.name == SPECIES_MOTH
 
-/datum/interaction/hands/adjacent/pullwing/execute(/mob/living/carbon/human/user, /mob/living/carbon/human/target)
+/datum/interaction/hands/adjacent/pullwing/execute(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	var/obj/item/organ/external/wing/wing = target.get_organ(BODY_ZONE_WING)
 	if(!wing)
 		user.custom_emote(message = "пыта[PLUR_ET_YUT(user)]ся поймать [target] за крылья, [span_danger("КОТОРЫХ НЕТ!!!")]")
@@ -171,7 +174,7 @@
 	if(wing.brute_dam < 10)
 		target.apply_damage(1, def_zone = wing)
 
-	user.custom_emote(message = span_danger("дёрга[PLUR_ET_YUT(H)] [target] за крылья!"))
+	user.custom_emote(message = span_danger("дёрга[PLUR_ET_YUT(user)] [target] за крылья!"))
 
 
 /datum/interaction/hands/adjacent/pull
@@ -179,12 +182,12 @@
 	label = "Дёрнуть за хвост!"
 	danger = TRUE
 
-/datum/interaction/hands/adjacent/pull/is_available(/mob/living/carbon/human/user, /mob/living/carbon/human/target)
+/datum/interaction/hands/adjacent/pull/is_available(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	. = ..()
 	if(.)
 		return (target.dna.species.name == SPECIES_TAJARAN)  || (target.dna.species.name == SPECIES_VOX)|| (target.dna.species.name == SPECIES_VULPKANIN) || (target.dna.species.name == SPECIES_UNATHI)
 
-/datum/interaction/hands/adjacent/pull/execute(/mob/living/carbon/human/user, /mob/living/carbon/human/target)
+/datum/interaction/hands/adjacent/pull/execute(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	var/obj/item/organ/external/tail/tail = target.get_organ(BODY_ZONE_TAIL)
 	if(!tail)
 		user.custom_emote(message = "пыта[PLUR_ET_YUT(user)]ся поймать [target] за хвост, [span_danger("КОТОРОГО НЕТ!!!")]")
@@ -219,13 +222,13 @@
 	action = "pet"
 	label = "Погладить"
 
-/datum/interaction/hands/adjacent/pet/is_available(/mob/living/carbon/human/user, /mob/living/carbon/human/target)
+/datum/interaction/hands/adjacent/pet/is_available(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	. = ..()
 	if(.)
-		. = (P.dna.species.name == SPECIES_TAJARAN)  || (P.dna.species.name == SPECIES_VOX)|| (P.dna.species.name == SPECIES_VULPKANIN) || (P.dna.species.name == SPECIES_UNATHI)
+		. = (target.dna.species.name == SPECIES_TAJARAN)  || (target.dna.species.name == SPECIES_VOX)|| (target.dna.species.name == SPECIES_VULPKANIN) || (target.dna.species.name == SPECIES_UNATHI)
 		. &= target.can_inject(user)
 
-/datum/interaction/hands/adjacent/pet/execute(/mob/living/carbon/human/user, /mob/living/carbon/human/target)
+/datum/interaction/hands/adjacent/pet/execute(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	user.custom_emote(message = "[pick("глад[PLUR_IT_YAT(user)]", "поглажива[PLUR_ET_YUT(user)]")] [target].")
 
 
@@ -233,27 +236,29 @@
 	action = "scratch"
 	label = "Почесать"
 
-/datum/interaction/hands/adjacent/scratch/is_available(/mob/living/carbon/human/user, /mob/living/carbon/human/target)
+/datum/interaction/hands/adjacent/scratch/is_available(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	. = ..()
 	if(.)
-		. = (P.dna.species.name == SPECIES_TAJARAN)  || (P.dna.species.name == SPECIES_VOX)|| (P.dna.species.name == SPECIES_VULPKANIN) || (P.dna.species.name == SPECIES_UNATHI)
+		. = (target.dna.species.name == SPECIES_TAJARAN)  || (target.dna.species.name == SPECIES_VOX)|| (target.dna.species.name == SPECIES_VULPKANIN) || (target.dna.species.name == SPECIES_UNATHI)
 		. &= target.can_inject(user)
 
-/datum/interaction/hands/adjacent/scratch/execute(/mob/living/carbon/human/user, /mob/living/carbon/human/target)
+/datum/interaction/hands/adjacent/scratch/execute(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	if(user.zone_selected != BODY_ZONE_HEAD || ismachineperson(target) || isunathi(target) || isgrey(target))
 		user.custom_emote(message = "[pick("чеш[PLUR_ET_UT(user)]")] [target].")
 	else
 		user.custom_emote(message = "[pick("чеш[PLUR_ET_UT(user)] за ухом", "чеш[PLUR_ET_UT(user)] голову")] [target].")
 
 
+/// Interaction with the Hands category requires the user and the target to have hands
 /datum/interaction/hands/adjacent/mutual
 
-/datum/interaction/hands/adjacent/mutual/is_available(/mob/living/carbon/human/user, /mob/living/carbon/human/target)
-		. = ..()
+/datum/interaction/hands/adjacent/mutual/is_available(mob/living/carbon/human/user, mob/living/carbon/human/target)
+	. = ..()
 	if(.)
+		var/obj/item/organ/external/temp = target.bodyparts_by_name[BODY_ZONE_PRECISE_R_HAND]
 		. = (temp?.is_usable())
 		if(!.)
-			temp = P.bodyparts_by_name[BODY_ZONE_PRECISE_L_HAND]
+			temp = target.bodyparts_by_name[BODY_ZONE_PRECISE_L_HAND]
 			. = (temp?.is_usable())
 
 
@@ -261,7 +266,7 @@
 	action = "five"
 	label = "Дать пять"
 
-/datum/interaction/hands/adjacent/mutual/five/execute(/mob/living/carbon/human/user, /mob/living/carbon/human/target)
+/datum/interaction/hands/adjacent/mutual/five/execute(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	user.custom_emote(message = "да[PLUR_YOT_YUT(user)] [target] пять.")
 	playsound(user.loc, 'sound/effects/snap.ogg', 25, TRUE, -1)
 
@@ -270,15 +275,14 @@
 	action = "give"
 	label = "Передать предмет"
 
-/datum/interaction/hands/adjacent/mutual/give/execute(/mob/living/carbon/human/user, /mob/living/carbon/human/target)
-	if(!user.Adjacent(target))
-		return
+/datum/interaction/hands/adjacent/mutual/give/execute(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	user.give(target)
 
-
+/// Interaction with the Mouth category
 /datum/interaction/mouth
+	category = "mouth"
 
-/datum/interaction/mouth/is_available(/mob/living/carbon/human/user, /mob/living/carbon/human/target)
+/datum/interaction/mouth/is_available(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	. = !((user.head && (user.head.flags_cover & HEADCOVERSMOUTH)) || (user.wear_mask && (user.wear_mask.flags_cover & MASKCOVERSMOUTH)))
 	. &= user.dna.species.name != SPECIES_DIONA
 
@@ -287,7 +291,7 @@
 	action = "kiss"
 	label = "Поцеловать"
 
-/datum/interaction/mouth/kiss/execute(/mob/living/carbon/human/user, /mob/living/carbon/human/target)
+/datum/interaction/mouth/kiss/execute(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	if(!get_location_accessible(user, BODY_ZONE_PRECISE_MOUTH))
 		return
 
@@ -303,13 +307,13 @@
 	label = "Показать язык"
 	danger = TRUE
 
-/datum/interaction/mouth/tongue/execute(/mob/living/carbon/human/user, /mob/living/carbon/human/target)
+/datum/interaction/mouth/tongue/execute(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	user.custom_emote(message = span_danger("показыва[PLUR_ET_YUT(user)] [target] язык!"))
 
-
+/// Interaction with the Mouth category that requires to be adjacent
 /datum/interaction/mouth/adjacent
 
-/datum/interaction/mouth/adjacent/is_available(/mob/living/carbon/human/user, /mob/living/carbon/human/target)
+/datum/interaction/mouth/adjacent/is_available(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	. = ..()
 	if(.)
 		. = user.Adjacent(target)
@@ -320,19 +324,20 @@
 	label = "Плюнуть"
 	danger = TRUE
 
-/datum/interaction/mouth/adjacent/spit/execute(/mob/living/carbon/human/user, /mob/living/carbon/human/target)
+/datum/interaction/mouth/adjacent/spit/execute(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	if(!target.Adjacent(user.loc) || !get_location_accessible(user, BODY_ZONE_PRECISE_MOUTH))
 		return
 
 	user.custom_emote(message = span_danger("плю[PLUR_YOT_YUT(user)] в [target]!"))
 
 	if(prob(20))
-		target.AdjustEyeBlurry(3 SECOND)
+		target.AdjustEyeBlurry(3 SECONDS)
 
 
+/// Interaction with the Mouth category requires having an accessible mouth for the user and the target
 /datum/interaction/mouth/adjacent/mutual
 
-/datum/interaction/mouth/adjacent/mutual/is_available(/mob/living/carbon/human/user, /mob/living/carbon/human/target)
+/datum/interaction/mouth/adjacent/mutual/is_available(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	. = ..()
 	if(.)
 		. = !((target.head && (target.head.flags_cover & HEADCOVERSMOUTH)) || (target.wear_mask && (target.wear_mask.flags_cover & MASKCOVERSMOUTH)))
@@ -341,8 +346,8 @@
 	action = "lick"
 	label = "Лизнуть в щеку"
 
-/datum/interaction/mouth/adjacent/mutual/lick/execute(/mob/living/carbon/human/user, /mob/living/carbon/human/target)
-	if(!target.Adjacent(user.loc) || !get_location_accessible(user, BODY_ZONE_PRECISE_MOUTH) || !get_location_accessible(P, BODY_ZONE_PRECISE_MOUTH))
+/datum/interaction/mouth/adjacent/mutual/lick/execute(mob/living/carbon/human/user, mob/living/carbon/human/target)
+	if(!target.Adjacent(user.loc) || !get_location_accessible(user, BODY_ZONE_PRECISE_MOUTH) || !get_location_accessible(target, BODY_ZONE_PRECISE_MOUTH))
 		return
 
 	if(prob(90))

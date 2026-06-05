@@ -3190,6 +3190,7 @@
 #include "code\modules\mob\living\carbon\human\human_vv.dm"
 #include "code\modules\mob\living\carbon\human\init_signals.dm"
 #include "code\modules\mob\living\carbon\human\interactions.dm"
+#include "code\modules\mob\living\carbon\human\interaction_datum.dm"
 #include "code\modules\mob\living\carbon\human\inventory.dm"
 #include "code\modules\mob\living\carbon\human\life.dm"
 #include "code\modules\mob\living\carbon\human\login.dm"
