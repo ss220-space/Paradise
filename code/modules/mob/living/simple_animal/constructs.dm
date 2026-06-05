@@ -294,7 +294,7 @@
 		/datum/action/cooldown/spell/conjure/wall/holy,
 		/datum/action/cooldown/spell/conjure/floor/holy,
 		/datum/action/cooldown/spell/conjure/pylon/holy,
-		/datum/action/cooldown/spell/conjure_item/soulstone/holy
+		/datum/action/cooldown/spell/conjure_item/soulstone/holy,
 	)
 
 /////////////////////////////Behemoth/////////////////////////
