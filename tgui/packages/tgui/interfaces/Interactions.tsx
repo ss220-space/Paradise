@@ -18,7 +18,10 @@ export const Interactions = (props) => {
   const { act, data } = useBackend<Data>();
   const { partner, interactions } = data;
   return (
-    <Window width={320} height={540}>
+    <Window
+    width={320}
+    height={540}
+    title={`Взаимодействие с ${partner}`}>
       <Window.Content>
         <Section title="">
           {interactions
@@ -26,7 +29,7 @@ export const Interactions = (props) => {
           .map((interaction) => (
           <Button
               key={interaction.action}
-              color={interaction.danger ? "red" : "grey"}
+              color={interaction.danger ? "red" : "blue"}
               onClick={() => act(interaction.action)}
             >
               {interaction.label}
@@ -39,7 +42,7 @@ export const Interactions = (props) => {
           .map((interaction) => (
           <Button
               key={interaction.action}
-              color={interaction.danger ? "red" : "grey"}
+              color={interaction.danger ? "red" : "blue"}
               onClick={() => act(interaction.action)}
             >
               {interaction.label}
@@ -52,7 +55,7 @@ export const Interactions = (props) => {
           .map((interaction) => (
           <Button
               key={interaction.action}
-              color={interaction.danger ? "red" : "grey"}
+              color={interaction.danger ? "red" : "blue"}
               onClick={() => act(interaction.action)}
             >
               {interaction.label}
