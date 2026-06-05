@@ -604,6 +604,7 @@
 	can_hold = list(/obj/item/reagent_containers/glass/beaker/vial)
 	storage_slots = 6
 	req_access = list(ACCESS_VIROLOGY)
+	allow_drilling = FALSE /// Because it looks very bad
 
 /obj/item/storage/lockbox/vials/get_ru_names()
 	return alist(
