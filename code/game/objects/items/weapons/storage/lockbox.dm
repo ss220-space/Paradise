@@ -1,5 +1,5 @@
-#define DRILL_SPARK_CHANCE 15
-#define DRILL_TIME 150 SECONDS
+#define LOCKBOX_DRILL_SPARK_CHANCE 15
+#define LOCKBOX_DRILL_TIME 150 SECONDS
 #define DRILLING_PERCENT_TO_ALERT 30
 
 /obj/item/storage/lockbox
@@ -113,7 +113,7 @@
 		if(!user.drop_transfer_item_to_loc(item, src))
 			return ATTACK_CHAIN_PROCEED
 		drill = item
-		time_to_drill = DRILL_TIME * drill.time_multiplier
+		time_to_drill = LOCKBOX_DRILL_TIME * drill.time_multiplier
 		security_alert_chance = drill.security_alert_chance
 		tried_alert = FALSE
 		update_icon()
@@ -153,7 +153,7 @@
 	matrix.Translate(0, progress_bar_y_offset)
 	progress_bar.transform = matrix
 	add_overlay(progress_bar)
-	if(prob(DRILL_SPARK_CHANCE))
+	if(prob(LOCKBOX_DRILL_SPARK_CHANCE))
 		drill.spark_system.start()
 	if(!tried_alert && ((world.time - drill_start_time) / time_to_drill) * 100 >= DRILLING_PERCENT_TO_ALERT)
 		try_alert_security()
