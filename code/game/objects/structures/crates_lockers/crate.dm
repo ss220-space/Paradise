@@ -246,3 +246,9 @@
 			return
 		shelf.load(src, user, y_offset)
 		return
+
+/obj/structure/closet/crate/get_uplink_log_items()
+	. = list()
+	. += src
+	for(var/obj/item/contained_item in contents)
+		. += contained_item.get_uplink_log_items()
