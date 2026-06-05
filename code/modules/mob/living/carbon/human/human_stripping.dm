@@ -26,10 +26,13 @@ GLOBAL_LIST_INIT(strippable_human_items, create_strippable_list(list(
 )))
 
 /mob/living/carbon/human/proc/should_strip(mob/user)
-	if(isrobot(user) && user.pulling == src && user.grab_state == GRAB_PASSIVE)
-		return !user.can_buckle || !src.can_buckle_to
+	if(user.pulling != src)
+		return TRUE
 
-	if(user.pulling != src || user.grab_state != GRAB_AGGRESSIVE)
+	if(isrobot(user))
+		return !user.can_buckle || !can_buckle_to
+
+	if(user.grab_state != GRAB_AGGRESSIVE)
 		return TRUE
 
 	if(ishuman(user))
