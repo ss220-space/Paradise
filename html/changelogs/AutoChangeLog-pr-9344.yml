@@ -1,0 +1,5 @@
+author: "kkadmor"
+delete-after: True
+changes:
+  - bugfix: "Щиткур гоблин выбирает правильную цель и не вызывает краш при многократном qdel (PR #9344)"
+  - spellcheck: "Привзка -> Привязка (PR #9344)"
