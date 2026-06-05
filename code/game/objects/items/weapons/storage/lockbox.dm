@@ -41,12 +41,12 @@
 
 /obj/item/storage/lockbox/get_ru_names()
 	return alist(
-		NOMINATIVE = "Защищенный кейс [lockbox_tytle_ru]",
-		GENITIVE = "Защищенного кейса [lockbox_tytle_ru]",
-		DATIVE = "Защищенному кейсу [lockbox_tytle_ru]",
-		ACCUSATIVE = "Защищенный кейс [lockbox_tytle_ru]",
-		INSTRUMENTAL = "Защищенным кейсом [lockbox_tytle_ru]",
-		PREPOSITIONAL = "Защищенном кейсе [lockbox_tytle_ru]",
+		NOMINATIVE = "защищенный кейс [lockbox_tytle_ru]",
+		GENITIVE = "защищенного кейса [lockbox_tytle_ru]",
+		DATIVE = "защищенному кейсу [lockbox_tytle_ru]",
+		ACCUSATIVE = "защищенный кейс [lockbox_tytle_ru]",
+		INSTRUMENTAL = "защищенным кейсом [lockbox_tytle_ru]",
+		PREPOSITIONAL = "защищенном кейсе [lockbox_tytle_ru]",
 	)
 
 /obj/item/storage/lockbox/update_icon_state()
@@ -71,7 +71,7 @@
 	if(user.a_intent == INTENT_HARM)	// to allow storing special items
 		if(locked)
 			add_fingerprint(user)
-			to_chat(user, span_warning("Оно закрыто!"))
+			to_chat(user, span_warning("Закрыто!"))
 			return ATTACK_CHAIN_PROCEED
 		return ..()
 
@@ -121,7 +121,7 @@
 
 	if(locked)
 		add_fingerprint(user)
-		to_chat(user, span_warning("Оно закрыто!"))
+		to_chat(user, span_warning("Закрыто!"))
 		return ATTACK_CHAIN_PROCEED
 
 	return ..()
@@ -190,7 +190,7 @@
 
 /obj/item/storage/lockbox/show_to(mob/user)
 	if(locked)
-		to_chat(user, span_warning("Оно закрыто!"))
+		to_chat(user, span_warning("Закрыто!"))
 	else
 		..()
 	return
@@ -313,12 +313,12 @@
 
 /obj/item/storage/lockbox/medal/get_ru_names()
 	return alist(
-		NOMINATIVE = "Кейс для медалей",
-		GENITIVE = "Кейса для медалей",
-		DATIVE = "Кейсу для медалей",
-		ACCUSATIVE = "Кейс для медалей",
-		INSTRUMENTAL = "Кейсом для медалей",
-		PREPOSITIONAL = "Кейсе для медалей",
+		NOMINATIVE = "кейс для медалей",
+		GENITIVE = "кейса для медалей",
+		DATIVE = "кейсу для медалей",
+		ACCUSATIVE = "кейс для медалей",
+		INSTRUMENTAL = "кейсом для медалей",
+		PREPOSITIONAL = "кейсе для медалей",
 	)
 
 /obj/item/storage/lockbox/medal/populate_contents()
@@ -352,17 +352,17 @@
 
 /obj/item/storage/lockbox/research/large/get_ru_names()
 	return alist(
-		NOMINATIVE = "Большой защищенный кейс",
-		GENITIVE = "Большого защищенного кейса",
-		DATIVE = "Большому защищенному кейсу",
-		ACCUSATIVE = "Большой защищенный кейс",
-		INSTRUMENTAL = "Большим защищенным кейсом",
-		PREPOSITIONAL = "Большом защищенном кейсе",
+		NOMINATIVE = "большой защищенный кейс",
+		GENITIVE = "большого защищенного кейса",
+		DATIVE = "большому защищенному кейсу",
+		ACCUSATIVE = "большой защищенный кейс",
+		INSTRUMENTAL = "большим защищенным кейсом",
+		PREPOSITIONAL = "большом защищенном кейсе",
 	)
 
 /obj/item/storage/lockbox/research/modsuit
 	name = "Plating lockbox"
-	desc = "Большой защитный кейс. Электронный замок выглядит довольно уязвимым."
+	desc = "Большой защищенный кейс. Электронный замок выглядит довольно уязвимым."
 	lockbox_tytle_ru = "(Внешняя обшивка МЭК)"
 
 /obj/item/storage/lockbox/research/modsuit/emp_act(severity) //I want emp to get around it, it's not a gun, I just want people not to always make sec / med modsuits.
@@ -394,12 +394,12 @@
 
 /obj/item/storage/lockbox/medal/hardmode_box/get_ru_names()
 	return alist(
-		NOMINATIVE = "Кейс для медалей HRD-MDE",
-		GENITIVE = "Кейса для медалей HRD-MDE",
-		DATIVE = "Кейсу для медалей HRD-MDE",
-		ACCUSATIVE = "Кейс для медалей HRD-MDE",
-		INSTRUMENTAL = "Кейсом для медалей HRD-MDE",
-		PREPOSITIONAL = "Кейсе для медалей HRD-MDE",
+		NOMINATIVE = "кейс для медалей HRD-MDE",
+		GENITIVE = "кейса для медалей HRD-MDE",
+		DATIVE = "кейсу для медалей HRD-MDE",
+		ACCUSATIVE = "кейс для медалей HRD-MDE",
+		INSTRUMENTAL = "кейсом для медалей HRD-MDE",
+		PREPOSITIONAL = "кейсе для медалей HRD-MDE",
 	)
 
 /obj/item/storage/lockbox/medal/hardmode_box/Initialize(mapload)
