@@ -703,7 +703,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(!mob_eye.hud_used)
 		return
 
-	AddComponent(/datum/component/true_observer)
+	AddComponent(/datum/component/true_observer, src, mob_eye)
 
 /mob/dead/observer/verb/toggle_ghostsee()
 	set name = "Видимость призраков"

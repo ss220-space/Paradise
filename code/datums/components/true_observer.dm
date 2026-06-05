@@ -26,11 +26,10 @@
 		COMSIG_MOB_RESET_PERSPECTIVE = PROC_REF(on_reset_perspective),
 		COMSIG_CLIENT_SET_EYE = PROC_REF(on_set_eye),
 
-		COMSIG_MOB_UPDATE_HELD_ITEMS = PROC_REF(on_update_inventory),
 		COMSIG_MOB_UNEQUIPPED_ITEM = PROC_REF(on_unequipped_item),
 
-		COMSIG_CARBON_STORAGE_SHOW_TO = PROC_REF(on_storage_show_to),
-		COMSIG_CARBON_STORAGE_HIDE_FROM = PROC_REF(on_storage_hide_from),
+		COMSIG_LIVING_STORAGE_SHOW_TO = PROC_REF(on_storage_show_to),
+		COMSIG_LIVING_STORAGE_HIDE_FROM = PROC_REF(on_storage_hide_from),
 
 		COMSIG_MOB_HUD_REFRESHED = PROC_REF(on_hud_refreshed),
 		COMSIG_CLIENT_SCREEN_ELEMENT = PROC_REF(on_screen_element),
@@ -54,13 +53,14 @@
  * * target - Length of time the weaken applies (Deciseconds)
  */
 /datum/component/true_observer/Initialize(
+	observe,
 	observe_target,
 )
-	if (!isobserver(parent))
+	if (!isobserver(observe))
 		return COMPONENT_INCOMPATIBLE
-	observe = parent
+	src.observe = observe
 	src.observe_target = observe_target
-	ADD_TRAIT(parent, TRAIT_OBSERVING_INVENTORY, src)
+	ADD_TRAIT(src.observe, TRAIT_OBSERVING_INVENTORY, src)
 
 /datum/component/true_observer/RegisterWithParent()
 	for (var/key,value in default_connections)
@@ -68,11 +68,13 @@
 	RegisterSignal(observe, COMSIG_ORBITER_ORBIT_STOP, PROC_REF(UnregisterFromParent), TRUE)
 	sync_vision_with_target()
 	observe.show_other_mob_action_buttons(observe_target)
+	on_hud_refreshed(observe_target, observe_target.hud_used)
 
 /datum/component/true_observer/UnregisterFromParent()
 	for (var/key,_ in default_connections)
 		UnregisterSignal(observe_target, key)
-	clear_vision()
+	if ()
+		clear_vision()
 	observe.hide_other_mob_action_buttons(observe_target)
 
 /datum/component/true_observer/Destroy(force)
@@ -87,25 +89,25 @@
 	observe_target
 )
 	if(component)
-		observe_target = component.observe_target
 		observe = component.observe
-	src.observe_target = observe_target
+		observe_target = component.observe_target
 	src.observe = observe
+	src.observe_target = observe_target
 	UnregisterFromParent()
 	RegisterWithParent()
 
 /datum/component/true_observer/proc/sync_vision_with_target()
 	observe.nightvision = observe_target.nightvision
 	observe.vision_type = observe_target.vision_type
+	observe.reset_perspective(observe_target)
 	observe.set_sight(observe_target.sight)
 	observe.set_invis_see(observe_target.see_invisible)
 	observe.sync_lighting_plane_alpha()
-	observe_target.hud_used?.plane_master_controllers[PLANE_MASTERS_GAME] = observe_target.hud_used?.plane_master_controllers[PLANE_MASTERS_GAME]
 
 /datum/component/true_observer/proc/clear_vision()
 	observe.nightvision = initial(observe.nightvision)
-	observe.set_sight(initial(observe.sight))
-	observe.set_invis_see(initial(observe.see_invisible))
+	observe.add_sight(SEE_TURFS|SEE_MOBS|SEE_OBJS|SEE_SELF)
+	observe.set_invis_see(SEE_INVISIBLE_OBSERVER_AI_EYE)
 	observe.reset_perspective(null)
 	observe.sync_lighting_plane_alpha()
 	observe.client.pixel_w = initial(observe.client.pixel_w)
@@ -122,44 +124,59 @@
 	observe.client.pixel_w = observe_target.client.pixel_w
 	observe.client.pixel_z = observe_target.client.pixel_z
 
-/datum/component/true_observer/proc/on_storage_show_to(obj/item/storage/storage)
+/datum/component/true_observer/proc/on_storage_show_to(mob/living/mob_source, obj/item/storage/storage)
 	SIGNAL_HANDLER
 	storage.show_to(observe, TRUE)
 
-/datum/component/true_observer/proc/on_storage_hide_from(obj/item/storage/storage)
+/datum/component/true_observer/proc/on_storage_hide_from(mob/living/mob_source, obj/item/storage/storage)
 	SIGNAL_HANDLER
 	storage.hide_from(observe, TRUE)
 
-/datum/component/true_observer/proc/on_update_inventory()
-	SIGNAL_HANDLER
-	return
-
-
-/datum/component/true_observer/proc/on_hud_refreshed(datum/hud/hud_source)
+/datum/component/true_observer/proc/on_hud_refreshed(mob/living/mob_source, datum/hud/hud_source)
 	SIGNAL_HANDLER
 	hud_source.show_hud(hud_source.hud_version, observe)
 
-/datum/component/true_observer/proc/on_status_effect_created(effect_type)
+/datum/component/true_observer/proc/on_status_effect_created(mob/living/mob_source, datum/status_effect/transient/effect_type)
 	SIGNAL_HANDLER
-	if (istype(effect_type, /datum/status_effect/transient) == FALSE) return
+	if (istype(effect_type) == FALSE) return
+
+	var/atom/movable/plane_master_controller/game_plane_master_controller = observe.hud_used?.plane_master_controllers[PLANE_MASTERS_GAME]
 	switch (effect_type)
 		if(/datum/status_effect/transient/eye_blurry)
 	///mob/living/update_blurry_effects()
+			if(!game_plane_master_controller)
+				return
+			var/AmountEyeBlurry = observe_target.AmountEyeBlurry()
+			if(AmountEyeBlurry)
+				game_plane_master_controller.add_filter("eye_blur", 1, gauss_blur_filter(clamp(AmountEyeBlurry * EYE_BLUR_TO_FILTER_SIZE_MULTIPLIER, 0.6, MAX_EYE_BLURRY_FILTER_SIZE)))
 			return
 		//if(/*your/path*/)
 			/*your/code*/
 		//	return
 
-/datum/component/true_observer/proc/on_status_effect_ended(effect_type)
+/datum/component/true_observer/proc/on_status_effect_ended(mob/living/mob_source, datum/status_effect/transient/effect_type)
 	SIGNAL_HANDLER
+	if (istype(effect_type) == FALSE) return
+
+	var/atom/movable/plane_master_controller/game_plane_master_controller = observe.hud_used?.plane_master_controllers[PLANE_MASTERS_GAME]
+	switch (effect_type)
+		if(/datum/status_effect/transient/eye_blurry)
+	///mob/living/update_blurry_effects()
+			if(!game_plane_master_controller)
+				return
+			game_plane_master_controller.remove_filter("eye_blur")
+			return
+		//if(/*your/path*/)
+			/*your/code*/
+		//	return
 	return
 
-/datum/component/true_observer/proc/on_baloon_alert(atom/source, text)
+/datum/component/true_observer/proc/on_baloon_alert(mob/viewer, atom/source, text)
 	SIGNAL_HANDLER
 	source.balloon_alert(observe, text)
 	return
 
-/datum/component/true_observer/proc/on_do_after_began(bar)
+/datum/component/true_observer/proc/on_do_after_began(mob/living/mob_source, datum/progressbar/bar)
 	SIGNAL_HANDLER
 	observe.client.add_progressbar(bar)
 
@@ -167,15 +184,15 @@
 	SIGNAL_HANDLER
 	observe.reset_perspective(observe_target.client.eye)
 
-/datum/component/true_observer/proc/on_set_eye(old_eye, new_eye)
+/datum/component/true_observer/proc/on_set_eye(mob/living/mob_source, old_eye, new_eye)
 	SIGNAL_HANDLER
 	observe.client.set_eye(observe_target.client.eye)
 
-/datum/component/true_observer/proc/on_target_destroyed(force)
+/datum/component/true_observer/proc/on_target_destroyed(mob/living/mob_source, force)
 	SIGNAL_HANDLER
 	ClearFromParent()
 
-/datum/component/true_observer/proc/on_unequipped_item(I, force, newloc, no_move, invdrop, silent)
+/datum/component/true_observer/proc/on_unequipped_item(mob/living/mob_source, I, force, newloc, no_move, invdrop, silent)
 	SIGNAL_HANDLER
 	observe.client.screen -= I
 
@@ -183,7 +200,7 @@
 	SIGNAL_HANDLER
 	sync_vision_with_target()
 
-/datum/component/true_observer/proc/on_screen_element(element, is_added)
+/datum/component/true_observer/proc/on_screen_element(mob/living/mob_source, element, is_added)
 	SIGNAL_HANDLER
 	if (is_added)
 		observe.client.screen |= element

@@ -912,7 +912,7 @@
 			alert.icon = icon_pref
 		alert.screen_loc = get_ui_alert_placement(i)
 		screenmob.client.screen |= alert
-		SEND_SIGNAL(screenmob, COMSIG_CLIENT_SCREEN_ELEMENT, alert, FALSE)
+		SEND_SIGNAL(screenmob, COMSIG_CLIENT_SCREEN_ELEMENT, alert, TRUE)
 	return TRUE
 
 /// Gives the player the option to succumb while in critical condition

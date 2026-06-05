@@ -369,7 +369,7 @@
 	if(progress && user.client && starttime < endtime)
 		progbar = new(user, delay, target || user)
 
-	SEND_SIGNAL(user, COMSIG_DO_AFTER_BEGAN)
+	SEND_SIGNAL(user, COMSIG_DO_AFTER_BEGAN, progbar)
 
 	. = TRUE
 

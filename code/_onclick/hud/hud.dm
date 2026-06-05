@@ -350,7 +350,8 @@
 		viewmob.hud_used.plane_masters_update()
 		viewmob.show_other_mob_action_buttons(mymob)
 
-	SEND_SIGNAL(mymob, COMSIG_MOB_HUD_REFRESHED, src)
+	if (viewmob == mymob || !isobserver(screenmob))
+		SEND_SIGNAL(mymob, COMSIG_MOB_HUD_REFRESHED, src)
 	return TRUE
 
 /datum/hud/proc/plane_masters_update()
