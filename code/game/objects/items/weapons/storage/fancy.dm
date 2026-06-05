@@ -608,12 +608,12 @@
 
 /obj/item/storage/lockbox/vials/get_ru_names()
 	return alist(
-		NOMINATIVE = "Кейс для пробирок",
-		GENITIVE = "Кейса для пробирок",
-		DATIVE = "Кейсу для пробирок",
-		ACCUSATIVE = "Кейс для пробирок",
-		INSTRUMENTAL = "Кейсом для пробирок",
-		PREPOSITIONAL = "Кейсе для пробирок",
+		NOMINATIVE = "кейс для пробирок",
+		GENITIVE = "кейса для пробирок",
+		DATIVE = "кейсу для пробирок",
+		ACCUSATIVE = "кейс для пробирок",
+		INSTRUMENTAL = "кейсом для пробирок",
+		PREPOSITIONAL = "кейсе для пробирок",
 	)
 
 /obj/item/storage/lockbox/vials/populate_contents()
