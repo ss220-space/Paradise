@@ -66,7 +66,8 @@ GLOBAL_LIST_INIT(devil_guns, (GLOB.summoned_guns - NOT_DEVIL_GUNS + DEVIL_GUNS))
 	return TRUE
 
 /datum/devil_contract/wealth/fulfill_contract(mob/living/carbon/human/user)
-	user.mind.AddSpell(new /obj/effect/proc_holder/spell/summon_wealth(null))
+	var/datum/action/cooldown/spell/summon_friend/spell = new()
+	spell.Grant(user)
 
 /datum/devil_contract/prestige
 	name = "контракт престижа"
@@ -201,7 +202,9 @@ GLOBAL_LIST_INIT(devil_guns, (GLOB.summoned_guns - NOT_DEVIL_GUNS + DEVIL_GUNS))
 	ADD_TRAIT(user, TRAIT_XRAY, UNIQUE_TRAIT_SOURCE(src))
 	user.update_sight()
 	user.update_misc_effects()
-	user.mind.AddSpell(new /obj/effect/proc_holder/spell/view_range(null))
+	var/datum/action/cooldown/spell/view_range/spell = new()
+	spell.Grant(user)
+
 
 /datum/devil_contract/friendship
 	name = "контракт дружбы"
@@ -215,7 +218,9 @@ GLOBAL_LIST_INIT(devil_guns, (GLOB.summoned_guns - NOT_DEVIL_GUNS + DEVIL_GUNS))
 	return TRUE
 
 /datum/devil_contract/friendship/fulfill_contract(mob/living/carbon/human/user)
-	user.mind.AddSpell(new /obj/effect/proc_holder/spell/summon_friend(null))
+	var/datum/action/cooldown/spell/summon_friend/spell = new()
+	spell.Grant(user)
+
 
 /datum/devil_contract/unwilling
 	name = "контракт рабства"
@@ -259,10 +264,11 @@ GLOBAL_LIST_INIT(devil_guns, (GLOB.summoned_guns - NOT_DEVIL_GUNS + DEVIL_GUNS))
 	return TRUE
 
 /datum/devil_contract/return_dead/fulfill_contract(mob/living/carbon/human/user)
-	user.mind.AddSpell(new /obj/effect/proc_holder/spell/touch/revive_touch(null))
-	var/obj/effect/proc_holder/spell/lichdom/spell = new(null)
-	spell.create_lich(user)
-	qdel(spell)
+	var/datum/action/cooldown/spell/touch/revive_touch/spell = new()
+	spell.Grant(user)
+	var/obj/effect/proc_holder/spell/lichdom/lich_spell = new(null)
+	lich_spell.create_lich(user)
+	qdel(lich_spell)
 
 /datum/devil_contract/gun
 	name = "контракт оружия"
@@ -276,9 +282,9 @@ GLOBAL_LIST_INIT(devil_guns, (GLOB.summoned_guns - NOT_DEVIL_GUNS + DEVIL_GUNS))
 	return TRUE
 
 /datum/devil_contract/gun/fulfill_contract(mob/living/carbon/human/user)
-	var/gun_type = safepick(GLOB.devil_guns)
-	var/spell = new /obj/effect/proc_holder/spell/conjure_item/contract_gun(null, gun_type)
-	user.mind.AddSpell(spell)
+	var/datum/action/cooldown/spell/conjure_item/contract_gun/spell = new()
+	spell.Grant(user)
+
 
 #undef MAGIC_SPELLS_COUNT
 #undef HULK_COOLDOWN

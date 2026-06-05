@@ -29,7 +29,6 @@
 	button_icon_state = "cultforcewall"
 	background_icon_state = "bg_cult"
 	background_icon_state_active = "bg_cult"
-	school = "conjuration"
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 	//holy_area_cancast = FALSE //Stops cult magic from working on holy ground eg: chapel
 	summon_type = list(/turf/simulated/wall/cult/artificer) //we don't want artificer-based runed metal farms
@@ -58,7 +57,6 @@
 	button_icon_state = "pylon"
 	background_icon_state = "bg_cult"
 	background_icon_state_active = "bg_cult"
-	school = "conjuration"
 	cooldown_time = 20 SECONDS
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 	//holy_area_cancast = FALSE //Stops cult magic from working on holy ground eg: chapel

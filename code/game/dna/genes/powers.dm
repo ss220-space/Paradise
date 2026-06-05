@@ -203,10 +203,15 @@
 
 /datum/dna/gene/basic/farvision/activate(mob/living/mutant, flags)
 	. = ..()
-	mutant.AddSpell(new /obj/effect/proc_holder/spell/view_range/genetic)
+	var/datum/action/cooldown/spell/view_range/genetic/spell = new
+	spell.Grant(mutant)
 
 /datum/dna/gene/basic/farvision/deactivate(mob/living/mutant, flags)
 	. = ..()
-	mutant.RemoveSpell(/obj/effect/proc_holder/spell/view_range/genetic)
+	var/datum/action/cooldown/spell/view_range/genetic/spell = locate() in mutant.actions
+	if(!spell)
+		return
+	spell.Remove(mutant)
+	qdel(spell)
 
 #undef HULK_HUMANBODY_MULTIPLIER
