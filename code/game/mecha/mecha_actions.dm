@@ -199,6 +199,8 @@
 /datum/action/innate/mecha/mech_toggle_phasing/Activate()
 	if(!owner || !chassis || chassis.occupant != owner || !is_teleport_allowed(chassis.z))
 		return
+	if(!chassis.can_phase())
+		return
 	chassis.phasing = !chassis.phasing
 	button_icon_state = "mech_phasing_[chassis.phasing ? "on" : "off"]"
 	chassis.occupant_message("<font color=\"[chassis.phasing ? "#00f\">Фазовый переход вкл" : "#f00\">Фазовый переход выкл"]</font>")
