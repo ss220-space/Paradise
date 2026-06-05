@@ -36,17 +36,17 @@
 	var/progress_bar_y_offset = 26
 	var/security_alert_chance
 	var/tried_alert = FALSE
-	var/lockbox_tytle_ru = ""
+	var/lockbox_title_ru = ""
 	var/allow_drilling = TRUE
 
 /obj/item/storage/lockbox/get_ru_names()
 	return alist(
-		NOMINATIVE = "защищенный кейс [lockbox_tytle_ru]",
-		GENITIVE = "защищенного кейса [lockbox_tytle_ru]",
-		DATIVE = "защищенному кейсу [lockbox_tytle_ru]",
-		ACCUSATIVE = "защищенный кейс [lockbox_tytle_ru]",
-		INSTRUMENTAL = "защищенным кейсом [lockbox_tytle_ru]",
-		PREPOSITIONAL = "защищенном кейсе [lockbox_tytle_ru]",
+		NOMINATIVE = "защищенный кейс [lockbox_title_ru]",
+		GENITIVE = "защищенного кейса [lockbox_title_ru]",
+		DATIVE = "защищенному кейсу [lockbox_title_ru]",
+		ACCUSATIVE = "защищенный кейс [lockbox_title_ru]",
+		INSTRUMENTAL = "защищенным кейсом [lockbox_title_ru]",
+		PREPOSITIONAL = "защищенном кейсе [lockbox_title_ru]",
 	)
 
 /obj/item/storage/lockbox/update_icon_state()
@@ -264,7 +264,7 @@
 /obj/item/storage/lockbox/mindshield
 	name = "Lockbox (Mindshield Implants)"
 	req_access = list(ACCESS_SECURITY)
-	lockbox_tytle_ru = "(Импланты защиты разума)"
+	lockbox_title_ru = "(Импланты защиты разума)"
 
 /obj/item/storage/lockbox/mindshield/populate_contents()
 	new /obj/item/implantcase/mindshield(src)
@@ -281,7 +281,7 @@
 	max_w_class = WEIGHT_CLASS_TINY
 	storage_slots = 10
 	req_access = list(ACCESS_SECURITY)
-	lockbox_tytle_ru = "(Модификации Системы Сибил)"
+	lockbox_title_ru = "(Модификации Системы Сибил)"
 
 /obj/item/storage/lockbox/sibyl_system_mod/populate_contents()
 	for(var/i in 1 to 10)
@@ -291,7 +291,7 @@
 	name = "lockbox (clusterbang)"
 	desc = "У тебя плохое предчувствие об открытии этого."
 	req_access = list(ACCESS_SECURITY)
-	lockbox_tytle_ru = "(Кластерные Гранаты)"
+	lockbox_title_ru = "(Кластерные Гранаты)"
 
 /obj/item/storage/lockbox/clusterbang/populate_contents()
 	new /obj/item/grenade/clusterbuster(src)
@@ -300,7 +300,7 @@
 	name = "Lockbox (Suppression Implants)"
 	desc = "Содержит био-чипы \"Подавление\" для ограничения навыков боевых искусств."
 	req_access = list(ACCESS_SECURITY)
-	lockbox_tytle_ru = "(Импланты Подавления)"
+	lockbox_title_ru = "(Импланты Подавления)"
 
 /obj/item/storage/lockbox/suppression/populate_contents()
 	new /obj/item/implantcase/suppression(src)
@@ -348,7 +348,7 @@
 	desc = "Содержит три пробивных заряда Т4."
 	req_access = list(ACCESS_CENT_SPECOPS)
 	w_class = WEIGHT_CLASS_NORMAL
-	lockbox_tytle_ru = "(Т4)"
+	lockbox_title_ru = "(Т4)"
 
 /obj/item/storage/lockbox/t4/populate_contents()
 	for(var/I in 1 to 3)
@@ -379,7 +379,7 @@
 /obj/item/storage/lockbox/research/modsuit
 	name = "Plating lockbox"
 	desc = "Большой защищенный кейс. Электронный замок выглядит довольно уязвимым."
-	lockbox_tytle_ru = "(Внешняя обшивка МЭК)"
+	lockbox_title_ru = "(Внешняя обшивка МЭК)"
 
 /obj/item/storage/lockbox/research/modsuit/emp_act(severity) //I want emp to get around it, it's not a gun, I just want people not to always make sec / med modsuits.
 	. = ..()
@@ -394,7 +394,7 @@
 /obj/item/storage/lockbox/research/mantis
 	name = "lockbox(hidden blade implant)"
 	req_access = list(ACCESS_ARMORY)
-	lockbox_tytle_ru = "(Имплант Скрытого Лезвия)"
+	lockbox_title_ru = "(Имплант Скрытого Лезвия)"
 
 /obj/item/storage/lockbox/research/mantis/populate_contents()
 	new /obj/item/organ/internal/cyberimp/arm/toolset/mantisblade/shellguard(src)
