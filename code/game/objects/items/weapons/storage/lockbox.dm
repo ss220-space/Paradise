@@ -163,7 +163,7 @@
 		switch(tgui_alert(user, "Что вы собираетесь сделать?", "Дрель с усиленным сверлом", list("[drill_timer ? "Выключить" : "Включить"]", "Убрать дрель", "Отмена")))
 			if("Включить")
 				if(!locked)
-					user.balloon_alert(user, "уже открыто.")
+					user.balloon_alert(user, "уже открыто")
 					return
 				if(do_after(user, 2 SECONDS, src))
 					if(!drill || !locked || !drill_timer)
