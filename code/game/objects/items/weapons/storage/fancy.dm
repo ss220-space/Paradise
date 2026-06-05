@@ -598,12 +598,22 @@
 
 /obj/item/storage/lockbox/vials
 	name = "secure vial storage box"
-	desc = "A locked box for keeping things away from children."
+	desc = "Кейс с замком для хранения вещей подальше от детей и ассистентов."
 	icon = 'icons/obj/vialbox.dmi'
 	icon_state = "vialbox0"
 	can_hold = list(/obj/item/reagent_containers/glass/beaker/vial)
 	storage_slots = 6
 	req_access = list(ACCESS_VIROLOGY)
+
+/obj/item/storage/lockbox/vials/get_ru_names()
+	return alist(
+		NOMINATIVE = "Кейс для пробирок",
+		GENITIVE = "Кейса для пробирок",
+		DATIVE = "Кейсу для пробирок",
+		ACCUSATIVE = "Кейс для пробирок",
+		INSTRUMENTAL = "Кейсом для пробирок",
+		PREPOSITIONAL = "Кейсе для пробирок",
+	)
 
 /obj/item/storage/lockbox/vials/populate_contents()
 	for(var/I = 1 to storage_slots)
