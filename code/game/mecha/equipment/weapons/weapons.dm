@@ -33,6 +33,8 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/action(target, list/modifiers)
 	if(!action_checks(target))
 		return FALSE
+	if(chassis.prevents_weapon_fire(src))
+		return FALSE
 	if(!is_faced_target(target))
 		return FALSE
 

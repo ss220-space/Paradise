@@ -1088,7 +1088,7 @@
 	return TRUE
 
 /mob/proc/cannot_speak_loudly()
-	return FALSE
+	return HAS_TRAIT(src, TRAIT_COMMANDO_ABDUCTOR_SPEECH)
 
 /mob/proc/get_access_locations()
 	return list()

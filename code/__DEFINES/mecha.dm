@@ -71,6 +71,7 @@
 #define MECH_TYPE_SIDEWINTER (1<<11)
 #define MECH_TYPE_OLD_DURAND (1<<12)
 #define MECH_TYPE_DARK_GYGAX (1<<13)
+#define MECH_TYPE_COMMANDO (1<<14)
 
 #define MECH_HAND_LEFT "в левую руку"
 #define MECH_HAND_RIGHT "в правую руку"

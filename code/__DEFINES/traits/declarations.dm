@@ -56,6 +56,8 @@
 #define TRAIT_JESTER "jester"
 #define TRAIT_ELITE_CHALLENGER "elite_challenger"
 #define TRAIT_MUTE "mute"
+/// Mob can only whisper and cannot transmit speech over radios.
+#define TRAIT_COMMANDO_ABDUCTOR_SPEECH "commando_abductor_speech"
 #define TRAIT_DEAF "deaf"
 #define TRAIT_SECDEATH "secdeath"
 #define TRAIT_AI_UNTRACKABLE "AI_untrackable"
