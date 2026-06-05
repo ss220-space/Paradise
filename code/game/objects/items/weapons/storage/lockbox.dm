@@ -349,7 +349,7 @@
 	max_combined_w_class = 4 //The sum of the w_classes of all the items in this storage item.
 	storage_slots = 1
 
-/obj/item/storage/lockbox/medal/get_ru_names()
+/obj/item/storage/lockbox/research/large/get_ru_names()
 	return alist(
 		NOMINATIVE = "Большой защищенный кейс",
 		GENITIVE = "Большого защищенного кейса",
