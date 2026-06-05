@@ -21,7 +21,7 @@
 	var/datum/ui_module/crew_monitor/crew_monitor
 
 /obj/machinery/computer/crew/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "консоль наблюдения за экипажем",
 		GENITIVE = "консоли наблюдения за экипажем",
 		DATIVE = "консоли наблюдения за экипажем",

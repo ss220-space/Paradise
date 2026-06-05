@@ -5,7 +5,7 @@
 	item_state = "grenade"
 
 /obj/item/grenade/megafauna_hardmode/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сканирующая граната HRD-MDE",
 		GENITIVE = "сканирующей гранаты HRD-MDE",
 		DATIVE = "сканирующей гранате HRD-MDE",
@@ -46,7 +46,7 @@
 	var/obj/item/clothing/accessory/medal/output
 
 /obj/item/disk/fauna_research/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пустой диск проекта HRD-MDE",
 		GENITIVE = "пустого диска проекта HRD-MDE",
 		DATIVE = "пустому диску проекта HRD-MDE",
@@ -67,7 +67,7 @@
 	output = /obj/item/clothing/accessory/medal/blood_drunk
 
 /obj/item/disk/fauna_research/blood_drunk_miner/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "диск проекта HRD-MDE \"Кровожадный Шахтёр\"",
 		GENITIVE = "диска проекта HRD-MDE \"Кровожадный Шахтёр\"",
 		DATIVE = "диску проекта HRD-MDE \"Кровожадный Шахтёр\"",
@@ -82,7 +82,7 @@
 	output = /obj/item/clothing/accessory/medal/plasma/hierophant
 
 /obj/item/disk/fauna_research/hierophant/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "диск проекта HRD-MDE \"Иерофант\"",
 		GENITIVE = "диска проекта HRD-MDE \"Иерофант\"",
 		DATIVE = "диску проекта HRD-MDE \"Иерофант\"",
@@ -97,7 +97,7 @@
 	output = /obj/item/clothing/accessory/medal/plasma/ash_drake
 
 /obj/item/disk/fauna_research/ash_drake/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "диск проекта HRD-MDE \"Пепельный Дрейк\"",
 		GENITIVE = "диска проекта HRD-MDE \"Пепельный Дрейк\"",
 		DATIVE = "диску проекта HRD-MDE \"Пепельный Дрейк\"",
@@ -112,7 +112,7 @@
 	output = /obj/item/clothing/accessory/medal/alloy/vetus
 
 /obj/item/disk/fauna_research/vetus/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "диск проекта HRD-MDE \"Ветус Спекулятор\"",
 		GENITIVE = "диска проекта HRD-MDE \"Ветус Спекулятор\"",
 		DATIVE = "диску проекта HRD-MDE \"Ветус Спекулятор\"",
@@ -127,7 +127,7 @@
 	output = /obj/item/clothing/accessory/medal/silver/colossus
 
 /obj/item/disk/fauna_research/colossus/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "диск проекта HRD-MDE \"Колосс\"",
 		GENITIVE = "диска проекта HRD-MDE \"Колосс\"",
 		DATIVE = "диску проекта HRD-MDE \"Колосс\"",
@@ -142,7 +142,7 @@
 	output = /obj/item/clothing/accessory/medal/silver/legion
 
 /obj/item/disk/fauna_research/legion/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "диск проекта HRD-MDE \"Легион\"",
 		GENITIVE = "диска проекта HRD-MDE \"Легион\"",
 		DATIVE = "диску проекта HRD-MDE \"Легион\"",
@@ -157,7 +157,7 @@
 	output = /obj/item/clothing/accessory/medal/gold/bubblegum
 
 /obj/item/disk/fauna_research/bubblegum/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "диск проекта HRD-MDE \"Бубльгум\"",
 		GENITIVE = "диска проекта HRD-MDE \"Бубльгум\"",
 		DATIVE = "диску проекта HRD-MDE \"Бубльгум\"",

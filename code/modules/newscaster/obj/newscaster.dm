@@ -50,7 +50,7 @@
 	var/static/last_views
 
 /obj/machinery/newscaster/get_ru_names()
-	return list(
+	return alist(
 			NOMINATIVE = "новостник",
 			GENITIVE = "новостника",
 			DATIVE = "новостнику",
@@ -66,7 +66,7 @@
 	is_security = TRUE
 
 /obj/machinery/newscaster/security_unit/get_ru_names()
-	return list(
+	return alist(
 			NOMINATIVE = "новостник службы безопасности",
 			GENITIVE = "новостника службы безопасности",
 			DATIVE = "новостнику службы безопасности",

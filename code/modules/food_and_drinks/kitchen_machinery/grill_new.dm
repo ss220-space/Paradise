@@ -13,7 +13,7 @@
 	open_icon = "grill_open"
 
 /obj/machinery/kitchen_machine/grill/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "гриль",
 		GENITIVE = "гриля",
 		DATIVE = "грилю",

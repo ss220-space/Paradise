@@ -10,7 +10,7 @@
 	icon_state = "wiremod"
 
 /obj/item/assembly/wiremod/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "программируемая сборка",
 		GENITIVE = "программируемой сборки",
 		DATIVE = "программируемой сборке",

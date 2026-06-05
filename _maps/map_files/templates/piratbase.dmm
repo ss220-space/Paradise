@@ -1451,10 +1451,7 @@
 	},
 /area/ruin/space/pirate_base/prison_solar)
 "er" = (
-/obj/machinery/defibrillator_mount/loaded{
-	pixel_x = -32;
-	pixel_y = -2
-	},
+/obj/machinery/defibrillator_mount/loaded/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "arrival"
@@ -8727,9 +8724,7 @@
 /area/ruin/space/pirate_base/atmos)
 "AF" = (
 /obj/machinery/optable,
-/obj/machinery/defibrillator_mount/loaded{
-	pixel_y = -30
-	},
+/obj/machinery/defibrillator_mount/loaded/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"
 	},

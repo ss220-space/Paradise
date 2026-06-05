@@ -24,7 +24,7 @@
 	var/sight_blocker_distance = 1
 
 /obj/structure/necropolis_gate/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "врата Некрополя",
 		GENITIVE = "врат Некрополя",
 		DATIVE = "вратам Некрополя",
@@ -259,7 +259,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 	var/static/mutable_appearance/top_overlay
 
 /obj/structure/necropolis_arch/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "арка Некрополя",
 		GENITIVE = "арки Некрополя",
 		DATIVE = "арке Некрополя",
@@ -304,7 +304,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 	var/falling = FALSE //If the tile is falling
 
 /obj/structure/stone_tile/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "каменная плитка",
 		GENITIVE = "каменной плитки",
 		DATIVE = "каменной плитке",
@@ -403,7 +403,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 	tile_random_sprite_max = 4
 
 /obj/structure/stone_tile/block/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "каменный блок",
 		GENITIVE = "каменного блока",
 		DATIVE = "каменному блоку",
@@ -419,7 +419,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 	tile_random_sprite_max = 4
 
 /obj/structure/stone_tile/slab/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "каменная плита",
 		GENITIVE = "каменной плиты",
 		DATIVE = "каменной плите",
@@ -436,7 +436,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 	color = "#fffff0"
 
 /obj/structure/stone_tile/slab/bone/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "костяная каменная плита",
 		GENITIVE = "костяной каменной плиты",
 		DATIVE = "костяной каменной плите",
@@ -452,7 +452,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 	tile_random_sprite_max = 4
 
 /obj/structure/stone_tile/center/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "центральная каменная плитка",
 		GENITIVE = "центральной каменной плитки",
 		DATIVE = "центральной каменной плитке",
@@ -468,7 +468,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 	tile_random_sprite_max = 2
 
 /obj/structure/stone_tile/surrounding/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "окаймляющая каменная плита",
 		GENITIVE = "окаймляющей каменной плиты",
 		DATIVE = "окаймляющей каменной плите",
@@ -484,7 +484,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 	tile_random_sprite_max = 2
 
 /obj/structure/stone_tile/surrounding_tile/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "окаймляющая каменная плитка",
 		GENITIVE = "окаймляющей каменной плитки",
 		DATIVE = "окаймляющей каменной плитке",
@@ -500,7 +500,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 	tile_key = "cracked_tile"
 
 /obj/structure/stone_tile/cracked/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "треснувшая каменная плитка",
 		GENITIVE = "треснувшей каменной плитки",
 		DATIVE = "треснувшей каменной плитке",
@@ -515,7 +515,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 	tile_key = "cracked_block"
 
 /obj/structure/stone_tile/block/cracked/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "треснувший каменный блок",
 		GENITIVE = "треснувшего каменного блока",
 		DATIVE = "треснувшему каменному блоку",
@@ -531,7 +531,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 	tile_random_sprite_max = 1
 
 /obj/structure/stone_tile/slab/cracked/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "треснувшая каменная плита",
 		GENITIVE = "треснувшей каменной плиты",
 		DATIVE = "треснувшей каменной плите",
@@ -546,7 +546,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 	tile_key = "cracked_center"
 
 /obj/structure/stone_tile/center/cracked/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "треснувшая центральная плитка",
 		GENITIVE = "треснувшей центральной плитки",
 		DATIVE = "треснувшей центральной плитке",
@@ -562,7 +562,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 	tile_random_sprite_max = 1
 
 /obj/structure/stone_tile/surrounding/cracked/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "треснувшая окаймляющая плита",
 		GENITIVE = "треснувшей окаймляющей плиты",
 		DATIVE = "треснувшей окаймляющей плите",
@@ -577,7 +577,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 	tile_key = "cracked_surrounding_tile"
 
 /obj/structure/stone_tile/surrounding_tile/cracked/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "треснувшая окаймляющая плитка",
 		GENITIVE = "треснувшей окаймляющей плитки",
 		DATIVE = "треснувшей окаймляющей плитке",
@@ -593,7 +593,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 	tile_key = "burnt_tile"
 
 /obj/structure/stone_tile/burnt/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "обугленная каменная плитка",
 		GENITIVE = "обугленной каменной плитки",
 		DATIVE = "обугленной каменной плитке",
@@ -608,7 +608,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 	tile_key = "burnt_block"
 
 /obj/structure/stone_tile/block/burnt/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "обугленный каменный блок",
 		GENITIVE = "обугленного каменного блока",
 		DATIVE = "обугленному каменному блоку",
@@ -623,7 +623,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 	tile_key = "burnt_slab"
 
 /obj/structure/stone_tile/slab/burnt/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "обугленная каменная плита",
 		GENITIVE = "обугленной каменной плиты",
 		DATIVE = "обугленной каменной плите",
@@ -638,7 +638,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 	tile_key = "burnt_center"
 
 /obj/structure/stone_tile/center/burnt/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "обугленная центральная плитка",
 		GENITIVE = "обугленной центральной плитки",
 		DATIVE = "обугленной центральной плитке",
@@ -653,7 +653,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 	tile_key = "burnt_surrounding"
 
 /obj/structure/stone_tile/surrounding/burnt/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "обугленная окаймляющая плита",
 		GENITIVE = "обугленной окаймляющей плиты",
 		DATIVE = "обугленной окаймляющей плите",
@@ -668,7 +668,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 	tile_key = "burnt_surrounding_tile"
 
 /obj/structure/stone_tile/surrounding_tile/burnt/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "обугленная окаймляющая плитка",
 		GENITIVE = "обугленной окаймляющей плитки",
 		DATIVE = "обугленной окаймляющей плитке",

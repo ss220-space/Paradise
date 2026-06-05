@@ -280,7 +280,7 @@
 	uses_cartridges = TRUE
 
 /obj/machinery/coffeemaker/standard/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кофемашина \"Моделло 3\"",
 		GENITIVE = "кофемашины \"Моделло 3\"",
 		DATIVE = "кофемашине \"Моделло 3\"",
@@ -357,7 +357,7 @@
 	brew_time = 15 SECONDS //industrial grade, its faster than the regular one
 
 /obj/machinery/coffeemaker/impressa/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кофемашина \"Импресса Моделло 5\"",
 		GENITIVE = "кофемашины \"Импресса Моделло 5\"",
 		DATIVE = "кофемашине \"Импресса Моделло 5\"",

@@ -36,7 +36,7 @@
 	spider_intro_text = "Будучи Дроном Ужаса, ваша задача — постройка и защита гнезда. Плетите паутину, используйте свои замедляющие плевки и замораживающие укусы для защиты яиц и гнезда. Помните, вы не регенерируете и двигаетесь медленно вне паутины!."
 
 /mob/living/simple_animal/hostile/poison/terror_spider/builder/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Дрон Ужаса",
 		GENITIVE = "Дрона Ужаса",
 		DATIVE = "Дрону Ужаса",
@@ -83,7 +83,7 @@
 	desc = "Очень толстая паутина."
 
 /obj/structure/spider/terrorweb/queen/builder/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "паутина Дрона Ужаса",
 		GENITIVE = "паутиы Дрона Ужаса",
 		DATIVE = "паутине Дрона Ужаса",

@@ -7,7 +7,7 @@
 	icon_state = "deck_tarot"
 
 /obj/item/deck/tarot/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "колода карт таро",
 		GENITIVE = "колоды карт таро",
 		DATIVE = "колоде карт таро",

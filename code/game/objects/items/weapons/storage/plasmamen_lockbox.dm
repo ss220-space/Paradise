@@ -5,7 +5,7 @@
 	max_w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/storage/lockbox/plasma/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ящик снаряжения для плазмаменов (N/A)",
 		GENITIVE = "ящика снаряжения для плазмаменов (N/A)",
 		DATIVE = "ящику снаряжения для плазмаменов (N/A)",
@@ -19,7 +19,7 @@
 	req_access = list(ACCESS_BAR)
 
 /obj/item/storage/lockbox/plasma/barmen/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ящик снаряжения для плазмаменов (Bartender)",
 		GENITIVE = "ящика снаряжения для плазмаменов (Bartender)",
 		DATIVE = "ящику снаряжения для плазмаменов (Bartender)",
@@ -39,7 +39,7 @@
 	req_access = list(ACCESS_NTREP)
 
 /obj/item/storage/lockbox/plasma/nt_rep/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ящик снаряжения для плазмаменов (Nanotrasen Representative)",
 		GENITIVE = "ящика снаряжения для плазмаменов (Nanotrasen Representative)",
 		DATIVE = "ящику снаряжения для плазмаменов (Nanotrasen Representative)",
@@ -59,7 +59,7 @@
 	req_access = list(ACCESS_KITCHEN)
 
 /obj/item/storage/lockbox/plasma/chef/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ящик снаряжения для плазмаменов (Chef)",
 		GENITIVE = "ящика снаряжения для плазмаменов (Chef)",
 		DATIVE = "ящику снаряжения для плазмаменов (Chef)",
@@ -79,7 +79,7 @@
 	req_access = list(ACCESS_HYDROPONICS)
 
 /obj/item/storage/lockbox/plasma/botany/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ящик снаряжения для плазмаменов (Botanist)",
 		GENITIVE = "ящика снаряжения для плазмаменов (Botanist)",
 		DATIVE = "ящику снаряжения для плазмаменов (Botanist)",
@@ -99,7 +99,7 @@
 	req_access = list(ACCESS_LIBRARY)
 
 /obj/item/storage/lockbox/plasma/librarian/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ящик снаряжения для плазмаменов (Librarian)",
 		GENITIVE = "ящика снаряжения для плазмаменов (Librarian)",
 		DATIVE = "ящику снаряжения для плазмаменов (Librarian)",
@@ -119,7 +119,7 @@
 	req_access = list(ACCESS_JANITOR)
 
 /obj/item/storage/lockbox/plasma/janitor/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ящик снаряжения для плазмаменов (Janitor)",
 		GENITIVE = "ящика снаряжения для плазмаменов (Janitor)",
 		DATIVE = "ящику снаряжения для плазмаменов (Janitor)",
@@ -139,7 +139,7 @@
 	req_access = list(ACCESS_SECURITY)
 
 /obj/item/storage/lockbox/plasma/sec/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ящик снаряжения для плазмаменов (Security Officer)",
 		GENITIVE = "ящика снаряжения для плазмаменов (Security Officer)",
 		DATIVE = "ящику снаряжения для плазмаменов (Security Officer)",
@@ -159,7 +159,7 @@
 	req_access = list(ACCESS_PILOT)
 
 /obj/item/storage/lockbox/plasma/pilot/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ящик снаряжения для плазмаменов (Security Pod Pilot)",
 		GENITIVE = "ящика снаряжения для плазмаменов (Security Pod Pilot)",
 		DATIVE = "ящику снаряжения для плазмаменов (Security Pod Pilot)",
@@ -179,7 +179,7 @@
 	req_access = list(ACCESS_FORENSICS_LOCKERS)
 
 /obj/item/storage/lockbox/plasma/det/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ящик снаряжения для плазмаменов (Detective)",
 		GENITIVE = "ящика снаряжения для плазмаменов (Detective)",
 		DATIVE = "ящику снаряжения для плазмаменов (Detective)",
@@ -199,7 +199,7 @@
 	req_access = list(ACCESS_ARMORY)
 
 /obj/item/storage/lockbox/plasma/warden/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ящик снаряжения для плазмаменов (Warden)",
 		GENITIVE = "ящика снаряжения для плазмаменов (Warden)",
 		DATIVE = "ящику снаряжения для плазмаменов (Warden)",
@@ -219,7 +219,7 @@
 	req_access = list(ACCESS_HOS)
 
 /obj/item/storage/lockbox/plasma/hos/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ящик снаряжения для плазмаменов (Head of Security)",
 		GENITIVE = "ящика снаряжения для плазмаменов (Head of Security)",
 		DATIVE = "ящику снаряжения для плазмаменов (Head of Security)",
@@ -239,7 +239,7 @@
 	req_access = list(ACCESS_CARGO)
 
 /obj/item/storage/lockbox/plasma/cargo/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ящик снаряжения для плазмаменов (Cargo Technician)",
 		GENITIVE = "ящика снаряжения для плазмаменов (Cargo Technician)",
 		DATIVE = "ящику снаряжения для плазмаменов (Cargo Technician)",
@@ -259,7 +259,7 @@
 	req_access = list(ACCESS_QM)
 
 /obj/item/storage/lockbox/plasma/qm/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ящик снаряжения для плазмаменов (Quartermaster)",
 		GENITIVE = "ящика снаряжения для плазмаменов (Quartermaster)",
 		DATIVE = "ящику снаряжения для плазмаменов (Quartermaster)",
@@ -279,7 +279,7 @@
 	req_access = list(ACCESS_MINING)
 
 /obj/item/storage/lockbox/plasma/miner/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ящик снаряжения для плазмаменов (Miner)",
 		GENITIVE = "ящика снаряжения для плазмаменов (Miner)",
 		DATIVE = "ящику снаряжения для плазмаменов (Miner)",
@@ -299,7 +299,7 @@
 	req_access = list(ACCESS_MEDICAL)
 
 /obj/item/storage/lockbox/plasma/medic/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ящик снаряжения для плазмаменов (Medical Doctor)",
 		GENITIVE = "ящика снаряжения для плазмаменов (Medical Doctor)",
 		DATIVE = "ящику снаряжения для плазмаменов (Medical Doctor)",
@@ -319,7 +319,7 @@
 	req_access = list(ACCESS_BRIG)
 
 /obj/item/storage/lockbox/plasma/brig_med/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ящик снаряжения для плазмаменов (Brig Physician)",
 		GENITIVE = "ящика снаряжения для плазмаменов (Brig Physician)",
 		DATIVE = "ящику снаряжения для плазмаменов (Brig Physician)",
@@ -339,7 +339,7 @@
 	req_access = list(ACCESS_PARAMEDIC)
 
 /obj/item/storage/lockbox/plasma/paramedic/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ящик снаряжения для плазмаменов (Paramedic)",
 		GENITIVE = "ящика снаряжения для плазмаменов (Paramedic)",
 		DATIVE = "ящику снаряжения для плазмаменов (Paramedic)",
@@ -359,7 +359,7 @@
 	req_access = list(ACCESS_MORGUE)
 
 /obj/item/storage/lockbox/plasma/coroner/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ящик снаряжения для плазмаменов (Coroner)",
 		GENITIVE = "ящика снаряжения для плазмаменов (Coroner)",
 		DATIVE = "ящику снаряжения для плазмаменов (Coroner)",
@@ -379,7 +379,7 @@
 	req_access = list(ACCESS_CMO)
 
 /obj/item/storage/lockbox/plasma/cmo/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ящик снаряжения для плазмаменов (Chief Medical Officer))",
 		GENITIVE = "ящика снаряжения для плазмаменов (Chief Medical Officer))",
 		DATIVE = "ящику снаряжения для плазмаменов (Chief Medical Officer))",
@@ -399,7 +399,7 @@
 	req_access = list(ACCESS_VIROLOGY)
 
 /obj/item/storage/lockbox/plasma/viro/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ящик снаряжения для плазмаменов (Virologist)",
 		GENITIVE = "ящика снаряжения для плазмаменов (Virologist)",
 		DATIVE = "ящику снаряжения для плазмаменов (Virologist)",
@@ -419,7 +419,7 @@
 	req_access = list(ACCESS_CHEMISTRY)
 
 /obj/item/storage/lockbox/plasma/chemist/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ящик снаряжения для плазмаменов (Chemist)",
 		GENITIVE = "ящика снаряжения для плазмаменов (Chemist)",
 		DATIVE = "ящику снаряжения для плазмаменов (Chemist)",
@@ -439,7 +439,7 @@
 	req_access = list(ACCESS_GENETICS)
 
 /obj/item/storage/lockbox/plasma/genetic/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ящик снаряжения для плазмаменов (Genetic)",
 		GENITIVE = "ящика снаряжения для плазмаменов (Genetic)",
 		DATIVE = "ящику снаряжения для плазмаменов (Genetic)",
@@ -459,7 +459,7 @@
 	req_access = list(ACCESS_RESEARCH)
 
 /obj/item/storage/lockbox/plasma/scientist/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ящик снаряжения для плазмаменов (Scientist)",
 		GENITIVE = "ящика снаряжения для плазмаменов (Scientist)",
 		DATIVE = "ящику снаряжения для плазмаменов (Scientist)",
@@ -479,7 +479,7 @@
 	req_access = list(ACCESS_RD)
 
 /obj/item/storage/lockbox/plasma/rd/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ящик снаряжения для плазмаменов (Research Director)",
 		GENITIVE = "ящика снаряжения для плазмаменов (Research Director)",
 		DATIVE = "ящику снаряжения для плазмаменов (Research Director)",
@@ -499,7 +499,7 @@
 	req_access = list(ACCESS_ROBOTICS)
 
 /obj/item/storage/lockbox/plasma/robot/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ящик снаряжения для плазмаменов (Robotician)",
 		GENITIVE = "ящика снаряжения для плазмаменов (Robotician)",
 		DATIVE = "ящику снаряжения для плазмаменов (Robotician)",
@@ -519,7 +519,7 @@
 	req_access = list(ACCESS_ENGINE)
 
 /obj/item/storage/lockbox/plasma/engineer/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ящик снаряжения для плазмаменов (Engineer)",
 		GENITIVE = "ящика снаряжения для плазмаменов (Engineer)",
 		DATIVE = "ящику снаряжения для плазмаменов (Engineer)",
@@ -539,7 +539,7 @@
 	req_access = list(ACCESS_MECHANIC)
 
 /obj/item/storage/lockbox/plasma/mechanic/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ящик снаряжения для плазмаменов (Mechanic)",
 		GENITIVE = "ящика снаряжения для плазмаменов (Mechanic)",
 		DATIVE = "ящику снаряжения для плазмаменов (Mechanic)",
@@ -559,7 +559,7 @@
 	req_access = list(ACCESS_CE)
 
 /obj/item/storage/lockbox/plasma/ce/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ящик снаряжения для плазмаменов (Chief Engineer)",
 		GENITIVE = "ящика снаряжения для плазмаменов (Chief Engineer)",
 		DATIVE = "ящику снаряжения для плазмаменов (Chief Engineer)",
@@ -579,7 +579,7 @@
 	req_access = list(ACCESS_ATMOSPHERICS)
 
 /obj/item/storage/lockbox/plasma/atmos/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ящик снаряжения для плазмаменов (Atmospheric Technician)",
 		GENITIVE = "ящика снаряжения для плазмаменов (Atmospheric Technician)",
 		DATIVE = "ящику снаряжения для плазмаменов (Atmospheric Technician)",
@@ -599,7 +599,7 @@
 	req_access = list(ACCESS_MIME)
 
 /obj/item/storage/lockbox/plasma/mime/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ящик снаряжения для плазмаменов (Mime)",
 		GENITIVE = "ящика снаряжения для плазмаменов (Mime)",
 		DATIVE = "ящику снаряжения для плазмаменов (Mime)",
@@ -619,7 +619,7 @@
 	req_access = list(ACCESS_CLOWN)
 
 /obj/item/storage/lockbox/plasma/clown/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ящик снаряжения для плазмаменов (Clown)",
 		GENITIVE = "ящика снаряжения для плазмаменов (Clown)",
 		DATIVE = "ящику снаряжения для плазмаменов (Clown)",
@@ -639,7 +639,7 @@
 	req_access = list(ACCESS_HOP)
 
 /obj/item/storage/lockbox/plasma/hop/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ящик снаряжения для плазмаменов (Head of Personnel)",
 		GENITIVE = "ящика снаряжения для плазмаменов (Head of Personnel)",
 		DATIVE = "ящику снаряжения для плазмаменов (Head of Personnel)",
@@ -659,7 +659,7 @@
 	req_access = list(ACCESS_BLUESHIELD)
 
 /obj/item/storage/lockbox/plasma/blueshield/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ящик снаряжения для плазмаменов (Blueshield)",
 		GENITIVE = "ящика снаряжения для плазмаменов (Blueshield)",
 		DATIVE = "ящику снаряжения для плазмаменов (Blueshield)",
@@ -679,7 +679,7 @@
 	req_access = list(ACCESS_CAPTAIN)
 
 /obj/item/storage/lockbox/plasma/captain/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ящик снаряжения для плазмаменов (Captain)",
 		GENITIVE = "ящика снаряжения для плазмаменов (Captain)",
 		DATIVE = "ящику снаряжения для плазмаменов (Captain)",

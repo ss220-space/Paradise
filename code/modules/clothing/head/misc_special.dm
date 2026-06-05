@@ -375,7 +375,7 @@
 	flags_inv = HIDEHEADSETS|HIDEHAIR
 
 /obj/item/clothing/head/shapka_pepega/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "лягушачья шапка",
 		GENITIVE = "лягушачьей шапки",
 		DATIVE = "лягушачьей шапке",
@@ -402,7 +402,7 @@
 	flags_inv = HIDEHEADSETS|HIDEHEADHAIR
 
 /obj/item/clothing/head/carp_hat/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "карповая шапка",
 		GENITIVE = "карповой шапки",
 		DATIVE = "карповой шапке",

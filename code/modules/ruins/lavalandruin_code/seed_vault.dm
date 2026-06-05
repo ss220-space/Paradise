@@ -25,7 +25,7 @@
 	assignedrole = "Lifebringer"
 
 /obj/effect/mob_spawn/human/seed_vault/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сохранившийся террариум",
 		GENITIVE = "сохранившегося террариума",
 		DATIVE = "сохранившемуся террариуму",

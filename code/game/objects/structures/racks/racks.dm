@@ -16,7 +16,7 @@
 	var/parts_type = /obj/item/rack_parts
 
 /obj/structure/rack/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "стеллаж",
 		GENITIVE = "стеллажа",
 		DATIVE = "стеллажу",
@@ -199,7 +199,7 @@
 	obj_flags = NODECONSTRUCT
 
 /obj/structure/rack/wooden/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "деревянный стеллаж",
 		GENITIVE = "деревянного стеллажа",
 		DATIVE = "деревянному стеллажу",

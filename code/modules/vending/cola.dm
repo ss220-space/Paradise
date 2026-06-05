@@ -42,7 +42,7 @@
 	refill_canister = /obj/item/vending_refill/cola
 
 /obj/machinery/vending/cola/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат Robust Softdrinks",
 		GENITIVE = "торгового автомата Robust Softdrinks",
 		DATIVE = "торговому автомату Robust Softdrinks",

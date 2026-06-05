@@ -8,7 +8,7 @@
 	var/piercing = FALSE
 
 /obj/projectile/bullet/dart/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "дротик",
 		GENITIVE = "дротика",
 		DATIVE = "дротику",
@@ -59,7 +59,7 @@
 	volume = 15
 
 /obj/projectile/bullet/dart/syringe/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шприц",
 		GENITIVE = "шприца",
 		DATIVE = "шприцу",
@@ -72,5 +72,5 @@
 
 /obj/projectile/bullet/dart/syringe/tranquilizer/Initialize(mapload)
 	. = ..()
-	
+
 	reagents.add_reagent("haloperidol", 15)

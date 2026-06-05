@@ -19,7 +19,7 @@
 	var/datum/action/innate/wheelchair/bell/bell_action
 
 /obj/vehicle/ridden/wheelchair/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "инвалидная коляска",
 		GENITIVE = "инвалидной коляски",
 		DATIVE = "инвалидной коляске",

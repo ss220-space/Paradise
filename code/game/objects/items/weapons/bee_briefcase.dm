@@ -20,7 +20,7 @@
 	var/next_sound = 0
 
 /obj/item/bee_briefcase/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "портфель",
 		GENITIVE = "портфеля",
 		DATIVE = "портфелю",

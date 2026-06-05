@@ -1,13 +1,13 @@
 /**
-	The label component.
-
-	This component is used to manage labels applied by the hand labeler.
-
-	Atoms can only have one instance of this component, and therefore only one label at a time.
-	This is to avoid having names like "Backpack (label1) (label2) (label3)". This is annoying and abnoxious to read.
-
-	When a player clicks the atom with a hand labeler to apply a label, this component gets applied to it.
-	If the labeler is off, the component will be removed from it, and the label will be removed from its name.
+ * The label component.
+ *
+ * This component is used to manage labels applied by the hand labeler.
+ *
+ * Atoms can only have one instance of this component, and therefore only one label at a time.
+ * This is to avoid having names like "Backpack (label1) (label2) (label3)". This is annoying and abnoxious to read.
+ *
+ * When a player clicks the atom with a hand labeler to apply a label, this component gets applied to it.
+ * If the labeler is off, the component will be removed from it, and the label will be removed from its name.
  */
 /datum/component/label
 	dupe_mode = COMPONENT_DUPE_UNIQUE_PASSARGS
@@ -29,9 +29,9 @@
 	UnregisterSignal(parent, list(COMSIG_ATOM_ATTACKBY, COMSIG_ATOM_EXAMINE))
 
 /**
-	This proc will fire after the parent is hit by a hand labeler which is trying to apply another label.
-	Since the parent already has a label, it will remove the old one from the parent's name, and apply the new one.
-*/
+ * This proc will fire after the parent is hit by a hand labeler which is trying to apply another label.
+ * Since the parent already has a label, it will remove the old one from the parent's name, and apply the new one.
+ */
 /datum/component/label/InheritComponent(datum/component/label/new_comp , i_am_original, _label_name)
 	remove_label()
 	if(new_comp)
@@ -41,16 +41,16 @@
 	apply_label()
 
 /**
-	This proc will trigger when any object is used to attack the parent.
-
-	If the attacking object is not a hand labeler, it will return.
-	If the attacking object is a hand labeler it will restore the name of the parent to what it was before this component was added to it, and the component will be deleted.
-
-	Arguments:
-	* source: The parent.
-	* attacker: The object that is hitting the parent.
-	* user: The mob who is wielding the attacking object.
-*/
+ * This proc will trigger when any object is used to attack the parent.
+ *
+ * If the attacking object is not a hand labeler, it will return.
+ * If the attacking object is a hand labeler it will restore the name of the parent to what it was before this component was added to it, and the component will be deleted.
+ *
+ * Arguments:
+ * * source: The parent.
+ * * attacker: The object that is hitting the parent.
+ * * user: The mob who is wielding the attacking object.
+ */
 /datum/component/label/proc/OnAttackby(datum/source, obj/item/attacker, mob/user)
 	// If the attacking object is not a hand labeler or its mode is 1 (has a label ready to apply), return.
 	// The hand labeler should be off (mode is 0), in order to remove a label.
@@ -64,14 +64,14 @@
 	qdel(src) // Remove the component from the object.
 
 /**
-	This proc will trigger when someone examines the parent.
-	It will attach the text found in the body of the proc to the `examine_list` and display it to the player examining the parent.
-
-	Arguments:
-	* source: The parent.
-	* user: The mob exmaining the parent.
-	* examine_list: The current list of text getting passed from the parent's normal examine() proc.
-*/
+ * This proc will trigger when someone examines the parent.
+ * It will attach the text found in the body of the proc to the `examine_list` and display it to the player examining the parent.
+ *
+ * Arguments:
+ * * source: The parent.
+ * * user: The mob exmaining the parent.
+ * * examine_list: The current list of text getting passed from the parent's normal examine() proc.
+ */
 /datum/component/label/proc/Examine(datum/source, mob/user, list/examine_list)
 	examine_list += span_notice("It has a label with some words written on it. Use a hand labeler to remove it.")
 
@@ -79,25 +79,25 @@
 /datum/component/label/proc/apply_label()
 	var/atom/owner = parent
 	owner.name += " ([label_name])"
-	var/list/names = owner.ru_names || owner.get_ru_names_cached()
-	if(!names)
+	var/alist/names = owner.ru_names || owner.get_ru_names_cached()
+	if(!length(names))
 		return
 
 	owner.ru_names = names.Copy()
-	for(var/i in NOMINATIVE to PREPOSITIONAL)
-		owner.ru_names[i] += " ([label_name])"
+	for(var/case_id in NOMINATIVE to PREPOSITIONAL)
+		owner.ru_names[case_id] += " ([label_name])"
 
 /// Removes the label from the parent's name
 /datum/component/label/proc/remove_label()
 	var/atom/owner = parent
 	owner.name = replacetext(owner.name, "([label_name])", "") // Remove the label text from the parent's name, wherever it's located.
 	if(owner.ru_names)
-		for(var/i in NOMINATIVE to PREPOSITIONAL)
-			owner.ru_names[i] = replacetext(owner.ru_names[i], "([label_name])", "")
+		for(var/case_id in NOMINATIVE to PREPOSITIONAL)
+			owner.ru_names[case_id] = replacetext(owner.ru_names[case_id], "([label_name])", "")
 
 	owner.name = trim(owner.name) // Shave off any white space from the beginning or end of the parent's name.
 	if(!owner.ru_names)
 		return
 
-	for(var/i in NOMINATIVE to PREPOSITIONAL)
-		owner.ru_names[i] = trim(owner.ru_names[i])
+	for(var/case_id in NOMINATIVE to PREPOSITIONAL)
+		owner.ru_names[case_id] = trim(owner.ru_names[case_id])

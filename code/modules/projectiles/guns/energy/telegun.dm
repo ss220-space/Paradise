@@ -12,7 +12,7 @@
 	accuracy = GUN_ACCURACY_PISTOL
 
 /obj/item/gun/energy/telegun/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "телепушка",
 		GENITIVE = "телепушки",
 		DATIVE = "телепушке",

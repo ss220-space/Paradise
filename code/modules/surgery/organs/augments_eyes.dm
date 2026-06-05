@@ -182,7 +182,7 @@
 	aug_message = "Этот имплант не имеет смысла..."
 
 /obj/item/organ/internal/cyberimp/eyes/hud/universal/get_ru_names()
-		return list(
+	return alist(
 		NOMINATIVE = "универсальный ИЛС имплант",
 		GENITIVE = "универсального ИЛС импланта",
 		DATIVE = "универсальному ИЛС импланту",
@@ -213,8 +213,15 @@
 	var/crop_y = 0
 	/// Global station map crop size
 	var/crop_size = 80
+	/// Markers auto refresh interval
+	var/refresh_interval = 1 SECONDS
+	/// Markers auto refresh timer id
+	var/refresh_timer_id = null
 
 /obj/item/organ/internal/cyberimp/eyes/map/Destroy()
+	if(refresh_timer_id)
+		deltimer(refresh_timer_id)
+		refresh_timer_id = null
 	holomap_datum = null
 	current_turf = null
 	return ..()
@@ -256,6 +263,8 @@
 	user.hud_used.mini_holomap.used_base_map = holomap_datum.base_map
 	user.hud_used.mini_holomap.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	user.client.screen |= user.hud_used.mini_holomap
+
+	refresh_timer_id = addtimer(CALLBACK(src, PROC_REF(refresh_overlays), user), refresh_interval, TIMER_LOOP | TIMER_STOPPABLE)
 
 	if(holomap_datum.bogus)
 		to_chat(user, span_warning("Ошибка инициализации голокарты. Этот сектор пространства невозможно отобразить."))
@@ -317,9 +326,22 @@
 	setup_holomap(moved_mob)
 	moved_mob.hud_used.mini_holomap.icon = holomap_datum.map_icon
 
+/obj/item/organ/internal/cyberimp/eyes/map/proc/refresh_overlays(mob/user)
+	if(!user?.client || !user.hud_used?.mini_holomap || user.hud_used.mini_holomap.used_station_map != src)
+		return
+	if(!holomap_datum)
+		return
+	var/list/image/overlays = holomap_datum.create_overlays(handle_overlays(user))
+	user.hud_used.mini_holomap.cut_overlays()
+	for(var/image/overlay as anything in overlays)
+		user.hud_used.mini_holomap.add_overlay(overlay)
 
 /obj/item/organ/internal/cyberimp/eyes/map/proc/hide_mini_map(mob/user)
 	UnregisterSignal(user, COMSIG_MOVABLE_MOVED)
+
+	if(refresh_timer_id)
+		deltimer(refresh_timer_id)
+		refresh_timer_id = null
 
 	to_chat(user, span_interface("Мини-карта исчезает."))
 	if(!user.client)

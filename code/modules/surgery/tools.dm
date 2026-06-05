@@ -12,7 +12,7 @@
 	tool_behaviour = TOOL_RETRACTOR
 
 /obj/item/retractor/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ретрактор",
 		GENITIVE = "ретрактора",
 		DATIVE = "ретрактору",
@@ -33,7 +33,7 @@
 	toolspeed = 0.4
 
 /obj/item/retractor/laser/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "лазерный ретрактор",
 		GENITIVE = "лазерного ретрактора",
 		DATIVE = "лазерному ретрактору",
@@ -48,7 +48,7 @@
 	toolspeed = 0.5
 
 /obj/item/retractor/augment/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "микромеханический манипулятор",
 		GENITIVE = "микромеханического манипулятора",
 		DATIVE = "микромеханическому манипулятору",
@@ -64,7 +64,7 @@
 	item_state = "primitive_retractor"
 
 /obj/item/retractor/primitive_retractor/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "примитивный ретрактор",
 		GENITIVE = "примитивного ретрактора",
 		DATIVE = "примитивному ретрактору",
@@ -88,7 +88,7 @@
 	tool_behaviour = TOOL_HEMOSTAT
 
 /obj/item/hemostat/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "гемостат",
 		GENITIVE = "гемостата",
 		DATIVE = "гемостату",
@@ -109,7 +109,7 @@
 	toolspeed = 0.4
 
 /obj/item/hemostat/laser/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "лазерный гемостат",
 		GENITIVE = "лазерного гемостата",
 		DATIVE = "лазерному гемостату",
@@ -129,7 +129,7 @@
 	item_state = "primitive_hemostat"
 
 /obj/item/hemostat/primitive_hemostat/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "примитивный гемостат",
 		GENITIVE = "примитивного гемостата",
 		DATIVE = "примитивному гемостату",
@@ -154,7 +154,7 @@
 	heat = T500K
 
 /obj/item/cautery/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "прижигатель",
 		GENITIVE = "прижигателя",
 		DATIVE = "прижигателю",
@@ -178,7 +178,7 @@
 	item_state = "primitive_cautery"
 
 /obj/item/cautery/primitive_cautery/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "примитивный прижигатель",
 		GENITIVE = "примитивного прижигателя",
 		DATIVE = "примитивному прижигателю",
@@ -204,7 +204,7 @@
 	tool_behaviour = TOOL_DRILL
 
 /obj/item/surgicaldrill/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "хирургическая дрель",
 		GENITIVE = "хирургической дрели",
 		DATIVE = "хирургической дрели",
@@ -248,7 +248,7 @@
 	toolspeed = 0.4
 
 /obj/item/surgicaldrill/laser/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "лазерная дрель",
 		GENITIVE = "лазерной дрели",
 		DATIVE = "лазерной дрели",
@@ -287,7 +287,7 @@
 	tool_behaviour = TOOL_SCALPEL
 
 /obj/item/scalpel/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "скальпель",
 		GENITIVE = "скальпеля",
 		DATIVE = "скальпелю",
@@ -318,7 +318,7 @@
 	item_state = "primitive_scalpel"
 
 /obj/item/scalpel/primitive_scalpel/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "примитивный скальпель",
 		GENITIVE = "примитивного скальпеля",
 		DATIVE = "примитивному скальпелю",
@@ -338,7 +338,7 @@
 	hitsound = 'sound/weapons/sear.ogg'
 
 /obj/item/scalpel/laser/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "лазерный скальпель",
 		GENITIVE = "лазерного скальпеля",
 		DATIVE = "лазерному скальпелю",
@@ -372,7 +372,7 @@
 	toolspeed = 0.2
 
 /obj/item/scalpel/laser/manager/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "система обработки надрезов",
 		GENITIVE = "системы обработки надрезов",
 		DATIVE = "системе обработки надрезов",
@@ -408,7 +408,7 @@
 	tool_behaviour = TOOL_SAW
 
 /obj/item/circular_saw/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "хирургическая пила",
 		GENITIVE = "хирургической пилы",
 		DATIVE = "хирургической пиле",
@@ -437,7 +437,7 @@
 	toolspeed = 0.6
 
 /obj/item/circular_saw/laser/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "лазерная хирургическая пила",
 		GENITIVE = "лазерной хирургической пилы",
 		DATIVE = "лазерной хирургической пиле",
@@ -471,7 +471,7 @@
 	attack_verb = list("атаковал", "полоснул", "пропилил", "порезал")
 
 /obj/item/primitive_saw/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "примитивная хирургическая пила",
 		GENITIVE = "примитивной хирургической пилы",
 		DATIVE = "примитивной хирургической пиле",
@@ -498,7 +498,7 @@
 	tool_behaviour = TOOL_BONEGEL
 
 /obj/item/bonegel/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "костяной гель",
 		GENITIVE = "костяного геля",
 		DATIVE = "костяному гелю",
@@ -521,7 +521,7 @@
 	item_state = "primitive_bonegel"
 
 /obj/item/bonegel/primitive_bonegel/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "примитивный костяной гель",
 		GENITIVE = "примитивного костяного геля",
 		DATIVE = "примитивному костяному гелю",
@@ -543,7 +543,7 @@
 	tool_behaviour = TOOL_FIXOVEIN
 
 /obj/item/FixOVein/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "гель для сосудов",
 		GENITIVE = "гели для сосудов",
 		DATIVE = "гелю для сосудов",
@@ -567,7 +567,7 @@
 	item_state = "primitive_fixovein"
 
 /obj/item/FixOVein/primitive_FixOVein/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "нить для сращивания сосудов",
 		GENITIVE = "нити для сращивания сосудов",
 		DATIVE = "нити для сращивания сосудов",
@@ -593,7 +593,7 @@
 	tool_behaviour = TOOL_BONESET
 
 /obj/item/bonesetter/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "костоправ",
 		GENITIVE = "костоправа",
 		DATIVE = "костоправу",
@@ -614,7 +614,7 @@
 	toolspeed = 0.4
 
 /obj/item/bonesetter/laser/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "лазерный костоправ",
 		GENITIVE = "лазерного костоправа",
 		DATIVE = "лазерному костоправу",
@@ -633,7 +633,7 @@
 	item_state = "primitive_bonesetter"
 
 /obj/item/bonesetter/primitive_bonesetter/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "примитивный костоправ",
 		GENITIVE = "примитивного костоправа",
 		DATIVE = "примитивному костоправу",
@@ -652,7 +652,7 @@
 	attack_verb = list("шлёпнул")
 
 /obj/item/surgical_drapes/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "хирургическая простыня",
 		GENITIVE = "хирургической простыни",
 		DATIVE = "хирургической простыне",

@@ -70,7 +70,7 @@
 	var/wet_enabled = TRUE
 
 /obj/item/holosign_creator/janitor/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "голо-проектор уборщика",
 		GENITIVE = "голо-проектора уборщика",
 		DATIVE = "голо-проектору уборщика",
@@ -113,7 +113,7 @@
 	max_signs = 6
 
 /obj/item/holosign_creator/security/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "голо-проектор службы безопасности",
 		GENITIVE = "голо-проектора службы безопасности",
 		DATIVE = "голо-проектору службы безопасности",
@@ -132,7 +132,7 @@
 	max_signs = 6
 
 /obj/item/holosign_creator/engineering/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "инженерный голо-проектор",
 		GENITIVE = "инженерного голо-проектора",
 		DATIVE = "инженерному голо-проектору",
@@ -150,7 +150,7 @@
 	max_signs = 3
 
 /obj/item/holosign_creator/atmos/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "атмосферный голо-проектор",
 		GENITIVE = "атмосферного голо-проектора",
 		DATIVE = "атмосферному голо-проектору",
@@ -168,7 +168,7 @@
 	var/shock = 0
 
 /obj/item/holosign_creator/cyborg/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "проектор энерго-барьера",
 		GENITIVE = "проектора энерго-барьера",
 		DATIVE = "проектору энерго-барьера",

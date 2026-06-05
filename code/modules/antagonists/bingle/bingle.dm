@@ -55,7 +55,7 @@
 	)
 
 /mob/living/simple_animal/hostile/bingle/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бингл",
 		GENITIVE = "бингла",
 		DATIVE = "бинглу",
@@ -185,7 +185,7 @@
 		mind.add_antag_datum(/datum/antagonist/bingle/lord, /datum/team/bingles)
 
 /mob/living/simple_animal/hostile/bingle/lord/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "лорд бинглов",
 		GENITIVE = "лорда бинглов",
 		DATIVE = "лорду бинглов",

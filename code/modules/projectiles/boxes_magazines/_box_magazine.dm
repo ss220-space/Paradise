@@ -38,7 +38,7 @@
 	var/extra_info = ""
 
 /obj/item/ammo_box/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "коробка [get_ammo_descriptor()] [get_cartridge_marking()]",
 		GENITIVE = "коробки [get_ammo_descriptor()] [get_cartridge_marking()]",
 		DATIVE = "коробке [get_ammo_descriptor()] [get_cartridge_marking()]",
@@ -285,7 +285,7 @@
 	var/gun_name = ""
 
 /obj/item/ammo_box/magazine/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "магазин [gun_name] [get_cartridge_marking()]",
 		GENITIVE = "магазина [gun_name] [get_cartridge_marking()]",
 		DATIVE = "магазину [gun_name] [get_cartridge_marking()]",
