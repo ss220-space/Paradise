@@ -71,10 +71,11 @@
 	on_hud_refreshed(observe_target, observe_target.hud_used)
 
 /datum/component/true_observer/UnregisterFromParent()
-	for (var/key,_ in default_connections)
+	for(var/key,_ in default_connections)
 		UnregisterSignal(observe_target, key)
-	if ()
-		clear_vision()
+	if(isnull(observe.client))
+		return
+	clear_vision()
 	observe.hide_other_mob_action_buttons(observe_target)
 
 /datum/component/true_observer/Destroy(force)
@@ -138,10 +139,11 @@
 
 /datum/component/true_observer/proc/on_status_effect_created(mob/living/mob_source, datum/status_effect/transient/effect_type)
 	SIGNAL_HANDLER
-	if (istype(effect_type) == FALSE) return
+	if(istype(effect_type) == FALSE)
+		return
 
 	var/atom/movable/plane_master_controller/game_plane_master_controller = observe.hud_used?.plane_master_controllers[PLANE_MASTERS_GAME]
-	switch (effect_type)
+	switch(effect_type)
 		if(/datum/status_effect/transient/eye_blurry)
 	///mob/living/update_blurry_effects()
 			if(!game_plane_master_controller)
@@ -156,10 +158,11 @@
 
 /datum/component/true_observer/proc/on_status_effect_ended(mob/living/mob_source, datum/status_effect/transient/effect_type)
 	SIGNAL_HANDLER
-	if (istype(effect_type) == FALSE) return
+	if(istype(effect_type) == FALSE)
+		return
 
 	var/atom/movable/plane_master_controller/game_plane_master_controller = observe.hud_used?.plane_master_controllers[PLANE_MASTERS_GAME]
-	switch (effect_type)
+	switch(effect_type)
 		if(/datum/status_effect/transient/eye_blurry)
 	///mob/living/update_blurry_effects()
 			if(!game_plane_master_controller)
@@ -202,7 +205,7 @@
 
 /datum/component/true_observer/proc/on_screen_element(mob/living/mob_source, element, is_added)
 	SIGNAL_HANDLER
-	if (is_added)
+	if(is_added)
 		observe.client.screen |= element
 	else
 		observe.client.screen -= element
