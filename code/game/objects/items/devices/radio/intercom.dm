@@ -54,6 +54,12 @@
 	add_fingerprint(user)
 	attack_self(user)
 
+/obj/item/radio/intercom/MouseDrop(atom/over, src_location, over_location, src_control, over_control, params)
+	if(anchored)
+		to_chat(usr, span_warning("[capitalize(declent_ru(NOMINATIVE))] прикручен к стене!"))
+		return FALSE
+	return ..()
+
 /obj/item/radio/intercom/attack_hand(mob/user)
 	add_fingerprint(user)
 	attack_self(user)
