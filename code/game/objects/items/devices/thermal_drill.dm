@@ -1,6 +1,6 @@
 /obj/item/thermal_drill
 	name = "thermal safe drill"
-	desc = "A tungsten carbide thermal drill with magnetic clamps for the purpose of drilling hardened objects. Guaranteed 100% jam proof."
+	desc = "Дрель из карбида вольфрама с магнитными креплениями для бурения укрепленных объектов. Гарантируется 100% защита от заклинивания."
 	icon_state = "hardened_drill"
 	w_class = WEIGHT_CLASS_GIGANTIC
 	force = 15
@@ -12,6 +12,16 @@
 	var/datum/effect_system/spark_spread/spark_system
 	/// When drilling security case
 	var/security_alert_chance = 10
+
+/obj/item/thermal_drill/get_ru_names()
+	return alist(
+		NOMINATIVE = "Термальная дрель для сейфов",
+		GENITIVE = "Термальную дрель для сейфов",
+		DATIVE = "Термальной дрели для сейфов",
+		ACCUSATIVE = "Термальную дрель для сейфов",
+		INSTRUMENTAL = "Термальной дрелью для сейфов",
+		PREPOSITIONAL = "Термальной дрели для сейфов",
+	)
 
 /obj/item/thermal_drill/Initialize(mapload)
 	. = ..()
@@ -51,18 +61,48 @@
 
 /obj/item/thermal_drill/syndicate
 	name = "amplified thermal safe drill"
-	desc = "A tungsten carbide thermal drill with magnetic clamps for the purpose of drilling hardened objects. Comes with an inbuilt morale booster and security detector, to assist in drilling."
+	desc = "Дрель из карбида вольфрама с магнитными креплениями для бурения укрепленных объектов. Поставляется со встроенной моральной поддержкой и детектором службы безопасности, для помощи в бурении. При вскрытии защищенных кейсов с меньшим шансом активирует сигнализацию."
 	payback = TRUE
-	security_alert_chance = 3
+	security_alert_chance = 4
+
+/obj/item/thermal_drill/syndicate/get_ru_names()
+	return alist(
+		NOMINATIVE = "Усиленная термальная дрель для сейфов",
+		GENITIVE = "Усиленную термальную дрель для сейфов",
+		DATIVE = "Усиленной термальной дрели для сейфов",
+		ACCUSATIVE = "Усиленную термальную дрель для сейфов",
+		INSTRUMENTAL = "Усиленной термальной дрелью для сейфов",
+		PREPOSITIONAL = "Усиленной термальной дрели для сейфов",
+	)
 
 /obj/item/thermal_drill/diamond_drill
 	name = "diamond tipped thermal safe drill"
-	desc = "A diamond tipped thermal drill with magnetic clamps for the purpose of quickly drilling hardened objects. Guaranteed 100% jam proof."
+	desc = "Дрель из карбида вольфрама с алмазным напылением и магнитными креплениями для бурения укрепленных объектов. Гарантируется 100% защита от заклинивания."
 	icon_state = "diamond_drill"
 	time_multiplier = 0.5
 
+/obj/item/thermal_drill/diamond_drill/get_ru_names()
+	return alist(
+		NOMINATIVE = "Термальная дрель для сейфов с алмазным напылением",
+		GENITIVE = "Термальную дрель для сейфов с алмазным напылением",
+		DATIVE = "Термальной дрели для сейфов с алмазным напылением",
+		ACCUSATIVE = "Термальную дрель для сейфов с алмазным напылением",
+		INSTRUMENTAL = "Термальной дрелью для сейфов с алмазным напылением",
+		PREPOSITIONAL = "Термальной дрели для сейфов с алмазным напылением",
+	)
+
 /obj/item/thermal_drill/diamond_drill/syndicate
 	name = "amplified diamond tipped thermal safe drill"
-	desc = "A diamond tipped thermal drill with magnetic clamps for the purpose of quickly drilling hardened objects. Comes with an inbuilt morale booster and security detector, to assist in drilling."
+	desc = "Дрель из карбида вольфрама с алмазным напылением и магнитными креплениями для бурения укрепленных объектов. Поставляется со встроенной моральной поддержкой и детектором службы безопасности, для помощи в бурении. При вскрытии защищенных кейсов с меньшим шансом активирует сигнализацию."
 	payback = TRUE
-	security_alert_chance = 3
+	security_alert_chance = 4
+
+/obj/item/thermal_drill/diamond_drill/syndicate/get_ru_names()
+	return alist(
+		NOMINATIVE = "Усиленная термальная дрель для сейфов с алмазным напылением",
+		GENITIVE = "Усиленную термальную дрель для сейфов с алмазным напылением",
+		DATIVE = "Усиленной термальной дрели для сейфов с алмазным напылением",
+		ACCUSATIVE = "Усиленную термальную дрель для сейфов с алмазным напылением",
+		INSTRUMENTAL = "Усиленной термальной дрелью для сейфов с алмазным напылением",
+		PREPOSITIONAL = "Усиленной термальной дрели для сейфов с алмазным напылением",
+	)
