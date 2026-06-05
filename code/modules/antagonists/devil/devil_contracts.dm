@@ -266,7 +266,8 @@ GLOBAL_LIST_INIT(devil_guns, (GLOB.summoned_guns - NOT_DEVIL_GUNS + DEVIL_GUNS))
 /datum/devil_contract/return_dead/fulfill_contract(mob/living/carbon/human/user)
 	var/datum/action/cooldown/spell/touch/revive_touch/spell = new()
 	spell.Grant(user)
-	var/obj/effect/proc_holder/spell/lichdom/lich_spell = new(null)
+	var/datum/action/cooldown/spell/lichdom/lich_spell = new
+	lich_spell.Grant(user)
 	lich_spell.create_lich(user)
 	qdel(lich_spell)
 

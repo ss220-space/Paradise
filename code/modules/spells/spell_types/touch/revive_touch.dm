@@ -5,7 +5,7 @@
 	name = "Воскрешающее косание"
 	desc = "Чрезвычайно могущественное некромантическое заклинание"
 	hand_path = /obj/item/melee/magic_hand/revive_touch
-	school = SCHOOL_TRANSMUTATION
+	school = SCHOOL_NECROMANCY
 	invocation = "Surge e lecto!"
 	cooldown_time = 1 MINUTES
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
