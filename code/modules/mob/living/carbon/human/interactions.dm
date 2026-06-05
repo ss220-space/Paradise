@@ -30,6 +30,9 @@
 	var/choice = tgui_input_list(src, "Доступные цели:", "Выберите цель для взаимодействия", targets)
 	var/mob/living/carbon/human/M = targets[choice]
 
+	if(!M || QDELETED(M) || !(M in view(src)))
+		return
+
 	if(ishuman(M) && usr != M && src != M)
 		partner = M
 		var/datum/interactions/tgui = new /datum/interactions
@@ -41,31 +44,6 @@
 
 /datum/interactions
 	var/mob/living/carbon/human/owner
-	var/list/datum/interaction/available_interactions
-
-/datum/interactions/New()
-	available_interactions = list(
-        new /datum/interaction/bow,
-		new /datum/interaction/bow_affably,
-		new /datum/interaction/hands/wave,
-		new /datum/interaction/hands/fuckyou,
-		new /datum/interaction/hands/threaten,
-		new /datum/interaction/hands/adjacent/handshake,
-		new /datum/interaction/hands/adjacent/hug,
-		new /datum/interaction/hands/adjacent/cheer,
-		new /datum/interaction/hands/adjacent/slap,
-		new /datum/interaction/hands/adjacent/knock,
-		new /datum/interaction/hands/adjacent/pullwing,
-		new /datum/interaction/hands/adjacent/pull,
-		new /datum/interaction/hands/adjacent/pet,
-		new /datum/interaction/hands/adjacent/scratch,
-		new /datum/interaction/hands/adjacent/mutual/five,
-		new /datum/interaction/hands/adjacent/mutual/give,
-		new /datum/interaction/mouth/kiss,
-		new /datum/interaction/mouth/tongue,
-		new /datum/interaction/mouth/adjacent/spit,
-		new /datum/interaction/mouth/adjacent/mutual/lick
-    )
 
 /datum/interactions/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -86,7 +64,7 @@
 	data["partner"] = "[P]"
 
 	var/list/interactions = list()
-	for(var/datum/interaction/I in available_interactions)
+	for(var/datum/interaction/I in GLOB.interaction_entries)
 		if(I.is_available(H, P))
 			interactions += list(list(
 				"category" = I.category,
@@ -101,7 +79,7 @@
 	if(..())
 		return
 
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+	if(ui.user.incapacitated() || HAS_TRAIT(ui.user, TRAIT_HANDS_BLOCKED))
 		return
 
 	var/mob/living/carbon/human/H = ui.user
@@ -114,7 +92,7 @@
 
 	H.last_interract = world.time
 
-	for(var/datum/interaction/I in available_interactions)
+	for(var/datum/interaction/I in GLOB.interaction_entries)
 		if(I.action == action && I.is_available(H, P))
 			I.execute(H, P)
 			H.update_icon()

@@ -356,3 +356,25 @@
 	else
 		user.custom_emote(message = "особо тщательно лизнул[GEND_A_O_I(user)] [target].")
 
+GLOBAL_LIST_INIT(interaction_entries, list(
+	new /datum/interaction/bow,
+	new /datum/interaction/bow_affably,
+	new /datum/interaction/hands/wave,
+	new /datum/interaction/hands/fuckyou,
+	new /datum/interaction/hands/threaten,
+	new /datum/interaction/hands/adjacent/handshake,
+	new /datum/interaction/hands/adjacent/hug,
+	new /datum/interaction/hands/adjacent/cheer,
+	new /datum/interaction/hands/adjacent/slap,
+	new /datum/interaction/hands/adjacent/knock,
+	new /datum/interaction/hands/adjacent/pullwing,
+	new /datum/interaction/hands/adjacent/pull,
+	new /datum/interaction/hands/adjacent/pet,
+	new /datum/interaction/hands/adjacent/scratch,
+	new /datum/interaction/hands/adjacent/mutual/five,
+	new /datum/interaction/hands/adjacent/mutual/give,
+	new /datum/interaction/mouth/kiss,
+	new /datum/interaction/mouth/tongue,
+	new /datum/interaction/mouth/adjacent/spit,
+	new /datum/interaction/mouth/adjacent/mutual/lick
+))

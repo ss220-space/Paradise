@@ -15,7 +15,7 @@ interface Interaction {
   danger?: boolean;
 }
 
-export const Interactions = (props) => {
+export const Interactions = () => {
   const { act, data } = useBackend<Data>();
   const { partner, interactions } = data;
   return (
