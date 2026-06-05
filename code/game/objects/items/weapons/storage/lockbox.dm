@@ -4,7 +4,7 @@
 
 /obj/item/storage/lockbox
 	name = "lockbox"
-	desc = "A locked box."
+	desc = "Кейс с замком."
 	icon = 'icons/obj/storage/boxes.dmi'
 	icon_state = "lockbox+l"
 	righthand_file = 'icons/mob/inhands/storage_righthand.dmi'
@@ -33,9 +33,20 @@
 	var/image/progress_bar
 	var/drill_x_offset = -2
 	var/drill_y_offset = 21
-	var/progress_bar_y_offset = 16
+	var/progress_bar_y_offset = 26
 	var/security_alert_chance
 	var/tried_alert = FALSE
+	var/lockbox_tytle_ru = ""
+
+/obj/item/storage/lockbox/get_ru_names()
+	return alist(
+		NOMINATIVE = "Защищенный кейс [lockbox_tytle_ru]",
+		GENITIVE = "Защищенного кейса [lockbox_tytle_ru]",
+		DATIVE = "Защищенному кейсу [lockbox_tytle_ru]",
+		ACCUSATIVE = "Защищенный кейс [lockbox_tytle_ru]",
+		INSTRUMENTAL = "Защищенным кейсом [lockbox_tytle_ru]",
+		PREPOSITIONAL = "Защищенном кейсе [lockbox_tytle_ru]",
+	)
 
 /obj/item/storage/lockbox/update_icon_state()
 	if(broken)
@@ -59,30 +70,30 @@
 	if(user.a_intent == INTENT_HARM)	// to allow storing special items
 		if(locked)
 			add_fingerprint(user)
-			to_chat(user, span_warning("It's locked!"))
+			to_chat(user, span_warning("Оно закрыто!"))
 			return ATTACK_CHAIN_PROCEED
 		return ..()
 
 	if(item.GetID())
 		add_fingerprint(user)
 		if(broken)
-			to_chat(user, span_warning("It appears to be broken."))
+			to_chat(user, span_warning("Похоже, оно сломано."))
 			return ATTACK_CHAIN_PROCEED
 		if(drill && drill_timer)
 			to_chat(user, span_warning("Невозможно во время работы дрели."))
 			return ATTACK_CHAIN_PROCEED
 		if(!check_access(item))
-			to_chat(user, span_warning("Access denied."))
+			to_chat(user, span_warning("Доступ запрещен."))
 			return ATTACK_CHAIN_PROCEED
 
 		locked = !locked
 		update_icon()
 		if(locked)
-			to_chat(user, span_warning("You lock [src]!"))
+			to_chat(user, span_warning("Вы закрыли [declent_ru(NOMINATIVE)]!"))
 			if(user.s_active == src)
 				user.s_active.close(user)
 		else
-			to_chat(user, span_warning("You unlock [src]!"))
+			to_chat(user, span_warning("Вы открыли [declent_ru(NOMINATIVE)]!"))
 			origin_tech = null //wipe out any origin tech if it's unlocked in any way so you can't double-dip tech levels at R&D.
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
@@ -109,7 +120,7 @@
 
 	if(locked)
 		add_fingerprint(user)
-		to_chat(user, span_warning("It's locked!"))
+		to_chat(user, span_warning("Оно закрыто!"))
 		return ATTACK_CHAIN_PROCEED
 
 	return ..()
@@ -178,16 +189,16 @@
 
 /obj/item/storage/lockbox/show_to(mob/user)
 	if(locked)
-		to_chat(user, span_warning("It's locked!"))
+		to_chat(user, span_warning("Оно закрыто!"))
 	else
 		..()
 	return
 
-/obj/item/storage/lockbox/can_be_inserted(obj/item/W, stop_messages = 0)
+/obj/item/storage/lockbox/can_be_inserted(obj/item/item, stop_messages = 0)
 	if(!locked)
 		return ..()
 	if(!stop_messages)
-		to_chat(usr, span_notice("[src] is locked!"))
+		to_chat(usr, span_notice("[declent_ru(NOMINATIVE)] заперт!"))
 	return FALSE
 
 /obj/item/storage/lockbox/emag_act(mob/user)
@@ -195,10 +206,10 @@
 		add_attack_logs(user, src, "emagged")
 		broken = TRUE
 		locked = FALSE
-		desc = "It appears to be broken."
+		desc = "Похоже, оно сломано."
 		update_icon()
 		if(user)
-			to_chat(user, span_notice("You unlock \the [src]."))
+			to_chat(user, span_notice("Вы открыли [declent_ru(NOMINATIVE)]."))
 		origin_tech = null //wipe out any origin tech if it's unlocked in any way so you can't double-dip tech levels at R&D.
 
 /obj/item/storage/lockbox/proc/remove_drill(mob/user)
@@ -220,22 +231,23 @@
 /obj/item/storage/lockbox/proc/try_alert_security()
 	if(security_alert_chance && prob(security_alert_chance))
 		var/area/location = get_area(src)
-		radio_announce("Попытка незаконного доступа к содержимому кейса в <b>[location]</b>.", declent_ru(NOMINATIVE), SEC_FREQ, src)
+		radio_announce("Попытка незаконного доступа к содержимому кейса в <b>[location]</b>!", declent_ru(NOMINATIVE), SEC_FREQ, src)
 		playsound(src, 'sound/machines/burglar_alarm.ogg', 50, FALSE)
 	tried_alert = TRUE
 
-/obj/item/storage/lockbox/hear_talk(mob/living/M, list/message_pieces)
+/obj/item/storage/lockbox/hear_talk(mob/living/target_mob, list/message_pieces)
 	if(locked)
 		return
 
 	..()
 
-/obj/item/storage/lockbox/hear_message(mob/living/M, msg)
+/obj/item/storage/lockbox/hear_message(mob/living/target_mob, msg)
 	return
 
 /obj/item/storage/lockbox/mindshield
 	name = "Lockbox (Mindshield Implants)"
 	req_access = list(ACCESS_SECURITY)
+	lockbox_tytle_ru = "(Импланты защиты разума)"
 
 /obj/item/storage/lockbox/mindshield/populate_contents()
 	new /obj/item/implantcase/mindshield(src)
@@ -248,10 +260,11 @@
 
 /obj/item/storage/lockbox/sibyl_system_mod
 	name = "lockbox (Sibyl System Mods)"
-	desc = "Contains proprietary Sibyl System mods for energy guns."
+	desc = "Содержит модицикации системы Сибил для энергетического оружия."
 	max_w_class = WEIGHT_CLASS_TINY
 	storage_slots = 10
 	req_access = list(ACCESS_SECURITY)
+	lockbox_tytle_ru = "(Модификации Системы Сибил)"
 
 /obj/item/storage/lockbox/sibyl_system_mod/populate_contents()
 	for(var/i in 1 to 10)
@@ -259,8 +272,9 @@
 
 /obj/item/storage/lockbox/clusterbang
 	name = "lockbox (clusterbang)"
-	desc = "You have a bad feeling about opening this."
+	desc = "У тебя плохое предчувствие об открытии этого."
 	req_access = list(ACCESS_SECURITY)
+	lockbox_tytle_ru = "(Кластерные Гранаты)"
 
 /obj/item/storage/lockbox/clusterbang/populate_contents()
 	new /obj/item/grenade/clusterbuster(src)
@@ -269,6 +283,7 @@
 	name = "Lockbox (Suppression Implants)"
 	desc = "Содержит био-чипы \"Подавление\" для ограничения навыков боевых искусств."
 	req_access = list(ACCESS_SECURITY)
+	lockbox_tytle_ru = "(Импланты Подавления)"
 
 /obj/item/storage/lockbox/suppression/populate_contents()
 	new /obj/item/implantcase/suppression(src)
@@ -283,7 +298,7 @@
 
 /obj/item/storage/lockbox/medal
 	name = "medal box"
-	desc = "A locked box used to store medals of honor."
+	desc = "Кейс с замком, используемый для хранения почетных медалей."
 	icon_state = "medalbox+l"
 	item_state = "medalbox"
 	w_class = WEIGHT_CLASS_NORMAL
@@ -295,6 +310,16 @@
 	icon_closed = "medalbox"
 	icon_broken = "medalbox+b"
 
+/obj/item/storage/lockbox/medal/get_ru_names()
+	return alist(
+		NOMINATIVE = "Кейс для медалей",
+		GENITIVE = "Кейса для медалей",
+		DATIVE = "Кейсу для медалей",
+		ACCUSATIVE = "Кейс для медалей",
+		INSTRUMENTAL = "Кейсом для медалей",
+		PREPOSITIONAL = "Кейсе для медалей",
+	)
+
 /obj/item/storage/lockbox/medal/populate_contents()
 	new /obj/item/clothing/accessory/medal/gold/captain(src)
 	new /obj/item/clothing/accessory/medal/silver/leadership(src)
@@ -303,9 +328,10 @@
 
 /obj/item/storage/lockbox/t4
 	name = "lockbox (T4)"
-	desc = "Contains three T4 breaching charges."
+	desc = "Содержит три пробивных заряда Т4."
 	req_access = list(ACCESS_CENT_SPECOPS)
 	w_class = WEIGHT_CLASS_NORMAL
+	lockbox_tytle_ru = "(Т4)"
 
 /obj/item/storage/lockbox/t4/populate_contents()
 	for(var/I in 1 to 3)
@@ -318,14 +344,25 @@
 
 /obj/item/storage/lockbox/research/large
 	name = "Large lockbox"
-	desc = "A large lockbox"
+	desc = "Большой кейс с замком"
 	max_w_class = WEIGHT_CLASS_BULKY
 	max_combined_w_class = 4 //The sum of the w_classes of all the items in this storage item.
 	storage_slots = 1
 
+/obj/item/storage/lockbox/medal/get_ru_names()
+	return alist(
+		NOMINATIVE = "Большой защищенный кейс",
+		GENITIVE = "Большого защищенного кейса",
+		DATIVE = "Большому защищенному кейсу",
+		ACCUSATIVE = "Большой защищенный кейс",
+		INSTRUMENTAL = "Большим защищенным кейсом",
+		PREPOSITIONAL = "Большом защищенном кейсе",
+	)
+
 /obj/item/storage/lockbox/research/modsuit
 	name = "Plating lockbox"
 	desc = "Большой защитный кейс. Электронный замок выглядит довольно уязвимым."
+	lockbox_tytle_ru = "(Внешняя обшивка МЭК)"
 
 /obj/item/storage/lockbox/research/modsuit/emp_act(severity) //I want emp to get around it, it's not a gun, I just want people not to always make sec / med modsuits.
 	. = ..()
@@ -340,6 +377,7 @@
 /obj/item/storage/lockbox/research/mantis
 	name = "lockbox(hidden blade implant)"
 	req_access = list(ACCESS_ARMORY)
+	lockbox_tytle_ru = "(Имплант Скрытого Лезвия)"
 
 /obj/item/storage/lockbox/research/mantis/populate_contents()
 	new /obj/item/organ/internal/cyberimp/arm/toolset/mantisblade/shellguard(src)
@@ -347,11 +385,21 @@
 
 /obj/item/storage/lockbox/medal/hardmode_box
 	name = "HRD-MDE program medal box"
-	desc = "A locked box used to store medals of pride. Use a fauna research disk on the box to transmit the data and print a medal."
+	desc = "Кейс с замком, используемый для хранения медалей гордости. Используйте диск исследования фауны на кейс, чтобы передать данные и напечатать медаль."
 	req_access = list(ACCESS_MINING) //No grubby assistant hands on my hard earned medals
 	can_hold = list(/obj/item/clothing/accessory, /obj/item/coin) //Whoops almost gave miners boxes that could store 12 legion cores. Scoped to accessory if they want to store neclaces or hope or something in there. Or a coin collection.
 	var/list/completed_fauna = list()
 	var/number_of_megafauna = 7 //Increase this if new megafauna are added.
+
+/obj/item/storage/lockbox/medal/hardmode_box/get_ru_names()
+	return alist(
+		NOMINATIVE = "Кейс для медалей HRD-MDE",
+		GENITIVE = "Кейса для медалей HRD-MDE",
+		DATIVE = "Кейсу для медалей HRD-MDE",
+		ACCUSATIVE = "Кейс для медалей HRD-MDE",
+		INSTRUMENTAL = "Кейсом для медалей HRD-MDE",
+		PREPOSITIONAL = "Кейсе для медалей HRD-MDE",
+	)
 
 /obj/item/storage/lockbox/medal/hardmode_box/Initialize(mapload)
 	. = ..()
@@ -360,20 +408,20 @@
 /obj/item/storage/lockbox/medal/hardmode_box/populate_contents()
 	return
 
-/obj/item/storage/lockbox/medal/hardmode_box/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/disk/fauna_research))
-		var/obj/item/disk/fauna_research/disky = I
+/obj/item/storage/lockbox/medal/hardmode_box/attackby(obj/item/item, mob/user, params)
+	if(istype(item, /obj/item/disk/fauna_research))
+		var/obj/item/disk/fauna_research/disky = item
 		if(!user.drop_transfer_item_to_loc(disky, src))
 			return ..()
 		add_fingerprint(user)
 		var/atom/drop_loc = drop_location()
 		var/obj/item/pride = new disky.output(drop_loc)
-		to_chat(user, span_notice("The [name] accepts [disky], and prints out [pride]."))
+		to_chat(user, span_notice("[declent_ru(NOMINATIVE)] принимает [disky.declent_ru(ACCUSATIVE)], и печатает [pride.declent_ru(ACCUSATIVE)]."))
 		qdel(disky)
 		if(!is_type_in_list(pride, completed_fauna))
 			completed_fauna += pride.type
 			if(length(completed_fauna) == number_of_megafauna)
-				to_chat(user, span_notice("The [name] prints out a very fancy medal."))
+				to_chat(user, span_notice("[declent_ru(NOMINATIVE)] печатает очень красивую медаль."))
 				var/obj/item/clothing/accessory/medal/gold/heroism/hardmode_full/accomplishment = new(drop_loc)
 				user.put_in_hands(accomplishment, ignore_anim = FALSE)
 		user.put_in_hands(pride, ignore_anim = FALSE)
