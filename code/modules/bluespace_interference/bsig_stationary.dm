@@ -36,6 +36,11 @@
 /datum/proximity_monitor/advanced/bsig_stationary
 	var/obj/machinery/power/bluespace_interference_generator/stationary/generator
 	var/list/interfered_movables
+	/// Ассоциативные turf -> TRUE зеркала field_turfs/edge_turfs для O(1) проверки принадлежности
+	/// на горячем пути (родитель хранит их плоскими списками, а `turf in list` по кругу из ~300
+	/// тайлов слишком медленно для вызовов на каждое движение/телепорт). Перестраиваются в recalculate_field.
+	var/list/field_turf_lookup
+	var/list/edge_turf_lookup
 	var/static/list/bsig_loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 		COMSIG_ATOM_EXITED = PROC_REF(on_uncrossed),
@@ -63,7 +68,16 @@
 
 /datum/proximity_monitor/advanced/bsig_stationary/recalculate_field(full_recalc = FALSE)
 	. = ..()
+	build_turf_lookups()
 	generator?.refresh_field_visuals()
+
+/datum/proximity_monitor/advanced/bsig_stationary/proc/build_turf_lookups()
+	field_turf_lookup = list()
+	for(var/turf/field_turf as anything in field_turfs)
+		field_turf_lookup[field_turf] = TRUE
+	edge_turf_lookup = list()
+	for(var/turf/edge_turf as anything in edge_turfs)
+		edge_turf_lookup[edge_turf] = TRUE
 
 /datum/proximity_monitor/advanced/bsig_stationary/update_new_turfs()
 	if(!host)
@@ -76,12 +90,20 @@
 		return list(BSIG_S_FIELD_TURFS_KEY = list(), BSIG_S_EDGE_TURFS_KEY = list())
 
 	var/list/local_field_turfs = circle_range_turfs(center_turf, current_range)
-	var/list/local_edge_turfs = circle_range_turfs(center_turf, current_range + BSIG_S_SHUNT_MARGIN) - local_field_turfs
+	// Помечаем тайлы поля в ассоциативном списке, чтобы исключить их из внешнего кольца за O(1)
+	// вместо вычитания списков (list - list — это O(n*m)).
+	var/list/field_lookup = list()
+	for(var/turf/field_turf as anything in local_field_turfs)
+		field_lookup[field_turf] = TRUE
+	var/list/local_edge_turfs = list()
+	for(var/turf/candidate_turf as anything in circle_range_turfs(center_turf, current_range + BSIG_S_SHUNT_MARGIN))
+		if(field_lookup[candidate_turf])
+			continue
+		local_edge_turfs += candidate_turf
 	return list(BSIG_S_FIELD_TURFS_KEY = local_field_turfs, BSIG_S_EDGE_TURFS_KEY = local_edge_turfs)
 
 /datum/proximity_monitor/advanced/bsig_stationary/proc/blocks_turf(turf/target_turf)
-	var/list/current_field_turfs = field_turfs
-	return generator?.field_active && target_turf && (target_turf in current_field_turfs)
+	return generator?.field_active && target_turf && LAZYACCESS(field_turf_lookup, target_turf)
 
 /datum/proximity_monitor/advanced/bsig_stationary/on_initialized(turf/location, atom/created, init_flags)
 	if(!ismovable(created))
@@ -90,15 +112,15 @@
 	on_entered(location, created_movable, null)
 
 /datum/proximity_monitor/advanced/bsig_stationary/on_entered(turf/source, atom/movable/entered, turf/old_loc)
-	if(source in field_turfs)
+	if(LAZYACCESS(field_turf_lookup, source))
 		field_turf_crossed(entered, old_loc, source)
-	else if(source in edge_turfs)
+	else if(LAZYACCESS(edge_turf_lookup, source))
 		field_edge_crossed(entered, old_loc, source)
 
 /datum/proximity_monitor/advanced/bsig_stationary/on_uncrossed(turf/source, atom/movable/gone, direction)
-	if(source in field_turfs)
+	if(LAZYACCESS(field_turf_lookup, source))
 		field_turf_uncrossed(gone, source, get_turf(gone))
-	else if(source in edge_turfs)
+	else if(LAZYACCESS(edge_turf_lookup, source))
 		field_edge_uncrossed(gone, source, get_turf(gone))
 
 /datum/proximity_monitor/advanced/bsig_stationary/setup_field_turf(turf/target)
@@ -163,8 +185,7 @@
 /datum/proximity_monitor/advanced/bsig_stationary/proc/intercept_teleporting(turf/target_turf, turf/origin, list/teleport_data)
 	SIGNAL_HANDLER
 
-	var/list/current_field_turfs = field_turfs
-	if(!generator?.field_active || !(target_turf in current_field_turfs))
+	if(!generator?.field_active || !LAZYACCESS(field_turf_lookup, target_turf))
 		return
 	if(teleport_data && teleport_data[TELEPORT_INTERCEPT_IGNORE_BLUESPACE])
 		return

@@ -24,6 +24,9 @@
 #define SECT_MERCONICISM_STALL_MAX_PRODUCTS 20
 #define SECT_MERCONICISM_STALL_MIN_STOCK 1
 #define SECT_MERCONICISM_STALL_MAX_STOCK 3
+#define SECT_MERCONICISM_GOLD_STATUE_PRANA 1
+#define SECT_MERCONICISM_DIAMOND_STATUE_PRANA 5
+#define SECT_MERCONICISM_STATUE_SCAN_TIME 10
 #define SECT_FLAME_ENCHANT_FIRE_STACKS 4
 #define SECT_FLAME_ENCHANT_MARKS_TO_IGNITE 3
 #define SECT_FLAME_ENCHANT_MARK_DECAY_TIME (6 SECONDS)
@@ -138,6 +141,10 @@
 	var/list/holy_minds = list()
 	var/list/devotee_minds = list()
 	var/list/temporary_hand_speed_mobs = list()
+	/// Лениво создаваемый кэш экземпляров ритуалов (ritual_type -> /datum/religion_ritual). Ритуалы
+	/// не хранят состояния между вызовами, поэтому один экземпляр переиспользуется и для UI, и для запуска,
+	/// вместо new/qdel на каждый рефреш интерфейса.
+	var/list/cached_rituals
 	var/founder_species
 	var/sacrifice_consumes_offering = TRUE
 
@@ -158,17 +165,32 @@
 	holy_minds.Cut()
 	devotee_minds.Cut()
 	temporary_hand_speed_mobs.Cut()
+	if(cached_rituals)
+		for(var/ritual_type in cached_rituals)
+			qdel(cached_rituals[ritual_type])
+		cached_rituals = null
 	return ..()
 
 /datum/religion_sect/proc/get_status()
 	return "[name], бог: [deity_name], прана: [round(prana, 0.1)]"
 
+/datum/religion_sect/proc/get_ritual_instance(ritual_type)
+	if(!ispath(ritual_type, /datum/religion_ritual))
+		return null
+	LAZYINITLIST(cached_rituals)
+	var/datum/religion_ritual/ritual = cached_rituals[ritual_type]
+	if(QDELETED(ritual))
+		ritual = new ritual_type
+		cached_rituals[ritual_type] = ritual
+	return ritual
+
 /datum/religion_sect/proc/get_ritual_ui_data(obj/structure/sect_altar/source_altar, mob/user)
 	var/list/rituals = list()
 	for(var/datum/religion_ritual/ritual_type as anything in ritual_types)
-		var/datum/religion_ritual/ritual = new ritual_type
+		var/datum/religion_ritual/ritual = get_ritual_instance(ritual_type)
+		if(!ritual)
+			continue
 		rituals += list(ritual.get_ui_data(src, source_altar, user))
-		qdel(ritual)
 	return rituals
 
 /datum/religion_sect/proc/adjust_prana(amount)
@@ -576,6 +598,8 @@
 	)
 	var/credit_prana_multiplier = 1
 	var/proof_of_success_used = FALSE
+	/// Накопитель времени для троттлинга скана статуй (см. process).
+	var/statue_prana_timer = 0
 
 /datum/religion_sect/merconicism/get_sacrifice_value(atom/movable/offering, mob/living/user)
 	if(istype(offering, /obj/item/stack/spacecash))
@@ -632,16 +656,24 @@
 /datum/religion_sect/merconicism/process(seconds_per_tick)
 	if(!altar)
 		return
+	// Сканируем статуи раз в SECT_MERCONICISM_STATUE_SCAN_TIME секунд, а не каждый тик: проход по
+	// области тяжёлый, а доход праны привязан ко времени, поэтому начисляем за весь накопленный интервал.
+	statue_prana_timer += seconds_per_tick
+	if(statue_prana_timer < SECT_MERCONICISM_STATUE_SCAN_TIME)
+		return
 	var/area/altar_area = get_area(altar)
 	if(!altar_area)
+		statue_prana_timer = 0
 		return
 	var/statue_prana = 0
-	for(var/obj/structure/statue/gold/gold_statue in altar_area)
-		statue_prana += 1
-	for(var/obj/structure/statue/diamond/diamond_statue in altar_area)
-		statue_prana += 5
+	for(var/obj/structure/statue/statue in altar_area)
+		if(istype(statue, /obj/structure/statue/diamond))
+			statue_prana += SECT_MERCONICISM_DIAMOND_STATUE_PRANA
+		else if(istype(statue, /obj/structure/statue/gold))
+			statue_prana += SECT_MERCONICISM_GOLD_STATUE_PRANA
 	if(statue_prana)
-		adjust_prana(statue_prana * seconds_per_tick)
+		adjust_prana(statue_prana * statue_prana_timer)
+	statue_prana_timer = 0
 
 /datum/religion_sect/dogmatism
 	name = "Догматизм"
@@ -2612,12 +2644,17 @@
 		ui = new(user, src, "SectAltar", DECLENT_RU_CAP(src, NOMINATIVE))
 		ui.open()
 
+/obj/structure/sect_altar/ui_static_data(mob/user)
+	// Список выбираемых сект и предвыбранная секта фиксированы для алтаря, поэтому отдаём их как
+	// статические данные (отправляются один раз при открытии), а не пересобираем каждый рефреш ui_data.
+	. = list()
+	.["preselected_sect"] = preselected_sect_type ? "[preselected_sect_type]" : null
+	.["sects"] = get_selectable_sect_ui_data()
+
 /obj/structure/sect_altar/ui_data(mob/user)
 	var/list/data = list()
 	data["activated"] = activated
 	data["can_activate"] = can_use_altar(user, silent = TRUE)
-	data["preselected_sect"] = preselected_sect_type ? "[preselected_sect_type]" : null
-	data["sects"] = get_selectable_sect_ui_data()
 	if(sect)
 		data["sect_name"] = sect.name
 		data["sect_desc"] = sect.desc
@@ -2655,7 +2692,6 @@
 			if(!ritual)
 				return
 			ritual.try_run(sect, src, user)
-			qdel(ritual)
 			return TRUE
 		if("sacrifice")
 			if(!activated || !sect)
@@ -2923,7 +2959,7 @@
 	for(var/datum/religion_ritual/ritual_type as anything in sect.ritual_types)
 		if(initial(ritual_type.id) != ritual_id)
 			continue
-		return new ritual_type
+		return sect.get_ritual_instance(ritual_type)
 	return null
 
 /obj/structure/sect_altar/proc/is_atom_on_altar(atom/movable/target)
