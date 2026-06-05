@@ -22,6 +22,16 @@
 	icon_state = "70mm-he"
 	projectile_type = /obj/projectile/bullet/a70mm_he
 
+/obj/item/ammo_casing/caseless/rocket/a70mm_he/get_ru_names()
+	return alist(
+		NOMINATIVE = "70-мм фугасная ракета",
+		GENITIVE = "70-мм фугасной ракеты",
+		DATIVE = "70-мм фугасной ракете",
+		ACCUSATIVE = "70-мм фугасную ракету",
+		INSTRUMENTAL = "70-мм фугасной ракетой",
+		PREPOSITIONAL = "70-мм фугасной ракете",
+	)
+
 // MARK: 40mm HE
 /obj/item/ammo_casing/a40mm
 	ammo_marking = "40 мм HE"

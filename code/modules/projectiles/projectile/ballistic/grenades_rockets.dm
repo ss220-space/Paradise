@@ -204,5 +204,6 @@
 	ricochets_max = 0
 
 /obj/projectile/bullet/a70mm_he/on_hit(atom/target, blocked = 0)
+	var/turf/detonation_turf = get_turf(src)
 	..()
-	explosion(loc, devastation_range = 0, heavy_impact_range = 2, light_impact_range = 3, flash_range = 4, cause = src)
+	explosion(detonation_turf, devastation_range = 0, heavy_impact_range = 2, light_impact_range = 3, flash_range = 4, cause = src)

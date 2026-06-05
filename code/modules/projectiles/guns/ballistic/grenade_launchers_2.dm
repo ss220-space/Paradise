@@ -147,6 +147,16 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/rpg232
 	recoil = GUN_RECOIL_LOW
 
+/obj/item/gun/projectile/revolver/rocketlauncher/rpg232/get_ru_names()
+	return alist(
+		NOMINATIVE = "РПГ-232",
+		GENITIVE = "РПГ-232",
+		DATIVE = "РПГ-232",
+		ACCUSATIVE = "РПГ-232",
+		INSTRUMENTAL = "РПГ-232",
+		PREPOSITIONAL = "РПГ-232",
+	)
+
 // MARK: Gyropistol
 /obj/item/gun/projectile/automatic/gyropistol
 	name = "gyrojet pistol"
