@@ -286,6 +286,26 @@
 	new /obj/item/disk/design_disk/security/ak814_mag(src)
 	new /obj/item/disk/design_disk/security/aksu_ammo(src)
 
+/obj/structure/closet/secure_closet/guncabinet/secspear
+	name = "security telescopic energy spear cabinet"
+	desc = "Защищённый шкаф для хранения энергетических копий. Шкаф прикручен к полу."
+	req_access = list(ACCESS_ARMORY)
+
+/obj/structure/closet/secure_closet/guncabinet/secspear/get_ru_names()
+	return list(
+		NOMINATIVE = "шкаф энергетических копий",
+		GENITIVE = "шкафа энергетических копий",
+		DATIVE = "шкафу энергетических копий",
+		ACCUSATIVE = "шкаф энергетических копий",
+		INSTRUMENTAL = "шкафом энергетических копий",
+		PREPOSITIONAL = "шкафе энергетических копий",
+	)
+
+/obj/structure/closet/secure_closet/guncabinet/secspear/populate_contents()
+	var/gun_count = HAS_TRAIT(SSstation, STATION_TRAIT_LOOTED_ARMORY) ? rand(1, 3) : 5
+	for(var/i in 1 to gun_count)
+		new /obj/item/twohanded/spear/secspear(src)
+
 /obj/structure/closet/secure_closet/guncabinet/lasergun
 	name = "security laser gun cabinet"
 	desc = "Защищённый шкаф для хранения лазерных винтовок. Шкаф прикручен к полу."
@@ -305,6 +325,26 @@
 	var/gun_count = HAS_TRAIT(SSstation, STATION_TRAIT_LOOTED_ARMORY) ? rand(1, 3) : 5
 	for(var/i in 1 to gun_count)
 		new /obj/item/gun/energy/laser(src)
+
+/obj/structure/closet/secure_closet/guncabinet/energygun
+	name = "security energy gun cabinet"
+	desc = "Защищённый шкаф для хранения энергетических карабинов. Шкаф прикручен к полу."
+	req_access = list(ACCESS_ARMORY)
+
+/obj/structure/closet/secure_closet/guncabinet/energygun/get_ru_names()
+	return list(
+		NOMINATIVE = "шкаф энергетических карабинов",
+		GENITIVE = "шкафа энергетических карабинов",
+		DATIVE = "шкафу энергетических карабинов",
+		ACCUSATIVE = "шкаф энергетических карабинов",
+		INSTRUMENTAL = "шкафом энергетических карабинов",
+		PREPOSITIONAL = "шкафе энергетических карабинов",
+	)
+
+/obj/structure/closet/secure_closet/guncabinet/energygun/populate_contents()
+	var/gun_count = HAS_TRAIT(SSstation, STATION_TRAIT_LOOTED_ARMORY) ? rand(1, 3) : 5
+	for(var/i in 1 to gun_count)
+		new /obj/item/gun/energy/gun(src)
 
 /obj/structure/closet/secure_closet/guncabinet/lr30
 	name = "security LR-30 gun cabinet"
