@@ -2,13 +2,13 @@
  * # Rep Purchase - Commando Mech
  */
 /datum/rep_purchase/item/commando_mech
-	name = "Commando mech delivery"
-	description = "A one-use beacon that calls down a Commando exosuit."
+	name = "Доставка меха \"Коммандо\""
+	description = "Одноразовый маяк, вызывающий экзокостюм \"Коммандо\"."
 	cost = 6
 	stock = 1
 	item_type = /obj/item/mecha_drop/commando
 
 /obj/item/mecha_drop/commando
-	name = "commando mechadrop tool"
-	desc = "A one-use targeting device for a compact Syndicate exosuit drop."
+	name = "устройство доставки меха \"Коммандо\""
+	desc = "Одноразовое устройство наведения для доставки компактного экзокостюма Синдиката."
 	mecha_type = /obj/mecha/combat/commando/loaded

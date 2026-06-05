@@ -5,8 +5,8 @@
 #define RASCAL_MODE_BURST 2
 
 /obj/mecha/combat/commando
-	desc = "An exosuit developed by Syndicate mad scientists and, apparently, a mime. Combines Phazon and Reticence systems with the field versatility of a locker mech."
-	name = "Commando"
+	desc = "Экзокостюм, разработанный безумными учёными Синдиката и, по всей видимости, мимом. Сочетает системы Фазона и Тихони с полевой универсальностью шкафомеха."
+	name = "Коммандо"
 	icon = 'icons/obj/mecha/lockermech.dmi'
 	icon_state = "contractormech"
 	initial_icon = "contractormech"
@@ -33,6 +33,7 @@
 	var/cloak_active = FALSE
 	var/cloak_name
 	var/cloak_desc
+	var/cloak_icon
 	var/cloak_icon_state
 	var/cloak_last_drain = 0
 	var/phase_blocked_until = 0
@@ -63,6 +64,7 @@
 	. = ..()
 	cloak_name = name
 	cloak_desc = desc
+	cloak_icon = icon
 	cloak_icon_state = initial_icon
 
 /obj/mecha/combat/commando/process()
@@ -81,42 +83,52 @@
 	var/power_to_drain = round(COMMANDO_CLOAK_DRAIN_PER_SECOND * elapsed / (1 SECONDS))
 	cloak_last_drain = world.time
 	if(!has_charge(power_to_drain))
-		disable_cloak(span_warning("Cloaking field collapses as the power feed runs dry."))
+		disable_cloak(span_warning("Маскировочное поле схлопывается из-за нехватки энергии."))
 		return
 	use_power(power_to_drain)
 
 /obj/mecha/combat/commando/proc/toggle_cloak(mob/living/user)
 	if(cloak_active)
-		disable_cloak(span_notice("Experimental cloaking disabled."))
+		disable_cloak(span_notice("Экспериментальная маскировка отключена."))
 		return
 	var/list/cloak_options = build_cloak_options()
-	var/choice = tgui_input_list(user, "Choose exosuit signature.", "Experimental Cloaking", cloak_options)
+	var/choice = tgui_input_list(user, "Выберите сигнатуру экзокостюма.", "Экспериментальная маскировка", cloak_options)
 	if(!choice || !cloak_options[choice] || occupant != user)
 		return
 	var/list/cloak_data = cloak_options[choice]
 	cloak_name = name
 	cloak_desc = desc
+	cloak_icon = icon
 	cloak_icon_state = initial_icon
 	name = cloak_data["name"]
 	desc = cloak_data["desc"]
+	icon = cloak_data["icon"]
 	initial_icon = cloak_data["icon_state"]
 	cloak_active = TRUE
 	cloak_last_drain = world.time
 	update_icon(UPDATE_ICON_STATE)
-	occupant_message(span_notice("Experimental cloaking enabled."))
+	occupant_message(span_notice("Экспериментальная маскировка включена."))
 
 /obj/mecha/combat/commando/proc/build_cloak_options()
-	var/list/cloak_options = list()
+	var/static/list/cloak_options
+	if(cloak_options)
+		return cloak_options
+
+	cloak_options = list()
 	for(var/obj/mecha/mech_type as anything in subtypesof(/obj/mecha))
 		if(mech_type == type || ispath(mech_type, /obj/mecha/combat/commando))
 			continue
 		var/icon_state_to_use = initial(mech_type.initial_icon) || initial(mech_type.icon_state)
 		if(!icon_state_to_use)
 			continue
+		var/icon_to_use = initial(mech_type.icon) || 'icons/obj/mecha/mecha.dmi'
 		var/name_to_use = initial(mech_type.name)
+		if(!name_to_use)
+			continue
 		cloak_options["[name_to_use]"] = list(
 			"name" = name_to_use,
 			"desc" = initial(mech_type.desc),
+			"icon" = icon_to_use,
 			"icon_state" = icon_state_to_use,
 		)
 	for(var/obj/item/paintkit/paintkit_type as anything in subtypesof(/obj/item/paintkit))
@@ -127,6 +139,7 @@
 		cloak_options["[name_to_use]"] = list(
 			"name" = name_to_use,
 			"desc" = initial(paintkit_type.new_desc),
+			"icon" = 'icons/obj/mecha/mecha.dmi',
 			"icon_state" = icon_state_to_use,
 		)
 	return cloak_options
@@ -137,6 +150,7 @@
 	cloak_active = FALSE
 	name = cloak_name
 	desc = cloak_desc
+	icon = cloak_icon
 	initial_icon = cloak_icon_state
 	cloak_last_drain = 0
 	update_icon(UPDATE_ICON_STATE)
@@ -146,10 +160,10 @@
 /obj/mecha/combat/commando/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
 	. = ..()
 	if(. > 0)
-		disable_cloak(span_warning("Incoming damage disrupts the cloaking field!"))
+		disable_cloak(span_warning("Полученный урон срывает маскировочное поле!"))
 
 /obj/mecha/combat/commando/emp_act(severity)
-	disable_cloak(span_warning("EMP interference shreds the cloaking field!"))
+	disable_cloak(span_warning("ЭМИ-помехи срывают маскировочное поле!"))
 	phase_blocked_until = world.time + COMMANDO_PHASE_EMP_LOCKOUT
 	if(phasing)
 		phasing = FALSE
@@ -161,27 +175,33 @@
 /obj/mecha/combat/commando/can_phase()
 	if(world.time >= phase_blocked_until)
 		return TRUE
-	occupant_message(span_warning("EMP interference is still suppressing the phase core."))
+	occupant_message(span_warning("ЭМИ-помехи всё ещё подавляют фазовое ядро."))
 	return FALSE
 
 /obj/mecha/combat/commando/prevents_weapon_fire(obj/item/mecha_parts/mecha_equipment/weapon/weapon)
 	if(!cloak_active)
 		return FALSE
-	occupant_message(span_warning("The cloaking field blocks weapon discharge."))
+	occupant_message(span_warning("Маскировочное поле блокирует стрельбу."))
 	return TRUE
+
+/obj/mecha/combat/commando/get_phase_state()
+	return initial_icon
+
+/obj/mecha/combat/commando/uses_thruster_icon()
+	return FALSE
 
 /obj/mecha/combat/commando/attackby(obj/item/I, mob/user, params)
 	if(is_commando_uplink(I))
 		add_fingerprint(user)
 		if(installed_uplink)
-			to_chat(user, span_warning("There is already an uplink installed in [src]."))
+			to_chat(user, span_warning("В [src] уже установлен аплинк."))
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 		installed_uplink = I
 		if(occupant)
 			uplink_action.Grant(occupant, src)
-		to_chat(user, span_notice("You install [I] into [src]'s encrypted uplink slot."))
+		to_chat(user, span_notice("Вы устанавливаете [I] в зашифрованный слот аплинка [src]."))
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
 
@@ -190,7 +210,7 @@
 
 /obj/mecha/combat/commando/proc/open_installed_uplink(mob/user)
 	if(!installed_uplink)
-		occupant_message(span_warning("No uplink installed."))
+		occupant_message(span_warning("Аплинк не установлен."))
 		return
 	installed_uplink.attack_self(user)
 
@@ -206,7 +226,7 @@
 	ME.attach(src, MECH_HAND_RIGHT)
 
 /datum/action/innate/mecha/commando_cloak
-	name = "Experimental cloak"
+	name = "Экспериментальная маскировка"
 	button_icon_state = "mech_zoom_off"
 
 /datum/action/innate/mecha/commando_cloak/Activate()
@@ -218,7 +238,7 @@
 	commando.toggle_cloak(owner)
 
 /datum/action/innate/mecha/commando_uplink
-	name = "Installed uplink"
+	name = "Установленный аплинк"
 	button_icon_state = "syndicate"
 
 /datum/action/innate/mecha/commando_uplink/Activate()
@@ -230,7 +250,7 @@
 	commando.open_installed_uplink(owner)
 
 /obj/projectile/bullet/commando_burst
-	name = "suppression round"
+	name = "подавляющий патрон"
 	icon_state = "cbbolt"
 	damage = 0
 	stun = 0.5 SECONDS
@@ -247,8 +267,8 @@
 		carbon_target.Silence(10 SECONDS)
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/carbine/rascal
-	name = "S.H.H. \"Rascal\" carbine"
-	desc = "An upgraded Quietus-pattern carbine with a suppressive burst mode."
+	name = "карабин S.H.H. \"Rascal\""
+	desc = "Улучшенный карабин на базе Тихони с режимом подавляющей очереди."
 	fire_sound = 'sound/weapons/gunshots/1suppres.ogg'
 	icon_state = "mecha_mime"
 	equip_cooldown = 1.5 SECONDS
@@ -285,7 +305,7 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/carbine/rascal/get_snowflake_data()
 	var/list/data = ..()
 	data["snowflake_id"] = MECHA_SNOWFLAKE_ID_MODE
-	data["mode"] = fire_mode == RASCAL_MODE_QUIETUS ? "Quietus" : "Burst"
+	data["mode"] = fire_mode == RASCAL_MODE_QUIETUS ? "Тихоня" : "Очередь"
 	data["mode_label"] = "Rascal"
 	return data
 
@@ -296,8 +316,8 @@
 	return ..()
 
 /obj/item/mecha_parts/mecha_equipment/cage/abductor
-	name = "CSC 4 \"Abductor\" capture module"
-	desc = "An upgraded contractor capture module that suppresses prisoners and can load valid targets into extraction pods."
+	name = "модуль захвата CSC 4 \"Abductor\""
+	desc = "Улучшенный модуль захвата контрактника, подавляющий речь пленника и позволяющий загружать подходящие цели в эвакуационные дропподы."
 	equip_cooldown = 2 SECONDS
 	energy_drain = 500
 
@@ -322,8 +342,8 @@
 		return FALSE
 	if(!pod.opened)
 		return FALSE
-	occupant_message(span_notice("You begin loading [target] into [pod]..."))
-	chassis.visible_message(span_warning("[DECLENT_RU_CAP(chassis, NOMINATIVE)] begins loading [target] into [pod]."))
+	occupant_message(span_notice("Вы начинаете загружать [target] в [pod]..."))
+	chassis.visible_message(span_warning("[DECLENT_RU_CAP(chassis, NOMINATIVE)] начинает загружать [target] в [pod]."))
 	if(!do_after_cooldown(pod))
 		return FALSE
 	if(prisoner == target)
@@ -334,7 +354,7 @@
 	if(holding == target)
 		stop_supressing(target)
 	target.forceMove(pod)
-	occupant_message(span_notice("[target] has been loaded into [pod]."))
+	occupant_message(span_notice("[target] загружен в [pod]."))
 	return TRUE
 
 /obj/item/mecha_parts/mecha_equipment/cage/abductor/insert_action(mob/living/carbon/target)

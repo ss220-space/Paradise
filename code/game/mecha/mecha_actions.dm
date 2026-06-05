@@ -153,10 +153,11 @@
 		button_icon_state = "mech_thrusters_[chassis.thrusters_active ? "on" : "off"]"
 		chassis.occupant_message("<font color='[chassis.thrusters_active ? "blue" : "red"]'>Двигатели [chassis.thrusters_active ? "активны" : "отключены"].</font>")
 	if(chassis.thrusters_active)
-		if(!chassis.ratvarized || chassis.mech_type == MECH_TYPE_CLARKE)
+		if(chassis.uses_thruster_icon() && (!chassis.ratvarized || chassis.mech_type == MECH_TYPE_CLARKE))
 			chassis.icon_state = "[chassis.icon_state]-thruster"
 	else
-		chassis.icon_state = splittext(chassis.icon_state, "-")[1]
+		if(chassis.uses_thruster_icon())
+			chassis.icon_state = splittext(chassis.icon_state, "-")[1]
 
 /datum/action/innate/mecha/mech_smoke
 	name = "Дым"
