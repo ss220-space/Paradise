@@ -37,6 +37,7 @@
 	var/security_alert_chance
 	var/tried_alert = FALSE
 	var/lockbox_tytle_ru = ""
+	var/allow_drilling = TRUE
 
 /obj/item/storage/lockbox/get_ru_names()
 	return alist(
