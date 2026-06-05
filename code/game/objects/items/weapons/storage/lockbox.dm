@@ -28,14 +28,14 @@
 	/// The world.time at which drilling started.
 	var/drill_start_time
 	/// The drill overlay image to display during the drilling process.
-	var/mutable_apperance/drill_overlay
+	var/image/drill_overlay
 	/// The progress bar image to display during the drilling process.
 	var/image/progress_bar
-	var/drill_x_offset = 0
-	var/drill_y_offset = 18
+	var/drill_x_offset = -2
+	var/drill_y_offset = 21
+	var/progress_bar_y_offset = 16
 	var/security_alert_chance
 	var/tried_alert = FALSE
-	alert_channel = SEC_FREQ_NAME
 
 /obj/item/storage/lockbox/update_icon_state()
 	if(broken)
@@ -48,7 +48,7 @@
 	if(istype(drill, /obj/item/thermal_drill))
 		var/drill_icon = istype(drill, /obj/item/thermal_drill/diamond_drill) ? "d" : "h"
 		var/state = "floorsafe_[drill_icon]-drill-[drill_timer ? "on" : "off"]"
-		drill_overlay = mutable_apperance(icon = 'icons/effects/drill.dmi', icon_state = state)
+		drill_overlay = image(icon = 'icons/effects/drill.dmi', icon_state = state)
 		var/matrix/matrix = matrix()
 		matrix.Translate(drill_x_offset, drill_y_offset)
 		matrix.Turn(180)
@@ -103,6 +103,7 @@
 		drill = item
 		time_to_drill = DRILL_TIME * drill.time_multiplier
 		security_alert_chance = drill.security_alert_chance
+		tried_alert = FALSE
 		update_icon()
 		return ATTACK_CHAIN_BLOCKED_ALL
 
@@ -122,7 +123,6 @@
 		security_alert_chance = null
 	QDEL_NULL(progress_bar)
 	QDEL_NULL(drill_overlay)
-	clear_payback()
 	return ..()
 
 /obj/item/storage/lockbox/process()
@@ -130,16 +130,22 @@
 		return
 	cut_overlay(progress_bar)
 	progress_bar = image('icons/effects/progressbar.dmi', src, "prog_bar_[round((((world.time - drill_start_time) / time_to_drill) * 100), 5)]", HUD_LAYER)
+	var/matrix/matrix = matrix()
+	matrix.Translate(0, progress_bar_y_offset)
+	progress_bar.transform = matrix
 	add_overlay(progress_bar)
 	if(prob(DRILL_SPARK_CHANCE))
 		drill.spark_system.start()
-	if(!tried_alert && (world.time - drill_start_time) / time_to_drill) * 100 >= DRILLING_PERCENT_TO_ALERT)
+	if(!tried_alert && ((world.time - drill_start_time) / time_to_drill) * 100 >= DRILLING_PERCENT_TO_ALERT)
 		try_alert_security()
 
 /obj/item/storage/lockbox/attack_self(mob/user) 
 	if(drill && !broken)
 		switch(tgui_alert(user, "Что вы собираетесь сделать?", "Дрель с усиленным сверлом", list("[drill_timer ? "Выключить" : "Включить"]", "Убрать дрель", "Отмена")))
 			if("Включить")
+				if(!locked)
+					user.balloon_alert(user, "уже открыто.")
+					return
 				if(do_after(user, 2 SECONDS, src))
 					drill_timer = addtimer(CALLBACK(src, PROC_REF(drill_open)), time_to_drill, TIMER_STOPPABLE)
 					drill_start_time = world.time
@@ -214,9 +220,9 @@
 /obj/item/storage/lockbox/proc/try_alert_security()
 	if(security_alert_chance && prob(security_alert_chance))
 		var/area/location = get_area(src)
-		speak("Попытка незаконного доступа к содержимому кейса в локации <b>[location]</b>.", alert_channel)
+		radio_announce("Попытка незаконного доступа к содержимому кейса в <b>[location]</b>.", declent_ru(NOMINATIVE), SEC_FREQ, src)
 		playsound(src, 'sound/machines/burglar_alarm.ogg', 50, FALSE)
-		tried_alert = TRUE
+	tried_alert = TRUE
 
 /obj/item/storage/lockbox/hear_talk(mob/living/M, list/message_pieces)
 	if(locked)
