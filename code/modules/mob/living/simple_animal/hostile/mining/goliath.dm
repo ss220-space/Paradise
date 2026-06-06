@@ -43,7 +43,7 @@
 	COOLDOWN_DECLARE(post_charge_delay)
 
 /mob/living/simple_animal/hostile/asteroid/goliath/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "голиаф",
 		GENITIVE = "голиафа",
 		DATIVE = "голиафу",
@@ -218,7 +218,7 @@
 	robust_searching = TRUE
 
 /mob/living/simple_animal/hostile/asteroid/goliath/beast/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "голиаф",
 		GENITIVE = "голиафа",
 		DATIVE = "голиафу",
@@ -255,7 +255,7 @@
 	bonus_tame_chance = 5
 
 /mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "древний голиаф",
 		GENITIVE = "древнего голиафа",
 		DATIVE = "древнему голиафу",
@@ -294,7 +294,7 @@
 	var/mob/living/spawner
 
 /obj/effect/temp_visual/goliath_tentacle/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "щупальце голиафа",
 		GENITIVE = "щупальца голиафа",
 		DATIVE = "щупальцу голиафа",

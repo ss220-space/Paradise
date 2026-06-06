@@ -39,17 +39,13 @@
 /area/shuttle/escape)
 "an" = (
 /obj/machinery/computer/crew,
-/obj/machinery/status_display{
-	pixel_y = 30
-	},
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
 "ao" = (
-/obj/structure/closet/walllocker/emerglocker/directional/west,
-/obj/structure/chair/comfy/shuttle{
-	dir = 1
+/obj/machinery/status_display{
+	pixel_y = -30
 	},
-/turf/simulated/floor/noslip,
+/turf/simulated/wall/shuttle,
 /area/shuttle/escape)
 "ap" = (
 /obj/item/toy/snappop,
@@ -58,7 +54,6 @@
 	},
 /area/shuttle/escape)
 "aq" = (
-/obj/structure/closet/walllocker/emerglocker/directional/east,
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
@@ -72,6 +67,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
+/obj/item/radio/intercom/private/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -87,6 +83,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
+/obj/structure/extinguisher_cabinet/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -96,12 +93,20 @@
 /area/shuttle/escape)
 "az" = (
 /obj/machinery/door/airlock/public/glass,
+/obj/structure/closet/walllocker/emerglocker/directional/west{
+	dir = 1
+	},
+/obj/structure/closet/walllocker/emerglocker/directional/east{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
 /area/shuttle/escape)
 "aB" = (
-/turf/simulated/floor/chasm,
+/obj/structure/bed,
+/obj/item/bedsheet/rainbow,
+/turf/simulated/floor/shuttle/objective_check,
 /area/shuttle/escape)
 "aC" = (
 /obj/machinery/status_display{
@@ -110,7 +115,9 @@
 /obj/machinery/light/spot{
 	dir = 1
 	},
-/turf/simulated/floor/chasm,
+/obj/structure/bed,
+/obj/item/bedsheet/rainbow,
+/turf/simulated/floor/shuttle/objective_check,
 /area/shuttle/escape)
 "aD" = (
 /obj/structure/bed,
@@ -131,7 +138,7 @@
 /area/shuttle/escape)
 "aG" = (
 /obj/structure/closet/walllocker/emerglocker/directional/west,
-/turf/simulated/floor/chasm,
+/turf/simulated/floor/shuttle/objective_check,
 /area/shuttle/escape)
 "aH" = (
 /obj/item/storage/bible{
@@ -139,7 +146,6 @@
 	icon_state = "greentext";
 	name = "greentext"
 	},
-/obj/item/reagent_containers/food/condiment/saltshaker,
 /turf/simulated/floor/shuttle/objective_check,
 /area/shuttle/escape)
 "aI" = (
@@ -147,17 +153,13 @@
 	name = "Escape Shuttle Cell";
 	req_access = list(63)
 	},
-/turf/simulated/floor/noslip,
+/turf/simulated/floor/shuttle/objective_check,
 /area/shuttle/escape)
 "aK" = (
 /obj/structure/closet/walllocker/emerglocker/directional/east,
 /obj/structure/bed,
 /obj/item/bedsheet/rainbow,
 /turf/simulated/floor/noslip,
-/area/shuttle/escape)
-"aL" = (
-/obj/item/radio/intercom/directional/east,
-/turf/simulated/floor/chasm,
 /area/shuttle/escape)
 "aM" = (
 /turf/simulated/wall/shuttle/onlyselfsmooth,
@@ -219,11 +221,8 @@
 /turf/simulated/floor/shuttle,
 /area/shuttle/escape)
 "aU" = (
-/obj/machinery/status_display{
-	pixel_y = -30
-	},
-/obj/machinery/light/spot,
 /obj/item/toy/snappop/phoenix,
+/obj/item/radio/intercom/private/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -252,7 +251,8 @@
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
 "ba" = (
-/turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal,
+/obj/item/bedsheet/rainbow,
+/turf/simulated/floor/shuttle/objective_check,
 /area/shuttle/escape)
 "bb" = (
 /obj/machinery/door/airlock/medical/glass{
@@ -284,6 +284,7 @@
 /obj/item/bodybag{
 	pixel_x = 5
 	},
+/obj/structure/extinguisher_cabinet/directional/west,
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
 "be" = (
@@ -306,9 +307,6 @@
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
 "bh" = (
-/obj/machinery/status_display{
-	pixel_x = -30
-	},
 /obj/machinery/light/spot{
 	dir = 8
 	},
@@ -366,13 +364,41 @@
 /obj/structure/shuttle/engine/propulsion,
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/escape)
+"eZ" = (
+/turf/simulated/floor/shuttle/objective_check,
+/area/shuttle/escape)
+"in" = (
+/obj/machinery/light/spot,
+/obj/item/toy/snappop/phoenix,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/shuttle/escape)
+"wk" = (
+/obj/structure/bed,
+/obj/item/bedsheet/rainbow,
+/obj/structure/extinguisher_cabinet/directional/west,
+/turf/simulated/floor/shuttle/objective_check,
+/area/shuttle/escape)
+"Es" = (
+/obj/structure/bed,
+/obj/item/bedsheet/rainbow,
+/obj/item/radio/intercom/pirate/directional/west,
+/turf/simulated/floor/shuttle/objective_check,
+/area/shuttle/escape)
 "HT" = (
 /obj/item/clothing/mask/cursedclown,
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
+"Uq" = (
+/obj/item/toy/snappop/phoenix,
+/obj/structure/extinguisher_cabinet/directional/south,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/shuttle/escape)
 "XG" = (
-/obj/structure/window/full/shuttle,
-/obj/structure/grille,
+/obj/effect/spawner/window/shuttle,
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 
@@ -387,7 +413,7 @@ bq
 bq
 bq
 bq
-ba
+bq
 aP
 aM
 XG
@@ -395,7 +421,7 @@ XG
 XG
 aM
 aT
-aM
+bq
 aY
 XG
 aM
@@ -410,9 +436,9 @@ aa
 aa
 aa
 bq
-aB
+wk
 aG
-aB
+Es
 bq
 am
 aQ
@@ -420,7 +446,7 @@ aR
 aD
 aD
 aS
-am
+Uq
 bq
 aw
 bf
@@ -462,9 +488,9 @@ XG
 ac
 as
 bq
+ba
+eZ
 aB
-aB
-aL
 aM
 am
 aD
@@ -485,21 +511,21 @@ aa
 bq
 ac
 ak
-ao
+aq
 at
 aM
 XG
 aI
 XG
-XG
-am
-XG
-XG
-XG
-XG
-am
-am
 aM
+am
+XG
+XG
+XG
+XG
+am
+am
+XG
 bc
 bg
 bl
@@ -524,9 +550,9 @@ aD
 aD
 aD
 am
-aU
-ba
+in
 bq
+ao
 bq
 bq
 bq
@@ -550,8 +576,8 @@ ap
 ap
 ap
 am
-am
-XG
+aU
+bq
 aa
 aa
 aa
@@ -576,9 +602,9 @@ aD
 aD
 aD
 am
-aU
-aM
+in
 bq
+ao
 bq
 bq
 bq
@@ -655,7 +681,7 @@ am
 am
 am
 am
-XG
+aM
 aw
 aw
 bm
@@ -680,8 +706,8 @@ aD
 aD
 aD
 am
-am
-XG
+Uq
+aM
 be
 bi
 aw
@@ -707,7 +733,7 @@ XG
 XG
 aM
 XG
-aM
+bq
 bq
 bq
 bq

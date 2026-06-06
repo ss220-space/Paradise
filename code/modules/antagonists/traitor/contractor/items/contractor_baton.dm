@@ -25,7 +25,7 @@
 	var/cuffs_amount = 0
 
 /obj/item/melee/baton/telescopic/contractor/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "дубинка контрактника",
 		GENITIVE = "дубинки контрактника",
 		DATIVE = "дубинке контрактника",
@@ -161,7 +161,7 @@
 	upgrade_examine = "автоматически связывает цель, если она истощена. Сначала необходимо зарядить стяжками"
 
 /obj/item/baton_upgrade/cuff/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль \"Стяжки\"",
 		GENITIVE = "модуля \"Стяжки\"",
 		DATIVE = "модулю \"Стяжки\"",
@@ -177,7 +177,7 @@
 	upgrade_examine = "лишает жертву способности говорить на некоторое время"
 
 /obj/item/baton_upgrade/mute/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль \"Безмолвие\"",
 		GENITIVE = "модуля \"Безмолвие\"",
 		DATIVE = "модулю \"Безмолвие\"",
@@ -193,7 +193,7 @@
 	upgrade_examine = "позволяет нанести дополнительный ущерб цели вашего текущего контракта"
 
 /obj/item/baton_upgrade/focus/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль \"Фокусировка\"",
 		GENITIVE = "модуля \"Фокусировка\"",
 		DATIVE = "модулю \"Фокусировка\"",
@@ -209,7 +209,7 @@
 	upgrade_examine = "позволяет держать в руках дубинку, невзирая на происходящее с вами"
 
 /obj/item/baton_upgrade/antidrop/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль \"Защита от выпадения\"",
 		GENITIVE = "модуля \"Защита от выпадения\"",
 		DATIVE = "модулю \"Защита от выпадения\"",

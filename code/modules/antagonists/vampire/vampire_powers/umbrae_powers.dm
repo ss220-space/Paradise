@@ -63,7 +63,7 @@
 	item_flags = DROPDEL
 
 /obj/item/restraints/legcuffs/beartrap/shadow_snare/get_ru_names()
-	return list(
+	return alist(
 			NOMINATIVE = "теневая ловушка",
 			GENITIVE = "теневой ловушки",
 			DATIVE = "теневой ловушке",
@@ -220,7 +220,7 @@
 	resistance_flags = INDESTRUCTIBLE
 
 /obj/structure/shadow_anchor/get_ru_names()
-	return list(
+	return alist(
 			NOMINATIVE = "теневой якорь",
 			GENITIVE = "теневого якоря",
 			DATIVE = "теневому якорю",

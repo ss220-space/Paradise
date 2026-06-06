@@ -14,7 +14,7 @@
 	var/useramount = 15	//Last used amount
 
 /obj/machinery/icemachine/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Крем-Мастер Делюкс",
 		GENITIVE = "Крем-Мастер Делюкс",
 		DATIVE = "Крем-Мастер Делюкс",
@@ -144,7 +144,7 @@
 			var/obj/item/reagent_containers/food/snacks/icecream/icecreamcup/C
 			C = new/obj/item/reagent_containers/food/snacks/icecream/icecreamcup(loc)
 			C.name = "мороженное в стаканчике [name]"
-			C.ru_names = list(
+			C.ru_names = alist(
 				NOMINATIVE = "мороженое в стаканчике \"[name]\"",
 				GENITIVE = "мороженого в стаканчике \"[name]\"",
 				DATIVE = "мороженому в стаканчике \"[name]\"",
@@ -165,7 +165,7 @@
 			var/obj/item/reagent_containers/food/snacks/icecream/icecreamcone/C
 			C = new/obj/item/reagent_containers/food/snacks/icecream/icecreamcone(loc)
 			C.name = "мороженное в рожке [name]"
-			C.ru_names = list(
+			C.ru_names = alist(
 				NOMINATIVE = "мороженое в рожке \"[name]\"",
 				GENITIVE = "мороженого в рожке \"[name]\"",
 				DATIVE = "мороженому в рожке \"[name]\"",

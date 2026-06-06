@@ -15,7 +15,7 @@
 	upgradeable = 1
 
 /obj/machinery/cooker/deepfryer/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "фритюрница",
 		GENITIVE = "фритюрницы",
 		DATIVE = "фритюрнице",

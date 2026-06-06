@@ -4,7 +4,7 @@
 	caliber = CALIBER_DOT_357
 
 /obj/item/ammo_box/magazine/internal/cylinder/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "барабан [gun_name] [get_cartridge_marking()]",
 		GENITIVE = "барабана [gun_name] [get_cartridge_marking()]",
 		DATIVE = "барабану [gun_name] [get_cartridge_marking()]",

@@ -187,6 +187,10 @@
 	linked_emote = /datum/emote/living/sit
 	name = "Сесть"
 
+/datum/keybinding/emote/surrender
+	linked_emote = /datum/emote/living/surrender
+	name = "Сдаться"
+
 /**
  * MARK: Carbon
  */

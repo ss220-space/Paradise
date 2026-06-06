@@ -10,7 +10,7 @@
 	hitsound = 'sound/weapons/tap.ogg'
 
 /obj/projectile/ion/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ионный заряд",
 		GENITIVE = "ионного заряда",
 		DATIVE = "ионному заряду",

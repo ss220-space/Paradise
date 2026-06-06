@@ -186,7 +186,7 @@
 	var/timer_id
 
 /obj/structure/hell_rift/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "адский разлом",
 		GENITIVE = "адского разлома",
 		DATIVE = "адскому разлому",

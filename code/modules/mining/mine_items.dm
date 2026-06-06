@@ -7,7 +7,7 @@
 	invisibility = INVISIBILITY_ABSTRACT
 
 /obj/effect/light_emitter/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "световой излучатель",
 		GENITIVE = "светового излучателя",
 		DATIVE = "световому излучателю",
@@ -34,7 +34,7 @@
 	icon_state = "mine_ward"
 
 /obj/structure/closet/wardrobe/miner/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шахтёрский гардероб",
 		GENITIVE = "шахтёрского гардероба",
 		DATIVE = "шахтёрскому гардеробу",
@@ -67,7 +67,7 @@
 	req_access = list(ACCESS_MINING)
 
 /obj/structure/closet/secure_closet/miner/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "снаряжение шахтёра",
 		GENITIVE = "снаряжения шахтёра",
 		DATIVE = "снаряжению шахтёра",
@@ -96,7 +96,7 @@
 	req_access = list(ACCESS_MEDICAL)
 
 /obj/structure/closet/secure_closet/mining_medic/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "снаряжение шахтёрского медика",
 		GENITIVE = "снаряжения шахтёрского медика",
 		DATIVE = "снаряжению шахтёрского медика",
@@ -132,7 +132,7 @@
 	lockdown_affected = TRUE
 
 /obj/machinery/computer/shuttle/mining/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "консоль управления шахтёрским шаттлом",
 		GENITIVE = "консоли управления шахтёрским шаттлом",
 		DATIVE = "консоли управления шахтёрским шаттлом",
@@ -157,7 +157,7 @@
 	var/mutable_appearance/lantern_light_overlay
 
 /obj/item/flashlight/lantern/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "лампа",
 		GENITIVE = "лампы",
 		DATIVE = "лампе",
@@ -239,7 +239,7 @@
 	icon_state = "miningcar"
 
 /obj/structure/closet/crate/miningcar/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "вагонетка",
 		GENITIVE = "вагонетки",
 		DATIVE = "вагонетке",

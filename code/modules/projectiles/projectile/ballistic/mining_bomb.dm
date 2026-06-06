@@ -11,7 +11,7 @@
 	ammo_type = /obj/structure/mining_bomb
 
 /obj/projectile/bullet/reusable/mining_bomb/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шахтёрская бомба",
 		GENITIVE = "шахтёрской бомбы",
 		DATIVE = "шахтёрскую бомбу",

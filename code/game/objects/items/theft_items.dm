@@ -15,7 +15,7 @@
 	var/pulseicon = "plutonium_core_pulse"
 
 /obj/item/nuke_core/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "плутониевое ядро",
 		GENITIVE = "плутониевого ядра",
 		DATIVE = "плутониевому ядру",
@@ -64,7 +64,7 @@
 	var/sealed = FALSE
 
 /obj/item/nuke_core_container/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "контейнер для ядерного ядра",
 		GENITIVE = "контейнера для ядерного ядра",
 		DATIVE = "контейнеру для ядерного ядра",
@@ -212,7 +212,7 @@
 	pulseicon = "supermatter_sliver_pulse"
 
 /obj/item/nuke_core/supermatter_sliver/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "осколок суперматерии",
 		GENITIVE = "осколка суперматерии",
 		DATIVE = "осколку суперматерии",
@@ -309,7 +309,7 @@
 	var/obj/item/nuke_core/supermatter_sliver/sliver
 
 /obj/item/nuke_core_container/supermatter/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "контейнер для суперматерии",
 		GENITIVE = "контейнера для суперматерии",
 		DATIVE = "контейнеру для суперматерии",
@@ -326,7 +326,7 @@
 	. = ..()
 	name = cracked ? "broken supermatter bin" : initial(name)
 	if(cracked)
-		ru_names = list(
+		ru_names = alist(
 			NOMINATIVE = "разбитый контейнер для суперматерии",
 			GENITIVE = "разбитого контейнера для суперматерии",
 			DATIVE = "разбитому контейнеру для суперматерии",
@@ -429,7 +429,7 @@
 	var/uses_left
 
 /obj/item/scalpel/supermatter/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "скальпель для суперматерии",
 		GENITIVE = "скальпеля для суперматерии",
 		DATIVE = "скальпелю для суперматерии",
@@ -453,7 +453,7 @@
 	var/obj/item/nuke_core/supermatter_sliver/sliver
 
 /obj/item/retractor/supermatter/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "щипцы для суперматерии",
 		GENITIVE = "щипцов для суперматерии",
 		DATIVE = "щипцам для суперматерии",

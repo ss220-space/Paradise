@@ -11,7 +11,7 @@
 	slot = INTERNAL_ORGAN_RESONANT_CRYSTAL
 
 /obj/item/organ/internal/nucleation/resonant_crystal/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "резонантный кристалл",
 		GENITIVE = "резонантного кристалла",
 		DATIVE = "резонантному кристаллу",
@@ -27,7 +27,7 @@
 	slot = INTERNAL_ORGAN_STRANGE_CRYSTAL
 
 /obj/item/organ/internal/nucleation/strange_crystal/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "странный кристалл",
 		GENITIVE = "странного кристалла",
 		DATIVE = "странному кристаллу",
@@ -45,7 +45,7 @@
 	light_range = 2
 
 /obj/item/organ/internal/eyes/luminescent_crystal/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "люминесцентные глаза",
 		GENITIVE = "люминесцентных глаз",
 		DATIVE = "люминесцентным глазам",
@@ -61,7 +61,7 @@
 	icon_state = "crystal-brain"
 
 /obj/item/organ/internal/brain/crystal/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кристаллизированный мозг",
 		GENITIVE = "кристаллизированного мозга",
 		DATIVE = "кристаллизированному мозгу",

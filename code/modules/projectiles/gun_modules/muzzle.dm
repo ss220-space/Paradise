@@ -17,7 +17,7 @@
 	var/initial_w_class
 
 /obj/item/gun_module/muzzle/suppressor/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "универсальный глушитель",
 		GENITIVE = "универсального глушителя",
 		DATIVE = "универсальному глушителю",
@@ -53,7 +53,7 @@
 	custom_price = 2.5 * PAYCHECK_LOWER
 
 /obj/item/gun_module/muzzle/suppressor/shotgun/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ружейный глушитель",
 		GENITIVE = "ружейного глушителя",
 		DATIVE = "ружейному глушителю",
@@ -71,7 +71,7 @@
 	custom_price = 3 * PAYCHECK_LOWER
 
 /obj/item/gun_module/muzzle/suppressor/heavy/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "тяжёлый глушитель",
 		GENITIVE = "тяжёлого глушителя",
 		DATIVE = "тяжёлому глушителю",
@@ -101,7 +101,7 @@
 	overlay_state = "[base_icon_state]_o"
 
 /obj/item/gun_module/muzzle/suppressor/handmade/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "самодельный глушитель",
 		GENITIVE = "самодельного глушителя",
 		DATIVE = "самодельному глушителю",
@@ -149,7 +149,7 @@
 	custom_price = 2 * PAYCHECK_LOWER
 
 /obj/item/gun_module/muzzle/compensator/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "универсальный компенсатор",
 		GENITIVE = "универсального компенсатора",
 		DATIVE = "универсальному компенсатору",

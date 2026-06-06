@@ -22,7 +22,7 @@
 	var/ignoresClumsy = FALSE
 
 /obj/item/restraints/handcuffs/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "наручники",
 		GENITIVE = "наручников",
 		DATIVE = "наручникам",
@@ -131,7 +131,7 @@
 	breakout_flags = DA_IGNORE_USER_LOC_CHANGE|DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM
 
 /obj/item/restraints/handcuffs/sinew/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "стяжки из сухожилий",
 		GENITIVE = "стяжек из сухожилий",
 		DATIVE = "стяжкам из сухожилий",
@@ -153,7 +153,7 @@
 	breakout_flags = DA_IGNORE_USER_LOC_CHANGE|DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM
 
 /obj/item/restraints/handcuffs/cable/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "стяжки из проводов",
 		GENITIVE = "стяжек из проводов",
 		DATIVE = "стяжкам из проводов",
@@ -252,7 +252,7 @@
 	trashtype = /obj/item/restraints/handcuffs/cable/zipties/used
 
 /obj/item/restraints/handcuffs/cable/zipties/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "стяжки",
 		GENITIVE = "стяжек",
 		DATIVE = "стяжкам",
@@ -280,7 +280,7 @@
 	icon_state = "pinkcuffs"
 
 /obj/item/restraints/handcuffs/pinkcuffs/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "розовые наручники",
 		GENITIVE = "розовых наручников",
 		DATIVE = "розовым наручникам",
@@ -306,7 +306,7 @@
 	trashtype = /obj/item/restraints/handcuffs/manacles/used
 
 /obj/item/restraints/handcuffs/manacles/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кандалы",
 		GENITIVE = "кандалов",
 		DATIVE = "кандалам",

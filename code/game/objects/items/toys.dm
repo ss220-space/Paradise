@@ -1514,7 +1514,7 @@
 	COOLDOWN_DECLARE(cooldown)
 
 /obj/item/toy/plushie/wet_owl/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мокрая сова",
 		GENITIVE = "мокрой совы",
 		DATIVE = "мокрой сове",
@@ -1582,7 +1582,7 @@
 	item_state = "kotik_hand"
 
 /obj/item/toy/plushie/manulplushie/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "игрушка Манула",
 		GENITIVE = "игрушки Манула",
 		DATIVE = "игрушке Манула",
@@ -1986,7 +1986,7 @@
 	var/fake_bullets = 0
 
 /obj/item/toy/russian_revolver/trick_revolver/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "револьвер .357 калибра",
 		GENITIVE = "револьвера .357 калибра",
 		DATIVE = "револьверу .357 калибра",

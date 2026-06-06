@@ -12,7 +12,7 @@
 	var/range = 7
 
 /obj/item/grenade/flashbang/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "светошумовая граната",
 		GENITIVE = "светошумовой гранаты",
 		DATIVE = "светошумовой гранате",

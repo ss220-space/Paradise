@@ -12,7 +12,7 @@
 	var/datum/ui_module/crew_monitor/crew_monitor
 
 /obj/item/sensor_device/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ручной монитор экипажа",
 		GENITIVE = "ручного монитора экипажа",
 		DATIVE = "ручному монитору экипажа",
@@ -53,7 +53,7 @@
 	icon_state = "c_scanner"
 
 /obj/item/sensor_device/advanced/command/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "командный монитор экипажа",
 		GENITIVE = "командного монитора экипажа",
 		DATIVE = "командному монитору экипажа",
@@ -73,7 +73,7 @@
 	icon_state = "s_scanner"
 
 /obj/item/sensor_device/advanced/security/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "охранный монитор экипажа",
 		GENITIVE = "охранного монитора экипажа",
 		DATIVE = "охранному монитору экипажа",
@@ -95,7 +95,7 @@
 	item_state = "mining_scanner"
 
 /obj/item/sensor_device/advanced/mining/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шахтёрский монитор экипажа",
 		GENITIVE = "шахтёрского монитора экипажа",
 		DATIVE = "шахтёрскому монитору экипажа",

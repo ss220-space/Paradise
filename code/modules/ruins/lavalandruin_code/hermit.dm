@@ -19,7 +19,7 @@
 	assignedrole = "Hermit"
 
 /obj/effect/mob_spawn/human/hermit/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "неисправная криокапсула",
 		GENITIVE = "неисправной криокапсулы",
 		DATIVE = "неисправной криокапсуле",

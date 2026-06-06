@@ -9,7 +9,7 @@
 	var/obj/item/twohanded/kinetic_crusher/hammer_synced
 
 /obj/projectile/destabilizer/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "дестабилизирующий заряд",
 		GENITIVE = "дестабилизирующего заряда",
 		DATIVE = "дестабилизирующему заряду",
