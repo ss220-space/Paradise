@@ -47,6 +47,11 @@
 	index_name = "Fur Gloves"
 	path = /obj/item/clothing/gloves/furgloves
 
+/datum/gear/donor/ecig
+	index_name = "ecig"
+	donator_tier = 1
+	path = /obj/item/ecig
+
 /datum/gear/donor/noble_boot
 	index_name = "Noble Boots"
 	path = /obj/item/clothing/shoes/fluff/noble_boot

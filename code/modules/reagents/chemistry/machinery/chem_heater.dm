@@ -16,7 +16,7 @@
 	var/speed_increase = 0
 
 /obj/machinery/chem_heater/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "химический нагреватель",
 		GENITIVE = "химического нагревателя",
 		DATIVE = "химическому нагревателю",

@@ -16,7 +16,7 @@
 	var/locked = FALSE
 
 /obj/structure/wiremod_manipulator/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "манипулятор",
 		GENITIVE = "манипулятора",
 		DATIVE = "манипулятору",

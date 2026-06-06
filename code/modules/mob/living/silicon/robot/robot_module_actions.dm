@@ -47,12 +47,13 @@
 	button_icon_state = "hydroponichud"
 
 /datum/action/innate/robot_sight_hydro/Activate()
-	for(var/datum/atom_hud/data/hydroponic/hydrosensors in GLOB.huds)
-		hydrosensors.show_to(owner)
+	var/datum/atom_hud/data/hydroponic/hydrosensors = GLOB.huds[DATA_HUD_HYDROPONIC]
+	hydrosensors.show_to(owner)
 
 	active = TRUE
 
 /datum/action/innate/robot_sight_hydro/Deactivate()
-	for(var/datum/atom_hud/data/hydroponic/hydrosensors in GLOB.huds)
-		hydrosensors.hide_from(owner)
+	var/datum/atom_hud/data/hydroponic/hydrosensors = GLOB.huds[DATA_HUD_HYDROPONIC]
+	hydrosensors.hide_from(owner)
 
+	active = FALSE

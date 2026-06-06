@@ -56,7 +56,7 @@
 	var/drops_parts = TRUE
 
 /mob/living/simple_animal/bot/medbot/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "медбот",
 		GENITIVE = "медбота",
 		DATIVE = "медботу",
@@ -98,7 +98,7 @@
 	treatment_fire = "kelotane"
 
 /mob/living/simple_animal/bot/medbot/mysterious/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "загадочный медбот",
 		GENITIVE = "загадочного медбота",
 		DATIVE = "загадочному медботу",
@@ -122,7 +122,7 @@
 	radio_config = list(PUB_FREQ_NAME = 1, MED_FREQ_NAME = 1, SYND_FREQ_NAME = 1)
 
 /mob/living/simple_animal/bot/medbot/syndicate/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "подозрительный медбот",
 		GENITIVE = "подозрительного медбота",
 		DATIVE = "подозрительному медботу",
@@ -297,10 +297,10 @@
 		add_fingerprint(user)
 		if(locked)
 			balloon_alert(user, "техпанель заблокирована!")
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 		if(reagent_glass)
 			balloon_alert(user, "слот для ёмкости занят!")
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..() | ATTACK_CHAIN_NO_AFTERATTACK
 		reagent_glass = I

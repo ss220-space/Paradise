@@ -7,7 +7,7 @@
 	speed = 1.2
 
 /obj/projectile/legionnaire/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кость",
 		GENITIVE = "кости",
 		DATIVE = "кости",

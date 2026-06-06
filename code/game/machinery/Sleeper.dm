@@ -33,7 +33,7 @@
 	light_power = 0.5
 
 /obj/machinery/sleeper/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "слипер",
 		GENITIVE = "слипера",
 		DATIVE = "слиперу",

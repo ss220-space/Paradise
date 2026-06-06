@@ -38,7 +38,7 @@
 	)
 
 /obj/machinery/vending/protein/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат спортивного питания",
 		GENITIVE = "торгового автомата спортивного питания",
 		DATIVE = "торговому автомату спортивного питания",

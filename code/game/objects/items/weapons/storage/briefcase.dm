@@ -108,7 +108,7 @@
 	var/opened = FALSE
 
 /obj/item/case_with_bipki/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "чемодан с бипками",
 		GENITIVE = "чемодана с бипками",
 		DATIVE = "чемодану с бипками",

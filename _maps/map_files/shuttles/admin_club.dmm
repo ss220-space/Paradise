@@ -144,12 +144,12 @@
 	},
 /area/shuttle/administration)
 "pP" = (
-/obj/machinery/computer/card{
-	dir = 1
-	},
 /obj/effect/turf_decal/stripes/gold{
 	dir = 5;
 	icon_state = "gs_deadlock"
+	},
+/obj/machinery/computer/camera_advanced/shuttle_docker/admin{
+	name = "NTV Parnassus shuttle navigation computer"
 	},
 /turf/simulated/floor/carpet/royalblack,
 /area/shuttle/administration)
@@ -261,6 +261,10 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/turf/simulated/floor/glass/reinforced/plasma,
+/area/shuttle/administration)
+"vX" = (
+/obj/structure/extinguisher_cabinet/directional/east,
 /turf/simulated/floor/glass/reinforced/plasma,
 /area/shuttle/administration)
 "wa" = (
@@ -424,6 +428,14 @@
 /obj/machinery/jukebox/disco/indestructible,
 /turf/simulated/floor/light/colour_cycle/dancefloor_a,
 /area/shuttle/administration)
+"GN" = (
+/obj/structure/chair/sofa/corp/left,
+/obj/structure/extinguisher_cabinet/directional/north,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "navybluealt"
+	},
+/area/shuttle/administration)
 "Hi" = (
 /obj/machinery/door/airlock/shuttle{
 	name = "Bar";
@@ -496,14 +508,13 @@
 	},
 /area/shuttle/administration)
 "KS" = (
-/obj/machinery/computer/camera_advanced/shuttle_docker/admin{
-	dir = 1;
-	name = "NTV Argos shuttle navigation computer"
-	},
 /obj/effect/turf_decal/stripes/gold{
 	dir = 5
 	},
 /obj/machinery/light/small{
+	dir = 1
+	},
+/obj/machinery/computer/card{
 	dir = 1
 	},
 /turf/simulated/floor/carpet/royalblack,
@@ -566,6 +577,9 @@
 /obj/item/storage/box/drinkingglasses,
 /obj/item/storage/box/drinkingglasses,
 /obj/structure/closet/crate,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -722,8 +736,7 @@
 /area/shuttle/administration)
 "TC" = (
 /obj/machinery/computer/shuttle/admin{
-	dir = 1;
-	name = "NTV Argos shuttle console"
+	name = "NTV Parnassus shuttle console"
 	},
 /obj/effect/turf_decal/stripes/gold{
 	dir = 6;
@@ -758,6 +771,7 @@
 	},
 /obj/machinery/light/small,
 /obj/machinery/light_switch/directional/south,
+/obj/structure/extinguisher_cabinet/directional/west,
 /turf/simulated/floor/carpet/royalblack,
 /area/shuttle/administration)
 "Vd" = (
@@ -1032,7 +1046,7 @@ xX
 "}
 (9,1,1) = {"
 zk
-Jx
+GN
 AM
 RM
 FP
@@ -1137,7 +1151,7 @@ tQ
 tQ
 Zo
 OV
-AM
+vX
 Tz
 AM
 Sk

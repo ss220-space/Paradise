@@ -26,7 +26,7 @@
 	var/turf/spawn_turf
 
 /mob/living/simple_animal/bot/ed209/syndicate/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "робот-часовой \"Синдиката\"",
 		GENITIVE = "робота-часового \"Синдиката\"",
 		DATIVE = "роботу-часовому \"Синдиката\"",

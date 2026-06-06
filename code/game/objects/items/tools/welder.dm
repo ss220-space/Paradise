@@ -49,7 +49,7 @@
 	var/progress_flash_divisor = 10
 
 /obj/item/weldingtool/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сварочный аппарат",
 		GENITIVE = "сварочного аппарата",
 		DATIVE = "сварочному аппарату",
@@ -255,7 +255,7 @@
 	origin_tech = "engineering=2;plasmatech=2"
 
 /obj/item/weldingtool/largetank/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "промышленный сварочный аппарат",
 		GENITIVE = "промышленного сварочного аппарата",
 		DATIVE = "промышленному сварочному аппарату",
@@ -272,7 +272,7 @@
 	toolspeed = 0.5
 
 /obj/item/weldingtool/largetank/cyborg/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "встроенный сварочный аппарат",
 		GENITIVE = "встроенного сварочного аппарата",
 		DATIVE = "встроенному сварочному аппарату",
@@ -292,7 +292,7 @@
 	low_fuel_changes_icon = FALSE
 
 /obj/item/weldingtool/mini/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "аварийный сварочный аппарат",
 		GENITIVE = "аварийного сварочного аппарата",
 		DATIVE = "аварийному сварочному аппарату",
@@ -317,7 +317,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/weldingtool/abductor/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "чужеродный сварочный аппарат",
 		GENITIVE = "чужеродного сварочного аппарата",
 		DATIVE = "чужеродному сварочному аппарату",
@@ -338,7 +338,7 @@
 	origin_tech = "engineering=3;plasmatech=2"
 
 /obj/item/weldingtool/hugetank/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "улучшенный сварочный аппарат",
 		GENITIVE = "улучшенного сварочного аппарата",
 		DATIVE = "улучшенному сварочному аппарату",
@@ -365,7 +365,7 @@
 	low_fuel_changes_icon = FALSE
 
 /obj/item/weldingtool/experimental/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "экспериментальный сварочный аппарат",
 		GENITIVE = "экспериментального сварочного аппарата",
 		DATIVE = "экспериментальному сварочному аппарату",
@@ -385,7 +385,7 @@
 	light_intensity = 0
 
 /obj/item/weldingtool/experimental/mecha/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "встроенный сварочный аппарат",
 		GENITIVE = "встроенного сварочного аппарата",
 		DATIVE = "встроенному сварочному аппарату",
@@ -407,7 +407,7 @@
 	force_enabled = 10
 
 /obj/item/weldingtool/experimental/brass/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "латунный сварочный аппарат",
 		GENITIVE = "латунного сварочного аппарата",
 		DATIVE = "латунному сварочному аппарату",

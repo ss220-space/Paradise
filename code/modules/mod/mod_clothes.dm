@@ -25,7 +25,7 @@
 	var/examine_extensions = EXAMINE_HUD_NONE
 
 /obj/item/clothing/head/mod/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шлем МЭК",
 		GENITIVE = "шлема МЭК",
 		DATIVE = "шлему МЭК",
@@ -61,7 +61,7 @@
 	var/obj/item/mod/control/control
 
 /obj/item/clothing/gloves/mod/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "перчатки МЭК",
 		GENITIVE = "перчаток МЭК",
 		DATIVE = "перчаткам МЭК",
@@ -96,7 +96,7 @@
 	var/obj/item/mod/control/control
 
 /obj/item/clothing/shoes/mod/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ботинки МЭК",
 		GENITIVE = "ботинок МЭК",
 		DATIVE = "ботинкам МЭК",
@@ -138,7 +138,7 @@
 	var/obj/item/mod/control/control
 
 /obj/item/clothing/suit/mod/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "нагрудник МЭК",
 		GENITIVE = "нагрудника МЭК",
 		DATIVE = "нагруднику МЭК",

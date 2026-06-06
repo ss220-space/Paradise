@@ -8,7 +8,7 @@
 	icon_state = "small1"
 
 /obj/projectile/bullet/rock/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "брошенный камень",
 		GENITIVE = "брошенного камня",
 		DATIVE = "брошенному камню",

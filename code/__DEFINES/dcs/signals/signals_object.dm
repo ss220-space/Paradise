@@ -354,3 +354,6 @@
 
 /// Called when attempting to swap two-handed weapons
 #define COMSIG_ITEM_SWAP_BLOCKED "item_swap_blocked"
+
+/// Called when card decal applied to ID card.
+#define COMSIG_CARD_DECAL_APPLIED "card_decal_applied"

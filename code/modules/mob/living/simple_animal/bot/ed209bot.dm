@@ -56,7 +56,7 @@
 	var/speak_cooldown = FALSE
 
 /mob/living/simple_animal/bot/ed209/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "охранный робот ED-209",
 		GENITIVE = "охранного робота ED-209",
 		DATIVE = "охранному роботу ED-209",

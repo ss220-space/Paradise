@@ -9,7 +9,7 @@
 	dying_key = DYE_REGISTRY_UNDER
 
 /obj/item/clothing/under/syndicate/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "тактическая водолазка",
 		GENITIVE = "тактической водолазки",
 		DATIVE = "тактической водолазке",
@@ -22,7 +22,7 @@
 	name = "combat turtleneck"
 
 /obj/item/clothing/under/syndicate/combat/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "боевая водолазка",
 		GENITIVE = "боевой водолазки",
 		DATIVE = "боевой водолазке",
@@ -40,7 +40,7 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 50, ACID = 40)
 
 /obj/item/clothing/under/syndicate/tacticool/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "тактикульная водолазка",
 		GENITIVE = "тактикульной водолазки",
 		DATIVE = "тактикульной водолазке",
@@ -55,7 +55,7 @@
 	item_color = "tactifoolf"
 
 /obj/item/clothing/under/syndicate/tacticool/skirt/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "тактикульная юбка",
 		GENITIVE = "тактикульной юбки",
 		DATIVE = "тактикульной юбке",
@@ -71,7 +71,7 @@
 	item_color = "black_suit"
 
 /obj/item/clothing/under/syndicate/sniper/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "тактический формальный костюм",
 		GENITIVE = "тактического формального костюма",
 		DATIVE = "тактическому формальному костюму",
@@ -88,7 +88,7 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/under/syndicate/sniper_civ/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "тактикульный формальный костюм",
 		GENITIVE = "тактикульного формального костюма",
 		DATIVE = "тактикульному формальному костюму",
@@ -105,7 +105,7 @@
 	armor = list(MELEE = 15, BULLET = 15, LASER = 15,ENERGY = 0, BOMB = 10, BIO = 0, FIRE = 10, ACID = 0)
 
 /obj/item/clothing/under/syndicate/blackops/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "комбинезон для спецопераций",
 		GENITIVE = "комбинезона для спецопераций",
 		DATIVE = "комбинезону для спецопераций",
@@ -123,7 +123,7 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/under/syndicate/blackops_civ/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "тактикульный комбинезон для спецопераций",
 		GENITIVE = "тактикульного комбинезона для спецопераций",
 		DATIVE = "тактикульному комбинезону для спецопераций",
@@ -141,7 +141,7 @@
 	resistance_flags = FIRE_PROOF
 
 /obj/item/clothing/under/plasmaman/syndie/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "тактический защитный костюм плазмолюда",
 		GENITIVE = "тактического защитного костюма плазмолюда",
 		DATIVE = "тактическому защитному костюму плазмолюда",

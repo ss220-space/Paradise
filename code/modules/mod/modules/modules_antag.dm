@@ -16,7 +16,7 @@
 	mask_worn_overlay = TRUE
 
 /obj/item/mod/module/insignia/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль покраски",
 		GENITIVE = "модуля покраски",
 		DATIVE = "модулю покраски",
@@ -68,7 +68,7 @@
 	use_energy_cost = initial(the_dna_lock_behind_the_slaughter.use_energy_cost)
 
 /obj/item/mod/module/springlock/bite_of_87/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль ДНК-блокировки",
 		GENITIVE = "модуля ДНК-блокировки",
 		DATIVE = "модулю ДНК-блокировки",
@@ -87,7 +87,7 @@
 	use_energy_cost = initial(fake.use_energy_cost)
 
 /obj/item/mod/module/holster/hidden/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль крюк-кошки",
 		GENITIVE = "модуля крюк-кошки",
 		DATIVE = "модулю крюк-кошки",
@@ -113,7 +113,7 @@
 	var/knockdown_time = 6 SECONDS
 
 /obj/item/mod/module/power_kick/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль \"Силовой пинок\"",
 		GENITIVE = "модуля \"Силовой пинок\"",
 		DATIVE = "модулю \"Силовой пинок\"",
@@ -187,7 +187,7 @@
 	origin_tech = "materials=6;bluespace=5;syndicate=1" //Printable at illegals 2, so only one level.
 
 /obj/item/mod/module/plate_compression/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "уплотняющий модуль",
 		GENITIVE = "уплотняющего модуля",
 		DATIVE = "уплотняющему модулю",
@@ -232,7 +232,7 @@
 	var/stealth_alpha = 50
 
 /obj/item/mod/module/stealth/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "маскирующий модуль",
 		GENITIVE = "маскирующего модуля",
 		DATIVE = "маскирующему модулю",
@@ -294,7 +294,7 @@
 	origin_tech = "combat=6;materials=6;powerstorage=6;bluespace=6;syndicate=4"
 
 /obj/item/mod/module/stealth/ninja/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "продвинутый маскирующий модуль",
 		GENITIVE = "продвинутого маскирующего модуля",
 		DATIVE = "продвинутому маскирующему модулю",
@@ -325,7 +325,7 @@
 	var/display_time = FALSE
 
 /obj/item/mod/module/status_readout/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль оценки состояния",
 		GENITIVE = "модуля оценки состояния",
 		DATIVE = "модулюоценки состояния",
@@ -393,7 +393,7 @@
 	var/obj/machinery/camera/portable/camera
 
 /obj/item/mod/module/ert_camera/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль камеры",
 		GENITIVE = "модуля камеры",
 		DATIVE = "модулю камеры",
@@ -436,7 +436,7 @@
 	origin_tech = "materials=6;bluespace=5;syndicate=1"
 
 /obj/item/mod/module/chameleon/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль-хамелеон",
 		GENITIVE = "модуля-хамелеона",
 		DATIVE = "модулю-хамелеону",
@@ -515,7 +515,7 @@
 	var/charges
 
 /obj/item/mod/module/energy_shield/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль энергетического щита",
 		GENITIVE = "модуля энергетического щита",
 		DATIVE = "модулю энергетического щита",
@@ -600,7 +600,7 @@
 	var/shock_damage = 30
 
 /obj/item/mod/module/anomaly_locked/teslawall/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль аномальной защиты",
 		GENITIVE = "модуля аномальной защиты",
 		DATIVE = "модулю аномальной защиты",
@@ -721,7 +721,7 @@ please, keep this up to date
 	required_slots = list(ITEM_SLOT_CLOTH_OUTER|ITEM_SLOT_CLOTH_INNER)
 
 /obj/item/mod/module/flamethrower/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль огнемёта",
 		GENITIVE = "модуля огнемёта",
 		DATIVE = "модулю огнемёта",
@@ -759,7 +759,7 @@ please, keep this up to date
 	required_slots = list(ITEM_SLOT_BACK|ITEM_SLOT_BELT)
 
 /obj/item/mod/module/medbeam/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль мед-пушки",
 		GENITIVE = "модуля мед-пушки",
 		DATIVE = "модулю мед-пушки",
@@ -772,7 +772,7 @@ please, keep this up to date
 	name = "MOD medbeam"
 
 /obj/item/gun/medbeam/mod/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "медицинская лучевая пушка МЭК",
 		GENITIVE = "медицинской лучевой пушки МЭК",
 		DATIVE = "медицинской лучевой пушке МЭК",
@@ -800,7 +800,7 @@ please, keep this up to date
 	var/obj/item/melee/baton/telescopic/contractor/holstered
 
 /obj/item/mod/module/baton_holster/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль хранения дубинки",
 		GENITIVE = "модуля хранения дубинки",
 		DATIVE = "модулю хранения дубинки",
@@ -857,7 +857,7 @@ please, keep this up to date
 	required_slots = list(ITEM_SLOT_GLOVES)
 
 /obj/item/mod/module/scorpion_hook/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль крюк-кошки \"Скорпион\"",
 		GENITIVE = "модуля крюк-кошки \"Скорпион\"",
 		DATIVE = "модулю крюк-кошки \"Скорпион\"",
@@ -878,7 +878,7 @@ please, keep this up to date
 	charge_tick = 4
 
 /obj/item/gun/magic/contractor_hook/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "крюк-кошка \"Скорпион\"",
 		GENITIVE = "крюк-кошки \"Скорпион\"",
 		DATIVE = "крюк-кошке \"Скорпион\"",
@@ -907,7 +907,7 @@ please, keep this up to date
 	var/chameleon_timer = 2.5 SECONDS
 
 /obj/item/mod/module/active_chameleon/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль активного хамелеона",
 		GENITIVE = "модуля активного хамелеона",
 		DATIVE = "модулю активного хамелеона",
@@ -919,11 +919,11 @@ please, keep this up to date
 /obj/item/mod/module/active_chameleon/on_activation()
 	cached_default_skin = mod.theme.default_skin
 	var/list/choices = list(
-		"civilian" = image(icon = 'icons/mob/clothing/modsuit/mod_clothing.dmi', icon_state = "ref_civillian_sealed"),
-		"mining" = image(icon = 'icons/mob/clothing/modsuit/mod_clothing.dmi', icon_state = "ref_mining_sealed"),
-		"medical" = image(icon = 'icons/mob/clothing/modsuit/mod_clothing.dmi', icon_state = "ref_medical_sealed"),
-		"security" = image(icon = 'icons/mob/clothing/modsuit/mod_clothing.dmi', icon_state = "ref_security_sealed"),
-		"engineering" = image(icon = 'icons/mob/clothing/modsuit/mod_clothing.dmi', icon_state = "ref_engineering_sealed")
+		MOD_VARIANT_CIVILIAN = image(icon = 'icons/mob/clothing/modsuit/mod_clothing.dmi', icon_state = "ref_civillian_sealed"),
+		MOD_VARIANT_MINING = image(icon = 'icons/mob/clothing/modsuit/mod_clothing.dmi', icon_state = "ref_mining_sealed"),
+		MOD_VARIANT_MEDICAL = image(icon = 'icons/mob/clothing/modsuit/mod_clothing.dmi', icon_state = "ref_medical_sealed"),
+		MOD_VARIANT_SECURITY = image(icon = 'icons/mob/clothing/modsuit/mod_clothing.dmi', icon_state = "ref_security_sealed"),
+		MOD_VARIANT_ENGINEERING = image(icon = 'icons/mob/clothing/modsuit/mod_clothing.dmi', icon_state = "ref_engineering_sealed")
 	)
 	var/choosed_skin
 	var/choosed_name
@@ -932,39 +932,40 @@ please, keep this up to date
 	if(!selected_chameleon)
 		return
 
-	switch(selected_chameleon)
-		if("civilian")
-			choosed_name = "модели \"Путник\""
-			choosed_skin = MOD_VARIANT_CIVILIAN
-		if("mining")
-			choosed_name = "модели \"Первопроходец\""
-			choosed_skin = MOD_VARIANT_MINING
-		if("medical")
-			choosed_name = "модели \"Пульс\""
-			choosed_skin = MOD_VARIANT_MEDICAL
-		if("security")
-			choosed_name = "модели \"Страж\""
-			choosed_skin = MOD_VARIANT_SECURITY
-		if("engineering")
-			choosed_name = "модели \"Искра\""
-			choosed_skin = MOD_VARIANT_ENGINEERING
+	choosed_skin = selected_chameleon
 
+	switch(selected_chameleon)
+		if(MOD_VARIANT_CIVILIAN)
+			choosed_name = "модели \"Путник\""
+		if(MOD_VARIANT_MINING)
+			choosed_name = "модели \"Первопроходец\""
+		if(MOD_VARIANT_MEDICAL)
+			choosed_name = "модели \"Пульс\""
+		if(MOD_VARIANT_SECURITY)
+			choosed_name = "модели \"Страж\""
+		if(MOD_VARIANT_ENGINEERING)
+			choosed_name = "модели \"Искра\""
+
+	choosed_name = choosed_name || ""
 	addtimer(CALLBACK(src, PROC_REF(activate_chameleon), choosed_name, choosed_skin), chameleon_timer)
 
 /obj/item/mod/module/active_chameleon/proc/activate_chameleon(choosed_name, choosed_skin)
 	playsound(loc, 'sound/items/screwdriver2.ogg', 50, TRUE)
 	balloon_alert_to_viewers("костюм преображается!", "маскировка активна")
 	var/list/parts = mod.get_parts()
-	for(var/obj/item/part as anything in parts + mod)
+	for(var/obj/item/part as anything in (parts + mod))
 		part.ru_names = part.get_ru_names_cached()
-		part.ru_names = list(
+		part.ru_names = alist(
 			NOMINATIVE = part.ru_names[NOMINATIVE] + " [choosed_name]",
 			GENITIVE = part.ru_names[GENITIVE] + " [choosed_name]",
 			DATIVE = part.ru_names[DATIVE] + " [choosed_name]",
 			ACCUSATIVE = part.ru_names[ACCUSATIVE] + " [choosed_name]",
 			INSTRUMENTAL = part.ru_names[INSTRUMENTAL] + " [choosed_name]",
-			PREPOSITIONAL = part.ru_names[PREPOSITIONAL] + " [choosed_name]"
-			)
+			PREPOSITIONAL = part.ru_names[PREPOSITIONAL] + " [choosed_name]",
+		)
+
+	if(!choosed_skin)
+		return
 
 	mod.theme.default_skin = choosed_skin
 	mod.theme.set_only_visual_skin(mod, choosed_skin)
@@ -978,16 +979,16 @@ please, keep this up to date
 
 	mod.theme.set_skin(mod, mod.theme.default_skin)
 	var/list/parts = mod.get_parts()
-	for(var/obj/item/part as anything in parts + mod)
+	for(var/obj/item/part as anything in (parts + mod))
 		part.ru_names = part.get_ru_names_cached()
-		part.ru_names = list(
+		part.ru_names = alist(
 			NOMINATIVE = part.ru_names[NOMINATIVE] + " [mod.theme.name]",
 			GENITIVE = part.ru_names[GENITIVE] + " [mod.theme.name]",
 			DATIVE = part.ru_names[DATIVE] + " [mod.theme.name]",
 			ACCUSATIVE = part.ru_names[ACCUSATIVE] + " [mod.theme.name]",
 			INSTRUMENTAL = part.ru_names[INSTRUMENTAL] + " [mod.theme.name]",
-			PREPOSITIONAL = part.ru_names[PREPOSITIONAL] + " [mod.theme.name]"
-			)
+			PREPOSITIONAL = part.ru_names[PREPOSITIONAL] + " [mod.theme.name]",
+		)
 
 /obj/item/mod/module/active_chameleon/elite
 	complexity = 0

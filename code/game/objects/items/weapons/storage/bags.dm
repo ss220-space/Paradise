@@ -79,6 +79,38 @@
 
 /obj/item/storage/bag/trash/bluespace/cyborg
 
+/obj/item/storage/bag/trash/interact_with_atom(atom/interacting_with, mob/living/user, list/modifiers)
+	. = ..()
+	if(. & ITEM_INTERACT_ANY_BLOCKER)
+		return .
+	trashbag_interact(interacting_with, user)
+
+/obj/item/storage/bag/trash/proc/trashbag_interact(atom/target, mob/user)
+	var/turf/target_turf = get_turf(target)
+	var/success = FALSE
+	var/failure = FALSE
+	for(var/obj/item/item in target_turf)
+		if(item == src || item.anchored)
+			continue
+
+		if(!can_be_inserted(item, stop_messages = TRUE))
+			failure = TRUE
+			continue
+
+		success = TRUE
+		item.do_pickup_animation(user)
+		handle_item_insertion(item, prevent_warning = TRUE)
+
+	if(!success)
+		user.balloon_alert(user, "не удалось собрать!")
+		return
+
+	playsound(src, SFX_PICK_UP, 50, TRUE)
+	if(failure)
+		user.balloon_alert(user, "почти всё собрано!")
+		return
+	user.balloon_alert(user, "успешно собрано!")
+
 ////////////////////////////////////////
 // MARK:	Plastic bag
 ////////////////////////////////////////
@@ -140,7 +172,7 @@
 	var/mob/listening_to
 
 /obj/item/storage/bag/ore/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шахтёрская сумка",
 		GENITIVE = "шахтёрской сумки",
 		DATIVE = "шахтёрской сумке",
@@ -156,7 +188,7 @@
 	storage_slots = 16 //little better
 
 /obj/item/storage/bag/ore/bigger/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "промышленная шахтёрская сумка",
 		GENITIVE = "промышленной шахтёрской сумки",
 		DATIVE = "промышленной шахтёрской сумке",
@@ -181,7 +213,7 @@
 	icon_state = "satchel_bspace"
 
 /obj/item/storage/bag/ore/holding/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шахтёрская сумка хранения",
 		GENITIVE = "шахтёрской сумки хранения",
 		DATIVE = "шахтёрской сумке хранения",
@@ -209,7 +241,7 @@
 	can_hold = list(/obj/item/gem)
 
 /obj/item/storage/bag/gem/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сумка для самоцветов",
 		GENITIVE = "сумки для самоцветов",
 		DATIVE = "сумке для самоцветов",
@@ -309,7 +341,7 @@
 	var/bombs_left = 0
 
 /obj/item/storage/bag/kaboom/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Система Размещения Зарядов",
 		GENITIVE = "Системы Размещения Зарядов",
 		DATIVE = "Системе Размещения Зарядов",
@@ -625,7 +657,7 @@
 	resistance_flags = FLAMMABLE
 
 /obj/item/storage/bag/books/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "книжная сумка",
 		GENITIVE = "книжной сумки",
 		DATIVE = "книжной сумке",
@@ -664,7 +696,7 @@
 	resistance_flags = FLAMMABLE
 
 /obj/item/storage/bag/construction/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "строительная сумка",
 		GENITIVE = "строительной сумки",
 		DATIVE = "строительной сумке",
@@ -693,7 +725,7 @@
 	drop_sound = SFX_TRAY_DROP
 
 /obj/item/storage/bag/tray/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "поднос",
 		GENITIVE = "подноса",
 		DATIVE = "подносу",
@@ -782,7 +814,7 @@
 	materials = list(MAT_METAL=3000)
 
 /obj/item/storage/bag/tray/danger/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "поднос",
 		GENITIVE = "подноса",
 		DATIVE = "подносу",
@@ -842,7 +874,7 @@
 	)
 
 /obj/item/storage/bag/medpouch/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "лекарственный мешочек",
 		GENITIVE = "лекарственного мешочка",
 		DATIVE = "лекарственному мешочку",
@@ -863,7 +895,7 @@
 	)
 
 /obj/item/storage/bag/medpouch/fishing/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "рыболовный мешочек",
 		GENITIVE = "рыболовного мешочка",
 		DATIVE = "рыболовному мешочку",

@@ -284,7 +284,7 @@
 		SPECIES_DRASK,
 		SPECIES_GREY,
 		SPECIES_KIDAN,
-		SPECIES_MACNINEPERSON,
+		SPECIES_MACHINEPERSON,
 		SPECIES_NUCLEATION,
 		SPECIES_PLASMAMAN,
 		SPECIES_SLIMEPERSON,
@@ -443,6 +443,7 @@
 	default = list(
 		ROLE_TRAITOR,
 		ROLE_VAMPIRE,
+		ROLE_CHANGELING,
 	)
 
 /datum/config_entry/keyed_list/antag_paradise_single_antags_weights
@@ -452,7 +453,7 @@
 		ROLE_TRAITOR = 60,
 		ROLE_THIEF = 0,
 		ROLE_VAMPIRE = 20,
-		ROLE_CHANGELING = 0,
+		ROLE_CHANGELING = 20,
 	)
 
 /datum/config_entry/keyed_list/antag_paradise_double_antags_weights

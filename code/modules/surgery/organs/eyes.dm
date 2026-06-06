@@ -37,7 +37,7 @@
 	var/examine_mod = 1
 
 /obj/item/organ/internal/eyes/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "глаза человека",
 		GENITIVE = "глаз человека",
 		DATIVE = "глазам человека",
@@ -123,7 +123,7 @@
 	drop_sound = 'sound/items/handling/drop/component_drop.ogg'
 
 /obj/item/organ/internal/eyes/cybernetic/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кибернетические глаза",
 		GENITIVE = "кибернетических глаз",
 		DATIVE = "кибернетическим глазам",

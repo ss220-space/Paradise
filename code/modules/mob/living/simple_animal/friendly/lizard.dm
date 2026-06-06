@@ -28,7 +28,7 @@
 	holder_type = /obj/item/holder/lizard
 
 /mob/living/simple_animal/lizard/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ящерица",
 		GENITIVE = "ящерицы",
 		DATIVE = "ящерице",
@@ -57,7 +57,7 @@
 	holder_type = /obj/item/holder/axolotl
 
 /mob/living/simple_animal/lizard/axolotl/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "аксолотль",
 		GENITIVE = "аксолотля",
 		DATIVE = "аксолотлю",

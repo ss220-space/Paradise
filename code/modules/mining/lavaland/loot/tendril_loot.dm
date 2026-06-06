@@ -8,7 +8,7 @@
 	cant_hold = list(/obj/item/storage/backpack/shared)
 
 /obj/item/storage/backpack/shared/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "парадоксальная сумка",
 		GENITIVE = "парадоксальной сумки",
 		DATIVE = "парадоксальной сумке",
@@ -39,7 +39,7 @@
 	var/obj/item/shared_storage/twin_storage
 
 /obj/item/shared_storage/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "парадоксальная сумка",
 		GENITIVE = "парадоксальной сумки",
 		DATIVE = "парадоксальной сумке",
@@ -125,7 +125,7 @@
 	w_class = 2
 
 /obj/item/book_of_babel/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Вавилонская книга",
 		GENITIVE = "Вавилонской книги",
 		DATIVE = "Вавилонской книге",
@@ -161,7 +161,7 @@
 	list_reagents = list("flightpotion" = 5)
 
 /obj/item/reagent_containers/glass/bottle/potion/flight/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "странный эликсир",
 		GENITIVE = "странного эликсира",
 		DATIVE = "странному эликсиру",
@@ -206,7 +206,7 @@
 	icon_state = "ladder"
 
 /obj/item/jacobs_ladder/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "лестница Иакова",
 		GENITIVE = "лестницы Иакова",
 		DATIVE = "лестнице Иакова",
@@ -237,7 +237,7 @@
 	desc = "Нерушимая небесная лестница, нарушающая законы физики."
 
 /obj/structure/ladder/unbreakable/jacob/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "лестница Иакова",
 		GENITIVE = "лестницы Иакова",
 		DATIVE = "лестнице Иакова",
@@ -261,7 +261,7 @@
 	light_on = FALSE
 
 /obj/item/wisp_lantern/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "жуткая лампа",
 		GENITIVE = "жуткой лампы",
 		DATIVE = "жуткой лампе",
@@ -334,7 +334,7 @@
 	layer = ABOVE_ALL_MOB_LAYER
 
 /obj/effect/wisp/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "дружелюбный дух",
 		GENITIVE = "дружелюбного духа",
 		DATIVE = "дружелюбному духу",
@@ -352,7 +352,7 @@
 	var/obj/item/warp_cube/linked
 
 /obj/item/warp_cube/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "синий куб",
 		GENITIVE = "синего куба",
 		DATIVE = "синему кубу",
@@ -395,7 +395,7 @@
 	icon_state = "red_cube"
 
 /obj/item/warp_cube/red/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "красный куб",
 		GENITIVE = "красного куба",
 		DATIVE = "красному кубу",
@@ -425,7 +425,7 @@
 	force = 18
 
 /obj/item/gun/magic/hook/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мясной крюк",
 		GENITIVE = "мясного крюка",
 		DATIVE = "мясному крюку",
@@ -445,7 +445,7 @@
 	COOLDOWN_DECLARE(last_used_immortality_talisman)
 
 /obj/item/immortality_talisman/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "талисман бессмертия",
 		GENITIVE = "талисмана бессмертия",
 		DATIVE = "талисману бессмертия",

@@ -16,7 +16,7 @@
 	var/obj/item/integrated_circuit/attached_circuit
 
 /obj/item/usb_cable/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "USB-кабель",
 		GENITIVE = "USB-кабеля",
 		DATIVE = "USB-кабелю",

@@ -29,7 +29,7 @@
 	ai_controller = /datum/ai_controller/basic_controller/mothroach
 
 /mob/living/basic/mothroach/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мотылёк",
 		GENITIVE = "мотылька",
 		DATIVE = "мотыльку",

@@ -22,7 +22,7 @@
 	toolbox_radial_menu_compatibility = TRUE
 
 /obj/item/wrench/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "гаечный ключ",
 		GENITIVE = "гаечного ключа",
 		DATIVE = "гаечному ключу",
@@ -49,7 +49,7 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
 /obj/item/wrench/brass/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "латунный гаечный ключ",
 		GENITIVE = "латунного гаечного ключа",
 		DATIVE = "латунному гаечному ключу",
@@ -71,7 +71,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/wrench/abductor/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "чужеродный гаечный ключ",
 		GENITIVE = "чужеродного гаечного ключа",
 		DATIVE = "чужеродному гаечному ключу",
@@ -87,7 +87,7 @@
 	toolspeed = 0.5
 
 /obj/item/wrench/cyborg/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "автоматический гаечный ключ",
 		GENITIVE = "автоматического гаечного ключа",
 		DATIVE = "автоматическому гаечному ключу",
@@ -112,7 +112,7 @@
 	toolspeed = 0.25
 
 /obj/item/wrench/power/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ручная дрель",
 		GENITIVE = "ручной дрели",
 		DATIVE = "ручной дрели",
@@ -146,7 +146,7 @@
 	origin_tech = "materials=1;engineering=1;biotech=3"
 
 /obj/item/wrench/medical/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "медицинский гаечный ключ",
 		GENITIVE = "медицинского гаечного ключа",
 		DATIVE = "медицинскому гаечному ключу",
@@ -195,7 +195,7 @@
 	greyscale_colors = null
 
 /obj/item/wrench/industrial/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "продвинутый гаечный ключ",
 		GENITIVE = "продвинутого гаечного ключа",
 		DATIVE = "продвинутому гаечному ключу",

@@ -185,10 +185,10 @@
 
 /obj/item/abductor/gizmo/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!ScientistCheck(user))
-		return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+		return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 	if(!console)
 		to_chat(user, span_warning("The device is not linked to console!"))
-		return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+		return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 
 	. = ATTACK_CHAIN_PROCEED_SUCCESS
 
@@ -254,7 +254,7 @@
 
 /obj/item/abductor/silencer/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!isgrey(user) && !AbductorCheck(user))
-		return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+		return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 	. = ATTACK_CHAIN_PROCEED_SUCCESS
 	radio_off(target, user)
 
@@ -805,7 +805,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	var/base_icon = "alien_mender_brute"
 
 /obj/item/reagent_containers/applicator/abductor/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "инопланетный авто-мендер",
 		GENITIVE = "инопланетного авто-мендера",
 		DATIVE = "инопланетному авто-мендеру",
@@ -830,7 +830,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	list_reagents = list("styptic_powder" = 200)
 
 /obj/item/reagent_containers/applicator/abductor/brute/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "инопланетный авто-мендер (Мех. Повреждения)",
 		GENITIVE = "инопланетного авто-мендера (Мех. Повреждения)",
 		DATIVE = "инопланетному авто-мендеру (Мех. Повреждения)",
@@ -846,7 +846,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	list_reagents = list("silver_sulfadiazine" = 200)
 
 /obj/item/reagent_containers/applicator/abductor/burn/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "инопланетный авто-мендер (Терм. Повреждения)",
 		GENITIVE = "инопланетного авто-мендера (Терм. Повреждения)",
 		DATIVE = "инопланетному авто-мендеру (Терм. Повреждения)",
@@ -868,7 +868,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	emagged = FALSE
 
 /obj/item/reagent_containers/applicator/abductor/industrial/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "продвинутый авто-мендер",
 		GENITIVE = "продвинутого авто-мендера",
 		DATIVE = "продвинутому авто-мендеру",
@@ -887,7 +887,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	volume = 50
 
 /obj/item/reagent_containers/glass/bottle/abductor/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "инопланетная бутылка",
 		GENITIVE = "инопланетной бутылки",
 		DATIVE = "инопланетной бутылке",
@@ -901,7 +901,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	list_reagents = list("rezadone" = 50)
 
 /obj/item/reagent_containers/glass/bottle/abductor/rezadone/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "инопланетная бутылка (Резадон)",
 		GENITIVE = "инопланетной бутылки (Резадон)",
 		DATIVE = "инопланетной бутылке (Резадон)",
@@ -915,7 +915,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	list_reagents = list("epinephrine" = 50)
 
 /obj/item/reagent_containers/glass/bottle/abductor/epinephrine/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "инопланетная бутылка (Эпинефрин)",
 		GENITIVE = "инопланетной бутылки (Эпинефрин)",
 		DATIVE = "инопланетной бутылке (Эпинефрин)",
@@ -929,7 +929,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	list_reagents = list("salglu_solution" = 50)
 
 /obj/item/reagent_containers/glass/bottle/abductor/salgu/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "инопланетная бутылка (Физиологический раствор)",
 		GENITIVE = "инопланетной бутылки (Физиологический раствор)",
 		DATIVE = "инопланетной бутылке (Физиологический раствор)",
@@ -943,7 +943,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	list_reagents = list("oculine" = 50)
 
 /obj/item/reagent_containers/glass/bottle/abductor/oculine/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "инопланетная бутылка (Окулин)",
 		GENITIVE = "инопланетной бутылки (Окулин)",
 		DATIVE = "инопланетной бутылке (Окулин)",
@@ -957,7 +957,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	list_reagents = list("pen_acid" = 50)
 
 /obj/item/reagent_containers/glass/bottle/abductor/pen_acid/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "инопланетная бутылка (Пентетовая кислота)",
 		GENITIVE = "инопланетной бутылки (Пентетовая кислота)",
 		DATIVE = "инопланетной бутылке (Пентетовая кислота)",
@@ -977,7 +977,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	theme = "abductor"
 
 /obj/item/healthanalyzer/abductor/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "инопланетный анализатор здоровья",
 		GENITIVE = "инопланетного анализатора здоровья",
 		DATIVE = "инопланетному анализатору здоровья",

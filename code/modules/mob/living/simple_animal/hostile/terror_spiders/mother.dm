@@ -32,7 +32,7 @@
 	tts_seed = "Deathwhisper"
 
 /mob/living/simple_animal/hostile/poison/terror_spider/mother/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Мать Ужаса",
 		GENITIVE = "Матери Ужаса",
 		DATIVE = "Матери Ужаса",

@@ -35,7 +35,7 @@
 	var/mob/scanned = null
 
 /obj/item/healthanalyzer/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "анализатор здоровья",
 		GENITIVE = "анализатора здоровья",
 		DATIVE = "анализатору здоровья",
@@ -861,7 +861,7 @@
 	custom_price = PAYCHECK_LOWER / 1.5
 
 /obj/item/healthupgrade/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль улучшения анализатора здоровья",
 		GENITIVE = "модуля улучшения анализатора здоровья",
 		DATIVE = "модулю улучшения анализатора здоровья",
@@ -878,7 +878,7 @@
 	origin_tech = null
 
 /obj/item/healthanalyzer/gem_analyzer/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "глаз здоровья",
 		GENITIVE = "глаза здоровья",
 		DATIVE = "глазу здоровья",

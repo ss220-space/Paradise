@@ -13,7 +13,7 @@
 	open_icon = "candymaker_open"
 
 /obj/machinery/kitchen_machine/candy_maker/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "конфетный автомат",
 		GENITIVE = "конфетного автомата",
 		DATIVE = "конфетному автомату",

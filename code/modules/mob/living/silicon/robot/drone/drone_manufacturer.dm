@@ -12,7 +12,7 @@
 	var/time_last_drone = 500
 
 /obj/machinery/drone_fabricator/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "фабрикатор дронов",
 		GENITIVE = "фабрикатора дронов",
 		DATIVE = "фабрикатору дронов",
