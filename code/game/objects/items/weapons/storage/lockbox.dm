@@ -271,11 +271,11 @@
 
 /obj/item/storage/lockbox/sibyl_system_mod
 	name = "lockbox (Sibyl System Mods)"
-	desc = "Содержит модицикации системы Сибил для энергетического оружия."
+	desc = "Содержит модули системы Сибил для энергетического оружия."
 	max_w_class = WEIGHT_CLASS_TINY
 	storage_slots = 10
 	req_access = list(ACCESS_SECURITY)
-	lockbox_title_ru = "(Модификации Системы Сибил)"
+	lockbox_title_ru = "(Модули системы Сибил)"
 
 /obj/item/storage/lockbox/sibyl_system_mod/populate_contents()
 	for(var/i in 1 to 10)
@@ -427,12 +427,12 @@
 		add_fingerprint(user)
 		var/atom/drop_loc = drop_location()
 		var/obj/item/pride = new disky.output(drop_loc)
-		to_chat(user, span_notice("[declent_ru(NOMINATIVE)] принимает [disky.declent_ru(ACCUSATIVE)], и печатает [pride.declent_ru(ACCUSATIVE)]."))
+		to_chat(user, span_notice("[DECLENT_RU_CAP(NOMINATIVE)] принимает [disky.DECLENT_RU_CAP(ACCUSATIVE)], и печатает [pride.DECLENT_RU_CAP(ACCUSATIVE)]."))
 		qdel(disky)
 		if(!is_type_in_list(pride, completed_fauna))
 			completed_fauna += pride.type
 			if(length(completed_fauna) == number_of_megafauna)
-				to_chat(user, span_notice("[declent_ru(NOMINATIVE)] печатает очень красивую медаль."))
+				to_chat(user, span_notice("[DECLENT_RU_CAP(NOMINATIVE)] печатает очень красивую медаль."))
 				var/obj/item/clothing/accessory/medal/gold/heroism/hardmode_full/accomplishment = new(drop_loc)
 				user.put_in_hands(accomplishment, ignore_anim = FALSE)
 		user.put_in_hands(pride, ignore_anim = FALSE)
