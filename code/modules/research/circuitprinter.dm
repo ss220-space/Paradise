@@ -278,10 +278,10 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 
 		data["name"] = integrated_circuit.display_name
 
-		var/datum/design/integrated_circuit/circuit_design
+		var/datum/design/integrated_circuit/circuit_design = new /datum/design/integrated_circuit
 		var/materials = list(MAT_GLASS = integrated_circuit.current_size * cost_per_component)
-		for(var/material_type in circuit_design::materials)
-			materials[material_type] += circuit_design::materials[material_type]
+		for(var/material_type in circuit_design.materials)
+			materials[material_type] += circuit_design.materials[material_type]
 
 		data["materials"] = materials
 		data["integrated_circuit"] = TRUE
@@ -301,7 +301,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 			balloon_alert(user, "название занято!")
 			return
 
-	var/circuit_desc = reject_bad_name(sanitize(tgui_input_text(user, "Введите описание схемы.", "Описание", "", max_length=MAX_CHAR_IN_DESC)), allow_numbers = TRUE)
+	var/circuit_desc = reject_bad_name(sanitize(tgui_input_text(user, "Введите описание схемы.", "Описание", "", max_length = MAX_CHAR_IN_DESC)), allow_numbers = TRUE)
 
 	data["desc"] = circuit_desc ? circuit_desc : "Схема, сохранённая пользователем \"[user]\"."
 
@@ -315,7 +315,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 /obj/machinery/r_n_d/circuit_imprinter/proc/can_save_circuit_by_import(mob/living/user, list/data)
 	if(isnull(data) || !islist(data))
 		return FALSE
-	var/list/required_keys = list("dupe_data", "name", "Icon", "IconState", "desc")
+	var/static/list/required_keys = list("dupe_data", "name", "Icon", "IconState", "desc")
 	for(var/key in required_keys)
 		if(!LAZYACCESS(data, key))
 			return FALSE
@@ -338,13 +338,13 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 
 	for(var/list/component_data as anything in scanned_designs)
 		if(component_data["name"] == data["name"])
-			balloon_alert(user, "название занято!")
+			to_chat(user, span_alert("Название занято!"))
 			return
 
 	var/current_size = 0
 
-	for(var/component_data in dupe_data["components"])
-		var/list/comp = dupe_data["components"][component_data]
+	for(var/component_data, value in dupe_data["components"])
+		var/list/comp = value
 
 		if(!islist(comp))
 			if(!islist(component_data))
@@ -363,26 +363,28 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 	var/materials = list(MAT_GLASS = current_size * cost_per_component)
 
 	if(data["integrated_circuit"])
-		var/datum/design/integrated_circuit/circuit_design
-		for(var/material_type in circuit_design::materials)
-			materials[material_type] += circuit_design::materials[material_type]
+		var/datum/design/integrated_circuit/circuit_design = new /datum/design/integrated_circuit
+		for(var/material_type in circuit_design.materials)
+			materials[material_type] += circuit_design.materials[material_type]
+		qdel(circuit_design)
 
 	data["materials"] = materials
 
-	var/obj/item/integrated_circuit/circuit
-	data["Icon"] = circuit::icon
-	data["IconState"] = circuit::icon_state
+	var/obj/item/integrated_circuit/circuit = new /obj/item/integrated_circuit
+	data["Icon"] = circuit.icon
+	data["IconState"] = circuit.icon_state
+	qdel(circuit)
 
 	if(!length(data))
 		return
 
 	if(!data["name"])
-		balloon_alert(user, "требуется название!")
+		to_chat(user, span_alert("Требуется название!"))
 		return
 
 	LAZYADD(scanned_designs, list(data))
 
-	balloon_alert(user, "схема сохранена")
+	to_chat(user, span_greentext("Схема сохранена"))
 	playsound(src, 'sound/machines/ping.ogg', 50)
 
 	update_static_data_for_all_viewers()
@@ -469,11 +471,19 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 
 			var/list/design = LAZYACCESS(scanned_designs, design_id)
 
-			var/list/data = list("dupe_data" = design["dupe_data"], "name" = design["name"], "desc" = design["desc"], "integrated_circuit" = design["integrated_circuit"], "Icon" = design["Icon"], "IconState" = design["IconState"])
+			var/list/data = list(
+				"dupe_data" = design["dupe_data"],
+				"name" = design["name"],
+				"desc" = design["desc"],
+				"integrated_circuit" = design["integrated_circuit"],
+				"Icon" = design["Icon"],
+				"IconState" = design["IconState"]
+			)
+
 			var/json_base64 = rustg_encode_base64(json_encode(data))
 
 			if(!json_base64)
-				tgui_alert(user, message="Ошибка экспорта!", title="Ошибка!")
+				tgui_alert(user, message = "Ошибка экспорта!", title = "Ошибка!")
 				return
 
 			tgui_input_text(user, "Скопируйте текст схемы:", "Экспорт схемы", default = json_base64)
