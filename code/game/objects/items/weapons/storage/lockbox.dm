@@ -1,6 +1,9 @@
 #define LOCKBOX_DRILL_SPARK_CHANCE 15
-#define LOCKBOX_DRILL_TIME 150 SECONDS
+#define LOCKBOX_DRILL_TIME (150 SECONDS)
 #define DRILLING_PERCENT_TO_ALERT 30
+#define DRILL_X_OFFSET = -2
+#define DRILL_Y_OFFSET = 21
+#define PROGRESS_BAR_Y_OFFSET = 26
 
 /obj/item/storage/lockbox
 	name = "lockbox"
@@ -31,9 +34,6 @@
 	var/image/drill_overlay
 	/// The progress bar image to display during the drilling process.
 	var/image/progress_bar
-	var/drill_x_offset = -2
-	var/drill_y_offset = 21
-	var/progress_bar_y_offset = 26
 	var/security_alert_chance
 	var/tried_alert = FALSE
 	var/lockbox_title_ru = ""
@@ -57,15 +57,16 @@
 
 /obj/item/storage/lockbox/update_overlays()
 	. = ..()
-	if(istype(drill, /obj/item/thermal_drill))
-		var/drill_icon = istype(drill, /obj/item/thermal_drill/diamond_drill) ? "d" : "h"
-		var/state = "floorsafe_[drill_icon]-drill-[drill_timer ? "on" : "off"]"
-		drill_overlay = image(icon = 'icons/effects/drill.dmi', icon_state = state)
-		var/matrix/matrix = matrix()
-		matrix.Translate(drill_x_offset, drill_y_offset)
-		matrix.Turn(180)
-		drill_overlay.transform = matrix
-		. += drill_overlay
+	if(!drill)
+		return
+	var/drill_icon = istype(drill, /obj/item/thermal_drill/diamond_drill) ? "d" : "h"
+	var/state = "floorsafe_[drill_icon]-drill-[drill_timer ? "on" : "off"]"
+	drill_overlay = image(icon = 'icons/effects/drill.dmi', icon_state = state)
+	var/matrix/matrix = matrix()
+	matrix.Translate(DRILL_X_OFFSET, DRILL_Y_OFFSET)
+	matrix.Turn(180)
+	drill_overlay.transform = matrix
+	. += drill_overlay
 
 /obj/item/storage/lockbox/attackby(obj/item/item, mob/user, params)
 	if(user.a_intent == INTENT_HARM)	// to allow storing special items
@@ -140,17 +141,13 @@
 
 /obj/item/storage/lockbox/process()
 	if(!drill)
-		drill_timer = null
-		drill.soundloop.stop()
-		cut_overlay(progress_bar)
-		update_icon()
-		STOP_PROCESSING(SSobj, src)
+		drill_stop_processing()
 	if(!drill_timer)
 		return
 	cut_overlay(progress_bar)
 	progress_bar = image('icons/effects/progressbar.dmi', src, "prog_bar_[round((((world.time - drill_start_time) / time_to_drill) * 100), 5)]", HUD_LAYER)
 	var/matrix/matrix = matrix()
-	matrix.Translate(0, progress_bar_y_offset)
+	matrix.Translate(0, PROGRESS_BAR_Y_OFFSET)
 	progress_bar.transform = matrix
 	add_overlay(progress_bar)
 	if(prob(LOCKBOX_DRILL_SPARK_CHANCE))
@@ -178,11 +175,7 @@
 					if(!drill || !locked || !drill_timer)
 						return
 					deltimer(drill_timer)
-					drill_timer = null
-					drill.soundloop.stop()
-					cut_overlay(progress_bar)
-					update_icon()
-					STOP_PROCESSING(SSobj, src)
+					drill_stop_processing()
 			if("Убрать дрель")
 				if(drill_timer)
 					user.balloon_alert(user, "дрель работает!")
@@ -235,14 +228,17 @@
 		return
 	broken = TRUE
 	locked = FALSE
-	drill_timer = null
-	drill.soundloop.stop()
 	update_icon()
 	playsound(loc, 'sound/machines/ding.ogg', 50, TRUE)
+	drill_stop_processing()
+
+/obj/item/storage/lockbox/proc/drill_stop_processing()
+	drill_timer = null
+	drill.soundloop.stop()
 	cut_overlay(progress_bar)
 	update_icon()
 	STOP_PROCESSING(SSobj, src)
-
+	
 /obj/item/storage/lockbox/proc/try_alert_security()
 	if(security_alert_chance && prob(security_alert_chance))
 		var/area/location = get_area(src)
