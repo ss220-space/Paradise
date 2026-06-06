@@ -1,19 +1,9 @@
 /**
- * # Slip behaviour component
+ * # True Observer component
  *
- * Add this component to an object to make it a slippery object, slippery objects make mobs that cross them fall over.
- * Items with this component that get picked up may give their parent mob the slip behaviour.
- *
- * Here is a simple example of adding the component behaviour to an object.area
- *
- *     AddComponent(/datum/component/slippery, 80, 0, (NO_SLIP_WHEN_WALKING | SLIDE))
- *
- * This adds slippery behaviour to the parent atom, with a 80 decisecond (~8 seconds) weaken
- * The lube flags control how the slip behaves, in this case, the mob wont slip if it's in walking mode (NO_SLIP_WHEN_WALKING)
- * and if they do slip, they will slide a few tiles (SLIDE)
- *
- *
- * This component has configurable behaviours, see the [Initialize proc for the argument listing][/datum/component/slippery/proc/Initialize].
+ * This component is attached to a ghost/observer to link its vision, HUD,
+ * and other client-side feedback directly to a living mob they are observing.
+ * It replaces old polling loops and manual updates with a signal-driven approach.
  */
 /datum/component/true_observer
 	dupe_mode = COMPONENT_DUPE_UNIQUE_PASSARGS
@@ -45,22 +35,20 @@
 	)
 
 /**
- * Initialize the slippery component behaviour
+ * Initialize the "True-Observe(Vison)" component behaviour
  *
- * When applied to any atom in the game this will apply slipping behaviours to that atom
- *
+ * When applied to any observer in the game this will let him to see the observe_target client screen
  * Arguments:
- * * target - Length of time the weaken applies (Deciseconds)
+ * * observe_target - the target whose screen will be shown to the observer
  */
 /datum/component/true_observer/Initialize(
-	observe,
 	observe_target,
 )
-	if (!isobserver(observe))
+	if (!isobserver(parent) || !observe_target)
 		return COMPONENT_INCOMPATIBLE
-	src.observe = observe
+	src.observe = parent
 	src.observe_target = observe_target
-	ADD_TRAIT(src.observe, TRAIT_OBSERVING_INVENTORY, src)
+	ADD_TRAIT(observe, TRAIT_OBSERVING_INVENTORY, src)
 
 /datum/component/true_observer/RegisterWithParent()
 	for (var/key,value in default_connections)
@@ -92,9 +80,9 @@
 	if(component)
 		observe = component.observe
 		observe_target = component.observe_target
+	UnregisterFromParent()
 	src.observe = observe
 	src.observe_target = observe_target
-	UnregisterFromParent()
 	RegisterWithParent()
 
 /datum/component/true_observer/proc/sync_vision_with_target()
@@ -111,8 +99,9 @@
 	observe.set_invis_see(SEE_INVISIBLE_OBSERVER_AI_EYE)
 	observe.reset_perspective(null)
 	observe.sync_lighting_plane_alpha()
-	observe.client.pixel_w = initial(observe.client.pixel_w)
-	observe.client.pixel_z = initial(observe.client.pixel_z)
+	if(observe.client)
+		observe.client.pixel_w = initial(observe.client.pixel_w)
+		observe.client.pixel_z = initial(observe.client.pixel_z)
 	observe.clear_fullscreens()
 
 /// ------------ SIGNAL PROCS ------------
@@ -122,6 +111,8 @@
 
 /datum/component/true_observer/proc/on_zoomed()
 	SIGNAL_HANDLER
+	if(!observe.client || !observe_target?.client)
+		return
 	observe.client.pixel_w = observe_target.client.pixel_w
 	observe.client.pixel_z = observe_target.client.pixel_z
 
@@ -135,19 +126,24 @@
 
 /datum/component/true_observer/proc/on_hud_refreshed(mob/living/mob_source, datum/hud/hud_source)
 	SIGNAL_HANDLER
-	hud_source.show_hud(hud_source.hud_version, observe)
+	hud_source?.show_hud(hud_source.hud_version, observe)
 
 /datum/component/true_observer/proc/on_status_effect_created(mob/living/mob_source, datum/status_effect/transient/effect_type)
 	SIGNAL_HANDLER
 	if(istype(effect_type) == FALSE)
 		return
 
+	var/datum/hud/hud = observe.hud_used
+	if(!hud)
+		return
+
 	var/atom/movable/plane_master_controller/game_plane_master_controller = observe.hud_used?.plane_master_controllers[PLANE_MASTERS_GAME]
-	switch(effect_type)
+	if(!game_plane_master_controller)
+		return
+
+	switch(effect_type.type)
 		if(/datum/status_effect/transient/eye_blurry)
 	///mob/living/update_blurry_effects()
-			if(!game_plane_master_controller)
-				return
 			var/AmountEyeBlurry = observe_target.AmountEyeBlurry()
 			if(AmountEyeBlurry)
 				game_plane_master_controller.add_filter("eye_blur", 1, gauss_blur_filter(clamp(AmountEyeBlurry * EYE_BLUR_TO_FILTER_SIZE_MULTIPLIER, 0.6, MAX_EYE_BLURRY_FILTER_SIZE)))
@@ -161,12 +157,18 @@
 	if(istype(effect_type) == FALSE)
 		return
 
+	var/datum/hud/hud = observe.hud_used
+	if(!hud)
+		return
+
 	var/atom/movable/plane_master_controller/game_plane_master_controller = observe.hud_used?.plane_master_controllers[PLANE_MASTERS_GAME]
-	switch(effect_type)
+	if(!game_plane_master_controller)
+		return
+
+	switch(effect_type.type)
 		if(/datum/status_effect/transient/eye_blurry)
 	///mob/living/update_blurry_effects()
-			if(!game_plane_master_controller)
-				return
+
 			game_plane_master_controller.remove_filter("eye_blur")
 			return
 		//if(/*your/path*/)
@@ -181,14 +183,20 @@
 
 /datum/component/true_observer/proc/on_do_after_began(mob/living/mob_source, datum/progressbar/bar)
 	SIGNAL_HANDLER
+	if(!observe.client)
+		return
 	observe.client.add_progressbar(bar)
 
 /datum/component/true_observer/proc/on_reset_perspective()
 	SIGNAL_HANDLER
+	if(!observe || !observe_target?.client)
+		return
 	observe.reset_perspective(observe_target.client.eye)
 
 /datum/component/true_observer/proc/on_set_eye(mob/living/mob_source, old_eye, new_eye)
 	SIGNAL_HANDLER
+	if(!observe.client || !observe_target?.client)
+		return
 	observe.client.set_eye(observe_target.client.eye)
 
 /datum/component/true_observer/proc/on_target_destroyed(mob/living/mob_source, force)
@@ -197,6 +205,8 @@
 
 /datum/component/true_observer/proc/on_unequipped_item(mob/living/mob_source, I, force, newloc, no_move, invdrop, silent)
 	SIGNAL_HANDLER
+	if(!observe.client || !observe_target?.client)
+		return
 	observe.client.screen -= I
 
 /datum/component/true_observer/proc/on_update_sight()
@@ -205,6 +215,8 @@
 
 /datum/component/true_observer/proc/on_screen_element(mob/living/mob_source, element, is_added)
 	SIGNAL_HANDLER
+	if(!observe.client || !observe_target?.client)
+		return
 	if(is_added)
 		observe.client.screen |= element
 	else

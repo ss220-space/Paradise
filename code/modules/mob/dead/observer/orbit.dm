@@ -57,7 +57,7 @@
 	if(auto_observe)
 		var/mob/eye_mob = poi
 		if(istype(eye_mob) && eye_mob.client)
-			AddComponent(/datum/component/true_observer, owner, eye_mob)
+			owner.AddComponent(/datum/component/true_observer, eye_mob)
 		else
 			qdel(owner.GetComponent(/datum/component/true_observer))
 			to_chat(owner, span_alert("Объект, за которым Вы следуете, не имеет за собой игрока! Показать инвентарь <b>невозможно</b>."))
