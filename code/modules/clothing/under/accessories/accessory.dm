@@ -273,7 +273,7 @@
 	COOLDOWN_DECLARE(sving_cooldown)
 
 /obj/item/clothing/accessory/medal/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бронзовая медаль",
 		GENITIVE = "бронзовой медали",
 		DATIVE = "бронзовой медали",
@@ -304,7 +304,7 @@
 	materials = list(MAT_GOLD=1000)
 
 /obj/item/clothing/accessory/medal/gold/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "золотая медаль",
 		GENITIVE = "золотой медали",
 		DATIVE = "золотой медали",
@@ -321,7 +321,7 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
 /obj/item/clothing/accessory/medal/gold/captain/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "медаль капитанства",
 		GENITIVE = "медали капитанства",
 		DATIVE = "медали капитанства",
@@ -340,7 +340,7 @@
 	icon_state = "ion"
 
 /obj/item/clothing/accessory/medal/gold/heroism/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "медаль за исключительный героизм",
 		GENITIVE = "медали за исключительный героизм",
 		DATIVE = "медали за исключительный героизм",
@@ -356,7 +356,7 @@
 	icon_state = "cargomedal"
 
 /obj/item/clothing/accessory/medal/gold/cargo/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "медаль снабжения",
 		GENITIVE = "медали снабжения",
 		DATIVE = "медали снабжения",
@@ -374,7 +374,7 @@
 	materials = list(MAT_SILVER=1000)
 
 /obj/item/clothing/accessory/medal/silver/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "серебряная медаль",
 		GENITIVE = "серебряной медали",
 		DATIVE = "серебряной медали",
@@ -389,7 +389,7 @@
 	icon_state = "valor"
 
 /obj/item/clothing/accessory/medal/silver/valor/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "медаль за отвагу",
 		GENITIVE = "медали за отвагу",
 		DATIVE = "медали за отвагу",
@@ -404,7 +404,7 @@
 	icon_state = "leadership"
 
 /obj/item/clothing/accessory/medal/silver/leadership/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "медаль командования",
 		GENITIVE = "медали командования",
 		DATIVE = "медали командования",
@@ -422,7 +422,7 @@
 	icon_state = "robust"
 
 /obj/item/clothing/accessory/medal/security/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "медаль имени \"Роберта Астера\"",
 		GENITIVE = "медали имени \"Роберта Астера\"",
 		DATIVE = "медали имени \"Роберта Астера\"",
@@ -437,7 +437,7 @@
 	icon_state = "science"
 
 /obj/item/clothing/accessory/medal/science/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "медаль научного прорыва",
 		GENITIVE = "медали научного прорыва",
 		DATIVE = "медали научного прорыва",
@@ -452,7 +452,7 @@
 	icon_state = "engineering"
 
 /obj/item/clothing/accessory/medal/engineering/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "медаль инженерного мастерства",
 		GENITIVE = "медали инженерного мастерства",
 		DATIVE = "медали инженерного мастерства",
@@ -467,7 +467,7 @@
 	icon_state = "service"
 
 /obj/item/clothing/accessory/medal/service/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "медаль безупречного обслуживания",
 		GENITIVE = "медали безупречного обслуживания",
 		DATIVE = "медали безупречного обслуживания",
@@ -482,7 +482,7 @@
 	icon_state = "medical"
 
 /obj/item/clothing/accessory/medal/medical/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "медаль медицинской доблести",
 		GENITIVE = "медали медицинской доблести",
 		DATIVE = "медали медицинской доблести",
@@ -495,7 +495,7 @@
 	desc = "Высшая юридическая награда для тех, кто знает устав \"Нанотрейзен\" лучше, чем своё имя. Вручается Магистратом тем, кто способен найти лазейку в любой обвинительной речи и превратить её в оправдательный приговор."
 
 /obj/item/clothing/accessory/medal/legal/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "медаль юридических заслуг",
 		GENITIVE = "медали юридических заслуг",
 		DATIVE = "медали юридических заслуг",
@@ -510,7 +510,7 @@
 	icon_state = "bronze_heart"
 
 /obj/item/clothing/accessory/medal/heart/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "медаль \"Бронзовое сердце\"",
 		GENITIVE = "медали \"Бронзовое сердце\"",
 		DATIVE = "медали \"Бронзовое сердце\"",
@@ -527,7 +527,7 @@
 	materials = list(MAT_PLASMA = 1000)
 
 /obj/item/clothing/accessory/medal/plasma/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "плазменная медаль",
 		GENITIVE = "плазменной медали",
 		DATIVE = "плазменной медали",
@@ -562,7 +562,7 @@
 	materials = list(MAT_METAL = 500, MAT_PLASMA = 500)
 
 /obj/item/clothing/accessory/medal/alloy/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "крест",
 		GENITIVE = "креста",
 		DATIVE = "кресту",
@@ -578,7 +578,7 @@
 	desc = "Награда за выдающийся вклад в проект HRD-MDE, связанный с исследованием Бубльгума и сопряжённого с ним редспейса."
 
 /obj/item/clothing/accessory/medal/gold/bubblegum/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "медаль HRD-MDE \"Бубльгум\"",
 		GENITIVE = "медали HRD-MDE \"Бубльгум\"",
 		DATIVE = "медали HRD-MDE \"Бубльгум\"",
@@ -592,7 +592,7 @@
 	desc = "Легендарная золотая награда, вручаемая только Центральным Командованием тем, кто бросил вызов всем богам Лазиса — и победил. Для Шахтёров, чья смена стала эпосом, а добыча — пантеоном поверженных титанов."
 
 /obj/item/clothing/accessory/medal/gold/heroism/hardmode_full/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "медаль убийцы богов",
 		GENITIVE = "медали убийцы богов",
 		DATIVE = "медали убийцы богов",
@@ -607,7 +607,7 @@
 	icon_state = "alloy"
 
 /obj/item/clothing/accessory/medal/silver/colossus/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "медаль HRD-MDE \"Колосс\"",
 		GENITIVE = "медали HRD-MDE \"Колосс\"",
 		DATIVE = "медали HRD-MDE \"Колосс\"",
@@ -621,7 +621,7 @@
 	desc = "Награда за анализ одного из самых противоестественных феноменов Лазиса. Вручается за исследование Легиона — коллективного организма, ставящего под сомнение саму концепцию индивидуальности в экосистеме планеты."
 
 /obj/item/clothing/accessory/medal/silver/legion/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "медаль HRD-MDE \"Легион\"",
 		GENITIVE = "медали HRD-MDE \"Легион\"",
 		DATIVE = "медали HRD-MDE \"Легион\"",
@@ -634,7 +634,7 @@
 	desc = "Награда за вклад в проект HRD-MDE по изучению и нейтрализации феномена \"Кровавого шахтёра\" — человека, превратившегося в смертоносную угрозу под влиянием Лазиса."
 
 /obj/item/clothing/accessory/medal/blood_drunk/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "медаль HRD-MDE \"Кровавый шахтёр\"",
 		GENITIVE = "медали HRD-MDE \"Кровавый шахтёр\"",
 		DATIVE = "медали HRD-MDE \"Кровавый шахтёр\"",
@@ -648,7 +648,7 @@
 	desc = "Награда для тех, кто осмелился изучать не просто существо, а явление. Иерофант не подчиняется привычным законам — он диктует свои, и эта медаль вручается тем, кто начал понимать его язык."
 
 /obj/item/clothing/accessory/medal/plasma/hierophant/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "медаль HRD-MDE \"Иерофант\"",
 		GENITIVE = "медали HRD-MDE \"Иерофант\"",
 		DATIVE = "медали HRD-MDE \"Иерофант\"",
@@ -662,7 +662,7 @@
 	desc = "Награда за значительный вклад в проект HRD-MDE, связанный с исследованием Пепельного дракона — древнего существа, чьё дыхание испепеляет скалы, а чешуя прочнее пластитана."
 
 /obj/item/clothing/accessory/medal/plasma/ash_drake/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "медаль HRD-MDE \"Пепельный дракон\"",
 		GENITIVE = "медали HRD-MDE \"Пепельный дракон\"",
 		DATIVE = "медали HRD-MDE \"Пепельный дракон\"",
@@ -676,7 +676,7 @@
 	desc = "Награда за выдающийся вклад в проект HRD-MDE, связанный с исследованием Ветус Спекулятора — одного из самых загадочных и технологически сложных существ Лазиса."
 
 /obj/item/clothing/accessory/medal/alloy/vetus/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "медаль HRD-MDE \"Ветус Спекулятор\"",
 		GENITIVE = "медали HRD-MDE \"Ветус Спекулятор\"",
 		DATIVE = "медали HRD-MDE \"Ветус Спекулятор\"",
@@ -690,7 +690,7 @@
 	desc = "Всегда ставьте на то, что ничего не случится."
 
 /obj/item/clothing/accessory/medal/gold/nothing_award/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "награда \"Ничего Не Произошло\"",
 		GENITIVE = "медали \"Ничего Не Произошло\"",
 		DATIVE = "медали \"Ничего Не Произошло\"",
@@ -912,7 +912,7 @@
 	allow_duplicates = FALSE
 
 /obj/item/clothing/accessory/necklace/skullcodpiece/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "костяной гульфик",
 		GENITIVE = "костяного гульфика",
 		DATIVE = "костяному гульфику",
@@ -930,7 +930,7 @@
 	allow_duplicates = FALSE
 
 /obj/item/clothing/accessory/necklace/talisman/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "костяной талисман",
 		GENITIVE = "костяного талисмана",
 		DATIVE = "костяному талисману",

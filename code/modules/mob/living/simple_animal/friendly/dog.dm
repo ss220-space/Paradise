@@ -778,7 +778,7 @@
 	health = 30
 
 /mob/living/simple_animal/pet/dog/pug/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мопс",
 		GENITIVE = "мопса",
 		DATIVE = "мопсу",

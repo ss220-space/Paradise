@@ -377,7 +377,7 @@
 	var/animal_type = SENTIENCE_ORGANIC
 
 /obj/item/slimepotion/transference/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "зелье переноса сознания",
 		GENITIVE = "зелья переноса сознания",
 		DATIVE = "зелью переноса сознания",

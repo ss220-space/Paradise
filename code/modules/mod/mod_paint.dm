@@ -9,7 +9,7 @@
 	var/compatible_theme = /datum/mod_theme/civilian
 
 /obj/item/mod/skin_applier/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "комплект покраски МЭК",
 		GENITIVE = "комплекта покраски МЭК",
 		DATIVE = "комплекту покраски МЭК",
@@ -59,7 +59,7 @@
 	var/del_on_use = TRUE
 
 /obj/item/mod/universal_modkit/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "универсальный комплект покраски МЭК",
 		GENITIVE = "универсального комплекта покраски МЭК",
 		DATIVE = "универсальному комплекту покраски МЭК",

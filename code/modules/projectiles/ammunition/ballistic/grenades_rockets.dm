@@ -12,7 +12,7 @@
 	no_update_names = TRUE
 
 /obj/item/ammo_casing/rocket/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ракета",
 		GENITIVE = "ракеты",
 		DATIVE = "ракете",
@@ -48,7 +48,7 @@
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 
 /obj/item/ammo_casing/a40mm/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "выстрел [ammo_marking]",
 		GENITIVE = "выстрела [ammo_marking]",
 		DATIVE = "выстрелу [ammo_marking]",

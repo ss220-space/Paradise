@@ -139,7 +139,7 @@
 	var/nemesis_factions = list("mining", "boss")
 
 /obj/item/melee/katana/basalt/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "базальтовая катана",
 		GENITIVE = "базальтовой катаны",
 		DATIVE = "базальтовой катане",
@@ -470,7 +470,7 @@
 	block_chance = 30
 
 /obj/item/melee/claymore/bone/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "костяной меч",
 		GENITIVE = "костяного меча",
 		DATIVE = "костяному мечу",
@@ -503,7 +503,7 @@
 	var/stamina_damage = 22
 
 /obj/item/melee/nutcracker/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "колотушка",
 		GENITIVE = "колотушки",
 		DATIVE = "колотушке",

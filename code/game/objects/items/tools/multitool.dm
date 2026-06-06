@@ -34,7 +34,7 @@
 	var/broken_type = /obj/item/multitool_broken
 
 /obj/item/multitool/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мультиметр",
 		GENITIVE = "мультиметра",
 		DATIVE = "мультиметру",
@@ -96,7 +96,7 @@
 	materials = list(MAT_METAL=50, MAT_GLASS=20)
 
 /obj/item/multitool_broken/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сломанный мультиметр",
 		GENITIVE = "сломанного мультиметра",
 		DATIVE = "сломанному мультиметру",
@@ -192,7 +192,7 @@
 	emp_shielded = TRUE
 
 /obj/item/multitool/abductor/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "чужеродный мультиметр",
 		GENITIVE = "чужеродного мультиметра",
 		DATIVE = "чужеродному мультиметру",
@@ -211,7 +211,7 @@
 	emp_shielded = TRUE
 
 /obj/item/multitool/brass/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "латунный мультиметр",
 		GENITIVE = "латунного мультиметра",
 		DATIVE = "латунному мультиметру",
@@ -229,7 +229,7 @@
 	emp_shielded = TRUE
 
 /obj/item/multitool/old/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "старый мультиметр",
 		GENITIVE = "старого мультиметра",
 		DATIVE = "старому мультиметру",
@@ -248,7 +248,7 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
 /obj/item/multitool/industrial/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "продвинутый мультиметр",
 		GENITIVE = "продвинутого мультиметра",
 		DATIVE = "продвинутому мультиметру",

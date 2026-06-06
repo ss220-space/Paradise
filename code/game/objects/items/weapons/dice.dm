@@ -7,7 +7,7 @@
 	allow_wrap = FALSE
 
 /obj/item/storage/pill_bottle/dice/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мешок игральных костей",
 		GENITIVE = "мешка игральных костей",
 		DATIVE = "мешку игральных костей",
@@ -68,7 +68,7 @@
 	var/rigged_value
 
 /obj/item/dice/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "игральная кость",
 		GENITIVE = "игральной кости",
 		DATIVE = "игральной кости",
@@ -240,7 +240,7 @@
 	var/used = FALSE
 
 /obj/item/dice/d20/fate/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Игральная Кость Судьбы",
 		GENITIVE = "Игральной Кости Судьбы",
 		DATIVE = "Игральной Кости Судьбы",
@@ -254,7 +254,7 @@
 	desc = "Кость с двадцатью гранями. Именно такой чаще всего бросают в игровых мастеров."
 
 /obj/item/dice/d20/fate/stealth/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "игральная кость",
 		GENITIVE = "игральной кости",
 		DATIVE = "игральной кости",
@@ -271,7 +271,7 @@
 	desc = "Кость с двадцатью гранями. Именно такой чаще всего бросают в игровых мастеров."
 
 /obj/item/dice/d20/fate/one_use/stealth/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "игральная кость",
 		GENITIVE = "игральной кости",
 		DATIVE = "игральной кости",
@@ -290,7 +290,7 @@
 	rigged_value = 1
 
 /obj/item/dice/d20/fate/cursed/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "проклятая Игральная Кость Судьбы",
 		GENITIVE = "проклятой Игральной Кости Судьбы",
 		DATIVE = "проклятой Игральной Кости Судьбы",

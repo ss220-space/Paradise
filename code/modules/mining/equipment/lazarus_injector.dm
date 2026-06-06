@@ -14,7 +14,7 @@
 	var/revive_type = SENTIENCE_ORGANIC //So you can't revive boss monsters or robots with it
 
 /obj/item/lazarus_injector/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "инъектор Лазаря",
 		GENITIVE = "инъектора Лазаря",
 		DATIVE = "инъектору Лазаря",
@@ -92,7 +92,7 @@
 	var/capture_type = SENTIENCE_ORGANIC //So you can't capture boss monsters or robots with it
 
 /obj/item/mobcapsule/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "капсула Лазаря",
 		GENITIVE = "капсулы Лазаря",
 		DATIVE = "капсуле Лазаря",

@@ -16,7 +16,7 @@
 	can_adjust = FALSE
 
 /obj/item/clothing/under/plasmaman/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "защитный костюм плазмолюда",
 		GENITIVE = "защитного костюма плазмолюда",
 		DATIVE = "защитному костюму плазмолюда",
@@ -72,7 +72,7 @@
 	icon = 'icons/obj/device.dmi'
 
 /obj/item/extinguisher_refill/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "картридж пополнения встроенного огнетушителя",
 		GENITIVE = "картриджа пополнения встроенного огнетушителя",
 		DATIVE = "картриджу пополнения встроенного огнетушителя",

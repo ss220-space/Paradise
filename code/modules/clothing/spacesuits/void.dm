@@ -24,7 +24,7 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi')
 
 /obj/item/clothing/head/helmet/space/nasavoid/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "гермошлем ЦАГИ 10",
 		GENITIVE = "гермошлема ЦАГИ 10",
 		DATIVE = "гермошлему ЦАГИ 10",
@@ -57,7 +57,7 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi')
 
 /obj/item/clothing/suit/space/nasavoid/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "скафандр ЦАГИ 10",
 		GENITIVE = "скафандра ЦАГИ 10",
 		DATIVE = "скафандру ЦАГИ 10",
@@ -75,7 +75,7 @@
 	resistance_flags = FIRE_PROOF
 
 /obj/item/clothing/head/helmet/space/nasavoid/old/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "промышленный гермошлем NASA",
 		GENITIVE = "промышленного гермошлема NASA",
 		DATIVE = "промышленному гермошлему NASA",
@@ -95,7 +95,7 @@
 	resistance_flags = FIRE_PROOF
 
 /obj/item/clothing/suit/space/nasavoid/old/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "промышленный гермоскафандр NASA",
 		GENITIVE = "промышленного гермоскафандра NASA",
 		DATIVE = "промышленному гермоскафандру NASA",
@@ -112,7 +112,7 @@
 	item_state = "void_green_helmet"
 
 /obj/item/clothing/head/helmet/space/nasavoid/green/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "штурмовой гермошлем ЦАГИ 9",
 		GENITIVE = "штурмового гермошлема ЦАГИ 9",
 		DATIVE = "штурмовому гермошлему ЦАГИ 9",
@@ -131,7 +131,7 @@
 	item_state = "void_green"
 
 /obj/item/clothing/suit/space/nasavoid/green/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "штурмовой скафандр ЦАГИ 9",
 		GENITIVE = "штурмового скафандра ЦАГИ 9",
 		DATIVE = "штурмовому скафандру ЦАГИ 9",
@@ -150,7 +150,7 @@
 	item_state = "void_ntblue_helmet"
 
 /obj/item/clothing/head/helmet/space/nasavoid/ntblue/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "корпоративный гермошлем NASA",
 		GENITIVE = "корпоративного гермошлема NASA",
 		DATIVE = "корпоративному гермошлему NASA",
@@ -169,7 +169,7 @@
 	item_state = "void_ntblue"
 
 /obj/item/clothing/suit/space/nasavoid/ntblue/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "корпоративный скафандр NASA",
 		GENITIVE = "корпоративного скафандра NASA",
 		DATIVE = "корпоративному скафандру NASA",
@@ -188,7 +188,7 @@
 	item_state = "void_purple_helmet"
 
 /obj/item/clothing/head/helmet/space/nasavoid/purple/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "исследовательский гермошлем NASA",
 		GENITIVE = "исследовательского гермошлема NASA",
 		DATIVE = "исследовательскому гермошлему NASA",
@@ -207,7 +207,7 @@
 	item_state = "void_purple"
 
 /obj/item/clothing/suit/space/nasavoid/purple/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "исследовательский скафандр NASA",
 		GENITIVE = "исследовательского скафандра NASA",
 		DATIVE = "исследовательскому скафандру NASA",
@@ -226,7 +226,7 @@
 	item_state = "void_yellow_helmet"
 
 /obj/item/clothing/head/helmet/space/nasavoid/yellow/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шахтёрский гермошлем NASA",
 		GENITIVE = "шахтёрского гермошлема NASA",
 		DATIVE = "шахтёрскому гермошлему NASA",
@@ -245,7 +245,7 @@
 	item_state = "void_yellow"
 
 /obj/item/clothing/suit/space/nasavoid/yellow/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шахтёрский экзо-скафандр NASA",
 		GENITIVE = "шахтёрского экзо-скафандра NASA",
 		DATIVE = "шахтёрскому экзо-скафандру NASA",
@@ -264,7 +264,7 @@
 	item_state = "void_light_blue_helmet"
 
 /obj/item/clothing/head/helmet/space/nasavoid/ltblue/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "медицинский гермошлем NASA",
 		GENITIVE = "медицинского гермошлема NASA",
 		DATIVE = "медицинскому гермошлему NASA",
@@ -282,7 +282,7 @@
 	item_state = "void_light_blue"
 
 /obj/item/clothing/suit/space/nasavoid/ltblue/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "медицинский скафандр NASA",
 		GENITIVE = "медицинского скафандра NASA",
 		DATIVE = "медицинскому скафандру NASA",
@@ -302,7 +302,7 @@
 	item_state = "void_captian_helmet"
 
 /obj/item/clothing/head/helmet/space/nasavoid/captain/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "гермошлем Капитана",
 		GENITIVE = "гермошлема Капитана",
 		DATIVE = "гермошлему Капитана",
@@ -321,7 +321,7 @@
 	item_state = "void_captian"
 
 /obj/item/clothing/suit/space/nasavoid/captain/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "скафандр Капитана",
 		GENITIVE = "скафандра Капитана",
 		DATIVE = "скафандру Капитана",
@@ -342,7 +342,7 @@
 	item_state = "void_syndi_helmet"
 
 /obj/item/clothing/head/helmet/space/nasavoid/syndi/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кроваво-красный пехотный шлем",
 		GENITIVE = "кроваво-красного пехотного шлема",
 		DATIVE = "кроваво-красному пехотному шлему",
@@ -361,7 +361,7 @@
 	item_state = "void_syndi"
 
 /obj/item/clothing/suit/space/nasavoid/syndi/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кроваво-красный пехотный скафандр",
 		GENITIVE = "кроваво-красного пехотного скафандра",
 		DATIVE = "кроваво-красному пехотному скафандру",

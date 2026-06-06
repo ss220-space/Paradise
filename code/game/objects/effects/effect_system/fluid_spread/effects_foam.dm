@@ -369,7 +369,7 @@
 	obj_flags = BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP
 
 /obj/structure/foamedmetal/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пенометалл",
 		GENITIVE = "пенометалла",
 		DATIVE = "пенометаллу",
@@ -423,7 +423,7 @@
 	pass_flags_self = PASSGLASS
 
 /obj/structure/foamedmetal/resin/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "атмосферная смола",
 		GENITIVE = "атмосферной смолы",
 		DATIVE = "атмосферной смоле",

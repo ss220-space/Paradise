@@ -48,7 +48,7 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 	light_color = LIGHT_COLOR_BLUE
 
 /obj/machinery/computer/communications/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "консоль связи",
 		GENITIVE = "консоли связи",
 		DATIVE = "консоли связи",

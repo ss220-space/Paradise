@@ -67,7 +67,7 @@
 	COOLDOWN_DECLARE(sync_cooldown)
 
 /mob/living/silicon/robot/drone/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "дрон",
 		GENITIVE = "дрона",
 		DATIVE = "дрону",

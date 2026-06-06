@@ -64,7 +64,7 @@
 	var/ui_theme = "nanotrasen"// Если темы нету, будет взята стандартная НТ тема для интерфейса
 
 /obj/machinery/photocopier/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ксерокс",
 		GENITIVE = "ксерокса",
 		DATIVE = "ксероксу",
@@ -86,7 +86,7 @@
 	ui_theme = "syndicate"
 
 /obj/machinery/photocopier/syndie/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ксерокс \"Синдиката\"",
 		GENITIVE = "ксерокса \"Синдиката\"",
 		DATIVE = "ксероксу \"Синдиката\"",
@@ -752,7 +752,7 @@
 	var/toner_amount = 30
 
 /obj/item/toner/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "тонер-картридж",
 		GENITIVE = "тонер-картриджа",
 		DATIVE = "тонер-картриджу",
