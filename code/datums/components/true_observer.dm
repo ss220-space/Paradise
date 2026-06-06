@@ -12,25 +12,25 @@
 	var/mob/dead/observer/observe
 	/// What we give to connect_loc by default, makes slippable mobs moving over us slip
 	var/static/list/default_connections = list(
-		COMSIG_MOB_UPDATE_SIGHT = PROC_REF(on_update_sight),
-		COMSIG_MOB_RESET_PERSPECTIVE = PROC_REF(on_reset_perspective),
-		COMSIG_CLIENT_SET_EYE = PROC_REF(on_set_eye),
 
+
+		// Storage
 		COMSIG_MOB_UNEQUIPPED_ITEM = PROC_REF(on_unequipped_item),
-
 		COMSIG_LIVING_STORAGE_SHOW_TO = PROC_REF(on_storage_show_to),
 		COMSIG_LIVING_STORAGE_HIDE_FROM = PROC_REF(on_storage_hide_from),
-
+		// HUD
 		COMSIG_MOB_HUD_REFRESHED = PROC_REF(on_hud_refreshed),
-		COMSIG_CLIENT_SCREEN_ELEMENT = PROC_REF(on_screen_element),
-		COMSIG_DO_AFTER_BEGAN = PROC_REF(on_do_after_began),
-
 		COMSIG_MOB_STATUS_EFFECT_CREATED = PROC_REF(on_status_effect_created),
 		COMSIG_MOB_STATUS_EFFECT_ENDED = PROC_REF(on_status_effect_ended),
 		COMSIG_MOB_BALOON_ALERT = PROC_REF(on_baloon_alert),
-
+		COMSIG_DO_AFTER_BEGAN = PROC_REF(on_do_after_began),
+		COMSIG_CLIENT_SCREEN_ELEMENT = PROC_REF(on_screen_element),
+		// Eye/Perspective
+		COMSIG_MOB_RESET_PERSPECTIVE = PROC_REF(on_reset_perspective),
+		COMSIG_CLIENT_SET_EYE = PROC_REF(on_set_eye),
 		COMSIG_MOB_ZOOMED = PROC_REF(on_zoomed),
-
+		COMSIG_MOB_UPDATE_SIGHT = PROC_REF(on_update_sight),
+		// Cleanup
 		COMSIG_QDELETING = PROC_REF(on_target_destroyed),
 	)
 
@@ -109,13 +109,7 @@
 ///datum/component/true_observer/proc/ ()
 //	SIGNAL_HANDLER
 
-/datum/component/true_observer/proc/on_zoomed()
-	SIGNAL_HANDLER
-	if(!observe.client || !observe_target?.client)
-		return
-	observe.client.pixel_w = observe_target.client.pixel_w
-	observe.client.pixel_z = observe_target.client.pixel_z
-
+// MARK: STORAGE
 /datum/component/true_observer/proc/on_storage_show_to(mob/living/mob_source, obj/item/storage/storage)
 	SIGNAL_HANDLER
 	storage.show_to(observe, TRUE)
@@ -124,6 +118,13 @@
 	SIGNAL_HANDLER
 	storage.hide_from(observe, TRUE)
 
+/datum/component/true_observer/proc/on_unequipped_item(mob/living/mob_source, I, force, newloc, no_move, invdrop, silent)
+	SIGNAL_HANDLER
+	if(!observe.client || !observe_target?.client)
+		return
+	observe.client.screen -= I
+
+// MARK: HUD
 /datum/component/true_observer/proc/on_hud_refreshed(mob/living/mob_source, datum/hud/hud_source)
 	SIGNAL_HANDLER
 	hud_source?.show_hud(hud_source.hud_version, observe)
@@ -187,6 +188,17 @@
 		return
 	observe.client.add_progressbar(bar)
 
+// Called when an object is added to the observe_target screen and the event cannot be conveniently handled
+/datum/component/true_observer/proc/on_screen_element(mob/living/mob_source, element, is_added)
+	SIGNAL_HANDLER
+	if(!observe.client || !observe_target?.client)
+		return
+	if(is_added)
+		observe.client.screen |= element
+	else
+		observe.client.screen -= element
+
+// MARK: EYE/PERSPECTIVE
 /datum/component/true_observer/proc/on_reset_perspective()
 	SIGNAL_HANDLER
 	if(!observe || !observe_target?.client)
@@ -199,26 +211,18 @@
 		return
 	observe.client.set_eye(observe_target.client.eye)
 
-/datum/component/true_observer/proc/on_target_destroyed(mob/living/mob_source, force)
-	SIGNAL_HANDLER
-	ClearFromParent()
-
-/datum/component/true_observer/proc/on_unequipped_item(mob/living/mob_source, I, force, newloc, no_move, invdrop, silent)
+/datum/component/true_observer/proc/on_zoomed()
 	SIGNAL_HANDLER
 	if(!observe.client || !observe_target?.client)
 		return
-	observe.client.screen -= I
+	observe.client.pixel_w = observe_target.client.pixel_w
+	observe.client.pixel_z = observe_target.client.pixel_z
 
 /datum/component/true_observer/proc/on_update_sight()
 	SIGNAL_HANDLER
 	sync_vision_with_target()
 
-/datum/component/true_observer/proc/on_screen_element(mob/living/mob_source, element, is_added)
+// MARK: CLEANUP
+/datum/component/true_observer/proc/on_target_destroyed(mob/living/mob_source, force)
 	SIGNAL_HANDLER
-	if(!observe.client || !observe_target?.client)
-		return
-	if(is_added)
-		observe.client.screen |= element
-	else
-		observe.client.screen -= element
-
+	ClearFromParent()
