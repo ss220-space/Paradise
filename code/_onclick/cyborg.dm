@@ -90,8 +90,14 @@
 		return
 
 	if(W == A)
-		W.attack_self(src)
-		return
+		if(LAZYACCESS(modifiers, RIGHT_CLICK))
+			W.attack_self_secondary(src, modifiers)
+			update_held_items()
+			return
+		else
+			W.attack_self(src, modifiers)
+			update_held_items()
+			return
 
 	// cyborgs are prohibited from using storage items so we can I think safely remove (A.loc in contents)
 	if(A == loc || (A in loc) || (A in contents))
