@@ -351,7 +351,7 @@
 		viewmob.show_other_mob_action_buttons(mymob)
 
 	// To prevent recursion by /datum/component/true_observer/proc/on_hud_refreshed(...)
-	if (!viewmob || !isobserver(screenmob))
+	if(!viewmob || !isobserver(screenmob))
 		SEND_SIGNAL(mymob, COMSIG_MOB_HUD_REFRESHED, src)
 	return TRUE
 

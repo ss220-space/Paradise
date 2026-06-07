@@ -44,14 +44,14 @@
 /datum/component/true_observer/Initialize(
 	observe_target,
 )
-	if (!isobserver(parent) || !observe_target)
+	if(!isobserver(parent) || !observe_target)
 		return COMPONENT_INCOMPATIBLE
 	src.observe = parent
 	src.observe_target = observe_target
-	ADD_TRAIT(observe, TRAIT_OBSERVING_INVENTORY, src)
+	ADD_TRAIT(observe, TRAIT_OBSERVING_INVENTORY, UNIQUE_TRAIT_SOURCE(src))
 
 /datum/component/true_observer/RegisterWithParent()
-	for (var/key,value in default_connections)
+	for(var/key,value in default_connections)
 		RegisterSignal(observe_target, key, value, TRUE)
 	RegisterSignal(observe, COMSIG_ORBITER_ORBIT_STOP, PROC_REF(UnregisterFromParent), TRUE)
 	sync_vision_with_target()
@@ -68,7 +68,7 @@
 
 /datum/component/true_observer/Destroy(force)
 	// null
-	REMOVE_TRAIT(parent, TRAIT_OBSERVING_INVENTORY, src)
+	REMOVE_TRAIT(parent, TRAIT_OBSERVING_INVENTORY, UNIQUE_TRAIT_SOURCE(src))
 	return ..()
 
 /datum/component/true_observer/InheritComponent(
