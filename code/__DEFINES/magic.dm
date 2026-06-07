@@ -30,6 +30,8 @@
 #define SCHOOL_FORBIDDEN "forbidden"
 /// Blood magic, involves vampirism, draining blood, etc.
 #define SCHOOL_SANGUINE "sanguine"
+///Lavaland magic
+#define SCHOOL_LAVALAND "lavaland"
 
 // Invocation types - what does the wizard need to do to invoke (cast) the spell?
 /// Allows being able to cast the spell without saying or doing anything.
