@@ -148,6 +148,11 @@
 	. = ..()
 	icon_state = "ashtray_bork_" + pick(list("bl","br","gl"))
 
+/obj/item/trash/beans_empty
+	name = "beans can"
+	desc = "Пустая банка. Надпись на банке - Бобы."
+	icon_state = "beans_empty"
+
 /obj/item/spentcasing
 	icon = 'icons/obj/weapons/ammo.dmi'
 	icon_state = "buckshotshell"
