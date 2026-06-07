@@ -161,7 +161,7 @@
 		return TRUE
 
 ///Bang bang, we're firing a charged shot off
-/datum/component/gunpoint/proc/trigger_reaction(...)
+/datum/component/gunpoint/proc/trigger_reaction()
 	SIGNAL_HANDLER
 
 	if(target && target.has_status_effect(STATUS_EFFECT_CAPITULATED))
@@ -171,7 +171,7 @@
 	return TRUE
 
 /// Check special conditions (e.g. walk intent) and only after trigger reaction
-/datum/component/gunpoint/proc/check_special_conditions_before_trigger(...)
+/datum/component/gunpoint/proc/check_special_conditions_before_trigger()
 	SIGNAL_HANDLER
 
 	if(!target)
@@ -183,7 +183,7 @@
 
 	trigger_reaction()
 
-/datum/component/gunpoint/proc/async_trigger_reaction(...)
+/datum/component/gunpoint/proc/async_trigger_reaction()
 	var/mob/living/shooter = parent
 
 	if(!shooter || !target || !weapon)
