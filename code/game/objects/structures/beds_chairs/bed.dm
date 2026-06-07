@@ -300,7 +300,7 @@
 			balloon_alert(user, "[roller.name] уже содержит [roller.held]!")
 			return ATTACK_CHAIN_PROCEED
 		if(!collectable)
-			balloon_alert(user, "Неверный тип [declent_ru(GENITIVE)]!")
+			balloon_alert(user, "неверный тип [declent_ru(GENITIVE)]!")
 			return ATTACK_CHAIN_PROCEED
 		if(loc == user && !user.can_unEquip(src))
 			return ..()
