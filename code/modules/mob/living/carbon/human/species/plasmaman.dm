@@ -53,7 +53,8 @@
 	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/plasmaman
 
 	speciesbox = /obj/item/storage/box/survival/species/plasmaman
-	flesh_color = "#8b3fba"
+	flesh_color = BLOOD_COLOR_PLASMAMAN
+	//blood_color = BLOOD_COLOR_PLASMAMAN
 
 	toxic_food = NONE
 	disliked_food = NONE
@@ -112,7 +113,7 @@
 		if(JOB_TITLE_BARTENDER)
 			O = new /datum/outfit/plasmaman/bar
 
-		if(JOB_TITLE_LAWYER, JOB_TITLE_JUDGE)
+		if(JOB_TITLE_LAWYER, JOB_TITLE_MAGISTRATE)
 			O = new /datum/outfit/plasmaman/nt
 
 		if(JOB_TITLE_REPRESENTATIVE)
@@ -127,7 +128,7 @@
 		if(JOB_TITLE_CCSPECOPS, JOB_TITLE_CCOFFICER, JOB_TITLE_CCFIELD)
 			O = new /datum/outfit/plasmaman/specops_officer
 
-		if(JOB_TITLE_SYNDICATE)
+		if(JOB_TITLE_SYNDICATE_OFFICER)
 			O = new /datum/outfit/plasmaman/syndicate_officer
 
 		if(JOB_TITLE_PILOT)
@@ -154,7 +155,7 @@
 		if(JOB_TITLE_MINING_MEDIC)
 			O = new /datum/outfit/plasmaman/mining_medic
 
-		if(JOB_TITLE_DOCTOR, JOB_TITLE_INTERN)
+		if(JOB_TITLE_DOCTOR, JOB_TITLE_MEDICAL_INTERN)
 			O = new /datum/outfit/plasmaman/medical
 
 		if(JOB_TITLE_BRIGDOC)
@@ -181,7 +182,7 @@
 		if(JOB_TITLE_VIROLOGIST)
 			O = new /datum/outfit/plasmaman/viro
 
-		if(JOB_TITLE_SCIENTIST, JOB_TITLE_SCIENTIST_STUDENT)
+		if(JOB_TITLE_SCIENTIST, JOB_TITLE_SCIENCE_STUDENT)
 			O = new /datum/outfit/plasmaman/science
 
 		if("Xenobiologist")
@@ -193,10 +194,10 @@
 		if(JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE)
 			O = new /datum/outfit/plasmaman/engineering
 
-		if(JOB_TITLE_MECHANIC)
+		if(JOB_TITLE_SPACEPOD_TECHNICIAN)
 			O = new /datum/outfit/plasmaman/engineering/mecha
 
-		if(JOB_TITLE_CHIEF)
+		if(JOB_TITLE_CHIEF_ENGINEER)
 			O = new /datum/outfit/plasmaman/ce
 
 		if(JOB_TITLE_ATMOSTECH)
@@ -227,7 +228,7 @@
 	if(isclothing(H.wear_suit) && isclothing(H.head))
 		var/obj/item/clothing/suit = H.wear_suit
 		var/obj/item/clothing/helmet = H.head
-		if(suit.clothing_flags & helmet.clothing_flags & STOPSPRESSUREDMAGE)
+		if(suit.clothing_flags & helmet.clothing_flags & STOPSPRESSUREDAMAGE)
 			atmos_sealed = TRUE
 	if(!atmos_sealed && (!istype(H.w_uniform, /obj/item/clothing/under/plasmaman) || !istype(H.head, /obj/item/clothing/head/helmet/space/plasmaman) && !HAS_TRAIT(H, TRAIT_NOSELFIGNITION_HEAD_ONLY)))
 		var/datum/gas_mixture/environment = null
@@ -252,11 +253,11 @@
 	H.update_fire()
 	..()
 	if(H.reagents.get_reagent_amount("pure_plasma") < 5) //increasing chock_reduction by 20
-		H.reagents.add_reagent("pure_plasma", 5)
+		H.reagents.add_reagent("pure_plasma", 1)
 
-/datum/species/plasmaman/proc/on_fracture(mob/living/carbon/human/H)
+/datum/species/plasmaman/proc/on_fracture(mob/living/carbon/human/user, datum/fracture_type/fracture)
 	SIGNAL_HANDLER
-	H.reagents.add_reagent("plasma_dust", 15)
+	user.reagents.add_reagent(/datum/reagent/plasma_dust, fracture.plasma_dust)
 
 /datum/species/plasmaman/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
 	switch(R.id)

@@ -37,7 +37,7 @@ def main():
                 all_failures.append(Failure(
                     typepath.source_loc.file_path,
                     typepath.source_loc.line,
-                    f"{RED}{path}{NC} has forbidden variable: {RED}ru_names{NC}. Use get_ru_names() proc instead."
+                    f"{RED}{path}{NC} has forbidden variable: {RED}ru_names{NC}. Use 'get_ru_names()' proc instead."
                 ))
 
     all_failures.sort(key=lambda x: (x.filename, x.lineno))

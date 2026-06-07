@@ -24,6 +24,7 @@
 	. = ..()
 	if(. && ispath(internal_gps, /obj/item/gps))
 		internal_gps = new internal_gps(src)
+		internal_gps.gpstag = gps_tag
 
 /obj/item/implant/tracking/removed(mob/target)
 	. = ..()

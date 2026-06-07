@@ -226,7 +226,7 @@ Difficulty: Very Hard
 	. = ..()
 	var/newcolor = rgb(241, 137, 172)
 	add_atom_colour(newcolor, TEMPORARY_COLOUR_PRIORITY)
-	beam_it_up()
+	END_OF_TICK(CALLBACK(src, PROC_REF(beam_it_up)))
 
 /obj/effect/vetus_laser/ex_act(severity, target)
 	return
@@ -292,7 +292,7 @@ Difficulty: Very Hard
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/Bump(mob/living/bumped_living)
 	. = ..()
-	if(!charging || istype(bumped_living, /mob/living/simple_animal/hostile/ancient_robot_leg) || !isliving(bumped_living))
+	if(!charging || isancientrobotleg(bumped_living) || !isliving(bumped_living))
 		return .
 	var/turf/living_turf = get_turf(bumped_living)
 	bumped_living.visible_message(span_danger("[declent_ru(NOMINATIVE)] врезается в [bumped_living.declent_ru(ACCUSATIVE)]!"), span_userdanger("[declent_ru(NOMINATIVE)] втаптывает вас в землю!"))
@@ -400,7 +400,7 @@ Difficulty: Very Hard
 				var/turf/S = get_turf(src)
 				if(!S || !T)
 					return
-				var/obj/projectile/energy/shock_revolver/ancient/O = new /obj/projectile/energy/shock_revolver/ancient(S)
+				var/obj/projectile/energy/tesla/ancient/O = new /obj/projectile/energy/tesla/ancient(S)
 				O.current = S
 				O.firer = src
 				O.yo = T.y - S.y
@@ -730,7 +730,7 @@ Difficulty: Very Hard
 
 /mob/living/simple_animal/hostile/ancient_robot_leg/Bump(mob/living/bumped_living)
 	. = ..()
-	if(!core.charging || istype(bumped_living, /mob/living/simple_animal/hostile/megafauna/ancient_robot) || !isliving(bumped_living))
+	if(!core.charging || isancientrobot(bumped_living) || !isliving(bumped_living))
 		return .
 	var/turf/living_turf = get_turf(bumped_living)
 	bumped_living.visible_message(
@@ -778,25 +778,6 @@ Difficulty: Very Hard
 /mob/living/simple_animal/hostile/ancient_robot_leg/electrocute_act(shock_damage, atom/source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
 	return FALSE
 
-/obj/projectile/bullet/ancient_robot_bullet
-	damage = 8
-
-/obj/projectile/bullet/rock
-	name = "thrown rock"
-	damage = 25
-	icon = 'icons/obj/meteor.dmi'
-	icon_state = "small1"
-
-/obj/projectile/bullet/rock/get_ru_names()
-	return list(
-		NOMINATIVE = "брошенный камень",
-		GENITIVE = "брошенного камня",
-		DATIVE = "брошенному камню",
-		ACCUSATIVE = "брошенный камень",
-		INSTRUMENTAL = "брошенным камнем",
-		PREPOSITIONAL = "брошенном камне",
-	)
-
 /obj/effect/temp_visual/rock
 	name = "floating rock"
 	desc = "Лучше сосредоточьтесь на уклонении, чем разглядывать его."
@@ -813,14 +794,6 @@ Difficulty: Very Hard
 		INSTRUMENTAL = "парящим камнем",
 		PREPOSITIONAL = "парящем камне",
 	)
-
-/obj/projectile/energy/shock_revolver/ancient
-	damage = 5
-
-/obj/projectile/energy/shock_revolver/ancient/CanAllowThrough(atom/movable/mover, border_dir)
-	. = ..()
-	if(istype(mover, /mob/living/simple_animal/hostile/ancient_robot_leg))
-		return TRUE
 
 /obj/effect/temp_visual/dragon_swoop/bubblegum/ancient_robot //this is the worst path I have ever made
 	icon_state = "target"
@@ -854,7 +827,7 @@ Difficulty: Very Hard
 		M.attempt_drill()
 	playsound(T, 'sound/effects/meteorimpact.ogg', 80, TRUE)
 	for(var/mob/living/L in T.contents)
-		if(istype(L, /mob/living/simple_animal/hostile/megafauna/ancient_robot))
+		if(isancientrobot(L))
 			continue
 		L.adjustBruteLoss(35)
 		to_chat(L, span_userdanger("Вас ударил падающий камень!"))

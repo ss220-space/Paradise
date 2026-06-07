@@ -518,8 +518,7 @@
 "nv" = (
 /obj/structure/shuttle/engine/heater{
 	dir = 4;
-	icon_state = "heater2x2";
-	tag = "icon-heater (NORTH)"
+	icon_state = "heater2x2"
 	},
 /obj/structure/window/reinforced{
 	dir = 1
@@ -547,12 +546,10 @@
 /area/ae13/hall)
 "oB" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/apc/noalarm{
+/obj/machinery/power/apc/noalarm/directional/south{
 	environment_channel = 0;
 	equipment_channel = 0;
 	lighting_channel = 0;
-	name = "IPC area power controller";
-	pixel_y = -28;
 	req_access = list(111);
 	start_charge = 0
 	},
@@ -675,8 +672,7 @@
 "qv" = (
 /obj/structure/shuttle/engine/heater{
 	dir = 4;
-	icon_state = "heater2x2";
-	tag = "icon-heater (NORTH)"
+	icon_state = "heater2x2"
 	},
 /obj/structure/window/reinforced{
 	dir = 8
@@ -701,8 +697,7 @@
 "ro" = (
 /obj/structure/shuttle/engine/heater{
 	dir = 4;
-	icon_state = "heater2x2_side";
-	tag = "icon-heater (NORTH)"
+	icon_state = "heater2x2_side"
 	},
 /obj/structure/window/reinforced{
 	dir = 8
@@ -724,8 +719,7 @@
 "rX" = (
 /obj/structure/shuttle/engine/heater{
 	dir = 4;
-	icon_state = "heater2x2_side";
-	tag = "icon-heater (NORTH)"
+	icon_state = "heater2x2_side"
 	},
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
@@ -1008,12 +1002,10 @@
 /area/ae13/energy)
 "wL" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/apc/noalarm{
+/obj/machinery/power/apc/noalarm/directional/north{
 	environment_channel = 0;
 	equipment_channel = 0;
 	lighting_channel = 0;
-	name = "IPC area power controller";
-	pixel_y = 32;
 	req_access = list(111);
 	start_charge = 0
 	},
@@ -1151,10 +1143,6 @@
 	name = "floor"
 	},
 /area/ae13/epicenter)
-"zE" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall/shuttle/nodiagonal,
-/area/ae13/miner)
 "zS" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -1176,10 +1164,6 @@
 	icon_state = "yellow"
 	},
 /area/ae13/miner)
-"Aa" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall/shuttle,
-/area/ae13/medbay)
 "Ad" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/wall/shuttle/onlyselfsmooth,
@@ -1303,10 +1287,6 @@
 /obj/effect/contractor_flare,
 /turf/simulated/floor/plating,
 /area/ae13/hall)
-"CG" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall/shuttle/onlyselfsmooth,
-/area/ae13/miner)
 "CH" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -1476,12 +1456,10 @@
 /area/ae13/hall)
 "FZ" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/apc/noalarm{
+/obj/machinery/power/apc/noalarm/directional/south{
 	environment_channel = 0;
 	equipment_channel = 0;
 	lighting_channel = 0;
-	name = "IPC area power controller";
-	pixel_y = -28;
 	req_access = list(111);
 	start_charge = 0
 	},
@@ -1613,10 +1591,6 @@
 	name = "floor"
 	},
 /area/ae13/hall)
-"Ka" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall/shuttle/onlyselfsmooth,
-/area/ae13/energy)
 "Kc" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -1723,12 +1697,10 @@
 	pixel_y = 3
 	},
 /obj/item/clothing/shoes/magboots,
-/obj/machinery/power/apc/noalarm{
+/obj/machinery/power/apc/noalarm/directional/north{
 	environment_channel = 0;
 	equipment_channel = 0;
 	lighting_channel = 0;
-	name = "IPC area power controller";
-	pixel_y = 28;
 	req_access = list(111);
 	start_charge = 0
 	},
@@ -1774,7 +1746,6 @@
 /turf/simulated/floor/plating,
 /area/ae13/hall)
 "MB" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/wall/shuttle/onlyselfsmooth,
 /area/ae13/miner)
@@ -1792,8 +1763,7 @@
 "No" = (
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	dir = 1;
-	frequency = 1331;
-	id_tag = "syndie_cargo_right_shuttle_pump"
+	frequency = 1331
 	},
 /turf/simulated/floor/plating,
 /area/ae13/hall)
@@ -1852,7 +1822,7 @@
 	},
 /area/ae13/medbay)
 "OE" = (
-/obj/structure/largecrate,
+/obj/structure/closet/crate/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "sepia"
 	},
@@ -1892,10 +1862,6 @@
 	dir = 10;
 	icon_state = "yellow"
 	},
-/area/ae13/miner)
-"Pp" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall/shuttle,
 /area/ae13/miner)
 "Pw" = (
 /obj/item/stack/ore/plasma,
@@ -2025,11 +1991,6 @@
 "RD" = (
 /turf/simulated/mineral/uranium,
 /area/ae13/asteroid)
-"RF" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/turfs/damage,
-/turf/simulated/wall/shuttle,
-/area/ae13/epicenter)
 "RJ" = (
 /obj/effect/gibspawner/xeno,
 /turf/simulated/floor/plating,
@@ -2079,12 +2040,10 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/obj/machinery/power/apc/noalarm{
+/obj/machinery/power/apc/noalarm/directional/north{
 	environment_channel = 0;
 	equipment_channel = 0;
 	lighting_channel = 0;
-	name = "IPC area power controller";
-	pixel_y = 28;
 	req_access = list(111);
 	start_charge = 0
 	},
@@ -2142,7 +2101,7 @@
 /area/ae13/epicenter)
 "Tk" = (
 /obj/effect/mapping_helpers/turfs/damage,
-/obj/structure/largecrate,
+/obj/structure/closet/crate/large,
 /turf/simulated/floor/indestructible/plating,
 /area/ae13/epicenter)
 "To" = (
@@ -2243,8 +2202,7 @@
 "TO" = (
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	dir = 8;
-	frequency = 1331;
-	id_tag = "synd_pump_bottom"
+	frequency = 1331
 	},
 /turf/simulated/floor/plating,
 /area/ae13/hall)
@@ -5084,7 +5042,7 @@ ew
 ew
 lq
 XQ
-RF
+Zh
 Rv
 uU
 Fl
@@ -5101,7 +5059,7 @@ Qi
 Az
 lT
 PM
-Pp
+is
 is
 Rn
 ew
@@ -5178,7 +5136,7 @@ nV
 hy
 nV
 Ye
-CG
+kj
 yP
 is
 Yy
@@ -5250,7 +5208,7 @@ Zh
 WM
 IO
 yC
-zE
+Yy
 is
 yP
 kj
@@ -5647,7 +5605,7 @@ ST
 Ts
 qk
 pP
-Aa
+hj
 hj
 uw
 ew
@@ -5715,7 +5673,7 @@ Do
 QU
 Mq
 Db
-Ka
+Tw
 WJ
 ok
 wC
@@ -5787,7 +5745,7 @@ ew
 ew
 ew
 np
-Ka
+Tw
 Nb
 vZ
 vD

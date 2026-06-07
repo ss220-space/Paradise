@@ -68,7 +68,7 @@ export const Donations = (props: unknown) => {
               </NoticeBox>
             </Stack.Item>
             <Stack.Item style={{ textAlign: 'center' }}>
-              <Section fitted noTopPadding fill title="Подержать сервер">
+              <Section fitted noTopPadding fill title="Поддержать сервер">
                 <Stack fill style={{ justifyContent: 'center' }}>
                   <Stack.Item>
                     <a href={kofiRef}>

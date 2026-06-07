@@ -606,6 +606,7 @@
 	foodtype = JUNKFOOD
 
 /obj/item/reagent_containers/food/snacks/donut/Initialize(mapload)
+	. = ..()
 	if(randomized_sprinkles && prob(30))
 		switch(rand(1,4))
 			if(1)
@@ -632,7 +633,6 @@
 				reagents.add_reagent("sprinkles", 2)
 				donut_sprite_type = "frosted"
 				filling_color = "#FF69B4"
-	. = ..()
 
 /obj/item/reagent_containers/food/snacks/donut/update_icon_state()
 	return
@@ -646,6 +646,7 @@
 	randomized_sprinkles = 0
 
 /obj/item/reagent_containers/food/snacks/donut/sprinkles/Initialize(mapload)
+	. = ..()
 	switch(rand(1,4))
 		if(1)
 			name = "chocolate donut"
@@ -667,7 +668,6 @@
 			donut_sprite_type = "berry"
 		if(4)
 			reagents.add_reagent("sprinkles", 2)
-	. = ..()
 
 /obj/item/reagent_containers/food/snacks/donut/chaos
 	name = "chaos donut"
@@ -678,6 +678,7 @@
 	randomized_sprinkles = 0
 
 /obj/item/reagent_containers/food/snacks/donut/chaos/Initialize(mapload)
+	. = ..()
 	extra_reagent = pick("nutriment", "capsaicin", "frostoil", "krokodil", "plasma", "cocoa", "slimejelly", "banana", "berryjuice", "omnizine")
 	reagents.add_reagent("[extra_reagent]", 3)
 	if(prob(30))
@@ -706,7 +707,6 @@
 				reagents.add_reagent("sprinkles", 2)
 				donut_sprite_type = "frosted"
 				filling_color = "#FF69B4"
-	. = ..()
 
 /obj/item/reagent_containers/food/snacks/donut/jelly
 	name = "jelly donut"
@@ -718,6 +718,7 @@
 	tastes = list("jelly" = 1, "donut" = 10)
 
 /obj/item/reagent_containers/food/snacks/donut/jelly/Initialize(mapload)
+	. = ..()
 	if(extra_reagent)
 		reagents.add_reagent("[extra_reagent]", 3)
 	if(prob(30))
@@ -746,7 +747,6 @@
 				reagents.add_reagent("sprinkles", 2)
 				donut_sprite_type = "frostedjelly"
 				filling_color = "#FF69B4"
-	. = ..()
 
 /obj/item/reagent_containers/food/snacks/donut/jelly/slimejelly
 	name = "slimejelly donut"

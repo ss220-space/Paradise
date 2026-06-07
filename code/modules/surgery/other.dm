@@ -274,6 +274,7 @@
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	affected.open = ORGAN_ORGANIC_OPEN
+	affected.owner.add_bleeding_bodypart(affected)
 
 	return SURGERY_STEP_CONTINUE
 

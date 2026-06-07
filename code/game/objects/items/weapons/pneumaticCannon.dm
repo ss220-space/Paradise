@@ -14,7 +14,7 @@
 	item_state = "bulldog"
 	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 60, ACID = 50)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 60, ACID = 50)
 	var/maxWeightClass = 20 //The max weight of items that can fit into the cannon
 	var/loadedWeightClass = 0 //The weight of items currently in the cannon
 	var/obj/item/tank/internals/tank = null //The gas tank that is drawn from to fire things
@@ -116,14 +116,17 @@
 	loadedWeightClass += I.w_class
 	return ATTACK_CHAIN_BLOCKED_ALL
 
-/obj/item/pneumatic_cannon/afterattack(atom/target, mob/living/carbon/human/user, flag, params)
+/obj/item/pneumatic_cannon/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	. = ..()
-	if(flag && user.a_intent == INTENT_HARM) // Melee attack
-		return .
+	if(proximity_flag && user.a_intent == INTENT_HARM) // Melee attack
+		return
+
 	if(!istype(user))
-		return .
+		return
+
 	if(loc != user)
-		return .
+		return
+
 	Fire(user, target)
 
 /obj/item/pneumatic_cannon/proc/Fire(mob/living/carbon/human/user, atom/target)

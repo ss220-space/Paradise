@@ -66,7 +66,7 @@
 /datum/gear/sechud
 	index_name = "a classic security HUD"
 	path = /obj/item/clothing/glasses/hud/security
-	allowed_roles = list(JOB_TITLE_HOS, JOB_TITLE_WARDEN, JOB_TITLE_OFFICER, JOB_TITLE_PILOT, JOB_TITLE_JUDGE)
+	allowed_roles = list(JOB_TITLE_HOS, JOB_TITLE_WARDEN, JOB_TITLE_OFFICER, JOB_TITLE_PILOT, JOB_TITLE_MAGISTRATE)
 
 /datum/gear/read_only_sechud
 	index_name = "a classic security HUD (read-only)"
@@ -83,15 +83,33 @@
 
 /datum/gear/cards
 	index_name = "a deck of standard cards"
+	display_name = "Колода карт"
 	path = /obj/item/deck/cards
 
 /datum/gear/doublecards
 	index_name = "a double deck of standard cards"
+	display_name = "Двойная колода карт"
 	path = /obj/item/deck/cards/doublecards
 
 /datum/gear/tarot
 	index_name = "a deck of tarot cards"
+	display_name = "Колода карт таро"
 	path = /obj/item/deck/tarot
+
+/datum/gear/unum
+	index_name = "a deck of UNUM cards"
+	display_name = "Колода карт UNUM"
+	path = /obj/item/deck/unum
+
+/datum/gear/cards_tiny
+	index_name = "a deck of tiny cards"
+	display_name = "Колода миниатюрных карт"
+	path = /obj/item/deck/cards/tiny
+
+/datum/gear/doublecards_tiny
+	index_name = "a double deck of tiny cards"
+	display_name = "Двойная колода миниатюрных карт"
+	path = /obj/item/deck/cards/tiny/doublecards
 
 /datum/gear/headphones
 	index_name = "a pair of headphones"
@@ -167,6 +185,11 @@
 	)
 	gear_tweaks += new /datum/gear_tweak/path(lips, src, TRUE)
 
+/datum/gear/spraycan
+	index_name = "Nanotrasen-brand Rapid Paint Applicator"
+	display_name = "Баллончик с краской"
+	path = /obj/item/toy/crayon/spraycan
+
 //////////////////////
 //		Mugs		//
 //////////////////////
@@ -190,17 +213,17 @@
 
 /datum/gear/mug/department/eng
 	index_name = "engineer coffee mug"
-	allowed_roles = list(JOB_TITLE_CHIEF, JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_MECHANIC, JOB_TITLE_ATMOSTECH)
+	allowed_roles = list(JOB_TITLE_CHIEF_ENGINEER, JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_SPACEPOD_TECHNICIAN, JOB_TITLE_ATMOSTECH)
 	path = /obj/item/reagent_containers/food/drinks/mug/eng
 
 /datum/gear/mug/department/med
 	index_name = "doctor coffee mug"
-	allowed_roles = list(JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_MINING_MEDIC, JOB_TITLE_INTERN, JOB_TITLE_CHEMIST, JOB_TITLE_PSYCHIATRIST, JOB_TITLE_PARAMEDIC, JOB_TITLE_VIROLOGIST, JOB_TITLE_CORONER)
+	allowed_roles = list(JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_MINING_MEDIC, JOB_TITLE_MEDICAL_INTERN, JOB_TITLE_CHEMIST, JOB_TITLE_PSYCHIATRIST, JOB_TITLE_PARAMEDIC, JOB_TITLE_VIROLOGIST, JOB_TITLE_CORONER)
 	path = /obj/item/reagent_containers/food/drinks/mug/med
 
 /datum/gear/mug/department/sci
 	index_name = "scientist coffee mug"
-	allowed_roles = list(JOB_TITLE_RD, JOB_TITLE_SCIENTIST, JOB_TITLE_SCIENTIST_STUDENT, JOB_TITLE_ROBOTICIST)
+	allowed_roles = list(JOB_TITLE_RD, JOB_TITLE_SCIENTIST, JOB_TITLE_SCIENCE_STUDENT, JOB_TITLE_ROBOTICIST)
 	path = /obj/item/reagent_containers/food/drinks/mug/sci
 
 /datum/gear/mug/department/sec

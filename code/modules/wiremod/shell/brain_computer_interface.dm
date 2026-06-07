@@ -99,6 +99,16 @@
 
 	var/obj/item/organ/internal/cyberimp/brain/bci/bci
 
+/obj/item/circuit_component/bci_core/Destroy()
+	if(bci)
+		unregister_shell(bci)
+	QDEL_NULL(charge_action)
+	message = null
+	send_message_signal = null
+	show_charge_meter = null
+	user_port = null
+	return ..()
+
 /obj/item/circuit_component/bci_core/populate_ports()
 
 	message = add_input_port("Сообщение", PORT_TYPE_STRING, trigger = null)
@@ -107,9 +117,6 @@
 
 	user_port = add_output_port("Пользователь", PORT_TYPE_USER)
 
-/obj/item/circuit_component/bci_core/Destroy()
-	QDEL_NULL(charge_action)
-	return ..()
 
 /obj/item/circuit_component/bci_core/proc/update_charge_action()
 	CIRCUIT_TRIGGER
@@ -173,7 +180,7 @@
 
 	user_port.set_output(owner)
 
-	RegisterSignal(owner, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
+	RegisterSignal(owner, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
 	RegisterSignal(owner, COMSIG_PROCESS_BORGCHARGER_OCCUPANT, PROC_REF(on_borg_charge))
 	RegisterSignal(owner, COMSIG_LIVING_ELECTROCUTE_ACT, PROC_REF(on_electrocute))
 
@@ -189,7 +196,7 @@
 	user_port.set_output(null)
 
 	UnregisterSignal(owner, list(
-		COMSIG_PARENT_EXAMINE,
+		COMSIG_ATOM_EXAMINE,
 		COMSIG_PROCESS_BORGCHARGER_OCCUPANT,
 		COMSIG_LIVING_ELECTROCUTE_ACT,
 	))
@@ -259,13 +266,18 @@
 
 	return ..()
 
-/datum/action/innate/bci_charge_action/Trigger(left_click = TRUE, trigger_flags)
+/datum/action/innate/bci_charge_action/Trigger(mob/clicker, trigger_flags)
+	if(!..())
+		return
 	var/obj/item/stock_parts/cell/cell = circuit_component.parent.cell
 
 	if(isnull(cell))
-		to_chat(owner, span_boldwarning("[circuit_component.parent.declent_ru(NOMINATIVE)] не име[PLUR_ET_UT(circuit_component.parent)] элемента питания."))
+		to_chat(owner, span_boldwarning("[circuit_component.parent.declent_ru(NOMINATIVE)] \
+		не име[PLUR_ET_UT(circuit_component.parent)] элемента питания."))
 	else
-		to_chat(owner, span_notice("В [cell.declent_ru(PREPOSITIONAL)] [circuit_component.parent.declent_ru(GENITIVE)] осталось <b>[cell.percent()]%</b> заряда."))
+		to_chat(owner, span_notice("В [cell.declent_ru(PREPOSITIONAL)] \
+		[circuit_component.parent.declent_ru(GENITIVE)] \
+		осталось <b>[round(cell.percent(), 1)]%</b> заряда."))
 
 /datum/action/innate/bci_charge_action/process(seconds_per_tick)
 	build_all_button_icons(UPDATE_BUTTON_STATUS)
@@ -273,7 +285,7 @@
 /datum/action/innate/bci_charge_action/update_button_status(atom/movable/screen/movable/action_button/button, force = FALSE)
 	. = ..()
 	var/obj/item/stock_parts/cell/cell = circuit_component.parent.cell
-	button.maptext = cell ? MAPTEXT("[cell.percent()]%") : ""
+	button.maptext = cell ? MAPTEXT("[round(cell.percent(), 1)]%") : ""
 
 /obj/machinery/bci_implanter
 	name = "brain-computer interface manipulation chamber"
@@ -431,7 +443,7 @@
 
 	return CLICK_ACTION_SUCCESS
 
-/obj/machinery/bci_implanter/MouseDrop_T(mob/living/target, mob/living/user, params)
+/obj/machinery/bci_implanter/mouse_drop_receive(mob/living/target, mob/user, params)
 	if(!ishuman(target))
 		return
 
@@ -455,21 +467,20 @@
 
 	if(occupant)
 		balloon_alert(user, "внутри кто-то есть!")
-		return TRUE
+		return
 
 	if(target.buckled)
 		return
 
 	if(target.abiotic())
 		balloon_alert(user, "руки субъекта заняты!")
-		return TRUE
+		return
 
 	if(target.has_buckled_mobs()) //mob attached to us
 		to_chat(user, span_warning("[target] не помест[PLUR_IT_YAT(target)]ся в [declent_ru(ACCUSATIVE)], пока на [GEND_ON_IN_HIM(target)] сидит слайм!"))
-		return TRUE
+		return
 
 	put_in(target, user)
-	return TRUE
 
 /obj/machinery/bci_implanter/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
 	. = TRUE

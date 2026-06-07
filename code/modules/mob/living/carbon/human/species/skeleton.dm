@@ -7,7 +7,7 @@
 	icobase = 'icons/mob/human_races/r_skeleton.dmi'
 	deform = 'icons/mob/human_races/r_skeleton.dmi'
 
-	blood_color = "#FFFFFF"
+	blood_color = BLOOD_COLOR_SKELETON
 	flesh_color = "#E6E6C6"
 
 	inherent_traits = list(
@@ -19,6 +19,7 @@
 		TRAIT_PIERCEIMMUNE,
 		TRAIT_EMBEDIMMUNE,
 		TRAIT_NO_HUNGER,
+		TRAIT_RESIST_HEAT,
 	)
 	dies_at_threshold = TRUE
 	skinned_type = /obj/item/stack/sheet/bone

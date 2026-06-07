@@ -11,10 +11,7 @@
 //THERE IS NO GOD BEYOND THAT
 SUBSYSTEM_DEF(cargo_quests)
 	name = "Cargo Quests"
-	flags = SS_NO_FIRE
-	cpu_display = SS_CPUDISPLAY_LOW
-	ss_id = "cargo_quests"
-	init_order = INIT_ORDER_CARGO_QUESTS
+	ss_flags = SS_NO_FIRE
 
 	var/list/centcomm_departaments = list()
 	var/list/corporations = list()
@@ -116,7 +113,7 @@ SUBSYSTEM_DEF(cargo_quests)
 		if(!storage.active)
 			continue
 
-		if(!istype(delivery.wrapped, /obj/structure/closet/crate))
+		if(!is_crate(delivery.wrapped))
 			return FALSE
 
 		if(!length(delivery.wrapped.contents))

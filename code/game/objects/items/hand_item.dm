@@ -30,7 +30,7 @@
 	user.emote("highfive", intentional = TRUE)
 
 /obj/item/slapper/attack_obj(obj/object, mob/living/user, params)
-	if(!istype(object, /obj/structure/table))
+	if(!istable(object))
 		return ..()
 
 	. = ATTACK_CHAIN_PROCEED_SUCCESS

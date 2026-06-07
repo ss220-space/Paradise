@@ -60,7 +60,9 @@ GLOBAL_VAR(station_name)
  * * new_designation - The new station name
  */
 /proc/change_station_name(new_designation)
+	var/old_name = GLOB.station_name
 	GLOB.station_name = new_designation
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_STATION_NAME_CHANGED, new_designation, old_name)
 
 GLOBAL_VAR(english_station_name)
 /// Returns the English station name, falling back to appropriate defaults if not set
@@ -166,9 +168,9 @@ GLOBAL_DATUM(syndicate_code_response_regex, /regex)
 	)
 
 	var/safety[] = list(1,2,3)//Tells the proc which options to remove later on.
-//	var/nouns[] = list("love","hate","anger","peace","pride","sympathy","bravery","loyalty","honesty","integrity","compassion","charity","success","courage","deceit","skill","beauty","brilliance","pain","misery","beliefs","dreams","justice","truth","faith","liberty","knowledge","thought","information","culture","trust","dedication","progress","education","hospitality","leisure","trouble","friendships", "relaxation")
-//	var/drinks[] = list("vodka and tonic","gin fizz","bahama mama","manhattan","black Russian","whiskey soda","long island tea","margarita","Irish coffee"," manly dwarf","Irish cream","doctor's delight","Beepksy Smash","tequila sunrise","brave bull","gargle blaster","bloody mary","whiskey cola","white Russian","vodka martini","martini","Cuba libre","kahlua","vodka","wine","moonshine")
-//	var/locations[] = length(GLOB.teleportlocs) ? GLOB.teleportlocs : drinks//if null, defaults to drinks instead.
+// var/nouns[] = list("love","hate","anger","peace","pride","sympathy","bravery","loyalty","honesty","integrity","compassion","charity","success","courage","deceit","skill","beauty","brilliance","pain","misery","beliefs","dreams","justice","truth","faith","liberty","knowledge","thought","information","culture","trust","dedication","progress","education","hospitality","leisure","trouble","friendships", "relaxation")
+// var/drinks[] = list("vodka and tonic","gin fizz","bahama mama","manhattan","black Russian","whiskey soda","long island tea","margarita","Irish coffee"," manly dwarf","Irish cream","doctor's delight","Beepksy Smash","tequila sunrise","brave bull","gargle blaster","bloody mary","whiskey cola","white Russian","vodka martini","martini","Cuba libre","kahlua","vodka","wine","moonshine")
+// var/locations[] = length(GLOB.teleportlocs) ? GLOB.teleportlocs : drinks//if null, defaults to drinks instead.
 
 	var/names[] = list()
 	for(var/datum/data/record/t in GLOB.data_core.general)//Picks from crew manifest.
@@ -196,7 +198,7 @@ GLOBAL_DATUM(syndicate_code_response_regex, /regex)
 						if(length(names))
 							. += pick(names)
 					if(2)
-						. += pick(GLOB.jobs)//Returns a job.
+						. += get_job_title_ru(pick(GLOB.jobs)) //Returns a job.
 				safety -= 1
 			if(2)
 				switch(rand(1, 2))//Places or things.

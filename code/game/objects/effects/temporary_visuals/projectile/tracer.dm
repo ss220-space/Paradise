@@ -48,11 +48,13 @@
 		return
 
 	var/list/turf/line_of_sight = get_line(starting_position.return_turf(), ending_position.return_turf())
-	for(var/turf/current_turf as anything in line_of_sight)
-		for(var/obj/effect/projectile_lighting/existing_lighting in current_turf)
-			if(existing_lighting.owner == locateUID(lighting_instance_key))
-				continue
-		QDEL_IN(new /obj/effect/projectile_lighting(current_turf, lighting_color_override, lighting_range, lighting_intensity, lighting_instance_key), deletion_delay > 0 ? deletion_delay : 5)
+
+	tracing_line:
+		for(var/turf/current_turf as anything in line_of_sight)
+			for(var/obj/effect/projectile_lighting/existing_lighting in current_turf)
+				if(existing_lighting.owner == lighting_instance_key)
+					continue tracing_line
+			QDEL_IN(new /obj/effect/projectile_lighting(current_turf, lighting_color_override, lighting_range, lighting_intensity, lighting_instance_key), deletion_delay > 0 ? deletion_delay : 5)
 
 	line_of_sight = null
 	if(deletion_delay)

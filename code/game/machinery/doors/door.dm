@@ -9,10 +9,11 @@
 	layer = OPEN_DOOR_LAYER
 	power_channel = ENVIRON
 	max_integrity = 350
-	armor = list(MELEE = 30, BULLET = 30, LASER = 20, ENERGY = 20, BOMB = 10, BIO = 100, RAD = 100, FIRE = 80, ACID = 70)
+	armor = list(MELEE = 30, BULLET = 30, LASER = 20, ENERGY = 20, BOMB = 10, BIO = 100, FIRE = 80, ACID = 70)
 	flags = PREVENT_CLICK_UNDER
 	damage_deflection = 10
 	pass_flags_self = PASSDOOR
+	interaction_flags_atom = INTERACT_ATOM_UI_INTERACT
 	var/closingLayer = CLOSED_DOOR_LAYER
 	var/visible = 1
 	/// Is it currently in the process of opening, closing or being tampered
@@ -279,7 +280,7 @@
 			cleaning = TRUE
 		else
 			return
-	if(istype(I, /obj/item/soap))
+	if(issoap(I))
 		cleaning = TRUE
 
 	if(!cleaning)

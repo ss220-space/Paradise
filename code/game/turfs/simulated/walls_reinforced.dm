@@ -12,8 +12,9 @@
 	sheet_amount = 1
 	girder_type = /obj/structure/girder/reinforced
 	can_dismantle_with_welder = FALSE
+	rad_insulation = RAD_HEAVY_INSULATION
 	var/d_state = RWALL_INTACT
-	var/can_be_reinforced = 1
+	var/can_be_reinforced = TRUE
 
 /turf/simulated/wall/r_wall/ComponentInitialize()
 	if(!is_station_level(z))
@@ -213,7 +214,7 @@
 /turf/simulated/wall/r_wall/try_decon(obj/item/I, mob/user, params)
 	if(d_state != RWALL_COVER && d_state != RWALL_SUPPORT_RODS)	//Plasma cutter only works in the deconstruction steps!
 		return FALSE
-	if(!istype(I, /obj/item/weldingtool))
+	if(!iswelder(I))
 		return FALSE
 	CALCULATE_SKILL_MOD(user, COMSIG_GET_BUILDING_SPEED_MOD, building_mod)
 	if(d_state == RWALL_COVER)

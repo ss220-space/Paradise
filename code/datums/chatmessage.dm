@@ -168,7 +168,7 @@
 		target.chat_color_darkened = colorize_string(chat_color_name_to_use, 0.85, 0.85)
 		target.chat_color_name = chat_color_name_to_use
 
-	if(language?.runechat_span)	// we can use this for custom language icon prefixes later, like on emotes
+	if(language?.runechat_span) // we can use this for custom language icon prefixes later, like on emotes
 		LAZYADD(extra_classes, language.runechat_span)
 
 	text = "[prefixes?.Join("&nbsp;")][text]"

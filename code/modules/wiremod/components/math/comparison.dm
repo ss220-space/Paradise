@@ -17,6 +17,12 @@
 
 	var/current_type = PORT_TYPE_ANY
 
+/obj/item/circuit_component/compare/comparison/Destroy()
+	comparison_option = null
+	first_port = null
+	second_port = null
+	. = ..()
+
 /obj/item/circuit_component/compare/comparison/populate_options()
 	var/static/component_options = list(
 		COMP_COMPARISON_EQUAL,

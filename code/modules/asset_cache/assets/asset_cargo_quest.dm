@@ -2,7 +2,7 @@
 /datum/asset/spritesheet_batched/cargo_quest
 	name = "cargo_quest"
 
-/datum/asset/spritesheet_batched/create_spritesheets()
+/datum/asset/spritesheet_batched/cargo_quest/create_spritesheets()
 	var/list/id_to_item = list()
 	var/datum/icon_transformer/transform = new()
 	transform.scale(42, 42)

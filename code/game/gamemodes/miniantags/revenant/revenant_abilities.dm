@@ -125,7 +125,7 @@
  */
 /obj/effect/proc_holder/spell/night_vision/revenant
 	base_cooldown = 0
-	message = span_revennotice("Вы переключаете ночное зрение.")
+	message = span_revennotice_alt("Вы переключаете ночное зрение.")
 	action_icon_state = "r_nightvision"
 	action_background_icon_state = "bg_revenant"
 
@@ -172,8 +172,8 @@
 	/// How much essence it costs to use
 	var/cast_amount = 50
 
-/obj/effect/proc_holder/spell/aoe/revenant/New()
-	..()
+/obj/effect/proc_holder/spell/aoe/revenant/Initialize(mapload)
+	. = ..()
 	if(locked)
 		name = "[initial(name)] ([unlock_amount]E)"
 	else

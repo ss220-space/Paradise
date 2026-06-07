@@ -15,6 +15,7 @@
 	light_power = 0.25
 	always_lit = TRUE
 	intact = FALSE
+	underfloor_accessibility = UNDERFLOOR_INTERACTABLE
 	// We do NOT want atmos adjacent turfs
 	init_air = FALSE
 
@@ -36,7 +37,7 @@
 
 /turf/space/Initialize(mapload)
 	SHOULD_CALL_PARENT(FALSE)
-	if(!istype(src, /turf/space/transit) && !istype(src, /turf/space/openspace))
+	if(!istype(src, /turf/space/transit) && !isopenspaceturf(src))
 		icon_state = SPACE_ICON_STATE
 
 	if(length(vis_contents))
@@ -78,7 +79,6 @@
 		set_light_on(FALSE)
 
 /turf/space/AfterChange(flags = NONE, oldType)
-	SSturfs_visualization.turfs_visualisation -= src
 	..()
 	var/datum/space_level/S = GLOB.space_manager.get_zlev(z)
 	S.add_to_transit(src)
@@ -136,8 +136,8 @@
 		ChangeTurf(/turf/simulated/floor/plating)
 		return .|ATTACK_CHAIN_BLOCKED_ALL
 
-	if(istype(I, /obj/item/stack/fireproof_rods))
-		var/obj/item/stack/fireproof_rods/rods = I
+	if(istype(I, /obj/item/stack/rods/fireproof))
+		var/obj/item/stack/rods/fireproof/rods = I
 		if(locate(/obj/structure/lattice/catwalk/fireproof, src))
 			to_chat(user, span_warning("Здесь уже есть мостик!"))
 			return .

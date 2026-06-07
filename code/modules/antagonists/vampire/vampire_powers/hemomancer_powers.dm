@@ -84,8 +84,8 @@
 		parent_spell = null
 	return ..()
 
-/obj/item/twohanded/required/vamp_claws/afterattack(atom/target, mob/user, proximity, params)
-	if(!proximity)
+/obj/item/twohanded/required/vamp_claws/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag)
 		return
 
 	var/datum/antagonist/vampire/V = user.mind?.has_antag_datum(/datum/antagonist/vampire)
@@ -126,8 +126,8 @@
 	var/area_of_affect = 1
 	need_active_overlay = TRUE
 
-	selection_activated_message		= span_notice("Вы используете магию крови, чтобы ослабить завесу блюспейса.")
-	selection_deactivated_message	= span_notice("Ваша магия ослабевает.")
+	selection_activated_message = span_notice_alt("Вы используете магию крови, чтобы ослабить завесу блюспейса.")
+	selection_deactivated_message = span_notice_alt("Ваша магия ослабевает.")
 
 /obj/effect/proc_holder/spell/vampire/blood_tendrils/create_new_targeting()
 	var/datum/spell_targeting/click/T = new
@@ -307,12 +307,10 @@
 	name = "Погружение в кровь"
 	desc = "Вы превращаете свою форму в лужу крови, делая ее неуязвимой и способной перемещаться сквозь всё, что не является стеной или космосом. После этого за вами остаётся кровавый след."
 	gain_desc = "Вы получили способность превращаться в лужу крови, что позволяет вам уходить от преследователей с большой мобильностью."
-	jaunt_duration = 8 SECONDS
 	clothes_req = FALSE
 	school = "vampire"
 	action_background_icon_state = "bg_vampire"
 	action_icon_state = "blood_pool"
-	base_cooldown = 25 SECONDS
 	jaunt_type_path = /obj/effect/dummy/spell_jaunt/blood_pool
 	jaunt_water_effect = FALSE
 	jaunt_out_type = /obj/effect/temp_visual/dir_setting/cult/phase/out

@@ -7,7 +7,7 @@
 	name = "contractor baton"
 	desc = "A compact, specialised baton issued to Syndicate contractors. Applies light electrical shocks to targets."
 	icon_state = "contractor_baton"
-	affect_cyborgs = TRUE
+	affect_cyborg = TRUE
 	affect_bots = TRUE
 	cooldown = 2.5 SECONDS
 	clumsy_knockdown_time = 24 SECONDS
@@ -47,7 +47,7 @@
 		add_upgrade(I, user)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(istype(I, /obj/item/restraints/handcuffs))
+	if(ishandcuffs(I))
 		add_fingerprint(user)
 		if(!has_upgrade(UPGRADE_CUFFS))
 			balloon_alert(user, "модуль стяжек не установлен!")

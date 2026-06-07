@@ -272,7 +272,7 @@ td, th {
 	popup.set_window_options("can_close=1;can_minimize=0;can_maximize=0;can_resize=0;titlebar=1;")
 	//popup.add_stylesheet("dark_inputs", "html/panels.css")
 	popup.add_stylesheet("dark_inputs", "html/dark_inputs.css")
-	popup.add_script("search", "html/search.js")
+	popup.add_script("search", "html/admin/search.js")
 	popup.open()
 	onclose(usr, "editrights")
 

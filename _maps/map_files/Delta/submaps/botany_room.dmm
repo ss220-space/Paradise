@@ -2,7 +2,6 @@
 "an" = (
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/maintenance/garden)
@@ -26,8 +25,7 @@
 	dir = 10
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue"
+	icon_state = "whiteblue"
 	},
 /area/maintenance/garden)
 "bp" = (
@@ -38,7 +36,6 @@
 "bQ" = (
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/maintenance/garden)
@@ -59,7 +56,9 @@
 	},
 /area/maintenance/garden)
 "cW" = (
-/obj/effect/decal/warning_stripes/northeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
 /obj/machinery/floodlight,
 /turf/simulated/floor/plating,
 /area/maintenance/garden)
@@ -70,7 +69,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/garden)
 "dL" = (
@@ -115,11 +116,10 @@
 /turf/simulated/wall/r_wall,
 /area/maintenance/garden)
 "eV" = (
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -26
+/obj/machinery/firealarm/directional/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
 	},
-/obj/effect/decal/warning_stripes/south,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellow"
@@ -129,9 +129,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
-/obj/machinery/power/apc{
-	pixel_y = -26
-	},
+/obj/machinery/power/apc/directional/south,
 /obj/structure/table/wood,
 /obj/effect/mapping_helpers/table_flip,
 /turf/simulated/floor/plasteel,
@@ -168,7 +166,9 @@
 /obj/item/clothing/suit/storage/hazardvest,
 /obj/item/clothing/gloves/color/black,
 /obj/item/clothing/mask/gas,
-/obj/effect/decal/warning_stripes/northwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -182,7 +182,9 @@
 /turf/simulated/floor/grass,
 /area/maintenance/garden)
 "gX" = (
-/obj/effect/decal/warning_stripes/northeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
 /obj/structure/table,
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/decal/cleanable/dirt,
@@ -207,8 +209,12 @@
 /turf/simulated/floor/grass,
 /area/maintenance/garden)
 "iY" = (
-/obj/effect/decal/warning_stripes/north,
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/structure/table,
 /obj/item/storage/toolbox/emergency/old{
 	pixel_x = 5;
@@ -227,10 +233,7 @@
 /turf/simulated/wall/rust,
 /area/template_noop)
 "jh" = (
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -26
-	},
+/obj/machinery/firealarm/directional/south,
 /obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/maintenance/garden)
@@ -259,12 +262,13 @@
 	},
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plasteel{
-	icon_state = "whiteblue";
-	tag = "icon-whitehall (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/maintenance/garden)
 "kb" = (
-/obj/effect/decal/warning_stripes/southwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
 /obj/structure/table,
 /obj/item/flashlight/lamp{
 	pixel_x = -2;
@@ -300,8 +304,7 @@
 "nc" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whitebluecorner";
-	tag = "icon-whitebluecorner"
+	icon_state = "whitebluecorner"
 	},
 /area/maintenance/garden)
 "nf" = (
@@ -337,7 +340,9 @@
 /area/maintenance/garden)
 "pu" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/plating,
 /area/maintenance/garden)
@@ -345,11 +350,10 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
-/obj/machinery/alarm{
-	dir = 1;
-	pixel_y = -22
+/obj/machinery/alarm/directional/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
 	},
-/obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellow"
 	},
@@ -373,7 +377,9 @@
 /turf/template_noop,
 /area/template_noop)
 "re" = (
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/oil,
 /turf/simulated/floor/plating,
@@ -382,7 +388,9 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/structure/table,
 /obj/machinery/door_control{
 	pixel_y = -2;
@@ -401,21 +409,22 @@
 /turf/simulated/wall,
 /area/maintenance/garden)
 "sk" = (
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/engineeringcart,
 /turf/simulated/floor/plating,
 /area/maintenance/garden)
 "sQ" = (
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -26
-	},
+/obj/machinery/firealarm/directional/south,
 /obj/machinery/hydroponics/soil,
 /turf/simulated/floor/grass,
 /area/maintenance/garden)
 "td" = (
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/garden)
 "tl" = (
@@ -439,8 +448,7 @@
 /obj/effect/spawner/random_spawners/cobweb_right_frequent,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (NORTHEAST)"
+	icon_state = "whiteblue"
 	},
 /area/maintenance/garden)
 "uj" = (
@@ -467,14 +475,10 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
-/obj/machinery/alarm{
-	dir = 1;
-	pixel_y = -22
-	},
+/obj/machinery/alarm/directional/south,
 /obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plasteel{
-	icon_state = "whiteblue";
-	tag = "icon-whitehall (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/maintenance/garden)
 "vu" = (
@@ -488,7 +492,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/maintenance/garden)
@@ -519,8 +522,7 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 9;
-	icon_state = "whiteblue";
-	tag = "icon-whitehall (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/maintenance/garden)
 "xb" = (
@@ -538,16 +540,15 @@
 	},
 /area/maintenance/garden)
 "xp" = (
-/obj/machinery/alarm{
-	dir = 1;
-	pixel_y = -22
-	},
+/obj/machinery/alarm/directional/south,
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
 /area/maintenance/garden)
 "xR" = (
-/obj/effect/decal/warning_stripes/northeastcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
 /obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -560,10 +561,7 @@
 /obj/item/reagent_containers/food/snacks/grown/holymelon,
 /obj/item/reagent_containers/food/snacks/grown/cocoapod,
 /obj/item/reagent_containers/food/snacks/grown/chili,
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -26
-	},
+/obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "green"
 	},
@@ -593,8 +591,7 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (NORTH)"
+	icon_state = "whiteblue"
 	},
 /area/maintenance/garden)
 "An" = (
@@ -604,8 +601,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (SOUTHWEST)"
+	icon_state = "whiteblue"
 	},
 /area/maintenance/garden)
 "AH" = (
@@ -632,7 +628,6 @@
 	icon_state = "medium"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/maintenance/garden)
@@ -651,8 +646,7 @@
 	},
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plasteel{
-	icon_state = "whiteblue";
-	tag = "icon-whitehall (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/maintenance/garden)
 "Df" = (
@@ -661,7 +655,6 @@
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/maintenance/garden)
@@ -670,7 +663,9 @@
 /area/maintenance/garden)
 "Ed" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/northwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
 /obj/structure/closet/crate/engineering,
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -678,9 +673,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/garden)
 "Ek" = (
-/obj/machinery/power/apc{
-	pixel_y = -26
-	},
+/obj/machinery/power/apc/directional/south,
 /obj/machinery/hydroponics/soil,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/grass,
@@ -701,8 +694,7 @@
 	},
 /obj/effect/spawner/random_spawners/cobweb_right_frequent,
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken5";
-	tag = "icon-wood-broken5"
+	icon_state = "wood-broken5"
 	},
 /area/maintenance/garden)
 "GT" = (
@@ -710,14 +702,9 @@
 /obj/effect/spawner/random_spawners/cobweb_left_rare,
 /turf/simulated/floor/plasteel{
 	dir = 9;
-	icon_state = "whiteblue";
-	tag = "icon-whitehall (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/maintenance/garden)
-"GU" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall,
-/area/template_noop)
 "Hd" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/reinforced,
@@ -765,7 +752,9 @@
 /obj/structure/sign/poster/official/random{
 	pixel_y = -32
 	},
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/effect/decal/cleanable/blood/oil,
 /turf/simulated/floor/plating,
 /area/maintenance/garden)
@@ -774,17 +763,13 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/garden)
 "IY" = (
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -26
-	},
+/obj/machinery/firealarm/directional/south,
 /obj/machinery/door/window/eastright{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plasteel{
-	icon_state = "whiteblue";
-	tag = "icon-whitehall (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/maintenance/garden)
 "Jg" = (
@@ -822,8 +807,7 @@
 /obj/item/reagent_containers/glass/bucket,
 /obj/machinery/light/small,
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken5";
-	tag = "icon-wood-broken5"
+	icon_state = "wood-broken5"
 	},
 /area/maintenance/garden)
 "Lo" = (
@@ -855,10 +839,10 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
-/obj/machinery/power/apc{
-	pixel_y = -26
+/obj/machinery/power/apc/directional/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
 	},
-/obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellow"
 	},
@@ -872,14 +856,11 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
-/obj/machinery/power/apc{
-	pixel_y = -26
-	},
+/obj/machinery/power/apc/directional/south,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/crowbar,
 /turf/simulated/floor/plasteel{
-	icon_state = "whiteblue";
-	tag = "icon-whitehall (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/maintenance/garden)
 "MB" = (
@@ -912,9 +893,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
-/obj/machinery/power/apc{
-	pixel_y = -26
-	},
+/obj/machinery/power/apc/directional/south,
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
@@ -933,7 +912,9 @@
 /turf/template_noop,
 /area/template_noop)
 "QG" = (
-/obj/effect/decal/warning_stripes/northwestcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellowcorner"
@@ -943,8 +924,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/window/eastright,
 /turf/simulated/floor/plasteel{
-	icon_state = "whiteblue";
-	tag = "icon-whitehall (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/maintenance/garden)
 "SJ" = (
@@ -955,7 +935,7 @@
 /area/maintenance/garden)
 "SO" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/table,
 /obj/item/reagent_containers/glass/bucket,
 /obj/item/plant_analyzer,
@@ -967,8 +947,7 @@
 /area/template_noop)
 "Tk" = (
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-dead";
-	tag = "plant-dead"
+	icon_state = "plant-dead"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/garden)
@@ -976,10 +955,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
-/obj/machinery/alarm{
-	dir = 1;
-	pixel_y = -22
-	},
+/obj/machinery/alarm/directional/south,
 /obj/structure/table/wood,
 /obj/effect/mapping_helpers/table_flip,
 /turf/simulated/floor/plasteel,
@@ -1007,8 +983,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (NORTHEAST)"
+	icon_state = "whiteblue"
 	},
 /area/maintenance/garden)
 "Vl" = (
@@ -1017,7 +992,9 @@
 /turf/simulated/floor/plating,
 /area/maintenance/garden)
 "Vy" = (
-/obj/effect/decal/warning_stripes/southeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
 /obj/structure/table,
 /obj/machinery/cell_charger{
 	pixel_x = -1;
@@ -1033,7 +1010,9 @@
 /turf/space,
 /area/template_noop)
 "Xf" = (
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plasteel{
@@ -1070,10 +1049,7 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/garden)
 "ZO" = (
-/obj/machinery/alarm{
-	dir = 1;
-	pixel_y = -22
-	},
+/obj/machinery/alarm/directional/south,
 /obj/item/storage/bag/plants/portaseeder,
 /turf/simulated/floor/grass,
 /area/maintenance/garden)
@@ -1875,7 +1851,7 @@ qr
 qr
 qr
 yg
-GU
+Lq
 qr
 "}
 (26,1,1) = {"

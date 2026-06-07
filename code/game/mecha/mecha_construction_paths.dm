@@ -5,7 +5,7 @@
 ////////////////////////////////
 
 /datum/construction/mecha/custom_action(step, atom/used_atom, mob/user)
-	if(istype(used_atom, /obj/item/stack/cable_coil))
+	if(iscoil(used_atom))
 		var/obj/item/stack/cable_coil/C = used_atom
 		if(C.use(4))
 			playsound(holder, C.usesound, 50, TRUE)
@@ -26,7 +26,7 @@
 	SSblackbox.record_feedback("tally", "mechas_created", 1, "[name]")
 
 /datum/construction/reversible/mecha/custom_action(index as num, diff as num, atom/used_atom, mob/user as mob)
-	if(istype(used_atom, /obj/item/stack/cable_coil))
+	if(iscoil(used_atom))
 		var/obj/item/stack/cable_coil/C = used_atom
 		if(C.use(4))
 			playsound(holder, C.usesound, 50, TRUE)

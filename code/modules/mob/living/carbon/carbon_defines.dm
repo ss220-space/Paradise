@@ -7,6 +7,7 @@
 	rotate_on_lying = TRUE
 	pull_hand = null
 	throw_range = 3
+	looting_icon_mode = LOOT_ICON_FLAT_ICON
 	var/list/stomach_contents
 	var/list/processing_patches
 	var/list/internal_organs	= list()
@@ -48,3 +49,15 @@
 	COOLDOWN_DECLARE(pain_cd)
 
 	var/list/overlays_standing[TOTAL_LAYERS]
+
+/mob/living/carbon/vv_edit_var(var_name, var_value)
+	switch(var_name)
+		if(NAMEOF(src, handcuffed))
+			set_handcuffed(var_value)
+			. = TRUE
+
+	if(!isnull(.))
+		datum_flags |= DF_VAR_EDITED
+		return
+
+	return ..()

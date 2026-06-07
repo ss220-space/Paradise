@@ -174,7 +174,7 @@
 /obj/structure/hell_rift
 	name = "hell rift"
 	desc = "Разлом, позволяющий адским существам проникнуть в этот мир."
-	armor = list(MELEE = 30, BULLET = 40, LASER = 20, ENERGY = 100, BOMB = 50, BIO = 100, RAD = 0, FIRE = 100, ACID = 100)
+	armor = list(MELEE = 30, BULLET = 40, LASER = 20, ENERGY = 100, BOMB = 50, BIO = 100, FIRE = 100, ACID = 100)
 	icon = 'icons/obj/carp_rift.dmi'
 	icon_state = "carp_rift_carpspawn"
 	color = "#7D1E20"

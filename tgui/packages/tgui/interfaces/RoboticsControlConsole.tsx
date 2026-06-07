@@ -31,6 +31,8 @@ type Cyborg = {
   is_hacked: boolean;
   synchronization: boolean;
   module: string;
+  is_shell: boolean;
+  occupier: string;
 };
 
 export const RoboticsControlConsole = (_props: unknown) => {
@@ -176,6 +178,11 @@ const Cyborgs = (props: CyborgsProps) => {
               {cyborg.synchronization || 'None'}
             </Box>
           </LabeledList.Item>
+          {!!cyborg.is_shell && (
+            <LabeledList.Item label="Occupier">
+              {cyborg.occupier}
+            </LabeledList.Item>
+          )}
         </LabeledList>
       </Section>
     );

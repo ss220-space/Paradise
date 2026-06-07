@@ -21,6 +21,7 @@
 	var/priority_node/top = heap[1]
 	var/bottom = heap[length(heap)]
 	var/item = top.item
+	top.item = null
 	heap -= bottom
 	if(!length(heap))
 		return item

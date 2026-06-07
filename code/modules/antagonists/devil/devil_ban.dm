@@ -53,7 +53,7 @@
 	law = "Никогда не следует намеренно прикасаться к мокрой поверхности."
 
 /datum/devil_ban/strikeunconscious
-	name = BAN_STRIKEUNCONCIOUS
+	name = BAN_STRIKEUNCONSCIOUS
 
 	desc = "Этот дьявол проявляет интерес только к тем, кто бодрствует."
 	law = "Никогда не бейте существо, находящееся без сознания."

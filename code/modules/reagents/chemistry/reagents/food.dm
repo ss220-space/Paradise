@@ -164,6 +164,28 @@
 		affected.physiology.hunger_mod *= 0.5
 	..()
 
+/datum/reagent/consumable/aspartame
+	name = "Аспартам"
+	id = "aspartame"
+	description = "Искусственный подсластитель. В отличие от сахара, обладает нулевой калорийностью, благодаря чему его часто используют в продуктах \"для похудения\"."
+	color = "#FFFFFF" // rgb: 255, 255, 255
+	nutriment_factor = 0
+	metabolization_rate = 2 * REAGENTS_METABOLISM
+	overdose_threshold = 17
+	taste_mult = 8
+	taste_description = "сладости"
+
+#define ASPARTAME_DISGUST_THRESHOLD 80
+
+/datum/reagent/consumable/aspartame/overdose_process(mob/living/affected_mob, seconds_per_tick, times_fired)
+	. = ..()
+	if(affected_mob.AmountDisgust() >= ASPARTAME_DISGUST_THRESHOLD)
+		return
+
+	affected_mob.AdjustDisgust(10 * REM * seconds_per_tick)
+
+#undef ASPARTAME_DISGUST_THRESHOLD
+
 /datum/reagent/consumable/soysauce
 	name = "Соевый соус"
 	id = "soysauce"
@@ -242,7 +264,7 @@
 	description = "Именно это делает чили острым."
 	reagent_state = LIQUID
 	color = "#B31008" // rgb: 179, 16, 8
-	taste_description = span_warning("ОСТРОТЫ")
+	taste_description = span_warning_alt("ОСТРОТЫ")
 	taste_mult = 1.5
 
 /datum/reagent/consumable/capsaicin/on_mob_life(mob/living/M)
@@ -279,7 +301,7 @@
 	description = "Ещё острее."
 	reagent_state = LIQUID
 	color = "#B31008" // rgb: 179, 16, 8
-	taste_description = span_userdanger("НЕРЕАЛЬНОЙ ОСТРОТЫ")
+	taste_description = span_userdanger_alt("НЕРЕАЛЬНОЙ ОСТРОТЫ")
 
 /datum/reagent/consumable/condensedcapsaicin/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(method == REAGENT_TOUCH)
@@ -297,7 +319,7 @@
 					safe_thing = victim.wear_mask
 				if(isclothing(victim.wear_mask))
 					var/obj/item/clothing/cloth = victim.wear_mask
-					if(cloth.clothing_flags & BLOCK_CAPSAICIN)
+					if(cloth.clothing_flags & PEPPERPROOF)
 						mouth_covered = TRUE
 						eyes_covered = TRUE
 						safe_thing = victim.wear_mask
@@ -310,7 +332,7 @@
 					safe_thing = victim.head
 				if(isclothing(victim.head))
 					var/obj/item/clothing/cloth = victim.head
-					if(cloth.clothing_flags & BLOCK_CAPSAICIN)
+					if(cloth.clothing_flags & PEPPERPROOF)
 						mouth_covered = TRUE
 						eyes_covered = TRUE
 						safe_thing = victim.head
@@ -505,7 +527,7 @@
 
 /datum/reagent/consumable/sprinkles/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(ishuman(M) && (M.job in list(JOB_TITLE_OFFICER, JOB_TITLE_PILOT, JOB_TITLE_DETECTIVE, JOB_TITLE_WARDEN, JOB_TITLE_HOS, JOB_TITLE_BRIGDOC, JOB_TITLE_LAWYER, JOB_TITLE_JUDGE)))
+	if(ishuman(M) && (M.job in list(JOB_TITLE_OFFICER, JOB_TITLE_PILOT, JOB_TITLE_DETECTIVE, JOB_TITLE_WARDEN, JOB_TITLE_HOS, JOB_TITLE_BRIGDOC, JOB_TITLE_LAWYER, JOB_TITLE_MAGISTRATE)))
 		update_flags |= M.adjustBruteLoss(-1, FALSE, affect_robotic = FALSE)
 		update_flags |= M.adjustFireLoss(-1, FALSE, affect_robotic = FALSE)
 	return ..() | update_flags
@@ -715,6 +737,14 @@
 /datum/reagent/consumable/chocolate/on_mob_life(mob/living/M)
 	M.reagents.add_reagent("sugar", 0.2)
 	return ..()
+
+/datum/reagent/consumable/chocolate_sprinkle
+	name = "Шоколадная посыпка"
+	id = "chocolate_sprinkle"
+	description = "Измельчённый шоколад. Такой часто добавляют в выпечку или кофе."
+	nutriment_factor = 5 * REAGENTS_METABOLISM	//same as chocolate
+	color = "#2E2418"
+	taste_description = "измельчённого шоколада"
 
 /datum/reagent/consumable/chocolate/reaction_turf(turf/T, volume)
 	if(volume >= 5 && !isspaceturf(T))
@@ -1149,3 +1179,12 @@
 		if(prob(2))
 			to_chat(M, span_warning("Ух! Какой ужасный вкус!"))
 	return ..() | update_flags
+
+/datum/reagent/consumable/caramel
+	name = "Карамель"
+	id = "caramel"
+	description = "Липкая масса, получаемая путём нагревания сахара. Сладко и вкусно."
+	nutriment_factor = 10
+	color = "#D98736"
+	taste_mult = 2
+	taste_description = "сладкой карамели"

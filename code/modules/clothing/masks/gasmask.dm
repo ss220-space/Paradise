@@ -41,8 +41,7 @@
 		PREPOSITIONAL = "противогазе",
 	)
 
-// **** Welding gas mask ****
-
+// MARK: Welding gas mask
 /obj/item/clothing/mask/gas/welding
 	name = "welding gas mask"
 	desc = "Противогаз, со встроенным лицевым щитком и сварочными очками. Был спроектирован ботанами, поэтому выглядит как череп."
@@ -52,7 +51,7 @@
 	flash_protect = FLASH_PROTECTION_WELDER
 	tint = 2
 	can_toggle = TRUE
-	armor = list(MELEE = 10, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 55)
+	armor = list(MELEE = 10, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 100, ACID = 55)
 	origin_tech = "materials=2;engineering=3"
 	actions_types = list(/datum/action/item_action/toggle)
 	visor_flags_cover = MASKCOVERSEYES
@@ -69,18 +68,22 @@
 		PREPOSITIONAL = "сварочном протовогазе",
 	)
 
+/obj/item/clothing/mask/gas/welding/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/right_click_mapper/attack_self, "Переключить [declent_ru(ACCUSATIVE)]")
+
 /obj/item/clothing/mask/gas/welding/attack_self(mob/user)
 	weldingvisortoggle(user)
 
 /obj/item/clothing/mask/gas/welding/adjustmask(mob/living/carbon/human/user)
 	return
 
+//marK: Explorer gas mask
 /obj/item/clothing/mask/gas/explorer
 	name = "explorer gas mask"
 	desc = "Противогаз военного качества, который можно подключить к системе подачи воздуха."
 	icon_state = "gas_mining"
-	actions_types = list(/datum/action/item_action/adjust)
-	armor = list(MELEE = 10, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 0, BIO = 50, RAD = 0, FIRE = 20, ACID = 40)
+	armor = list(MELEE = 10, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 0, BIO = 50, FIRE = 20, ACID = 40)
 	resistance_flags = FIRE_PROOF
 	can_toggle = TRUE
 
@@ -111,6 +114,10 @@
 		INSTRUMENTAL = "противогазом исследователя",
 		PREPOSITIONAL = "противогазе исследователя",
 	)
+
+/obj/item/clothing/mask/gas/explorer/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/right_click_mapper/attack_self, "Поднять/Опустить [declent_ru(ACCUSATIVE)]")
 
 /obj/item/clothing/mask/gas/explorer/attack_self(mob/user)
 	adjustmask(user)
@@ -151,6 +158,7 @@
 		PREPOSITIONAL = "маске Бейна",
 	)
 
+// MARK: Plague doctor
 //Plague Dr suit can be found in clothing/suits/bio.dm
 /obj/item/clothing/mask/gas/plaguedoctor
 	name = "plague doctor mask"
@@ -158,7 +166,7 @@
 	gender = FEMALE
 	icon_state = "plaguedoctor"
 	item_state = "gas_mask"
-	armor = list(MELEE = 0, BULLET = 0, LASER = 2, ENERGY = 2, BOMB = 0, BIO = 75, RAD = 0, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 2, ENERGY = 2, BOMB = 0, BIO = 75, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/mask/gas/plaguedoctor/get_ru_names()
 	return list(
@@ -170,15 +178,12 @@
 		PREPOSITIONAL = "маске чумного доктора",
 	)
 
-/obj/item/clothing/mask/gas/plaguedoctor/armoured
-	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 0, BIO = 10, RAD = 0, FIRE = 10, ACID = 10)
-
 /obj/item/clothing/mask/gas/swat
 	name = "SWAT mask"
 	desc = "Плотно прилегающая к коже тактическая маска, которую можно подключить к системе подачи воздуха."
 	gender = FEMALE
 	icon_state = "swat"
-	armor = list(MELEE = 15, BULLET = 15, LASER = 15, ENERGY = 15, BOMB = 15, BIO = 50, RAD = 0, FIRE = 100, ACID = 50)
+	armor = list(MELEE = 15, BULLET = 15, LASER = 15, ENERGY = 15, BOMB = 15, BIO = 50, FIRE = 100, ACID = 50)
 
 /obj/item/clothing/mask/gas/swat/get_ru_names()
 	return list(
@@ -190,13 +195,21 @@
 		PREPOSITIONAL = "маске спецназа",
 	)
 
+/obj/item/clothing/mask/gas/swat/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/tts_modifier, SOUND_EFFECT_MASKFILTER)
+
 /obj/item/clothing/mask/gas/syndicate
 	name = "syndicate mask"
 	desc = "Плотно прилегающая к коже тактическая маска, которую можно подключить к системе подачи воздуха."
 	gender = FEMALE
 	icon_state = "swat"
-	armor = list(MELEE = 15, BULLET = 15, LASER = 15, ENERGY = 15, BOMB = 15, BIO = 50, RAD = 0, FIRE = 100, ACID = 50)
+	armor = list(MELEE = 15, BULLET = 15, LASER = 15, ENERGY = 15, BOMB = 15, BIO = 50, FIRE = 100, ACID = 50)
 	strip_delay = 60
+
+/obj/item/clothing/mask/gas/syndicate/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/tts_modifier, SOUND_EFFECT_MASKFILTER)
 
 /obj/item/clothing/mask/gas/syndicate/get_ru_names()
 	return list(
@@ -208,6 +221,7 @@
 		PREPOSITIONAL = "маске \"Синдиката\"",
 	)
 
+// MARK: Clown hat
 /obj/item/clothing/mask/gas/clown_hat
 	name = "clown wig and mask"
 	desc = "Маскарадный набор настоящего проказника. Клоун никогда не будет полноценным без своего парика и маски. Вы можете изменить её внешний вид в руках."
@@ -338,6 +352,8 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
 
+
+// MARK: Mime mask
 /obj/item/clothing/mask/gas/mime
 	name = "happy mime mask"
 	desc = "Классическая театральная маска, для мастеров пантомимы."
@@ -561,6 +577,7 @@
 		PREPOSITIONAL = "классической маске мима",
 	)
 
+// MARK: Cyborg gas mask
 /obj/item/clothing/mask/gas/cyborg
 	name = "cyborg visor"
 	desc = "Бип буп."
@@ -601,6 +618,10 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
 
+/obj/item/clothing/mask/gas/owl_mask/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/right_click_mapper/attack_self, "Ухнуть")
+
 /obj/item/clothing/mask/gas/owl_mask/attack_self()
 	hoot()
 
@@ -609,25 +630,29 @@
 		playsound(src.loc, 'sound/creatures/hoot.ogg', 50, TRUE)
 		cooldown = world.time
 
-// ********************************************************************
 
-// **** Security gas mask ****
+// MARK: Security gas mask
+#define AGGRESSIVENESS_FIRST_POSITION 1
+#define AGGRESSIVENESS_SECOND_POSITION 2
+#define AGGRESSIVENESS_THIRD_POSITION 3
+#define AGGRESSIVENESS_FOURTH_POSITION 4
+#define AGGRESSIVENESS_BROKEN 5
 
 /obj/item/clothing/mask/gas/sechailer
 	name = "security gas mask"
 	desc = "Стандартный противогаз, выдаваемый службе безопасности. Внутри установлен \"Подчи-о-натор 3000\", который проигрывает с дюжину фраз, требующих всякое отребье прекратить всякое сопротивление."
 	icon_state = "sechailer"
 	item_state = "sechailer"
-	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 0, BIO = 10, RAD = 0, FIRE = 10, ACID = 10)
+	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 0, BIO = 10, FIRE = 10, ACID = 10)
 	flags_inv = HIDENAME
 	flags_cover = MASKCOVERSMOUTH
 	adjusted_flags_inv = HIDENAME
 	clothing_traits = list(TRAIT_SECDEATH)
 	var/phrase = 1
-	var/aggressiveness = 1
+	var/aggressiveness = AGGRESSIVENESS_FIRST_POSITION
 	var/safety = 1
 	can_toggle = TRUE
-	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/adjust, /datum/action/item_action/selectphrase)
+	actions_types = list(/datum/action/item_action/halt)
 	custom_price = PAYCHECK_CREW
 	var/static/list/phrase_list = list(
 
@@ -661,10 +686,20 @@
 		PREPOSITIONAL = "противогазе службы безопасности",
 	)
 
+/obj/item/clothing/mask/gas/sechailer/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/tts_modifier, SOUND_EFFECT_MASKFILTER)
+
+/obj/item/clothing/mask/gas/sechailer/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/right_click_mapper/attack_self, "Поднять/Опустить [declent_ru(ACCUSATIVE)]")
+
 /obj/item/clothing/mask/gas/sechailer/adjustmask(user)
 	. = ..()
 	if(.)
 		w_class = up ? WEIGHT_CLASS_SMALL : WEIGHT_CLASS_NORMAL
+		if(user)
+			SEND_SIGNAL(src, COMSIG_MASKFILTER_UPDATE_STATE, user)
 
 /obj/item/clothing/mask/gas/sechailer/force_adjust_mask()
 	. = ..()
@@ -678,11 +713,11 @@
 	name = "Security gas mask FCO-26"
 	desc = "Тактический противогаз чёрного цвета с красными обзорными стёклами. Разработан компанией \"Стальная Гвардия\" специально для сотрудников станционной службы безопасности \"Нанотрейзен\". Обеспечивает защиту лица, глаз и органов дыхания от неблагоприятных условий внешней среды."
 	icon_state = "tactical_mask"
-	armor = list(MELEE = 10, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 0, BIO = 50, RAD = 0, FIRE = 10, ACID = 30)
-	aggressiveness = 3
+	armor = list(MELEE = 10, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 0, BIO = 50, FIRE = 10, ACID = 30)
+	aggressiveness = AGGRESSIVENESS_THIRD_POSITION
 	phrase = 12
 	can_toggle = FALSE
-	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/selectphrase)
+	actions_types = list(/datum/action/item_action/halt)
 	custom_price = PAYCHECK_COMMAND
 
 /obj/item/clothing/mask/gas/sechailer/tactical/get_ru_names()
@@ -699,11 +734,11 @@
 	name = "HOS SWAT mask"
 	desc = "Тактический противогаз чёрного цвета с более агрессивным Подчи-о-натором 3000."
 	icon_state = "hosmask"
-	armor = list(MELEE = 10, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 10, BIO = 50, RAD = 0, FIRE = 100, ACID = 50)
-	aggressiveness = 3
+	armor = list(MELEE = 10, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 10, BIO = 50, FIRE = 100, ACID = 50)
+	aggressiveness = AGGRESSIVENESS_THIRD_POSITION
 	phrase = 12
 	can_toggle = FALSE
-	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/selectphrase)
+	actions_types = list(/datum/action/item_action/halt)
 
 /obj/item/clothing/mask/gas/sechailer/hos/get_ru_names()
 	return list(
@@ -719,11 +754,11 @@
 	name = "Warden SWAT mask"
 	desc = "Тактический противогаз синего цвета с более агрессивным Подчи-о-натором 3000."
 	icon_state = "wardenmask"
-	armor = list(MELEE = 10, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 10, BIO = 50, RAD = 0, FIRE = 100, ACID = 50)
-	aggressiveness = 3
+	armor = list(MELEE = 10, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 10, BIO = 50, FIRE = 100, ACID = 50)
+	aggressiveness = AGGRESSIVENESS_THIRD_POSITION
 	phrase = 12
 	can_toggle = FALSE
-	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/selectphrase)
+	actions_types = list(/datum/action/item_action/halt)
 
 /obj/item/clothing/mask/gas/sechailer/warden/get_ru_names()
 	return list(
@@ -739,11 +774,12 @@
 	name = "SWAT mask"
 	desc = "Тактический противогаз с более агрессивным Подчи-о-натором 3000."
 	icon_state = "officermask"
-	armor = list(MELEE = 10, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 10, BIO = 50, RAD = 0, FIRE = 100, ACID = 50)
-	aggressiveness = 3
+	armor = list(MELEE = 10, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 10, BIO = 50, FIRE = 100, ACID = 50)
+	aggressiveness = AGGRESSIVENESS_THIRD_POSITION
 	phrase = 12
 	can_toggle = FALSE
-	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/selectphrase)
+	actions_types = list(/datum/action/item_action/halt)
+
 /obj/item/clothing/mask/gas/sechailer/swat/get_ru_names()
 	return list(
 		NOMINATIVE = "тактический противогаз",
@@ -759,11 +795,11 @@
 	desc = "Тактический противогаз, окрашенный в неоново-синие цвета. Используется для деморализации Грейтадеров."
 	icon_state = "blue_sechailer"
 	item_state = "blue_sechailer"
-	armor = list(MELEE = 10, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 10, BIO = 50, RAD = 0, FIRE = 100, ACID = 50)
-	aggressiveness = 3
+	armor = list(MELEE = 10, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 10, BIO = 50, FIRE = 100, ACID = 50)
+	aggressiveness = AGGRESSIVENESS_THIRD_POSITION
 	phrase = 12
 	can_toggle = FALSE
-	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/selectphrase)
+	actions_types = list(/datum/action/item_action/halt)
 
 /obj/item/clothing/mask/gas/sechailer/blue/get_ru_names()
 	return list(
@@ -781,7 +817,7 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "taperecorder_idle"
 	can_toggle = FALSE
-	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/selectphrase)
+	actions_types = list(/datum/action/item_action/halt)
 
 /obj/item/clothing/mask/gas/sechailer/cyborg/get_ru_names()
 	return list(
@@ -793,83 +829,85 @@
 		PREPOSITIONAL = "мегафоне службы безопасности",
 	)
 
-/obj/item/clothing/mask/gas/sechailer/ui_action_click(mob/user, datum/action/action, leftclick)
-	if(istype(action, /datum/action/item_action/halt))
+/obj/item/clothing/mask/gas/sechailer/ui_action_click(mob/user, datum/action/action, leftclick = TRUE)
+	if(istype(action, /datum/action/item_action/halt) && leftclick)
 		halt()
-	else if(istype(action, /datum/action/item_action/adjust))
-		adjustmask(user)
-	else if(istype(action, /datum/action/item_action/selectphrase))
-		var/key = phrase_list[phrase]
-		var/message = phrase_list[key]
-
-		if(!safety)
-			to_chat(user, span_notice("You set the restrictor to: FUCK YOUR CUNT YOU SHIT EATING COCKSUCKER MAN EAT A DONG FUCKING ASS RAMMING SHIT FUCK EAT PENISES IN YOUR FUCK FACE AND SHIT OUT ABORTIONS OF FUCK AND DO SHIT IN YOUR ASS YOU COCK FUCK SHIT MONKEY FUCK ASS WANKER FROM THE DEPTHS OF SHIT."))
-			return
-
-		switch(aggressiveness)
-			if(1)
-				phrase = (phrase < 6) ? (phrase + 1) : 1
-				key = phrase_list[phrase]
-				message = phrase_list[key]
-				to_chat(user,span_notice("You set the restrictor to: [message]"))
-			if(2)
-				phrase = (phrase < 11 && phrase >= 7) ? (phrase + 1) : 7
-				key = phrase_list[phrase]
-				message = phrase_list[key]
-				to_chat(user,span_notice("You set the restrictor to: [message]"))
-			if(3)
-				phrase = (phrase < 18 && phrase >= 12 ) ? (phrase + 1) : 12
-				key = phrase_list[phrase]
-				message = phrase_list[key]
-				to_chat(user,span_notice("You set the restrictor to: [message]"))
-			if(4)
-				phrase = (phrase < 18 && phrase >= 1 ) ? (phrase + 1) : 1
-				key = phrase_list[phrase]
-				message = phrase_list[key]
-				to_chat(user,span_notice("You set the restrictor to: [message]"))
-			else
-				to_chat(user, span_notice("It's broken."))
-
+	else if(istype(action, /datum/action/item_action/selectphrase) || (istype(action, /datum/action/item_action/halt) && !leftclick))
+		var/key = switch_halt_phrase(user)
 		var/datum/action/item_action/halt/halt_action = locate() in actions
 		if(halt_action)
 			halt_action.name = "[uppertext(key)]!"
 			halt_action.UpdateButtonIcon()
+
+/obj/item/clothing/mask/gas/sechailer/proc/switch_halt_phrase(mob/user)
+	var/key = phrase_list[phrase]
+	var/message = phrase_list[key]
+
+	if(!safety)
+		to_chat(user, span_notice("You set the restrictor to: FUCK YOUR CUNT YOU SHIT EATING COCKSUCKER MAN EAT A DONG FUCKING ASS RAMMING SHIT FUCK EAT PENISES IN YOUR FUCK FACE AND SHIT OUT ABORTIONS OF FUCK AND DO SHIT IN YOUR ASS YOU COCK FUCK SHIT MONKEY FUCK ASS WANKER FROM THE DEPTHS OF SHIT."))
+		return
+
+	switch(aggressiveness)
+		if(AGGRESSIVENESS_FIRST_POSITION)
+			phrase = (phrase < 6) ? (phrase + 1) : 1
+			key = phrase_list[phrase]
+			message = phrase_list[key]
+			to_chat(user,span_notice("You set the restrictor to: [message]"))
+		if(AGGRESSIVENESS_SECOND_POSITION)
+			phrase = (phrase < 11 && phrase >= 7) ? (phrase + 1) : 7
+			key = phrase_list[phrase]
+			message = phrase_list[key]
+			to_chat(user,span_notice("You set the restrictor to: [message]"))
+		if(AGGRESSIVENESS_THIRD_POSITION)
+			phrase = (phrase < 18 && phrase >= 12 ) ? (phrase + 1) : 12
+			key = phrase_list[phrase]
+			message = phrase_list[key]
+			to_chat(user,span_notice("You set the restrictor to: [message]"))
+		if(AGGRESSIVENESS_FOURTH_POSITION)
+			phrase = (phrase < 18 && phrase >= 1 ) ? (phrase + 1) : 1
+			key = phrase_list[phrase]
+			message = phrase_list[key]
+			to_chat(user,span_notice("You set the restrictor to: [message]"))
+		else
+			to_chat(user, span_notice("It's broken."))
+
+	return key
 
 /obj/item/clothing/mask/gas/sechailer/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return .
 	switch(aggressiveness)
-		if(1)
+		if(AGGRESSIVENESS_FIRST_POSITION)
 			to_chat(user, span_notice("You set the aggressiveness restrictor to the second position."))
-			aggressiveness = 2
+			aggressiveness = AGGRESSIVENESS_SECOND_POSITION
 			phrase = 7
-		if(2)
+		if(AGGRESSIVENESS_SECOND_POSITION)
 			to_chat(user, span_notice("You set the aggressiveness restrictor to the third position."))
-			aggressiveness = 3
+			aggressiveness = AGGRESSIVENESS_THIRD_POSITION
 			phrase = 13
-		if(3)
+		if(AGGRESSIVENESS_THIRD_POSITION)
 			to_chat(user, span_notice("You set the aggressiveness restrictor to the fourth position."))
-			aggressiveness = 4
+			aggressiveness = AGGRESSIVENESS_FOURTH_POSITION
 			phrase = 1
-		if(4)
+		if(AGGRESSIVENESS_FOURTH_POSITION)
 			to_chat(user, span_notice("You set the aggressiveness restrictor to the first position."))
-			aggressiveness = 1
+			aggressiveness = AGGRESSIVENESS_FIRST_POSITION
 			phrase = 1
 		if(5)
 			to_chat(user, span_warning("You adjust the restrictor but nothing happens, probably because its broken."))
 
 /obj/item/clothing/mask/gas/sechailer/wirecutter_act(mob/living/user, obj/item/I)
 	. = TRUE
-	if(aggressiveness == 5)
+	if(aggressiveness == AGGRESSIVENESS_BROKEN)
 		to_chat(user, span_warning("The [name] is already broken."))
 		return .
 	var/confirm = tgui_alert(user, "Do you want to cut off the voice modulator? Warning: It will destroy mask's functionality.", "Cut voice modulator?", list("Yes", "No"))
-	if(confirm != "Yes" || aggressiveness == 5 || !Adjacent(user) || user.incapacitated())
+	if(confirm != "Yes" || aggressiveness == AGGRESSIVENESS_BROKEN || !Adjacent(user) || user.incapacitated())
 		return .
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return .
-	aggressiveness = 5
+	aggressiveness = AGGRESSIVENESS_BROKEN
 	to_chat(user, span_warning("You have cut off the voice modulator, the mask is broken now."))
 
 /obj/item/clothing/mask/gas/sechailer/attack_self(mob/user)
@@ -877,7 +915,7 @@
 
 /obj/item/clothing/mask/gas/sechailer/emag_act(mob/user)
 	if(safety)
-		safety = 0
+		safety = FALSE
 		if(user)
 			to_chat(user, "<span class='warning'>You silently fry [src]'s vocal circuit with the cryptographic sequencer.")
 
@@ -897,8 +935,13 @@
 		playsound(src.loc, "sound/voice/complionator/[key].ogg", 100, FALSE, 4)
 		cooldown = world.time
 
-// ********************************************************************
+#undef AGGRESSIVENESS_FIRST_POSITION
+#undef AGGRESSIVENESS_SECOND_POSITION
+#undef AGGRESSIVENESS_THIRD_POSITION
+#undef AGGRESSIVENESS_FOURTH_POSITION
+#undef AGGRESSIVENESS_BROKEN
 
+// MARK: Ghostface mask
 /obj/item/clothing/mask/gas/ghostface
 	name = "Ghostface mask"
 	desc = "Вытянутая белая маска, рот которой открыт в немом крике. Но вот в чём вопрос — ужаса, или ярости?"
@@ -934,7 +977,7 @@
 	. = ..()
 
 /obj/item/clothing/mask/gas/ghostface/true
-	armor = list(melee = 30, bullet = 10, laser = 5, energy = 5, bomb = 0, bio = 0, rad = 0, fire = 10, acid = 10)
+	armor = list(melee = 30, bullet = 10, laser = 5, energy = 5, bomb = 0, bio = 0, fire = 10, acid = 10)
 	var/obj/item/voice_changer/ghostface/voice_changer
 
 /obj/item/clothing/mask/gas/ghostface/true/devil

@@ -132,7 +132,7 @@
 	name = "synthesized banana peel"
 	desc = "A synthetic banana peel."
 
-/obj/item/grown/bananapeel/specialpeel/New()
+/obj/item/grown/bananapeel/specialpeel/Initialize(mapload)
 	. = ..()
 	// The reason this AddComponent is here and not in ComponentInitialize() is because if it's put there, it will be ran before the parent New proc for /grown types.
 	// And then be overriden by the generic component placed onto it by the `/datum/plant_gene/trait/slip`

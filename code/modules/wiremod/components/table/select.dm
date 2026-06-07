@@ -27,6 +27,14 @@
 
 	var/current_type = PORT_TYPE_ANY
 
+/obj/item/circuit_component/select/Destroy()
+	comparison_options = null
+	received_table = null
+	column_name = null
+	comparison_input = null
+	filtered_table = null
+	. = ..()
+
 /obj/item/circuit_component/select/populate_options()
 	var/static/component_options = list(
 		COMP_COMPARISON_EQUAL,

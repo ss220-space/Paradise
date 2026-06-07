@@ -1,112 +1,100 @@
 # dmdoc
 
-[dmdoc] is a documentation generator for DreamMaker, the scripting language of
-the [BYOND] game engine. It produces simple static HTML files based on
-documented files, macros, types, procs, and vars.
-
-We use **dmdoc** to generate [documentation] for our code, and that
-documentation is automatically generated and built on every new commit to the
-master branch
-
-This gives new developers a clickable reference [documentation] they can browse
-to better help gain understanding of the Paradise codebase structure and api
-reference.
-
-[documentation]: https://ss220-space.github.io/Paradise/
+[DOCUMENTATION]: https://ss220-space.github.io/Paradise/
 [BYOND]: https://secure.byond.com/
-[dmdoc]: https://github.com/SpaceManiac/SpacemanDMM/tree/master/crates/dmdoc
+[DMDOC]: https://github.com/SpaceManiac/SpacemanDMM/tree/master/crates/dmdoc
 
-## Documenting Code On Paradise
-We use block comments to document procs and types, and we use `///` line
-comments when documenting individual variables.
+[DMDOC] — это генератор документации для DreamMaker, языка сценариев игрового движка [BYOND]. Он создаёт простые статические HTML-файлы на основе документированных файлов, макросов, типов, процедур и переменных.
 
-Documentation is not required at Paradise, but it is highly recommended that all
-new code be covered with DMdoc code, according to the
-[Specifications](#specification).
+Мы используем **dmdoc** для генерации [DOCUMENTATION] для нашего кода, и эта документация автоматически создаётся и собирается при каждом новом коммите в ветку master.
 
-We also recommend that when you touch older code, you document the procs that you
-have touched in the process of updating that code
+Это даёт новым разработчикам интерактивный справочник [DOCUMENTATION], который они могут просматривать, чтобы лучше понять структуру кодовой базы SS1984 и её API.
 
-### Specification
-A type *must* always be auto-documented, and all public procs *must* be
-documented.
+**Вся документация ведётся на анлийском!** (за редким исключением)
 
-All type level defined variables *must* be documented.
+## Документирование кода на SS1984
 
-Internal procs *should* be documented, but may not be.
+Мы используем блочные комментарии для документирования процедур и классов, а также строчные комментарии `///` при документировании отдельных переменных.
 
-A public proc is any function that a developer might reasonably call while using
-or interacting with your object. Internal procs are helper functions that your
-public procs rely on to implement logic.
+Требуется, чтобы весь новый код был задокументирован с помощью DMdoc в соответствии со [Спецификация](#Спецификация).
 
-### Documenting a proc
-When documenting a proc, we give a short one line description (as this is shown
-next to the proc definition in the list of all procs for a type or global
-namespace), then a longer paragraph which will be shown when the user clicks on
-the proc to jump to its definition
+Мы также требуем, чтобы при доработке старого кода вы документировали функции, которые вы затронули в процессе обновления этого кода.
 
-```dm
-/**
- * Short description of the proc
- *
- * Longer detailed paragraph about the proc
- * including any relevant detail
- * Arguments:
- * * arg1 - Relevance of this argument
- * * arg2 - Relevance of this argument
- */
-```
+### Спецификация
 
-### Documenting types
-We first give the name of the type as a header, this can be omitted if the name
-is just going to be the typepath of the type, as dmdoc uses that by default.
-Then we give a short one-line description of the type. Finally we give a longer
-multi paragraph description of the type and its details.
+Класс _обязан_ быть задокументирован автоматически, и все публичные функции _обязаны_ быть документированы.
+
+Все переменные, определённые на уровне класса, _обязаны_ быть документированы.
+
+Внутренние функции _следует_ документировать, но это необязательно.
+
+Публичная функция — это любая функция, которую разработчик может обоснованно вызвать при использовании или взаимодействии с вашим объектом. Внутренние функции — это вспомогательные функции, на которые полагаются ваши публичные функции для реализации логики.
+
+### Документирование процедуры
+
+При документировании процедуры мы даём краткое описание в одну строку (так как оно отображается рядом с определением процедуры в списке всех процедур для типа или глобального пространства имён), затем более длинный абзац, который будет показан, когда пользователь щёлкнет по процедуре, чтобы перейти к её определению.
 
 ```dm
 /**
- * # type name (Can be omitted if it's just going to be the typepath)
+ * Краткое описание процедуры
  *
- * The short overview
+ * Более длинный подробный абзац о процедуре,
+ * включающий все важные детали
  *
- * A longer
- * paragraph of functionality about the type
- * including any assumptions/special cases
- *
+ * Аргументы:
+ * * arg1 - Назначение этого аргумента
+ * * arg2 - Назначение этого аргумента
  */
 ```
 
-### Documenting a variable/define
-Give a short explanation of what the variable, in the context of the type, or define is.
+### Документирование классов
+
+Сначала мы указываем имя класса в качестве заголовка. Его можно опустить, если имя должно совпадать с путём типа класса, так как dmdoc по умолчанию использует его.
+
+Затем мы даём краткое описание класса в одну строку.
+
+Наконец, мы даём более длинное многоабзацное описание класса и его деталей.
 
 ```dm
-/// Typepath of item to go in suit slot
+/**
+ * # имя класса (можно опустить, если оно должно совпадать с путём типа)
+ *
+ * Краткий обзор
+ *
+ * Длинный
+ * абзац с описанием функциональности типа,
+ * включая все допущения/особые случаи
+ */
+```
+
+### Документирование переменной/дефайна
+
+Дайте краткое объяснение того, что представляет собой переменная в контексте класса или директива.
+
+```dm
+/// Тип пути предмета, помещаемого в слот костюма
 var/suit = null
 ```
 
-## Module level description of code
-Modules are the best way to describe the structure/intent of a package of code
-where you don't want to be tied to the formal layout of the type structure.
+## Описание кода на уровне модуля
 
-On Paradise we do this by adding markdown files inside the `code` directory
-that will also be rendered and added to the modules tree. The structure for
-these is deliberately not defined, so you can be as freeform and as wheeling as
-you would like.
+Модули — это лучший способ описать структуру/назначение пакета кода, когда вы не хотите быть привязаны к формальной структуре классов.
 
-## Special variables
-You can use certain special template variables in DM DOC comments and they will
-be expanded.
+На SS1984 мы делаем это, добавляя файлы Markdown внутрь директории `code`, которые также будут отображены и добавлены в дерево модулей. Структура этих файлов намеренно не определена, так что вы можете быть настолько свободны и гибки, насколько захотите.
 
-- `[DEFINE_NAME]` expands to a link to the define definition if documented.
-- `[/mob]` expands to a link to the docs for the /mob type.
-- `[/mob/proc/Dizzy]` expands to a link that will take you to the /mob type and
-  anchor you to the dizzy proc docs.
-- `[/mob/var/stat]` expands to a link that will take you to the /mob type and
-  anchor you to the stat var docs
+## Специальные переменные
 
-You can customise the link name by using `[link name][link shorthand]`.
+Вы можете использовать определённые специальные шаблонные переменные в комментариях DM DOC, и они будут развёрнуты.
 
-e.g. `[see more about dizzy here][/mob/proc/Dizzy]`
+```dm
+    [DEFINE_NAME] - Разворачивается в ссылку на определение директивы, если оно задокументировано
+    [/mob] - Разворачивается в ссылку на документацию класса /mob
+    [/mob/proc/adjust_drunk_effect] - Разворачивается в ссылку, которая ведёт к классу /mob и привязывает вас к документации процедуры adjust_drunk_effect
+    [/mob/var/stat] - Разворачивается в ссылку, которая ведёт к классу /mob и привязывает вас к документации переменной stat
+```
 
-This is very useful to quickly link to other parts of the autodoc code to expand
-upon a comment made, or reasoning about code.
+Вы можете настроить имя ссылки, используя `[текст ссылки][сокращение ссылки]`.
+
+Например: `[подробнее о adjust drunk effect здесь] [/mob/proc/adjust_drunk_effect]`
+
+Это очень полезно для быстрого создания ссылок на другие части автодокументации, чтобы расширить комментарий или объяснить логику кода.

@@ -1,3 +1,29 @@
+// Clickable stat() button.
+/obj/effect/statclick
+	name = "Initializing..."
+	var/target
+
+INITIALIZE_IMMEDIATE(/obj/effect/statclick)
+
+/obj/effect/statclick/Initialize(mapload, text, target)
+	. = ..()
+	name = text
+	src.target = target
+	if(isdatum(target)) //Harddel man bad
+		RegisterSignal(target, COMSIG_QDELETING, PROC_REF(cleanup))
+
+/obj/effect/statclick/Destroy()
+	target = null
+	return ..()
+
+/obj/effect/statclick/proc/cleanup()
+	SIGNAL_HANDLER
+	qdel(src)
+
+/obj/effect/statclick/proc/update(text)
+	name = text
+	return src
+
 ADMIN_VERB(restart_controller, R_DEBUG, "Restart Controller", "Restart one of the various periodic loop controllers for the game (be careful!)", ADMIN_CATEGORY_DEBUG, controller in list("Master", "Failsafe"))
 	switch(controller)
 		if("Master")

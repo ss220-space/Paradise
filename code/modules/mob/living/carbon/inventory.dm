@@ -2,6 +2,8 @@
 	var/obj/item/item_in_hand = get_active_hand()
 
 	if(SEND_SIGNAL(src, COMSIG_MOB_SWAPPING_HANDS, item_in_hand) & COMPONENT_BLOCK_SWAP)
+		if(item_in_hand)
+			SEND_SIGNAL(item_in_hand, COMSIG_ITEM_SWAP_BLOCKED, src)
 		balloon_alert(src, "ваши руки заняты!")
 		return FALSE
 
@@ -25,6 +27,7 @@
 		restraints = legcuffed
 	if(restraints)
 		cuff_resist(restraints)
+
 
 /// Simple helper used to equip passed item to the predefined slots.
 /mob/living/carbon/proc/apply_restraints(cuffs, slot_flag, qdel_on_fail = FALSE, silent = FALSE)
@@ -88,7 +91,8 @@
 /// General proc to resist passed item.
 /mob/living/carbon/proc/cuff_resist(obj/item/cuffs, cuff_break = FALSE)
 	. = FALSE
-	var/breakout_time = cuff_break ? 5 SECONDS : cuffs.breakout_time
+	var/breakout_time = cuff_break ? 10 SECONDS : cuffs.breakout_time
+	var/breakout_flags = cuffs.breakout_flags
 	var/breakout_mod = 1
 	var/list/breakouttime_modifiers = list()
 	SEND_SIGNAL(src, COMSIG_GET_BREAKOUTTIME_MODIFIERS, breakouttime_modifiers)
@@ -96,7 +100,7 @@
 		breakout_mod *= mod
 
 	breakout_time *= breakout_mod
-	var/breakout_iter = (5 SECONDS) * breakout_mod
+	var/breakout_iter = (10 SECONDS) * breakout_mod
 
 	var/is_processed = LAZYACCESS(do_afters, src)
 
@@ -109,15 +113,15 @@
 		else
 			visible_message(
 				span_warning("[name] пыта[PLUR_ET_YUT(src)]ся сломать [cuffs.declent_ru(ACCUSATIVE)]!"),
-				span_notice("Вы пытаетесь сломать [cuffs.declent_ru(ACCUSATIVE)]. Это займёт примерно 5 секунд."),
+				span_notice("Вы пытаетесь сломать [cuffs.declent_ru(ACCUSATIVE)]. Это займёт примерно 10 секунд."),
 			)
-		if(do_after(src, breakout_time, src, DA_IGNORE_USER_LOC_CHANGE|DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM, max_interact_count = 1,
+		if(do_after(src, breakout_time, src, breakout_flags, max_interact_count = 1,
 			cancel_on_max = TRUE, cancel_message = ""))
 			. = clear_cuffs(cuffs, cuff_break)
 		else
 			balloon_alert(src, "не вышло снять [cuffs.declent_ru(ACCUSATIVE)]!!")
 
-	else if(istype(cuffs, /obj/item/restraints/handcuffs))
+	else if(ishandcuffs(cuffs) || isstraightjacket(cuffs))
 		if(is_processed)
 			visible_message(
 				span_warning("[name] перестал[GEND_A_O_I(src)] пытаться снять [cuffs.declent_ru(ACCUSATIVE)]!"),
@@ -126,10 +130,10 @@
 		else
 			balloon_alert(src, "попытка снять [cuffs.declent_ru(ACCUSATIVE)]...")
 
-		while(do_after(src, breakout_iter, src, DA_IGNORE_USER_LOC_CHANGE|DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM, max_interact_count = 1,
+		while(do_after(src, breakout_iter, src, breakout_flags, max_interact_count = 1,
 			cancel_on_max = TRUE, cancel_message = ""))
 			cuff_breakout_attempts++
-			if(!handcuffed) //if someone uncuffs us
+			if(!handcuffed && !wear_suit?.breakout_time) //if someone uncuffs us
 				break
 			if(cuff_breakout_attempts * breakout_iter >= breakout_time)
 				. = clear_cuffs(cuffs, cuff_break)
@@ -395,38 +399,12 @@
 
 // Returns items which are currently visible on the mob
 /mob/living/carbon/proc/get_visible_items()
-	var/static/list/visible_slots = list(
-		ITEM_SLOT_GLOVES,
-		ITEM_SLOT_EYES,
-		ITEM_SLOT_EARS,
-		ITEM_SLOT_MASK,
-		ITEM_SLOT_HEAD,
-		ITEM_SLOT_FEET,
-		ITEM_SLOT_ID,
-		ITEM_SLOT_PDA,
-		ITEM_SLOT_BELT,
-		ITEM_SLOT_BACK,
-		ITEM_SLOT_NECK,
-		ITEM_SLOT_HANDS,
-		ITEM_SLOT_BACKPACK,
-		ITEM_SLOT_SUITSTORE,
-		ITEM_SLOT_HANDCUFFED,
-		ITEM_SLOT_LEGCUFFED,
-	)
 	var/list/obscured = check_obscured_slots()
 	var/list/visible_items = list()
 
-	for(var/slot in visible_slots)
-		if(obscured & slot)
-			continue
-
-		var/obj/item/equipped = get_item_by_slot(slot)
-
-		if(equipped)
-			visible_items += equipped
-
-	for(var/obj/item/held in get_equipped_items(INCLUDE_HELD))
-		visible_items += held
+	for(var/obj/item/thing in get_equipped_items(INCLUDE_HELD))
+		if(!(get_slot_by_item(thing) & obscured))
+			visible_items += thing
 
 	return visible_items
 

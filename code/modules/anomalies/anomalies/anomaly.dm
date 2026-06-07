@@ -73,7 +73,7 @@
 	if(!get_area(src))
 		return INITIALIZE_HINT_QDEL
 
-	set_strength(spawn_strength, FALSE)
+	set_strength(spawn_strength, do_anim =  FALSE)
 	INVOKE_ASYNC(src, TYPE_PROC_REF(/obj/effect/anomaly, init_animation))
 	stability = spawn_stability
 
@@ -86,12 +86,12 @@
 	for(var/datum/anomaly_impulse/imp in impulses)
 		addtimer(CALLBACK(imp, TYPE_PROC_REF(/datum/anomaly_impulse, impulse_cycle)), rand(0, imp.scale_by_strength(imp.period_low, imp.period_high)))
 
-	if(!has_warp)
-		return
+	if(has_warp)
+		warp = new(src)
+		vis_contents += warp
+		apply_wibbly_filters(warp)
 
-	warp = new(src)
-	vis_contents += warp
-	apply_wibbly_filters(warp)
+	addtimer(CALLBACK(src, PROC_REF(check_size_change)), 0)
 
 /obj/effect/anomaly/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -131,13 +131,15 @@
 	strength = clamp(new_strength, 0, 100)
 	check_size_change()
 
-/obj/effect/anomaly/proc/collapse()
+/obj/effect/anomaly/proc/collapse_base()
 	visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] достигает критической массы и распадается!"))
 	add_filter("collapse", 1, gauss_blur_filter(1))
 	matr.Scale(3, 3)
 	animate(src, transform = matr, time = 1 SECONDS, alpha = 0, flags = ANIMATION_PARALLEL)
-	sleep(1 SECONDS)
-	qdel(src)
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(qdel), src), 1 SECONDS)
+
+/obj/effect/anomaly/proc/collapse()
+	collapse_base()
 
 /obj/effect/anomaly/proc/stabilyse()
 	var/datum/effect_system/fluid_spread/smoke/smoke = new
@@ -161,8 +163,7 @@
 	matr.Scale(0, 0)
 	animate(src, transform = matr, time = 1 SECONDS, flags = ANIMATION_PARALLEL)
 	visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] теряет свою энергию и растворяется в пространстве!"))
-	sleep(1 SECONDS)
-	qdel(src)
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(qdel), src), 1 SECONDS)
 
 /obj/effect/anomaly/proc/level_up()
 	if(!stronger_anomaly_type)

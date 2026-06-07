@@ -14,12 +14,13 @@
 			Использует широкий спектр материалов в качестве сырья."
 	icon = 'icons/obj/machines/robotics.dmi'
 	icon_state = "fabricator"
-	var/icon_open = "fabricator_unscrewed"
-	var/icon_closed = "fabricator"
+	interaction_flags_atom = parent_type::interaction_flags_atom | INTERACT_ATOM_MOUSEDROP_IGNORE_CHECKS
 	density = TRUE
 	anchored = TRUE
 	idle_power_usage = 20
 	active_power_usage = 5000
+	var/icon_open = "fabricator_unscrewed"
+	var/icon_closed = "fabricator"
 	/// Bitflags of design types that can be produced.
 	var/allowed_design_types = MECHFAB
 	/// List of categories to display in the UI. Designs intended for each respective category need to have the name in [/datum/design/category]. Defined in [Initialize()][/atom/proc/Initialize].
@@ -329,7 +330,7 @@
 		return
 	if(!allowed(user) && !isobserver(user))
 		balloon_alert(user, "отказано в доступе!")
-		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
+		playsound(src, SFX_BUTTON_DENIED, 20)
 		return
 	ui_interact(user)
 
@@ -525,15 +526,13 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
 
-/obj/machinery/mecha_part_fabricator/spacepod/Initialize(mapload)
-	. = ..()
 	categories = list(
-		"Pod_Weaponry",
-		"Pod_Armor",
-		"Pod_Cargo",
-		"Pod_Parts",
-		"Pod_Frame",
-		"Misc",
+		POD_FAB_CATEGORY_WEAPONRY,
+		POD_FAB_CATEGORY_ARMOR,
+		POD_FAB_CATEGORY_CARGO,
+		POD_FAB_CATEGORY_PARTS,
+		POD_FAB_CATEGORY_FRAME,
+		POD_FAB_CATEGORY_MISC,
 	)
 
 /**

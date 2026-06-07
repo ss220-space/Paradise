@@ -8,8 +8,8 @@
 	human_req = FALSE
 	invocation = "GIN'YU CAPAN"
 	invocation_type = "whisper"
-	selection_activated_message = span_notice("You prepare to transfer your mind. Click on a target to cast the spell.")
-	selection_deactivated_message = span_notice("You decide that your current form is good enough.")
+	selection_activated_message = span_notice_alt("You prepare to transfer your mind. Click on a target to cast the spell.")
+	selection_deactivated_message = span_notice_alt("You decide that your current form is good enough.")
 	cooldown_min = 20 SECONDS //100 deciseconds reduction per rank
 	var/list/protected_roles = list("Wizard","Changeling","Cultist") //which roles are immune to the spell
 	var/paralysis_amount_caster = 40 SECONDS //how much the caster is paralysed for after the spell

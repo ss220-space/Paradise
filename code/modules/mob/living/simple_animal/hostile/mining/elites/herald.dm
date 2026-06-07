@@ -84,25 +84,25 @@
 /datum/action/innate/elite_attack/herald_trishot
 	name = "Тройной залп"
 	button_icon_state = "herald_trishot"
-	chosen_message = span_boldwarning("Теперь вы выпускаете три снаряда в выбранном направлении.")
+	chosen_message = span_boldwarning_alt("Теперь вы выпускаете три снаряда в выбранном направлении.")
 	chosen_attack_num = HERALD_TRISHOT
 
 /datum/action/innate/elite_attack/herald_directionalshot
 	name = "Круговой залп"
 	button_icon_state = "herald_directionalshot"
-	chosen_message = span_boldwarning("Вы выпускаете снаряды во всех направлениях.")
+	chosen_message = span_boldwarning_alt("Вы выпускаете снаряды во всех направлениях.")
 	chosen_attack_num = HERALD_DIRECTIONALSHOT
 
 /datum/action/innate/elite_attack/herald_teleshot
 	name = "Телепортирующий выстрел"
 	button_icon_state = "herald_teleshot"
-	chosen_message = span_boldwarning("Следующий снаряд телепортирует вас к месту попадания.")
+	chosen_message = span_boldwarning_alt("Следующий снаряд телепортирует вас к месту попадания.")
 	chosen_attack_num = HERALD_TELESHOT
 
 /datum/action/innate/elite_attack/herald_mirror
 	name = "Призыв зеркала"
 	button_icon_state = "herald_mirror"
-	chosen_message = span_boldwarning("Вы создадите зеркало, дублирующее ваши атаки.")
+	chosen_message = span_boldwarning_alt("Вы создадите зеркало, дублирующее ваши атаки.")
 	chosen_attack_num = HERALD_MIRROR
 
 /mob/living/simple_animal/hostile/asteroid/elite/herald/OpenFire()
@@ -243,59 +243,6 @@
 	my_master?.my_mirror = null
 	my_master = null
 	. = ..()
-
-/obj/projectile/herald
-	name = "death bolt"
-	icon_state = "chronobolt"
-	damage = 15
-	armour_penetration = 35
-	speed = 2
-
-/obj/projectile/herald/get_ru_names()
-	return list(
-		NOMINATIVE = "смертоносный заряд",
-		GENITIVE = "смертоносного заряда",
-		DATIVE = "смертоносному заряду",
-		ACCUSATIVE = "смертоносный заряд",
-		INSTRUMENTAL = "смертоносным зарядом",
-		PREPOSITIONAL = "смертоносном заряде",
-	)
-
-/obj/projectile/herald/teleshot
-	name = "golden bolt"
-	damage = 25
-	color = rgb(255,255,102)
-
-/obj/projectile/herald/teleshot/get_ru_names()
-	return list(
-		NOMINATIVE = "золотой заряд",
-		GENITIVE = "золотого заряда",
-		DATIVE = "золотому заряду",
-		ACCUSATIVE = "золотой заряд",
-		INSTRUMENTAL = "золотым зарядом",
-		PREPOSITIONAL = "золотом заряде",
-	)
-
-/obj/projectile/herald/prehit(atom/target)
-	if(ismob(target) && ismob(firer))
-		var/mob/living/mob_target = target
-		if(mob_target.faction_check_mob(firer))
-			nodamage = TRUE
-			damage = 0
-			return
-		if(mob_target.buckled && mob_target.stat == DEAD)
-			mob_target.dust() //no body cheese
-
-/obj/projectile/herald/on_hit(atom/target, blocked = FALSE)
-	. = ..()
-	if(ismineralturf(target))
-		var/turf/simulated/mineral/M = target
-		M.attempt_drill()
-
-/obj/projectile/herald/teleshot/on_hit(atom/target, blocked = FALSE)
-	. = ..()
-	if(!istype(target, /mob/living/simple_animal/hostile/asteroid/elite/herald))
-		firer.forceMove(get_turf(src))
 
 //Herald's loot: Cloak of the Prophet
 

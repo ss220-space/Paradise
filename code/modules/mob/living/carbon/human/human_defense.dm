@@ -72,6 +72,8 @@ emp_act
 
 	var/obj/item/organ/external/organ = get_organ(check_zone(def_zone))
 	if(isnull(organ))
+		if(def_zone == BODY_ZONE_CHEST)
+			return -1
 		return bullet_act(P, BODY_ZONE_CHEST) //act on chest instead
 
 	organ.add_autopsy_data(P.name, P.damage) // Add the bullet's name to the autopsy data
@@ -195,6 +197,14 @@ emp_act
 			protection *= (100 - min(cloth.armor.getRating(attack_flag), 100)) * 0.01
 	protection *= (100 - min(physiology.armor.getRating(attack_flag), 100)) * 0.01
 	return 100 - protection
+
+///Get all the clothing on a specific body part
+/mob/living/carbon/human/proc/get_clothing_on_part(obj/item/organ/external/def_zone)
+	var/list/covering_part = list()
+	for(var/obj/item/clothing/equipped in get_equipped_items())
+		if(equipped.body_parts_covered & def_zone.limb_body_flag)
+			covering_part += equipped
+	return covering_part
 
 /// This proc returns the permeability protection for a particular external organ.
 /mob/living/carbon/human/proc/get_permeability_protection_organ(obj/item/organ/external/def_zone)
@@ -795,22 +805,22 @@ emp_act
 						armor_block = 0
 					objective.take_damage(damage * armor_block, BRUTE)
 
-/mob/living/carbon/human/mech_melee_attack(obj/mecha/M)
-	if(M.occupant.a_intent == INTENT_HARM)
-		if(HAS_TRAIT(M.occupant, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
-			to_chat(M.occupant, span_warning("Вы не хотите причинять кому-либо вред!"))
+/mob/living/carbon/human/mech_melee_attack(obj/mecha/mech, obj/item/mecha_parts/mecha_equipment/selected_module = null)
+	if(mech.occupant.a_intent == INTENT_HARM)
+		if(HAS_TRAIT(mech.occupant, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
+			to_chat(mech.occupant, span_warning("Вы не хотите причинять кому-либо вред!"))
 			return
-		M.do_attack_animation(src)
-		if(M.damtype == "brute")
-			step_away(src,M,15)
+		mech.do_attack_animation(src, used_item = selected_module)
+		if(mech.damtype == BRUTE)
+			step_away(src, mech, 15)
 		var/obj/item/organ/external/affecting = get_organ(pick(BODY_ZONE_CHEST, BODY_ZONE_CHEST, BODY_ZONE_CHEST, BODY_ZONE_HEAD))
 		if(affecting)
-			var/dmg = rand(M.force/2, M.force)
-			switch(M.damtype)
+			var/dmg = rand(mech.force / 2, mech.force)
+			switch(mech.damtype)
 				if(BRUTE)
-					if(M.force > 35) // durand and other heavy mechas
+					if(mech.force > 35) // durand and other heavy mechas
 						Weaken(2 SECONDS)
-					else if(M.force > 20 && !IsWeakened()) // lightweight mechas like gygax
+					else if(mech.force > 20 && !IsWeakened()) // lightweight mechas like gygax
 						Knockdown(4 SECONDS)
 					apply_damage(dmg, BRUTE, def_zone = affecting)
 					playsound(src, 'sound/weapons/punch4.ogg', 50, TRUE)
@@ -818,14 +828,14 @@ emp_act
 					apply_damage(dmg, BURN, def_zone = affecting)
 					playsound(src, 'sound/items/welder.ogg', 50, TRUE)
 				if(TOX)
-					M.mech_toxin_damage(src)
+					mech.mech_toxin_damage(src)
 				else
 					return
 
-		M.occupant_message(span_danger("Вы ударили [declent_ru(ACCUSATIVE)]."))
-		visible_message(span_danger("[M.name] ударил [declent_ru(ACCUSATIVE)]!"), span_userdanger("[M.name] ударил вас!"))
+		mech.occupant_message(span_danger("Вы ударили [declent_ru(ACCUSATIVE)]."))
+		visible_message(span_danger("[mech.name] ударил [declent_ru(ACCUSATIVE)]!"), span_userdanger("[mech.name] ударил вас!"))
 
-		add_attack_logs(M.occupant, src, "Mecha-meleed with [M]")
+		add_attack_logs(mech.occupant, src, "Mecha-meleed with [mech]")
 	else
 		..()
 

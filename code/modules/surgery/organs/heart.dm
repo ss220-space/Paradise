@@ -36,6 +36,8 @@
 /obj/item/organ/internal/heart/emp_act(intensity)
 	if(!is_robotic() || emp_proof)
 		return
+	if(emp_shielded(intensity))
+		return
 	Stop()
 
 /obj/item/organ/internal/heart/necrotize(silent = FALSE)
@@ -289,6 +291,8 @@
 		emagged = FALSE
 
 /obj/item/organ/internal/heart/cybernetic/upgraded/emp_act(severity)
+	if(emp_shielded(severity))
+		return
 	..()
 
 	if(emp_proof)

@@ -22,10 +22,9 @@
 SUBSYSTEM_DEF(verb_manager)
 	name = "Verb Queue Manager"
 	wait = 1
-	flags = SS_TICKER|SS_NO_INIT
+	ss_flags = SS_TICKER|SS_NO_INIT
 	priority = FIRE_PRIORITY_DELAYED_VERBS
 	runlevels = RUNLEVEL_LOBBY|RUNLEVELS_DEFAULT
-	ss_id = "verb_manager"
 
 	///list of callbacks to procs called from verbs or verblike procs that were executed when the server was overloaded and had to delay to the next tick.
 	///this list is ran through every tick, and the subsystem does not yield until this queue is finished.
@@ -74,9 +73,9 @@ SUBSYSTEM_DEF(verb_manager)
 		stack_trace("_queue_verb() returned false because it was given a callback acting on a qdeleted object! [destroyed_string]")
 		return FALSE
 
-	//we want game tests to be able to directly call verbs that attempt to queue, and since game tests should test internal behavior, we want the queue
+	//we want unit tests to be able to directly call verbs that attempt to queue, and since unit tests should test internal behavior, we want the queue
 	//to happen as if it was actually from player input if its called on a mob.
-#ifdef GAME_TESTS
+#ifdef UNIT_TESTS
 	if(QDELETED(usr) && ismob(incoming_callback.object))
 		incoming_callback.user = WEAKREF(incoming_callback.object)
 		var/datum/callback/new_us = CALLBACK(arglist(list(GLOBAL_PROC, /proc/_queue_verb) + args.Copy()))
@@ -117,7 +116,7 @@ SUBSYSTEM_DEF(verb_manager)
 		return TRUE
 
 	if((usr.client?.holder && !can_queue_admin_verbs) \
-	|| (!initialized && !(flags & SS_NO_INIT)) \
+	|| (!initialized && !(ss_flags & SS_NO_INIT)) \
 	|| FOR_ADMINS_IF_VERBS_FUCKED_immediately_execute_all_verbs \
 	|| !(runlevels & Master.current_runlevel))
 		return FALSE

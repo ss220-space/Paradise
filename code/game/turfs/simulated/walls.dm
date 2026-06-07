@@ -11,7 +11,7 @@
 	var/damage_cap = 100 //Wall will break down to girders if damage reaches this point
 
 	var/damage_overlay
-	var/global/damage_overlays[8]
+	var/static/damage_overlays[8]
 
 	var/max_temperature = 1800 //K, walls will take damage if they're next to a fire hotter than this
 
@@ -74,7 +74,7 @@
 		return
 	AddComponent(/datum/component/blob_turf_consuming, 2)
 
-/turf/simulated/wall/MouseDrop_T(atom/dropping, mob/user, params)
+/turf/simulated/wall/mouse_drop_receive(atom/dropping, mob/user, params)
 	//Adds the component only once. We do it here & not in Initialize() because there are tons of walls & we don't want to add to their init times
 	LoadComponent(/datum/component/leanable, dropping)
 
@@ -193,8 +193,8 @@
 /turf/simulated/wall/blob_consume()
 	dismantle_wall()
 
-/turf/simulated/wall/rpd_act(mob/user, obj/item/rpd/our_rpd)
-	if(our_rpd.mode == RPD_ATMOS_MODE)
+/turf/simulated/wall/rpd_act(mob/user, obj/item/rpd/our_rpd, mode)
+	if(mode == RPD_ATMOS_MODE)
 		if(!our_rpd.ranged)
 			playsound(src, 'sound/weapons/circsawhit.ogg', 50, TRUE)
 			user.visible_message(span_notice("[user] начина[PLUR_ET_YUT(user)] сверлить отверстие в [declent_ru(PREPOSITIONAL)]..."),
@@ -204,10 +204,12 @@
 			if(!do_after(user, our_rpd.walldelay * building_mod, src)) //Drilling into walls takes time
 				return
 		our_rpd.create_atmos_pipe(user, src)
-	else if(our_rpd.mode == RPD_DISPOSALS_MODE && !our_rpd.ranged)
 		return
-	else
-		..()
+
+	if(mode == RPD_DISPOSALS_MODE && !our_rpd.ranged)
+		return
+
+	return ..()
 
 /turf/simulated/wall/rcd_deconstruct_act(mob/user, obj/item/rcd/our_rcd)
 	. = ..()
@@ -228,13 +230,13 @@
 	playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, TRUE)
 	return RCD_ACT_FAILED
 
-/turf/simulated/wall/mech_melee_attack(obj/mecha/M)
-	M.do_attack_animation(src)
-	switch(M.damtype)
+/turf/simulated/wall/mech_melee_attack(obj/mecha/mech, obj/item/mecha_parts/mecha_equipment/selected_module = null)
+	mech.do_attack_animation(src, used_item = selected_module)
+	switch(mech.damtype)
 		if(BRUTE)
 			playsound(src, 'sound/weapons/punch4.ogg', 50, TRUE)
-			M.visible_message(span_danger("[DECLENT_RU_CAP(M, NOMINATIVE)] бьет [declent_ru(ACCUSATIVE)]!"), span_danger("Вы бьете [declent_ru(ACCUSATIVE)]!"))
-			if(prob(hardness + M.force) && M.force > 20)
+			mech.visible_message(span_danger("[DECLENT_RU_CAP(mech, NOMINATIVE)] бьет [declent_ru(ACCUSATIVE)]!"), span_danger("Вы бьете [declent_ru(ACCUSATIVE)]!"))
+			if(prob(hardness + mech.force) && mech.force > 20)
 				dismantle_wall(1)
 				playsound(src, 'sound/effects/meteorimpact.ogg', 100, TRUE)
 			else
@@ -250,8 +252,8 @@
 	if(!rotting)
 		rotting = 1
 
-		var/number_rots = rand(2,3)
-		for(var/i=0, i<number_rots, i++)
+		var/number_rots = rand(2, 3)
+		for(var/i in 1 to number_rots)
 			new /obj/effect/overlay/wall_rot(src)
 
 /turf/simulated/wall/burn_down()
@@ -558,7 +560,7 @@
 		return TRUE
 	return FALSE
 
-/turf/simulated/wall/singularity_pull(S, current_size)
+/turf/simulated/wall/singularity_pull(atom/singularity, current_size)
 	..()
 	wall_singularity_pull(current_size)
 
@@ -586,6 +588,10 @@
 
 /turf/simulated/wall/acid_melt()
 	dismantle_wall(1)
+
+/turf/simulated/wall/proc/add_multiple_dents(dent_count, denttype)
+	for(var/i in 1 to dent_count)
+		add_dent(denttype)
 
 /turf/simulated/wall/proc/add_dent(denttype, x=rand(-8, 8), y=rand(-8, 8))
 	if(LAZYLEN(dent_decals) >= MAX_DENT_DECALS)

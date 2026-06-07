@@ -20,6 +20,8 @@
 	var/opened = TRUE // FALSE if it needed to be opened first
 
 /obj/item/reagent_containers/food/snacks/add_initial_reagents()
+	if(tastes)
+		tastes = string_assoc_list(tastes)
 	if(tastes && length(tastes))
 		if(list_reagents)
 			for(var/rid in list_reagents)
@@ -93,7 +95,7 @@
 	bitecount++
 	On_Consume(target, user)
 
-/obj/item/reagent_containers/food/snacks/afterattack(obj/target, mob/user, proximity, params)
+/obj/item/reagent_containers/food/snacks/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	return
 
 /obj/item/reagent_containers/food/snacks/examine(mob/user)
@@ -294,8 +296,8 @@
 	filling_color = "#211F02"
 	list_reagents = list("????" = 30)
 
-/obj/item/reagent_containers/food/snacks/badrecipe/New()
-	..()
+/obj/item/reagent_containers/food/snacks/badrecipe/Initialize(mapload)
+	. = ..()
 	// it's burned! it should start off being classed as any cooktype that burns
 	cooktype["grilled"] = 1
 	cooktype["deep fried"] = 1

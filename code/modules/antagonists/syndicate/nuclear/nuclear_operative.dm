@@ -80,7 +80,7 @@
 	if(!outfit)
 		return
 
-	for(var/obj/item/item in human.get_equipped_items(TRUE, TRUE))
+	for(var/obj/item/item in human.get_equipped_items(INCLUDE_POCKETS | INCLUDE_HELD))
 		qdel(item)
 
 	human.equipOutfit(outfit)

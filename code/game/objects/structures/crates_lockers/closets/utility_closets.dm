@@ -51,9 +51,7 @@
 	new /obj/item/tank/internals/oxygen(src)
 	new /obj/item/clothing/mask/gas(src)
 
-/*
- * Fire Closet
- */
+// MARK: Fire Closet
 /obj/structure/closet/firecloset
 	name = "fire-safety closet"
 	desc = "It's a storage unit for fire-fighting supplies."
@@ -65,6 +63,7 @@
 	new /obj/item/clothing/mask/gas(src)
 	new /obj/item/tank/internals/oxygen/red(src)
 	new /obj/item/clothing/head/hardhat/red(src)
+	new /obj/item/crowbar/red(src)
 
 /obj/structure/closet/firecloset/full/populate_contents()
 	new /obj/item/extinguisher(src)
@@ -73,6 +72,8 @@
 	new /obj/item/flashlight(src)
 	new /obj/item/tank/internals/oxygen/red(src)
 	new /obj/item/clothing/head/hardhat/red(src)
+	new /obj/item/crowbar/red(src)
+
 
 /*
  * Tool Closet
@@ -124,6 +125,7 @@
 	custom_door_overlay = "radsuit"
 
 /obj/structure/closet/radiation/populate_contents()
+	new /obj/item/geiger_counter(src)
 	new /obj/item/clothing/suit/radiation(src)
 	new /obj/item/clothing/head/radiation(src)
 
@@ -160,6 +162,7 @@
 	desc = "It's a storage unit for fire-fighting supplies."
 	icon_state = "hydrant"
 	anchored = TRUE
+	anchorable = FALSE
 	density = FALSE
 	wall_mounted = TRUE
 
@@ -179,6 +182,7 @@
 	desc = "It's wall-mounted storage unit for first aid supplies."
 	icon_state = "medical_wall"
 	anchored = TRUE
+	anchorable = FALSE
 	density = FALSE
 	wall_mounted = TRUE
 

@@ -19,8 +19,8 @@
 		PREPOSITIONAL = "самодельной взрывчатке",
 	)
 
-/obj/item/grenade/iedcasing/New()
-	..()
+/obj/item/grenade/iedcasing/Initialize(mapload)
+	. = ..()
 	add_overlay("improvised_grenade_filled")
 	add_overlay("improvised_grenade_wired")
 	times = list("5" = 1 SECONDS, "-1" = 2 SECONDS, "[randfloat(3 SECONDS, 8 SECONDS)]" = 5 SECONDS, "[randfloat(6.5 SECONDS, 18 SECONDS)]" = 2 SECONDS)// "Premature, Dud, Short Fuse, Long Fuse"=[weighting value]
@@ -95,24 +95,24 @@
 		return
 	icon_state = initial(icon_state)
 
-/obj/item/grenade/iedsatchel/afterattack(atom/T, mob/user, proximity, params)
-	if(!proximity)
+/obj/item/grenade/iedsatchel/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag)
 		return
-	if(!iswallturf(T) && !is_airlock(T))
+	if(!iswallturf(target) && !is_airlock(target))
 		return
 	to_chat(user, span_notice("You start planting the [src]."))
 
-	if(do_after(user, 5 SECONDS * toolspeed, T, category = DA_CAT_TOOL))
+	if(do_after(user, 5 SECONDS * toolspeed, target, category = DA_CAT_TOOL))
 		if(!user.drop_transfer_item_to_loc(src, user.loc))
 			return
 		set_anchored(TRUE)
-		target = T
+		src.target = target
 
-		pixel_w = (T.x - x)*32
-		pixel_z = (T.y - y)*32
+		pixel_w = (target.x - x) * 32
+		pixel_z = (target.y - y) * 32
 		layer = ABOVE_OBJ_LAYER
 
-		add_game_logs("planted [src] on [T.name] at [T.loc]", user)
+		add_game_logs("planted [src] on [target.name] at [target.loc]", user)
 		update_icon(UPDATE_ICON_STATE)
 		to_chat(user, span_notice("You plant the [src]."))
 
@@ -146,7 +146,7 @@
 	if(active)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(I.get_heat())
+	if(I.get_temperature())
 		trigger(user)
 		return ATTACK_CHAIN_BLOCKED_ALL
 

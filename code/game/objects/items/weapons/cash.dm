@@ -120,8 +120,8 @@
 /obj/item/stack/spacecash/ussp/c1000
 	amount = 1000
 
-/obj/item/stack/spacecash/ussp/New(loc, amt = null)
-	..()
+/obj/item/stack/spacecash/ussp/Initialize(mapload, new_amount, merge)
+	. = ..()
 	update_icon()
 
 /obj/item/stack/spacecash/ussp/update_icon_state()

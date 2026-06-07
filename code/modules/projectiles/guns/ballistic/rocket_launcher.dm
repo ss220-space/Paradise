@@ -1,0 +1,54 @@
+/obj/item/gun/rocketlauncher
+	var/projectile
+	name = "rocket launcher"
+	desc = "Say hello to my little friend"
+	icon_state = "rocket"
+	item_state = "launcher"
+	w_class = WEIGHT_CLASS_BULKY
+	throw_speed = 2
+	throw_range = 10
+	origin_tech = "combat=6"
+	var/missile_speed = 2
+	var/missile_range = 30
+	var/max_rockets = 1
+	var/list/rockets = new/list()
+
+/obj/item/gun/rocketlauncher/examine(mob/user)
+	. = ..()
+	. += span_notice("[length(rockets)] / [max_rockets] rockets.")
+
+/obj/item/gun/rocketlauncher/Destroy()
+	QDEL_LIST(rockets)
+	rockets = null
+	return ..()
+
+/obj/item/gun/rocketlauncher/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/ammo_casing/rocket))
+		add_fingerprint(user)
+		if(length(rockets) >= max_rockets)
+			to_chat(user, span_warning("The [name] cannot hold more rockets."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		rockets += I
+		to_chat(user, span_notice("You have put [I] into [src]. In now contains <b>[length(rockets)]/[max_rockets]</b> rockets."))
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
+/obj/item/gun/rocketlauncher/can_shoot(mob/user)
+	return rockets.len
+
+/obj/item/gun/rocketlauncher/process_fire(zone_override, secondary_fire = FALSE)
+	var/mob/living/user = gun_user
+	if(length(rockets))
+		var/obj/item/ammo_casing/rocket/I = rockets[1]
+		var/obj/item/missile/M = new /obj/item/missile(user.loc)
+		playsound(user.loc, 'sound/weapons/gunshots/1launcher.ogg', 70, TRUE)
+		M.primed = 1
+		M.throw_at(target, missile_range, missile_speed, user, 1)
+		add_attack_logs(user, target, "fired rocket launcher [name]")
+		rockets -= I
+		qdel(I)
+	else
+		to_chat(user, span_warning("[src] is empty."))

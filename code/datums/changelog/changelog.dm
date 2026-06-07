@@ -28,7 +28,7 @@ GLOBAL_VAR_INIT(changelog_hash, "")
 	var/list/data = list("dates" = list())
 	var/regex/ymlRegex = regex(@"\.yml", "g")
 
-	for(var/archive_file in sortTim(flist("html/changelogs/archive/"), cmp = /proc/cmp_text_asc))
+	for(var/archive_file in sort_list(flist("html/changelogs/archive/")))
 		var/archive_date = ymlRegex.Replace(archive_file, "")
 		data["dates"] = list(archive_date) + data["dates"]
 
@@ -37,6 +37,7 @@ GLOBAL_VAR_INIT(changelog_hash, "")
 /client/verb/changelog()
 	set name = "Журнал обновлений"
 	set category = VERB_CATEGORY_OOC
+
 	if(!GLOB.changelog_tgui)
 		GLOB.changelog_tgui = new /datum/changelog()
 

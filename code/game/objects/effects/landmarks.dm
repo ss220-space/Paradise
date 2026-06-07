@@ -5,11 +5,6 @@
 	invisibility = INVISIBILITY_ABSTRACT
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
-// OK. code\modules\ruins\lavalandruin_code\necropolis_lavalend.dm
-// There is UNREAL SHIT along this path. It is the only reason for the commented initialization.
-// I'm not sure if this is a good thing, but I'm not going to refactor it.
-//INITIALIZE_IMMEDIATE(/obj/effect/landmark)
-
 /obj/effect/landmark/Initialize(mapload)
 	. = ..()
 	set_tag()
@@ -26,7 +21,7 @@
 /obj/effect/landmark/ex_act()
 	return
 
-/obj/effect/landmark/singularity_pull()
+/obj/effect/landmark/singularity_pull(atom/singularity, current_size)
 	return
 
 /obj/effect/landmark/singularity_act()
@@ -404,7 +399,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 	icon_state = "Prisoner"
 
 /obj/effect/landmark/start/chief_engineer
-	name = JOB_TITLE_CHIEF
+	name = JOB_TITLE_CHIEF_ENGINEER
 	icon_state = "CE"
 
 /obj/effect/landmark/start/engineer
@@ -420,7 +415,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 	icon_state = "Atmos"
 
 /obj/effect/landmark/start/mechanic
-	name = JOB_TITLE_MECHANIC
+	name = JOB_TITLE_SPACEPOD_TECHNICIAN
 	icon_state = "Mechanic"
 
 /obj/effect/landmark/start/cmo
@@ -432,7 +427,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 	icon_state = "MD"
 
 /obj/effect/landmark/start/intern
-	name = JOB_TITLE_INTERN
+	name = JOB_TITLE_MEDICAL_INTERN
 	icon_state = "Intern"
 
 /obj/effect/landmark/start/coroner
@@ -468,7 +463,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 	icon_state = "Sci"
 
 /obj/effect/landmark/start/student_sientist
-	name = JOB_TITLE_SCIENTIST_STUDENT
+	name = JOB_TITLE_SCIENCE_STUDENT
 	icon_state = "Student_Sci"
 
 /obj/effect/landmark/start/roboticist
@@ -524,10 +519,10 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 	icon_state = "BS"
 
 /obj/effect/landmark/start/magistrate
-	name = JOB_TITLE_JUDGE
+	name = JOB_TITLE_MAGISTRATE
 	icon_state = "Magi"
 
-/obj/effect/landmark/start/internal_affairs
+/obj/effect/landmark/start/lawyer
 	name = JOB_TITLE_LAWYER
 	icon_state = "IAA"
 
@@ -578,6 +573,10 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 /obj/effect/landmark/start/chaplain
 	name = JOB_TITLE_CHAPLAIN
 	icon_state = "Chap"
+
+/obj/effect/landmark/start/investor
+	name = JOB_TITLE_INVESTOR
+	icon_state = "Investor"
 
 // MARK: COSTUME
 /// Costume spawner, selects a random subclass and disappears
@@ -770,7 +769,28 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 /obj/effect/landmark/ruin/Destroy()
 	GLOB.ruin_landmarks -= src
 	ruin_template = null
+	return ..()
+
+/**
+ * MARK: Event Spawn
+ * Generic event spawn points
+ *
+ * These are placed in locales where there are likely to be players, and places which are identifiable at a glance -
+ * Such as public hallways, department rooms, head of staff offices, and non-generic maintenance locations
+ *
+ * Used in events to cause effects in locations where it is likely to effect players
+ */
+/obj/effect/landmark/event_spawn
+	name = "generic event spawn"
+	icon_state = "generic_event"
+
+/obj/effect/landmark/event_spawn/Initialize(mapload)
 	. = ..()
+	GLOB.generic_event_spawns += src
+
+/obj/effect/landmark/event_spawn/Destroy()
+	GLOB.generic_event_spawns -= src
+	return ..()
 
 // MARK: OVERRIDE (shit)
 /obj/effect/landmark/start_override
@@ -808,11 +828,76 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 /obj/effect/landmark/start_override/prisoner
 	connected_outfit = /datum/outfit/job/assistant/prisoner
 
-// MARK: Game tests
+// MARK: Unit Tests
 /// Marks the bottom left of the testing zone.
-/obj/effect/landmark/game_test/bottom_left_corner
-	name = "game test zone bottom left"
+/obj/effect/landmark/unit_test/bottom_left_corner
+	name = "unit test zone bottom left"
 
 /// Marks the top right of the testing zone.
-/obj/effect/landmark/game_test/top_right_corner
-	name = "game test zone top right"
+/obj/effect/landmark/unit_test/top_right_corner
+	name = "unit test zone top right"
+
+/obj/effect/landmark/start/hangover
+	name = "hangover spawn"
+	icon_state = "hangover_spawn"
+
+	/// A list of everything this hangover spawn created as part of the hangover station trait
+	var/list/hangover_debris = list()
+
+	/// A list of everything this hangover spawn created as part of the birthday station trait
+	var/list/party_debris = list()
+
+	/// Whether our landmark was taken
+	var/used = FALSE
+
+/obj/effect/landmark/start/hangover/Destroy()
+	hangover_debris = null
+	party_debris = null
+	return ..()
+
+/obj/effect/landmark/start/hangover/Initialize(mapload)
+	. = ..()
+	create_debris(get_turf(src))
+
+/obj/effect/landmark/start/hangover/proc/create_debris(turf/our_turf)
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_BIRTHDAY))
+		party_debris += new /obj/effect/decal/cleanable/confetti(get_turf(src)) //a birthday celebration can also be a hangover
+		var/list/bonus_confetti = GLOB.alldirs
+		for(var/confettis in bonus_confetti)
+			var/party_turf_to_spawn_on = get_step(src, confettis)
+			if(!issimulatedturf(party_turf_to_spawn_on))
+				continue
+			if(iswallturf(party_turf_to_spawn_on))
+				continue
+			var/dense_object = FALSE
+			for(var/atom/content in party_turf_to_spawn_on)
+				if(content.density)
+					dense_object = TRUE
+					break
+			if(dense_object)
+				continue
+			if(prob(50))
+				party_debris += new /obj/effect/decal/cleanable/confetti(party_turf_to_spawn_on)
+			if(prob(10))
+				party_debris += new /obj/item/toy/balloon(party_turf_to_spawn_on)
+
+	if(!HAS_TRAIT(SSstation, STATION_TRAIT_HANGOVER))
+		return
+	if(prob(80))
+		hangover_debris += new /obj/effect/decal/cleanable/vomit(our_turf)
+	if(prob(70))
+		var/bottle_count = rand(1, 4)
+		for(var/index in 1 to bottle_count)
+			var/turf/turf_to_spawn_on = get_step(our_turf, pick(GLOB.alldirs))
+			if(!issimulatedturf(turf_to_spawn_on))
+				continue
+			if(iswallturf(turf_to_spawn_on))
+				continue
+			var/dense_object = FALSE
+			for(var/atom/content in turf_to_spawn_on.contents)
+				if(content.density)
+					dense_object = TRUE
+					break
+			if(dense_object)
+				continue
+			hangover_debris += new /obj/item/reagent_containers/food/drinks/cans/beer/almost_empty(turf_to_spawn_on)

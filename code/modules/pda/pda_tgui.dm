@@ -58,6 +58,8 @@
 		"template" = current_app.template,
 		"has_back" = current_app.has_back)
 
+	data["current_theme"] = current_theme || "nanotrasen"
+
 	current_app.update_ui(user, data)
 
 	return data
@@ -67,7 +69,7 @@
 	if(..())
 		return
 
-	add_fingerprint(usr)
+	add_fingerprint(ui.user)
 
 	. = TRUE
 	switch(action)
@@ -121,11 +123,47 @@
 				request_cartridge = null
 				update_shortcuts()
 		if("Authenticate") //Checks for ID
-			id_check(usr, in_pda_usage = TRUE)
+			id_check(ui.user, in_pda_usage = TRUE)
+		if("Available_Ringtones")
+			ttone = params["selected_ringtone"]
 		if("Ringtone")
 			if(!silent)
 				playsound(src, 'sound/machines/terminal_select.ogg', 15, TRUE)
 			return set_ringtone(ui.user)
+		if("CycleTheme")
+			var/list/themes = list(
+				"nanotrasen",
+				"ntos_darkmode",
+				"ntos_roboblue",
+
+				"ntos_cat",
+				"ntos_roboquest",
+				"ntos_spooky",
+				"ntos_synth",
+				"ntos_terminal",
+
+				"abductor",
+				"admin",
+				"cargo",
+				"changeling",
+				"clockwork",
+				"hackerman",
+				"honker",
+				"infernal",
+				"malfunction",
+				"safe",
+				"spider_clan",
+			)
+			var/current_index = themes.Find(current_theme)
+			if(!current_index || current_index >= themes.len)
+				current_index = 1
+			else
+				current_index++
+			current_theme = themes[current_index]
+			ui_interact(ui.user)
+			return TRUE
+		if("VPNConnect")
+			return vpn_connect(ui.user)
 		else
 			if(current_app)
 				. = current_app.ui_act(action, params, ui, state) // It needs proxying through down here so apps actually have their interacts called

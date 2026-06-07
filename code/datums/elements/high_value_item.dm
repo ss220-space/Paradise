@@ -16,9 +16,11 @@ GLOBAL_LIST_EMPTY(high_value_items)
 		return
 
 	var/turf/turf_loc = get_turf(source)
-	if(turf_loc)
-		message_admins("[source] has been destroyed in [get_area(turf_loc)] at [ADMIN_COORDJMP(turf_loc)].")
-		log_game("[source] has been destroyed at ([turf_loc.x],[turf_loc.y],[turf_loc.z]) in the location [turf_loc.loc].")
-	else
-		message_admins("[source] has been destroyed in nullspace.")
-		log_game("[source] has been destroyed in nullspace.")
+	if(SSticker.current_state == GAME_STATE_PLAYING)
+		if(turf_loc)
+			message_admins("[source] has been destroyed in [get_area(turf_loc)] at [ADMIN_COORDJMP(turf_loc)].")
+			log_game("[source] has been destroyed at ([turf_loc.x],[turf_loc.y],[turf_loc.z]) in the location [turf_loc.loc].")
+		else
+			message_admins("[source] has been destroyed in nullspace.")
+			log_game("[source] has been destroyed in nullspace.")
+	GLOB.high_value_items -= source

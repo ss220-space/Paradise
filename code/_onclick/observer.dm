@@ -14,10 +14,10 @@
 
 	if(can_reenter_corpse && mind?.current)
 		if(A == mind.current || (mind.current in A)) // double click your corpse or whatever holds it
-			reenter_corpse()						// (cloning scanner, body bag, closet, mech, etc)
-			return									// seems legit.
+			reenter_corpse() // (cloning scanner, body bag, closet, mech, etc)
+			return // seems legit.
 
-	if(istype(A, /mob/living) && orbit_menu?.auto_observe)
+	if(isliving(A) && orbit_menu?.auto_observe)
 		var/mob/living/eye_mob = A
 		do_observe(eye_mob)
 
@@ -84,7 +84,7 @@
 	if(SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_GHOST, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return TRUE
 	if(user.client)
-		if(isobserver(user) && user.gas_scan && atmos_scan(user = user, target = src, silent = TRUE))
+		if(isobserver(user) && user.gas_scan && atmos_scan(user = user, target = src, silent = TRUE, milla_turf_details = check_rights(R_DEBUG, FALSE)))
 			return TRUE
 	return FALSE
 

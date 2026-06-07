@@ -11,6 +11,10 @@
 	var/datum/port/output/value
 	should_listen = TRUE
 
+/obj/item/circuit_component/variable/getter/Destroy()
+	value = null
+	. = ..()
+
 /obj/item/circuit_component/variable/getter/populate_ports()
 	value = add_output_port("Значение", PORT_TYPE_ANY)
 

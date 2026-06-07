@@ -177,15 +177,15 @@
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi',
 	)
 
-/obj/item/clothing/under/rank/internalaffairs
-	desc = "The plain, professional attire of an Internal Affairs Agent. The collar is <i>immaculately</i> starched."
-	name = "Internal Affairs uniform"
+/obj/item/clothing/under/rank/lawyer
+	desc = "The plain, professional attire of a Lawyer. The collar is <i>immaculately</i> starched."
+	name = "lawyer uniform"
 	icon_state = "internalaffairs"
 	item_state = "internalaffairs"
 	item_color = "internalaffairs"
 
-/obj/item/clothing/under/rank/internalaffairs/skirt
-	name = "Internal Affairs uniform with skirt"
+/obj/item/clothing/under/rank/lawyer/skirt
+	name = "lawyer uniform with skirt"
 	icon_state = "internalaffairsf"
 	item_state = "internalaffairsf"
 	item_color = "internalaffairsf"
@@ -209,7 +209,7 @@
 	name = "janitor's jumpsuit"
 	icon_state = "janitor"
 	item_color = "janitor"
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 10, RAD = 0, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 10, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/under/lawyer
 	name = "Lawyer suit"

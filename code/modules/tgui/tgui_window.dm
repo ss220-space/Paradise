@@ -17,7 +17,7 @@
 	var/subscriber_delegate
 	var/fatally_errored = FALSE
 	var/message_queue
-	var/sent_assets = list()
+	var/list/sent_assets = list()
 	// Vars passed to initialize proc (and saved for later)
 	var/initial_strict_mode
 	var/initial_fancy
@@ -49,6 +49,9 @@
 	subscriber_object = null
 	client.tgui_windows[id] = null
 	client = null
+	message_queue = null
+	oversized_payloads = null
+	sent_assets = null
 	. = ..()
 
 /**
@@ -400,6 +403,9 @@
 			var/payload_id = payload["id"]
 			append_payload_chunk(payload_id, payload["chunk"])
 			send_message("acknowlegePayloadChunk", list("id" = payload_id))
+
+/datum/tgui_window/vv_edit_var(var_name, var_value)
+	return var_name != NAMEOF(src, id) && ..()
 
 /datum/tgui_window/proc/create_oversized_payload(payload_id, message_type, chunk_count)
 	if(oversized_payloads[payload_id])

@@ -1,6 +1,6 @@
 /datum/data/pda/app/request_console
-	name = "Request Consoles"
-	title = "Request Consoles"
+	name = "Консоль запросов"
+	title = "Консоль запросов"
 	icon = "archive"
 	template = "pda_request_console"
 	category = "Request Console"
@@ -28,9 +28,9 @@
 	selected_console = null
 	for(var/obj/machinery/requests_console/console as anything in possible_consoles)
 		UnregisterSignal(console, list(COMSIG_QDELETING, COMSIG_REQUEST_CONSOLE_MESSAGE))
-	QDEL_NULL(possible_consoles)
-	QDEL_NULL(consoles_mute)
-	. = ..()
+	possible_consoles = null
+	consoles_mute = null
+	return ..()
 
 /datum/data/pda/app/request_console/proc/on_rc_destroyed(datum/source)
 	SIGNAL_HANDLER
@@ -129,7 +129,7 @@
 	department_list = list(RC_SECURITY)
 
 /datum/data/pda/app/request_console/lawyer
-	department_list = list(RC_INTERNAL_AFFAIRS_OFFICE)
+	department_list = list(RC_LAWYER_OFFICE)
 
 /datum/data/pda/app/request_console/medical
 	department_list = list(
@@ -249,13 +249,13 @@
 	department_list = list(
 		RC_NT_REPRESENTATIVE,
 		RC_BLUESHIELD,
-		RC_INTERNAL_AFFAIRS_OFFICE,
+		RC_LAWYER_OFFICE,
 		RC_BRIDGE,
 	)
 
 /datum/data/pda/app/request_console/magistrate
 	department_list = list(
-		RC_INTERNAL_AFFAIRS_OFFICE,
+		RC_LAWYER_OFFICE,
 		RC_BRIDGE,
 	)
 
@@ -305,7 +305,7 @@
 		RC_BRIDGE,
 		RC_AI,
 		RC_BLUESHIELD,
-		RC_INTERNAL_AFFAIRS_OFFICE,
+		RC_LAWYER_OFFICE,
 		RC_NT_REPRESENTATIVE,
 		RC_CENTRAL_COMMAND,
 		RC_CAPTAIN_DESK,

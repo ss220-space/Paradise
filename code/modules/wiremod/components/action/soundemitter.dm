@@ -34,6 +34,14 @@
 
 	var/list/options_map
 
+/obj/item/circuit_component/soundemitter/Destroy()
+	options_map = null
+	sound_file = null
+	volume = null
+	backwards = null
+	frequency = null
+	. = ..()
+
 /obj/item/circuit_component/soundemitter/get_ui_notices()
 	. = ..()
 	. += create_ui_notice("Перезарядка звука: [DisplayTimeText(sound_emitter_cooldown)]", "orange", "stopwatch")

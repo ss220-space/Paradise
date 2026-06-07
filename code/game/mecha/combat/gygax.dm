@@ -7,7 +7,7 @@
 	dir_in = 1 //Facing North.
 	max_integrity = 250
 	deflect_chance = 5
-	armor = list(melee = 25, bullet = 20, laser = 30, energy = 15, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 100)
+	armor = list(melee = 25, bullet = 20, laser = 30, energy = 15, bomb = 0, bio = 0, fire = 100, acid = 100)
 	infra_luminosity = 6
 	maint_access = TRUE
 	leg_overload_coeff = 2
@@ -29,9 +29,9 @@
 /obj/mecha/combat/gygax/loaded/Initialize(mapload)
 	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/weapon/energy/taser
-	ME.attach(src)
+	ME.attach(src, MECH_HAND_LEFT)
 	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang
-	ME.attach(src)
+	ME.attach(src, MECH_HAND_RIGHT)
 
 /obj/mecha/combat/gygax/ert
 	desc = "A lightweight exosuit, painted in a blue scheme. This model appears to have some modifications for ERT."
@@ -40,7 +40,7 @@
 	initial_icon = "ntgygax"
 	max_integrity = 350
 	deflect_chance = 10
-	armor = list(melee = 35, bullet = 30, laser = 35, energy = 30, bomb = 20, bio = 0, rad = 20, fire = 100, acid = 100)
+	armor = list(melee = 35, bullet = 30, laser = 35, energy = 30, bomb = 20, bio = 0, fire = 100, acid = 100)
 	max_temperature = 35000
 	leg_overload_coeff = 100
 	operation_req_access = list(ACCESS_CENT_SPECOPS)
@@ -53,13 +53,13 @@
 /obj/mecha/combat/gygax/ert/loaded/Initialize(mapload)
 	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/weapon/energy/taser
-	ME.attach(src)
+	ME.attach(src, MECH_HAND_RIGHT)
 	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang
-	ME.attach(src)
+	ME.attach(src, MECH_HAND_RIGHT)
 	ME = new /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser
-	ME.attach(src)
+	ME.attach(src, MECH_HAND_LEFT)
 
 /obj/mecha/combat/gygax/ert/add_cell()
 	cell = new /obj/item/stock_parts/cell/bluespace(src)
@@ -71,7 +71,7 @@
 	initial_icon = "darkgygax"
 	max_integrity = 300
 	deflect_chance = 20
-	armor = list(melee = 40, bullet = 40, laser = 50, energy = 35, bomb = 20, bio = 0, rad = 20, fire = 100, acid = 100)
+	armor = list(melee = 40, bullet = 40, laser = 50, energy = 35, bomb = 20, bio = 0, fire = 100, acid = 100)
 	max_temperature = 35000
 	operation_req_access = list(ACCESS_SYNDICATE)
 	maint_access = FALSE
@@ -95,7 +95,7 @@
 /obj/mecha/combat/gygax/dark/loaded/Initialize(mapload)
 	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot/syndi
-	ME.attach(src)
+	ME.attach(src, MECH_HAND_LEFT)
 	ME = new /obj/item/mecha_parts/mecha_equipment/anticcw_armor_booster
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster

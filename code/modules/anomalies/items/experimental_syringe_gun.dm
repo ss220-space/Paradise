@@ -144,7 +144,7 @@
 	for(var/obj/item/reagent_containers/syringe/slime in syringes)
 		ready_reagents.reagents.trans_to(slime, ready_reagents.reagents.total_volume)
 
-/obj/item/gun/syringe/rapidsyringe/experimental/afterattack(atom/target, mob/living/user, flag, params)
+/obj/item/gun/syringe/rapidsyringe/experimental/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(!isglassreagentcontainer(target))
 		return ..()
 

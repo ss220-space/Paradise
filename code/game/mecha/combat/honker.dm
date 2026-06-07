@@ -7,7 +7,7 @@
 	max_integrity = 140
 	deflect_chance = 60
 	internal_damage_threshold = 60
-	armor = list(MELEE = -20, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 100)
+	armor = list(MELEE = -20, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 100, ACID = 100)
 	infra_luminosity = 5
 	maint_access = TRUE
 	operation_req_access = list(ACCESS_CLOWN)
@@ -23,11 +23,11 @@
 /obj/mecha/combat/honker/loaded/Initialize(mapload)
 	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/weapon/honker
-	ME.attach(src)
+	ME.attach(src, MECH_HAND_LEFT)
 	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/banana_mortar
-	ME.attach(src)
+	ME.attach(src, MECH_HAND_RIGHT)
 	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/mousetrap_mortar
-	ME.attach(src)
+	ME.attach(src, MECH_HAND_RIGHT)
 
 /obj/mecha/combat/honker/mechstep(direction)
 	var/result = step(src,direction)

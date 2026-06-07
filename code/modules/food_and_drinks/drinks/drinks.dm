@@ -4,21 +4,23 @@
 /obj/item/reagent_containers/food/drinks
 	name = "drink"
 	desc = "Вкусняшка."
+	gender = MALE
 	icon = 'icons/obj/drinks.dmi'
 	icon_state = null
 	container_type = OPENCONTAINER
 	consume_sound = 'sound/items/drink.ogg'
-	possible_transfer_amounts = list(5,10,15,20,25,30,50)
+	possible_transfer_amounts = list(5, 10, 15, 20, 25, 30, 50)
 	visible_transfer_rate = TRUE
 	resistance_flags = NONE
 	antable = FALSE
-	var/chugging = FALSE
 	foodtype = ALCOHOL
+	interaction_flags_mouse_drop = NEED_HANDS
+	var/chugging = FALSE
 
-/obj/item/reagent_containers/food/drinks/New()
-	..()
-	pixel_x = rand(-5, 5)
-	pixel_y = rand(-5, 5)
+/obj/item/reagent_containers/food/drinks/Initialize(mapload)
+	. = ..()
+	pixel_x = base_pixel_x + rand(-5, 5)
+	pixel_y = base_pixel_y + rand(-5, 5)
 	bitesize = amount_per_transfer_from_this
 	if(bitesize < 5)
 		bitesize = 5
@@ -83,32 +85,43 @@
 		return
 
 /obj/item/reagent_containers/food/drinks/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
-	if(!iscarbon(over_object) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
-		return ..()
+	if(!iscarbon(over_object))
+		return
+
 	var/mob/living/carbon/chugger = over_object
+
 	if(!(container_type & DRAINABLE))
 		balloon_alert(chugger, "сначала откройте!")
 		return
+
 	if(!get_location_accessible(chugger, BODY_ZONE_PRECISE_MOUTH))
 		balloon_alert(chugger, "ваш рот чем-то закрыт!")
 		return
-	if(reagents.total_volume && loc == chugger && src == chugger.get_active_hand())
-		chugger.visible_message(span_notice("[chugger] поднос[PLUR_IT_YAT(chugger)] [declent_ru(ACCUSATIVE)] к своему рту и начина[PLUR_ET_YUT(chugger)] [pick("цедить", "прихлёбывать", "медленно пить", "пить", "попивать", "хлебать", "потягивать")] содержимое."),
-			span_notice("Вы подносите [declent_ru(ACCUSATIVE)] к своему рту и начинаете [pick("цедить", "прихлёбывать", "медленно пить", "пить", "попивать", "хлебать", "потягивать")] содержимое."),
-			span_notice("Вы слышите звуки, походящие на питьё чего-то."))
-		chugging = TRUE
-		while(do_after(chugger, 4 SECONDS, chugger, progress = FALSE, max_interact_count = 1, cancel_on_max = TRUE, cancel_message = span_warning("You stop chugging [src].")))
-			chugger.eat(src, chugger, 25) //Half of a glass, quarter of a bottle.
-			if(!reagents.total_volume) //Finish in style.
-				chugger.emote("gasp")
-				chugger.visible_message(span_notice("[chugger] [pick("залпом", "за раз", "в один присест", "не отрываясь от горла", "полностью", "досуха")] выпива[PLUR_ET_YUT(chugger)] содержимое [declent_ru(GENITIVE)]."),
-					span_notice("Вы [pick("залпом", "за раз", "в один присест", "не отрываясь от горла", "полностью", "досуха")] выпиваете содержимое [declent_ru(GENITIVE)]."),
-					span_notice("Вы слышите громкие глотки и последующий громкий выдох."))
-				break
-		chugging = FALSE
 
-/obj/item/reagent_containers/food/drinks/afterattack(obj/target, mob/user, proximity, params)
-	if(!proximity)
+	if(!reagents.total_volume || loc != chugger || src != chugger.get_active_hand())
+		return
+
+	chugger.visible_message(
+		span_notice("[chugger] поднос[PLUR_IT_YAT(chugger)] [declent_ru(ACCUSATIVE)] к своему рту и начина[PLUR_ET_YUT(chugger)] [pick("цедить", "прихлёбывать", "медленно пить", "пить", "попивать", "хлебать", "потягивать")] содержимое."),
+		span_notice("Вы подносите [declent_ru(ACCUSATIVE)] к своему рту и начинаете [pick("цедить", "прихлёбывать", "медленно пить", "пить", "попивать", "хлебать", "потягивать")] содержимое."),
+		span_notice("Вы слышите звуки, походящие на питьё чего-то.")
+	)
+
+	chugging = TRUE
+	while(do_after(chugger, 4 SECONDS, chugger, progress = FALSE, max_interact_count = 1, cancel_on_max = TRUE, cancel_message = span_warning("You stop chugging [src].")))
+		chugger.eat(src, chugger, 25)
+		if(!reagents.total_volume)
+			chugger.emote("gasp")
+			chugger.visible_message(
+				span_notice("[chugger] [pick("залпом", "за раз", "в один присест", "не отрываясь от горла", "полностью", "досуха")] выпива[PLUR_ET_YUT(chugger)] содержимое [declent_ru(GENITIVE)]."),
+				span_notice("Вы [pick("залпом", "за раз", "в один присест", "не отрываясь от горла", "полностью", "досуха")] выпиваете содержимое [declent_ru(GENITIVE)]."),
+				span_notice("Вы слышите громкие глотки и последующий громкий выдох.")
+			)
+			break
+	chugging = FALSE
+
+/obj/item/reagent_containers/food/drinks/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag)
 		return
 
 	if(chugging)
@@ -218,13 +231,6 @@
 //	rather then having to add it to something else first. They should only contain liquids. They have a default container size of 50.
 //	Formatting is the same as food.
 
-/obj/item/reagent_containers/food/drinks/coffee
-	name = "Robust Coffee"
-	desc = "Careful, the beverage you're about to enjoy is extremely hot."
-	icon_state = "coffee"
-	list_reagents = list("coffee" = 30)
-	resistance_flags = FREEZE_PROOF
-
 /obj/item/reagent_containers/food/drinks/ice
 	name = "ice cup"
 	desc = "Стаканчик льда. Не жуйте, а то горло болеть будет."
@@ -249,9 +255,9 @@
 	list_reagents = list("tea" = 30)
 
 /obj/item/reagent_containers/food/drinks/tea/Initialize(mapload)
+	. = ..()
 	if(prob(20))
 		reagents.add_reagent("mugwort", 3)
-	. = ..()
 
 /obj/item/reagent_containers/food/drinks/mugwort
 	name = "mugwort tea"
@@ -291,9 +297,9 @@
 	list_reagents = list("dry_ramen" = 30)
 
 /obj/item/reagent_containers/food/drinks/dry_ramen/Initialize(mapload)
+	. = ..()
 	if(prob(20))
 		reagents.add_reagent("enzyme", 3)
-	. = ..()
 
 /obj/item/reagent_containers/food/drinks/chicken_soup
 	name = "canned chicken soup"
@@ -414,7 +420,7 @@
 	. = ..()
 
 	if(reagents.total_volume)
-		var/image/filling = image('icons/obj/reagentfillings.dmi', "[icon_state]50")
+		var/mutable_appearance/filling = mutable_appearance('icons/obj/reagentfillings.dmi', "[icon_state]50")
 
 		switch(round(reagents.total_volume))
 			if(1 to 50)
@@ -429,7 +435,7 @@
 				filling.icon_state = "[icon_state]75"
 			if(76 to INFINITY)
 				filling.icon_state = "[icon_state]80"
-		filling.icon += mix_color_from_reagents(reagents.reagent_list)
+		filling.color = get_color_matrix_from_reagents(reagents.reagent_list)
 		. += filling
 
 	if(!is_open_container())
@@ -438,8 +444,8 @@
 /obj/item/reagent_containers/food/drinks/zaza/attack_self(mob/user)
 	if(!is_open_container())
 		container_type |= OPENCONTAINER
-		to_chat(user, span_notice("You put the lid on [src]."))
+		to_chat(user, span_notice("Вы сняли крышку с [src]."))
 	else
-		to_chat(user, span_notice("You take the lid off [src]."))
+		to_chat(user, span_notice("Вы надели крышку на [src]."))
 		container_type &= ~OPENCONTAINER
 	update_icon(UPDATE_OVERLAYS)

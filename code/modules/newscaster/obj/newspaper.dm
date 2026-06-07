@@ -92,7 +92,7 @@
 		. += span_notice("Вы должны развернуть её, если хотите прочитать.")
 	else
 		if(user.is_literate())
-			if(in_range(user, src) || istype(user, /mob/dead/observer))
+			if(in_range(user, src) || isobserver(user))
 				attack_self(user)
 			else
 				. += span_notice("Вам нужно подойти поближе, если вы хотите это прочитать.")
@@ -163,7 +163,7 @@
 			return ATTACK_CHAIN_PROCEED
 		scribble += list(list(
 			id = current_page,
-			text = new_scribble
+			text = strip_html_full(new_scribble)
 		))
 		user.visible_message(
 			span_notice("[user] дела[PLUR_ET_YUT(user)] пометку в газете."),

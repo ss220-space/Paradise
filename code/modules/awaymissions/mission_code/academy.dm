@@ -24,17 +24,18 @@
 
 //Academy Items
 
+/// The immobile, close pulling singularity seen in the academy away mission
 /obj/singularity/academy
-	dissipate = 0
-	move_self = 0
-	grav_pull = 1
+	move_self = FALSE
 
-/obj/singularity/academy/admin_investigate_setup()
-	return
+/obj/singularity/academy/Initialize(mapload)
+	. = ..()
 
-/obj/singularity/academy/process()
-	eat()
-	if(prob(1))
+	var/datum/component/singularity/singularity = singularity_component.resolve()
+	singularity?.grav_pull = 1
+
+/obj/singularity/academy/process(seconds_per_tick)
+	if(SPT_PROB(0.5, seconds_per_tick))
 		mezzer()
 
 /obj/item/clothing/glasses/meson/truesight

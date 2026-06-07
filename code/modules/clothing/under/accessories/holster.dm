@@ -78,7 +78,7 @@
 		to_chat(user, span_warning("You can't get [next_item] now!"))
 		return
 
-	if(istype(user.get_active_hand(), /obj) && istype(user.get_inactive_hand(), /obj))
+	if(isobj(user.get_active_hand()) && isobj(user.get_inactive_hand()))
 		to_chat(user, span_warning("You need an empty hand to draw the [next_item]!"))
 	else
 		user.put_in_hands(next_item)

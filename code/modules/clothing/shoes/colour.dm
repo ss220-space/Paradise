@@ -198,7 +198,7 @@
 	update_equipped_item()
 
 /obj/item/clothing/shoes/color/orange/prison/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/restraints/handcuffs))
+	if(ishandcuffs(I))
 		add_fingerprint(user)
 		if(shackles)
 			to_chat(user, span_warning("The [name] already has [shackles] attached."))

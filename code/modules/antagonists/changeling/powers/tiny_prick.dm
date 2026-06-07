@@ -19,6 +19,9 @@
 	return ..()
 
 /datum/action/changeling/sting/Trigger(mob/clicker, trigger_flags)
+	if(!..())
+		return
+
 	if(!ischangeling(owner) || !ishuman(owner))
 		to_chat(owner, span_warning("We cannot do that in this form!"))
 		return

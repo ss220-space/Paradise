@@ -102,7 +102,8 @@
 	Use this before doing anything destructive.
 */
 /obj/effect/abstract/bluespace_rift/proc/is_close_to_singularity(radius = 15)
-	for(var/obj/singularity/singulo in GLOB.singularities)
+	for(var/datum/component/singularity/singulo_component as anything in GLOB.singularities)
+		var/atom/singulo = singulo_component.parent
 		if(src.z != singulo.z)
 			continue
 		if(get_dist(src, singulo) <= radius)
@@ -132,7 +133,7 @@
 		var/rand_y = rand(min_y, max_y)
 
 		var/turf/rand_turf = locate(rand_x, rand_y, rift_z)
-		if(istype(rand_turf.loc, /area/space))
+		if(isspacearea(rand_turf.loc))
 			continue
 
 		return rand_turf

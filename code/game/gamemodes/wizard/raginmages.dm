@@ -28,7 +28,7 @@
 	var/wizards_alive = 0
 	if(CONFIG_GET(number/traitor_scaling))
 		players_per_mage = CONFIG_GET(number/traitor_scaling)
-	var/wizard_cap = CEILING((num_players_started() / players_per_mage), 1)
+	var/wizard_cap = ceil((num_players_started() / players_per_mage))
 	max_mages = wizard_cap
 	add_game_logs("Number of wizards chosen: [wizard_cap]")
 
@@ -138,8 +138,8 @@
 			log_game("Spawned [new_character] (ckey: [new_character.key]) as Wizard as Raging Mage.")
 			return TRUE
 		else
-			log_runtime(EXCEPTION("The candidates list for ragin' mages contained non-observer entries!"), src)
-			return FALSE
+			. = FALSE
+			CRASH("The candidates list for ragin' mages contained non-observer entries!")
 
 // ripped from -tg-'s wizcode, because whee lets make a very general proc for a very specific gamemode
 // This probably wouldn't do half bad as a proc in __HELPERS

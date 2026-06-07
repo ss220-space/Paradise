@@ -103,27 +103,34 @@ fn write_png(
     image: &[u8],
     strip: bool,
 ) -> eyre::Result<()> {
+    let reader_info = reader.info();
+
     let mut encoder = Encoder::new(File::create(path)?, info.width, info.height);
     encoder.set_color(info.color_type);
     encoder.set_depth(info.bit_depth);
 
-    let reader_info = reader.info();
-    if let Some(palette) = reader_info.palette.clone() {
-        encoder.set_palette(palette);
+    if let Some(palette) = reader_info.palette.as_ref() {
+        encoder.set_palette(palette.clone());
     }
 
-    if let Some(trns_chunk) = reader_info.trns.clone() {
-        encoder.set_trns(trns_chunk);
+    if let Some(trns_chunk) = reader_info.trns.as_ref() {
+        encoder.set_trns(trns_chunk.clone());
     }
 
-    let mut writer = encoder.write_header()?;
-    // Handles zTxt chunk copying from the original image if we /don't/ want to strip it
-    if !strip {
-        for chunk in &reader_info.compressed_latin1_text {
-            writer.write_text_chunk(chunk)?;
+    {
+        let mut writer = encoder.write_header()?;
+
+        // Handles zTxt chunk copying from the original image if we /don't/ want to strip it
+        if !strip {
+            for chunk in &reader_info.compressed_latin1_text {
+                writer.write_text_chunk(chunk)?;
+            }
         }
+
+        writer.write_image_data(image)?;
     }
-    Ok(writer.write_image_data(image)?)
+
+    Ok(())
 }
 
 fn create_png(path: &str, width: &str, height: &str, data: &str) -> eyre::Result<()> {
@@ -284,8 +291,10 @@ fn inject_metadata(path: &str, metadata: &str) -> eyre::Result<()> {
     let mut reader = decoder
         .read_info()
         .map_err(|_| eyre::eyre!("Invalid PNG data"))?;
+
     let new_dmi_metadata: DmiMetadata = serde_json::from_str(metadata)?;
     let mut new_metadata_string = String::new();
+
     writeln!(new_metadata_string, "# BEGIN DMI")?;
     writeln!(new_metadata_string, "version = 4.0")?;
     writeln!(new_metadata_string, "\twidth = {}", new_dmi_metadata.width)?;
@@ -294,6 +303,7 @@ fn inject_metadata(path: &str, metadata: &str) -> eyre::Result<()> {
         "\theight = {}",
         new_dmi_metadata.height
     )?;
+
     for state in new_dmi_metadata.states {
         writeln!(new_metadata_string, "state = \"{}\"", state.name)?;
         writeln!(new_metadata_string, "\tdirs = {}", state.dirs as u8)?;
@@ -302,6 +312,7 @@ fn inject_metadata(path: &str, metadata: &str) -> eyre::Result<()> {
             "\tframes = {}",
             state.delay.as_ref().map_or(1, Vec::len)
         )?;
+
         if let Some(delay) = state.delay {
             writeln!(
                 new_metadata_string,
@@ -313,15 +324,19 @@ fn inject_metadata(path: &str, metadata: &str) -> eyre::Result<()> {
                     .join(",")
             )?;
         }
+
         if state.rewind.is_some_and(|r| r != 0) {
             writeln!(new_metadata_string, "\trewind = 1")?;
         }
+
         if state.movement.is_some_and(|m| m != 0) {
             writeln!(new_metadata_string, "\tmovement = 1")?;
         }
+
         if let Some(loop_count) = state.loop_count {
             writeln!(new_metadata_string, "\tloop = {loop_count}")?;
         }
+
         if let Some((hotspot_x, hotspot_y, hotspot_frame)) = state.hotspot {
             writeln!(
                 new_metadata_string,
@@ -329,10 +344,13 @@ fn inject_metadata(path: &str, metadata: &str) -> eyre::Result<()> {
             )?;
         }
     }
+
     writeln!(new_metadata_string, "# END DMI")?;
+
     let mut info = reader.info().clone();
     info.compressed_latin1_text
         .push(ZTXtChunk::new("Description", new_metadata_string));
+
     let mut raw_image_data: Vec<u8> = vec![];
     while let Some(row) = reader.next_row()? {
         raw_image_data.append(&mut row.data().to_vec());

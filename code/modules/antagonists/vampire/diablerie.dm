@@ -181,12 +181,12 @@
 	if(is_admin_level(vampire_turf.z))
 		return
 
-	RegisterSignal(vampire, list(COMSIG_LIVING_DEATH, COMSIG_HUMAN_DESTROYED), PROC_REF(announce_vampire_fallen))
+	RegisterSignals(vampire, list(COMSIG_LIVING_DEATH, COMSIG_HUMAN_DESTROYED), PROC_REF(announce_vampire_fallen))
 	// We send an announcment and set station sec code to GAMMA so the crew can now legally fight the diablerie-ascended vampire
 	GLOB.major_announcement.announce("Сканерами дальнего действия зафиксирован мощный всплеск блюспейс энергии, \
 		указывающий на появление вампира особого класса. Его личность — [vampire.real_name]. Дальнейшее возвышение вампира должно быть немедленно предотвращено.",
 		ANNOUNCE_CCPARANORMAL_RU,
-		'sound/AI/commandreport.ogg'
+		SSstation.announcer.get_rand_report_sound(),
 	)
 	log_game("Vampire [key_name(vampire)] reached [diablerie_count] diablerie level. Setting security level to GAMMA.")
 	addtimer(CALLBACK(SSsecurity_level, TYPE_PROC_REF(/datum/controller/subsystem/security_level, set_level), SEC_LEVEL_GAMMA), 5 SECONDS)
@@ -205,7 +205,7 @@
 	GLOB.major_announcement.announce("Сканеры дальнего действия более не фиксируют блюспейс сигнатуру вампира особого класса, \
 		возвышение было успешно предотвращено экипажем.",
 		ANNOUNCE_CCPARANORMAL_RU,
-		'sound/AI/commandreport.ogg'
+		SSstation.announcer.get_rand_report_sound(),
 	)
 	log_game("Diablerie ascended vampire [key_name(vampire)] was killed by the crew. Lowering security level to RED.")
 	addtimer(CALLBACK(SSsecurity_level, TYPE_PROC_REF(/datum/controller/subsystem/security_level, set_level), SEC_LEVEL_RED), 5 SECONDS)

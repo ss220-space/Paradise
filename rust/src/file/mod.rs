@@ -80,10 +80,15 @@ fn write(data: &str, path: &str) -> eyre::Result<usize> {
     let written = file.write(data.as_bytes())?;
 
     file.flush()?;
-    file.into_inner()
-        .map_err(|e| std::io::Error::new(e.error().kind(), e.error().to_string()))? // This is god-awful, but the compiler REFUSES to let me get an owned copy of `e`
-        .sync_all()?;
 
+    let inner_file = match file.into_inner() {
+        Ok(f) => f,
+        Err(e) => {
+            return Err(eyre::eyre!("Failed to flush buffer: {}", e.error()));
+        }
+    };
+
+    inner_file.sync_all()?;
     Ok(written)
 }
 
@@ -97,10 +102,15 @@ fn append(data: &str, path: &str) -> eyre::Result<usize> {
     let written = file.write(data.as_bytes())?;
 
     file.flush()?;
-    file.into_inner()
-        .map_err(|e| std::io::Error::new(e.error().kind(), e.error().to_string()))?
-        .sync_all()?;
 
+    let inner_file = match file.into_inner() {
+        Ok(f) => f,
+        Err(e) => {
+            return Err(eyre::eyre!("Failed to flush buffer: {}", e.error()));
+        }
+    };
+
+    inner_file.sync_all()?;
     Ok(written)
 }
 
@@ -110,6 +120,7 @@ fn get_line_count(path: &str) -> eyre::Result<u32> {
 }
 
 fn seek_line(path: &str, line: usize) -> Option<String> {
-    let file = BufReader::new(File::open(path).ok()?);
-    file.lines().nth(line).and_then(std::result::Result::ok)
+    let file = File::open(path).ok()?;
+    let reader = BufReader::new(file);
+    reader.lines().nth(line).and_then(Result::ok)
 }

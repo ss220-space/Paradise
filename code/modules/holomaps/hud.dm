@@ -7,6 +7,12 @@
 	holomap.screen_loc = ui_holomap
 	holomap.mouse_opacity = MOUSE_OPACITY_ICON
 
+	mini_holomap = new()
+	mini_holomap.name = "mini_holomap"
+	mini_holomap.icon = null
+	mini_holomap.screen_loc = ui_mini_holomap
+	mini_holomap.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+
 /atom/movable/screen/holomap
 	/// The owner. Used to get z-level data.
 	var/obj/machinery/station_map/used_station_map

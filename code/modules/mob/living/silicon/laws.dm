@@ -97,7 +97,7 @@
 
 /mob/living/silicon/proc/dostatelaws(method, prefix, datum/ai_laws/laws)
 	if(stating_laws[prefix])
-		to_chat(src, span_notice("[method]: Already stating laws using this communication method."))
+		to_chat(src, span_notice("[method]: уже оглашаем законы таким способом."))
 		return
 
 	stating_laws[prefix] = 1
@@ -110,7 +110,7 @@
 			break
 
 	if(!can_state)
-		to_chat(src, span_danger("[method]: Unable to state laws. Communication method unavailable."))
+		to_chat(src, span_danger("[method]: не удается огласить законы. Используемый метод не доступен."))
 	stating_laws[prefix] = 0
 
 /mob/living/silicon/proc/statelaw(law)
@@ -138,9 +138,18 @@
 		else
 			laws = get_random_lawset()
 
+/// Used in station event, take lawset from pool
+/mob/living/silicon/proc/make_special_laws()
+	var/list/law_options[0]
+	var/paths = subtypesof(/datum/ai_laws/unique)
+	for(var/law in paths)
+		var/datum/ai_laws/special_law = new law
+		law_options += special_law
+	laws = pick(law_options)
+
 /mob/living/silicon/proc/get_random_lawset()
 	var/list/law_options[0]
-	var/paths = subtypesof(/datum/ai_laws)
+	var/paths = subtypesof(/datum/ai_laws) - subtypesof(/datum/ai_laws/unique) // only generic laws in lawlist
 	for(var/law in paths)
 		var/datum/ai_laws/L = new law
 		if(!L.default)

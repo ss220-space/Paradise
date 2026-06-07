@@ -87,9 +87,9 @@
 	dir = 1
 	},
 /obj/structure/curtain/open{
+	anchored = 1;
 	color = "#222222";
-	name = "black curtain";
-	anchored = 1
+	name = "black curtain"
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
@@ -154,15 +154,15 @@
 /obj/structure/stone_tile/slab,
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/snacks/grown/ash_flora/fireblossom{
-	pixel_y = 4;
-	pixel_x = -8
+	pixel_x = -8;
+	pixel_y = 4
 	},
 /obj/item/reagent_containers/food/snacks/grown/ash_flora/cactus_fruit{
 	pixel_y = -5
 	},
 /obj/item/reagent_containers/food/snacks/grown/ash_flora/cactus_fruit{
-	pixel_y = 3;
-	pixel_x = 6
+	pixel_x = 6;
+	pixel_y = 3
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
@@ -415,8 +415,8 @@
 /obj/structure/stone_tile/slab,
 /obj/structure/rack/wooden,
 /obj/item/reagent_containers/food/drinks/mushroom_bowl{
-	pixel_y = 5;
-	pixel_x = 2
+	pixel_x = 2;
+	pixel_y = 5
 	},
 /obj/item/reagent_containers/food/drinks/mushroom_bowl{
 	pixel_x = -4;
@@ -483,8 +483,8 @@
 	pixel_y = -7
 	},
 /obj/item/reagent_containers/food/drinks/mushroom_bowl{
-	pixel_y = 5;
-	pixel_x = -2
+	pixel_x = -2;
+	pixel_y = 5
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
@@ -560,12 +560,12 @@
 	},
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/snacks/grown/ash_flora/mushroom_leaf{
-	pixel_y = -6;
-	pixel_x = -9
+	pixel_x = -9;
+	pixel_y = -6
 	},
 /obj/item/reagent_containers/food/snacks/grown/ash_flora/mushroom_leaf{
-	pixel_y = -2;
-	pixel_x = -9
+	pixel_x = -9;
+	pixel_y = -2
 	},
 /obj/item/reagent_containers/food/snacks/grown/ash_flora/mushroom_cap{
 	pixel_x = 2;
@@ -694,9 +694,9 @@
 "rG" = (
 /obj/structure/stone_tile/slab,
 /obj/structure/curtain/open{
+	anchored = 1;
 	color = "#222222";
-	name = "black curtain";
-	anchored = 1
+	name = "black curtain"
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
@@ -727,8 +727,8 @@
 	},
 /obj/structure/stone_tile/surrounding_tile/cracked{
 	dir = 8;
-	pixel_y = -16;
-	pixel_x = -16
+	pixel_x = -16;
+	pixel_y = -16
 	},
 /obj/structure/torch_holder/mapping{
 	dir = 8
@@ -867,15 +867,15 @@
 /obj/structure/table/wood,
 /obj/item/twohanded/spear,
 /obj/item/ammo_casing/caseless/arrow{
-	pixel_y = 7;
-	pixel_x = -4
+	pixel_x = -4;
+	pixel_y = 7
 	},
 /obj/item/ammo_casing/caseless/arrow{
 	pixel_x = 7
 	},
 /obj/item/ammo_casing/caseless/arrow{
-	pixel_y = 10;
-	pixel_x = -7
+	pixel_x = -7;
+	pixel_y = 10
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
@@ -1718,8 +1718,8 @@
 /obj/item/seeds/tower,
 /obj/item/cultivator/wooden,
 /obj/item/seeds/tower{
-	pixel_y = -7;
-	pixel_x = -10
+	pixel_x = -10;
+	pixel_y = -7
 	},
 /obj/item/seeds/tower{
 	pixel_x = 6;
@@ -1742,8 +1742,8 @@
 	pixel_y = -3
 	},
 /obj/item/shovel/spade/wooden{
-	pixel_y = 4;
-	pixel_x = -1
+	pixel_x = -1;
+	pixel_y = 4
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
@@ -1781,9 +1781,9 @@
 	dir = 4
 	},
 /obj/structure/curtain/open{
+	anchored = 1;
 	color = "#222222";
-	name = "black curtain";
-	anchored = 1
+	name = "black curtain"
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
@@ -1919,7 +1919,7 @@
 /area/ruin/unpowered/ash_walkers)
 "UU" = (
 /turf/simulated/wall/indestructible/boss,
-/area/mine/necropolis)
+/area/lavaland/surface/outdoors/necropolis)
 "Vh" = (
 /obj/structure/stone_tile/surrounding,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
@@ -1929,9 +1929,9 @@
 	dir = 4
 	},
 /obj/structure/curtain/open{
+	anchored = 1;
 	color = "#222222";
-	name = "black curtain";
-	anchored = 1
+	name = "black curtain"
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
@@ -2059,8 +2059,8 @@
 	pixel_y = -3
 	},
 /obj/item/kitchen/knife/combat/survival/bone{
-	pixel_y = 6;
-	pixel_x = -4
+	pixel_x = -4;
+	pixel_y = 6
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)

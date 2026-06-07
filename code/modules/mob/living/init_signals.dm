@@ -35,13 +35,13 @@
 
 	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_NO_BREATH), PROC_REF(on_no_breath_trait_gain))
 
-	RegisterSignal(src, list(SIGNAL_ADDTRAIT(TRAIT_IGNOREDAMAGESLOWDOWN), SIGNAL_REMOVETRAIT(TRAIT_IGNOREDAMAGESLOWDOWN)), PROC_REF(on_ignore_damage_slowdown))
+	RegisterSignals(src, list(SIGNAL_ADDTRAIT(TRAIT_IGNOREDAMAGESLOWDOWN), SIGNAL_REMOVETRAIT(TRAIT_IGNOREDAMAGESLOWDOWN)), PROC_REF(on_ignore_damage_slowdown))
 
-	RegisterSignal(src, list(SIGNAL_ADDTRAIT(TRAIT_UNDENSE), SIGNAL_REMOVETRAIT(TRAIT_UNDENSE)), PROC_REF(undense_changed))
+	RegisterSignals(src, list(SIGNAL_ADDTRAIT(TRAIT_UNDENSE), SIGNAL_REMOVETRAIT(TRAIT_UNDENSE)), PROC_REF(undense_changed))
 
-	RegisterSignal(src, list(SIGNAL_ADDTRAIT(TRAIT_NEGATES_GRAVITY), SIGNAL_REMOVETRAIT(TRAIT_NEGATES_GRAVITY)), PROC_REF(on_negate_gravity))
-	RegisterSignal(src, list(SIGNAL_ADDTRAIT(TRAIT_IGNORING_GRAVITY), SIGNAL_REMOVETRAIT(TRAIT_IGNORING_GRAVITY)), PROC_REF(on_ignore_gravity))
-	RegisterSignal(src, list(SIGNAL_ADDTRAIT(TRAIT_FORCED_GRAVITY), SIGNAL_REMOVETRAIT(TRAIT_FORCED_GRAVITY)), PROC_REF(on_force_gravity))
+	RegisterSignals(src, list(SIGNAL_ADDTRAIT(TRAIT_NEGATES_GRAVITY), SIGNAL_REMOVETRAIT(TRAIT_NEGATES_GRAVITY)), PROC_REF(on_negate_gravity))
+	RegisterSignals(src, list(SIGNAL_ADDTRAIT(TRAIT_IGNORING_GRAVITY), SIGNAL_REMOVETRAIT(TRAIT_IGNORING_GRAVITY)), PROC_REF(on_ignore_gravity))
+	RegisterSignals(src, list(SIGNAL_ADDTRAIT(TRAIT_FORCED_GRAVITY), SIGNAL_REMOVETRAIT(TRAIT_FORCED_GRAVITY)), PROC_REF(on_force_gravity))
 
 	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_PRESSURE_VISION), PROC_REF(on_pressure_vision_trait_gain))
 	RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_PRESSURE_VISION), PROC_REF(on_pressure_vision_trait_loss))
@@ -52,6 +52,9 @@
 		SIGNAL_REMOVETRAIT(TRAIT_FORCED_GRAVITY) = PROC_REF(on_loc_force_gravity),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
+
+	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_DEAF), PROC_REF(on_hearing_loss))
+	RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_DEAF), PROC_REF(on_hearing_regain))
 
 /// Called when [TRAIT_KNOCKEDOUT] is added to the mob.
 /mob/living/proc/on_knockedout_trait_gain(datum/source)
@@ -268,3 +271,13 @@
 	if(src in hud.hud_users_all_z_levels)
 		hud.hide_from(src)
 
+/// Called when [TRAIT_DEAF] is added to the mob.
+/mob/living/proc/on_hearing_loss()
+	SIGNAL_HANDLER
+	refresh_looping_ambience()
+	stop_sound_channel(CHANNEL_AMBIENCE)
+
+/// Called when [TRAIT_DEAF] is added to the mob.
+/mob/living/proc/on_hearing_regain()
+	SIGNAL_HANDLER
+	refresh_looping_ambience()

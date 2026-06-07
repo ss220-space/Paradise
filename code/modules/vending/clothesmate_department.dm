@@ -597,7 +597,7 @@
 			"name" = "Униформа",
 			"icon" = "shirt",
 			"products" = list(
-				/obj/item/clothing/under/rank/internalaffairs = 10,
+				/obj/item/clothing/under/rank/lawyer = 10,
 				/obj/item/clothing/under/lawyer/female = 10,
 				/obj/item/clothing/under/lawyer/black = 10,
 				/obj/item/clothing/under/lawyer/red = 10,

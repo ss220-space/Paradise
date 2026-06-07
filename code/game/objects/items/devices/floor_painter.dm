@@ -36,11 +36,11 @@
 		"warnwhitered", "warnwhiteorange", "warnwhiteblue", "warnwhitewhite", "warnwhitecamo", "blackfull", "brownoldfull", "escapefull",
 		"navyblue", "navybluecorners", "navybluefull", "darkgrey", "darkgreycamo", "darkgreynavyblue", "darkgreynavybluecorner")
 
-/obj/item/floor_painter/afterattack(atom/A, mob/user, proximity, params)
-	if(!proximity)
+/obj/item/floor_painter/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	if(!proximity_flag)
 		return
 
-	var/turf/simulated/floor/plasteel/F = A
+	var/turf/simulated/floor/plasteel/F = target
 
 	if(F.icon_state == floor_state && F.dir == floor_dir)
 		to_chat(user, span_notice("This is already painted [floor_state] [dir2text(floor_dir)]!"))

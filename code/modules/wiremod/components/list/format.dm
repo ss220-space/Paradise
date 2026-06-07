@@ -29,6 +29,14 @@
 	. = ..()
 	param_regex = list_param_regex
 
+/obj/item/circuit_component/format/Destroy()
+	param_regex?.context = null
+	param_regex = null
+	format_port = null
+	param_list_port = null
+	output = null
+	. = ..()
+
 /obj/item/circuit_component/format/proc/make_params_port()
 	param_list_port = add_input_port("Параметры", PORT_TYPE_LIST(PORT_TYPE_ANY))
 
@@ -87,6 +95,7 @@
  */
 /regex/format_component
 	var/obj/item/circuit_component/format/context
+
 
 /**
  * Replace %n with the actual param, as a string.

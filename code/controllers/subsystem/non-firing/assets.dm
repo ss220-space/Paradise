@@ -1,8 +1,12 @@
 SUBSYSTEM_DEF(assets)
 	name = "Assets"
-	init_order = INIT_ORDER_ASSETS
-	flags = SS_NO_FIRE
-	ss_id = "assets"
+	dependencies = list(
+		/datum/controller/subsystem/atoms,
+	//	/datum/controller/subsystem/persistent_paintings,
+		/datum/controller/subsystem/processing/greyscale
+	)
+	ss_flags = SS_NO_FIRE
+
 	/// Contains /datum/asset_cache_item
 	var/list/datum/asset_cache_item/cache = list()
 	var/list/preload = list()

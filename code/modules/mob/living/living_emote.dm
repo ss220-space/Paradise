@@ -115,7 +115,7 @@
 	else if(isalien(user))
 		var/mob/living/carbon/alien/alien = user
 		. = alien.death_message
-	else if(istype(user, /mob/living/simple_animal))
+	else if(is_simple_animal(user))
 		var/mob/living/simple_animal/animal = user
 		. = animal.deathmessage	// TODO: translate all death messages
 	if(!.)
@@ -139,7 +139,7 @@
 		var/mob/living/silicon/silicon = user
 		. = silicon.death_sound
 
-	else if(istype(user, /mob/living/simple_animal))
+	else if(is_simple_animal(user))
 		var/mob/living/simple_animal/animal = user
 		. = animal.death_sound
 

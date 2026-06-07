@@ -5,10 +5,7 @@
 /obj/machinery/light_construct{
 	dir = 8
 	},
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'HIGH VOLTAGE'";
-	icon_state = "shock";
-	name = "HIGH VOLTAGE";
+/obj/structure/sign/electricshock{
 	pixel_x = -32
 	},
 /turf/simulated/floor/bluegrid,
@@ -23,8 +20,6 @@
 /area/maintenance/club)
 "as" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dust,
@@ -93,9 +88,7 @@
 /obj/item/chair/wood/wings{
 	dir = 1
 	},
-/obj/machinery/alarm{
-	pixel_y = 24
-	},
+/obj/machinery/alarm/directional/north,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-oak"
@@ -271,8 +264,6 @@
 /area/maintenance/incinerator)
 "ik" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -309,10 +300,7 @@
 	},
 /area/maintenance/server)
 "jw" = (
-/obj/machinery/power/apc{
-	dir = 8;
-	pixel_x = -26
-	},
+/obj/machinery/power/apc/directional/west,
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
@@ -363,8 +351,7 @@
 /area/maintenance/server)
 "kG" = (
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-dead";
-	tag = "plant-dead"
+	icon_state = "plant-dead"
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood{
@@ -402,26 +389,13 @@
 /turf/simulated/floor/engine,
 /area/maintenance/incinerator)
 "ls" = (
-/obj/machinery/firealarm{
-	dir = 4;
-	name = "east fire alarm";
-	pixel_x = 24
-	},
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
-	},
+/obj/machinery/firealarm/directional/east,
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine,
 /area/maintenance/incinerator)
 "lx" = (
 /turf/simulated/wall/rust,
-/area/maintenance/club)
-"lE" = (
-/obj/effect/mapping_helpers/turfs/damage,
-/turf/simulated/floor/plating,
 /area/maintenance/club)
 "lL" = (
 /obj/item/trash/candy,
@@ -434,9 +408,8 @@
 	pixel_y = -3
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 2;
-	scrub_Toxins = 0
+/obj/machinery/atmospherics/unary/vent_scrubber/on_tox{
+	dir = 2
 	},
 /turf/simulated/floor/engine,
 /area/maintenance/incinerator)
@@ -490,8 +463,6 @@
 /area/maintenance/incinerator)
 "nQ" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden,
@@ -606,7 +577,7 @@
 /obj/structure/sign/deathsposal{
 	pixel_x = -32
 	},
-/obj/effect/decal/warning_stripes/red,
+/obj/effect/turf_decal/delivery/red,
 /turf/simulated/floor/engine,
 /area/maintenance/incinerator)
 "rT" = (
@@ -687,6 +658,15 @@
 	},
 /turf/simulated/floor/bluegrid,
 /area/maintenance/server)
+"wn" = (
+/obj/structure/table,
+/obj/item/folder/yellow,
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkpurple"
+	},
+/area/maintenance/server)
 "wp" = (
 /obj/item/clothing/gloves/color/fyellow{
 	pixel_y = -8
@@ -708,8 +688,7 @@
 /area/maintenance/club)
 "yh" = (
 /obj/structure/cable{
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -778,8 +757,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/highsecurity{
@@ -849,11 +826,7 @@
 	},
 /area/maintenance/server)
 "Bz" = (
-/obj/machinery/firealarm{
-	dir = 4;
-	name = "east fire alarm";
-	pixel_x = 24
-	},
+/obj/machinery/firealarm/directional/east,
 /obj/effect/decal/cleanable/dust,
 /obj/structure/chair/wood{
 	dir = 1
@@ -886,8 +859,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -922,17 +893,17 @@
 /turf/template_noop,
 /area/template_noop)
 "EF" = (
-/obj/machinery/alarm{
-	pixel_y = 0;
-	dir = 4;
-	pixel_x = -22
-	},
+/obj/machinery/alarm/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
 	dir = 8
 	},
 /turf/simulated/floor/engine,
 /area/maintenance/incinerator)
+"EI" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/turf/simulated/floor/plating,
+/area/maintenance/club)
 "EU" = (
 /obj/structure/chair/wood,
 /obj/effect/decal/cleanable/dust,
@@ -981,8 +952,6 @@
 	dir = 1
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -1041,18 +1010,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/maintenance/incinerator)
-"Ju" = (
-/obj/structure/table,
-/obj/item/folder/yellow,
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/item/reagent_containers/food/drinks/coffee{
-	pixel_y = 6;
-	pixel_x = -15
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkpurple"
-	},
-/area/maintenance/server)
 "JL" = (
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/decal/cleanable/dust,
@@ -1061,12 +1018,7 @@
 	},
 /area/maintenance/club)
 "JS" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
-	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/club)
@@ -1077,6 +1029,12 @@
 	},
 /turf/simulated/floor/engine,
 /area/maintenance/incinerator)
+"KA" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random_spawners/rat,
+/obj/machinery/firealarm/directional/east,
+/turf/simulated/floor/plating,
+/area/maintenance/club)
 "La" = (
 /obj/item/storage/toolbox/electrical,
 /obj/item/stack/tape_roll{
@@ -1102,8 +1060,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -1115,9 +1071,7 @@
 	},
 /area/maintenance/server)
 "Lx" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_x = 26
-	},
+/obj/structure/extinguisher_cabinet/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plasteel{
@@ -1126,10 +1080,7 @@
 	},
 /area/maintenance/server)
 "LF" = (
-/obj/machinery/firealarm{
-	pixel_y = 26;
-	pixel_x = 28
-	},
+/obj/machinery/firealarm/directional/east,
 /obj/effect/spawner/random_spawners/oil_20,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -1173,8 +1124,6 @@
 	icon_state = "1-4"
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -1196,8 +1145,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/blood/drip{
@@ -1230,8 +1177,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/multi_tile{
@@ -1259,11 +1204,7 @@
 	pixel_x = 12;
 	pixel_y = -9
 	},
-/obj/machinery/power/apc/worn_out{
-	cell_type = 0;
-	dir = 8;
-	pixel_x = -26
-	},
+/obj/machinery/power/apc/worn_out/directional/west,
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
@@ -1280,11 +1221,6 @@
 /obj/effect/spawner/random_spawners/fungus_30,
 /turf/simulated/wall,
 /area/maintenance/server)
-"PP" = (
-/obj/effect/mapping_helpers/turfs/damage,
-/obj/item/trash/pistachios,
-/turf/simulated/floor/plating,
-/area/maintenance/club)
 "PZ" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -1351,10 +1287,7 @@
 /obj/structure/chair/office/dark{
 	dir = 1
 	},
-/obj/machinery/alarm{
-	dir = 4;
-	pixel_x = -22
-	},
+/obj/machinery/alarm/directional/west,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -1392,8 +1325,7 @@
 	icon_state = "0-2"
 	},
 /obj/structure/cable{
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
@@ -1408,8 +1340,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -1461,11 +1391,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/worn_out{
-	cell_type = 0;
-	dir = 8;
-	pixel_x = -26
-	},
+/obj/machinery/power/apc/worn_out/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkpurple"
@@ -1498,8 +1424,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/mineral_door/wood,
@@ -1518,8 +1442,6 @@
 /area/maintenance/club)
 "Yp" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -1531,10 +1453,13 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/engine,
 /area/maintenance/incinerator)
+"YC" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/item/trash/pistachios,
+/turf/simulated/floor/plating,
+/area/maintenance/club)
 "YJ" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -1561,8 +1486,6 @@
 	pixel_y = -6
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -1581,11 +1504,7 @@
 /turf/simulated/floor/engine,
 /area/maintenance/incinerator)
 "Zx" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1;
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -1598,7 +1517,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -1830,7 +1748,7 @@ Ec
 Ec
 jK
 eB
-lE
+EI
 cy
 Bl
 aM
@@ -1861,7 +1779,7 @@ ep
 jC
 Wf
 as
-Ju
+wn
 SA
 HJ
 Zx
@@ -1937,11 +1855,11 @@ zp
 Ec
 Ec
 WI
-lE
+EI
 yM
 mF
 QG
-lE
+EI
 Bq
 kT
 jA
@@ -1999,7 +1917,7 @@ oJ
 JS
 TC
 yM
-PP
+YC
 Mq
 Ec
 "}
@@ -2050,7 +1968,7 @@ rY
 am
 LI
 Bz
-aS
+KA
 Na
 kG
 gO

@@ -56,6 +56,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 	belt_icon = "radio"
 	dog_fashion = /datum/dog_fashion/back
 	suffix = "\[3\]"
+	interaction_flags_atom = parent_type::interaction_flags_atom | INTERACT_ATOM_ALLOW_USER_LOCATION | INTERACT_ATOM_IGNORE_MOBILITY
 	var/last_transmission
 	/// tune to frequency to unlock traitor supplies
 	var/traitor_frequency = 0
@@ -152,6 +153,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 	set_on(FALSE)
 	SSradio?.remove_object_all(src)
 	LAZYCLEARLIST(secure_radio_connections)
+	radio_connection = null
 	GLOB.global_radios -= src
 	return ..()
 
@@ -468,12 +470,8 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 		if(muzzle.radio_mute)
 			return FALSE
 
-	var/jammed = FALSE
 	var/turf/position = get_turf(src)
-	for(var/obj/item/jammer/jammer as anything in GLOB.active_jammers)
-		if(get_dist(position, get_turf(jammer)) < jammer.range)
-			jammed = TRUE
-			break
+	var/jammed = is_within_radio_jammer_range(src)
 
 	var/message_mode = handle_message_mode(M, message_pieces, channel)
 	switch(message_mode) //special cases
@@ -515,7 +513,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 	// --- Cyborg ---
 	else if(isrobot(M))
 		var/mob/living/silicon/robot/R = M
-		jobname = R.mind.role_alt_title ? R.mind.role_alt_title : JOB_TITLE_CYBORG
+		jobname = R.mind.role_alt_title ? R.mind.role_alt_title : get_job_title_ru(JOB_TITLE_CYBORG)
 
 	// --- Personal AI (pAI) ---
 	else if(ispAI(M))

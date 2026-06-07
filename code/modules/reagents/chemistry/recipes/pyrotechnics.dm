@@ -393,7 +393,7 @@
 	result = null
 	required_reagents = list("teslium" = 5, "uranium" = 5) //uranium to this so it can't be spammed like no tomorrow without mining help.
 	result_amount = 1
-	mix_message = span_danger("The reaction releases an electrical blast!")
+	mix_message = span_danger_alt("The reaction releases an electrical blast!")
 	mix_sound = 'sound/magic/lightningbolt.ogg'
 
 /atom/proc/do_shock_ex(radius, damage = 3.5, animate = FALSE)

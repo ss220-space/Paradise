@@ -13,7 +13,7 @@
 		if(client.handle_spam_prevention(message,MUTE_IC))
 			return
 
-	if(istype(loc,/mob/living/simple_animal/borer))
+	if(isborer(loc))
 		message = trim(sanitize(copytext_char(message, 1, MAX_MESSAGE_LEN)))
 		if(!message)
 			return
@@ -34,8 +34,8 @@
 	var/mob/living/simple_animal/borer/B = loc
 
 	if(!istype(B))
-		log_runtime(EXCEPTION("Trapped mind found without a borer!"), src)
-		return FALSE
+		. = FALSE
+		CRASH("Trapped mind found without a borer!")
 
 	return B.host.say_understands(other, speaking)
 
@@ -150,9 +150,9 @@
 		PREPOSITIONAL = "мозговом черве",
 	)
 
-/mob/living/simple_animal/borer/New(atom/newloc, gen=1)
+/mob/living/simple_animal/borer/Initialize(mapload, gen = 1)
 	antag_datum.borer_rank = new BORER_RANK_YOUNG(src)
-	..(newloc)
+	. = ..()
 	remove_from_all_data_huds()
 	generation = gen
 	add_language(LANGUAGE_HIVE_BORER)
@@ -367,7 +367,7 @@
 	else
 		return ..()
 
-/mob/living/simple_animal/borer/OnUnarmedAttack(mob/living/carbon/human/human)
+/mob/living/simple_animal/borer/OnUnarmedAttack(mob/living/carbon/human/human, proximity_flag, list/modifiers)
 	if(!istype(human))
 		return
 
@@ -416,7 +416,7 @@
 
 	if(href_list["borer_use_chem"])
 		locateUID(href_list["src"])
-		if(!istype(src, /mob/living/simple_animal/borer))
+		if(!isborer(src))
 			return
 
 		var/datum/reagent/reagent = href_list["borer_use_chem"]
@@ -673,8 +673,7 @@
 		borer.detach()
 		return
 
-	log_runtime(EXCEPTION("Missing borer or missing host brain upon borer release."), src)
-	return
+	CRASH("Missing borer or missing host brain upon borer release.")
 
 //Check for brain worms in head.
 /mob/proc/has_brain_worms()

@@ -209,7 +209,7 @@
 	)
 
 /obj/item/encryptionkey/headset_iaa
-	name = "Internal Affairs Radio Encryption Key"
+	name = "Lawyer Radio Encryption Key"
 	icon_state = "/obj/item/encryptionkey/headset_sec"
 	greyscale_config = /datum/greyscale_config/encryptionkey_stripe
 	greyscale_colors = "#545454#ff296b"

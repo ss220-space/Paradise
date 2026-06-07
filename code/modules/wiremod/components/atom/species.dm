@@ -16,6 +16,11 @@
 
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL|CIRCUIT_FLAG_OUTPUT_SIGNAL
 
+/obj/item/circuit_component/species/Destroy()
+	input_port = null
+	output = null
+	. = ..()
+
 /obj/item/circuit_component/species/populate_ports()
 	input_port = add_input_port("Организм", PORT_TYPE_ATOM)
 

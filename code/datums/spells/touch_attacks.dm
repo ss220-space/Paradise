@@ -4,9 +4,9 @@
 	/// Link to the spawned item
 	var/obj/item/melee/touch_attack/attached_hand = null
 	/// Special message shown on item gain
-	var/on_gain_message = span_notice("You channel the power of the spell to your hand.")
+	var/on_gain_message = span_notice_alt("You channel the power of the spell to your hand.")
 	/// Special message shown on item withdrowal
-	var/on_withdraw_message = span_notice("You draw the power out of your hand.")
+	var/on_withdraw_message = span_notice_alt("You draw the power out of your hand.")
 
 /obj/effect/proc_holder/spell/touch/create_new_targeting()
 	return new /datum/spell_targeting/self
@@ -22,7 +22,7 @@
 
 /obj/effect/proc_holder/spell/touch/proc/charge_hand(mob/living/carbon/user)
 
-	var/obj/item/melee/touch_attack/new_hand = new hand_path(src, user)
+	var/obj/item/melee/touch_attack/new_hand = new hand_path(null, src, user)
 
 	if(user.put_in_hands(new_hand, qdel_on_fail = TRUE))
 		RegisterSignal(user, COMSIG_MOB_KEY_DROP_ITEM_DOWN, PROC_REF(discharge_hand))

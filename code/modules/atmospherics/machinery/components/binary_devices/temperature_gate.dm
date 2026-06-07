@@ -71,8 +71,10 @@
 	if(removed && removed.total_moles() > 0)
 		air2.merge(removed)
 
-	parent1.update = TRUE
-	parent2.update = TRUE
+	if(parent1)
+		parent1.update = TRUE
+	if(parent2)
+		parent2.update = TRUE
 
 	return TRUE
 

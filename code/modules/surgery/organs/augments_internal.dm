@@ -11,14 +11,16 @@
 	righthand_file = 'icons/mob/inhands/implants_righthand.dmi'
 	abstract_type = /obj/item/organ/internal/cyberimp
 
-/obj/item/organ/internal/cyberimp/New(mob/M = null)
+/obj/item/organ/internal/cyberimp/Initialize(mapload, mob/M = null)
 	. = ..()
 	if(implant_overlay)
 		var/image/overlay = new /image(icon, implant_overlay)
 		overlay.color = implant_color
 		overlays |= overlay
 
-/obj/item/organ/internal/cyberimp/emp_act()
+/obj/item/organ/internal/cyberimp/emp_act(severity)
+	if(emp_shielded(severity))
+		return
 	return // These shouldn't be hurt by EMPs in the standard way
 
 /obj/item/organ/internal/cyberimp/can_insert(mob/living/user, mob/living/carbon/target, fail_message = "Данное устройство не предусмотрено для существ с подобной анатомией.")
@@ -35,6 +37,8 @@
 
 /obj/item/organ/internal/cyberimp/brain/emp_act(severity)
 	if(!owner || emp_proof)
+		return
+	if(emp_shielded(severity))
 		return
 	var/stun_amount = (5 + (severity-1 ? 0 : 5)) STATUS_EFFECT_CONSTANT
 	owner.Stun(stun_amount)
@@ -53,6 +57,22 @@
 	slot = INTERNAL_ORGAN_BRAIN_ANTIDROP
 	origin_tech = "materials=4;programming=5;biotech=4"
 	actions_types = list(/datum/action/item_action/organ_action/toggle)
+
+/obj/item/organ/internal/cyberimp/brain/anti_drop/hardened
+	name = "Hardened Anti-drop implant"
+	desc = "A military-grade version of the standard implant, for NT's more elite forces."
+	origin_tech = "materials=6;programming=5;biotech=5"
+	emp_proof = TRUE
+
+/obj/item/organ/internal/cyberimp/brain/anti_drop/hardened/get_ru_names()
+	return list(
+		NOMINATIVE = "укрепленный имплант анти-дроп",
+		GENITIVE = "укрепленного импланта анти-дропа",
+		DATIVE = "укрепленному импланту анти-дропа",
+		ACCUSATIVE = "укрепленный имплант анти-дропа",
+		INSTRUMENTAL = "укрепленным имплантом анти-дропа",
+		PREPOSITIONAL = "укрепленном импланте анти-дропа",
+	)
 
 /obj/item/organ/internal/cyberimp/brain/anti_drop/ui_action_click(mob/user, datum/action/action, leftclick)
 	active = !active
@@ -114,6 +134,8 @@
 /obj/item/organ/internal/cyberimp/brain/anti_drop/emp_act(severity)
 	if(!owner || emp_proof)
 		return
+	if(emp_shielded(severity))
+		return
 	var/range = severity ? 10 : 5
 	var/atom/A
 	var/obj/item/L_item = owner.l_hand
@@ -170,6 +192,8 @@
 		owner.adjustStaminaLoss(-9)
 
 /obj/item/organ/internal/cyberimp/brain/anti_stun/emp_act(severity)
+	if(emp_shielded(severity))
+		return
 	..()
 	if(crit_fail || emp_proof)
 		return
@@ -203,6 +227,8 @@
 		to_chat(owner, span_notice("You hear a small beep in your head as your Neural Jumpstarter finishes recharging."))
 
 /obj/item/organ/internal/cyberimp/brain/anti_sleep/emp_act(severity)
+	if(emp_shielded(severity))
+		return
 	. = ..()
 	if(crit_fail || emp_proof)
 		return
@@ -227,7 +253,7 @@
 
 /obj/item/organ/internal/cyberimp/brain/clown_voice
 	name = "Comical implant"
-	desc = span_sans("Uh oh.")
+	desc = span_sans_alt("Uh oh.")
 	implant_color = "#DEDE00"
 	slot = INTERNAL_ORGAN_BRAIN_CLOWNVOICE
 	origin_tech = "materials=2;biotech=2"
@@ -246,6 +272,8 @@
 
 /obj/item/organ/internal/cyberimp/mouth/breathing_tube/emp_act(severity)
 	if(emp_proof)
+		return
+	if(emp_shielded(severity))
 		return
 	if(prob(60/severity) && owner)
 		to_chat(owner, span_warning("Your breathing tube suddenly closes!"))
@@ -280,6 +308,8 @@
 
 /obj/item/organ/internal/cyberimp/chest/nutriment/emp_act(severity)
 	if(!owner || emp_proof)
+		return
+	if(emp_shielded(severity))
 		return
 	owner.reagents.add_reagent("????",poison_amount / severity) //food poisoning
 	to_chat(owner, span_warning("You feel like your insides are burning."))
@@ -338,6 +368,8 @@
 
 /obj/item/organ/internal/cyberimp/chest/nutriment_old/emp_act(severity)
 	if(!owner || emp_proof)
+		return
+	if(emp_shielded(severity))
 		return
 	owner.reagents.add_reagent("????",poison_amount / severity) //food poisoning
 	to_chat(owner, span_warning("You feel like your insides are burning."))
@@ -407,6 +439,8 @@
 
 /obj/item/organ/internal/cyberimp/chest/reviver/emp_act(severity)
 	if(!owner || emp_proof)
+		return
+	if(emp_shielded(severity))
 		return
 	if(reviving)
 		revive_cost += 200
@@ -485,6 +519,8 @@
 
 /obj/item/organ/internal/cyberimp/chest/exoframe/emp_act(severity)
 	if(emp_proof || crit_fail)
+		return
+	if(emp_shielded(severity))
 		return
 
 	if(!ishuman(owner))
@@ -587,15 +623,33 @@
 		PREPOSITIONAL = "боевом каркасе экзоскелета",
 	)
 
+/obj/item/organ/internal/cyberimp/chest/exoframe/combat/insert(mob/living/carbon/human/target)
+	. = ..()
+	if(.)
+		ADD_TRAIT(target, TRAIT_COMBAT_EXOFRAME_EMP_SHIELD, UNIQUE_TRAIT_SOURCE(src))
+	return .
+
 /obj/item/organ/internal/cyberimp/chest/exoframe/combat/remove(mob/living/carbon/human/target)
 	if(active)
 		ui_action_click()
+	REMOVE_TRAIT(target, TRAIT_COMBAT_EXOFRAME_EMP_SHIELD, UNIQUE_TRAIT_SOURCE(src))
 	return ..()
 
 /obj/item/organ/internal/cyberimp/chest/exoframe/combat/emp_act(severity)
+	if(emp_shielded(severity))
+		return
 	if(active)
 		ui_action_click()
-	return ..()
+	. = ..()
+	if(owner && crit_fail)
+		REMOVE_TRAIT(owner, TRAIT_COMBAT_EXOFRAME_EMP_SHIELD, UNIQUE_TRAIT_SOURCE(src))
+	return .
+
+/obj/item/organ/internal/cyberimp/chest/exoframe/combat/surgeryize()
+	. = ..()
+	if(owner)
+		ADD_TRAIT(owner, TRAIT_COMBAT_EXOFRAME_EMP_SHIELD, UNIQUE_TRAIT_SOURCE(src))
+	return .
 
 /obj/item/organ/internal/cyberimp/chest/exoframe/combat/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(crit_fail)
@@ -644,6 +698,10 @@
 /obj/item/storage/box/cyber_implants/anti_sleep_hardened/populate_contents()
 	..()
 	new /obj/item/organ/internal/cyberimp/brain/anti_sleep/hardened(src)
+
+/obj/item/storage/box/cyber_implants/nuke_map/populate_contents()
+	..()
+	new /obj/item/organ/internal/cyberimp/eyes/map/nuke(src)
 
 /obj/item/storage/box/cyber_implants/bundle
 	name = "boxed cybernetic implants"

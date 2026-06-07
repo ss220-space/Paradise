@@ -53,6 +53,7 @@
 #define COOLDOWN_CIRCUIT_PATHFIND_DIF "circuit_pathfind_different"
 #define COOLDOWN_CIRCUIT_TARGET_INTERCEPT "circuit_target_intercept"
 #define COOLDOWN_CIRCUIT_VIEW_SENSOR "circuit_view_sensor"
+#define COOLDOWN_CIRCUIT_LASER "circuit_laser"
 
 // mob cooldowns
 #define COOLDOWN_YAWN_PROPAGATION "yawn_propagation_cooldown"
@@ -90,10 +91,10 @@
 
 #define S_TIMER_COOLDOWN_TIMELEFT(cd_source, cd_index) (timeleft(TIMER_COOLDOWN_RUNNING(cd_source, cd_index)))
 
-/*
+/**
  * Cooldown system based on storing world.time on a variable, plus the cooldown time.
  * Better performance over timer cooldowns, lower control. Same functionality.
-*/
+ */
 
 #define COOLDOWN_DECLARE(cd_index) var/##cd_index = 0
 

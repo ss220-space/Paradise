@@ -286,6 +286,13 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 
 	data["exploitable"] = exploitable
 
+	var/list/objectives_items = list()
+	for(var/datum/objective/objective as anything in user.mind?.get_all_objectives())
+		var/item_data = objective.get_uplink_data()
+		if(!item_data)
+			continue
+		objectives_items += list(item_data)
+	data["objectives_items"] = objectives_items
 	return data
 
 /obj/item/uplink/hidden/proc/calculate_cart_tc()
@@ -317,7 +324,6 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 			"limit" = I.limited_stock))
 
 /obj/item/uplink/hidden/interact(mob/user)
-
 	ui_interact(user)
 
 /obj/item/uplink/hidden/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
@@ -410,6 +416,12 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 
 		if("empty_cart")
 			empty_cart()
+
+		if("spawn_objective_item")
+			var/uid = params["obj_uid"]
+			var/datum/objective/objective = locateUID(uid)
+			objective?.spawn_objective_item(ui.user)
+			SStgui.update_uis(src)
 
 		if("shuffle_lucky_numbers")
 			// lets see paul allen's random uplink item

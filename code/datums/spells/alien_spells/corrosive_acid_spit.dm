@@ -1,22 +1,22 @@
 /obj/effect/proc_holder/spell/touch/alien_spell/corrosive_acid
 	name = "Corrosive acid"
 	desc = "Spit acid on someone in range, this acid melts through nearly anything and heavily damages anyone lacking proper safety equipment."
-	hand_path = "/obj/item/melee/touch_attack/alien/corrosive_acid"
+	hand_path = /obj/item/melee/touch_attack/alien/corrosive_acid
 	action_icon_state = "alien_acid"
-	on_gain_message = span_noticealien("You vomit acid in your hand and prepare to use it.")
-	on_withdraw_message = span_noticealien("You decide not to use acid for now...")
+	on_gain_message = span_noticealien_alt("You vomit acid in your hand and prepare to use it.")
+	on_withdraw_message = span_noticealien_alt("You decide not to use acid for now...")
 	plasma_cost = 200
 
 /obj/effect/proc_holder/spell/touch/alien_spell/corrosive_acid/sentinel
-	hand_path = "/obj/item/melee/touch_attack/alien/corrosive_acid/sentinel"
+	hand_path = /obj/item/melee/touch_attack/alien/corrosive_acid/sentinel
 	plasma_cost = 150
 
 /obj/effect/proc_holder/spell/touch/alien_spell/corrosive_acid/praetorian
-	hand_path = "/obj/item/melee/touch_attack/alien/corrosive_acid/praetorian"
+	hand_path = /obj/item/melee/touch_attack/alien/corrosive_acid/praetorian
 	plasma_cost = 100
 
 /obj/effect/proc_holder/spell/touch/alien_spell/corrosive_acid/queen
-	hand_path = "/obj/item/melee/touch_attack/alien/corrosive_acid/queen"
+	hand_path = /obj/item/melee/touch_attack/alien/corrosive_acid/queen
 	plasma_cost = 50
 
 /obj/item/melee/touch_attack/alien/corrosive_acid
@@ -36,11 +36,13 @@
 	plasma_cost = 50
 	acid_power = 1000
 
-/obj/item/melee/touch_attack/alien/corrosive_acid/afterattack(atom/target, mob/living/carbon/user, proximity, params)
+/obj/item/melee/touch_attack/alien/corrosive_acid/afterattack(atom/target, mob/living/carbon/user, proximity_flag, list/modifiers, status)
 	if(target == user)
 		return ..()
 
-	if(!proximity || isalien(target) || !iscarbon(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) // Don't want xenos ditching out of cuffs
+	var/mob/living/carbon/alien/alien_target = target
+
+	if(!proximity_flag || istype(alien_target) || !iscarbon(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) // Don't want xenos ditching out of cuffs
 		return
 
 	if(!plasma_check(plasma_cost, user))

@@ -24,7 +24,7 @@
 	flash_protect = FLASH_PROTECTION_WELDER
 	tint = 2
 	can_toggle = TRUE
-	armor = list(MELEE = 10, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 60)
+	armor = list(MELEE = 10, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 100, ACID = 60)
 	flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME
 	visor_flags_cover = HEADCOVERSEYES|HEADCOVERSMOUTH
 	clothing_flags = parent_type::clothing_flags|STACKABLE_HELMET_EXEMPT
@@ -49,6 +49,10 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi',
 	)
+
+/obj/item/clothing/head/welding/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/right_click_mapper/attack_self, "Переключить [declent_ru(ACCUSATIVE)]")
 
 /obj/item/clothing/head/welding/flamedecal
 	name = "flame decal welding helmet"
@@ -84,7 +88,7 @@
 		adjust_paint(user, I)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	if(istype(I, /obj/item/soap) && paint)
+	if(issoap(I) && paint)
 		add_fingerprint(user)
 		adjust_paint()
 		return ATTACK_CHAIN_PROCEED_SUCCESS
@@ -124,19 +128,20 @@
 	icon_state = "cake0"
 	base_icon_state = "cake"
 	flags_cover = HEADCOVERSEYES
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 0, ACID = 0)
 	var/on_fire = FALSE
 	light_system = MOVABLE_LIGHT
 	light_on = FALSE
 	light_range = 1.5
 	light_color = LIGHT_COLOR_DIM_YELLOW
+	heat = T999K
 
 /obj/item/clothing/head/cakehat/process()
 	if(!on_fire)
 		return PROCESS_KILL
 
 	var/turf/cake_turf = loc
-	if(is_equipped(include_pockets = TRUE, include_hands = TRUE))
+	if(is_equipped(INCLUDE_POCKETS | INCLUDE_HELD))
 		cake_turf = loc.loc
 
 	if(isturf(cake_turf))
@@ -171,6 +176,9 @@
 		return
 	toggle_cake_light()
 
+/obj/item/clothing/head/cakehat/get_temperature()
+	return on_fire * heat
+
 /*
  * Soviet Hats
  */
@@ -183,7 +191,6 @@
 	cold_protection = HEAD
 	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
 	dog_fashion = /datum/dog_fashion/head/ushanka
-	actions_types = list(/datum/action/item_action/toggle_helmet_mode)
 	can_toggle = TRUE
 	toggle_on_message = "You raise the ear flaps on"
 	toggle_off_message = "You lower the ear flaps on"
@@ -195,6 +202,10 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi',
 	)
+
+/obj/item/clothing/head/ushanka/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/right_click_mapper/attack_self, "Опустить/поднять уши")
 
 /obj/item/clothing/head/sovietsidecap
 	name = "Soviet side cap"
@@ -220,7 +231,7 @@
 	icon_state = "soviethelm"
 	item_state = "soviethelm"
 	flags_inv = HIDEHEADSETS|HIDEHAIR
-	armor = list(MELEE = 25, BULLET = 35, LASER = 15, ENERGY = 10, BOMB = 30, BIO = 0, RAD = 0, FIRE = 30, ACID = 30)
+	armor = list(MELEE = 25, BULLET = 35, LASER = 15, ENERGY = 10, BOMB = 30, BIO = 0, FIRE = 30, ACID = 30)
 	materials = list(MAT_METAL=2500)
 
 /*
@@ -245,7 +256,7 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi',
 	)
 
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 0, ACID = 0)
 	light_range = 2 //luminosity when on
 
 /obj/item/clothing/head/hardhat/reindeer
@@ -254,7 +265,7 @@
 	icon_state = "hardhat0_reindeer"
 	item_state = "hardhat0_reindeer"
 	item_color = "reindeer"
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 0, ACID = 0)
 	light_range = 1 //luminosity when on
 	dog_fashion = /datum/dog_fashion/head/reindeer
 

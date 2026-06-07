@@ -8,11 +8,11 @@
 	throw_range = 5
 	origin_tech = "biotech=5"
 	attack_verb = list("атаковал", "шлёпнул", "огрел")
-	var/mob/living/carbon/brain/brainmob = null
 	parent_organ_zone = BODY_ZONE_HEAD
 	slot = INTERNAL_ORGAN_BRAIN
 	vital = TRUE
 	hidden_pain = TRUE //the brain has no pain receptors, and brain damage is meant to be a stealthy damage type.
+	var/mob/living/carbon/brain/brainmob = null
 	var/mmi_icon = 'icons/obj/assemblies.dmi'
 	var/mmi_icon_state = "mmi_full"
 	/// If it's a fake brain without a mob assigned that should still be treated like a real brain.
@@ -20,7 +20,7 @@
 	/// TRUE giving to a user sci hud and active research scanner
 	var/smart_mind = FALSE
 	/// The original body for this brain, if this valriable is null - brain can apply any body without desease.
-	var/original_body = null
+	var/datum/weakref/original_body = null
 
 /obj/item/organ/internal/brain/get_ru_names()
 	return list(
@@ -34,14 +34,15 @@
 
 /obj/item/organ/internal/brain/Destroy()
 	QDEL_NULL(brainmob)
+	original_body = null
 	return ..()
 
 /obj/item/organ/internal/brain/proc/transfer_identity(mob/living/carbon/H)
 	brainmob = new(src)
 	if(isnull(dna)) // someone didn't set this right...
-		log_runtime(EXCEPTION("[src] at [loc] did not contain a dna datum at time of removal."), src)
+		stack_trace("[src] at [loc] did not contain a dna datum at time of removal.")
 		dna = H.dna.Clone()
-	name = "\the [dna.real_name]’s [initial(src.name)]"
+	name = "[dna.real_name]’s [initial(src.name)]"
 	if(ru_names)
 		for(var/i in NOMINATIVE to PREPOSITIONAL)
 			ru_names[i] = initial(ru_names[i]) + " [dna.real_name]"

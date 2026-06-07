@@ -260,7 +260,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 
 	var/list/data = list()
 
-	if(istype(circuit, /obj/item/circuit_component/module))
+	if(is_module_circuit(circuit))
 		var/obj/item/circuit_component/module/module = circuit
 
 		data["dupe_data"] = list()
@@ -412,7 +412,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 
 	return data
 
-/obj/machinery/r_n_d/circuit_imprinter/screwdriver_act(mob/living/user, obj/item/tool)
+/obj/machinery/r_n_d/circuit_imprinter/screwdriver_act_secondary(mob/living/user, obj/item/tool)
 	if(shocked && shock(user, 50))
 		add_fingerprint(user)
 		return TRUE

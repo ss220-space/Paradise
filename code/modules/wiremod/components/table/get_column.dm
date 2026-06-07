@@ -18,6 +18,12 @@
 	/// The filtered list
 	var/datum/port/output/output_list
 
+/obj/item/circuit_component/get_column/Destroy()
+	received_table = null
+	column_name = null
+	output_list = null
+	. = ..()
+
 /obj/item/circuit_component/get_column/populate_ports()
 	received_table = add_input_port("Ввод", PORT_TYPE_TABLE)
 	column_name = add_input_port("Название", PORT_TYPE_STRING)

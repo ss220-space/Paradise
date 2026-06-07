@@ -1,11 +1,11 @@
 /// Turfs that will be colored as HOLOMAP_ROCK
-#define IS_ROCK(tile) (istype(tile, /turf/simulated/mineral) && tile.density)
+#define IS_ROCK(tile) (ismineralturf(tile) && tile.density)
 /// Turfs that will be colored as HOLOMAP_OBSTACLE
-#define IS_OBSTACLE(tile) (istype(tile, /turf/simulated/wall) ||  (locate(/obj/structure/window) in tile))
+#define IS_OBSTACLE(tile) (iswallturf(tile) ||  (locate(/obj/structure/window) in tile))
 /// Turfs that will be colored as HOLOMAP_SOFT_OBSTACLE
 #define IS_SOFT_OBSTACLE(tile) ((locate(/obj/structure/grille) in tile) || (locate(/obj/structure/lattice) in tile))
 /// Turfs that will be colored as HOLOMAP_PATH
-#define IS_PATH(tile) istype(tile, /turf/simulated/floor)
+#define IS_PATH(tile) isfloorturf(tile)
 /// Turfs that contain a Z transition, like ladders and stairs. They show with special animations on the map.
 #define HAS_Z_TRANSITION(tile) ((locate(/obj/structure/ladder) in tile) || (locate(/obj/structure/stairs) in tile))
 
@@ -13,18 +13,21 @@
 
 SUBSYSTEM_DEF(holomaps)
 	name = "Holomaps"
-	init_order = INIT_ORDER_HOLOMAP
-	flags = SS_NO_FIRE
+	dependencies = list(
+		/datum/controller/subsystem/mapping,
+	)
+	ss_flags = SS_NO_FIRE
 
 	var/static/list/valid_map_indexes = list()
 	var/static/list/holomaps = list()
 	var/static/list/extra_holomaps = list()
 	var/static/list/station_holomaps = list()
+	var/static/list/station_mini_holomaps = list()
 	var/static/list/holomap_z_transitions = list()
 	var/static/list/list/holomap_position_to_name = list()
 
 /datum/controller/subsystem/holomaps/Recover()
-	flags |= SS_NO_INIT // Make extra sure we don't initialize twice.
+	ss_flags |= SS_NO_INIT // Make extra sure we don't initialize twice.
 
 /datum/controller/subsystem/holomaps/Initialize(timeofday)
 	if(generate_holomaps())

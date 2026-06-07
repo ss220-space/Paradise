@@ -42,6 +42,7 @@
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	affected.open = ORGAN_ORGANIC_OPEN
+	affected.owner.add_bleeding_bodypart(affected)
 	return SURGERY_STEP_CONTINUE
 
 /datum/surgery_step/generic/cut_open/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -189,6 +190,7 @@
 		self_msg = "Вы раздвигаете органы в брюшной полости [target], используя [tool.declent_ru(ACCUSATIVE)]."
 	user.visible_message(span_notice(msg), span_notice(self_msg), chat_message_type = MESSAGE_TYPE_COMBAT)
 	affected.open = ORGAN_ORGANIC_ENCASED_OPEN
+	affected.owner.add_bleeding_bodypart(affected)
 	return SURGERY_STEP_CONTINUE
 
 /datum/surgery_step/generic/retract_skin/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)

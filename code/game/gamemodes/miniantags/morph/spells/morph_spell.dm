@@ -11,7 +11,4 @@
 		name = "[name] ([hunger_cost])"
 
 /obj/effect/proc_holder/spell/morph_spell/create_new_handler()
-	var/datum/spell_handler/morph/H = new
-	H.hunger_cost = hunger_cost
-	return H
-
+	return new /datum/spell_handler/morph(src)

@@ -1,10 +1,8 @@
 SUBSYSTEM_DEF(debugview)
 	name = "Debug View"
 	wait = 1 // SS_TICKER subsystem, so wait is in ticks
-	flags = SS_TICKER|SS_NO_INIT
-	offline_implications = "Shift+F3 will no longer show a debug view. No immediate action is needed."
-	cpu_display = SS_CPUDISPLAY_LOW
-	ss_id = "debug_view"
+	ss_flags = SS_TICKER|SS_NO_INIT
+
 	/// List of clients currently processing
 	var/list/client/processing = list()
 
@@ -22,8 +20,8 @@ SUBSYSTEM_DEF(debugview)
 	#ifdef PASSIVE_GC
 	// Snowflakery for SSgarbage
 	var/list/counts = list()
-	for(var/list/L in SSgarbage.queues)
-		counts += length(L)
+	for(var/list/queue in SSgarbage.queues)
+		counts += length(queue)
 	entries += "\[GC] Cost: [round(SSgarbage.cost, 1)]ms | Q: [counts.Join(",")] H: [SSgarbage.delslasttick] | S: [SSgarbage.gcedlasttick]"
 	#else
 	entries += "\[GC] Cost: [round(SSgarbage.cost, 1)]ms | Del's:[SSgarbage.delslasttick] | Total del's:[SSgarbage.totaldels]"
@@ -41,26 +39,26 @@ SUBSYSTEM_DEF(debugview)
 
 	// Do some parsing to format it properly
 	var/out_text = entries.Join("\n")
-	/*
-		480 - standart highest Y position
-		10 = 8(font_size) + 2(gap between lines)
-	*/
+	/**
+	 * 480 - standart highest Y position
+	 * 10 = 8(font_size) + 2(gap between lines)
+	 */
 	var/mty = 480 - 10 * length(entries)
 
 	// And update the clients
-	for(var/client/C as anything in processing)
-		C.debug_text_overlay.maptext_y = mty
-		C.debug_text_overlay.maptext = MAPTEXT("<span style='background-color: #272727;'>[out_text]</span>")
+	for(var/client/cur_client as anything in processing)
+		cur_client.debug_text_overlay.maptext_y = mty
+		cur_client.debug_text_overlay.maptext = MAPTEXT("<span style='background-color: #272727;'>[out_text]</span>")
 
-/datum/controller/subsystem/debugview/proc/start_processing(client/C)
-	C.debug_text_overlay = new /atom/movable/screen/debugtextholder
-	C.screen |= C.debug_text_overlay
-	processing |= C
+/datum/controller/subsystem/debugview/proc/start_processing(client/cur_client)
+	cur_client.debug_text_overlay = new /atom/movable/screen/debugtextholder
+	cur_client.screen |= cur_client.debug_text_overlay
+	processing |= cur_client
 
-/datum/controller/subsystem/debugview/proc/stop_processing(client/C)
-	processing -= C
-	C.screen -= C.debug_text_overlay
-	qdel(C.debug_text_overlay)
+/datum/controller/subsystem/debugview/proc/stop_processing(client/cur_client)
+	processing -= cur_client
+	cur_client.screen -= cur_client.debug_text_overlay
+	qdel(cur_client.debug_text_overlay)
 
 /atom/movable/screen/debugtextholder
 	icon = 'icons/mob/screen_full.dmi'
@@ -69,19 +67,3 @@ SUBSYSTEM_DEF(debugview)
 	plane = HUD_PLANE_DEBUGVIEW
 	maptext_height = 480 // If we ever change view size, increase this
 	maptext_width = 480
-
-ADMIN_VERB(ss_breakdown, R_DEBUG|R_VIEWRUNTIMES, "SS Info Breakdown", "Dump stats of all subsystems", ADMIN_CATEGORY_DEBUG)
-	var/datum/browser/popup = new(user, "ss_breakdown", "Subsystem Breakdown", 1100, 850)
-
-	var/list/html = list()
-	html += "CPU: [round(world.cpu, 1)] | MCPU: [round(world.map_cpu, 1)] | FPS/TPS: [world.fps] | Clients: [length(GLOB.clients)] | BYOND: [world.byond_version].[world.byond_build]"
-	html += "--- SS BREAKDOWN ---"
-	for(var/datum/controller/subsystem/SS as anything in Master.subsystems)
-		// We dont care about subsystems that arent firing (or are unable to)
-		if((SS.flags & SS_NO_FIRE) || !SS.can_fire)
-			continue
-
-		html += "[SS.state_colour()]\[[SS.state_letter()]\][SS.ss_id]</font>\t[SS.get_cost()]ms | [round(SS.tick_usage, 1)]% [SS.get_stat_details() ? "| [SS.get_stat_details()] " : ""]| <a href='byond://?_src_=vars;Vars=[SS.UID()]'>VV Edit</a>"
-
-	popup.set_content(html.Join("<br>"))
-	popup.open(FALSE)

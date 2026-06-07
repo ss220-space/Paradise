@@ -21,6 +21,10 @@
 	/// A list of traits we apply when we get activated
 	var/list/active_traits = list(TRAIT_NEGATES_GRAVITY, TRAIT_NO_SLIP_WATER, TRAIT_NO_SLIP_SLIDE)
 
+/obj/item/clothing/shoes/magboots/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/right_click_mapper/attack_self, "Переключить [declent_ru(ACCUSATIVE)]")
+
 /obj/item/clothing/shoes/magboots/atmos
 	desc = "Magnetic boots, made to withstand gusts of space wind over 500kmph."
 	name = "atmospheric magboots"
@@ -33,7 +37,7 @@
 	desc = "Combat-edition magboots issued by Nanotrasen Security for extravehicular missions."
 	icon_state = "cmagboots0"
 	base_icon_state = "cmagboots"
-	armor = list(MELEE = 30, BULLET = 20, LASER = 25, ENERGY = 25, BOMB = 60, BIO = 30, RAD = 30, FIRE = 90, ACID = 50)
+	armor = list(MELEE = 30, BULLET = 20, LASER = 25, ENERGY = 25, BOMB = 60, BIO = 30, FIRE = 90, ACID = 50)
 	slowdown_active = 1
 
 /obj/item/clothing/shoes/magboots/security/captain
@@ -49,6 +53,16 @@
 
 /obj/item/clothing/shoes/magboots/attack_self(mob/user)
 	toggle_magpulse(user)
+
+/obj/item/clothing/shoes/magboots/dropped(mob/living/user, slot, silent)
+	. = ..()
+	if(!ishuman(user) || slot != ITEM_SLOT_FEET)
+		return .
+
+	if(!magpulse)
+		return
+
+	toggle_magpulse(user, silent = TRUE)
 
 /obj/item/clothing/shoes/magboots/proc/toggle_magpulse(mob/user, silent = FALSE)
 	magpulse = !magpulse
@@ -88,7 +102,7 @@
 	name = "blood-red magboots"
 	icon_state = "syndiemag0"
 	base_icon_state = "syndiemag"
-	armor = list(MELEE = 40, BULLET = 30, LASER = 25, ENERGY = 25, BOMB = 50, BIO = 30, RAD = 30, FIRE = 90, ACID = 50)
+	armor = list(MELEE = 40, BULLET = 30, LASER = 25, ENERGY = 25, BOMB = 50, BIO = 30, FIRE = 90, ACID = 50)
 	origin_tech = "magnets=4;syndicate=2"
 
 /obj/item/clothing/shoes/magboots/syndie/advance //For the Syndicate Strike Team and Nuclear operative

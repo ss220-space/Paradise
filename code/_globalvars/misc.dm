@@ -1,6 +1,15 @@
 GLOBAL_LIST_EMPTY(plmaster)
 GLOBAL_LIST_EMPTY(slmaster)
 GLOBAL_LIST_EMPTY(wvmaster)
+GLOBAL_LIST_EMPTY(frmaster)
+GLOBAL_LIST_EMPTY(nitmaster)
+GLOBAL_LIST_EMPTY(trmaster)
+GLOBAL_LIST_EMPTY(mimaster)
+GLOBAL_LIST_EMPTY(hemaster)
+GLOBAL_LIST_EMPTY(pnmaster)
+GLOBAL_LIST_EMPTY(zamaster)
+GLOBAL_LIST_EMPTY(hamaster)
+GLOBAL_LIST_EMPTY(antmaster)
 
 GLOBAL_VAR_INIT(CELLRATE, 0.002)  // conversion ratio between a watt-tick and kilojoule
 GLOBAL_VAR_INIT(CHARGELEVEL, 0.001) // Cap for how fast cells charge, as a percentage-per-tick (.001 means cellcharge is capped to 1% per second)
@@ -16,11 +25,11 @@ GLOBAL_VAR_INIT(global_announcer_base_text, "$name, $rank, $join_message.")
 		GLOB.global_announcer = new(null)
 	return
 
-GLOBAL_LIST_INIT(paper_tag_whitelist, list("center","p","div","span","h1","h2","h3","h4","h5","h6","hr","pre",	\
-	"big","small","font","i","u","b","s","sub","sup","tt","br","hr","ol","ul","li","caption","col",	\
+GLOBAL_LIST_INIT(paper_tag_whitelist, list("center","p","div","span","h1","h2","h3","h4","h5","h6","hr","pre", \
+	"big","small","font","i","u","b","s","sub","sup","tt","br","hr","ol","ul","li","caption","col", \
 	"table","td","th","tr"))
-GLOBAL_LIST_INIT(paper_blacklist, list("java","onblur","onchange","onclick","ondblclick","onfocus","onkeydown",	\
-	"onkeypress","onkeyup","onload","onmousedown","onmousemove","onmouseout","onmouseover",	\
+GLOBAL_LIST_INIT(paper_blacklist, list("java","onblur","onchange","onclick","ondblclick","onfocus","onkeydown", \
+	"onkeypress","onkeyup","onload","onmousedown","onmousemove","onmouseout","onmouseover", \
 	"onmouseup","onreset","onselect","onsubmit","onunload"))
 
 //Reverse of dir
@@ -33,8 +42,11 @@ GLOBAL_VAR_INIT(recall_time_limit, 72000) //apparently used for the comm console
 
 GLOBAL_VAR_INIT(timezoneOffset, 0) // The difference betwen midnight (of the host computer) and 0 world.ticks.
 
-// For FTP requests. (i.e. downloading runtime logs.)
-// However it'd be ok to use for accessing attack logs and such too, which are even laggier.
+/**
+ * For FTP requests. (i.e. downloading runtime logs.)
+ *
+ * However it'd be ok to use for accessing attack logs and such too, which are even laggier.
+ */
 GLOBAL_VAR_INIT(fileaccess_timer, 0)
 
 GLOBAL_VAR_INIT(gametime_offset, 432000) // 12:00 in seconds
@@ -85,4 +97,4 @@ GLOBAL_VAR_INIT(all_robot_skins_permited, FALSE)
 /// Global list of all /datum/mod_theme
 GLOBAL_LIST_INIT(mod_themes, setup_mod_themes())
 
-GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/atmospherics/supermatter_crystal)
+GLOBAL_DATUM(lone_operative_meta, /datum/event_meta/lone_operative)

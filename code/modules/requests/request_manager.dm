@@ -133,7 +133,7 @@ GLOBAL_DATUM_INIT(requests, /datum/request_manager, new)
 	requests_by_id[request.id] = request
 
 	var/data = " **\[[uppertext(replacetext(type, "request_", ""))]\]** [C.ckey]/([C?.mob?.name ? C.mob.name : "INVALID"]): [message]"
-	SSdiscord.send2discord_simple(DISCORD_WEBHOOK_REQUESTS, data)
+	GLOB.discord_manager.send2discord_simple(DISCORD_WEBHOOK_REQUESTS, data)
 
 /datum/request_manager/ui_state(mob/user)
 	return ADMIN_STATE(R_ADMIN)

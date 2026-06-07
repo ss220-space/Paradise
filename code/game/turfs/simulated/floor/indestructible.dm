@@ -10,7 +10,7 @@
 /turf/simulated/floor/indestructible/singularity_act()
 	return
 
-/turf/simulated/floor/indestructible/singularity_pull(S, current_size)
+/turf/simulated/floor/indestructible/singularity_pull(atom/singularity, current_size)
 	return
 
 /turf/simulated/floor/indestructible/narsie_act()
@@ -31,7 +31,7 @@
 /turf/simulated/floor/indestructible/attack_animal(mob/living/simple_animal/M)
 	return
 
-/turf/simulated/floor/indestructible/mech_melee_attack(obj/mecha/M)
+/turf/simulated/floor/indestructible/mech_melee_attack(obj/mecha/mech, obj/item/mecha_parts/mecha_equipment/selected_module = null)
 	return
 
 /turf/simulated/floor/indestructible/crowbar_act(mob/user, obj/item/I)
@@ -57,9 +57,6 @@
 	desc = "It's regarding you suspiciously."
 	icon_state = "necro1"
 	baseturf = /turf/simulated/floor/indestructible/necropolis
-	oxygen = LAVALAND_OXYGEN
-	nitrogen = LAVALAND_NITROGEN
-	temperature = LAVALAND_TEMPERATURE
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
 	atmos_environment = ENVIRONMENT_LAVALAND
 	footstep = FOOTSTEP_LAVA
@@ -73,9 +70,7 @@
 		icon_state = "necro[rand(2,3)]"
 
 /turf/simulated/floor/indestructible/necropolis/air
-	oxygen = MOLES_O2STANDARD
-	nitrogen = MOLES_N2STANDARD
-	temperature = T20C
+	atmos_environment = ENVIRONMENT_TEMPERATE
 
 /turf/simulated/floor/indestructible/boss //you put stone tiles on this and use it as a base
 	name = "necropolis floor"
@@ -83,29 +78,19 @@
 	icon_state = "boss"
 	smooth = SMOOTH_FALSE
 	baseturf = /turf/simulated/floor/indestructible/boss
-	oxygen = LAVALAND_OXYGEN
-	nitrogen = LAVALAND_NITROGEN
-	temperature = LAVALAND_TEMPERATURE
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
 	atmos_environment = ENVIRONMENT_LAVALAND
 
 /turf/simulated/floor/indestructible/boss/indoors //used for ashwalkers village
-	oxygen = /turf/simulated/floor/lava::oxygen //lava near tendril
-	nitrogen = /turf/simulated/floor/lava::nitrogen
-	temperature = /turf/simulated/floor/lava::temperature
+	atmos_environment = ENVIRONMENT_TEMPERATE
 
 /turf/simulated/floor/indestructible/boss/air
-	oxygen = MOLES_O2STANDARD
-	nitrogen = MOLES_N2STANDARD
-	temperature = T20C
+	atmos_environment = ENVIRONMENT_TEMPERATE
 
 /turf/simulated/floor/indestructible/hierophant
 	icon = 'icons/turf/floors/hierophant_floor.dmi'
 	icon_state = "floor"
 	base_icon_state = "hierophant_floor"
-	oxygen = LAVALAND_OXYGEN
-	nitrogen = LAVALAND_NITROGEN
-	temperature = LAVALAND_TEMPERATURE
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
 	atmos_environment = ENVIRONMENT_LAVALAND
 	smooth = SMOOTH_BITMASK
@@ -243,11 +228,11 @@
 		creature.ExtinguishMob()
 	linkedcontroller.mobinpool += arrived
 
-/turf/simulated/floor/indestructible/beach/water/Exited(atom/movable/departed, atom/newLoc)
+/turf/simulated/floor/indestructible/beach/water/Exited(atom/movable/gone, direction)
 	. = ..()
-	if(!linkedcontroller || !ismob(departed))
+	if(!linkedcontroller || !ismob(gone))
 		return .
-	linkedcontroller.mobinpool -= departed
+	linkedcontroller.mobinpool -= gone
 
 /turf/simulated/floor/indestructible/beach/water/proc/initialized_on(atom/target)
 	if(!linkedcontroller)
@@ -329,3 +314,24 @@
 
 /turf/simulated/floor/indestructible/view_portal/dense
 	density = TRUE
+
+/turf/simulated/floor/indestructible/bingle
+	name = "Bingle pit"
+	desc = "Покрытие ямы Бинглов."
+	gender = FEMALE
+	icon = 'icons/turf/floors/bingle.dmi'
+	icon_state = "carpet_orange-0"
+	footstep = FOOTSTEP_MEAT
+	barefootstep = FOOTSTEP_MEAT
+	clawfootstep = FOOTSTEP_MEAT
+	heavyfootstep = FOOTSTEP_MEAT
+
+/turf/simulated/floor/indestructible/bingle/get_ru_names()
+	return list(
+		NOMINATIVE = "яма Бинглов",
+		GENITIVE = "ямы Бинглов",
+		DATIVE = "яме Бинглов",
+		ACCUSATIVE = "яму Бинглов",
+		INSTRUMENTAL = "ямой Бинглов",
+		PREPOSITIONAL = "яме Бинглов",
+	)

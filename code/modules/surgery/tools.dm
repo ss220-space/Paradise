@@ -151,6 +151,7 @@
 	origin_tech = "materials=1;biotech=1"
 	attack_verb = list("подпалил")
 	tool_behaviour = TOOL_CAUTERY
+	heat = T500K
 
 /obj/item/cautery/get_ru_names()
 	return list(

@@ -84,7 +84,7 @@ export const Dropdown = (props: Props) => {
     onSelected,
     options = [],
     over,
-    placeholder = 'Select...',
+    placeholder = 'Выбрать...',
     selected,
     fluid,
     width = '15rem',

@@ -25,13 +25,9 @@
 		PREPOSITIONAL = "стакане",
 	)
 
-/obj/item/reagent_containers/food/drinks/set_APTFT()
-	set hidden = FALSE
-	..()
-
-/obj/item/reagent_containers/food/drinks/empty()
-	set hidden = FALSE
-	..()
+/obj/item/reagent_containers/food/drinks/drinkingglass/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_CAN_ATTACH_TO_TRIPWIRE, INNATE_TRAIT)
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers/food/snacks/egg)) //breaking eggs
@@ -69,7 +65,7 @@
 	if(length(reagents.reagent_list))
 		var/datum/reagent/check = reagents.get_master_reagent()
 		if(!check.drink_icon)
-			. += mutable_appearance(icon, "glassoverlay", color = mix_color_from_reagents(reagents.reagent_list))
+			. += mutable_appearance(icon, "glassoverlay", color = get_color_matrix_from_reagents(reagents.reagent_list))
 	else
 		icon_state = initial(icon_state)
 
@@ -107,3 +103,16 @@
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/mulled_wine
 	list_reagents = list("mulled_wine" = 50)
+
+/obj/item/reagent_containers/food/drinks/drinkingglass/on_tripwire_trigger(obj/item/tripwire/base, mob/user)
+	var/turf/turf = get_turf(base)
+	if(reagents?.total_volume)
+		reagents.reaction(turf, REAGENT_TOUCH)
+		for(var/mob/living/living in turf)
+			reagents.reaction(living, REAGENT_TOUCH)
+		reagents.clear_reagents()
+	playsound(turf, 'sound/effects/glass_step.ogg', 60, TRUE)
+	new /obj/item/shard(turf)
+	base.attached_item = null
+	base.UnregisterSignal(base, COMSIG_TRIPWIRE_TRIGGERED)
+	qdel(src)

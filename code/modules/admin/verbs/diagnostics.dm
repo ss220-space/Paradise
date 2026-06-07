@@ -3,14 +3,26 @@ ADMIN_VERB(debug_air_status, R_DEBUG, "Debug Air Status", ADMIN_VERB_NO_DESCRIPT
 	if(!isturf(target))
 		return
 
-	var/datum/gas_mixture/GM = target.get_readonly_air()
-	var/burning = 0
+	var/datum/gas_mixture/gas_mixture = target.get_readonly_air()
+	var/burning = FALSE
 	if(issimulatedturf(target))
-		var/turf/simulated/T = target
-		if(T.active_hotspot)
-			burning = 1
+		var/turf/simulated/turf = target
+		if(turf.active_hotspot)
+			burning = TRUE
 
-	to_chat(user, span_notice("@[target.x],[target.y]: O:[GM.oxygen()] T:[GM.toxins()] N:[GM.nitrogen()] C:[GM.carbon_dioxide()] N2O: [GM.sleeping_agent()] Agent B: [GM.agent_b()] Hydrogen: [GM.hydrogen()] Water Vapor: [GM.water_vapor()] w [GM.temperature()] Kelvin, [GM.return_pressure()] kPa [(burning)? (span_warning("BURNING")) : (null)]"))
+	var/list/gas_data = gas_mixture_parser_faster(gas_mixture)
+
+	var/list/gas_string = list()
+
+	for(var/gas_id, meta_list in GLOB.gas_meta)
+		var/list/gas_info = meta_list
+		var/gas_name = gas_info[META_GAS_NAME]
+		var/gas_amount = gas_data[gas_id]
+
+		if(gas_amount)
+			gas_string += "[gas_name]: [round(gas_amount, 0.01)] "
+
+	to_chat(user, span_notice("@[target.x],[target.y]:<br> [gas_string.Join("<br>")]<br>[gas_data[TLV_TEMPERATURE]] Kelvin<br>[gas_data[TLV_PRESSURE]] kPa<br>[(burning)? (span_warning("BURNING")) : (null)]"))
 
 	message_admins("[key_name_admin(user)] has checked the air status of [target]")
 	log_admin("[key_name(user)] has checked the air status of [target]")
@@ -118,13 +130,13 @@ ADMIN_VERB(print_jobban_old_filter, R_ADMIN, "Search Jobban Log", "This searches
 	log_admin("[key_name(user)] has searched the jobban log for [filter]")
 
 ADMIN_VERB(vv_by_ref, R_DEBUG, "VV by Ref", "Give this a ref string, and you will see its corresponding VV panel if it exists.", ADMIN_CATEGORY_DEBUG)
-	var/refstring = tgui_input_text(user, "Which reference?", "Ref")
-	if(!refstring)
+	var/ref_string = tgui_input_text(user, "Which reference?", "Ref")
+	if(!ref_string)
 		return
 
-	var/datum/D = locate(refstring)
-	if(!D)
+	var/datum/thing = locate(ref_string)
+	if(!thing)
 		to_chat(user, span_warning("That ref string does not correspond to any datum."))
 		return
 
-	SSadmin_verbs.dynamic_invoke_verb(user, /datum/admin_verb/debug_variables, D)
+	user.debug_variables(thing)

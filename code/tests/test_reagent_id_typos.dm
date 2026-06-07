@@ -1,6 +1,6 @@
-/datum/game_test/reagent_id_typos
+/datum/unit_test/reagent_id_typos
 
-/datum/game_test/reagent_id_typos/Run()
+/datum/unit_test/reagent_id_typos/Run()
 	for(var/I in GLOB.chemical_reactions_list)
 		for(var/V in GLOB.chemical_reactions_list[I])
 			var/datum/chemical_reaction/R = V

@@ -63,7 +63,7 @@
 	if(!user.mind)
 		return
 
-	if(user.incapacitated(INC_IGNORE_RESTRAINED|INC_IGNORE_GRABBED))
+	if(user.incapacitated(IGNORE_RESTRAINTS|IGNORE_GRAB))
 		if(show_message)
 			to_chat(user, span_warning("You can't use this ability right now!"))
 		return FALSE
@@ -181,7 +181,7 @@
 	if(!user.mind)
 		return
 
-	if(user.incapacitated(INC_IGNORE_RESTRAINED|INC_IGNORE_GRABBED))
+	if(user.incapacitated(IGNORE_RESTRAINTS|IGNORE_GRAB))
 		if(show_message)
 			to_chat(user, span_warning("You can't use this ability right now!"))
 		return FALSE

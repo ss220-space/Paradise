@@ -34,6 +34,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/template_noop)
+"aA" = (
+/obj/machinery/firealarm/directional/north,
+/turf/simulated/floor/plating,
+/area/template_noop)
 "aM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/railing,
@@ -87,8 +91,7 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	icon_state = "1-4";
-	tag = "90Curve"
+	icon_state = "1-4"
 	},
 /obj/effect/decal/cleanable/dust,
 /obj/effect/landmark/spawner/ninja_teleport,
@@ -345,9 +348,7 @@
 /turf/simulated/floor/plating,
 /area/template_noop)
 "hU" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_y = 28
-	},
+/obj/structure/extinguisher_cabinet/directional/north,
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/item/stamp/granted{
 	pixel_x = 3;
@@ -464,6 +465,13 @@
 /obj/structure/bookcase/random/fiction,
 /turf/simulated/floor/wood/dark,
 /area/template_noop)
+"kf" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/firealarm/directional/south,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/template_noop)
 "kl" = (
 /obj/structure/table/wood,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -519,7 +527,7 @@
 /area/template_noop)
 "ln" = (
 /obj/structure/reagent_dispensers/oil,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -737,13 +745,8 @@
 /area/template_noop)
 "pu" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/apc/worn_out{
-	cell_type = 0;
-	dir = 1;
-	pixel_y = 26
-	},
+/obj/machinery/power/apc/worn_out/directional/north,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2";
 	pixel_y = 1
 	},
@@ -830,9 +833,7 @@
 	},
 /area/template_noop)
 "rJ" = (
-/obj/machinery/alarm{
-	pixel_y = 22
-	},
+/obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -841,11 +842,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/worn_out{
-	cell_type = 0;
-	dir = 8;
-	pixel_x = -26
-	},
+/obj/machinery/power/apc/worn_out/directional/west,
 /obj/effect/mob_spawn/ratdead,
 /turf/simulated/floor/plating,
 /area/template_noop)
@@ -979,8 +976,7 @@
 /area/template_noop)
 "uv" = (
 /obj/structure/cable{
-	icon_state = "1-4";
-	tag = "90Curve"
+	icon_state = "1-4"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -1009,6 +1005,7 @@
 	pixel_y = 9
 	},
 /obj/effect/spawner/random_spawners/blood_5,
+/obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/wood,
 /area/template_noop)
 "vU" = (
@@ -1098,7 +1095,7 @@
 /area/template_noop)
 "yf" = (
 /obj/structure/reagent_dispensers/fueltank,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -1127,11 +1124,8 @@
 	},
 /area/template_noop)
 "yW" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK"
+/obj/structure/sign/vacuum/external{
+	layer = 4
 	},
 /turf/simulated/wall/r_wall,
 /area/template_noop)
@@ -1264,9 +1258,7 @@
 /turf/simulated/floor/plating,
 /area/template_noop)
 "EO" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_y = -28
-	},
+/obj/structure/extinguisher_cabinet/directional/south,
 /turf/simulated/floor/plating,
 /area/template_noop)
 "EU" = (
@@ -1296,11 +1288,7 @@
 	icon_state = "0-4"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/apc/worn_out{
-	cell_type = 0;
-	dir = 1;
-	pixel_y = 26
-	},
+/obj/machinery/power/apc/worn_out/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -1409,17 +1397,10 @@
 	name = "Монтировка легендарная";
 	toolspeed = 0.35
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	dir = 8;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
 	},
-/obj/machinery/alarm{
-	dir = 8;
-	pixel_x = 22
-	},
+/obj/machinery/alarm/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "neutral"
@@ -1431,9 +1412,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/blood,
-/obj/machinery/alarm{
-	pixel_y = 22
-	},
+/obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plating,
 /area/template_noop)
 "IN" = (
@@ -1444,8 +1423,7 @@
 	},
 /obj/item/ammo_casing/shotgun,
 /turf/simulated/floor/wood{
-	icon_state = "wood-broken7";
-	tag = "icon-wood-broken7"
+	icon_state = "wood-broken7"
 	},
 /area/template_noop)
 "Jh" = (
@@ -1493,7 +1471,7 @@
 /area/template_noop)
 "Ll" = (
 /obj/structure/dispenser/oxygen,
-/obj/effect/decal/warning_stripes/blue,
+/obj/effect/turf_decal/delivery/blue,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -1558,7 +1536,7 @@
 /area/template_noop)
 "Ng" = (
 /obj/machinery/portable_atmospherics/canister/oxygen,
-/obj/effect/decal/warning_stripes/blue,
+/obj/effect/turf_decal/delivery/blue,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -1611,7 +1589,6 @@
 /obj/structure/curtain/black,
 /obj/effect/spawner/random_spawners/grille_50,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2";
 	pixel_y = 1
 	},
@@ -1888,7 +1865,7 @@
 /turf/simulated/floor/wood,
 /area/template_noop)
 "Xt" = (
-/obj/structure/closet/walllocker/emerglocker/east,
+/obj/structure/closet/walllocker/emerglocker/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -2331,7 +2308,7 @@ tB
 tB
 tB
 kt
-Qc
+aA
 MU
 pp
 OJ
@@ -3282,7 +3259,7 @@ iv
 cI
 iR
 ZT
-pg
+kf
 kt
 tB
 tB

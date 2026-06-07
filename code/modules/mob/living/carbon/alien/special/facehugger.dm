@@ -315,7 +315,7 @@
 	else
 		addtimer(CALLBACK(src, PROC_REF(try_drop_hugger), target), 0.5 SECONDS)
 
-/obj/item/clothing/mask/facehugger/container_resist(mob/living/L)
+/obj/item/clothing/mask/facehugger/container_resist_act(mob/living/L)
 	var/mob/living/mob = src.loc
 
 	if(istype(mob) || isstorage(loc))

@@ -80,7 +80,7 @@
 /turf/simulated/floor/carpet/purple,
 /area/ruin/powered/green_bio)
 "gQ" = (
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/sofa/right{
 	dir = 8
 	},
 /turf/simulated/floor/carpet,
@@ -245,8 +245,7 @@
 /area/ruin/powered/green_bio)
 "rp" = (
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-34";
-	tag = "icon-plant-34"
+	icon_state = "plant-34"
 	},
 /turf/simulated/floor/wood,
 /area/ruin/powered/green_bio)
@@ -306,8 +305,7 @@
 /area/ruin/powered/green_bio)
 "vh" = (
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-17";
-	tag = "icon-plant-17"
+	icon_state = "plant-17"
 	},
 /turf/simulated/floor/wood,
 /area/ruin/powered/green_bio)
@@ -541,8 +539,7 @@
 	dir = 1
 	},
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-dead";
-	tag = "plant-dead"
+	icon_state = "plant-dead"
 	},
 /turf/simulated/floor/wood,
 /area/ruin/powered/green_bio)
@@ -583,7 +580,7 @@
 /turf/simulated/floor/indestructible/grass,
 /area/ruin/powered/green_bio)
 "Lh" = (
-/obj/structure/chair/sofa/right,
+/obj/structure/chair/sofa/left,
 /turf/simulated/floor/carpet,
 /area/ruin/powered/green_bio)
 "Lq" = (
@@ -613,8 +610,7 @@
 	dir = 8
 	},
 /obj/machinery/shower{
-	dir = 8;
-	tag = "icon-shower (WEST)"
+	dir = 8
 	},
 /obj/item/soap/syndie,
 /turf/simulated/floor/plasteel{
@@ -629,8 +625,7 @@
 /area/ruin/powered/green_bio)
 "Oy" = (
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-6";
-	tag = "icon-plant-6"
+	icon_state = "plant-6"
 	},
 /turf/simulated/floor/wood,
 /area/ruin/powered/green_bio)
@@ -683,8 +678,7 @@
 /area/ruin/powered/green_bio)
 "Wg" = (
 /obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-32";
-	tag = "icon-plant-32"
+	icon_state = "plant-32"
 	},
 /turf/simulated/floor/wood,
 /area/ruin/powered/green_bio)
@@ -696,9 +690,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/powered/green_bio)
 "Wr" = (
-/obj/structure/chair/sofa/corner{
-	dir = 4
-	},
+/obj/structure/chair/sofa/corner,
 /obj/machinery/light/small{
 	dir = 4
 	},

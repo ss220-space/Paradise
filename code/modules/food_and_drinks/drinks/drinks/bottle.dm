@@ -790,7 +790,7 @@
 /obj/item/reagent_containers/food/drinks/bottle/molotov/attackby(obj/item/I, mob/user, params)
 	. = ..()
 
-	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !I.get_heat())
+	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !I.get_temperature())
 		return .
 
 	add_fingerprint(user)

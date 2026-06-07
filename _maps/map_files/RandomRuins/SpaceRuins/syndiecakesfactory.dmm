@@ -35,7 +35,6 @@
 "fU" = (
 /obj/machinery/power/smes,
 /obj/structure/cable/blue{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -79,7 +78,6 @@
 /area/ruin/unpowered)
 "jR" = (
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/machinery/power/port_gen/pacman,
@@ -138,8 +136,7 @@
 /area/ruin)
 "pb" = (
 /obj/structure/cable{
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/airless,
@@ -153,7 +150,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -210,12 +206,10 @@
 /area/ruin/unpowered)
 "tz" = (
 /obj/structure/cable{
-	icon_state = "1-8";
-	tag = ""
+	icon_state = "1-8"
 	},
 /obj/structure/cable{
-	icon_state = "1-4";
-	tag = "90Curve"
+	icon_state = "1-4"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -232,8 +226,7 @@
 /area/space)
 "uF" = (
 /obj/structure/cable{
-	icon_state = "1-2";
-	tag = ""
+	icon_state = "1-2"
 	},
 /turf/simulated/wall,
 /area/ruin/unpowered)
@@ -254,8 +247,7 @@
 /area/space)
 "yU" = (
 /obj/structure/cable{
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/airless,
@@ -312,8 +304,7 @@
 	name = "EVA Storage"
 	},
 /obj/structure/cable{
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/airless,
@@ -323,8 +314,7 @@
 /area/ruin/unpowered)
 "BI" = (
 /obj/structure/cable{
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -401,8 +391,7 @@
 /area/ruin/space)
 "JI" = (
 /obj/structure/chair/office/dark{
-	dir = 4;
-	tag = "icon-officechair_dark (EAST)"
+	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -543,16 +532,8 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/powered)
 "Vf" = (
-/obj/machinery/power/apc/noalarm{
-	dir = 8;
-	keep_preset_name = 1;
-	locked = 0;
-	name = "EVA room APC";
-	pixel_x = -24;
-	start_charge = -1
-	},
+/obj/machinery/power/apc/noalarm/directional/west,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -572,19 +553,8 @@
 /turf/space,
 /area/ruin/space)
 "Xd" = (
-/obj/machinery/power/apc/noalarm{
-	dir = 8;
-	keep_preset_name = 1;
-	light_power = 0;
-	locked = 0;
-	max_integrity = 0;
-	name = "Manufacturing control room  APC";
-	pixel_y = -24;
-	shorted = 1;
-	start_charge = -1
-	},
+/obj/machinery/power/apc/noalarm/directional/south,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/effect/decal/cleanable/dirt,

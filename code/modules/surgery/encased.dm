@@ -45,6 +45,7 @@
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	affected.open = ORGAN_ORGANIC_ENCASED_OPEN
+	affected.owner.add_bleeding_bodypart(affected)
 	affected.fracture(silent = TRUE)
 	return SURGERY_STEP_CONTINUE
 
@@ -97,6 +98,7 @@
 	)
 
 	affected.open = ORGAN_ORGANIC_ENCASED_OPEN
+	affected.owner.add_bleeding_bodypart(affected)
 
 	return SURGERY_STEP_CONTINUE
 
@@ -197,5 +199,6 @@
 
 	affected.mend_fracture()
 	affected.open = ORGAN_ORGANIC_OPEN
+	affected.owner.add_bleeding_bodypart(affected)
 
 	return SURGERY_STEP_CONTINUE

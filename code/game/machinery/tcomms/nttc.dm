@@ -36,21 +36,21 @@
 		JOB_TITLE_CAPTAIN = "comradio",
 		JOB_TITLE_REPRESENTATIVE = "comradio",
 		// Engineeering
-		JOB_TITLE_CHIEF = "engradio",
+		JOB_TITLE_CHIEF_ENGINEER = "engradio",
 		JOB_TITLE_ATMOSTECH = "engradio",
-		JOB_TITLE_MECHANIC = "engradio",
+		JOB_TITLE_SPACEPOD_TECHNICIAN = "engradio",
 		JOB_TITLE_ENGINEER = "engradio",
 		JOB_TITLE_ENGINEER_TRAINEE = "engradio",
 		// Central Command
 		"Custodian" = "dsquadradio", // I know this says deathsquad but the class for responseteam is neon green. No.
 		"Deathsquad Commando" = "dsquadradio",
-		"Emergency Response Team Engineer" = "dsquadradio",
-		"Emergency Response Team Leader" = "dsquadradio",
-		"Emergency Response Team Medic" = "dsquadradio",
-		"Emergency Response Team Member" = "dsquadradio",
-		"Emergency Response Team Officer" = "dsquadradio",
-		"Emergency Response Team Inquisitor" = "dsquadradio",
-		"Emergency Response Team Janitor" = "dsquadradio",
+		JOB_TITLE_ERT_ENGINEER = "dsquadradio",
+		JOB_TITLE_ERT_LEADER = "dsquadradio",
+		JOB_TITLE_ERT_MEDIC = "dsquadradio",
+		JOB_TITLE_ERT_MEMBER = "dsquadradio",
+		JOB_TITLE_ERT_OFFICER = "dsquadradio",
+		JOB_TITLE_ERT_INQUISITOR = "dsquadradio",
+		JOB_TITLE_ERT_JANITOR = "dsquadradio",
 		JOB_TITLE_CCOFFICER = "dsquadradio",
 		JOB_TITLE_CCFIELD = "dsquadradio",
 		JOB_TITLE_CCSPECOPS = "dsquadradio",
@@ -62,7 +62,7 @@
 		JOB_TITLE_CMO = "medradio",
 		JOB_TITLE_CORONER = "medradio",
 		JOB_TITLE_DOCTOR = "medradio",
-		JOB_TITLE_INTERN = "medradio",
+		JOB_TITLE_MEDICAL_INTERN = "medradio",
 		JOB_TITLE_PARAMEDIC = "medradio",
 		JOB_TITLE_PSYCHIATRIST = "medradio",
 		JOB_TITLE_VIROLOGIST = "medradio",
@@ -71,13 +71,13 @@
 		JOB_TITLE_RD = "sciradio",
 		JOB_TITLE_ROBOTICIST = "sciradio",
 		JOB_TITLE_SCIENTIST = "sciradio",
-		JOB_TITLE_SCIENTIST_STUDENT = "sciradio",
+		JOB_TITLE_SCIENCE_STUDENT = "sciradio",
 		// Security
 		JOB_TITLE_BRIGDOC = "secradio",
 		JOB_TITLE_DETECTIVE = "secradio",
 		JOB_TITLE_HOS = "secradio",
 		JOB_TITLE_LAWYER = "secradio",
-		JOB_TITLE_JUDGE = "secradio",
+		JOB_TITLE_MAGISTRATE = "secradio",
 		JOB_TITLE_OFFICER = "secradio",
 		JOB_TITLE_PILOT = "secradio",
 		JOB_TITLE_WARDEN = "secradio",
@@ -98,14 +98,14 @@
 		JOB_TITLE_LIBRARIAN = "srvradio",
 		JOB_TITLE_MIME = "srvradio",
 		// Syndicate
-		JOB_TITLE_SYNDICATE = "syndiecom",
+		JOB_TITLE_SYNDICATE_OFFICER = "syndiecom",
 	)
 	/// List of Command jobs
-	var/list/heads = list(JOB_TITLE_CAPTAIN, JOB_TITLE_HOP, JOB_TITLE_QUARTERMASTER, JOB_TITLE_REPRESENTATIVE, JOB_TITLE_BLUESHIELD, JOB_TITLE_CHIEF, JOB_TITLE_CMO, JOB_TITLE_RD, JOB_TITLE_HOS, JOB_TITLE_JUDGE, JOB_TITLE_AI, "Syndicate Research Director", "Syndicate Comms Officer")
+	var/list/heads = list(JOB_TITLE_CAPTAIN, JOB_TITLE_HOP, JOB_TITLE_QUARTERMASTER, JOB_TITLE_REPRESENTATIVE, JOB_TITLE_BLUESHIELD, JOB_TITLE_CHIEF_ENGINEER, JOB_TITLE_CMO, JOB_TITLE_RD, JOB_TITLE_HOS, JOB_TITLE_MAGISTRATE, JOB_TITLE_AI, "Syndicate Research Director", "Syndicate Comms Officer")
 	/// List of ERT jobs
-	var/list/ert_jobs = list("Emergency Response Team Officer", "Emergency Response Team Engineer", "Emergency Response Team Medic", "Emergency Response Team Leader", "Emergency Response Team Member")
+	var/list/ert_jobs = list(JOB_TITLE_ERT_OFFICER, JOB_TITLE_ERT_ENGINEER, JOB_TITLE_ERT_MEDIC, JOB_TITLE_ERT_LEADER, JOB_TITLE_ERT_MEMBER)
 	/// List of CentComm jobs
-	var/list/cc_jobs = list(JOB_TITLE_CCOFFICER, JOB_TITLE_CCFIELD, JOB_TITLE_CCSPECOPS, JOB_TITLE_SYNDICATE, "Nanotrasen Navy Captain", JOB_TITLE_CCSOLGOV, "Soviet Officer", "Soviet Marine Captain", "Soviet Admiral", JOB_TITLE_CCSUPREME)
+	var/list/cc_jobs = list(JOB_TITLE_CCOFFICER, JOB_TITLE_CCFIELD, JOB_TITLE_CCSPECOPS, JOB_TITLE_SYNDICATE_OFFICER, "Nanotrasen Navy Captain", JOB_TITLE_CCSOLGOV, "Soviet Officer", "Soviet Marine Captain", "Soviet Admiral", JOB_TITLE_CCSUPREME)
 	/// List of SolGov Marine jobs
 	var/list/tsf_jobs = list("Solar Federation Specops Lieutenant", "Solar Federation Specops Marine", "Solar Federation Lieutenant", "Solar Federation Marine", "Solar Federation Representative", "Solar Federation General", "VIP Guest")
 	//  List of USSP jobs

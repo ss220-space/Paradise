@@ -22,6 +22,11 @@
 
 	var/max_range = 5
 
+/obj/item/circuit_component/compare/health_state/Destroy()
+	input_port = null
+	state_option = null
+	. = ..()
+
 /obj/item/circuit_component/compare/health_state/get_ui_notices()
 	. = ..()
 	. += create_ui_notice("Максимальная дальность: [max_range] тайл[DECL_CREDIT(max_range)]", "orange", "info")

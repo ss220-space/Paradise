@@ -75,7 +75,7 @@
 /turf/simulated/floor/lava/singularity_act()
 	return
 
-/turf/simulated/floor/lava/singularity_pull(S, current_size)
+/turf/simulated/floor/lava/singularity_pull(atom/singularity, current_size)
 	return
 
 /turf/simulated/floor/lava/make_plating()
@@ -128,6 +128,8 @@
 		if(burn_target.throwing) // to avoid gulag prisoners easily escaping, throwing only works for objects.
 			return LAVA_BE_IGNORING
 		var/obj/burn_obj = burn_target
+		if(HAS_TRAIT(src, TRAIT_ELEVATED_TURF) && !HAS_TRAIT(burn_obj, TRAIT_ELEVATING_OBJECT))
+			return LAVA_BE_PROCESSING
 		if((burn_obj.resistance_flags & immunity_resistance_flags) || (burn_obj.resistance_flags & INDESTRUCTIBLE))
 			return LAVA_BE_PROCESSING
 		return LAVA_BE_BURNING
@@ -136,6 +138,9 @@
 		return LAVA_BE_IGNORING
 
 	if(HAS_TRAIT(burn_target, immunity_trait))
+		return LAVA_BE_PROCESSING
+
+	if(HAS_TRAIT(burn_target, TRAIT_MOB_ELEVATED))
 		return LAVA_BE_PROCESSING
 
 	var/mob/living/burn_living = burn_target
@@ -196,8 +201,8 @@
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))
 		return .
 
-	if(istype(I, /obj/item/stack/fireproof_rods))
-		var/obj/item/stack/fireproof_rods/rods = I
+	if(istype(I, /obj/item/stack/rods/fireproof))
+		var/obj/item/stack/rods/fireproof/rods = I
 		if(locate(/obj/structure/lattice/catwalk/fireproof, src))
 			to_chat(user, span_warning("Здесь уже есть мостик!"))
 			return .
@@ -232,9 +237,6 @@
 	return
 
 /turf/simulated/floor/lava/lava_land_surface
-	oxygen = LAVALAND_OXYGEN
-	nitrogen = LAVALAND_NITROGEN
-	temperature = LAVALAND_TEMPERATURE
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
 	atmos_environment = ENVIRONMENT_LAVALAND
 	baseturf = /turf/simulated/floor/chasm/straight_down/lava_land_surface
@@ -378,17 +380,12 @@
 
 // It's not the liquid itself. It's the atmos over it. Don't wanna spend resources on simulating over snow and lava.
 /turf/simulated/floor/lava/lava_land_surface/plasma/cold
-	oxygen = 22
-	nitrogen = 82
-	temperature = 180
+	atmos_environment = ENVIRONMENT_COLD
 
 /turf/simulated/floor/lava/mapping_lava
 	name = "Adaptive lava / chasm / plasma"
 	icon_state = "mappinglava"
 	baseturf = /turf/simulated/floor/lava/mapping_lava
-	oxygen = LAVALAND_OXYGEN
-	nitrogen = LAVALAND_NITROGEN
-	temperature = LAVALAND_TEMPERATURE
 	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
 	atmos_environment = ENVIRONMENT_LAVALAND
 

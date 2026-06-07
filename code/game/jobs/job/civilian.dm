@@ -3,23 +3,37 @@
 	flag = JOB_FLAG_CIVILIAN
 	department_flag = JOBCAT_SUPPORT
 	department = STATION_DEPARTMENT_CIVILIAN
-	total_positions = -1
-	spawn_positions = -1
+	total_positions = JOB_UNLIMITED_POSITION
+	spawn_positions = JOB_UNLIMITED_POSITION
 	supervisors = "Главой персонала"
 	department_head = list(JOB_TITLE_HOP)
 	selection_color = "#e6e6e6"
-	access = list(ACCESS_MAINT_TUNNELS)
-	minimal_access = list(ACCESS_MAINT_TUNNELS)
-	alt_titles = list("Tourist", "Businessman", "Trader", "Assistant")
+	access = list()
+	minimal_access = list()
+	alt_titles = list(
+		ALT_JOB_TITLE_RU_TOURIST,
+		ALT_JOB_TITLE_RU_ASSISTANT,
+		ALT_JOB_TITLE_RU_WORKER,
+		ALT_JOB_TITLE_RU_GENERAL_INTERN,
+	)
 	outfit = /datum/outfit/job/assistant
 	insurance_type = INSURANCE_TYPE_BUDGETARY
 	paycheck = PAYCHECK_MIN
 
 /datum/outfit/job/assistant
-	name = JOB_TITLE_CIVILIAN
+	name = JOB_TITLE_RU_CIVILIAN
 	jobtype = /datum/job/civilian
 
 	uniform = /obj/item/clothing/under/color/random
+
+/datum/outfit/job/assistant/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	if(!HAS_TRAIT(SSstation, STATION_TRAIT_CLASSIC_ASSISTANTS))
+		return
+
+	uniform = /obj/item/clothing/under/color/grey
+	mask = /obj/item/clothing/mask/gas
+	gloves = /obj/item/clothing/gloves/color/yellow/fake
 
 /datum/job/civilian/prisoner
 	title = JOB_TITLE_PRISONER
@@ -30,7 +44,10 @@
 	department_head = list(JOB_TITLE_WARDEN)
 	access = list()
 	minimal_access = list()
-	alt_titles = list("Arrestee")
+	alt_titles = list(
+		ALT_JOB_TITLE_RU_ARRESTEE,
+		ALT_JOB_TITLE_RU_CONVICT,
+	)
 	outfit = /datum/outfit/job/assistant/prisoner
 	insurance_type = INSURANCE_TYPE_NONE
 
@@ -57,7 +74,7 @@
 	. += "."
 
 /datum/outfit/job/assistant/prisoner
-	name = JOB_TITLE_PRISONER
+	name = JOB_TITLE_RU_PRISONER
 	allow_loadout = FALSE
 	jobtype = /datum/job/civilian/prisoner
 	id = /obj/item/card/id/prisoner/random
