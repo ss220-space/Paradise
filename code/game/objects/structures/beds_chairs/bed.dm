@@ -222,10 +222,6 @@
 				)
 			else
 				user_unbuckle_mob(buckled_mobs[1], user)
-				user.visible_message(
-					span_notice("[user] отстёгнул[GEND_A_O_I(user)] [buckled_mobs[1]] от [declent_ru(GENITIVE)]."),
-					span_notice("Вы отстегнули [buckled_mobs[1]] от [declent_ru(GENITIVE)]."),
-				)
 			return ATTACK_CHAIN_PROCEED_SUCCESS
 		user.visible_message(
 			span_notice("[user] сложил[GEND_A_O_I(user)] [declent_ru(ACCUSATIVE)]."),
