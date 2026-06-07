@@ -115,7 +115,7 @@
 		return .
 
 	var/mob/living/carbon/human/P = H.partner
-	if(QDELETED(P) || !(P in view(H.loc)))   // партнёр должен быть видим
+	if(QDELETED(P) || !(P in view(H.loc)))
 		return UI_CLOSE
 
 	if(HAS_TRAIT(H, TRAIT_HANDS_BLOCKED))

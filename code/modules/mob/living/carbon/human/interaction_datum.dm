@@ -19,7 +19,7 @@
 	label = "Отвесить поклон"
 
 /datum/interaction/bow/execute(mob/living/carbon/human/user, mob/living/carbon/human/target)
-	user.custom_emote(message = "кланя[PLUR_ET_YUT(user)]ся [target].")
+	user.custom_emote(message = "кланя[PLUR_ET_YUT(user)]ся [target.declent_ru(DATIVE)].")
 
 
 /datum/interaction/bow_affably
@@ -154,7 +154,7 @@
 /datum/interaction/hands/adjacent/pullwing/is_available(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	. = ..()
 	if(.)
-		return target.dna.species.name == SPECIES_MOTH
+		return target.dna?.species.name == SPECIES_MOTH
 
 /datum/interaction/hands/adjacent/pullwing/execute(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	var/obj/item/organ/external/wing/wing = target.get_organ(BODY_ZONE_WING)
@@ -185,7 +185,7 @@
 /datum/interaction/hands/adjacent/pull/is_available(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	. = ..()
 	if(.)
-		return (target.dna.species.name == SPECIES_TAJARAN)  || (target.dna.species.name == SPECIES_VOX)|| (target.dna.species.name == SPECIES_VULPKANIN) || (target.dna.species.name == SPECIES_UNATHI)
+		return (target.dna?.species.name == SPECIES_TAJARAN)  || (target.dna?.species.name == SPECIES_VOX)|| (target.dna?.species.name == SPECIES_VULPKANIN) || (target.dna?.species.name == SPECIES_UNATHI)
 
 /datum/interaction/hands/adjacent/pull/execute(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	var/obj/item/organ/external/tail/tail = target.get_organ(BODY_ZONE_TAIL)
@@ -225,7 +225,7 @@
 /datum/interaction/hands/adjacent/pet/is_available(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	. = ..()
 	if(.)
-		. = (target.dna.species.name == SPECIES_TAJARAN)  || (target.dna.species.name == SPECIES_VOX)|| (target.dna.species.name == SPECIES_VULPKANIN) || (target.dna.species.name == SPECIES_UNATHI)
+		. = (target.dna?.species.name == SPECIES_TAJARAN)  || (target.dna?.species.name == SPECIES_VOX)|| (target.dna?.species.name == SPECIES_VULPKANIN) || (target.dna?.species.name == SPECIES_UNATHI)
 		. &= target.can_inject(user)
 
 /datum/interaction/hands/adjacent/pet/execute(mob/living/carbon/human/user, mob/living/carbon/human/target)
@@ -239,7 +239,7 @@
 /datum/interaction/hands/adjacent/scratch/is_available(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	. = ..()
 	if(.)
-		. = (target.dna.species.name == SPECIES_TAJARAN)  || (target.dna.species.name == SPECIES_VOX)|| (target.dna.species.name == SPECIES_VULPKANIN) || (target.dna.species.name == SPECIES_UNATHI)
+		. = (target.dna?.species.name == SPECIES_TAJARAN)  || (target.dna?.species.name == SPECIES_VOX)|| (target.dna?.species.name == SPECIES_VULPKANIN) || (target.dna?.species.name == SPECIES_UNATHI)
 		. &= target.can_inject(user)
 
 /datum/interaction/hands/adjacent/scratch/execute(mob/living/carbon/human/user, mob/living/carbon/human/target)
@@ -284,7 +284,7 @@
 
 /datum/interaction/mouth/is_available(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	. = !((user.head && (user.head.flags_cover & HEADCOVERSMOUTH)) || (user.wear_mask && (user.wear_mask.flags_cover & MASKCOVERSMOUTH)))
-	. &= user.dna.species.name != SPECIES_DIONA
+	. &= user.dna?.species.name != SPECIES_DIONA
 
 
 /datum/interaction/mouth/kiss
