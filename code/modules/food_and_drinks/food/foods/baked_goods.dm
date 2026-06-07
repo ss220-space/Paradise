@@ -211,13 +211,11 @@
 	foodtype = SUGAR | GRAIN
 
 /obj/item/reagent_containers/food/snacks/sliceable/chocolatecake/liarscake
-	name = "Шоколадный торт со свечкой"
 	desc = "Торт - это ложь."
 	icon_state = "liars_cake"
 	slice_path = /obj/item/reagent_containers/food/snacks/chocolatecakeslice/liarsslice
 
 /obj/item/reagent_containers/food/snacks/chocolatecakeslice/liarsslice
-	name = "Кусочек шоколадного торта"
 	desc = "Торт - это ложь."
 	icon_state = "liars_slice"
 

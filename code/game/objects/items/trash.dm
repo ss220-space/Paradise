@@ -153,6 +153,16 @@
 	desc = "Пустая банка. Надпись на банке - Бобы."
 	icon_state = "beans_empty"
 
+/obj/item/trash/beans_empty/get_ru_names()
+	return list(
+		NOMINATIVE = "банка бобов",
+		GENITIVE = "банки бобов",
+		DATIVE = "банке бобов",
+		ACCUSATIVE = "банку бобов",
+		INSTRUMENTAL = "банкой бобов",
+		PREPOSITIONAL = "банке бобов",
+	)
+
 /obj/item/spentcasing
 	icon = 'icons/obj/weapons/ammo.dmi'
 	icon_state = "buckshotshell"
