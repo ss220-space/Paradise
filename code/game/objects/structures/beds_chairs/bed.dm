@@ -217,15 +217,15 @@
 			if(buckled_mobs > 1)
 				unbuckle_all_mobs()
 				user.visible_message(
-					span_notice("[user] отстёгивает всех от [declent_ru(GENITIVE)]."),
-					span_notice("Вы отстегнули всех от [declent_ru(GENITIVE)]."),
+					span_notice("[user] отстёгивает всех от [src.declent_ru(GENITIVE)]."),
+					span_notice("Вы отстегнули всех от [src.declent_ru(GENITIVE)]."),
 				)
 			else
 				user_unbuckle_mob(buckled_mobs[1], user)
 			return ATTACK_CHAIN_PROCEED_SUCCESS
 		user.visible_message(
-			span_notice("[user] сложил[GEND_A_O_I(user)] [declent_ru(ACCUSATIVE)]."),
-			span_notice("Вы сложили [declent_ru(ACCUSATIVE)]."),
+			span_notice("[user] сложил[GEND_A_O_I(user)] [src.declent_ru(ACCUSATIVE)]."),
+			span_notice("Вы сложили [src.declent_ru(ACCUSATIVE)]."),
 		)
 		var/obj/item/folded_item = new folded(drop_location())
 		transfer_fingerprints_to(folded_item)
@@ -281,8 +281,8 @@
 	var/obj/structure/bed/roller/roller = new extended(drop_location())
 	roller.add_fingerprint(user)
 	user.visible_message(
-			span_notice("[user] разложил[GEND_A_O_I(user)] [declent_ru(NOMINATIVE)]."),
-			span_notice("Вы разложили [declent_ru(NOMINATIVE)]."),
+			span_notice("[user] разложил[GEND_A_O_I(user)] [src.declent_ru(NOMINATIVE)]."),
+			span_notice("Вы разложили [src.declent_ru(NOMINATIVE)]."),
 		)
 	qdel(src)
 
@@ -296,13 +296,13 @@
 			balloon_alert(user, "[roller.name] уже содержит [roller.held]!")
 			return ATTACK_CHAIN_PROCEED
 		if(!collectable)
-			balloon_alert(user, "неверный тип [declent_ru(GENITIVE)]!")
+			balloon_alert(user, "неверный тип [src.declent_ru(GENITIVE)]!")
 			return ATTACK_CHAIN_PROCEED
 		if(loc == user && !user.can_unEquip(src))
 			return ..()
 		user.visible_message(
-			span_notice("[user] собрал[GEND_A_O_I(user)] [declent_ru(NOMINATIVE)]."),
-			span_notice("Вы собрали [declent_ru(NOMINATIVE)]."),
+			span_notice("[user] собрал[GEND_A_O_I(user)] [src.declent_ru(NOMINATIVE)]."),
+			span_notice("Вы собрали [src.declent_ru(NOMINATIVE)]."),
 		)
 		if(loc == user)
 			user.transfer_item_to_loc(src, roller)
@@ -318,8 +318,8 @@
 		return
 
 	user.visible_message(
-		span_notice("[user] собрал[GEND_A_O_I(user)] [declent_ru(NOMINATIVE)]."),
-		span_notice("Вы собрали [declent_ru(NOMINATIVE)]."),
+		span_notice("[user] собрал[GEND_A_O_I(user)] [src.declent_ru(NOMINATIVE)]."),
+		span_notice("Вы собрали [src.declent_ru(NOMINATIVE)]."),
 	)
 	var/obj/item/folded_item = new folded(drop_location())
 	folded_item.add_fingerprint(user)
