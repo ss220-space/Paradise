@@ -12,10 +12,10 @@
 	if(!(P in view(H.loc)))
 		return
 
-	if(world.time <= H.last_interract + 1 SECONDS)
+	if(world.time <= H.last_interact + 1 SECONDS)
 		return
 
-	H.last_interract = world.time
+	H.last_interact = world.time
 
 	switch(href_list["interaction"])
 		if("bow")

@@ -19,7 +19,7 @@
 	label = "Отвесить поклон"
 
 /datum/interaction/bow/execute(mob/living/carbon/human/user, mob/living/carbon/human/target)
-	user.custom_emote(message = "кланя[PLUR_ET_YUT(user)]ся [target.declent_ru(DATIVE)].")
+	user.custom_emote(message = "кланя[PLUR_ET_YUT(user)]ся [target].")
 
 
 /datum/interaction/bow_affably

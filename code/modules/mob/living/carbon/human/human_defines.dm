@@ -97,7 +97,7 @@
 	var/list/bodyparts_by_name = list()
 
 	var/mob/living/carbon/human/partner
-	var/mob/living/carbon/human/last_interract
+	var/mob/living/carbon/human/last_interact
 
 	/// Store what the body last looked like, so we only have to update it if something changed
 	var/previous_damage_appearance

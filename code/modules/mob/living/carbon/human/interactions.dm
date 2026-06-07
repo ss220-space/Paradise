@@ -2,8 +2,8 @@
 *******Interactions code by HONKERTRON feat TestUnit********
 ***********************************/
 
-/mob/living/carbon/human/proc/interact_by_mouse_drop_dragged(mob/M)
-	if(ishuman(M) && usr != M && src != M)
+/mob/living/carbon/human/proc/interact_by_mouse_drop_dragged(mob/M, mob/user)
+	if(ishuman(M) && user != M && src != M)
 		partner = M
 		var/datum/interactions/tgui = new /datum/interactions
 		tgui.owner = src
@@ -12,7 +12,7 @@
 /mob/living/carbon/human/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
 	if(src != user)
 		return
-	interact_by_mouse_drop_dragged(over_object)
+	interact_by_mouse_drop_dragged(over_object, user)
 
 //Distant interactions
 /mob/living/carbon/human/verb/interact()
@@ -79,7 +79,7 @@
 	if(..())
 		return
 
-	if(ui.user.incapacitated() || HAS_TRAIT(ui.user, TRAIT_HANDS_BLOCKED))
+	if(ui.user.incapacitated())
 		return
 
 	var/mob/living/carbon/human/H = ui.user
@@ -87,10 +87,10 @@
 	if(!(P in view(H.loc)))
 		return
 
-	if(world.time <= H.last_interract + 1 SECONDS)
+	if(world.time <= H.last_interact + 1 SECONDS)
 		return
 
-	H.last_interract = world.time
+	H.last_interact = world.time
 
 	for(var/datum/interaction/I in GLOB.interaction_entries)
 		if(I.action == action && I.is_available(H, P))
@@ -118,8 +118,8 @@
 	if(QDELETED(P) || !(P in view(H.loc)))
 		return UI_CLOSE
 
-	if(HAS_TRAIT(H, TRAIT_HANDS_BLOCKED))
-		return UI_UPDATE
+	// if(HAS_TRAIT(H, TRAIT_HANDS_BLOCKED))
+	// 	return UI_UPDATE
 
 	return UI_INTERACTIVE
 
