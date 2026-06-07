@@ -62,9 +62,24 @@ export const Interactions = () => {
         <Box textAlign="center" fontSize={1.2} bold mb={1} py={0.5}>
           {partner}
         </Box>
-        <InteractionList title="" category="" interactions={interactions} act={act} />
-        <InteractionList title="Руки" category="hands" interactions={interactions} act={act} />
-        <InteractionList title="Губы" category="mouth" interactions={interactions} act={act} />
+        <InteractionList
+          title=""
+          category=""
+          interactions={interactions}
+          act={act}
+        />
+        <InteractionList
+          title="Руки"
+          category="hands"
+          interactions={interactions}
+          act={act}
+        />
+        <InteractionList
+          title="Губы"
+          category="mouth"
+          interactions={interactions}
+          act={act}
+        />
       </Window.Content>
     </Window>
   );
