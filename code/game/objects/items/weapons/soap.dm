@@ -32,7 +32,7 @@
 
 	//I couldn't feasibly  fix the overlay bugs caused by cleaning items we are wearing.
 	//So this is a workaround. This also makes more sense from an IC standpoint. ~Carn
-	CALCULATE_SKILL_MOD(user, GET_CLEANING_SPEED_MOD, skill_factor)
+	CALCULATE_SKILL_MOD(user, COMSIG_GET_CLEANING_SPEED_MOD, skill_factor)
 	var/cleaning_speed = cleanspeed * skill_factor
 	if(user.client && (target in user.client.screen))
 		user.balloon_alert(user, "снимите это с себя!")
