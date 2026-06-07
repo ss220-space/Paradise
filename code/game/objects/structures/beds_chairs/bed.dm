@@ -267,6 +267,16 @@
 	var/extended = /obj/structure/bed/roller
 	w_class = WEIGHT_CLASS_BULKY // Can't be put in backpacks.
 
+/obj/item/roller/get_ru_names()
+	return alist(
+		NOMINATIVE = "носилки",
+		GENITIVE = "носилок",
+		DATIVE = "носилкам",
+		ACCUSATIVE = "носилки",
+		INSTRUMENTAL = "носилками",
+		PREPOSITIONAL = "носилках",
+	)
+
 /obj/item/roller/attack_self(mob/user)
 	var/obj/structure/bed/roller/roller = new extended(drop_location())
 	roller.add_fingerprint(user)
