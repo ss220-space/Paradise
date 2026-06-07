@@ -10,6 +10,7 @@
 	cooldown_time = 1 MINUTES
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 	button_icon_state = "revive"
+	sound = 'sound/magic/staff_healing.ogg'
 
 /obj/item/melee/magic_hand/revive_touch
 	name = "воскрешающее касание"
@@ -28,20 +29,15 @@
 	)
 
 /datum/action/cooldown/spell/touch/revive_touch/cast_on_hand_hit(obj/item/melee/magic_hand/hand, atom/victim, mob/living/carbon/caster)
-	. = ..()
-
-	if(!isliving(victim))
-		return .
-
 	var/mob/living/mob = victim
 
 	if(mob.stat != DEAD || !(mob.mind?.is_revivable()))
-		return .
+		return FALSE
 
 	mob.revive()
 	playsound(victim, 'sound/magic/staff_healing.ogg', 50, TRUE)
 	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(late_death), mob), REVIVE_SPELL_TIME)
-	remove_hand(reset_cooldown_after = TRUE)
+	return TRUE
 
 /proc/late_death(mob/living/mob)
 	mob.death()

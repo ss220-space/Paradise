@@ -4,7 +4,8 @@
 		stun them with a loud HONK, and mutate them to make them more entertaining! \
 		Warning : Effects are permanent on non-wizards."
 	hand_path = /obj/item/melee/magic_hand/banana_touch
-	school = "transmutation"
+	school = SCHOOL_TRANSMUTATION
+	sound = 'sound/items/AirHorn.ogg'
 	invocation = "NWOLC YRGNA"
 	cooldown_time = 30 SECONDS
 	cooldown_reduction_per_rank = 5 SECONDS //50 deciseconds reduction per rank
@@ -16,6 +17,9 @@
 	icon_state = "banana_touch"
 	item_state = "banana_touch"
 
+/datum/action/cooldown/spell/touch/banana_touch/is_valid_target(atom/cast_on)
+	return ishuman(cast_on)
+
 /datum/action/cooldown/spell/touch/banana_touch/cast_on_hand_hit(obj/item/melee/magic_hand/hand, atom/victim, mob/living/carbon/caster)
 	var/datum/effect_system/fluid_spread/smoke/smoke = new
 	smoke.set_up(amount = 5, location = victim)
@@ -23,8 +27,7 @@
 	to_chat(victim, "<font color='red' size='6'>HONK</font>")
 	var/mob/living/carbon/human/h_target = victim
 	h_target.bananatouched()
-	remove_hand(reset_cooldown_after = TRUE)
-	playsound(victim, 'sound/items/AirHorn.ogg', 50, TRUE)
+	return TRUE
 
 /mob/living/carbon/human/proc/bananatouched()
 	to_chat(src, "<font color='red' size='6'>HONK</font>")

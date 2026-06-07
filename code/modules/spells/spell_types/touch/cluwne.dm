@@ -4,9 +4,9 @@
 	hand_path = /obj/item/melee/magic_hand/cluwne
 	invocation = "NWOLC EGNEVER"
 	school = SCHOOL_TRANSMUTATION
+	sound = 'sound/misc/sadtrombone.ogg'
 	cooldown_time = 1 MINUTES
 	cooldown_reduction_per_rank = 10 SECONDS
-
 	button_icon_state  = "cluwne"
 
 /obj/item/melee/magic_hand/cluwne
@@ -15,27 +15,26 @@
 	icon_state = "cluwnecurse"
 	item_state = "cluwnecurse"
 
-/datum/action/cooldown/spell/touch/cluwne/cast_on_hand_hit(obj/item/melee/magic_hand/hand, atom/victim, mob/living/carbon/caster)
-	if(victim == caster || !ishuman(victim) || caster.incapacitated())
-		return
+/datum/action/cooldown/spell/touch/cluwne/is_valid_target(atom/cast_on)
+	return ishuman(cast_on)
 
-	if(iswizard(victim))
+/datum/action/cooldown/spell/touch/cluwne/cast_on_hand_hit(obj/item/melee/magic_hand/hand, atom/victim, mob/living/carbon/caster)
+	var/mob/living/carbon/human/H = victim
+	if(iswizard(H))
 		to_chat(caster, span_warning("The spell has no effect on [victim]."))
 		return
 
-	var/datum/effect_system/fluid_spread/smoke/s = new
-	s.set_up(amount = 5, location = victim)
-	s.start()
+	if(!H.mind)
+		return FALSE
 
-	var/mob/living/carbon/human/H = victim
-	if(H.mind)
-		if(H.mind.assigned_role != "Cluwne")
-			H.makeCluwne()
-		else
-			H.makeAntiCluwne()
-	remove_hand(reset_cooldown_after = TRUE)
-	playsound(victim, 'sound/misc/sadtrombone.ogg', 50, TRUE)
-	..()
+	if(H.mind.assigned_role != "Cluwne")
+		H.makeCluwne()
+	else
+		H.makeAntiCluwne()
+	var/datum/effect_system/fluid_spread/smoke/s = new
+	s.set_up(amount = 5, location = H)
+	s.start()
+	return TRUE
 
 
 /mob/living/carbon/human/proc/makeCluwne()

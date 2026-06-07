@@ -229,6 +229,7 @@
 	caster.do_attack_animation(victim)
 	caster.changeNext_move(CLICK_CD_MELEE)
 	victim.add_fingerprint(caster)
+	playsound(victim, sound, 50, TRUE)
 	remove_hand(caster)
 	return ITEM_INTERACT_SUCCESS
 

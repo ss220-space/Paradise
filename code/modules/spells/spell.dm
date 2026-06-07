@@ -48,7 +48,7 @@
 	overlay_icon_state = "bg_spell_border"
 	active_overlay_icon_state = "targeting"
 	background_icon_state_active = "bg_spell"
-	check_flags = AB_CHECK_CONSCIOUS | AB_TRANSFER_MIND//|AB_CHECK_PHASED
+	check_flags = AB_CHECK_CONSCIOUS | AB_TRANSFER_MIND | AB_CHECK_PHASED
 	panel = "Spells"
 
 	/// The sound played on cast.
