@@ -44,6 +44,14 @@
 		set_on(FALSE)
 	GLOB.global_intercoms |= src
 	update_icon()
+	RegisterSignal(src, COMSIG_MOUSEDROP_ONTO, PROC_REF(on_mousedrop_onto))
+
+/obj/item/radio/intercom/proc/on_mousedrop_onto(datum/source, atom/over, mob/user)
+	SIGNAL_HANDLER
+	if(anchored && buildstage == INTERCOM_BUILD_SECURED)
+		user.balloon_alert(user, "прикручен к стене!")
+		return COMPONENT_CANCEL_MOUSEDROP_ONTO
+	return NONE
 
 /obj/item/radio/intercom/Destroy()
 	GLOB.global_intercoms -= src
@@ -53,12 +61,6 @@
 	add_hiddenprint(user)
 	add_fingerprint(user)
 	attack_self(user)
-
-/obj/item/radio/intercom/MouseDrop(atom/over, src_location, over_location, src_control, over_control, params)
-	if(anchored)
-		to_chat(usr, span_warning("[capitalize(declent_ru(NOMINATIVE))] прикручен к стене!"))
-		return FALSE
-	return ..()
 
 /obj/item/radio/intercom/attack_hand(mob/user)
 	add_fingerprint(user)
