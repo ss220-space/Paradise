@@ -15,7 +15,7 @@
 	var/locked = FALSE
 
 /obj/structure/money_bot/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бот-банкомат",
 		GENITIVE = "бота-банкомата",
 		DATIVE = "боту-банкомату",

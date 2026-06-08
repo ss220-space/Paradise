@@ -16,7 +16,7 @@
 	var/obj/item/card/id/inserted_id = null
 
 /obj/machinery/bodyscanner/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "медицинский сканер",
 		GENITIVE = "медицинского сканера",
 		DATIVE = "медицинскому сканеру",

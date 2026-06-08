@@ -22,7 +22,7 @@
 	impact_light_color_override = LIGHT_COLOR_CYAN
 
 /obj/projectile/plasma/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "плазменный луч",
 		GENITIVE = "плазменного луча",
 		DATIVE = "плазменному лучу",
@@ -88,7 +88,7 @@
 	damage_type = TOX
 
 /obj/projectile/energy/toxplasma/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "токсичный заряд",
 		GENITIVE = "токсичного заряда",
 		DATIVE = "токсичному заряду",
@@ -104,7 +104,7 @@
 	damage = 20
 
 /obj/projectile/energy/weak_plasma/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "плазменный импульс",
 		GENITIVE = "плазменного импульса",
 		DATIVE = "плазменному импульсу",
@@ -122,7 +122,7 @@
 	reflectability = REFLECTABILITY_NEVER //I will let eswords block it like a normal projectile, but it's not getting reflected, and eshields will take the hit hard.
 
 /obj/projectile/energy/charged_plasma/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "заряженный плазменный импульс",
 		GENITIVE = "заряженного плазменного импульса",
 		DATIVE = "заряженному плазменному импульсу",

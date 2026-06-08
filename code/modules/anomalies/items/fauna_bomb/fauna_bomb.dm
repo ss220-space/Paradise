@@ -45,7 +45,7 @@
 	var/cur_choosing = 0
 
 /obj/item/fauna_bomb/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "фаунная бомба", \
 		GENITIVE = "фаунной бомбы", \
 		DATIVE = "фаунной бомбе", \

@@ -34,7 +34,7 @@
 	)
 
 /obj/machinery/vending/chinese/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат \"Мистер Чанг\"",
 		GENITIVE = "торгового автомата \"Мистер Чанг\"",
 		DATIVE = "торговому автомату \"Мистер Чанг\"",

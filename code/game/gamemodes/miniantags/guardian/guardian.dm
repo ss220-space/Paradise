@@ -47,7 +47,7 @@ GLOBAL_LIST_EMPTY(parasites)
 	var/name_color = "white"//only used with protector shields for the time being
 
 /mob/living/simple_animal/hostile/guardian/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Дух-Хранитель",
 		GENITIVE = "Духа-Хранителя",
 		DATIVE = "Духу-Хранителю",
@@ -281,7 +281,7 @@ GLOBAL_LIST_EMPTY(parasites)
 	var/name_list = list("Aries", "Leo", "Sagittarius", "Taurus", "Virgo", "Capricorn", "Gemini", "Libra", "Aquarius", "Cancer", "Scorpio", "Pisces")
 
 /obj/item/guardiancreator/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "колода карт Таро",
 		GENITIVE = "колоды карт Таро",
 		DATIVE = "колоде карт Таро",
@@ -435,7 +435,7 @@ GLOBAL_LIST_EMPTY(parasites)
 	name_list = list("Gallium", "Indium", "Thallium", "Bismuth", "Aluminium", "Mercury", "Iron", "Silver", "Zinc", "Titanium", "Chromium", "Nickel", "Platinum", "Tellurium", "Palladium", "Rhodium", "Cobalt", "Osmium", "Tungsten", "Iridium")
 
 /obj/item/guardiancreator/tech/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "инъектор голопаразитов",
 		GENITIVE = "инъектора голопаразитов",
 		DATIVE = "инъектору голопаразитов",
@@ -483,7 +483,7 @@ GLOBAL_LIST_EMPTY(parasites)
 	name_list = list("brood", "hive", "nest")
 
 /obj/item/guardiancreator/biological/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "скопление яиц скарабеев",
 		GENITIVE = "скопления яиц скарабеев",
 		DATIVE = "скоплению яиц скарабеев",

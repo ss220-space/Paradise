@@ -35,7 +35,7 @@
 	footstep_type = FOOTSTEP_MOB_SHOE
 
 /mob/living/simple_animal/hostile/retaliate/goat/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "козёл",
 		GENITIVE = "козла",
 		DATIVE = "козлу",
@@ -167,7 +167,7 @@
 	COOLDOWN_DECLARE(feeded_cow)
 
 /mob/living/simple_animal/cow/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "корова",
 		GENITIVE = "коровы",
 		DATIVE = "корове",
@@ -295,7 +295,7 @@
 	holder_type = /obj/item/holder/chick
 
 /mob/living/simple_animal/chick/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "цыплёнок",
 		GENITIVE = "цыплёнка",
 		DATIVE = "цыплёнку",
@@ -371,7 +371,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	holder_type = /obj/item/holder/chicken
 
 /mob/living/simple_animal/chicken/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "курица",
 		GENITIVE = "курицы",
 		DATIVE = "курице",
@@ -486,7 +486,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	holder_type = /obj/item/holder/cock
 
 /mob/living/simple_animal/cock/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "петух",
 		GENITIVE = "петуха",
 		DATIVE = "петуху",
@@ -527,7 +527,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	blood_volume = BLOOD_VOLUME_NORMAL
 
 /mob/living/simple_animal/pig/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "свинья",
 		GENITIVE = "свиньи",
 		DATIVE = "свинье",
@@ -564,7 +564,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	footstep_type = FOOTSTEP_MOB_SHOE
 
 /mob/living/simple_animal/turkey/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "индейка",
 		GENITIVE = "индейки",
 		DATIVE = "индейке",
@@ -607,7 +607,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	footstep_type = FOOTSTEP_MOB_CLAW
 
 /mob/living/simple_animal/goose/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "гусь",
 		GENITIVE = "гуся",
 		DATIVE = "гусю",
@@ -630,7 +630,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	maxHealth = 20
 
 /mob/living/simple_animal/goose/gosling/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "гусёнок",
 		GENITIVE = "гусёнка",
 		DATIVE = "гусёнку",
@@ -667,7 +667,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	footstep_type = FOOTSTEP_MOB_CLAW
 
 /mob/living/simple_animal/seal/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "белёк",
 		GENITIVE = "белька",
 		DATIVE = "бельку",
@@ -703,7 +703,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	blood_volume = BLOOD_VOLUME_NORMAL
 
 /mob/living/simple_animal/walrus/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "морж",
 		GENITIVE = "моржа",
 		DATIVE = "моржу",
@@ -754,7 +754,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	icon_resting = "goat_hump_rest"
 
 /mob/living/simple_animal/hostile/retaliate/goat/hump/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "горбатый козёл",
 		GENITIVE = "горбатого козла",
 		DATIVE = "горбатому козлу",
@@ -772,7 +772,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	icon_dead = "cool_cock_dead"
 
 /mob/living/simple_animal/cock/cool/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "крутой петух",
 		GENITIVE = "крутого петуха",
 		DATIVE = "крутому петуху",

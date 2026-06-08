@@ -35,7 +35,7 @@
 	projectile_type = /obj/projectile/glockroachbullet
 
 /obj/item/ammo_casing/caseless/glockroach/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "гильза 0,9 мм",
 		GENITIVE = "гильзы 0,9 мм",
 		DATIVE = "гильзе 0,9 мм",

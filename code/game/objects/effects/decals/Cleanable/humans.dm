@@ -25,14 +25,14 @@
 #undef DRYING_TIME
 
 /obj/effect/decal/cleanable/blood/get_ru_names_cached() //we can't cache this now
-	return is_dry? list(
+	return is_dry? alist(
 		NOMINATIVE = "засохшая кровь",
 		GENITIVE = "засохшей крови",
 		DATIVE = "засохшей крови",
 		ACCUSATIVE = "засохшую кровь",
 		INSTRUMENTAL = "засохшей кровью",
 		PREPOSITIONAL = "засохшей крови",
-	): list(
+	): alist(
 		NOMINATIVE = "кровь",
 		GENITIVE = "крови",
 		DATIVE = "крови",
@@ -181,7 +181,7 @@
 	var/drips = 1
 
 /obj/effect/decal/cleanable/blood/drip/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "капли крови",
 		GENITIVE = "капель крови",
 		DATIVE = "каплям крови",
@@ -204,7 +204,7 @@
 	var/list/existing_dirs = list()
 
 /obj/effect/decal/cleanable/trail_holder/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кровь",
 		GENITIVE = "крови",
 		DATIVE = "крови",
@@ -252,7 +252,7 @@
 	var/squishy = TRUE
 
 /obj/effect/decal/cleanable/blood/gibs/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кровавое месиво",
 		GENITIVE = "кровавого месива",
 		DATIVE = "кровавому месиву",

@@ -24,7 +24,7 @@
 	var/can_atmos_pass = FALSE
 
 /obj/structure/plasticflaps/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "герметичные пластиковые занавески",
 		GENITIVE = "герметичных пластиковых занавесок",
 		DATIVE = "герметичным пластиковым занавескам",
@@ -44,7 +44,7 @@
 	flaps_alpha = 150
 
 /obj/structure/plasticflaps/kitchen/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пластиковые занавески холодильной комнаты",
 		GENITIVE = "пластиковых занавесок холодильной комнаты",
 		DATIVE = "пластиковым занавескам холодильной комнаты",

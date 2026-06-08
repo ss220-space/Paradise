@@ -48,7 +48,7 @@
 	greyscale_colors = "#00FF00#FF0000"
 
 /obj/item/stack/wrapping_paper/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "обёрточная бумага",
 		GENITIVE = "обёрточной бумаги",
 		DATIVE = "обёрточной бумаге",

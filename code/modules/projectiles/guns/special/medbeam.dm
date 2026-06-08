@@ -16,7 +16,7 @@
 	var/mounted = FALSE
 
 /obj/item/gun/medbeam/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "медицинская лучевая пушка",
 		GENITIVE = "медицинской лучевой пушки",
 		DATIVE = "медицинской лучевой пушке",

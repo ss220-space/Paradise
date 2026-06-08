@@ -73,7 +73,7 @@
 	var/precision_coeff
 
 /obj/machinery/dna_scannernew/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ДНК-модификатор",
 		GENITIVE = "ДНК-модификатора",
 		DATIVE = "ДНК-модификатору",
@@ -333,7 +333,7 @@
 	var/selected_menu_key = PAGE_UI
 
 /obj/machinery/computer/scan_consolenew/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "консоль управления ДНК-модификатором",
 		GENITIVE = "консоли управления ДНК-модификатором",
 		DATIVE = "консоли управления ДНК-модификатором",

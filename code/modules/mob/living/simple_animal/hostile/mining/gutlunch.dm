@@ -40,7 +40,7 @@
 	var/obj/item/udder/gutlunch/udder = null
 
 /mob/living/simple_animal/hostile/asteroid/gutlunch/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кишкожор",
 		GENITIVE = "кишкожора",
 		DATIVE = "кишкожору",
@@ -125,7 +125,7 @@
 	name = "nutrient sac"
 
 /obj/item/udder/gutlunch/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "питательный мешок",
 		GENITIVE = "питательного мешка",
 		DATIVE = "питательному мешку",
@@ -148,7 +148,7 @@
 	gender = MALE
 
 /mob/living/simple_animal/hostile/asteroid/gutlunch/gubbuck/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "жирохрюн",
 		GENITIVE = "жирохрюна",
 		DATIVE = "жирохрюну",
@@ -168,7 +168,7 @@
 	gender = FEMALE
 
 /mob/living/simple_animal/hostile/asteroid/gutlunch/guthen/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "квохтун",
 		GENITIVE = "квохтуна",
 		DATIVE = "квохтуну",
@@ -195,7 +195,7 @@
 	var/growth = 0
 
 /mob/living/simple_animal/hostile/asteroid/gutlunch/grublunch/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "червожор",
 		GENITIVE = "червожора",
 		DATIVE = "червожору",

@@ -20,7 +20,7 @@
 	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 /obj/item/gun/energy/kinetic_accelerator/crossbow/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мини энерго-арбалет",
 		GENITIVE = "мини энерго-арбалета",
 		DATIVE = "мини энерго-арбалету",
@@ -49,7 +49,7 @@
 	accuracy = GUN_ACCURACY_RIFLE
 
 /obj/item/gun/energy/kinetic_accelerator/crossbow/large/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "энергетический арбалет",
 		GENITIVE = "энергетического арбалета",
 		DATIVE = "энергетическому арбалету",
@@ -77,7 +77,7 @@
 	accuracy = GUN_ACCURACY_DEFAULT
 
 /obj/item/gun/energy/kinetic_accelerator/crossbow/toy/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "игрушечный энерго-арбалет",
 		GENITIVE = "игрушечного энерго-арбалета",
 		DATIVE = "игрушечному энерго-арбалету",

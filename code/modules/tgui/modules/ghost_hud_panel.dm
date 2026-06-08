@@ -74,10 +74,10 @@ GLOBAL_DATUM_INIT(ghost_hud_panel, /datum/ui_module/ghost_hud_panel, new)
 				GLOB.respawnable_list -= ghost
 
 			ghost.antagHUD = TRUE
-			for(var/datum/atom_hud/antag/H in GLOB.huds)
-				H.show_to(ghost)
+			for(var/hud_key, hud_type in GLOB.huds)
+				astype(hud_type, /datum/atom_hud/antag)?.show_to(ghost)
 
 		if("ahud_off")
 			ghost.antagHUD = FALSE
-			for(var/datum/atom_hud/antag/H in GLOB.huds)
-				H.hide_from(ghost)
+			for(var/hud_key, hud_type in GLOB.huds)
+				astype(hud_type, /datum/atom_hud/antag)?.hide_from(ghost)

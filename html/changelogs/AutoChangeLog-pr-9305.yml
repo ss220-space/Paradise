@@ -1,4 +1,0 @@
-author: "Dimempers"
-delete-after: True
-changes:
-  - bugfix: "Больше нельзя включить барный музыкальный автомат на ПКМ пока в нем нет монетки. (PR #9305)"

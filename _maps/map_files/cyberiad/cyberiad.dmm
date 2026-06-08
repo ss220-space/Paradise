@@ -52436,9 +52436,7 @@
 	pixel_x = -6;
 	pixel_y = -3
 	},
-/obj/machinery/defibrillator_mount/loaded{
-	pixel_y = 30
-	},
+/obj/machinery/defibrillator_mount/loaded/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteblue"
@@ -52731,13 +52729,11 @@
 	},
 /area/security/warden)
 "inN" = (
-/obj/machinery/defibrillator_mount/loaded{
-	pixel_x = 30
-	},
 /obj/machinery/optable,
 /obj/item/tank/internals/anesthetic,
 /obj/item/clothing/mask/breath/medical,
 /obj/effect/landmark/start/hangover,
+/obj/machinery/defibrillator_mount/loaded/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whiteblue"

@@ -19,7 +19,7 @@
 	faction = list("nether")
 
 /mob/living/simple_animal/hostile/netherworld/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "существо",
 		GENITIVE = "существа",
 		DATIVE = "существу",
@@ -48,7 +48,7 @@
 	death_sound = 'sound/voice/hiss6.ogg'
 
 /mob/living/simple_animal/hostile/netherworld/migo/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ми-го",
 		GENITIVE = "ми-го",
 		DATIVE = "ми-го",
