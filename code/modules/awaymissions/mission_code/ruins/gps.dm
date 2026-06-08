@@ -9,6 +9,17 @@
 	local = TRUE
 	gpstag = "Unknown Signal"
 
+/obj/item/gps/ruin/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_MOUSEDROP_ONTO, PROC_REF(on_mousedrop_onto))
+
+/obj/item/gps/ruin/proc/on_mousedrop_onto(datum/source, atom/over, mob/user)
+	SIGNAL_HANDLER
+	if(anchored)
+		user.balloon_alert(user, "прикручен к стене!")
+		return COMPONENT_CANCEL_MOUSEDROP_ONTO
+	return NONE
+
 /obj/item/gps/ruin/ui_state(mob/user)
 	return GLOB.default_state
 
