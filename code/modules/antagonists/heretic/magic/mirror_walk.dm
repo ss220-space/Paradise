@@ -119,7 +119,7 @@
 
 	// Chilly!
 	if(is_space_or_openspace(phase_turf))
-		phase_turf.get_readonly_air()?.temperature() = max(0, phase_turf.get_readonly_air()?.temperature() - 20)
+		phase_turf.get_readonly_air()?.set_temperature(max(0, phase_turf.get_readonly_air()?.temperature() - 20)) // MILLA: write may need milla_safe to persist
 
 	var/atom/nearby_reflection = is_reflection_nearby(phase_turf)
 	if(!nearby_reflection) // Should only be true if you're forced out somehow, like by having the spell removed

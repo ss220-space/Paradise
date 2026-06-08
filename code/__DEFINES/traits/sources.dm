@@ -208,3 +208,4 @@
 /// Heretic antagonist trait sources.
 #define HERETIC_TRAIT "heretic"
 #define HERETIC_ARENA_TRAIT "heretic_arena"
+#define HAND_REPLACEMENT_TRAIT "magic-hand"

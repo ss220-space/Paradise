@@ -80,6 +80,20 @@
 
 /// Returned by a spell's before_cast hook to cancel the cast.
 #define SPELL_CANCEL_CAST (1 << 0)
+/// Returned by a spell hook to suppress the "can't do that" feedback / immediate cooldown.
+#define SPELL_NO_FEEDBACK (1 << 1)
+#define SPELL_NO_IMMEDIATE_COOLDOWN (1 << 2)
+
+/// Blackboard keys used by some heretic monster AI (tg basic-mob AI; behaviour pending task #7).
+#define BB_GENERIC_ACTION "BB_generic_action"
+#define BB_TARGETED_ACTION "BB_TARGETED_action"
+#define BB_SHAPESHIFT_ACTION "BB_shapeshift_action"
+
+/// Overlay layer used by rust/cleanable decals.
+#define ABOVE_CLEANABLES_LAYER 2.0475
+
+/// TRUE if a hand index is a left hand (odd indices are left in tg's hand model).
+#define IS_LEFT_INDEX(value) (value % 2 != 0)
 
 /// Attack classification flags passed by the relay_attackers element via COMSIG_ATOM_WAS_ATTACKED.
 #define ATTACKER_STAMINA_ATTACK (1 << 0)

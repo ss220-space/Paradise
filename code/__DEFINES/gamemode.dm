@@ -63,6 +63,7 @@
 #define SPECIAL_ROLE_VAMPIRE_THRALL "Vampire Thrall"
 #define SPECIAL_ROLE_WIZARD "Wizard"
 #define SPECIAL_ROLE_HERETIC "Heretic"
+#define SPECIAL_ROLE_HERETIC_MONSTER "Heretic Monster"
 #define SPECIAL_ROLE_WIZARD_APPRENTICE "Wizard Apprentice"
 #define SPECIAL_ROLE_XENOMORPH "Xenomorph"
 #define SPECIAL_ROLE_XENOMORPH_QUEEN "Xenomorph Queen"
