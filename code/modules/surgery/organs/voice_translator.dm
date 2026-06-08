@@ -99,7 +99,8 @@
 	RegisterSignal(target, COMSIG_LANG_PRE_ACT, PROC_REF(check_language))
 
 	for(var/datum/language/lang as anything in given_languages)
-		target.add_language(lang.name)
+		if(lang && lang.name)
+			target.add_language(lang.name)
 
 /obj/item/organ/internal/cyberimp/mouth/translator/remove(mob/living/carbon/target, special)
 	if(!istype(target))
@@ -108,7 +109,8 @@
 	UnregisterSignal(target, COMSIG_LANG_PRE_ACT)
 
 	for(var/datum/language/lang as anything in given_languages)
-		target.remove_language(lang.name)
+		if(lang && lang.name)
+			target.remove_language(lang.name)
 
 	. = ..()
 
