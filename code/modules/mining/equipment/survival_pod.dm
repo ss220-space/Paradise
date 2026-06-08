@@ -303,6 +303,17 @@
 	pixel_y = -32
 	move_resist = MOVE_FORCE_STRONG
 
+/obj/item/gps/computer/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_MOUSEDROP_ONTO, PROC_REF(on_mousedrop_onto))
+
+/obj/item/gps/computer/proc/on_mousedrop_onto(datum/source, atom/over, mob/user)
+	SIGNAL_HANDLER
+	if(anchored)
+		user.balloon_alert(user, "прикручен к полу!")
+		return COMPONENT_CANCEL_MOUSEDROP_ONTO
+	return NONE
+
 /obj/item/gps/computer/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
 	user.visible_message(
