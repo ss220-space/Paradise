@@ -1,5 +1,7 @@
 #define SYRINGE_DRAW 0
 #define SYRINGE_INJECT 1
+#define SYRINGE_INJECTION_TIME_NORMAL 3 SECONDS
+#define SYRINGE_INJECTION_TIME_STEALTH 0.8 SECONDS
 
 /obj/item/reagent_containers/syringe
 	name = "syringe"
@@ -132,9 +134,13 @@
 				if(!L.can_inject(user, TRUE, penetrate_thick = penetrates_thick, ignore_pierceimmune = ignores_pierceimmune))
 					return
 				if(L != user)
-					L.visible_message(span_danger("[user] пыта[PLUR_ET_YUT(user)]ся сделать [L] укол [declent_ru(INSTRUMENTAL)]!"), \
-										span_userdanger("[user] пыта[PLUR_ET_YUT(user)]ся сделать вам укол [declent_ru(INSTRUMENTAL)]!"))
-					if(!do_after(user, 3 SECONDS, L, NONE))
+
+					var/is_user_behind_target = L.dir & GetOppositeDir(get_dir(L, user))
+					var/injection_time = is_user_behind_target ? SYRINGE_INJECTION_TIME_STEALTH : SYRINGE_INJECTION_TIME_NORMAL
+					if(!is_user_behind_target) // Stealth injection from behind
+						L.visible_message(span_danger("[user] пыта[PLUR_ET_YUT(user)]ся сделать [L] укол [declent_ru(INSTRUMENTAL)]!"), \
+											span_userdanger("[user] пыта[PLUR_ET_YUT(user)]ся сделать вам укол [declent_ru(INSTRUMENTAL)]!"))
+					if(!do_after(user, injection_time, L, NONE))
 						return
 					if(!reagents.total_volume)
 						return
@@ -389,3 +395,5 @@
 
 #undef SYRINGE_DRAW
 #undef SYRINGE_INJECT
+#undef SYRINGE_INJECTION_TIME_NORMAL
+#undef SYRINGE_INJECTION_TIME_STEALTH
