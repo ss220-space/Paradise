@@ -7,7 +7,7 @@
 	if(!isitem(target))
 		return ELEMENT_INCOMPATIBLE
 
-	RegisterSignal(target, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
+	RegisterSignal(target, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
 	RegisterSignal(target, COMSIG_ITEM_EQUIPPED, PROC_REF(on_equip))
 	RegisterSignal(target, COMSIG_ITEM_DROPPED, PROC_REF(on_drop))
 
@@ -25,7 +25,7 @@
 
 /datum/element/heretic_focus/Detach(obj/item/source)
 	. = ..()
-	UnregisterSignal(source, list(COMSIG_PARENT_EXAMINE, COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED))
+	UnregisterSignal(source, list(COMSIG_ATOM_EXAMINE, COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED))
 	if(!isliving(source.loc))
 		return
 
@@ -33,7 +33,7 @@
 
 
 /**
- * Signal proc for [COMSIG_PARENT_EXAMINE].
+ * Signal proc for [COMSIG_ATOM_EXAMINE].
  * Let's the examiner see that this item is a heretic focus
  */
 /datum/element/heretic_focus/proc/on_examine(obj/item/source, mob/user, list/examine_list)

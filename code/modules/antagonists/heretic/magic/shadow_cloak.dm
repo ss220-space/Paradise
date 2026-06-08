@@ -86,7 +86,7 @@
 	)
 
 	active_cloak = cast_on.apply_status_effect(/datum/status_effect/shadow_cloak)
-	RegisterSignal(cast_on, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
+	RegisterSignal(cast_on, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
 	RegisterSignal(active_cloak, COMSIG_QDELETING, PROC_REF(on_early_cloak_loss))
 	RegisterSignal(cast_on, SIGNAL_REMOVETRAIT(TRAIT_ALLOW_HERETIC_CASTING), PROC_REF(on_focus_lost))
 
@@ -97,7 +97,7 @@
 		qdel(active_cloak)
 
 	active_cloak = null
-	UnregisterSignal(cast_on, COMSIG_PARENT_EXAMINE)
+	UnregisterSignal(cast_on, COMSIG_ATOM_EXAMINE)
 	UnregisterSignal(cast_on, SIGNAL_REMOVETRAIT(TRAIT_ALLOW_HERETIC_CASTING))
 	playsound(cast_on, 'sound/effects/curse/curseattack.ogg', 50)
 	if(show_message)

@@ -9,6 +9,7 @@
 #define ROLE_OPERATIVE "operative"
 #define ROLE_CHANGELING "changeling"
 #define ROLE_WIZARD "wizard"
+#define ROLE_HERETIC "heretic"
 #define ROLE_REV "revolutionary"
 #define ROLE_ALIEN "xenomorph"
 #define ROLE_THUNDERDOME "thunderdome"

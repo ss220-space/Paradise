@@ -213,3 +213,14 @@
 
 /mob/proc/can_cast_magic(magic_flags = MAGIC_RESISTANCE)
 	return !can_block_magic(magic_flags)
+
+// --- Touch spell hand helper ---
+// Removes the touch hand without refunding the spell's cooldown (tg's godhand proc, not in master220).
+/obj/item/melee/touch_attack/proc/remove_hand_with_no_refund(mob/holder)
+	var/obj/effect/proc_holder/spell/touch/hand_spell = attached_spell
+	if(!QDELETED(hand_spell))
+		hand_spell.discharge_hand(holder)
+		return
+	// No spell associated for some reason, just delete us as normal.
+	holder.drop_item_ground(src, force = TRUE)
+	qdel(src)

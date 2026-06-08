@@ -37,6 +37,9 @@
 /// JSON string file for all of our heretic influence flavors.
 #define HERETIC_INFLUENCE_FILE "heretic_influences.json"
 
+/// TRUE if the given mob is in the Mansus (the heretic sacrifice arena z-level).
+#define IS_IN_MANSUS(mob) (istype(get_area(mob), /area/centcom/heretic_sacrifice))
+
 // --- Spell-system compatibility defines ---
 // master220's /obj/effect/proc_holder/spell uses clothes_req / human_req / invocation_type
 // natively. The tg-derived heretic spells additionally use a `spell_requirements` bitfield
@@ -77,3 +80,8 @@
 
 /// Returned by a spell's before_cast hook to cancel the cast.
 #define SPELL_CANCEL_CAST (1 << 0)
+
+/// Attack classification flags passed by the relay_attackers element via COMSIG_ATOM_WAS_ATTACKED.
+#define ATTACKER_STAMINA_ATTACK (1 << 0)
+#define ATTACKER_SHOVING (1 << 1)
+#define ATTACKER_DAMAGING_ATTACK (1 << 2)

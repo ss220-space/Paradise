@@ -17,6 +17,13 @@
 /// For [/datum/status_effect/protective_blades] to signal when it is triggered
 #define COMSIG_BLADE_BARRIER_TRIGGERED "blade_barrier_triggered"
 
+/// From the Cosmic-path hunter rifle (/obj/item/gun/...) when its projectile hits a target.
+#define COMSIG_LIONHUNTER_ON_HIT "lionhunter_on_hit"
+
 /// Sent on a mob right before they cast a spell. Used by some heretic buffs to react/intercept.
 /// NOTE: master220 does not yet emit this anywhere; the listeners compile but won't fire until wired in the runtime pass.
 #define COMSIG_MOB_BEFORE_SPELL_CAST "mob_before_spell_cast"
+
+/// From tg's attack chain: sent on an atom when it is attacked. Used by blade-shield reaction and curse retaliation.
+/// NOTE: master220 does not emit this in its attack chain yet; listeners compile but won't fire until wired in the runtime pass.
+#define COMSIG_ATOM_WAS_ATTACKED "atom_was_attacked"
