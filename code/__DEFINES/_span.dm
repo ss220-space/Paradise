@@ -182,6 +182,7 @@
  * MARK: Cults
  */
 #define span_cult(str) ("<span class='cult'>[str]</span>")
+#define span_cultbold(str) ("<span class='cultbold'>[str]</span>")
 #define span_cultspeech(str) ("<span class='cultspeech'>[str]</span>")
 #define span_cultitalic(str) ("<span class='cultitalic'>[str]</span>")
 #define span_cultitalic_alt(str) ("<span class='cultitalic'>" + str + "</span>")

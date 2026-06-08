@@ -204,3 +204,7 @@
 #define GIVE_TRAIT "give"
 /// Trait from mob/living/update_transform()
 #define UPDATE_TRANSFORM_TRAIT "update_transform"
+
+/// Heretic antagonist trait sources.
+#define HERETIC_TRAIT "heretic"
+#define HERETIC_ARENA_TRAIT "heretic_arena"

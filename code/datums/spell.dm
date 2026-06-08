@@ -97,6 +97,12 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	var/clothes_req = TRUE
 	/// Spell can only be cast by humans.
 	var/human_req = TRUE
+	/// Bitfield of tg-derived casting requirements, used by heretic spells. See SPELL_* defines in heretic.dm.
+	/// master220's native gating uses clothes_req / human_req / invocation_type; this is additive and only
+	/// consulted by code that opts in (currently the heretic port). SPELL_CASTABLE_WITHOUT_INVOCATION skips invocation.
+	var/spell_requirements = SPELL_REQUIRES_WIZARD_GARB
+	/// Which type of antimagic blocks this spell (MAGIC_RESISTANCE / _MIND / _HOLY). Used with SPELL_REQUIRES_NO_ANTIMAGIC.
+	var/antimagic_flags = MAGIC_RESISTANCE
 	/// Spell can only be cast by mobs that are physical entities. Currently checks whether caster is brain or pAI.
 	var/nonabstract_req = FALSE
 	/// Checks user stat on cast, could be "CONSCIOUS", "UNCONSCIOUS", "DEAD".

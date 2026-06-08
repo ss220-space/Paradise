@@ -581,3 +581,29 @@
 #define TRAIT_DISCO_DANCER "disco_dancer"
 
 #define TRAIT_GIVE_READY "give_ready"
+
+// --- Heretic antagonist traits (ported from tg via Paradise-selfharm) ---
+// Heretic-internal traits (the heretic code both sets and checks these):
+#define TRAIT_ALLOW_HERETIC_CASTING "allow_heretic_casting"
+#define TRAIT_HERETIC_SUMMON "heretic_summon"
+#define TRAIT_MANSUS_TOUCHED "mansus_touched"
+#define TRAIT_LIVING_HEART "living_heart"
+#define TRAIT_RUSTY "rust_trait"
+#define TRAIT_BEING_BLADE_SHIELDED "being_blade_shielded"
+#define TRAIT_ELDRITCH_ARENA_PARTICIPANT "eldritch_arena_participant"
+#define TRAIT_ELDRITCH_PAINTING_EXAMINE "eldritch_painting_examine"
+#define TRAIT_MADNESS_IMMUNE "supermatter_madness_immune"
+// Generic traits used by heretic content. NOTE: master220 may enforce these concepts via other
+// mechanisms; behavior wiring for the immunity traits is verified in the runtime phase.
+#define TRAIT_MOPABLE "mopable"
+#define TRAIT_HYPOTHERMIC "body_hypothermic"
+#define TRAIT_DEATH_HUD "deathhud"
+#define TRAIT_EXAMINE_SKIP "examine_skip"
+#define TRAIT_BOMBIMMUNE "bomb_immunity"
+#define TRAIT_NOCRITDAMAGE "no_crit"
+#define TRAIT_NO_STRIP "no_strip"
+#define TRAIT_NO_WORN_ICON "no_worn_icon"
+#define TRAIT_RELAYING_ATTACKER "relaying_attacker"
+#define TRAIT_SOFTSPOKEN "softspoken"
+#define TRAIT_STUNIMMUNE "stun_immunity"
+#define TRAIT_UNKNOWN "unknown"
