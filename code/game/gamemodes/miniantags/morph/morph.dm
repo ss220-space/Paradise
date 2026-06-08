@@ -66,7 +66,7 @@
 	var/gathered_food = 20 // Start with a bit to use abilities
 
 /mob/living/simple_animal/hostile/morph/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "морф",
 		GENITIVE = "морфа",
 		DATIVE = "морфу",
@@ -140,7 +140,7 @@
 	desc = "Отвратительная пульсирующая масса плоти. Выглядит несколько... магически."
 
 /mob/living/simple_animal/hostile/morph/wizard/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "магический морф",
 		GENITIVE = "магического морфа",
 		DATIVE = "магическому морфу",

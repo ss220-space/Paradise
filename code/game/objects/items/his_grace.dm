@@ -31,7 +31,7 @@
 	var/datum/grace_tier/tier
 
 /obj/item/his_grace/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "артистический ящик для инструментов",
 		GENITIVE = "артистического ящика для инструментов",
 		DATIVE = "артистическому ящику для инструментов",

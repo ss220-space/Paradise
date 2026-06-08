@@ -27,7 +27,7 @@ GLOBAL_VAR_INIT(total_runtimes_skipped, 0)
 			crashed = TRUE
 
 		var/list/split = splittext(E.desc, "\n")
-		for(var/i in 1 to split.len)
+		for(var/i in 1 to length(split))
 			if(split[i] != "" || copytext(split[1], 1, 2) != "  ")
 				split[i] = "  [split[i]]"
 

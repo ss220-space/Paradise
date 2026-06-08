@@ -9,7 +9,7 @@
 	range = 7
 
 /obj/projectile/contractor_hook/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "крюк из твёрдого света",
 		GENITIVE = "крюка из твёрдого света",
 		DATIVE = "крюку из твёрдого света",

@@ -2583,10 +2583,9 @@
 		remaining_TC -= chosen_item.cost
 		itemlog += chosen_item.name // To make the name more readable for the log compared to just i.item
 
-	target_uplink.purchase_log += "<big>[icon2base64html(crate)]</big>"
 	for(var/bought_item in bought_items)
-		var/obj/purchased = new bought_item(crate)
-		target_uplink.purchase_log += "<big>[icon2base64html(purchased)]</big>"
+		new bought_item(crate)
+	crate.log_contents_to_uplink(target_uplink)
 	add_game_logs("purchased a surplus crate with [jointext(itemlog, ", ")]", buyer)
 
 /datum/uplink_item/bundles_TC/telecrystal

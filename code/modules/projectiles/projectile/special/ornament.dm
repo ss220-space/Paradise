@@ -6,7 +6,7 @@
 	damage = 7
 
 /obj/projectile/ornament/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "орнамент",
 		GENITIVE = "орнамента",
 		DATIVE = "орнаменту",

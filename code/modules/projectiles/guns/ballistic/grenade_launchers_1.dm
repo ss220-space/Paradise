@@ -120,7 +120,7 @@
 	recoil = GUN_RECOIL_HIGH
 
 /obj/item/gun/projectile/bombarda/secgl/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ручной гранатомет GL-06",
 		GENITIVE = "ручного гранатомета GL-06",
 		DATIVE = "ручному гранатомету GL-06",
@@ -145,7 +145,7 @@
 	fire_delay = 1.5 SECONDS
 
 /obj/item/gun/projectile/bombarda/secgl/x4/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ручной гранатомет GL-08-4",
 		GENITIVE = "ручного гранатомета GL-08-4",
 		DATIVE = "ручному гранатомету GL-08-4",
@@ -167,7 +167,7 @@
 	item_state = "m79"
 
 /obj/item/gun/projectile/bombarda/secgl/m79/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ручной гранатомет M79",
 		GENITIVE = "ручного гранатомета M79",
 		DATIVE = "ручному гранатомету M79",
@@ -185,7 +185,7 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/bombarda/x2
 
 /obj/item/gun/projectile/bombarda/bombplet/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "самодельный двуствольный гранатомет",
 		GENITIVE = "самодельного двуствольного гранатомета",
 		DATIVE = "самодельному двуствольному гранатомету",
@@ -302,7 +302,7 @@
 	//drying_time = 1
 
 /obj/effect/decal/cleanable/blood/paint/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "краска",
 		GENITIVE = "краски",
 		DATIVE = "краске",
@@ -313,7 +313,7 @@
 
 /obj/effect/decal/cleanable/blood/paint/dry()
 	. = ..()
-	ru_names = list(
+	ru_names = alist(
 		NOMINATIVE = "краска",
 		GENITIVE = "краски",
 		DATIVE = "краске",
@@ -330,7 +330,7 @@
 	//drying_time = 1
 
 /obj/effect/decal/cleanable/blood/drip/paint/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "капли краска",
 		GENITIVE = "капель краски",
 		DATIVE = "каплям краски",
@@ -341,7 +341,7 @@
 
 /obj/effect/decal/cleanable/blood/drip/paint/dry()
 	. = ..()
-	ru_names = list(
+	ru_names = alist(
 		NOMINATIVE = "засохшая краска",
 		GENITIVE = "засохшей краски",
 		DATIVE = "засохшей краске",

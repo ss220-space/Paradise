@@ -28,7 +28,7 @@
 	)
 
 /obj/machinery/vending/sovietsoda/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат BODA",
 		GENITIVE = "торгового автомата BODA",
 		DATIVE = "торговому автомату BODA",

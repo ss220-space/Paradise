@@ -62,7 +62,7 @@
 	tiltable = FALSE
 
 /obj/machinery/vending/magivend/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат MagiVend",
 		GENITIVE = "торгового автомата MagiVend",
 		DATIVE = "торговому автомату MagiVend",

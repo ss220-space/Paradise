@@ -259,7 +259,7 @@
 	var/vandal_secure = FALSE
 
 /obj/machinery/vending/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат",
 		GENITIVE = "торгового автомата",
 		DATIVE = "торговому автомату",
@@ -995,8 +995,8 @@
 
 /obj/machinery/vending/ui_static_data(mob/user)
 	var/list/data = list()
-	if(ads_list.len)
-		data["ad"] = ads_list[rand(1, ads_list.len)]
+	if(length(ads_list))
+		data["ad"] = ads_list[rand(1, length(ads_list))]
 
 	data["all_products_free"] = all_products_free
 	data["product_records"] = list()
@@ -1075,8 +1075,8 @@
 	data["item_slot"] = item_slot // boolean
 	data["inserted_item_name"] = inserted_item ? DECLENT_RU_CAP(inserted_item, NOMINATIVE) : FALSE
 
-	if(prob(10) && ads_list.len)
-		data["ad"] = ads_list[rand(1, ads_list.len)]
+	if(prob(10) && length(ads_list))
+		data["ad"] = ads_list[rand(1, length(ads_list))]
 
 	return data
 

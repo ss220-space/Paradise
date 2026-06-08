@@ -39,7 +39,7 @@
 	)
 
 /obj/machinery/vending/hydronutrients/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат NutriMax",
 		GENITIVE = "торгового автомата NutriMax",
 		DATIVE = "торговому автомату NutriMax",

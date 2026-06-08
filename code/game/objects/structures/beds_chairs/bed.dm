@@ -66,7 +66,7 @@
 	buildstackamount = 5
 
 /obj/structure/bed/wicker/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "плетёная кровать",
 		GENITIVE = "плетёной кровати",
 		DATIVE = "плетёной кровати",
@@ -83,7 +83,7 @@
 	buildstacktype = /obj/item/stack/sheet/leather
 
 /obj/structure/bed/leather/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кровать из кожи",
 		GENITIVE = "кровати из кожи",
 		DATIVE = "кровати из кожи",
@@ -101,7 +101,7 @@
 	buildstackamount = 5
 
 /obj/structure/bed/wooden/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "деревянная кровать",
 		GENITIVE = "деревянной кровати",
 		DATIVE = "деревянной кровати",

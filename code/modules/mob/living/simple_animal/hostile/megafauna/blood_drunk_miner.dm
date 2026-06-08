@@ -64,7 +64,7 @@ Difficulty: Medium
 	)
 
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кровожадный шахтёр",
 		GENITIVE = "кровожадного шахтёра",
 		DATIVE = "кровожадному шахтёру",
@@ -87,7 +87,7 @@ Difficulty: Medium
 	var/obj/effect/proc_holder/spell/blood_suit/blood_spell
 
 /obj/item/clothing/suit/hooded/explorer/blood/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "усиленный костюм исследователя",
 		GENITIVE = "усиленного костюма исследователя",
 		DATIVE = "усиленному костюму исследователя",
@@ -102,7 +102,7 @@ Difficulty: Medium
 	armor = list(MELEE = 55, BULLET = 35, LASER = 25, ENERGY = 25, BOMB = 75, BIO = 100, FIRE = 100, ACID = 100)
 
 /obj/item/clothing/head/hooded/explorer/blood/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "усиленный капюшон исследователя",
 		GENITIVE = "усиленного капюшона исследователя",
 		DATIVE = "усиленному капюшону исследователя",

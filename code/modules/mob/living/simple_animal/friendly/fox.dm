@@ -24,7 +24,7 @@
 	collar_type = "fox"
 
 /mob/living/simple_animal/pet/dog/fox/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "лиса",
 		GENITIVE = "лисы",
 		DATIVE = "лисе",
@@ -62,7 +62,7 @@
 	melee_damage_upper = 12
 
 /mob/living/simple_animal/pet/dog/fox/forest/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "дикая лиса",
 		GENITIVE = "дикой лисы",
 		DATIVE = "дикой лисе",
@@ -90,7 +90,7 @@
 	tts_seed = "Barney"
 
 /mob/living/simple_animal/pet/dog/fox/Renault/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ренальд",
 		GENITIVE = "ренальда",
 		DATIVE = "ренальду",
@@ -116,7 +116,7 @@
 	melee_damage_upper = 20
 
 /mob/living/simple_animal/pet/dog/fox/Syndifox/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Синдилис",
 		GENITIVE = "Синдилиса",
 		DATIVE = "Синдилису",
@@ -152,7 +152,7 @@
 	melee_damage_upper = 20
 
 /mob/living/simple_animal/pet/dog/fox/alisa/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Алиса",
 		GENITIVE = "Алисы",
 		DATIVE = "Алисе",
@@ -184,7 +184,7 @@
 	tts_seed = "Riffleman"
 
 /mob/living/simple_animal/pet/dog/fox/fennec/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "фенек",
 		GENITIVE = "фенека",
 		DATIVE = "фенеку",

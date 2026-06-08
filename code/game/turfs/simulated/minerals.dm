@@ -42,7 +42,7 @@
 	COOLDOWN_DECLARE(last_act)
 
 /turf/simulated/mineral/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "камень",
 		GENITIVE = "камня",
 		DATIVE = "камню",
@@ -330,7 +330,7 @@
 		/turf/simulated/mineral/iron/volcanic/hard = 40, /turf/simulated/mineral/gem/volcanic/hard = 2)
 
 /turf/simulated/mineral/random/volcanic/hard/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "закалённый базальт",
 		GENITIVE = "закалённого базальта",
 		DATIVE = "закалённому базальту",
@@ -354,7 +354,7 @@
 		/turf/simulated/mineral/mime/volcanic/hard/double = 2)
 
 /turf/simulated/mineral/random/volcanic/hard/double/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "закалённый вулканический базальт",
 		GENITIVE = "закалённого вулканического базальта",
 		DATIVE = "закалённому вулканическому базальту",
@@ -393,7 +393,7 @@
 	hardness = 2
 
 /turf/simulated/mineral/iron/volcanic/hard/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "закалённый базальт",
 		GENITIVE = "закалённого базальта",
 		DATIVE = "закалённому базальту",
@@ -409,7 +409,7 @@
 	hardness = 3
 
 /turf/simulated/mineral/iron/volcanic/hard/double/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "закалённый вулканический базальт",
 		GENITIVE = "закалённого вулканического базальта",
 		DATIVE = "закалённому вулканическому базальту",
@@ -439,7 +439,7 @@
 	hardness = 2
 
 /turf/simulated/mineral/uranium/volcanic/hard/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "закалённый базальт",
 		GENITIVE = "закалённого базальта",
 		DATIVE = "закалённому базальту",
@@ -455,7 +455,7 @@
 	hardness = 3
 
 /turf/simulated/mineral/uranium/volcanic/hard/double/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "закалённый вулканический базальт",
 		GENITIVE = "закалённого вулканического базальта",
 		DATIVE = "закалённому вулканическому базальту",
@@ -484,7 +484,7 @@
 	hardness = 2
 
 /turf/simulated/mineral/diamond/volcanic/hard/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "закалённый базальт",
 		GENITIVE = "закалённого базальта",
 		DATIVE = "закалённому базальту",
@@ -500,7 +500,7 @@
 	hardness = 3
 
 /turf/simulated/mineral/diamond/volcanic/hard/double/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "закалённый вулканический базальт",
 		GENITIVE = "закалённого вулканического базальта",
 		DATIVE = "закалённому вулканическому базальту",
@@ -530,7 +530,7 @@
 	hardness = 2
 
 /turf/simulated/mineral/gold/volcanic/hard/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "закалённый базальт",
 		GENITIVE = "закалённого базальта",
 		DATIVE = "закалённому базальту",
@@ -546,7 +546,7 @@
 	hardness = 3
 
 /turf/simulated/mineral/gold/volcanic/hard/double/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "закалённый вулканический базальт",
 		GENITIVE = "закалённого вулканического базальта",
 		DATIVE = "закалённому вулканическому базальту",
@@ -576,7 +576,7 @@
 	hardness = 2
 
 /turf/simulated/mineral/silver/volcanic/hard/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "закалённый базальт",
 		GENITIVE = "закалённого базальта",
 		DATIVE = "закалённому базальту",
@@ -592,7 +592,7 @@
 	hardness = 3
 
 /turf/simulated/mineral/silver/volcanic/hard/double/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "закалённый вулканический базальт",
 		GENITIVE = "закалённого вулканического базальта",
 		DATIVE = "закалённому вулканическому базальту",
@@ -622,7 +622,7 @@
 	hardness = 2
 
 /turf/simulated/mineral/titanium/volcanic/hard/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "закалённый базальт",
 		GENITIVE = "закалённого базальта",
 		DATIVE = "закалённому базальту",
@@ -638,7 +638,7 @@
 	hardness = 3
 
 /turf/simulated/mineral/titanium/volcanic/hard/double/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "закалённый вулканический базальт",
 		GENITIVE = "закалённого вулканического базальта",
 		DATIVE = "закалённому вулканическому базальту",
@@ -668,7 +668,7 @@
 	hardness = 2
 
 /turf/simulated/mineral/plasma/volcanic/hard/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "закалённый базальт",
 		GENITIVE = "закалённого базальта",
 		DATIVE = "закалённому базальту",
@@ -684,7 +684,7 @@
 	hardness = 3
 
 /turf/simulated/mineral/plasma/volcanic/hard/double/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "закалённый вулканический базальт",
 		GENITIVE = "закалённого вулканического базальта",
 		DATIVE = "закалённому вулканическому базальту",
@@ -713,7 +713,7 @@
 	hardness = 2
 
 /turf/simulated/mineral/clown/volcanic/hard/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "закалённый базальт",
 		GENITIVE = "закалённого базальта",
 		DATIVE = "закалённому базальту",
@@ -729,7 +729,7 @@
 	hardness = 3
 
 /turf/simulated/mineral/clown/volcanic/hard/double/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "закалённый вулканический базальт",
 		GENITIVE = "закалённого вулканического базальта",
 		DATIVE = "закалённому вулканическому базальту",
@@ -758,7 +758,7 @@
 	hardness = 2
 
 /turf/simulated/mineral/mime/volcanic/hard/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "закалённый базальт",
 		GENITIVE = "закалённого базальта",
 		DATIVE = "закалённому базальту",
@@ -774,7 +774,7 @@
 	hardness = 3
 
 /turf/simulated/mineral/mime/volcanic/hard/double/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "закалённый вулканический базальт",
 		GENITIVE = "закалённого вулканического базальта",
 		DATIVE = "закалённому вулканическому базальту",
@@ -802,7 +802,7 @@
 	hardness = 2
 
 /turf/simulated/mineral/bscrystal/volcanic/hard/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "закалённый базальт",
 		GENITIVE = "закалённого базальта",
 		DATIVE = "закалённому базальту",
@@ -818,7 +818,7 @@
 	hardness = 3
 
 /turf/simulated/mineral/bscrystal/volcanic/hard/double/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "закалённый вулканический базальт",
 		GENITIVE = "закалённого вулканического базальта",
 		DATIVE = "закалённому вулканическому базальту",
@@ -846,7 +846,7 @@
 	hardness = 2
 
 /turf/simulated/mineral/gem/volcanic/hard/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "закалённый базальт",
 		GENITIVE = "закалённого базальта",
 		DATIVE = "закалённому базальту",
@@ -862,7 +862,7 @@
 	hardness = 3
 
 /turf/simulated/mineral/gem/volcanic/hard/double/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "закалённый вулканический базальт",
 		GENITIVE = "закалённого вулканического базальта",
 		DATIVE = "закалённому вулканическому базальту",
@@ -889,7 +889,7 @@
 	base_icon_state = "smoothrocks_hard"
 
 /turf/simulated/mineral/volcanic/lava_land_surface/hard/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "закалённый базальт",
 		GENITIVE = "закалённого базальта",
 		DATIVE = "закалённому базальту",
@@ -905,7 +905,7 @@
 	hardness = 3
 
 /turf/simulated/mineral/volcanic/lava_land_surface/hard/double/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "закалённый вулканический базальт",
 		GENITIVE = "закалённого вулканического базальта",
 		DATIVE = "закалённому вулканическому базальту",
@@ -1029,7 +1029,7 @@
 	hardness = 2
 
 /turf/simulated/mineral/gibtonite/volcanic/hard/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "закалённый базальт",
 		GENITIVE = "закалённого базальта",
 		DATIVE = "закалённому базальту",
@@ -1045,7 +1045,7 @@
 	hardness = 3
 
 /turf/simulated/mineral/gibtonite/volcanic/hard/double/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "закалённый вулканический базальт",
 		GENITIVE = "закалённого вулканического базальта",
 		DATIVE = "закалённому вулканическому базальту",
@@ -1084,7 +1084,7 @@
 	hardness = 2
 
 /turf/simulated/mineral/magmite/volcanic/hard/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "закалённый базальт",
 		GENITIVE = "закалённого базальта",
 		DATIVE = "закалённому базальту",
@@ -1100,7 +1100,7 @@
 	hardness = 3
 
 /turf/simulated/mineral/magmite/volcanic/hard/double/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "закалённый вулканический базальт",
 		GENITIVE = "закалённого вулканического базальта",
 		DATIVE = "закалённому вулканическому базальту",

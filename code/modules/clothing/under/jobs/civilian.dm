@@ -290,7 +290,7 @@
 	item_color = "miner"
 
 /obj/item/clothing/under/rank/miner/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шахтёрский комбинезон",
 		GENITIVE = "шахтёрского комбинезона",
 		DATIVE = "шахтёрскому комбинезону",
@@ -307,7 +307,7 @@
 	item_color = "miner_alt"
 
 /obj/item/clothing/under/rank/miner/alt/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шахтёрский свитер",
 		GENITIVE = "шахтёрского свитера",
 		DATIVE = "шахтёрскому свитеру",
