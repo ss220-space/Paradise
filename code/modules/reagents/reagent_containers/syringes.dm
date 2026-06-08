@@ -1,7 +1,7 @@
 #define SYRINGE_DRAW 0
 #define SYRINGE_INJECT 1
 #define SYRINGE_INJECTION_TIME_NORMAL 3 SECONDS
-#define SYRINGE_INJECTION_TIME_STEALTH 0.8 SECONDS
+#define SYRINGE_INJECTION_TIME_STEALTH 1 SECONDS
 
 /obj/item/reagent_containers/syringe
 	name = "syringe"
@@ -146,8 +146,11 @@
 						return
 					if(L.reagents.total_volume >= L.reagents.maximum_volume)
 						return
-					L.visible_message(span_danger("[user] дела[PLUR_ET_YUT(user)] [L] укол [declent_ru(INSTRUMENTAL)]!"), \
-										span_userdanger("[user] дела[PLUR_ET_YUT(user)] вам укол [declent_ru(INSTRUMENTAL)]!"))
+					if(!is_user_behind_target)
+						L.visible_message(span_danger("[user] дела[PLUR_ET_YUT(user)] [L] укол [declent_ru(INSTRUMENTAL)]!"), \
+											span_userdanger("[user] дела[PLUR_ET_YUT(user)] вам укол [declent_ru(INSTRUMENTAL)]!"))
+					else
+						to_chat(L, span_warning("Вы чувствуете едва заметный укол!"))
 
 			add_attack_logs(user, target, "Injected with [name] containing [reagents.log_list()], transfered [amount_per_transfer_from_this] units", reagents.harmless_helper() ? ATKLOG_ALMOSTALL : null)
 
