@@ -263,6 +263,17 @@
 	anchored = TRUE
 	cant_hold = list(/obj/item/storage/secure/briefcase)
 
+/obj/item/storage/secure/safe/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_MOUSEDROP_ONTO, PROC_REF(on_mousedrop_onto))
+
+/obj/item/storage/secure/safe/proc/on_mousedrop_onto(datum/source, atom/over, mob/user)
+	SIGNAL_HANDLER
+	if(anchored)
+		user.balloon_alert(user, "прикручен к стене!")
+		return COMPONENT_CANCEL_MOUSEDROP_ONTO
+	return NONE
+
 /obj/item/storage/secure/safe/attack_hand(mob/user)
 	return attack_self(user)
 
