@@ -32,7 +32,7 @@
 
 
 /datum/heretic_knowledge/limited_amount/starting/base_void/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/simulated/loc)
-	if(loc.air.temperature < T0C)
+	if(loc.get_readonly_air()?.temperature() < T0C)
 		return ..()
 
 	loc.balloon_alert(user, "слишком тепло!")
@@ -99,7 +99,7 @@
 	if(isnull(environment))
 		return
 
-	var/affected_temperature = environment.return_temperature()
+	var/affected_temperature = environment.temperature()
 	var/affected_pressure = environment.return_pressure()
 	if(affected_temperature <= T0C || affected_pressure < ONE_ATMOSPHERE)
 		user.add_traits(gain_traits, type)
@@ -213,7 +213,7 @@
 
 
 /datum/heretic_knowledge/ultimate/void_final/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/simulated/loc)
-	if(loc.air.temperature < T0C)
+	if(loc.get_readonly_air()?.temperature() < T0C)
 		return ..()
 
 	loc.balloon_alert(user, "не подходящее место!")
@@ -282,7 +282,7 @@
 
 		var/turf/affected_turf = thing_in_range
 		var/datum/gas_mixture/environment = affected_turf.return_air()
-		environment.temperature *= 0.9
+		environment.set_temperature(environment.temperature() * 0.9) // master220 MILLA: temperature is via getter/setter (runtime: may need a milla_safe write to persist)
 
 
 
@@ -354,7 +354,7 @@
 	telegraph_duration = 2 SECONDS
 	telegraph_overlay = "light_snow"
 
-	weather_message = span_purple("Вы чувствуете, как воздух вокруг становится холоднее... Вы чувствуете сладкие объятия пустоты...")
+	weather_message = "<span class='purple'>Вы чувствуете, как воздух вокруг становится холоднее... Вы чувствуете сладкие объятия пустоты...</span>"
 	weather_overlay = "light_snow"
 	weather_color = COLOR_BLACK
 	weather_duration_lower = 1 MINUTES

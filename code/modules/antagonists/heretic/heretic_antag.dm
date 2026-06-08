@@ -286,8 +286,10 @@
 	return ..()
 
 
-/datum/antagonist/heretic/on_removal()
-	SSticker.mode.changelings -= owner
+// master220 calls this final-removal hook from /datum/antagonist/Destroy (was on_removal() in the tg/selfharm source).
+/datum/antagonist/heretic/handle_last_instance_removal()
+	// (removed a stray `SSticker.mode.changelings -= owner` line from the source — copy-paste bug from
+	//  changeling; heretics aren't tracked in that list and master220's remove_owner_from_gamemode() handles it.)
 	for(var/knowledge_index in researched_knowledge)
 		var/datum/heretic_knowledge/knowledge = researched_knowledge[knowledge_index]
 		knowledge.on_lose(owner.current, src)

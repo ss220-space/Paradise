@@ -50,7 +50,7 @@
 
 /mob/living/simple_animal/hostile/heretic_summon/maid_in_the_mirror/death(gibbed)
 	var/turf/simulated/death_turf = get_turf(src)
-	death_turf.air.temperature = (death_turf.air.temperature - 40)
+	death_turf.get_readonly_air()?.temperature() = (death_turf.get_readonly_air()?.temperature() - 40)
 	death_turf.air_update_turf()
 	return ..()
 

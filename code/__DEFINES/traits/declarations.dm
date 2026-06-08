@@ -593,6 +593,7 @@
 #define TRAIT_ELDRITCH_ARENA_PARTICIPANT "eldritch_arena_participant"
 #define TRAIT_ELDRITCH_PAINTING_EXAMINE "eldritch_painting_examine"
 #define TRAIT_MADNESS_IMMUNE "supermatter_madness_immune"
+#define TRAIT_FLESH_DESIRE "flesh_desire"
 // Generic traits used by heretic content. NOTE: master220 may enforce these concepts via other
 // mechanisms; behavior wiring for the immunity traits is verified in the runtime phase.
 #define TRAIT_MOPABLE "mopable"

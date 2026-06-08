@@ -85,3 +85,19 @@
 #define ATTACKER_STAMINA_ATTACK (1 << 0)
 #define ATTACKER_SHOVING (1 << 1)
 #define ATTACKER_DAMAGING_ATTACK (1 << 2)
+
+// Brain-trauma subsystem (ported for the heretic; master220 has no brain_trauma system).
+// Resilience tiers — how hard a trauma is to cure.
+#define TRAUMA_RESILIENCE_BASIC 1     // Curable with chems
+#define TRAUMA_RESILIENCE_SURGERY 2   // Curable with brain surgery
+#define TRAUMA_RESILIENCE_LOBOTOMY 3  // Curable with lobotomy
+#define TRAUMA_RESILIENCE_WOUND 4     // Curable by healing the head wound
+#define TRAUMA_RESILIENCE_MAGIC 5     // Curable only with magic
+#define TRAUMA_RESILIENCE_ABSOLUTE 6  // Here to stay
+// Per-resilience caps on how many traumas of that tier can be naturally gained.
+#define TRAUMA_LIMIT_BASIC 3
+#define TRAUMA_LIMIT_SURGERY 2
+#define TRAUMA_LIMIT_WOUND 2
+#define TRAUMA_LIMIT_LOBOTOMY 3
+#define TRAUMA_LIMIT_MAGIC 3
+#define TRAUMA_LIMIT_ABSOLUTE INFINITY

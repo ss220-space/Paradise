@@ -285,8 +285,8 @@
 /datum/brain_trauma/severe/rusting
 	name = "Синдром Ржавой Горы"
 	scan_desc = "опасная пси-волновая активность"
-	gain_text = span_warning("Поднимись по ржавчине. Овладей энтропией.")
-	lose_text = span_notice("У вас такое чувство, будто вы только что проснулись от дурного сна.")
+	gain_text = span_warning_alt("Поднимись по ржавчине. Овладей энтропией.")
+	lose_text = span_notice_alt("У вас такое чувство, будто вы только что проснулись от дурного сна.")
 	random_gain = FALSE
 
 /datum/brain_trauma/severe/rusting/on_life(seconds_per_tick, times_fired)

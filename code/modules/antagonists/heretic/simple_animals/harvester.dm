@@ -13,9 +13,9 @@
 	sight = SEE_MOBS
 	response_harm = "кромсает"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
-	playstyle_string = span_bold("Вы — Ржавый Жнец, созданный для служения Нар'Си, извращенный для исполнения воли Мансуса. \
+	playstyle_string = "<span class='bold'>Вы — Ржавый Жнец, созданный для служения Нар'Си, извращенный для исполнения воли Мансуса. \
 								Вы хрупки и слабы, но вы разрываете культистов (только) на части при каждой атаке. \
-								Следуйте приказам своего Хозяина!")
+								Следуйте приказам своего Хозяина!</span>"
 
 
 /mob/living/simple_animal/hostile/construct/harvester/heretic/get_ru_names()

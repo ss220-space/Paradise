@@ -261,3 +261,10 @@
 /obj/effect/proc_holder/spell/cone/proc/calculate_cone_shape(current_level)
 	// Default formula: (1 (innate) -> 3 -> 5 -> 5 -> 7 -> 7 -> 9 -> 9 -> ...)
 	return current_level + (current_level % 2) + 1
+
+
+// Lasting (indefinite) freeze used by the void cold cone. master220 has the base /freon + /watcher
+// but not this /lasting subtype (it lives in selfharm's gas.dm); ported here for self-containment.
+/datum/status_effect/freon/lasting
+	id = "lasting_frozen"
+	duration = -1

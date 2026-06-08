@@ -154,3 +154,43 @@
 	name = "Жуткий сон"
 	desc = "Вы чувствуете неописуемое тепло, защищающее вас..."
 	icon_state = "eldritch_slumber"
+
+
+// The eldritch reagent (extracted from selfharm's shared water.dm during the port).
+// Heals heretics/monsters, harms everyone else.
+/datum/reagent/eldritch
+	name = "Сущность ужаса"
+	id = "eldritch"
+	description = "Странная жидкость, бросающая вызов законам физики. \
+					Она исцеляет, но только тех, кто может видеть дальше границ этой хрупкой реальности. \
+					Невероятно вредна для людей с ограниченным мышлением. Эта жидкость очень быстро метаболизируется."
+	taste_description = "Ag'hsj'saje'sh"
+	color = "#1f8016"
+	metabolization_rate = 2.5 * REAGENTS_METABOLISM  //0.5u/second
+	process_flags = ORGANIC | SYNTHETIC // Magical, so works on non-organic drinkers.
+
+/datum/reagent/eldritch/on_mob_life(mob/living/carbon/drinker)
+	. = ..()
+	var/need_mob_update = FALSE
+	if(IS_HERETIC_OR_MONSTER(drinker))
+		drinker.AdjustImmobilized(-40 * REM) // master220: closest equivalent of tg's AdjustAllImmobility
+		need_mob_update += drinker.adjustStaminaLoss(-10 * REM, updating_health = FALSE)
+		need_mob_update += drinker.adjustToxLoss(-2 * REM, updating_health = FALSE, forced = TRUE)
+		need_mob_update += drinker.adjustOxyLoss(-2 * REM, updating_health = FALSE)
+		need_mob_update += drinker.adjustBruteLoss(-2 * REM, updating_health = FALSE)
+		need_mob_update += drinker.adjustFireLoss(-2 * REM)
+		if(drinker.blood_volume < BLOOD_VOLUME_NORMAL)
+			drinker.blood_volume += 3 * REM
+		return
+
+	need_mob_update = drinker.adjustOrganLoss(INTERNAL_ORGAN_BRAIN, 3 * REM, 150)
+	need_mob_update += drinker.adjustToxLoss(2 * REM, updating_health = FALSE)
+	need_mob_update += drinker.adjustFireLoss(2 * REM, updating_health = FALSE)
+	need_mob_update += drinker.adjustOxyLoss(2 * REM, updating_health = FALSE)
+	need_mob_update += drinker.adjustBruteLoss(2 * REM)
+
+/datum/reagent/eldritch/reaction_turf(turf/exposed_turf, reac_volume, color)
+	. = ..()
+	if(!(reac_volume >= 1.5 || isplatingturf(exposed_turf)) || HAS_TRAIT(exposed_turf, TRAIT_RUSTY))
+		return
+	exposed_turf.rust_turf()

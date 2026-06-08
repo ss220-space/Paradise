@@ -20,6 +20,11 @@
 /// From the Cosmic-path hunter rifle (/obj/item/gun/...) when its projectile hits a target.
 #define COMSIG_LIONHUNTER_ON_HIT "lionhunter_on_hit"
 
+/// Sent on a carbon when they're about to gain a brain trauma : (datum/brain_trauma/trauma, resilience)
+#define COMSIG_CARBON_GAIN_TRAUMA "carbon_gain_trauma"
+	/// Return to block the trauma from being applied.
+	#define COMSIG_CARBON_BLOCK_TRAUMA (1<<0)
+
 /// Sent on a mob right before they cast a spell. Used by some heretic buffs to react/intercept.
 /// NOTE: master220 does not yet emit this anywhere; the listeners compile but won't fire until wired in the runtime pass.
 #define COMSIG_MOB_BEFORE_SPELL_CAST "mob_before_spell_cast"

@@ -15,7 +15,7 @@
 	SEND_SOUND(owner.current, sound('sound/music/heretic/heretic_gain.ogg'))
 
 
-/datum/antagonist/heretic_monster/on_removal()
+/datum/antagonist/heretic_monster/handle_last_instance_removal()
 	if(silent)
 		master = null
 		return ..()
