@@ -192,3 +192,246 @@
 		else
 			break
 	return result_loc
+
+/// tg-style global visibility helper; master220 exposes this as atom/proc/can_see().
+/proc/can_see(atom/source, atom/target, range = 5)
+	return source?.can_see(target, length = range)
+
+/// tg-style blackboard helpers used by some imported AI support datums.
+/datum/ai_controller/proc/set_blackboard_key(key, value)
+	blackboard[key] = value
+	if(pawn)
+		SEND_SIGNAL(pawn, COMSIG_AI_BLACKBOARD_KEY_SET(key))
+
+/datum/ai_controller/proc/clear_blackboard_key(key)
+	if(pawn)
+		SEND_SIGNAL(pawn, COMSIG_AI_BLACKBOARD_KEY_CLEARED(key))
+	blackboard -= key
+
+/datum/ai_controller/proc/blackboard_key_exists(key)
+	return !isnull(blackboard[key])
+
+/datum/ai_behavior/proc/set_movement_target(datum/ai_controller/controller, atom/target)
+	controller.current_movement_target = target
+
+/proc/isspacecola(datum/reagent/reagent)
+	return istype(reagent, /datum/reagent/consumable/drink/cold/space_cola)
+
+/proc/isacid(datum/reagent/reagent)
+	return istype(reagent, /datum/reagent/acid)
+
+/datum/status_effect/rust_corruption
+	alert_type = null
+	id = "rust_turf_effects"
+	tick_interval = 2 SECONDS
+
+/datum/status_effect/rust_corruption/tick(seconds_between_ticks)
+	if(issilicon(owner))
+		owner.adjustBruteLoss(10 * seconds_between_ticks)
+		return
+	owner.Disgust(5 * seconds_between_ticks)
+	owner.reagents?.remove_all(0.75 * seconds_between_ticks)
+
+// --- Minimal painting/wallframe compat ---
+// The selfharm heretic paintings were written on top of a full canvas/persistent-painting
+// subsystem that master220 does not have. These narrow base types provide just enough
+// wallframe and painting behavior for the eldritch paintings and their rituals.
+
+/obj/item/canvas
+	name = "canvas"
+	desc = "A blank canvas."
+	icon = 'icons/obj/decals.dmi'
+	icon_state = "paper"
+	w_class = WEIGHT_CLASS_SMALL
+
+/obj/item/wallframe
+	name = "wall frame"
+	desc = "A frame ready to be mounted on a wall."
+	icon = 'icons/obj/decals.dmi'
+	icon_state = "sign"
+	w_class = WEIGHT_CLASS_SMALL
+	var/result_path
+	var/pixel_shift = 0
+
+/obj/item/wallframe/proc/try_build(turf/on_wall, mob/user)
+	if(!on_wall || !user || get_dist(on_wall, user) > 1)
+		return FALSE
+	var/floor_to_wall = get_dir(user, on_wall)
+	if(!(floor_to_wall in GLOB.cardinal))
+		return FALSE
+	return iswallturf(on_wall)
+
+/obj/item/wallframe/proc/attach(turf/on_wall, mob/user)
+	if(!result_path)
+		qdel(src)
+		return
+
+	var/floor_to_wall = get_dir(user, on_wall)
+	var/obj/hanging_object = new result_path(get_turf(user), floor_to_wall, TRUE)
+	hanging_object.setDir(floor_to_wall)
+	switch(floor_to_wall)
+		if(NORTH)
+			hanging_object.pixel_y = pixel_shift
+		if(SOUTH)
+			hanging_object.pixel_y = -pixel_shift
+		if(EAST)
+			hanging_object.pixel_x = pixel_shift
+		if(WEST)
+			hanging_object.pixel_x = -pixel_shift
+	after_attach(hanging_object)
+
+/obj/item/wallframe/proc/after_attach(obj/attached_to)
+	transfer_fingerprints_to(attached_to)
+
+/obj/item/wallframe/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
+	. = ..()
+	if(!proximity_flag || !iswallturf(target))
+		return
+	if(!try_build(target, user))
+		return
+	attach(target, user)
+	qdel(src)
+	return ATTACK_CHAIN_BLOCKED
+
+/obj/item/wallframe/screwdriver_act(mob/living/user, obj/item/tool)
+	var/turf/wall_turf = get_step(get_turf(user), user.dir)
+	if(!iswallturf(wall_turf))
+		return
+	if(!try_build(wall_turf, user))
+		return TRUE
+	attach(wall_turf, user)
+	qdel(src)
+	return TRUE
+
+/obj/item/wallframe/painting
+	name = "painting frame"
+	desc = "A frame ready to hold a painting."
+	result_path = /obj/structure/sign/painting
+	pixel_shift = 30
+
+/obj/structure/sign/painting
+	name = "painting"
+	desc = "A framed painting."
+	icon = 'icons/obj/decals.dmi'
+	icon_state = "poster1"
+	var/list/accepted_canvas_types = list(/obj/item/canvas)
+	var/persistence_id
+	var/wallframe_type = /obj/item/wallframe/painting
+
+/obj/structure/sign/painting/Initialize(mapload, dir, building)
+	. = ..()
+	if(dir)
+		setDir(dir)
+
+/obj/structure/sign/painting/wirecutter_act(mob/living/user, obj/item/I)
+	var/obj/item/wallframe/frame = new wallframe_type(drop_location())
+	frame.name = initial(frame.name)
+	qdel(src)
+	return ATTACK_CHAIN_SUCCESS
+
+// --- HUD compat ---
+// The source heretic module has team/antag-filtered alternate appearances. master220 has the
+// generic alternate appearance system, so only the visibility predicate is missing here.
+
+/datum/atom_hud/alternate_appearance/basic/heretic
+	add_ghost_version = TRUE
+
+/datum/atom_hud/alternate_appearance/basic/heretic/mob_should_see(mob/viewer)
+	return IS_HERETIC_OR_MONSTER(viewer) || isobserver(viewer)
+
+/datum/atom_hud/alternate_appearance/basic/has_antagonist
+	var/antag_datum_type
+
+/datum/atom_hud/alternate_appearance/basic/has_antagonist/mob_should_see(mob/viewer)
+	if(isobserver(viewer))
+		return TRUE
+	return viewer?.mind?.has_antag_datum(antag_datum_type)
+
+/proc/add_team_hud(mob/living/target, datum/antagonist/antag_type)
+	return
+
+// --- Construct/simplemob compat ---
+
+/mob/living/simple_animal/hostile/construct
+	var/seeking = FALSE
+	var/can_repair = TRUE
+	var/mob/living/construct_master
+
+/datum/game_mode
+	var/list/heretics = list()
+
+// --- Object/gib compat ---
+
+/obj/proc/unfreeze()
+	return FALSE
+
+/obj/effect/decal/cleanable/blood/gibs/torso
+	random_icon_states = list("gibtorso")
+
+/obj/effect/gibspawner/human/bodypartless
+	gibtypes = list(/obj/effect/decal/cleanable/blood/gibs, /obj/effect/decal/cleanable/blood/gibs/core, /obj/effect/decal/cleanable/blood/gibs, /obj/effect/decal/cleanable/blood/gibs/core, /obj/effect/decal/cleanable/blood/gibs, /obj/effect/decal/cleanable/blood/gibs/torso)
+	gibamounts = list(1, 1, 1, 1, 1, 1)
+
+/obj/effect/gibspawner/human/bodypartless/Initialize(mapload, datum/dna/mob_dna)
+	gibdirections = list(list(NORTH, NORTHEAST, NORTHWEST), list(SOUTH, SOUTHEAST, SOUTHWEST), list(WEST, NORTHWEST, SOUTHWEST), list(EAST, NORTHEAST, SOUTHEAST), GLOB.alldirs, list())
+	return ..()
+
+// --- Misc proc/type compat ---
+
+/proc/bicon(atom/thing)
+	return icon2html(thing, usr)
+
+/mob/living/carbon/proc/mob_light2()
+	return
+
+/obj/effect/proc_holder/spell/watchers_look/heretic
+	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
+	action_background_icon_state = "bg_heretic"
+
+// --- Helgrasp reagent compat ---
+
+/datum/reagent/inverse
+	name = "Inverse reagent"
+	id = "inverse"
+	description = "An inverted reagent effect."
+
+/datum/reagent/inverse/helgrasp
+	name = "Helgrasp"
+	id = "helgrasp"
+	description = "A forbidden drink that calls grasping hands from beyond."
+	reagent_state = LIQUID
+	color = "#5d0f75"
+	taste_description = "ice and old dust"
+	metabolization_rate = 1 * REM
+	var/list/timer_ids
+
+/datum/reagent/inverse/helgrasp/on_mob_add(mob/living/carbon/human/user)
+	. = ..()
+	to_chat(user, span_hierophant("Вы слышите смех, когда перед вами появляются жуткие руки, жаждущие утащить вас в ад!.. Берегитесь!"))
+	playsound(user.loc, 'sound/effects/ahaha.ogg', 80, TRUE, -1)
+
+/datum/reagent/inverse/helgrasp/on_mob_life(mob/living/M)
+	. = ..()
+	if(!iscarbon(M))
+		return
+	var/mob/living/carbon/affected_mob = M
+	spawn_hands(affected_mob)
+	LAZYADD(timer_ids, addtimer(CALLBACK(src, PROC_REF(spawn_hands), affected_mob), 1 SECONDS, TIMER_STOPPABLE))
+
+/datum/reagent/inverse/helgrasp/proc/spawn_hands(mob/living/carbon/affected_mob)
+	if(!affected_mob && iscarbon(holder?.my_atom))
+		affected_mob = holder.my_atom
+	if(!affected_mob)
+		return
+	fire_curse_hand(affected_mob)
+
+/datum/reagent/inverse/helgrasp/on_mob_delete(mob/living/carbon/human/user)
+	. = ..()
+	for(var/timer_id in timer_ids)
+		deltimer(timer_id)
+	timer_ids?.Cut()
+
+/datum/reagent/inverse/helgrasp/heretic
+	name = "Прикосновение Мансуса"
+	id = "mansus_touch"
+	description = "Чья-то рука у вашего горла..."

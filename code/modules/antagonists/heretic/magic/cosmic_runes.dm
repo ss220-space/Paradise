@@ -3,6 +3,7 @@
 	desc = "Создаёт космическую руну у вас под ногами. Одновременно могут существовать \
 			только две. Применение одной руны переносит вас к другой. \
 			Любой, у кого есть звёздная метка, переносится вместе с вами."
+	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'

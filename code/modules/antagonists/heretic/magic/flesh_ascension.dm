@@ -2,6 +2,7 @@
 	name = "Сброс старой оболочки"
 	desc = "Сбросьте свою хрупкую оболочку, станьте единым с руками, стань единым с Императором. \
 			Вызывает серьёзные повреждения мозга и потерю рассудка у находящихся рядом смертных."
+	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'

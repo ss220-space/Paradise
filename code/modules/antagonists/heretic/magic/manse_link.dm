@@ -3,6 +3,7 @@
 	desc = "Это заклинание позволяет вам соединять разумы с другими существами. \
 			Все разумы, подключенные к вашей связи, смогут \
 			незаметно общаться на больших расстояниях."
+	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'

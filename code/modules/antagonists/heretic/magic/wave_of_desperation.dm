@@ -2,6 +2,7 @@
 	name = "Волна отчаяния"
 	desc = "Развязывает вас, отталкивает и сбивает с ног находящихся рядом людей, а также накладывает определённые эффекты Прикосновения Мансуса на всё вокруг. \
 			Нельзя применить, если вы не ограничены, а стресс лишает вас сознания через 12 секунд!"
+	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'

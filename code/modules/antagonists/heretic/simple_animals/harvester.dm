@@ -76,6 +76,7 @@
 	//buttontooltipstyle = "cult"
 	action_icon_state = "cult_mark"
 	action_icon = 'icons/mob/actions/actions_cult.dmi'
+	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
 	action_background_icon_state = "bg_heretic"
 	//overlay_icon_state = "bg_heretic_border"
 	var/tracking = TRUE

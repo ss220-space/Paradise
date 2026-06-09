@@ -3,6 +3,7 @@
 	desc = "Заклинание, которое тушит вас и высасывает жизненную силу из язычников, охваченных огнём, \
 			исцеляя вас за каждую жертву. Те, кто находится в критическом состоянии \
 			потеряют последние жизненные силы, что приведёт к их смерти."
+	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'

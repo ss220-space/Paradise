@@ -3,6 +3,7 @@
 	desc = "Полностью скрывает вашу личность, но не делает вас невидимым. Можно активировать снова, чтобы отключить эффект. \
 			При использовании вы двигаетесь быстрее, но реагируете гораздо медленнее. \
 			Получение урона при надетом плаще может привести к его внезапному отключению."
+	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
 	action_icon = 'icons/mob/actions/actions_minor_antag.dmi'

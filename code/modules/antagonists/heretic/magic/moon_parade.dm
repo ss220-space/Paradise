@@ -2,6 +2,7 @@
 	name = "Лунный парад"
 	desc = "Оно жаждет парада, заставляя всех, кто окажется на пути, \
 			присоединиться к нему и страдать от галлюцинаций."
+	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'

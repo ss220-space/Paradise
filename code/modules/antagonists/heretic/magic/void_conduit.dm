@@ -3,6 +3,7 @@
 	desc = "Открывает врата в Пустоту испускающие частые импульсы, повреждающие окна и шлюзы, \
 			а также поражающин язычников пустотным холодом. \
 			Ближайшие еретики получают легкую сопротивляемость давлению."
+	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'

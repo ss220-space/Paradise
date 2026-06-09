@@ -140,6 +140,7 @@
 /datum/action/item_action/rune_shatter
 	name = "Разрушить руны"
 	desc = "Уничтожает все руны, вырезанные этим клинком."
+	background_icon = 'icons/mob/actions/backgrounds.dmi'
 	background_icon_state = "bg_heretic"
 	//overlay_icon_state = "bg_heretic_border"
 	button_icon_state = "rune_break"

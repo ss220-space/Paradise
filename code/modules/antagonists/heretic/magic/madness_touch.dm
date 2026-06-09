@@ -2,6 +2,7 @@
 /obj/effect/proc_holder/spell/touch/mad_touch
 	name = "Прикосновение безумия"
 	desc = "Заклинание, которое лишает врага рассудка и сбивает с ног."
+	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'

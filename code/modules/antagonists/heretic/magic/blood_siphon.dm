@@ -3,6 +3,7 @@
 	desc = "Заклинание, которое лечит ваши раны и наносит урон врагу. \
 			Есть вероятность, что серьезные повреждения (вроде переломов) \
 			также смогут передаться."
+	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
@@ -21,8 +22,8 @@
 	cast_range = 6
 
 
-/obj/effect/proc_holder/spell/pointed/blood_siphon/can_cast(feedback = TRUE)
-	return ..() && isliving(action.owner)
+/obj/effect/proc_holder/spell/pointed/blood_siphon/can_cast(mob/user = usr, charge_check = TRUE, show_message = FALSE)
+	return ..() && isliving(user)
 
 
 /obj/effect/proc_holder/spell/pointed/blood_siphon/valid_target(atom/cast_on)

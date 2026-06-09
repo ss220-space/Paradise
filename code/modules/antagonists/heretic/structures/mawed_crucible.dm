@@ -6,7 +6,8 @@
 	icon = 'icons/obj/eldritch.dmi'
 	icon_state = "crucible"
 	base_icon_state = "crucible"
-	break_sound = 'sound/effects/wail.ogg'
+	var/break_sound = 'sound/effects/wail.ogg'
+	var/break_message
 	anchored = TRUE
 	density = TRUE
 	gender = MALE

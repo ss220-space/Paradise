@@ -46,6 +46,10 @@
 #define COMSIG_ITEM_HARVESTED_SOMEBODY "item_harvested_somebody"
 #define COMSIG_LADDER_TRAVEL "ladder-travel"
 #define COMSIG_LIVING_CULT_SACRIFICED "living_cult_sacrificed"
+	#define STOP_SACRIFICE (1<<0)
+	#define SILENCE_SACRIFICE_MESSAGE (1<<1)
+	#define SILENCE_NONTARGET_SACRIFICE_MESSAGE (1<<2)
+	#define DUST_SACRIFICE (1<<3)
 #define COMSIG_MOB_ENSLAVED_TO "mob_enslaved_to"
 #define COMSIG_MOB_SPELL_ACTIVATED "mob_spell_active"
 /// Return flag for a cuff-prevent signal.
@@ -61,3 +65,38 @@
 /// From tg's attack chain: sent on an atom when it is attacked. Used by blade-shield reaction and curse retaliation.
 /// NOTE: master220 does not emit this in its attack chain yet; listeners compile but won't fire until wired in the runtime pass.
 #define COMSIG_ATOM_WAS_ATTACKED "atom_was_attacked"
+
+/// Sent on a mob from /datum/component/mob_chain when component is attached with it as the front.
+#define COMSIG_MOB_CHAIN_GAINED_TAIL "mob_chain_gained_tail"
+/// Sent on a mob from /datum/component/mob_chain when component is detached from it as the front.
+#define COMSIG_MOB_CHAIN_LOST_TAIL "mob_chain_lost_tail"
+/// Sent on any mob in a mob chain when the chain contracts.
+#define COMSIG_MOB_CHAIN_CONTRACT "living_chain_contracted"
+
+#define COMSIG_PARENT_EXAMINE "atom_examine"
+#define COMSIG_AI_BLACKBOARD_KEY_SET(blackboard_key) "ai_blackboard_key_set_[blackboard_key]"
+#define COMSIG_AI_BLACKBOARD_KEY_CLEARED(blackboard_key) "ai_blackboard_key_clear_[blackboard_key]"
+#define COMSIG_OBJ_UNFREEZE "obj_unfreeze"
+#define COMSIG_LIVING_BEFRIENDED "living_befriended"
+#define COMSIG_LIVING_UNFRIENDED "living_unfriended"
+#define COMSIG_BIBLE_SMACKED "bible_smacked"
+	#define COMSIG_END_BIBLE_CHAIN (1<<0)
+#define COMSIG_ATOM_RELAYMOVE "atom_relaymove"
+	#define COMSIG_BLOCK_RELAYMOVE (1<<0)
+#define COMSIG_LIVING_WALL_BUMP "living_wall_bump"
+#define COMSIG_LIVING_WALL_EXITED "living_wall_exited"
+#define COMSIG_MINDSHIELD_IMPLANTED "mindshield_implanted"
+#define COMSIG_LEASH_FORCE_TELEPORT "leash_force_teleport"
+#define COMSIG_LEASH_PATH_STARTED "leash_path_started"
+#define COMSIG_LEASH_PATH_COMPLETE "leash_path_complete"
+#define COMSIG_MOB_GAINED_CHAIN_TAIL "mob_chain_gained_tail"
+#define COMSIG_MOB_LOST_CHAIN_TAIL "mob_chain_lost_tail"
+#define COMPONENT_IGNORE_CHANGE (1<<0)
+#define COMSIG_LIVING_ADJUST_BRUTE_DAMAGE "living_adjust_brute_damage"
+#define COMSIG_LIVING_ADJUST_BURN_DAMAGE "living_adjust_burn_damage"
+#define COMSIG_LIVING_ADJUST_OXY_DAMAGE "living_adjust_oxy_damage"
+#define COMSIG_LIVING_ADJUST_TOX_DAMAGE "living_adjust_tox_damage"
+#define COMSIG_LIVING_ADJUST_STAMINA_DAMAGE "living_adjust_stamina_damage"
+#define COMSIG_CARBON_LIMB_DAMAGED "carbon_limb_damaged"
+	#define COMPONENT_PREVENT_LIMB_DAMAGE (1<<0)
+#define COMSIG_ON_HIT_EFFECT "comsig_on_hit_effect"

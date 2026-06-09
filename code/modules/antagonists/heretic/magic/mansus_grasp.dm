@@ -1,6 +1,7 @@
 /obj/effect/proc_holder/spell/touch/mansus_grasp
 	name = "Прикосновение Мансуса"
 	desc = "Заклинание позволяющее направлять силу Древних Богов через вашу руку."
+	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
@@ -18,8 +19,8 @@
 	return TRUE // This baby can hit anything
 
 
-/obj/effect/proc_holder/spell/touch/mansus_grasp/can_cast(feedback = TRUE)
-	return ..() && (isheretic(action.owner) || !!IS_LUNATIC(action.owner))
+/obj/effect/proc_holder/spell/touch/mansus_grasp/can_cast(mob/user = usr, charge_check = TRUE, show_message = FALSE)
+	return ..() && (isheretic(user) || !!IS_LUNATIC(user))
 
 
 // Used for suicide

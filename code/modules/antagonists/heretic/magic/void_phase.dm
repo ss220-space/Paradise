@@ -3,6 +3,7 @@
 	desc = "Позволяет переместиться в выбранное место, повреждает всех в квадрате 3x3 вокруг \
 			выбранного места и вашего текущего местоположения. Минимальная дальность — 3 клетки, \
 			максимальная — 9 клеток."
+	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'

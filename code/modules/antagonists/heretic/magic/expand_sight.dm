@@ -5,14 +5,7 @@
 			видеть врагов с гораздо большего расстояния."
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
 	action_icon_state = "eye"
+	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
 	human_req = FALSE
-	view_ranges = list(
-		"default",
-		"17x17",
-		"19x19",
-		"21x21",
-		"23x23",
-		"25x25",
-	)

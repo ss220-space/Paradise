@@ -2,6 +2,7 @@
 	name = "Врата разума"
 	desc = "Вызывает у цели галлюцинации, ошеломление на 10 секунд, удушие и повреждения мозга. \
 			Наносит вашему мозгу 20 единиц урона за каждое использование."
+	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
@@ -21,8 +22,8 @@
 	active_msg = "Вы подготовились открыть свой разум..."
 
 
-/obj/effect/proc_holder/spell/pointed/mind_gate/can_cast(feedback = TRUE)
-	return ..() && isliving(action.owner)
+/obj/effect/proc_holder/spell/pointed/mind_gate/can_cast(mob/user = usr, charge_check = TRUE, show_message = FALSE)
+	return ..() && isliving(user)
 
 
 /obj/effect/proc_holder/spell/pointed/mind_gate/valid_target(atom/cast_on)

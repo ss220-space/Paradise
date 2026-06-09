@@ -50,7 +50,7 @@
 			to_chat(caster, span_warning("You're already shapeshifted!"))
 			return
 
-	var/mob/living/shape = new shapeshift_type(get_turf(caster))
+	var/mob/living/shape = create_shapeshift_mob(get_turf(caster))
 	caster.forceMove(shape)
 	ADD_TRAIT(caster, TRAIT_GODMODE, UNIQUE_TRAIT_SOURCE(src))
 
@@ -60,6 +60,9 @@
 	human_req = FALSE
 
 	caster.mind.transfer_to(shape)
+
+/obj/effect/proc_holder/spell/shapeshift/proc/create_shapeshift_mob(atom/loc)
+	return new shapeshift_type(loc)
 
 /obj/effect/proc_holder/spell/shapeshift/proc/Restore(mob/living/shape)
 	var/mob/living/caster
@@ -133,4 +136,3 @@
 	current_shapes = list(/mob/living/simple_animal/hostile/hellhound/greater)
 	current_casters = list()
 	possible_shapes = list(/mob/living/simple_animal/hostile/hellhound/greater)
-

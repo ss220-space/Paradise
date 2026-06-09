@@ -5,6 +5,7 @@
 			временем охлаждены. Кроме того, поражённые предметы будут заморожены и могут разбиться, \
 			а земля, попавшая под удар, покроется льдом и станет скользкой, \
 			хотя при комнатной температуре она может быстро оттаять."
+	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
 	action_icon_state = "icebeam"
@@ -109,7 +110,7 @@
 	if(unfreeze_object_duration == INFINITY) // Infinity duration = don't set an unfreeze timer
 		return
 
-	addtimer(CALLBACK(target_obj, TYPE_PROC_REF(/obj/, unfreeze)), unfreeze_object_duration)
+	addtimer(CALLBACK(target_obj, TYPE_PROC_REF(/obj, unfreeze)), unfreeze_object_duration)
 
 
 /**

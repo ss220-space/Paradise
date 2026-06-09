@@ -5,6 +5,7 @@
 			Затем жертва будет связана с вами космическим лучом, сжигающим её до минуты или \
 			до момента пока ваша жертва не скроется от вас. «Звёздное Касание» также может стереть Космические \
 			руны или телепортировать вас к вашему Звёздному Глашатаю при использовании на себе."
+	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'

@@ -2,6 +2,7 @@
 	name = "Усугубление"
 	desc = "Ломает части тела, имеющие 15 единиц физических повреждений и выше. Если таковых нет, \
 			ломает случайную часть тела."
+	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'

@@ -2,6 +2,7 @@
 /obj/effect/proc_holder/spell/pointed/sword_fling
 	name = "Метание меча"
 	desc = "Попробуйте метнуть себя куда-нибудь."
+	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_cult_border"
 

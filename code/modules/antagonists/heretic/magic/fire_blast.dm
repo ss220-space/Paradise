@@ -3,6 +3,7 @@
 	desc = "Зарядите огненную атаку, которая цепочкой охватит ближайших язычников, поджигая их. \
 			Цели, которые уже горят, имеют приоритет. Если цель не загорится или \
 			погаснет до передачи атаки дальше, цепочка прекратится."
+	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'

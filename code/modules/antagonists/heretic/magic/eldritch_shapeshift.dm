@@ -3,6 +3,7 @@
 	name = "Метаморфоза" // 177013 :)
 	desc = "Заклинание, позволяющее вам принять облик другого существа, приобретая его способности. \
 			Сделав выбор, вы больше не сможете принимать другую форму."
+	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
 

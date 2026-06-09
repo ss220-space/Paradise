@@ -3,6 +3,7 @@
 	name = "Жуткая телепатия"
 	school = SCHOOL_FORBIDDEN
 	human_req = FALSE
+	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
 	antimagic_flags = MAGIC_RESISTANCE|MAGIC_RESISTANCE_MIND

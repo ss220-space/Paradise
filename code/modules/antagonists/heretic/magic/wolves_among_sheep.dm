@@ -8,6 +8,7 @@
 	desc = "Изменяет ткань реальности, создавая магическую арену, недоступную для посторонних. \
 			Все участники оказываются в ловушке. \
 			Пойманным участникам даруется Клинок, и они не могут покинуть арену пока не убьют противника."
+	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = null
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'

@@ -9,6 +9,7 @@
 	name = "Космический сдвиг"
 	desc = "Позволяет вам появляться и исчезать из реальности, находясь в космосе или на \
 			открытом воздухе с низким давлением. Для возвращения, место прибытия тоже должно быть таковым."
+	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
 
@@ -39,16 +40,16 @@
 	UnregisterSignal(remove_from, COMSIG_MOVABLE_MOVED)
 
 
-/obj/effect/proc_holder/spell/jaunt/space_crawl/can_cast(feedback = FALSE)
+/obj/effect/proc_holder/spell/jaunt/space_crawl/can_cast(mob/user = usr, charge_check = TRUE, show_message = FALSE)
 	. = ..()
 	if(!.)
 		return FALSE
 
-	var/turf/my_turf = get_turf(action.owner)
+	var/turf/my_turf = get_turf(user)
 	if(isspaceturf(my_turf))
 		return TRUE
 
-	var/area/my_area = get_area(action.owner)
+	var/area/my_area = get_area(user)
 	if(is_space_or_openspace(my_turf) || my_area.outdoors && lavaland_equipment_pressure_check(my_turf))
 		return TRUE
 

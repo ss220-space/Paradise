@@ -68,6 +68,7 @@
 /obj/effect/proc_holder/spell/track_target
 	name = "Биение живого сердца"
 	desc = "ЛКМ: Выберите одну из целей жертвоприношения для отслеживания.\nАльтклик: Переключает автовыбор последней выбранной цели."
+	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
 	action_background_icon_state = "bg_heretic"
 	action_icon = 'icons/obj/eldritch.dmi'
 	action_icon_state = "living_heart"
@@ -287,7 +288,7 @@
 	if(owner)
 		animate(src, transform = matrix(get_angle(owner, tracked_turf), MATRIX_ROTATE), 0.2 SECONDS)
 
-	screen_loc = around_player
+	screen_loc = "CENTER"
 	color = arrow_color
 	if(!hud)
 		addtimer(CALLBACK(src, PROC_REF(end_effect)), 1.6 SECONDS)

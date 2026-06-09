@@ -18,6 +18,7 @@
 #define FIRE "fire"
 #define ACID "acid"
 #define MAGIC "magic"
+#define IRRADIATE "irradiate"
 
 /// Armor values that are used for damage
 #define ARMOR_LIST_DAMAGE list(BOMB, BULLET, ENERGY, LASER, MELEE)
@@ -34,6 +35,7 @@
 #define KNOCKDOWN "knockdown"
 #define PARALYZE "paralize"
 #define SLEEP "sleep"
+#define SLEEPING "sleeping"
 #define IMMOBILIZE "immobilize"
 #define STUTTER "stutter"
 #define SLUR "slur"

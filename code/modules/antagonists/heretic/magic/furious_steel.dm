@@ -3,6 +3,7 @@
 	desc = "Призывает три серебряных клинка, вращающихся вокруг вас. \
 			Эти клинки защитят вас от атак, но будут расходоваться при использовании. \
 			Кроме того, вы можете кликнуть, чтобы выстрелить клинками в цель, нанося урон и вызывая кровотечение."
+	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'

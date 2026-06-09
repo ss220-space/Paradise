@@ -3,6 +3,7 @@
 	desc = "Позволяет вам незаметно и свободно перемещаться по станции в пределах зеркального мира. \
 			Вы можете входить и выходить из зеркального мира только при наличии рядом отражающих \
 			поверхностей и предметов, таких как окна, зеркала, отражающие стены или оборудование."
+	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
 	action_icon = 'icons/mob/actions/actions_minor_antag.dmi'
@@ -34,24 +35,24 @@
 	UnregisterSignal(remove_from, COMSIG_MOVABLE_MOVED)
 
 
-/obj/effect/proc_holder/spell/jaunt/mirror_walk/can_cast(feedback = TRUE)
+/obj/effect/proc_holder/spell/jaunt/mirror_walk/can_cast(mob/user = usr, charge_check = TRUE, show_message = FALSE)
 	. = ..()
 	if(!.)
 		return FALSE
 
-	var/turf/owner_turf = get_turf(action.owner)
+	var/turf/owner_turf = get_turf(user)
 	if(!is_reflection_nearby(get_turf(owner_turf)))
-		if(!feedback)
+		if(!show_message)
 			return FALSE
 
-		to_chat(action.owner, span_warning("Рядом нет отражающих поверхностей!"))
+		to_chat(user, span_warning("Рядом нет отражающих поверхностей!"))
 		return FALSE
 
 	if(owner_turf.is_blocked_turf(exclude_mobs = TRUE))
-		if(!feedback)
+		if(!show_message)
 			return FALSE
 
-		to_chat(action.owner, span_warning("Что-то не даёт вам перейти через отражение!"))
+		to_chat(user, span_warning("Что-то не даёт вам перейти через отражение!"))
 		return FALSE
 
 	return TRUE

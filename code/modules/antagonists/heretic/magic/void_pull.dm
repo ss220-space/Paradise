@@ -2,6 +2,7 @@
 	name = "Притяжение пустоты"
 	desc = "Временно открывает врата в пустоту, нанося урон, сбивая с ног и оглушая всех находящихся поблизости. \
 			Далёкие враги притягиваются к вам (но не получают урона)."
+	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'

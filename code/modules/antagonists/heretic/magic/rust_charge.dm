@@ -5,6 +5,7 @@
 			После применения вы с большой скоростью побежите в выбранную точку. \
 			Уничтожит все ржавые предметы, с которыми вы соприкоснётесь. \
 			Нанесёт большой урон окружающим и распространит ржавчину."
+	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
 	charge_distance = 10

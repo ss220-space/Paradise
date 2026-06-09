@@ -5,6 +5,7 @@
 			кратковременно ослепляет их (эффект усиливается с увеличением расстояния) и \
 			отравляет (эффект уменьшается с увеличением расстояния). \
 			Также распространяет ржавчину на пути шлейфа."
+	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
@@ -88,6 +89,7 @@
 /obj/effect/proc_holder/spell/fireball/rust_wave
 	name = "Ковровая Дорожка"
 	desc = "Направляет энергию в ваши руки, позволяя высвободить волну ржавчины."
+	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
@@ -112,9 +114,23 @@
 	damage_type = TOX
 	hitsound = 'sound/weapons/punch3.ogg'
 	//trigger_range = 0
-	ignored_factions = list(FACTION_HERETIC)
+	var/list/ignored_factions = list(FACTION_HERETIC)
 	range = 15
 	speed = 1
+
+
+// Honours ignored_factions (tg behaviour): the entropic plume must not hurt fellow heretics/minions.
+// master220 projectiles don't read ignored_factions natively, so we zero the hit in prehit
+// (same pattern as /obj/projectile/herald).
+/obj/projectile/magic/aoe/rust_wave/prehit(atom/target)
+	if(isliving(target))
+		var/mob/living/living_target = target
+		for(var/ignored_faction in ignored_factions)
+			if(ignored_faction in living_target.faction)
+				nodamage = TRUE
+				damage = 0
+				break
+	return ..()
 
 
 /obj/projectile/magic/aoe/rust_wave/get_ru_names()

@@ -29,6 +29,7 @@
 		ROLE_ESCAPING_PRISONER = 40,
 		ROLE_DEVIL = 40,
 		ROLE_NINJA = 40,
+		ROLE_HERETIC = 40,
 	)
 	/// Antag weights for main antags
 	var/list/antags_weights
@@ -57,6 +58,7 @@
 	antag_possibilities[ROLE_MALF_AI] = get_alive_AIs_for_role(ROLE_MALF_AI)
 	antag_possibilities[ROLE_DEVIL] = get_alive_players_for_role(ROLE_DEVIL)
 	antag_possibilities[ROLE_ESCAPING_PRISONER] = get_alive_players_for_role(ROLE_ESCAPING_PRISONER, req_job_rank = JOB_TITLE_PRISONER)
+	antag_possibilities[ROLE_HERETIC] = get_alive_players_for_role(ROLE_HERETIC)
 	roll_antagonists(antag_possibilities)
 	initiate_antags()
 
@@ -82,6 +84,8 @@
 			special_antag_types += ROLE_MALF_AI
 		if(length(antag_possibilities[ROLE_ESCAPING_PRISONER]))
 			special_antag_types += ROLE_ESCAPING_PRISONER
+		if(length(antag_possibilities[ROLE_HERETIC]))
+			special_antag_types += ROLE_HERETIC
 		special_antag_type = pick(special_antag_types)
 
 	switch(special_antag_type)
@@ -154,6 +158,15 @@
 			else
 				log_and_message_admins("No positions are found to spawn space ninja antag. Report this to coders.")
 
+		if(ROLE_HERETIC)
+			if(special_antag_amount)
+				var/datum/mind/special_antag = safepick(antag_possibilities[ROLE_HERETIC])
+				if(special_antag)
+					special_antag.restricted_roles = restricted_jobs
+					special_antag.special_role = SPECIAL_ROLE_HERETIC
+					pre_antags[special_antag] = ROLE_HERETIC
+					antags_amount--
+
 	if(antags_amount)
 		for(var/i in 1 to antags_amount)
 			var/antag_type = pick_weight_classic(antags_weights)
@@ -199,6 +212,15 @@
 					thief.special_role = SPECIAL_ROLE_THIEF
 					thief.restricted_roles = restricted_jobs
 					pre_antags[thief] = ROLE_THIEF
+				if(ROLE_HERETIC)
+					var/datum/mind/heretic = pick_n_take(antag_possibilities[ROLE_HERETIC])
+					if(!heretic)
+						continue
+					if(heretic.special_role)
+						continue
+					heretic.special_role = SPECIAL_ROLE_HERETIC
+					heretic.restricted_roles = restricted_jobs
+					pre_antags[heretic] = ROLE_HERETIC
 
 	if(!length(pre_antags))
 		return FALSE
@@ -246,6 +268,7 @@
 	antag_possibilities[ROLE_MALF_AI] = get_players_for_role(ROLE_MALF_AI)
 	antag_possibilities[ROLE_ESCAPING_PRISONER] = get_players_for_role(ROLE_ESCAPING_PRISONER, req_job_rank = JOB_TITLE_PRISONER)
 	antag_possibilities[ROLE_DEVIL] =	get_players_for_role(ROLE_DEVIL)
+	antag_possibilities[ROLE_HERETIC] = get_players_for_role(ROLE_HERETIC)
 
 	calculate_antags()
 
@@ -342,6 +365,9 @@
 				var/datum/antagonist/devil/divil_datum = new
 				antag.add_antag_datum(divil_datum)
 
+			if(ROLE_HERETIC)
+				antag.add_antag_datum(/datum/antagonist/heretic)
+
 			if(ROLE_MALF_AI)
 				if(isAI(antag.current))
 					antag.add_antag_datum(/datum/antagonist/malf_ai)
@@ -395,6 +421,9 @@
 			if("devil")
 				new_list += ROLE_DEVIL
 				new_list[ROLE_DEVIL] = check_list[index]
+			if("heretic")
+				new_list += ROLE_HERETIC
+				new_list[ROLE_HERETIC] = check_list[index]
 			else
 				new_list += index
 				new_list[index] = check_list[index]

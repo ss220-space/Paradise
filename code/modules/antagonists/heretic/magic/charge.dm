@@ -45,7 +45,7 @@
 
 	if(charger in charging)
 		// Stop any existing charging, this'll clean things up properly
-		SSmove_manager.stop_looping(charger)
+		GLOB.move_manager.stop_looping(charger)
 
 	charging += charger
 	actively_moving = FALSE
@@ -61,7 +61,7 @@
 
 	var/time_to_hit = min(get_dist(charger, target), charge_distance) * charge_speed
 
-	var/datum/move_loop/new_loop = SSmove_manager.home_onto(charger, target, delay = charge_speed, timeout = time_to_hit, priority = MOVEMENT_ABOVE_SPACE_PRIORITY)
+	var/datum/move_loop/new_loop = GLOB.move_manager.home_onto(charger, target, delay = charge_speed, timeout = time_to_hit, priority = MOVEMENT_ABOVE_SPACE_PRIORITY)
 	if(!new_loop)
 		return
 

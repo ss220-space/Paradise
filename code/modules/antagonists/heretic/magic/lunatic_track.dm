@@ -1,6 +1,7 @@
 /obj/effect/proc_holder/spell/lunatic_track
 	name = "Эхо лунного света"
 	desc = "Узнайте местоположение вашего Лидера."
+	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'

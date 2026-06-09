@@ -95,7 +95,8 @@
 /datum/heretic_knowledge/cold_snap/proc/check_environment(mob/living/user)
 	SIGNAL_HANDLER
 
-	var/datum/gas_mixture/environment = user.loc?.get_readonly_air()
+	var/turf/user_turf = get_turf(user)
+	var/datum/gas_mixture/environment = user_turf?.get_readonly_air()
 	if(isnull(environment))
 		return
 

@@ -204,6 +204,57 @@
 	user.newtonian_move(get_dir(target_turf, source_turf))
 
 
+// --- Targeting datums for tg-derived module spells ---
+// Paradise requires every spell to provide a targeting datum (base create_new_targeting() returns null,
+// which makes the action button silently do nothing on click). tg self-cast spells have no such concept,
+// so map them all to self-targeting here; mob abilities default to click-targeting.
+
+/obj/effect/proc_holder/spell/jaunt/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+/obj/effect/proc_holder/spell/cone/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+/obj/effect/proc_holder/spell/shadow_cloak/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+/obj/effect/proc_holder/spell/heretic_menu/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+/obj/effect/proc_holder/spell/realignment/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+/obj/effect/proc_holder/spell/caretaker/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+/obj/effect/proc_holder/spell/fire_sworn/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+/obj/effect/proc_holder/spell/fire_cascade/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+/obj/effect/proc_holder/spell/cosmic_rune/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+/obj/effect/proc_holder/spell/wolves_among_sheep/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+/obj/effect/proc_holder/spell/lunatic_track/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+/obj/effect/proc_holder/spell/seek_master/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+/obj/effect/proc_holder/spell/open_mob_commands/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+/obj/effect/proc_holder/spell/track_target/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+/// tg mob-cooldown abilities are click-targeted by default (charge overrides this itself).
+/obj/effect/proc_holder/spell/mob_cooldown/create_new_targeting()
+	return new /datum/spell_targeting/clicked_atom
+
 // --- Antimagic compatibility shims ---
 // master220 has no unified antimagic check (anti_magic_check is only a vestigial signal comment),
 // so these default to "no antimagic". Proper antimagic mapping (null rod / holy) is a later refinement.

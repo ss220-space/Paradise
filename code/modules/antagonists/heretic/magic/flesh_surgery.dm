@@ -5,6 +5,7 @@
 			операцию или потрошить её. При применении к призванным существам \
 			или миньонам восстанавливает им здоровье. Также может использоваться для лечения \
 			повреждённых органов."
+	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'

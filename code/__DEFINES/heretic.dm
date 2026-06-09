@@ -29,6 +29,7 @@
 #define MAX_KNOWLEDGE_PRIORITY 100
 
 #define FACTION_HERETIC "heretic"
+#define FACTION_HOSTILE "hostile"
 
 /// Checks if the passed mob can become a heretic ghoul.
 /// Must be a human (type, not species); skeletons and monkeys are excluded.
@@ -84,10 +85,8 @@
 #define SPELL_NO_FEEDBACK (1 << 1)
 #define SPELL_NO_IMMEDIATE_COOLDOWN (1 << 2)
 
-/// Blackboard keys used by some heretic monster AI (tg basic-mob AI; behaviour pending task #7).
-#define BB_GENERIC_ACTION "BB_generic_action"
-#define BB_TARGETED_ACTION "BB_TARGETED_action"
-#define BB_SHAPESHIFT_ACTION "BB_shapeshift_action"
+// (BB_GENERIC_ACTION / BB_TARGETED_ACTION / BB_SHAPESHIFT_ACTION moved to code/__DEFINES/ai.dm
+//  together with the rest of the ported basic-mob AI blackboard keys.)
 
 /// Overlay layer used by rust/cleanable decals.
 #define ABOVE_CLEANABLES_LAYER 2.0475

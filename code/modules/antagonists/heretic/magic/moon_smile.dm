@@ -2,6 +2,7 @@
 	name = "Лунная улыбка"
 	desc = "Позволяет обратить на кого-то взгляд луны кликнув по нему. \
 			Временно ослепляет, заглушает, не даёт говорить и ошеломляет одну цель."
+	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
@@ -22,8 +23,8 @@
 	active_msg = "Вы готовы позволить им увидеть истинное лицо луны..."
 
 
-/obj/effect/proc_holder/spell/pointed/moon_smile/can_cast(feedback = TRUE)
-	return ..() && isliving(action.owner)
+/obj/effect/proc_holder/spell/pointed/moon_smile/can_cast(mob/user = usr, charge_check = TRUE, show_message = FALSE)
+	return ..() && isliving(user)
 
 
 /obj/effect/proc_holder/spell/pointed/moon_smile/valid_target(atom/cast_on)

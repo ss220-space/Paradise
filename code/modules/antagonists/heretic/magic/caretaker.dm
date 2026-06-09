@@ -5,6 +5,7 @@
 			использовать руки и произносить заклинания. \
 			Вы не можете войти в Убежище, находясь рядом с другими разумными существами, \
 			и вас могут выкинуть из него различными антимагическими предметами."
+	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'

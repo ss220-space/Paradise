@@ -50,6 +50,8 @@
 		"17x17",
 		"19x19",
 		"21x21",
+		"23x23",
+		"25x25",
 	)
 
 /obj/effect/proc_holder/spell/view_range/Destroy(force)

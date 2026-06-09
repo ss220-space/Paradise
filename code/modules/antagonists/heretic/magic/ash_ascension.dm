@@ -2,6 +2,7 @@
 /obj/effect/proc_holder/spell/fire_sworn
 	name = "Клятва пламени"
 	desc = "В течении вы будете пассивно создадавать вокруг себя огненные кольца."
+	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
@@ -73,6 +74,7 @@
 /obj/effect/proc_holder/spell/fire_cascade
 	name = "Малый Каскад Пламени"
 	desc = "Нагревает воздух вокруг вас."
+	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
@@ -120,6 +122,7 @@
 /obj/effect/proc_holder/spell/pointed/ash_beams
 	name = "Обряд Ночного Дозорного"
 	desc = "Мощное заклинание, выпускающее в цель пять потоков потустороннего пламени."
+	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'

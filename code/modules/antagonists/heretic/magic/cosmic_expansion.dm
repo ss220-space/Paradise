@@ -2,6 +2,7 @@
 	name = "Расширение территории"
 	desc = "Это заклинание создаёт небольшую область космических полей вокруг вас. \
 			Существа, находящиеся на расстоянии до 7 клеток, получат звёздную метку."
+	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'

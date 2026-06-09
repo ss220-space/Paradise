@@ -5,6 +5,7 @@
 			оглушения или нокдауна. Вы не можете атаковать пока заклинание активно. \
 			Можно применять несколько раз подряд, но каждое применение \
 			увеличивает время перезарядки."
+	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
 	action_icon = 'icons/hud/implants.dmi'

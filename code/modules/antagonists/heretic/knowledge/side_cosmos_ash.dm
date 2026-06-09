@@ -92,10 +92,28 @@
 		living_user.adjustBruteLoss(5)
 		return
 
-	return ..()
+	// Self-contained flip: the base coin's attack_self never exposes the flip result,
+	// so we mirror its flow here and trigger our eldritch effect via on_result_act().
+	if(cooldown >= world.time - 15)
+		return
+	var/coinflip = pick(sideslist)
+	cooldown = world.time
+	playsound(user.loc, 'sound/items/coinflip.ogg', 50, TRUE)
+	if(!do_after(user, 1.5 SECONDS, src))
+		return
+	var/static/list/ru_coinflip = list(
+		"heretic" = "Мансус",
+		"blade" = "Клинок",
+	)
+	user.visible_message(
+		span_notice("[user] подбрасыва[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)]. Выпало: [ru_coinflip[coinflip]]."),
+		span_notice("Вы подбросили [declent_ru(ACCUSATIVE)]. Выпало: [ru_coinflip[coinflip]]."),
+		span_notice("Слышен звон монеты."),
+	)
+	on_result_act(coinflip)
 
 
-/obj/item/coin/eldritch/on_result_act(coinflip)
+/obj/item/coin/eldritch/proc/on_result_act(coinflip)
 	switch(coinflip)
 		if("heretic")
 			for(var/obj/machinery/door/airlock/target_airlock in range(airlock_range, get_turf(src)))
