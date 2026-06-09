@@ -742,7 +742,6 @@
 #include "code\datums\components\blood_walk.dm"
 #include "code\datums\components\damage_aura.dm"
 #include "code\datums\components\effect_remover.dm"
-#include "code\datums\components\mob_chain.dm"
 #include "code\datums\components\mutant_hands.dm"
 #include "code\datums\components\regenerator.dm"
 #include "code\datums\components\proximity_monitor.dm"

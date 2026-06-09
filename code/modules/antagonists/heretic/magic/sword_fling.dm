@@ -79,7 +79,7 @@
 	if(iscloset(sword_loc))
 		var/obj/structure/closet/sword_closet = sword_loc
 		if(!(sword_closet.open()))
-			sword_closet.container_resist(action.owner)
+			sword_closet.container_resist_act(action.owner)
 
 		flinged_sword.visible_message(span_alert("[flinged_sword.declent_ru(NOMINATIVE)] вырывается из [sword_closet.declent_ru(GENITIVE)]!"))
 

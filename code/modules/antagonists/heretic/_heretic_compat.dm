@@ -27,6 +27,28 @@
 /proc/isroboticorgan(obj/item/organ/checked_organ)
 	return checked_organ?.is_robotic()
 
+/// tg's dismember() on a limb maps to master220's droplimb().
+/obj/item/organ/external/proc/dismember()
+	return droplimb()
+
+/// tg's set_organ_damage(amount) — master220 organs have a `damage` var + max_damage.
+/obj/item/organ/proc/set_organ_damage(amount, required_organ_flag)
+	damage = clamp(amount, 0, max_damage)
+
+// --- Misc behaviour shims (master220 lacks these tg procs; no-ops for now, behaviour = runtime polish) ---
+
+/// tg stun-absorption buff (blade path "Furious Steel"). No-op until ported; stun immunity won't apply yet.
+/mob/living/proc/add_stun_absorption(source, message, self_message, examine_message, max_seconds_of_stuns_blocked, delete_after_passing_max, recharge_time)
+	return TRUE
+
+/// tg "can this mob give up / be finished off" check. master220 approximation: in crit or dead.
+/mob/living/proc/CanSuccumb()
+	return (stat == UNCONSCIOUS || stat == DEAD)
+
+/// tg freezes an object solid. master220 lacks it; report "not frozen" so callers skip the freeze visual.
+/obj/proc/freeze_add()
+	return FALSE
+
 // --- Projectile helper ---
 // tg's /obj/projectile/proc/is_hostile_projectile() isn't present in master220.
 // A projectile counts as hostile here if it deals damage.

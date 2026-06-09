@@ -195,7 +195,7 @@
 	return TRUE
 
 
-/obj/effect/proc_holder/spell/pointed/projectile/proc/ready_projectile(obj/item/projectile/to_fire, atom/target, mob/user, iteration)
+/obj/effect/proc_holder/spell/pointed/projectile/proc/ready_projectile(obj/projectile/to_fire, atom/target, mob/user, iteration)
 	var/turf/source_turf = get_turf(user)
 	to_fire.firer = action.owner
 	var/turf/target_turf = get_turf(target)

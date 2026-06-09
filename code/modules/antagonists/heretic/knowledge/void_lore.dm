@@ -95,7 +95,7 @@
 /datum/heretic_knowledge/cold_snap/proc/check_environment(mob/living/user)
 	SIGNAL_HANDLER
 
-	var/datum/gas_mixture/environment = user.loc?.return_air()
+	var/datum/gas_mixture/environment = user.loc?.get_readonly_air()
 	if(isnull(environment))
 		return
 
@@ -281,7 +281,7 @@
 			continue
 
 		var/turf/affected_turf = thing_in_range
-		var/datum/gas_mixture/environment = affected_turf.return_air()
+		var/datum/gas_mixture/environment = affected_turf.get_readonly_air()
 		environment.set_temperature(environment.temperature() * 0.9) // master220 MILLA: temperature is via getter/setter (runtime: may need a milla_safe write to persist)
 
 
