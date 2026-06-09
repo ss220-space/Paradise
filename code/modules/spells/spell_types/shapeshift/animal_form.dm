@@ -6,8 +6,9 @@
 	cooldown_reduction_per_rank = 3.75 SECONDS
 	invocation = "RAC'WA NO!"
 	invocation_type = INVOCATION_SHOUT
-	button_icon_state = "shapeshift"
 	var/chosen = FALSE
-	possible_shapes = list(/mob/living/simple_animal/mouse,
+	possible_shapes = list(
+		/mob/living/simple_animal/mouse,
 		/mob/living/simple_animal/pet/dog/corgi,
-		/mob/living/simple_animal/hostile/construct/armoured)
+		/mob/living/simple_animal/hostile/construct/armoured
+	)

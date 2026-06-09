@@ -8,7 +8,6 @@
 	button_icon_state = "spacetime"
 	school = SCHOOL_TRANSMUTATION
 	cooldown_time = 30 SECONDS
-	cooldown_reduction_per_rank = 0 //No reduction, just more range.
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_WIZARD_GARB | SPELL_REQUIRES_STATION //Prevent people from getting to centcom
 	spell_max_level = 3
 	aoe_radius = 10
