@@ -10,5 +10,5 @@
 	possible_shapes = list(
 		/mob/living/simple_animal/mouse,
 		/mob/living/simple_animal/pet/dog/corgi,
-		/mob/living/simple_animal/hostile/construct/armoured
+		/mob/living/simple_animal/hostile/construct/armoured,
 	)
