@@ -1,6 +1,0 @@
-author: "littleboobs"
-delete-after: True
-changes:
-  - code_imp: "Компиляция на 516.1670+ (PR #9334)"
-  - refactor: "Локализация. (PR #9334)"
-  - admin: "Отключен DEBUG лог в чат по умолчанию. (PR #9334)"
