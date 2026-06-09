@@ -1,4 +1,0 @@
-author: "SCPfollower"
-delete-after: True
-changes:
-  - tweak: "Нормальное отображение содержимого сюрплюсов после гринтекста. (PR #9345)"
