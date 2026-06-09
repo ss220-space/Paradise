@@ -3,6 +3,7 @@
 	desc = "Toggle your nightvision mode."
 	cooldown_time = 1 SECONDS
 	spell_requirements = NONE
+	check_flags = NONE
 
 /datum/action/cooldown/spell/nightvision/cast(atom/cast_on)
 	. = ..()

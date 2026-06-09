@@ -6,7 +6,7 @@
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 	invocation = "ONI SOMA"
 	invocation_type = INVOCATION_SHOUT
-	active_msg = span_notice_alt("Your prepare to cast your fireball spell! <b>Left-click to cast at a target!</b>")
+	active_msg = span_notice_alt("Your prepare to cast your fireball spell!")
 	deactive_msg = span_notice_alt("You extinguish your fireball...for now.")
 	projectile_type = /obj/projectile/magic/fireball
 	button_icon_state = "fireball0"

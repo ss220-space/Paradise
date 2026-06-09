@@ -5,7 +5,7 @@
 	cooldown_time = 6 SECONDS
 	cooldown_reduction_per_rank = 1 SECONDS
 	spell_requirements = NONE
-	active_msg = span_notice_alt("You prepare a blessing. Click on a target to start blessing.")
+	active_msg = span_notice_alt("You prepare a blessing.")
 	deactive_msg  = span_notice_alt("The crew will be blessed another time.")
 	button_icon_state = "shield"
 

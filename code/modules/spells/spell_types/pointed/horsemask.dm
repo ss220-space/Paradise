@@ -7,7 +7,7 @@
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 	invocation = "KN'A FTAGHU, PUCK 'BTHNK!"
 	invocation_type = INVOCATION_SHOUT
-	active_msg = span_notice_alt("You start to quietly neigh an incantation. Click on or near a target to cast the spell.")
+	active_msg = span_notice_alt("You start to quietly neigh an incantation.")
 	deactive_msg = span_notice_alt("You stop neighing to yourself.")
 
 	button_icon_state = "barn"

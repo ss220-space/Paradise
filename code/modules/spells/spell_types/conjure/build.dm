@@ -77,7 +77,8 @@
 	button_icon_state = "cultforcewall"
 	background_icon_state = "bg_cult"
 	background_icon_state_active = "bg_cult"
-	school = "transmutation"
+	school = SCHOOL_TRANSMUTATION
+	check_flags = AB_CHECK_CONSCIOUS | AB_CHECK_PHASED | AB_CHECK_INCAPACITATED
 	cooldown_time = 30 SECONDS
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 	//holy_area_cancast = FALSE //Stops cult magic from working on holy ground eg: chapel
