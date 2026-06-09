@@ -49,6 +49,17 @@
 /obj/proc/freeze_add()
 	return FALSE
 
+// --- Hallucination compat ---
+// master220 has a simple Hallucinate(amount) but not tg's typed cause_hallucination()/datum hallucinations.
+// Map to the generic effect (ignoring the specific delusion type) and stub the referenced types.
+// NOTE: the specific moon/gate delusion visuals are a runtime-polish TODO.
+/mob/living/proc/cause_hallucination(hallucination_type, reason, duration = 10 SECONDS, affects_us = TRUE, affects_others = FALSE)
+	if(affects_us)
+		Hallucinate(duration)
+
+/datum/hallucination/delusion/preset/moon
+/datum/hallucination/delusion/preset/heretic/gate
+
 // --- Projectile helper ---
 // tg's /obj/projectile/proc/is_hostile_projectile() isn't present in master220.
 // A projectile counts as hostile here if it deals damage.

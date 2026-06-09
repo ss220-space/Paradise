@@ -95,6 +95,14 @@
 /// TRUE if a hand index is a left hand (odd indices are left in tg's hand model).
 #define IS_LEFT_INDEX(value) (value % 2 != 0)
 
+// Component / signal-handler return flags used by heretic code.
+#define LADDER_TRAVEL_BLOCK (1<<0)
+#define COMPONENT_CAST_HANDLESS (1<<0)
+#define COMPONENT_CANT_Z_MOVE (1<<0)
+#define COMPONENT_CANT_STRIP (1<<0)
+#define COMPONENT_AFTERATTACK_STOP (1<<1)
+#define ACCESS_DISALLOWED (1<<1)
+
 /// Attack classification flags passed by the relay_attackers element via COMSIG_ATOM_WAS_ATTACKED.
 #define ATTACKER_STAMINA_ATTACK (1 << 0)
 #define ATTACKER_SHOVING (1 << 1)
