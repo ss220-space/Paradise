@@ -60,6 +60,37 @@
 /datum/hallucination/delusion/preset/moon
 /datum/hallucination/delusion/preset/heretic/gate
 
+// --- More master220 compat shims ---
+
+/// tg AdjustAllImmobility (stun/knockdown/immobilize); master220 closest = AdjustImmobilized.
+/mob/living/proc/AdjustAllImmobility(amount, ignore_canstun = FALSE)
+	return AdjustImmobilized(amount, ignore_canstun)
+
+/// tg calls this after editing turf air; master220 MILLA propagates automatically. No-op.
+/turf/proc/air_update_turf(update = FALSE, update_visuals = FALSE)
+	return
+
+/// tg "does this mob need a heart to live"; master220 approximation: carbons do.
+/mob/living/carbon/proc/needs_heart()
+	return TRUE
+
+/// tg unequip_everything strips a mob; master220 approximation drops held items (worn = runtime polish).
+/mob/living/proc/unequip_everything()
+	drop_all_held_items()
+
+/// tg's is_centcomm(z); master220 treats centcom as an admin z-level.
+/proc/is_centcomm(z)
+	return is_admin_level(z)
+
+/// tg timed-examine hook; master220 examine is instant. Base returns 0; heretic influence overrides it
+/// for flavor but master220 won't honor the delay (runtime polish).
+/atom/proc/get_examine_time()
+	return 0
+
+// tg cultblade "free_use" var (lets non-cultists wield without backlash). Behaviour wiring = runtime polish.
+/obj/item/melee/cultblade
+	var/free_use = FALSE
+
 // --- Projectile helper ---
 // tg's /obj/projectile/proc/is_hostile_projectile() isn't present in master220.
 // A projectile counts as hostile here if it deals damage.
