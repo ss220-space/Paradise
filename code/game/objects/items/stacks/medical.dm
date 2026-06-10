@@ -421,7 +421,6 @@
 	amount = 8
 	max_amount = 8
 	stop_bleeding = 0
-	self_delay = 1.5 SECONDS
 	merge_type = /obj/item/stack/medical/bruise_pack/advanced
 	use_flags = DA_IGNORE_LYING
 	custom_price = PAYCHECK_MIN * 1.5
@@ -458,8 +457,6 @@
 	amount = 10
 	max_amount = 10
 	stop_bleeding = 0
-	self_delay = 1.5 SECONDS
-	use_duration = 0.7 SECONDS
 	use_flags = DA_IGNORE_LYING
 	merge_type = /obj/item/stack/medical/bruise_pack/extended
 	custom_premium_price = PAYCHECK_LOWER
@@ -552,7 +549,6 @@
 	heal_burn = 20
 	amount = 8
 	max_amount = 8
-	self_delay = 1.5 SECONDS
 	merge_type = /obj/item/stack/medical/ointment/advanced
 	custom_price = PAYCHECK_MIN * 1.5
 
@@ -585,8 +581,6 @@
 	heal_burn = 20
 	amount = 10
 	max_amount = 10
-	self_delay = 1.5 SECONDS
-	use_duration = 0.7 SECONDS
 	merge_type = /obj/item/stack/medical/ointment/extended
 	custom_premium_price = PAYCHECK_LOWER
 
@@ -619,7 +613,6 @@
 	amount = 8
 	max_amount = 8
 	stop_bleeding = 0
-	self_delay = 1.5 SECONDS
 	use_flags = DA_IGNORE_LYING
 	merge_type = /obj/item/stack/medical/bruise_pack/synthflesh_kit
 	custom_price = PAYCHECK_LOWER
@@ -841,7 +834,7 @@
 	icon_state = "suture_3"
 	item_state = "suture"
 	origin_tech = "biotech=3"
-	var/bleeding_heal = 5
+	var/bleeding_heal = 10
 	var/damage = 5
 	use_flags = DA_IGNORE_LYING
 	energy_type = /datum/robot_energy_storage/medical
@@ -923,9 +916,8 @@
 	amount = 10
 	max_amount = 10
 	heal_brute = 10
-	bleeding_heal = 10
+	bleeding_heal = 20
 	damage = 0
-	use_duration = 0.7 SECONDS
 	merge_type = /obj/item/stack/medical/suture/advanced
 	custom_premium_price = PAYCHECK_LOWER
 
