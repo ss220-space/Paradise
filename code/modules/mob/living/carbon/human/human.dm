@@ -581,7 +581,7 @@
 				return
 			bodypart.owner.custom_pain("Ваш[GEND_A_E_I(bodypart)] [bodypart.declent_ru(NOMINATIVE)] горит огнем!")
 			bodypart.external_receive_damage(brute = bodypart.fracture.reattach_fail_damage)
-			bodypart.bleeding_amount = max(bodypart.bleeding_amount, min(bodypart.bleeding_amount + 10, bodypart.max_bleeding_amount))
+			bodypart.bleeding_amount = max(bodypart.bleeding_amount, bodypart.max_bleeding_amount)
 			return
 
 	if(href_list["criminal"])
