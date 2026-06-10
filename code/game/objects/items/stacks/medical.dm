@@ -1191,8 +1191,6 @@
 	icon_state = "advanced_tourniquet"
 	item_state = "advanced_tourniquet"
 	self_duration = 1 SECONDS
-	other_duration = 1 SECONDS
-	remove_duration = 1 SECONDS
 	custom_price = PAYCHECK_MIN * 2
 
 /obj/item/tourniquet/advanced/get_ru_names()
