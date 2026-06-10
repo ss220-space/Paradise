@@ -619,7 +619,7 @@
 	amount = 8
 	max_amount = 8
 	stop_bleeding = 0
-	self_delay =  = 1.5 SECONDS
+	self_delay = 1.5 SECONDS
 	use_flags = DA_IGNORE_LYING
 	merge_type = /obj/item/stack/medical/bruise_pack/synthflesh_kit
 	custom_price = PAYCHECK_LOWER
