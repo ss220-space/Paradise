@@ -793,6 +793,7 @@
 	limb_zone = BODY_ZONE_WING
 	max_damage = 30
 	min_broken_damage = 15
+	max_bleeding_amount = 0.5
 	bleeding_mod = 0.65
 	cannot_internal_bleed = TRUE
 	cannot_arterial_bleed = TRUE
