@@ -1622,6 +1622,9 @@
 					if(!victim.mind || victim == current || victim.stat == DEAD)
 						continue
 					possible_targets["[victim.real_name] ([victim.mind.assigned_role])"] = victim
+				if(!length(possible_targets))
+					to_chat(usr, span_warning("Нет подходящих живых целей для жертвоприношения."))
+					return
 				var/chosen = tgui_input_list(usr, "Выберите цель жертвоприношения", "Цель", possible_targets)
 				if(isnull(chosen))
 					return

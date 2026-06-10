@@ -62,11 +62,15 @@
 	return
 
 
-/obj/item/melee/touch_attack/mansus_fist/afterattack(atom/victim, mob/living/carbon/caster, proximity, params)
+/obj/item/melee/touch_attack/mansus_fist/afterattack(atom/victim, mob/living/carbon/caster, proximity, list/modifiers, status)
 	if(!proximity)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(!mode)
+	// Right-click on a non-living target triggers the secondary grasp (Rust/Lock path effects on
+	// turfs, walls, airlocks...). Left-click — or any click on a living mob — performs the normal
+	// combat grasp. This replaces selfharm's old Z-key (attack_self) mode toggle, using Paradise's
+	// TG-style left/right click split instead.
+	if(LAZYACCESS(modifiers, RIGHT_CLICK) && !isliving(victim))
 		SEND_SIGNAL(caster, COMSIG_HERETIC_MANSUS_GRASP_ATTACK_SECONDARY, victim)
 		return ..()
 
@@ -91,7 +95,6 @@
 	lefthand_file = 'icons/mob/inhands/touchspell_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/touchspell_righthand.dmi'
 	catchphrase = "Р'СКР ПР'ВД'!"
-	var/mode = TRUE
 
 
 /obj/item/melee/touch_attack/mansus_fist/get_ru_names()
@@ -115,17 +118,11 @@
 		time_to_remove = 0.4 SECONDS)
 
 
-/obj/item/melee/touch_attack/mansus_fist/attack_self(mob/user)
-	. = ..()
-	mode = !mode
-	user.balloon_alert(user, "альтернативное взаимодействие в[mode ? "ы" : ""]ключено")
-
-
 /*
  * Callback for effect_remover component.
  */
 /obj/item/melee/touch_attack/mansus_fist/proc/after_clear_rune(obj/effect/target, mob/living/user)
-	new /obj/effect/temp_visual/drawing_heretic_rune/fail(target.loc, target/*.greyscale_colors*/)
+	new /obj/effect/temp_visual/drawing_heretic_rune/fail(target.loc)
 	//var/obj/effect/proc_holder/spell/touch/mansus_grasp/grasp = attached_spell?.resolve()
 	//grasp?.spell_feedback(user)
 

@@ -252,10 +252,19 @@
 	var/animation_state = "transmutation_rune_draw_colour"
 
 
-/obj/effect/temp_visual/drawing_heretic_rune/Initialize(mapload, path_colour = COLOR_WHITE)
+/obj/effect/temp_visual/drawing_heretic_rune/Initialize(mapload, path_colour = COLOR_LIME)
 	. = ..()
+	if(!path_colour)
+		path_colour = COLOR_LIME
 	add_atom_colour(path_colour, FIXED_COLOUR_PRIORITY)
 	icon_state = animation_state
+	// master220 has no GAGS set_greyscale on atoms, so we replicate TG's heretic_rune.json by hand:
+	// the dim "_colour" base plus the matching bright "_white" linework. The "_colour" base alone is
+	// nearly black (avg ~18), so it reads as a faint/white smudge; the bright "_white" state provides
+	// the visible rune. We deliberately do NOT RESET_COLOR the overlay, so it inherits our path-colour
+	// tint and the whole rune reads clearly as the path colour (lime for the starting path) instead of white.
+	var/white_state = replacetext(animation_state, "_colour", "_white")
+	add_overlay(mutable_appearance(icon, white_state))
 	var/image/silicon_image = image(icon = 'icons/effects/eldritch.dmi', icon_state = null, loc = src)
 	silicon_image.override = TRUE
 	add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/silicons, "heretic_rune", silicon_image)

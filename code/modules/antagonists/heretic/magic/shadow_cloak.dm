@@ -16,10 +16,8 @@
 	base_cooldown = 6 SECONDS
 	spell_requirements = NONE
 
-	/// How long before we automatically uncloak?
+	/// How long before we automatically uncloak? Kept in sync with /datum/status_effect/shadow_cloak's duration.
 	var/uncloak_time = 3 MINUTES
-	/// A timer id, for the uncloak timer
-	var/uncloak_timer
 	/// The cloak currently active
 	var/datum/status_effect/shadow_cloak/active_cloak
 
@@ -61,22 +59,18 @@
 	. = ..()
 	var/mob/living/cast_on = targets[1]
 	if(active_cloak)
-		var/new_cd = max((uncloak_time - timeleft(uncloak_timer)) / 3, base_cooldown)
+		// Manual toggle-off: cooldown scales with how much cloak time was left.
+		var/time_left = max(active_cloak.duration - world.time, 0)
+		var/new_cd = max(time_left / 3, base_cooldown)
 		uncloak_mob(cast_on)
 		cooldown_handler.start_recharge(new_cd)
 		return
 
-	uncloak_timer = addtimer(CALLBACK(src, PROC_REF(timed_uncloak), cast_on), uncloak_time, TIMER_STOPPABLE)
+	// The status effect self-expires after its own duration (see /datum/status_effect/shadow_cloak).
+	// We no longer rely on a spell-side addtimer, which would leak (cloak forever) if the spell
+	// instance were ever re-created — e.g. on body transfer / antag re-apply — losing the timer.
 	cloak_mob(cast_on)
 	cooldown_handler.start_recharge()
-
-
-/obj/effect/proc_holder/spell/shadow_cloak/proc/timed_uncloak(mob/living/cast_on)
-	if(QDELETED(src) || QDELETED(cast_on))
-		return
-
-	uncloak_mob(cast_on)
-	cooldown_handler.start_recharge(uncloak_timer / 3)
 
 
 /obj/effect/proc_holder/spell/shadow_cloak/proc/cloak_mob(mob/living/cast_on)
@@ -107,10 +101,6 @@
 			span_notice("Вы появляетесь из тени!"),
 		)
 
-	// Clear up the timer
-	deltimer(uncloak_timer)
-	uncloak_timer = null
-
 
 /obj/effect/proc_holder/spell/shadow_cloak/proc/on_examine(datum/source, mob/living/carbon/human/human, list/examine_list)
 	SIGNAL_HANDLER
@@ -118,12 +108,18 @@
 	examine_list += "[bicon(src)] Это фигура покрытая тьмой."
 
 
-/// Signal proc for [COMSIG_QDELETING], if our cloak is deleted early, impart negative effects
-/obj/effect/proc_holder/spell/shadow_cloak/proc/on_early_cloak_loss(datum/status_effect/source)
+/// Signal proc for [COMSIG_QDELETING]. Fires when the cloak status ends without the spell removing it
+/// itself (i.e. natural duration timeout, or a forced break from damage/crit). Only the forced breaks
+/// impart the reveal penalty — a natural timeout just uncloaks cleanly.
+/obj/effect/proc_holder/spell/shadow_cloak/proc/on_early_cloak_loss(datum/status_effect/shadow_cloak/source)
 	SIGNAL_HANDLER
 
 	var/mob/living/removed = source.owner
-	uncloak_mob(removed, show_message = FALSE)
+	var/penalize = source.forced_removal
+	uncloak_mob(removed, show_message = !penalize)
+	if(!penalize)
+		return // Natural expiry — the cloak simply ran out, no penalty.
+
 	removed.visible_message(
 		span_warning("[removed.declent_ru(NOMINATIVE)] появляется из тени!"),
 		span_userdanger("Вас вытащили из тени!"),
@@ -152,11 +148,17 @@
 /datum/status_effect/shadow_cloak
 	id = "shadow_cloak"
 	alert_type = null
+	// Self-expire after 3 minutes. The status effect owns its own lifetime now (the spell used to drive
+	// this with an addtimer, which leaked the cloak forever if the spell instance was ever re-created).
+	// Keep in sync with /obj/effect/proc_holder/spell/shadow_cloak's uncloak_time.
+	duration = 3 MINUTES
 	tick_interval = -1
 	/// How much damage we've been hit with
 	var/damage_sustained = 0
 	/// How much damage we can be hit with before it starts rolling reveal chances
 	var/damage_before_reveal = 25
+	/// Set TRUE when the cloak is broken early (damage / crit) so the spell knows to apply the reveal penalty.
+	var/forced_removal = FALSE
 	/// The image we place over the owner
 	var/image/cloak_image
 
@@ -219,8 +221,9 @@
 /datum/status_effect/shadow_cloak/proc/on_stat_change(datum/source, new_stat, old_stat)
 	SIGNAL_HANDLER
 
-	// Going above unconscious will self-delete
+	// Going above unconscious will self-delete (counts as a forced break → reveal penalty)
 	if(new_stat >= UNCONSCIOUS)
+		forced_removal = TRUE
 		qdel(src)
 
 
@@ -240,6 +243,7 @@
 
 	// Otherwise, we have a probability based on how much damage sustained to self delete
 	if(prob(damage_sustained))
+		forced_removal = TRUE
 		qdel(src)
 
 

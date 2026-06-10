@@ -601,6 +601,11 @@
  * Generates a preview image and associates it with a weakref of the mob.
  */
 /datum/antagonist/heretic/proc/add_sacrifice_target(mob/living/carbon/human/target)
+	// Guard against re-adding an existing target (e.g. an admin picking someone already on the list):
+	// a second RegisterSignal on the same COMSIG_QDELETING would runtime.
+	if(target in sac_targets)
+		return
+
 	var/image/target_image = image(icon = target.icon, icon_state = target.icon_state)
 	target_image.overlays = target.overlays
 

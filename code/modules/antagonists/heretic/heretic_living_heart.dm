@@ -288,7 +288,10 @@
 	if(owner)
 		animate(src, transform = matrix(get_angle(owner, tracked_turf), MATRIX_ROTATE), 0.2 SECONDS)
 
-	screen_loc = "CENTER"
+	// "CENTER-1,CENTER-1" (TG's `around_player`): the arrow icon is 96x96 (3x3 tiles); anchoring its
+	// bottom-left one tile down-left of screen centre puts the icon's middle tile on the player. Plain
+	// "CENTER" anchored the bottom-left on the player, leaving the arrow offset one tile up-right.
+	screen_loc = "CENTER-1,CENTER-1"
 	color = arrow_color
 	if(!hud)
 		addtimer(CALLBACK(src, PROC_REF(end_effect)), 1.6 SECONDS)
