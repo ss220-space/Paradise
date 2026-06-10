@@ -421,7 +421,7 @@
 	amount = 8
 	max_amount = 8
 	stop_bleeding = 0
-	self_delay = 1.5
+	self_delay = 1.5 SECONDS
 	merge_type = /obj/item/stack/medical/bruise_pack/advanced
 	use_flags = DA_IGNORE_LYING
 	custom_price = PAYCHECK_MIN * 1.5
