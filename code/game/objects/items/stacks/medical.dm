@@ -795,8 +795,8 @@
 			Предназначена для иммобилизации сломанных конечностей до получения полноценной медицинской помощи, \
 			если таковая вообще возможна в суровых условиях Лазиса."
 	icon_state = "tribal_splint"
-	use_duration = 10 SECONDS
-	self_delay = 5 SECONDS
+	self_delay = 10 SECONDS
+	use_duration = 5 SECONDS
 	merge_type = /obj/item/stack/medical/splint/tribal
 
 /obj/item/stack/medical/splint/tribal/get_ru_names()
@@ -815,8 +815,8 @@
 			Предназначена для иммобилизации сломанных конечностей до получения полноценной медицинской помощи. \
 			Сильно уступает стандартным аналогам в плане качества."
 	icon_state = "makeshift_splint"
-	use_duration = 10 SECONDS
-	self_delay = 5 SECONDS
+	self_delay = 10 SECONDS
+	use_duration = 5 SECONDS
 	merge_type = /obj/item/stack/medical/splint/makeshift
 
 
