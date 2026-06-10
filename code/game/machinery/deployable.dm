@@ -450,6 +450,10 @@
 		PREPOSITIONAL = "коробкой с генераторами энергощита"
 	)
 
+/obj/item/storage/box/syndie_kit/dropwall/sec
+	icon_state = "box_security"
+	item_state = "sec"
+
 /obj/item/storage/box/syndie_kit/dropwall/populate_contents()
 	for(var/I in 1 to 5)
 		new /obj/item/grenade/barrier/dropwall(src)

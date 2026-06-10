@@ -3945,15 +3945,12 @@
 	dir = 4
 	},
 /obj/structure/table/reinforced,
-/obj/item/storage/box/syndie_kit/dropwall{
-	pixel_x = -2;
-	pixel_y = 1
-	},
 /obj/machinery/camera{
 	c_tag = "Secure Armory East";
 	dir = 8;
 	network = list("SS13","Security")
 	},
+/obj/item/storage/box/syndie_kit/dropwall/sec,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkred"
@@ -48969,12 +48966,6 @@
 	dir = 8;
 	layer = 2.9
 	},
-/obj/item/storage/lockbox/mindshield,
-/obj/item/storage/box/trackimp,
-/obj/item/storage/box/chemimp{
-	pixel_x = 4;
-	pixel_y = 3
-	},
 /obj/structure/window/reinforced{
 	dir = 1
 	},
@@ -48984,6 +48975,10 @@
 	req_access = list(1)
 	},
 /obj/effect/turf_decal/delivery/red/hollow,
+/obj/item/storage/lockbox/suppression{
+	pixel_y = -4
+	},
+/obj/item/storage/lockbox/mindshield,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkred"
@@ -66807,10 +66802,11 @@
 "oaf" = (
 /obj/effect/turf_decal/delivery/red/hollow,
 /obj/structure/table/reinforced,
-/obj/item/storage/lockbox/suppression{
-	pixel_y = -4
+/obj/item/storage/box/trackimp,
+/obj/item/storage/box/chemimp{
+	pixel_x = 4;
+	pixel_y = 3
 	},
-/obj/item/storage/lockbox/mindshield,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkred"

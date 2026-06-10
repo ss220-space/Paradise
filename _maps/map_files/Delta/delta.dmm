@@ -96442,9 +96442,8 @@
 /obj/structure/cable,
 /obj/machinery/power/apc/directional/south,
 /obj/structure/table/reinforced,
-/obj/item/storage/box/syndie_kit/dropwall{
-	pixel_x = -6;
-	pixel_y = 3
+/obj/item/storage/box/syndie_kit/dropwall/sec{
+	pixel_x = -6
 	},
 /obj/item/storage/box/trackimp{
 	pixel_x = 8
