@@ -178,7 +178,7 @@
 	)
 
 /obj/structure/closet/secure_closet/guncabinet/wt550/populate_contents()
-	var/gun_count = HAS_TRAIT(SSstation, STATION_TRAIT_LOOTED_ARMORY) ? rand(1, 3) : 5
+	var/gun_count = HAS_TRAIT(SSstation, STATION_TRAIT_LOOTED_ARMORY) ? rand(1, 2) : 4
 	for(var/i in 1 to gun_count)
 		new /obj/item/gun/projectile/automatic/smg/wt550(src)
 
@@ -198,7 +198,7 @@
 	)
 
 /obj/structure/closet/secure_closet/guncabinet/sp91/populate_contents()
-	var/gun_count = HAS_TRAIT(SSstation, STATION_TRAIT_LOOTED_ARMORY) ? rand(1, 3) : 5
+	var/gun_count = HAS_TRAIT(SSstation, STATION_TRAIT_LOOTED_ARMORY) ? rand(1, 2) : 4
 	for(var/i in 1 to gun_count)
 		new /obj/item/gun/projectile/automatic/smg/sp91rc(src)
 
@@ -218,7 +218,7 @@
 	)
 
 /obj/structure/closet/secure_closet/guncabinet/sparkle_a12/populate_contents()
-	var/gun_count = HAS_TRAIT(SSstation, STATION_TRAIT_LOOTED_ARMORY) ? rand(1, 3) : 5
+	var/gun_count = HAS_TRAIT(SSstation, STATION_TRAIT_LOOTED_ARMORY) ? rand(1, 2) : 4
 	for(var/i in 1 to gun_count)
 		new /obj/item/gun/projectile/automatic/smg/sparkle_a12(src)
 
@@ -238,7 +238,7 @@
 	)
 
 /obj/structure/closet/secure_closet/guncabinet/sfg/populate_contents()
-	var/gun_count = HAS_TRAIT(SSstation, STATION_TRAIT_LOOTED_ARMORY) ? rand(1, 3) : 5
+	var/gun_count = HAS_TRAIT(SSstation, STATION_TRAIT_LOOTED_ARMORY) ? rand(1, 2) : 4
 	for(var/i in 1 to gun_count)
 		new /obj/item/gun/projectile/automatic/smg/sfg(src)
 	new /obj/item/disk/design_disk/security/sfg5_mag(src)
@@ -259,7 +259,7 @@
 	)
 
 /obj/structure/closet/secure_closet/guncabinet/saber/populate_contents()
-	var/gun_count = HAS_TRAIT(SSstation, STATION_TRAIT_LOOTED_ARMORY) ? rand(1, 3) : 5
+	var/gun_count = HAS_TRAIT(SSstation, STATION_TRAIT_LOOTED_ARMORY) ? rand(1, 2) : 4
 	for(var/i in 1 to gun_count)
 		new /obj/item/gun/projectile/automatic/smg/saber/rubber(src)
 	new /obj/item/disk/design_disk/security/saber_mag(src)
@@ -280,7 +280,7 @@
 	)
 
 /obj/structure/closet/secure_closet/guncabinet/ak814/populate_contents()
-	var/gun_count = HAS_TRAIT(SSstation, STATION_TRAIT_LOOTED_ARMORY) ? rand(1, 3) : 5
+	var/gun_count = HAS_TRAIT(SSstation, STATION_TRAIT_LOOTED_ARMORY) ? rand(1, 2) : 4
 	for(var/i in 1 to gun_count)
 		new /obj/item/gun/projectile/automatic/ak814/weakened(src)
 	new /obj/item/disk/design_disk/security/ak814_mag(src)
@@ -302,7 +302,7 @@
 	)
 
 /obj/structure/closet/secure_closet/guncabinet/secspear/populate_contents()
-	var/gun_count = HAS_TRAIT(SSstation, STATION_TRAIT_LOOTED_ARMORY) ? rand(1, 3) : 5
+	var/gun_count = HAS_TRAIT(SSstation, STATION_TRAIT_LOOTED_ARMORY) ? rand(1, 2) : 4
 	for(var/i in 1 to gun_count)
 		new /obj/item/twohanded/spear/secspear(src)
 
@@ -322,7 +322,7 @@
 	)
 
 /obj/structure/closet/secure_closet/guncabinet/lasergun/populate_contents()
-	var/gun_count = HAS_TRAIT(SSstation, STATION_TRAIT_LOOTED_ARMORY) ? rand(1, 3) : 5
+	var/gun_count = HAS_TRAIT(SSstation, STATION_TRAIT_LOOTED_ARMORY) ? rand(1, 2) : 4
 	for(var/i in 1 to gun_count)
 		new /obj/item/gun/energy/laser(src)
 
@@ -342,7 +342,7 @@
 	)
 
 /obj/structure/closet/secure_closet/guncabinet/energygun/populate_contents()
-	var/gun_count = HAS_TRAIT(SSstation, STATION_TRAIT_LOOTED_ARMORY) ? rand(1, 3) : 5
+	var/gun_count = HAS_TRAIT(SSstation, STATION_TRAIT_LOOTED_ARMORY) ? rand(1, 2) : 4
 	for(var/i in 1 to gun_count)
 		new /obj/item/gun/energy/gun(src)
 
@@ -362,7 +362,7 @@
 	)
 
 /obj/structure/closet/secure_closet/guncabinet/lr30/populate_contents()
-	var/gun_count = HAS_TRAIT(SSstation, STATION_TRAIT_LOOTED_ARMORY) ? rand(1, 3) : 5
+	var/gun_count = HAS_TRAIT(SSstation, STATION_TRAIT_LOOTED_ARMORY) ? rand(1, 2) : 4
 	for(var/i in 1 to gun_count)
 		new /obj/item/gun/projectile/automatic/lr30(src)
 
@@ -382,7 +382,7 @@
 	)
 
 /obj/structure/closet/secure_closet/guncabinet/lasercarbine/populate_contents()
-	var/gun_count = HAS_TRAIT(SSstation, STATION_TRAIT_LOOTED_ARMORY) ? rand(1, 3) : 5
+	var/gun_count = HAS_TRAIT(SSstation, STATION_TRAIT_LOOTED_ARMORY) ? rand(1, 2) : 4
 	for(var/i in 1 to gun_count)
 		new /obj/item/gun/projectile/automatic/ik60(src)
 	new /obj/item/disk/design_disk/security/laser_carbine_mag(src)
@@ -402,7 +402,7 @@
 	)
 
 /obj/structure/closet/secure_closet/guncabinet/plasma_pistols/populate_contents()
-	var/gun_count = HAS_TRAIT(SSstation, STATION_TRAIT_LOOTED_ARMORY) ? rand(1, 3) : 5
+	var/gun_count = HAS_TRAIT(SSstation, STATION_TRAIT_LOOTED_ARMORY) ? rand(1, 2) : 4
 	for(var/i in 1 to gun_count)
 		new /obj/item/gun/energy/plasma_pistol(src)
 
