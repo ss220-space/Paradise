@@ -57,7 +57,7 @@
 	return . | SPELL_NO_IMMEDIATE_COOLDOWN
 
 
-/obj/effect/proc_holder/spell/shadow_cloak/cast(list/targets)
+/obj/effect/proc_holder/spell/shadow_cloak/cast(list/targets, mob/user = usr)
 	. = ..()
 	var/mob/living/cast_on = targets[1]
 	if(active_cloak)

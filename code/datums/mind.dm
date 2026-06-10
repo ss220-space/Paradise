@@ -419,6 +419,21 @@
 
 	. += _memory_edit_role_enabled(ROLE_CHANGELING)
 
+/datum/mind/proc/memory_edit_heretic(mob/living/carbon/human/H)
+	. = _memory_edit_header("heretic", list())
+	var/datum/antagonist/heretic/heretic_datum = has_antag_datum(/datum/antagonist/heretic)
+	if(heretic_datum)
+		. += "<b><font color='red'>HERETIC</font></b>|<a href='byond://?src=[UID()];heretic=clear'>no</a>"
+		. += "<br>Очки знаний: <a href='byond://?src=[UID()];heretic=points'>[heretic_datum.knowledge_points]</a>"
+		. += " | Жертвоприношений: [heretic_datum.total_sacrifices]"
+		. += "<br><a href='byond://?src=[UID()];heretic=addsac'>Добавить цель жертвоприношения</a>"
+		. += " | <a href='byond://?src=[UID()];heretic=focus'>Выдать фокус</a>"
+		. += " | <a href='byond://?src=[UID()];heretic=heart'>Выдать Живое Сердце</a>"
+	else
+		. += "<a href='byond://?src=[UID()];heretic=heretic'>heretic</a>|<b>NO</b>"
+
+	. += _memory_edit_role_enabled(ROLE_HERETIC)
+
 /datum/mind/proc/memory_edit_vampire(mob/living/carbon/human/H)
 	. = _memory_edit_header("vampire", list("traitorvamp"))
 	var/datum/antagonist/vampire/vamp = has_antag_datum(/datum/antagonist/vampire)
@@ -736,6 +751,8 @@
 		sections["changeling"] = memory_edit_changeling(H)
 		/** VAMPIRE ***/
 		sections["vampire"] = memory_edit_vampire(H)
+		/** HERETIC ***/
+		sections["heretic"] = memory_edit_heretic(H)
 		/** NUCLEAR ***/
 		sections["nuclear"] = memory_edit_nuclear(H)
 		/** SHADOWLING **/
@@ -1571,6 +1588,57 @@
 					to_chat(usr, span_notice("The objectives for wizard apprentice [key] have been generated. You can edit them and announce manually."))
 					log_admin("[key_name(usr)] has automatically forged wizard apprentice objectives for [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has automatically forged wizard apprentice objectives for [key_name_admin(current)]")
+
+	else if(href_list["heretic"])
+		switch(href_list["heretic"])
+			if("clear")
+				if(isheretic(current))
+					remove_antag_datum(/datum/antagonist/heretic)
+					log_admin("[key_name(usr)] has de-hereticed [key_name(current)]")
+					message_admins("[key_name_admin(usr)] has de-hereticed [key_name_admin(current)]")
+
+			if("heretic")
+				if(!isheretic(current))
+					add_antag_datum(/datum/antagonist/heretic)
+					log_admin("[key_name(usr)] has hereticed [key_name(current)]")
+					message_admins("[key_name_admin(usr)] has hereticed [key_name_admin(current)]")
+
+			if("points")
+				var/datum/antagonist/heretic/heretic_datum = has_antag_datum(/datum/antagonist/heretic)
+				if(!heretic_datum)
+					return
+				var/new_points = tgui_input_number(usr, "Сколько очков знаний установить?", "Очки знаний", heretic_datum.knowledge_points, 100, -1)
+				if(isnull(new_points))
+					return
+				heretic_datum.knowledge_points = new_points
+				log_admin("[key_name(usr)] set knowledge points of [key_name(current)] to [new_points]")
+
+			if("addsac")
+				var/datum/antagonist/heretic/heretic_datum = has_antag_datum(/datum/antagonist/heretic)
+				if(!heretic_datum)
+					return
+				var/list/possible_targets = list()
+				for(var/mob/living/carbon/human/victim in GLOB.human_list)
+					if(!victim.mind || victim == current || victim.stat == DEAD)
+						continue
+					possible_targets["[victim.real_name] ([victim.mind.assigned_role])"] = victim
+				var/chosen = tgui_input_list(usr, "Выберите цель жертвоприношения", "Цель", possible_targets)
+				if(isnull(chosen))
+					return
+				var/mob/living/carbon/human/sac_target = possible_targets[chosen]
+				if(QDELETED(sac_target))
+					return
+				heretic_datum.add_sacrifice_target(sac_target)
+				log_admin("[key_name(usr)] added [key_name(sac_target)] as a sacrifice target for [key_name(current)]")
+				message_admins("[key_name_admin(usr)] added [key_name_admin(sac_target)] as a sacrifice target for [key_name_admin(current)]")
+
+			if("focus")
+				var/datum/antagonist/heretic/heretic_datum = has_antag_datum(/datum/antagonist/heretic)
+				heretic_datum?.admin_give_focus(usr)
+
+			if("heart")
+				var/datum/antagonist/heretic/heretic_datum = has_antag_datum(/datum/antagonist/heretic)
+				heretic_datum?.give_living_heart(usr)
 
 	else if(href_list["changeling"])
 		switch(href_list["changeling"])

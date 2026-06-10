@@ -30,7 +30,7 @@
 	return ..() && isliving(target)
 
 
-/obj/effect/proc_holder/spell/charged/beam/fire_blast/cast(list/targets)
+/obj/effect/proc_holder/spell/charged/beam/fire_blast/cast(list/targets, mob/user = usr)
 	var/mob/living/target = targets[1]
 	if(!istype(target))
 		return ..()
@@ -268,7 +268,7 @@
 	return FALSE
 
 
-/obj/effect/proc_holder/spell/charged/before_cast(list/targets)
+/obj/effect/proc_holder/spell/charged/before_cast(list/targets, mob/user = usr)
 	. = ..()
 	if(. & SPELL_CANCEL_CAST)
 		return
@@ -293,7 +293,7 @@
 	return . | SPELL_CANCEL_CAST
 
 
-/obj/effect/proc_holder/spell/charged/cast(list/targets)
+/obj/effect/proc_holder/spell/charged/cast(list/targets, mob/user = usr)
 	. = ..()
 	var/atom/cast_on = targets[1]
 	stop_channel_effect(cast_on)
@@ -345,7 +345,7 @@
 	return ..()
 
 
-/obj/effect/proc_holder/spell/charged/beam/before_cast(list/targets)
+/obj/effect/proc_holder/spell/charged/beam/before_cast(list/targets, mob/user = usr)
 	. = ..()
 	if(. & SPELL_CANCEL_CAST)
 		return
@@ -358,7 +358,7 @@
 		return . | SPELL_CANCEL_CAST
 
 
-/obj/effect/proc_holder/spell/charged/beam/cast(list/targets)
+/obj/effect/proc_holder/spell/charged/beam/cast(list/targets, mob/user = usr)
 	. = ..()
 	var/atom/cast_on = targets[1]
 	send_beam(cast_on, initial_target, max_beam_bounces)

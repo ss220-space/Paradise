@@ -15,7 +15,7 @@
 
 
 /obj/item/grenade/chem_grenade/rust_sower/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "граната \"Ржавый Дождь\"",
 		GENITIVE = "гранаты \"Ржавый Дождь\"",
 		DATIVE = "гранате \"Ржавый Дождь\"",

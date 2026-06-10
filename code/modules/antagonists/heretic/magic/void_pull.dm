@@ -25,7 +25,7 @@
 
 
 // Before the cast, we do some small AOE damage around the caster
-/obj/effect/proc_holder/spell/aoe/void_pull/before_cast(list/targets)
+/obj/effect/proc_holder/spell/aoe/void_pull/before_cast(list/targets, mob/user = usr)
 	. = ..()
 	if(. & SPELL_CANCEL_CAST)
 		return

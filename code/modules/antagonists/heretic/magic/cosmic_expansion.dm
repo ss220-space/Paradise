@@ -29,7 +29,7 @@
 	var/ascended = FALSE
 
 
-/obj/effect/proc_holder/spell/aoe/conjure/cosmic_expansion/cast(list/targets)
+/obj/effect/proc_holder/spell/aoe/conjure/cosmic_expansion/cast(list/targets, mob/user = usr)
 	new expansion_effect(get_turf(action.owner))
 	for(var/mob/living/nearby_mob in range(star_mark_range, action.owner))
 		if(action.owner == nearby_mob)

@@ -27,7 +27,7 @@
 	return ..() && ishuman(cast_on)
 
 
-/obj/effect/proc_holder/spell/pointed/cleave/cast(list/targets)
+/obj/effect/proc_holder/spell/pointed/cleave/cast(list/targets, mob/user = usr)
 	var/mob/living/carbon/human/cast_on = targets[1]
 	. = ..()
 	for(var/mob/living/carbon/human/victim in range(cleave_radius, cast_on))

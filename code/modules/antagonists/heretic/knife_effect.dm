@@ -9,7 +9,7 @@
 
 
 /obj/effect/floating_blade/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "клинок",
 		GENITIVE = "клинка",
 		DATIVE = "клинку",

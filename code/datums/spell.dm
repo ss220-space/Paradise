@@ -206,6 +206,10 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	if(!can_cast(user, charge_check, TRUE))
 		return FALSE
 
+	// Lets listeners (e.g. the heretic focus gate) veto the cast. No-op for mobs without listeners.
+	if(SEND_SIGNAL(user, COMSIG_MOB_BEFORE_SPELL_CAST, src) & SPELL_CANCEL_CAST)
+		return FALSE
+
 	if(ishuman(user))
 		var/mob/living/carbon/human/caster = user
 		if(caster.remoteview_target)

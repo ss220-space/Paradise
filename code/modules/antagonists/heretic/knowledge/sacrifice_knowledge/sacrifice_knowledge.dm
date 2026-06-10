@@ -725,7 +725,7 @@
 
 
 /obj/projectile/curse_hand/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "проклятая рука",
 		GENITIVE = "проклятой руки",
 		DATIVE = "проклятой руке",

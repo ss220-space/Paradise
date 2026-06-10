@@ -16,7 +16,7 @@
 
 
 /obj/effect/lock_portal/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "трещина в реальности",
 		GENITIVE = "трещины в реальности",
 		DATIVE = "трещине в реальности",

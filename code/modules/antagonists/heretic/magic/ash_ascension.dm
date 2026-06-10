@@ -32,7 +32,7 @@
 	return isliving(cast_on)
 
 
-/obj/effect/proc_holder/spell/fire_sworn/cast(list/targets)
+/obj/effect/proc_holder/spell/fire_sworn/cast(list/targets, mob/user = usr)
 	var/mob/living/cast_on = targets[1]
 	. = ..()
 	cast_on.apply_status_effect(/datum/status_effect/fire_ring, duration, fire_radius)
@@ -94,7 +94,7 @@
 	var/flame_radius = 4
 
 
-/obj/effect/proc_holder/spell/fire_cascade/cast(list/targets)
+/obj/effect/proc_holder/spell/fire_cascade/cast(list/targets, mob/user = usr)
 	var/atom/cast_on = targets[1]
 	. = ..()
 	INVOKE_ASYNC(src, PROC_REF(fire_cascade), get_turf(cast_on), flame_radius)
@@ -146,7 +146,7 @@
 	return TRUE
 
 
-/obj/effect/proc_holder/spell/pointed/ash_beams/cast(list/targets)
+/obj/effect/proc_holder/spell/pointed/ash_beams/cast(list/targets, mob/user = usr)
 	. = ..()
 	var/static/list/offsets = list(-25, -10, 0, 10, 25)
 	for(var/offset in offsets)

@@ -7,7 +7,7 @@
 
 
 /obj/item/clothing/shoes/greaves_of_the_prophet/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "поножи пророка",
 		GENITIVE = "понож пророка",
 		DATIVE = "поножам пророка",

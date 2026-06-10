@@ -21,7 +21,7 @@
 
 
 /obj/item/clothing/head/hooded/cult_hoodie/eldritch/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "зловещий капюшон",
 		GENITIVE = "зловещего капюшона",
 		DATIVE = "зловещему капюшону",
@@ -59,7 +59,7 @@
 
 
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "зловещая броня",
 		GENITIVE = "зловещей брони",
 		DATIVE = "зловещей броне",
@@ -102,7 +102,7 @@
 
 
 /obj/item/clothing/head/hooded/cult_hoodie/void/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "капюшон пустоты",
 		GENITIVE = "капюшона пустоты",
 		DATIVE = "капюшону пустоты",
@@ -142,7 +142,7 @@
 
 
 /obj/item/clothing/suit/hooded/cultrobes/void/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "плащ пустоты",
 		GENITIVE = "плаща пустоты",
 		DATIVE = "плащу пустоты",

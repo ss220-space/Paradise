@@ -23,7 +23,7 @@
 
 
 /mob/living/simple_animal/hostile/heretic_summon/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Жуткий Демон",
 		GENITIVE = "Жуткого Демона",
 		DATIVE = "Жуткому Демону",

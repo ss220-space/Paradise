@@ -27,7 +27,7 @@
 	var/obj/effect/rune_remove_effect = /obj/effect/temp_visual/cosmic_rune_fade
 
 
-/obj/effect/proc_holder/spell/cosmic_rune/cast(list/targets)
+/obj/effect/proc_holder/spell/cosmic_rune/cast(list/targets, mob/user = usr)
 	. = ..()
 	var/atom/cast_on = targets[1]
 	var/obj/effect/cosmic_rune/first_rune_resolved = first_rune?.resolve()
@@ -78,7 +78,7 @@
 
 
 /obj/effect/cosmic_rune/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "звёздная руна",
 		GENITIVE = "звёздной руны",
 		DATIVE = "звёздной руне",
@@ -181,7 +181,7 @@
 
 
 /obj/effect/temp_visual/cosmic_rune_fade/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "звёздная руна",
 		GENITIVE = "звёздной руны",
 		DATIVE = "звёздной руне",
@@ -208,7 +208,7 @@
 
 
 /obj/effect/temp_visual/rune_light/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "звёздная руна",
 		GENITIVE = "звёздной руны",
 		DATIVE = "звёздной руне",

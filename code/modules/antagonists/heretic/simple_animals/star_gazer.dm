@@ -38,7 +38,7 @@
 
 
 /mob/living/simple_animal/hostile/heretic_summon/star_gazer/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Звёздный Глашатай",
 		GENITIVE = "Звёздного Глашатая",
 		DATIVE = "Звёздному Глашатаю",

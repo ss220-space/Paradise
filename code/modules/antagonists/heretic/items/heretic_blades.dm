@@ -33,7 +33,7 @@
 
 
 /obj/item/melee/sickly_blade/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "серповидный клинок",
 		GENITIVE = "серповидного клинка",
 		DATIVE = "серповидному клинку",
@@ -158,7 +158,7 @@
 
 
 /obj/item/melee/sickly_blade/rust/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ржавый клинок",
 		GENITIVE = "ржавого клинка",
 		DATIVE = "ржавому клинку",
@@ -180,7 +180,7 @@
 
 
 /obj/item/melee/sickly_blade/ash/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "клинок пепла",
 		GENITIVE = "клинка пепла",
 		DATIVE = "клинку пепла",
@@ -201,7 +201,7 @@
 
 
 /obj/item/melee/sickly_blade/flesh/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кровавый клинок",
 		GENITIVE = "кровавого клинка",
 		DATIVE = "кровавому клинку",
@@ -237,7 +237,7 @@
 
 
 /obj/item/melee/sickly_blade/void/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "клинок пустоты",
 		GENITIVE = "клинка пустоты",
 		DATIVE = "клинку пустоты",
@@ -262,7 +262,7 @@
 
 
 /obj/item/melee/sickly_blade/dark/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "повреждённый клинок",
 		GENITIVE = "повреждённого клинка",
 		DATIVE = "повреждённому клинку",
@@ -336,7 +336,7 @@
 
 
 /obj/item/melee/sickly_blade/cosmic/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "космический клинок",
 		GENITIVE = "космического клинка",
 		DATIVE = "космическому клинку",
@@ -360,7 +360,7 @@
 
 
 /obj/item/melee/sickly_blade/lock/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "клинок - ключ",
 		GENITIVE = "клинка - ключа",
 		DATIVE = "клинку - ключу",
@@ -381,7 +381,7 @@
 
 
 /obj/item/melee/sickly_blade/moon/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "лунный клинок",
 		GENITIVE = "лунного клинка",
 		DATIVE = "лунному клинку",
@@ -410,7 +410,7 @@
 
 
 /obj/item/melee/sickly_blade/cursed/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "проклятый клинок",
 		GENITIVE = "проклятого клинка",
 		DATIVE = "проклятому клинку",
@@ -498,7 +498,7 @@
 
 
 /obj/item/melee/sickly_blade/training/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "несовершенный клинок",
 		GENITIVE = "несовершенного клинка",
 		DATIVE = "несовершенному клинку",

@@ -12,7 +12,7 @@
 
 
 /obj/item/clothing/mask/madness_mask/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "маска безумия",
 		GENITIVE = "маски безумия",
 		DATIVE = "маске безумия",

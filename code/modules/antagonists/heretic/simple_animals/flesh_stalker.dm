@@ -21,7 +21,7 @@
 
 
 /mob/living/simple_animal/hostile/heretic_summon/stalker/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Ловец Плоти",
 		GENITIVE = "Ловца Плоти",
 		DATIVE = "Ловцу Плоти",

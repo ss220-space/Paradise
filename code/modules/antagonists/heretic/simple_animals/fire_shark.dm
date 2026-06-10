@@ -24,7 +24,7 @@
 
 
 /mob/living/simple_animal/hostile/heretic_summon/fire_shark/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Огненная Акула",
 		GENITIVE = "Огненной Акулы",
 		DATIVE = "Огненной Акуле",

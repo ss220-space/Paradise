@@ -39,7 +39,7 @@
 
 
 /obj/projectile/magic/star_ball/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "звёздный диск",
 		GENITIVE = "звёздного диска",
 		DATIVE = "звёздному диску",

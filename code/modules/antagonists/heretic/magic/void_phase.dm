@@ -26,7 +26,7 @@
 	var/damage_radius = 1
 
 
-/obj/effect/proc_holder/spell/pointed/void_phase/before_cast(list/targets)
+/obj/effect/proc_holder/spell/pointed/void_phase/before_cast(list/targets, mob/user = usr)
 	. = ..()
 	if(. & SPELL_CANCEL_CAST)
 		return
@@ -39,7 +39,7 @@
 	return . | SPELL_CANCEL_CAST
 
 
-/obj/effect/proc_holder/spell/pointed/void_phase/cast(list/targets)
+/obj/effect/proc_holder/spell/pointed/void_phase/cast(list/targets, mob/user = usr)
 	. = ..()
 	var/turf/source_turf = get_turf(action.owner)
 	var/turf/targeted_turf = get_turf(targets[1])

@@ -27,7 +27,7 @@
 	return ..() && isstorage(back_item)
 
 
-/obj/effect/proc_holder/spell/pointed/burglar_finesse/cast(list/targets)
+/obj/effect/proc_holder/spell/pointed/burglar_finesse/cast(list/targets, mob/user = usr)
 	var/mob/living/carbon/human/cast_on = targets[1]
 	. = ..()
 	if(cast_on.can_block_magic(antimagic_flags))

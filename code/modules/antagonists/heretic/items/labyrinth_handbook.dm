@@ -7,7 +7,7 @@
 
 
 /obj/effect/forcefield/wizard/heretic/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "страницы карты лабиринта",
 		GENITIVE = "страниц карты лабиринта",
 		DATIVE = "страницам карты лабиринта",
@@ -59,7 +59,7 @@
 
 
 /obj/item/heretic_labyrinth_handbook/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "справочник по лабиринту",
 		GENITIVE = "справочника по лабиринту",
 		DATIVE = "справочнику по лабиринту",

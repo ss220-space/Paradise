@@ -92,7 +92,7 @@
 */
 
 
-/obj/effect/proc_holder/spell/pointed/projectile/furious_steel/before_cast(list/targets)
+/obj/effect/proc_holder/spell/pointed/projectile/furious_steel/before_cast(list/targets, mob/user = usr)
 	. = ..()
 	if(. & SPELL_CANCEL_CAST)
 		return
@@ -153,7 +153,7 @@
 
 
 /obj/projectile/floating_blade/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "клинок",
 		GENITIVE = "клинка",
 		DATIVE = "клинку",
@@ -197,7 +197,7 @@
 
 
 /obj/projectile/floating_blade/haunted/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ритуальный клинок",
 		GENITIVE = "ритуального клинка",
 		DATIVE = "ритуальному клинку",

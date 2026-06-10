@@ -22,7 +22,7 @@
 
 
 /obj/structure/destructible/eldritch_crucible/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Котёл Страданий",
 		GENITIVE = "Котла Страданий",
 		DATIVE = "Котлу Страданий",
@@ -326,7 +326,7 @@
 
 
 /obj/item/eldritch_potion/crucible_soul/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Зелье Блуждающей Души",
 		GENITIVE = "Зелья Блуждающей Души",
 		DATIVE = "Зелью Блуждающей Души",
@@ -345,7 +345,7 @@
 
 
 /obj/item/eldritch_potion/duskndawn/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Зелье Заката и Рассвета",
 		GENITIVE = "Зелья Заката и Рассвета",
 		DATIVE = "Зелью Заката и Рассвета",
@@ -366,7 +366,7 @@
 
 
 /obj/item/eldritch_potion/wounded/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Зелье Раненого Солдата",
 		GENITIVE = "Зелья Раненого Солдата",
 		DATIVE = "Зелью Раненого Солдата",

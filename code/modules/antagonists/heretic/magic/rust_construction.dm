@@ -56,7 +56,7 @@
 	invocation_self_message = span_notice("You drag [living_owner.usable_hands == 1 ? "a hand":"your hands"] upwards as a wall of rust rises out of [cast_on].")
 */
 
-/obj/effect/proc_holder/spell/pointed/rust_construction/cast(list/targets)
+/obj/effect/proc_holder/spell/pointed/rust_construction/cast(list/targets, mob/user = usr)
 	var/turf/cast_on = targets[1]
 	. = ..()
 	var/rises_message = "поднимается из [cast_on.declent_ru(GENITIVE)]"

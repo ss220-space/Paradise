@@ -31,7 +31,7 @@
 	return isliving(cast_on)
 
 
-/obj/effect/proc_holder/spell/caretaker/before_cast(list/targets)
+/obj/effect/proc_holder/spell/caretaker/before_cast(list/targets, mob/user = usr)
 	. = ..()
 	if(. & SPELL_CANCEL_CAST)
 		return
@@ -47,7 +47,7 @@
 		return SPELL_NO_IMMEDIATE_COOLDOWN // cooldown only on exit
 
 
-/obj/effect/proc_holder/spell/caretaker/cast(list/targets)
+/obj/effect/proc_holder/spell/caretaker/cast(list/targets, mob/user = usr)
 	. = ..()
 
 	var/mob/living/carbon/carbon_user = action.owner

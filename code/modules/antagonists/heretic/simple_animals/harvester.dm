@@ -19,7 +19,7 @@
 
 
 /mob/living/simple_animal/hostile/construct/harvester/heretic/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Ржавый Жнец",
 		GENITIVE = "Ржавого Жнеца",
 		DATIVE = "Ржавому Жнецу",

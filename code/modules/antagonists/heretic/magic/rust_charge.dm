@@ -16,7 +16,7 @@
 	school = SCHOOL_FORBIDDEN
 
 
-/obj/effect/proc_holder/spell/mob_cooldown/charge/rust/cast(list/targets)
+/obj/effect/proc_holder/spell/mob_cooldown/charge/rust/cast(list/targets, mob/user = usr)
 	. = ..()
 	var/turf/start_turf = get_turf(action.owner)
 	var/turf/target_turf = get_turf(targets[1])

@@ -28,7 +28,7 @@
 
 
 /obj/item/melee/rune_carver/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "разделочный нож",
 		GENITIVE = "разделочного ножа",
 		DATIVE = "разделочному ножу",
@@ -197,7 +197,7 @@
 
 
 /obj/structure/trap/eldritch/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "древние письмена",
 		GENITIVE = "древних символов", // "древних письмен" sounds bad
 		DATIVE = "древним письменм",
@@ -250,7 +250,7 @@
 
 
 /obj/structure/trap/eldritch/alert/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Руна Предупреждения",
 		GENITIVE = "Руны Предупреждения",
 		DATIVE = "Руне Предупреждения",
@@ -279,7 +279,7 @@
 
 
 /obj/structure/trap/eldritch/tentacle/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Руна Удержания",
 		GENITIVE = "Руны Удержания",
 		DATIVE = "Руне Удержания",
@@ -310,7 +310,7 @@
 
 
 /obj/structure/trap/eldritch/mad/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Руна Безумия",
 		GENITIVE = "Руны Безумия",
 		DATIVE = "Руне Безумия",

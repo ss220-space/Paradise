@@ -11,7 +11,7 @@
 
 
 /obj/effect/decal/heretic_rune/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Руна Трансформации",
 		GENITIVE = "Руны Трансформации",
 		DATIVE = "Руне Трансформации",

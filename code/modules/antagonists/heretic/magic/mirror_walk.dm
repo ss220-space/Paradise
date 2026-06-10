@@ -58,7 +58,7 @@
 	return TRUE
 
 
-/obj/effect/proc_holder/spell/jaunt/mirror_walk/cast(list/targets)
+/obj/effect/proc_holder/spell/jaunt/mirror_walk/cast(list/targets, mob/user = usr)
 	var/mob/living/cast_on = targets[1]
 	. = ..()
 	if(is_jaunting(cast_on))

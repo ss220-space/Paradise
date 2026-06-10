@@ -9,8 +9,9 @@
 	base_cooldown = 1 SECONDS
 
 
-/obj/effect/proc_holder/spell/heretic_menu/cast(list/targets)
+/obj/effect/proc_holder/spell/heretic_menu/cast(list/targets, mob/user = usr)
 	. = ..()
-	var/mob/target = targets[1]
-	var/datum/antagonist/heretic/heretic_datum = target.mind.has_antag_datum(/datum/antagonist/heretic)
-	heretic_datum.ui_interact(target)
+	var/datum/antagonist/heretic/heretic_datum = user?.mind?.has_antag_datum(/datum/antagonist/heretic)
+	if(!heretic_datum)
+		return
+	heretic_datum.ui_interact(user)

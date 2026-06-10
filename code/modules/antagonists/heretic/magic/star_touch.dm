@@ -90,10 +90,12 @@
 	icon = 'icons/obj/weapons/hand.dmi'
 	icon_state = "star"
 	item_state = "star"
+	lefthand_file = 'icons/mob/inhands/touchspell_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/touchspell_righthand.dmi'
 
 
 /obj/item/melee/touch_attack/star_touch/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "звёздное касание",
 		GENITIVE = "звёздного касания",
 		DATIVE = "звёздному касанию",

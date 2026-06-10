@@ -17,7 +17,7 @@
 
 
 /mob/living/simple_animal/hostile/heretic_summon/rust_walker/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Ржавый Странник",
 		GENITIVE = "Ржавого Странника",
 		DATIVE = "Ржавому Страннику",

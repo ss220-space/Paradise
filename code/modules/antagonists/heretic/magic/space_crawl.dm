@@ -56,7 +56,7 @@
 	return FALSE
 
 
-/obj/effect/proc_holder/spell/jaunt/space_crawl/cast(list/targets)
+/obj/effect/proc_holder/spell/jaunt/space_crawl/cast(list/targets, mob/user = usr)
 	var/mob/living/cast_on = targets[1]
 	. = ..()
 	// Should always return something because we checked that in can_cast before arriving here

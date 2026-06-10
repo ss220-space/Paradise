@@ -39,7 +39,7 @@
 	return isliving(cast_on)
 
 
-/obj/effect/proc_holder/spell/pointed/manse_link/before_cast(list/targets)
+/obj/effect/proc_holder/spell/pointed/manse_link/before_cast(list/targets, mob/user = usr)
 	. = ..()
 	if(. & SPELL_CANCEL_CAST)
 		return

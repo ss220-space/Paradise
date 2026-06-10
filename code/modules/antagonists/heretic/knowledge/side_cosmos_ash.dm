@@ -76,7 +76,7 @@
 
 
 /obj/item/coin/eldritch/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "жуткая монета",
 		GENITIVE = "жуткой монеты",
 		DATIVE = "жуткой монете",

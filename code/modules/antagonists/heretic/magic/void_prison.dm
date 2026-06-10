@@ -23,7 +23,7 @@
 	spell_requirements = NONE
 
 
-/obj/effect/proc_holder/spell/pointed/void_prison/before_cast(list/targets)
+/obj/effect/proc_holder/spell/pointed/void_prison/before_cast(list/targets, mob/user = usr)
 	. = ..()
 	if(. & SPELL_CANCEL_CAST)
 		return
@@ -33,7 +33,7 @@
 		return SPELL_CANCEL_CAST
 
 
-/obj/effect/proc_holder/spell/pointed/void_prison/cast(list/targets)
+/obj/effect/proc_holder/spell/pointed/void_prison/cast(list/targets, mob/user = usr)
 	var/mob/living/carbon/human/cast_on = targets[1]
 	. = ..()
 	if(!cast_on.can_block_magic(antimagic_flags))

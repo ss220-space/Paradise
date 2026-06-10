@@ -24,7 +24,7 @@
 
 
 /mob/living/simple_animal/hostile/heretic_summon/raw_prophet/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Пророк Сырости",
 		GENITIVE = "Пророка Сырости",
 		DATIVE = "Пророку Сырости",

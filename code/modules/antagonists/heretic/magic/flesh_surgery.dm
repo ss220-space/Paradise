@@ -265,7 +265,7 @@
 
 
 /obj/item/melee/touch_attack/flesh_surgery/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "рука покрытая плотью",
 		GENITIVE = "руки покрытой плотью",
 		DATIVE = "руке покрытой плотью",

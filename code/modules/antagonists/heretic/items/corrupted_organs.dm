@@ -13,7 +13,7 @@
 
 
 /obj/item/organ/internal/eyes/corrupt/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "искажённые сферы",
 		GENITIVE = "искажённых сфер",
 		DATIVE = "искажённым сферам",
@@ -68,7 +68,7 @@
 
 
 /obj/item/organ/internal/vocal_cords/corrupt/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "искажённые голосовые связки",
 		GENITIVE = "искажённых голосовых связок",
 		DATIVE = "искажённым голосовым связкам",
@@ -116,7 +116,7 @@
 
 
 /obj/item/organ/internal/liver/corrupt/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "искажённая печень",
 		GENITIVE = "искажённой печени",
 		DATIVE = "искажённой печени",
@@ -169,7 +169,7 @@
 
 
 /obj/item/organ/internal/heart/corrupt/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "искажённое сердце",
 		GENITIVE = "искажённого сердца",
 		DATIVE = "искажённому сердцу",
@@ -211,7 +211,7 @@
 
 
 /obj/item/organ/internal/lungs/corrupt/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "искажённые лёгкие",
 		GENITIVE = "искажённых лёгких",
 		DATIVE = "искажённым лёгким",
@@ -254,7 +254,7 @@
 
 
 /obj/item/organ/internal/appendix/corrupt/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "искажённый аппендикс",
 		GENITIVE = "искажённого аппендикса",
 		DATIVE = "искажённому аппендиксу",

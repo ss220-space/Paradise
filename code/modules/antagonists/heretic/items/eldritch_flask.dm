@@ -10,7 +10,7 @@
 
 
 /obj/item/reagent_containers/glass/beaker/eldritch/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "флакон с жуткой эссенцией",
 		GENITIVE = "флакона с жуткой эссенцией",
 		DATIVE = "флакону с жуткой эссенцией",
@@ -36,7 +36,7 @@
 
 
 /obj/item/reagent_containers/glass/phylactery/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "проклятая филактерия",
 		GENITIVE = "проклятой филактерии",
 		DATIVE = "проклятой филактерии",
@@ -104,7 +104,7 @@
 
 
 /obj/item/ether/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "душа нерожденного младенца",
 		GENITIVE = "души нерожденного младенца",
 		DATIVE = "душе нерожденного младенца",

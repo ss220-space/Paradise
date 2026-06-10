@@ -114,7 +114,7 @@
 
 
 /obj/effect/temp_visual/destabilising_tear/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "нестабильный разлом",
 		GENITIVE = "нестабильного разлома",
 		DATIVE = "нестабильному разлому",

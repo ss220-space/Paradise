@@ -127,7 +127,7 @@
 
 
 /obj/item/mutant_hand/shattered_risen/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "месиво костяных осколков",
 		GENITIVE = "месива костяных осколков",
 		DATIVE = "месиву костяных осколков",

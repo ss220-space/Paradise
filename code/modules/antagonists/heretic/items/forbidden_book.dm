@@ -18,7 +18,7 @@
 
 
 /obj/item/codex_cicatrix/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Кодекс Истезания",
 		GENITIVE = "Кодекса Истезания",
 		DATIVE = "Кодексу Истезания",
@@ -112,7 +112,7 @@
 
 
 /obj/item/codex_cicatrix/morbus/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Кодекс Морбус",
 		GENITIVE = "Кодекса Морбус",
 		DATIVE = "Кодексу Морбус",

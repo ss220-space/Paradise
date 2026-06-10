@@ -30,7 +30,7 @@
 	return ..() && isliving(cast_on)
 
 
-/obj/effect/proc_holder/spell/pointed/blood_siphon/cast(list/targets)
+/obj/effect/proc_holder/spell/pointed/blood_siphon/cast(list/targets, mob/user = usr)
 	var/mob/living/cast_on = targets[1]
 	. = ..()
 	playsound(action.owner, 'sound/magic/demon_attack1.ogg', 75, TRUE)

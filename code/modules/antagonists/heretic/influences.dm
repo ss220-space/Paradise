@@ -87,7 +87,7 @@
 
 
 /obj/effect/visible_heretic_influence/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "раскол реальности",
 		GENITIVE = "раскола реальности",
 		DATIVE = "расколу реальности",
@@ -197,7 +197,7 @@
 
 
 /obj/effect/heretic_influence/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "раскол реальности",
 		GENITIVE = "раскола реальности",
 		DATIVE = "расколу реальности",

@@ -7,7 +7,7 @@
 
 
 /obj/item/clothing/neck/heretic_focus/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "янтарный амулет",
 		GENITIVE = "янтарного амулета",
 		DATIVE = "янтарному амулету",
@@ -34,7 +34,7 @@
 
 
 /obj/item/clothing/neck/heretic_focus/crimson_medallion/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кровавый амулет",
 		GENITIVE = "кровавого амулета",
 		DATIVE = "кровавому амулету",
@@ -161,7 +161,7 @@
 
 
 /obj/item/clothing/neck/eldritch_amulet/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "жуткий тёплый медальон",
 		GENITIVE = "жуткого тёплого медальона",
 		DATIVE = "жуткому тёплому медальону",
@@ -205,7 +205,7 @@
 
 
 /obj/item/clothing/neck/heretic_focus/moon_amulet/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "амулет лунного света",
 		GENITIVE = "амулета лунного света",
 		DATIVE = "амулету лунного света",

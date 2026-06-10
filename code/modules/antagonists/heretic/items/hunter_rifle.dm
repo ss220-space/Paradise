@@ -18,7 +18,7 @@
 
 
 /obj/item/gun/projectile/automatic/sniper_rifle/lionhunter/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "винтовка охотника на львов",
 		GENITIVE = "винтовки охотника на львов",
 		DATIVE = "винтовке охотника на львов",
@@ -217,7 +217,7 @@
 
 
 /obj/item/ammo_box/magazine/strilka310/lionhunter/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "обойма (.310 охотник)",
 		GENITIVE = "обоймы (.310 охотник)",
 		DATIVE = "обойме (.310 охотник)",

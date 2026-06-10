@@ -88,7 +88,7 @@
 
 
 /obj/item/melee/cultblade/haunted/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "призрачный меч",
 		GENITIVE = "призрачного меча",
 		DATIVE = "призрачному мечу",

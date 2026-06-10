@@ -46,7 +46,7 @@
 
 
 /obj/structure/void_conduit/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "врата в пустоту",
 		GENITIVE = "врат в пустоту",
 		DATIVE = "вратам в пустоту",

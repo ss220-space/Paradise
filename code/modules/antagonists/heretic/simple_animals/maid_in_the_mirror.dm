@@ -26,7 +26,7 @@
 
 
 /mob/living/simple_animal/hostile/heretic_summon/maid_in_the_mirror/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Горничная в Зеркале",
 		GENITIVE = "Горничную в Зеркале",
 		DATIVE = "Горничной в Зеркале",

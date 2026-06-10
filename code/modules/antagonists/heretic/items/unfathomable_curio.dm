@@ -37,7 +37,7 @@
 
 
 /obj/item/storage/belt/unfathomable_curio/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "непостижимая диковинка",
 		GENITIVE = "непостижимой диковинки",
 		DATIVE = "непостижимой диковинке",

@@ -25,7 +25,7 @@
 	respect_density = TRUE
 
 
-/obj/effect/proc_holder/spell/cone/staggered/entropic_plume/cast(list/targets)
+/obj/effect/proc_holder/spell/cone/staggered/entropic_plume/cast(list/targets, mob/user = usr)
 	. = ..()
 	var/atom/cast_on = targets[1]
 	new /obj/effect/temp_visual/dir_setting/entropic(get_step(cast_on, cast_on.dir), cast_on.dir)
@@ -134,7 +134,7 @@
 
 
 /obj/projectile/magic/aoe/rust_wave/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сгусток ржавчины",
 		GENITIVE = "сгустка ржавчины",
 		DATIVE = "сгустку ржавчины",

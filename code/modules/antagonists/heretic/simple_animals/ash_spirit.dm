@@ -16,7 +16,7 @@
 
 
 /mob/living/simple_animal/hostile/heretic_summon/ash_spirit/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Дух Пепла",
 		GENITIVE = "Духа Пепла",
 		DATIVE = "Духу Пепла",

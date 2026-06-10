@@ -28,7 +28,7 @@
 	return isliving(cast_on)
 
 
-/obj/effect/proc_holder/spell/realignment/cast(list/targets)
+/obj/effect/proc_holder/spell/realignment/cast(list/targets, mob/user = usr)
 	var/mob/living/cast_on = targets[1]
 	. = ..()
 	cast_on.apply_status_effect(/datum/status_effect/realignment)

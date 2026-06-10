@@ -88,12 +88,14 @@
 	icon = 'icons/obj/weapons/hand.dmi'
 	icon_state = "mansus"
 	item_state = "mansus"
+	lefthand_file = 'icons/mob/inhands/touchspell_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/touchspell_righthand.dmi'
 	catchphrase = "Р'СКР ПР'ВД'!"
 	var/mode = TRUE
 
 
 /obj/item/melee/touch_attack/mansus_fist/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Прикосновение Мансуса",
 		GENITIVE = "Прикосновения Мансуса",
 		DATIVE = "Прикосновению Мансуса",

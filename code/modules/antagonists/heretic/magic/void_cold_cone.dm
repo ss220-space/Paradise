@@ -145,7 +145,7 @@
 	var/respect_density = FALSE
 
 
-/obj/effect/proc_holder/spell/cone/cast(list/targets)
+/obj/effect/proc_holder/spell/cone/cast(list/targets, mob/user = usr)
 	. = ..()
 	var/atom/cast_on = targets[1]
 	var/list/cone_turfs = get_cone_turfs(get_turf(cast_on), cast_on.dir, cone_levels)

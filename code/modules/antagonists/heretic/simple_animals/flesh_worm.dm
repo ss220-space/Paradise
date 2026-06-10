@@ -31,7 +31,7 @@
 
 
 /mob/living/simple_animal/hostile/heretic_summon/armsy/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Лорд Ночи",
 		GENITIVE = "Лорда Ночи",
 		DATIVE = "Лорду Ночи",

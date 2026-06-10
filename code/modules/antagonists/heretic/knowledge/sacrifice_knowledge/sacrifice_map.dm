@@ -192,7 +192,7 @@ GLOBAL_LIST_EMPTY(heretic_sacrifice_landmarks)
 
 
 /obj/structure/moon/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "символ правды и луны",
 		GENITIVE = "символа правды и луны",
 		DATIVE = "символу правды и луны",
@@ -228,7 +228,7 @@ GLOBAL_LIST_EMPTY(heretic_sacrifice_landmarks)
 
 
 /obj/structure/moon/star/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "звезда",
 		GENITIVE = "звезды",
 		DATIVE = "звезде",
@@ -250,7 +250,7 @@ GLOBAL_LIST_EMPTY(heretic_sacrifice_landmarks)
 
 
 /obj/structure/moon/stars/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "звёзды",
 		GENITIVE = "звёзд",
 		DATIVE = "звёздам",
@@ -274,7 +274,7 @@ GLOBAL_LIST_EMPTY(heretic_sacrifice_landmarks)
 
 
 /obj/structure/orb/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "жуткая сфера",
 		GENITIVE = "жуткой сферы",
 		DATIVE = "жуткой сфере",
@@ -294,7 +294,7 @@ GLOBAL_LIST_EMPTY(heretic_sacrifice_landmarks)
 
 
 /obj/structure/punji_sticks/bone/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "костяной шип",
 		GENITIVE = "костяного шипа",
 		DATIVE = "костяному шипу",
@@ -313,7 +313,7 @@ GLOBAL_LIST_EMPTY(heretic_sacrifice_landmarks)
 
 
 /obj/structure/punji_sticks/spike/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шипы",
 		GENITIVE = "шипов",
 		DATIVE = "шипам",

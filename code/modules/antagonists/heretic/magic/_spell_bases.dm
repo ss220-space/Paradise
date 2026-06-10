@@ -77,7 +77,7 @@
 
 // Merged from the two duplicate before_cast() defs in the selfharm source (which would not compile):
 // handles both the cancel-cleanup and the out-of-range check.
-/obj/effect/proc_holder/spell/pointed/before_cast(list/targets)
+/obj/effect/proc_holder/spell/pointed/before_cast(list/targets, mob/user = usr)
 	. = ..()
 	if(. & SPELL_CANCEL_CAST)
 		on_deactivation(action.owner, refund_cooldown = FALSE)
@@ -163,7 +163,7 @@
 
 
 // targets[1] is a turf, or atom target, that we clicked on to fire at.
-/obj/effect/proc_holder/spell/pointed/projectile/cast(list/targets)
+/obj/effect/proc_holder/spell/pointed/projectile/cast(list/targets, mob/user = usr)
 	. = ..()
 	if(!isturf(action.owner.loc))
 		return FALSE
