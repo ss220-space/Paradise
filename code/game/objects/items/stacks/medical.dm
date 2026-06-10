@@ -454,7 +454,7 @@
 	icon_state = "extended_trauma_kit_5"
 	item_state = "extended_trauma_kit"
 	belt_icon = "advanced_trauma_kit"
-	heal_brute = 30
+	heal_brute = 20
 	amount = 10
 	max_amount = 10
 	stop_bleeding = 0
@@ -582,7 +582,7 @@
 	icon_state = "extended_burn_kit_5"
 	item_state = "extended_burn_kit"
 	belt_icon = "advanced_burn_kit"
-	heal_burn = 30
+	heal_burn = 20
 	amount = 10
 	max_amount = 10
 	self_delay = 1.5 SECONDS
