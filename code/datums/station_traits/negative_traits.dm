@@ -383,7 +383,7 @@
 	trait_type = STATION_TRAIT_NEGATIVE
 	show_in_report = TRUE
 	trait_to_give = STATION_TRAIT_LOOTED_ARMORY
-	weight = 20
+	weight = 2
 
 /datum/station_trait/looted_armory/proc/loot_armory()
 	for(var/area/security/securearmory/armory in GLOB.areas)
