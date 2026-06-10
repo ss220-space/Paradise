@@ -495,9 +495,9 @@
 	var/dam_force = 20
 
 /obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw/can_attach(obj/mecha/M)
-	if(istype(M, /obj/mecha/working/ripley/firefighter) || ..())
-		return TRUE
-	return FALSE
+	if(istype(M, /obj/mecha/working/ripley/firefighter))
+		return length(M.equipment) < M.max_equip
+	return ..()
 
 /obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw/action(atom/target, list/modifiers)
 	if(!action_checks(target))

@@ -15,6 +15,10 @@
 	var/projectile_energy_cost
 
 /obj/item/mecha_parts/mecha_equipment/weapon/can_attach(obj/mecha/M)
+	if(!istype(M))
+		return FALSE
+	if(length(M.equipment) >= M.max_equip)
+		return FALSE
 	if(M.emagged || ..())
 		return TRUE
 	return FALSE

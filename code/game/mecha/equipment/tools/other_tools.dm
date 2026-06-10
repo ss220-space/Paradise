@@ -467,11 +467,13 @@
 	module_type = MECH_EQUIPMENT_MEDICAL | MECH_EQUIPMENT_WORKING
 
 /obj/item/mecha_parts/mecha_equipment/servo_hydra_actuator/can_attach(obj/mecha/M)
-	if(M.strafe_allowed)
+	if(!istype(M))
+		return FALSE
+	if(length(M.equipment) >= M.max_equip)
+		return FALSE
+	if(M.strafe_allowed || istype(M, /obj/mecha/combat/durand))
 		return TRUE
-	if(istype(M, /obj/mecha/combat/durand) || ..())
-		return TRUE
-	. = ..()
+	return ..()
 
 /obj/item/mecha_parts/mecha_equipment/servo_hydra_actuator/attach_act(obj/mecha/M)
 	M.strafe_allowed = TRUE
@@ -511,9 +513,13 @@
 	var/locker_step_in = 2
 
 /obj/item/mecha_parts/mecha_equipment/improved_exosuit_control_system/can_attach(obj/mecha/M)
-	if(istype(M, /obj/mecha/combat/durand) || ..())
+	if(!istype(M))
+		return FALSE
+	if(length(M.equipment) >= M.max_equip)
+		return FALSE
+	if(istype(M, /obj/mecha/combat/durand))
 		return TRUE
-	return FALSE
+	return ..()
 
 /obj/item/mecha_parts/mecha_equipment/improved_exosuit_control_system/attach_act()
 	if(istype(loc, /obj/mecha/working/ripley)) // for ripley/firefighter
@@ -559,10 +565,15 @@
 	var/obj/effect/supress/supress_effect
 
 /obj/item/mecha_parts/mecha_equipment/cage/can_attach(obj/mecha/M)
+	if(!istype(M))
+		return FALSE
 	if(locate(src) in M.equipment)
 		return FALSE
-	if(M.emagged || ..())
+	if(length(M.equipment) >= M.max_equip)
 		return FALSE
+	if(M.emagged || (M.allowed_equipment & module_type))
+		return TRUE
+	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/cage/get_ru_names()
 	return alist(
