@@ -385,6 +385,10 @@
 	trait_to_give = STATION_TRAIT_LOOTED_ARMORY
 	weight = 2
 
+/datum/station_trait/looted_armory/on_round_start()
+	. = ..()
+	INVOKE_ASYNC(src, PROC_REF(loot_armory))
+
 /datum/station_trait/looted_armory/proc/loot_armory()
 	for(var/area/security/securearmory/armory in GLOB.areas)
 		for(var/list/zlevel_turfs as anything in armory.get_zlevel_turf_lists())
