@@ -5,10 +5,41 @@
 
 	route = PATH_ASH
 	ui_bgr = "node_ash"
+	complexity = "Лёгкий"
+	complexity_color = "#20b142"
+	path_description = list(
+		"Путь Пепла строится вокруг огня, мобильности и жёсткого контроля одиночных противников.",
+		"Берите этот путь, если вы новичок в Еретике или любите тактику «ударил и убежал».",
+	)
+	path_pros = list(
+		"Очень силён уже с самого начала пути.",
+		"Лёгкий доступ к мобильности и расширенному зрению.",
+		"Очень мощный эффект метки.",
+	)
+	path_cons = list(
+		"Слабее большинства еретиков за пределами стартовых способностей.",
+		"Не хватает живучести в затяжных конфликтах.",
+		"Зависит от того, сумеете ли вы ударить быстро и сильно до того, как враг подготовит контрмеры.",
+	)
+	path_tips = list(
+		"Ваше Прикосновение Мансуса накладывает короткую слепоту и метку, которая при срабатывании от клинка вгоняет жертву в стамина-крит. Метка может перекидываться на ближайших врагов.",
+		"Выбор этого пути даёт иммунитет к урону от высокой температуры. Но помните: ваша одежда всё ещё может гореть!",
+		"Извержение Вулкана быстро расправится с врагами, если те имели глупость сбиться в кучу.",
+		"Не пренебрегайте Маской Безумия — она медленно выкачивает выносливость врагов и вызывает галлюцинации.",
+		"Поджигайте как можно больше врагов! Возрождение Ночного Дозорного лечит вас и снижает откат за каждого поражённого.",
+		"Вознесение даёт полный иммунитет к опасностям окружения, включая бомбы! Но обычное оружие всё ещё опасно — не теряйте бдительности.",
+	)
+	// "Vow of Destruction" passive (see /datum/status_effect/heretic_passive/ash): tiers light up as you grow.
+	passive_name = "Клятва Разрушения"
+	passive_descriptions = list(
+		"Иммунитет к жару и пепельным бурям.",
+		"Иммунитет к лаве.",
+		"Сопротивление экстремальному холоду.",
+	)
 	start = /datum/heretic_knowledge/limited_amount/starting/base_ash
-	grasp = /datum/heretic_knowledge/ashen_grasp
+	// Ash has no separate grasp/mark nodes (matching current TG): the grasp blind and the ash mark
+	// are folded into base_ash below.
 	tier1 = /datum/heretic_knowledge/spell/ash_passage
-	mark = /datum/heretic_knowledge/mark/ash_mark
 	ritual_of_knowledge = /datum/heretic_knowledge/knowledge_ritual/ash
 	unique_ability = /datum/heretic_knowledge/spell/fire_blast
 	tier2 = /datum/heretic_knowledge/mad_mask
@@ -30,29 +61,15 @@
 	result_atoms = list(/obj/item/melee/sickly_blade/ash)
 	research_tree_icon_path = 'icons/obj/weapons/khopesh.dmi'
 	research_tree_icon_state = "ash_blade"
+	// The Ash mark and the grasp blind both live here now (matching TG), instead of separate nodes.
+	mark_type = /datum/status_effect/eldritch/ash
+	// "Vow of Destruction" passive: heat/ashstorm immunity now, lava on blade upgrade, cold on ascension.
+	passive_type = /datum/status_effect/heretic_passive/ash
 
 
-/datum/heretic_knowledge/ashen_grasp
-	name = "Хватка Пепла"
-	desc = "Ваше Прикосновение Мансуса обожжет глаза жертвы, затуманив зрение."
-	gain_text = "Ночной Дозорный был первым из них, его предательство положило начало всему. \
-				Их фонарь погас, превратившись в пепел, — их дозор исчез."
-	cost = 1
-	research_tree_icon_path = 'icons/ui_icons/antags/heretic/knowledge.dmi'
-	research_tree_icon_state = "grasp_ash"
-
-
-/datum/heretic_knowledge/ashen_grasp/on_gain(mob/user, datum/antagonist/heretic/our_heretic)
-	RegisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK, PROC_REF(on_mansus_grasp))
-
-
-/datum/heretic_knowledge/ashen_grasp/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
-	UnregisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK)
-
-
-/datum/heretic_knowledge/ashen_grasp/proc/on_mansus_grasp(mob/living/source, mob/living/target)
-	SIGNAL_HANDLER
-
+/// Mansus Grasp also burns the victim's eyes, blurring their vision (was the "Хватка Пепла" node).
+/datum/heretic_knowledge/limited_amount/starting/base_ash/on_mansus_grasp(mob/living/source, mob/living/target)
+	. = ..()
 	if(target.is_blind())
 		return
 
@@ -69,6 +86,20 @@
 		spell.cooldown_handler.recharge_time += spell.base_cooldown / 2
 
 
+/// Triggering the Ash mark also refunds 75% of the Mansus Grasp cooldown (was the "Метка Пепла" node).
+/datum/heretic_knowledge/limited_amount/starting/base_ash/trigger_mark(mob/living/source, mob/living/target)
+	. = ..()
+	if(!.)
+		return
+
+	var/obj/effect/proc_holder/spell/touch/mansus_grasp/grasp = locate() in source.mind.spell_list
+	if(!grasp)
+		return
+
+	grasp.cooldown_handler.recharge_time -= round(grasp.base_cooldown * 0.75)
+	grasp.action?.UpdateButtonIcon()
+
+
 /datum/heretic_knowledge/spell/ash_passage
 	name = "Врата Пепла"
 	desc = "Дает вам «Врата Пепла» — заклинание, позволяющее вам выходить из реальности и перемещаться на небольшие расстояния, проходя сквозь любые стены."
@@ -77,32 +108,6 @@
 	research_tree_icon_state = "ash_shift"
 	spell_to_add = /obj/effect/proc_holder/spell/ethereal_jaunt/ash
 	cost = 1
-
-
-/datum/heretic_knowledge/mark/ash_mark
-	name = "Метка Пепла"
-	desc = "Ваше Прикосновение Мансуса теперь ставит Метку Пепла. Метка активируется в результате атаки Пепельным клинком. \
-			При срабатывании жертва получает дополнительные урон выносливости и урон от ожогов, а метка передается ближайшему язычнику. \
-			Наносимый урон уменьшается с каждой передачей. \
-			Активация метки также значительно сократит время восстановления вашего Прикосновения Мансуса."
-	gain_text = "Он был очень щепетильным человеком, всегда бодрствовавшим в глухую ночь. \
-				Но, несмотря на свой долг, он регулярно впадал в транс, бродя по особняку с высоко поднятым пылающим фонарём. \
-				Он ярко светил в темноте, пока пламя не начало угасать."
-	mark_type = /datum/status_effect/eldritch/ash
-
-
-/datum/heretic_knowledge/mark/ash_mark/trigger_mark(mob/living/source, mob/living/target)
-	. = ..()
-	if(!.)
-		return
-
-	// Also refunds 75% of charge!
-	var/obj/effect/proc_holder/spell/touch/mansus_grasp/grasp = locate() in source.mind.spell_list
-	if(!grasp)
-		return
-
-	grasp.cooldown_handler.recharge_time -= round(grasp.base_cooldown * 0.75)
-	grasp.action?.UpdateButtonIcon()
 
 
 /datum/heretic_knowledge/knowledge_ritual/ash

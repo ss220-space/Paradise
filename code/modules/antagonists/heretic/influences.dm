@@ -217,6 +217,9 @@
 
 	AddComponent(/datum/component/redirect_attack_hand_from_turf, interact_check = CALLBACK(src, PROC_REF(verify_user_can_see)))
 
+	// A heretic who steps near the influence catches a glimpse of the Mansus - granting Eldritch Sight (x-ray).
+	proximity_monitor = new /datum/proximity_monitor/influence_monitor(src, 1)
+
 
 /obj/effect/heretic_influence/proc/verify_user_can_see(mob/user)
 	return (user.mind in GLOB.reality_smash_track.tracked_heretics)
@@ -310,6 +313,25 @@
 
 
 #undef NUM_INFLUENCES_PER_HERETIC
+
+
+/// Proximity monitor that grants a passing heretic Eldritch Sight (temporary x-ray), on a personal cooldown.
+/datum/proximity_monitor/influence_monitor
+	/// Cooldown before this influence can grant Eldritch Sight again.
+	COOLDOWN_DECLARE(xray_cooldown)
+
+
+/datum/proximity_monitor/influence_monitor/on_entered(atom/source, atom/movable/arrived, turf/old_loc)
+	. = ..()
+	if(!isliving(arrived))
+		return
+	if(!COOLDOWN_FINISHED(src, xray_cooldown))
+		return
+	var/mob/living/arrived_living = arrived
+	if(!isheretic(arrived_living))
+		return
+	arrived_living.apply_status_effect(/datum/status_effect/temporary_xray/eldritch)
+	COOLDOWN_START(src, xray_cooldown, 3 MINUTES)
 
 
 /// Hud used for heretics to see influences

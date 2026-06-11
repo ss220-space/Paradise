@@ -171,6 +171,9 @@
 	owner.add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/everyone, id, cloak_image)
 	// Add the relevant traits and modifiers
 	owner.add_traits(list(TRAIT_UNKNOWN, TRAIT_SILENT_FOOTSTEPS), TRAIT_STATUS_EFFECT(id))
+	// TRAIT_UNKNOWN now hides the name via get_visible_name(); refresh it at once instead of waiting a Life tick.
+	if(ishuman(owner))
+		owner.name = owner.get_visible_name()
 	owner.add_movespeed_modifier(/datum/movespeed_modifier/shadow_cloak)
 	owner.add_actionspeed_modifier(/datum/actionspeed_modifier/shadow_cloak)
 	// Register signals to cause effects
@@ -188,6 +191,9 @@
 	QDEL_NULL(cloak_image)
 	// Remove traits and modifiers
 	owner.remove_traits(list(TRAIT_UNKNOWN, TRAIT_SILENT_FOOTSTEPS), TRAIT_STATUS_EFFECT(id))
+	// Restore the real name immediately now that TRAIT_UNKNOWN is gone.
+	if(ishuman(owner))
+		owner.name = owner.get_visible_name()
 	owner.remove_movespeed_modifier(/datum/movespeed_modifier/shadow_cloak)
 	owner.remove_actionspeed_modifier(/datum/actionspeed_modifier/shadow_cloak)
 	// Clear signals

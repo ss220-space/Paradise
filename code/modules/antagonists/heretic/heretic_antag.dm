@@ -69,6 +69,10 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	var/static/list/blacklisted_rune_turfs = typecacheof(list(/turf/space, /turf/space/openspace, /turf/simulated/floor/lava, /turf/simulated/floor/chasm))
 	/// Controls what types of turf we can spread rust to, increases as we unlock more powerful rust abilites
 	var/rust_strength = 0
+	/// Our current path passive ("empowerment") tier (1-3). Climbs as we gain power (pick path -> blade -> ascend).
+	var/passive_level = 1
+	/// The active path-passive status effect instance (see /datum/status_effect/heretic_passive).
+	var/datum/status_effect/heretic_passive/passive_effect
 	/// Wether we are allowed to ascend
 	var/feast_of_owls = FALSE
 
@@ -172,6 +176,7 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	knowledge_data["cost"] = initial(knowledge.cost)
 	knowledge_data["disabled"] = (!done) && (initial(knowledge.cost) > knowledge_points)
 	knowledge_data["bgr"] = GLOB.heretic_research_tree[knowledge][HKT_UI_BGR]
+	knowledge_data["depth"] = GLOB.heretic_research_tree[knowledge][HKT_DEPTH]
 	knowledge_data["finished"] = done
 	knowledge_data["ascension"] = ispath(knowledge,/datum/heretic_knowledge/ultimate)
 
@@ -201,13 +206,20 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	data["total_sacrifices"] = total_sacrifices
 	data["ascended"] = ascended
 
+	// The Research Tree (path progression, grouped by depth) and the Knowledge Shop (route == PATH_SIDE:
+	// general, non-path-locked purchases like the Codex) are shown as two separate lists in the UI.
 	var/list/tiers = list()
+	var/list/shop = list()
 
 	// This should be cached in some way, but the fact that final knowledge
 	// has to update its disabled state based on whether all objectives are complete,
 	// makes this very difficult. I'll figure it out one day maybe
 	for(var/datum/heretic_knowledge/knowledge as anything in researched_knowledge)
 		var/list/knowledge_data = get_knowledge_data(knowledge,TRUE)
+
+		if(GLOB.heretic_research_tree[knowledge][HKT_ROUTE] == PATH_SIDE)
+			shop += list(knowledge_data)
+			continue
 
 		while(GLOB.heretic_research_tree[knowledge][HKT_DEPTH] > tiers.len)
 			tiers += list(list("nodes"=list()))
@@ -221,12 +233,76 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 		if(ispath(knowledge, /datum/heretic_knowledge/ultimate))
 			knowledge_data["disabled"] ||= !can_ascend()
 
+		if(GLOB.heretic_research_tree[knowledge][HKT_ROUTE] == PATH_SIDE)
+			shop += list(knowledge_data)
+			continue
+
 		while(GLOB.heretic_research_tree[knowledge][HKT_DEPTH] > tiers.len)
 			tiers += list(list("nodes"=list()))
 
 		tiers[GLOB.heretic_research_tree[knowledge][HKT_DEPTH]]["nodes"] += list(knowledge_data)
 
 	data["knowledge_tiers"] = tiers
+	data["knowledge_shop"] = shop
+
+	// Our current path-passive ("empowerment") tier. The per-path passive text is sent with each path below.
+	data["passive_level"] = passive_level
+
+	// Path Info tab: one entry per main path with its playstyle blurb and its "choose path" start node.
+	// NOTE: initial() returns null for /list vars in BYOND, so we instantiate each column to read its
+	// description/pros/cons/tips lists, then discard it (columns are lightweight, transient datums).
+	var/list/paths_data = list()
+	for(var/column_type in subtypesof(/datum/heretic_knowledge_tree_column/main))
+		var/datum/heretic_knowledge_tree_column/main/column = column_type
+		if(initial(column.abstract_parent_type) == column_type)
+			continue
+		if(!initial(column.start))
+			continue
+		var/datum/heretic_knowledge_tree_column/main/column_instance = new column_type()
+		var/datum/heretic_knowledge/start_knowledge = column_instance.start
+		var/list/path_entry = list()
+		path_entry["route"] = column_instance.route
+		path_entry["complexity"] = column_instance.complexity
+		path_entry["complexity_color"] = column_instance.complexity_color
+		path_entry["description"] = column_instance.path_description
+		path_entry["pros"] = column_instance.path_pros
+		path_entry["cons"] = column_instance.path_cons
+		path_entry["tips"] = column_instance.path_tips
+		if(column_instance.passive_name)
+			path_entry["passive"] = list(
+				"name" = column_instance.passive_name,
+				"description" = column_instance.passive_descriptions,
+			)
+		path_entry["starting_knowledge"] = get_knowledge_data(start_knowledge, (start_knowledge in researched_knowledge))
+
+		// "Guaranteed Abilities" preview (TG's preview_abilities): the path's guaranteed main-line
+		// knowledges in unlock order, minus the "choose path" start node and the big ascension node.
+		// Slots are optional (TG-style paths fold grasp/mark into start) and tiers may be lists.
+		var/list/preview_abilities = list()
+		var/list/preview_slots = list(
+			column_instance.grasp,
+			column_instance.tier1,
+			column_instance.mark,
+			column_instance.ritual_of_knowledge,
+			column_instance.unique_ability,
+			column_instance.tier2,
+			column_instance.blade,
+			column_instance.tier3,
+		)
+		for(var/slot in preview_slots)
+			if(!slot)
+				continue
+			if(islist(slot))
+				for(var/sub_knowledge in slot)
+					preview_abilities += list(get_knowledge_data(sub_knowledge, (sub_knowledge in researched_knowledge)))
+			else
+				preview_abilities += list(get_knowledge_data(slot, (slot in researched_knowledge)))
+		path_entry["preview_abilities"] = preview_abilities
+
+		paths_data += list(path_entry)
+		qdel(column_instance)
+
+	data["paths"] = paths_data
 
 	return data
 
@@ -899,6 +975,35 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 		return
 
 	rust_strength++
+
+/// Grants (or re-grants, e.g. after a body transfer) our path's passive effect of the given type.
+/// The effect catches itself up to our current [passive_level] on apply.
+/datum/antagonist/heretic/proc/grant_passive(passive_type)
+	if(!ispath(passive_type, /datum/status_effect/heretic_passive) || !owner?.current)
+		return
+	if(passive_effect && passive_effect.type == passive_type)
+		return
+	clear_passive()
+	passive_effect = owner.current.apply_status_effect(passive_type)
+
+/// Removes our current passive effect, if any (used on body transfer / antag removal).
+/datum/antagonist/heretic/proc/clear_passive()
+	if(passive_effect)
+		qdel(passive_effect)
+		passive_effect = null
+
+/// Advances our passive to a higher tier (2 = blade upgrade, 3 = ascension) and refreshes the UI.
+/datum/antagonist/heretic/proc/set_passive_level(new_level)
+	if(new_level <= passive_level)
+		return
+	passive_level = new_level
+	if(passive_effect)
+		if(new_level >= 2)
+			passive_effect.level_upgrade()
+		if(new_level >= 3)
+			passive_effect.level_final()
+	if(owner?.current)
+		update_static_data(owner.current)
 
 /**
  * Get a list of all rituals this heretic can invoke on a rune.

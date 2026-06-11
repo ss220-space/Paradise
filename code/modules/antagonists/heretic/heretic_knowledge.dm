@@ -262,11 +262,58 @@
 	limit = 2
 	cost = 1
 	priority = MAX_KNOWLEDGE_PRIORITY - 5
+	/// The Mansus Grasp mark status effect this path applies, if any.
+	/// TG folds a path's grasp/mark mechanics into its starting knowledge instead of separate tree
+	/// nodes (e.g. Ash). Leave null for paths that still use a dedicated /datum/heretic_knowledge/mark.
+	var/datum/status_effect/eldritch/mark_type
+	/// This path's passive ("empowerment") effect, granted when the path is chosen. See
+	/// /datum/status_effect/heretic_passive. Leave null for paths whose passive isn't ported yet.
+	var/datum/status_effect/heretic_passive/passive_type
 
 /datum/heretic_knowledge/limited_amount/starting/on_research(mob/user, datum/antagonist/heretic/our_heretic)
 	. = ..()
 	our_heretic.heretic_path = GLOB.heretic_research_tree[type][HKT_ROUTE]
 	SSblackbox.record_feedback("tally", "heretic_path_taken", 1, our_heretic.heretic_path)
+
+/datum/heretic_knowledge/limited_amount/starting/on_gain(mob/user, datum/antagonist/heretic/our_heretic, mind_transfer = FALSE)
+	. = ..()
+	RegisterSignals(user, list(COMSIG_HERETIC_MANSUS_GRASP_ATTACK, COMSIG_LIONHUNTER_ON_HIT), PROC_REF(on_mansus_grasp), override = TRUE)
+	RegisterSignal(user, COMSIG_HERETIC_BLADE_ATTACK, PROC_REF(on_eldritch_blade), override = TRUE)
+	if(passive_type)
+		our_heretic.grant_passive(passive_type)
+
+/datum/heretic_knowledge/limited_amount/starting/on_lose(mob/user, datum/antagonist/heretic/our_heretic, mind_transfer = FALSE)
+	. = ..()
+	UnregisterSignal(user, list(COMSIG_HERETIC_MANSUS_GRASP_ATTACK, COMSIG_LIONHUNTER_ON_HIT, COMSIG_HERETIC_BLADE_ATTACK))
+	our_heretic.clear_passive()
+
+/// Signal proc for [COMSIG_HERETIC_MANSUS_GRASP_ATTACK]: apply our path's mark, if we carry one.
+/datum/heretic_knowledge/limited_amount/starting/proc/on_mansus_grasp(mob/living/source, mob/living/target)
+	SIGNAL_HANDLER
+	create_mark(source, target)
+
+/// Signal proc for [COMSIG_HERETIC_BLADE_ATTACK]: trigger any mark on the target.
+/datum/heretic_knowledge/limited_amount/starting/proc/on_eldritch_blade(mob/living/source, mob/living/target, obj/item/melee/sickly_blade/blade)
+	SIGNAL_HANDLER
+	if(!isliving(target))
+		return
+	trigger_mark(source, target)
+
+/// Creates this path's mark status effect on the target (no-op if the path has no mark_type).
+/datum/heretic_knowledge/limited_amount/starting/proc/create_mark(mob/living/source, mob/living/target)
+	if(!mark_type || target.stat == DEAD)
+		return
+	return target.apply_status_effect(mark_type)
+
+/// Triggers an existing mark on the target. Returns TRUE if one was triggered.
+/datum/heretic_knowledge/limited_amount/starting/proc/trigger_mark(mob/living/source, mob/living/target)
+	if(!mark_type)
+		return FALSE
+	var/datum/status_effect/eldritch/mark = target.has_status_effect(/datum/status_effect/eldritch)
+	if(!istype(mark))
+		return FALSE
+	mark.on_effect()
+	return TRUE
 
 /**
  * A knowledge subtype for heretic knowledge
@@ -343,6 +390,11 @@
 /datum/heretic_knowledge/blade_upgrade
 	abstract_parent_type = /datum/heretic_knowledge/blade_upgrade
 	cost = 2
+
+/datum/heretic_knowledge/blade_upgrade/on_research(mob/user, datum/antagonist/heretic/our_heretic)
+	. = ..()
+	// Upgrading your blade is the mid/late-game passive ("empowerment") milestone (TG uses the robes knowledge).
+	our_heretic.set_passive_level(2)
 
 /datum/heretic_knowledge/blade_upgrade/on_gain(mob/user, datum/antagonist/heretic/our_heretic, mind_transfer = FALSE)
 	RegisterSignal(user, COMSIG_HERETIC_BLADE_ATTACK, PROC_REF(on_eldritch_blade))
@@ -609,6 +661,8 @@
 /datum/heretic_knowledge/ultimate/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	var/datum/antagonist/heretic/heretic_datum = user.mind.has_antag_datum(/datum/antagonist/heretic)
 	heretic_datum.ascended = TRUE
+	// Ascension is the final passive ("empowerment") tier.
+	heretic_datum.set_passive_level(3)
 
 	// Show the cool red gradiant in our UI
 	heretic_datum.update_static_data(user)

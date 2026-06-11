@@ -401,6 +401,8 @@
 /mob/living/carbon/human/get_visible_name(add_id_name = TRUE)
 	if(name_override)
 		return name_override
+	if(HAS_TRAIT(src, TRAIT_UNKNOWN))	//Magically concealed (e.g. heretic's shadow cloak) - fully anonymous
+		return UNKNOWN_NAME_RUS
 	if(wear_mask && (wear_mask.flags_inv & HIDENAME))	//Wearing a mask which hides our face, use id-name if possible
 		return get_id_name(UNKNOWN_NAME_RUS)
 	if(head && (head.flags_inv & HIDENAME))

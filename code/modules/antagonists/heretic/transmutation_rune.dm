@@ -1,3 +1,18 @@
+/// Bakes a single coloured, animated icon for a heretic rune state, replicating TG's GAGS
+/// heretic_rune.json by hand (master220 has no GAGS compositing on atoms).
+/// * [colour_state] - the greyscale linework state. It is multiplied by [rune_colour], so white
+///   pixels take the full path colour and darker pixels a darker shade — identical to GAGS' color_ids.
+/// * [white_state] - optional matching linework overlaid untinted on top, so the bright "pen"
+///   accents stay white (the second, uncoloured GAGS layer).
+/// Frame counts and delays are copied from the source states, so the result animates identically.
+/proc/heretic_rune_icon(icon_file, colour_state, rune_colour, white_state)
+	var/icon/composite = icon(icon_file, colour_state)
+	composite.Blend(rune_colour, ICON_MULTIPLY)
+	if(white_state)
+		composite.Blend(icon(icon_file, white_state), ICON_OVERLAY)
+	return composite
+
+
 /// The heretic's rune, which they use to complete transmutation rituals.
 /obj/effect/decal/heretic_rune
 	name = "Руна Трансформации"
@@ -197,7 +212,7 @@
 	// If we made it here, the ritual had all necessary components, and we can try to cast it.
 	// This doesn't necessarily mean the ritual will succeed, but it's valid!
 	// Do the animations and associated feedback.
-	flick("[icon_state]_active", src)
+	play_activation_animation()
 	playsound(user, 'sound/magic/castsummon.ogg', 75, TRUE, extrarange = SILENCED_SOUND_EXTRARANGE, falloff_exponent = 10)
 
 	// All the components have been invisibled, time to actually do the ritual. Call on_finished_recipe
@@ -218,6 +233,12 @@
 	return ritual_result
 
 
+/// Plays the rune's "ritual completed" animation. Overridden by subtypes that need to composite
+/// the GAGS-style coloured animation by hand (see [/obj/effect/decal/heretic_rune/big]).
+/obj/effect/decal/heretic_rune/proc/play_activation_animation()
+	flick("[icon_state]_active", src)
+
+
 /// A 3x3 heretic rune. The kind heretics actually draw in game.
 /obj/effect/decal/heretic_rune/big
 	icon = 'icons/effects/96x96.dmi'
@@ -227,14 +248,24 @@
 	//pixel_y = 18
 	//pixel_z = -48
 	//greyscale_config = /datum/greyscale_config/heretic_rune
+	/// The path colour this rune is tinted with, kept so the activation animation can match it.
+	var/rune_colour = COLOR_WHITE
 
 
 /obj/effect/decal/heretic_rune/big/Initialize(mapload, path_colour)
 	. = ..()
-	if(!path_colour)
-		return
+	if(path_colour)
+		rune_colour = path_colour
 
-	add_atom_colour(path_colour, FIXED_COLOUR_PRIORITY)
+	// master220 has no GAGS, so bake the coloured static rune by hand (multiply greyscale * colour).
+	var/source_icon = icon
+	icon = heretic_rune_icon(source_icon, "transmutation_rune", rune_colour)
+	icon_state = ""
+
+
+/obj/effect/decal/heretic_rune/big/play_activation_animation()
+	// Composite the two-layer "activate" animation (coloured linework + untinted white pen) and flick it.
+	flick(heretic_rune_icon(initial(icon), "transmutation_rune_activate_colour", rune_colour, "transmutation_rune_activate_white"), src)
 
 
 /obj/effect/temp_visual/drawing_heretic_rune
@@ -248,7 +279,7 @@
 	plane = FLOOR_PLANE
 	layer = ABOVE_CLEANABLES_LAYER
 	//greyscale_config = /datum/greyscale_config/heretic_rune
-	/// We only set this state after setting the colour, otherwise the animation doesn't colour correctly
+	/// The "_colour" linework state baked (with its "_white" companion) into the coloured draw animation.
 	var/animation_state = "transmutation_rune_draw_colour"
 
 
@@ -256,18 +287,15 @@
 	. = ..()
 	if(!path_colour)
 		path_colour = COLOR_LIME
-	add_atom_colour(path_colour, FIXED_COLOUR_PRIORITY)
-	icon_state = animation_state
-	// master220 has no GAGS set_greyscale on atoms, so we replicate TG's heretic_rune.json by hand:
-	// the dim "_colour" base (tinted by the atom colour above) plus the matching bright "_white"
-	// linework. We tint the bright overlay EXPLICITLY with the path colour (RESET_COLOR so it ignores
-	// the parent's colour matrix and renders exactly path_colour, not white-inheriting-a-quirky-matrix).
-	// Result: the whole rune reads clearly as the path colour — lime for PATH_START, fiery red for ASH.
+	// master220 has no GAGS set_greyscale on atoms, so we bake TG's heretic_rune.json by hand into a
+	// single animated icon (see heretic_rune_icon): the "_colour" linework is multiplied by the path
+	// colour (lime for PATH_START, blood-red for ASH, ...) and the matching "_white" pen accents are
+	// overlaid untinted on top. Both source states are 67-frame draw-in animations, so the whole rune
+	// animates as it's being drawn.
+	var/source_icon = icon
 	var/white_state = replacetext(animation_state, "_colour", "_white")
-	var/mutable_appearance/bright_linework = mutable_appearance(icon, white_state)
-	bright_linework.color = path_colour
-	bright_linework.appearance_flags |= RESET_COLOR
-	add_overlay(bright_linework)
+	icon = heretic_rune_icon(source_icon, animation_state, path_colour, white_state)
+	icon_state = ""
 	var/image/silicon_image = image(icon = 'icons/effects/eldritch.dmi', icon_state = null, loc = src)
 	silicon_image.override = TRUE
 	add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/silicons, "heretic_rune", silicon_image)

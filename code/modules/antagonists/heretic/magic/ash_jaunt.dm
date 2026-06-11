@@ -21,6 +21,10 @@
 	jaunt_duration = 2 SECONDS
 	jaunt_in_time = 0.2 SECONDS
 	jaunt_type_path = /obj/effect/dummy/spell_jaunt/red
+	// No steam puff: the vampire base spawns a light-blue steam cloud at both ends via jaunt_water_effect.
+	// TG's ash passage has no such effect — only the crumble-to-ash visual. Disable it so the heretic just
+	// turns to ash and reforms, with no out-of-place blue cloud.
+	jaunt_water_effect = FALSE
 	// Both ends play an ash effect, matching TG: crumble to ash on the way out, reform from ash on the way
 	// in. selfharm only set jaunt_out_type, so the reappear fell back to the base wizard sparkle.
 	jaunt_in_type = /obj/effect/temp_visual/dir_setting/ash_shift

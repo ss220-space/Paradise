@@ -250,8 +250,8 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	banned_atom_types = list(/obj/item/pen)
 	result_atoms = list(/obj/item/codex_cicatrix)
 	cost = 1
-	is_starting_knowledge = TRUE
-	priority = MAX_KNOWLEDGE_PRIORITY - 4 // Least priority out of the starting knowledges, as it's an optional boon.
+	// No longer a free starting craft - it's purchased from the Knowledge Shop (a side knowledge), matching TG.
+	priority = MAX_KNOWLEDGE_PRIORITY - 4 // Low ritual priority, as it's an optional boon.
 	var/static/list/non_mob_bindings = typecacheof(list(/obj/item/stack/sheet/leather, /obj/item/stack/sheet/animalhide, /mob/living/simple_animal/mouse))
 	research_tree_icon_path = 'icons/obj/eldritch.dmi'
 	research_tree_icon_state = "book"

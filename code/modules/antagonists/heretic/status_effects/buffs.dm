@@ -77,6 +77,36 @@
 	owner.update_sight()
 
 
+// ELDRITCH SIGHT
+// A brief glimpse of x-ray vision, granted when a heretic steps near a reality-smash influence.
+/datum/status_effect/temporary_xray
+	id = "temp_xray"
+	status_type = STATUS_EFFECT_REFRESH
+	alert_type = null
+	duration = 10 SECONDS
+
+
+/datum/status_effect/temporary_xray/on_apply()
+	ADD_TRAIT(owner, TRAIT_XRAY, TRAIT_STATUS_EFFECT(id))
+	owner.update_sight()
+	return TRUE
+
+
+/datum/status_effect/temporary_xray/on_remove()
+	REMOVE_TRAIT(owner, TRAIT_XRAY, TRAIT_STATUS_EFFECT(id))
+	owner.update_sight()
+
+
+/// Heretic subtype - plays a whisper and shows a screen alert.
+/datum/status_effect/temporary_xray/eldritch
+	alert_type = /atom/movable/screen/alert/status_effect/eldritch_sight
+
+
+/datum/status_effect/temporary_xray/eldritch/on_apply()
+	. = ..()
+	SEND_SOUND(owner, sound('sound/hallucinations/i_see_you1.ogg'))
+
+
 // WOUNDED SOLDIER
 /datum/status_effect/marshal
 	id = "Blessing of Wounded Soldier"
@@ -139,6 +169,12 @@
 /atom/movable/screen/alert/status_effect/duskndawn
 	name = "Благословение заката и рассвета"
 	desc = "Многое скрыто за горизонтом. С помощью Совы мне удалось проскользнуть мимо стражи Солнца и часового Луны."
+	icon_state = "duskndawn"
+
+
+/atom/movable/screen/alert/status_effect/eldritch_sight
+	name = "Око Иной Стороны"
+	desc = "Вы мельком видите нечто сокрытое за гранью реальности..."
 	icon_state = "duskndawn"
 
 
