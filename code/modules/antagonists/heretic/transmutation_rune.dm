@@ -259,12 +259,15 @@
 	add_atom_colour(path_colour, FIXED_COLOUR_PRIORITY)
 	icon_state = animation_state
 	// master220 has no GAGS set_greyscale on atoms, so we replicate TG's heretic_rune.json by hand:
-	// the dim "_colour" base plus the matching bright "_white" linework. The "_colour" base alone is
-	// nearly black (avg ~18), so it reads as a faint/white smudge; the bright "_white" state provides
-	// the visible rune. We deliberately do NOT RESET_COLOR the overlay, so it inherits our path-colour
-	// tint and the whole rune reads clearly as the path colour (lime for the starting path) instead of white.
+	// the dim "_colour" base (tinted by the atom colour above) plus the matching bright "_white"
+	// linework. We tint the bright overlay EXPLICITLY with the path colour (RESET_COLOR so it ignores
+	// the parent's colour matrix and renders exactly path_colour, not white-inheriting-a-quirky-matrix).
+	// Result: the whole rune reads clearly as the path colour — lime for PATH_START, fiery red for ASH.
 	var/white_state = replacetext(animation_state, "_colour", "_white")
-	add_overlay(mutable_appearance(icon, white_state))
+	var/mutable_appearance/bright_linework = mutable_appearance(icon, white_state)
+	bright_linework.color = path_colour
+	bright_linework.appearance_flags |= RESET_COLOR
+	add_overlay(bright_linework)
 	var/image/silicon_image = image(icon = 'icons/effects/eldritch.dmi', icon_state = null, loc = src)
 	silicon_image.override = TRUE
 	add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/silicons, "heretic_rune", silicon_image)

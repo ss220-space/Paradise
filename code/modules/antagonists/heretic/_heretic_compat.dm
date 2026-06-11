@@ -133,8 +133,43 @@
 /obj/effect/dummy/spell_jaunt
 	/// The movable currently jaunting inside this dummy (tg API).
 	var/atom/movable/jaunter
-	/// Icon state for the jaunter's position indicator (set by some heretic jaunt subtypes).
+	/// Icon we draw the jaunter's position indicator from (tg uses the projectiles sheet).
+	var/phased_mob_icon = 'icons/obj/weapons/guns/projectiles.dmi'
+	/// Icon state for the jaunter's position indicator (set by some heretic jaunt subtypes, e.g. ash = "red_1").
 	var/phased_mob_icon_state
+	/// The client image shown to the jaunter so they can see where they are (the "red dot").
+	var/image/position_indicator
+
+// master220's base do_jaunt forceMoves the jaunter straight into the dummy (no set_jaunter call), so we
+// hook Entered to wire up tg's position indicator: an ABOVE_LIGHTING client image the jaunter alone sees,
+// telling them where their ashen/phased form is. Only fires for dummies that opted in via phased_mob_icon_state,
+// so the vampire jaunts that share this base type are unaffected.
+/obj/effect/dummy/spell_jaunt/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	. = ..()
+	if(!phased_mob_icon_state || !ismob(arrived) || arrived == jaunter)
+		return
+	jaunter = arrived
+	var/mob/mob_jaunter = arrived
+	position_indicator = image(phased_mob_icon, src, phased_mob_icon_state, ABOVE_LIGHTING_PLANE)
+	position_indicator.appearance_flags |= RESET_ALPHA
+	SET_PLANE_EXPLICIT(position_indicator, ABOVE_LIGHTING_PLANE, src)
+	RegisterSignal(mob_jaunter, COMSIG_MOB_LOGIN, PROC_REF(show_client_image), override = TRUE)
+	show_client_image(mob_jaunter)
+
+/// Shows our position indicator to the jaunter's client (re-shown on relog).
+/obj/effect/dummy/spell_jaunt/proc/show_client_image(mob/show_to)
+	SIGNAL_HANDLER
+	show_to.client?.images |= position_indicator
+
+/obj/effect/dummy/spell_jaunt/Exited(atom/movable/gone, direction)
+	. = ..()
+	if(gone != jaunter)
+		return
+	var/mob/mob_jaunter = jaunter
+	mob_jaunter.client?.images -= position_indicator
+	UnregisterSignal(mob_jaunter, COMSIG_MOB_LOGIN)
+	jaunter = null
+	position_indicator = null
 
 /// Ejects the jaunter to our turf and deletes the dummy.
 /obj/effect/dummy/spell_jaunt/proc/eject_jaunter()

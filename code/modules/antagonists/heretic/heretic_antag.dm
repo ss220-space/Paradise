@@ -1,3 +1,18 @@
+// Maps each heretic PATH_* to the colour its transmutation runes / UI accents are tinted with.
+// MUST live in the heretic module (not __DEFINES/colors.dm): colors.dm is #included before the PATH_*
+// macros are defined, so defining it there yields null keys → every rune drew the default green.
+GLOBAL_LIST_INIT(heretic_path_to_color, list(
+		PATH_START = COLOR_LIME,
+		PATH_RUST = COLOR_CARGO_BROWN,
+		PATH_FLESH = COLOR_SOFT_RED,
+		PATH_ASH = COLOR_VIVID_RED,
+		PATH_VOID = COLOR_CYAN,
+		PATH_BLADE = COLOR_SILVER,
+		PATH_COSMIC = COLOR_PURPLE,
+		PATH_LOCK = COLOR_YELLOW,
+		PATH_MOON = COLOR_BLUE_LIGHT,
+	))
+
 /*
  * Simple helper to generate a string of
  * garbled symbols up to [length] characters.

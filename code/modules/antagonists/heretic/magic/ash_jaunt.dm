@@ -21,6 +21,9 @@
 	jaunt_duration = 2 SECONDS
 	jaunt_in_time = 0.2 SECONDS
 	jaunt_type_path = /obj/effect/dummy/spell_jaunt/red
+	// Both ends play an ash effect, matching TG: crumble to ash on the way out, reform from ash on the way
+	// in. selfharm only set jaunt_out_type, so the reappear fell back to the base wizard sparkle.
+	jaunt_in_type = /obj/effect/temp_visual/dir_setting/ash_shift
 	jaunt_out_type = /obj/effect/temp_visual/dir_setting/ash_shift/out
 
 

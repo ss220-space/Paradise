@@ -426,9 +426,15 @@
 		. += "<b><font color='red'>HERETIC</font></b>|<a href='byond://?src=[UID()];heretic=clear'>no</a>"
 		. += "<br>Очки знаний: <a href='byond://?src=[UID()];heretic=points'>[heretic_datum.knowledge_points]</a>"
 		. += " | Жертвоприношений: [heretic_datum.total_sacrifices]"
-		. += "<br><a href='byond://?src=[UID()];heretic=addsac'>Добавить цель жертвоприношения</a>"
-		. += " | <a href='byond://?src=[UID()];heretic=focus'>Выдать фокус</a>"
-		. += " | <a href='byond://?src=[UID()];heretic=heart'>Выдать Живое Сердце</a>"
+		// Mirrors TG/selfharm get_admin_commands(): show heart-target controls once the heretic
+		// actually has a Living Heart, otherwise offer to grant one.
+		switch(heretic_datum.has_living_heart())
+			if(HERETIC_HAS_LIVING_HEART)
+				. += "<br><a href='byond://?src=[UID()];heretic=addsac'>Добавить цель (отмеченный моб)</a>"
+				. += " | <a href='byond://?src=[UID()];heretic=remsac'>Убрать цель</a>"
+			else
+				. += "<br><a href='byond://?src=[UID()];heretic=heart'>Выдать Живое Сердце</a>"
+		. += "<br><a href='byond://?src=[UID()];heretic=focus'>Выдать фокус</a>"
 	else
 		. += "<a href='byond://?src=[UID()];heretic=heretic'>heretic</a>|<b>NO</b>"
 
@@ -1607,33 +1613,24 @@
 				var/datum/antagonist/heretic/heretic_datum = has_antag_datum(/datum/antagonist/heretic)
 				if(!heretic_datum)
 					return
-				var/new_points = tgui_input_number(usr, "Сколько очков знаний установить?", "Очки знаний", heretic_datum.knowledge_points, 100, -1)
-				if(isnull(new_points))
-					return
-				heretic_datum.knowledge_points = new_points
-				log_admin("[key_name(usr)] set knowledge points of [key_name(current)] to [new_points]")
+				heretic_datum.admin_change_points(usr)
+				log_admin("[key_name(usr)] adjusted knowledge points of [key_name(current)] to [heretic_datum.knowledge_points]")
 
 			if("addsac")
+				// TG/selfharm flow: add the admin's marked mob (VV "Mark Object") as a sacrifice target.
 				var/datum/antagonist/heretic/heretic_datum = has_antag_datum(/datum/antagonist/heretic)
 				if(!heretic_datum)
 					return
-				var/list/possible_targets = list()
-				for(var/mob/living/carbon/human/victim in GLOB.human_list)
-					if(!victim.mind || victim == current || victim.stat == DEAD)
-						continue
-					possible_targets["[victim.real_name] ([victim.mind.assigned_role])"] = victim
-				if(!length(possible_targets))
-					to_chat(usr, span_warning("Нет подходящих живых целей для жертвоприношения."))
+				heretic_datum.add_marked_as_target(usr)
+				log_admin("[key_name(usr)] added a marked sacrifice target for [key_name(current)]")
+				message_admins("[key_name_admin(usr)] added a marked sacrifice target for [key_name_admin(current)]")
+
+			if("remsac")
+				var/datum/antagonist/heretic/heretic_datum = has_antag_datum(/datum/antagonist/heretic)
+				if(!heretic_datum)
 					return
-				var/chosen = tgui_input_list(usr, "Выберите цель жертвоприношения", "Цель", possible_targets)
-				if(isnull(chosen))
-					return
-				var/mob/living/carbon/human/sac_target = possible_targets[chosen]
-				if(QDELETED(sac_target))
-					return
-				heretic_datum.add_sacrifice_target(sac_target)
-				log_admin("[key_name(usr)] added [key_name(sac_target)] as a sacrifice target for [key_name(current)]")
-				message_admins("[key_name_admin(usr)] added [key_name_admin(sac_target)] as a sacrifice target for [key_name_admin(current)]")
+				heretic_datum.remove_target(usr)
+				log_admin("[key_name(usr)] removed a sacrifice target from [key_name(current)]")
 
 			if("focus")
 				var/datum/antagonist/heretic/heretic_datum = has_antag_datum(/datum/antagonist/heretic)
