@@ -11,6 +11,7 @@
 // Sidepaths for knowledge between Flesh and Void.
 
 /datum/heretic_knowledge/void_cloak
+	drafting_tier = 1
 	name = "Плащ Пустоты"
 	desc = "Позволяет преобразовать осколок стекла, простыню и любой предмет верхней одежды чтобы создать \
 			Плащ Пустоты. Пока капюшон опущен, плащ позволяет колдовать без амулета. \

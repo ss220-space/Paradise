@@ -36,16 +36,21 @@
 		"Иммунитет к лаве.",
 		"Сопротивление экстремальному холоду.",
 	)
+	// TG-format column (1:1 with tgstation Ash). Main line:
+	// base_ash -> ash_passage -> fire_blast -> Scorched Mantle(robes) -> mad_mask -> Fiery Blade -> flame_birth -> ascension.
+	// Grasp blind + ash mark are folded into base_ash (matching TG, no separate nodes).
 	start = /datum/heretic_knowledge/limited_amount/starting/base_ash
-	// Ash has no separate grasp/mark nodes (matching current TG): the grasp blind and the ash mark
-	// are folded into base_ash below.
-	tier1 = /datum/heretic_knowledge/spell/ash_passage
-	ritual_of_knowledge = /datum/heretic_knowledge/knowledge_ritual/ash
-	unique_ability = /datum/heretic_knowledge/spell/fire_blast
-	tier2 = /datum/heretic_knowledge/mad_mask
+	knowledge_tier1 = /datum/heretic_knowledge/spell/ash_passage
+	knowledge_tier2 = /datum/heretic_knowledge/spell/fire_blast
+	robes = /datum/heretic_knowledge/armor/ash
+	knowledge_tier3 = /datum/heretic_knowledge/mad_mask
 	blade = /datum/heretic_knowledge/blade_upgrade/ash
-	tier3 =	/datum/heretic_knowledge/spell/flame_birth
+	knowledge_tier4 = /datum/heretic_knowledge/spell/flame_birth
 	ascension = /datum/heretic_knowledge/ultimate/ash_final
+	// Side knowledges guaranteed to be offered in this path's drafts (TG).
+	guaranteed_side_tier1 = /datum/heretic_knowledge/medallion
+	guaranteed_side_tier2 = /datum/heretic_knowledge/rifle
+	guaranteed_side_tier3 = /datum/heretic_knowledge/limited_amount/summon/ashy
 
 
 /datum/heretic_knowledge/limited_amount/starting/base_ash
@@ -124,6 +129,25 @@
 	spell_to_add = /obj/effect/proc_holder/spell/charged/beam/fire_blast
 	cost = 1
 	research_tree_icon_frame = 7
+
+
+/datum/heretic_knowledge/armor/ash
+	name = "Опалённая Мантия"
+	desc = "Позволяет преобразовать стол (или верхнюю одежду), маску и спичку в Опалённую Мантию. \
+			Она обеспечивает полную защиту от огня и способна пассивно создавать пламя. \
+			Когда у вас накопится достаточно огня, вы сможете применять усиленные версии пепельных заклинаний. \
+			Действует как амулет, пока капюшон надет."
+	gain_text = "Дозор остаётся там, где пал, рассыпаясь в прах. И всё же ветра, веющие сквозь город, \
+				зовут их обратно на службу, поднимая пыль в воздух — дрейфующий силуэт павших."
+	required_atoms = list(
+		list(/obj/structure/table, /obj/item/clothing/suit) = 1,
+		/obj/item/clothing/mask = 1,
+		/obj/item/match = 1,
+	)
+	result_atoms = list(/obj/item/clothing/suit/hooded/cultrobes/eldritch/ash)
+	research_tree_icon_path = 'icons/obj/clothing/armor.dmi'
+	research_tree_icon_state = "eldritch_armor"
+	research_tree_icon_frame = 12
 
 
 /datum/heretic_knowledge/mad_mask

@@ -19,6 +19,32 @@
 #define HKT_DEPTH "depth"
 #define HKT_ROUTE "route"
 #define HKT_UI_BGR "ui_bgr"
+/// Shop tier ("Тир N") a side knowledge sits in (and what tier-knowledge unlocks it). Set on the metadata.
+#define HKT_DRAFT_TIER "draft_tier"
+/// The knowledge-tree node that, once researched, unlocks this side/draft node.
+#define HKT_PARENT "parent"
+/// Point cost stored on a per-heretic draft/shop metadata entry.
+#define HKT_COST "cost"
+
+// TG-style research-tree depths (vertical position of each node row in the UI). Main line interleaves
+// with the per-tier DRAFT rows. Used by the Ash (TG-format) path; the legacy paths still use 1..11.
+#define HKT_DEPTH_START 2
+#define HKT_DEPTH_TIER_1 3
+#define HKT_DEPTH_DRAFT_1 4
+#define HKT_DEPTH_TIER_2 5
+#define HKT_DEPTH_DRAFT_2 6
+#define HKT_DEPTH_ROBES 7
+#define HKT_DEPTH_TIER_3 8
+#define HKT_DEPTH_DRAFT_3 9
+#define HKT_DEPTH_ARMOR 10
+#define HKT_DEPTH_TIER_4 11
+#define HKT_DEPTH_DRAFT_4 12
+#define HKT_DEPTH_ASCENSION 13
+
+/// The highest drafting tier a side knowledge can belong to.
+#define HERETIC_DRAFT_TIER_MAX 5
+/// Default UI background icon_state for a (side) node.
+#define BGR_SIDE "node_side"
 
 /// Used in /proc/has_living_heart() to report heart state.
 #define HERETIC_NO_HEART_ORGAN -1

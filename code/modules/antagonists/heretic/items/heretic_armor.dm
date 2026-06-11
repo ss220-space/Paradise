@@ -79,6 +79,43 @@
 
 
 
+// Опалённая Мантия (Scorched Mantle) — Ash path robes. Fire-proof; the passive fire-generation /
+// empowerment logic is implemented later (per-ability pass).
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/ash
+	name = "опалённая мантия"
+	desc = "Тлеющая мантия из пепла и углей. Жар не причиняет ей вреда — лишь питает её."
+	icon_state = "eldritch_armor"
+	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie/eldritch/ash
+	armor = list("melee" = 50, "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 35, "bio" = 20, "rad" = 20, "fire" = 100, "acid" = 20)
+
+
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/ash/get_ru_names()
+	return alist(
+		NOMINATIVE = "опалённая мантия",
+		GENITIVE = "опалённой мантии",
+		DATIVE = "опалённой мантии",
+		ACCUSATIVE = "опалённую мантию",
+		INSTRUMENTAL = "опалённой мантией",
+		PREPOSITIONAL = "опалённой мантии",
+	)
+
+
+/obj/item/clothing/head/hooded/cult_hoodie/eldritch/ash
+	name = "капюшон опалённой мантии"
+	armor = list("melee" = 30, "bullet" = 30, "laser" = 30, "energy" = 30, "bomb" = 15, "bio" = 10, "rad" = 10, "fire" = 100, "acid" = 10)
+
+
+/obj/item/clothing/head/hooded/cult_hoodie/eldritch/ash/get_ru_names()
+	return alist(
+		NOMINATIVE = "капюшон опалённой мантии",
+		GENITIVE = "капюшона опалённой мантии",
+		DATIVE = "капюшону опалённой мантии",
+		ACCUSATIVE = "капюшон опалённой мантии",
+		INSTRUMENTAL = "капюшоном опалённой мантии",
+		PREPOSITIONAL = "капюшоне опалённой мантии",
+	)
+
+
 // Плащ Пустоты. Turns invisible with the hood up, lets you hide stuff.
 /obj/item/clothing/head/hooded/cult_hoodie/void
 	name = "капюшон пустоты"

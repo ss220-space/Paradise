@@ -32,6 +32,13 @@
 	var/priority = 0
 	///If this is considered starting knowledge, TRUE if yes
 	var/is_starting_knowledge = FALSE
+	/// If the spell is final knowledge (the path's last tier before ascension). Cosmetic on Clauretic for now.
+	var/is_final_knowledge = FALSE
+	/// Drafting system (TG): tier (1..HERETIC_DRAFT_TIER_MAX) this side knowledge belongs to. 0 = not draftable.
+	/// A non-zero value also makes it appear in the Knowledge Shop at this tier.
+	var/drafting_tier = 0
+	/// If TRUE this side knowledge only appears in the shop, never as a random draft option.
+	var/is_shop_only = FALSE
 	/// In case we want to override the default UI icon getter and plug in our own icon instead.
 	/// if research_tree_icon_path is not null, research_tree_icon_state must also be specified or things may break
 	var/research_tree_icon_path
@@ -273,6 +280,8 @@
 /datum/heretic_knowledge/limited_amount/starting/on_research(mob/user, datum/antagonist/heretic/our_heretic)
 	. = ..()
 	our_heretic.heretic_path = GLOB.heretic_research_tree[type][HKT_ROUTE]
+	// Generate this heretic's per-tier drafts + tiered shop for the chosen path (no-op on legacy paths).
+	our_heretic.generate_path_drafts()
 	SSblackbox.record_feedback("tally", "heretic_path_taken", 1, our_heretic.heretic_path)
 
 /datum/heretic_knowledge/limited_amount/starting/on_gain(mob/user, datum/antagonist/heretic/our_heretic, mind_transfer = FALSE)

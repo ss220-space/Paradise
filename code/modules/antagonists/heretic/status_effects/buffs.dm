@@ -175,7 +175,7 @@
 /atom/movable/screen/alert/status_effect/eldritch_sight
 	name = "Око Иной Стороны"
 	desc = "Вы мельком видите нечто сокрытое за гранью реальности..."
-	icon_state = "duskndawn"
+	icon_state = "influence"
 
 
 /atom/movable/screen/alert/status_effect/marshal

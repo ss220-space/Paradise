@@ -51,6 +51,12 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	var/passive_gain_timer = 20 MINUTES
 	/// Assoc list of [typepath] = [knowledge instance]. A list of all knowledge this heretic's reserached.
 	var/list/researched_knowledge = list()
+	/// Per-heretic DRAFT pool (TG): assoc [typepath] = metadata. Each tier offers a random pick of side
+	/// knowledges (one free, picking one bans the siblings). Generated when the path is chosen.
+	var/list/drafted_knowledge = list()
+	/// Per-heretic SHOP pool (TG): assoc [typepath] = metadata. Buy any side knowledge for points,
+	/// unlocked tier-by-tier as you research the path. Generated when the path is chosen.
+	var/list/shop_knowledge_pool = list()
 	/// The organ slot we place our Living Heart in.
 	var/living_heart_organ_slot = INTERNAL_ORGAN_HEART
 	/// A list of TOTAL how many sacrifices completed. (Includes high value sacrifices)
@@ -165,18 +171,21 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	result_parameters["moving"] = icon_moving
 	return result_parameters
 
-/datum/antagonist/heretic/proc/get_knowledge_data(datum/heretic_knowledge/knowledge, done)
+// [meta] is an optional per-heretic draft/shop metadata list (cost/depth/bgr come from it instead of
+// the global tree). Used to render the per-tier drafts and the tiered Knowledge Shop.
+/datum/antagonist/heretic/proc/get_knowledge_data(datum/heretic_knowledge/knowledge, done, list/meta = null)
 
 	var/list/knowledge_data = list()
 
+	var/cost = meta ? meta[HKT_COST] : initial(knowledge.cost)
 	knowledge_data["path"] = knowledge
 	knowledge_data["icon_params"] = get_icon_of_knowledge(knowledge)
 	knowledge_data["name"] = initial(knowledge.name)
 	knowledge_data["gainFlavor"] = initial(knowledge.gain_text)
-	knowledge_data["cost"] = initial(knowledge.cost)
-	knowledge_data["disabled"] = (!done) && (initial(knowledge.cost) > knowledge_points)
-	knowledge_data["bgr"] = GLOB.heretic_research_tree[knowledge][HKT_UI_BGR]
-	knowledge_data["depth"] = GLOB.heretic_research_tree[knowledge][HKT_DEPTH]
+	knowledge_data["cost"] = cost
+	knowledge_data["disabled"] = (!done) && (cost > knowledge_points)
+	knowledge_data["bgr"] = meta ? BGR_SIDE : GLOB.heretic_research_tree[knowledge][HKT_UI_BGR]
+	knowledge_data["depth"] = meta ? meta[HKT_DEPTH] : GLOB.heretic_research_tree[knowledge][HKT_DEPTH]
 	knowledge_data["finished"] = done
 	knowledge_data["ascension"] = ispath(knowledge,/datum/heretic_knowledge/ultimate)
 
@@ -189,6 +198,13 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 
 	return knowledge_data
 
+
+/// Appends a knowledge_data entry to the research-tree tiers list, growing it to the node's depth.
+/datum/antagonist/heretic/proc/add_node_to_tiers(list/tiers, list/knowledge_data)
+	var/depth = knowledge_data["depth"] || 1
+	while(depth > tiers.len)
+		tiers += list(list("nodes" = list()))
+	tiers[depth]["nodes"] += list(knowledge_data)
 
 /datum/antagonist/heretic/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -211,36 +227,61 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	var/list/tiers = list()
 	var/list/shop = list()
 
-	// This should be cached in some way, but the fact that final knowledge
-	// has to update its disabled state based on whether all objectives are complete,
-	// makes this very difficult. I'll figure it out one day maybe
-	for(var/datum/heretic_knowledge/knowledge as anything in researched_knowledge)
-		var/list/knowledge_data = get_knowledge_data(knowledge,TRUE)
+	// Path-start ("choose this path") nodes are surfaced ONLY in the Пути (Path Info) tab, never in the
+	// research tree - so that picking a path happens exclusively there, matching TG. Collect their types.
+	var/list/path_start_knowledges = list()
+	for(var/datum/heretic_knowledge_tree_column/main/column_type as anything in subtypesof(/datum/heretic_knowledge_tree_column/main))
+		if(initial(column_type.abstract_parent_type) == column_type)
+			continue
+		var/start_type = initial(column_type.start)
+		if(start_type)
+			path_start_knowledges[start_type] = TRUE
 
+	// --- Main research-tree line (researched + researchable). Per-heretic draft/shop side nodes are
+	//     handled separately below from their own metadata, so skip them here.
+	for(var/datum/heretic_knowledge/knowledge as anything in researched_knowledge)
+		if(drafted_knowledge[knowledge] || shop_knowledge_pool[knowledge])
+			continue
+		if(path_start_knowledges[knowledge])
+			continue
+		var/list/knowledge_data = get_knowledge_data(knowledge, TRUE)
 		if(GLOB.heretic_research_tree[knowledge][HKT_ROUTE] == PATH_SIDE)
 			shop += list(knowledge_data)
 			continue
-
-		while(GLOB.heretic_research_tree[knowledge][HKT_DEPTH] > tiers.len)
-			tiers += list(list("nodes"=list()))
-
-		tiers[GLOB.heretic_research_tree[knowledge][HKT_DEPTH]]["nodes"] += list(knowledge_data)
+		add_node_to_tiers(tiers, knowledge_data)
 
 	for(var/datum/heretic_knowledge/knowledge as anything in get_researchable_knowledge())
-		var/list/knowledge_data = get_knowledge_data(knowledge,FALSE)
-
+		if(drafted_knowledge[knowledge] || shop_knowledge_pool[knowledge])
+			continue
+		if(path_start_knowledges[knowledge])
+			continue
+		var/list/knowledge_data = get_knowledge_data(knowledge, FALSE)
 		// Final knowledge can't be learned until all objectives are complete.
 		if(ispath(knowledge, /datum/heretic_knowledge/ultimate))
 			knowledge_data["disabled"] ||= !can_ascend()
-
 		if(GLOB.heretic_research_tree[knowledge][HKT_ROUTE] == PATH_SIDE)
 			shop += list(knowledge_data)
 			continue
+		add_node_to_tiers(tiers, knowledge_data)
 
-		while(GLOB.heretic_research_tree[knowledge][HKT_DEPTH] > tiers.len)
-			tiers += list(list("nodes"=list()))
+	// --- Per-tier DRAFTS: rendered in the research tree at their draft depth (free pick, one of three).
+	for(var/knowledge_type in drafted_knowledge)
+		var/list/meta = drafted_knowledge[knowledge_type]
+		if(researched_knowledge[knowledge_type])
+			add_node_to_tiers(tiers, get_knowledge_data(knowledge_type, TRUE, meta))
+		else if(is_available_draft(knowledge_type))
+			add_node_to_tiers(tiers, get_knowledge_data(knowledge_type, FALSE, meta))
 
-		tiers[GLOB.heretic_research_tree[knowledge][HKT_DEPTH]]["nodes"] += list(knowledge_data)
+	// --- Knowledge SHOP: every side knowledge, grouped by shop tier ("Тир N"). A side currently offered
+	//     as a free draft is shown there instead (so it isn't double-listed at a price).
+	for(var/knowledge_type in shop_knowledge_pool)
+		var/list/meta = shop_knowledge_pool[knowledge_type]
+		if(researched_knowledge[knowledge_type])
+			if(drafted_knowledge[knowledge_type])
+				continue // already shown as a finished draft in the tree
+			shop += list(get_knowledge_data(knowledge_type, TRUE, meta))
+		else if(is_available_shop(knowledge_type) && !is_available_draft(knowledge_type))
+			shop += list(get_knowledge_data(knowledge_type, FALSE, meta))
 
 	data["knowledge_tiers"] = tiers
 	data["knowledge_shop"] = shop
@@ -279,16 +320,27 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 		// knowledges in unlock order, minus the "choose path" start node and the big ascension node.
 		// Slots are optional (TG-style paths fold grasp/mark into start) and tiers may be lists.
 		var/list/preview_abilities = list()
-		var/list/preview_slots = list(
-			column_instance.grasp,
-			column_instance.tier1,
-			column_instance.mark,
-			column_instance.ritual_of_knowledge,
-			column_instance.unique_ability,
-			column_instance.tier2,
-			column_instance.blade,
-			column_instance.tier3,
-		)
+		var/list/preview_slots
+		if(column_instance.knowledge_tier1) // TG-format column (e.g. Ash)
+			preview_slots = list(
+				column_instance.knowledge_tier1,
+				column_instance.knowledge_tier2,
+				column_instance.robes,
+				column_instance.knowledge_tier3,
+				column_instance.blade,
+				column_instance.knowledge_tier4,
+			)
+		else // legacy column
+			preview_slots = list(
+				column_instance.grasp,
+				column_instance.tier1,
+				column_instance.mark,
+				column_instance.ritual_of_knowledge,
+				column_instance.unique_ability,
+				column_instance.tier2,
+				column_instance.blade,
+				column_instance.tier3,
+			)
 		for(var/slot in preview_slots)
 			if(!slot)
 				continue
@@ -330,13 +382,15 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 			if(ispath(researched_path, /datum/heretic_knowledge/ultimate) && !can_ascend(TRUE))
 				message_admins("Heretic [key_name(owner)] potentially attempted to href exploit to learn ascension knowledge without completing objectives!")
 				CRASH("Heretic attempted to learn a final knowledge despite not being able to ascend!")
-			if(initial(researched_path.cost) > knowledge_points)
+			// Effective cost: free if offered as an available draft pick, else the shop/initial cost.
+			var/research_cost = get_research_cost(researched_path)
+			if(research_cost > knowledge_points)
 				return TRUE
 			if(!gain_knowledge(researched_path))
 				return TRUE
 
 			log_game("[key_name(owner)] gained knowledge: [initial(researched_path.name)]")
-			knowledge_points -= initial(researched_path.cost)
+			knowledge_points -= research_cost
 			return TRUE
 
 
@@ -960,6 +1014,15 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 		banned_knowledge |= knowledge.type
 
 	researchable_knowledge -= banned_knowledge
+
+	// Per-heretic drafts (free pick) + shop (paid) available once their parent tier knowledge is researched.
+	for(var/knowledge_type in drafted_knowledge)
+		if(is_available_draft(knowledge_type))
+			researchable_knowledge |= knowledge_type
+	for(var/knowledge_type in shop_knowledge_pool)
+		if(is_available_shop(knowledge_type))
+			researchable_knowledge |= knowledge_type
+
 	return researchable_knowledge
 
 /**
@@ -967,6 +1030,151 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
  */
 /datum/antagonist/heretic/proc/get_knowledge(wanted)
 	return researched_knowledge[wanted]
+
+/// Returns a freshly instantiated tree column datum for the given route (caller must qdel), or null.
+/datum/antagonist/heretic/proc/get_path_column(route)
+	for(var/datum/heretic_knowledge_tree_column/main/column_type as anything in subtypesof(/datum/heretic_knowledge_tree_column/main))
+		if(initial(column_type.abstract_parent_type) == column_type)
+			continue
+		var/datum/heretic_knowledge_tree_column/main/column = new column_type()
+		if(column.route == route)
+			return column
+		qdel(column)
+	return null
+
+/**
+ * Generates this heretic's per-tier DRAFTS and the tiered SHOP for their chosen TG-format path (TG 1:1).
+ * Each draft tier offers up to 3 side knowledges (one guaranteed) - picking one is FREE and bans the
+ * siblings. The shop lets you BUY any side knowledge for points, unlocked tier-by-tier as you research.
+ */
+/datum/antagonist/heretic/proc/generate_path_drafts()
+	drafted_knowledge = list()
+	shop_knowledge_pool = list()
+
+	var/datum/heretic_knowledge_tree_column/main/column = get_path_column(heretic_path)
+	if(!column)
+		return
+	if(!column.knowledge_tier1) // only TG-format paths use the draft/shop engine (legacy paths keep their own)
+		qdel(column)
+		return
+
+	var/t1 = column.knowledge_tier1
+	var/t2 = column.knowledge_tier2
+	var/t3 = column.knowledge_tier3
+	var/t4 = column.knowledge_tier4
+	var/list/guaranteed = list(column.guaranteed_side_tier1, column.guaranteed_side_tier2, column.guaranteed_side_tier3)
+	var/list/shop_unlock = list(t1, t2, column.robes, t3, t4)
+
+	var/list/shop_costs = list(1, 2, 2, 2, 3)
+	if(column.shop_cost_discount)
+		for(var/i in 1 to length(shop_costs))
+			shop_costs[i] = max(1, shop_costs[i] - column.shop_cost_discount)
+
+	// Knowledges already on the main line / guaranteed can't be drafted again.
+	var/list/draft_ineligible = list(t1, t2, t3, t4) + guaranteed
+
+	// Bucket the whole side pool by drafting_tier: elligible = draftable, shop_pool = everything (incl shop-only).
+	var/list/elligible = list()
+	var/list/shop_pool = list()
+	for(var/tier in 1 to HERETIC_DRAFT_TIER_MAX)
+		elligible += list(list())
+		shop_pool += list(list())
+	for(var/datum/heretic_knowledge/potential as anything in subtypesof(/datum/heretic_knowledge))
+		var/draft_tier = initial(potential.drafting_tier)
+		if(draft_tier <= 0)
+			continue
+		if(potential in draft_ineligible)
+			continue
+		if(!initial(potential.is_shop_only))
+			elligible[draft_tier] += potential
+		shop_pool[draft_tier] += potential
+
+	// Per-tier draft groups (parent = the tier knowledge that reveals the draft row).
+	var/list/draft_specs = list(
+		list("parent" = t1, "guaranteed" = guaranteed[1], "weights" = list("1"=50, "2"=50, "3"=0, "4"=0, "5"=0), "depth" = HKT_DEPTH_DRAFT_1),
+		list("parent" = t2, "guaranteed" = guaranteed[2], "weights" = list("1"=50, "2"=25, "3"=25, "4"=0, "5"=0), "depth" = HKT_DEPTH_DRAFT_2),
+		list("parent" = t3, "guaranteed" = guaranteed[3], "weights" = list("1"=20, "2"=20, "3"=20, "4"=20, "5"=20), "depth" = HKT_DEPTH_DRAFT_3),
+		list("parent" = t4, "guaranteed" = null, "weights" = list("1"=0, "2"=0, "3"=0, "4"=0, "5"=100), "depth" = HKT_DEPTH_DRAFT_4),
+	)
+	for(var/list/spec in draft_specs)
+		var/list/group = list()
+		for(var/cycle in 1 to 3)
+			var/datum/heretic_knowledge/picked
+			if(spec["guaranteed"] && cycle == 1)
+				picked = spec["guaranteed"]
+			else
+				var/chosen_tier = min(text2num(pickweight(spec["weights"])), length(elligible))
+				if(chosen_tier < 1 || !length(elligible[chosen_tier]))
+					continue
+				picked = pick_n_take(elligible[chosen_tier])
+			if(isnull(picked) || (picked in group))
+				continue
+			group += picked
+			drafted_knowledge[picked] = list(
+				HKT_PARENT = spec["parent"],
+				HKT_DEPTH = spec["depth"],
+				HKT_DRAFT_TIER = initial(picked.drafting_tier),
+				HKT_COST = 0,
+				HKT_BAN = list(),
+			)
+		for(var/sibling in group)
+			drafted_knowledge[sibling][HKT_BAN] = group - sibling
+
+	// Shop: every side knowledge, buyable for points, unlocked by the tier node above it.
+	for(var/tier in 1 to length(shop_pool))
+		for(var/knowledge_type in shop_pool[tier])
+			shop_knowledge_pool[knowledge_type] = list(
+				HKT_PARENT = shop_unlock[tier],
+				HKT_DEPTH = tier, // shop "Тир N" label
+				HKT_DRAFT_TIER = tier,
+				HKT_COST = shop_costs[tier],
+				HKT_BAN = list(),
+			)
+	// rifle -> rifle_ammo follow-on inside the shop.
+	if(shop_knowledge_pool[/datum/heretic_knowledge/rifle])
+		shop_knowledge_pool[/datum/heretic_knowledge/rifle_ammo] = list(
+			HKT_PARENT = /datum/heretic_knowledge/rifle,
+			HKT_DEPTH = 2,
+			HKT_DRAFT_TIER = 2,
+			HKT_COST = 1,
+			HKT_BAN = list(),
+		)
+
+	qdel(column)
+
+/// Whether a side knowledge is currently offered as an available (free) draft pick.
+/datum/antagonist/heretic/proc/is_available_draft(datum/heretic_knowledge/knowledge_type)
+	var/list/meta = drafted_knowledge[knowledge_type]
+	if(!meta)
+		return FALSE
+	if(researched_knowledge[knowledge_type])
+		return FALSE
+	if(meta[HKT_PARENT] && !researched_knowledge[meta[HKT_PARENT]])
+		return FALSE
+	for(var/sibling in meta[HKT_BAN])
+		if(researched_knowledge[sibling])
+			return FALSE
+	return TRUE
+
+/// Whether a shop side knowledge is currently purchasable (its parent tier is researched).
+/datum/antagonist/heretic/proc/is_available_shop(datum/heretic_knowledge/knowledge_type)
+	var/list/meta = shop_knowledge_pool[knowledge_type]
+	if(!meta)
+		return FALSE
+	if(researched_knowledge[knowledge_type])
+		return FALSE
+	if(meta[HKT_PARENT] && !researched_knowledge[meta[HKT_PARENT]])
+		return FALSE
+	return TRUE
+
+/// The effective point cost to research a knowledge right now (free if an available draft, else shop/initial cost).
+/datum/antagonist/heretic/proc/get_research_cost(datum/heretic_knowledge/knowledge_type)
+	if(is_available_draft(knowledge_type))
+		return 0
+	var/list/shop_meta = shop_knowledge_pool[knowledge_type]
+	if(shop_meta)
+		return shop_meta[HKT_COST]
+	return initial(knowledge_type.cost)
 
 /// Makes our heretic more able to rust things.
 /// if side_path_only is set to TRUE, this function does nothing for rust heretics.

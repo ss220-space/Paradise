@@ -236,6 +236,7 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
  * Overall, it's a tradeoff between speed and stealth or power.
  */
 /datum/heretic_knowledge/codex_cicatrix
+	drafting_tier = 1
 	name = "Кодекс Истезания"
 	desc = "Позволяет трансмутировать книгу, любую уникальную ручку (не обычную) и любой предмет на ваш выбор из туши (животного или человека), кожи или шкуры, чтобы создать Кодекс Истезания. \
 			Кодекс Истезания можно использовать чтобы поглотить раскол реальности для получения дополнительных знаний, но он это сопряжено с повышеннием риска быть замеченным. \

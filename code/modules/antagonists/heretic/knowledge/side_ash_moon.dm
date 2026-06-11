@@ -11,6 +11,7 @@
 
 // Sidepaths for knowledge between Ash and Flesh.
 /datum/heretic_knowledge/medallion
+	drafting_tier = 1
 	name = "Глаза Пепла" // It should be like colour of eyes, but I think this sounds better.
 	desc = "Позволяет преобразовать пару глаз, свечу и осколок стекла в Потусторонний Медальон. \
 			Потусторонний Медальон дарует вам термальное зрение, пока вы его носите, а также выполняет \
@@ -29,6 +30,7 @@
 
 
 /datum/heretic_knowledge/ether
+	drafting_tier = 2
 	name = "Душа Нерожденного Младенца"
 	desc = "Превращает лужу рвоты и осколок в одноразовое зелье. Выпив его, \
 			вы избавитесь от любых отклонений в вашем теле, включая болезни, травмы и имплантаты. \
@@ -48,6 +50,7 @@
 
 
 /datum/heretic_knowledge/limited_amount/summon/ashy
+	drafting_tier = 3
 	name = "Ритуал Пепла"
 	desc = "Позволяет преобразовать голову, кучку пепла и книгу в Духа Пепла. \
 			Духи пепла способны на короткий промежуток время становиться не материальными \

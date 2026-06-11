@@ -39,6 +39,29 @@ GLOBAL_LIST(heretic_research_tree)
 	///Ascension
 	var/ascension
 
+	// --- TG-format slots (set these instead of the legacy ones to put a path on the TG research tree) ---
+	// A column is treated as TG-format when knowledge_tier1 is set. Vertical order matches TG:
+	// start -> knowledge_tier1 -> knowledge_tier2 -> robes -> knowledge_tier3 -> blade -> knowledge_tier4 -> ascension,
+	// with a per-tier random DRAFT row after tiers 1/2/3 and a guaranteed side option in each.
+	///TG tier-1 knowledge (replaces legacy grasp+tier1)
+	var/knowledge_tier1
+	///TG tier-2 knowledge
+	var/knowledge_tier2
+	///TG tier-3 knowledge
+	var/knowledge_tier3
+	///TG tier-4 knowledge (the path's "final" power before ascension)
+	var/knowledge_tier4
+	///Path-specific robes (e.g. Scorched Mantle). Sits between tier2 and tier3.
+	var/robes
+	///Side knowledge guaranteed to be offered in this path's first draft
+	var/guaranteed_side_tier1
+	///Side knowledge guaranteed to be offered in this path's second draft
+	var/guaranteed_side_tier2
+	///Side knowledge guaranteed to be offered in this path's third draft
+	var/guaranteed_side_tier3
+	///Subtracted from each shop tier's cost for this path (min 1)
+	var/shop_cost_discount = 0
+
 	// --- "Path Info" tab metadata (TG-style; shown before/while choosing the path) ---
 	///Difficulty label shown in the Path Info tab
 	var/complexity = "Средняя"
@@ -109,6 +132,16 @@ GLOBAL_LIST(heretic_research_tree)
 
 	for(var/id in paths)
 		var/datum/heretic_knowledge_tree_column/this_column = paths[id]
+
+		// TG-format main columns (knowledge_tier1 set) build the TG research chain (start -> t1 -> t2 ->
+		// robes -> t3 -> blade -> t4 -> ascension, with the side pool gated per-tier in the shop) and skip
+		// the legacy grasp/mark/tier1-3 wiring entirely.
+		if(istype(this_column, /datum/heretic_knowledge_tree_column/main))
+			var/datum/heretic_knowledge_tree_column/main/maybe_tg = this_column
+			if(maybe_tg.knowledge_tier1)
+				build_tg_path_chain(heretic_research_tree, maybe_tg, start_blacklist, asc_blacklist, blade_blacklist)
+				continue
+
 		var/datum/heretic_knowledge_tree_column/neighbour_0 = paths[this_column.neighbour_type_left]
 		var/datum/heretic_knowledge_tree_column/neighbour_1 = paths[this_column.neighbour_type_right]
 		//horizontal (two way)
@@ -224,20 +257,72 @@ GLOBAL_LIST(heretic_research_tree)
 		for(var/t2_knowledge in tier2)
 			heretic_research_tree[t2_knowledge][HKT_NEXT] += /datum/heretic_knowledge/reroll_targets
 
-	// If you want to do any custom bullshit put it here \/\/\/
-	heretic_research_tree[/datum/heretic_knowledge/reroll_targets][HKT_ROUTE] = PATH_SIDE
-	heretic_research_tree[/datum/heretic_knowledge/reroll_targets][HKT_DEPTH] = 8
+		// The Codex Cicatrix is a Knowledge Shop "Tier 1" purchase that UNLOCKS once you research your
+		// path's first tier-1 knowledge (matching TG, where shop tier 1 is gated behind knowledge_tier1).
+		// It is no longer reachable straight off the root, so it is NOT available at round start.
+		for(var/t1_knowledge in tier1)
+			heretic_research_tree[t1_knowledge][HKT_NEXT] |= /datum/heretic_knowledge/codex_cicatrix
 
-	// The Codex Cicatrix is a Knowledge Shop (side) purchase available from the very start, rather than a
-	// free starting craft (matching TG). Reachable straight off the root knowledge so it shows immediately.
-	heretic_research_tree[/datum/heretic_knowledge/spell/basic][HKT_NEXT] |= /datum/heretic_knowledge/codex_cicatrix
+	// If you want to do any custom bullshit put it here \/\/\/
+	// Knowledge Shop (side) entries. Their HKT_DEPTH here is the SHOP TIER shown in the UI ("Тир N"),
+	// independent of the research-tree depth; keep these small/sequential so the shop groups cleanly.
+	heretic_research_tree[/datum/heretic_knowledge/reroll_targets][HKT_ROUTE] = PATH_SIDE
+	heretic_research_tree[/datum/heretic_knowledge/reroll_targets][HKT_DEPTH] = 2
+
 	heretic_research_tree[/datum/heretic_knowledge/codex_cicatrix][HKT_ROUTE] = PATH_SIDE
-	heretic_research_tree[/datum/heretic_knowledge/codex_cicatrix][HKT_DEPTH] = 2
+	heretic_research_tree[/datum/heretic_knowledge/codex_cicatrix][HKT_DEPTH] = 1
 
 	heretic_research_tree[/datum/heretic_knowledge/rifle][HKT_NEXT] += /datum/heretic_knowledge/rifle_ammo
 	heretic_research_tree[/datum/heretic_knowledge/rifle_ammo][HKT_ROUTE] = PATH_SIDE
-	heretic_research_tree[/datum/heretic_knowledge/rifle_ammo][HKT_DEPTH] = heretic_research_tree[/datum/heretic_knowledge/rifle][HKT_DEPTH]
+	heretic_research_tree[/datum/heretic_knowledge/rifle_ammo][HKT_DEPTH] = 2
 
 	//and we're done
 	QDEL_LIST_ASSOC_VAL(paths)
 	return heretic_research_tree
+
+/**
+ * Builds the TG-format research chain for a main column into the (global) research tree.
+ * Vertical order: start -> knowledge_tier1 -> knowledge_tier2 -> robes -> knowledge_tier3 -> blade ->
+ * knowledge_tier4 -> ascension, with TG depths. The full side-knowledge pool is unlocked tier-by-tier
+ * (shop_unlock order) off this path's nodes, so the shop progresses as you research, exactly like TG.
+ */
+/proc/build_tg_path_chain(list/tree, datum/heretic_knowledge_tree_column/main/column, list/start_blacklist, list/asc_blacklist, list/blade_blacklist)
+	var/start = column.start
+	var/t1 = column.knowledge_tier1
+	var/t2 = column.knowledge_tier2
+	var/robes = column.robes
+	var/t3 = column.knowledge_tier3
+	var/blade = column.blade
+	var/t4 = column.knowledge_tier4
+	var/asc = column.ascension
+
+	var/list/chain = list(start, t1, t2, robes, t3, blade, t4, asc)
+	// You can pick this path from the root knowledge.
+	tree[/datum/heretic_knowledge/spell/basic][HKT_NEXT] |= start
+	// Link the vertical chain.
+	for(var/stage in 1 to length(chain) - 1)
+		tree[chain[stage]][HKT_NEXT] |= chain[stage + 1]
+
+	// Route + UI background for every node in the chain.
+	for(var/node in chain)
+		tree[node][HKT_ROUTE] = column.route
+		tree[node][HKT_UI_BGR] = column.ui_bgr
+
+	// TG depths (rows in the UI; draft rows interleave at HKT_DEPTH_DRAFT_*).
+	tree[start][HKT_DEPTH] = HKT_DEPTH_START
+	tree[t1][HKT_DEPTH] = HKT_DEPTH_TIER_1
+	tree[t2][HKT_DEPTH] = HKT_DEPTH_TIER_2
+	tree[robes][HKT_DEPTH] = HKT_DEPTH_ROBES
+	tree[t3][HKT_DEPTH] = HKT_DEPTH_TIER_3
+	tree[blade][HKT_DEPTH] = HKT_DEPTH_ARMOR
+	tree[t4][HKT_DEPTH] = HKT_DEPTH_TIER_4
+	tree[asc][HKT_DEPTH] = HKT_DEPTH_ASCENSION
+
+	// Picking this start bans the other paths' starts and ascensions; the blade bans other blades.
+	tree[start][HKT_BAN] |= (start_blacklist - start) + (asc_blacklist - asc)
+	tree[blade][HKT_BAN] |= (blade_blacklist - blade)
+
+	// Baseline Knowledge Shop wiring (matches what legacy paths get); the full per-tier side-knowledge
+	// draft + shop pool is generated per-heretic when this path is chosen (see generate_path_drafts()).
+	tree[t1][HKT_NEXT] |= /datum/heretic_knowledge/codex_cicatrix
+	tree[t2][HKT_NEXT] |= /datum/heretic_knowledge/reroll_targets
