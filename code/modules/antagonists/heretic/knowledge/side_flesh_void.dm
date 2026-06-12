@@ -67,7 +67,7 @@
 	gain_text = "Сначала я не понимал, как использовать эти орудия войны, но священник \
 				велел мне научиться. Скоро, сказал он, я овладею ими в совершенстве."
 	research_tree_icon_path = 'icons/mob/actions/actions_ecult.dmi'
-	research_tree_icon_state = "cleave"
+	research_tree_icon_state = "blood_siphon" // TG crimson_cleave uses the blood_siphon icon
 	spell_to_add = /obj/effect/proc_holder/spell/pointed/cleave
 	cost = 2 // TG crimson_cleave cost
 
