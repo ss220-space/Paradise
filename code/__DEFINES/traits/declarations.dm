@@ -586,6 +586,8 @@
 // Heretic-internal traits (the heretic code both sets and checks these):
 #define TRAIT_ALLOW_HERETIC_CASTING "allow_heretic_casting"
 #define TRAIT_HERETIC_SUMMON "heretic_summon"
+/// Blocks limb dismemberment (Blade "Stance of the Torn Champion" / duel_stance).
+#define TRAIT_NODISMEMBER "nodismember"
 #define TRAIT_MANSUS_TOUCHED "mansus_touched"
 #define TRAIT_LIVING_HEART "living_heart"
 #define TRAIT_RUSTY "rust_trait"

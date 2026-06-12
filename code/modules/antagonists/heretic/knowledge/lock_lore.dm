@@ -94,7 +94,6 @@
 
 
 /datum/heretic_knowledge/key_ring
-	drafting_tier = 5 // TG: each path's tier-1 ability is a tier-5 draftable side option for other paths
 	name = "Бремя хранителя ключей"
 	desc = "Позволяет преобразовать кошелек, железный прут и ID карту в карту Еретика. \
 			Ударьте ею по паре шлюзов, чтобы создать два портала, которые телепортируют вас между ними, а \
@@ -144,6 +143,7 @@
 
 
 /datum/heretic_knowledge/limited_amount/concierge_rite // item that creates 3 max at a time heretic only barriers, probably should limit to 1 only, holy people can also pass
+	drafting_tier = 5 // TG: Lock's tier-1 ability is a tier-5 cross-path draftable side
 	name = "Обряд консьержа"
 	desc = "Позволяет преобразовать мелок, деревянную доску и мультитул в «Справочник по лабиринту». \
 			Он может материализовать баррикаду на расстоянии, через которую сможете пройти только вы и люди, \

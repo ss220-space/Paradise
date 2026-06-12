@@ -1,6 +1,7 @@
 /obj/effect/proc_holder/spell/pointed/cleave
-	name = "Расчленение"
-	desc = "Вызывает тошноту кровью жертв в небольшом радиусе от выбранной точки."
+	name = "Кровавое рассечение" // Crimson Cleave
+	desc = "Направленное заклинание: вытягивает здоровье и кровь у жертв в небольшом радиусе вокруг цели, \
+			исцеляя вас. При применении очищает все ваши раны."
 	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
@@ -30,8 +31,14 @@
 /obj/effect/proc_holder/spell/pointed/cleave/cast(list/targets, mob/user = usr)
 	var/mob/living/carbon/human/cast_on = targets[1]
 	. = ..()
+	var/mob/living/caster = action?.owner || user
+	// TG "cleanses all wounds upon casting" — master220 has no TG wound system, so this mends your own
+	// injuries (heals brute/burn) at cast time, with or without a target.
+	if(isliving(caster))
+		caster.adjustBruteLoss(-20)
+		caster.adjustFireLoss(-20)
 	for(var/mob/living/carbon/human/victim in range(cleave_radius, cast_on))
-		if(victim == action.owner || IS_HERETIC_OR_MONSTER(victim))
+		if(victim == caster || IS_HERETIC_OR_MONSTER(victim))
 			continue
 		if(victim.can_block_magic(antimagic_flags))
 			victim.visible_message(
@@ -44,13 +51,15 @@
 			continue
 
 		victim.visible_message(
-			span_danger("[victim.declent_ru(NOMINATIVE)] покрывается множеством мелких порезов!"),
+			span_danger("[victim.declent_ru(NOMINATIVE)] покрывается множеством мелких порезов, кровь хлещет наружу!"),
 			span_danger("Ваши вены лопаются изнутри, и нечестивое пламя вырывается из вашей крови!")
 		)
 
-		//var/obj/item/organ/external/bodypart = pick(victim.bodyparts)
-		victim.apply_damage(20, BURN/*, wound_bonus = CANT_WOUND*/)
-		victim.vomit(0, VOMIT_BLOOD, 2 SECONDS)
+		// Siphon: damage the victim and heal yourself for the same amount, draining their blood.
+		victim.apply_damage(15, BRUTE)
+		if(isliving(caster))
+			caster.adjustBruteLoss(-15)
+			victim.transfer_blood_to(caster, 15, TRUE)
 
 		new /obj/effect/temp_visual/cleave(get_turf(victim))
 

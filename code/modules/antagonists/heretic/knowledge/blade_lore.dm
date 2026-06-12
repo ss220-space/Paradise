@@ -71,7 +71,6 @@
 
 
 /datum/heretic_knowledge/blade_dance
-	drafting_tier = 5 // TG: each path's tier-1 ability is a tier-5 draftable side option for other paths
 	name = "Танец Клинка"
 	desc = "Если вас атакуют, пока вы держите в любой из рук клинок Еретика, вы нанесёте ответный удар \
 			по атакующему. Этот эффект может сработать только раз в 10 секунд."
@@ -167,6 +166,66 @@
 
 
 #undef BLADE_DANCE_COOLDOWN
+
+
+// While in the low-health "duelist stance", the Torn Champion shrugs off slowdowns.
+/datum/movespeed_modifier/duelist_stance
+	multiplicative_slowdown = -0.4
+
+/*
+ * Stance of the Torn Champion (TG `duel_stance`). A passive Blade tier-1 ability, available to other
+ * paths as a Tier-5 shop/draft side. master220 has no TG wound system, so the wound-resilience parts are
+ * adapted: kept the iconic immunity-to-dismemberment, plus a low-health (<50%) anti-slowdown "duelist
+ * stance" driven off the Life tick (master220 has no COMSIG_LIVING_HEALTH_UPDATE).
+ */
+/datum/heretic_knowledge/duel_stance
+	name = "Стойка Истерзанного Чемпиона"
+	desc = "Дарует невосприимчивость к расчленению конечностей. Кроме того, когда ваше здоровье \
+			опускается ниже 50% от максимума, вы входите в стойку дуэлянта и перестаёте замечать замедления."
+	gain_text = "Со временем именно он остался стоять один среди тел своих павших товарищей, омытый кровью, \
+				но ни капли её не было его собственной. Он остался без соперника, без равного, без цели."
+	cost = 2
+	drafting_tier = 5
+	research_tree_icon_path = 'icons/effects/blood.dmi'
+	research_tree_icon_state = "suitblood"
+	research_tree_icon_dir = SOUTH
+	/// Whether we're currently in the low-health duelist stance.
+	var/in_duelist_stance = FALSE
+
+/datum/heretic_knowledge/duel_stance/on_gain(mob/user, datum/antagonist/heretic/our_heretic)
+	ADD_TRAIT(user, TRAIT_NODISMEMBER, type)
+	RegisterSignal(user, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
+	RegisterSignal(user, COMSIG_LIVING_LIFE, PROC_REF(on_life_check))
+	if(isliving(user))
+		check_stance(user) // apply immediately if learned while already hurt
+
+/datum/heretic_knowledge/duel_stance/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
+	REMOVE_TRAIT(user, TRAIT_NODISMEMBER, type)
+	if(in_duelist_stance && isliving(user))
+		var/mob/living/living_user = user
+		living_user.remove_movespeed_modifier(/datum/movespeed_modifier/duelist_stance)
+	in_duelist_stance = FALSE
+	UnregisterSignal(user, list(COMSIG_ATOM_EXAMINE, COMSIG_LIVING_LIFE))
+
+/datum/heretic_knowledge/duel_stance/proc/on_examine(mob/living/source, mob/user, list/examine_list)
+	SIGNAL_HANDLER
+	if(in_duelist_stance)
+		examine_list += span_warning("[source] выглядит неестественно собранно, готовясь нанести удар.")
+
+/datum/heretic_knowledge/duel_stance/proc/on_life_check(mob/living/source)
+	SIGNAL_HANDLER
+	check_stance(source)
+
+/datum/heretic_knowledge/duel_stance/proc/check_stance(mob/living/source)
+	if(in_duelist_stance && source.health > source.maxHealth * 0.5)
+		in_duelist_stance = FALSE
+		source.balloon_alert(source, "стойка покинута")
+		source.remove_movespeed_modifier(/datum/movespeed_modifier/duelist_stance)
+		return
+	if(!in_duelist_stance && source.health <= source.maxHealth * 0.5)
+		in_duelist_stance = TRUE
+		source.balloon_alert(source, "стойка дуэлянта")
+		source.add_movespeed_modifier(/datum/movespeed_modifier/duelist_stance)
 
 
 /datum/heretic_knowledge/mark/blade_mark

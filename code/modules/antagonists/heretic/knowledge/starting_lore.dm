@@ -372,7 +372,6 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	to_chat(user, span_purple(span_big("[drain_message]")))
 	return .
 
-/*
 /**
  * Warren King's Welcome
  * Ritual available at the start. So that heretics can easily gain access to maintenance airlocks without having to rely on a HoP or having to off some poor assistant.
@@ -390,7 +389,8 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 		/obj/item/paper = 1,
 	)
 	cost = 1
-	is_starting_knowledge = TRUE
+	// TG: bookworm is a normal Tier-1 SHOP side, NOT auto-granted. With is_starting_knowledge it was free
+	// at round start and showed as "owned" instead of a buyable Tier-1 shop item (one of the 2 missing slots).
 	priority = MAX_KNOWLEDGE_PRIORITY - 3
 	research_tree_icon_path = 'icons/obj/card.dmi'
 	research_tree_icon_state = "eldritch"
@@ -415,4 +415,3 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	improved_id.access |= list(ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS)
 	selected_atoms -= improved_id
 	return TRUE
-*/

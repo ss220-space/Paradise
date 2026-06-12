@@ -58,16 +58,17 @@
 	cost = 1
 
 
+// TG calls this knowledge "Crimson Cleave" (same gain_text); the port had named it "Расчленение".
 /datum/heretic_knowledge/spell/cleave
 	drafting_tier = 4
-	name = "Расчленение"
-	desc = "Даёт вам «Рассечение» — заклинание, действующее по области, \
-			вызывающее тошноту кровью у затронутых язычников."
+	name = "Кровавое рассечение" // Crimson Cleave
+	desc = "Даёт вам «Кровавое рассечение» — направленное заклинание, вытягивающее здоровье \
+			в небольшой области вокруг цели. При применении очищает все ваши раны."
 	gain_text = "Сначала я не понимал, как использовать эти орудия войны, но священник \
 				велел мне научиться. Скоро, сказал он, я овладею ими в совершенстве."
 	research_tree_icon_path = 'icons/mob/actions/actions_ecult.dmi'
 	research_tree_icon_state = "cleave"
 	spell_to_add = /obj/effect/proc_holder/spell/pointed/cleave
-	cost = 1
+	cost = 2 // TG crimson_cleave cost
 
 

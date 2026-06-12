@@ -264,23 +264,24 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 			continue
 		add_node_to_tiers(tiers, knowledge_data)
 
-	// --- Per-tier DRAFTS: rendered in the research tree at their draft depth (free pick, one of three).
+	// --- Per-tier DRAFTS: the FREE overlay shown in the research tree (one free pick of three). This is
+	//     ONLY the still-available options; a draft you already picked is shown (owned) in the shop below,
+	//     and the unpicked siblings remain buyable in the shop too - exactly like TG (the draft is just a
+	//     free overlay over the shop pool, it does NOT remove anything from the shop).
 	for(var/knowledge_type in drafted_knowledge)
-		var/list/meta = drafted_knowledge[knowledge_type]
 		if(researched_knowledge[knowledge_type])
-			add_node_to_tiers(tiers, get_knowledge_data(knowledge_type, TRUE, meta))
-		else if(is_available_draft(knowledge_type))
-			add_node_to_tiers(tiers, get_knowledge_data(knowledge_type, FALSE, meta))
+			continue // picked drafts show as owned in the shop (matches TG), not twice in the tree
+		if(is_available_draft(knowledge_type))
+			add_node_to_tiers(tiers, get_knowledge_data(knowledge_type, FALSE, drafted_knowledge[knowledge_type]))
 
-	// --- Knowledge SHOP: every side knowledge, grouped by shop tier ("Тир N"). A side currently offered
-	//     as a free draft is shown there instead (so it isn't double-listed at a price).
+	// --- Knowledge SHOP: the WHOLE side pool, grouped by shop tier ("Тир N"), unlocked tier-by-tier. TG
+	//     always shows every unlocked side knowledge here regardless of draft state, so a tier shows its
+	//     full count (e.g. 8 in Tier 1) and the draft siblings you didn't pick stay buyable for points.
 	for(var/knowledge_type in shop_knowledge_pool)
 		var/list/meta = shop_knowledge_pool[knowledge_type]
 		if(researched_knowledge[knowledge_type])
-			if(drafted_knowledge[knowledge_type])
-				continue // already shown as a finished draft in the tree
 			shop += list(get_knowledge_data(knowledge_type, TRUE, meta))
-		else if(is_available_shop(knowledge_type) && !is_available_draft(knowledge_type))
+		else if(is_available_shop(knowledge_type))
 			shop += list(get_knowledge_data(knowledge_type, FALSE, meta))
 
 	data["knowledge_tiers"] = tiers
@@ -1109,6 +1110,11 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 			var/datum/heretic_knowledge/picked
 			if(spec["guaranteed"] && cycle == 1)
 				picked = spec["guaranteed"]
+				// The guaranteed side was held out of the shop pool above (it's in draft_ineligible); TG puts
+				// it back into the shop so it's also buyable, keeping each tier's full count (e.g. Tier 1 = 8).
+				var/g_tier = initial(picked.drafting_tier)
+				if(g_tier >= 1 && g_tier <= length(shop_pool) && !(picked in shop_pool[g_tier]))
+					shop_pool[g_tier] += picked
 			else
 				var/chosen_tier = min(text2num(pickweight(spec["weights"])), length(elligible))
 				if(chosen_tier < 1 || !length(elligible[chosen_tier]))
