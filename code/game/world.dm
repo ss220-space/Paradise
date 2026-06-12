@@ -135,7 +135,6 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 			if(GLOB.shutdown_shell_command)
 				shell(GLOB.shutdown_shell_command)
 			TerminateWorld()
-			TgsEndProcess() // We want to shutdown on reboot. That means kill our TGS process "gracefully", instead of the watchdog crying
 			return
 		else
 			TgsReboot() // Tell TGS we did a reboot
@@ -171,18 +170,18 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 			shell(GLOB.shutdown_shell_command)
 		rustg_log_close_all() // Past this point, no logging procs can be used, at risk of data loss.
 		TerminateWorld()
-		TgsEndProcess() // We want to shutdown on reboot. That means kill our TGS process "gracefully", instead of the watchdog crying
 		return
 	else
 		TgsReboot() // We did a normal reboot. Tell TGS we did a normal reboot.
 		..(0)
 
-// proc for guaranteed world shutdown in case bad things happened
+// proc for guaranteed world shutdown in case bad things happened and TGS did not shut us down at first try
 /world/proc/TerminateWorld()
 	while(TRUE)
 		world.sleep_offline = FALSE // https://www.byond.com/forum/post/2894866
 		del(world)
 		world.sleep_offline = FALSE
+		TgsEndProcess() // We want to shutdown on reboot. That means kill our TGS process "gracefully", instead of the watchdog crying
 		sleep(1 TICKS)
 
 /world/proc/load_mode()
