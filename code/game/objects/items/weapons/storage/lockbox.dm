@@ -156,36 +156,36 @@
 		try_alert_security()
 
 /obj/item/storage/lockbox/attack_self(mob/user) 
-	if(drill && !broken)
-		switch(tgui_alert(user, "Что вы собираетесь сделать?", "Дрель с усиленным сверлом", list("[drill_timer ? "Выключить" : "Включить"]", "Убрать дрель", "Отмена")))
-			if("Включить")
-				if(!locked)
-					user.balloon_alert(user, "уже открыто")
-					return
-				if(do_after(user, 2 SECONDS, src))
-					if(!drill || !locked || !drill_timer)
-						return
-					drill_timer = addtimer(CALLBACK(src, PROC_REF(drill_open)), time_to_drill, TIMER_STOPPABLE)
-					drill_start_time = world.time
-					drill.soundloop.start()
-					update_icon()
-					START_PROCESSING(SSobj, src)
-			if("Выключить")
-				if(do_after(user, 10 SECONDS, src)) //Can't be too easy to turn off
-					if(!drill || !locked || !drill_timer)
-						return
-					deltimer(drill_timer)
-					drill_stop_processing()
-			if("Убрать дрель")
-				if(drill_timer)
-					user.balloon_alert(user, "дрель работает!")
-				else if(do_after(user, 2 SECONDS, src))
-					if(drill)
-						remove_drill(user)
-			if("Отмена")
-				return
-	else if(drill && broken)
+	if(drill && broken)
 		remove_drill(user)
+		return
+	switch(tgui_alert(user, "Что вы собираетесь сделать?", "Дрель с усиленным сверлом", list("[drill_timer ? "Выключить" : "Включить"]", "Убрать дрель", "Отмена")))
+		if("Включить")
+			if(!locked)
+				user.balloon_alert(user, "уже открыто")
+				return
+			if(do_after(user, 2 SECONDS, src))
+				if(!drill || !locked || !drill_timer)
+					return
+				drill_timer = addtimer(CALLBACK(src, PROC_REF(drill_open)), time_to_drill, TIMER_STOPPABLE)
+				drill_start_time = world.time
+				drill.soundloop.start()
+				update_icon()
+				START_PROCESSING(SSobj, src)
+		if("Выключить")
+			if(do_after(user, 10 SECONDS, src)) //Can't be too easy to turn off
+				if(!drill || !locked || !drill_timer)
+					return
+				deltimer(drill_timer)
+				drill_stop_processing()
+		if("Убрать дрель")
+			if(drill_timer)
+				user.balloon_alert(user, "дрель работает!")
+			else if(do_after(user, 2 SECONDS, src))
+				if(drill)
+					remove_drill(user)
+		if("Отмена")
+			return
 
 /obj/item/storage/lockbox/dump_storage(mob/user, obj/item/storage/target)
 	if(locked)
@@ -427,12 +427,12 @@
 		add_fingerprint(user)
 		var/atom/drop_loc = drop_location()
 		var/obj/item/pride = new disky.output(drop_loc)
-		to_chat(user, span_notice("[DECLENT_RU_CAP(NOMINATIVE)] принимает [disky.DECLENT_RU_CAP(ACCUSATIVE)], и печатает [pride.DECLENT_RU_CAP(ACCUSATIVE)]."))
+		to_chat(user, span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] принимает [DECLENT_RU_CAP(disky, ACCUSATIVE)], и печатает [DECLENT_RU_CAP(pride, ACCUSATIVE)]."))
 		qdel(disky)
 		if(!is_type_in_list(pride, completed_fauna))
 			completed_fauna += pride.type
 			if(length(completed_fauna) == number_of_megafauna)
-				to_chat(user, span_notice("[DECLENT_RU_CAP(NOMINATIVE)] печатает очень красивую медаль."))
+				to_chat(user, span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] печатает очень красивую медаль."))
 				var/obj/item/clothing/accessory/medal/gold/heroism/hardmode_full/accomplishment = new(drop_loc)
 				user.put_in_hands(accomplishment, ignore_anim = FALSE)
 		user.put_in_hands(pride, ignore_anim = FALSE)
