@@ -1,9 +1,9 @@
 #define LOCKBOX_DRILL_SPARK_CHANCE 15
 #define LOCKBOX_DRILL_TIME (150 SECONDS)
 #define DRILLING_PERCENT_TO_ALERT 30
-#define DRILL_X_OFFSET = -2
-#define DRILL_Y_OFFSET = 21
-#define PROGRESS_BAR_Y_OFFSET = 26
+#define DRILL_X_OFFSET -2
+#define DRILL_Y_OFFSET 21
+#define PROGRESS_BAR_Y_OFFSET 26
 
 /obj/item/storage/lockbox
 	name = "lockbox"
