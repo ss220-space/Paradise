@@ -159,23 +159,34 @@ GLOBAL_LIST(heretic_research_tree)
 		if(!islist(this_column.tier3))
 			tier3 = list(this_column.tier3)
 
+		// A neighbour can be a TG-format main column (e.g. Ash), whose legacy tier1/2/3 vars are null
+		// because it uses the knowledge_tier*/draft/shop engine instead. Appending a null neighbour tier
+		// would (a) poison this side knowledge's HKT_NEXT with a null entry — which later crashes
+		// get_researchable_knowledge()/ui_data (the "free research breaks the shop" bug) — and (b) bridge
+		// a TG path's draft side knowledge into the legacy chain out of order. So skip null neighbour tiers.
 		for(var/t1_knowledge in tier1)
-			heretic_research_tree[t1_knowledge][HKT_NEXT] += neighbour_0.tier1
-			heretic_research_tree[t1_knowledge][HKT_NEXT] += neighbour_1.tier1
+			if(neighbour_0.tier1)
+				heretic_research_tree[t1_knowledge][HKT_NEXT] += neighbour_0.tier1
+			if(neighbour_1.tier1)
+				heretic_research_tree[t1_knowledge][HKT_NEXT] += neighbour_1.tier1
 			heretic_research_tree[t1_knowledge][HKT_ROUTE] = this_column.route
 			heretic_research_tree[t1_knowledge][HKT_UI_BGR] = this_column.ui_bgr
 			heretic_research_tree[t1_knowledge][HKT_DEPTH] = 4
 
 		for(var/t2_knowledge in tier2)
-			heretic_research_tree[t2_knowledge][HKT_NEXT] += neighbour_0.tier2
-			heretic_research_tree[t2_knowledge][HKT_NEXT] += neighbour_1.tier2
+			if(neighbour_0.tier2)
+				heretic_research_tree[t2_knowledge][HKT_NEXT] += neighbour_0.tier2
+			if(neighbour_1.tier2)
+				heretic_research_tree[t2_knowledge][HKT_NEXT] += neighbour_1.tier2
 			heretic_research_tree[t2_knowledge][HKT_ROUTE] = this_column.route
 			heretic_research_tree[t2_knowledge][HKT_UI_BGR] = this_column.ui_bgr
 			heretic_research_tree[t2_knowledge][HKT_DEPTH] = 8
 
 		for(var/t3_knowledge in tier3)
-			heretic_research_tree[t3_knowledge][HKT_NEXT] += neighbour_0.tier3
-			heretic_research_tree[t3_knowledge][HKT_NEXT] += neighbour_1.tier3
+			if(neighbour_0.tier3)
+				heretic_research_tree[t3_knowledge][HKT_NEXT] += neighbour_0.tier3
+			if(neighbour_1.tier3)
+				heretic_research_tree[t3_knowledge][HKT_NEXT] += neighbour_1.tier3
 			heretic_research_tree[t3_knowledge][HKT_ROUTE] = this_column.route
 			heretic_research_tree[t3_knowledge][HKT_UI_BGR] = this_column.ui_bgr
 			heretic_research_tree[t3_knowledge][HKT_DEPTH] = 10

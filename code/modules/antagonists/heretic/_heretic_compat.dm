@@ -275,15 +275,16 @@
 /obj/item/canvas
 	name = "canvas"
 	desc = "A blank canvas."
-	icon = 'icons/obj/decals.dmi'
-	icon_state = "paper"
+	// TG's canvas sprite (master220 has no painting system, so artstuff.dmi was copied in for this).
+	icon = 'icons/obj/art/artstuff.dmi'
+	icon_state = "11x11"
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/wallframe
 	name = "wall frame"
 	desc = "A frame ready to be mounted on a wall."
-	icon = 'icons/obj/decals.dmi'
-	icon_state = "sign"
+	icon = 'icons/obj/signs.dmi'
+	icon_state = "frame-empty"
 	w_class = WEIGHT_CLASS_SMALL
 	var/result_path
 	var/pixel_shift = 0
@@ -347,8 +348,8 @@
 /obj/structure/sign/painting
 	name = "painting"
 	desc = "A framed painting."
-	icon = 'icons/obj/decals.dmi'
-	icon_state = "poster1"
+	icon = 'icons/obj/signs.dmi'
+	icon_state = "frame-empty"
 	var/list/accepted_canvas_types = list(/obj/item/canvas)
 	var/persistence_id
 	var/wallframe_type = /obj/item/wallframe/painting

@@ -1009,7 +1009,11 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	var/list/banned_knowledge = list()
 	for(var/knowledge_index in researched_knowledge)
 		var/datum/heretic_knowledge/knowledge = researched_knowledge[knowledge_index]
-		researchable_knowledge |= GLOB.heretic_research_tree[knowledge_index][HKT_NEXT]
+		// Side knowledges that belong to our per-heretic draft/shop pool (TG-format paths) are governed by
+		// that engine, NOT the legacy tree-bridge. Following their legacy HKT_NEXT would leak an adjacent
+		// path's tier ability into our tree out of order, so don't expand it.
+		if(!drafted_knowledge[knowledge_index] && !shop_knowledge_pool[knowledge_index])
+			researchable_knowledge |= GLOB.heretic_research_tree[knowledge_index][HKT_NEXT]
 		banned_knowledge |= GLOB.heretic_research_tree[knowledge_index][HKT_BAN]
 		banned_knowledge |= knowledge.type
 
@@ -1023,6 +1027,9 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 		if(is_available_shop(knowledge_type))
 			researchable_knowledge |= knowledge_type
 
+	// Defensive: a malformed HKT_NEXT entry (e.g. a null bridged in from a TG-format neighbour column)
+	// must never reach ui_data/get_knowledge_data, or the whole research menu fails to open.
+	list_clear_nulls(researchable_knowledge)
 	return researchable_knowledge
 
 /**
