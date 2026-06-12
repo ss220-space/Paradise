@@ -94,6 +94,7 @@
 
 
 /datum/heretic_knowledge/key_ring
+	drafting_tier = 5 // TG: each path's tier-1 ability is a tier-5 draftable side option for other paths
 	name = "Бремя хранителя ключей"
 	desc = "Позволяет преобразовать кошелек, железный прут и ID карту в карту Еретика. \
 			Ударьте ею по паре шлюзов, чтобы создать два портала, которые телепортируют вас между ними, а \

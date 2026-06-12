@@ -379,6 +379,7 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
  * Gives access to solars since those doors are especially useful to get in or out of space.
  */
 /datum/heretic_knowledge/bookworm
+	drafting_tier = 1
 	name = "Приветствие короля Уоррена"
 	desc = "Позволяет преобразовать 5 кусков кабеля и лист бумаги в любую ID карту с доступом к тех тоннелям и внешним шлюзам."
 	gain_text = "Въевшись в кости пальцев, существо направляет мой гудящий, затуманенный разум к массивной двери. \

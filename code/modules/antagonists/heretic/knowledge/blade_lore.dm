@@ -71,6 +71,7 @@
 
 
 /datum/heretic_knowledge/blade_dance
+	drafting_tier = 5 // TG: each path's tier-1 ability is a tier-5 draftable side option for other paths
 	name = "Танец Клинка"
 	desc = "Если вас атакуют, пока вы держите в любой из рук клинок Еретика, вы нанесёте ответный удар \
 			по атакующему. Этот эффект может сработать только раз в 10 секунд."

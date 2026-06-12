@@ -1,6 +1,7 @@
 // Some general sidepath options.
 
 /datum/heretic_knowledge/reroll_targets
+	drafting_tier = 2
 	name = "Неустанное сердцебиение"
 	desc = "Позволяет использовать колокольчик (цветок), книгу и комбинезон, на руне \
 			чтобы изменить цели жертвоприношения."

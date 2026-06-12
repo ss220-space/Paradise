@@ -32,6 +32,7 @@
 
 // Sidepaths for knowledge between Knock and Flesh.
 /datum/heretic_knowledge/spell/opening_blast
+	drafting_tier = 2
 	name = "Волна Отчаяния"
 	desc = "Дарует вам «Волну отчаяния» — заклинание, которое можно применить только будучи скованным. \
 			Оно снимает с вас оковы, отталкивает и сбивает с ног окружающих, а также накладывает «Прикосновение \

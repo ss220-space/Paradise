@@ -15,6 +15,7 @@
 #define RISEN_MAX_HEALTH 125
 
 /datum/heretic_knowledge/limited_amount/risen_corpse
+	drafting_tier = 3
 	name = "Разрушенный ритуал"
 	desc = "Позволяет трансмутировать труп с душой, пару латексных или нитриловых перчаток и любой костюм, \
 			чтобы создать Разбитого Восставшего. \
@@ -161,6 +162,7 @@
 
 
 /datum/heretic_knowledge/limited_amount/summon/maid_in_mirror
+	drafting_tier = 3
 	name = "Горничная в Зеркале"
 	desc = "Позволяет трансмутировать лист бумаги, мыло и пару лёгких, \
 			чтобы создать Горничную в Зеркеле. Горничные в Зеркеле — достойные бойцы, способные \

@@ -112,7 +112,8 @@
 	research_tree_icon_path = 'icons/mob/actions/actions_ecult.dmi'
 	research_tree_icon_state = "ash_shift"
 	spell_to_add = /obj/effect/proc_holder/spell/ethereal_jaunt/ash
-	cost = 1
+	cost = 2
+	drafting_tier = 5
 
 
 /datum/heretic_knowledge/knowledge_ritual/ash
@@ -127,7 +128,7 @@
 	research_tree_icon_path = 'icons/mob/actions/actions_ecult.dmi'
 	research_tree_icon_state = "flames"
 	spell_to_add = /obj/effect/proc_holder/spell/charged/beam/fire_blast
-	cost = 1
+	cost = 2
 	research_tree_icon_frame = 7
 
 
@@ -163,7 +164,7 @@
 		/obj/item/candle = 4,
 	)
 	result_atoms = list(/obj/item/clothing/mask/madness_mask)
-	cost = 1
+	cost = 2
 	research_tree_icon_path = 'icons/obj/clothing/masks.dmi'
 	research_tree_icon_state = "mad_mask"
 
@@ -196,7 +197,7 @@
 	research_tree_icon_path = 'icons/mob/actions/actions_ecult.dmi'
 	research_tree_icon_state = "smoke"
 	spell_to_add = /obj/effect/proc_holder/spell/aoe/fiery_rebirth
-	cost = 1
+	cost = 2
 	research_tree_icon_frame = 5
 
 

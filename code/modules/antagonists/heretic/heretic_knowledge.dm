@@ -398,7 +398,7 @@
  */
 /datum/heretic_knowledge/blade_upgrade
 	abstract_parent_type = /datum/heretic_knowledge/blade_upgrade
-	cost = 2
+	cost = 1 // TG: blade upgrades cost 1
 
 /datum/heretic_knowledge/blade_upgrade/on_research(mob/user, datum/antagonist/heretic/our_heretic)
 	. = ..()
