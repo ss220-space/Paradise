@@ -193,7 +193,7 @@
 	var/folded = /obj/item/roller
 
 /obj/structure/bed/roller/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "носилки",
 		GENITIVE = "носилок",
 		DATIVE = "носилкам",
