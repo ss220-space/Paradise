@@ -230,7 +230,7 @@
 	cell_type = /obj/item/stock_parts/cell/infinite
 
 /obj/item/gun/energy/vortex_shotgun/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "вортекс-дробовик",
 		GENITIVE = "вортекс-дробовика",
 		DATIVE = "вортекс-дробовику",
@@ -503,7 +503,7 @@
 	var/datum/action/item_action/advanced/ninja/toggle_shuriken_fire_mode/my_action = null
 
 /obj/item/gun/energy/shuriken_emitter/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "генератор энергетических сюрикенов",
 		GENITIVE = "генератора энергетических сюрикенов",
 		DATIVE = "генератору энергетических сюрикенов",

@@ -20,7 +20,7 @@
 	var/requires_sharpness = TRUE
 
 /obj/item/whetstone/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "точильный камень",
 		GENITIVE = "точильного камня",
 		DATIVE = "точильному камню",
@@ -106,7 +106,7 @@
 	claws_increment = 200
 
 /obj/item/whetstone/super/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "суперточильный блок",
 		GENITIVE = "суперточильного блока",
 		DATIVE = "суперточильному блоку",
@@ -127,7 +127,7 @@
 	uses = 2
 
 /obj/item/whetstone/crab_shell/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "панцирь пепельного рака",
 		GENITIVE = "панциря пепельного рака",
 		DATIVE = "панцирю пепельного рака",

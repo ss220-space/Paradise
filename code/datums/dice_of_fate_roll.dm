@@ -88,7 +88,7 @@ GLOBAL_ALIST_EMPTY(dice_rolls)
 		turfs_around |= turf
 
 	shuffle(turfs_around)
-	while((spawned_hounds < 5 || spawned_t_hounds < 2) && turfs_around.len)
+	while((spawned_hounds < 5 || spawned_t_hounds < 2) && length(turfs_around))
 		turf_to_spawn = pop(turfs_around)
 		if(spawned_t_hounds < 2)
 			hound = new /mob/living/simple_animal/hostile/hellhound/tear(turf_to_spawn)

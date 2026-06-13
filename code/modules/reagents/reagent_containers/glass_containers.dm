@@ -144,7 +144,7 @@
 	var/can_assembly = TRUE
 
 /obj/item/reagent_containers/glass/beaker/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мерный стакан",
 		GENITIVE = "мерного стакана",
 		DATIVE = "мерному стакану",
@@ -272,7 +272,7 @@
 	possible_transfer_amounts = list(5, 10, 15, 25, 30, 50, 100)
 
 /obj/item/reagent_containers/glass/beaker/large/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "большой мерный стакан",
 		GENITIVE = "большого мерного стакана",
 		DATIVE = "большому мерному стакану",
@@ -292,7 +292,7 @@
 	can_assembly = 0
 
 /obj/item/reagent_containers/glass/beaker/vial/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пробирка",
 		GENITIVE = "пробирки",
 		DATIVE = "пробирке",
@@ -311,7 +311,7 @@
 	can_assembly = 0
 
 /obj/item/reagent_containers/glass/beaker/drugs/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пластиковый пакетик",
 		GENITIVE = "пластикового пакетика",
 		DATIVE = "пластиковому пакетику",
@@ -331,7 +331,7 @@
 	list_reagents = list("thermite" = 25)
 
 /obj/item/reagent_containers/glass/beaker/thermite/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пластиковый пакетик (Термит)",
 		GENITIVE = "пластикового пакетика (Термит)",
 		DATIVE = "пластиковому пакетику (Термит)",
@@ -349,7 +349,7 @@
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 
 /obj/item/reagent_containers/glass/beaker/noreact/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "криостазиный мерный стакан",
 		GENITIVE = "криостазиного мерного стакана",
 		DATIVE = "криостазиному мерному стакану",
@@ -373,7 +373,7 @@
 	origin_tech = "bluespace=5;materials=4;plasmatech=4"
 
 /obj/item/reagent_containers/glass/beaker/bluespace/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "блюспейс мерный стакан",
 		GENITIVE = "блюспейс мерного стакана",
 		DATIVE = "блюспейс мерному стакану",
@@ -415,7 +415,7 @@
 	var/paintable = TRUE
 
 /obj/item/reagent_containers/glass/bucket/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "металлическое ведро",
 		GENITIVE = "металлического ведра",
 		DATIVE = "металлическому ведру",
@@ -436,10 +436,10 @@
 		var/obj/item/toy/crayon/spraycan/can = I
 		if(!paintable)
 			balloon_alert(user, "нельзя покрасить!")
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 		if(can.capped)
 			balloon_alert(user, "закрыто крышкой!")
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 		balloon_alert(user, "перекрашено!")
 		playsound(user.loc, 'sound/effects/spray.ogg', 20, TRUE)
 		color = can.colour
@@ -499,7 +499,7 @@
 	paintable = FALSE
 
 /obj/item/reagent_containers/glass/bucket/wooden/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "деревянное ведро",
 		GENITIVE = "деревянного ведра",
 		DATIVE = "деревянному ведру",
@@ -522,7 +522,7 @@
 	materials = list(MAT_GLASS = 0)
 
 /obj/item/reagent_containers/glass/beaker/waterbottle/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бутылка воды",
 		GENITIVE = "бутылки воды",
 		DATIVE = "бутылке воды",
@@ -543,7 +543,7 @@
 	amount_per_transfer_from_this = 20
 
 /obj/item/reagent_containers/glass/beaker/waterbottle/large/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "большая бутылка воды",
 		GENITIVE = "большой бутылки воды",
 		DATIVE = "большой бутылке воды",
@@ -572,7 +572,7 @@
 	color = "#0085E5"
 
 /obj/item/reagent_containers/glass/pet_bowl/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "миска для животных",
 		GENITIVE = "миски для животных",
 		DATIVE = "миске для животных",
@@ -591,7 +591,7 @@
 		var/obj/item/toy/crayon/spraycan/can = I
 		if(can.capped)
 			balloon_alert(user, "закрыто крышкой!")
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 		balloon_alert(user, "перекрашено")
 		playsound(user.loc, 'sound/effects/spray.ogg', 20, TRUE)
 		color = can.colour
@@ -650,7 +650,7 @@
 	materials = list(MAT_METAL = 1000, MAT_GLASS = 3500)
 
 /obj/item/reagent_containers/glass/coffeepot/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кофейник",
 		GENITIVE = "кофейника",
 		DATIVE = "кофейнику",

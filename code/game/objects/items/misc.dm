@@ -100,7 +100,7 @@
 	var/list/reagent = list("nicotine")
 
 /obj/item/ecig/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "электронная сигарета",
 		GENITIVE = "электронной сигареты",
 		DATIVE = "электронной сигарете",
@@ -158,7 +158,7 @@
 	var/cycle_count = 0
 
 	while(amount_left > 0 && applying)
-		if(!do_after(user, 1 SECONDS, user, progress = TRUE, max_interact_count = 1))
+		if(!do_after(user, 1 SECONDS, user, DA_IGNORE_USER_LOC_CHANGE, progress = TRUE, max_interact_count = 1))
 			break
 
 		cycle_count++
@@ -246,7 +246,7 @@
 	reagent = list("nicotine", "syndiezine")
 
 /obj/item/ecig/syndi/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "подозрительная электронная сигарета",
 		GENITIVE = "подозрительной электронной сигареты",
 		DATIVE = "подозрительной электронной сигарете",
@@ -276,7 +276,7 @@
 
 
 /obj/item/krampus_bag/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мешок Крампуса",
 		GENITIVE = "мешка Крампуса",
 		DATIVE = "мешку Крампуса",

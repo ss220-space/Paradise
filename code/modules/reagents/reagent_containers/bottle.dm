@@ -12,7 +12,7 @@
 	custom_price = PAYCHECK_MIN * 0.6
 
 /obj/item/reagent_containers/glass/bottle/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бутылка",
 		GENITIVE = "бутылки",
 		DATIVE = "бутылке",
@@ -66,7 +66,7 @@
 	list_reagents = list("toxin" = 30)
 
 /obj/item/reagent_containers/glass/bottle/toxin/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бутылка (Токсины)",
 		GENITIVE = "бутылки (Токсины)",
 		DATIVE = "бутылке (Токсины)",
@@ -82,7 +82,7 @@
 	custom_price = PAYCHECK_MIN
 
 /obj/item/reagent_containers/glass/bottle/atropine/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бутылка (Атропин)",
 		GENITIVE = "бутылки (Атропин)",
 		DATIVE = "бутылке (Атропин)",
@@ -100,7 +100,7 @@
 	return "Физраствор"
 
 /obj/item/reagent_containers/glass/bottle/saline/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бутылка (Физраствор)",
 		GENITIVE = "бутылки (Физраствор)",
 		DATIVE = "бутылке (Физраствор)",
@@ -118,7 +118,7 @@
 	return "Сал. кислота"
 
 /obj/item/reagent_containers/glass/bottle/salicylic/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бутылка (Салициловая кислота)",
 		GENITIVE = "бутылки (Салициловая кислота)",
 		DATIVE = "бутылке (Салициловая кислота)",
@@ -133,7 +133,7 @@
 	list_reagents = list("cyanide" = 30)
 
 /obj/item/reagent_containers/glass/bottle/cyanide/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бутылка (Цианид)",
 		GENITIVE = "бутылки (Цианид)",
 		DATIVE = "бутылке (Цианид)",
@@ -153,7 +153,7 @@
 	return "Нестаб. мутаген"
 
 /obj/item/reagent_containers/glass/bottle/mutagen/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бутылка (Нестабильный мутаген)",
 		GENITIVE = "бутылки (Нестабильный мутаген)",
 		DATIVE = "бутылке (Нестабильный мутаген)",
@@ -170,7 +170,7 @@
 	list_reagents = list("ammonia" = 30)
 
 /obj/item/reagent_containers/glass/bottle/ammonia/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бутылка (Аммиак)",
 		GENITIVE = "бутылки (Аммиак)",
 		DATIVE = "бутылке (Аммиак)",
@@ -187,7 +187,7 @@
 	list_reagents = list("diethylamine" = 30)
 
 /obj/item/reagent_containers/glass/bottle/diethylamine/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бутылка (Диэтиламин)",
 		GENITIVE = "бутылки (Диэтиламин)",
 		DATIVE = "бутылке (Диэтиламин)",
@@ -207,7 +207,7 @@
 	return "Фторсер. кислота"
 
 /obj/item/reagent_containers/glass/bottle/facid/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бутылка (Фторсерная кислота)",
 		GENITIVE = "бутылки (Фторсерная кислота)",
 		DATIVE = "бутылке (Фторсерная кислота)",
@@ -224,7 +224,7 @@
 	list_reagents = list("adminordrazine" = 30)
 
 /obj/item/reagent_containers/glass/bottle/adminordrazine/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бутылка (Админордразин)",
 		GENITIVE = "бутылки (Админордразин)",
 		DATIVE = "бутылке (Админордразин)",
@@ -241,7 +241,7 @@
 	list_reagents = list("capsaicin" = 30)
 
 /obj/item/reagent_containers/glass/bottle/capsaicin/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бутылка (Капсаицин)",
 		GENITIVE = "бутылки (Капсаицин)",
 		DATIVE = "бутылке (Капсаицин)",
@@ -261,7 +261,7 @@
 	return "Лед. масло"
 
 /obj/item/reagent_containers/glass/bottle/frostoil/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бутылка (Ледяное масло)",
 		GENITIVE = "бутылки (Ледяное масло)",
 		DATIVE = "бутылке (Ледяное масло)",
@@ -279,7 +279,7 @@
 	custom_price = PAYCHECK_MIN
 
 /obj/item/reagent_containers/glass/bottle/morphine/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бутылка (Морфин)",
 		GENITIVE = "бутылки (Морфин)",
 		DATIVE = "бутылке (Морфин)",
@@ -296,7 +296,7 @@
 	list_reagents = list("ether" = 30)
 
 /obj/item/reagent_containers/glass/bottle/ether/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бутылка (Эфир)",
 		GENITIVE = "бутылки (Эфир)",
 		DATIVE = "бутылке (Эфир)",
@@ -316,7 +316,7 @@
 	return "Акт. уголь"
 
 /obj/item/reagent_containers/glass/bottle/charcoal/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бутылка (Активированный уголь)",
 		GENITIVE = "бутылки (Активированный уголь)",
 		DATIVE = "бутылке (Активированный уголь)",
@@ -333,7 +333,7 @@
 	list_reagents = list("epinephrine" = 30)
 
 /obj/item/reagent_containers/glass/bottle/epinephrine/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бутылка (Эпинефрин)",
 		GENITIVE = "бутылки (Эпинефрин)",
 		DATIVE = "бутылке (Эпинефрин)",
@@ -350,7 +350,7 @@
 	list_reagents = list("pancuronium" = 30)
 
 /obj/item/reagent_containers/glass/bottle/pancuronium/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бутылка (Панкуроний)",
 		GENITIVE = "бутылки (Панкуроний)",
 		DATIVE = "бутылке (Панкуроний)",
@@ -367,7 +367,7 @@
 	list_reagents = list("sulfonal" = 30)
 
 /obj/item/reagent_containers/glass/bottle/sulfonal/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бутылка (Сульфонал)",
 		GENITIVE = "бутылки (Сульфонал)",
 		DATIVE = "бутылке (Сульфонал)",
@@ -387,7 +387,7 @@
 	return "Плазм. пыль"
 
 /obj/item/reagent_containers/glass/bottle/plasma/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бутылка (Плазменная пыль)",
 		GENITIVE = "бутылки (Плазменная пыль)",
 		DATIVE = "бутылке (Плазменная пыль)",
@@ -404,7 +404,7 @@
 	list_reagents = list("diphenhydramine" = 30)
 
 /obj/item/reagent_containers/glass/bottle/diphenhydramine/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бутылка (Дифенгидрамин)",
 		GENITIVE = "бутылки (Дифенгидрамин)",
 		DATIVE = "бутылке (Дифенгидрамин)",
@@ -422,7 +422,7 @@
 	custom_price = PAYCHECK_MIN * 2
 
 /obj/item/reagent_containers/glass/bottle/oculine/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бутылка (Окулин)",
 		GENITIVE = "бутылки (Окулин)",
 		DATIVE = "бутылке (Окулин)",
@@ -439,7 +439,7 @@
 	list_reagents = list("potass_iodide" = 30)
 
 /obj/item/reagent_containers/glass/bottle/potassium_iodide/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бутылка (Иодид калия)",
 		GENITIVE = "бутылки (Иодид калия)",
 		DATIVE = "бутылке (Иодид калия)",
@@ -467,7 +467,7 @@
 	pixel_y = 6
 
 /obj/item/reagent_containers/glass/bottle/reagent/oil/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бутылка (Масло)",
 		GENITIVE = "бутылки (Масло)",
 		DATIVE = "бутылке (Масло)",
@@ -484,7 +484,7 @@
 	pixel_y = 6
 
 /obj/item/reagent_containers/glass/bottle/reagent/phenol/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бутылка (Фенол)",
 		GENITIVE = "бутылки (Фенол)",
 		DATIVE = "бутылке (Фенол)",
@@ -500,7 +500,7 @@
 	pixel_x = -4
 
 /obj/item/reagent_containers/glass/bottle/reagent/acetone/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бутылка (Ацетон)",
 		GENITIVE = "бутылки (Ацетон)",
 		DATIVE = "бутылке (Ацетон)",
@@ -516,7 +516,7 @@
 	pixel_x = 6
 
 /obj/item/reagent_containers/glass/bottle/reagent/ammonia/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бутылка (Аммиак)",
 		GENITIVE = "бутылки (Аммиак)",
 		DATIVE = "бутылке (Аммиак)",
@@ -533,7 +533,7 @@
 	pixel_y = -6
 
 /obj/item/reagent_containers/glass/bottle/reagent/diethylamine/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бутылка (Диэтиламин)",
 		GENITIVE = "бутылки (Диэтиламин)",
 		DATIVE = "бутылке (Диэтиламин)",
@@ -550,7 +550,7 @@
 	pixel_y = -6
 
 /obj/item/reagent_containers/glass/bottle/reagent/acid/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бутылка (Серная кислота)",
 		GENITIVE = "бутылки (Серная кислота)",
 		DATIVE = "бутылке (Серная кислота)",
@@ -565,7 +565,7 @@
 	list_reagents = list("formaldehyde" = 50)
 
 /obj/item/reagent_containers/glass/bottle/reagent/formaldehyde/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бутылка (Формальдегид)",
 		GENITIVE = "бутылки (Формальдегид)",
 		DATIVE = "бутылке (Формальдегид)",
@@ -580,7 +580,7 @@
 	list_reagents = list("synaptizine" = 50)
 
 /obj/item/reagent_containers/glass/bottle/reagent/synaptizine/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бутылка (Синаптизин)",
 		GENITIVE = "бутылки (Синаптизин)",
 		DATIVE = "бутылке (Синаптизин)",
@@ -595,7 +595,7 @@
 	list_reagents = list("morphine" = 50)
 
 /obj/item/reagent_containers/glass/bottle/reagent/morphine/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бутылка (Морфин)",
 		GENITIVE = "бутылки (Морфин)",
 		DATIVE = "бутылке (Морфин)",
@@ -610,7 +610,7 @@
 	list_reagents = list("insulin" = 50)
 
 /obj/item/reagent_containers/glass/bottle/reagent/insulin/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бутылка (Инсулин)",
 		GENITIVE = "бутылки (Инсулин)",
 		DATIVE = "бутылке (Инсулин)",
@@ -625,7 +625,7 @@
 	list_reagents = list("hairgrownium" = 50)
 
 /obj/item/reagent_containers/glass/bottle/reagent/hairgrownium/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бутылка (Власорост)",
 		GENITIVE = "бутылки (Власорост)",
 		DATIVE = "бутылке (Власорост)",
@@ -640,7 +640,7 @@
 	list_reagents = list("hair_dye" = 50)
 
 /obj/item/reagent_containers/glass/bottle/reagent/hair_dye/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бутылка (Квантовая краска для волос)",
 		GENITIVE = "бутылки (Квантовая краска для волос)",
 		DATIVE = "бутылке (Квантовая краска для волос)",
@@ -655,7 +655,7 @@
 	list_reagents = list("omnizine" = 50)
 
 /obj/item/reagent_containers/glass/bottle/reagent/omnizine/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бутылка (Омнизин)",
 		GENITIVE = "бутылки (Омнизин)",
 		DATIVE = "бутылке (Омнизин)",
@@ -670,7 +670,7 @@
 	list_reagents = list("strange_reagent" = 30)
 
 /obj/item/reagent_containers/glass/bottle/reagent/strange_reagent/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бутылка (Странный реагент)",
 		GENITIVE = "бутылки (Странный реагент)",
 		DATIVE = "бутылке (Странный реагент)",
@@ -704,7 +704,7 @@
 	spawned_disease = /datum/disease/virus/cold
 
 /obj/item/reagent_containers/glass/bottle/cold/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "вирусная культура (Простуда)",
 		GENITIVE = "вирусной культуры (Простуда)",
 		DATIVE = "вирусной культуре (Простуда)",
@@ -721,7 +721,7 @@
 	spawned_disease = /datum/disease/virus/flu
 
 /obj/item/reagent_containers/glass/bottle/flu/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "вирусная культура (Грипп)",
 		GENITIVE = "вирусной культуры (Грипп)",
 		DATIVE = "вирусной культуре (Грипп)",
@@ -738,7 +738,7 @@
 	spawned_disease = /datum/disease/virus/advance/preset/sneezing
 
 /obj/item/reagent_containers/glass/bottle/sneezing/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "вирусная культура (Чихание)",
 		GENITIVE = "вирусной культуры (Чихание)",
 		DATIVE = "вирусной культуре (Чихание)",
@@ -755,7 +755,7 @@
 	spawned_disease = /datum/disease/virus/advance/preset/cough
 
 /obj/item/reagent_containers/glass/bottle/cough/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "вирусная культура (Кашель)",
 		GENITIVE = "вирусной культуры (Кашель)",
 		DATIVE = "вирусной культуре (Кашель)",
@@ -772,7 +772,7 @@
 	spawned_disease = /datum/disease/virus/advance/preset/voice_change
 
 /obj/item/reagent_containers/glass/bottle/epiglottis_virion/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "вирусная культура (Надгортанник)",
 		GENITIVE = "вирусной культуры (Надгортанник)",
 		DATIVE = "вирусной культуре (Надгортанник)",
@@ -789,7 +789,7 @@
 	spawned_disease = /datum/disease/virus/advance/preset/heal
 
 /obj/item/reagent_containers/glass/bottle/liver_enhance_virion/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "вирусная культура (Укрепление печени)",
 		GENITIVE = "вирусной культуры (Укрепление печени)",
 		DATIVE = "вирусной культуре (Укрепление печени)",
@@ -806,7 +806,7 @@
 	spawned_disease = /datum/disease/virus/advance/preset/hullucigen
 
 /obj/item/reagent_containers/glass/bottle/hullucigen_virion/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "вирусная культура (Галлюцинации)",
 		GENITIVE = "вирусной культуры (Галлюцинации)",
 		DATIVE = "вирусной культуре (Галлюцинации)",
@@ -823,7 +823,7 @@
 	spawned_disease = /datum/disease/virus/pierrot_throat
 
 /obj/item/reagent_containers/glass/bottle/pierrot_throat/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "вирусная культура (Горло Пьеро)",
 		GENITIVE = "вирусной культуры (Горло Пьеро)",
 		DATIVE = "вирусной культуре (Горло Пьеро)",
@@ -840,7 +840,7 @@
 	spawned_disease = /datum/disease/virus/advance/preset/mind_restoration
 
 /obj/item/reagent_containers/glass/bottle/mind_restoration/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "вирусная культура (Восстановление сознания)",
 		GENITIVE = "вирусной культуры (Восстановление сознания)",
 		DATIVE = "вирусной культуре (Восстановление сознания)",
@@ -857,7 +857,7 @@
 	spawned_disease = /datum/disease/virus/advance/preset/advanced_regeneration
 
 /obj/item/reagent_containers/glass/bottle/advanced_regeneration/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "вирусная культура (Улучшенная регенерация)",
 		GENITIVE = "вирусной культуры (Улучшенная регенерация)",
 		DATIVE = "вирусной культуре (Улучшенная регенерация)",
@@ -874,7 +874,7 @@
 	spawned_disease = /datum/disease/virus/advance/preset/stealth_necrosis
 
 /obj/item/reagent_containers/glass/bottle/stealth_necrosis/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "вирусная культура (Некроз)",
 		GENITIVE = "вирусной культуры (Некроз)",
 		DATIVE = "вирусной культуре (Некроз)",
@@ -891,7 +891,7 @@
 	spawned_disease = /datum/disease/virus/advance/preset/pre_kingstons
 
 /obj/item/reagent_containers/glass/bottle/pre_kingstons/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "вирусная культура (Синдром Кингстона)",
 		GENITIVE = "вирусной культуры (Синдром Кингстона)",
 		DATIVE = "вирусной культуре (Синдром Кингстона)",
@@ -908,7 +908,7 @@
 	spawned_disease = /datum/disease/virus/advance/preset/love
 
 /obj/item/reagent_containers/glass/bottle/love/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "вирусная культура (Любовь)",
 		GENITIVE = "вирусной культуры (Любовь)",
 		DATIVE = "вирусной культуре (Любовь)",
@@ -925,7 +925,7 @@
 	spawned_disease = /datum/disease/virus/advance/preset/aggression
 
 /obj/item/reagent_containers/glass/bottle/aggression/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "вирусная культура (Агрессия)",
 		GENITIVE = "вирусной культуры (Агрессия)",
 		DATIVE = "вирусной культуре (Агрессия)",
@@ -942,7 +942,7 @@
 	spawned_disease = /datum/disease/virus/advance/preset/obsession
 
 /obj/item/reagent_containers/glass/bottle/obsession/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "вирусная культура (Одержимость)",
 		GENITIVE = "вирусной культуры (Одержимость)",
 		DATIVE = "вирусной культуре (Одержимость)",
@@ -959,7 +959,7 @@
 	spawned_disease = /datum/disease/virus/advance/preset/confusion
 
 /obj/item/reagent_containers/glass/bottle/confusion/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "вирусная культура (Замешательство)",
 		GENITIVE = "вирусной культуры (Замешательство)",
 		DATIVE = "вирусной культуре (Замешательство)",
@@ -976,7 +976,7 @@
 	spawned_disease = /datum/disease/virus/advance/preset/bones
 
 /obj/item/reagent_containers/glass/bottle/bones/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "вирусная культура (Кости)",
 		GENITIVE = "вирусной культуры (Кости)",
 		DATIVE = "вирусной культуре (Кости)",
@@ -993,7 +993,7 @@
 	spawned_disease = /datum/disease/virus/advance/preset/limb_throw
 
 /obj/item/reagent_containers/glass/bottle/limb_throw/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "вирусная культура (Отстреливание конечностей)",
 		GENITIVE = "вирусной культуры (Отстреливание конечностей)",
 		DATIVE = "вирусной культуре (Отстреливание конечностей)",
@@ -1010,7 +1010,7 @@
 	spawned_disease = /datum/disease/virus/advance/preset/laugh
 
 /obj/item/reagent_containers/glass/bottle/laugh/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "вирусная культура (Смех)",
 		GENITIVE = "вирусной культуры (Смех)",
 		DATIVE = "вирусной культуре (Смех)",
@@ -1027,7 +1027,7 @@
 	spawned_disease = /datum/disease/virus/advance/preset/moan
 
 /obj/item/reagent_containers/glass/bottle/moan/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "вирусная культура (Стоны)",
 		GENITIVE = "вирусной культуры (Стоны)",
 		DATIVE = "вирусной культуре (Стоны)",
@@ -1044,7 +1044,7 @@
 	spawned_disease = /datum/disease/virus/advance/preset/infection
 
 /obj/item/reagent_containers/glass/bottle/infection/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "вирусная культура (Инфекция)",
 		GENITIVE = "вирусной культуры (Инфекция)",
 		DATIVE = "вирусной культуре (Инфекция)",
@@ -1061,7 +1061,7 @@
 	spawned_disease = /datum/disease/virus/loyalty
 
 /obj/item/reagent_containers/glass/bottle/loyalty/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "вирусная культура (Преданность)",
 		GENITIVE = "вирусной культуры (Преданность)",
 		DATIVE = "вирусной культуре (Преданность)",
@@ -1078,7 +1078,7 @@
 	spawned_disease = /datum/disease/virus/advance/preset/pre_loyalty
 
 /obj/item/reagent_containers/glass/bottle/pre_loyalty/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "вирусная культура (Пре-преданность)",
 		GENITIVE = "вирусной культуры (Пре-преданность)",
 		DATIVE = "вирусной культуре (Пре-преданность)",
@@ -1095,7 +1095,7 @@
 	spawned_disease = /datum/disease/virus/dna_retrovirus
 
 /obj/item/reagent_containers/glass/bottle/retrovirus/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "вирусная культура (Ретровирус)",
 		GENITIVE = "вирусной культуры (Ретровирус)",
 		DATIVE = "вирусной культуре (Ретровирус)",
@@ -1113,7 +1113,7 @@
 	spawned_disease = /datum/disease/virus/gbs
 
 /obj/item/reagent_containers/glass/bottle/gbs/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "вирусная культура (ГБС+)",
 		GENITIVE = "вирусной культуры (ГБС+)",
 		DATIVE = "вирусной культуре (ГБС+)",
@@ -1130,7 +1130,7 @@
 	spawned_disease = /datum/disease/virus/fake_gbs
 
 /obj/item/reagent_containers/glass/bottle/fake_gbs/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "вирусная культура (ГБС-)",
 		GENITIVE = "вирусной культуры (ГБС-)",
 		DATIVE = "вирусной культуре (ГБС-)",
@@ -1147,7 +1147,7 @@
 	spawned_disease = /datum/disease/virus/brainrot
 
 /obj/item/reagent_containers/glass/bottle/brainrot/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "вирусная культура (Мозговая гниль)",
 		GENITIVE = "вирусной культуры (Мозговая гниль)",
 		DATIVE = "вирусной культуре (Мозговая гниль)",
@@ -1164,7 +1164,7 @@
 	spawned_disease = /datum/disease/virus/magnitis
 
 /obj/item/reagent_containers/glass/bottle/magnitis/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "вирусная культура (Магнитис)",
 		GENITIVE = "вирусной культуры (Магнитис)",
 		DATIVE = "вирусной культуре (Магнитис)",
@@ -1181,7 +1181,7 @@
 	spawned_disease = /datum/disease/virus/wizarditis
 
 /obj/item/reagent_containers/glass/bottle/wizarditis/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "вирусная культура (Визардис)",
 		GENITIVE = "вирусной культуры (Визардис)",
 		DATIVE = "вирусной культуре (Визардис)",
@@ -1198,7 +1198,7 @@
 	spawned_disease = /datum/disease/virus/anxiety
 
 /obj/item/reagent_containers/glass/bottle/anxiety/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "вирусная культура (Сильное беспокойство)",
 		GENITIVE = "вирусной культуры (Сильное беспокойство)",
 		DATIVE = "вирусной культуре (Сильное беспокойство)",
@@ -1215,7 +1215,7 @@
 	spawned_disease = /datum/disease/virus/beesease
 
 /obj/item/reagent_containers/glass/bottle/beesease/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "вирусная культура (Пчелораза)",
 		GENITIVE = "вирусной культуры (Пчелораза)",
 		DATIVE = "вирусной культуре (Пчелораза)",
@@ -1232,7 +1232,7 @@
 	spawned_disease = /datum/disease/virus/fluspanish
 
 /obj/item/reagent_containers/glass/bottle/fluspanish/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "вирусная культура (Испанский Грипп)",
 		GENITIVE = "вирусной культуры (Испанский Грипп)",
 		DATIVE = "вирусной культуре (Испанский Грипп)",
@@ -1249,7 +1249,7 @@
 	spawned_disease = /datum/disease/virus/tuberculosis
 
 /obj/item/reagent_containers/glass/bottle/tuberculosis/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "вирусная культура (Грибковый туберкулёз)",
 		GENITIVE = "вирусной культуры (Грибковый туберкулёз)",
 		DATIVE = "вирусной культуре (Грибковый туберкулёз)",
@@ -1266,7 +1266,7 @@
 	spawned_disease = /datum/disease/virus/advance/preset/heal
 
 /obj/item/reagent_containers/glass/bottle/regeneration/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "вирусная культура (Восстановление)",
 		GENITIVE = "вирусной культуры (Восстановление)",
 		DATIVE = "вирусной культуре (Восстановление)",
@@ -1283,7 +1283,7 @@
 	spawned_disease = /datum/disease/virus/advance/preset/sensory_restoration
 
 /obj/item/reagent_containers/glass/bottle/sensory_restoration/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "вирусная культура (Сенсорное восстановление)",
 		GENITIVE = "вирусной культуры (Сенсорное восстановление)",
 		DATIVE = "вирусной культуре (Сенсорное восстановление)",
@@ -1303,7 +1303,7 @@
 	return "Антидот"
 
 /obj/item/reagent_containers/glass/bottle/tuberculosiscure/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бутылка (Био-вирусный антидот)",
 		GENITIVE = "бутылки (Био-вирусный антидот)",
 		DATIVE = "бутылке (Био-вирусный антидот)",
@@ -1320,7 +1320,7 @@
 	list_reagents = list("monkeylanguage" = 30)
 
 /obj/item/reagent_containers/glass/bottle/monkeylangue/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бутылка (Обезьяний язык)",
 		GENITIVE = "бутылки (Обезьяний язык)",
 		DATIVE = "бутылке (Обезьяний язык)",
@@ -1346,7 +1346,7 @@
 	var/cap_on = TRUE
 
 /obj/item/reagent_containers/glass/bottle/syrup_bottle/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бутылка для сиропа",
 		GENITIVE = "бутылки для сиропа",
 		DATIVE = "бутылке для сиропа",
@@ -1432,7 +1432,7 @@
 	list_reagents = list("caramel" = 50)
 
 /obj/item/reagent_containers/glass/bottle/syrup_bottle/caramel/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бутылка для сиропа (Карамель)",
 		GENITIVE = "бутылки для сиропа (Карамель)",
 		DATIVE = "бутылке для сиропа (Карамель)",
@@ -1448,7 +1448,7 @@
 	list_reagents = list("kahlua" = 50)
 
 /obj/item/reagent_containers/glass/bottle/syrup_bottle/liqueur/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бутылка для сиропа (Калуа)",
 		GENITIVE = "бутылки для сиропа (Калуа)",
 		DATIVE = "бутылке для сиропа (Калуа)",

@@ -18,7 +18,7 @@
 	outfit = /datum/outfit/job/doctor/alive/lavaland
 
 /obj/effect/mob_spawn/human/doctor/alive/lavaland/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "слипер",
 		GENITIVE = "слипера",
 		DATIVE = "слиперу",

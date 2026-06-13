@@ -43,7 +43,7 @@
 	var/datum/action/innate/terrorspider/knight/defencem/defencemaction
 
 /mob/living/simple_animal/hostile/poison/terror_spider/knight/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Рыцарь Ужаса",
 		GENITIVE = "Рыцаря Ужаса",
 		DATIVE = "Рыцарю Ужаса",
@@ -125,7 +125,7 @@
 	desc = "Эта паутина усилена прочными нитями для дополнительной прочности."
 
 /obj/structure/spider/terrorweb/knight/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "укрепленная паутина",
 		GENITIVE = "укрепленной паутины",
 		DATIVE = "укрепленной паутине",

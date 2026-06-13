@@ -141,7 +141,7 @@
 	var/obj/effect/proc_holder/spell/borer_dominate/dominate_spell = new
 
 /mob/living/simple_animal/borer/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мозговой червь",
 		GENITIVE = "мозгового червя",
 		DATIVE = "мозговому червю",

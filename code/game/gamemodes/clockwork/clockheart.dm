@@ -78,7 +78,7 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	return cursed_parts
 
 /obj/structure/clockwork/functional/heart/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Сердце Ратвара",
 		GENITIVE = "Сердца Ратвара",
 		DATIVE = "Сердцу Ратвара",
@@ -342,7 +342,7 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	mouse_drag_pointer = MOUSE_DRAG_POINTER
 
 /obj/structure/part_dial/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "большой латунный циферблат",
 		GENITIVE = "большого латунного циферблата",
 		DATIVE = "большому латунному циферблату",
@@ -395,7 +395,7 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	can_put_in_closet = FALSE
 
 /obj/item/part_upper/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "латунная деталь",
 		GENITIVE = "латунной детали",
 		DATIVE = "латунной детали",

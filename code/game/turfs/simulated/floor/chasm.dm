@@ -19,7 +19,7 @@
 	heavyfootstep = null
 
 /turf/simulated/floor/chasm/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пропасть",
 		GENITIVE = "пропасти",
 		DATIVE = "пропасти",

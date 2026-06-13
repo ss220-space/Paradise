@@ -35,7 +35,7 @@
 	var/datum/action/item_action/advanced/ninja/ninjanet/my_action = null
 
 /obj/item/ninja_net_emitter/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "энергосетемёт",
 		GENITIVE = "энергосетемёта",
 		DATIVE = "энергосетемёту",

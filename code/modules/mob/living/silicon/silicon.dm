@@ -352,8 +352,8 @@
 /mob/living/silicon/proc/remove_med_sec_hud()
 	var/datum/atom_hud/secsensor = GLOB.huds[sec_hud]
 	var/datum/atom_hud/medsensor = GLOB.huds[med_hud]
-	for(var/datum/atom_hud/data/diagnostic/diagsensor in GLOB.huds)
-		diagsensor.hide_from(src)
+	var/datum/atom_hud/data/diagnostic/diagsensor = GLOB.huds[DATA_HUD_DIAGNOSTIC]
+	diagsensor.hide_from(src)
 	secsensor.hide_from(src)
 	medsensor.hide_from(src)
 
@@ -366,8 +366,8 @@
 	medsensor.show_to(src)
 
 /mob/living/silicon/proc/add_diag_hud()
-	for(var/datum/atom_hud/data/diagnostic/diagsensor in GLOB.huds)
-		diagsensor.show_to(src)
+	var/datum/atom_hud/data/diagnostic/diagsensor = GLOB.huds[DATA_HUD_DIAGNOSTIC]
+	diagsensor.show_to(src)
 
 /mob/living/silicon/proc/toggle_sensor_mode()
 	var/sensor_type = tgui_input_list(usr, "Please select sensor type.", "Sensor Integration", list("Security", "Medical","Diagnostic", "Multisensor","Disable"), null)

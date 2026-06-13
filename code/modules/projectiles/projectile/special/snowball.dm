@@ -6,7 +6,7 @@
 	damage_type = BURN
 
 /obj/projectile/snowball/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "снежок",
 		GENITIVE = "снежка",
 		DATIVE = "снежку",

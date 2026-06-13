@@ -331,3 +331,68 @@
 /datum/status_effect/impact_immune
 	id = "impact_immune"
 	alert_type = null
+
+// heldup is for the person being aimed at
+/datum/status_effect/grouped/heldup
+	id = "heldup"
+	tick_interval = STATUS_EFFECT_NO_TICK
+	alert_type = /atom/movable/screen/alert/status_effect/heldup
+
+/atom/movable/screen/alert/status_effect/heldup
+	name = "На мушке"
+	desc = "Любое движение спровоцирует выстрел!"
+	icon_state = "aimed"
+
+/datum/status_effect/grouped/heldup/on_apply()
+	owner.apply_status_effect(/datum/status_effect/grouped/surrender)
+	return ..()
+
+/datum/status_effect/grouped/heldup/on_remove()
+	var/has_other_heldup = FALSE
+	for(var/datum/status_effect/grouped/heldup/heldup_effect in owner.status_effects)
+		if(heldup_effect != src)
+			has_other_heldup = TRUE
+			break
+	if(!has_other_heldup)
+		owner.remove_status_effect(/datum/status_effect/grouped/surrender)
+	return ..()
+
+// holdup is for the person aiming
+/datum/status_effect/holdup
+	id = "holdup"
+	tick_interval = STATUS_EFFECT_NO_TICK
+	alert_type = /atom/movable/screen/alert/status_effect/holdup
+
+/atom/movable/screen/alert/status_effect/holdup
+	name = "На прицеле"
+	desc = "Вы держите кого-то на мушке. Нажмите чтобы отменить."
+	icon_state = "aimed"
+	clickable_glow = TRUE
+
+/atom/movable/screen/alert/status_effect/holdup/Click(location, control, params)
+	. = ..()
+	if(!.)
+		return
+
+	SEND_SIGNAL(owner, COMSIG_LIVING_GUNPOINT_CANCEL)
+
+//this effect gives the user an alert they can use to surrender quickly
+/datum/status_effect/grouped/surrender
+	id = "surrender"
+	tick_interval = STATUS_EFFECT_NO_TICK
+	status_type = STATUS_EFFECT_UNIQUE
+	alert_type = /atom/movable/screen/alert/status_effect/surrender
+
+/atom/movable/screen/alert/status_effect/surrender
+	name = "Сдаться"
+	desc = "Вас держат на мушке! Лучший вариант — сдаться!"
+	icon_state = "surrender"
+	clickable_glow = TRUE
+
+/atom/movable/screen/alert/status_effect/surrender/Click(location, control, params)
+	. = ..()
+	if(!.)
+		return
+	var/mob/living/surrendered_mob = owner
+	if(surrendered_mob)
+		surrendered_mob.emote("surrender")

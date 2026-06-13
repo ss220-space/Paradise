@@ -16,7 +16,7 @@
 	var/obj/item/gift = null
 
 /obj/item/gift/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "подарок",
 		GENITIVE = "подарка",
 		DATIVE = "подарку",

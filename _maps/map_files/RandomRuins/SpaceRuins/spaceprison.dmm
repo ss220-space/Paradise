@@ -1048,9 +1048,7 @@
 	pixel_y = 3
 	},
 /obj/item/storage/firstaid/o2,
-/obj/machinery/defibrillator_mount/loaded{
-	pixel_y = 24
-	},
+/obj/machinery/defibrillator_mount/loaded/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whiteblue"

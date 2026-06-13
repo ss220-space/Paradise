@@ -893,7 +893,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	notify_ghosts("Manifest rune created in [get_area(src)].", ghost_sound = 'sound/effects/ghost2.ogg', source = src)
 	var/list/ghosts_on_rune = list()
 	for(var/mob/dead/observer/O in T)
-		if(O.client && !iscultist(O) && !jobban_isbanned(O, ROLE_CULTIST) && !O.has_enabled_antagHUD && !QDELETED(src) && !QDELETED(O))
+		if(O.client && !iscultist(O) && !jobban_isbanned(O, ROLE_CULTIST) && !O.persistent_client?.antaghud_enabled && !QDELETED(src) && !QDELETED(O))
 			ghosts_on_rune += O
 	if(!length(ghosts_on_rune))
 		to_chat(user, span_cultitalic("There are no spirits near [src]!"))

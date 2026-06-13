@@ -365,3 +365,17 @@
 	RETURN_TYPE(/list)
 	SHOULD_CALL_PARENT(FALSE)
 	return list(src)
+
+/// Adds icons of contents (with get_uplink_log_items()) into uplink
+/obj/proc/log_contents_to_uplink(obj/item/uplink/target_uplink)
+	if(!target_uplink || QDELETED(target_uplink))
+		return
+
+	var/new_purchase_logs = ""
+	var/list/items_to_log = get_uplink_log_items()
+	if(!length(items_to_log))
+		return
+
+	for(var/atom/atom_to_display in items_to_log)
+		new_purchase_logs += span_fontsize4(icon2base64html(atom_to_display))
+	target_uplink.purchase_log += new_purchase_logs

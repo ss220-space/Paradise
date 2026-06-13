@@ -396,6 +396,9 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 #define iswryn(A) (is_species(A, /datum/species/wryn))
 #define ismoth(A) (is_species(A, /datum/species/moth))
 
+// Antag
+#define IS_CHANGELING(A) (A?.mind?.has_antag_datum(/datum/antagonist/changeling))
+
 #define is_clown_job(job_type) (istype(job_type, /datum/job/service/clown))
 
 #define iswelder(A) (istype(A, /obj/item/weldingtool))

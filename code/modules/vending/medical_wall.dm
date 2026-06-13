@@ -43,7 +43,7 @@
 	tiltable = FALSE
 
 /obj/machinery/vending/wallmed/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат NanoMed",
 		GENITIVE = "торгового автомата NanoMed",
 		DATIVE = "торговому автомату NanoMed",
@@ -70,7 +70,7 @@
 	req_access = list(ACCESS_SYNDICATE)
 
 /obj/machinery/vending/wallmed/syndicate/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат SyndiWallMed",
 		GENITIVE = "торгового автомата SyndiWallMed",
 		DATIVE = "торговому автомату SyndiWallMed",

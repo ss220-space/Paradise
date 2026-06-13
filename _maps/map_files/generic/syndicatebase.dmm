@@ -14709,9 +14709,7 @@
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/torture_room)
 "nXt" = (
-/obj/machinery/defibrillator_mount/loaded{
-	pixel_y = -32
-	},
+/obj/machinery/defibrillator_mount/loaded/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -20712,9 +20710,7 @@
 /area/space)
 "tjA" = (
 /obj/machinery/optable,
-/obj/machinery/defibrillator_mount/loaded{
-	pixel_x = 30
-	},
+/obj/machinery/defibrillator_mount/loaded/directional/east,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -24737,9 +24733,7 @@
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "wmf" = (
 /obj/machinery/optable,
-/obj/machinery/defibrillator_mount/loaded{
-	pixel_x = 30
-	},
+/obj/machinery/defibrillator_mount/loaded/directional/east,
 /obj/machinery/light/small{
 	dir = 4
 	},

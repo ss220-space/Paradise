@@ -30,7 +30,7 @@
 	)
 
 /obj/machinery/juicer/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "соковыжималка",
 		GENITIVE = "соковыжималки",
 		DATIVE = "соковыжималке",

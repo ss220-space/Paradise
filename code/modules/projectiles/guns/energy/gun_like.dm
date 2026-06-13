@@ -127,7 +127,7 @@
 	install_sibyl()
 
 /obj/item/gun/energy/specter/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Спектр",
 		GENITIVE = "Спектра",
 		DATIVE = "Спектру",

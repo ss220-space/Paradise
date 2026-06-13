@@ -13,7 +13,7 @@
 	overlay_state_inactive = "module_welding"
 
 /obj/item/mod/module/welding/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль защиты от сварки",
 		GENITIVE = "модуля защиты от сварки",
 		DATIVE = "модулю защиты от сварки",
@@ -45,7 +45,7 @@
 	overlay_state_inactive = "module_welding_syndie"
 
 /obj/item/mod/module/welding/syndie/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль защиты от вспышек",
 		GENITIVE = "модуля защиты от вспышек",
 		DATIVE = "модулю защиты от вспышек",
@@ -72,7 +72,7 @@
 	var/range = 4
 
 /obj/item/mod/module/t_ray/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль ТГц сканирования",
 		GENITIVE = "модуля ТГц сканирования",
 		DATIVE = "модулю ТГц сканирования",
@@ -109,7 +109,7 @@
 	)
 
 /obj/item/mod/module/magboot/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль магбутсов",
 		GENITIVE = "модуля магбутсов",
 		DATIVE = "модулю магбутсов",
@@ -155,7 +155,7 @@
 	)
 
 /obj/item/mod/module/magboot/atmos/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль атмосферных магбутсов",
 		GENITIVE = "модуля атмосферных магбутсов",
 		DATIVE = "модулю атмосферных магбутсов",
@@ -181,7 +181,7 @@
 	)
 
 /obj/item/mod/module/magboot/advanced/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль продвинутых магбутсов",
 		GENITIVE = "модуля продвинутых магбутсов",
 		DATIVE = "модулю продвинутых магбутсов",
@@ -206,7 +206,7 @@
 	)
 
 /obj/item/mod/module/magboot/advanced/elite/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль элитных магбутсов",
 		GENITIVE = "модуля элитных магбутсов",
 		DATIVE = "модулю элитных магбутсов",
@@ -231,7 +231,7 @@
 	var/perceived_threat_level
 
 /obj/item/mod/module/rad_protection/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль радиационного сканирования",
 		GENITIVE = "модуля радиационного сканирования",
 		DATIVE = "модулю радиационного сканирования",
@@ -283,7 +283,7 @@
 	var/upgraded = FALSE
 
 /obj/item/mod/module/grappling_hook/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль крюк-кошки",
 		GENITIVE = "модуля крюк-кошки",
 		DATIVE = "модулю крюк-кошки",
@@ -320,7 +320,7 @@
 	upgraded = TRUE
 
 /obj/item/mod/module/grappling_hook/upgraded/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль улучшенной крюк-кошки",
 		GENITIVE = "модуля улучшенной крюк-кошки",
 		DATIVE = "модулю улучшенной крюк-кошки",
@@ -344,7 +344,7 @@
 	device = /obj/item/extinguisher/mini/mod
 
 /obj/item/mod/module/firefighting_tank/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль пожаротушения",
 		GENITIVE = "модуля пожаротушения",
 		DATIVE = "модулю пожаротушения",
@@ -373,7 +373,7 @@
 	COOLDOWN_DECLARE(nanofrost_cooldown)
 
 /obj/item/extinguisher/mini/mod/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "огнетушитель МЭК",
 		GENITIVE = "огнетушителя МЭК",
 		DATIVE = "огнетушителю МЭК",

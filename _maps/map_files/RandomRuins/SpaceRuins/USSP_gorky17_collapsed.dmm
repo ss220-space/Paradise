@@ -5520,9 +5520,7 @@
 	dir = 4;
 	pixel_x = 12
 	},
-/obj/machinery/defibrillator_mount{
-	pixel_x = 28
-	},
+/obj/machinery/defibrillator_mount/directional/east,
 /obj/machinery/light{
 	dir = 4
 	},

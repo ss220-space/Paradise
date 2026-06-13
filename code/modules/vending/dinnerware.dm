@@ -57,7 +57,7 @@
 	refill_canister = /obj/item/vending_refill/dinnerware
 
 /obj/machinery/vending/dinnerware/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат Plasteel Chef's Dinnerware Vendor",
 		GENITIVE = "торгового автомата Plasteel Chef's Dinnerware Vendor",
 		DATIVE = "торговому автомату Plasteel Chef's Dinnerware Vendor",

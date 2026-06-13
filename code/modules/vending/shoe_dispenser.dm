@@ -39,7 +39,7 @@
 	)
 
 /obj/machinery/vending/shoedispenser/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат Shoelord 9000",
 		GENITIVE = "торгового автомата Shoelord 9000",
 		DATIVE = "торговому автомату Shoelord 9000",
