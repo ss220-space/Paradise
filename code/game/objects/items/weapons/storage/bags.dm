@@ -42,7 +42,6 @@
 	icon_state = "trashbag"
 	item_state = "trashbag"
 
-	w_class = WEIGHT_CLASS_NORMAL
 	slot_flags = NONE
 	storage_slots = 30
 	max_combined_w_class = 30
