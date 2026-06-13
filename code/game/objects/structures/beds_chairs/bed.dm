@@ -256,6 +256,16 @@
 	icon_down = "holo_down"
 	folded = /obj/item/roller/holo
 
+/obj/structure/bed/roller/holo/get_ru_names()
+	return alist(
+		NOMINATIVE = "носилки",
+		GENITIVE = "носилок",
+		DATIVE = "носилкам",
+		ACCUSATIVE = "носилки",
+		INSTRUMENTAL = "носилками",
+		PREPOSITIONAL = "носилках",
+	)
+
 /obj/item/roller
 	name = "roller stretcher"
 	desc = "Это сложенная каталка на роликах. Её можно развернуть."
@@ -333,6 +343,16 @@
 	origin_tech = "magnets=3;biotech=4;powerstorage=3"
 	extended = /obj/structure/bed/roller/holo
 	collectable = FALSE
+
+/obj/item/roller/holo/get_ru_names()
+	return alist(
+		NOMINATIVE = "носилки",
+		GENITIVE = "носилок",
+		DATIVE = "носилкам",
+		ACCUSATIVE = "носилки",
+		INSTRUMENTAL = "носилками",
+		PREPOSITIONAL = "носилках",
+	)
 
 /obj/item/roller_holder
 	name = "roller stretcher rack"
