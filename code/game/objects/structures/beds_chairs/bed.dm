@@ -367,7 +367,7 @@
 /obj/structure/bed/dogbed
 	name = "dog bed"
 	icon_state = "dogbed"
-	desc = "Ваш питомец не потеряется даже, если гравитация отключится."
+	desc = "Ваш питомец не потеряется, даже если гравитация отключится."
 	anchored = FALSE
 	buildstackamount = 10
 	buildstacktype = /obj/item/stack/sheet/wood
