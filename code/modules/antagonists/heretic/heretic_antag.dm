@@ -457,6 +457,9 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	RegisterSignal(our_mob, COMSIG_LIVING_CULT_SACRIFICED, PROC_REF(on_cult_sacrificed))
 	RegisterSignals(our_mob, list(COMSIG_MOB_BEFORE_SPELL_CAST, COMSIG_MOB_SPELL_ACTIVATED), PROC_REF(on_spell_cast))
 	RegisterSignal(our_mob, COMSIG_MOB_ITEM_AFTERATTACK, PROC_REF(on_item_use))
+	// Re-apply our hud + spells whenever the client (re)logs into this body. Relog / rejuvenate could
+	// otherwise leave a heretic without their rift huds, antag marker, or a working research menu.
+	RegisterSignal(our_mob, COMSIG_MOB_LOGIN, PROC_REF(on_login), override = TRUE)
 
 /datum/antagonist/heretic/remove_innate_effects(mob/living/mob_override)
 	. = ..()
@@ -472,7 +475,47 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 		COMSIG_MOB_SPELL_ACTIVATED,
 		COMSIG_MOB_ITEM_AFTERATTACK,
 		COMSIG_LIVING_CULT_SACRIFICED,
+		COMSIG_MOB_LOGIN,
 	))
+
+/**
+ * Signal handler for [COMSIG_MOB_LOGIN]. Fires when our heretic's client (re)attaches to the body.
+ *
+ * The mind's spell actions, the antag HUD marker, and the reality-smash huds all live on the body /
+ * client and can end up missing after a relog or a rejuvenate. Re-apply them defensively here so the
+ * research menu always opens and rifts are always visible without the "ghost and come back" trick.
+ */
+/datum/antagonist/heretic/proc/on_login(mob/living/source)
+	SIGNAL_HANDLER
+
+	if(QDELETED(source) || owner?.current != source)
+		return
+
+	// Antag special-role HUD marker (what other heretics / observers see above our head).
+	if(antag_hud_type && antag_hud_name)
+		add_antag_hud(source)
+
+	// Reality-smash (rift) huds for any influences that already exist in the world.
+	if(!issilicon(source) && GLOB.reality_smash_track)
+		GLOB.reality_smash_track.rework_existing_influences(source)
+
+	// Re-grant any knowledge spell that went missing from our mind (the research menu lives here).
+	resync_knowledge_spells(source)
+
+/**
+ * Re-adds any [/datum/heretic_knowledge/spell] spell that is no longer present in [source]'s mind.
+ * Dedupe-safe: spells already granted are skipped, so this never double-grants.
+ */
+/datum/antagonist/heretic/proc/resync_knowledge_spells(mob/living/source)
+	if(!source?.mind)
+		return
+	for(var/knowledge_index in researched_knowledge)
+		var/datum/heretic_knowledge/spell/spell_knowledge = researched_knowledge[knowledge_index]
+		if(!istype(spell_knowledge) || !spell_knowledge.spell_to_add)
+			continue
+		if(locate(spell_knowledge.spell_to_add) in source.mind.spell_list)
+			continue
+		source.mind.AddSpell(new spell_knowledge.spell_to_add())
 
 
 /datum/antagonist/heretic/on_body_transfer(mob/living/old_body, mob/living/new_body)

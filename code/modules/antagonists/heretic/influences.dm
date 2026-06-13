@@ -67,6 +67,24 @@
 	if(ishuman(heretic.current) && !is_centcomm(heretic.current.z))
 		generate_new_influences()
 
+	// Influences created BEFORE this mind became a heretic (e.g. by another heretic, or before a
+	// mid-round role grant) only show their alt-appearance to mobs that had the antag datum at the
+	// influence's own Initialize() time. A freshly-added heretic must be (re-)applied to every
+	// EXISTING influence's hud, or they won't see any rift until a ghostize/body-transfer re-checks
+	// the huds (the "go to ghost and come back" workaround the players hit).
+	rework_existing_influences(heretic.current)
+
+/**
+ * (Re-)applies every existing influence's reality-smash hud to [show_to_mob].
+ * Safe to call repeatedly: apply_to_new_mob() no-ops if the mob is already a hud user.
+ */
+/datum/reality_smash_tracker/proc/rework_existing_influences(mob/show_to_mob)
+	if(!show_to_mob)
+		return
+	for(var/obj/effect/heretic_influence/influence as anything in smashes)
+		var/datum/atom_hud/alternate_appearance/influence_hud = LAZYACCESS(influence.alternate_appearances, "reality_smash")
+		influence_hud?.apply_to_new_mob(show_to_mob)
+
 /**
  * Removes a mind from the list of people that can see the reality smashes
  *

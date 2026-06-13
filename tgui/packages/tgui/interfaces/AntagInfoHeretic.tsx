@@ -636,7 +636,7 @@ export const AntagInfoHeretic = (props) => {
       : defaultBackground;
 
   return (
-    <Window width={675} height={635}>
+    <Window width={750} height={635}>
       <Window.Content
         style={{
           backgroundImage: 'none',
