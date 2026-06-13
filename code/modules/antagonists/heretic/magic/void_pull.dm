@@ -24,6 +24,10 @@
 	var/stun_radius = 4
 
 
+/obj/effect/proc_holder/spell/aoe/void_pull/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+
 // Before the cast, we do some small AOE damage around the caster
 /obj/effect/proc_holder/spell/aoe/void_pull/before_cast(list/targets, mob/user = usr)
 	. = ..()

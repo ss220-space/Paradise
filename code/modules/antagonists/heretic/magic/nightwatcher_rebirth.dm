@@ -18,15 +18,20 @@
 	invocation_type = INVOCATION_WHISPER
 	spell_requirements = SPELL_REQUIRES_HUMAN
 	sound = 'sound/magic/fireball.ogg'
+	aoe_range = 14
+	/// Tracks how many victims the spell drained this cast, used to lower the cooldown per victim.
+	var/victims_counter = 0
+
+
+/obj/effect/proc_holder/spell/aoe/fiery_rebirth/create_new_targeting()
+	return new /datum/spell_targeting/self
 
 
 /obj/effect/proc_holder/spell/aoe/fiery_rebirth/get_things_to_cast_on(atom/center)
+	victims_counter = 0
 	var/list/things = list()
 	for(var/mob/living/carbon/nearby_mob in range(aoe_range, center))
 		if(nearby_mob == action.owner || nearby_mob == center)
-			continue
-
-		if(!nearby_mob.mind || !nearby_mob.client)
 			continue
 
 		if(IS_HERETIC_OR_MONSTER(nearby_mob))
@@ -36,13 +41,17 @@
 			continue
 
 		things += nearby_mob
+		victims_counter++
 
 	return things
 
 
-/obj/effect/proc_holder/spell/aoe/fiery_rebirth/cast(list/targets, mob/living/carbon/human/caster = usr)
+/obj/effect/proc_holder/spell/aoe/fiery_rebirth/cast(list/targets, mob/user = usr)
+	var/mob/living/carbon/human/caster = user
+	if(!istype(caster))
+		return
 	caster.ExtinguishMob()
-	for(var/mob/living/victim as anything in targets)
+	for(var/mob/living/carbon/victim as anything in get_things_to_cast_on(caster))
 		new /obj/effect/temp_visual/eldritch_smoke(get_turf(victim))
 		victim.Beam(caster, icon_state = "r_beam", time = 2 SECONDS)
 
@@ -52,6 +61,7 @@
 			victim.death()
 
 		victim.apply_damage(20, BURN)
+		victim.ExtinguishMob()
 
 		// Heal the caster for every victim damaged
 		var/need_mob_update = FALSE
@@ -62,6 +72,16 @@
 		need_mob_update += caster.adjustStaminaLoss(-10, updating_health = FALSE)
 		if(need_mob_update)
 			caster.updatehealth()
+
+
+// Lower the cooldown for every victim drained, exactly like TG. Reads base_cooldown so the ascension's
+// base_cooldown *= 0.16 reduction is respected. Hard-floored so an ascended heretic can't spam it freely.
+/obj/effect/proc_holder/spell/aoe/fiery_rebirth/after_cast(list/targets, mob/user)
+	. = ..()
+	if(!victims_counter)
+		cooldown_handler.start_recharge(base_cooldown)
+		return
+	cooldown_handler.start_recharge(max(9 SECONDS, base_cooldown - victims_counter * 10 SECONDS))
 
 
 /obj/effect/temp_visual/eldritch_smoke

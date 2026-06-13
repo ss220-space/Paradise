@@ -23,6 +23,10 @@
 	var/obj/effect/moon_effect = /obj/effect/temp_visual/moon_ringleader
 
 
+/obj/effect/proc_holder/spell/aoe/moon_ringleader/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+
 /obj/effect/proc_holder/spell/aoe/moon_ringleader/cast(list/targets, mob/user = usr)
 	new moon_effect(get_turf(targets[1]))
 	return ..()

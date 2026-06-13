@@ -79,14 +79,43 @@
 
 
 
-// Опалённая Мантия (Scorched Mantle) — Ash path robes. Fire-proof; the passive fire-generation /
-// empowerment logic is implemented later (per-ability pass).
+/**
+ * Returns TRUE if this mob can currently cast EMPOWERED ashen spells.
+ * Matches TG: the caster must be human, wearing the Scorched Mantle, and carrying more than 3 fire stacks.
+ */
+/proc/is_ash_empowered(mob/living/owner)
+	if(!ishuman(owner))
+		return FALSE
+	var/mob/living/carbon/human/human_owner = owner
+	if(!istype(human_owner.wear_suit, /obj/item/clothing/suit/hooded/cultrobes/eldritch/ash))
+		return FALSE
+	return human_owner.fire_stacks > 3
+
+
+// Toggle action for the Scorched Mantle's passive flame generation.
+/datum/action/item_action/toggle_flames
+	name = "Переключить пламя"
+
+
+// Опалённая Мантия (Scorched Mantle) — Ash path robes.
+// Completely fire-proof, and (matching TG) can passively set the wearer ablaze via a toggle. Building up
+// fire stacks on yourself empowers your ashen spells (see is_ash_empowered). The wearer takes no fire damage.
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/ash
 	name = "опалённая мантия"
 	desc = "Тлеющая мантия из пепла и углей. Жар не причиняет ей вреда — лишь питает её."
 	icon_state = "eldritch_armor"
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie/eldritch/ash
 	armor = list("melee" = 50, "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 35, "bio" = 20, "rad" = 20, "fire" = 100, "acid" = 20)
+	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF | LAVA_PROOF
+	heat_protection = FULL_BODY
+	max_heat_protection_temperature = 50000
+	cold_protection = FULL_BODY
+	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
+	actions_types = list(/datum/action/item_action/toggle, /datum/action/item_action/toggle_flames)
+	/// If our robes are actively generating flames on the wearer.
+	var/flame_generation = FALSE
+	/// Cooldown before our robes create more fire stacks.
+	COOLDOWN_DECLARE(flame_creation)
 
 
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/ash/get_ru_names()
@@ -98,6 +127,48 @@
 		INSTRUMENTAL = "опалённой мантией",
 		PREPOSITIONAL = "опалённой мантии",
 	)
+
+
+// The base hooded robe routes every action button to ToggleHood; dispatch on the action type so the
+// flame toggle button toggles flames instead.
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/ash/ui_action_click(mob/user, datum/action/action, leftclick)
+	if(istype(action, /datum/action/item_action/toggle_flames))
+		toggle_flames(user)
+		return
+	return ..()
+
+
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/ash/dropped(mob/user, slot, silent = FALSE)
+	. = ..()
+	// Turn the flames off when the mantle leaves the wearer, mirroring TG's on_robes_lost.
+	if(flame_generation)
+		toggle_flames(user)
+
+
+/// Starts/stops the passive generation of fire stacks on our wearer.
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/ash/proc/toggle_flames(mob/living/user)
+	if(!isliving(user))
+		return
+	flame_generation = !flame_generation
+	if(flame_generation)
+		START_PROCESSING(SSobj, src)
+	else
+		user.ExtinguishMob()
+		STOP_PROCESSING(SSobj, src)
+	user.balloon_alert(user, flame_generation ? "пламя зажжено" : "пламя потушено")
+
+
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/ash/process(seconds_per_tick)
+	if(!COOLDOWN_FINISHED(src, flame_creation))
+		return
+	var/mob/living/wearer = loc
+	if(!isliving(wearer))
+		STOP_PROCESSING(SSobj, src)
+		flame_generation = FALSE
+		return
+	COOLDOWN_START(src, flame_creation, 5 SECONDS)
+	wearer.adjust_fire_stacks(1)
+	wearer.IgniteMob()
 
 
 /obj/item/clothing/head/hooded/cult_hoodie/eldritch/ash

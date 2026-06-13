@@ -82,13 +82,8 @@
 		return
 
 	to_chat(target, span_danger("Яркий зеленый свет ужасно жжет ваши глаза!"))
-	target.adjustOrganLoss(INTERNAL_ORGAN_EYES, 5)
+	target.adjustOrganLoss(INTERNAL_ORGAN_EYES, 15)
 	target.EyeBlurry(20 SECONDS)
-	for(var/obj/effect/proc_holder/spell/touch/mansus_grasp/spell in source.mind.spell_list)
-		if(!spell.cooldown_handler.is_on_cooldown())
-			continue
-
-		spell.cooldown_handler.recharge_time += spell.base_cooldown / 2
 
 
 /// Triggering the Ash mark also refunds 75% of the Mansus Grasp cooldown (was the "Метка Пепла" node).
@@ -199,6 +194,7 @@
 	spell_to_add = /obj/effect/proc_holder/spell/aoe/fiery_rebirth
 	cost = 2
 	research_tree_icon_frame = 5
+	is_final_knowledge = TRUE
 
 
 /datum/heretic_knowledge/ultimate/ash_final
@@ -218,14 +214,14 @@
 	announcement_text = "%SPOOKY% Бойтесь пламени, ибо Повелитель Пепла, %NAME% вознесся! Пламя поглотит все! %SPOOKY%"
 	announcement_sound = 'sound/music/heretic/ascend_ash.ogg'
 	/// A static list of all traits we apply on ascension.
+	// TG also applies TRAIT_RESISTHIGHPRESSURE / TRAIT_RESISTLOWPRESSURE, which master220 has no
+	// equivalent for — the bomb/heat/cold/no-breath immunities below cover the environmental hazards.
 	var/static/list/traits_to_apply = list(
 		TRAIT_BOMBIMMUNE,
 		TRAIT_NO_BREATH,
-		//TRAIT_NOFIRE,
+		TRAIT_NO_FIRE,
 		TRAIT_RESIST_COLD,
 		TRAIT_RESIST_HEAT,
-		TRAIT_RESIST_HEAT,
-		TRAIT_RESIST_COLD,
 	)
 
 
@@ -245,16 +241,20 @@
 
 /datum/heretic_knowledge/ultimate/ash_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	. = ..()
+	// Two new abilities, exactly like TG: Oath of Flame (passive ring) and the Greater Fire Cascade.
 	user.mind.AddSpell(new /obj/effect/proc_holder/spell/fire_sworn())
 	user.mind.AddSpell(new /obj/effect/proc_holder/spell/fire_cascade/big())
-	user.mind.AddSpell(new /obj/effect/proc_holder/spell/fireball/hellish())
 	var/obj/effect/proc_holder/spell/charged/beam/fire_blast/existing_beam_spell = locate() in user.mind.spell_list
 	if(existing_beam_spell)
 		existing_beam_spell.max_beam_bounces *= 2 // Double beams
 		existing_beam_spell.beam_duration *= 0.66 // Faster beams
 		existing_beam_spell.base_cooldown *= 0.66 // Lower cooldown
+		// base_cooldown alone is inert (recharge_duration is copied from it only at init), so sync it.
+		existing_beam_spell.cooldown_handler?.recharge_duration = existing_beam_spell.base_cooldown
 
 	var/obj/effect/proc_holder/spell/aoe/fiery_rebirth/fiery_rebirth = locate() in user.mind.spell_list
-	fiery_rebirth?.base_cooldown *= 0.16
+	if(fiery_rebirth)
+		fiery_rebirth.base_cooldown *= 0.16
+		fiery_rebirth.cooldown_handler?.recharge_duration = fiery_rebirth.base_cooldown
 
 	user.add_traits(traits_to_apply, type)

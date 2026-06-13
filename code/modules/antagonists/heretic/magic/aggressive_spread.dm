@@ -21,6 +21,10 @@
 	aoe_range = 2
 
 
+/obj/effect/proc_holder/spell/aoe/rust_conversion/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+
 /obj/effect/proc_holder/spell/aoe/rust_conversion/valid_target(target, user)
 	return TRUE
 

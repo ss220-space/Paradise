@@ -21,6 +21,10 @@
 	aoe_range = 3
 
 
+/obj/effect/proc_holder/spell/aoe/wave_of_desperation/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+
 /obj/effect/proc_holder/spell/aoe/wave_of_desperation/valid_target(mob/living/carbon/cast_on)
 	return istype(cast_on) && (cast_on.handcuffed || cast_on.legcuffed)
 

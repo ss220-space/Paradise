@@ -11,6 +11,10 @@
 	var/sound_out = 'sound/magic/ethereal_exit.ogg'
 	var/jaunt_duration = 5 SECONDS //in deciseconds
 	var/jaunt_in_time = 0.5 SECONDS
+	/// How long after the reappear visual spawns before the mob is revealed (ejected from the holder).
+	/// Defaults to jaunt_in_time. Set higher to let a longer reappear animation play out fully before the
+	/// mob's sprite shows (so the model doesn't pop in mid-animation).
+	var/jaunt_in_reveal_time = null
 	var/jaunt_in_type = /obj/effect/temp_visual/wizard
 	var/jaunt_out_type = /obj/effect/temp_visual/wizard/out
 	var/jaunt_type_path = /obj/effect/dummy/spell_jaunt
@@ -65,7 +69,8 @@
 	new jaunt_in_type(mobloc, holder.dir)
 	target.setDir(holder.dir)
 
-	sleep(jaunt_in_time)
+	// Wait for the reappear animation to finish before revealing the mob, so the model doesn't pop in early.
+	sleep(isnull(jaunt_in_reveal_time) ? jaunt_in_time : jaunt_in_reveal_time)
 	qdel(holder)
 
 	if(QDELETED(target))
