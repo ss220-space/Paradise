@@ -613,3 +613,9 @@
 #define TRAIT_SOFTSPOKEN "softspoken"
 #define TRAIT_STUNIMMUNE "stun_immunity"
 #define TRAIT_UNKNOWN "unknown"
+/// Hides this mob's identity when seen/examined (face/floating name show as "Unknown"). Heretic shadow cloak.
+#define TRAIT_UNKNOWN_APPEARANCE "unknown_appearance"
+/// Hides this mob's identity when speaking (chat shows the speaker as "Unknown"). Heretic shadow cloak.
+#define TRAIT_UNKNOWN_VOICE "unknown_voice"
+/// Leaves no footprints in snow. Paradise has no snow-footprint mechanic yet, so this is currently inert (TG parity).
+#define TRAIT_NO_SNOWPRINTS "no_snowprints"

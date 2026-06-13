@@ -63,6 +63,11 @@
 	if(GetSpecialVoice())
 		return GetSpecialVoice()
 
+	// Magically concealed voice (e.g. heretic's shadow cloak) - the speaker shows as "Unknown" in chat.
+	// A deliberate disguise (voice changer / changeling mimic above) still takes priority.
+	if(HAS_TRAIT(src, TRAIT_UNKNOWN_VOICE))
+		return UNKNOWN_NAME_RUS
+
 	return real_name
 
 /mob/living/carbon/human/GetTTSVoice()

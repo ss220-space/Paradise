@@ -277,12 +277,16 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	// --- Knowledge SHOP: the WHOLE side pool, grouped by shop tier ("Тир N"), unlocked tier-by-tier. TG
 	//     always shows every unlocked side knowledge here regardless of draft state, so a tier shows its
 	//     full count (e.g. 8 in Tier 1) and the draft siblings you didn't pick stay buyable for points.
+	//     TG renders already-researched shop knowledges FIRST, so buying something pushes it to the front of
+	//     its tier (the player asked for this). We mirror that with two passes: owned first, then buyable.
 	for(var/knowledge_type in shop_knowledge_pool)
-		var/list/meta = shop_knowledge_pool[knowledge_type]
 		if(researched_knowledge[knowledge_type])
-			shop += list(get_knowledge_data(knowledge_type, TRUE, meta))
-		else if(is_available_shop(knowledge_type))
-			shop += list(get_knowledge_data(knowledge_type, FALSE, meta))
+			shop += list(get_knowledge_data(knowledge_type, TRUE, shop_knowledge_pool[knowledge_type]))
+	for(var/knowledge_type in shop_knowledge_pool)
+		if(researched_knowledge[knowledge_type])
+			continue
+		if(is_available_shop(knowledge_type))
+			shop += list(get_knowledge_data(knowledge_type, FALSE, shop_knowledge_pool[knowledge_type]))
 
 	data["knowledge_tiers"] = tiers
 	data["knowledge_shop"] = shop
@@ -1192,7 +1196,7 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 			HKT_PARENT = /datum/heretic_knowledge/rifle,
 			HKT_DEPTH = 2,
 			HKT_DRAFT_TIER = 2,
-			HKT_COST = 1,
+			HKT_COST = 0, // TG: free follow-up unlock once you've researched the rifle.
 			HKT_BAN = list(),
 		)
 

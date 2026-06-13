@@ -6,7 +6,7 @@
 	status_type = STATUS_EFFECT_REFRESH
 	duration = 40 SECONDS
 	alert_type = /atom/movable/screen/alert/status_effect/crucible_soul
-	//show_duration = TRUE
+	show_duration = TRUE
 	///Stores the location where the mob drank the potion, used to teleport the drinker back to the spot after expiration
 	var/turf/location
 	var/datum/action/cancel_crucible_soul/cancel_button
@@ -62,7 +62,7 @@
 	id = "Blessing of Dusk and Dawn"
 	status_type = STATUS_EFFECT_REFRESH
 	duration = 90 SECONDS
-	//show_duration = TRUE
+	show_duration = TRUE
 	alert_type = /atom/movable/screen/alert/status_effect/duskndawn
 
 
@@ -97,9 +97,10 @@
 	owner.update_sight()
 
 
-/// Heretic subtype - plays a whisper and shows a screen alert.
+/// Heretic subtype - plays a whisper and shows a screen alert with a countdown timer.
 /datum/status_effect/temporary_xray/eldritch
 	alert_type = /atom/movable/screen/alert/status_effect/eldritch_sight
+	show_duration = TRUE
 
 
 /datum/status_effect/temporary_xray/eldritch/on_apply()
@@ -112,7 +113,7 @@
 	id = "Blessing of Wounded Soldier"
 	status_type = STATUS_EFFECT_REFRESH
 	duration = 60 SECONDS
-	//show_duration = TRUE
+	show_duration = TRUE
 	alert_type = /atom/movable/screen/alert/status_effect/marshal
 
 
@@ -421,17 +422,17 @@
 	id = "Moon Grasp Hide Identity"
 	status_type = STATUS_EFFECT_REFRESH
 	duration = 15 SECONDS
-	//show_duration = TRUE
+	show_duration = TRUE
 	alert_type = /atom/movable/screen/alert/status_effect/moon_grasp_hide
 
 
 /datum/status_effect/moon_grasp_hide/on_apply()
-	owner.add_traits(list(TRAIT_UNKNOWN, TRAIT_SILENT_FOOTSTEPS), TRAIT_STATUS_EFFECT(id))
+	owner.add_traits(list(TRAIT_UNKNOWN_APPEARANCE, TRAIT_UNKNOWN_VOICE, TRAIT_SILENT_FOOTSTEPS, TRAIT_NO_SNOWPRINTS), TRAIT_STATUS_EFFECT(id))
 	return TRUE
 
 
 /datum/status_effect/moon_grasp_hide/on_remove()
-	owner.remove_traits(list(TRAIT_UNKNOWN, TRAIT_SILENT_FOOTSTEPS), TRAIT_STATUS_EFFECT(id))
+	owner.remove_traits(list(TRAIT_UNKNOWN_APPEARANCE, TRAIT_UNKNOWN_VOICE, TRAIT_SILENT_FOOTSTEPS, TRAIT_NO_SNOWPRINTS), TRAIT_STATUS_EFFECT(id))
 
 
 /atom/movable/screen/alert/status_effect/moon_grasp_hide

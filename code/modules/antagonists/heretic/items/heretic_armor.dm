@@ -104,6 +104,9 @@
 	name = "опалённая мантия"
 	desc = "Тлеющая мантия из пепла и углей. Жар не причиняет ей вреда — лишь питает её."
 	icon_state = "ash_armor"
+	// Base eldritch robes set HIDESHOES, which made the wearer's shoes vanish. The Scorched Mantle
+	// (matching TG) shouldn't hide footwear — only the jumpsuit.
+	flags_inv = HIDEJUMPSUIT
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie/eldritch/ash
 	armor = list("melee" = 50, "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 35, "bio" = 20, "rad" = 20, "fire" = 100, "acid" = 20)
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF | LAVA_PROOF
@@ -173,6 +176,14 @@
 
 /obj/item/clothing/head/hooded/cult_hoodie/eldritch/ash
 	name = "капюшон опалённой мантии"
+	// Dedicated scorched-mantle hood sprites (ported from TG). The base eldritch hood's icons
+	// only had an "eldritch" state, so without these the ash hood fell back to the wrong sprite.
+	icon = 'icons/obj/clothing/heretic_ash_hood.dmi'
+	icon_state = "ash_armor"
+	// Paradise resolves the worn (on-mob) sprite via onmob_sheets[slot], not worn_icon.
+	onmob_sheets = list(
+		ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/heretic_ash_hood.dmi',
+	)
 	armor = list("melee" = 30, "bullet" = 30, "laser" = 30, "energy" = 30, "bomb" = 15, "bio" = 10, "rad" = 10, "fire" = 100, "acid" = 10)
 
 

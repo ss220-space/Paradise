@@ -73,6 +73,9 @@
 		to_chat(user, span_warning("У вас не получилось набрать крови у [living_target.declent_ru(GENITIVE)]!"))
 		return ATTACK_CHAIN_SUCCESS
 
+	// Refresh the fill-level sprite now — reagent changes don't auto-trigger update_icon on this container,
+	// so without this the flask only visually updated when something else (e.g. toggling the lid) refreshed it.
+	update_icon()
 	to_chat(user, span_notice("Вы взяли образец крови у [living_target.declent_ru(GENITIVE)]."))
 	to_chat(living_target, span_warning("Вы чувствуете лёгкий укол!"))
 	COOLDOWN_START(src, drain_cooldown, 5 SECONDS)
@@ -130,7 +133,7 @@
 	duration = 60 SECONDS
 	status_type = STATUS_EFFECT_REFRESH
 	alert_type = /atom/movable/screen/alert/status_effect/eldritch_sleep
-	//show_duration = TRUE
+	show_duration = TRUE
 	/// List of traits our drinker gets while they are asleep
 	var/list/sleeping_traits = list(TRAIT_NO_BREATH, TRAIT_RESIST_COLD, TRAIT_RESIST_COLD, TRAIT_RESIST_COLD, TRAIT_RESIST_HEAT)
 

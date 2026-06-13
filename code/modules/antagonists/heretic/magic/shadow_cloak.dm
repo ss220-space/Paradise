@@ -59,9 +59,13 @@
 	. = ..()
 	var/mob/living/cast_on = targets[1]
 	if(active_cloak)
-		// Manual toggle-off: cooldown scales with how much cloak time was left.
+		// Manual toggle-off: cooldown scales with how long you were cloaked (TG parity).
+		// A quick toggle costs only base_cooldown; staying cloaked longer costs more.
+		// (Previously this used time REMAINING, which inverted it — a quick toggle gave
+		// a ~1 minute cooldown instead of the intended 6 seconds.)
 		var/time_left = max(active_cloak.duration - world.time, 0)
-		var/new_cd = max(time_left / 3, base_cooldown)
+		var/time_elapsed = uncloak_time - time_left
+		var/new_cd = max(time_elapsed / 3, base_cooldown)
 		uncloak_mob(cast_on)
 		cooldown_handler.start_recharge(new_cd)
 		return
@@ -81,7 +85,6 @@
 	)
 
 	active_cloak = cast_on.apply_status_effect(/datum/status_effect/shadow_cloak)
-	RegisterSignal(cast_on, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
 	RegisterSignal(active_cloak, COMSIG_QDELETING, PROC_REF(on_early_cloak_loss))
 	RegisterSignal(cast_on, SIGNAL_REMOVETRAIT(TRAIT_ALLOW_HERETIC_CASTING), PROC_REF(on_focus_lost))
 
@@ -92,7 +95,6 @@
 		qdel(active_cloak)
 
 	active_cloak = null
-	UnregisterSignal(cast_on, COMSIG_ATOM_EXAMINE)
 	UnregisterSignal(cast_on, SIGNAL_REMOVETRAIT(TRAIT_ALLOW_HERETIC_CASTING))
 	playsound(cast_on, 'sound/effects/curse/curseattack.ogg', 50)
 	if(show_message)
@@ -100,12 +102,6 @@
 			span_warning("[cast_on.declent_ru(NOMINATIVE)] появляется из тени!"),
 			span_notice("Вы появляетесь из тени!"),
 		)
-
-
-/obj/effect/proc_holder/spell/shadow_cloak/proc/on_examine(datum/source, mob/living/carbon/human/human, list/examine_list)
-	SIGNAL_HANDLER
-	examine_list.Cut()
-	examine_list += "[bicon(src)] Это фигура покрытая тьмой."
 
 
 /// Signal proc for [COMSIG_QDELETING]. Fires when the cloak status ends without the spell removing it
@@ -126,6 +122,8 @@
 	)
 
 	removed.Knockdown(0.5 SECONDS)
+	// TG parity: being forced out of the cloak slaps a lingering 2-minute slowdown on you,
+	// on top of losing the cloak's speed buff.
 	removed.add_movespeed_modifier(/datum/movespeed_modifier/shadow_cloak/early_remove)
 	addtimer(CALLBACK(removed, TYPE_PROC_REF(/mob, remove_movespeed_modifier), /datum/movespeed_modifier/shadow_cloak/early_remove), 2 MINUTES, TIMER_UNIQUE|TIMER_OVERRIDE)
 	cooldown_handler.start_recharge(uncloak_time * 2/3)
@@ -169,9 +167,9 @@
 	cloak_image.alpha = 0
 	animate(cloak_image, alpha = 255, 0.2 SECONDS)
 	owner.add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/everyone, id, cloak_image)
-	// Add the relevant traits and modifiers
-	owner.add_traits(list(TRAIT_UNKNOWN, TRAIT_SILENT_FOOTSTEPS), TRAIT_STATUS_EFFECT(id))
-	// TRAIT_UNKNOWN now hides the name via get_visible_name(); refresh it at once instead of waiting a Life tick.
+	// Add the relevant traits and modifiers (matches TG: hide appearance + voice, no footsteps/snowprints)
+	owner.add_traits(list(TRAIT_UNKNOWN_APPEARANCE, TRAIT_UNKNOWN_VOICE, TRAIT_SILENT_FOOTSTEPS, TRAIT_NO_SNOWPRINTS), TRAIT_STATUS_EFFECT(id))
+	// TRAIT_UNKNOWN_APPEARANCE now hides the name via get_visible_name(); refresh it at once instead of waiting a Life tick.
 	if(ishuman(owner))
 		owner.name = owner.get_visible_name()
 	owner.add_movespeed_modifier(/datum/movespeed_modifier/shadow_cloak)
@@ -190,8 +188,8 @@
 	owner.remove_alt_appearance(id)
 	QDEL_NULL(cloak_image)
 	// Remove traits and modifiers
-	owner.remove_traits(list(TRAIT_UNKNOWN, TRAIT_SILENT_FOOTSTEPS), TRAIT_STATUS_EFFECT(id))
-	// Restore the real name immediately now that TRAIT_UNKNOWN is gone.
+	owner.remove_traits(list(TRAIT_UNKNOWN_APPEARANCE, TRAIT_UNKNOWN_VOICE, TRAIT_SILENT_FOOTSTEPS, TRAIT_NO_SNOWPRINTS), TRAIT_STATUS_EFFECT(id))
+	// Restore the real name immediately now that TRAIT_UNKNOWN_APPEARANCE is gone.
 	if(ishuman(owner))
 		owner.name = owner.get_visible_name()
 	owner.remove_movespeed_modifier(/datum/movespeed_modifier/shadow_cloak)
