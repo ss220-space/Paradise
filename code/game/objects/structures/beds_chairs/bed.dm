@@ -11,7 +11,7 @@
 
 /obj/structure/bed
 	name = "bed"
-	desc = "Нужна для того, чтобы полежать, поспать или хранить ваши вещи."
+	desc = "Нужна для того, чтобы полежать, поспать или привязать кого-нибудь."
 	gender = FEMALE
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "bed"
