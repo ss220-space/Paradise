@@ -437,7 +437,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 	default_frequency = AI_FREQ
 
 /obj/item/radio/portal/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "офисное радио",
 		GENITIVE = "офисного радио",
 		DATIVE = "офисному радио",

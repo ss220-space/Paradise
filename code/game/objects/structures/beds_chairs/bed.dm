@@ -67,7 +67,7 @@
 	buildstackamount = 5
 
 /obj/structure/bed/wicker/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "плетёная кровать",
 		GENITIVE = "плетёной кровати",
 		DATIVE = "плетёной кровати",
@@ -84,7 +84,7 @@
 	buildstacktype = /obj/item/stack/sheet/leather
 
 /obj/structure/bed/leather/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кровать из кожи",
 		GENITIVE = "кровати из кожи",
 		DATIVE = "кровати из кожи",
@@ -102,7 +102,7 @@
 	buildstackamount = 5
 
 /obj/structure/bed/wooden/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "деревянная кровать",
 		GENITIVE = "деревянной кровати",
 		DATIVE = "деревянной кровати",
@@ -119,7 +119,7 @@
 	buildstacktype = /obj/item/stack/sheet/cardboard
 
 /obj/structure/bed/cardboard/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "лежанка из картона",
 		GENITIVE = "лежанки из картона",
 		DATIVE = "лежанке из картона",
@@ -194,12 +194,12 @@
 
 /obj/structure/bed/roller/get_ru_names()
 	return alist(
-		NOMINATIVE = "носилки",
-		GENITIVE = "носилок",
-		DATIVE = "носилкам",
-		ACCUSATIVE = "носилки",
-		INSTRUMENTAL = "носилками",
-		PREPOSITIONAL = "носилках",
+		NOMINATIVE = "каталка",
+		GENITIVE = "каталки",
+		DATIVE = "каталке",
+		ACCUSATIVE = "каталку",
+		INSTRUMENTAL = "каталкой",
+		PREPOSITIONAL = "каталке",
 	)
 
 /obj/structure/bed/roller/wrench_act(mob/user, obj/item/wrench)
@@ -258,7 +258,7 @@
 
 /obj/item/roller
 	name = "roller stretcher"
-	desc = "Это сложенные носилки на роликах. Их можно развернуть."
+	desc = "Это сложенная каталка на роликах. Её можно развернуть."
 	icon = 'icons/obj/rollerbed.dmi'
 	icon_state = "folded"
 	interaction_flags_mouse_drop = NEED_DEXTERITY | NEED_HANDS
@@ -269,12 +269,12 @@
 
 /obj/item/roller/get_ru_names()
 	return alist(
-		NOMINATIVE = "носилки",
-		GENITIVE = "носилок",
-		DATIVE = "носилкам",
-		ACCUSATIVE = "носилки",
-		INSTRUMENTAL = "носилками",
-		PREPOSITIONAL = "носилках",
+		NOMINATIVE = "каталка",
+		GENITIVE = "каталки",
+		DATIVE = "каталке",
+		ACCUSATIVE = "каталку",
+		INSTRUMENTAL = "каталкой",
+		PREPOSITIONAL = "каталке",
 	)
 
 /obj/item/roller/attack_self(mob/user)
@@ -336,7 +336,7 @@
 
 /obj/item/roller_holder
 	name = "roller stretcher rack"
-	desc = "В нём можно перевозить сложенные носилки."
+	desc = "В нём можно перевозить сложенную каталку."
 	icon = 'icons/obj/rollerbed.dmi'
 	icon_state = "folded"
 	var/obj/item/roller/held = /obj/item/roller
@@ -355,7 +355,7 @@
 		balloon_alert(user, "[src] пуст!")
 		return
 
-	to_chat(user, span_notice("Вы разложили носилки."))
+	to_chat(user, span_notice("Вы разложили каталку."))
 	var/obj/structure/bed/roller/roller = new held.extended(drop_location())
 	roller.add_fingerprint(user)
 	QDEL_NULL(held)

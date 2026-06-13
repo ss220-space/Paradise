@@ -154,7 +154,7 @@
 	icon_state = "beans_empty"
 
 /obj/item/trash/beans_empty/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "банка бобов",
 		GENITIVE = "банки бобов",
 		DATIVE = "банке бобов",
