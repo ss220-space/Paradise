@@ -25,7 +25,7 @@
 	/// The currently placed thermal drill, if any.
 	var/obj/item/thermal_drill/drill = null
 	/// The [/proc/addtimer] handle for the current thermal drill.
-	var/drill_timer
+	var/datum/timedevent/drill_timer
 	/// Drill duration of the current thermal drill.
 	var/time_to_drill
 	/// The world.time at which drilling started.
@@ -34,9 +34,13 @@
 	var/image/drill_overlay
 	/// The progress bar image to display during the drilling process.
 	var/image/progress_bar
+	/// Chance to make annonce to security channel, rolls only one time to one drilling procces
 	var/security_alert_chance
+	/// If alredy tried to make annonce
 	var/tried_alert = FALSE
+	/// Case title in ru_names
 	var/lockbox_title_ru = ""
+	/// Is allowed to break this case with drill
 	var/allow_drilling = TRUE
 
 /obj/item/storage/lockbox/get_ru_names()
@@ -132,7 +136,7 @@
 		drill.soundloop.stop()
 		drill.forceMove(loc)
 		drill = null
-		drill_timer = null
+		deltimer(drill_timer)
 		tried_alert = null
 		security_alert_chance = null
 	QDEL_NULL(progress_bar)
@@ -167,7 +171,7 @@
 			if(do_after(user, 2 SECONDS, src))
 				if(!drill || !locked || !drill_timer)
 					return
-				drill_timer = addtimer(CALLBACK(src, PROC_REF(drill_open)), time_to_drill, TIMER_STOPPABLE)
+				drill_timer = addtimer(CALLBACK(src, PROC_REF(drill_open)), time_to_drill, TIMER_STOPPABLE, TIMER_DELETE_ME)
 				drill_start_time = world.time
 				drill.soundloop.start()
 				update_icon()
@@ -233,7 +237,7 @@
 	drill_stop_processing()
 
 /obj/item/storage/lockbox/proc/drill_stop_processing()
-	drill_timer = null
+	deltimer(drill_timer)
 	drill.soundloop.stop()
 	cut_overlay(progress_bar)
 	update_icon()
@@ -427,7 +431,7 @@
 		add_fingerprint(user)
 		var/atom/drop_loc = drop_location()
 		var/obj/item/pride = new disky.output(drop_loc)
-		to_chat(user, span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] принимает [DECLENT_RU_CAP(disky, ACCUSATIVE)], и печатает [DECLENT_RU_CAP(pride, ACCUSATIVE)]."))
+		to_chat(user, span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] принимает [disky.declent_ru(ACCUSATIVE)], и печатает [pride.declent_ru(ACCUSATIVE)]."))
 		qdel(disky)
 		if(!is_type_in_list(pride, completed_fauna))
 			completed_fauna += pride.type
