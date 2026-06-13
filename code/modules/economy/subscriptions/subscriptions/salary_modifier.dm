@@ -12,8 +12,8 @@
 /datum/subscription/salary_modifier/New(datum/money_account/subscriber, extra_params)
 	target_account = subscriber
 
-	modifier = extra_params ? extra_params["modifier"] : 0
-	modifier = clamp(modifier, -95, 95)
+	modifier = extra_params ? extra_params[SUBSCRIPTION_PARAM_MODIFIER] : 0
+	modifier = clamp(modifier, -SALARY_MODIFIER, SALARY_MODIFIER)
 
 	var/datum/job/curr_job = subscriber.linked_job
 	var/base_paycheck = curr_job?.paycheck || 0
@@ -31,7 +31,7 @@
 
 /datum/subscription/salary_modifier/proc/update_modifier(new_modifier)
 	new_modifier = text2num(new_modifier)
-	new_modifier = clamp(new_modifier, -95, 95)
+	new_modifier = clamp(new_modifier, -SALARY_MODIFIER, SALARY_MODIFIER)
 
 	if(new_modifier == modifier)
 		return TRUE

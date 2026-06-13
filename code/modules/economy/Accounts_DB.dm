@@ -24,7 +24,6 @@ GLOBAL_VAR(current_date_string)
 
 /obj/machinery/computer/account_database/Initialize(mapload)
 	. = ..()
-	// hehe kostil s tg
 	// Why the fuck are these not in a subsystem? They are global variables for fucks sake
 	// If someone ever makes a map without one of these consoles, the entire eco AND date system breaks
 	// This upsets me a lot

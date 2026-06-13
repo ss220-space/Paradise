@@ -1,4 +1,3 @@
-/* This is all basically stolen from routes.js. */
 import { useState } from 'react';
 import { routingError } from '../../routes';
 import { useBackend } from '../../backend';
@@ -106,7 +105,6 @@ export const PDA = () => {
       theme={theme}
     >
       <Window.Content p={0}>
-        {/* Используем flexbox для правильного разделения секций */}
         <Box
           style={{
             display: 'flex',
@@ -115,24 +113,21 @@ export const PDA = () => {
             overflow: 'hidden',
           }}
         >
-          {/* Header - фиксированная часть сверху */}
           <Box style={{ flexShrink: 0 }}>
             <PDAHeader />
           </Box>
 
-          {/* Content - скроллируемая область, занимает всё свободное пространство */}
           <Box
             style={{
               flex: 1,
               overflowY: 'auto',
-              minHeight: 0, // Важно для правильного скролла во flex-контейнере
+              minHeight: 0,
             }}
             p={0.75}
           >
             <AppComponent />
           </Box>
 
-          {/* Footer - фиксированная часть снизу */}
           <Box style={{ flexShrink: 0 }}>
             <PDAFooter />
           </Box>
