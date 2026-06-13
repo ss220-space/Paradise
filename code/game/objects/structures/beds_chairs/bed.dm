@@ -54,7 +54,7 @@
 
 /obj/structure/bed/old
 	name = "old bed"
-	desc = "Она выглядит крайне неудобной и вы бы не хотели спать на такой."
+	desc = "Она выглядит крайне неудобной, и вы бы не хотели спать на такой."
 	icon_state = "catwalkcouch1"
 	comfort = 0
 
