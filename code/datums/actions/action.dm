@@ -67,7 +67,7 @@
 	var/can_be_shared = TRUE
 	/// Action in targeting mode (use only for overlay)
 	var/targeting_process = FALSE
-	///the state in which the action is allowed to be used (CONSCIOUS/UNCONSCIOUS/DEAD)
+	/// Action is allowed to be used in this state and any state "better" (for example DEAD means you can use it in any state)
 	var/stat_allowed = CONSCIOUS
 
 /datum/action/New(Target)
