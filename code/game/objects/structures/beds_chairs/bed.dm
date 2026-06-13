@@ -113,7 +113,7 @@
 
 /obj/structure/bed/cardboard
 	name = "cardboard bed"
-	desc = "Лежанка, сделанная из картона. Ты что бомж?"
+	desc = "Лежанка, сделанная из картона. Ты что, бомж?"
 	icon_state = "cardboard_bed"
 	comfort = 0.1
 	buildstacktype = /obj/item/stack/sheet/cardboard
