@@ -66,7 +66,7 @@
 		/obj/item/camera = 1,
 	)
 	result_atoms = list(/obj/item/gun/projectile/automatic/sniper_rifle/lionhunter)
-	cost = 1
+	cost = 2 // TG: Lionhunter's Rifle costs 2 points.
 
 
 	research_tree_icon_path = 'icons/obj/weapons/ballistic.dmi'
@@ -80,6 +80,7 @@
 	gain_text = "К оружию прилагались три грубых железных шарика - патрога. \
 				Вскоре они закончились. Никакие другие боеприпасы не работали. \
 				Тот старик был очень странным."
+	cost = 0 // TG: free follow-up unlock once you've researched the rifle (HKT_NEXT off rifle).
 	required_atoms = list(
 		/obj/item/ammo_casing = 3,
 	)

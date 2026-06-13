@@ -47,7 +47,11 @@
 	var/min_distance = 4
 
 
-/obj/item/ammo_casing/strilka310/lionhunter/fire(atom/target, mob/living/user, params, distro, quiet, zone_override, spread, atom/firer_source_atom)
+// Signature MUST match the base /obj/item/ammo_casing/fire() exactly: gun.dm fires via NAMED args
+// (chambered.fire(modifiers = ..., damage_mod = ..., stamina_mod = ...)). Renaming/omitting params
+// (the old override used `params` and dropped damage_mod/stamina_mod) breaks named-arg binding at
+// runtime -> the casing never fires -> "the rifle doesn't shoot".
+/obj/item/ammo_casing/strilka310/lionhunter/fire(atom/target, mob/living/user, list/modifiers, distro, quiet, zone_override = "", spread, atom/firer_source_atom, damage_mod = 1, stamina_mod = 1)
 	if(!check_fire(target, user))
 		return
 
@@ -117,7 +121,7 @@
 	return TRUE
 
 
-/obj/item/ammo_casing/strilka310/lionhunter/ready_proj(atom/target, mob/living/user, quiet, zone_override, atom/fired_from)
+/obj/item/ammo_casing/strilka310/lionhunter/ready_proj(atom/target, mob/living/user, quiet, zone_override = "", atom/firer_source_atom, damage_mod = 1, stamina_mod = 1)
 	if(!BB)
 		return
 

@@ -78,6 +78,14 @@
 	var/airlock_range = 5
 
 
+/obj/item/coin/eldritch/Initialize(mapload)
+	. = ..()
+	// The base /obj/item/coin/Initialize() overwrites icon_state to "coin_[cmineral]_[sideslist[1]]".
+	// We have no cmineral, so that yields the nonexistent state "coin__heretic" -> the coin spawns invisible.
+	// Restore our real (merged) state so it actually shows up.
+	icon_state = "coin_heretic"
+
+
 /obj/item/coin/eldritch/get_ru_names()
 	return alist(
 		NOMINATIVE = "жуткая монета",

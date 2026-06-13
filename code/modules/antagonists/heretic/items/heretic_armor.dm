@@ -103,7 +103,7 @@
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/ash
 	name = "опалённая мантия"
 	desc = "Тлеющая мантия из пепла и углей. Жар не причиняет ей вреда — лишь питает её."
-	icon_state = "eldritch_armor"
+	icon_state = "ash_armor"
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie/eldritch/ash
 	armor = list("melee" = 50, "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 35, "bio" = 20, "rad" = 20, "fire" = 100, "acid" = 20)
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF | LAVA_PROOF
@@ -247,6 +247,8 @@
 		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
 	)
+	/// Whether the cloak is currently hidden (hood up). Starts TRUE so Initialize()'s make_visible() runs the initial focus setup.
+	var/cloak_hidden = TRUE
 
 
 /obj/item/clothing/suit/hooded/cultrobes/void/get_ru_names()
@@ -271,18 +273,12 @@
 
 /obj/item/clothing/suit/hooded/cultrobes/void/Initialize(mapload)
 	. = ..()
-	make_invisible()
+	// Matches TG: crafted/worn with the hood DOWN -> cloak is visible and acts as a focus.
+	make_visible()
 
 
+// RemoveHood() = lowering the hood (hood DOWN). TG: hood down -> cloak visible + focus.
 /obj/item/clothing/suit/hooded/cultrobes/void/RemoveHood()
-	. = ..()
-	if(!.)
-		return
-
-	make_invisible()
-
-
-/obj/item/clothing/suit/hooded/cultrobes/void/EngageHood()
 	. = ..()
 	if(!.)
 		return
@@ -290,10 +286,20 @@
 	make_visible()
 
 
-/// Makes our cloak "invisible". Not the wearer, the cloak itself.
-/obj/item/clothing/suit/hooded/cultrobes/void/proc/make_invisible()
-	if(HAS_TRAIT_FROM(src, TRAIT_EXAMINE_SKIP, UID()))
+// EngageHood() = raising the hood (hood UP). TG: hood up -> cloak hidden, no focus.
+/obj/item/clothing/suit/hooded/cultrobes/void/EngageHood()
+	. = ..()
+	if(!.)
 		return
+
+	make_invisible()
+
+
+/// Makes our cloak "invisible" (hood up). Not the wearer, the cloak itself. Stops acting as a focus.
+/obj/item/clothing/suit/hooded/cultrobes/void/proc/make_invisible()
+	if(cloak_hidden)
+		return
+	cloak_hidden = TRUE
 
 	add_traits(list(TRAIT_NO_STRIP, TRAIT_NO_WORN_ICON, TRAIT_EXAMINE_SKIP), UID())
 	RemoveElement(/datum/element/heretic_focus)
@@ -308,10 +314,11 @@
 	loc.visible_message(span_notice("Свет искажается вокруг [declent_ru(GENITIVE)]!"))
 
 
-/// Makes our cloak "visible" again.
+/// Makes our cloak "visible" again (hood down). Acts as a focus.
 /obj/item/clothing/suit/hooded/cultrobes/void/proc/make_visible()
-	if(!HAS_TRAIT_FROM(src, TRAIT_EXAMINE_SKIP, UID()))
+	if(!cloak_hidden)
 		return
+	cloak_hidden = FALSE
 
 	remove_traits(list(TRAIT_NO_STRIP, TRAIT_NO_WORN_ICON, TRAIT_EXAMINE_SKIP), UID())
 	AddElement(/datum/element/heretic_focus)

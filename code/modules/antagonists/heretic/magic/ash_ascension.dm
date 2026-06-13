@@ -64,8 +64,13 @@
 
 	for(var/turf/nearby_turf as anything in RANGE_TURFS(1, owner))
 		var/obj/effect/hotspot/flame_tile = (locate() in nearby_turf) || new(nearby_turf)
-		flame_tile.alpha = 125
-		nearby_turf.hotspot_expose(750, 25 * seconds_between_ticks, 1)
+		// Hot, bright-orange fire instead of the dim grey default: atmos tints hotspots by
+		// temperature (at ~750K update_visuals keeps it ~97% greyscale), so we expose much hotter
+		// and recolor the visual tile directly to a fiery orange.
+		flame_tile.temperature = 2500
+		flame_tile.alpha = 200
+		flame_tile.recolor()
+		nearby_turf.hotspot_expose(2500, 25 * seconds_between_ticks, 1)
 		for(var/mob/living/fried_living in nearby_turf.contents - owner)
 			fried_living.apply_damage(2.5 * seconds_between_ticks, BURN)
 
@@ -105,8 +110,11 @@
 	for(var/i in 0 to flame_radius)
 		for(var/turf/nearby_turf as anything in spiral_range_turfs(i + 1, centre))
 			var/obj/effect/hotspot/flame_tile = (locate() in nearby_turf) || new(nearby_turf)
-			flame_tile.alpha = 125
-			nearby_turf.hotspot_expose(750, 50, 1)
+			// Hot, bright-orange fire (see fire_ring/tick): expose hotter + recolor the visual tile.
+			flame_tile.temperature = 2500
+			flame_tile.alpha = 200
+			flame_tile.recolor()
+			nearby_turf.hotspot_expose(2500, 50, 1)
 			for(var/mob/living/fried_living in nearby_turf.contents - action.owner)
 				fried_living.apply_damage(5, BURN)
 

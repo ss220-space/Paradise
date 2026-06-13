@@ -251,7 +251,9 @@
 
 
 /obj/effect/proc_holder/spell/charged/create_new_targeting()
-	return new /datum/spell_targeting/clicked_atom
+	// Self-targeted: targets[1] is the caster, so the chain originates from the heretic
+	// (matching TG, where cast_on == owner) and the self-heal applies to the caster.
+	return new /datum/spell_targeting/self
 
 
 /obj/effect/proc_holder/spell/charged/Destroy()
