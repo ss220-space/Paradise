@@ -52,7 +52,8 @@
 
 /obj/item/storage/bag/trash/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/differentiate_storage_size, WEIGHT_CLASS_BULKY)
+	if(dynamic_storage_size)
+		AddComponent(/datum/component/differentiate_storage_size, WEIGHT_CLASS_BULKY)
 
 /obj/item/storage/bag/trash/suicide_act(mob/user)
 	user.visible_message(span_suicide("[user] puts the [name] over [user.p_their()] head and starts chomping at the insides! Disgusting!"))

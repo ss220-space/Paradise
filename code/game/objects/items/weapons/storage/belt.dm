@@ -22,7 +22,8 @@
 
 /obj/item/storage/belt/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/differentiate_storage_size, WEIGHT_CLASS_BULKY)
+	if(dynamic_storage_size)
+		AddComponent(/datum/component/differentiate_storage_size, WEIGHT_CLASS_BULKY)
 
 /obj/item/storage/belt/proc/check_menu(mob/living/user)
 	if(!istype(user))

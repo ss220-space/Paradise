@@ -701,7 +701,8 @@
 			return FALSE
 
 	if(dynamic_storage_size && isstorage(loc) && !istype(loc, /obj/item/storage/backpack/holding))
-		balloon_alert(usr, "не хватит места!")
+		if(!stop_messages)
+			balloon_alert(usr, "не хватит места!")
 		return FALSE
 
 	return TRUE
