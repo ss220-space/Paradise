@@ -64,7 +64,7 @@
 			msg += "[GEND_HE_SHE_CAP(src)] нос[PLUR_IT_YAT(src)] [icon2html(w_uniform, user)] <b>[w_uniform.declent_ru(ACCUSATIVE)]</b>[tie_msg] на теле.\n"
 
 	//head
-	if(head && !(head.item_flags & ABSTRACT))
+	if(head && !(head.item_flags & ABSTRACT) && !HAS_TRAIT(head, TRAIT_EXAMINE_SKIP))
 		if(head.blood_DNA)
 			msg += "[GEND_HE_SHE_CAP(src)] нос[PLUR_IT_YAT(src)] [icon2html(head, user)] <b>[head.declent_ru(ACCUSATIVE)]</b> [span_warning(head.blood_color != "#030303" ? "со следами крови":"со следами масла")] на голове.\n"
 		else
@@ -78,7 +78,7 @@
 			msg += "[GEND_HE_SHE_CAP(src)] нос[PLUR_IT_YAT(src)] [icon2html(neck, user)] <b>[neck.declent_ru(ACCUSATIVE)]</b> на шее.\n"
 
 	//suit/armour
-	if(wear_suit && !(wear_suit.item_flags & ABSTRACT))
+	if(wear_suit && !(wear_suit.item_flags & ABSTRACT) && !HAS_TRAIT(wear_suit, TRAIT_EXAMINE_SKIP))
 		if(wear_suit.blood_DNA)
 			msg += "[GEND_HE_SHE_CAP(src)] нос[PLUR_IT_YAT(src)] [icon2html(wear_suit, user)] <b>[wear_suit.declent_ru(ACCUSATIVE)]</b> [span_warning(wear_suit.blood_color != "#030303" ? "со следами крови":"со следами масла")].\n"
 		else

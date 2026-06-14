@@ -73,14 +73,20 @@
 		to_chat(user, span_warning("У вас не получилось набрать крови у [living_target.declent_ru(GENITIVE)]!"))
 		return ATTACK_CHAIN_SUCCESS
 
-	// Refresh the fill-level sprite now — reagent changes don't auto-trigger update_icon on this container,
-	// so without this the flask only visually updated when something else (e.g. toggling the lid) refreshed it.
-	update_icon()
 	to_chat(user, span_notice("Вы взяли образец крови у [living_target.declent_ru(GENITIVE)]."))
 	to_chat(living_target, span_warning("Вы чувствуете лёгкий укол!"))
 	COOLDOWN_START(src, drain_cooldown, 5 SECONDS)
 	playsound(src, 'sound/effects/catalyst.ogg', 20, TRUE, extrarange = SILENCED_SOUND_EXTRARANGE, falloff_exponent = 10)
 	return ATTACK_CHAIN_SUCCESS
+
+
+// The base /glass container (unlike /glass/beaker) has no on_reagent_change hook, so the fill-level
+// sprite never refreshed on its own — it only updated when something else forced an update_icon
+// (e.g. the blood-draw above). That left the icon stale/"broken" after draining. Hook the reagent
+// change so the sprite tracks both filling AND draining, matching the beaker pattern.
+/obj/item/reagent_containers/glass/phylactery/on_reagent_change()
+	. = ..()
+	update_icon()
 
 
 /obj/item/reagent_containers/glass/phylactery/update_icon_state()
@@ -156,6 +162,9 @@
 /atom/movable/screen/alert/status_effect/eldritch_sleep
 	name = "Жуткий сон"
 	desc = "Вы чувствуете неописуемое тепло, защищающее вас..."
+	// Paradise's shared screen_alert.dmi has no "eldritch_slumber" state, so the alert rendered blank.
+	// Ported the TG sprite into a dedicated icon file and point the alert at it.
+	icon = 'icons/mob/screen_alert_heretic.dmi'
 	icon_state = "eldritch_slumber"
 
 

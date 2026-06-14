@@ -44,7 +44,7 @@
 	//item_state = "eldritch_armor"
 	flags_inv = HIDESHOES|HIDEJUMPSUIT
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS
-	allowed = list(/obj/item/melee/sickly_blade, /obj/item/gun/projectile/automatic/sniper_rifle/lionhunter)
+	allowed = list(/obj/item/melee/sickly_blade, /obj/item/gun/projectile/shotgun/boltaction/lionhunter)
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie/eldritch
 	// Slightly better than normal cult robes
 	armor = list("melee" = 50, "bullet" = 50, "laser" = 50,"energy" = 50, "bomb" = 35, "bio" = 20, "rad" = 20, "fire" = 20, "acid" = 20)
@@ -93,8 +93,17 @@
 
 
 // Toggle action for the Scorched Mantle's passive flame generation.
+// Without an explicit button icon the action fell back to the generic "default" sprite (the wrong
+// ignition icon the user reported); point it at the heretic "flames" action icon to match TG's fireball button.
 /datum/action/item_action/toggle_flames
 	name = "Переключить пламя"
+	// TG uses the "fireball" sprite for this toggle; master220's default action sheet (actions.dmi) has it.
+	button_icon = 'icons/mob/actions/actions.dmi'
+	button_icon_state = "fireball"
+	background_icon = 'icons/mob/actions/backgrounds.dmi'
+	background_icon_state = "bg_heretic"
+	overlay_icon = 'icons/mob/actions/backgrounds.dmi'
+	overlay_icon_state = "bg_heretic_border"
 
 
 // Опалённая Мантия (Scorched Mantle) — Ash path robes.

@@ -2,22 +2,31 @@
 #define MAX_LIONHUNTER_RANGE 30
 
 // The Lionhunter, a gun for heretics
-// The ammo it uses takes time to "charge" before firing,
-// releasing a homing, very damaging projectile
-/obj/item/gun/projectile/automatic/sniper_rifle/lionhunter
+// The ammo it uses takes time to "charge" before firing, releasing a very damaging projectile.
+// Matching TG it is a BOLT-ACTION rifle: you have to rack the bolt between shots (open/close the bolt
+// via the unique action / unloading), and reloads are done with a stripper clip while the bolt is open.
+/obj/item/gun/projectile/shotgun/boltaction/lionhunter
 	name = "винтовка охотника на львов"
 	desc = "Старинное ружье, выглядящее безупречно, несмотря на то, что оно явно очень старое."
 	gender = FEMALE
 	icon = 'icons/obj/weapons/wide_guns.dmi'
 	icon_state = "lionhunter"
 	item_state = "lionhunter"
-	mag_type = /obj/item/ammo_box/magazine/strilka310/lionhunter
+	slot_flags = ITEM_SLOT_BACK
+	mag_type = /obj/item/ammo_box/magazine/internal/lionhunter
 	fire_sound = 'sound/weapons/gunshots/shot.ogg'
+	accuracy = GUN_ACCURACY_SNIPER
+	recoil = GUN_RECOIL_HIGH
+	// The lionhunter sprite has no "-open"/"_reload" icon states, so suppress the bolt-open sprite swap
+	// (see update_icon_state below) and the pump reload animation.
+	available_reload_animation = FALSE
+	// Paradise-native scope: instead of TG's /datum/component/scope, use the built-in zoom action that
+	// every /obj/item/gun supports. Holding the rifle grants a "Масштаб" toggle that pans the view forward.
+	zoomable = TRUE
+	zoom_amt = 10
 
-	//SET_BASE_PIXEL(-8, 0)
 
-
-/obj/item/gun/projectile/automatic/sniper_rifle/lionhunter/get_ru_names()
+/obj/item/gun/projectile/shotgun/boltaction/lionhunter/get_ru_names()
 	return alist(
 		NOMINATIVE = "винтовка охотника на львов",
 		GENITIVE = "винтовки охотника на львов",
@@ -28,14 +37,28 @@
 	)
 
 
-/obj/item/gun/projectile/automatic/sniper_rifle/lionhunter/update_icon_state()
-	return
-
-/*
-/obj/item/gun/projectile/automatic/sniper_rifle/lionhunter/Initialize(mapload)
+/obj/item/gun/projectile/shotgun/boltaction/lionhunter/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/scope, range_modifier = 3.2)
-*/
+	// Chamber the first round so the rifle spawns ready to fire; the heretic still has to rack the bolt
+	// after every shot to load the next round.
+	bolt_open = TRUE
+	pump()
+
+
+// The lionhunter icon has no bolt-open/reload sprite variants, so keep the icon static regardless of bolt state.
+/obj/item/gun/projectile/shotgun/boltaction/lionhunter/update_icon_state()
+	icon_state = initial(icon_state)
+
+
+// Bolt-action internal magazine for the lionhunter. No caliber set, so ammo suitability falls back to an
+// exact ammo-type match (only lionhunter .310 rounds fit), matching how the crafted stripper clip loads.
+/obj/item/ammo_box/magazine/internal/lionhunter
+	name = "внутренний магазин винтовки охотника на львов"
+	gun_name = "винтовки охотника на львов"
+	ammo_type = /obj/item/ammo_casing/strilka310/lionhunter
+	caliber = null
+	max_ammo = 3
+
 
 /obj/item/ammo_casing/strilka310/lionhunter
 	projectile_type = /obj/projectile/bullet/strilka310/lionhunter
@@ -61,7 +84,7 @@
 /// Checks if we can successfully fire our projectile.
 /obj/item/ammo_casing/strilka310/lionhunter/proc/check_fire(atom/target, mob/living/user)
 	// In case someone puts this in turrets or something wacky, just fire like normal
-	if(!iscarbon(user) || !istype(loc, /obj/item/gun/projectile/automatic/sniper_rifle/lionhunter))
+	if(!iscarbon(user) || !istype(loc, /obj/item/gun/projectile/shotgun/boltaction/lionhunter))
 		return TRUE
 
 	if(currently_aiming)
@@ -127,18 +150,13 @@
 
 	var/distance = get_dist(user, target)
 	// If we're close range, or the target's not a living, OR for some reason a non-carbon is firing the gun
-	// The projectile is dry-fired, and gains no buffs
-	// BUT, if we're at a decent range and the target's a living mob,
-	// the projectile's been channel fired. It has full effects and homes in.
+	// The projectile is dry-fired, and gains no buffs.
+	// BUT, if we're at a decent range and the target's a living mob, the projectile's been channel fired:
+	// it has full effects and carries the heretic to whoever it strikes.
 	if(distance > min_distance && isliving(target) && iscarbon(user))
 		BB.stamina *= 2
 		BB.knockdown = 0.5 SECONDS
 		BB.stutter = 6 SECONDS
-		//BB.projectile_phasing =  PASSTABLE | PASSGLASS | PASSGRILLE | PASSCLOSEDTURF | PASSMACHINE | PASSSTRUCTURE | PASSDOORS
-
-		//homing = TRUE
-		//homing_turn_speed = 150
-		//set_homing_target(target)
 
 	return ..()
 
@@ -150,14 +168,16 @@
 	damage = 30
 	stamina = 30
 	forcedodge = 3
-	//projectile_phasing =  PASSTABLE | PASSGLASS | PASSGRILLE | PASSCLOSEDTURF | PASSMACHINE | PASSSTRUCTURE | PASSDOORS
 	///The mob that is currently inside the bullet
 	var/mob/stored_mob
 
 
-/obj/projectile/bullet/strilka310/lionhunter/fire(angle, atom/direct_target)
+// Base /obj/projectile/fire() only takes setAngle; the heretic firer rides inside the bullet so they are
+// carried to wherever it lands (see on_hit/on_range), which is what produces the "teleport to your target"
+// effect. Only happens when shooting a living target (matching TG).
+/obj/projectile/bullet/strilka310/lionhunter/fire(setAngle)
 	. = ..()
-	if(QDELETED(src) || !isliving(firer))
+	if(QDELETED(src) || !isliving(firer) || !isliving(original))
 		return
 
 	var/mob/living/living_firer = firer
@@ -165,12 +185,13 @@
 		return
 
 	living_firer.forceMove(src)
-	var/obj/item/gun/projectile/gun = firer_source_atom
-	gun.zoom(living_firer, FALSE)
-	if(gun.azoom)
-		gun.azoom.Remove(living_firer)
-
 	stored_mob = living_firer
+
+	// Drop out of the scope when we launch ourselves down-range.
+	var/obj/item/gun/projectile/gun = firer_source_atom
+	if(istype(gun))
+		gun.zoom(living_firer, FALSE)
+		gun.azoom?.Remove(living_firer)
 
 
 /obj/projectile/bullet/strilka310/lionhunter/Exited(atom/movable/gone)
@@ -181,12 +202,13 @@
 
 
 /obj/projectile/bullet/strilka310/lionhunter/on_range()
-	stored_mob?.forceMove(loc)
+	stored_mob?.forceMove(get_turf(src))
 	return ..()
 
 
 /obj/projectile/bullet/strilka310/lionhunter/on_hit(atom/target, blocked, pierce_hit)
-	//stored_mob?.forceMove(loc) //Pretty important to get our mob out of the bullet // No :badguy:
+	// Deposit the heretic onto the turf they struck: they teleport to their victim on a hit.
+	stored_mob?.forceMove(get_turf(src))
 	. = ..()
 	if(!isliving(target))
 		return
@@ -196,6 +218,7 @@
 	if(IS_HERETIC_OR_MONSTER(victim) || !isheretic(firing_mob))
 		return
 
+	// Applies the heretic's currently-equipped mark to the victim (same path Mansus Grasp uses).
 	SEND_SIGNAL(firer, COMSIG_LIONHUNTER_ON_HIT, victim)
 	return
 
@@ -204,23 +227,24 @@
 	if(!stored_mob)
 		return ..()
 
-	//stack_trace("Lionhunter bullet qdel'd with its firer still inside!")
-	stored_mob.forceMove(loc)
+	stored_mob.forceMove(get_turf(src))
 	return ..()
 
 
-// Extra ammunition can be made with a heretic ritual.
-/obj/item/ammo_box/magazine/strilka310/lionhunter
+// Extra ammunition can be made with a heretic ritual. A stripper clip, loaded into the rifle's internal
+// magazine while the bolt is open (matching TG's reload flow).
+/obj/item/ammo_box/speedloader/strilka310/lionhunter
 	name = "обойма (.310 охотник)"
 	desc = "Обойма с загадочными, необычными патронами. Она не подходит к обычным баллистическим винтовкам."
 	gender = FEMALE
+	icon = 'icons/obj/weapons/ammo.dmi'
 	icon_state = "310_strip"
+	gun_name = "винтовки охотника на львов"
 	ammo_type = /obj/item/ammo_casing/strilka310/lionhunter
 	max_ammo = 3
-	//multiple_sprites = AMMO_BOX_PER_BULLET
 
 
-/obj/item/ammo_box/magazine/strilka310/lionhunter/get_ru_names()
+/obj/item/ammo_box/speedloader/strilka310/lionhunter/get_ru_names()
 	return alist(
 		NOMINATIVE = "обойма (.310 охотник)",
 		GENITIVE = "обоймы (.310 охотник)",

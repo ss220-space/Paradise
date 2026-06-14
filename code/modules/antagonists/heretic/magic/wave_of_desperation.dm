@@ -31,7 +31,15 @@
 
 /obj/effect/proc_holder/spell/aoe/wave_of_desperation/can_cast(mob/user, charge_check, feedback)
 	var/mob/living/carbon/human/human = action.owner
-	return istype(human) && ..() && (human.handcuffed || human.legcuffed)
+	if(!istype(human) || !..())
+		return FALSE
+	// The whole point of the spell is to break free, so it can ONLY be cast while restrained (matches TG).
+	// Without telling the caster why, the greyed-out button just feels broken ("не дает прокликать").
+	if(!human.handcuffed && !human.legcuffed)
+		if(feedback)
+			to_chat(human, span_warning("«[name]» можно применить, только будучи скованным!"))
+		return FALSE
+	return TRUE
 
 
 // Before the cast, we do some small AOE damage around the caster
@@ -85,18 +93,17 @@
 
 
 /obj/effect/proc_holder/spell/aoe/wave_of_desperation/cast(list/targets, mob/caster = usr)
-	for(var/victim as anything in targets)
-		if(!ismob(victim))
-			SEND_SIGNAL(action.owner, COMSIG_HERETIC_MANSUS_GRASP_ATTACK_SECONDARY, victim)
-
-		var/atom/movable/mover = victim
-		if(!istype(mover))
-			return
+	// `targets` is just the caster (self-targeting), so do the real AOE pass here: shove everything around
+	// the caster away and apply a secondary Mansus Grasp to non-mobs. Matches TG's cast_on_thing_in_aoe loop.
+	// get_things_to_cast_on already excludes the caster and other heretics/monsters, so we never throw ourselves.
+	var/our_turf = get_turf(caster)
+	for(var/atom/movable/mover in get_things_to_cast_on(caster, radius_override = aoe_range))
+		if(!ismob(mover))
+			SEND_SIGNAL(action.owner, COMSIG_HERETIC_MANSUS_GRASP_ATTACK_SECONDARY, mover)
 
 		if(mover.anchored)
-			return
+			continue
 
-		var/our_turf = get_turf(caster)
 		var/throwtarget = get_edge_target_turf(our_turf, get_dir(our_turf, get_step_away(mover, our_turf)))
 		mover.throw_at(throwtarget, 3, 1, force = MOVE_FORCE_STRONG)
 

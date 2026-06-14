@@ -65,7 +65,7 @@
 		/obj/item/stack/sheet/animalhide = 1,
 		/obj/item/camera = 1,
 	)
-	result_atoms = list(/obj/item/gun/projectile/automatic/sniper_rifle/lionhunter)
+	result_atoms = list(/obj/item/gun/projectile/shotgun/boltaction/lionhunter)
 	cost = 2 // TG: Lionhunter's Rifle costs 2 points.
 
 
@@ -84,7 +84,7 @@
 	required_atoms = list(
 		/obj/item/ammo_casing = 3,
 	)
-	result_atoms = list(/obj/item/ammo_box/magazine/strilka310/lionhunter)
+	result_atoms = list(/obj/item/ammo_box/speedloader/strilka310/lionhunter)
 	research_tree_icon_path = 'icons/obj/weapons/ammo.dmi'
 	research_tree_icon_state = "310_strip"
 /*
