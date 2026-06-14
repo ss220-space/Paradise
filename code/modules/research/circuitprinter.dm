@@ -384,7 +384,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 
 	LAZYADD(scanned_designs, list(data))
 
-	to_chat(user, span_greentext("Схема сохранена"))
+	to_chat(user, "Схема сохранена")
 	playsound(src, 'sound/machines/ping.ogg', 50)
 
 	update_static_data_for_all_viewers()
