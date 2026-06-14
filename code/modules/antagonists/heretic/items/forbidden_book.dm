@@ -157,16 +157,17 @@
 		user.balloon_alert(user, "нет крови!")
 		return
 
-	var/blood_samples = list()
-	//blood_samples[requirement.get_blood_dna_list()] = TRUE
+	// Require ACTUAL blood (reagent blood in a container, or blood smeared on the item) in the offhand
+	// before casting. The old check was `isnull(list())` — always FALSE — so it never gated, and with the
+	// victim's blood failing to match (see heretic_curses.dm), the curse could fall back onto the heretic.
+	// Scanning here for real blood is the front-line guard for "проклятия накладываются на меня".
+	var/has_blood = LAZYLEN(held_offhand.blood_DNA)
+	if(!has_blood)
+		for(var/datum/reagent/blood/usable_reagent in held_offhand.reagents?.reagent_list)
+			has_blood = TRUE
+			break
 
-	for(var/datum/reagent/blood/usable_reagent as anything in held_offhand.reagents?.reagent_list)
-		if(!istype(usable_reagent, /datum/reagent/blood))
-			continue
-
-		blood_samples += usable_reagent.data["blood_DNA"]
-
-	if(isnull(blood_samples))
+	if(!has_blood)
 		user.balloon_alert(user, "нет крови!")
 		return ATTACK_CHAIN_BLOCKED
 

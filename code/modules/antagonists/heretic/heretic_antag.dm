@@ -626,9 +626,9 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	target_turf.balloon_alert(user, "черчение руны...")
 	var/obj/effect/temp_visual/drawing_heretic_rune/drawing_effect
 	if(drawing_time < (10 SECONDS))
-		drawing_effect = new /obj/effect/temp_visual/drawing_heretic_rune/fast(target_turf, rune_colour)
+		drawing_effect = new /obj/effect/temp_visual/drawing_heretic_rune/fast(target_turf, rune_colour, drawing_time)
 	else
-		drawing_effect = new(target_turf, rune_colour)
+		drawing_effect = new(target_turf, rune_colour, drawing_time)
 
 	if(!do_after(user, drawing_time, target_turf, extra_checks = additional_checks))
 		target_turf.balloon_alert(user, "прервано!")

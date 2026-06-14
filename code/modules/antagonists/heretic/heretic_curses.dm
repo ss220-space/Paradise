@@ -17,16 +17,28 @@
 
 
 /datum/heretic_knowledge/curse/recipe_snowflake_check(mob/living/carbon/human/user, list/atoms, list/selected_atoms, turf/loc)
+	// IMPORTANT: fingerprints/blood_samples MUST be ASSOC lists (key = print/DNA, value = TRUE), because
+	// on_finished_recipe matches victims via assoc lookup `blood_samples[their_blood]`. The old code did
+	// `blood_samples.Add(dna)` (a PLAIN element) → the assoc lookup always returned null → the victim's
+	// blood never matched, so the ONLY match left was the heretic's own fingerprint on the held container
+	// → "проклятия накладываются на меня". Mirror TG: scan every atom's blood_DNA, fingerprints AND reagents.
 	fingerprints = list()
 	blood_samples = list()
-	var/atom/blood_owner = atoms[1]
-	var/datum/reagent/blood = blood_owner.reagents.has_reagent("blood")
-	if(!blood)
-		return FALSE
+	for(var/atom/requirement as anything in atoms)
+		if(islist(requirement.fingerprints))
+			for(var/print in requirement.fingerprints)
+				fingerprints[print] = TRUE
 
-	fingerprints += blood_owner.fingerprints
-	blood_samples.Add(blood?.data["blood_DNA"])
-	return blood?.data["blood_DNA"]
+		if(islist(requirement.blood_DNA))
+			for(var/blood_dna in requirement.blood_DNA)
+				blood_samples[blood_dna] = TRUE
+
+		for(var/datum/reagent/blood/usable_reagent as anything in requirement.reagents?.reagent_list)
+			if(!istype(usable_reagent, /datum/reagent/blood))
+				continue
+			blood_samples[usable_reagent.data["blood_DNA"]] = TRUE
+
+	return TRUE
 
 
 /datum/heretic_knowledge/curse/on_finished_recipe(mob/living/user, list/selected_atoms,  turf/loc)

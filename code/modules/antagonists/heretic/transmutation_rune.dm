@@ -4,13 +4,27 @@
 ///   pixels take the full path colour and darker pixels a darker shade — identical to GAGS' color_ids.
 /// * [white_state] - optional matching linework overlaid untinted on top, so the bright "pen"
 ///   accents stay white (the second, uncoloured GAGS layer).
-/// Frame counts and delays are copied from the source states, so the result animates identically.
-/proc/heretic_rune_icon(icon_file, colour_state, rune_colour, white_state)
+/// * [draw_duration] / [draw_frames] - when both are set, the draw-in animation is re-timed so its
+///   first [draw_frames] frames (the actual drawing, excluding the trailing "hold" frame) play across
+///   exactly [draw_duration] deciseconds. The source states are authored ~12s/~33s long, so a faster
+///   codex (Codex Morbus draws in 5s) would otherwise place the rune at ~40% drawn — the "skip" the
+///   animation is reported as not keeping up with. Uniform delays keep it smooth and finish on time.
+/proc/heretic_rune_icon(icon_file, colour_state, rune_colour, white_state, draw_duration = 0, draw_frames = 0)
 	var/icon/composite = icon(icon_file, colour_state)
 	composite.Blend(rune_colour, ICON_MULTIPLY)
 	if(white_state)
 		composite.Blend(icon(icon_file, white_state), ICON_OVERLAY)
-	return composite
+
+	if(draw_duration <= 0 || draw_frames <= 0)
+		return composite
+
+	var/icon/timed = new
+	var/frame_delay = max(draw_duration / draw_frames, 0.5)
+	for(var/i in 1 to draw_frames)
+		// Extract by the default state ("") rather than colour_state — icon() resolves "" to the composite's
+		// single state regardless of whether the bake preserved its name, so the per-frame copy is reliable.
+		timed.Insert(icon(composite, "", SOUTH, i), "", SOUTH, i, FALSE, frame_delay)
+	return timed
 
 
 /// The heretic's rune, which they use to complete transmutation rituals.
@@ -281,9 +295,12 @@
 	//greyscale_config = /datum/greyscale_config/heretic_rune
 	/// The "_colour" linework state baked (with its "_white" companion) into the coloured draw animation.
 	var/animation_state = "transmutation_rune_draw_colour"
+	/// How many leading draw frames this state has (the whole animation minus the trailing "hold" frame).
+	/// Set so heretic_rune_icon can re-time the draw-in to match the caster's actual drawing_time. 0 = don't.
+	var/draw_frames = 66
 
 
-/obj/effect/temp_visual/drawing_heretic_rune/Initialize(mapload, path_colour = COLOR_LIME)
+/obj/effect/temp_visual/drawing_heretic_rune/Initialize(mapload, path_colour = COLOR_LIME, drawing_time = 0)
 	. = ..()
 	if(!path_colour)
 		path_colour = COLOR_LIME
@@ -291,10 +308,11 @@
 	// single animated icon (see heretic_rune_icon): the "_colour" linework is multiplied by the path
 	// colour (lime for PATH_START, blood-red for ASH, ...) and the matching "_white" pen accents are
 	// overlaid untinted on top. Both source states are 67-frame draw-in animations, so the whole rune
-	// animates as it's being drawn.
+	// animates as it's being drawn. drawing_time re-times that draw-in so it finishes exactly when the
+	// caster's do_after does (otherwise a fast Codex Morbus draw cuts the ~12s animation off mid-draw).
 	var/source_icon = icon
 	var/white_state = replacetext(animation_state, "_colour", "_white")
-	icon = heretic_rune_icon(source_icon, animation_state, path_colour, white_state)
+	icon = heretic_rune_icon(source_icon, animation_state, path_colour, white_state, drawing_time, drawing_time > 0 ? draw_frames : 0)
 	icon_state = ""
 	var/image/silicon_image = image(icon = 'icons/effects/eldritch.dmi', icon_state = null, loc = src)
 	silicon_image.override = TRUE
@@ -304,6 +322,7 @@
 /obj/effect/temp_visual/drawing_heretic_rune/fast
 	duration = 12 SECONDS
 	animation_state = "transmutation_rune_fast_colour"
+	draw_frames = 66
 
 
 /obj/effect/temp_visual/drawing_heretic_rune/fail

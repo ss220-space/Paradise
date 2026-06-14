@@ -29,17 +29,28 @@
 	return istype(cast_on) && (cast_on.handcuffed || cast_on.legcuffed)
 
 
-/obj/effect/proc_holder/spell/aoe/wave_of_desperation/can_cast(mob/user, charge_check, feedback)
+// IMPORTANT: param MUST be named `show_message` (not `feedback`) — master220's IsAvailable calls
+// `spell.can_cast(owner, show_message = feedback)` by NAME; a mismatched name breaks availability and
+// leaves the button permanently RED/unclickable (same can_cast-signature bug class as sessions 4d/4f).
+/obj/effect/proc_holder/spell/aoe/wave_of_desperation/can_cast(mob/user, charge_check, show_message)
 	var/mob/living/carbon/human/human = action.owner
 	if(!istype(human) || !..())
 		return FALSE
-	// The whole point of the spell is to break free, so it can ONLY be cast while restrained (matches TG).
-	// Without telling the caster why, the greyed-out button just feels broken ("не дает прокликать").
-	if(!human.handcuffed && !human.legcuffed)
-		if(feedback)
-			to_chat(human, span_warning("«[name]» можно применить, только будучи скованным!"))
-		return FALSE
+	// NOTE: the "must be restrained" gate lives in cast_check(), NOT here — TG keeps the button available
+	// (green) and only refuses the actual cast. Gating availability would colour the button red at all times
+	// you're not cuffed, which is exactly the "красная и нельзя прожать" complaint.
 	return TRUE
+
+
+// The whole point of the spell is to break free, so it can ONLY be cast while restrained (matches TG's
+// is_valid_target). We gate here, BEFORE ..() spends the cooldown, so clicking while uncuffed just warns
+// and never wastes the 5-minute cooldown. (Self-targeting bypasses valid_target, so this is the real gate.)
+/obj/effect/proc_holder/spell/aoe/wave_of_desperation/cast_check(charge_check = TRUE, start_recharge = TRUE, mob/user = usr)
+	var/mob/living/carbon/human/human = user
+	if(!istype(human) || (!human.handcuffed && !human.legcuffed))
+		to_chat(user, span_warning("«[name]» можно применить, только будучи скованным!"))
+		return FALSE
+	return ..()
 
 
 // Before the cast, we do some small AOE damage around the caster
