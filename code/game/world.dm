@@ -321,26 +321,18 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	var/latest_changelog = file("html/changelogs/archive/" + time2text(world.timeofday, "YYYY-MM") + ".yml")
 	GLOB.changelog_hash = fexists(latest_changelog) ? md5(latest_changelog) : 0 //for telling if the changelog has changed recently
 
-// This proc kills DreamDaemon (DreamSeeker if locally debugging) instance via shell command.
-// This is not a normal routine and it should be used under certain circumstances
-// Please close spawned threads with separate PIDs (if any)
+/**
+ * This proc kills DreamDaemon (DreamSeeker if locally debugging) instance via shell command.
+ * This is not a normal routine and it should be used under certain circumstances (like world can't shutdown itself properly)
+ * Please close spawned threads with separate PIDs (if any)
+ */
 /world/proc/KillImmediately()
-
-// /world/Del() logic start
-	rustg_close_async_http_client() // Close the HTTP client. If you dont do this, youll get phantom threads which can crash DD from memory access violations
-	var/debug_server = world.GetConfig("env", "AUXTOOLS_DEBUG_DLL")
-	if(debug_server)
-		CALL_EXT(debug_server, "auxtools_shutdown")()
-	if(SSredis.connected)
-		rustg_redis_disconnect() // Disconnects the redis connection. See above.
-	prof_stop()
-
-// /world/Del() logic end
-
+	PrepareShutdown()
 	log_world("Shutting down current instance via forceful killing from shell...")
-	rustg_log_close_all()
 
-	var/process_id = world.process
+	rustg_log_close_all() // Past this point, no logging procs can be used, at risk of data loss.
+
+	var/process_id = UNLINT(world.process) // SpacemanDMM does not know about world.process, which returns PID of the current instance.
 
 	if(world.system_type == UNIX)
 		shell("kill -9 [process_id]")
@@ -349,6 +341,10 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 		shell("taskkill /f /pid [process_id]")
 
 /world/Del()
+	PrepareShutdown()
+	..()
+
+/world/proc/PrepareShutdown()
 	rustg_close_async_http_client() // Close the HTTP client. If you dont do this, youll get phantom threads which can crash DD from memory access violations
 	var/debug_server = world.GetConfig("env", "AUXTOOLS_DEBUG_DLL")
 	if(debug_server)
@@ -356,7 +352,6 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	if(SSredis.connected)
 		rustg_redis_disconnect() // Disconnects the redis connection. See above.
 	prof_stop()
-	..()
 
 /**
  * Handles incresing the world's maxx var and intializing the new turfs and assigning them to the global area.
