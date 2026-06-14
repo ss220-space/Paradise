@@ -340,10 +340,10 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	var/process_id = UNLINT(world.process) // SpacemanDMM does not know about world.process, which returns PID of the current instance.
 
 	if(world.system_type == UNIX)
-		shell("kill -9 [process_id]")
+		shell("kill -15 [process_id]")
 
 	if(world.system_type == MS_WINDOWS)
-		shell("taskkill /f /pid [process_id]")
+		shell("taskkill /pid [process_id]")
 
 /world/Del()
 	PrepareShutdown()
