@@ -66,8 +66,12 @@
 	if(!local_user)
 		return PROCESS_KILL
 
-	if(IS_HERETIC_OR_MONSTER(local_user) && HAS_TRAIT(src, TRAIT_NODROP))
-		REMOVE_TRAIT(src, TRAIT_NODROP, CLOTHING_TRAIT)
+	if(IS_HERETIC_OR_MONSTER(local_user))
+		if(HAS_TRAIT(src, TRAIT_NODROP))
+			REMOVE_TRAIT(src, TRAIT_NODROP, CLOTHING_TRAIT)
+	// Нееретик-носитель не должен иметь возможности снять маску, независимо от того, как она была надета (стрип еретиком и т.п.).
+	else if(!HAS_TRAIT(src, TRAIT_NODROP))
+		ADD_TRAIT(src, TRAIT_NODROP, CLOTHING_TRAIT)
 
 	for(var/mob/living/carbon/human/human_in_range in view(local_user))
 		if(IS_HERETIC_OR_MONSTER(human_in_range) || human_in_range.is_blind())
@@ -77,7 +81,7 @@
 			continue
 
 		if(prob(60))
-			human_in_range.Hallucinate(10 SECONDS)
+			human_in_range.AdjustHallucinate(10 SECONDS, bound_upper = 120 SECONDS)
 
 		if(prob(40))
 			human_in_range.Jitter(10 SECONDS)

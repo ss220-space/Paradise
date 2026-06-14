@@ -9,7 +9,10 @@
 	action_icon_state = "uncuff"
 	sound = 'sound/magic/swap.ogg'
 
-	school = SCHOOL_FORBIDDEN
+	// EVOCATION, not FORBIDDEN: this is the break-free panic button used while cuffed/stripped, so it must
+	// NOT go through the heretic focus gate (on_spell_cast cancels SCHOOL_FORBIDDEN casts with "нужен амулет"
+	// unless you hold your amulet — which you won't when arrested). Matches TG (school = SCHOOL_EVOCATION).
+	school = SCHOOL_EVOCATION
 	human_req = FALSE
 	clothes_req = FALSE
 	base_cooldown = 5 MINUTES
@@ -103,12 +106,14 @@
 		. += nearby_mob
 
 
-/obj/effect/proc_holder/spell/aoe/wave_of_desperation/cast(list/targets, mob/caster = usr)
+// Param MUST be named `user` (not `caster`): perform() calls `cast(targets, user = user)` BY NAME, so a
+// differently-named param doesn't bind and silently falls back to usr (same cast-signature rule as 4f).
+/obj/effect/proc_holder/spell/aoe/wave_of_desperation/cast(list/targets, mob/user = usr)
 	// `targets` is just the caster (self-targeting), so do the real AOE pass here: shove everything around
 	// the caster away and apply a secondary Mansus Grasp to non-mobs. Matches TG's cast_on_thing_in_aoe loop.
 	// get_things_to_cast_on already excludes the caster and other heretics/monsters, so we never throw ourselves.
-	var/our_turf = get_turf(caster)
-	for(var/atom/movable/mover in get_things_to_cast_on(caster, radius_override = aoe_range))
+	var/our_turf = get_turf(user)
+	for(var/atom/movable/mover in get_things_to_cast_on(user, radius_override = aoe_range))
 		if(!ismob(mover))
 			SEND_SIGNAL(action.owner, COMSIG_HERETIC_MANSUS_GRASP_ATTACK_SECONDARY, mover)
 
@@ -120,5 +125,6 @@
 
 
 /obj/effect/temp_visual/knockblast
+	icon = 'icons/effects/effects.dmi' // base temp_visual sets no icon file → without this the flash is invisible
 	icon_state = "shield-flash"
 	alpha = 180
