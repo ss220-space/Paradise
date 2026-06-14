@@ -128,6 +128,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 				return
 			log_and_message_admins("has requested an immediate world restart via client side debugging tools")
 			to_chat(world, span_boldannounceooc("Rebooting world immediately due to host request"))
+
 		// Now handle a reboot
 		if(config && CONFIG_GET(flag/shutdown_on_reboot))
 			if(CONFIG_GET(flag/kill_on_shutdown))
@@ -175,6 +176,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 		if(CONFIG_GET(flag/kill_on_shutdown))
 			world.KillImmediately()
 			return
+		
 		rustlib_clear_uuid_storage()
 		rustg_log_close_all() // Past this point, no logging procs can be used, at risk of data loss.
 		sleep(0)
