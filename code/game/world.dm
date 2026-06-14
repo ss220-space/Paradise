@@ -131,7 +131,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 
 		// Now handle a reboot
 		if(config && CONFIG_GET(flag/shutdown_on_reboot))
-			if (CONFIG_GET(flag/kill_on_shutdown))
+			if(CONFIG_GET(flag/kill_on_shutdown))
 				world.KillImmediately()
 				return
 
@@ -171,7 +171,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 
 	// And begin the real shutdown
 	if(config && CONFIG_GET(flag/shutdown_on_reboot))
-		if (CONFIG_GET(flag/kill_on_shutdown))
+		if(CONFIG_GET(flag/kill_on_shutdown))
 			world.KillImmediately()
 			return
 
