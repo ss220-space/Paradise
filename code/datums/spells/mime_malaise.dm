@@ -30,23 +30,3 @@
 	var/mob/living/carbon/human/H = target
 	H.mimetouched()
 	..()
-
-/mob/living/carbon/human/proc/mimetouched()
-	Weaken(14 SECONDS)
-	if(iswizard(src) || (mind && mind.special_role == SPECIAL_ROLE_WIZARD_APPRENTICE)) //Wizards get non-cursed mime outfit. Replace with mime robes if we add those.
-		drop_item_ground(wear_mask, force = TRUE)
-		drop_item_ground(w_uniform, force = TRUE)
-		drop_item_ground(wear_suit, force = TRUE)
-		equip_to_slot_or_del(new /obj/item/clothing/mask/gas/mime, ITEM_SLOT_MASK)
-		equip_to_slot_or_del(new /obj/item/clothing/under/mime, ITEM_SLOT_CLOTH_INNER)
-		equip_to_slot_or_del(new /obj/item/clothing/suit/suspenders, ITEM_SLOT_CLOTH_OUTER)
-		Silence(14 SECONDS)
-	else
-		qdel(wear_mask)
-		qdel(w_uniform)
-		qdel(wear_suit)
-		equip_to_slot_or_del(new /obj/item/clothing/mask/gas/mime/nodrop, ITEM_SLOT_MASK)
-		equip_to_slot_or_del(new /obj/item/clothing/under/mime/nodrop, ITEM_SLOT_CLOTH_INNER)
-		equip_to_slot_or_del(new /obj/item/clothing/suit/suspenders/nodrop, ITEM_SLOT_CLOTH_OUTER)
-		force_gene_block(GLOB.muteblock, TRUE, TRUE)
-

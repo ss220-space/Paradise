@@ -470,7 +470,9 @@
 
 	spell_level++
 	cooldown_time = max(cooldown_time - cooldown_reduction_per_rank, 0.25 SECONDS) // 0 second CD starts to break things.
-	name = "[get_spell_title()][initial(name)]"
+	var/title = get_spell_title()
+	name = "[title] [initial(name)]"
+	to_chat(owner, span_notice("You have improved [name] into [title] [name]."))
 	build_all_button_icons(UPDATE_BUTTON_NAME)
 	return TRUE
 
