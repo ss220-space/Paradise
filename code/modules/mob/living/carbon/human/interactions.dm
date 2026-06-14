@@ -21,7 +21,7 @@
 
 	var/list/targets = list()
 	for(var/mob/living/carbon/human/human in view(src))
-		if (human != src)
+		if(human != src)
 			targets[human.name] = human
 
 	if(!length(targets))
