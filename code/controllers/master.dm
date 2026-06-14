@@ -482,9 +482,6 @@ ADMIN_VERB(cmd_controller_view_ui, R_ADMIN|R_DEBUG|R_VIEWRUNTIMES, "Controller O
 
 	if(sleep_offline_after_initializations)
 		world.sleep_offline = TRUE
-	else
-		world.sleep_offline = FALSE
-
 	sleep(1 TICKS)
 
 	initializations_finished_with_no_players_logged_in = initialized_tod < REALTIMEOFDAY - 10

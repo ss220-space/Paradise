@@ -128,15 +128,22 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 				return
 			log_and_message_admins("has requested an immediate world restart via client side debugging tools")
 			to_chat(world, span_boldannounceooc("Rebooting world immediately due to host request"))
-		rustg_log_close_all() // Past this point, no logging procs can be used, at risk of data loss.
+
 		// Now handle a reboot
 		if(config && CONFIG_GET(flag/shutdown_on_reboot))
+			if (CONFIG_GET(flag/kill_on_shutdown))
+				world.KillImmediately()
+				return
+
+			rustg_log_close_all() // Past this point, no logging procs can be used, at risk of data loss.
 			sleep(0)
 			if(GLOB.shutdown_shell_command)
 				shell(GLOB.shutdown_shell_command)
-			TerminateWorld()
+			del(world)
+			TgsEndProcess() // We want to shutdown on reboot. That means kill our TGS process "gracefully", instead of the watchdog crying
 			return
 		else
+			rustg_log_close_all() // Past this point, no logging procs can be used, at risk of data loss.
 			TgsReboot() // Tell TGS we did a reboot
 			return ..(1)
 
@@ -163,26 +170,23 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 			C << link("byond://[CONFIG_GET(string/server)]")
 
 	// And begin the real shutdown
-	rustg_log_close_all() // Past this point, no logging procs can be used, at risk of data loss.
 	if(config && CONFIG_GET(flag/shutdown_on_reboot))
+		if (CONFIG_GET(flag/kill_on_shutdown))
+			world.KillImmediately()
+			return
+
+		rustg_log_close_all() // Past this point, no logging procs can be used, at risk of data loss.
 		sleep(0)
 		if(GLOB.shutdown_shell_command)
 			shell(GLOB.shutdown_shell_command)
 		rustg_log_close_all() // Past this point, no logging procs can be used, at risk of data loss.
-		TerminateWorld()
+		del(world)
+		TgsEndProcess() // We want to shutdown on reboot. That means kill our TGS process "gracefully", instead of the watchdog crying
 		return
 	else
+		rustg_log_close_all() // Past this point, no logging procs can be used, at risk of data loss.
 		TgsReboot() // We did a normal reboot. Tell TGS we did a normal reboot.
 		..(0)
-
-// proc for guaranteed world shutdown in case bad things happened and TGS did not shut us down at first try
-/world/proc/TerminateWorld()
-	while(TRUE)
-		world.sleep_offline = FALSE // https://www.byond.com/forum/post/2894866
-		del(world)
-		world.sleep_offline = FALSE
-		TgsEndProcess() // We want to shutdown on reboot. That means kill our TGS process "gracefully", instead of the watchdog crying
-		sleep(1 TICKS)
 
 /world/proc/load_mode()
 	var/list/Lines = world.file2list("data/mode.txt")
@@ -316,6 +320,33 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 
 	var/latest_changelog = file("html/changelogs/archive/" + time2text(world.timeofday, "YYYY-MM") + ".yml")
 	GLOB.changelog_hash = fexists(latest_changelog) ? md5(latest_changelog) : 0 //for telling if the changelog has changed recently
+
+// This proc kills DreamDaemon (DreamSeeker if locally debugging) instance via shell command.
+// This is not a normal routine and it should be used under certain circumstances
+// Please close spawned threads with separate PIDs (if any)
+/world/proc/KillImmediately()
+
+// /world/Del() logic start
+	rustg_close_async_http_client() // Close the HTTP client. If you dont do this, youll get phantom threads which can crash DD from memory access violations
+	var/debug_server = world.GetConfig("env", "AUXTOOLS_DEBUG_DLL")
+	if(debug_server)
+		CALL_EXT(debug_server, "auxtools_shutdown")()
+	if(SSredis.connected)
+		rustg_redis_disconnect() // Disconnects the redis connection. See above.
+	prof_stop()
+
+// /world/Del() logic end
+
+	log_world("Shutting down current instance via forceful killing from shell...")
+	rustg_log_close_all()
+
+	var/process_id = world.process
+
+	if(world.system_type == UNIX)
+		shell("kill -9 [process_id]")
+
+	if(world.system_type == MS_WINDOWS)
+		shell("taskkill /f /pid [process_id]")
 
 /world/Del()
 	rustg_close_async_http_client() // Close the HTTP client. If you dont do this, youll get phantom threads which can crash DD from memory access violations
