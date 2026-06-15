@@ -473,7 +473,6 @@
 		JOB_TITLE_CCOFFICER,
 		JOB_TITLE_CCFIELD,
 		"Nanotrasen Diplomat",
-		"Nanotrasen Navy Captain",
 		JOB_TITLE_CCSCAPTAIN,
 )
 
