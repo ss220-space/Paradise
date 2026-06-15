@@ -41,13 +41,12 @@
 
 				animate(target_image, pixel_y = 16, time = 2 SECONDS, easing = BOUNCE_EASING|EASE_IN)
 				animate(pixel_y = 0, time = 0.5 SECONDS, easing = BOUNCE_EASING|EASE_OUT)
-
 				addtimer(CALLBACK(src, PROC_REF(revive_thrall_step_first), target, target_image, turf, user, vampire), 1.6 SECONDS)
 				return
 
-				to_chat(user, span_warning("Это не ваш раб."))
-				revert_cast(user)
-				return
+			to_chat(user, span_warning("Это не ваш раб."))
+			revert_cast(user)
+			return
 
 		if(can_enthrall(user, target))
 			handle_enthrall(user, target)
