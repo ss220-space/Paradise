@@ -44,7 +44,7 @@
 
 				addtimer(CALLBACK(src, PROC_REF(revive_thrall_step1), target, target_image, T, user, vampire), 1.6 SECONDS)
 				return
-			else
+
 				to_chat(user, span_warning("Это не ваш раб."))
 				revert_cast(user)
 				return
