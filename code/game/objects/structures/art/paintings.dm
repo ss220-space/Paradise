@@ -161,6 +161,11 @@
 /obj/item/canvas/Initialize(mapload)
 	. = ..()
 	reset_grid()
+	// The painting is drawn as a differently-sized, pixel-offset overlay using a runtime-generated icon.
+	// Without KEEP_TOGETHER, Paradise's plane-master renderer treats it as a separate render unit and it
+	// never shows on the object - the canvas stays blank. KEEP_TOGETHER flattens object + overlay into one
+	// sprite so the art actually appears (matches TG's ADD_KEEP_TOGETHER on the canvas).
+	appearance_flags |= KEEP_TOGETHER
 
 	painting_metadata = new
 	painting_metadata.title = "Untitled Artwork"
@@ -381,7 +386,10 @@
 /obj/item/canvas/update_overlays()
 	. = ..()
 	if(icon_generated)
-		var/mutable_appearance/detail = mutable_appearance(generated_icon)
+		// layer must be concrete: an overlay at FLOAT_LAYER (-1) with pixel offsets does not render in
+		// Paradise's plane-master system (see the stack_trace guard in /atom/update_icon), so the painting
+		// stays invisible on the floor. Pin it to the canvas' own layer instead.
+		var/mutable_appearance/detail = mutable_appearance(generated_icon, layer = layer)
 		detail.pixel_x = 1
 		detail.pixel_y = 1
 		. += detail
@@ -390,7 +398,7 @@
 	if(!used)
 		return
 
-	var/mutable_appearance/detail = mutable_appearance(icon, "[icon_state]wip")
+	var/mutable_appearance/detail = mutable_appearance(icon, "[icon_state]wip", layer = layer)
 	detail.pixel_x = 1
 	detail.pixel_y = 1
 	. += detail
@@ -410,9 +418,15 @@
 	// Persistence subsystem (which created data/paintings/) isn't ported; use the always-present data/ root.
 	var/png_filename = "data/temp_painting.png"
 	var/image_data = get_data_string()
-	rustg_dmi_create_png(png_filename, "[width]", "[height]", image_data)
+	var/result = rustg_dmi_create_png(png_filename, "[width]", "[height]", image_data)
+	if(result)
+		CRASH("Error generating painting png : [result]")
 	painting_metadata.md5 = md5(LOWER_TEXT(image_data))
-	generated_icon = new(png_filename)
+	// Load through fcopy_rsc(): the scratch file is always written under the same name, and
+	// new/icon(path) caches the runtime resource by filename - it won't refresh on rewrite and
+	// the icon never reaches clients, so the painting renders blank on the floor. fcopy_rsc()
+	// caches by content, giving a fresh, properly-transmitted icon on every (re)bake.
+	generated_icon = new(fcopy_rsc(png_filename))
 	icon_generated = TRUE
 	update_appearance()
 
@@ -840,6 +854,9 @@
 
 /obj/structure/sign/painting/Initialize(mapload, dir, building)
 	. = ..()
+	// See /obj/item/canvas/Initialize(): the framed painting + frame are runtime/offset overlays that need
+	// KEEP_TOGETHER to render in Paradise's plane-master system.
+	appearance_flags |= KEEP_TOGETHER
 	if(dir)
 		setDir(dir)
 
@@ -938,7 +955,9 @@
 	if(!current_canvas?.generated_icon)
 		return
 
-	var/mutable_appearance/painting = mutable_appearance(current_canvas.generated_icon)
+	// Concrete layer for the same reason as /obj/item/canvas/update_overlays(): a FLOAT_LAYER overlay with
+	// pixel offsets won't render in Paradise's plane-master system.
+	var/mutable_appearance/painting = mutable_appearance(current_canvas.generated_icon, layer = layer)
 	painting.pixel_x = current_canvas.framed_offset_x
 	painting.pixel_y = current_canvas.framed_offset_y
 	. += painting
