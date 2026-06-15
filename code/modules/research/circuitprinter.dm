@@ -364,8 +364,8 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 
 	if(data["integrated_circuit"])
 		var/datum/design/integrated_circuit/circuit_design = new /datum/design/integrated_circuit
-		for(var/material_type in circuit_design.materials)
-			materials[material_type] += circuit_design.materials[material_type]
+		for(var/material_type, value in circuit_design.materials)
+			materials[material_type] += value
 		qdel(circuit_design)
 
 	data["materials"] = materials
