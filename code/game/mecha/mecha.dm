@@ -1116,10 +1116,10 @@
 	if(!welder.tool_use_check(user, 0))
 		return
 	if((obj_integrity >= max_integrity) && !internal_damage)
-		user.balloon_alert(user, "[src] целый!")
+		user.balloon_alert(user, "мех целый!")
 		return
 	if(repairing)
-		user.balloon_alert(user, "[src] уже ремонтируется!")
+		user.balloon_alert(user, "мех уже ремонтируется!")
 		return
 	WELDER_ATTEMPT_REPAIR_MESSAGE
 	repairing = TRUE
@@ -1140,7 +1140,7 @@
 		else
 			break
 	if((obj_integrity >= max_integrity) && !internal_damage)
-		user.balloon_alert(user, "[src] полностью отремонтирован!")
+		user.balloon_alert(user, "мех полностью отремонтирован!")
 	repairing = FALSE
 
 /obj/mecha/mech_melee_attack(obj/mecha/mech, obj/item/mecha_parts/mecha_equipment/selected_module = null)
