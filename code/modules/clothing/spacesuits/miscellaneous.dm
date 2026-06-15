@@ -118,9 +118,9 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
 	)
 
-/obj/item/clothing/head/helmet/space/deathsquad/beret/supreme
-	name = "Офицерская фуражка Верховного Главнокомандующего"
-	desc = "Парадная фуражка, спроектированная и изготовленная под индивидуальную мерку действующего Верховного Главнокомандующего Флота Nanotrasen. Если вы когда-нибудь увидите её носителя, вам стоит надеяться, что он прибыл для награждения вас за ваши заслуги, а не разрешения вызванного вами кризиса."
+/obj/item/clothing/head/helmet/space/deathsquad/beret/captain
+	name = "Офицерская фуражка капитана Флота NanoTrasen"
+	desc = "Парадная фуражка, спроектированная и изготовленная под индивидуальную мерку действующего капитана Флота Nanotrasen в секторе Эпсилон Лукусты. Если вы когда-нибудь увидите её носителя, вам стоит надеяться, что он прибыл для награждения вас за ваши заслуги, а не разрешения вызванного вами кризиса."
 	icon_state = "ntsc_cap"
 	item_state = "ntsc_cap"
 	armor = list(MELEE = 80, BULLET = 80, LASER = 80, ENERGY = 100, BOMB = 100, BIO = 100, FIRE = 100, ACID = 100)
@@ -133,8 +133,8 @@
 /obj/item/clothing/suit/space/deathsquad/officer
 	name = "officer jacket"
 	desc = "An armored jacket used in special operations."
-	icon_state = "detective"
-	item_state = "det_suit"
+	icon_state = "bladerunner_coat"
+	item_state = "bladerunner_coat"
 	blood_overlay_type = "coat"
 	flags_inv = NONE
 	slowdown = 0
@@ -142,9 +142,17 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	species_restricted = null
 
-/obj/item/clothing/suit/space/deathsquad/officer/supreme
-	name = "Форма Верховного Главнокомандующего"
-	desc = "Парадный плащ, спроектированный и сшитый под индивидуальную мерку действующего Верховного Главнокомандующего Флота Nanotrasen. Внутренний слой формы представляет из себя защитную оболочку, состоящую из миллионов нанитов; кластеры этих миниатюрных роботов способны эффективно рассеивать кинетическую и термальную энергию, обеспечивая превосходный уровень защиты для носителя."
+/obj/item/clothing/suit/space/deathsquad/officer/centcom
+	name = "куртка офицера ЦК"
+	desc = "Куртка из дорогостоящих материалов с золотой отделкой."
+	icon_state = "dress_capjacket_black_open"
+	item_state = "dress_capjacket_black_open"
+	armor = list(MELEE = 30, BULLET = 50, LASER = 30,ENERGY = 15, BOMB = 30, BIO = 30, FIRE = 60, ACID = 75)
+
+
+/obj/item/clothing/suit/space/deathsquad/officer/captain
+	name = "Форма капитана Флота NanoTrasen"
+	desc = "Парадный плащ, спроектированный и сшитый под индивидуальную мерку действующего капитана Флота Nanotrasen в секторе Эпсилон Лукусты. Внутренний слой формы представляет из себя защитную оболочку, состоящую из миллионов нанитов; кластеры этих миниатюрных роботов способны эффективно рассеивать кинетическую и термальную энергию, обеспечивая превосходный уровень защиты для носителя."
 	icon_state = "ntsc_uniform"
 	item_state = "ntsc_uniform"
 	armor = list(MELEE = 80, BULLET = 80, LASER = 80, ENERGY = 100, BOMB = 100, BIO = 100, FIRE = 100, ACID = 100)

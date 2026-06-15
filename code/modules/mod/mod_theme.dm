@@ -1906,13 +1906,13 @@
 
 
 /datum/armor/mod_theme_responsory
-	melee = 40
-	bullet = 25
-	laser = 30
-	energy = 20
-	bomb = 25
+	melee = 45
+	bullet = 50
+	laser = 40
+	energy = 30
+	bomb = 50
 	bio = 100
-	fire = 100
+	fire = 50
 	acid = 100
 
 /datum/mod_theme/gamma_responsory
@@ -1980,11 +1980,11 @@
 
 
 /datum/armor/mod_theme_gamma_responsory
-	melee = 50
-	bullet = 45
+	melee = 70
+	bullet = 70
 	laser = 50
-	energy = 40
-	bomb = 55
+	energy = 35
+	bomb = 75
 	bio = 100
 	fire = 100
 	acid = 100
@@ -2132,8 +2132,8 @@
 /datum/armor/mod_theme_corporate
 	melee = 200
 	bullet = 200
-	laser = 50
-	energy = 50
+	laser = 90
+	energy = 90
 	bomb = 100
 	bio = 100
 	fire = 100
