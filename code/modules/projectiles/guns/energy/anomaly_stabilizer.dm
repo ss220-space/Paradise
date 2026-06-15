@@ -36,7 +36,7 @@
 	var/full_info = FALSE
 
 /obj/item/gun/energy/anomaly_stabilizer/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "стабилизатор аномалий", \
 		GENITIVE = "стабилизатора аномалий", \
 		DATIVE = "стабилизатору аномалий", \

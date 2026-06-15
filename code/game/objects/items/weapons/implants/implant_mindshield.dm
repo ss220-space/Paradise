@@ -90,7 +90,7 @@
 	icon_state = "fake_mindshield0"
 
 /obj/item/implant/fake_mindshield/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "фальшивый имплант защиты разума",
 		GENITIVE = "фальшивого импланта защиты разума",
 		DATIVE = "фальшивому импланту защиты разума",

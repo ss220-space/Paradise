@@ -22,7 +22,7 @@
 	toolspeed = 0.8
 
 /obj/item/pickaxe/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кирка",
 		GENITIVE = "кирки",
 		DATIVE = "кирке",
@@ -48,7 +48,7 @@
 	item_state = "emergency_disembarkation_tool"
 
 /obj/item/pickaxe/emergency/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "инструмент для экстренной раскопки",
 		GENITIVE = "инструмента для экстренной раскопки",
 		DATIVE = "инструменту для экстренной раскопки",
@@ -67,7 +67,7 @@
 	attack_verb = list("неэффективно ударил")
 
 /obj/item/pickaxe/safety/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "безопасная кирка",
 		GENITIVE = "безопасной кирки",
 		DATIVE = "безопасной кирке",
@@ -87,7 +87,7 @@
 	materials = list(MAT_METAL = 1000)
 
 /obj/item/pickaxe/min/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "компактная кирка",
 		GENITIVE = "компактной кирки",
 		DATIVE = "компактной кирке",
@@ -106,7 +106,7 @@
 	toolspeed = 0.4 //mines faster than a normal pickaxe, bought from mining vendor
 	force = 17
 /obj/item/pickaxe/silver/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кирка с серебрянным наконечником",
 		GENITIVE = "кирки с серебрянным наконечником",
 		DATIVE = "кирке с серебрянным наконечником",
@@ -126,7 +126,7 @@
 	force = 18
 
 /obj/item/pickaxe/gold/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кирка с золотым наконечником",
 		GENITIVE = "кирки с золотым наконечником",
 		DATIVE = "кирке с золотым наконечником",
@@ -145,7 +145,7 @@
 	toolspeed = 0.2
 	force = 19
 /obj/item/pickaxe/diamond/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кирка с алмазным наконечником",
 		GENITIVE = "кирки с алмазным наконечником",
 		DATIVE = "кирке с алмазным наконечником",
@@ -165,7 +165,7 @@
 	origin_tech = "materials=2;powerstorage=2;engineering=3"
 
 /obj/item/pickaxe/drill/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шахтёрская дрель",
 		GENITIVE = "шахтёрской дрели",
 		DATIVE = "шахтёрской дрели",
@@ -179,7 +179,7 @@
 	desc = "Встроенная электрическая буровая дрелль."
 
 /obj/item/pickaxe/drill/cyborg/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шахтёрская дрель робота",
 		GENITIVE = "шахтёрской дрели робота",
 		DATIVE = "шахтёрской дрели робота",
@@ -199,7 +199,7 @@
 	origin_tech = "materials=6;powerstorage=4;engineering=4"
 	toolspeed = 0.1
 /obj/item/pickaxe/drill/diamonddrill/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "алмазная шахтёрская дрель",
 		GENITIVE = "алмазной шахтёрской дрели",
 		DATIVE = "алмазной шахтёрской дрели",
@@ -214,7 +214,7 @@
 	toolspeed = 0.1
 
 /obj/item/pickaxe/drill/cyborg/diamond/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "алмазная шахтёрская дрель робота",
 		GENITIVE = "алмазной шахтёрской дрели робота",
 		DATIVE = "алмазной шахтёрской дрели робота",
@@ -234,7 +234,7 @@
 	var/wall_toolspeed = 0.1 //instant wall breaking is bad.
 
 /obj/item/pickaxe/drill/jackhammer/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "звуковой отбойный молот",
 		GENITIVE = "звукового отбойного молота",
 		DATIVE = "звуковому отбойному молоту",
@@ -261,7 +261,7 @@
 	toolspeed = 0.8
 
 /obj/item/shovel/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "лопата",
 		GENITIVE = "лопаты",
 		DATIVE = "лопате",
@@ -290,7 +290,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/shovel/spade/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "лопатка",
 		GENITIVE = "лопатки",
 		DATIVE = "лопатке",
@@ -308,7 +308,7 @@
 	item_state = "small_shovel"
 
 /obj/item/shovel/spade/wooden/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "деревянная лопатка",
 		GENITIVE = "деревянной лопатки",
 		DATIVE = "деревянной лопатке",
@@ -327,7 +327,7 @@
 	attack_verb = list("неэффективно ударил")
 
 /obj/item/shovel/safety/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "безопасная лопата",
 		GENITIVE = "безопасной лопаты",
 		DATIVE = "безопасной лопате",

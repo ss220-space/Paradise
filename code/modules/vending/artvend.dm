@@ -51,7 +51,7 @@
 	)
 
 /obj/machinery/vending/artvend/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат ArtVend",
 		GENITIVE = "торгового автомата ArtVend",
 		DATIVE = "торговому автомату ArtVend",

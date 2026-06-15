@@ -112,7 +112,7 @@
 	max_combined_w_class = 120
 
 /obj/item/storage/backpack/santabag/ded_moroz/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мешок с подарками",
 		GENITIVE = "мешка с подарками",
 		DATIVE = "мешку с подарками",

@@ -48,7 +48,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	var/cost = null
 	var/containertype = /obj/structure/closet/crate
 	var/containername = null
-	var/container_ru_names = list()
+	var/alist/container_ru_names = alist()
 	var/access = null
 	var/group = SYNDIE_SUPPLY_MISC
 	var/list/ui_manifest = list()
@@ -117,7 +117,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	cost = 300
 	containertype = /obj/structure/closet/crate
 	containername = "ящик с кластерной очищающей гранатой"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с кластерной очищающей гранатой",
 		GENITIVE = "ящика с кластерной очищающей гранатой",
 		DATIVE = "ящику с кластерной очищающей гранатой",
@@ -134,7 +134,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	cost = 250
 	containertype = /obj/structure/closet/crate
 	containername = "ящик с кластерной кислородной гранатой"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с кластерной кислородной гранатой",
 		GENITIVE = "ящика с кластерной кислородной гранатой",
 		DATIVE = "ящику с кластерной кислородной гранатой",
@@ -270,7 +270,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	cost = 5000
 	containertype = /obj/structure/closet/crate/secure/weapon/veihit
 	containername = "ящик с гатлинг—лазером"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с гатлинг—лазером",
 		GENITIVE = "ящика с гатлинг—лазером",
 		DATIVE = "ящику с гатлинг—лазером",
@@ -289,7 +289,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	cost = 5000
 	containertype = /obj/structure/closet/crate/syndicate
 	containername = "ящик с пистолетом пулеметом узи"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с пистолетом-пулеметом \"Узи\"",
 		GENITIVE = "ящика с пистолетом-пулеметом \"Узи\"",
 		DATIVE = "ящику с пистолетом-пулеметом \"Узи\"",
@@ -308,7 +308,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	cost = 4000
 	containertype = /obj/structure/closet/crate/syndicate
 	containername = "ящик с дробовиком \"Мастиф\""
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с дробовиком \"Мастиф\"",
 		GENITIVE = "ящика с дробовиком \"Мастиф\"",
 		DATIVE = "ящику с дробовиком \"Мастиф\"",
@@ -325,7 +325,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	cost = 1000
 	containertype = /obj/structure/closet/crate/syndicate
 	containername = "ящик с газовой кластерной гранатой"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с усыпляющей кластерной гранатой",
 		GENITIVE = "ящика с усыпляющей кластерной гранатой",
 		DATIVE = "ящику с усыпляющей кластерной гранатой",
@@ -342,7 +342,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	cost = 1000
 	containertype = /obj/structure/closet/crate/syndicate
 	containername = "ящик с поясом боевых осколочных гранат"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с поясом боевых осколочных гранат",
 		GENITIVE = "ящика с поясом боевых осколочных гранат",
 		DATIVE = "ящику с поясом боевых осколочных гранат",
@@ -359,7 +359,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	cost = 1000
 	containertype = /obj/structure/closet/crate/syndicate
 	containername = "ящик с набором ЭМИ-гранат"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с набором ЭМИ-гранат",
 		GENITIVE = "ящика с набором ЭМИ-гранат",
 		DATIVE = "ящику с набором ЭМИ-гранат",
@@ -378,7 +378,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	cost = 500
 	containertype = /obj/structure/closet/crate/syndicate
 	containername = "ящик метательных ножей"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик метательных ножей",
 		GENITIVE = "ящика метательных ножей",
 		DATIVE = "ящику метательных ножей",
@@ -814,7 +814,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	cost = 500
 	containertype = /obj/structure/closet/crate/syndicate
 	containername = "ящик с тепловизионными очками \"Хамелеон\""
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с тепловизионными очками \"Хамелеон\"",
 		GENITIVE = "ящика с тепловизионными очками \"Хамелеон\"",
 		DATIVE = "ящику с тепловизионными очками \"Хамелеон\"",
@@ -834,7 +834,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	cost = 200
 	containertype = /obj/structure/closet/crate/engineering/electrical
 	containername = "ящик продвинутых мультиметров"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик продвинутых мультиметров",
 		GENITIVE = "ящика продвинутых мультиметров",
 		DATIVE = "ящику продвинутых мультиметров",
@@ -1352,7 +1352,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 /datum/syndie_supply_packs/medical/menderindustrial
 	name = "Продвинутый авто-мендер"
 	containername = "ящик продвинутых авто-мендеров"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик продвинутых авто-мендеров",
 		GENITIVE = "ящика продвинутых авто-мендеров",
 		DATIVE = "ящику продвинутых авто-мендеров",
@@ -1375,7 +1375,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	cost = 1000
 	containertype = /obj/structure/closet/crate/syndicate
 	containername = "ящик с автоимплантером"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с автоимплантером",
 		GENITIVE = "ящика с автоимплантером",
 		DATIVE = "ящику с автоимплантером",
@@ -1421,7 +1421,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	access = ACCESS_ROBOTICS
 	containertype = /obj/structure/closet/crate/secure/scisec
 	containername = "ящик с ядрами МЭК"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с ядрами МЭК",
 		GENITIVE = "ящика с ядрами МЭК",
 		DATIVE = "ящику с ядрами МЭК",
@@ -2101,7 +2101,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	cost = 100
 	containertype = /obj/structure/closet/crate/syndicate
 	containername = "ящик адаптивных картонных фигур"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик адаптивных картонных фигур",
 		GENITIVE = "ящика адаптивных картонных фигур",
 		DATIVE = "ящику адаптивных картонных фигур",
@@ -2120,7 +2120,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	cost = 200
 	containertype = /obj/structure/closet/crate/syndicate
 	containername = "ящик плотных изолент"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик плотных изолент",
 		GENITIVE = "ящика плотных изолент",
 		DATIVE = "ящику плотных изолент",
@@ -2138,7 +2138,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	cost = 500
 	containertype = /obj/structure/closet/crate/syndicate
 	containername = "ящик реверсивных карт"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик реверсивных карт",
 		GENITIVE = "ящика реверсивных карт",
 		DATIVE = "ящику реверсивных карт",
@@ -2155,7 +2155,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	cost = 3000
 	containertype = /obj/structure/closet/crate/secure/large
 	containername = "ящик с мотоциклом"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с мотоциклом",
 		GENITIVE = "ящика с мотоциклом",
 		DATIVE = "ящику с мотоциклом",

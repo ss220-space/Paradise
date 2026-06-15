@@ -36,7 +36,7 @@
 	var/anger_speed = 4
 
 /mob/living/simple_animal/hostile/asteroid/marrowweaver/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "костномозговой ткач",
 		GENITIVE = "костномозгового ткача",
 		DATIVE = "костномозговому ткачу",
@@ -123,7 +123,7 @@
 	singular_name = "chitin chunk"
 
 /obj/item/stack/sheet/animalhide/weaver_chitin/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "хитин ткача",
 		GENITIVE = "хитина ткача",
 		DATIVE = "хитину ткача",
@@ -169,7 +169,7 @@
 	crusher_loot = /obj/item/crusher_trophy/gland
 
 /mob/living/simple_animal/hostile/asteroid/marrowweaver/frost/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "морозный костномозговой ткач",
 		GENITIVE = "морозного костномозгового ткача",
 		DATIVE = "морозному костномозговому ткачу",

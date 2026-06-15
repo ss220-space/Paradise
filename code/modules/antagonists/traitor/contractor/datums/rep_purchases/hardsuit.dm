@@ -19,7 +19,7 @@
 	max_w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/storage/box/contractor/hardsuit/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "набор МЭК \"Специалист\"",
 		GENITIVE = "набора МЭК \"Специалист\"",
 		DATIVE = "набору МЭК \"Специалист\"",

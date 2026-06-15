@@ -67,7 +67,6 @@
 	equipment_channel = 0
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/structure/reagent_dispensers/fueltank,
@@ -331,7 +330,6 @@
 "fL" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/structure/cable{
@@ -393,7 +391,6 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkredfull"
 	},
 /area/ruin/ussp_xeno/storage)
@@ -957,7 +954,6 @@
 	equipment_channel = 0
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -1156,7 +1152,6 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkredfull"
 	},
 /area/ruin/ussp_xeno/admiral)
@@ -1299,7 +1294,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkredfull"
 	},
 /area/ruin/ussp_xeno/storage)
@@ -1544,7 +1538,6 @@
 	dir = 2
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/power/smes/engineering{
@@ -1769,7 +1762,6 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkredfull"
 	},
 /area/ruin/ussp_xeno/medbay)
@@ -2080,7 +2072,6 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkredfull"
 	},
 /area/ruin/ussp_xeno/storage)
@@ -2234,7 +2225,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/power/port_gen/pacman,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/effect/turf_decal/delivery,
@@ -2795,7 +2785,6 @@
 "Nh" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -2960,7 +2949,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkredfull"
 	},
 /area/ruin/ussp_xeno/baracks)
@@ -3042,7 +3030,6 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/power/terminal{
@@ -3181,7 +3168,6 @@
 "RO" = (
 /obj/effect/decal/cleanable/blood/writing,
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkredfull"
 	},
 /area/ruin/ussp_xeno/dorms_ussp)
@@ -3410,7 +3396,6 @@
 	equipment_channel = 0
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -3497,7 +3482,6 @@
 	equipment_channel = 0
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -3523,7 +3507,6 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkredfull"
 	},
 /area/ruin/ussp_xeno/dorms_ussp)
@@ -3679,7 +3662,6 @@
 	equipment_channel = 0
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/structure/chair/comfy/red{
@@ -3747,7 +3729,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkredfull"
 	},
 /area/ruin/ussp_xeno/gym_ussp)

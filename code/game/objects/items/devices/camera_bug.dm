@@ -14,7 +14,7 @@
 	var/obj/machinery/computer/security/camera_bug/integrated_console
 
 /obj/item/camera_bug/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "переносной монитор",
 		GENITIVE = "переносного монитора",
 		DATIVE = "переносному монитору",

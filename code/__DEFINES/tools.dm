@@ -40,6 +40,12 @@ GLOBAL_LIST_INIT(surgery_tool_behaviors, list(
 #define CROWBAR_PRY_CIRCUIT_SUCCESS_MESSAGE balloon_alert_to_viewers("извлека[PLUR_ET_YUT(user)] плату", "плата извлечена")
 
 // Screwdriver messages
+#define SCREWDRIVER_ATTEMPT_SCREW_MESSAGE \
+	balloon_alert_to_viewers("начина[PLUR_ET_YUT(user)] закручивать...", "закручивание...");\
+	user.visible_message(blind_message = span_hear("Слышны звуки закручивания."));
+#define SCREWDRIVER_ATTEMPT_UNSCREW_MESSAGE \
+	balloon_alert_to_viewers("начина[PLUR_ET_YUT(user)] откручивать...", "откручивание...");\
+	user.visible_message(blind_message = span_hear("Слышны звуки откручивания."));
 #define SCREWDRIVER_SCREW_MESSAGE \
 	balloon_alert_to_viewers("затягива[PLUR_ET_YUT(user)] винты", "винты затянуты");\
 	user.visible_message(blind_message = span_hear("Слышны звуки закручивания."));

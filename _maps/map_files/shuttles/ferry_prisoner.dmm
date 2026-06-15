@@ -32,12 +32,12 @@
 /area/shuttle/transport)
 "f" = (
 /obj/structure/table/reinforced,
-/obj/machinery/light/spot{
-	dir = 8
-	},
 /obj/machinery/recharger,
 /obj/structure/reagent_dispensers/peppertank{
 	pixel_y = 28
+	},
+/obj/machinery/light/spot{
+	dir = 1
 	},
 /turf/simulated/floor/noslip{
 	icon = 'icons/turf/shuttle/floors.dmi';
@@ -90,6 +90,12 @@
 	icon_state = "floor"
 	},
 /area/shuttle/transport)
+"r" = (
+/obj/machinery/light/spot{
+	dir = 1
+	},
+/turf/simulated/floor/shuttle/objective_check,
+/area/shuttle/transport)
 "t" = (
 /obj/machinery/light/spot{
 	dir = 1
@@ -102,7 +108,6 @@
 	},
 /area/shuttle/transport)
 "u" = (
-/obj/machinery/light/spot,
 /obj/structure/table/reinforced,
 /obj/machinery/recharger,
 /turf/simulated/floor/noslip{
@@ -177,7 +182,7 @@ U
 "}
 (3,1,1) = {"
 U
-H
+r
 H
 i
 U
@@ -191,7 +196,7 @@ U
 "}
 (5,1,1) = {"
 U
-H
+r
 H
 z
 U

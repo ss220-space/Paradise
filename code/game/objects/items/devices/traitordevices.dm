@@ -29,7 +29,7 @@ effective or pretty fucking useless.
 	var/charges = 3
 
 /obj/item/batterer/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "подавитель разума",
 		GENITIVE = "подавителя разума",
 		DATIVE = "подавителю разума",
@@ -99,7 +99,7 @@ effective or pretty fucking useless.
 	var/used = 0 // is it cooling down?
 
 /obj/item/rad_laser/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "анализатор здоровья",
 		GENITIVE = "анализатора здоровья",
 		DATIVE = "анализатору здоровья",

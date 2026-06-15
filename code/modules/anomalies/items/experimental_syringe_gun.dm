@@ -24,7 +24,7 @@
 	var/obj/item/assembly/signaler/core/vortex/core = null
 
 /obj/item/gun/syringe/rapidsyringe/experimental/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "экспериментальный шприцемёт", \
 		GENITIVE = "экспериментального шприцемёта", \
 		DATIVE = "экспериментальному шприцемёту", \

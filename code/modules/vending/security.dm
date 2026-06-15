@@ -52,6 +52,7 @@
 				/obj/item/storage/belt/security/webbing = 2,
 				/obj/item/storage/belt/security/webbing/pouch = 2,
 				/obj/item/clothing/mask/gas/sechailer/tactical = 5,
+				/obj/item/clothing/mask/whistle = 3,
 				/obj/item/storage/belt/security/judobelt = 3,
 				/obj/item/eftpos/sec = 4,
 				/obj/item/flashlight/seclite = 4,
@@ -76,7 +77,7 @@
 	refill_canister = /obj/item/vending_refill/security
 
 /obj/machinery/vending/security/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат SecTech",
 		GENITIVE = "торгового автомата SecTech",
 		DATIVE = "торговому автомату SecTech",
@@ -113,7 +114,7 @@
 	contraband = list(/obj/item/toy/figure/secofficer = 1)
 
 /obj/machinery/vending/security/training/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат SecTech Training",
 		GENITIVE = "торгового автомата SecTech Training",
 		DATIVE = "торговому автомату SecTech Training",
@@ -181,7 +182,7 @@
 	refill_canister = /obj/item/vending_refill/nta
 
 /obj/machinery/vending/security/ert/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат NT ERT Consumables Gear",
 		GENITIVE = "торгового автомата NT ERT Consumables Gear",
 		DATIVE = "торговому автомату NT ERT Consumables Gear",
@@ -207,7 +208,7 @@
 	return available_kits.Copy()
 
 /obj/item/security_voucher/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ваучер",
 		GENITIVE = "ваучера",
 		DATIVE = "ваучеру",
@@ -231,7 +232,7 @@
 	return detectives_available_kits.Copy()
 
 /obj/item/security_voucher/detective/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "детективский ваучер",
 		GENITIVE = "детективского ваучера",
 		DATIVE = "детективскому ваучеру",
@@ -254,7 +255,7 @@
 
 /datum/security_voucher_kit/officer/enforcer
 	kit_box = /obj/item/storage/box/enforcer_kit
-	icon = 'icons/obj/weapons/projectile.dmi'
+	icon = 'icons/obj/weapons/pistols.dmi'
 	icon_state = "enforcer_grey"
 
 /datum/security_voucher_kit/officer/specter

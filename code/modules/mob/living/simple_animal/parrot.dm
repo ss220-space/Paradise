@@ -98,7 +98,7 @@
 	gold_core_spawnable = FRIENDLY_SPAWN
 
 /mob/living/simple_animal/parrot/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "попугай",
 		GENITIVE = "попугая",
 		DATIVE = "попугаю",

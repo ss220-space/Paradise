@@ -230,7 +230,7 @@
 	cell_type = /obj/item/stock_parts/cell/infinite
 
 /obj/item/gun/energy/vortex_shotgun/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "вортекс-дробовик",
 		GENITIVE = "вортекс-дробовика",
 		DATIVE = "вортекс-дробовику",
@@ -503,7 +503,7 @@
 	var/datum/action/item_action/advanced/ninja/toggle_shuriken_fire_mode/my_action = null
 
 /obj/item/gun/energy/shuriken_emitter/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "генератор энергетических сюрикенов",
 		GENITIVE = "генератора энергетических сюрикенов",
 		DATIVE = "генератору энергетических сюрикенов",
@@ -533,11 +533,15 @@
 	name = "robotic shuriken emitter"
 	desc = "A device sneakily hidden inside your robotic hand. Shoots 3 energy shurikens that slows and temporary blinds their targets"
 	ammo_type = list(/obj/item/ammo_casing/energy/shuriken/borg)
-	// Эти два значения не нужны боргам — они не носят ниндзя костюм
+	item_flags = ABSTRACT|NOBLUDGEON
+	// These two values are not needed for borgs - they don't wear a ninja suit
 	cost = null
 	my_suit = null
 
 /obj/item/gun/energy/shuriken_emitter/borg/equip_to_best_slot(mob/M)
+	return
+
+/obj/item/gun/energy/shuriken_emitter/borg/run_drop_held_item(mob/user)
 	return
 
 /obj/item/gun/energy/shuriken_emitter/borg/can_shoot(mob/user)

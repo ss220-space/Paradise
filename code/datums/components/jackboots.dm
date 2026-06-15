@@ -1,6 +1,12 @@
 //Just reformed /datum/component/squeak
 /datum/component/jackboots
-	var/static/list/step_sounds = list('sound/effects/jackboot1.ogg' = 1, 'sound/effects/jackboot2.ogg' = 1)
+	var/static/list/step_sounds = list(
+		'sound/effects/jackboot/bigboot1.ogg' = 1,
+		'sound/effects/jackboot/bigboot2.ogg' = 1,
+		'sound/effects/jackboot/bigboot3.ogg' = 1,
+		'sound/effects/jackboot/bigboot4.ogg' = 1,
+		'sound/effects/jackboot/bigboot5.ogg' = 1,
+	)
 	// This is so shoes don't squeak every step
 	var/steps = 0
 	var/step_delay = 1

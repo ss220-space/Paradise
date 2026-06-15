@@ -30,7 +30,7 @@
 	requires_tcomms = TRUE
 
 /obj/item/radio/headset/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "радиочастотная гарнитура",
 		GENITIVE = "радиочастотную гарнитуру",
 		DATIVE = "радиочастотной гарнитуры",
@@ -180,7 +180,7 @@
 /obj/item/radio/headset/make_broken()
 	. = ..()
 	name = "broken radio headset"
-	ru_names = list(
+	ru_names = alist(
 		NOMINATIVE = "сломанная радиочастотная гарнитура",
 		GENITIVE = "сломанную радиочастотную гарнитуру",
 		DATIVE = "сломанной радиочастотной гарнитуры",
@@ -222,7 +222,7 @@
 	item_state = "com_headset_alt"
 
 /obj/item/radio/headset/alt/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "тактическая гарнитура",
 		GENITIVE = "тактическую гарнитуру",
 		DATIVE = "тактической гарнитуры",
@@ -249,7 +249,7 @@
 	item_state = "syndie_headset"
 
 /obj/item/radio/headset/syndicate/alt/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "тактическая гарнитура \"Синдиката\"",
 		GENITIVE = "тактическую гарнитуру \"Синдиката\"",
 		DATIVE = "тактической гарнитуры \"Синдиката\"",
@@ -274,7 +274,7 @@
 	default_frequency = SYND_FREQ
 
 /obj/item/radio/headset/syndicate/alt/lavaland/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "тактическая гарнитура \"Синдиката\" (Лазис)",
 		GENITIVE = "тактическую гарнитуру \"Синдиката\" (Лазис)",
 		DATIVE = "тактической гарнитуры \"Синдиката\" (Лазис)",
@@ -299,7 +299,7 @@
 	item_flags = BANGPROTECT_MINOR
 
 /obj/item/radio/headset/syndicate/admin_officer/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "тактическая гарнитура Офицера \"Синдиката\"",
 		GENITIVE = "тактическую гарнитуру Офицера \"Синдиката\"",
 		DATIVE = "тактической гарнитуры Офицера \"Синдиката\"",
@@ -322,7 +322,7 @@
 	default_frequency = SYND_TAIPAN_FREQ
 
 /obj/item/radio/headset/syndicate/taipan/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "тактическая гарнитура \"Синдиката\" (Тайпан)",
 		GENITIVE = "тактическую гарнитуру \"Синдиката\" (Тайпан)",
 		DATIVE = "тактической гарнитуры \"Синдиката\" (Тайпан)",
@@ -350,7 +350,7 @@
 	freqlock = TRUE
 
 /obj/item/radio/headset/alt/soviet/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "тактическая гарнитура СССП",
 		GENITIVE = "тактическую гарнитуру СССП",
 		DATIVE = "тактической гарнитуры СССП",
@@ -371,7 +371,7 @@
 	ks2type = /obj/item/encryptionkey/headset_sec
 
 /obj/item/radio/headset/headset_sec/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "радиочастотная гарнитура службы безопасности",
 		GENITIVE = "радиочастотную гарнитуру службы безопасности",
 		DATIVE = "радиочастотной гарнитуры службы безопасности",
@@ -391,7 +391,7 @@
 	item_state = "sec_headset_alt"
 
 /obj/item/radio/headset/headset_sec/alt/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "тактическая гарнитура службы безопасности",
 		GENITIVE = "тактическую гарнитуру службы безопасности",
 		DATIVE = "тактической гарнитуры службы безопасности",
@@ -411,7 +411,7 @@
 	ks2type = /obj/item/encryptionkey/headset_medsec
 
 /obj/item/radio/headset/headset_brigphys/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "тактическая гарнитура Бригмедика",
 		GENITIVE = "тактическую гарнитуру Бригмедика",
 		DATIVE = "тактической гарнитуры Бригмедика",
@@ -432,7 +432,7 @@
 	default_frequency = PRS_FREQ
 
 /obj/item/radio/headset/prisoner/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "радиочастотная гарнитура заключенных",
 		GENITIVE = "радиочастотную гарнитуру заключенных",
 		DATIVE = "радиочастотной гарнитуры заключенных",
@@ -453,7 +453,7 @@
 	default_frequency = T1_FREQ
 
 /obj/item/radio/headset/green/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "радиочастотная гарнитура зеленых",
 		GENITIVE = "радиочастотную гарнитуру зеленых",
 		DATIVE = "радиочастотной гарнитуры зеленых",
@@ -474,7 +474,7 @@
 	default_frequency = T2_FREQ
 
 /obj/item/radio/headset/blue/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "радиочастотная гарнитура синих",
 		GENITIVE = "радиочастотную гарнитуру синих",
 		DATIVE = "радиочастотной гарнитуры синих",
@@ -495,7 +495,7 @@
 	default_frequency = T3_FREQ
 
 /obj/item/radio/headset/red/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "радиочастотная гарнитура красных",
 		GENITIVE = "радиочастотную гарнитуру красных",
 		DATIVE = "радиочастотной гарнитуры красных",
@@ -513,7 +513,7 @@
 	ks2type = /obj/item/encryptionkey/headset_iaa
 
 /obj/item/radio/headset/headset_iaa/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "радиочастотная гарнитура Адвоката",
 		GENITIVE = "радиочастотную гарнитуру Адвоката",
 		DATIVE = "радиочастотной гарнитуры Адвоката",
@@ -533,7 +533,7 @@
 	item_state = "sec_headset_alt"
 
 /obj/item/radio/headset/headset_iaa/alt/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "тактическая гарнитура Адвоката",
 		GENITIVE = "тактическую гарнитуру Адвоката",
 		DATIVE = "тактической гарнитуры Адвоката",
@@ -552,7 +552,7 @@
 	ks2type = /obj/item/encryptionkey/headset_eng
 
 /obj/item/radio/headset/headset_eng/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "радиочастотная гарнитура инженерного отдела",
 		GENITIVE = "радиочастотную гарнитуру инженерного отдела",
 		DATIVE = "радиочастотной гарнитуры инженерного отдела",
@@ -570,7 +570,7 @@
 	ks2type = /obj/item/encryptionkey/headset_rob
 
 /obj/item/radio/headset/headset_rob/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "радиочастотная гарнитура робототехников",
 		GENITIVE = "радиочастотную гарнитуру робототехников",
 		DATIVE = "радиочастотной гарнитуры робототехников",
@@ -588,7 +588,7 @@
 	ks2type = /obj/item/encryptionkey/headset_med
 
 /obj/item/radio/headset/headset_med/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "радиочастотная гарнитура медицинского отдела",
 		GENITIVE = "радиочастотную гарнитуру медицинского отдела",
 		DATIVE = "радиочастотной гарнитуры медицинского отдела",
@@ -608,7 +608,7 @@
 	ks2type = /obj/item/encryptionkey/headset_sci
 
 /obj/item/radio/headset/headset_sci/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "радиочастотная гарнитура научного отдела",
 		GENITIVE = "радиочастотную гарнитуру научного отдела",
 		DATIVE = "радиочастотной гарнитуры научного отдела",
@@ -627,7 +627,7 @@
 	ks2type = /obj/item/encryptionkey/headset_medsci
 
 /obj/item/radio/headset/headset_medsci/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "радиочастотная гарнитура научного и медицинского отделов",
 		GENITIVE = "радиочастотную гарнитуру научного и медицинского отделов",
 		DATIVE = "радиочастотной гарнитуры научного и медицинского отделов",
@@ -646,7 +646,7 @@
 	ks2type = /obj/item/encryptionkey/headset_com
 
 /obj/item/radio/headset/headset_com/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "радиочастотная гарнитура командного отдела",
 		GENITIVE = "радиочастотную гарнитуру командного отдела",
 		DATIVE = "радиочастотной гарнитуры командного отдела",
@@ -664,7 +664,7 @@
 	ks2type = /obj/item/encryptionkey/heads/captain
 
 /obj/item/radio/headset/heads/captain/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "радиочастотная гарнитура Капитана",
 		GENITIVE = "радиочастотную гарнитуру Капитана",
 		DATIVE = "радиочастотной гарнитуры Капитана",
@@ -686,7 +686,7 @@
 	item_state = "com_headset_alt"
 
 /obj/item/radio/headset/heads/captain/alt/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "тактическая гарнитура Капитана",
 		GENITIVE = "тактическую гарнитуру Капитана",
 		DATIVE = "тактической гарнитуры Капитана",
@@ -707,7 +707,7 @@
 	ks2type = /obj/item/encryptionkey/heads/rd
 
 /obj/item/radio/headset/heads/rd/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "радиочастотная гарнитура Научного Руководителя",
 		GENITIVE = "радиочастотную гарнитуру Научного Руководителя",
 		DATIVE = "радиочастотной гарнитуры Научного Руководителя",
@@ -727,7 +727,7 @@
 	ks2type = /obj/item/encryptionkey/heads/hos
 
 /obj/item/radio/headset/heads/hos/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "радиочастотная гарнитура Главы Службы Безопасности",
 		GENITIVE = "радиочастотную гарнитуру Главы Службы Безопасности",
 		DATIVE = "радиочастотной гарнитуры Главы Службы Безопасности",
@@ -750,7 +750,7 @@
 	item_state = "com_headset_alt"
 
 /obj/item/radio/headset/heads/hos/alt/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "тактическая гарнитура Главы Службы Безопасности",
 		GENITIVE = "тактическую гарнитуру Главы Службы Безопасности",
 		DATIVE = "тактической гарнитуры Главы Службы Безопасности",
@@ -770,7 +770,7 @@
 	ks2type = /obj/item/encryptionkey/heads/ce
 
 /obj/item/radio/headset/heads/ce/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "радиочастотная гарнитура Главного Инженера",
 		GENITIVE = "радиочастотную гарнитуру Главного Инженера",
 		DATIVE = "радиочастотной гарнитуры Главного Инженера",
@@ -790,7 +790,7 @@
 	ks2type = /obj/item/encryptionkey/heads/cmo
 
 /obj/item/radio/headset/heads/cmo/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "радиочастотная гарнитура Главного Врача",
 		GENITIVE = "радиочастотную гарнитуру Главного Врача",
 		DATIVE = "радиочастотной гарнитуры Главного Врача",
@@ -809,7 +809,7 @@
 	ks2type = /obj/item/encryptionkey/heads/hop
 
 /obj/item/radio/headset/heads/hop/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "радиочастотная гарнитура Главы Персонала",
 		GENITIVE = "радиочастотную гарнитуру Главы Персонала",
 		DATIVE = "радиочастотной гарнитуры Главы Персонала",
@@ -829,7 +829,7 @@
 	ks2type = /obj/item/encryptionkey/heads/qm
 
 /obj/item/radio/headset/heads/qm/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "радиочастотная гарнитура Квартирмейстера",
 		GENITIVE = "радиочастотную гарнитуру Квартирмейстера",
 		DATIVE = "радиочастотной гарнитуры Квартирмейстера",
@@ -850,7 +850,7 @@
 	ks2type = /obj/item/encryptionkey/headset_cargo
 
 /obj/item/radio/headset/headset_cargo/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "радиочастотная гарнитура отдела снабжения",
 		GENITIVE = "радиочастотную гарнитуру отдела снабжения",
 		DATIVE = "радиочастотной гарнитуры отдела снабжения",
@@ -868,7 +868,7 @@
 	icon_state = "mine_headset"
 
 /obj/item/radio/headset/headset_cargo/mining/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "радиочастотная гарнитура шахтёров",
 		GENITIVE = "радиочастотную гарнитуру шахтёров",
 		DATIVE = "радиочастотной гарнитуры шахтёров",
@@ -886,7 +886,7 @@
 	ks2type = /obj/item/encryptionkey/headset_service
 
 /obj/item/radio/headset/headset_service/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "радиочастотная гарнитура отдела обслуживания",
 		GENITIVE = "радиочастотную гарнитуру отдела обслуживания",
 		DATIVE = "радиочастотной гарнитуры отдела обслуживания",
@@ -905,7 +905,7 @@
 	ks2type = /obj/item/encryptionkey/heads/ntrep
 
 /obj/item/radio/headset/heads/ntrep/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "радиочастотная гарнитура Представителя \"Нанотрейзен\"",
 		GENITIVE = "радиочастотную гарнитуру Представителя \"Нанотрейзен\"",
 		DATIVE = "радиочастотной гарнитуры Представителя \"Нанотрейзен\"",
@@ -924,7 +924,7 @@
 	ks2type = /obj/item/encryptionkey/heads/magistrate
 
 /obj/item/radio/headset/heads/magistrate/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "радиочастотная гарнитура Магистрата",
 		GENITIVE = "радиочастотную гарнитуру Магистрата",
 		DATIVE = "радиочастотной гарнитуры Магистрата",
@@ -945,7 +945,7 @@
 	item_state = "com_headset_alt"
 
 /obj/item/radio/headset/heads/magistrate/alt/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "тактическая гарнитура Магистрата",
 		GENITIVE = "тактическую гарнитуру Магистрата",
 		DATIVE = "тактической гарнитуры Магистрата",
@@ -965,7 +965,7 @@
 	ks2type = /obj/item/encryptionkey/heads/blueshield
 
 /obj/item/radio/headset/heads/blueshield/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "радиочастотная гарнитура Офицера \"Синий Щит\"",
 		GENITIVE = "радиочастотную гарнитуру Офицера \"Синий Щит\"",
 		DATIVE = "радиочастотной гарнитуры Офицера \"Синий Щит\"",
@@ -988,7 +988,7 @@
 	item_state = "com_headset_alt"
 
 /obj/item/radio/headset/heads/blueshield/alt/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "тактическая гарнитура Офицера \"Синий Щит\"",
 		GENITIVE = "тактическую гарнитуру Офицера \"Синий Щит\"",
 		DATIVE = "тактической гарнитуры Офицера \"Синий Щит\"",
@@ -1009,7 +1009,7 @@
 	freqlock = TRUE
 
 /obj/item/radio/headset/ert/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "радиочастотная гарнитура Оперативника ОБР",
 		GENITIVE = "радиочастотную гарнитуру Оперативника ОБР",
 		DATIVE = "радиочастотной гарнитуры Оперативника ОБР",
@@ -1031,7 +1031,7 @@
 	item_state = "com_headset_alt"
 
 /obj/item/radio/headset/ert/alt/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "тактическая гарнитура Оперативника ОБР",
 		GENITIVE = "тактическую гарнитуру Оперативника ОБР",
 		DATIVE = "тактической гарнитуры Оперативника ОБР",
@@ -1050,7 +1050,7 @@
 			Используется личным составом Корпуса Морской Пехоты ТСФ."
 
 /obj/item/radio/headset/ert/alt/solgov/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "тактическая гарнитура КМП ТСФ",
 		GENITIVE = "тактическую гарнитуру КМП ТСФ",
 		DATIVE = "тактической гарнитуры КМП ТСФ",
@@ -1072,7 +1072,7 @@
 	instant = TRUE
 
 /obj/item/radio/headset/ert/alt/commander/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "тактическая гарнитура Командира ОБР",
 		GENITIVE = "тактическую гарнитуру Командира ОБР",
 		DATIVE = "тактической гарнитуры Командира ОБР",
@@ -1092,7 +1092,7 @@
 			Используется Лейтенантами ТСФ."
 
 /obj/item/radio/headset/ert/alt/commander/solgov/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "тактическая гарнитура Лейтенанта ТСФ",
 		GENITIVE = "тактическую гарнитуру Лейтенанта ТСФ",
 		DATIVE = "тактической гарнитуры Лейтенанта ТСФ",
@@ -1119,7 +1119,7 @@
 	instant = TRUE
 
 /obj/item/radio/headset/centcom/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "тактическая гарнитура Офицера ЦК",
 		GENITIVE = "тактическую гарнитуру Офицера ЦК",
 		DATIVE = "тактической гарнитуры Офицера ЦК",
@@ -1140,7 +1140,7 @@
 			Используется Генералами ТСФ."
 
 /obj/item/radio/headset/centcom/solgov/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "тактическая гарнитура Генерала ТСФ",
 		GENITIVE = "тактическую гарнитуру Генерала ТСФ",
 		DATIVE = "тактической гарнитуры Генерала ТСФ",
@@ -1170,7 +1170,7 @@
 	ks2type = /obj/item/encryptionkey/headset_mining_medic
 
 /obj/item/radio/headset/headset_mining_medic/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "радиочастотная гарнитура Шахтёрского Врача",
 		GENITIVE = "радиочастотную гарнитуру Шахтёрского Врача",
 		DATIVE = "радиочастотной гарнитуры Шахтёрского Врача",
@@ -1230,7 +1230,7 @@
 	var/static/list/forbidden_headset_typecache
 
 /obj/item/bowman_conversion_tool/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "инструмент для модификации гарнитуры",
 		GENITIVE = "инструмента для модификации гарнитуры",
 		DATIVE = "инструменту для модификации гарнитуры",

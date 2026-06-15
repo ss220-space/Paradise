@@ -9,7 +9,7 @@
 	origin_tech = "biotech=3"
 
 /obj/item/hivelordstabilizer/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "стабилизатор ядра",
 		GENITIVE = "стабилизатора ядра",
 		DATIVE = "стабилизатору ядра",
@@ -33,7 +33,7 @@
 	light_system = MOVABLE_LIGHT
 
 /obj/item/hivelordstabilizer/molten_mass/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сплавленный сгусток",
 		GENITIVE = "сплавленного сгустка",
 		DATIVE = "сплавленному сгустку",
@@ -46,12 +46,16 @@
 	. = ..()
 	if(!proximity_flag)
 		return
-	var/obj/item/organ/internal/regenerative_core/C = target
-	if(!istype(C))
+	var/obj/item/organ/internal/regenerative_core/core = target
+	if(!istype(core))
 		to_chat(user, span_warning("Стабилизатор работает только с определёнными типами органов монстров, обычно регенеративной природы."))
-		return ..()
+		return
 
-	C.preserved()
+	if(core.preserved || core.inert)
+		to_chat(user, span_warning("Это ядро уже [core.inert ? "сгнило" : "стабилизировано"]!"))
+		return
+
+	core.preserved()
 	balloon_alert(user, "ядро стабилизировано!") //replace to "organ" when there is more than one kind of regenerative organ
 	qdel(src)
 
@@ -68,7 +72,7 @@
 	var/preserved = 0
 
 /obj/item/organ/internal/regenerative_core/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "регенеративное ядро",
 		GENITIVE = "регенеративного ядра",
 		DATIVE = "регенеративному ядру",
@@ -101,7 +105,7 @@
 	inert = TRUE
 	name = "decayed regenerative core"
 	desc = "Всё, что осталось от легиона. Оно сгнило и совершенно бесполезно."
-	ru_names = list(
+	ru_names = alist(
 		NOMINATIVE = "сгнившее регенеративное ядро",
 		GENITIVE = "сгнившего регенеративного ядра",
 		DATIVE = "сгнившему регенеративному ядру",
@@ -202,6 +206,10 @@
 /obj/item/organ/internal/regenerative_core/legion/pre_preserved
 	preserved = TRUE
 
+/obj/item/organ/internal/regenerative_core/legion/inert/Initialize(mapload)
+	. = ..()
+	go_inert()
+
 /obj/item/organ/internal/regenerative_core/legion/Initialize(mapload)
 	. = ..()
 	update_icon()
@@ -253,7 +261,7 @@
 	)
 
 /obj/item/organ/internal/legion_tumour/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "опухоль легиона",
 		GENITIVE = "опухоли легиона",
 		DATIVE = "опухоли легиона",

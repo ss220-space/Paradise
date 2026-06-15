@@ -7,7 +7,7 @@
 	alcohol_intensity = 1.4
 
 /obj/item/organ/internal/liver/grey/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "печень серого",
 		GENITIVE = "печени серого",
 		DATIVE = "печени серого",
@@ -25,7 +25,7 @@
 	smart_mind = TRUE // nerd brains show us sci-hud and research scanner
 
 /obj/item/organ/internal/brain/grey/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мозг серого",
 		GENITIVE = "мозга серого",
 		DATIVE = "мозгу серого",
@@ -52,7 +52,7 @@
 	examine_mod = EXAMINE_INSTANT // Insta carbon examine
 
 /obj/item/organ/internal/eyes/grey/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "глаза серого",
 		GENITIVE = "глаз серого",
 		DATIVE = "глазам серого",
@@ -67,7 +67,7 @@
 	desc = "Парный орган, отвечающий за аудиальное восприятие окружающей среды и получение информации о положении гуманоида в пространстве. Эти принадлежали серому."
 
 /obj/item/organ/internal/ears/grey/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "уши серого",
 		GENITIVE = "ушей серого",
 		DATIVE = "ушам серого",
@@ -85,7 +85,7 @@
 	item_base = "grey_heart"
 
 /obj/item/organ/internal/heart/grey/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сердце серого",
 		GENITIVE = "сердца серого",
 		DATIVE = "сердцу серого",
@@ -102,7 +102,7 @@
 	item_state = "grey_lungs"
 
 /obj/item/organ/internal/lungs/grey/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "лёгкие серого",
 		GENITIVE = "лёгких серого",
 		DATIVE = "лёгким серого",
@@ -119,7 +119,7 @@
 	item_state = "grey_kidneys"
 
 /obj/item/organ/internal/kidneys/grey/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "почки серого",
 		GENITIVE = "почек серого",
 		DATIVE = "почкам серого",

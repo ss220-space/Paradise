@@ -13,7 +13,7 @@
 	var/embedded_type = /obj/item/embedded/shrapnel
 
 /obj/projectile/shrapnel/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шрапнель",
 		GENITIVE = "шрапнели",
 		DATIVE = "шрапнели",
@@ -59,7 +59,7 @@
 	hitsound = 'sound/weapons/pierce.ogg'
 
 /obj/item/embedded/shrapnel/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шрапнель",
 		GENITIVE = "шрапнели",
 		DATIVE = "шрапнели",

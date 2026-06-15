@@ -47,7 +47,7 @@
 	resistance_flags = FIRE_PROOF
 
 /obj/machinery/vending/liberationstation/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат Liberation Station",
 		GENITIVE = "торгового автомата Liberation Station",
 		DATIVE = "торговому автомату Liberation Station",
@@ -102,7 +102,7 @@
 	resistance_flags = FIRE_PROOF
 
 /obj/machinery/vending/toyliberationstation/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат Syndicate Donksoft Toy Vendor",
 		GENITIVE = "торгового автомата Syndicate Donksoft Toy Vendor",
 		DATIVE = "торговому автомату Syndicate Donksoft Toy Vendor",

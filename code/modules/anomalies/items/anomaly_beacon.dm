@@ -12,7 +12,7 @@
 	var/obj/item/assembly/signaler/core/core = null
 
 /obj/item/assembly/anomaly_beacon/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "аномальный маячок",
 		GENITIVE = "аномального маячка",
 		DATIVE = "аномальному маячку",

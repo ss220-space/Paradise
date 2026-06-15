@@ -25,7 +25,7 @@
 	tool_behaviour = TOOL_CROWBAR
 
 /obj/item/crowbar/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "монтировка",
 		GENITIVE = "монтировки",
 		DATIVE = "монтировке",
@@ -52,7 +52,7 @@
 	toolspeed = 3
 
 /obj/item/crowbar/small/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "титановая мини-монтировка",
 		GENITIVE = "титановой мини-монтировки",
 		DATIVE = "титановой мини-монтировке",
@@ -80,7 +80,7 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
 /obj/item/crowbar/brass/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "латунная монтировка",
 		GENITIVE = "латунной монтировки",
 		DATIVE = "латунной монтировке",
@@ -103,7 +103,7 @@
 	origin_tech = "combat=4;engineering=4;abductor=3"
 
 /obj/item/crowbar/abductor/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "чужеродная монтировка",
 		GENITIVE = "чужеродной монтировки",
 		DATIVE = "чужеродной монтировке",
@@ -128,7 +128,7 @@
 	toolspeed = 0.5
 
 /obj/item/crowbar/large/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "большая монтировка",
 		GENITIVE = "большой монтировки",
 		DATIVE = "большой монтировке",
@@ -146,7 +146,7 @@
 	toolspeed = 0.5
 
 /obj/item/crowbar/cyborg/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "гидравлическая монтировка",
 		GENITIVE = "гидравлической монтировки",
 		DATIVE = "гидравлической монтировке",
@@ -171,7 +171,7 @@
 	var/airlock_open_time = 100
 
 /obj/item/crowbar/power/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "челюсти жизни",
 		GENITIVE = "челюстей жизни",
 		DATIVE = "челюстям жизни",
@@ -213,7 +213,7 @@
 	greyscale_colors = null
 
 /obj/item/crowbar/industrial/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "продвинутая монтировка",
 		GENITIVE = "продвинутой монтировки",
 		DATIVE = "продвинутой монтировке",

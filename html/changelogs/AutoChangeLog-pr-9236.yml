@@ -1,5 +1,0 @@
-author: "littleboobs"
-delete-after: True
-changes:
-  - admin: "Дополнена информация в del() log верб. (PR #9236)"
-  - admin: "Добавлен новый верб, подсчитывающий кол-во атомов/датумов. (PR #9236)"

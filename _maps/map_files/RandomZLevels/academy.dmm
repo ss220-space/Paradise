@@ -617,7 +617,6 @@
 "da" = (
 /obj/effect/decal/cleanable/blood/writing,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/awaymission/academy/classrooms)
@@ -819,7 +818,6 @@
 	pixel_y = 11
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/awaymission/academy/classrooms)
@@ -976,7 +974,6 @@
 "eq" = (
 /obj/machinery/kitchen_machine/oven,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/awaymission/academy/classrooms)
@@ -1053,13 +1050,11 @@
 	pixel_y = 5
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/awaymission/academy/classrooms)
 "eG" = (
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/awaymission/academy/classrooms)
@@ -1107,7 +1102,6 @@
 	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/awaymission/academy/classrooms)
@@ -1202,7 +1196,6 @@
 /obj/structure/table,
 /obj/machinery/kitchen_machine/microwave,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/awaymission/academy/classrooms)
@@ -1257,7 +1250,6 @@
 /obj/structure/table,
 /obj/machinery/reagentgrinder,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/awaymission/academy/classrooms)
@@ -2198,7 +2190,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/awaymission/academy/classrooms)
@@ -2496,7 +2487,6 @@
 "kB" = (
 /obj/machinery/icemachine,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/awaymission/academy/classrooms)
@@ -2524,7 +2514,6 @@
 /obj/effect/decal/cleanable/flour,
 /obj/machinery/vending/dinnerware,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/awaymission/academy/classrooms)
@@ -2664,7 +2653,6 @@
 "lp" = (
 /obj/item/reagent_containers/food/drinks/bottle/wine,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/awaymission/academy/classrooms)
@@ -2834,7 +2822,6 @@
 	pixel_x = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/awaymission/academy/classrooms)
@@ -3590,7 +3577,6 @@
 "uA" = (
 /obj/machinery/vending/boozeomat/syndicate_access,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/awaymission/academy/classrooms)
@@ -3915,7 +3901,6 @@
 "xD" = (
 /obj/item/storage/fancy/donut_box,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/awaymission/academy/classrooms)
@@ -4583,7 +4568,6 @@
 	icon_state = "brokengrille"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/awaymission/academy/classrooms)
@@ -4738,7 +4722,6 @@
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/glass/rag,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/awaymission/academy/classrooms)
@@ -4758,7 +4741,6 @@
 	pixel_y = -2
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/awaymission/academy/classrooms)
@@ -4889,7 +4871,6 @@
 	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/awaymission/academy/classrooms)
@@ -5853,7 +5834,6 @@
 /obj/effect/decal/cleanable/flour,
 /obj/item/trash/waffles,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/awaymission/academy/classrooms)
@@ -6272,7 +6252,6 @@
 "VO" = (
 /obj/machinery/cooker/deepfryer,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/awaymission/academy/classrooms)
@@ -6319,7 +6298,6 @@
 "Wj" = (
 /obj/machinery/kitchen_machine/candy_maker,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/awaymission/academy/classrooms)
@@ -6395,7 +6373,6 @@
 /obj/effect/decal/cleanable/flour,
 /obj/item/reagent_containers/food/condiment/milk,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/awaymission/academy/classrooms)

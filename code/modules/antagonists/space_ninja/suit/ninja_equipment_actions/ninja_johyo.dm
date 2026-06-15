@@ -49,7 +49,7 @@
 	var/datum/action/item_action/advanced/ninja/johyo/my_action = null
 
 /obj/item/gun/magic/johyo/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "джохё",
 		GENITIVE = "джохё",
 		DATIVE = "джохё",
