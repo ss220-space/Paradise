@@ -289,8 +289,8 @@
 	var/obj/structure/bed/roller/roller = new extended(drop_location())
 	roller.add_fingerprint(user)
 	user.visible_message(
-			span_notice("[user] разложил[GEND_A_O_I(user)] [declent_ru(NOMINATIVE)]."),
-			span_notice("Вы разложили [declent_ru(NOMINATIVE)]."),
+			span_notice("[user] разложил[GEND_A_O_I(user)] [declent_ru(ACCUSATIVE)]."),
+			span_notice("Вы разложили [declent_ru(ACCUSATIVE)]."),
 		)
 	qdel(src)
 
@@ -309,8 +309,8 @@
 		if(loc == user && !user.can_unEquip(src))
 			return ..()
 		user.visible_message(
-			span_notice("[user] собрал[GEND_A_O_I(user)] [declent_ru(NOMINATIVE)]."),
-			span_notice("Вы собрали [declent_ru(NOMINATIVE)]."),
+			span_notice("[user] собрал[GEND_A_O_I(user)] [declent_ru(ACCUSATIVE)]."),
+			span_notice("Вы собрали [declent_ru(ACCUSATIVE)]."),
 		)
 		if(loc == user)
 			user.transfer_item_to_loc(src, roller)
