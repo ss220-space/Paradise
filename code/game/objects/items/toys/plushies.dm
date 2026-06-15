@@ -82,7 +82,7 @@
 	gender = FEMALE
 
 /obj/item/toy/plushie/fox/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "плюшевая лиса",
 		GENITIVE = "плюшевой лисы",
 		DATIVE = "плюшевой лисе",
@@ -137,7 +137,7 @@
 	gender = MALE
 
 /obj/item/toy/plushie/cat/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "плюшевый кот",
 		GENITIVE = "плюшевого кота",
 		DATIVE = "плюшевому коту",
@@ -171,7 +171,7 @@
 	cuddle_verb = list("Я знаю всё обо всём, спроси меня о чём-нибудь!", "Сегодня я особенно мудр!", "Мяу!", "Мурр!")
 
 /obj/item/toy/plushie/cat/kotrazumist/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кот разумист",
 		GENITIVE = "кота разумиста",
 		DATIVE = "коту разумисту",
@@ -187,7 +187,7 @@
 	cuddle_verb = list("Добро пожаловать на рисовые поля!", "Где мой рис?!", "Мяу!", "Мурр!")
 
 /obj/item/toy/plushie/cat/ricehat/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кот в рисовой шляпе",
 		GENITIVE = "кота в рисовой шляпе",
 		DATIVE = "коту в рисовой шляпе",
@@ -204,7 +204,7 @@
 	gender = FEMALE
 
 /obj/item/toy/plushie/manulplushie/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "игрушка Манула",
 		GENITIVE = "игрушки Манула",
 		DATIVE = "игрушке Манула",
@@ -223,7 +223,7 @@
 	gender = FEMALE
 
 /obj/item/toy/plushie/cattoy/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "игрушечная мышь",
 		GENITIVE = "игрушечной мыши",
 		DATIVE = "игрушечной мыши",
@@ -244,7 +244,7 @@
 	gender = MALE
 
 /obj/item/toy/plushie/voxplushie/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "плюшевый вокс",
 		GENITIVE = "плюшевого вокса",
 		DATIVE = "плюшевому воксу",
@@ -264,7 +264,7 @@
 	gender = MALE
 
 /obj/item/toy/plushie/shardplushie/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "плюшевый кристалл суперматерии",
 		GENITIVE = "плюшевого кристалла суперматерии",
 		DATIVE = "плюшевому кристаллу суперматерии",
@@ -284,7 +284,7 @@
 	gender = MALE
 
 /obj/item/toy/plushie/greyplushie/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "плюшевый грей",
 		GENITIVE = "плюшевого грея",
 		DATIVE = "плюшевому грею",
@@ -320,7 +320,7 @@
 	gender = MALE
 
 /obj/item/toy/plushie/ipcplushie/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "плюшевый КПБ",
 		GENITIVE = "плюшевого КПБ",
 		DATIVE = "плюшевому КПБ",
@@ -353,7 +353,7 @@
 	gender = MALE
 
 /obj/item/toy/plushie/lizard_plushie/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "плюшевый унатх",
 		GENITIVE = "плюшевого унатха",
 		DATIVE = "плюшевому унатху",
@@ -392,7 +392,7 @@
 	gender = MALE
 
 /obj/item/toy/plushie/ashwalkerplushie/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "плюшевый пеплоходец",
 		GENITIVE = "плюшевого пеплоходца",
 		DATIVE = "плюшевому пеплоходцу",
@@ -451,7 +451,7 @@
 	gender = MALE
 
 /obj/item/toy/plushie/nianplushie/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "плюшевый ниан",
 		GENITIVE = "плюшевого ниана",
 		DATIVE = "плюшевому ниану",
@@ -469,7 +469,7 @@
 	gender = FEMALE
 
 /obj/item/toy/plushie/nianplushie/beeplushie/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "плюшевая пчёлка",
 		GENITIVE = "плюшевой пчёлки",
 		DATIVE = "плюшевой пчёлке",
@@ -499,7 +499,7 @@
 	gender = FEMALE
 
 /obj/item/toy/plushie/rdplushie/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "плюшевая кукла РД",
 		GENITIVE = "плюшевой куклы РД",
 		DATIVE = "плюшевой кукле РД",
@@ -549,7 +549,7 @@
 	gender = FEMALE
 
 /obj/item/toy/plushie/gsbplushie/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "плюшевая кукла ГСБ",
 		GENITIVE = "плюшевой куклы ГСБ",
 		DATIVE = "плюшевой кукле ГСБ",
@@ -579,7 +579,7 @@
 	gender = FEMALE
 
 /obj/item/toy/plushie/cmoplushie/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "плюшевая кукла СМО",
 		GENITIVE = "плюшевой куклы СМО",
 		DATIVE = "плюшевой кукле СМО",
@@ -624,7 +624,7 @@
 	gender = FEMALE
 
 /obj/item/toy/plushie/blahaj/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "плюшевая акула",
 		GENITIVE = "плюшевой акулы",
 		DATIVE = "плюшевой акуле",
@@ -658,7 +658,7 @@
 	gender = MALE
 
 /obj/item/toy/plushie/plasmamanplushie/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "плюшевый плазмамен",
 		GENITIVE = "плюшевого плазмамена",
 		DATIVE = "плюшевому плазмамену",
@@ -730,7 +730,7 @@
 	gender = MALE
 
 /obj/item/toy/plushie/carp/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "плюшевый карп",
 		GENITIVE = "плюшевого карпа",
 		DATIVE = "плюшевому карпу",
@@ -788,7 +788,7 @@
 	gender = MALE
 
 /obj/item/toy/plushie/hampter/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "плюшевый хомяк",
 		GENITIVE = "плюшевого хомяка",
 		DATIVE = "плюшевому хомяку",
@@ -828,7 +828,7 @@
 	gender = MALE
 
 /obj/item/toy/plushie/beaver/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "плюшевый бобёр",
 		GENITIVE = "плюшевого бобра",
 		DATIVE = "плюшевому бобру",
@@ -851,7 +851,7 @@
 	gender = MALE
 
 /obj/item/toy/plushie/corgi/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "плюшевый корги",
 		GENITIVE = "плюшевого корги",
 		DATIVE = "плюшевому корги",
@@ -866,7 +866,7 @@
 	gender = FEMALE
 
 /obj/item/toy/plushie/girly_corgi/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "плюшевая корги",
 		GENITIVE = "плюшевой корги",
 		DATIVE = "плюшевой корги",
@@ -881,7 +881,7 @@
 	gender = MALE
 
 /obj/item/toy/plushie/robo_corgi/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "плюшевый робо-корги",
 		GENITIVE = "плюшевого робо-корги",
 		DATIVE = "плюшевому робо-корги",
@@ -898,7 +898,7 @@
 	gender = FEMALE
 
 /obj/item/toy/plushie/snail/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "плюшевая улитка",
 		GENITIVE = "плюшевой улитки",
 		DATIVE = "плюшевой улитке",
@@ -913,7 +913,7 @@
 	gender = MALE
 
 /obj/item/toy/plushie/octopus/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "плюшевый осьминог",
 		GENITIVE = "плюшевого осьминога",
 		DATIVE = "плюшевому осьминогу",
@@ -928,7 +928,7 @@
 	gender = MALE
 
 /obj/item/toy/plushie/face_hugger/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "плюшевый лицехват",
 		GENITIVE = "плюшевого лицехвата",
 		DATIVE = "плюшевому лицехвату",
@@ -943,7 +943,7 @@
 	gender = MALE
 
 /obj/item/toy/plushie/deer/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "плюшевый олень",
 		GENITIVE = "плюшевого оленя",
 		DATIVE = "плюшевому оленю",
@@ -960,7 +960,7 @@
 	gender = FEMALE
 
 /obj/item/toy/plushie/snakeplushie/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "плюшевая змея",
 		GENITIVE = "плюшевой змеи",
 		DATIVE = "плюшевой змее",
@@ -976,7 +976,7 @@
 	item_state = "plushie_nuke"
 
 /obj/item/toy/plushie/nukeplushie/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "плюшевый оперативник \"Синдиката\"",
 		GENITIVE = "плюшевого оперативника \"Синдиката\"",
 		DATIVE = "плюшевому оперативнику \"Синдиката\"",
@@ -993,7 +993,7 @@
 	gender = MALE
 
 /obj/item/toy/plushie/slimeplushie/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "плюшевый слайм",
 		GENITIVE = "плюшевого слайма",
 		DATIVE = "плюшевому слайму",
@@ -1010,7 +1010,7 @@
 	gender = MALE
 
 /obj/item/toy/plushie/fennecplushie/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "плюшевый фенек",
 		GENITIVE = "плюшевого фенека",
 		DATIVE = "плюшевому фенеку",
@@ -1025,7 +1025,7 @@
 	icon_state = "beepskyplushie"
 
 /obj/item/toy/plushie/beepsky/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "плюшевый робот уборщик",
 		GENITIVE = "плюшевого робота уборщика",
 		DATIVE = "плюшевому роботу уборщику",
@@ -1045,7 +1045,7 @@
 	gender = MALE
 
 /obj/item/toy/plushie/axolotlplushie/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "плюшевый аксолотль",
 		GENITIVE = "плюшевого аксолотля",
 		DATIVE = "плюшевому аксолотлю",
@@ -1064,7 +1064,7 @@
 	gender = MALE
 
 /obj/item/toy/plushie/realgoat/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "плюшевый козёл",
 		GENITIVE = "плюшевого козла",
 		DATIVE = "плюшевому козлу",
@@ -1083,7 +1083,7 @@
 	gender = MALE
 
 /obj/item/toy/plushie/rouny/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "плюшевый ксеноморф-бегун",
 		GENITIVE = "плюшевого ксеноморфа-бегуна",
 		DATIVE = "плюшевому ксеноморфу-бегуну",
@@ -1100,7 +1100,7 @@
 	gender = MALE
 
 /obj/item/toy/plushie/banbanana/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "БАНан",
 		GENITIVE = "БАНана ",
 		DATIVE = "БАНану",
@@ -1125,7 +1125,7 @@
 	gender = FEMALE
 
 /obj/item/toy/plushie/pig/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "резиновая свинья",
 		GENITIVE = "резиновой свиньи",
 		DATIVE = "резиновой свинье",
@@ -1188,7 +1188,7 @@
 	gender = MALE
 
 /obj/item/toy/plushie/bubblegumplushie/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "плюшевый Бубльгум",
 		GENITIVE = "плюшевого Бубльгума",
 		DATIVE = "плюшевому Бубльгуму",
@@ -1212,7 +1212,7 @@
 	gender = MALE
 
 /obj/item/toy/plushie/chikaboomchik/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "плюшевый чикабумчик",
 		GENITIVE = "плюшевого чикабумчика",
 		DATIVE = "плюшевому чикабумчику",
@@ -1235,7 +1235,7 @@
 	var/cooldown_time = 2 SECONDS
 
 /obj/item/toy/plushie/wet_owl/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мокрая сова",
 		GENITIVE = "мокрой совы",
 		DATIVE = "мокрой сове",
@@ -1310,7 +1310,7 @@
 	gender = MALE
 
 /obj/item/toy/plushie/ninja/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "плюшевый ниндзя",
 		GENITIVE = "плюшевого ниндзя",
 		DATIVE = "плюшевому ниндзя",
@@ -1348,7 +1348,7 @@
 	gender = MALE
 
 /obj/item/toy/plushie/glorp/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "плюшевый глорп",
 		GENITIVE = "плюшевого глорпа",
 		DATIVE = "плюшевому глорпу",
@@ -1367,7 +1367,7 @@
 	gender = MALE
 
 /obj/item/toy/plushie/pizdosik/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "плюшевый пиздосик",
 		GENITIVE = "плюшевого пиздосика",
 		DATIVE = "плюшевому пиздосику",

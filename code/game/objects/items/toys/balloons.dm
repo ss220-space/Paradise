@@ -9,7 +9,7 @@
 	item_state = "waterballoon-e"
 
 /obj/item/toy/waterballoon/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шарик",
 		GENITIVE = "шарика",
 		DATIVE = "шарику",
@@ -218,7 +218,7 @@
 	random_color = FALSE
 
 /obj/item/toy/balloon/corgi/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "воздушный шарик-корги",
 		GENITIVE = "воздушного шарика-корги",
 		DATIVE = "воздушному шарику-корги",
@@ -235,7 +235,7 @@
 	random_color = FALSE
 
 /obj/item/toy/balloon/heart/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "воздушный шарик-сердце",
 		GENITIVE = "воздушного шарика-сердца",
 		DATIVE = "воздушному шарику-сердцу",
@@ -252,7 +252,7 @@
 	random_color = FALSE
 
 /obj/item/toy/balloon/syndicate/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "воздушный шарик синдиката",
 		GENITIVE = "воздушного шарика синдиката",
 		DATIVE = "воздушному шарику синдиката",
@@ -270,7 +270,7 @@
 	random_color = FALSE
 
 /obj/item/toy/balloon/contractor/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "воздушный шарик контрактника",
 		GENITIVE = "воздушного шарика контрактника",
 		DATIVE = "воздушному шарику контрактника",
@@ -287,7 +287,7 @@
 	random_color = FALSE
 
 /obj/item/toy/balloon/arrest/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "воздушный шарик \"В розыске\"",
 		GENITIVE = "воздушного шарика \"В розыске\"",
 		DATIVE = "воздушному шарику \"В розыске\"",

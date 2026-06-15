@@ -41,7 +41,7 @@
 	item_flags = NO_PIXEL_RANDOM_DROP
 
 /obj/item/toy/spinningtoy/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "игрушечная сингулярность",
 		GENITIVE = "игрушечной сингулярности",
 		DATIVE = "игрушечной сингулярности",
@@ -59,7 +59,7 @@
 	var/animation_stage = 0
 
 /obj/item/toy/nuke/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "игрушечная ядерная боеголовка",
 		GENITIVE = "игрушечной ядерной боеголовки",
 		DATIVE = "игрушечной ядерной боеголовке",
@@ -107,7 +107,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/toy/minimeteor/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мини-метеор",
 		GENITIVE = "мини-метеора",
 		DATIVE = "мини-метеору",
@@ -135,7 +135,7 @@
 	var/cooldown = 0
 
 /obj/item/toy/AI/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "игрушка \"Искуственный Интеллект\"",
 		GENITIVE = "игрушки \"Искуственный Интеллект\"",
 		DATIVE = "игрушке \"Искуственный Интеллект\"",
@@ -169,7 +169,7 @@
 	hitsound = SFX_SWING_HIT
 
 /obj/item/toy/pet_rock/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "камень-питомец",
 		GENITIVE = "камня-питомца",
 		DATIVE = "камню-питомцу",
@@ -184,7 +184,7 @@
 	icon_state = "fred"
 
 /obj/item/toy/pet_rock/fred/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "камень-питомец Фред",
 		GENITIVE = "камня-питомца Фреда",
 		DATIVE = "камню-питомцу Фреду",
@@ -199,7 +199,7 @@
 	icon_state = "roxie"
 
 /obj/item/toy/pet_rock/roxie/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "камень-питомец Рокси",
 		GENITIVE = "камня-питомца Рокси",
 		DATIVE = "камню-питомцу Рокси",
@@ -216,7 +216,7 @@
 	resistance_flags = FLAMMABLE
 
 /obj/item/toy/pet_rock/naughty_coal/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "уголь для непослушных",
 		GENITIVE = "угля для непослушных",
 		DATIVE = "углю для непослушных",
@@ -234,7 +234,7 @@
 	slot_flags = ITEM_SLOT_BELT
 
 /obj/item/toy/inflatable_duck/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "надувная утка",
 		GENITIVE = "надувной утки",
 		DATIVE = "надувной утке",

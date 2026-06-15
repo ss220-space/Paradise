@@ -19,7 +19,7 @@
 	var/ash_type = /obj/effect/decal/cleanable/ash
 
 /obj/item/toy/snappop/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "хлопушка",
 		GENITIVE = "хлопушки",
 		DATIVE = "хлопушке",
@@ -68,7 +68,7 @@
 	ash_type = /obj/effect/decal/cleanable/ash/snappop_phoenix
 
 /obj/item/toy/snappop/phoenix/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "хлопушка \"Феникс\"",
 		GENITIVE = "хлопушки \"Феникс\"",
 		DATIVE = "хлопушке \"Феникс\"",
@@ -103,7 +103,7 @@
 	COOLDOWN_DECLARE(cooldown)
 
 /obj/item/toy/codex_gigas/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "поддельный Кодекс Гигас",
 		GENITIVE = "поддельного Кодекса Гигаса",
 		DATIVE = "поддельному Кодексу Гигасу",
@@ -152,7 +152,7 @@
 	var/obj/stored_miniature = null
 
 /obj/item/toy/minigibber/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "миниатюрная мясорубка",
 		GENITIVE = "миниатюрной мясорубки",
 		DATIVE = "миниатюрной мясорубке",
@@ -202,7 +202,7 @@
 	var/cooldown = 0
 
 /obj/item/toy/redbutton/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "большая красная кнопка",
 		GENITIVE = "большой красной кнопки",
 		DATIVE = "большой красной кнопке",
@@ -245,7 +245,7 @@
 	var/list/possible_answers = list("Определённо", "Все признаки указывают на \"да\".", "Скорее всего.", "Да.", "Спроси позже.", "Лучше не сейчас.", "Будущее неясно.", "Возможно.", "Сомнительно.", "Нет.", "Не рассчитывай на это.", "Никогда.")
 
 /obj/item/toy/eight_ball/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бильярдный шар-восьмёрка",
 		GENITIVE = "бильярдного шара-восьмёрки",
 		DATIVE = "бильярдному шару-восьмёрке",
@@ -271,7 +271,7 @@
 	possible_answers = list("Да.", "Нет.", "Спроси ещё раз.", "Ничего.", "Я так не думаю.", "Ни то, ни другое.", "Может быть, когда-нибудь.")
 
 /obj/item/toy/eight_ball/conch/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "волшебная раковина",
 		GENITIVE = "волшебной раковины",
 		DATIVE = "волшебной раковине",
@@ -324,7 +324,7 @@
 	icon_state= "desktoy"
 
 /obj/item/toy/desk/officetoy/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "офисная игрушка",
 		GENITIVE = "офисной игрушки",
 		DATIVE = "офисной игрушке",
@@ -339,7 +339,7 @@
 	icon_state= "dippybird"
 
 /obj/item/toy/desk/dippingbird/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "игрушка \"пьющая птичка\"",
 		GENITIVE = "игрушки \"пьющей птички\"",
 		DATIVE = "игрушке \"пьющей птички\"",
@@ -355,7 +355,7 @@
 	var/datum/looping_sound/newtonballs/soundloop
 
 /obj/item/toy/desk/newtoncradle/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "игрушка \"Колыбель Ньютона\"",
 		GENITIVE = "игрушки \"Колыбели Ньютона\"",
 		DATIVE = "игрушке \"Колыбели Ньютона\"",
@@ -383,7 +383,7 @@
 	var/datum/looping_sound/fanblow/soundloop
 
 /obj/item/toy/desk/fan/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "вентилятор",
 		GENITIVE = "вентилятора",
 		DATIVE = "вентилятору",

@@ -24,7 +24,7 @@
 	righthand_file = 'icons/mob/inhands/melee_righthand.dmi'
 
 /obj/item/toy/sword/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "игрушечный меч",
 		GENITIVE = "игрушечного меча",
 		DATIVE = "игрушечному мечу",
@@ -102,7 +102,7 @@
 	needs_permit = FALSE
 
 /obj/item/twohanded/dualsaber/toy/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "игрушечный двойной меч",
 		GENITIVE = "игрушечного двойного меча",
 		DATIVE = "игрушечному двойному мечу",
@@ -134,7 +134,7 @@
 	righthand_file = 'icons/mob/inhands/melee_righthand.dmi'
 
 /obj/item/toy/katana/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "игрушечная катана",
 		GENITIVE = "игрушечной катаны",
 		DATIVE = "игрушечной катане",
@@ -165,7 +165,7 @@
 	righthand_file = 'icons/mob/inhands/melee_righthand.dmi'
 
 /obj/item/toy/foamblade/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "игрушечный армблейд",
 		GENITIVE = "игрушечного армблейда",
 		DATIVE = "игрушечному армблейду",
@@ -186,7 +186,7 @@
 	w_class = WEIGHT_CLASS_TINY
 
 /obj/item/toy/flash/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "игрушечный флешер",
 		GENITIVE = "игрушечного флешера",
 		DATIVE = "игрушечному флешеру",
@@ -214,7 +214,7 @@
 	attack_verb = list("пропилил", "порезал", "покромсал", "рубанул")
 
 /obj/item/twohanded/toy/chainsaw/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "игрушечная бензопила",
 		GENITIVE = "игрушечной бензопилы",
 		DATIVE = "игрушечной бензопиле",
@@ -241,7 +241,7 @@
 	hitsound = 'sound/items/squeaktoy.ogg'
 
 /obj/item/toy/toolbox/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "резиновый тулбокс",
 		GENITIVE = "резинового тулбокса",
 		DATIVE = "резиновому тулбоксу",
