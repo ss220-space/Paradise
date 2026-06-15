@@ -30626,9 +30626,6 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
 /area/centcom/jail)
 "ory" = (
 /obj/structure/closet/chefcloset,
