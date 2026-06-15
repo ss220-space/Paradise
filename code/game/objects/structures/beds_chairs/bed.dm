@@ -129,13 +129,12 @@
 	)
 
 /obj/structure/bed/cardboard/wrench_act(mob/user, obj/item/wrench)
-	. = FALSE
-	return
+	return FALSE
 
 /obj/structure/bed/cardboard/wirecutter_act(mob/user, obj/item/wirecutter)
 	. = TRUE
 	if(obj_flags & NODECONSTRUCT)
-		balloon_alert(user, "[src] нельзя разобрать!")
+		balloon_alert(user, "нельзя разобрать!")
 		return
 	if(!wirecutter.use_tool(src, user, 0, volume = wirecutter.tool_volume))
 		return
@@ -155,7 +154,7 @@
 /obj/structure/bed/wrench_act(mob/user, obj/item/wrench)
 	. = TRUE
 	if(obj_flags & NODECONSTRUCT)
-		balloon_alert(user, "[src] нельзя разобрать!")
+		balloon_alert(user, "нельзя разобрать!")
 		return
 	if(!wrench.use_tool(src, user, 0, volume = wrench.tool_volume))
 		return
@@ -203,8 +202,7 @@
 	)
 
 /obj/structure/bed/roller/wrench_act(mob/user, obj/item/wrench)
-	. = FALSE
-	return
+	return FALSE
 
 /obj/structure/bed/roller/attackby(obj/item/item, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -303,10 +301,10 @@
 	if(istype(item, /obj/item/roller_holder))
 		var/obj/item/roller_holder/roller = item
 		if(roller.held)
-			balloon_alert(user, "[roller.name] уже содержит [roller.held]!")
+			balloon_alert(user, "уже есть каталка!")
 			return ATTACK_CHAIN_PROCEED
 		if(!collectable)
-			balloon_alert(user, "неверный тип [declent_ru(GENITIVE)]!")
+			balloon_alert(user, "неверный тип каталки!")
 			return ATTACK_CHAIN_PROCEED
 		if(loc == user && !user.can_unEquip(src))
 			return ..()
@@ -372,7 +370,7 @@
 
 /obj/item/roller_holder/attack_self(mob/user)
 	if(!held)
-		balloon_alert(user, "[src] пуст!")
+		balloon_alert(user, "пуст!")
 		return
 
 	to_chat(user, span_notice("Вы разложили каталку."))
