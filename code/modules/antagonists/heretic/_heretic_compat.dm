@@ -267,103 +267,10 @@
 	owner.Disgust(5 * seconds_between_ticks)
 	owner.reagents?.remove_all(0.75 * seconds_between_ticks)
 
-// --- Minimal painting/wallframe compat ---
-// The selfharm heretic paintings were written on top of a full canvas/persistent-painting
-// subsystem that master220 does not have. These narrow base types provide just enough
-// wallframe and painting behavior for the eldritch paintings and their rituals.
-
-/obj/item/canvas
-	name = "canvas"
-	desc = "A blank canvas."
-	// TG's canvas sprite (master220 has no painting system, so artstuff.dmi was copied in for this).
-	icon = 'icons/obj/art/artstuff.dmi'
-	icon_state = "11x11"
-	w_class = WEIGHT_CLASS_SMALL
-
-/obj/item/wallframe
-	name = "wall frame"
-	desc = "A frame ready to be mounted on a wall."
-	icon = 'icons/obj/signs.dmi'
-	icon_state = "frame-empty"
-	w_class = WEIGHT_CLASS_SMALL
-	var/result_path
-	var/pixel_shift = 0
-
-/obj/item/wallframe/proc/try_build(turf/on_wall, mob/user)
-	if(!on_wall || !user || get_dist(on_wall, user) > 1)
-		return FALSE
-	var/floor_to_wall = get_dir(user, on_wall)
-	if(!(floor_to_wall in GLOB.cardinal))
-		return FALSE
-	return iswallturf(on_wall)
-
-/obj/item/wallframe/proc/attach(turf/on_wall, mob/user)
-	if(!result_path)
-		qdel(src)
-		return
-
-	var/floor_to_wall = get_dir(user, on_wall)
-	var/obj/hanging_object = new result_path(get_turf(user), floor_to_wall, TRUE)
-	hanging_object.setDir(floor_to_wall)
-	switch(floor_to_wall)
-		if(NORTH)
-			hanging_object.pixel_y = pixel_shift
-		if(SOUTH)
-			hanging_object.pixel_y = -pixel_shift
-		if(EAST)
-			hanging_object.pixel_x = pixel_shift
-		if(WEST)
-			hanging_object.pixel_x = -pixel_shift
-	after_attach(hanging_object)
-
-/obj/item/wallframe/proc/after_attach(obj/attached_to)
-	transfer_fingerprints_to(attached_to)
-
-/obj/item/wallframe/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
-	. = ..()
-	if(!proximity_flag || !iswallturf(target))
-		return
-	if(!try_build(target, user))
-		return
-	attach(target, user)
-	qdel(src)
-	return ATTACK_CHAIN_BLOCKED
-
-/obj/item/wallframe/screwdriver_act(mob/living/user, obj/item/tool)
-	var/turf/wall_turf = get_step(get_turf(user), user.dir)
-	if(!iswallturf(wall_turf))
-		return
-	if(!try_build(wall_turf, user))
-		return TRUE
-	attach(wall_turf, user)
-	qdel(src)
-	return TRUE
-
-/obj/item/wallframe/painting
-	name = "painting frame"
-	desc = "A frame ready to hold a painting."
-	result_path = /obj/structure/sign/painting
-	pixel_shift = 30
-
-/obj/structure/sign/painting
-	name = "painting"
-	desc = "A framed painting."
-	icon = 'icons/obj/signs.dmi'
-	icon_state = "frame-empty"
-	var/list/accepted_canvas_types = list(/obj/item/canvas)
-	var/persistence_id
-	var/wallframe_type = /obj/item/wallframe/painting
-
-/obj/structure/sign/painting/Initialize(mapload, dir, building)
-	. = ..()
-	if(dir)
-		setDir(dir)
-
-/obj/structure/sign/painting/wirecutter_act(mob/living/user, obj/item/I)
-	var/obj/item/wallframe/frame = new wallframe_type(drop_location())
-	frame.name = initial(frame.name)
-	qdel(src)
-	return ATTACK_CHAIN_SUCCESS
+// --- Painting/wallframe ---
+// The canvas/easel/wallframe/painting system now lives in
+// code/game/objects/structures/art/paintings.dm (ported from /tg/station, drawing-only scope).
+// The eldritch paintings (items/eldritch_painting.dm) subclass those real base types.
 
 // --- HUD compat ---
 // The source heretic module has team/antag-filtered alternate appearances. master220 has the

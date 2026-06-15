@@ -3,6 +3,13 @@
 	desc = "Грубые, изношенные железные башмаки. Кажется, что они прочнее, чем земля, по которой в них ходят. \
 			Они покрыты тонким слоем ржавчины, и всё же, её вид почему-то успокивает вас."
 	icon_state = "hereticgreaves"
+	// The worn (on-mob) sprite resolves via onmob_sheets[ITEM_SLOT_FEET_STRING]. master220's default
+	// feet.dmi has no "hereticgreaves" state (only the inventory sprite lives in obj/clothing/shoes.dmi),
+	// so without this the greaves rendered invisible on the legs. Point at a dedicated heretic feet sheet
+	// holding the worn state (extracted from tg's feet.dmi).
+	onmob_sheets = list(
+		ITEM_SLOT_FEET_STRING = 'icons/mob/clothing/heretic_feet.dmi',
+	)
 	resistance_flags = ACID_PROOF | FIRE_PROOF | LAVA_PROOF
 
 

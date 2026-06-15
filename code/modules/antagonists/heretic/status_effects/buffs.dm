@@ -456,3 +456,27 @@
 	owner.AdjustParalysis(-2 SECONDS)
 	owner.adjustStaminaLoss(-10)
 	return TRUE
+
+
+// Last Resort — the Wave of Desperation buff. A pure "second wind" to flee with (ignores slowdown).
+// Matches TG (a buff, lives in buffs.dm): it does NOT knock the caster out — the heretic port had added a
+// Sleeping(20 SECONDS) on removal that turned this escape tool into a delayed self-stun. Removed here.
+/datum/status_effect/heretic_lastresort
+	id = "heretic_lastresort"
+	alert_type = /atom/movable/screen/alert/status_effect/heretic_lastresort
+	duration = 12 SECONDS
+	status_type = STATUS_EFFECT_REPLACE
+	tick_interval = -1
+
+/atom/movable/screen/alert/status_effect/heretic_lastresort
+	name = "Последний Шанс"
+	desc = "Голова кружится, сердце колотится изо всех сил!"
+	icon_state = "lastresort"
+
+/datum/status_effect/heretic_lastresort/on_apply()
+	ADD_TRAIT(owner, TRAIT_IGNORESLOWDOWN, TRAIT_STATUS_EFFECT(id))
+	to_chat(owner, span_userdanger("Вы не сдадитесь так просто!"))
+	return TRUE
+
+/datum/status_effect/heretic_lastresort/on_remove()
+	REMOVE_TRAIT(owner, TRAIT_IGNORESLOWDOWN, TRAIT_STATUS_EFFECT(id))

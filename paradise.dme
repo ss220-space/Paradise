@@ -1959,6 +1959,7 @@
 #include "code\game\objects\structures\windoor_assembly.dm"
 #include "code\game\objects\structures\window.dm"
 #include "code\game\objects\structures\wryn.dm"
+#include "code\game\objects\structures\art\paintings.dm"
 #include "code\game\objects\structures\beds_chairs\alien_nests.dm"
 #include "code\game\objects\structures\beds_chairs\bed.dm"
 #include "code\game\objects\structures\beds_chairs\chair.dm"

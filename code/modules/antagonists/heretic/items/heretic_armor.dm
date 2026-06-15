@@ -269,6 +269,8 @@
 	)
 	/// Whether the cloak is currently hidden (hood up). Starts TRUE so Initialize()'s make_visible() runs the initial focus setup.
 	var/cloak_hidden = TRUE
+	/// Hidden pockets sewn into the cloak (TG's void_cloak storage). Lets the heretic stash ritual items.
+	var/obj/item/storage/internal/pockets
 
 
 /obj/item/clothing/suit/hooded/cultrobes/void/get_ru_names()
@@ -293,8 +295,41 @@
 
 /obj/item/clothing/suit/hooded/cultrobes/void/Initialize(mapload)
 	. = ..()
+	// TG's void cloak has hidden pockets (/datum/storage/pockets/void_cloak). master220 has no /datum/storage,
+	// so we use the engine's internal-storage item the same way /obj/item/clothing/suit/storage does.
+	pockets = new(src)
+	pockets.storage_slots = 3
+	pockets.max_w_class = WEIGHT_CLASS_NORMAL // so a sickly blade / bodypart / organ can be hidden away
+	pockets.max_combined_w_class = 5
 	// Matches TG: crafted/worn with the hood DOWN -> cloak is visible and acts as a focus.
 	make_visible()
+
+
+/obj/item/clothing/suit/hooded/cultrobes/void/Destroy()
+	QDEL_NULL(pockets)
+	return ..()
+
+
+/obj/item/clothing/suit/hooded/cultrobes/void/attack_hand(mob/user)
+	if(!pockets || !pockets.handle_attack_hand(user))
+		return ..()
+
+
+/obj/item/clothing/suit/hooded/cultrobes/void/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
+	if(!pockets || !pockets.handle_mousedrop(user, over_object))
+		return ..()
+
+
+/obj/item/clothing/suit/hooded/cultrobes/void/attackby(obj/item/item, mob/user, params)
+	. = ..()
+	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !pockets)
+		return .
+	return pockets.attackby(item, user, params)
+
+
+/obj/item/clothing/suit/hooded/cultrobes/void/emp_act(severity)
+	. = ..()
+	pockets?.emp_act(severity)
 
 
 // RemoveHood() = lowering the hood (hood DOWN). TG: hood down -> cloak visible + focus.

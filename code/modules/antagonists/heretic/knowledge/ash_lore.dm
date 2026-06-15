@@ -82,8 +82,13 @@
 		return
 
 	to_chat(target, span_danger("Яркий зеленый свет ужасно жжет ваши глаза!"))
+	// TG damages the eyes (15), but there organ damage heals back on its own, so the burn is temporary.
+	// master220 internal organs do NOT self-heal, so a raw adjustOrganLoss is permanent and stacks across
+	// grasps past the eyes' break threshold (45) -> permanent blindness. Apply the burn for the same brief
+	// window as the blur, then heal it back, so the grasp blinds temporarily like TG instead of forever.
 	target.adjustOrganLoss(INTERNAL_ORGAN_EYES, 15)
 	target.EyeBlurry(20 SECONDS)
+	addtimer(CALLBACK(target, TYPE_PROC_REF(/mob/living, adjustOrganLoss), INTERNAL_ORGAN_EYES, -15), 20 SECONDS)
 
 
 /// Triggering the Ash mark also refunds 75% of the Mansus Grasp cooldown (was the "Метка Пепла" node).

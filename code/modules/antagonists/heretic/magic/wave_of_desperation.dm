@@ -1,7 +1,7 @@
 /obj/effect/proc_holder/spell/aoe/wave_of_desperation
 	name = "Волна отчаяния"
 	desc = "Развязывает вас, отталкивает и сбивает с ног находящихся рядом людей, а также накладывает определённые эффекты Прикосновения Мансуса на всё вокруг. \
-			Нельзя применить, если вы не ограничены, а стресс лишает вас сознания через 12 секунд!"
+			Нельзя применить, если вы не ограничены. (Можно применять без амулета.)"
 	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
@@ -114,7 +114,11 @@
 	// get_things_to_cast_on already excludes the caster and other heretics/monsters, so we never throw ourselves.
 	var/our_turf = get_turf(user)
 	for(var/atom/movable/mover in get_things_to_cast_on(user, radius_override = aoe_range))
-		if(!ismob(mover))
+		if(ismob(mover))
+			// Apply our path's Mansus Grasp effects (mark + path effect, e.g. ash eye-burn) to nearby people
+			// too — the primary grasp signal targets mobs, the SECONDARY one only fires on non-mob atoms.
+			SEND_SIGNAL(action.owner, COMSIG_HERETIC_MANSUS_GRASP_ATTACK, mover)
+		else
 			SEND_SIGNAL(action.owner, COMSIG_HERETIC_MANSUS_GRASP_ATTACK_SECONDARY, mover)
 
 		if(mover.anchored)

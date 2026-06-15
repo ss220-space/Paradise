@@ -69,7 +69,7 @@
 	if(IS_HERETIC_OR_MONSTER(local_user))
 		if(HAS_TRAIT(src, TRAIT_NODROP))
 			REMOVE_TRAIT(src, TRAIT_NODROP, CLOTHING_TRAIT)
-	// Нееретик-носитель не должен иметь возможности снять маску, независимо от того, как она была надета (стрип еретиком и т.п.).
+	// A non-heretic wearer must never be able to take the mask off, no matter how it ended up on them (heretic strip, etc.).
 	else if(!HAS_TRAIT(src, TRAIT_NODROP))
 		ADD_TRAIT(src, TRAIT_NODROP, CLOTHING_TRAIT)
 
@@ -80,8 +80,18 @@
 		if(human_in_range.can_block_magic(MAGIC_RESISTANCE|MAGIC_RESISTANCE_MIND))
 			continue
 
+		// master220's hallucination STATUS engine gates each fire behind its own cooldown + a 20% roll, so on
+		// its own a fresh victim can stand here a minute seeing nothing. Spawn a hallucination DIRECTLY — the
+		// same 100%-reliable trick the "chaos" holoparasite (guardian_hallucination) uses — at a TG-like cadence
+		// (process ticks every 2s; prob(10) ≈ one hallucination per ~20s, inside tg's 10-40s range). We draw
+		// from the minor+medium pools (atmospheric dread), not the disruptive majors, since this is a passive aura.
+		if(prob(10))
+			human_in_range.hallucinate_living(pickweight(GLOB.minor_hallutinations + GLOB.medium_hallutinations))
+
+		// Also keep the ambient hallucination status pinned near TG's 120 SECONDS cap (Hallucinate() only ever
+		// raises), so hallucinations keep coming for up to ~120 SECONDS after the victim leaves the mask's sight.
 		if(prob(60))
-			human_in_range.AdjustHallucinate(10 SECONDS, bound_upper = 120 SECONDS)
+			human_in_range.Hallucinate(120 SECONDS)
 
 		if(prob(40))
 			human_in_range.Jitter(10 SECONDS)

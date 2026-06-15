@@ -169,28 +169,6 @@
 /datum/status_effect/star_mark/extended
 	duration = 3 MINUTES
 
-// Last Resort
-/datum/status_effect/heretic_lastresort
-	id = "heretic_lastresort"
-	alert_type = /atom/movable/screen/alert/status_effect/heretic_lastresort
-	duration = 12 SECONDS
-	status_type = STATUS_EFFECT_REPLACE
-	tick_interval = -1
-
-/atom/movable/screen/alert/status_effect/heretic_lastresort
-	name = "Последний Шанс"
-	desc = "Голова кружится, сердце бьется на пределе своих возможностей, готовое отказать в любой момент! Бегите в безопасное место!"
-	icon_state = "lastresort"
-
-/datum/status_effect/heretic_lastresort/on_apply()
-	ADD_TRAIT(owner, TRAIT_IGNORESLOWDOWN, TRAIT_STATUS_EFFECT(id))
-	to_chat(owner, span_userdanger("Вы на грани потери сознания, бегите!"))
-	return TRUE
-
-/datum/status_effect/heretic_lastresort/on_remove()
-	REMOVE_TRAIT(owner, TRAIT_IGNORESLOWDOWN, TRAIT_STATUS_EFFECT(id))
-	owner.Sleeping(20 SECONDS)
-
 
 
 /// Used by moon heretics to make people mad
@@ -276,3 +254,142 @@
 	UnregisterSignal(owner, COMSIG_MOB_APPLY_DAMAGE, PROC_REF(on_damaged))
 	owner.update_appearance(UPDATE_OVERLAYS)
 	return ..()
+
+
+// --- Eldritch paintings (1:1 with tg) ----------------------------------------------------------------
+// A hung eldritch painting curses any non-heretic that walks into its sightline with one of these status
+// effects. The alert shows in the top-right corner; the curse ticks until it expires (10 min), is washed
+// out with holy water, or is paused by looking at the painting again (TRAIT_ELDRITCH_PAINTING_EXAMINE).
+// master220 has no mob_mood, so tg's mood events are dropped; everything else mirrors tg.
+/datum/status_effect/eldritch_painting
+	id = "eldritch_painting"
+	alert_type = /atom/movable/screen/alert/status_effect/eldritch_painting
+	duration = 10 MINUTES
+	status_type = STATUS_EFFECT_UNIQUE
+
+/datum/status_effect/eldritch_painting/on_apply()
+	if(IS_HERETIC_OR_MONSTER(owner))
+		return FALSE
+	if(!ishuman(owner))
+		return FALSE
+	if(owner.reagents?.has_reagent(/datum/reagent/holywater))
+		return FALSE
+	return TRUE
+
+/datum/status_effect/eldritch_painting/tick(seconds_between_ticks)
+	// Holy water halts the curse and burns it out faster (tg: continuous dosing fully cures over time).
+	if(owner.reagents?.has_reagent(/datum/reagent/holywater))
+		remove_duration(3 SECONDS * seconds_between_ticks)
+		return
+	// Looking at the painting again pauses the effect — the intended counterplay.
+	if(HAS_TRAIT(owner, TRAIT_ELDRITCH_PAINTING_EXAMINE))
+		return
+	on_tick(seconds_between_ticks)
+
+/// Overridden per painting to apply that painting's recurring curse.
+/datum/status_effect/eldritch_painting/proc/on_tick(seconds_between_ticks)
+	return
+
+/atom/movable/screen/alert/status_effect/eldritch_painting
+	name = "Эльдричская картина"
+	desc = "Нечто оставило отпечаток в вашем разуме."
+	icon = 'icons/obj/signs.dmi'
+	icon_state = "eldritch_painting_debug"
+
+// "Сестра и Плачущий" — curses the viewer with recurring hallucinations.
+/datum/status_effect/eldritch_painting/weeping
+	id = "painting_weeping"
+	alert_type = /atom/movable/screen/alert/status_effect/eldritch_painting/weeping
+	tick_interval = 10 SECONDS
+
+/datum/status_effect/eldritch_painting/weeping/on_tick(seconds_between_ticks)
+	if(owner.stat != CONSCIOUS)
+		return
+	// tg fires a delusion hallucination each tick; hallucinate_living() spawns one directly (100%).
+	owner.hallucinate_living("delusion")
+
+/atom/movable/screen/alert/status_effect/eldritch_painting/weeping
+	name = "Сестра и Плачущий"
+	desc = "Плач эхом отдаётся в вашем разуме, разрушая рассудок! Быть может, если снова взглянуть на картину, станет легче..."
+	icon_state = "eldritch_painting_weeping"
+
+// "Фестиваль Желаний" — a ravenous, draining hunger for flesh.
+/datum/status_effect/eldritch_painting/desire
+	id = "painting_desire"
+	alert_type = /atom/movable/screen/alert/status_effect/eldritch_painting/desire
+	/// How much faster we lose nutrition each tick.
+	var/hunger_rate = 15
+
+/datum/status_effect/eldritch_painting/desire/on_apply()
+	. = ..()
+	if(!.)
+		return
+	ADD_TRAIT(owner, TRAIT_FLESH_DESIRE, TRAIT_STATUS_EFFECT(id))
+
+/datum/status_effect/eldritch_painting/desire/on_tick(seconds_between_ticks)
+	// Drains nutrition at ~10x the normal rate.
+	owner.adjust_nutrition(-hunger_rate * HUNGER_FACTOR)
+	if(SPT_PROB(10, seconds_between_ticks))
+		to_chat(owner, span_notice(pick(
+			"Вы не можете перестать думать о сыром мясе...",
+			"Вам **НУЖНО** кого-нибудь съесть.",
+			"Голодные спазмы вернулись...",
+			"Вы жаждете плоти.",
+			"Вы умираете с голоду!",
+		)))
+	owner.overeatduration = max(owner.overeatduration - 200 SECONDS, 0)
+
+/datum/status_effect/eldritch_painting/desire/on_remove()
+	REMOVE_TRAIT(owner, TRAIT_FLESH_DESIRE, TRAIT_STATUS_EFFECT(id))
+	return ..()
+
+/atom/movable/screen/alert/status_effect/eldritch_painting/desire
+	name = "Фестиваль Желаний"
+	desc = "Вас терзает ненасытный голод! Утолите его любой ценой! Или просто взгляните на картину и тоскуйте по обещанному ею пиршеству..."
+	icon_state = "eldritch_painting_desire"
+
+// "Леди за Вратами" — compulsively claws at any clothed part of the body.
+/datum/status_effect/eldritch_painting/beauty
+	id = "painting_beauty"
+	alert_type = /atom/movable/screen/alert/status_effect/eldritch_painting/beauty
+	tick_interval = 3 SECONDS
+	/// Damage dealt per scratch.
+	var/scratch_damage = 3
+
+/datum/status_effect/eldritch_painting/beauty/on_tick(seconds_between_ticks)
+	if(owner.incapacitated())
+		return
+
+	var/obj/item/organ/external/bodypart = owner.get_bodypart(owner.get_random_valid_zone(even_weights = TRUE))
+	if(!bodypart || bodypart.is_robotic())
+		return
+	// Clothing ruins the "perfection" of the body — only scratch covered parts.
+	var/mob/living/carbon/human/scratcher = owner
+	if(!length(scratcher.get_clothing_on_part(bodypart)))
+		return
+
+	owner.apply_damage(scratch_damage, BRUTE, bodypart)
+	to_chat(owner, span_notice("Вы яростно расцарапываете [bodypart.declent_ru(ACCUSATIVE)] прямо сквозь одежду!"))
+
+/atom/movable/screen/alert/status_effect/eldritch_painting/beauty
+	name = "Леди за Вратами"
+	desc = "Одежда скрывает скрытую под ней красоту. Сбросьте её и достигните совершенства. Или вновь узрите совершенство в той картине."
+	icon_state = "eldritch_painting_beauty"
+
+// "Хозяйка Ржавой Горы" — rusts the floor beneath the cursed.
+/datum/status_effect/eldritch_painting/rusting
+	id = "painting_rusting"
+	alert_type = /atom/movable/screen/alert/status_effect/eldritch_painting/rusting
+	tick_interval = 3 SECONDS
+
+/datum/status_effect/eldritch_painting/rusting/on_tick(seconds_between_ticks)
+	var/atom/tile = get_turf(owner)
+	if(isnull(tile))
+		return
+	to_chat(owner, span_notice("Вы чувствуете разложение..."))
+	tile.rust_heretic_act()
+
+/atom/movable/screen/alert/status_effect/eldritch_painting/rusting
+	name = "Хозяйка Ржавой Горы"
+	desc = "Каждый ваш шаг разъедает землю под ногами! Всё рассыпается в прах! Быть может, вглядевшись в гору на картине, вы найдёте путь..."
+	icon_state = "eldritch_painting_rust"

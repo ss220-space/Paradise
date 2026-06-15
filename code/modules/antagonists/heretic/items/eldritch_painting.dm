@@ -19,28 +19,30 @@
 	accepted_canvas_types = list()
 	// Set to false since we don't want this to persist
 	persistence_id = FALSE
-	/// The text that shows up when you cross the paintings path
+	/// The status effect this painting curses onlookers with. null = no passive curse (e.g. the vines).
+	var/applied_status_effect = /datum/status_effect/eldritch_painting
+	/// The text that shows up when you cross the painting's sightline
 	var/text_to_display = "Некоторые вещи не должны быть увиденны."
-	/// The range of the paintings effect
+	/// The range of the painting's effect
 	var/range = 7
 
 
 /obj/structure/sign/painting/eldritch/Initialize(mapload, dir, building)
 	. = ..()
-	var/static/list/connections = list(COMSIG_ATOM_ENTERED = PROC_REF(apply_trauma))
-	AddComponent(/datum/component/connect_range, tracked = src, connections = connections, range = range, works_in_containers = FALSE)
+	if(ispath(applied_status_effect))
+		var/static/list/connections = list(COMSIG_ATOM_ENTERED = PROC_REF(apply_painting_effect))
+		AddComponent(/datum/component/connect_range, tracked = src, connections = connections, range = range, works_in_containers = FALSE)
 
 
-/obj/structure/sign/painting/eldritch/proc/apply_choosen_trauma(mob/living/carbon/human/viewer)
-	ADD_TRAIT(viewer, TRAIT_PACIFISM, HERETIC_TRAIT)
-
-
-/obj/structure/sign/painting/eldritch/proc/apply_trauma(datum/source, mob/living/carbon/viewer)
+/obj/structure/sign/painting/eldritch/proc/apply_painting_effect(datum/source, mob/living/carbon/viewer)
 	SIGNAL_HANDLER
 	if(!isliving(viewer) || !can_see(viewer, src, range))
 		return
 
 	if(isnull(viewer.mind) || viewer.stat != CONSCIOUS || viewer.is_blind())
+		return
+
+	if(viewer.has_status_effect(applied_status_effect))
 		return
 
 	if(isheretic(viewer))
@@ -50,7 +52,7 @@
 		return
 
 	to_chat(viewer, span_notice(text_to_display))
-	apply_choosen_trauma(viewer)
+	viewer.apply_status_effect(applied_status_effect)
 	INVOKE_ASYNC(viewer, TYPE_PROC_REF(/mob, emote), "scream")
 	to_chat(viewer, span_purple("Ваш разум пылает! Картина оставляет след в вашей психике."))
 
@@ -96,12 +98,8 @@
 	name = "Сестра и Плачущий"
 	desc = "Прекрасная картина, изображающая прекрасную даму, сидящую рядом с Ним. Он плачет. Вы ещё увидите Его. Можно снять кусачками."
 	icon_state = "eldritch_painting_weeping"
+	applied_status_effect = /datum/status_effect/eldritch_painting/weeping
 	text_to_display = "Так прекрасна! Так печально!"
-
-
-/obj/structure/sign/painting/eldritch/weeping/apply_choosen_trauma(mob/living/carbon/human/viewer)
-	viewer.force_gene_block(GLOB.hallucinationblock, TRUE, TRUE)
-	viewer.Hallucinate(3 MINUTES)
 
 
 /obj/structure/sign/painting/eldritch/weeping/examine_effects(mob/living/carbon/examiner)
@@ -126,11 +124,8 @@
 	name = "Фестиваль Желаний"
 	desc = "Картина, изображающая изысканное пиршество. Несмотря на то, что еда давно сгнила, она выглядит очень аппетитно. Можно снять кусачками."
 	icon_state = "eldritch_painting_desire"
+	applied_status_effect = /datum/status_effect/eldritch_painting/desire
 	text_to_display = "Как же хочется есть..."
-
-
-/obj/structure/sign/painting/eldritch/desire/apply_choosen_trauma(mob/living/carbon/human/viewer)
-	viewer.gain_trauma(/datum/brain_trauma/severe/flesh_desire, TRAUMA_RESILIENCE_MAGIC)
 
 
 // The special examine interaction for this painting
@@ -191,10 +186,8 @@
 		/obj/item/reagent_containers/food/snacks/grown/poppy,
 		/obj/item/reagent_containers/food/snacks/grown/harebell,
 	)
-
-
-/obj/structure/sign/painting/eldritch/vines/apply_choosen_trauma(mob/living/carbon/human/viewer)
-	return
+	// This one has no passive sightline curse — it just spawns kudzu when hung.
+	applied_status_effect = null
 
 
 /obj/structure/sign/painting/eldritch/vines/Initialize(mapload, dir, building)
@@ -228,14 +221,10 @@
 	name = "Леди за Вратами"
 	desc = "Картина существа из другого мира. Тонкая кожа цвета фарфора туго натянута на странные кости. Она обладает странной красотой. Можно снять кусачками."
 	icon_state = "eldritch_painting_beauty"
+	applied_status_effect = /datum/status_effect/eldritch_painting/beauty
 	text_to_display = "Это маяк чистоты, по сравнению с которым реальный мир кажется таким обыденным и несовершенным..."
 	/// List of reagents to add to heretics on examine, set to mutadone by default to remove mutations
 	var/list/reagents_to_add = list(/datum/reagent/medicine/mutadone = 5)
-
-
-/obj/structure/sign/painting/eldritch/beauty/apply_choosen_trauma(mob/living/carbon/human/viewer)
-	viewer.force_gene_block(GLOB.radblock, TRUE, TRUE)
-	viewer.apply_effect(30, IRRADIATE, 0)
 
 
 // The special examine interaction for this painting
@@ -265,13 +254,8 @@
 	name = "Хозяйка Ржавой Горы"
 	desc = "Картина, изображающая странное существо, взбирающееся на гору цвета ржавчины. Стиль картины неестественный и пугающий. Можно снять кусачками."
 	icon_state = "eldritch_painting_rust"
+	applied_status_effect = /datum/status_effect/eldritch_painting/rusting
 	text_to_display = "Ржавчина гниёт. Хозяйка поднимается. Она зовёт. Вы отвечаете..."
-
-
-/obj/structure/sign/painting/eldritch/rust/apply_choosen_trauma(mob/living/carbon/human/viewer)
-	//var/obj/item/organ/organ = pick(list(pick(viewer.internal_organs), pick(viewer.bodyparts)))
-	//organ.handle_germs()
-	viewer.gain_trauma(/datum/brain_trauma/severe/rusting, TRAUMA_RESILIENCE_MAGIC)
 
 
 // The special examine interaction for this painting
@@ -283,24 +267,3 @@
 		return
 
 	to_chat(examiner, span_notice("Картина наполняет вас решимостью."))
-
-
-// This one is for "Climb over the rusted mountain" or /obj/structure/sign/painting/eldritch/rust
-/datum/brain_trauma/severe/rusting
-	name = "Синдром Ржавой Горы"
-	scan_desc = "опасная пси-волновая активность"
-	gain_text = span_warning_alt("Поднимись по ржавчине. Овладей энтропией.")
-	lose_text = span_notice_alt("У вас такое чувство, будто вы только что проснулись от дурного сна.")
-	random_gain = FALSE
-
-/datum/brain_trauma/severe/rusting/on_life(seconds_per_tick, times_fired)
-	var/atom/tile = get_turf(owner)
-	// Examining a painting should stop this effect to give counterplay
-	if(HAS_TRAIT(owner, TRAIT_ELDRITCH_PAINTING_EXAMINE))
-		return
-
-	if(!SPT_PROB(50, seconds_per_tick))
-		return
-
-	to_chat(owner, span_notice("Вы чувствуете разложение..."))
-	tile.rust_heretic_act()
