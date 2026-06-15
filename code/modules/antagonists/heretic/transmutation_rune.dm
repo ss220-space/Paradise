@@ -159,9 +159,6 @@
 
 		atoms_in_range += close_atom
 
-	// A copy of our requirements list.
-	// We decrement the values of to determine if enough of each key is present.
-	var/list/requirements_list = ritual.required_atoms.Copy()
 	var/list/banned_atom_types = ritual.banned_atom_types.Copy()
 	// A list of all atoms we've selected to use in this recipe.
 	var/list/selected_atoms = list()
@@ -170,6 +167,14 @@
 	// selected_atoms is passed and can be modified by this proc.
 	if(!ritual.recipe_snowflake_check(user, atoms_in_range, selected_atoms, loc, TRUE))
 		return FALSE
+
+	// A copy of our requirements list, which we decrement to determine if enough of each key is present.
+	// IMPORTANT: copied AFTER recipe_snowflake_check. Some rituals (Unsealed Arts paintings) rewrite their
+	// required_atoms inside that proc based on which ingredient is present, and the change persists on the
+	// ritual datum. Copying before would carry over the PREVIOUS craft's ingredient, so the next painting
+	// would demand the wrong item and fail to craft. Only the painting mutates required_atoms, so for every
+	// other ritual this is identical to copying earlier.
+	var/list/requirements_list = ritual.required_atoms.Copy()
 
 	// Now go through all our nearby atoms and see which are good for our ritual.
 	for(var/atom/nearby_atom as anything in atoms_in_range)

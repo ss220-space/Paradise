@@ -17,8 +17,8 @@
 	fire_sound = 'sound/weapons/gunshots/shot.ogg'
 	accuracy = GUN_ACCURACY_SNIPER
 	recoil = GUN_RECOIL_HIGH
-	// The lionhunter sprite has no "-open"/"_reload" icon states, so suppress the bolt-open sprite swap
-	// (see update_icon_state below) and the pump reload animation.
+	// wide_guns.dmi has no "lionhunter_reload" state, so skip the pump reload animation (the bolt-open sprite
+	// swap itself IS supported — see update_icon_state below).
 	available_reload_animation = FALSE
 	// Paradise-native scope: instead of TG's /datum/component/scope, use the built-in zoom action that
 	// every /obj/item/gun supports. Holding the rifle grants a "Масштаб" toggle that pans the view forward.
@@ -45,9 +45,14 @@
 	pump()
 
 
-// The lionhunter icon has no bolt-open/reload sprite variants, so keep the icon static regardless of bolt state.
+// wide_guns.dmi ships the tg-style bolt sprites: "lionhunter" (bolt closed), "lionhunter_bolt" (bolt open with
+// rounds still in the mag) and "lionhunter_bolt_locked" (bolt locked open on an empty mag). The base boltaction
+// builds a "[icon_state]-open" suffix that doesn't exist for this gun, so map to the real states here.
 /obj/item/gun/projectile/shotgun/boltaction/lionhunter/update_icon_state()
-	icon_state = initial(icon_state)
+	if(!bolt_open)
+		icon_state = initial(icon_state)
+		return
+	icon_state = "[initial(icon_state)][get_ammo(countchambered = FALSE, countempties = FALSE) ? "_bolt" : "_bolt_locked"]"
 
 
 // Bolt-action internal magazine for the lionhunter. No caliber set, so ammo suitability falls back to an

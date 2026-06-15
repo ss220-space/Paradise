@@ -257,6 +257,7 @@ type CanvasData = {
   editable: boolean;
   paint_tool_color: string | null;
   paint_tool_palette: PaletteColor[] | null;
+  palette_can_add: boolean;
   author: string | null;
   medium: string | null;
   patron: string | null;
@@ -416,6 +417,25 @@ export const Canvas = (props) => {
                     }}
                   />
                 ))}
+                <Button
+                  icon="plus"
+                  tooltip="ЛКМ: добавить цвет. ПКМ: удалить последний."
+                  disabled={!data.palette_can_add}
+                  style={{
+                    width: '24px',
+                    height: '24px',
+                    borderStyle: 'solid',
+                    borderColor: 'black',
+                    borderWidth: '2px',
+                  }}
+                  onClick={() => act('add_palette_color')}
+                  onContextMenu={(e) => {
+                    e.preventDefault();
+                    act('remove_palette_color', {
+                      color_index: data.paint_tool_palette!.length,
+                    });
+                  }}
+                />
               </Flex.Item>
             )}
             {!data.finalized && (

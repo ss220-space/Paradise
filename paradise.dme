@@ -964,6 +964,7 @@
 #include "code\datums\elements\halo_attach.dm"
 #include "code\datums\elements\high_value_item.dm"
 #include "code\datums\elements\item_emote_observer.dm"
+#include "code\datums\elements\item_scaling.dm"
 #include "code\datums\elements\item_skins.dm"
 #include "code\datums\elements\leeching_walk.dm"
 #include "code\datums\elements\light_blocking.dm"

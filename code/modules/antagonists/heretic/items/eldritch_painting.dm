@@ -36,7 +36,9 @@
 
 /obj/structure/sign/painting/eldritch/proc/apply_painting_effect(datum/source, mob/living/carbon/viewer)
 	SIGNAL_HANDLER
-	if(!isliving(viewer) || !can_see(viewer, src, range))
+	// NB: must be viewer.can_see(src, range) — the master220 atom method. tg's bare can_see(viewer, src, range)
+	// would resolve to /atom/proc/can_see here and pass the painting as the `length` arg, silently failing LOS.
+	if(!isliving(viewer) || !viewer.can_see(src, range))
 		return
 
 	if(isnull(viewer.mind) || viewer.stat != CONSCIOUS || viewer.is_blind())
@@ -51,15 +53,20 @@
 	if(viewer.can_block_magic(MAGIC_RESISTANCE|MAGIC_RESISTANCE_MIND))
 		return
 
+	// tg returns silently for the holy-watered: the curse's on_apply would refuse it anyway, but we mustn't
+	// fire the scream + "mind burns" feedback for a viewer who is actually immune.
+	if(viewer.reagents?.has_reagent(/datum/reagent/holywater))
+		return
+
 	to_chat(viewer, span_notice(text_to_display))
 	viewer.apply_status_effect(applied_status_effect)
 	INVOKE_ASYNC(viewer, TYPE_PROC_REF(/mob, emote), "scream")
-	to_chat(viewer, span_purple("Ваш разум пылает! Картина оставляет след в вашей психике."))
+	to_chat(viewer, span_hypnophrase("Ваш разум пылает! Картина оставляет след в вашей психике."))
 
 
 /obj/structure/sign/painting/eldritch/wirecutter_act(mob/living/user, obj/item/I)
 	if(!user.can_block_magic(MAGIC_RESISTANCE))
-		to_chat(user, span_purple("У вас зудит в голове. Оно смеётся над вами..."))
+		to_chat(user, span_hypnophrase("У вас зудит в голове. Оно смеётся над вами..."))
 
 	qdel(src)
 	return ATTACK_CHAIN_SUCCESS
@@ -70,7 +77,11 @@
 	if(!iscarbon(user))
 		return
 
-	if(HAS_TRAIT(user, TRAIT_ELDRITCH_PAINTING_EXAMINE))
+	// Per-painting cooldown (keyed by this painting's UID), not a global one. tg checks the trait from ANY
+	// source, so examining one painting blocks the examine effect of EVERY other painting for 3 min — which
+	// made e.g. The Feast of Desire "do nothing" right after looking at another painting. HAS_TRAIT_FROM keeps
+	// the 3-min anti-spam on the SAME painting while letting each painting work independently.
+	if(HAS_TRAIT_FROM(user, TRAIT_ELDRITCH_PAINTING_EXAMINE, UID()))
 		return
 
 	ADD_TRAIT(user, TRAIT_ELDRITCH_PAINTING_EXAMINE, UID())
@@ -104,12 +115,14 @@
 
 /obj/structure/sign/painting/eldritch/weeping/examine_effects(mob/living/carbon/examiner)
 	if(!isheretic(examiner))
-		to_chat(examiner, span_purple("Отдохните. Пока можете..."))
+		// The actual "respite" is the TRAIT_ELDRITCH_PAINTING_EXAMINE set in the base examine(), which pauses
+		// the weeping curse's hallucination ticks for 3 minutes — matching tg (tg also removes a mood event here).
+		to_chat(examiner, span_hypnophrase("Отдохните. Пока можете..."))
 		return
 
+	// tg: clears the heretic's own hallucination status (+ a good mood event we can't port). No brain heal in tg.
 	to_chat(examiner, span_notice("Просто глядя на [declent_ru(ACCUSATIVE)], вы очищаете свой разум."))
 	examiner.SetHallucinate(0)
-	examiner.adjustBrainLoss(-30)
 
 
 // The First Desire painting, using a lot of the painting/eldritch framework
@@ -199,7 +212,7 @@
 	. = ..()
 	if(!isheretic(examiner))
 		new /obj/structure/spacevine_controller/event(get_turf(examiner), mutations, 0, 10)
-		to_chat(examiner, span_purple("Вас завораживает изображение виноградной лозы на картине."))
+		to_chat(examiner, span_hypnophrase("Вас завораживает изображение виноградной лозы на картине."))
 		to_chat(examiner, span_notice("Вы чувствуете, как что-то извивается вокруг вас."))
 		return
 
@@ -234,7 +247,7 @@
 		return
 
 	if(!isheretic(examiner))
-		to_chat(examiner, span_purple("Вы не чисты."))
+		to_chat(examiner, span_hypnophrase("Вы не чисты."))
 		randmutb(examiner)
 		return
 
@@ -263,7 +276,7 @@
 	. = ..()
 
 	if(!isheretic(examiner))
-		to_chat(examiner, span_purple("Вы чувствуете ржавчину. Гниль."))
+		to_chat(examiner, span_hypnophrase("Вы чувствуете ржавчину. Гниль."))
 		return
 
 	to_chat(examiner, span_notice("Картина наполняет вас решимостью."))

@@ -253,13 +253,18 @@
 	.["editable"] = !finalized
 	.["show_plaque"] = istype(loc, /obj/structure/sign/painting)
 	.["show_grid"] = show_grid
-	.["paint_tool_palette"] = null
 	var/obj/item/painting_implement = user.get_active_hand()
 	if(!painting_implement)
 		.["paint_tool_color"] = null
+		.["paint_tool_palette"] = null
+		.["palette_can_add"] = FALSE
 		return
 
 	.["paint_tool_color"] = get_paint_tool_color(painting_implement)
+	.["paint_tool_palette"] = get_paint_tool_palette(painting_implement)
+	// Whether the palette has room for another colour (drives the "+" button's enabled state, like tg).
+	var/obj/item/paint_palette/palette = painting_implement
+	.["palette_can_add"] = istype(palette) && length(palette.palette_colors) < palette.max_colors
 
 
 /obj/item/canvas/examine(mob/user)
@@ -326,14 +331,37 @@
 			. = TRUE
 
 		if("change_palette")
-			var/obj/item/painting_implement = user.get_active_hand()
-			if(!painting_implement)
+			// Right-click on a palette swatch: recolour that specific slot. Only the multi-colour palette
+			// has slots; for any other tool there's nothing to change.
+			var/obj/item/paint_palette/palette = user.get_active_hand()
+			if(!istype(palette))
 				return FALSE
-			var/chosen_color = input(user, "Выберите новый цвет", painting_implement, params["old_color"]) as color|null
-			if(!chosen_color || IS_DEAD_OR_INCAP(user) || !user.is_holding(painting_implement))
+			var/chosen_color = input(user, "Выберите новый цвет", palette, params["old_color"]) as color|null
+			if(!chosen_color || IS_DEAD_OR_INCAP(user) || !user.is_holding(palette))
 				return FALSE
 
-			painting_implement.set_painting_tool_color(chosen_color)
+			palette.change_palette_color(text2num(params["color_index"]), chosen_color)
+			. = TRUE
+
+		if("add_palette_color")
+			// The "+" button: pick a colour and append a new slot (up to the palette's capacity), like tg.
+			var/obj/item/paint_palette/palette = user.get_active_hand()
+			if(!istype(palette) || length(palette.palette_colors) >= palette.max_colors)
+				return FALSE
+			var/chosen_color = input(user, "Выберите цвет для добавления", palette, COLOR_WHITE) as color|null
+			if(!chosen_color || IS_DEAD_OR_INCAP(user) || !user.is_holding(palette))
+				return FALSE
+
+			palette.add_palette_color(chosen_color)
+			. = TRUE
+
+		if("remove_palette_color")
+			// Right-click the "+" button removes a slot (tg lets you trim the palette; we keep at least one).
+			var/obj/item/paint_palette/palette = user.get_active_hand()
+			if(!istype(palette))
+				return FALSE
+
+			palette.remove_palette_color(text2num(params["color_index"]))
 			. = TRUE
 
 		if("toggle_grid")
@@ -386,12 +414,13 @@
 /obj/item/canvas/update_overlays()
 	. = ..()
 	if(icon_generated)
-		// layer must be concrete: an overlay at FLOAT_LAYER (-1) with pixel offsets does not render in
-		// Paradise's plane-master system (see the stack_trace guard in /atom/update_icon), so the painting
-		// stays invisible on the floor. Pin it to the canvas' own layer instead.
+		// Offset the painting with pixel_w/pixel_z (the "bound" world-pixel offsets), exactly like tg. Plain
+		// pixel_x/pixel_y trip /atom/update_icon's float-layer guard and, worse, get dropped by Paradise's
+		// plane-master renderer so the canvas shows blank on the floor. KEEP_TOGETHER (set in Initialize)
+		// flattens the overlay onto the canvas; the concrete layer keeps it rendering.
 		var/mutable_appearance/detail = mutable_appearance(generated_icon, layer = layer)
-		detail.pixel_x = 1
-		detail.pixel_y = 1
+		detail.pixel_w = 1
+		detail.pixel_z = 1
 		. += detail
 		return
 
@@ -399,8 +428,8 @@
 		return
 
 	var/mutable_appearance/detail = mutable_appearance(icon, "[icon_state]wip", layer = layer)
-	detail.pixel_x = 1
-	detail.pixel_y = 1
+	detail.pixel_w = 1
+	detail.pixel_z = 1
 	. += detail
 
 
@@ -454,6 +483,20 @@
 
 	if(istype(painting_implement, /obj/item/soap) || istype(painting_implement, /obj/item/reagent_containers/glass/rag))
 		return canvas_color
+
+
+/// Returns the palette's selectable colour slots for the UI, or null for tools without a palette.
+/// Each entry is list("color" = hex, "is_selected" = whether it's the active paint colour).
+/obj/item/canvas/proc/get_paint_tool_palette(obj/item/painting_implement)
+	if(!istype(painting_implement, /obj/item/paint_palette))
+		return null
+
+	var/obj/item/paint_palette/palette = painting_implement
+	var/list/data = list()
+	for(var/swatch_color in palette.palette_colors)
+		data += list(list("color" = swatch_color, "is_selected" = (swatch_color == palette.current_color)))
+
+	return data
 
 
 /// Generates medium description
@@ -689,11 +732,72 @@
 	pixels_per_unit = 8
 
 
+// Oversized canvases. Their sprites live in the 64x64 sheet, so the icon is swapped in Initialize (the
+// 32x32 "24x24" state from artstuff.dmi is kept as the spawn/craft-menu icon, matching TG). item_scaling
+// shrinks the big sprite while it's lying on a turf so it doesn't sprawl across tiles. Too big for the
+// standard painting frame (not in accepted_canvas_types), same as TG.
+/obj/item/canvas/thirtysix_twentyfour
+	name = "холст (36x24)"
+	ru_names = list(
+		NOMINATIVE = "холст (36x24)",
+		GENITIVE = "холста (36x24)",
+		DATIVE = "холсту (36x24)",
+		ACCUSATIVE = "холст (36x24)",
+		INSTRUMENTAL = "холстом (36x24)",
+		PREPOSITIONAL = "холсте (36x24)"
+	)
+	desc = "Очень большой холст, чтобы выплеснуть свою душу. Для рамы понадобится стена побольше."
+	icon_state = "24x24"
+	width = 36
+	height = 24
+	SET_BASE_PIXEL(-4, 4)
+	framed_offset_x = 14
+	framed_offset_y = 4
+	pixels_per_unit = 7
+	w_class = WEIGHT_CLASS_BULKY
+
+
+/obj/item/canvas/thirtysix_twentyfour/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/item_scaling, 1, 0.8)
+	icon = 'icons/obj/art/artstuff_64x64.dmi'
+	icon_state = "36x24"
+
+
+/obj/item/canvas/fortyfive_twentyseven
+	name = "холст (45x27)"
+	ru_names = list(
+		NOMINATIVE = "холст (45x27)",
+		GENITIVE = "холста (45x27)",
+		DATIVE = "холсту (45x27)",
+		ACCUSATIVE = "холст (45x27)",
+		INSTRUMENTAL = "холстом (45x27)",
+		PREPOSITIONAL = "холсте (45x27)"
+	)
+	desc = "Самый большой холст на космическом рынке. Для рамы понадобится стена побольше."
+	icon_state = "24x24"
+	width = 45
+	height = 27
+	SET_BASE_PIXEL(-8, 2)
+	framed_offset_x = 9
+	framed_offset_y = 4
+	pixels_per_unit = 6
+	w_class = WEIGHT_CLASS_BULKY
+
+
+/obj/item/canvas/fortyfive_twentyseven/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/item_scaling, 1, 0.7)
+	icon = 'icons/obj/art/artstuff_64x64.dmi'
+	icon_state = "45x27"
+
+
 /////////////
 // PALETTE //
 /////////////
 
-/// Simple painting utility - holds one chosen colour, click to repaint it.
+/// Painting utility holding several colour slots (like TG): click a swatch in the Canvas UI to make it
+/// the active colour, right-click a swatch to recolour that slot.
 /obj/item/paint_palette
 	name = "палитра"
 	ru_names = list(
@@ -704,13 +808,32 @@
 		INSTRUMENTAL = "палитрой",
 		PREPOSITIONAL = "палитре"
 	)
-	desc = "Кисть в комплекте. Активируйте в руке, чтобы выбрать цвет."
+	desc = "Кисть в комплекте. ЛКМ по ячейке - выбрать цвет, ПКМ - изменить. Кнопка «+» добавляет цвет, ПКМ по «+» - удаляет."
 	gender = FEMALE
 	icon = 'icons/obj/art/artstuff.dmi'
 	icon_state = "palette"
 	w_class = WEIGHT_CLASS_TINY
-	///Chosen paint color
+	/// Currently selected paint colour (one of palette_colors, or a custom pick).
 	var/current_color = COLOR_BLACK
+	/// The selectable colour slots shown in the Canvas UI. Each is individually recolourable.
+	var/list/palette_colors
+	/// Maximum number of colour slots the palette can hold (the "+" button stops adding past this), like tg.
+	var/max_colors = 16
+
+
+/obj/item/paint_palette/Initialize(mapload)
+	. = ..()
+	palette_colors = list(
+		COLOR_BLACK,
+		COLOR_WHITE,
+		COLOR_RED,
+		COLOR_ORANGE,
+		COLOR_YELLOW,
+		COLOR_GREEN,
+		COLOR_BLUE,
+		COLOR_PURPLE,
+	)
+	current_color = palette_colors[1]
 
 
 /obj/item/paint_palette/attack_self(mob/user, modifiers)
@@ -720,6 +843,33 @@
 
 /obj/item/paint_palette/set_painting_tool_color(chosen_color)
 	current_color = chosen_color
+
+
+/// Recolour a palette slot (1-based index) and make it the active colour.
+/obj/item/paint_palette/proc/change_palette_color(index, new_color)
+	if(!isnum(index) || index < 1 || index > length(palette_colors))
+		return
+	palette_colors[index] = new_color
+	current_color = new_color
+
+
+/// Append a new colour slot (up to max_colors) and make it active. Driven by the "+" button.
+/obj/item/paint_palette/proc/add_palette_color(new_color)
+	if(length(palette_colors) >= max_colors)
+		return
+	palette_colors += new_color
+	current_color = new_color
+
+
+/// Remove a colour slot (1-based index). Always keeps at least one slot so the palette is never empty.
+/obj/item/paint_palette/proc/remove_palette_color(index)
+	if(!isnum(index) || index < 1 || index > length(palette_colors))
+		return
+	if(length(palette_colors) <= 1)
+		return
+	palette_colors.Cut(index, index + 1)
+	if(!(current_color in palette_colors))
+		current_color = palette_colors[1]
 
 
 ////////////
@@ -958,8 +1108,8 @@
 	// Concrete layer for the same reason as /obj/item/canvas/update_overlays(): a FLOAT_LAYER overlay with
 	// pixel offsets won't render in Paradise's plane-master system.
 	var/mutable_appearance/painting = mutable_appearance(current_canvas.generated_icon, layer = layer)
-	painting.pixel_x = current_canvas.framed_offset_x
-	painting.pixel_y = current_canvas.framed_offset_y
+	painting.pixel_w = current_canvas.framed_offset_x
+	painting.pixel_z = current_canvas.framed_offset_y
 	. += painting
 	var/frame_type = current_canvas.painting_metadata.frame_type
 	. += mutable_appearance(current_canvas.icon, "[current_canvas.icon_state]frame_[frame_type]") //add the frame
@@ -1016,6 +1166,22 @@
 	reqs = list(
 		/obj/item/stack/sheet/cloth = 4,
 		/obj/item/stack/sheet/wood = 2,
+	)
+
+/datum/crafting_recipe/canvas/thirtysix_twentyfour
+	name = "Холст (36x24)"
+	result = /obj/item/canvas/thirtysix_twentyfour
+	reqs = list(
+		/obj/item/stack/sheet/cloth = 5,
+		/obj/item/stack/sheet/wood = 3,
+	)
+
+/datum/crafting_recipe/canvas/fortyfive_twentyseven
+	name = "Холст (45x27)"
+	result = /obj/item/canvas/fortyfive_twentyseven
+	reqs = list(
+		/obj/item/stack/sheet/cloth = 6,
+		/obj/item/stack/sheet/wood = 3,
 	)
 
 /datum/crafting_recipe/paint_palette
