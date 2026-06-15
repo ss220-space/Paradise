@@ -307,6 +307,10 @@
 	. = ..()
 	RegisterSignal(src, COMSIG_MOUSEDROP_ONTO, PROC_REF(on_mousedrop_onto))
 
+/obj/item/gps/computer/Destroy()
+	UnregisterSignal(src, COMSIG_MOUSEDROP_ONTO)
+	return ..()
+
 /obj/item/gps/computer/proc/on_mousedrop_onto(datum/source, atom/over, mob/user)
 	SIGNAL_HANDLER
 	if(anchored)

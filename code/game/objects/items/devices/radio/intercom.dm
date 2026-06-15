@@ -54,6 +54,7 @@
 	return NONE
 
 /obj/item/radio/intercom/Destroy()
+	UnregisterSignal(src, COMSIG_MOUSEDROP_ONTO)
 	GLOB.global_intercoms -= src
 	return ..()
 

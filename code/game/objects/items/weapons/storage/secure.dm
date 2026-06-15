@@ -267,6 +267,10 @@
 	. = ..()
 	RegisterSignal(src, COMSIG_MOUSEDROP_ONTO, PROC_REF(on_mousedrop_onto))
 
+/obj/item/storage/secure/safe/Destroy()
+	UnregisterSignal(src, COMSIG_MOUSEDROP_ONTO)
+	return ..()
+
 /obj/item/storage/secure/safe/proc/on_mousedrop_onto(datum/source, atom/over, mob/user)
 	SIGNAL_HANDLER
 	if(anchored)
