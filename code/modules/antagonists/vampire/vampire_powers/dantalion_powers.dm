@@ -31,10 +31,10 @@
 		if(target.stat == DEAD && isvampirethrall(target))
 			var/datum/antagonist/mindslave/thrall/thrall = target.mind.has_antag_datum(/datum/antagonist/mindslave/thrall)
 			if(thrall && thrall.master == user.mind)
-				var/turf/T = get_turf(target)
-				playsound(T, 'sound/magic/staff_healing.ogg', 50, TRUE)
+				var/turf/turf = get_turf(target)
+				playsound(turf, 'sound/magic/staff_healing.ogg', 50, TRUE)
 
-				var/obj/effect/abstract/vampire/target_image = new(T)
+				var/obj/effect/abstract/vampire/target_image = new(turf)
 				target_image.add_overlay(target)
 				target.forceMove(target_image)
 
@@ -42,7 +42,7 @@
 				animate(target_image, pixel_y = 16, time = 2 SECONDS, easing = BOUNCE_EASING|EASE_IN)
 				animate(pixel_y = 0, time = 0.5 SECONDS, easing = BOUNCE_EASING|EASE_OUT)
 
-				addtimer(CALLBACK(src, PROC_REF(revive_thrall_step1), target, target_image, T, user, vampire), 1.6 SECONDS)
+				addtimer(CALLBACK(src, PROC_REF(revive_thrall_step1), target, target_image, turf, user, vampire), 1.6 SECONDS)
 				return
 
 				to_chat(user, span_warning("Это не ваш раб."))
