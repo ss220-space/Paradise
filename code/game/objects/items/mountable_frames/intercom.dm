@@ -1,10 +1,9 @@
 /obj/item/mounted/frame/intercom
-	name = "intercom frame"
+	name = "Intercom Frame"
 	desc = "Used for building intercoms"
 	icon = 'icons/obj/machines/monitors.dmi'
 	icon_state = "intercom-frame"
 	mount_requirements = MOUNTED_FRAME_SIMFLOOR | MOUNTED_FRAME_NOSPACE
-	metal_sheets_refunded = 2
 
 /obj/item/mounted/frame/intercom/try_build(turf/on_wall, mob/user)
 	if(!..())
