@@ -281,7 +281,6 @@
 				/obj/item/stack/sheet/plastic/fifty = 50,
 			),
 		),
-	)
 		list(
 			"name" = "Стёкла",
 			"products" = list(
@@ -293,7 +292,6 @@
 				/obj/item/stack/sheet/plastitaniumglass/fifty = 50,
 			),
 		),
-
 		list(
 			"name" = "Щитспавн",
 			"products" = list(
