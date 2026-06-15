@@ -59,7 +59,8 @@ export const LootBox = (props: Props) => {
       }
       onContextMenu={(event) => {
         event.preventDefault();
-        if (onToggleSelection) {
+        // Shift + RMB selects the item for copying, plain RMB interacts with it
+        if (event.shiftKey && onToggleSelection) {
           onToggleSelection(item.uid);
         } else {
           act('grab', {
