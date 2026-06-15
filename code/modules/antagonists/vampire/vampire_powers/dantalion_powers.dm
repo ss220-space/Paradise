@@ -42,7 +42,7 @@
 				animate(target_image, pixel_y = 16, time = 2 SECONDS, easing = BOUNCE_EASING|EASE_IN)
 				animate(pixel_y = 0, time = 0.5 SECONDS, easing = BOUNCE_EASING|EASE_OUT)
 
-				addtimer(CALLBACK(src, PROC_REF(revive_thrall_step1), target, target_image, turf, user, vampire), 1.6 SECONDS)
+				addtimer(CALLBACK(src, PROC_REF(revive_thrall_step_first), target, target_image, turf, user, vampire), 1.6 SECONDS)
 				return
 
 				to_chat(user, span_warning("Это не ваш раб."))
@@ -109,7 +109,7 @@
 	target.update_revive()
 	new /obj/effect/temp_visual/cult/sparks(location)
 	// Start the second stage after 0.5 seconds, when the animation is completely finished
-	addtimer(CALLBACK(src, PROC_REF(revive_thrall_step2), target, target_image, location, user, vampire), 0.5 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(revive_thrall_step_second), target, target_image, location, user, vampire), 0.5 SECONDS)
 
 /// Second stage: return the thrall to the tile and complete the ritual
 /obj/effect/proc_holder/spell/vampire/enthrall/proc/revive_thrall_step_second(mob/living/target, obj/effect/abstract/vampire/target_image, turf/location, mob/living/user, datum/antagonist/vampire/vampire)
