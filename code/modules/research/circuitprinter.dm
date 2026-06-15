@@ -463,7 +463,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 			update_static_data_for_all_viewers()
 
 		if("export")
-			var/mob/user= ui.user
+			var/mob/user = ui.user
 			var/design_id = text2num(params["designId"])
 
 			if(design_id < 1 || design_id > length(scanned_designs))
