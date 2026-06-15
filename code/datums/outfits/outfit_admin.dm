@@ -394,7 +394,7 @@
 
 /datum/outfit/admin/death_commando/officer
 	name = "NT Death Commando officer"
-	can_be_admin_equipped = TRUE
+	can_be_admin_equipped = FALSE
 
 /datum/outfit/admin/death_commando/officer/post_equip(mob/living/carbon/human/officer, visualsOnly = FALSE)
 	. = ..()
