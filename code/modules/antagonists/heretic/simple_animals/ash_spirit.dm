@@ -5,11 +5,11 @@
 	name = "Дух Пепла"
 	real_name = "Эшель"
 	gender = MALE
-	desc = "Живое облако пепла."
+	desc = "Воплощение пепла, оставляющее за собой нескончаемое облако недолговечных угольков."
 	icon_state = "ash_walker"
 	icon_living = "ash_walker"
-	maxHealth = 100
-	health = 100
+	maxHealth = 75
+	health = 75
 	melee_damage_lower = 15
 	melee_damage_upper = 20
 	sight = SEE_TURFS
@@ -31,7 +31,11 @@
 	var/static/list/actions_to_add = list(
 		/obj/effect/proc_holder/spell/fire_sworn,
 		/obj/effect/proc_holder/spell/ethereal_jaunt/ash,
-		/obj/effect/proc_holder/spell/pointed/cleave,
 	)
 	for(var/path in actions_to_add)
 		AddSpell(new path)
+
+
+/mob/living/simple_animal/hostile/heretic_summon/ash_spirit/Life(seconds, times_fired)
+	. = ..()
+	adjustBruteLoss(-3) // 3 health passively healing

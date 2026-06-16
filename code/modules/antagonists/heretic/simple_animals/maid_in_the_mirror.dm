@@ -11,8 +11,8 @@
 	movement_type = FLOATING
 	status_flags = CANSTUN | CANPUSH
 	attack_sound = 'sound/effects/glassbr1.ogg'
-	maxHealth = 100
-	health = 100
+	maxHealth = 80
+	health = 80
 	melee_damage_lower = 12
 	melee_damage_upper = 16
 	sight = SEE_MOBS | SEE_OBJS | SEE_TURFS
@@ -66,14 +66,14 @@
 		return
 
 	// If we have health, we take some damage
-	if(health > (maxHealth * 0.125))
+	if(health > (maxHealth * 0.02))
 		visible_message(
 				span_warning("[declent_ru(NOMINATIVE)] едва заметно мерцает."),
 				span_userdanger("Взгляд пронзает все твое существо!"),
 		)
 
 		recent_examiner_refs += user_ref
-		apply_damage(maxHealth * 0.1) // We take 10% of our health as damage upon being examined
+		apply_damage(maxHealth * 0.02) // We take 2% of our health as damage upon being examined
 		playsound(src, 'sound/effects/ghost2.ogg', 40, TRUE)
 		addtimer(CALLBACK(src, PROC_REF(clear_recent_examiner), user_ref), recent_examine_damage_cooldown, TIMER_DELETE_ME)
 		animate(src, alpha = 120, time = 0.5 SECONDS, easing = ELASTIC_EASING, loop = 2, flags = ANIMATION_PARALLEL)
@@ -103,3 +103,7 @@
 		'sound/effects/glassbr3.ogg',
 	)
 	. = ..()
+	if(!. || !isliving(target))
+		return
+	var/mob/living/living_target = target
+	living_target.apply_status_effect(/datum/status_effect/void_chill, 1)

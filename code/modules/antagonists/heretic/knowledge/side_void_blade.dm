@@ -30,7 +30,8 @@
 		/obj/item/clothing/suit = 1,
 		/obj/item/clothing/gloves/color/latex = 1,
 	)
-	cost = 1
+	limit = 1
+	cost = 2
 
 	research_tree_icon_path = 'icons/ui_icons/antags/heretic/knowledge.dmi'
 	research_tree_icon_state = "ghoul_shattered"
@@ -45,7 +46,7 @@
 		if(body.stat != DEAD)
 			continue
 
-		if(!IS_VALID_GHOUL_MOB(body))
+		if(!IS_VALID_GHOUL_MOB(body) || HAS_TRAIT(body, TRAIT_HUSK))
 			to_chat(user, span_hierophant_warning("[body.declent_ru(NOMINATIVE)] в слишком плохом состоянии, чтобы превратиться в гуля."))
 			continue
 
@@ -119,8 +120,8 @@
 	desc = "То, что когда-то было обычным человеческим кулаком, \
 			теперь является месивом из острых костяных осколков."
 	color = "#001aff"
-	hitsound = 'sound/effects/glassbr1.ogg'
-	force = 25
+	hitsound = SFX_SHATTER
+	force = 16
 	//wound_bonus = -30
 	//bare_wound_bonus = 15
 	//demolition_mod = 1.5
@@ -164,18 +165,18 @@
 /datum/heretic_knowledge/limited_amount/summon/maid_in_mirror
 	drafting_tier = 3
 	name = "Горничная в Зеркале"
-	desc = "Позволяет трансмутировать лист бумаги, мыло и пару лёгких, \
-			чтобы создать Горничную в Зеркеле. Горничные в Зеркеле — достойные бойцы, способные \
+	desc = "Позволяет трансмутировать пять листов стекла, любой костюм и пару лёгких, \
+			чтобы создать Горничную в Зеркале. Горничные в Зеркале — достойные бойцы, способные \
 			становиться бестелесными, появляясь в зеркальном мире и выходя из него, служа мощными \
-			разведчиками и засадниками. Однако они уязвимы для взгляда смертных и получают урон при осмотре."
+			разведчиками и засадниками. Их атаки также накладывают стак холода пустоты."
 	gain_text = "В каждом отражении — врата в невообразимый мир полный цветов, которых никогда никто не видел. \
 				Пол — стекло, а стены — ножи. Каждый шаг ранит, если у вас нет проводника."
 
 	required_atoms = list(
-		/obj/item/paper = 1,
-		/obj/item/soap = 1,
+		/obj/item/stack/sheet/glass = 5,
+		/obj/item/clothing/suit = 1,
 		/obj/item/organ/internal/lungs = 1,
 	)
-	cost = 1
+	cost = 2
 
 	mob_to_summon = /mob/living/simple_animal/hostile/heretic_summon/maid_in_the_mirror

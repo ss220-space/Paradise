@@ -13,7 +13,7 @@
 
 /datum/heretic_knowledge/limited_amount/summon/fire_shark
 	drafting_tier = 3
-	name = "Огненная Акула"
+	name = "Опаляющая Акула"
 	desc = "Позволяет преобразовать горстку пепла, печень и лист плазмы в Огненную Акулу. \
 			Огненные Акулы быстры и сильны в группах, но быстро погибают. Они также очень устойчивы к огню. \
 			Огненные Акулы впрыскивают в своих жертв флогистон и выделяют плазму после смерти."
@@ -26,7 +26,7 @@
 	)
 	mob_to_summon = /mob/living/simple_animal/hostile/heretic_summon/fire_shark
 	limit = 5
-	cost = 1
+	cost = 2
 	research_tree_icon_dir = EAST
 
 

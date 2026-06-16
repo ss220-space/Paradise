@@ -45,14 +45,26 @@
 	pump()
 
 
-// wide_guns.dmi ships the tg-style bolt sprites: "lionhunter" (bolt closed), "lionhunter_bolt" (bolt open with
-// rounds still in the mag) and "lionhunter_bolt_locked" (bolt locked open on an empty mag). The base boltaction
-// builds a "[icon_state]-open" suffix that doesn't exist for this gun, so map to the real states here.
+// wide_guns.dmi ships the tg-style bolt sprites: "lionhunter" is the bare rifle body (no bolt handle drawn),
+// and the bolt itself is ALWAYS a separate overlay layered on top, mirroring tg's BOLT_TYPE_LOCKING rendering:
+// "lionhunter_bolt" is the bolt seated forward (closed) and "lionhunter_bolt_locked" is the bolt racked back
+// (open). The body icon_state stays constant - swapping icon_state to a bolt sprite makes the rifle "disappear"
+// (the bolt sprites are transparent everywhere except the bolt). So the body never renders bare: the matching
+// bolt overlay is added in every state and just changes position when racked. The base boltaction would build a
+// nonexistent "[icon_state]-open" suffix, hence these overrides.
 /obj/item/gun/projectile/shotgun/boltaction/lionhunter/update_icon_state()
-	if(!bolt_open)
-		icon_state = initial(icon_state)
-		return
-	icon_state = "[initial(icon_state)][get_ammo(countchambered = FALSE, countempties = FALSE) ? "_bolt" : "_bolt_locked"]"
+	icon_state = initial(icon_state)
+
+
+/obj/item/gun/projectile/shotgun/boltaction/lionhunter/update_overlays()
+	. = ..()
+	. += "[initial(icon_state)][bolt_open ? "_bolt_locked" : "_bolt"]"
+
+
+// The base pump() only refreshes the icon_state; the bolt is an overlay here, so refresh overlays too.
+/obj/item/gun/projectile/shotgun/boltaction/lionhunter/pump(mob/M)
+	. = ..()
+	update_icon(UPDATE_OVERLAYS)
 
 
 // Bolt-action internal magazine for the lionhunter. No caliber set, so ammo suitability falls back to an

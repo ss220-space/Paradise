@@ -559,22 +559,18 @@
 	)
 
 	var/static/list/potential_uncommoner_items = list(
-		/obj/item/restraints/legcuffs/beartrap,
 		/obj/item/restraints/handcuffs/cable/zipties,
+		/obj/item/melee/baton,
 		/obj/item/circular_saw,
 		/obj/item/scalpel,
 		/obj/item/clothing/gloves/color/yellow,
-		/obj/item/melee/baton/security,
 		/obj/item/clothing/glasses/sunglasses,
 	)
 
 	required_atoms = list()
-	// 2 organs. Can be the same.
+	// 1 Organ, 1 Easy, 1 Hard
 	required_atoms[pick(potential_organs)] += 1
-	required_atoms[pick(potential_organs)] += 1
-	// 2-3 random easy items.
-	required_atoms[pick(potential_easy_items)] += rand(2, 3)
-	// 1 uncommon item.
+	required_atoms[pick(potential_easy_items)] += 1
 	required_atoms[pick(potential_uncommoner_items)] += 1
 
 

@@ -95,4 +95,4 @@
 		/obj/item/stack/cable_coil = 15,
 	)
 	mob_to_summon = /mob/living/simple_animal/hostile/heretic_summon/rust_walker
-	cost = 1
+	cost = 2

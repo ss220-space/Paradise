@@ -146,9 +146,14 @@
 // so the vampire jaunts that share this base type are unaffected.
 /obj/effect/dummy/spell_jaunt/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()
-	if(!phased_mob_icon_state || !ismob(arrived) || arrived == jaunter)
+	if(!ismob(arrived) || arrived == jaunter)
 		return
+	// Always track the jaunter: exit_jaunt() validates jaunt.jaunter (CRASHing on mismatch)
+	// and eject_jaunter() needs it. Previously this was gated behind phased_mob_icon_state,
+	// so mirror_walk (which sets no position indicator) left jaunter null and could never exit.
 	jaunter = arrived
+	if(!phased_mob_icon_state)
+		return
 	var/mob/mob_jaunter = arrived
 	position_indicator = image(phased_mob_icon, src, phased_mob_icon_state, ABOVE_LIGHTING_PLANE)
 	position_indicator.appearance_flags |= RESET_ALPHA
@@ -178,7 +183,11 @@
 	var/turf/eject_spot = get_turf(src)
 	if(!eject_spot)
 		return
+	// forceMove fires Exited(), which nulls jaunter, so capture it first for the signal
+	// that drives on_jaunt_exited() (exit feedback, mirror_walk's cold air, etc.).
+	var/atom/movable/exiting = jaunter
 	jaunter.forceMove(eject_spot)
+	SEND_SIGNAL(src, COMSIG_MOB_EJECTED_FROM_JAUNT, exiting)
 	qdel(src)
 
 /// TRUE if the given mob is currently inside a jaunt dummy.

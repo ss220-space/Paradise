@@ -415,10 +415,15 @@
 	. = ..()
 	if(icon_generated)
 		// Offset the painting with pixel_w/pixel_z (the "bound" world-pixel offsets), exactly like tg. Plain
-		// pixel_x/pixel_y trip /atom/update_icon's float-layer guard and, worse, get dropped by Paradise's
-		// plane-master renderer so the canvas shows blank on the floor. KEEP_TOGETHER (set in Initialize)
-		// flattens the overlay onto the canvas; the concrete layer keeps it rendering.
-		var/mutable_appearance/detail = mutable_appearance(generated_icon, layer = layer)
+		// pixel_x/pixel_y trip /atom/update_icon's float-layer guard and get dropped by Paradise's plane-master
+		// renderer so the canvas shows blank on the floor. KEEP_TOGETHER (set in Initialize) flattens the
+		// overlay onto the canvas.
+		// Leave the overlay on the default FLOAT_LAYER (no explicit layer = layer): FLOAT_LAYER inherits the
+		// parent's layer AND plane, so the painting also composites in the HUD hand slot. Hardcoding the
+		// world-space object layer made the overlay render on the floor but get dropped on the HUD plane, so a
+		// held canvas showed only the blank white base sprite. The float-layer guard only fires for pixel_x/
+		// pixel_y, which we never set, so FLOAT_LAYER is safe here.
+		var/mutable_appearance/detail = mutable_appearance(generated_icon)
 		detail.pixel_w = 1
 		detail.pixel_z = 1
 		. += detail
@@ -427,7 +432,7 @@
 	if(!used)
 		return
 
-	var/mutable_appearance/detail = mutable_appearance(icon, "[icon_state]wip", layer = layer)
+	var/mutable_appearance/detail = mutable_appearance(icon, "[icon_state]wip")
 	detail.pixel_w = 1
 	detail.pixel_z = 1
 	. += detail
