@@ -825,6 +825,7 @@
 
 /// Allows players to request internet sounds (via the OOC verb) for admins to play.
 /datum/config_entry/flag/request_internet_sound
+	default = TRUE
 
 /// Comma separated list of url patterns players are allowed to request. Each entry is matched as a regex.
 /datum/config_entry/string/request_internet_allowed
