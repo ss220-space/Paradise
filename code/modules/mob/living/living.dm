@@ -2376,3 +2376,7 @@
 
 	context[SCREENTIP_CONTEXT_RMB] = "Взять на мушку"
 	return CONTEXTUAL_SCREENTIP_SET
+
+/mob/living/proc/adjust_max_health(amount)
+	maxHealth = (maxHealth + amount)
+	updatehealth()
