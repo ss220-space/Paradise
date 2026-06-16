@@ -81,9 +81,6 @@ SUBSYSTEM_DEF(ticker)
 	ASYNC
 		login_music = choose_lobby_music()
 
-	if(!login_music)
-		to_chat(world, span_boldwarning("Не удалось загрузить музыку из лобби.")) //yogs end
-
 	randomtips = world.file2list("strings/tips.txt")
 	memetips = world.file2list("strings/sillytips.txt")
 	return SS_INIT_SUCCESS
@@ -412,13 +409,13 @@ SUBSYSTEM_DEF(ticker)
 
 /datum/controller/subsystem/ticker/proc/choose_lobby_music()
 	var/list/songs = CONFIG_GET(str_list/lobby_music)
-	if(LAZYLEN(songs))
+	if(length(songs))
 		selected_lobby_music = pick(songs)
 
 	if(SSholiday.holidays) // What's this? Events are initialized before tickers? Let's do something with that!
 		for(var/holidayname in SSholiday.holidays)
 			var/datum/holiday/holiday = SSholiday.holidays[holidayname]
-			if(LAZYLEN(holiday.lobby_music))
+			if(length(holiday.lobby_music))
 				selected_lobby_music = pick(holiday.lobby_music)
 				break
 
@@ -438,29 +435,30 @@ SUBSYSTEM_DEF(ticker)
 	var/stdout = output[SHELLEO_STDOUT]
 	var/stderr = output[SHELLEO_STDERR]
 
-	if(!errorlevel)
-		var/list/data
-		try
-			data = json_decode(stdout)
-		catch(var/exception/e)
-			to_chat(world, span_boldwarning("yt-dlp JSON parsing FAILED."))
-			log_world(span_boldwarning("yt-dlp JSON parsing FAILED:"))
-			log_world(span_warning("[e]: [stdout]"))
-			login_music_initializated = TRUE
-			return
-		if(data["title"])
-			login_music_data["title"] = data["title"]
-			login_music_data["url"] = data["url"]
-			login_music_data["link"] = data["webpage_url"]
-			login_music_data["path"] = "cache/songs/[data["id"]].mp3"
-			login_music_data["title_link"] = data["webpage_url"] ? "<a href=\"[data["webpage_url"]]\">[data["title"]]</a>" : data["title"]
+	// Shell work is done, every remaining path marks init complete.
+	login_music_initializated = TRUE
 
 	if(errorlevel)
 		to_chat(world, span_boldwarning("yt-dlp failed."))
 		log_world("Could not play lobby song [selected_lobby_music]: [stderr]")
-		login_music_initializated = TRUE
 		return
-	login_music_initializated = TRUE
+
+	var/list/data
+	try
+		data = json_decode(stdout)
+	catch(var/exception/parse_exception)
+		to_chat(world, span_boldwarning("yt-dlp JSON parsing FAILED."))
+		log_world(span_boldwarning("yt-dlp JSON parsing FAILED:"))
+		log_world(span_warning("[parse_exception]: [stdout]"))
+		return
+
+	if(data["title"])
+		login_music_data["title"] = data["title"]
+		login_music_data["url"] = data["url"]
+		login_music_data["link"] = data["webpage_url"]
+		login_music_data["path"] = "cache/songs/[data["id"]].mp3"
+		login_music_data["title_link"] = data["webpage_url"] ? "<a href=\"[data["webpage_url"]]\">[data["title"]]</a>" : data["title"]
+
 	return stdout
 
 /datum/controller/subsystem/ticker/proc/station_explosion_cinematic(station_missed = 0, override = null)
