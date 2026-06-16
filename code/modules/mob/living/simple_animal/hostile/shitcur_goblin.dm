@@ -27,6 +27,8 @@
 							span_userdanger("You have been BANNED FOR NO REASON"))
 
 /mob/living/simple_animal/hostile/shitcur_goblin/lose_target()
+	if(QDELETED(src))
+		return
 	message_admins("Smiting shitcurity goblin was deleted due to a lack of valid target. Someone killed them first, or they ceased to exist.")
 	qdel(src) //so we dont shitcur after banning
 

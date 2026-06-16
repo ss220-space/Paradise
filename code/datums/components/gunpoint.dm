@@ -64,8 +64,6 @@
 		shooter.remove_status_effect(/datum/status_effect/holdup)
 	if(target)
 		target.remove_status_effect(/datum/status_effect/grouped/heldup, shooter.UID())
-		if(!target.has_status_effect(STATUS_EFFECT_HELD_UP))
-			target.remove_status_effect(STATUS_EFFECT_CAPITULATED)
 		target = null
 	weapon = null
 	return ..()
