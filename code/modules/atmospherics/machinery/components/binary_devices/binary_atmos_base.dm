@@ -40,6 +40,18 @@
 		node2.disconnect(src)
 		node2 = null
 		nullifyPipenet(parent2)
+
+	if(parent1)
+		if(parent1.has_one_member())
+			QDEL_NULL(parent1)
+		else
+			nullifyPipenet(parent1)
+
+	if(parent2)
+		if(parent2.has_one_member())
+			QDEL_NULL(parent2)
+		else
+			nullifyPipenet(parent2)
 	return ..()
 
 /obj/machinery/atmospherics/binary/atmos_init()

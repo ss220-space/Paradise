@@ -29,11 +29,12 @@
 
 	//these objects are indestructible
 /obj/docking_port/Destroy(force)
+	// unless you assert that you know what you're doing. Horrible things
+	// may result.
 	if(force)
 		..()
-		. = QDEL_HINT_HARDDEL_NOW
+		return QDEL_HINT_QUEUE
 	else
-
 		return QDEL_HINT_LETMELIVE
 
 /obj/docking_port/get_gravity(turf/T)
