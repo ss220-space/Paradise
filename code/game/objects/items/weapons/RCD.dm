@@ -10,6 +10,7 @@
 	throwforce = 10
 	throw_speed = 3
 	throw_range = 5
+	custom_price = PAYCHECK_CREW * 2
 	materials = list(MAT_METAL = 30000)
 	origin_tech = "engineering=4;materials=2"
 	usesound = 'sound/items/deconstruct.ogg'
@@ -250,6 +251,14 @@
 
 /obj/item/rcd/attack_self_tk(mob/user)
 	radial_menu(user)
+
+/obj/item/rcd/click_alt(mob/living/carbon/human/human)
+	if(!istype(human) || !human.Adjacent(src) || human.incapacitated() || HAS_TRAIT(human, TRAIT_HANDS_BLOCKED))
+		return
+
+	add_fingerprint(human)
+	ui_interact(human)
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/rcd/ui_state(mob/user)
 	return GLOB.inventory_state
