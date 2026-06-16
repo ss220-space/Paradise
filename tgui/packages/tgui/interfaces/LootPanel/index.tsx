@@ -1,5 +1,3 @@
-import { BooleanLike } from 'common/react';
-
 import { useBackend } from '../../backend';
 import { useCallback, useMemo, useState } from 'react';
 import { Box, Button, Input, Section, Stack } from '../../components';
@@ -12,16 +10,13 @@ import { isEscape } from 'common/keys';
 
 type Data = {
   contents: SearchItem[];
-  searching: BooleanLike;
 };
 
 export const LootPanel = (props: unknown) => {
-  const { act, data } = useBackend<Data>();
-  const { contents = [], searching } = data;
+  const { data } = useBackend<Data>();
+  const { contents = [] } = data;
 
   // limitations: items with different stack counts, charges etc.
-  // const [contentsByPathName, setPresets] = useLocalState<Preset[]>('presets', []);
-  // Тут был useMemo из 'react'. Я скушал его потому что не мог достать по другому. Он был кислым. Н
   const contentsByPathName = useMemo(() => {
     const result: Record<string, { items: SearchItem[]; path: string }> = {};
     for (let i = 0; i < contents.length; i++) {
@@ -149,15 +144,10 @@ export const LootPanel = (props: unknown) => {
             tooltip="Toggle Grouping"
           />
           <Button
-            icon="sync"
-            onClick={() => act('refresh')}
-            tooltip="Refresh"
-          />
-          <Button
             icon="copy"
             disabled={!hasCopyableItems}
             onClick={copySelected}
-            tooltip="Copy items (all if none selected)"
+            tooltip="Copy items (all if none selected on 'RMB + Shift')"
           />
         </Box>
       }

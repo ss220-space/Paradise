@@ -53,6 +53,11 @@
 		'sound/misc/guitar_rifs/guitar_riff_8.ogg',
 	)
 
+/datum/emote/living/carbon/human/airguitar/get_sound(mob/living/carbon/human/user)
+	if(isskeleton(user))
+		return 'sound/misc/guitar_rifs/skeleton_guitar_riff.ogg'
+	return ..()
+
 /datum/emote/living/carbon/human/airguitar/run_emote(mob/living/carbon/human/user, params, type_override, intentional)
 	// check hands status
 	var/obj/item/organ/external/left_arm = user.bodyparts_by_name[BODY_ZONE_L_ARM]
