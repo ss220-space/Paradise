@@ -766,13 +766,16 @@ SUBSYSTEM_DEF(ticker)
 	var/round_end_sound = pick(GLOB.round_end_sounds)
 	var/sound_length = GLOB.round_end_sounds[round_end_sound]
 
+	log_debug("Sending round end sound to every player.")
 	for(var/mob/mob as anything in GLOB.player_list)
 		if(mob.client.prefs.sound & SOUND_MUTE_END_OF_ROUND)
 			continue
 		SEND_SOUND(mob, round_end_sound)
 
+	log_debug("Running sleep on round end sound duration...")
 	sleep(sound_length)
 
+	log_debug("Initiating world reboot from Ticker subsystem...")
 	world.Reboot()
 
 // Timers invoke this async

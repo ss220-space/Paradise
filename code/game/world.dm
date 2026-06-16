@@ -122,6 +122,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 /world/Reboot(reason, fast_track = FALSE)
 	//special reboot, do none of the normal stuff
 	if((reason == 1) || fast_track) // Do NOT change this to if(reason). You WILL break the entirety of world rebooting
+		log_debug("Hard reboot initiated")
 		if(usr)
 			if(!check_rights(R_SERVER))
 				log_and_message_admins("attempted to restart the server via the Profiler, without access.")
@@ -150,7 +151,9 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 			return ..(1)
 
 	// If we got here, we are in a "normal" reboot
+	log_debug("Dumping overlay manager stats...")
 	GLOB.overlay_manager.dump_stats()
+	log_debug("Shutting down Master...")
 	Master.Shutdown() // Shutdown subsystems
 
 	// If we were running unit tests, finish that run
@@ -163,6 +166,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	if(GLOB.pending_server_update)
 		to_chat(world, span_boldannounceooc("Reboot will take a little longer, due to pending updates."))
 
+	log_debug("Sending roundrestart to all clients...")
 	// Send the reboot banner to all players
 	var/position = 0 // queue autoreconnect
 	for(var/client/C in GLOB.clients)
@@ -171,6 +175,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 		if(CONFIG_GET(string/server)) // If you set a server location in config.txt, it sends you there instead of trying to reconnect to the same world address. -- NeoFite
 			C << link("byond://[CONFIG_GET(string/server)]")
 
+	log_debug("Sending roundrestart to all clients complete, shutting down...")
 	// And begin the real shutdown
 	if(config && CONFIG_GET(flag/shutdown_on_reboot))
 		if(CONFIG_GET(flag/kill_on_shutdown))
@@ -334,6 +339,8 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	PrepareShutdown()
 	log_world("Shutting down current instance via forceful killing from shell...")
 
+	rustlib_clear_uuid_storage()
+	log_debug("Kill via shell initiated...")
 	rustlib_clear_uuid_storage()
 	rustg_log_close_all() // Past this point, no logging procs can be used, at risk of data loss.
 
