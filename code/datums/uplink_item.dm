@@ -2411,7 +2411,7 @@
 /datum/uplink_item/cyber_implants/autoimplanter
 	name = "Автоимплантер"
 	desc = "Устройство, позволяющее устанавливать кибернетический имплант в полевых условиях без необходимости хирургического вмешательства."
-	item = /obj/item/autoimplanter/traitor
+	item = /obj/item/autoimplanter/oneuse
 	cost = 4
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 

@@ -89,7 +89,7 @@
 	to_chat(user, span_notice("Вы извлекли [storedorgan.name] из устройства."))
 
 /obj/item/autoimplanter/oneuse
-	desc = "A device that automatically injects a cyber-implant into the user without the hassle of extensive surgery. At once."
+	desc = "Одноразовое устройство, которое автоматически вводит кибер-имплантат пользователю без необходимости сложной хирургической операции."
 
 /obj/item/autoimplanter/oneuse/autoimplant(mob/living/carbon/human/user)
 	. = ..()
@@ -196,27 +196,3 @@
 		INSTRUMENTAL = "автоимплантером с мезонным ИЛС",
 		PREPOSITIONAL = "автоимплантере с мезонным ИЛС",
 	)
-
-/obj/item/autoimplanter/traitor
-	desc = "Устройство, которое автоматически вводит кибер-имплантат пользователю без необходимости сложной хирургической операции. Эта модель способна имплантировать один иплант, прежде чем разрушиться."
-	var/uses = 1
-
-/obj/item/autoimplanter/traitor/autoimplant(mob/living/carbon/human/user)
-	. = ..()
-	if(!.)
-		return .
-
-	uses--
-	if(uses > 0)
-		return .
-
-	visible_message(span_warning("Автоимплантер зловеще пищит и через мгновение вспыхивает, оставляя только пепел."))
-	new /obj/effect/decal/cleanable/ash(get_turf(src))
-	user.temporarily_remove_item_from_inventory(src, force = TRUE)
-	qdel(src)
-
-/obj/item/autoimplanter/traitor/examine(mob/user)
-	. = ..()
-
-	if(uses)
-		. += span_notice("Осталось использований: [uses].")
