@@ -11293,9 +11293,8 @@
 	dir = 4
 	},
 /obj/structure/table/reinforced,
-/obj/item/pen,
 /obj/effect/turf_decal/delivery/hollow,
-/obj/item/paper_bin,
+/obj/machinery/recharger,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -14536,7 +14535,6 @@
 	},
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/delivery/hollow,
-/obj/machinery/recharger,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "yellow"
@@ -19060,28 +19058,20 @@
 "cwz" = (
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/rack,
-/obj/item/floor_painter{
-	pixel_x = -6;
-	pixel_y = 6
-	},
-/obj/item/floor_painter{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/floor_painter,
-/obj/item/floor_painter{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/floor_painter{
-	pixel_x = 6;
-	pixel_y = -6
-	},
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
+	},
+/obj/item/geiger_counter{
+	pixel_x = 4
+	},
+/obj/item/geiger_counter{
+	pixel_x = -4
+	},
+/obj/item/geiger_counter{
+	pixel_y = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -23061,8 +23051,6 @@
 	dir = 4
 	},
 /obj/structure/table/reinforced,
-/obj/item/folder/yellow,
-/obj/item/lightreplacer,
 /obj/effect/turf_decal/delivery/hollow,
 /obj/item/stack/tape_roll,
 /turf/simulated/floor/plasteel{
@@ -30595,13 +30583,9 @@
 /area/security/permabrig)
 "dCy" = (
 /obj/structure/table/reinforced,
-/obj/item/radio{
-	pixel_x = 5;
-	pixel_y = 4
-	},
-/obj/item/reagent_containers/spray/cleaner{
-	pixel_x = -11;
-	pixel_y = 5
+/obj/item/stack/packageWrap,
+/obj/item/hand_labeler{
+	pixel_y = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -34471,10 +34455,8 @@
 	},
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/table/reinforced,
-/obj/item/stack/cable_coil/random,
-/obj/item/reagent_containers/spray/cleaner{
-	pixel_x = 2;
-	pixel_y = 12
+/obj/item/stack/sheet/mineral/plasma{
+	amount = 30
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -37848,8 +37830,7 @@
 /area/maintenance/starboard)
 "eAb" = (
 /obj/structure/table/reinforced,
-/obj/item/stack/packageWrap,
-/obj/item/hand_labeler,
+/obj/item/storage/toolbox/mechanical,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellow"
 	},
@@ -45648,17 +45629,16 @@
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/airlock_painter,
-/obj/item/airlock_painter{
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/item/floor_painter{
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/obj/item/airlock_painter{
+/obj/item/floor_painter{
 	pixel_x = 6;
 	pixel_y = -6
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -46539,7 +46519,7 @@
 /area/crew_quarters/fitness)
 "guS" = (
 /obj/structure/table/reinforced,
-/obj/item/geiger_counter,
+/obj/item/vending_refill/boozeomat,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellow"
 	},
@@ -47684,8 +47664,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/table/reinforced,
-/obj/item/wrench,
-/obj/item/tank/internals/emergency_oxygen/engi,
+/obj/item/storage/firstaid/fire,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellow"
@@ -52693,8 +52672,7 @@
 "hOC" = (
 /obj/structure/table/reinforced,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/item/rcd,
-/obj/item/geiger_counter,
+/obj/item/storage/belt/utility,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellow"
@@ -58483,6 +58461,7 @@
 	pixel_x = -4;
 	pixel_y = 5
 	},
+/obj/item/reagent_containers/spray/cleaner,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowfull"
 	},
@@ -61053,9 +61032,9 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/item/flashlight,
 /obj/item/radio/intercom/directional/west,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/item/reagent_containers/food/drinks/mug/eng,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "yellow"
@@ -61321,12 +61300,6 @@
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/glass/reinforced,
 /area/maintenance/asmaint4)
-"jJc" = (
-/obj/effect/turf_decal/delivery/hollow,
-/obj/structure/closet/secure_closet/engineering_personal,
-/obj/item/reagent_containers/food/drinks/mug/eng,
-/turf/simulated/floor/plasteel,
-/area/engineering/engine)
 "jJj" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
@@ -87858,9 +87831,6 @@
 /obj/structure/extinguisher_cabinet/directional/west,
 /obj/item/tank/internals/plasma,
 /obj/effect/turf_decal/delivery/hollow,
-/obj/item/stack/sheet/mineral/plasma{
-	amount = 30
-	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "yellow"
@@ -124619,8 +124589,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/table/reinforced,
-/obj/item/storage/toolbox/mechanical,
-/obj/item/flashlight,
+/obj/item/storage/belt/utility,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellow"
 	},
@@ -124798,16 +124767,14 @@
 	dir = 9
 	},
 /obj/structure/rack,
-/obj/item/stack/cable_coil{
-	pixel_x = -2;
-	pixel_y = 2
+/obj/item/rcd/preloaded{
+	pixel_x = 5;
+	pixel_y = 5
 	},
-/obj/item/stack/cable_coil{
-	pixel_x = 1
-	},
-/obj/item/stack/cable_coil{
-	pixel_x = 6;
-	pixel_y = -2
+/obj/item/rcd/preloaded,
+/obj/item/rcd/preloaded{
+	pixel_x = -5;
+	pixel_y = -5
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -125291,7 +125258,6 @@
 /obj/structure/table/reinforced,
 /obj/item/paper_bin,
 /obj/item/pen,
-/obj/item/rcd,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellow"
 	},
@@ -150808,7 +150774,7 @@ xeN
 hOC
 qKJ
 rDo
-jJc
+dQD
 bXU
 wZb
 uPO

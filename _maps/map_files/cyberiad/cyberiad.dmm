@@ -9174,7 +9174,6 @@
 	},
 /obj/machinery/cell_charger,
 /obj/item/stock_parts/cell/high,
-/obj/item/rcd,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellow"
 	},
@@ -49033,7 +49032,6 @@
 /obj/structure/table/reinforced,
 /obj/machinery/cell_charger,
 /obj/item/stock_parts/cell/high,
-/obj/item/rcd,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "yellow"
@@ -59278,25 +59276,17 @@
 "kRG" = (
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/rack,
-/obj/item/airlock_painter{
-	pixel_x = -6;
-	pixel_y = 6
-	},
-/obj/item/airlock_painter{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/airlock_painter,
-/obj/item/airlock_painter{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/airlock_painter{
-	pixel_x = 6;
-	pixel_y = -6
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
+	},
+/obj/item/geiger_counter{
+	pixel_x = 4;
+	pixel_y = 4
+	},
+/obj/item/geiger_counter,
+/obj/item/geiger_counter{
+	pixel_x = -4;
+	pixel_y = -4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -91533,8 +91523,7 @@
 /area/maintenance/disposal)
 "ydM" = (
 /obj/machinery/atmospherics/unary/thermomachine/freezer{
-	dir = 8;
-	icon_state = "freezer_0"
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -91636,27 +91625,19 @@
 "yga" = (
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/rack,
-/obj/item/floor_painter{
-	pixel_x = -6;
-	pixel_y = 6
-	},
-/obj/item/floor_painter{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/floor_painter,
-/obj/item/floor_painter{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/floor_painter{
-	pixel_x = 6;
-	pixel_y = -6
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
 /obj/item/radio/intercom/directional/east,
+/obj/item/rcd/preloaded{
+	pixel_x = 5;
+	pixel_y = 5
+	},
+/obj/item/rcd/preloaded,
+/obj/item/rcd/preloaded{
+	pixel_x = -5;
+	pixel_y = -5
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

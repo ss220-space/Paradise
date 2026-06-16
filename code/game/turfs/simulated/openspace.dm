@@ -205,13 +205,13 @@
 		return RCD_NO_ACT
 
 	if(our_rcd.useResource(1, user))
-		to_chat(user, "Building Floor...")
+		to_chat(user, "Печать пола...")
 		playsound(get_turf(our_rcd), our_rcd.usesound, 50, TRUE)
 		add_attack_logs(user, src, "Constructed floor with RCD")
 		ChangeTurf(our_rcd.floor_type)
 		return RCD_ACT_SUCCESSFULL
 
-	to_chat(user, span_warning("ERROR! Not enough matter in unit to construct this floor!"))
+	to_chat(user, span_warning("ОШИБКА! Недостаточно материи для печати пола!"))
 	playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, TRUE)
 	return RCD_ACT_FAILED
 

@@ -8,8 +8,11 @@
 #define RCD_ACT_SUCCESSFULL 1
 #define RCD_NO_ACT 2
 
-#define RCD_MODE_TURF "Floors and Walls"
-#define RCD_MODE_AIRLOCK "Airlocks"
-#define RCD_MODE_WINDOW "Windows"
-#define RCD_MODE_DECON "Deconstruction"
-#define RCD_MODE_FIRELOCK "Firelocks"
+#define RCD_MODE_TURF "Пол и стены"
+#define RCD_MODE_AIRLOCK "Шлюз"
+#define RCD_MODE_WINDOW "Окна"
+#define RCD_MODE_DECON "Деконструкция"
+#define RCD_MODE_FIRELOCK "Пожарный шлюз"
+#define RCD_MODE_UI "Настройка"
+#define RCD_MODE "Режим"
+#define RCD_DOOR_TYPE "Тип шлюза"

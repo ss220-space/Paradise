@@ -84273,9 +84273,8 @@
 /area/crew_quarters/kitchen)
 "mTI" = (
 /obj/structure/table/reinforced,
-/obj/item/wrench,
-/obj/item/tank/internals/emergency_oxygen/engi,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/item/storage/toolbox/mechanical,
 /turf/simulated/floor/plasteel,
 /area/engineering/engine)
 "mTJ" = (
@@ -86594,7 +86593,6 @@
 /obj/item/multitool,
 /obj/machinery/cell_charger,
 /obj/item/stock_parts/cell/high,
-/obj/item/rcd,
 /turf/simulated/floor/redgrid,
 /area/engineering/engine)
 "nmq" = (
@@ -123486,15 +123484,11 @@
 /area/hallway/primary/central/second/south)
 "sNG" = (
 /obj/structure/table/reinforced,
-/obj/item/radio{
-	pixel_x = 5;
-	pixel_y = 4
-	},
 /obj/item/reagent_containers/spray/cleaner{
-	pixel_x = -11;
+	pixel_x = 5;
 	pixel_y = 5
 	},
-/obj/item/rcd,
+/obj/item/reagent_containers/spray/cleaner,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "yellow"
@@ -140297,9 +140291,13 @@
 "vpU" = (
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/delivery/hollow,
-/obj/item/reagent_containers/spray/cleaner,
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
+	},
+/obj/item/rcd/preloaded,
+/obj/item/rcd/preloaded{
+	pixel_x = 5;
+	pixel_y = 5
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -140879,18 +140877,16 @@
 	dir = 9
 	},
 /obj/structure/rack,
-/obj/item/stack/cable_coil{
-	pixel_x = -2;
+/obj/machinery/light,
+/obj/item/geiger_counter{
+	pixel_x = 4
+	},
+/obj/item/geiger_counter{
+	pixel_x = -4
+	},
+/obj/item/geiger_counter{
 	pixel_y = 2
 	},
-/obj/item/stack/cable_coil{
-	pixel_x = 1
-	},
-/obj/item/stack/cable_coil{
-	pixel_x = 6;
-	pixel_y = -2
-	},
-/obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -156391,7 +156387,11 @@
 "xNw" = (
 /obj/structure/table/reinforced,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/item/rcd,
+/obj/item/rcd/preloaded{
+	pixel_x = 5;
+	pixel_y = 5
+	},
+/obj/item/rcd/preloaded,
 /turf/simulated/floor/plasteel,
 /area/engineering/engine)
 "xNy" = (
