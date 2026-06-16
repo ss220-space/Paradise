@@ -352,10 +352,10 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 			comp = component_data
 
 		var/path = text2path(comp["type"])
-		if(!path)
-			continue
-		if(!ispath(path, /obj/item/circuit_component))
-			continue
+		if(!path || !ispath(path, /obj/item/circuit_component))
+			to_chat(user, span_alert("Неккоректные данные JSON!"))
+			return
+
 		var/obj/item/circuit_component/component_type = path
 
 		current_size += initial(component_type.circuit_size)
