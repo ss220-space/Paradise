@@ -28,7 +28,7 @@
 	var/overlay_charged = "cell-o2"
 
 /obj/item/stock_parts/cell/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "батарея А",
 		GENITIVE = "батареи А",
 		DATIVE = "батарее А",
@@ -224,7 +224,7 @@
 	chargerate = 1000
 
 /obj/item/stock_parts/cell/upgraded/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "батарея А+",
 		GENITIVE = "батареи А+",
 		DATIVE = "батарее А+",
@@ -238,7 +238,7 @@
 	maxcharge = 5000
 
 /obj/item/stock_parts/cell/upgraded/plus/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "батарея А++",
 		GENITIVE = "батареи А++",
 		DATIVE = "батарее А++",
@@ -257,7 +257,7 @@
 	chargerate = 1500
 
 /obj/item/stock_parts/cell/high/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "батарея АА",
 		GENITIVE = "батареи АА",
 		DATIVE = "батарее АА",
@@ -272,7 +272,7 @@
 	chargerate = 2250
 
 /obj/item/stock_parts/cell/high/plus/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "батарея АА+",
 		GENITIVE = "батареи АА+",
 		DATIVE = "батарее АА+",
@@ -296,7 +296,7 @@
 	chargerate = 2000
 
 /obj/item/stock_parts/cell/super/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "батарея ААА",
 		GENITIVE = "батареи ААА",
 		DATIVE = "батарее ААА",
@@ -320,7 +320,7 @@
 	chargerate = 3000
 
 /obj/item/stock_parts/cell/hyper/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "батарея АААА",
 		GENITIVE = "батареи АААА",
 		DATIVE = "батарее АААА",
@@ -346,7 +346,7 @@
 	overlay_charged = "cell-o2-bs"
 
 /obj/item/stock_parts/cell/bluespace/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "блюспейс-батарея",
 		GENITIVE = "блюспейс-батареи",
 		DATIVE = "блюспейс-батарее",
@@ -370,7 +370,7 @@
 	chargerate = 30000
 
 /obj/item/stock_parts/cell/infinite/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бесконечная батарея",
 		GENITIVE = "бесконечной батареи",
 		DATIVE = "бесконечной батарее",
@@ -392,7 +392,7 @@
 	ratingdesc = FALSE
 
 /obj/item/stock_parts/cell/infinite/abductor/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пустотное ядро",
 		GENITIVE = "пустотного ядра",
 		DATIVE = "пустотному ядру",
@@ -416,7 +416,7 @@
 	grown_battery = TRUE //it has the overlays for wires
 
 /obj/item/stock_parts/cell/potato/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "картофельная батарея",
 		GENITIVE = "картофельной батареи",
 		DATIVE = "картофельной батарее",
@@ -437,7 +437,7 @@
 	chargerate = 500
 
 /obj/item/stock_parts/cell/high/slime/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "заряженное ядро слайма",
 		GENITIVE = "заряженного ядра слайма",
 		DATIVE = "заряженному ядру слайма",
@@ -454,7 +454,7 @@
 	rating = 3
 
 /obj/item/stock_parts/cell/emproof/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ЭМИ-защищённая батарея А",
 		GENITIVE = "ЭМИ-защищённой батареи А",
 		DATIVE = "ЭМИ-защищённой батарее А",
@@ -496,7 +496,7 @@
 	rating = 2.5
 
 /obj/item/stock_parts/cell/secborg/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "батарея охранного робота",
 		GENITIVE = "батареи охранного робота",
 		DATIVE = "батарее охранного робота",
@@ -517,7 +517,7 @@
 	chargerate = 1500
 
 /obj/item/stock_parts/cell/pulse/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "батарея пульсовой винтовки",
 		GENITIVE = "батареи пульсовой винтовки",
 		DATIVE = "батарее пульсовой винтовки",
@@ -534,7 +534,7 @@
 	maxcharge = 6600
 
 /obj/item/stock_parts/cell/pulse/carbine/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "батарея пульсового карабина",
 		GENITIVE = "батареи пульсового карабина",
 		DATIVE = "батарее пульсового карабина",
@@ -548,7 +548,7 @@
 	maxcharge = 2600
 
 /obj/item/stock_parts/cell/pulse/pistol/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "батарея пульсового пистолета",
 		GENITIVE = "батареи пульсового пистолета",
 		DATIVE = "батарее пульсового пистолета",
@@ -564,7 +564,7 @@
 	rating = 2
 
 /obj/item/stock_parts/cell/dominator/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "батарея Доминатора",
 		GENITIVE = "батареи Доминатора",
 		DATIVE = "батарее Доминатора",
@@ -579,7 +579,7 @@
 	chargerate = 2600 // about 30 seconds to charge with a default recharger
 
 /obj/item/stock_parts/cell/bsg/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "батарея Б.С.П.",
 		GENITIVE = "батареи Б.С.П.",
 		DATIVE = "батарее Б.С.П.",
@@ -593,7 +593,7 @@
 	maxcharge = 2200
 
 /obj/item/stock_parts/cell/emittergun/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "батарея эмитерной пушки",
 		GENITIVE = "батареи эмитерной пушки",
 		DATIVE = "батарее эмитерной пушки",
@@ -608,7 +608,7 @@
 	chargerate = 25
 
 /obj/item/stock_parts/cell/degraded/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "батарея А-",
 		GENITIVE = "батареи А-",
 		DATIVE = "батарее А-",
@@ -623,7 +623,7 @@
 	desc = "Элемент, вырабатывающий энергию для оружия культистов Ратвара, однако бесполезен в других целях. Предназначен для дробовика."
 
 /obj/item/stock_parts/cell/clock/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "латунная батарейка",
 		GENITIVE = "латунной батарейки",
 		DATIVE = "латунной батарейке",
@@ -694,7 +694,7 @@
 	materials = list(MAT_METAL = 35000)
 
 /obj/item/weapon_cell/specter/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "аккумулятор Спектра",
 		GENITIVE = "аккумулятора Спектра",
 		DATIVE = "аккумулятору Спектра",

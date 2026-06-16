@@ -16,7 +16,7 @@
 	assignedrole = "Ancient Crew"
 
 /obj/effect/mob_spawn/human/oldstation/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "старая криогенная капсула",
 		GENITIVE = "старой криогенной капсулы",
 		DATIVE = "старой криогенной капсуле",
@@ -64,7 +64,7 @@
 	icon_state = "sleeper-open"
 
 /obj/structure/showcase/machinery/oldpod/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "повреждённая криогенная капсула",
 		GENITIVE = "повреждённой криогенной капсулы",
 		DATIVE = "повреждённой криогенной капсуле",
@@ -78,7 +78,7 @@
 	desc = "Криогенная капсула, которая недавно выпустила своего пассажира. Капсула кажется неработоспособной."
 
 /obj/structure/showcase/machinery/oldpod/used/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "открытая криогенная капсула",
 		GENITIVE = "открытой криогенной капсулы",
 		DATIVE = "открытой криогенной капсуле",

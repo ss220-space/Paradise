@@ -43,7 +43,7 @@
 	var/mob/living/simple_animal/hostile/facehugger/holdered_mob
 
 /obj/item/clothing/mask/facehugger/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "лицехват",
 		GENITIVE = "лицехвата",
 		DATIVE = "лицехвату",
@@ -386,7 +386,7 @@
 	holder_flags = ALIEN_HOLDER | HUMAN_HOLDER
 
 /obj/item/clothing/mask/facehugger/lamarr/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ламарр",
 		GENITIVE = "ламарр",
 		DATIVE = "ламарр",

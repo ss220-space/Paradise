@@ -113,7 +113,7 @@
 	required_things = list(
 		/mob/living/carbon/human = 2,
 	)
-	var/static/list/timers_list = list(
+	var/static/alist/timers_list = alist(
 		FIRST_DEVIL_ASCEND_STAGE = 10 SECONDS,
 		SECOND_DEVIL_ASCEND_STAGE = 25 SECONDS,
 		THIRD_DEVIL_ASCEND_STAGE = 20 SECONDS,

@@ -7,7 +7,7 @@
 	ricochets_max = 0
 
 /obj/projectile/bullet/reusable/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "многоразовая пуля",
 		GENITIVE = "многоразовой пули",
 		DATIVE = "многоразовой пуле",

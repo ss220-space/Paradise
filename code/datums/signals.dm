@@ -100,7 +100,7 @@
 				lookup[sig] -= src
 
 	_signal_procs[target] -= sig_type_or_types
-	if(!_signal_procs[target].len)
+	if(!length(_signal_procs[target]))
 		_signal_procs -= target
 
 /**

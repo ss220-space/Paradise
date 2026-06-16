@@ -5,43 +5,43 @@ GLOBAL_LIST_EMPTY(all_huds)
 ///associative list of the form: list(hud category = list(all global atom huds that use that category))
 GLOBAL_LIST_EMPTY(huds_by_category)
 
-///GLOBAL HUD LIST
-GLOBAL_LIST_INIT(huds, list( \
-	DATA_HUD_SECURITY_BASIC = new/datum/atom_hud/data/human/security/basic(), \
-	DATA_HUD_SECURITY_ADVANCED = new/datum/atom_hud/data/human/security/advanced(), \
-	DATA_HUD_MEDICAL_BASIC = new/datum/atom_hud/data/human/medical/basic(), \
-	DATA_HUD_MEDICAL_ADVANCED = new/datum/atom_hud/data/human/medical/advanced(), \
-	DATA_HUD_DIAGNOSTIC = new/datum/atom_hud/data/diagnostic(), \
-	DATA_HUD_DIAGNOSTIC_ADVANCED = new/datum/atom_hud/data/diagnostic/advanced(), \
-	DATA_HUD_HYDROPONIC = new/datum/atom_hud/data/hydroponic(), \
-	DATA_HUD_PRESSURE = new/datum/atom_hud/data/pressure(), \
-	ANTAG_HUD_CULT = new/datum/atom_hud/antag(), \
-	ANTAG_HUD_CLOCK = new/datum/atom_hud/antag(), \
-	ANTAG_HUD_REV = new/datum/atom_hud/antag(), \
-	ANTAG_HUD_OPS = new/datum/atom_hud/antag(), \
-	ANTAG_HUD_WIZ  = new/datum/atom_hud/antag(), \
-	ANTAG_HUD_SHADOW  = new/datum/atom_hud/antag(), \
-	ANTAG_HUD_TRAITOR = new/datum/atom_hud/antag/hidden(),\
-	ANTAG_HUD_NINJA = new/datum/atom_hud/antag/hidden(),\
-	ANTAG_HUD_CHANGELING = new/datum/atom_hud/antag/hidden(),\
-	ANTAG_HUD_VAMPIRE = new/datum/atom_hud/antag/hidden(),\
-	ANTAG_HUD_ABDUCTOR = new/datum/atom_hud/antag/hidden(),\
-	DATA_HUD_ABDUCTOR = new/datum/atom_hud/abductor(),\
-	ANTAG_HUD_DEVIL = new/datum/atom_hud/antag/hidden(),\
-	ANTAG_HUD_SINTOUCHED = new/datum/atom_hud/antag/hidden(),\
-	ANTAG_HUD_SOULLESS = new/datum/atom_hud/antag/hidden(),\
-	ANTAG_HUD_EVENTMISC = new/datum/atom_hud/antag/hidden(),\
-	ANTAG_HUD_BLOB = new/datum/atom_hud/antag(),\
-	TAIPAN_HUD = new/datum/atom_hud/antag(),\
-	ANTAG_HUD_THIEF = new/datum/atom_hud/antag/hidden(),\
-	ANTAG_HUD_PRISONER_TRAITOR = new/datum/atom_hud/antag(), \
-	ANTAG_HUD_TEAM_1 = new /datum/atom_hud/antag(),\
-	ANTAG_HUD_TEAM_2 = new /datum/atom_hud/antag(),\
-	ANTAG_HUD_TEAM_3 = new /datum/atom_hud/antag(),\
-	THOUGHTS_HUD = new/datum/atom_hud/thoughts(),\
-	DATA_HUD_KIDAN_PHEROMONES = new/datum/atom_hud/kidan_pheromones(),\
-	PACIFISM_HUD = new/datum/atom_hud/pacifism(),\
-	DIABLERIE_AURA_HUD = new /datum/atom_hud/diablerie_aura()
+///GLOBAL HUD ALIST
+GLOBAL_ALIST_INIT(huds, alist(
+	DATA_HUD_SECURITY_BASIC = new/datum/atom_hud/data/human/security/basic(),
+	DATA_HUD_SECURITY_ADVANCED = new/datum/atom_hud/data/human/security/advanced(),
+	DATA_HUD_MEDICAL_BASIC = new/datum/atom_hud/data/human/medical/basic(),
+	DATA_HUD_MEDICAL_ADVANCED = new/datum/atom_hud/data/human/medical/advanced(),
+	DATA_HUD_DIAGNOSTIC = new/datum/atom_hud/data/diagnostic(),
+	DATA_HUD_DIAGNOSTIC_ADVANCED = new/datum/atom_hud/data/diagnostic/advanced(),
+	DATA_HUD_HYDROPONIC = new/datum/atom_hud/data/hydroponic(),
+	DATA_HUD_PRESSURE = new/datum/atom_hud/data/pressure(),
+	ANTAG_HUD_CULT = new/datum/atom_hud/antag(),
+	ANTAG_HUD_CLOCK = new/datum/atom_hud/antag(),
+	ANTAG_HUD_REV = new/datum/atom_hud/antag(),
+	ANTAG_HUD_OPS = new/datum/atom_hud/antag(),
+	ANTAG_HUD_WIZ  = new/datum/atom_hud/antag(),
+	ANTAG_HUD_SHADOW  = new/datum/atom_hud/antag(),
+	ANTAG_HUD_TRAITOR = new/datum/atom_hud/antag/hidden(),
+	ANTAG_HUD_NINJA = new/datum/atom_hud/antag/hidden(),
+	ANTAG_HUD_CHANGELING = new/datum/atom_hud/antag/hidden(),
+	ANTAG_HUD_VAMPIRE = new/datum/atom_hud/antag/hidden(),
+	ANTAG_HUD_ABDUCTOR = new/datum/atom_hud/antag/hidden(),
+	DATA_HUD_ABDUCTOR = new/datum/atom_hud/abductor(),
+	ANTAG_HUD_DEVIL = new/datum/atom_hud/antag/hidden(),
+	ANTAG_HUD_SINTOUCHED = new/datum/atom_hud/antag/hidden(),
+	ANTAG_HUD_SOULLESS = new/datum/atom_hud/antag/hidden(),
+	ANTAG_HUD_EVENTMISC = new/datum/atom_hud/antag/hidden(),
+	ANTAG_HUD_BLOB = new/datum/atom_hud/antag(),
+	TAIPAN_HUD = new/datum/atom_hud/antag(),
+	ANTAG_HUD_THIEF = new/datum/atom_hud/antag/hidden(),
+	ANTAG_HUD_PRISONER_TRAITOR = new/datum/atom_hud/antag(),
+	ANTAG_HUD_TEAM_1 = new /datum/atom_hud/antag(),
+	ANTAG_HUD_TEAM_2 = new /datum/atom_hud/antag(),
+	ANTAG_HUD_TEAM_3 = new /datum/atom_hud/antag(),
+	THOUGHTS_HUD = new/datum/atom_hud/thoughts(),
+	DATA_HUD_KIDAN_PHEROMONES = new/datum/atom_hud/kidan_pheromones(),
+	PACIFISM_HUD = new/datum/atom_hud/pacifism(),
+	DIABLERIE_AURA_HUD = new /datum/atom_hud/diablerie_aura(),
 ))
 
 /datum/atom_hud

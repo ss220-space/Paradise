@@ -30,7 +30,7 @@
 	tts_seed = "Antimage"
 
 /mob/living/simple_animal/hostile/asteroid/basilisk/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "базилиск",
 		GENITIVE = "базилиска",
 		DATIVE = "базилиску",
@@ -75,7 +75,7 @@
 	butcher_results = list(/obj/item/stack/ore/diamond = 2, /obj/item/stack/sheet/sinew = 2, /obj/item/stack/sheet/bone = 1)
 
 /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "наблюдатель",
 		GENITIVE = "наблюдателя",
 		DATIVE = "наблюдателю",
@@ -106,7 +106,7 @@
 	crusher_drop_mod = 60
 
 /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "магмовый наблюдатель",
 		GENITIVE = "магмового наблюдателя",
 		DATIVE = "магмовому наблюдателю",
@@ -131,7 +131,7 @@
 	crusher_drop_mod = 60
 
 /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/icewing/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ледяной наблюдатель",
 		GENITIVE = "ледяного наблюдателя",
 		DATIVE = "ледяному наблюдателю",

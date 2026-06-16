@@ -273,7 +273,7 @@
 	custom_price = PAYCHECK_MIN * 0.4
 
 /obj/item/stack/medical/bruise_pack/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "рулон марли",
 		GENITIVE = "рулона марли",
 		DATIVE = "рулону марли",
@@ -344,7 +344,7 @@
 	merge_type = /obj/item/stack/medical/bruise_pack/improvised
 
 /obj/item/stack/medical/bruise_pack/improvised/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "импровизированный бинт",
 		GENITIVE = "импровизированного бинта",
 		DATIVE = "импровизированному бинту",
@@ -371,7 +371,7 @@
 	custom_premium_price = PAYCHECK_CREW
 
 /obj/item/stack/medical/bruise_pack/military/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "военный перевязочный пакет",
 		GENITIVE = "военного перевязочного пакета",
 		DATIVE = "военному перевязочному пакету",
@@ -427,7 +427,7 @@
 	custom_price = PAYCHECK_MIN * 1.5
 
 /obj/item/stack/medical/bruise_pack/advanced/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "набор для лечения травм",
 		GENITIVE = "набора для лечения травм",
 		DATIVE = "набору для лечения травм",
@@ -466,7 +466,7 @@
 	custom_premium_price = PAYCHECK_LOWER
 
 /obj/item/stack/medical/bruise_pack/extended/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "продвинутый набор для лечения травм",
 		GENITIVE = "продвинутого набора для лечения травм",
 		DATIVE = "продвинутому набору для лечения травм",
@@ -499,7 +499,7 @@
 	custom_price = PAYCHECK_MIN * 0.4
 
 /obj/item/stack/medical/ointment/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мазь от ожогов",
 		GENITIVE = "мази от ожогов",
 		DATIVE = "мази от ожогов",
@@ -559,7 +559,7 @@
 	custom_price = PAYCHECK_MIN * 1.5
 
 /obj/item/stack/medical/ointment/advanced/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "набор для лечения ожогов",
 		GENITIVE = "набора для лечения ожогов",
 		DATIVE = "набору для лечения ожогов",
@@ -593,7 +593,7 @@
 	custom_premium_price = PAYCHECK_LOWER
 
 /obj/item/stack/medical/ointment/extended/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "продвинутый набор для лечения ожогов",
 		GENITIVE = "продвинутого набора для лечения ожогов",
 		DATIVE = "продвинутому набору для лечения ожогов",
@@ -627,7 +627,7 @@
 	custom_price = PAYCHECK_LOWER
 
 /obj/item/stack/medical/bruise_pack/synthflesh_kit/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "набор для лечения из синтплоти",
 		GENITIVE = "набора для лечения из синтплоти",
 		DATIVE = "набору для лечения из синтплоти",
@@ -663,7 +663,7 @@
 	var/max_heal = 30
 
 /obj/item/stack/medical/bruise_pack/comfrey/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "лист окопника",
 		GENITIVE = "листа окопника",
 		DATIVE = "листу окопника",
@@ -693,7 +693,7 @@
 	var/max_heal = 30
 
 /obj/item/stack/medical/ointment/aloe/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "лист алоэ-вера",
 		GENITIVE = "листа алоэ-вера",
 		DATIVE = "листу алоэ-вера",
@@ -733,7 +733,7 @@
 	custom_price = PAYCHECK_MIN
 
 /obj/item/stack/medical/splint/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "медицинская шина",
 		GENITIVE = "медицинской шины",
 		DATIVE = "медицинской шине",
@@ -800,7 +800,7 @@
 	merge_type = /obj/item/stack/medical/splint/tribal
 
 /obj/item/stack/medical/splint/tribal/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "костяная шина",
 		GENITIVE = "костяной шины",
 		DATIVE = "костяной шине",
@@ -821,7 +821,7 @@
 
 
 /obj/item/stack/medical/splint/makeshift/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "импровизированная шина",
 		GENITIVE = "импровизированной шины",
 		DATIVE = "импровизированной шине",
@@ -851,7 +851,7 @@
 	custom_price = PAYCHECK_MIN
 
 /obj/item/stack/medical/suture/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "набор для зашивания ран",
 		GENITIVE = "набора для зашивания ран",
 		DATIVE = "набору для зашивания ран",
@@ -933,7 +933,7 @@
 	custom_premium_price = PAYCHECK_LOWER
 
 /obj/item/stack/medical/suture/advanced/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "хирургический набор для зашивания ран",
 		GENITIVE = "хирургического набора для зашивания ран",
 		DATIVE = "хирургическому набору для зашивания ран",
@@ -993,7 +993,7 @@
 	necrotize_timer_id = null
 
 /obj/item/tourniquet/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "турникет",
 		GENITIVE = "турникета",
 		DATIVE = "турникету",
@@ -1177,7 +1177,7 @@
 		QDEL_NULL(src)
 
 /obj/item/tourniquet/makeshift/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "самодельный турникет",
 		GENITIVE = "самодельного турникета",
 		DATIVE = "самодельному турникету",
@@ -1199,7 +1199,7 @@
 	custom_price = PAYCHECK_MIN * 2
 
 /obj/item/tourniquet/advanced/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "продвинутый турникет",
 		GENITIVE = "продвинутого турникета",
 		DATIVE = "продвинутому турникету",

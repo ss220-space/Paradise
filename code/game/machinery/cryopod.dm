@@ -255,7 +255,7 @@
 	)
 
 /obj/machinery/cryopod/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "криогенный морозильник",
 		GENITIVE = "криогенного морозильника",
 		DATIVE = "криогенному морозильнику",

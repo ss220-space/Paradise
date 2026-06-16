@@ -682,9 +682,9 @@ SUBSYSTEM_DEF(ticker)
 	add_game_logs("///////////////////////////////////////////////////////")
 
 	// Add AntagHUD to everyone, see who was really evil the whole time!
-	for(var/datum/atom_hud/antag/antag_hud in GLOB.huds)
+	for(var/hud_key, hud_type in GLOB.huds)
 		for(var/mob/player as anything in GLOB.player_list)
-			antag_hud.show_to(player)
+			astype(hud_type, /datum/atom_hud/antag)?.show_to(player)
 
 	// Seal the blackbox, stop collecting info
 	SSblackbox.Seal()

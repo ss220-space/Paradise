@@ -68,7 +68,7 @@
 	)
 
 /obj/machinery/vending/ntc/medal/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат NT Cargo Encouragement",
 		GENITIVE = "торгового автомата NT Cargo Encouragement",
 		DATIVE = "торговому автомату NT Cargo Encouragement",
@@ -97,7 +97,7 @@
 	)
 
 /obj/machinery/vending/ntc/medical/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат NT Cargo Medical Gear",
 		GENITIVE = "торгового автомата NT Cargo Medical Gear",
 		DATIVE = "торговому автомату NT Cargo Medical Gear",
@@ -124,7 +124,7 @@
 	)
 
 /obj/machinery/vending/ntc/engineering/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат NT Cargo Engineering Gear",
 		GENITIVE = "торгового автомата NT Cargo Engineering Gear",
 		DATIVE = "торговому автомату NT Cargo Engineering Gear",
@@ -156,7 +156,7 @@
 	)
 
 /obj/machinery/vending/ntc/janitor/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат NT Cargo Janitor Gear",
 		GENITIVE = "торгового автомата NT Cargo Janitor Gear",
 		DATIVE = "торговому автомату NT Cargo Janitor Gear",
@@ -190,7 +190,7 @@
 	)
 
 /obj/machinery/vending/ntcrates/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат NT Cargo Preset Gear",
 		GENITIVE = "торгового автомата NT Cargo Preset Gear",
 		DATIVE = "торговому автомату NT Cargo Preset Gear",
@@ -219,7 +219,7 @@
 	)
 
 /obj/machinery/vending/ntc/ert/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат NT Response Team Base Gear",
 		GENITIVE = "торгового автомата NT Response Team Base Gear",
 		DATIVE = "торговому автомату NT Response Team Base Gear",
@@ -260,7 +260,7 @@
 	)
 
 /obj/machinery/vending/ntc_resources/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат NT Matter Сompression Vendor",
 		GENITIVE = "торгового автомата NT Matter Сompression Vendor",
 		DATIVE = "торговому автомату NT Matter Сompression Vendor",
@@ -290,7 +290,7 @@
 	)
 
 /obj/machinery/vending/mech/ntc/exousuit/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат NT Exosuit Bluespace Transporter",
 		GENITIVE = "торгового автомата NT Exosuit Bluespace Transporter",
 		DATIVE = "торговому автомату NT Exosuit Bluespace Transporter",
@@ -318,7 +318,7 @@
 	)
 
 /obj/machinery/vending/mech/ntc/equipment/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат NT Exosuit Bluespace Transporter",
 		GENITIVE = "торгового автомата NT Exosuit Bluespace Transporter",
 		DATIVE = "торговому автомату NT Exosuit Bluespace Transporter",
@@ -352,7 +352,7 @@
 	)
 
 /obj/machinery/vending/mech/ntc/weapon/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат NT Exosuit Bluespace Transporter",
 		GENITIVE = "торгового автомата NT Exosuit Bluespace Transporter",
 		DATIVE = "торговому автомату NT Exosuit Bluespace Transporter",
@@ -384,7 +384,7 @@
 	)
 
 /obj/machinery/vending/mech/ntc/tools/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат NT Exosuit Bluespace Transporter",
 		GENITIVE = "торгового автомата NT Exosuit Bluespace Transporter",
 		DATIVE = "торговому автомату NT Exosuit Bluespace Transporter",

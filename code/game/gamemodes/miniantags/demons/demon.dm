@@ -30,7 +30,7 @@
 	var/datum/action/innate/demon/whisper/whisper_action
 
 /mob/living/simple_animal/demon/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "обычный демон",
 		GENITIVE = "обычного демона",
 		DATIVE = "обычному демону",
@@ -100,7 +100,7 @@
 	origin_tech = "combat=5;biotech=7"
 
 /obj/item/organ/internal/heart/demon/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "демоническое сердце",
 		GENITIVE = "демонического сердца",
 		DATIVE = "демоническому сердцу",

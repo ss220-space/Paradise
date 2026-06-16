@@ -26,7 +26,7 @@
 	var/regeneration = FALSE
 
 /obj/item/organ/internal/liver/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "печень человека",
 		GENITIVE = "печени человека",
 		DATIVE = "печени человека",
@@ -183,7 +183,7 @@
 	drop_sound = 'sound/items/handling/drop/component_drop.ogg'
 
 /obj/item/organ/internal/liver/cybernetic/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кибернетическая печень",
 		GENITIVE = "кибернетической печени",
 		DATIVE = "кибернетической печени",
@@ -204,7 +204,7 @@
 	regeneration = TRUE
 
 /obj/item/organ/internal/liver/cybernetic/upgraded/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "улучшенная кибернетическая печень",
 		GENITIVE = "улучшенной кибернетической печени",
 		DATIVE = "улучшенной кибернетической печени",

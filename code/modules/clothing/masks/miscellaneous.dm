@@ -247,7 +247,7 @@
 	)
 
 /obj/item/clothing/mask/surgical/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "стерильная маска",
 		GENITIVE = "стерильной маски",
 		DATIVE = "стерильной маске",
@@ -498,7 +498,7 @@
 	)
 
 /obj/item/clothing/mask/gas/clown_hat/sweettooth/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Маска Сладкоежки",
 		GENITIVE = "Маски Сладкоежки",
 		DATIVE = "Маске Сладкоежки",
@@ -750,7 +750,7 @@
 	)
 
 /obj/item/clothing/head/paper_bag/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бумажный пакет",
 		GENITIVE = "бумажного пакета",
 		DATIVE = "бумажному пакету",
@@ -791,7 +791,7 @@
 	COOLDOWN_DECLARE(use_cd)
 
 /obj/item/clothing/mask/whistle/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "свисток",
 		GENITIVE = "свистка",
 		DATIVE = "свистку",

@@ -198,8 +198,8 @@
 
 	// Add itself to the kidan hud
 	prepare_huds()
-	for(var/datum/atom_hud/kidan_pheromones/kidan_hud in GLOB.huds)
-		kidan_hud.add_atom_to_hud(src)
+	var/datum/atom_hud/kidan_pheromones/kidan_hud = GLOB.huds[DATA_HUD_KIDAN_PHEROMONES]
+	kidan_hud.add_atom_to_hud(src)
 	var/image/holder = hud_list[KIDAN_PHEROMONES_HUD]
 	holder.icon = icon
 	holder.icon_state = icon_state

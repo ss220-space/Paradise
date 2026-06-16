@@ -4901,9 +4901,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/gun/syringe/syndicate,
-/obj/machinery/defibrillator_mount/loaded{
-	pixel_x = -30
-	},
+/obj/machinery/defibrillator_mount/loaded/directional/west,
 /turf/simulated/floor/plasteel/white/side{
 	dir = 9
 	},

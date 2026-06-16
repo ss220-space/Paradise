@@ -73,7 +73,7 @@ GLOBAL_LIST_INIT(shore_fish, subtypesof(/obj/item/lavaland_fish/shoreline))
 	var/list/butcher_loot = list()
 
 /obj/item/lavaland_fish/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "рыба",
 		GENITIVE = "рыбы",
 		DATIVE = "рыбе",
@@ -171,7 +171,7 @@ GLOBAL_LIST_INIT(shore_fish, subtypesof(/obj/item/lavaland_fish/shoreline))
 	)
 
 /obj/item/lavaland_fish/shoreline/ash_crab/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пепельный рак",
 		GENITIVE = "пепельного рака",
 		DATIVE = "пепельному раку",
@@ -193,7 +193,7 @@ GLOBAL_LIST_INIT(shore_fish, subtypesof(/obj/item/lavaland_fish/shoreline))
 	)
 
 /obj/item/lavaland_fish/shoreline/dead_horseman/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мёртвый всадник",
 		GENITIVE = "мёртвого всадника",
 		DATIVE = "мёртвому всаднику",
@@ -215,7 +215,7 @@ GLOBAL_LIST_INIT(shore_fish, subtypesof(/obj/item/lavaland_fish/shoreline))
 	)
 
 /obj/item/lavaland_fish/shoreline/shellfish/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "лавовый панцирник", //there is actual fish - панцирник, so our little different
 		GENITIVE = "лавового панцирника",
 		DATIVE = "лавовому панцирнику",
@@ -237,7 +237,7 @@ GLOBAL_LIST_INIT(shore_fish, subtypesof(/obj/item/lavaland_fish/shoreline))
 	)
 
 /obj/item/lavaland_fish/deep_water/bottom_eel/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "донный угорь",
 		GENITIVE = "донного угря",
 		DATIVE = "донному угрю",
@@ -261,7 +261,7 @@ GLOBAL_LIST_INIT(shore_fish, subtypesof(/obj/item/lavaland_fish/shoreline))
 	)
 
 /obj/item/lavaland_fish/deep_water/red_devourer/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "красный пожиратель",
 		GENITIVE = "красного пожирателя",
 		DATIVE = "красному пожирателю",
@@ -283,7 +283,7 @@ GLOBAL_LIST_INIT(shore_fish, subtypesof(/obj/item/lavaland_fish/shoreline))
 	)
 
 /obj/item/lavaland_fish/deep_water/magma_hammerhead/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "магмовая акула-молот",
 		GENITIVE = "магмовой акулы-молота",
 		DATIVE = "магмовой акуле-молоту",
@@ -307,7 +307,7 @@ GLOBAL_LIST_INIT(shore_fish, subtypesof(/obj/item/lavaland_fish/shoreline))
 	)
 
 /obj/item/lavaland_fish/deep_water/blind_reaper/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ослеплённый жнец",
 		GENITIVE = "ослеплённого жнеца",
 		DATIVE = "ослеплённому жнецу",
@@ -331,7 +331,7 @@ GLOBAL_LIST_INIT(shore_fish, subtypesof(/obj/item/lavaland_fish/shoreline))
 	)
 
 /obj/item/lavaland_fish/deep_water/herald_of_carnage/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "вестник резни",
 		GENITIVE = "вестника резни",
 		DATIVE = "вестнику резни",
@@ -353,7 +353,7 @@ GLOBAL_LIST_INIT(shore_fish, subtypesof(/obj/item/lavaland_fish/shoreline))
 	)
 
 /obj/item/lavaland_fish/deep_water/sulfuric_tramp/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сернистый странник",
 		GENITIVE = "сернистого странника",
 		DATIVE = "сернистому страннику",

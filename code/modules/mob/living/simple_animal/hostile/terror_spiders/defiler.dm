@@ -34,7 +34,7 @@
 	datum_type = /datum/antagonist/terror_spider/main_spider/defiler
 
 /mob/living/simple_animal/hostile/poison/terror_spider/defiler/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Осквернитель Ужаса",
 		GENITIVE = "Осквернителя Ужаса",
 		DATIVE = "Осквернителю Ужаса",
@@ -89,7 +89,7 @@
 	desc = "Эта паутина покрыта сотнями крошечных кусающих пауков и их яицами."
 
 /obj/structure/spider/terrorweb/white/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "зараженная паутина",
 		GENITIVE = "зараженной паутины",
 		DATIVE = "зараженной паутине",

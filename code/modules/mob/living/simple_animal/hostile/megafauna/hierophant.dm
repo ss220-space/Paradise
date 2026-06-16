@@ -89,7 +89,7 @@ Difficulty: Hard
 	var/colour_shifting = FALSE
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Иерофант",
 		GENITIVE = "Иерофанта",
 		DATIVE = "Иерофанту",
@@ -570,7 +570,7 @@ Difficulty: Hard
 	var/mob/living/caster //who made this, anyway
 
 /obj/effect/temp_visual/hierophant/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "энергия вортекса",
 		GENITIVE = "энергии вортекса",
 		DATIVE = "энергии вортекса",
@@ -612,7 +612,7 @@ Difficulty: Hard
 	duration = 100
 
 /obj/effect/temp_visual/hierophant/wall/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "стена вортекса",
 		GENITIVE = "стены вортекса",
 		DATIVE = "стене вортекса",
@@ -749,7 +749,7 @@ Difficulty: Hard
 	var/bursting = FALSE //if we're bursting and need to hit anyone crossing us
 
 /obj/effect/temp_visual/hierophant/blast/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "вихревой взрыв",
 		GENITIVE = "вихревого взрыва",
 		DATIVE = "вихревому взрыву",
@@ -838,7 +838,7 @@ Difficulty: Hard
 	var/teleporting = FALSE
 
 /obj/effect/hierophant/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "маяк иерофанта",
 		GENITIVE = "маяка иерофанта",
 		DATIVE = "маяку иерофанта",

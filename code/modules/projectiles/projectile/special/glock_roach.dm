@@ -2,7 +2,7 @@
 	damage = 8
 
 /obj/projectile/glockroachbullet/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пуля",
 		GENITIVE = "пули",
 		DATIVE = "пуле",

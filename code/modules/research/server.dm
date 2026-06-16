@@ -27,7 +27,7 @@
 	var/list/design_blacklist = list()
 
 /obj/machinery/r_n_d/server/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сервер НИО",
 		GENITIVE = "сервера НИО",
 		DATIVE = "серверу НИО",
@@ -253,7 +253,7 @@
 	plays_sound = 1
 
 /obj/machinery/r_n_d/server/core/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "центральный сервер НИО",
 		GENITIVE = "центрального сервера НИО",
 		DATIVE = "центральному серверу НИО",
@@ -269,7 +269,7 @@
 	server_id = 2
 
 /obj/machinery/r_n_d/server/robotics/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сервер робототехники и механики НИО",
 		GENITIVE = "сервера робототехники и механики НИО",
 		DATIVE = "серверу робототехники и механики НИО",
@@ -283,7 +283,7 @@
 	server_id = -1
 
 /obj/machinery/r_n_d/server/centcom/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сервер НИО ЦК",
 		GENITIVE = "сервера НИО ЦК",
 		DATIVE = "серверу НИО ЦК",
@@ -338,7 +338,7 @@
 	var/syndicate = 0 //добавленный для синдибазы флаг
 
 /obj/machinery/computer/rdservercontrol/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "консоль управления серверами НИО",
 		GENITIVE = "консоли управления серверами НИО",
 		DATIVE = "консоли управления серверами НИО",

@@ -1,7 +1,7 @@
 /obj/item/destabilizing_crystal
 	name = "destabilizing crystal"
-	desc = "A crystal that can be used to destabilize the supermatter to cause a resonance cascade. Carefully apply this on \
-		a fully stable supermatter crystal and start the delamination. Prevent anyone from stopping you."
+	desc = "Кристалл, способный дестабилизировать суперматерию и вызвать резонансный каскад. Осторожно примените его на \
+		полностью стабильном кристалле суперматерии и запустите расслоение. Не позволяйте никому остановить вас."
 	icon = 'icons/obj/engines_and_power/supermatter.dmi'
 	icon_state = "destabilizing_crystal"
 	flags = CONDUCT
@@ -9,3 +9,13 @@
 	throwforce = 5
 	throw_speed = 1
 	throw_range = 2
+
+/obj/item/destabilizing_crystal/get_ru_names()
+	return alist(
+		NOMINATIVE = "дестабилизирующий кристалл",
+		GENITIVE = "дестабилизирующего кристалла",
+		DATIVE = "дестабилизирующему кристаллу",
+		ACCUSATIVE = "дестабилизирующий кристалл",
+		INSTRUMENTAL = "дестабилизирующим кристаллом",
+		PREPOSITIONAL = "дестабилизирующем кристалле",
+	)

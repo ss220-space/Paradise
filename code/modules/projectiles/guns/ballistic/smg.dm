@@ -96,7 +96,7 @@
 	fire_delay = 0.25 SECONDS
 
 /obj/item/gun/projectile/automatic/smg/c20r/auto/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пистолет-пулемёт C-20rm",
 		GENITIVE = "пистолет-пулемёта C-20rm",
 		DATIVE = "пистолет-пулемёту C-20rm",
@@ -111,7 +111,7 @@
 	damage_mod = 0.85
 
 /obj/item/gun/projectile/automatic/smg/c20r/rusted/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пистолет-пулемёт C-20r (ржавый)",
 		GENITIVE = "пистолет-пулемёта C-20r (ржавый)",
 		DATIVE = "пистолет-пулемёту C-20r (ржавый)",
@@ -197,7 +197,7 @@
 	mag_ammo_counter_exists = TRUE
 
 /obj/item/gun/projectile/automatic/smg/sparkle_a12/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "А9 \"Искра\"",
 		GENITIVE = "А9 \"Искра\"",
 		DATIVE = "А9 \"Искра\"",
@@ -313,7 +313,7 @@
 	mag_ammo_counter_size = 5
 
 /obj/item/gun/projectile/automatic/smg/kedr/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пистолет-пулемет K-45",
 		GENITIVE = "пистолета-пулемета K-45",
 		DATIVE = "пистолету-пулемету K-45",

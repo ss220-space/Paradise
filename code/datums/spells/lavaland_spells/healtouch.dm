@@ -24,7 +24,7 @@
 	var/heal_self = FALSE
 
 /obj/item/melee/touch_attack/healtouch/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "целебное касание",
 		GENITIVE = "целебного касания",
 		DATIVE = "целебному касанию",
