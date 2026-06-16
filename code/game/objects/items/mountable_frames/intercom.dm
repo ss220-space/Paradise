@@ -1,9 +1,20 @@
 /obj/item/mounted/frame/intercom
 	name = "Intercom Frame"
-	desc = "Used for building intercoms"
+	desc = "Нужен для установки интеркома."
 	icon = 'icons/obj/machines/monitors.dmi'
 	icon_state = "intercom-frame"
 	mount_requirements = MOUNTED_FRAME_SIMFLOOR | MOUNTED_FRAME_NOSPACE
+
+/obj/item/mounted/frame/intercom/get_ru_names()
+	return alist(
+		NOMINATIVE = "корпус интеркома",
+		GENITIVE = "корпуса интеркома",
+		DATIVE = "корпусу интеркома",
+		ACCUSATIVE = "корпус интеркома",
+		INSTRUMENTAL = "корпусом интеркома",
+		PREPOSITIONAL = "корпусе интеркома",
+	)
+
 
 /obj/item/mounted/frame/intercom/try_build(turf/on_wall, mob/user)
 	if(!..())
@@ -11,7 +22,7 @@
 
 	var/turf/build_turf = get_turf(user)
 	for(var/obj/item/radio/intercom/I in build_turf)
-		to_chat(user, span_warning("There is already an intercom here!"))
+		user.balloon_alert(user, "место уже занято!")
 		return FALSE
 
 	return TRUE
