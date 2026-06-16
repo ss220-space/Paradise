@@ -7,7 +7,7 @@
 	name = "граната \"Ржавый Дождь\""
 	desc = "Отличная штука, превращающаяся в облоко ржавчины после взрыва. Борги и мехи будут полностью уничтожены."
 	//possible_fuse_time = list("5")
-	stage = 2
+	stage = GRENADE_READY
 	base_icon_state = "rustgrenade"
 	item_state = "rustgrenade"
 	prime_sound = 'sound/weapons/rust_sower_armbomb.ogg'
@@ -104,9 +104,8 @@
 
 	var/mob/living/carbon/human/victim = exposed_mob
 	if(HASBIT(methods, REAGENT_TOUCH))
-		//check for protection
-		//actually handle the pepperspray effects
-		if(!HASBIT(victim?.head?.flags_cover, MASKCOVERSEYES) && !HASBIT(victim?.wear_mask?.flags_cover, MASKCOVERSEYES)) // you need both eye and mouth protection
+		//check for protection, then handle the pepperspray-like effects
+		if(!victim.is_pepper_proof()) // you need both eye and mouth protection
 			if(prob(5))
 				victim.emote("scream")
 
@@ -115,8 +114,8 @@
 			victim.EyeBlind(6 SECONDS)
 			victim.Confused(5 SECONDS)
 			victim.Knockdown(3 SECONDS)
-			//victim.add_movespeed_modifier(/datum/movespeed_modifier/reagent/pepperspray)
-			//addtimer(CALLBACK(victim, TYPE_PROC_REF(/mob, remove_movespeed_modifier), /datum/movespeed_modifier/reagent/pepperspray), 10 SECONDS)
+			victim.add_movespeed_modifier(/datum/movespeed_modifier/reagent/pepperspray)
+			addtimer(CALLBACK(victim, TYPE_PROC_REF(/mob, remove_movespeed_modifier), /datum/movespeed_modifier/reagent/pepperspray), 10 SECONDS)
 
 		victim.update_damage_hud()
 		victim.Disgust(5)
@@ -159,3 +158,10 @@
 		return
 
 	affected_mob.visible_message(span_warning("[affected_mob.declent_ru(NOMINATIVE)] [pick("щурится!","кашляет!", "брызгает слюной!")]"))
+
+
+/// Returns TRUE only if both the eyes and the mouth are covered (TG's pepper-proof requirement).
+/mob/living/carbon/human/proc/is_pepper_proof()
+	var/eyes_covered = (glasses?.flags_cover & GLASSESCOVERSEYES) || (wear_mask?.flags_cover & MASKCOVERSEYES) || (head?.flags_cover & HEADCOVERSEYES)
+	var/mouth_covered = (wear_mask?.flags_cover & MASKCOVERSMOUTH) || (head?.flags_cover & HEADCOVERSMOUTH)
+	return eyes_covered && mouth_covered

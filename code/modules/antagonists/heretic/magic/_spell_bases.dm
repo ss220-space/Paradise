@@ -28,8 +28,11 @@
 	return TRUE
 
 /// Relays a status-update request to the backing action button, if any.
-/obj/effect/proc_holder/spell/proc/update_status_on_signal()
-	return
+/// Registered against movement / status signals so the button re-evaluates can_cast()
+/// (e.g. lighting up green the moment the caster steps into space).
+/obj/effect/proc_holder/spell/proc/update_status_on_signal(datum/source, ...)
+	SIGNAL_HANDLER
+	action?.build_all_button_icons(UPDATE_BUTTON_STATUS)
 
 /**
  * ## Pointed spells

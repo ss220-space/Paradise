@@ -41,19 +41,32 @@
 
 
 /obj/effect/proc_holder/spell/jaunt/space_crawl/can_cast(mob/user = usr, charge_check = TRUE, show_message = FALSE)
+	// We may lose our focus during the jaunt, so we must always be able to exit on a valid turf.
+	// Returning early here (before the parent cooldown/charge check) keeps the action button lit
+	// green while jaunting, signalling that the caster can resurface.
+	if(is_jaunting(user) && is_valid_turf(user))
+		return TRUE
+
 	. = ..()
 	if(!.)
 		return FALSE
 
+	if(is_valid_turf(user))
+		return TRUE
+
+	if(show_message)
+		to_chat(user, span_warning("Вы должны находиться в космосе или на открытом воздухе с низким давлением!"))
+	return FALSE
+
+
+/// Returns TRUE if the user is standing somewhere they can enter or exit the space phase.
+/obj/effect/proc_holder/spell/jaunt/space_crawl/proc/is_valid_turf(mob/user = usr)
 	var/turf/my_turf = get_turf(user)
 	if(isspaceturf(my_turf))
 		return TRUE
 
 	var/area/my_area = get_area(user)
-	if(is_space_or_openspace(my_turf) || my_area.outdoors && lavaland_equipment_pressure_check(my_turf))
-		return TRUE
-
-	return FALSE
+	return is_space_or_openspace(my_turf) || (my_area.outdoors && lavaland_equipment_pressure_check(my_turf))
 
 
 /obj/effect/proc_holder/spell/jaunt/space_crawl/cast(list/targets, mob/user = usr)
@@ -118,6 +131,8 @@
 	jaunter.ExtinguishMob()
 
 	REMOVE_TRAIT(jaunter, TRAIT_NO_TRANSFORM, UID())
+	// Light the button up immediately so it's clear the caster can resurface.
+	action?.build_all_button_icons(UPDATE_BUTTON_STATUS)
 	return TRUE
 
 /**
@@ -148,6 +163,7 @@
 		unjaunter.drop_item_ground(space_hand, force = TRUE)
 		qdel(space_hand)
 
+	action?.build_all_button_icons(UPDATE_BUTTON_STATUS)
 	return ..()
 
 
@@ -170,9 +186,10 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
 
-/// Different graphic for position indicator
+/// Different graphic for position indicator - a ball of lightning, so the jaunter can easily spot themselves.
 /obj/effect/dummy/spell_jaunt/space
-	icon_state = "solarflare"
+	icon = 'icons/effects/eldritch.dmi'
+	icon_state = "ball_lightning"
 	movespeed = 0
 
 #undef SPACE_PHASING

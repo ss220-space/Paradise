@@ -30,6 +30,7 @@
 		/obj/item/stack/sheet/glass, // Glass is often used by moon heretics
 	)
 	var/heretic_shield_icon = "unfathomable_shield"
+	var/heretic_shield_icon_file = 'icons/effects/eldritch.dmi'
 	var/max_charges = 5
 	var/recharge_start_delay = 30 SECONDS
 	var/charge_increment_delay = 30 SECONDS
@@ -51,7 +52,7 @@
 	. = ..()
 
 	AddComponent(/datum/component/shielded, max_charges = max_charges, recharge_start_delay = recharge_start_delay, charge_increment_delay = charge_increment_delay, \
-	charge_recovery = charge_recovery, shield_icon = heretic_shield_icon, run_hit_callback = CALLBACK(src, PROC_REF(shield_damaged)))
+	charge_recovery = charge_recovery, shield_icon_file = heretic_shield_icon_file, shield_icon = heretic_shield_icon, run_hit_callback = CALLBACK(src, PROC_REF(shield_damaged)))
 
 
 /obj/item/storage/belt/unfathomable_curio/equipped(mob/user, slot, initial)
@@ -59,7 +60,10 @@
 	if(!(slot & slot_flags))
 		return
 
-	//RegisterSignal(user, COMSIG_ITEM_HIT_REACT, PROC_REF(shield_reaction))
+	// Paradise's check_shields() never polls the belt slot, so the shielded component's
+	// hit_reaction is never triggered while we're worn. We bridge the gap by reacting to
+	// the human-wide shield check signal ourselves.
+	RegisterSignal(user, COMSIG_HUMAN_CHECK_SHIELDS, PROC_REF(shield_reaction))
 
 	if(isheretic(user))
 		return
@@ -67,21 +71,24 @@
 	to_chat(user, span_warning("Диковинка обволакивает вас, и вы чувствуете биение чего-то темного внутри неё..."))
 
 
-/*
 /obj/item/storage/belt/unfathomable_curio/dropped(mob/user)
 	. = ..()
-	UnregisterSignal(user, COMSIG_ITEM_HIT_REACT)
-*/
-/*
-// Here we make sure our curio is only able to block while worn on the belt slot
-/obj/item/storage/belt/unfathomable_curio/proc/shield_reaction(datum/source, mob/living/carbon/human/owner, atom/movable/hitby, damage, attack_type)
+	UnregisterSignal(user, COMSIG_HUMAN_CHECK_SHIELDS)
+
+
+// Here we make sure our curio is only able to block while worn on the belt slot.
+/obj/item/storage/belt/unfathomable_curio/proc/shield_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "атаку", block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	SIGNAL_HANDLER
 
-	if(hit_reaction(owner, hitby, "атакует", 0, damage, attack_type) && (owner.belt == src))
-		return COMPONENT_BLOCK_SUCCESSFUL
+	if(owner.belt != src)
+		return NONE
+
+	// hit_reaction() routes through COMSIG_ITEM_HIT_REACT, which the /datum/component/shielded
+	// listens for: it spends a charge, runs shield_damaged() and returns a successful block.
+	if(hit_reaction(owner, hitby, attack_text, 0, damage, attack_type))
+		return SHIELD_BLOCK
 
 	return NONE
-*/
 
 // Our on hit effect
 /obj/item/storage/belt/unfathomable_curio/proc/shield_damaged(mob/living/carbon/human/wearer, attack_text, new_current_charges)
