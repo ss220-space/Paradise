@@ -25,8 +25,8 @@ GLOBAL_LIST_EMPTY(uid_log)
  * Returns: the UID of the datum
  */
 /datum/proc/UID()
-	if(gc_destroyed)
-		return null
+	if(QDELING(src))
+		return
 
 	if(!unique_datum_id)
 		unique_datum_id = RUSTLIB_CALL(get_uuid, src)
@@ -42,7 +42,7 @@ GLOBAL_LIST_EMPTY(uid_log)
  */
 /proc/UID_of(input)
 	var/datum/value = input
-	if(!istype(value) || value.gc_destroyed)
+	if(!istype(value) || QDELING(value))
 		return text_ref(input)
 
 	var/datum/datum = input
