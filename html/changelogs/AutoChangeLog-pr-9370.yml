@@ -1,0 +1,4 @@
+author: "littleboobs"
+delete-after: True
+changes:
+  - sound: "Добавлен уникальный звук эмоции запила для скелетонов. (PR #9370)"

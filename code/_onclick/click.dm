@@ -140,12 +140,10 @@
 	if(W == A)
 		if(LAZYACCESS(modifiers, RIGHT_CLICK))
 			W.attack_self_secondary(src, modifiers)
-			update_held_items()
-			return
 		else
 			W.attack_self(src, modifiers)
-			update_held_items()
-			return
+		update_held_items()
+		return
 
 	// operate three levels deep here (item in backpack in src; item in box in backpack in src, not any deeper)
 	if(A in DirectAccess())

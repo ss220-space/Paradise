@@ -1,0 +1,4 @@
+author: "makaroshka003"
+delete-after: True
+changes:
+  - bugfix: "исправлен оверлэй красного экрана от урона при повышении ранга у боррера. (PR #9319)"
