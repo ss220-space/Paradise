@@ -961,7 +961,7 @@
 	/// Limb necrotize warning timer identifier
 	var/necrotize_warning_timer_id = null
 	/// Duration of limb necrotize if apply tourniquet
-	var/necrotize_duration = 3 MINUTES
+	var/necrotize_duration = 10 MINUTES
 	/// Limb necrotize timer identifier if apply tourniquet
 	var/necrotize_timer_id = null
 
@@ -1021,7 +1021,7 @@
 
 	user.drop_item_ground(src)
 	src.forceMove(affecting)
-	target.balloon_alert(user, "турникет наложен")
+	target.balloon_alert(target, "турникет наложен")
 	target.UpdateDamageIcon()
 	update_icon()
 	necrotize_warning_timer_id = addtimer(CALLBACK(src, PROC_REF(necrotize_limbs_warning), target), necrotize_warning_duration, TIMER_STOPPABLE)
@@ -1087,6 +1087,7 @@
 	if(!applied_bodypart)
 		return
 
+	user.balloon_alert(user, "[applied_bodypart.declent_ru(NOMINATIVE)] неме[PLUR_ET_YUT(applied_bodypart)]!")
 	to_chat(user, span_danger("Ваш[GEND_A_E_I(user)] [applied_bodypart.declent_ru(NOMINATIVE)] неме[PLUR_ET_YUT(applied_bodypart)]!"))
 
 /obj/item/tourniquet/proc/necrotize_limbs(mob/living/target)
