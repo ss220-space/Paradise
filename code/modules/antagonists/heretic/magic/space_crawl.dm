@@ -187,9 +187,11 @@
 	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
 
 /// Different graphic for position indicator - a ball of lightning, so the jaunter can easily spot themselves.
+/// The holder itself is invisible (invisibility = 60); the position indicator is a client image built from
+/// phased_mob_icon[_state] in /obj/effect/dummy/spell_jaunt/Entered, so those are the vars that matter here.
 /obj/effect/dummy/spell_jaunt/space
-	icon = 'icons/effects/eldritch.dmi'
-	icon_state = "ball_lightning"
+	phased_mob_icon = 'icons/obj/weapons/guns/projectiles.dmi'
+	phased_mob_icon_state = "solarflare"
 	movespeed = 0
 
 #undef SPACE_PHASING

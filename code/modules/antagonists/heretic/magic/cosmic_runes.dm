@@ -128,17 +128,24 @@
 /obj/effect/cosmic_rune/proc/invoke(mob/living/user)
 	var/obj/effect/cosmic_rune/linked_rune_resolved = linked_rune?.resolve()
 	new rune_effect(get_turf(src))
-	do_teleport(
+	// do_direct_teleport (not do_teleport) skips /datum/teleport/instant/science's default spark_spread,
+	// so the rune teleports silently like on TG - only the cosmic_energy sound plays, no sparks.
+	do_direct_teleport(
 		user,
 		get_turf(linked_rune_resolved),
-		asoundin = 'sound/magic/cosmic_energy.ogg',
-		asoundout = 'sound/magic/cosmic_energy.ogg',
+		soundin = 'sound/magic/cosmic_energy.ogg',
+		soundout = 'sound/magic/cosmic_energy.ogg',
 	)
 	for(var/mob/living/person_on_rune in get_turf(src))
 		if(!person_on_rune.has_status_effect(/datum/status_effect/star_mark))
 			continue
 
-		do_teleport(person_on_rune, get_turf(linked_rune_resolved))
+		do_direct_teleport(person_on_rune, get_turf(linked_rune_resolved))
+
+	// Non-heretics who invoke a rune get branded with a star mark (matches TG): it stops them rune-hopping
+	// freely and drags them along on the heretic's next jump.
+	if(!isheretic(user))
+		user.apply_status_effect(/datum/status_effect/star_mark)
 
 	new rune_effect(get_turf(linked_rune_resolved))
 

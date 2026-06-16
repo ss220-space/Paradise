@@ -41,11 +41,9 @@
 	// A list of the people we hit
 	var/list/mobs_hit = list()
 
-/*
 /obj/projectile/moon_parade/Initialize(mapload)
 	. = ..()
-	soundloop = new(src,  TRUE)
-*/
+	soundloop = new(src, TRUE)
 
 /*
 /obj/projectile/moon_parade/prehit_pierce(atom/A)
@@ -101,7 +99,7 @@
 		clear_mob(leftover_mob)
 
 	mobs_hit.Cut() // You never know
-	//soundloop.stop()
+	QDEL_NULL(soundloop)
 	return ..()
 
 
@@ -116,3 +114,10 @@
 	SIGNAL_HANDLER
 	UnregisterSignal(source, list(COMSIG_MOB_CLIENT_PRE_LIVING_MOVE, COMSIG_QDELETING))
 	mobs_hit -= source
+
+
+/// The marching-band music that follows the parade projectile. (Paradise has no sound tokens, so omitted.)
+/datum/looping_sound/moon_parade
+	mid_sounds = list('sound/effects/moon_parade_soundloop.ogg' = 1)
+	mid_length = 2 SECONDS
+	volume = 20

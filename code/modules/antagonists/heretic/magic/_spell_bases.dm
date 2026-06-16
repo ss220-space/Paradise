@@ -192,19 +192,22 @@
 /obj/effect/proc_holder/spell/pointed/projectile/proc/fire_projectile(atom/target)
 	current_amount--
 	for(var/i in 1 to projectiles_per_fire)
-		var/obj/projectile/to_fire = new projectile_type()
+		// Spawn at the caster's turf, not nullspace - preparePixelProjectile forceMoves to the source.
+		var/obj/projectile/to_fire = new projectile_type(get_turf(action.owner))
 		ready_projectile(to_fire, target, action.owner, i)
 		to_fire.fire()
 	return TRUE
 
 
 /obj/effect/proc_holder/spell/pointed/projectile/proc/ready_projectile(obj/projectile/to_fire, atom/target, mob/user, iteration)
-	var/turf/source_turf = get_turf(user)
-	to_fire.firer = action.owner
-	var/turf/target_turf = get_turf(target)
-	to_fire.preparePixelProjectile(target, target_turf, user, targeting.click_params)
-	to_fire.fire()
-	user.newtonian_move(get_dir(target_turf, source_turf))
+	to_fire.original = target
+	to_fire.firer = user
+	// preparePixelProjectile wants (target, source, modifiers). Source is the CASTER (so the projectile
+	// starts on us and travels toward the target), and modifiers must be a parsed click params list.
+	var/list/click_params = targeting.click_params
+	if(istext(click_params))
+		click_params = params2list(click_params)
+	to_fire.preparePixelProjectile(target, user, click_params)
 
 
 // --- Targeting datums for tg-derived module spells ---

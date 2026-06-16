@@ -43,9 +43,11 @@
 	if(victim.can_block_magic(antimagic_flags) || IS_HERETIC_OR_MONSTER(victim) || victim == caster)
 		return
 
+	// Mirrors TG: forces them to attack each other (amok), briefly blinds (cloudstruck) and poisons (disgust).
 	victim.apply_status_effect(/datum/status_effect/amok)
-	victim.apply_status_effect(/datum/status_effect/cloudstruck, level * 1 SECONDS)
-	victim.Disgust(10 SECONDS)
+	victim.apply_status_effect(/datum/status_effect/cloudstruck, 5 SECONDS)
+	victim.AdjustDisgust(100)
+	to_chat(victim, span_boldwarning("Вас переполняет ярость, которая вам не принадлежит!"))
 
 
 /obj/effect/proc_holder/spell/cone/staggered/entropic_plume/calculate_cone_shape(current_level)

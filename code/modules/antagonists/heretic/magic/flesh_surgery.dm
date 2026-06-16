@@ -145,9 +145,11 @@
 		// Only show organs which are in our generic zone
 		if(organ.parent_organ_zone != zone_to_check)
 			continue
-		// Also, some organs to exclude. Don't remove vital (brains), don't remove synthetics, and don't remove unremovable
-		//if(organ.status & (ORGAN_ROBOT|ORGAN_VITAL|ORGAN_UNREMOVABLE))
-		//	continue
+		// Some organs are off-limits, matching TG (ORGAN_ROBOTIC|ORGAN_VITAL): don't pull synthetics, and
+		// don't pull vital organs - in Paradise that's the brain (and the IPC microbattery). The normal
+		// heart isn't flagged vital, so the steal-heart combo still works.
+		if((organ.status & ORGAN_ROBOT) || organ.vital)
+			continue
 
 		organs_we_can_remove[organ.name] = organ
 

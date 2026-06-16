@@ -212,6 +212,10 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 		return
 
 	ui = new(user, src, "AntagInfoHeretic", name)
+	// Like TG: don't autoupdate every tick. The whole research tree (with every DmIcon) is re-pushed
+	// on each update, which makes the icons constantly reload. Purchases still refresh the UI because
+	// ui_act -> SStgui.update_uis() forces an update regardless of this flag.
+	ui.set_autoupdate(FALSE)
 	ui.open()
 
 
