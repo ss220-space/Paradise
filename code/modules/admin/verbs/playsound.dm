@@ -25,7 +25,7 @@ ADMIN_VERB(play_sound, R_SOUNDS, "Play Global Sound", "Play a sound to all conne
 	log_admin("[key_name(user)] played sound [sound]")
 	message_admins("[key_name_admin(user)] played sound [sound]")
 
-	for(var/mob/target in GLOB.player_list)
+	for(var/mob/target as anything in GLOB.player_list)
 		var/client/target_client = target.client
 		if(!(target_client.prefs.sound & SOUND_MIDI))
 			continue
@@ -166,7 +166,7 @@ ADMIN_VERB(play_web_sound, R_SOUNDS, "Play Internet Sound", "Play a given intern
 		SSticker.music_available = 0
 
 	if(stop_web_sounds)
-		for(var/mob/target in GLOB.player_list)
+		for(var/mob/target as anything in GLOB.player_list)
 			var/client/target_client = target.client
 			if(!(target_client.prefs.sound & SOUND_MIDI))
 				continue
@@ -186,7 +186,7 @@ ADMIN_VERB(play_web_sound, R_SOUNDS, "Play Internet Sound", "Play a given intern
 					GLOB.cached_songs[web_sound_path] = music_asset
 				playback_url = music_asset.get_url()
 
-		for(var/mob/target in GLOB.player_list)
+		for(var/mob/target as anything in GLOB.player_list)
 			var/client/target_client = target.client
 			if(!(target_client.prefs.sound & SOUND_MIDI))
 				continue
@@ -206,7 +206,7 @@ ADMIN_VERB(play_direct_mob_sound, R_SOUNDS, "Play Direct Mob Sound", "Play a sou
 	var/sound/admin_sound = sound(sound)
 	if(volume)
 		admin_sound.volume = volume
-	SEND_SOUND(target, sound)
+	SEND_SOUND(target, admin_sound)
 	BLACKBOX_LOG_ADMIN_VERB("Play Direct Mob Sound")
 
 ADMIN_VERB(stop_sounds, R_SOUNDS, "Stop All Playing Sounds", "Stops all playing sounds for EVERYONE.", ADMIN_CATEGORY_SOUNDS)
