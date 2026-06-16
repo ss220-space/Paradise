@@ -2159,15 +2159,13 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/proc/toggle_seat(/datum/action/innate/action)
 	can_buckle = !can_buckle
-	switch(can_buckle)
-		if(FALSE)
-			eject_riders()
-			balloon_alert(src, "сидение задвинуто")
-			playsound(loc, 'sound/machines/pda_button1.ogg', 50, TRUE)
-
-		if(TRUE)
-			balloon_alert(src, "сидение выдвинуто")
-			playsound(loc, 'sound/machines/terminal_eject.ogg', 50, TRUE)
+	if(can_buckle)
+		balloon_alert(src, "сидение выдвинуто")
+		playsound(loc, 'sound/machines/terminal_eject.ogg', 50, TRUE)
+	else
+		eject_riders()
+		balloon_alert(src, "сидение задвинуто")
+		playsound(loc, 'sound/machines/pda_button1.ogg', 50, TRUE)
 
 /mob/living/silicon/robot/proc/eject_riders()
 	if(!length(buckled_mobs))
