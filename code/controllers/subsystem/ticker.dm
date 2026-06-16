@@ -372,14 +372,13 @@ SUBSYSTEM_DEF(ticker)
 
 	if(SSholiday.holidays)
 		to_chat(world, span_darkmblue("и..."))
-		for(var/holidayname in SSholiday.holidays)
-			var/datum/holiday/holiday = SSholiday.holidays[holidayname]
+		for(var/holiday_name, value in SSholiday.holidays)
+			var/datum/holiday/holiday = value
 			to_chat(world, "<h4>[holiday.greet()]</h4>")
 
 	GLOB.discord_manager.send2discord_simple_noadmins("**\[Info]** Round has started")
 	auto_toggle_ooc(FALSE) // Turn it off
 	time_game_started = world.time
-
 
 	if(CONFIG_GET(number/restrict_maint))
 		for(var/obj/machinery/door/airlock/maintenance/M in GLOB.airlocks)
@@ -413,8 +412,8 @@ SUBSYSTEM_DEF(ticker)
 		selected_lobby_music = pick(songs)
 
 	if(SSholiday.holidays) // What's this? Events are initialized before tickers? Let's do something with that!
-		for(var/holidayname in SSholiday.holidays)
-			var/datum/holiday/holiday = SSholiday.holidays[holidayname]
+		for(var/holidayname, value in SSholiday.holidays)
+			var/datum/holiday/holiday = value
 			if(length(holiday.lobby_music))
 				selected_lobby_music = pick(holiday.lobby_music)
 				break
@@ -430,36 +429,29 @@ SUBSYSTEM_DEF(ticker)
 		login_music_initializated = TRUE
 		return
 
-	var/list/output = world.shelleo("[ytdl] -x --audio-format mp3 --audio-quality 0 --geo-bypass --no-playlist -o \"cache/songs/%(id)s.%(ext)s\" --dump-single-json --no-simulate \"[selected_lobby_music]\"")
-	var/errorlevel = output[SHELLEO_ERRORLEVEL]
-	var/stdout = output[SHELLEO_STDOUT]
-	var/stderr = output[SHELLEO_STDERR]
+	// Only resolve metadata here. The audio file is downloaded later, when the
+	// music asset is built on first client login.
+	var/datum/web_sound_info/sound_info = get_web_sound_info(ytdl, selected_lobby_music)
 
 	// Shell work is done, every remaining path marks init complete.
 	login_music_initializated = TRUE
 
-	if(errorlevel)
+	if(!sound_info.success)
 		to_chat(world, span_boldwarning("yt-dlp failed."))
-		log_world("Could not play lobby song [selected_lobby_music]: [stderr]")
+		log_world("Could not play lobby song [selected_lobby_music]: [sound_info.error_message]")
 		return
 
-	var/list/data
-	try
-		data = json_decode(stdout)
-	catch(var/exception/parse_exception)
-		to_chat(world, span_boldwarning("yt-dlp JSON parsing FAILED."))
-		log_world(span_boldwarning("yt-dlp JSON parsing FAILED:"))
-		log_world(span_warning("[parse_exception]: [stdout]"))
+	if(!sound_info.title)
 		return
 
-	if(data["title"])
-		login_music_data["title"] = data["title"]
-		login_music_data["url"] = data["url"]
-		login_music_data["link"] = data["webpage_url"]
-		login_music_data["path"] = "cache/songs/[data["id"]].mp3"
-		login_music_data["title_link"] = data["webpage_url"] ? "<a href=\"[data["webpage_url"]]\">[data["title"]]</a>" : data["title"]
+	login_music_data["title"] = sound_info.title
+	login_music_data["url"] = sound_info.url
+	login_music_data["link"] = sound_info.webpage_url
+	login_music_data["id"] = sound_info.id
+	login_music_data["path"] = "cache/songs/[sound_info.id].mp3"
+	login_music_data["title_link"] = sound_info.webpage_url ? "<a href=\"[sound_info.webpage_url]\">[sound_info.title]</a>" : sound_info.title
 
-	return stdout
+	return sound_info.title
 
 /datum/controller/subsystem/ticker/proc/station_explosion_cinematic(station_missed = 0, override = null)
 

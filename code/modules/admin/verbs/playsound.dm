@@ -61,6 +61,7 @@ ADMIN_VERB(play_web_sound, R_SOUNDS, "Play Internet Sound", "Play a given intern
 
 	var/web_sound_path = ""
 	var/web_sound_url = ""
+	var/web_sound_id = ""
 	var/stop_web_sounds = FALSE
 	var/list/music_extra_data = list()
 	if(length(web_sound_input))
@@ -69,65 +70,56 @@ ADMIN_VERB(play_web_sound, R_SOUNDS, "Play Internet Sound", "Play a given intern
 			to_chat(user, span_boldwarning("Non-http(s) URIs are not allowed."), confidential = TRUE)
 			to_chat(user, span_warning("For yt-dlp shortcuts like ytsearch: please use the appropriate full url from the website."), confidential = TRUE)
 			return
-		var/shell_scrubbed_input = shell_url_scrub(web_sound_input)
-		var/list/output = world.shelleo("[ytdl] -x --audio-format mp3 --audio-quality 0 --geo-bypass --no-playlist -o \"cache/songs/%(id)s.%(ext)s\" --dump-single-json --no-simulate \"[shell_scrubbed_input]\"")
-		var/errorlevel = output[SHELLEO_ERRORLEVEL]
-		var/stdout = output[SHELLEO_STDOUT]
-		var/stderr = output[SHELLEO_STDERR]
-		if(!errorlevel)
-			var/list/data
-			try
-				data = json_decode(stdout)
-			catch(var/exception/parse_exception)
-				to_chat(user, span_boldwarning("yt-dlp JSON parsing FAILED:"), confidential = TRUE)
-				to_chat(user, span_warning("[parse_exception]: [stdout]"), confidential = TRUE)
-				return
 
-			if(data["url"])
-				web_sound_path = "cache/songs/[data["id"]].mp3"
-				web_sound_url = data["url"]
-				var/title = "[data["title"]]"
-				var/webpage_url = title
-				if(data["webpage_url"])
-					webpage_url = "<a href=\"[data["webpage_url"]]\">[title]</a>"
-				var/mus_len = data["duration"] * 1 SECONDS
-				music_extra_data["duration"] = DisplayTimeText(mus_len)
-				SSticker.music_available = REALTIMEOFDAY + mus_len
-				music_extra_data["link"] = data["webpage_url"]
-				music_extra_data["artist"] = data["artist"]
-				music_extra_data["upload_date"] = data["upload_date"]
-				music_extra_data["album"] = data["album"]
-
-				var/res = tgui_alert(user, "Показать игрокам название и ссылку?\n[title]",, list("Нет", "Да", "Отмена"))
-				switch(res)
-					if("Да")
-						music_extra_data["title"] = data["title"]
-					if("Нет")
-						music_extra_data["link"] = "Song Link Hidden"
-						music_extra_data["title"] = "Song Title Hidden"
-						music_extra_data["artist"] = "Song Artist Hidden"
-						music_extra_data["upload_date"] = "Song Upload Date Hidden"
-						music_extra_data["album"] = "Song Album Hidden"
-					if("Отмена")
-						return
-
-				var/anon = tgui_alert(user, "Показывать, кто запустил?", "Указывать себя?", list("Нет", "Да", "Отмена"))
-				switch(anon)
-					if("Yes")
-						if(res == "Yes")
-							to_chat(world, span_boldannounceooc("[user] запустил: [webpage_url]"), confidential = TRUE)
-						else
-							to_chat(world, span_boldannounceooc("[user] запустил музыку"), confidential = TRUE)
-					if("No")
-						if(res == "Yes")
-							to_chat(world, span_boldannounceooc("Запущено админом: [webpage_url]"), confidential = TRUE)
-
-				SSblackbox.record_feedback("nested tally", "played_url", 1, list("[user.ckey]", "[web_sound_input]"))
-				log_admin("[key_name(user)] played web sound: [web_sound_input]")
-				message_admins("[key_name(user)] played web sound: [web_sound_input]")
-		else
+		var/datum/web_sound_info/sound_info = get_web_sound_info(ytdl, web_sound_input)
+		if(!sound_info.success)
 			to_chat(user, span_boldwarning("yt-dlp URL retrieval FAILED:"), confidential = TRUE)
-			to_chat(user, span_warning("[stderr]"), confidential = TRUE)
+			to_chat(user, span_warning("[sound_info.error_message]"), confidential = TRUE)
+			return
+
+		if(sound_info.url)
+			web_sound_path = "cache/songs/[sound_info.id].mp3"
+			web_sound_url = sound_info.url
+			web_sound_id = sound_info.id
+			var/title = "[sound_info.title]"
+			var/webpage_url = title
+			if(sound_info.webpage_url)
+				webpage_url = "<a href=\"[sound_info.webpage_url]\">[title]</a>"
+			var/mus_len = sound_info.duration * 1 SECONDS
+			music_extra_data["duration"] = DisplayTimeText(mus_len)
+			SSticker.music_available = REALTIMEOFDAY + mus_len
+			music_extra_data["link"] = sound_info.webpage_url
+			music_extra_data["artist"] = sound_info.artist
+			music_extra_data["upload_date"] = sound_info.upload_date
+			music_extra_data["album"] = sound_info.album
+
+			var/res = tgui_alert(user, "Показать игрокам название и ссылку?\n[title]",, list("Нет", "Да", "Отмена"))
+			switch(res)
+				if("Да")
+					music_extra_data["title"] = sound_info.title
+				if("Нет")
+					music_extra_data["link"] = "Song Link Hidden"
+					music_extra_data["title"] = "Song Title Hidden"
+					music_extra_data["artist"] = "Song Artist Hidden"
+					music_extra_data["upload_date"] = "Song Upload Date Hidden"
+					music_extra_data["album"] = "Song Album Hidden"
+				if("Отмена")
+					return
+
+			var/anon = tgui_alert(user, "Показывать, кто запустил?", "Указывать себя?", list("Нет", "Да", "Отмена"))
+			switch(anon)
+				if("Yes")
+					if(res == "Yes")
+						to_chat(world, span_boldannounceooc("[user] запустил: [webpage_url]"), confidential = TRUE)
+					else
+						to_chat(world, span_boldannounceooc("[user] запустил музыку"), confidential = TRUE)
+				if("No")
+					if(res == "Yes")
+						to_chat(world, span_boldannounceooc("Запущено админом: [webpage_url]"), confidential = TRUE)
+
+			SSblackbox.record_feedback("nested tally", "played_url", 1, list("[user.ckey]", "[web_sound_input]"))
+			log_admin("[key_name(user)] played web sound: [web_sound_input]")
+			message_admins("[key_name(user)] played web sound: [web_sound_input]")
 
 	else //pressed ok with blank
 		log_admin("[key_name(user)] stopped web sound")
@@ -142,14 +134,17 @@ ADMIN_VERB(play_web_sound, R_SOUNDS, "Play Internet Sound", "Play a given intern
 			if(target_client.prefs.sound & SOUND_MIDI)
 				target_client.tgui_panel?.stop_music()
 	else
+		if(!web_sound_url)
+			return
 		var/url = web_sound_url
 		switch(CONFIG_GET(string/asset_transport))
 			if(ASSET_TRANSPORT_WEBROOT)
-				var/datum/asset/music/my_asset
-				if(GLOB.cached_songs[web_sound_path])
-					my_asset = GLOB.cached_songs[web_sound_path]
-				else
-					my_asset = new /datum/asset/music(web_sound_path)
+				var/datum/asset/music/my_asset = GLOB.cached_songs[web_sound_path]
+				if(!my_asset)
+					my_asset = new /datum/asset/music(ytdl, web_sound_input, web_sound_id)
+					if(!my_asset.item_filename)
+						to_chat(user, span_boldwarning("yt-dlp download FAILED."), confidential = TRUE)
+						return
 					GLOB.cached_songs[web_sound_path] = my_asset
 				url = my_asset.get_url()
 

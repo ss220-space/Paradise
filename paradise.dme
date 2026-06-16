@@ -381,6 +381,7 @@
 #include "code\__HELPERS\verb.dm"
 #include "code\__HELPERS\view.dm"
 #include "code\__HELPERS\visual_effects.dm"
+#include "code\__HELPERS\web_sound.dm"
 #include "code\__HELPERS\data_struct\priority_queue.dm"
 #include "code\__HELPERS\data_struct\queue.dm"
 #include "code\__HELPERS\localization\_localization.dm"

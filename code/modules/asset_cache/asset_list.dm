@@ -197,10 +197,16 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	_abstract = /datum/asset/music
 	var/item_filename
 
-/datum/asset/music/New(path)
-	item_filename = SANITIZE_FILENAME(path)
-	SSassets.transport.register_asset(item_filename, file(path))
-	fdel(path)
+/// Downloads the track through yt-dlp and registers it as an asset.
+/// item_filename stays null if the download fails, so callers can detect it.
+/datum/asset/music/New(ytdl, url, sound_id)
+	var/datum/web_sound_download/download = download_web_sound(ytdl, url, sound_id)
+	if(!download.success)
+		log_world("Could not download web sound [url]: [download.error_message]")
+		return
+	item_filename = SANITIZE_FILENAME(download.file_path)
+	SSassets.transport.register_asset(item_filename, file(download.file_path))
+	fdel(download.file_path)
 
 /datum/asset/music/send(client)
 	if(!item_filename)
