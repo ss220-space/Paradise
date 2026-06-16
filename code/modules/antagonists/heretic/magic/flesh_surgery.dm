@@ -28,6 +28,12 @@
 	return isliving(cast_on) || isorgan(cast_on)
 
 
+/// Collapses Paradise's separate groin zone into the chest so the flesh-harvest spell can pull the
+/// abdominal organs (liver, kidneys, stomach...) when aiming at the torso, just like on TG.
+/proc/deprecise_torso_zone(zone)
+	return (zone == BODY_ZONE_PRECISE_GROIN) ? BODY_ZONE_CHEST : zone
+
+
 /obj/item/melee/touch_attack/flesh_surgery/afterattack(atom/victim, mob/living/carbon/caster, proximity, params)
 	if(!proximity)
 		return FALSE
@@ -138,12 +144,16 @@
 		caster.balloon_alert(caster, "слишком далеко!")
 		return FALSE
 
-	var/zone_to_check = check_zone(caster.zone_selected)
+	// Unlike TG (where heart/lungs/liver/stomach all live in the chest), Paradise scatters the
+	// abdominal organs (liver, kidneys, stomach, appendix...) into BODY_ZONE_PRECISE_GROIN. To keep
+	// the TG feel - where aiming at the torso lets you pull any of the major organs - we treat the
+	// groin as part of the chest for this spell, on both the target zone and each organ's home zone.
+	var/zone_to_check = deprecise_torso_zone(check_zone(caster.zone_selected))
 
 	var/list/organs_we_can_remove = list()
 	for(var/obj/item/organ/organ as anything in carbon_victim.internal_organs)
 		// Only show organs which are in our generic zone
-		if(organ.parent_organ_zone != zone_to_check)
+		if(deprecise_torso_zone(organ.parent_organ_zone) != zone_to_check)
 			continue
 		// Some organs are off-limits, matching TG (ORGAN_ROBOTIC|ORGAN_VITAL): don't pull synthetics, and
 		// don't pull vital organs - in Paradise that's the brain (and the IPC microbattery). The normal

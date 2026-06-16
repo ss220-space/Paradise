@@ -1050,7 +1050,13 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	var/datum/heretic_knowledge/initialized_knowledge = new knowledge_type()
 	researched_knowledge[knowledge_type] = initialized_knowledge
 	initialized_knowledge.on_research(owner.current, src)
-	update_static_data(owner.current)
+	// Partial UI refresh, NOT update_static_data(): the latter goes through send_full_update(), which is
+	// rate-limited to once/second and sets config.refreshing=TRUE when it can't fire. A purchase often
+	// cascades into several knowledge grants in one tick, so those full updates pile up, refreshing stays
+	// stuck TRUE, and the window keeps repainting the full-screen "Loading / Please wait..." spinner. The
+	// interface doesn't read any static data, so a normal partial update is all we need - and it never
+	// triggers the refreshing screen.
+	SStgui.update_uis(src)
 	return TRUE
 
 /**
@@ -1275,7 +1281,9 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 		if(new_level >= 3)
 			passive_effect.level_final()
 	if(owner?.current)
-		update_static_data(owner.current)
+		// Partial UI refresh (see gain_knowledge) - avoids the rate-limited full-update path that flashes
+		// the "Loading / Please wait..." spinner.
+		SStgui.update_uis(src)
 
 /**
  * Get a list of all rituals this heretic can invoke on a rune.

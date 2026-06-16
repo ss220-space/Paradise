@@ -44,10 +44,10 @@
 		return
 
 	// Mirrors TG: forces them to attack each other (amok), briefly blinds (cloudstruck) and poisons (disgust).
+	// (Paradise's /datum/status_effect/amok already shows the rage message on apply, so no extra to_chat.)
 	victim.apply_status_effect(/datum/status_effect/amok)
 	victim.apply_status_effect(/datum/status_effect/cloudstruck, 5 SECONDS)
 	victim.AdjustDisgust(100)
-	to_chat(victim, span_boldwarning("Вас переполняет ярость, которая вам не принадлежит!"))
 
 
 /obj/effect/proc_holder/spell/cone/staggered/entropic_plume/calculate_cone_shape(current_level)

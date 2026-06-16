@@ -669,8 +669,9 @@
 	// Ascension is the final passive ("empowerment") tier.
 	heretic_datum.set_passive_level(3)
 
-	// Show the cool red gradiant in our UI
-	heretic_datum.update_static_data(user)
+	// Show the cool red gradiant in our UI. Partial update (not update_static_data → send_full_update),
+	// to avoid the rate-limited full-update path that flashes the "Loading / Please wait..." spinner.
+	SStgui.update_uis(heretic_datum)
 
 	if(ishuman(user))
 		var/mob/living/carbon/human/human_user = user

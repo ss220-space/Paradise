@@ -101,6 +101,9 @@
 	icon = 'icons/mob/actions/actions_ecult.dmi'
 	icon_state = "voidball_effect"
 	layer = ABOVE_ALL_MOB_LAYER
+	// Paradise's /obj/effect/abstract base is invisible (INVISIBILITY_ABSTRACT); without this
+	// override the void prison shell never renders. TG's abstract base is visible by default.
+	invisibility = INVISIBILITY_NONE
 	vis_flags = VIS_INHERIT_ID
 
 
