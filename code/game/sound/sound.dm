@@ -199,7 +199,7 @@ GLOBAL_LIST_EMPTY(cached_songs)
 	sound.status = SOUND_UPDATE
 	SEND_SOUND(src, sound)
 
-/client/proc/playtitlemusic(vol = 85)
+/client/proc/playtitlemusic()
 	set waitfor = FALSE
 
 	if(!SSticker || CONFIG_GET(flag/disable_lobby_music) || !CONFIG_GET(string/invoke_youtubedl))
