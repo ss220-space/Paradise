@@ -51,7 +51,7 @@
 	for(var/client/holder in admins)
 		to_chat(holder, fieldset_block("Заказ музыки", jointext(admin_message, ""), "boxed_message"), confidential = TRUE)
 		if(holder.prefs.sound & SOUND_ADMINHELP)
-			SEND_SOUND(holder, sound('sound/effects/adminhelp.ogg'))
+			SEND_SOUND(holder, sound('sound/effects/internet_request.ogg'))
 
 	to_chat(src, span_notice("Вы заказали [display_url]. Запрос отправлен администрации."), confidential = TRUE)
 	SSblackbox.record_feedback("tally", "music_request", 1, "Music Request")
