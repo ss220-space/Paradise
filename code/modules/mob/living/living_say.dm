@@ -190,7 +190,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 	returns[3] = null
 	return returns
 
-/mob/living/say(message, verb = "говор[PLUR_IT_YAT(src)]", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE)
+/mob/living/say(message, verb = "говор[PLUR_IT_YAT(src)]", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE, ignore_emotes = FALSE)
 	if(client)
 		client.check_say_flood(5)
 		if(check_mute(client.ckey, MUTE_IC))
@@ -210,6 +210,8 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 		return FALSE
 
 	if(copytext(message, 1, 2) == "*")
+		if(ignore_emotes)
+			return FALSE
 		return emote(copytext(message, 2), intentional = TRUE)
 
 	var/ending = copytext(message, length(message))

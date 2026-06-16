@@ -637,7 +637,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/item/reagent_containers/spray/cleaner/drone,
+/obj/item/reagent_containers/spray/cleaner,
 /turf/simulated/floor/plating,
 /area/maintenance/medroom)
 "agb" = (
@@ -113488,7 +113488,7 @@
 	dir = 4
 	},
 /obj/item/lightreplacer,
-/obj/item/reagent_containers/spray/cleaner/drone,
+/obj/item/reagent_containers/spray/cleaner,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkred"
