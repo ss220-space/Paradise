@@ -241,7 +241,7 @@ const TypesAndAccess = (_props: unknown) => {
                 key={2}
                 onClick={() =>
                   act('set_one_access', {
-                    access: 'Все',
+                    access: 'all',
                   })
                 }
               >

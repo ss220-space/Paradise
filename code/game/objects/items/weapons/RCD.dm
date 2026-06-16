@@ -100,7 +100,7 @@
 			/obj/machinery/door/airlock/science = "Научный",
 			/obj/machinery/door/airlock/science/glass = "Научный (Стеклянный)",
 			/obj/machinery/door/airlock/maintenance = "Технический",
-			/obj/machinery/door/airlock/maintenance/glass = "Научный (Стеклянный)",
+			/obj/machinery/door/airlock/maintenance/glass = "Технический (Стеклянный)",
 			/obj/machinery/door/airlock/maintenance/external = "Внешний технический",
 			/obj/machinery/door/airlock/maintenance/external/glass = "Внеш. техн. (Стеклянный)",
 			/obj/machinery/door/airlock/external = "Внешний",
@@ -191,6 +191,7 @@
 			to_chat(user, span_notice("Материи в RCD [matter]/[max_matter] единиц."))
 		else
 			balloon_alert(user, "картридж не подойдёт!")
+
 	else if(istype(item, /obj/item/stack))
 		var/obj/item/stack/sheet = item
 		if(sheet.matter_amount <= 0 || sheet.is_cyborg)
@@ -209,8 +210,7 @@
 		balloon_alert(user, "материал не вместится!")
 		return
 	else
-		return
-	SStgui.update_uis(src)
+		return TRUE
 
 /**
  * Creates and displays a radial menu to a user when they trigger the `attack_self` of the RCD.
@@ -361,7 +361,7 @@
 	. = TRUE
 	switch(ui_modal_act(src, action, params))
 		if(UI_MODAL_OPEN)
-			ui_modal_input(src, "renameAirlock", "Ввидети новое название:", value = door_name, max_length = UI_MODAL_INPUT_MAX_LENGTH_NAME)
+			ui_modal_input(src, "renameAirlock", "Введите новое название:", value = door_name, max_length = UI_MODAL_INPUT_MAX_LENGTH_NAME)
 		if(UI_MODAL_ANSWER)
 			var/answer = params["answer"]
 			if(!answer)

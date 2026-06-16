@@ -311,7 +311,7 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 /turf/simulated/floor/rcd_construct_act(mob/user, obj/item/rcd/our_rcd, rcd_mode)
 	. = ..()
 	if(locate(/obj/machinery/field) in src)
-		to_chat(user, span_warning("ОШИБКА! В соответствии  с протоколами безопасности строительства в высокого-энергетических зонах запрещено!"))
+		to_chat(user, span_warning("ОШИБКА! В соответствии с протоколами безопасности строительства в высокоэнергетических зонах запрещено!"))
 		playsound(loc, 'sound/machines/click.ogg', 50, TRUE)
 		return RCD_ACT_FAILED
 	switch(rcd_mode)
@@ -360,7 +360,7 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 				to_chat(user, span_warning("ОШИБКА! Недостаточно материи для печати окна!"))
 				playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, TRUE)
 				return RCD_ACT_FAILED
-			to_chat(user, "Constructing window...")
+			to_chat(user, "Печать окна...")
 			playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, TRUE)
 			if(!do_after(user, 2 SECONDS * our_rcd.toolspeed, src, category = DA_CAT_TOOL))
 				to_chat(user, span_warning("ОШИБКА! Печать прервана!"))
@@ -390,7 +390,7 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 			return RCD_ACT_SUCCESSFULL
 		if(RCD_MODE_FIRELOCK)
 			if(our_rcd.checkResource(5, user))
-				to_chat(user, "Building Firelock...")
+				to_chat(user, "Печать пожарного шлюза...")
 				playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, TRUE)
 				if(do_after(user, 5 SECONDS * our_rcd.toolspeed, src, category = DA_CAT_TOOL))
 					if(locate(/obj/machinery/door/firedoor) in src)
