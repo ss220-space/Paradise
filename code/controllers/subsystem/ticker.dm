@@ -450,11 +450,15 @@ SUBSYSTEM_DEF(ticker)
 	login_music_data["id"] = sound_info.id
 	login_music_data["path"] = "cache/songs/[sound_info.id].mp3"
 	login_music_data["title_link"] = sound_info.webpage_url ? "<a href=\"[sound_info.webpage_url]\">[sound_info.title]</a>" : sound_info.title
+	// Same metadata keys the now-playing widget reads for admin web sounds.
+	login_music_data["duration"] = DisplayTimeText(sound_info.duration * 1 SECONDS)
+	login_music_data["artist"] = sound_info.artist
+	login_music_data["upload_date"] = sound_info.upload_date
+	login_music_data["album"] = sound_info.album
 
 	return sound_info.title
 
 /datum/controller/subsystem/ticker/proc/station_explosion_cinematic(station_missed = 0, override = null)
-
 	auto_toggle_ooc(TRUE) // Turn it on
 
 	if(!station_missed)	//nuke kills everyone on z-level 1 to prevent "hurr-durr I survived"
