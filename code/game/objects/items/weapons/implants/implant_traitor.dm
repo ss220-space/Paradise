@@ -8,11 +8,7 @@
 	/// The UID of the mindslave's `mind`. Stored to solve GC race conditions and ensure we can remove their mindslave status even when they're deleted or gibbed.
 	var/mindslave_UID
 
-/obj/item/implant/traitor/implant(mob/living/carbon/human/mindslave_target, mob/living/carbon/human/user, force = FALSE)
-	. = ..()
-	if(!.)
-		return
-
+/obj/item/implant/traitor/can_implant(mob/living/carbon/human/mindslave_target, mob/living/carbon/human/user)
 	// Check `implanted` here so you can't just keep taking it out and putting it back into other people.
 	if(implanted == BIOCHIP_USED || !ishuman(mindslave_target) || !ishuman(user)) // Both the target and the user need to be human.
 		return FALSE
@@ -22,19 +18,27 @@
 		to_chat(user, span_warning("<i>This person doesn't have a mind for you to slave!</i>"))
 		return FALSE
 
+	return ..()
+
+
+/obj/item/implant/traitor/implant(mob/living/carbon/human/mindslave_target, mob/living/carbon/human/user, force = FALSE)
+	. = ..()
+	if(!.)
+		return
+
 	// Fails if they're already a mindslave of someone, or if they're mindshielded.
 	if(ismindslave(mindslave_target) || ismindshielded(mindslave_target) || isvampirethrall(mindslave_target))
 		mindslave_target.visible_message(
 			span_warning("[mindslave_target] seems to resist the bio-chip!"),
 			span_warning("You feel a strange sensation in your head that quickly dissipates."),
 		)
-		return ..()
+		return TRUE
 
 	// Mindslaving yourself.
 	if(mindslave_target == user)
 		to_chat(user, span_notice("Making yourself loyal to yourself was a great idea! Perhaps even the best idea ever! Actually, you just feel like an idiot."))
 		user.adjustBrainLoss(20)
-		return ..()
+		return TRUE
 
 	// Create a new mindslave datum for the target with the user as their master.
 	var/datum/antagonist/mindslave/slave_datum = new(user.mind)
@@ -42,7 +46,7 @@
 	mindslave_target.mind.add_antag_datum(slave_datum)
 	mindslave_UID = mindslave_target.mind.UID()
 	log_admin("[key_name_admin(user)] has mind-slaved [key_name_admin(mindslave_target)].")
-	return ..()
+	return TRUE
 
 /obj/item/implant/traitor/removed(mob/target)
 	. = ..()
