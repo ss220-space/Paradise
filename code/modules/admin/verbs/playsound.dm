@@ -18,7 +18,7 @@ ADMIN_VERB(play_sound, R_SOUNDS, "Play Global Sound", "Play a sound to all conne
 	var/show_song_title = tgui_alert(user, "Показать игрокам название композиции?", "Воспроизведение звука", list("Да", "Нет", "Отмена"))
 	switch(show_song_title)
 		if("Да")
-			to_chat(world, span_announce(span_bold("Администратор включил: [sound]")), confidential = TRUE)
+			to_chat(world, span_boldannounceooc(("Администратор включил: [sound]")), confidential = TRUE)
 		if("Отмена")
 			return
 
@@ -141,18 +141,18 @@ ADMIN_VERB(play_web_sound, R_SOUNDS, "Play Internet Sound", "Play a given intern
 			switch(credit_yourself)
 				if("Да")
 					if(include_song_data == "Да")
-						announcement += span_notice("[user.ckey] запустил: [title_link]")
+						announcement += "[span_bold(user.ckey)] запустил: [span_linkify(title_link)]"
 					else
-						announcement += span_notice("[user.ckey] запустил музыку.")
+						announcement += "[span_bold(user.ckey)] запустил музыку."
 				if("Нет")
 					if(include_song_data == "Да")
-						announcement += span_notice("Администратор запустил: [title_link]")
+						announcement += "Администратор запустил: [span_linkify(title_link)]"
 				if("Отмена", null)
 					return
 			if(credit)
-				announcement += span_notice("По запросу: [credit]")
+				announcement += "По запросу: [credit]"
 			if(length(announcement))
-				to_chat(world, fieldset_block(span_bold("Сейчас играет"), jointext(announcement, "<br>"), "boxed_message"), confidential = TRUE)
+				to_chat(world, fieldset_block(span_bold("Сейчас играет: [span_bold(music_extra_data["title"])][music_extra_data["artist"] ? " — [span_bold(music_extra_data["artist"])]" : ""]"), jointext(announcement, "<br>"), "boxed_message"), confidential = TRUE)
 
 			SSblackbox.record_feedback("nested tally", "played_url", 1, list("[user.ckey]", "[input]"))
 			log_admin("[key_name(user)] played web sound: [input][credit ? " (requested by [credit])" : ""]")
