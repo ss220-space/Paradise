@@ -248,11 +248,12 @@ GLOBAL_LIST_EMPTY(cached_songs)
 
 /**
  * Creates a soundtoken datum (a sound that updates for movement).
- * allowed_listeners is an optional list of mobs that are the only ones that can hear this sound ever.
- * sound_length is an optional length of the sound. Things like TTS need to pass this since we can't dynamically grab the length in that case.
+ * * allowed_listeners is an optional list of mobs that are the only ones that can hear this sound ever.
+ * * sound_length is an optional length of the sound. Things like TTS need to pass this since we can't dynamically grab the length in that case.
+ * * frequency is an optional playback speed; null keeps the default speed.
  */
-/proc/playsoundtoken(atom/source, soundin, volume, range, falloff_exponent = SOUND_FALLOFF_EXPONENT, falloff_distance = SOUND_DEFAULT_FALLOFF_DISTANCE, allowed_listeners, sound_length)
-	return new /datum/sound_token(source, soundin, range, volume, falloff_exponent, falloff_distance, allowed_listeners, sound_length, delete_on_end = TRUE)
+/proc/playsoundtoken(atom/source, soundin, volume, range, falloff_exponent = SOUND_FALLOFF_EXPONENT, falloff_distance = SOUND_DEFAULT_FALLOFF_DISTANCE, allowed_listeners, sound_length, frequency)
+	return new /datum/sound_token(source, soundin, range, volume, falloff_exponent, falloff_distance, allowed_listeners, sound_length, delete_on_end = TRUE, frequency = frequency)
 
 /proc/apply_sound_effect(effect, filename_input, filename_output)
 	filename_input = filename_sanitize(filename_input)

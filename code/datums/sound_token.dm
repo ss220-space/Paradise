@@ -19,6 +19,8 @@
 	var/falloff_exponent
 	/// Sound falloff distance
 	var/falloff_distance
+	/// Frequency (playback speed) applied to the sound. Null keeps the default speed.
+	var/frequency
 
 	/// The master copy of the playing sound.
 	var/sound/sound
@@ -50,6 +52,7 @@
 	allowed_listeners,
 	sound_duration_override,
 	delete_on_end,
+	frequency,
 )
 	src.source = source
 	RegisterSignal(source, COMSIG_QDELETING, PROC_REF(source_deleted))
@@ -60,6 +63,7 @@
 	src.volume = volume
 	src.falloff_exponent = falloff_exponent
 	src.falloff_distance = falloff_distance
+	src.frequency = frequency
 	src.sound_duration_override = sound_duration_override
 
 	if(delete_on_end)
@@ -90,10 +94,12 @@
 /// Lets us update the sound to a new one.
 /datum/sound_token/proc/update_sound(sound, start_playing = FALSE)
 	src.sound = sound(sound)
+	if(frequency)
+		src.sound.frequency = frequency
 	if(!sound_channel)
 		sound_channel = SSsounds.reserve_sound_channel_for_datum(src)
 	src.sound.channel = sound_channel
-	sound_duration = sound_duration_override || SSsounds.get_sound_length(_sound)
+	sound_duration = sound_duration_override || SSsounds.get_sound_length(sound)
 	start_time = REALTIMEOFDAY
 	if(start_playing)
 		force_update_all_listeners(FALSE)

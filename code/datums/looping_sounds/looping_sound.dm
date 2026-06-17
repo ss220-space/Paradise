@@ -188,35 +188,37 @@
  * * volume_override - The volume we want to play the sound at, overriding the `volume` variable.
  */
 /datum/looping_sound/proc/play(soundfile, volume_override)
+	var/play_volume = volume_override || volume // Use volume as a fallback if there's no override.
+
 	if(use_sound_tokens)
 		if(sound_token_instance)
-			sound_token_instance.set_volume(volume_override || volume, FALSE) // Don't update, we'll do that after
+			sound_token_instance.set_volume(play_volume, FALSE) // Don't update, we'll do that after.
 			sound_token_instance.update_sound(soundfile, TRUE)
 		else
-			sound_token_instance = new /datum/sound_token(parent, soundfile, SOUND_RANGE + extra_range, volume_override || volume, falloff_exponent, falloff_distance)
+			sound_token_instance = new /datum/sound_token(parent, soundfile, SOUND_RANGE + extra_range, play_volume, falloff_exponent, falloff_distance)
 		return
 
 	var/sound/sound_to_play = sound(soundfile)
 	sound_to_play.channel = sound_channel || SSsounds.random_available_channel()
-	sound_to_play.volume = volume_override || volume //Use volume as fallback if theres no override
+	sound_to_play.volume = play_volume
 
 	if(direct)
 		SEND_SOUND(parent, sound_to_play)
-	else
-		playsound(
-			parent,
-			sound_to_play,
-			volume,
-			vary,
-			extra_range,
-			falloff_exponent = falloff_exponent,
-			channel = sound_to_play.channel,
-			pressure_affected = pressure_affected,
-			ignore_walls = ignore_walls,
-			falloff_distance = falloff_distance,
-			use_reverb = use_reverb,
-			channel = sound_channel || SSsounds.random_available_channel()
-		)
+		return
+
+	playsound(
+		parent,
+		sound_to_play,
+		play_volume,
+		vary,
+		extra_range,
+		falloff_exponent = falloff_exponent,
+		channel = sound_to_play.channel,
+		pressure_affected = pressure_affected,
+		ignore_walls = ignore_walls,
+		falloff_distance = falloff_distance,
+		use_reverb = use_reverb,
+	)
 
 /// Returns the sound we should now be playing.
 /datum/looping_sound/proc/get_sound(_mid_sounds)
