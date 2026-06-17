@@ -44,14 +44,14 @@
 
 	var/display_url = html_encode(request_url)
 	var/list/admin_message = list()
-	admin_message += "[ADMIN_FULLMONTY(requester)] [ADMIN_SC(requester, "SC")] заказал(а) к проигрыванию:<br>"
+	admin_message += "[ADMIN_FULLMONTY(requester)] ([ADMIN_SC(requester, "SC")]) заказал(а) к проигрыванию:<br>"
 	admin_message += "[display_url] [ADMIN_PLAY_INTERNET(request_url, credit)]"
 
 	var/list/admins = get_holders_with_rights(R_SOUNDS)
 	for(var/client/holder in admins)
-		to_chat(holder, fieldset_block("Заказ музыки", jointext(admin_message, ""), "boxed_message"), confidential = TRUE)
+		to_chat(holder, fieldset_block(span_bold("Заказ музыки"), jointext(admin_message, ""), "boxed_message"), confidential = TRUE)
 		if(holder.prefs.sound & SOUND_ADMINHELP)
 			SEND_SOUND(holder, sound('sound/effects/internet_request.ogg'))
 
-	to_chat(src, span_notice("Вы заказали [display_url]. Запрос отправлен администрации."), confidential = TRUE)
+	to_chat(src, span_notice("Вы заказали \"[display_url]\". Запрос отправлен администрации."), confidential = TRUE)
 	SSblackbox.record_feedback("tally", "music_request", 1, "Music Request")

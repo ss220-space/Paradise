@@ -152,7 +152,7 @@ ADMIN_VERB(play_web_sound, R_SOUNDS, "Play Internet Sound", "Play a given intern
 			if(credit)
 				announcement += span_notice("По запросу: [credit]")
 			if(length(announcement))
-				to_chat(world, fieldset_block("Сейчас играет", jointext(announcement, "<br>"), "boxed_message"), confidential = TRUE)
+				to_chat(world, fieldset_block(span_bold("Сейчас играет"), jointext(announcement, "<br>"), "boxed_message"), confidential = TRUE)
 
 			SSblackbox.record_feedback("nested tally", "played_url", 1, list("[user.ckey]", "[input]"))
 			log_admin("[key_name(user)] played web sound: [input][credit ? " (requested by [credit])" : ""]")
