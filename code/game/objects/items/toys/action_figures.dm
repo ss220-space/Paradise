@@ -13,7 +13,6 @@
 	icon_state = "ripleytoy"
 	var/cooldown = 0
 
-//all credit to skasi for toy mech fun ideas
 /obj/item/toy/prize/attack_self(mob/user as mob)
 	if(cooldown < world.time - 8)
 		to_chat(user, span_notice("Вы играете с [declent_ru(INSTRUMENTAL)]."))
@@ -40,57 +39,168 @@
 
 /obj/item/toy/prize/ripley
 	name = "toy ripley"
-	desc = "Mini-Mecha action figure! Collect them all! 1/11. This one is a ripley, a mining and engineering mecha."
+	desc = "Маленькая фигурка меха, собери всю коллекцию! Номер 1 из 11. Эта фигурка изображает Рипли, используется в работе шахтёров и инженеров."
+
+/obj/item/toy/prize/ripley/get_ru_names()
+	return alist(
+		NOMINATIVE = "фигурка меха Рипли",
+		GENITIVE = "фигурки меха Рипли",
+		DATIVE = "фигурке меха Рипли",
+		ACCUSATIVE = "фигурку меха Рипли",
+		INSTRUMENTAL = "фигуркой меха Рипли",
+		PREPOSITIONAL = "фигурке меха Рипли",
+	)
 
 /obj/item/toy/prize/fireripley
 	name = "toy firefighting ripley"
-	desc = "Mini-Mecha action figure! Collect them all! 2/11. This one is a firefighter ripley, a fireproof mining and engineering mecha."
+	desc = "Mаленькая фигурка меха, собери всю коллекцию! Номер 2 из 11. Эта фигурка изображает Огнеборца, используется в работе шахтёров и инженеров. Огнеупорный!"
 	icon_state = "fireripleytoy"
+
+/obj/item/toy/prize/fireripley/get_ru_names()
+	return alist(
+		NOMINATIVE = "фигурка меха Огнеборец",
+		GENITIVE = "фигурки меха Огнеборец",
+		DATIVE = "фигурке меха Огнеборец",
+		ACCUSATIVE = "фигурку меха Огнеборец",
+		INSTRUMENTAL = "фигуркой меха Огнеборец",
+		PREPOSITIONAL = "фигурке меха Огнеборец",
+	)
 
 /obj/item/toy/prize/deathripley
 	name = "toy deathsquad ripley"
-	desc = "Mini-Mecha action figure! Collect them all! 3/11. This one is the black ripley used by the hero of DeathSquad, that TV drama about loose-cannon ERT officers!"
+	desc = "Mаленькая фигурка меха, собери всю коллекцию! Номер 3 из 11. Эта фигурка изображает чёрный вариант рипли, использовался \
+			героем сериала \"Отряд смерти\", который повествует о безбашенных офицерах отряда быстрого реагирования."
 	icon_state = "deathripleytoy"
+
+/obj/item/toy/prize/deathripley/get_ru_names()
+	return alist(
+		NOMINATIVE = "фигурка меха Рипли-жнец",
+		GENITIVE = "фигурки меха Рипли-жнец",
+		DATIVE = "фигурке меха Рипли-жнец",
+		ACCUSATIVE = "фигурку меха Рипли-жнец",
+		INSTRUMENTAL = "фигуркой меха Рипли-жнец",
+		PREPOSITIONAL = "фигурке меха Рипли-жнец",
+	)
 
 /obj/item/toy/prize/gygax
 	name = "toy gygax"
-	desc = "Mini-Mecha action figure! Collect them all! 4/11. This one is the speedy gygax combat mecha. Zoom zoom, pew pew!"
+	desc = "Mаленькая фигурка меха, собери всю коллекцию! Номер 4 из 11. Эта фигурка изображает быстрый боевой мех Гигакс. Пиу-пиу!"
 	icon_state = "gygaxtoy"
+
+/obj/item/toy/prize/gygax/get_ru_names()
+	return alist(
+		NOMINATIVE = "фигурка меха Гигакс",
+		GENITIVE = "фигурки меха Гигакс",
+		DATIVE = "фигурке меха Гигакс",
+		ACCUSATIVE = "фигурку меха Гигакс",
+		INSTRUMENTAL = "фигуркой меха Гигакс",
+		PREPOSITIONAL = "фигурке меха Гигакс",
+	)
 
 /obj/item/toy/prize/durand
 	name = "toy durand"
-	desc = "Mini-Mecha action figure! Collect them all! 5/11. This one is the heavy durand combat mecha. Stomp stomp!"
+	desc = "Mаленькая фигурка меха, собери всю коллекцию! Номер 5 из 11. Эта фигурка изображает тяжелого боевого меха Дюранд. Топ-топ!"
 	icon_state = "durandprize"
+
+/obj/item/toy/prize/durand/get_ru_names()
+	return alist(
+		NOMINATIVE = "фигурка меха Дюранд",
+		GENITIVE = "фигурки меха Дюранд",
+		DATIVE = "фигурке меха Дюранд",
+		ACCUSATIVE = "фигурку меха Дюранд",
+		INSTRUMENTAL = "фигуркой меха Дюранд",
+		PREPOSITIONAL = "фигурке меха Дюранд",
+	)
 
 /obj/item/toy/prize/honk
 	name = "toy H.O.N.K."
-	desc = "Mini-Mecha action figure! Collect them all! 6/11. This one is the infamous H.O.N.K mech!"
+	desc = "Mаленькая фигурка меха, собери всю коллекцию! Номер 6 из 11. Да это же тот самый печально известный Хонкомех!"
 	icon_state = "honkprize"
+
+/obj/item/toy/prize/honk/get_ru_names()
+	return alist(
+		NOMINATIVE = "фигурка Хонкомеха",
+		GENITIVE = "фигурки Хонкомеха",
+		DATIVE = "фигурке Хонкомеха",
+		ACCUSATIVE = "фигурку Хонкомеха",
+		INSTRUMENTAL = "фигуркой Хонкомеха",
+		PREPOSITIONAL = "фигурке Хонкомеха",
+	)
 
 /obj/item/toy/prize/marauder
 	name = "toy marauder"
-	desc = "Mini-Mecha action figure! Collect them all! 7/11. This one is the powerful marauder combat mecha! Run for cover!"
+	desc = "Mаленькая фигурка меха, собери всю коллекцию! Номер 7 из 11. Эта фигурка изображает мощного боевого меха — Мародёр. Бегите в укрытие!"
 	icon_state = "marauderprize"
+
+/obj/item/toy/prize/marauder/get_ru_names()
+	return alist(
+		NOMINATIVE = "фигурка меха Мародёр",
+		GENITIVE = "фигурки меха Мародёр",
+		DATIVE = "фигурке меха Мародёр",
+		ACCUSATIVE = "фигурку меха Мародёр",
+		INSTRUMENTAL = "фигуркой меха Мародёр",
+		PREPOSITIONAL = "фигурке меха Мародёр",
+	)
 
 /obj/item/toy/prize/seraph
 	name = "toy seraph"
-	desc = "Mini-Mecha action figure! Collect them all! 8/11. This one is the powerful seraph combat mecha! Someone's in trouble!"
+	desc = "Mаленькая фигурка меха, собери всю коллекцию! Номер 8 из 11. Эта фигурка изображает одного из сильнейших боевых мехов — Серафим. Кому-то не повезло..."
 	icon_state = "seraphprize"
+
+/obj/item/toy/prize/seraph/get_ru_names()
+	return alist(
+		NOMINATIVE = "фигурка меха Серафим",
+		GENITIVE = "фигурки меха Серафим",
+		DATIVE = "фигурке меха Серафим",
+		ACCUSATIVE = "фигурку меха Серафим",
+		INSTRUMENTAL = "фигуркой меха Серафим",
+		PREPOSITIONAL = "фигурке меха Серафим",
+	)
 
 /obj/item/toy/prize/mauler
 	name = "toy mauler"
-	desc = "Mini-Mecha action figure! Collect them all! 9/11. This one is the deadly mauler combat mecha! Look out!"
+	desc = "Mаленькая фигурка меха, собери всю коллекцию! Номер 9 из 11. Эта фигурка изображает смертоносного меха — Маулер. Берегитесь!"
 	icon_state = "maulerprize"
+
+/obj/item/toy/prize/mauler/get_ru_names()
+	return alist(
+		NOMINATIVE = "фигурка меха Маулер",
+		GENITIVE = "фигурки меха Маулер",
+		DATIVE = "фигурке меха Маулер",
+		ACCUSATIVE = "фигурку меха Маулер",
+		INSTRUMENTAL = "фигуркой меха Маулер",
+		PREPOSITIONAL = "фигурке меха Маулер",
+	)
 
 /obj/item/toy/prize/odysseus
 	name = "toy odysseus"
-	desc = "Mini-Mecha action figure! Collect them all! 10/11. This one is the spindly, syringe-firing odysseus medical mecha."
+	desc = "Mаленькая фигурка меха, собери всю коллекцию! Номер 10 из 11. Эта фигурка изображает белого изворотливого меха - Одиссея. Его используют врачи и парамедики по всей галактике."
 	icon_state = "odysseusprize"
+
+/obj/item/toy/prize/odysseus/get_ru_names()
+	return alist(
+		NOMINATIVE = "фигурка меха Одиссей",
+		GENITIVE = "фигурки меха Одиссей",
+		DATIVE = "фигурке меха Одиссей",
+		ACCUSATIVE = "фигурку меха Одиссей",
+		INSTRUMENTAL = "фигуркой меха Одиссей",
+		PREPOSITIONAL = "фигурке меха Одиссей",
+	)
 
 /obj/item/toy/prize/phazon
 	name = "toy phazon"
-	desc = "Mini-Mecha action figure! Collect them all! 11/11. This one is the mysterious Phazon combat mecha! Nobody's safe!"
+	desc = "Mаленькая фигурка меха, собери всю коллекцию! Номер 11 из 11. Это мистический боевой мех — Фазон. Никто не останется в безопасности!"
 	icon_state = "phazonprize"
+
+/obj/item/toy/prize/phazon/get_ru_names()
+	return alist(
+		NOMINATIVE = "фигурка меха Фазон",
+		GENITIVE = "фигурки меха Фазон",
+		DATIVE = "фигурке меха Фазон",
+		ACCUSATIVE = "фигурку меха Фазон",
+		INSTRUMENTAL = "фигуркой меха Фазон",
+		PREPOSITIONAL = "фигурке меха Фазон",
+	)
 
 /*
  * Owl and griffin
