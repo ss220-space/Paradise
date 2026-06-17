@@ -129,7 +129,7 @@
 	H.mind?.offstation_role = TRUE
 
 /datum/job/ntspecops/captain
-	title = JOB_TITLE_CCSCAPTAIN
+	title = JOB_TITLE_CCCAPTAIN
 	outfit = /datum/outfit/job/ntspecops/captain
 
 /datum/outfit/job/ntspecops/captain
