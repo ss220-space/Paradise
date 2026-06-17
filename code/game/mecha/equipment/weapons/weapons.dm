@@ -14,15 +14,6 @@
 	var/projectiles
 	var/projectile_energy_cost
 
-/obj/item/mecha_parts/mecha_equipment/weapon/can_attach(obj/mecha/M)
-	if(!istype(M))
-		return FALSE
-	if(length(M.equipment) >= M.max_equip)
-		return FALSE
-	if(M.emagged || ..())
-		return TRUE
-	return FALSE
-
 /obj/item/mecha_parts/mecha_equipment/weapon/proc/get_shot_amount()
 	return projectiles_per_shot
 
@@ -553,8 +544,10 @@
 	harmful = FALSE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/bola/can_attach(obj/mecha/M)
-	if(..() && (istype(M, /obj/mecha/combat/gygax) || istype(M, /obj/mecha/makeshift/lockersyndie)))
-		return TRUE
+	if(!..())
+		return FALSE
+	if(!istype(M, /obj/mecha/combat/gygax) || istype(M, /obj/mecha/makeshift/lockersyndie))
+		return FALSE
 	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/bola/action(target, list/modifiers)

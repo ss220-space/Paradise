@@ -62,10 +62,11 @@
 	var/emp_protection = FALSE
 	/// mech equipment types
 	var/allowed_equipment = MECH_EQUIPMENT_WORKING
+	var/system_allowed = FALSE
 
 	/// emag
 	var/emaggable = FALSE
-	var/emag_desc = span_danger_alt("</br>The mech's equipment slots spark dangerously!")
+	var/emag_desc = span_danger_alt("</br>Слоты оборудования меха опасно искрят!")
 
 	//inner atmos
 	var/use_internal_tank = FALSE
@@ -882,7 +883,7 @@
 /obj/mecha/emp_act(severity)
 	if(emp_protection)
 		return FALSE
-	else if(get_charge())
+	if(get_charge())
 		use_power((cell.charge/3)/(severity*2))
 		take_damage(30 / severity, BURN, ENERGY, 1)
 	check_for_internal_damage(list(MECHA_INT_FIRE, MECHA_INT_TEMP_CONTROL, MECHA_INT_CONTROL_LOST, MECHA_INT_SHORT_CIRCUIT), 1)
@@ -1168,14 +1169,15 @@
 	if(emagged)
 		return FALSE
 	if(emaggable)
-		add_attack_logs(user, src, "emagged")
+		add_attack_logs(user, src, "Взламывает")
 		emagged = TRUE
+		allowed_equipment |= MECH_EQUIPMENT_COMBAT
 		if(user)
-			to_chat(user, span_notice("You slide the card through [src]'s ID slot."))
+			to_chat(user, span_notice("Вы проводите картой по ID слоту меха [src]."))
 		playsound(loc, SFX_SPARKS, 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		desc += emag_desc
 	else if(user)
-		to_chat(user, span_warning("[src]'s ID slot rejects the card."))
+		to_chat(user, span_warning("ID слот меха [src] отклоняет карту."))
 
 /////////////////////////////////////
 //////////// AI piloting ////////////

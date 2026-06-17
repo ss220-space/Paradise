@@ -3,6 +3,7 @@
 	cargo_capacity = 15
 	var/fast_pressure_step_in = 2
 	var/slow_pressure_step_in = 2
+	system_allowed = TRUE
 
 /obj/mecha/working/Initialize(mapload)
 	. = ..()

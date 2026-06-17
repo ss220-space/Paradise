@@ -14,6 +14,7 @@
 	force = 40
 	wreckage = /obj/structure/mecha_wreckage/durand
 	mech_type = MECH_TYPE_DURAND
+	system_allowed = TRUE
 
 /obj/mecha/combat/durand/GrantActions(mob/living/user, human_occupant = 0)
 	..()
