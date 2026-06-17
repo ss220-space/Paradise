@@ -32,12 +32,14 @@
 			span_warning("[mindslave_target] seems to resist the bio-chip!"),
 			span_warning("You feel a strange sensation in your head that quickly dissipates."),
 		)
+		qdel(src)
 		return TRUE
 
 	// Mindslaving yourself.
 	if(mindslave_target == user)
 		to_chat(user, span_notice("Making yourself loyal to yourself was a great idea! Perhaps even the best idea ever! Actually, you just feel like an idiot."))
 		user.adjustBrainLoss(20)
+		qdel(src)
 		return TRUE
 
 	// Create a new mindslave datum for the target with the user as their master.
