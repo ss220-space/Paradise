@@ -168,15 +168,16 @@
 #undef BLADE_DANCE_COOLDOWN
 
 
-// While in the low-health "duelist stance", the Torn Champion shrugs off slowdowns.
-/datum/movespeed_modifier/duelist_stance
-	multiplicative_slowdown = -0.4
-
 /*
  * Stance of the Torn Champion (TG `duel_stance`). A passive Blade tier-1 ability, available to other
  * paths as a Tier-5 shop/draft side. master220 has no TG wound system, so the wound-resilience parts are
- * adapted: kept the iconic immunity-to-dismemberment, plus a low-health (<50%) anti-slowdown "duelist
- * stance" driven off the Life tick (master220 has no COMSIG_LIVING_HEALTH_UPDATE).
+ * dropped; kept the iconic immunity-to-dismemberment, plus the low-health (<50%) "duelist stance".
+ *
+ * IMPORTANT (matches TG): the duelist stance does NOT make you flat-out faster. It grants immunity to the
+ * DAMAGE-induced slowdown (TG: add_movespeed_mod_immunities(damage_slowdown); here: TRAIT_IGNOREDAMAGESLOWDOWN,
+ * which makes update_movespeed_damage_modifiers() drop /datum/movespeed_modifier/damage_slowdown[_flying]).
+ * So while wounded below 50% you move at your NORMAL baseline pace instead of being slowed by your injuries -
+ * you never exceed baseline. Driven off the Life tick (master220 has no COMSIG_LIVING_HEALTH_UPDATE).
  */
 /datum/heretic_knowledge/duel_stance
 	name = "Стойка Истерзанного Чемпиона"
@@ -201,9 +202,8 @@
 
 /datum/heretic_knowledge/duel_stance/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
 	REMOVE_TRAIT(user, TRAIT_NODISMEMBER, type)
-	if(in_duelist_stance && isliving(user))
-		var/mob/living/living_user = user
-		living_user.remove_movespeed_modifier(/datum/movespeed_modifier/duelist_stance)
+	if(in_duelist_stance)
+		REMOVE_TRAIT(user, TRAIT_IGNOREDAMAGESLOWDOWN, type)
 	in_duelist_stance = FALSE
 	UnregisterSignal(user, list(COMSIG_ATOM_EXAMINE, COMSIG_LIVING_LIFE))
 
@@ -220,12 +220,12 @@
 	if(in_duelist_stance && source.health > source.maxHealth * 0.5)
 		in_duelist_stance = FALSE
 		source.balloon_alert(source, "стойка покинута")
-		source.remove_movespeed_modifier(/datum/movespeed_modifier/duelist_stance)
+		REMOVE_TRAIT(source, TRAIT_IGNOREDAMAGESLOWDOWN, type)
 		return
 	if(!in_duelist_stance && source.health <= source.maxHealth * 0.5)
 		in_duelist_stance = TRUE
 		source.balloon_alert(source, "стойка дуэлянта")
-		source.add_movespeed_modifier(/datum/movespeed_modifier/duelist_stance)
+		ADD_TRAIT(source, TRAIT_IGNOREDAMAGESLOWDOWN, type)
 
 
 /datum/heretic_knowledge/mark/blade_mark

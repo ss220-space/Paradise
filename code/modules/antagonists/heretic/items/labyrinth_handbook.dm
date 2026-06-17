@@ -2,6 +2,10 @@
 	name = "страницы карты лабиринта"
 	desc = "Множество листов бумаги летающих в воздухе, отпугивающих язычников с невероятной силой."
 	gender = PLURAL
+	// The "lintel" state lives in eldritch.dmi - the base /obj/effect/forcefield inherits effects.dmi from
+	// /obj/effect, which has no "lintel" frame, so without this override the barrier renders completely
+	// invisible. (TG ships "lintel" inside its effects.dmi; this port keeps it in the heretic icon instead.)
+	icon = 'icons/effects/eldritch.dmi'
 	icon_state = "lintel"
 	lifetime = 8 SECONDS
 

@@ -108,10 +108,9 @@ GLOBAL_LIST_EMPTY(heretic_sacrifice_landmarks)
 	dir = WEST
 
 
-// Floor used by the code-generated Mansus sacrifice room.
-// Exposed to the temperate environment so the room is always breathable
-// even though it's sealed off by indestructible walls (the sacrifice has
-// to survive 2.5 minutes here without suffocating).
+// Floor for the (mapped) Mansus sacrifice rooms. Place these inside your sacrifice-realm map.
+// Exposed to the temperate environment so the room is always breathable even when sealed off by
+// indestructible walls (the sacrifice has to survive 2.5 minutes here without suffocating).
 /turf/simulated/floor/indestructible/mansus
 	name = "плоть Мансуса"
 	desc = "Тёплая, слабо пульсирующая поверхность. Лучше не думать о том, на чём вы стоите."

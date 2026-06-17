@@ -30,20 +30,34 @@
 	icon_state = "lunar_parade"
 	damage = 0
 	damage_type = BURN
-	// Slow, deliberate drift - the parade "shield" should crawl along so the crowd can march after it,
-	// not zip across the screen. (Paradise's projectile speed is "deciseconds per move", so higher = slower;
-	// a default bullet is 0.5, this is a leisurely 2.)
-	speed = 2
+	// Slow, deliberate drift - the parade "shield" crawls along so the crowd can march after it instead of
+	// zipping across the screen. Paradise's projectile `speed` is a DIVISOR (deciseconds per move, higher =
+	// slower): tile speed = 10/speed tiles per second. TG's parade moves at 2 tiles/sec (its `speed = 0.2` is
+	// a MULTIPLIER, the opposite meaning: 32px * 0.2 = 6.4px/ds = 2 tiles/sec). To match that exact pace here
+	// we need 10/speed = 2  ->  speed = 5. (A normal bullet is 0.5 = 20 tiles/sec, i.e. this is 10x slower.)
+	speed = 5
 	range = 75
-	// flag is BULLET by default, which lets it ricochet off normal walls (RICOCHET_BALLISTIC).
+	// Bounce off any surface it meets, for a long time. ricochets_max caps the TOTAL number of bounces (40,
+	// matches TG); what actually counts as a bounceable "surface" is overridden in check_ricochet()/
+	// check_ricochet_flag() below so the parade reflects off EVERYTHING solid - walls, windows, machines,
+	// lockers, girders - not just the ballistic-flagged walls the base game allows.
 	ricochets_max = 40
-	ricochet_chance = 500
+	ricochet_chance = 100
 	///looping sound datum for our projectile.
 	var/datum/looping_sound/moon_parade/soundloop
 
 /obj/projectile/moon_parade/Initialize(mapload)
 	. = ..()
 	soundloop = new(src, TRUE)
+
+/// The parade reflects off ANY solid surface, not only the walls that carry a RICOCHET_* flag like the base
+/// game requires. We bounce off everything that isn't a living mob; the living we PIERCE instead (see on_hit)
+/// so the whole crowd gets dragged into the march rather than stopping the shield.
+/obj/projectile/moon_parade/check_ricochet(atom/bumped_atom)
+	return !isliving(bumped_atom)
+
+/obj/projectile/moon_parade/check_ricochet_flag(atom/bumped_atom)
+	return !isliving(bumped_atom)
 
 /// TG pierces mobs/vehicles via projectile_piercing. Paradise has no such var - instead a projectile
 /// passes through whatever it hits when bullet_act()/on_hit() returns -1 (see shooting_range.dm). So we
@@ -52,7 +66,10 @@
 /obj/projectile/moon_parade/on_hit(atom/target, blocked = 0, pierce_hit)
 	. = ..()
 	if(!isliving(target))
-		return .
+		// A non-living atom only reaches bullet_act/on_hit if a ricochet was skipped (e.g. handle_ricochet()
+		// rejected a glancing angle). Phase through it instead of dying, so the parade can NEVER be stopped
+		// by bumping into scenery - it just keeps marching.
+		return -1
 
 	var/mob/living/victim = target
 
@@ -60,7 +77,8 @@
 	if(victim == firer || is_parade_ally(victim))
 		return -1
 
-	// Anti-magic shrugs the parade off and pops the projectile - counterplay, matches TG.
+	// Anti-magic shrugs the parade off and pops the projectile - deliberate counterplay, matches TG. (In
+	// master220 can_block_magic() is currently an inert shim, so this branch is dormant until antimagic lands.)
 	if(victim.can_block_magic(MAGIC_RESISTANCE | MAGIC_RESISTANCE_MIND))
 		visible_message(span_warning("Парад врезается в [victim.declent_ru(ACCUSATIVE)], и внезапная волна ясности накрывает [genderize_ru(victim.gender, "его", "её", "его", "их")]!"))
 		return // returns a non -1 value, so Bump() deletes the projectile and the parade stops

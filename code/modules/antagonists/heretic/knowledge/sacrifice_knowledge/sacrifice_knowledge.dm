@@ -19,8 +19,6 @@
 	research_tree_icon_state = "eye_close"
 	/// How many targets do we generate?
 	var/num_targets_to_generate = 5
-	/// Whether we've generated a heretic sacrifice z-level yet, from any heretic.
-	var/static/heretic_level_generated = FALSE
 	/// A weakref to the mind of our heretic.
 	var/datum/mind/heretic_mind
 	/// Lazylist of minds that we won't pick as targets.
@@ -45,115 +43,14 @@
 	return ..()
 
 
-/// Interior size (in tiles) of the code-generated Mansus sacrifice room. Total footprint is this + 2 (walls).
-#define MANSUS_ROOM_INTERIOR 13
-
 /datum/heretic_knowledge/hunt_and_sacrifice/on_research(mob/user, datum/antagonist/heretic/our_heretic)
 	. = ..()
 	obtain_targets(user, silent = TRUE, heretic_datum = our_heretic)
 	heretic_mind = our_heretic.owner
-
-	// Build the Mansus room once (from the first heretic to research this).
-	// Instead of a lazy-loaded z-level template (which master220 lacks), we
-	// carve a small sealed room into empty space on the CentCom z-level and
-	// drop the sacrifice landmark there.
-	if(!heretic_level_generated)
-		heretic_level_generated = TRUE
-		log_game("Generating heretic sacrifice room (Mansus)...")
-		INVOKE_ASYNC(src, PROC_REF(generate_heretic_room))
-
-/**
- * Builds the Mansus sacrifice room entirely in code and registers its landmark.
- *
- * Finds an empty block of space on the CentCom ("CentComm") z-level, walls it
- * off with indestructible eldritch walls, floors it with breathable Mansus
- * flesh and plants an /obj/effect/landmark/heretic in the middle so that
- * [proc/begin_sacrifice] has somewhere to teleport sacrifices to.
- *
- * Falls back to a freshly-created admin z-level if CentCom has no free room.
- */
-/datum/heretic_knowledge/hunt_and_sacrifice/proc/generate_heretic_room()
-	// Already have a landmark from a map or a previous build? Nothing to do.
-	if(GLOB.heretic_sacrifice_landmarks[PATH_START])
-		return
-
-	var/total = MANSUS_ROOM_INTERIOR + 2
-	var/turf/corner = find_empty_mansus_spot(total)
-	if(!corner)
-		// No room on CentCom - spin up a dedicated, isolated admin z-level instead.
-		var/new_z = GLOB.space_manager.add_new_zlevel("Mansus", linkage = UNAFFECTED, traits = list(ADMIN_LEVEL, BLOCK_TELEPORT))
-		corner = locate(3, 3, new_z)
-		if(!corner)
-			message_admins("Heretic sacrifice room failed to generate - sacrifices will be disembowelled instead of sent to the Mansus.")
-			CRASH("generate_heretic_room could not find or create space for the Mansus room!")
-
-	build_mansus_room(corner, total)
-	log_game("Heretic sacrifice room generated at [AREACOORD(corner)].")
-
-/**
- * Scans the CentCom z-level for a [size]x[size] block of empty space turfs.
- * Returns the bottom-left corner turf of the first suitable block, or null.
- */
-/datum/heretic_knowledge/hunt_and_sacrifice/proc/find_empty_mansus_spot(size)
-	var/datum/space_level/cc = GLOB.space_manager.get_zlev_by_name(CENTCOMM)
-	if(!cc)
-		return null
-
-	var/cc_z = cc.zpos
-	var/margin = 3
-	// Search from the far (top) edge of the z-level downwards so we land deep in the
-	// empty void, well away from the mapped CentCom rooms and the emergency shuttle's
-	// flight path. Step a few tiles at a time - we just need one clear spot.
-	for(var/by = world.maxy - size - margin; by >= margin; by -= 3)
-		for(var/bx = margin; bx <= world.maxx - size - margin; bx += 3)
-			if(is_mansus_block_clear(bx, by, cc_z, size))
-				return locate(bx, by, cc_z)
-
-	return null
-
-/// Returns TRUE if every turf in the [size]x[size] block from (bx, by) is empty space.
-/datum/heretic_knowledge/hunt_and_sacrifice/proc/is_mansus_block_clear(bx, by, z, size)
-	// Cheap pre-check on the corners + centre before the full sweep.
-	for(var/list/probe as anything in list(list(0, 0), list(size - 1, 0), list(0, size - 1), list(size - 1, size - 1), list(round(size / 2), round(size / 2))))
-		var/turf/spot = locate(bx + probe[1], by + probe[2], z)
-		if(!isspaceturf(spot) || length(spot.contents))
-			return FALSE
-
-	for(var/dx in 0 to size - 1)
-		for(var/dy in 0 to size - 1)
-			var/turf/checking = locate(bx + dx, by + dy, z)
-			if(!isspaceturf(checking) || length(checking.contents))
-				return FALSE
-
-	return TRUE
-
-/**
- * Constructs the room: indestructible walls on the perimeter, breathable Mansus
- * flesh inside, all moved into the Mansus area, plus the landmark and some flavour.
- */
-/datum/heretic_knowledge/hunt_and_sacrifice/proc/build_mansus_room(turf/corner, size)
-	var/z = corner.z
-	var/bx = corner.x
-	var/by = corner.y
-	var/area/mansus_area = GLOB.areas_by_type[/area/centcom/heretic_sacrifice/ash] || new /area/centcom/heretic_sacrifice/ash
-
-	for(var/dx in 0 to size - 1)
-		for(var/dy in 0 to size - 1)
-			var/turf/old_turf = locate(bx + dx, by + dy, z)
-			if(!old_turf)
-				continue
-
-			var/is_edge = (dx == 0 || dy == 0 || dx == size - 1 || dy == size - 1)
-			var/turf/new_turf = old_turf.ChangeTurf(is_edge ? /turf/simulated/wall/indestructible/heretic_wall : /turf/simulated/floor/indestructible/mansus)
-			// The freshly-spawned turf still belongs to its old (space) area - move it into the Mansus.
-			new_turf.change_area(new_turf.loc, mansus_area)
-
-	// Landmark in the centre - this populates GLOB.heretic_sacrifice_landmarks[PATH_START].
-	var/turf/centre = locate(bx + round(size / 2), by + round(size / 2), z)
-	new /obj/effect/landmark/heretic(centre)
-	// A self-lit eldritch orb so the sealed room isn't a pitch-black box.
-	// Kept off the landmark tile so it doesn't block where sacrifices arrive.
-	new /obj/structure/orb(locate(bx + 2, by + 2, z))
+	// The Mansus sacrifice realm is a MAPPED location now (like /tg/): map a room per path and drop the
+	// matching /obj/effect/landmark/heretic[/<path>] in it (see sacrifice_map.dm). begin_sacrifice() reads
+	// GLOB.heretic_sacrifice_landmarks[path] || [PATH_START] to teleport the victim there. If no landmark is
+	// mapped yet, the teleport in after_target_sleeps() fails gracefully and the victim is disembowelled.
 
 /datum/heretic_knowledge/hunt_and_sacrifice/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
 	var/datum/antagonist/heretic/heretic_datum = user.mind.has_antag_datum(/datum/antagonist/heretic)
@@ -753,7 +650,6 @@
 
 #undef SACRIFICE_SLEEP_DURATION
 #undef SACRIFICE_REALM_DURATION
-#undef MANSUS_ROOM_INTERIOR
 
 /**
  * Drops a mob's organs on the floor
