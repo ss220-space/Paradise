@@ -449,7 +449,20 @@
 					if(R.fields["id"] == E.fields["id"])
 						medical = R.fields["p_stat"]
 
-		msg += "[span_deptradio("Состояние:")] [span_notice(get_desc_for_medical_status(hud_list[STATUS_HUD].icon_state))]\n"
+		if(!HAS_TRAIT(src, TRAIT_NO_BLOOD))
+			var/blood_percent = round(blood_volume / BLOOD_VOLUME_NORMAL * 100)
+			var/blood_level = (blood_volume >= BLOOD_VOLUME_REGENERATION) ? 3 : ((blood_volume >= BLOOD_VOLUME_BAD) ? 2 : 1)
+
+			var/blood_span
+			switch(blood_level)
+				if(1)
+					blood_span = span_userdanger("Уровень крови: [blood_percent]%")
+				if(2)
+					blood_span = span_warning("Уровень крови: [blood_percent]%")
+				if(3)
+					blood_span = span_notice("Уровень крови: [blood_percent]%")
+
+			msg += "[blood_span]\n"
 		msg += "[span_deptradio("Психологический статус:")] <a href='byond://?src=[UID()];medical=1'>\[[medical]\]</a>\n"
 		msg += "[span_deptradio("Медицинские записи:")] <a href='byond://?src=[UID()];medrecord=`'>\[View\]</a> <a href='byond://?src=[UID()];medrecordadd=`'>\[Добавить комментарий\]</a>\n"
 
