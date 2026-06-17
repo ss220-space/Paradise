@@ -13,7 +13,7 @@
 /datum/looping_sound/gigadrill
 	start_sound = 'sound/machines/engine/engine_start.ogg'
 	start_length = 0.3 SECONDS
-	mid_sounds = list('sound/machines/engine/engine_mid1.ogg')
+	mid_sounds = list('sound/machines/engine/engine_mid1.ogg' = 1)
 	mid_length = 0.3 SECONDS
 	end_sound = 'sound/machines/engine/engine_end.ogg'
 	volume = 20
@@ -22,9 +22,9 @@
 	start_sound = 'sound/machines/generator/generator_start.ogg'
 	start_length = 0.4 SECONDS
 	mid_sounds = list(
-		'sound/machines/generator/generator_mid1.ogg',
-		'sound/machines/generator/generator_mid2.ogg',
-		'sound/machines/generator/generator_mid3.ogg',
+		'sound/machines/generator/generator_mid1.ogg' = 1,
+		'sound/machines/generator/generator_mid2.ogg' = 1,
+		'sound/machines/generator/generator_mid3.ogg' = 1,
 	)
 	mid_length = 0.4 SECONDS
 	end_sound = 'sound/machines/generator/generator_end.ogg'
@@ -40,7 +40,7 @@
 	use_sound_tokens = TRUE
 
 /datum/looping_sound/supermatter
-	mid_sounds = list('sound/machines/sm/loops/calm.ogg')
+	mid_sounds = list('sound/machines/sm/loops/calm.ogg' = 1)
 	mid_length = 6 SECONDS
 	volume = 40
 	extra_range = 25
@@ -50,7 +50,7 @@
 	use_sound_tokens = TRUE
 
 /datum/looping_sound/destabilized_crystal
-	mid_sounds = list('sound/machines/sm/loops/delamming.ogg')
+	mid_sounds = list('sound/machines/sm/loops/delamming.ogg' = 1)
 	mid_length = 6 SECONDS
 	volume = 55
 	extra_range = 15

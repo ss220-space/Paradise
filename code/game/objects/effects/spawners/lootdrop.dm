@@ -12,7 +12,7 @@
 
 /obj/effect/spawner/lootdrop/proc/spawn_loot()
 	while(lootcount)
-		var/lootspawn = pickweight(loot)
+		var/lootspawn = pick_weight(fill_with_ones(loot))
 		if(lootspawn)
 			new lootspawn(get_turf(src))
 			if(!lootdoubles)
