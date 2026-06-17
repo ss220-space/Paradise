@@ -150,7 +150,7 @@
 
 /obj/item/trash/beans_empty
 	name = "beans can"
-	desc = "Пустая банка. Надпись на банке — Бобы."
+	desc = "Пустая банка. Надпись на банке — \"Бобы\"."
 	icon_state = "beans_empty"
 
 /obj/item/trash/beans_empty/get_ru_names()
