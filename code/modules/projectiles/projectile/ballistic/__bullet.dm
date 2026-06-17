@@ -1,4 +1,5 @@
 /obj/projectile/bullet
+	abstract_type = /obj/projectile/bullet
 	name = "bullet"
 	gender = FEMALE
 	damage = 50

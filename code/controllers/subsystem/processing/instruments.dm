@@ -37,10 +37,8 @@ PROCESSING_SUBSYSTEM_DEF(instruments)
 
 /// Initializes all instrument datums
 /datum/controller/subsystem/processing/instruments/proc/initialize_instrument_data()
-	for(var/path in subtypesof(/datum/instrument))
+	for(var/path in valid_subtypesof(/datum/instrument))
 		var/datum/instrument/I = path
-		if(initial(I.abstract_type) == path)
-			continue
 		I = new path
 		I.Initialize()
 		if(!I.id)

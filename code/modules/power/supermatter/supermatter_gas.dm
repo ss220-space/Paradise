@@ -1,6 +1,6 @@
 /proc/init_sm_gas()
 	var/list/gas_list = list()
-	for(var/sm_gas_type in subtypesof(/datum/sm_gas))
+	for(var/sm_gas_type in valid_subtypesof(/datum/sm_gas))
 		var/datum/sm_gas/sm_gas = new sm_gas_type
 		gas_list[sm_gas.gas_id] = sm_gas
 	return gas_list
@@ -64,6 +64,7 @@ GLOBAL_LIST_INIT(sm_gas_behavior, init_sm_gas())
 /// If the gas has no effects you do not need to add another sm_gas subtype,
 /// We already guard for nulls in [/obj/machinery/power/supermatter_crystal/proc/calculate_gases]
 /datum/sm_gas
+	abstract_type = /datum/sm_gas
 	/// Path of the [/datum/gas] involved with this interaction.
 	var/gas_id
 	/// Influences zap power without interfering with the crystal's own energy. Gets scaled by [BASE_POWER_TRANSMISSION_RATE].
