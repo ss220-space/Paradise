@@ -37,6 +37,7 @@
 	volume = 20
 	falloff_distance = 2
 	falloff_exponent = 5
+	use_sound_tokens = TRUE
 
 /datum/looping_sound/supermatter
 	mid_sounds = list('sound/machines/sm/loops/calm.ogg')
@@ -46,6 +47,7 @@
 	falloff_exponent = 10
 	falloff_distance = 5
 	vary = TRUE
+	use_sound_tokens = TRUE
 
 /datum/looping_sound/destabilized_crystal
 	mid_sounds = list('sound/machines/sm/loops/delamming.ogg')
@@ -53,6 +55,7 @@
 	volume = 55
 	extra_range = 15
 	vary = TRUE
+	use_sound_tokens = TRUE
 
 /datum/looping_sound/gravgen
 	start_sound = 'sound/machines/gravgen/grav_gen_start.ogg'
@@ -68,3 +71,4 @@
 	volume = 70
 	falloff_distance = 5
 	falloff_exponent = 20
+	use_sound_tokens = TRUE

@@ -16,6 +16,7 @@
 	mid_length = 1 SECONDS
 	end_sound = list('sound/weapons/chainsaw_stop.ogg')
 	volume = 20
+	use_sound_tokens = TRUE
 
 /datum/looping_sound/tesla_cannon
 	start_sound = list('sound/weapons/gun/tesla/tesla_start.ogg' = 1)
@@ -27,3 +28,4 @@
 	end_volume = 15
 	ignore_walls = FALSE
 	reserve_random_channel = TRUE
+	use_sound_tokens = TRUE

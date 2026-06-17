@@ -471,7 +471,7 @@ SUBSYSTEM_DEF(tts)
 /datum/controller/subsystem/tts/proc/get_local_channel_by_owner(owner)
 	var/channel = tts_local_channels_by_owner[owner]
 	if(isnull(channel))
-		channel = SSsounds.reserve_sound_channel_datumless()
+		channel = SSsounds.reserve_sound_channel()
 		tts_local_channels_by_owner[owner] = channel
 	return channel
 
