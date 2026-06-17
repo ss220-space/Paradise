@@ -15,7 +15,6 @@
 		PREPOSITIONAL = "корпусе интеркома",
 	)
 
-
 /obj/item/mounted/frame/intercom/try_build(turf/on_wall, mob/user)
 	if(!..())
 		return FALSE

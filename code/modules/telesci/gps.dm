@@ -40,8 +40,18 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	if(name == initial(name))
 		name = "global positioning system ([gpstag])"
 	update_icon(UPDATE_OVERLAYS)
+	if(anchored)
+		RegisterSignal(src, COMSIG_MOUSEDROP_ONTO, PROC_REF(on_mousedrop_onto))
+
+/obj/item/gps/proc/on_mousedrop_onto(datum/source, atom/over, mob/user)
+	SIGNAL_HANDLER
+	if(anchored)
+		user.balloon_alert(user, "прикручен к стене!")
+		return COMPONENT_CANCEL_MOUSEDROP_ONTO
+	return NONE
 
 /obj/item/gps/Destroy()
+	UnregisterSignal(src, COMSIG_MOUSEDROP_ONTO)
 	GLOB.GPS_list.Remove(src)
 	GLOB.poi_list.Remove(src)
 	locked_location = null
