@@ -207,10 +207,20 @@
  */
 /obj/item/toy/owl
 	name = "owl action figure"
-	desc = "An action figure modeled after 'The Owl', defender of justice."
+	desc = "Фигурка, созданная по образу \"Совы\", защитницы справедливости."
 	icon_state = "owlprize"
 	w_class = WEIGHT_CLASS_SMALL
 	var/cooldown = 0
+
+/obj/item/toy/owl/get_ru_names()
+	return alist(
+		NOMINATIVE = "фигурка супергерой \"Сова\"",
+		GENITIVE = "фигурки супергерой \"Сова\"",
+		DATIVE = "фигурке супергерой \"Сова\"",
+		ACCUSATIVE = "фигурку супергерой \"Сова\"",
+		INSTRUMENTAL = "фигуркой супергерой \"Сова\"",
+		PREPOSITIONAL = "фигурке супергерой \"Сова\"",
+	)
 
 /obj/item/toy/owl/attack_self(mob/user)
 	if(!cooldown) //for the sanity of everyone
@@ -225,10 +235,20 @@
 
 /obj/item/toy/griffin
 	name = "griffin action figure"
-	desc = "An action figure modeled after 'The Griffin', criminal mastermind."
+	desc = "Фигурка, созданная по образу и подобию \"Грифона\", криминального гения."
 	icon_state = "griffinprize"
 	w_class = WEIGHT_CLASS_SMALL
 	var/cooldown = 0
+
+/obj/item/toy/griffin/get_ru_names()
+	return alist(
+		NOMINATIVE = "фигурка суперзлодей \"Грифон\"",
+		GENITIVE = "фигурки суперзлодей \"Грифон\"",
+		DATIVE = "фигурке суперзлодей \"Грифон\"",
+		ACCUSATIVE = "фигурку суперзлодей \"Грифон\"",
+		INSTRUMENTAL = "фигуркой суперзлодей \"Грифон\"",
+		PREPOSITIONAL = "фигурке суперзлодей \"Грифон\"",
+	)
 
 /obj/item/toy/griffin/attack_self(mob/user)
 	if(!cooldown) //for the sanity of everyone
@@ -253,30 +273,37 @@
 	name = "Xenomorph Miniature"
 	desc = "A miniature xenomorph. Scary!"
 	icon_state = "aliencharacter"
+
 /obj/item/toy/character/cleric
 	name = "Cleric Miniature"
 	desc = "A wee little cleric, with his wee little staff."
 	icon_state = "clericcharacter"
+
 /obj/item/toy/character/warrior
 	name = "Warrior Miniature"
 	desc = "That sword would make a decent toothpick."
 	icon_state = "warriorcharacter"
+
 /obj/item/toy/character/thief
 	name = "Thief Miniature"
 	desc = "Hey, where did my wallet go!?"
 	icon_state = "thiefcharacter"
+
 /obj/item/toy/character/wizard
 	name = "Wizard Miniature"
 	desc = "MAGIC!"
 	icon_state = "wizardcharacter"
+
 /obj/item/toy/character/cthulhu
 	name = "Cthulhu Miniature"
 	desc = "The dark lord has risen!"
 	icon_state = "darkmastercharacter"
+
 /obj/item/toy/character/lich
 	name = "Lich Miniature"
 	desc = "Murderboner extraordinaire."
 	icon_state = "lichcharacter"
+
 /obj/item/storage/box/characters
 	name = "Box of Miniatures"
 	desc = "The nerd's best friends."
