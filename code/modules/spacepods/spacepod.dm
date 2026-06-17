@@ -523,7 +523,7 @@
 		to_chat(user, span_notice("Вы устраняете [pick("вмятины","повреждения","дефекты")] при помощи [welder.declent_ru(GENITIVE)]."))
 
 	if(health >= initial(health))
-		src.balloon_alert(user, "челнок полностью отремонтирован!")
+		balloon_alert(user, "челнок полностью отремонтирован!")
 
 /obj/spacepod/proc/add_equipment(mob/user, obj/item/spacepod_equipment/SPE, slot)
 	if(equipment_system.vars[slot])
