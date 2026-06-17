@@ -150,7 +150,7 @@ ADMIN_VERB(play_web_sound, R_SOUNDS, "Play Internet Sound", "Play a given intern
 				if("Отмена", null)
 					return
 			if(credit)
-				announcement += "По запросу: [credit]"
+				announcement += "По запросу: [span_bold(credit)]"
 			if(length(announcement))
 				to_chat(world, fieldset_block(span_bold("Сейчас играет: [span_bold(music_extra_data["title"])][music_extra_data["artist"] ? " — [span_bold(music_extra_data["artist"])]" : ""]"), jointext(announcement, "<br>"), "boxed_message"), confidential = TRUE)
 
