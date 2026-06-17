@@ -256,7 +256,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 
 /datum/asset/simple/icon_states/multiple_icons/register()
 	for(var/i in icons)
-		return ..(i)
+		..(i)
 
 /// Namespace'ed assets (for static css and html files)
 /// When sent over a cdn transport, all assets in the same asset datum will exist in the same folder, as their plain names.
