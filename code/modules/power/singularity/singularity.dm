@@ -33,7 +33,7 @@
 	///Do we lose energy over time?
 	var/dissipate = TRUE
 	/// How long should it take for us to dissipate in seconds?
-	var/dissipate_delay = 10
+	var/dissipate_delay = 20
 	/// How much energy do we lose every dissipate_delay?
 	var/dissipate_strength = 1
 	/// How long its been (in seconds) since the last dissipation
@@ -171,13 +171,13 @@
 	time_since_act += seconds_per_tick
 	if(time_since_act < 2)
 		return
+	var/seconds_since_last_act = time_since_act
 	time_since_act = 0
 	if(current_size >= STAGE_TWO)
-		radiation_pulse(src, max_range = 4, threshold = RAD_HEAVY_INSULATION, chance = 30)
 		pulse()
 		if(prob(event_chance))
 			event()
-	dissipate(seconds_per_tick)
+	dissipate(seconds_since_last_act)
 	check_energy()
 	update_warp()
 
