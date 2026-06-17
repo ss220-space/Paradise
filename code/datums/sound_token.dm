@@ -83,7 +83,7 @@
 	RegisterSignal(SSdcs, COMSIG_GLOB_PLAYER_LOGIN, PROC_REF(player_login))
 	RegisterSignal(SSdcs, COMSIG_GLOB_PLAYER_LOGOUT, PROC_REF(player_logout))
 
-/datum/sound_token/Destroy(force, ...)
+/datum/sound_token/Destroy(force)
 	for(var/listener in listeners)
 		remove_listener(listener)
 
@@ -111,10 +111,9 @@
 	PRIVATE_PROC(TRUE)
 
 	if(isnull(listeners[listener_mob]))
-		if(!add_listener(listener_mob))
-			return FALSE
-	else
-		update_listener(listener_mob)
+		return add_listener(listener_mob)
+
+	update_listener(listener_mob)
 
 /// Adds a listener to the sound. returns TRUE if we already were added, or for some reason couldnt be added.
 /datum/sound_token/proc/add_listener(mob/listener_mob)
@@ -345,6 +344,7 @@
 /// Signal handler for SPATIAL_GRID_CELL_EXITED on tracked cells. Removes mobs who have left all member cells.
 /datum/sound_token/proc/on_cell_client_exited(datum/source, list/exiting_mobs)
 	SIGNAL_HANDLER
+
 	for(var/mob/listener_mob as anything in exiting_mobs)
 		if(SSspatial_grid.get_cell_of(listener_mob) in cell_tracker.member_cells)
 			continue

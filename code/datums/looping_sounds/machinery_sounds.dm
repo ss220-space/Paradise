@@ -17,6 +17,7 @@
 	mid_length = 0.3 SECONDS
 	end_sound = 'sound/machines/engine/engine_end.ogg'
 	volume = 20
+	use_sound_tokens = TRUE
 
 /datum/looping_sound/port_gen
 	start_sound = 'sound/machines/generator/generator_start.ogg'
@@ -29,6 +30,7 @@
 	mid_length = 0.4 SECONDS
 	end_sound = 'sound/machines/generator/generator_end.ogg'
 	volume = 40
+	use_sound_tokens = TRUE
 
 /datum/looping_sound/kinesis
 	mid_sounds = list('sound/machines/gravgen/gravgen_mid1.ogg' = 1, 'sound/machines/gravgen/gravgen_mid2.ogg' = 1, 'sound/machines/gravgen/gravgen_mid3.ogg' = 1, 'sound/machines/gravgen/gravgen_mid4.ogg' = 1)
