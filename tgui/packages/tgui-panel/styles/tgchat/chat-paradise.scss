@@ -31,3 +31,11 @@
   background: hsla(220, 75%, 5%, 0.25);
   border-color: hsla(225, 90%, 65%, 0.5);
 }
+
+.fieldset_legend {
+  background: hsla(0, 0%, 0%, 0);
+
+  &:before {
+    background: hsla(0, 0%, 0%, 0);
+  }
+}
