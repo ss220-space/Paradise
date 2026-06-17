@@ -510,7 +510,7 @@
 		return
 	. = TRUE
 	if(health >= initial(health))
-		user.balloon_alert(user, "челнока целый!")
+		src.balloon_alert(user, "челнок целый!")
 		return
 	if(!welder.tool_use_check(user, 0))
 		return
@@ -522,7 +522,7 @@
 		else
 			break
 	if(health >= initial(health))
-		user.balloon_alert(user, "челнока полностью отремонтирован!")
+		src.balloon_alert(user, "челнок полностью отремонтирован!")
 
 /obj/spacepod/proc/add_equipment(mob/user, obj/item/spacepod_equipment/SPE, slot)
 	if(equipment_system.vars[slot])
