@@ -5162,6 +5162,10 @@
 /obj/item/storage/pill_bottle/dice,
 /turf/simulated/floor/carpet,
 /area/centcom/evac)
+"cwW" = (
+/obj/structure/cable/yellow,
+/turf/simulated/floor/plating,
+/area/centcom/heretic_sacrifice/rust)
 "cxl" = (
 /obj/structure/table/wood/fancy/black,
 /obj/machinery/door_control/secure{
@@ -16241,7 +16245,9 @@
 /turf/simulated/floor/indestructible/asteroid,
 /area/syndicate_mothership/outside)
 "hTx" = (
-/obj/item/flashlight/flare,
+/obj/item/flashlight/flare{
+	on = 1
+	},
 /turf/simulated/floor/indestructible/plating{
 	atmos_mode = 2;
 	atmos_environment = "temperate"
@@ -22488,10 +22494,7 @@
 /area/syndicate_mothership/elite_squad)
 "kMu" = (
 /obj/effect/landmark/heretic/rust,
-/turf/simulated/floor/plating/ironsand{
-	atmos_mode = 2;
-	atmos_environment = "temperate"
-	},
+/turf/simulated/floor/plating,
 /area/centcom/heretic_sacrifice/rust)
 "kMy" = (
 /obj/effect/decal/syndie_logo{
@@ -22867,6 +22870,9 @@
 	icon_state = "rampbottom"
 	},
 /area/centcom/zone2)
+"kTr" = (
+/turf/simulated/floor/plating,
+/area/centcom/heretic_sacrifice/rust)
 "kTy" = (
 /obj/structure/curtain/open/shower,
 /obj/machinery/shower{
@@ -25037,6 +25043,13 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/centcom/bridge)
+"lTZ" = (
+/obj/machinery/light/floor,
+/turf/simulated/floor/plating/ironsand{
+	atmos_mode = 2;
+	atmos_environment = "temperate"
+	},
+/area/centcom/heretic_sacrifice/rust)
 "lUp" = (
 /obj/machinery/door/airlock/external{
 	frequency = 1331;
@@ -25379,6 +25392,13 @@
 	},
 /turf/simulated/floor/engine,
 /area/centcom/specops)
+"mbB" = (
+/obj/structure/cable/yellow,
+/turf/simulated/floor/plating/ironsand{
+	atmos_mode = 2;
+	atmos_environment = "temperate"
+	},
+/area/centcom/heretic_sacrifice/rust)
 "mbZ" = (
 /obj/structure/table/wood,
 /obj/item/clothing/under/plasmaman/wizard,
@@ -31194,7 +31214,7 @@
 	},
 /area/centcom/specops)
 "oBY" = (
-/obj/structure/bonfire,
+/obj/structure/bonfire/prelit,
 /turf/simulated/floor/plating/asteroid/basalt/lava{
 	atmos_mode = 2;
 	atmos_environment = "temperate"
@@ -37070,6 +37090,15 @@
 	icon_state = "dark"
 	},
 /area/centcom/jail)
+"rjV" = (
+/obj/machinery/light/floor,
+/obj/structure/lattice,
+/obj/structure/lattice,
+/turf/simulated/floor/plating/ironsand{
+	atmos_mode = 2;
+	atmos_environment = "temperate"
+	},
+/area/centcom/heretic_sacrifice/rust)
 "rkx" = (
 /obj/structure/fans/tiny/invisible,
 /turf/simulated/floor/plasteel{
@@ -44846,6 +44875,10 @@
 	icon_state = "neutralfull"
 	},
 /area/shuttle/escape)
+"uKi" = (
+/obj/structure/lattice,
+/turf/simulated/floor/plating,
+/area/centcom/heretic_sacrifice/rust)
 "uKU" = (
 /obj/effect/turf_decal/stripes/end{
 	dir = 4
@@ -46968,6 +47001,12 @@
 /obj/machinery/light,
 /turf/simulated/floor/carpet,
 /area/centcom/evac)
+"vJS" = (
+/turf/simulated/floor/plating{
+	atmos_environment = "temperate";
+	atmos_mode = 2
+	},
+/area/centcom/heretic_sacrifice/rust)
 "vKg" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -50472,6 +50511,13 @@
 	icon_state = "darkgrey"
 	},
 /area/centcom/zone2)
+"xtF" = (
+/obj/structure/lattice,
+/turf/simulated/floor/plating/ironsand{
+	atmos_mode = 2;
+	atmos_environment = "temperate"
+	},
+/area/centcom/heretic_sacrifice/rust)
 "xtI" = (
 /mob/living/simple_animal/pig,
 /turf/simulated/floor/grass,
@@ -92347,12 +92393,12 @@ qMj
 aYK
 mVT
 uMe
+xtF
+xtF
+xtF
 aAv
 aAv
-aAv
-aAv
-aAv
-aAv
+mbB
 aAv
 aAv
 aAv
@@ -92604,15 +92650,15 @@ aYK
 aYK
 mVT
 uMe
+xtF
+rjV
+xtF
 aAv
 aAv
+mbB
 aAv
-aAv
-aAv
-aAv
-aAv
-aAv
-aAv
+xtF
+lTZ
 aAv
 uMe
 mVX
@@ -92863,12 +92909,12 @@ mVT
 uMe
 aAv
 aAv
-aAv
-aAv
-aAv
-aAv
-aAv
-aAv
+cwW
+cwW
+cwW
+cwW
+uKi
+uKi
 aAv
 aAv
 uMe
@@ -93120,12 +93166,12 @@ mVT
 uMe
 aAv
 aAv
-aAv
-aAv
-aAv
-aAv
-aAv
-aAv
+kTr
+kTr
+kTr
+kTr
+kTr
+kTr
 aAv
 aAv
 uMe
@@ -93377,12 +93423,12 @@ mVT
 uMe
 aAv
 aAv
-aAv
-aAv
-aAv
-aAv
-aAv
-aAv
+kTr
+kTr
+kTr
+kTr
+kTr
+kTr
 aAv
 aAv
 uMe
@@ -93634,12 +93680,12 @@ mVT
 uMe
 aAv
 aAv
-aAv
-aAv
+kTr
+kTr
 kMu
-aAv
-aAv
-aAv
+kTr
+cwW
+cwW
 aAv
 aAv
 uMe
@@ -93891,12 +93937,12 @@ mVT
 uMe
 aAv
 aAv
-aAv
-aAv
-aAv
-aAv
-aAv
-aAv
+kTr
+kTr
+kTr
+kTr
+vJS
+kTr
 aAv
 aAv
 uMe
@@ -94147,13 +94193,13 @@ aYK
 mVT
 uMe
 aAv
-aAv
-aAv
-aAv
-aAv
-aAv
-aAv
-aAv
+xtF
+uKi
+uKi
+kTr
+kTr
+kTr
+kTr
 aAv
 aAv
 uMe
@@ -94404,14 +94450,14 @@ aYK
 mVT
 uMe
 aAv
+lTZ
+aAv
+aAv
+xtF
 aAv
 aAv
 aAv
-aAv
-aAv
-aAv
-aAv
-aAv
+lTZ
 aAv
 uMe
 mVX
