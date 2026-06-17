@@ -293,11 +293,11 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 
 /turf/simulated/floor/rcd_deconstruct_act(mob/user, obj/item/rcd/our_rcd)
 	. = ..()
-	if(our_rcd.checkResource(RCD_BUILD_FLOOR * 2, user))
+	if(our_rcd.checkResource(RCD_COST_FLOOR * 2, user))
 		to_chat(user, "Деконструкция пола...")
 		playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, TRUE)
 		if(do_after(user, 5 SECONDS * our_rcd.toolspeed, src, category = DA_CAT_TOOL))
-			if(!our_rcd.useResource(RCD_BUILD_FLOOR * 2, user))
+			if(!our_rcd.useResource(RCD_COST_FLOOR * 2, user))
 				return RCD_ACT_FAILED
 			playsound(get_turf(our_rcd), our_rcd.usesound, 50, TRUE)
 			add_attack_logs(user, src, "Deconstructed floor with RCD")
@@ -316,11 +316,11 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 		return RCD_ACT_FAILED
 	switch(rcd_mode)
 		if(RCD_MODE_TURF)
-			if(our_rcd.checkResource(RCD_BUILD_WALL, user))
+			if(our_rcd.checkResource(RCD_COST_WALL, user))
 				to_chat(user, "Печать стены...")
 				playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, TRUE)
 				if(do_after(user, 2 SECONDS * our_rcd.toolspeed, src, category = DA_CAT_TOOL))
-					if(!our_rcd.useResource(RCD_BUILD_WALL, user))
+					if(!our_rcd.useResource(RCD_COST_WALL, user))
 						return RCD_ACT_FAILED
 					playsound(get_turf(our_rcd), our_rcd.usesound, 50, TRUE)
 					add_attack_logs(user, src, "Constructed wall with RCD")
@@ -332,13 +332,13 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 			playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, TRUE)
 			return RCD_ACT_FAILED
 		if(RCD_MODE_AIRLOCK)
-			if(our_rcd.checkResource(RCD_BUILD_AIRLOCK, user))
+			if(our_rcd.checkResource(RCD_COST_AIRLOCK, user))
 				to_chat(user, "Печать шлюза...")
 				playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, TRUE)
 				if(do_after(user, 5 SECONDS * our_rcd.toolspeed, src, category = DA_CAT_TOOL))
 					if(locate(/obj/machinery/door/airlock) in src.contents)
 						return RCD_NO_ACT
-					if(!our_rcd.useResource(RCD_BUILD_AIRLOCK, user))
+					if(!our_rcd.useResource(RCD_COST_AIRLOCK, user))
 						return RCD_ACT_FAILED
 					playsound(get_turf(our_rcd), our_rcd.usesound, 50, TRUE)
 					var/obj/machinery/door/airlock/T = new our_rcd.door_type(src)
@@ -356,7 +356,7 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 		if(RCD_MODE_WINDOW)
 			if(locate(/obj/structure/grille) in src)
 				return // We already have window
-			if(!our_rcd.checkResource(RCD_BUILD_WINDOW, user))
+			if(!our_rcd.checkResource(RCD_COST_WINDOW, user))
 				to_chat(user, span_warning("ОШИБКА! Недостаточно материи для печати окна!"))
 				playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, TRUE)
 				return RCD_ACT_FAILED
@@ -367,7 +367,7 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 				return RCD_ACT_FAILED
 			if(locate(/obj/structure/grille) in src)
 				return RCD_NO_ACT// We already have window
-			if(!our_rcd.useResource(RCD_BUILD_WINDOW, user))
+			if(!our_rcd.useResource(RCD_COST_WINDOW, user))
 				return RCD_ACT_FAILED
 			playsound(get_turf(our_rcd), our_rcd.usesound, 50, TRUE)
 			add_attack_logs(user, src, "Constructed window with RCD")
@@ -389,13 +389,13 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 			ChangeTurf(our_rcd.floor_type, after_flags = CHANGETURF_IGNORE_AIR) // Platings go under windows.
 			return RCD_ACT_SUCCESSFULL
 		if(RCD_MODE_FIRELOCK)
-			if(our_rcd.checkResource(RCD_BUILD_FIRELOCK, user))
+			if(our_rcd.checkResource(RCD_COST_FIRELOCK, user))
 				to_chat(user, "Печать пожарного шлюза...")
 				playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, TRUE)
 				if(do_after(user, 5 SECONDS * our_rcd.toolspeed, src, category = DA_CAT_TOOL))
 					if(locate(/obj/machinery/door/firedoor) in src)
 						return RCD_NO_ACT
-					if(!our_rcd.useResource(RCD_BUILD_FIRELOCK, user))
+					if(!our_rcd.useResource(RCD_COST_FIRELOCK, user))
 						return RCD_ACT_FAILED
 					playsound(get_turf(our_rcd), our_rcd.usesound, 50, TRUE)
 					new our_rcd.firelock_type(src)

@@ -212,11 +212,11 @@
 
 /turf/simulated/wall/rcd_deconstruct_act(mob/user, obj/item/rcd/our_rcd)
 	. = ..()
-	if(our_rcd.checkResource(RCD_BUILD_WALL * 2, user))
+	if(our_rcd.checkResource(RCD_COST_WALL * 2, user))
 		to_chat(user, "Деконструкция стены...")
 		playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, TRUE)
 		if(do_after(user, 4 SECONDS * our_rcd.toolspeed, src, category = DA_CAT_TOOL))
-			if(!our_rcd.useResource(RCD_BUILD_WALL * 2, user))
+			if(!our_rcd.useResource(RCD_COST_WALL * 2, user))
 				return RCD_ACT_FAILED
 			playsound(get_turf(our_rcd), our_rcd.usesound, 50, TRUE)
 			add_attack_logs(user, src, "Deconstructed wall with RCD")

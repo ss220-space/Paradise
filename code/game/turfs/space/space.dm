@@ -364,7 +364,7 @@
 	. = ..()
 	if(rcd_mode != RCD_MODE_TURF)
 		return RCD_NO_ACT
-	if(our_rcd.useResource(RCD_BUILD_FLOOR, user))
+	if(our_rcd.useResource(RCD_COST_FLOOR, user))
 		to_chat(user, "Печать пола...")
 		playsound(get_turf(our_rcd), our_rcd.usesound, 50, TRUE)
 		add_attack_logs(user, src, "Constructed floor with RCD")

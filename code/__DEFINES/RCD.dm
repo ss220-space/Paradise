@@ -17,8 +17,8 @@
 #define RCD_MODE "Режим"
 #define RCD_DOOR_TYPE "Тип шлюза"
 
-#define RCD_BUILD_FLOOR 1
-#define RCD_BUILD_WALL 4
-#define RCD_BUILD_WINDOW 4
-#define RCD_BUILD_AIRLOCK 6
-#define RCD_BUILD_FIRELOCK 5
+#define RCD_COST_FLOOR 1
+#define RCD_COST_WALL 4
+#define RCD_COST_WINDOW 4
+#define RCD_COST_AIRLOCK 6
+#define RCD_COST_FIRELOCK 5
