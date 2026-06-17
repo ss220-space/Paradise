@@ -133,7 +133,7 @@
 	outfit = /datum/outfit/job/ntspecops/captain
 
 /datum/outfit/job/ntspecops/captain
-	name = JOB_TITLE_RU_CCSCAPTAIN
+	name = JOB_TITLE_RU_CCCAPTAIN
 	jobtype = /datum/job/ntspecops/captain
 	uniform = /obj/item/clothing/under/rank/centcom/captain
 	suit = /obj/item/clothing/suit/space/deathsquad/officer/captain
