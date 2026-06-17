@@ -81,6 +81,30 @@
 	explosion(target, devastation_range = -1, heavy_impact_range = 0, light_impact_range = 2, flash_range = 1, adminlog = TRUE, flame_range = 3, cause = "[type] fired by [key_name(firer)]")
 	return 1
 
+// MARK: 70mm HE
+/obj/projectile/bullet/a70mm_he
+	name = "70mm HE missile"
+	desc = "Небольшой взрыв."
+	icon_state = "70mm-he"
+	icon = 'icons/obj/weapons/ammo.dmi'
+	damage = 25
+	speed = 0.9
+	ricochets_max = 0
+
+/obj/projectile/bullet/a70mm_he/on_hit(atom/target, blocked = 0)
+	..()
+	explosion(get_turf(src), devastation_range = 0, heavy_impact_range = 2, light_impact_range = 3, flash_range = 4, cause = src)
+
+/obj/projectile/bullet/a70mm_he/get_ru_names()
+	return alist(
+		NOMINATIVE = "70мм ракета",
+		GENITIVE = "70мм ракеты",
+		DATIVE = "70мм ракете",
+		ACCUSATIVE = "70мм ракету",
+		INSTRUMENTAL = "70мм ракетой",
+		PREPOSITIONAL = "70мм ракете",
+	)
+
 // MARK: Bombarda grenade
 /obj/projectile/grenade/improvised
 	icon = 'icons/obj/weapons/bombarda.dmi'
