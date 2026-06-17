@@ -131,7 +131,9 @@
 
 	listeners[listener_mob] = NONE
 	listener_mob.client.sound_tokens += src
-	RegisterSignal(listener_mob, COMSIG_QDELETING, PROC_REF(listener_deleted))
+	// The source already holds source_deleted on COMSIG_QDELETING (which qdels the whole token), so don't clobber it when the source hears its own sound.
+	if(listener_mob != source)
+		RegisterSignal(listener_mob, COMSIG_QDELETING, PROC_REF(listener_deleted))
 	RegisterSignals(listener_mob, list(SIGNAL_ADDTRAIT(TRAIT_DEAF), SIGNAL_REMOVETRAIT(TRAIT_DEAF)), PROC_REF(listener_deafness_update))
 	update_listener(listener_mob, FALSE)
 	return TRUE
@@ -145,7 +147,11 @@
 	if(listener_mob.client)
 		listener_mob.client.sound_tokens -= src
 
-	UnregisterSignal(listener_mob, list(COMSIG_QDELETING, SIGNAL_ADDTRAIT(TRAIT_DEAF), SIGNAL_REMOVETRAIT(TRAIT_DEAF)))
+	// Don't strip COMSIG_QDELETING from the source, or we'd wipe its source_deleted handler.
+	var/list/signals_to_remove = list(SIGNAL_ADDTRAIT(TRAIT_DEAF), SIGNAL_REMOVETRAIT(TRAIT_DEAF))
+	if(listener_mob != source)
+		signals_to_remove += COMSIG_QDELETING
+	UnregisterSignal(listener_mob, signals_to_remove)
 	SEND_SOUND(listener_mob, null_sound)
 
 /// Recompute a single listener's mute state from distance/z-level/deafness and push the sound.

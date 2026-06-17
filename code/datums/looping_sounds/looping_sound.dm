@@ -188,6 +188,9 @@
  * * volume_override - The volume we want to play the sound at, overriding the `volume` variable.
  */
 /datum/looping_sound/proc/play(soundfile, volume_override)
+	if(islist(soundfile))
+		soundfile = pick_weight_recursive(soundfile)
+
 	var/play_volume = volume_override || volume // Use volume as a fallback if there's no override.
 
 	if(use_sound_tokens)
@@ -218,6 +221,7 @@
 		ignore_walls = ignore_walls,
 		falloff_distance = falloff_distance,
 		use_reverb = use_reverb,
+		channel = sound_channel || SSsounds.random_available_channel(),
 	)
 
 /// Returns the sound we should now be playing.
