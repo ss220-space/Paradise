@@ -45,3 +45,9 @@
 
 /// job subsystem has spawned and equipped a new mob
 #define COMSIG_GLOB_JOB_AFTER_SPAWN "!job_after_spawn"
+
+///Global signal sent when the player list grows. Called by [mob/add_to_player_list] (mob/player)
+#define COMSIG_GLOB_PLAYER_LOGIN "!player_login"
+
+///Global signal sent when the player list shrinks. Called by [mob/remove_from_player_list] (mob/player)
+#define COMSIG_GLOB_PLAYER_LOGOUT "!player_logout"

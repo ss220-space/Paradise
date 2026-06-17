@@ -10,11 +10,18 @@
 	caliber = null
 	max_ammo = 6
 
-// MARK: Rocket launcher
+// MARK: PML-8 rocket launcher
 /obj/item/ammo_box/magazine/internal/rocketlauncher
 	name = "rocket launcher internal magazine"
 	ammo_type = /obj/item/ammo_casing/caseless/rocket
 	caliber = CALIBER_84MM
+	max_ammo = 1
+
+// MARK: RPG-232 rocket launcher
+/obj/item/ammo_box/magazine/internal/rpg232
+	name = "RPG-232 internal magazine"
+	ammo_type = /obj/item/ammo_casing/caseless/rocket/a70mm_he
+	caliber = CALIBER_ROCKET_70MM
 	max_ammo = 1
 
 // MARK: Bombarda
