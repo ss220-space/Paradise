@@ -468,7 +468,7 @@
 /obj/item/mecha_parts/mecha_equipment/servo_hydra_actuator/can_attach(obj/mecha/M)
 	if(!..())
 		return FALSE
-	if(!M.strafe_allowed)
+	if(M.strafe_allowed)
 		return FALSE
 	return TRUE
 
@@ -511,7 +511,7 @@
 /obj/item/mecha_parts/mecha_equipment/improved_exosuit_control_system/can_attach(obj/mecha/M)
 	if(!..())
 		return FALSE
-	if(!M.system_allowed)
+	if(!M.system_attach_allowed)
 		return FALSE
 	return TRUE
 
@@ -563,7 +563,7 @@
 		return FALSE
 	if(locate(src) in M.equipment)
 		return FALSE
-	return FALSE
+	return TRUE
 
 /obj/item/mecha_parts/mecha_equipment/cage/get_ru_names()
 	return alist(

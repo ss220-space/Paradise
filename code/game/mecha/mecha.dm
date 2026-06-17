@@ -62,7 +62,7 @@
 	var/emp_protection = FALSE
 	/// mech equipment types
 	var/allowed_equipment = MECH_EQUIPMENT_WORKING
-	var/system_allowed = FALSE
+	var/system_attach_allowed = FALSE
 
 	/// emag
 	var/emaggable = FALSE
@@ -1169,7 +1169,7 @@
 	if(emagged)
 		return FALSE
 	if(emaggable)
-		add_attack_logs(user, src, "Взламывает")
+		add_attack_logs(user, src, "emagged")
 		emagged = TRUE
 		allowed_equipment |= MECH_EQUIPMENT_COMBAT
 		if(user)

@@ -16,7 +16,7 @@
 	allowed_equipment = MECH_EQUIPMENT_MAKESHIFT
 	cargo_capacity = 5 // you can fit a few things in this locker but not much.
 	emp_protection = TRUE
-
+	system_attach_allowed = TRUE
 	mech_type = MECH_TYPE_LOCKER
 
 /obj/mecha/makeshift/get_ru_names()
