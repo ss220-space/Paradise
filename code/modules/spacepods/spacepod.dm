@@ -516,11 +516,12 @@
 		return
 	WELDER_ATTEMPT_REPAIR_MESSAGE
 	while(health < initial(health))
-		if(welder.use_tool(src, user, 20, volume = welder.tool_volume))
-			repair_damage(10)
-			to_chat(user, span_notice("Вы устраняете [pick("вмятины","повреждения","дефекты")] при помощи [welder.declent_ru(GENITIVE)]."))
-		else
+		if(!welder.use_tool(src, user, 20, volume = welder.tool_volume))
 			break
+
+		repair_damage(10)
+		to_chat(user, span_notice("Вы устраняете [pick("вмятины","повреждения","дефекты")] при помощи [welder.declent_ru(GENITIVE)]."))
+
 	if(health >= initial(health))
 		src.balloon_alert(user, "челнок полностью отремонтирован!")
 

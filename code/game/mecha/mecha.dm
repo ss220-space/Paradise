@@ -1124,21 +1124,22 @@
 	WELDER_ATTEMPT_REPAIR_MESSAGE
 	repairing = TRUE
 	while(obj_integrity < max_integrity || (internal_damage & MECHA_INT_TANK_BREACH))
-		if(welder.use_tool(src, user, 15, volume = welder.tool_volume))
-			if(internal_damage & MECHA_INT_TANK_BREACH)
-				clearInternalDamage(MECHA_INT_TANK_BREACH)
-				user.visible_message(
-					span_notice("[user] отремонтировал[GEND_A_O_I(user)] повреждённый кислородный балон."),
-					span_notice("Вы отремонтировали повреждённый кислородный балон.")
-				)
-			else if(obj_integrity < max_integrity)
-				user.visible_message(
-					span_notice("[user] частично отремонтировал[GEND_A_O_I(user)] [name]."),
-					span_notice("Вы частично отремонтировали [name].")
-				)
-				repair_damage(min(10, max_integrity - obj_integrity))
-		else
+		if(!welder.use_tool(src, user, 15, volume = welder.tool_volume))
 			break
+
+		if(internal_damage & MECHA_INT_TANK_BREACH)
+			clearInternalDamage(MECHA_INT_TANK_BREACH)
+			user.visible_message(
+				span_notice("[user] отремонтировал[GEND_A_O_I(user)] повреждённый кислородный балон."),
+				span_notice("Вы отремонтировали повреждённый кислородный балон.")
+			)
+		else if(obj_integrity < max_integrity)
+			user.visible_message(
+				span_notice("[user] частично отремонтировал[GEND_A_O_I(user)] [name]."),
+				span_notice("Вы частично отремонтировали [name].")
+			)
+			repair_damage(min(10, max_integrity - obj_integrity))
+
 	if((obj_integrity >= max_integrity) && !internal_damage)
 		src.balloon_alert(user, "мех полностью отремонтирован!")
 	repairing = FALSE
