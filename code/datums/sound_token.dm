@@ -8,6 +8,8 @@
 	var/atom/source
 	/// k:v list of mob : sound status
 	var/list/listeners = list()
+	///k:v list of mobs : bool. Used to quickly check whether a mob is allowed to hear this noise. This is null by default which means ANY MOB can hear this.
+	var/list/allowed_listeners
 
 	/// Sound maximum range
 	var/range
@@ -31,10 +33,24 @@
 	var/start_time
 	/// Duration of the current sound file in deciseconds. Used to wrap offset for looping sounds.
 	var/sound_duration
+	/// Duration of the current sound file in deciseconds. Used to wrap offset for looping sounds.
+	var/sound_duration_override
 	/// Cell tracker managing spatial grid cells within range of the source. The wizards say this is the fastest.
 	var/datum/cell_tracker/cell_tracker
+	///Should we destroy the datum when the sound is done?
+	var/delete_on_end = FALSE
 
-/datum/sound_token/New(atom/source, sound, range = 10, volume = 50, falloff_exponent = SOUND_FALLOFF_EXPONENT, falloff_distance = SOUND_DEFAULT_FALLOFF_DISTANCE)
+/datum/sound_token/New(
+	atom/source,
+	sound,
+	range = 10,
+	volume = 50,
+	falloff_exponent = SOUND_FALLOFF_EXPONENT,
+	falloff_distance = SOUND_DEFAULT_FALLOFF_DISTANCE,
+	allowed_listeners,
+	sound_duration_override,
+	delete_on_end,
+)
 	src.source = source
 	RegisterSignal(source, COMSIG_QDELETING, PROC_REF(source_deleted))
 	RegisterSignal(source, COMSIG_MOVABLE_MOVED, PROC_REF(source_moved))
@@ -44,6 +60,14 @@
 	src.volume = volume
 	src.falloff_exponent = falloff_exponent
 	src.falloff_distance = falloff_distance
+	src.sound_duration_override = sound_duration_override
+
+	if(delete_on_end)
+		src.delete_on_end = delete_on_end
+
+	if(allowed_listeners)
+		for(var/allowed_mob in allowed_listeners)
+			src.allowed_listeners[allowed_mob] = TRUE
 
 	update_sound(sound)
 
@@ -69,25 +93,31 @@
 	if(!sound_channel)
 		sound_channel = SSsounds.reserve_sound_channel_for_datum(src)
 	src.sound.channel = sound_channel
-	sound_duration = SSsounds.get_sound_length(sound)
+	sound_duration = sound_duration_override || SSsounds.get_sound_length(_sound)
 	start_time = REALTIMEOFDAY
 	if(start_playing)
 		force_update_all_listeners(FALSE)
+	if(delete_on_end)
+		addtimer(CALLBACK(src, PROC_REF(on_sound_ended)), sound_duration, TIMER_UNIQUE | TIMER_OVERRIDE)
 
 /// Updates the data of a listener, or adds them if they are not present.
 /datum/sound_token/proc/add_or_update_listener(mob/listener_mob)
 	if(isnull(listeners[listener_mob]))
-		add_listener(listener_mob)
+		if(!add_listener(listener_mob))
+			return FALSE
 	else
 		update_listener(listener_mob)
 
-/// Adds a listener to the sound.
+/// Adds a listener to the sound. returns TRUE if we already were added, or for some reason couldnt be added.
 /datum/sound_token/proc/add_listener(mob/listener_mob)
 	if(!isnull(listeners[listener_mob]))
-		return FALSE
+		return TRUE
 
 	if(!listener_mob.client || isnewplayer(listener_mob))
-		return
+		return FALSE
+
+	if(allowed_listeners && !allowed_listeners[listener_mob])
+		return FALSE
 
 	listeners[listener_mob] = NONE
 	listener_mob.client.sound_tokens += src
@@ -288,3 +318,7 @@
 		if(SSspatial_grid.get_cell_of(listener_mob) in cell_tracker.member_cells)
 			continue
 		remove_listener(listener_mob)
+
+/// The sound should have ended on all clients. Time to destroy the sound token.
+/datum/sound_token/proc/on_sound_ended()
+	qdel(src)
