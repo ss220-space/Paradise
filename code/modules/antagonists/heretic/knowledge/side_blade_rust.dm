@@ -6,7 +6,8 @@
 
 	tier1 = /datum/heretic_knowledge/armor
 	tier2 = list(/datum/heretic_knowledge/crucible, /datum/heretic_knowledge/rifle)
-	tier3 = list(/datum/heretic_knowledge/spell/rust_charge, /datum/heretic_knowledge/greaves_of_the_prophet)
+	// rust_charge is now the Rust main path's tier-4 knowledge (TG-format), not a side node here.
+	tier3 = list(/datum/heretic_knowledge/greaves_of_the_prophet)
 
 
 // Sidepaths for knowledge between Rust and Blade.

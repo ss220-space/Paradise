@@ -11,7 +11,6 @@
 	school = SCHOOL_FORBIDDEN
 	human_req = FALSE
 	clothes_req = FALSE
-	clothes_req = FALSE
 	base_cooldown = 30 SECONDS
 
 	invocation = "ГР'СС'ВН Р'СПР'СТР'Н'Н"
@@ -42,17 +41,17 @@
 	return things_to_convert
 
 
-/obj/effect/proc_holder/spell/aoe/rust_conversion/cast(list/targets, mob/caster = usr)
+/obj/effect/proc_holder/spell/aoe/rust_conversion/cast(list/targets, mob/user = usr)
 	for(var/mob/living/victim as anything in targets)
 		// We have less chance of rusting stuff that's further
-		var/distance_to_caster = get_dist(victim, caster)
+		var/distance_to_caster = get_dist(victim, user)
 		var/chance_of_not_rusting = (max(distance_to_caster, 1) - 1) * 100 / (aoe_range + 1)
 
 		if(prob(chance_of_not_rusting))
 			continue
 
-		if(ismob(caster))
-			caster.do_rust_heretic_act(victim)
+		if(ismob(user))
+			user.do_rust_heretic_act(victim)
 		else
 			victim.rust_heretic_act()
 

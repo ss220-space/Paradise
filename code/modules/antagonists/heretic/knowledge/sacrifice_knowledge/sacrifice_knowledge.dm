@@ -404,11 +404,11 @@
 		disembowel_target(sac_target)
 		return
 
-	// If our target died during the (short) wait timer,
-	// and we fail to revive them (using a lower number than before),
-	// just disembowel them and stop the chain
+	// If our target died during the (short) wait timer, and we fail to revive them, just disembowel them
+	// and stop the chain. heal_to = 0 fully heals every damage type to zero (and revives if dead) so the
+	// sacrifice arrives in the realm at full health and actually has a fighting chance to survive it.
 	sac_target.adjustOxyLoss(-100, FALSE)
-	if(!sac_target.heal_and_revive(60, span_danger("Сердце [sac_target.declent_ru(GENITIVE)] начинает биться с нечестивой силой, когда [genderize_ru(sac_target.gender, "он", "она", "ого", "они")] возвраща[pluralize_ru(sac_target.gender, "е", "ю")]тся из объятий смерти!")))
+	if(!sac_target.heal_and_revive(0, span_danger("Сердце [sac_target.declent_ru(GENITIVE)] начинает биться с нечестивой силой, когда [genderize_ru(sac_target.gender, "он", "она", "ого", "они")] возвраща[pluralize_ru(sac_target.gender, "е", "ю")]тся из объятий смерти!")))
 		disembowel_target(sac_target)
 		return
 
@@ -712,10 +712,12 @@
 	layer = LARGE_MOB_LAYER
 	damage_type = BURN
 	paralyze = 20
-	// master220's projectile `speed` is a DIVISOR (tiles/sec = 10/speed), the INVERSE of /tg/ where it is a
-	// multiplier (tiles/sec = 10*speed). TG's curse_hand is speed 0.5 = 5 tiles/sec; the equivalent here is 2.
-	// Left at the inherited default (0.5) the hand flew at 20 tiles/sec - undodgeable. The /hel subtype keeps
-	// speed = 1 (= 10 tiles/sec), which matches TG's hel hand (speed 1).
+	// With process_paced() (see below) `speed` is a clean divisor: tiles/sec = 10/speed. TG's curse_hand is
+	// 5 tiles/sec (its `speed = 0.5` is a multiplier, 0.5 * 10 = 5), so we match it with speed = 2. The /hel
+	// subtype keeps speed = 1 (= 10 tiles/sec), matching TG's hel hand. NOTE: this only paces correctly
+	// because process() is overridden with process_paced() - the stock master220 process() double-counts
+	// elapsed time for slow projectiles, making the hands fly faster and in irregular jerks (so they appear
+	// to "snag"/cling on the target) regardless of `speed`.
 	speed = 2
 	range = 16
 	hit_crawling_mobs_chance = 100
@@ -740,6 +742,12 @@
 	//ADD_TRAIT(src, TRAIT_FREE_HYPERSPACE_MOVEMENT, INNATE_TRAIT)
 	handedness = prob(50)
 	icon_state = "[base_icon_state][handedness]"
+
+// Use the corrected /tg/-style pacing so the cursed hands reach for the victim at a calm, dodgeable
+// 5 tiles/sec (10 for /hel) instead of the stock engine's faster, jerky slow-projectile movement that
+// made them look like they were snagging on the target. See process_paced() in _heretic_compat.dm.
+/obj/projectile/curse_hand/process()
+	return process_paced()
 
 
 /obj/projectile/curse_hand/Destroy()
@@ -803,7 +811,9 @@
 
 /obj/projectile/curse_hand/hel //Used in helbital's impure reagent
 	paralyze = 0 //Lets not stun people!
-	speed = 1
+	// With process_paced(), tiles/sec = 10/speed. TG's hel hand is 10 tiles/sec (speed = 1); we nudge it
+	// slightly slower to 8 tiles/sec (speed = 1.25) to make the Mansus sacrifice realm a touch more dodgeable.
+	speed = 1.25
 	range = 20
 	color = "#ff7e7e"//Tint it slightly
 

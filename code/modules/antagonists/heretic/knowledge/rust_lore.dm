@@ -5,17 +5,59 @@
 
 	route = PATH_RUST
 	ui_bgr = "node_rust"
+	complexity = "Средняя"
+	complexity_color = "#d6a531"
+	path_description = list(
+		"Путь Ржавчины строится вокруг живучести, порчи и грубого прорыва сквозь препятствия.",
+		"Берите этот путь, если любите стоять на своём и заставлять бой приходить к вам.",
+	)
+	path_pros = list(
+		"Стоя на ржавых плитах, вы становитесь крайне живучи: раны затягиваются, а оглушения спадают.",
+		"Ржавые плиты ранят и замедляют ваших врагов.",
+		"Вы с лёгкостью разрушаете стены, объекты, мехов, постройки и шлюзы.",
+		"Ваше «Прикосновение Мансуса» мгновенно уничтожает силиконовых и синтетических членов экипажа.",
+		"Множество способностей контроля облегчают бой на вашей территории.",
+	)
+	path_cons = list(
+		"Крайне заметен; о скрытности можно забыть.",
+		"Вне ржавых плит вы становитесь значительно уязвимее.",
+		"Привязанность к территории облегчает применение против вас разрушительных средств — например, бомб.",
+		"Высокая защита достигается ценой атакующей мощи.",
+	)
+	path_tips = list(
+		"«Прикосновение Мансуса» мгновенно уничтожает мехов, силиконов и андроидов. Удар клинком по помеченной цели вызывает сильное отвращение и рвоту, ненадолго сбивая с ног.",
+		"Ваше «Прикосновение» и заклинания ржавят стены и полы — это полезно вам и вредно экипажу и силиконам. Распространяйте ржавчину как можно шире.",
+		"Ржавые плиты лечат вас, регулируют температуру крови, дают сопротивление оглушению дубинками и восстанавливают выносливость и кровь.",
+		"Всегда сражайтесь на своей территории. Враг, ступивший на вашу ржавчину, оказывается в крайне невыгодном положении.",
+		"Ваша способность разрушать объекты и стены растёт с уровнем пассивки — со временем вы прожжёте даже шлюзы, укреплённые и титановые стены.",
+		"Распространение ржавчины поначалу медленное. Призовите несколько Ржавых Ходоков, чтобы расширять свои владения.",
+		"«Ржавая Постройка» создаёт барьеры для укрытия, побега или блокировки чужого отхода. Используйте окружение в своих целях.",
+	)
+	// "Rusted Gait" passive (on-rust durability that scales): tiers light up as you grow.
+	passive_name = "Ржавая Поступь"
+	passive_descriptions = list(
+		"Стоя на ржавчине, вы исцеляетесь, восстанавливаете выносливость и сопротивляетесь оглушению дубинками.",
+		"Вы стоите как влитой — вас больше нельзя оттолкнуть или утащить.",
+		"Ржавчина въелась в вас навсегда — сопротивление оглушению дубинками теперь действует везде.",
+	)
 
+	// TG-format column (1:1 with tgstation Rust). Main line:
+	// base_rust -> Aggressive Spread -> Rust Construction -> Reassembled Raiment(robes) ->
+	// Entropic Plume -> Toxic Blade -> Rust Charge -> ascension.
+	// The grasp (silicon-destroy + secondary turf rust), the rust mark and the on-rust passive are all
+	// folded into base_rust (matching TG, no separate grasp/mark/regen nodes).
 	start = /datum/heretic_knowledge/limited_amount/starting/base_rust
-	grasp = /datum/heretic_knowledge/rust_fist
-	tier1 = /datum/heretic_knowledge/rust_regen
-	mark = /datum/heretic_knowledge/mark/rust_mark
-	ritual_of_knowledge = /datum/heretic_knowledge/knowledge_ritual/rust
-	unique_ability = /datum/heretic_knowledge/spell/rust_construction
-	tier2 = /datum/heretic_knowledge/spell/area_conversion
+	knowledge_tier1 = /datum/heretic_knowledge/spell/area_conversion
+	knowledge_tier2 = /datum/heretic_knowledge/spell/rust_construction
+	robes = /datum/heretic_knowledge/armor/rust
+	knowledge_tier3 = /datum/heretic_knowledge/spell/entropic_plume
 	blade = /datum/heretic_knowledge/blade_upgrade/rust
-	tier3 =	/datum/heretic_knowledge/spell/entropic_plume
+	knowledge_tier4 = /datum/heretic_knowledge/spell/rust_charge
 	ascension = /datum/heretic_knowledge/ultimate/rust_final
+	// Side knowledges guaranteed to be offered in this path's drafts (TG).
+	guaranteed_side_tier1 = /datum/heretic_knowledge/rust_sower
+	guaranteed_side_tier2 = /datum/heretic_knowledge/limited_amount/summon/rusty
+	guaranteed_side_tier3 = /datum/heretic_knowledge/crucible
 
 
 /datum/heretic_knowledge/limited_amount/starting/base_rust
@@ -31,38 +73,36 @@
 	result_atoms = list(/obj/item/melee/sickly_blade/rust)
 	research_tree_icon_path = 'icons/obj/weapons/khopesh.dmi'
 	research_tree_icon_state = "rust_blade"
+	// TG folds the grasp, the rust mark and the on-rust passive into the starting knowledge.
+	mark_type = /datum/status_effect/eldritch/rust
+	passive_type = /datum/status_effect/heretic_passive/rust
 
 
-/datum/heretic_knowledge/rust_fist
-	name = "Прикосновение Ржавчины"
-	desc = "Ваше «Прикосновение Мансуса» будет наносить 500 ед. урона неживой материи и вызывать ржавчину на \
-			любой поверхности. Уже ржавые поверхности уничтожаются. Ржавчина вызывается альткликом."
-	gain_text = "Вокруг Мансуса ржавчина растёт, как мох на камне."
-	cost = 1
-	research_tree_icon_path = 'icons/ui_icons/antags/heretic/knowledge.dmi'
-	research_tree_icon_state = "grasp_rust"
+/datum/heretic_knowledge/limited_amount/starting/base_rust/on_gain(mob/user, datum/antagonist/heretic/our_heretic, mind_transfer = FALSE)
+	. = ..()
+	// Secondary grasp (RMB on a turf/structure/airlock) corrodes it - the base starting knowledge only
+	// wires the primary grasp, so register the secondary here. Folded from the old "Прикосновение Ржавчины".
+	RegisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK_SECONDARY, PROC_REF(on_secondary_mansus_grasp), override = TRUE)
+	if(!mind_transfer)
+		our_heretic.increase_rust_strength()
 
 
-/datum/heretic_knowledge/rust_fist/on_gain(mob/user, datum/antagonist/heretic/our_heretic)
-	RegisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK, PROC_REF(on_mansus_grasp))
-	RegisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK_SECONDARY, PROC_REF(on_secondary_mansus_grasp))
-	our_heretic.increase_rust_strength()
+/datum/heretic_knowledge/limited_amount/starting/base_rust/on_lose(mob/user, datum/antagonist/heretic/our_heretic, mind_transfer = FALSE)
+	. = ..()
+	UnregisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK_SECONDARY)
 
 
-/datum/heretic_knowledge/rust_fist/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
-	UnregisterSignal(user, list(COMSIG_HERETIC_MANSUS_GRASP_ATTACK, COMSIG_HERETIC_MANSUS_GRASP_ATTACK_SECONDARY))
-
-
-/datum/heretic_knowledge/rust_fist/proc/on_mansus_grasp(mob/living/source, mob/living/target)
-	SIGNAL_HANDLER
-
+/// Primary grasp: apply our rust mark (via parent), then instantly corrode silicons/synthetics.
+/datum/heretic_knowledge/limited_amount/starting/base_rust/on_mansus_grasp(mob/living/source, mob/living/target)
+	. = ..()
 	if(!issilicon(target)/* && !(target.mob_biotypes & MOB_ROBOTIC)*/)
 		return
 
 	source.do_rust_heretic_act(target)
 
 
-/datum/heretic_knowledge/rust_fist/proc/on_secondary_mansus_grasp(mob/living/source, atom/target)
+/// Secondary grasp: corrode the turf/structure we grab. Airlocks also lose power so they can't shock us.
+/datum/heretic_knowledge/limited_amount/starting/base_rust/proc/on_secondary_mansus_grasp(mob/living/source, atom/target)
 	SIGNAL_HANDLER
 
 	// Rusting an airlock causes it to lose power, mostly to prevent the airlock from shocking you.
@@ -73,39 +113,6 @@
 
 	source.do_rust_heretic_act(target)
 	return COMPONENT_USE_HAND
-
-
-/datum/heretic_knowledge/rust_regen
-	name = "Прогулка по Ржавому Мосту"
-	desc = "Дает вам пассивное исцеление и сопротивление дубинкам, пока вы стоите на ржавом полу."
-	gain_text = "Скорость его была невиданной, сила — нечеловеческой. Кузнец улыбался."
-	cost = 1
-	research_tree_icon_path = 'icons/effects/eldritch.dmi'
-	research_tree_icon_state = "cloud_swirl"
-
-
-/datum/heretic_knowledge/rust_regen/on_gain(mob/user, datum/antagonist/heretic/our_heretic)
-	user.AddElement(/datum/element/leeching_walk)
-
-
-/datum/heretic_knowledge/rust_regen/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
-	user.RemoveElement(/datum/element/leeching_walk)
-
-
-/datum/heretic_knowledge/mark/rust_mark
-	name = "Метка Ржавчины"
-	desc = "Ваше «Прикосновение Мансуса» теперь накладывает Метку Ржавчины. Метка активируется атакой вашим Ржавым Клинком. \
-			При срабатывании метки ваша жертва испытает сильное отвращение и замешательство."
-	gain_text = "Кузнец смотрит вдаль. На место, что давно забыто. «Ржавые Холмы помогают нуждающимся... за определённую цену»."
-	mark_type = /datum/status_effect/eldritch/rust
-
-
-/datum/heretic_knowledge/mark/rust_mark/on_gain(mob/user, datum/antagonist/heretic/our_heretic)
-	. = ..()
-	our_heretic.increase_rust_strength()
-
-
-/datum/heretic_knowledge/knowledge_ritual/rust
 
 
 /datum/heretic_knowledge/spell/rust_construction
@@ -160,8 +167,20 @@
 	target.Disgust(50)
 
 
-/datum/heretic_knowledge/spell/area_conversion/on_gain(mob/user, datum/antagonist/heretic/our_heretic)
-	. = ..()
+/datum/heretic_knowledge/armor/rust
+	name = "Собранный Раймент" // Reassembled Raiment
+	desc = "Позволяет преобразовать стол (или верхнюю одежду), противогаз и кусок мусора в Собранный Раймент. \
+			Он обеспечивает отличную защиту и действует как амулет, пока надет капюшон."
+	gain_text = "Кузнец облачился в лохмотья, изъеденные ржавчиной. И всё же они держались крепче любой стали."
+	required_atoms = list(
+		list(/obj/structure/table, /obj/item/clothing/suit) = 1,
+		/obj/item/clothing/mask/gas = 1,
+		/obj/item/trash = 1,
+	)
+	result_atoms = list(/obj/item/clothing/suit/hooded/cultrobes/eldritch)
+	research_tree_icon_path = 'icons/obj/clothing/armor.dmi'
+	research_tree_icon_state = "eldritch_armor"
+	research_tree_icon_frame = 12
 
 
 /datum/heretic_knowledge/spell/entropic_plume

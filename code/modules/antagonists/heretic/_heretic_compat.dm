@@ -110,6 +110,15 @@
 	var/datum/antagonist/heretic/heretic_data = mind?.has_antag_datum(/datum/antagonist/heretic)
 	target.rust_heretic_act(heretic_data?.rust_strength)
 
+// Synthetics crumble to rust instantly (ported from TG: silicon 500 brute, bots 400). This is what makes
+// the Rust path's "Mansus Grasp instantly destroys silicons/synthetics" identity actually do something -
+// without these the grasp's issilicon() branch called the /atom no-op and nothing happened.
+/mob/living/silicon/rust_heretic_act(strength)
+	adjustBruteLoss(500)
+
+/mob/living/simple_animal/bot/rust_heretic_act(strength)
+	adjustBruteLoss(400)
+
 // --- Misc compat ---
 // tg gates phasing per-z via ZTRAIT_NOPHASE, which master220 doesn't have. Default to allowed.
 /proc/is_phase_allowed(z)
@@ -387,3 +396,40 @@
 	name = "Прикосновение Мансуса"
 	id = "mansus_touch"
 	description = "Чья-то рука у вашего горла..."
+
+
+// --- Corrected projectile pacing for slow heretic projectiles ---
+//
+// master220's /obj/projectile/process() only refreshes `last_projectile_move` inside pixel_move(),
+// i.e. ONLY on ticks where a full tile-move actually happens. For SLOW projectiles (speed > 1)
+// most ticks make zero moves, so next tick the (world.time - last_projectile_move) delta re-counts
+// time that was ALREADY folded into `time_offset` -> the projectile drifts noticeably faster, and
+// in irregular bursts, than its `speed` implies. (This is why simply bumping `speed` never made the
+// parade/curse hands move calmly - past a point the double-count cancels the increase and it just
+// stutters.) /tg/ avoids this by refreshing last_projectile_move EVERY process tick (process_movement)
+// and carrying only the sub-step remainder.
+//
+// We mirror /tg/'s accounting here, but ONLY for the heretic projectiles that opt in (below), so the
+// rest of the game's speed>1 projectiles keep the exact pacing they were balanced against. With this,
+// `speed` means what it should: tiles/sec = 10 / speed (e.g. speed 5 = 2 tiles/sec, matching /tg/'s
+// parade; speed 2 = 5 tiles/sec, matching /tg/'s curse hand).
+/obj/projectile/proc/process_paced()
+	if(!loc || !trajectory)
+		return PROCESS_KILL
+	if(paused || !isturf(loc))
+		last_projectile_move = world.time
+		return
+	var/elapsed_time_deciseconds = (world.time - last_projectile_move) + time_offset
+	last_projectile_move = world.time // THE FIX: refresh every tick so elapsed isn't re-counted
+	time_offset = 0
+	// These heretic projectiles are never hitscan, so we skip the stock proc's MOVES_HITSCAN branch
+	// (that define is file-local to projectile.dm anyway).
+	var/required_moves = floor(elapsed_time_deciseconds / speed)
+	if(required_moves > SSprojectiles.global_max_tick_moves)
+		var/overrun = required_moves - SSprojectiles.global_max_tick_moves
+		required_moves = SSprojectiles.global_max_tick_moves
+		time_offset += overrun * speed
+	time_offset += MODULUS(elapsed_time_deciseconds, speed)
+
+	for(var/i in 1 to required_moves)
+		pixel_move(1)

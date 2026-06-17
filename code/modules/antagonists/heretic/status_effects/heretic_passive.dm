@@ -104,3 +104,44 @@
 /datum/status_effect/heretic_passive/ash/on_remove()
 	owner.remove_traits(list(TRAIT_RESIST_HEAT, TRAIT_ASHSTORM_IMMUNE, TRAIT_LAVA_IMMUNE, TRAIT_RESIST_COLD), TRAIT_STATUS_EFFECT(id))
 	return ..()
+
+
+//---- Rust Passive: "Rusted Gait" ("Ржавая Поступь")
+// Level 1 - on-rust regen + baton-knockdown resist (leeching walk), granted on picking the path.
+// Level 2 - you stand firm: can't be shoved or pulled around (granted on the blade upgrade).
+// Level 3 - the rust is in your bones: baton-knockdown resistance everywhere, even off rust (on ascension).
+/datum/status_effect/heretic_passive/rust
+	id = "heretic_passive_rust"
+	name = "Ржавая Поступь"
+	passive_descriptions = list(
+		"Стоя на ржавчине, вы исцеляетесь, восстанавливаете выносливость и сопротивляетесь оглушению дубинками.",
+		"Вы стоите как влитой — вас больше нельзя оттолкнуть или утащить.",
+		"Ржавчина въелась в вас навсегда — сопротивление оглушению дубинками теперь действует везде.",
+	)
+
+
+/datum/status_effect/heretic_passive/rust/on_apply()
+	. = ..()
+	if(!.)
+		return
+	owner.AddElement(/datum/element/leeching_walk)
+
+
+/datum/status_effect/heretic_passive/rust/level_upgrade()
+	. = ..()
+	if(!.)
+		return
+	ADD_TRAIT(owner, TRAIT_PUSHIMMUNE, TRAIT_STATUS_EFFECT(id))
+
+
+/datum/status_effect/heretic_passive/rust/level_final()
+	. = ..()
+	if(!.)
+		return
+	ADD_TRAIT(owner, TRAIT_BATON_RESISTANCE, TRAIT_STATUS_EFFECT(id))
+
+
+/datum/status_effect/heretic_passive/rust/on_remove()
+	owner.RemoveElement(/datum/element/leeching_walk)
+	owner.remove_traits(list(TRAIT_PUSHIMMUNE, TRAIT_BATON_RESISTANCE), TRAIT_STATUS_EFFECT(id))
+	return ..()

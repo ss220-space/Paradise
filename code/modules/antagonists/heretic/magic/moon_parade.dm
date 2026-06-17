@@ -31,10 +31,11 @@
 	damage = 0
 	damage_type = BURN
 	// Slow, deliberate drift - the parade "shield" crawls along so the crowd can march after it instead of
-	// zipping across the screen. Paradise's projectile `speed` is a DIVISOR (deciseconds per move, higher =
-	// slower): tile speed = 10/speed tiles per second. TG's parade moves at 2 tiles/sec (its `speed = 0.2` is
-	// a MULTIPLIER, the opposite meaning: 32px * 0.2 = 6.4px/ds = 2 tiles/sec). To match that exact pace here
-	// we need 10/speed = 2  ->  speed = 5. (A normal bullet is 0.5 = 20 tiles/sec, i.e. this is 10x slower.)
+	// zipping across the screen. With process_paced() (see below) `speed` is a clean divisor: tiles/sec =
+	// 10/speed. TG's parade is 2 tiles/sec (its `speed = 0.2` is a multiplier: 0.2 * 10 = 2 tiles/sec), so we
+	// match it with speed = 5. NOTE: this ONLY behaves correctly because we override process() with
+	// process_paced() - the stock master220 process() double-counts elapsed time for slow projectiles and
+	// makes this fly ~2x faster and in irregular bursts no matter how high `speed` is set.
 	speed = 5
 	range = 75
 	// Bounce off any surface it meets, for a long time. ricochets_max caps the TOTAL number of bounces (40,
@@ -49,6 +50,11 @@
 /obj/projectile/moon_parade/Initialize(mapload)
 	. = ..()
 	soundloop = new(src, TRUE)
+
+// Use the corrected /tg/-style pacing so the parade shield drifts calmly at its nominal 2 tiles/sec
+// instead of the stock engine's faster, stuttering slow-projectile movement. See process_paced().
+/obj/projectile/moon_parade/process()
+	return process_paced()
 
 /// The parade reflects off ANY solid surface, not only the walls that carry a RICOCHET_* flag like the base
 /// game requires. We bounce off everything that isn't a living mob; the living we PIERCE instead (see on_hit)

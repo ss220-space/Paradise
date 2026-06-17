@@ -18,7 +18,11 @@
 	ADD_TRAIT(target, TRAIT_RUSTY, ELEMENT_TRAIT(type))
 	RegisterSignal(target, COMSIG_ATOM_UPDATE_OVERLAYS, PROC_REF(apply_rust_overlay))
 	RegisterSignal(target, COMSIG_PARENT_EXAMINE, PROC_REF(handle_examine))
-	RegisterSignal (target, COMSIG_ATOM_ATTACK, PROC_REF(on_interaction))
+	// master220 emits COMSIG_ATOM_ATTACKBY (from /atom/attackby) when struck with an item; the old
+	// COMSIG_ATOM_ATTACK is never sent, so the tile-block + sharp-scrape were dead. Welding goes through
+	// the tool_act chain instead (COMSIG_ATOM_TOOL_ACT(TOOL_WELDER)), same as /datum/component/torn_wall.
+	RegisterSignal(target, COMSIG_ATOM_ATTACKBY, PROC_REF(on_interaction))
+	RegisterSignal(target, COMSIG_ATOM_TOOL_ACT(TOOL_WELDER), PROC_REF(on_welder_act))
 	RegisterSignal(target, COMSIG_ATOM_EXPOSE_REAGENTS, PROC_REF(on_reagent_expose))
 	// Unfortunately registering with parent sometimes doesn't cause an overlay update
 	target.update_appearance()
@@ -27,7 +31,8 @@
 	. = ..()
 	UnregisterSignal(source, COMSIG_ATOM_UPDATE_OVERLAYS)
 	UnregisterSignal(source, COMSIG_PARENT_EXAMINE)
-	UnregisterSignal(source, COMSIG_ATOM_ATTACK)
+	UnregisterSignal(source, COMSIG_ATOM_ATTACKBY)
+	UnregisterSignal(source, COMSIG_ATOM_TOOL_ACT(TOOL_WELDER))
 	UnregisterSignal(source, COMSIG_ATOM_EXPOSE_REAGENTS)
 	REMOVE_TRAIT(source, TRAIT_RUSTY, ELEMENT_TRAIT(type))
 	source.update_appearance()
@@ -44,14 +49,13 @@
 	if(rust_overlay)
 		overlays += rust_overlay
 
-/// Because do_after sleeps we register the signal here and defer via an async call
-/datum/element/rust/proc/secondary_tool_act(atom/source, mob/user, obj/item/item)
+/// Burning the rust off with a welder. do_after sleeps, so defer via an async call.
+/datum/element/rust/proc/on_welder_act(atom/source, mob/user, obj/item/item)
 	SIGNAL_HANDLER
 
 	INVOKE_ASYNC(src, PROC_REF(handle_tool_use), source, user, item)
-	return ATTACK_CHAIN_BLOCKED
 
-/// We call this from secondary_tool_act because we sleep with do_after
+/// We call this from the tool/attack hooks because we sleep with do_after
 /datum/element/rust/proc/handle_tool_use(atom/source, mob/user, obj/item/item)
 	if(item.tool_behaviour == TOOL_WELDER)
 		if(!item.tool_start_check(user, amount=1))
@@ -98,12 +102,17 @@
 
 	Detach(source)
 
-/// Prevents placing floor tiles on rusted turf
-/datum/element/rust/proc/on_interaction(datum/source, mob/user, obj/item/tool, modifiers)
+/// Blocks tiling over rusted plating, and lets a sharp tool scrape the rust off.
+/datum/element/rust/proc/on_interaction(atom/source, obj/item/tool, mob/user, list/modifiers)
 	SIGNAL_HANDLER
 	if(istype(tool, /obj/item/stack/tile) || istype(tool, /obj/item/stack/rods))
 		user.balloon_alert(user, "пол заржавел!")
-		return ATTACK_CHAIN_BLOCKED
+		return COMPONENT_CANCEL_ATTACK_CHAIN
+
+	// A sharp tool scrapes the rust off (handle_tool_use sleeps via do_after, so defer it).
+	if(tool?.sharp)
+		INVOKE_ASYNC(src, PROC_REF(handle_tool_use), source, user, tool)
+		return COMPONENT_CANCEL_ATTACK_CHAIN
 
 /// For rust applied by heretics
 /datum/element/rust/heretic
