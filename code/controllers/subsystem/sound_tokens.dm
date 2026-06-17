@@ -13,7 +13,7 @@ SUBSYSTEM_DEF(sound_tokens)
 	while(length(currentrun))
 		var/client/client = currentrun[length(currentrun)]
 		currentrun.len--
-		var/mob/owned_mob = client.mob
+		var/mob/owned_mob = client?.mob
 		if(!owned_mob)
 			continue
 		for(var/datum/sound_token/token as anything in client.sound_tokens)

@@ -89,6 +89,7 @@
 
 	listeners = null
 	source = null
+	cell_tracker = null
 	return ..()
 
 /// Lets us update the sound to a new one.
@@ -316,15 +317,11 @@
 		UnregisterSignal(cell, list(SPATIAL_GRID_CELL_ENTERED(SPATIAL_GRID_CONTENTS_TYPE_CLIENTS), SPATIAL_GRID_CELL_EXITED(SPATIAL_GRID_CONTENTS_TYPE_CLIENTS)))
 
 	// Remove listeners whose mob is no longer in any remaining member cell
-	if(removed_cells.len)
+	if(length(removed_cells))
 		for(var/mob/listener_mob as anything in listeners)
-			var/still_in_range = FALSE
-			for(var/datum/spatial_grid_cell/cell as anything in cell_tracker.member_cells)
-				if(listener_mob in cell.client_contents)
-					still_in_range = TRUE
-					break
-			if(!still_in_range)
-				remove_listener(listener_mob)
+			if(SSspatial_grid.get_cell_of(listener_mob) in cell_tracker.member_cells)
+				continue
+			remove_listener(listener_mob)
 
 	for(var/datum/spatial_grid_cell/cell as anything in added_cells)
 		RegisterSignal(cell, SPATIAL_GRID_CELL_ENTERED(SPATIAL_GRID_CONTENTS_TYPE_CLIENTS), PROC_REF(on_cell_client_entered))
