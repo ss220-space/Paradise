@@ -18,6 +18,8 @@ GLOBAL_LIST_EMPTY(cached_songs)
  * * min_volume - minimum volume the sound can reach at max_range.
  */
 /proc/playsound(atom/source, soundin, vol as num, vary, extrarange as num, falloff_exponent = SOUND_FALLOFF_EXPONENT, frequency = null, channel = 0, pressure_affected = TRUE, ignore_walls = TRUE, falloff_distance = SOUND_DEFAULT_FALLOFF_DISTANCE, use_reverb = TRUE, min_volume = 3)
+	RETURN_TYPE(/list)
+
 	if(isarea(source))
 		CRASH("playsound(): source is an area")
 
@@ -75,7 +77,7 @@ GLOBAL_LIST_EMPTY(cached_songs)
 		if(!mob_turf)
 			continue
 		if(get_dist_euclidean(mob_turf, turf_source) <= maxdistance)
-			listening_mob.playsound_local(turf_source, soundin, vol, vary, frequency, falloff_exponent, channel, pressure_affected, S, maxdistance, falloff_distance, 1, use_reverb)
+			listening_mob.playsound_local(turf_source, soundin, vol, vary, frequency, falloff_exponent, channel, pressure_affected, sound, maxdistance, falloff_distance, 1, use_reverb)
 
 	return listeners
 

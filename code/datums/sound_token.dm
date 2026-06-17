@@ -5,42 +5,42 @@
  */
 /datum/sound_token
 	/// The atom playing the sound.
-	var/atom/source
+	VAR_PRIVATE/atom/source
 	/// k:v list of mob : sound status
-	var/list/listeners = list()
+	VAR_PRIVATE/list/listeners = list()
 	///k:v list of mobs : bool. Used to quickly check whether a mob is allowed to hear this noise. This is null by default which means ANY MOB can hear this.
-	var/list/allowed_listeners
+	VAR_PRIVATE/list/allowed_listeners
 
 	/// Sound maximum range
-	var/range
+	VAR_PRIVATE/range
 	/// Sound volume
-	var/volume
+	VAR_PRIVATE/volume
 	/// Sound falloff
-	var/falloff_exponent
+	VAR_PRIVATE/falloff_exponent
 	/// Sound falloff distance
-	var/falloff_distance
+	VAR_PRIVATE/falloff_distance
 	/// Frequency (playback speed) applied to the sound. Null keeps the default speed.
-	var/frequency
+	VAR_PRIVATE/frequency
 
 	/// The master copy of the playing sound.
-	var/sound/sound
+	VAR_PRIVATE/sound/sound
 	/// Null sound for cancelling the sound entirely.
-	var/sound/null_sound
+	VAR_PRIVATE/sound/null_sound
 
 	/// Status of the playing sound
-	var/sound_status = NONE
+	VAR_PRIVATE/sound_status = NONE
 	/// The channel being used.
-	var/sound_channel
+	VAR_PRIVATE/sound_channel
 	/// world.time when the sound started (or when the sound file was last changed). Used to calculate playback offset for new listeners.
-	var/start_time
+	VAR_PRIVATE/start_time
 	/// Duration of the current sound file in deciseconds. Used to wrap offset for looping sounds.
-	var/sound_duration
+	VAR_PRIVATE/sound_duration
 	/// Duration of the current sound file in deciseconds. Used to wrap offset for looping sounds.
-	var/sound_duration_override
+	VAR_PRIVATE/sound_duration_override
 	/// Cell tracker managing spatial grid cells within range of the source. The wizards say this is the fastest.
-	var/datum/cell_tracker/cell_tracker
+	VAR_PRIVATE/datum/cell_tracker/cell_tracker
 	///Should we destroy the datum when the sound is done?
-	var/delete_on_end = FALSE
+	VAR_PRIVATE/delete_on_end = FALSE
 
 /datum/sound_token/New(
 	atom/source,
@@ -108,6 +108,8 @@
 
 /// Updates the data of a listener, or adds them if they are not present.
 /datum/sound_token/proc/add_or_update_listener(mob/listener_mob)
+	PRIVATE_PROC(TRUE)
+
 	if(isnull(listeners[listener_mob]))
 		if(!add_listener(listener_mob))
 			return FALSE
@@ -116,6 +118,8 @@
 
 /// Adds a listener to the sound. returns TRUE if we already were added, or for some reason couldnt be added.
 /datum/sound_token/proc/add_listener(mob/listener_mob)
+	PRIVATE_PROC(TRUE)
+
 	if(!isnull(listeners[listener_mob]))
 		return TRUE
 
@@ -134,6 +138,8 @@
 
 /// Remove a listener from the sound.
 /datum/sound_token/proc/remove_listener(mob/listener_mob)
+	PRIVATE_PROC(TRUE)
+
 	listeners -= listener_mob
 
 	if(listener_mob.client)
@@ -197,6 +203,8 @@
 
 /// Queue every listener for a deferred refresh by the subsystem.
 /datum/sound_token/proc/update_all_listeners()
+	PRIVATE_PROC(TRUE)
+
 	for(var/mob/listener_mob in listeners)
 		if(!listener_mob.client)
 			continue
@@ -204,6 +212,8 @@
 
 /// Refresh every listener immediately, bypassing the subsystem queue.
 /datum/sound_token/proc/force_update_all_listeners(update_sound = TRUE)
+	PRIVATE_PROC(TRUE)
+
 	for(var/mob/listener_mob in listeners)
 		if(!listener_mob.client)
 			continue
@@ -217,6 +227,8 @@
 
 /// Set the status of a listener. Does not update the sound.
 /datum/sound_token/proc/set_listener_status(mob/listener_mob, new_status)
+	PRIVATE_PROC(TRUE)
+
 	if(isnull(listeners[listener_mob]))
 		return
 
@@ -267,6 +279,8 @@
 
 /// Apply a new reverb environment and refresh listeners if it changed.
 /datum/sound_token/proc/set_new_environment(new_env)
+	PRIVATE_PROC(TRUE)
+
 	if(sound.environment == new_env)
 		return
 	sound.environment = new_env
@@ -274,6 +288,9 @@
 
 /// Calculates the offset to give the sound for people who start hearing it mid-play.
 /datum/sound_token/proc/calculate_offset()
+	PRIVATE_PROC(TRUE)
+	SHOULD_BE_PURE(TRUE)
+
 	var/elapsed = REALTIMEOFDAY - start_time
 	var/freq_factor = (sound.frequency || 100) / 100
 	var/pitch_factor = (sound.pitch || 100) / 100
@@ -281,6 +298,8 @@
 
 /// Update tracked cells; happens on movement. We need to check if anyone is now out of cell range and kick them out.
 /datum/sound_token/proc/update_tracked_cells()
+	PRIVATE_PROC(TRUE)
+
 	if(!get_turf(source))
 		return
 
