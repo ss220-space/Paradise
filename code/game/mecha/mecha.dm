@@ -1119,7 +1119,7 @@
 		src.balloon_alert(user, "мех целый!")
 		return
 	if(repairing)
-		src.balloon_alert(user, "мех уже ремонтируется!")
+		balloon_alert(user, "мех уже ремонтируется!")
 		return
 	WELDER_ATTEMPT_REPAIR_MESSAGE
 	repairing = TRUE
