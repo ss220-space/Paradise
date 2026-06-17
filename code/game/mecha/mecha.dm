@@ -1116,7 +1116,7 @@
 	if(!welder.tool_use_check(user, 0))
 		return
 	if((obj_integrity >= max_integrity) && !internal_damage)
-		src.balloon_alert(user, "мех целый!")
+		balloon_alert(user, "мех целый!")
 		return
 	if(repairing)
 		balloon_alert(user, "мех уже ремонтируется!")
