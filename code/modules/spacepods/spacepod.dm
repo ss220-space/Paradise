@@ -510,7 +510,7 @@
 		return
 	. = TRUE
 	if(health >= initial(health))
-		src.balloon_alert(user, "челнок целый!")
+		balloon_alert(user, "челнок целый!")
 		return
 	if(!welder.tool_use_check(user, 0))
 		return
