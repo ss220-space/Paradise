@@ -142,8 +142,10 @@
 	new /obj/effect/temp_visual/dir_setting/curse/grasp_portal(spawn_turf, victim.dir)
 	playsound(spawn_turf, 'sound/effects/curse/curse2.ogg', 80, TRUE, -1)
 	var/obj/projectile/hand = new projectile_type(spawn_turf)
-	hand.speed *= 4 / victim.cached_multiplicative_slowdown // Low hp won't be 100% death.
-	hand.preparePixelProjectile(victim, victim, spawn_turf)
+	// preparePixelProjectile(target, source): target = victim, source = the wall turf the hand spawns at.
+	// (The old port passed victim as BOTH target and source, which forceMoved the hand onto the victim
+	// so it appeared to fly out FROM them; spawn_turf was also wrongly passed as `modifiers`.)
+	hand.preparePixelProjectile(victim, spawn_turf)
 	if(QDELETED(hand)) // safety check if above fails - above has a stack trace if it does fail
 		return
 

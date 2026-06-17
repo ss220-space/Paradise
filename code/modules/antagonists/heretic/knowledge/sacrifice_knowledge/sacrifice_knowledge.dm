@@ -429,16 +429,25 @@
 		usable_organs -= /obj/item/organ/internal/lungs/corrupt // Their lungs are already more cursed than anything I could give them
 
 	var/total_implant = rand(2, 4)
+	var/turf/drop_turf = get_turf(sac_target)
 
 	for(var/i in 1 to total_implant)
 		if(!length(usable_organs))
-			return
+			break
 
 		var/organ_path = pick_n_take(usable_organs)
-		var/obj/item/organ/to_give = new organ_path
+		var/obj/item/organ/internal/to_give = new organ_path
+		// Grab the organ we're about to kick out FIRST: master220's /obj/item/organ/internal/remove()
+		// leaves the removed organ in nullspace (loc = null) and insert() never re-homes it, so without
+		// this the displaced organ silently vanishes. Drop it on the floor (and fling it) as a gory clue,
+		// matching /tg/ where the sacrificed body's organs "force themselves out" at the rune.
+		var/obj/item/organ/internal/displaced = sac_target.get_organ_slot(to_give.slot)
 		to_give.safe_replace(sac_target)
+		if(displaced && isnull(displaced.loc))
+			displaced.forceMove(drop_turf)
+			displaced.throw_at(get_edge_target_turf(sac_target, pick(GLOB.alldirs)), rand(1, 3), 5)
 
-	new /obj/effect/gibspawner/human/bodypartless(get_turf(sac_target), sac_target.dna)
+	new /obj/effect/gibspawner/human/bodypartless(drop_turf, sac_target.dna)
 	sac_target.visible_message(span_boldwarning("Несколько органов вылетают из тела [sac_target.declent_ru(GENITIVE)] направляемые таинственной силой!"))
 
 /**
@@ -703,6 +712,11 @@
 	layer = LARGE_MOB_LAYER
 	damage_type = BURN
 	paralyze = 20
+	// master220's projectile `speed` is a DIVISOR (tiles/sec = 10/speed), the INVERSE of /tg/ where it is a
+	// multiplier (tiles/sec = 10*speed). TG's curse_hand is speed 0.5 = 5 tiles/sec; the equivalent here is 2.
+	// Left at the inherited default (0.5) the hand flew at 20 tiles/sec - undodgeable. The /hel subtype keeps
+	// speed = 1 (= 10 tiles/sec), which matches TG's hel hand (speed 1).
+	speed = 2
 	range = 16
 	hit_crawling_mobs_chance = 100
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE

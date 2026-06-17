@@ -1213,7 +1213,8 @@
 /area/centcom/specops)
 "aAv" = (
 /turf/simulated/floor/plating/ironsand{
-	atmos_mode = 2
+	atmos_mode = 2;
+	atmos_environment = "temperate"
 	},
 /area/centcom/heretic_sacrifice/rust)
 "aAF" = (
@@ -3184,7 +3185,8 @@
 "bzz" = (
 /obj/effect/landmark/heretic/lock,
 /turf/simulated/floor/indestructible/plating{
-	atmos_mode = 2
+	atmos_mode = 2;
+	atmos_environment = "temperate"
 	},
 /area/centcom/heretic_sacrifice/lock)
 "bzZ" = (
@@ -4942,7 +4944,8 @@
 /area/vox_station)
 "crG" = (
 /turf/simulated/floor/indestructible/plating{
-	atmos_mode = 2
+	atmos_mode = 2;
+	atmos_environment = "temperate"
 	},
 /area/centcom/heretic_sacrifice/lock)
 "crJ" = (
@@ -6689,7 +6692,8 @@
 "dgd" = (
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/indestructible/plating{
-	atmos_mode = 2
+	atmos_mode = 2;
+	atmos_environment = "temperate"
 	},
 /area/centcom/heretic_sacrifice/lock)
 "dgp" = (
@@ -15230,7 +15234,8 @@
 /area/centcom/specops)
 "hri" = (
 /turf/simulated/floor/plating/asteroid/basalt/lava{
-	atmos_mode = 2
+	atmos_mode = 2;
+	atmos_environment = "temperate"
 	},
 /area/centcom/heretic_sacrifice/ash)
 "hsz" = (
@@ -15664,7 +15669,8 @@
 "hDp" = (
 /obj/structure/grille,
 /turf/simulated/floor/indestructible/plating{
-	atmos_mode = 2
+	atmos_mode = 2;
+	atmos_environment = "temperate"
 	},
 /area/centcom/heretic_sacrifice/lock)
 "hDO" = (
@@ -16237,7 +16243,8 @@
 "hTx" = (
 /obj/item/flashlight/flare,
 /turf/simulated/floor/indestructible/plating{
-	atmos_mode = 2
+	atmos_mode = 2;
+	atmos_environment = "temperate"
 	},
 /area/centcom/heretic_sacrifice/lock)
 "hTD" = (
@@ -18059,7 +18066,8 @@
 "iOK" = (
 /obj/effect/landmark/heretic/ash,
 /turf/simulated/floor/plating/asteroid/basalt/lava{
-	atmos_mode = 2
+	atmos_mode = 2;
+	atmos_environment = "temperate"
 	},
 /area/centcom/heretic_sacrifice/ash)
 "iPi" = (
@@ -22481,7 +22489,8 @@
 "kMu" = (
 /obj/effect/landmark/heretic/rust,
 /turf/simulated/floor/plating/ironsand{
-	atmos_mode = 2
+	atmos_mode = 2;
+	atmos_environment = "temperate"
 	},
 /area/centcom/heretic_sacrifice/rust)
 "kMy" = (
@@ -31187,7 +31196,8 @@
 "oBY" = (
 /obj/structure/bonfire,
 /turf/simulated/floor/plating/asteroid/basalt/lava{
-	atmos_mode = 2
+	atmos_mode = 2;
+	atmos_environment = "temperate"
 	},
 /area/centcom/heretic_sacrifice/ash)
 "oCh" = (
@@ -47331,7 +47341,8 @@
 	locked = 1
 	},
 /turf/simulated/floor/indestructible/plating{
-	atmos_mode = 2
+	atmos_mode = 2;
+	atmos_environment = "temperate"
 	},
 /area/centcom/heretic_sacrifice/lock)
 "vRS" = (

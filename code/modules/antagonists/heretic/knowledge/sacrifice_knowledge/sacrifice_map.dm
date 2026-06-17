@@ -6,6 +6,7 @@ GLOBAL_LIST_EMPTY(heretic_sacrifice_landmarks)
 /// Lardmarks meant to designate where heretic sacrifices are sent.
 /obj/effect/landmark/heretic
 	name = "стандартная метка жертвоприношения еретиков"
+	icon = 'icons/effects/landmarks_static.dmi' // ported from /tg/ — Paradise's icons/misc/landmarks.dmi has no "x" state
 	icon_state = "x"
 	/// What path this landmark is intended for.
 	var/for_heretic_path = PATH_START
@@ -24,6 +25,21 @@ GLOBAL_LIST_EMPTY(heretic_sacrifice_landmarks)
 /obj/effect/landmark/heretic/ash
 	name = "метка жертвоприношения еретиков пути Пепла"
 	for_heretic_path = PATH_ASH
+
+
+// Ash is also the default destination (see begin_sacrifice()'s `|| landmarks[PATH_START]` fallback).
+// Register this landmark for PATH_START too, so heretics who haven't picked a path yet, or whose path
+// has no room mapped (flesh/void/moon/cosmic/blade), still teleport somewhere instead of being disembowelled.
+/obj/effect/landmark/heretic/ash/Initialize(mapload)
+	. = ..()
+	if(!GLOB.heretic_sacrifice_landmarks[PATH_START])
+		GLOB.heretic_sacrifice_landmarks[PATH_START] = src
+
+
+/obj/effect/landmark/heretic/ash/Destroy()
+	if(GLOB.heretic_sacrifice_landmarks[PATH_START] == src)
+		GLOB.heretic_sacrifice_landmarks[PATH_START] = null
+	return ..()
 
 
 /obj/effect/landmark/heretic/flesh
@@ -139,6 +155,7 @@ GLOBAL_LIST_EMPTY(heretic_sacrifice_landmarks)
 // Rooms for where heretic sacrifices send people.
 /area/centcom/heretic_sacrifice
 	name = "Мансус"
+	icon = 'icons/area/eldritch_areas.dmi' // ported from /tg/ areas_centcom.dmi — base areas.dmi has no "heretic" state
 	icon_state = "heretic"
 	//ambience_index = AMBIENCE_SPOOKY
 	base_lighting_alpha = 0
