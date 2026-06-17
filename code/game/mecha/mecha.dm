@@ -1141,7 +1141,7 @@
 			repair_damage(min(10, max_integrity - obj_integrity))
 
 	if((obj_integrity >= max_integrity) && !internal_damage)
-		src.balloon_alert(user, "мех полностью отремонтирован!")
+		balloon_alert(user, "мех полностью отремонтирован!")
 	repairing = FALSE
 
 /obj/mecha/mech_melee_attack(obj/mecha/mech, obj/item/mecha_parts/mecha_equipment/selected_module = null)
