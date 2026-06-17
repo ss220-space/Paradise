@@ -48,7 +48,7 @@
 
 /obj/structure/grille/rcd_deconstruct_act(mob/user, obj/item/rcd/our_rcd)
 	. = ..()
-	if(!our_rcd.checkResource(2, user))
+	if(!our_rcd.checkResource(RCD_BUILD_WINDOW * 2, user))
 		to_chat(user, span_warning("ОШИБКА! Недостаточно материи для деконструкции окна!"))
 		playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, TRUE)
 		return RCD_ACT_FAILED
@@ -57,7 +57,7 @@
 	if(!do_after(user, 2 SECONDS * our_rcd.toolspeed, src, category = DA_CAT_TOOL))
 		to_chat(user, span_warning("ОШИБКА! Деконструкция прервана!"))
 		return RCD_ACT_FAILED
-	if(!our_rcd.useResource(2, user))
+	if(!our_rcd.useResource(RCD_BUILD_WINDOW * 2, user))
 		return RCD_ACT_FAILED
 	playsound(get_turf(our_rcd), our_rcd.usesound, 50, TRUE)
 	var/turf/T1 = get_turf(src)

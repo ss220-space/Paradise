@@ -16,3 +16,9 @@
 #define RCD_MODE_UI "Настройка"
 #define RCD_MODE "Режим"
 #define RCD_DOOR_TYPE "Тип шлюза"
+
+#define RCD_BUILD_FLOOR 1
+#define RCD_BUILD_WALL 4
+#define RCD_BUILD_WINDOW 4
+#define RCD_BUILD_AIRLOCK 6
+#define RCD_BUILD_FIRELOCK 5

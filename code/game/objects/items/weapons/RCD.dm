@@ -190,8 +190,10 @@
 			qdel(rcd_ammo)
 			playsound(loc, 'sound/machines/click.ogg', 50, TRUE)
 			to_chat(user, span_notice("Материи в RCD [matter]/[max_matter] единиц."))
+			return
 		else
 			balloon_alert(user, "картридж не подойдёт!")
+			return
 
 	else if(istype(item, /obj/item/stack))
 		var/obj/item/stack/sheet = item
