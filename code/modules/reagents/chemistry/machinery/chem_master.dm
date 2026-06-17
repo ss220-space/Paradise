@@ -54,7 +54,7 @@
 	var/static/list/bottle_styles
 
 /obj/machinery/chem_master/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ХимМастер 3000",
 		GENITIVE = "ХимМастера 3000",
 		DATIVE = "ХимМастеру 3000",
@@ -540,7 +540,7 @@
 	condi = TRUE
 
 /obj/machinery/chem_master/condimaster/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "КондиМастер 3000",
 		GENITIVE = "КондиМастера 3000",
 		DATIVE = "КондиМастеру 3000",

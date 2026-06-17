@@ -26,7 +26,7 @@
 	var/obj/item/coin/payment
 
 /obj/machinery/jukebox/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "музыкальный автомат",
 		GENITIVE = "музыкального автомата",
 		DATIVE = "музыкальному автомату",
@@ -93,6 +93,9 @@
 	. = ..()
 	if(. == SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN || !allowed(user) || !anchored)
 		return .
+	if(need_coin && !payment && isnull(music_player.active_song_sound))
+		balloon_alert(user, "нужна монета для воспроизведения!")
+		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 	toggle_playing(user)
 	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
 
@@ -268,7 +271,7 @@
 	VAR_PRIVATE/list/obj/effect/overlay/sparkles/sparkles = list()
 
 /obj/machinery/jukebox/disco/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "блестящая танцевальная машина \"Mark IV\"",
 		GENITIVE = "блестящей танцевальной машины \"Mark IV\"",
 		DATIVE = "блестящей танцевальной машине \"Mark IV\"",
@@ -284,7 +287,7 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
 /obj/machinery/jukebox/disco/indestructible/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "блестящая танцевальная машина \"Mark V\"",
 		GENITIVE = "блестящей танцевальной машины \"Mark V\"",
 		DATIVE = "блестящей танцевальной машине \"Mark V\"",

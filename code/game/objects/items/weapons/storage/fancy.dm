@@ -249,7 +249,7 @@
 	)
 
 /obj/item/storage/fancy/cigarettes/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пачка сигарет",
 		GENITIVE = "пачки сигарет",
 		DATIVE = "пачке сигарет",
@@ -330,7 +330,7 @@
 	item_state = "Dpacket"
 
 /obj/item/storage/fancy/cigarettes/dromedaryco/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пачка \"Марсианский Табак\"",
 		GENITIVE = "пачки \"Марсианский Табак\"",
 		DATIVE = "пачке \"Марсианский Табак\"",
@@ -346,7 +346,7 @@
 	item_state = "robustpacket"
 
 /obj/item/storage/fancy/cigarettes/syndicate/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пачка сигарет \"Синдиката\"",
 		GENITIVE = "пачки сигарет \"Синдиката\"",
 		DATIVE = "пачке сигарет \"Синдиката\"",
@@ -369,7 +369,7 @@
 	cigarette_type = /obj/item/clothing/mask/cigarette/medical_marijuana
 
 /obj/item/storage/fancy/cigarettes/cigpack_med/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пачка сигарет \"Доктор Виталя\"",
 		GENITIVE = "пачки сигарет \"Доктор Виталя\"",
 		DATIVE = "пачке сигарет \"Доктор Виталя\"",
@@ -386,7 +386,7 @@
 	cigarette_type = /obj/item/clothing/mask/cigarette/menthol
 
 /obj/item/storage/fancy/cigarettes/cigpack_uplift/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пачка сигарет \"Лёгкие на подъём\"",
 		GENITIVE = "пачки сигарет \"Лёгкие на подъём\"",
 		DATIVE = "пачке сигарет \"Лёгкие на подъём\"",
@@ -401,7 +401,7 @@
 	cigarette_type = /obj/item/clothing/mask/cigarette/richard
 
 /obj/item/storage/fancy/cigarettes/cigpack_richard/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пачка сигарет \"Ричард и Компания\"",
 		GENITIVE = "пачки сигарет \"Ричард и Компания\"",
 		DATIVE = "пачке сигарет \"Ричард и Компания\"",
@@ -417,7 +417,7 @@
 	item_state = "robustpacket"
 
 /obj/item/storage/fancy/cigarettes/cigpack_robust/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пачка сигарет \"Робаст\"",
 		GENITIVE = "пачки сигарет \"Робаст\"",
 		DATIVE = "пачке сигарет \"Робаст\"",
@@ -435,7 +435,7 @@
 	cigarette_type = /obj/item/clothing/mask/cigarette/robustgold
 
 /obj/item/storage/fancy/cigarettes/cigpack_robustgold/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пачка сигарет \"Золотой Робаст\"",
 		GENITIVE = "пачки сигарет \"Золотой Робаст\"",
 		DATIVE = "пачке сигарет \"Золотой Робаст\"",
@@ -451,7 +451,7 @@
 	item_state = "carppacket"
 
 /obj/item/storage/fancy/cigarettes/cigpack_carp/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Пачка сигарет \"Дымящий Карп\"",
 		GENITIVE = "пачки сигарет \"Дымящий Карп\"",
 		DATIVE = "пачке сигарет \"Дымящий Карп\"",
@@ -467,7 +467,7 @@
 	item_state = "midoripacket"
 
 /obj/item/storage/fancy/cigarettes/cigpack_midori/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пачка сигарет \"Табак Мидори\"",
 		GENITIVE = "пачки сигарет \"Табак Мидори\"",
 		DATIVE = "пачке сигарет \"Табак Мидори\"",
@@ -488,7 +488,7 @@
 	cigarette_type = /obj/item/clothing/mask/cigarette/shadyjims
 
 /obj/item/storage/fancy/cigarettes/cigpack_shadyjims/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пачка сигарет \"от Шейди Джима\"",
 		GENITIVE = "пачки сигарет \"от Шейди Джима\"",
 		DATIVE = "пачке сигарет \"от Шейди Джима\"",
@@ -505,7 +505,7 @@
 	cigarette_type = /obj/item/clothing/mask/cigarette/random
 
 /obj/item/storage/fancy/cigarettes/cigpack_random/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пачка сигарет \"Энигма\"",
 		GENITIVE = "пачки сигарет \"Энигма\"",
 		DATIVE = "пачке сигарет \"Энигма\"",
@@ -527,7 +527,7 @@
 	can_hold = list(/obj/item/rollingpaper)
 
 /obj/item/storage/fancy/rollingpapers/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "упаковка рулонной бумаги",
 		GENITIVE = "упаковки рулонной бумаги",
 		DATIVE = "упаковке рулонной бумаги",
@@ -563,7 +563,7 @@
 	can_hold = list(/obj/item/clothing/mask/cigarette/cigar)
 
 /obj/item/storage/fancy/cigcase/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "портсигар",
 		GENITIVE = "портсигара",
 		DATIVE = "портсигару",
@@ -633,7 +633,7 @@
 	med_bot_skin = "fish"
 
 /obj/item/storage/firstaid/aquatic_kit/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "набор для ухода за аквариумом",
 		GENITIVE = "набора для ухода за аквариумом",
 		DATIVE = "набору для ухода за аквариумом",
@@ -668,7 +668,7 @@
 	)
 
 /obj/item/storage/fancy/coffee_condi_display/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шоу-бокс для добавок к кофе",
 		GENITIVE = "шоу-бокса для добавок к кофе",
 		DATIVE = "шоу-боксу для добавок к кофе",
@@ -727,7 +727,7 @@
 	)
 
 /obj/item/storage/fancy/coffee_cart_rack/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "стойка для кофе-картриджей",
 		GENITIVE = "стойки для кофе-картриджей",
 		DATIVE = "стойке для кофе-картриджей",

@@ -2,7 +2,6 @@
 "an" = (
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/maintenance/garden)
@@ -37,7 +36,6 @@
 "bQ" = (
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/maintenance/garden)
@@ -494,7 +492,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/maintenance/garden)
@@ -631,7 +628,6 @@
 	icon_state = "medium"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/maintenance/garden)
@@ -659,7 +655,6 @@
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/maintenance/garden)

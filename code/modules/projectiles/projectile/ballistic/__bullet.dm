@@ -1,4 +1,5 @@
 /obj/projectile/bullet
+	abstract_type = /obj/projectile/bullet
 	name = "bullet"
 	gender = FEMALE
 	damage = 50
@@ -9,7 +10,7 @@
 	ricochet_chance = 5
 
 /obj/projectile/bullet/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пуля",
 		GENITIVE = "пули",
 		DATIVE = "пуле",

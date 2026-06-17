@@ -490,11 +490,15 @@
 	desc = "You should not be able to see it..."
 	power_use_multiplier = 250
 	var/obj/mecha/chassis = null
+	/// Weakref to the mecha equipment module that owns this internal RCD.
+	var/datum/weakref/holder_ref
 
 /obj/item/rcd/mecha_ref/Destroy()
-	var/obj/item/mecha_parts/mecha_equipment/rcd/holder = loc
-	if(istype(holder))
+	var/obj/item/mecha_parts/mecha_equipment/rcd/holder = holder_ref?.resolve()
+	if(holder)
 		holder.rcd_holder = null
+	holder_ref = null
+	chassis = null
 	return ..()
 
 /obj/item/rcd/mecha_ref/useResource(amount, mob/user)

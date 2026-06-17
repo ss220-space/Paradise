@@ -15,7 +15,7 @@
 		// This isn't clean and we are repeating [/obj/machinery/power/supermatter_crystal/proc/calculate_damage], sorry for this.
 		var/damage_to_be = damage + external_damage_immediate * clamp((emergency_point - damage) / emergency_point, 0, 1)
 		if(damage_to_be > danger_point)
-			visible_message(span_notice("[src] compresses under stress, resisting further impacts!"))
+			visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] сжимается под нагрузкой, сопротивляясь дальнейшим ударам!"))
 		playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
 	if(istype(projectile, /obj/projectile/beam/emitter/hitscan))
 		var/obj/projectile/beam/emitter/hitscan/mahlaser = projectile
@@ -35,13 +35,13 @@
 	var/gain = 100
 	investigate_log("was consumed by a singularity.", INVESTIGATE_ENGINE)
 	message_admins("Singularity has consumed a supermatter shard and can now become stage six.")
-	visible_message(span_userdanger("[src] is consumed by the singularity!"))
+	visible_message(span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] поглощается сингулярностью!"))
 	var/turf/sm_turf = get_turf(src)
 	for(var/mob/hearing_mob as anything in GLOB.player_list)
 		if(!is_valid_z_level(get_turf(hearing_mob), sm_turf))
 			continue
 		SEND_SOUND(hearing_mob, 'sound/effects/supermatter.ogg') //everyone goan know bout this
-		to_chat(hearing_mob, span_bolddanger("A horrible screeching fills your ears, and a wave of dread washes over you..."))
+		to_chat(hearing_mob, span_bolddanger("Ужасающий скрежет наполняет ваши уши, и волна ужаса захлёстывает вас..."))
 	qdel(src)
 	return gain
 
@@ -49,7 +49,7 @@
 	if(!iscarbon(user))
 		return
 	var/mob/living/carbon/jedi = user
-	to_chat(jedi, span_userdanger("That was a really dense idea."))
+	to_chat(jedi, span_userdanger("Это была действительно тупая идея."))
 	jedi.investigate_log("had [jedi.p_their()] brain dusted by touching [src] with telekinesis.", INVESTIGATE_DEATHS)
 	jedi.ghostize()
 	var/obj/item/organ/internal/brain/rip_u = jedi.get_int_organ(/obj/item/organ/internal/brain)
@@ -67,16 +67,16 @@
 
 	if(istype(item, /obj/item/scalpel/supermatter))
 		var/obj/item/scalpel/supermatter/scalpel = item
-		to_chat(user, span_notice("You carefully begin to scrape \the [src] with \the [scalpel]..."))
+		to_chat(user, span_notice("Вы осторожно начинаете соскабливать [scalpel.declent_ru(INSTRUMENTAL)] частицу с [declent_ru(GENITIVE)]..."))
 
 		if(!scalpel.use_tool(src, user, 60, volume = 100))
 			return ATTACK_CHAIN_BLOCKED
 
 		if(!scalpel.uses_left)
-			to_chat(user, span_warning("You fail to extract a sliver from \the [src]! \The [scalpel] isn't sharp enough anymore."))
+			to_chat(user, span_warning("У вас не получается отделить осколок от [declent_ru(GENITIVE)]! [DECLENT_RU_CAP(scalpel, NOMINATIVE)] больше недостаточно остёр."))
 			return ATTACK_CHAIN_BLOCKED
 
-		to_chat(user, span_danger("You extract a sliver from \the [src]. \The [src] begins to react violently!"))
+		to_chat(user, span_danger("Вы отделяете осколок от [declent_ru(GENITIVE)]. [DECLENT_RU_CAP(src, NOMINATIVE)] начинает бурно реагировать!"))
 		new /obj/item/nuke_core/supermatter_sliver(get_turf(user))
 		supermatter_sliver_removed = TRUE
 		external_power_trickle += 800
@@ -84,33 +84,33 @@
 
 		scalpel.uses_left--
 		if(!scalpel.uses_left)
-			to_chat(user, span_notice("A tiny piece of \the [scalpel] falls off, rendering it useless!"))
+			to_chat(user, span_notice("Крошечный кусочек [scalpel.declent_ru(GENITIVE)] отламывается, делая его бесполезным!"))
 
 		return ATTACK_CHAIN_PROCEED
 
 	if(istype(item, /obj/item/retractor/supermatter))
-		to_chat(user, span_warning("You poke [src] with [item]'s hyper-noblium tips. Nothing happens."))
+		to_chat(user, span_warning("Вы тыкаете в [declent_ru(ACCUSATIVE)] наконечниками [item.declent_ru(GENITIVE)] из гипер-ноблия. Ничего не происходит."))
 		return ATTACK_CHAIN_BLOCKED
 
 	if(istype(item, /obj/item/destabilizing_crystal))
 		var/obj/item/destabilizing_crystal/destabilizing_crystal = item
 
 		if(!is_main_engine)
-			to_chat(user, span_warning("You can't use \the [destabilizing_crystal] on \a [name]."))
+			to_chat(user, span_warning("Вы не можете применить [destabilizing_crystal.declent_ru(ACCUSATIVE)] к [declent_ru(DATIVE)]."))
 			return ATTACK_CHAIN_BLOCKED
 
 		if(get_integrity_percent() < SUPERMATTER_CASCADE_PERCENT)
-			to_chat(user, span_warning("You can only apply \the [destabilizing_crystal] to \a [name] that is at least [SUPERMATTER_CASCADE_PERCENT]% intact."))
+			to_chat(user, span_warning("[DECLENT_RU_CAP(destabilizing_crystal, NOMINATIVE)] можно применить только к [declent_ru(DATIVE)], целостность которого не ниже [SUPERMATTER_CASCADE_PERCENT]%."))
 			return ATTACK_CHAIN_BLOCKED
 
-		to_chat(user, span_warning("You begin to attach \the [destabilizing_crystal] to \the [src]..."))
+		to_chat(user, span_warning("Вы начинаете присоединять [destabilizing_crystal.declent_ru(ACCUSATIVE)] к [declent_ru(DATIVE)]..."))
 		if(!do_after(user, 3 SECONDS, src))
 			return ATTACK_CHAIN_BLOCKED
 
 		message_admins("[ADMIN_LOOKUPFLW(user)] attached [destabilizing_crystal] to the supermatter at [ADMIN_VERBOSEJMP(src)].")
 		add_game_logs("attached [destabilizing_crystal] to the supermatter", user)
 		user.investigate_log("attached [destabilizing_crystal] to a supermatter crystal.", INVESTIGATE_ENGINE)
-		to_chat(user, span_danger("\The [destabilizing_crystal] snaps onto \the [src]."))
+		to_chat(user, span_danger("[DECLENT_RU_CAP(destabilizing_crystal, NOMINATIVE)] защёлкивается на [declent_ru(PREPOSITIONAL)]."))
 
 		radio_announce(
 			"Обнаружена интеграция неизвестного вещества в гиперструктуру кристалла!",

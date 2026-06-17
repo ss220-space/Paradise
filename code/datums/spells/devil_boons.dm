@@ -141,7 +141,7 @@
 	color = "#acb78e"
 
 /obj/item/melee/touch_attack/revive_touch/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "воскрешающее касание",
 		GENITIVE = "воскрешающего касания",
 		DATIVE = "воскрешающему касанию",

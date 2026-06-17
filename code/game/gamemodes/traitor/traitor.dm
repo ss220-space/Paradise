@@ -98,11 +98,12 @@
 			var/used_uplink = FALSE
 			var/purchases = ""
 
-			for(var/obj/item/uplink/uplink in GLOB.world_uplinks)
-				if(uplink?.uplink_owner && uplink.uplink_owner == traitor.key)
-					TC_uses += uplink.used_TC
-					purchases += uplink.purchase_log
-					used_uplink = TRUE
+			var/obj/item/uplink/traitor_uplink = traitor.find_syndicate_uplink() || traitor.find_uplink_by_key()
+
+			if(traitor_uplink && (traitor_uplink.used_TC > 0 || traitor_uplink.purchase_log != ""))
+				TC_uses += traitor_uplink.used_TC
+				purchases += traitor_uplink.purchase_log
+				used_uplink = TRUE
 
 			if(used_uplink)
 				text += " (used [TC_uses] TC) [purchases]"

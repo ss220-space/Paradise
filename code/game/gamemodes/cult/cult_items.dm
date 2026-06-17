@@ -90,7 +90,7 @@
 	knockdown_amt = 2 SECONDS
 
 /obj/item/restraints/legcuffs/bola/cult/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "руническая бола",
 		GENITIVE = "рунической болы",
 		DATIVE = "рунической боле",

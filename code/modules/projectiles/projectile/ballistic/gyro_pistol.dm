@@ -4,7 +4,7 @@
 	ricochets_max = 0
 
 /obj/projectile/bullet/gyro/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "разрывной заряд",
 		GENITIVE = "разрывного заряда",
 		DATIVE = "разрывному заряду",

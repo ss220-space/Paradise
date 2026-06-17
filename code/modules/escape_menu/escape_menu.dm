@@ -69,9 +69,10 @@ GLOBAL_LIST_EMPTY(escape_menus)
 		GLOB.escape_menus[ckey] = src
 
 /datum/escape_menu/Destroy(force)
+	// Deleted in page holder
+	resource_panels = null
 	QDEL_NULL(base_holder)
 	QDEL_NULL(page_holder)
-	resource_panels = null // list contents were already qdeled in QDEL_NULL(page_holder), so we can safely null this
 
 	UnregisterSignal(client, COMSIG_TILE_MENU_OPEN)
 

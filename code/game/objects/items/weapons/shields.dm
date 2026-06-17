@@ -98,7 +98,7 @@
 	max_integrity = 380
 
 /obj/item/shield/riot/goliath/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "щит из пластин голиафа",
 		GENITIVE = "щита из пластин голиафа",
 		DATIVE = "щиту из пластин голиафа",

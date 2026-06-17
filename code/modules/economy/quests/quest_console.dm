@@ -21,7 +21,7 @@
 	var/static/hightech_recovery = FALSE
 
 /obj/machinery/computer/supplyquest/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "консоль запросов на поставку",
 		GENITIVE = "консоли запросов на поставку",
 		DATIVE = "консоли запросов на поставку",
@@ -214,7 +214,6 @@
 		return
 
 /obj/machinery/computer/supplyquest/proc/print_order(datum/cargo_quests_storage/quest)
-
 	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, TRUE)
 	var/obj/item/paper/paper = new(get_turf(src))
 	paper.info = "<div id=\"output\"><center> <h3> Форма запроса на поставку </h3> </center><br><hr><br>"
@@ -228,15 +227,15 @@
 	paper.info += "</ul><br><span class=\"large-text\"> Ориентировочная награда: [quest.reward]</span><br>"
 	paper.info += "<br><hr><br><span class=\"small-text\">Этот документ имеет автоматическую печать [station_name()] </span><br></div>"
 	paper.stamp(/obj/item/stamp/navcom)
-	paper.name = "форма запроса на поставку"
-	paper.ru_names = new /list(6)
-	paper.ru_names = list(
-		NOMINATIVE = "форма запроса о поставке",
-		GENITIVE = "формы запроса о поставке",
-		DATIVE = "форме запроса о поставке",
-		ACCUSATIVE = "форму запроса о поставке",
-		INSTRUMENTAL = "формой запроса о поставке",
-		PREPOSITIONAL = "форме запроса о поставке",
+	var/request_desc = "запроса о поставке"
+	paper.name = "форма [request_desc]"
+	paper.ru_names = alist(
+		NOMINATIVE = "форма [request_desc]",
+		GENITIVE = "формы [request_desc]",
+		DATIVE = "форме [request_desc]",
+		ACCUSATIVE = "форму [request_desc]",
+		INSTRUMENTAL = "формой [request_desc]",
+		PREPOSITIONAL = "форме [request_desc]",
 	)
 
 /obj/machinery/computer/supplyquest/workers
@@ -249,7 +248,7 @@
 	density = FALSE
 
 /obj/machinery/computer/supplyquest/workers/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "монитор запросов на поставку",
 		GENITIVE = "монитора запросов на поставку",
 		DATIVE = "монитору запросов на поставку",
@@ -319,15 +318,15 @@
 	paper.info += "<hr><br><span class=\"small-text\">[pick(phrases)] </span><br>"
 	paper.info += "<br><hr><br><span class=\"small-text\">Этот документ имеет автоматическую печать [station_name()] </span><br></div>"
 	paper.stamp(/obj/item/stamp/navcom)
-	paper.name = "Отчёт о поставке"
-	paper.ru_names = new /list(6)
-	paper.ru_names = list(
-		NOMINATIVE = "отчёт о поставке",
-		GENITIVE = "отчёта о поставке",
-		DATIVE = "отчёту о поставке",
-		ACCUSATIVE = "отчёт о поставке",
-		INSTRUMENTAL = "отчётом о поставке",
-		PREPOSITIONAL = "отчёте о поставке",
+	var/report_desc = "о поставке"
+	paper.name = "отчёт [report_desc]"
+	paper.ru_names = alist(
+		NOMINATIVE = "отчёт [report_desc]",
+		GENITIVE = "отчёта [report_desc]",
+		DATIVE = "отчёту [report_desc]",
+		ACCUSATIVE = "отчёт [report_desc]",
+		INSTRUMENTAL = "отчётом [report_desc]",
+		PREPOSITIONAL = "отчёте [report_desc]",
 	)
 	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, TRUE)
 	print_animation()
@@ -348,7 +347,7 @@
 	var/obj/machinery/computer/supplyquest/integrated_console = /obj/machinery/computer/supplyquest/iternal
 
 /obj/item/qm_quest_tablet/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "планшет Квартирмейстера",
 		GENITIVE = "планшета Квартирмейстера",
 		DATIVE = "планшету Квартирмейстера",
@@ -391,7 +390,7 @@
 	integrated_console = /obj/machinery/computer/supplyquest/iternal/cargo
 
 /obj/item/qm_quest_tablet/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "планшет запросов на поставку",
 		GENITIVE = "планшета запросов на поставку",
 		DATIVE = "планшету запросов на поставку",

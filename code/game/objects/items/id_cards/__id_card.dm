@@ -65,7 +65,7 @@
 	var/obj/item/card/id/guest/guest_pass = null
 
 /obj/item/card/id/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ID-карта",
 		GENITIVE = "ID-карты",
 		DATIVE = "ID-карте",
@@ -211,17 +211,14 @@
  * Takes optional newname and newjob parameters to set custom values.
  */
 /obj/item/card/id/proc/update_label(newname, newjob)
-	var/list/names = get_ru_names_cached()
-	ru_names = names ? names.Copy() : new /list(6)
-
 	if(!newname)
 		newname = registered_name
+
 	if(!newjob)
 		newjob = assignment
 
 	name = "[newname ? "[newname]`s ID-card" : "identification card"][newjob ? " ([newjob])" : ""]"
-	for(var/i = 1; i <= 6; i++)
-		ru_names[i] = "[names ? names[i] : initial(name)][newname ? " \"[newname]\"" : ""][newjob ? " ([newjob])" : ""]"
+	set_ru_names_suffix("[newname ? " \"[newname]\"" : ""][newjob ? " ([newjob])" : ""]")
 
 /obj/item/card/id/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/id_decal))
@@ -233,6 +230,7 @@
 		desc = decal.decal_desc
 		icon_state = decal.decal_icon_state
 		item_state = decal.decal_item_state
+		SEND_SIGNAL(loc, COMSIG_CARD_DECAL_APPLIED)
 		qdel(decal)
 		return ATTACK_CHAIN_BLOCKED_ALL
 

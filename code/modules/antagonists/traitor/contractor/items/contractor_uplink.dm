@@ -16,7 +16,7 @@
 	var/datum/contractor_hub/hub = null
 
 /obj/item/contractor_uplink/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "аплинк контрактника",
 		GENITIVE = "аплинка контрактника",
 		DATIVE = "аплинку контрактнику",

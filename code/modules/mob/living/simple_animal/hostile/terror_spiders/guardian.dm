@@ -46,7 +46,7 @@
 	var/max_queen_range = 15
 
 /mob/living/simple_animal/hostile/poison/terror_spider/guardian/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Защитник Ужаса",
 		GENITIVE = "Защитника Ужаса",
 		DATIVE = "Защитнику Ужаса",
@@ -146,7 +146,7 @@
 	max_integrity = 40
 
 /obj/structure/spider/terrorweb/purple/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "толстая паутина",
 		GENITIVE = "толстой паутины",
 		DATIVE = "толстой паутине",

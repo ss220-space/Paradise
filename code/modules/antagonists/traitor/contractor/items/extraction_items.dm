@@ -10,7 +10,7 @@
 	icon_state = "flare-contractor-on"
 
 /obj/effect/contractor_flare/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сигнальная ракета контрактника",
 		GENITIVE = "сигнальной ракеты контрактника",
 		DATIVE = "сигнальной ракете контрактника",

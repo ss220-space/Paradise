@@ -17,7 +17,7 @@
 	var/mob/living/swirlie = null	//the mob being given a swirlie
 
 /obj/structure/toilet/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "унитаз",
 		GENITIVE = "унитаза",
 		DATIVE = "унитазу",
@@ -752,7 +752,7 @@
 	resistance_flags = UNACIDABLE
 
 /obj/structure/sink/puddle/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пруд",
 		GENITIVE = "пруда",
 		DATIVE = "пруду",

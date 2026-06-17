@@ -7,7 +7,7 @@
 	hitsound = 'sound/effects/meteorimpact.ogg'
 
 /obj/projectile/meteor/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "метеор",
 		GENITIVE = "метеора",
 		DATIVE = "метеору",

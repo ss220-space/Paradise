@@ -30,7 +30,7 @@
 	holder_type = /obj/item/holder/snail
 
 /mob/living/simple_animal/snail/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "космо-улитка",
 		GENITIVE = "космо-улитки",
 		DATIVE = "космо-улитке",
@@ -98,7 +98,7 @@
 	holder_type = /obj/item/holder/turtle
 
 /mob/living/simple_animal/turtle/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "черепаха",
 		GENITIVE = "черепахи",
 		DATIVE = "черепахе",
