@@ -114,9 +114,8 @@ GLOBAL_LIST_EMPTY(overflow_whitelist)
 	var/list/_entries_by_type = list()
 	entries_by_type = _entries_by_type
 
-	for(var/I in valid_subtypesof(/datum/config_entry)) //typesof is faster in this case
-		var/datum/config_entry/E = I
-		E = new I
+	for(var/datum/config_entry/I as anything in valid_subtypesof(/datum/config_entry)) //typesof is faster in this case
+		var/datum/config_entry/E = new I
 		var/esname = E.name
 		var/datum/config_entry/test = _entries[esname]
 		if(test)
