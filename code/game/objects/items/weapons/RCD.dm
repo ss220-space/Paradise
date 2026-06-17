@@ -181,10 +181,6 @@
 			return
 
 		var/obj/item/rcd_ammo/rcd_ammo = item
-		if(!user.drop_item_ground(rcd_ammo))
-			balloon_alert(user, UNLINT("картридж прилип к вашей руке!"))
-			return
-
 		if(rcd_ammo.type == matter_type || rcd_ammo.type == matter_type_large)
 			matter = min(matter + rcd_ammo.ammoamt, max_matter)
 			qdel(rcd_ammo)
