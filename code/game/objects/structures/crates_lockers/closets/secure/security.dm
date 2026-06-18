@@ -292,7 +292,7 @@
 	req_access = list(ACCESS_ARMORY)
 
 /obj/structure/closet/secure_closet/guncabinet/secspear/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шкаф энергетических копий",
 		GENITIVE = "шкафа энергетических копий",
 		DATIVE = "шкафу энергетических копий",
@@ -332,7 +332,7 @@
 	req_access = list(ACCESS_ARMORY)
 
 /obj/structure/closet/secure_closet/guncabinet/energygun/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шкаф энергетических карабинов",
 		GENITIVE = "шкафа энергетических карабинов",
 		DATIVE = "шкафу энергетических карабинов",
