@@ -283,29 +283,42 @@
 		return
 
 	if(wisp.loc == src)
-		RegisterSignal(user, COMSIG_MOB_UPDATE_SIGHT, PROC_REF(update_user_sight))
-
-		balloon_alert(user, "дух выпущен")
-		wisp.forceMove(user)
-		update_icon(UPDATE_ICON_STATE)
-		INVOKE_ASYNC(wisp, TYPE_PROC_REF(/atom/movable, orbit), user, 20)
-		set_light_on(FALSE)
-
-		user.update_sight()
-
-		SSblackbox.record_feedback("tally", "wisp_lantern", 1, "Freed") // freed
+		RegisterSignal(src, COMSIG_ITEM_DROPPED, PROC_REF(on_drop), user)
+		free_wisp(user)
 	else
-		UnregisterSignal(user, COMSIG_MOB_UPDATE_SIGHT)
+		UnregisterSignal(src, COMSIG_ITEM_DROPPED)
+		return_wisp(user)
 
-		balloon_alert(user, "дух возвращён")
-		wisp.stop_orbit()
-		wisp.forceMove(src)
-		set_light_on(TRUE)
+/obj/item/wisp_lantern/proc/on_drop(obj/item, mob/user)
+	return_wisp(user)
 
-		user.update_sight()
+/obj/item/wisp_lantern/proc/free_wisp(mob/user)
+	RegisterSignal(src, COMSIG_QDELETING, PROC_REF(on_drop), user)
+	RegisterSignal(user, COMSIG_QDELETING, PROC_REF(return_wisp))
+	RegisterSignal(user, COMSIG_MOB_UPDATE_SIGHT, PROC_REF(update_user_sight))
 
-		update_icon(UPDATE_ICON_STATE)
-		SSblackbox.record_feedback("tally", "wisp_lantern", 1, "Returned") // returned
+	balloon_alert(user, "дух выпущен")
+	wisp.forceMove(user)
+	update_icon(UPDATE_ICON_STATE)
+	INVOKE_ASYNC(wisp, TYPE_PROC_REF(/atom/movable, orbit), user, 20)
+	set_light_on(FALSE)
+
+	user.update_sight()
+	SSblackbox.record_feedback("tally", "wisp_lantern", 1, "Freed") // freed
+
+/obj/item/wisp_lantern/proc/return_wisp(mob/user)
+	UnregisterSignal(src, COMSIG_QDELETING)
+	UnregisterSignal(user, COMSIG_QDELETING)
+	UnregisterSignal(user, COMSIG_MOB_UPDATE_SIGHT)
+
+	balloon_alert(user, "дух возвращён")
+	wisp.stop_orbit()
+	wisp.forceMove(src)
+	set_light_on(TRUE)
+
+	user.update_sight()
+	update_icon(UPDATE_ICON_STATE)
+	SSblackbox.record_feedback("tally", "wisp_lantern", 1, "Returned") // returned
 
 /obj/item/wisp_lantern/Initialize(mapload)
 	. = ..()
@@ -314,6 +327,7 @@
 
 /obj/item/wisp_lantern/Destroy()
 	if(wisp)
+		UnregisterSignal(src, COMSIG_ITEM_DROPPED)
 		if(wisp.loc == src)
 			qdel(wisp)
 		else

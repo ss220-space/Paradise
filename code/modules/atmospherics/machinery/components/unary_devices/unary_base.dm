@@ -19,6 +19,11 @@
 		node.disconnect(src)
 		node = null
 		nullifyPipenet(parent)
+	if(parent)
+		if(parent.has_one_member())
+			QDEL_NULL(parent)
+		else
+			nullifyPipenet(parent)
 	return ..()
 
 /obj/machinery/atmospherics/unary/atmos_init()
