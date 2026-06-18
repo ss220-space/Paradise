@@ -119,11 +119,21 @@
 	)
 
 /obj/item/clothing/head/helmet/space/deathsquad/beret/captain
-	name = "Офицерская фуражка капитана флота \"Нанотрейзен\""
+	name = "Nanotrasen Fleet Captain's Cap"
 	desc = "Парадная фуражка, спроектированная и изготовленная под индивидуальную мерку действующего капитана флота \"Нанотрейзен\" в секторе Эпсилон Лукусты. Если вы когда-нибудь увидите её носителя, вам стоит надеяться, что он прибыл для награждения вас за ваши заслуги, а не разрешения вызванного вами кризиса."
 	icon_state = "ntsc_cap"
 	item_state = "ntsc_cap"
 	armor = list(MELEE = 80, BULLET = 80, LASER = 80, ENERGY = 100, BOMB = 100, BIO = 100, FIRE = 100, ACID = 100)
+
+/obj/item/clothing/head/helmet/space/deathsquad/beret/captain/get_ru_names()
+	return alist(
+		NOMINATIVE = "фуражка капитана флота \"Нанотрейзен\"",
+		GENITIVE = "фуражки капитана флота \"Нанотрейзен\",
+		DATIVE = "фуражке капитана флота \"Нанотрейзен\"",
+		ACCUSATIVE = "фуражку капитана флота \"Нанотрейзен\"",
+		INSTRUMENTAL = "фуражкой капитана флота \"Нанотрейзен\"",
+		PREPOSITIONAL = "фуражке капитана флота \"Нанотрейзен\"",
+)
 
 /obj/item/clothing/head/helmet/space/deathsquad/beret/solgov
 	name = "Trans-Solar Federation commander's beret"
@@ -143,19 +153,38 @@
 	species_restricted = null
 
 /obj/item/clothing/suit/space/deathsquad/officer/centcom
-	name = "куртка офицера ЦК"
+	name = "CCO Jacket"
 	desc = "Куртка из дорогостоящих материалов с золотой отделкой."
 	icon_state = "dress_capjacket_black_open"
 	item_state = "dress_capjacket_black_open"
 	armor = list(MELEE = 30, BULLET = 50, LASER = 30,ENERGY = 15, BOMB = 30, BIO = 30, FIRE = 60, ACID = 75)
 
+/obj/item/clothing/suit/space/deathsquad/officer/centcom/get_ru_names()
+	return alist(
+		NOMINATIVE = "куртка офицера ЦК \"Нанотрейзен\"",
+		GENITIVE = "куртки офицера ЦК \"Нанотрейзен\"",
+		DATIVE = "куртке офицера ЦК \"Нанотрейзен\"",
+		ACCUSATIVE = "куртку офицера ЦК \"Нанотрейзен\"",
+		INSTRUMENTAL = "курткой офицера ЦК \"Нанотрейзен\"",
+		PREPOSITIONAL = "куртке офицера ЦК \"Нанотрейзен\"",
+)
 
 /obj/item/clothing/suit/space/deathsquad/officer/captain
-	name = "Форма капитана флота \"Нанотрейзен\""
+	name = "Nanotreisen Fleet Captain's Cloak"
 	desc = "Парадный плащ, спроектированный и сшитый под индивидуальную мерку действующего капитана флота \"Нанотрейзен\" в секторе Эпсилон Лукусты. Внутренний слой формы представляет из себя защитную оболочку, состоящую из миллионов нанитов; кластеры этих миниатюрных роботов способны эффективно рассеивать кинетическую и термальную энергию, обеспечивая превосходный уровень защиты для носителя."
 	icon_state = "ntsc_uniform"
 	item_state = "ntsc_uniform"
 	armor = list(MELEE = 80, BULLET = 80, LASER = 80, ENERGY = 100, BOMB = 100, BIO = 100, FIRE = 100, ACID = 100)
+
+/obj/item/clothing/suit/space/deathsquad/officer/captain/get_ru_names()
+	return alist(
+		NOMINATIVE = "палащ капитана флота \"Нанотрейзен\"",
+		GENITIVE = "плаща капитана флота \"Нанотрейзен\"",
+		DATIVE = "плащу капитана флота \"Нанотрейзен\"",
+		ACCUSATIVE = "плащ капитана флота \"Нанотрейзен\"",
+		INSTRUMENTAL = "плащом капитана флота \"Нанотрейзен\"",
+		PREPOSITIONAL = "плаще капитана флота \"Нанотрейзен\"",
+)
 
 /obj/item/clothing/suit/space/deathsquad/officer/field
 	name = "Полевая форма Офицера Флота Nanotrasen"
