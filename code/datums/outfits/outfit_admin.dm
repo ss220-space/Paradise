@@ -206,7 +206,6 @@
 
 /datum/outfit/admin/special_reaction_team
 	name = "Special Reaction Team Member"
-
 	uniform = /obj/item/clothing/under/fluff/jay_turtleneck
 	suit = /obj/item/clothing/suit/storage/blueshield/srt
 	back = /obj/item/storage/backpack/satchel_blueshield/srt
@@ -263,40 +262,6 @@
 	if(istype(I))
 		apply_to_card(I, H, get_centcom_access("Special Reaction Team Member"), "Special Reaction Team Member")
 		I.law_level = LAW_LEVEL_RESPONSE_TEAM
-	H.update_hud_set()
-
-/datum/outfit/admin/nt_navy_captain
-	name = "NT Navy Captain"
-
-	uniform = /obj/item/clothing/under/rank/centcom/captain
-	back = /obj/item/storage/backpack/satchel
-	belt = /obj/item/storage/belt/rapier/centcomm
-	gloves = /obj/item/clothing/gloves/color/white
-	shoes = /obj/item/clothing/shoes/centcom
-	head = /obj/item/clothing/head/beret/centcom/captain
-	l_ear = /obj/item/radio/headset/centcom
-	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
-	id = /obj/item/card/id/centcom
-	pda = /obj/item/pda/centcom
-	backpack_contents = list(
-		/obj/item/storage/box/survival/centcomofficer = 1,
-		/obj/item/gun/energy/pulse/pistol = 1,
-		/obj/item/implanter/death_alarm = 1,
-	)
-	implants = list(
-		/obj/item/implant/mindshield/ert,
-		/obj/item/implant/dust,
-	)
-
-/datum/outfit/admin/nt_navy_captain/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	. = ..()
-	if(visualsOnly)
-		return
-
-	var/obj/item/card/id/I = H.wear_id
-	if(istype(I))
-		apply_to_card(I, H, get_centcom_access("Nanotrasen Navy Captain"), "Nanotrasen Navy Captain")
-		I.law_level = LAW_LEVEL_CENTCOMM
 	H.update_hud_set()
 
 /datum/outfit/admin/nt_diplomat
@@ -415,7 +380,6 @@
 	. = ..()
 	if(visualsOnly)
 		return
-
 	var/obj/item/radio/R = H.l_ear
 	R.set_frequency(DTH_FREQ)
 	R.requires_tcomms = FALSE
@@ -436,6 +400,7 @@
 	. = ..()
 	if(visualsOnly)
 		return
+
 	officer.equip_or_collect(new /obj/item/disk/nuclear/unrestricted, ITEM_SLOT_BACKPACK)
 
 /datum/outfit/admin/pirate

@@ -11,7 +11,7 @@
 		return FALSE
 	radio_announce(
 		"Внимание: Достигнута критическая масса теплоносителя.",
-		sm,
+		DECLENT_RU_CAP(sm, NOMINATIVE),
 		sm.damage > sm.emergency_point ? sm.emergency_channel : sm.warning_channel,
 		sm,
 	)
@@ -127,7 +127,7 @@
 		return FALSE
 	radio_announce(
 		"ОПАСНОСТЬ: ИДЁТ ЦЕПНАЯ РЕАКЦИЯ ИНЕРЦИИ ЗАРЯДА.",
-		sm,
+		DECLENT_RU_CAP(sm, NOMINATIVE),
 		sm.damage > sm.emergency_point ? sm.emergency_channel : sm.warning_channel,
 		sm,
 	)
