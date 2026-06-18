@@ -2327,6 +2327,14 @@
 	else if(href_list["Smite"])
 		return SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/admin_smite, locateUID(href_list["Smite"]))
 
+	else if(href_list["play_internet"])
+		if(!check_rights(R_SOUNDS))
+			return
+		var/link_url = href_list["play_internet"]
+		if(!link_url)
+			return
+		web_sound(usr.client, link_url, href_list["credit"])
+
 	else if(href_list["cryossd"])
 		if(!check_rights(R_ADMIN))
 			return

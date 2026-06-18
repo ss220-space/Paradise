@@ -3469,7 +3469,7 @@
 	},
 /area/holodeck/source_beach)
 "OU" = (
-/obj/item/gun/rocketlauncher,
+/obj/item/gun/projectile/revolver/rocketlauncher/rpg232,
 /obj/structure/table/wood,
 /turf/simulated/floor/wood,
 /area/admin)

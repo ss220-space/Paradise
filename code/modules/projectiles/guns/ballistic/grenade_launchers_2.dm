@@ -30,7 +30,7 @@
 /obj/item/gun/projectile/revolver/grenadelauncher/multi/cyborg/attack_self()
 	return
 
-// MARK: Rocket launcher
+// MARK: PML-8 rocket launcher
 /obj/item/gun/projectile/revolver/rocketlauncher //nice revolver you got here
 	name = "PML-9"
 	desc = "A reusable rocket propelled grenade launcher. The words \"NT this way\" and an arrow have been written near the barrel."
@@ -137,6 +137,15 @@
 		user.visible_message("<span class='warning'>[user] looks about the room realizing [user.p_theyre()] still there. [user.p_they(TRUE)] proceed to shove [src] down their throat and choke [user.p_them()]self with it!<span>")
 		sleep(2 SECONDS)
 		return OXYLOSS
+
+// MARK: RPG-232 rocket launcher
+/obj/item/gun/projectile/revolver/rocketlauncher/rpg232
+	name = "RPG-232"
+	desc = "Разработанный в ТСФ многоразовый гранатомет, так и не поступивший на вооружение Федерации. Модель стала популярна среди тяжеловооруженных отрядов ОЗА \"Нанотрейзен\"."
+	icon_state = "rpg232"
+	item_state = "rpg232"
+	mag_type = /obj/item/ammo_box/magazine/internal/rpg232
+	recoil = GUN_RECOIL_LOW
 
 // MARK: Gyropistol
 /obj/item/gun/projectile/automatic/gyropistol

@@ -429,6 +429,23 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 		PREPOSITIONAL = "коротковолновой рации СБ",
 	)
 
+/obj/item/radio/portal
+	name = "office radio"
+	desc = "Офисное радио для лабораторий в соляных шахтах."
+	icon_state = "radio_portal"
+	item_state = "radio_portal"
+	default_frequency = AI_FREQ
+
+/obj/item/radio/portal/get_ru_names()
+	return alist(
+		NOMINATIVE = "офисное радио",
+		GENITIVE = "офисного радио",
+		DATIVE = "офисному радио",
+		ACCUSATIVE = "офисное радио",
+		INSTRUMENTAL = "офисным радио",
+		PREPOSITIONAL = "офисном радио",
+	)
+
 // Interprets the message mode when talking into a radio, possibly returning a connection datum
 /obj/item/radio/proc/handle_message_mode(mob/living/M, list/message_pieces, message_mode)
 	// Otherwise, if a channel is specified, look for it.

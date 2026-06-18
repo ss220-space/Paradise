@@ -5,6 +5,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 // MARK: Basic objective
 /datum/objective
+	abstract_type = /datum/objective
 	/**
 	 * Proper name of the objective. Not player facing, only shown to admins when adding objectives.
 	 * Leave as null (or override to null) if you don't want admins to see that objective as a viable one to add (such as the mindslave objective).
