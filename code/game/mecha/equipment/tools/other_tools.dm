@@ -469,7 +469,7 @@
 /obj/item/mecha_parts/mecha_equipment/servo_hydra_actuator/can_attach(obj/mecha/M)
 	if(!..())
 		return FALSE
-	if(M.strafe_allowed)
+	if(!M.strafe_allowed)
 		return FALSE
 	return TRUE
 
@@ -554,6 +554,8 @@
 	var/obj/effect/supress/supress_effect
 
 /obj/item/mecha_parts/mecha_equipment/cage/can_attach(obj/mecha/M)
+	if(!..())
+		return FALSE
 	if(!..())
 		return FALSE
 	if(locate(src) in M.equipment)
