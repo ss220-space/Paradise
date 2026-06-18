@@ -39,7 +39,7 @@
 		/obj/item/gun/projectile/shotgun/winchester/cargo = 500,
 		/obj/item/gun/projectile = 300,
 
-		/obj/item/gun/rocketlauncher = 1000,
+		/obj/item/gun/projectile/revolver/rocketlauncher = 1000,
 		/obj/item/gun/medbeam = 2000,
 		/obj/item/gun/throw/crossbow = 300,
 		/obj/item/gun/syringe = 200,
