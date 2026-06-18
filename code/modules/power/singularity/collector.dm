@@ -1,7 +1,7 @@
 /// Radiation needs to be over this amount to get power
 #define RAD_COLLECTOR_THRESHOLD 80
 /// Amount of joules created for each rad point over RAD_COLLECTOR_THRESHOLD
-#define RAD_COLLECTOR_COEFFICIENT 400
+#define RAD_COLLECTOR_COEFFICIENT 1200
 /// Toxin moles in a fully filled plasma tank divided by 100; used to display fuel as a percentage.
 #define RAD_COLLECTOR_FUEL_PERCENT_DIVISOR 0.3
 
@@ -21,11 +21,11 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 	var/active = FALSE
 	///Is the collector locked with an id?
 	var/locked = FALSE
-	///Amount of gas removed per tick
+	/// Fraction of the base plasma drain actually applied each tick (lower = leaner burn, longer fuel).
 	var/drain_ratio = 0.5
-	///Multiplier for the amount of gas removed per tick
-	var/powerproduction_drain = 0.001
-	///The percentage of the regular gas drain pumped out in the last tick
+	/// Base plasma (moles) burned per second, before drain_ratio is applied.
+	var/powerproduction_drain = 0.02
+	/// Share (0..1) of the wanted plasma burn we could actually supply last tick. Scales power output.
 	var/last_drain_efficiency = 0
 
 /obj/machinery/power/energy_accumulator/rad_collector/get_ru_names()
@@ -50,19 +50,25 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 	return ..()
 
 /obj/machinery/power/energy_accumulator/rad_collector/process(seconds_per_tick)
-	if(!loaded_tank)
-		return
+	// Only an active collector burns fuel; an idle one just keeps releasing whatever it already stored.
+	if(!active || !loaded_tank)
+		last_drain_efficiency = 0
+		return ..()
 
-	if(!loaded_tank.air_contents.toxins())
+	var/available_plasma = loaded_tank.air_contents.toxins()
+	if(!available_plasma)
 		investigate_log(span_red("out of fuel."), INVESTIGATE_ENGINE)
 		playsound(src, 'sound/machines/ding.ogg', 50, TRUE)
 		eject()
-		return
+		last_drain_efficiency = 0
+		return ..()
 
-	var/wanted_drain = powerproduction_drain * drain_ratio
-	var/gasdrained = min(wanted_drain, loaded_tank.air_contents.toxins())
-	loaded_tank.air_contents.set_toxins(loaded_tank.air_contents.toxins() - gasdrained)
-	last_drain_efficiency = wanted_drain ? gasdrained / wanted_drain : 0
+	// Burn plasma at a steady rate; efficiency is the share of the wanted burn we could actually
+	// supply this tick, so output stays full while fuelled and tapers off as the tank runs dry.
+	var/wanted_drain = powerproduction_drain * drain_ratio * seconds_per_tick
+	var/gas_drained = min(wanted_drain, available_plasma)
+	loaded_tank.air_contents.set_toxins(available_plasma - gas_drained)
+	last_drain_efficiency = wanted_drain ? gas_drained / wanted_drain : 0
 
 	return ..()
 
@@ -172,7 +178,9 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 /obj/machinery/power/energy_accumulator/rad_collector/proc/receive_pulse(pulse_strength)
 	if(!loaded_tank || !active || pulse_strength <= RAD_COLLECTOR_THRESHOLD)
 		return
-	stored_energy += energy_to_power((pulse_strength - RAD_COLLECTOR_THRESHOLD) * RAD_COLLECTOR_COEFFICIENT * last_drain_efficiency)
+	// Output scales with how energetic the singularity pulse is and with how much plasma we are burning.
+	var/rads_above_threshold = pulse_strength - RAD_COLLECTOR_THRESHOLD
+	stored_energy += energy_to_power(rads_above_threshold * RAD_COLLECTOR_COEFFICIENT * last_drain_efficiency)
 
 /obj/machinery/power/energy_accumulator/rad_collector/proc/eject(mob/user)
 	locked = FALSE
@@ -194,13 +202,13 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 /obj/machinery/power/energy_accumulator/rad_collector/update_overlays()
 	. = ..()
 	if(loaded_tank)
-		add_overlay("ptank")
+		. += "ptank"
 
 	if(stat & (NOPOWER|BROKEN))
 		return
 
 	if(active)
-		add_overlay(loaded_tank ? "on" : "error")
+		. += loaded_tank ? "on" : "error"
 
 /obj/machinery/power/energy_accumulator/rad_collector/proc/toggle_power()
 	active = !active
