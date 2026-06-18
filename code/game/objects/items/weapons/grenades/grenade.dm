@@ -128,7 +128,7 @@
 	active = TRUE
 	update_appearance(UPDATE_ICON_STATE)
 	playsound(turf, 'sound/weapons/armbomb.ogg', 60, TRUE)
-	addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/item/grenade, prime)), TRIPWIRE_GRENADE_DETONATION_TIME)
+	addtimer(CALLBACK(src, PROC_REF(prime)), TRIPWIRE_GRENADE_DETONATION_TIME)
 	base.attached_item = null
 	base.UnregisterSignal(base, COMSIG_TRIPWIRE_TRIGGERED)
 
