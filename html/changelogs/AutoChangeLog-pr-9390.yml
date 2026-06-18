@@ -1,0 +1,4 @@
+author: "dageavtobusnick"
+delete-after: True
+changes:
+  - bugfix: "Фастфайр больше не искажается модификаторами клика. (PR #9390)"

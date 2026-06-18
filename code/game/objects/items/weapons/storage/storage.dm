@@ -58,6 +58,8 @@
 	var/foldable_amt = 0
 	/// Lazy list of mobs which are currently viewing the storage inventory.
 	var/list/mobs_viewing
+	/// Increase "w_class" of storage when something inside it
+	var/dynamic_storage_size = FALSE
 
 /obj/item/storage/Initialize(mapload)
 	. = ..()
@@ -698,6 +700,11 @@
 		if(!usr.can_unEquip(W))
 			return FALSE
 
+	if(dynamic_storage_size && isstorage(loc) && !istype(loc, /obj/item/storage/backpack/holding))
+		if(!stop_messages)
+			balloon_alert(usr, "не хватит места!")
+		return FALSE
+
 	return TRUE
 
 /// This proc handles items being inserted. It does not perform any checks of whether an item can or can't be inserted. That's done by can_be_inserted()
@@ -757,6 +764,7 @@
 	W.pixel_x = initial(W.pixel_x)
 	W.mouse_opacity = MOUSE_OPACITY_OPAQUE //So you can click on the area around the item to equip it, instead of having to pixel hunt
 	update_icon()
+	SEND_SIGNAL(src, COMSIG_ITEM_INSERTED_INTO_STORAGE)
 	return TRUE
 
 /// Call this proc to handle the removal of an item from the storage item. The item will be moved to the atom sent as new_target
@@ -798,6 +806,7 @@
 		W.maptext = ""
 	W.on_exit_storage(src)
 	update_icon()
+	SEND_SIGNAL(src, COMSIG_ITEM_REMOVED_FROM_STORAGE)
 	return TRUE
 
 /obj/item/storage/Exited(atom/movable/gone, direction)
@@ -1018,6 +1027,11 @@
 		orient2hud(user)
 		show_to(user)
 	return TRUE
+
+/obj/item/storage/examine(mob/user)
+	. = ..()
+	if(dynamic_storage_size)
+		. += span_notice("Размер <b>изменяется</b> в зависимости от наличия содержимого.")
 
 #undef STORAGE_CAP_WIDTH
 #undef STORED_CAP_WIDTH
