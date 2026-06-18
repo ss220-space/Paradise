@@ -20,13 +20,13 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-spacemandmm-
 
-      - name: Restore Bootstrap cache
-        uses: actions/cache@v5
-        with:
-          path: tools/bootstrap/.cache
-          key: ${{ runner.os }}-bootstrap-${{ hashFiles('tools/requirements.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-bootstrap-
+      #- name: Restore Bootstrap cache
+      #  uses: actions/cache@v5
+      #  with:
+      #    path: tools/bootstrap/.cache
+      #    key: ${{ runner.os }}-bootstrap-${{ hashFiles('tools/requirements.txt') }}
+      #    restore-keys: |
+      #      ${{ runner.os }}-bootstrap-
 
       - uses: actions/setup-python@v6
         with:
