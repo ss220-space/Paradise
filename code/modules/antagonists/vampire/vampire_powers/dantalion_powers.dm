@@ -54,8 +54,8 @@
 
 	if(can_enthrall(user, target))
 		handle_enthrall(user, target)
-		var/datum/spell_handler/vampire/V = custom_handler
-		var/blood_cost = V.calculate_blood_cost(vampire)
+		var/datum/spell_handler/vampire/vamp = custom_handler
+		var/blood_cost = vamp.calculate_blood_cost(vampire)
 		vampire.bloodusable -= blood_cost
 
 /obj/effect/proc_holder/spell/vampire/enthrall/proc/can_enthrall(mob/living/user, mob/living/carbon/C)
