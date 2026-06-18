@@ -449,7 +449,7 @@
 					if(R.fields["id"] == E.fields["id"])
 						medical = R.fields["p_stat"]
 
-		if(!HAS_TRAIT(src, TRAIT_NO_BLOOD)) //
+		if(!HAS_TRAIT(src, TRAIT_NO_BLOOD))
 			var/blood_percent = round(blood_volume / max_blood * 100)
 			var/blood_level = (blood_volume >= BLOOD_VOLUME_REGENERATION) ? 3 : ((blood_volume >= BLOOD_VOLUME_BAD) ? 2 : 1)
 
