@@ -556,6 +556,8 @@
 /obj/item/mecha_parts/mecha_equipment/cage/can_attach(obj/mecha/M)
 	if(!..())
 		return FALSE
+	if(!..())
+		return FALSE
 	if(locate(src) in M.equipment)
 		return FALSE
 	return TRUE

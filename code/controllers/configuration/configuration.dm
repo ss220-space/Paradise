@@ -95,7 +95,6 @@ GLOBAL_LIST_EMPTY(overflow_whitelist)
 /datum/controller/configuration/Destroy()
 	full_wipe()
 	config = null
-
 	return ..()
 
 /datum/controller/configuration/proc/log_config_error(error_message)
@@ -114,19 +113,16 @@ GLOBAL_LIST_EMPTY(overflow_whitelist)
 	var/list/_entries_by_type = list()
 	entries_by_type = _entries_by_type
 
-	for(var/I in typesof(/datum/config_entry)) //typesof is faster in this case
-		var/datum/config_entry/E = I
-		if(initial(E.abstract_type) == I)
+	for(var/datum/config_entry/entry_type as anything in valid_subtypesof(/datum/config_entry))
+		var/datum/config_entry/entry = new entry_type
+		var/entry_name = entry.name
+		var/datum/config_entry/existing_entry = _entries[entry_name]
+		if(existing_entry)
+			log_config_error("Error: [existing_entry.type] has the same name as [entry.type]: [entry_name]! Not initializing [entry.type]!")
+			qdel(entry)
 			continue
-		E = new I
-		var/esname = E.name
-		var/datum/config_entry/test = _entries[esname]
-		if(test)
-			log_config_error("Error: [test.type] has the same name as [E.type]: [esname]! Not initializing [E.type]!")
-			qdel(E)
-			continue
-		_entries[esname] = E
-		_entries_by_type[I] = E
+		_entries[entry_name] = entry
+		_entries_by_type[entry_type] = entry
 
 /datum/controller/configuration/proc/RemoveEntry(datum/config_entry/CE)
 	entries -= CE.name
@@ -265,26 +261,23 @@ GLOBAL_LIST_EMPTY(overflow_whitelist)
 	return E.ValidateAndSet("[new_val]")
 
 /datum/controller/configuration/proc/pick_mode(mode_name)
-	for(var/T in gamemode_cache)
-		var/datum/game_mode/M = T
-		if(initial(M.config_tag) && initial(M.config_tag) == mode_name)
-			return new T()
+	for(var/datum/game_mode/mode_type as anything in gamemode_cache)
+		if(initial(mode_type.config_tag) && initial(mode_type.config_tag) == mode_name)
+			return new mode_type()
 	return new /datum/game_mode/extended()
 
 /datum/controller/configuration/proc/get_runnable_modes()
 	var/list/datum/game_mode/runnable_modes = new
-	for(var/T in subtypesof(/datum/game_mode))
-		var/datum/game_mode/M = new T()
-//		log_debug(world, "DEBUG: [T], tag=[M.config_tag], prob=[probabilities[M.config_tag]]")
-		if(!(M.config_tag in modes))
-			qdel(M)
+	for(var/datum/game_mode/mode_type as anything in subtypesof(/datum/game_mode))
+		var/datum/game_mode/mode = new mode_type()
+		if(!(mode.config_tag in modes))
+			qdel(mode)
 			continue
-		if(probabilities[M.config_tag]<=0)
-			qdel(M)
+		if(probabilities[mode.config_tag] <= 0)
+			qdel(mode)
 			continue
-		if(M.can_start())
-			runnable_modes[M] = probabilities[M.config_tag]
-//			log_debug(world, "DEBUG: runnable_mode\[[length(runnable_modes)]\] = [M.config_tag]")
+		if(mode.can_start())
+			runnable_modes[mode] = probabilities[mode.config_tag]
 	return runnable_modes
 
 /datum/controller/configuration/proc/load_twitch_censor_list()
@@ -332,21 +325,23 @@ GLOBAL_LIST_EMPTY(overflow_whitelist)
 	probabilities = list()
 	var/list/probabilities_conf = CONFIG_GET(keyed_list/probability)
 	var/list/minplayers_conf = CONFIG_GET(keyed_list/minplayers)
-	for(var/T in gamemode_cache)
-		var/datum/game_mode/M = T
+	for(var/datum/game_mode/mode_type as anything in gamemode_cache)
+		var/config_tag = initial(mode_type.config_tag)
+		if(!config_tag)
+			continue
+		if(config_tag in modes) // ensure each mode is added only once
+			continue
 
-		if(initial(M.config_tag))
-			if(!(initial(M.config_tag) in modes))		// ensure each mode is added only once
-				modes += initial(M.config_tag)
-				mode_names[initial(M.config_tag)] = initial(M.name)
-				probabilities[initial(M.config_tag)] = initial(M.probability)
-				mode_required_players[initial(M.config_tag)] = initial(M.required_players)
-				if(initial(M.votable))
-					votable_modes += initial(M.config_tag)
+		modes += config_tag
+		mode_names[config_tag] = initial(mode_type.name)
+		probabilities[config_tag] = initial(mode_type.probability)
+		mode_required_players[config_tag] = initial(mode_type.required_players)
+		if(initial(mode_type.votable))
+			votable_modes += config_tag
 
-				if(initial(M.config_tag) in minplayers_conf)
-					mode_required_players[initial(M.config_tag)] = minplayers_conf[initial(M.config_tag)]
-				if(initial(M.config_tag) in probabilities_conf)
-					probabilities[initial(M.config_tag)] = probabilities_conf[initial(M.config_tag)]
+		if(config_tag in minplayers_conf)
+			mode_required_players[config_tag] = minplayers_conf[config_tag]
+		if(config_tag in probabilities_conf)
+			probabilities[config_tag] = probabilities_conf[config_tag]
 
 	votable_modes += "secret"

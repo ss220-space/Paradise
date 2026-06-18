@@ -779,7 +779,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 		switch(user.zone_selected)
 			if(BODY_ZONE_PRECISE_MOUTH)
 				var/wgw = tgui_input_text(user, "What would you like the victim to say", "Voodoo", null)
-				target.say(wgw)
+				target.say(wgw, ignore_emotes = TRUE)
 				add_attack_logs(user, target, "force say ([wgw]) with a voodoo doll.")
 				add_say_logs(target, wgw, src)
 			if(BODY_ZONE_PRECISE_EYES)
@@ -838,6 +838,6 @@ GLOBAL_LIST_EMPTY(multiverse)
 
 /obj/item/organ/internal/heart/cursed/wizard
 	pump_delay = 60
-	heal_brute = 25
-	heal_burn = 25
-	heal_oxy = 25
+	heal_brute = 15
+	heal_burn = 15
+	heal_oxy = 15

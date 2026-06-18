@@ -23,7 +23,7 @@
 	mech_type = MECH_TYPE_RETICENCE
 	ui_theme = "ntos_lightmode"
 	emaggable = TRUE
-	emag_desc = span_danger_alt("</br>The mech's equipment slots dangerously silent!")
+	emag_desc = span_danger_alt("</br>Слоты оборудования меха зловеще тихие...")
 
 /obj/mecha/combat/reticence/loaded/Initialize(mapload)
 	. = ..()
