@@ -7,6 +7,7 @@
 /////////////////////////////
 
 /obj/machinery/power
+	abstract_type = /obj/machinery/power
 	name = null
 	icon = 'icons/obj/engines_and_power/power.dmi'
 	anchored = TRUE

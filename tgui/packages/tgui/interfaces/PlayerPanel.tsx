@@ -12,6 +12,7 @@ interface MuteStates {
   deadchat: boolean;
   emote: boolean;
   tts: boolean;
+  webreq: boolean;
   all: boolean;
 }
 
@@ -885,6 +886,13 @@ const MuteSection = (_props: unknown) => {
             onClick={() => toggleMute('deadchat')}
           >
             DEADCHAT
+          </ButtonMute>
+          <ButtonMute
+            fluid
+            checked={data.muteStates.webreq}
+            onClick={() => toggleMute('webreq')}
+          >
+            WEBREQ
           </ButtonMute>
           <ButtonMute
             fluid
