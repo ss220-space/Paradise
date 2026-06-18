@@ -1,16 +1,18 @@
 use crate::milla::model::*;
 use crate::milla::simulate;
 use crate::milla::statics::*;
-use eyre;
+use meowtonin::ByondError;
+use meowtonin::ByondResult;
 use rayon::prelude::*;
 use scc::Bag;
+use std::error::Error;
 use std::sync::RwLock;
 use thread_priority;
 
 const TARGET_CAPACITY_FACTOR: usize = 2;
 
 /// Runs a single tick of the atmospherics model, multi-threaded by Z level.
-pub(crate) fn tick(buffers: &Buffers) -> Result<(), eyre::Error> {
+pub(crate) fn tick(buffers: &Buffers) -> ByondResult<()> {
     assert!(thread_priority::ThreadPriority::Min
         .set_for_current()
         .is_ok());
@@ -33,7 +35,9 @@ pub(crate) fn tick(buffers: &Buffers) -> Result<(), eyre::Error> {
     });
 
     if let Err(err) = result {
-        return Err(eyre::eyre!("MILLA worker thread failed: {:#?}", err));
+        return Err(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+            format!("MILLA worker thread failed: {:#?}", err),
+        )));
     }
 
     buffers.flip();
@@ -58,7 +62,7 @@ pub(crate) fn tick_z_level(
     next_atmos_lock: &RwLock<ZLevel>,
     z: i32,
     new_interesting_tiles: &Bag<InterestingTile>,
-) -> eyre::Result<()> {
+) -> ByondResult<()> {
     let environments;
     {
         let global_environments = buffers.environments.read().unwrap();

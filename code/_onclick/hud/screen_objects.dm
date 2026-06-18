@@ -570,6 +570,9 @@
 	if(!(slot_id & ITEM_SLOT_HANDS))
 		return
 
+	if(dropped.loc != user && dropped.anchored)
+		return
+
 	if(dropped.loc == user)
 		if(dropped.equip_delay_self > 0 && !user.is_general_slot(user.get_slot_by_item(dropped)))
 			user.visible_message(

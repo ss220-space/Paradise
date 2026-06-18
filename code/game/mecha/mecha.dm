@@ -283,10 +283,12 @@
 	. = ..()
 	var/integrity = obj_integrity * 100 / max_integrity
 	switch(integrity)
-		if(85 to 100)
+		if(100)
 			. += span_notice("Он полностью невредим.")
-		if(65 to 85)
+		if(85 to 99)
 			. += span_notice("Он незначительно повреждён.")
+		if(65 to 85)
+			. += span_notice("Он немного повреждён.")
 		if(45 to 65)
 			. += span_notice("Он сильно повреждён.")
 		if(25 to 45)
@@ -705,7 +707,7 @@
 	if(!islist(possible_int_damage) || isemptylist(possible_int_damage))
 		return
 	if(prob(20))
-		if(ignore_threshold || obj_integrity*100/max_integrity < internal_damage_threshold)
+		if(ignore_threshold || obj_integrity * 100 / max_integrity < internal_damage_threshold)
 			for(var/T in possible_int_damage)
 				if(internal_damage & T)
 					possible_int_damage -= T
@@ -713,7 +715,7 @@
 			if(int_dam_flag)
 				setInternalDamage(int_dam_flag)
 	if(prob(5))
-		if(ignore_threshold || obj_integrity*100/max_integrity < internal_damage_threshold)
+		if(ignore_threshold || obj_integrity * 100 / max_integrity < internal_damage_threshold)
 			var/obj/item/mecha_parts/mecha_equipment/ME = safepick(equipment)
 			if(ME)
 				qdel(ME)
@@ -1112,38 +1114,39 @@
 		maintenance_progress = MECHA_SECURE_BOLTS
 		to_chat(user, span_notice("You tighten the securing bolts."))
 
-/obj/mecha/welder_act(mob/user, obj/item/I)
+/obj/mecha/welder_act(mob/user, obj/item/welder)
 	if(user.a_intent == INTENT_HARM)
 		return
 	. = TRUE
-	if(!I.tool_use_check(user, 0))
+	if(!welder.tool_use_check(user, 0))
 		return
 	if((obj_integrity >= max_integrity) && !internal_damage)
-		to_chat(user, span_notice("[src] is at full integrity!"))
+		balloon_alert(user, "мех целый!")
 		return
 	if(repairing)
-		to_chat(user, span_notice("[src] is currently being repaired!"))
-		return
-	if(maintenance_progress == MECHA_LOCKED) // If maint protocols are not active, the state is zero
-		to_chat(user, span_warning("[src] can not be repaired without maintenance protocols active!"))
+		balloon_alert(user, "мех уже ремонтируется!")
 		return
 	WELDER_ATTEMPT_REPAIR_MESSAGE
 	repairing = TRUE
-	if(I.use_tool(src, user, 15, volume = I.tool_volume))
+	while(obj_integrity < max_integrity || (internal_damage & MECHA_INT_TANK_BREACH))
+		if(!welder.use_tool(src, user, 15, volume = welder.tool_volume))
+			break
+
 		if(internal_damage & MECHA_INT_TANK_BREACH)
 			clearInternalDamage(MECHA_INT_TANK_BREACH)
 			user.visible_message(
-				span_notice("[user] repairs the damaged gas tank."),
-				span_notice("You repair the damaged gas tank.")
+				span_notice("[user] отремонтировал[GEND_A_O_I(user)] повреждённый кислородный балон."),
+				span_notice("Вы отремонтировали повреждённый кислородный балон.")
 			)
 		else if(obj_integrity < max_integrity)
 			user.visible_message(
-				span_notice("[user] repairs some damage to [name]."),
-				span_notice("You repair some damage to [name].")
+				span_notice("[user] частично отремонтировал[GEND_A_O_I(user)] [name]."),
+				span_notice("Вы частично отремонтировали [name].")
 			)
 			repair_damage(min(10, max_integrity - obj_integrity))
-		else
-			to_chat(user, span_notice("[src] is at full integrity!"))
+
+	if((obj_integrity >= max_integrity) && !internal_damage)
+		balloon_alert(user, "мех полностью отремонтирован!")
 	repairing = FALSE
 
 /obj/mecha/mech_melee_attack(obj/mecha/mech, obj/item/mecha_parts/mecha_equipment/selected_module = null)

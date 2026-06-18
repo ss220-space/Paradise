@@ -444,6 +444,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 #define SCRUB_HELIUM (1<<17)
 #define SCRUB_ANTINOBLIUM (1<<18)
 #define SCRUB_HYPERNOBLIUM (1<<19)
+#define SCRUB_AGENT_B (1<<20)
 
 #define SCRUB_ALL_GASES (~0)
 

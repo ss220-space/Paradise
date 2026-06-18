@@ -1,6 +1,6 @@
 /datum/looping_sound/tape_recorder_hiss
-	mid_sounds = list('sound/items/taperecorder/taperecorder_hiss_mid.ogg')
-	start_sound = list('sound/items/taperecorder/taperecorder_hiss_start.ogg')
+	mid_sounds = list('sound/items/taperecorder/taperecorder_hiss_mid.ogg' = 1)
+	start_sound = list('sound/items/taperecorder/taperecorder_hiss_start.ogg' = 1)
 	volume = 10
 
 /datum/looping_sound/ambulance_alarm/justice
@@ -10,12 +10,15 @@
 	volume = 40
 
 /datum/looping_sound/chainsaw
-	start_sound = list('sound/weapons/chainsaw_start.ogg')
-	start_length = 1 SECONDS
-	mid_sounds = list('sound/weapons/chainsaw_loop.ogg')
-	mid_length = 1 SECONDS
-	end_sound = list('sound/weapons/chainsaw_stop.ogg')
-	volume = 20
+	start_sound = list('sound/weapons/chainsaw_start.ogg' = 1)
+	start_length = 0.85 SECONDS
+	mid_sounds = list('sound/weapons/chainsaw_loop.ogg' = 1)
+	mid_length = 0.85 SECONDS
+	end_sound = list('sound/weapons/chainsaw_stop.ogg' = 1)
+	end_volume = 35
+	volume = 40
+	ignore_walls = FALSE
+	use_sound_tokens = TRUE
 
 /datum/looping_sound/tesla_cannon
 	start_sound = list('sound/weapons/gun/tesla/tesla_start.ogg' = 1)
@@ -27,3 +30,4 @@
 	end_volume = 15
 	ignore_walls = FALSE
 	reserve_random_channel = TRUE
+	use_sound_tokens = TRUE

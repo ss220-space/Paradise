@@ -74,17 +74,17 @@
 	RegisterSignals(parent, list(COMSIG_LIVING_START_PULL, COMSIG_MOVABLE_BUMP), PROC_REF(check_bump))
 	RegisterSignal(parent, COMSIG_ATOM_EXAMINE, PROC_REF(examine))
 	RegisterSignal(parent, COMSIG_HUMAN_DISARM_HIT, PROC_REF(trigger_reaction))
-	RegisterSignal(parent, COMSIG_LIVING_GUNPOINT_CANCEL, PROC_REF(cancel))
+	RegisterSignals(parent, list(COMSIG_LIVING_GUNPOINT_CANCEL, COMSIG_MOB_FIRED_GUN), PROC_REF(cancel))
 	RegisterSignal(parent, COMSIG_LIVING_GUNPOINT_START, PROC_REF(block_duplicate_gunpoint))
 
 	RegisterSignals(target, list(
-		COMSIG_MOVABLE_MOVED,
 		COMSIG_MOB_FIRED_GUN,
 		COMSIG_LIVING_START_PULL,
 		COMSIG_MOB_ITEM_ATTACK), PROC_REF(trigger_reaction))
 	RegisterSignal(target, COMSIG_ATOM_EXAMINE, PROC_REF(examine_target))
 	RegisterSignals(target, list(COMSIG_QDELETING, COMSIG_LIVING_GUNPOINT_CANCEL), PROC_REF(cancel))
 	RegisterSignal(target, COMSIG_LIVING_GUNPOINT_START, PROC_REF(block_duplicate_gunpoint))
+	RegisterSignal(target, COMSIG_MOVABLE_MOVED, PROC_REF(check_special_conditions_before_trigger))
 
 	RegisterSignals(weapon, list(COMSIG_ITEM_DROPPED, COMSIG_ITEM_EQUIPPED, COMSIG_QDELETING), PROC_REF(cancel))
 
@@ -161,7 +161,7 @@
 		return TRUE
 
 ///Bang bang, we're firing a charged shot off
-/datum/component/gunpoint/proc/trigger_reaction(...)
+/datum/component/gunpoint/proc/trigger_reaction()
 	SIGNAL_HANDLER
 
 	if(target && target.has_status_effect(STATUS_EFFECT_CAPITULATED))
@@ -170,7 +170,20 @@
 	INVOKE_ASYNC(src, PROC_REF(async_trigger_reaction))
 	return TRUE
 
-/datum/component/gunpoint/proc/async_trigger_reaction(...)
+/// Check special conditions (e.g. walk intent) and only after trigger reaction
+/datum/component/gunpoint/proc/check_special_conditions_before_trigger()
+	SIGNAL_HANDLER
+
+	if(!target)
+		return FALSE
+
+	// If target walk and not run, don't shoot and escort it
+	if(target.m_intent == MOVE_INTENT_WALK && !target.pulledby)
+		return FALSE
+
+	trigger_reaction()
+
+/datum/component/gunpoint/proc/async_trigger_reaction()
 	var/mob/living/shooter = parent
 
 	if(!shooter || !target || !weapon)
@@ -264,7 +277,7 @@
 	if(!shooter_turf || is_admin_level(shooter_turf.z))
 		return
 
-	if(istype(weapon, /obj/item/gun/rocketlauncher) && weapon.chambered)
+	if(istype(weapon, /obj/item/gun/projectile/revolver/rocketlauncher) && weapon.chambered)
 		if(target.stat == CONSCIOUS && shooter.mind.has_antag_datum(/datum/antagonist/nuclear_operative) && !target.mind.has_antag_datum(/datum/antagonist/nuclear_operative))
 			if(locate(/obj/item/disk/nuclear) in target.get_contents())
 				target.client.give_award(/datum/award/achievement/misc/rocket_holdup, target)
