@@ -142,7 +142,7 @@
 
 /obj/item/clothing/suit/space/deathsquad/officer
 	name = "officer jacket"
-	desc = "An armored jacket used in special operations."
+	desc = "Высокотехнологичная куртка с высокими защитными свойствами, используются в основном офицерами специальных операций \"Нанотрейзен\"."
 	icon_state = "bladerunner_coat"
 	item_state = "bladerunner_coat"
 	blood_overlay_type = "coat"
@@ -151,6 +151,16 @@
 	armor = list(MELEE = 80, BULLET = 80, LASER = 50, ENERGY = 100, BOMB = 100, BIO = 100, FIRE = 100, ACID = 100)
 	w_class = WEIGHT_CLASS_NORMAL
 	species_restricted = null
+
+/obj/item/clothing/suit/space/deathsquad/officer/get_ru_names()
+	return alist(
+		NOMINATIVE = "куртка офицера СО \"Нанотрейзен\"",
+		GENITIVE = "куртки офицера СО \"Нанотрейзен\"",
+		DATIVE = "куртке офицера СО \"Нанотрейзен\"",
+		ACCUSATIVE = "куртку офицера СО \"Нанотрейзен\"",
+		INSTRUMENTAL = "курткой офицера СО \"Нанотрейзен\"",
+		PREPOSITIONAL = "куртке офицера СО \"Нанотрейзен\"",
+	)
 
 /obj/item/clothing/suit/space/deathsquad/officer/centcom
 	name = "CCO Jacket"
@@ -187,11 +197,21 @@
 )
 
 /obj/item/clothing/suit/space/deathsquad/officer/field
-	name = "Полевая форма Офицера Флота Nanotrasen"
+	name = "Nanotrasen Fleet Officer's Field Cloak"
 	desc = "Парадный плащ, разработанный в качестве массового варианта формы Верховного Главнокомандующего. У этой униформы нет тех же защитных свойств, что и у оригинала, но она все ещё является довольно удобным и стильным предметом гардероба."
 	icon_state = "ntsc_uniform"
 	item_state = "ntsc_uniform"
 	armor = list(MELEE = 30, BULLET = 50, LASER = 30,ENERGY = 15, BOMB = 30, BIO = 30, FIRE = 60, ACID = 75)
+
+/obj/item/clothing/suit/space/deathsquad/officer/field/get_ru_names()
+	return alist(
+		NOMINATIVE = "полевая форма офицера флота \"Нанотрейзен\"",
+		GENITIVE = "полевой формы офицера флота \"Нанотрейзен\"",
+		DATIVE = "полевой форме офицера флота \"Нанотрейзен\"",
+		ACCUSATIVE = "полевую форму офицера флота \"Нанотрейзен\"",
+		INSTRUMENTAL = "полевой формой офицера флота \"Нанотрейзен\"",
+		PREPOSITIONAL = "полевой форме офицера флота \"Нанотрейзен\"",
+	)
 
 /obj/item/clothing/suit/space/deathsquad/officer/solgov
 	name = "Trans-Solar Federation commander's jacket"
