@@ -467,6 +467,8 @@ ADMIN_VERB(start_singulo, R_DEBUG, "Start Singularity", "Sets up the singularity
 		if(!smes.anchored || smes.z != engine_z)
 			continue
 		smes.input_attempt = TRUE
+		smes.output_attempt = TRUE
+		smes.output_level = smes.output_level_max
 
 	// Bring every particle accelerator part up to the assembled, ready-to-fire state.
 	for(var/obj/structure/particle_accelerator/part as anything in GLOB.particle_accelerator_list)
