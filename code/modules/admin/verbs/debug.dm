@@ -428,7 +428,7 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(select_equipment, R_EVENT, "Select Equipment", mob/
 
 ADMIN_VERB_VISIBILITY(start_singulo, ADMIN_VERB_VISIBLITY_FLAG_MAPPING_DEBUG)
 ADMIN_VERB(start_singulo, R_DEBUG, "Start Singularity", "Sets up the singularity and all machines to get power flowing through the station.", ADMIN_CATEGORY_DEBUG)
-	if(tgui_alert(user, "Вы уверены? Это запустит двигатель сингулярности. Использовать только в целях отладки!", null, list("Да", "Нет")) != "Да")
+	if(tgui_alert(user, "Вы уверены? Это запустит двигатель Сингулярности на текущем z-уровне. Использовать только в целях отладки!", "Запуск Сингулярности", list("Да", "Нет")) != "Да")
 		return
 
 	var/turf/admin_turf = get_turf(user.mob)
@@ -469,7 +469,7 @@ ADMIN_VERB(start_singulo, R_DEBUG, "Start Singularity", "Sets up the singularity
 		smes.input_attempt = TRUE
 
 	// Bring every particle accelerator part up to the assembled, ready-to-fire state.
-	for(var/obj/structure/particle_accelerator/part in world)
+	for(var/obj/structure/particle_accelerator/part as anything in GLOB.particle_accelerator_list)
 		if(part.z != engine_z)
 			continue
 		part.set_anchored(TRUE)
@@ -485,7 +485,7 @@ ADMIN_VERB(start_singulo, R_DEBUG, "Start Singularity", "Sets up the singularity
 		control_box.update_icon(UPDATE_ICON_STATE)
 
 	// Beacon-based maps have no pre-placed generator, so turn singularity beacons into one.
-	for(var/obj/item/beacon/engine/beacon in world)
+	for(var/obj/item/beacon/engine/beacon as anything in GLOB.engine_beacon_list)
 		if(beacon.z != engine_z)
 			continue
 		if(!istype(beacon, /obj/item/beacon/engine/sing) && !istype(beacon, /obj/item/beacon/engine/tesling))
