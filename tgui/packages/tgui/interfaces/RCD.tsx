@@ -62,7 +62,7 @@ const MatterReadout = (_props: unknown) => {
           maxValue={max_matter}
         >
           <Stack.Item textAlign="center">
-            {matter + " / " + max_matter + " единиц"}
+            {matter + ' / ' + max_matter + ' единиц'}
           </Stack.Item>
         </ProgressBar>
       </Section>
