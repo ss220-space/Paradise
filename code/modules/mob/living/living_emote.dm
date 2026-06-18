@@ -268,6 +268,7 @@
 	)
 	vary = TRUE
 	volume = 80
+	use_sound_tokens = TRUE
 
 /datum/emote/living/scream/get_sound(mob/living/user)
 	if(isalien(user))

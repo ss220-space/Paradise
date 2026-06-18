@@ -283,10 +283,10 @@
 			/obj/item/ammo_box/speedloader/shotgun,
 		),
 		list(
-			/obj/item/gun/rocketlauncher,
-			/obj/item/ammo_casing/rocket,
-			/obj/item/ammo_casing/rocket,
-			/obj/item/ammo_casing/rocket,
+			/obj/item/gun/projectile/revolver/rocketlauncher/rpg232,
+			/obj/item/ammo_casing/caseless/rocket/a70mm_he,
+			/obj/item/ammo_casing/caseless/rocket/a70mm_he,
+			/obj/item/ammo_casing/caseless/rocket/a70mm_he,
 		),
 		list(
 			/obj/item/gun/projectile/shotgun/boltaction,
@@ -746,8 +746,8 @@
 			/obj/item/ammo_box/a545x39/fusty,
 			/obj/item/ammo_box/a545x39,
 		),
-		CALIBER_ROCKET = list(
-			/obj/item/ammo_casing/rocket,
+		CALIBER_ROCKET_70MM = list(
+			/obj/item/ammo_casing/caseless/rocket/a70mm_he,
 		),
 		CALIBER_DOT_75 = list(
 			/obj/item/ammo_box/a75,

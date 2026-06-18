@@ -217,6 +217,8 @@ ADMIN_VERB(cmd_admin_godmode_in_list, R_ADMIN, "Godmode in List", "Toggles godmo
 			mute_string = "text to speech"
 		if(MUTE_EMOTE)
 			mute_string = "emote"
+		if(MUTE_INTERNET_REQUEST)
+			mute_string = "internet sound requests"
 		if(MUTE_ALL)
 			mute_string = "everything"
 		else

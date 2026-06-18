@@ -33,7 +33,9 @@
 		/obj/item/tank,
 		/obj/item/circuitboard,
 		/obj/item/stack/tile/light,
-		/obj/item/stack/ore/bluespace_crystal
+		/obj/item/stack/ore/bluespace_crystal,
+		/obj/item/stack/sheet/plasteel,
+		/obj/item/stack/tile/wood,
 	)
 
 	//Item currently being held.
@@ -62,6 +64,8 @@
 		/obj/item/robot_parts/r_leg,
 		/obj/item/robot_parts/chest,
 		/obj/item/stack/sheet/mineral/plasma,
+		/obj/item/reagent_containers/food/snacks/monkeycube,
+		/obj/item/bodybag,
 	) //for repair plasmamans
 
 /obj/item/gripper/medical/get_ru_names()

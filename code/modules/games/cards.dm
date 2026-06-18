@@ -81,7 +81,7 @@
 			return ATTACK_CHAIN_PROCEED
 		if(LAZYLEN(cardhand.cards) > 1)
 			var/confirm = tgui_alert(user, "Вы уверены, что хотите вернуть [LAZYLEN(cardhand.cards)] [LAZYLEN(cardhand.cards) < 5 ? "карты" : "карт"] в колоду?", "Вернуть руку?", list("Да", "Нет"))
-			if(confirm != "Да" || !Adjacent(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+			if(confirm != "Да" || !Adjacent(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !user.is_in_hands(cardhand))
 				return ATTACK_CHAIN_PROCEED
 		for(var/datum/playingcard/card in cardhand.cards)
 			cards += card

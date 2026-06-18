@@ -42,12 +42,17 @@
 	icon_state = "trashbag"
 	item_state = "trashbag"
 
-	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = NONE
 	storage_slots = 30
 	max_combined_w_class = 30
 	can_hold = list() // any
 	cant_hold = list(/obj/item/disk/nuclear)
+	dynamic_storage_size = TRUE
+
+/obj/item/storage/bag/trash/Initialize(mapload)
+	. = ..()
+	if(dynamic_storage_size)
+		AddComponent(/datum/component/differentiate_storage_size, WEIGHT_CLASS_BULKY)
 
 /obj/item/storage/bag/trash/suicide_act(mob/user)
 	user.visible_message(span_suicide("[user] puts the [name] over [user.p_their()] head and starts chomping at the insides! Disgusting!"))

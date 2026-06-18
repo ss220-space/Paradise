@@ -7,9 +7,11 @@ use dashmap::{DashMap, DashSet};
 use dmi::icon::{DmiVersion, Icon, IconState};
 use image::RgbaImage;
 use indexmap::IndexMap;
+use meowtonin::{ByondError, ByondResult};
 use once_cell::sync::Lazy;
 use rayon::iter::{IntoParallelIterator, IntoParallelRefIterator, ParallelIterator};
 use serde::Serialize;
+use std::error::Error;
 use std::{
     collections::{HashMap, HashSet},
     fs::File,
@@ -68,7 +70,7 @@ pub fn generate_spritesheet(
     hash_icons: bool,
     generate_dmi: bool,
     flatten: bool,
-) -> eyre::Result<String> {
+) -> ByondResult<String> {
     zone!("generate_spritesheet");
     let base_path = image_cache::ICON_ROOT.join(file_path);
     // PNGs cannot be non-flat
@@ -101,7 +103,8 @@ pub fn generate_spritesheet(
         Some(sprites) => sprites.clone(),
         None => {
             zone!("from_json_sprites"); // byondapi, save us
-            serde_json::from_str::<IndexMap<String, UniversalIcon>>(sprites)?
+            serde_json::from_str::<IndexMap<String, UniversalIcon>>(sprites)
+                .map_err(ByondError::boxed)?
         }
     };
 
@@ -401,14 +404,14 @@ pub fn generate_spritesheet(
         sprites_hash,
         error: error.lock().unwrap().join("\n"),
     };
-    Ok(serde_json::to_string::<SpritesheetResult>(&returned)?)
+    Ok(serde_json::to_string::<SpritesheetResult>(&returned).map_err(ByondError::boxed)?)
 }
 
 fn create_png_image(
     base_width: u32,
     base_height: u32,
     sprite_entries: &Vec<(&String, &UniversalIcon)>,
-) -> eyre::Result<RgbaImage> {
+) -> ByondResult<RgbaImage> {
     zone!("create_png_image");
     let mut final_image = RgbaImage::new(base_width * sprite_entries.len() as u32, base_height);
     for (idx, sprite_entry) in sprite_entries.iter().enumerate() {
@@ -417,11 +420,14 @@ fn create_png_image(
         let image_data = match icon.get_image_data(sprite_name, true, true, true) {
             Ok((image, _)) => image,
             Err(err) => {
-                return Err(eyre::eyre!(err.to_string()));
+                return Err(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+                    err.to_string(),
+                )));
             }
         };
         if image_data.images.len() > 1 {
-            return Err(eyre::eyre!("More than one image (non-flattened) sprite {sprite_name} in PNG spritesheet for icon {icon}!"));
+            return Err(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+                format!("More than one image (non-flattened) sprite {sprite_name} in PNG spritesheet for icon {icon}!"))));
         }
         let image = image_data.images.first().unwrap();
         let base_x: u32 = base_width * idx as u32;
@@ -437,7 +443,7 @@ fn create_png_image(
 fn create_dmi_output_states(
     sprite_entries: &Vec<(&String, &UniversalIcon)>,
     sprites_map: &IndexMap<String, UniversalIcon>,
-) -> eyre::Result<Arc<Mutex<Vec<IconState>>>> {
+) -> ByondResult<Arc<Mutex<Vec<IconState>>>> {
     zone!("create_dmi_output_states");
     let output_states = Arc::new(Mutex::new(Vec::<IconState>::with_capacity(
         sprite_entries.len(),
@@ -476,7 +482,9 @@ fn create_dmi_output_states(
         });
     });
     if !errors.lock().unwrap().is_empty() {
-        return Err(eyre::eyre!(errors.lock().unwrap().join("\n")));
+        return Err(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+            errors.lock().unwrap().join("\n"),
+        )));
     }
     // Sort the output states in the relative order of their existence in the input sprites object.
     // This is important for consistency with DM behavior, and it allows the outputted DMI to be used in IconForge's own cache - they will output in the same order between runs.
@@ -495,12 +503,12 @@ fn transform_leaves(
     image_data: Arc<UniversalIconData>,
     depth: u8,
     flatten: bool,
-) -> eyre::Result<()> {
+) -> ByondResult<()> {
     zone!("transform_leaf");
     if depth > 128 {
-        return Err(eyre::eyre!(
+        return Err(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
             "Transform depth exceeded 128. https://www.youtube.com/watch?v=CUjrySBwi5Q",
-        ));
+        )));
     }
     let next_transforms = DashMap::<Transform, Vec<&UniversalIcon>>::new();
     let errors = Mutex::new(Vec::<String>::new());
@@ -550,7 +558,9 @@ fn transform_leaves(
     }
 
     if !errors.lock().unwrap().is_empty() {
-        return Err(eyre::eyre!(errors.lock().unwrap().join("\n")));
+        return Err(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+            errors.lock().unwrap().join("\n"),
+        )));
     }
     Ok(())
 }
@@ -561,23 +571,21 @@ struct CacheResult {
     fail_reason: String,
 }
 
-pub fn cache_valid(
-    input_hash: &str,
-    dmi_hashes_in: &str,
-    sprites_in: &str,
-) -> eyre::Result<String> {
+pub fn cache_valid(input_hash: &str, dmi_hashes_in: &str, sprites_in: &str) -> ByondResult<String> {
     zone!("cache_valid");
     let sprites_hash = string_hash("xxh64_fixed", sprites_in)?;
     if sprites_hash != input_hash {
         return Ok(serde_json::to_string::<CacheResult>(&CacheResult {
             result: String::from("0"),
             fail_reason: String::from("Input hash did not match."),
-        })?);
+        })
+        .map_err(ByondError::boxed)?);
     }
     let dmi_hashes: DashMap<String, String>;
     {
         zone!("from_json_hashes");
-        dmi_hashes = serde_json::from_str::<DashMap<String, String>>(dmi_hashes_in)?;
+        dmi_hashes = serde_json::from_str::<DashMap<String, String>>(dmi_hashes_in)
+            .map_err(ByondError::boxed)?;
     }
     let mut sprites_json: std::sync::MutexGuard<
         '_,
@@ -590,7 +598,8 @@ pub fn cache_valid(
             {
                 sprites_json.insert(
                     sprites_hash.clone(),
-                    serde_json::from_str::<IndexMap<String, UniversalIcon>>(sprites_in)?,
+                    serde_json::from_str::<IndexMap<String, UniversalIcon>>(sprites_in)
+                        .map_err(ByondError::boxed)?,
                 );
             }
             sprites_json.get(&sprites_hash).unwrap()
@@ -618,7 +627,7 @@ pub fn cache_valid(
         return Ok(serde_json::to_string::<CacheResult>(&CacheResult {
             result: String::from("0"),
             fail_reason: format!("Input hash matched, but more DMIs exist than DMI hashes provided ({} DMIs, {} DMI hashes).", dmis.len(), dmi_hashes.len()),
-        })?);
+        }).map_err(ByondError::boxed)?);
     }
 
     let fail_reason: Arc<RwLock<Option<String>>> = Arc::new(RwLock::new(None));
@@ -663,10 +672,12 @@ pub fn cache_valid(
         return Ok(serde_json::to_string::<CacheResult>(&CacheResult {
             result: String::from("0"),
             fail_reason: err,
-        })?);
+        })
+        .map_err(ByondError::boxed)?);
     }
     Ok(serde_json::to_string::<CacheResult>(&CacheResult {
         result: String::from("1"),
         fail_reason: String::from(""),
-    })?)
+    })
+    .map_err(ByondError::boxed)?)
 }
