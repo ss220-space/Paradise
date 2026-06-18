@@ -20,6 +20,7 @@
 	destruction_sleep_duration = 2 SECONDS
 	strafe_allowed = TRUE
 	mech_type = MECH_TYPE_MARAUDER
+	allowed_equipment = MECH_EQUIPMENT_MARAUDER
 
 /obj/mecha/combat/marauder/GrantActions(mob/living/user, human_occupant = 0)
 	. = ..()

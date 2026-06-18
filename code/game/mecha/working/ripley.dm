@@ -16,6 +16,7 @@
 	var/plates = 0
 	emaggable = TRUE
 	mech_type = MECH_TYPE_RIPLEY
+	allowed_equipment = MECH_EQUIPMENT_RIPPLEY
 
 /obj/mecha/working/ripley/Destroy()
 	for(var/i=1, i <= hides, i++)
@@ -89,6 +90,7 @@
 	armor = list(MELEE = 40, BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 60, BIO = 0, FIRE = 100, ACID = 100)
 	max_equip = 5 // More armor, less tools
 	wreckage = /obj/structure/mecha_wreckage/ripley/firefighter
+	allowed_equipment = MECH_EQUIPMENT_FIREFIGHTER
 
 /obj/mecha/working/ripley/mkii
 	desc = "Autonomous Power Loader Unit MK-II. This prototype Ripley is refitted with a pressurized cabin, trading its prior speed for atmospheric protection and armor."
