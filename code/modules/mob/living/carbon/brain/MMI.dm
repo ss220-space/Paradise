@@ -272,7 +272,7 @@
 	var/datum/action/innate/overdrive/overdrive = new
 
 /obj/item/mmi/syndie/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "НКИ \"Синдиката\"",
 		GENITIVE = "НКИ \"Синдиката\"",
 		DATIVE = "НКИ \"Синдиката\"",

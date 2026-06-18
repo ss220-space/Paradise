@@ -10,7 +10,7 @@
 	if(!..())
 		return FALSE
 	radio_announce(
-		"Warning: Critical coolant mass reached.",
+		"Внимание: Достигнута критическая масса теплоносителя.",
 		sm,
 		sm.damage > sm.emergency_point ? sm.emergency_channel : sm.warning_channel,
 		sm,
@@ -126,7 +126,7 @@
 	if(!..())
 		return FALSE
 	radio_announce(
-		"DANGER: CHARGE INERTIA CHAIN REACTION IN PROGRESS.",
+		"ОПАСНОСТЬ: ИДЁТ ЦЕПНАЯ РЕАКЦИЯ ИНЕРЦИИ ЗАРЯДА.",
 		sm,
 		sm.damage > sm.emergency_point ? sm.emergency_channel : sm.warning_channel,
 		sm,

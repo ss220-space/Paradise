@@ -66,11 +66,8 @@
 
 	return 1
 
-/proc/cannotPossess(A)
-	var/mob/dead/observer/G = A
-	if(G.has_enabled_antagHUD && CONFIG_GET(flag/antag_hud_restricted))
-		return 1
-	return 0
+/proc/cannotPossess(mob/dead/observer/ghost)
+	return istype(ghost) && ghost.persistent_client?.antaghud_enabled && CONFIG_GET(flag/antag_hud_restricted)
 
 /proc/iscuffed(A)
 	if(iscarbon(A))

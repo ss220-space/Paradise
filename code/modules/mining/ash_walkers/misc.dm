@@ -11,7 +11,7 @@
 	w_class = WEIGHT_CLASS_TINY
 
 /obj/item/acid_bladder/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кислотный мешочек",
 		GENITIVE = "кислотного мешочка",
 		DATIVE = "кислотному мешочку",
@@ -51,7 +51,7 @@
 	w_class = WEIGHT_CLASS_TINY
 
 /obj/item/circular_saw_blade/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "лезвие дисковой пилы",
 		GENITIVE = "лезвия дисковой пилы",
 		DATIVE = "лезвию дисковой пилы",
@@ -73,7 +73,7 @@
 	var/meat_parts = 40
 
 /obj/structure/grace_of_lazis/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "благодать Лазис Ардакса",
 		GENITIVE = "благодати Лазис Ардакса",
 		DATIVE = "благодати Лазис Ардакса",
@@ -126,7 +126,7 @@
 	wiki_title = "Еда_пеплоходцев"
 
 /obj/item/book/manual/lavaland_scroll/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "свиток готовки",
 		GENITIVE = "свитка готовки",
 		DATIVE = "свитку готовки",
@@ -146,7 +146,7 @@
 	var/special_name = "точка интереса"
 
 /obj/structure/fluff/ash_statue/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пепельный тотем",
 		GENITIVE = "пепельного тотема",
 		DATIVE = "пепельному тотему",
@@ -177,7 +177,7 @@
 	var/applied_dye_fluff_name = null
 
 /obj/structure/ash_totem/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "тотем",
 		GENITIVE = "тотема",
 		DATIVE = "тотему",
@@ -203,7 +203,7 @@
 	desc = "Массивная статуя, сделанная из цельного куска древесины. Рисунок на статуе отдалённо напоминает человеческое лицо, искаженное в гримасе ужаса."
 
 /obj/structure/ash_totem/wooden/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "деревянный тотем",
 		GENITIVE = "деревянного тотема",
 		DATIVE = "деревянному тотему",
@@ -218,7 +218,7 @@
 	icon_state = "totem_stone"
 
 /obj/structure/ash_totem/stone/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "каменный тотем",
 		GENITIVE = "каменного тотема",
 		DATIVE = "каменному тотему",
@@ -233,7 +233,7 @@
 	icon_state = "totem_bone"
 
 /obj/structure/ash_totem/bone/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "костяной тотем",
 		GENITIVE = "костяного тотема",
 		DATIVE = "костяному тотему",
@@ -250,7 +250,7 @@
 	item_chair = /obj/item/chair/stool/wooden
 
 /obj/structure/chair/stool/wooden/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "деревянная табуретка",
 		GENITIVE = "деревянной табуретки",
 		DATIVE = "деревянной табуретке",
@@ -272,7 +272,7 @@
 	break_chance = 10
 
 /obj/item/chair/stool/wooden/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "деревянная табуретка",
 		GENITIVE = "деревянной табуретки",
 		DATIVE = "деревянной табуретке",

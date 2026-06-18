@@ -21,7 +21,7 @@
 	var/started = FALSE
 
 /obj/effect/sound_emitter/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "излучатель звука",
 		GENITIVE = "излучателя звука",
 		DATIVE = "излучателю звука",

@@ -405,7 +405,6 @@
 "ee" = (
 /obj/item/card/id/admin,
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/tdome/arena_source)
@@ -484,7 +483,6 @@
 	name = "Strela"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/tdome/arena_source)
@@ -495,7 +493,6 @@
 	name = "Bojutsu"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/tdome/arena_source)
@@ -525,7 +522,6 @@
 	name = "Mecha"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/tdome/arena_source)
@@ -546,7 +542,6 @@
 	name = "4-shot base/ball"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/tdome/arena_source)
@@ -580,7 +575,6 @@
 	name = "4-shot base/ball"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/tdome/arena_source)
@@ -616,7 +610,6 @@
 	name = "Shitcurity"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/tdome/arena_source)
@@ -672,7 +665,6 @@
 	name = "Robaster"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/tdome/arena_source)
@@ -886,7 +878,6 @@
 /area/admin)
 "iQ" = (
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/tdome/tdome2)
@@ -928,7 +919,6 @@
 	name = "Cowboy"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/tdome/arena_source)
@@ -1344,7 +1334,6 @@
 	name = "Cowboy"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/tdome/arena)
@@ -1462,7 +1451,6 @@
 	name = "4-shot base/ball"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/tdome/arena)
@@ -1547,7 +1535,6 @@
 	name = "Shitcurity"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/tdome/arena)
@@ -1696,7 +1683,6 @@
 "tq" = (
 /obj/item/card/id/admin,
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/tdome/arena)
@@ -1793,7 +1779,6 @@
 /obj/item/holosign_creator/atmos,
 /obj/item/holosign_creator/atmos,
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/adminconstruction)
@@ -2393,14 +2378,12 @@
 /area/admin)
 "Bp" = (
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/tdome/arena)
 "Br" = (
 /obj/structure/table/wood,
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/adminconstruction)
@@ -2730,7 +2713,6 @@
 /area/tdome/arena)
 "Ff" = (
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/tdome/arena_source)
@@ -3300,7 +3282,6 @@
 	name = "Bojutsu"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/tdome/arena)
@@ -3407,7 +3388,6 @@
 	name = "Strela"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/tdome/arena)
@@ -3489,7 +3469,7 @@
 	},
 /area/holodeck/source_beach)
 "OU" = (
-/obj/item/gun/rocketlauncher,
+/obj/item/gun/projectile/revolver/rocketlauncher/rpg232,
 /obj/structure/table/wood,
 /turf/simulated/floor/wood,
 /area/admin)
@@ -3656,7 +3636,6 @@
 	name = "Robaster"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/tdome/arena)
@@ -3745,7 +3724,6 @@
 	name = "4-shot base/ball"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/tdome/arena)
@@ -3832,7 +3810,6 @@
 /obj/item/melee/energy/sword/saber/blue,
 /obj/item/clothing/under/color/blue,
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/tdome/arena_source)
@@ -4333,7 +4310,6 @@
 /area/admin)
 "Zo" = (
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/adminconstruction)
@@ -4360,7 +4336,6 @@
 /area/admin)
 "ZE" = (
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/tdome/tdome1)
@@ -4384,7 +4359,6 @@
 	name = "Mecha"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "dark"
 	},
 /area/tdome/arena)

@@ -53,7 +53,7 @@
 	var/perfectsouls = 0 //How many perfect, regen-cap increasing souls the revenant has.
 
 /mob/living/simple_animal/revenant/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ревенант",
 		GENITIVE = "ревенанта",
 		DATIVE = "ревенанту",
@@ -413,7 +413,7 @@
 	var/client/client_to_revive
 
 /obj/item/ectoplasm/revenant/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "фантомная пыль",
 		GENITIVE = "фантомной пыли",
 		DATIVE = "фантомной пыли",

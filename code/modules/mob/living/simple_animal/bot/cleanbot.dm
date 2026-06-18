@@ -31,7 +31,7 @@
 	var/next_dest_loc
 
 /mob/living/simple_animal/bot/cleanbot/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "чистобот",
 		GENITIVE = "чистобота",
 		DATIVE = "чистоботу",
@@ -88,7 +88,7 @@
 		var/obj/item/toy/crayon/spraycan/can = I
 		if(can.capped)
 			balloon_alert(user, "баллончик закрыт!")
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 		playsound(loc, 'sound/effects/spray.ogg', 20, TRUE)
 		balloon_alert(user, "краска нанесена")
 		mask_color = can.colour

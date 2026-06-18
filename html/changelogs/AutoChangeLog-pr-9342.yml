@@ -1,0 +1,5 @@
+author: "makaroshka003"
+delete-after: True
+changes:
+  - balance: "снижено лечение у проклятого сердца с 25 > 15, штраф по крови за  удар тоже снижен 100 > 50 (PR #9342)"
+  - tweak: "heart_cursed можно активировать во сне. (PR #9342)"

@@ -234,7 +234,7 @@
 	var/obj/structure/dropwall_generator/source = null
 
 /obj/structure/barricade/dropwall/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "энергетический щит",
 		GENITIVE = "энергетического щита",
 		DATIVE = "энергетическому щиту",
@@ -287,7 +287,7 @@
 	var/armer
 
 /obj/item/grenade/barrier/dropwall/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "граната энергощита",
 		GENITIVE = "граната энергощита",
 		DATIVE = "граната энергощита",
@@ -346,7 +346,7 @@
 	var/cycle
 
 /obj/structure/dropwall_generator/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "генератор энергощита",
 		GENITIVE = "генератора энергощита",
 		DATIVE = "генератору энергощита",
@@ -428,7 +428,7 @@
 	materials = list(MAT_METAL = 500, MAT_GLASS = 300) //plasma burned up for power or something, plus not that much to reclaim
 
 /obj/item/used_dropwall/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сломанный генератор энергощита",
 		GENITIVE = "сломанного генератора энергощита",
 		DATIVE = "сломанному генератору энергощита",
@@ -441,7 +441,7 @@
 	name = "dropwall generator box"
 
 /obj/item/storage/box/syndie_kit/dropwall/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "коробка с генераторами энергощита",
 		GENITIVE = "коробку с генераторами энергощита",
 		DATIVE = "коробке с генераторами энергощита",
@@ -449,6 +449,10 @@
 		INSTRUMENTAL = "коробке с генераторами энергощита",
 		PREPOSITIONAL = "коробкой с генераторами энергощита"
 	)
+
+/obj/item/storage/box/syndie_kit/dropwall/sec
+	icon_state = "box_security"
+	item_state = "sec"
 
 /obj/item/storage/box/syndie_kit/dropwall/populate_contents()
 	for(var/I in 1 to 5)
@@ -467,7 +471,7 @@
 	uptime = 5 MINUTES
 
 /obj/item/grenade/barrier/dropwall/firewall/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "граната огненного щита",
 		GENITIVE = "граната огненного щита",
 		DATIVE = "граната огненного щита",
@@ -486,7 +490,7 @@
 	barricade_type = /obj/structure/barricade/dropwall/firewall/strong
 
 /obj/structure/dropwall_generator/firewall/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "генератор огненного щита",
 		GENITIVE = "генератора огненного щита",
 		DATIVE = "генератору огненного щита",

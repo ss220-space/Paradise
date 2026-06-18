@@ -26,7 +26,7 @@
 	var/togglesound = 'sound/weapons/empty.ogg'
 
 /obj/item/flashlight/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "фонарик",
 		GENITIVE = "фонарика",
 		DATIVE = "фонарику",
@@ -45,7 +45,7 @@
 	light_system = MOVABLE_LIGHT
 
 /obj/item/flashlight/dummy/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "дебаг-фонарик",
 		GENITIVE = "дебаг-фонарика",
 		DATIVE = "дебаг-фонарику",
@@ -149,7 +149,7 @@
 	light_range = 2
 
 /obj/item/flashlight/pen/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "фонарик-ручка",
 		GENITIVE = "фонарик-ручки",
 		DATIVE = "фонарик-ручке",
@@ -171,7 +171,7 @@
 	hitsound = 'sound/weapons/genhit1.ogg'
 
 /obj/item/flashlight/seclite/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "тактический фонарик",
 		GENITIVE = "тактического фонарика",
 		DATIVE = "тактическому фонарику",
@@ -189,7 +189,7 @@
 	slot_flags = ITEM_SLOT_EARS
 
 /obj/item/flashlight/sectaclight/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "головной фонарь",
 		GENITIVE = "головного фонаря",
 		DATIVE = "головному фонарю",
@@ -207,7 +207,7 @@
 	w_class = WEIGHT_CLASS_TINY
 
 /obj/item/flashlight/drone/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "маломощный фонарь",
 		GENITIVE = "маломощного фонаря",
 		DATIVE = "маломощному фонарю",
@@ -233,7 +233,7 @@
 	light_color = COLOR_PALE_YELLOW
 
 /obj/item/flashlight/lamp/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "настольная лампа",
 		GENITIVE = "настольной лампы",
 		DATIVE = "настольной лампе",
@@ -250,7 +250,7 @@
 	light_color = COLOR_LIGHT_GREEN
 
 /obj/item/flashlight/lamp/green/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "зелёная настольная лампа",
 		GENITIVE = "зелёной настольной лампы",
 		DATIVE = "зелёной настольной лампе",
@@ -268,7 +268,7 @@
 	light_color = COLOR_BRIGHT_LIME
 
 /obj/item/flashlight/lamp/bananalamp/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "банановая настольная лампа",
 		GENITIVE = "банановой настольной лампы",
 		DATIVE = "банановой настольной лампе",
@@ -303,7 +303,7 @@
 	var/fuel_upp = 1000
 
 /obj/item/flashlight/flare/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "фальшфейер",
 		GENITIVE = "фальшфейера",
 		DATIVE = "фальшфейеру",
@@ -428,7 +428,7 @@
 	var/chemglow_sprite_type = "green"
 
 /obj/item/flashlight/flare/glowstick/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "зелёный химсвет",
 		GENITIVE = "зелёного химсвета",
 		DATIVE = "зелёному химсвету",
@@ -458,7 +458,7 @@
 	chemglow_sprite_type = "red"
 
 /obj/item/flashlight/flare/glowstick/red/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "красный химсвет",
 		GENITIVE = "красного химсвета",
 		DATIVE = "красному химсвету",
@@ -475,7 +475,7 @@
 	chemglow_sprite_type = "blue"
 
 /obj/item/flashlight/flare/glowstick/blue/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "синий химсвет",
 		GENITIVE = "синего химсвета",
 		DATIVE = "синему химсвету",
@@ -490,7 +490,7 @@
 	chemglow_sprite_type = "orange"
 
 /obj/item/flashlight/flare/glowstick/orange/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "оранжевый химсвет",
 		GENITIVE = "оранжевого химсвета",
 		DATIVE = "оранжевому химсвету",
@@ -505,7 +505,7 @@
 	chemglow_sprite_type = "yellow"
 
 /obj/item/flashlight/flare/glowstick/yellow/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "жёлтый химсвет",
 		GENITIVE = "жёлтого химсвета",
 		DATIVE = "жёлтому химсвету",
@@ -520,7 +520,7 @@
 	chemglow_sprite_type = "pink"
 
 /obj/item/flashlight/flare/glowstick/pink/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "розовый химсвет",
 		GENITIVE = "розового химсвета",
 		DATIVE = "розовому химсвету",
@@ -540,7 +540,7 @@
 	chemglow_sprite_type = "blue"
 
 /obj/item/flashlight/flare/glowstick/emergency/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "аварийный химсвет",
 		GENITIVE = "аварийного химсвета",
 		DATIVE = "аварийному химсвету",
@@ -577,7 +577,7 @@
 	fuel_upp = 70
 
 /obj/item/flashlight/flare/torch/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "факел",
 		GENITIVE = "факела",
 		DATIVE = "факелу",
@@ -602,7 +602,7 @@
 	on = TRUE //Bio-luminesence has one setting, on.
 
 /obj/item/flashlight/slime/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "светящийся экстракт слайма",
 		GENITIVE = "светящегося экстракта слайма",
 		DATIVE = "светящемуся экстракту слайма",

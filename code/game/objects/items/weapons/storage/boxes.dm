@@ -52,7 +52,7 @@
 	max_combined_w_class = 42 // 21*2
 
 /obj/item/storage/box/large/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "большая коробка",
 		GENITIVE = "большой коробки",
 		DATIVE = "большой коробке",
@@ -300,7 +300,7 @@
 	item_state = "donks"
 
 /obj/item/storage/box/donkpockets/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "коробка с Донк-покетами",
 		GENITIVE = "коробки с Донк-покетами",
 		DATIVE = "коробке с Донк-покетами",
@@ -320,7 +320,7 @@
 	item_state = "donks"
 
 /obj/item/storage/box/warmdonkpockets/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "коробка с разогретыми Донк-покетами",
 		GENITIVE = "коробки с разогретыми Донк-покетами",
 		DATIVE = "коробке с разогретыми Донк-покетами",
@@ -341,7 +341,7 @@
 	item_state = "donks"
 
 /obj/item/storage/box/syndidonkpockets/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "коробка с Донк-покетами",
 		GENITIVE = "коробки с Донк-покетами",
 		DATIVE = "коробке с Донк-покетами",
@@ -365,7 +365,7 @@
 	var/beantype = /obj/item/reagent_containers/food/snacks/grown/coffee
 
 /obj/item/storage/box/coffeepack/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "зёрна кофе арабика",
 		GENITIVE = "зёрен кофе арабика",
 		DATIVE = "зёрнам кофе арабика",
@@ -399,7 +399,7 @@
 	beantype = /obj/item/reagent_containers/food/snacks/grown/coffee/robusta
 
 /obj/item/storage/box/coffeepack/robusta/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "зёрна кофе робуста",
 		GENITIVE = "зёрен кофе робуста",
 		DATIVE = "зёрнам кофе робуста",
@@ -417,7 +417,7 @@
 	var/monkey_cube_type = /obj/item/reagent_containers/food/snacks/monkeycube
 
 /obj/item/storage/box/monkeycubes/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "коробка кубов шимпанзе",
 		GENITIVE = "коробки кубов шимпанзе",
 		DATIVE = "коробке кубов шимпанзе",
@@ -446,7 +446,7 @@
 	monkey_cube_type = /obj/item/reagent_containers/food/snacks/monkeycube/farwacube
 
 /obj/item/storage/box/monkeycubes/farwacubes/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "коробка кубов фарв",
 		GENITIVE = "коробки кубов фарв",
 		DATIVE = "коробке кубов фарв",
@@ -462,7 +462,7 @@
 	monkey_cube_type = /obj/item/reagent_containers/food/snacks/monkeycube/stokcube
 
 /obj/item/storage/box/monkeycubes/stokcubes/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "коробка кубов стоков",
 		GENITIVE = "коробки кубов стоков",
 		DATIVE = "коробке кубов стоков",
@@ -479,7 +479,7 @@
 
 
 /obj/item/storage/box/monkeycubes/neaeracubes/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "коробка кубов неар",
 		GENITIVE = "коробки кубов неар",
 		DATIVE = "коробке кубов неар",
@@ -495,7 +495,7 @@
 	monkey_cube_type = /obj/item/reagent_containers/food/snacks/monkeycube/wolpincube
 
 /obj/item/storage/box/monkeycubes/wolpincubes/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "коробка кубов вульпинов",
 		GENITIVE = "коробки кубов вульпинов",
 		DATIVE = "коробке кубов вульпинов",
@@ -765,7 +765,7 @@
 	custom_price = PAYCHECK_MIN * 0.5
 
 /obj/item/storage/box/matches/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "коробок спичек",
 		GENITIVE = "коробка спичек",
 		DATIVE = "коробку спичек",
@@ -896,7 +896,7 @@
 	var/apply_paper_bag_delay = BAG_PUTTING_DELAY
 
 /obj/item/storage/box/papersack/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бумажный пакет",
 		GENITIVE = "бумажного пакета",
 		DATIVE = "бумажному пакету",
@@ -1233,7 +1233,7 @@
 	item_state = "sec"
 
 /obj/item/storage/box/specter_kit/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "набор Спектр",
 		GENITIVE = "набора Спектр",
 		DATIVE = "набору Спектр",
@@ -1255,7 +1255,7 @@
 	item_state = "sec"
 
 /obj/item/storage/box/taurus_kit/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "набор \"Таурус\"",
 		GENITIVE = "набора \"Таурус\"",
 		DATIVE = "набору \"Таурус\"",
@@ -1413,7 +1413,7 @@
 	)
 
 /obj/item/storage/box/pen_case/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "набор ручек",
 		GENITIVE = "набора ручек",
 		DATIVE = "набору ручек",

@@ -312,6 +312,8 @@
 	if(length(gear_leftovers))
 		for(var/datum/gear/G in gear_leftovers)
 			var/obj/item/placed_in = G.spawn_item(null, H.client.prefs.get_gear_metadata(G))
+			if(!placed_in) 
+				continue
 			if(placed_in.equip_to_best_slot(H))
 				to_chat(H, span_notice("Placing [placed_in.name] in your inventory!"))
 				continue

@@ -40,7 +40,7 @@
 	)
 
 /obj/item/gun/energy/kinetic_accelerator/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "прото-кинетический акселератор",
 		GENITIVE = "прото-кинетического акселератора",
 		DATIVE = "прото-кинетическому акселератору",
@@ -223,7 +223,7 @@
 	max_mod_capacity = 150
 
 /obj/item/gun/energy/kinetic_accelerator/experimental/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "экспериментальный кинетический акселератор",
 		GENITIVE = "экспериментального кинетического акселератора",
 		DATIVE = "экспериментальному кинетическому акселератору",
@@ -247,7 +247,7 @@
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL
 
 /obj/item/gun/energy/kinetic_accelerator/mega/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "магмитовый кинетический акселератор",
 		GENITIVE = "магмитового кинетического акселератора",
 		DATIVE = "магмитовому кинетическому акселератору",
@@ -279,7 +279,7 @@
 	var/modifier = 1
 
 /obj/item/borg/upgrade/modkit/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "набор модификаций кинетического акселератора",
 		GENITIVE = "набора модификаций кинетического акселератора",
 		DATIVE = "набору модификаций кинетического акселератора",
@@ -366,7 +366,7 @@
 	cost = 24 // So you can fit four plus a tracer cosmetic.
 
 /obj/item/borg/upgrade/modkit/range/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модификация увеличения дальности",
 		GENITIVE = "модификации увеличения дальности",
 		DATIVE = "модификации увеличения дальности",
@@ -388,7 +388,7 @@
 	modifier = 10
 
 /obj/item/borg/upgrade/modkit/damage/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модификация увеличения урона",
 		GENITIVE = "модификации увеличения урона",
 		DATIVE = "модификации увеличения урона",
@@ -411,7 +411,7 @@
 	compatibility = COMPATIBILITY_STANDART|COMPATIBILITY_CYBORG
 
 /obj/item/borg/upgrade/modkit/cooldown/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модификация сокращения перезарядки",
 		GENITIVE = "модификации сокращения перезарядки",
 		DATIVE = "модификации сокращения перезарядки",
@@ -451,7 +451,7 @@
 	compatibility = COMPATIBILITY_MINEBOT
 
 /obj/item/borg/upgrade/modkit/cooldown/haste/minebot/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модификация сокращения перезарядки шахтобота",
 		GENITIVE = "модификации сокращения перезарядки шахтобота",
 		DATIVE = "модификации сокращения перезарядки шахтобота",
@@ -469,7 +469,7 @@
 	cost = 50
 
 /obj/item/borg/upgrade/modkit/cooldown/repeater/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модификация \"Репитер\"",
 		GENITIVE = "модификации \"Репитер\"",
 		DATIVE = "модификации \"Репитер\"",
@@ -558,7 +558,7 @@
 	turf_aoe = TRUE
 
 /obj/item/borg/upgrade/modkit/aoe/turfs/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модификация взрывной добычи",
 		GENITIVE = "модификации взрывной добычи",
 		DATIVE = "модификации взрывной добычи",
@@ -573,7 +573,7 @@
 	modifier = 0.25
 
 /obj/item/borg/upgrade/modkit/aoe/turfs/andmobs/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модификация боевой взрывной добычи",
 		GENITIVE = "модификации боевой взрывной добычи",
 		DATIVE = "модификации боевой взрывной добычи",
@@ -588,7 +588,7 @@
 	modifier = 0.2
 
 /obj/item/borg/upgrade/modkit/aoe/mobs/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модификация боевого взрыва",
 		GENITIVE = "модификации боевого взрыва",
 		DATIVE = "модификации боевого взрыва",
@@ -613,7 +613,7 @@
 	cost = 0
 
 /obj/item/borg/upgrade/modkit/minebot_passthrough/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модификация прохождения сквозь шахтоботов",
 		GENITIVE = "модификации прохождения сквозь шахтоботов",
 		DATIVE = "модификации прохождения сквозь шахтоботов",
@@ -629,7 +629,7 @@
 	denied_type = /obj/item/borg/upgrade/modkit/hardness
 
 /obj/item/borg/upgrade/modkit/hardness/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модификация увеличения пробивной силы",
 		GENITIVE = "модификации увеличения пробивной силы",
 		DATIVE = "модификации увеличения пробивной силы",
@@ -652,7 +652,7 @@
 	modifier = 0.25 // A bonus 15 damage if you burst the field on a target, 60 if you lure them into it.
 
 /obj/item/borg/upgrade/modkit/resonator_blasts/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модификация резонирующего взрыва",
 		GENITIVE = "модификации резонирующего взрыва",
 		DATIVE = "модификации резонирующего взрыва",
@@ -683,7 +683,7 @@
 	cost = 35
 
 /obj/item/borg/upgrade/modkit/indoors/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модификация уменьшения штрафа от давления",
 		GENITIVE = "модификации уменьшения штрафа от давления",
 		DATIVE = "модификации уменьшения штрафа от давления",
@@ -705,7 +705,7 @@
 	compatibility = COMPATIBILITY_STANDART
 
 /obj/item/borg/upgrade/modkit/trigger_guard/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модифицированный курок",
 		GENITIVE = "модифицированного курка",
 		DATIVE = "модифицированному курку",
@@ -735,7 +735,7 @@
 	var/chassis_name = "super-kinetic accelerator"
 
 /obj/item/borg/upgrade/modkit/chassis_mod/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модификация \"Супер шасси\"",
 		GENITIVE = "модификации \"Супер шасси\"",
 		DATIVE = "модификации \"Супер шасси\"",
@@ -762,7 +762,7 @@
 	chassis_name = "hyper-kinetic accelerator"
 
 /obj/item/borg/upgrade/modkit/chassis_mod/orange/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модификация \"Гипер шасси\"",
 		GENITIVE = "модификации \"Гипер шасси\"",
 		DATIVE = "модификации \"Гипер шасси\"",
@@ -781,7 +781,7 @@
 	var/bolt_color = "#FFFFFF"
 
 /obj/item/borg/upgrade/modkit/tracer/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модификация белых трассирующих снарядов",
 		GENITIVE = "модификации белых трассирующих снарядов",
 		DATIVE = "модификации белых трассирующих снарядов",
@@ -799,7 +799,7 @@
 	desc = "Позволяет настроить цвет трассирующего следа и взрыва снарядов кинетического акселератора."
 
 /obj/item/borg/upgrade/modkit/tracer/adjustable/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модификация регулируемых трассирующих снарядов",
 		GENITIVE = "модификации регулируемых трассирующих снарядов",
 		DATIVE = "модификации регулируемых трассирующих снарядов",
@@ -827,7 +827,7 @@
 	var/static/list/damage_heal_order = list(BRUTE, BURN, OXY)
 
 /obj/item/borg/upgrade/modkit/lifesteal/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кристалл кражи жизни",
 		GENITIVE = "кристалла кражи жизни",
 		DATIVE = "кристаллу кражи жизни",
@@ -856,7 +856,7 @@
 	var/list/bounties_reaped
 
 /obj/item/borg/upgrade/modkit/bounty/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модификация \"Сифон смерти\"",
 		GENITIVE = "модификации \"Сифон смерти\"",
 		DATIVE = "модификации \"Сифон смерти\"",

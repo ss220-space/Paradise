@@ -3,8 +3,8 @@ import re
 import os
 import sys
 
-IGNORE_LOCALIZATION_FILE = [
-    "localization.dm",
+IGNORE_LOCALIZATION_HELPERS_DIR = os.path.join("code", "__HELPERS", "localization")
+IGNORE_FILES = [
     "golem.dm"
 ]
 
@@ -148,7 +148,11 @@ def main():
         dm_files = [sys.argv[1]]
     else:
         all_dm_files = glob.glob("**/*.dm", recursive=True)
-        dm_files = [f for f in all_dm_files if os.path.basename(f) not in IGNORE_LOCALIZATION_FILE]
+        dm_files = [
+            f for f in all_dm_files
+            if os.path.dirname(f) != IGNORE_LOCALIZATION_HELPERS_DIR
+            and os.path.basename(f) not in IGNORE_FILES
+        ]
 
     error_count = 0
     for filepath in dm_files:

@@ -183,7 +183,7 @@
 	item_state = "baseball_blue"
 
 /obj/item/clothing/head/tchaikowsky/baseballcap/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "синяя бейсболка",
 		GENITIVE = "синей бейсболки",
 		DATIVE = "синей бейсболке",
@@ -198,7 +198,7 @@
 	item_state = "baseball_brown"
 
 /obj/item/clothing/head/tchaikowsky/baseballcap/brown/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "коричневая бейсболка",
 		GENITIVE = "коричневой бейсболки",
 		DATIVE = "коричневой бейсболке",

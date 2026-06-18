@@ -1,4 +1,5 @@
 /obj/item/gun
+	abstract_type = /obj/item/gun
 	name = "gun"
 	desc = "It's a gun. It's pretty terrible, though."
 	icon = 'icons/obj/weapons/projectile.dmi'
@@ -85,6 +86,9 @@
 	var/damage_mod = 1
 	/// Stamina modifier for projectile
 	var/stamina_mod = 1
+
+	///Can we hold up our target with this? Default to yes
+	var/can_hold_up = TRUE
 
 /*
  * Gun modules
@@ -373,6 +377,9 @@
 	if(user.in_throw_mode)
 		return
 
+	if(!user.loc?.allow_click())
+		return
+
 	if(HAS_TRAIT(src, TRAIT_GIVE_READY))
 		return
 
@@ -406,12 +413,7 @@
 	set_target(get_turf_on_clickcatcher(object, user, params))
 	src.modifiers = modifiers
 	if(gun_firemode == GUN_FIREMODE_SEMIAUTO)
-		var/fire_return // todo fix: code expecting return values from async
-		ASYNC
-			fire_return = process_fire()
-		if(!fire_return)
-			return
-		reset_fire()
+		INVOKE_ASYNC(src, PROC_REF(do_semiauto_fire))
 		return
 	SEND_SIGNAL(src, COMSIG_GUN_FIRE)
 	update_mouse_pointer()
@@ -483,6 +485,11 @@
 		gun.stop_fire()
 	sound_loop?.stop()
 	SEND_SIGNAL(src, COMSIG_GUN_STOP_FIRE)
+
+/// Single-shot fire path, runs process_fire and resets state on success.
+/obj/item/gun/proc/do_semiauto_fire()
+	if(process_fire())
+		reset_fire()
 
 ///Clean all references
 /obj/item/gun/proc/reset_fire()
@@ -639,12 +646,15 @@
 /obj/item/gun/proc/fast_fire(atom/target, mob/user, zone_override)
 	var/old_target = src.target
 	var/old_user = gun_user
+	var/list/old_modifiers = modifiers
 	src.target = target
 	gun_user = user
+	modifiers = null
 	setup_bullet_accuracy()
 	. = process_fire(zone_override)
 	src.target = old_target
 	gun_user = old_user
+	modifiers = old_modifiers
 	setup_bullet_accuracy()
 
 /obj/item/gun/proc/process_fire(zone_override)
@@ -706,7 +716,30 @@
 	SEND_SIGNAL(src, COMSIG_GUN_AFTER_PROCESS_FIRE, target, user)
 	return AUTOFIRE_CONTINUE
 
+/obj/item/gun/interact_with_atom_secondary(atom/interacting_with, mob/living/user, list/modifiers)
+	if(user.a_intent != INTENT_HARM || user == interacting_with || !isliving(interacting_with) || !can_hold_up)
+		return ..()
+
+	if(SEND_SIGNAL(user, COMSIG_LIVING_GUNPOINT_START, user) & COMPONENT_LIVING_ALREADY_HELD_UP)
+		balloon_alert(user, "уже кто-то на мушке!")
+		return ITEM_INTERACT_BLOCKING
+
+	if(SEND_SIGNAL(interacting_with, COMSIG_LIVING_GUNPOINT_START, user) & COMPONENT_LIVING_ALREADY_HELD_UP)
+		balloon_alert(user, "уже на мушке!")
+		return ITEM_INTERACT_BLOCKING
+
+	if(do_after(user, 0.5 SECONDS, interacting_with))
+		if(!user.is_in_hands(src))
+			return ITEM_INTERACT_BLOCKING
+
+		user.AddComponent(/datum/component/gunpoint, interacting_with, src)
+
+	return ITEM_INTERACT_SUCCESS
+
 /obj/item/gun/ranged_interact_with_atom_secondary(atom/interacting_with, mob/living/user, list/modifiers)
+	if(isliving(interacting_with) && IN_GIVEN_RANGE(user, interacting_with, GUNPOINT_SHOOTER_STRAY_RANGE))
+		return interact_with_atom_secondary(interacting_with, user, modifiers)
+
 	if(azoom)
 		zoom(user)
 		return ITEM_INTERACT_SUCCESS
@@ -736,18 +769,21 @@
 	if(.)
 		return
 
-	if(user.zone_selected != BODY_ZONE_PRECISE_MOUTH || user != interacting_with)
+	if(user.zone_selected != BODY_ZONE_PRECISE_MOUTH || !isliving(interacting_with))
 		return
 
 	if(interacting_with == user && HAS_TRAIT(user, TRAIT_BADASS))
 		user.visible_message(span_danger("[user] сдул[GEND_A_O_I(user)] дым с дула [declent_ru(GENITIVE)]. Как же [GEND_HE_SHE(user)] хорош[GEND_A_O_I(user)]!"))
-	else
-		handle_suicide(user, interacting_with, modifiers)
+		return ITEM_INTERACT_BLOCKING
+
+	handle_suicide(user, interacting_with, modifiers)
 	return ITEM_INTERACT_SUCCESS
 
 /obj/item/gun/proc/start_attack_chain_check(mob/user, atom/target)
-	if(user == target && user.zone_selected == BODY_ZONE_PRECISE_MOUTH)
+	if(isliving(target) && user.zone_selected == BODY_ZONE_PRECISE_MOUTH)
 		return TRUE
+	if(isturf(target)) // let the gun fire toward them even in harm intent
+		return FALSE
 	if(user.a_intent == INTENT_HARM)
 		return TRUE
 	if(isitem(target) || iscloset(target) || istable(target) || is_screen_atom(target) || isdisposalunit(target) || istype(target, /obj/machinery/recharger))
@@ -913,7 +949,7 @@
 	if(chambered?.BB)
 		chambered.BB.damage *= 15
 
-	var/fired = fast_fire(user, user, BODY_ZONE_HEAD)
+	var/fired = fast_fire(target, user, BODY_ZONE_HEAD)
 	if(!fired && chambered?.BB)
 		chambered.BB.damage /= 15
 

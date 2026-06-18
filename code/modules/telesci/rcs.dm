@@ -27,7 +27,7 @@
 	var/chargecost = 1000
 
 /obj/item/rcs/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "система быстрой доставки (RCS)",
 		GENITIVE = "системы быстрой доставки (RCS)",
 		DATIVE = "системе быстрой доставки (RCS)",

@@ -1,4 +1,0 @@
-author: "Infaselt"
-delete-after: True
-changes:
-  - bugfix: "Модуль сюрикенов у ниндзя борга не пропадает при перемещении в хранилище (PR #9271)"

@@ -17,7 +17,7 @@
 	custom_price = PAYCHECK_MIN * 0.3
 
 /obj/item/reagent_containers/food/pill/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "таблетка",
 		GENITIVE = "таблетки",
 		DATIVE = "таблетке",
@@ -80,7 +80,7 @@
 	list_reagents = list("toxin" = 50)
 
 /obj/item/reagent_containers/food/pill/tox/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "таблетка (Токсины)",
 		GENITIVE = "таблетки (Токсины)",
 		DATIVE = "таблетке (Токсины)",
@@ -96,7 +96,7 @@
 	list_reagents = list("initropidril" = 50)
 
 /obj/item/reagent_containers/food/pill/initropidril/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "таблетка (Инитропидрил)",
 		GENITIVE = "таблетки (Инитропидрил)",
 		DATIVE = "таблетке (Инитропидрил)",
@@ -112,7 +112,7 @@
 	list_reagents = list("capulettium_plus" = 50)
 
 /obj/item/reagent_containers/food/pill/fakedeath/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "таблетка (Капулеттий+)",
 		GENITIVE = "таблетки (Капулеттий+)",
 		DATIVE = "таблетке (Капулеттий+)",
@@ -128,7 +128,7 @@
 	list_reagents = list("adminordrazine" = 50)
 
 /obj/item/reagent_containers/food/pill/adminordrazine/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "таблетка (Админордразин)",
 		GENITIVE = "таблетки (Админордразин)",
 		DATIVE = "таблетке (Админордразин)",
@@ -144,7 +144,7 @@
 	list_reagents = list("morphine" = 30)
 
 /obj/item/reagent_containers/food/piil/morphine/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "таблетка (Морфин)",
 		GENITIVE = "таблетки (Морфин)",
 		DATIVE = "таблетке (Морфин)",
@@ -160,7 +160,7 @@
 	list_reagents = list("methamphetamine" = 5)
 
 /obj/item/reagent_containers/food/pill/methamphetamine/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "таблетка (Метамфетамин)",
 		GENITIVE = "таблетки (Метамфетамин)",
 		DATIVE = "таблетке (Метамфетамин)",
@@ -175,7 +175,7 @@
 	list_reagents = list("lsd" = 5)
 
 /obj/item/reagent_containers/food/pill/lsd/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "таблетка (ЛСД)",
 		GENITIVE = "таблетки (ЛСД)",
 		DATIVE = "таблетке (ЛСД)",
@@ -191,7 +191,7 @@
 	list_reagents = list("rum" = 25)
 
 /obj/item/reagent_containers/food/pill/rum/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "таблетка (Ром)",
 		GENITIVE = "таблетки (Ром)",
 		DATIVE = "таблетке (Ром)",
@@ -207,7 +207,7 @@
 	list_reagents = list("stimulative_agent" = 5)
 
 /obj/item/reagent_containers/food/pill/stimulative_agent/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "таблетка (Боевой Стимулятор)",
 		GENITIVE = "таблетки (Боевой Стимулятор)",
 		DATIVE = "таблетке (Боевой Стимулятор)",
@@ -223,7 +223,7 @@
 	list_reagents = list("haloperidol" = 15)
 
 /obj/item/reagent_containers/food/pill/haloperidol/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "таблетка (Галоперидол)",
 		GENITIVE = "таблетки (Галоперидол)",
 		DATIVE = "таблетке (Галоперидол)",
@@ -239,7 +239,7 @@
 	list_reagents = list("space_drugs" = 15, "sugar" = 15)
 
 /obj/item/reagent_containers/food/pill/happy/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "таблетка счастья",
 		GENITIVE = "таблетки счастья",
 		DATIVE = "таблетке счастья",
@@ -255,7 +255,7 @@
 	list_reagents = list("synaptizine" = 5, "methamphetamine" = 5)
 
 /obj/item/reagent_containers/food/pill/zoom/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "таблетка бодрости",
 		GENITIVE = "таблетки бодрости",
 		DATIVE = "таблетке бодрости",
@@ -271,7 +271,7 @@
 	list_reagents = list("charcoal" = 50)
 
 /obj/item/reagent_containers/food/pill/charcoal/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "таблетка (Активированный уголь)",
 		GENITIVE = "таблетки (Активированный уголь)",
 		DATIVE = "таблетке (Активированный уголь)",
@@ -287,7 +287,7 @@
 	list_reagents = list("epinephrine" = 50)
 
 /obj/item/reagent_containers/food/pill/epinephrine/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "таблетка (Эпинефрин)",
 		GENITIVE = "таблетки (Эпинефрин)",
 		DATIVE = "таблетке (Эпинефрин)",
@@ -303,7 +303,7 @@
 	list_reagents = list("sal_acid" = 20)
 
 /obj/item/reagent_containers/food/pill/salicylic/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "таблетка (Салициловая кислота)",
 		GENITIVE = "таблетки (Салициловая кислота)",
 		DATIVE = "таблетке (Салициловая кислота)",
@@ -319,7 +319,7 @@
 	list_reagents = list("salbutamol" = 20)
 
 /obj/item/reagent_containers/food/pill/salbutamol/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "таблетка (Сальбутамол)",
 		GENITIVE = "таблетки (Сальбутамол)",
 		DATIVE = "таблетке (Сальбутамол)",
@@ -335,7 +335,7 @@
 	list_reagents = list("hydrocodone" = 15)
 
 /obj/item/reagent_containers/food/pill/hydrocodone/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "таблетка (Гидрокодон)",
 		GENITIVE = "таблетки (Гидрокодон)",
 		DATIVE = "таблетке (Гидрокодон)",
@@ -351,7 +351,7 @@
 	list_reagents = list("calomel" = 15)
 
 /obj/item/reagent_containers/food/pill/calomel/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "таблетка (Каломель)",
 		GENITIVE = "таблетки (Каломель)",
 		DATIVE = "таблетке (Каломель)",
@@ -367,7 +367,7 @@
 	list_reagents = list("mutadone" = 20)
 
 /obj/item/reagent_containers/food/pill/mutadone/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "таблетка (Мутадон)",
 		GENITIVE = "таблетки (Мутадон)",
 		DATIVE = "таблетке (Мутадон)",
@@ -383,7 +383,7 @@
 	list_reagents = list("mannitol" = 20)
 
 /obj/item/reagent_containers/food/pill/mannitol/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "таблетка (Маннитол)",
 		GENITIVE = "таблетки (Маннитол)",
 		DATIVE = "таблетке (Маннитол)",
@@ -399,7 +399,7 @@
 	list_reagents = list("bicaridine" = 10)
 
 /obj/item/reagent_containers/food/pill/bicaridine/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "таблетка (Бикаридин)",
 		GENITIVE = "таблетки (Бикаридин)",
 		DATIVE = "таблетке (Бикаридин)",
@@ -415,7 +415,7 @@
 	list_reagents = list("kelotane" = 10)
 
 /obj/item/reagent_containers/food/pill/kelotane/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "таблетка (Келотан)",
 		GENITIVE = "таблетки (Келотан)",
 		DATIVE = "таблетке (Келотан)",

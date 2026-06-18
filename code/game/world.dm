@@ -128,6 +128,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 				return
 			log_and_message_admins("has requested an immediate world restart via client side debugging tools")
 			to_chat(world, span_boldannounceooc("Rebooting world immediately due to host request"))
+		rustlib_clear_uuid_storage()
 		rustg_log_close_all() // Past this point, no logging procs can be used, at risk of data loss.
 		// Now handle a reboot
 		if(config && CONFIG_GET(flag/shutdown_on_reboot))
@@ -142,6 +143,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 			return ..(1)
 
 	// If we got here, we are in a "normal" reboot
+	GLOB.overlay_manager.dump_stats()
 	Master.Shutdown() // Shutdown subsystems
 
 	// If we were running unit tests, finish that run
@@ -162,6 +164,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 		if(CONFIG_GET(string/server)) // If you set a server location in config.txt, it sends you there instead of trying to reconnect to the same world address. -- NeoFite
 			C << link("byond://[CONFIG_GET(string/server)]")
 
+	rustlib_clear_uuid_storage()
 	// And begin the real shutdown
 	rustg_log_close_all() // Past this point, no logging procs can be used, at risk of data loss.
 	if(config && CONFIG_GET(flag/shutdown_on_reboot))

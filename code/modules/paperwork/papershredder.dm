@@ -19,7 +19,7 @@
 	)
 
 /obj/machinery/papershredder/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "измельчитель бумаги",
 		GENITIVE = "измельчителя бумаги",
 		DATIVE = "измельчителю бумаги",
@@ -168,7 +168,7 @@
 	throw_range = 3
 
 /obj/item/shredded_paper/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "измельчённая бумага",
 		GENITIVE = "измельчённой бумаги",
 		DATIVE = "измельчённой бумаге",

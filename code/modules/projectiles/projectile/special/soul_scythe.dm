@@ -7,7 +7,7 @@
 	light_color = LIGHT_COLOR_BLOOD_MAGIC
 
 /obj/projectile/soulscythe/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "рассечение души",
 		GENITIVE = "рассечения души",
 		DATIVE = "рассечению души",

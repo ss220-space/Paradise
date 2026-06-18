@@ -74,6 +74,10 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	var/explosion_power = 35
 	///Time in 1/10th of seconds since the last sent warning
 	var/lastwarning = 0
+	/// Integrity percent (rounded like the announcement) at the moment of the last warning.
+	/// Used to detect the real trend across the whole warning interval instead of the
+	/// noisy single-tick [damage_archived] delta, so a stable crystal stops re-announcing.
+	var/integrity_at_last_warning = 100
 
 	/// The list of gases mapped against their current comp.
 	/// We use this to calculate different values the supermatter uses, like power or heat resistance.
@@ -187,7 +191,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 
 
 /obj/machinery/power/supermatter_crystal/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кристалл суперматерии",
 		GENITIVE = "кристалла суперматерии",
 		DATIVE = "кристаллу суперматерии",
@@ -260,15 +264,15 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	. = ..()
 	if(isliving(user))
 		if(!HAS_TRAIT(user, TRAIT_MESON_VISION) && (get_dist(user, src) < SM_HALLUCINATION_RANGE(internal_energy)))
-			. += span_danger("You get headaches just from looking at it.")
+			. += span_danger("От одного взгляда на него начинает болеть голова.")
 		var/mob/living/living_user = user
 		if(HAS_TRAIT(user, TRAIT_TELEKINESIS))
-			to_chat(user, span_warning("The taste is overwhelming and indescribable!"))
+			to_chat(user, span_warning("Вкус ошеломляющий и неописуемый!"))
 			living_user.electrocute_act(shock_damage = 15, source = src, flags = SHOCK_KNOCKDOWN | SHOCK_NOGLOVES)
-			. += span_notice("It could use a little more Sodium Chloride...")
+			. += span_notice("Ему бы не помешало немного хлорида натрия...")
 
 	if(holiday_lights)
-		. += span_notice("Radiating both festive cheer and actual radiation, it has a dazzling spectacle lights wrapped lovingly around the base transforming it from a potential doomsday device into a cosmic yuletide centerpiece.")
+		. += span_notice("Излучая одновременно праздничное настроение и самую настоящую радиацию, он украшен ослепительной гирляндой, любовно обёрнутой вокруг основания, что превращает потенциальное орудие конца света в космический символ зимних праздников.")
 
 	. += delamination_strategy.examine(src)
 	return .
@@ -298,7 +302,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	if(isclosedturf(local_turf) || local_turf.density)
 		var/turf/did_it_melt = local_turf.ChangeTurf(local_turf.baseturf)
 		if(!isclosedturf(did_it_melt) || !did_it_melt.density) //In case some joker finds way to place these on indestructible walls
-			visible_message(span_warning("[src] melts through [local_turf]!"))
+			visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] проплавляет [local_turf.declent_ru(ACCUSATIVE)]!"))
 		return
 
 	// PART 2: GAS PROCESSING
@@ -475,7 +479,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 		high_energy_bonus = (zap_transmission + additional_zap_bonus) * zap_power_multiplier - zap_transmission
 		var/list/zap_factor_si_derived_data = siunit_isolated(high_energy_bonus, "W", 2)
 		data["zap_transmission_factors"] += list(list(
-			"name" = "High Energy Bonus",
+			"name" = "Бонус высокой энергии",
 			"amount" = zap_factor_si_derived_data[SI_COEFFICIENT],
 			"unit" = zap_factor_si_derived_data[SI_UNIT],
 		))
@@ -585,9 +589,9 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	final_countdown = TRUE
 
 	notify_ghosts(
-		"[src] has begun the delamination process!",
+		"[DECLENT_RU_CAP(src, NOMINATIVE)] начал процесс расслоения!",
 		source = src,
-		title = "Meltdown Incoming",
+		title = "Приближается расплавление",
 	)
 
 	var/list/count_down_messages = delamination_strategy.count_down_messages()
@@ -604,8 +608,8 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	if(supermatter_sliver_removed == TRUE)
 		delamination_countdown_time = SUPERMATTER_SLIVER_REMOVED_COUNTDOWN_TIME
 		radio_announce(
-			"WARNING: Projected time until full crystal delamination significantly lower than expected. \
-				Please inspect crystal for structural abnormalities or sabotage!",
+			"ВНИМАНИЕ: Расчётное время до полного расслоения кристалла значительно меньше ожидаемого. \
+				Проверьте кристалл на структурные аномалии или следы саботажа!",
 			src,
 			cached_emergency_channel
 		)

@@ -5,20 +5,17 @@ use core::to_grid_map;
 use core::GridMap;
 use core::TileGrid;
 
-use byondapi::byond_string;
-use byondapi::global_call::call_global_id;
-use byondapi::value::ByondValue;
 use dmmtools::dmi::Dir;
 use dmmtools::dmm::Coord3;
 use dmmtools::dmm::Prefab;
 use dreammaker::constants::Constant;
-use eyre::eyre;
-use eyre::Context;
-use eyre::ContextCompat;
 use itertools::Itertools;
+use meowtonin::ByondError;
+use meowtonin::{byond_fn, call_global, ByondResult, ByondValue, ToByond};
 use procgen::{mapmanip_mazegen_hauberk, MazegenHauberkSettings};
 use rand::seq::{IndexedRandom, IteratorRandom};
 use serde::{Deserialize, Serialize};
+use std::error::Error;
 use tools::extract_submap;
 use tools::insert_submap;
 
@@ -61,20 +58,26 @@ enum MapRotation {
     Clockwise270,
 }
 
-pub fn mapmanip_config_parse(config_path: &std::path::Path) -> eyre::Result<Vec<MapManipulation>> {
+pub fn mapmanip_config_parse(config_path: &std::path::Path) -> ByondResult<Vec<MapManipulation>> {
     // read
-    let config = std::fs::read_to_string(config_path)
-        .wrap_err(format!("mapmanip config read err: {config_path:?}"))?;
+    let config = std::fs::read_to_string(config_path).map_err(|_| {
+        ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(format!(
+            "mapmanip config read err: {config_path:?}"
+        )))
+    })?;
 
     // strip comments
     // as the jsonc format is "json with comments"
     // but serde_json lib can only handle actual json
-    let re = regex::Regex::new(r"\/\/.*")?;
+    let re = regex::Regex::new(r"\/\/.*").map_err(ByondError::boxed)?;
     let config = re.replace_all(&config, "");
 
     // parse
-    let config = serde_json::from_str::<Vec<MapManipulation>>(&config)
-        .wrap_err(format!("mapmanip config json parse err: {config_path:?}"))?;
+    let config = serde_json::from_str::<Vec<MapManipulation>>(&config).map_err(|_| {
+        ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(format!(
+            "mapmanip config json parse err: {config_path:?}"
+        )))
+    })?;
 
     Ok(config)
 }
@@ -82,7 +85,7 @@ pub fn mapmanip_config_parse(config_path: &std::path::Path) -> eyre::Result<Vec<
 pub fn mapmanip(
     map: dmmtools::dmm::Map,
     config: &[MapManipulation],
-) -> eyre::Result<dmmtools::dmm::Map> {
+) -> ByondResult<dmmtools::dmm::Map> {
     // convert to gridmap
     let mut map = to_grid_map(&map);
     let mut singleton_tags: Vec<Constant> = vec![];
@@ -113,22 +116,36 @@ pub fn mapmanip(
                 *submaps_can_repeat,
                 &mut singleton_tags,
             )
-            .wrap_err(format!(
-                "submap extract insert fail;
+            .map_err(|_| {
+                ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(format!(
+                    "submap extract insert fail;
 					submaps path: {submaps_dmm:?};
 					markers: {marker_extract}, {marker_insert};"
-            )),
+                )))
+            }),
             MapManipulation::RandomOrientation => {
-                mapmanip_orientation_randomize(&mut map).wrap_err("randomize orientation failure")
+                mapmanip_orientation_randomize(&mut map).map_err(|_| {
+                    ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+                        "randomize orientation failure",
+                    ))
+                })
             }
             MapManipulation::MazegenHauberk(settings) => {
                 mapmanip_mazegen_hauberk(&mut map, settings)
             }
         }
-        .wrap_err(format!("mapmanip fail; manip n is: {n}/{config_len}"))?;
+        .map_err(|_| {
+            ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(format!(
+                "mapmanip fail; manip n is: {n}/{config_len}"
+            )))
+        })?;
     }
 
-    core::to_dict_map(&map).wrap_err("failed on `to_dict_map`")
+    core::to_dict_map(&map).map_err(|_| {
+        ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+            "failed on `to_dict_map`",
+        ))
+    })
 }
 
 #[allow(clippy::too_many_arguments)]
@@ -142,11 +159,23 @@ fn mapmanip_submap_extract_insert(
     marker_insert: &String,
     submaps_can_repeat: bool,
     singleton_tags: &mut Vec<Constant>,
-) -> eyre::Result<()> {
+) -> ByondResult<()> {
     let submap_size = dmmtools::dmm::Coord3::new(
-        submap_size_x.try_into().wrap_err("invalid submap_size_x")?,
-        submap_size_y.try_into().wrap_err("invalid submap_size_y")?,
-        submap_size_z.try_into().wrap_err("invalid submap_size_z")?,
+        submap_size_x.try_into().map_err(|_| {
+            ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+                "invalid submap_size_x",
+            ))
+        })?,
+        submap_size_y.try_into().map_err(|_| {
+            ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+                "invalid submap_size_y",
+            ))
+        })?,
+        submap_size_z.try_into().map_err(|_| {
+            ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+                "invalid submap_size_z",
+            ))
+        })?,
     );
 
     // get the submaps map
@@ -156,8 +185,11 @@ fn mapmanip_submap_extract_insert(
     #[cfg(test)]
     let submaps_dmm = std::path::Path::new("../").join(submaps_dmm);
 
-    let submaps_map = GridMap::from_file(&submaps_dmm)
-        .wrap_err(format!("can't read and parse submap dmm: {submaps_dmm:?}"))?;
+    let submaps_map = GridMap::from_file(&submaps_dmm).map_err(|_| {
+        ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(format!(
+            "can't read and parse submap dmm: {submaps_dmm:?}"
+        )))
+    })?;
 
     let mut marker_lookup: HashMap<Coord3, &Prefab> = Default::default();
     // find all the submap extract markers
@@ -169,7 +201,9 @@ fn mapmanip_submap_extract_insert(
         });
     }
     if marker_lookup.is_empty() {
-        return Err(eyre!("marker lookup empty for submap {submaps_dmm:?}"));
+        return Err(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+            format!("marker lookup empty for submap {submaps_dmm:?}"),
+        )));
     }
 
     // find all the insert markers
@@ -190,9 +224,11 @@ fn mapmanip_submap_extract_insert(
                     .contains(prefab.vars.get("singleton_id").unwrap_or(Constant::null()))
             })
             .choose(&mut rand::rng())
-            .wrap_err(format!(
+            .ok_or(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+                format!(
                 "no extractions found for marker {marker_extract}, singletons={singleton_tags:?}"
-            ))?;
+            ),
+            )))?;
 
         // if submaps should not be repeating, remove this one
         if !submaps_can_repeat {
@@ -200,12 +236,18 @@ fn mapmanip_submap_extract_insert(
         }
 
         // extract that submap from the submap dmm
-        let extracted = extract_submap(&submaps_map, extract_coord, submap_size)
-            .wrap_err(format!("submap extraction failed; from {extract_coord}"))?;
+        let extracted = extract_submap(&submaps_map, extract_coord, submap_size).map_err(|_| {
+            ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(format!(
+                "submap extraction failed; from {extract_coord}"
+            )))
+        })?;
 
         // and insert the submap into the manipulated map
-        insert_submap(&extracted, insert_coord, map)
-            .wrap_err(format!("submap insertion failed; at {insert_coord}"))?;
+        insert_submap(&extracted, insert_coord, map).map_err(|_| {
+            ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(format!(
+                "submap insertion failed; at {insert_coord}"
+            )))
+        })?;
 
         let singleton_id = extract_prefab
             .vars
@@ -358,7 +400,7 @@ fn rotation_size(size: Coord3, rotation: &MapRotation) -> Coord3 {
     }
 }
 
-fn mapmanip_orientation_randomize(map: &mut GridMap) -> eyre::Result<()> {
+fn mapmanip_orientation_randomize(map: &mut GridMap) -> ByondResult<()> {
     let rotation = [
         MapRotation::None,
         MapRotation::Clockwise90,
@@ -455,58 +497,77 @@ fn mapmanip_orientation_randomize(map: &mut GridMap) -> eyre::Result<()> {
     Ok(())
 }
 
-#[byondapi::bind]
-fn mapmanip_read_dmm_file(path: ByondValue) -> eyre::Result<ByondValue> {
+#[byond_fn]
+fn mapmanip_read_dmm_file(path: ByondValue) -> ByondResult<ByondValue> {
     internal_mapmanip_read_dmm_file(path)
 }
 
-pub(crate) fn internal_mapmanip_read_dmm_file(path: ByondValue) -> eyre::Result<ByondValue> {
+pub(crate) fn internal_mapmanip_read_dmm_file(path_val: ByondValue) -> ByondResult<ByondValue> {
     setup_panic_handler();
 
-    let path: std::path::PathBuf = path
+    let path: std::path::PathBuf = path_val
         .get_string()
-        .wrap_err(format!("path arg is not a string: {:?}", path))?
+        .map_err(|_| {
+            ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(format!(
+                "path arg is not a string: {:?}",
+                path_val.to_string()
+            )))
+        })?
         .into();
 
     // just return null if path is bad for whatever reason
     if !path.is_file() || !path.exists() {
-        return Ok(ByondValue::null());
+        return Ok(ByondValue::NULL);
     }
 
     // read file and parse with spacemandmm
-    let mut dmm = dmmtools::dmm::Map::from_file(&path).wrap_err(format!(
+    let mut dmm = dmmtools::dmm::Map::from_file(&path).map_err(|e|
+        ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(format!(
         "spacemandmm parsing error; dmm file path: {path:?}; see error from spacemandmm below for more information"
-    ))?;
+    ))))?;
 
     // do mapmanip if defined for this dmm
     let path_mapmanip_config = path.with_extension("jsonc");
 
     if path_mapmanip_config.exists() {
         // parse config
-        let config = crate::mapmanip::mapmanip_config_parse(&path_mapmanip_config).wrap_err(
-            format!("config parse fail; path: {:?}", path_mapmanip_config),
-        )?;
+        let config =
+            crate::mapmanip::mapmanip_config_parse(&path_mapmanip_config).map_err(|_| {
+                ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(format!(
+                    "config parse fail; path: {:?}",
+                    path_mapmanip_config
+                )))
+            })?;
         // do actual map manipulation
-        dmm = crate::mapmanip::mapmanip(dmm, &config)
-            .wrap_err(format!("mapmanip fail; dmm file path: {path:?}"))?;
+        dmm = crate::mapmanip::mapmanip(dmm, &config).map_err(|_| {
+            ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(format!(
+                "mapmanip fail; dmm file path: {path:?}"
+            )))
+        })?;
 
-        call_global_id(
-            byond_string!("map_first_manipulated"),
-            &[ByondValue::try_from(
-                path_mapmanip_config
-                    .to_str()
-                    .ok_or_else(|| eyre!("Invalid path encoding: {:?}", path_mapmanip_config))?,
-            )?],
+        let _: () = call_global(
+            "map_first_manipulated",
+            &[path_mapmanip_config
+                .to_str()
+                .ok_or_else(|| {
+                    ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(format!(
+                        "Invalid path encoding: {:?}",
+                        path_mapmanip_config
+                    )))
+                })?
+                .to_byond()?],
         )?;
     }
 
     // convert the map back to a string
-    let dmm = crate::mapmanip::core::map_to_string(&dmm).wrap_err(format!(
-        "error in converting map back to string; dmm file path: {path:?}"
-    ))?;
+    let dmm = crate::mapmanip::core::map_to_string(&dmm).map_err(|_| {
+        ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(format!(
+            "error in converting map back to string; dmm file path: {path:?}"
+        )))
+    })?;
 
     // and return it
-    Ok(ByondValue::new_str(dmm)?)
+    Ok(ByondValue::new_string(dmm))
 }
 
 /// To be used by the `tools/rustlib_tools/mapmanip.ps1` script.

@@ -48,7 +48,7 @@
 	/// Only one loot from hardmode
 
 /mob/living/simple_animal/hostile/megafauna/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мегафауна",
 		GENITIVE = "мегафауны",
 		DATIVE = "мегафауне",

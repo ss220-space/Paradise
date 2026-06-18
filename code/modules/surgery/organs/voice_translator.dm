@@ -44,13 +44,14 @@
 	desc = "Необычный инопланетный имплант с маленьким экранчиком. Судя по всему, создан специально для греев."
 	icon = 'icons/obj/voice_translator.dmi'
 	icon_state = "pvr_implant"
-	given_languages = list()
+	given_languages = list(LANGUAGE_GALACTIC_COMMON)
+	given_languages_rus = list("Общегалактический")
 	upgrade_with = list(/obj/item/translator_upgrade/grey_retraslator)
 	origin_tech = "materials=2;biotech=3;engineering=3;programming=3;abductor=2"
 	species_restrictions = list(SPECIES_GREY, SPECIES_ABDUCTOR)
 
 /obj/item/organ/internal/cyberimp/mouth/translator/grey_retraslator/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ретранслятор псионического голоса",
 		GENITIVE = "ретранслятора псионического голоса",
 		DATIVE = "ретранслятору псионического голоса",
@@ -61,16 +62,20 @@
 
 /obj/item/organ/internal/cyberimp/mouth/translator/Initialize(mapload)
 	. = ..()
-	if(!LAZYLEN(given_languages))
+
+	if(!length(given_languages))
 		return
 
-	for(var/lang_name in given_languages)
-		LAZYADD(given_languages, GLOB.all_languages[lang_name])
+	var/list/datum/language/resolved_languages = list()
+	for(var/language_name in given_languages)
+		var/datum/language/resolved = GLOB.all_languages[language_name]
+		if(!resolved)
+			stack_trace("[type] declared unknown language [language_name] in given_languages")
+			continue
 
-/obj/item/organ/internal/cyberimp/mouth/translator/grey_retraslator/Initialize(mapload)
-	LAZYADD(given_languages, GLOB.all_languages[LANGUAGE_GALACTIC_COMMON]) // basic galcom for greys
-	LAZYADD(given_languages_rus, "Общегалактический")
-	. = ..()
+		resolved_languages += resolved
+
+	given_languages = resolved_languages
 
 /obj/item/organ/internal/cyberimp/mouth/translator/examine(mob/user)
 	. = ..()
@@ -392,7 +397,7 @@
 	extra_slots = UPGRADE_SLOTS_GREY
 
 /obj/item/translator_upgrade/grey_retraslator/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль улучшения РПГ",
 		GENITIVE = "модуля улучшения РПГ",
 		DATIVE = "модулю улучшения РПГ",
@@ -414,7 +419,7 @@
 	var/stored_language_rus
 
 /obj/item/translator_chip/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "языковой чип",
 		GENITIVE = "языкового чипа",
 		DATIVE = "языковому чипу",

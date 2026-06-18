@@ -35,6 +35,8 @@ GLOBAL_LIST_INIT(sm_delam_list, list(
 /// [/obj/machinery/power/supermatter_crystal/proc/process_atmos]
 /datum/sm_delam/proc/delam_progress(obj/machinery/power/supermatter_crystal/sm)
 	if(sm.damage <= sm.warning_point) // Damage is too low, lets not
+		// Reset the trend baseline so the next time we cross the warning point we start fresh.
+		sm.integrity_at_last_warning = 100
 		return FALSE
 
 	if(sm.damage >= sm.emergency_point && sm.damage_archived < sm.emergency_point)
@@ -45,17 +47,24 @@ GLOBAL_LIST_INIT(sm_delam_list, list(
 		return FALSE
 	sm.lastwarning = REALTIMEOFDAY
 
+	// Trend since the previous warning, not since the previous tick. The single-tick delta is
+	// noisy, so a crystal sitting stable above the warning point would otherwise keep spamming
+	// the "integrity faltering" message with an unchanged integrity every interval.
+	var/current_integrity = round(sm.get_integrity_percent(), 0.01)
+	var/integrity_change = current_integrity - sm.integrity_at_last_warning
+	sm.integrity_at_last_warning = current_integrity
+
 	if(sm.damage_archived - sm.damage > SUPERMATTER_FAST_HEALING_RATE && sm.damage_archived >= sm.emergency_point) // Fast healing, engineers probably have it all sorted
 		if(sm.should_alert_common()) // We alert common once per cooldown period, otherwise alert engineering
 			radio_announce(
-				"Crystalline hyperstructure returning to safe operating parameters. Integrity: [round(sm.get_integrity_percent(), 0.01)]%",
+				"Кристаллическая гиперструктура возвращается к безопасным рабочим параметрам. Целостность: [round(sm.get_integrity_percent(), 0.01)]%",
 				sm,
 				sm.emergency_channel,
 				sm,
 			)
 		else
 			radio_announce(
-				"Crystalline hyperstructure returning to safe operating parameters. Integrity: [round(sm.get_integrity_percent(), 0.01)]%",
+				"Кристаллическая гиперструктура возвращается к безопасным рабочим параметрам. Целостность: [round(sm.get_integrity_percent(), 0.01)]%",
 				sm,
 				sm.warning_channel,
 				sm,
@@ -75,27 +84,29 @@ GLOBAL_LIST_INIT(sm_delam_list, list(
 
 	if(sm.damage >= sm.emergency_point) // In emergency
 		radio_announce(
-			"CRYSTAL DELAMINATION IMMINENT! Integrity: [round(sm.get_integrity_percent(), 0.01)]%",
+			"РАССЛОЕНИЕ КРИСТАЛЛА НЕМИНУЕМО! Целостность: [current_integrity]%",
 			sm,
 			sm.emergency_channel,
 			sm,
 		)
 		sm.lastwarning = REALTIMEOFDAY - (SUPERMATTER_WARNING_DELAY / 2) // Cut the time to next announcement in half.
-	else if(sm.damage_archived > sm.damage) // Healing, in warning
+	else if(integrity_change > 0) // Healing, in warning
 		radio_announce(
-			"Crystalline hyperstructure returning to safe operating parameters. Integrity: [round(sm.get_integrity_percent(), 0.01)]%",
+			"Кристаллическая гиперструктура возвращается к безопасным рабочим параметрам. Целостность: [current_integrity]%",
 			sm,
 			sm.warning_channel,
 			sm,
 		)
 		return FALSE
-	else // Taking damage, in warning
+	else if(integrity_change < 0) // Taking damage, in warning
 		radio_announce(
-			"Danger! Crystal hyperstructure integrity faltering! Integrity: [round(sm.get_integrity_percent(), 0.01)]%",
+			"Опасность! Целостность гиперструктуры кристалла падает! Целостность: [current_integrity]%",
 			sm,
 			sm.warning_channel,
 			sm,
 		)
+	else // Stable above the warning point, nothing new to report over the radio
+		return FALSE
 
 	SEND_SIGNAL(sm, COMSIG_SUPERMATTER_DELAM_ALARM)
 	return TRUE
@@ -156,7 +167,7 @@ GLOBAL_LIST_INIT(sm_delam_list, list(
 /// First message is start of count down, second message is quitting of count down (if sm healed), third is 5 second intervals
 /datum/sm_delam/proc/count_down_messages(obj/machinery/power/supermatter_crystal/sm)
 	var/list/messages = list()
-	messages += "CRYSTAL DELAMINATION IMMINENT. The supermatter has reached critical integrity failure. Emergency causality destabilization field has been activated."
-	messages += "Crystalline hyperstructure returning to safe operating parameters. Failsafe has been disengaged."
-	messages += "remain before causality stabilization."
+	messages += "РАССЛОЕНИЕ КРИСТАЛЛА НЕМИНУЕМО! Суперматерия достигла критического разрушения целостности. Активировано аварийное поле дестабилизации причинности."
+	messages += "Кристаллическая гиперструктура возвращается к безопасным рабочим параметрам. Аварийная защита отключена."
+	messages += "до стабилизации причинности."
 	return messages

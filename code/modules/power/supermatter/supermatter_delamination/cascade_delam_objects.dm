@@ -1,6 +1,7 @@
 /obj/crystal_mass
 	name = "crystal mass"
-	desc = "You see this massive crystal mass looming towards you, cracking and screeching at every seemingly random movement."
+	desc = "Эта огромная кристаллическая масса надвигается на вас, потрескивая и скрежеща при каждом, казалось бы, случайном движении."
+	gender = FEMALE
 	icon = 'icons/turf/walls.dmi'
 	icon_state = "crystal_cascade_1"
 	layer = AREA_LAYER
@@ -15,6 +16,16 @@
 	var/list/possible_dirs
 	///Cooldown on the expansion process
 	COOLDOWN_DECLARE(sm_wall_cooldown)
+
+/obj/crystal_mass/get_ru_names()
+	return alist(
+		NOMINATIVE = "кристаллическая масса",
+		GENITIVE = "кристаллической массы",
+		DATIVE = "кристаллической массе",
+		ACCUSATIVE = "кристаллическую массу",
+		INSTRUMENTAL = "кристаллической массой",
+		PREPOSITIONAL = "кристаллической массе",
+	)
 
 /obj/crystal_mass/ComponentInitialize()
 	AddElement(/datum/element/supermatter_crystal, null, null)
@@ -65,11 +76,11 @@
 				src, \
 				COMSIG_CRYSTAL_MASS_CONSUME,\
 				checked_atom, \
-				span_danger("\The [src] lunges out on [checked_atom], touching [checked_atom.p_them()]... [checked_atom.p_their()] body begins to shine with a brilliant light before crystallizing from the inside out and joining \the [src]!"),\
-				span_userdanger("The crystal mass lunges on you and hits you in the chest. As your vision is filled with a blinding light, you think to yourself \"Damn it.\"")\
+				span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] набрасывается на [checked_atom.declent_ru(ACCUSATIVE)], касаясь [GEND_HIS_HER(checked_atom)]... [GEND_HIS_HER_CAP(checked_atom)] тело начинает сиять ярким светом, после чего кристаллизуется изнутри и сливается с [declent_ru(INSTRUMENTAL)]!"),\
+				span_userdanger("Кристаллическая масса набрасывается на вас и бьёт в грудь. Пока ваш взгляд заполняет ослепительный свет, вы думаете про себя: \"Чёрт возьми.\"")\
 			)
 		else if(istype(checked_atom, /obj/cascade_portal))
-			checked_atom.visible_message(span_userdanger("\The [checked_atom] screeches and closes away as it is hit by \a [src]! Too late!"))
+			checked_atom.visible_message(span_userdanger("[DECLENT_RU_CAP(checked_atom, NOMINATIVE)] визжит и схлопывается, получив удар от [declent_ru(GENITIVE)]! Слишком поздно!"))
 			var/turf/location = get_turf(checked_atom)
 			playsound(location, 'sound/magic/charge.ogg', 50, TRUE)
 			playsound(location, 'sound/effects/supermatter.ogg', 50, TRUE)
@@ -87,9 +98,9 @@
 	SIGNAL_HANDLER
 
 	visible_message(
-		span_warning("[hitting_projectile] flies into [src] with a loud crack, before rapidly flashing into ash."),
+		span_warning("[DECLENT_RU_CAP(hitting_projectile, NOMINATIVE)] с громким треском влетает в [declent_ru(ACCUSATIVE)] и мгновенно вспыхивает, обращаясь в пепел."),
 		null,
-		span_hear("You hear a loud crack as you are washed with a wave of heat."),
+		span_hear("Вы слышите громкий треск, и вас обдаёт волной жара."),
 	)
 
 	playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
@@ -102,7 +113,7 @@
 	if(!iscarbon(user))
 		return
 	var/mob/living/carbon/jedi = user
-	to_chat(jedi, span_userdanger("That was a really dense idea."))
+	to_chat(jedi, span_userdanger("Это была действительно тупая идея."))
 	jedi.ghostize()
 	var/obj/item/organ/internal/brain/rip_u = jedi.get_int_organ(/obj/item/organ/internal/brain)
 	if(rip_u)
@@ -120,7 +131,7 @@
 
 /obj/cascade_portal
 	name = "bluespace rift"
-	desc = "Your mind begins to spin as it tries to comprehend what it sees."
+	desc = "Ваш разум начинает кружиться, пытаясь осознать увиденное."
 	icon = 'icons/effects/224x224.dmi'
 	icon_state = "reality"
 	anchored = TRUE
@@ -134,6 +145,16 @@
 	pixel_x = -96
 	pixel_y = -96
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
+
+/obj/cascade_portal/get_ru_names()
+	return alist(
+		NOMINATIVE = "блюспейс-разлом",
+		GENITIVE = "блюспейс-разлома",
+		DATIVE = "блюспейс-разлому",
+		ACCUSATIVE = "блюспейс-разлом",
+		INSTRUMENTAL = "блюспейс-разломом",
+		PREPOSITIONAL = "блюспейс-разломе",
+	)
 
 /obj/cascade_portal/Initialize(mapload)
 	. = ..()
@@ -164,9 +185,9 @@
 /obj/cascade_portal/proc/consume(atom/movable/consumed_object)
 	if(isliving(consumed_object))
 		consumed_object.visible_message(
-			span_danger("\The [consumed_object] walks into \the [src]... A blinding light covers [consumed_object.p_their()] body before disappearing completely!"),
-			span_userdanger("You walk into \the [src] as your body is washed with a powerful blue light. You contemplate about this decision before landing face first onto the cold, hard floor."),
-			span_hear("You hear a loud crack as a distortion passes through you."),
+			span_danger("[DECLENT_RU_CAP(consumed_object, NOMINATIVE)] входит в [declent_ru(ACCUSATIVE)]... Ослепительный свет окутывает [GEND_HIS_HER(consumed_object)] тело, прежде чем оно полностью исчезает!"),
+			span_userdanger("Вы входите в [declent_ru(ACCUSATIVE)], и ваше тело омывает мощный синий свет. Вы успеваете обдумать это решение, прежде чем падаете лицом на холодный, твёрдый пол."),
+			span_hear("Вы слышите громкий треск, когда сквозь вас проходит искажение."),
 		)
 
 		var/list/arrival_turfs = get_area_turfs(/area/centcom/evac)
@@ -186,7 +207,7 @@
 		new /obj/effect/particle_effect/sparks(consumed_object)
 		playsound(consumed_object, SFX_SPARKS, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	else if(isitem(consumed_object))
-		consumed_object.visible_message(span_danger("\The [consumed_object] smacks into \the [src] and disappears out of sight."), null,
-			span_hear("You hear a loud crack as a small distortion passes through you."))
+		consumed_object.visible_message(span_danger("[DECLENT_RU_CAP(consumed_object, NOMINATIVE)] врезается в [declent_ru(ACCUSATIVE)] и пропадает из виду."), null,
+			span_hear("Вы слышите громкий треск, когда сквозь вас проходит небольшое искажение."))
 
 		qdel(consumed_object)

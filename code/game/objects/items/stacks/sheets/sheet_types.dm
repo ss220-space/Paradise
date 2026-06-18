@@ -675,7 +675,7 @@ GLOBAL_LIST_INIT(fake_brass_recipes, list(
 	origin_tech = "materials=2;biotech=2"
 
 /obj/item/stack/sheet/bone/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кости",
 		GENITIVE = "костей",
 		DATIVE = "костям",
@@ -699,7 +699,7 @@ GLOBAL_LIST_INIT(fake_brass_recipes, list(
 	origin_tech = "materials=4;biotech=5"
 
 /obj/item/stack/sheet/razor_sharp_teeth/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бритвенно-острые зубы",
 		GENITIVE = "бритвенно-острых зубов",
 		DATIVE = "бритвенно-острым зубам",

@@ -19,7 +19,7 @@
 	var/obj/item/storage/backpack/modstorage/bag
 
 /obj/item/mod/module/storage/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль вместимости",
 		GENITIVE = "модуля вместимости",
 		DATIVE = "модулю вместимости",
@@ -93,7 +93,7 @@
 	max_items = 14
 
 /obj/item/mod/module/storage/large_capacity/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль повышенной вместимости",
 		GENITIVE = "модуля повышенной вместимости",
 		DATIVE = "модулю повышенной вместимости",
@@ -114,7 +114,7 @@
 	origin_tech = "materials=6;bluespace=5;syndicate=2"
 
 /obj/item/mod/module/storage/syndicate/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль вместимости Синдиката",
 		GENITIVE = "модуля вместимости Синдиката",
 		DATIVE = "модулю вместимости Синдиката",
@@ -136,7 +136,7 @@
 	required_slots = list(ITEM_SLOT_BELT)
 
 /obj/item/mod/module/storage/belt/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль пониженной вместимости",
 		GENITIVE = "модуля пониженной вместимости",
 		DATIVE = "модулю пониженной вместимости",
@@ -157,7 +157,7 @@
 	max_items = 21
 
 /obj/item/mod/module/storage/bluespace/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль блюспейс-хранилища",
 		GENITIVE = "модуля блюспейс-хранилища",
 		DATIVE = "модулю блюспейс-хранилища",
@@ -219,7 +219,7 @@
 	var/skip_trails = FALSE
 
 /obj/item/mod/module/jetpack/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль ионного джетпака",
 		GENITIVE = "модуля ионного джетпака",
 		DATIVE = "модулю ионного джетпака",
@@ -297,7 +297,7 @@
 	origin_tech = "materials=4;magnets=4;engineering=5" //To replace the old hardsuit upgrade jetpack levels.
 
 /obj/item/mod/module/jetpack/advanced/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль продвинутого джетпака",
 		GENITIVE = "модуля продвинутого джетпака",
 		DATIVE = "модулю продвинутого джетпака",
@@ -320,7 +320,7 @@
 	required_slots = list(ITEM_SLOT_BACK|ITEM_SLOT_BELT)
 
 /obj/item/mod/module/emp_shield/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль защиты от ЭМИ",
 		GENITIVE = "модуля защиты от ЭМИ",
 		DATIVE = "модулю защиты от ЭМИ",
@@ -362,7 +362,7 @@
 	var/max_range = 5
 
 /obj/item/mod/module/flashlight/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль фонарика",
 		GENITIVE = "модуля фонарика",
 		DATIVE = "модулю фонарика",
@@ -419,7 +419,7 @@
 	max_range = 3
 
 /obj/item/mod/module/flashlight/darkness/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль темнарика",
 		GENITIVE = "модуля темнарика",
 		DATIVE = "модулю темнарика",
@@ -452,7 +452,7 @@
 	var/dispense_time = 0 SECONDS
 
 /obj/item/mod/module/dispenser/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль раздатчика бургеров",
 		GENITIVE = "модуля раздатчика бургеров",
 		DATIVE = "модулю раздатчика бургеров",
@@ -491,7 +491,7 @@
 	var/max_temp = 318.15
 
 /obj/item/mod/module/thermal_regulator/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль регуляции температуры",
 		GENITIVE = "модуля регуляции температуры",
 		DATIVE = "модулю регуляции температуры",
@@ -532,7 +532,7 @@
 	var/dna = null
 
 /obj/item/mod/module/dna_lock/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль ДНК-блокировки",
 		GENITIVE = "модуля ДНК-блокировки",
 		DATIVE = "модулю ДНК-блокировки",
@@ -614,7 +614,7 @@
 	use_energy_cost = DEFAULT_CHARGE_DRAIN * 5
 
 /obj/item/mod/module/dna_lock/emp_shield/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль ДНК-блокировки и защиты от ЭМИ",
 		GENITIVE = "модуля ДНК-блокировки и защиты от ЭМИ",
 		DATIVE = "модулю ДНК-блокировки и защиты от ЭМИ",
@@ -645,7 +645,7 @@
 	required_slots = list(ITEM_SLOT_HEAD)
 
 /obj/item/mod/module/plasma_stabilizer/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль стабилизации плазмы",
 		GENITIVE = "модуля стабилизации плазмы",
 		DATIVE = "модулю стабилизации плазмы",
@@ -682,7 +682,7 @@
 	. += span_notice("Данный модуль будет бесполезен там, где есть только один этаж.")
 
 /obj/item/mod/module/jump_jet/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль ионных двигателей",
 		GENITIVE = "модуля ионных двигателей",
 		DATIVE = "модулю ионных двигателей",
@@ -734,7 +734,7 @@
 	var/former_visor_mask_flags = NONE
 
 /obj/item/mod/module/mouthhole/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль пищеприёмника",
 		GENITIVE = "модуля пищеприёмника",
 		DATIVE = "модулю пищеприёмника",
@@ -799,7 +799,7 @@
 	. += span_notice("Данный модуль будет бесполезен там, где есть только один этаж.")
 
 /obj/item/mod/module/longfall/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль амортизации",
 		GENITIVE = "модуля амортизации",
 		DATIVE = "модулю амортизации",
@@ -848,7 +848,7 @@
 	var/power_per_step = DEFAULT_CHARGE_DRAIN * 0.3
 
 /obj/item/mod/module/joint_torsion/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль кинетической зарядки",
 		GENITIVE = "модуля кинетической зарядки",
 		DATIVE = "модулю кинетической зарядки",
@@ -901,7 +901,7 @@
 	incompatible_modules = list(/obj/item/mod/module/shock_absorber)
 
 /obj/item/mod/module/shock_absorber/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль шокопоглощения",
 		GENITIVE = "модуля шокопоглощения",
 		DATIVE = "модулю шокопоглощения",
@@ -934,7 +934,7 @@
 	required_slots = list(ITEM_SLOT_HEAD)
 
 /obj/item/mod/module/hearing_protection/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль акустической защиты",
 		GENITIVE = "модуля акустической защиты",
 		DATIVE = "модулю акустической защиты",
@@ -975,7 +975,7 @@
 	var/former_visor_flags
 
 /obj/item/mod/module/hat_stabilizer/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль стабилизатора шляп",
 		GENITIVE = "модуля стабилизатора шляп",
 		DATIVE = "модулю стабилизатора шляп",
@@ -1010,7 +1010,7 @@
 	removable = FALSE
 
 /obj/item/mod/module/hat_stabilizer/syndicate/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль стабилизатора шляп Синдиката",
 		GENITIVE = "модуля стабилизатора шляп Синдиката",
 		DATIVE = "модулю стабилизатора шляп Синдиката",
@@ -1033,7 +1033,7 @@
 	var/activation_step_time_booster = 2
 
 /obj/item/mod/module/activation_upgrade/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль улучшенных актуаторов",
 		GENITIVE = "модуля улучшенных актуаторов",
 		DATIVE = "модулю улучшенных актуаторов",
@@ -1059,7 +1059,7 @@
 	removable = FALSE
 
 /obj/item/mod/module/activation_upgrade/advanced/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль продвинутых актуаторов",
 		GENITIVE = "модуля продвинутых актуаторов",
 		DATIVE = "модулю продвинутых актуаторов",
@@ -1076,7 +1076,7 @@
 	activation_step_time_booster = 4
 
 /obj/item/mod/module/activation_upgrade/elite/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль элитных актуаторов",
 		GENITIVE = "модуля элитных актуаторов",
 		DATIVE = "модулю элитных актуаторов",
@@ -1099,7 +1099,7 @@
 	var/original_speed_cached
 
 /obj/item/mod/module/deployed_upgrade/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль улучшенных сервоприводов",
 		GENITIVE = "модуля  улучшенных сервоприводов",
 		DATIVE = "модулю  улучшенных сервоприводов",

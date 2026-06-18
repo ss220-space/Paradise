@@ -411,7 +411,7 @@
 	if(escaped_on_pod_5)
 		SSblackbox.record_feedback("nested tally", "round_end_stats", escaped_on_pod_5, list("escapees", "on_pod_5"))
 
-	SSdiscord.send2discord_simple(DISCORD_WEBHOOK_PRIMARY, "A round of [name] has ended - [surviving_total] survivors, [ghosts] ghosts. Round ID - [GLOB.round_id]. Duration - [ROUND_TIME_TEXT()]")
+	GLOB.discord_manager.send2discord_simple(DISCORD_WEBHOOK_PRIMARY, "A round of [name] has ended - [surviving_total] survivors, [ghosts] ghosts. Round ID - [GLOB.round_id]. Duration - [ROUND_TIME_TEXT()]")
 
 	if(!SSredis.connected)
 		return FALSE
