@@ -243,6 +243,7 @@
 	cooldown = 5 SECONDS
 	unintentional_audio_cooldown = 3.5 SECONDS
 	volume = 80
+	use_sound_tokens = TRUE
 	species_type_blacklist_typecache = list(
 		/datum/species/machine,	// has silicon scream
 		/datum/species/monkey,	// screech instead
@@ -275,6 +276,7 @@
 	emote_type = EMOTE_AUDIBLE  // Don't make this one a mouth emote since we don't want it to be caught by nobreath
 	unintentional_stat_allowed = UNCONSCIOUS
 	volume = 100
+	use_sound_tokens = TRUE
 
 /datum/emote/living/carbon/human/gasp/get_sound(mob/living/carbon/human/user)
 	if(user.is_muzzled())	// If you're muzzled you're not making noise
@@ -305,7 +307,11 @@
 		else
 			volume_decrease = 95
 	sound_volume -= volume_decrease
-	// special handling here: we don't want monkeys' gasps to sound through walls so you can actually walk past xenobio
+	// special handling here: we don't want monkeys' gasps to sound through walls so you can actually walk past xenobio.
+	// Sound tokens always carry through walls, so only minded mobs get one, the mindless fall back to wall-blocked playsound.
+	if(use_sound_tokens && user.mind)
+		playsoundtoken(source = user, soundin = sound_path, volume = sound_volume, range = sound_token_range, frequency = user.get_age_pitch())
+		return
 	playsound(user.loc, sound_path, sound_volume, TRUE, -10, frequency = user.get_age_pitch(), ignore_walls = !isnull(user.mind))
 
 /datum/emote/living/carbon/human/shake

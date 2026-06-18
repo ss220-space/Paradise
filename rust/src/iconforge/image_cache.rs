@@ -11,6 +11,9 @@ use std::{fs::File, hash::BuildHasherDefault, io::BufReader, path::PathBuf, sync
 use tracy_full::zone;
 use twox_hash::XxHash64;
 
+use meowtonin::{ByondError, ByondResult};
+use std::error::Error;
+
 pub static CACHE_ACTIVE: AtomicUsize = AtomicUsize::new(0);
 
 struct CacheGuard;
@@ -53,7 +56,7 @@ impl UniversalIcon {
         cached: bool,
         must_be_cached: bool,
         flatten: bool,
-    ) -> eyre::Result<(Arc<UniversalIconData>, bool)> {
+    ) -> ByondResult<(Arc<UniversalIconData>, bool)> {
         zone!("universal_icon_to_image_data");
         let _guard = CacheGuard::new();
         if cached {
@@ -62,7 +65,8 @@ impl UniversalIcon {
                 return Ok((entry.value().to_owned(), true));
             }
             if must_be_cached {
-                return Err(eyre::eyre!("Image was requested but does not exist in the cache. It's likely that the icon state doesn't exist: {self} - while generating '{sprite_name}'"));
+                return Err(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+                format!("Image was requested but does not exist in the cache. It's likely that the icon state doesn't exist: {self} - while generating '{sprite_name}'"))));
             }
         }
         let dmi = filepath_to_dmi(&self.icon_file)?;
@@ -79,10 +83,12 @@ impl UniversalIcon {
         let state = match matched_state {
             Some(state) => state,
             None => {
-                return Err(eyre::eyre!(
-                    "Could not find associated icon state {} for {sprite_name}",
-                    self.icon_state
-                ));
+                return Err(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+                    format!(
+                        "Could not find associated icon state {} for {sprite_name}",
+                        self.icon_state
+                    ),
+                )));
             }
         };
 
@@ -99,23 +105,26 @@ impl UniversalIcon {
                             || (state.dirs == 4 && !CARDINAL_DIRS.contains(&dir))
                             || (state.dirs == 8 && !ALL_DIRS.contains(&dir))
                         {
-                            return Err(eyre::eyre!(
+                            return Err(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+                format!(
                                 "Dir specified {dir} is not in the set of valid dirs ({} dirs) for icon_state \"{}\" for {sprite_name}", state.dirs, state.name
-                            ));
+                            ))));
                         }
                         match dir_to_dmi_index(&dir) {
                             Some(index) => index,
                             None => {
-                                return Err(eyre::eyre!(
-                                    "Invalid dir in dir ordering {dir} for {sprite_name}"
+                                return Err(ByondError::Boxed(
+                                    Box::<dyn Error + Send + Sync>::from(format!(
+                                        "Invalid dir in dir ordering {dir} for {sprite_name}"
+                                    )),
                                 ));
                             }
                         }
                     }
                     None => {
-                        return Err(eyre::eyre!(
-                            "Invalid dir number {dir_bits} for {sprite_name}"
-                        ));
+                        return Err(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+                            format!("Invalid dir number {dir_bits} for {sprite_name}"),
+                        )));
                     }
                 };
             } else if flatten {
@@ -137,10 +146,11 @@ impl UniversalIcon {
                 frames = 1;
                 frame_offset = frame as usize - 1;
                 if state.frames < frame {
-                    return Err(eyre::eyre!(
+                    return Err(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+                format!(
                         "Specified frame \"{frame}\" is larger than the number of frames ({}) for icon_state \"{}\" in sprite \"{sprite_name}\"",
                         state.frames, state.name
-                    ));
+                    ))));
                 }
             } else if flatten {
                 frames = 1;
@@ -161,7 +171,8 @@ impl UniversalIcon {
                 {
                     Some(image) => images.push(image.clone()),
                     None => {
-                        return Err(eyre::eyre!("Somehow got out of bounds image for dir {dir_index} and frame {frame_offset} on {sprite_name}!"));
+                        return Err(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+                format!("Somehow got out of bounds image for dir {dir_index} and frame {frame_offset} on {sprite_name}!"))));
                     }
                 }
             }
@@ -206,7 +217,7 @@ pub fn icon_cache_clear() {
 pub static ICON_ROOT: Lazy<PathBuf> = Lazy::new(|| std::env::current_dir().unwrap());
 
 /// Given a DMI filepath, returns a DMI Icon structure and caches it.
-pub fn filepath_to_dmi(icon_path: &str) -> eyre::Result<Arc<Icon>> {
+pub fn filepath_to_dmi(icon_path: &str) -> ByondResult<Arc<Icon>> {
     zone!("filepath_to_dmi");
 
     let full_path = ICON_ROOT.join(icon_path);
@@ -218,12 +229,14 @@ pub fn filepath_to_dmi(icon_path: &str) -> eyre::Result<Arc<Icon>> {
         let icon_file = match File::open(icon_path) {
             Ok(icon_file) => icon_file,
             Err(err) => {
-                return Err(eyre::eyre!(
-                    "Failed to open DMI '{}' (resolved to '{}') - {}",
-                    icon_path,
-                    full_path.display(),
-                    err
-                ));
+                return Err(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+                    format!(
+                        "Failed to open DMI '{}' (resolved to '{}') - {}",
+                        icon_path,
+                        full_path.display(),
+                        err
+                    ),
+                )));
             }
         };
 
@@ -231,7 +244,10 @@ pub fn filepath_to_dmi(icon_path: &str) -> eyre::Result<Arc<Icon>> {
 
         zone!("parse_dmi");
         Ok(Arc::new(Icon::load(reader).map_err(|err| {
-            eyre::eyre!("DMI '{}' failed to parse - {}", icon_path, err)
+            ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(format!(
+                "DMI '{}' failed to parse - {}",
+                icon_path, err
+            )))
         })?))
     })
     .cloned()

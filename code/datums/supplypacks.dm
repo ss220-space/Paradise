@@ -6403,9 +6403,9 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/contraband/rpg
 	name = "Фугасные ракеты"
 	contains = list(
-		/obj/item/ammo_casing/rocket,
-		/obj/item/ammo_casing/rocket,
-		/obj/item/ammo_casing/rocket,
+		/obj/item/ammo_casing/caseless/rocket/a70mm_he,
+		/obj/item/ammo_casing/caseless/rocket/a70mm_he,
+		/obj/item/ammo_casing/caseless/rocket/a70mm_he,
 	)
 	credits_cost = 25000
 	containername = "ящик фугасных ракет"

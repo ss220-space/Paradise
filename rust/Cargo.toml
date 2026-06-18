@@ -7,8 +7,7 @@ edition = "2021"
 crate-type = ["cdylib"]
 
 [dependencies]
-byondapi = { git = "https://github.com/spacestation13/byondapi-rs.git", version = "0.6.14" }
-eyre = "0.6.12"
+meowtonin = {git = "https://github.com/Absolucy/meowtonin", features = ["fast-typechecking"] }
 slotmap = "1.0.7"
 base64 = "0.22.1"
 chrono = "0.4.41"
@@ -20,7 +19,7 @@ serde_json = { version = "1.0" }
 serde_repr = "0.1"
 walkdir = "2.5.0"
 regex = "1.10.5"
-rand = "0.9.3"
+rand = "0.10.1"
 itertools = "0.14.0"
 diff = "0.1"
 dmi = "0.5.0"

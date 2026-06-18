@@ -501,6 +501,13 @@ CACHE_ASSETS 0
 ## The default value assumes yt-dlp is in your system PATH
 # INVOKE_YOUTUBEDL yt-dlp
 
+## Allows players to request internet sounds via the OOC "Заказать музыку" verb.
+## Admins receive the request with a PLAY link that runs it through yt-dlp. Requires INVOKE_YOUTUBEDL.
+REQUEST_INTERNET_SOUND
+
+## Comma separated list of url patterns players may request. Each entry is matched as a regex (case-insensitive).
+REQUEST_INTERNET_ALLOWED youtube\.com\/watch?v=,youtu\.be\/,soundcloud\.com\/,bandcamp\.com\/track\/
+
 ## Enable the replay demo recording subsystem
 #DEMOS_ENABLED
 

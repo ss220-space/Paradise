@@ -44,7 +44,7 @@ export const NowPlayingWidget = (props: unknown) => {
           {
             <Collapsible title={title || 'Unknown Track'} color={'blue'}>
               <Section>
-                {URL !== 'Song Link Hidden' && (
+                {URL !== 'Ссылка скрыта' && (
                   <Flex.Item grow={1} color="label">
                     URL: {URL}
                   </Flex.Item>
@@ -52,18 +52,18 @@ export const NowPlayingWidget = (props: unknown) => {
                 <Flex.Item grow={1} color="label">
                   Duration: {duration}
                 </Flex.Item>
-                {Artist !== 'Song Artist Hidden' &&
+                {Artist !== 'Исполнитель скрыт' &&
                   Artist !== 'Unknown Artist' && (
                     <Flex.Item grow={1} color="label">
                       Artist: {Artist}
                     </Flex.Item>
                   )}
-                {album !== 'Song Album Hidden' && album !== 'Unknown Album' && (
+                {album !== 'Альбом скрыт' && album !== 'Unknown Album' && (
                   <Flex.Item grow={1} color="label">
                     Album: {album}
                   </Flex.Item>
                 )}
-                {upload_date !== 'Song Upload Date Hidden' &&
+                {upload_date !== 'Дата загрузки скрыта' &&
                   upload_date !== 'Unknown Date' && (
                     <Flex.Item grow={1} color="label">
                       Uploaded: {date}
