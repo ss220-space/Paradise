@@ -128,7 +128,7 @@
 /obj/item/clothing/head/helmet/space/deathsquad/beret/captain/get_ru_names()
 	return alist(
 		NOMINATIVE = "фуражка капитана флота \"Нанотрейзен\"",
-		GENITIVE = "фуражки капитана флота \"Нанотрейзен\",
+		GENITIVE = "фуражки капитана флота \"Нанотрейзен\"",
 		DATIVE = "фуражке капитана флота \"Нанотрейзен\"",
 		ACCUSATIVE = "фуражку капитана флота \"Нанотрейзен\"",
 		INSTRUMENTAL = "фуражкой капитана флота \"Нанотрейзен\"",
