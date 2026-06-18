@@ -358,6 +358,16 @@
 		else
 			msg += span_warning(span_bold("[GEND_HIS_HER_CAP(src)] [bodypart.declent_ru(NOMINATIVE)] кровоточ[PLUR_IT_AT(bodypart)]!\n"))
 
+	if(hasHUD(user, EXAMINE_HUD_MEDICAL) && !HAS_TRAIT(src, TRAIT_NO_BLOOD) && blood_volume < max_blood)
+		var/blood_span
+		if(blood_volume >= BLOOD_VOLUME_PALE)
+			blood_span = span_warning("Пониженный уровень крови")
+		else if(blood_volume >= BLOOD_VOLUME_BAD)
+			blood_span = span_warning("Низкий уровень крови")
+		else
+			blood_span = span_userdanger("Критический уровень крови")
+		msg += "[blood_span]\n"
+
 	if(reagents.has_reagent("teslium"))
 		msg += span_warning("[GEND_HE_SHE_CAP(src)] излуча[PLUR_ET_YUT(src)] мягкое голубое свечение!\n")
 
@@ -449,20 +459,6 @@
 					if(R.fields["id"] == E.fields["id"])
 						medical = R.fields["p_stat"]
 
-		if(!HAS_TRAIT(src, TRAIT_NO_BLOOD))
-			var/blood_percent = round(blood_volume / max_blood * 100)
-			var/blood_level = (blood_volume >= BLOOD_VOLUME_REGENERATION) ? 3 : ((blood_volume >= BLOOD_VOLUME_BAD) ? 2 : 1)
-
-			var/blood_span
-			switch(blood_level)
-				if(1)
-					blood_span = span_userdanger("Уровень крови: [blood_percent]%")
-				if(2)
-					blood_span = span_warning("Уровень крови: [blood_percent]%")
-				if(3)
-					blood_span = span_notice("Уровень крови: [blood_percent]%")
-
-			msg += "[blood_span]\n"
 		msg += "[span_deptradio("Психологический статус:")] <a href='byond://?src=[UID()];medical=1'>\[[medical]\]</a>\n"
 		msg += "[span_deptradio("Медицинские записи:")] <a href='byond://?src=[UID()];medrecord=`'>\[View\]</a> <a href='byond://?src=[UID()];medrecordadd=`'>\[Добавить комментарий\]</a>\n"
 
