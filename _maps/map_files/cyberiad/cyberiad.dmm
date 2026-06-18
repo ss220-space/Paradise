@@ -3477,6 +3477,7 @@
 /area/security/permabrig)
 "aqv" = (
 /obj/structure/closet/secure_closet/warden,
+/obj/item/lock_buster,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
@@ -3944,15 +3945,12 @@
 	dir = 4
 	},
 /obj/structure/table/reinforced,
-/obj/item/storage/box/syndie_kit/dropwall{
-	pixel_x = -2;
-	pixel_y = 1
-	},
 /obj/machinery/camera{
 	c_tag = "Secure Armory East";
 	dir = 8;
 	network = list("SS13","Security")
 	},
+/obj/item/storage/box/syndie_kit/dropwall/sec,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkred"
@@ -19071,15 +19069,12 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/starboard/east)
 "bFA" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/rack/gunrack,
+/obj/effect/turf_decal/delivery/red/hollow,
+/obj/structure/rack,
 /obj/item/gun/energy/ionrifle,
 /obj/item/gun/energy/ionrifle{
 	pixel_x = 3
 	},
-/obj/effect/turf_decal/delivery/red/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -35934,22 +35929,9 @@
 /area/engineering/engine)
 "cXZ" = (
 /obj/structure/table/reinforced,
-/obj/item/storage/fancy/donut_box,
-/obj/item/mod/module/megaphone{
-	pixel_x = 6;
-	pixel_y = -3
-	},
-/obj/item/mod/module/megaphone{
-	pixel_x = 6;
-	pixel_y = 8
-	},
+/obj/item/mod/module/quick_cuff,
 /obj/item/mod/module/quick_cuff{
-	pixel_x = -6;
-	pixel_y = -4
-	},
-/obj/item/mod/module/quick_cuff{
-	pixel_x = -7;
-	pixel_y = 9
+	pixel_y = 7
 	},
 /obj/structure/sign/poster/official/twelve_gauge{
 	pixel_x = 32
@@ -48904,6 +48886,14 @@
 "gIQ" = (
 /turf/simulated/floor/carpet,
 /area/crew_quarters/captain)
+"gJb" = (
+/obj/effect/turf_decal/delivery/red/hollow,
+/obj/structure/dispenser/oxygen,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkred"
+	},
+/area/security/securearmory)
 "gJF" = (
 /obj/structure/cable{
 	icon_state = "0-2"
@@ -48976,13 +48966,6 @@
 	dir = 8;
 	layer = 2.9
 	},
-/obj/item/storage/lockbox/mindshield,
-/obj/item/storage/box/trackimp,
-/obj/item/storage/box/chemimp{
-	pixel_x = 4;
-	pixel_y = 3
-	},
-/obj/item/lock_buster,
 /obj/structure/window/reinforced{
 	dir = 1
 	},
@@ -48992,7 +48975,10 @@
 	req_access = list(1)
 	},
 /obj/effect/turf_decal/delivery/red/hollow,
-/obj/item/storage/lockbox/suppression,
+/obj/item/storage/lockbox/suppression{
+	pixel_y = -4
+	},
+/obj/item/storage/lockbox/mindshield,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkred"
@@ -56867,9 +56853,6 @@
 "jYt" = (
 /obj/effect/turf_decal/delivery/red/hollow,
 /obj/structure/window/reinforced,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
 /obj/effect/spawner/random_spawners/security_shotguns,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -61142,11 +61125,7 @@
 "lDE" = (
 /obj/effect/turf_decal/delivery/red/hollow,
 /obj/structure/window/reinforced,
-/obj/structure/rack/gunrack,
-/obj/item/twohanded/spear/secspear,
-/obj/item/twohanded/spear/secspear,
-/obj/item/twohanded/spear/secspear,
-/obj/item/twohanded/spear/secspear,
+/obj/effect/spawner/random_spawners/security_ballistics,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -65942,11 +65921,11 @@
 	name = "Secure Armory";
 	req_access = list(1)
 	},
-/obj/item/shield/riot,
-/obj/item/shield/riot,
-/obj/item/shield/riot,
-/obj/item/shield/riot,
 /obj/effect/turf_decal/delivery/red/hollow,
+/obj/item/clothing/head/helmet/reflector,
+/obj/item/clothing/suit/armor/reflector,
+/obj/item/clothing/gloves/reflector,
+/obj/item/clothing/shoes/reflector,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkred"
@@ -66822,7 +66801,12 @@
 /area/maintenance/apmaint)
 "oaf" = (
 /obj/effect/turf_decal/delivery/red/hollow,
-/obj/machinery/flasher/portable,
+/obj/structure/table/reinforced,
+/obj/item/storage/box/trackimp,
+/obj/item/storage/box/chemimp{
+	pixel_x = 4;
+	pixel_y = 3
+	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkred"
@@ -68214,10 +68198,7 @@
 /area/hallway/primary/starboard/east)
 "oHJ" = (
 /obj/effect/turf_decal/delivery/red/hollow,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/effect/spawner/random_spawners/security_ballistics,
+/obj/structure/closet/secure_closet/guncabinet/secspear,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -68508,10 +68489,20 @@
 /turf/simulated/floor/wood,
 /area/security/hos)
 "oOa" = (
-/obj/structure/safe{
-	known_by = list("hos")
+/obj/item/shield/riot{
+	pixel_x = -6;
+	pixel_y = -6
 	},
-/obj/item/gun/projectile/bombarda/secgl/x4,
+/obj/structure/rack,
+/obj/item/shield/riot{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/shield/riot,
+/obj/item/shield/riot{
+	pixel_x = 3;
+	pixel_y = 3
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -78361,19 +78352,10 @@
 	},
 /area/solar/port)
 "sQg" = (
-/obj/structure/rack/gunrack,
-/obj/item/gun/energy/gun{
-	pixel_x = -3
-	},
-/obj/item/gun/energy/gun,
-/obj/item/gun/energy/gun{
-	pixel_x = 3
-	},
 /obj/structure/window/reinforced,
 /obj/effect/turf_decal/delivery/red/hollow,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
+/obj/structure/rack,
+/obj/item/gun/projectile/bombarda/secgl/x4,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -83233,8 +83215,8 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/structure/dispenser/oxygen,
 /obj/effect/turf_decal/delivery/red/hollow,
+/obj/machinery/portable_atmospherics/canister/oxygen,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
@@ -87519,14 +87501,6 @@
 	icon_state = "white"
 	},
 /area/assembly/robotics)
-"wwm" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
-/obj/effect/turf_decal/delivery/red/hollow,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkred"
-	},
-/area/security/securearmory)
 "wwy" = (
 /obj/structure/rack{
 	dir = 8;
@@ -90955,22 +90929,8 @@
 	},
 /area/hallway/secondary/entry/north)
 "xRQ" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/machinery/door/window{
-	name = "Secure Armory";
-	req_access = list(1)
-	},
 /obj/effect/turf_decal/delivery/red/hollow,
-/obj/item/clothing/shoes/reflector,
-/obj/item/clothing/gloves/reflector,
-/obj/item/clothing/suit/armor/reflector,
-/obj/item/clothing/head/helmet/reflector,
+/obj/machinery/flasher/portable,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkred"
@@ -119752,7 +119712,7 @@ lTl
 aiv
 abO
 aiv
-wwm
+cRE
 qzT
 lDE
 exW
@@ -120266,7 +120226,7 @@ lTl
 aiv
 abO
 aiv
-sqj
+gJb
 qzT
 kKX
 oOa
