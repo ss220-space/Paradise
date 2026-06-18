@@ -428,45 +428,85 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(select_equipment, R_EVENT, "Select Equipment", mob/
 
 ADMIN_VERB_VISIBILITY(start_singulo, ADMIN_VERB_VISIBLITY_FLAG_MAPPING_DEBUG)
 ADMIN_VERB(start_singulo, R_DEBUG, "Start Singularity", "Sets up the singularity and all machines to get power flowing through the station.", ADMIN_CATEGORY_DEBUG)
-	if(tgui_alert(user, "Are you sure? This will start up the engine. Should only be used during debug!", null, list("Yes", "No")) != "Yes")
+	if(tgui_alert(user, "Вы уверены? Это запустит двигатель Сингулярности на текущем z-уровне. Использовать только в целях отладки!", "Запуск Сингулярности", list("Да", "Нет")) != "Да")
 		return
 
-	for(var/obj/machinery/power/emitter/E in SSmachines.get_by_type(/obj/machinery/power/emitter))
-		if(E.anchored)
-			E.active = 1
+	var/turf/admin_turf = get_turf(user.mob)
+	if(!admin_turf)
+		to_chat(user, span_warning("Не удалось определить ваш z-уровень."))
+		return
+	var/engine_z = admin_turf.z
 
-	for(var/obj/machinery/field/generator/F in SSmachines.get_by_type(/obj/machinery/field/generator))
-		if(F.active == 0)
-			F.active = 1
-			F.state = 2
-			F.power = 250
-			F.set_anchored(TRUE)
-			F.warming_up = 3
-			F.start_fields()
-			F.update_icon()
+	for(var/obj/machinery/power/emitter/emitter as anything in SSmachines.get_by_type(/obj/machinery/power/emitter))
+		if(!emitter.anchored || emitter.z != engine_z)
+			continue
+		emitter.active = TRUE
 
-	spawn(30)
-		for(var/obj/machinery/the_singularitygen/G in SSmachines.get_by_type(/obj/machinery/the_singularitygen))
-			if(G.anchored)
-				var/obj/singularity/S = new /obj/singularity(get_turf(G))
-				S.energy = 800
-				break
+	for(var/obj/machinery/field/generator/field_gen as anything in SSmachines.get_by_type(/obj/machinery/field/generator))
+		if(field_gen.active != FG_OFFLINE || field_gen.z != engine_z)
+			continue
+		field_gen.active = FG_CHARGING
+		field_gen.state = FG_WELDED
+		field_gen.power = 250
+		field_gen.set_anchored(TRUE)
+		field_gen.warming_up = 3
+		field_gen.start_fields()
+		field_gen.update_icon()
 
-	for(var/obj/machinery/power/energy_accumulator/rad_collector/Rad in SSmachines.get_by_type(/obj/machinery/power/energy_accumulator/rad_collector))
-		if(Rad.anchored)
-			if(!Rad.loaded_tank)
-				var/obj/item/tank/internals/plasma/Plasma = new/obj/item/tank/internals/plasma(Rad)
-				Plasma.air_contents.set_toxins(70)
-				Rad.drain_ratio = 0
-				Rad.loaded_tank = Plasma
-				Plasma.loc = Rad
+	for(var/obj/machinery/power/energy_accumulator/rad_collector/collector as anything in SSmachines.get_by_type(/obj/machinery/power/energy_accumulator/rad_collector))
+		if(!collector.anchored || collector.z != engine_z)
+			continue
+		if(!collector.loaded_tank)
+			var/obj/item/tank/internals/plasma/plasma_tank = new(collector)
+			plasma_tank.air_contents.set_toxins(70)
+			collector.loaded_tank = plasma_tank
+		if(!collector.active)
+			collector.toggle_power()
 
-			if(!Rad.active)
-				Rad.toggle_power()
+	for(var/obj/machinery/power/smes/smes as anything in SSmachines.get_by_type(/obj/machinery/power/smes))
+		if(!smes.anchored || smes.z != engine_z)
+			continue
+		smes.input_attempt = TRUE
+		smes.output_attempt = TRUE
+		smes.output_level = smes.output_level_max
 
-	for(var/obj/machinery/power/smes/SMES in SSmachines.get_by_type(/obj/machinery/power/smes))
-		if(SMES.anchored)
-			SMES.input_attempt = 1
+	// Bring every particle accelerator part up to the assembled, ready-to-fire state.
+	for(var/obj/structure/particle_accelerator/part as anything in GLOB.particle_accelerator_list)
+		if(part.z != engine_z)
+			continue
+		part.set_anchored(TRUE)
+		part.construction_state = ACCELERATOR_READY
+		part.update_icon(UPDATE_ICON_STATE)
+
+	// Control boxes re-scan their parts on update_state(), so do them after the parts are ready.
+	for(var/obj/machinery/particle_accelerator/control_box/control_box as anything in SSmachines.get_by_type(/obj/machinery/particle_accelerator/control_box))
+		if(control_box.z != engine_z)
+			continue
+		control_box.construction_state = ACCELERATOR_READY
+		control_box.update_state()
+		control_box.update_icon(UPDATE_ICON_STATE)
+
+	// Beacon-based maps have no pre-placed generator, so turn singularity beacons into one.
+	for(var/obj/item/beacon/engine/beacon as anything in GLOB.engine_beacon_list)
+		if(beacon.z != engine_z)
+			continue
+		if(!istype(beacon, /obj/item/beacon/engine/sing) && !istype(beacon, /obj/item/beacon/engine/tesling))
+			continue
+		var/obj/machinery/the_singularitygen/generator = new(get_turf(beacon))
+		generator.set_anchored(TRUE)
+		qdel(beacon)
+
+	// Let the containment fields warm up before dropping the singularity in.
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(debug_spawn_singularity), engine_z), 3 SECONDS)
+
+/// Drops a debug singularity onto the first anchored singularity generator on `engine_z`. Used by the Start Singularity debug verb.
+/proc/debug_spawn_singularity(engine_z)
+	for(var/obj/machinery/the_singularitygen/generator as anything in SSmachines.get_by_type(/obj/machinery/the_singularitygen))
+		if(!generator.anchored || generator.z != engine_z)
+			continue
+		var/obj/singularity/singulo = new(get_turf(generator))
+		singulo.energy = 800
+		return
 
 ADMIN_VERB(debug_mob_lists, R_DEBUG, "Debug Mob Lists", "For when you just gotta know.", ADMIN_CATEGORY_DEBUG)
 	switch(tgui_input_list(user, "Which list?", items = list("Players", "Admins", "Mobs", "Living Mobs", "Alive Mobs", "Dead Mobs", "Silicons", "Clients", "Respawnable Mobs")))

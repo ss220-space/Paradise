@@ -599,7 +599,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	var/cached_emergency_channel = emergency_channel
 	radio_announce(
 		count_down_messages[1],
-		src,
+		DECLENT_RU_CAP(src, NOMINATIVE),
 		cached_emergency_channel
 	)
 
@@ -610,7 +610,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 		radio_announce(
 			"ВНИМАНИЕ: Расчётное время до полного расслоения кристалла значительно меньше ожидаемого. \
 				Проверьте кристалл на структурные аномалии или следы саботажа!",
-			src,
+			DECLENT_RU_CAP(src, NOMINATIVE),
 			cached_emergency_channel
 		)
 
@@ -633,7 +633,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 
 		radio_announce(
 			message,
-			src,
+			DECLENT_RU_CAP(src, NOMINATIVE),
 			cached_emergency_channel
 		)
 
