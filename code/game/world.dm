@@ -134,7 +134,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 				world.KillImmediately()
 				return
         
-      		rustlib_clear_uuid_storage()
+			rustlib_clear_uuid_storage()
 			rustg_log_close_all() // Past this point, no logging procs can be used, at risk of data loss.
 			sleep(0)
 			if(GLOB.shutdown_shell_command)
@@ -143,7 +143,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 			TgsEndProcess() // We want to shutdown on reboot. That means kill our TGS process "gracefully", instead of the watchdog crying
 			return
 		else
-      		rustlib_clear_uuid_storage()
+			rustlib_clear_uuid_storage()
 			rustg_log_close_all() // Past this point, no logging procs can be used, at risk of data loss.
 			TgsReboot() // Tell TGS we did a reboot
 			return ..(1)
@@ -175,7 +175,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 		if(CONFIG_GET(flag/kill_on_shutdown))
 			world.KillImmediately()
 			return
-    	rustlib_clear_uuid_storage()
+		rustlib_clear_uuid_storage()
 		rustg_log_close_all() // Past this point, no logging procs can be used, at risk of data loss.
 		sleep(0)
 		if(GLOB.shutdown_shell_command)
@@ -185,7 +185,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 		TgsEndProcess() // We want to shutdown on reboot. That means kill our TGS process "gracefully", instead of the watchdog crying
 		return
 	else
-    	rustlib_clear_uuid_storage()
+		rustlib_clear_uuid_storage()
 		rustg_log_close_all() // Past this point, no logging procs can be used, at risk of data loss.
 		TgsReboot() // We did a normal reboot. Tell TGS we did a normal reboot.
 		..(0)
@@ -332,7 +332,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	PrepareShutdown()
 	log_world("Shutting down current instance via forceful killing from shell...")
   
-  	rustlib_clear_uuid_storage()
+	rustlib_clear_uuid_storage()
 	rustg_log_close_all() // Past this point, no logging procs can be used, at risk of data loss.
 
 	var/process_id = UNLINT(world.process) // SpacemanDMM does not know about world.process, which returns PID of the current instance.
