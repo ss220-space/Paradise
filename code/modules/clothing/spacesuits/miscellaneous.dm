@@ -178,7 +178,7 @@
 
 /obj/item/clothing/suit/space/deathsquad/officer/captain/get_ru_names()
 	return alist(
-		NOMINATIVE = "палащ капитана флота \"Нанотрейзен\"",
+		NOMINATIVE = "плащ капитана флота \"Нанотрейзен\"",
 		GENITIVE = "плаща капитана флота \"Нанотрейзен\"",
 		DATIVE = "плащу капитана флота \"Нанотрейзен\"",
 		ACCUSATIVE = "плащ капитана флота \"Нанотрейзен\"",
