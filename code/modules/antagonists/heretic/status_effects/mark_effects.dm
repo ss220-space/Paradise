@@ -106,8 +106,15 @@
 	effect_icon_state = "emark3"
 
 /datum/status_effect/eldritch/rust/on_effect()
-	owner.AdjustDisgust(50 STATUS_EFFECT_CONSTANT)
+	// TG hits the marked target with near-max disgust + confusion. Disgust alone only makes you vomit on a
+	// per-tick probability roll (and decays), so the Rust path's promised "сильное отвращение и рвоту,
+	// ненадолго сбивая с ног" never reliably fired. Force the retch here - vomit() also briefly stuns
+	// (VOMIT_STUN_TIME), which is the "knocked off their feet" part.
+	owner.AdjustDisgust(100 STATUS_EFFECT_CONSTANT)
 	owner.Confused(10 SECONDS)
+	if(iscarbon(owner))
+		var/mob/living/carbon/carbon_owner = owner
+		carbon_owner.vomit()
 	return ..()
 
 // MARK OF VOID

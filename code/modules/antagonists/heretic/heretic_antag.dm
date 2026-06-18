@@ -246,8 +246,10 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	for(var/datum/heretic_knowledge/knowledge as anything in researched_knowledge)
 		if(drafted_knowledge[knowledge] || shop_knowledge_pool[knowledge])
 			continue
-		if(path_start_knowledges[knowledge])
-			continue
+		// The path-start node is normally surfaced only in the Пути tab (so picking a path happens there).
+		// But ONCE it's researched we DO want it shown in the tree as the first, already-owned ability of
+		// the path you're walking (matching TG / the Ash path) - so don't skip a researched start here.
+		// (Unpicked starts are still skipped in the researchable loop below, keeping path-choice in Пути.)
 		var/list/knowledge_data = get_knowledge_data(knowledge, TRUE)
 		if(GLOB.heretic_research_tree[knowledge][HKT_ROUTE] == PATH_SIDE)
 			shop += list(knowledge_data)

@@ -722,6 +722,10 @@
 	range = 16
 	hit_crawling_mobs_chance = 100
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
+	// tg's curse hands phase through everything and simply fade out at max range (prehit_pierce PHASE,
+	// which master220 lacks). The stock projectile defaults to ricochets_max = 2, so instead they were
+	// bouncing off walls. Disable ricochet so they fly straight and vanish (finale()) like tg.
+	ricochets_max = 0
 	var/datum/beam/arm
 	var/handedness = 0
 

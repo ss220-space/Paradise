@@ -8,6 +8,10 @@
 	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
+	// tg's Rust Charge inherits the base charge button: actions_items.dmi "sniper_zoom" (the red
+	// crosshair). The port's base charge sets no icon, so it fell back to the generic spell scroll.
+	action_icon = 'icons/mob/actions/actions_items.dmi'
+	action_icon_state = "sniper_zoom"
 	charge_distance = 10
 	charge_damage = 40
 	base_cooldown = 30 SECONDS

@@ -41,8 +41,11 @@
 	return things_to_convert
 
 
+// The spell self-targets (targets == [user]), so the actual AoE turfs/structures have to be gathered
+// here via get_things_to_cast_on() - iterating `targets` directly only ever rusted the caster's own
+// tile, which is why Aggressive Spread did nothing.
 /obj/effect/proc_holder/spell/aoe/rust_conversion/cast(list/targets, mob/user = usr)
-	for(var/mob/living/victim as anything in targets)
+	for(var/atom/victim as anything in get_things_to_cast_on(user))
 		// We have less chance of rusting stuff that's further
 		var/distance_to_caster = get_dist(victim, user)
 		var/chance_of_not_rusting = (max(distance_to_caster, 1) - 1) * 100 / (aoe_range + 1)

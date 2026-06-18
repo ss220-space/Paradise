@@ -99,11 +99,21 @@
 
 // --- Rust system base hooks ---
 // Base no-op; specific atoms/turfs override rust_heretic_act() to define what rusting does to them.
-// NOTE: the per-type rust-behaviour overrides (windows, machines, walls becoming rusted) are scattered
-// across base files in tg/selfharm and are deferred to the Rust-path runtime polish; only the base
-// hooks are provided here so the heretic code compiles. /turf rusting is handled by rust_turf.dm.
+// /turf rusting is handled by rust_turf.dm.
 /atom/proc/rust_heretic_act(strength)
 	return
+
+// Structures shatter under rust - tg's /obj/structure/rust_heretic_act (take_damage 500 brute). This is
+// the identity that lets Aggressive Spread break adjacent grilles and weaker windows, and lets the
+// secondary Mansus Grasp smash structures. Reinforced/strong windows survive the 500, flimsy ones don't.
+// (mawed_crucible / eldritch structures keep their own more-specific override, so they're unaffected.)
+/obj/structure/rust_heretic_act(strength)
+	take_damage(500, BRUTE, MELEE, TRUE)
+
+// Machines crumble harder the stronger the heretic - tg's /obj/machinery/rust_heretic_act
+// (500 + rust_strength * 200 brute). A bare call (null strength) is treated as 0 → a flat 500.
+/obj/machinery/rust_heretic_act(strength)
+	take_damage(500 + strength * 200, BRUTE, BOMB, TRUE)
 
 /// Wrapper proc that passes our mob's rust_strength to the target we are rusting.
 /mob/proc/do_rust_heretic_act(atom/target)

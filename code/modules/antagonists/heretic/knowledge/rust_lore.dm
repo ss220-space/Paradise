@@ -122,7 +122,8 @@
 	gain_text = "В голове закружились образы чуждых и зловещих сооружений. \
 				Покрытые толстым слоем ржавчины, они больше не выглядели рукотворными. \
 				Или, возможно, они никогда небыли таковыми."
-	research_tree_icon_path = 'icons/mob/actions/actions.dmi'
+	// Match the ability button: tg's actions_spells.dmi "shield", not actions.dmi "shield" (a blue badge).
+	research_tree_icon_path = 'icons/mob/actions/actions_spells.dmi'
 	research_tree_icon_state = "shield"
 	spell_to_add = /obj/effect/proc_holder/spell/pointed/rust_construction
 	cost = 1
@@ -174,10 +175,10 @@
 	gain_text = "Кузнец облачился в лохмотья, изъеденные ржавчиной. И всё же они держались крепче любой стали."
 	required_atoms = list(
 		list(/obj/structure/table, /obj/item/clothing/suit) = 1,
-		/obj/item/clothing/mask/gas = 1,
+		/obj/item/clothing/mask = 1,
 		/obj/item/trash = 1,
 	)
-	result_atoms = list(/obj/item/clothing/suit/hooded/cultrobes/eldritch)
+	result_atoms = list(/obj/item/clothing/suit/hooded/cultrobes/eldritch/rust)
 	research_tree_icon_path = 'icons/obj/clothing/armor.dmi'
 	research_tree_icon_state = "eldritch_armor"
 	research_tree_icon_frame = 12
@@ -308,7 +309,9 @@
 
 /datum/heretic_knowledge/ultimate/rust_final/proc/delay_transform_turfs(list/turfs)
 	for(var/turf/turf as anything in turfs)
-		turf.rust_heretic_act(5)
+		// ORGANIC (4) like tg: the ascension corrodes everything short of ABSOLUTE-resistance turfs
+		// (space, indestructible), so the station rusts over but the void/hull stays intact.
+		turf.rust_heretic_act(RUST_RESISTANCE_ORGANIC)
 		CHECK_TICK
 
 

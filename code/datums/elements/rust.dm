@@ -4,10 +4,11 @@
  */
 /datum/element/rust
 	element_flags = ELEMENT_BESPOKE | ELEMENT_DETACH_ON_HOST_DESTROY // Detach for turfs
+	argument_hash_start_idx = 2
 	/// The rust image itself, since the icon and icon state are only used as an argument
 	var/image/rust_overlay
 
-/datum/element/rust/Attach(atom/target, rust_icon = null, rust_icon_state = "rust_default")
+/datum/element/rust/Attach(atom/target, rust_icon = 'icons/effects/rust_overlay.dmi', rust_icon_state = "rust_default")
 	. = ..()
 	if(!isatom(target))
 		return ELEMENT_INCOMPATIBLE

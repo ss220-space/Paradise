@@ -207,6 +207,181 @@
 	)
 
 
+// Собранный Раймент (Salvaged Remains / Reassembled Raiment) — Rust path robes.
+// Matching TG: provides solid armor that surges to a much higher tier (plus pierce immunity) while the
+// wearer stands on rusted tiles, and acts as a focus while hooded (inherited from the eldritch base).
+// master220 uses /datum/armor datums + set_armor() rather than TG's armor_type, so we swap between the
+// base and on-rust armor datums on movement.
+/datum/armor/eldritch_armor_rust
+	melee = 30
+	bullet = 30
+	laser = 30
+	energy = 30
+	bomb = 50
+	bio = 30
+	fire = 30
+	acid = 30
+
+
+/datum/armor/eldritch_armor_rust/on_rust
+	melee = 60
+	bullet = 60
+	laser = 60
+	energy = 60
+	bomb = 100
+	bio = 60
+	fire = 60
+	acid = 60
+
+
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/rust
+	name = "собранный раймент"
+	desc = "Прикосновение к складкам этой простой робы наполняет вас тревогой. \
+			Даже один взгляд вызывает головокружение. \
+			Что-то пульсирует под ней, словно силясь затянуть вас внутрь."
+	icon = 'icons/obj/clothing/heretic_rust_robe.dmi'
+	icon_state = "rust_armor"
+	item_state = "rust_armor"
+	// master220 resolves the worn (on-mob) sprite via onmob_sheets[slot] - the rust robe keeps TG's
+	// animated rust shimmer here.
+	onmob_sheets = list(
+		ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/heretic_rust_robe.dmi',
+	)
+	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie/eldritch/rust
+	armor = list(MELEE = 30, BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 50, BIO = 30, FIRE = 30, ACID = 30)
+	/// TRUE while we are currently granting the empowered on-rust armor.
+	var/rusted = FALSE
+
+
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/rust/get_ru_names()
+	return alist(
+		NOMINATIVE = "собранный раймент",
+		GENITIVE = "собранного раймента",
+		DATIVE = "собранному райменту",
+		ACCUSATIVE = "собранный раймент",
+		INSTRUMENTAL = "собранным райментом",
+		PREPOSITIONAL = "собранном райменте",
+	)
+
+
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/rust/examine(mob/user)
+	. = ..()
+	if(!isheretic(user))
+		return
+	. += span_notice("Стоя на ржавчине, вы получаете значительно усиленную защиту.")
+
+
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/rust/equipped(mob/user, slot, initial = FALSE)
+	. = ..()
+	if(slot == ITEM_SLOT_CLOTH_OUTER)
+		RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(on_move), override = TRUE)
+		update_rust_state(user)
+	else
+		UnregisterSignal(user, COMSIG_MOVABLE_MOVED)
+		reset_rust_armor(user)
+
+
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/rust/dropped(mob/user, slot, silent = FALSE)
+	. = ..()
+	UnregisterSignal(user, COMSIG_MOVABLE_MOVED)
+	reset_rust_armor(user)
+
+
+/// Signal proc for [COMSIG_MOVABLE_MOVED]: re-evaluate the on-rust armor bonus when the wearer moves.
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/rust/proc/on_move(mob/living/source, atom/old_loc, dir, forced, list/old_locs)
+	SIGNAL_HANDLER
+	update_rust_state(source)
+
+
+/// Grants the empowered on-rust armor (+ pierce immunity) while standing on a rusted tile, reverting otherwise.
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/rust/proc/update_rust_state(mob/living/wearer)
+	var/turf/wearer_turf = get_turf(wearer)
+	if(HAS_TRAIT(wearer_turf, TRAIT_RUSTY))
+		if(rusted)
+			return
+		rusted = TRUE
+		set_armor(/datum/armor/eldritch_armor_rust/on_rust)
+		if(isliving(wearer))
+			ADD_TRAIT(wearer, TRAIT_PIERCEIMMUNE, UID())
+		return
+	reset_rust_armor(wearer)
+
+
+/// Reverts to the base armor and removes the on-rust pierce immunity.
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/rust/proc/reset_rust_armor(mob/living/wearer)
+	if(!rusted)
+		return
+	rusted = FALSE
+	set_armor(/datum/armor/eldritch_armor_rust)
+	if(isliving(wearer))
+		REMOVE_TRAIT(wearer, TRAIT_PIERCEIMMUNE, UID())
+
+
+/obj/item/clothing/head/hooded/cult_hoodie/eldritch/rust
+	name = "капюшон собранного раймента"
+	desc = "Прикосновение к складкам этой простой робы наполняет вас тревогой. \
+			Даже один взгляд вызывает головокружение. \
+			Что-то пульсирует под ней, словно силясь затянуть вас внутрь."
+	icon = 'icons/obj/clothing/heretic_rust_hood.dmi'
+	icon_state = "rust_armor"
+	onmob_sheets = list(
+		ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/heretic_rust_hood.dmi',
+	)
+	armor = list(MELEE = 30, BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 50, BIO = 30, FIRE = 30, ACID = 30)
+	/// TRUE while granting the empowered on-rust armor.
+	var/rusted = FALSE
+
+
+/obj/item/clothing/head/hooded/cult_hoodie/eldritch/rust/get_ru_names()
+	return alist(
+		NOMINATIVE = "капюшон собранного раймента",
+		GENITIVE = "капюшона собранного раймента",
+		DATIVE = "капюшону собранного раймента",
+		ACCUSATIVE = "капюшон собранного раймента",
+		INSTRUMENTAL = "капюшоном собранного раймента",
+		PREPOSITIONAL = "капюшоне собранного раймента",
+	)
+
+
+/obj/item/clothing/head/hooded/cult_hoodie/eldritch/rust/equipped(mob/user, slot, initial = FALSE)
+	. = ..()
+	if(slot == ITEM_SLOT_HEAD)
+		RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(on_move), override = TRUE)
+		update_rust_state(user)
+	else
+		UnregisterSignal(user, COMSIG_MOVABLE_MOVED)
+		reset_rust_armor(user)
+
+
+/obj/item/clothing/head/hooded/cult_hoodie/eldritch/rust/dropped(mob/user, slot, silent = FALSE)
+	. = ..()
+	UnregisterSignal(user, COMSIG_MOVABLE_MOVED)
+	reset_rust_armor(user)
+
+
+/obj/item/clothing/head/hooded/cult_hoodie/eldritch/rust/proc/on_move(mob/living/source, atom/old_loc, dir, forced, list/old_locs)
+	SIGNAL_HANDLER
+	update_rust_state(source)
+
+
+/obj/item/clothing/head/hooded/cult_hoodie/eldritch/rust/proc/update_rust_state(mob/living/wearer)
+	var/turf/wearer_turf = get_turf(wearer)
+	if(HAS_TRAIT(wearer_turf, TRAIT_RUSTY))
+		if(rusted)
+			return
+		rusted = TRUE
+		set_armor(/datum/armor/eldritch_armor_rust/on_rust)
+		return
+	reset_rust_armor(wearer)
+
+
+/obj/item/clothing/head/hooded/cult_hoodie/eldritch/rust/proc/reset_rust_armor(mob/living/wearer)
+	if(!rusted)
+		return
+	rusted = FALSE
+	set_armor(/datum/armor/eldritch_armor_rust)
+
+
 // Плащ Пустоты. Turns invisible with the hood up, lets you hide stuff.
 /obj/item/clothing/head/hooded/cult_hoodie/void
 	name = "капюшон пустоты"

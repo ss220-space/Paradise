@@ -4,6 +4,9 @@
 	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
+	// tg's Rust Formation button is actions_spells.dmi "shield" (NOT actions.dmi "shield", which is a
+	// completely different blue badge in master220). action_spells.dmi is copied 1:1 from tg for this.
+	action_icon = 'icons/mob/actions/actions_spells.dmi'
 	action_icon_state = "shield"
 	ranged_mousepointer = 'icons/effects/mouse_pointers/throw_target.dmi'
 	//check_flags = AB_CHECK_INCAPACITATED|AB_CHECK_CONSCIOUS|AB_CHECK_HANDS_BLOCKED
@@ -11,7 +14,9 @@
 	school = SCHOOL_FORBIDDEN
 	human_req = FALSE
 	clothes_req = FALSE
-	base_cooldown = 8 SECONDS
+	// TG's Rust Formation is a toggle (unset_after_click = FALSE) on a short cooldown: you keep the
+	// click ability armed and raise a wall every couple seconds. See should_remove_click_intercept below.
+	base_cooldown = 2 SECONDS
 
 	// Both of these are changed in before_cast
 	invocation = "Кто-то возводит стену ржавчины."
@@ -30,6 +35,40 @@
  */
 /obj/effect/proc_holder/spell/pointed/rust_construction/aim_assist(mob/living/clicker, atom/target)
 	return get_turf(target)
+
+// Toggleable: keep the click ability armed after each cast (TG's unset_after_click = FALSE) so the
+// heretic can raise several walls in a row. Click the ability button again to disarm it.
+/obj/effect/proc_holder/spell/pointed/rust_construction/should_remove_click_intercept(mob/user)
+	return FALSE
+
+
+// While the ability is armed, re-assert the throw-target cursor whenever the caster moves. BYOND resets
+// client.mouse_pointer_icon to default on movement/perspective changes, which is why the "hand" cursor
+// vanished after a step. on_activation/on_deactivation are the pointed-spell hooks fired on arm/disarm.
+/obj/effect/proc_holder/spell/pointed/rust_construction/on_activation(mob/on_who)
+	. = ..()
+	if(!.)
+		return
+	RegisterSignal(on_who, COMSIG_MOVABLE_MOVED, PROC_REF(reassert_cursor), override = TRUE)
+
+
+/obj/effect/proc_holder/spell/pointed/rust_construction/on_deactivation(mob/on_who, refund_cooldown = TRUE)
+	. = ..()
+	if(on_who)
+		UnregisterSignal(on_who, COMSIG_MOVABLE_MOVED)
+
+
+// Re-apply the cursor DIRECTLY rather than via add_mousepointer(): for pointed spells add_mousepointer()
+// also calls on_activation(), which to_chat()s the "You prepare to use..." line - doing that on every
+// single step is the chat spam. Setting mouse_pointer_icon here keeps the hand without re-announcing.
+/obj/effect/proc_holder/spell/pointed/rust_construction/proc/reassert_cursor(mob/source)
+	SIGNAL_HANDLER
+	if(source != ranged_ability_user)
+		return
+	var/client/our_client = source.client
+	if(our_client && ranged_mousepointer && our_client.mouse_pointer_icon != ranged_mousepointer)
+		our_client.mouse_pointer_icon = ranged_mousepointer
+
 
 /obj/effect/proc_holder/spell/pointed/rust_construction/valid_target(atom/cast_on)
 	if(!isturf(cast_on))
@@ -58,6 +97,13 @@
 
 /obj/effect/proc_holder/spell/pointed/rust_construction/cast(list/targets, mob/user = usr)
 	var/turf/cast_on = targets[1]
+	// The /spell_targeting/clicked_atom datum these pointed spells use does NOT call valid_target(), so
+	// the rust requirement has to be enforced here or walls could be raised on any tile. Refund the
+	// cooldown on a bad target so an off-rust misclick doesn't punish the (now toggleable) ability.
+	if(!isturf(cast_on) || !HAS_TRAIT(cast_on, TRAIT_RUSTY))
+		cast_on?.balloon_alert(user, "нет ржавчины!")
+		cooldown_handler.revert_cast()
+		return
 	. = ..()
 	var/rises_message = "поднимается из [cast_on.declent_ru(GENITIVE)]"
 

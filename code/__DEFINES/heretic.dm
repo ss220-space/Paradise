@@ -117,6 +117,16 @@
 /// Overlay layer used by rust/cleanable decals.
 #define ABOVE_CLEANABLES_LAYER 2.0475
 
+// How resistant a turf is to a heretic's rust. A turf only rusts when the heretic's rust_strength is
+// >= the turf's rust_resistance (see /turf/rust_heretic_act). Mirrors tgstation 1:1 so weak heretics
+// can only rust plating/basic walls, while reinforced/titanium turfs require a stronger heretic.
+#define RUST_RESISTANCE_BASIC 1
+#define RUST_RESISTANCE_REINFORCED 2
+#define RUST_RESISTANCE_TITANIUM 3
+#define RUST_RESISTANCE_ORGANIC 4
+/// Never rusts by normal means (space, indestructible turfs, ...).
+#define RUST_RESISTANCE_ABSOLUTE 5
+
 /// TRUE if a hand index is a left hand (odd indices are left in tg's hand model).
 #define IS_LEFT_INDEX(value) (value % 2 != 0)
 
