@@ -14,11 +14,6 @@
 	var/projectiles
 	var/projectile_energy_cost
 
-/obj/item/mecha_parts/mecha_equipment/weapon/can_attach(obj/mecha/M)
-	if(M.emagged || ..())
-		return TRUE
-	return FALSE
-
 /obj/item/mecha_parts/mecha_equipment/weapon/proc/get_shot_amount()
 	return projectiles_per_shot
 
@@ -547,11 +542,7 @@
 	projectile_energy_cost = 50
 	equip_cooldown = 1 SECONDS
 	harmful = FALSE
-
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/bola/can_attach(obj/mecha/M)
-	if( ..() && (istype(M, /obj/mecha/combat/gygax) || istype(M, /obj/mecha/makeshift/lockersyndie)))
-		return TRUE
-	return FALSE
+	module_type = MECH_EQUIPMENT_GYGAX
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/bola/action(target, list/modifiers)
 	if(!action_checks(target))
@@ -587,4 +578,4 @@
 	energy_drain = 50
 	projectile = /obj/projectile/kinetic/mech
 	fire_sound = 'sound/weapons/kenetic_accel.ogg'
-	module_type = MECH_EQUIPMENT_ALL
+	module_type = ALL
