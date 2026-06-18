@@ -439,6 +439,7 @@
 				else
 					msg += "[span_deptradio("Личное дело:")] [copytext_preserve_html(skills, 1, char_limit-3)]...<a href='byond://?src=[UID()];employment_more=1'>Подробнее...</a>\n"
 
+
 	if(hasHUD(user,EXAMINE_HUD_MEDICAL))
 		var/perpname = get_visible_name(add_id_name = FALSE)
 		var/medical = "None"
