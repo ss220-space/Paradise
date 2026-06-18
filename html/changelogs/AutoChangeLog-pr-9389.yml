@@ -1,0 +1,6 @@
+author: "SCPfollower"
+delete-after: True
+changes:
+  - bugfix: "Исправлен рецепт растяжки. (PR #9389)"
+  - refactor: "Перенос дефайна TRIPWIRE_GRENADE_DETONATION_TIME к гранатам и его использование. (PR #9389)"
+  - balance: "Уменьшено время детонации гранат на растяжках (1с -> 0.4с). (PR #9389)"

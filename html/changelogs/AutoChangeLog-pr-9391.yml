@@ -1,0 +1,4 @@
+author: "dageavtobusnick"
+delete-after: True
+changes:
+  - del: "Отключены функции импорта/экспорта интегралок. (PR #9391)"

@@ -23,6 +23,7 @@ would spawn and follow the beaker, even if it is carried or thrown.
 	return TRUE
 
 /datum/effect_system
+	abstract_type = /datum/effect_system
 	var/number = 3
 	var/cardinals = FALSE
 	var/turf/location

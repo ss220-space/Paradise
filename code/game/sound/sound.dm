@@ -15,8 +15,11 @@ GLOBAL_LIST_EMPTY(cached_songs)
  * * pressure_affected - Whether or not difference in pressure affects the sound (E.g. if you can hear in space).
  * * ignore_walls - Whether or not the sound can pass through walls.
  * * falloff_distance - Distance at which falloff begins. Sound is at peak volume (in regards to falloff) aslong as it is in this range.
+ * * min_volume - minimum volume the sound can reach at max_range.
  */
-/proc/playsound(atom/source, soundin, vol as num, vary, extrarange as num, falloff_exponent = SOUND_FALLOFF_EXPONENT, frequency = null, channel = 0, pressure_affected = TRUE, ignore_walls = TRUE, falloff_distance = SOUND_DEFAULT_FALLOFF_DISTANCE, use_reverb = TRUE)
+/proc/playsound(atom/source, soundin, vol as num, vary, extrarange as num, falloff_exponent = SOUND_FALLOFF_EXPONENT, frequency = null, channel = 0, pressure_affected = TRUE, ignore_walls = TRUE, falloff_distance = SOUND_DEFAULT_FALLOFF_DISTANCE, use_reverb = TRUE, min_volume = 3)
+	RETURN_TYPE(/list)
+
 	if(isarea(source))
 		CRASH("playsound(): source is an area")
 
@@ -25,9 +28,6 @@ GLOBAL_LIST_EMPTY(cached_songs)
 
 	if(!soundin)
 		CRASH("playsound(): no soundin passed")
-
-	if(vol < SOUND_AUDIBLE_VOLUME_MIN) // never let sound go below SOUND_AUDIBLE_VOLUME_MIN or bad things will happen
-		CRASH("playsound(): volume below SOUND_AUDIBLE_VOLUME_MIN. [vol] < [SOUND_AUDIBLE_VOLUME_MIN]")
 
 	var/turf/turf_source = get_turf(source)
 	if(!turf_source)
@@ -41,39 +41,46 @@ GLOBAL_LIST_EMPTY(cached_songs)
 	var/maxdistance = SOUND_RANGE + extrarange
 	var/source_z = turf_source.z
 
+	if(falloff_distance >= maxdistance)
+		CRASH("playsound(): falloff_distance ([falloff_distance]) is equal to or higher than maxdistance ([maxdistance])! Bump up extrarange or reduce the falloff_distance.")
+
 	if(vary && !frequency)
 		frequency = get_rand_frequency() // skips us having to do it per-sound later. should just make this a macro tbh
 
 	var/list/listeners
+
 	var/turf/above_turf = GET_TURF_ABOVE(turf_source)
 	var/turf/below_turf = GET_TURF_BELOW(turf_source)
-	var/audible_distance = CALCULATE_MAX_SOUND_AUDIBLE_DISTANCE(vol, maxdistance, falloff_distance, falloff_exponent)
 
 	if(ignore_walls)
-		listeners = get_hearers_in_range(audible_distance, turf_source, RECURSIVE_CONTENTS_CLIENT_MOBS)
+		listeners = get_hearers_in_range(maxdistance, turf_source, RECURSIVE_CONTENTS_CLIENT_MOBS, TRUE)
 		if(above_turf && istransparentturf(above_turf))
-			listeners += get_hearers_in_range(audible_distance, above_turf, RECURSIVE_CONTENTS_CLIENT_MOBS)
+			listeners += get_hearers_in_range(maxdistance, above_turf, RECURSIVE_CONTENTS_CLIENT_MOBS, TRUE)
 
 		if(below_turf && istransparentturf(turf_source))
-			listeners += get_hearers_in_range(audible_distance, below_turf, RECURSIVE_CONTENTS_CLIENT_MOBS)
+			listeners += get_hearers_in_range(maxdistance, below_turf, RECURSIVE_CONTENTS_CLIENT_MOBS, TRUE)
 
 	else //these sounds don't carry through walls
-		listeners = get_hearers_in_view(audible_distance, turf_source, RECURSIVE_CONTENTS_CLIENT_MOBS)
+		listeners = get_hearers_in_view(maxdistance, turf_source, RECURSIVE_CONTENTS_CLIENT_MOBS, TRUE)
 
 		if(above_turf && istransparentturf(above_turf))
-			listeners += get_hearers_in_view(audible_distance, above_turf, RECURSIVE_CONTENTS_CLIENT_MOBS)
+			listeners += get_hearers_in_view(maxdistance, above_turf, RECURSIVE_CONTENTS_CLIENT_MOBS, TRUE)
 
 		if(below_turf && istransparentturf(turf_source))
-			listeners += get_hearers_in_view(audible_distance, below_turf, RECURSIVE_CONTENTS_CLIENT_MOBS)
+			listeners += get_hearers_in_view(maxdistance, below_turf, RECURSIVE_CONTENTS_CLIENT_MOBS, TRUE)
 
 		for(var/mob/listening_ghost as anything in SSmobs.dead_players_by_zlevel[source_z])
-			if(get_dist(listening_ghost, turf_source) <= audible_distance)
-				listeners += listening_ghost
+			listeners += listening_ghost
 
 	for(var/mob/listening_mob in listeners)//had nulls sneak in here, hence the typecheck
-		listening_mob.playsound_local(turf_source, soundin, vol, vary, frequency, falloff_exponent, channel, pressure_affected, sound, maxdistance, falloff_distance, 1, use_reverb)
+		var/turf/mob_turf = get_turf(listening_mob)
+		if(!mob_turf)
+			continue
+		if(get_dist_euclidean(mob_turf, turf_source) <= maxdistance)
+			listening_mob.playsound_local(turf_source, soundin, vol, vary, frequency, falloff_exponent, channel, pressure_affected, sound, maxdistance, falloff_distance, 1, use_reverb)
 
 	return listeners
+
 /**
  * Plays a sound with a specific point of origin for src mob
  * Affected by pressure, distance, terrain and environment (see arguments)
@@ -92,8 +99,10 @@ GLOBAL_LIST_EMPTY(cached_songs)
  * * falloff_distance - Distance at which falloff begins. Sound is at peak volume (in regards to falloff) aslong as it is in this range.
  * * distance_multiplier - Default 1, multiplies the maximum distance of our sound
  * * use_reverb - bool default TRUE, determines if our sound has reverb
+ * * wait - bool default FALSE, determines if we wait for the sound to finish
+ * * min_volume - minimum volume the sound can reach at max_range.
  */
-/mob/proc/playsound_local(turf/turf_source, soundin, vol as num, vary, frequency, falloff_exponent = SOUND_FALLOFF_EXPONENT, channel = 0, pressure_affected = TRUE, sound/sound_to_use, max_distance, falloff_distance = SOUND_DEFAULT_FALLOFF_DISTANCE, distance_multiplier = 1, use_reverb = TRUE, wait = FALSE)
+/mob/proc/playsound_local(turf/turf_source, soundin, vol as num, vary, frequency, falloff_exponent = SOUND_FALLOFF_EXPONENT, channel = 0, pressure_affected = TRUE, sound/sound_to_use, max_distance, falloff_distance = SOUND_DEFAULT_FALLOFF_DISTANCE, distance_multiplier = 1, use_reverb = TRUE, wait = FALSE, min_volume = 5)
 	if(!client || HAS_TRAIT(src, TRAIT_DEAF))
 		return
 
@@ -105,9 +114,7 @@ GLOBAL_LIST_EMPTY(cached_songs)
 	sound_to_use.volume = vol
 
 	if(vary)
-		if(islist(vary)) // ???
-			sound_to_use.frequency = rand(vary[1], vary[2])
-		else if(frequency)
+		if(frequency)
 			sound_to_use.frequency = frequency
 		else
 			sound_to_use.frequency = get_rand_frequency()
@@ -118,10 +125,10 @@ GLOBAL_LIST_EMPTY(cached_songs)
 		var/turf/turf_loc = get_turf(src)
 
 		// sound volume falloff with distance
-		distance = get_dist(turf_loc, turf_source) * distance_multiplier
+		distance = get_dist_euclidean(turf_loc, turf_source) * distance_multiplier
 
 		if(max_distance) // If theres no max_distance we're not a 3D sound, so no falloff.
-			sound_to_use.volume -= CALCULATE_SOUND_VOLUME(vol, distance, max_distance, falloff_distance, falloff_exponent)
+			sound_to_use.volume -= CALCULATE_SOUND_VOLUME_RATIO(vol, distance, max_distance, falloff_distance, falloff_exponent) * (vol - min_volume)
 
 		if(pressure_affected)
 			//Atmosphere affects sound
@@ -142,9 +149,6 @@ GLOBAL_LIST_EMPTY(cached_songs)
 
 			sound_to_use.volume *= pressure_factor
 			//End Atmosphere affecting sound
-
-		if(sound_to_use.volume <= SOUND_AUDIBLE_VOLUME_MIN)
-			return // No sound
 
 		var/dx = turf_source.x - turf_loc.x // Hearing from the right/left
 		sound_to_use.x = dx * distance_multiplier
@@ -173,7 +177,11 @@ GLOBAL_LIST_EMPTY(cached_songs)
 	if(channel)
 		sound_to_use.volume *= USER_VOLUME(src, channel)
 
+	if(sound_to_use.volume < 0.1)
+		return FALSE
+
 	SEND_SOUND(src, sound_to_use)
+	return TRUE
 
 /proc/sound_to_playing_players_on_station_level(soundin, volume = 100, vary = FALSE, frequency = 0, channel = 0, pressure_affected = FALSE, sound/sound_to_use)
 	if(!sound_to_use)
@@ -244,6 +252,15 @@ GLOBAL_LIST_EMPTY(cached_songs)
 		return soundin
 	var/datum/sound_effect/sfx = GLOB.sfx_datum_by_key[soundin]
 	return sfx?.return_sfx() || soundin
+
+/**
+ * Creates a soundtoken datum (a sound that updates for movement).
+ * * allowed_listeners is an optional list of mobs that are the only ones that can hear this sound ever.
+ * * sound_length is an optional length of the sound. Things like TTS need to pass this since we can't dynamically grab the length in that case.
+ * * frequency is an optional playback speed; null keeps the default speed.
+ */
+/proc/playsoundtoken(atom/source, soundin, volume, range, falloff_exponent = SOUND_FALLOFF_EXPONENT, falloff_distance = SOUND_DEFAULT_FALLOFF_DISTANCE, allowed_listeners, sound_length, frequency)
+	return new /datum/sound_token(source, soundin, range, volume, falloff_exponent, falloff_distance, allowed_listeners, sound_length, delete_on_end = TRUE, frequency = frequency)
 
 /proc/apply_sound_effect(effect, filename_input, filename_output)
 	filename_input = filename_sanitize(filename_input)

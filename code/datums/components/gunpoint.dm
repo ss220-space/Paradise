@@ -277,7 +277,7 @@
 	if(!shooter_turf || is_admin_level(shooter_turf.z))
 		return
 
-	if(istype(weapon, /obj/item/gun/rocketlauncher) && weapon.chambered)
+	if(istype(weapon, /obj/item/gun/projectile/revolver/rocketlauncher) && weapon.chambered)
 		if(target.stat == CONSCIOUS && shooter.mind.has_antag_datum(/datum/antagonist/nuclear_operative) && !target.mind.has_antag_datum(/datum/antagonist/nuclear_operative))
 			if(locate(/obj/item/disk/nuclear) in target.get_contents())
 				target.client.give_award(/datum/award/achievement/misc/rocket_holdup, target)

@@ -11,3 +11,10 @@ sound/music/pilotpriest-now-be-the-light.ogg is song by PILOTPRIEST (Anthony Sco
 sound/music/dies_irae.ogg is Dies Irae (Day of Wrath) from Requiem in D minor, K. 626 by Wolfgang Amadeus Mozart. The composition is in the public domain.
 
 sound/music/knight_dance.ogg is Dance of the Knights from Romeo and Juliet, Op. 64 by Sergei Prokofiev. This recording is in the public domain.
+
+chainsaw_loop.ogg is adapted from Audionautics "Chainsaw Idle Loops", which is licensed under CC Attribution 3.0
+https://freesound.org/people/Audionautics/sounds/171652/
+chainsaw_start.ogg is adapted from 8 Chainsaw Pulls.wav by Stefan021
+https://freesound.org/s/431740/ (CC 0)
+chainsaw_stop.ogg is adapted from kyles "chainsaw sawing short cuts +stop.flac" (CC 0)
+https://freesound.org/people/kyles/sounds/453256/

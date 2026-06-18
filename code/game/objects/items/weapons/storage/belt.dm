@@ -15,50 +15,15 @@
 	drop_sound = 'sound/items/handling/drop/toolbelt_drop.ogg'
 	custom_price = PAYCHECK_COMMAND // belts are useful => they're expensive
 	abstract_type = /obj/item/storage/belt
+	dynamic_storage_size = TRUE
 
 	/// Do we have overlays for items held inside the belt?
 	var/use_item_overlays = FALSE
-	/// Won't change it's size even with items inside if TRUE
-	var/storable = FALSE
-	/// Size after putting smth in
-	var/expanded_size = WEIGHT_CLASS_BULKY
-	/// Size when there's no contents
-	var/folded_size = WEIGHT_CLASS_NORMAL
-
-/obj/item/storage/belt/examine(mob/user)
-	. = ..()
-	if(storable || initial(w_class) == expanded_size)
-		. += span_notice("Размер останется <b>неизменным</b> вне зависимости от содержимого.")
-	else if(length(contents))
-		. += span_notice("<b>Уменьшится</b> в размере после извлечения содержимого.")
-	else
-		. += span_notice("<b>Увеличится</b> в размере при наличии содержимого.")
-
-/obj/item/storage/belt/proc/update_weight()
-	if(initial(w_class) == expanded_size) // so initially BULKY belts won't become NORMAL when they get empty
-		return
-	if(!length(contents) || storable)
-		w_class = folded_size
-		return
-	w_class = expanded_size
-
-/obj/item/storage/belt/remove_from_storage(obj/item/I, atom/new_location)
-	. = ..()
-	update_weight()
-
-/obj/item/storage/belt/can_be_inserted(obj/item/I, stop_messages = FALSE)
-	if(isstorage(loc) && !istype(loc, /obj/item/storage/backpack/holding) && !storable)
-		balloon_alert(usr, "сначала вытащите пояс!")
-		return FALSE
-	. = ..()
 
 /obj/item/storage/belt/Initialize(mapload)
 	. = ..()
-	update_weight()
-
-/obj/item/storage/belt/handle_item_insertion(obj/item/I, prevent_warning)
-	. = ..()
-	update_weight()
+	if(dynamic_storage_size)
+		AddComponent(/datum/component/differentiate_storage_size, WEIGHT_CLASS_BULKY)
 
 /obj/item/storage/belt/proc/check_menu(mob/living/user)
 	if(!istype(user))
@@ -201,7 +166,7 @@
 	item_state = "utility_ce"
 	storage_slots = 8
 	max_combined_w_class = 20 // set of tools + RCD/RPD
-	storable = TRUE
+	dynamic_storage_size = FALSE
 
 /obj/item/storage/belt/utility/chief/full/populate_contents()
 	new /obj/item/screwdriver/power(src)
@@ -335,7 +300,7 @@
 	icon = 'icons/obj/abductor.dmi'
 	item_state = "surgical_alien"
 	max_combined_w_class = 19
-	storable = TRUE
+	dynamic_storage_size = FALSE
 	can_hold = list(
 		/obj/item/scalpel,
 		/obj/item/hemostat,
@@ -635,7 +600,7 @@
 	icon_state = "militarybelt"
 	item_state = "military"
 	max_combined_w_class = 18
-	storable = TRUE
+	dynamic_storage_size = FALSE
 	resistance_flags = FIRE_PROOF
 
 /obj/item/storage/belt/military/sst

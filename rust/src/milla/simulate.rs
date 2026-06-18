@@ -1,11 +1,11 @@
 use crate::milla::constants::*;
 use crate::milla::model::*;
-use byondapi::map::ByondXYZ;
 use core::f32;
-use eyre::eyre;
-use rand::Rng;
+use meowtonin::{ByondError, ByondResult, ByondXYZ};
+use rand::RngExt;
 use scc::Bag;
 use std::collections::HashSet;
+use std::error::Error;
 use std::f32::consts::E;
 
 pub(crate) fn find_walls(next: &mut ZLevel) {
@@ -128,7 +128,7 @@ impl AirflowOutcome {
 }
 
 /// Let the air flow until it stabilizes for this tick or we run out of patience.
-pub(crate) fn flow_air(prev: &ZLevel, next: &mut ZLevel) -> Result<AirflowOutcome, eyre::Error> {
+pub(crate) fn flow_air(prev: &ZLevel, next: &mut ZLevel) -> ByondResult<AirflowOutcome> {
     let mut outcome = flow_air_once(prev, next, None)?;
 
     for _iter in 1..MAX_ITERATIONS {
@@ -152,7 +152,7 @@ pub(crate) fn flow_air_once(
     prev: &ZLevel,
     next: &mut ZLevel,
     maybe_old_outcome: Option<&AirflowOutcome>,
-) -> Result<AirflowOutcome, eyre::Error> {
+) -> ByondResult<AirflowOutcome> {
     let mut new_outcome = AirflowOutcome::new();
 
     if let Some(old_outcome) = maybe_old_outcome {
@@ -173,7 +173,7 @@ pub(crate) fn flow_air_once_at_index(
     next: &mut ZLevel,
     my_index: usize,
     outcome: &mut AirflowOutcome,
-) -> Result<(), eyre::Error> {
+) -> ByondResult<()> {
     let x = (my_index / MAP_SIZE) as i32;
     let y = (my_index % MAP_SIZE) as i32;
     let my_tile = prev.get_tile(my_index);
@@ -340,7 +340,7 @@ pub(crate) fn post_process(
     environments: &Box<[Tile]>,
     new_interesting_tiles: &Bag<InterestingTile>,
     z: i32,
-) -> Result<(), eyre::Error> {
+) -> ByondResult<()> {
     for my_index in 0..MAP_SIZE * MAP_SIZE {
         let x = (my_index / MAP_SIZE) as i32;
         let y = (my_index % MAP_SIZE) as i32;
@@ -453,7 +453,7 @@ pub(crate) fn check_interesting(
     my_tile: &Tile,
     my_index: usize,
     new_interesting_tiles: &Bag<InterestingTile>,
-) -> Result<(), eyre::Error> {
+) -> ByondResult<()> {
     let mut reasons: ReasonFlags = ReasonFlags::empty();
     {
         let my_next_tile = next.get_tile_mut(my_index);
@@ -594,7 +594,7 @@ pub(crate) fn check_interesting(
         new_interesting_tiles.push(InterestingTile {
             tile: my_next_tile.clone(),
             // +1 here to convert from our 0-indexing to BYOND's 1-indexing.
-            coords: ByondXYZ::with_coords((x as i16 + 1, y as i16 + 1, z as i16 + 1)),
+            coords: ByondXYZ::new(x as i16 + 1, y as i16 + 1, z as i16 + 1),
             reasons,
             wind_x,
             wind_y,
@@ -1592,7 +1592,7 @@ pub(crate) fn do_turf_effects(my_next_tile: &mut Tile) {
 pub(crate) fn apply_tile_mode(
     my_next_tile: &mut Tile,
     environments: &Box<[Tile]>,
-) -> Result<(), eyre::Error> {
+) -> ByondResult<()> {
     match my_next_tile.mode {
         AtmosMode::Space => {
             // Space tiles lose all gas and thermal energy every tick.
@@ -1605,7 +1605,9 @@ pub(crate) fn apply_tile_mode(
         AtmosMode::ExposedTo { environment_id } => {
             // Exposed tiles reset back to the same state every tick.
             if environment_id as usize > environments.len() {
-                return Err(eyre!("Invalid environment ID {}", environment_id));
+                return Err(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+                    format!("Invalid environment ID {}", environment_id),
+                )));
             }
 
             let environment = &environments[environment_id as usize];
