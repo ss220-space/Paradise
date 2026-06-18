@@ -565,7 +565,7 @@ effective or pretty fucking useless.
 	var/aura_on = FALSE
 
 /obj/item/ranged_stasis_generator/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "боевой стазис-генератор «Усмиритель»",
 		GENITIVE = "боевого стазис-генератора «Усмиритель»",
 		DATIVE = "боевому стазис-генератору «Усмиритель»",
