@@ -120,12 +120,16 @@
 /obj/item/grenade/blob_vore_act(obj/structure/blob/special/core/voring_core)
 	obj_destruction(MELEE)
 
+#define TRIPWIRE_GRENADE_DETONATION_TIME 0.4 SECONDS
+
 /obj/item/grenade/on_tripwire_trigger(obj/item/tripwire/base, mob/user)
 	var/turf/turf = get_turf(base)
 	forceMove(turf)
 	active = TRUE
 	update_appearance(UPDATE_ICON_STATE)
 	playsound(turf, 'sound/weapons/armbomb.ogg', 60, TRUE)
-	addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/item/grenade, prime)), 1 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(prime)), TRIPWIRE_GRENADE_DETONATION_TIME)
 	base.attached_item = null
 	base.UnregisterSignal(base, COMSIG_TRIPWIRE_TRIGGERED)
+
+#undef TRIPWIRE_GRENADE_DETONATION_TIME

@@ -464,6 +464,8 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 
 		if("export")
 			var/mob/user = ui.user
+			tgui_alert(user, "Функция отключена до исправления по соображениям безопасности", "ВНИМАНИЕ!")
+			/*
 			var/design_id = text2num(params["designId"])
 
 			if(design_id < 1 || design_id > length(scanned_designs))
@@ -487,10 +489,12 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 				return
 
 			tgui_input_text(user, "Скопируйте текст схемы:", "Экспорт схемы", default = json_base64)
+			*/
 
 		if("import")
 			var/mob/user = ui.user
-
+			tgui_alert(user, "Функция отключена до исправления по соображениям безопасности", "ВНИМАНИЕ!")
+			/*
 			var/json_base64 = params["import"]
 			if(!json_base64)
 				return TRUE
@@ -514,6 +518,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 				data["desc"] = copytext(sanitize(data["desc"]), 1, MAX_CHAR_IN_DESC)
 
 			save_circuit_by_import(user, data)
+			*/
 
 	return TRUE
 
