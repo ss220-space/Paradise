@@ -1,4 +1,6 @@
-use byondapi::value::ByondValue;
+use meowtonin::{byond_fn, ByondError, ByondResult, ByondValue, ToByond};
+use std::error::Error;
+
 use core::f32;
 use std::{fs::File, time::Duration};
 use symphonia::{
@@ -13,13 +15,13 @@ use symphonia::{
     default::{get_codecs, get_probe},
 };
 
-#[byondapi::bind]
-fn sound_len(sound_path: ByondValue) -> eyre::Result<ByondValue> {
+#[byond_fn]
+fn sound_len(sound_path: ByondValue) -> ByondResult<ByondValue> {
     let length = get_sound_length(&sound_path.get_string()?)?;
-    Ok(length.try_into()?)
+    length.to_byond()
 }
 
-fn get_sound_length(sound_path: &str) -> eyre::Result<f32> {
+fn get_sound_length(sound_path: &str) -> ByondResult<f32> {
     let path = sound_path.to_string();
 
     let result = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| {
@@ -37,15 +39,21 @@ fn get_sound_length(sound_path: &str) -> eyre::Result<f32> {
             } else {
                 "Unknown panic".to_string()
             };
-            Err(eyre::eyre!("Symphonia panic: {}", msg))
+            Err(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+                format!("Symphonia panic: {}", msg),
+            )))
         }
     }
 }
 
-fn get_sound_length_inner(sound_path: &str) -> eyre::Result<f32> {
+fn get_sound_length_inner(sound_path: &str) -> ByondResult<f32> {
     let sound_src = match File::open(sound_path) {
         Ok(r) => r,
-        Err(e) => return Err(eyre::eyre!(format!("Couldn't open file, {e}"))),
+        Err(e) => {
+            return Err(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+                format!("Couldn't open file, {e}"),
+            )))
+        }
     };
 
     let mss = MediaSourceStream::new(Box::new(sound_src), Default::default());
@@ -61,7 +69,11 @@ fn get_sound_length_inner(sound_path: &str) -> eyre::Result<f32> {
 
     let probed = match get_probe().format(&hint, mss, &fmt_opts, &meta_opts) {
         Ok(r) => r,
-        Err(e) => return Err(eyre::eyre!(format!("Probe error: {e}"))),
+        Err(e) => {
+            return Err(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+                format!("Probe error: {e}"),
+            )))
+        }
     };
 
     if let Ok(r) = sound_length_simple(&probed) {
@@ -71,23 +83,29 @@ fn get_sound_length_inner(sound_path: &str) -> eyre::Result<f32> {
     sound_length_decode(probed).map(|r| r as f32)
 }
 
-fn sound_length_simple(probed: &ProbeResult) -> eyre::Result<f64> {
+fn sound_length_simple(probed: &ProbeResult) -> ByondResult<f64> {
     let format = &probed.format;
 
     let track = match format.default_track() {
         Some(r) => r,
-        None => return Err(eyre::eyre!("Could not get default track")),
+        None => {
+            return Err(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+                "Could not get default track",
+            )))
+        }
     };
 
-    let time_base = track
-        .codec_params
-        .time_base
-        .ok_or_else(|| eyre::eyre!("Codec does not provide a time base"))?;
+    let time_base = track.codec_params.time_base.ok_or_else(|| {
+        ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+            "Codec does not provide a time base",
+        ))
+    })?;
 
-    let n_frames = track
-        .codec_params
-        .n_frames
-        .ok_or_else(|| eyre::eyre!("Codec does not provide frame count"))?;
+    let n_frames = track.codec_params.n_frames.ok_or_else(|| {
+        ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+            "Codec does not provide frame count",
+        ))
+    })?;
 
     let time = time_base.calc_time(n_frames);
     let duration = Duration::from_secs(time.seconds) + Duration::from_secs_f64(time.frac);
@@ -95,12 +113,16 @@ fn sound_length_simple(probed: &ProbeResult) -> eyre::Result<f64> {
     Ok(duration.as_secs_f64() * 10.0)
 }
 
-fn sound_length_decode(probed: ProbeResult) -> eyre::Result<f64> {
+fn sound_length_decode(probed: ProbeResult) -> ByondResult<f64> {
     let mut format = probed.format;
 
     let track = match format.default_track() {
         Some(r) => r,
-        None => return Err(eyre::eyre!("Could not get default track".to_string())),
+        None => {
+            return Err(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+                "Could not get default track",
+            )))
+        }
     };
 
     // Grab the number of frames of the track
@@ -114,19 +136,31 @@ fn sound_length_decode(probed: ProbeResult) -> eyre::Result<f64> {
     let decoder_opts: DecoderOptions = Default::default();
     let mut decoder = match get_codecs().make(&track.codec_params, &decoder_opts) {
         Ok(r) => r,
-        Err(e) => return Err(eyre::eyre!(format!("Decoder creation error: {e}"))),
+        Err(e) => {
+            return Err(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+                format!("Decoder creation error: {e}"),
+            )))
+        }
     };
 
     // Try to grab a data packet from the container
     let encoded_packet = match format.next_packet() {
         Ok(r) => r,
-        Err(e) => return Err(eyre::eyre!(format!("Next_packet error: {e}"))),
+        Err(e) => {
+            return Err(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+                format!("Next_packet error: {e}"),
+            )))
+        }
     };
 
     // Try to decode the data packet
     let decoded_packet = match decoder.decode(&encoded_packet) {
         Ok(r) => r,
-        Err(e) => return Err(eyre::eyre!(format!("Decode error: {e}"))),
+        Err(e) => {
+            return Err(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+                format!("Decode error: {e}"),
+            )))
+        }
     };
 
     // Grab the sample rate from the spec of the buffer.
@@ -136,14 +170,14 @@ fn sound_length_decode(probed: ProbeResult) -> eyre::Result<f64> {
     Ok(duration_in_desciseconds)
 }
 
-#[byondapi::bind]
-fn sound_len_list(list: ByondValue) -> eyre::Result<ByondValue> {
-    let list_values = list.get_list_values()?;
+#[byond_fn]
+fn sound_len_list(list: ByondValue) -> ByondResult<ByondValue> {
+    let list_values = list.read_list()?;
     let result = get_sound_length_list(&list_values)?;
     Ok(result)
 }
 
-fn get_sound_length_list(list: &[ByondValue]) -> eyre::Result<ByondValue> {
+fn get_sound_length_list(list: &[ByondValue]) -> ByondResult<ByondValue> {
     let mut successes = ByondValue::new_list()?;
     let mut errors = ByondValue::new_list()?;
 
@@ -151,24 +185,24 @@ fn get_sound_length_list(list: &[ByondValue]) -> eyre::Result<ByondValue> {
         let path_string = match path_value.get_string() {
             Ok(s) => s,
             Err(e) => {
-                errors.write_list_index(*path_value, format!("Invalid path: {e}"))?;
+                errors.write_list_index(path_value, format!("Invalid path: {e}"))?;
                 continue;
             }
         };
 
         match get_sound_length(&path_string) {
             Ok(duration) => {
-                successes.write_list_index(*path_value, duration)?;
+                successes.write_list_index(path_value, duration)?;
             }
             Err(e) => {
-                errors.write_list_index(*path_value, e.to_string())?;
+                errors.write_list_index(path_value, e.to_string())?;
             }
         };
     }
 
     let mut out = ByondValue::new_list()?;
-    out.write_list_index(ByondValue::new_str("successes")?, successes)?;
-    out.write_list_index(ByondValue::new_str("errors")?, errors)?;
+    out.write_list_index(ByondValue::new_string("successes"), successes)?;
+    out.write_list_index(ByondValue::new_string("errors"), errors)?;
 
     Ok(out)
 }

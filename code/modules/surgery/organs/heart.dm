@@ -85,7 +85,7 @@
 	actions_types = list(/datum/action/item_action/organ_action/cursed_heart)
 	var/last_pump = 0
 	var/pump_delay = 30 //you can pump 1 second early, for lag, but no more (otherwise you could spam heal)
-	var/blood_loss = 100 //600 blood is human default, so 5 failures (below 122 blood is where humans die because reasons?)
+	var/blood_loss = 50 //600 blood is human default, so 10 failures (below 122 blood is where humans die because reasons?)
 
 	//How much to heal per pump, negative numbers would HURT the player
 	var/heal_brute = 0
@@ -136,6 +136,7 @@
 
 /datum/action/item_action/organ_action/cursed_heart
 	name = "Подкачка крови"
+	stat_allowed = UNCONSCIOUS
 
 //You are now brea- pumping blood manually
 /datum/action/item_action/organ_action/cursed_heart/Trigger(mob/clicker, trigger_flags)

@@ -538,19 +538,20 @@ ADMIN_VERB(free_job_slot, R_ADMIN, "Free Job Slot", "Frees a station job role.",
 		message_admins("[key_name_admin(user)] has freed a job slot for [selected_job].")
 	BLACKBOX_LOG_ADMIN_VERB("Free Job Slot")
 
-ADMIN_VERB(man_up, R_ADMIN, "Man Up", "Tells to man up and deal with it.", ADMIN_CATEGORY_FUN, mob/player_mob as mob in GLOB.player_list)
+ADMIN_VERB(man_up, R_ADMIN, "Man Up", "Tells to man up and deal with it.", ADMIN_CATEGORY_FUN, mob/player_mob in GLOB.player_list)
+	if(QDELETED(player_mob))
+		return
 	to_chat(player_mob, chat_box_notice_thick(span_notice("[span_fontsize4("<b>Man up.<br> Deal with it.</b>")]<br>Move on.")))
 	SEND_SOUND(player_mob, sound('sound/voice/manup1.ogg'))
 
 	log_and_message_admins("told [key_name_log(player_mob)] to man up and deal with it.")
+	BLACKBOX_LOG_ADMIN_VERB("Man Up")
 
 ADMIN_VERB(global_man_up, R_ADMIN, "Man Up Global", "Tells EVERYONE to man up and deal with it.", ADMIN_CATEGORY_FUN)
-	var/confirm = tgui_alert(user, "Are you sure you want to send the global message?", "Confirm Man Up Global", list("Yes", "No"))
-	if(confirm == "Yes")
-		var/manned_up_sound = sound('sound/voice/manup1.ogg')
-		for(var/sissy in GLOB.player_list)
-			to_chat(sissy, chat_box_notice_thick(span_notice("[span_fontsize4("<b>Man up.<br> Deal with it.</b>")]<br>Move on.")))
-			SEND_SOUND(sissy, manned_up_sound)
+	if(tgui_alert(user, "Вы уверены что хотите отправить глобальное сообщение?", "Подтверждение глобального Man Up", list("Да", "Нет")) == "Да")
+		for(var/mob/hearing_mob as anything in GLOB.player_list)
+			to_chat(hearing_mob, chat_box_notice_thick(span_notice("[span_fontsize4("<b>Man up.<br> Deal with it.</b>")]<br>Move on.")))
+			SEND_SOUND(hearing_mob, sound('sound/voice/manup1.ogg'))
 
 		log_admin("[key_name(user)] told everyone to man up and deal with it.")
 		message_admins("[key_name_admin(user)] told everyone to man up and deal with it.")

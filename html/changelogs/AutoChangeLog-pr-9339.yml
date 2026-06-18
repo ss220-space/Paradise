@@ -1,4 +1,0 @@
-author: "SCPfollower"
-delete-after: True
-changes:
-  - bugfix: "Фикс удаления статус эффекта капитуляции при сдаче находясь под мушкой. (PR #9339)"

@@ -466,7 +466,6 @@
 ////////////////////////////////////////
 // MARK:	Trigger & payloads
 ////////////////////////////////////////
-
 /obj/item/tripwire/proc/on_payload_activate(datum/source, mob/user)
 	SIGNAL_HANDLER
 	if(!attached_item)

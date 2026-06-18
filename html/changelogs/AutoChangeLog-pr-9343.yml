@@ -1,0 +1,5 @@
+author: "kkadmor"
+delete-after: True
+changes:
+  - bugfix: "Борг может сам садить на себя в модулем сидушки (PR #9343)"
+  - refactor: "Рефактор проверок в модуле сидушки (PR #9343)"
