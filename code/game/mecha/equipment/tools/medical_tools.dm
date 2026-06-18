@@ -469,10 +469,12 @@
 	var/imrov_synth_speed = 20
 
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun_upgrade/can_attach(obj/mecha/M)
-	if(..())
-		for(var/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/S in M.equipment)
-			return TRUE
-	return FALSE
+	if(!..())
+		return FALSE
+	var/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/module = locate() in M.equipment
+	if(module)
+		return FALSE
+	return TRUE
 
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun_upgrade/attach_act(obj/mecha/M)
 	for(var/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/S in chassis.equipment)
@@ -492,12 +494,8 @@
 	icon_state = "mecha_clamp"	//can work, might use a blue resprite later but I think it works for now
 	equip_cooldown = 1.5 SECONDS
 	energy_drain = 10
+	module_type = MECH_EQUIPMENT_MEDICAL | MECH_EQUIPMENT_FIREFIGHTER
 	var/dam_force = 20
-
-/obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw/can_attach(obj/mecha/M)
-	if(istype(M, /obj/mecha/working/ripley/firefighter))
-		return length(M.equipment) < M.max_equip
-	return ..()
 
 /obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw/action(atom/target, list/modifiers)
 	if(!action_checks(target))

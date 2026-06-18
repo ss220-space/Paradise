@@ -30,7 +30,7 @@
 	var/harmful = FALSE //Controls if equipment can be used to attack by a pacifist.
 	var/integrated = FALSE // Preventing modules from getting detached.
 	var/stored_in
-	var/module_type = MECH_EQUIPMENT_ALL
+	var/module_type = ALL
 
 /obj/item/mecha_parts/mecha_equipment/Destroy()//missiles detonating, teleporter creating singularity?
 	if(chassis)
