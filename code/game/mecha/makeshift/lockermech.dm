@@ -16,7 +16,6 @@
 	allowed_equipment = MECH_EQUIPMENT_MAKESHIFT
 	cargo_capacity = 5 // you can fit a few things in this locker but not much.
 	emp_protection = TRUE
-	system_attach_allowed = TRUE
 	mech_type = MECH_TYPE_LOCKER
 
 /obj/mecha/makeshift/get_ru_names()
@@ -44,7 +43,7 @@
 	force = 20
 	max_equip = 4
 	ui_theme = "syndicate"
-	allowed_equipment = MECH_EQUIPMENT_ALL
+	allowed_equipment = ALL
 
 /obj/mecha/makeshift/lockersyndie/get_ru_names()
 	return alist(

@@ -61,8 +61,7 @@
 	/// emp protection
 	var/emp_protection = FALSE
 	/// mech equipment types
-	var/allowed_equipment = MECH_EQUIPMENT_WORKING
-	var/system_attach_allowed = FALSE
+	var/allowed_equipment = MECH_EQUIPMENT_WORKING // bitflags to check module compability
 
 	/// emag
 	var/emaggable = FALSE

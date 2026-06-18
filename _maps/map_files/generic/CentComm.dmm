@@ -763,6 +763,12 @@
 /obj/structure/table/wood/fancy/black,
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/control)
+"anh" = (
+/obj/machinery/suit_storage_unit/centcom/director,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/centcom/jail)
 "anm" = (
 /obj/machinery/kitchen_machine/microwave{
 	pixel_x = -1;
@@ -2019,8 +2025,7 @@
 	icon_state = "heater3x3"
 	},
 /obj/structure/shuttle/engine/platform{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/plasmareinforced{
 	color = "#00f700"
@@ -6586,8 +6591,7 @@
 	dir = 8
 	},
 /obj/structure/shuttle/engine/platform{
-	dir = 4;
-	layer = 2.9
+	dir = 4
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/administration)
@@ -7364,9 +7368,7 @@
 /obj/structure/shuttle/engine/heater{
 	icon_state = "heater3x3_side"
 	},
-/obj/structure/shuttle/engine/platform{
-	layer = 2.9
-	},
+/obj/structure/shuttle/engine/platform,
 /obj/structure/window/reinforced{
 	color = "red";
 	dir = 1
@@ -7377,9 +7379,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/caution/stand_clear,
 /obj/machinery/door/poddoor/shutters/invincible{
 	dir = 2;
@@ -7993,8 +7993,7 @@
 /area/centcom/zone1)
 "dMv" = (
 /obj/structure/shuttle/engine/platform{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/shuttle/transparent_floor,
 /area/shuttle/syndicate)
@@ -9255,9 +9254,7 @@
 	},
 /area/syndicate_mothership)
 "esL" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/tile/neutral{
 	alpha = 180;
 	color = "black";
@@ -10764,9 +10761,7 @@
 /obj/effect/turf_decal/loading_area/white{
 	dir = 4
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/tile/neutral{
 	alpha = 100;
 	color = "black";
@@ -10899,9 +10894,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/caution/stand_clear{
 	dir = 1
 	},
@@ -13786,14 +13779,6 @@
 	icon_state = "darkyellow"
 	},
 /area/centcom/supplypod/loading/three)
-"gDk" = (
-/obj/machinery/mech_bay_recharge_port{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/centcom/jail)
 "gDm" = (
 /obj/machinery/light{
 	dir = 1
@@ -20003,9 +19988,7 @@
 /obj/effect/turf_decal/loading_area/white{
 	dir = 4
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -21395,9 +21378,7 @@
 	},
 /area/centcom/zone1)
 "kmM" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/wall/indestructible/fakeglass,
 /area/centcom/specops)
 "kmQ" = (
@@ -22466,9 +22447,7 @@
 "kNk" = (
 /obj/effect/landmark/marauder_exit,
 /obj/structure/fans/tiny,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/tile/neutral{
 	alpha = 220;
 	color = "black";
@@ -22926,8 +22905,7 @@
 /area/centcom/supply)
 "kWH" = (
 /obj/structure/shuttle/engine/platform{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/vox)
@@ -23257,9 +23235,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/caution/stand_clear,
 /obj/machinery/door/poddoor/shutters/invincible{
 	dir = 2;
@@ -23941,9 +23917,7 @@
 /turf/simulated/floor/indestructible/abductor,
 /area/abductor_ship)
 "lur" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/tile/neutral{
 	alpha = 200;
 	color = "black";
@@ -23977,12 +23951,6 @@
 /obj/effect/turf_decal/siding{
 	color = "#444444";
 	dir = 8
-	},
-/obj/machinery/photocopier{
-	anchored = 0
-	},
-/obj/structure/sign/poster/secret/lady{
-	pixel_x = 32
 	},
 /turf/simulated/floor/wood/fancy/light,
 /area/centcom/specops)
@@ -24064,9 +24032,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/machinery/door/poddoor/shutters/invincible{
 	dir = 1;
 	id_tag = "CC_Armory_GYGAX"
@@ -25291,9 +25257,7 @@
 	color = "red";
 	dir = 1
 	},
-/obj/structure/shuttle/engine/platform{
-	layer = 2.9
-	},
+/obj/structure/shuttle/engine/platform,
 /turf/simulated/floor/plating,
 /area/syndicate_mothership/cargo)
 "mby" = (
@@ -25794,9 +25758,7 @@
 	color = "#FF0000";
 	dir = 1
 	},
-/obj/structure/shuttle/engine/platform{
-	layer = 2.9
-	},
+/obj/structure/shuttle/engine/platform,
 /turf/simulated/floor/plating/airless,
 /area/shuttle/syndicate)
 "moN" = (
@@ -25864,6 +25826,7 @@
 	teleport_y = 16;
 	teleport_z = 1
 	},
+/obj/structure/sign/poster/official/hardwork,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -26438,8 +26401,7 @@
 /area/syndicate_mothership/elite_squad)
 "mBi" = (
 /obj/structure/shuttle/engine/platform{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/plasmareinforced{
 	color = "#00f700"
@@ -26516,9 +26478,7 @@
 /turf/simulated/floor/plating,
 /area/syndicate_mothership/elite_squad)
 "mCK" = (
-/obj/structure/shuttle/engine/platform{
-	layer = 2.9
-	},
+/obj/structure/shuttle/engine/platform,
 /turf/simulated/floor/shuttle/transparent_floor,
 /area/shuttle/ninja)
 "mCQ" = (
@@ -28821,9 +28781,7 @@
 	color = "red";
 	dir = 1
 	},
-/obj/structure/shuttle/engine/platform{
-	layer = 2.9
-	},
+/obj/structure/shuttle/engine/platform,
 /turf/simulated/floor/plating,
 /area/syndicate_mothership/cargo)
 "nBj" = (
@@ -29990,9 +29948,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/caution/stand_clear{
 	dir = 1
 	},
@@ -30064,9 +30020,7 @@
 /turf/simulated/floor/grass,
 /area/centcom/evac)
 "ocf" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/tile/neutral{
 	alpha = 150;
 	color = "black";
@@ -30659,17 +30613,10 @@
 	},
 /area/syndicate_mothership/elite_squad)
 "org" = (
-/obj/mecha/combat/marauder/seraph/loaded{
-	armor = list("melee"=80,"bullet"=80,"laser"=80,"energy"=80,"bomb"=80,"bio"=80,"fire"=100,"acid"=100);
-	name = "D2";
-	operation_req_access = list(109)
-	},
-/obj/effect/turf_decal/mech,
 /obj/machinery/light,
-/turf/simulated/floor/indestructible{
-	dir = 8;
-	icon_state = "vault";
-	name = "Operative position"
+/obj/machinery/suit_storage_unit/centcom/director,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
 	},
 /area/centcom/jail)
 "ory" = (
@@ -32735,9 +32682,7 @@
 /obj/structure/shuttle/engine/heater{
 	icon_state = "heater2x2_side"
 	},
-/obj/structure/shuttle/engine/platform{
-	layer = 2.9
-	},
+/obj/structure/shuttle/engine/platform,
 /turf/simulated/floor/plating/airless,
 /area/shuttle/vox)
 "psd" = (
@@ -33092,8 +33037,7 @@
 /area/shuttle/pod_2)
 "pyh" = (
 /obj/structure/shuttle/engine/platform{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/plasmareinforced{
 	color = "#00f700"
@@ -34612,9 +34556,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/caution/stand_clear,
 /obj/machinery/door/poddoor/shutters/preopen/invincible{
 	dir = 2;
@@ -34688,8 +34630,7 @@
 	dir = 8
 	},
 /obj/structure/shuttle/engine/platform{
-	dir = 4;
-	layer = 2.9
+	dir = 4
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/administration)
@@ -37736,8 +37677,7 @@
 /area/centcom/zone2)
 "rCS" = (
 /obj/structure/shuttle/engine/platform{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/plasmareinforced{
 	color = "#00f700"
@@ -37935,9 +37875,7 @@
 	color = "red";
 	dir = 1
 	},
-/obj/structure/shuttle/engine/platform{
-	layer = 2.9
-	},
+/obj/structure/shuttle/engine/platform,
 /turf/simulated/floor/plating,
 /area/syndicate_mothership/cargo)
 "rHb" = (
@@ -39529,9 +39467,7 @@
 	color = "#FF0000";
 	dir = 1
 	},
-/obj/structure/shuttle/engine/platform{
-	layer = 2.9
-	},
+/obj/structure/shuttle/engine/platform,
 /turf/simulated/floor/plating/airless,
 /area/shuttle/syndicate)
 "ssR" = (
@@ -39835,9 +39771,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/machinery/door/poddoor/shutters/invincible{
 	dir = 2;
 	id_tag = "CC_Armory_DURAND"
@@ -40130,8 +40064,7 @@
 /area/syndicate_mothership/elite_squad)
 "sIh" = (
 /obj/structure/shuttle/engine/platform{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/plasmareinforced{
 	color = "#00f700"
@@ -40191,12 +40124,6 @@
 	icon_state = "darkredcorners"
 	},
 /area/centcom/specops)
-"sJY" = (
-/obj/machinery/computer/mech_bay_power_console,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/centcom/jail)
 "sKd" = (
 /obj/machinery/light{
 	dir = 8
@@ -40614,9 +40541,7 @@
 /obj/structure/shuttle/engine/heater{
 	icon_state = "heater2x2"
 	},
-/obj/structure/shuttle/engine/platform{
-	layer = 2.9
-	},
+/obj/structure/shuttle/engine/platform,
 /turf/simulated/floor/plating/airless,
 /area/shuttle/vox)
 "sVj" = (
@@ -41309,9 +41234,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/caution/stand_clear{
 	dir = 1
 	},
@@ -42525,9 +42448,7 @@
 	},
 /area/centcom/jail)
 "tIe" = (
-/obj/structure/shuttle/engine/platform{
-	layer = 2.9
-	},
+/obj/structure/shuttle/engine/platform,
 /obj/structure/shuttle/engine/large{
 	dir = 1;
 	opacity = 0
@@ -44013,8 +43934,7 @@
 	dir = 8
 	},
 /obj/structure/shuttle/engine/platform{
-	dir = 4;
-	layer = 2.9
+	dir = 4
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/administration)
@@ -44821,8 +44741,7 @@
 /area/centcom/zone1)
 "uLd" = (
 /obj/structure/shuttle/engine/platform{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/plasmareinforced{
 	color = "#00f700"
@@ -44873,9 +44792,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/machinery/door/poddoor/shutters/preopen/invincible{
 	dir = 1;
 	id_tag = "ERT_armory_vkd";
@@ -44990,9 +44907,7 @@
 	color = "#FF0000";
 	dir = 1
 	},
-/obj/structure/shuttle/engine/platform{
-	layer = 2.9
-	},
+/obj/structure/shuttle/engine/platform,
 /turf/simulated/floor/plating/airless,
 /area/shuttle/syndicate)
 "uNb" = (
@@ -46827,7 +46742,6 @@
 /area/shuttle/vox)
 "vIU" = (
 /obj/structure/falsewall/reinforced{
-	layer = 2.9;
 	req_access = list(114)
 	},
 /obj/effect/mine/sound/bwoink{
@@ -46988,9 +46902,7 @@
 /obj/structure/shuttle/engine/heater{
 	icon_state = "heater3x3"
 	},
-/obj/structure/shuttle/engine/platform{
-	layer = 2.9
-	},
+/obj/structure/shuttle/engine/platform,
 /obj/structure/window/reinforced{
 	color = "red";
 	dir = 1
@@ -47816,29 +47728,6 @@
 	},
 /area/centcom/zone1)
 "wfb" = (
-/obj/mecha/combat/marauder/seraph{
-	armor = list("melee"=80,"bullet"=80,"laser"=80,"energy"=80,"bomb"=80,"bio"=80,"fire"=100,"acid"=100);
-	color = "#006666";
-	name = "Rocinante"
-	},
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang/clusterbang,
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg/dual{
-	fire_sound = 'sound/weapons/gunshots/gunshot_strong.ogg';
-	name = "Automatic 20mm cannone";
-	projectile_delay = 0.5;
-	projectiles_per_shot = 10
-	},
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/heavy{
-	name = "Heavy 83mm HE RL"
-	},
-/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot{
-	name = "Destroyer of the present";
-	projectiles = 70;
-	projectiles_per_shot = 7
-	},
-/obj/item/mecha_parts/mecha_equipment/weapon/energy/xray/triple,
-/obj/item/mecha_parts/mecha_equipment/teleporter/precise,
-/obj/item/mecha_parts/mecha_equipment/repair_droid,
 /obj/effect/turf_decal/mech,
 /obj/effect/turf_decal/siding{
 	color = "#444444";
@@ -47847,6 +47736,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/mecha/combat/marauder/seraph/loaded,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -49008,9 +48898,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/caution/stand_clear{
 	dir = 1
 	},
@@ -50266,8 +50154,7 @@
 /area/syndicate_mothership/jail)
 "xqw" = (
 /obj/structure/shuttle/engine/platform{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/syndicate_mothership/cargo)
@@ -50890,9 +50777,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/caution/stand_clear{
 	dir = 1
 	},
@@ -51015,8 +50900,7 @@
 	icon_state = "heater3x3_side_inv"
 	},
 /obj/structure/shuttle/engine/platform{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/plasmareinforced{
 	color = "#00f700"
@@ -51984,8 +51868,7 @@
 /area/centcom/zone1)
 "ykH" = (
 /obj/structure/shuttle/engine/platform{
-	dir = 8;
-	layer = 2.9
+	dir = 8
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/administration)
@@ -86747,7 +86630,7 @@ pqb
 tEi
 kVf
 hsJ
-sJY
+anh
 pqb
 pqb
 mVX
@@ -87261,7 +87144,7 @@ myp
 xmb
 hpD
 bje
-gDk
+anh
 pqb
 pqb
 mVX

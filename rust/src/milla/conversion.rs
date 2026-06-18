@@ -1,10 +1,8 @@
-use byondapi::prelude::*;
-use byondapi::Error;
-use eyre::Result;
+use meowtonin::{ByondError, ByondValue};
 
 /// Turns a BYOND number into an Option<f32>.
 /// The option will be None if the number was null or NaN.
-pub(crate) fn byond_to_option_f32(value: ByondValue) -> Result<Option<f32>, Error> {
+pub(crate) fn byond_to_option_f32(value: &ByondValue) -> Result<Option<f32>, ByondError> {
     if value.is_null() {
         Ok(None)
     } else {
@@ -15,10 +13,10 @@ pub(crate) fn byond_to_option_f32(value: ByondValue) -> Result<Option<f32>, Erro
 /// Turns a BYOND number into an Option<f32>, clamping it to the specified bounds.
 // The option will be None if the number was null or NaN.
 pub(crate) fn bounded_byond_to_option_f32(
-    value: ByondValue,
+    value: &ByondValue,
     min_value: f32,
     max_value: f32,
-) -> Result<Option<f32>, Error> {
+) -> Result<Option<f32>, ByondError> {
     if value.is_null() {
         Ok(None)
     } else {

@@ -357,3 +357,9 @@
 
 /// Called when card decal applied to ID card.
 #define COMSIG_CARD_DECAL_APPLIED "card_decal_applied"
+
+/// Called when item inserted into storage. [/obj/item/storage/proc/handle_item_insertion()]: (obj/item/W, prevent_warning = FALSE)
+#define COMSIG_ITEM_INSERTED_INTO_STORAGE "inserted_into_storage"
+
+/// Called when item removed from storage. [/obj/item/storage/proc/remove_from_storage()]: (obj/item/W, atom/new_location)
+#define COMSIG_ITEM_REMOVED_FROM_STORAGE "removed_from_storage"
