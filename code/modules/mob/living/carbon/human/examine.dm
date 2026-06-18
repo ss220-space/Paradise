@@ -359,14 +359,14 @@
 			msg += span_warning(span_bold("[GEND_HIS_HER_CAP(src)] [bodypart.declent_ru(NOMINATIVE)] кровоточ[PLUR_IT_AT(bodypart)]!\n"))
 
 	if(hasHUD(user, EXAMINE_HUD_MEDICAL) && !HAS_TRAIT(src, TRAIT_NO_BLOOD) && blood_volume < max_blood)
-		var/blood_span
+		var/blood_volume_text
 		if(blood_volume >= BLOOD_VOLUME_PALE)
-			blood_span = span_warning("Пониженный уровень крови")
+			blood_volume_text = span_warning("Пониженный уровень крови.")
 		else if(blood_volume >= BLOOD_VOLUME_BAD)
-			blood_span = span_warning("Низкий уровень крови")
+			blood_volume_text = span_warning("Низкий уровень крови.")
 		else
-			blood_span = span_userdanger("Критический уровень крови")
-		msg += "[blood_span]\n"
+			blood_volume_text = span_warning("Критический уровень крови!")
+		msg += "[blood_volume_text]\n"
 
 	if(reagents.has_reagent("teslium"))
 		msg += span_warning("[GEND_HE_SHE_CAP(src)] излуча[PLUR_ET_YUT(src)] мягкое голубое свечение!\n")
