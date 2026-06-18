@@ -112,6 +112,8 @@
 		return
 	if(!isobj(target) && !isliving(target))
 		return
+	if(iseffect(target))
+		return
 	if(!tank)
 		to_chat(user, span_warning("[src] can't operate without a source of gas!"))
 		return
