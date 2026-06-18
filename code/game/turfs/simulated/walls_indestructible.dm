@@ -24,7 +24,7 @@
 /turf/simulated/wall/indestructible/singularity_act()
 	return
 
-/turf/simulated/wall/indestructible/singularity_pull(S, current_size)
+/turf/simulated/wall/indestructible/singularity_pull(atom/singularity, current_size)
 	return
 
 /turf/simulated/wall/indestructible/narsie_act()
@@ -260,7 +260,7 @@
 	smooth = SMOOTH_BITMASK
 
 /turf/simulated/wall/indestructible/bingle/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "яма Бинглов",
 		GENITIVE = "ямы Бинглов",
 		DATIVE = "яме Бинглов",

@@ -151,7 +151,7 @@
 	drop_sound = 'sound/items/handling/drop/component_drop.ogg'
 
 /obj/item/organ/internal/cell/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "микробатарея",
 		GENITIVE = "микробатареи",
 		DATIVE = "микробатарее",
@@ -174,7 +174,7 @@
 	drop_sound = 'sound/items/handling/drop/component_drop.ogg'
 
 /obj/item/organ/internal/eyes/optical_sensor/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "оптический сенсор",
 		GENITIVE = "оптического сенсора",
 		DATIVE = "оптическому сенсору",
@@ -197,7 +197,7 @@
 	drop_sound = 'sound/items/handling/drop/component_drop.ogg'
 
 /obj/item/organ/internal/brain/mmi_holder/posibrain/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "позитронный мозг",
 		GENITIVE = "позитронного мозга",
 		DATIVE = "позитронному мозгу",
@@ -238,7 +238,7 @@
 	drop_sound = 'sound/items/handling/drop/component_drop.ogg'
 
 /obj/item/organ/internal/ears/microphone/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "парные микрофоны",
 		GENITIVE = "парных микрофонов",
 		DATIVE = "парным микрофонам",

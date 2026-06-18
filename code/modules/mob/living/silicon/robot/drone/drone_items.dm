@@ -33,14 +33,16 @@
 		/obj/item/tank,
 		/obj/item/circuitboard,
 		/obj/item/stack/tile/light,
-		/obj/item/stack/ore/bluespace_crystal
+		/obj/item/stack/ore/bluespace_crystal,
+		/obj/item/stack/sheet/plasteel,
+		/obj/item/stack/tile/wood,
 	)
 
 	//Item currently being held.
 	var/obj/item/gripped_item = null
 
 /obj/item/gripper/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "магнитный захват",
 		GENITIVE = "магнитного захвата",
 		DATIVE = "магнитному захвату",
@@ -62,10 +64,12 @@
 		/obj/item/robot_parts/r_leg,
 		/obj/item/robot_parts/chest,
 		/obj/item/stack/sheet/mineral/plasma,
+		/obj/item/reagent_containers/food/snacks/monkeycube,
+		/obj/item/bodybag,
 	) //for repair plasmamans
 
 /obj/item/gripper/medical/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "медицинский захват",
 		GENITIVE = "медицинского захвата",
 		DATIVE = "медицинскому захвату",
@@ -114,7 +118,7 @@
 	)
 
 /obj/item/gripper/service/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "карточный захват",
 		GENITIVE = "карточного захвата",
 		DATIVE = "карточному захвату",
@@ -133,7 +137,7 @@
 	icon_state = "clock_gripper"
 
 /obj/item/gripper/cogscarab/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "древний захват",
 		GENITIVE = "древнего захвата",
 		DATIVE = "древнему захвату",
@@ -203,7 +207,7 @@
 	)
 
 /obj/item/gripper/universal/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "универсальный захват",
 		GENITIVE = "универсального захвата",
 		DATIVE = "универсальному захвату",
@@ -219,7 +223,7 @@
 	can_hold = list(/obj/item/disk/nuclear)
 
 /obj/item/gripper/nuclear/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ядерный захват",
 		GENITIVE = "ядерного захвата",
 		DATIVE = "ядерному захвату",
@@ -316,8 +320,8 @@
 			gripped_item = I
 			I.update_icon(UPDATE_OVERLAYS) //Some items change their appearance upon being pulled (IV drip as an example)
 			update_icon(UPDATE_OVERLAYS)
-			RegisterSignal(I, list(COMSIG_MOVABLE_MOVED, COMSIG_QDELETING), PROC_REF(handle_item_moving))
-			RegisterSignal(I, list(COMSIG_ATOM_UPDATED_ICON), PROC_REF(handle_item_icon_update))
+			RegisterSignals(I, list(COMSIG_MOVABLE_MOVED, COMSIG_QDELETING), PROC_REF(handle_item_moving))
+			RegisterSignals(I, list(COMSIG_ATOM_UPDATED_ICON), PROC_REF(handle_item_icon_update))
 		else
 			balloon_alert(user, "невозможно взять!")
 
@@ -362,7 +366,7 @@
 		)
 
 /obj/item/matter_decompiler/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "декомпилятор материи",
 		GENITIVE = "декомпилятора материи",
 		DATIVE = "декомпилятору материи",

@@ -1,0 +1,4 @@
+author: "Bess3"
+delete-after: True
+changes:
+  - bugfix: "У грибов снова нормально отображается спрайт (PR #9360)"

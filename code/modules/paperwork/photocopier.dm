@@ -64,7 +64,7 @@
 	var/ui_theme = "nanotrasen"// Если темы нету, будет взята стандартная НТ тема для интерфейса
 
 /obj/machinery/photocopier/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ксерокс",
 		GENITIVE = "ксерокса",
 		DATIVE = "ксероксу",
@@ -86,7 +86,7 @@
 	ui_theme = "syndicate"
 
 /obj/machinery/photocopier/syndie/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ксерокс \"Синдиката\"",
 		GENITIVE = "ксерокса \"Синдиката\"",
 		DATIVE = "ксероксу \"Синдиката\"",
@@ -94,6 +94,9 @@
 		INSTRUMENTAL = "ксероксом \"Синдиката\"",
 		PREPOSITIONAL = "ксероксе \"Синдиката\"",
 	)
+
+/obj/machinery/photocopier/ComponentInitialize()
+	AddElement(/datum/element/elevation, pixel_shift = 8) //enough to look like your bums are on the machine.
 
 /obj/machinery/photocopier/Initialize(mapload)
 	. = ..()
@@ -249,7 +252,7 @@
 		temp_img = icon('icons/obj/butts.dmi', "xeno")
 	else
 		return
-	var/obj/item/photo/p = new /obj/item/photo (loc)
+	var/obj/item/photo/p = new /obj/item/photo(loc)
 	if(scanning)
 		p.forceMove(src)
 	else if(folder)
@@ -749,7 +752,7 @@
 	var/toner_amount = 30
 
 /obj/item/toner/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "тонер-картридж",
 		GENITIVE = "тонер-картриджа",
 		DATIVE = "тонер-картриджу",

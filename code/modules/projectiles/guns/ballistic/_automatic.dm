@@ -1,8 +1,9 @@
 /obj/item/gun/projectile/automatic
+	abstract_type = /obj/item/gun/projectile/automatic
 	can_tactical = TRUE
 	can_holster = FALSE
 	burst_amount = 3
-	fire_delay = 0.2 SECONDS
+	fire_delay = 0.3 SECONDS
 	gun_firemode_list = list(GUN_FIREMODE_SEMIAUTO, GUN_FIREMODE_BURSTFIRE)
 
 /obj/item/gun/projectile/automatic/update_icon_state()
@@ -26,4 +27,4 @@
 		playsound(loc, 'sound/weapons/gun_interactions/remove_bullet.ogg', 50, TRUE)
 		update_appearance(UPDATE_ICON_STATE|UPDATE_OVERLAYS)
 		return
-	. = ..()
+	return ..()

@@ -12,7 +12,7 @@
 	w_class = WEIGHT_CLASS_TINY
 
 /obj/item/compact_remote/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "компактный пульт дистанционного управления",
 		GENITIVE = "компактного пульта дистанционного управления",
 		DATIVE = "компактному пульту дистанционного управления",

@@ -27,7 +27,7 @@
 	stamina = 6
 
 /obj/projectile/bullet/f545/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "старая пуля FMJ 5,45x39 мм",
 		GENITIVE = "старой пули FMJ 5,45x39 мм",
 		DATIVE = "старой пуле FMJ 5,45x39 мм",

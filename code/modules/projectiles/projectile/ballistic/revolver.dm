@@ -7,7 +7,7 @@
 	ricochet_chance = 20
 
 /obj/projectile/bullet/weakbullet2/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "резиновая пуля",
 		GENITIVE = "резиновой пули",
 		DATIVE = "резиновой пуле",
@@ -38,7 +38,7 @@
 	hitsound_wall = null
 
 /obj/projectile/bullet/weakbullet2/invisible/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "невидимая пуля",
 		GENITIVE = "невидимой пули",
 		DATIVE = "невидимой пуле",

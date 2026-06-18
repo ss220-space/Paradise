@@ -66,7 +66,7 @@ GLOBAL_LIST_EMPTY(safes)
 	var/driller_UID
 
 /obj/structure/safe/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сейф",
 		GENITIVE = "сейфа",
 		DATIVE = "сейфу",
@@ -74,6 +74,13 @@ GLOBAL_LIST_EMPTY(safes)
 		INSTRUMENTAL = "сейфом",
 		PREPOSITIONAL = "сейфе",
 	)
+
+/obj/structure/safe/ComponentInitialize()
+	. = ..()
+	if(!density)
+		return
+	AddElement(/datum/element/climbable)
+	AddElement(/datum/element/elevation, pixel_shift = 26)
 
 /obj/structure/safe/Initialize(mapload)
 	. = ..()
@@ -464,7 +471,7 @@ GLOBAL_LIST_EMPTY(safes)
 	drill_y_offset = 20
 
 /obj/structure/safe/floor/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "напольный сейф",
 		GENITIVE = "напольного сейфа",
 		DATIVE = "напольному сейфу",
@@ -488,7 +495,7 @@ GLOBAL_LIST_EMPTY(safes)
 	icon_state = "safe_internals"
 
 /obj/item/safe_internals/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "внутренности сейфа",
 		GENITIVE = "внтренностей сейфа",
 		DATIVE = "внутренностям сейфа",
@@ -509,7 +516,7 @@ GLOBAL_LIST_EMPTY(safes)
 	info = "<div style='text-align:center;'><img src = ntlogo.png><center><h3>Коды от сейфа</h3></center>"
 
 /obj/item/paper/safe_code/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "коды от сейфа",
 		GENITIVE = "кодов от сейфа",
 		DATIVE = "кодам от сейфа",

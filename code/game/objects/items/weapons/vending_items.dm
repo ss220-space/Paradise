@@ -22,7 +22,7 @@
 	var/list/premium
 
 /obj/item/vending_refill/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "набор пополнения",
 		GENITIVE = "набора пополнения",
 		DATIVE = "набору пополнения",
@@ -34,14 +34,14 @@
 /obj/item/vending_refill/Initialize(mapload)
 	. = ..()
 	name = "[machine_name] restocking unit"
-	ru_names = new /list(6)
-	ru_names = list(
-		NOMINATIVE = "набор пополнения \"[machine_name]\"",
-		GENITIVE = "набора пополнения \"[machine_name]\"",
-		DATIVE = "набору пополнения \"[machine_name]\"",
-		ACCUSATIVE = "набор пополнения \"[machine_name]\"",
-		INSTRUMENTAL = "набором пополнения \"[machine_name]\"",
-		PREPOSITIONAL = "наборе пополнения \"[machine_name]\"",
+	var/refill_desc = "пополнения \"[machine_name]\""
+	ru_names = alist(
+		NOMINATIVE = "набор [refill_desc]",
+		GENITIVE = "набора [refill_desc]",
+		DATIVE = "набору [refill_desc]",
+		ACCUSATIVE = "набор [refill_desc]",
+		INSTRUMENTAL = "набором [refill_desc]",
+		PREPOSITIONAL = "наборе [refill_desc]",
 	)
 
 /obj/item/vending_refill/examine(mob/user)

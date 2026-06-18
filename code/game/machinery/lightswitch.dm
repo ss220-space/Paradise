@@ -5,13 +5,14 @@
 	icon = 'icons/obj/engines_and_power/power.dmi'
 	icon_state = "light1"
 	anchored = TRUE
+	mouse_over_pointer = MOUSE_HAND_POINTER
 	/// Set this to a string, path, or area instance to control that area instead of the switch's location.
 	var/area/area = null
 	/// Should this lightswitch automatically rename itself to match the area it's in?
 	var/autoname = TRUE
 
 /obj/machinery/light_switch/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "выключатель света",
 		GENITIVE = "выключателя света",
 		DATIVE = "выключателю света",

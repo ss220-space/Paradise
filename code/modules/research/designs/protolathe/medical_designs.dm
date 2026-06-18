@@ -673,6 +673,15 @@
 	build_path = /obj/item/organ/internal/liver/cybernetic
 	category = list(PROTOLATHE_CATEGORY_MEDICAL)
 
+/datum/design/cybernetic_liver_u
+	id = "cybernetic_liver_u"
+	req_tech = list(RESEARCH_TREE_BIOTECH = 5, RESEARCH_TREE_MATERIALS = 5, RESEARCH_TREE_ENGINEERING = 5)
+	build_type = PROTOLATHE | MECHFAB
+	materials = list(MAT_METAL = 500, MAT_GLASS = 500, MAT_SILVER = 500)
+	construction_time = 60
+	build_path = /obj/item/organ/internal/liver/cybernetic/upgraded
+	category = list(PROTOLATHE_CATEGORY_MEDICAL)
+
 /datum/design/cybernetic_kidneys
 	id = "cybernetic_kidneys"
 	req_tech = list(RESEARCH_TREE_BIOTECH = 4, RESEARCH_TREE_MATERIALS = 4)

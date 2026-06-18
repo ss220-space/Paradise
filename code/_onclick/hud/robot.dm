@@ -1,5 +1,6 @@
 /atom/movable/screen/robot
 	icon = 'icons/mob/screen_robot.dmi'
+	mouse_over_pointer = MOUSE_HAND_POINTER
 
 /atom/movable/screen/robot/module
 	name = "cyborg module"

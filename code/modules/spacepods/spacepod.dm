@@ -22,7 +22,7 @@
 	icon_state = "paint_red"
 
 /obj/item/pod_paint_bucket/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "набор для покраски челнока",
 		GENITIVE = "набора для покраски челнока",
 		DATIVE = "набору для покраски челнока",
@@ -98,7 +98,7 @@
 	var/datum/action/innate/pod/pod_misc/misc_action = new
 
 /obj/spacepod/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "космический челнок",
 		GENITIVE = "космического челнока",
 		DATIVE = "космическому челноку",
@@ -476,6 +476,23 @@
 	if(!ATTACK_CHAIN_CANCEL_CHECK(.))
 		deal_damage(cached_damage)
 
+/obj/spacepod/examine(mob/user)
+	. = ..()
+	var/integrity = health * 100 / initial(health)
+	switch(integrity)
+		if(100)
+			. += span_notice("Он полностью невредим.")
+		if(85 to 99)
+			. += span_notice("Он незначительно повреждён.")
+		if(65 to 85)
+			. += span_notice("Он немного повреждён.")
+		if(45 to 65)
+			. += span_notice("Он сильно повреждён.")
+		if(25 to 45)
+			. += span_notice("Он тяжело повреждён.")
+		else
+			. += span_warning("Он вот-вот развалится.")
+
 /obj/spacepod/crowbar_act(mob/user, obj/item/I)
 	if(user.a_intent == INTENT_HARM)
 		return
@@ -488,22 +505,25 @@
 	else
 		balloon_alert(user, "люк заблокирован!")
 
-/obj/spacepod/welder_act(mob/user, obj/item/I)
+/obj/spacepod/welder_act(mob/user, obj/item/welder)
 	if(user.a_intent == INTENT_HARM)
 		return
 	. = TRUE
-	if(!hatch_open)
-		balloon_alert(user, "откройте технический люк!")
-		return
 	if(health >= initial(health))
-		to_chat(user, span_boldnotice("[DECLENT_RU_CAP(src, NOMINATIVE)] полностью отремонтирован!"))
+		balloon_alert(user, "челнок целый!")
 		return
-	if(!I.tool_use_check(user, 0))
+	if(!welder.tool_use_check(user, 0))
 		return
-	to_chat(user, span_notice("Вы начинаете сварку челнока..."))
-	if(I.use_tool(src, user, 20, 3, volume = I.tool_volume))
+	WELDER_ATTEMPT_REPAIR_MESSAGE
+	while(health < initial(health))
+		if(!welder.use_tool(src, user, 20, volume = welder.tool_volume))
+			break
+
 		repair_damage(10)
-		to_chat(user, span_notice("Вы устраняете [pick("вмятины","повреждения","дефекты")] при помощи [I.declent_ru(GENITIVE)]."))
+		to_chat(user, span_notice("Вы устраняете [pick("вмятины","повреждения","дефекты")] при помощи [welder.declent_ru(GENITIVE)]."))
+
+	if(health >= initial(health))
+		balloon_alert(user, "челнок полностью отремонтирован!")
 
 /obj/spacepod/proc/add_equipment(mob/user, obj/item/spacepod_equipment/SPE, slot)
 	if(equipment_system.vars[slot])
@@ -677,7 +697,7 @@
 	health = 600
 
 /obj/spacepod/sec/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "космический челнок охраны",
 		GENITIVE = "космического челнока охраны",
 		DATIVE = "космическому челноку охраны",
@@ -694,7 +714,7 @@
 	unlocked = FALSE
 
 /obj/spacepod/syndi/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "космический челнок \"Синдиката\"",
 		GENITIVE = "космического челнока \"Синдиката\"",
 		DATIVE = "космическому челноку \"Синдиката\"",

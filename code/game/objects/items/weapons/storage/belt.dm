@@ -15,50 +15,15 @@
 	drop_sound = 'sound/items/handling/drop/toolbelt_drop.ogg'
 	custom_price = PAYCHECK_COMMAND // belts are useful => they're expensive
 	abstract_type = /obj/item/storage/belt
+	dynamic_storage_size = TRUE
 
 	/// Do we have overlays for items held inside the belt?
 	var/use_item_overlays = FALSE
-	/// Won't change it's size even with items inside if TRUE
-	var/storable = FALSE
-	/// Size after putting smth in
-	var/expanded_size = WEIGHT_CLASS_BULKY
-	/// Size when there's no contents
-	var/folded_size = WEIGHT_CLASS_NORMAL
-
-/obj/item/storage/belt/examine(mob/user)
-	. = ..()
-	if(storable || initial(w_class) == expanded_size)
-		. += span_notice("Размер останется <b>неизменным</b> вне зависимости от содержимого.")
-	else if(length(contents))
-		. += span_notice("<b>Уменьшится</b> в размере после извлечения содержимого.")
-	else
-		. += span_notice("<b>Увеличится</b> в размере при наличии содержимого.")
-
-/obj/item/storage/belt/proc/update_weight()
-	if(initial(w_class) == expanded_size) // so initially BULKY belts won't become NORMAL when they get empty
-		return
-	if(!length(contents) || storable)
-		w_class = folded_size
-		return
-	w_class = expanded_size
-
-/obj/item/storage/belt/remove_from_storage(obj/item/I, atom/new_location)
-	. = ..()
-	update_weight()
-
-/obj/item/storage/belt/can_be_inserted(obj/item/I, stop_messages = FALSE)
-	if(isstorage(loc) && !istype(loc, /obj/item/storage/backpack/holding) && !storable)
-		balloon_alert(usr, "сначала вытащите пояс!")
-		return FALSE
-	. = ..()
 
 /obj/item/storage/belt/Initialize(mapload)
 	. = ..()
-	update_weight()
-
-/obj/item/storage/belt/handle_item_insertion(obj/item/I, prevent_warning)
-	. = ..()
-	update_weight()
+	if(dynamic_storage_size)
+		AddComponent(/datum/component/differentiate_storage_size, WEIGHT_CLASS_BULKY)
 
 /obj/item/storage/belt/proc/check_menu(mob/living/user)
 	if(!istype(user))
@@ -201,7 +166,7 @@
 	item_state = "utility_ce"
 	storage_slots = 8
 	max_combined_w_class = 20 // set of tools + RCD/RPD
-	storable = TRUE
+	dynamic_storage_size = FALSE
 
 /obj/item/storage/belt/utility/chief/full/populate_contents()
 	new /obj/item/screwdriver/power(src)
@@ -249,7 +214,7 @@
 	use_to_pickup = 1 //Allow medical belt to pick up medicine
 
 /obj/item/storage/belt/medical/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "медицинский пояс",
 		GENITIVE = "медицинского пояса",
 		DATIVE = "медицинскому поясу",
@@ -299,7 +264,7 @@
 	)
 
 /obj/item/storage/belt/medical/surgery/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "хирургический пояс",
 		GENITIVE = "хирургического пояса",
 		DATIVE = "хирургическому поясу",
@@ -335,7 +300,7 @@
 	icon = 'icons/obj/abductor.dmi'
 	item_state = "surgical_alien"
 	max_combined_w_class = 19
-	storable = TRUE
+	dynamic_storage_size = FALSE
 	can_hold = list(
 		/obj/item/scalpel,
 		/obj/item/hemostat,
@@ -353,7 +318,7 @@
 	)
 
 /obj/item/storage/belt/medical/surgery/abductor/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "инопланетный хирургический пояс",
 		GENITIVE = "инопланетного хирургического пояса",
 		DATIVE = "инопланетному хирургическому поясу",
@@ -481,7 +446,7 @@
 	var/fast_reload_delay = 1.5 SECONDS
 
 /obj/item/storage/belt/security/webbing/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "разгрузка СБ",
 		GENITIVE = "разгрузки СБ",
 		DATIVE = "разгрузке СБ",
@@ -544,7 +509,7 @@
 	desc = "Уникальная и универсальная нагрудная разгрузочная система, вмещающая снаряжение отряда специального назначения."
 
 /obj/item/storage/belt/security/webbing/srt/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "разгрузка ОСН",
 		GENITIVE = "разгрузки ОСН",
 		DATIVE = "разгрузке ОСН",
@@ -576,7 +541,7 @@
 	fast_reload_delay = 2 SECONDS
 
 /obj/item/storage/belt/security/webbing/pouch/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "подсумок",
 		GENITIVE = "подсумка",
 		DATIVE = "подсумку",
@@ -594,7 +559,7 @@
 	fast_reload_delay = 0.2 SECONDS
 
 /obj/item/storage/belt/security/webbing/pouch/fast/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "продвинутый подсумок",
 		GENITIVE = "продвинутого подсумка",
 		DATIVE = "продвинутому подсумку",
@@ -635,7 +600,7 @@
 	icon_state = "militarybelt"
 	item_state = "military"
 	max_combined_w_class = 18
-	storable = TRUE
+	dynamic_storage_size = FALSE
 	resistance_flags = FIRE_PROOF
 
 /obj/item/storage/belt/military/sst
@@ -735,7 +700,7 @@
 	can_hold = /obj/item/ammo_casing/caseless/rocket
 
 /obj/item/storage/belt/rocketman/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пояс с ракетами",
 		GENITIVE = "пояса с ракетами",
 		DATIVE = "поясу с ракетами",
@@ -870,7 +835,7 @@
 	)
 
 /obj/item/storage/belt/lazarus/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пояс тренера",
 		GENITIVE = "пояса тренера",
 		DATIVE = "поясу тренера",
@@ -904,7 +869,7 @@
 	can_hold = list(/obj/item/ammo_casing/shotgun)
 
 /obj/item/storage/belt/bandolier/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "патронташ",
 		GENITIVE = "патронташа",
 		DATIVE = "патронташу",
@@ -1286,7 +1251,7 @@
 	)
 
 /obj/item/storage/belt/mining/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "разгрузка исследователя",
 		GENITIVE = "разгрузки исследователя",
 		DATIVE = "разгрузке исследователя",
@@ -1346,7 +1311,7 @@
 	)
 
 /obj/item/storage/belt/mining/primitive/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "охотничий пояс",
 		GENITIVE = "охотничьего пояса",
 		DATIVE = "охотничьему поясу",

@@ -10,7 +10,7 @@
 	hitsound = null
 
 /obj/projectile/skull_projectile/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "заражённый череп",
 		GENITIVE = "заражённого черепа",
 		DATIVE = "заражённому черепу",

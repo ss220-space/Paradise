@@ -260,34 +260,32 @@
 		return "[output][and_text][input_list[current_index]]"
 
 /**
- * Returns a list in plain russian as a string
+ * Возвращает список в виде строки на русском языке (с разделителями и "и" перед последним элементом).
  *
- * Arguments:
- * * input_list - The list to convert to a string
- * * nothing_text - Text to return if the list is empty
- * * and_text - Text to use before the last item
- * * comma_text - Text to use between items
- * * final_comma_text - Text to use before the last item (replaces comma_text for the last comma)
+ * Пример: `russian_list(list("болт", "гайка", "шайба"))` вернёт `"болт, гайка и шайба"`.
+ * С `final_comma_text = ","` вернёт `"болт, гайка, и шайба"`.
+ *
+ * Аргументы:
+ * * `input_list` - Список для преобразования в строку.
+ * * `nothing_text` - Текст, возвращаемый для пустого списка.
+ * * `and_text` - Текст перед последним элементом.
+ * * `comma_text` - Разделитель между элементами.
+ * * `final_comma_text` - Разделитель перед последней запятой (заменяет `comma_text` у последней; по умолчанию пусто — без оксфордской запятой).
  */
-/proc/russian_list(list/input_list, nothing_text = "ничего", and_text = " и ", comma_text = ", ", final_comma_text = "" )
+/proc/russian_list(list/input_list, nothing_text = "ничего", and_text = " и ", comma_text = ", ", final_comma_text = "")
+	SHOULD_BE_PURE(TRUE)
 	var/list_length = length(input_list)
 	if(!list_length)
 		return "[nothing_text]"
-	else if(list_length == 1)
+	if(list_length == 1)
 		return "[input_list[1]]"
-	else if(list_length == 2)
+	if(list_length == 2)
 		return "[input_list[1]][and_text][input_list[2]]"
-	else
-		var/output = ""
-		var/current_index = 1
-		while(current_index < list_length)
-			if(current_index == list_length - 1)
-				comma_text = final_comma_text
-
-			output += "[input_list[current_index]][comma_text]"
-			current_index++
-
-		return "[output][and_text][input_list[current_index]]"
+	var/output = ""
+	for(var/index in 1 to (list_length - 1))
+		var/separator = (index == (list_length - 1)) ? final_comma_text : comma_text
+		output += "[input_list[index]][separator]"
+	return "[output][and_text][input_list[list_length]]"
 
 /**
  * Returns list element or null. Should prevent "index out of bounds" error.
@@ -1222,15 +1220,13 @@
 	while(element_to_remove in target_list)
 		target_list -= element_to_remove
 
-// MARK: TODO: REF
 ///sort any value in a list
-/proc/sort_list(list/list_to_sort, cmp = /proc/cmp_text_asc)
+/proc/sort_list(list/list_to_sort, cmp = GLOBAL_PROC_REF(cmp_text_asc))
 	return sortTim(list_to_sort.Copy(), cmp)
 
-// MARK: TODO: REF
-///uses sort_list() but uses the var's name specifically
-/proc/sort_names(list/list_to_sort)
-	return sort_list(list_to_sort, cmp = /proc/cmp_name_asc)
+///uses sort_list() but uses the var's name specifically. This should probably be using mergeAtom() instead
+/proc/sort_names(list/list_to_sort, order = 1)
+	return sortTim(list_to_sort.Copy(), order >= 0 ? GLOBAL_PROC_REF(cmp_name_asc) : GLOBAL_PROC_REF(cmp_name_dsc))
 
 /**
  * Takes a weighted list and expands it into raw entries
@@ -1287,10 +1283,10 @@
 	if(!islist(first_list) || !islist(second_list))
 		return FALSE
 
-	if(first_list.len != second_list.len)
+	if(length(first_list) != length(second_list))
 		return FALSE
 
-	for(var/current_index in 1 to first_list.len)
+	for(var/current_index in 1 to length(first_list))
 		if(first_list[current_index] != second_list[current_index])
 			return FALSE
 

@@ -8,7 +8,7 @@
 	w_class = WEIGHT_CLASS_TINY
 
 /obj/item/organ/internal/cyberimp/brain/bci/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "интерфейс \"Мозг-Компьютер\"",
 		GENITIVE = "интерфейса \"Мозг-Компьютер\"",
 		DATIVE = "интерфейсу \"Мозг-Компьютер\"",
@@ -308,7 +308,7 @@
 	COOLDOWN_DECLARE(message_cooldown)
 
 /obj/machinery/bci_implanter/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "камера манипуляций интерфейсом \"Мозг-компьютер\"",
 		GENITIVE = "камеры манипуляций интерфейсом \"Мозг-компьютер\"",
 		DATIVE = "камере манипуляций интерфейсом \"Мозг-компьютер\"",

@@ -294,10 +294,9 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 
 	start_conveying(conveyable)
 
-/obj/machinery/conveyor/proc/conveyable_exit(datum/source, atom/movable/conveyable, atom/newLoc)
+/obj/machinery/conveyor/proc/conveyable_exit(datum/source, atom/movable/conveyable, direction)
 	SIGNAL_HANDLER
 
-	var/direction = get_dir(loc, newLoc)
 	var/has_conveyor = neighbors["[direction]"]
 
 	if(conveyable.z != z || !has_conveyor || !isturf(conveyable.loc)) //If you've entered something on us, stop moving

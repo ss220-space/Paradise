@@ -217,6 +217,8 @@ ADMIN_VERB(cmd_admin_godmode_in_list, R_ADMIN, "Godmode in List", "Toggles godmo
 			mute_string = "text to speech"
 		if(MUTE_EMOTE)
 			mute_string = "emote"
+		if(MUTE_INTERNET_REQUEST)
+			mute_string = "internet sound requests"
 		if(MUTE_ALL)
 			mute_string = "everything"
 		else
@@ -262,7 +264,7 @@ ADMIN_VERB(toggle_antaghud_use, R_SERVER, "Toggle antagHUD usage", "Toggles anta
 		for(var/mob/dead/observer/g in user.get_ghosts())
 			if(g.antagHUD)
 				g.antagHUD = FALSE						// Disable it on those that have it enabled
-				g.has_enabled_antagHUD = FALSE				// We'll allow them to respawn
+				g.persistent_client?.antaghud_enabled = FALSE // We'll allow them to respawn
 				to_chat(g, span_danger("The Administrator has disabled AntagHUD."))
 
 		CONFIG_SET(flag/allow_antag_hud, FALSE)
@@ -292,7 +294,7 @@ ADMIN_VERB(toggle_antaghug_restrictions, R_SERVER, "Toggle antagHUD Restrictions
 			to_chat(ghost, span_danger("The administrator has placed restrictions on joining the round if you use AntagHUD"), confidential = TRUE)
 			to_chat(ghost, span_danger("Your AntagHUD has been disabled, you may choose to re-enabled it but will be under restrictions."), confidential = TRUE)
 			ghost.antagHUD = FALSE
-			ghost.has_enabled_antagHUD = FALSE
+			ghost.persistent_client?.antaghud_enabled = FALSE
 		action = "placed restrictions"
 		CONFIG_SET(flag/antag_hud_restricted, TRUE)
 		to_chat(user, span_danger("AntagHUD restrictions have been enabled."), confidential = TRUE)
@@ -972,50 +974,6 @@ ADMIN_VERB(modify_goals, R_EVENT, "Modify Goals", "Modify the station goals for 
 	var/datum/browser/popup = new(usr, "goals", "Modify Goals", 400, 400)
 	popup.set_content(dat)
 	popup.open(FALSE)
-
-/// Allow admin to add or remove traits of datum
-/datum/admins/proc/modify_traits(datum/D)
-	if(!D)
-		return
-
-	var/add_or_remove = tgui_input_list(usr, "Remove/Add?", "Trait Remove/Add", list("Add", "Remove"))
-	if(!add_or_remove)
-		return
-	var/list/availible_traits = list()
-
-	switch(add_or_remove)
-		if("Add")
-			for(var/key in GLOB.traits_by_type)
-				if(istype(D,key))
-					availible_traits += GLOB.traits_by_type[key]
-		if("Remove")
-			if(!GLOB.global_trait_name_map)
-				GLOB.global_trait_name_map = generate_global_trait_name_map()
-			for(var/trait in D._status_traits)
-				var/name = GLOB.global_trait_name_map[trait] || trait
-				availible_traits[name] = trait
-
-	var/chosen_trait = tgui_input_list(usr, "Select trait to modify", "Trait", availible_traits)
-	if(!chosen_trait)
-		return
-	chosen_trait = availible_traits[chosen_trait]
-
-	var/source = "adminabuse"
-	switch(add_or_remove)
-		if("Add") //Not doing source choosing here intentionally to make this bit faster to use, you can always vv it.
-			ADD_TRAIT(D, chosen_trait, source)
-		if("Remove")
-			var/specific = tgui_input_list(usr, "All or specific source ?", "Trait Remove/Add", list("All","Specific"))
-			if(!specific)
-				return
-			switch(specific)
-				if("All")
-					source = null
-				if("Specific")
-					source = tgui_input_list(usr, "Source to be removed", "Trait Remove/Add", D._status_traits[chosen_trait])
-					if(!source)
-						return
-			REMOVE_TRAIT(D, chosen_trait, source)
 
 ADMIN_VERB(change_command_name, R_EVENT, "Change Command Name", "Change the name of Central Command.", ADMIN_CATEGORY_EVENTS)
 	var/input = tgui_input_text(user, "Введите имя для Центрального командования.", "Что?", "", encode = FALSE)

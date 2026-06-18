@@ -26,7 +26,7 @@
 	list_reagents = list("atrazine" = 100)
 
 /obj/item/reagent_containers/spray/weedspray/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "распылитель средства от сорняков",
 		GENITIVE = "распылителя средства от сорняков",
 		DATIVE = "распылителю средства от сорняков",
@@ -50,7 +50,7 @@
 	list_reagents = list("pestkiller" = 100)
 
 /obj/item/reagent_containers/spray/pestspray/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "распылитель пестицидов",
 		GENITIVE = "распылителя пестицидов",
 		DATIVE = "распылителю пестицидов",
@@ -93,7 +93,7 @@
 	resistance_flags = FLAMMABLE
 
 /obj/item/cultivator/rake/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "грабли",
 		GENITIVE = "граблей",
 		DATIVE = "граблям",
@@ -268,7 +268,7 @@
 	throwforce = 0.2
 
 /obj/item/reagent_containers/glass/bottle/nutrient/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "канистра",
 		GENITIVE = "канистры",
 		DATIVE = "канистре",
@@ -328,7 +328,7 @@
 	list_reagents = list("eznutriment" = 80)
 
 /obj/item/reagent_containers/glass/bottle/nutrient/ez/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "канистра (И-ЗИ-Нутриент)",
 		GENITIVE = "канистры (И-ЗИ-Нутриент)",
 		DATIVE = "канистре (И-ЗИ-Нутриент)",
@@ -344,7 +344,7 @@
 	list_reagents = list("left4zednutriment" = 80)
 
 /obj/item/reagent_containers/glass/bottle/nutrient/l4z/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "канистра (Лефт-Фо-Зед)",
 		GENITIVE = "канистры (Лефт-Фо-Зед)",
 		DATIVE = "канистре (Лефт-Фо-Зед)",
@@ -360,7 +360,7 @@
 	list_reagents = list("robustharvestnutriment" = 80)
 
 /obj/item/reagent_containers/glass/bottle/nutrient/rh/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "канистра (Робаст-Харвест)",
 		GENITIVE = "канистры (Робаст-Харвест)",
 		DATIVE = "канистре (Робаст-Харвест)",
@@ -386,7 +386,7 @@
 	list_reagents = list("atrazine" = 80)
 
 /obj/item/reagent_containers/glass/bottle/nutrient/killer/weedkiller/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "канистра (Атразин)",
 		GENITIVE = "канистры (Атразин)",
 		DATIVE = "канистре (Атразин)",
@@ -402,7 +402,7 @@
 	list_reagents = list("pestkiller" = 80)
 
 /obj/item/reagent_containers/glass/bottle/nutrient/killer/pestkiller/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "канистра (Пестициды)",
 		GENITIVE = "канистры (Пестициды)",
 		DATIVE = "канистре (Пестициды)",
@@ -424,7 +424,7 @@
 	origin_tech = "biotech=6"
 
 /obj/item/conductive_organ/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "проводящий орган",
 		GENITIVE = "проводящего органа",
 		DATIVE = "проводящему органу",

@@ -79,7 +79,7 @@
 		ATTACHMENT_SLOT_RAIL = list(ATTACHMENT_OFFSET_X = 9, ATTACHMENT_OFFSET_Y = 6),
 	)
 	recoil = GUN_RECOIL_MEDIUM
-	fire_delay = 0.25 SECONDS
+	fire_delay = 0.35 SECONDS
 	chambered_light_exists = TRUE
 	mag_ammo_counter_exists = TRUE
 	mag_ammo_counter_size = 4
@@ -93,10 +93,10 @@
 	desc = "Новейшая модификация автоматического пистолет-пулемёта \"C-20r\" под .45 калибр. Отличается высоким темпом стрельбы в автоматическом режиме."
 	accuracy = GUN_ACCURACY_PISTOL
 	recoil = GUN_RECOIL_LOW
-	fire_delay = 0.15 SECONDS
+	fire_delay = 0.25 SECONDS
 
 /obj/item/gun/projectile/automatic/smg/c20r/auto/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пистолет-пулемёт C-20rm",
 		GENITIVE = "пистолет-пулемёта C-20rm",
 		DATIVE = "пистолет-пулемёту C-20rm",
@@ -111,7 +111,7 @@
 	damage_mod = 0.85
 
 /obj/item/gun/projectile/automatic/smg/c20r/rusted/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пистолет-пулемёт C-20r (ржавый)",
 		GENITIVE = "пистолет-пулемёта C-20r (ржавый)",
 		DATIVE = "пистолет-пулемёту C-20r (ржавый)",
@@ -191,13 +191,13 @@
 	)
 	starting_attachment_types = list(/obj/item/gun_module/stock, /obj/item/gun_module/muzzle/suppressor/integrated)
 	gun_firemode_list = list(GUN_FIREMODE_SEMIAUTO, GUN_FIREMODE_BURSTFIRE)
-	fire_delay = 0.1 SECONDS
+	fire_delay = 0.2 SECONDS
 	damage_mod = 0.7
 	chambered_light_exists = TRUE
 	mag_ammo_counter_exists = TRUE
 
 /obj/item/gun/projectile/automatic/smg/sparkle_a12/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "А9 \"Искра\"",
 		GENITIVE = "А9 \"Искра\"",
 		DATIVE = "А9 \"Искра\"",
@@ -236,7 +236,7 @@
 	mag_type = /obj/item/ammo_box/magazine/tommygunm45
 	fire_sound = 'sound/weapons/gunshots/1saber.ogg'
 	burst_amount = 4
-	fire_delay = 0.1 SECONDS
+	fire_delay = 0.2 SECONDS
 	recoil = GUN_RECOIL_MEDIUM
 
 // MARK: SFG-5
@@ -267,7 +267,7 @@
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
 	burst_amount = 5
-	fire_delay = 0.15 SECONDS
+	fire_delay = 0.2 SECONDS
 	accuracy = GUN_ACCURACY_PISTOL
 	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL
 	attachable_offset = list(
@@ -313,7 +313,7 @@
 	mag_ammo_counter_size = 5
 
 /obj/item/gun/projectile/automatic/smg/kedr/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пистолет-пулемет K-45",
 		GENITIVE = "пистолета-пулемета K-45",
 		DATIVE = "пистолету-пулемету K-45",

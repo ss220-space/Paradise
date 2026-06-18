@@ -1588,7 +1588,7 @@
 	)
 
 /obj/item/clothing/suit/hooded/ghostfacesuit/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "чёрный балахон",
 		GENITIVE = "чёрного балахона",
 		DATIVE = "чёрному балахону",
@@ -1613,7 +1613,7 @@
 	)
 
 /obj/item/clothing/head/hooded/ghostface/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "чёрный капюшон",
 		GENITIVE = "чёрного капюшона",
 		DATIVE = "чёрному капюшону",
@@ -1631,7 +1631,7 @@
 	item_state = "devil_ghostface_suit"
 
 /obj/item/clothing/suit/hooded/ghostfacesuit/devil/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кроваво-чёрный балахон",
 		GENITIVE = "кроваво-чёрного балахона",
 		DATIVE = "кроваво-чёрному балахону",
@@ -1673,7 +1673,7 @@
 	)
 
 /obj/item/clothing/suit/hooded/penguin_costume/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "костюм пингвина",
 		GENITIVE = "костюма пингвина",
 		DATIVE = "костюму пингвина",
@@ -1697,7 +1697,7 @@
 	)
 
 /obj/item/clothing/head/hooded/penguin_hood/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "капюшон костюма пингвина",
 		GENITIVE = "капюшона костюма пингвина",
 		DATIVE = "капюшону костюма пингвина",
@@ -1722,7 +1722,7 @@
 	AddComponent(/datum/component/spraycan_paintable)
 
 /obj/item/clothing/suit/storage/bomber/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "толстовка",
 		GENITIVE = "толстовки",
 		DATIVE = "толстовке",
@@ -1738,7 +1738,7 @@
 	item_state = "hoody_zaza"
 
 /obj/item/clothing/suit/storage/zazalord/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "заза-лорд бомбер",
 		GENITIVE = "заза-лорд бомбера",
 		DATIVE = "заза-лорд бомберу",
@@ -1757,7 +1757,7 @@
 	species_restricted = list(SPECIES_HUMAN)
 
 /obj/item/clothing/under/chad/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "костюм Гигачада",
 		GENITIVE = "костюма Гигачада",
 		DATIVE = "костюму Гигачада",

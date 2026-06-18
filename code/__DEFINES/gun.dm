@@ -51,6 +51,9 @@ GLOBAL_LIST_INIT(gun_module_slot_ru_name, list(
 #define GUN_MODE_SINGLE_BURST 2
 #define GUN_MODE_SINGLE_BURST_AUTO 3
 
+/// For gunpoints, how many tiles around the target the shooter can roam without losing their shot
+#define GUNPOINT_SHOOTER_STRAY_RANGE 4
+
 //MARK: Calibers
 
 // Pistol cartridges
@@ -116,8 +119,8 @@ GLOBAL_LIST_INIT(gun_module_slot_ru_name, list(
 #define CALIBER_84MM "84 мм"
 
 // Rocket systems
-/// Used in rocket launchers
-#define CALIBER_ROCKET "rocket"
+/// Used in light rocket launcher like RPG-232
+#define CALIBER_ROCKET_70MM "ракета 70 мм"
 
 // Special ammunition
 /// Used in speargun
@@ -171,6 +174,8 @@ GLOBAL_LIST_INIT(gun_module_slot_ru_name, list(
 #define GUN_ACCURACY_PISTOL_ENFORCER new /datum/gun_accuracy/pistol/enforcer()
 /// Uplink pistol accuracy (better than normal pistols)
 #define GUN_ACCURACY_PISTOL_UPLINK new /datum/gun_accuracy/pistol/uplink()
+/// Scarecrow accuracy
+#define GUN_ACCURACY_PISTOL_UPLINK_SCARECROW new /datum/gun_accuracy/pistol/uplink/scarecrow()
 /// Stechkin accuracy
 #define GUN_ACCURACY_PISTOL_STECHKIN new /datum/gun_accuracy/pistol/stechkin()
 /// Rifle accuracy (more than default)

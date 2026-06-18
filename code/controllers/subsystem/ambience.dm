@@ -1,12 +1,11 @@
 /// The subsystem used to play ambience to users every now and then, makes them real excited.
 SUBSYSTEM_DEF(ambience)
 	name = "Ambience"
-	flags = SS_BACKGROUND | SS_NO_INIT
+	ss_flags = SS_BACKGROUND | SS_NO_INIT
 	priority = FIRE_PRIORITY_AMBIENCE
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
 	wait = 1 SECONDS
-	cpu_display = SS_CPUDISPLAY_LOW
-	ss_id = "ambience"
+
 	///Assoc list of listening client - next ambience time
 	var/list/ambience_listening_clients = list()
 	var/list/client_old_areas = list()

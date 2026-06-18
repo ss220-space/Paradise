@@ -1,4 +1,5 @@
 /obj/item/gun/throw
+	abstract_type = /obj/item/gun/throw
 	name = "abstract item thrower"
 	desc = "This shouldn't be here, yell at a coder."
 	fire_sound = 'sound/weapons/punchmiss.ogg'

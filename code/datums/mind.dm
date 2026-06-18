@@ -155,7 +155,7 @@
 	return original_mob_UID == o_mob.UID()
 
 // Do not use for admin related things as this can hide the mob's ckey
-/datum/mind/proc/get_display_key()
+/datum/mind/proc/get_mind_key()
 	// Lets try find a client so we can check their prefs
 	var/client/C = null
 
@@ -171,17 +171,7 @@
 
 	// Ok we found a client, be it their active or their last
 	// Now we see if we need to respect their privacy
-	var/out_ckey
-	if(C)
-		if(C.prefs.toggles2 & PREFTOGGLE_2_ANON)
-			out_ckey = "(Anon)"
-		else
-			out_ckey = C.ckey
-	else
-		// No client. Just mark as DC'd.
-		out_ckey = "(Disconnected)"
-
-	return out_ckey
+	return get_display_key(C)
 
 /datum/mind/proc/transfer_to(mob/living/new_character)
 	if(!istype(new_character))
@@ -1594,7 +1584,7 @@
 					cling.give_objectives = FALSE
 					add_antag_datum(cling)
 					to_chat(usr, span_notice("Changeling [key] has no objectives. You can add custom ones or generate random set by using <b>Randomize!</b> button."))
-					to_chat(current, span_biggerdanger("Your powers have awoken. A flash of memory returns to us... we are a changeling!"))
+					to_chat(current, span_biggerdanger("Наши способности пробудились. Мы вернули обрывки воспоминаний... Мы ГЕНОКРАД!"))
 					log_admin("[key_name(usr)] has changelinged [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has changelinged [key_name_admin(current)]")
 
@@ -2813,6 +2803,16 @@
 		return nuclear_datum.uplink = null
 
 	qdel(uplink)
+
+/// Old uplink's owner search via "owner" var in uplink in GLOB.world_uplinks and traitor "key"
+/datum/mind/proc/find_uplink_by_key()
+	if(!key)
+		return
+	var/my_ckey = ckey(key)
+	for(var/obj/item/uplink/uplink as anything in GLOB.world_uplinks)
+		if(!uplink.uplink_owner || ckey(uplink.uplink_owner) != my_ckey)
+			continue
+		return uplink
 
 /datum/mind/proc/make_Traitor()
 	if(!has_antag_datum(/datum/antagonist/traitor))

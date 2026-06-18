@@ -11,8 +11,9 @@
 	return INITIALIZE_HINT_QDEL
 
 /obj/effect/spawner/lootdrop/proc/spawn_loot()
+	var/list/weighted_loot = fill_with_ones(loot)
 	while(lootcount)
-		var/lootspawn = pickweight(loot)
+		var/lootspawn = pickweight(weighted_loot)
 		if(lootspawn)
 			new lootspawn(get_turf(src))
 			if(!lootdoubles)
@@ -134,7 +135,7 @@
 		////////////////CONTRABAND STUFF//////////////////
 		/obj/item/grenade/clown_grenade = 3,
 		/obj/item/seeds/ambrosia/cruciatus = 3,
-		/obj/item/gun/projectile/automatic/pistol = 1,
+		/obj/item/gun/projectile/automatic/pistol/aps/scarecrow = 1,
 		/obj/item/ammo_box/magazine/m10mm = 4,
 		/obj/item/implanter/fake_mindshield = 1,
 		/obj/item/soap/syndie = 7,
@@ -397,7 +398,7 @@
 	lootcount = 1
 	loot = list(
 		/obj/machinery/floodlight = 50,
-		/obj/machinery/disco = 50,
+		/obj/machinery/jukebox/disco = 50,
 		/obj/mecha/combat/durand/old = 50,
 		/obj/machinery/snow_machine = 50,
 	)

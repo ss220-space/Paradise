@@ -16,7 +16,7 @@
 	var/parts_type = /obj/item/rack_parts
 
 /obj/structure/rack/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "стеллаж",
 		GENITIVE = "стеллажа",
 		DATIVE = "стеллажу",
@@ -24,6 +24,10 @@
 		INSTRUMENTAL = "стеллажом",
 		PREPOSITIONAL = "стеллаже",
 	)
+
+/obj/structure/rack/ComponentInitialize()
+	AddElement(/datum/element/climbable)
+	AddElement(/datum/element/elevation, pixel_shift = 12)
 
 /obj/structure/rack/Initialize(mapload)
 	. = ..()
@@ -195,7 +199,7 @@
 	obj_flags = NODECONSTRUCT
 
 /obj/structure/rack/wooden/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "деревянный стеллаж",
 		GENITIVE = "деревянного стеллажа",
 		DATIVE = "деревянному стеллажу",

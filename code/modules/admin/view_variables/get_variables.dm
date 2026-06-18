@@ -115,12 +115,12 @@
 
 	switch(.["class"])
 		if(VV_TEXT)
-			.["value"] = tgui_input_text(usr, "Enter new text:", "Text", current_value)
+			.["value"] = tgui_input_text(usr, "Enter new text:", "Text", current_value, encode = FALSE)
 			if(.["value"] == null)
 				.["class"] = null
 				return
 		if(VV_MESSAGE)
-			.["value"] = tgui_input_text(usr, "Enter new text:", "Text", current_value, multiline = TRUE)
+			.["value"] = tgui_input_text(usr, "Enter new text:", "Text", current_value, multiline = TRUE, encode = FALSE)
 			if(.["value"] == null)
 				.["class"] = null
 				return
@@ -132,7 +132,7 @@
 				return
 
 		if(VV_BITFIELD)
-			.["value"] = input_bitfield(usr, "Editing bitfield: [var_name]", var_name, current_value)
+			.["value"] = input_bitfield(usr, var_name, current_value)
 			if(.["value"] == null)
 				.["class"] = null
 				return

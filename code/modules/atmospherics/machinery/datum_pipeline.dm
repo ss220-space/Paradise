@@ -265,3 +265,6 @@ GLOBAL_VAR_INIT(pipenetwarnings, 10)
 	else if(length(other_atmosmch))
 		share_many_airs(gas_mixtures, other_atmosmch[1])
 	// If neither has anything, GL will have no volumen, so nothing to share.
+
+/datum/pipeline/proc/has_one_member()
+	return (LAZYLEN(members) + LAZYLEN(other_atmosmch)) == 1

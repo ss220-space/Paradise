@@ -15,7 +15,7 @@
 	toolspeed = 0.5
 
 /obj/item/twohanded/required/pyro_claws/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "энергокогти", \
 		GENITIVE = "энергокогтей", \
 		DATIVE = "энергокогтям", \
@@ -104,7 +104,7 @@
 	var/obj/item/assembly/signaler/core/atmospheric/core
 
 /obj/item/clothing/gloves/color/black/pyro_claws/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "плавящие перчатки", \
 		GENITIVE = "плавящих перчаток", \
 		DATIVE = "плавящим перчаткам", \

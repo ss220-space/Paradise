@@ -18,7 +18,7 @@
 	var/locked = FALSE
 
 /obj/structure/dispenser_bot/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бот-раздатчик",
 		GENITIVE = "бота-раздатчика",
 		DATIVE = "боту-раздатчику",
@@ -191,7 +191,7 @@
 			var/obj/item/circuit_component/vendor_component/vendor_component = new(parent)
 			parent.add_component(vendor_component, user)
 			vendor_components += vendor_component
-			RegisterSignal(vendor_component, list(
+			RegisterSignals(vendor_component, list(
 				COMSIG_QDELETING,
 				COMSIG_CIRCUIT_COMPONENT_REMOVED,
 			), PROC_REF(remove_vendor_component))

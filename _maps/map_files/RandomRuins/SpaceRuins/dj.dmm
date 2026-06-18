@@ -52,7 +52,6 @@
 /area/djstation)
 "au" = (
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/machinery/power/apc/noalarm/directional/south,
@@ -408,7 +407,6 @@
 "bP" = (
 /obj/machinery/power/solar/fake,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -441,7 +439,6 @@
 "bU" = (
 /obj/machinery/power/terminal,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
@@ -521,7 +518,6 @@
 "lv" = (
 /obj/machinery/power/solar/fake,
 /obj/structure/cable{
-	d2 = 8;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plasteel/airless{

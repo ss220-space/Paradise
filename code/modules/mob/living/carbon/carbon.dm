@@ -2,6 +2,7 @@
 	. = ..()
 	GLOB.carbon_list += src
 	AddComponent(/datum/component/anti_juggling)
+	ADD_TRAIT(src, TRAIT_CAN_HOLD_ITEMS, INNATE_TRAIT) // Carbons are assumed to be innately capable of having arms, we check their arms count instead
 
 /mob/living/carbon/Destroy()
 	// We need to delete the back slot first, for modsuits. Otherwise, we have issues.
@@ -473,7 +474,7 @@
 		return .
 
 	var/alien_trait = HAS_TRAIT(src, TRAIT_VENTCRAWLER_ALIEN)
-	if(alien_trait && length(get_equipped_items(INCLUDE_HELD)))
+	if(alien_trait && !is_hands_free())
 		if(provide_feedback)
 			balloon_alert(src, "ваши руки заняты!")
 		return FALSE
@@ -686,8 +687,7 @@
 	frequency_number = frequency_number + (rand(-5, 5) / 100)
 
 	var/volume = min(8 * min(get_dist(loc, target), range), 50)
-	if(volume >= SOUND_AUDIBLE_VOLUME_MIN)
-		playsound(src, throwsound, volume, vary = TRUE, extrarange = -1, frequency = frequency_number)
+	playsound(src, throwsound, volume, vary = TRUE, extrarange = -1, frequency = frequency_number)
 
 	visible_message(
 		span_danger("[name][power_throw_text] броса[PLUR_ET_YUT(src)] [thrown_thing.declent_ru(ACCUSATIVE)]."),

@@ -3,7 +3,7 @@
 	can_fast_load = TRUE
 
 /obj/item/ammo_box/magazine/internal/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "внутренний магазин [gun_name] [get_cartridge_marking()]",
 		GENITIVE = "внутреннего магазина [gun_name] [get_cartridge_marking()]",
 		DATIVE = "внутреннему магазину [gun_name] [get_cartridge_marking()]",

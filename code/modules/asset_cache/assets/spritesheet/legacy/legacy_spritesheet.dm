@@ -10,7 +10,7 @@
 
 /// Deprecated: Use /datum/asset/spritesheet_batched where possible
 /datum/asset/spritesheet
-	_abstract = /datum/asset/spritesheet
+	abstract_type = /datum/asset/spritesheet
 	cross_round_cachable = TRUE
 	var/name
 	/// List of arguments to pass into queuedInsert
@@ -105,8 +105,8 @@
 			return
 
 	ensure_stripped()
-	for(var/size_id in sizes)
-		var/size = sizes[size_id]
+	for(var/size_id, value in sizes)
+		var/size = value
 		var/file_path = size[SPRSZ_STRIPPED]
 		var/file_hash = rustlib_hash_file(RUSTLIB_HASH_MD5, file_path)
 		SSassets.transport.register_asset("[name]_[size_id].png", file_path, file_hash=file_hash)
@@ -161,8 +161,8 @@
 		.["[name]_[size_id].png"] = SSassets.transport.get_asset_url("[name]_[size_id].png")
 
 /datum/asset/spritesheet/proc/ensure_stripped(sizes_to_strip = sizes)
-	for(var/size_id in sizes_to_strip)
-		var/size = sizes[size_id]
+	for(var/size_id, value in sizes_to_strip)
+		var/size = value
 		if(size[SPRSZ_STRIPPED])
 			continue
 
@@ -184,13 +184,13 @@
 /datum/asset/spritesheet/proc/generate_css()
 	var/list/out = list()
 
-	for(var/size_id in sizes)
-		var/size = sizes[size_id]
+	for(var/size_id, value in sizes)
+		var/size = value
 		var/list/dimensions = get_icon_dimensions(size[SPRSZ_ICON])
 		out += ".[name][size_id]{display:inline-block;width:[dimensions["width"]]px;height:[dimensions["height"]]px;background-image:url('[get_background_url("[name]_[size_id].png")]');background-repeat:no-repeat;}"
 
-	for(var/sprite_id in sprites)
-		var/sprite = sprites[sprite_id]
+	for(var/sprite_id, value in sprites)
+		var/sprite = value
 		var/size_id = sprite[SPR_SIZE]
 		var/idx = sprite[SPR_IDX]
 		var/size = sizes[size_id]
@@ -403,11 +403,11 @@
 /// Spritesheet that only uses simple PNGs and CSS keys. See `assets` variable.
 /// Deprecated: Use /datum/asset/spritesheet_batched where possible
 /datum/asset/spritesheet/simple
-	_abstract = /datum/asset/spritesheet/simple
+	abstract_type = /datum/asset/spritesheet/simple
 	/// Associative list of icon keys (CSS class names) -> PNG filepaths (single quote!)
 	/// File paths MUST be PNGs
 	var/list/assets
 
 /datum/asset/spritesheet/simple/create_spritesheets()
-	for(var/key in assets)
-		Insert(key, assets[key])
+	for(var/key, value in assets)
+		Insert(key, value)

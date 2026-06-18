@@ -9,7 +9,7 @@
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
 /obj/structure/closet/crate/necropolis/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сундук некрополя",
 		GENITIVE = "сундука некрополя",
 		DATIVE = "сундуку некрополя",
@@ -125,7 +125,7 @@
 	name = "puzzling chest"
 
 /obj/structure/closet/crate/necropolis/puzzle/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "загадочный сундук",
 		GENITIVE = "загадочного сундука",
 		DATIVE = "загадочному сундуку",
@@ -222,7 +222,7 @@
 	var/usedHand
 
 /obj/item/rod_of_asclepius/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "посох асклепия",
 		GENITIVE = "посоха асклепия",
 		DATIVE = "посоху асклепия",
@@ -282,8 +282,12 @@
 	else
 		to_chat(itemUser, failText)
 		return
-	to_chat(itemUser, span_notice("Змея, довольная вашей клятвой, намертво прирастает к вашему предплечью. Ваши мысли теперь вращаются только вокруг помощи другим, а вред — всего лишь смутное, греховное воспоминание..."))
-	var/datum/status_effect/hippocraticOath/effect = itemUser.apply_status_effect(STATUS_EFFECT_HIPPOCRATIC_OATH)
+
+	apply_oath(itemUser)
+
+/obj/item/rod_of_asclepius/proc/apply_oath(mob/living/carbon/user)
+	to_chat(user, span_notice("Змея, довольная вашей клятвой, намертво прирастает к вашему предплечью. Ваши мысли теперь вращаются только вокруг помощи другим, а вред — всего лишь смутное, греховное воспоминание..."))
+	var/datum/status_effect/hippocraticOath/effect = user.apply_status_effect(STATUS_EFFECT_HIPPOCRATIC_OATH)
 	effect.hand = usedHand
 	activated()
 
@@ -306,7 +310,7 @@
 	attack_verb = list("коснулся", "погладил", "провёл")
 
 /obj/item/eflowers/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "зачарованные цветы",
 		GENITIVE = "зачарованных цветов",
 		DATIVE = "зачарованным цветам",
@@ -383,7 +387,7 @@
 	attack_verb = list("плс'л","атк'л","руб'л")
 
 /obj/item/rune_scimmy/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "рунический ятаган",
 		GENITIVE = "рунического ятагана",
 		DATIVE = "руническому ятагану",
@@ -411,7 +415,7 @@
 	sound_off = 'sound/weapons/swings/katana_swing4.ogg'
 
 /obj/item/organ/internal/cyberimp/arm/katana/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "тёмный осколок",
 		GENITIVE = "тёмного осколка",
 		DATIVE = "тёмному осколку",
@@ -503,7 +507,7 @@
 		)
 
 /obj/item/cursed_katana/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "проклятая катана",
 		GENITIVE = "проклятой катаны",
 		DATIVE = "проклятой катане",

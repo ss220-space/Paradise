@@ -129,6 +129,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	if(orbit_menu)
 		SStgui.close_uis(orbit_menu)
 		QDEL_NULL(orbit_menu)
+	do_observe_target = null
 	GLOB.respawnable_list -= src
 	return ..()
 
@@ -407,8 +408,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(!check_rights((R_ADMIN | R_MOD), FALSE, user))
 		return
 	antagHUD = TRUE
-	for(var/datum/atom_hud/antag/H in GLOB.huds)
-		H.show_to(src)
+	for(var/hud_key, hud_type in GLOB.huds)
+		astype(hud_type, /datum/atom_hud/antag)?.show_to(src)
 
 /**
  * Toggles off all HUDs for the ghost player.
@@ -419,8 +420,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	remove_the_hud(DATA_HUD_SECURITY_ADVANCED)
 	remove_the_hud(DATA_HUD_MEDICAL_ADVANCED)
 	antagHUD = FALSE
-	for(var/datum/atom_hud/antag/H in GLOB.huds)
-		H.hide_from(src)
+	for(var/hud_key, hud_type in GLOB.huds)
+		astype(hud_type, /datum/atom_hud/antag)?.hide_from(src)
 
 /mob/dead/observer/verb/set_dnr()
 	set name = "Запретить реанимацию"
@@ -558,29 +559,25 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set name = "К существу"
 	set desc = "Teleport to a mob"
 
-	if(isobserver(usr)) //Make sure they're an observer!
-		var/jumping = tgui_input_list(src, "Существо для телепортации", "Телепортироваться к существу", GLOB.mob_list)
-		if(jumping)
-			return jump_to_mob(jumping)
-
-/mob/dead/observer/proc/jump_to_mob(mob/M)
-	if(!M || !isobserver(usr))
+	if(!isobserver(usr)) //Make sure they're an observer!
 		return
-	var/mob/A = src			 //Source mob
-	var/turf/T = get_turf(M) //Turf of the destination mob
 
-	if(T && isturf(T))	//Make sure the turf exists, then move the source to that destination.
-		A.forceMove(T)
-		M.update_parallax_contents()
+	var/target = tgui_input_list(src, "Существо для телепортации", "Телепортироваться к существу", GLOB.mob_living_list)
+	if(isnull(target) || !isobserver(usr))
 		return
-	to_chat(A, "Это существо не находится в игровом мире.")
+
+	var/turf/destination_turf = get_turf(target) // Turf of the destination mob
+	if(isturf(destination_turf))
+		abstract_move(destination_turf)
+	else
+		to_chat(src, "Это существо не находится в игровом мире.")
 
 /mob/dead/observer/memory()
-	set hidden = 1
+	set hidden = TRUE
 	to_chat(src, span_warning("Вы мертвы! У вас нет разума для хранения воспоминаний!"))
 
 /mob/dead/observer/add_memory()
-	set hidden = 1
+	set hidden = TRUE
 	to_chat(src, span_warning("Вы мертвы! У вас нет разума для хранения воспоминаний!"))
 
 /mob/dead/observer/verb/toggle_health_scan()
@@ -870,7 +867,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		if(invisibility) // Only show the button if the ghost is not visible to the living
 			follow_button = "([ghost_follow_link(target, current_mob)])" // Ghost needs to be link clicker, otherwise it breaks
 
-		current_mob.show_message(span_deadsay("<b>[src]</b> указыва[PLUR_ET_YUT(src)] на [follow_button] [target]."), EMOTE_VISIBLE)
+		current_mob.show_message(span_deadsay("<b>[src]</b> указыва[PLUR_ET_YUT(src)] на [follow_button] [target.declent_ru(ACCUSATIVE)]."), EMOTE_VISIBLE)
 		add_deadchat_logs(src, "point to [key_name(target)] [COORD(target)]")
 
 	return TRUE

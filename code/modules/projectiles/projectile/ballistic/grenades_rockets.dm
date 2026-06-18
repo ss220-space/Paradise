@@ -3,6 +3,7 @@
 	name = "HEDP rocket"
 	desc = "ИСПОЛЬЗУЙ ПНЕВМАТИЧЕСКИЙ ПИСТОЛЕТ"
 	icon_state = "84mm-hedp"
+	icon = 'icons/obj/weapons/ammo.dmi'
 	damage = 80
 	//shrapnel thing
 	var/shrapnel_range = 5
@@ -33,7 +34,7 @@
 				embed_shrapnel(H, shrapnel_amount)
 
 /obj/projectile/bullet/a84mm_hedp/proc/embed_shrapnel(mob/living/carbon/human/H, amount)
-	for(var/i = 0, i < amount, i++)
+	for(var/i in 0 to amount)
 		if(prob(embed_prob - H.getarmor(attack_flag = BOMB)))
 			var/obj/item/embedded/S = new embedded_type(src)
 			H.hitby(S, skipcatch = 1)
@@ -48,6 +49,7 @@
 	name = "HE missile"
 	desc = "Boom."
 	icon_state = "84mm-he"
+	icon = 'icons/obj/weapons/ammo.dmi'
 	damage = 30
 	speed = 0.8
 	ricochets_max = 0
@@ -65,7 +67,7 @@
 	ricochets_max = 0
 
 /obj/projectile/bullet/a40mm/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "40мм граната",
 		GENITIVE = "40мм гранаты",
 		DATIVE = "40мм гранате",
@@ -78,6 +80,30 @@
 	..()
 	explosion(target, devastation_range = -1, heavy_impact_range = 0, light_impact_range = 2, flash_range = 1, adminlog = TRUE, flame_range = 3, cause = "[type] fired by [key_name(firer)]")
 	return 1
+
+// MARK: 70mm HE
+/obj/projectile/bullet/a70mm_he
+	name = "70mm HE missile"
+	desc = "Небольшой взрыв."
+	icon_state = "70mm-he"
+	icon = 'icons/obj/weapons/ammo.dmi'
+	damage = 25
+	speed = 0.9
+	ricochets_max = 0
+
+/obj/projectile/bullet/a70mm_he/on_hit(atom/target, blocked = 0)
+	..()
+	explosion(get_turf(src), devastation_range = 0, heavy_impact_range = 2, light_impact_range = 3, flash_range = 4, cause = src)
+
+/obj/projectile/bullet/a70mm_he/get_ru_names()
+	return alist(
+		NOMINATIVE = "70мм ракета",
+		GENITIVE = "70мм ракеты",
+		DATIVE = "70мм ракете",
+		ACCUSATIVE = "70мм ракету",
+		INSTRUMENTAL = "70мм ракетой",
+		PREPOSITIONAL = "70мм ракете",
+	)
 
 // MARK: Bombarda grenade
 /obj/projectile/grenade/improvised
@@ -172,7 +198,7 @@
 /obj/item/grenade/frag/less
 	range = 2
 	shrapnel_radius = 3
-	
+
 /obj/projectile/grenade/a40mm/secgl/paint
 	icon_state = "secgl_projectile_paint"
 	var/paint_color = "#e99518"

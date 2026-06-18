@@ -61,7 +61,7 @@
 		AM.forceMove(get_turf(src))
 	return ..()
 
-/obj/item/mecha_parts/mecha_equipment/medical/sleeper/Exit(atom/movable/leaving, atom/newLoc)
+/obj/item/mecha_parts/mecha_equipment/medical/sleeper/Exit(atom/movable/leaving, direction)
 	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/medical/sleeper/action(mob/living/carbon/target, list/modifiers)
@@ -555,7 +555,7 @@
 	var/obj/item/gun/medbeam/mech/mbeam
 
 /obj/item/mecha_parts/mecha_equipment/medical/beamgun/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Медицинская Лучпушка",
 		GENITIVE = "Медицинской Лучпушки",
 		DATIVE = "Медицинской Лучпушке",

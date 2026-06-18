@@ -70,7 +70,7 @@
 	custom_price = 1.5 * PAYCHECK_LOWER
 
 /obj/item/gun_module/rail/scope/collimator/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "коллиматорный прицел",
 		GENITIVE = "коллиматорного прицела",
 		DATIVE = "коллиматорному прицелу",
@@ -89,7 +89,7 @@
 	custom_price = PAYCHECK_LOWER
 
 /obj/item/gun_module/rail/scope/collimator/pistol/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пистолетный коллиматорный прицел",
 		GENITIVE = "пистолетного коллиматорного прицела",
 		DATIVE = "пистолетному коллиматорному прицелу",
@@ -117,7 +117,7 @@
 	custom_price = 3 * PAYCHECK_MAX
 
 /obj/item/gun_module/rail/scope/x4/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "оптический прицел х4",
 		GENITIVE = "оптического прицела х4",
 		DATIVE = "оптическому прицелу х4",
@@ -140,7 +140,7 @@
 	custom_price = 5 * PAYCHECK_MAX
 
 /obj/item/gun_module/rail/scope/x8/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "оптический прицел х8",
 		GENITIVE = "оптического прицела х8",
 		DATIVE = "оптическому прицелу х8",
@@ -164,7 +164,7 @@
 	custom_price = 10 * PAYCHECK_MAX
 
 /obj/item/gun_module/rail/scope/x16/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "оптический прицел х16",
 		GENITIVE = "оптического прицела х16",
 		DATIVE = "оптическому прицелу х16",
@@ -238,7 +238,7 @@
 	custom_price = PAYCHECK_LOWER
 
 /obj/item/gun_module/rail/hud/medical/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "коллиматор с медицинским ИЛС",
 		GENITIVE = "коллиматора с медицинским ИЛС",
 		DATIVE = "коллиматору с медицинским ИЛС",
@@ -260,7 +260,7 @@
 	custom_price = 1.5 * PAYCHECK_LOWER
 
 /obj/item/gun_module/rail/hud/security/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "коллиматор с охранным ИЛС",
 		GENITIVE = "коллиматора с охранным ИЛС",
 		DATIVE = "коллиматору с охранным ИЛС",

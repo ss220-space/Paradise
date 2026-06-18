@@ -17,7 +17,7 @@
 	var/obj/item/gun/holstered
 
 /obj/item/mod/module/holster/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль кобуры",
 		GENITIVE = "модуля кобуры",
 		DATIVE = "модулю кобуры",
@@ -77,7 +77,7 @@
 	grenade.attack_self(mod.wearer)
 
 /obj/item/mod/module/dispenser/mirage/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль гранат \"Мираж\"",
 		GENITIVE = "модуля гранат \"Мираж\"",
 		DATIVE = "модулю гранат \"Мираж\"",
@@ -95,7 +95,7 @@
 	var/mob/living/thrower
 
 /obj/item/grenade/mirage/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "граната \"Мираж\"",
 		GENITIVE = "гранаты \"Мираж\"",
 		DATIVE = "гранате \"Мираж\"",
@@ -142,7 +142,7 @@
 	required_slots = list(ITEM_SLOT_HEAD|ITEM_SLOT_EYES|ITEM_SLOT_MASK)
 
 /obj/item/mod/module/active_sonar/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль сонара",
 		GENITIVE = "модуля сонара",
 		DATIVE = "модулю сонара",
@@ -224,7 +224,7 @@
 	var/dispense_type = /obj/item/grenade/barrier/dropwall/firewall
 
 /obj/item/mod/module/anomaly_locked/firewall/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль огненного щита",
 		GENITIVE = "модуля огненного щита",
 		DATIVE = "модулю огненного щита",
@@ -272,7 +272,7 @@
 	accepted_anomalies = list(/obj/item/assembly/signaler/core/vortex)
 
 /obj/item/mod/module/anomaly_locked/vortex_shotgun/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль вихревого дробовика",
 		GENITIVE = "модуля вихревого дробовика",
 		DATIVE = "модулю вихревого дробовика",
@@ -350,7 +350,7 @@
 	var/obj/structure/closet/body_bag/linked_bodybag
 
 /obj/item/mod/module/criminalcapture/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль мешков для тел",
 		GENITIVE = "модуля мешков для тел",
 		DATIVE = "модулю мешков для тел",
@@ -441,7 +441,7 @@
 	var/list/already_allowed_guns = list()
 
 /obj/item/mod/module/magnetic_harness/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль магнитного ремня",
 		GENITIVE = "модуля магнитного ремня",
 		DATIVE = "модулю магнитного ремня",
@@ -513,7 +513,7 @@
 	required_slots = list(ITEM_SLOT_CLOTH_OUTER)
 
 /obj/item/mod/module/pepper_shoulders/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль перцового газа",
 		GENITIVE = "модуля перцового газа",
 		DATIVE = "модулю перцового газа",
@@ -565,7 +565,7 @@
 	cooldown_time = 0.05 SECONDS
 
 /obj/item/mod/module/megaphone/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль мегафона",
 		GENITIVE = "модуля мегафона",
 		DATIVE = "модулю мегафона",
@@ -584,7 +584,7 @@
 
 // idk
 /obj/item/mod/module/quick_cuff/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль надёжного хвата",
 		GENITIVE = "модуля надёжного хвата",
 		DATIVE = "модулю надёжного хвата",
@@ -619,7 +619,7 @@
 	dispense_type = /obj/item/grenade/barrier/dropwall
 
 /obj/item/mod/module/dispenser/dropwall_module/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль создания энергощита",
 		GENITIVE = "модуля создания энергощита",
 		DATIVE = "модулю создания энергощита",
@@ -651,7 +651,7 @@
 	dispense_type = /obj/item/grenade/barrier/dropwall/syndie
 
 /obj/item/mod/module/dispenser/dropwall_syndie/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль создания военного энергощита",
 		GENITIVE = "модуля создания военного энергощита",
 		DATIVE = "модулю создания военного энергощита",

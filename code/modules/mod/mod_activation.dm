@@ -264,10 +264,11 @@
 		part.heat_protection = NONE
 		part.cold_protection = NONE
 	update_speed()
-	wearer.update_clothing(part.slot_flags | slot_flags)
-	wearer.refresh_obscured()
-	if((part.clothing_flags & AIRTIGHT) && !wearer.has_airtight_items())
-		wearer.internal = null
+	if(wearer)
+		wearer.update_clothing(part.slot_flags | slot_flags)
+		wearer.refresh_obscured()
+		if((part.clothing_flags & AIRTIGHT) && !wearer.has_airtight_items())
+			wearer.internal = null
 	SEND_SIGNAL(src, COMSIG_MOD_PART_SEALED, part_datum)
 	if(is_sealed)
 		if(!active)

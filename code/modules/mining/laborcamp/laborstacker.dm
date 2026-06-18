@@ -14,7 +14,7 @@
 	var/static/list/sheet_values
 
 /obj/machinery/mineral/labor_claim_console/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "консоль учета добытой руды",
 		GENITIVE = "консоли учета добытой руды",
 		DATIVE = "консоли учета добытой руды",
@@ -32,7 +32,7 @@
 			if(!initial(sheet.point_value) || (initial(sheet.merge_type) && initial(sheet.merge_type) != sheet_type)) //ignore no-value sheets and x/fifty subtypes
 				continue
 			sheet_values += list(list("ore" = initial(sheet.name), "value" = initial(sheet.point_value)))
-		sheet_values = sortTim(sheet_values, cmp = /proc/cmp_sheet_list)
+		sortTim(sheet_values, GLOBAL_PROC_REF(cmp_sheet_list))
 
 /obj/machinery/mineral/labor_claim_console/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -172,7 +172,7 @@
 	anchored = TRUE
 
 /obj/machinery/mineral/labor_points_checker/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "консоль проверки очков",
 		GENITIVE = "консоли проверки очков",
 		DATIVE = "консоли проверки очков",

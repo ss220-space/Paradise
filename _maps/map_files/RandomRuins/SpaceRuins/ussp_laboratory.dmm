@@ -60,12 +60,13 @@
 	},
 /area/ruin/ussp_xeno/medbay)
 "bT" = (
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/machinery/power/apc/directional/north{
 	equipment_channel = 0
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/structure/reagent_dispensers/fueltank,
@@ -75,7 +76,9 @@
 	},
 /area/ruin/ussp_xeno/engi)
 "bU" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk,
 /turf/simulated/floor/plasteel{
@@ -171,14 +174,18 @@
 	pixel_x = -4;
 	pixel_y = 3
 	},
-/obj/effect/decal/warning_stripes/yellow,
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
 /area/ruin/ussp_xeno/entrance)
 "dt" = (
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/structure/rack,
 /obj/item/reagent_containers/glass/beaker/waterbottle/large{
 	pixel_x = -2;
@@ -266,7 +273,9 @@
 	},
 /area/ruin/ussp_xeno/entrance)
 "fo" = (
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light{
 	dir = 1;
@@ -307,7 +316,9 @@
 	},
 /area/ruin/ussp_xeno/dorms_ussp)
 "fz" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -319,7 +330,6 @@
 "fL" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/structure/cable{
@@ -381,7 +391,6 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkredfull"
 	},
 /area/ruin/ussp_xeno/storage)
@@ -467,7 +476,9 @@
 	},
 /area/ruin/ussp_xeno/admiral)
 "hn" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/effect/decal/cleanable/blood/xeno,
 /obj/structure/disposalpipe/segment{
 	dir = 9
@@ -604,8 +615,12 @@
 /area/ruin/ussp_xeno/gym_ussp)
 "jj" = (
 /obj/structure/rack,
-/obj/effect/decal/warning_stripes/northeastcorner,
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/item/flashlight/seclite{
 	pixel_y = -9
 	},
@@ -653,7 +668,9 @@
 	},
 /area/ruin/ussp_xeno/entrance)
 "jA" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -686,7 +703,9 @@
 	pixel_x = 7;
 	pixel_y = -8
 	},
-/obj/effect/decal/warning_stripes/northeastsouth,
+/obj/effect/turf_decal/stripes/end{
+	dir = 4
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -711,7 +730,7 @@
 /area/ruin/ussp_xeno/medbay)
 "kA" = (
 /obj/structure/weightmachine/weightlifter,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -935,7 +954,6 @@
 	equipment_channel = 0
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -998,7 +1016,9 @@
 "pG" = (
 /obj/machinery/portable_atmospherics/canister/air,
 /obj/machinery/atmospherics/unary/portables_connector,
-/obj/effect/decal/warning_stripes/southeastcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 2
+	},
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -1031,8 +1051,10 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/yellow,
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkred"
@@ -1130,7 +1152,6 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkredfull"
 	},
 /area/ruin/ussp_xeno/admiral)
@@ -1209,7 +1230,7 @@
 "sZ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small,
-/obj/effect/decal/warning_stripes/yellow/partial{
+/obj/effect/turf_decal/delivery/partial{
 	dir = 8
 	},
 /obj/structure/sign/vacuum/external{
@@ -1273,7 +1294,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkredfull"
 	},
 /area/ruin/ussp_xeno/storage)
@@ -1427,8 +1447,10 @@
 	pixel_x = 8;
 	pixel_y = 10
 	},
-/obj/effect/decal/warning_stripes/yellow,
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/item/flashlight/seclite,
 /obj/machinery/light{
 	on = 1
@@ -1439,7 +1461,9 @@
 	},
 /area/ruin/ussp_xeno/entrance)
 "vP" = (
-/obj/effect/decal/warning_stripes/northeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
 /obj/structure/rack,
 /obj/item/reagent_containers/food/drinks/cans/beer{
 	pixel_x = -7;
@@ -1510,9 +1534,10 @@
 	},
 /area/ruin/ussp_xeno/medbay)
 "wi" = (
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/power/smes/engineering{
@@ -1609,7 +1634,9 @@
 	name = "Старая бутылка водки";
 	pixel_x = -5
 	},
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/structure/extinguisher_cabinet/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -1658,8 +1685,12 @@
 	pixel_x = -12;
 	pixel_y = -11
 	},
-/obj/effect/decal/warning_stripes/north,
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/structure/alien/weeds,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
@@ -1671,8 +1702,10 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/effect/decal/warning_stripes/yellow,
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/machinery/suit_storage_unit/standard_unit,
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -1701,8 +1734,10 @@
 	pixel_x = 2;
 	pixel_y = 2
 	},
-/obj/effect/decal/warning_stripes/yellow,
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/machinery/alarm/directional/north{
 	alarm_frequency = 1200
 	},
@@ -1727,7 +1762,6 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkredfull"
 	},
 /area/ruin/ussp_xeno/medbay)
@@ -1735,8 +1769,10 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/effect/decal/warning_stripes/yellow,
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/machinery/suit_storage_unit/standard_unit,
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -1776,7 +1812,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/machinery/portable_atmospherics/scrubber,
 /obj/structure/extinguisher_cabinet/directional/south,
 /obj/structure/alien/weeds,
@@ -1791,7 +1829,9 @@
 	pixel_x = 1;
 	pixel_y = 1
 	},
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -1970,7 +2010,9 @@
 /area/ruin/ussp_xeno/dorms_ussp)
 "Cx" = (
 /obj/machinery/floodlight,
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/alarm/directional/north{
 	alarm_frequency = 1200
@@ -1982,7 +2024,7 @@
 /area/ruin/ussp_xeno/engi)
 "CL" = (
 /obj/structure/weightmachine/stacklifter,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plasteel{
@@ -2030,7 +2072,6 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkredfull"
 	},
 /area/ruin/ussp_xeno/storage)
@@ -2039,7 +2080,9 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/northeastcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "caution"
@@ -2093,7 +2136,9 @@
 /obj/item/weldingtool{
 	pixel_x = -4
 	},
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -2124,7 +2169,9 @@
 	pixel_y = 10
 	},
 /obj/effect/decal/cleanable/cobweb,
-/obj/effect/decal/warning_stripes/southeastcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 2
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -2172,14 +2219,15 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 5
 	},
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/power/port_gen/pacman,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -2296,7 +2344,9 @@
 	},
 /obj/item/storage/belt/utility,
 /obj/item/crowbar/red,
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1;
 	welded = 1
@@ -2307,7 +2357,7 @@
 	},
 /area/ruin/ussp_xeno/engi)
 "GW" = (
-/obj/effect/decal/warning_stripes/yellow/partial{
+/obj/effect/turf_decal/delivery/partial{
 	dir = 8
 	},
 /obj/machinery/airlock_sensor{
@@ -2392,7 +2442,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/portable_atmospherics/pump,
 /obj/structure/alien/weeds,
@@ -2615,7 +2667,9 @@
 	dir = 9
 	},
 /obj/machinery/portable_atmospherics/canister/oxygen,
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution"
@@ -2648,7 +2702,9 @@
 	},
 /area/ruin/ussp_xeno/gym_ussp)
 "Mk" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/power/apc/directional/south{
 	equipment_channel = 0
@@ -2729,7 +2785,6 @@
 "Nh" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -2764,7 +2819,9 @@
 	},
 /area/ruin/ussp_xeno/out)
 "NC" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/light{
 	dir = 4
@@ -2806,7 +2863,9 @@
 	},
 /area/ruin/ussp_xeno/baracks)
 "NU" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/machinery/light{
 	dir = 4
 	},
@@ -2841,7 +2900,9 @@
 	},
 /area/ruin/ussp_xeno/storage)
 "Oc" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -2888,7 +2949,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkredfull"
 	},
 /area/ruin/ussp_xeno/baracks)
@@ -2959,7 +3019,9 @@
 	},
 /obj/item/storage/box/lights/mixed,
 /obj/item/clothing/gloves/color/fyellow,
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/structure/sign/poster/official/random{
 	pixel_y = 32
 	},
@@ -2968,7 +3030,6 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/power/terminal{
@@ -2980,7 +3041,9 @@
 	},
 /area/ruin/ussp_xeno/storage)
 "Pc" = (
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/structure/reagent_dispensers/watertank,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -3075,7 +3138,7 @@
 /obj/structure/chair/office/light{
 	dir = 8
 	},
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -3105,7 +3168,6 @@
 "RO" = (
 /obj/effect/decal/cleanable/blood/writing,
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkredfull"
 	},
 /area/ruin/ussp_xeno/dorms_ussp)
@@ -3119,7 +3181,9 @@
 	pixel_x = 1;
 	pixel_y = 6
 	},
-/obj/effect/decal/warning_stripes/northwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -3198,7 +3262,9 @@
 /obj/item/extinguisher/mini{
 	pixel_x = -5
 	},
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/machinery/light{
 	dir = 8
 	},
@@ -3253,7 +3319,7 @@
 /obj/structure/chair/office/light{
 	dir = 8
 	},
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
@@ -3279,8 +3345,12 @@
 	pixel_x = -3;
 	pixel_y = 2
 	},
-/obj/effect/decal/warning_stripes/north,
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -3318,13 +3388,14 @@
 	pixel_x = -4;
 	pixel_y = 3
 	},
-/obj/effect/decal/warning_stripes/yellow,
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/machinery/power/apc/directional/north{
 	equipment_channel = 0
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -3403,13 +3474,14 @@
 	pixel_x = -9;
 	pixel_y = 8
 	},
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/power/apc/directional/west{
 	equipment_channel = 0
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -3435,7 +3507,6 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkredfull"
 	},
 /area/ruin/ussp_xeno/dorms_ussp)
@@ -3507,8 +3578,10 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/yellow,
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/effect/decal/cleanable/cobweb2,
 /obj/structure/extinguisher_cabinet/directional/north,
 /turf/simulated/floor/plasteel{
@@ -3589,7 +3662,6 @@
 	equipment_channel = 0
 	},
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/structure/chair/comfy/red{
@@ -3657,7 +3729,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkredfull"
 	},
 /area/ruin/ussp_xeno/gym_ussp)

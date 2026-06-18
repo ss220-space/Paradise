@@ -82,7 +82,7 @@
 		),
 	)
 
-#ifdef GAME_TESTS
+#ifdef UNIT_TESTS
 /datum/mod_theme/New()
 	var/list/skin_parts = list()
 	for(var/variant in variants)
@@ -123,7 +123,7 @@
 		part.name = "[part.name] [name]"
 		if(!part.ru_names)
 			part.ru_names = part.get_ru_names_cached()
-		part.ru_names = list(
+		part.ru_names = alist(
 			NOMINATIVE = part.ru_names[NOMINATIVE] + " [name]",
 			GENITIVE = part.ru_names[GENITIVE] + " [name]",
 			DATIVE = part.ru_names[DATIVE] + " [name]",

@@ -1,4 +1,0 @@
-author: "Etrnlmelancholy"
-delete-after: True
-changes:
-  - admin: "Любой спавн теперь логируется админам в чат (PR #9196)"
