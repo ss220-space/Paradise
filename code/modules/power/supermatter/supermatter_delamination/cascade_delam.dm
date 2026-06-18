@@ -28,7 +28,7 @@
 
 	radio_announce(
 		"ОПАСНОСТЬ: ЧАСТОТА КОЛЕБАНИЙ ГИПЕРСТРУКТУРЫ ВЫШЛА ЗА ДОПУСТИМЫЕ ПРЕДЕЛЫ.",
-		sm,
+		DECLENT_RU_CAP(sm, NOMINATIVE),
 		sm.damage >= sm.emergency_point ? sm.emergency_channel : sm.warning_channel,
 		sm,
 	)

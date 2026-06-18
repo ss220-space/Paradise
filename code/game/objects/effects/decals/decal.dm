@@ -54,7 +54,7 @@
 
 /obj/effect/decal/attackby(obj/item/item, mob/user, params)
 	if(!isglassreagentcontainer(item) && !istype(item, /obj/item/reagent_containers/food/drinks))
-		return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
+		return ATTACK_CHAIN_PROCEED
 
 	add_fingerprint(user)
 	scoop(item, user)
