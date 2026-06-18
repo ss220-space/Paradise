@@ -368,6 +368,7 @@
 	else
 		if(!unflip())
 			to_chat(user, span_notice("Никак не поддаётся."))
+			return
 		make_climbable()
 
 /obj/structure/table/proc/flip(direction, throw_around = TRUE)
