@@ -646,12 +646,15 @@
 /obj/item/gun/proc/fast_fire(atom/target, mob/user, zone_override)
 	var/old_target = src.target
 	var/old_user = gun_user
+	var/list/old_modifiers = modifiers
 	src.target = target
 	gun_user = user
+	modifiers = null
 	setup_bullet_accuracy()
 	. = process_fire(zone_override)
 	src.target = old_target
 	gun_user = old_user
+	modifiers = old_modifiers
 	setup_bullet_accuracy()
 
 /obj/item/gun/proc/process_fire(zone_override)

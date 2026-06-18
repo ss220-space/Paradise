@@ -1,7 +1,8 @@
 use crate::mapmanip::GridMap;
 use dmmtools::dmm;
 use dmmtools::dmm::Coord3;
-use eyre::ContextCompat;
+use meowtonin::{ByondError, ByondResult};
+use std::error::Error;
 
 /// Takes `src_map` and puts it at `coord` in `dst_map`.
 /// Noop area and turf have special handling: `/area/template_noop` and `/turf/template_noop`.
@@ -12,7 +13,7 @@ pub fn insert_submap(
     src_map: &GridMap,
     coord: dmm::Coord3,
     dst_map: &mut GridMap,
-) -> eyre::Result<()> {
+) -> ByondResult<()> {
     for x in 1..(src_map.size.x + 1) {
         for y in 1..(src_map.size.y + 1) {
             for z in 1..(src_map.size.z + 1) {
@@ -23,28 +24,49 @@ pub fn insert_submap(
                 let mut tile_src = src_map
                     .grid
                     .get(&coord_src)
-                    .wrap_err(format!(
-                        "src submap coord out of bounds: {coord_src}; {}; {};",
-                        src_map.size,
-                        src_map.grid.len(),
-                    ))?
+                    .ok_or(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+                        format!(
+                            "src submap coord out of bounds: {coord_src}; {}; {};",
+                            src_map.size,
+                            src_map.grid.len(),
+                        ),
+                    )))?
                     .clone();
 
                 // remove area and turf from src tile
-                let tile_src_area = tile_src.remove_area().wrap_err("submap tile has no area")?;
-                let tile_src_turf = tile_src.remove_turf().wrap_err("submap tile has no turf")?;
+                let tile_src_area = tile_src.remove_area().ok_or(ByondError::Boxed(Box::<
+                    dyn Error + Send + Sync,
+                >::from(
+                    "submap tile has no area",
+                )))?;
+                let tile_src_turf = tile_src.remove_turf().ok_or(ByondError::Boxed(Box::<
+                    dyn Error + Send + Sync,
+                >::from(
+                    "submap tile has no turf",
+                )))?;
 
                 let tile_src_area_is_noop = { tile_src_area.path == "/area/template_noop" };
                 let tile_src_turf_is_noop = { tile_src_turf.path == "/turf/template_noop" };
 
                 // get dst tile
-                let tile_dst = dst_map.grid.get_mut(&coord_dst).wrap_err(format!(
-                    "cannot insert submap tile; coord out of bounds; x: {x}; y: {y};"
-                ))?;
+                let tile_dst = dst_map
+                    .grid
+                    .get_mut(&coord_dst)
+                    .ok_or(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+                        format!("cannot insert submap tile; coord out of bounds; x: {x}; y: {y};"),
+                    )))?;
 
                 // remove area and turf from dst tile
-                let tile_dst_area = tile_dst.remove_area().wrap_err("map tile has no area")?;
-                let tile_dst_turf = tile_dst.remove_turf().wrap_err("map tile has no turf")?;
+                let tile_dst_area = tile_dst.remove_area().ok_or(ByondError::Boxed(Box::<
+                    dyn Error + Send + Sync,
+                >::from(
+                    "map tile has no area",
+                )))?;
+                let tile_dst_turf = tile_dst.remove_turf().ok_or(ByondError::Boxed(Box::<
+                    dyn Error + Send + Sync,
+                >::from(
+                    "map tile has no turf",
+                )))?;
 
                 // get new area
                 let new_area = if tile_src_area_is_noop {

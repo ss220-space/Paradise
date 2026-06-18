@@ -202,13 +202,14 @@
 	if(!isliving(user))
 		return
 
-	// 1) Prevent dragging from shelf onto non-turf objects
-	if(is_cargo_shelf(loc) && !isturf(over_object))
-		return
-
-	// 2) If the target is a crate on a shelf, we work with the shelf itself.
+	// 1) If the target is a crate on a shelf, we work with the shelf itself.
 	if(is_crate(over_object) && is_cargo_shelf(over_object.loc))
 		over_object = over_object.loc
+
+	// 2) Prevent dragging from a shelf onto a non-turf that isn't another shelf (mobs, machines, etc).
+	//    Shelf-to-shelf, including repositioning on the same shelf, must stay allowed.
+	if(is_cargo_shelf(loc) && !isturf(over_object) && !is_cargo_shelf(over_object))
+		return
 
 	// 3) If the crate is on a shelf, the user must be able to reach the shelf (or the crate itself)
 	if(is_cargo_shelf(loc) && !loc.IsReachableBy(user) && !IsReachableBy(user))
@@ -225,7 +226,7 @@
 	var/list/modifiers = params2list(params)
 	var/y_offset = text2num(modifiers[ICON_Y])
 
-	// 5) Shelf to Shelf (drag from one shelf to another)
+	// 5) Shelf to Shelf (drag between shelves, or reposition within the same shelf)
 	if(is_cargo_shelf(over_object) && is_cargo_shelf(loc))
 		var/obj/structure/cargo_shelf/source_shelf = loc
 		var/obj/structure/cargo_shelf/destination_shelf = over_object

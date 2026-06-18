@@ -507,10 +507,8 @@
 		skin_list[skin_data.item_path] = list()
 	skin_list[skin_data.item_path] += skin_data
 
-/**
- * Checks if that loc and dir has an item on the wall
-**/
-// Wall mounted machinery which are visually on the wall.
+// Checks if that loc and dir has an item on the wall
+/// Wall mounted machinery which are visually on the wall.
 GLOBAL_LIST_INIT(wallitems_interior, typecacheof(list(
 	/obj/item/radio/intercom,
 	/obj/item/storage/secure/safe,
@@ -520,6 +518,7 @@ GLOBAL_LIST_INIT(wallitems_interior, typecacheof(list(
 	/obj/machinery/defibrillator_mount,
 	/obj/machinery/door_control,
 	/obj/machinery/door_timer,
+	/obj/machinery/driver_button,
 	/obj/machinery/embedded_controller/radio/airlock,
 	/obj/machinery/firealarm,
 	/obj/machinery/flasher,
@@ -528,6 +527,7 @@ GLOBAL_LIST_INIT(wallitems_interior, typecacheof(list(
 	/obj/machinery/newscaster,
 	/obj/machinery/power/apc,
 	/obj/machinery/requests_console,
+	/obj/machinery/shower,
 	/obj/machinery/status_display,
 	/obj/structure/closet/fireaxecabinet,
 	/obj/structure/extinguisher_cabinet,
@@ -535,12 +535,16 @@ GLOBAL_LIST_INIT(wallitems_interior, typecacheof(list(
 	/obj/structure/noticeboard,
 	/obj/structure/reagent_dispensers/peppertank,
 	/obj/structure/sign,
+	/obj/structure/torch_holder,
 )))
 
-// Wall mounted machinery which are visually coming out of the wall.
-// These do not conflict with machinery which are visually placed on the wall.
+/// Wall mounted machinery which are visually coming out of the wall.
+/// These do not conflict with machinery which are visually placed on the wall.
 GLOBAL_LIST_INIT(wallitems_exterior, typecacheof(list(
+	/obj/machinery/camera,
 	/obj/machinery/light,
+	/obj/machinery/light_construct,
+	/obj/structure/sink,
 )))
 
 /**

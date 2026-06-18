@@ -234,3 +234,6 @@ GLOBAL_LIST_INIT(sm_gas_behavior, init_sm_gas())
 	heat_modifier = 14
 	power_transmission = -0.5
 	heat_power_generation = 1
+
+/datum/sm_gas/agent_b
+	gas_id = TLV_AGENT_B

@@ -3,63 +3,65 @@ use std::{
     io::{BufRead, BufReader, BufWriter, Read, Write},
 };
 
-use byondapi::value::ByondValue;
+use meowtonin::{byond_fn, ByondError, ByondResult, ByondValue, ToByond};
+use std::error::Error;
 
-#[byondapi::bind]
-fn file_read(path: ByondValue) -> eyre::Result<ByondValue> {
+#[byond_fn]
+fn file_read(path: ByondValue) -> ByondResult<ByondValue> {
     let path_string = path.get_string()?;
     let read_result = read(&path_string)?;
-    Ok(read_result.try_into()?)
+    read_result.to_byond()
 }
 
-#[byondapi::bind]
-fn file_exists(path: ByondValue) -> eyre::Result<ByondValue> {
+#[byond_fn]
+fn file_exists(path: ByondValue) -> ByondResult<ByondValue> {
     let path_string = path.get_string()?;
     let exists_result = exists(&path_string);
-    Ok(exists_result.try_into()?)
+    exists_result.to_byond()
 }
 
-#[byondapi::bind]
-fn file_write(data: ByondValue, path: ByondValue) -> eyre::Result<ByondValue> {
+#[byond_fn]
+fn file_write(data: ByondValue, path: ByondValue) -> ByondResult<ByondValue> {
     let path_string = path.get_string()?;
     let data_string = data.get_string()?;
     let write_result = write(&data_string, &path_string)? as f32;
-    Ok(write_result.try_into()?)
+    write_result.to_byond()
 }
 
-#[byondapi::bind]
-fn file_append(data: ByondValue, path: ByondValue) -> eyre::Result<ByondValue> {
+#[byond_fn]
+fn file_append(data: ByondValue, path: ByondValue) -> ByondResult<ByondValue> {
     let path_string = path.get_string()?;
     let data_string = data.get_string()?;
     let append_result = append(&data_string, &path_string)? as f32;
-    Ok(append_result.try_into()?)
+    append_result.to_byond()
 }
 
-#[byondapi::bind]
-fn file_get_line_count(path: ByondValue) -> eyre::Result<ByondValue> {
+#[byond_fn]
+fn file_get_line_count(path: ByondValue) -> ByondResult<ByondValue> {
     let path_string = path.get_string()?;
     let line_count_result = get_line_count(&path_string)?.to_string();
-    Ok(line_count_result.try_into()?)
+    line_count_result.to_byond()
 }
 
-#[byondapi::bind]
-fn file_seek_line(path: ByondValue, line: ByondValue) -> eyre::Result<ByondValue> {
+#[byond_fn]
+fn file_seek_line(path: ByondValue, line: ByondValue) -> ByondResult<ByondValue> {
     let path_string = path.get_string()?;
     let line_string = line.get_string()?;
-    let parsed_line = line_string.parse::<usize>()?;
+    let parsed_line = line_string.parse::<usize>().map_err(ByondError::boxed)?;
     match seek_line(&path_string, parsed_line) {
-        Some(content) => Ok(content.try_into()?),
-        None => Ok(ByondValue::null()),
+        Some(content) => content.to_byond(),
+        None => Ok(ByondValue::NULL),
     }
 }
 
-fn read(path: &str) -> eyre::Result<String> {
-    let file = File::open(path)?;
-    let metadata = file.metadata()?;
+fn read(path: &str) -> ByondResult<String> {
+    let file = File::open(path).map_err(ByondError::boxed)?;
+    let metadata = file.metadata().map_err(ByondError::boxed)?;
     let mut file = BufReader::new(file);
 
     let mut content = String::with_capacity(metadata.len() as usize);
-    file.read_to_string(&mut content)?;
+    file.read_to_string(&mut content)
+        .map_err(ByondError::boxed)?;
     let content = content.replace('\r', "");
 
     Ok(content)
@@ -70,52 +72,62 @@ fn exists(path: &str) -> String {
     path.exists().to_string()
 }
 
-fn write(data: &str, path: &str) -> eyre::Result<usize> {
+fn write(data: &str, path: &str) -> ByondResult<usize> {
     let path: &std::path::Path = path.as_ref();
     if let Some(parent) = path.parent() {
-        std::fs::create_dir_all(parent)?;
+        std::fs::create_dir_all(parent).map_err(ByondError::boxed)?;
     }
 
-    let mut file = BufWriter::new(File::create(path)?);
-    let written = file.write(data.as_bytes())?;
+    let mut file = BufWriter::new(File::create(path).map_err(ByondError::boxed)?);
+    let written = file.write(data.as_bytes()).map_err(ByondError::boxed)?;
 
-    file.flush()?;
+    file.flush().map_err(ByondError::boxed)?;
 
     let inner_file = match file.into_inner() {
         Ok(f) => f,
         Err(e) => {
-            return Err(eyre::eyre!("Failed to flush buffer: {}", e.error()));
+            return Err(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+                format!("Failed to flush buffer: {}", e.error()),
+            )));
         }
     };
 
-    inner_file.sync_all()?;
+    inner_file.sync_all().map_err(ByondError::boxed)?;
     Ok(written)
 }
 
-fn append(data: &str, path: &str) -> eyre::Result<usize> {
+fn append(data: &str, path: &str) -> ByondResult<usize> {
     let path: &std::path::Path = path.as_ref();
     if let Some(parent) = path.parent() {
-        std::fs::create_dir_all(parent)?;
+        std::fs::create_dir_all(parent).map_err(ByondError::boxed)?;
     }
 
-    let mut file = BufWriter::new(OpenOptions::new().append(true).create(true).open(path)?);
-    let written = file.write(data.as_bytes())?;
+    let mut file = BufWriter::new(
+        OpenOptions::new()
+            .append(true)
+            .create(true)
+            .open(path)
+            .map_err(ByondError::boxed)?,
+    );
+    let written = file.write(data.as_bytes()).map_err(ByondError::boxed)?;
 
-    file.flush()?;
+    file.flush().map_err(ByondError::boxed)?;
 
     let inner_file = match file.into_inner() {
         Ok(f) => f,
         Err(e) => {
-            return Err(eyre::eyre!("Failed to flush buffer: {}", e.error()));
+            return Err(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+                format!("Failed to flush buffer: {}", e.error()),
+            )));
         }
     };
 
-    inner_file.sync_all()?;
+    inner_file.sync_all().map_err(ByondError::boxed)?;
     Ok(written)
 }
 
-fn get_line_count(path: &str) -> eyre::Result<u32> {
-    let file = BufReader::new(File::open(path)?);
+fn get_line_count(path: &str) -> ByondResult<u32> {
+    let file = BufReader::new(File::open(path).map_err(ByondError::boxed)?);
     Ok(file.lines().count() as u32)
 }
 
