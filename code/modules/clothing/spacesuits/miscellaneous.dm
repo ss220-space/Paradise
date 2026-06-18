@@ -105,7 +105,7 @@
 
 /obj/item/clothing/head/helmet/space/deathsquad/beret
 	name = "officer's beret"
-	desc = "An armored beret commonly used by special operations officers."
+	desc = "Бронированный берет, обычно используемый офицерами подразделений специального назначения \"Нанотрейзен\"."
 	icon_state = "beret_officer"
 	armor = list(MELEE = 80, BULLET = 80, LASER = 50, ENERGY = 100, BOMB = 100, BIO = 100, FIRE = 100, ACID = 100)
 	flags_inv = NONE
