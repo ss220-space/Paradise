@@ -250,12 +250,9 @@
 /obj/item/rcd/attack_self_tk(mob/user)
 	radial_menu(user)
 
-/obj/item/rcd/click_alt(mob/living/carbon/human/human)
-	if(!istype(human) || !human.Adjacent(src) || human.incapacitated() || HAS_TRAIT(human, TRAIT_HANDS_BLOCKED))
-		return
-
-	add_fingerprint(human)
-	ui_interact(human)
+/obj/item/rcd/click_alt(mob/user)
+	add_fingerprint(user)
+	ui_interact(user)
 	return CLICK_ACTION_SUCCESS
 
 /obj/item/rcd/ui_state(mob/user)
@@ -499,8 +496,9 @@
 	ammoamt = 100
 
 /obj/item/rcd/mecha_ref
+	abstract_type = /obj/item/rcd/mecha_ref
 	name = "Mecha inner RCD"
-	desc = "Ты не должен этого видеть, напиши баг-репорт."
+	desc = "Вы не должены этого видеть, напишите баг-репорт."
 	power_use_multiplier = 250
 	var/obj/mecha/chassis = null
 	/// Weakref to the mecha equipment module that owns this internal RCD.
