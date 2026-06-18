@@ -191,7 +191,7 @@
 			balloon_alert(user, "картридж не подойдёт!")
 			return
 
-	else if(istype(item, /obj/item/stack))
+	else if(isstack(item))
 		var/obj/item/stack/sheet = item
 		if(sheet.matter_amount <= 0 || sheet.is_cyborg)
 			balloon_alert(user, "материал не подойдёт!")
