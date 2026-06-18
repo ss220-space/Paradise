@@ -1,8 +1,9 @@
 use crate::mapmanip::GridMap;
 use dmmtools::dmm::{self, Coord3};
-use eyre::ContextCompat;
 use fxhash::FxHashMap;
+use meowtonin::{ByondError, ByondResult};
 use std::collections::BTreeSet;
+use std::error::Error;
 
 fn coord3_to_index(coord: dmm::Coord3, size: dmm::Coord3) -> (usize, usize, usize) {
     (
@@ -19,7 +20,7 @@ fn int_to_key(i: u16) -> dmm::Key {
     unsafe { std::mem::transmute::<u16, dmm::Key>(i) }
 }
 
-pub fn to_dict_map(grid_map: &GridMap) -> eyre::Result<dmm::Map> {
+pub fn to_dict_map(grid_map: &GridMap) -> ByondResult<dmm::Map> {
     let mut dict_map = dmm::Map::new(
         grid_map.size.x as usize,
         grid_map.size.y as usize,
@@ -39,7 +40,11 @@ pub fn to_dict_map(grid_map: &GridMap) -> eyre::Result<dmm::Map> {
                 let next_free_key = (0..65534)
                     .map(int_to_key)
                     .find(|k| !used_dict_keys.contains(k))
-                    .wrap_err("ran out of free keys")?;
+                    .ok_or({
+                        ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+                            "ran out of free keys",
+                        ))
+                    })?;
                 dictionary_reverse.insert(tile.prefabs.clone(), next_free_key);
                 used_dict_keys.insert(next_free_key);
             } else {
@@ -58,7 +63,9 @@ pub fn to_dict_map(grid_map: &GridMap) -> eyre::Result<dmm::Map> {
                     dict_map.dictionary.insert(key, tile.prefabs.clone());
                     dict_map.grid[coord3_to_index(coord, grid_map.size)] = key;
                 } else {
-                    eyre::bail!("to_dict_map fail; grid map has no coord: {coord:?}");
+                    return Err(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+                        format!("to_dict_map fail; grid map has no coord: {coord:?}"),
+                    )));
                 }
             }
         }

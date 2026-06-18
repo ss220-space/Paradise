@@ -79,7 +79,7 @@ Difficulty: Hard
 	)
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Бубльгум",
 		GENITIVE = "Бубльгума",
 		DATIVE = "Бубльгуму",
@@ -539,7 +539,7 @@ Difficulty: Hard
 	random_icon_states = list("gib3", "gib5", "gib6")
 
 /obj/effect/decal/cleanable/blood/gibs/bubblegum/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "густая кровь",
 		GENITIVE = "густой крови",
 		DATIVE = "густой крови",
@@ -662,7 +662,7 @@ Difficulty: Hard
 	loot = list(/obj/effect/decal/cleanable/blood/gibs/bubblegum)
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "галлюцинация Бубльгума",
 		GENITIVE = "галлюцинации Бубльгума",
 		DATIVE = "галлюцинации Бубльгума",

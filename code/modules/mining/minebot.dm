@@ -48,7 +48,7 @@
 	var/datum/action/innate/minedrone/dump_ore/dump_ore_action
 
 /mob/living/simple_animal/hostile/mining_drone/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шахтёрский бот",
 		GENITIVE = "шахтёрского бота",
 		DATIVE = "шахтёрскому боту",
@@ -299,7 +299,7 @@
 	icon = 'icons/obj/doors/door_assembly.dmi'
 
 /obj/item/mine_bot_upgrade/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль ближнего боя для шахтёрского бота",
 		GENITIVE = "модуля ближнего боя для шахтёрского бота",
 		DATIVE = "модулю ближнего боя для шахтёрского бота",
@@ -328,7 +328,7 @@
 	name = "minebot armor upgrade"
 
 /obj/item/mine_bot_upgrade/health/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль брони для шахтёрского бота",
 		GENITIVE = "модуля брони для шахтёрского бота",
 		DATIVE = "модулю брони для шахтёрского бота",
@@ -360,7 +360,7 @@
 	var/base_cooldown_add = 10 //base cooldown isn't reset to normal, it's just added on, since it's not practical to disable the cooldown module
 
 /obj/item/slimepotion/sentience/mining/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль ИИ для шахтёрского бота",
 		GENITIVE = "модуля ИИ для шахтёрского бота",
 		DATIVE = "модулю ИИ для шахтёрского бота",
@@ -392,7 +392,7 @@
 	item_state = "electronic"
 
 /obj/item/mining_drone_cube/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "куб шахтёрского бота",
 		GENITIVE = "куба шахтёрского бота",
 		DATIVE = "кубу шахтёрского бота",

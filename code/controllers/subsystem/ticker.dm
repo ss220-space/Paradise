@@ -81,9 +81,6 @@ SUBSYSTEM_DEF(ticker)
 	ASYNC
 		login_music = choose_lobby_music()
 
-	if(!login_music)
-		to_chat(world, span_boldwarning("Не удалось загрузить музыку из лобби.")) //yogs end
-
 	randomtips = world.file2list("strings/tips.txt")
 	memetips = world.file2list("strings/sillytips.txt")
 	return SS_INIT_SUCCESS
@@ -375,14 +372,13 @@ SUBSYSTEM_DEF(ticker)
 
 	if(SSholiday.holidays)
 		to_chat(world, span_darkmblue("и..."))
-		for(var/holidayname in SSholiday.holidays)
-			var/datum/holiday/holiday = SSholiday.holidays[holidayname]
+		for(var/holiday_name, value in SSholiday.holidays)
+			var/datum/holiday/holiday = value
 			to_chat(world, "<h4>[holiday.greet()]</h4>")
 
 	GLOB.discord_manager.send2discord_simple_noadmins("**\[Info]** Round has started")
 	auto_toggle_ooc(FALSE) // Turn it off
 	time_game_started = world.time
-
 
 	if(CONFIG_GET(number/restrict_maint))
 		for(var/obj/machinery/door/airlock/maintenance/M in GLOB.airlocks)
@@ -412,13 +408,13 @@ SUBSYSTEM_DEF(ticker)
 
 /datum/controller/subsystem/ticker/proc/choose_lobby_music()
 	var/list/songs = CONFIG_GET(str_list/lobby_music)
-	if(LAZYLEN(songs))
+	if(length(songs))
 		selected_lobby_music = pick(songs)
 
 	if(SSholiday.holidays) // What's this? Events are initialized before tickers? Let's do something with that!
-		for(var/holidayname in SSholiday.holidays)
-			var/datum/holiday/holiday = SSholiday.holidays[holidayname]
-			if(LAZYLEN(holiday.lobby_music))
+		for(var/holidayname, value in SSholiday.holidays)
+			var/datum/holiday/holiday = value
+			if(length(holiday.lobby_music))
 				selected_lobby_music = pick(holiday.lobby_music)
 				break
 
@@ -433,38 +429,36 @@ SUBSYSTEM_DEF(ticker)
 		login_music_initializated = TRUE
 		return
 
-	var/list/output = world.shelleo("[ytdl] -x --audio-format mp3 --audio-quality 0 --geo-bypass --no-playlist -o \"cache/songs/%(id)s.%(ext)s\" --dump-single-json --no-simulate \"[selected_lobby_music]\"")
-	var/errorlevel = output[SHELLEO_ERRORLEVEL]
-	var/stdout = output[SHELLEO_STDOUT]
-	var/stderr = output[SHELLEO_STDERR]
+	// Only resolve metadata here. The audio file is downloaded later, when the
+	// music asset is built on first client login.
+	var/datum/web_sound_info/sound_info = get_web_sound_info(ytdl, selected_lobby_music)
 
-	if(!errorlevel)
-		var/list/data
-		try
-			data = json_decode(stdout)
-		catch(var/exception/e)
-			to_chat(world, span_boldwarning("yt-dlp JSON parsing FAILED."))
-			log_world(span_boldwarning("yt-dlp JSON parsing FAILED:"))
-			log_world(span_warning("[e]: [stdout]"))
-			login_music_initializated = TRUE
-			return
-		if(data["title"])
-			login_music_data["title"] = data["title"]
-			login_music_data["url"] = data["url"]
-			login_music_data["link"] = data["webpage_url"]
-			login_music_data["path"] = "cache/songs/[data["id"]].mp3"
-			login_music_data["title_link"] = data["webpage_url"] ? "<a href=\"[data["webpage_url"]]\">[data["title"]]</a>" : data["title"]
-
-	if(errorlevel)
-		to_chat(world, span_boldwarning("yt-dlp failed."))
-		log_world("Could not play lobby song [selected_lobby_music]: [stderr]")
-		login_music_initializated = TRUE
-		return
+	// Shell work is done, every remaining path marks init complete.
 	login_music_initializated = TRUE
-	return stdout
+
+	if(!sound_info.success)
+		to_chat(world, span_boldwarning("yt-dlp failed."))
+		log_world("Could not play lobby song [selected_lobby_music]: [sound_info.error_message]")
+		return
+
+	if(!sound_info.title)
+		return
+
+	login_music_data["title"] = sound_info.title
+	login_music_data["url"] = sound_info.url
+	login_music_data["link"] = sound_info.webpage_url
+	login_music_data["id"] = sound_info.id
+	login_music_data["path"] = "cache/songs/[sound_info.id].mp3"
+	login_music_data["title_link"] = sound_info.webpage_url ? "<a href=\"[sound_info.webpage_url]\">[sound_info.title]</a>" : sound_info.title
+	// Same metadata keys the now-playing widget reads for admin web sounds.
+	login_music_data["duration"] = DisplayTimeText(sound_info.duration * 1 SECONDS)
+	login_music_data["artist"] = sound_info.artist
+	login_music_data["upload_date"] = sound_info.upload_date
+	login_music_data["album"] = sound_info.album
+
+	return sound_info.title
 
 /datum/controller/subsystem/ticker/proc/station_explosion_cinematic(station_missed = 0, override = null)
-
 	auto_toggle_ooc(TRUE) // Turn it on
 
 	if(!station_missed)	//nuke kills everyone on z-level 1 to prevent "hurr-durr I survived"
@@ -682,9 +676,9 @@ SUBSYSTEM_DEF(ticker)
 	add_game_logs("///////////////////////////////////////////////////////")
 
 	// Add AntagHUD to everyone, see who was really evil the whole time!
-	for(var/datum/atom_hud/antag/antag_hud in GLOB.huds)
+	for(var/hud_key, hud_type in GLOB.huds)
 		for(var/mob/player as anything in GLOB.player_list)
-			antag_hud.show_to(player)
+			astype(hud_type, /datum/atom_hud/antag)?.show_to(player)
 
 	// Seal the blackbox, stop collecting info
 	SSblackbox.Seal()

@@ -285,55 +285,55 @@ ADMIN_VERB(cmd_admin_areatest, R_DEBUG, "Test Areas", "Tests the areas for vario
 	var/list/areas_without_intercom = areas_all - areas_with_intercom
 	var/list/areas_without_camera = areas_all - areas_with_camera
 
-	if(areas_without_APC.len)
+	if(length(areas_without_APC))
 		dat += "<h1>AREAS WITHOUT AN APC:</h1>"
 		for(var/areatype in areas_without_APC)
 			dat += "[areatype]<br>"
 			CHECK_TICK
 
-	if(areas_with_multiple_APCs.len)
+	if(length(areas_with_multiple_APCs))
 		dat += "<h1>AREAS WITH MULTIPLE APCS:</h1>"
 		for(var/areatype in areas_with_multiple_APCs)
 			dat += "[areatype]<br>"
 			CHECK_TICK
 
-	if(areas_without_air_alarm.len)
+	if(length(areas_without_air_alarm))
 		dat += "<h1>AREAS WITHOUT AN AIR ALARM:</h1>"
 		for(var/areatype in areas_without_air_alarm)
 			dat += "[areatype]<br>"
 			CHECK_TICK
 
-	if(areas_without_RC.len)
+	if(length(areas_without_RC))
 		dat += "<h1>AREAS WITHOUT A REQUEST CONSOLE:</h1>"
 		for(var/areatype in areas_without_RC)
 			dat += "[areatype]<br>"
 			CHECK_TICK
 
-	if(areas_without_light.len)
+	if(length(areas_without_light))
 		dat += "<h1>AREAS WITHOUT ANY LIGHTS:</h1>"
 		for(var/areatype in areas_without_light)
 			dat += "[areatype]<br>"
 			CHECK_TICK
 
-	if(areas_without_LS.len)
+	if(length(areas_without_LS))
 		dat += "<h1>AREAS WITHOUT A LIGHT SWITCH:</h1>"
 		for(var/areatype in areas_without_LS)
 			dat += "[areatype]<br>"
 			CHECK_TICK
 
-	if(areas_without_intercom.len)
+	if(length(areas_without_intercom))
 		dat += "<h1>AREAS WITHOUT ANY INTERCOMS:</h1>"
 		for(var/areatype in areas_without_intercom)
 			dat += "[areatype]<br>"
 			CHECK_TICK
 
-	if(areas_without_camera.len)
+	if(length(areas_without_camera))
 		dat += "<h1>AREAS WITHOUT ANY CAMERAS:</h1>"
 		for(var/areatype in areas_without_camera)
 			dat += "[areatype]<br>"
 			CHECK_TICK
 
-	if(!(areas_with_APC.len || areas_with_multiple_APCs.len || areas_with_air_alarm.len || areas_with_RC.len || areas_with_light.len || areas_with_LS.len || areas_with_intercom.len || areas_with_camera.len))
+	if(!(length(areas_with_APC) || length(areas_with_multiple_APCs) || length(areas_with_air_alarm) || length(areas_with_RC) || length(areas_with_light) || length(areas_with_LS) || length(areas_with_intercom) || length(areas_with_camera)))
 		dat += "<b>No problem areas!</b>"
 
 	var/datum/browser/popup = new(user.mob, "testareas", "Test Areas", 500, 750)
@@ -639,10 +639,8 @@ ADMIN_VERB(clear_legacy_asset_cache, R_DEBUG, "Clear Legacy Asset Cache", "Clear
 		to_chat(user, span_warning("Asset caching is disabled in the config!"))
 		return
 	var/regenerated = 0
-	for(var/datum/asset/target_spritesheet as anything in subtypesof(/datum/asset))
+	for(var/datum/asset/target_spritesheet as anything in valid_subtypesof(/datum/asset))
 		if(!initial(target_spritesheet.cross_round_cachable))
-			continue
-		if(target_spritesheet == initial(target_spritesheet._abstract))
 			continue
 		var/datum/asset/asset_datum = GLOB.asset_datums[target_spritesheet]
 		asset_datum.regenerate()
@@ -654,9 +652,7 @@ ADMIN_VERB(clear_smart_asset_cache, R_DEBUG, "Clear Smart Asset Cache", "Clear t
 		to_chat(user, span_warning("Smart asset caching is disabled in the config!"))
 		return
 	var/cleared = 0
-	for(var/datum/asset/spritesheet_batched/target_spritesheet as anything in subtypesof(/datum/asset/spritesheet_batched))
-		if(target_spritesheet == initial(target_spritesheet._abstract))
-			continue
+	for(var/datum/asset/spritesheet_batched/target_spritesheet as anything in valid_subtypesof(/datum/asset/spritesheet_batched))
 		fdel("[ASSET_CROSS_ROUND_SMART_CACHE_DIRECTORY]/spritesheet_cache.[initial(target_spritesheet.name)].json")
 		cleared++
 	to_chat(user, span_notice("Cleared [cleared] asset\s."))

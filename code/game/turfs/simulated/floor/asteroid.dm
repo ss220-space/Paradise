@@ -19,7 +19,7 @@
 	var/worm_chance = 30
 
 /turf/simulated/floor/plating/asteroid/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "астероидный песок",
 		GENITIVE = "астероидного песка",
 		DATIVE = "астероидному песку",
@@ -148,7 +148,7 @@ GLOBAL_LIST_EMPTY(dug_up_basalt)
 	floor_variance = 15
 
 /turf/simulated/floor/plating/asteroid/basalt/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "вулканический пол",
 		GENITIVE = "вулканического пола",
 		DATIVE = "вулканическому полу",
@@ -235,7 +235,7 @@ GLOBAL_LIST_EMPTY(dug_up_basalt)
 	digResult = /obj/item/stack/sheet/mineral/snow
 
 /turf/simulated/floor/plating/asteroid/snow/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "снег",
 		GENITIVE = "снега",
 		DATIVE = "снегу",

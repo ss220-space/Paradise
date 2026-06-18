@@ -693,7 +693,7 @@
 			Оно оснащено алгоритмами ближнего боя и имеет обновленные протоколы безопасности для работы с микробатареями."
 	item = /obj/item/ipc_combat_upgrade
 	cost = 11
-	race = list(SPECIES_MACNINEPERSON)
+	race = list(SPECIES_MACHINEPERSON)
 
 /datum/uplink_item/racial/supercharge
 	name = "Имплант cуперзаряда"
@@ -701,7 +701,7 @@
 			Он выпускает специальный химический коктейль, который снимает и значительно сокращает эффект оглушения, а также повышает скорость передвижения."
 	item = /obj/item/implanter/supercharge
 	cost = 40
-	race = list(SPECIES_MACNINEPERSON)
+	race = list(SPECIES_MACHINEPERSON)
 
 /datum/uplink_item/racial/combat_exoframe
 	name = "Боевой каркас экзоскелета"
@@ -710,7 +710,7 @@
 			Поставляется с одноразовым автоимплантером для установки на месте."
 	item = /obj/item/storage/box/syndie_kit/combat_exoframe
 	cost = 28
-	race = list(SPECIES_MACNINEPERSON)
+	race = list(SPECIES_MACHINEPERSON)
 
 //Slime People
 
@@ -2591,10 +2591,9 @@
 		remaining_TC -= chosen_item.cost
 		itemlog += chosen_item.name // To make the name more readable for the log compared to just i.item
 
-	target_uplink.purchase_log += "<big>[icon2base64html(crate)]</big>"
 	for(var/bought_item in bought_items)
-		var/obj/purchased = new bought_item(crate)
-		target_uplink.purchase_log += "<big>[icon2base64html(purchased)]</big>"
+		new bought_item(crate)
+	crate.log_contents_to_uplink(target_uplink)
 	add_game_logs("purchased a surplus crate with [jointext(itemlog, ", ")]", buyer)
 
 /datum/uplink_item/bundles_TC/telecrystal

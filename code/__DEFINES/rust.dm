@@ -19,7 +19,7 @@
 #ifdef CIBUILDING
 		// CI override, use librustlibs_ci.so if possible.
 		if(fexists("./tools/ci/librustlibs_ci.so"))
-			return __rustlib = "tools/ci/librustlibs_ci.so"
+			return __rustlib = "tools/ci/librustlibs.so"
 #endif
 		// First check if it's built in the usual place.
 		// Linx doesnt get the version suffix because if youre using linux you can figure out what server version youre running for
@@ -49,7 +49,7 @@
 		return assignment_confirmed
 
 #define RUSTLIB (__rustlib || __detect_rustlib())
-#define RUSTLIB_CALL(func, args...) call_ext(RUSTLIB, "byond:[#func]_ffi")(args)
+#define RUSTLIB_CALL(func, args...) call_ext(RUSTLIB, "byond:[#func]")(args)
 
 /// Exists by default in 516, but needs to be defined for 515 or byondapi-rs doesn't like it.
 /proc/byondapi_stack_trace(err)
@@ -84,7 +84,7 @@
 
 #define rustlib_hash_string(algorithm, text) RUSTLIB_CALL(hash_string, algorithm, text)
 #define rustlib_hash_file(algorithm, fname) RUSTLIB_CALL(hash_file, algorithm, fname)
-#define rustlib_hash_generate_totp(seed)RUSTLIB_CALL(generate_totp, seed)
+#define rustlib_hash_generate_totp(seed) RUSTLIB_CALL(generate_totp, seed)
 #define rustlib_hash_generate_totp_tolerance(seed, tolerance) RUSTLIB_CALL(generate_totp_tolerance, seed, tolerance)
 
 #define RUSTLIB_HASH_MD5 "md5"

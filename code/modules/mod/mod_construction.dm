@@ -9,7 +9,7 @@
 	icon_state = "helmet"
 
 /obj/item/mod/construction/helmet/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шлем МЭК",
 		GENITIVE = "шлема МЭК",
 		DATIVE = "шлему МЭК",
@@ -24,7 +24,7 @@
 	icon_state = "chestplate"
 
 /obj/item/mod/construction/chestplate/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "нагрудник МЭК",
 		GENITIVE = "нагрудника МЭК",
 		DATIVE = "нагруднику МЭК",
@@ -39,7 +39,7 @@
 	icon_state = "gauntlets"
 
 /obj/item/mod/construction/gauntlets/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "перчатки МЭК",
 		GENITIVE = "перчаток МЭК",
 		DATIVE = "перчаткам МЭК",
@@ -54,7 +54,7 @@
 	icon_state = "boots"
 
 /obj/item/mod/construction/boots/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ботинки МЭК",
 		GENITIVE = "ботинок МЭК",
 		DATIVE = "ботинкам МЭК",
@@ -69,7 +69,7 @@
 	icon_state = "mod-core"
 
 /obj/item/mod/construction/broken_core/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сломанное ядро МЭК",
 		GENITIVE = "сломанного ядра МЭК",
 		DATIVE = "сломанному ядру МЭК",
@@ -98,7 +98,7 @@
 	var/datum/mod_theme/theme = /datum/mod_theme/civilian
 
 /obj/item/mod/construction/plating/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "внешняя обшивка МЭК",
 		GENITIVE = "внешней обшивки МЭК",
 		DATIVE = "внешней обшивке МЭК",
@@ -115,7 +115,7 @@
 	if(!ru_names)
 		ru_names = get_ru_names_cached()
 
-	ru_names = list(
+	ru_names = alist(
 		NOMINATIVE = ru_names[NOMINATIVE] + " [used_theme.name]",
 		GENITIVE = ru_names[GENITIVE] + " [used_theme.name]",
 		DATIVE = ru_names[DATIVE] + " [used_theme.name]",
@@ -185,7 +185,7 @@
 	var/construction_step = START_STEP
 
 /obj/item/mod/construction/shell/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "оболочка МЭК",
 		GENITIVE = "оболочки МЭК",
 		DATIVE = "оболочке МЭК",

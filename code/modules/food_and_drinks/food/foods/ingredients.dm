@@ -131,13 +131,13 @@
 	desc = "Показатель невероятного самоконтроля Божественной сущности."
 
 /obj/item/reagent_containers/food/snacks/watermelonslice/self_control_slice/get_ru_names()
-		return list(
-		NOMINATIVE = "Самоконтроль",
-		GENITIVE = "Самоконтроля",
-		DATIVE = "Самоконтролю",
-		ACCUSATIVE = "Самоконтроль",
-		INSTRUMENTAL = "Самоконтролем",
-		PREPOSITIONAL = "Самоконтроле",
+	return alist(
+		NOMINATIVE = "самоконтроль",
+		GENITIVE = "самоконтроля",
+		DATIVE = "самоконтролю",
+		ACCUSATIVE = "самоконтроль",
+		INSTRUMENTAL = "самоконтролем",
+		PREPOSITIONAL = "самоконтроле",
 	)
 
 /obj/item/reagent_containers/food/snacks/pineappleslice

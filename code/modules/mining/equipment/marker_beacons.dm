@@ -27,7 +27,7 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 	var/picked_color = "random"
 
 /obj/item/stack/marker_beacon/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "маркерный маячок",
 		GENITIVE = "маркерного маячка",
 		DATIVE = "маркерному маячку",

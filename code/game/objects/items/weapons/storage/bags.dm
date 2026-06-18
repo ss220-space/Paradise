@@ -42,12 +42,17 @@
 	icon_state = "trashbag"
 	item_state = "trashbag"
 
-	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = NONE
 	storage_slots = 30
 	max_combined_w_class = 30
 	can_hold = list() // any
 	cant_hold = list(/obj/item/disk/nuclear)
+	dynamic_storage_size = TRUE
+
+/obj/item/storage/bag/trash/Initialize(mapload)
+	. = ..()
+	if(dynamic_storage_size)
+		AddComponent(/datum/component/differentiate_storage_size, WEIGHT_CLASS_BULKY)
 
 /obj/item/storage/bag/trash/suicide_act(mob/user)
 	user.visible_message(span_suicide("[user] puts the [name] over [user.p_their()] head and starts chomping at the insides! Disgusting!"))
@@ -172,7 +177,7 @@
 	var/mob/listening_to
 
 /obj/item/storage/bag/ore/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шахтёрская сумка",
 		GENITIVE = "шахтёрской сумки",
 		DATIVE = "шахтёрской сумке",
@@ -188,7 +193,7 @@
 	storage_slots = 16 //little better
 
 /obj/item/storage/bag/ore/bigger/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "промышленная шахтёрская сумка",
 		GENITIVE = "промышленной шахтёрской сумки",
 		DATIVE = "промышленной шахтёрской сумке",
@@ -213,7 +218,7 @@
 	icon_state = "satchel_bspace"
 
 /obj/item/storage/bag/ore/holding/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шахтёрская сумка хранения",
 		GENITIVE = "шахтёрской сумки хранения",
 		DATIVE = "шахтёрской сумке хранения",
@@ -241,7 +246,7 @@
 	can_hold = list(/obj/item/gem)
 
 /obj/item/storage/bag/gem/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сумка для самоцветов",
 		GENITIVE = "сумки для самоцветов",
 		DATIVE = "сумке для самоцветов",
@@ -341,7 +346,7 @@
 	var/bombs_left = 0
 
 /obj/item/storage/bag/kaboom/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Система Размещения Зарядов",
 		GENITIVE = "Системы Размещения Зарядов",
 		DATIVE = "Системе Размещения Зарядов",
@@ -657,7 +662,7 @@
 	resistance_flags = FLAMMABLE
 
 /obj/item/storage/bag/books/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "книжная сумка",
 		GENITIVE = "книжной сумки",
 		DATIVE = "книжной сумке",
@@ -696,7 +701,7 @@
 	resistance_flags = FLAMMABLE
 
 /obj/item/storage/bag/construction/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "строительная сумка",
 		GENITIVE = "строительной сумки",
 		DATIVE = "строительной сумке",
@@ -725,7 +730,7 @@
 	drop_sound = SFX_TRAY_DROP
 
 /obj/item/storage/bag/tray/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "поднос",
 		GENITIVE = "подноса",
 		DATIVE = "подносу",
@@ -814,7 +819,7 @@
 	materials = list(MAT_METAL=3000)
 
 /obj/item/storage/bag/tray/danger/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "поднос",
 		GENITIVE = "подноса",
 		DATIVE = "подносу",
@@ -874,7 +879,7 @@
 	)
 
 /obj/item/storage/bag/medpouch/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "лекарственный мешочек",
 		GENITIVE = "лекарственного мешочка",
 		DATIVE = "лекарственному мешочку",
@@ -895,7 +900,7 @@
 	)
 
 /obj/item/storage/bag/medpouch/fishing/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "рыболовный мешочек",
 		GENITIVE = "рыболовного мешочка",
 		DATIVE = "рыболовному мешочку",

@@ -20,7 +20,7 @@
 	multiple_sprites = 2
 
 /obj/item/ammo_box/magazine/ak814/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "автоматный магазин AK-814 (5,45x39 мм)",
 		GENITIVE = "автоматного магазина AK-814 (5,45x39 мм)",
 		DATIVE = "автоматному магазину AK-814 (5,45x39 мм)",
@@ -46,7 +46,7 @@
 	multiple_sprites = 2
 
 /obj/item/ammo_box/magazine/aks74u/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "автоматный магазин АКС-74У (5,45x39 мм)",
 		GENITIVE = "автоматного магазина АКС-74У (5,45x39 мм)",
 		DATIVE = "автоматному магазину АКС-74У (5,45x39 мм)",

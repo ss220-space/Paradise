@@ -34,7 +34,7 @@
 	)
 
 /obj/machinery/vending/engivend/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат Engi-Vend",
 		GENITIVE = "торгового автомата Engi-Vend",
 		DATIVE = "торговому автомату Engi-Vend",

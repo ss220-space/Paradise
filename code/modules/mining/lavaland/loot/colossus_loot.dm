@@ -3,7 +3,7 @@
 	name = "colossus chest"
 
 /obj/structure/closet/crate/necropolis/colossus/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сундук колосса",
 		GENITIVE = "сундука колосса",
 		DATIVE = "сундуку колосса",
@@ -23,7 +23,7 @@
 	name = "angelic colossus chest"
 
 /obj/structure/closet/crate/necropolis/colossus/crusher/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ангельский сундук колосса",
 		GENITIVE = "ангельского сундука колосса",
 		DATIVE = "ангельскому сундуку колосса",
@@ -56,7 +56,7 @@
 	var/activation_sound = 'sound/effects/break_stone.ogg'
 
 /obj/machinery/anomalous_crystal/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "аномальный кристалл",
 		GENITIVE = "аномального кристалла",
 		DATIVE = "аномальному кристаллу",
@@ -309,7 +309,7 @@
 	var/heal_power = 5
 
 /mob/living/simple_animal/hostile/lightgeist/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "дух света",
 		GENITIVE = "духа света",
 		DATIVE = "духу света",
@@ -404,7 +404,7 @@
 	var/mob/living/simple_animal/holder_animal
 
 /obj/structure/closet/stasis/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "квантовое стазисное поле",
 		GENITIVE = "квантового стазисного поля",
 		DATIVE = "квантовому стазисному полю",

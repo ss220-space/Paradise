@@ -23,7 +23,7 @@
 	var/datum/weakref/original_body = null
 
 /obj/item/organ/internal/brain/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мозг человека",
 		GENITIVE = "мозга человека",
 		DATIVE = "мозгу человека",
@@ -150,7 +150,7 @@
 	icon_state = "scroll"
 
 /obj/item/organ/internal/brain/golem/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "рунический разум",
 		GENITIVE = "рунического разума",
 		DATIVE = "руническому разуму",

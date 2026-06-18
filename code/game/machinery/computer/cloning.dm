@@ -26,7 +26,7 @@
 	light_color = LIGHT_COLOR_DARK_BLUE
 
 /obj/machinery/computer/cloning/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "консоль капсулы клонирования",
 		GENITIVE = "консоли капсулы клонирования",
 		DATIVE = "консоли капсулы клонирования",

@@ -24,7 +24,7 @@
 	var/hidden_link = FALSE
 
 /obj/machinery/tcomms/relay/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "реле телекоммуникаций",
 		GENITIVE = "реле телекоммуникаций",
 		DATIVE = "реле телекоммуникаций",

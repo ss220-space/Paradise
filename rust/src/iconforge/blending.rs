@@ -1,3 +1,6 @@
+use meowtonin::{ByondError, ByondResult};
+use std::error::Error;
+
 use once_cell::sync::Lazy;
 use serde::Serialize;
 use std::str::FromStr;
@@ -34,7 +37,7 @@ pub enum BlendMode {
 }
 
 impl BlendMode {
-    pub fn from_u8(blend_mode: &u8) -> eyre::Result<BlendMode> {
+    pub fn from_u8(blend_mode: &u8) -> ByondResult<BlendMode> {
         match *blend_mode {
             0 => Ok(BlendMode::Add),
             1 => Ok(BlendMode::Subtract),
@@ -43,7 +46,9 @@ impl BlendMode {
             4 => Ok(BlendMode::And),
             5 => Ok(BlendMode::Or),
             6 => Ok(BlendMode::Underlay),
-            _ => Err(eyre::eyre!("blend_mode '{blend_mode}' is not supported!")),
+            _ => Err(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+                format!("blend_mode '{blend_mode}' is not supported!"),
+            ))),
         }
     }
 
@@ -131,9 +136,9 @@ impl BlendMode {
 }
 
 impl FromStr for BlendMode {
-    type Err = eyre::Report;
+    type Err = ByondError;
 
-    fn from_str(blend_mode: &str) -> eyre::Result<BlendMode> {
+    fn from_str(blend_mode: &str) -> ByondResult<BlendMode> {
         match blend_mode {
             "add" => Ok(BlendMode::Add),
             "subtract" => Ok(BlendMode::Subtract),
@@ -142,7 +147,9 @@ impl FromStr for BlendMode {
             "and" => Ok(BlendMode::And),
             "or" => Ok(BlendMode::Or),
             "underlay" => Ok(BlendMode::Underlay),
-            _ => Err(eyre::eyre!("blend_mode '{blend_mode}' is not supported!")),
+            _ => Err(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+                format!("blend_mode '{blend_mode}' is not supported!"),
+            ))),
         }
     }
 }

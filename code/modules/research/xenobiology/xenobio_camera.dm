@@ -55,7 +55,7 @@
 	var/obj/machinery/monkey_recycler/connected_recycler
 
 /obj/machinery/computer/camera_advanced/xenobio/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "консоль управления слаймами",
 		GENITIVE = "консоли управления слаймами",
 		DATIVE = "консоли управления слаймами",

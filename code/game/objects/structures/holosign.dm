@@ -10,7 +10,7 @@
 	var/obj/item/projector
 
 /obj/structure/holosign/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "голографическая табличка",
 		GENITIVE = "голографической таблички",
 		DATIVE = "голографической табличке",
@@ -65,7 +65,7 @@
 	icon_state = "holosign"
 
 /obj/structure/holosign/wetsign/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "знак мокрого пола",
 		GENITIVE = "знака мокрого пола",
 		DATIVE = "знаку мокрого пола",
@@ -113,7 +113,7 @@
 	var/allow_walk = TRUE //can we pass through it on walk intent
 
 /obj/structure/holosign/barrier/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "голографический барьер",
 		GENITIVE = "голографического барьера",
 		DATIVE = "голографическому барьеру",
@@ -153,7 +153,7 @@
 	resistance_flags = FIRE_PROOF | FREEZE_PROOF
 
 /obj/structure/holosign/barrier/atmos/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "голографический пожарный шлюз",
 		GENITIVE = "голографического пожарного шлюза",
 		DATIVE = "голографическому пожарному шлюзу",
@@ -186,7 +186,7 @@
 	allow_walk = FALSE
 
 /obj/structure/holosign/barrier/cyborg/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "энергетический барьер",
 		GENITIVE = "энергетического барьера",
 		DATIVE = "энергетическому барьеру",
@@ -209,7 +209,7 @@
 	COOLDOWN_DECLARE(shock_cooldown)
 
 /obj/structure/holosign/barrier/cyborg/hacked/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "заряженный энергетический барьер",
 		GENITIVE = "заряженного энергетического барьера",
 		DATIVE = "заряженному энергетическому барьеру",

@@ -1,12 +1,10 @@
-use byondapi::global_call::call_global;
-use byondapi::prelude::ByondValue;
-use byondapi::threadsync::thread_sync;
 use chrono::prelude::Utc;
+use meowtonin::{call_global, sync::thread_sync, ByondResult, ByondValue};
 use uuid::Uuid;
 
 /// Call stack trace dm method with message.
-pub(crate) fn dm_call_stack_trace(msg: String) -> eyre::Result<()> {
-    call_global("stack_trace", &[ByondValue::new_str(msg)?])?;
+pub(crate) fn dm_call_stack_trace(msg: String) -> ByondResult<()> {
+    let _: () = call_global("stack_trace", &[ByondValue::new_string(msg)])?;
 
     Ok(())
 }

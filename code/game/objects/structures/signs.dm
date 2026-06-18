@@ -56,7 +56,7 @@
 	var/sign_state = ""
 
 /obj/item/sign/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "табличка",
 		GENITIVE = "таблички",
 		DATIVE = "табличке",
@@ -100,7 +100,7 @@
 	max_integrity = 500
 
 /obj/structure/sign/double/map/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "карта станции",
 		GENITIVE = "карты станции",
 		DATIVE = "карте станции",

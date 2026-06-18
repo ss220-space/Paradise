@@ -65,7 +65,7 @@
 	layer = EDGED_TURF_LAYER
 
 /obj/structure/fluff/drake_statue/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "статуя дрейка",
 		GENITIVE = "статуи дрейка",
 		DATIVE = "статуе дрейка",
@@ -107,7 +107,7 @@
 	icon_state = "grave_empty"
 
 /obj/structure/fluff/grave/empty/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пустая могила",
 		GENITIVE = "пустой могилы",
 		DATIVE = "пустой могиле",

@@ -52,7 +52,7 @@
 	var/light_power_on = 0.5
 
 /obj/machinery/smartfridge/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "холодильник SmartFridge",
 		GENITIVE = "холодильника SmartFridge",
 		DATIVE = "холодильнику SmartFridge",
@@ -448,7 +448,7 @@
 	contents_overlay = "smartfridge-syndie"
 
 /obj/machinery/smartfridge/syndie/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "подозрительный холодильник SmartFridge",
 		GENITIVE = "подозрительного холодильника SmartFridge",
 		DATIVE = "подозрительному холодильнику SmartFridge",
@@ -489,7 +489,7 @@
 	base_icon_state = "seeds"
 
 /obj/machinery/smartfridge/seeds/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ботанический холодильник",
 		GENITIVE = "ботанического холодильника",
 		DATIVE = "ботаническому холодильнику",
@@ -534,7 +534,7 @@
 	desc = "Это холодильник, предназначенный для хранения медикаментов и химикатов."
 
 /obj/machinery/smartfridge/medbay/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "медицинский холодильник",
 		GENITIVE = "медицинского холодильника",
 		DATIVE = "медицинскому холодильнику",
@@ -568,7 +568,7 @@
 	req_access = list(ACCESS_RESEARCH)
 
 /obj/machinery/smartfridge/secure/extract/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "холодильник для слаймовых экстрактов",
 		GENITIVE = "холодильника для слаймовых экстрактов",
 		DATIVE = "холодильнику для слаймовых экстрактов",
@@ -663,7 +663,7 @@
 	req_access = list(ACCESS_CHEMISTRY)
 
 /obj/machinery/smartfridge/secure/chemistry/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "химический холодильник",
 		GENITIVE = "химического холодильника",
 		DATIVE = "химическому холодильнику",
@@ -716,7 +716,7 @@
 	contents_overlay = "smartfridge-organ"
 
 /obj/machinery/smartfridge/secure/medbay/organ/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "холодильник для органов",
 		GENITIVE = "холодильника для органов",
 		DATIVE = "холодильнику для органов",
@@ -751,7 +751,7 @@
 	icon_lightmask = "disktoaster"
 
 /obj/machinery/smartfridge/disks/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "хранилище для дискет",
 		GENITIVE = "хранилища для дискет",
 		DATIVE = "хранилищу для дискет",
@@ -792,7 +792,7 @@
 	icon_addon = "smartfridge-viro-overlay"
 
 /obj/machinery/smartfridge/secure/chemistry/virology/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "холодильник для вирусных образцов",
 		GENITIVE = "холодильника для вирусных образцов",
 		DATIVE = "холодильнику для вирусных образцов",
@@ -850,7 +850,7 @@
 	desc = "Это холодильник, предназначенный для хранения напитков."
 
 /obj/machinery/smartfridge/drinks/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "холодильник для напитков",
 		GENITIVE = "холодильника для напитков",
 		DATIVE = "холодильнику для напитков",
@@ -877,7 +877,7 @@
 	desc = "Это холодильник, предназначенный для хранения органов, конечностей, имплантов и капельниц."
 
 /obj/machinery/smartfridge/dish/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "холодильник для еды",
 		GENITIVE = "холодильника для еды",
 		DATIVE = "холодильнику для еды",
@@ -915,7 +915,7 @@
 	icon_lightmask = null
 
 /obj/machinery/smartfridge/drying_rack/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сушильная стойка",
 		GENITIVE = "сушильной стойки",
 		DATIVE = "сушильной стойке",
@@ -1061,7 +1061,7 @@
 	primitive = TRUE
 
 /obj/machinery/smartfridge/drying_rack/ash/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "примитивная сушилка",
 		GENITIVE = "примитивной сушилки",
 		DATIVE = "примитивной сушилке",

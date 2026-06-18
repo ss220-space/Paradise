@@ -84,7 +84,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	var/list/opened_positions = list()
 
 /obj/machinery/computer/card/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "консоль кадрового управления",
 		GENITIVE = "консоли кадрового управления",
 		DATIVE = "консоли кадрового управления",
@@ -810,7 +810,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	max_law_level = LAW_LEVEL_CENTCOMM
 
 /obj/machinery/computer/card/centcom/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "консоль кадрового управления ЦК",
 		GENITIVE = "консоли кадрового управления ЦК",
 		DATIVE = "консоли кадрового управления ЦК",
@@ -831,7 +831,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	circuit = /obj/item/circuitboard/card/minor
 
 /obj/machinery/computer/card/minor/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "консоль кадрового управления отдела",
 		GENITIVE = "консоли кадрового управления отдела",
 		DATIVE = "консоли кадрового управления отдела",
@@ -849,7 +849,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	circuit = /obj/item/circuitboard/card/minor/hos
 
 /obj/machinery/computer/card/minor/hos/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "консоль кадрового управления — СБ",
 		GENITIVE = "консоли кадрового управления — СБ",
 		DATIVE = "консоли кадрового управления — СБ",
@@ -867,7 +867,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	circuit = /obj/item/circuitboard/card/minor/qm
 
 /obj/machinery/computer/card/minor/qm/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "консоль кадрового управления — Снабжение",
 		GENITIVE = "консоли кадрового управления — Снабжение",
 		DATIVE = "консоли кадрового управления — Снабжение",
@@ -884,7 +884,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	circuit = /obj/item/circuitboard/card/minor/cmo
 
 /obj/machinery/computer/card/minor/cmo/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "консоль кадрового управления — Медицина",
 		GENITIVE = "консоли кадрового управления — Медицина",
 		DATIVE = "консоли кадрового управления — Медицина",
@@ -902,7 +902,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	circuit = /obj/item/circuitboard/card/minor/rd
 
 /obj/machinery/computer/card/minor/rd/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "консоль кадрового управления — Наука",
 		GENITIVE = "консоли кадрового управления — Наука",
 		DATIVE = "консоли кадрового управления — Наука",
@@ -920,7 +920,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	circuit = /obj/item/circuitboard/card/minor/ce
 
 /obj/machinery/computer/card/minor/ce/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "консоль кадрового управления — Инженерия",
 		GENITIVE = "консоли кадрового управления — Инженерия",
 		DATIVE = "консоли кадрового управления — Инженерия",

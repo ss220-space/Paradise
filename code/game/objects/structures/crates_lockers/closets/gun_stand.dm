@@ -70,7 +70,7 @@
 	stored_item_type = /obj/item/twohanded/fishing_rod
 
 /obj/structure/closet/gun_stand/fishingrod/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "стойка для удочки",
 		GENITIVE = "стойки для удочки",
 		DATIVE = "стойке для удочки",
@@ -87,7 +87,7 @@
 	stored_item_type = /obj/item/twohanded/sechammer
 
 /obj/structure/closet/gun_stand/sechammer/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "стойка для тактической кувалды",
 		GENITIVE = "стойки для тактической кувалды",
 		DATIVE = "стойке для тактической кувалды",
@@ -105,7 +105,7 @@
 	stored_item_type = /obj/item/gun/projectile/shotgun/winchester/cargo
 
 /obj/structure/closet/gun_stand/cargo_defender/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "стойка для дробовика \"Защитник карго\"",
 		GENITIVE = "стойки для дробовика \"Защитник карго\"",
 		DATIVE = "стойке для дробовика \"Защитник карго\"",

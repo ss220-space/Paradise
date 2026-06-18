@@ -9,7 +9,7 @@
 	var/fire_stacks = 0.3
 
 /obj/projectile/energy/floraalpha/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "альфа-соматорей",
 		GENITIVE = "альфа-соматорея",
 		DATIVE = "альфа-соматорею",
@@ -64,7 +64,7 @@
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser
 
 /obj/projectile/energy/florabeta/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бета-соматорей",
 		GENITIVE = "бета-соматорея",
 		DATIVE = "бета-соматорею",
@@ -82,7 +82,7 @@
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser
 
 /obj/projectile/energy/floragamma/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "гамма-соматорей",
 		GENITIVE = "гамма-соматорея",
 		DATIVE = "гамма-соматорею",

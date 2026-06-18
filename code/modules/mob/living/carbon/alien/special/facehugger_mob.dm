@@ -57,7 +57,7 @@
 	var/obj/item/clothing/mask/facehugger/hugger_holder
 
 /mob/living/simple_animal/hostile/facehugger/get_ru_names()
-	return  list(
+	return alist(
 		NOMINATIVE = "лицехват",
 		GENITIVE = "лицехвата",
 		DATIVE = "лицехвату",
@@ -363,7 +363,7 @@
 	holder_type = /obj/item/clothing/mask/facehugger/lamarr
 
 /mob/living/simple_animal/hostile/facehugger/lamarr/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ламарр",
 		GENITIVE = "ламарр",
 		DATIVE = "ламарр",

@@ -14,7 +14,7 @@
 	var/obj/item/gps/internal
 
 /obj/structure/world_anvil/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Мировая Кузня",
 		GENITIVE = "Мировой Кузни",
 		DATIVE = "Мировой Кузне",
