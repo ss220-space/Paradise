@@ -6032,9 +6032,7 @@
 /turf/simulated/floor/indestructible/snow,
 /area/ninja/outside)
 "cRv" = (
-/obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-32"
-	},
+/obj/item/twohanded/required/kirbyplants,
 /obj/item/radio/intercom/specops/directional/east,
 /obj/effect/turf_decal/siding/blue/corner{
 	color = "#444444";
@@ -12223,9 +12221,7 @@
 /turf/simulated/floor/carpet/black,
 /area/ninja/outpost)
 "fND" = (
-/obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-32"
-	},
+/obj/item/twohanded/required/kirbyplants,
 /obj/structure/window/reinforced{
 	dir = 8
 	},
@@ -15177,9 +15173,7 @@
 	},
 /area/ninja/outpost)
 "hqZ" = (
-/obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-28"
-	},
+/obj/item/twohanded/required/kirbyplants,
 /obj/effect/turf_decal/siding/blue/corner{
 	color = "#444444"
 	},
@@ -47351,9 +47345,7 @@
 	},
 /area/centcom/evac)
 "vVB" = (
-/obj/item/twohanded/required/kirbyplants{
-	icon_state = "plant-28"
-	},
+/obj/item/twohanded/required/kirbyplants,
 /obj/structure/window/reinforced{
 	dir = 4
 	},

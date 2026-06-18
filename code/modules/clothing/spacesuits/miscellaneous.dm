@@ -121,11 +121,11 @@
 /obj/item/clothing/head/helmet/space/deathsquad/beret/get_ru_names()
 	return alist(
 		NOMINATIVE = "берет офицера СО \"Нанотрейзен\"",
-		GENITIVE = "берета капитана флота \"Нанотрейзен\"",
-		DATIVE = "берету капитана флота \"Нанотрейзен\"",
-		ACCUSATIVE = "берет капитана флота \"Нанотрейзен\"",
-		INSTRUMENTAL = "беретом капитана флота \"Нанотрейзен\"",
-		PREPOSITIONAL = "берете капитана флота \"Нанотрейзен\"",
+		GENITIVE = "берета офицера СО \"Нанотрейзен\"",
+		DATIVE = "берету офицера СО \"Нанотрейзен\"",
+		ACCUSATIVE = "берет офицера СО \"Нанотрейзен\"",
+		INSTRUMENTAL = "беретом офицера СО \"Нанотрейзен\"",
+		PREPOSITIONAL = "берете офицера СО \"Нанотрейзен\"",
 )
 
 /obj/item/clothing/head/helmet/space/deathsquad/beret/captain
