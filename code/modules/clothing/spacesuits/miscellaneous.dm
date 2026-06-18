@@ -118,6 +118,16 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
 	)
 
+/obj/item/clothing/head/helmet/space/deathsquad/beret/get_ru_names()
+	return alist(
+		NOMINATIVE = "берет офицера СО \"Нанотрейзен\"",
+		GENITIVE = "берета капитана флота \"Нанотрейзен\"",
+		DATIVE = "берету капитана флота \"Нанотрейзен\"",
+		ACCUSATIVE = "берет капитана флота \"Нанотрейзен\"",
+		INSTRUMENTAL = "беретом капитана флота \"Нанотрейзен\"",
+		PREPOSITIONAL = "берете капитана флота \"Нанотрейзен\"",
+)
+
 /obj/item/clothing/head/helmet/space/deathsquad/beret/captain
 	name = "Nanotrasen Fleet Captain's Cap"
 	desc = "Парадная фуражка, спроектированная и изготовленная под индивидуальную мерку действующего капитана флота \"Нанотрейзен\" в секторе Эпсилон Лукусты. Если вы когда-нибудь увидите её носителя, вам стоит надеяться, что он прибыл для награждения вас за ваши заслуги, а не разрешения вызванного вами кризиса."
