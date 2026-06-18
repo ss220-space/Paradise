@@ -5,41 +5,44 @@ use crate::milla::model::*;
 use crate::milla::simulate;
 use crate::milla::statics::*;
 use crate::milla::tick;
-use byondapi::global_call::call_global;
-use byondapi::map::byond_block;
-use byondapi::map::byond_xyz;
-use byondapi::prelude::*;
-use eyre::eyre;
-use eyre::Result;
+use meowtonin::ToByond;
+use meowtonin::{
+    byond, byond_fn, call_global, misc::block, strid::lookup_string_id, ByondError, ByondResult,
+    ByondValue, ByondValueType, ByondXYZ, FromByond,
+};
 use std::env;
+use std::error::Error;
+use std::mem::MaybeUninit;
 use std::thread;
 use std::time::Instant;
 
 /// BYOND API for ensuring the buffers are usable.
-#[byondapi::bind]
-fn milla_initialize(byond_z: ByondValue) -> eyre::Result<ByondValue> {
+#[byond_fn]
+fn milla_initialize(byond_z: ByondValue) -> ByondResult<ByondValue> {
     logging::setup_panic_handler();
     env::set_var("RUST_BACKTRACE", "1");
-    let z = f32::try_from(byond_z)? as i32 - 1;
+    let z = f32::from_byond(byond_z)? as i32 - 1;
     internal_initialize(z)?;
-    Ok(ByondValue::null())
+    Ok(ByondValue::NULL)
 }
 
 /// Ensure that buffers are available.
-pub(crate) fn internal_initialize(z: i32) -> eyre::Result<ByondValue> {
+pub(crate) fn internal_initialize(z: i32) -> ByondResult<ByondValue> {
     if z >= MAX_Z_LEVELS {
-        return Err(eyre!(
+        return Err(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+            format!(
             "Suspiciously high Z level {} initialized, update MAX_Z_LEVELS if this is intentional.",
             z
-        ));
+        ),
+        )));
     }
     let buffers = BUFFERS.get_or_init(Buffers::new);
     buffers.init_to(z);
-    Ok(ByondValue::null())
+    Ok(ByondValue::NULL)
 }
 
 /// BYOND API for defining an environment that a tile can be exposed to.
-#[byondapi::bind]
+#[byond_fn]
 fn milla_create_environment(
     oxygen: ByondValue,
     carbon_dioxide: ByondValue,
@@ -63,32 +66,33 @@ fn milla_create_environment(
     antinoblium: ByondValue,
     hypernoblium: ByondValue,
     temperature: ByondValue,
-) -> eyre::Result<ByondValue> {
+) -> ByondResult<ByondValue> {
     logging::setup_panic_handler();
-    Ok(ByondValue::from(internal_create_environment(
-        conversion::byond_to_option_f32(oxygen)?,
-        conversion::byond_to_option_f32(carbon_dioxide)?,
-        conversion::byond_to_option_f32(nitrogen)?,
-        conversion::byond_to_option_f32(toxins)?,
-        conversion::byond_to_option_f32(sleeping_agent)?,
-        conversion::byond_to_option_f32(agent_b)?,
-        conversion::byond_to_option_f32(hydrogen)?,
-        conversion::byond_to_option_f32(water_vapor)?,
-        conversion::byond_to_option_f32(tritium)?,
-        conversion::byond_to_option_f32(bz)?,
-        conversion::byond_to_option_f32(pluoxium)?,
-        conversion::byond_to_option_f32(miasma)?,
-        conversion::byond_to_option_f32(freon)?,
-        conversion::byond_to_option_f32(nitrium)?,
-        conversion::byond_to_option_f32(healium)?,
-        conversion::byond_to_option_f32(proto_nitrate)?,
-        conversion::byond_to_option_f32(zauker)?,
-        conversion::byond_to_option_f32(halon)?,
-        conversion::byond_to_option_f32(helium)?,
-        conversion::byond_to_option_f32(antinoblium)?,
-        conversion::byond_to_option_f32(hypernoblium)?,
-        conversion::byond_to_option_f32(temperature)?,
-    ) as f32))
+    internal_create_environment(
+        conversion::byond_to_option_f32(&oxygen)?,
+        conversion::byond_to_option_f32(&carbon_dioxide)?,
+        conversion::byond_to_option_f32(&nitrogen)?,
+        conversion::byond_to_option_f32(&toxins)?,
+        conversion::byond_to_option_f32(&sleeping_agent)?,
+        conversion::byond_to_option_f32(&agent_b)?,
+        conversion::byond_to_option_f32(&hydrogen)?,
+        conversion::byond_to_option_f32(&water_vapor)?,
+        conversion::byond_to_option_f32(&tritium)?,
+        conversion::byond_to_option_f32(&bz)?,
+        conversion::byond_to_option_f32(&pluoxium)?,
+        conversion::byond_to_option_f32(&miasma)?,
+        conversion::byond_to_option_f32(&freon)?,
+        conversion::byond_to_option_f32(&nitrium)?,
+        conversion::byond_to_option_f32(&healium)?,
+        conversion::byond_to_option_f32(&proto_nitrate)?,
+        conversion::byond_to_option_f32(&zauker)?,
+        conversion::byond_to_option_f32(&halon)?,
+        conversion::byond_to_option_f32(&helium)?,
+        conversion::byond_to_option_f32(&antinoblium)?,
+        conversion::byond_to_option_f32(&hypernoblium)?,
+        conversion::byond_to_option_f32(&temperature)?,
+    )
+    .to_byond()
 }
 
 /// Define an environment that a tile can be exposed to.
@@ -188,26 +192,86 @@ pub(crate) fn internal_create_environment(
     buffers.create_environment(tile)
 }
 
+trait ByondValueExt {
+    fn xyz(&self) -> Option<ByondXYZ>;
+    fn read_var_unsafe<Name, Return>(&self, name: Name) -> ByondResult<Return>
+    where
+        Name: AsRef<str>,
+        Return: FromByond;
+}
+
+macro_rules! map_byond_error {
+    ($x:expr) => {
+        unsafe {
+            let result = $x;
+            if result {
+                Ok(())
+            } else {
+                Err(meowtonin::ByondError::get_last_byond_error())
+            }
+        }
+    };
+}
+
+impl ByondValueExt for ByondValue {
+    fn xyz(&self) -> Option<ByondXYZ> {
+        let mut pixloc = MaybeUninit::uninit();
+        if unsafe { byond().Byond_XYZ(&self.0, pixloc.as_mut_ptr()) } {
+            Some(ByondXYZ(unsafe { pixloc.assume_init() }))
+        } else {
+            None
+        }
+    }
+    /// Read a variable through the ref. Fails if this isn't a ref type.
+    fn read_var_unsafe<Name, Return>(&self, name: Name) -> ByondResult<Return>
+    where
+        Name: AsRef<str>,
+        Return: FromByond,
+    {
+        let name_id = lookup_string_id(name).ok_or(ByondError::InvalidVariable)?;
+        let mut result = MaybeUninit::uninit();
+        map_byond_error!(byond().Byond_ReadVarByStrId(&self.0, name_id, result.as_mut_ptr()))?;
+        Return::from_byond(Self(unsafe { result.assume_init() }))
+    }
+}
+
 /// BYOND API for loading a block of turfs into MILLA with their default air.
-#[byondapi::bind]
+#[byond_fn]
 fn milla_load_turfs(
     data_property: ByondValue,
     low_corner: ByondValue,
     high_corner: ByondValue,
-) -> eyre::Result<ByondValue> {
-    let property_ref = data_property.get_strid()?;
-    for turf in byond_block(byond_xyz(&low_corner)?, byond_xyz(&high_corner)?)? {
-        let (x, y, z) = byond_xyz(&turf)?.coordinates();
-        let mut property = turf.read_var_id(property_ref)?;
-        let data = property.get_list_values()?;
-        property.decrement_tempref();
+) -> ByondResult<ByondValue> {
+    let property_ref = data_property.get_string()?;
+    for turf in block(
+        low_corner
+            .xyz()
+            .ok_or(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+                "bad coordinates",
+            )))?,
+        high_corner
+            .xyz()
+            .ok_or(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+                "bad coordinates",
+            )))?,
+    )? {
+        let (x, y, z): (i16, i16, i16) = turf
+            .xyz()
+            .ok_or(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+                "bad coordinates",
+            )))?
+            .into();
+        let property: ByondValue = turf.read_var_unsafe(&property_ref)?;
+        let data = property.read_list()?;
 
         if data.len() != 32 {
-            return Err(eyre!(
-                "data property has the wrong length: {} vs {}",
-                data.len(),
-                35
-            ));
+            return Err(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+                format!(
+                    "data property has the wrong length: {} vs {}",
+                    data.len(),
+                    35
+                ),
+            )));
         }
 
         internal_set_tile(
@@ -215,37 +279,37 @@ fn milla_load_turfs(
             y as i32 - 1,
             z as i32 - 1,
             // airtight directions (4) - data[0-3]
-            conversion::byond_to_option_f32(data[0])?,
-            conversion::byond_to_option_f32(data[1])?,
-            conversion::byond_to_option_f32(data[2])?,
-            conversion::byond_to_option_f32(data[3])?,
+            conversion::byond_to_option_f32(&data[0])?,
+            conversion::byond_to_option_f32(&data[1])?,
+            conversion::byond_to_option_f32(&data[2])?,
+            conversion::byond_to_option_f32(&data[3])?,
             // atmos_mode, environment (2) - data[4-5]
-            conversion::byond_to_option_f32(data[4])?,
-            conversion::byond_to_option_f32(data[5])?,
+            conversion::byond_to_option_f32(&data[4])?,
+            conversion::byond_to_option_f32(&data[5])?,
             // gases (21) - data[6-26]
-            conversion::bounded_byond_to_option_f32(data[6], 0.0, f32::INFINITY)?, // oxygen
-            conversion::bounded_byond_to_option_f32(data[7], 0.0, f32::INFINITY)?, // carbon_dioxide
-            conversion::bounded_byond_to_option_f32(data[8], 0.0, f32::INFINITY)?, // nitrogen
-            conversion::bounded_byond_to_option_f32(data[9], 0.0, f32::INFINITY)?, // toxins
-            conversion::bounded_byond_to_option_f32(data[10], 0.0, f32::INFINITY)?, // sleeping_agent
-            conversion::bounded_byond_to_option_f32(data[11], 0.0, f32::INFINITY)?, // agent_b
-            conversion::bounded_byond_to_option_f32(data[12], 0.0, f32::INFINITY)?, // hydrogen
-            conversion::bounded_byond_to_option_f32(data[13], 0.0, f32::INFINITY)?, // water_vapor
-            conversion::bounded_byond_to_option_f32(data[14], 0.0, f32::INFINITY)?, // tritium
-            conversion::bounded_byond_to_option_f32(data[15], 0.0, f32::INFINITY)?, // bz
-            conversion::bounded_byond_to_option_f32(data[16], 0.0, f32::INFINITY)?, // pluoxium
-            conversion::bounded_byond_to_option_f32(data[17], 0.0, f32::INFINITY)?, // miasma
-            conversion::bounded_byond_to_option_f32(data[18], 0.0, f32::INFINITY)?, // freon
-            conversion::bounded_byond_to_option_f32(data[19], 0.0, f32::INFINITY)?, // nitrium
-            conversion::bounded_byond_to_option_f32(data[20], 0.0, f32::INFINITY)?, // healium
-            conversion::bounded_byond_to_option_f32(data[21], 0.0, f32::INFINITY)?, // proto_nitrate
-            conversion::bounded_byond_to_option_f32(data[22], 0.0, f32::INFINITY)?, // zauker
-            conversion::bounded_byond_to_option_f32(data[23], 0.0, f32::INFINITY)?, // halon
-            conversion::bounded_byond_to_option_f32(data[24], 0.0, f32::INFINITY)?, // helium
-            conversion::bounded_byond_to_option_f32(data[25], 0.0, f32::INFINITY)?, // antinoblium
-            conversion::bounded_byond_to_option_f32(data[26], 0.0, f32::INFINITY)?, // hypernoblium
+            conversion::bounded_byond_to_option_f32(&data[6], 0.0, f32::INFINITY)?, // oxygen
+            conversion::bounded_byond_to_option_f32(&data[7], 0.0, f32::INFINITY)?, // carbon_dioxide
+            conversion::bounded_byond_to_option_f32(&data[8], 0.0, f32::INFINITY)?, // nitrogen
+            conversion::bounded_byond_to_option_f32(&data[9], 0.0, f32::INFINITY)?, // toxins
+            conversion::bounded_byond_to_option_f32(&data[10], 0.0, f32::INFINITY)?, // sleeping_agent
+            conversion::bounded_byond_to_option_f32(&data[11], 0.0, f32::INFINITY)?, // agent_b
+            conversion::bounded_byond_to_option_f32(&data[12], 0.0, f32::INFINITY)?, // hydrogen
+            conversion::bounded_byond_to_option_f32(&data[13], 0.0, f32::INFINITY)?, // water_vapor
+            conversion::bounded_byond_to_option_f32(&data[14], 0.0, f32::INFINITY)?, // tritium
+            conversion::bounded_byond_to_option_f32(&data[15], 0.0, f32::INFINITY)?, // bz
+            conversion::bounded_byond_to_option_f32(&data[16], 0.0, f32::INFINITY)?, // pluoxium
+            conversion::bounded_byond_to_option_f32(&data[17], 0.0, f32::INFINITY)?, // miasma
+            conversion::bounded_byond_to_option_f32(&data[18], 0.0, f32::INFINITY)?, // freon
+            conversion::bounded_byond_to_option_f32(&data[19], 0.0, f32::INFINITY)?, // nitrium
+            conversion::bounded_byond_to_option_f32(&data[20], 0.0, f32::INFINITY)?, // healium
+            conversion::bounded_byond_to_option_f32(&data[21], 0.0, f32::INFINITY)?, // proto_nitrate
+            conversion::bounded_byond_to_option_f32(&data[22], 0.0, f32::INFINITY)?, // zauker
+            conversion::bounded_byond_to_option_f32(&data[23], 0.0, f32::INFINITY)?, // halon
+            conversion::bounded_byond_to_option_f32(&data[24], 0.0, f32::INFINITY)?, // helium
+            conversion::bounded_byond_to_option_f32(&data[25], 0.0, f32::INFINITY)?, // antinoblium
+            conversion::bounded_byond_to_option_f32(&data[26], 0.0, f32::INFINITY)?, // hypernoblium
             // temperature - data[27]
-            conversion::bounded_byond_to_option_f32(data[27], 0.0, f32::INFINITY)?,
+            conversion::bounded_byond_to_option_f32(&data[27], 0.0, f32::INFINITY)?,
             // thermal_energy
             None,
             Some(0.0),
@@ -259,17 +323,17 @@ fn milla_load_turfs(
             y as i32 - 1,
             z as i32 - 1,
             // superconductivity values - data[28-31]
-            conversion::bounded_byond_to_option_f32(data[28], 0.0, 1.0)?,
-            conversion::bounded_byond_to_option_f32(data[29], 0.0, 1.0)?,
-            conversion::bounded_byond_to_option_f32(data[30], 0.0, 1.0)?,
-            conversion::bounded_byond_to_option_f32(data[31], 0.0, 1.0)?,
+            conversion::bounded_byond_to_option_f32(&data[28], 0.0, 1.0)?,
+            conversion::bounded_byond_to_option_f32(&data[29], 0.0, 1.0)?,
+            conversion::bounded_byond_to_option_f32(&data[30], 0.0, 1.0)?,
+            conversion::bounded_byond_to_option_f32(&data[31], 0.0, 1.0)?,
         )?;
     }
-    Ok(ByondValue::null())
+    Ok(ByondValue::NULL)
 }
 
 /// BYOND API for setting the atmos details of a tile.
-#[byondapi::bind]
+#[byond_fn]
 fn milla_set_tile(
     turf: ByondValue,
     airtight_north: ByondValue,
@@ -303,71 +367,81 @@ fn milla_set_tile(
     _innate_heat_capacity: ByondValue,
     hotspot_temperature: ByondValue,
     hotspot_volume: ByondValue,
-) -> eyre::Result<ByondValue> {
+) -> ByondResult<ByondValue> {
     logging::setup_panic_handler();
-    let (x, y, z) = byond_xyz(&turf)?.coordinates();
+    let (x, y, z): (i16, i16, i16) = turf
+        .xyz()
+        .ok_or(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+            "bad coordinates",
+        )))?
+        .into();
     internal_set_tile(
         x as i32 - 1,
         y as i32 - 1,
         z as i32 - 1,
-        conversion::byond_to_option_f32(airtight_north)?,
-        conversion::byond_to_option_f32(airtight_east)?,
-        conversion::byond_to_option_f32(airtight_south)?,
-        conversion::byond_to_option_f32(airtight_west)?,
-        conversion::byond_to_option_f32(atmos_mode)?,
-        conversion::byond_to_option_f32(environment)?,
-        conversion::bounded_byond_to_option_f32(oxygen, 0.0, f32::INFINITY)?,
-        conversion::bounded_byond_to_option_f32(carbon_dioxide, 0.0, f32::INFINITY)?,
-        conversion::bounded_byond_to_option_f32(nitrogen, 0.0, f32::INFINITY)?,
-        conversion::bounded_byond_to_option_f32(toxins, 0.0, f32::INFINITY)?,
-        conversion::bounded_byond_to_option_f32(sleeping_agent, 0.0, f32::INFINITY)?,
-        conversion::bounded_byond_to_option_f32(agent_b, 0.0, f32::INFINITY)?,
-        conversion::bounded_byond_to_option_f32(hydrogen, 0.0, f32::INFINITY)?,
-        conversion::bounded_byond_to_option_f32(water_vapor, 0.0, f32::INFINITY)?,
-        conversion::bounded_byond_to_option_f32(tritium, 0.0, f32::INFINITY)?,
-        conversion::bounded_byond_to_option_f32(bz, 0.0, f32::INFINITY)?,
-        conversion::bounded_byond_to_option_f32(pluoxium, 0.0, f32::INFINITY)?,
-        conversion::bounded_byond_to_option_f32(miasma, 0.0, f32::INFINITY)?,
-        conversion::bounded_byond_to_option_f32(freon, 0.0, f32::INFINITY)?,
-        conversion::bounded_byond_to_option_f32(nitrium, 0.0, f32::INFINITY)?,
-        conversion::bounded_byond_to_option_f32(healium, 0.0, f32::INFINITY)?,
-        conversion::bounded_byond_to_option_f32(proto_nitrate, 0.0, f32::INFINITY)?,
-        conversion::bounded_byond_to_option_f32(zauker, 0.0, f32::INFINITY)?,
-        conversion::bounded_byond_to_option_f32(halon, 0.0, f32::INFINITY)?,
-        conversion::bounded_byond_to_option_f32(helium, 0.0, f32::INFINITY)?,
-        conversion::bounded_byond_to_option_f32(antinoblium, 0.0, f32::INFINITY)?,
-        conversion::bounded_byond_to_option_f32(hypernoblium, 0.0, f32::INFINITY)?,
-        conversion::bounded_byond_to_option_f32(temperature, 0.0, f32::INFINITY)?,
+        conversion::byond_to_option_f32(&airtight_north)?,
+        conversion::byond_to_option_f32(&airtight_east)?,
+        conversion::byond_to_option_f32(&airtight_south)?,
+        conversion::byond_to_option_f32(&airtight_west)?,
+        conversion::byond_to_option_f32(&atmos_mode)?,
+        conversion::byond_to_option_f32(&environment)?,
+        conversion::bounded_byond_to_option_f32(&oxygen, 0.0, f32::INFINITY)?,
+        conversion::bounded_byond_to_option_f32(&carbon_dioxide, 0.0, f32::INFINITY)?,
+        conversion::bounded_byond_to_option_f32(&nitrogen, 0.0, f32::INFINITY)?,
+        conversion::bounded_byond_to_option_f32(&toxins, 0.0, f32::INFINITY)?,
+        conversion::bounded_byond_to_option_f32(&sleeping_agent, 0.0, f32::INFINITY)?,
+        conversion::bounded_byond_to_option_f32(&agent_b, 0.0, f32::INFINITY)?,
+        conversion::bounded_byond_to_option_f32(&hydrogen, 0.0, f32::INFINITY)?,
+        conversion::bounded_byond_to_option_f32(&water_vapor, 0.0, f32::INFINITY)?,
+        conversion::bounded_byond_to_option_f32(&tritium, 0.0, f32::INFINITY)?,
+        conversion::bounded_byond_to_option_f32(&bz, 0.0, f32::INFINITY)?,
+        conversion::bounded_byond_to_option_f32(&pluoxium, 0.0, f32::INFINITY)?,
+        conversion::bounded_byond_to_option_f32(&miasma, 0.0, f32::INFINITY)?,
+        conversion::bounded_byond_to_option_f32(&freon, 0.0, f32::INFINITY)?,
+        conversion::bounded_byond_to_option_f32(&nitrium, 0.0, f32::INFINITY)?,
+        conversion::bounded_byond_to_option_f32(&healium, 0.0, f32::INFINITY)?,
+        conversion::bounded_byond_to_option_f32(&proto_nitrate, 0.0, f32::INFINITY)?,
+        conversion::bounded_byond_to_option_f32(&zauker, 0.0, f32::INFINITY)?,
+        conversion::bounded_byond_to_option_f32(&halon, 0.0, f32::INFINITY)?,
+        conversion::bounded_byond_to_option_f32(&helium, 0.0, f32::INFINITY)?,
+        conversion::bounded_byond_to_option_f32(&antinoblium, 0.0, f32::INFINITY)?,
+        conversion::bounded_byond_to_option_f32(&hypernoblium, 0.0, f32::INFINITY)?,
+        conversion::bounded_byond_to_option_f32(&temperature, 0.0, f32::INFINITY)?,
         None,
         // Temporarily disabled to better match the existing system.
         //bounded_byond_to_option_f32(innate_heat_capacity, 0.0, f32::INFINITY)?,
         Some(0.0),
-        conversion::bounded_byond_to_option_f32(hotspot_temperature, 0.0, f32::INFINITY)?,
-        conversion::bounded_byond_to_option_f32(hotspot_volume, 0.0, 1.0)?,
+        conversion::bounded_byond_to_option_f32(&hotspot_temperature, 0.0, f32::INFINITY)?,
+        conversion::bounded_byond_to_option_f32(&hotspot_volume, 0.0, 1.0)?,
     )?;
-    Ok(ByondValue::null())
+    Ok(ByondValue::NULL)
 }
 
 /// BYOND API for setting the directions a tile is airtight in.
 /// Like set_tile, just with a smaller set of fields.
-#[byondapi::bind]
+#[byond_fn]
 fn milla_set_tile_airtight(
     turf: ByondValue,
     airtight_north: ByondValue,
     airtight_east: ByondValue,
     airtight_south: ByondValue,
     airtight_west: ByondValue,
-) -> eyre::Result<ByondValue> {
+) -> ByondResult<ByondValue> {
     logging::setup_panic_handler();
-    let (x, y, z) = byond_xyz(&turf)?.coordinates();
+    let (x, y, z): (i16, i16, i16) = turf
+        .xyz()
+        .ok_or(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+            "bad coordinates",
+        )))?
+        .into();
     internal_set_tile(
         x as i32 - 1,
         y as i32 - 1,
         z as i32 - 1,
-        conversion::byond_to_option_f32(airtight_north)?,
-        conversion::byond_to_option_f32(airtight_east)?,
-        conversion::byond_to_option_f32(airtight_south)?,
-        conversion::byond_to_option_f32(airtight_west)?,
+        conversion::byond_to_option_f32(&airtight_north)?,
+        conversion::byond_to_option_f32(&airtight_east)?,
+        conversion::byond_to_option_f32(&airtight_south)?,
+        conversion::byond_to_option_f32(&airtight_west)?,
         None, // atmos_mode
         None, // environment
         None, // oxygen
@@ -397,7 +471,7 @@ fn milla_set_tile_airtight(
         None, // hotspot_temperature
         None, // hotspot_volume
     )?;
-    Ok(ByondValue::null())
+    Ok(ByondValue::NULL)
 }
 
 /// Rust version of setting the atmos details of a tile.
@@ -438,22 +512,31 @@ pub(crate) fn internal_set_tile(
     innate_heat_capacity: Option<f32>,
     hotspot_temperature: Option<f32>,
     hotspot_volume: Option<f32>,
-) -> Result<()> {
-    let buffers = BUFFERS.get().ok_or(eyre!("BUFFERS not initialized."))?;
+) -> ByondResult<()> {
+    let buffers = BUFFERS
+        .get()
+        .ok_or(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+            "BUFFERS not initialized.",
+        )))?;
     let active = buffers.get_active().read().unwrap();
     let maybe_z_level = active.0[z as usize].try_write();
     if maybe_z_level.is_err() {
-        return Err(eyre!(
-            "Tried to write during asynchronous, read-only atmos. Use a /datum/milla_safe/..."
-        ));
+        return Err(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+            "Tried to write during asynchronous, read-only atmos. Use a /datum/milla_safe/...",
+        )));
     }
     let mut z_level = maybe_z_level.unwrap();
-    let tile = z_level.get_tile_mut(ZLevel::maybe_get_index(x, y).ok_or(eyre!(
-        "Bad coordinates ({}, {}, {})",
-        x + 1,
-        y + 1,
-        z + 1
-    ))?);
+    let tile =
+        z_level.get_tile_mut(ZLevel::maybe_get_index(x, y).ok_or(ByondError::Boxed(Box::<
+            dyn Error + Send + Sync,
+        >::from(
+            format!(
+            "Bad coordinates ({}, {}, {})",
+            x + 1,
+            y + 1,
+            z + 1
+        )
+        )))?);
     if let Some(value) = airtight_north {
         tile.airtight_directions
             .set(AirtightDirections::NORTH, value > 0.0);
@@ -482,7 +565,11 @@ pub(crate) fn internal_set_tile(
                 }
             }
             3 => tile.mode = AtmosMode::NoDecay,
-            _ => return Err(eyre!("Invalid atmos_mode: {}", value)),
+            _ => {
+                return Err(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+                    format!("Invalid atmos_mode: {}", value),
+                )))
+            }
         }
     }
     if let Some(value) = oxygen {
@@ -579,10 +666,15 @@ pub(crate) fn internal_set_tile(
 }
 
 /// BYOND API for fetching the atmos details of a tile.
-#[byondapi::bind]
-fn milla_get_tile(turf: ByondValue, list: ByondValue) -> eyre::Result<ByondValue> {
+#[byond_fn]
+fn milla_get_tile(turf: ByondValue, mut list: ByondValue) -> ByondResult<ByondValue> {
     logging::setup_panic_handler();
-    let (x, y, z) = byond_xyz(&turf)?.coordinates();
+    let (x, y, z): (i16, i16, i16) = turf
+        .xyz()
+        .ok_or(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+            "bad coordinates",
+        )))?
+        .into();
 
     let tile =
         std::panic::catch_unwind(|| internal_get_tile(x as i32 - 1, y as i32 - 1, z as i32 - 1))
@@ -596,74 +688,92 @@ fn milla_get_tile(turf: ByondValue, list: ByondValue) -> eyre::Result<ByondValue
                 air
             });
 
-    let vec: Vec<ByondValue> = (&tile).into();
-    list.write_list(vec.as_slice())?;
+    let vec: Vec<ByondValue> = (&tile).try_into()?;
+    list.write_list(vec)?;
 
-    Ok(ByondValue::null())
+    Ok(ByondValue::NULL)
 }
 
 /// Rust version of fetching the atmos details of a tile.
-pub(crate) fn internal_get_tile(x: i32, y: i32, z: i32) -> Result<Tile> {
-    let buffers = BUFFERS.get().ok_or(eyre!("BUFFERS not initialized."))?;
+pub(crate) fn internal_get_tile(x: i32, y: i32, z: i32) -> ByondResult<Tile> {
+    let buffers = BUFFERS
+        .get()
+        .ok_or(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+            "BUFFERS not initialized.",
+        )))?;
     let maybe_active = buffers.get_active().read();
     if maybe_active.is_err() {
-        return Err(eyre!("MILLA buffers have been poisoned."));
+        return Err(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+            "MILLA buffers have been poisoned.",
+        )));
     }
     let active = maybe_active.unwrap();
     let z_level = active.0[z as usize].read().unwrap();
     Ok(z_level
-        .get_tile(ZLevel::maybe_get_index(x, y).ok_or(eyre!(
+        .get_tile(ZLevel::maybe_get_index(x, y).ok_or(ByondError::Boxed(Box::<
+            dyn Error + Send + Sync,
+        >::from(
+            format!(
             "Bad coordinates ({}, {}, {})",
             x + 1,
             y + 1,
             z + 1
-        ))?)
+        )
+        )))?)
         .clone())
 }
 
 /// BYOND API for getting a list of interesting tiles this tick.
-#[byondapi::bind]
-fn milla_get_interesting_tiles() -> eyre::Result<ByondValue> {
+#[byond_fn]
+fn milla_get_interesting_tiles() -> ByondResult<ByondValue> {
     logging::setup_panic_handler();
     let interesting_tiles = INTERESTING_TILES.lock().unwrap();
     let byond_interesting_tiles = interesting_tiles
         .iter()
-        .flat_map(|v| Vec::from(v))
+        .filter_map(|v| Vec::try_from(v).ok())
+        .flatten()
         .collect::<Vec<ByondValue>>();
-    Ok(byond_interesting_tiles.as_slice().try_into()?)
+    byond_interesting_tiles.as_slice().to_byond()
 }
 
 /// BYOND API for getting a single random interesting tile.
-#[byondapi::bind]
-fn milla_get_random_interesting_tile() -> eyre::Result<ByondValue> {
+#[byond_fn]
+fn milla_get_random_interesting_tile() -> ByondResult<ByondValue> {
     logging::setup_panic_handler();
     let interesting_tiles = INTERESTING_TILES.lock().unwrap();
     let length = interesting_tiles.len() as f32;
     if length <= 0.0 {
-        return Err(eyre!("No interesting tiles."));
+        return Err(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+            "No interesting tiles.",
+        )));
     }
     let random: f32 = rand::random();
     let chosen = (random * length) as usize;
-    Ok(Vec::from(&interesting_tiles[chosen])
+    Vec::try_from(&interesting_tiles[chosen])?
         .as_slice()
-        .try_into()?)
+        .to_byond()
 }
 
 /// BYOND API for capping the superconductivity of a tile.
-#[byondapi::bind]
+#[byond_fn]
 fn milla_reduce_superconductivity(
     turf: ByondValue,
     north: ByondValue,
     east: ByondValue,
     south: ByondValue,
     west: ByondValue,
-) -> eyre::Result<ByondValue> {
+) -> ByondResult<ByondValue> {
     logging::setup_panic_handler();
-    let (x, y, z) = byond_xyz(&turf)?.coordinates();
-    let rust_north = conversion::bounded_byond_to_option_f32(north, 0.0, 1.0)?;
-    let rust_east = conversion::bounded_byond_to_option_f32(east, 0.0, 1.0)?;
-    let rust_south = conversion::bounded_byond_to_option_f32(south, 0.0, 1.0)?;
-    let rust_west = conversion::bounded_byond_to_option_f32(west, 0.0, 1.0)?;
+    let (x, y, z): (i16, i16, i16) = turf
+        .xyz()
+        .ok_or(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+            "bad coordinates",
+        )))?
+        .into();
+    let rust_north = conversion::bounded_byond_to_option_f32(&north, 0.0, 1.0)?;
+    let rust_east = conversion::bounded_byond_to_option_f32(&east, 0.0, 1.0)?;
+    let rust_south = conversion::bounded_byond_to_option_f32(&south, 0.0, 1.0)?;
+    let rust_west = conversion::bounded_byond_to_option_f32(&west, 0.0, 1.0)?;
     internal_reduce_superconductivity(
         x as i32 - 1,
         y as i32 - 1,
@@ -673,7 +783,7 @@ fn milla_reduce_superconductivity(
         rust_south,
         rust_west,
     )?;
-    Ok(ByondValue::null())
+    Ok(ByondValue::NULL)
 }
 
 /// Rust version of capping the superconductivity of a tile.
@@ -687,22 +797,31 @@ pub(crate) fn internal_reduce_superconductivity(
     east: Option<f32>,
     south: Option<f32>,
     west: Option<f32>,
-) -> eyre::Result<()> {
-    let buffers = BUFFERS.get().ok_or(eyre!("BUFFERS not initialized."))?;
+) -> ByondResult<()> {
+    let buffers = BUFFERS
+        .get()
+        .ok_or(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+            "BUFFERS not initialized.",
+        )))?;
     let active = buffers.get_active().read().unwrap();
     let maybe_z_level = active.0[z as usize].try_write();
     if maybe_z_level.is_err() {
-        return Err(eyre!(
-            "Tried to write during asynchronous, read-only atmos. Use a /datum/milla_safe/..."
-        ));
+        return Err(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+            "Tried to write during asynchronous, read-only atmos. Use a /datum/milla_safe/...",
+        )));
     }
     let mut z_level = maybe_z_level.unwrap();
-    let tile = z_level.get_tile_mut(ZLevel::maybe_get_index(x, y).ok_or(eyre!(
-        "Bad coordinates ({}, {}, {})",
-        x + 1,
-        y + 1,
-        z + 1
-    ))?);
+    let tile =
+        z_level.get_tile_mut(ZLevel::maybe_get_index(x, y).ok_or(ByondError::Boxed(Box::<
+            dyn Error + Send + Sync,
+        >::from(
+            format!(
+            "Bad coordinates ({}, {}, {})",
+            x + 1,
+            y + 1,
+            z + 1
+        )
+        )))?);
     if let Some(value) = north {
         tile.superconductivity.north = tile.superconductivity.north.min(value);
     }
@@ -719,31 +838,45 @@ pub(crate) fn internal_reduce_superconductivity(
 }
 
 /// BYOND API for resetting the superconductivity of a tile.
-#[byondapi::bind]
-fn milla_reset_superconductivity(turf: ByondValue) -> eyre::Result<ByondValue> {
+#[byond_fn]
+fn milla_reset_superconductivity(turf: ByondValue) -> ByondResult<ByondValue> {
     logging::setup_panic_handler();
-    let (x, y, z) = byond_xyz(&turf)?.coordinates();
+    let (x, y, z): (i16, i16, i16) = turf
+        .xyz()
+        .ok_or(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+            "bad coordinates",
+        )))?
+        .into();
     internal_reset_superconductivity(x as i32 - 1, y as i32 - 1, z as i32 - 1)?;
-    Ok(ByondValue::null())
+    Ok(ByondValue::NULL)
 }
 
 /// Rust version of resetting the superconductivity of a tile.
-pub(crate) fn internal_reset_superconductivity(x: i32, y: i32, z: i32) -> Result<()> {
-    let buffers = BUFFERS.get().ok_or(eyre!("BUFFERS not initialized."))?;
+pub(crate) fn internal_reset_superconductivity(x: i32, y: i32, z: i32) -> ByondResult<()> {
+    let buffers = BUFFERS
+        .get()
+        .ok_or(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+            "BUFFERS not initialized.",
+        )))?;
     let active = buffers.get_active().read().unwrap();
     let maybe_z_level = active.0[z as usize].try_write();
     if maybe_z_level.is_err() {
-        return Err(eyre!(
-            "Tried to write during asynchronous, read-only atmos. Use a /datum/milla_safe/..."
-        ));
+        return Err(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+            "Tried to write during asynchronous, read-only atmos. Use a /datum/milla_safe/...",
+        )));
     }
     let mut z_level = maybe_z_level.unwrap();
-    let tile = z_level.get_tile_mut(ZLevel::maybe_get_index(x, y).ok_or(eyre!(
-        "Bad coordinates ({}, {}, {})",
-        x + 1,
-        y + 1,
-        z + 1
-    ))?);
+    let tile =
+        z_level.get_tile_mut(ZLevel::maybe_get_index(x, y).ok_or(ByondError::Boxed(Box::<
+            dyn Error + Send + Sync,
+        >::from(
+            format!(
+            "Bad coordinates ({}, {}, {})",
+            x + 1,
+            y + 1,
+            z + 1,
+        )
+        )))?);
     tile.superconductivity.north = OPEN_HEAT_TRANSFER_COEFFICIENT;
     tile.superconductivity.east = OPEN_HEAT_TRANSFER_COEFFICIENT;
     tile.superconductivity.south = OPEN_HEAT_TRANSFER_COEFFICIENT;
@@ -752,19 +885,30 @@ pub(crate) fn internal_reset_superconductivity(x: i32, y: i32, z: i32) -> Result
 }
 
 /// BYOND API for a heat source creating a hotspot on a tile.
-#[byondapi::bind]
+#[byond_fn]
 fn milla_create_hotspot(
     turf: ByondValue,
     temperature: ByondValue,
     volume: ByondValue,
-) -> eyre::Result<ByondValue> {
+) -> ByondResult<ByondValue> {
     logging::setup_panic_handler();
-    let (x, y, z) = byond_xyz(&turf)?.coordinates();
+    let (x, y, z): (i16, i16, i16) = turf
+        .xyz()
+        .ok_or(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+            "bad coordinates",
+        )))?
+        .into();
     let rust_temperature =
-        conversion::bounded_byond_to_option_f32(temperature, 0.0, f32::INFINITY)?
-            .ok_or(eyre!("Hotspot temperature is required.."))?;
-    let rust_volume = conversion::bounded_byond_to_option_f32(volume, 0.0, TILE_VOLUME)?
-        .ok_or(eyre!("Hotspot volume is required.."))?;
+        conversion::bounded_byond_to_option_f32(&temperature, 0.0, f32::INFINITY)?.ok_or(
+            ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+                "Hotspot temperature is required..",
+            )),
+        )?;
+    let rust_volume = conversion::bounded_byond_to_option_f32(&volume, 0.0, TILE_VOLUME)?.ok_or(
+        ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+            "Hotspot volume is required..",
+        )),
+    )?;
 
     internal_create_hotspot(
         x as i32 - 1,
@@ -773,7 +917,7 @@ fn milla_create_hotspot(
         rust_temperature,
         rust_volume / TILE_VOLUME,
     )?;
-    Ok(ByondValue::null())
+    Ok(ByondValue::NULL)
 }
 
 /// Rust version of a heat source creating a hotspot.
@@ -783,22 +927,31 @@ pub(crate) fn internal_create_hotspot(
     z: i32,
     temperature: f32,
     volume: f32,
-) -> Result<()> {
-    let buffers = BUFFERS.get().ok_or(eyre!("BUFFERS not initialized."))?;
+) -> ByondResult<()> {
+    let buffers = BUFFERS
+        .get()
+        .ok_or(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+            "BUFFERS not initialized.",
+        )))?;
     let active = buffers.get_active().read().unwrap();
     let maybe_z_level = active.0[z as usize].try_write();
     if maybe_z_level.is_err() {
-        return Err(eyre!(
-            "Tried to write during asynchronous, read-only atmos. Use a /datum/milla_safe/..."
-        ));
+        return Err(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+            "Tried to write during asynchronous, read-only atmos. Use a /datum/milla_safe/...",
+        )));
     }
     let mut z_level = maybe_z_level.unwrap();
-    let tile = z_level.get_tile_mut(ZLevel::maybe_get_index(x, y).ok_or(eyre!(
-        "Bad coordinates ({}, {}, {})",
-        x + 1,
-        y + 1,
-        z + 1
-    ))?);
+    let tile =
+        z_level.get_tile_mut(ZLevel::maybe_get_index(x, y).ok_or(ByondError::Boxed(Box::<
+            dyn Error + Send + Sync,
+        >::from(
+            format!(
+            "Bad coordinates ({}, {}, {})",
+            x + 1,
+            y + 1,
+            z + 1
+        )
+        )))?);
 
     if temperature <= tile.temperature() || volume == 0.0 {
         return Ok(());
@@ -819,22 +972,29 @@ pub(crate) fn internal_create_hotspot(
 }
 
 /// BYOND API for tracking the pressure of all nearby tiles next tick.
-#[byondapi::bind]
+#[byond_fn]
 fn milla_track_pressure_tiles(
     turf: ByondValue,
     byond_radius: ByondValue,
-) -> eyre::Result<ByondValue> {
+) -> ByondResult<ByondValue> {
     logging::setup_panic_handler();
-    let (x, y, z) = byond_xyz(&turf)?.coordinates();
-    let radius = conversion::bounded_byond_to_option_f32(byond_radius, 0.0, MAP_SIZE as f32)?
-        .ok_or(eyre!("Invalid radius: {:#?}", byond_radius))? as i32;
+    let (x, y, z): (i16, i16, i16) = turf
+        .xyz()
+        .ok_or(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+            "bad coordinates",
+        )))?
+        .into();
+    let radius = conversion::bounded_byond_to_option_f32(&byond_radius, 0.0, MAP_SIZE as f32)?
+        .ok_or(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+            "Invalid radius",
+        )))? as i32;
 
     internal_track_pressure_tiles(x as i32 - 1, y as i32 - 1, z as i32 - 1, radius)?;
-    Ok(ByondValue::null())
+    Ok(ByondValue::NULL)
 }
 
 /// Rust version of tracking the pressure of all nearby tiles next tick.
-fn internal_track_pressure_tiles(x: i32, y: i32, z: i32, radius: i32) -> eyre::Result<()> {
+fn internal_track_pressure_tiles(x: i32, y: i32, z: i32, radius: i32) -> ByondResult<()> {
     let mut tracked_pressure_tiles = TRACKED_PRESSURE_TILES.lock().unwrap();
     for dx in -radius..=radius {
         if x + dx < 0 {
@@ -858,19 +1018,23 @@ fn internal_track_pressure_tiles(x: i32, y: i32, z: i32, radius: i32) -> eyre::R
 }
 
 /// BYOND API for getting the tracked pressure tiles.
-#[byondapi::bind]
-fn milla_get_tracked_pressure_tiles() -> eyre::Result<ByondValue> {
+#[byond_fn]
+fn milla_get_tracked_pressure_tiles() -> ByondResult<ByondValue> {
     logging::setup_panic_handler();
-    let tracked_pressures = internal_get_tracked_pressure_tiles()?
+    let tracked_pressures: Vec<ByondValue> = internal_get_tracked_pressure_tiles()?
         .iter()
-        .map(|v: &f32| ByondValue::from(*v))
-        .collect::<Vec<ByondValue>>();
-    Ok(tracked_pressures.as_slice().try_into()?)
+        .map(|v: &f32| (*v).to_byond())
+        .collect::<Result<_, _>>()?;
+    Ok(tracked_pressures.as_slice().to_byond()?)
 }
 
 /// Rust version of getting the tracked pressure tiles.
-fn internal_get_tracked_pressure_tiles() -> eyre::Result<Vec<f32>> {
-    let buffers = BUFFERS.get().ok_or(eyre!("BUFFERS not initialized."))?;
+fn internal_get_tracked_pressure_tiles() -> ByondResult<Vec<f32>> {
+    let buffers = BUFFERS
+        .get()
+        .ok_or(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+            "BUFFERS not initialized.",
+        )))?;
     let inactive = buffers.get_inactive().read().unwrap();
     let mut tracked_pressure_tiles = TRACKED_PRESSURE_TILES.lock().unwrap();
 
@@ -905,9 +1069,9 @@ fn internal_get_tracked_pressure_tiles() -> eyre::Result<Vec<f32>> {
 }
 
 /// BYOND API for starting an atmos tick.
-#[byondapi::bind]
-fn milla_spawn_tick_thread() -> eyre::Result<ByondValue> {
-    thread::spawn(|| -> Result<(), eyre::Error> {
+#[byond_fn]
+fn milla_spawn_tick_thread() -> ByondResult<ByondValue> {
+    thread::spawn(|| -> Result<(), ByondError> {
         let now = Instant::now();
         let buffers = BUFFERS.get_or_init(Buffers::new);
         let result = tick::tick(buffers);
@@ -916,49 +1080,53 @@ fn milla_spawn_tick_thread() -> eyre::Result<ByondValue> {
             std::sync::atomic::Ordering::Relaxed,
         );
         if result.is_ok() {
-            call_global("milla_tick_finished", &[])?;
+            let _: () = call_global("milla_tick_finished", ByondValue::new_list())?;
         } else {
             let err = format!("MILLA tick error:\n----\n{:#?}\n----", result);
-            call_global("milla_tick_error", &[ByondValue::new_str(err)?])?;
+            let _: () = call_global("milla_tick_error", &[ByondValue::new_string(err)])?;
         }
 
         Ok(())
     });
-    Ok(ByondValue::null())
+    Ok(ByondValue::NULL)
 }
 
 /// BYOND API for asking how long the prior tick took.
-#[byondapi::bind]
-fn milla_get_tick_time() -> eyre::Result<ByondValue> {
+#[byond_fn]
+fn milla_get_tick_time() -> ByondResult<ByondValue> {
     logging::setup_panic_handler();
-    Ok(ByondValue::from(
-        TICK_TIME.load(std::sync::atomic::Ordering::Relaxed) as f32,
-    ))
+    TICK_TIME
+        .load(std::sync::atomic::Ordering::Relaxed)
+        .to_byond()
 }
 
 /// BYOND API for freezing a specific z-level.
-#[byondapi::bind]
+#[byond_fn]
 fn milla_set_zlevel_frozen(
     byond_z: ByondValue,
     byond_frozen: ByondValue,
-) -> eyre::Result<ByondValue> {
-    let z = f32::try_from(byond_z)? as i32 - 1;
-    let frozen = bool::try_from(byond_frozen)?;
-    let buffers = BUFFERS.get().ok_or(eyre!("BUFFERS not initialized."))?;
+) -> ByondResult<ByondValue> {
+    let z = f32::from_byond(byond_z)? as i32 - 1;
+    let frozen = byond_frozen.is_true();
+    let buffers = BUFFERS
+        .get()
+        .ok_or(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+            "BUFFERS not initialized.",
+        )))?;
     let active = buffers.get_active().read().unwrap();
     let maybe_z_level = active.0[z as usize].try_write();
     if maybe_z_level.is_err() {
-        return Err(eyre!(
+        return Err(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
             "Tried to freeze or unfreeze during asynchronous, read-only atmos. Use a /datum/milla_safe/..."
-        ));
+        )));
     }
     let mut z_level = maybe_z_level.unwrap();
     z_level.frozen = frozen;
-    Ok(ByondValue::null())
+    Ok(ByondValue::NULL)
 }
 
-#[byondapi::bind]
-fn milla_reset() -> eyre::Result<ByondValue> {
+#[byond_fn]
+fn milla_reset() -> ByondResult<ByondValue> {
     if let Some(buffers) = BUFFERS.get() {
         buffers.clear_and_free_z_levels();
     }
@@ -974,7 +1142,7 @@ fn milla_reset() -> eyre::Result<ByondValue> {
         tracked.shrink_to_fit();
     }
 
-    Ok(ByondValue::null())
+    Ok(ByondValue::NULL)
 }
 
 // Yay, tests!

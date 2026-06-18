@@ -11,7 +11,7 @@
 	range = 15
 
 /obj/projectile/hook/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "крюк",
 		GENITIVE = "крюка",
 		DATIVE = "крюку",

@@ -5,7 +5,7 @@
 	icon_state = "dnakit"
 
 /obj/item/storage/box/swabs/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "коробка ватных палочек",
 		GENITIVE = "коробки ватных палочек",
 		DATIVE = "коробке ватных палочек",
@@ -29,7 +29,7 @@
 	icon_state = "dnakit"
 
 /obj/item/storage/box/fingerprints/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "коробка карт отпечатков пальцев",
 		GENITIVE = "коробки карт отпечатков пальцев",
 		DATIVE = "коробке карт отпечатков пальцев",

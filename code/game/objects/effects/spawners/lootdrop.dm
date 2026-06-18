@@ -11,8 +11,9 @@
 	return INITIALIZE_HINT_QDEL
 
 /obj/effect/spawner/lootdrop/proc/spawn_loot()
+	var/list/weighted_loot = fill_with_ones(loot)
 	while(lootcount)
-		var/lootspawn = pickweight(loot)
+		var/lootspawn = pickweight(weighted_loot)
 		if(lootspawn)
 			new lootspawn(get_turf(src))
 			if(!lootdoubles)

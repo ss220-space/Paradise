@@ -24,6 +24,7 @@
 #define span_typing(str) ("<span class='typing'>[str]</span>")
 #define span_value(str) ("<span class='value'>[str]</span>")
 #define span_body(str) ("<span class='body'>[str]</span>")
+#define span_linkify(str) ("<span class='linkify'>[str]</span>")
 
 /**
  * MARK: General Stuff

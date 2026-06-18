@@ -13,7 +13,7 @@
 	access = list(ACCESS_SYNDICATE, ACCESS_SYNDICATE_LEADER, ACCESS_SYNDICATE_COMMAND, ACCESS_EXTERNAL_AIRLOCKS)
 
 /obj/item/card/id/syndicate_command/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ID-карта \"Синдиката\"",
 		GENITIVE = "ID-карты \"Синдиката\"",
 		DATIVE = "ID-карте \"Синдиката\"",
@@ -30,7 +30,7 @@
 	item_state = "centcomm-id"
 
 /obj/item/card/id/centcom/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ID-карта ЦК",
 		GENITIVE = "ID-карты ЦК",
 		DATIVE = "ID-карте ЦК",

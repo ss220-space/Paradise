@@ -125,10 +125,12 @@
 	/// A luminescence-shifted value of the last color calculated for chatmessage overlays
 	var/chat_color_darkened
 
-
-	/// Список склонений русского названия атома в разных грамматических падежах.
-	/// Формат: list(CASE_ID = "name_in_case", ...)
-	var/list/ru_names
+	/**
+	 * Список склонений русского названия атома в разных грамматических падежах.
+	 *
+	 * Формат: alist(CASE_ID = "name_in_case", ...)
+	 */
+	var/alist/ru_names
 
 	// Can it be drained of energy by ninja?
 	var/drain_act_protected = FALSE
@@ -201,6 +203,9 @@
 	/// Radiation insulation types
 	var/rad_insulation = RAD_NO_INSULATION
 
+	/// Preferred way to render this atom's icon in the lootpanel, as one of the LOOT_ICON_* defines.
+	/// Null lets [/datum/search_object] decide heuristically; subtypes set it when the heuristic
+	/// would pick wrong (e.g. mobs force [LOOT_ICON_FLAT_ICON] for their layered appearances).
 	var/looting_icon_mode
 
 	/// Text that appears preceding the name in [/atom/proc/examine_title]
@@ -1373,20 +1378,21 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		logged_name = "[use_prefix ? "[prefix][t]" : t]"
 	investigate_log("[key_name(user)] ([ADMIN_FLW(user,"FLW")]) renamed \"[src]\" ([ADMIN_VV(src, "VV")]) as \"[logged_name]\".", INVESTIGATE_RENAME)
 
-	if(actually_rename)
-		if(t == "")
-			ru_names = get_ru_names_cached()
-			name = "[initial(name)]"
-		else
-			var/list/names = get_ru_names_cached()
-			ru_names = names ? names.Copy() : new /list(6)
-			if(use_prefix)
-				for(var/i = 1; i <= 6; i++)
-					ru_names[i] = "[names ? names[i] : initial(name)] - [t]"
-			else
-				for(var/i = 1; i <= 6; i++)
-					ru_names[i] = "[t]"
-			name = "[prefix][t]"
+	if(!actually_rename)
+		return t
+
+	if(t == "")
+		ru_names = get_ru_names_cached()
+		name = "[initial(name)]"
+		return t
+
+	if(use_prefix)
+		set_ru_names_suffix(" - [t]")
+	else
+		ru_names = alist()
+		for(var/case_id in NOMINATIVE to PREPOSITIONAL)
+			ru_names[case_id] = "[t]"
+	name = "[prefix][t]"
 	return t
 
 /**

@@ -31,7 +31,7 @@
 	var/next_dest_loc
 
 /mob/living/simple_animal/bot/cleanbot/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "чистобот",
 		GENITIVE = "чистобота",
 		DATIVE = "чистоботу",

@@ -9,7 +9,7 @@
 	slot = ACCESSORY_SLOT_ARMBAND
 
 /obj/item/clothing/accessory/armguard/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "наручи",
 		GENITIVE = "наручей",
 		DATIVE = "наручам",
@@ -140,7 +140,7 @@
 	var/silence = FALSE
 
 /obj/item/kitchen/knife/hidden_blade/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "скрытый клинок",
 		GENITIVE = "скрытого клинка",
 		DATIVE = "скрытому клинку",

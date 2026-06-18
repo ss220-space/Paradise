@@ -12,7 +12,7 @@
 	var/obj/item/tripwire/master_base
 
 /obj/structure/tripwire_bridge/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "провод растяжки",
 		GENITIVE = "провода растяжки",
 		DATIVE = "проводу растяжки",
@@ -92,7 +92,7 @@
 	var/datum/weakref/payload_mind = null
 
 /obj/item/tripwire/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "растяжка",
 		GENITIVE = "растяжки",
 		DATIVE = "растяжке",
@@ -449,8 +449,6 @@
 ////////////////////////////////////////
 // MARK:	Trigger & payloads
 ////////////////////////////////////////
-#define TRIPWIRE_GRENADE_DETONATION_TIME 1 SECONDS
-
 /obj/item/tripwire/proc/on_payload_activate(datum/source, mob/user)
 	SIGNAL_HANDLER
 	if(!attached_item)
@@ -491,5 +489,3 @@
 		return linked_to
 
 	return
-
-#undef TRIPWIRE_GRENADE_DETONATION_TIME

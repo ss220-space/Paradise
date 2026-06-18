@@ -26,3 +26,11 @@
 .boxed_message.notice_border {
   background: hsl(325, 100%, 7.5%);
 }
+
+.fieldset_legend {
+  background: hsl(0, 95.5%, 8.6%);
+
+  &:before {
+    background: hsl(0, 95.5%, 8.6%);
+  }
+}

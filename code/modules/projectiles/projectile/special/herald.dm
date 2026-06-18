@@ -6,7 +6,7 @@
 	speed = 2
 
 /obj/projectile/herald/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "смертоносный заряд",
 		GENITIVE = "смертоносного заряда",
 		DATIVE = "смертоносному заряду",
@@ -21,7 +21,7 @@
 	color = rgb(255,255,102)
 
 /obj/projectile/herald/teleshot/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "золотой заряд",
 		GENITIVE = "золотого заряда",
 		DATIVE = "золотому заряду",

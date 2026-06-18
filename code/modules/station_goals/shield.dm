@@ -271,10 +271,12 @@
 			/datum/event/dust/meaty,
 			/datum/event/dust,
 		))
-	for(var/datum/event_container/container in SSevents.event_containers)
-		for(var/datum/event_meta/M in container.available_events)
-			if(is_type_in_typecache(M.event_type, meteor_event_typecache))
-				M.weight_mod *= mod
+
+	for(var/severity_level, container in SSevents.event_containers)
+		var/datum/event_container/event_container = container
+		for(var/datum/event_meta/event_meta in event_container.available_events)
+			if(is_type_in_typecache(event_meta.event_type, meteor_event_typecache))
+				event_meta.weight_mod *= mod
 
 /obj/machinery/satellite/meteor_shield/emag_act(mob/user)
 	if(emagged)

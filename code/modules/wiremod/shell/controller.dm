@@ -14,7 +14,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/controller/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "контроллер",
 		GENITIVE = "контроллера",
 		DATIVE = "контроллеру",

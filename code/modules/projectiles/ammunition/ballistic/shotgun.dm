@@ -233,7 +233,7 @@
 	no_update_desc = TRUE
 
 /obj/item/ammo_casing/shotgun/techshell/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пустая технологическая гильза [caliber]",
 		GENITIVE = "пустой технологической гильзы [caliber]",
 		DATIVE = "пустой технологической гильзе [caliber]",

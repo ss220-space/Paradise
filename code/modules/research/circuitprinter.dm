@@ -37,7 +37,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 	reagents = new()
 
 /obj/machinery/r_n_d/circuit_imprinter/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "принтер плат",
 		GENITIVE = "принтера плат",
 		DATIVE = "принтеру плат",
@@ -254,6 +254,9 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 
 	return TRUE
 
+/// Maximum number of characters in the description of the circuit
+#define MAX_CHAR_IN_DESC 200
+
 /obj/machinery/r_n_d/circuit_imprinter/proc/save_circuit(mob/living/user, obj/item/circuit)
 	if(!can_save_circuit(user, circuit))
 		return
@@ -275,10 +278,10 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 
 		data["name"] = integrated_circuit.display_name
 
-		var/datum/design/integrated_circuit/circuit_design
+		var/datum/design/integrated_circuit/circuit_design = new /datum/design/integrated_circuit
 		var/materials = list(MAT_GLASS = integrated_circuit.current_size * cost_per_component)
-		for(var/material_type in circuit_design::materials)
-			materials[material_type] += circuit_design::materials[material_type]
+		for(var/material_type in circuit_design.materials)
+			materials[material_type] += circuit_design.materials[material_type]
 
 		data["materials"] = materials
 		data["integrated_circuit"] = TRUE
@@ -298,7 +301,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 			balloon_alert(user, "название занято!")
 			return
 
-	var/circuit_desc = reject_bad_name(sanitize(tgui_input_text(user, "Введите описание схемы.", "Описание", "")), allow_numbers = TRUE)
+	var/circuit_desc = reject_bad_name(sanitize(tgui_input_text(user, "Введите описание схемы.", "Описание", "", max_length = MAX_CHAR_IN_DESC)), allow_numbers = TRUE)
 
 	data["desc"] = circuit_desc ? circuit_desc : "Схема, сохранённая пользователем \"[user]\"."
 
@@ -308,6 +311,85 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 	playsound(src, 'sound/machines/ping.ogg', 50)
 
 	update_static_data_for_all_viewers()
+
+/obj/machinery/r_n_d/circuit_imprinter/proc/can_save_circuit_by_import(mob/living/user, list/data)
+	if(isnull(data) || !islist(data))
+		return FALSE
+	var/static/list/required_keys = list("dupe_data", "name", "Icon", "IconState", "desc")
+	for(var/key in required_keys)
+		if(!LAZYACCESS(data, key))
+			return FALSE
+	return TRUE
+
+#define MAX_COMPONENT_COUNT 200
+
+/obj/machinery/r_n_d/circuit_imprinter/proc/save_circuit_by_import(mob/living/user, list/data)
+	if(!can_save_circuit_by_import(user, data))
+		tgui_alert(user, "Невозможно сохранить схему!", "Ошибка импорта")
+		return
+
+	var/list/dupe_data = data["dupe_data"]
+	if(istext(dupe_data))
+		dupe_data = json_decode(dupe_data)
+
+	if(!islist(dupe_data) || !islist(dupe_data["components"]) || length(dupe_data["components"]) > MAX_COMPONENT_COUNT)
+		tgui_alert(user, "Некорректный формат данных схемы или превышен лимит компонентов!", "Ошибка импорта")
+		return
+
+	for(var/list/component_data as anything in scanned_designs)
+		if(component_data["name"] == data["name"])
+			to_chat(user, span_alert("Название занято!"))
+			return
+
+	var/current_size = 0
+
+	for(var/component_data, value in dupe_data["components"])
+		var/list/comp = value
+
+		if(!islist(comp))
+			if(!islist(component_data))
+				continue
+			comp = component_data
+
+		var/path = text2path(comp["type"])
+		if(!path || !ispath(path, /obj/item/circuit_component))
+			to_chat(user, span_alert("Неккоректные данные JSON!"))
+			return
+
+		var/obj/item/circuit_component/component_type = path
+
+		current_size += initial(component_type.circuit_size)
+
+	var/materials = list(MAT_GLASS = current_size * cost_per_component)
+
+	if(data["integrated_circuit"])
+		var/datum/design/integrated_circuit/circuit_design = new /datum/design/integrated_circuit
+		for(var/material_type, value in circuit_design.materials)
+			materials[material_type] += value
+		qdel(circuit_design)
+
+	data["materials"] = materials
+
+	var/obj/item/integrated_circuit/circuit = new /obj/item/integrated_circuit
+	data["Icon"] = circuit.icon
+	data["IconState"] = circuit.icon_state
+	qdel(circuit)
+
+	if(!length(data))
+		return
+
+	if(!data["name"])
+		to_chat(user, span_alert("Требуется название!"))
+		return
+
+	LAZYADD(scanned_designs, list(data))
+
+	to_chat(user, "Схема сохранена")
+	playsound(src, 'sound/machines/ping.ogg', 50)
+
+	update_static_data_for_all_viewers()
+
+#undef MAX_COMPONENT_COUNT
 
 /obj/machinery/r_n_d/circuit_imprinter/proc/print_module(list/design)
 	flick("[base_icon_state]_ani", src)
@@ -348,6 +430,9 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 /obj/machinery/r_n_d/circuit_imprinter/proc/try_use_materials(list/design_materials)
 	return materials.use_amount(design_materials, efficiency_coeff)
 
+/// Maximum number of characters in the name of the circuit
+#define MAX_CHAR_IN_NAME 30
+
 /obj/machinery/r_n_d/circuit_imprinter/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()
 	if(.)
@@ -377,7 +462,68 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 
 			update_static_data_for_all_viewers()
 
+		if("export")
+			var/mob/user = ui.user
+			tgui_alert(user, "Функция отключена до исправления по соображениям безопасности", "ВНИМАНИЕ!")
+			/*
+			var/design_id = text2num(params["designId"])
+
+			if(design_id < 1 || design_id > length(scanned_designs))
+				return TRUE
+
+			var/list/design = LAZYACCESS(scanned_designs, design_id)
+
+			var/list/data = list(
+				"dupe_data" = design["dupe_data"],
+				"name" = design["name"],
+				"desc" = design["desc"],
+				"integrated_circuit" = design["integrated_circuit"],
+				"Icon" = design["Icon"],
+				"IconState" = design["IconState"]
+			)
+
+			var/json_base64 = rustg_encode_base64(json_encode(data))
+
+			if(!json_base64)
+				tgui_alert(user, message = "Ошибка экспорта!", title = "Ошибка!")
+				return
+
+			tgui_input_text(user, "Скопируйте текст схемы:", "Экспорт схемы", default = json_base64)
+			*/
+
+		if("import")
+			var/mob/user = ui.user
+			tgui_alert(user, "Функция отключена до исправления по соображениям безопасности", "ВНИМАНИЕ!")
+			/*
+			var/json_base64 = params["import"]
+			if(!json_base64)
+				return TRUE
+
+			json_base64 = replacetext(json_base64, "\n", "")
+			json_base64 = trim(json_base64)
+
+			var/decoded = rustg_decode_base64(json_base64)
+			if(!decoded)
+				tgui_alert(user, "Не удалось декодировать Base64!", "Ошибка импорта")
+				return TRUE
+
+			var/list/data = json_decode(decoded)
+			if(!islist(data))
+				tgui_alert(user, "Некорректный формат JSON!", "Ошибка импорта")
+				return TRUE
+
+			if(data["name"])
+				data["name"] = copytext(sanitize(data["name"]), 1, MAX_CHAR_IN_NAME)
+			if(data["desc"])
+				data["desc"] = copytext(sanitize(data["desc"]), 1, MAX_CHAR_IN_DESC)
+
+			save_circuit_by_import(user, data)
+			*/
+
 	return TRUE
+
+#undef MAX_CHAR_IN_NAME
+#undef MAX_CHAR_IN_DESC
 
 /obj/machinery/r_n_d/circuit_imprinter/ui_data(mob/user)
 	var/list/data = list()

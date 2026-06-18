@@ -39,7 +39,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	var/credits_cost = 0
 	var/containertype = /obj/structure/closet/crate
 	var/containername = null
-	var/container_ru_names = list()
+	var/alist/container_ru_names = alist()
 	var/access = null
 	var/hidden = FALSE
 	var/contraband = FALSE
@@ -123,7 +123,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 40
 	containername = "ящик аварийного оборудования"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик аварийного оборудования",
 		GENITIVE = "ящика аварийного оборудования",
 		DATIVE = "ящику аварийного оборудования",
@@ -151,7 +151,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 15
 	containertype = /obj/structure/closet/crate
 	containername = "ящик противопожарного оборудования"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик противопожарного оборудования",
 		GENITIVE = "ящика противопожарного оборудования",
 		DATIVE = "ящику противопожарного оборудования",
@@ -168,7 +168,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 75
 	containertype = /obj/structure/closet/crate
 	containername = "ящик с кластерной очищающей гранатой"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с кластерной очищающей гранатой",
 		GENITIVE = "ящика с кластерной очищающей гранатой",
 		DATIVE = "ящику с кластерной очищающей гранатой",
@@ -185,7 +185,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 50
 	containertype = /obj/structure/closet/crate
 	containername = "ящик с кластерной кислородной гранатой"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с кластерной кислородной гранатой",
 		GENITIVE = "ящика с кластерной кислородной гранатой",
 		DATIVE = "ящику с кластерной кислородной гранатой",
@@ -202,7 +202,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 20
 	containertype = /obj/structure/closet/crate
 	containername = "ящик с противопожарным ранцем"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с противопожарным ранцем",
 		GENITIVE = "ящика с противопожарным ранцем",
 		DATIVE = "ящику с противопожарным ранцем",
@@ -222,7 +222,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 20
 	containertype = /obj/structure/closet/crate/secure/hydrosec
 	containername = "ящик противосорнякового оборудования"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик противосорнякового оборудования",
 		GENITIVE = "ящика противосорнякового оборудования",
 		DATIVE = "ящику противосорнякового оборудования",
@@ -244,7 +244,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 35
 	containertype = /obj/structure/closet/crate/medical
 	containername = "ящик оборудования для жизнеобеспечения воксов"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик оборудования для жизнеобеспечения воксов",
 		GENITIVE = "ящика оборудования для жизнеобеспечения воксов",
 		DATIVE = "ящику оборудования для жизнеобеспечения воксов",
@@ -272,7 +272,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 35
 	containertype = /obj/structure/closet/crate/secure/plasma
 	containername = "ящик оборудования для жизнеобспечения плазмолюдов"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик оборудования для жизнеобспечения плазмолюдов",
 		GENITIVE = "ящика оборудования для жизнеобспечения плазмолюдов",
 		DATIVE = "ящику оборудования для жизнеобспечения плазмолюдов",
@@ -291,7 +291,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 220
 	containertype = /obj/structure/closet/crate/secure/engineering
 	containername = "ящик c генератором \"Пакман\""
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик c генератором \"Пакман\"",
 		GENITIVE = "ящика c генератором \"Пакман\"",
 		DATIVE = "ящику c генератором \"Пакман\"",
@@ -315,7 +315,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 80
 	containertype = /obj/structure/closet/crate/secure
 	containername = "ящик костюмов для ВКД"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик костюмов для ВКД",
 		GENITIVE = "ящика костюмов для ВКД",
 		DATIVE = "ящику костюмов для ВКД",
@@ -332,7 +332,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 25
 	containertype = /obj/structure/closet/crate/secure/engineering
 	containername = "ящик с очистителем воздуха"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с очистителем воздуха",
 		GENITIVE = "ящика с очистителем воздуха",
 		DATIVE = "ящику с очистителем воздуха",
@@ -350,7 +350,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 25
 	containertype = /obj/structure/closet/crate/secure/engineering
 	containername = "ящик с воздушным насосом"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с воздушным насосом",
 		GENITIVE = "ящика с воздушным насосом",
 		DATIVE = "ящику с воздушным насосом",
@@ -390,7 +390,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 120
 	containername = "ящик противоэпидемического снаряжения"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик противоэпидемического снаряжения",
 		GENITIVE = "ящика противоэпидемического снаряжения",
 		DATIVE = "ящику противоэпидемического снаряжения",
@@ -412,7 +412,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 60
 	containertype = /obj/structure/closet/crate
 	containername = "ящик c набором для спецопераций"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик c набором для спецопераций",
 		GENITIVE = "ящика c набором для спецопераций",
 		DATIVE = "ящику c набором для спецопераций",
@@ -431,7 +431,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	credits_cost = 2500
 	containertype = /obj/structure/closet/crate/syndicate
 	containername = "ящик"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик",
 		GENITIVE = "ящика",
 		DATIVE = "ящику",
@@ -445,7 +445,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 450
 	containertype = /obj/structure/closet/crate/secure/weapon/veihit
 	containername = "ящик особо важного снаряжения"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик особо важного снаряжения",
 		GENITIVE = "ящика особо важного снаряжения",
 		DATIVE = "ящику особо важного снаряжения",
@@ -531,7 +531,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 30
 	required_tech = list(RESEARCH_TREE_TOXINS = 3)
 	containername = "ящик реактивных ранцев"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик реактивных ранцев",
 		GENITIVE = "ящика реактивных ранцев",
 		DATIVE = "ящику реактивных ранцев",
@@ -550,7 +550,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 80
 	required_tech = list(RESEARCH_TREE_TOXINS = 7)
 	containername = "ящик модулей реактивного ранца"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик модулей реактивного ранца",
 		GENITIVE = "ящика модулей реактивного ранца",
 		DATIVE = "ящику модулей реактивного ранца",
@@ -568,7 +568,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 30
 	required_tech = list(RESEARCH_TREE_TOXINS = 2)
 	containername = "ящик реактивных ранцев для мышей"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик реактивных ранцев для мышей",
 		GENITIVE = "ящика реактивных ранцев для мышей",
 		DATIVE = "ящику реактивных ранцев для мышей",
@@ -599,7 +599,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 180
 	containername = "ящик МЭК службы безопасности"
 	required_tech = list(RESEARCH_TREE_TOXINS = 6, RESEARCH_TREE_COMBAT = 6)
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик МЭК службы безопасности",
 		GENITIVE = "ящика МЭК службы безопасности",
 		DATIVE = "ящику МЭК службы безопасности",
@@ -619,7 +619,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 15
 	containername = "ящик нелетального снаряжения СБ"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик нелетального снаряжения СБ",
 		GENITIVE = "ящика нелетального снаряжения СБ",
 		DATIVE = "ящику нелетального снаряжения СБ",
@@ -635,7 +635,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/vending_refill/security,
 	)
 	containername = "ящик с набором пополнения SecTech"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с набором пополнения SecTech",
 		GENITIVE = "ящика с набором пополнения SecTech",
 		DATIVE = "ящику с набором пополнения SecTech",
@@ -663,7 +663,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 45 //justice comes at a price. An expensive, noisy price.
 	containername = "ящик с набором для исполнения правосудия"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с набором для исполнения правосудия",
 		GENITIVE = "ящика с набором для исполнения правосудия",
 		DATIVE = "ящику с набором для исполнения правосудия",
@@ -684,7 +684,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 20
 	containername = "ящик со стандартной бронёй СБ"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик со стандартной бронёй СБ",
 		GENITIVE = "ящика со стандартной бронёй СБ",
 		DATIVE = "ящику со стандартной бронёй СБ",
@@ -704,7 +704,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 20
 	containername = "ящик оглушающих дубинок"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик оглушающих дубинок",
 		GENITIVE = "ящика оглушающих дубинок",
 		DATIVE = "ящику оглушающих дубинок",
@@ -722,7 +722,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 20
 	containername = "ящик лазерных карабинов"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик лазерных карабинов",
 		GENITIVE = "ящика лазерных карабинов",
 		DATIVE = "ящику лазерных карабинов",
@@ -743,7 +743,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 25
 	containername = "ящик нелетального энергетического оружия"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик нелетального энергетического оружия",
 		GENITIVE = "ящика нелетального энергетического оружия",
 		DATIVE = "ящику нелетального энергетического оружия",
@@ -760,7 +760,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 12
 	containername = "ящик Блюстителей"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик Блюстителей",
 		GENITIVE = "ящика Блюстителей",
 		DATIVE = "ящику Блюстителей",
@@ -783,7 +783,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 20
 	containername = "ящик криминалистического снаряжения"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик криминалистического снаряжения",
 		GENITIVE = "ящика криминалистического снаряжения",
 		DATIVE = "ящику криминалистического снаряжения",
@@ -800,7 +800,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 20
 	containername = "ящик телескопических дубинок"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик телескопических дубинок",
 		GENITIVE = "ящика телескопических дубинок",
 		DATIVE = "ящику телескопических дубинок",
@@ -830,7 +830,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 80
 	containername = "ящик противоударной брони"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик противоударной брони",
 		GENITIVE = "ящика противоударной брони",
 		DATIVE = "ящику противоударной брони",
@@ -848,7 +848,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 40
 	containername = "ящик противопульной брони"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик противопульной брони",
 		GENITIVE = "ящика противопульной брони",
 		DATIVE = "ящику противопульной брони",
@@ -866,7 +866,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 15
 	containername = "ящик тактических разгрузок"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик тактических разгрузок",
 		GENITIVE = "ящика тактических разгрузок",
 		DATIVE = "ящику тактических разгрузок",
@@ -884,7 +884,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 25
 	containername = "ящик боевых разгрузок"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик боевых разгрузок",
 		GENITIVE = "ящика боевых разгрузок",
 		DATIVE = "ящику боевых разгрузок",
@@ -903,7 +903,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 50
 	containername = "ящик разгрузочных жилетов"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик разгрузочных жилетов",
 		GENITIVE = "ящика разгрузочных жилетов",
 		DATIVE = "ящику разгрузочных жилетов",
@@ -928,7 +928,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 80
 	containername = "ящик снаряжения SWAT"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик снаряжения SWAT",
 		GENITIVE = "ящика снаряжения SWAT",
 		DATIVE = "ящику снаряжения SWAT",
@@ -946,7 +946,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 20
 	containertype = /obj/structure/closet/crate/secure/plasma
 	containername = "ящик противолазерной брони"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик противолазерной брони",
 		GENITIVE = "ящика противолазерной брони",
 		DATIVE = "ящику противолазерной брони",
@@ -965,7 +965,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 25 //По 6 за один блокиратор
 	containername = "ящик модулей \"Sibyl\""
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик модулей \"Sibyl\"",
 		GENITIVE = "ящика модулей \"Sibyl\"",
 		DATIVE = "ящику модулей \"Sibyl\"",
@@ -982,7 +982,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 100
 	containername = "ящик подсумков для магазинов"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик подсумков для магазинов",
 		GENITIVE = "ящика подсумков для магазинов",
 		DATIVE = "ящику подсумков для магазинов",
@@ -1006,7 +1006,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 50
 	containername = "ящик служебных дробовиков"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик служебных дробовиков",
 		GENITIVE = "ящика служебных дробовиков",
 		DATIVE = "ящику служебных дробовиков",
@@ -1027,7 +1027,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 100
 	containername = "ящик боевых дробовиков"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик боевых дробовиков",
 		GENITIVE = "ящика боевых дробовиков",
 		DATIVE = "ящику боевых дробовиков",
@@ -1048,7 +1048,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 45
 	containername = "ящик снарядов с картечью"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик снарядов с картечью",
 		GENITIVE = "ящика снарядов с картечью",
 		DATIVE = "ящику снарядов с картечью",
@@ -1069,7 +1069,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 45
 	containername = "ящик ружейных пуль"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик ружейных пуль",
 		GENITIVE = "ящика ружейных пуль",
 		DATIVE = "ящику ружейных пуль",
@@ -1088,7 +1088,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 40
 	containertype = /obj/structure/closet/crate/secure/plasma
 	containername = "ящик энергетических карабинов"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик энергетических карабинов",
 		GENITIVE = "ящика энергетических карабинов",
 		DATIVE = "ящику энергетических карабинов",
@@ -1107,7 +1107,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 15
 	containertype = /obj/structure/closet/crate/secure/plasma
 	containername = "ящик энергетических пистолетов"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик энергетических пистолетов",
 		GENITIVE = "ящика энергетических пистолетов",
 		DATIVE = "ящику энергетических пистолетов",
@@ -1130,7 +1130,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 30 // its a fecking flamethrower and some plasma, why the shit did this cost so much before!?
 	containertype = /obj/structure/closet/crate/secure/plasma
 	containername = "ящик зажигательного вооружения"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик зажигательного вооружения",
 		GENITIVE = "ящика зажигательного вооружения",
 		DATIVE = "ящику зажигательного вооружения",
@@ -1148,7 +1148,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 35
 	containername = "ящик WT-550"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик WT-550",
 		GENITIVE = "ящика WT-550",
 		DATIVE = "ящику WT-550",
@@ -1165,7 +1165,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 80
 	containername = "ящик Tkach Ya-Sui GA 12"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик Tkach Ya-Sui GA 12",
 		GENITIVE = "ящика Tkach Ya-Sui GA 12",
 		DATIVE = "ящику Tkach Ya-Sui GA 12",
@@ -1191,7 +1191,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 65
 	containername = "ящик LR-30"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик LR-30",
 		GENITIVE = "ящика LR-30",
 		DATIVE = "ящику LR-30",
@@ -1218,7 +1218,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 100
 	containername = "ящик боеприпасов для WT-550"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик боеприпасов для WT-550",
 		GENITIVE = "ящика боеприпасов для WT-550",
 		DATIVE = "ящику боеприпасов для WT-550",
@@ -1245,7 +1245,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 140
 	containername = "ящик бронебойных боеприпасов для WT-550"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик бронебойных боеприпасов для WT-550",
 		GENITIVE = "ящика бронебойных боеприпасов для WT-550",
 		DATIVE = "ящику бронебойных боеприпасов для WT-550",
@@ -1266,7 +1266,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 100
 	containername = "ящик оружейных ваучеров"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик оружейных ваучеров",
 		GENITIVE = "ящика оружейных ваучеров",
 		DATIVE = "ящику оружейных ваучеров",
@@ -1283,7 +1283,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 80
 	containername = "ящик с гранатометами М79"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с гранатометами М79",
 		GENITIVE = "ящика с гранатометами М79",
 		DATIVE = "ящику с гранатометами М79",
@@ -1304,7 +1304,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 50
 	containername = "ящик с 40-мм нелетальными гранатами"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с 40-мм нелетальными гранатами",
 		GENITIVE = "ящика с 40-мм нелетальными гранатами",
 		DATIVE = "ящику с 40-мм нелетальными гранатами",
@@ -1323,7 +1323,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 50
 	containername = "ящик SP-91-RC"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик SP-91-RC",
 		GENITIVE = "ящика SP-91-RC",
 		DATIVE = "ящику SP-91-RC",
@@ -1341,7 +1341,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 50
 	containername = "ящик A9 \"Искра\""
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик A9 \"Искра\"",
 		GENITIVE = "ящика A9 \"Искра\"",
 		DATIVE = "ящику A9 \"Искра\"",
@@ -1359,7 +1359,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 60
 	containername = "ящик с имплантом \"Щит разума\""
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с имплантом \"Щит разума\"",
 		GENITIVE = "ящика с имплантом \"Щит разума\"",
 		DATIVE = "ящику с имплантом \"Щит разума\"",
@@ -1376,7 +1376,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 200
 	containername = "ящик с имплантом \"Подавления\""
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с имплантом \"Подавления\"",
 		GENITIVE = "ящика с имплантом \"Подавления\"",
 		DATIVE = "ящику с имплантом \"Подавления\"",
@@ -1393,7 +1393,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 30
 	containername = "ящик с имплантом слежения"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с имплантом слежения",
 		GENITIVE = "ящика с имплантом слежения",
 		DATIVE = "ящику с имплантом слежения",
@@ -1410,7 +1410,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 30
 	containername = "ящик с химическим имплантом"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с химическим имплантом",
 		GENITIVE = "ящика с химическим имплантом",
 		DATIVE = "ящику с химическим имплантом",
@@ -1427,7 +1427,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 30
 	containername = "ящик с имплантом изгнания"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с имплантом изгнания",
 		GENITIVE = "ящика с имплантом изгнания",
 		DATIVE = "ящику с имплантом изгнания",
@@ -1446,7 +1446,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/gun/energy/ionrifle/carbine,
 	)
 	containername = "ящик ионных карабинов"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик ионных карабинов",
 		GENITIVE = "ящика ионных карабинов",
 		DATIVE = "ящику ионных карабинов",
@@ -1465,7 +1465,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/shield/riot/tele,
 	)
 	containername = "ящик телескопических щитов"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик телескопических щитов",
 		GENITIVE = "ящика телескопических щитов",
 		DATIVE = "ящику телескопических щитов",
@@ -1486,7 +1486,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/ammo_box/shotgun/laserslug,
 	)
 	containername = "ящик боеприпасов 12-го калибра"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик боеприпасов 12-го калибра",
 		GENITIVE = "ящика боеприпасов 12-го калибра",
 		DATIVE = "ящику боеприпасов 12-го калибра",
@@ -1506,7 +1506,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 10
 	containername = "ящик охранных барьеров"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик охранных барьеров",
 		GENITIVE = "ящика охранных барьеров",
 		DATIVE = "ящику охранных барьеров",
@@ -1529,7 +1529,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 30
 	containername = "ящик униформы СБ"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик униформы СБ",
 		GENITIVE = "ящика униформы СБ",
 		DATIVE = "ящику униформы СБ",
@@ -1557,7 +1557,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 40 // Convenience has a price and this pack is genuinely loaded
 	containername = "ящик снаряжения офицера СБ"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик снаряжения офицера СБ",
 		GENITIVE = "ящика снаряжения офицера СБ",
 		DATIVE = "ящику снаряжения офицера СБ",
@@ -1575,7 +1575,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	required_tech = list(RESEARCH_TREE_POWERSTORAGE = 6, RESEARCH_TREE_COMBAT = 7, RESEARCH_TREE_MAGNETS = 6)
 	containertype = /obj/structure/closet/crate/secure/weapon/veihit
 	containername = "ящик с гатлинг—лазером"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с гатлинг—лазером",
 		GENITIVE = "ящика с гатлинг—лазером",
 		DATIVE = "ящику с гатлинг—лазером",
@@ -1606,7 +1606,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	required_tech = list(RESEARCH_TREE_TOXINS = 5, RESEARCH_TREE_ENGINEERING = 4)
 	containername = "ящик инженерных МЭК"
 
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик инженерных МЭК",
 		GENITIVE = "ящика инженерных МЭК",
 		DATIVE = "ящику инженерных МЭК",
@@ -1627,7 +1627,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	required_tech = list(RESEARCH_TREE_TOXINS = 6, RESEARCH_TREE_PLASMA = 4)
 	containername = "ящик атмосферных МЭК"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик атмосферных МЭК",
 		GENITIVE = "ящика атмосферных МЭК",
 		DATIVE = "ящику атмосферных МЭК",
@@ -1645,7 +1645,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 8
 	containertype = /obj/structure/closet/crate/large
 	containername = "ящик с баком сварочного топлива"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с баком сварочного топлива",
 		GENITIVE = "ящика с баком сварочного топлива",
 		DATIVE = "ящику с баком сварочного топлива",
@@ -1666,7 +1666,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 10
 	containername = "ящик с набором ящиков для инструментов"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с набором ящиков для инструментов",
 		GENITIVE = "ящика с набором ящиков для инструментов",
 		DATIVE = "ящику с набором ящиков для инструментов",
@@ -1683,7 +1683,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/vending_refill/youtool,
 	)
 	containername = "ящик наборов пополнения инженерных торгоматов"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик наборов пополнения инженерных торгоматов",
 		GENITIVE = "ящика наборов пополнения инженерных торгоматов",
 		DATIVE = "ящику наборов пополнения инженерных торгоматов",
@@ -1701,7 +1701,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 30
 	containername = "ящик изоляционных перчаток"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик изоляционных перчаток",
 		GENITIVE = "ящика изоляционных перчаток",
 		DATIVE = "ящику изоляционных перчаток",
@@ -1720,7 +1720,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 25
 	containername = "ящик батарей АА"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик батарей АА",
 		GENITIVE = "ящика батарей АА",
 		DATIVE = "ящику батарей АА",
@@ -1748,7 +1748,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 10
 	containername = "ящик инженерного снаряжения"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик инженерного снаряжения",
 		GENITIVE = "ящика инженерного снаряжения",
 		DATIVE = "ящику инженерного снаряжения",
@@ -1787,7 +1787,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 15
 	containername = "ящик с набором солнечных панелей"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с набором солнечных панелей",
 		GENITIVE = "ящика с набором солнечных панелей",
 		DATIVE = "ящику с набором солнечных панелей",
@@ -1805,7 +1805,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 30
 	containername = "ящик излучателей"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик излучателей",
 		GENITIVE = "ящика излучателей",
 		DATIVE = "ящику излучателей",
@@ -1824,7 +1824,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 35
 	containername = "ящик генераторов силового поля"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик генераторов силового поля",
 		GENITIVE = "ящика генераторов силового поля",
 		DATIVE = "ящику генераторов силового поля",
@@ -1840,7 +1840,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 150
 	containername = "ящик с генератором сингулярности"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с генератором сингулярности",
 		GENITIVE = "ящика с генератором сингулярности",
 		DATIVE = "ящику с генератором сингулярности",
@@ -1858,7 +1858,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 150
 	containername = "ящик с тесла-генератором"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с тесла-генератором",
 		GENITIVE = "ящика с тесла-генератором",
 		DATIVE = "ящику с тесла-генератором",
@@ -1878,7 +1878,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 45
 	containername = "ящик тесла-катушек"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик тесла-катушек",
 		GENITIVE = "ящика тесла-катушек",
 		DATIVE = "ящику тесла-катушек",
@@ -1895,7 +1895,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 10
 	containername = "ящик заземлителей"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик заземлителей",
 		GENITIVE = "ящика заземлителей",
 		DATIVE = "ящику заземлителей",
@@ -1913,7 +1913,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 45
 	containername = "ящик радиационных накопителей"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик радиационных накопителей",
 		GENITIVE = "ящика радиационных накопителей",
 		DATIVE = "ящику радиационных накопителей",
@@ -1935,7 +1935,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 50
 	containername = "ящик с деталями ускорителя частиц"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с деталями ускорителя частиц",
 		GENITIVE = "ящика с деталями ускорителя частиц",
 		DATIVE = "ящику с деталями ускорителя частиц",
@@ -1955,7 +1955,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 10
 	containername = "ящик надувных заграждений"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик надувных заграждений",
 		GENITIVE = "ящика надувных заграждений",
 		DATIVE = "ящику надувных заграждений",
@@ -1971,7 +1971,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 150 //So cargo thinks twice before killing themselves with it
 	containername = "ящик с осколком суперматерии"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с осколком суперматерии",
 		GENITIVE = "ящика с осколком суперматерии",
 		DATIVE = "ящику с осколком суперматерии",
@@ -1991,7 +1991,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 225
 	containername = "ящик деталей термоэлектрического генератора"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик деталей термоэлектрического генератора",
 		GENITIVE = "ящика деталей термоэлектрического генератора",
 		DATIVE = "ящику деталей термоэлектрического генератора",
@@ -2009,7 +2009,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 5
 	containertype = /obj/structure/closet/crate/large
 	containername = "ящик с канистрой азота"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с канистрой азота",
 		GENITIVE = "ящика с канистрой азота",
 		DATIVE = "ящику с канистрой азота",
@@ -2024,7 +2024,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 5
 	containertype = /obj/structure/closet/crate/large
 	containername = "ящик с канистрой кислорода"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с канистрой кислорода",
 		GENITIVE = "ящика с канистрой кислорода",
 		DATIVE = "ящику с канистрой кислорода",
@@ -2039,7 +2039,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 5
 	containertype = /obj/structure/closet/crate/large
 	containername = "ящик с канистрой воздуха"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с канистрой воздуха",
 		GENITIVE = "ящика с канистрой воздуха",
 		DATIVE = "ящику с канистрой воздуха",
@@ -2054,7 +2054,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 25
 	containertype = /obj/structure/closet/crate/large
 	containername = "ящик с канистрой оксида азота"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с канистрой оксида азота",
 		GENITIVE = "ящика с канистрой оксида азота",
 		DATIVE = "ящику с канистрой оксида азота",
@@ -2069,7 +2069,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 25
 	containertype = /obj/structure/closet/crate/large
 	containername = "ящик с канистрой углекислого газа"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с канистрой углекислого газа",
 		GENITIVE = "ящика с канистрой углекислого газа",
 		DATIVE = "ящику с канистрой углекислого газа",
@@ -2084,7 +2084,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 25
 	containertype = /obj/structure/closet/crate/large
 	containername = "ящик с канистрой плазмы"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с канистрой плазмы",
 		GENITIVE = "ящика с канистрой плазмы",
 		DATIVE = "ящику с канистрой плазмы",
@@ -2102,7 +2102,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	name = "Майнер N2"
 	contains = list(/obj/machinery/atmospherics/miner/nitrogen)
 	containername = "ящик с майнером N2"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с майнером N2",
 		GENITIVE = "ящика с майнером N2",
 		DATIVE = "ящику с майнером N2",
@@ -2115,7 +2115,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	name = "Майнер O2"
 	contains = list(/obj/machinery/atmospherics/miner/oxygen)
 	containername = "ящик с майнером O2"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с майнером O2",
 		GENITIVE = "ящика с майнером O2",
 		DATIVE = "ящику с майнером O2",
@@ -2129,7 +2129,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	contains = list(/obj/machinery/atmospherics/miner/plasma)
 	cost = 300
 	containername = "ящик с майнером плазмы"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с майнером плазмы",
 		GENITIVE = "ящика с майнером плазмы",
 		DATIVE = "ящику с майнером плазмы",
@@ -2143,7 +2143,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	contains = list(/obj/machinery/atmospherics/miner/agent_b)
 	cost = 250
 	containername = "ящик с майнером Agent B"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с майнером Agent B",
 		GENITIVE = "ящика с майнером Agent B",
 		DATIVE = "ящику с майнером Agent B",
@@ -2157,7 +2157,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	contains = list(/obj/machinery/atmospherics/miner/water_vapor)
 	cost = 350
 	containername = "ящик с майнером водяного пара"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с майнером водяного пара",
 		GENITIVE = "ящика с майнером водяного пара",
 		DATIVE = "ящику с майнером водяного пара",
@@ -2180,7 +2180,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 15
 	containername = "ящик деталей конвейерной ленты"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик деталей конвейерной ленты",
 		GENITIVE = "ящика деталей конвейерной ленты",
 		DATIVE = "ящику деталей конвейерной ленты",
@@ -2197,7 +2197,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 50
 	containername = "ящик магбутсов"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик магбутсов",
 		GENITIVE = "ящика магбутсов",
 		DATIVE = "ящику магбутсов",
@@ -2215,7 +2215,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 80
 	containertype = /obj/structure/closet/crate/secure/engineering
 	containername = "ящик с разрешением на строительство"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с разрешением на строительство",
 		GENITIVE = "ящика с разрешением на строительство",
 		DATIVE = "ящику с разрешением на строительство",
@@ -2248,7 +2248,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 30
 	containertype = /obj/structure/closet/crate/engineering/electrical
 	containername = "ящик продвинутых инструментов"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик продвинутых инструментов",
 		GENITIVE = "ящика продвинутых инструментов",
 		DATIVE = "ящику продвинутых инструментов",
@@ -2268,7 +2268,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 60
 	containertype = /obj/structure/closet/crate/engineering/electrical
 	containername = "ящик продвинутых мультиметров"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик продвинутых мультиметров",
 		GENITIVE = "ящика продвинутых мультиметров",
 		DATIVE = "ящику продвинутых мультиметров",
@@ -2284,7 +2284,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 10
 	special = TRUE
 	containername = "пустой ящик с задачей смены"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "пустой ящик с задачей смены",
 		GENITIVE = "пустого ящика с задачей смены",
 		DATIVE = "пустому ящику с задачей смены",
@@ -2304,7 +2304,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/circuitboard/computer/bsa_control,
 	)
 	containername = "ящик деталей блюспейс-артиллерии"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик деталей блюспейс-артиллерии",
 		GENITIVE = "ящика деталей блюспейс-артиллерии",
 		DATIVE = "ящику деталей блюспейс-артиллерии",
@@ -2322,7 +2322,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/paper/bluespace_tap,
 	)
 	containername = "ящик деталей блюспейс-сборщика"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик деталей блюспейс-сборщика",
 		GENITIVE = "ящика деталей блюспейс-сборщика",
 		DATIVE = "ящику деталей блюспейс-сборщика",
@@ -2339,7 +2339,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/circuitboard/machine/dna_vault,
 	)
 	containername = "ящик деталей хранилища ДНК"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик деталей хранилища ДНК",
 		GENITIVE = "ящика деталей хранилища ДНК",
 		DATIVE = "ящику деталей хранилища ДНК",
@@ -2360,7 +2360,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/dna_probe,
 	)
 	containername = "ящик сэмплеров ДНК"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик сэмплеров ДНК",
 		GENITIVE = "ящика сэмплеров ДНК",
 		DATIVE = "ящику сэмплеров ДНК",
@@ -2380,7 +2380,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/machinery/satellite/meteor_shield,
 	)
 	containername = "ящик метеоритных щитов"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик метеоритных щитов",
 		GENITIVE = "ящика метеоритных щитов",
 		DATIVE = "ящику метеоритных щитов",
@@ -2397,7 +2397,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/circuitboard/computer/sat_control,
 	)
 	containername = "ящик с консолью управления метеоритными щитами"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с консолью управления метеоритными щитами",
 		GENITIVE = "ящика с консолью управления метеоритными щитами",
 		DATIVE = "ящику с консолью управления метеоритными щитами",
@@ -2415,7 +2415,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/circuitboard/machine/bfl_receiver,
 	)
 	containername = "ящик деталей ОБЛ"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик деталей ОБЛ",
 		GENITIVE = "ящика деталей ОБЛ",
 		DATIVE = "ящику деталей ОБЛ",
@@ -2432,7 +2432,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/machinery/bfl_lens,
 	)
 	containername = "ящик с линзой ОБЛ"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с линзой ОБЛ",
 		GENITIVE = "ящика с линзой ОБЛ",
 		DATIVE = "ящику с линзой ОБЛ",
@@ -2463,7 +2463,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/paper/researchnotes,
 	)
 	containername = "ящик с наградой за постройку ОБЛ"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с наградой за постройку ОБЛ",
 		GENITIVE = "ящика с наградой за постройку ОБЛ",
 		DATIVE = "ящику с наградой за постройку ОБЛ",
@@ -2481,7 +2481,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/disk/design_disk/station_goal_machinery/brs_stationary_scanner,
 	)
 	containername = "ящи с набором сканирования БС-разлома"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с набором сканирования БС-разлома",
 		GENITIVE = "ящика с набором сканирования БС-разлома",
 		DATIVE = "ящику с набором сканирования БС-разлома",
@@ -2498,7 +2498,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 1
 	special = TRUE
 	containername = "ящик с дискетой технологий"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с дискетой технологий",
 		GENITIVE = "ящика с дискетой технологий",
 		DATIVE = "ящику с дискетой технологий",
@@ -2572,7 +2572,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containertype = /obj/structure/closet/crate/secure
 	required_tech = list(RESEARCH_TREE_TOXINS = 4, RESEARCH_TREE_BIOTECH = 5)
 	containername = "ящик медицинских МЭК"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик медицинских МЭК",
 		GENITIVE = "ящика медицинских МЭК",
 		DATIVE = "ящику медицинских МЭК",
@@ -2606,7 +2606,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 90
 	containertype = /obj/structure/closet/crate/secure
 	containername = "ящик медицинского снабжения"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик медицинского снабжения",
 		GENITIVE = "ящика медицинского снабжения",
 		DATIVE = "ящику медицинского снабжения",
@@ -2626,7 +2626,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 15
 	containername = "ящик аптечек первой помощи"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик аптечек первой помощи",
 		GENITIVE = "ящика аптечек первой помощи",
 		DATIVE = "ящику аптечек первой помощи",
@@ -2645,7 +2645,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 60
 	containername = "ящик продвинутых аптечек первой помощи"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик продвинутых аптечек первой помощи",
 		GENITIVE = "ящика продвинутых аптечек первой помощи",
 		DATIVE = "ящику продвинутых аптечек первой помощи",
@@ -2666,7 +2666,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 40
 	containername = "ящик аптечек первой помощи (Мех.)"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик аптечек первой помощи (Мех.)",
 		GENITIVE = "ящика аптечек первой помощи (Мех.)",
 		DATIVE = "ящику аптечек первой помощи (Мех.)",
@@ -2686,7 +2686,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 40
 	containername = "ящик аптечек первой помощи (Терм.)"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик аптечек первой помощи (Терм.)",
 		GENITIVE = "ящика аптечек первой помощи (Терм.)",
 		DATIVE = "ящику аптечек первой помощи (Терм.)",
@@ -2706,7 +2706,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 20
 	containername = "ящик аптечек первой помощи (Отравления)"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик аптечек первой помощи (Отравления)",
 		GENITIVE = "ящика аптечек первой помощи (Отравления)",
 		DATIVE = "ящику аптечек первой помощи (Отравления)",
@@ -2724,7 +2724,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 15
 	containername = "ящик аптечек первой помощи (Удушье)"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик аптечек первой помощи (Удушье)",
 		GENITIVE = "ящика аптечек первой помощи (Удушье)",
 		DATIVE = "ящику аптечек первой помощи (Удушье)",
@@ -2740,7 +2740,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 40
 	containername = "ящик со смирительной рубашкой"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик со смирительной рубашкой",
 		GENITIVE = "ящика со смирительной рубашкой",
 		DATIVE = "ящику со смирительной рубашкой",
@@ -2772,7 +2772,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 150
 	containertype = /obj/structure/closet/crate/secure/plasma
 	containername = "ящик с вирусными образцами"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с вирусными образцами",
 		GENITIVE = "ящика с вирусными образцами",
 		DATIVE = "ящику с вирусными образцами",
@@ -2793,7 +2793,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 350
 	containertype = /obj/structure/closet/crate/secure
 	containername = "ящик с платами клонировальной машины"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с платами клонировальной машины",
 		GENITIVE = "ящика с платами клонировальной машины",
 		DATIVE = "ящику с платами клонировальной машины",
@@ -2812,7 +2812,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/vending_refill/wallmed,
 	)
 	containername = "ящик наборов пополнения медицинских торгоматов"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик наборов пополнения медицинских торгоматов",
 		GENITIVE = "ящика наборов пополнения медицинских торгоматов",
 		DATIVE = "ящику наборов пополнения медицинских торгоматов",
@@ -2835,7 +2835,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 300
 	containertype = /obj/structure/closet/crate/secure/blood/oxygenis
 	containername = "ящик синетической крови (Кислород)"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик синетической крови (Кислород)",
 		GENITIVE = "ящика синетической крови (Кислород)",
 		DATIVE = "ящику синетической крови (Кислород)",
@@ -2857,7 +2857,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 300
 	containertype = /obj/structure/closet/crate/secure/blood/nitrogenis
 	containername = "ящик синтетической крови (Азот)"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик синтетической крови (Азот)",
 		GENITIVE = "ящика синтетической крови (Азот)",
 		DATIVE = "ящику синтетической крови (Азот)",
@@ -2883,7 +2883,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 40
 	containertype = /obj/structure/closet/crate/secure/blood
 	containername = "ящик пакетов крови (Человек)"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик пакетов крови (Человек)",
 		GENITIVE = "ящика пакетов крови (Человек)",
 		DATIVE = "ящику пакетов крови (Человек)",
@@ -2910,7 +2910,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 65
 	containertype = /obj/structure/closet/crate/secure/blood/xeno
 	containername = "ящик пакетов крови (Ксеносы)"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик пакетов крови (Ксеносы)",
 		GENITIVE = "ящика пакетов крови (Ксеносы)",
 		DATIVE = "ящику пакетов крови (Ксеносы)",
@@ -2991,7 +2991,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 10
 	containertype = /obj/structure/closet/crate/secure
 	containername = "ящик со стойкой для капельнцы"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик со стойкой для капельнцы",
 		GENITIVE = "ящика со стойкой для капельнцы",
 		DATIVE = "ящику со стойкой для капельнцы",
@@ -3019,7 +3019,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 25
 	containertype = /obj/structure/closet/crate/secure
 	containername = "ящик с хирургическим оборудованием"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с хирургическим оборудованием",
 		GENITIVE = "ящика с хирургическим оборудованием",
 		DATIVE = "ящику с хирургическим оборудованием",
@@ -3032,7 +3032,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/medical/incision
 	name = "Системы обработки надрезов"
 	containername = "ящик с системами обработки надрезов"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с системами обработки надрезов",
 		GENITIVE = "ящика с системами обработки надрезов",
 		DATIVE = "ящику с системами обработки надрезов",
@@ -3051,7 +3051,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/medical/menderindustrial
 	name = "Продвинутый авто-мендер"
 	containername = "ящик продвинутых авто-мендеров"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик продвинутых авто-мендеров",
 		GENITIVE = "ящика продвинутых авто-мендеров",
 		DATIVE = "ящику продвинутых авто-мендеров",
@@ -3091,7 +3091,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 10
 	containertype = /obj/structure/closet/crate/secure/scisec
 	containername = "ящик робототехнических деталей"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик робототехнических деталей",
 		GENITIVE = "ящика робототехнических деталей",
 		DATIVE = "ящику робототехнических деталей",
@@ -3111,7 +3111,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 25
 	containername = "ящик с набором плат (АТМЕ \"Рипли\")"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с набором плат (АТМЕ \"Рипли\")",
 		GENITIVE = "ящика с набором плат (АТМЕ \"Рипли\")",
 		DATIVE = "ящику с набором плат (АТМЕ \"Рипли\")",
@@ -3128,7 +3128,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 55
 	containername = "ящик с набором плат (Одиссей)"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с набором плат (Одиссей)",
 		GENITIVE = "ящика с набором плат (Одиссей)",
 		DATIVE = "ящику с набором плат (Одиссей)",
@@ -3146,7 +3146,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 20
 	containername = "ящик ремонтных наборов (Синт.)"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик ремонтных наборов (Синт.)",
 		GENITIVE = "ящика ремонтных наборов (Синт.)",
 		DATIVE = "ящику ремонтных наборов (Синт.)",
@@ -3174,7 +3174,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 10
 	containertype = /obj/structure/closet/crate/secure/plasma
 	containername = "ящик деталей плазменных бомб"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик деталей плазменных бомб",
 		GENITIVE = "ящика деталей плазменных бомб",
 		DATIVE = "ящику деталей плазменных бомб",
@@ -3195,7 +3195,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 20
 	containertype = /obj/structure/closet/crate/secure/scisec
 	containername = "ящик генераторов силового поля"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик генераторов силового поля",
 		GENITIVE = "ящика генераторов силового поля",
 		DATIVE = "ящику генераторов силового поля",
@@ -3215,7 +3215,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 30
 	containertype = /obj/structure/closet/crate/secure/scisec
 	containername = "ящик запорных клапанов"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик запорных клапанов",
 		GENITIVE = "ящика запорных клапанов",
 		DATIVE = "ящику запорных клапанов",
@@ -3234,7 +3234,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 80
 	containertype = /obj/structure/closet/crate/secure/scisec
 	containername = "ящик с прототипом машины"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с прототипом машины",
 		GENITIVE = "ящика с прототипом машины",
 		DATIVE = "ящику с прототипом машины",
@@ -3254,7 +3254,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 10
 	containertype = /obj/structure/closet/crate/large
 	containername = "ящик с ботаническим ранцем для масла"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с ботаническим ранцем для масла",
 		GENITIVE = "ящика с ботаническим ранцем для масла",
 		DATIVE = "ящику с ботаническим ранцем для масла",
@@ -3277,7 +3277,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 40
 	containertype = /obj/structure/closet/crate/secure/scisec
 	containername = "ящик деталей робота"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик деталей робота",
 		GENITIVE = "ящика деталей робота",
 		DATIVE = "ящику деталей робота",
@@ -3297,7 +3297,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 35
 	containername = "ящик радиационных костюмов"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик радиационных костюмов",
 		GENITIVE = "ящика радиационных костюмов",
 		DATIVE = "ящику радиационных костюмов",
@@ -3317,7 +3317,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 300
 	required_tech = list(RESEARCH_TREE_PLASMA = 6, RESEARCH_TREE_ENGINEERING = 5, RESEARCH_TREE_BLUESPACE = 6, RESEARCH_TREE_MATERIALS = 5)
 	containername = "ящик блюспейс-ранцев"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик блюспейс-ранцев",
 		GENITIVE = "ящика блюспейс-ранцев",
 		DATIVE = "ящику блюспейс-ранцев",
@@ -3336,7 +3336,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 400
 	required_tech = list(RESEARCH_TREE_PLASMA = 7, RESEARCH_TREE_ENGINEERING = 7, RESEARCH_TREE_BLUESPACE = 7, RESEARCH_TREE_MATERIALS = 7)
 	containername = "ящик блюспейс спортивных сумок"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик блюспейс спортивных сумок",
 		GENITIVE = "ящика блюспейс спортивных сумок",
 		DATIVE = "ящику блюспейс спортивных сумок",
@@ -3348,7 +3348,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/science/belt_of_hold
 	name = "Блюспейс-пояса"
 	containername = "ящик блюспейс-поясов"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик блюспейс-поясов",
 		GENITIVE = "ящика блюспейс-поясов",
 		DATIVE = "ящику блюспейс-поясов",
@@ -3367,7 +3367,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/science/mining_sohs
 	name = "Блюспейс-сумки для руды"
 	containername = "ящик блюспейс-сумок для руды"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик блюспейс-сумок для руды",
 		GENITIVE = "ящика блюспейс-сумок для руды",
 		DATIVE = "ящику блюспейс-сумок для руды",
@@ -3386,7 +3386,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/science/cutters
 	name = "Продвинутые плазменные резаки"
 	containername = "ящик продвинутых плазменных резаков"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик продвинутых плазменных резаков",
 		GENITIVE = "ящика продвинутых плазменных резаков",
 		DATIVE = "ящику продвинутых плазменных резаков",
@@ -3405,7 +3405,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/science/cutters_shotgun
 	name = "Плазменные дробовики"
 	containername = "ящик плазменных дробовиков"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик плазменных дробовиков",
 		GENITIVE = "ящика плазменных дробовиков",
 		DATIVE = "ящику плазменных дробовиков",
@@ -3424,7 +3424,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/science/eka
 	name = "Экспериментальные кинетические акселераторы"
 	containername = "ящик экспериментальных кинетических акселераторов"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик экспериментальных кинетических акселераторов",
 		GENITIVE = "ящика экспериментальных кинетических акселераторов",
 		DATIVE = "ящику экспериментальных кинетических акселераторов",
@@ -3443,7 +3443,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/science/fireproof_rods
 	name = "Огнеупорные пруты"
 	containername = "ящик огнеупорных прутов"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик огнеупорных прутов",
 		GENITIVE = "ящика огнеупорных прутов",
 		DATIVE = "ящику огнеупорных прутов",
@@ -3460,7 +3460,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/science/super_cell
 	name = "Батареи ААА"
 	containername = "ящик батарей ААА"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик батарей ААА",
 		GENITIVE = "ящика батарей ААА",
 		DATIVE = "ящику батарей ААА",
@@ -3482,7 +3482,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/science/bluespace_cell
 	name = "Блюспейс-батареи"
 	containername = "ящик блюспейс-батарей"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик блюспейс-батарей",
 		GENITIVE = "ящика блюспейс-батарей",
 		DATIVE = "ящику блюспейс-батарей",
@@ -3504,7 +3504,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/science/adv_tools
 	name = "Технологичные инструменты"
 	containername = "ящик технологичных инструментов"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик технологичных инструментов",
 		GENITIVE = "ящика технологичных инструментов",
 		DATIVE = "ящику технологичных инструментов",
@@ -3528,7 +3528,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/science/rcd_crate
 	name = "Устройства Быстрого Строительства"
 	containername = "ящик УБС"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик УБС",
 		GENITIVE = "ящика УБС",
 		DATIVE = "ящику УБС",
@@ -3547,7 +3547,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/science/bluespace_beakers
 	name = "Блюспейс мерные стаканы"
 	containername = "ящик блюспейс мерных стаканов"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик блюспейс мерных стаканов",
 		GENITIVE = "ящика блюспейс мерных стаканов",
 		DATIVE = "ящику блюспейс мерных стаканов",
@@ -3565,7 +3565,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/science/deluxe_parts
 	name = "Компоненты 4-го поколения"
 	containername = "ящик компонентов 4-го поколения"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик компонентов 4-го поколения",
 		GENITIVE = "ящика компонентов 4-го поколения",
 		DATIVE = "ящику компонентов 4-го поколения",
@@ -3583,7 +3583,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/science/cyborg_upgrades
 	name = "Улучшения для роботов"
 	containername = "ящик улучшений для роботов"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик улучшений для роботов",
 		GENITIVE = "ящика улучшений для роботов",
 		DATIVE = "ящику улучшений для роботов",
@@ -3605,7 +3605,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/science/civ_implants
 	name = "Гражданские импланты"
 	containername = "ящик гражданских имплантов"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик гражданских имплантов",
 		GENITIVE = "ящика гражданских имплантов",
 		DATIVE = "ящику гражданских имплантов",
@@ -3632,7 +3632,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/disk/design_disk/tailblade/blade_nt,
 	)
 	containername = "ящик с хвостовым лазерным лезвием"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с хвостовым лазерным лезвием",
 		GENITIVE = "ящика с хвостовым лазерным лезвием",
 		DATIVE = "ящику с хвостовым лазерным лезвием",
@@ -3657,7 +3657,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	announce_beacons = list("Research Division" = list("Robotics"))
 	containertype = /obj/structure/closet/crate/secure/scisec
 	containername = "ящик с ядрами МЭК"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с ядрами МЭК",
 		GENITIVE = "ящика с ядрами МЭК",
 		DATIVE = "ящику с ядрами МЭК",
@@ -3669,7 +3669,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/science/txdisk
 	name = "Пустые дискеты технологий"
 	containername = "ящик пустых дискет технологий"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик пустых дискет технологий",
 		GENITIVE = "ящика пустых дискет технологий",
 		DATIVE = "ящику пустых дискет технологий",
@@ -3715,7 +3715,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 10
 	containername = "ящик пищевых продуктов"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик пищевых продуктов",
 		GENITIVE = "ящика пищевых продуктов",
 		DATIVE = "ящику пищевых продуктов",
@@ -3736,7 +3736,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 80
 	containername = "ящик пиццы"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик пиццы",
 		GENITIVE = "ящика пиццы",
 		DATIVE = "ящику пиццы",
@@ -3751,7 +3751,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 30
 	containername = "ящик шимпанзе"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик шимпанзе",
 		GENITIVE = "ящика шимпанзе",
 		DATIVE = "ящику шимпанзе",
@@ -3766,7 +3766,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 30
 	containername = "ящик фарв"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик фарв",
 		GENITIVE = "ящика фарв",
 		DATIVE = "ящику фарв",
@@ -3781,7 +3781,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 30
 	containername = "ящик вульпинов"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик вульпинов",
 		GENITIVE = "ящика вульпинов",
 		DATIVE = "ящику вульпинов",
@@ -3796,7 +3796,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 30
 	containername = "ящик неар"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик неар",
 		GENITIVE = "ящика неар",
 		DATIVE = "ящику неар",
@@ -3811,7 +3811,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 30
 	containername = "ящик стоков"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик стоков",
 		GENITIVE = "ящика стоков",
 		DATIVE = "ящику стоков",
@@ -3838,7 +3838,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 20
 	containername = "ящик с набором для вечеринки"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с набором для вечеринки",
 		GENITIVE = "ящика с набором для вечеринки",
 		DATIVE = "ящику с набором для вечеринки",
@@ -3857,7 +3857,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 25
 	containername = "ящик с набором для создания бара"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с набором для создания бара",
 		GENITIVE = "ящика с набором для создания бара",
 		DATIVE = "ящику с набором для создания бара",
@@ -3877,7 +3877,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 20
 	containername = "ящик кофейных сиропов"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик кофейных сиропов",
 		GENITIVE = "ящика кофейных сиропов",
 		DATIVE = "ящику кофейных сиропов",
@@ -3891,7 +3891,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	contains = list(/obj/item/circuitboard/coffeemaker/standard)
 	cost = 35
 	containername = "ящик с кофемашиной \"Моделло 3\""
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с кофемашиной \"Моделло 3\"",
 		GENITIVE = "ящика с кофемашиной \"Моделло 3\"",
 		DATIVE = "ящику с кофемашиной \"Моделло 3\"",
@@ -3905,7 +3905,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	contains = list(/obj/item/circuitboard/coffeemaker/impressa)
 	cost = 60
 	containername = "ящик с кофемашиной \"Импресса Моделло 5\""
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с кофемашиной \"Импресса Моделло 5\"",
 		GENITIVE = "ящика с кофемашиной \"Импресса Моделло 5\"",
 		DATIVE = "ящику с кофемашиной \"Импресса Моделло 5\"",
@@ -3923,7 +3923,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 25
 	containername = "ящик кофейных картриджей"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик кофейных картриджей",
 		GENITIVE = "ящика кофейных картриджей",
 		DATIVE = "ящику кофейных картриджей",
@@ -3941,7 +3941,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 35
 	containername = "ящик премиальных кофейных картриджей"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик премиальных кофейных картриджей",
 		GENITIVE = "ящика премиальных кофейных картриджей",
 		DATIVE = "ящику премиальных кофейных картриджей",
@@ -3960,7 +3960,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 30
 	containername = "ящик пакетов кофе"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик пакетов кофе",
 		GENITIVE = "ящика пакетов кофе",
 		DATIVE = "ящику пакетов кофе",
@@ -3975,7 +3975,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 50
 	containertype = /obj/structure/closet/crate/critter/cow
 	containername = "ящик с коровой"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с коровой",
 		GENITIVE = "ящика с коровой",
 		DATIVE = "ящику с коровой",
@@ -3989,7 +3989,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 50
 	containertype = /obj/structure/closet/crate/critter/pig
 	containername = "ящик со свиньёй"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик со свиньёй",
 		GENITIVE = "ящика со свиньёй",
 		DATIVE = "ящику со свиньёй",
@@ -4003,7 +4003,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 50
 	containertype = /obj/structure/closet/crate/critter/goat
 	containername = "ящик с козлом"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с козлом",
 		GENITIVE = "ящика с козлом",
 		DATIVE = "ящику с козлом",
@@ -4017,7 +4017,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 50
 	containertype = /obj/structure/closet/crate/critter/chick
 	containername = "ящик с курицей"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с курицей",
 		GENITIVE = "ящика с курицей",
 		DATIVE = "ящику с курицей",
@@ -4031,7 +4031,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 50
 	containertype = /obj/structure/closet/crate/critter/turkey
 	containername = "ящик с индейкой"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с индейкой",
 		GENITIVE = "ящика с индейкой",
 		DATIVE = "ящику с индейкой",
@@ -4047,7 +4047,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/clothing/accessory/petcollar,
 	)
 	containername = "ящик с корги"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с корги",
 		GENITIVE = "ящика с корги",
 		DATIVE = "ящику с корги",
@@ -4064,7 +4064,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/clothing/accessory/petcollar,
 	)
 	containername = "ящик с мопсом"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с мопсом",
 		GENITIVE = "ящика с мопсом",
 		DATIVE = "ящику с мопсом",
@@ -4081,7 +4081,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/clothing/accessory/petcollar,
 	)
 	containername = "ящик с бультерьером"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с бультерьером",
 		GENITIVE = "ящика с бультерьером",
 		DATIVE = "ящику с бультерьером",
@@ -4098,7 +4098,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/clothing/accessory/petcollar,
 	)
 	containername = "ящик с тамасканской собакой"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с тамасканской собакой",
 		GENITIVE = "ящика с тамасканской собакой",
 		DATIVE = "ящику с тамасканской собакой",
@@ -4115,7 +4115,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/clothing/accessory/petcollar,
 	)
 	containername = "ящик с немецкой овчаркой"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с немецкой овчаркой",
 		GENITIVE = "ящика с немецкой овчаркой",
 		DATIVE = "ящику с немецкой овчаркой",
@@ -4132,7 +4132,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/clothing/accessory/petcollar,
 	)
 	containername = "ящик с бретонским эпаньолем"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с бретонским эпаньолем",
 		GENITIVE = "ящика с бретонским эпаньолем",
 		DATIVE = "ящику с бретонским эпаньолем",
@@ -4150,7 +4150,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/toy/cattoy,
 	)
 	containername = "ящик с кошкой"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с кошкой",
 		GENITIVE = "ящика с кошкой",
 		DATIVE = "ящику с кошкой",
@@ -4162,7 +4162,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/organic/cat/white
 	name = "Белая кошка"
 	containername = "ящик с белой кошкой"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с белой кошкой",
 		GENITIVE = "ящика с белой кошкой",
 		DATIVE = "ящику с белой кошкой",
@@ -4175,7 +4175,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/organic/cat/birman
 	name = "Бирманская кошка"
 	containername = "ящик с бирманской кошкой"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с бирманской кошкой",
 		GENITIVE = "ящика с бирманской кошкой",
 		DATIVE = "ящику с бирманской кошкой",
@@ -4193,7 +4193,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/clothing/accessory/petcollar,
 	)
 	containername = "ящик с лисой"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с лисой",
 		GENITIVE = "ящика с лисой",
 		DATIVE = "ящику с лисой",
@@ -4210,7 +4210,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/clothing/accessory/petcollar,
 	)
 	containername = "ящик с феньком"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с феньком",
 		GENITIVE = "ящика с феньком",
 		DATIVE = "ящику с феньком",
@@ -4223,7 +4223,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 50
 	containertype = /obj/structure/closet/crate/critter/butterfly
 	containername = "ящик с бабочкой"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с бабочкой",
 		GENITIVE = "ящика с бабочкой",
 		DATIVE = "ящику с бабочкой",
@@ -4237,7 +4237,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 50
 	containertype = /obj/structure/closet/crate/critter/deer
 	containername = "ящик с оленем"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с оленем",
 		GENITIVE = "ящика с оленем",
 		DATIVE = "ящику с оленем",
@@ -4254,7 +4254,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/clothing/accessory/petcollar,
 	)
 	containername = "ящик с ленивцем"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с ленивцем",
 		GENITIVE = "ящика с ленивцем",
 		DATIVE = "ящику с ленивцем",
@@ -4268,7 +4268,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 50
 	containertype = /obj/structure/closet/crate/critter/goose
 	containername = "ящик с гусём"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с гусём",
 		GENITIVE = "ящика с гусём",
 		DATIVE = "ящику с гусём",
@@ -4282,7 +4282,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 50
 	containertype = /obj/structure/closet/crate/critter/gosling
 	containername = "ящик с гусёнком"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с гусёнком",
 		GENITIVE = "ящика с гусёнком",
 		DATIVE = "ящику с гусёнком",
@@ -4296,7 +4296,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 50
 	containertype = /obj/structure/closet/crate/critter/wooly_mouse
 	containername = "ящик с лохматой мышью"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с лохматой мышью",
 		GENITIVE = "ящика с лохматой мышью",
 		DATIVE = "ящику с лохматой мышью",
@@ -4310,7 +4310,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 90
 	containertype = /obj/structure/closet/crate/critter/frog
 	containername = "ящик с лягушкой"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с лягушкой",
 		GENITIVE = "ящика с лягушкой",
 		DATIVE = "ящику с лягушкой",
@@ -4324,7 +4324,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 200
 	containertype = /obj/structure/closet/crate/critter/frog/toxic
 	containername = "ящик с токсичной лягушкой"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с токсичной лягушкой",
 		GENITIVE = "ящика с токсичной лягушкой",
 		DATIVE = "ящику с токсичной лягушкой",
@@ -4339,7 +4339,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 80
 	containertype = /obj/structure/closet/crate/critter/turtle
 	containername = "ящик с черепахой"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с черепахой",
 		GENITIVE = "ящика с черепахой",
 		DATIVE = "ящику с черепахой",
@@ -4353,7 +4353,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 150
 	containertype = /obj/structure/closet/crate/critter/iguana
 	containername = "ящик с игуаной"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с игуаной",
 		GENITIVE = "ящика с игуаной",
 		DATIVE = "ящику с игуаной",
@@ -4367,7 +4367,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 300 //most dangerous
 	containertype = /obj/structure/closet/crate/critter/gator
 	containername = "ящик с аллигатором"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с аллигатором",
 		GENITIVE = "ящика с аллигатором",
 		DATIVE = "ящику с аллигатором",
@@ -4381,7 +4381,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 250
 	containertype = /obj/structure/closet/crate/critter/croco
 	containername = "ящик с крокодилом"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с крокодилом",
 		GENITIVE = "ящика с крокодилом",
 		DATIVE = "ящику с крокодилом",
@@ -4395,7 +4395,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 50
 	containertype = /obj/structure/closet/crate/critter/snake
 	containername = "ящик со змеёй"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик со змеёй",
 		GENITIVE = "ящика со змеёй",
 		DATIVE = "ящику со змеёй",
@@ -4409,7 +4409,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 50
 	containertype = /obj/structure/closet/crate/critter/slime
 	containername = "ящик со слаймом"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик со слаймом",
 		GENITIVE = "ящика со слаймом",
 		DATIVE = "ящику со слаймом",
@@ -4421,7 +4421,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/organic/barthender_rare
 	name = "Набор для опытных барменов"
 	containername = "ящик с набором для опытных барменов"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с набором для опытных барменов",
 		GENITIVE = "ящика с набором для опытных барменов",
 		DATIVE = "ящику с набором для опытных барменов",
@@ -4437,7 +4437,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/organic/chef_rare
 	name = "Набор для опытных поваров"
 	containername = "ящик с набором для опытных поваров"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с набором для опытных поваров",
 		GENITIVE = "ящика с набором для опытных поваров",
 		DATIVE = "ящику с набором для опытных поваров",
@@ -4454,7 +4454,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/science/strange_seeds
 	name = "Странные семена"
 	containername = "ящик со странными семенами"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик со странными семенами",
 		GENITIVE = "ящика со странными семенами",
 		DATIVE = "ящику со странными семенами",
@@ -4482,7 +4482,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 100
 	containertype = /obj/structure/closet/crate/critter/gorilla
 	containername = "ящик с гориллой"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с гориллой",
 		GENITIVE = "ящика с гориллой",
 		DATIVE = "ящику с гориллой",
@@ -4496,7 +4496,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 150
 	containertype = /obj/structure/closet/crate/critter/cargorilla
 	containername = "ящик с каргориллой"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с каргориллой",
 		GENITIVE = "ящика с каргориллой",
 		DATIVE = "ящику с каргориллой",
@@ -4523,7 +4523,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 15
 	containertype = /obj/structure/closet/crate/hydroponics
 	containername = "ящик ботанического снабжения"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик ботанического снабжения",
 		GENITIVE = "ящика ботанического снабжения",
 		DATIVE = "ящику ботанического снабжения",
@@ -4542,7 +4542,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 20
 	containertype = /obj/structure/closet/crate/secure
 	containername = "ящик с ботаническим ранцем для воды"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с ботаническим ранцем для воды",
 		GENITIVE = "ящика с ботаническим ранцем для воды",
 		DATIVE = "ящику с ботаническим ранцем для воды",
@@ -4562,7 +4562,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/vending_refill/hydronutrients,
 	)
 	containername = "ящик с наборами пополнения ботанических торгоматов"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с наборами пополнения ботанических торгоматов",
 		GENITIVE = "ящика с наборами пополнения ботанических торгоматов",
 		DATIVE = "ящику с наборами пополнения ботанических торгоматов",
@@ -4592,7 +4592,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/seeds/random,
 	)
 	containername = "ящик экзотических семян"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик экзотических семян",
 		GENITIVE = "ящика экзотических семян",
 		DATIVE = "ящику экзотических семян",
@@ -4614,7 +4614,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/melee/flyswatter,
 	)
 	containername = "ящик с оборудованием для плеловодства"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с оборудованием для плеловодства",
 		GENITIVE = "ящика с оборудованием для плеловодства",
 		DATIVE = "ящику с оборудованием для плеловодства",
@@ -4633,7 +4633,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 10
 	containername = "ящик с костюмами плеловода"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с костюмами плеловода",
 		GENITIVE = "ящика с костюмами плеловода",
 		DATIVE = "ящику с костюмами плеловода",
@@ -4651,7 +4651,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 20
 	containername = "ящик с аппаратом для разлива"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с аппаратом для разлива",
 		GENITIVE = "ящика с аппаратом для разлива",
 		DATIVE = "ящику с аппаратом для разлива",
@@ -4663,7 +4663,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/organic/botdisk
 	name = "Пустые ботанические дискеты"
 	containername = "ящик пустых ботанических дискет"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик пустых ботанических дискет",
 		GENITIVE = "ящика пустых ботанических дискет",
 		DATIVE = "ящику пустых ботанических дискет",
@@ -4695,7 +4695,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	amount = 50
 	cost = 20
 	containername = "ящик с листами металла"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с листами металла",
 		GENITIVE = "ящика с листами металла",
 		DATIVE = "ящику с листами металла",
@@ -4712,7 +4712,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	amount = 20
 	cost = 90
 	containername = "ящик с листами пластали"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с листами пластали",
 		GENITIVE = "ящика с листами пластали",
 		DATIVE = "ящику с листами пластали",
@@ -4729,7 +4729,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	amount = 50
 	cost = 210
 	containername = "ящик с листами пластали"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с листами пластали",
 		GENITIVE = "ящика с листами пластали",
 		DATIVE = "ящику с листами пластали",
@@ -4746,7 +4746,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	amount = 50
 	cost = 15
 	containername = "ящик с листами стекла"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с листами стекла",
 		GENITIVE = "ящика с листами стекла",
 		DATIVE = "ящику с листами стекла",
@@ -4763,7 +4763,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	amount = 30
 	cost = 15
 	containername = "ящик с деревянными досками"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с деревянными досками",
 		GENITIVE = "ящика с деревянными досками",
 		DATIVE = "ящику с деревянными досками",
@@ -4780,7 +4780,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	amount = 50
 	cost = 15
 	containername = "ящик с листами картона"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с листами картона",
 		GENITIVE = "ящика с листами картона",
 		DATIVE = "ящику с листами картона",
@@ -4797,7 +4797,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	amount = 30
 	cost = 20
 	containername = "ящик с кирпичами из песчаника"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с кирпичами из песчаника",
 		GENITIVE = "ящика с кирпичами из песчаника",
 		DATIVE = "ящику с кирпичами из песчаника",
@@ -4814,7 +4814,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	amount = 30
 	cost = 20
 	containername = "ящик с листами пластика"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с листами пластика",
 		GENITIVE = "ящика с листами пластика",
 		DATIVE = "ящику с листами пластика",
@@ -4841,7 +4841,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	amount = 50
 	cost = 60
 	containername = "ящик с коврами"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с коврами",
 		GENITIVE = "ящика с коврами",
 		DATIVE = "ящику с коврами",
@@ -4865,7 +4865,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 20
 	containertype = /obj/structure/closet/crate/large/mule
 	containername = "ящик с МУЛботом"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с МУЛботом",
 		GENITIVE = "ящика с МУЛботом",
 		DATIVE = "ящику с МУЛботом",
@@ -4883,7 +4883,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 30
 	containername = "ящик с планшетами для заказов"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с планшетами для заказов",
 		GENITIVE = "ящика с планшетами для заказов",
 		DATIVE = "ящику с планшетами для заказов",
@@ -4901,7 +4901,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	required_tech = list(RESEARCH_TREE_POWERSTORAGE = 5, RESEARCH_TREE_PROGRAMMING = 5)
 	containertype = /obj/structure/closet/crate/vault
 	containername = "ящик с планшетом Квартирмейстера"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с планшетом Квартирмейстера",
 		GENITIVE = "ящика с планшетом Квартирмейстера",
 		DATIVE = "ящику с планшетом Квартирмейстера",
@@ -4918,7 +4918,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 8
 	containertype = /obj/structure/closet/crate/large
 	containername = "ящик с баком воды"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с баком воды",
 		GENITIVE = "ящика с баком воды",
 		DATIVE = "ящику с баком воды",
@@ -4935,7 +4935,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 40
 	containertype = /obj/structure/closet/crate/large
 	containername = "ящик с баком святой воды"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с баком святой воды",
 		GENITIVE = "ящика с баком святой воды",
 		DATIVE = "ящику с баком святой воды",
@@ -4952,7 +4952,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 12
 	containertype = /obj/structure/closet/crate/large
 	containername = "ящик с баком воды повышенной ёмкости"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с баком воды повышенной ёмкости",
 		GENITIVE = "ящика с баком воды повышенной ёмкости",
 		DATIVE = "ящику с баком воды повышенной ёмкости",
@@ -4981,7 +4981,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 15
 	containername = "ящик со снаряжением для лазертага"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик со снаряжением для лазертага",
 		GENITIVE = "ящика со снаряжением для лазертага",
 		DATIVE = "ящику со снаряжением для лазертага",
@@ -4998,7 +4998,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 100
 	containername = "ящик с набором PlasmaMate"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с набором PlasmaMate",
 		GENITIVE = "ящика с набором PlasmaMate",
 		DATIVE = "ящику с набором PlasmaMate",
@@ -5022,7 +5022,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 40
 	containername = "ящик религиозного снабжения"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик религиозного снабжения",
 		GENITIVE = "ящика религиозного снабжения",
 		DATIVE = "ящику религиозного снабжения",
@@ -5040,7 +5040,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	containertype = /obj/structure/closet/crate/secure
 	containername = "ящик с шахтёрским снаряжением"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с шахтёрским снаряжением",
 		GENITIVE = "ящика с шахтёрским снаряжением",
 		DATIVE = "ящику с шахтёрским снаряжением",
@@ -5060,7 +5060,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 10
 	containername = "ящик со снаряжением барбера"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик со снаряжением барбера",
 		GENITIVE = "ящика со снаряжением барбера",
 		DATIVE = "ящику со снаряжением барбера",
@@ -5094,7 +5094,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/poster/random_official,
 	)
 	containername = "ящик с набором патриота НТ"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с набором патриота НТ",
 		GENITIVE = "ящика с набором патриота НТ",
 		DATIVE = "ящику с набором патриота НТ",
@@ -5110,7 +5110,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/structure/toilet/golden_toilet,
 	)
 	containername = "ящик с золотым унитазом"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с золотым унитазом",
 		GENITIVE = "ящика с золотым унитазом",
 		DATIVE = "ящику с золотым унитазом",
@@ -5144,7 +5144,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 15
 	containername = "ящик бюрократического снабжения"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик бюрократического снабжения",
 		GENITIVE = "ящика бюрократического снабжения",
 		DATIVE = "ящику бюрократического снабжения",
@@ -5160,7 +5160,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 15
 	containername = "ящик с Кодекс Гигас"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с Кодекс Гигас",
 		GENITIVE = "ящика с Кодекс Гигас",
 		DATIVE = "ящику с Кодекс Гигас",
@@ -5185,7 +5185,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 10
 	containername = "ящик со скотчем"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик со скотчем",
 		GENITIVE = "ящика со скотчем",
 		DATIVE = "ящику со скотчем",
@@ -5207,7 +5207,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 10
 	containername = "ящик тонер-картриджей"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик тонер-картриджей",
 		GENITIVE = "ящика тонер-картриджей",
 		DATIVE = "ящику тонер-картриджей",
@@ -5240,7 +5240,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 10
 	containername = "ящик художественного снабжения"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик художественного снабжения",
 		GENITIVE = "ящика художественного снабжения",
 		DATIVE = "ящику художественного снабжения",
@@ -5260,7 +5260,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 8
 	containername = "ящик корпоративных постеров"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик корпоративных постеров",
 		GENITIVE = "ящика корпоративных постеров",
 		DATIVE = "ящику корпоративных постеров",
@@ -5290,7 +5290,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 10
 	containername = "ящик уборочного снабжения"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик уборочного снабжения",
 		GENITIVE = "ящика уборочного снабжения",
 		DATIVE = "ящику уборочного снабжения",
@@ -5308,7 +5308,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	containertype = /obj/structure/closet/crate/large
 	containername = "ящик с тележкой и галошами уборщика"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с тележкой и галошами уборщика",
 		GENITIVE = "ящика с тележкой и галошами уборщика",
 		DATIVE = "ящику с тележкой и галошами уборщика",
@@ -5324,7 +5324,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	containertype = /obj/structure/closet/crate/secure
 	containername = "ящик с уборочным ранцем для воды"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с уборочным ранцем для воды",
 		GENITIVE = "ящика с уборочным ранцем для воды",
 		DATIVE = "ящику с уборочным ранцем для воды",
@@ -5342,7 +5342,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/storage/box/lights/mixed,
 	)
 	containername = "ящик лампочек"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик лампочек",
 		GENITIVE = "ящика лампочек",
 		DATIVE = "ящику лампочек",
@@ -5358,7 +5358,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 20
 	containername = "ящик нескользящих плиток пола"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик нескользящих плиток пола",
 		GENITIVE = "ящика нескользящих плиток пола",
 		DATIVE = "ящику нескользящих плиток пола",
@@ -5390,7 +5390,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 10
 	containertype = /obj/structure/closet/crate/secure
 	containername = "ящик актёрских костюмов"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик актёрских костюмов",
 		GENITIVE = "ящика актёрских костюмов",
 		DATIVE = "ящику актёрских костюмов",
@@ -5410,7 +5410,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 20
 	containername = "ящик с костюмом мага"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с костюмом мага",
 		GENITIVE = "ящика с костюмом мага",
 		DATIVE = "ящику с костюмом мага",
@@ -5438,7 +5438,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 15
 	containername = "ящик со снаряжением мафиози"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик со снаряжением мафиози",
 		GENITIVE = "ящика со снаряжением мафиози",
 		DATIVE = "ящику со снаряжением мафиози",
@@ -5456,7 +5456,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 30
 	containername = "ящик солнечных очков"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик солнечных очков",
 		GENITIVE = "ящика солнечных очков",
 		DATIVE = "ящику солнечных очков",
@@ -5492,7 +5492,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	name = "Коллекционные шляпы"
 	cost = 200
 	containername = "ящик коллекционных шляп"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик коллекционных шляп",
 		GENITIVE = "ящика коллекционных шляп",
 		DATIVE = "ящику коллекционных шляп",
@@ -5519,7 +5519,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 10
 	containername = "ящик игрушечных дробовиков"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик игрушечных дробовиков",
 		GENITIVE = "ящика игрушечных дробовиков",
 		DATIVE = "ящику игрушечных дробовиков",
@@ -5546,7 +5546,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 50
 	containername = "ящик музыкальных инструментов"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик музыкальных инструментов",
 		GENITIVE = "ящика музыкальных инструментов",
 		DATIVE = "ящику музыкальных инструментов",
@@ -5588,7 +5588,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 30 //Lots of very expensive items. You gotta pay up to look good!
 	containername = "ящик официальной одежды"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик официальной одежды",
 		GENITIVE = "ящика официальной одежды",
 		DATIVE = "ящику официальной одежды",
@@ -5613,7 +5613,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 15
 	containername = "ящик командных маек"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик командных маек",
 		GENITIVE = "ящика командных маек",
 		DATIVE = "ящику командных маек",
@@ -5642,7 +5642,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 20
 	containername = "ящик с набором для поло"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с набором для поло",
 		GENITIVE = "ящика с набором для поло",
 		DATIVE = "ящику с набором для поло",
@@ -5662,7 +5662,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 15
 	containername = "ящик с боксёрским снаряжением"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с боксёрским снаряжением",
 		GENITIVE = "ящика с боксёрским снаряжением",
 		DATIVE = "ящику с боксёрским снаряжением",
@@ -5681,7 +5681,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/bathroom_parts/urinal,
 	)
 	containername = "ящик оборудования для уборной"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик оборудования для уборной",
 		GENITIVE = "ящика оборудования для уборной",
 		DATIVE = "ящику оборудования для уборной",
@@ -5697,7 +5697,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/mounted/shower,
 	)
 	containername = "ящик оборудования для гигиены"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик оборудования для гигиены",
 		GENITIVE = "ящика оборудования для гигиены",
 		DATIVE = "ящику оборудования для гигиены",
@@ -5713,7 +5713,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/machinery/snow_machine,
 	)
 	containername = "ящик со снегогенератором"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик со снегогенератором",
 		GENITIVE = "ящика со снегогенератором",
 		DATIVE = "ящику со снегогенератором",
@@ -5731,7 +5731,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/toy/plushie/orange_fox,
 	)
 	containername = "ящик деталей крематория"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик деталей крематория",
 		GENITIVE = "ящика деталей крематория",
 		DATIVE = "ящику деталей крематория",
@@ -5747,7 +5747,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 75
 	containername = "ящик с грузовым МЭК"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с грузовым МЭК",
 		GENITIVE = "ящика с грузовым МЭК",
 		DATIVE = "ящику с грузовым МЭК",
@@ -5765,7 +5765,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containertype = /obj/structure/closet/crate/secure/large
 	required_tech = list(RESEARCH_TREE_ENGINEERING = 7, RESEARCH_TREE_MATERIALS = 7)
 	containername = "ящик с мотоциклом"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с мотоциклом",
 		GENITIVE = "ящика с мотоциклом",
 		DATIVE = "ящику с мотоциклом",
@@ -5789,7 +5789,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 15
 	containername = "ящик с набором пополнения Autodrobe"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с набором пополнения Autodrobe",
 		GENITIVE = "ящика с набором пополнения Autodrobe",
 		DATIVE = "ящику с набором пополнения Autodrobe",
@@ -5805,7 +5805,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 15
 	containername = "ящик с набором пополнения ClothesMate"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с набором пополнения ClothesMate",
 		GENITIVE = "ящика с набором пополнения ClothesMate",
 		DATIVE = "ящику с набором пополнения ClothesMate",
@@ -5821,7 +5821,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 80
 	containername = "ящик с набором пополнения Security Departament ClothesMate"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с набором пополнения Security Departament ClothesMate",
 		GENITIVE = "ящика с набором пополнения Security Departament ClothesMate",
 		DATIVE = "ящику с набором пополнения Security Departament ClothesMate",
@@ -5837,7 +5837,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 50
 	containername = "ящик с набором пополнения Engineering Departament ClothesMate"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с набором пополнения Engineering Departament ClothesMate",
 		GENITIVE = "ящика с набором пополнения Engineering Departament ClothesMate",
 		DATIVE = "ящику с набором пополнения Engineering Departament ClothesMate",
@@ -5853,7 +5853,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 50
 	containername = "ящик с набором пополнения Medical Departament ClothesMate"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с набором пополнения Medical Departament ClothesMate",
 		GENITIVE = "ящика с набором пополнения Medical Departament ClothesMate",
 		DATIVE = "ящику с набором пополнения Medical Departament ClothesMate",
@@ -5869,7 +5869,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 30
 	containername = "ящик с набором пополнения Science Departament ClothesMate"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с набором пополнения Science Departament ClothesMate",
 		GENITIVE = "ящика с набором пополнения Science Departament ClothesMate",
 		DATIVE = "ящику с набором пополнения Science Departament ClothesMate",
@@ -5885,7 +5885,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 30
 	containername = "ящик с набором пополнения Cargo Departament ClothesMate"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с набором пополнения Cargo Departament ClothesMate",
 		GENITIVE = "ящика с набором пополнения Cargo Departament ClothesMate",
 		DATIVE = "ящику с набором пополнения Cargo Departament ClothesMate",
@@ -5901,7 +5901,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 30
 	containername = "ящик с набором пополнения Law Departament ClothesMate"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с набором пополнения Law Departament ClothesMate",
 		GENITIVE = "ящика с набором пополнения Law Departament ClothesMate",
 		DATIVE = "ящику с набором пополнения Law Departament ClothesMate",
@@ -5917,7 +5917,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 30
 	containername = "ящик с набором пополнения Service Departament ClothesMate"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с набором пополнения Service Departament ClothesMate",
 		GENITIVE = "ящика с набором пополнения Service Departament ClothesMate",
 		DATIVE = "ящику с набором пополнения Service Departament ClothesMate",
@@ -5933,7 +5933,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 30
 	containername = "ящик с набором пополнения Departament Service ClothesMate Chaplain"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с набором пополнения Departament Service ClothesMate Chaplain",
 		GENITIVE = "ящика с набором пополнения Departament Service ClothesMate Chaplain",
 		DATIVE = "ящику с набором пополнения Departament Service ClothesMate Chaplain",
@@ -5949,7 +5949,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 15
 	containername = "ящик с набором пополнения Suitlord"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с набором пополнения Suitlord",
 		GENITIVE = "ящика с набором пополнения Suitlord",
 		DATIVE = "ящику с набором пополнения Suitlord",
@@ -5965,7 +5965,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 15
 	containername = "ящик с набором пополнения Hatlord"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с набором пополнения Hatlord",
 		GENITIVE = "ящика с набором пополнения Hatlord",
 		DATIVE = "ящику с набором пополнения Hatlord",
@@ -5981,7 +5981,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 15
 	containername = "ящик с набором пополнения Shoelord"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с набором пополнения Shoelord",
 		GENITIVE = "ящика с набором пополнения Shoelord",
 		DATIVE = "ящику с набором пополнения Shoelord",
@@ -5997,7 +5997,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 15
 	containername = "ящик с набором пополнения CritterCare"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с набором пополнения CritterCare",
 		GENITIVE = "ящика с набором пополнения CritterCare",
 		DATIVE = "ящику с набором пополнения CritterCare",
@@ -6014,7 +6014,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/vending_refill/coffee,
 	)
 	containername = "ящик с наборами пополнения Booze-o-mat и Solar's Best Hot Drinks"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с наборами пополнения Booze-o-mat и Solar's Best Hot Drinks",
 		GENITIVE = "ящика с наборами пополнения Booze-o-mat и Solar's Best Hot Drinks",
 		DATIVE = "ящику с наборами пополнения Booze-o-mat и Solar's Best Hot Drinks",
@@ -6031,7 +6031,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 15
 	containername = "ящик с набором пополнения ShadyCigs Deluxe"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с набором пополнения ShadyCigs Deluxe",
 		GENITIVE = "ящика с набором пополнения ShadyCigs Deluxe",
 		DATIVE = "ящику с набором пополнения ShadyCigs Deluxe",
@@ -6047,7 +6047,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/vending_refill/dinnerware,
 	)
 	containername = "ящик с набором пополнения Plasteel Chef's Dinnerware"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с набором пополнения Plasteel Chef's Dinnerware",
 		GENITIVE = "ящика с набором пополнения Plasteel Chef's Dinnerware",
 		DATIVE = "ящику с набором пополнения Plasteel Chef's Dinnerware",
@@ -6066,7 +6066,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/vending_refill/engineering,
 	)
 	containername = "ящик наборов пополнения импортированных торгоматов"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик наборов пополнения импортированных торгоматов",
 		GENITIVE = "ящика наборов пополнения импортированных торгоматов",
 		DATIVE = "ящику наборов пополнения импортированных торгоматов",
@@ -6082,7 +6082,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/vending_refill/cart,
 	)
 	containername = "ящик с набором пополнения PTech"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с набором пополнения PTech",
 		GENITIVE = "ящика с набором пополнения PTech",
 		DATIVE = "ящику с набором пополнения PTech",
@@ -6098,7 +6098,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 15
 	containername = "ящик с набором пополнения Getmore Chocolate Corp"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с набором пополнения Getmore Chocolate Corp",
 		GENITIVE = "ящика с набором пополнения Getmore Chocolate Corp",
 		DATIVE = "ящику с набором пополнения Getmore Chocolate Corp",
@@ -6114,7 +6114,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 15
 	containername = "ящик с набором пополнения Robust Softdrinks"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с набором пополнения Robust Softdrinks",
 		GENITIVE = "ящика с набором пополнения Robust Softdrinks",
 		DATIVE = "ящику с набором пополнения Robust Softdrinks",
@@ -6130,7 +6130,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/vending_refill/assist,
 	)
 	containername = "ящик с набором пополнения Assistomate"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с набором пополнения Assistomate",
 		GENITIVE = "ящика с набором пополнения Assistomate",
 		DATIVE = "ящику с набором пополнения Assistomate",
@@ -6146,7 +6146,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 15
 	containername = "ящик с набором пополнения Mr. Chang"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с набором пополнения Mr. Chang",
 		GENITIVE = "ящика с набором пополнения Mr. Chang",
 		DATIVE = "ящику с набором пополнения Mr. Chang",
@@ -6171,7 +6171,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 30
 	containername = "ящик наборов пополнения Кастоматов"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик наборов пополнения Кастоматов",
 		GENITIVE = "ящика наборов пополнения Кастоматов",
 		DATIVE = "ящику наборов пополнения Кастоматов",
@@ -6204,7 +6204,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 80
 	containername = "ящик винтовок Мосина"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик винтовок Мосина",
 		GENITIVE = "ящика винтовок Мосина",
 		DATIVE = "ящику винтовок Мосина",
@@ -6221,7 +6221,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	credits_cost = 2000
 	containername = "ящик патронов 7,62x54 мм"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик патронов 7,62x54 мм",
 		GENITIVE = "ящика патронов 7,62x54 мм",
 		DATIVE = "ящику патронов 7,62x54 мм",
@@ -6238,7 +6238,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	credits_cost = 4500
 	containername = "ящик патронов 5,56"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик патронов 5,56",
 		GENITIVE = "ящика патронов 5,56",
 		DATIVE = "ящику патронов 5,56",
@@ -6255,7 +6255,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	credits_cost = 3000
 	containername = "ящик патронов .45"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик патронов .45",
 		GENITIVE = "ящика патронов .45",
 		DATIVE = "ящику патронов .45",
@@ -6272,7 +6272,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	credits_cost = 3000
 	containername = "ящик патронов .45 (Резина)"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик патронов .45 (Резина)",
 		GENITIVE = "ящика патронов .45 (Резина)",
 		DATIVE = "ящику патронов .45 (Резина)",
@@ -6289,7 +6289,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	credits_cost = 2500
 	containername = "ящик патронов 10 мм (Бронебойные)"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик патронов 10 мм (Бронебойные)",
 		GENITIVE = "ящика патронов 10 мм (Бронебойные)",
 		DATIVE = "ящику патронов 10 мм (Бронебойные)",
@@ -6306,7 +6306,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	credits_cost = 2200
 	containername = "ящик патронов 10 мм (Экспансивные)"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик патронов 10 мм (Экспансивные)",
 		GENITIVE = "ящика патронов 10 мм (Экспансивные)",
 		DATIVE = "ящику патронов 10 мм (Экспансивные)",
@@ -6323,7 +6323,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	credits_cost = 2200
 	containername = "ящик патронов 10 мм (Зажигательные)"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик патронов 10 мм (Зажигательные)",
 		GENITIVE = "ящика патронов 10 мм (Зажигательные)",
 		DATIVE = "ящику патронов 10 мм (Зажигательные)",
@@ -6340,7 +6340,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	credits_cost = 5000
 	containername = "ящик патронов .50L \"Стандартный\""
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик патронов .50L \"Стандартный\"",
 		GENITIVE = "ящика патронов .50L \"Стандартный\"",
 		DATIVE = "ящику патронов .50L \"Стандартный\"",
@@ -6357,7 +6357,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	credits_cost = 9000
 	containername = "ящик патронов .50 \"Бронебойный\""
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик патронов .50 \"Бронебойный\"",
 		GENITIVE = "ящика патронов .50 \"Бронебойный\"",
 		DATIVE = "ящику патронов .50 \"Бронебойный\"",
@@ -6374,7 +6374,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	credits_cost = 4000
 	containername = "ящик патронов 7,62x38 мм"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик патронов 7,62x38 мм",
 		GENITIVE = "ящика патронов 7,62x38 мм",
 		DATIVE = "ящику патронов 7,62x38 мм",
@@ -6386,12 +6386,12 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/contraband/ammobox545
 	name = "Патроны 5,45x39 мм"
 	contains = list(
-		/obj/item/ammo_box/a545x39,
-		/obj/item/ammo_box/a545x39,
+		/obj/item/ammo_box/a545x39/fusty,
+		/obj/item/ammo_box/a545x39/fusty,
 	)
 	credits_cost = 4500
 	containername = "ящик патронов 5,45x39 мм"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик патронов 5,45x39 мм",
 		GENITIVE = "ящика патронов 5,45x39 мм",
 		DATIVE = "ящику патронов 5,45x39 мм",
@@ -6403,13 +6403,13 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/contraband/rpg
 	name = "Фугасные ракеты"
 	contains = list(
-		/obj/item/ammo_casing/rocket,
-		/obj/item/ammo_casing/rocket,
-		/obj/item/ammo_casing/rocket,
+		/obj/item/ammo_casing/caseless/rocket/a70mm_he,
+		/obj/item/ammo_casing/caseless/rocket/a70mm_he,
+		/obj/item/ammo_casing/caseless/rocket/a70mm_he,
 	)
 	credits_cost = 25000
 	containername = "ящик фугасных ракет"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик фугасных ракет",
 		GENITIVE = "ящика фугасных ракет",
 		DATIVE = "ящику фугасных ракет",
@@ -6425,7 +6425,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	credits_cost = 20000
 	containername = "ящик 40 мм гранат"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик 40 мм гранат",
 		GENITIVE = "ящика 40 мм гранат",
 		DATIVE = "ящику 40 мм гранат",
@@ -6443,7 +6443,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	credits_cost = 7000
 	containername = "ящик самодельных 40 мм гранат"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик самодельных 40 мм гранат",
 		GENITIVE = "ящика самодельных 40 мм гранат",
 		DATIVE = "ящику самодельных 40 мм гранат",
@@ -6463,7 +6463,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	name = "Контрабанда"
 	cost = 30
 	containername = "ящик" // let's keep it subtle, eh?
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик",
 		GENITIVE = "ящика",
 		DATIVE = "ящику",
@@ -6486,7 +6486,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 40
 	containername = "ящик игрушечных пистолетов"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик игрушечных пистолетов",
 		GENITIVE = "ящика игрушечных пистолетов",
 		DATIVE = "ящику игрушечных пистолетов",
@@ -6506,7 +6506,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containertype = /obj/structure/closet/crate/syndicate
 	required_tech = list(RESEARCH_TREE_ILLEGAL = 2)
 	containername = "ящик адаптивных картонных фигур"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик адаптивных картонных фигур",
 		GENITIVE = "ящика адаптивных картонных фигур",
 		DATIVE = "ящику адаптивных картонных фигур",
@@ -6526,7 +6526,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containertype = /obj/structure/closet/crate/syndicate
 	required_tech = list(RESEARCH_TREE_ILLEGAL = 2)
 	containername = "ящик плотных изолент"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик плотных изолент",
 		GENITIVE = "ящика плотных изолент",
 		DATIVE = "ящику плотных изолент",
@@ -6546,7 +6546,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containertype = /obj/structure/closet/crate/syndicate
 	required_tech = list(RESEARCH_TREE_ILLEGAL = 2, RESEARCH_TREE_COMBAT = 5)
 	containername = "ящик метательных ножей"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик метательных ножей",
 		GENITIVE = "ящика метательных ножей",
 		DATIVE = "ящику метательных ножей",
@@ -6566,7 +6566,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containertype = /obj/structure/closet/crate/syndicate
 	required_tech = list(RESEARCH_TREE_ILLEGAL = 3, RESEARCH_TREE_BIOTECH = 7)
 	containername = "ящик подозрительные электронных сигарет"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик подозрительных электронных сигарет",
 		GENITIVE = "ящика подозрительных электронных сигарет",
 		DATIVE = "ящику подозрительных электронных сигарет",
@@ -6585,7 +6585,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containertype = /obj/structure/closet/crate/syndicate
 	required_tech = list(RESEARCH_TREE_ILLEGAL = 3, RESEARCH_TREE_COMBAT = 5, RESEARCH_TREE_POWERSTORAGE = 7, RESEARCH_TREE_ENGINEERING = 5)
 	containername = "ящик реверсивных карт"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик реверсивных карт",
 		GENITIVE = "ящика реверсивных карт",
 		DATIVE = "ящику реверсивных карт",
@@ -6603,7 +6603,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containertype = /obj/structure/closet/crate/syndicate
 	required_tech = list(RESEARCH_TREE_ILLEGAL = 3, RESEARCH_TREE_BIOTECH = 7, RESEARCH_TREE_MAGNETS = 5)
 	containername = "ящик с набором ЭМИ-гранат"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с набором ЭМИ-гранат",
 		GENITIVE = "ящика с набором ЭМИ-гранат",
 		DATIVE = "ящику с набором ЭМИ-гранат",
@@ -6621,7 +6621,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containertype = /obj/structure/closet/crate/syndicate
 	required_tech = list(RESEARCH_TREE_ILLEGAL = 4, RESEARCH_TREE_COMBAT = 6, RESEARCH_TREE_POWERSTORAGE = 7)
 	containername = "ящик с поясом боевых осколочных гранат"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с поясом боевых осколочных гранат",
 		GENITIVE = "ящика с поясом боевых осколочных гранат",
 		DATIVE = "ящику с поясом боевых осколочных гранат",
@@ -6639,7 +6639,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containertype = /obj/structure/closet/crate/syndicate
 	required_tech = list(RESEARCH_TREE_ILLEGAL = 4, RESEARCH_TREE_TOXINS = 7)
 	containername = "ящик с усыпляющей кластерной гранатой"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с усыпляющей кластерной гранатой",
 		GENITIVE = "ящика с усыпляющей кластерной гранатой",
 		DATIVE = "ящику с усыпляющей кластерной гранатой",
@@ -6657,7 +6657,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containertype = /obj/structure/closet/crate/syndicate
 	required_tech = list(RESEARCH_TREE_ILLEGAL = 5, RESEARCH_TREE_BIOTECH = 7, RESEARCH_TREE_PROGRAMMING = 7)
 	containername = "ящик с тепловизионными очками \"Хамелеон\""
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с тепловизионными очками \"Хамелеон\"",
 		GENITIVE = "ящика с тепловизионными очками \"Хамелеон\"",
 		DATIVE = "ящику с тепловизионными очками \"Хамелеон\"",
@@ -6675,7 +6675,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containertype = /obj/structure/closet/crate/syndicate
 	required_tech = list(RESEARCH_TREE_ILLEGAL = 5, RESEARCH_TREE_BIOTECH = 7, RESEARCH_TREE_PROGRAMMING = 7, RESEARCH_TREE_POWERSTORAGE = 7)
 	containername = "ящик с автоимплантером"
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с автоимплантером",
 		GENITIVE = "ящика с автоимплантером",
 		DATIVE = "ящику с автоимплантером",
@@ -6695,7 +6695,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containertype = /obj/structure/closet/crate/syndicate
 	required_tech = list(RESEARCH_TREE_ILLEGAL = 6, RESEARCH_TREE_COMBAT = 7)
 	containername = "ящик с дробовиком \"Мастиф\""
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с дробовиком \"Мастиф\"",
 		GENITIVE = "ящика с дробовиком \"Мастиф\"",
 		DATIVE = "ящику с дробовиком \"Мастиф\"",
@@ -6715,7 +6715,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containertype = /obj/structure/closet/crate/syndicate
 	required_tech = list(RESEARCH_TREE_ILLEGAL = 7, RESEARCH_TREE_COMBAT = 7, RESEARCH_TREE_ENGINEERING = 7)
 	containername = "ящик с пистолетом пулеметом \"Узи\""
-	container_ru_names = list(
+	container_ru_names = alist(
 		NOMINATIVE = "ящик с пистолетом пулеметом \"Узи\"",
 		GENITIVE = "ящика с пистолетом пулеметом \"Узи\"",
 		DATIVE = "ящику с пистолетом пулеметом \"Узи\"",

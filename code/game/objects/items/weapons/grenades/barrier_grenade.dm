@@ -11,7 +11,7 @@
 	var/mode = SINGLE
 
 /obj/item/grenade/barrier/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "барьерная граната",
 		GENITIVE = "барьерной гранаты",
 		DATIVE = "барьерной гранате",

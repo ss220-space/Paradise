@@ -219,7 +219,7 @@
 	/// Name of default body accessory if any.
 	var/default_bodyacc
 	/// Defining lists of icon skin tones for species that have them.
-	var/list/icon_skin_tones = list()
+	var/alist/icon_skin_tones = alist()
 
 	/// Determines internal organs that the species spawns with and which required-organ checks are conducted.
 	var/list/has_organ = list(

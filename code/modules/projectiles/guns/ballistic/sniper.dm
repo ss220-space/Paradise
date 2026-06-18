@@ -88,7 +88,7 @@
 	)
 
 /obj/item/gun/projectile/automatic/sniper_rifle/axmc/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "снайперская винтовка axmc",
 		GENITIVE = "снайперской винтовки axmc",
 		DATIVE = "снайперской винтовке axmc",

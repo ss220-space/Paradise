@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) 2020 Aleksej Komarov
+ * SPDX-License-Identifier: MIT
+ */
+
 // MARK: GENERAL STUFF
 em {
   font-style: normal;
@@ -969,15 +974,47 @@ h2.alert {
 
 // MARK: Boxed messages
 .boxed_message {
-  background: hsl(216, 10%, 10%);
-  border: 1px solid hsla(220, 40%, 75%, 0.251);
-  border-width: 1em * calc(1px / 12px) 1em * calc(5px / 12px);
-  margin: 0.5em 0.25em;
+  background: hsl(220, 10%, 10%);
+  border: 0.085em solid;
+  border-left: 0.33em solid;
+  border-color: hsla(220, 40%, 75%, 0.25);
+  margin: 0.5em 0;
   padding: 0.5em 0.75em;
-  border-radius: 0.5em;
+  border-radius: 0.33rem;
   text-align: center;
+
+  &.red_box {
+    background: hsl(0, 20%, 10%);
+    border-color: hsla(0, 100%, 50%, 0.5);
+  }
+
+  &.green_box {
+    background: hsl(140, 20%, 10%);
+    border-color: hsla(120, 100%, 50%, 0.5);
+  }
+
+  &.blue_box {
+    background: hsl(220, 20%, 10%);
+    border-color: hsla(225, 90%, 65%, 0.5);
+  }
+
+  &.purple_box {
+    background: hsl(260, 25%, 12.5%);
+    border-color: hsla(260, 100%, 75%, 0.5);
+  }
+
+  &.yellow_box {
+    background: hsl(259, 25%, 13%);
+    border-color: hsla(56, 100%, 50%, 0.502);
+  }
+
+  hr {
+    margin: 0.5em -0.75em;
+    border-color: inherit;
+  }
 }
 
+// !!! DEPRECATED !!!
 .boxed_message.red_border {
   background: hsl(0, 22%, 10%);
   border-color: hsla(0, 100%, 50%, 0.502);
@@ -1022,8 +1059,8 @@ h2.alert {
   position: relative;
   max-width: 95%;
   font-size: 120%;
-  background-color: var(--color-section);
-  padding: var(--space-s) var(--space-m);
+  background-color: hsl(0, 0%, 8%);
+  padding: 0.25em 0.5em;
   border-color: inherit;
   z-index: 0;
 
@@ -1031,12 +1068,35 @@ h2.alert {
     content: '';
     position: absolute;
     inset: 0;
-    border: var(--border-thickness-tiny) solid;
+    border: 0.085em solid;
     border-color: inherit;
-    border-radius: var(--border-radius-medium);
+    border-radius: 0.33rem;
     mask-image: linear-gradient(to top, black 50%, transparent 50%);
     z-index: -1;
   }
+}
+
+// Provides a horizontal bar with text in the middle
+// I got this off stackoverflow
+.separator {
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+
+.separator::before,
+.separator::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid hsl(213.6, 37.9%, 74.1%);
+}
+
+.separator:not(:empty)::before {
+  margin-right: 0.25em;
+}
+
+.separator:not(:empty)::after {
+  margin-left: 0.25em;
 }
 
 /**

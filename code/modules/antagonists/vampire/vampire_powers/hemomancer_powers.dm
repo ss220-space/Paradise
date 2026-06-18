@@ -63,7 +63,7 @@
 	var/obj/effect/proc_holder/spell/vampire/self/vamp_claws/parent_spell
 
 /obj/item/twohanded/required/vamp_claws/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "вампирические когти",
 		GENITIVE = "вампирических когтей",
 		DATIVE = "вампирическим когтям",
@@ -260,7 +260,7 @@
 	anchored = TRUE
 
 /obj/structure/blood_barrier/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кровавый барьер",
 		GENITIVE = "кровавого барьера",
 		DATIVE = "кровавому барьеру",

@@ -35,7 +35,7 @@
 	spider_intro_text = "Будучи Вдовой Ужаса, ваша цель — внести хаос на поле боя при помощи своих плевков, вы также смертоносны вблизи и с каждым укусом вводите в противников опасный яд. Несмотря на скорость и смертоносность, вы довольно хрупки, поэтому не стоит атаковать тяжело вооружённых противников!"
 
 /mob/living/simple_animal/hostile/poison/terror_spider/widow/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Вдова Ужаса",
 		GENITIVE = "Вдовы Ужаса",
 		DATIVE = "Вдове Ужаса",
@@ -67,7 +67,7 @@
 	desc = "На нитях этой паутины сверкают капли тёмной жидкости."
 
 /obj/structure/spider/terrorweb/widow/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "зловещая паутина",
 		GENITIVE = "зловещей паутины",
 		DATIVE = "зловещей паутине",

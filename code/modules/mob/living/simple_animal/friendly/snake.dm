@@ -255,7 +255,7 @@
 	unique_pet = TRUE
 
 /mob/living/simple_animal/hostile/retaliate/poison/snake/riraha/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "доктор Рираха",
 		GENITIVE = "доктора Рираха",
 		DATIVE = "доктору Рираху",

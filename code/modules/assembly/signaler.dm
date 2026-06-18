@@ -19,7 +19,7 @@
 	var/airlock_wire = null
 
 /obj/item/assembly/signaler/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сигнальное устройство",
 		GENITIVE = "сигнального устройства",
 		DATIVE = "сигнальному устройству",

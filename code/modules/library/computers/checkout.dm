@@ -17,7 +17,7 @@
 	var/booklist
 
 /obj/machinery/computer/library/checkout/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "библиотечный компьютер",
 		GENITIVE = "библиотечного компьютера",
 		DATIVE = "библиотечному компьютеру",

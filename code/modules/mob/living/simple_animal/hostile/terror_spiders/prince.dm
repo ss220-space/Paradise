@@ -44,7 +44,7 @@
 	tts_seed = "Alduin"
 
 /mob/living/simple_animal/hostile/poison/terror_spider/prince/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Принц Ужаса",
 		GENITIVE = "Принца Ужаса",
 		DATIVE = "Принцу Ужаса",

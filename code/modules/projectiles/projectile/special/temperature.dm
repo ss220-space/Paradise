@@ -12,7 +12,7 @@
 	hitsound = 'sound/weapons/tap.ogg'
 
 /obj/projectile/temp/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "температурный луч",
 		GENITIVE = "температурного луча",
 		DATIVE = "температурному лучу",
@@ -28,7 +28,7 @@
 		if(501 to INFINITY)
 			name = "searing beam"	//if emagged
 			icon_state = "temp_8"
-			ru_names = list(
+			ru_names = alist(
 				NOMINATIVE = "обжигающий луч",
 				GENITIVE = "обжигающего луча",
 				DATIVE = "обжигающему лучу",
@@ -39,7 +39,7 @@
 		if(400 to 500)
 			name = "burning beam"	//temp at which mobs start taking HEAT_DAMAGE_LEVEL_2
 			icon_state = "temp_7"
-			ru_names = list(
+			ru_names = alist(
 				NOMINATIVE = "горящий луч",
 				GENITIVE = "горящего луча",
 				DATIVE = "горящему лучу",
@@ -50,7 +50,7 @@
 		if(360 to 400)
 			name = "hot beam"		//temp at which mobs start taking HEAT_DAMAGE_LEVEL_1
 			icon_state = "temp_6"
-			ru_names = list(
+			ru_names = alist(
 				NOMINATIVE = "горячий луч",
 				GENITIVE = "горячего луча",
 				DATIVE = "горячему лучу",
@@ -61,7 +61,7 @@
 		if(335 to 360)
 			name = "warm beam"		//temp at which players get notified of their high body temp
 			icon_state = "temp_5"
-			ru_names = list(
+			ru_names = alist(
 				NOMINATIVE = "теплый луч",
 				GENITIVE = "теплого луча",
 				DATIVE = "теплому лучу",
@@ -72,7 +72,7 @@
 		if(295 to 335)
 			name = "ambient beam"
 			icon_state = "temp_4"
-			ru_names = list(
+			ru_names = alist(
 				NOMINATIVE = "рассеянный луч",
 				GENITIVE = "рассеянного луча",
 				DATIVE = "рассеянному лучу",
@@ -83,7 +83,7 @@
 		if(260 to 295)
 			name = "cool beam"		//temp at which players get notified of their low body temp
 			icon_state = "temp_3"
-			ru_names = list(
+			ru_names = alist(
 				NOMINATIVE = "холодный луч",
 				GENITIVE = "холодного луча",
 				DATIVE = "холодному лучу",
@@ -94,7 +94,7 @@
 		if(200 to 260)
 			name = "cold beam"		//temp at which mobs start taking COLD_DAMAGE_LEVEL_1
 			icon_state = "temp_2"
-			ru_names = list(
+			ru_names = alist(
 				NOMINATIVE = "холодный луч",
 				GENITIVE = "холодного луча",
 				DATIVE = "холодному лучу",
@@ -105,7 +105,7 @@
 		if(120 to 260)
 			name = "ice beam"		//temp at which mobs start taking COLD_DAMAGE_LEVEL_2
 			icon_state = "temp_1"
-			ru_names = list(
+			ru_names = alist(
 				NOMINATIVE = "ледяной луч",
 				GENITIVE = "ледяного луча",
 				DATIVE = "ледяному лучу",
@@ -116,7 +116,7 @@
 		if(-INFINITY to 120)
 			name = "freeze beam"	//temp at which mobs start taking COLD_DAMAGE_LEVEL_3
 			icon_state = "temp_0"
-			ru_names = list(
+			ru_names = alist(
 				NOMINATIVE = "замораживающий луч",
 				GENITIVE = "замораживающего луча",
 				DATIVE = "замораживающему лучу",
@@ -127,7 +127,7 @@
 		else
 			name = "temperature beam"//failsafe
 			icon_state = "temp_4"
-			ru_names = list(
+			ru_names = alist(
 				NOMINATIVE = "температурный луч",
 				GENITIVE = "температурного луча",
 				DATIVE = "температурному лучу",
@@ -183,7 +183,7 @@
 	speed = 0.6
 
 /obj/projectile/temp/basilisk/magmawing/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "опаляющий выброс",
 		GENITIVE = "опаляющего выброса",
 		DATIVE = "опаляющему выбросу",

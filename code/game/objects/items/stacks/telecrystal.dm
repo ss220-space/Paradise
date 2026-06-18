@@ -11,7 +11,7 @@
 	origin_tech = "materials=6"
 
 /obj/item/stack/telecrystal/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "телекристалл",
 		GENITIVE = "телекристалла",
 		DATIVE = "телекристаллу",
