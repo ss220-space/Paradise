@@ -97,6 +97,7 @@ const displayTypeMap = {
   'request_honk': 'HONK',
   'request_ert': 'ERT',
   'request_nuke': 'NUKE CODE',
+  'request_internet_sound': 'INTERNET SOUND',
 };
 
 type RequestTypeProps = {
@@ -130,8 +131,12 @@ const RequestControls = (props: RequestControlsProps) => {
       <Button onClick={() => act('logs', { id: request.id })}>LOGS</Button>
       <Button onClick={() => act('bless', { id: request.id })}>BLESS</Button>
       <Button onClick={() => act('smite', { id: request.id })}>SMITE</Button>
-      {request.req_type !== 'request_prayer' && (
-        <Button onClick={() => act('rply', { id: request.id })}>RPLY</Button>
+      {request.req_type !== 'request_prayer' &&
+        request.req_type !== 'request_internet_sound' && (
+          <Button onClick={() => act('rply', { id: request.id })}>RPLY</Button>
+        )}
+      {request.req_type === 'request_internet_sound' && (
+        <Button onClick={() => act('play', { id: request.id })}>PLAY</Button>
       )}
       {request.req_type === 'request_ert' && (
         <Button onClick={() => act('ertreply', { id: request.id })}>
