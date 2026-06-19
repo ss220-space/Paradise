@@ -15,9 +15,9 @@
 	var/tapegag_type = /obj/item/clothing/mask/muzzle/tapegag
 
 /obj/item/stack/tape_roll/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
-	. = ATTACK_CHAIN_PROCEED
 	if(!ishuman(target)) //What good is a duct tape mask if you are unable to speak?
-		return .
+		return ..()
+	. = ATTACK_CHAIN_PROCEED
 	if(!drop_mask && target.wear_mask)
 		to_chat(user, span_warning("Remove [target.p_their()] mask first!"))
 		return .

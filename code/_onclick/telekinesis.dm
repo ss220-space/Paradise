@@ -142,7 +142,8 @@
 		last_throw = world.time
 
 /obj/item/tk_grab/attack(mob/living/target, mob/living/user, modifiers, def_zone, skip_attack_anim = FALSE)
-	return ATTACK_CHAIN_BLOCKED_ALL
+	. = ..()
+	return .|ATTACK_CHAIN_BLOCKED_ALL
 
 /obj/item/tk_grab/is_equivalent(obj/item/I)
 	. = ..()

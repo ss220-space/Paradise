@@ -28,10 +28,10 @@
 	)
 
 /obj/item/reagent_containers/hypospray/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
-	. = ATTACK_CHAIN_PROCEED
-
 	if(!iscarbon(target) || !target.reagents)
-		return .
+		return ..()
+
+	. = ATTACK_CHAIN_PROCEED
 
 	if(!reagents || !reagents.total_volume)
 		balloon_alert(user, "пусто!")

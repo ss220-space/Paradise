@@ -120,8 +120,11 @@
 	return TRUE
 
 /obj/structure/ladder/attackby(obj/item/I, mob/user, params)
+	. = ..()
+	if(ATTACK_CHAIN_CANCEL_CHECK(.))
+		return .
 	use(user)
-	return ATTACK_CHAIN_BLOCKED_ALL
+	return .|ATTACK_CHAIN_BLOCKED_ALL
 
 /obj/structure/ladder/attack_hand(mob/living/user)
 	. = ..()

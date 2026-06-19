@@ -21,11 +21,11 @@
 	merge_type = null // do not merge if not defined in subtype
 
 /obj/item/stack/medical/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
-	. = ATTACK_CHAIN_PROCEED
-
 	if(!iscarbon(target) && !isanimal(target))
 		target.balloon_alert(user, "неподходящая цель!")
-		return .
+		return ..()
+
+	. = ATTACK_CHAIN_PROCEED
 
 	if(!user.IsAdvancedToolUser())
 		target.balloon_alert(user, "вы слишком неуклюжи для этого!")
@@ -1003,9 +1003,10 @@
 	)
 
 /obj/item/tourniquet/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
-	. = ATTACK_CHAIN_PROCEED
 	if(!ishuman(target))
-		return .
+		return ..()
+
+	. = ATTACK_CHAIN_PROCEED
 
 	if(!acceptable_zone(user.zone_selected))
 		target.balloon_alert(user, "не является конечностью!")

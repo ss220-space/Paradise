@@ -30,6 +30,9 @@
 	)
 
 /obj/item/whetstone/attackby(obj/item/I, mob/user, params)
+	. = ..()
+	if(ATTACK_CHAIN_CANCEL_CHECK(.))
+		return .
 	. = ATTACK_CHAIN_BLOCKED_ALL
 	if(!uses)
 		to_chat(user, span_warning("Точильный камень слишком изношен для дальнейшего использования!"))

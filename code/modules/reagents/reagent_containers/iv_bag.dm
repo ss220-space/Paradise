@@ -106,10 +106,10 @@
 			update_icon(UPDATE_OVERLAYS)
 
 /obj/item/reagent_containers/iv_bag/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
-	. = ATTACK_CHAIN_PROCEED
-
 	if(!iscarbon(target) || !target.reagents)
-		return .
+		return ..()
+
+	. = ATTACK_CHAIN_PROCEED
 
 	// Removing the needle
 	if(injection_target)

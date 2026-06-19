@@ -449,39 +449,42 @@
 		disposal_holder.destinationTag = sortTag
 
 /obj/item/shippingPackage/attackby(obj/item/I, mob/user, params)
+	. = ..()
+	if(ATTACK_CHAIN_CANCEL_CHECK(.))
+		return .
 	add_fingerprint(user)
 	if(is_pen(I))
 		if(sealed)
 			to_chat(user, span_warning("The package is sealed."))
-			return ATTACK_CHAIN_PROCEED
+			return .
 		var/str = tgui_input_text(user, "Intended recipient?", "Address", max_length = MAX_NAME_LEN)
 		if(!str || !length(str))
 			to_chat(user, span_warning("Invalid name."))
-			return ATTACK_CHAIN_PROCEED
+			return .
 		user.visible_message(
 			span_notice("[user] has addressed [src] to [str]."),
 			span_notice("You have addressed [src] to [str]."),
 		)
 		name = "Shipping package (RE: [str])"
-		return ATTACK_CHAIN_PROCEED_SUCCESS
+		return .|ATTACK_CHAIN_SUCCESS
 
 	if(wrapped)
 		to_chat(user, span_warning("The package is already contains something."))
-		return ATTACK_CHAIN_PROCEED
+		return .
 
 	if(isstorage(I) || istype(I, /obj/item/shippingPackage) || I.w_class > WEIGHT_CLASS_NORMAL)
 		to_chat(user, span_warning("The [I.name] cannot fit."))
-		return ATTACK_CHAIN_PROCEED
+		return .
 
 	if(!user.drop_transfer_item_to_loc(I, src))
-		return ATTACK_CHAIN_PROCEED
+		return .
 
 	user.visible_message(
 		span_notice("[user] has put [I] into [src]."),
 		span_notice("You have put [I] into [src]."),
 	)
 	wrapped = I
-	return ATTACK_CHAIN_BLOCKED_ALL
+	return .|ATTACK_CHAIN_BLOCKED_ALL
 
 /obj/item/shippingPackage/attack_self(mob/user)
 	if(sealed)

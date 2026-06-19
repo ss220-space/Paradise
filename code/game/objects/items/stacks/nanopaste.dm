@@ -44,7 +44,7 @@
 		return .|ATTACK_CHAIN_SUCCESS
 
 	if(!ishuman(target)) //Repairing robotic limbs and IPCs
-		return .
+		return ..()
 
 	var/mob/living/carbon/human/human_target = target
 	var/obj/item/organ/external/bodypart = human_target.get_organ(user.zone_selected)

@@ -121,11 +121,14 @@
 	add_attack_logs(attacker, defender, "disrupt [master] by [item ? item : "attack"]")
 
 /obj/effect/dummy/chameleon/attackby(obj/item/item, mob/user, params)
+	. = ..()
+	if(ATTACK_CHAIN_CANCEL_CHECK(.))
+		return .
 	for(var/mob/mob in src)
 		notify_disrupt(mob, user, item)
 
 	master.disrupt()
-	return ATTACK_CHAIN_BLOCKED_ALL
+	return .|ATTACK_CHAIN_BLOCKED_ALL
 
 /obj/effect/dummy/chameleon/attack_hand(mob/user)
 	for(var/mob/mob in src)

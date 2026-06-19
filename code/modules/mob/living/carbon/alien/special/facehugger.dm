@@ -72,7 +72,10 @@
 	return TRUE
 
 /obj/item/clothing/mask/facehugger/attackby(obj/item/I, mob/user, params)
-	return I.attack_obj(src, user, params)
+	. = ..()
+	if(ATTACK_CHAIN_CANCEL_CHECK(.))
+		return .
+	return . | I.attack_obj(src, user, params)
 
 /obj/item/clothing/mask/facehugger/attack_alien(mob/user) //can be picked up by aliens
 	return attack_hand(user)

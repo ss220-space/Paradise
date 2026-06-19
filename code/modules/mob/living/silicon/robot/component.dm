@@ -252,7 +252,6 @@
 	var/mode = 1
 
 /obj/item/robotanalyzer/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
-	. = ATTACK_CHAIN_PROCEED_SUCCESS
 	if((HAS_TRAIT(user, TRAIT_CLUMSY) || user.getBrainLoss() >= 60) && prob(50))
 		user.visible_message(
 			span_warning("[user] has analyzed the floor's vitals!"),
@@ -262,7 +261,8 @@
 		to_chat(user, span_notice("\t Damage Specifics: [0]-[0]-[0]-[0]"))
 		to_chat(user, span_notice("Key: Suffocation/Toxin/Burns/Brute"))
 		to_chat(user, span_notice("Body Temperature: ???"))
-		return .
+		return ..()
+	. = ATTACK_CHAIN_PROCEED_SUCCESS
 
 	user.visible_message(
 		span_warning("[user] has analyzed [target]'s components."),

@@ -79,10 +79,10 @@
 		to_chat(user, span_warning("This injector is used up!"))
 		return ATTACK_CHAIN_PROCEED
 
-	. = ATTACK_CHAIN_PROCEED_SUCCESS
-
 	if(!ishuman(target) || HAS_TRAIT(target, TRAIT_NO_DNA))
-		return .
+		return ..()
+
+	. = ATTACK_CHAIN_PROCEED_SUCCESS
 
 	if(!user.IsAdvancedToolUser())
 		return .

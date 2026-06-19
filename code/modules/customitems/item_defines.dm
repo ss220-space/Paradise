@@ -42,7 +42,7 @@
 
 	if(used)
 		to_chat(user, span_notice("The [src] is out of ink."))
-		return .
+		return ..()
 
 	if(!ishuman(target))
 		to_chat(user, span_notice("You don't think tattooing [target] is the best idea."))

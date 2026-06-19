@@ -270,9 +270,12 @@
 	gripped_item ? usr.DblClickOn(gripped_item, params) : usr.ClickOn(src, params)
 
 /obj/item/gripper/attackby(obj/item/weapon, mob/user, list/modifiers)
+	. = ..()
+	if(ATTACK_CHAIN_CANCEL_CHECK(.))
+		return .
 	if(!gripped_item)
-		return ATTACK_CHAIN_PROCEED
-	. = gripped_item.attackby(weapon, user, modifiers)
+		return .
+	. |= gripped_item.attackby(weapon, user, modifiers)
 	if(QDELETED(gripped_item)) // if item was dissasembled we need to clear the pointer
 		drop_gripped_item(TRUE) // silent = TRUE to prevent "You drop X" message from appearing without actually dropping anything
 
@@ -285,7 +288,7 @@
 	gripped_item = null
 
 /obj/item/gripper/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
-	return ATTACK_CHAIN_PROCEED
+	return ..()
 
 /// Grippers are snowflakey so this is needed to to prevent forceMoving grippers after `if(!user.drop_from_active_hand())` checks done in certain attackby's.
 /obj/item/gripper/forceMove(atom/destination)
@@ -324,6 +327,7 @@
 			RegisterSignals(I, list(COMSIG_ATOM_UPDATED_ICON), PROC_REF(handle_item_icon_update))
 		else
 			balloon_alert(user, "невозможно взять!")
+			return ..()	// not something we can grip, fall back to the standard attack chain
 
 	else //We are empty and trying to attack something else
 		target.attack_hand(user)
@@ -376,7 +380,7 @@
 	)
 
 /obj/item/matter_decompiler/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
-	return ATTACK_CHAIN_PROCEED
+	return ..()
 
 /obj/item/matter_decompiler/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(!proximity_flag)

@@ -422,8 +422,9 @@
 /obj/item/melee/blood_magic/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!iscarbon(user) || !iscultist(user))
 		uses = 0
+		. = ..()
 		qdel(src)
-		return ATTACK_CHAIN_BLOCKED_ALL
+		return .
 	. = ATTACK_CHAIN_PROCEED_SUCCESS
 	add_attack_logs(user, target, "used a cult spell ([src]) on")
 	target.lastattacker = user.real_name

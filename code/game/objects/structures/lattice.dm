@@ -52,11 +52,14 @@
 	..()
 
 /obj/structure/lattice/attackby(obj/item/I, mob/user, list/modifiers)
+	. = ..()
+	if(ATTACK_CHAIN_CANCEL_CHECK(.))
+		return .
 	if((resistance_flags & INDESTRUCTIBLE) || !isturf(loc))
-		return ATTACK_CHAIN_BLOCKED_ALL
+		return .|ATTACK_CHAIN_BLOCKED_ALL
 	add_fingerprint(user)
 	I.melee_attack_chain(user, loc, modifiers)	// hand this off to the turf instead (for building plating, catwalks, etc)
-	return ATTACK_CHAIN_BLOCKED_ALL
+	return .|ATTACK_CHAIN_BLOCKED_ALL
 
 /obj/structure/lattice/ratvar_act()
 	new /obj/structure/lattice/clockwork(loc)

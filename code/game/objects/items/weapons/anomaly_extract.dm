@@ -35,7 +35,7 @@
 /obj/item/anomaly_extract/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(target == user && attack_self(user))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
-	return ATTACK_CHAIN_PROCEED
+	return ..()
 
 /obj/effect/proc_holder/spell/slime_degradation
 	name = "Slime degradation"

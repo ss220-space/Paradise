@@ -496,7 +496,7 @@ emp_act
 
 	send_item_attack_message(item, user, affecting.limb_zone)
 
-	. = ATTACK_CHAIN_PROCEED_SUCCESS	// from now on we consider that attack was succesful
+	. = ..()	// from now on we consider that attack was succesful
 	if(!item.force)
 		return .
 

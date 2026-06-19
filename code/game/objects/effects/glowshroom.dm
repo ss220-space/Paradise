@@ -254,7 +254,7 @@
 	qdel(src)
 
 /obj/structure/glowshroom/proceed_attack_results(obj/item/item, mob/living/user, params, def_zone)
-	. = ATTACK_CHAIN_PROCEED_SUCCESS
+	. = ..()
 	if(!item.force)
 		user.visible_message(
 			span_warning("[user] gently pokes [src] with [item]."),

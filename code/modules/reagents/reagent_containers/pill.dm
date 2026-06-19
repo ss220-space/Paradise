@@ -35,9 +35,9 @@
 	return
 
 /obj/item/reagent_containers/food/pill/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
-	. = ATTACK_CHAIN_PROCEED
 	if(!iscarbon(target))
-		return .
+		return ..()
+	. = ATTACK_CHAIN_PROCEED
 	if(!get_location_accessible(target, BODY_ZONE_PRECISE_MOUTH))
 		if(target == user)
 			balloon_alert(user, "ваш рот закрыт!")
@@ -51,7 +51,7 @@
 		return .
 	user.drop_transfer_item_to_loc(src, target)
 	qdel(src)
-	return ATTACK_CHAIN_BLOCKED_ALL
+	return .|ATTACK_CHAIN_BLOCKED_ALL
 
 /obj/item/reagent_containers/food/pill/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(!proximity_flag)

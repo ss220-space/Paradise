@@ -30,7 +30,7 @@
 /obj/item/gun/pneumatic_rifle/examine(mob/user)
 	. = ..()
 	if(!in_range(user, src))
-		. += span_notice(">You'll need to get closer to see any more.")
+		. += span_notice("You'll need to get closer to see any more.")
 	else
 		if(chambered.BB)
 			. += span_notice("It is loaded.")

@@ -117,8 +117,8 @@
 		CM = M
 	if(awakened && (M.stat || CM?.health <= (HEALTH_THRESHOLD_CRIT-30))) //change because carbons on paradise are very lively
 		consume(M)
-		return
-	..()
+		return ATTACK_CHAIN_BLOCKED_ALL
+	return ..()
 
 /obj/item/his_grace/pickup(mob/living/user)
 	. = ..()

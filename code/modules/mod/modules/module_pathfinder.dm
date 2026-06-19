@@ -39,12 +39,14 @@
 
 /obj/item/mod/module/pathfinder/attack(mob/living/target, mob/living/user, def_zone, skip_attack_anim)
 	if(!ishuman(target) || !implant)
-		return
+		return ..()
+	. = ATTACK_CHAIN_PROCEED
 	if(!do_after(user, 1.5 SECONDS, target = target))
-		return
+		return .
 	if(!implant.implant(target, user))
 		balloon_alert(user, "невозможно!")
-		return
+		return .
+	. |= ATTACK_CHAIN_SUCCESS
 	if(target == user)
 		balloon_alert(user, "био-чип установлен")
 	else

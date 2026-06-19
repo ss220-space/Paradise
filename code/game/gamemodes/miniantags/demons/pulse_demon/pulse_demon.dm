@@ -796,10 +796,10 @@
 	try_attack_mob(M)
 
 /mob/living/simple_animal/demon/pulse_demon/attackby(obj/item/I, mob/user, params)
-	. = ATTACK_CHAIN_BLOCKED_ALL
 	if(is_under_tile())
 		to_chat(user, span_danger("You can't interact with something that's under the floor!"))
-		return .
+		return ..()
+	. = ATTACK_CHAIN_BLOCKED_ALL
 	var/obj/item/stock_parts/cell/cell = I.get_cell()
 	if(cell?.charge)
 		cell.use(min(cell.charge, power_drain_rate))

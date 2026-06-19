@@ -141,7 +141,7 @@
 		return .|ATTACK_CHAIN_SUCCESS
 
 	if(!ishuman(target))
-		return .
+		return ..()
 
 	. |= ATTACK_CHAIN_SUCCESS
 

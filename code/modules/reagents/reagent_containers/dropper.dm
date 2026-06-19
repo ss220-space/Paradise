@@ -49,7 +49,9 @@
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/reagent_containers/dropper/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
-	return ATTACK_CHAIN_PROCEED
+	if(user.a_intent == INTENT_HARM)	// droppers don't bludgeon, they apply reagents in afterattack
+		return ATTACK_CHAIN_PROCEED
+	return ..()
 
 /obj/item/reagent_containers/dropper/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(!proximity_flag)
@@ -176,9 +178,9 @@
 /obj/item/reagent_containers/dropper/precision/viral_injector
 
 /obj/item/reagent_containers/dropper/precision/viral_injector/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
-	. = ATTACK_CHAIN_PROCEED
 	if(!target.can_inject(user, penetrate_thick = TRUE, ignore_pierceimmune = TRUE))
-		return .
+		return ..()
+	. = ATTACK_CHAIN_PROCEED
 	if(!reagents.total_volume || !target.reagents)
 		return .
 	. |= ATTACK_CHAIN_SUCCESS

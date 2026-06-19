@@ -130,7 +130,8 @@
 //All of this shit is useless for vines
 
 /turf/simulated/floor/vines/attackby(obj/item/item, mob/user, params)
-	return ATTACK_CHAIN_BLOCKED_ALL
+	. = ..()
+	return .|ATTACK_CHAIN_BLOCKED_ALL
 
 /turf/simulated/floor/vines/burn_tile()
 	return
@@ -520,7 +521,7 @@
 		wither()
 
 /obj/structure/spacevine/proceed_attack_results(obj/item/item, mob/living/user, params, def_zone)
-	. = ATTACK_CHAIN_PROCEED_SUCCESS
+	. = ..()
 	if(!item.force)
 		user.visible_message(
 			span_warning("[user] gently pokes [src] with [item]."),

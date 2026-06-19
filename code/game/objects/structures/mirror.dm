@@ -176,7 +176,8 @@
 	curse(user)
 
 /obj/structure/mirror/magic/attackby(obj/item/I, mob/living/user, params)
-	return ATTACK_CHAIN_BLOCKED_ALL
+	. = ..()
+	return .|ATTACK_CHAIN_BLOCKED_ALL
 
 /obj/structure/mirror/magic/proc/curse(mob/living/user)
 	return

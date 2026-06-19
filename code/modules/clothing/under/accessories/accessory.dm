@@ -745,7 +745,7 @@
 			span_userdanger("[user] invades [target]'s personal space, thrusting [src] to [target.p_their()] face insistently!"),
 			span_userdanger("You invade [target]'s personal space, thrusting [src] to [target.p_their()] face insistently. You are the law!"),
 		)
-	return ATTACK_CHAIN_PROCEED_SUCCESS
+	return ..()
 
 /obj/item/clothing/accessory/holobadge/attackby(obj/item/I, mob/user, params)
 	var/obj/item/card/id/id = I.GetID()

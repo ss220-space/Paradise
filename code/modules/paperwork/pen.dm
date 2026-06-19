@@ -162,7 +162,7 @@
 
 /obj/item/pen/sleepy/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!target.can_inject(user, TRUE, ignore_pierceimmune = TRUE))
-		return ATTACK_CHAIN_PROCEED
+		return ..()
 	. = ATTACK_CHAIN_PROCEED_SUCCESS
 	var/transfered = 0
 	if(reagents.total_volume && target.reagents)

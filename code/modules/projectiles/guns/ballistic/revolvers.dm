@@ -94,7 +94,7 @@
 	return ..()
 
 /obj/item/gun/projectile/revolver/fingergun/attackby(obj/item/I, mob/user, params)
-	return ATTACK_CHAIN_PROCEED
+	return ..()
 
 /obj/item/gun/projectile/revolver/fingergun/attack_self(mob/living/user)
 	. = ..()

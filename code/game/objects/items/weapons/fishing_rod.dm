@@ -156,20 +156,23 @@
 		reward_fish = pick(fishable_list)
 
 /obj/item/twohanded/fishing_rod/attackby(obj/item/I, mob/user, params)
+	. = ..()
+	if(ATTACK_CHAIN_CANCEL_CHECK(.))
+		return .
 	if(!istype(I, /obj/item/reagent_containers/food/snacks/bait))
-		return ATTACK_CHAIN_PROCEED
+		return .
 
 	if(bait)
 		balloon_alert(user, "наживка уже на удочке!")
-		return ATTACK_CHAIN_PROCEED
+		return .
 
 	var/obj/item/reagent_containers/food/snacks/bait/worm = I
 	if(!user.drop_transfer_item_to_loc(I, src))
-		return ATTACK_CHAIN_PROCEED
+		return .
 	bait = worm
 	to_chat(user, span_notice("Вы насадили [worm.declent_ru(ACCUSATIVE)] на крючок."))
 	update_icon(UPDATE_OVERLAYS)
-	return ATTACK_CHAIN_PROCEED_SUCCESS
+	return .|ATTACK_CHAIN_SUCCESS
 
 /obj/item/twohanded/fishing_rod/click_alt(mob/user)
 	if(!bait)

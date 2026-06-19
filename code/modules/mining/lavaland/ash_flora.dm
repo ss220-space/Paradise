@@ -406,11 +406,14 @@
 	)
 
 /obj/item/reagent_containers/food/snacks/grown/ash_flora/coaltree_log/attackby(obj/item/I, mob/user, params)
+	. = ..()
+	if(ATTACK_CHAIN_CANCEL_CHECK(.))
+		return .
 	if(I.sharp)
 		if(!isturf(loc))
 			add_fingerprint(user)
 			to_chat(user, span_warning("Вы не можете рубить [declent_ru(ACCUSATIVE)] [ismob(loc) ? "в инвентаре" : "в [loc.declent_ru(PREPOSITIONAL)]"]."))
-			return ATTACK_CHAIN_PROCEED
+			return .
 
 		to_chat(user, span_notice("Вы порубили [declent_ru(ACCUSATIVE)] на доски."))
 		var/seed_modifier = 0
@@ -420,7 +423,7 @@
 		transfer_fingerprints_to(planks)
 		planks.add_fingerprint(user)
 		qdel(src)
-		return ATTACK_CHAIN_BLOCKED_ALL
+		return .|ATTACK_CHAIN_BLOCKED_ALL
 
 //SEEDS
 

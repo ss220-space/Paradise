@@ -193,7 +193,7 @@
 /obj/item/grown/sunflower/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	to_chat(target, "<font color='green'><b> [user] smacks you with a sunflower!</font><font color='yellow'><b>FLOWER POWER<b></font>")
 	to_chat(user, "<font color='green'>Your sunflower's </font><font color='yellow'><b>FLOWER POWER</b></font><font color='green'>strikes [target]</font>")
-	return ATTACK_CHAIN_PROCEED_SUCCESS
+	return ..()
 
 // Moonflower
 /obj/item/seeds/sunflower/moonflower

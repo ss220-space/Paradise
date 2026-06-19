@@ -29,7 +29,7 @@
 
 /obj/item/banhammer/meta_hammer/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!target)
-		return ATTACK_CHAIN_PROCEED
+		return ..()
 
 	if(!COOLDOWN_FINISHED(src, cooldown))
 		user.balloon_alert(user, "перезарядка!")

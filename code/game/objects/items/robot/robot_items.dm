@@ -19,7 +19,7 @@
 		return .
 
 	if(isrobot(user) && !user.cell.use(charge_cost))
-		return .
+		return ..()
 
 	. |= ATTACK_CHAIN_SUCCESS
 	user.do_attack_animation(target)

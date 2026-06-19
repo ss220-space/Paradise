@@ -118,9 +118,9 @@
 		fucking_target.AdjustConfused(power)
 
 /obj/item/memorizer/attack(mob/living/fucking_target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
-	. = ATTACK_CHAIN_PROCEED
 	if(!try_use_flash(user))
-		return .
+		return ..()
+	. = ATTACK_CHAIN_PROCEED
 	if(iscarbon(fucking_target))
 		memorize_carbon(fucking_target, user, 5, TRUE)
 		if(overcharged)

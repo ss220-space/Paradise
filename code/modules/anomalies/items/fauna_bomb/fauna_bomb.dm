@@ -334,7 +334,7 @@
 #undef CHOOSING_ICON
 
 /obj/item/fauna_bomb/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim)
-	return ATTACK_CHAIN_PROCEED
+	return ..()
 
 /obj/item/fauna_bomb/preloaded/Initialize(mapload)
 	. = ..()

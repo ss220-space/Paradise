@@ -26,28 +26,31 @@
 	qdel(src)
 
 /obj/structure/cable/multiz/attackby(obj/item/I, mob/user, params)
+	. = ..()
+	if(ATTACK_CHAIN_CANCEL_CHECK(.))
+		return .
 	var/turf/our_turf = get_turf(src)
 	if(!our_turf)
-		return ATTACK_CHAIN_BLOCKED_ALL
+		return .|ATTACK_CHAIN_BLOCKED_ALL
 
 	if(HAS_TRAIT(src, TRAIT_UNDERFLOOR))
 		to_chat(user, span_danger("You cannot interact with something that's under the floor!"))
-		return ATTACK_CHAIN_BLOCKED_ALL
+		return .|ATTACK_CHAIN_BLOCKED_ALL
 
 	if(iscoil(I))
 		add_fingerprint(user)
 		var/obj/item/stack/cable_coil/coil = I
 		if(coil.get_amount() < 1)
 			to_chat(user, span_warning("Not enough cable!"))
-			return ATTACK_CHAIN_PROCEED
+			return .
 		coil.place_turf(our_turf, user)
-		return ATTACK_CHAIN_BLOCKED_ALL
+		return .|ATTACK_CHAIN_BLOCKED_ALL
 
 	if((I.flags & CONDUCT) && shock(user, 50, 0.7))
 		add_fingerprint(user)
-		return ATTACK_CHAIN_BLOCKED_ALL
+		return .|ATTACK_CHAIN_BLOCKED_ALL
 
-	return ATTACK_CHAIN_PROCEED
+	return .
 
 /obj/structure/cable/multiz/wirecutter_act(mob/user, obj/item/I)
 	. = ..()

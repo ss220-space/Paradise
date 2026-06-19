@@ -21,16 +21,16 @@
 	)
 
 /obj/item/stack/telecrystal/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
-	. = ATTACK_CHAIN_PROCEED
 	if(target != user) //You can't go around smacking people with crystals to find out if they have an uplink or not.
-		return .
+		return ..()
+	. = ATTACK_CHAIN_PROCEED
 	for(var/obj/item/implant/uplink/uplink_imp in user)
 		if(uplink_imp.imp_in != user)
 			continue
 		uplink_imp.hidden_uplink.uses += amount
 		balloon_alert(user, UNLINT("ТК активирован!"))
 		qdel(src)
-		return ATTACK_CHAIN_BLOCKED_ALL
+		return .|ATTACK_CHAIN_BLOCKED_ALL
 
 /obj/item/stack/telecrystal/afterattack(obj/item/target, mob/user, proximity_flag, list/modifiers, status)
 	if(!proximity_flag)

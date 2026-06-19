@@ -654,7 +654,9 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 	. = ..()
 
 /obj/effect/fake_attacker/attackby(obj/item/I, mob/user, params)
-	. = ATTACK_CHAIN_PROCEED
+	. = ..()
+	if(ATTACK_CHAIN_CANCEL_CHECK(.))
+		return .
 	if(!my_target)
 		return .
 	. |= ATTACK_CHAIN_SUCCESS

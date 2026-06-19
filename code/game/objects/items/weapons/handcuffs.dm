@@ -32,9 +32,10 @@
 	)
 
 /obj/item/restraints/handcuffs/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
-	. = ATTACK_CHAIN_PROCEED
 	if(!iscarbon(target))
-		return .
+		return ..()
+
+	. = ATTACK_CHAIN_PROCEED
 
 	if(!user.IsAdvancedToolUser())
 		return .
@@ -266,7 +267,9 @@
 	icon_state = "cuff_white_used"
 
 /obj/item/restraints/handcuffs/cable/zipties/used/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
-	return ATTACK_CHAIN_PROCEED
+	if(iscarbon(target))	// broken, can't cuff anyone
+		return ATTACK_CHAIN_PROCEED
+	return ..()
 
 /obj/item/restraints/handcuffs/alien
 	icon_state = "handcuffAlien"
@@ -320,4 +323,6 @@
 	icon_state = "manacle_unlock"
 
 /obj/item/restraints/handcuffs/manacles/used/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
-	return ATTACK_CHAIN_PROCEED
+	if(iscarbon(target))	// broken, can't cuff anyone
+		return ATTACK_CHAIN_PROCEED
+	return ..()

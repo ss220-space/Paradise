@@ -196,7 +196,7 @@
 
 /obj/item/autopsy_scanner/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!ishuman(target) || !on_operable_surface(target))
-		return ATTACK_CHAIN_PROCEED
+		return ..()
 
 	. = ATTACK_CHAIN_PROCEED_SUCCESS
 
@@ -214,7 +214,7 @@
 	var/obj/item/organ/external/limb = target.get_organ(user.zone_selected)
 	if(!limb)
 		user.balloon_alert(user, "часть тела нельзя просканировать!")
-		return NONE
+		return .
 
 	target.visible_message(span_notice("[user] сканирует [limb.declent_ru(ACCUSATIVE)] [target] на предмет ранений, используя [declent_ru(ACCUSATIVE)]."))
 

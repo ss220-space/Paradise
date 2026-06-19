@@ -15,9 +15,16 @@
  * * ATTACK_CHAIN_SUCCESS - indicates that something meaningful was done on one of the previous steps; basically additional to ATTACK_CHAIN_BLOCKED flag, we are checking to proceed, in some of the children overrides
  * * ATTACK_CHAIN_NO_AFTERATTACK - completely skips afterattack
  *
+ * Arguments:
+ * * `mob/user` - The mob attacking with the item
+ * * `atom/target` - The atom being hit
+ * * `list/modifiers` - click modifiers such as alt/shift etc
+ * * `list/attack_modifiers` - attack modifiers such as force, damage type, etc
+ *
  * Returns a combination of all the bitflags we get on every step of the chain.
  */
 /obj/item/proc/melee_attack_chain(mob/user, atom/target, list/modifiers, list/attack_modifiers = list())
+	SHOULD_CALL_PARENT(TRUE)
 	. = ATTACK_CHAIN_PROCEED
 
 	var/user_type = "[user.type]"
@@ -96,16 +103,17 @@
 //		SSdemo.mark_dirty(target)
 
 /**
- * Called on the item to check if it has any of the tool's behavior
+ * Called on the item to check if it has any of the tool's behavior.
  *
  * Arguments:
- * * mob/user - The mob holding the tool
- * * atom/target - The atom about to be tooled
- * * params - click params such as alt/shift etc
+ * * `mob/user` - The mob holding the tool
+ * * `atom/target` - The atom about to be tooled
+ * * `list/modifiers` - click modifiers such as alt/shift etc
  *
  * See: [/obj/item/proc/melee_attack_chain]
  */
 /obj/item/proc/tool_attack_chain(mob/user, atom/target, list/modifiers)
+	SHOULD_CALL_PARENT(TRUE)
 	. = ATTACK_CHAIN_PROCEED
 	if(target.base_item_interaction(user, src, modifiers))
 		return ATTACK_CHAIN_BLOCKED
@@ -128,16 +136,17 @@
 	attack_self(user)
 
 /**
- * Called on the item before it hits something
+ * Called on the item before it hits something.
  *
  * Arguments:
- * * atom/target - The atom about to be hit
- * * mob/living/user - The mob doing the htting
- * * params - click params such as alt/shift etc
+ * * `atom/target` - The atom about to be hit
+ * * `mob/living/user` - The mob doing the htting
+ * * `modifiers` - click modifiers such as alt/shift etc
  *
  * See: [/obj/item/proc/melee_attack_chain]
  */
 /obj/item/proc/pre_attackby(atom/target, mob/living/user, modifiers)
+	SHOULD_CALL_PARENT(TRUE)
 	. = ATTACK_CHAIN_PROCEED
 	var/signal_out = SEND_SIGNAL(src, COMSIG_ITEM_PRE_ATTACKBY, target, user, modifiers)
 	if(signal_out & COMPONENT_NO_AFTERATTACK)
@@ -155,7 +164,7 @@
  * Arguments:
  * * atom/target - The atom about to be hit
  * * mob/living/user - The mob doing the htting
- * * list/modifiers - click params such as alt/shift etc
+ * * list/modifiers - click modifiers such as alt/shift etc
  * * list/attack_modifiers - attack modifiers such as force, damage type, etc
  *
  * See: [/obj/item/proc/melee_attack_chain]
@@ -172,16 +181,17 @@
 	return SECONDARY_ATTACK_CALL_NORMAL
 
 /**
- * Called on an object being hit by an item
+ * Called on an object being hit by an item.
  *
  * Arguments:
- * * obj/item/item - The item hitting this atom
- * * mob/user - The wielder of this item
- * * params - click params such as alt/shift etc
+ * * `obj/item/item` - The item hitting this atom
+ * * `mob/user` - The wielder of this item
+ * * `modifiers` - click modifiers such as alt/shift etc
  *
  * See: [/obj/item/proc/melee_attack_chain]
  */
 /atom/proc/attackby(obj/item/item, mob/user, modifiers)
+	SHOULD_CALL_PARENT(TRUE)
 	. = ATTACK_CHAIN_PROCEED
 	var/signal_out = SEND_SIGNAL(src, COMSIG_ATOM_ATTACKBY, item, user, modifiers)
 	if(signal_out & COMPONENT_CANCEL_ATTACK_CHAIN)
@@ -195,7 +205,7 @@
  * Arguments:
  * * obj/item/weapon - The item hitting this atom
  * * mob/user - The wielder of this item
- * * list/modifiers - click params such as alt/shift etc
+ * * list/modifiers - click modifiers such as alt/shift etc
  * * list/attack_modifiers - attack modifiers such as force, damage type, etc
  *
  * See: [/obj/item/proc/melee_attack_chain]
@@ -217,7 +227,10 @@
 		return .
 	if(obj_flags & IGNORE_HITS)
 		return .
-	. |= item.attack_obj(src, user, modifiers)
+	var/attack_obj_result = item.attack_obj(src, user, modifiers)
+	if(!(attack_obj_result & ATTACK_CHAIN_CORE_RETURN_BITFLAGS))
+		stack_trace("attack_obj() must return one of the core ATTACK_CHAIN_* bitflags, please consult code/__DEFINES/combat.dm; user = [user.type]; item = [item.type]; target = [type]")
+	. |= attack_obj_result
 
 /mob/living/attackby(obj/item/item, mob/living/user, list/modifiers)
 	. = ..()
@@ -230,7 +243,10 @@
 		if(splatter_color)
 			new /obj/effect/temp_visual/dir_setting/bloodsplatter(loc, get_angle(user, src), splatter_color)
 	user.changeNext_move(item.attack_speed)
-	. |= item.attack(src, user, modifiers, user.zone_selected)
+	var/attack_result = item.attack(src, user, modifiers, user.zone_selected)
+	if(!(attack_result & ATTACK_CHAIN_CORE_RETURN_BITFLAGS))
+		stack_trace("attack() must return one of the core ATTACK_CHAIN_* bitflags, please consult code/__DEFINES/combat.dm; user = [user.type]; item = [item.type]; target = [type]")
+	. |= attack_result
 
 /mob/living/attackby_secondary(obj/item/weapon, mob/living/user, list/modifiers, list/attack_modifiers)
 	var/result = weapon.attack_secondary(src, user, modifiers, attack_modifiers)
@@ -248,13 +264,14 @@
  * Called from [/mob/living/proc/attackby]
  *
  * Arguments:
- * * mob/living/target - The mob being hit by this item
- * * mob/living/user - The mob hitting with this item
- * * params - Click params of this attack
- * * def_zone - Bodypart zone, targeted by the wielder of this item
- * * skip_attack_anim - If TRUE will not animate hitting mob's attack
+ * * `mob/living/target` - The mob being hit by this item
+ * * `mob/living/user` - The mob hitting with this item
+ * * `list/modifiers` - Click modifiers of this attack
+ * * `def_zone` - Bodypart zone, targeted by the wielder of this item
+ * * `skip_attack_anim` - If TRUE will not animate hitting mob's attack
  */
 /obj/item/proc/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
+	SHOULD_CALL_PARENT(TRUE)
 	. = ATTACK_CHAIN_PROCEED
 
 	var/signal_out = SEND_SIGNAL(src, COMSIG_ITEM_ATTACK, target, user, modifiers, def_zone)
@@ -294,7 +311,10 @@
 		user.do_attack_animation(target)
 
 	add_fingerprint(user)
-	. |= target.proceed_attack_results(src, user, modifiers, def_zone)
+	var/proceed_result = target.proceed_attack_results(src, user, modifiers, def_zone)
+	if(!(proceed_result & ATTACK_CHAIN_CORE_RETURN_BITFLAGS))
+		stack_trace("proceed_attack_results() must return one of the core ATTACK_CHAIN_* bitflags, please consult code/__DEFINES/combat.dm; user = [user.type]; item = [type]; target = [target.type]")
+	. |= proceed_result
 
 /// The equivalent of [/obj/item/proc/attack] but for alternate attacks, AKA right clicking
 /obj/item/proc/attack_secondary(mob/living/victim, mob/living/user, list/modifiers, list/attack_modifiers)
@@ -310,6 +330,7 @@
 
 /// The equivalent of the standard version of [/obj/item/proc/attack] but for object targets.
 /obj/item/proc/attack_obj(obj/object, mob/living/user, list/modifiers)
+	SHOULD_CALL_PARENT(TRUE)
 	. = ATTACK_CHAIN_PROCEED
 
 	var/signal_out = SEND_SIGNAL(src, COMSIG_ITEM_ATTACK_OBJ, object, user, modifiers)
@@ -329,22 +350,26 @@
 	add_fingerprint(user)
 	user.do_attack_animation(object)
 	user.changeNext_move(attack_speed)
-	. |= object.proceed_attack_results(src, user, modifiers)
+	var/proceed_result = object.proceed_attack_results(src, user, modifiers)
+	if(!(proceed_result & ATTACK_CHAIN_CORE_RETURN_BITFLAGS))
+		stack_trace("proceed_attack_results() must return one of the core ATTACK_CHAIN_* bitflags, please consult code/__DEFINES/combat.dm; user = [user.type]; item = [type]; target = [object.type]")
+	. |= proceed_result
 
 /**
  * Called from [/obj/item/proc/attack] and [/obj/item/proc/attack_obj]
  *
  * Arguments:
- * * obj/item/item - The item hitting this atom
- * * mob/living/user - The wielder of this item
- * * params - Click params of this attack
- * * def_zone - Bodypart zone, targeted by the wielder of this item
+ * * `obj/item/item` - The item hitting this atom
+ * * `mob/living/user` - The wielder of this item
+ * * `list/modifiers` - Click modifiers of this attack
+ * * `def_zone` - Bodypart zone, targeted by the wielder of this item
  */
 /atom/movable/proc/proceed_attack_results(obj/item/item, mob/living/user, list/modifiers, def_zone)
-	return ATTACK_CHAIN_PROCEED_SUCCESS
+	SHOULD_CALL_PARENT(TRUE)
+	. = ATTACK_CHAIN_PROCEED_SUCCESS
 
 /obj/proceed_attack_results(obj/item/item, mob/living/user, list/modifiers)
-	. = ATTACK_CHAIN_PROCEED_SUCCESS
+	. = ..()
 	if(!item.force)
 		user.visible_message(
 			span_warning("[user] аккуратно тыкнул[GEND_A_O_I(user)] [declent_ru(ACCUSATIVE)] [item.declent_ru(INSTRUMENTAL)]."),
@@ -360,7 +385,7 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 /mob/living/proceed_attack_results(obj/item/item, mob/living/user, list/modifiers, def_zone)
-	. = ATTACK_CHAIN_PROCEED_SUCCESS
+	. = ..()
 
 	send_item_attack_message(item, user, def_zone)
 	if(!item.force)

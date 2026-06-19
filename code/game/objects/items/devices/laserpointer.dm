@@ -47,7 +47,7 @@
 /obj/item/laser_pointer/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(laser_act(target, user))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
-	return ATTACK_CHAIN_PROCEED
+	return ..()
 
 /obj/item/laser_pointer/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stock_parts/micro_laser))

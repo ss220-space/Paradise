@@ -53,12 +53,15 @@
 		qdel(src)
 
 /obj/effect/decal/attackby(obj/item/item, mob/user, params)
+	. = ..()
+	if(ATTACK_CHAIN_CANCEL_CHECK(.))
+		return .
 	if(!isglassreagentcontainer(item) && !istype(item, /obj/item/reagent_containers/food/drinks))
-		return ATTACK_CHAIN_PROCEED
+		return .
 
 	add_fingerprint(user)
 	scoop(item, user)
-	return ATTACK_CHAIN_BLOCKED_ALL
+	return .|ATTACK_CHAIN_BLOCKED_ALL
 
 /obj/effect/decal/proc/scoop(obj/item/item, mob/user)
 	if(!reagents || !item.reagents || no_scoop)

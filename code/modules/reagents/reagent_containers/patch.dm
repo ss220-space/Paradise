@@ -25,9 +25,9 @@
 	)
 
 /obj/item/reagent_containers/food/pill/patch/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
-	. = ATTACK_CHAIN_PROCEED
 	if(!iscarbon(target))
-		return .
+		return ..()
+	. = ATTACK_CHAIN_PROCEED
 	if(!user.can_unEquip(src))
 		return .
 	if(!target.can_inject(user, FALSE))
@@ -38,7 +38,7 @@
 	user.drop_transfer_item_to_loc(src, target)
 	application_zone = def_zone
 	LAZYADD(target.processing_patches, src)
-	return ATTACK_CHAIN_BLOCKED_ALL
+	return .|ATTACK_CHAIN_BLOCKED_ALL
 
 /obj/item/reagent_containers/food/pill/patch/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	return // thanks inheritance again

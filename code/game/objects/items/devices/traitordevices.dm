@@ -114,7 +114,7 @@ effective or pretty fucking useless.
 /obj/item/rad_laser/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(used)
 		balloon_alert(user, "идёт перезарядка!")
-		return ATTACK_CHAIN_PROCEED
+		return ..()
 
 	. = ATTACK_CHAIN_PROCEED_SUCCESS
 	add_attack_logs(user, target, "Irradiated by [src]")

@@ -101,9 +101,12 @@
 	qdel(src)
 
 /obj/effect/old_anomaly/attackby(obj/item/item, mob/user, params)
+	. = ..()
+	if(ATTACK_CHAIN_CANCEL_CHECK(.))
+		return .
 	if(istype(item, /obj/item/analyzer))
 		to_chat(user, span_notice("Analyzing... [src]'s unstable field is fluctuating along frequency [format_frequency(aSignal.frequency)], code [aSignal.code]."))
-	return ATTACK_CHAIN_PROCEED_SUCCESS
+	return .|ATTACK_CHAIN_SUCCESS
 
 // MARK: Gravitational
 

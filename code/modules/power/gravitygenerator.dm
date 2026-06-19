@@ -74,9 +74,12 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 	return ..()
 
 /obj/machinery/gravity_generator/part/attackby(obj/item/I, mob/user, params)
+	. = ..()
+	if(ATTACK_CHAIN_CANCEL_CHECK(.))
+		return .
 	if(!main_part)
-		return ATTACK_CHAIN_BLOCKED_ALL
-	return main_part.attackby(I, user, params)
+		return .|ATTACK_CHAIN_BLOCKED_ALL
+	return . | main_part.attackby(I, user, params)
 
 /obj/machinery/gravity_generator/part/get_status()
 	if(!main_part)

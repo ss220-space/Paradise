@@ -72,10 +72,10 @@
 		. += "[base_icon_state]_printing"
 
 /obj/item/bodyanalyzer/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
-	. = ATTACK_CHAIN_PROCEED
-
 	if(user.incapacitated() || !user.Adjacent(target))
-		return .
+		return ..()
+
+	. = ATTACK_CHAIN_PROCEED
 
 	if(!ready)
 		to_chat(user, span_notice("The scanner beeps angrily at you! It's currently recharging - [round((time_to_use - world.time) * 0.1)] seconds remaining."))
@@ -90,10 +90,10 @@
 		playsound(user.loc, 'sound/machines/buzz-sigh.ogg', 50, TRUE)
 
 /obj/item/bodyanalyzer/borg/attack(mob/living/target, mob/living/silicon/robot/user, params, def_zone, skip_attack_anim = FALSE)
-	. = ATTACK_CHAIN_PROCEED
-
 	if(user.incapacitated() || !user.Adjacent(target))
-		return .
+		return ..()
+
+	. = ATTACK_CHAIN_PROCEED
 
 	if(!ready)
 		to_chat(user, span_notice("[src] is currently recharging - [round((time_to_use - world.time) * 0.1)] seconds remaining."))

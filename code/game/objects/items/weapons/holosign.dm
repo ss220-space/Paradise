@@ -52,7 +52,7 @@
 					to_chat(user, span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] работает на максимальной мощности!"))
 
 /obj/item/holosign_creator/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
-	return ATTACK_CHAIN_PROCEED
+	return ..()
 
 /obj/item/holosign_creator/attack_self(mob/user)
 	if(length(signs))

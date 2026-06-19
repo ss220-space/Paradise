@@ -105,11 +105,11 @@
 	return ..()
 
 /obj/item/card/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
-	. = ATTACK_CHAIN_PROCEED
 	var/obj/item/active_hand = user.get_active_hand()
 	var/obj/item/card/id/id_card = active_hand?.GetID()
 	if(!istype(id_card))
-		return .
+		return ..()
+	. = ATTACK_CHAIN_PROCEED
 	if(!target.is_type_in_hands(/obj/item/eftpos))
 		return .
 	. |= ATTACK_CHAIN_SUCCESS

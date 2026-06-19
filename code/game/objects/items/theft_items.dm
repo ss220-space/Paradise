@@ -33,7 +33,8 @@
 	return ..()
 
 /obj/item/nuke_core/attackby(obj/item/I, mob/user, params)
-	return ATTACK_CHAIN_BLOCKED_ALL
+	. = ..()
+	return .|ATTACK_CHAIN_BLOCKED_ALL
 
 /obj/item/nuke_core/process()
 	if(cooldown < world.time - 2 SECONDS)
@@ -233,6 +234,9 @@
 	return FALSE
 
 /obj/item/nuke_core/supermatter_sliver/attackby(obj/item/I, mob/living/user, params)
+	. = ..()
+	if(ATTACK_CHAIN_CANCEL_CHECK(.))
+		return .
 	. = ATTACK_CHAIN_BLOCKED_ALL
 	add_fingerprint(user)
 

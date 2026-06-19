@@ -23,7 +23,8 @@
 	return
 
 /turf/simulated/floor/indestructible/attackby(obj/item/I, mob/user, params)
-	return ATTACK_CHAIN_BLOCKED_ALL
+	. = ..()
+	return .|ATTACK_CHAIN_BLOCKED_ALL
 
 /turf/simulated/floor/indestructible/attack_hand(mob/user)
 	return
