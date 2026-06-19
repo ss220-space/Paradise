@@ -2784,9 +2784,7 @@
 /turf/simulated/floor/plating/nitrogen,
 /area/vox_station)
 "bxN" = (
-/obj/structure/shuttle/engine/platform{
-	layer = 2.9
-	},
+/obj/structure/shuttle/engine/platform,
 /obj/structure/shuttle/engine/propulsion{
 	dir = 1;
 	icon_state = "propulsion_l"
@@ -3251,9 +3249,7 @@
 /obj/structure/window/plasmareinforced{
 	dir = 1
 	},
-/obj/structure/shuttle/engine/platform{
-	layer = 2.9
-	},
+/obj/structure/shuttle/engine/platform,
 /obj/structure/shuttle/engine/heater{
 	icon_state = "heater3x3_side_inv"
 	},
@@ -4816,8 +4812,7 @@
 /area/vox_station)
 "cwN" = (
 /obj/structure/shuttle/engine/platform{
-	dir = 8;
-	layer = 2.9
+	dir = 8
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/vox)
@@ -14759,8 +14754,7 @@
 	dir = 8
 	},
 /obj/structure/shuttle/engine/platform{
-	dir = 4;
-	layer = 2.9
+	dir = 4
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/vox)
@@ -18784,8 +18778,7 @@
 /area/centcom/evac)
 "jfO" = (
 /obj/structure/shuttle/engine/platform{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/shuttle/engine/huge,
 /turf/simulated/floor/plating/airless,
@@ -19427,17 +19420,6 @@
 	icon_state = "white"
 	},
 /area/centcom/specops)
-"jtw" = (
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/shuttle/engine/platform{
-	dir = 1
-	},
-/turf/space,
-/area/space)
 "jtL" = (
 /obj/item/paper_bin/nanotrasen{
 	pixel_x = 3;
@@ -22358,21 +22340,6 @@
 /obj/effect/mapping_helpers/light,
 /turf/simulated/floor/indestructible/grass,
 /area/syndicate_mothership/outside)
-"kDu" = (
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/shuttle/engine/heater{
-	icon_state = "heater2x2_side"
-	},
-/obj/structure/shuttle/engine/platform,
-/turf/space,
-/area/space)
 "kDL" = (
 /obj/structure/table/wood/fancy/black,
 /obj/item/reagent_containers/food/snacks/candy/cotton/blue,
@@ -23126,8 +23093,7 @@
 /area/centcom/supply)
 "kWH" = (
 /obj/structure/shuttle/engine/platform{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/vox)
@@ -24289,9 +24255,7 @@
 /obj/structure/window/plasmareinforced{
 	dir = 1
 	},
-/obj/structure/shuttle/engine/platform{
-	layer = 2.9
-	},
+/obj/structure/shuttle/engine/platform,
 /obj/structure/shuttle/engine/heater{
 	icon_state = "heater3x3_side"
 	},
@@ -25131,9 +25095,7 @@
 /obj/structure/window/plasmareinforced{
 	dir = 1
 	},
-/obj/structure/shuttle/engine/platform{
-	layer = 2.9
-	},
+/obj/structure/shuttle/engine/platform,
 /obj/structure/shuttle/engine/heater{
 	icon_state = "heater3x3"
 	},
@@ -25483,8 +25445,7 @@
 	dir = 8
 	},
 /obj/structure/shuttle/engine/platform{
-	dir = 4;
-	layer = 2.9
+	dir = 4
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/vox)
@@ -26436,8 +26397,7 @@
 /area/centcom/zone3)
 "mtm" = (
 /obj/structure/shuttle/engine/platform{
-	dir = 1;
-	layer = 2.9
+	dir = 1
 	},
 /obj/structure/window/plasmareinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -35103,8 +35063,7 @@
 	dir = 8
 	},
 /obj/structure/shuttle/engine/platform{
-	dir = 4;
-	layer = 2.9
+	dir = 4
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/vox)
@@ -45095,8 +45054,7 @@
 /area/vox_station)
 "usq" = (
 /obj/structure/shuttle/engine/platform{
-	dir = 8;
-	layer = 2.9
+	dir = 8
 	},
 /obj/structure/shuttle/engine/huge{
 	dir = 4
@@ -48034,21 +47992,6 @@
 /obj/item/flag/species/vox,
 /turf/simulated/floor/mineral/plastitanium/nitrogen,
 /area/vox_station)
-"vLB" = (
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/shuttle/engine/heater{
-	icon_state = "heater2x2"
-	},
-/obj/structure/shuttle/engine/platform,
-/turf/space,
-/area/space)
 "vLL" = (
 /turf/simulated/wall/shuttle{
 	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
@@ -95829,8 +95772,8 @@ mVX
 mVX
 mVX
 mVX
-vLB
-jtw
+mVX
+mVX
 mVX
 mVX
 mVX
@@ -96086,8 +96029,8 @@ mVX
 mVX
 mVX
 mVX
-kDu
-jtw
+mVX
+mVX
 mVX
 mVX
 mVX
@@ -99684,8 +99627,8 @@ mVX
 mVX
 mVX
 mVX
-vLB
-jtw
+mVX
+mVX
 mVX
 mVX
 mVX
@@ -99941,8 +99884,8 @@ mVX
 mVX
 mVX
 mVX
-kDu
-jtw
+mVX
+mVX
 mVX
 mVX
 mVX
