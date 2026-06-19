@@ -7,8 +7,8 @@ jobs:
   compile_all_stations:
     name: Compile All Station Maps
     runs-on: ubuntu-24.04
+    container: ghcr.io/ss220-space/ubuntu-24.04:latest
     timeout-minutes: 20
-
     steps:
       - uses: actions/checkout@v7
 
@@ -18,14 +18,12 @@ jobs:
           cache: "yarn"
           cache-dependency-path: ./tgui/yarn.lock
 
-      - name: Restore BYOND from Cache
-        uses: ./.github/actions/restore_or_install_byond
-        with:
-          release: "STABLE"
+      #- name: Restore BYOND from Cache
+      #  uses: ./.github/actions/restore_or_install_byond
+      #  with:
+      #    release: "STABLE"
 
       - name: Compile All Maps
         run: |
-          tools/ci/install_byond.sh
-          source $HOME/BYOND/byond/bin/byondsetup
           tools/ci/generate_maplist.sh
           tools/ci/dm.sh -Mci_map_testing paradise.dme
