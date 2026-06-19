@@ -47,6 +47,8 @@
 	cast_on.Hallucinate(120 SECONDS)
 	cast_on.cause_hallucination(/datum/hallucination/delusion/preset/heretic/gate, "Эффект Врат Разума")
 	cast_on.adjustOrganLoss(INTERNAL_ORGAN_BRAIN, 30)
+	// master220 has no mood system; tg's moon_smile moodlet on the target becomes this chat line.
+	to_chat(cast_on, span_warning("Ваши глаза кричат от боли, уши кровоточат, а губы немеют! ЛУНА УЛЫБАЕТСЯ ВАМ!"))
 
 	var/mob/living/living_owner = action.owner
-	living_owner.adjustOrganLoss(INTERNAL_ORGAN_BRAIN, 10, 140)
+	living_owner.adjustOrganLoss(INTERNAL_ORGAN_BRAIN, 20, 140) // TG: caster takes 20 brain damage per cast.

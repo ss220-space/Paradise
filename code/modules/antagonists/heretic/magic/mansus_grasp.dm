@@ -62,17 +62,33 @@
 	return
 
 
+// Right-click on a non-living target (airlock/wall/structure/turf) fires the secondary grasp (Rust/Lock
+// path effects). We do it HERE, in pre_attack_secondary, because this runs at the very start of the attack
+// chain (melee_attack_chain) - BEFORE the target's own attackby. Doing it in afterattack failed on doors:
+// /obj/machinery/door/airlock/attackby would try to open the door (or shock us) and return
+// ATTACK_CHAIN_BLOCKED_ALL, skipping afterattack entirely, so the grasp never fired and the airlock
+// survived. Running before attackby makes the corrode/smash reliable, mirroring tg (where the touch hand
+// casts via interaction signals that run before the door's open handling). Living targets fall through to
+// the normal (primary) combat grasp in afterattack.
+/obj/item/melee/touch_attack/mansus_fist/pre_attack_secondary(atom/victim, mob/living/carbon/caster, list/modifiers, list/attack_modifiers)
+	if(isliving(victim))
+		return SECONDARY_ATTACK_CALL_NORMAL
+	if(SEND_SIGNAL(caster, COMSIG_HERETIC_MANSUS_GRASP_ATTACK_SECONDARY, victim) & COMPONENT_USE_HAND)
+		// Consume the hand AND start the spell's cooldown, exactly like the primary grasp (godhand's
+		// afterattack runs attached_spell.perform()) and like tg (where the secondary hit's
+		// SECONDARY_ATTACK_CONTINUE_CHAIN calls remove_hand(), which StartCooldown()s). The old
+		// remove_hand_with_no_refund() path just deleted the hand without ever recharging, so the
+		// secondary grasp could be spammed with no cooldown. perform() also fires the invocation/sound,
+		// matching tg's spell_feedback.
+		if(attached_spell)
+			attached_spell.perform(list(), user = caster)
+		qdel(src)
+	return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+
+
 /obj/item/melee/touch_attack/mansus_fist/afterattack(atom/victim, mob/living/carbon/caster, proximity, list/modifiers, status)
 	if(!proximity)
 		return ATTACK_CHAIN_BLOCKED_ALL
-
-	// Right-click on a non-living target triggers the secondary grasp (Rust/Lock path effects on
-	// turfs, walls, airlocks...). Left-click — or any click on a living mob — performs the normal
-	// combat grasp. This replaces selfharm's old Z-key (attack_self) mode toggle, using Paradise's
-	// TG-style left/right click split instead.
-	if(LAZYACCESS(modifiers, RIGHT_CLICK) && !isliving(victim))
-		SEND_SIGNAL(caster, COMSIG_HERETIC_MANSUS_GRASP_ATTACK_SECONDARY, victim)
-		return ..()
 
 	if(isturf(victim))
 		return ATTACK_CHAIN_BLOCKED_ALL
@@ -94,6 +110,12 @@
 	item_state = "mansus"
 	lefthand_file = 'icons/mob/inhands/touchspell_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/touchspell_righthand.dmi'
+	// NOBLUDGEON so the grasp isn't treated as a melee weapon: without it, right-clicking an airlock on a
+	// non-harm intent makes /obj/machinery/door/attackby run try_to_activate_door() and return
+	// ATTACK_CHAIN_BLOCKED_ALL, which skips afterattack() - so the secondary (Rust) grasp never fired and
+	// the airlock survived. With NOBLUDGEON the door lets the click through to afterattack, matching tg
+	// (where the touch hand casts via interaction signals that run before the door's open handling).
+	item_flags = ABSTRACT | DROPDEL | NOBLUDGEON
 	catchphrase = "Р'СКР ПР'ВД'!"
 
 

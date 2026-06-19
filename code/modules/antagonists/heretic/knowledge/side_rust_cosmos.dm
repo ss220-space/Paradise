@@ -45,7 +45,7 @@
 		/obj/item/organ/internal/liver = 1,
 	)
 	result_atoms = list(/obj/item/grenade/chem_grenade/rust_sower)
-	cost = 1
+	cost = 2 // TG: rust_sower costs 2
 	research_tree_icon_path = 'icons/obj/weapons/grenade.dmi'
 	research_tree_icon_state = "rustgrenade"
 

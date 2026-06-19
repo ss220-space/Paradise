@@ -4,23 +4,14 @@
 
 	route = PATH_SIDE
 
-	tier1 = /datum/heretic_knowledge/spell/mind_gate
+	// NB: Mind Gate is NOT a side knowledge - it is the Moon path's knowledge_tier1 (see moon_lore.dm),
+	// so it must NOT be claimed here. Listing it as this side column's tier1 used to overwrite its route to
+	// PATH_SIDE in the global tree, which shoved it into the Knowledge Shop (green node) instead of the Moon
+	// research tree. The moon_to_lock side column only carries genuine side knowledges.
 	tier2 = list(/datum/heretic_knowledge/unfathomable_curio, /datum/heretic_knowledge/painting)
 	tier3 = /datum/heretic_knowledge/codex_morbus
 
 // Sidepaths for knowledge between Knock and Moon.
-
-
-/datum/heretic_knowledge/spell/mind_gate
-	name = "Врата Разума"
-	desc = "Даёт вам «Врату Разума» — заклинание, вызывающее у цели галлюцинации, \
-			спутанность сознания, удушие и повреждения мозга в течение 10 секунд.\
-			Заклинатель получает 20 единиц урона мозгу за каждое применение."
-	gain_text = "Мой разум распахивается, как врата, и это, ценой немалых жертв, позволяет мне постичь истину."
-	research_tree_icon_path = 'icons/mob/actions/actions_ecult.dmi'
-	research_tree_icon_state = "mind_gate"
-	spell_to_add = /obj/effect/proc_holder/spell/pointed/mind_gate
-	cost = 1
 
 
 /datum/heretic_knowledge/unfathomable_curio

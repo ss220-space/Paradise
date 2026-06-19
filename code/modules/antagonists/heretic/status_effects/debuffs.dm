@@ -176,6 +176,9 @@
 	id = "moon converted"
 	alert_type = /atom/movable/screen/alert/status_effect/moon_converted
 	status_type = STATUS_EFFECT_REPLACE
+	// The berserk rampage lasts about a minute, then the victim's mind clears (or earlier if they take 75
+	// damage). TG keeps it until fullheal; we time-box it so the convertee runs amok "for a minute".
+	duration = 60 SECONDS
 	///used to track damage
 	var/damage_sustained = 0
 	///overlay used to indicate that someone is marked

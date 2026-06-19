@@ -67,6 +67,12 @@
 	if(!check_usability(user))
 		return
 
+	// Empowered heretics (aura ignited) can no longer shatter blades to teleport, so don't offer the hint.
+	var/datum/antagonist/heretic/our_heretic = user.mind?.has_antag_datum(/datum/antagonist/heretic)
+	if(our_heretic?.unlimited_blades)
+		. += span_notice("Ваша аура пробудилась — Мансус больше не позволит вам ломать клинки.")
+		return
+
 	. += span_notice("Вы можете разбить клинок, чтобы телепортироваться в случайное, обычно безопасное место, <b>сжав его в руке</b>.")
 
 
@@ -87,6 +93,14 @@
 
 /obj/item/melee/sickly_blade/attack_self(mob/user)
 	if(!HAS_TRAIT(user, TRAIT_ELDRITCH_ARENA_PARTICIPANT))
+		// Once the heretic's eldritch aura has ignited (robe crafted / enough knowledge -> unlimited_blades),
+		// the Mansus no longer lets them shatter a blade to teleport away (matches the empowerment message in
+		// disable_blade_breaking()). They keep their blades instead of escaping.
+		var/datum/antagonist/heretic/our_heretic = user.mind?.has_antag_datum(/datum/antagonist/heretic)
+		if(our_heretic?.unlimited_blades)
+			user.balloon_alert(user, "Мансус не даёт сломать клинок!")
+			return
+
 		if(!HAS_TRAIT(user, TRAIT_NO_TELEPORT))
 			seek_safety(user)
 			return

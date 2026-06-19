@@ -27,11 +27,6 @@
 	return new /datum/spell_targeting/self
 
 
-/obj/effect/proc_holder/spell/aoe/moon_ringleader/cast(list/targets, mob/user = usr)
-	new moon_effect(get_turf(targets[1]))
-	return ..()
-
-
 /obj/effect/proc_holder/spell/aoe/moon_ringleader/get_things_to_cast_on(atom/center, radius_override)
 	var/list/stuff = list()
 	var/list/o_range = orange(center, radius_override || aoe_range) - list(action.owner, center)
@@ -50,14 +45,23 @@
 	return stuff
 
 
-/obj/effect/proc_holder/spell/aoe/moon_ringleader/cast(list/targets, mob/caster = usr)
-	for(var/mob/living/carbon/victim as anything in targets)
+// NOTE: this spell self-targets (targeting == /datum/spell_targeting/self), so `targets` is just [caster].
+// The real AoE victims have to be gathered here via get_things_to_cast_on() - iterating `targets` directly
+// only ever hit the caster's own tile, which is why Ringleaders Rise did nothing to the crowd. (This proc
+// also used to be defined twice - the duplicate clobbered the visual + the victim gathering.)
+/obj/effect/proc_holder/spell/aoe/moon_ringleader/cast(list/targets, mob/user = usr)
+	var/turf/epicenter = get_turf(user)
+	new moon_effect(epicenter)
+	for(var/mob/living/carbon/victim as anything in get_things_to_cast_on(epicenter))
 		victim.adjustOrganLoss(INTERNAL_ORGAN_BRAIN, 20, 160)
 		victim.Hallucinate(120 SECONDS)
 		victim.Confused(20 SECONDS)
 		victim.EyeBlurry(20 SECONDS)
 		victim.Druggy(20 SECONDS)
 		victim.Slur(20 SECONDS)
+		// master220 has no mood system; tg's moon sanity drain becomes this chat line.
+		to_chat(victim, span_userdanger("ЛУНА СУДИТ ВАС И НАХОДИТ НЕДОСТОЙНЫМ!!!"))
+	return ..()
 
 
 /obj/effect/temp_visual/moon_ringleader

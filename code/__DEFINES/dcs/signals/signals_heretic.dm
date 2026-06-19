@@ -17,6 +17,9 @@
 /// For [/datum/status_effect/protective_blades] to signal when it is triggered
 #define COMSIG_BLADE_BARRIER_TRIGGERED "blade_barrier_triggered"
 
+/// Sent on the charging mob when a /obj/effect/proc_holder/spell/mob_cooldown/charge finishes : ()
+#define COMSIG_FINISHED_CHARGE "finished_charge"
+
 /// From the Cosmic-path hunter rifle (/obj/item/gun/...) when its projectile hits a target.
 #define COMSIG_LIONHUNTER_ON_HIT "lionhunter_on_hit"
 

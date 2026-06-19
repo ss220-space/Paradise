@@ -139,7 +139,7 @@
 	research_tree_icon_path = 'icons/mob/actions/actions_spells.dmi'
 	research_tree_icon_state = "shield"
 	spell_to_add = /obj/effect/proc_holder/spell/pointed/rust_construction
-	cost = 1
+	cost = 2 // TG: rust_construction costs 2
 
 
 /datum/heretic_knowledge/spell/area_conversion
@@ -151,7 +151,7 @@
 	research_tree_icon_path = 'icons/mob/actions/actions_ecult.dmi'
 	research_tree_icon_state = "corrode"
 	spell_to_add = /obj/effect/proc_holder/spell/aoe/rust_conversion
-	cost = 1
+	cost = 2 // TG: area_conversion costs 2
 	research_tree_icon_frame = 5
 
 
@@ -215,7 +215,7 @@
 	research_tree_icon_path = 'icons/mob/actions/actions_ecult.dmi'
 	research_tree_icon_state = "entropic_plume"
 	spell_to_add = /obj/effect/proc_holder/spell/cone/staggered/entropic_plume
-	cost = 1
+	cost = 2 // TG: entropic_plume costs 2
 
 
 /datum/heretic_knowledge/spell/entropic_plume/on_gain(mob/user)

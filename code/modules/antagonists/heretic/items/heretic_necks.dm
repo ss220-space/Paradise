@@ -216,19 +216,41 @@
 
 
 /obj/item/clothing/neck/heretic_focus/moon_amulet/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
-	var/mob/living/carbon/human/hit = target
 	if(!IS_HERETIC_OR_MONSTER(user))
 		user.balloon_alert(user, "луна наблюдает за вами")
 		return
 
-	if(hit.can_block_magic(MAGIC_RESISTANCE|MAGIC_RESISTANCE_MIND))
-		return
+	if(!ishuman(target))
+		return ..()
 
-	if(!hit.isInCrit())
-		return
+	var/mob/living/carbon/human/hit = target
+	// Heretics and their monsters are immune; so is anyone shrugging off mind magic.
+	if(IS_HERETIC_OR_MONSTER(hit))
+		return ..()
+	if(hit.can_block_magic(MAGIC_RESISTANCE|MAGIC_RESISTANCE_MIND))
+		user.balloon_alert(user, "разум сопротивляется!")
+		return ..()
+
+	// TG gates conversion on low sanity. master220 has no sanity, so brain damage is the moon path's
+	// "madness meter": a mind already shattered (or a body in crit) snaps and goes berserk; an intact mind
+	// is just driven a little madder (chat + hallucination + brain damage) so you can finish softening it.
+	var/madness = hit.get_organ_loss(INTERNAL_ORGAN_BRAIN)
+	if(madness < 60 && !hit.isInCrit())
+		to_chat(user, span_warning("Разум [hit.declent_ru(GENITIVE)] ещё слишком крепок, чтобы сломаться..."))
+		to_chat(hit, span_userdanger("Я ВИЖУ СВЕТ, ЕГО НУЖНО ОСТАНОВИТЬ!"))
+		hit.cause_hallucination(/datum/hallucination/delusion/preset/moon, "moonlight amulet")
+		hit.adjustOrganLoss(INTERNAL_ORGAN_BRAIN, 20, 150)
+		hit.emote(pick("giggle", "laugh"))
+		return ..()
+
+	// A mindshield keeps the mind anchored - it can't be flipped into a berserker.
+	if(ismindshielded(hit))
+		user.balloon_alert(user, "разум защищён имплантом!")
+		to_chat(hit, span_warning("Что-то в вашей голове отражает вторжение Луны."))
+		return ..()
 
 	user.balloon_alert(user, "[genderize_ru(target.gender, "он", "она", "оно", "они")] увид[pluralize_ru(target.gender, "ит", "ят")] правду!")
+	to_chat(user, span_purple("Вы обращаете [hit.declent_ru(ACCUSATIVE)] в безумного слугу Луны — теперь [genderize_ru(hit.gender, "он", "она", "оно", "они")] набросится на всех вокруг!"))
 	hit.apply_status_effect(/datum/status_effect/moon_converted)
-	//user.log_message("made [target] insane.", LOG_GAME)
-	//hit.log_message("was driven insane by [user]")
+	log_game("[key_name(user)] drove [key_name(hit)] berserk with a moonlight amulet.")
 	. = ..()

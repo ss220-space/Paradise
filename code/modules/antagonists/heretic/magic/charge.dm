@@ -95,7 +95,7 @@
 		charger = move_loop_source.moving
 
 	UnregisterSignal(charger, list(COMSIG_MOVABLE_BUMP, COMSIG_MOVABLE_PRE_MOVE, COMSIG_MOVABLE_MOVED, COMSIG_LIVING_DEATH))
-	//SEND_SIGNAL(action.owner, COMSIG_FINISHED_CHARGE)
+	SEND_SIGNAL(action.owner, COMSIG_FINISHED_CHARGE)
 	actively_moving = FALSE
 	charging -= charger
 
