@@ -23,11 +23,12 @@
 	jobtype = /datum/job/ntnavyofficer
 
 	uniform = /obj/item/clothing/under/rank/centcom/officer
+	suit = /obj/item/clothing/suit/space/deathsquad/officer/centcom
 	gloves =  /obj/item/clothing/gloves/color/white
 	shoes = /obj/item/clothing/shoes/centcom
 	head = /obj/item/clothing/head/beret/centcom/officer
 	l_ear = /obj/item/radio/headset/centcom
-	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
+	glasses = /obj/item/clothing/glasses/hud/blueshield/centcom
 	id = /obj/item/card/id/centcom
 	pda = /obj/item/pda/centcom
 	belt = /obj/item/gun/energy/pulse/pistol
@@ -87,25 +88,28 @@
 /datum/outfit/job/ntspecops
 	name = JOB_TITLE_RU_CCSPECOPS
 	jobtype = /datum/job/ntspecops
-	uniform = /obj/item/clothing/under/rank/centcom/captain
+	uniform = /obj/item/clothing/under/syndicate/blackops
 	suit = /obj/item/clothing/suit/space/deathsquad/officer
 	back = /obj/item/storage/backpack/ert/security
 	belt = /obj/item/storage/belt/military/assault/rsh_12/full
 	gloves = /obj/item/clothing/gloves/combat/swat
 	shoes = /obj/item/clothing/shoes/combat
-	mask = /obj/item/clothing/mask/cigarette/cigar/cohiba
+	mask = /obj/item/clothing/mask/holo_cigar
 	head = /obj/item/clothing/head/helmet/space/deathsquad/beret
 	l_ear = /obj/item/radio/headset/centcom
-	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
+	glasses = /obj/item/clothing/glasses/hud/blueshield/centcom
 	id = /obj/item/card/id/centcom
 	pda = /obj/item/pda/centcom
-	r_pocket = /obj/item/storage/box/matches
+	r_pocket = /obj/item/camera_bug/ert
 	l_pocket = /obj/item/melee/baseball_bat/homerun/central_command
 	box = /obj/item/storage/box/survival/centcomofficer
 	backpack = /obj/item/storage/backpack/satchel
 	backpack_contents = list(
-		/obj/item/clothing/shoes/magboots/advance = 1,
+		/obj/item/clothing/shoes/magboots/syndie/advance = 1,
 		/obj/item/storage/box/zipties = 1,
+	)
+	accessories = list(
+		/obj/item/clothing/accessory/holster,
 	)
 	implants = list(
 		/obj/item/implant/mindshield/ert,
@@ -124,17 +128,17 @@
 		return
 	H.mind?.offstation_role = TRUE
 
-/datum/job/ntspecops/supreme
-	title = JOB_TITLE_CCSUPREME
-	outfit = /datum/outfit/job/ntspecops/supreme
+/datum/job/ntspecops/captain
+	title = JOB_TITLE_CCCAPTAIN
+	outfit = /datum/outfit/job/ntspecops/captain
 
-/datum/outfit/job/ntspecops/supreme
-	name = JOB_TITLE_RU_CCSUPREME
-	jobtype = /datum/job/ntspecops/supreme
-
-	suit = /obj/item/clothing/suit/space/deathsquad/officer/supreme
+/datum/outfit/job/ntspecops/captain
+	name = JOB_TITLE_RU_CCCAPTAIN
+	jobtype = /datum/job/ntspecops/captain
+	uniform = /obj/item/clothing/under/rank/centcom/captain
+	suit = /obj/item/clothing/suit/space/deathsquad/officer/captain
 	belt = /obj/item/storage/belt/rapier/centcomm
-	head = /obj/item/clothing/head/helmet/space/deathsquad/beret/supreme
+	head = /obj/item/clothing/head/helmet/space/deathsquad/beret/captain
 	shoes =	/obj/item/clothing/shoes/cowboy/white
 	gloves = /obj/item/clothing/gloves/color/white
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses/aviators

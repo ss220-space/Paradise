@@ -1980,8 +1980,8 @@
 
 
 /datum/armor/mod_theme_gamma_responsory
-	melee = 50
-	bullet = 45
+	melee = 60
+	bullet = 60
 	laser = 50
 	energy = 40
 	bomb = 55
@@ -2132,8 +2132,8 @@
 /datum/armor/mod_theme_corporate
 	melee = 200
 	bullet = 200
-	laser = 50
-	energy = 50
+	laser = 90
+	energy = 90
 	bomb = 100
 	bio = 100
 	fire = 100
