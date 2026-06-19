@@ -484,6 +484,9 @@
 	name = "floor"
 	},
 /area/vox_station)
+"aia" = (
+/turf/simulated/wall/mineral/plastitanium/nosmooth,
+/area/centcom/heretic_sacrifice/moon)
 "aig" = (
 /obj/structure/chair/office/dark{
 	dir = 1
@@ -805,7 +808,10 @@
 	layer = 5;
 	req_access = list(114)
 	},
-/turf/simulated/floor/fakespace,
+/turf/simulated/floor/fakespace{
+	atmos_environment = "temperate";
+	atmos_mode = 2
+	},
 /area/centcom/specops)
 "app" = (
 /obj/structure/window/reinforced{
@@ -832,6 +838,12 @@
 	},
 /turf/simulated/floor/carpet,
 /area/centcom/specops)
+"apU" = (
+/turf/simulated/floor/fakespace{
+	atmos_environment = "temperate";
+	atmos_mode = 2
+	},
+/area/centcom/heretic_sacrifice/moon)
 "aqV" = (
 /obj/effect/turf_decal/siding/yellow{
 	dir = 8
@@ -1403,6 +1415,13 @@
 	icon_state = "dark"
 	},
 /area/syndicate_mothership/control)
+"aFF" = (
+/obj/machinery/light/very_dim/directional/west,
+/turf/simulated/floor/fakespace{
+	atmos_environment = "temperate";
+	atmos_mode = 2
+	},
+/area/centcom/heretic_sacrifice/moon)
 "aFM" = (
 /obj/effect/turf_decal/siding{
 	color = "#444444";
@@ -2124,7 +2143,10 @@
 	loot = list(/obj/item/reagent_containers/food/snacks/baguette=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/soup/bloodsoup=10,/obj/item/reagent_containers/food/snacks/boiledrice=10,/obj/item/reagent_containers/food/snacks/carrotfries=10,/obj/item/reagent_containers/food/drinks/cans/cola=10,""=70);
 	name = "Food CC Spawner #1"
 	},
-/turf/simulated/floor/fakespace,
+/turf/simulated/floor/fakespace{
+	atmos_environment = "temperate";
+	atmos_mode = 2
+	},
 /area/centcom/zone1)
 "aWc" = (
 /turf/simulated/floor/plasteel{
@@ -13403,6 +13425,13 @@
 	icon_state = "rampbottom"
 	},
 /area/ninja/outpost)
+"gpE" = (
+/obj/machinery/light/very_dim/directional/east,
+/turf/simulated/floor/plating/asteroid{
+	atmos_environment = "temperate";
+	atmos_mode = 2
+	},
+/area/centcom/heretic_sacrifice/moon)
 "gpF" = (
 /obj/effect/turf_decal/stripes/asteroid/line,
 /turf/simulated/floor/beach/sand{
@@ -14449,6 +14478,12 @@
 	},
 /turf/simulated/floor/shuttle/objective_check/vox,
 /area/shuttle/vox)
+"gWz" = (
+/turf/simulated/floor/glass{
+	atmos_environment = "temperate";
+	atmos_mode = 2
+	},
+/area/centcom/heretic_sacrifice/moon)
 "gWZ" = (
 /obj/structure/flora/grass/jungle,
 /turf/simulated/wall/indestructible/rock,
@@ -14995,6 +15030,13 @@
 	},
 /turf/simulated/floor/shuttle,
 /area/shuttle/mining)
+"hjJ" = (
+/obj/machinery/light/very_dim/directional/north,
+/turf/simulated/floor/fakespace{
+	atmos_environment = "temperate";
+	atmos_mode = 2
+	},
+/area/centcom/heretic_sacrifice/moon)
 "hjL" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -21248,6 +21290,12 @@
 	icon_state = "plastitanium"
 	},
 /area/shuttle/syndicate)
+"kgZ" = (
+/turf/simulated/floor/plating/asteroid{
+	atmos_environment = "temperate";
+	atmos_mode = 2
+	},
+/area/centcom/heretic_sacrifice/moon)
 "khg" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -24939,7 +24987,10 @@
 	loot = list(/obj/item/reagent_containers/food/snacks/lasagna=10,/obj/item/reagent_containers/food/snacks/sliceable/pizza/hawaiianpizza=10,/obj/item/reagent_containers/food/snacks/sushi_TobikoEgg=10,/obj/item/reagent_containers/food/snacks/bigbiteburger=10,/obj/item/reagent_containers/food/snacks/sushi_SmokedSalmon=10,""=70);
 	name = "Food CC Spawner #2"
 	},
-/turf/simulated/floor/fakespace,
+/turf/simulated/floor/fakespace{
+	atmos_environment = "temperate";
+	atmos_mode = 2
+	},
 /area/centcom/zone1)
 "lRs" = (
 /obj/machinery/ai_status_display{
@@ -40464,6 +40515,13 @@
 	water_overlay_icon_state = null
 	},
 /area/syndicate_mothership/outside)
+"sOM" = (
+/obj/effect/landmark/heretic/void,
+/turf/simulated/floor/plating/asteroid{
+	atmos_environment = "temperate";
+	atmos_mode = 2
+	},
+/area/centcom/heretic_sacrifice/moon)
 "sOT" = (
 /turf/simulated/floor/bluegrid,
 /area/centcom/bridge)
@@ -43039,6 +43097,13 @@
 /obj/structure/table/wood,
 /turf/simulated/floor/carpet/black,
 /area/centcom/evac)
+"tQm" = (
+/obj/effect/landmark/heretic/moon,
+/turf/simulated/floor/plating/asteroid{
+	atmos_environment = "temperate";
+	atmos_mode = 2
+	},
+/area/centcom/heretic_sacrifice/moon)
 "tQA" = (
 /obj/structure/curtain/black{
 	pixel_y = -32
@@ -47931,6 +47996,16 @@
 	},
 /turf/simulated/floor/wood/fancy/cherry,
 /area/centcom/zone1)
+"wdU" = (
+/obj/machinery/light/very_dim/directional/south,
+/turf/simulated/floor/plating/asteroid{
+	atmos_environment = "temperate";
+	atmos_mode = 2
+	},
+/area/centcom/heretic_sacrifice/moon)
+"wem" = (
+/turf/simulated/floor/glass,
+/area/centcom/heretic_sacrifice/moon)
 "weC" = (
 /obj/machinery/door/poddoor/shutters/invincible{
 	id_tag = "senior_o_shutters"
@@ -88562,7 +88637,7 @@ mVT
 mVT
 mVT
 mVT
-mVX
+mVT
 mVX
 mVX
 pNM
@@ -88806,20 +88881,20 @@ dlx
 dlx
 dlx
 dlx
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
 mVT
-mVX
+aia
+aia
+aia
+aia
+aia
+aia
+aia
+aia
+aia
+aia
+aia
+aia
+mVT
 mVX
 mVX
 pNM
@@ -89063,20 +89138,20 @@ hri
 hri
 hri
 dlx
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
 mVT
-mVX
+aia
+apU
+apU
+apU
+apU
+apU
+apU
+apU
+aFF
+wem
+kgZ
+aia
+mVT
 mVX
 mVX
 pNM
@@ -89320,20 +89395,20 @@ hri
 oBY
 hri
 dlx
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
 mVT
-mVX
+aia
+apU
+wem
+apU
+apU
+apU
+apU
+apU
+apU
+apU
+wem
+aia
+mVT
 mVX
 mVX
 pNM
@@ -89577,20 +89652,20 @@ hri
 hri
 hri
 dlx
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
 mVT
-mVX
+aia
+wem
+kgZ
+wem
+apU
+apU
+apU
+apU
+apU
+apU
+apU
+aia
+mVT
 mVX
 mVX
 pNM
@@ -89834,20 +89909,20 @@ hri
 hri
 hri
 dlx
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
 mVT
-mVX
+aia
+apU
+wem
+apU
+apU
+wem
+wem
+apU
+apU
+apU
+wem
+aia
+mVT
 mVX
 mVX
 pNM
@@ -90091,20 +90166,20 @@ hri
 hri
 hri
 dlx
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
 mVT
-mVX
+aia
+apU
+apU
+apU
+wem
+kgZ
+tQm
+wem
+apU
+wem
+kgZ
+aia
+mVT
 mVX
 mVX
 pNM
@@ -90348,20 +90423,20 @@ hri
 hri
 hri
 dlx
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
 mVT
-mVX
+aia
+hjJ
+apU
+apU
+wem
+kgZ
+sOM
+wem
+apU
+wem
+wdU
+aia
+mVT
 mVX
 mVX
 pNM
@@ -90605,20 +90680,20 @@ hri
 hri
 hri
 dlx
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
 mVT
-mVX
+aia
+apU
+apU
+apU
+apU
+gWz
+wem
+apU
+apU
+wem
+kgZ
+aia
+mVT
 mVX
 mVX
 pNM
@@ -90862,20 +90937,20 @@ hri
 hri
 hri
 dlx
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
 mVT
-mVX
+aia
+wem
+apU
+apU
+apU
+apU
+apU
+apU
+apU
+apU
+wem
+aia
+mVT
 mVX
 mVX
 pNM
@@ -91119,20 +91194,20 @@ hri
 oBY
 hri
 dlx
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
 mVT
-mVX
+aia
+kgZ
+wem
+apU
+apU
+apU
+apU
+wem
+apU
+apU
+apU
+aia
+mVT
 mVX
 mVX
 pNM
@@ -91376,20 +91451,20 @@ hri
 hri
 hri
 dlx
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
 mVT
-mVX
+aia
+kgZ
+kgZ
+wem
+apU
+apU
+wem
+gpE
+wem
+apU
+apU
+aia
+mVT
 mVX
 mVX
 pNM
@@ -91633,20 +91708,20 @@ dlx
 dlx
 dlx
 dlx
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
 mVT
-mVX
+aia
+aia
+aia
+aia
+aia
+aia
+aia
+aia
+aia
+aia
+aia
+aia
+mVT
 mVX
 mVX
 pNM
@@ -91890,20 +91965,20 @@ mVT
 mVT
 mVT
 mVT
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
 mVT
-mVX
+mVT
+mVT
+mVT
+mVT
+mVT
+mVT
+mVT
+mVT
+mVT
+mVT
+mVT
+mVT
+mVT
 mVX
 mVX
 pNM
@@ -92147,6 +92222,7 @@ uMe
 uMe
 uMe
 uMe
+mVT
 mVX
 mVX
 mVX
@@ -92160,7 +92236,6 @@ mVX
 mVX
 mVX
 mVT
-mVX
 mVX
 mVX
 pNM
@@ -92404,6 +92479,7 @@ aAv
 aAv
 aAv
 uMe
+mVT
 mVX
 mVX
 mVX
@@ -92417,7 +92493,6 @@ mVX
 mVX
 mVX
 mVT
-mVX
 mVX
 mVX
 pNM
@@ -92661,6 +92736,7 @@ xtF
 lTZ
 aAv
 uMe
+mVT
 mVX
 mVX
 mVX
@@ -92674,7 +92750,6 @@ mVX
 mVX
 mVX
 mVT
-mVX
 mVX
 mVX
 pNM
@@ -92918,6 +92993,7 @@ uKi
 aAv
 aAv
 uMe
+mVT
 mVX
 mVX
 mVX
@@ -92931,7 +93007,6 @@ mVX
 mVX
 mVX
 mVT
-mVX
 mVX
 mVX
 pNM
@@ -93175,6 +93250,7 @@ kTr
 aAv
 aAv
 uMe
+mVT
 mVX
 mVX
 mVX
@@ -93188,7 +93264,6 @@ mVX
 mVX
 mVX
 mVT
-mVX
 mVX
 mVX
 pNM
@@ -93432,6 +93507,7 @@ kTr
 aAv
 aAv
 uMe
+mVT
 mVX
 mVX
 mVX
@@ -93445,7 +93521,6 @@ mVX
 mVX
 mVX
 mVT
-mVX
 mVX
 mVX
 pNM
@@ -93689,6 +93764,7 @@ cwW
 aAv
 aAv
 uMe
+mVT
 mVX
 mVX
 mVX
@@ -93702,7 +93778,6 @@ mVX
 mVX
 mVX
 mVT
-mVX
 mVX
 mVX
 pNM
@@ -93946,6 +94021,7 @@ kTr
 aAv
 aAv
 uMe
+mVT
 mVX
 mVX
 mVX
@@ -93959,7 +94035,6 @@ mVX
 mVX
 mVX
 mVT
-mVX
 mVX
 mVX
 pNM
@@ -94203,6 +94278,7 @@ kTr
 aAv
 aAv
 uMe
+mVT
 mVX
 mVX
 mVX
@@ -94216,7 +94292,6 @@ mVX
 mVX
 mVX
 mVT
-mVX
 mVX
 mVX
 pNM
@@ -94460,6 +94535,7 @@ aAv
 lTZ
 aAv
 uMe
+mVT
 mVX
 mVX
 mVX
@@ -94473,7 +94549,6 @@ mVX
 mVX
 mVX
 mVT
-mVX
 mVX
 mVX
 pNM
@@ -94717,6 +94792,7 @@ aAv
 aAv
 aAv
 uMe
+mVT
 mVX
 mVX
 mVX
@@ -94730,7 +94806,6 @@ mVX
 mVX
 mVX
 mVT
-mVX
 mVX
 mVX
 pNM
@@ -94974,6 +95049,7 @@ uMe
 uMe
 uMe
 uMe
+mVT
 mVX
 mVX
 mVX
@@ -94987,7 +95063,6 @@ mVX
 mVX
 mVX
 mVT
-mVX
 mVX
 mVX
 pNM
@@ -95244,7 +95319,7 @@ mVT
 mVT
 mVT
 mVT
-mVX
+mVT
 mVX
 mVX
 pNM
