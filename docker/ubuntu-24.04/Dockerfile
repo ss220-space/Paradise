@@ -26,9 +26,9 @@ RUN rustup target add i686-unknown-linux-gnu
 COPY _build_dependencies.sh .
 COPY tools/ci/install_byond.sh .
 
-RUN ./_build_dependencies.sh
+RUN bash ./_build_dependencies.sh
 RUN echo "Installing BYOND"
-RUN ./install_byond.sh STABLE
+RUN bash ./install_byond.sh STABLE
 RUN source /root/BYOND/byond/bin/byondsetup
 
 RUN apt install -y software-properties-common
@@ -37,3 +37,10 @@ RUN apt install -y python3.13
 RUN update-alternatives --install /usr/bin/python python /usr/bin/python3.13 1
 RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.13 1
 
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.5/install.sh | bash
+RUN chmod +x ~/.nvm/nvm.sh
+RUN ~/.nvm/nvm.sh install v22.11.0
+RUN ~/.nvm/nvm.sh use v22.11.0
+RUN apt install npm -y
+RUN npm install --global yarn
+RUN yarn set version 4.8.1

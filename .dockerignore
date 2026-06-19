@@ -16,4 +16,5 @@ tgui/node_modules
 *paradise.*
 *.dll
 tools
+!tools/ci/install_byond.sh
 
