@@ -47,6 +47,7 @@ RUN update-alternatives --install /usr/bin/python python /usr/bin/python3.13 1
 RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.13 1
 
 RUN apt install -y python3-pip
+RUN apt-get install python3.13-venv
 RUN pip install json5 --break-system-packages
 RUN pip install setuptools --break-system-packages
 
