@@ -73,7 +73,7 @@
 #define JOB_TITLE_CCOFFICER "Nanotrasen Navy Officer"
 #define JOB_TITLE_CCFIELD "Nanotrasen Navy Field Officer"
 #define JOB_TITLE_CCSPECOPS "Special Operations Officer"
-#define JOB_TITLE_CCSUPREME "Supreme Commander"
+#define JOB_TITLE_CCCAPTAIN "Nanotrasen Navy Captain"
 #define JOB_TITLE_CCSOLGOV "Solar Federation General"
 
 // Emergency Response Team (ERT)

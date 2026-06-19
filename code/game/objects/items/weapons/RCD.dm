@@ -1,6 +1,6 @@
 /obj/item/rcd
 	name = "rapid-construction-device (RCD)"
-	desc = "A device used to rapidly build and deconstruct walls, floors and airlocks."
+	desc = "Устройство используемое для быстрого строительства и сноса стен, полов и шлюзов."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "rcd"
 	righthand_file = 'icons/mob/inhands/tools_righthand.dmi'
@@ -10,6 +10,7 @@
 	throwforce = 10
 	throw_speed = 3
 	throw_range = 5
+	custom_price = PAYCHECK_CREW * 2
 	materials = list(MAT_METAL = 30000)
 	origin_tech = "engineering=4;materials=2"
 	usesound = 'sound/items/deconstruct.ogg'
@@ -39,7 +40,7 @@
 	/// The current airlock type that will be build.
 	var/door_type = /obj/machinery/door/airlock
 	/// The name that newly build airlocks will receive.
-	var/door_name = "Airlock"
+	var/door_name = "Шлюз"
 	/// If this is TRUE, any airlocks that gets built will require only ONE of the checked accesses. If FALSE, it will require ALL of them.
 	var/one_access = TRUE
 	/// Which airlock tab the UI is currently set to display.
@@ -81,33 +82,33 @@
 
 	if(!length(rcd_door_types))
 		rcd_door_types = list(
-			/obj/machinery/door/airlock = "Standard",
-			/obj/machinery/door/airlock/glass = "Standard (Glass)",
-			/obj/machinery/door/airlock/command = "Command",
-			/obj/machinery/door/airlock/command/glass = "Command (Glass)",
-			/obj/machinery/door/airlock/security = "Security",
-			/obj/machinery/door/airlock/security/glass = "Security (Glass)",
-			/obj/machinery/door/airlock/engineering = "Engineering",
-			/obj/machinery/door/airlock/engineering/glass = "Engineering (Glass)",
-			/obj/machinery/door/airlock/atmos = "Atmospherics",
-			/obj/machinery/door/airlock/atmos/glass = "Atmospherics (Glass)",
-			/obj/machinery/door/airlock/mining = "Mining",
-			/obj/machinery/door/airlock/mining/glass = "Mining (Glass)",
-			/obj/machinery/door/airlock/medical = "Medical",
-			/obj/machinery/door/airlock/medical/glass = "Medical (Glass)",
-			/obj/machinery/door/airlock/research = "Research",
-			/obj/machinery/door/airlock/research/glass = "Research (Glass)",
-			/obj/machinery/door/airlock/science = "Science",
-			/obj/machinery/door/airlock/science/glass = "Science (Glass)",
-			/obj/machinery/door/airlock/maintenance = "Maintenance",
-			/obj/machinery/door/airlock/maintenance/glass = "Maintenance (Glass)",
-			/obj/machinery/door/airlock/maintenance/external = "External Maintenance",
-			/obj/machinery/door/airlock/maintenance/external/glass = "External Maint. (Glass)",
-			/obj/machinery/door/airlock/external = "External",
-			/obj/machinery/door/airlock/external/glass = "External (Glass)",
-			/obj/machinery/door/airlock/hatch = "Airtight Hatch",
-			/obj/machinery/door/airlock/maintenance_hatch = "Maintenance Hatch",
-			/obj/machinery/door/airlock/freezer = "Freezer",
+			/obj/machinery/door/airlock = "Стандартный",
+			/obj/machinery/door/airlock/glass = "Стандартный (Стеклянный)",
+			/obj/machinery/door/airlock/command = "Командный",
+			/obj/machinery/door/airlock/command/glass = "Командный (Стеклянный)",
+			/obj/machinery/door/airlock/security = "Охрана",
+			/obj/machinery/door/airlock/security/glass = "Охрана (Стеклянный)",
+			/obj/machinery/door/airlock/engineering = "Инженерный",
+			/obj/machinery/door/airlock/engineering/glass = "Инженерный (Стеклянный)",
+			/obj/machinery/door/airlock/atmos = "Атмосферный",
+			/obj/machinery/door/airlock/atmos/glass = "Атмосферный (Стеклянный)",
+			/obj/machinery/door/airlock/mining = "Шахтёрский",
+			/obj/machinery/door/airlock/mining/glass = "Шахтёрский (Стеклянный)",
+			/obj/machinery/door/airlock/medical = "Медицинский",
+			/obj/machinery/door/airlock/medical/glass = "Медицинский (Стеклянный)",
+			/obj/machinery/door/airlock/research = "Исследовательский",
+			/obj/machinery/door/airlock/research/glass = "Исследовательский (Стеклянный)",
+			/obj/machinery/door/airlock/science = "Научный",
+			/obj/machinery/door/airlock/science/glass = "Научный (Стеклянный)",
+			/obj/machinery/door/airlock/maintenance = "Технический",
+			/obj/machinery/door/airlock/maintenance/glass = "Технический (Стеклянный)",
+			/obj/machinery/door/airlock/maintenance/external = "Внешний технический",
+			/obj/machinery/door/airlock/maintenance/external/glass = "Внеш. техн. (Стеклянный)",
+			/obj/machinery/door/airlock/external = "Внешний",
+			/obj/machinery/door/airlock/external/glass = "Внешний (Стеклянный)",
+			/obj/machinery/door/airlock/hatch = "Герметичный люк",
+			/obj/machinery/door/airlock/maintenance_hatch = "Технический люк",
+			/obj/machinery/door/airlock/freezer = "Холодильник",
 		)
 	if(!length(door_types_ui_list))
 		for(var/type in rcd_door_types)
@@ -129,8 +130,8 @@
 
 /obj/item/rcd/examine(mob/user)
 	. = ..()
-	. += span_notice("MATTER: [matter]/[max_matter] matter-units.")
-	. += span_notice("MODE: [mode].")
+	. += span_notice("Материи: [matter]/[max_matter] единиц.")
+	. += span_notice("Режим: [mode].")
 
 /obj/item/rcd/Destroy()
 	QDEL_NULL(spark_system)
@@ -167,31 +168,48 @@
 		return FALSE
 	return TRUE
 
-/obj/item/rcd/attackby(obj/item/I, mob/user, params)
-	if(!istype(I, /obj/item/rcd_ammo))
+/obj/item/rcd/attackby(obj/item/item, mob/user, params)
+	if(rcd_reload(item, user))
 		return ..()
 	add_fingerprint(user)
-	rcd_reload(I, user)
 	return ATTACK_CHAIN_BLOCKED_ALL
 
-/obj/item/rcd/proc/rcd_reload(obj/item/rcd_ammo/rcd_ammo, mob/user)
-	if(matter >= max_matter)
-		to_chat(user, span_notice("The RCD can't hold any more matter-units."))
-		return
+/obj/item/rcd/proc/rcd_reload(obj/item/item, mob/user)
+	if(istype(item, /obj/item/rcd_ammo))
+		if(matter >= max_matter)
+			balloon_alert(user, "картридж не вместится!")
+			return
 
-	if(!user.drop_item_ground(rcd_ammo))
-		to_chat(user, span_warning("[rcd_ammo] is stuck to your hand!"))
-		return
+		var/obj/item/rcd_ammo/rcd_ammo = item
+		if(rcd_ammo.type == matter_type || rcd_ammo.type == matter_type_large)
+			matter = min(matter + rcd_ammo.ammoamt, max_matter)
+			qdel(rcd_ammo)
+			playsound(loc, 'sound/machines/click.ogg', 50, TRUE)
+			to_chat(user, span_notice("Материи в RCD [matter]/[max_matter] единиц."))
+			return
+		else
+			balloon_alert(user, "картридж не подойдёт!")
+			return
 
-	user.put_in_active_hand(rcd_ammo)
-	if(rcd_ammo.type == matter_type || rcd_ammo.type == matter_type_large)
-		matter = min(matter + rcd_ammo.ammoamt, max_matter)
-		qdel(rcd_ammo)
-		playsound(loc, 'sound/machines/click.ogg', 50, TRUE)
-		to_chat(user, span_notice("The RCD now holds [matter]/[max_matter] matter-units."))
+	else if(isstack(item))
+		var/obj/item/stack/sheet = item
+		if(sheet.matter_amount <= 0 || sheet.is_cyborg)
+			balloon_alert(user, "материал не подойдёт!")
+			return
+
+		var/maxsheets = round((max_matter - matter) / sheet.matter_amount)
+		if(maxsheets > 0)
+			var/amount_to_use = min(sheet.amount, maxsheets)
+			sheet.use(amount_to_use)
+			matter += sheet.matter_amount * amount_to_use
+			playsound(loc, 'sound/machines/click.ogg', 50, TRUE)
+			to_chat(user, span_notice("Материи в RCD [matter]/[max_matter] единиц."))
+			return
+
+		balloon_alert(user, "материал не вместится!")
+		return
 	else
-		to_chat(user, span_warning("This matter cartridge is incompatible with your RCD"))
-	SStgui.update_uis(src)
+		return TRUE
 
 /**
  * Creates and displays a radial menu to a user when they trigger the `attack_self` of the RCD.
@@ -208,13 +226,8 @@
 		RCD_MODE_WINDOW = image(icon = 'icons/obj/interface.dmi', icon_state = "grillewindow"),
 		RCD_MODE_TURF = image(icon = 'icons/obj/interface.dmi', icon_state = "wallfloor"),
 		RCD_MODE_FIRELOCK = image(icon = 'icons/obj/interface.dmi', icon_state = "firelock"),
-		"UI" = image(icon = 'icons/obj/interface.dmi', icon_state = "ui_interact")
+		RCD_MODE_UI = image(icon = 'icons/obj/interface.dmi', icon_state = "ui_interact")
 	)
-	if(mode == RCD_MODE_AIRLOCK)
-		choices += list(
-			"Change Access" = image(icon = 'icons/obj/interface.dmi', icon_state = "access"),
-			"Change Airlock Type" = image(icon = 'icons/obj/interface.dmi', icon_state = "airlocktype")
-		)
 	choices -= mode // Get rid of the current mode, clicking it won't do anything.
 	var/choice = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user))
 	if(!check_menu(user))
@@ -222,21 +235,13 @@
 	switch(choice)
 		if(RCD_MODE_AIRLOCK, RCD_MODE_DECON, RCD_MODE_WINDOW, RCD_MODE_TURF, RCD_MODE_FIRELOCK)
 			mode = choice
-		if("UI")
-			ui_interact(user)
-			return
-		if("Change Access")
-			ui_tab = RCD_TAB_AIRLOCK_ACCESS
-			ui_interact(user)
-			return
-		if("Change Airlock Type")
-			ui_tab = RCD_TAB_AIRLOCK_TYPE
+		if(RCD_MODE_UI)
 			ui_interact(user)
 			return
 		else
 			return
 	playsound(src, 'sound/effects/pop.ogg', 50, FALSE)
-	to_chat(user, span_notice("You change [src]'s mode to '[choice]'."))
+	to_chat(user, span_notice("Вы сменили режим RCD на: [choice]."))
 
 /obj/item/rcd/attack_self(mob/user)
 	//Change the mode // Oh I thought the UI was just for fucking staring at
@@ -245,13 +250,18 @@
 /obj/item/rcd/attack_self_tk(mob/user)
 	radial_menu(user)
 
+/obj/item/rcd/click_alt(mob/user)
+	add_fingerprint(user)
+	ui_interact(user)
+	return CLICK_ACTION_SUCCESS
+
 /obj/item/rcd/ui_state(mob/user)
 	return GLOB.inventory_state
 
 /obj/item/rcd/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "RCD", "Rapid Construction Device")
+		ui = new(user, src, "RCD", "Устройство быстрого строительства")
 		ui.open()
 
 /obj/item/rcd/ui_data(mob/user)
@@ -310,7 +320,7 @@
 
 		if("set_lock")
 			if(!allowed(usr))
-				to_chat(usr, span_warning("Access denied."))
+				to_chat(usr, span_warning("В доступе отказано."))
 				return FALSE
 			locked = params["new_lock"] == "lock" ? TRUE : FALSE
 
@@ -355,7 +365,7 @@
 	. = TRUE
 	switch(ui_modal_act(src, action, params))
 		if(UI_MODAL_OPEN)
-			ui_modal_input(src, "renameAirlock", "Enter a new name:", value = door_name, max_length = UI_MODAL_INPUT_MAX_LENGTH_NAME)
+			ui_modal_input(src, "renameAirlock", "Введите новое название:", value = door_name, max_length = UI_MODAL_INPUT_MAX_LENGTH_NAME)
 		if(UI_MODAL_ANSWER)
 			var/answer = params["answer"]
 			if(!answer)
@@ -383,7 +393,7 @@
 		return
 	var/area/check_area = get_area(target)
 	if(check_area?.type in areas_blacklist)
-		to_chat(user, span_warning("Something prevents you from using [src] in here..."))
+		balloon_alert(user, "здесь не работает!")
 		return FALSE
 	target.rcd_act(user, src, rcd_mode)
 	SStgui.update_uis(src)
@@ -472,7 +482,7 @@
 
 /obj/item/rcd_ammo
 	name = "compressed matter cartridge"
-	desc = "Highly compressed matter for the RCD."
+	desc = "Сильно сжатая материя для RCD."
 	icon = 'icons/obj/weapons/ammo.dmi'
 	icon_state = "rcd"
 	righthand_file = 'icons/mob/inhands/tools_righthand.dmi'
@@ -486,8 +496,9 @@
 	ammoamt = 100
 
 /obj/item/rcd/mecha_ref
+	abstract_type = /obj/item/rcd/mecha_ref
 	name = "Mecha inner RCD"
-	desc = "You should not be able to see it..."
+	desc = "Вы не должены этого видеть, напишите баг-репорт."
 	power_use_multiplier = 250
 	var/obj/mecha/chassis = null
 	/// Weakref to the mecha equipment module that owns this internal RCD.

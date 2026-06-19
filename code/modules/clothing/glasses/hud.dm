@@ -701,6 +701,20 @@ SKILLS
 		PREPOSITIONAL = "золотых много-режимных ИЛС-очках",
 	)
 
+/obj/item/clothing/glasses/hud/blueshield/centcom
+	name = "Centcom multi-mod HUD aviators"
+	icon_state = "aviators"
+
+/obj/item/clothing/glasses/hud/blueshield/centcom/get_ru_names()
+	return alist(
+		NOMINATIVE = "много-режимные центком ИЛС-очки",
+		GENITIVE = "много-режимных центком ИЛС-очков",
+		DATIVE = "много-режимным центком ИЛС-очкам",
+		ACCUSATIVE = "много-режимные центком ИЛС-очки",
+		INSTRUMENTAL = "много-режимными центком ИЛС-очками",
+		PREPOSITIONAL = "много-режимных центком ИЛС-очках",
+	)
+
 /obj/item/clothing/glasses/hud/blueshield/attack_self(mob/user)
 	multiHUD_toggling(user)
 

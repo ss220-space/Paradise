@@ -58,14 +58,14 @@ GLOBAL_LIST_INIT(sm_delam_list, list(
 		if(sm.should_alert_common()) // We alert common once per cooldown period, otherwise alert engineering
 			radio_announce(
 				"Кристаллическая гиперструктура возвращается к безопасным рабочим параметрам. Целостность: [round(sm.get_integrity_percent(), 0.01)]%",
-				sm,
+				DECLENT_RU_CAP(sm, NOMINATIVE),
 				sm.emergency_channel,
 				sm,
 			)
 		else
 			radio_announce(
 				"Кристаллическая гиперструктура возвращается к безопасным рабочим параметрам. Целостность: [round(sm.get_integrity_percent(), 0.01)]%",
-				sm,
+				DECLENT_RU_CAP(sm, NOMINATIVE),
 				sm.warning_channel,
 				sm,
 			)
@@ -85,7 +85,7 @@ GLOBAL_LIST_INIT(sm_delam_list, list(
 	if(sm.damage >= sm.emergency_point) // In emergency
 		radio_announce(
 			"РАССЛОЕНИЕ КРИСТАЛЛА НЕМИНУЕМО! Целостность: [current_integrity]%",
-			sm,
+			DECLENT_RU_CAP(sm, NOMINATIVE),
 			sm.emergency_channel,
 			sm,
 		)
@@ -93,7 +93,7 @@ GLOBAL_LIST_INIT(sm_delam_list, list(
 	else if(integrity_change > 0) // Healing, in warning
 		radio_announce(
 			"Кристаллическая гиперструктура возвращается к безопасным рабочим параметрам. Целостность: [current_integrity]%",
-			sm,
+			DECLENT_RU_CAP(sm, NOMINATIVE),
 			sm.warning_channel,
 			sm,
 		)
@@ -101,7 +101,7 @@ GLOBAL_LIST_INIT(sm_delam_list, list(
 	else if(integrity_change < 0) // Taking damage, in warning
 		radio_announce(
 			"Опасность! Целостность гиперструктуры кристалла падает! Целостность: [current_integrity]%",
-			sm,
+			DECLENT_RU_CAP(sm, NOMINATIVE),
 			sm.warning_channel,
 			sm,
 		)

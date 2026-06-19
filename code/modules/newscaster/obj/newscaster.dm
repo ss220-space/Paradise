@@ -93,7 +93,7 @@
 			/datum/job/head_of_staff/nanotrasenrep,
 			/datum/job/ntnavyofficer,
 			/datum/job/ntnavyofficer/field,
-			/datum/job/ntspecops/supreme,
+			/datum/job/ntspecops/captain,
 			/datum/job/ntspecops,
 			/datum/job/ntspecops/solgovspecops,
 			/datum/job/civilian,
