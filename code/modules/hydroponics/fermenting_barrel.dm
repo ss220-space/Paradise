@@ -50,7 +50,7 @@
 	qdel(G)
 	playsound(src, 'sound/effects/bubbles.ogg', 50, TRUE)
 
-/obj/structure/fermenting_barrel/attackby(obj/item/I, mob/user, params)
+/obj/structure/fermenting_barrel/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/reagent_containers/food/snacks/grown))
 		add_fingerprint(user)
 		var/obj/item/reagent_containers/food/snacks/grown/grown = I

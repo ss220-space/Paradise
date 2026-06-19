@@ -414,7 +414,7 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 	if(flight?.fon)
 		. += pda_light_overlay
 
-/obj/item/pda/attackby(obj/item/I, mob/user, params)
+/obj/item/pda/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/pda_case))
 		add_fingerprint(user)
 		if(current_case)
@@ -521,7 +521,7 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 
 	return ..()
 
-/obj/item/pda/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/pda/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(!scanmode || !iscarbon(target))
 		return ..()
 	. = ATTACK_CHAIN_PROCEED_SUCCESS

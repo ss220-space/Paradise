@@ -133,7 +133,7 @@
 	canSmoothWith = SMOOTH_GROUP_PLASMA_WALLS
 	smoothing_groups = SMOOTH_GROUP_PLASMA_WALLS
 
-/turf/simulated/wall/mineral/plasma/attackby(obj/item/I, mob/user, params)
+/turf/simulated/wall/mineral/plasma/attackby(obj/item/I, mob/user, list/modifiers)
 	. = ..()
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))
 		return .

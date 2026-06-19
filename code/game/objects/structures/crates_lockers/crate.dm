@@ -101,7 +101,7 @@
 	do_sparks(5, TRUE, src)
 	return FALSE
 
-/obj/structure/closet/crate/attackby(obj/item/used_item, mob/user, params)
+/obj/structure/closet/crate/attackby(obj/item/used_item, mob/user, list/modifiers)
 	if(!opened && try_rig(used_item, user))
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()

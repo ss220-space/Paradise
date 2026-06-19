@@ -68,7 +68,7 @@
 	l_setshort = TRUE
 	addtimer(VARSET_CALLBACK(src, l_setshort, FALSE), 8 SECONDS)
 
-/obj/item/storage/secure/attackby(obj/item/I, mob/user, params)
+/obj/item/storage/secure/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)	// to allow storing special items
 		if(locked)
 			add_fingerprint(user)

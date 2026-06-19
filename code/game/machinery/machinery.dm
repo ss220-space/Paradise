@@ -412,7 +412,7 @@
 	if(.)
 		power_change()
 
-/obj/machinery/attackby(obj/item/I, mob/user, params)
+/obj/machinery/attackby(obj/item/I, mob/user, list/modifiers)
 	if(has_prints() && !(istype(I, /obj/item/detective_scanner)))
 		add_fingerprint(user)
 

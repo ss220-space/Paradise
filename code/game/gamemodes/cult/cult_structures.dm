@@ -68,7 +68,7 @@
 		return
 	icon_state = anchored ? SSticker.cultdat.get_icon("[init_icon]") : SSticker.cultdat.get_icon("[init_icon]_off")
 
-/obj/structure/cult/functional/attackby(obj/item/I, mob/user, params)
+/obj/structure/cult/functional/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/melee/cultblade/dagger) && iscultist(user))
 		add_fingerprint(user)
 		set_anchored(!anchored)

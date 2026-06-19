@@ -102,7 +102,7 @@
 	if(clevel > 0)
 		. += "smes-og[clevel]"
 
-/obj/machinery/power/smes/attackby(obj/item/I, mob/user, params)
+/obj/machinery/power/smes/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
@@ -527,7 +527,7 @@
 	anchored = FALSE
 	return TRUE
 
-/obj/machinery/power/smes/attackby(obj/item/I, mob/user, params)
+/obj/machinery/power/smes/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

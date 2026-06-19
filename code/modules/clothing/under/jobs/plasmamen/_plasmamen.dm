@@ -50,7 +50,7 @@
 			new /obj/effect/particle_effect/water(get_turf(H))
 	return FALSE
 
-/obj/item/clothing/under/plasmaman/attackby(obj/item/I, mob/user, params)
+/obj/item/clothing/under/plasmaman/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/extinguisher_refill))
 		add_fingerprint(user)
 		if(extinguishes_left >= 5)

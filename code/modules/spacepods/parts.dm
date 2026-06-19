@@ -53,7 +53,7 @@
 			return 0
 	return connectedparts
 
-/obj/item/pod_parts/pod_frame/attackby(obj/item/I, mob/user, params)
+/obj/item/pod_parts/pod_frame/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/stack/rods))
 		add_fingerprint(user)
 		var/obj/item/stack/rods/rods = I

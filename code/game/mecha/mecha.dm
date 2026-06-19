@@ -892,7 +892,7 @@
 #define TOGGLE_ID "Переключить доступ по ID"
 #define TOGGLE_MAINTENANCE "Переключить тех. обслуживание"
 
-/obj/mecha/attackby(obj/item/I, mob/user, params)
+/obj/mecha/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		if(I.force)
 			add_attack_logs(user, OCCUPANT_LOGGING, "attacked mech '[name]' using [I]")

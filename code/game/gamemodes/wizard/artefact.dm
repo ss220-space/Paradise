@@ -191,7 +191,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 	GLOB.multiverse.Remove(src)
 	return ..()
 
-/obj/item/multisword/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/multisword/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(target.real_name == user.real_name)	//to prevent accidental friendly fire or out and out grief.
 		to_chat(user, span_warning("The [name] detects benevolent energies in your target and redirects your attack!"))
 		return ATTACK_CHAIN_PROCEED
@@ -568,7 +568,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 /obj/item/necromantic_stone/unlimited
 	unlimited = 1
 
-/obj/item/necromantic_stone/attack(mob/living/carbon/human/target, mob/living/carbon/human/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/necromantic_stone/attack(mob/living/carbon/human/target, mob/living/carbon/human/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(!istype(target))
 		return ..()
 
@@ -728,7 +728,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 		PREPOSITIONAL = "плетёной кукле",
 	)
 
-/obj/item/voodoo/attackby(obj/item/I, mob/user, params)
+/obj/item/voodoo/attackby(obj/item/I, mob/user, list/modifiers)
 	if(target && COOLDOWN_FINISHED(src, cooldown))
 		add_fingerprint(user)
 		if(I.get_temperature())

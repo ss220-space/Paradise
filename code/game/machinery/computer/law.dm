@@ -19,7 +19,7 @@
 	var/timer_id = null
 	var/reg_name = null
 
-/obj/machinery/computer/aiupload/attackby(obj/item/item, mob/user, params)
+/obj/machinery/computer/aiupload/attackby(obj/item/item, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

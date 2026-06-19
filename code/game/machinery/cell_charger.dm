@@ -52,7 +52,7 @@
 	if(charging)
 		. += span_notice("Current charge: [round(charging.percent(), 1)]%")
 
-/obj/machinery/cell_charger/attackby(obj/item/I, mob/user, params)
+/obj/machinery/cell_charger/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

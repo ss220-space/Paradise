@@ -145,7 +145,7 @@
 	driver.setDir(dir)
 	qdel(src)
 
-/obj/machinery/mass_driver_frame/attackby(obj/item/I, mob/user, params)
+/obj/machinery/mass_driver_frame/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

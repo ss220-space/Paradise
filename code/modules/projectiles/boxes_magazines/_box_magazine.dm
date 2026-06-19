@@ -224,7 +224,7 @@
 	update_appearance()
 	update_equipped_item()
 
-/obj/item/ammo_box/attackby(obj/item/I, mob/user, params)
+/obj/item/ammo_box/attackby(obj/item/I, mob/user, list/modifiers)
 	if(isammobox(I) || isammocasing(I))
 		if(reload(I, user))
 			return ATTACK_CHAIN_BLOCKED_ALL

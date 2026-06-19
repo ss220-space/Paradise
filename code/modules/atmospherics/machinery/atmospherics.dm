@@ -235,7 +235,7 @@ Pipelines + Other Objects -> Pipe network
 
 	deconstruct(TRUE)
 
-/obj/machinery/atmospherics/attackby(obj/item/I, mob/user, params)
+/obj/machinery/atmospherics/attackby(obj/item/I, mob/user, list/modifiers)
 	var/turf/our_turf = get_turf(src)
 	if(!our_turf)
 		return ATTACK_CHAIN_BLOCKED_ALL

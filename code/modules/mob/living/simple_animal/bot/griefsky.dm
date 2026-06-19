@@ -310,7 +310,7 @@
 			return
 	return ..()
 
-/mob/living/simple_animal/bot/secbot/griefsky/attackby(obj/item/I, mob/user, params) //cant touch or attack him while spinning
+/mob/living/simple_animal/bot/secbot/griefsky/attackby(obj/item/I, mob/user, list/modifiers) //cant touch or attack him while spinning
 	if(icon_state == spin_icon && prob(block_chance_melee))	// FFS! have no time to rework this now
 		user.do_attack_animation(src)
 		visible_message("[DECLENT_RU_CAP(src, NOMINATIVE)] блокирует атаку [user] своими мечами!")

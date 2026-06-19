@@ -29,12 +29,12 @@
 
 		qdel(src)
 
-/obj/item/holder/attackby(obj/item/I, mob/user, params)
+/obj/item/holder/attackby(obj/item/I, mob/user, list/modifiers)
 	for(var/mob/living/animal in contents)
-		return animal.attackby(I, user, params)
+		return animal.attackby(I, user, modifiers)
 	return ..()
 
-/obj/item/holder/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/holder/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(target == user && ishuman(user))	//eating holder
 		for(var/mob/living/mob in contents)
 			if(mob.devoured(user))

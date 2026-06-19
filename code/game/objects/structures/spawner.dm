@@ -45,7 +45,7 @@
 		return
 	..()
 
-/obj/structure/spawner/attackby(obj/item/I, mob/user, params)
+/obj/structure/spawner/attackby(obj/item/I, mob/user, list/modifiers)
 	. = ..()
 	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !scanner_taggable || !is_type_in_list(I, scanner_types))
 		return .

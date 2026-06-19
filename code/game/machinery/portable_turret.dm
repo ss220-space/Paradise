@@ -382,7 +382,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	update_icon(UPDATE_ICON_STATE)
 	to_chat(user, span_notice("You [anchored ? "" : "un"]secure the exterior bolts on the turret."))
 
-/obj/machinery/porta_turret/attackby(obj/item/I, mob/user, params)
+/obj/machinery/porta_turret/attackby(obj/item/I, mob/user, list/modifiers)
 	if(I.GetID() || is_pda(I))
 		add_fingerprint(user)
 		if(HasController())
@@ -883,7 +883,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 			to_chat(user, span_notice("You open the internal access hatch."))
 			build_step = TURRET_BUILD_PROX
 
-/obj/machinery/porta_turret_construct/attackby(obj/item/I, mob/user, params)
+/obj/machinery/porta_turret_construct/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

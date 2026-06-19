@@ -197,7 +197,7 @@
 	update_icon(UPDATE_ICON_STATE)
 	update_equipped_item()
 
-/obj/item/clothing/shoes/color/orange/prison/attackby(obj/item/I, mob/user, params)
+/obj/item/clothing/shoes/color/orange/prison/attackby(obj/item/I, mob/user, list/modifiers)
 	if(ishandcuffs(I))
 		add_fingerprint(user)
 		if(shackles)

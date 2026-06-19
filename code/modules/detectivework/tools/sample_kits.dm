@@ -45,7 +45,7 @@
 	to_chat(user, span_notice("You overlay \the [src] and \the [supplied], combining the print records."))
 	return 1
 
-/obj/item/sample/attackby(obj/item/I, mob/user, params)
+/obj/item/sample/attackby(obj/item/I, mob/user, list/modifiers)
 	if(I.type == type)
 		if(!user.can_unEquip(I) || !merge_evidence(I, user))
 			return ..()
@@ -84,7 +84,7 @@
 	name = ("[initial(name)] (\the [H])")
 	icon_state = "fingerprint1"
 
-/obj/item/sample/print/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/sample/print/attack(mob/living/carbon/human/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(!ishuman(target))
 		return ..()
 

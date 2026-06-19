@@ -79,7 +79,7 @@
 	text_dehack = "Вы восстановили протоколы уборки [declent_ru(GENITIVE)]."
 	text_dehack_fail = "[DECLENT_RU_CAP(src, NOMINATIVE)] не отвечает на ваши команды!"
 
-/mob/living/simple_animal/bot/cleanbot/attackby(obj/item/I, mob/user, params)
+/mob/living/simple_animal/bot/cleanbot/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

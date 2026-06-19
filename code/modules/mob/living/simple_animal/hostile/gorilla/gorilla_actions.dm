@@ -14,7 +14,7 @@
 	. = status_tab_data
 	status_tab_data[++status_tab_data.len] = list("Бананов съедено:", "[bananas_eaten]/[BANANAS_TO_ENLIGHTEN]")
 
-/mob/living/simple_animal/hostile/gorilla/attackby(obj/item/I, mob/user, params)
+/mob/living/simple_animal/hostile/gorilla/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM || !istype(I, /obj/item/reagent_containers/food/snacks/grown/banana))
 		return ..()
 

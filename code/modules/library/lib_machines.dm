@@ -156,7 +156,7 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 		PREPOSITIONAL = "сканере",
 	)
 
-/obj/machinery/libraryscanner/attackby(obj/item/I, mob/user, params)
+/obj/machinery/libraryscanner/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
@@ -237,7 +237,7 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 		PREPOSITIONAL = "брошюраторе",
 	)
 
-/obj/machinery/bookbinder/attackby(obj/item/I, mob/user, params)
+/obj/machinery/bookbinder/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

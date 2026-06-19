@@ -81,7 +81,7 @@
 		if(INTERCOM_BUILD_WIRED)
 			. += span_notice("Интерком <b>подключён</b>, а сервисная панель <i>открыта</i>.")
 
-/obj/item/radio/intercom/attackby(obj/item/I, mob/user, params)
+/obj/item/radio/intercom/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/stack/tape_roll)) //eww
 		return ATTACK_CHAIN_BLOCKED_ALL
 	if(user.a_intent == INTENT_HARM)

@@ -51,7 +51,7 @@
 	if(ATTACK_CHAIN_SUCCESS_CHECK(status))
 		remove_fuel(1)
 
-/obj/item/weldingtool/sword/attackby(obj/item/I, mob/living/user, params)
+/obj/item/weldingtool/sword/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(istype(I, /obj/item/weldingtool/sword) && combinable)
 		add_fingerprint(user)
 		var/obj/item/weldingtool/sword/sword = I
@@ -130,7 +130,7 @@
 /obj/item/weldingtool/sword/double/try_toggle_welder(mob/user, manual_toggle = TRUE)
 	return ..(user, manual_toggle = FALSE)
 
-/obj/item/weldingtool/sword/double/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/weldingtool/sword/double/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	. = ..()
 	if(!ATTACK_CHAIN_SUCCESS_CHECK(.) || !HAS_TRAIT(src, TRAIT_WIELDED))
 		return .

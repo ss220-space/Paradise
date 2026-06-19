@@ -39,7 +39,7 @@
 		if(RWALL_SHEATH)
 			. += span_notice("The support rods have been <i>sliced through</i>, and the outer sheath is <b>connected loosely</b> to the girder.")
 
-/turf/simulated/wall/r_wall/attackby(obj/item/I, mob/user, params)
+/turf/simulated/wall/r_wall/attackby(obj/item/I, mob/user, list/modifiers)
 	. = ..()
 
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))

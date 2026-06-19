@@ -155,7 +155,7 @@
 	else
 		reward_fish = pick(fishable_list)
 
-/obj/item/twohanded/fishing_rod/attackby(obj/item/I, mob/user, params)
+/obj/item/twohanded/fishing_rod/attackby(obj/item/I, mob/user, list/modifiers)
 	. = ..()
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))
 		return .

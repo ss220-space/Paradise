@@ -39,7 +39,7 @@
 /obj/item/gun/projectile/revolver/process_chamber(eject_casing = FALSE, empty_chamber = TRUE)
 	return ..()
 
-/obj/item/gun/projectile/revolver/attackby(obj/item/item, mob/user, params)
+/obj/item/gun/projectile/revolver/attackby(obj/item/item, mob/user, list/modifiers)
 	if(speedloader_reload(item, user))
 		return ATTACK_CHAIN_PROCEED
 	return ..()

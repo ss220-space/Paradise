@@ -27,7 +27,7 @@
 	resistance_flags = FLAMMABLE
 	COOLDOWN_DECLARE(next_gavel_hit)
 
-/obj/item/gavelblock/attackby(obj/item/I, mob/user, params)
+/obj/item/gavelblock/attackby(obj/item/I, mob/user, list/modifiers)
 	if(!istype(I, /obj/item/gavelhammer) || !COOLDOWN_FINISHED(src, next_gavel_hit))
 		return ..()
 	COOLDOWN_START(src, next_gavel_hit, 5 SECONDS)

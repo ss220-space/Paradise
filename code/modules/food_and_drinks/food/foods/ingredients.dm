@@ -101,7 +101,7 @@
 	tastes = list("cucumber" = 1)
 	foodtype = VEGETABLES
 
-/obj/item/reagent_containers/food/snacks/cucumberslice/attackby(obj/item/I, mob/user, params)
+/obj/item/reagent_containers/food/snacks/cucumberslice/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/reagent_containers/food/snacks/cucumberslice) && I != src)
 		if(!user.is_in_hands(src))
 			to_chat(user, span_warning("You need to hold both slices in hands."))
@@ -161,7 +161,7 @@
 	tastes = list("dough" = 1)
 	foodtype = GRAIN
 
-/obj/item/reagent_containers/food/snacks/dough/attackby(obj/item/I, mob/user, params)
+/obj/item/reagent_containers/food/snacks/dough/attackby(obj/item/I, mob/user, list/modifiers)
 	. = ..()
 
 	// Dough + rolling pin = flat dough
@@ -214,7 +214,7 @@
 	tastes = list("dough" = 1)
 	foodtype = GRAIN
 
-/obj/item/reagent_containers/food/snacks/doughslice/attackby(obj/item/I, mob/user, params)
+/obj/item/reagent_containers/food/snacks/doughslice/attackby(obj/item/I, mob/user, list/modifiers)
 	. = ..()
 
 	// Dough + rolling pin = flat dough
@@ -269,7 +269,7 @@
 	. = ..()
 	name = flat ? "flat pastry dough" : initial(name)
 
-/obj/item/reagent_containers/food/snacks/cookiedough/attackby(obj/item/I, mob/user, params)
+/obj/item/reagent_containers/food/snacks/cookiedough/attackby(obj/item/I, mob/user, list/modifiers)
 	. = ..()
 
 	// Dough + rolling pin = flat cookie dough // Flat dough + circular cutter = unbaked cookies
@@ -324,7 +324,7 @@
 	list_reagents = list("nutriment" = 5, "sugar" = 2)
 	foodtype = GRAIN | SUGAR
 
-/obj/item/reagent_containers/food/snacks/rawcookies/attackby(obj/item/I, mob/user, params)
+/obj/item/reagent_containers/food/snacks/rawcookies/attackby(obj/item/I, mob/user, list/modifiers)
 	. = ..()
 
 	// Dough + rolling pin = flat dough
@@ -365,7 +365,7 @@
 	tastes = list("chocolate" = 1)
 	foodtype = SUGAR
 
-/obj/item/reagent_containers/food/snacks/chocolatebar/attackby(obj/item/I, mob/user, params)
+/obj/item/reagent_containers/food/snacks/chocolatebar/attackby(obj/item/I, mob/user, list/modifiers)
 	. = ..()
 
 	// chocolate crumbles/pile

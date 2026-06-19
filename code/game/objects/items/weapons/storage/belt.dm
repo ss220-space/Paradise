@@ -851,7 +851,7 @@
 /obj/item/storage/belt/lazarus/update_icon_state()
 	icon_state = "lazarusbelt_[length(contents)]"
 
-/obj/item/storage/belt/lazarus/attackby(obj/item/I, mob/user, params)
+/obj/item/storage/belt/lazarus/attackby(obj/item/I, mob/user, list/modifiers)
 	var/amount = length(contents)
 	. = ..()
 	if(amount != length(contents))
@@ -895,7 +895,7 @@
 /obj/item/storage/belt/bandolier/update_icon_state()
 	icon_state = "[base_icon_state]_[length(contents)]"
 
-/obj/item/storage/belt/bandolier/attackby(obj/item/I, mob/user, params)
+/obj/item/storage/belt/bandolier/attackby(obj/item/I, mob/user, list/modifiers)
 	var/amount = length(contents)
 	. = ..()
 	if(amount != length(contents))
@@ -1151,7 +1151,7 @@
 				if(H.s_active && H.s_active == src)
 					H.s_active.show_to(H)
 
-/obj/item/storage/belt/bluespace/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/storage/belt/bluespace/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	return ..()
 
 /obj/item/storage/belt/bluespace/admin

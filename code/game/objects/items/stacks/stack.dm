@@ -193,7 +193,7 @@
 	if(src && user.machine == src)
 		ui_interact(user)
 
-/obj/item/stack/attackby(obj/item/thing, mob/user, params)
+/obj/item/stack/attackby(obj/item/thing, mob/user, list/modifiers)
 	if(!can_merge(thing, TRUE))
 		return ..()
 

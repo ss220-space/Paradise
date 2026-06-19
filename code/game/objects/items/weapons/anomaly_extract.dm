@@ -32,7 +32,7 @@
 /obj/item/anomaly_extract/update_icon_state()
 	icon_state = "slime_extract[used ? "0" : "1"]"
 
-/obj/item/anomaly_extract/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/anomaly_extract/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(target == user && attack_self(user))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()

@@ -91,7 +91,7 @@
 		user.client.mouse_pointer_icon = initial(user.client.mouse_pointer_icon)
 		user.update_icons()
 
-/obj/item/melee/energy_katana/attack(mob/living/target, mob/living/carbon/human/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/melee/energy_katana/attack(mob/living/target, mob/living/carbon/human/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(!isninja(user) && !isrobot(user) && ishuman(user))
 		var/obj/item/organ/external/affecting = user.get_organ(user.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 		if(affecting.droplimb())

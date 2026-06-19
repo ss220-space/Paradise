@@ -99,7 +99,7 @@
 	user.put_in_hands(SB)
 	to_chat(user, span_notice("You scoop up some snow and make \a [SB]!"))
 
-/obj/effect/snow/attackby(obj/item/I, mob/user, params)
+/obj/effect/snow/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/shovel))
 		user.visible_message(
 			span_notice("[user] starts clearing [name] away..."),

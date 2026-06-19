@@ -25,7 +25,7 @@
 		PREPOSITIONAL = "куске мяса",
 	)
 
-/obj/item/reagent_containers/food/snacks/meat/attackby(obj/item/I, mob/user, params)
+/obj/item/reagent_containers/food/snacks/meat/attackby(obj/item/I, mob/user, list/modifiers)
 	. = ..()
 
 	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !I.sharp)
@@ -350,7 +350,7 @@
 	list_reagents = list("protein" = 1)
 	foodtype = MEAT
 
-/obj/item/reagent_containers/food/snacks/rawcutlet/attackby(obj/item/I, mob/user, params)
+/obj/item/reagent_containers/food/snacks/rawcutlet/attackby(obj/item/I, mob/user, list/modifiers)
 	. = ..()
 
 	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !I.sharp)
@@ -943,7 +943,7 @@
 /obj/item/reagent_containers/food/snacks/egg/update_icon_state()
 	icon_state = "egg[item_color ? "-[item_color]" : ""]"
 
-/obj/item/reagent_containers/food/snacks/egg/attackby(obj/item/I, mob/user, params)
+/obj/item/reagent_containers/food/snacks/egg/attackby(obj/item/I, mob/user, list/modifiers)
 	if(iscrayon(I))
 		var/obj/item/toy/crayon/crayon = I
 		var/crayon_color = crayon.colourName
@@ -1125,7 +1125,7 @@
 /obj/item/reagent_containers/food/snacks/organ/update_icon_state()
 	return
 
-/obj/item/organ/internal/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/organ/internal/attack(mob/living/carbon/human/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(target != user || !ishuman(target) || !user.can_unEquip(src))
 		return ..()
 
@@ -1136,7 +1136,7 @@
 
 	user.temporarily_remove_item_from_inventory(src)
 	target.put_in_active_hand(snack, silent = TRUE)
-	snack.attack(target, target, params)
+	snack.attack(target, target, modifiers)
 	qdel(src)
 	return ATTACK_CHAIN_BLOCKED_ALL
 

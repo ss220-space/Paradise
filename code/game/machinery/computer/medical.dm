@@ -71,7 +71,7 @@
 	active2 = null
 	return ..()
 
-/obj/machinery/computer/med_data/attackby(obj/item/I, mob/user, params)
+/obj/machinery/computer/med_data/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

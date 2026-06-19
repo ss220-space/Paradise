@@ -80,7 +80,7 @@
 	mytape?.ruin() //Fires destroy the tape
 	return ..()
 
-/obj/item/taperecorder/attackby(obj/item/I, mob/user, params)
+/obj/item/taperecorder/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/tape))
 		add_fingerprint(user)
 		if(mytape)
@@ -402,7 +402,7 @@
 	..()
 	ruin()
 
-/obj/item/tape/attackby(obj/item/I, mob/user, params)
+/obj/item/tape/attackby(obj/item/I, mob/user, list/modifiers)
 	if(is_pen(I))
 		rename_interactive(user, I)
 		return ATTACK_CHAIN_PROCEED_SUCCESS

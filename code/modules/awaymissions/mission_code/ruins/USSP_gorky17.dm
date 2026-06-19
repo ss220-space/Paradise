@@ -268,7 +268,7 @@
 	var/cardrank
 	var/possiblerank = list("Советский турист", "Товарищ") // addition before name
 
-/obj/machinery/computer/id_upgrader/ussp/attackby(obj/item/I, mob/user, params)
+/obj/machinery/computer/id_upgrader/ussp/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

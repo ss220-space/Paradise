@@ -59,7 +59,7 @@ Note: Must be placed within 3 tiles of the R&D Console
 		temp_list[O] = text2num(temp_list[O])
 	return temp_list
 
-/obj/machinery/r_n_d/destructive_analyzer/attackby(obj/item/I, mob/user, params)
+/obj/machinery/r_n_d/destructive_analyzer/attackby(obj/item/I, mob/user, list/modifiers)
 	if(shocked && shock(user, 50))
 		add_fingerprint(user)
 		return ATTACK_CHAIN_BLOCKED_ALL

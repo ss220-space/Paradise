@@ -48,7 +48,7 @@
 
 #undef GIRDER_MELTING_TEMP
 
-/obj/structure/girder/attackby(obj/item/I, mob/user, params)
+/obj/structure/girder/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
@@ -472,7 +472,7 @@
 	. = ..()
 	icon_state = SSticker.cultdat?.cult_girder_icon_state
 
-/obj/structure/girder/cult/attackby(obj/item/I, mob/user, params)
+/obj/structure/girder/cult/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
@@ -512,7 +512,7 @@
 
 	return ..()
 
-/obj/structure/girder/cult_fake/attackby(obj/item/I, mob/user, params)
+/obj/structure/girder/cult_fake/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

@@ -50,7 +50,7 @@
 		var/obj/item/gun/stored_gun = stored_item
 		stored_gun.fast_fire(target, user)
 
-/obj/item/storage/briefcase/false_bottomed/attackby(obj/item/I, mob/user, params)
+/obj/item/storage/briefcase/false_bottomed/attackby(obj/item/I, mob/user, list/modifiers)
 	if(bottom_open)
 		add_fingerprint(user)
 		if(stored_item)

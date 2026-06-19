@@ -342,7 +342,7 @@
 	popup.open(0)
 	onclose(user, "pandemic")
 
-/obj/machinery/computer/pandemic/attackby(obj/item/I, mob/user, params)
+/obj/machinery/computer/pandemic/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM || (stat & (NOPOWER|BROKEN)))
 		return ..()
 

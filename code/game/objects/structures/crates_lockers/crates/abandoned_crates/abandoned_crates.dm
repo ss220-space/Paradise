@@ -246,7 +246,7 @@
 
 	return list("attempt" = guess, "bulls" = bulls, "cows" = cows)
 
-/obj/structure/closet/crate/secure/loot/attackby(obj/item/item, mob/user, params)
+/obj/structure/closet/crate/secure/loot/attackby(obj/item/item, mob/user, list/modifiers)
 	if(istype(item, /obj/item/card/emag))
 		if(locked)
 			emag_act(user)

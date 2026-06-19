@@ -85,7 +85,7 @@
 	QDEL_NULL(myseed)
 	return ..()
 
-/obj/machinery/hydroponics/constructable/attackby(obj/item/I, mob/user, params)
+/obj/machinery/hydroponics/constructable/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 	if(exchange_parts(user, I))
@@ -742,7 +742,7 @@
 			else
 				to_chat(user, span_warning("Nothing happens..."))
 
-/obj/machinery/hydroponics/attackby(obj/item/I, mob/user, params)
+/obj/machinery/hydroponics/attackby(obj/item/I, mob/user, list/modifiers)
 	var/is_reagent_container = istype(I, /obj/item/reagent_containers)
 	if(user.a_intent == INTENT_HARM)
 		if(is_reagent_container)
@@ -1097,7 +1097,7 @@
 /obj/machinery/hydroponics/soil/update_icon_lights()
 	return // Has no lights
 
-/obj/machinery/hydroponics/soil/attackby(obj/item/I, mob/user, params)
+/obj/machinery/hydroponics/soil/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/shovel) && !istype(I, /obj/item/shovel/spade)) //Doesn't include spades because of uprooting plants
 		I.play_tool_sound(src)
 		to_chat(user, span_notice("You have cleared up [src]."))

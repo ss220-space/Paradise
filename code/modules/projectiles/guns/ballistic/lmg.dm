@@ -65,7 +65,7 @@
 		update_appearance(UPDATE_ICON | UPDATE_OVERLAYS)
 		balloon_alert(user, "магазин вынут")
 
-/obj/item/gun/projectile/automatic/l6_saw/attackby(obj/item/I, mob/user, params)
+/obj/item/gun/projectile/automatic/l6_saw/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, mag_type) && !cover_open)
 		balloon_alert(user, "крышка закрыта!")
 		return ATTACK_CHAIN_PROCEED

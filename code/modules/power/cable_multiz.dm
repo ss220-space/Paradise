@@ -25,7 +25,7 @@
 		new/obj/item/stack/cable_coil(get_turf(src), 10, TRUE, color)
 	qdel(src)
 
-/obj/structure/cable/multiz/attackby(obj/item/I, mob/user, params)
+/obj/structure/cable/multiz/attackby(obj/item/I, mob/user, list/modifiers)
 	. = ..()
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))
 		return .

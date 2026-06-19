@@ -17,7 +17,7 @@
 	QDEL_NULL(construct)
 	return ..()
 
-/obj/structure/spacepod_frame/attackby(obj/item/I, mob/user, params)
+/obj/structure/spacepod_frame/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM || !construct || !construct.action(I, user))
 		return ..()
 	add_fingerprint(user)

@@ -638,7 +638,7 @@
 /obj/item/twohanded/bostaff/update_icon_state()
 	icon_state = "bostaff[HAS_TRAIT(src, TRAIT_WIELDED)]"
 
-/obj/item/twohanded/bostaff/attack(mob/living/carbon/human/target, mob/living/carbon/human/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/twohanded/bostaff/attack(mob/living/carbon/human/target, mob/living/carbon/human/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		to_chat(user, span_warning("You club yourself over the head with [src]."))
 		user.Knockdown(6 SECONDS)

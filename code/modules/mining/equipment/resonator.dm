@@ -50,7 +50,7 @@
 	if(LAZYLEN(fields) < fieldlimit)
 		new /obj/effect/temp_visual/resonance(target_turf, user, src, mode, adding_failure)
 
-/obj/item/resonator/pre_attackby(atom/target, mob/user, params)
+/obj/item/resonator/pre_attackby(atom/target, mob/user, list/modifiers)
 	. = ..()
 	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !check_allowed_items(target, TRUE))
 		return .

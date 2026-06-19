@@ -14,7 +14,7 @@
 	origin_tech = "biotech=3"
 	var/Uses = 1 // uses before it goes inert
 
-/obj/item/slime_extract/attackby(obj/item/I, mob/user, params)
+/obj/item/slime_extract/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/slimepotion/enhancer))
 		add_fingerprint(user)
 		if(Uses >= 5)
@@ -146,7 +146,7 @@
 	icon_state = "bottle19"
 	var/being_used = FALSE
 
-/obj/item/slimepotion/slime/docility/attack(mob/living/simple_animal/slime/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/slimepotion/slime/docility/attack(mob/living/simple_animal/slime/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(!isslime(target))
 		to_chat(user, span_warning("The potion only works on slimes!"))
 		return ..()
@@ -438,7 +438,7 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle16"
 
-/obj/item/slimepotion/slime/steroid/attack(mob/living/simple_animal/slime/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/slimepotion/slime/steroid/attack(mob/living/simple_animal/slime/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(!isslime(target))//If target is not a slime.
 		to_chat(user, span_warning("The steroid only works on baby slimes!"))
 		return ..()
@@ -473,7 +473,7 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle15"
 
-/obj/item/slimepotion/slime/stabilizer/attack(mob/living/simple_animal/slime/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/slimepotion/slime/stabilizer/attack(mob/living/simple_animal/slime/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(!isslime(target))
 		to_chat(user, span_warning("The stabilizer only works on slimes!"))
 		return ..()
@@ -498,7 +498,7 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle3"
 
-/obj/item/slimepotion/slime/mutator/attack(mob/living/simple_animal/slime/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/slimepotion/slime/mutator/attack(mob/living/simple_animal/slime/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(!isslime(target))
 		to_chat(user, span_warning("The mutator only works on slimes!"))
 		return ..()

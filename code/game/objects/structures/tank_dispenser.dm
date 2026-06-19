@@ -99,7 +99,7 @@
 	set_anchored(!anchored)
 	to_chat(user, span_notice("[anchored ? "You wrench [src] into place." : "You lean down and unwrench [src]."]"))
 
-/obj/structure/dispenser/attackby(obj/item/I, mob/user, params)
+/obj/structure/dispenser/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

@@ -315,7 +315,7 @@
 /obj/machinery/mecha_part_fabricator/crowbar_act(mob/living/user, obj/item/I)
 	return default_deconstruction_crowbar(user, I)
 
-/obj/machinery/mecha_part_fabricator/attackby(obj/item/I, mob/user, params)
+/obj/machinery/mecha_part_fabricator/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 	if(exchange_parts(user, I))

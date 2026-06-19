@@ -135,7 +135,7 @@
 		if(TORCH_EMPTY)
 			overlays += ""
 
-/obj/structure/torch_holder/attackby(obj/item/item, mob/user, params)
+/obj/structure/torch_holder/attackby(obj/item/item, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

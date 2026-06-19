@@ -376,7 +376,7 @@
 	for(var/mob/M in passengers | pilot)
 		to_chat(M, mymessage)
 
-/obj/spacepod/attackby(obj/item/I, mob/user, params)
+/obj/spacepod/attackby(obj/item/I, mob/user, list/modifiers)
 	var/cached_damage = I.force
 	if(user.a_intent == INTENT_HARM)
 		. = ..()
@@ -469,7 +469,7 @@
 
 	// must be the last option as all items not listed prior will be stored
 	if(cargo_hold && cargo_hold.storage_slots > 0 && !hatch_open && unlocked)
-		cargo_hold.attackby(I, user, params)
+		cargo_hold.attackby(I, user, modifiers)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	. = ..()
@@ -676,7 +676,7 @@
 	icon_state = "pod_civ"
 	desc = "Стильный гражданский космический челнок."
 
-/obj/spacepod/civilian/attackby(obj/item/I, mob/user, params)
+/obj/spacepod/civilian/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

@@ -50,7 +50,7 @@
 	if(ammo_count)
 		. += span_notice(ammo_count)
 
-/obj/item/gun/throw/attackby(obj/item/I, mob/user, params)
+/obj/item/gun/throw/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, valid_projectile_type))
 		add_fingerprint(user)
 		if(get_ammocount() >= max_capacity)

@@ -134,7 +134,7 @@
 
 	icon_state = "borgcharger1"
 
-/obj/machinery/recharge_station/attackby(obj/item/I, mob/user, params)
+/obj/machinery/recharge_station/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 	if(exchange_parts(user, I))

@@ -47,7 +47,7 @@
 	var/melee_block_chance = 20
 	var/ranged_block_chance = 35
 
-/mob/living/simple_animal/hostile/syndicate/melee/attackby(obj/item/I, mob/user, params)
+/mob/living/simple_animal/hostile/syndicate/melee/attackby(obj/item/I, mob/user, list/modifiers)
 	if(I.force && prob(melee_block_chance))
 		user.do_attack_animation(src)
 		visible_message(span_danger("[src] blocks [I] with its shield!"))

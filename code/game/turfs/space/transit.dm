@@ -25,7 +25,7 @@
 
 	return ..()
 
-/turf/space/transit/attackby(obj/item/I, mob/user, params)
+/turf/space/transit/attackby(obj/item/I, mob/user, list/modifiers)
 	//Overwrite because we dont want people building rods in space.
 	. = ..()
 	return .|ATTACK_CHAIN_BLOCKED_ALL

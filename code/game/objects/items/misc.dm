@@ -318,7 +318,7 @@
 	. = ..()
 
 
-/obj/item/krampus_bag/attack(mob/living/M, mob/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/krampus_bag/attack(mob/living/M, mob/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if((M.stat || M?.health <= (HEALTH_THRESHOLD_CRIT + 30)) && do_after(user, 5 SECONDS, M))
 		consume(M, user)
 		return ATTACK_CHAIN_BLOCKED_ALL

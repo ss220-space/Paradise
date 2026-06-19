@@ -290,7 +290,7 @@
 		user.visible_message(span_notice("[user] cleans the ooze off [src]."), span_notice("You clean the ooze off [src]."))
 		REMOVE_TRAIT(src, TRAIT_CMAGGED, CMAGGED)
 
-/obj/machinery/door/attackby(obj/item/I, mob/user, params)
+/obj/machinery/door/attackby(obj/item/I, mob/user, list/modifiers)
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
 		clean_cmag_ooze(I, user)
 		return ATTACK_CHAIN_BLOCKED_ALL

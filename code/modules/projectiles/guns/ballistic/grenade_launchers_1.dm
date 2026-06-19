@@ -17,7 +17,7 @@
 	recoil = GUN_RECOIL_MEGA
 	var/opened = FALSE
 
-/obj/item/gun/projectile/bombarda/attackby(obj/item/item, mob/user, params)
+/obj/item/gun/projectile/bombarda/attackby(obj/item/item, mob/user, list/modifiers)
 	if(isammocasing(item))
 		add_fingerprint(user)
 		if(!opened)

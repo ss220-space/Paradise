@@ -507,7 +507,7 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 	ui_interact(user)
 	return
 
-/obj/machinery/computer/syndie_supplycomp/attackby(obj/item/I, mob/living/carbon/human/user, params)
+/obj/machinery/computer/syndie_supplycomp/attackby(obj/item/I, mob/living/carbon/human/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM || !powered() || !ishuman(user))
 		return ..()
 

@@ -102,7 +102,7 @@
 
 	return FALSE
 
-/obj/item/radio/headset/attackby(obj/item/I, mob/user, params)
+/obj/item/radio/headset/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/encryptionkey))
 		if(loc == user && (user.check_obscured_slots() & user.get_slot_by_item(src)))
 			user.balloon_alert(user, "закрыто одеждой!")

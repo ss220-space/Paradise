@@ -248,7 +248,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 		if("toggleSilent")
 			silent = !silent
 
-/obj/machinery/requests_console/attackby(obj/item/I, mob/user, params)
+/obj/machinery/requests_console/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM || inoperable(MAINT))
 		return ..()
 

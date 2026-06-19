@@ -23,11 +23,11 @@
 	if(!pockets || !pockets.handle_mousedrop(user, over_object))
 		return
 
-/obj/item/clothing/suit/storage/attackby(obj/item/I, mob/user, params)
+/obj/item/clothing/suit/storage/attackby(obj/item/I, mob/user, list/modifiers)
 	. = ..()
 	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !pockets || istype(I, /obj/item/radio/spy_spider))
 		return .
-	return pockets.attackby(I, user, params)
+	return pockets.attackby(I, user, modifiers)
 
 /obj/item/clothing/suit/storage/emp_act(severity)
 	..()

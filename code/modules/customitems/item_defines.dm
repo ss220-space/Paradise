@@ -29,7 +29,7 @@
 	var/tattoo_b = 1
 	usesound = 'sound/items/welder2.ogg'
 
-/obj/item/fluff/tattoo_gun/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/fluff/tattoo_gun/attack(mob/living/carbon/human/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	. = ATTACK_CHAIN_PROCEED
 	if(user.a_intent == INTENT_HARM)
 		user.visible_message(

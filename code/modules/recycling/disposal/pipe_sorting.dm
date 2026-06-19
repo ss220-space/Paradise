@@ -25,7 +25,7 @@
 		var/tag = uppertext(GLOB.TAGGERLOCATIONS[sortType])
 		desc += "\nIt's tagged with [tag]"
 
-/obj/structure/disposalpipe/sortjunction/attackby(obj/item/I, mob/user, params)
+/obj/structure/disposalpipe/sortjunction/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

@@ -67,7 +67,7 @@
 		MC += C.rating
 	max_charge = MC * 50
 
-/obj/machinery/mech_bay_recharge_port/attackby(obj/item/I, mob/user, params)
+/obj/machinery/mech_bay_recharge_port/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 	if(exchange_parts(user, I))

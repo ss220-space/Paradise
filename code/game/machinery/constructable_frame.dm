@@ -185,7 +185,7 @@
 	transfer_fingerprints_to(new_machine)
 	qdel(src)
 
-/obj/machinery/constructable_frame/machine_frame/attackby(obj/item/I, mob/user, params)
+/obj/machinery/constructable_frame/machine_frame/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
@@ -1045,7 +1045,7 @@ to destroy them and players will be able to make replacements.
 	)
 	var/target
 
-/obj/item/circuitboard/teleporter_perma/attackby(obj/item/I, mob/living/user, params)
+/obj/item/circuitboard/teleporter_perma/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

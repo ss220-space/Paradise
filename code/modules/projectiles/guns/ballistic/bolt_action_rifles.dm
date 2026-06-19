@@ -37,7 +37,7 @@
 		fast_fire(user, user)
 		. = 1
 
-/obj/item/gun/projectile/shotgun/boltaction/attackby(obj/item/I, mob/user, params)
+/obj/item/gun/projectile/shotgun/boltaction/attackby(obj/item/I, mob/user, list/modifiers)
 	if(!bolt_open)
 		add_fingerprint(user)
 		balloon_alert(user, "затвор закрыт!")

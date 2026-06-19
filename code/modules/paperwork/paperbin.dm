@@ -77,7 +77,7 @@
 	add_fingerprint(user)
 	return
 
-/obj/item/paper_bin/attackby(obj/item/I, mob/user, params)
+/obj/item/paper_bin/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/paper))
 		add_fingerprint(user)
 		if(!user.drop_transfer_item_to_loc(I, src))

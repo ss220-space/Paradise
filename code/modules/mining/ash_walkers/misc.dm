@@ -82,7 +82,7 @@
 		PREPOSITIONAL = "благодати Лазис Ардакса",
 	)
 
-/obj/structure/grace_of_lazis/attackby(obj/item/I, mob/user, params)
+/obj/structure/grace_of_lazis/attackby(obj/item/I, mob/user, list/modifiers)
 	if(!istype(I, /obj/item/kitchen/knife))
 		return ..()
 

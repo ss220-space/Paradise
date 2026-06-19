@@ -68,7 +68,7 @@
 	. = ..()
 	. += span_notice("[status_string()]")
 
-/obj/item/lightreplacer/attackby(obj/item/I, mob/user, params)
+/obj/item/lightreplacer/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/stack/sheet/glass))
 		add_fingerprint(user)
 		var/obj/item/stack/sheet/glass/glass = I

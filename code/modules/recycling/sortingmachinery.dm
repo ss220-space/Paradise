@@ -68,7 +68,7 @@
 		return
 	icon_state = "delivery[holding_crate ? "crate" : "closet"][(sortTag || cc_tag) ? "_labeled" : ""]"	// label should be an overlay
 
-/obj/structure/bigDelivery/attackby(obj/item/I, mob/user, params)
+/obj/structure/bigDelivery/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
@@ -193,7 +193,7 @@
 		return
 	icon_state = "deliverycrate[weight_number][sortTag ? "_labeled" : ""]"	// label should be an overlay
 
-/obj/item/smallDelivery/attackby(obj/item/I, mob/user, params)
+/obj/item/smallDelivery/attackby(obj/item/I, mob/user, list/modifiers)
 	if(is_pen(I))
 		rename_interactive(user, I)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
@@ -448,7 +448,7 @@
 	if(!hasmob && sortTag && sealed)
 		disposal_holder.destinationTag = sortTag
 
-/obj/item/shippingPackage/attackby(obj/item/I, mob/user, params)
+/obj/item/shippingPackage/attackby(obj/item/I, mob/user, list/modifiers)
 	. = ..()
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))
 		return .

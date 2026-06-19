@@ -24,7 +24,7 @@
 		disabled = TRUE
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/machinery/ai_slipper/attackby(obj/item/I, mob/user, params)
+/obj/machinery/ai_slipper/attackby(obj/item/I, mob/user, list/modifiers)
 	if(stat & (NOPOWER|BROKEN) || user.a_intent == INTENT_HARM)
 		return ..()
 

@@ -82,7 +82,7 @@
 		return
 	ui_interact(user)
 
-/obj/machinery/abductor/gland_dispenser/attackby(obj/item/I, mob/user, params)
+/obj/machinery/abductor/gland_dispenser/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

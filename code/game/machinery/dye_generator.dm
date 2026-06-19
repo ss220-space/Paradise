@@ -60,7 +60,7 @@
 	. = TRUE
 	default_unfasten_wrench(user, I)
 
-/obj/machinery/dye_generator/attackby(obj/item/I, mob/user, params)
+/obj/machinery/dye_generator/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
@@ -94,7 +94,7 @@
 	. = ..()
 	. += mutable_appearance(icon, icon_state = "hairdyebottle-overlay", color = hair_dye_color)
 
-/obj/item/hair_dye_bottle/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/hair_dye_bottle/attack(mob/living/carbon/human/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(!ishuman(target) || user.a_intent != INTENT_HELP || !(target in view(1)))
 		return ..()
 

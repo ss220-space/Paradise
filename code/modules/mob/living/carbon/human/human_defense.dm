@@ -448,7 +448,7 @@ emp_act
 	if(.)
 		w_uniform?.add_fingerprint(grabber)
 
-/mob/living/carbon/human/proceed_attack_results(obj/item/item, mob/living/user, params, def_zone)
+/mob/living/carbon/human/proceed_attack_results(obj/item/item, mob/living/user, list/modifiers, def_zone)
 	if(QDELETED(src) || QDELETED(item) || QDELETED(user))	// tripple insurance, jesus fucking christ
 		return ATTACK_CHAIN_BLOCKED_ALL
 

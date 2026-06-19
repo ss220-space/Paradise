@@ -220,7 +220,7 @@
 	if(.)
 		investigate_log("was set to [target_pressure] kPa by [key_name_log(usr)]", INVESTIGATE_ATMOS)
 
-/obj/machinery/atmospherics/trinary/mixer/attackby(obj/item/I, mob/user, params)
+/obj/machinery/atmospherics/trinary/mixer/attackby(obj/item/I, mob/user, list/modifiers)
 	. = ..()
 
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))

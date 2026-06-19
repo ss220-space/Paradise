@@ -29,7 +29,7 @@
 		PREPOSITIONAL = "точильном камне",
 	)
 
-/obj/item/whetstone/attackby(obj/item/I, mob/user, params)
+/obj/item/whetstone/attackby(obj/item/I, mob/user, list/modifiers)
 	. = ..()
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))
 		return .

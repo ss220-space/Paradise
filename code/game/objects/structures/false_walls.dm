@@ -113,7 +113,7 @@
 		qdel(src)
 	return T
 
-/obj/structure/falsewall/attackby(obj/item/I, mob/user, params)
+/obj/structure/falsewall/attackby(obj/item/I, mob/user, list/modifiers)
 	if(opening)
 		add_fingerprint(user)
 		to_chat(user, span_warning("Нужно подождать, пока дверь не остановится!"))
@@ -341,7 +341,7 @@
 	canSmoothWith = SMOOTH_GROUP_PLASMA_WALLS
 	smoothing_groups = SMOOTH_GROUP_PLASMA_WALLS
 
-/obj/structure/falsewall/plasma/attackby(obj/item/I, mob/user, params)
+/obj/structure/falsewall/plasma/attackby(obj/item/I, mob/user, list/modifiers)
 	if(opening)
 		return ..()
 

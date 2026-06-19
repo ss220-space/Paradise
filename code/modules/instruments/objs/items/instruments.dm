@@ -73,7 +73,7 @@
 	. = ..()
 	AddComponent(/datum/component/spooky)
 
-/obj/item/instrument/trumpet/spectral/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/instrument/trumpet/spectral/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	. = ..()
 	if(ATTACK_CHAIN_SUCCESS_CHECK(.))
 		playsound(loc, 'sound/instruments/trombone/En4.mid', 100, TRUE, -1)
@@ -95,7 +95,7 @@
 	. = ..()
 	AddComponent(/datum/component/spooky)
 
-/obj/item/instrument/saxophone/spectral/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/instrument/saxophone/spectral/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	. = ..()
 	if(ATTACK_CHAIN_SUCCESS_CHECK(.))
 		playsound(loc, 'sound/instruments/saxophone/En4.mid', 100, TRUE, -1)
@@ -116,7 +116,7 @@
 	. = ..()
 	AddComponent(/datum/component/spooky)
 
-/obj/item/instrument/trombone/spectral/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/instrument/trombone/spectral/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	. = ..()
 	if(ATTACK_CHAIN_SUCCESS_CHECK(.))
 		playsound(loc, 'sound/instruments/trombone/Cn4.mid', 100, TRUE, -1)

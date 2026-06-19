@@ -52,7 +52,7 @@
 	. = ..()
 	user.remove_alt_appearance("sneaking_mission")
 
-/obj/item/twohanded/cardboard_cutout/attackby(obj/item/I, mob/living/user, params)
+/obj/item/twohanded/cardboard_cutout/attackby(obj/item/I, mob/living/user, list/modifiers)
 	. = ..()
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))
 		return .

@@ -148,7 +148,7 @@
 	user.changeNext_move(CLICK_CD_MELEE)
 	..()
 
-/obj/item/clothing/suit/space/hardsuit/attackby(obj/item/I, mob/user, params)
+/obj/item/clothing/suit/space/hardsuit/attackby(obj/item/I, mob/user, list/modifiers)
 	. = ..()
 
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))

@@ -147,7 +147,7 @@
 //attack by item
 //weldingtool: unfasten and convert to obj/disposalconstruct
 
-/obj/structure/disposalpipe/attackby(obj/item/I, mob/user, params)
+/obj/structure/disposalpipe/attackby(obj/item/I, mob/user, list/modifiers)
 	var/turf/our_turf = loc
 	if(isturf(our_turf) && HAS_TRAIT(src, TRAIT_UNDERFLOOR))
 		to_chat(user, span_warning("You cannot interact with something that's under the floor!"))
@@ -277,7 +277,7 @@
 		outlet.trunk = null
 
 // Override attackby so we disallow trunkremoval when somethings ontop
-/obj/structure/disposalpipe/trunk/attackby(obj/item/I, mob/user, params)
+/obj/structure/disposalpipe/trunk/attackby(obj/item/I, mob/user, list/modifiers)
 	add_fingerprint(user)
 	if(!isturf(loc))
 		return ..()

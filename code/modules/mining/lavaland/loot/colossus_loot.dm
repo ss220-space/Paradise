@@ -79,7 +79,7 @@
 	..()
 	ActivationReaction(user,"touch")
 
-/obj/machinery/anomalous_crystal/attackby(obj/item/I, mob/user, params)
+/obj/machinery/anomalous_crystal/attackby(obj/item/I, mob/user, list/modifiers)
 	. = ..()
 
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))

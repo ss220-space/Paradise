@@ -39,7 +39,7 @@
 	else
 		. += span_notice("You'll need to get closer to see any more.")
 
-/obj/item/melee/powerfist/attackby(obj/item/I, mob/user, params)
+/obj/item/melee/powerfist/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/tank/internals))
 		add_fingerprint(user)
 		if(tank)

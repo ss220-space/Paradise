@@ -40,7 +40,7 @@
 	if(unfastened)
 		. += span_warning("It has been unfastened.")
 
-/turf/simulated/floor/plating/attackby(obj/item/I, mob/user, params)
+/turf/simulated/floor/plating/attackby(obj/item/I, mob/user, list/modifiers)
 	. = ..()
 
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))
@@ -229,7 +229,7 @@
 #undef MFOAM_ALUMINUM
 #undef MFOAM_IRON
 
-/turf/simulated/floor/plating/metalfoam/attackby(obj/item/I, mob/user, params)
+/turf/simulated/floor/plating/metalfoam/attackby(obj/item/I, mob/user, list/modifiers)
 	. = ..()
 
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))

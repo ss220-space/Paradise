@@ -778,7 +778,7 @@
 	for(var/i in 1 to storage_slots)
 		new /obj/item/match(src)
 
-/obj/item/storage/box/matches/attackby(obj/item/I, mob/user, params)
+/obj/item/storage/box/matches/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/match))
 		var/obj/item/match/match = I
 		if(match.lit)
@@ -923,7 +923,7 @@
 	item_state = "paperbag_[design]"
 	icon_state = length(contents) ? "[item_state]_closed" : "[item_state]"
 
-/obj/item/storage/box/papersack/attackby(obj/item/I, mob/user, params)
+/obj/item/storage/box/papersack/attackby(obj/item/I, mob/user, list/modifiers)
 	if(is_pen(I))
 		add_fingerprint(user)
 		//if a pen is used on the sack, dialogue to change its design appears
@@ -961,7 +961,7 @@
 
 	return ..()
 
-/obj/item/storage/box/papersack/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/storage/box/papersack/attack(mob/living/carbon/human/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(!ishuman(target))
 		return ..()
 

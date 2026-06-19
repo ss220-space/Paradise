@@ -73,13 +73,13 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 	main_part = null
 	return ..()
 
-/obj/machinery/gravity_generator/part/attackby(obj/item/I, mob/user, params)
+/obj/machinery/gravity_generator/part/attackby(obj/item/I, mob/user, list/modifiers)
 	. = ..()
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))
 		return .
 	if(!main_part)
 		return .|ATTACK_CHAIN_BLOCKED_ALL
-	return . | main_part.attackby(I, user, params)
+	return . | main_part.attackby(I, user, modifiers)
 
 /obj/machinery/gravity_generator/part/get_status()
 	if(!main_part)
@@ -207,7 +207,7 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 		if(GRAV_NEEDS_WRENCH)
 			. += span_notice("The new plating just needs to be <b>bolted</b> into place now.")
 
-/obj/machinery/gravity_generator/main/attackby(obj/item/I, mob/user, params)
+/obj/machinery/gravity_generator/main/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM || !(stat & BROKEN) || broken_state != GRAV_NEEDS_PLASTEEL || !istype(I, /obj/item/stack/sheet/plasteel))
 		return ..()
 

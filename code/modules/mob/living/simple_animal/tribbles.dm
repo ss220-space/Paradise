@@ -49,7 +49,7 @@ GLOBAL_VAR_INIT(totaltribbles, 0)   //global variable so it updates for all trib
 	user.put_in_active_hand(new_tribble)
 	qdel(src)
 
-/mob/living/simple_animal/tribble/attackby(obj/item/I, mob/user, params)
+/mob/living/simple_animal/tribble/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/scalpel))
 		to_chat(user, span_notice("You try to neuter the tribble, but it's moving too much and you fail!"))
 	else if(istype(I, /obj/item/cautery))
@@ -126,7 +126,7 @@ GLOBAL_VAR_INIT(totaltribbles, 0)   //global variable so it updates for all trib
 	to_chat(user, span_notice("The tribble gets up and wanders around."))
 	. = ..()
 
-/obj/item/toy/tribble/attackby(obj/item/I, mob/user, params) //neutering and un-neutering
+/obj/item/toy/tribble/attackby(obj/item/I, mob/user, list/modifiers) //neutering and un-neutering
 	. = ..()
 
 	if(ATTACK_CHAIN_CANCEL_CHECK(.) || gestation < 0)

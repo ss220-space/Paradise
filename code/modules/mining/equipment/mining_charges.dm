@@ -62,7 +62,7 @@
 			return
 		..()
 
-/obj/item/grenade/plastic/miningcharge/attackby(obj/item/I, mob/user, params)
+/obj/item/grenade/plastic/miningcharge/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/detonator))
 		add_fingerprint(user)
 		var/obj/item/detonator/detonator = I

@@ -67,7 +67,7 @@
 	if(exposed_temperature > T0C + 100)
 		burst()
 
-/obj/item/latexballon/attackby(obj/item/I, mob/user, params)
+/obj/item/latexballon/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/tank))
 		blow(I, user)
 		return ATTACK_CHAIN_PROCEED_SUCCESS

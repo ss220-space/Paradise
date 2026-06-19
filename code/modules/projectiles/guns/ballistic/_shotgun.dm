@@ -24,7 +24,7 @@
 	/// Available reload animation (pump action animation)
 	var/available_reload_animation = TRUE
 
-/obj/item/gun/projectile/shotgun/attackby(obj/item/item, mob/user, params)
+/obj/item/gun/projectile/shotgun/attackby(obj/item/item, mob/user, list/modifiers)
 	if(speedloader_reload(item, user))
 		return ATTACK_CHAIN_PROCEED
 	return ..()

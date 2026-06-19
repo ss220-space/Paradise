@@ -118,7 +118,7 @@
 
 	toggle_paddles(user)
 
-/obj/item/defibrillator/attackby(obj/item/I, mob/user, params)
+/obj/item/defibrillator/attackby(obj/item/I, mob/user, list/modifiers)
 	if(iscell(I))
 		add_fingerprint(user)
 		var/obj/item/stock_parts/cell/new_cell = I

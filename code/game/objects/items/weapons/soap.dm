@@ -63,7 +63,7 @@
 			qdel(O)
 	SEND_SIGNAL(T, COMSIG_COMPONENT_CLEAN_ACT, 5)
 
-/obj/item/soap/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/soap/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(ishuman(target) && ishuman(user) && !target.stat && !user.stat && user.zone_selected == BODY_ZONE_PRECISE_MOUTH)
 		user.visible_message(
 			span_warning("[user] мо[PLUR_ET_YUT(user)] рот [target.declent_ru(GENITIVE)] с [declent_ru(INSTRUMENTAL)]!"),

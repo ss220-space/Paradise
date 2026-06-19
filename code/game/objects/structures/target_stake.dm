@@ -29,7 +29,7 @@
 	if(!. && loc && pinned_target && pinned_target.loc != loc)
 		pinned_target.forceMove(loc)
 
-/obj/structure/target_stake/attackby(obj/item/I, mob/user, params)
+/obj/structure/target_stake/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

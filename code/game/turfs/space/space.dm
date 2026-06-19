@@ -94,7 +94,7 @@
 			return
 		set_light_on(FALSE)
 
-/turf/space/attackby(obj/item/I, mob/user, params)
+/turf/space/attackby(obj/item/I, mob/user, list/modifiers)
 	. = ..()
 
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))

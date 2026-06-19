@@ -35,7 +35,7 @@
 	tastes = list("potato" = 1)
 	distill_reagent = "sbiten"
 
-/obj/item/reagent_containers/food/snacks/grown/potato/attackby(obj/item/I, mob/user, params)
+/obj/item/reagent_containers/food/snacks/grown/potato/attackby(obj/item/I, mob/user, list/modifiers)
 	. = ..()
 
 	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !I.sharp)

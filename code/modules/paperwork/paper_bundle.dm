@@ -32,7 +32,7 @@
 	QDEL_LIST(papers)
 	return ..()
 
-/obj/item/paper_bundle/attackby(obj/item/I, mob/living/user, params)
+/obj/item/paper_bundle/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(resistance_flags & ON_FIRE)
 		return ATTACK_CHAIN_BLOCKED_ALL
 

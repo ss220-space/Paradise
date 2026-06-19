@@ -115,7 +115,7 @@
 			span_italics("You hear ratchet."),
 		)
 
-/obj/machinery/pipedispenser/attackby(obj/item/I, mob/user, params)
+/obj/machinery/pipedispenser/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

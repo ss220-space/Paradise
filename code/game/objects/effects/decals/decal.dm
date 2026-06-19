@@ -52,7 +52,7 @@
 	if(changed == loc && never_should_have_come_here(changed) && !QDELETED(src))
 		qdel(src)
 
-/obj/effect/decal/attackby(obj/item/item, mob/user, params)
+/obj/effect/decal/attackby(obj/item/item, mob/user, list/modifiers)
 	. = ..()
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))
 		return .

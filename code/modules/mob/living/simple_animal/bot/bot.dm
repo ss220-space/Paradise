@@ -413,7 +413,7 @@
 /mob/living/simple_animal/bot/proc/interact(mob/user)
 	show_controls(user)
 
-/mob/living/simple_animal/bot/attackby(obj/item/I, mob/user, params)
+/mob/living/simple_animal/bot/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)	// NOT IN COMBAT
 		return ..()
 

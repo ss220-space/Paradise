@@ -69,7 +69,7 @@
 		if(FOLDED_TRIPOD_ACTION_CAMERA)
 			camera.attack_self(user)
 
-/obj/item/tripod/attackby(obj/item/I, mob/user, params)
+/obj/item/tripod/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/broadcast_camera))
 		try_attach_camera(I, user)
 		return ATTACK_CHAIN_BLOCKED_ALL
@@ -77,7 +77,7 @@
 	if(!camera)
 		return ..()
 
-	. = camera.attackby(I, user, params)
+	. = camera.attackby(I, user, modifiers)
 	if(!ATTACK_CHAIN_CANCEL_CHECK(.))
 		return ..()
 
@@ -360,8 +360,8 @@
 	forceMove(tripod_item)
 	user.put_in_hands(tripod_item)
 
-/obj/structure/tripod/attackby(obj/item/I, mob/user, params)
-	. = tripod_item.attackby(I, user, params)
+/obj/structure/tripod/attackby(obj/item/I, mob/user, list/modifiers)
+	. = tripod_item.attackby(I, user, modifiers)
 	if(!ATTACK_CHAIN_CANCEL_CHECK(.))
 		return ..()
 

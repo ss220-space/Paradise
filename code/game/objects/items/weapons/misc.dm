@@ -144,7 +144,7 @@
 			active = TRUE
 			update_icon(UPDATE_ICON_STATE)
 
-/obj/item/nunchuck/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/nunchuck/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(!active)
 		return ..()
 	if(!user.temporarily_remove_item_from_inventory(src) || !user.put_in_inactive_hand(src))

@@ -882,7 +882,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 /obj/item/organ/external/groin/droplimb(clean = FALSE, disintegrate = DROPLIMB_SHARP, ignore_children = FALSE, nodamage = FALSE, silent = FALSE)
 	return disembowel(BODY_ZONE_PRECISE_GROIN, silent)
 
-/obj/item/organ/external/attackby(obj/item/I, mob/user, params)
+/obj/item/organ/external/attackby(obj/item/I, mob/user, list/modifiers)
 	if(I.sharp)
 		add_fingerprint(user)
 		if(!length(contents))

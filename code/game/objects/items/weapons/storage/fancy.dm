@@ -198,7 +198,7 @@
 	for(var/obj/item/toy/crayon/crayon in contents)
 		. += crayon.colourName
 
-/obj/item/storage/fancy/crayons/attackby(obj/item/I, mob/user, params)
+/obj/item/storage/fancy/crayons/attackby(obj/item/I, mob/user, list/modifiers)
 	if(iscrayon(I))
 		var/obj/item/toy/crayon/crayon = I
 		switch(crayon.colourName)
@@ -285,7 +285,7 @@
 		else
 			icon_state = "[init_state]0"
 
-/obj/item/storage/fancy/cigarettes/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/storage/fancy/cigarettes/attack(mob/living/carbon/human/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(!ishuman(target) || user.zone_selected != BODY_ZONE_PRECISE_MOUTH)
 		return ..()
 

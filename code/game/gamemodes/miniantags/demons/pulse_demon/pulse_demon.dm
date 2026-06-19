@@ -795,7 +795,7 @@
 			visible_message(span_danger("[M] [response_harm] [src]."))
 	try_attack_mob(M)
 
-/mob/living/simple_animal/demon/pulse_demon/attackby(obj/item/I, mob/user, params)
+/mob/living/simple_animal/demon/pulse_demon/attackby(obj/item/I, mob/user, list/modifiers)
 	if(is_under_tile())
 		to_chat(user, span_danger("You can't interact with something that's under the floor!"))
 		return ..()

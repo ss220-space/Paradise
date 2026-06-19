@@ -117,7 +117,7 @@
 	icon_state = "generator_[stat & NOPOWER ? "off" : "on"]"
 	return ..()
 
-/obj/machinery/power/anomaly_generator/attackby(obj/item/item, mob/user, params)
+/obj/machinery/power/anomaly_generator/attackby(obj/item/item, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

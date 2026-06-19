@@ -39,7 +39,7 @@ GLOBAL_LIST_INIT(glass_recipes, list(
 	. = ..()
 	recipes = GLOB.glass_recipes
 
-/obj/item/stack/sheet/glass/attackby(obj/item/I, mob/user, params)
+/obj/item/stack/sheet/glass/attackby(obj/item/I, mob/user, list/modifiers)
 	if(iscoil(I))
 		add_fingerprint(user)
 		var/obj/item/stack/cable_coil/coil = I
@@ -155,7 +155,7 @@ GLOBAL_LIST_INIT(pglass_recipes, list (
 	. = ..()
 	recipes = GLOB.pglass_recipes
 
-/obj/item/stack/sheet/plasmaglass/attackby(obj/item/I, mob/user, params)
+/obj/item/stack/sheet/plasmaglass/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/stack/rods))
 		add_fingerprint(user)
 		var/obj/item/stack/rods/rods = I

@@ -168,7 +168,7 @@
 		return FALSE
 	return TRUE
 
-/obj/item/rcd/attackby(obj/item/item, mob/user, params)
+/obj/item/rcd/attackby(obj/item/item, mob/user, list/modifiers)
 	if(rcd_reload(item, user))
 		return ..()
 	add_fingerprint(user)

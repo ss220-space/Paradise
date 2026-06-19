@@ -54,7 +54,7 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 	logged_explosions.Cut()
 	return ..()
 
-/obj/machinery/doppler_array/attackby(obj/item/I, mob/user, params)
+/obj/machinery/doppler_array/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

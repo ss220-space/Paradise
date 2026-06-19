@@ -52,7 +52,7 @@
 	QDEL_NULL(shine_overlay)
 	. = ..()
 
-/obj/item/gem/attackby(obj/item/item, mob/living/user, params) //Stolen directly from geysers, removed the internal gps
+/obj/item/gem/attackby(obj/item/item, mob/living/user, list/modifiers) //Stolen directly from geysers, removed the internal gps
 	if(!istype(item, /obj/item/mining_scanner) && !istype(item, /obj/item/t_scanner/adv_mining_scanner))
 		return ..()
 
@@ -149,7 +149,7 @@
 /obj/item/gem/rupee/update_icon_state()
 	icon_state = "[shielded ? "" : "broken_"]rupee"
 
-/obj/item/gem/rupee/attackby(obj/item/I, mob/living/user, params)
+/obj/item/gem/rupee/attackby(obj/item/I, mob/living/user, list/modifiers)
 	. = ..()
 	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !I.sharp || !shielded)
 		return .

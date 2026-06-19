@@ -69,7 +69,7 @@
 	new /obj/item/mounted/frame/driver_button(loc)
 	qdel(src)
 
-/obj/machinery/driver_button/attackby(obj/item/I, mob/user, params)
+/obj/machinery/driver_button/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/detective_scanner))
 		return ATTACK_CHAIN_PROCEED
 	return ..()

@@ -93,7 +93,7 @@
 		return
 	return ..()
 
-/obj/item/gun/projectile/revolver/fingergun/attackby(obj/item/I, mob/user, params)
+/obj/item/gun/projectile/revolver/fingergun/attackby(obj/item/I, mob/user, list/modifiers)
 	return ..()
 
 /obj/item/gun/projectile/revolver/fingergun/attack_self(mob/living/user)
@@ -198,7 +198,7 @@
 		chamber_round()
 	spun = TRUE
 
-/obj/item/gun/projectile/revolver/russian/attackby(obj/item/I, mob/user, params)
+/obj/item/gun/projectile/revolver/russian/attackby(obj/item/I, mob/user, list/modifiers)
 	if(isspeedloader(I) || isammocasing(I))
 		if(get_ammo() > 0)
 			to_chat(user, span_warning("The [name] can only hold a single bullet."))
@@ -394,7 +394,7 @@
 	to_chat(user, span_notice("You have [unscrewed ? "disassembled" : "assembled"] the revolver."))
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/item/gun/projectile/revolver/improvised/attackby(obj/item/I, mob/user, params)
+/obj/item/gun/projectile/revolver/improvised/attackby(obj/item/I, mob/user, list/modifiers)
 	if(!unscrewed)
 		return ..()
 
@@ -478,7 +478,7 @@
 	if(. && opened)
 		return FALSE
 
-/obj/item/gun/projectile/revolver/rsh_12/attackby(obj/item/item, mob/user, params)
+/obj/item/gun/projectile/revolver/rsh_12/attackby(obj/item/item, mob/user, list/modifiers)
 	if(!opened && isammocasing(item))
 		user.balloon_alert(user, "надо открыть барабан!")
 		to_chat(user, span_notice("Надо открыть барабан чтобы зарядить патрон."))

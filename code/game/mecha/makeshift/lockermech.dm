@@ -109,7 +109,7 @@
 	if(mecha_type)
 		summon_mecha = new mecha_type(src)
 
-/obj/item/mecha_drop/afterattack(atom/target, mob/user, proximity, params)
+/obj/item/mecha_drop/afterattack(atom/target, mob/user, proximity, list/modifiers)
 	if(used)
 		return
 	if(isfloorturf(target))

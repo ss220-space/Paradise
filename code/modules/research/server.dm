@@ -163,7 +163,7 @@
 	removed.set_temperature(min((removed.temperature() * heat_capacity + server.heating_power) / heat_capacity, 1000))
 	env.merge(removed)
 
-/obj/machinery/r_n_d/server/attackby(obj/item/I, mob/user, params)
+/obj/machinery/r_n_d/server/attackby(obj/item/I, mob/user, list/modifiers)
 	if(shocked && shock(user, 50))
 		add_fingerprint(user)
 		return ATTACK_CHAIN_BLOCKED_ALL

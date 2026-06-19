@@ -650,7 +650,7 @@
 		new /obj/item/stack/sheet/glass(get_turf(src), shard_count + 1)		//Produce the appropriate number of glass sheets, in a single stack
 	qdel(src)
 
-/obj/machinery/fishtank/attackby(obj/item/I, mob/user, params)
+/obj/machinery/fishtank/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

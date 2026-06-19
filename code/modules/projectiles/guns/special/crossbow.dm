@@ -111,7 +111,7 @@
 	else
 		user.visible_message("[usr] struggles to draws back the string of [src]!","[src] string is too tense to draw manually!")
 
-/obj/item/gun/throw/crossbow/attackby(obj/item/I, mob/user, params)
+/obj/item/gun/throw/crossbow/attackby(obj/item/I, mob/user, list/modifiers)
 	if(iscell(I))
 		add_fingerprint(user)
 		if(cell)
@@ -259,7 +259,7 @@
 	embedded_ignore_throwspeed_threshold = TRUE
 	superheated = 1
 
-/obj/item/arrow/rod/fire/attackby(obj/item/I, mob/user, params)
+/obj/item/arrow/rod/fire/attackby(obj/item/I, mob/user, list/modifiers)
 	. = ..()
 	if(!ATTACK_CHAIN_CANCEL_CHECK(.) && I.get_temperature())
 		fire_up()

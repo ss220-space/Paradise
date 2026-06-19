@@ -158,7 +158,7 @@
 
 	return TRUE
 
-/obj/machinery/disposal/attackby(obj/item/I, mob/user, params)
+/obj/machinery/disposal/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM || (stat & BROKEN))
 		return ..()
 
@@ -619,7 +619,7 @@
 		PREPOSITIONAL = "грузовом люке",
 	)
 
-/obj/machinery/disposal/deliveryChute/attackby(obj/item/I, mob/user, params)
+/obj/machinery/disposal/deliveryChute/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

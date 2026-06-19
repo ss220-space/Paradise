@@ -107,7 +107,7 @@
 
 	return FALSE
 
-/obj/machinery/turretid/attackby(obj/item/I, mob/user, params)
+/obj/machinery/turretid/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM || (stat & BROKEN))
 		return ..()
 

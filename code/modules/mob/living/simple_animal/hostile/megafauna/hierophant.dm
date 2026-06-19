@@ -856,7 +856,7 @@ Difficulty: Hard
 /obj/effect/hierophant/has_prints()
 	return TRUE
 
-/obj/effect/hierophant/attackby(obj/item/I, mob/user, params)
+/obj/effect/hierophant/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/hierophant_club))
 		add_fingerprint(user)
 		var/obj/item/hierophant_club/club = I

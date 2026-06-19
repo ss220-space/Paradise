@@ -51,7 +51,7 @@
 	pixel_y = rand(-5, 5)
 	pixel_x = rand(-6, 6)
 
-/obj/item/storage/ashtray/attackby(obj/item/I, mob/user, params)
+/obj/item/storage/ashtray/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM || !can_be_inserted(I))
 		return ..()
 

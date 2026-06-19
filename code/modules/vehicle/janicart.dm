@@ -39,7 +39,7 @@
 	if(installed_upgrade)
 		. += "It has been upgraded with [installed_upgrade], which can be removed with a screwdriver."
 
-/obj/vehicle/ridden/janicart/attackby(obj/item/I, mob/user, params)
+/obj/vehicle/ridden/janicart/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 	if(istype(I, /obj/item/storage/bag/trash))
@@ -76,7 +76,7 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	else if(trash_bag && (!is_key(I) || is_key(inserted_key))) // don't put a key in the trash when we need it
-		trash_bag.attackby(I, user, params)
+		trash_bag.attackby(I, user, modifiers)
 		return ATTACK_CHAIN_BLOCKED_ALL
 	else
 		return ..()

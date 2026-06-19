@@ -162,7 +162,7 @@
 	else
 		show_content(user, forcestars = TRUE)
 
-/obj/item/paper/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/paper/attack(mob/living/carbon/human/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	. = ..()
 	if(!ATTACK_CHAIN_SUCCESS_CHECK(.) || !ishuman(target))
 		return .
@@ -441,7 +441,7 @@
 
 		topic_href_write(usr, id, input_element)
 
-/obj/item/paper/attackby(obj/item/I, mob/living/user, params)
+/obj/item/paper/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(resistance_flags & ON_FIRE)
 		return ATTACK_CHAIN_BLOCKED_ALL
 

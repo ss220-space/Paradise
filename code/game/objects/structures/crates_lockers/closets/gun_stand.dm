@@ -25,7 +25,7 @@
 		stored_item = new stored_item_type(src)
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/structure/closet/gun_stand/attackby(obj/item/attack_item, mob/living/user, params)
+/obj/structure/closet/gun_stand/attackby(obj/item/attack_item, mob/living/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

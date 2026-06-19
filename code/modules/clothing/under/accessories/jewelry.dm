@@ -23,7 +23,7 @@
 	if(dragon_power)
 		. += span_notice("The necklace feels warm to touch.")
 
-/obj/item/clothing/accessory/necklace/gem/attackby(obj/item/I, mob/user, params)
+/obj/item/clothing/accessory/necklace/gem/attackby(obj/item/I, mob/user, list/modifiers)
 	. = ..()
 
 	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !istype(I, /obj/item/gem))
@@ -193,7 +193,7 @@
 	if(!gem)
 		. += span_notice("It looks like there is no gem inside.")
 
-/obj/item/clothing/gloves/jewelry_bracers/attackby(obj/item/I, mob/user, params)
+/obj/item/clothing/gloves/jewelry_bracers/attackby(obj/item/I, mob/user, list/modifiers)
 	. = ..()
 
 	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !istype(I, /obj/item/gem))

@@ -54,7 +54,7 @@
 	else
 		name = initial(name)
 
-/obj/item/mmi/attackby(obj/item/I, mob/user, params)
+/obj/item/mmi/attackby(obj/item/I, mob/user, list/modifiers)
 	if(is_internal_organ_brain(I)) //Time to stick a brain in it --NEO
 		add_fingerprint(user)
 		var/obj/item/organ/internal/brain/brain = I
@@ -130,7 +130,7 @@
 
 	// Maybe later add encryption key support, but that's a pain in the neck atm
 	if(brainmob)
-		I.attack(brainmob, user, params)//Oh noooeeeee
+		I.attack(brainmob, user, modifiers)//Oh noooeeeee
 		// Brainmobs can take damage, but they can't actually die. Maybe should fix.
 		return ATTACK_CHAIN_BLOCKED_ALL
 

@@ -101,7 +101,7 @@
 			maptext_x = 8
 	maptext = "<font face='Small Fonts'>[ticket_number]</font>"
 
-/obj/machinery/ticket_machine/attackby(obj/item/I, mob/user, params)
+/obj/machinery/ticket_machine/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
@@ -204,7 +204,7 @@
 	. = ..()
 	maptext = saved_maptext //For some reason, storage code removes all maptext off objs, this stops its number from being wiped off when taken out of storage.
 
-/obj/item/ticket_machine_ticket/attackby(obj/item/I, mob/living/user, params) //Stolen from papercode
+/obj/item/ticket_machine_ticket/attackby(obj/item/I, mob/living/user, list/modifiers) //Stolen from papercode
 	. = ..()
 	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !I.get_temperature() || !Adjacent(user))
 		return .

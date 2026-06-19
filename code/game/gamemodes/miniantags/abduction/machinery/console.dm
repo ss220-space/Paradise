@@ -218,7 +218,7 @@
 	vest = V
 	return TRUE
 
-/obj/machinery/abductor/console/attackby(obj/item/I, mob/user, params)
+/obj/machinery/abductor/console/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

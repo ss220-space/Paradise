@@ -536,7 +536,7 @@
 	. = ..()
 	. += drew_blood ? ("[span_notice("Она насытилось... пока что.")]") : (span_danger("Она не успокоится, пока не отведает крови."))
 
-/obj/item/cursed_katana/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/cursed_katana/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(can_combo_attack(user, target))
 		drew_blood = TRUE
 		if(ishostile(target))

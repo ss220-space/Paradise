@@ -187,7 +187,7 @@
 		return TRUE
 	return ..()
 
-/obj/item/ammo_casing/attackby(obj/item/item, mob/user, params)
+/obj/item/ammo_casing/attackby(obj/item/item, mob/user, list/modifiers)
 	if(!isammobox(item) || !can_be_box_inserted)
 		return ..()
 	add_fingerprint(user)

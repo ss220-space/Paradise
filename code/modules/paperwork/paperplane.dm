@@ -54,7 +54,7 @@
 		internal_paper = null
 		qdel(src)
 
-/obj/item/paperplane/attackby(obj/item/I, mob/living/user, params)
+/obj/item/paperplane/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(resistance_flags & ON_FIRE)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
@@ -65,7 +65,7 @@
 
 	if(istype(I, /obj/item/stamp))	//we don't randomize stamps on a paperplane
 		add_fingerprint(user)
-		internal_paper.attackby(I, user, params) //spoofed attack to update internal paper.
+		internal_paper.attackby(I, user, modifiers) //spoofed attack to update internal paper.
 		update_icon(UPDATE_OVERLAYS)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 

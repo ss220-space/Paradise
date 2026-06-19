@@ -61,7 +61,7 @@
 					for(var/datum/reagent/R in B.reagents.reagent_list)
 						. += span_notice("[R.volume] units of [R.name]")
 
-/obj/item/gun/dartgun/attackby(obj/item/I, mob/user, params)
+/obj/item/gun/dartgun/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/dart_cartridge))
 		add_fingerprint(user)
 		var/obj/item/dart_cartridge/new_cartridge = I

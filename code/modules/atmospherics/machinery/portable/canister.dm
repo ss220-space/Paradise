@@ -587,7 +587,7 @@
 	. = ..()
 	add_attack_logs(blob.overmind, src, "Attacked", ATKLOG_MOST)
 
-/obj/machinery/portable_atmospherics/canister/attackby(obj/item/item, mob/user, params)
+/obj/machinery/portable_atmospherics/canister/attackby(obj/item/item, mob/user, list/modifiers)
 	. = ..()
 	add_attack_logs(user, src, "Attacked with [item]", ATKLOG_MOST)
 

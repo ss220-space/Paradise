@@ -119,7 +119,7 @@
 		return FALSE
 	return TRUE
 
-/obj/structure/ladder/attackby(obj/item/I, mob/user, params)
+/obj/structure/ladder/attackby(obj/item/I, mob/user, list/modifiers)
 	. = ..()
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))
 		return .

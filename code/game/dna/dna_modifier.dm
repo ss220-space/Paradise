@@ -182,7 +182,7 @@
 		return
 	put_in(living_mob, user)
 
-/obj/machinery/dna_scannernew/attackby(obj/item/I, mob/user, params)
+/obj/machinery/dna_scannernew/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
@@ -342,7 +342,7 @@
 		PREPOSITIONAL = "консоли управления ДНК-модификатором",
 	)
 
-/obj/machinery/computer/scan_consolenew/attackby(obj/item/I, mob/user, params)
+/obj/machinery/computer/scan_consolenew/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/disk/data)) //INSERT SOME diskS
 		add_fingerprint(user)
 		if(disk)

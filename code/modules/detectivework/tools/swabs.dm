@@ -11,7 +11,7 @@
 /obj/item/forensics/swab/proc/is_used()
 	return used
 
-/obj/item/forensics/swab/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/forensics/swab/attack(mob/living/carbon/human/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(!ishuman(target))
 		return ..()
 

@@ -71,7 +71,7 @@
 *   Item Adding
 ********************/
 
-/obj/machinery/kitchen_machine/attackby(obj/item/I, mob/user, params)
+/obj/machinery/kitchen_machine/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		if(istype(I, /obj/item/reagent_containers))
 			return ..() | ATTACK_CHAIN_NO_AFTERATTACK

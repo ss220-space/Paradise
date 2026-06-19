@@ -28,7 +28,7 @@
 /obj/item/gun/projectile/automatic/speargun/process_chamber(eject_casing = FALSE, empty_chamber = TRUE)
 	. = ..()
 
-/obj/item/gun/projectile/automatic/speargun/attackby(obj/item/I, mob/user, params)
+/obj/item/gun/projectile/automatic/speargun/attackby(obj/item/I, mob/user, list/modifiers)
 	if(isammobox(I) || isammocasing(I))
 		add_fingerprint(user)
 		var/num_loaded = magazine.reload(I, user, silent = TRUE, count_chambered = TRUE)

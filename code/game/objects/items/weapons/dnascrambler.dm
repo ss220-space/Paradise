@@ -27,7 +27,7 @@
 	. = ..()
 	name = used ? "used [initial(name)]" : initial(name)
 
-/obj/item/dnascrambler/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/dnascrambler/attack(mob/living/carbon/human/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(used || !ishuman(target) || !ishuman(user))
 		return ..()
 	. = ATTACK_CHAIN_PROCEED

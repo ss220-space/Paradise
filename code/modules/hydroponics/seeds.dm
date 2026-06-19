@@ -332,7 +332,7 @@ GLOBAL_LIST_EMPTY(plant_seeds)
 	adjust_production(FLORAGUN_PRODUCTION)
 	adjust_endurance(FLORAGUN_ENDURANCE)
 
-/obj/item/seeds/attackby(obj/item/I, mob/user, params)
+/obj/item/seeds/attackby(obj/item/I, mob/user, list/modifiers)
 	if(is_pen(I))
 		add_fingerprint(user)
 		variant_prompt(user)

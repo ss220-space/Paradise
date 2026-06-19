@@ -117,7 +117,7 @@
 /obj/machinery/gibber/crowbar_act(mob/living/user, obj/item/I)
 	return default_deconstruction_crowbar(user, I)
 
-/obj/machinery/gibber/attackby(obj/item/I, mob/user, params)
+/obj/machinery/gibber/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

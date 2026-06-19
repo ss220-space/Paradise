@@ -573,7 +573,7 @@
 
 	return TRUE
 
-/obj/machinery/power/apc/attackby(obj/item/I, mob/living/user, params)
+/obj/machinery/power/apc/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(issilicon(user) && get_dist(src, user) > 1)
 		attack_hand(user)
 		return ATTACK_CHAIN_BLOCKED_ALL

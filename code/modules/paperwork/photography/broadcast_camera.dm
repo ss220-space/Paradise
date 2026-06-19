@@ -59,7 +59,7 @@ GLOBAL_LIST_EMPTY(active_entertainment_cameras)
 
 	return ..()
 
-/obj/item/broadcast_camera/attackby(obj/item/I, mob/user, params)
+/obj/item/broadcast_camera/attackby(obj/item/I, mob/user, list/modifiers)
 	if(!istype(I, /obj/item/tape))
 		return ..()
 

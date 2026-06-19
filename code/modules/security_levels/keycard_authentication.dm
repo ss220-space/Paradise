@@ -27,7 +27,7 @@
 	to_chat(user, span_warning("The station AI is not to interact with these devices."))
 	return
 
-/obj/machinery/keycard_auth/attackby(obj/item/I, mob/user, params)
+/obj/machinery/keycard_auth/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

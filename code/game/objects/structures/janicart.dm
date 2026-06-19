@@ -37,7 +37,7 @@
 /obj/structure/janitorialcart/on_reagent_change()
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/structure/janitorialcart/attackby(obj/item/I, mob/user, params)
+/obj/structure/janitorialcart/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM || I.is_robot_module())
 		return ..()
 

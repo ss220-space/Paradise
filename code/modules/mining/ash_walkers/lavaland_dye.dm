@@ -168,7 +168,7 @@
 	. = ..()
 	icon_state = "[totem_dye]_dyes"
 
-/obj/item/lavaland_mortar/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim)
+/obj/item/lavaland_mortar/attack(mob/living/carbon/human/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim)
 	if(!isunathi(target))
 		balloon_alert(user, "цель неподходящей расы!")
 		return ..()
@@ -190,7 +190,7 @@
 		var/obj/item/reagent_containers/food/drinks/mushroom_bowl/bowl = new(loc)
 		user.put_in_hands(bowl)
 
-/obj/item/lavaland_mortar/attack_obj(obj/object, mob/living/user, params)
+/obj/item/lavaland_mortar/attack_obj(obj/object, mob/living/user, list/modifiers)
 	if(!istype(object, /obj/structure/ash_totem))
 		return ..()
 

@@ -27,7 +27,7 @@
 	max_combined_w_class = 200 //50 belts
 	origin_tech = "engineering=2;bluespace=1"
 
-/obj/item/storage/conveyor/attackby(obj/item/I, mob/user, params) //So we can link belts en masse
+/obj/item/storage/conveyor/attackby(obj/item/I, mob/user, list/modifiers) //So we can link belts en masse
 	if(istype(I, /obj/item/conveyor_switch_construct))
 		add_fingerprint(user)
 		var/obj/item/conveyor_switch_construct/switch_construct = I

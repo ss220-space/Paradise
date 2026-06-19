@@ -12,7 +12,7 @@
 
 // To clarify:
 // For use_to_pickup and allow_quick_gather functionality,
-// see item/attackby() (/game/objects/items.dm, params)
+// see item/attackby() (/game/objects/items.dm, list/modifiers)
 // Do not remove this functionality without good reason, cough reagent_containers cough.
 // -Sayu
 
@@ -822,7 +822,7 @@
 	qdel(src)
 
 //This proc is called when you want to place an item into the storage item.
-/obj/item/storage/attackby(obj/item/I, mob/user, params)
+/obj/item/storage/attackby(obj/item/I, mob/user, list/modifiers)
 	. = ..()
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))
 		return .

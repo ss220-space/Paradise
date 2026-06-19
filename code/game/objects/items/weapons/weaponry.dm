@@ -17,7 +17,7 @@
 	to_chat(viewers(user), span_suicide("[user] бь[PLUR_YOT_YUT(user)] себя [declent_ru(INSTRUMENTAL)]! Похоже, [GEND_HE_SHE(user)] хоч[PLUR_ET_YUT(user)] заблокировать себя!"))
 	return BRUTELOSS|FIRELOSS|TOXLOSS|OXYLOSS
 
-/obj/item/banhammer/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/banhammer/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	to_chat(target, span_danger("<b>Тебя [user] ЗАБАНИЛ БЕЗ ПРИЧИЙНЫ!</b>"))
 	to_chat(user, span_danger("Вы <b>ЗАБАНИЛИ</b> [target]!"))
 	playsound(loc, 'sound/effects/adminhelp.ogg', 15) //keep it at 15% volume so people don't jump out of their skin too much
@@ -27,7 +27,7 @@
 	desc = "Наполнен мета-энергией."
 	COOLDOWN_DECLARE(cooldown)
 
-/obj/item/banhammer/meta_hammer/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/banhammer/meta_hammer/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(!target)
 		return ..()
 
@@ -148,7 +148,7 @@
 		PREPOSITIONAL = "базальтовой катане",
 	)
 
-/obj/item/melee/katana/basalt/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/melee/katana/basalt/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	var/nemesis_faction = FALSE
 	if(LAZYLEN(nemesis_factions))
 		for(var/faction in target.faction)
@@ -183,7 +183,7 @@
 	materials = list(MAT_METAL=1150, MAT_GLASS=75)
 	attack_verb = list("ударил", "огрел")
 
-/obj/item/wirerod/attackby(obj/item/I, mob/user, params)
+/obj/item/wirerod/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/shard))
 		add_fingerprint(user)
 		if(loc == user && !user.can_unEquip(src))
@@ -322,7 +322,7 @@
 		homerun_ready = 1
 	..()
 
-/obj/item/melee/baseball_bat/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/melee/baseball_bat/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(deflectmode)
 		to_chat(user, span_warning("Вы не можете атаковать в режиме отбивания!"))
 		return ATTACK_CHAIN_PROCEED

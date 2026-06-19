@@ -55,7 +55,7 @@
 
 	return TRUE
 
-/obj/item/autoimplanter/attackby(obj/item/I, mob/user, params)
+/obj/item/autoimplanter/attackby(obj/item/I, mob/user, list/modifiers)
 	if(!istype(I, /obj/item/organ/internal/cyberimp))
 		return ..()
 

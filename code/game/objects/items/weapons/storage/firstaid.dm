@@ -643,7 +643,7 @@
 		if(blocks_emissive)
 			add_overlay(get_emissive_block())
 
-/obj/item/storage/pill_bottle/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/storage/pill_bottle/attack(mob/living/carbon/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(!iscarbon(target) || !length(contents))
 		return ..()
 
@@ -652,7 +652,7 @@
 	// we pick random pill/patch and try to feed it
 	var/obj/item/reagent_containers/food/pill/pill = locate() in contents
 	if(pill)
-		return pill.attack(target, user, params, def_zone, skip_attack_anim)
+		return pill.attack(target, user, modifiers, def_zone, skip_attack_anim)
 
 /obj/item/storage/pill_bottle/ert
 	wrapper_color = COLOR_MAROON
@@ -696,7 +696,7 @@
 
 	get_use_end_message(user)
 
-/obj/item/storage/pill_bottle/attackby(obj/item/I, mob/user, params)
+/obj/item/storage/pill_bottle/attackby(obj/item/I, mob/user, list/modifiers)
 	if(is_pen(I) || istype(I, /obj/item/flashlight/pen))
 		rename_interactive(user, I)
 		return ATTACK_CHAIN_PROCEED_SUCCESS

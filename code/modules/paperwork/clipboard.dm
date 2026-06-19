@@ -103,7 +103,7 @@
 			break
 	. += "clipboard_over"
 
-/obj/item/clipboard/attackby(obj/item/I, mob/user, params)
+/obj/item/clipboard/attackby(obj/item/I, mob/user, list/modifiers)
 	var/paperwork = isPaperwork(I)
 	if(paperwork) //If it's a photo, paper bundle, or piece of paper, place it on the clipboard.
 		add_fingerprint(user)
@@ -123,14 +123,14 @@
 				return ATTACK_CHAIN_BLOCKED_ALL
 			return ATTACK_CHAIN_PROCEED
 		if(containedpen) //If there's a pen in the clipboard, let's just let them write and not bother asking about the pen
-			toppaper.attackby(I, user, params)
+			toppaper.attackby(I, user, modifiers)
 			return ATTACK_CHAIN_BLOCKED_ALL
 		var/writeonwhat = tgui_alert(user, "Write on [toppaper.name], or place your pen in [src]?", "Pick one!", list("Write", "Place pen"))
 		if(!writeonwhat || !Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 			return ATTACK_CHAIN_PROCEED
 		switch(writeonwhat)
 			if("Write")
-				toppaper.attackby(I, user, params)
+				toppaper.attackby(I, user, modifiers)
 				return ATTACK_CHAIN_BLOCKED_ALL
 			if("Place pen")
 				if(penPlacement(user, I, TRUE))
@@ -141,7 +141,7 @@
 		if(!toppaper)
 			to_chat(user, span_warning("The [name] has no paperwork."))
 			return ATTACK_CHAIN_PROCEED
-		toppaper.attackby(I, user, params)
+		toppaper.attackby(I, user, modifiers)
 		update_icon(UPDATE_OVERLAYS)
 		return ATTACK_CHAIN_BLOCKED_ALL
 

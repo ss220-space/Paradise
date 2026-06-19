@@ -37,7 +37,7 @@
 /obj/structure/filingcabinet/update_icon_state()
 	icon_state = "[initial(icon_state)][opened ? "_open" : ""]"
 
-/obj/structure/filingcabinet/attackby(obj/item/I, mob/user, params)
+/obj/structure/filingcabinet/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

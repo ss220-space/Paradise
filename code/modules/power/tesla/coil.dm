@@ -60,7 +60,7 @@
 			"Stored <b>[display_energy(get_stored_joules())]</b>.<br>" + \
 			"Processing <b>[display_power(processed_energy)]</b>.")
 
-/obj/machinery/power/energy_accumulator/tesla_coil/attackby(obj/item/I, mob/user, params)
+/obj/machinery/power/energy_accumulator/tesla_coil/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
@@ -172,7 +172,7 @@
 			"Recently grounded <b>[display_energy(get_stored_joules())]</b>.<br>" + \
 			"This energy would sustainably release <b>[display_power(calculate_sustainable_power(), convert = FALSE)]</b>.")
 
-/obj/machinery/power/energy_accumulator/grounding_rod/attackby(obj/item/I, mob/user, params)
+/obj/machinery/power/energy_accumulator/grounding_rod/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

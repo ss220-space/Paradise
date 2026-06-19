@@ -107,7 +107,7 @@
 	..()
 	reached_target = FALSE
 
-/mob/living/simple_animal/bot/mulebot/attackby(obj/item/I, mob/user, params)
+/mob/living/simple_animal/bot/mulebot/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		var/atom/cached_load = load
 		. = ..()

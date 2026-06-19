@@ -127,7 +127,7 @@
 
 	WELDER_FLOOR_WELD_SUCCESS_MESSAGE
 
-/obj/structure/reflector/attackby(obj/item/tool, mob/user, params)
+/obj/structure/reflector/attackby(obj/item/tool, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

@@ -19,7 +19,7 @@
 		PREPOSITIONAL = "ящике для руды",
 	)
 
-/obj/structure/ore_box/attackby(obj/item/I, mob/user, params)
+/obj/structure/ore_box/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

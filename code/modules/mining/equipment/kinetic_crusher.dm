@@ -68,7 +68,7 @@
 			var/obj/item/crusher_trophy/T = t
 			. += span_notice("[icon2html(t, user)] <b>[DECLENT_RU_CAP(T, NOMINATIVE)]</b>: [T.effect_desc()].")
 
-/obj/item/twohanded/kinetic_crusher/attackby(obj/item/I, mob/user, params)
+/obj/item/twohanded/kinetic_crusher/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/crusher_trophy))
 		var/obj/item/crusher_trophy/trophy = I
 		add_fingerprint(user)
@@ -89,7 +89,7 @@
 	else
 		balloon_alert(user, "нет трофеев!")
 
-/obj/item/twohanded/kinetic_crusher/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/twohanded/kinetic_crusher/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(!HAS_TRAIT(src, TRAIT_WIELDED))
 		var/warn_message = "[DECLENT_RU_CAP(src, NOMINATIVE)] слишком тяжёлый, чтобы использовать его одной рукой."
 		if(user.drop_item_ground(src))
@@ -292,7 +292,7 @@
 /obj/item/crusher_trophy/proc/effect_desc()
 	return "errors"
 
-/obj/item/crusher_trophy/attackby(obj/item/I, mob/user, params)
+/obj/item/crusher_trophy/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/twohanded/kinetic_crusher))
 		add_fingerprint(user)
 		if(add_to(I, user))

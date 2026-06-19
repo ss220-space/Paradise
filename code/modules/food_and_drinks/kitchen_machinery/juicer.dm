@@ -46,7 +46,7 @@
 /obj/machinery/juicer/update_icon_state()
 	icon_state = "juicer"+num2text(!isnull(beaker))
 
-/obj/machinery/juicer/attackby(obj/item/I, mob/user, params)
+/obj/machinery/juicer/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

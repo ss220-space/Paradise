@@ -136,7 +136,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 	ui = new(user, src, "ComponentPrinter", DECLENT_RU_CAP(src, NOMINATIVE))
 	ui.open()
 
-/obj/machinery/r_n_d/circuit_imprinter/attackby(obj/item/tool, mob/user, params)
+/obj/machinery/r_n_d/circuit_imprinter/attackby(obj/item/tool, mob/user, list/modifiers)
 	if(shocked && shock(user, 50))
 		add_fingerprint(user)
 		return ATTACK_CHAIN_BLOCKED_ALL

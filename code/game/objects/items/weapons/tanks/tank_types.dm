@@ -62,7 +62,7 @@
 /obj/item/tank/internals/plasma/populate_gas()
 	air_contents.set_toxins((3 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C))
 
-/obj/item/tank/internals/plasma/attackby(obj/item/I, mob/user, params)
+/obj/item/tank/internals/plasma/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/flamethrower))
 		add_fingerprint(user)
 		var/obj/item/flamethrower/flamethrower = I

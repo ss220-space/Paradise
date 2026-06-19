@@ -133,7 +133,7 @@
 		prime()
 		return 1 //It hit the grenade, not them
 
-/obj/item/grenade/chem_grenade/attackby(obj/item/I, mob/user, params)
+/obj/item/grenade/chem_grenade/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/hand_labeler))
 		add_fingerprint(user)
 		var/obj/item/hand_labeler/labeler = I

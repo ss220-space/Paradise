@@ -32,7 +32,7 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/item/nuke_core/attackby(obj/item/I, mob/user, params)
+/obj/item/nuke_core/attackby(obj/item/I, mob/user, list/modifiers)
 	. = ..()
 	return .|ATTACK_CHAIN_BLOCKED_ALL
 
@@ -160,7 +160,7 @@
 	to_chat(user, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] распечатан, радиация от [core.declent_ru(GENITIVE)] больше не изолирована."))
 	unload(user)
 
-/obj/item/nuke_core_container/attackby(obj/item/I, mob/user, params)
+/obj/item/nuke_core_container/attackby(obj/item/I, mob/user, list/modifiers)
 	if(load(I, user))
 		add_fingerprint(user)
 		return ATTACK_CHAIN_BLOCKED_ALL
@@ -233,7 +233,7 @@
 /obj/item/nuke_core/supermatter_sliver/can_be_pulled(atom/movable/puller, grab_state, force, supress_message) // no drag memes
 	return FALSE
 
-/obj/item/nuke_core/supermatter_sliver/attackby(obj/item/I, mob/living/user, params)
+/obj/item/nuke_core/supermatter_sliver/attackby(obj/item/I, mob/living/user, list/modifiers)
 	. = ..()
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))
 		return .
@@ -382,7 +382,7 @@
 	update_icon(UPDATE_ICON_STATE)
 	to_chat(user, span_notice("Вы осторожно поднимаете [I.sliver.declent_ru(ACCUSATIVE)] с помощью [I.declent_ru(INSTRUMENTAL)]."))
 
-/obj/item/nuke_core_container/supermatter/attackby(obj/item/retractor/supermatter/tongs, mob/user, params)
+/obj/item/nuke_core_container/supermatter/attackby(obj/item/retractor/supermatter/tongs, mob/user, list/modifiers)
 	if(istype(tongs))
 		add_fingerprint(user)
 		if(cracked)

@@ -9,7 +9,7 @@
 	density = TRUE
 	max_integrity = 200
 
-/obj/structure/kitchenspike_frame/attackby(obj/item/I, mob/user, params)
+/obj/structure/kitchenspike_frame/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

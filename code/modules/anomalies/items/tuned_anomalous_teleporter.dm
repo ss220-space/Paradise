@@ -138,7 +138,7 @@
 	user.balloon_alert(user, "ядро извлечено")
 	update_core()
 
-/obj/item/assembly/tuned_anomalous_teleporter/attackby(obj/item/item, mob/user, params)
+/obj/item/assembly/tuned_anomalous_teleporter/attackby(obj/item/item, mob/user, list/modifiers)
 	if(!iscorebluespace(item))
 		return ..()
 

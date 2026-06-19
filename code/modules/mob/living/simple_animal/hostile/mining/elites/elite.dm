@@ -368,7 +368,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 			var/obj/effect/temp_visual/heal/H = new(get_turf(mychild))
 			H.color = "#FF0000"
 
-/obj/structure/elite_tumor/attackby(obj/item/I, mob/user, params)
+/obj/structure/elite_tumor/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

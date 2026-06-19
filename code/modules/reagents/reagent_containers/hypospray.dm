@@ -27,7 +27,7 @@
 		PREPOSITIONAL = "гипоспрее",
 	)
 
-/obj/item/reagent_containers/hypospray/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/reagent_containers/hypospray/attack(mob/living/carbon/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(!iscarbon(target) || !target.reagents)
 		return ..()
 
@@ -111,7 +111,7 @@
 /obj/item/reagent_containers/hypospray/safety/update_icon_state()
 	icon_state = paint_color ? "whitehypo" : "medivend_hypo"
 
-/obj/item/reagent_containers/hypospray/safety/attackby(obj/item/I, mob/user, params)
+/obj/item/reagent_containers/hypospray/safety/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/toy/crayon/spraycan))
 		add_fingerprint(user)
 		var/obj/item/toy/crayon/spraycan/can = I
@@ -413,7 +413,7 @@
 
 	icon_state = "[base_state][spent ? "0" : ""]"
 
-/obj/item/reagent_containers/hypospray/autoinjector/attackby(obj/item/I, mob/user, params)
+/obj/item/reagent_containers/hypospray/autoinjector/attackby(obj/item/I, mob/user, list/modifiers)
 	if(!reskin_allowed)
 		return ..()
 
@@ -464,7 +464,7 @@
 	set hidden = TRUE
 	return
 
-/obj/item/reagent_containers/hypospray/autoinjector/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/reagent_containers/hypospray/autoinjector/attack(mob/living/carbon/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(!reagents.total_volume || spent)
 		balloon_alert(user, "инъектор пуст!")
 		return ATTACK_CHAIN_PROCEED
@@ -607,7 +607,7 @@
 		PREPOSITIONAL = "улучшенном автоинъекторе выживания",
 	)
 
-/obj/item/reagent_containers/hypospray/autoinjector/survival/luxury/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/reagent_containers/hypospray/autoinjector/survival/luxury/attack(mob/living/carbon/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(lavaland_equipment_pressure_check(get_turf(user)))
 		amount_per_transfer_from_this = initial(amount_per_transfer_from_this)
 		return ..()
@@ -637,7 +637,7 @@
 		PREPOSITIONAL = "экспериментальном автоинъекторе (Нано-Кальций)",
 	)
 
-/obj/item/reagent_containers/hypospray/autoinjector/nanocalcium/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/reagent_containers/hypospray/autoinjector/nanocalcium/attack(mob/living/carbon/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	. = ..()
 	if(ATTACK_CHAIN_SUCCESS_CHECK(.))
 		playsound(loc, 'sound/weapons/smg_empty_alarm.ogg', 20, TRUE)
@@ -662,7 +662,7 @@
 		PREPOSITIONAL = "самодельном автоинъекторе",
 	)
 
-/obj/item/reagent_containers/hypospray/autoinjector/selfmade/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/reagent_containers/hypospray/autoinjector/selfmade/attack(mob/living/carbon/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	. = ..()
 	if(ATTACK_CHAIN_SUCCESS_CHECK(.))
 		container_type = DRAINABLE

@@ -73,7 +73,7 @@
 		to_chat(user, span_notice("Вы кладёте свои карты вниз [declent_ru(GENITIVE)]."))
 		update_icon(UPDATE_ICON_STATE)
 
-/obj/item/deck/attackby(obj/item/I, mob/user, params)
+/obj/item/deck/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/cardhand))
 		var/obj/item/cardhand/cardhand = I
 		if(cardhand.parentdeck != src)
@@ -357,7 +357,7 @@
 	attack_verb = deck.card_attack_verb
 	resistance_flags = deck.card_resistance_flags
 
-/obj/item/cardhand/attackby(obj/item/I, mob/user, params)
+/obj/item/cardhand/attackby(obj/item/I, mob/user, list/modifiers)
 	if(is_pen(I))
 		if(LAZYLEN(cards) > 1)
 			balloon_alert(user, "одна карта за раз!")

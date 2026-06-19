@@ -36,7 +36,7 @@
 		return
 	return ..()
 
-/obj/structure/closet/secure_closet/syndicate/depot/attackby(obj/item/I, mob/user, params)
+/obj/structure/closet/secure_closet/syndicate/depot/attackby(obj/item/I, mob/user, list/modifiers)
 	if(opened)
 		return ..()
 

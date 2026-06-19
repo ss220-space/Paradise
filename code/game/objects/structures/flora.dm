@@ -529,7 +529,7 @@
 	. = ..()
 	desc = stump ? "There used to be dense undergrowth here." : initial(desc)
 
-/obj/structure/bush/attackby(obj/item/I, mob/user, params)
+/obj/structure/bush/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

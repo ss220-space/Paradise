@@ -195,7 +195,7 @@
 		return TRUE
 	return FALSE
 
-/turf/simulated/floor/lava/attackby(obj/item/I, mob/user, params)
+/turf/simulated/floor/lava/attackby(obj/item/I, mob/user, list/modifiers)
 	. = ..()
 
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))
@@ -282,7 +282,7 @@
 		var/fish = pick(fishable_list)
 		new fish(src)
 
-/turf/simulated/floor/lava/lava_land_surface/attackby(obj/item/I, mob/user, params)
+/turf/simulated/floor/lava/lava_land_surface/attackby(obj/item/I, mob/user, list/modifiers)
 	. = ..()
 
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))
@@ -331,7 +331,7 @@
 	. = ..()
 	. += span_notice("Можно зачерпнуть <b>жидкую плазму</b> с помощью <b>ёмкости</b>.")
 
-/turf/simulated/floor/lava/lava_land_surface/plasma/attackby(obj/item/I, mob/user, params)
+/turf/simulated/floor/lava/lava_land_surface/plasma/attackby(obj/item/I, mob/user, list/modifiers)
 	. = ..()
 
 	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !I.is_open_container())

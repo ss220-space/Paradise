@@ -29,7 +29,7 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_CAN_ATTACH_TO_TRIPWIRE, INNATE_TRAIT)
 
-/obj/item/reagent_containers/food/drinks/drinkingglass/attackby(obj/item/I, mob/user, params)
+/obj/item/reagent_containers/food/drinks/drinkingglass/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/reagent_containers/food/snacks/egg)) //breaking eggs
 		add_fingerprint(user)
 		if(!reagents)

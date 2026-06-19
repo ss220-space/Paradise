@@ -10,7 +10,7 @@
 /obj/item/warhead/update_icon_state()
 	icon_state = initial(icon_state) + ((locked)? "_locked" : ((first_part || second_part)? "_ass" : ""))
 
-/obj/item/warhead/attackby(obj/item/I, mob/user, params)
+/obj/item/warhead/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/reagent_containers/glass/beaker))
 		var/obj/item/reagent_containers/glass/beaker/beaker = I
 		if(beaker.reagents.maximum_volume > max_container_volume)

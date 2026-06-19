@@ -200,7 +200,7 @@
 	DA.update_appearance(UPDATE_NAME|UPDATE_ICON)
 	qdel(src)
 
-/obj/machinery/door/airlock/plasma/attackby(obj/item/I, mob/user, params)
+/obj/machinery/door/airlock/plasma/attackby(obj/item/I, mob/user, list/modifiers)
 	if(I.get_temperature() > 300)
 		add_fingerprint(user)
 		add_attack_logs(user, src, "ignited using [I]", ATKLOG_FEW)
@@ -386,7 +386,7 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	is_special = TRUE
 
-/obj/machinery/door/airlock/hatch/gamma/attackby(obj/item/I, mob/user, params)
+/obj/machinery/door/airlock/hatch/gamma/attackby(obj/item/I, mob/user, list/modifiers)
 	if(!issilicon(user) && isElectrified() && shock(user, 75))
 		add_fingerprint(user)
 		return ATTACK_CHAIN_BLOCKED_ALL
@@ -469,7 +469,7 @@
 	else
 		lock(TRUE)
 
-/obj/machinery/door/airlock/highsecurity/red/attackby(obj/item/I, mob/user, params)
+/obj/machinery/door/airlock/highsecurity/red/attackby(obj/item/I, mob/user, list/modifiers)
 	if(!issilicon(user) && isElectrified() && shock(user, 75))
 		add_fingerprint(user)
 		return ATTACK_CHAIN_BLOCKED_ALL

@@ -71,7 +71,7 @@
 		return
 	ui_interact(user)
 
-/obj/machinery/ninja_bloodscan_machine/attackby(obj/item/I, mob/user, params)
+/obj/machinery/ninja_bloodscan_machine/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM || !istype(I, /obj/item/reagent_containers/glass/beaker))
 		return ..()
 

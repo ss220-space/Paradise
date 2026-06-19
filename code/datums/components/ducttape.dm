@@ -51,7 +51,7 @@
 	SIGNAL_HANDLER
 	overlays += tape_overlay
 
-/datum/component/ducttape/proc/afterattack(obj/item/I, atom/target, mob/user, proximity, params)
+/datum/component/ducttape/proc/afterattack(obj/item/I, atom/target, mob/user, proximity, list/modifiers)
 	SIGNAL_HANDLER
 
 	if(!proximity || !isturf(target) || !user.drop_item_ground(I))

@@ -160,7 +160,7 @@
 	container_type = OPENCONTAINER
 	origin_tech = "engineering=4;syndicate=2"
 
-/obj/item/pen/sleepy/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/pen/sleepy/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(!target.can_inject(user, TRUE, ignore_pierceimmune = TRUE))
 		return ..()
 	. = ATTACK_CHAIN_PROCEED_SUCCESS
@@ -190,7 +190,7 @@
 	var/backstab_damage = 12
 	COOLDOWN_DECLARE(backstab_cooldown)
 
-/obj/item/pen/edagger/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/pen/edagger/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	var/extra_force_applied = FALSE
 	var/cached_sound = hitsound
 	if(on && user != target && user.dir == target.dir && COOLDOWN_FINISHED(src, backstab_cooldown) && !target.incapacitated(IGNORE_RESTRAINTS))

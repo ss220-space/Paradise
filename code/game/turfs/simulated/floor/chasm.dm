@@ -64,7 +64,7 @@
 		return TRUE
 	return FALSE
 
-/turf/simulated/floor/chasm/attackby(obj/item/I, mob/user, params)
+/turf/simulated/floor/chasm/attackby(obj/item/I, mob/user, list/modifiers)
 	. = ..()
 
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))

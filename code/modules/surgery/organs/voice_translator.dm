@@ -132,7 +132,7 @@
 	else
 		desc = initial(desc)
 
-/obj/item/organ/internal/cyberimp/mouth/translator/attackby(obj/item/I, mob/user, params)
+/obj/item/organ/internal/cyberimp/mouth/translator/attackby(obj/item/I, mob/user, list/modifiers)
 	. = ..()
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))
 		return .

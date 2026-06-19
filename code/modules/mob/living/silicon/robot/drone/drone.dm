@@ -189,7 +189,7 @@
 		return FALSE
 
 //Drones cannot be upgraded with borg modules so we need to catch some items before they get used in ..().
-/mob/living/silicon/robot/drone/attackby(obj/item/I, mob/user, params)
+/mob/living/silicon/robot/drone/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)	// no interactions in combat
 		return ..()
 

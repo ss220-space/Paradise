@@ -34,7 +34,7 @@
 			sheet_values += list(list("ore" = initial(sheet.name), "value" = initial(sheet.point_value)))
 		sortTim(sheet_values, GLOBAL_PROC_REF(cmp_sheet_list))
 
-/obj/machinery/mineral/labor_claim_console/attackby(obj/item/I, mob/user, params)
+/obj/machinery/mineral/labor_claim_console/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
@@ -151,7 +151,7 @@
 	points += inp.point_value * inp.amount
 	..()
 
-/obj/machinery/mineral/stacking_machine/laborstacker/attackby(obj/item/I, mob/user, params)
+/obj/machinery/mineral/stacking_machine/laborstacker/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
@@ -187,7 +187,7 @@
 		return
 	user.examinate(src)
 
-/obj/machinery/mineral/labor_points_checker/attackby(obj/item/I, mob/user, params)
+/obj/machinery/mineral/labor_points_checker/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

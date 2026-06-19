@@ -643,7 +643,7 @@
 	paper.pixel_y = rand(-10, 10)
 	finish_copying()
 
-/obj/machinery/photocopier/attackby(obj/item/I, mob/user, params)
+/obj/machinery/photocopier/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

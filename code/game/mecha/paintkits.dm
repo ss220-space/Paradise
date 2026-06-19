@@ -383,7 +383,7 @@
 	icon = 'icons/obj/paintkit.dmi'
 	icon_state = "paintkit"
 
-/obj/item/universal_paintkit/attack_obj(obj/object, mob/living/user, params)
+/obj/item/universal_paintkit/attack_obj(obj/object, mob/living/user, list/modifiers)
 	if(!ismecha(object))
 		return ..()
 

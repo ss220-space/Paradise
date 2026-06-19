@@ -40,7 +40,7 @@
 	for(var/obj/item/stock_parts/capacitor/capacitor in component_parts)
 		recharge_coeff = capacitor.rating
 
-/obj/machinery/recharger/attackby(obj/item/I, mob/user, params)
+/obj/machinery/recharger/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM || !is_type_in_list(I, allowed_devices))
 		return ..()
 

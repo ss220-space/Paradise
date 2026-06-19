@@ -74,7 +74,7 @@
 	battery_panel = !battery_panel
 	balloon_alert(user, "отсек для батареи [battery_panel ? "от" : "за"]крыт")
 
-/obj/item/flash/attackby(obj/item/I, mob/user, params)
+/obj/item/flash/attackby(obj/item/I, mob/user, list/modifiers)
 	if(!can_overcharge || !iscell(I))
 		return ..()
 	add_fingerprint(user)
@@ -174,7 +174,7 @@
 	if(target.flash_eyes())
 		target.AdjustConfused(power)
 
-/obj/item/flash/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/flash/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(!try_use_flash(user))
 		return ..()
 	. = ATTACK_CHAIN_PROCEED
@@ -240,7 +240,7 @@
 /obj/item/flash/cyborg
 	origin_tech = null
 
-/obj/item/flash/cyborg/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/flash/cyborg/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	. = ..()
 	if(ATTACK_CHAIN_SUCCESS_CHECK(.))
 		new /obj/effect/temp_visual/borgflash(get_turf(src))

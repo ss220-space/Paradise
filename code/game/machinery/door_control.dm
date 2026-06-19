@@ -56,7 +56,7 @@
 	else
 		to_chat(user, "Error, no route to host.")
 
-/obj/machinery/door_control/attackby(obj/item/I, mob/user, params)
+/obj/machinery/door_control/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/detective_scanner))
 		return ATTACK_CHAIN_PROCEED
 

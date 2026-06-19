@@ -401,7 +401,7 @@
 	. = ..()
 	set_light(2, 1, COLOR_RED)
 
-/obj/structure/decorative_structures/cult_crystal/attackby(obj/item/I, mob/user, params)
+/obj/structure/decorative_structures/cult_crystal/attackby(obj/item/I, mob/user, list/modifiers)
 	. = ..()
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))
 		return .

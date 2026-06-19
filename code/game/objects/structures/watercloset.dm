@@ -159,7 +159,7 @@
 	)
 	victim.adjustBruteLoss(5)
 
-/obj/structure/toilet/attackby(obj/item/item, mob/user, params)
+/obj/structure/toilet/attackby(obj/item/item, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
@@ -426,7 +426,7 @@
 		if(istype(source_turf) && !source_turf.density)
 			source_turf.MakeSlippery(TURF_WET_WATER, min_wet_time = 5 SECONDS, wet_time_to_add = 1 SECONDS)
 
-/obj/machinery/shower/attackby(obj/item/I, mob/user, params)
+/obj/machinery/shower/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/analyzer))
 		add_fingerprint(user)
 		to_chat(user, span_notice("The water temperature seems to be [current_temperature]."))
@@ -649,7 +649,7 @@
 	else
 		user.clean_blood()
 
-/obj/structure/sink/attackby(obj/item/I, mob/user, params)
+/obj/structure/sink/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
@@ -773,7 +773,7 @@
 	flick("puddle-splash", src)
 	return ..()
 
-/obj/structure/sink/puddle/attackby(obj/item/I, mob/user, params)
+/obj/structure/sink/puddle/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

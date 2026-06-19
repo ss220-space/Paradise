@@ -747,7 +747,7 @@
 	if(. && length(talk_sound))
 		playsound(src, pick(talk_sound), 75, TRUE)
 
-/mob/living/simple_animal/proceed_attack_results(obj/item/item, mob/living/user, params, def_zone)
+/mob/living/simple_animal/proceed_attack_results(obj/item/item, mob/living/user, list/modifiers, def_zone)
 	if(item.force && (item.get_final_force(user) < force_threshold || item.damtype == STAMINA))
 		visible_message(
 			span_warning("[user.declent_ru(NOMINATIVE)] пытается ударить [declent_ru(ACCUSATIVE)] [item.declent_ru(INSTRUMENTAL)], но удар безвредно отскакивает!"),

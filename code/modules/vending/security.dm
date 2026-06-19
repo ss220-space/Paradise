@@ -123,7 +123,7 @@
 		PREPOSITIONAL = "торговом автомате SecTech Training",
 	)
 
-/obj/machinery/vending/security/attackby(obj/item/item, mob/user, params)
+/obj/machinery/vending/security/attackby(obj/item/item, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM || !powered())
 		return ..()
 

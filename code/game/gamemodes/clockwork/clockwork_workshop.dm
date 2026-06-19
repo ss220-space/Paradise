@@ -85,7 +85,7 @@
 /obj/structure/clockwork/functional/workshop/attack_ghost(mob/user)
 	ui_interact(user)
 
-/obj/structure/clockwork/functional/workshop/attackby(obj/item/I, mob/user, params)
+/obj/structure/clockwork/functional/workshop/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/stack/sheet/brass) && isclocker(user))
 		add_fingerprint(user)
 		var/obj/item/stack/sheet/brass/brass = I

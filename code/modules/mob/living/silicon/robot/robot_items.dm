@@ -50,7 +50,7 @@
 	icon_state = "paper_bin"
 	item_state = "sheet-metal"
 
-/obj/item/form_printer/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/form_printer/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	return ..()
 
 /obj/item/form_printer/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)

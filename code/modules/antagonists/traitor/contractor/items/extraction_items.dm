@@ -28,7 +28,7 @@
 	new /obj/effect/decal/cleanable/ash(loc)
 	return ..()
 
-/obj/effect/contractor_flare/attackby(obj/item/clothing/mask/cigarette/cigarette, mob/user, params)
+/obj/effect/contractor_flare/attackby(obj/item/clothing/mask/cigarette/cigarette, mob/user, list/modifiers)
 	. = ..()
 	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !istype(cigarette) || cigarette.lit)
 		return .

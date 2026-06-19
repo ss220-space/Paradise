@@ -70,7 +70,7 @@
 	desc = initial(desc)
 	harvested = FALSE
 
-/obj/structure/flora/ash/attackby(obj/item/I, mob/user, params)
+/obj/structure/flora/ash/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
@@ -405,7 +405,7 @@
 		PREPOSITIONAL = "бревне угледрева",
 	)
 
-/obj/item/reagent_containers/food/snacks/grown/ash_flora/coaltree_log/attackby(obj/item/I, mob/user, params)
+/obj/item/reagent_containers/food/snacks/grown/ash_flora/coaltree_log/attackby(obj/item/I, mob/user, list/modifiers)
 	. = ..()
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))
 		return .
@@ -556,7 +556,7 @@
 		PREPOSITIONAL = "грибной чаше",
 	)
 
-/obj/item/reagent_containers/food/drinks/mushroom_bowl/attackby(obj/item/I, mob/user, params)
+/obj/item/reagent_containers/food/drinks/mushroom_bowl/attackby(obj/item/I, mob/user, list/modifiers)
 	if(!istype(I, /obj/item/lavaland_dye))
 		return ..()
 

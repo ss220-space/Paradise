@@ -78,7 +78,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/item/clothing/mask/cigarette/pre_attackby(atom/target, mob/living/user, params)
+/obj/item/clothing/mask/cigarette/pre_attackby(atom/target, mob/living/user, list/modifiers)
 	. = ..()
 	var/obj/item/lighting_item = target
 	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !istype(lighting_item))
@@ -88,7 +88,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		light()
 		return .|ATTACK_CHAIN_BLOCKED
 
-/obj/item/clothing/mask/cigarette/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/clothing/mask/cigarette/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(target.on_fire)
 		user.do_attack_animation(target)
 		light(span_notice("[user] хладнокровно прикурива[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] от горящего тела [target.declent_ru(GENITIVE)]. Очевидно, [GEND_HE_SHE(user)] жела[PLUR_ET_YUT(user)] [target.declent_ru(DATIVE)] всего хорошего."))
@@ -115,7 +115,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	if(item.tool_use_check(user, 0)) //Don't need to flash eyes because you are a badass
 		light(span_notice("[user] непринуждённо прикурива[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] с помощью [item.declent_ru(GENITIVE)]. Чёрт, как же он[GEND_A_O_I(user)] крут[GEND_A_O_Y(user)]!"))
 
-/obj/item/clothing/mask/cigarette/attackby(obj/item/item, mob/user, params)
+/obj/item/clothing/mask/cigarette/attackby(obj/item/item, mob/user, list/modifiers)
 	if(istype(item, /obj/item/weldingtool/sword))
 		if(item.tool_enabled)
 			light(span_notice("[user] непринуждённо прикурива[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] с помощью [item.declent_ru(GENITIVE)]. Чёрт, как же он[GEND_A_O_I(user)] крут[GEND_A_O_Y(user)]!"))
@@ -517,7 +517,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	icon_state = "cigarbutt"
 	item_state = "cigarbutt"
 
-/obj/item/clothing/mask/cigarette/cigar/attackby(obj/item/item, mob/user, params)
+/obj/item/clothing/mask/cigarette/cigar/attackby(obj/item/item, mob/user, list/modifiers)
 	var/static/list/lighters = typecacheof(list(
 		/obj/item/lighter,
 		/obj/item/match,
@@ -602,7 +602,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		smoketime = initial(smoketime)
 		first_puff = TRUE
 
-/obj/item/clothing/mask/cigarette/pipe/attackby(obj/item/item, mob/user, params)
+/obj/item/clothing/mask/cigarette/pipe/attackby(obj/item/item, mob/user, list/modifiers)
 	var/static/list/lighters = typecacheof(list(
 		/obj/item/lighter,
 		/obj/item/match,

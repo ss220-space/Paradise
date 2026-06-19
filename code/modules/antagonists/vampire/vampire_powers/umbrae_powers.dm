@@ -118,7 +118,7 @@
 		to_chat(user, span_userdanger("Ловушка посылает обратную связь с помощью психического сигнала!"))
 		C.EyeBlind(20 SECONDS)
 
-/obj/item/restraints/legcuffs/beartrap/shadow_snare/attackby(obj/item/I, mob/user, params)
+/obj/item/restraints/legcuffs/beartrap/shadow_snare/attackby(obj/item/I, mob/user, list/modifiers)
 	var/obj/item/flash/flash = I
 	if(!istype(flash) || !flash.try_use_flash(user))
 		return ..()

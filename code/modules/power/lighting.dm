@@ -92,7 +92,7 @@
 	transfer_fingerprints_to(newlight)
 	qdel(src)
 
-/obj/machinery/light_construct/attackby(obj/item/I, mob/living/user, params)
+/obj/machinery/light_construct/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
@@ -486,7 +486,7 @@
 
 // attack with item - insert light (if right type), otherwise try to break the light
 
-/obj/machinery/light/attackby(obj/item/I, mob/living/user, params)
+/obj/machinery/light/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
@@ -589,7 +589,7 @@
 		transfer_fingerprints_to(newlight)
 	qdel(src)
 
-/obj/machinery/light/proceed_attack_results(obj/item/I, mob/living/user, params, def_zone)
+/obj/machinery/light/proceed_attack_results(obj/item/I, mob/living/user, list/modifiers, def_zone)
 	var/initial_status = status
 
 	. = ..()
@@ -969,7 +969,7 @@
 		if(LIGHT_BROKEN)
 			desc = "A broken [name]."
 
-/obj/item/light/attackby(obj/item/I, mob/user, params)
+/obj/item/light/attackby(obj/item/I, mob/user, list/modifiers)
 	if(issyringe(I))
 		add_fingerprint(user)
 		var/obj/item/reagent_containers/syringe/syringe = I
@@ -990,12 +990,12 @@
 
 	return ..()
 
-/obj/item/light/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/light/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	. = ..()
 	if(ATTACK_CHAIN_SUCCESS_CHECK(.))
 		shatter()
 
-/obj/item/light/attack_obj(obj/object, mob/living/user, params)
+/obj/item/light/attack_obj(obj/object, mob/living/user, list/modifiers)
 	. = ..()
 	if(ATTACK_CHAIN_SUCCESS_CHECK(.))
 		shatter()

@@ -83,7 +83,7 @@
 		return
 	return ..()
 
-/obj/item/watertank/attackby(obj/item/I, mob/user, params)
+/obj/item/watertank/attackby(obj/item/I, mob/user, list/modifiers)
 	if(I == noz)
 		remove_noz()
 		return ATTACK_CHAIN_BLOCKED_ALL

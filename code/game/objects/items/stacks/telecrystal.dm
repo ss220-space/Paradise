@@ -20,7 +20,7 @@
 		PREPOSITIONAL = "телекристалле",
 	)
 
-/obj/item/stack/telecrystal/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/stack/telecrystal/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(target != user) //You can't go around smacking people with crystals to find out if they have an uplink or not.
 		return ..()
 	. = ATTACK_CHAIN_PROCEED

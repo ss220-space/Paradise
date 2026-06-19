@@ -150,7 +150,7 @@
 			armorval += inventory_back.armor.getRating(attack_flag)
 	return armorval * 0.5
 
-/mob/living/simple_animal/pet/dog/corgi/attackby(obj/item/I, mob/user, params)
+/mob/living/simple_animal/pet/dog/corgi/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
@@ -732,7 +732,7 @@
 		if(target)
 			shootAt(target)
 
-/mob/living/simple_animal/pet/dog/corgi/borgi/attackby(obj/item/I, mob/user, params)
+/mob/living/simple_animal/pet/dog/corgi/borgi/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

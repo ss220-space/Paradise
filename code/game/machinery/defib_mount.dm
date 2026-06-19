@@ -86,7 +86,7 @@
 	defib.dispence_paddles(user)
 	add_fingerprint(user)
 
-/obj/machinery/defibrillator_mount/attackby(obj/item/I, mob/living/user, params)
+/obj/machinery/defibrillator_mount/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

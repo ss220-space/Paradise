@@ -57,7 +57,7 @@
 	else
 		to_chat(user, span_notice("You turn off \the [src]."))
 
-/obj/item/hand_labeler/attackby(obj/item/I, mob/user, params)
+/obj/item/hand_labeler/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/hand_labeler_refill))
 		add_fingerprint(user)
 		if(!user.drop_transfer_item_to_loc(I, src))

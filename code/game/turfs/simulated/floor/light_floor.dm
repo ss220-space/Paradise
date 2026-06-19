@@ -76,7 +76,7 @@
 		return
 	toggle_light(!on)
 
-/turf/simulated/floor/light/attackby(obj/item/I, mob/user, params)
+/turf/simulated/floor/light/attackby(obj/item/I, mob/user, list/modifiers)
 	. = ..()
 
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))

@@ -33,7 +33,7 @@
 	if(temperature > 300)
 		PlasmaBurn()
 
-/turf/simulated/floor/mineral/plasma/attackby(obj/item/I, mob/user, params)
+/turf/simulated/floor/mineral/plasma/attackby(obj/item/I, mob/user, list/modifiers)
 	. = ..()
 
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))
@@ -173,7 +173,7 @@
 	if(isliving(arrived))
 		squeek()
 
-/turf/simulated/floor/mineral/bananium/attackby(obj/item/I, mob/user, params)
+/turf/simulated/floor/mineral/bananium/attackby(obj/item/I, mob/user, list/modifiers)
 	. = ..()
 	honk()
 

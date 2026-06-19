@@ -79,7 +79,7 @@
 	health = 300
 	maxHealth = 300
 
-/mob/living/simple_animal/pet/slugcat/attackby(obj/item/I, mob/user, params)
+/mob/living/simple_animal/pet/slugcat/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

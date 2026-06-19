@@ -119,7 +119,7 @@
 					return
 			update_cut_status()
 
-/obj/structure/fence/attackby(obj/item/I, mob/user, params)
+/obj/structure/fence/attackby(obj/item/I, mob/user, list/modifiers)
 	if(shock(user, 90))
 		add_fingerprint(user)
 		return ATTACK_CHAIN_BLOCKED_ALL

@@ -103,7 +103,7 @@
 	god_punishment = max(0, god_punishment - round((world.time - last_used) / (30 SECONDS))) //forgive 1 sin every 30 seconds
 	last_used = world.time
 
-/obj/item/storage/bible/attack(mob/living/carbon/human/target, mob/living/carbon/human/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/storage/bible/attack(mob/living/carbon/human/target, mob/living/carbon/human/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	. = ATTACK_CHAIN_PROCEED
 
 	if(!ishuman(user) || is_monkeybasic(user))

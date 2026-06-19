@@ -157,7 +157,7 @@
 	if(blocks_emissive)
 		add_overlay(get_emissive_block())
 
-/mob/living/silicon/robot/cogscarab/attackby(obj/item/I, mob/user, params)
+/mob/living/silicon/robot/cogscarab/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/borg/upgrade))
 		return ATTACK_CHAIN_BLOCKED
 	return ..()

@@ -680,7 +680,7 @@
 		color = "#a30e22"
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/item/clothing/suit/suspenders/attackby(obj/item/I, mob/user, params)
+/obj/item/clothing/suit/suspenders/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/toy/crayon/spraycan))
 		var/obj/item/toy/crayon/spraycan/can = I
 		if(!paintable)

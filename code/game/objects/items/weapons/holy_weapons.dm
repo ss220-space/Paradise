@@ -41,7 +41,7 @@
 	user.visible_message(span_suicide("[user] is killing [user.p_them()]self with \the [src.name]! It looks like [user.p_theyre()] trying to get closer to god!"))
 	return BRUTELOSS|FIRELOSS
 
-/obj/item/nullrod/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/nullrod/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	. = ..()
 
 	if(!ATTACK_CHAIN_SUCCESS_CHECK(.))
@@ -574,7 +574,7 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/item/nullrod/rosary/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/nullrod/rosary/attack(mob/living/carbon/human/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(!ishuman(target))
 		return ..()
 

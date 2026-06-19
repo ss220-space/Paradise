@@ -419,7 +419,7 @@
 	///Cooldown timestamp for pinching.
 	COOLDOWN_DECLARE(pinch_cooldown)
 
-/obj/item/reagent_containers/food/snacks/crayfish_raw/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/reagent_containers/food/snacks/crayfish_raw/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(!COOLDOWN_FINISHED(src, pinch_cooldown))
 		return ..()
 

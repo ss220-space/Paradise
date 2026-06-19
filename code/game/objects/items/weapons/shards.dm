@@ -67,9 +67,9 @@
 			to_chat(H, span_warning("[src] cuts into your hand!"))
 			H.apply_damage(force * 0.5, def_zone = affecting)
 
-/obj/item/shard/attackby(obj/item/I, mob/user, params)
+/obj/item/shard/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/lightreplacer))
-		I.attackby(src, user, params)
+		I.attackby(src, user, modifiers)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(istype(I, /obj/item/stack/sheet/cloth))

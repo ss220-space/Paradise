@@ -110,7 +110,7 @@
 	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, TRUE)
 	user.put_in_hands(paper, ignore_anim = FALSE)
 
-/obj/item/autopsy_scanner/attackby(obj/item/used, mob/user, params)
+/obj/item/autopsy_scanner/attackby(obj/item/used, mob/user, list/modifiers)
 	if(!is_pen(used))
 		return ..()
 
@@ -194,7 +194,7 @@
 	paper.update_icon()
 	user.put_in_hands(paper, ignore_anim = FALSE)
 
-/obj/item/autopsy_scanner/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/autopsy_scanner/attack(mob/living/carbon/human/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(!ishuman(target) || !on_operable_surface(target))
 		return ..()
 

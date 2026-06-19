@@ -262,7 +262,7 @@
 
 	add_fingerprint(usr)
 
-/obj/machinery/chem_dispenser/attackby(obj/item/I, mob/user, params)
+/obj/machinery/chem_dispenser/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
@@ -679,7 +679,7 @@
 	update_icon(UPDATE_OVERLAYS)
 	return TRUE
 
-/obj/item/handheld_chem_dispenser/attackby(obj/item/I, mob/user, params)
+/obj/item/handheld_chem_dispenser/attackby(obj/item/I, mob/user, list/modifiers)
 	if(iscell(I))
 		add_fingerprint(user)
 		if(cell)

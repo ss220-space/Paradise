@@ -74,7 +74,7 @@
 	else
 		return buf.dna.SetUIValue(real_block,val)
 
-/obj/item/dnainjector/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/dnainjector/attack(mob/living/carbon/human/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(used)
 		to_chat(user, span_warning("This injector is used up!"))
 		return ATTACK_CHAIN_PROCEED

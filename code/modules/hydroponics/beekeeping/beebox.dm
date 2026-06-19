@@ -138,7 +138,7 @@
 	if(length(honeycombs) >= get_max_honeycomb())
 		. += span_warning("there's no room for more honeycomb!")
 
-/obj/structure/beebox/attackby(obj/item/I, mob/user, params)
+/obj/structure/beebox/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

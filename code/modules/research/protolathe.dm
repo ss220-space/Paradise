@@ -95,7 +95,7 @@ Note: Must be placed west/left of and R&D console to function.
 		A = A / max(1, (being_built.materials[M] * efficiency_coeff))
 	return A
 
-/obj/machinery/r_n_d/protolathe/attackby(obj/item/I, mob/user, params)
+/obj/machinery/r_n_d/protolathe/attackby(obj/item/I, mob/user, list/modifiers)
 	if(shocked && shock(user, 50))
 		add_fingerprint(user)
 		return ATTACK_CHAIN_BLOCKED_ALL

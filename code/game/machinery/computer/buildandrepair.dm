@@ -608,7 +608,7 @@
 	contraband_enabled = !contraband_enabled
 	playsound(src, 'sound/effects/pop.ogg', 50)
 
-/obj/item/circuitboard/rdconsole/attackby(obj/item/I, mob/user, params)
+/obj/item/circuitboard/rdconsole/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
@@ -817,7 +817,7 @@
 	state = STATE_NOWIRES
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/structure/computerframe/attackby(obj/item/I, mob/user, params)
+/obj/structure/computerframe/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

@@ -100,7 +100,7 @@
 
 	qdel(src)
 
-/obj/effect/old_anomaly/attackby(obj/item/item, mob/user, params)
+/obj/effect/old_anomaly/attackby(obj/item/item, mob/user, list/modifiers)
 	. = ..()
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))
 		return .

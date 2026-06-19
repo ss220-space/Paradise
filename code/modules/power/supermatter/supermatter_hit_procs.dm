@@ -58,7 +58,7 @@
 		qdel(rip_u)
 	return COMPONENT_CANCEL_ATTACK_CHAIN
 
-/obj/machinery/power/supermatter_crystal/attackby(obj/item/item, mob/user, params)
+/obj/machinery/power/supermatter_crystal/attackby(obj/item/item, mob/user, list/modifiers)
 	if(!istype(item) || (item.flags & ABSTRACT) || !istype(user))
 		return ATTACK_CHAIN_BLOCKED
 

@@ -135,7 +135,7 @@
 		return
 	. = ..()
 
-/obj/item/paper/contract/infernal/attackby(obj/item/I, mob/user, params)
+/obj/item/paper/contract/infernal/attackby(obj/item/I, mob/user, list/modifiers)
 
 	if(istype(I, /obj/item/stamp))
 		balloon_alert(user, "печать сразу исчезает")
@@ -153,7 +153,7 @@
 /obj/item/paper/contract/infernal/stamp(obj/item/stamp/stamp, no_pixel_shift, special_stamped, special_icon_state)
 	return FALSE
 
-/obj/item/paper/contract/infernal/attack(mob/living/victim, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/paper/contract/infernal/attack(mob/living/victim, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	. = ..()
 	if(!ishuman(victim) || target != victim.mind || !victim.mind.hasSoul || victim.mind.soulOwner != victim.mind)
 		return .

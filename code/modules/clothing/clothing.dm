@@ -171,7 +171,7 @@
 	icon_state = "[replacetext("[icon_state]", "_up", "")][up ? "_up" : ""]"
 	return TRUE
 
-/obj/item/clothing/attackby(obj/item/I, mob/user, params)
+/obj/item/clothing/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/radio/spy_spider))
 		add_fingerprint(user)
 		var/obj/item/radio/spy_spider/spy_spider = I
@@ -785,7 +785,7 @@
 	cut_open = TRUE
 	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON_STATE)
 
-/obj/item/clothing/shoes/attackby(obj/item/I, mob/user, params)
+/obj/item/clothing/shoes/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/stack/tape_roll) && !silence_steps)
 		add_fingerprint(user)
 		var/obj/item/stack/tape_roll/tape = I
@@ -1097,7 +1097,7 @@
 			action.Remove(user)
 		jetpack.turn_off(user)
 
-/obj/item/clothing/suit/space/attackby(obj/item/I, mob/user, params)
+/obj/item/clothing/suit/space/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/tank/jetpack/suit))
 		add_fingerprint(user)
 		if(!jetpack_upgradable)
@@ -1244,7 +1244,7 @@
 
 	return TRUE
 
-/obj/item/clothing/under/attackby(obj/item/I, mob/user, params)
+/obj/item/clothing/under/attackby(obj/item/I, mob/user, list/modifiers)
 	if(isaccessory(I))
 		if(attach_accessory(I, user, unequip = TRUE))
 			return ATTACK_CHAIN_BLOCKED_ALL
@@ -1252,7 +1252,7 @@
 	else if(LAZYLEN(accessories))
 		add_fingerprint(user)
 		for(var/obj/item/clothing/accessory/accessory as anything in accessories)
-			accessory.attackby(I, user, params)
+			accessory.attackby(I, user, modifiers)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()

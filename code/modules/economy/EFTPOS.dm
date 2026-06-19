@@ -94,7 +94,7 @@
 /obj/item/eftpos/attack_self(mob/user)
 	ui_interact(user)
 
-/obj/item/eftpos/attackby(obj/item/I, mob/user, params)
+/obj/item/eftpos/attackby(obj/item/I, mob/user, list/modifiers)
 	var/obj/item/card/id/id_card = I.GetID()
 	if(id_card)
 		add_fingerprint(user)
@@ -104,7 +104,7 @@
 
 	return ..()
 
-/obj/item/card/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/card/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	var/obj/item/active_hand = user.get_active_hand()
 	var/obj/item/card/id/id_card = active_hand?.GetID()
 	if(!istype(id_card))

@@ -35,7 +35,7 @@
 /obj/item/assembly/anomaly_beacon/attack_self(mob/user)
 	activate()
 
-/obj/item/assembly/anomaly_beacon/attackby(obj/item/assembly/signaler/core/possible_core, mob/user, params)
+/obj/item/assembly/anomaly_beacon/attackby(obj/item/assembly/signaler/core/possible_core, mob/user, list/modifiers)
 	if(!(iscore(possible_core) && !iscoreempty(possible_core) && !iscoret1(possible_core)))
 		return ..()
 

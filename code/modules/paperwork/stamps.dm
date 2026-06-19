@@ -12,7 +12,7 @@
 	attack_verb = list("опечатал")
 	var/list/stamp_sounds = list('sound/effects/stamp1.ogg','sound/effects/stamp2.ogg','sound/effects/stamp3.ogg')
 
-/obj/item/stamp/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/stamp/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	. = ..()
 	if(ATTACK_CHAIN_SUCCESS_CHECK(.))
 		playsound(loc, pick(stamp_sounds), 35, TRUE, -1)

@@ -1,4 +1,4 @@
-/obj/item/clothing/suit/space/space_ninja/attackby(obj/item/I, mob/ninja, params)
+/obj/item/clothing/suit/space/space_ninja/attackby(obj/item/I, mob/ninja, list/modifiers)
 	if(ninja != affecting)//Safety, in case you try doing this without wearing the suit/being the person with the suit.
 		return ..()
 

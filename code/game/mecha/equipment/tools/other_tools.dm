@@ -414,7 +414,7 @@
 		occupant_message(span_warning("[fuel_name] traces in target minimal! [I] cannot be used as fuel."))
 		return FALSE
 
-/obj/item/mecha_parts/mecha_equipment/generator/attackby(obj/item/I, mob/user, params)
+/obj/item/mecha_parts/mecha_equipment/generator/attackby(obj/item/I, mob/user, list/modifiers)
 	if(load_fuel(I))
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()

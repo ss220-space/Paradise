@@ -55,7 +55,7 @@
 	. = ..()
 	. += span_notice("В слотах для кристаллов [crystals ? "[crystals] кристалл[DECL_CREDIT(crystals)]" : "нет кристаллов"] блюспейса.")
 
-/obj/machinery/computer/telescience/attackby(obj/item/I, mob/user, params)
+/obj/machinery/computer/telescience/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

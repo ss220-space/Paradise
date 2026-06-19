@@ -17,7 +17,7 @@
 		PREPOSITIONAL = "магнитном улучшении сумок для руды",
 	)
 
-/obj/item/storage/bag/ore/attackby(obj/item/item, mob/user, params)
+/obj/item/storage/bag/ore/attackby(obj/item/item, mob/user, list/modifiers)
 	if(istype(item, /obj/item/mining_satchel_upgrade))
 		if(aoe)
 			to_chat(user, span_notice("Сумка уже улучшена!"))

@@ -43,7 +43,7 @@
 
 	qdel(src)
 
-/obj/item/reagent_containers/food/drinks/bottle/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/reagent_containers/food/drinks/bottle/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(user.a_intent != INTENT_HARM || !isGlass)
 		return ..()
 
@@ -787,7 +787,7 @@
 		hotspot.recolor()
 	..()
 
-/obj/item/reagent_containers/food/drinks/bottle/molotov/attackby(obj/item/I, mob/user, params)
+/obj/item/reagent_containers/food/drinks/bottle/molotov/attackby(obj/item/I, mob/user, list/modifiers)
 	. = ..()
 
 	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !I.get_temperature())

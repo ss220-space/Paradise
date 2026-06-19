@@ -199,7 +199,7 @@
 		return TRUE
 	return ..()
 
-/obj/machinery/smartfridge/attackby(obj/item/I, mob/user, params)
+/obj/machinery/smartfridge/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/card/emag))
 		balloon_alert(user, "невозможно!")
 		return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK

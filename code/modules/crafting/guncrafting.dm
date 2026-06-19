@@ -33,7 +33,7 @@
 
 // CRAFTING //
 
-/obj/item/weaponcrafting/receiver/attackby(obj/item/I, mob/user, params)
+/obj/item/weaponcrafting/receiver/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/pipe))
 		if(loc == user && !user.can_unEquip(src))
 			return ..()
@@ -80,7 +80,7 @@
 	icon = 'icons/obj/improvised.dmi'
 	icon_state = "ishotgunstep1"
 
-/obj/item/weaponcrafting/ishotgunconstruction2/attackby(obj/item/I, mob/user, params)
+/obj/item/weaponcrafting/ishotgunconstruction2/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/weaponcrafting/stock))
 		if(loc == user && !user.can_unEquip(src))
 			return ..()
@@ -106,7 +106,7 @@
 	icon = 'icons/obj/improvised.dmi'
 	icon_state = "ishotgunstep2"
 
-/obj/item/weaponcrafting/ishotgunconstruction3/attackby(obj/item/I, mob/user, params)
+/obj/item/weaponcrafting/ishotgunconstruction3/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/stack/packageWrap))
 		add_fingerprint(user)
 		var/obj/item/stack/packageWrap/wrap = I

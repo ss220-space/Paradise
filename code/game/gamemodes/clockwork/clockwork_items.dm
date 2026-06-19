@@ -30,7 +30,7 @@
 	if(enchant_type)
 		. += "clock_slab_overlay_[enchant_type]"
 
-/obj/item/clockwork/clockslab/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/clockwork/clockslab/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	. = ..()
 	if(ATTACK_CHAIN_SUCCESS_CHECK(.) && plushy)
 		playsound(loc, 'sound/weapons/thudswoosh.ogg', 20, TRUE)	// Play the whoosh sound in local area
@@ -261,7 +261,7 @@
 		return
 	. = ..()
 
-/obj/item/twohanded/ratvarian_spear/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/twohanded/ratvarian_spear/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(!isclocker(user))
 		user.emote("scream")
 		if(ishuman(user))
@@ -418,7 +418,7 @@
 		return
 	. = ..()
 
-/obj/item/twohanded/clock_hammer/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/twohanded/clock_hammer/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(!isclocker(user))
 		user.Knockdown(10 SECONDS)
 		user.drop_item_ground(src, force = TRUE)
@@ -546,7 +546,7 @@
 	swordsman = FALSE
 	deplete_spell()
 
-/obj/item/melee/clock_sword/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/melee/clock_sword/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(!isclocker(user))
 		user.emote("scream")
 		if(ishuman(user))
@@ -1310,7 +1310,7 @@
 	desc = "The stalwart apparition of a soldier. It looks lifeless."
 	icon_state = "marauder_shell"
 
-/obj/item/clockwork/marauder/attackby(obj/item/I, mob/living/user, params)
+/obj/item/clockwork/marauder/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(istype(I, /obj/item/mmi/robotic_brain/clockwork))
 		add_fingerprint(user)
 		if(!isclocker(user))
@@ -1391,7 +1391,7 @@
 				new /obj/effect/temp_visual/ratvar/reconstruct(get_turf(user))
 	return
 
-/obj/item/clockwork/shard/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/clockwork/shard/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(!isclocker(user))
 		user.emote("scream")
 		if(ishuman(user))

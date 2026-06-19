@@ -408,7 +408,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		use_power(200)
 
 //Let's unlock this early I guess.  Might be too early, needs tweaking.
-/obj/machinery/clonepod/attackby(obj/item/I, mob/user, params)
+/obj/machinery/clonepod/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

@@ -375,7 +375,7 @@ GLOBAL_LIST_EMPTY(closets)
 /obj/structure/closet/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
 	return mouse_drop_receive(grabbed_thing, grabber) //act like they were dragged onto the closet
 
-/obj/structure/closet/attackby(obj/item/used, mob/user, params)
+/obj/structure/closet/attackby(obj/item/used, mob/user, list/modifiers)
 	if(opened)
 		if(user.a_intent == INTENT_HARM || (used.item_flags & ABSTRACT) || used.is_robot_module())
 			return ..()

@@ -15,7 +15,7 @@
 /obj/structure/pit/AllowDrop()
 	return TRUE
 
-/obj/structure/pit/attackby(obj/item/I, mob/user, params)
+/obj/structure/pit/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
@@ -232,7 +232,7 @@
 	message = "Здесь упокоен [nam], [born] - [died]."
 	update_appearance(UPDATE_DESC)
 
-/obj/structure/gravemarker/attackby(obj/item/I, mob/user, params)
+/obj/structure/gravemarker/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

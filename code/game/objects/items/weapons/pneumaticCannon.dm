@@ -73,7 +73,7 @@
 	if(tank)
 		return tank.return_analyzable_air()
 
-/obj/item/pneumatic_cannon/attackby(obj/item/I, mob/user, params)
+/obj/item/pneumatic_cannon/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

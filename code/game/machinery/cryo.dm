@@ -309,7 +309,7 @@
 
 	add_fingerprint(usr)
 
-/obj/machinery/atmospherics/unary/cryo_cell/attackby(obj/item/I, mob/user, params)
+/obj/machinery/atmospherics/unary/cryo_cell/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

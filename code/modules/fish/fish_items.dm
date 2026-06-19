@@ -160,7 +160,7 @@
 	desc = "Apparently, catfish don't purr like you might have expected them to. Such a confusing name!"
 	icon_state = "catfish"
 
-/obj/item/fish/catfish/attackby(obj/item/I, mob/user, params)
+/obj/item/fish/catfish/attackby(obj/item/I, mob/user, list/modifiers)
 	if(I.sharp)
 		to_chat(user, "You carefully clean and gut [src].")
 		var/obj/item/reagent_containers/food/snacks/catfishmeat/meat = new(drop_location(), 2)
@@ -180,7 +180,7 @@
 	desc = "The second-favorite food of Space Bears, right behind crew members."
 	icon_state = "salmon"
 
-/obj/item/fish/salmon/attackby(obj/item/I, mob/user, params)
+/obj/item/fish/salmon/attackby(obj/item/I, mob/user, list/modifiers)
 	if(I.sharp)
 		to_chat(user, "You carefully clean and gut [src].")
 		var/obj/item/reagent_containers/food/snacks/salmonmeat/meat = new(drop_location(), 2)
@@ -197,7 +197,7 @@
 	hitsound = 'sound/weapons/bite.ogg'
 	force = 3
 
-/obj/item/fish/babycarp/attackby(obj/item/I, mob/user, params)
+/obj/item/fish/babycarp/attackby(obj/item/I, mob/user, list/modifiers)
 	if(I.sharp)
 		to_chat(user, "You carefully clean and gut [src].")
 		var/obj/item/reagent_containers/food/snacks/carpmeat/meat = new(drop_location())	//just one fillet; this is a baby, afterall.

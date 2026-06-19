@@ -143,7 +143,7 @@
 			span_notice("You open [src]."))
 		open(auto_close = FALSE)
 
-/obj/machinery/door/firedoor/attackby(obj/item/I, mob/user, params)
+/obj/machinery/door/firedoor/attackby(obj/item/I, mob/user, list/modifiers)
 	if(operating)
 		add_fingerprint(user)
 		return ATTACK_CHAIN_BLOCKED_ALL
@@ -434,7 +434,7 @@
 /obj/structure/firelock_frame/update_icon_state()
 	icon_state = "frame[constructionStep]"
 
-/obj/structure/firelock_frame/attackby(obj/item/I, mob/user, params)
+/obj/structure/firelock_frame/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

@@ -28,7 +28,7 @@
 		PREPOSITIONAL = "измельчителе бумаги",
 	)
 
-/obj/machinery/papershredder/attackby(obj/item/I, mob/user, params)
+/obj/machinery/papershredder/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
@@ -129,7 +129,7 @@
 /obj/machinery/papershredder/update_icon_state()
 	icon_state = "papershredder[clamp(round(paperamount/3), 0, 5)]"
 
-/obj/item/shredded_paper/attackby(obj/item/I, mob/living/user, params)
+/obj/item/shredded_paper/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(resistance_flags & ON_FIRE)
 		return ATTACK_CHAIN_BLOCKED_ALL
 

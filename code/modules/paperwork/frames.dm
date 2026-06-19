@@ -57,7 +57,7 @@
 	if(istype(D, /obj/item/poster))
 		qdel(D)
 
-/obj/item/picture_frame/attackby(obj/item/I, mob/user, params)
+/obj/item/picture_frame/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/paper) || istype(I, /obj/item/photo) || istype(I, /obj/item/poster))
 		add_fingerprint(user)
 		if(displayed)
@@ -226,7 +226,7 @@
 	if(frame)
 		. += getFlatIcon(frame)
 
-/obj/structure/sign/picture_frame/attackby(obj/item/I, mob/user, params)
+/obj/structure/sign/picture_frame/attackby(obj/item/I, mob/user, list/modifiers)
 	var/bomb = isgrenade(I) || istype(I, /obj/item/grenade/plastic/c4)
 	if(user.a_intent == INTENT_HARM)
 		if(bomb)

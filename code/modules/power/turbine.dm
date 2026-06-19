@@ -201,7 +201,7 @@
 
 	efficiency = new_efficiency / 6
 
-/obj/machinery/power/compressor/attackby(obj/item/I, mob/user, params)
+/obj/machinery/power/compressor/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
@@ -564,7 +564,7 @@
 	. += image(icon, icon_state = "turb-o", layer = FLY_LAYER)
 
 
-/obj/machinery/power/turbine/attackby(obj/item/I, mob/user, params)
+/obj/machinery/power/turbine/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

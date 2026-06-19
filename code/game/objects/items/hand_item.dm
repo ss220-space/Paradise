@@ -9,7 +9,7 @@
 	/// How many smaller table smacks we can do before we're out
 	var/table_smacks_left = 3
 
-/obj/item/slapper/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/slapper/attack(mob/living/carbon/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	user.do_attack_animation(target)
 	playsound(target, hitsound, 50, TRUE, -1)
 	user.visible_message(
@@ -29,7 +29,7 @@
 		return
 	user.emote("highfive", intentional = TRUE)
 
-/obj/item/slapper/attack_obj(obj/object, mob/living/user, params)
+/obj/item/slapper/attack_obj(obj/object, mob/living/user, list/modifiers)
 	if(!istable(object))
 		return ..()
 
@@ -79,7 +79,7 @@
 	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = NON_PROJECTILE_ATTACKS, _parry_cooldown = (1 / 3) SECONDS) //75% uptime
 	return ..()
 
-/obj/item/slapper/parry/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/slapper/parry/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(isliving(target))
 		SEND_SOUND(creature, sound('sound/weapons/flash_ring.ogg'))
 		creature.Confused(10 SECONDS) //SMACK CAM

@@ -97,7 +97,7 @@
 	if(panel_open)
 		. += "dnamod-open"
 
-/obj/machinery/plantgenes/attackby(obj/item/I, mob/user, params)
+/obj/machinery/plantgenes/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
@@ -430,7 +430,7 @@
 	QDEL_NULL(gene)
 	return ..()
 
-/obj/item/disk/plantgene/attackby(obj/item/W, mob/user, params)
+/obj/item/disk/plantgene/attackby(obj/item/W, mob/user, list/modifiers)
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
 		var/cleaning = FALSE
 		if(istype(W, /obj/item/reagent_containers/spray/cleaner))

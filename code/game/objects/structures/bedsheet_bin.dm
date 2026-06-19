@@ -47,7 +47,7 @@ LINEN BINS
 	add_fingerprint(user)
 	return
 
-/obj/item/bedsheet/attackby(obj/item/I, mob/user, params)
+/obj/item/bedsheet/attackby(obj/item/I, mob/user, list/modifiers)
 	if(I.sharp)
 		if(loc == user && !user.can_unEquip(src))
 			add_fingerprint(user)
@@ -291,7 +291,7 @@ LINEN BINS
 	extinguish()
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/structure/bedsheetbin/attackby(obj/item/I, mob/user, params)
+/obj/structure/bedsheetbin/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/bedsheet))
 		add_fingerprint(user)
 		if(!user.drop_transfer_item_to_loc(I, src))

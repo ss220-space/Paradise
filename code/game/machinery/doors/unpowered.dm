@@ -4,7 +4,7 @@
 /obj/machinery/door/unpowered/Bumped(atom/movable/moving_atom, skip_effects = TRUE)	// different arg
 	. = ..()
 
-/obj/machinery/door/unpowered/attackby(obj/item/I, mob/user, params)
+/obj/machinery/door/unpowered/attackby(obj/item/I, mob/user, list/modifiers)
 	if(locked)
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()

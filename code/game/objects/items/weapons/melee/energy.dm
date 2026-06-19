@@ -32,7 +32,7 @@
 		"rainbow" = LIGHT_COLOR_DEFAULT,
 	)
 
-/obj/item/melee/energy/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/melee/energy/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	var/nemesis_faction = FALSE
 	if(LAZYLEN(nemesis_factions))
 		for(var/faction in target.faction)
@@ -164,7 +164,7 @@
 /obj/item/melee/energy/sword/cyborg
 	var/hitcost = 50
 
-/obj/item/melee/energy/sword/cyborg/attack(mob/living/target, mob/living/silicon/robot/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/melee/energy/sword/cyborg/attack(mob/living/target, mob/living/silicon/robot/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(!user.cell)
 		return ATTACK_CHAIN_PROCEED
 	if(active && !user.cell.use(hitcost))
@@ -219,7 +219,7 @@
 /obj/item/melee/energy/sword/saber/yellow
 	item_color = "yellow"
 
-/obj/item/melee/energy/sword/saber/attackby(obj/item/I, mob/living/user, params)
+/obj/item/melee/energy/sword/saber/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(istype(I, /obj/item/melee/energy/sword/saber))
 		add_fingerprint(user)
 		if(I == src)

@@ -406,7 +406,7 @@
 	playsound(src, 'sound/items/bikehorn.ogg', 500)
 	new /obj/item/grown/bananapeel(loc)
 
-/obj/machinery/r_n_d/experimentor/attackby(obj/item/I, mob/user, params)
+/obj/machinery/r_n_d/experimentor/attackby(obj/item/I, mob/user, list/modifiers)
 	if(shocked && shock(user, 50))
 		add_fingerprint(user)
 		return ATTACK_CHAIN_BLOCKED_ALL

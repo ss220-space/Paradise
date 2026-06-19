@@ -203,7 +203,7 @@
 	var/beenused = FALSE
 	var/door_to_open = "UO71_Start"
 
-/obj/machinery/computer/id_upgrader/attackby(obj/item/I, mob/user, params)
+/obj/machinery/computer/id_upgrader/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

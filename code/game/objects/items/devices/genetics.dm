@@ -222,7 +222,7 @@
 	to_chat(user, "Данные из [dna_console.declent_ru(GENITIVE)] успешно загружены в [declent_ru(NOMINATIVE)].")
 	balloon_alert(user, "данные загружены")
 
-/obj/item/dna_notepad/attack_obj(obj/object, mob/living/user, params)
+/obj/item/dna_notepad/attack_obj(obj/object, mob/living/user, list/modifiers)
 	. = ..()
 	if(!istype(object, /obj/machinery/computer/scan_consolenew))
 		return
@@ -250,7 +250,7 @@
 	to_chat(user, "Данные из другого [dna_notepad.declent_ru(GENITIVE)] успешно загружены в ваш [declent_ru(NOMINATIVE)].")
 	balloon_alert(user, "данные загружены")
 
-/obj/item/dna_notepad/attackby(obj/item/item, mob/living/user, params)
+/obj/item/dna_notepad/attackby(obj/item/item, mob/living/user, list/modifiers)
 	. = ..()
 	if(!istype(item, /obj/item/dna_notepad))
 		return

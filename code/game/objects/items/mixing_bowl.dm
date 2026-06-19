@@ -25,7 +25,7 @@
 	. = ..()
 	create_reagents(100)
 
-/obj/item/mixing_bowl/attackby(obj/item/stack/I, mob/user, params)
+/obj/item/mixing_bowl/attackby(obj/item/stack/I, mob/user, list/modifiers)
 	if(issoap(I))
 		add_fingerprint(user)
 		if(!dirty)

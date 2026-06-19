@@ -24,7 +24,7 @@
 	var/obj/item/stack/sheet/glass/glass = new(drop_loc)
 	glass.add_fingerprint(user)
 
-/obj/item/stack/light_w/attackby(obj/item/I, mob/user, params)
+/obj/item/stack/light_w/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/stack/sheet/metal))
 		add_fingerprint(user)
 		var/obj/item/stack/sheet/metal/metal = I

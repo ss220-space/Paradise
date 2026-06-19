@@ -723,7 +723,7 @@
 	else
 		..()
 
-/obj/machinery/vending/attackby(obj/item/I, mob/user, params)
+/obj/machinery/vending/attackby(obj/item/I, mob/user, list/modifiers)
 	if(tilted)
 		if(user.a_intent == INTENT_HELP)
 			balloon_alert(user, "автомат опрокинут!")

@@ -1004,7 +1004,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		to_chat(user, span_notice("Emergency access has been disabled."))
 	update_icon()
 
-/obj/machinery/door/airlock/attackby(obj/item/I, mob/user, params)
+/obj/machinery/door/airlock/attackby(obj/item/I, mob/user, list/modifiers)
 	if(!headbutt_shock_check(user))
 		add_fingerprint(user)
 		return ATTACK_CHAIN_BLOCKED_ALL

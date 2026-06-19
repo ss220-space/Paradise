@@ -33,7 +33,7 @@
 /obj/item/reagent_containers/food/condiment/attack_self(mob/user)
 	return
 
-/obj/item/reagent_containers/food/condiment/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/reagent_containers/food/condiment/attack(mob/living/carbon/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(!iscarbon(target))
 		return ..()
 
@@ -298,7 +298,7 @@
 		"chocolate_sprinkle" = list("condi_chocolate", "Chocolate sprinkle", "The amount of sugar that's already there wasn't enough for you?"),
 	)
 
-/obj/item/reagent_containers/food/condiment/pack/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/reagent_containers/food/condiment/pack/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(iscarbon(target))
 		return ATTACK_CHAIN_PROCEED	// Can't feed these to people directly.
 	return ..()

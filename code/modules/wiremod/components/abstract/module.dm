@@ -245,11 +245,11 @@
 	. = list()
 	.["global_port_types"] = GLOB.wiremod_basic_types
 
-/obj/item/circuit_component/module/attackby(obj/item/tool, mob/living/user, params)
+/obj/item/circuit_component/module/attackby(obj/item/tool, mob/living/user, list/modifiers)
 	if(!is_circuit_component(tool))
 		return ..()
 
-	internal_circuit.attackby(tool, user, params)
+	internal_circuit.attackby(tool, user, modifiers)
 	return
 
 #define WITHIN_RANGE(id, table) (id >= 1 && id <= length(table))

@@ -27,7 +27,7 @@
 	add_occupant(M)
 	return ..()
 
-/obj/vehicle/ridden/attackby(obj/item/I, mob/user, params)
+/obj/vehicle/ridden/attackby(obj/item/I, mob/user, list/modifiers)
 	if(!key_type || is_key(inserted_key) || !is_key(I))
 		return ..()
 	if(!user.transfer_item_to_loc(I, src))

@@ -31,7 +31,7 @@
 		PREPOSITIONAL = "наручниках"
 	)
 
-/obj/item/restraints/handcuffs/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/restraints/handcuffs/attack(mob/living/carbon/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(!iscarbon(target))
 		return ..()
 
@@ -205,7 +205,7 @@
 	color = pick(COLOR_RED, COLOR_BLUE, COLOR_GREEN, COLOR_PINK, COLOR_YELLOW, COLOR_CYAN)
 	return color
 
-/obj/item/restraints/handcuffs/cable/attackby(obj/item/I, mob/user, params)
+/obj/item/restraints/handcuffs/cable/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/stack/rods))
 		add_fingerprint(user)
 		var/obj/item/stack/rods/rods = I
@@ -266,7 +266,7 @@
 	desc = "Сломанные и уже ни на что не годятся."
 	icon_state = "cuff_white_used"
 
-/obj/item/restraints/handcuffs/cable/zipties/used/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/restraints/handcuffs/cable/zipties/used/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(iscarbon(target))	// broken, can't cuff anyone
 		return ATTACK_CHAIN_PROCEED
 	return ..()
@@ -322,7 +322,7 @@
 	desc = "Сломанные и уже ни на что не годятся."
 	icon_state = "manacle_unlock"
 
-/obj/item/restraints/handcuffs/manacles/used/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/restraints/handcuffs/manacles/used/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(iscarbon(target))	// broken, can't cuff anyone
 		return ATTACK_CHAIN_PROCEED
 	return ..()

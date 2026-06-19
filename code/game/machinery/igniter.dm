@@ -90,7 +90,7 @@
 		return
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/machinery/sparker/attackby(obj/item/I, mob/user, params)
+/obj/machinery/sparker/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/detective_scanner))
 		return ATTACK_CHAIN_PROCEED
 	return ..()

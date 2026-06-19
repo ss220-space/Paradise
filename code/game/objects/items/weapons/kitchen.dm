@@ -48,7 +48,7 @@
 		food_olay.pixel_z = pixel_y
 		. += food_olay
 
-/obj/item/kitchen/utensil/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/kitchen/utensil/attack(mob/living/carbon/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(!iscarbon(target))
 		return ..()
 
@@ -179,7 +179,7 @@
 	shields_penetration = initial(shields_penetration)
 	return ..()
 
-/obj/item/kitchen/knife/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/kitchen/knife/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(user.zone_selected == BODY_ZONE_HEAD && user.a_intent == INTENT_HARM)
 		var/datum/martial_art/throwing/martial_art = user?.mind?.martial_art
 		if(istype(martial_art) && is_type_in_list(src, martial_art.knife_types, FALSE))
@@ -241,7 +241,7 @@
 	attacker.balloon_alert_to_viewers("перереза[PLUR_ET_YUT(attacker)] глотку", "горло перерезано!");
 	return TRUE
 
-/obj/item/kitchen/knife/attack_obj(obj/object, mob/living/user, params)
+/obj/item/kitchen/knife/attack_obj(obj/object, mob/living/user, list/modifiers)
 	var/datum/martial_art/throwing/MA = user?.mind?.martial_art
 	if(istype(MA) && is_type_in_list(src, MA.knife_types, FALSE))
 		force = default_force + MA.knife_bonus_damage

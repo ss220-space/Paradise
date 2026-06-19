@@ -103,7 +103,7 @@
 			return FALSE
 	return ..()
 
-/obj/item/grown/nettle/death/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/grown/nettle/death/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	. = ..()
 	if(!ATTACK_CHAIN_SUCCESS_CHECK(.))
 		return .

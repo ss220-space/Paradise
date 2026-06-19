@@ -48,7 +48,7 @@ RSF
 	)
 	update_appearance(UPDATE_DESC)
 
-/obj/item/rsf/attackby(obj/item/I, mob/user, params)
+/obj/item/rsf/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/rcd_ammo))
 		add_fingerprint(user)
 		if((matter + 10) > 30)

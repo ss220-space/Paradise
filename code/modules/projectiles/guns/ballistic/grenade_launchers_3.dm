@@ -16,7 +16,7 @@
 	if(get_dist(user, src) <= 2)
 		. += span_notice("Contains <b>[length(grenades)]/[max_grenades]</b> grenades.")
 
-/obj/item/gun/grenadelauncher/attackby(obj/item/I, mob/user, params)
+/obj/item/gun/grenadelauncher/attackby(obj/item/I, mob/user, list/modifiers)
 	if((isgrenade(I)))
 		add_fingerprint(user)
 		if(length(grenades) >= max_grenades)

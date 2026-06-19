@@ -166,7 +166,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	else
 		balloon_alert(usr, "нечего извлекать!")
 
-/obj/machinery/computer/card/attackby(obj/item/card/id/id_card, mob/user, params)
+/obj/machinery/computer/card/attackby(obj/item/card/id/id_card, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM || !istype(id_card))
 		return ..()
 

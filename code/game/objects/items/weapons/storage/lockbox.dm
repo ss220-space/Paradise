@@ -22,7 +22,7 @@
 		return
 	icon_state = locked ? icon_locked : icon_closed
 
-/obj/item/storage/lockbox/attackby(obj/item/I, mob/user, params)
+/obj/item/storage/lockbox/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)	// to allow storing special items
 		if(locked)
 			add_fingerprint(user)
@@ -229,7 +229,7 @@
 /obj/item/storage/lockbox/medal/hardmode_box/populate_contents()
 	return
 
-/obj/item/storage/lockbox/medal/hardmode_box/attackby(obj/item/I, mob/user, params)
+/obj/item/storage/lockbox/medal/hardmode_box/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/disk/fauna_research))
 		var/obj/item/disk/fauna_research/disky = I
 		if(!user.drop_transfer_item_to_loc(disky, src))

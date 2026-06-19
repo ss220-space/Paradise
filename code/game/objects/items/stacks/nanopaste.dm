@@ -11,13 +11,13 @@
 	max_amount = 6
 	energy_type = /datum/robot_energy_storage/nanopaste
 
-/obj/item/stack/nanopaste/cyborg/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/stack/nanopaste/cyborg/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(!get_amount())
 		to_chat(user, span_danger("Not enough nanopaste!"))
 		return ATTACK_CHAIN_PROCEED
 	return ..()
 
-/obj/item/stack/nanopaste/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/stack/nanopaste/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	. = ATTACK_CHAIN_PROCEED
 
 	if(isrobot(target))	//Repairing cyborgs

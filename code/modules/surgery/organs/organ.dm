@@ -170,7 +170,7 @@
 	status &= ~ORGAN_DEAD
 	return TRUE
 
-/obj/item/organ/attackby(obj/item/I, mob/user, params)
+/obj/item/organ/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/stack/nanopaste))
 		add_fingerprint(user)
 		var/obj/item/stack/nanopaste/nanopaste = I

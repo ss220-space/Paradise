@@ -133,7 +133,7 @@
 /turf/simulated/floor/grass/update_icon_state()
 	icon_state = "grass[pick("1","2","3","4")]"
 
-/turf/simulated/floor/grass/attackby(obj/item/I, mob/user, params)
+/turf/simulated/floor/grass/attackby(obj/item/I, mob/user, list/modifiers)
 	. = ..()
 
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))

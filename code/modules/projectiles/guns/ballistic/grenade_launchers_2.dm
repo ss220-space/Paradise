@@ -47,7 +47,7 @@
 	recoil = GUN_RECOIL_MEDIUM
 	can_air_shoot = FALSE
 
-/obj/item/gun/projectile/revolver/rocketlauncher/attackby(obj/item/I, mob/user, params)
+/obj/item/gun/projectile/revolver/rocketlauncher/attackby(obj/item/I, mob/user, list/modifiers)
 	if(isammobox(I) || isammocasing(I))
 		add_fingerprint(user)
 		var/num_loaded = magazine.reload(I, user, silent = TRUE, count_chambered = TRUE)

@@ -105,7 +105,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/light_switch, 26, 26)
 	power_change()
 	..(severity)
 
-/obj/machinery/light_switch/attackby(obj/item/tool, mob/user, params)
+/obj/machinery/light_switch/attackby(obj/item/tool, mob/user, list/modifiers)
 	if(!istype(tool, /obj/item/detective_scanner))
 		return ..()
 

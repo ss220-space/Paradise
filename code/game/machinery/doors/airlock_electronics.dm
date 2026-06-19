@@ -21,7 +21,7 @@
 	if(access_electronics)
 		. += span_notice("It has [access_electronics] attached. Use <b>screwdriver</b> to remove it.")
 
-/obj/item/airlock_electronics/attackby(obj/item/I, mob/user, params)
+/obj/item/airlock_electronics/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

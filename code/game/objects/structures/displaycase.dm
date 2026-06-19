@@ -96,7 +96,7 @@
 	if(!open && !broken)
 		. += "glassbox_closed"
 
-/obj/structure/displaycase/attackby(obj/item/I, mob/user, params)
+/obj/structure/displaycase/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
@@ -203,7 +203,7 @@
 	icon_state = "glassbox_chassis"
 	var/obj/item/access_control/electronics
 
-/obj/structure/displaycase_chassis/attackby(obj/item/I, mob/user, params)
+/obj/structure/displaycase_chassis/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

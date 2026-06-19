@@ -87,7 +87,7 @@
 		PREPOSITIONAL = "мешке для трупов",
 	)
 
-/obj/structure/closet/body_bag/attackby(obj/item/I, mob/user, params)
+/obj/structure/closet/body_bag/attackby(obj/item/I, mob/user, list/modifiers)
 	if(is_pen(I))
 		var/new_name = rename_interactive(user, I)
 		if(new_name)

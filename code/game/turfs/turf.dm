@@ -614,7 +614,7 @@
 	ChangeTurf(baseturf)
 	return 2
 
-/turf/attackby(obj/item/used, mob/user, params)
+/turf/attackby(obj/item/used, mob/user, list/modifiers)
 	. = ..()
 
 	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !can_lay_cable())
@@ -625,7 +625,7 @@
 		var/obj/item/stack/cable_coil/coil = used
 		for(var/obj/structure/cable/local_cable in src)
 			if(local_cable.d1 == 0 || local_cable.d2 == 0)
-				local_cable.attackby(coil, user, params)
+				local_cable.attackby(coil, user, modifiers)
 				. |= (ATTACK_CHAIN_BLOCKED_ALL)
 				return .
 		coil.place_turf(src, user)
@@ -640,7 +640,7 @@
 			return .
 		for(var/obj/structure/cable/local_cable in src)
 			if(local_cable.d1 == 0 || local_cable.d2 == 0)
-				local_cable.attackby(rcl, user, params)
+				local_cable.attackby(rcl, user, modifiers)
 				. |= (ATTACK_CHAIN_BLOCKED_ALL)
 				return .
 		rcl.loaded.place_turf(src, user)

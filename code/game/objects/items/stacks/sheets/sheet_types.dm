@@ -425,7 +425,7 @@ GLOBAL_LIST_INIT(cardboard_recipes, list(
 	. = ..()
 	recipes = GLOB.cardboard_recipes
 
-/obj/item/stack/sheet/cardboard/attackby(obj/item/I, mob/user, params)
+/obj/item/stack/sheet/cardboard/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/stamp/clown) && !isstorage(loc))
 		add_fingerprint(user)
 		var/atom/droploc = drop_location()

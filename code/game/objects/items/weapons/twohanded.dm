@@ -237,7 +237,7 @@
 /obj/item/twohanded/fireaxe/energized/process()
 	charge = min(charge + 1, max_charge)
 
-/obj/item/twohanded/fireaxe/energized/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/twohanded/fireaxe/energized/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	. = ..()
 	if(!ATTACK_CHAIN_SUCCESS_CHECK(.) || !HAS_TRAIT(src, TRAIT_WIELDED) || charge != max_charge)
 		return .
@@ -341,7 +341,7 @@
 		icon_state = "dualsaber0"
 		set_light_on(FALSE)
 
-/obj/item/twohanded/dualsaber/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/twohanded/dualsaber/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	. = ..()
 	if(!ATTACK_CHAIN_SUCCESS_CHECK(.) || !HAS_TRAIT(src, TRAIT_WIELDED))
 		return .
@@ -531,7 +531,7 @@
 		PREPOSITIONAL = "копьё \"Её Обжигающие Объятия\"",
 	)
 
-/obj/item/twohanded/spear/bonespear/her_biting_embrace/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim)
+/obj/item/twohanded/spear/bonespear/her_biting_embrace/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim)
 	. = ..()
 	if(!ATTACK_CHAIN_SUCCESS_CHECK(.) || !HAS_TRAIT(src, TRAIT_WIELDED))
 		return .
@@ -573,7 +573,7 @@
 			M.Copy_Parent(user, 100, user.health / 2.5, 12, 30)
 			M.GiveTarget(L)
 
-/obj/item/twohanded/spear/attackby(obj/item/I, mob/living/user, params)
+/obj/item/twohanded/spear/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(istype(I, /obj/item/organ/external/head))	//Putting heads on spears
 		add_fingerprint(user)
 		if(loc == user && !user.can_unEquip(src))
@@ -697,7 +697,7 @@
 /obj/item/twohanded/chainsaw/update_icon_state()
 	icon_state = "chainsaw_handmade[HAS_TRAIT(src, TRAIT_WIELDED)]"
 
-/obj/item/twohanded/chainsaw_handmade/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/twohanded/chainsaw_handmade/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	. = ..()
 	if(!ATTACK_CHAIN_SUCCESS_CHECK(.) || !HAS_TRAIT(src, TRAIT_WIELDED))
 		return .
@@ -792,7 +792,7 @@
 /obj/item/twohanded/chainsaw/update_icon_state()
 	icon_state = "chainsaw[HAS_TRAIT(src, TRAIT_WIELDED)]"
 
-/obj/item/twohanded/chainsaw/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/twohanded/chainsaw/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	. = ..()
 	if(!ATTACK_CHAIN_SUCCESS_CHECK(.) || !HAS_TRAIT(src, TRAIT_WIELDED))
 		return .
@@ -935,7 +935,7 @@
 	var/atom/throw_target = get_edge_target_turf(target, get_dir(src, get_step_away(target, src)))
 	INVOKE_ASYNC(target, TYPE_PROC_REF(/atom/movable, throw_at), throw_target, 200, 4)
 
-/obj/item/twohanded/mjollnir/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/twohanded/mjollnir/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	. = ..()
 	if(!ATTACK_CHAIN_SUCCESS_CHECK(.) || !HAS_TRAIT(src, TRAIT_WIELDED))
 		return .
@@ -1120,7 +1120,7 @@
 	var/mob/living/carbon/human/human = living_user
 	human.apply_damage(rand(living_user.health / 4, living_user.health / 2), BURN, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
 
-/obj/item/twohanded/pitchfork/demonic/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/twohanded/pitchfork/demonic/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	. = ..()
 
 	if(!ATTACK_CHAIN_SUCCESS_CHECK(.))
@@ -1230,7 +1230,7 @@
 /obj/item/twohanded/sechammer/unwield(obj/item/source, mob/living/carbon/user)
 	slowdown = 0
 
-/obj/item/twohanded/sechammer/pre_attackby(atom/target, mob/living/user, params)
+/obj/item/twohanded/sechammer/pre_attackby(atom/target, mob/living/user, list/modifiers)
 	. = ..()
 	if(user.getStaminaLoss() >= max_stamina_damage)
 		balloon_alert(user, "вы слишком устали!")

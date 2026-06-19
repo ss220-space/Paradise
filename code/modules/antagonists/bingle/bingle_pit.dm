@@ -487,10 +487,10 @@
 /obj/structure/bingle_pit_overlay/ex_act(severity)
 	return parent_pit.ex_act(severity)
 
-/obj/structure/bingle_pit_overlay/attackby(obj/item/W, mob/user, params)
+/obj/structure/bingle_pit_overlay/attackby(obj/item/W, mob/user, list/modifiers)
 	if(parent_pit)
 		user.do_attack_animation(src) // hacky but well
-		return parent_pit.attackby(W, user, params)
+		return parent_pit.attackby(W, user, modifiers)
 
 	return ..()
 

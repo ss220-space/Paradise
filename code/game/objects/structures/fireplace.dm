@@ -30,7 +30,7 @@
 	remove_shared_particles(/particles/smoke/burning)
 	return ..()
 
-/obj/structure/fireplace/attackby(obj/item/tool, mob/user, params)
+/obj/structure/fireplace/attackby(obj/item/tool, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

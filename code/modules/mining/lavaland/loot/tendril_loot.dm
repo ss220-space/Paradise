@@ -66,7 +66,7 @@
 	twin_storage = null
 	return ..()
 
-/obj/item/shared_storage/attackby(obj/item/I, mob/user, params)
+/obj/item/shared_storage/attackby(obj/item/I, mob/user, list/modifiers)
 	. = ..()
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))
 		return .
@@ -79,7 +79,7 @@
 		return .
 	if(bag.loc != user)
 		bag.forceMove(user)
-	. |= bag.attackby(I, user, params)
+	. |= bag.attackby(I, user, modifiers)
 	return .|ATTACK_CHAIN_BLOCKED_ALL
 
 /obj/item/shared_storage/dropped(mob/user, slot, silent = FALSE)
@@ -528,7 +528,7 @@
 	icon_state = "blank"
 	var/can_destroy = FALSE
 
-/obj/effect/immortality_talisman/attackby(obj/item/I, mob/user, params)
+/obj/effect/immortality_talisman/attackby(obj/item/I, mob/user, list/modifiers)
 	return ..()
 
 /obj/effect/immortality_talisman/ex_act()

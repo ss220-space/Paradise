@@ -123,7 +123,7 @@
 /obj/machinery/cooker/proc/special_grab_attack(atom/movable/grabbed_thing, mob/living/grabber)
 	return
 
-/obj/machinery/cooker/attackby(obj/item/I, mob/user, params)
+/obj/machinery/cooker/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

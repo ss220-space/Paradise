@@ -204,7 +204,7 @@ GLOBAL_LIST_EMPTY(safes)
 	else
 		ui_interact(user)
 
-/obj/structure/safe/attackby(obj/item/item, mob/user, params)
+/obj/structure/safe/attackby(obj/item/item, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

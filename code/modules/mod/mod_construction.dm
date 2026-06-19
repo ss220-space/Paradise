@@ -218,7 +218,7 @@
 			display_text = "Всё, что осталось для завершения, это <b>внешняя обшивка</b>..."
 	. += span_notice("[display_text]")
 
-/obj/item/mod/construction/shell/attackby(obj/item/part, mob/user, params)
+/obj/item/mod/construction/shell/attackby(obj/item/part, mob/user, list/modifiers)
 	. = ..()
 	switch(construction_step)
 

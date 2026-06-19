@@ -48,7 +48,7 @@
 	. = ..()
 	desc = registered_name ? "Owned by [registered_name]." : initial(desc)
 
-/obj/structure/closet/secure_closet/personal/attackby(obj/item/I, mob/user, params)
+/obj/structure/closet/secure_closet/personal/attackby(obj/item/I, mob/user, list/modifiers)
 	if(opened)
 		return ..()
 

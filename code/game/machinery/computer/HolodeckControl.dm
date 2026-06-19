@@ -158,7 +158,7 @@
 	updateUsrDialog()
 	return
 
-/obj/machinery/computer/HolodeckControl/attackby(obj/item/I, mob/user, params)
+/obj/machinery/computer/HolodeckControl/attackby(obj/item/I, mob/user, list/modifiers)
 	. = ..()
 	return .|ATTACK_CHAIN_BLOCKED
 
@@ -319,7 +319,7 @@
 	if(!(icon_state in list("grass1", "grass2", "grass3", "grass4", "sand")))
 		icon_state = "grass[pick("1","2","3","4")]"
 
-/turf/simulated/floor/holofloor/attackby(obj/item/I, mob/user, params)
+/turf/simulated/floor/holofloor/attackby(obj/item/I, mob/user, list/modifiers)
 	. = ..()
 	return .|ATTACK_CHAIN_BLOCKED
 	// HOLOFLOOR DOES NOT GIVE A FUCK
@@ -507,7 +507,7 @@
 	target.forceMove(get_turf(src))
 	target.Weaken(10 SECONDS)
 
-/obj/structure/holohoop/attackby(obj/item/I, mob/user, params)
+/obj/structure/holohoop/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)	// Players may use (DISARM|GRAB) intent for pushing each other.
 		return ..()
 
@@ -576,7 +576,7 @@
 	to_chat(user, "The station AI is not to interact with these devices.")
 	return
 
-/obj/machinery/readybutton/attackby(obj/item/I, mob/user, params)
+/obj/machinery/readybutton/attackby(obj/item/I, mob/user, list/modifiers)
 	. = ..()
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))
 		return .

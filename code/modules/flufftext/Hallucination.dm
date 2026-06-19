@@ -653,7 +653,7 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 		QDEL_NULL(down)
 	. = ..()
 
-/obj/effect/fake_attacker/attackby(obj/item/I, mob/user, params)
+/obj/effect/fake_attacker/attackby(obj/item/I, mob/user, list/modifiers)
 	. = ..()
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))
 		return .

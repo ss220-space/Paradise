@@ -28,7 +28,7 @@
 	target = null
 	return ..()
 
-/obj/item/grenade/plastic/attackby(obj/item/I, mob/user, params)
+/obj/item/grenade/plastic/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/assembly_holder))
 		add_fingerprint(user)
 		if(nadeassembly)

@@ -28,7 +28,7 @@
 	if(stud)
 		. += span_notice("It is adorned with a single gem.")
 
-/obj/item/clothing/gloves/ring/attackby(obj/item/I, mob/user, params)
+/obj/item/clothing/gloves/ring/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/stack/sheet/mineral/diamond))
 		add_fingerprint(user)
 		var/obj/item/stack/sheet/mineral/diamond/diamond = I

@@ -82,7 +82,7 @@
 	else
 		balloon_alert(H, "нужно держать в руке!")
 
-/obj/item/reagent_containers/food/drinks/cans/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/reagent_containers/food/drinks/cans/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(!canopened)
 		balloon_alert(user, "сначала откройте!")
 		return ATTACK_CHAIN_PROCEED
@@ -95,14 +95,14 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
 
-/obj/item/reagent_containers/food/drinks/cans/attackby(obj/item/I, mob/user, params)
+/obj/item/reagent_containers/food/drinks/cans/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/storage/bag/trash/cyborg))
 		user.visible_message(
 			span_notice("[user] засовыва[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] в свой уплотнитель мусора."),
 			span_notice("Вы засовываете [declent_ru(ACCUSATIVE)] в свой уплотнитель мусора."),
 		)
 		var/obj/can = crush(user)
-		can.attackby(I, user, params)
+		can.attackby(I, user, modifiers)
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
 

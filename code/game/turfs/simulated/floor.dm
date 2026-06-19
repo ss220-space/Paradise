@@ -191,14 +191,14 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 	W.update_icon()
 	return W
 
-/turf/simulated/floor/attackby(obj/item/I, mob/user, params)
+/turf/simulated/floor/attackby(obj/item/I, mob/user, list/modifiers)
 	. = ..()
 
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))
 		return .
 
 	if(intact && transparent_floor != TURF_TRANSPARENT && istype(I, /obj/item/stack/tile))
-		try_replace_tile(I, user, params)
+		try_replace_tile(I, user, modifiers)
 		return .|ATTACK_CHAIN_BLOCKED_ALL
 
 	if(istype(I, /obj/item/pipe))

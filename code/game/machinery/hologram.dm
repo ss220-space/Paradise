@@ -137,7 +137,7 @@ GLOBAL_LIST_EMPTY(holopads)
 		holograph_range += 1 * B.rating
 	holo_range = holograph_range
 
-/obj/machinery/hologram/holopad/attackby(obj/item/I, mob/user, params)
+/obj/machinery/hologram/holopad/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 	if(exchange_parts(user, I))

@@ -13,7 +13,7 @@
 	var/created_name = "Чистобот"
 	var/robot_arm = /obj/item/robot_parts/l_arm
 
-/obj/item/bot_assembly/bucket_sensor/attackby(obj/item/I, mob/user, params)
+/obj/item/bot_assembly/bucket_sensor/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
@@ -111,7 +111,7 @@
 			item_state = "[lasercolor]ed209_taser"
 			icon_state = "[lasercolor]ed209_taser"
 
-/obj/item/bot_assembly/ed209_assembly/attackby(obj/item/I, mob/user, params)
+/obj/item/bot_assembly/ed209_assembly/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
@@ -320,7 +320,7 @@
 	name = "tiles, toolbox and sensor arrangement"
 	icon_state = "toolbox_tiles_sensor"
 
-/obj/item/storage/toolbox/attackby(obj/item/I, mob/user, params)
+/obj/item/storage/toolbox/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM || !istype(I, /obj/item/stack/tile/plasteel))
 		return ..()
 
@@ -373,7 +373,7 @@
 /obj/item/bot_assembly/toolbox_tiles/update_icon_state()
 	icon_state = "[toolbox_color]toolbox_tiles"
 
-/obj/item/bot_assembly/toolbox_tiles/attackby(obj/item/I, mob/user, params)
+/obj/item/bot_assembly/toolbox_tiles/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
@@ -416,7 +416,7 @@
 /obj/item/bot_assembly/toolbox_tiles/sensor/update_icon_state()
 	icon_state = "[toolbox_color]toolbox_tiles_sensor"
 
-/obj/item/bot_assembly/toolbox_tiles/sensor/attackby(obj/item/I, mob/user, params)
+/obj/item/bot_assembly/toolbox_tiles/sensor/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
@@ -459,7 +459,7 @@
 	qdel(src)
 	return ATTACK_CHAIN_BLOCKED_ALL
 
-/obj/item/storage/firstaid/attackby(obj/item/I, mob/user, params)
+/obj/item/storage/firstaid/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM || (!istype(I, /obj/item/robot_parts/l_arm) && !istype(I, /obj/item/robot_parts/r_arm)))
 		return ..()
 
@@ -530,7 +530,7 @@
 	if(build_step == 1)
 		name = "First aid/robot arm/health analyzer assembly"
 
-/obj/item/bot_assembly/firstaid_arm_assembly/attackby(obj/item/I, mob/user, params)
+/obj/item/bot_assembly/firstaid_arm_assembly/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
@@ -630,7 +630,7 @@
 		if(3)
 			. += "hs_arm"
 
-/obj/item/clothing/head/helmet/attackby(obj/item/I, mob/user, params)
+/obj/item/clothing/head/helmet/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM || !issignaler(I))
 		return ..()
 
@@ -655,7 +655,7 @@
 	qdel(I)
 	qdel(src)
 
-/obj/item/bot_assembly/secbot_assembly/attackby(obj/item/I, mob/user, params)
+/obj/item/bot_assembly/secbot_assembly/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
@@ -816,7 +816,7 @@
 	. = ..()
 	name = toy_step > 0 ? "Genewul Giftskee assembly" : "General Griefsky assembly"
 
-/obj/item/bot_assembly/griefsky_assembly/attackby(obj/item/I, mob/user, params)
+/obj/item/bot_assembly/griefsky_assembly/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
@@ -931,7 +931,7 @@
 	update_appearance(UPDATE_NAME)
 
 
-/obj/item/storage/box/clown/attackby(obj/item/I, mob/user, params)
+/obj/item/storage/box/clown/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM || (!istype(I, /obj/item/robot_parts/l_arm) && !istype(I, /obj/item/robot_parts/r_arm)))
 		return ..()
 
@@ -970,7 +970,7 @@
 	var/created_name = "Honkbot" //To preserve the name if it's a unique medbot I guess
 	var/robot_arm = /obj/item/robot_parts/l_arm
 
-/obj/item/bot_assembly/honkbot_arm_assembly/attackby(obj/item/I, mob/user, params)
+/obj/item/bot_assembly/honkbot_arm_assembly/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

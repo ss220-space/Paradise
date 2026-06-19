@@ -265,7 +265,7 @@
 	ghostize()
 	qdel(src)
 
-/mob/living/simple_animal/revenant/attackby(obj/item/I, mob/living/user, params)
+/mob/living/simple_animal/revenant/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(istype(I, /obj/item/nullrod))
 		visible_message(
 			span_warning("[src] дёргается в конвульсиях!"),

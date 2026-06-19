@@ -107,7 +107,7 @@
 
 	..(user)
 
-/obj/item/clothing/accessory/holster/attackby(obj/item/I, mob/user, params)
+/obj/item/clothing/accessory/holster/attackby(obj/item/I, mob/user, list/modifiers)
 	if(holster(I, user))
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()

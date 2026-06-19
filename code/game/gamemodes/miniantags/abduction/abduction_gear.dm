@@ -183,7 +183,7 @@
 	update_icon(UPDATE_ICON_STATE)
 	to_chat(user, span_notice("You switch the device to [mode==GIZMO_SCAN? "SCAN": "MARK"] MODE"))
 
-/obj/item/abductor/gizmo/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/abductor/gizmo/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(!ScientistCheck(user))
 		return ..()
 	if(!console)
@@ -252,7 +252,7 @@
 	item_state = "silencer"
 	origin_tech = "materials=4;programming=7;abductor=3"
 
-/obj/item/abductor/silencer/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/abductor/silencer/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(!isgrey(user) && !AbductorCheck(user))
 		return ..()
 	. = ATTACK_CHAIN_PROCEED_SUCCESS
@@ -722,7 +722,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	framestackamount = 1
 	density = TRUE
 
-/obj/structure/table_frame/abductor/attackby(obj/item/I, mob/user, params)
+/obj/structure/table_frame/abductor/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

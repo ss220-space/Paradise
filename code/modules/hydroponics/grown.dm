@@ -59,7 +59,7 @@
 			if(T.examine_line)
 				. += T.examine_line
 
-/obj/item/reagent_containers/food/snacks/grown/attackby(obj/item/I, mob/user, params)
+/obj/item/reagent_containers/food/snacks/grown/attackby(obj/item/I, mob/user, list/modifiers)
 	. = ..()
 
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))

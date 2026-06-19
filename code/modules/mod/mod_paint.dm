@@ -18,7 +18,7 @@
 		PREPOSITIONAL = "комплекте покраски МЭК"
 	)
 
-/obj/item/mod/skin_applier/pre_attackby(atom/attacked_atom, mob/living/user, params)
+/obj/item/mod/skin_applier/pre_attackby(atom/attacked_atom, mob/living/user, list/modifiers)
 	if(!ismodcontrol(attacked_atom))
 		return ..()
 	var/obj/item/mod/control/mod = attacked_atom
@@ -68,7 +68,7 @@
 		PREPOSITIONAL = "универсальном комплекте покраски МЭК"
 	)
 
-/obj/item/mod/universal_modkit/pre_attackby(atom/attacked_atom, mob/living/user, params)
+/obj/item/mod/universal_modkit/pre_attackby(atom/attacked_atom, mob/living/user, list/modifiers)
 	if(!ismodcontrol(attacked_atom))
 		return ..()
 	var/obj/item/mod/control/mod = attacked_atom

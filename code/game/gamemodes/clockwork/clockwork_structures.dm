@@ -70,7 +70,7 @@
 	icon = initial(selected_type.icon)
 	icon_state = initial(selected_type.icon_state)
 
-/obj/structure/clockwork/functional/attackby(obj/item/I, mob/user, params)
+/obj/structure/clockwork/functional/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/clockwork/clockslab) && isclocker(user))
 		add_fingerprint(user)
 		if(I.enchant_type == HIDE_SPELL && canbehidden)
@@ -186,7 +186,7 @@
 		to_chat(M.current, span_danger("You get the feeling that one of the beacons have been destroyed! The source comes from [areabeacon.name]"))
 	return ..()
 
-/obj/structure/clockwork/functional/beacon/attackby(obj/item/I, mob/user, params)
+/obj/structure/clockwork/functional/beacon/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/clockwork/clockslab) && isclocker(user))
 		add_fingerprint(user)
 		to_chat(user, span_danger("You try to unsecure [src], but it's secures himself back tightly!"))
@@ -250,7 +250,7 @@
 	else
 		icon_state = initial(selected_type.icon_state)
 
-/obj/structure/clockwork/functional/altar/attackby(obj/item/I, mob/user, params)
+/obj/structure/clockwork/functional/altar/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/clockwork/clockslab) && isclocker(user))
 		add_fingerprint(user)
 		if(hidden)
@@ -369,7 +369,7 @@
 	if(!silent)
 		visible_message(span_warning("[src] slowly stops glowing!"))
 
-/obj/structure/clockwork/functional/altar/attackby(obj/item/I, mob/user, params)
+/obj/structure/clockwork/functional/altar/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/clockwork/shard))
 		add_fingerprint(user)
 		if(!ishuman(user))
@@ -476,7 +476,7 @@
 	if(!timer_fabrictor)
 		timer_fabrictor = addtimer(CALLBACK(src, PROC_REF(open_slot)), TIME_NEW_COGSCRAB SECONDS)
 
-/obj/structure/clockwork/functional/cogscarab_fabricator/attackby(obj/item/I, mob/user, params)
+/obj/structure/clockwork/functional/cogscarab_fabricator/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/clockwork/clockslab) && isclocker(user) && I.enchant_type != HIDE_SPELL && !hidden)
 		add_fingerprint(user)
 		if(!anchored && !isfloorturf(loc))

@@ -145,7 +145,7 @@
  *
  * See: [/obj/item/proc/melee_attack_chain]
  */
-/obj/item/proc/pre_attackby(atom/target, mob/living/user, modifiers)
+/obj/item/proc/pre_attackby(atom/target, mob/living/user, list/modifiers)
 	SHOULD_CALL_PARENT(TRUE)
 	. = ATTACK_CHAIN_PROCEED
 	var/signal_out = SEND_SIGNAL(src, COMSIG_ITEM_PRE_ATTACKBY, target, user, modifiers)
@@ -190,7 +190,7 @@
  *
  * See: [/obj/item/proc/melee_attack_chain]
  */
-/atom/proc/attackby(obj/item/item, mob/user, modifiers)
+/atom/proc/attackby(obj/item/item, mob/user, list/modifiers)
 	SHOULD_CALL_PARENT(TRUE)
 	. = ATTACK_CHAIN_PROCEED
 	var/signal_out = SEND_SIGNAL(src, COMSIG_ATOM_ATTACKBY, item, user, modifiers)

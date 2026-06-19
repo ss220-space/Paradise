@@ -44,7 +44,7 @@
 		PREPOSITIONAL = "анализаторе здоровья",
 	)
 
-/obj/item/healthanalyzer/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/healthanalyzer/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	. = ..()
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))
 		return .
@@ -810,7 +810,7 @@
 	if(advanced)
 		. += "advanced"
 
-/obj/item/healthanalyzer/attackby(obj/item/I, mob/user, params)
+/obj/item/healthanalyzer/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/healthupgrade))
 		add_fingerprint(user)
 		if(advanced)
@@ -890,7 +890,7 @@
 		PREPOSITIONAL = "глазе здоровья",
 	)
 
-/obj/item/healthanalyzer/gem_analyzer/attackby(obj/item/I, mob/user, params)
+/obj/item/healthanalyzer/gem_analyzer/attackby(obj/item/I, mob/user, list/modifiers)
 	. = ..()
 	return .|ATTACK_CHAIN_BLOCKED_ALL
 

@@ -250,7 +250,7 @@
 	core_touch_effect(core)
 	return FALSE
 
-/obj/effect/anomaly/attackby(obj/item/item, mob/living/user, params)
+/obj/effect/anomaly/attackby(obj/item/item, mob/living/user, list/modifiers)
 	. = ..()
 	mob_touch_effect(user)
 

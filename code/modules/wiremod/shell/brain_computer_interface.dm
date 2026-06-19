@@ -383,7 +383,7 @@
 	. += "green"
 
 
-/obj/machinery/bci_implanter/attackby(obj/item/weapon, mob/user, params)
+/obj/machinery/bci_implanter/attackby(obj/item/weapon, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

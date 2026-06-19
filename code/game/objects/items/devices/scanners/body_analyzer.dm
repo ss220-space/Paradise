@@ -71,7 +71,7 @@
 	if(printing)
 		. += "[base_icon_state]_printing"
 
-/obj/item/bodyanalyzer/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/bodyanalyzer/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(user.incapacitated() || !user.Adjacent(target))
 		return ..()
 
@@ -89,7 +89,7 @@
 		to_chat(user, span_notice("The scanner beeps angrily at you! It's out of charge!"))
 		playsound(user.loc, 'sound/machines/buzz-sigh.ogg', 50, TRUE)
 
-/obj/item/bodyanalyzer/borg/attack(mob/living/target, mob/living/silicon/robot/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/bodyanalyzer/borg/attack(mob/living/target, mob/living/silicon/robot/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(user.incapacitated() || !user.Adjacent(target))
 		return ..()
 

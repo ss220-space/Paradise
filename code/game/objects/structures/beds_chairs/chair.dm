@@ -49,7 +49,7 @@
 	new item_chair(drop_location())
 	qdel(src)
 
-/obj/structure/chair/attackby(obj/item/I, mob/user, params)
+/obj/structure/chair/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
@@ -393,7 +393,7 @@
 		return TRUE
 	return FALSE
 
-/obj/item/chair/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/chair/attack(mob/living/carbon/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	. = ..()
 	if(!ATTACK_CHAIN_SUCCESS_CHECK(.) || !prob(break_chance))
 		return .
@@ -405,7 +405,7 @@
 	if(smash())
 		. |= ATTACK_CHAIN_BLOCKED_ALL
 
-/obj/item/chair/attack_obj(obj/object, mob/living/user, params)
+/obj/item/chair/attack_obj(obj/object, mob/living/user, list/modifiers)
 	. = ..()
 	if(!ATTACK_CHAIN_SUCCESS_CHECK(.) || !prob(break_chance))
 		return .

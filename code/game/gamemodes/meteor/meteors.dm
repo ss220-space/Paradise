@@ -227,7 +227,7 @@ GLOBAL_LIST_INIT(meteors_space_dust, list(/obj/effect/meteor/space_dust/weak)) /
 /obj/effect/meteor/ex_act()
 	return
 
-/obj/effect/meteor/attackby(obj/item/I, mob/user, params)
+/obj/effect/meteor/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/pickaxe))
 		make_debris()
 		qdel(src)

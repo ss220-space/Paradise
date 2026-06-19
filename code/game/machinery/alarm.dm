@@ -862,7 +862,7 @@ GLOBAL_LIST_INIT(human_tlv, list(
 		playsound(src.loc, 'sound/effects/sparks4.ogg', 50, TRUE)
 		return
 
-/obj/machinery/alarm/attackby(obj/item/I, mob/user, params)
+/obj/machinery/alarm/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

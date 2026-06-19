@@ -49,7 +49,7 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()
 
-/obj/item/laser_pointer/attackby(obj/item/I, mob/user, params)
+/obj/item/laser_pointer/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/stock_parts/micro_laser))
 		add_fingerprint(user)
 		if(diode)

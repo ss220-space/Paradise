@@ -339,7 +339,7 @@
 
 	. += "[base_icon_state]_[occupant ? "body" : "ready"]"
 
-/obj/machinery/suit_storage_unit/attackby(obj/item/I, mob/user, params)
+/obj/machinery/suit_storage_unit/attackby(obj/item/I, mob/user, list/modifiers)
 	if(shocked && shock(user, 100))
 		add_fingerprint(user)
 		return ATTACK_CHAIN_BLOCKED_ALL

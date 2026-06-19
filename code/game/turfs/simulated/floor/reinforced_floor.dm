@@ -42,7 +42,7 @@
 	var/obj/item/stack/rods/rods = new(src, 2)
 	rods.add_fingerprint(user)
 
-/turf/simulated/floor/engine/attackby(obj/item/I, mob/user, params)
+/turf/simulated/floor/engine/attackby(obj/item/I, mob/user, list/modifiers)
 	. = ..()
 
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))

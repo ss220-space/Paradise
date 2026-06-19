@@ -320,7 +320,7 @@
 	victim.UpdateAppearance()
 	victim.check_genes(MUTCHK_FORCED)
 
-/obj/machinery/transformer/gene_applier/attackby(obj/item/I, mob/living/user, params)
+/obj/machinery/transformer/gene_applier/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

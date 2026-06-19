@@ -381,7 +381,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	if(wires)
 		. += "Gibtonite_igniter"
 
-/obj/item/twohanded/required/gibtonite/attackby(obj/item/I, mob/user, params)
+/obj/item/twohanded/required/gibtonite/attackby(obj/item/I, mob/user, list/modifiers)
 	if(isigniter(I))
 		add_fingerprint(user)
 		if(wires)
@@ -730,7 +730,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	if(string_attached)
 		. += "coin_string_overlay"
 
-/obj/item/coin/attackby(obj/item/I, mob/user, params)
+/obj/item/coin/attackby(obj/item/I, mob/user, list/modifiers)
 	if(iscoil(I))
 		add_fingerprint(user)
 		var/obj/item/stack/cable_coil/coil = I

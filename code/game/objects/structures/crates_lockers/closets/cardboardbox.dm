@@ -51,7 +51,7 @@
 	set_glide_size(DELAY_TO_GLIDE_SIZE(delay))
 	COOLDOWN_START(src, recently_moved_cd, delay)
 
-/obj/structure/closet/cardboard/attackby(obj/item/item, mob/user, params)
+/obj/structure/closet/cardboard/attackby(obj/item/item, mob/user, list/modifiers)
 	if(issoap(item))
 		balloon_alert(user, "очистка...")
 		user.visible_message(
@@ -139,7 +139,7 @@
 	)
 	qdel(src)
 
-/obj/structure/closet/cardboard/attackby(obj/item/I, mob/user, params)
+/obj/structure/closet/cardboard/attackby(obj/item/I, mob/user, list/modifiers)
 	if(!opened || !istype(I, /obj/item/toy/crayon/spraycan))
 		return ..()
 

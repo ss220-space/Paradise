@@ -80,7 +80,7 @@
 /obj/item/toy/xmas_cracker/other_half/update_icon_state()
 	return
 
-/obj/item/toy/xmas_cracker/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/toy/xmas_cracker/attack(mob/living/carbon/human/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(cracked || !ishuman(target) || (target.stat != CONSCIOUS) || target.get_active_hand())
 		return ..()
 

@@ -141,7 +141,7 @@
 		focus.throw_at(target, 10, 1, user)
 		last_throw = world.time
 
-/obj/item/tk_grab/attack(mob/living/target, mob/living/user, modifiers, def_zone, skip_attack_anim = FALSE)
+/obj/item/tk_grab/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	. = ..()
 	return .|ATTACK_CHAIN_BLOCKED_ALL
 

@@ -21,7 +21,7 @@
 	QDEL_LIST(upgrades)
 	return ..()
 
-/obj/item/camera_assembly/attackby(obj/item/I, mob/living/user, params)
+/obj/item/camera_assembly/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

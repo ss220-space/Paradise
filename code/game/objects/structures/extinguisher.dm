@@ -54,7 +54,7 @@
 		has_extinguisher = null
 		update_icon(UPDATE_ICON_STATE)
 
-/obj/structure/extinguisher_cabinet/attackby(obj/item/I, mob/user, params)
+/obj/structure/extinguisher_cabinet/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM || I.is_robot_module())
 		return ..()
 

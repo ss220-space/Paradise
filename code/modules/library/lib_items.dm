@@ -88,7 +88,7 @@
 	add_fingerprint(user)
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/structure/bookcase/attackby(obj/item/I, mob/user, params)
+/obj/structure/bookcase/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
@@ -297,7 +297,7 @@
 	else
 		to_chat(user, "Эта книга полностью пуста!")
 
-/obj/item/book/attackby(obj/item/I, mob/user, params)
+/obj/item/book/attackby(obj/item/I, mob/user, list/modifiers)
 	if(carved)
 		add_fingerprint(user)
 		if(store)
@@ -391,7 +391,7 @@
 /obj/item/book/wirecutter_act(mob/user, obj/item/I)
 	return carve_book(user, I)
 
-/obj/item/book/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/book/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(user.a_intent == INTENT_HELP)
 		force = 0
 		attack_verb = list("обучил")

@@ -325,7 +325,7 @@ Difficulty: Very Hard
 	if(P.damage)
 		disable_shield()
 
-/mob/living/simple_animal/hostile/megafauna/ancient_robot/proceed_attack_results(obj/item/I, mob/living/user, params, def_zone)
+/mob/living/simple_animal/hostile/megafauna/ancient_robot/proceed_attack_results(obj/item/I, mob/living/user, list/modifiers, def_zone)
 	if(!body_shield_enabled)
 		return ..()
 

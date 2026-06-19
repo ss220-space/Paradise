@@ -282,7 +282,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 		PREPOSITIONAL = "модуле улучшения GPS"
 	)
 
-/obj/item/gps/attackby(obj/item/I, mob/user, params)
+/obj/item/gps/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/gpsupgrade))
 		add_fingerprint(user)
 		if(upgraded)

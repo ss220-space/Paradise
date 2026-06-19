@@ -97,7 +97,7 @@
 	. = has_suit
 	has_suit = null
 
-/obj/item/clothing/accessory/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/clothing/accessory/attack(mob/living/carbon/human/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	// This code lets you put accessories on other people by attacking their sprite with the accessory
 	if(!ishuman(target) || user == target)
 		return ..()
@@ -192,7 +192,7 @@
 	desc = "An outdated medical apparatus for listening to the sounds of the human body. It also makes you look like you know what you're doing."
 	icon_state = "stethoscope"
 
-/obj/item/clothing/accessory/stethoscope/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/clothing/accessory/stethoscope/attack(mob/living/carbon/human/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(!ishuman(target))
 		return ..()
 
@@ -747,7 +747,7 @@
 		)
 	return ..()
 
-/obj/item/clothing/accessory/holobadge/attackby(obj/item/I, mob/user, params)
+/obj/item/clothing/accessory/holobadge/attackby(obj/item/I, mob/user, list/modifiers)
 	var/obj/item/card/id/id = I.GetID()
 	if(id)
 		add_fingerprint(user)
@@ -966,7 +966,7 @@
 /obj/item/clothing/accessory/necklace/locket/update_icon_state()
 	icon_state = "[replacetext("[icon_state]", "_open", "")][up ? "_open" : ""]"
 
-/obj/item/clothing/accessory/necklace/locket/attackby(obj/item/I, mob/user, params)
+/obj/item/clothing/accessory/necklace/locket/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/paper) || istype(I, /obj/item/photo))
 		add_fingerprint(user)
 		if(!up)
@@ -1203,7 +1203,7 @@
 		return .
 	remove_id(user)
 
-/obj/item/clothing/accessory/petcollar/attackby(obj/item/I, mob/user, params)
+/obj/item/clothing/accessory/petcollar/attackby(obj/item/I, mob/user, list/modifiers)
 	if(is_pen(I))
 		if(istype(loc, /obj/item/clothing/under))
 			return ..()

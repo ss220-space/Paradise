@@ -856,7 +856,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 /obj/item/radio/borg/ert/specops
 	keyslot = new /obj/item/encryptionkey/centcom
 
-/obj/item/radio/borg/attackby(obj/item/I, mob/user, params)
+/obj/item/radio/borg/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/encryptionkey))
 		add_fingerprint(user)
 		user.set_machine(src)

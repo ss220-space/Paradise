@@ -96,7 +96,7 @@
 			remove_from_head(usr)
 			return
 
-/mob/living/silicon/attackby(obj/item/I, mob/user, params)
+/mob/living/silicon/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/clothing/head) && user.a_intent == INTENT_HELP)
 		add_fingerprint(user)
 		if(place_on_head(I, user))

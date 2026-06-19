@@ -298,7 +298,7 @@
 		PREPOSITIONAL = "плазменном ядре МЭК"
 	)
 
-/obj/item/mod/core/plasma/attackby(obj/item/attacking_item, mob/user, params)
+/obj/item/mod/core/plasma/attackby(obj/item/attacking_item, mob/user, list/modifiers)
 	if(charge_plasma(attacking_item, user))
 		return TRUE
 	return ..()

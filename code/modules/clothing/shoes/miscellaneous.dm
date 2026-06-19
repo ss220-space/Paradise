@@ -240,7 +240,7 @@
 		PREPOSITIONAL = "шахтёрских ботинках"
 	)
 
-/obj/item/clothing/shoes/workboots/mining/attackby(obj/item/I, mob/user, params)
+/obj/item/clothing/shoes/workboots/mining/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/kitchen/knife/combat/survival))
 		add_fingerprint(user)
 		var/obj/item/kitchen/knife/combat/survival/knife = locate() in src

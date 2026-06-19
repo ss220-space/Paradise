@@ -165,7 +165,7 @@
 			return FALSE
 	add_fingerprint()
 
-/obj/machinery/mineral/equipment_vendor/attackby(obj/item/I, mob/user, params)
+/obj/machinery/mineral/equipment_vendor/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM || !powered())
 		return ..()
 
@@ -372,7 +372,7 @@
 /obj/item/card/mining_point_card/fivethousand
 	points = 5000
 
-/obj/item/card/mining_point_card/attackby(obj/item/I, mob/user, params)
+/obj/item/card/mining_point_card/attackby(obj/item/I, mob/user, list/modifiers)
 	var/obj/item/card/id/id_card = I.GetID()
 	if(id_card)
 		add_fingerprint(user)

@@ -40,7 +40,7 @@
 	if(length(contents))
 		. += "folder_paper"
 
-/obj/item/folder/attackby(obj/item/I, mob/user, params)
+/obj/item/folder/attackby(obj/item/I, mob/user, list/modifiers)
 	if(is_pen(I))
 		rename_interactive(user, I)
 		return ATTACK_CHAIN_BLOCKED

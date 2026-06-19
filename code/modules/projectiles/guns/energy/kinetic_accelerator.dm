@@ -66,7 +66,7 @@
 	shoot_live_shot(user, user, FALSE, FALSE)
 	return OXYLOSS
 
-/obj/item/gun/energy/kinetic_accelerator/attackby(obj/item/I, mob/user, params)
+/obj/item/gun/energy/kinetic_accelerator/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/borg/upgrade/modkit))
 		var/obj/item/borg/upgrade/modkit/modkit = I
 		if(modkit.install(src, user))
@@ -293,7 +293,7 @@
 	if(in_range(user, src))
 		. += span_notice("Занимает <b>[cost]%</b> от общей ёмкости модулей.")
 
-/obj/item/borg/upgrade/modkit/attackby(obj/item/I, mob/user, params)
+/obj/item/borg/upgrade/modkit/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/gun/energy/kinetic_accelerator))
 		if(install(I, user))
 			return ATTACK_CHAIN_BLOCKED_ALL

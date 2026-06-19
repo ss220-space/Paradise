@@ -87,7 +87,7 @@
 		icon_state = icon_state_full
 
 //////////////////////////////Capturing////////////////////////////////////////////////////////
-/obj/item/soulstone/attack(mob/living/carbon/human/M, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/soulstone/attack(mob/living/carbon/human/M, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	. = ATTACK_CHAIN_PROCEED
 	if(M == user)
 		return .
@@ -183,7 +183,7 @@
 	add_attack_logs(user, M, "Stolestone'd with [name]")
 	transfer_soul("VICTIM", M, user)
 
-/obj/item/soulstone/attackby(obj/item/I, mob/user, params)
+/obj/item/soulstone/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
@@ -285,7 +285,7 @@
 		. += span_cultitalic("A <b>Wraith</b>, which does high damage and can jaunt through walls, though it is quite fragile.")
 		. += span_cultitalic("A <b>Juggernaut</b>, which is very hard to kill and can produce temporary walls, but is slow.")
 
-/obj/structure/constructshell/attackby(obj/item/I, mob/living/user, params)
+/obj/structure/constructshell/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
@@ -321,7 +321,7 @@
 		return
 	desc = "A wicked machine used by those skilled in magical arts. It is inactive."
 
-/obj/structure/constructshell/holy/attackby(obj/item/I, mob/living/user, params)
+/obj/structure/constructshell/holy/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

@@ -103,7 +103,7 @@ GLOBAL_LIST_INIT(shore_fish, subtypesof(/obj/item/lavaland_fish/shoreline))
 	UnregisterSignal(src, COMSIG_ATOM_TEMPORARY_ANIMATION_START)
 	stop_flopping()
 
-/obj/item/lavaland_fish/attackby(obj/item/I, mob/living/user, params)
+/obj/item/lavaland_fish/attackby(obj/item/I, mob/living/user, list/modifiers)
 	user.changeNext_move(CLICK_CD_MELEE)
 	var/sharpness = I.sharp
 	if(sharpness && user.a_intent == INTENT_HELP && do_flop_animation)

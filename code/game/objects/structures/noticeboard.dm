@@ -24,7 +24,7 @@
 			break
 		. += image(src.icon, icon_state = "[src.icon_state][I]")
 
-/obj/structure/noticeboard/attackby(obj/item/I, mob/user, params)
+/obj/structure/noticeboard/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/paper))	//attaching papers!!
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()

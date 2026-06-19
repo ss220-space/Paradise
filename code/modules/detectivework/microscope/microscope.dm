@@ -21,7 +21,7 @@
 	component_parts += new /obj/item/stock_parts/micro_laser(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
 
-/obj/machinery/microscope/attackby(obj/item/I, mob/user, params)
+/obj/machinery/microscope/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

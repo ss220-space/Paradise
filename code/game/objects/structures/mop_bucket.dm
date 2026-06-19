@@ -27,7 +27,7 @@
 	if(in_range(user, src))
 		. += span_notice("[get_examine_icon(user)] [src] contains [reagents.total_volume] units of water left.")
 
-/obj/structure/mopbucket/attackby(obj/item/I, mob/user, params)
+/obj/structure/mopbucket/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM || I.is_robot_module())
 		return ..()
 

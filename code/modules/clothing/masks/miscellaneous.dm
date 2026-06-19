@@ -147,7 +147,7 @@
 	. = ..()
 	QDEL_NULL(proximity_monitor)
 
-/obj/item/clothing/mask/muzzle/safety/shock/attackby(obj/item/I, mob/user, params)
+/obj/item/clothing/mask/muzzle/safety/shock/attackby(obj/item/I, mob/user, list/modifiers)
 	if(issignaler(I) || istype(I, /obj/item/assembly/voice))
 		add_fingerprint(user)
 		if(trigger)

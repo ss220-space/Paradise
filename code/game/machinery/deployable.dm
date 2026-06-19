@@ -100,7 +100,7 @@
 	bar_material = WOOD
 	stacktype = /obj/item/stack/sheet/wood
 
-/obj/structure/barricade/wooden/attackby(obj/item/I, mob/living/user, params)
+/obj/structure/barricade/wooden/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
@@ -384,7 +384,7 @@
 	if(!target_turf2.is_blocked_turf())
 		connected_shields += new barricade_type(target_turf2, src, FALSE, direction, dir_right)
 
-/obj/structure/dropwall_generator/attackby(obj/item/I, mob/living/user, params) //No, you can not just go up to the generator and whack it. Central shield needs to go down first.
+/obj/structure/dropwall_generator/attackby(obj/item/I, mob/living/user, list/modifiers) //No, you can not just go up to the generator and whack it. Central shield needs to go down first.
 	if(!protected)
 		return ..()
 	visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] поглощает удар!"))

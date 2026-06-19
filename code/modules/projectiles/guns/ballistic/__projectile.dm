@@ -126,7 +126,7 @@
 	update_icon()
 	balloon_alert(user, "заряжено")
 
-/obj/item/gun/projectile/attackby(obj/item/I, mob/user, params)
+/obj/item/gun/projectile/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/ammo_box/magazine))
 		add_fingerprint(user)
 		var/obj/item/ammo_box/magazine/new_magazine = I

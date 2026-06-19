@@ -102,7 +102,7 @@
 		PREPOSITIONAL = "проклятое сердце",
 	)
 
-/obj/item/organ/internal/heart/cursed/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/organ/internal/heart/cursed/attack(mob/living/carbon/human/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(target != user || !ishuman(target))
 		return ..()
 

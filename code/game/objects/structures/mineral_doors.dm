@@ -137,7 +137,7 @@
 	else
 		icon_state = initial_state
 
-/obj/structure/mineral_door/attackby(obj/item/I, mob/user, params)
+/obj/structure/mineral_door/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/pickaxe))
 		add_fingerprint(user)
 		var/obj/item/pickaxe/pickaxe = I
@@ -210,7 +210,7 @@
 	icon_state = "plasma"
 	sheetType = /obj/item/stack/sheet/mineral/plasma
 
-/obj/structure/mineral_door/transparent/plasma/attackby(obj/item/I, mob/user, params)
+/obj/structure/mineral_door/transparent/plasma/attackby(obj/item/I, mob/user, list/modifiers)
 	var/hot_temp = I.get_temperature()
 	if(hot_temp)
 		add_attack_logs(user, src, "Ignited using [I]", ATKLOG_FEW)

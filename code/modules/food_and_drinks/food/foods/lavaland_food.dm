@@ -434,7 +434,7 @@
 	else
 		. += span_danger("Проклятое сердце неподвижно.")
 
-/obj/item/reagent_containers/food/snacks/lavaland_food/cure_curse/attackby(obj/item/I, mob/user, params)
+/obj/item/reagent_containers/food/snacks/lavaland_food/cure_curse/attackby(obj/item/I, mob/user, list/modifiers)
 	. = ..()
 	if(!istype(I, /obj/item/melee/touch_attack/healtouch))
 		return ..()

@@ -35,11 +35,11 @@
 	if(hold)
 		return hold.handle_mousedrop(user, over_object)
 
-/obj/item/clothing/accessory/storage/attackby(obj/item/I, mob/user, params)
+/obj/item/clothing/accessory/storage/attackby(obj/item/I, mob/user, list/modifiers)
 	. = ..()
 	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !hold)
 		return .
-	return hold.attackby(I, user, params)
+	return hold.attackby(I, user, modifiers)
 
 /obj/item/clothing/accessory/storage/emp_act(severity)
 	..()

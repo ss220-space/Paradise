@@ -10,7 +10,7 @@
 	var/oreAmount = 5
 	var/material_drop_type = /obj/item/stack/sheet/metal
 
-/obj/structure/statue/attackby(obj/item/I, mob/user, params)
+/obj/structure/statue/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
@@ -162,7 +162,7 @@
 			PlasmaBurn()
 	..()
 
-/obj/structure/statue/plasma/attackby(obj/item/I, mob/user, params)
+/obj/structure/statue/plasma/attackby(obj/item/I, mob/user, list/modifiers)
 	if(I.get_temperature() > 300)//If the temperature of the object is over 300, then ignite
 		add_attack_logs(user, src, "Ignited using [I]", ATKLOG_FEW)
 		investigate_log("was [span_warning("ignited")] by [key_name_log(user)]",INVESTIGATE_ATMOS)
@@ -284,7 +284,7 @@
 	honk()
 	. = ..()
 
-/obj/structure/statue/bananium/attackby(obj/item/I, mob/user, params)
+/obj/structure/statue/bananium/attackby(obj/item/I, mob/user, list/modifiers)
 	. = ..()
 	if(!ATTACK_CHAIN_CANCEL_CHECK(.))
 		honk()
@@ -489,7 +489,7 @@
 /obj/structure/statue/unknown/update_icon_state()
 	icon_state = "unknown[lit ? "_lit" : ""]"
 
-/obj/structure/statue/unknown/attackby(obj/item/I, mob/user, params)
+/obj/structure/statue/unknown/attackby(obj/item/I, mob/user, list/modifiers)
 	if(I.get_temperature() && light(span_notice("[user] lights [src] with [I].")))
 		add_fingerprint(user)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
@@ -545,7 +545,7 @@
 /obj/structure/snowman/built/has_prints()
 	return FALSE
 
-/obj/structure/snowman/built/attackby(obj/item/I, mob/user, params)
+/obj/structure/snowman/built/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

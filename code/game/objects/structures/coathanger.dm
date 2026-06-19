@@ -27,7 +27,7 @@
 		coat = null
 		update_icon(UPDATE_OVERLAYS)
 
-/obj/structure/coatrack/attackby(obj/item/I, mob/living/user, params)
+/obj/structure/coatrack/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

@@ -69,7 +69,7 @@
 	update_icon(UPDATE_ICON_STATE)
 	to_chat(user, span_caution("You re-enable the locking modules."))
 
-/obj/structure/closet/fireaxecabinet/attackby(obj/item/I, mob/living/user, params)
+/obj/structure/closet/fireaxecabinet/attackby(obj/item/I, mob/living/user, list/modifiers)
 	. = ..()
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))
 		return .

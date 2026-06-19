@@ -159,7 +159,7 @@
 	else
 		transform = matrix(-1, 0, 0, 0, 1, 0)
 
-/obj/item/melee/mantisblade/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/melee/mantisblade/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	. = ..()
 
 	if(!ATTACK_CHAIN_SUCCESS_CHECK(.) || attack_in_progress || user.a_intent != INTENT_HARM)
@@ -169,7 +169,7 @@
 	if(!istype(secondsword, /obj/item/melee/mantisblade))
 		return .
 
-	addtimer(CALLBACK(secondsword, PROC_REF(mantis_attack), target, user, params, def_zone), 0.2 SECONDS)
+	addtimer(CALLBACK(secondsword, PROC_REF(mantis_attack), target, user, modifiers, def_zone), 0.2 SECONDS)
 
 /obj/item/melee/mantisblade/proc/mantis_attack(mob/living/target, mob/living/user, params, def_zone)
 	if(QDELETED(src) || QDELETED(target) || !user.is_in_hands(src) || !user.Adjacent(target))

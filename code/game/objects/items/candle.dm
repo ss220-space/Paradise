@@ -48,7 +48,7 @@
 /obj/item/candle/get_temperature()
 	return lit * T1000K
 
-/obj/item/candle/attackby(obj/item/I, mob/user, params)
+/obj/item/candle/attackby(obj/item/I, mob/user, list/modifiers)
 	if(I.get_temperature() && light(span_notice("[user] lights [src] with [I].")))
 		add_fingerprint(user)
 		return ATTACK_CHAIN_PROCEED_SUCCESS

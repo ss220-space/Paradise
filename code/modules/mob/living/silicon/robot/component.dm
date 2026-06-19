@@ -251,7 +251,7 @@
 	origin_tech = "magnets=1;biotech=1"
 	var/mode = 1
 
-/obj/item/robotanalyzer/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/robotanalyzer/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if((HAS_TRAIT(user, TRAIT_CLUMSY) || user.getBrainLoss() >= 60) && prob(50))
 		user.visible_message(
 			span_warning("[user] has analyzed the floor's vitals!"),

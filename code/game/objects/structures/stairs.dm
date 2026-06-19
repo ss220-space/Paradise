@@ -184,7 +184,7 @@
 	new frame_stack(get_turf(src), frame_stack_amount)
 	qdel(src)
 
-/obj/structure/stairs_frame/attackby(obj/item/I, mob/user, params)
+/obj/structure/stairs_frame/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

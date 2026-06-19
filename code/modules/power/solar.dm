@@ -233,7 +233,7 @@
 	if(anchored)
 		.+= span_notice("Чтобы завершить сборку —  установите <b><i>стекло</i></b>.")
 
-/obj/item/solar_assembly/attackby(obj/item/I, mob/user, params)
+/obj/item/solar_assembly/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/stack/sheet/glass) || istype(I, /obj/item/stack/sheet/rglass))
 		add_fingerprint(user)
 		var/obj/item/stack/sheet/glass = I

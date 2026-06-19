@@ -23,7 +23,7 @@
 /obj/item/photo/attack_self(mob/user)
 	user.examinate(src)
 
-/obj/item/photo/attackby(obj/item/I, mob/user, params)
+/obj/item/photo/attackby(obj/item/I, mob/user, list/modifiers)
 	if(is_pen(I) || iscrayon(I))
 		add_fingerprint(user)
 		if(!user.is_literate())

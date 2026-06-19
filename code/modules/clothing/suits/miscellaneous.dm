@@ -1513,7 +1513,7 @@
 	target.wetlevel = 0
 	to_chat(user, span_notice("You wiped [target == user ? "yourself" : target] dry."))
 
-/obj/item/clothing/suit/towel/attackby(obj/item/I, mob/user, params)
+/obj/item/clothing/suit/towel/attackby(obj/item/I, mob/user, list/modifiers)
 	. = ..()
 
 	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !I.sharp)

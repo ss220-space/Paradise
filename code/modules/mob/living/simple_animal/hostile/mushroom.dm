@@ -156,7 +156,7 @@
 		visible_message(span_notice("The [name] was bruised!"))
 		bruised = TRUE
 
-/mob/living/simple_animal/hostile/mushroom/attackby(obj/item/I, mob/user, params)
+/mob/living/simple_animal/hostile/mushroom/attackby(obj/item/I, mob/user, list/modifiers)
 	var/current_health
 	if(user.a_intent == INTENT_HARM)
 		current_health = health

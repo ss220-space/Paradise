@@ -49,7 +49,7 @@
 
 	return FALSE
 
-/obj/effect/anomaly/bluespace/attackby(obj/item/item, mob/living/user, params)
+/obj/effect/anomaly/bluespace/attackby(obj/item/item, mob/living/user, list/modifiers)
 	. = ..()
 	var/radius = bump_tp_min + round((bump_tp_max - bump_tp_min) * get_strength() / 100)
 	teleport(user, radius)

@@ -143,7 +143,7 @@
 	data["scribble"] = scribble
 	return data
 
-/obj/item/newspaper/attackby(obj/item/I, mob/user, params)
+/obj/item/newspaper/attackby(obj/item/I, mob/user, list/modifiers)
 	if(is_pen(I))
 		add_fingerprint(user)
 		if(rolled)

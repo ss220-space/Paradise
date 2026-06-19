@@ -1398,7 +1398,7 @@
 	update_icon()
 
 //when you attack the syrup bottle with a container it refills it
-/obj/item/reagent_containers/glass/bottle/syrup_bottle/attackby(obj/item/attacking_item, mob/user, params)
+/obj/item/reagent_containers/glass/bottle/syrup_bottle/attackby(obj/item/attacking_item, mob/user, list/modifiers)
 
 	if(is_open_container())
 		return ..()

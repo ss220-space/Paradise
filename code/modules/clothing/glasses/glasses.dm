@@ -62,7 +62,7 @@
 		user.update_worn_glasses()
 	to_chat(user, span_notice("You adjust [src] to be worn [over_mask ? "over" : "under"] a mask."))
 
-/obj/item/clothing/glasses/attackby(obj/item/I, mob/living/carbon/human/user, params)
+/obj/item/clothing/glasses/attackby(obj/item/I, mob/living/carbon/human/user, list/modifiers)
 	if(!ishuman(user) || user.incapacitated())
 		return ..()
 
@@ -838,7 +838,7 @@
 		return
 	desc = "A pair of strange eyes, said to have been torn from an omniscient creature that used to roam the wastes. There's no real reason to have two, but that isn't stopping you."
 
-/obj/item/clothing/glasses/hud/godeye/attackby(obj/item/I, mob/user, params)
+/obj/item/clothing/glasses/hud/godeye/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, type) && I != src && I.loc == user)
 		add_fingerprint(user)
 		if(double_eye)

@@ -8,7 +8,7 @@
 		/mob/living/silicon/proc/subsystem_law_manager,
 	)
 
-/mob/living/silicon/decoy/attackby(obj/item/I, mob/user, params)
+/mob/living/silicon/decoy/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/aicard))
 		to_chat(user, span_warning("You cannot find an intellicard slot on [src]."))
 		return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK

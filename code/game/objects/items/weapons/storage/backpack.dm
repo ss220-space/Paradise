@@ -25,7 +25,7 @@
 	pickup_sound = 'sound/items/handling/pickup/backpack_pickup.ogg'
 	drop_sound = 'sound/items/handling/drop/backpack_drop.ogg'
 
-/obj/item/storage/backpack/attackby(obj/item/I, mob/user, params)
+/obj/item/storage/backpack/attackby(obj/item/I, mob/user, list/modifiers)
 	. = ..()
 	if(!ATTACK_CHAIN_CANCEL_CHECK(.))
 		playsound(loc, SFX_RUSTLE, 50, TRUE, -5)
@@ -74,7 +74,7 @@
 		PREPOSITIONAL = "блюспейс рюкзаке",
 	)
 
-/obj/item/storage/backpack/holding/attackby(obj/item/I, mob/user, params)
+/obj/item/storage/backpack/holding/attackby(obj/item/I, mob/user, list/modifiers)
 	if(!istype(I, /obj/item/storage/backpack/holding))
 		return ..()
 

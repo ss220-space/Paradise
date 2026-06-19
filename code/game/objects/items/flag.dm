@@ -13,7 +13,7 @@
 	custom_fire_overlay = "fire"
 	var/rolled = FALSE
 
-/obj/item/flag/attackby(obj/item/I, mob/user, params)
+/obj/item/flag/attackby(obj/item/I, mob/user, list/modifiers)
 	. = ..()
 	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !I.get_temperature() || (resistance_flags & ON_FIRE))
 		return .
@@ -257,7 +257,7 @@
 			desc = chosen_flag.desc
 			used = TRUE
 
-/obj/item/flag/chameleon/attackby(obj/item/I, mob/user, params)
+/obj/item/flag/chameleon/attackby(obj/item/I, mob/user, list/modifiers)
 	if(isgrenade(I))
 		if(boobytrap)
 			to_chat(user, span_warning("There is already [boobytrap] installed."))

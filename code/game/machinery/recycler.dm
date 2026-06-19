@@ -51,7 +51,7 @@
 		return
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/machinery/recycler/attackby(obj/item/I, mob/user, params)
+/obj/machinery/recycler/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 	if(exchange_parts(user, I))

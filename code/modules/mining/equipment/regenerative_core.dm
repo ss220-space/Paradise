@@ -283,7 +283,7 @@
 		egg_owner.med_hud_set_status()
 	. = ..()
 
-/obj/item/organ/internal/legion_tumour/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/organ/internal/legion_tumour/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(try_apply(target, user))
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()

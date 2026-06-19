@@ -48,7 +48,7 @@
 /obj/item/reagent_containers/dropper/on_reagent_change()
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/item/reagent_containers/dropper/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/reagent_containers/dropper/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(user.a_intent == INTENT_HARM)	// droppers don't bludgeon, they apply reagents in afterattack
 		return ATTACK_CHAIN_PROCEED
 	return ..()
@@ -177,7 +177,7 @@
 //Syndicate item. Virus transmitting mini hypospray
 /obj/item/reagent_containers/dropper/precision/viral_injector
 
-/obj/item/reagent_containers/dropper/precision/viral_injector/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/reagent_containers/dropper/precision/viral_injector/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(!target.can_inject(user, penetrate_thick = TRUE, ignore_pierceimmune = TRUE))
 		return ..()
 	. = ATTACK_CHAIN_PROCEED

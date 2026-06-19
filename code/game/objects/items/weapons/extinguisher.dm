@@ -112,7 +112,7 @@
 	holding_human.apply_damage(3, BURN, pick(BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_PRECISE_L_HAND))
 	to_chat(holding_human, span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] невыносимо обжигает вам ладони!"))
 
-/obj/item/extinguisher/attackby(obj/item/I, mob/user, params)
+/obj/item/extinguisher/attackby(obj/item/I, mob/user, list/modifiers)
 	. = ..()
 
 	if(!I.get_temperature())
@@ -230,7 +230,7 @@
 	update_appearance(UPDATE_ICON_STATE)
 	explode_at_heat()
 
-/obj/item/extinguisher/attack_obj(obj/object, mob/living/user, params)
+/obj/item/extinguisher/attack_obj(obj/object, mob/living/user, list/modifiers)
 	if(AttemptRefill(object, user))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()

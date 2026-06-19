@@ -37,7 +37,7 @@
 	qdel(src)
 	return TRUE
 
-/obj/item/seeds/kudzu/attackby(obj/item/I, mob/user, params)
+/obj/item/seeds/kudzu/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/seeds/kudzu))
 		var/obj/item/seeds/kudzu/AttackerSeed = I
 		mutations |= AttackerSeed.mutations

@@ -157,7 +157,7 @@
 					qdel(src)
 		busy = FALSE
 
-/obj/item/toy/crayon/attack(mob/living/target, mob/living/carbon/human/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/toy/crayon/attack(mob/living/target, mob/living/carbon/human/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 
 	if(target != user)
 		return ..()

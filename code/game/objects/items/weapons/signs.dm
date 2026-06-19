@@ -12,7 +12,7 @@
 
 	var/label = ""
 
-/obj/item/picket_sign/attackby(obj/item/I, mob/user, params)
+/obj/item/picket_sign/attackby(obj/item/I, mob/user, list/modifiers)
 	if(is_pen(I) || iscrayon(I))
 		var/new_label = tgui_input_text(user, "What would you like to write on the sign?", "Sign Label", max_length = 30)
 		if(!isnull(new_label))

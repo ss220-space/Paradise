@@ -13,7 +13,7 @@
 		return
 	evidencebagEquip(target, user)
 
-/obj/item/evidencebag/attackby(obj/item/I, mob/user, params)
+/obj/item/evidencebag/attackby(obj/item/I, mob/user, list/modifiers)
 	if(evidencebagEquip(I, user))
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()

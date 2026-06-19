@@ -18,7 +18,7 @@
 	attack_verb = list("изящно полоснул", "превосходно порезал", "прекрасно уколол", "восхитительно ткнул")
 	toolspeed = 0.75
 
-/obj/item/scissors/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/scissors/attack(mob/living/carbon/human/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(!ishuman(target) || user.a_intent != INTENT_HELP)
 		return ..()
 

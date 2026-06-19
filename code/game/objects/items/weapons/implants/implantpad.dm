@@ -21,7 +21,7 @@
 /obj/item/implantpad/attack_self(mob/user)
 	ui_interact(user)
 
-/obj/item/implantpad/attackby(obj/item/I, mob/user, params)
+/obj/item/implantpad/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/implantcase))
 		add_fingerprint(user)
 		if(case)

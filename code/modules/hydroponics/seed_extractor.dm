@@ -67,7 +67,7 @@
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		seed_multiplier = M.rating
 
-/obj/machinery/seed_extractor/attackby(obj/item/I, mob/user, params)
+/obj/machinery/seed_extractor/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

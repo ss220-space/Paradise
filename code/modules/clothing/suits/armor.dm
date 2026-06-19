@@ -86,7 +86,7 @@
 	else
 		desc = initial(desc)
 
-/obj/item/clothing/suit/armor/vest/security/attackby(obj/item/I, mob/user, params)
+/obj/item/clothing/suit/armor/vest/security/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/clothing/accessory/holobadge))
 		add_fingerprint(user)
 		if(attached_badge)
@@ -901,7 +901,7 @@
 		PREPOSITIONAL = "наплечниках из хрящевых пластин",
 	)
 
-/obj/item/clothing/suit/armor/cartilage/cartilage_pads/attackby(obj/item/I, mob/user, params)
+/obj/item/clothing/suit/armor/cartilage/cartilage_pads/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/clothing/suit/armor/cartilage/cartilage_greaves))
 		add_fingerprint(user)
 		to_chat(user, span_notice("Вы начинаете подвязывать части брони."))
@@ -933,7 +933,7 @@
 		PREPOSITIONAL = "поножах из хрящевых пластин",
 	)
 
-/obj/item/clothing/suit/armor/cartilage/cartilage_greaves/attackby(obj/item/I, mob/user, params)
+/obj/item/clothing/suit/armor/cartilage/cartilage_greaves/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/clothing/suit/armor/cartilage/cartilage_pads))
 		add_fingerprint(user)
 		to_chat(user, span_notice("Вы начинаете подвязывать части брони."))

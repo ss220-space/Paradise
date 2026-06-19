@@ -34,7 +34,7 @@
 /obj/item/reagent_containers/food/pill/attack_self(mob/user)
 	return
 
-/obj/item/reagent_containers/food/pill/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/reagent_containers/food/pill/attack(mob/living/carbon/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(!iscarbon(target))
 		return ..()
 	. = ATTACK_CHAIN_PROCEED

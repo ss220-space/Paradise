@@ -192,7 +192,7 @@
 			drop_held_item(FALSE)
 
 //Mobs with objects
-/mob/living/simple_animal/parrot/attackby(obj/item/I, mob/user, params)
+/mob/living/simple_animal/parrot/attackby(obj/item/I, mob/user, list/modifiers)
 	. = ..()
 
 	if(ATTACK_CHAIN_CANCEL_CHECK(.) || stat || client || !I.force)

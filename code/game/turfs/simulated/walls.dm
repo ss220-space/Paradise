@@ -386,29 +386,29 @@
 	add_fingerprint(user)
 	return ..()
 
-/turf/simulated/wall/attackby(obj/item/I, mob/user, params)
+/turf/simulated/wall/attackby(obj/item/I, mob/user, list/modifiers)
 	. = ..()
 
 	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !isturf(user.loc))
 		return .
 
-	if(rotting && try_rot(I, user, params))
+	if(rotting && try_rot(I, user, modifiers))
 		user.changeNext_move(I.attack_speed)
 		return .|ATTACK_CHAIN_BLOCKED_ALL
 
-	if(try_decon(I, user, params))
+	if(try_decon(I, user, modifiers))
 		user.changeNext_move(I.attack_speed)
 		return .|ATTACK_CHAIN_BLOCKED_ALL
 
-	if(try_destroy(I, user, params))
+	if(try_destroy(I, user, modifiers))
 		user.changeNext_move(I.attack_speed)
 		return .|ATTACK_CHAIN_BLOCKED_ALL
 
-	if(try_wallmount(I, user, params))
+	if(try_wallmount(I, user, modifiers))
 		user.changeNext_move(I.attack_speed)
 		return .|ATTACK_CHAIN_BLOCKED_ALL
 
-	if(try_reform(I, user, params))
+	if(try_reform(I, user, modifiers))
 		user.changeNext_move(I.attack_speed)
 		return .|ATTACK_CHAIN_BLOCKED_ALL
 

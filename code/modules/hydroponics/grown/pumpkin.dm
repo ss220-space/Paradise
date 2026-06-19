@@ -26,7 +26,7 @@
 	tastes = list("pumpkin" = 1)
 	wine_power = 0.2
 
-/obj/item/reagent_containers/food/snacks/grown/pumpkin/attackby(obj/item/I, mob/user, params)
+/obj/item/reagent_containers/food/snacks/grown/pumpkin/attackby(obj/item/I, mob/user, list/modifiers)
 	if(I.sharp)
 		to_chat(user, span_notice("You have carved a face into [src]."))
 		var/obj/item/clothing/head/hardhat/pumpkinhead/pumpkinhead = new(drop_location())

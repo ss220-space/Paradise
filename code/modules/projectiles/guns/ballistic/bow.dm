@@ -64,7 +64,7 @@
 		ready_to_fire = FALSE
 	update_state()
 
-/obj/item/gun/projectile/bow/attackby(obj/item/I, mob/user, params)
+/obj/item/gun/projectile/bow/attackby(obj/item/I, mob/user, list/modifiers)
 	if(isammobox(I) || isammocasing(I))
 		add_fingerprint(user)
 		var/loaded = magazine.reload(I, user, silent = TRUE, count_chambered = TRUE)

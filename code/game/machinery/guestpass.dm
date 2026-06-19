@@ -62,7 +62,7 @@
 	uid = rand(1, 10000)
 	. = ..()
 
-/obj/machinery/computer/guestpass/attackby(obj/item/I, mob/user, params)
+/obj/machinery/computer/guestpass/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

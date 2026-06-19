@@ -309,7 +309,7 @@
 		is_messy = TRUE
 	update_appearance(UPDATE_DESC|UPDATE_ICON)
 
-/obj/item/pizzabox/attackby(obj/item/I, mob/user, params)
+/obj/item/pizzabox/attackby(obj/item/I, mob/user, list/modifiers)
 	if(is_pen(I))
 		add_fingerprint(user)
 		if(open)

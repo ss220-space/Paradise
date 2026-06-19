@@ -56,7 +56,7 @@
 		icon_state = initial(icon_state)
 		item_state = initial(item_state)
 
-/obj/item/melee/cultblade/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/melee/cultblade/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(!iscultist(user))
 		user.Knockdown(10 SECONDS)
 		user.drop_item_ground(src, force = TRUE)
@@ -280,7 +280,7 @@
 /obj/item/whetstone/cult/update_icon_state()
 	icon_state = "cult_sharpener[!uses ? "_used" : ""]"
 
-/obj/item/whetstone/cult/attackby(obj/item/I, mob/user, params)
+/obj/item/whetstone/cult/attackby(obj/item/I, mob/user, list/modifiers)
 	. = ..()
 	if(ATTACK_CHAIN_CANCEL_CHECK(.) || uses)
 		return .
@@ -709,7 +709,7 @@
 /obj/item/twohanded/cult_spear/update_icon_state()
 	icon_state = "bloodspear[HAS_TRAIT(src, TRAIT_WIELDED)]"
 
-/obj/item/twohanded/cult_spear/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim)
+/obj/item/twohanded/cult_spear/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim)
 	if(!iscultist(user))
 		user.Knockdown(10 SECONDS)
 		user.drop_item_ground(src, force = TRUE)

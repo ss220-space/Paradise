@@ -71,11 +71,11 @@
 /obj/item/clothing/mask/facehugger/allowed_for_alien()
 	return TRUE
 
-/obj/item/clothing/mask/facehugger/attackby(obj/item/I, mob/user, params)
+/obj/item/clothing/mask/facehugger/attackby(obj/item/I, mob/user, list/modifiers)
 	. = ..()
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))
 		return .
-	return . | I.attack_obj(src, user, params)
+	return . | I.attack_obj(src, user, modifiers)
 
 /obj/item/clothing/mask/facehugger/attack_alien(mob/user) //can be picked up by aliens
 	return attack_hand(user)
@@ -89,7 +89,7 @@
 		return FALSE
 	. = ..()
 
-/obj/item/clothing/mask/facehugger/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/clothing/mask/facehugger/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(user.drop_item_ground(src) && Attach(target))
 		user.do_attack_animation(target, used_item = src)
 		return ATTACK_CHAIN_BLOCKED_ALL

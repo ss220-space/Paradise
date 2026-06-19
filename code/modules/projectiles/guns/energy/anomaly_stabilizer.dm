@@ -149,7 +149,7 @@
 
 	newshot()
 
-/obj/item/gun/energy/anomaly_stabilizer/attackby(obj/item/item, mob/user, params)
+/obj/item/gun/energy/anomaly_stabilizer/attackby(obj/item/item, mob/user, list/modifiers)
 	if(user.intent == INTENT_HARM)
 		return ..()
 

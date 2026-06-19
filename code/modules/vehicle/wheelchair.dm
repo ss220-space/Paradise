@@ -107,12 +107,12 @@
 
 ///Modify logic
 
-/obj/vehicle/ridden/wheelchair/attackby(obj/item/item, mob/user, params)
+/obj/vehicle/ridden/wheelchair/attackby(obj/item/item, mob/user, list/modifiers)
 	if(istype(item, /obj/item/desk_bell))
-		desk_bell_act(item, user, params)
+		desk_bell_act(item, user, modifiers)
 		return ATTACK_CHAIN_PROCEED
 	if(isgrenade(item))
-		grenade_act(item, user, params)
+		grenade_act(item, user, modifiers)
 		return ATTACK_CHAIN_BLOCKED | ATTACK_CHAIN_NO_AFTERATTACK
 	return ..()
 

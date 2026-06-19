@@ -36,7 +36,7 @@
 /obj/structure/curtain/update_icon_state()
 	icon_state = opacity ? "closed" : "open"
 
-/obj/structure/curtain/attackby(obj/item/I, mob/user, params)
+/obj/structure/curtain/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

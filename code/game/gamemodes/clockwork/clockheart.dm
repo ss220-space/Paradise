@@ -190,7 +190,7 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	qdel(dropping)
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/structure/clockwork/functional/heart/attackby(obj/item/I, mob/user, params)
+/obj/structure/clockwork/functional/heart/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/clockwork/clockslab) && isclocker(user))
 		add_fingerprint(user)
 		return ATTACK_CHAIN_BLOCKED_ALL
@@ -322,11 +322,11 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 /obj/structure/heart_filler/mouse_drop_receive(atom/movable/dropping, mob/user, params)
 	return parent.mouse_drop_receive(dropping, user, params)
 
-/obj/structure/heart_filler/attackby(obj/item/I, mob/user, params)
+/obj/structure/heart_filler/attackby(obj/item/I, mob/user, list/modifiers)
 	. = ..()
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))
 		return .
-	parent.attackby(I, user, params)
+	parent.attackby(I, user, modifiers)
 	return .
 
 /obj/structure/heart_filler/proc/update_parent(obj/new_parent)

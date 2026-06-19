@@ -73,7 +73,7 @@
 		update_icon(UPDATE_ICON_STATE)
 		SStgui.update_uis(src)
 
-/obj/machinery/chem_heater/attackby(obj/item/I, mob/user, params)
+/obj/machinery/chem_heater/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

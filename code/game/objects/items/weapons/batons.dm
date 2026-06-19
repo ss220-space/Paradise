@@ -111,7 +111,7 @@
  *
  * TL;DR: [/baton_attack()] -> [/finalize_baton_attack()] -> [/baton_effect()] -> [/set_batoned()]
  */
-/obj/item/melee/baton/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/melee/baton/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	add_fingerprint(user)
 	switch(baton_attack(target, user))
 		if(BATON_ATTACK_DONE)
@@ -121,7 +121,7 @@
 		if(BATON_ATTACKING)
 			finalize_baton_attack(target, user)
 			if(!skip_harm_attack && user.a_intent == INTENT_HARM)
-				return ..(target, user, params, def_zone, stun_animation)
+				return ..(target, user, modifiers, def_zone, stun_animation)
 			return ATTACK_CHAIN_PROCEED_SUCCESS
 
 /obj/item/melee/baton/proc/baton_attack(mob/living/target, mob/living/user)
@@ -514,7 +514,7 @@
 	if(.)
 		deductcharge(cell_hit_cost)
 
-/obj/item/melee/baton/security/attackby(obj/item/I, mob/user, params)
+/obj/item/melee/baton/security/attackby(obj/item/I, mob/user, list/modifiers)
 	if(iscell(I))
 		var/obj/item/stock_parts/cell/new_cell = I
 		if(cell)

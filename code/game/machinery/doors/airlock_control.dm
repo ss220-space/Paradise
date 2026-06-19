@@ -232,7 +232,7 @@
 	else
 		to_chat(user, "Error, no route to host.")
 
-/obj/machinery/access_button/attackby(obj/item/I, mob/user, params)
+/obj/machinery/access_button/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

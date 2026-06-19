@@ -283,7 +283,7 @@
 
 	update_controls()
 
-/mob/living/simple_animal/bot/medbot/attackby(obj/item/I, mob/user, params)
+/mob/living/simple_animal/bot/medbot/attackby(obj/item/I, mob/user, list/modifiers)
 	var/current_health = health
 	if(user.a_intent == INTENT_HARM)
 		current_health = health

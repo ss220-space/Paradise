@@ -118,7 +118,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 	. = ..()
 	update()
 
-/obj/machinery/conveyor/attackby(obj/item/tool, mob/user, params)
+/obj/machinery/conveyor/attackby(obj/item/tool, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM || (stat & BROKEN))
 		return ..()
 
@@ -590,7 +590,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 	. += span_notice("<b>Use</b> the assembly on the ground to finalize it.")
 	. += span_notice("Use a <b>conveyor belt switch</b> on the assembly to link them.")
 
-/obj/item/conveyor_construct/attackby(obj/item/tool, mob/user, params)
+/obj/item/conveyor_construct/attackby(obj/item/tool, mob/user, list/modifiers)
 	if(istype(tool, /obj/item/conveyor_switch_construct))
 		add_fingerprint(user)
 		var/obj/item/conveyor_switch_construct/switch_construct = tool
@@ -657,7 +657,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 	transfer_fingerprints_to(built_switch)
 	qdel(src)
 
-/obj/item/conveyor_switch_construct/attackby(obj/item/tool, mob/user, params)
+/obj/item/conveyor_switch_construct/attackby(obj/item/tool, mob/user, list/modifiers)
 	if(!istype(tool, /obj/item/conveyor_switch_construct))
 		return ..()
 

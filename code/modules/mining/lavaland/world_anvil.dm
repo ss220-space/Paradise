@@ -61,7 +61,7 @@
 	. = ..()
 	. += span_notice("Доступно [forge_charges] ковочн[declension_ru(forge_charges,"ый заряд","ых заряда","ых заряда")].")
 
-/obj/structure/world_anvil/attackby(obj/item/I, mob/living/user, params)
+/obj/structure/world_anvil/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

@@ -207,7 +207,7 @@
 		set_light_color(inserted_gem.light_color)
 		lantern_light_overlay = mutable_appearance('icons/obj/lighting.dmi',"lantern_light", color = light_color)
 
-/obj/item/flashlight/lantern/attackby(obj/item/I, mob/user, params)
+/obj/item/flashlight/lantern/attackby(obj/item/I, mob/user, list/modifiers)
 	. = ..()
 
 	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !istype(I, /obj/item/gem))

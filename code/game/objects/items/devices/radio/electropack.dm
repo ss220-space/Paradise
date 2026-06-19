@@ -26,7 +26,7 @@
 		master = null
 	return ..()
 
-/obj/item/radio/electropack/attackby(obj/item/I, mob/user, params)
+/obj/item/radio/electropack/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/clothing/head/helmet))
 		add_fingerprint(user)
 		if(!b_stat)

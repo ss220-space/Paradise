@@ -98,7 +98,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 /obj/machinery/photocopier/faxmachine/attack_ghost(mob/user)
 	ui_interact(user)
 
-/obj/machinery/photocopier/faxmachine/attackby(obj/item/I, mob/user, params)
+/obj/machinery/photocopier/faxmachine/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

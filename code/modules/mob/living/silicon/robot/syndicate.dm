@@ -167,7 +167,7 @@
 
 	return
 
-/mob/living/silicon/robot/syndicate/saboteur/attackby(obj/item/I, mob/user, params)
+/mob/living/silicon/robot/syndicate/saboteur/attackby(obj/item/I, mob/user, list/modifiers)
 	cham_proj?.disrupt(src)
 
 	add_attack_logs(user, src, "disrupt [cham_proj] by [I]")

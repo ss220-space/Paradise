@@ -53,7 +53,7 @@
 	. += span_notice("Alt-Click to change photo size.")
 	. += span_notice("Alt-Shift-Click on [src] to toggle camera flashing")
 
-/obj/item/camera/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/camera/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	return ..()
 
 /obj/item/camera/attack_self(mob/user)
@@ -84,7 +84,7 @@
 
 	to_chat(usr, span_notice("You turned [src] flashing lights [flashing_lights ? "on" : "off"], making natural light [flashing_lights ? "invisible" : "visible"]"))
 
-/obj/item/camera/attackby(obj/item/I, mob/user, params)
+/obj/item/camera/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/camera_film))
 		add_fingerprint(user)
 		if(pictures_left)

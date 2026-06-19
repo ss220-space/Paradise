@@ -161,7 +161,7 @@
 	armguard = null
 	. = ..()
 
-/obj/item/kitchen/knife/hidden_blade/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/kitchen/knife/hidden_blade/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	var/extra_force_applied = FALSE
 	var/cached_force = force
 	var/cached_armour_penetration = armour_penetration

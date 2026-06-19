@@ -45,7 +45,7 @@
 		yeet_shock(user)
 		return TRUE
 
-/obj/machinery/field/containment/attackby(obj/item/item, mob/user, params)
+/obj/machinery/field/containment/attackby(obj/item/item, mob/user, list/modifiers)
 	. = ..()
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))
 		return .

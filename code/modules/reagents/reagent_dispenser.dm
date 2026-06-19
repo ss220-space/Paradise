@@ -31,7 +31,7 @@
 		if(tank_volume && (damage_flag == BULLET || damage_flag == LASER))
 			boom(FALSE, TRUE)
 
-/obj/structure/reagent_dispensers/attackby(obj/item/I, mob/user, params)
+/obj/structure/reagent_dispensers/attackby(obj/item/I, mob/user, list/modifiers)
 	if(I.is_refillable())
 		return ATTACK_CHAIN_PROCEED //so we can refill them via their afterattack.
 	return ..()
@@ -169,7 +169,7 @@
 			QDEL_NULL(rigged_olay)
 			update_icon(UPDATE_OVERLAYS)
 
-/obj/structure/reagent_dispensers/fueltank/attackby(obj/item/I, mob/user, params)
+/obj/structure/reagent_dispensers/fueltank/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/weldingtool/sword))
 		if(I.tool_enabled)
 			boom(FALSE, TRUE)

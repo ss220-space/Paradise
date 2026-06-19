@@ -25,7 +25,7 @@
 	var/number = rand(1, 36)
 	icon_state = "runaash_[number]"
 
-/obj/effect/decal/ash_rune_centre/attackby(obj/item/I, mob/user, params)
+/obj/effect/decal/ash_rune_centre/attackby(obj/item/I, mob/user, list/modifiers)
 	if(!istype(I, /obj/item/melee/touch_attack/healtouch))
 		return ..()
 	if(transforming)

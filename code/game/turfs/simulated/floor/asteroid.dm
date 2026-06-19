@@ -99,7 +99,7 @@
 		ChangeTurf(tile.turf_type, keep_icon = FALSE)
 	playsound(src, 'sound/weapons/Genhit.ogg', 50, TRUE)
 
-/turf/simulated/floor/plating/asteroid/attackby(obj/item/I, mob/user, params)
+/turf/simulated/floor/plating/asteroid/attackby(obj/item/I, mob/user, list/modifiers)
 	. = ..()
 
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))
@@ -126,7 +126,7 @@
 		if(!bag.pickup_all_on_tile)
 			return .
 		for(var/obj/item/stack/ore/ore in contents)
-			ore.attackby(bag, user, params)
+			ore.attackby(bag, user, modifiers)
 		return .|ATTACK_CHAIN_SUCCESS
 
 /turf/simulated/floor/plating/asteroid/welder_act(mob/user, obj/item/I)

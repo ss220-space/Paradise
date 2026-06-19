@@ -60,7 +60,7 @@
 	record_security = null
 	return ..()
 
-/obj/machinery/computer/secure_data/attackby(obj/item/I, mob/user, params)
+/obj/machinery/computer/secure_data/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

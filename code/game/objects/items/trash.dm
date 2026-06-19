@@ -136,7 +136,7 @@
 	icon_state = "doshik"
 	desc = "Still has a delicious smell."
 
-/obj/item/trash/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/trash/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	return ..()
 
 /obj/item/trash/broken_ashtray

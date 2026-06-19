@@ -67,7 +67,7 @@
 		return
 	. = ..()
 
-/obj/structure/door_assembly/attackby(obj/item/I, mob/user, params)
+/obj/structure/door_assembly/attackby(obj/item/I, mob/user, list/modifiers)
 	if(is_pen(I))
 		// The door assembly gets renamed to "Assembly - Foobar",
 		// but the `t` returned from the proc is just "Foobar" without the prefix.

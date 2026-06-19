@@ -75,7 +75,7 @@ To draw a rune, use a ritual dagger.
 		if(req_keyword && keyword)
 			. += "<b>Keyword:</b> [span_cultitalic(keyword)]"
 
-/obj/effect/rune/attackby(obj/I, mob/user, params)
+/obj/effect/rune/attackby(obj/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/melee/cultblade/dagger) && iscultist(user))
 		// Telerunes with portals open
 		if(istype(src, /obj/effect/rune/teleport))
@@ -1041,7 +1041,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	sleep(40)
 	new /obj/god/narsie(rune_turf) //Causes Nar'Sie to spawn even if the rune has been removed
 
-/obj/effect/rune/narsie/attackby(obj/item/I, mob/user, params)	//Since the narsie rune takes a long time to make, add logging to removal.
+/obj/effect/rune/narsie/attackby(obj/item/I, mob/user, list/modifiers)	//Since the narsie rune takes a long time to make, add logging to removal.
 	if((istype(I, /obj/item/melee/cultblade/dagger) && iscultist(user)))
 		add_game_logs("erased Summon Narsie rune with a cult dagger", user)
 		message_admins("[key_name_admin(user)] erased a Narsie rune with a cult dagger")

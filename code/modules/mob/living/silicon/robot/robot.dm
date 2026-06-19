@@ -760,7 +760,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	return 2
 
-/mob/living/silicon/robot/attackby(obj/item/I, mob/user, params)
+/mob/living/silicon/robot/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)	// no interactions in combat
 		return ..()
 
@@ -874,7 +874,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			to_chat(user, span_warning("Unable to locate a radio!"))
 			return ATTACK_CHAIN_PROCEED
 
-		radio.attackby(I, user, params) //GTFO, you have your own procs
+		radio.attackby(I, user, modifiers) //GTFO, you have your own procs
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(I.GetID())	// trying to unlock the interface with an ID card
@@ -1138,7 +1138,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	to_chat(user, span_notice("You have patched some dents on [src] with [I]."))
 
-/mob/living/silicon/robot/proceed_attack_results(obj/item/I, mob/living/user, params, def_zone)
+/mob/living/silicon/robot/proceed_attack_results(obj/item/I, mob/living/user, list/modifiers, def_zone)
 	. = ..()
 	if(ATTACK_CHAIN_SUCCESS_CHECK(.) && I.force && I.damtype != STAMINA && stat != DEAD)
 		spark_system.start()	//only sparks if real damage is dealt

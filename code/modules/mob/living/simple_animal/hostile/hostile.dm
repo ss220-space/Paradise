@@ -142,7 +142,7 @@
 /mob/living/simple_animal/hostile/step_with_glide(atom/newloc, direction, speed_override)
 	return ..(newloc, direction, move_to_delay)
 
-/mob/living/simple_animal/hostile/proceed_attack_results(obj/item/I, mob/living/user, params, def_zone)
+/mob/living/simple_animal/hostile/proceed_attack_results(obj/item/I, mob/living/user, list/modifiers, def_zone)
 	. = ..()
 	if(ATTACK_CHAIN_SUCCESS_CHECK(.) && I.force && stat == CONSCIOUS && !target && AIStatus != AI_OFF && !client)
 		FindTarget(list(user), TRUE)

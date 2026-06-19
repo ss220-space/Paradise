@@ -33,7 +33,7 @@
 		if(BB)
 			BB.icon_state = initial(BB.icon_state)
 
-/obj/item/ammo_casing/caseless/foam_dart/attackby(obj/item/I, mob/user, params)
+/obj/item/ammo_casing/caseless/foam_dart/attackby(obj/item/I, mob/user, list/modifiers)
 	if(is_pen(I))
 		add_fingerprint(user)
 		var/obj/projectile/bullet/reusable/foam_dart/bullet = BB

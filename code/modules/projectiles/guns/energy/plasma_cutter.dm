@@ -33,7 +33,7 @@
 /obj/item/gun/energy/plasmacutter/get_temperature()
 	return 3800
 
-/obj/item/gun/energy/plasmacutter/attackby(obj/item/I, mob/user, params)
+/obj/item/gun/energy/plasmacutter/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/stack/sheet/mineral/plasma))
 		add_fingerprint(user)
 		var/obj/item/stack/sheet/mineral/plasma/plasma = I

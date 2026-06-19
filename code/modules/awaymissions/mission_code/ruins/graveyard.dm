@@ -78,7 +78,7 @@
 	. = ..()
 	. += span_notice(examine_more_info)
 
-/obj/item/storage/funeral_urn/attackby(obj/item/I, mob/user, params)
+/obj/item/storage/funeral_urn/attackby(obj/item/I, mob/user, list/modifiers)
 	if(is_pen(I))
 		rename_interactive(user, I)
 		return ATTACK_CHAIN_PROCEED_SUCCESS

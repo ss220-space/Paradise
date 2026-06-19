@@ -7,27 +7,27 @@
 	custom_snack.add_ingredient(snack, user)
 	qdel(src)
 
-/obj/item/reagent_containers/food/snacks/breadslice/attackby(obj/item/I, mob/user, params)
+/obj/item/reagent_containers/food/snacks/breadslice/attackby(obj/item/I, mob/user, list/modifiers)
 	if(make_custom_food(I, user, /obj/item/reagent_containers/food/snacks/customizable/sandwich))
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
 
-/obj/item/reagent_containers/food/snacks/bun/attackby(obj/item/I, mob/user, params)
+/obj/item/reagent_containers/food/snacks/bun/attackby(obj/item/I, mob/user, list/modifiers)
 	if(make_custom_food(I, user, /obj/item/reagent_containers/food/snacks/customizable/burger))
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
 
-/obj/item/reagent_containers/food/snacks/sliceable/flatdough/attackby(obj/item/I, mob/user, params)
+/obj/item/reagent_containers/food/snacks/sliceable/flatdough/attackby(obj/item/I, mob/user, list/modifiers)
 	if(make_custom_food(I, user, /obj/item/reagent_containers/food/snacks/customizable/pizza))
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
 
-/obj/item/reagent_containers/food/snacks/boiledspaghetti/attackby(obj/item/I, mob/user, params)
+/obj/item/reagent_containers/food/snacks/boiledspaghetti/attackby(obj/item/I, mob/user, list/modifiers)
 	if(make_custom_food(I, user, /obj/item/reagent_containers/food/snacks/customizable/pasta))
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
 
-/obj/item/trash/plate/attackby(obj/item/I, mob/user, params)
+/obj/item/trash/plate/attackby(obj/item/I, mob/user, list/modifiers)
 	if(make_custom_food(I, user, /obj/item/reagent_containers/food/snacks/customizable/fullycustom))
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
@@ -38,7 +38,7 @@
 	icon = 'icons/obj/food/custom.dmi'
 	icon_state = "soup"
 
-/obj/item/trash/bowl/attackby(obj/item/I, mob/user, params)
+/obj/item/trash/bowl/attackby(obj/item/I, mob/user, list/modifiers)
 	if(make_custom_food(I, user, /obj/item/reagent_containers/food/snacks/customizable/soup))
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
@@ -279,7 +279,7 @@
 		var/whatsinside = pick(ingredients)
 		. += span_notice("You think you can see [whatsinside] in there.")
 
-/obj/item/reagent_containers/food/snacks/customizable/attackby(obj/item/I, mob/user, params)
+/obj/item/reagent_containers/food/snacks/customizable/attackby(obj/item/I, mob/user, list/modifiers)
 	if(!istype(I, /obj/item/reagent_containers/food/snacks))
 		to_chat(user, span_warning("[I] isn't exactly something that you would want to eat."))
 		return ..()

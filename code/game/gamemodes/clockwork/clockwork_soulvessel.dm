@@ -159,7 +159,7 @@
 	else
 		to_chat(user, span_warning("You have to find a body or brain to fill a vessel."))
 
-/obj/item/mmi/robotic_brain/clockwork/attackby(obj/item/I, mob/user, params)
+/obj/item/mmi/robotic_brain/clockwork/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/mmi/robotic_brain/clockwork))
 		return ATTACK_CHAIN_BLOCKED_ALL
 	// chaplain purifying
@@ -176,7 +176,7 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
 
-/obj/item/mmi/robotic_brain/attackby(obj/item/I, mob/user, params)
+/obj/item/mmi/robotic_brain/attackby(obj/item/I, mob/user, list/modifiers)
 	// capturing robotic brains
 	if(istype(I, /obj/item/mmi/robotic_brain/clockwork))
 		var/obj/item/mmi/robotic_brain/clockwork/brain = I
@@ -184,7 +184,7 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
 
-/obj/item/organ/internal/brain/attackby(obj/item/I, mob/user, params)
+/obj/item/organ/internal/brain/attackby(obj/item/I, mob/user, list/modifiers)
 	// capturing organic brains
 	if(istype(I, /obj/item/mmi/robotic_brain/clockwork))
 		var/obj/item/mmi/robotic_brain/clockwork/brain = I
@@ -192,7 +192,7 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
 
-/obj/item/organ/external/head/attackby(obj/item/I, mob/user, params)
+/obj/item/organ/external/head/attackby(obj/item/I, mob/user, list/modifiers)
 	// heads have brains too!
 	if(istype(I, /obj/item/mmi/robotic_brain/clockwork))
 		var/obj/item/mmi/robotic_brain/clockwork/brain = I
@@ -200,7 +200,7 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
 
-/obj/item/mmi/robotic_brain/clockwork/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/mmi/robotic_brain/clockwork/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	// catching souls of dead/unconscious humans and robots
 	if((isrobot(target) || ishuman(target)))
 		init_transfer(user, target_body = target)

@@ -35,7 +35,7 @@
 	QDEL_NULL(seed)
 	return ..()
 
-/obj/item/grown/attackby(obj/item/I, mob/user, params)
+/obj/item/grown/attackby(obj/item/I, mob/user, list/modifiers)
 	. = ..()
 
 	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !istype(I, /obj/item/plant_analyzer))

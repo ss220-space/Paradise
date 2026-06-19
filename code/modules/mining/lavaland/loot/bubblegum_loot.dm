@@ -256,7 +256,7 @@
 	. = ..()
 	. += soul.ckey ? span_green("В нем заточена душа.") : span_danger("В нем нет души.")
 
-/obj/item/soulscythe/attack(mob/living/attacked, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/soulscythe/attack(mob/living/attacked, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	. = ..()
 	if(attacked.stat != DEAD)
 		give_blood(10)

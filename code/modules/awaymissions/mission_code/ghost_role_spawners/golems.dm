@@ -33,7 +33,7 @@
 		PREPOSITIONAL = "незавершённой оболочке голема-слуги",
 	)
 
-/obj/item/golem_shell/attackby(obj/item/I, mob/user, params)
+/obj/item/golem_shell/attackby(obj/item/I, mob/user, list/modifiers)
 	. = ..()
 
 	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !isstack(I))

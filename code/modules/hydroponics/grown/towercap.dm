@@ -48,7 +48,7 @@
 		/obj/item/reagent_containers/food/snacks/grown/wheat,
 	))
 
-/obj/item/grown/log/attackby(obj/item/I, mob/user, params)
+/obj/item/grown/log/attackby(obj/item/I, mob/user, list/modifiers)
 	if(I.sharp)
 		if(!isturf(loc))
 			add_fingerprint(user)

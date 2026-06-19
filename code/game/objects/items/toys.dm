@@ -31,7 +31,7 @@
 	if(unique_toy_rename)
 		. += span_notice("Используй ручку на игрушке, чтобы переименовать её.")
 
-/obj/item/toy/attackby(obj/item/I, mob/user, params)
+/obj/item/toy/attackby(obj/item/I, mob/user, list/modifiers)
 	if(unique_toy_rename && is_pen(I))
 		add_fingerprint(user)
 		var/new_name = rename_interactive(user, I, use_prefix = FALSE)
@@ -55,7 +55,7 @@
 	. = ..()
 	create_reagents(10)
 
-/obj/item/toy/balloon/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/toy/balloon/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	return ..()
 
 /obj/item/toy/balloon/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
@@ -82,7 +82,7 @@
 		desc = "A translucent balloon with some form of liquid sloshing around in it."
 		update_icon(UPDATE_ICON_STATE)
 
-/obj/item/toy/balloon/attackby(obj/item/I, mob/user, params)
+/obj/item/toy/balloon/attackby(obj/item/I, mob/user, list/modifiers)
 	if(isglassreagentcontainer(I) || istype(I, /obj/item/reagent_containers/food/drinks/drinkingglass))
 		add_fingerprint(user)
 		if(!I.reagents || I.reagents.total_volume < 1)
@@ -196,7 +196,7 @@
 	add_fingerprint(user)
 	return
 
-/obj/item/toy/sword/attackby(obj/item/I, mob/living/user, params)
+/obj/item/toy/sword/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(istype(I, /obj/item/toy/sword))
 		add_fingerprint(user)
 		if(I == src)
@@ -572,7 +572,7 @@
 	unique_toy_rename = TRUE
 
 // Attack mob
-/obj/item/toy/carpplushie/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/toy/carpplushie/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	. = ..()
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))
 		return .
@@ -640,7 +640,7 @@
 	. = ..()
 	AddElement(/datum/element/bed_tuckable, mapload, 6, -4, 90)
 
-/obj/item/toy/plushie/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/toy/plushie/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	. = ..()
 	if(!ATTACK_CHAIN_SUCCESS_CHECK(.))
 		return .
@@ -959,7 +959,7 @@
 	icon_state = "plushie_ipc"
 	item_state = "plushie_ipc"
 
-/obj/item/toy/plushie/ipcplushie/attackby(obj/item/I, mob/user, params)
+/obj/item/toy/plushie/ipcplushie/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/reagent_containers/food/snacks/breadslice))
 		add_fingerprint(user)
 		new /obj/item/reagent_containers/food/snacks/toast(drop_location())
@@ -988,7 +988,7 @@
 	cooldown = TRUE
 	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
 
-/obj/item/toy/plushie/shardplushie/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/toy/plushie/shardplushie/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	. = ..()
 	if(ATTACK_CHAIN_SUCCESS_CHECK(.))
 		playsound(loc, pick('sound/effects/supermatter.ogg', 'sound/effects/glass_step_sm.ogg',), 10, TRUE)
@@ -1039,7 +1039,7 @@
 	if(prob(50))
 		icon_state = "plushie_ashwalker2"
 
-/obj/item/toy/plushie/ashwalkerplushie/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/toy/plushie/ashwalkerplushie/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	. = ..()
 	if(!ATTACK_CHAIN_SUCCESS_CHECK(.))
 		return .
@@ -1088,7 +1088,7 @@
 	var/cooldown = FALSE
 	var/mothbite = 'sound/voice/scream_moth.ogg'
 
-/obj/item/toy/plushie/nianplushie/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/toy/plushie/nianplushie/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	. = ..()
 	if(ATTACK_CHAIN_SUCCESS_CHECK(.))
 		playsound(loc, mothbite, 10, TRUE)	// Play bite sound in local area
@@ -1165,7 +1165,7 @@
 	var/goatbite = 'sound/items/goatsound.ogg'
 	var/cooldown = FALSE
 
-/obj/item/toy/plushie/realgoat/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/toy/plushie/realgoat/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	. = ..()
 	if(ATTACK_CHAIN_SUCCESS_CHECK(.))
 		playsound(loc, goatbite, 10, TRUE)	// Play bite sound in local area
@@ -1195,7 +1195,7 @@
 	var/fishbite = 'sound/weapons/bite.ogg'
 	var/cooldown = FALSE
 
-/obj/item/toy/plushie/blahaj/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/toy/plushie/blahaj/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	. = ..()
 	if(ATTACK_CHAIN_SUCCESS_CHECK(.))
 		playsound(loc, fishbite, 10, TRUE)	// Play bite sound in local area
@@ -1239,7 +1239,7 @@
 	var/axolotlbite = 'sound/items/axolotl.ogg'
 	var/cooldown = FALSE
 
-/obj/item/toy/plushie/axolotlplushie/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/toy/plushie/axolotlplushie/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	. = ..()
 	if(ATTACK_CHAIN_SUCCESS_CHECK(.))
 		playsound(loc, axolotlbite, 20, TRUE)	// Play bite sound in local area
@@ -1310,7 +1310,7 @@
 	name = "shaft miner plasmaman plushie"
 	icon_state = "plasmaman_plushie_shaftminer"
 
-/obj/item/toy/plushie/plasmamanplushie/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/toy/plushie/plasmamanplushie/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	. = ..()
 	if(ATTACK_CHAIN_SUCCESS_CHECK(.))
 		playsound(loc, pmanlbite, 20, TRUE)	// Play bite sound in local area
@@ -1332,7 +1332,7 @@
 	var/rounibite = 'sound/items/Help.ogg'
 	var/cooldown = FALSE
 
-/obj/item/toy/plushie/rouny/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/toy/plushie/rouny/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	. = ..()
 	if(ATTACK_CHAIN_SUCCESS_CHECK(.))
 		playsound(loc, rounibite, 10, TRUE)	// Play bite sound in local area
@@ -1356,7 +1356,7 @@
 	desc = "What happens if I peel it?"
 	icon_state = "banana"
 
-/obj/item/toy/plushie/banbanana/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/toy/plushie/banbanana/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	to_chat(target, span_danger("Вас забанил ХО$Т.\nПричина: Хонк."))
 	to_chat(target, span_danger("Это ПЕРМАНЕНТНЫЙ бан."))
 	to_chat(user, span_danger("Вы <b>ЗАБАНИЛИ</b> [target]"))
@@ -1424,7 +1424,7 @@
 	var/bubblestep = 'sound/effects/meteorimpact.ogg'
 	var/bubbleattack = 'sound/misc/demon_attack1.ogg'
 
-/obj/item/toy/plushie/bubblegumplushie/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/toy/plushie/bubblegumplushie/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	. = ..()
 	if(ATTACK_CHAIN_SUCCESS_CHECK(.))
 		playsound(loc, pick(bubblestep, bubbleattack), 40, TRUE)
@@ -1618,7 +1618,7 @@
 	item_state = "flashtool"
 	w_class = WEIGHT_CLASS_TINY
 
-/obj/item/toy/flash/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/toy/flash/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	playsound(loc, 'sound/weapons/flash.ogg', 100, TRUE)
 	flick("[initial(icon_state)]2", src)
 	user.visible_message(span_disarm("[user] ослепля[PLUR_ET_YUT(user)] [target.declent_ru(ACCUSATIVE)] вспышкой флешера!"))
@@ -1848,7 +1848,7 @@
 		playsound(user, 'sound/goonstation/effects/gib.ogg', 20, TRUE)
 		cooldown = world.time
 
-/obj/item/toy/minigibber/attackby(obj/item/I, mob/user, params)
+/obj/item/toy/minigibber/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/toy/character))
 		add_fingerprint(user)
 		if(stored_minature)
@@ -1938,7 +1938,7 @@
 		user.visible_message(span_warning("[user] крутит барабан [declent_ru(GENITIVE)]!"))
 		spin_cylinder()
 
-/obj/item/toy/russian_revolver/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/toy/russian_revolver/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	return ..()
 
 /obj/item/toy/russian_revolver/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)

@@ -69,7 +69,7 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 	cube_production = cubes_made
 	required_grind = max(req_grind, 1)
 
-/obj/machinery/monkey_recycler/attackby(obj/item/I, mob/user, params)
+/obj/machinery/monkey_recycler/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

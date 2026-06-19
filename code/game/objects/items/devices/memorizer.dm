@@ -39,7 +39,7 @@
 	battery_panel = !battery_panel
 	to_chat(user, span_notice("You [battery_panel ? "open" : "close"] the battery compartment on [src]."))
 
-/obj/item/memorizer/attackby(obj/item/I, mob/user, params)
+/obj/item/memorizer/attackby(obj/item/I, mob/user, list/modifiers)
 	if(!can_overcharge || !iscell(I))
 		return ..()
 	add_fingerprint(user)
@@ -117,7 +117,7 @@
 	if(fucking_target.flash_eyes())
 		fucking_target.AdjustConfused(power)
 
-/obj/item/memorizer/attack(mob/living/fucking_target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/memorizer/attack(mob/living/fucking_target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(!try_use_flash(user))
 		return ..()
 	. = ATTACK_CHAIN_PROCEED

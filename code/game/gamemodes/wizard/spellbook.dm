@@ -803,7 +803,7 @@
 
 // MARK: BLOCK 2.2: ITEM/SPELL REFUND
 
-/obj/item/spellbook/attackby(obj/item/I, mob/living/user, params)
+/obj/item/spellbook/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM || skip_refunds)
 		return ..()
 

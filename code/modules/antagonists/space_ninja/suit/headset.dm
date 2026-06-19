@@ -15,7 +15,7 @@
 	var/list/scanned_channels
 	var/scan_hive = FALSE
 
-/obj/item/radio/headset/ninja/attackby(obj/item/I, mob/user, params)
+/obj/item/radio/headset/ninja/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/radio/headset))
 		var/obj/item/radio/headset/target_headset = I
 		if(!do_after(user, 2 SECONDS, user, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM, max_interact_count = 1, cancel_on_max = TRUE, cancel_message = span_warning("Сканирование прервано!")))

@@ -41,7 +41,7 @@
 	for(var/obj/item/baton_upgrade/upgrade as anything in upgrades)
 		. += span_notice("В нём установлен <b>[upgrade.declent_ru(NOMINATIVE)]</b>, который [upgrade.upgrade_examine].")
 
-/obj/item/melee/baton/telescopic/contractor/attackby(obj/item/I, mob/user, params)
+/obj/item/melee/baton/telescopic/contractor/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/baton_upgrade))
 		add_fingerprint(user)
 		add_upgrade(I, user)

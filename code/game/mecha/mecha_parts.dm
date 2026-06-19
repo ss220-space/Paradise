@@ -19,7 +19,7 @@
 	QDEL_NULL(construct)
 	. = ..()
 
-/obj/item/mecha_parts/chassis/attackby(obj/item/I, mob/user, params)
+/obj/item/mecha_parts/chassis/attackby(obj/item/I, mob/user, list/modifiers)
 	if(construct?.action(I, user))
 		add_fingerprint(user)
 		return ATTACK_CHAIN_BLOCKED_ALL
@@ -390,7 +390,7 @@
 	. = ..()
 	construct = new /datum/construction/mecha/phazon_chassis(src)
 
-/obj/item/mecha_parts/chassis/phazon/attackby(obj/item/I, mob/user, params)
+/obj/item/mecha_parts/chassis/phazon/attackby(obj/item/I, mob/user, list/modifiers)
 	. = ..()
 	if(iscore(I) && !iscorebluespace(I))
 		to_chat(user, span_warning("The anomaly core socket only accepts bluespace anomaly cores!"))

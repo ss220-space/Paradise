@@ -415,7 +415,7 @@
 
 	insert(user, I, cost)
 
-/obj/machinery/customat/attackby(obj/item/I, mob/user, params)
+/obj/machinery/customat/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM && COOLDOWN_FINISHED(src, emp_cooldown) && COOLDOWN_FINISHED(src, alarm_cooldown))
 		playsound(src, 'sound/machines/burglar_alarm.ogg', I.force * 5, FALSE)
 		COOLDOWN_START(src, alarm_cooldown, alarm_delay)

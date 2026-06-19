@@ -128,7 +128,7 @@
 	. = ..()
 	. += "[status_descriptors[status]]"
 
-/obj/structure/morgue/attackby(obj/item/I, mob/user, params)
+/obj/structure/morgue/attackby(obj/item/I, mob/user, list/modifiers)
 	if(is_pen(I))
 		var/rename = rename_interactive(user, I)
 		if(!isnull(rename))
@@ -281,7 +281,7 @@
 	target.forceMove(loc)
 	target.set_resting(TRUE, instant = TRUE)
 
-/obj/structure/m_tray/attackby(obj/item/I, mob/user, params)
+/obj/structure/m_tray/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM || !user.drop_transfer_item_to_loc(I, loc))
 		return ..()
 	add_fingerprint(user)
@@ -407,7 +407,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	if(length(contents))
 		. += "crema_full"
 
-/obj/machinery/crematorium/attackby(obj/item/I, mob/user, params)
+/obj/machinery/crematorium/attackby(obj/item/I, mob/user, list/modifiers)
 	if(is_pen(I))
 		rename_interactive(user, I)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
@@ -699,7 +699,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	target.forceMove(loc)
 	target.set_resting(TRUE, instant = TRUE)
 
-/obj/structure/c_tray/attackby(obj/item/I, mob/user, params)
+/obj/structure/c_tray/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM || !user.drop_transfer_item_to_loc(I, loc))
 		return ..()
 	add_fingerprint(user)

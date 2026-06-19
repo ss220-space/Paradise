@@ -162,7 +162,7 @@
 	blade_status = GUILLOTINE_BLADE_DROPPED
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/structure/guillotine/attackby(obj/item/I, mob/user, params)
+/obj/structure/guillotine/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/whetstone))
 		add_fingerprint(user)
 		if(blade_status == GUILLOTINE_BLADE_SHARPENING)

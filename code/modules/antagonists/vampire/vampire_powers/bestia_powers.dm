@@ -1637,7 +1637,7 @@
 
 	return FALSE
 
-/obj/structure/closet/coffin/vampire/attackby(obj/item/I, mob/user, params)
+/obj/structure/closet/coffin/vampire/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/rcs))
 		return ATTACK_CHAIN_PROCEED
 	return ..()
@@ -2085,7 +2085,7 @@
 		l_target.AdjustBlood(-blood_amt)	// -5 blood MAX
 		human_vampire.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, human_vampire.nutrition + 5))
 
-/mob/living/simple_animal/hostile/vampire/bats_summoned/attackby(obj/item/I, mob/living/user, params)
+/mob/living/simple_animal/hostile/vampire/bats_summoned/attackby(obj/item/I, mob/living/user, list/modifiers)
 	. = ..()
 	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !isliving(target))
 		return .

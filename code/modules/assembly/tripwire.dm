@@ -190,7 +190,7 @@
 		return TRUE
 	return FALSE
 
-/obj/item/tripwire/attackby(obj/item/I, mob/user, params)
+/obj/item/tripwire/attackby(obj/item/I, mob/user, list/modifiers)
 	. = ..()
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))
 		return .

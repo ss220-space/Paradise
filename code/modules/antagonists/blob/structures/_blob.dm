@@ -335,7 +335,7 @@
 	qdel(src)
 	return B
 
-/obj/structure/blob/attackby(obj/item/I, mob/user, params)
+/obj/structure/blob/attackby(obj/item/I, mob/user, list/modifiers)
 	if(I.tool_behaviour == TOOL_ANALYZER)
 		user.changeNext_move(CLICK_CD_MELEE)
 		to_chat(user, "<b>Анализатор подает один звуковой сигнал, затем сообщает:</b><br>")

@@ -80,7 +80,7 @@
 
 	return TRUE
 
-/obj/item/fauna_bomb/attackby(obj/item/item, mob/user, params)
+/obj/item/fauna_bomb/attackby(obj/item/item, mob/user, list/modifiers)
 	if(!iscoreatmos(item))
 		return ..()
 
@@ -333,7 +333,7 @@
 
 #undef CHOOSING_ICON
 
-/obj/item/fauna_bomb/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim)
+/obj/item/fauna_bomb/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim)
 	return ..()
 
 /obj/item/fauna_bomb/preloaded/Initialize(mapload)

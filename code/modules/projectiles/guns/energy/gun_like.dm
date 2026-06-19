@@ -153,7 +153,7 @@
 		return FALSE
 	return ..()
 
-/obj/item/gun/energy/specter/attackby(obj/item/item, mob/user, params)
+/obj/item/gun/energy/specter/attackby(obj/item/item, mob/user, list/modifiers)
 	if(!is_spectercell(item))
 		return ..()
 	add_fingerprint(user)

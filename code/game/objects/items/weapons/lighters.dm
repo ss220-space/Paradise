@@ -107,7 +107,7 @@
 		playsound(src, 'sound/items/lighter/plastic_close.ogg', 25, TRUE)
 		next_off_message = world.time + 5 SECONDS
 
-/obj/item/lighter/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/lighter/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(!lit)
 		return ..()
 
@@ -126,7 +126,7 @@
 		return return_flags
 
 	if(target == user)
-		return cig.attackby(src, user, params) | return_flags
+		return cig.attackby(src, user, modifiers) | return_flags
 
 	return_flags |= ATTACK_CHAIN_SUCCESS
 	. = return_flags
@@ -616,7 +616,7 @@
 	matchburnout()
 	. = ..()
 
-/obj/item/match/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/match/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(!lit)
 		return ..()
 
@@ -635,7 +635,7 @@
 		return return_flags
 
 	if(target == user)
-		return cig.attackby(src, user, params) | return_flags
+		return cig.attackby(src, user, modifiers) | return_flags
 
 	return_flags |= ATTACK_CHAIN_SUCCESS
 	. = return_flags

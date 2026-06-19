@@ -368,7 +368,7 @@
 
 	return targeted_module.handle_ui_act(action, params)
 
-/obj/item/mecha_parts/mecha_equipment/multimodule/attackby(obj/item/I, mob/user, params)
+/obj/item/mecha_parts/mecha_equipment/multimodule/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/storage/bible))
 		var/obj/item/mecha_parts/mecha_equipment/extinguisher/extinguisher = locate() in src
 		if(extinguisher?.reagents && user.mind?.isholy)

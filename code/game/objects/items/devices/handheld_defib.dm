@@ -63,7 +63,7 @@
 	else  // advanced
 		icon_state = "[icon_base]_[icon_mode]-[charges]"
 
-/obj/item/handheld_defibrillator/attack(mob/living/carbon/human/H, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/handheld_defibrillator/attack(mob/living/carbon/human/H, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(!istype(H))
 		return ..()
 	. = ATTACK_CHAIN_PROCEED

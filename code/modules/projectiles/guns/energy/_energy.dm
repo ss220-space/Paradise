@@ -82,7 +82,7 @@
 
 	return readout.Join("\n") // Sending over the singular string, rather than the whole list
 
-/obj/item/gun/energy/attackby(obj/item/I, mob/user, params)
+/obj/item/gun/energy/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/gun_module/sibyl))
 		add_fingerprint(user)
 		var/obj/item/gun_module/sibyl/new_sibyl = I

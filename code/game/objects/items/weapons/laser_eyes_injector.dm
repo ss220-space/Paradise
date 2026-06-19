@@ -23,7 +23,7 @@
 	. = ..()
 	name = used ? "used [initial(name)]" : initial(name)
 
-/obj/item/laser_eyes_injector/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/laser_eyes_injector/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(!ishuman(target))
 		return ..()
 

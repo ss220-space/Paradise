@@ -22,7 +22,7 @@
 	else
 		return ..()
 
-/obj/structure/firepit/attackby(obj/item/I, mob/living/user, params)
+/obj/structure/firepit/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		if(active)
 			I.fire_act()

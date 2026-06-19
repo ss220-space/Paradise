@@ -71,7 +71,7 @@
 	open = !open
 	update_icon()
 
-/obj/item/lipstick/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/lipstick/attack(mob/living/carbon/human/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(!open)
 		return ..()
 
@@ -119,7 +119,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	usesound = 'sound/items/welder2.ogg'
 
-/obj/item/razor/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/razor/attack(mob/living/carbon/human/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(!ishuman(target) || (user.zone_selected != BODY_ZONE_PRECISE_MOUTH && user.zone_selected != BODY_ZONE_HEAD))
 		return ..()
 

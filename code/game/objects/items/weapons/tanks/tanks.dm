@@ -131,7 +131,7 @@
 		playsound(src.loc, 'sound/effects/spray.ogg', 10, TRUE, -3)
 	qdel(src)
 
-/obj/item/tank/attackby(obj/item/I, mob/user, params)
+/obj/item/tank/attackby(obj/item/I, mob/user, list/modifiers)
 	. = ..()
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))
 		return .

@@ -22,7 +22,7 @@
 /turf/simulated/floor/indestructible/burn_down()
 	return
 
-/turf/simulated/floor/indestructible/attackby(obj/item/I, mob/user, params)
+/turf/simulated/floor/indestructible/attackby(obj/item/I, mob/user, list/modifiers)
 	. = ..()
 	return .|ATTACK_CHAIN_BLOCKED_ALL
 

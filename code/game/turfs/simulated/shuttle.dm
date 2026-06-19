@@ -38,7 +38,7 @@
 /turf/simulated/wall/shuttle/burn_down()
 	return
 
-/turf/simulated/wall/shuttle/attackby(obj/item/I, mob/user, params)
+/turf/simulated/wall/shuttle/attackby(obj/item/I, mob/user, list/modifiers)
 	. = ..()
 	return .|ATTACK_CHAIN_BLOCKED_ALL
 
@@ -148,7 +148,7 @@
 	icon = 'icons/turf/shuttle/floors.dmi'
 	icon_state = "floor"
 
-/turf/simulated/floor/shuttle/attackby(obj/item/I, mob/user, params)
+/turf/simulated/floor/shuttle/attackby(obj/item/I, mob/user, list/modifiers)
 	. = ..()
 	return .|ATTACK_CHAIN_BLOCKED_ALL
 

@@ -57,7 +57,7 @@
 	..()
 	update_icon()
 
-/obj/item/reagent_containers/syringe/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/reagent_containers/syringe/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(user.a_intent == INTENT_HARM)	// syringes don't bludgeon, they inject in afterattack
 		return ATTACK_CHAIN_PROCEED
 	return ..()

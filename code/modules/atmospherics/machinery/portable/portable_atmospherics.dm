@@ -122,7 +122,7 @@
 	update_icon()
 	return TRUE
 
-/obj/machinery/portable_atmospherics/attackby(obj/item/item, mob/user, params)
+/obj/machinery/portable_atmospherics/attackby(obj/item/item, mob/user, list/modifiers)
 	if((stat & BROKEN) || user.a_intent == INTENT_HARM)
 		return ..()
 
@@ -164,7 +164,7 @@
 		else
 			to_chat(user, span_notice("Nothing happens."))
 
-/obj/machinery/portable_atmospherics/proceed_attack_results(obj/item/item, mob/living/user, params, def_zone)
+/obj/machinery/portable_atmospherics/proceed_attack_results(obj/item/item, mob/living/user, list/modifiers, def_zone)
 	if(item.get_final_force(user) < 10 && !(stat & BROKEN))
 		user.visible_message(
 			span_warning("[user] gently pokes [src] with [item]."),

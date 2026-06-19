@@ -136,7 +136,7 @@
 		return
 	update_icon()
 
-/obj/machinery/chem_master/attackby(obj/item/I, mob/user, params)
+/obj/machinery/chem_master/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

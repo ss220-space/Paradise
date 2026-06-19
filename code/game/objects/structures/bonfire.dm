@@ -64,7 +64,7 @@
 
 	underlays += rod
 
-/obj/structure/bonfire/attackby(obj/item/used_item, mob/user, params)
+/obj/structure/bonfire/attackby(obj/item/used_item, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

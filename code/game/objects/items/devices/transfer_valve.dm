@@ -19,7 +19,7 @@
 	attacher = null
 	return ..()
 
-/obj/item/transfer_valve/attackby(obj/item/I, mob/user, params)
+/obj/item/transfer_valve/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/tank))
 		add_fingerprint(user)
 		if(tank_one && tank_two)

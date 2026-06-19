@@ -61,7 +61,7 @@
 	balloon_alert(user, "шприц разряжен!")
 	return TRUE
 
-/obj/item/gun/syringe/attackby(obj/item/I, mob/user, params)
+/obj/item/gun/syringe/attackby(obj/item/I, mob/user, list/modifiers)
 	if(issyringe(I))
 		add_fingerprint(user)
 		var/in_clip = length(syringes) + (chambered.BB ? 1 : 0)

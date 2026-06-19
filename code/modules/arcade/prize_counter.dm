@@ -29,7 +29,7 @@
 	else
 		icon_state = "prize_counter-on"
 
-/obj/machinery/prize_counter/attackby(obj/item/I, mob/user, params)
+/obj/machinery/prize_counter/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

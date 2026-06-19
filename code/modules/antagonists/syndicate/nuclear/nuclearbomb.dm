@@ -123,7 +123,7 @@ GLOBAL_VAR(bomb_set)
 			INVOKE_ASYNC(src, PROC_REF(explode))
 	return
 
-/obj/machinery/nuclearbomb/attackby(obj/item/I, mob/user, params)
+/obj/machinery/nuclearbomb/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

@@ -62,7 +62,7 @@
 
 	qdel(src)
 
-/obj/structure/closet/crate/large/attackby(obj/item/item, mob/user, params)
+/obj/structure/closet/crate/large/attackby(obj/item/item, mob/user, list/modifiers)
 	if(user.a_intent != INTENT_HARM)
 		attack_hand(user)
 		return ATTACK_CHAIN_BLOCKED_ALL

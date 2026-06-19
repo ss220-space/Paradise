@@ -139,7 +139,7 @@
 	to_chat(viewers(user), span_suicide("[user] облизыва[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)]! Похоже, что [GEND_HE_SHE(user)] пыта[PLUR_ET_YUT(user)]ся совершить самоубийство!"))
 	return FIRELOSS
 
-/obj/item/stock_parts/cell/attackby(obj/item/I, mob/user, params)
+/obj/item/stock_parts/cell/attackby(obj/item/I, mob/user, list/modifiers)
 	if(issyringe(I))
 		add_fingerprint(user)
 		var/obj/item/reagent_containers/syringe/syringe = I

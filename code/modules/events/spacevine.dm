@@ -129,7 +129,7 @@
 
 //All of this shit is useless for vines
 
-/turf/simulated/floor/vines/attackby(obj/item/item, mob/user, params)
+/turf/simulated/floor/vines/attackby(obj/item/item, mob/user, list/modifiers)
 	. = ..()
 	return .|ATTACK_CHAIN_BLOCKED_ALL
 
@@ -520,7 +520,7 @@
 			eater.say("Nom")
 		wither()
 
-/obj/structure/spacevine/proceed_attack_results(obj/item/item, mob/living/user, params, def_zone)
+/obj/structure/spacevine/proceed_attack_results(obj/item/item, mob/living/user, list/modifiers, def_zone)
 	. = ..()
 	if(!item.force)
 		user.visible_message(

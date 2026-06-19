@@ -228,7 +228,7 @@
 		else
 			to_chat(user, "The device must first be secured to the floor.")
 
-/obj/machinery/shieldgen/attackby(obj/item/I, mob/user, params)
+/obj/machinery/shieldgen/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/card/emag))
 		add_fingerprint(user)
 		malfunction = TRUE
@@ -470,7 +470,7 @@
 	set_anchored(!anchored)
 	to_chat(user, "You [anchored ? "secure" : "loosen"] the external reinforcing bolts [anchored ? "to" : "from"] the floor.")
 
-/obj/machinery/shieldwallgen/attackby(obj/item/I, mob/user, params)
+/obj/machinery/shieldwallgen/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
@@ -640,7 +640,7 @@
 	phaseout()
 	return ..()
 
-/obj/machinery/shieldwall/syndicate/attackby(obj/item/I, mob/user, params)
+/obj/machinery/shieldwall/syndicate/attackby(obj/item/I, mob/user, list/modifiers)
 	. = ..()
 	if(!ATTACK_CHAIN_CANCEL_CHECK(.))
 		phaseout()

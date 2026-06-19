@@ -93,7 +93,7 @@
 			switch_spear_mode(/datum/secspear_mode/off)
 		update_charge_overlay() // Update overlay after EMP
 
-/obj/item/twohanded/spear/secspear/attackby(obj/item/I, mob/user, params)
+/obj/item/twohanded/spear/secspear/attackby(obj/item/I, mob/user, list/modifiers)
 	if(iscell(I))
 		var/obj/item/stock_parts/cell/new_cell = I
 
@@ -118,7 +118,7 @@
 
 	return ..()
 
-/obj/item/twohanded/spear/secspear/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim)
+/obj/item/twohanded/spear/secspear/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim)
 	. = ..()
 
 	if(!(. & ATTACK_CHAIN_SUCCESS))
@@ -126,7 +126,7 @@
 
 	power_usage()
 
-/obj/item/twohanded/spear/secspear/attack_obj(obj/object, mob/living/user, params)
+/obj/item/twohanded/spear/secspear/attack_obj(obj/object, mob/living/user, list/modifiers)
 	. = ..()
 
 	if(!(. & ATTACK_CHAIN_SUCCESS))

@@ -9,7 +9,7 @@
 	throw_speed = 3
 	materials = list(MAT_METAL=30, MAT_GLASS=20)
 
-/obj/item/slime_scanner/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/slime_scanner/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(user.incapacitated() || user.AmountBlinded())
 		return ..()
 	. = ATTACK_CHAIN_PROCEED

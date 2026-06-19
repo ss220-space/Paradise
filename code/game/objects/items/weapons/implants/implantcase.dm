@@ -39,7 +39,7 @@
 	if(imp)
 		. += image('icons/obj/implants.dmi', imp.implant_state)
 
-/obj/item/implantcase/attackby(obj/item/I, mob/user, params)
+/obj/item/implantcase/attackby(obj/item/I, mob/user, list/modifiers)
 	if(is_pen(I))
 		rename_interactive(user, I)
 		return ATTACK_CHAIN_PROCEED_SUCCESS

@@ -47,7 +47,7 @@
 			break
 	return power_station
 
-/obj/machinery/computer/teleporter/attackby(obj/item/I, mob/living/user, params)
+/obj/machinery/computer/teleporter/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM || (stat & (NOPOWER|BROKEN)))
 		return ..()
 
@@ -390,7 +390,7 @@
 			power_station.toggle() // turn off the portal.
 		use_power(5000)
 
-/obj/machinery/teleport/hub/attackby(obj/item/I, mob/user, params)
+/obj/machinery/teleport/hub/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 	if(exchange_parts(user, I))
@@ -536,7 +536,7 @@
 	else
 		set_light_on(FALSE)
 
-/obj/machinery/teleport/perma/attackby(obj/item/I, mob/user, params)
+/obj/machinery/teleport/perma/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 	if(exchange_parts(user, I))
@@ -604,7 +604,7 @@
 		teleporter_console = null
 	return ..()
 
-/obj/machinery/teleport/station/attackby(obj/item/I, mob/user, params)
+/obj/machinery/teleport/station/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

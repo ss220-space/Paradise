@@ -182,7 +182,7 @@
 		return
 	default_unfasten_wrench(user, I, 10)
 
-/obj/structure/clockwork/wall_gear/attackby(obj/item/I, mob/user, params)
+/obj/structure/clockwork/wall_gear/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/stack/sheet/brass))
 		add_fingerprint(user)
 		var/obj/item/stack/sheet/brass/brass = I
@@ -233,7 +233,7 @@
 		new /obj/structure/girder/cult(loc)
 		qdel(src)
 
-/obj/structure/clockwork/wall_gear/fake/attackby(obj/item/I, mob/user, params)
+/obj/structure/clockwork/wall_gear/fake/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/stack/sheet/brass_fake))
 		var/obj/item/stack/sheet/brass_fake/brass = I
 		if(brass.get_amount() < 1)

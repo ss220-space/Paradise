@@ -313,7 +313,7 @@
 		pai.extinguish_light()
 		set_light_on(FALSE)
 
-/obj/item/paicard/attackby(obj/item/I, mob/user, params)
+/obj/item/paicard/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/pai_cartridge))
 		add_fingerprint(user)
 		if(!pai)

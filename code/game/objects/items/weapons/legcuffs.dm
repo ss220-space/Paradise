@@ -71,7 +71,7 @@
 		update_icon(UPDATE_ICON_STATE)
 		balloon_alert(user, "[armed ? "взведён" : "обезврежен"]")
 
-/obj/item/restraints/legcuffs/beartrap/attackby(obj/item/I, mob/user, params)
+/obj/item/restraints/legcuffs/beartrap/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/grenade/iedcasing))	//Let's get explosive.
 		add_fingerprint(user)
 		if(IED)

@@ -6,7 +6,7 @@
 	var/auth_need = 3
 	var/list/authorized = list()
 
-/obj/machinery/computer/emergency_shuttle/attackby(obj/item/I, mob/user, params)
+/obj/machinery/computer/emergency_shuttle/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

@@ -39,7 +39,7 @@
 	..()
 	change_state()
 
-/obj/item/pet_carrier/attackby(obj/item/I, mob/user, params)
+/obj/item/pet_carrier/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/holder))
 		add_fingerprint(user)
 		for(var/mob/living/animal in I.contents)

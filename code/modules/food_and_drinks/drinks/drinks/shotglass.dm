@@ -115,12 +115,12 @@
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/burn() //Let's override fire deleting the reagents inside the shot
 	return
 
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50) && (resistance_flags & ON_FIRE))
 		return clumsilyDrink(user)
 	return ..()
 
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/attackby(obj/item/I, mob/user, params)
+/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/attackby(obj/item/I, mob/user, list/modifiers)
 	. = ..()
 
 	if(!ATTACK_CHAIN_CANCEL_CHECK(.) && I.get_temperature())

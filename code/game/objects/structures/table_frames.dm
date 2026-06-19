@@ -17,7 +17,7 @@
 	var/framestack = /obj/item/stack/rods
 	var/framestackamount = 2
 
-/obj/structure/table_frame/attackby(obj/item/I, mob/user, params)
+/obj/structure/table_frame/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
@@ -121,7 +121,7 @@
 	framestack = /obj/item/stack/sheet/wood
 	resistance_flags = FLAMMABLE
 
-/obj/structure/table_frame/wood/attackby(obj/item/I, mob/user, params)
+/obj/structure/table_frame/wood/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
@@ -163,7 +163,7 @@
 	framestack = /obj/item/stack/sheet/brass
 	framestackamount = 1
 
-/obj/structure/table_frame/brass/attackby(obj/item/I, mob/user, params)
+/obj/structure/table_frame/brass/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
@@ -194,7 +194,7 @@
 	desc = "Four pieces of brass arranged in a square. It's slightly warm to the touch, and not because of magic!"
 	framestack = /obj/item/stack/sheet/brass_fake
 
-/obj/structure/table_frame/brass/fake/attackby(obj/item/I, mob/user, params)
+/obj/structure/table_frame/brass/fake/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

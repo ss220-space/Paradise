@@ -43,7 +43,7 @@
 	update_icon(UPDATE_ICON_STATE)
 	REMOVE_TRAIT(user, TRAIT_MOVE_FLYING, ITEM_BROOM_TRAIT)
 
-/obj/item/twohanded/staff/broom/attackby(obj/item/I, mob/user, params)
+/obj/item/twohanded/staff/broom/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/clothing/mask/horsehead))
 		if(loc == user && !user.can_unEquip(src))
 			return ATTACK_CHAIN_PROCEED

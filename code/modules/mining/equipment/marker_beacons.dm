@@ -134,7 +134,7 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 		playsound(src, 'sound/items/deconstruct.ogg', 50, TRUE)
 		qdel(src)
 
-/obj/structure/marker_beacon/attackby(obj/item/I, mob/user, params)
+/obj/structure/marker_beacon/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

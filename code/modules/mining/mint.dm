@@ -136,7 +136,7 @@
 		if("ejectBag")
 			eject_bag(usr)
 
-/obj/machinery/mineral/mint/attackby(obj/item/I, mob/user, params)
+/obj/machinery/mineral/mint/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/storage/bag/money))
 		if(money_bag)
 			balloon_alert(usr, "слот для мешка занят!")

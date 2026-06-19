@@ -48,7 +48,7 @@
 	/// Shield bash cooldown
 	COOLDOWN_DECLARE(cooldown)
 
-/obj/item/shield/riot/attackby(obj/item/I, mob/user, params)
+/obj/item/shield/riot/attackby(obj/item/I, mob/user, list/modifiers)
 	if(isbaton(I) && COOLDOWN_FINISHED(src, cooldown))
 		COOLDOWN_START(src, cooldown, 2.5 SECONDS)
 		user.visible_message(

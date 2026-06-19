@@ -12,7 +12,7 @@
 	if(exposed_temperature > 300)
 		hot_ice_melt()
 
-/obj/item/stack/sheet/hot_ice/attackby(obj/item/thing, mob/user, params)
+/obj/item/stack/sheet/hot_ice/attackby(obj/item/thing, mob/user, list/modifiers)
 	if(thing.get_temperature())
 		hot_ice_melt(user)
 		return ATTACK_CHAIN_BLOCKED

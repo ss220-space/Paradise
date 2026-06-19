@@ -299,7 +299,7 @@
 	playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 	return FALSE
 
-/obj/item/mod/control/attackby(obj/item/attacking_item, mob/living/user, params)
+/obj/item/mod/control/attackby(obj/item/attacking_item, mob/living/user, list/modifiers)
 	if(istype(attacking_item, /obj/item/mod/module))
 		if(!open)
 			balloon_alert(user, "откройте крышку!")
@@ -337,19 +337,19 @@
 			balloon_alert(user, "ядро отсутствует!")
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 			return ATTACK_CHAIN_BLOCKED_ALL
-		core.on_attackby(attacking_item, user, params)
+		core.on_attackby(attacking_item, user, modifiers)
 		return ATTACK_CHAIN_PROCEED
 	if(istype(attacking_item, /obj/item/stack/ore/plasma) || istype(attacking_item, /obj/item/stack/sheet/mineral/plasma))
 		if(!core)
 			balloon_alert(user, "ядро отсутствует!")
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 			return ATTACK_CHAIN_BLOCKED_ALL
-		core.on_attackby(attacking_item, user, params)
+		core.on_attackby(attacking_item, user, modifiers)
 	if(istype(attacking_item, /obj/item/mod/skin_applier))
 		return ..()
 	if(bag && istype(attacking_item))
 		bag.forceMove(user)
-		bag.attackby(attacking_item, user, params)
+		bag.attackby(attacking_item, user, modifiers)
 
 	return ..()
 

@@ -52,7 +52,7 @@
 	tank = null
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/item/gun/pneumatic_rifle/attackby(obj/item/I, mob/user, params)
+/obj/item/gun/pneumatic_rifle/attackby(obj/item/I, mob/user, list/modifiers)
 	if(iscoil(I))
 		add_fingerprint(user)
 		if(isBelted)

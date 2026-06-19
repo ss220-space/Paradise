@@ -296,7 +296,7 @@
 	set_welded(FALSE)
 	playsound(loc, 'sound/weapons/bladeslice.ogg', 100, TRUE)
 
-/obj/machinery/atmospherics/unary/vent_pump/attackby(obj/item/I, mob/user, params)
+/obj/machinery/atmospherics/unary/vent_pump/attackby(obj/item/I, mob/user, list/modifiers)
 	. = ..()
 
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))

@@ -106,7 +106,7 @@
 		set_light(l_on = TRUE)
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/machinery/floodlight/attackby(obj/item/I, mob/user, params)
+/obj/machinery/floodlight/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

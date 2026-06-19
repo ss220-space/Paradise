@@ -376,7 +376,7 @@
 		attacked += 10 - age_state.attacked
 		discipline_slime(M)
 
-/mob/living/simple_animal/slime/attackby(obj/item/I, mob/living/user, params)
+/mob/living/simple_animal/slime/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		if(I.force && prob(25))
 			user.do_attack_animation(src)

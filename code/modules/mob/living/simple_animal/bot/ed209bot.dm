@@ -207,7 +207,7 @@
 		retaliate(H)
 	return ..()
 
-/mob/living/simple_animal/bot/ed209/attackby(obj/item/I, mob/user, params)
+/mob/living/simple_animal/bot/ed209/attackby(obj/item/I, mob/user, list/modifiers)
 	var/current_health = health
 	. = ..()
 	if(ATTACK_CHAIN_CANCEL_CHECK(.) || health >= current_health)

@@ -124,7 +124,7 @@
 		toggle_cam(null, 0)
 	return ..()
 
-/obj/machinery/camera/attackby(obj/item/I, mob/living/user, params)
+/obj/machinery/camera/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
@@ -193,7 +193,7 @@
 
 	if(istype(I, /obj/item/laser_pointer))
 		var/obj/item/laser_pointer/laser = I
-		laser.laser_act(src, user, params)
+		laser.laser_act(src, user, modifiers)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()

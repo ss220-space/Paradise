@@ -105,7 +105,7 @@
 				injection_target.reagents.trans_to(src, amount_per_transfer_from_this/10)
 			update_icon(UPDATE_OVERLAYS)
 
-/obj/item/reagent_containers/iv_bag/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/reagent_containers/iv_bag/attack(mob/living/carbon/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(!iscarbon(target) || !target.reagents)
 		return ..()
 
@@ -202,7 +202,7 @@
 			if(IV_INJECT)
 				. += "inject"
 
-/obj/item/reagent_containers/iv_bag/attackby(obj/item/I, mob/user, params)
+/obj/item/reagent_containers/iv_bag/attackby(obj/item/I, mob/user, list/modifiers)
 	if(is_pen(I) || istype(I, /obj/item/flashlight/pen))
 		rename_interactive(user, I)
 		return ATTACK_CHAIN_PROCEED_SUCCESS

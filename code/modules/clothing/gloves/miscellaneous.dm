@@ -208,7 +208,7 @@
 	if(cell)
 		. += "gloves_cell"
 
-/obj/item/clothing/gloves/color/yellow/stun/attackby(obj/item/I, mob/living/user, params)
+/obj/item/clothing/gloves/color/yellow/stun/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(iscell(I))
 		add_fingerprint(user)
 		if(cell)

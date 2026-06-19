@@ -27,7 +27,7 @@
 
 	. += span_notice("Вмещает до <b>[reagents.maximum_volume]</b> единиц[declension_ru(reagents.maximum_volume, "ы", "", "")] вещества.")
 
-/obj/item/reagent_containers/glass/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/reagent_containers/glass/attack(mob/living/carbon/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(!is_open_container())
 		return ..()
 
@@ -124,7 +124,7 @@
 			)
 			make_splashes(target)
 
-/obj/item/reagent_containers/glass/attackby(obj/item/I, mob/user, params)
+/obj/item/reagent_containers/glass/attackby(obj/item/I, mob/user, list/modifiers)
 	if(is_pen(I) || istype(I, /obj/item/flashlight/pen))
 		var/rename = rename_interactive(user, I)
 		if(!isnull(rename))
@@ -220,7 +220,7 @@
 	if(reagents)
 		reagents.temperature_reagents(4000)
 
-/obj/item/reagent_containers/glass/beaker/attackby(obj/item/I, mob/user, params)
+/obj/item/reagent_containers/glass/beaker/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/assembly_holder))
 		add_fingerprint(user)
 		if(!can_assembly)
@@ -430,7 +430,7 @@
 		color = "#0085E5"
 	update_icon(UPDATE_OVERLAYS) //in case bucket's color has been changed in editor or by some deriving buckets
 
-/obj/item/reagent_containers/glass/bucket/attackby(obj/item/I, mob/user, params)
+/obj/item/reagent_containers/glass/bucket/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/toy/crayon/spraycan))
 		add_fingerprint(user)
 		var/obj/item/toy/crayon/spraycan/can = I
@@ -585,7 +585,7 @@
 	. = ..()
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/item/reagent_containers/glass/pet_bowl/attackby(obj/item/I, mob/user, params)
+/obj/item/reagent_containers/glass/pet_bowl/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/toy/crayon/spraycan))
 		add_fingerprint(user)
 		var/obj/item/toy/crayon/spraycan/can = I

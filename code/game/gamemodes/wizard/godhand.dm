@@ -39,7 +39,7 @@
 
 	return ..()
 
-/obj/item/melee/touch_attack/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/melee/touch_attack/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(!iscarbon(user)) //Look ma, no hands
 		return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))

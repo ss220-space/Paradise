@@ -120,7 +120,7 @@
 	to_chat(defender, span_danger("Your chameleon projector deactivates."))
 	add_attack_logs(attacker, defender, "disrupt [master] by [item ? item : "attack"]")
 
-/obj/effect/dummy/chameleon/attackby(obj/item/item, mob/user, params)
+/obj/effect/dummy/chameleon/attackby(obj/item/item, mob/user, list/modifiers)
 	. = ..()
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))
 		return .

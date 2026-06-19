@@ -136,7 +136,7 @@ GLOBAL_LIST_EMPTY(firealarms)
 		alarm(rand(30/severity, 60/severity))
 	..()
 
-/obj/machinery/firealarm/attackby(obj/item/I, mob/user, params)
+/obj/machinery/firealarm/attackby(obj/item/I, mob/user, list/modifiers)
 	if(!wiresexposed || user.a_intent == INTENT_HARM)
 		return ..()
 

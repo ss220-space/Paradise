@@ -32,9 +32,9 @@
 		. += bombassembly.overlays
 		. += "bomb_assembly"
 
-/obj/item/onetankbomb/attackby(obj/item/I, mob/user, params)
+/obj/item/onetankbomb/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/analyzer))
-		bombtank.attackby(I, user, params)
+		bombtank.attackby(I, user, modifiers)
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
 

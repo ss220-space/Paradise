@@ -315,7 +315,7 @@ GLOBAL_LIST_EMPTY(pod_trackers)
 	var/id = 0
 
 // Key - Lock Interactions
-/obj/item/spacepod_equipment/lock/keyed/attackby(obj/item/I, mob/user, params)
+/obj/item/spacepod_equipment/lock/keyed/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/spacepod_equipment/key))
 		add_fingerprint(user)
 		var/obj/item/spacepod_equipment/key/key = I

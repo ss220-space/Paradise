@@ -253,7 +253,7 @@
 	object.desc = "Looks like this was \an [src] some time ago."
 	qdel(src)
 
-/obj/structure/glowshroom/proceed_attack_results(obj/item/item, mob/living/user, params, def_zone)
+/obj/structure/glowshroom/proceed_attack_results(obj/item/item, mob/living/user, list/modifiers, def_zone)
 	. = ..()
 	if(!item.force)
 		user.visible_message(

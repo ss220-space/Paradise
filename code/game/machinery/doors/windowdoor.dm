@@ -290,7 +290,7 @@
 	operating = FALSE
 	return TRUE
 
-/obj/machinery/door/window/attackby(obj/item/I, mob/living/user, params)
+/obj/machinery/door/window/attackby(obj/item/I, mob/living/user, list/modifiers)
 	//If it's in the process of opening/closing, ignore the click
 	if(operating)
 		add_fingerprint(user)

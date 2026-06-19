@@ -181,7 +181,7 @@
 #undef CABLE_CRAFT_MULTIZ_CABLE_HUB
 
 //you can use wires to heal robotics
-/obj/item/stack/cable_coil/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/stack/cable_coil/attack(mob/living/carbon/human/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(!ishuman(target))
 		return ..()
 
@@ -244,7 +244,7 @@
 		target.UpdateDamageIcon()
 	REMOVE_TRAIT(target, TRAIT_REPAIRING_LIMB, UNIQUE_TRAIT_SOURCE(src))
 
-/obj/item/stack/cable_coil/attackby(obj/item/I, mob/user, params)
+/obj/item/stack/cable_coil/attackby(obj/item/I, mob/user, list/modifiers)
 	if(iscrayon(I))
 		add_fingerprint(user)
 		var/obj/item/toy/crayon/crayon = I

@@ -46,7 +46,7 @@
 		update_icon(UPDATE_ICON_STATE)
 		STOP_PROCESSING(SSobj, src)
 
-/obj/item/twohanded/garrote/attack(mob/living/carbon/human/target, mob/living/carbon/human/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/twohanded/garrote/attack(mob/living/carbon/human/target, mob/living/carbon/human/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(!COOLDOWN_FINISHED(src, garrote_cooldown) || !ishuman(user))
 		return ..()
 

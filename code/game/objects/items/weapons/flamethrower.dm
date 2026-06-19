@@ -80,7 +80,7 @@
 			flame_turf(turflist)
 			playsound(src, 'sound/weapons/gunshots/1flamethr.ogg', 50, TRUE)
 
-/obj/item/flamethrower/attackby(obj/item/I, mob/user, params)
+/obj/item/flamethrower/attackby(obj/item/I, mob/user, list/modifiers)
 	if(isigniter(I))
 		add_fingerprint(user)
 		var/obj/item/assembly/igniter/new_igniter = I

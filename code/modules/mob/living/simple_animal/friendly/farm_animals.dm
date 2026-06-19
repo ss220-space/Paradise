@@ -85,7 +85,7 @@
 	if(!stat)
 		eat_plants()
 
-/mob/living/simple_animal/hostile/retaliate/goat/attackby(obj/item/I, mob/user, params)
+/mob/living/simple_animal/hostile/retaliate/goat/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
@@ -198,7 +198,7 @@
 	udder = null
 	return ..()
 
-/mob/living/simple_animal/cow/attackby(obj/item/I, mob/user, params)
+/mob/living/simple_animal/cow/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
@@ -398,7 +398,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 		return
 	GLOB.chicken_count -= 1
 
-/mob/living/simple_animal/chicken/attackby(obj/item/I, mob/user, params)
+/mob/living/simple_animal/chicken/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

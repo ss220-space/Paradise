@@ -110,7 +110,7 @@
 	else
 		. = timer_set
 
-/obj/machinery/syndicatebomb/attackby(obj/item/I, mob/user, params)
+/obj/machinery/syndicatebomb/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
@@ -557,7 +557,7 @@
 		qdel(loc)
 	qdel(src)
 
-/obj/item/bombcore/chemical/attackby(obj/item/I, mob/user, params)
+/obj/item/bombcore/chemical/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
@@ -631,7 +631,7 @@
 	icon_state = "chemcore"
 	var/obj/item/transfer_valve/ttv = null
 
-/obj/item/bombcore/toxins/attackby(obj/item/I, mob/user, params)
+/obj/item/bombcore/toxins/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

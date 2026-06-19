@@ -42,7 +42,7 @@
 
 	. += span_warning("Не хватает ядра энергетической аномалии и БС кристалла для работы.")
 
-/obj/item/gun/energy/bsg/attackby(obj/item/item, mob/user, params)
+/obj/item/gun/energy/bsg/attackby(obj/item/item, mob/user, list/modifiers)
 	if(isbluespacecrystal(item))
 		add_fingerprint(user)
 		var/obj/item/stack/ore/bluespace_crystal/crystal = item

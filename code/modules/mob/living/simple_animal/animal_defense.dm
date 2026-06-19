@@ -1,4 +1,4 @@
-/mob/living/simple_animal/attackby(obj/item/I, mob/user, params)
+/mob/living/simple_animal/attackby(obj/item/I, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)	// no bullshit interactions in combat
 		return ..()
 

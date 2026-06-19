@@ -94,7 +94,7 @@
 		return TRUE
 	return ..()
 
-/turf/simulated/mineral/attackby(obj/item/I, mob/user, params)
+/turf/simulated/mineral/attackby(obj/item/I, mob/user, list/modifiers)
 	. = ..()
 
 	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !isturf(user.loc) || !COOLDOWN_FINISHED(src, last_act) || !is_type_in_typecache(I, allowed_picks_typecache))
@@ -927,7 +927,7 @@
 	det_time = rand(8,10) //So you don't know exactly when the hot potato will explode
 	. = ..()
 
-/turf/simulated/mineral/gibtonite/attackby(obj/item/I, mob/user, params)
+/turf/simulated/mineral/gibtonite/attackby(obj/item/I, mob/user, list/modifiers)
 	. = ..()
 
 	var/static/list/allowed_scan_tools = typecacheof(list(

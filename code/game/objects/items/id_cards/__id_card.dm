@@ -220,7 +220,7 @@
 	name = "[newname ? "[newname]`s ID-card" : "identification card"][newjob ? " ([newjob])" : ""]"
 	set_ru_names_suffix("[newname ? " \"[newname]\"" : ""][newjob ? " ([newjob])" : ""]")
 
-/obj/item/card/id/attackby(obj/item/I, mob/user, params)
+/obj/item/card/id/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/id_decal))
 		add_fingerprint(user)
 		var/obj/item/id_decal/decal = I

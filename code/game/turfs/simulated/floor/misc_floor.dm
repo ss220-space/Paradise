@@ -69,7 +69,7 @@
 	if(user)
 		to_chat(user, span_notice("Looks like someone has dug here already."))
 
-/turf/simulated/floor/beach/sand/attackby(obj/item/I, mob/user, params)
+/turf/simulated/floor/beach/sand/attackby(obj/item/I, mob/user, list/modifiers)
 	. = ..()
 
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))

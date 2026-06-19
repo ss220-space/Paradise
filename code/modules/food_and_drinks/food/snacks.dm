@@ -66,7 +66,7 @@
 	else
 		return
 
-/obj/item/reagent_containers/food/snacks/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/reagent_containers/food/snacks/attack(mob/living/carbon/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(!iscarbon(target) || (user.a_intent == INTENT_HARM && force))
 		return ..()
 
@@ -109,7 +109,7 @@
 			else
 				. += span_notice("[src] was bitten multiple times!")
 
-/obj/item/reagent_containers/food/snacks/attackby(obj/item/I, mob/user, params)
+/obj/item/reagent_containers/food/snacks/attackby(obj/item/I, mob/user, list/modifiers)
 	if(is_pen(I))
 		rename_interactive(user, I, use_prefix = FALSE, prompt = "What would you like to name this dish?")
 		return ATTACK_CHAIN_PROCEED_SUCCESS
@@ -215,7 +215,7 @@
 	add_fingerprint(user)
 	return CLICK_ACTION_SUCCESS
 
-/obj/item/reagent_containers/food/snacks/sliceable/attackby(obj/item/I, mob/user, params)
+/obj/item/reagent_containers/food/snacks/sliceable/attackby(obj/item/I, mob/user, list/modifiers)
 	. = ..()
 
 	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !I.sharp || (slices_num <= 0 || !slices_num) || !slice_path)

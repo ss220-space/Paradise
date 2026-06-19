@@ -217,7 +217,7 @@
 		return .
 	Interact(user)
 
-/obj/item/robot_parts/robot_suit/attackby(obj/item/I, mob/living/user, params)
+/obj/item/robot_parts/robot_suit/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(is_pen(I))
 		to_chat(user, span_warning("You need to use a multitool to rename [src]!"))
 		return ATTACK_CHAIN_BLOCKED_ALL
@@ -487,7 +487,7 @@
 	Interact(usr)
 	return
 
-/obj/item/robot_parts/chest/attackby(obj/item/I, mob/living/user, params)
+/obj/item/robot_parts/chest/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(iscell(I))
 		add_fingerprint(user)
 		if(cell)
@@ -514,7 +514,7 @@
 
 	return ..()
 
-/obj/item/robot_parts/head/attackby(obj/item/I, mob/living/user, params)
+/obj/item/robot_parts/head/attackby(obj/item/I, mob/living/user, list/modifiers)
 	if(istype(I, /obj/item/flash))
 		add_fingerprint(user)
 		if(isrobot(user))

@@ -204,7 +204,7 @@
 /obj/structure/bed/roller/wrench_act(mob/user, obj/item/wrench)
 	return FALSE
 
-/obj/structure/bed/roller/attackby(obj/item/item, mob/user, params)
+/obj/structure/bed/roller/attackby(obj/item/item, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
@@ -294,7 +294,7 @@
 		)
 	qdel(src)
 
-/obj/item/roller/attackby(obj/item/item, mob/user, params)
+/obj/item/roller/attackby(obj/item/item, mob/user, list/modifiers)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 

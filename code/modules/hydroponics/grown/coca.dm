@@ -28,7 +28,7 @@
 	desc = "Zip packet of cocainet. Can`t wait to make trail of it."
 	icon_state = "coca_packet"
 
-/obj/item/coca_packet/attackby(obj/item/I, mob/user, params)
+/obj/item/coca_packet/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/card) || I.sharp)
 		to_chat(user, span_notice("You have formed two trails of cocaine on the surface."))	// FBI OPEN UP
 		var/turf/our_turf = get_turf(src)
@@ -56,7 +56,7 @@
 	list_reagents = list()
 	smoketime = 150
 
-/obj/item/clothing/mask/cigarette/pipe/crack_pipe/attackby(obj/item/I, mob/user, params)
+/obj/item/clothing/mask/cigarette/pipe/crack_pipe/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/crack_crystal))
 		add_fingerprint(user)
 		if(reagents.total_volume + 5 > reagents.maximum_volume)

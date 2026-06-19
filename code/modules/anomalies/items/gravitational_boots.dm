@@ -110,7 +110,7 @@
 	cell.update_icon()
 	update_icon()
 
-/obj/item/clothing/shoes/magboots/gravity/attackby(obj/item/item, mob/user, params)
+/obj/item/clothing/shoes/magboots/gravity/attackby(obj/item/item, mob/user, list/modifiers)
 	if(iscell(item))
 		add_fingerprint(user)
 		if(cell)

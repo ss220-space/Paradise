@@ -46,7 +46,7 @@
 	else
 		icon_state = initial(icon_state)
 
-/obj/item/gun/blastcannon/attackby(obj/item/I, mob/user, params)
+/obj/item/gun/blastcannon/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/transfer_valve))
 		add_fingerprint(user)
 		var/obj/item/transfer_valve/valve = I

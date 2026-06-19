@@ -80,7 +80,7 @@
 		else
 			codes[e] = "1"
 
-/obj/machinery/navbeacon/attackby(obj/item/I, mob/user, params)
+/obj/machinery/navbeacon/attackby(obj/item/I, mob/user, list/modifiers)
 	var/turf/our_turf = loc
 	if(!isturf(our_turf) || our_turf.underfloor_accessibility < UNDERFLOOR_INTERACTABLE)	// prevent intraction when T-scanner revealed
 		return ATTACK_CHAIN_BLOCKED_ALL

@@ -142,7 +142,7 @@
 	target = null
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/item/grenade/iedsatchel/attackby(obj/item/I, mob/user, params)
+/obj/item/grenade/iedsatchel/attackby(obj/item/I, mob/user, list/modifiers)
 	if(active)
 		return ATTACK_CHAIN_BLOCKED_ALL
 

@@ -50,7 +50,7 @@
 	user.put_in_hands(bananade, ignore_anim = FALSE)
 	qdel(src)
 
-/obj/item/grenade/bananade/casing/attackby(obj/item/I, mob/user, params)
+/obj/item/grenade/bananade/casing/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/grown/bananapeel))
 		add_fingerprint(user)
 		if(fillamt >= 9)

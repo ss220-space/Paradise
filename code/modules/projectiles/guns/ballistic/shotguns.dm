@@ -23,7 +23,7 @@
 	. = ..()
 	AddElement(/datum/element/item_skins, item_path = /obj/item/gun/projectile/shotgun/riot)
 
-/obj/item/gun/projectile/shotgun/riot/attackby(obj/item/I, mob/user, params)
+/obj/item/gun/projectile/shotgun/riot/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/circular_saw) || istype(I, /obj/item/gun/energy/plasmacutter))
 		add_fingerprint(user)
 		if(sawoff(user))
@@ -378,7 +378,7 @@
 	else
 		w_class = WEIGHT_CLASS_NORMAL
 
-/obj/item/gun/projectile/automatic/shotgun/bulldog/attackby(obj/item/I, mob/user, params)
+/obj/item/gun/projectile/automatic/shotgun/bulldog/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/ammo_box/magazine/m12g/XtrLrg) && isstorage(loc))	// To prevent inventory exploits
 		var/obj/item/storage/storage = loc
 		if(storage.max_w_class < WEIGHT_CLASS_BULKY)
@@ -463,7 +463,7 @@
 	. = ..()
 	AddElement(/datum/element/item_skins)
 
-/obj/item/gun/projectile/revolver/doublebarrel/attackby(obj/item/I, mob/user, params)
+/obj/item/gun/projectile/revolver/doublebarrel/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/circular_saw) || istype(I, /obj/item/gun/energy/plasmacutter))
 		add_fingerprint(user)
 		if(sawoff(user))
@@ -521,7 +521,7 @@
 	accuracy = GUN_ACCURACY_MINIMAL
 	recoil = GUN_RECOIL_MEGA
 
-/obj/item/gun/projectile/revolver/doublebarrel/improvised/attackby(obj/item/I, mob/user, params)
+/obj/item/gun/projectile/revolver/doublebarrel/improvised/attackby(obj/item/I, mob/user, list/modifiers)
 	if(iscoil(I))
 		add_fingerprint(user)
 		var/obj/item/stack/cable_coil/coil = I
@@ -591,7 +591,7 @@
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/update_overlays()
 	return list()
 
-/obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/attackby(obj/item/I, mob/user, params)
+/obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/attackby(obj/item/I, mob/user, list/modifiers)
 	if(iscoil(I))
 		return ATTACK_CHAIN_PROCEED
 	return ..()

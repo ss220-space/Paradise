@@ -20,7 +20,7 @@
 	var/use_flags = DA_IGNORE_USER_LOC_CHANGE | DA_IGNORE_LYING
 	merge_type = null // do not merge if not defined in subtype
 
-/obj/item/stack/medical/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/stack/medical/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(!iscarbon(target) && !isanimal(target))
 		target.balloon_alert(user, "неподходящая цель!")
 		return ..()
@@ -285,7 +285,7 @@
 /obj/item/stack/medical/bruise_pack/syndicate
 	energy_type = /datum/robot_energy_storage/medical/syndicate
 
-/obj/item/stack/medical/bruise_pack/attackby(obj/item/item, mob/user, params)
+/obj/item/stack/medical/bruise_pack/attackby(obj/item/item, mob/user, list/modifiers)
 	if(item.sharp)
 		add_fingerprint(user)
 		var/atom/drop_loc = drop_location()
@@ -305,7 +305,7 @@
 /obj/item/stack/medical/bruise_pack/update_icon_state()
 	icon_state = "gauze_[amount >= 5 ? 3 : (amount >= 3 ? 2 : 1)]"
 
-/obj/item/stack/medical/bruise_pack/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/stack/medical/bruise_pack/attack(mob/living/carbon/human/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	. = ..()
 	if(!ATTACK_CHAIN_SUCCESS_CHECK(.) || !ishuman(target))
 		return .
@@ -380,7 +380,7 @@
 		PREPOSITIONAL = "военном перевязочном пакете",
 	)
 
-/obj/item/stack/medical/bruise_pack/military/attackby(obj/item/I, mob/user, params)
+/obj/item/stack/medical/bruise_pack/military/attackby(obj/item/I, mob/user, list/modifiers)
 	if(I.sharp)
 		return ATTACK_CHAIN_PROCEED
 	return ..()
@@ -388,7 +388,7 @@
 /obj/item/stack/medical/bruise_pack/military/update_icon_state()
 	return
 
-/obj/item/stack/medical/bruise_pack/military/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/stack/medical/bruise_pack/military/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	. = ..()
 	if(!ATTACK_CHAIN_SUCCESS_CHECK(.) || !ishuman(target))
 		return .
@@ -514,7 +514,7 @@
 /obj/item/stack/medical/ointment/syndicate
 	energy_type = /datum/robot_energy_storage/medical/syndicate
 
-/obj/item/stack/medical/ointment/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/stack/medical/ointment/attack(mob/living/carbon/human/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	. = ..()
 	if(!ATTACK_CHAIN_SUCCESS_CHECK(.) || !ishuman(target))
 		return .
@@ -742,7 +742,7 @@
 		PREPOSITIONAL = "медицинской шине"
 	)
 
-/obj/item/stack/medical/splint/attack(mob/living/carbon/human/target, mob/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/stack/medical/splint/attack(mob/living/carbon/human/target, mob/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	. = ATTACK_CHAIN_PROCEED
 
 	if(!ishuman(target))
@@ -863,7 +863,7 @@
 /obj/item/stack/medical/suture/update_icon_state()
 	icon_state = "suture_[round_down((amount+1) / 2, 1)]"
 
-/obj/item/stack/medical/suture/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/stack/medical/suture/attack(mob/living/carbon/human/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	. = ATTACK_CHAIN_PROCEED
 
 	if(!ishuman(target))
@@ -1002,7 +1002,7 @@
 		PREPOSITIONAL = "турникете"
 	)
 
-/obj/item/tourniquet/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/tourniquet/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
 	if(!ishuman(target))
 		return ..()
 
