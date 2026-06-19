@@ -57,7 +57,7 @@ jobs:
             core.setOutput('labeled_pr_details', prDetails);
 
       - name: Git checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
