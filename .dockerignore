@@ -17,4 +17,5 @@ tgui/node_modules
 *.dll
 tools
 !tools/ci/install_byond.sh
-
+!tools/requirements.txt
+!tools/ci/install_dreamchecker.sh

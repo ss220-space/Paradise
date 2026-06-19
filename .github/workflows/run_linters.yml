@@ -8,7 +8,7 @@ jobs:
     name: Linters
     runs-on: ubuntu-24.04
     timeout-minutes: 15
-
+    container: ghcr.io/ss220-space/ubuntu-24.04:latest
     steps:
       - uses: actions/checkout@v7
 
@@ -28,30 +28,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-bootstrap-
 
-      - uses: actions/setup-python@v6
-        with:
-          python-version: "3.13"
-          cache: "pip"
-
-      - uses: actions/setup-node@v6
-        with:
-          node-version: 22.11.0
-          cache: "yarn"
-          cache-dependency-path: ./tgui/yarn.lock
-
-      - name: Install Python packages
-        run: pip install -r tools/requirements.txt
-
       - name: Install Tools
         run: |
-          pip install setuptools
-          bash tools/ci/install_build_deps.sh
           bash tools/ci/install_dreamchecker.sh
-
-      - name: Setup .NET SDK
-        uses: actions/setup-dotnet@v5
-        with:
-          dotnet-version: 9.x
 
       - name: Install OpenDream
         uses: robinraju/release-downloader@v1.13
