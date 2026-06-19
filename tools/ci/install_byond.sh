@@ -60,7 +60,12 @@ else
 
   rm byond.zip
   cd byond
-  make here
+  if [ -z "${DOCKER_BUILD+x}" ]; then
+	make here
+  else
+	make install
+  fi
+
   echo "$BYOND_MAJOR.$BYOND_MINOR" > "$HOME/BYOND/version.txt"
   cd ~/
 fi

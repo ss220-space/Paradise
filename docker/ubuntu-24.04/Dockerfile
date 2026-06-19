@@ -29,7 +29,6 @@ COPY tools/ci/install_byond.sh .
 RUN bash ./_build_dependencies.sh
 RUN echo "Installing BYOND"
 RUN bash ./install_byond.sh STABLE
-RUN source /root/BYOND/byond/bin/byondsetup
 
 RUN apt install -y software-properties-common
 RUN add-apt-repository ppa:deadsnakes/ppa
