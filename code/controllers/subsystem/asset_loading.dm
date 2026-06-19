@@ -34,7 +34,8 @@ SUBSYSTEM_DEF(asset_loading)
 		rustlib_iconforge_cleanup()
 
 /datum/controller/subsystem/asset_loading/Shutdown()
-	UNTIL(assets_generating)
+	while(assets_generating)
+		sleep(1)
 	return ..()
 
 /datum/controller/subsystem/asset_loading/proc/queue_asset(datum/asset/queue)

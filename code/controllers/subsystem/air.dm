@@ -205,7 +205,8 @@ SUBSYSTEM_DEF(air)
 	return ..()
 
 /datum/controller/subsystem/air/Shutdown()
-	UNTIL(!milla_idle)
+	while(!milla_idle)
+		sleep(1)
 	return ..()
 
 /datum/controller/subsystem/air/fire(resumed = 0)
