@@ -1021,7 +1021,7 @@
 
 	user.drop_item_ground(src)
 	src.forceMove(affecting)
-	target.balloon_alert(target, "турникет наложен")
+	target.balloon_alert_to_viewers("турникет наложен", "вы наложили турникет")
 	target.UpdateDamageIcon()
 	update_icon()
 	necrotize_warning_timer_id = addtimer(CALLBACK(src, PROC_REF(necrotize_limbs_warning), target), necrotize_warning_duration, TIMER_STOPPABLE)
@@ -1087,7 +1087,7 @@
 	if(!applied_bodypart)
 		return
 
-	user.balloon_alert(user, "[applied_bodypart.declent_ru(NOMINATIVE)] неме[PLUR_ET_YUT(applied_bodypart)]!")
+	user.balloon_alert(user, "конечность онемела!")
 	to_chat(user, span_danger("Ваш[GEND_A_E_I(user)] [applied_bodypart.declent_ru(NOMINATIVE)] неме[PLUR_ET_YUT(applied_bodypart)]!"))
 
 /obj/item/tourniquet/proc/necrotize_limbs(mob/living/target)

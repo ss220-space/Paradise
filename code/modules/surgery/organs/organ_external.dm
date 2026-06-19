@@ -1210,7 +1210,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(owner)
 		owner.update_body()
 		if(!silent)
-			owner.balloon_alert(owner, "[src] не двигается!")
+			owner.balloon_alert(owner, "Конечность не двигается!")
 			to_chat(owner, span_danger("Вы перестаёте чувствовать [GEND_YOUR(src)] [declent_ru(ACCUSATIVE)]!"))
 		if(vital)
 			owner.death()
