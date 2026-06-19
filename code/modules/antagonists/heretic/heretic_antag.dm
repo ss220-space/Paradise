@@ -81,6 +81,15 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	var/datum/status_effect/heretic_passive/passive_effect
 	/// Wether we are allowed to ascend
 	var/feast_of_owls = FALSE
+	/// Reference to the eldritch aura overlay a heretic radiates once they grow strong enough.
+	var/static/mutable_appearance/eldritch_overlay = mutable_appearance('icons/mob/effects/heretic_aura.dmi', "heretic_aura")
+	/// Cumulative knowledge points ever gained (only ever climbs). Drives the [points_to_aura] threshold.
+	var/knowledge_gained = 0
+	/// Once TRUE the heretic radiates a visible aura and can forge blades without limit (tg's "unlimited_blades").
+	/// Set when they craft their robe (passive tier 2) or reach [points_to_aura] knowledge.
+	var/unlimited_blades = FALSE
+	/// How many cumulative knowledge points are needed before the visible aura kicks in (tg uses 8).
+	var/points_to_aura = 8
 
 	/// List that keeps track of which items have been gifted to the heretic after a cultist was sacrificed. Used to alter drop chances to reduce dupes.
 	var/list/unlocked_heretic_items = list(
@@ -471,6 +480,12 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	// otherwise leave a heretic without their rift huds, antag marker, or a working research menu.
 	RegisterSignal(our_mob, COMSIG_MOB_LOGIN, PROC_REF(on_login), override = TRUE)
 
+	// Eldritch aura (tg parity): a green vortex overlay drawn once we grow strong enough (see should_show_aura).
+	RegisterSignal(our_mob, COMSIG_ATOM_UPDATE_OVERLAYS, PROC_REF(add_aura_overlay))
+	RegisterSignal(our_mob, COMSIG_ATOM_EXAMINE, PROC_REF(on_heretic_examine))
+	RegisterSignals(our_mob, list(SIGNAL_ADDTRAIT(TRAIT_HERETIC_AURA_HIDDEN), SIGNAL_REMOVETRAIT(TRAIT_HERETIC_AURA_HIDDEN)), PROC_REF(update_heretic_aura))
+	our_mob.update_appearance(UPDATE_OVERLAYS)
+
 /datum/antagonist/heretic/remove_innate_effects(mob/living/mob_override)
 	. = ..()
 	var/mob/living/our_mob = mob_override || owner.current
@@ -486,7 +501,61 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 		COMSIG_MOB_ITEM_AFTERATTACK,
 		COMSIG_LIVING_CULT_SACRIFICED,
 		COMSIG_MOB_LOGIN,
+		COMSIG_ATOM_UPDATE_OVERLAYS,
+		COMSIG_ATOM_EXAMINE,
+		SIGNAL_ADDTRAIT(TRAIT_HERETIC_AURA_HIDDEN),
+		SIGNAL_REMOVETRAIT(TRAIT_HERETIC_AURA_HIDDEN),
 	))
+	our_mob.update_appearance(UPDATE_OVERLAYS)
+
+/// Draws the eldritch aura overlay (+ its emissive glow) onto the heretic, if it should currently show.
+/datum/antagonist/heretic/proc/add_aura_overlay(mob/living/source, list/overlays)
+	SIGNAL_HANDLER
+	if(!should_show_aura())
+		return
+	overlays += eldritch_overlay
+	overlays += emissive_appearance(eldritch_overlay.icon, eldritch_overlay.icon_state, source)
+
+/// Refreshes the heretic's overlays so the aura is (re)drawn or cleared.
+/datum/antagonist/heretic/proc/update_heretic_aura()
+	SIGNAL_HANDLER
+	if(!QDELETED(owner?.current))
+		owner.current.update_appearance(UPDATE_OVERLAYS)
+
+/// Whether the visible aura should currently be drawn. Mirrors tg's gating.
+/datum/antagonist/heretic/proc/should_show_aura()
+	if(!unlimited_blades || HAS_TRAIT(owner?.current, TRAIT_HERETIC_AURA_HIDDEN))
+		return FALSE // Not powerful enough yet, or temporarily suppressed (e.g. disguised).
+	if(feast_of_owls)
+		return FALSE // No use giving an aura to a heretic that can't ascend.
+	if(heretic_path == PATH_LOCK)
+		return FALSE // Lock heretics never get this aura.
+	return TRUE
+
+/// Adds the aura description when a grown heretic is examined (tg parity).
+/datum/antagonist/heretic/proc/on_heretic_examine(datum/source, mob/user, list/examine_text)
+	SIGNAL_HANDLER
+	if(!should_show_aura())
+		return
+	var/mob/heretic_mob = owner.current
+	var/potential_string = "Вокруг [heretic_mob] клубится зелёный вихрь энергии."
+	if(can_ascend())
+		potential_string += " Кажется, [heretic_mob] вот-вот сбросит свою смертную оболочку!"
+	examine_text += span_green(potential_string)
+
+/// Grants the eldritch aura + lifts the blade-forging cap (tg's disable_blade_breaking). Idempotent.
+/// Triggered by crafting the robe (passive tier 2) or by reaching [points_to_aura] knowledge.
+/datum/antagonist/heretic/proc/disable_blade_breaking()
+	if(unlimited_blades)
+		return
+	unlimited_blades = TRUE
+	var/mob/heretic_mob = owner?.current
+	if(!QDELETED(heretic_mob))
+		to_chat(heretic_mob, span_boldwarning("Вы обрели немалую силу. Мансус больше не позволит вам ломать свои клинки, но теперь вы можете создавать их сколько пожелаете."))
+		heretic_mob.balloon_alert(heretic_mob, "клинки больше не ломаются!")
+		// Growing this strong sheds your stealth - the cloak of shadows leaves you (no-op if you never had it).
+		heretic_mob.mind?.RemoveSpell(/obj/effect/proc_holder/spell/shadow_cloak)
+	update_heretic_aura()
 
 /**
  * Signal handler for [COMSIG_MOB_LOGIN]. Fires when our heretic's client (re)attaches to the body.
@@ -838,7 +907,7 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
  * Used in callbacks for passive gain over time.
  */
 /datum/antagonist/heretic/proc/passive_influence_gain()
-	knowledge_points++
+	adjust_knowledge_points(1)
 	var/mob/living/carbon/human/human = owner.current
 	if(QDELETED(owner?.current))
 		return
@@ -847,6 +916,14 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 		to_chat(owner.current, "[span_hear("Вы слышите шепот...")] [span_purple(pick_list(HERETIC_INFLUENCE_FILE, "drain_message"))]")
 
 	addtimer(CALLBACK(src, PROC_REF(passive_influence_gain)), passive_gain_timer)
+
+/// Adjusts our spendable knowledge points, tracks the cumulative total ever gained, and lights up the
+/// eldritch aura once that total passes [points_to_aura] (tg parity). Route ALL point gains through here.
+/datum/antagonist/heretic/proc/adjust_knowledge_points(amount)
+	knowledge_points = max(0, knowledge_points + amount)
+	knowledge_gained += max(0, amount)
+	if(knowledge_gained > points_to_aura && !unlimited_blades)
+		disable_blade_breaking()
 
 /datum/antagonist/heretic/roundend_report()
 	var/list/parts = list()
@@ -971,7 +1048,7 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	if(!change_num || QDELETED(src))
 		return
 
-	knowledge_points += change_num
+	adjust_knowledge_points(change_num)
 
 
 /**

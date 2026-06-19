@@ -160,12 +160,19 @@
 	return TRUE
 
 /turf/simulated/wall/proc/break_wall()
-	new sheet_type(src, sheet_amount)
-	return new girder_type(src)
+	// Guard both drops (tg parity). Walls with no sheets (sheet_amount = 0, e.g. heretic rust-construction
+	// walls) must not spawn a "0 metal" stack, and walls with no girder (girder_type = null) must not do
+	// `new null(src)`. Previously dismantling a rust wall dropped a stack literally showing 0.
+	if(sheet_amount)
+		new sheet_type(src, sheet_amount)
+	if(girder_type)
+		return new girder_type(src)
 
 /turf/simulated/wall/proc/devastate_wall()
-	new sheet_type(src, sheet_amount)
-	new /obj/item/stack/sheet/metal(src)
+	if(sheet_amount)
+		new sheet_type(src, sheet_amount)
+	if(girder_type)
+		new /obj/item/stack/sheet/metal(src)
 
 /turf/simulated/wall/ex_act(severity, target)
 	if(target == src)

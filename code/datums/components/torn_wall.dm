@@ -68,7 +68,9 @@
 /datum/component/torn_wall/proc/on_welded(atom/source, mob/user, obj/item/tool)
 	SIGNAL_HANDLER
 	INVOKE_ASYNC(src, PROC_REF(try_repair), source, user, tool)
-	return
+	// Block the rest of tool_act (tg parity) - otherwise, after our repair starts, the wall's own
+	// welder_act ALSO fires and you get TWO weld do_afters running on one click.
+	return ITEM_INTERACT_BLOCKING
 
 /// Fix us up
 /datum/component/torn_wall/proc/try_repair(atom/source, mob/user, obj/item/tool)

@@ -589,6 +589,8 @@
 /// Blocks limb dismemberment (Blade "Stance of the Torn Champion" / duel_stance).
 #define TRAIT_NODISMEMBER "nodismember"
 #define TRAIT_MANSUS_TOUCHED "mansus_touched"
+/// Suppresses the visible eldritch aura a grown heretic radiates (e.g. while disguised). tg parity.
+#define TRAIT_HERETIC_AURA_HIDDEN "heretic_aura_hidden"
 #define TRAIT_LIVING_HEART "living_heart"
 #define TRAIT_RUSTY "rust_trait"
 #define TRAIT_BEING_BLADE_SHIELDED "being_blade_shielded"

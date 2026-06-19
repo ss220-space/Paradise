@@ -8,6 +8,10 @@
 	// completely different blue badge in master220). action_spells.dmi is copied 1:1 from tg for this.
 	action_icon = 'icons/mob/actions/actions_spells.dmi'
 	action_icon_state = "shield"
+	// The button's background is backgrounds.dmi (bg_heretic), which has NO "targeting" state, so the default
+	// targeting frame never drew. backgrounds.dmi DOES have bg_spell_border_active_red - the red active frame
+	// the ability is supposed to show while armed. Point the targeting overlay at it.
+	action_targeting_overlay = "bg_spell_border_active_red"
 	ranged_mousepointer = 'icons/effects/mouse_pointers/throw_target.dmi'
 	//check_flags = AB_CHECK_INCAPACITATED|AB_CHECK_CONSCIOUS|AB_CHECK_HANDS_BLOCKED
 
@@ -42,32 +46,29 @@
 	return FALSE
 
 
-// While the ability is armed, re-assert the throw-target cursor whenever the caster moves. BYOND resets
-// client.mouse_pointer_icon to default on movement/perspective changes, which is why the "hand" cursor
-// vanished after a step. on_activation/on_deactivation are the pointed-spell hooks fired on arm/disarm.
+// Make the throw-target cursor STICKY while the ability is armed. The spell system only sets
+// client.mouse_pointer_icon, but update_mouse_pointer() (run on every movement keypress - see
+// bindings_client.dm) wipes that straight back to the default, which is exactly why the red "hand" cursor
+// vanished the moment you walked. mouse_override_icon is the persistent slot update_mouse_pointer() always
+// re-applies (the same one mechs / the ninja katana use), so the cursor now survives moving and running.
+// on_activation/on_deactivation are the pointed-spell hooks fired when the click ability is armed/disarmed.
 /obj/effect/proc_holder/spell/pointed/rust_construction/on_activation(mob/on_who)
 	. = ..()
 	if(!.)
 		return
-	RegisterSignal(on_who, COMSIG_MOVABLE_MOVED, PROC_REF(reassert_cursor), override = TRUE)
+	var/client/our_client = on_who?.client
+	if(our_client)
+		our_client.mouse_override_icon = ranged_mousepointer
+		on_who.update_mouse_pointer()
 
 
 /obj/effect/proc_holder/spell/pointed/rust_construction/on_deactivation(mob/on_who, refund_cooldown = TRUE)
 	. = ..()
-	if(on_who)
-		UnregisterSignal(on_who, COMSIG_MOVABLE_MOVED)
-
-
-// Re-apply the cursor DIRECTLY rather than via add_mousepointer(): for pointed spells add_mousepointer()
-// also calls on_activation(), which to_chat()s the "You prepare to use..." line - doing that on every
-// single step is the chat spam. Setting mouse_pointer_icon here keeps the hand without re-announcing.
-/obj/effect/proc_holder/spell/pointed/rust_construction/proc/reassert_cursor(mob/source)
-	SIGNAL_HANDLER
-	if(source != ranged_ability_user)
-		return
-	var/client/our_client = source.client
-	if(our_client && ranged_mousepointer && our_client.mouse_pointer_icon != ranged_mousepointer)
-		our_client.mouse_pointer_icon = ranged_mousepointer
+	var/client/our_client = on_who?.client
+	// Only clear the override if it's still OURS (don't stomp a mech / throw-mode cursor that took over).
+	if(our_client && our_client.mouse_override_icon == ranged_mousepointer)
+		our_client.mouse_override_icon = null
+		on_who.update_mouse_pointer()
 
 
 /obj/effect/proc_holder/spell/pointed/rust_construction/valid_target(atom/cast_on)
@@ -107,16 +108,16 @@
 	. = ..()
 	var/rises_message = "поднимается из [cast_on.declent_ru(GENITIVE)]"
 
-	// If we casted at a wall we'll try to rust it. In the case of an enchanted wall it'll deconstruct it
+	// Casting at a (rusty - enforced above) wall crumbles it. The old port leaned on a side effect of
+	// /turf/simulated/wall/rust_turf() dismantling an already-rusted wall, but that override was removed so
+	// ambient rust spread no longer shreds walls - so the spell now dismantles the wall itself. This is how
+	// the heretic tears down their own rust walls (and any wall they've rusted) with Rust Formation.
 	if(iswallturf(cast_on))
 		cast_on.visible_message(span_warning("[cast_on.declent_ru(NOMINATIVE)] содрагается под давлением быстро растущей ржавчины!"))
-		var/mob/living/living_owner = action.owner
-		living_owner?.do_rust_heretic_act(cast_on)
-		// ref transfers to floor
 		cast_on.Shake(/*shake_interval = 0.1 SECONDS, */duration = 0.5 SECONDS)
-		// which we need to re-rust
-		living_owner?.do_rust_heretic_act(cast_on)
 		playsound(cast_on, 'sound/effects/bang.ogg', 50, vary = TRUE)
+		var/turf/simulated/wall/wall = cast_on
+		wall.dismantle_wall()
 		return
 
 	var/turf/simulated/wall/new_wall = cast_on.ChangeTurf(/turf/simulated/wall)
@@ -127,6 +128,7 @@
 	new_wall.rust_heretic_act()
 	new_wall.name = "зачарованн[genderize_ru(new_wall.gender, "ый", "ая", "ое", "ые")] [new_wall.name]"
 	new_wall.AddComponent(/datum/component/torn_wall)
+	new_wall.AddComponent(/datum/component/rust_construction_wall)
 	new_wall.hardness = 60
 	new_wall.sheet_amount = 0
 	new_wall.girder_type = null
@@ -192,3 +194,62 @@
 		return
 
 	wall.remove_filter("rust_wall")
+
+
+/**
+ * Added (alongside /datum/component/torn_wall) to walls raised by Rust Formation. Handles two things the
+ * base rust element and torn_wall don't:
+ *  - If the wall is still rusty when it's removed (e.g. the heretic crumbles it with the spell again),
+ *    the floor left behind STAYS rusty - the rust soaks back into the ground instead of vanishing with
+ *    the wall. Burning the rust off first (RMB weld) and then tearing the wall down leaves clean floor.
+ *  - Lets the wall be torn down with a welder on RIGHT-click once its rust has been burned off. LMB weld
+ *    stays the torn_wall repair; RMB weld on a de-rusted wall dismantles it for nothing (0 sheets / no
+ *    girder), matching the order the heretic uncreates their own walls.
+ */
+/datum/component/rust_construction_wall
+	dupe_mode = COMPONENT_DUPE_UNIQUE
+
+/datum/component/rust_construction_wall/RegisterWithParent()
+	RegisterSignal(parent, COMSIG_TURF_CHANGE, PROC_REF(on_turf_changed))
+	RegisterSignal(parent, COMSIG_ATOM_SECONDARY_TOOL_ACT(TOOL_WELDER), PROC_REF(on_welder_secondary))
+
+/datum/component/rust_construction_wall/UnregisterFromParent()
+	UnregisterSignal(parent, list(
+		COMSIG_TURF_CHANGE,
+		COMSIG_ATOM_SECONDARY_TOOL_ACT(TOOL_WELDER),
+	))
+
+/// When a still-rusty wall turns into another turf, re-rust whatever floor is left behind. We can't touch
+/// the new turf here (it doesn't exist yet, and we're about to be deleted with the old one), so we queue a
+/// post-change callback - ChangeTurf runs those with the freshly created turf as their argument.
+/datum/component/rust_construction_wall/proc/on_turf_changed(turf/source, path, list/post_change_callbacks)
+	SIGNAL_HANDLER
+	if(!HAS_TRAIT(source, TRAIT_RUSTY))
+		return
+	post_change_callbacks += CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(rust_construction_rerust_turf))
+
+/// Right-click weld. While the wall is still rusty, leave it to the rust element (its secondary weld burns
+/// the rust off). Once the rust is gone, a second right-click weld tears the wall down.
+/datum/component/rust_construction_wall/proc/on_welder_secondary(atom/source, mob/user, obj/item/item)
+	SIGNAL_HANDLER
+	if(HAS_TRAIT(source, TRAIT_RUSTY))
+		return
+	INVOKE_ASYNC(src, PROC_REF(dismantle_with_welder), source, user, item)
+	return ITEM_INTERACT_BLOCKING
+
+/// do_after sleeps, so this is deferred from the signal handler.
+/datum/component/rust_construction_wall/proc/dismantle_with_welder(turf/simulated/wall/source, mob/user, obj/item/item)
+	if(!item.tool_start_check(source, user, amount = 1))
+		return
+	source.balloon_alert(user, "разборка стены...")
+	if(!item.use_tool(source, user, 4 SECONDS))
+		return
+	if(!iswallturf(source))
+		return
+	source.balloon_alert(user, "стена разобрана")
+	source.dismantle_wall()
+
+/// Re-applies heretic rust to the floor left behind by a removed (still-rusty) rust-construction wall.
+/proc/rust_construction_rerust_turf(turf/new_turf)
+	if(isfloorturf(new_turf))
+		new_turf.rust_heretic_act()

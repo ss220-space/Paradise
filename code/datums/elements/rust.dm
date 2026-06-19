@@ -20,11 +20,16 @@
 	RegisterSignal(target, COMSIG_ATOM_UPDATE_OVERLAYS, PROC_REF(apply_rust_overlay))
 	RegisterSignal(target, COMSIG_PARENT_EXAMINE, PROC_REF(handle_examine))
 	// master220 emits COMSIG_ATOM_ATTACKBY (from /atom/attackby) when struck with an item; the old
-	// COMSIG_ATOM_ATTACK is never sent, so the tile-block + sharp-scrape were dead. Welding goes through
-	// the tool_act chain instead (COMSIG_ATOM_TOOL_ACT(TOOL_WELDER)), same as /datum/component/torn_wall.
+	// COMSIG_ATOM_ATTACK is never sent, so the tile-block + sharp-scrape were dead.
 	RegisterSignal(target, COMSIG_ATOM_ATTACKBY, PROC_REF(on_interaction))
-	RegisterSignal(target, COMSIG_ATOM_TOOL_ACT(TOOL_WELDER), PROC_REF(on_welder_act))
-	RegisterSignal(target, COMSIG_ATOM_EXPOSE_REAGENTS, PROC_REF(on_reagent_expose))
+	// Burn the rust off on the SECONDARY (right-click) weld, exactly like tg. This keeps the PRIMARY weld
+	// free for /datum/component/torn_wall (which a rust-construction wall also has) - so LMB-welding a rust
+	// wall repairs/handles the torn wall, while RMB-welding burns the rust off. No more fighting over the act.
+	RegisterSignal(target, COMSIG_ATOM_SECONDARY_TOOL_ACT(TOOL_WELDER), PROC_REF(on_welder_act))
+	// NOTE: space-cola / acid removal is NOT done via a signal here. master220 only fires
+	// COMSIG_ATOM_EXPOSE_REAGENTS from /atom/water_act (water only, and with a different arg layout), so it
+	// never reached us for a splashed drink. Instead the reagents themselves strip rust in their
+	// reaction_turf()/reaction_obj() (see space_cola / acid), calling /atom/proc/clean_rust().
 	// Unfortunately registering with parent sometimes doesn't cause an overlay update
 	target.update_appearance()
 
@@ -33,8 +38,7 @@
 	UnregisterSignal(source, COMSIG_ATOM_UPDATE_OVERLAYS)
 	UnregisterSignal(source, COMSIG_PARENT_EXAMINE)
 	UnregisterSignal(source, COMSIG_ATOM_ATTACKBY)
-	UnregisterSignal(source, COMSIG_ATOM_TOOL_ACT(TOOL_WELDER))
-	UnregisterSignal(source, COMSIG_ATOM_EXPOSE_REAGENTS)
+	UnregisterSignal(source, COMSIG_ATOM_SECONDARY_TOOL_ACT(TOOL_WELDER))
 	REMOVE_TRAIT(source, TRAIT_RUSTY, ELEMENT_TRAIT(type))
 	source.update_appearance()
 
@@ -50,11 +54,12 @@
 	if(rust_overlay)
 		overlays += rust_overlay
 
-/// Burning the rust off with a welder. do_after sleeps, so defer via an async call.
+/// Burning the rust off with a welder (right-click / secondary act). do_after sleeps, so defer via async.
 /datum/element/rust/proc/on_welder_act(atom/source, mob/user, obj/item/item)
 	SIGNAL_HANDLER
 
 	INVOKE_ASYNC(src, PROC_REF(handle_tool_use), source, user, item)
+	return ITEM_INTERACT_BLOCKING
 
 /// We call this from the tool/attack hooks because we sleep with do_after
 /datum/element/rust/proc/handle_tool_use(atom/source, mob/user, obj/item/item)
@@ -67,6 +72,10 @@
 			return
 
 		user.balloon_alert(user, "ржавчина сожжена")
+		// Burning the eldritch rust off kicks up acrid corrosion - the welder catches a dose of disgust.
+		if(isliving(user))
+			var/mob/living/burner = user
+			burner.Disgust(20)
 		Detach(source)
 		return
 
@@ -83,25 +92,15 @@
 	user.balloon_alert(user, "ржавчина счищена")
 	Detach(source)
 
-///Immediately removes rust if exposed to space cola.
-/datum/element/rust/proc/on_reagent_expose(atom/source, datum/reagents/reagents_splashed, methods, reac_volume)
-	SIGNAL_HANDLER
-
-	if(!(methods & REAGENT_TOUCH))
-		return
-
-	var/has_antirust = FALSE
-	for(var/datum/reagent/reagent in reagents_splashed.reagent_list)
-		if(!isspacecola(reagent) && !isacid(reagent))
-			continue
-
-		has_antirust = TRUE
-		break
-
-	if(!has_antirust)
-		return
-
-	Detach(source)
+/// Strips heretic/standard rust off an atom (used when it's doused with space cola or acid - see those
+/// reagents' reaction_turf()/reaction_obj()). RemoveElement matches the no-arg AddElement call rust_turf
+/// makes, so this triggers the element's Detach (overlay/trait/glowing-rune cleanup) properly.
+/atom/proc/clean_rust()
+	if(!HAS_TRAIT(src, TRAIT_RUSTY))
+		return FALSE
+	RemoveElement(/datum/element/rust/heretic)
+	RemoveElement(/datum/element/rust)
+	return TRUE
 
 /// Blocks tiling over rusted plating, and lets a sharp tool scrape the rust off.
 /datum/element/rust/proc/on_interaction(atom/source, obj/item/tool, mob/user, list/modifiers)

@@ -216,6 +216,10 @@
 				ибо теперь он един с пламенем, СТАНЬТЕ СВИДЕТЕЛЕМ МОЕГО ВОЗНЕСЕНИЯ, ПЕПЕЛЬНЫЙ ФОНАРЬ СНОВА ЗАГОРИТСЯ!"
 
 	//ascension_achievement = /datum/award/achievement/misc/ash_ascension
+	// tg derives the ascension node's tree icon from its achievement medal sprite; we point straight at
+	// that same medal sheet (state "ashascend") since the achievement system itself isn't ported.
+	research_tree_icon_path = 'icons/ui/achievements/achievements.dmi'
+	research_tree_icon_state = "ashascend"
 	announcement_text = "%SPOOKY% Бойтесь пламени, ибо Повелитель Пепла, %NAME% вознесся! Пламя поглотит все! %SPOOKY%"
 	announcement_sound = 'sound/music/heretic/ascend_ash.ogg'
 	/// A static list of all traits we apply on ascension.

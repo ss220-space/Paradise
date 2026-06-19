@@ -33,12 +33,12 @@
 		"Распространение ржавчины поначалу медленное. Призовите несколько Ржавых Ходоков, чтобы расширять свои владения.",
 		"«Ржавая Постройка» создаёт барьеры для укрытия, побега или блокировки чужого отхода. Используйте окружение в своих целях.",
 	)
-	// "Rusted Gait" passive (on-rust durability that scales): tiers light up as you grow.
+	// "Leeching Walk" passive (on-rust durability that scales), ported 1:1 from tg. Tiers light up as you grow.
 	passive_name = "Ржавая Поступь"
 	passive_descriptions = list(
-		"Стоя на ржавчине, вы исцеляетесь, восстанавливаете выносливость и сопротивляетесь оглушению дубинками.",
-		"Вы стоите как влитой — вас больше нельзя оттолкнуть или утащить.",
-		"Ржавчина въелась в вас навсегда — сопротивление оглушению дубинками теперь действует везде.",
+		"Стоя на ржавых плитах, вы исцеляетесь и очищаете тело от химикатов.",
+		"Стоя на ржавых плитах, вы затягиваете раны и исцеляете органы; теперь вы можете ржаветь укреплённые полы и стены, а лечение усилено.",
+		"Стоя на ржавых плитах, вы восстанавливаете утраченные конечности; теперь вы можете ржаветь титановые и пласттитановые стены, а лечение усилено.",
 	)
 
 	// TG-format column (1:1 with tgstation Rust). Main line:
@@ -92,10 +92,23 @@
 	UnregisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK_SECONDARY)
 
 
-/// Primary grasp: apply our rust mark (via parent), then instantly corrode silicons/synthetics.
+/// Primary grasp: apply our rust mark (via parent), violently corrode any robotic limbs the target has,
+/// then instantly crumble silicons/synthetics. Ported 1:1 from tg's rust grasp.
 /datum/heretic_knowledge/limited_amount/starting/base_rust/on_mansus_grasp(mob/living/source, mob/living/target)
 	. = ..()
-	if(!issilicon(target)/* && !(target.mob_biotypes & MOB_ROBOTIC)*/)
+
+	// Augmented / IPC crew: the grasp wrecks any robotic limbs they carry (tg does receive_damage(500)
+	// per robotic bodypart; master220 limbs use external_receive_damage, so we call that instead).
+	if(ishuman(target))
+		var/mob/living/carbon/human/human_target = target
+		for(var/obj/item/organ/external/limb as anything in human_target.bodyparts)
+			if(!isroboticorgan(limb))
+				continue
+			limb.external_receive_damage(500, 0)
+
+	// Silicons (borgs / AI shells) crumble to rust outright. master220 has no mob_biotypes, so tg's
+	// MOB_ROBOTIC biotype branch isn't portable - issilicon covers the synthetic mobs we can detect.
+	if(!issilicon(target))
 		return
 
 	source.do_rust_heretic_act(target)
@@ -156,10 +169,9 @@
 	research_tree_icon_state = "blade_upgrade_rust"
 
 
-/datum/heretic_knowledge/blade_upgrade/rust/on_gain(mob/user, datum/antagonist/heretic/our_heretic)
-	. = ..()
-	our_heretic.increase_rust_strength()
-
+// Rust-strength now climbs to 2 when you CRAFT the robe (see /datum/heretic_knowledge/armor/rust below),
+// in lockstep with the passive's tier-2 upgrade - so "rust reinforced walls" unlocks exactly when the
+// passive says it does. The blade upgrade no longer touches rust strength.
 
 /datum/heretic_knowledge/blade_upgrade/rust/do_melee_effects(mob/living/source, mob/living/target, obj/item/melee/sickly_blade/blade)
 	if(source == target || !isliving(target))
@@ -182,6 +194,13 @@
 	research_tree_icon_path = 'icons/obj/clothing/armor.dmi'
 	research_tree_icon_state = "eldritch_armor"
 	research_tree_icon_frame = 12
+
+
+/datum/heretic_knowledge/armor/rust/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
+	. = ..() // Parent grants the tier-2 passive upgrade (+ aura).
+	// Keep rust strength in lockstep with the passive tier: reaching tier 2 lets us rust reinforced turfs.
+	var/datum/antagonist/heretic/our_heretic = user.mind?.has_antag_datum(/datum/antagonist/heretic)
+	our_heretic?.increase_rust_strength()
 
 
 /datum/heretic_knowledge/spell/entropic_plume
@@ -217,6 +236,10 @@
 				Кузнец идёт вперёд! Ржавые Холмы, НАЗОВИТЕ МОЁ ИМЯ! СТАНЬТЕ СВИДЕТЕЛЯМИ МОЕГО ВОЗНЕСЕНИЯ!"
 
 	//ascension_achievement = /datum/award/achievement/misc/rust_ascension
+	// tg derives the ascension node's tree icon from its achievement medal sprite; we point straight at
+	// that same medal sheet (state "rustascend") since the achievement system itself isn't ported.
+	research_tree_icon_path = 'icons/ui/achievements/achievements.dmi'
+	research_tree_icon_state = "rustascend"
 	announcement_text = "%SPOOKY% Бойтесь, ибо Ржавеющий, %NAME%, вознёсся! Никто и ничто не избежит коррозии! %SPOOKY%"
 	announcement_sound = 'sound/music/heretic/ascend_rust.ogg'
 	/// If TRUE, then immunities are currently active.
@@ -293,7 +316,7 @@
 		if(!turfs_to_transform["[iterator]"])
 			continue
 
-		addtimer(CALLBACK(src, PROC_REF(transform_area), turfs_to_transform["[iterator]"]), (5 SECONDS) * iterator)
+		addtimer(CALLBACK(src, PROC_REF(transform_area), turfs_to_transform["[iterator]"]), (2 SECONDS) * iterator)
 
 
 /datum/heretic_knowledge/ultimate/rust_final/proc/transform_area(list/turfs)
@@ -356,7 +379,7 @@
 		return
 
 	var/need_mob_update = FALSE
-	var/base_heal_amt = 2.5 * DELTA_WORLD_TIME(SSmobs)
+	var/base_heal_amt = 1 * DELTA_WORLD_TIME(SSmobs) // tg parity (the ascension stacks on the rust passive's own on-rust heal)
 	need_mob_update += source.adjustBruteLoss(-base_heal_amt, updating_health = FALSE)
 	need_mob_update += source.adjustFireLoss(-base_heal_amt, updating_health = FALSE)
 	need_mob_update += source.adjustToxLoss(-base_heal_amt, updating_health = FALSE, forced = TRUE)

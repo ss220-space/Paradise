@@ -162,6 +162,11 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	var/action_background_icon = 'icons/mob/actions/actions.dmi'
 	/// State of the icon found in file, passed in "action_background_icon" variable.
 	var/action_background_icon_state = "bg_spell"
+	/// The icon_state (in action_background_icon) drawn over the button while the click ability is armed -
+	/// the "targeting" frame. Default "targeting" lives in actions.dmi; spells whose background is a
+	/// different file (e.g. heretic spells on backgrounds.dmi) must point this at a state that file actually
+	/// has, or no frame shows at all. See /datum/action/apply_button_overlay.
+	var/action_targeting_overlay = ACTION_BUTTON_DEFAULT_TARGETING_OVERLAY
 
 	/// Whether this spell need a white frame around the button while active, usefull for click based targeting.
 	var/need_active_overlay = FALSE

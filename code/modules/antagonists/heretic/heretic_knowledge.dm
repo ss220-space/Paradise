@@ -296,6 +296,14 @@
 	UnregisterSignal(user, list(COMSIG_HERETIC_MANSUS_GRASP_ATTACK, COMSIG_LIONHUNTER_ON_HIT, COMSIG_HERETIC_BLADE_ATTACK))
 	our_heretic.clear_passive()
 
+/datum/heretic_knowledge/limited_amount/starting/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
+	// Once empowered (robe crafted / enough knowledge), the mansus lets us forge blades without the
+	// two-at-a-time cap (tg's unlimited_blades). Otherwise fall back to the normal limited-amount check.
+	var/datum/antagonist/heretic/our_heretic = user.mind?.has_antag_datum(/datum/antagonist/heretic)
+	if(our_heretic?.unlimited_blades)
+		return TRUE
+	return ..()
+
 /// Signal proc for [COMSIG_HERETIC_MANSUS_GRASP_ATTACK]: apply our path's mark, if we carry one.
 /datum/heretic_knowledge/limited_amount/starting/proc/on_mansus_grasp(mob/living/source, mob/living/target)
 	SIGNAL_HANDLER
@@ -400,10 +408,8 @@
 	abstract_parent_type = /datum/heretic_knowledge/blade_upgrade
 	cost = 1 // TG: blade upgrades cost 1
 
-/datum/heretic_knowledge/blade_upgrade/on_research(mob/user, datum/antagonist/heretic/our_heretic)
-	. = ..()
-	// Upgrading your blade is the mid/late-game passive ("empowerment") milestone (TG uses the robes knowledge).
-	our_heretic.set_passive_level(2)
+// NOTE: the passive's tier-2 ("empowerment") upgrade is granted by CRAFTING the robe now (tg parity -
+// see /datum/heretic_knowledge/armor/on_finished_recipe), not by researching the blade upgrade.
 
 /datum/heretic_knowledge/blade_upgrade/on_gain(mob/user, datum/antagonist/heretic/our_heretic, mind_transfer = FALSE)
 	RegisterSignal(user, COMSIG_HERETIC_BLADE_ATTACK, PROC_REF(on_eldritch_blade))
@@ -599,7 +605,7 @@
 
 /datum/heretic_knowledge/knowledge_ritual/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	var/datum/antagonist/heretic/our_heretic = user.mind.has_antag_datum(/datum/antagonist/heretic)
-	our_heretic.knowledge_points += KNOWLEDGE_RITUAL_POINTS
+	our_heretic.adjust_knowledge_points(KNOWLEDGE_RITUAL_POINTS)
 	was_completed = TRUE
 
 	to_chat(user, span_boldnotice("[name] завершен!"))

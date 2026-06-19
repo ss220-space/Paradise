@@ -30,6 +30,15 @@
 	research_tree_icon_frame = 12
 
 
+/datum/heretic_knowledge/armor/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
+	. = ..()
+	// Crafting the eldritch robe is the heretic's tier-2 ("empowerment") milestone (tg's Armorer's Ritual
+	// sends COMSIG_HERETIC_PASSIVE_UPGRADE_FIRST here). This advances the path passive to level 2 and, with
+	// it, lights up the eldritch aura (see /datum/status_effect/heretic_passive/level_upgrade).
+	var/datum/antagonist/heretic/our_heretic = user.mind?.has_antag_datum(/datum/antagonist/heretic)
+	our_heretic?.set_passive_level(2)
+
+
 /datum/heretic_knowledge/crucible
 	drafting_tier = 1
 	name = "Котёл Страданий"

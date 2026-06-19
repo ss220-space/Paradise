@@ -129,6 +129,12 @@
 /mob/living/simple_animal/bot/rust_heretic_act(strength)
 	adjustBruteLoss(400)
 
+// Mechs crumble to rust too - tg's /obj/vehicle/sealed/mecha/rust_heretic_act (take_damage 500 brute).
+// master220 mechs are /obj/mecha (an /obj, NOT /obj/machinery), so without this they'd hit the /atom
+// no-op and shrug off the grasp. This is the "Mansus Grasp instantly wrecks mechs" part of the Rust identity.
+/obj/mecha/rust_heretic_act(strength)
+	take_damage(500, BRUTE)
+
 // --- Misc compat ---
 // tg gates phasing per-z via ZTRAIT_NOPHASE, which master220 doesn't have. Default to allowed.
 /proc/is_phase_allowed(z)

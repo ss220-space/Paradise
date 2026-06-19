@@ -467,6 +467,7 @@
 				H.emote("scream")
 
 /datum/reagent/acid/reaction_obj(obj/O, volume)
+	O.clean_rust() // acid eats eldritch rust off, same as space cola
 	if(ismob(O.loc)) //handled in human acid_act()
 		return
 
@@ -477,6 +478,7 @@
 	if(!istype(T))
 		return
 
+	T.clean_rust() // acid eats eldritch rust off, same as space cola
 	volume = round(volume, 0.1)
 	T.acid_act(acidpwr, volume)
 

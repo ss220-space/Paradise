@@ -52,6 +52,9 @@
 	if(applied_level >= 2)
 		return FALSE
 	applied_level = 2
+	// Hitting tier 2 (crafting the robe) is also when the heretic's eldritch aura ignites (tg parity).
+	if(heretic_datum && !heretic_datum.unlimited_blades)
+		heretic_datum.disable_blade_breaking()
 	return TRUE
 
 
@@ -106,17 +109,23 @@
 	return ..()
 
 
-//---- Rust Passive: "Rusted Gait" ("Ржавая Поступь")
-// Level 1 - on-rust regen + baton-knockdown resist (leeching walk), granted on picking the path.
-// Level 2 - you stand firm: can't be shoved or pulled around (granted on the blade upgrade).
-// Level 3 - the rust is in your bones: baton-knockdown resistance everywhere, even off rust (on ascension).
+//---- Rust Passive: "Leeching Walk" ("Ржавая Поступь") - ported 1:1 from /tg/station, adapted to master220.
+// All tiers do their work directly in on_life (scaling with our level), exactly like tg - we do NOT lean on
+// /datum/element/leeching_walk (that element is still used by the Rusty Walker mob, just not by us).
+// Level 1 - standing on rust heals brute/burn/tox/oxy/stamina, cuts stun duration, restores blood, purges
+//           chems, and gives baton-knockdown resistance while on rust. Granted on picking the path.
+// Level 2 - additionally mends fractures/internal bleeding and heals organs; healing scales up. The rust
+//           strength gained alongside this tier lets you rust reinforced floors/walls.
+// Level 3 - additionally regrows missing limbs; healing scales up again. Lets you rust titanium/plastitanium.
+// NB: master220 has no tg wound datums or regenerate_limbs()/get_missing_limbs() - we substitute the
+// engine's fracture/bleed mend and the species create_organs() limb-regrow idiom (see buffs.dm "marshal").
 /datum/status_effect/heretic_passive/rust
 	id = "heretic_passive_rust"
 	name = "Ржавая Поступь"
 	passive_descriptions = list(
-		"Стоя на ржавчине, вы исцеляетесь, восстанавливаете выносливость и сопротивляетесь оглушению дубинками.",
-		"Вы стоите как влитой — вас больше нельзя оттолкнуть или утащить.",
-		"Ржавчина въелась в вас навсегда — сопротивление оглушению дубинками теперь действует везде.",
+		"Стоя на ржавых плитах, вы исцеляетесь и очищаете тело от химикатов.",
+		"Стоя на ржавых плитах, вы затягиваете раны и исцеляете органы; теперь вы можете ржаветь укреплённые полы и стены, а лечение усилено.",
+		"Стоя на ржавых плитах, вы восстанавливаете утраченные конечности; теперь вы можете ржаветь титановые и пласттитановые стены, а лечение усилено.",
 	)
 
 
@@ -124,24 +133,82 @@
 	. = ..()
 	if(!.)
 		return
-	owner.AddElement(/datum/element/leeching_walk)
-
-
-/datum/status_effect/heretic_passive/rust/level_upgrade()
-	. = ..()
-	if(!.)
-		return
-	ADD_TRAIT(owner, TRAIT_PUSHIMMUNE, TRAIT_STATUS_EFFECT(id))
-
-
-/datum/status_effect/heretic_passive/rust/level_final()
-	. = ..()
-	if(!.)
-		return
-	ADD_TRAIT(owner, TRAIT_BATON_RESISTANCE, TRAIT_STATUS_EFFECT(id))
+	RegisterSignal(owner, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
+	RegisterSignal(owner, COMSIG_LIVING_LIFE, PROC_REF(on_life))
 
 
 /datum/status_effect/heretic_passive/rust/on_remove()
-	owner.RemoveElement(/datum/element/leeching_walk)
-	owner.remove_traits(list(TRAIT_PUSHIMMUNE, TRAIT_BATON_RESISTANCE), TRAIT_STATUS_EFFECT(id))
+	UnregisterSignal(owner, list(COMSIG_MOVABLE_MOVED, COMSIG_LIVING_LIFE))
+	REMOVE_TRAIT(owner, TRAIT_BATON_RESISTANCE, TRAIT_STATUS_EFFECT(id))
 	return ..()
+
+
+/// Baton-knockdown resistance toggles with whether we're standing on rust (tg's on_move).
+/datum/status_effect/heretic_passive/rust/proc/on_move(mob/source, atom/old_loc, dir, forced, list/old_locs)
+	SIGNAL_HANDLER
+	var/turf/our_turf = get_turf(source)
+	if(HAS_TRAIT(our_turf, TRAIT_RUSTY))
+		ADD_TRAIT(source, TRAIT_BATON_RESISTANCE, TRAIT_STATUS_EFFECT(id))
+	else
+		REMOVE_TRAIT(source, TRAIT_BATON_RESISTANCE, TRAIT_STATUS_EFFECT(id))
+
+
+/// Gradually heals us on rust, scaling with our level; tg's on_life adapted to master220's APIs.
+/datum/status_effect/heretic_passive/rust/proc/on_life(mob/living/source, seconds_per_tick, times_fired)
+	SIGNAL_HANDLER
+
+	var/turf/our_turf = get_turf(source)
+	if(!HAS_TRAIT(our_turf, TRAIT_RUSTY))
+		return
+
+	// SSmobs.wait is 2 secs, so DELTA_WORLD_TIME is halved (matches the rest of the rust path's healing).
+	var/delta_time = DELTA_WORLD_TIME(SSmobs) * 0.5
+	var/main_healing = 1 + 1 * applied_level * delta_time
+	var/stam_healing = 5 + 5 * applied_level * delta_time
+
+	var/need_mob_update = FALSE
+	need_mob_update += source.adjustBruteLoss(-main_healing, updating_health = FALSE)
+	need_mob_update += source.adjustFireLoss(-main_healing, updating_health = FALSE)
+	need_mob_update += source.adjustToxLoss(-main_healing, updating_health = FALSE, forced = TRUE) // Slimes are people too
+	need_mob_update += source.adjustOxyLoss(-main_healing, updating_health = FALSE)
+	need_mob_update += source.adjustStaminaLoss(-stam_healing, updating_health = FALSE)
+	if(need_mob_update)
+		source.updatehealth()
+
+	// Reduces duration of stuns/knockdowns and tops up lost blood.
+	source.AdjustImmobilized((-0.5 * applied_level) * delta_time)
+	if(source.blood_volume < BLOOD_VOLUME_NORMAL)
+		source.blood_volume = min(source.blood_volume + 2.5 * delta_time, BLOOD_VOLUME_NORMAL)
+
+	// Purge chems off the body (tg uses purge_multiplier, which master220 reagents don't have - flat is fine).
+	for(var/datum/reagent/reagent as anything in source.reagents.reagent_list)
+		reagent.volume = max(0, reagent.volume - delta_time)
+	source.reagents.update_total()
+
+	if(!iscarbon(source))
+		return
+	var/mob/living/carbon/carbon_owner = source
+
+	// Level 2+: mend fractures / internal bleeding (master220's "wounds") and heal organs.
+	if(applied_level < 2)
+		return
+	if(ishuman(carbon_owner))
+		var/mob/living/carbon/human/human_owner = carbon_owner
+		for(var/obj/item/organ/external/bodypart as anything in human_owner.bodyparts)
+			bodypart.mend_fracture()
+			bodypart.stop_internal_bleeding()
+	for(var/obj/item/organ/internal_organ as anything in carbon_owner.internal_organs)
+		internal_organ.heal_internal_damage(2 * delta_time)
+
+	// Level 3: regrow any missing limbs.
+	if(applied_level < 3)
+		return
+	if(!ishuman(carbon_owner))
+		return
+	var/mob/living/carbon/human/human_owner = carbon_owner
+	var/list/missing_bodyparts = list()
+	for(var/limb_zone in human_owner.dna.species.has_limbs)
+		if(isnull(human_owner.bodyparts_by_name[limb_zone]))
+			missing_bodyparts += limb_zone
+	if(length(missing_bodyparts))
+		human_owner.dna.species.create_organs(human_owner, missing_bodyparts)
