@@ -174,7 +174,7 @@
 
 /obj/item/toy/prize/odysseus
 	name = "toy odysseus"
-	desc = "Mаленькая фигурка меха, собери всю коллекцию! Номер 10 из 11. Эта фигурка изображает белого изворотливого меха - Одиссея. Его используют врачи и парамедики по всей галактике."
+	desc = "Mаленькая фигурка меха, собери всю коллекцию! Номер 10 из 11. Эта фигурка изображает белого изворотливого меха — Одиссея. Его используют врачи и парамедики по всей галактике."
 	icon_state = "odysseusprize"
 
 /obj/item/toy/prize/odysseus/get_ru_names()
@@ -274,39 +274,119 @@
 	desc = "A miniature xenomorph. Scary!"
 	icon_state = "aliencharacter"
 
+/obj/item/toy/character/alien/get_ru_names()
+	return alist(
+		NOMINATIVE = "миниатюра ксеноморфа",
+		GENITIVE = "миниатюры ксеноморфа",
+		DATIVE = "миниатюре ксеноморфу",
+		ACCUSATIVE = "миниатюру ксеноморфа",
+		INSTRUMENTAL = "миниатюрой ксеноморфом",
+		PREPOSITIONAL = "миниатюре ксеноморфе",
+	)
+
 /obj/item/toy/character/cleric
 	name = "Cleric Miniature"
 	desc = "A wee little cleric, with his wee little staff."
 	icon_state = "clericcharacter"
+
+/obj/item/toy/character/cleric/get_ru_names()
+	return alist(
+		NOMINATIVE = "миниатюра жреца",
+		GENITIVE = "миниатюры жреца",
+		DATIVE = "миниатюре жрецу",
+		ACCUSATIVE = "миниатюру жреца",
+		INSTRUMENTAL = "миниатюрой жрецом",
+		PREPOSITIONAL = "миниатюре жреце",
+	)
 
 /obj/item/toy/character/warrior
 	name = "Warrior Miniature"
 	desc = "That sword would make a decent toothpick."
 	icon_state = "warriorcharacter"
 
+/obj/item/toy/character/warrior/get_ru_names()
+	return alist(
+		NOMINATIVE = "миниатюра воина",
+		GENITIVE = "миниатюры воина",
+		DATIVE = "миниатюре воину",
+		ACCUSATIVE = "миниатюру воина",
+		INSTRUMENTAL = "миниатюрой воином",
+		PREPOSITIONAL = "миниатюре воине",
+	)
+
 /obj/item/toy/character/thief
 	name = "Thief Miniature"
 	desc = "Hey, where did my wallet go!?"
 	icon_state = "thiefcharacter"
+
+/obj/item/toy/character/thief/get_ru_names()
+	return alist(
+		NOMINATIVE = "миниатюра плута",
+		GENITIVE = "миниатюры плута",
+		DATIVE = "миниатюре плуту",
+		ACCUSATIVE = "миниатюру плута",
+		INSTRUMENTAL = "миниатюрой плутом",
+		PREPOSITIONAL = "миниатюре плуте",
+	)
 
 /obj/item/toy/character/wizard
 	name = "Wizard Miniature"
 	desc = "MAGIC!"
 	icon_state = "wizardcharacter"
 
+/obj/item/toy/character/wizard/get_ru_names()
+	return alist(
+		NOMINATIVE = "миниатюра волшебника",
+		GENITIVE = "миниатюры волшебника",
+		DATIVE = "миниатюре волшебнику",
+		ACCUSATIVE = "миниатюру волшебника",
+		INSTRUMENTAL = "миниатюрой волшебником",
+		PREPOSITIONAL = "миниатюре волшебнике",
+	)
+
 /obj/item/toy/character/cthulhu
 	name = "Cthulhu Miniature"
 	desc = "The dark lord has risen!"
 	icon_state = "darkmastercharacter"
+
+/obj/item/toy/character/cthulhu/get_ru_names()
+	return alist(
+		NOMINATIVE = "миниатюра Ктулху",
+		GENITIVE = "миниатюры Ктулху",
+		DATIVE = "миниатюре Ктулху",
+		ACCUSATIVE = "миниатюру Ктулху",
+		INSTRUMENTAL = "миниатюрой Ктулху",
+		PREPOSITIONAL = "миниатюре Ктулху",
+	)
 
 /obj/item/toy/character/lich
 	name = "Lich Miniature"
 	desc = "Murderboner extraordinaire."
 	icon_state = "lichcharacter"
 
+/obj/item/toy/character/lich/get_ru_names()
+	return alist(
+		NOMINATIVE = "миниатюра лича",
+		GENITIVE = "миниатюры лича",
+		DATIVE = "миниатюре личу",
+		ACCUSATIVE = "миниатюру лича",
+		INSTRUMENTAL = "миниатюрой личом",
+		PREPOSITIONAL = "миниатюре личе",
+	)
+
 /obj/item/storage/box/characters
 	name = "Box of Miniatures"
 	desc = "The nerd's best friends."
+
+/obj/item/storage/box/characters/get_ru_names()
+	return alist(
+		NOMINATIVE = "коробка с миниатюрами",
+		GENITIVE = "коробки с миниатюрами",
+		DATIVE = "коробке с миниатюрами",
+		ACCUSATIVE = "коробку с миниатюрами",
+		INSTRUMENTAL = "коробкой с миниатюрами",
+		PREPOSITIONAL = "коробке с миниатюрами",
+	)
 
 /obj/item/storage/box/characters/populate_contents()
 	new /obj/item/toy/character/alien(src)
@@ -329,6 +409,16 @@
 	bubble_icon = "alien"
 	var/cooldown = 0
 	var/animating = FALSE
+
+/obj/item/toy/toy_xeno/get_ru_names()
+	return alist(
+		NOMINATIVE = "игрушечный ксеноморф",
+		GENITIVE = "игрушечного ксеноморфа",
+		DATIVE = "игрушечному ксеноморфу",
+		ACCUSATIVE = "игрушечного ксеноморфа",
+		INSTRUMENTAL = "игрушечным ксеноморфом",
+		PREPOSITIONAL = "игрушечном ксеноморфе",
+	)
 
 /obj/item/toy/toy_xeno/update_icon_state()
 	icon_state = animating ? "[initial(icon_state)]_used" : initial(icon_state)
@@ -372,6 +462,16 @@
 	var/cooldown = 0
 	var/toysay = "Чё за хуйню вы натворили?"
 
+/obj/item/toy/figure/get_ru_names()
+	return alist(
+		NOMINATIVE = "фигурка неустановленного персонажа",
+		GENITIVE = "фигурки неустановленного персонажа",
+		DATIVE = "фигурке неустановленного персонажа",
+		ACCUSATIVE = "фигурку неустановленного персонажа",
+		INSTRUMENTAL = "фигуркой неустановленного персонажа",
+		PREPOSITIONAL = "фигурке неустановленного персонажа",
+	)
+
 /obj/item/toy/figure/Initialize(mapload)
 	. = ..()
 	desc = "A \"Space Life\" brand [name]"
@@ -388,11 +488,31 @@
 	icon_state = "cmo"
 	toysay = "Переключи датчики!"
 
+/obj/item/toy/figure/cmo/get_ru_names()
+	return alist(
+		NOMINATIVE = "фигурка главного врача",
+		GENITIVE = "фигурки главного врача",
+		DATIVE = "фигурке главного врача",
+		ACCUSATIVE = "фигурку главного врача",
+		INSTRUMENTAL = "фигуркой главного врача",
+		PREPOSITIONAL = "фигурке главного врача",
+	)
+
 /obj/item/toy/figure/assistant
 	name = "Assistant action figure"
 	desc = "The faceless, hairless scourge of the station, from Space Life's SS12 figurine collection."
 	icon_state = "assistant"
 	toysay = "Грейтайд един!"
+
+/obj/item/toy/figure/assistant/get_ru_names()
+	return alist(
+		NOMINATIVE = "фигурка ассистента",
+		GENITIVE = "фигурки ассистента",
+		DATIVE = "фигурке ассистента",
+		ACCUSATIVE = "фигурку ассистента",
+		INSTRUMENTAL = "фигуркой ассистента",
+		PREPOSITIONAL = "фигурке ассистента",
+	)
 
 /obj/item/toy/figure/atmos
 	name = "Atmospheric Technician action figure"
@@ -400,11 +520,31 @@
 	icon_state = "atmos"
 	toysay = "Слава Атмосии!"
 
+/obj/item/toy/figure/atmos/get_ru_names()
+	return alist(
+		NOMINATIVE = "фигурка атмосферного специалиста",
+		GENITIVE = "фигурки атмосферного специалиста",
+		DATIVE = "фигурке атмосферного специалиста",
+		ACCUSATIVE = "фигурку атмосферного специалиста",
+		INSTRUMENTAL = "фигуркой атмосферного специалиста",
+		PREPOSITIONAL = "фигурке атмосферного специалиста",
+	)
+
 /obj/item/toy/figure/bartender
 	name = "Bartender action figure"
 	desc = "The suave bartender, from Space Life's SS12 figurine collection."
 	icon_state = "bartender"
 	toysay = "Где моя обезьяна?"
+
+/obj/item/toy/figure/bartender/get_ru_names()
+	return alist(
+		NOMINATIVE = "фигурка бармена",
+		GENITIVE = "фигурки бармена",
+		DATIVE = "фигурке бармена",
+		ACCUSATIVE = "фигурку бармена",
+		INSTRUMENTAL = "фигуркой бармена",
+		PREPOSITIONAL = "фигурке бармена",
+	)
 
 /obj/item/toy/figure/borg
 	name = "Cyborg action figure"
@@ -412,11 +552,31 @@
 	icon_state = "borg"
 	toysay = "Я. СНОВА. ЖИВОЙ."
 
+/obj/item/toy/figure/borg/get_ru_names()
+	return alist(
+		NOMINATIVE = "фигурка киборга",
+		GENITIVE = "фигурки киборга",
+		DATIVE = "фигурке киборга",
+		ACCUSATIVE = "фигурку киборга",
+		INSTRUMENTAL = "фигуркой киборга",
+		PREPOSITIONAL = "фигурке киборга",
+	)
+
 /obj/item/toy/figure/botanist
 	name = "Botanist action figure"
 	desc = "The drug-addicted botanist, from Space Life's SS12 figurine collection."
 	icon_state = "botanist"
 	toysay = "Чувак, я вижу цвета..."
+
+/obj/item/toy/figure/botanist/get_ru_names()
+	return alist(
+		NOMINATIVE = "фигурка ботаника",
+		GENITIVE = "фигурки ботаника",
+		DATIVE = "фигурке ботаника",
+		ACCUSATIVE = "фигурку ботаника",
+		INSTRUMENTAL = "фигуркой ботаника",
+		PREPOSITIONAL = "фигурке ботаника",
+	)
 
 /obj/item/toy/figure/captain
 	name = "Captain action figure"
@@ -424,11 +584,31 @@
 	icon_state = "captain"
 	toysay = "Экипаж, ядерный диск в безопасности, в меня в жопе."
 
+/obj/item/toy/figure/captain/get_ru_names()
+	return alist(
+		NOMINATIVE = "фигурка капитана",
+		GENITIVE = "фигурки капитана",
+		DATIVE = "фигурке капитана",
+		ACCUSATIVE = "фигурку капитана",
+		INSTRUMENTAL = "фигуркой капитана",
+		PREPOSITIONAL = "фигурке капитане",
+	)
+
 /obj/item/toy/figure/cargotech
 	name = "Cargo Technician action figure"
 	desc = "The hard-working cargo tech, from Space Life's SS12 figurine collection."
 	icon_state = "cargotech"
 	toysay = "За Каргонию!"
+
+/obj/item/toy/figure/cargotech/get_ru_names()
+	return alist(
+		NOMINATIVE = "фигурка грузчика",
+		GENITIVE = "фигурки грузчика",
+		DATIVE = "фигурке грузчика",
+		ACCUSATIVE = "фигурку грузчика",
+		INSTRUMENTAL = "фигуркой грузчика",
+		PREPOSITIONAL = "фигурке грузчика",
+	)
 
 /obj/item/toy/figure/ce
 	name = "Chief Engineer action figure"
@@ -436,11 +616,31 @@
 	icon_state = "ce"
 	toysay = "Подключите соляры!"
 
+/obj/item/toy/figure/ce/get_ru_names()
+	return alist(
+		NOMINATIVE = "фигурка главного инженера",
+		GENITIVE = "фигурки главного инженера",
+		DATIVE = "фигурке главного инженера",
+		ACCUSATIVE = "фигурку главного инженера",
+		INSTRUMENTAL = "фигуркой главного инженера",
+		PREPOSITIONAL = "фигурке главного инженера",
+	)
+
 /obj/item/toy/figure/chaplain
 	name = "Chaplain action figure"
 	desc = "The obsessed Chaplain, from Space Life's SS12 figurine collection."
 	icon_state = "chaplain"
 	toysay = "Боги, сделайте меня машиной для убийств!"
+
+/obj/item/toy/figure/chaplain/get_ru_names()
+	return alist(
+		NOMINATIVE = "фигурка священника",
+		GENITIVE = "фигурки священника",
+		DATIVE = "фигурке священника",
+		ACCUSATIVE = "фигурку священника",
+		INSTRUMENTAL = "фигуркой священника",
+		PREPOSITIONAL = "фигурке священника",
+	)
 
 /obj/item/toy/figure/chef
 	name = "Chef action figure"
@@ -448,11 +648,31 @@
 	icon_state = "chef"
 	toysay = "Клянусь, это не человечина."
 
+/obj/item/toy/figure/chef/get_ru_names()
+	return alist(
+		NOMINATIVE = "фигурка повара",
+		GENITIVE = "фигурки повара",
+		DATIVE = "фигурке повара",
+		ACCUSATIVE = "фигурку повара",
+		INSTRUMENTAL = "фигуркой повара",
+		PREPOSITIONAL = "фигурке повара",
+	)
+
 /obj/item/toy/figure/chemist
 	name = "Chemist action figure"
 	desc = "The legally dubious Chemist, from Space Life's SS12 figurine collection."
 	icon_state = "chemist"
 	toysay = "Забери свои таблетки!"
+
+/obj/item/toy/figure/chemist/get_ru_names()
+	return alist(
+		NOMINATIVE = "фигурка химика",
+		GENITIVE = "фигурки химика",
+		DATIVE = "фигурке химика",
+		ACCUSATIVE = "фигурку химика",
+		INSTRUMENTAL = "фигуркой химика",
+		PREPOSITIONAL = "фигурке химика",
+	)
 
 /obj/item/toy/figure/clown
 	name = "Clown action figure"
@@ -460,11 +680,31 @@
 	icon_state = "clown"
 	toysay = "Хонк!"
 
+/obj/item/toy/figure/clown/get_ru_names()
+	return alist(
+		NOMINATIVE = "фигурка клоуна",
+		GENITIVE = "фигурки клоуна",
+		DATIVE = "фигурке клоуна",
+		ACCUSATIVE = "фигурку клоуна",
+		INSTRUMENTAL = "фигуркой клоуна",
+		PREPOSITIONAL = "фигурке клоуна",
+	)
+
 /obj/item/toy/figure/ian
 	name = "Ian action figure"
 	desc = "The adorable corgi, from Space Life's SS12 figurine collection."
 	icon_state = "ian"
 	toysay = "Гав!"
+
+/obj/item/toy/figure/ian/get_ru_names()
+	return alist(
+		NOMINATIVE = "фигурка Иана",
+		GENITIVE = "фигурки Иана",
+		DATIVE = "фигурке Иана",
+		ACCUSATIVE = "фигурку Иана",
+		INSTRUMENTAL = "фигуркой Иана",
+		PREPOSITIONAL = "фигурке Иана",
+	)
 
 /obj/item/toy/figure/detective
 	name = "Detective action figure"
@@ -472,11 +712,31 @@
 	icon_state = "detective"
 	toysay = "На этом шлюзе есть следы серого комбинезона и изоляционных перчаток."
 
+/obj/item/toy/figure/detective/get_ru_names()
+	return alist(
+		NOMINATIVE = "фигурка детектива",
+		GENITIVE = "фигурки детектива",
+		DATIVE = "фигурке детектива",
+		ACCUSATIVE = "фигурку детектива",
+		INSTRUMENTAL = "фигуркой детектива",
+		PREPOSITIONAL = "фигурке детектива",
+	)
+
 /obj/item/toy/figure/dsquad
 	name = "Death Squad Officer action figure"
 	desc = "It's a member of the DeathSquad, a TV drama where loose-cannon ERT officers face up against the threats of the galaxy! It's from Space Life's special edition SS12 figurine collection."
 	icon_state = "dsquad"
 	toysay = "Уничтожить все угрозы!"
+
+/obj/item/toy/figure/dsquad/get_ru_names()
+	return alist(
+		NOMINATIVE = "фигурка офицера \"Отряда смерти\"",
+		GENITIVE = "фигурки офицера \"Отряда смерти\"",
+		DATIVE = "фигурке офицера \"Отряда смерти\"",
+		ACCUSATIVE = "фигурку офицера \"Отряда смерти\"",
+		INSTRUMENTAL = "фигуркой офицера \"Отряда смерти\"",
+		PREPOSITIONAL = "фигурке офицера \"Отряда смерти\"",
+	)
 
 /obj/item/toy/figure/engineer
 	name = "Engineer action figure"
@@ -484,11 +744,31 @@
 	icon_state = "engineer"
 	toysay = "О боже, сингулярность сбежала!"
 
+/obj/item/toy/figure/engineer/get_ru_names()
+	return alist(
+		NOMINATIVE = "фигурка инженера",
+		GENITIVE = "фигурки инженера",
+		DATIVE = "фигурке инженера",
+		ACCUSATIVE = "фигурку инженера",
+		INSTRUMENTAL = "фигуркой инженера",
+		PREPOSITIONAL = "фигурке инженера",
+	)
+
 /obj/item/toy/figure/geneticist
 	name = "Geneticist action figure"
 	desc = "The balding geneticist, from Space Life's SS12 figurine collection."
 	icon_state = "geneticist"
 	toysay = "Я не квалифицирован для этой работы."
+
+/obj/item/toy/figure/geneticist/get_ru_names()
+	return alist(
+		NOMINATIVE = "фигурка генетика",
+		GENITIVE = "фигурки генетика",
+		DATIVE = "фигурке генетика",
+		ACCUSATIVE = "фигурку генетика",
+		INSTRUMENTAL = "фигуркой генетика",
+		PREPOSITIONAL = "фигурке генетика",
+	)
 
 /obj/item/toy/figure/hop
 	name = "Head of Personnel action figure"
@@ -496,11 +776,31 @@
 	icon_state = "hop"
 	toysay = "Бумаги, пожалуйста!"
 
+/obj/item/toy/figure/hop/get_ru_names()
+	return alist(
+		NOMINATIVE = "фигурка главы персонала",
+		GENITIVE = "фигурки главы персонала",
+		DATIVE = "фигурке главы персонала",
+		ACCUSATIVE = "фигурку главы персонала",
+		INSTRUMENTAL = "фигуркой главы персонала",
+		PREPOSITIONAL = "фигурке главы персонала",
+	)
+
 /obj/item/toy/figure/hos
 	name = "Head of Security action figure"
 	desc = "The bloodlust-filled Head of Security, from Space Life's SS12 figurine collection."
 	icon_state = "hos"
 	toysay = "Космозакон? Чего?"
+
+/obj/item/toy/figure/hos/get_ru_names()
+	return alist(
+		NOMINATIVE = "фигурка главы службы безопасности",
+		GENITIVE = "фигурки главы службы безопасности",
+		DATIVE = "фигурке главы службы безопасности",
+		ACCUSATIVE = "фигурку главы службы безопасности",
+		INSTRUMENTAL = "фигуркой главы службы безопасности",
+		PREPOSITIONAL = "фигурке главы службы безопасности",
+	)
 
 /obj/item/toy/figure/qm
 	name = "Quartermaster action figure"
@@ -508,11 +808,31 @@
 	icon_state = "qm"
 	toysay = "Хайль Каргония!"
 
+/obj/item/toy/figure/qm/get_ru_names()
+	return alist(
+		NOMINATIVE = "фигурка квартирмейстера",
+		GENITIVE = "фигурки квартирмейстера",
+		DATIVE = "фигурке квартирмейстера",
+		ACCUSATIVE = "фигурку квартирмейстера",
+		INSTRUMENTAL = "фигуркой квартирмейстера",
+		PREPOSITIONAL = "фигурке квартирмейстера",
+	)
+
 /obj/item/toy/figure/janitor
 	name = "Janitor action figure"
 	desc = "The water-using Janitor, from Space Life's SS12 figurine collection."
 	icon_state = "janitor"
 	toysay = "Читай знаки, идиот."
+
+/obj/item/toy/figure/janitor/get_ru_names()
+	return alist(
+		NOMINATIVE = "фигурка уборщика",
+		GENITIVE = "фигурки уборщика",
+		DATIVE = "фигурке уборщика",
+		ACCUSATIVE = "фигурку уборщика",
+		INSTRUMENTAL = "фигуркой уборщика",
+		PREPOSITIONAL = "фигурке уборщика",
+	)
 
 /obj/item/toy/figure/lawyer
 	name = "Lawyer action figure"
@@ -520,11 +840,31 @@
 	icon_state = "lawyer"
 	toysay = "СРП говорит, что они виновны! Взлом — доказательство того, что они Враги Корпорации!"
 
+/obj/item/toy/figure/lawyer/get_ru_names()
+	return alist(
+		NOMINATIVE = "фигурка адвоката",
+		GENITIVE = "фигурки адвоката",
+		DATIVE = "фигурке адвоката",
+		ACCUSATIVE = "фигурку адвоката",
+		INSTRUMENTAL = "фигуркой адвоката",
+		PREPOSITIONAL = "фигурке адвоката",
+	)
+
 /obj/item/toy/figure/librarian
 	name = "Librarian action figure"
 	desc = "The quiet Librarian, from Space Life's SS12 figurine collection."
 	icon_state = "librarian"
 	toysay = "Однажды, в..."
+
+/obj/item/toy/figure/librarian/get_ru_names()
+	return alist(
+		NOMINATIVE = "фигурка библиотекаря",
+		GENITIVE = "фигурки библиотекаря",
+		DATIVE = "фигурке библиотекаря",
+		ACCUSATIVE = "фигурку библиотекаря",
+		INSTRUMENTAL = "фигуркой библиотекаря",
+		PREPOSITIONAL = "фигурке библиотекаря",
+	)
 
 /obj/item/toy/figure/md
 	name = "Medical Doctor action figure"
@@ -532,11 +872,31 @@
 	icon_state = "md"
 	toysay = "Пациент уже мёртв!"
 
+/obj/item/toy/figure/md/get_ru_names()
+	return alist(
+		NOMINATIVE = "фигурка врача",
+		GENITIVE = "фигурки врача",
+		DATIVE = "фигурке врача",
+		ACCUSATIVE = "фигурку врача",
+		INSTRUMENTAL = "фигуркой врача",
+		PREPOSITIONAL = "фигурке врача",
+	)
+
 /obj/item/toy/figure/mime
 	name = "Mime action figure"
 	desc = "... from Space Life's SS12 figurine collection."
 	icon_state = "mime"
 	toysay = "..."
+
+/obj/item/toy/figure/mime/get_ru_names()
+	return alist(
+		NOMINATIVE = "фигурка мима",
+		GENITIVE = "фигурки мима",
+		DATIVE = "фигурке мима",
+		ACCUSATIVE = "фигурку мима",
+		INSTRUMENTAL = "фигуркой мима",
+		PREPOSITIONAL = "фигурке мима",
+	)
 
 /obj/item/toy/figure/miner
 	name = "Shaft Miner action figure"
@@ -544,11 +904,31 @@
 	icon_state = "miner"
 	toysay = "О боже, оно жрёт мои кишки!"
 
+/obj/item/toy/figure/miner/get_ru_names()
+	return alist(
+		NOMINATIVE = "фигурка шахтёра",
+		GENITIVE = "фигурки шахтёра",
+		DATIVE = "фигурке шахтёра",
+		ACCUSATIVE = "фигурку шахтёра",
+		INSTRUMENTAL = "фигуркой шахтёра",
+		PREPOSITIONAL = "фигурке шахтёра",
+	)
+
 /obj/item/toy/figure/ninja
 	name = "Ninja action figure"
 	desc = "It's the mysterious ninja! It's from Space Life's special edition SS12 figurine collection."
 	icon_state = "ninja"
 	toysay = "О боже! Хватит стрелять, я косплеер!"
+
+/obj/item/toy/figure/ninja/get_ru_names()
+	return alist(
+		NOMINATIVE = "фигурка ниндзи",
+		GENITIVE = "фигурки ниндзи",
+		DATIVE = "фигурке ниндзи",
+		ACCUSATIVE = "фигурку ниндзи",
+		INSTRUMENTAL = "фигуркой ниндзи",
+		PREPOSITIONAL = "фигурке ниндзи",
+	)
 
 /obj/item/toy/figure/wizard
 	name = "Wizard action figure"
@@ -556,11 +936,31 @@
 	icon_state = "wizard"
 	toysay = "Ei Nath!"
 
+/obj/item/toy/figure/wizard/get_ru_names()
+	return alist(
+		NOMINATIVE = "фигурка мага",
+		GENITIVE = "фигурки мага",
+		DATIVE = "фигурке мага",
+		ACCUSATIVE = "фигурку мага",
+		INSTRUMENTAL = "фигуркой мага",
+		PREPOSITIONAL = "фигурке мага",
+	)
+
 /obj/item/toy/figure/rd
 	name = "Research Director action figure"
 	desc = "The ambitious RD, from Space Life's SS12 figurine collection."
 	icon_state = "rd"
 	toysay = "Уничтожить всех боргов!"
+
+/obj/item/toy/figure/rd/get_ru_names()
+	return alist(
+		NOMINATIVE = "фигурка директора исследований",
+		GENITIVE = "фигурки директора исследований",
+		DATIVE = "фигурке директора исследований",
+		ACCUSATIVE = "фигурку директора исследований",
+		INSTRUMENTAL = "фигуркой директора исследований",
+		PREPOSITIONAL = "фигурке директора исследований",
+	)
 
 /obj/item/toy/figure/roboticist
 	name = "Roboticist action figure"
@@ -568,11 +968,31 @@
 	icon_state = "roboticist"
 	toysay = "Он сам просил боргизацию!"
 
+/obj/item/toy/figure/roboticist/get_ru_names()
+	return alist(
+		NOMINATIVE = "фигурка робототехника",
+		GENITIVE = "фигурки робототехника",
+		DATIVE = "фигурке робототехника",
+		ACCUSATIVE = "фигурку робототехника",
+		INSTRUMENTAL = "фигуркой робототехника",
+		PREPOSITIONAL = "фигурке робототехника",
+	)
+
 /obj/item/toy/figure/scientist
 	name = "Scientist action figure"
 	desc = "The mad Scientist, from Space Life's SS12 figurine collection."
 	icon_state = "scientist"
 	toysay = "Кто-то другой сделал эти бомбы!"
+
+/obj/item/toy/figure/scientist/get_ru_names()
+	return alist(
+		NOMINATIVE = "фигурка ученого",
+		GENITIVE = "фигурки ученого",
+		DATIVE = "фигурке ученого",
+		ACCUSATIVE = "фигурку ученого",
+		INSTRUMENTAL = "фигуркой ученого",
+		PREPOSITIONAL = "фигурке ученого",
+	)
 
 /obj/item/toy/figure/syndie
 	name = "Nuclear Operative action figure"
@@ -580,11 +1000,31 @@
 	icon_state = "syndie"
 	toysay = "Заберите этот ёбанный диск!"
 
+/obj/item/toy/figure/syndie/get_ru_names()
+	return alist(
+		NOMINATIVE = "фигурка ядерного оперативника",
+		GENITIVE = "фигурки ядерного оперативника",
+		DATIVE = "фигурке ядерного оперативника",
+		ACCUSATIVE = "фигурку ядерного оперативника",
+		INSTRUMENTAL = "фигуркой ядерного оперативника",
+		PREPOSITIONAL = "фигурке ядерного оперативника",
+	)
+
 /obj/item/toy/figure/secofficer
 	name = "Security Officer action figure"
 	desc = "The power-tripping Security Officer, from Space Life's SS12 figurine collection."
 	icon_state = "secofficer"
 	toysay = "Я есть закон!"
+
+/obj/item/toy/figure/secofficer/get_ru_names()
+	return alist(
+		NOMINATIVE = "фигурка офицера службы безопасности",
+		GENITIVE = "фигурки офицера службы безопасности",
+		DATIVE = "фигурке офицера службы безопасности",
+		ACCUSATIVE = "фигурку офицера службы безопасности",
+		INSTRUMENTAL = "фигуркой офицера службы безопасности",
+		PREPOSITIONAL = "фигурке офицера службы безопасности",
+	)
 
 /obj/item/toy/figure/virologist
 	name = "Virologist action figure"
@@ -592,14 +1032,44 @@
 	icon_state = "virologist"
 	toysay = "Это не мой вирус!"
 
+/obj/item/toy/figure/virologist/get_ru_names()
+	return alist(
+		NOMINATIVE = "фигурка вирусолога",
+		GENITIVE = "фигурки вирусолога",
+		DATIVE = "фигурке вирусолога",
+		ACCUSATIVE = "фигурку вирусолога",
+		INSTRUMENTAL = "фигуркой вирусолога",
+		PREPOSITIONAL = "фигурке вирусолога",
+	)
+
 /obj/item/toy/figure/warden
 	name = "Warden action figure"
 	desc = "The amnesiac Warden, from Space Life's SS12 figurine collection."
 	icon_state = "warden"
 	toysay = "Казнить за взлом!"
 
+/obj/item/toy/figure/warden/get_ru_names()
+	return alist(
+		NOMINATIVE = "фигурка смотрителя",
+		GENITIVE = "фигурки смотрителя",
+		DATIVE = "фигурке смотрителя",
+		ACCUSATIVE = "фигурку смотрителя",
+		INSTRUMENTAL = "фигуркой смотрителя",
+		PREPOSITIONAL = "фигурке смотрителя",
+	)
+
 /obj/item/toy/figure/magistrate
 	name = "Magistrate action figure"
 	desc = "The relevant magistrate, from Space Life's SS12 figurine collection."
 	icon_state = "magistrate"
 	toysay = "Казнить или не казнить — вот в чём вопрос."
+
+/obj/item/toy/figure/magistrate/get_ru_names()
+	return alist(
+		NOMINATIVE = "фигурка магистрата",
+		GENITIVE = "фигурки магистрата",
+		DATIVE = "фигурке магистрата",
+		ACCUSATIVE = "фигурку магистрата",
+		INSTRUMENTAL = "фигуркой магистрата",
+		PREPOSITIONAL = "фигурке магистрата",
+	)
