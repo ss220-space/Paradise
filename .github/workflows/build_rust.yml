@@ -18,10 +18,11 @@ jobs:
        github.event.comment.author_association == 'OWNER')
 
     runs-on: ubuntu-24.04
+    container: ghcr.io/ss220-space/ubuntu-24.04:latest
 
     steps:
-      - name: Install jq
-        run: sudo apt-get update && sudo apt-get install -y jq
+      #- name: Install jq
+      #  run: sudo apt-get update && sudo apt-get install -y jq
 
       - run: echo "FAIL_NOTIFIED=false" >> "$GITHUB_ENV"
 
@@ -54,20 +55,20 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 1
 
-      - name: Setup Rust targets
-        run: |
-          rustup target add i686-unknown-linux-gnu
+      #- name: Setup Rust targets
+      #  run: |
+      #    rustup target add i686-unknown-linux-gnu
 
-      - name: Install cross-toolchain deps
-        run: |
-          sudo dpkg --add-architecture i386
-          sudo apt-get update
-          sudo apt-get install -y \
-            zlib1g-dev:i386 \
-            lib32gcc-11-dev \
-            gcc-multilib g++-multilib \
-            libc6-dev-i386 \
-            libgcc-11-dev:i386
+      #- name: Install cross-toolchain deps
+      # run: |
+      #   sudo dpkg --add-architecture i386
+      #   sudo apt-get update
+      #   sudo apt-get install -y \
+      #     zlib1g-dev:i386 \
+      #     lib32gcc-11-dev \
+      #     gcc-multilib g++-multilib \
+      #     libc6-dev-i386 \
+      #     libgcc-11-dev:i386
 
       - name: Build Linux libraries
         env:
@@ -75,7 +76,7 @@ jobs:
           BASE_REPOSITORY: ${{ github.repository }}
           USER_USER: ${{ github.actor }}
           USER_EMAIL: ${{ github.event.sender.email }}
-          SOURCE_DATE_EPOCH: "1577836800"
+          SOURCE_DATE_EPOCH: '1577836800'
           TZ: UTC
         run: |
           git config --local user.name "Rust Builder"
@@ -115,7 +116,7 @@ jobs:
 
     if: |
       github.event.issue.pull_request &&
-      github.event.comment.body == '!build_rust' &&
+      github.event.comment.body == '!build_rust_windows' &&
        (github.event.comment.author_association == 'COLLABORATOR' ||
        github.event.comment.author_association == 'MEMBER' ||
        github.event.comment.author_association == 'OWNER')
