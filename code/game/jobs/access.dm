@@ -95,9 +95,7 @@
 			return get_all_centcom_access() + get_all_accesses()
 		if(JOB_TITLE_CCFIELD)
 			return get_all_centcom_access() + get_all_accesses()
-		if("Nanotrasen Navy Captain")
-			return get_all_centcom_access() + get_all_accesses()
-		if(JOB_TITLE_CCSUPREME)
+		if(JOB_TITLE_CCCAPTAIN)
 			return get_all_centcom_access() + get_all_accesses()
 
 /proc/get_syndicate_access(job)
@@ -475,8 +473,7 @@
 		JOB_TITLE_CCOFFICER,
 		JOB_TITLE_CCFIELD,
 		"Nanotrasen Diplomat",
-		"Nanotrasen Navy Captain",
-		JOB_TITLE_CCSUPREME,
+		JOB_TITLE_CCCAPTAIN,
 )
 
 /proc/get_all_solgov_jobs()
