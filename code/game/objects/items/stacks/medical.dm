@@ -16,7 +16,7 @@
 	var/unique_handling = FALSE
 	var/stop_bleeding = 0
 	var/bleedsuppress = 0
-	var/use_duration = 1 SECONDS
+	var/use_duration = 3 SECONDS
 	var/use_flags = DA_IGNORE_USER_LOC_CHANGE | DA_IGNORE_LYING
 	merge_type = null // do not merge if not defined in subtype
 
@@ -264,9 +264,10 @@
 	icon_state = "gauze_3"
 	item_state = "gauze"
 	origin_tech = "biotech=2"
-	heal_brute = 10
+	heal_brute = 5
 	bleedsuppress = 2
 	stop_bleeding = 180 SECONDS
+	use_duration = 2 SECONDS
 	energy_type = /datum/robot_energy_storage/medical
 	merge_type = /obj/item/stack/medical/bruise_pack
 	custom_price = PAYCHECK_MIN * 0.4
@@ -365,7 +366,6 @@
 	amount = 1
 	max_amount = 1
 	heal_brute = 0
-	bleedsuppress = 10
 	stop_bleeding = 300 SECONDS
 	merge_type = /obj/item/stack/medical/bruise_pack/military
 	custom_premium_price = PAYCHECK_CREW
@@ -421,6 +421,7 @@
 	amount = 8
 	max_amount = 8
 	stop_bleeding = 0
+	use_duration = 1.5 SECONDS
 	merge_type = /obj/item/stack/medical/bruise_pack/advanced
 	use_flags = DA_IGNORE_LYING
 	custom_price = PAYCHECK_MIN * 1.5
@@ -453,10 +454,13 @@
 	icon_state = "extended_trauma_kit_5"
 	item_state = "extended_trauma_kit"
 	belt_icon = "advanced_trauma_kit"
-	heal_brute = 20
+	heal_brute = 30
 	amount = 10
 	max_amount = 10
 	stop_bleeding = 0
+	use_duration = 0
+	self_delay = 1.5 SECONDS
+	use_duration = 0.7 SECONDS
 	use_flags = DA_IGNORE_LYING
 	merge_type = /obj/item/stack/medical/bruise_pack/extended
 	custom_premium_price = PAYCHECK_LOWER
@@ -488,6 +492,7 @@
 	icon_state = "ointment_3"
 	origin_tech = "biotech=2"
 	heal_burn = 10
+	use_duration = 2 SECONDS
 	energy_type = /datum/robot_energy_storage/medical
 	use_flags = DA_IGNORE_LYING
 	merge_type = /obj/item/stack/medical/ointment
@@ -549,6 +554,7 @@
 	heal_burn = 20
 	amount = 8
 	max_amount = 8
+	use_duration = 1.5 SECONDS
 	merge_type = /obj/item/stack/medical/ointment/advanced
 	custom_price = PAYCHECK_MIN * 1.5
 
@@ -578,9 +584,11 @@
 	icon_state = "extended_burn_kit_5"
 	item_state = "extended_burn_kit"
 	belt_icon = "advanced_burn_kit"
-	heal_burn = 20
+	heal_burn = 30
 	amount = 10
 	max_amount = 10
+	self_delay = 1.5 SECONDS
+	use_duration = 0.7 SECONDS
 	merge_type = /obj/item/stack/medical/ointment/extended
 	custom_premium_price = PAYCHECK_LOWER
 
@@ -613,6 +621,7 @@
 	amount = 8
 	max_amount = 8
 	stop_bleeding = 0
+	use_duration = 1.5 SECONDS
 	use_flags = DA_IGNORE_LYING
 	merge_type = /obj/item/stack/medical/bruise_pack/synthflesh_kit
 	custom_price = PAYCHECK_LOWER
@@ -707,8 +716,7 @@
 	icon_state = "splint"
 	item_state = "splint"
 	unique_handling = TRUE
-	self_delay = 5 SECONDS
-	use_duration = 3 SECONDS
+	self_delay = 10 SECONDS
 	energy_type = /datum/robot_energy_storage/splint
 	var/static/list/available_splint_zones = list(
 		BODY_ZONE_L_ARM,
@@ -788,7 +796,6 @@
 			Предназначена для иммобилизации сломанных конечностей до получения полноценной медицинской помощи, \
 			если таковая вообще возможна в суровых условиях Лазиса."
 	icon_state = "tribal_splint"
-	self_delay = 10 SECONDS
 	use_duration = 5 SECONDS
 	merge_type = /obj/item/stack/medical/splint/tribal
 
@@ -808,8 +815,8 @@
 			Предназначена для иммобилизации сломанных конечностей до получения полноценной медицинской помощи. \
 			Сильно уступает стандартным аналогам в плане качества."
 	icon_state = "makeshift_splint"
-	self_delay = 10 SECONDS
 	use_duration = 5 SECONDS
+	self_delay = 15 SECONDS
 	merge_type = /obj/item/stack/medical/splint/makeshift
 
 
@@ -834,8 +841,10 @@
 	icon_state = "suture_3"
 	item_state = "suture"
 	origin_tech = "biotech=3"
-	var/bleeding_heal = 10
+	var/bleeding_heal = 5
 	var/damage = 5
+	self_delay = 3 SECONDS
+	use_duration = 2 SECONDS
 	use_flags = DA_IGNORE_LYING
 	energy_type = /datum/robot_energy_storage/medical
 	merge_type = /obj/item/stack/medical/suture
@@ -916,8 +925,10 @@
 	amount = 10
 	max_amount = 10
 	heal_brute = 10
-	bleeding_heal = 20
+	bleeding_heal = 10
 	damage = 0
+	self_delay = 2 SECONDS
+	use_duration = 0.7 SECONDS
 	merge_type = /obj/item/stack/medical/suture/advanced
 	custom_premium_price = PAYCHECK_LOWER
 
@@ -947,21 +958,21 @@
 	w_class = WEIGHT_CLASS_TINY
 	custom_price = PAYCHECK_MIN * 0.6
 	/// Duration to apply self
-	var/self_duration = 3 SECONDS
+	var/self_duration = 5 SECONDS
 	/// Duration to apply other mobs
-	var/other_duration = 1 SECONDS
+	var/other_duration = 3 SECONDS
 	/// Removing duration
-	var/remove_duration = 1 SECONDS
+	var/remove_duration = 3 SECONDS
 	/// Bodypart where applied tourniquet
 	var/obj/item/organ/external/applied_bodypart = null
 	/// Addition bodypart on which tourniquet is applied  (hand for arm, foot for leg)
 	var/obj/item/organ/external/applied_addition_bodypart = null
 	/// Duration of limb necrotize warning in chat
-	var/necrotize_warning_duration = 7 MINUTES
+	var/necrotize_warning_duration = 2 MINUTES
 	/// Limb necrotize warning timer identifier
 	var/necrotize_warning_timer_id = null
 	/// Duration of limb necrotize if apply tourniquet
-	var/necrotize_duration = 10 MINUTES
+	var/necrotize_duration = 3 MINUTES
 	/// Limb necrotize timer identifier if apply tourniquet
 	var/necrotize_timer_id = null
 
@@ -1021,7 +1032,7 @@
 
 	user.drop_item_ground(src)
 	src.forceMove(affecting)
-	target.balloon_alert(target, "турникет наложен")
+	target.balloon_alert(user, "турникет наложен")
 	target.UpdateDamageIcon()
 	update_icon()
 	necrotize_warning_timer_id = addtimer(CALLBACK(src, PROC_REF(necrotize_limbs_warning), target), necrotize_warning_duration, TIMER_STOPPABLE)
@@ -1087,7 +1098,6 @@
 	if(!applied_bodypart)
 		return
 
-	user.balloon_alert(user, "[applied_bodypart.declent_ru(NOMINATIVE)] неме[PLUR_ET_YUT(applied_bodypart)]!")
 	to_chat(user, span_danger("Ваш[GEND_A_E_I(user)] [applied_bodypart.declent_ru(NOMINATIVE)] неме[PLUR_ET_YUT(applied_bodypart)]!"))
 
 /obj/item/tourniquet/proc/necrotize_limbs(mob/living/target)
@@ -1159,8 +1169,8 @@
 			Жутко неудобный, но со своей задачей справится. Не предназначен для длительного использования."
 	icon_state = "makeshift_tourniquet"
 	item_state = "makeshift_tourniquet"
-	self_duration = 5 SECONDS
-	other_duration = 3 SECONDS
+	self_duration = 8 SECONDS
+	other_duration = 5 SECONDS
 
 /obj/item/tourniquet/makeshift/remove_from_bodypart(mob/living/user)
 	if(..())
@@ -1183,7 +1193,9 @@
 			Длительное использование без последующей медицинской помощи ведёт к некрозу тканей."
 	icon_state = "advanced_tourniquet"
 	item_state = "advanced_tourniquet"
-	self_duration = 1 SECONDS
+	self_duration = 3 SECONDS
+	other_duration = 2 SECONDS
+	remove_duration = 1 SECONDS
 	custom_price = PAYCHECK_MIN * 2
 
 /obj/item/tourniquet/advanced/get_ru_names()
