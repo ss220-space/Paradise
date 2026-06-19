@@ -221,4 +221,3 @@ GLOBAL_LIST_INIT(gas_meta, meta_gas_list())
 	primary_color = COLOR_GRAY
 	sensor_flag = SENSOR_COMPOSITION_AGENT_B
 	base_value = 5
-	
