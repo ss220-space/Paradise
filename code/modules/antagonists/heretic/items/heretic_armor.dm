@@ -382,6 +382,94 @@
 	set_armor(/datum/armor/eldritch_armor_rust)
 
 
+// Сияющее Облачение (Resplendent Regalia) — Moon path robes.
+// Matching TG: the robe gives NO armor, but makes the wearer fully immune to disabling effects, pacifies
+// them and prevents the use of firearms. The moon blade can still be used (and, with a Moonlight Amulet,
+// used while pacified). TG also converts all incoming damage into brain damage and gibs you on death while
+// wearing it - those two mechanics need a damage-intercept hook and are left for the runtime pass.
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/moon
+	name = "сияющее облачение"
+	desc = "Переливающаяся мантия из лунного света и зеркальных нитей. Она не защищает тело — \
+			лишь освобождает разум от оков боли и страха."
+	// Moon robe sprites (item + worn) extracted from tg's armor sheet; the base cult-robe dmi has no
+	// moon_armor state, which is why the regalia rendered with a wrong/blank sprite.
+	icon = 'icons/obj/clothing/heretic_moon_robe.dmi'
+	icon_state = "moon_armor"
+	item_state = "moon_armor"
+	// master220 resolves the worn (on-mob) sprite via onmob_sheets[slot].
+	onmob_sheets = list(
+		ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/heretic_moon_robe.dmi',
+	)
+	// The regalia has no protective value of its own (tg parity).
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+	// Only the moon blade may be carried in it (no Lionhunter's Rifle).
+	allowed = list(/obj/item/melee/sickly_blade/moon)
+	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie/eldritch/moon
+	/// The traits the regalia grants while worn - full immunity to disabling effects + pacification + no guns.
+	var/static/list/regalia_traits = list(
+		TRAIT_STUNIMMUNE,
+		TRAIT_SLEEPIMMUNE,
+		TRAIT_PUSHIMMUNE,
+		TRAIT_BATON_RESISTANCE,
+		TRAIT_PACIFISM,
+		TRAIT_NO_GUNS,
+	)
+
+
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/moon/get_ru_names()
+	return alist(
+		NOMINATIVE = "сияющее облачение",
+		GENITIVE = "сияющего облачения",
+		DATIVE = "сияющему облачению",
+		ACCUSATIVE = "сияющее облачение",
+		INSTRUMENTAL = "сияющим облачением",
+		PREPOSITIONAL = "сияющем облачении",
+	)
+
+
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/moon/examine(mob/user)
+	. = ..()
+	if(!isheretic(user))
+		return
+	. += span_notice("Делает вас невосприимчивым к выводящим из строя эффектам, но не даёт брони, \
+		пацифицирует и не позволяет пользоваться огнестрелом. Бить клинком можно только с Амулетом Лунного Света.")
+
+
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/moon/equipped(mob/user, slot, initial = FALSE)
+	. = ..()
+	if(slot == ITEM_SLOT_CLOTH_OUTER)
+		user.add_traits(regalia_traits, UID())
+	else
+		user.remove_traits(regalia_traits, UID())
+
+
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/moon/dropped(mob/user, slot, silent = FALSE)
+	. = ..()
+	user.remove_traits(regalia_traits, UID())
+
+
+/obj/item/clothing/head/hooded/cult_hoodie/eldritch/moon
+	name = "капюшон сияющего облачения"
+	desc = "Переливающийся капюшон из лунного света и зеркальных нитей."
+	icon = 'icons/obj/clothing/heretic_moon_hood.dmi'
+	icon_state = "moon_armor"
+	onmob_sheets = list(
+		ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/heretic_moon_hood.dmi',
+	)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+
+
+/obj/item/clothing/head/hooded/cult_hoodie/eldritch/moon/get_ru_names()
+	return alist(
+		NOMINATIVE = "капюшон сияющего облачения",
+		GENITIVE = "капюшона сияющего облачения",
+		DATIVE = "капюшону сияющего облачения",
+		ACCUSATIVE = "капюшон сияющего облачения",
+		INSTRUMENTAL = "капюшоном сияющего облачения",
+		PREPOSITIONAL = "капюшоне сияющего облачения",
+	)
+
+
 // Плащ Пустоты. Turns invisible with the hood up, lets you hide stuff.
 /obj/item/clothing/head/hooded/cult_hoodie/void
 	name = "капюшон пустоты"

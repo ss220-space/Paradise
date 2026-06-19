@@ -34,7 +34,7 @@
 	passive_descriptions = list(
 		"Иммунитет к жару и пепельным бурям.",
 		"Иммунитет к лаве.",
-		"Сопротивление экстремальному холоду.",
+		"Сопротивление высокому и низкому давлению.",
 	)
 	// TG-format column (1:1 with tgstation Ash). Main line:
 	// base_ash -> ash_passage -> fire_blast -> Scorched Mantle(robes) -> mad_mask -> Fiery Blade -> flame_birth -> ascension.

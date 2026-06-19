@@ -132,7 +132,7 @@
 	research_tree_icon_path = 'icons/mob/actions/actions_items.dmi'
 	research_tree_icon_state = "sniper_zoom"
 	spell_to_add = /obj/effect/proc_holder/spell/mob_cooldown/charge/rust
-	cost = 1
+	cost = 2 // TG: rust_charge costs 2
 
 
 /datum/heretic_knowledge/greaves_of_the_prophet

@@ -484,6 +484,12 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	RegisterSignal(our_mob, COMSIG_ATOM_UPDATE_OVERLAYS, PROC_REF(add_aura_overlay))
 	RegisterSignal(our_mob, COMSIG_ATOM_EXAMINE, PROC_REF(on_heretic_examine))
 	RegisterSignals(our_mob, list(SIGNAL_ADDTRAIT(TRAIT_HERETIC_AURA_HIDDEN), SIGNAL_REMOVETRAIT(TRAIT_HERETIC_AURA_HIDDEN)), PROC_REF(update_heretic_aura))
+	// master220's human regenerate_icons() does a full cut_overlays() and rebuilds via the old
+	// overlays_standing system - it does NOT re-emit COMSIG_ATOM_UPDATE_OVERLAYS, so the managed aura
+	// overlay gets wiped (and managed_overlays goes stale, so a later update_appearance can't restore it).
+	// This is why the aura vanished after ascension (which triggers a regenerate_icons via trait/body
+	// changes). Re-add the aura on regenerate, exactly like /datum/component/shielded does for its shield.
+	RegisterSignal(our_mob, COMSIG_HUMAN_REGENERATE_ICONS, PROC_REF(on_regenerate_icons))
 	our_mob.update_appearance(UPDATE_OVERLAYS)
 
 /datum/antagonist/heretic/remove_innate_effects(mob/living/mob_override)
@@ -503,6 +509,7 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 		COMSIG_MOB_LOGIN,
 		COMSIG_ATOM_UPDATE_OVERLAYS,
 		COMSIG_ATOM_EXAMINE,
+		COMSIG_HUMAN_REGENERATE_ICONS,
 		SIGNAL_ADDTRAIT(TRAIT_HERETIC_AURA_HIDDEN),
 		SIGNAL_REMOVETRAIT(TRAIT_HERETIC_AURA_HIDDEN),
 	))
@@ -515,6 +522,16 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 		return
 	overlays += eldritch_overlay
 	overlays += emissive_appearance(eldritch_overlay.icon, eldritch_overlay.icon_state, source)
+
+/// Re-applies the aura after a full regenerate_icons() (which cut_overlays() wiped). master220's human
+/// icon rebuild bypasses the managed-overlay/COMSIG_ATOM_UPDATE_OVERLAYS path, so we re-add the aura
+/// directly here, the same way /datum/component/shielded re-draws its shield on this signal.
+/datum/antagonist/heretic/proc/on_regenerate_icons(mob/living/source)
+	SIGNAL_HANDLER
+	if(!should_show_aura())
+		return
+	source.add_overlay(eldritch_overlay)
+	source.add_overlay(emissive_appearance(eldritch_overlay.icon, eldritch_overlay.icon_state, source))
 
 /// Refreshes the heretic's overlays so the aura is (re)drawn or cleared.
 /datum/antagonist/heretic/proc/update_heretic_aura()

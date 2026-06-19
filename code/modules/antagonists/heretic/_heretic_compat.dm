@@ -50,13 +50,44 @@
 	return FALSE
 
 // --- Hallucination compat ---
-// master220 has a simple Hallucinate(amount) but not tg's typed cause_hallucination()/datum hallucinations.
-// Map to the generic effect (ignoring the specific delusion type) and stub the referenced types.
-// NOTE: the specific moon/gate delusion visuals are a runtime-polish TODO.
-/mob/living/proc/cause_hallucination(hallucination_type, reason, duration = 10 SECONDS, affects_us = TRUE, affects_others = FALSE)
+// master220 has no tg-style typed cause_hallucination()/hallucination datums, but it DOES have a working
+// hallucination engine: /obj/effect/hallucination/delusion warps the on-screen crew into monsters, and an
+// ambient strength-based status (Hallucinate()) sprinkles random ones over time.
+//
+// The ambient status ALONE is why "галюны не работают": its first hallucination is scheduled at
+// rand(20s,50s)/(strength*0.003) - at the low strengths these spells used (e.g. a 10s effect => strength
+// 100 => a 66-166s cooldown) the status expires LONG before it ever rolls a hallucination, so none fired.
+//
+// So cause_hallucination() now fires one delusion IMMEDIATELY (guaranteed and visible) and tops up the
+// ambient status for the rest of the duration as flavour. The specific delusion type is ignored (we use
+// the generic "everyone looks like a monster" delusion to approximate the moon/gate visuals).
+/mob/living/proc/cause_hallucination(hallucination_type, reason, duration = 30 SECONDS, affects_us = TRUE, affects_others = FALSE)
 	if(affects_us)
-		Hallucinate(duration)
+		fire_eldritch_hallucination(src, duration)
+	// affects_others (e.g. a moon-converted madman radiating insanity) makes the nearby crew hallucinate too.
+	if(affects_others)
+		for(var/mob/living/carbon/nearby in view(7, src) - src)
+			fire_eldritch_hallucination(nearby, duration)
 
+/// Fires guaranteed hallucinations on a carbon RIGHT NOW and keeps them coming for the duration.
+/proc/fire_eldritch_hallucination(mob/living/carbon/who, duration = 30 SECONDS)
+	if(!iscarbon(who))
+		return
+	// 1) GUARANTEED, self-contained hallucinations via hallucinate_living() - the exact 100%-reliable trick
+	//    the madness mask uses (sounds/whispers/fake messages/battle visions/self-delusion the victim
+	//    experiences directly, so they fire even with nobody else around). Fired ASYNC because
+	//    hallucinate_living() can sleep for several seconds (animated hallucinations); this proc runs inside
+	//    the mansus-grasp attack chain (a signal handler), and a synchronous sleep there stalled afterattack
+	//    so the grasp hand was never removed or put on cooldown (spam-clickable). INVOKE_ASYNC returns at once.
+	INVOKE_ASYNC(who, TYPE_PROC_REF(/mob/living, hallucinate_living), pickweight(GLOB.minor_hallutinations + GLOB.medium_hallutinations))
+	INVOKE_ASYNC(who, TYPE_PROC_REF(/mob/living, hallucinate_living), pickweight(GLOB.minor_hallutinations + GLOB.medium_hallutinations))
+	// 2) Themed "everyone looks like a monster" delusion on top, for when bystanders ARE around (the moon
+	//    visual). skip_nearby = FALSE so people right next to the victim transform too. (Does not sleep.)
+	new /obj/effect/hallucination/delusion(who.loc, who, null, duration, FALSE)
+	// 3) Pin the ambient hallucination status near TG's 120s cap so more keep trickling in afterwards.
+	who.Hallucinate(max(duration, 120 SECONDS))
+
+// Stub types so the typepath literals the heretic spells pass as `hallucination_type` still resolve.
 /datum/hallucination/delusion/preset/moon
 /datum/hallucination/delusion/preset/heretic/gate
 
@@ -114,6 +145,15 @@
 // (500 + rust_strength * 200 brute). A bare call (null strength) is treated as 0 → a flat 500.
 /obj/machinery/rust_heretic_act(strength)
 	take_damage(500 + strength * 200, BRUTE, BOMB, TRUE)
+
+// Airlocks: vanilla tg (and the /obj/machinery path above) destroys the airlock but leaves a
+// /obj/structure/door_assembly frame behind, so corroding a door took two grasps (door -> frame -> gone).
+// Per design we want the Rust grasp to crumble the WHOLE door to rust in a single grasp. Setting
+// NODECONSTRUCT makes the airlock's deconstruct() skip spawning the assembly (and electronics) and just
+// qdel, so one corrode fully removes the door with nothing left to block the way.
+/obj/machinery/door/airlock/rust_heretic_act(strength)
+	obj_flags |= NODECONSTRUCT
+	return ..()
 
 /// Wrapper proc that passes our mob's rust_strength to the target we are rusting.
 /mob/proc/do_rust_heretic_act(atom/target)

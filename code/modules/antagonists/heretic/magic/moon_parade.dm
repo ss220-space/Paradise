@@ -100,6 +100,8 @@
 	victim.apply_status_effect(/datum/status_effect/moon_parade, src)
 	victim.cause_hallucination(/datum/hallucination/delusion/preset/moon, name)
 	victim.Hallucinate(60 SECONDS)
+	// master220 has no mood system; tg's moon_insanity moodlet becomes this chat line.
+	to_chat(victim, span_warning("ЛУНА СУДИТ ВАС И НАХОДИТ НЕДОСТОЙНЫМ!!!"))
 	return -1 // keep flying so everyone in its path joins the parade
 
 

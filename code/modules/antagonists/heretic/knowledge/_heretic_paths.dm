@@ -165,6 +165,8 @@ GLOBAL_LIST(heretic_research_tree)
 		// get_researchable_knowledge()/ui_data (the "free research breaks the shop" bug) — and (b) bridge
 		// a TG path's draft side knowledge into the legacy chain out of order. So skip null neighbour tiers.
 		for(var/t1_knowledge in tier1)
+			if(isnull(t1_knowledge)) // a side column may legitimately leave a tier unset (e.g. moon_to_lock has no tier1)
+				continue
 			if(neighbour_0.tier1)
 				heretic_research_tree[t1_knowledge][HKT_NEXT] += neighbour_0.tier1
 			if(neighbour_1.tier1)
@@ -174,6 +176,8 @@ GLOBAL_LIST(heretic_research_tree)
 			heretic_research_tree[t1_knowledge][HKT_DEPTH] = 4
 
 		for(var/t2_knowledge in tier2)
+			if(isnull(t2_knowledge))
+				continue
 			if(neighbour_0.tier2)
 				heretic_research_tree[t2_knowledge][HKT_NEXT] += neighbour_0.tier2
 			if(neighbour_1.tier2)
@@ -183,6 +187,8 @@ GLOBAL_LIST(heretic_research_tree)
 			heretic_research_tree[t2_knowledge][HKT_DEPTH] = 8
 
 		for(var/t3_knowledge in tier3)
+			if(isnull(t3_knowledge))
+				continue
 			if(neighbour_0.tier3)
 				heretic_research_tree[t3_knowledge][HKT_NEXT] += neighbour_0.tier3
 			if(neighbour_1.tier3)

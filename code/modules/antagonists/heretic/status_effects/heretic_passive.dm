@@ -71,15 +71,17 @@
 //---- Ash Passive: "Vow of Destruction"
 // Level 1 - heat and ash-storm immunity (granted on picking the path).
 // Level 2 - lava immunity (granted on the blade upgrade).
-// Level 3 - resistance to extreme cold (granted on ascension). master220 has no high/low-pressure
-//           traits like TG, so we substitute cold resistance for the final tier.
+// Level 3 - resistance to high and low pressure (granted on ascension), tg parity. master220 has no
+//           dedicated TRAIT_RESISTHIGHPRESSURE/TRAIT_RESISTLOWPRESSURE: pressure damage is gated on
+//           TRAIT_RESIST_HEAT (high pressure) and TRAIT_RESIST_COLD (low pressure) in human/life.dm,
+//           so granting both of those at the final tier IS "resistance to high and low pressure".
 /datum/status_effect/heretic_passive/ash
 	id = "heretic_passive_ash"
 	name = "Клятва Разрушения"
 	passive_descriptions = list(
 		"Иммунитет к жару и пепельным бурям.",
 		"Иммунитет к лаве.",
-		"Сопротивление экстремальному холоду.",
+		"Сопротивление высокому и низкому давлению.",
 	)
 
 
@@ -101,7 +103,10 @@
 	. = ..()
 	if(!.)
 		return
-	ADD_TRAIT(owner, TRAIT_RESIST_COLD, TRAIT_STATUS_EFFECT(id))
+	// Both traits = "resistance to high and low pressure" in master220 (see comment above). HEAT was
+	// already granted at level 1; re-adding it here under the same source key is harmless and keeps the
+	// final tier explicitly responsible for the full pressure resistance, matching tg.
+	owner.add_traits(list(TRAIT_RESIST_HEAT, TRAIT_RESIST_COLD), TRAIT_STATUS_EFFECT(id))
 
 
 /datum/status_effect/heretic_passive/ash/on_remove()
@@ -212,3 +217,62 @@
 			missing_bodyparts += limb_zone
 	if(length(missing_bodyparts))
 		human_owner.dna.species.create_organs(human_owner, missing_bodyparts)
+
+
+//---- Moon Passive: "Лунное Прозрение" - ported from /tg/station, adapted to master220.
+// TG's moon passive makes the heretic impervious to brain traumas and slowly regenerates their brain, with
+// the Moonlight Amulet doubling the regen while worn. master220 has no sanity, so there is no sanity-regen
+// component - just the trauma immunity and brain healing, scaling with our power level.
+// Level 1 - brain-trauma immunity + base brain regen (granted on picking the path).
+// Level 2 - stronger brain regen (granted on crafting the robe).
+// Level 3 - strongest brain regen (granted on ascension).
+/datum/status_effect/heretic_passive/moon
+	id = "heretic_passive_moon"
+	name = "Лунное Прозрение"
+	passive_descriptions = list(
+		"Вы невосприимчивы к травмам мозга, а его здоровье медленно восстанавливается.",
+		"Восстановление мозга усилено.",
+		"Восстановление мозга достигло предела.",
+	)
+
+
+/datum/status_effect/heretic_passive/moon/on_apply()
+	. = ..()
+	if(!.)
+		return
+	ADD_TRAIT(owner, TRAIT_MADNESS_IMMUNE, TRAIT_STATUS_EFFECT(id))
+	RegisterSignal(owner, COMSIG_CARBON_GAIN_TRAUMA, PROC_REF(block_trauma))
+	RegisterSignal(owner, COMSIG_LIVING_LIFE, PROC_REF(on_life))
+
+
+/datum/status_effect/heretic_passive/moon/on_remove()
+	REMOVE_TRAIT(owner, TRAIT_MADNESS_IMMUNE, TRAIT_STATUS_EFFECT(id))
+	UnregisterSignal(owner, list(COMSIG_CARBON_GAIN_TRAUMA, COMSIG_LIVING_LIFE))
+	return ..()
+
+
+/// Moon heretics are impervious to brain traumas (tg parity): block any trauma the brain tries to gain.
+/datum/status_effect/heretic_passive/moon/proc/block_trauma(datum/source, datum/brain_trauma/trauma, resilience)
+	SIGNAL_HANDLER
+	return COMSIG_CARBON_BLOCK_TRAUMA
+
+
+/// Slowly mend brain damage; the Moonlight Amulet doubles the rate, and each tier improves it.
+/datum/status_effect/heretic_passive/moon/proc/on_life(mob/living/source, seconds_per_tick, times_fired)
+	SIGNAL_HANDLER
+
+	if(!iscarbon(source))
+		return
+	var/mob/living/carbon/carbon_owner = source
+	if(!carbon_owner.get_organ_slot(INTERNAL_ORGAN_BRAIN))
+		return
+
+	// SSmobs.wait is 2 secs, so DELTA_WORLD_TIME is halved (matches the rest of the heretic passives).
+	var/delta_time = DELTA_WORLD_TIME(SSmobs) * 0.5
+	var/heal = (0.5 * applied_level) * delta_time
+	// Wearing the Moonlight Amulet doubles the regeneration (tg parity).
+	if(ishuman(carbon_owner))
+		var/mob/living/carbon/human/human_owner = carbon_owner
+		if(istype(human_owner.neck, /obj/item/clothing/neck/heretic_focus/moon_amulet))
+			heal *= 2
+	carbon_owner.adjustOrganLoss(INTERNAL_ORGAN_BRAIN, -heal)

@@ -83,10 +83,12 @@
 		// master220's hallucination STATUS engine gates each fire behind its own cooldown + a 20% roll, so on
 		// its own a fresh victim can stand here a minute seeing nothing. Spawn a hallucination DIRECTLY — the
 		// same 100%-reliable trick the "chaos" holoparasite (guardian_hallucination) uses — at a TG-like cadence
-		// (process ticks every 2s; prob(10) ≈ one hallucination per ~20s, inside tg's 10-40s range). We draw
-		// from the minor+medium pools (atmospheric dread), not the disruptive majors, since this is a passive aura.
+		// (process ticks every 2s; prob(10) ≈ one hallucination per ~20s, inside tg's 10-40s range). The mask
+		// draws from the FULL pool incl. the disruptive MAJORS (xeno that attacks, fake bullets, fire, etc.),
+		// matching tg's mask (it uses the whole random ambient pool, unlike the moon path's visual-only set).
+		// Fired ASYNC because hallucinate_living() can sleep for several seconds and this is a process() tick.
 		if(prob(10))
-			human_in_range.hallucinate_living(pickweight(GLOB.minor_hallutinations + GLOB.medium_hallutinations))
+			INVOKE_ASYNC(human_in_range, TYPE_PROC_REF(/mob/living, hallucinate_living), pickweight(GLOB.minor_hallutinations + GLOB.medium_hallutinations + GLOB.major_hallutinations))
 
 		// Also keep the ambient hallucination status pinned near TG's 120 SECONDS cap (Hallucinate() only ever
 		// raises), so hallucinations keep coming for up to ~120 SECONDS after the victim leaves the mask's sight.

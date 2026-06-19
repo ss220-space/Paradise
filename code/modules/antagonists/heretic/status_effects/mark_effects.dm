@@ -301,6 +301,8 @@
 	owner.Confused(30 SECONDS)
 	owner.adjustOrganLoss(INTERNAL_ORGAN_BRAIN, 25, 160)
 	owner.emote(pick("giggle", "laugh"))
+	// master220 has no mood system; tg's moon_insanity moodlet becomes this chat line.
+	to_chat(owner, span_userdanger("ЛУНА СУДИТ ВАС И НАХОДИТ НЕДОСТОЙНЫМ!!!"))
 	return ..()
 
 
