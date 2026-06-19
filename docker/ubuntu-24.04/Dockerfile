@@ -41,15 +41,16 @@ RUN apt install npm -y
 RUN npm install --global yarn
 RUN yarn set version 4.8.1
 RUN apt install -y python3.13
+RUN add-apt-repository ppa:dotnet/backports
+
+RUN update-alternatives --install /usr/bin/python python /usr/bin/python3.13 1
+RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.13 1
+
 RUN apt install -y python3-pip
 RUN pip install json5 --break-system-packages
 RUN pip install setuptools --break-system-packages
 
 COPY tools/requirements.txt .
-RUN pip install -r requirements.txt --break-system-packages
-RUN add-apt-repository ppa:dotnet/backports
+RUN pip install -r requirements.txt
 RUN apt-get update
-RUN apt install -y dotnet-sdk-9.0
-
-RUN update-alternatives --install /usr/bin/python python /usr/bin/python3.13 1
-RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.13 1
+RUN apt install -y dotnet-sdk-10.0
