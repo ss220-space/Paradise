@@ -1692,19 +1692,19 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 
 /obj/machinery/door/airlock/rcd_deconstruct_act(mob/user, obj/item/rcd/our_rcd)
 	. = ..()
-	if(our_rcd.checkResource(20, user))
-		to_chat(user, "Deconstructing airlock...")
+	if(our_rcd.checkResource(RCD_COST_AIRLOCK * 2, user))
+		to_chat(user, "Деконструкция шлюза...")
 		playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, TRUE)
 		if(do_after(user, 5 SECONDS * our_rcd.toolspeed, src, category = DA_CAT_TOOL))
-			if(!our_rcd.useResource(20, user))
+			if(!our_rcd.useResource(RCD_COST_AIRLOCK * 2, user))
 				return RCD_ACT_FAILED
 			playsound(get_turf(our_rcd), our_rcd.usesound, 50, TRUE)
 			add_attack_logs(user, src, "Deconstructed airlock with RCD")
 			qdel(src)
 			return RCD_ACT_SUCCESSFULL
-		to_chat(user, span_warning("ERROR! Deconstruction interrupted!"))
+		to_chat(user, span_warning("ОШИБКА! Деконструкция прервана!"))
 		return RCD_ACT_FAILED
-	to_chat(user, span_warning("ERROR! Not enough matter in unit to deconstruct this airlock!"))
+	to_chat(user, span_warning("ОШИБКА! Недостаточно материи для деконструкции шлюза!"))
 	playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, TRUE)
 	return RCD_ACT_FAILED
 
