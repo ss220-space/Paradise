@@ -30,6 +30,7 @@
 	)
 	premium = list(
 		/obj/item/clothing/glasses/meson = 3,
+		/obj/item/rcd = 3,
 		/obj/item/storage/belt/utility = 3,
 	)
 
