@@ -344,7 +344,9 @@
 	var/turf/destination = get_turf(destination_landmark)
 
 	sac_target.visible_message(span_danger("[sac_target.declent_ru(NOMINATIVE)] начинает яростно содрогаться, когда темные щупальца утаскивают [genderize_ru(sac_target.gender, "его", "её", "его", "их")] в пустоту!"))
-	sac_target.set_handcuffed(new /obj/item/restraints/handcuffs/energy/cult(sac_target))
+	// Bind them for the sacrifice (tg parity). Solid zipties, NOT the old dissipating energy cuffs, so the
+	// restraints actually survive the trip into the realm instead of vanishing on the way.
+	sac_target.set_handcuffed(new /obj/item/restraints/handcuffs/cable(sac_target))
 
 	if(sac_target.legcuffed)
 		sac_target.legcuffed.forceMove(sac_target.drop_location())
@@ -404,13 +406,21 @@
 		disembowel_target(sac_target)
 		return
 
-	// If our target died during the (short) wait timer, and we fail to revive them, just disembowel them
-	// and stop the chain. heal_to = 0 fully heals every damage type to zero (and revives if dead) so the
-	// sacrifice arrives in the realm at full health and actually has a fighting chance to survive it.
+	// Fully restore the sacrifice on arrival so they reach the realm able to fight - EVEN one brought here
+	// alive but in crit (not just the dead). heal_and_revive(0) zeroes brute/burn/oxy/tox (and revives the
+	// dead if possible); we ALSO clear stamina and sleep, so a stamina-critted or downed victim actually gets
+	// back on their feet instead of arriving helpless. If even that can't bring them back, disembowel + stop.
 	sac_target.adjustOxyLoss(-100, FALSE)
+	sac_target.setStaminaLoss(0, updating_health = FALSE)
+	sac_target.SetSleeping(0)
 	if(!sac_target.heal_and_revive(0, span_danger("Сердце [sac_target.declent_ru(GENITIVE)] начинает биться с нечестивой силой, когда [genderize_ru(sac_target.gender, "он", "она", "ого", "они")] возвраща[pluralize_ru(sac_target.gender, "е", "ю")]тся из объятий смерти!")))
 		disembowel_target(sac_target)
 		return
+
+	// Make sure they're bound for the ordeal (tg cuffs the sacrifice). If the restraints came loose on the way
+	// in, re-apply solid zipties here so they always arrive in the realm cuffed.
+	if(!sac_target.handcuffed)
+		sac_target.set_handcuffed(new /obj/item/restraints/handcuffs/cable(sac_target))
 
 	to_chat(sac_target, span_big(span_purple("Противоестественные силы из-за завесы начинают терзать ваши тело и душу!")))
 	playsound(sac_target, 'sound/music/heretic/heretic_sacrifice.ogg', 50, FALSE) // play theme

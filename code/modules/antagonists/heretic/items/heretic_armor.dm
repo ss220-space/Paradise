@@ -352,15 +352,26 @@
 		REMOVE_TRAIT(wearer, TRAIT_PIERCEIMMUNE, UID())
 
 
-/// Visibly changes the robe's sprite to mark the empowered (on-rust) state. master220's extracted rust robe
-/// sheet doesn't carry tg's animated "rust_armor_overlay" frames, so instead of an overlay we light the robe
-/// up with a bright, warm rusted glow (a brighten+warm colour matrix) - a clear "the armor surged" cue on
-/// both the worn sprite (build_worn_icon copies our colour) and the dropped item. Cleared off rust.
+/// Shows tg's actual rust-shimmer overlay (state "rust_armor_overlay", extracted 1:1 from tg's armor sheets)
+/// on the robe while standing on rust - the real on-rust sprite, not a recolour. The WORN overlay is added in
+/// worn_overlays() below; here we toggle the item-icon overlay and force the worn sprite to rebuild.
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/rust/proc/set_rusted_appearance(mob/living/wearer, active)
-	color = active ? list(1.5,0,0, 0,1.2,0, 0,0,1, 0.2,0.1,0.05) : null
+	var/image/overlay = image('icons/obj/clothing/heretic_rust_robe_overlay.dmi', "rust_armor_overlay")
+	if(active)
+		add_overlay(overlay)
+	else
+		cut_overlay(overlay)
 	if(ishuman(wearer))
 		wearer.update_worn_oversuit()
 		wearer.balloon_alert(wearer, active ? "ржавчина укрепляет броню" : "защита спадает")
+
+
+// Lays tg's rust shimmer over the worn robe while it's empowered (on rust). update_worn_oversuit() (called
+// from set_rusted_appearance) rebuilds the worn icon, so this re-evaluates `rusted` each time the state flips.
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/rust/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file)
+	. = ..()
+	if(rusted && !isinhands)
+		. += mutable_appearance('icons/mob/clothing/heretic_rust_robe_overlay.dmi', "rust_armor_overlay")
 
 
 /obj/item/clothing/head/hooded/cult_hoodie/eldritch/rust
@@ -462,9 +473,14 @@
 	set_rusted_appearance(wearer, FALSE)
 
 
-/// Matches the suit's rusted glow on the hood (see the suit's set_rusted_appearance for the why).
+/// Matches the suit: tg's rust shimmer overlay on the hood item while on rust (helmet.dmi has no worn
+/// overlay state, so - like tg - the hood only carries the overlay on its item icon, not the worn sprite).
 /obj/item/clothing/head/hooded/cult_hoodie/eldritch/rust/proc/set_rusted_appearance(mob/living/wearer, active)
-	color = active ? list(1.5,0,0, 0,1.2,0, 0,0,1, 0.2,0.1,0.05) : null
+	var/image/overlay = image('icons/obj/clothing/heretic_rust_hood_overlay.dmi', "rust_armor_overlay")
+	if(active)
+		add_overlay(overlay)
+	else
+		cut_overlay(overlay)
 	if(ishuman(wearer))
 		wearer.update_worn_head()
 
