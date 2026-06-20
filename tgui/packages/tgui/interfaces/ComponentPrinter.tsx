@@ -1,7 +1,16 @@
+import { useEffect, useState } from 'react';
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
-import { Box, Section, DmIcon, Button, Stack, NoticeBox } from '../components';
+import {
+  Box,
+  Button,
+  DmIcon,
+  NoticeBox,
+  Section,
+  Stack,
+} from '../components';
 import { toTitleCase } from 'common/string';
+import { storage } from 'common/storage';
 
 type Design = {
   name: string;
@@ -22,15 +31,97 @@ type Material = {
 type ComponentPrinterData = {
   designs: Record<string, Design>;
   materials: Material[];
+  _browser_save?: { key: string; value: string };
 };
+
+type LocalSave = {
+  key: string;
+  name: string;
+};
+
+const SAVES_LIST_KEY = 'circuit_saves_list';
 
 export const ComponentPrinter = (props) => {
   const { act, data } = useBackend<ComponentPrinterData>();
   const { designs } = data;
 
+  const [localSaves, setLocalSaves] = useState<LocalSave[]>([]);
+
+  const loadLocalSaves = async () => {
+    const saves = await storage.get(SAVES_LIST_KEY);
+    setLocalSaves(saves || []);
+  };
+
+  useEffect(() => {
+    loadLocalSaves();
+  }, []);
+
+  useEffect(() => {
+    const payload = data._browser_save;
+    if (!payload) return;
+
+    (async () => {
+      await storage.set(payload.key, payload.value);
+
+      const saves = (await storage.get(SAVES_LIST_KEY)) || [];
+      const exists = saves.some((s: LocalSave) => s.key === payload.key);
+      if (!exists) {
+        const name = payload.key.replace('circuit_', '');
+        saves.push({ key: payload.key, name });
+        await storage.set(SAVES_LIST_KEY, saves);
+        setLocalSaves(saves);
+      }
+      act('clear_browser_save');
+    })();
+  }, [data._browser_save]);
+
+  const handleDeleteLocal = async (key: string) => {
+    await storage.remove(key);
+    const saves = (await storage.get(SAVES_LIST_KEY)) || [];
+    const newSaves = saves.filter((s: LocalSave) => s.key !== key);
+    await storage.set(SAVES_LIST_KEY, newSaves);
+    setLocalSaves(newSaves);
+  };
+
+  const handleLoadLocal = async (key: string) => {
+    const value = await storage.get(key);
+    if (value) {
+      act('import_local', { payload: value });
+    }
+  };
+
   return (
-    <Window title={'Дубликатор печатных плат'} width={670} height={600}>
-      <Window.Content>
+    <Window title="Дубликатор печатных плат" width={670} height={600}>
+      <Window.Content scrollable>
+        <Section
+          title="Локальные схемы"
+          buttons={
+            <Button icon="refresh" onClick={loadLocalSaves}>
+              Обновить
+            </Button>
+          }
+        >
+          {localSaves.length === 0 && (
+            <NoticeBox info>Нет локально сохранённых схем.</NoticeBox>
+          )}
+          {localSaves.map((save) => (
+            <Stack key={save.key} align="center" mb={1}>
+              <Stack.Item grow>{save.name}</Stack.Item>
+              <Stack.Item>
+                <Button
+                  icon="upload"
+                  onClick={() => handleLoadLocal(save.key)}
+                  tooltip="Загрузить"
+                />
+                <Button
+                  icon="trash"
+                  onClick={() => handleDeleteLocal(save.key)}
+                  tooltip="Удалить"
+                />
+              </Stack.Item>
+            </Stack>
+          ))}
+        </Section>
         <Section
           title="Сохранённые схемы"
           buttons={
@@ -45,9 +136,7 @@ export const ComponentPrinter = (props) => {
         />
         <Box>
           {Object.values(designs).length === 0 && (
-            <Stack.Item mt={1} fontSize={1}>
-              <NoticeBox info>Сохранённые схемы отсутствуют.</NoticeBox>
-            </Stack.Item>
+            <NoticeBox info mt={1}>Сохранённые схемы отсутствуют.</NoticeBox>
           )}
           {Object.values(designs).map((design) => (
             <Section key={design.id} style={{ position: 'relative' }}>
@@ -65,11 +154,7 @@ export const ComponentPrinter = (props) => {
                 mr={1}
                 icon="hammer"
                 tooltip={design.desc}
-                onClick={() =>
-                  act('print', {
-                    designId: design.id,
-                  })
-                }
+                onClick={() => act('print', { designId: design.id })}
               >
                 {toTitleCase(design.name)}
               </Button>
@@ -78,8 +163,9 @@ export const ComponentPrinter = (props) => {
                 {(design.cost &&
                   Object.keys(design.cost)
                     .map((mat) => toTitleCase(mat) + ': ' + design.cost[mat])
-                    .join(', ')) || <Box>Ресурсы для печати не требуются.</Box>}
+                    .join(', ')) || 'Ресурсы для печати не требуются.'}
               </Box>
+
               <Box
                 style={{
                   position: 'absolute',
@@ -91,21 +177,17 @@ export const ComponentPrinter = (props) => {
               >
                 <Button
                   icon="save"
-                  onClick={() =>
-                    act('export', {
-                      designId: design.id,
-                    })
-                  }
-                >
-                  Экспорт
-                </Button>
+                  onClick={() => act('export', { designId: design.id })}
+                  tooltip="Экспорт (скопировать)"
+                />
+                <Button
+                  icon="floppy-disk"
+                  tooltip="Сохранить локально"
+                  onClick={() => act('save_local', { designId: design.id })}
+                />
                 <Button
                   icon="trash-can"
-                  onClick={() =>
-                    act('del_design', {
-                      designId: design.id,
-                    })
-                  }
+                  onClick={() => act('del_design', { designId: design.id })}
                 />
               </Box>
             </Section>

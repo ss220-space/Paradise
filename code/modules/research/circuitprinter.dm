@@ -20,6 +20,8 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 	///Constant material cost per component
 	var/cost_per_component = CIRCUIT_COMPONENT_COST
 
+	var/list/export_payload
+
 	categories = list(
 		CIRCUIT_IMPRINTER_CATEGORY_AI,
 		CIRCUIT_IMPRINTER_CATEGORY_COMPUTER,
@@ -465,7 +467,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 		if("export")
 			var/mob/user = ui.user
 			tgui_alert(user, "Функция отключена до исправления по соображениям безопасности", "ВНИМАНИЕ!")
-			/*
+
 			var/design_id = text2num(params["designId"])
 
 			if(design_id < 1 || design_id > length(scanned_designs))
@@ -488,13 +490,17 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 				tgui_alert(user, message = "Ошибка экспорта!", title = "Ошибка!")
 				return
 
+			var/file_path = "data/player_saves/[copytext(user.ckey, 1, 2)]/[user.ckey]/circuit_[data["name"]].txt"
+			text2file(json_base64, file_path)
+			ui.user << ftp(WRAP_FILE(file_path))
+
 			tgui_input_text(user, "Скопируйте текст схемы:", "Экспорт схемы", default = json_base64)
-			*/
+
 
 		if("import")
 			var/mob/user = ui.user
 			tgui_alert(user, "Функция отключена до исправления по соображениям безопасности", "ВНИМАНИЕ!")
-			/*
+
 			var/json_base64 = params["import"]
 			if(!json_base64)
 				return TRUE
@@ -518,7 +524,35 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 				data["desc"] = copytext(sanitize(data["desc"]), 1, MAX_CHAR_IN_DESC)
 
 			save_circuit_by_import(user, data)
-			*/
+		if("save_local")
+			var/design_id = text2num(params["designId"])
+			if(design_id < 1 || design_id > length(scanned_designs))
+				return TRUE
+			var/list/design = LAZYACCESS(scanned_designs, design_id)
+			var/list/data = list(
+				"dupe_data" = design["dupe_data"],
+				"name" = design["name"],
+				"desc" = design["desc"],
+				"integrated_circuit" = design["integrated_circuit"],
+				"Icon" = design["Icon"],
+				"IconState" = design["IconState"]
+			)
+			var/json_base64 = rustg_encode_base64(json_encode(data))
+			export_payload = list("key" = "circuit_[design["name"]]", "value" = json_base64)
+			update_static_data_for_all_viewers()
+			return TRUE
+
+		if("import_local")
+			var/json_base64 = params["payload"]
+			if(!json_base64)
+				return TRUE
+			var/list/data = json_decode(rustg_decode_base64(json_base64))
+			save_circuit_by_import(usr, data)
+			return TRUE
+
+		if("clear_browser_save")
+			export_payload = null
+			return TRUE
 
 	return TRUE
 
@@ -528,6 +562,8 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 /obj/machinery/r_n_d/circuit_imprinter/ui_data(mob/user)
 	var/list/data = list()
 	data["materials"] = materials.ui_data()
+	if(export_payload)
+		data["_browser_save"] = export_payload
 	return data
 
 /obj/machinery/r_n_d/circuit_imprinter/ui_static_data(mob/user)
