@@ -466,13 +466,6 @@
 	var/energy_per_step = 50 //How much energy this module drains per step in strafe mode
 	module_type = MECH_EQUIPMENT_MEDICAL | MECH_EQUIPMENT_WORKING | MECH_EQUIPMENT_DURAND
 
-/obj/item/mecha_parts/mecha_equipment/servo_hydra_actuator/can_attach(obj/mecha/M)
-	if(!..())
-		return FALSE
-	if(!M.strafe_allowed)
-		return TRUE
-	return FALSE
-
 /obj/item/mecha_parts/mecha_equipment/servo_hydra_actuator/attach_act(obj/mecha/M)
 	M.strafe_allowed = TRUE
 	M.actuator = src
