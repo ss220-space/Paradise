@@ -107,7 +107,7 @@ task-clean() {
 task-retrieve-original-bundles(){
   cd "${base_dir}"
   echo "Copying bundle for further validation"
-  rm -r public_cache
+  rm -rf public_cache
   cp -r public/ public_cache/
   echo "Stored public copy in public_cache"
 }
