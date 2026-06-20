@@ -962,7 +962,7 @@
 	var/fuel_burnt = 0
 	var/obj/effect/hotspot/current_hotspot = active_hotspot
 	var/milla_tick = SSair.milla_tick
-	if(isnull(current_hotspot))
+	if(QDELETED(current_hotspot))
 		if(isnull(bound_air) || bound_air.lastread < milla_tick)
 			air = get_readonly_air()
 		else
@@ -1021,7 +1021,7 @@
 
 	var/obj/effect/wind/current_wind = wind_effect
 
-	if(isnull(current_wind))
+	if(QDELETED(current_wind))
 		current_wind = new(src)
 		wind_effect = current_wind
 

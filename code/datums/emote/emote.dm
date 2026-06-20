@@ -91,6 +91,10 @@
 	var/vary = FALSE
 	/// Whether or not to adjust the frequency of the emote sound based on age.
 	var/age_based = FALSE
+	/// If TRUE, plays the emote sound through a [/datum/sound_token], which keeps panning and fading as the source or listener moves.
+	var/use_sound_tokens = FALSE
+	/// Range, in tiles, of the sound token spawned when use_sound_tokens is enabled.
+	var/sound_token_range = SOUND_RANGE
 	/// If true, this emote will only make a sound effect when called unintentionally.
 	var/only_forced_audio = FALSE
 	/// Whether or not the emote can even be called at all if it's not intentional
@@ -256,19 +260,26 @@
 /**
  * Play the sound effect in an emote.
  * If you want to change the way the playsound call works, override this.
- * Note! If you want age_based to work, you need to force vary to TRUE.
  * * user - The user of the emote.
  * * intentional - Whether or not the emote was triggered intentionally.
  * * sound_path - Filesystem path to the audio clip to play.
  * * sound_volume - Volume at which to play the audio clip.
  */
 /datum/emote/proc/play_sound_effect(mob/user, intentional, sound_path, sound_volume)
+	var/frequency
 	if(age_based && ishuman(user))
-		var/mob/living/carbon/human/H = user
-		// Vary needs to be true as otherwise frequency changes get ignored deep within playsound_local :(
-		playsound(user.loc, sound_path, sound_volume, TRUE, frequency = H.get_age_pitch())
-	else
-		playsound(user.loc, sound_path, sound_volume, vary)
+		var/mob/living/carbon/human/human_user = user
+		frequency = human_user.get_age_pitch()
+
+	if(use_sound_tokens)
+		// Tokens don't randomise pitch on their own, so roll the vary frequency here if we don't already have an age-based one.
+		if(isnull(frequency) && vary)
+			frequency = get_rand_frequency()
+		playsoundtoken(source = user, soundin = sound_path, volume = sound_volume, range = sound_token_range, frequency = frequency)
+		return
+
+	// Vary needs to be TRUE or frequency changes get ignored deep within playsound_local, so force it when we have an age-based pitch.
+	playsound(user.loc, sound_path, sound_volume, vary || !isnull(frequency), frequency = frequency)
 
 /**
  * Send an emote to runechat for all (listening) users in the vicinity.

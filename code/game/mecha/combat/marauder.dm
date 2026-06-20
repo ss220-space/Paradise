@@ -82,6 +82,8 @@
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster(src)
 	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/repair_droid(src)
+	ME.attach(src)
 
 /obj/mecha/combat/marauder/mauler
 	desc = "Heavy-duty, combat exosuit, developed off of the existing Marauder model."

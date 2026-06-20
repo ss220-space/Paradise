@@ -2,9 +2,11 @@ use super::{blending, icon_operations, image_cache::filepath_to_dmi};
 use dashmap::DashMap;
 use dmi::icon::{DmiVersion, Icon, IconState};
 use image::RgbaImage;
+use meowtonin::{ByondError, ByondResult};
 use once_cell::sync::Lazy;
 use rayon::iter::{IntoParallelRefIterator, ParallelIterator};
 use serde::{Deserialize, Serialize};
+use std::error::Error;
 use std::{
     collections::HashMap,
     fs::File,
@@ -73,7 +75,7 @@ impl GAGSLayer {
         }
     }
 
-    fn get_blendmode(&self) -> eyre::Result<blending::BlendMode> {
+    fn get_blendmode(&self) -> ByondResult<blending::BlendMode> {
         blending::BlendMode::from_str(self.get_blendmode_str().as_str())
     }
 }
@@ -93,19 +95,14 @@ pub fn load_gags_config(
     config_path: &str,
     config_json: &str,
     config_icon_path: &str,
-) -> eyre::Result<String> {
+) -> ByondResult<String> {
     zone!("load_gags_config");
     let gags_config: GAGSConfig;
     {
         zone!("gags_from_json");
-        gags_config = serde_json::from_str::<GAGSConfig>(config_json)?;
+        gags_config = serde_json::from_str::<GAGSConfig>(config_json).map_err(ByondError::boxed)?;
     }
-    let icon_data = match filepath_to_dmi(config_icon_path) {
-        Ok(data) => data,
-        Err(err) => {
-            return Err(eyre::eyre!(err));
-        }
-    };
+    let icon_data = filepath_to_dmi(config_icon_path).map_err(ByondError::boxed)?;
     {
         zone!("gags_insert_config");
         GAGS_CACHE.insert(
@@ -121,14 +118,14 @@ pub fn load_gags_config(
 }
 
 /// Given an config path and a list of color_ids, outputs a dmi at output_dmi_path with the config's states.
-pub fn gags(config_path: &str, colors: &str, output_dmi_path: &str) -> eyre::Result<String> {
+pub fn gags(config_path: &str, colors: &str, output_dmi_path: &str) -> ByondResult<String> {
     zone!("gags");
     let gags_data = match GAGS_CACHE.get(config_path) {
         Some(config) => config,
         None => {
-            return Err(eyre::eyre!(
-                "Provided config_path {config_path} has not been loaded by iconforge_load_gags_config!"
-            ));
+            return Err(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(format!(
+                "Provided config_path {config_path} has not been loaded by iconforge_load_gags_config!")))
+            );
         }
     };
 
@@ -178,7 +175,9 @@ pub fn gags(config_path: &str, colors: &str, output_dmi_path: &str) -> eyre::Res
 
     let errors_unlocked = errors.lock().unwrap();
     if !errors_unlocked.is_empty() {
-        return Err(eyre::eyre!(errors_unlocked.join("\n")));
+        return Err(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+            errors_unlocked.join("\n"),
+        )));
     }
 
     {
@@ -193,8 +192,8 @@ pub fn gags(config_path: &str, colors: &str, output_dmi_path: &str) -> eyre::Res
     {
         zone!("gags_write_dmi");
         let path = std::path::Path::new(output_dmi_path);
-        std::fs::create_dir_all(path.parent().unwrap())?;
-        let mut output_file = File::create(path)?;
+        std::fs::create_dir_all(path.parent().unwrap()).map_err(ByondError::boxed)?;
+        let mut output_file = File::create(path).map_err(ByondError::boxed)?;
 
         if let Err(err) = (Icon {
             version: DmiVersion::default(),
@@ -204,7 +203,9 @@ pub fn gags(config_path: &str, colors: &str, output_dmi_path: &str) -> eyre::Res
         }
         .save(&mut output_file))
         {
-            return Err(eyre::eyre!("Error during icon saving: {err}"));
+            return Err(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+                format!("Error during icon saving: {err}"),
+            )));
         }
     }
 
@@ -219,26 +220,28 @@ fn gags_internal(
     last_external_images: Option<Vec<RgbaImage>>,
     first_matched_state: &mut Option<IconState>,
     last_matched_state: &mut Option<IconState>,
-) -> eyre::Result<Vec<RgbaImage>> {
+) -> ByondResult<Vec<RgbaImage>> {
     zone!("gags_internal");
     let gags_data = match GAGS_CACHE.get(config_path) {
         Some(config) => config,
         None => {
-            return Err(eyre::eyre!("Provided config_path {config_path} has not been loaded by iconforge_load_gags_config (from gags_internal)!"));
+            return Err(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+                format!("Provided config_path {config_path} has not been loaded by iconforge_load_gags_config (from gags_internal)!"))));
         }
     };
 
     let layer_groups = match gags_data.config.get(icon_state) {
         Some(data) => data,
         None => {
-            return Err(eyre::eyre!("Provided config_path {config_path} did not contain requested icon_state {icon_state} for reference type."));
+            return Err(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+                format!("Provided config_path {config_path} did not contain requested icon_state {icon_state} for reference type."))));
         }
     };
     {
         zone!("gags_create_icon_state");
         let mut first_matched_state_internal: Option<IconState> = None;
         let mut last_matched_state_internal: Option<IconState> = None;
-        let transformed_images = match generate_layer_groups_for_iconstate(
+        let transformed_images = generate_layer_groups_for_iconstate(
             icon_state,
             colors_vec,
             layer_groups,
@@ -246,12 +249,8 @@ fn gags_internal(
             last_external_images,
             &mut first_matched_state_internal,
             &mut last_matched_state_internal,
-        ) {
-            Ok(images) => images,
-            Err(err) => {
-                return Err(eyre::eyre!(err));
-            }
-        };
+        )
+        .map_err(ByondError::boxed)?;
         {
             zone!("update_first_matched_state");
             if first_matched_state.is_none() && first_matched_state_internal.is_some() {
@@ -272,7 +271,7 @@ fn generate_layer_groups_for_iconstate(
     last_external_images: Option<Vec<RgbaImage>>,
     first_matched_state: &mut Option<IconState>,
     last_matched_state: &mut Option<IconState>,
-) -> eyre::Result<Vec<RgbaImage>> {
+) -> ByondResult<Vec<RgbaImage>> {
     zone!("generate_layer_groups_for_iconstate");
     let mut new_images: Option<Vec<RgbaImage>> = None;
     for option in layer_groups {
@@ -292,10 +291,11 @@ fn generate_layer_groups_for_iconstate(
             ),
             GAGSLayerGroupOption::GAGSLayerGroup(layers) => {
                 if layers.is_empty() {
-                    return Err(eyre::eyre!(
+                    return Err(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+                format!(
                         "Empty layer group provided to GAGS state {state_name} for GAGS config {} !",
                         gags_data.config_path
-                    ));
+                    ))));
                 }
                 (
                     generate_layer_groups_for_iconstate(
@@ -310,7 +310,8 @@ fn generate_layer_groups_for_iconstate(
                     match layers.first().unwrap() {
                         GAGSLayerGroupOption::GAGSLayer(layer) => layer.get_blendmode(),
                         GAGSLayerGroupOption::GAGSLayerGroup(_) => {
-                            return Err(eyre::eyre!("Layer group began with another layer group in GAGS state {state_name} for GAGS config {} !", gags_data.config_path));
+                            return Err(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+                format!("Layer group began with another layer group in GAGS state {state_name} for GAGS config {} !", gags_data.config_path))));
                         }
                     },
                 )
@@ -331,7 +332,9 @@ fn generate_layer_groups_for_iconstate(
     }
     match new_images {
         Some(images) => Ok(images),
-        None => Err(eyre::eyre!("No image found for GAGS state {state_name}")),
+        None => Err(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+            format!("No image found for GAGS state {state_name}"),
+        ))),
     }
 }
 
@@ -344,7 +347,7 @@ fn generate_layer_for_iconstate(
     new_images: Option<Vec<RgbaImage>>,
     first_matched_state: &mut Option<IconState>,
     last_matched_state: &mut Option<IconState>,
-) -> eyre::Result<Vec<RgbaImage>> {
+) -> ByondResult<Vec<RgbaImage>> {
     zone!("generate_layer_for_iconstate");
     let images_result: Option<Vec<RgbaImage>> = match layer {
         GAGSLayer::IconState {
@@ -361,10 +364,12 @@ fn generate_layer_for_iconstate(
             {
                 Some(state) => state,
                 None => {
-                    return Err(eyre::eyre!(
-                        "Invalid icon_state {state_name} in layer provided for GAGS config {}",
-                        gags_data.config_path
-                    ));
+                    return Err(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+                        format!(
+                            "Invalid icon_state {state_name} in layer provided for GAGS config {}",
+                            gags_data.config_path
+                        ),
+                    )));
                 }
             };
 
@@ -451,10 +456,12 @@ fn generate_layer_for_iconstate(
 
     match images_result {
         Some(images) => Ok(images),
-        None => Err(eyre::eyre!(
-            "No images found for GAGS state {state_name} for GAGS config {} !",
-            gags_data.config_path
-        )),
+        None => Err(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+            format!(
+                "No images found for GAGS state {state_name} for GAGS config {} !",
+                gags_data.config_path
+            ),
+        ))),
     }
 }
 

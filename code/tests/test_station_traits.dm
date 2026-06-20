@@ -3,10 +3,8 @@
 
 /datum/unit_test/station_traits/Run()
 	var/datum/station_trait/cybernetic_revolution/cyber_trait = allocate(/datum/station_trait/cybernetic_revolution)
-	for(var/datum/job/job as anything in subtypesof(/datum/job))
+	for(var/datum/job/job as anything in valid_subtypesof(/datum/job))
 		// TODO ksaikok replace all this bullshit with TG test when(if) someone refactors job datums
-		if(job.abstract_type == job.type)
-			continue
 		if(job.admin_only || job.hidden_from_job_prefs)
 			continue
 		if(initial(job.department) == STATION_DEPARTMENT_SILICON)

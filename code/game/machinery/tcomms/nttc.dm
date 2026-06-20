@@ -54,7 +54,7 @@
 		JOB_TITLE_CCOFFICER = "dsquadradio",
 		JOB_TITLE_CCFIELD = "dsquadradio",
 		JOB_TITLE_CCSPECOPS = "dsquadradio",
-		JOB_TITLE_CCSUPREME = "dsquadradio",
+		JOB_TITLE_CCSCAPTAIN = "dsquadradio",
 		JOB_TITLE_CCSOLGOV = "dsquadradio",
 		"VIP Guest" = "dsquadradio",
 		// Medical
@@ -105,7 +105,7 @@
 	/// List of ERT jobs
 	var/list/ert_jobs = list(JOB_TITLE_ERT_OFFICER, JOB_TITLE_ERT_ENGINEER, JOB_TITLE_ERT_MEDIC, JOB_TITLE_ERT_LEADER, JOB_TITLE_ERT_MEMBER)
 	/// List of CentComm jobs
-	var/list/cc_jobs = list(JOB_TITLE_CCOFFICER, JOB_TITLE_CCFIELD, JOB_TITLE_CCSPECOPS, JOB_TITLE_SYNDICATE_OFFICER, "Nanotrasen Navy Captain", JOB_TITLE_CCSOLGOV, "Soviet Officer", "Soviet Marine Captain", "Soviet Admiral", JOB_TITLE_CCSUPREME)
+	var/list/cc_jobs = list(JOB_TITLE_CCOFFICER, JOB_TITLE_CCFIELD, JOB_TITLE_CCSPECOPS, JOB_TITLE_SYNDICATE_OFFICER, JOB_TITLE_CCSOLGOV, "Soviet Officer", "Soviet Marine Captain", "Soviet Admiral", JOB_TITLE_CCCAPTAIN)
 	/// List of SolGov Marine jobs
 	var/list/tsf_jobs = list("Solar Federation Specops Lieutenant", "Solar Federation Specops Marine", "Solar Federation Lieutenant", "Solar Federation Marine", "Solar Federation Representative", "Solar Federation General", "VIP Guest")
 	//  List of USSP jobs

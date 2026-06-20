@@ -1,4 +1,5 @@
 /obj/item/gun/magic
+	abstract_type = /obj/item/gun/magic
 	name = "staff of nothing"
 	desc = "This staff is boring to watch because even though it came first you've seen everything it can do in other staves for years."
 	icon = 'icons/obj/weapons/magic.dmi'
@@ -9,13 +10,6 @@
 	w_class = WEIGHT_CLASS_HUGE
 	pickup_sound = 'sound/items/handling/pickup/generic_pickup1.ogg'
 	drop_sound = 'sound/items/handling/drop/generic_drop3.ogg'
-	var/max_charges = 6
-	var/charges = 0
-	var/recharge_rate = 4
-	var/charge_tick = 0
-	var/can_charge = 1
-	var/ammo_type
-	var/no_den_usage
 	origin_tech = null
 	clumsy_check = 0
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL // Has no trigger at all, uses magic instead
@@ -23,6 +17,14 @@
 	lefthand_file = 'icons/mob/inhands/staff_lefthand.dmi' //not really a gun and some toys use these inhands
 	righthand_file = 'icons/mob/inhands/staff_righthand.dmi'
 	accuracy = GUN_ACCURACY_SNIPER
+
+	var/max_charges = 6
+	var/charges = 0
+	var/recharge_rate = 4
+	var/charge_tick = 0
+	var/can_charge = 1
+	var/ammo_type
+	var/no_den_usage
 
 /obj/item/gun/magic/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(no_den_usage)
@@ -32,7 +34,7 @@
 			return
 		else
 			no_den_usage = 0
-	..()
+	return ..()
 
 /obj/item/gun/magic/can_shoot(mob/user)
 	return charges
@@ -40,7 +42,6 @@
 /obj/item/gun/magic/newshot(params)
 	if(charges && chambered && !chambered.BB)
 		chambered.newshot(params)
-	return
 
 /obj/item/gun/magic/process_fire(zone_override, secondary_fire = FALSE)
 	newshot()
@@ -49,7 +50,6 @@
 /obj/item/gun/magic/handle_chamber()
 	if(chambered && !chambered.BB) //if BB is null, i.e the shot has been fired...
 		charges--//... drain a charge
-	return
 
 /obj/item/gun/magic/magic_charge_act(mob/user)
 	. = NONE
@@ -92,7 +92,6 @@
 
 /obj/item/gun/magic/shoot_with_empty_chamber(mob/living/user as mob|obj)
 	to_chat(user, span_warning("The [name] whizzles quietly."))
-	return
 
 /obj/item/gun/magic/suicide_act(mob/user)
 	user.visible_message(span_suicide("[user] is twisting the [name] above [user.p_their()] head, releasing a magical blast! It looks like [user.p_theyre()] trying to commit suicide."))

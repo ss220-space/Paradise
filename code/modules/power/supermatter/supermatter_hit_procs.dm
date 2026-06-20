@@ -114,7 +114,7 @@
 
 		radio_announce(
 			"Обнаружена интеграция неизвестного вещества в гиперструктуру кристалла!",
-			src,
+			DECLENT_RU_CAP(src, NOMINATIVE),
 			emergency_channel
 		)
 		set_delam(SM_DELAM_PRIO_IN_GAME, /datum/sm_delam/cascade)
