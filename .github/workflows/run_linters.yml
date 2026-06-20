@@ -35,14 +35,14 @@ jobs:
       - name: Install OpenDream
         uses: robinraju/release-downloader@v1.13
         with:
-          repository: "OpenDreamProject/OpenDream"
-          tag: "latest"
-          fileName: "DMCompiler_linux-x64.tar.gz"
+          repository: 'OpenDreamProject/OpenDream'
+          tag: 'latest'
+          fileName: 'DMCompiler_linux-x64.tar.gz'
           extract: true
 
       - name: Give Linters A Go
         id: linter-setup
-        run: ":"
+        run: ':'
 
       - name: Run Grep Checks
         if: steps.linter-setup.conclusion == 'success' && !cancelled()
