@@ -30,7 +30,10 @@
 	var/harmful = FALSE //Controls if equipment can be used to attack by a pacifist.
 	var/integrated = FALSE // Preventing modules from getting detached.
 	var/stored_in
-	var/module_type = ALL // bitflags to check module compability
+	/// Bitflags to check module compability
+	var/module_type = ALL
+	/// Bitflags to check modules count
+	var/max_multiple_count = 1
 
 /obj/item/mecha_parts/mecha_equipment/Destroy()//missiles detonating, teleporter creating singularity?
 	if(chassis)
@@ -141,7 +144,20 @@
 		return FALSE
 	if(!(M.allowed_equipment & module_type))
 		return FALSE
+	if(!check_multiple_equipment(M))
+		return FALSE
 	if(length(M.equipment) >= M.max_equip)
+		return FALSE
+	return TRUE
+
+/obj/item/mecha_parts/mecha_equipment/proc/check_multiple_equipment(obj/mecha/M)
+	var/modules = 1
+	for(var/obj/item/mecha_parts/mecha_equipment/module in M.equipment)
+		if(!istype(module, src.type))
+			continue
+		modules += 1
+		if(modules <= max_multiple_count)
+			continue
 		return FALSE
 	return TRUE
 

@@ -473,8 +473,8 @@
 		return FALSE
 	var/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/module = locate() in M.equipment
 	if(module)
-		return FALSE
-	return TRUE
+		return TRUE
+	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun_upgrade/attach_act(obj/mecha/M)
 	for(var/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/S in chassis.equipment)

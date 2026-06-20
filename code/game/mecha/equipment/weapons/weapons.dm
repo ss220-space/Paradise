@@ -4,6 +4,7 @@
 	origin_tech = "materials=3;combat=3"
 	abstract_type = /obj/item/mecha_parts/mecha_equipment/weapon
 	module_type = MECH_EQUIPMENT_COMBAT
+	max_multiple_count = 2
 	var/pb_knockback = 0
 	var/projectile
 	var/fire_sound

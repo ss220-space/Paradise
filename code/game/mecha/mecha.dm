@@ -61,7 +61,7 @@
 	/// emp protection
 	var/emp_protection = FALSE
 	/// mech equipment types
-	var/allowed_equipment = MECH_EQUIPMENT_WORKING // bitflags to check module compability
+	var/allowed_equipment = MECH_EQUIPMENT_WORKING
 
 	/// emag
 	var/emaggable = FALSE
@@ -1173,7 +1173,7 @@
 	if(emaggable)
 		add_attack_logs(user, src, "emagged")
 		emagged = TRUE
-		allowed_equipment += MECH_EQUIPMENT_COMBAT
+		allowed_equipment |= MECH_EQUIPMENT_COMBAT
 		if(user)
 			to_chat(user, span_notice("Вы проводите картой по ID слоту меха [src]."))
 		playsound(loc, SFX_SPARKS, 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)

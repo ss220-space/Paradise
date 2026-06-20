@@ -470,8 +470,8 @@
 	if(!..())
 		return FALSE
 	if(!M.strafe_allowed)
-		return FALSE
-	return TRUE
+		return TRUE
+	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/servo_hydra_actuator/attach_act(obj/mecha/M)
 	M.strafe_allowed = TRUE
@@ -552,15 +552,6 @@
 	///for custom icons
 	var/datum/action/innate/mecha/select_module/button
 	var/obj/effect/supress/supress_effect
-
-/obj/item/mecha_parts/mecha_equipment/cage/can_attach(obj/mecha/M)
-	if(!..())
-		return FALSE
-	if(!..())
-		return FALSE
-	if(locate(src) in M.equipment)
-		return FALSE
-	return TRUE
 
 /obj/item/mecha_parts/mecha_equipment/cage/get_ru_names()
 	return alist(
