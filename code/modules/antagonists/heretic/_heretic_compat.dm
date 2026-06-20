@@ -23,6 +23,20 @@
 	affected_organ.heal_internal_damage(-amount)
 	return TRUE
 
+// tg reads current organ damage via mob.get_organ_loss(slot); master220's base /mob/living/get_organ_loss
+// (damage_procs.dm) is an empty stub that ALWAYS returns null. Without this carbon override every
+// get_organ_loss(INTERNAL_ORGAN_BRAIN) call in the moon path read 0 - which silently broke the moon amulet
+// curse, the moon armor's berserk gate, AND the moon ascension (its is_valid_sacrifice rejected every corpse
+// because their "brain damage" always read 0). Mirror adjustOrganLoss above: resolve the organ and report
+// its real `damage`.
+/mob/living/carbon/get_organ_loss(slot, required_organ_flag)
+	var/obj/item/organ/affected_organ = get_organ_slot(slot)
+	if(!affected_organ)
+		return 0
+	if(required_organ_flag && !(affected_organ.status & required_organ_flag))
+		return 0
+	return affected_organ.damage
+
 /// Returns whether the given organ is robotic. tg helper not present in master220.
 /proc/isroboticorgan(obj/item/organ/checked_organ)
 	return checked_organ?.is_robotic()

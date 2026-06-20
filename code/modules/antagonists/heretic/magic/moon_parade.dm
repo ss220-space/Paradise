@@ -38,11 +38,12 @@
 	// makes this fly ~2x faster and in irregular bursts no matter how high `speed` is set.
 	speed = 5
 	range = 75
-	// Bounce off any surface it meets, for a long time. ricochets_max caps the TOTAL number of bounces (40,
-	// matches TG); what actually counts as a bounceable "surface" is overridden in check_ricochet()/
-	// check_ricochet_flag() below so the parade reflects off EVERYTHING solid - walls, windows, machines,
-	// lockers, girders - not just the ballistic-flagged walls the base game allows.
-	ricochets_max = 40
+	// Bounce off any surface it meets, then dissipate. ricochets_max caps the TOTAL number of bounces: the
+	// parade "shield" vanishes once it has ricocheted 8 times (tg-style bounce cap). What counts as a
+	// bounceable "surface" is overridden in check_ricochet()/check_ricochet_flag() below so the parade
+	// reflects off EVERYTHING solid - walls, windows, machines, lockers, girders - not just the
+	// ballistic-flagged walls the base game allows.
+	ricochets_max = 8
 	ricochet_chance = 100
 	///looping sound datum for our projectile.
 	var/datum/looping_sound/moon_parade/soundloop
@@ -72,10 +73,12 @@
 /obj/projectile/moon_parade/on_hit(atom/target, blocked = 0, pierce_hit)
 	. = ..()
 	if(!isliving(target))
-		// A non-living atom only reaches bullet_act/on_hit if a ricochet was skipped (e.g. handle_ricochet()
-		// rejected a glancing angle). Phase through it instead of dying, so the parade can NEVER be stopped
-		// by bumping into scenery - it just keeps marching.
-		return -1
+		// We only reach on_hit on a non-living atom when a ricochet wasn't performed. While we still have
+		// bounces left (a glancing angle was rejected by handle_ricochet), phase through and keep marching.
+		// Once all 8 bounces are spent, the parade finally dissipates instead of phasing - the shield is gone.
+		if(ricochets < ricochets_max)
+			return -1
+		return
 
 	var/mob/living/victim = target
 

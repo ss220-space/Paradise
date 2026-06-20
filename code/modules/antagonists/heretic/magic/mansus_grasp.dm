@@ -6,6 +6,9 @@
 	overlay_icon_state = "bg_heretic_border"
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
 	action_icon_state = "mansus_grasp"
+	// While the grasp is charged into a hand, the action button wears the red "armed" border (the same one
+	// Rust Formation uses) until the grasp is spent - the fist toggles action.targeting_process on/off.
+	action_targeting_overlay = "bg_spell_border_active_red"
 	sound = 'sound/items/welder.ogg'
 
 	clothes_req = FALSE
@@ -138,6 +141,24 @@
 		on_clear_callback = CALLBACK(src, PROC_REF(after_clear_rune)), \
 		effects_we_clear = list(/obj/effect/decal/heretic_rune), \
 		time_to_remove = 0.4 SECONDS)
+	// Light up the action button's red "armed" border while the grasp is charged in a hand.
+	set_grasp_indicator(TRUE)
+
+
+/obj/item/melee/touch_attack/mansus_fist/Destroy()
+	// Clear the armed border BEFORE the parent nulls our spell link. Covers every way the fist leaves the
+	// hand - using the grasp, withdrawing it, dropping it, DROPDEL - so the border lasts exactly "until use".
+	set_grasp_indicator(FALSE)
+	return ..()
+
+
+/// Toggles the red "armed" border on the grasp's action button via the spell's action.targeting_process.
+/obj/item/melee/touch_attack/mansus_fist/proc/set_grasp_indicator(active)
+	var/datum/action/spell_action = attached_spell?.action
+	if(!spell_action)
+		return
+	spell_action.targeting_process = active
+	spell_action.UpdateButtonIcon()
 
 
 /*

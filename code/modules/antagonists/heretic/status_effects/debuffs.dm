@@ -187,6 +187,8 @@
 	var/effect_icon = 'icons/effects/eldritch.dmi'
 	/// icon state for the overlay
 	var/effect_icon_state = "moon_insanity_overlay"
+	/// The "kill everyone" objective handed out on conversion. Tracked so it's revoked when the effect ends.
+	var/datum/objective/moon_objective
 
 /atom/movable/screen/alert/status_effect/moon_converted
 	name = "Подчинённый Луне"
@@ -210,13 +212,14 @@
 	owner.adjustBruteLoss( -150)
 	owner.adjustFireLoss(-150)
 
-	var/datum/objective/custom_objective = new("Вы познали правду! Убейте всех кого сможете! \
-												Ведите себя при этом как можно более ненормально!")
+	moon_objective = new("Луна нашептала вам истину: всё вокруг — ложь, и лишь смех очистит её. \
+												Убейте каждого, до кого дотянетесь, и пляшите под лунный смех. \
+												И ни при каких обстоятельствах не снимайте амулет — он есть ваша единственная правда.")
 
 	if(owner.mind)
-		custom_objective.needs_target = FALSE
-		custom_objective.owner = owner.mind
-		owner.mind.objectives += custom_objective
+		moon_objective.needs_target = FALSE
+		moon_objective.owner = owner.mind
+		owner.mind.objectives += moon_objective
 		var/list/messages = owner.mind.prepare_announce_objectives()
 		to_chat(owner, chat_box_red(messages.Join("<br>")))
 
@@ -253,10 +256,29 @@
 	REMOVE_TRAIT(owner, TRAIT_MUTE, TRAIT_STATUS_EFFECT(id))
 	owner.Sleeping(5 SECONDS)
 	log_game("[key_name_log(owner)] is no longer insane.")
+	// Revoke the kill-everyone objective we handed out (the moon's hold is broken).
+	if(moon_objective)
+		owner.mind?.objectives -= moon_objective
+		QDEL_NULL(moon_objective)
 	UnregisterSignal(owner, COMSIG_ATOM_UPDATE_OVERLAYS)
 	UnregisterSignal(owner, COMSIG_MOB_APPLY_DAMAGE, PROC_REF(on_damaged))
 	owner.update_appearance(UPDATE_OVERLAYS)
 	return ..()
+
+
+// Permanent variant used by the Moonlight Amulet curse: instead of self-clearing after a minute, this
+// lasts until the amulet is removed (the amulet's dropped() calls remove_status_effect). The wearer is
+// compelled to keep it on - the amulet resists removal with a short channel (see the amulet's
+// on_pre_unequip) rather than being flat-out unremovable - issue: "не снимать амулет, но снять можно".
+// NB: keeps the base "moon converted" id - has_status_effect()/remove_status_effect() match on id, so the
+// amulet (which checks/removes the BASE type) still finds and clears this.
+/datum/status_effect/moon_converted/permanent
+	duration = -1
+
+// The amulet curse persists through damage; only removing the amulet ends it (the base clears at 75 damage).
+/datum/status_effect/moon_converted/permanent/on_damaged(datum/source, damage, damagetype)
+	SIGNAL_HANDLER
+	return
 
 
 // --- Eldritch paintings (1:1 with tg) ----------------------------------------------------------------

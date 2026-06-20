@@ -251,6 +251,8 @@
 	armor = list(MELEE = 30, BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 50, BIO = 30, FIRE = 30, ACID = 30)
 	/// TRUE while we are currently granting the empowered on-rust armor.
 	var/rusted = FALSE
+	/// The turf we're watching for it becoming rusted under a standing wearer.
+	var/turf/listening_turf
 
 
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/rust/get_ru_names()
@@ -275,22 +277,53 @@
 	. = ..()
 	if(slot == ITEM_SLOT_CLOTH_OUTER)
 		RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(on_move), override = TRUE)
+		register_turf_listener(user)
 		update_rust_state(user)
 	else
 		UnregisterSignal(user, COMSIG_MOVABLE_MOVED)
+		clear_turf_listener()
 		reset_rust_armor(user)
 
 
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/rust/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
 	UnregisterSignal(user, COMSIG_MOVABLE_MOVED)
+	clear_turf_listener()
 	reset_rust_armor(user)
 
 
 /// Signal proc for [COMSIG_MOVABLE_MOVED]: re-evaluate the on-rust armor bonus when the wearer moves.
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/rust/proc/on_move(mob/living/source, atom/old_loc, dir, forced, list/old_locs)
 	SIGNAL_HANDLER
+	register_turf_listener(source)
 	update_rust_state(source)
+
+
+/// Watches the wearer's current tile so the robe rusts the moment the FLOOR becomes rusted under a standing
+/// wearer too (tg parity - "when standing on rusted floor"), not only when they walk onto existing rust.
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/rust/proc/register_turf_listener(mob/living/wearer)
+	var/turf/current = get_turf(wearer)
+	if(listening_turf == current)
+		return
+	clear_turf_listener()
+	listening_turf = current
+	if(listening_turf)
+		RegisterSignal(listening_turf, SIGNAL_ADDTRAIT(TRAIT_RUSTY), PROC_REF(on_turf_rusted))
+
+
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/rust/proc/clear_turf_listener()
+	if(!listening_turf)
+		return
+	UnregisterSignal(listening_turf, SIGNAL_ADDTRAIT(TRAIT_RUSTY))
+	listening_turf = null
+
+
+/// The tile under us just rusted - surge our armor if the wearer is standing here.
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/rust/proc/on_turf_rusted(datum/source)
+	SIGNAL_HANDLER
+	var/mob/living/wearer = loc
+	if(isliving(wearer))
+		update_rust_state(wearer)
 
 
 /// Grants the empowered on-rust armor (+ pierce immunity) while standing on a rusted tile, reverting otherwise.
@@ -301,6 +334,7 @@
 			return
 		rusted = TRUE
 		set_armor(/datum/armor/eldritch_armor_rust/on_rust)
+		set_rusted_appearance(wearer, TRUE)
 		if(isliving(wearer))
 			ADD_TRAIT(wearer, TRAIT_PIERCEIMMUNE, UID())
 		return
@@ -313,8 +347,20 @@
 		return
 	rusted = FALSE
 	set_armor(/datum/armor/eldritch_armor_rust)
+	set_rusted_appearance(wearer, FALSE)
 	if(isliving(wearer))
 		REMOVE_TRAIT(wearer, TRAIT_PIERCEIMMUNE, UID())
+
+
+/// Visibly changes the robe's sprite to mark the empowered (on-rust) state. master220's extracted rust robe
+/// sheet doesn't carry tg's animated "rust_armor_overlay" frames, so instead of an overlay we light the robe
+/// up with a bright, warm rusted glow (a brighten+warm colour matrix) - a clear "the armor surged" cue on
+/// both the worn sprite (build_worn_icon copies our colour) and the dropped item. Cleared off rust.
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/rust/proc/set_rusted_appearance(mob/living/wearer, active)
+	color = active ? list(1.5,0,0, 0,1.2,0, 0,0,1, 0.2,0.1,0.05) : null
+	if(ishuman(wearer))
+		wearer.update_worn_oversuit()
+		wearer.balloon_alert(wearer, active ? "ржавчина укрепляет броню" : "защита спадает")
 
 
 /obj/item/clothing/head/hooded/cult_hoodie/eldritch/rust
@@ -330,6 +376,8 @@
 	armor = list(MELEE = 30, BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 50, BIO = 30, FIRE = 30, ACID = 30)
 	/// TRUE while granting the empowered on-rust armor.
 	var/rusted = FALSE
+	/// The turf we're watching for it becoming rusted under a standing wearer.
+	var/turf/listening_turf
 
 
 /obj/item/clothing/head/hooded/cult_hoodie/eldritch/rust/get_ru_names()
@@ -347,21 +395,51 @@
 	. = ..()
 	if(slot == ITEM_SLOT_HEAD)
 		RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(on_move), override = TRUE)
+		register_turf_listener(user)
 		update_rust_state(user)
 	else
 		UnregisterSignal(user, COMSIG_MOVABLE_MOVED)
+		clear_turf_listener()
 		reset_rust_armor(user)
 
 
 /obj/item/clothing/head/hooded/cult_hoodie/eldritch/rust/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
 	UnregisterSignal(user, COMSIG_MOVABLE_MOVED)
+	clear_turf_listener()
 	reset_rust_armor(user)
 
 
 /obj/item/clothing/head/hooded/cult_hoodie/eldritch/rust/proc/on_move(mob/living/source, atom/old_loc, dir, forced, list/old_locs)
 	SIGNAL_HANDLER
+	register_turf_listener(source)
 	update_rust_state(source)
+
+
+/// Watches the wearer's current tile so the hood also rusts the moment the floor rusts under a standing
+/// wearer (tg parity), not only when they walk onto existing rust.
+/obj/item/clothing/head/hooded/cult_hoodie/eldritch/rust/proc/register_turf_listener(mob/living/wearer)
+	var/turf/current = get_turf(wearer)
+	if(listening_turf == current)
+		return
+	clear_turf_listener()
+	listening_turf = current
+	if(listening_turf)
+		RegisterSignal(listening_turf, SIGNAL_ADDTRAIT(TRAIT_RUSTY), PROC_REF(on_turf_rusted))
+
+
+/obj/item/clothing/head/hooded/cult_hoodie/eldritch/rust/proc/clear_turf_listener()
+	if(!listening_turf)
+		return
+	UnregisterSignal(listening_turf, SIGNAL_ADDTRAIT(TRAIT_RUSTY))
+	listening_turf = null
+
+
+/obj/item/clothing/head/hooded/cult_hoodie/eldritch/rust/proc/on_turf_rusted(datum/source)
+	SIGNAL_HANDLER
+	var/mob/living/wearer = loc
+	if(isliving(wearer))
+		update_rust_state(wearer)
 
 
 /obj/item/clothing/head/hooded/cult_hoodie/eldritch/rust/proc/update_rust_state(mob/living/wearer)
@@ -371,6 +449,7 @@
 			return
 		rusted = TRUE
 		set_armor(/datum/armor/eldritch_armor_rust/on_rust)
+		set_rusted_appearance(wearer, TRUE)
 		return
 	reset_rust_armor(wearer)
 
@@ -380,6 +459,14 @@
 		return
 	rusted = FALSE
 	set_armor(/datum/armor/eldritch_armor_rust)
+	set_rusted_appearance(wearer, FALSE)
+
+
+/// Matches the suit's rusted glow on the hood (see the suit's set_rusted_appearance for the why).
+/obj/item/clothing/head/hooded/cult_hoodie/eldritch/rust/proc/set_rusted_appearance(mob/living/wearer, active)
+	color = active ? list(1.5,0,0, 0,1.2,0, 0,0,1, 0.2,0.1,0.05) : null
+	if(ishuman(wearer))
+		wearer.update_worn_head()
 
 
 // Сияющее Облачение (Resplendent Regalia) — Moon path robes.
@@ -414,6 +501,9 @@
 		TRAIT_PACIFISM,
 		TRAIT_NO_GUNS,
 	)
+	/// The moon brain-health readout shown while worn (tg's HUD_HERETIC_MOON_HEALTH element). All incoming
+	/// damage becomes brain damage here, so brain health IS your effective health - the moon bar shows it.
+	var/atom/movable/screen/moon_health/moon_health_hud
 
 
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/moon/get_ru_names()
@@ -439,13 +529,107 @@
 	. = ..()
 	if(slot == ITEM_SLOT_CLOTH_OUTER)
 		user.add_traits(regalia_traits, UID())
+		// All damage taken while worn is converted into brain damage (tg parity): the incoming-damage
+		// modifier nullifies the real damage, and combat damage is rerouted into the brain instead.
+		RegisterSignal(user, COMSIG_MOB_APPLY_DAMAGE_MODIFIERS, PROC_REF(nullify_damage), override = TRUE)
+		RegisterSignal(user, COMSIG_MOB_APPLY_DAMAGE, PROC_REF(convert_to_brain), override = TRUE)
+		RegisterSignal(user, COMSIG_LIVING_DEATH, PROC_REF(gory_end), override = TRUE)
+		show_moon_hud(user)
 	else
 		user.remove_traits(regalia_traits, UID())
+		UnregisterSignal(user, list(COMSIG_MOB_APPLY_DAMAGE_MODIFIERS, COMSIG_MOB_APPLY_DAMAGE, COMSIG_LIVING_DEATH))
+		hide_moon_hud(user)
 
 
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/moon/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
 	user.remove_traits(regalia_traits, UID())
+	UnregisterSignal(user, list(COMSIG_MOB_APPLY_DAMAGE_MODIFIERS, COMSIG_MOB_APPLY_DAMAGE, COMSIG_LIVING_DEATH))
+	hide_moon_hud(user)
+
+
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/moon/Destroy()
+	if(moon_health_hud)
+		QDEL_NULL(moon_health_hud)
+	return ..()
+
+
+/// Swaps the wearer's normal health/stamina readouts for the moon brain-health bar (tg's on_hud_created).
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/moon/proc/show_moon_hud(mob/living/user)
+	if(!ishuman(user) || moon_health_hud)
+		return
+	var/mob/living/carbon/human/human_user = user
+	var/datum/hud/our_hud = human_user.hud_used
+	if(!our_hud)
+		return
+	moon_health_hud = new(null, our_hud)
+	// Hide the normal health readouts - brain health is now the only health that matters (tg parity).
+	for(var/atom/movable/screen/to_hide in list(human_user.healths, human_user.healthdoll, human_user.stamina_bar))
+		if(to_hide)
+			to_hide.invisibility = INVISIBILITY_ABSTRACT
+	our_hud.infodisplay += moon_health_hud
+	human_user.client?.screen += moon_health_hud
+	RegisterSignal(human_user, COMSIG_LIVING_LIFE, PROC_REF(update_moon_hud), override = TRUE)
+	update_moon_hud(human_user)
+
+
+/// Restores the normal health readouts and tears down the moon bar.
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/moon/proc/hide_moon_hud(mob/living/user)
+	if(!moon_health_hud)
+		return
+	if(ishuman(user))
+		var/mob/living/carbon/human/human_user = user
+		UnregisterSignal(human_user, COMSIG_LIVING_LIFE)
+		var/datum/hud/our_hud = human_user.hud_used
+		our_hud?.infodisplay -= moon_health_hud
+		human_user.client?.screen -= moon_health_hud
+		for(var/atom/movable/screen/to_show in list(human_user.healths, human_user.healthdoll, human_user.stamina_bar))
+			if(to_show)
+				to_show.invisibility = 0
+	QDEL_NULL(moon_health_hud)
+
+
+/// Refreshes the moon bar from the wearer's current brain damage. Fired each Life tick while worn.
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/moon/proc/update_moon_hud(mob/living/source, seconds_per_tick, times_fired)
+	SIGNAL_HANDLER
+	if(!moon_health_hud || !iscarbon(source))
+		return
+	moon_health_hud.update_brain_health(source.get_organ_loss(INTERNAL_ORGAN_BRAIN))
+
+
+/// Nullifies all incoming non-brain damage (adds a 0 multiplier). The regalia takes no real damage - it is
+/// rerouted into brain damage in convert_to_brain() instead. Brain damage itself passes through untouched.
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/moon/proc/nullify_damage(mob/living/user, list/damage_mods, damage, damagetype, def_zone, sharp, used_weapon)
+	SIGNAL_HANDLER
+	if(damagetype == BRAIN)
+		return
+	damage_mods += 0
+
+
+/// Combat damage the wearer takes is rerouted into brain damage at HALF strength (10 brute/burn -> 5 brain),
+/// so the regalia softens hits as it converts them. Direct, non-combat damage (no COMSIG_MOB_APPLY_DAMAGE) is
+/// simply negated by nullify_damage above.
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/moon/proc/convert_to_brain(mob/living/user, damage, damagetype, def_zone, blocked, sharp, used_weapon, spread_damage, forced)
+	SIGNAL_HANDLER
+	if(damage <= 0)
+		return
+	if(!(damagetype in list(BRUTE, BURN, OXY, TOX, CLONE)))
+		return
+	user.adjustOrganLoss(INTERNAL_ORGAN_BRAIN, damage * 0.5)
+
+
+/// Death while wearing the Resplendent Regalia is a gory end - the head bursts (tg parity).
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/moon/proc/gory_end(mob/living/user, gibbed)
+	SIGNAL_HANDLER
+	if(gibbed || !ishuman(user))
+		return
+	var/mob/living/carbon/human/human_user = user
+	var/obj/item/organ/external/head = human_user.get_organ(BODY_ZONE_HEAD)
+	if(!head)
+		return
+	human_user.visible_message(span_warning("Голова [human_user.declent_ru(GENITIVE)] лопается с тошнотворным хрустом!"))
+	new /obj/effect/gibspawner/human(get_turf(human_user))
+	head.dismember()
 
 
 /obj/item/clothing/head/hooded/cult_hoodie/eldritch/moon
@@ -468,6 +652,36 @@
 		INSTRUMENTAL = "капюшоном сияющего облачения",
 		PREPOSITIONAL = "капюшоне сияющего облачения",
 	)
+
+
+// The moon brain-health readout (tg's /atom/movable/screen/moon_health). A 64x64 lunar dial that swaps
+// through 6 states as the wearer's brain damage climbs - the only "health bar" a Resplendent Regalia wearer
+// has, since all damage they take is rerouted into the brain.
+/atom/movable/screen/moon_health
+	name = "Лунное Здоровье"
+	icon = 'icons/hud/moon_health_64x64.dmi'
+	icon_state = "moon_hud_1"
+	base_icon_state = "moon_hud"
+	// 64x64 (2x2 tiles), anchored over the normal health area which we hide while it's shown.
+	screen_loc = "EAST-2:16,CENTER-1:0"
+
+
+/// Picks the dial state for the given brain damage. master220 brains cap at 120 damage (tg's were ~200), so
+/// the six tg stages are rescaled onto 0-120 here.
+/atom/movable/screen/moon_health/proc/update_brain_health(brain_damage)
+	switch(brain_damage)
+		if(-INFINITY to 20)
+			icon_state = "[base_icon_state]_1"
+		if(21 to 40)
+			icon_state = "[base_icon_state]_2"
+		if(41 to 60)
+			icon_state = "[base_icon_state]_3"
+		if(61 to 90)
+			icon_state = "[base_icon_state]_4"
+		if(91 to 110)
+			icon_state = "[base_icon_state]_5"
+		if(111 to INFINITY)
+			icon_state = "[base_icon_state]_6"
 
 
 // Плащ Пустоты. Turns invisible with the hood up, lets you hide stuff.

@@ -405,6 +405,28 @@
 	)
 
 
+// While the wielder wears a Moonlight Amulet the blade does 0 physical force (tg parity): this lets it be
+// swung even while the Resplendent Regalia pacifies you (the pacifism block only stops force > 0 attacks),
+// and its damage comes from the eldritch blade effect (brain damage / hallucinations) instead.
+/obj/item/melee/sickly_blade/moon/proc/update_pacifism_force(mob/living/user)
+	if(ishuman(user))
+		var/mob/living/carbon/human/human_user = user
+		if(istype(human_user.neck, /obj/item/clothing/neck/heretic_focus/moon_amulet))
+			force = 0
+			return
+	force = initial(force)
+
+
+/obj/item/melee/sickly_blade/moon/equipped(mob/user, slot)
+	. = ..()
+	update_pacifism_force(user)
+
+
+/obj/item/melee/sickly_blade/moon/dropped(mob/user)
+	. = ..()
+	force = initial(force)
+
+
 // Path of Nar'Sie's blade
 // What!? This blade is given to cultists as an altar item when they sacrifice a heretic.
 // It is also given to the heretic themself if they sacrifice a cultist.

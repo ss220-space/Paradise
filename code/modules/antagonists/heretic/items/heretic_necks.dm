@@ -202,6 +202,23 @@
 	icon_state = "moon_amulette"
 	// How much damage does this item do to the targets sanity?
 	var/sanity_damage = 20
+	// Brain damage a non-heretic wearer must accrue from the curse before their mind shatters and they go
+	// berserk (tg gates conversion on low sanity; master220 has no sanity, so brain damage is the meter).
+	var/conversion_threshold = 100
+	// Once converted, the amulet can't just be flicked off - removing it takes a short channel (do_after).
+	// These track that channel so the moon's grip can be wrestled off over a couple of seconds.
+	var/removal_channel_time = 3 SECONDS
+	/// TRUE while a removal channel is currently running (stops the channel from being started twice).
+	var/being_removed = FALSE
+	/// Set TRUE the instant a removal channel succeeds, so the very next unequip is allowed straight through.
+	var/removal_authorized = FALSE
+	// The off-screen laughter (laugh track) played when a moon blade strikes while this amulet is worn (tg
+	// plays these "SitcomLaugh" clips through the moon blade's attack message - see on_blade_laugh).
+	var/static/list/possible_sounds = list(
+		'sound/items/SitcomLaugh1.ogg',
+		'sound/items/SitcomLaugh2.ogg',
+		'sound/items/SitcomLaugh3.ogg',
+	)
 
 
 /obj/item/clothing/neck/heretic_focus/moon_amulet/get_ru_names()
@@ -254,3 +271,121 @@
 	hit.apply_status_effect(/datum/status_effect/moon_converted)
 	log_game("[key_name(user)] drove [key_name(hit)] berserk with a moonlight amulet.")
 	. = ..()
+
+
+/obj/item/clothing/neck/heretic_focus/moon_amulet/equipped(mob/living/user, slot)
+	. = ..()
+	if(!(slot & ITEM_SLOT_NECK) || !ishuman(user))
+		return
+	if(IS_HERETIC_OR_MONSTER(user))
+		// Heretic wearer: thermal vision lets you see heathens through walls and in the dark, and your moon
+		// blade drops to 0 force so you can still swing it while the Resplendent Regalia pacifies you (its
+		// damage comes from the eldritch blade effect, not physical force - tg parity).
+		ADD_TRAIT(user, TRAIT_THERMAL_VISION, "[CLOTHING_TRAIT]_[UID()]")
+		user.update_sight()
+		refresh_held_blades(user)
+		// tg channels the amulet through the moon blade: a strike now carries off-screen laughter (a laugh
+		// track) on top of the eldritch blade effect. We listen for the blade-attack signal to play it.
+		RegisterSignal(user, COMSIG_HERETIC_BLADE_ATTACK, PROC_REF(on_blade_laugh), override = TRUE)
+		return
+	// Non-heretic wearer: the amulet latches on and slowly devours the mind. Unlike before it can STILL be
+	// removed (tg parity) - right up until the mind shatters, at which point the wearer goes berserk and is
+	// compelled to keep it on (NODROP is applied then, in process()).
+	to_chat(user, span_userdanger("Амулет холодит кожу, и далёкий хор смеха эхом отдаётся в вашей голове..."))
+	START_PROCESSING(SSobj, src)
+
+
+/obj/item/clothing/neck/heretic_focus/moon_amulet/dropped(mob/living/user)
+	. = ..()
+	if(!ishuman(user))
+		return
+	REMOVE_TRAIT(user, TRAIT_THERMAL_VISION, "[CLOTHING_TRAIT]_[UID()]")
+	user.update_sight()
+	UnregisterSignal(user, COMSIG_HERETIC_BLADE_ATTACK)
+	STOP_PROCESSING(SSobj, src)
+	refresh_held_blades(user)
+	// Tear down the removal-channel block and reset its state so a future wearer starts fresh (and isn't
+	// gifted a free instant removal from a stale authorization).
+	UnregisterSignal(src, COMSIG_ITEM_PRE_UNEQUIP)
+	being_removed = FALSE
+	removal_authorized = FALSE
+	// Taking the amulet off (by any means - the removal channel, stripping, death, dismemberment) lifts the
+	// moon's compulsion: the kill-everyone objective and berserk state are cleared (issue: "снять -> цель убирается").
+	user.remove_status_effect(/datum/status_effect/moon_converted)
+
+
+/// Plays the off-screen laughter when an eldritch blade lands while we're worn by a heretic (tg's laugh
+/// track - tg channels the amulet through any sickly blade, so the moon blade qualifies as a subtype).
+/obj/item/clothing/neck/heretic_focus/moon_amulet/proc/on_blade_laugh(mob/living/attacker, mob/living/victim, obj/item/melee/sickly_blade/blade)
+	SIGNAL_HANDLER
+	if(!istype(blade, /obj/item/melee/sickly_blade))
+		return
+	to_chat(attacker, span_purple(pick(
+		"Вы рассекаете [victim.declent_ru(ACCUSATIVE)], раздваивая [genderize_ru(victim.gender, "его", "её", "его", "их")] отражение надвое.",
+		"Клинок входит глубоко, освобождая [victim.declent_ru(ACCUSATIVE)] от лишних мыслей. Безупречно.",
+		"Свет вспыхивает на лезвии, и [victim.declent_ru(NOMINATIVE)] на миг видит мир в иных, невозможных красках.",
+	)))
+	to_chat(victim, span_userdanger(pick(
+		"Удар [attacker.declent_ru(GENITIVE)] вырывает из вас нечто большее, чем плоть.",
+		"Лезвие вонзается, и вы теряете что-то глубоко внутри. Эта боль хуже любой раны.",
+		"Мир на миг распадается на тысячу зеркал, и в каждом — чужой смех.",
+	)))
+	playsound(attacker, pick(possible_sounds), 40, TRUE)
+
+
+/// Re-evaluates the force of any moon blades [user] is holding so wearing the amulet lets them swing while
+/// pacified (force 0 bypasses the pacifism block) and restores it once the amulet comes off.
+/obj/item/clothing/neck/heretic_focus/moon_amulet/proc/refresh_held_blades(mob/living/user)
+	for(var/obj/item/melee/sickly_blade/moon/blade in user.get_held_items())
+		blade.update_pacifism_force(user)
+
+
+/// Non-heretic curse: grinds the wearer's brain down each tick; once shattered, they go berserk (tg's
+/// channel_amulet on a non-heretic, adapted to a gradual brain-damage curse since master220 has no sanity).
+/// The brain grind STOPS the moment they convert (PROCESS_KILL) - issue: "урон мозгу прекращается".
+/obj/item/clothing/neck/heretic_focus/moon_amulet/process(seconds_per_tick)
+	var/mob/living/carbon/human/wearer = loc
+	if(!istype(wearer) || wearer.neck != src || wearer.stat == DEAD || IS_HERETIC_OR_MONSTER(wearer))
+		return PROCESS_KILL
+	if(wearer.has_status_effect(/datum/status_effect/moon_converted))
+		return PROCESS_KILL
+	wearer.adjustOrganLoss(INTERNAL_ORGAN_BRAIN, 4, 150)
+	if(prob(25))
+		wearer.cause_hallucination(/datum/hallucination/delusion/preset/moon, "moonlight amulet curse")
+	if(prob(20))
+		wearer.emote(pick("giggle", "laugh"))
+	if(wearer.get_organ_loss(INTERNAL_ORGAN_BRAIN) < conversion_threshold)
+		return
+	// The mind shatters. They are bound to the moon: a kill-everyone objective and the compulsion to keep the
+	// amulet on. The amulet can still be torn off, but no longer in an instant - it now resists removal, so
+	// prying it loose takes a short channel (see on_pre_unequip). The brain damage ends here.
+	to_chat(wearer, span_userdanger("ЛУНА ПОКАЗЫВАЕТ ВАМ ПРАВДУ — И НЕ ОТПУСКАЕТ! УБЕЙТЕ ВСЕХ ЛЖЕЦОВ!"))
+	RegisterSignal(src, COMSIG_ITEM_PRE_UNEQUIP, PROC_REF(on_pre_unequip), override = TRUE)
+	wearer.apply_status_effect(/datum/status_effect/moon_converted/permanent)
+	return PROCESS_KILL
+
+
+/// Once converted, the amulet clings on: the first attempt to take it off is blocked and instead opens a
+/// short removal channel. Only when that channel finishes (removal_authorized) does an unequip go through.
+/obj/item/clothing/neck/heretic_focus/moon_amulet/proc/on_pre_unequip(datum/source, force, atom/newloc, no_move, invdrop, silent)
+	SIGNAL_HANDLER
+	// Forced removals (admin / gibbing / the channel's own authorized drop) pass straight through.
+	if(force || removal_authorized)
+		return
+	if(!being_removed)
+		var/mob/living/wearer = loc
+		if(isliving(wearer))
+			INVOKE_ASYNC(src, PROC_REF(channel_removal), wearer)
+	return COMPONENT_ITEM_BLOCK_UNEQUIP
+
+
+/// The "wrestle the amulet off" channel. On success the moon's grip breaks and the amulet comes off (its
+/// dropped() then clears the conversion / objective); on failure nothing changes.
+/obj/item/clothing/neck/heretic_focus/moon_amulet/proc/channel_removal(mob/living/wearer)
+	being_removed = TRUE
+	wearer.balloon_alert(wearer, "вы боретесь с амулетом...")
+	wearer.visible_message(span_warning("[wearer.declent_ru(NOMINATIVE)] силится сорвать с себя [declent_ru(ACCUSATIVE)]!"))
+	if(do_after(wearer, removal_channel_time, src))
+		removal_authorized = TRUE
+		wearer.drop_item_ground(src)
+	being_removed = FALSE

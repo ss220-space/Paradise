@@ -11,7 +11,10 @@
  */
 /proc/visible_hallucination_pulse(atom/center, radius = 7, hallucination_duration = 50 SECONDS, hallucination_max_duration, list/optional_messages)
 	for(var/mob/living/nearby_living in view(center, radius))
-		if(!HAS_TRAIT(nearby_living, TRAIT_MESON_VISION))
+		// Skip the madness-immune (and the blind), affect everyone else - matching the doc above. This used
+		// to (wrongly) check TRAIT_MESON_VISION, so the pulse affected only people WITH meson vision (i.e.
+		// almost nobody), which is why the moon ascension aura did nothing.
+		if(HAS_TRAIT(nearby_living, TRAIT_MADNESS_IMMUNE))
 			continue
 
 		if(nearby_living.is_blind())

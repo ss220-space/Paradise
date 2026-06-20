@@ -42,7 +42,7 @@
 	passive_name = "Лунное Прозрение"
 	passive_descriptions = list(
 		"Вы невосприимчивы к травмам мозга, а его здоровье медленно восстанавливается.",
-		"Восстановление мозга усилено.",
+		"Вы получаете иммунитет ко сну; восстановление мозга усилено.",
 		"Восстановление мозга достигло предела.",
 	)
 	// TG-format column (1:1 with tgstation Moon). Main line:
@@ -157,9 +157,13 @@
 				Труппа кружилась в переливающихся каскадах, ослепляя зрителей истиной, которую те искали. \
 				Я смотрел, купаясь в свете, чтобы обрести себя."
 	result_atoms = list(/obj/item/clothing/suit/hooded/cultrobes/eldritch/moon)
-	// The base armor knowledge points at icons/obj/clothing/armor.dmi, which has no moon_armor state
-	// (broken tree icon). Use the extracted moon robe sheet instead.
-	research_tree_icon_path = 'icons/obj/clothing/heretic_moon_robe.dmi'
+	// The research-tree node icon is rendered tgui-side by DmIcon, which resolves the dmi through BYOND's
+	// runtime icon-reference map (asset_icon_ref_map.dm). The in-world robe sheet at
+	// icons/obj/clothing/heretic_moon_robe.dmi came back blank in the tree (the node showed only its
+	// background, obvious once the node finished and the background went plain). The sibling moon node that
+	// DOES render - the ascension medallion - is a research-ONLY dmi under icons/ui_icons/antags/heretic/, so
+	// we mirror that exactly: a dedicated research-icon copy of the robe sprite in the same proven directory.
+	research_tree_icon_path = 'icons/ui_icons/antags/heretic/moon_robe.dmi'
 	research_tree_icon_state = "moon_armor"
 	required_atoms = list(
 		list(/obj/structure/table, /obj/item/clothing/suit) = 1,
@@ -288,20 +292,53 @@
 			to_chat(crewmate, span_boldwarning("Вы чувствуете на себе чей-то пристальный взгляд."))
 			continue
 
-		var/datum/antagonist/lunatic/lunatic = crewmate.mind.add_antag_datum(/datum/antagonist/lunatic)
-		lunatic.set_master(user.mind, user)
-		var/obj/item/clothing/neck/heretic_focus/moon_amulet/amulet = new(crewmate.drop_location())
-		var/static/list/slots = list(
-			ITEM_SLOT_NECK,
-			ITEM_SLOT_HAND_LEFT,
-			ITEM_SLOT_HAND_RIGHT,
-			ITEM_SLOT_POCKET_LEFT,
-			ITEM_SLOT_POCKET_RIGHT,
-			ITEM_SLOT_BACK,
-		)
-		crewmate.equip_in_one_of_slots(amulet, slots, qdel_on_fail = FALSE)
-		crewmate.emote("laugh")
-		amount_of_lunatics++
+		if(attempt_conversion(crewmate, user))
+			amount_of_lunatics++
+
+
+/// Turns one crewmate into a lunatic thrall of [user]: binds them to the master, hands them a moonlight
+/// amulet and makes them laugh. Returns TRUE on success. Shared by the ascension burst and the aura.
+/datum/heretic_knowledge/ultimate/moon_final/proc/attempt_conversion(mob/living/carbon/convertee, mob/user)
+	if(QDELETED(convertee) || isnull(convertee.mind) || IS_HERETIC_OR_MONSTER(convertee))
+		return FALSE
+	if(convertee.mind.has_antag_datum(/datum/antagonist/lunatic))
+		return FALSE
+
+	var/datum/antagonist/lunatic/lunatic = convertee.mind.add_antag_datum(/datum/antagonist/lunatic)
+	lunatic.set_master(user.mind, user)
+	var/obj/item/clothing/neck/heretic_focus/moon_amulet/amulet = new(convertee.drop_location())
+	var/static/list/slots = list(
+		ITEM_SLOT_NECK,
+		ITEM_SLOT_HAND_LEFT,
+		ITEM_SLOT_HAND_RIGHT,
+		ITEM_SLOT_POCKET_LEFT,
+		ITEM_SLOT_POCKET_RIGHT,
+		ITEM_SLOT_BACK,
+	)
+	convertee.equip_in_one_of_slots(amulet, slots, qdel_on_fail = FALSE)
+	convertee.emote("laugh")
+	return TRUE
+
+
+/// A mind protected by a mindshield (or a cultist's already-claimed mind) can't be converted - the aura
+/// shatters it instead of bending it (tg parity).
+/datum/heretic_knowledge/ultimate/moon_final/proc/should_mind_explode(mob/living/carbon/target)
+	return ismindshielded(target) || iscultist(target)
+
+
+/// The aura's "kill switch" for minds it can't claim: the head is taken off (or the body gibbed).
+/datum/heretic_knowledge/ultimate/moon_final/proc/mind_explode(mob/living/carbon/target)
+	if(QDELETED(target) || target.stat == DEAD)
+		return
+	to_chat(target, span_userdanger("ВАШ РАЗУМ ОХВАЧЕН ПОТУСТОРОННЕЙ СИЛОЙ, ПЫТАЮЩЕЙСЯ ПЕРЕПИСАТЬ САМУ ВАШУ СУТЬ. \
+		ВЫ ДАЖЕ НЕ УСПЕВАЕТЕ ЗАКРИЧАТЬ, ПРЕЖДЕ ЧЕМ ИМПЛАНТ СРАБАТЫВАЕТ, ЗАБИРАЯ ВАШУ ГОЛОВУ!"))
+	if(ishuman(target))
+		var/mob/living/carbon/human/human_target = target
+		var/obj/item/organ/external/head = human_target.get_organ(BODY_ZONE_HEAD)
+		if(head)
+			head.dismember()
+			return
+	target.gib()
 
 
 /datum/heretic_knowledge/ultimate/moon_final/proc/on_life(mob/living/source, seconds_per_tick, times_fired)
@@ -321,9 +358,30 @@
 		if(IS_HERETIC_OR_MONSTER(carbon_view))
 			continue
 
+		// Already one of ours - the aura leaves its own lunatics alone (don't grind them into a coma).
+		if(carbon_view.mind?.has_antag_datum(/datum/antagonist/lunatic))
+			continue
+
 		if(carbon_view.can_block_magic(MAGIC_RESISTANCE_MIND)) //Somehow a shitty piece of tinfoil is STILL able to hold out against the power of an ascended heretic.
 			continue
 
 		new moon_effect(get_turf(carbon_view))
 		carbon_view.Confused(2 SECONDS)
-		carbon_view.Hallucinate(10 SECONDS)
+		carbon_view.Hallucinate(60 SECONDS)
+		// The ambient status alone fires unreliably; paced direct hallucinations make the ascension aura
+		// actually manifest galuns. Async (this is a COMSIG_LIVING_LIFE handler) and minor+medium only, so
+		// the moon stays atmospheric/visual rather than throwing the mask's scary majors.
+		if(prob(20))
+			INVOKE_ASYNC(carbon_view, TYPE_PROC_REF(/mob/living, hallucinate_living), pickweight(GLOB.minor_hallutinations + GLOB.medium_hallutinations))
+
+		// master220 has no sanity, so brain damage is the aura's madness meter: it grinds nearby minds down,
+		// and once a mind is shattered (>= 60) the weak-willed join the heretic as lunatics over time, while
+		// a mindshielded/cultist mind detonates instead (tg parity). ~4 brain/tick (SSmobs ~2s) => ~30s to
+		// break. Conversion/detonation is async since this runs inside a COMSIG_LIVING_LIFE handler.
+		carbon_view.adjustOrganLoss(INTERNAL_ORGAN_BRAIN, 4, 100)
+		if(carbon_view.get_organ_loss(INTERNAL_ORGAN_BRAIN) < 60)
+			continue
+		if(should_mind_explode(carbon_view))
+			INVOKE_ASYNC(src, PROC_REF(mind_explode), carbon_view)
+		else
+			INVOKE_ASYNC(src, PROC_REF(attempt_conversion), carbon_view, source)

@@ -231,7 +231,7 @@
 	name = "Лунное Прозрение"
 	passive_descriptions = list(
 		"Вы невосприимчивы к травмам мозга, а его здоровье медленно восстанавливается.",
-		"Восстановление мозга усилено.",
+		"Вы получаете иммунитет ко сну; восстановление мозга усилено.",
 		"Восстановление мозга достигло предела.",
 	)
 
@@ -245,8 +245,18 @@
 	RegisterSignal(owner, COMSIG_LIVING_LIFE, PROC_REF(on_life))
 
 
+/// tg's moon passive grants SLEEP IMMUNITY at tier 2 (crafting the robe / reaching power), on top of the
+/// stronger brain regen the higher level already gives via applied_level. The base sets applied_level here.
+/datum/status_effect/heretic_passive/moon/level_upgrade()
+	. = ..()
+	if(!.)
+		return
+	ADD_TRAIT(owner, TRAIT_SLEEPIMMUNE, TRAIT_STATUS_EFFECT(id))
+
+
 /datum/status_effect/heretic_passive/moon/on_remove()
 	REMOVE_TRAIT(owner, TRAIT_MADNESS_IMMUNE, TRAIT_STATUS_EFFECT(id))
+	REMOVE_TRAIT(owner, TRAIT_SLEEPIMMUNE, TRAIT_STATUS_EFFECT(id))
 	UnregisterSignal(owner, list(COMSIG_CARBON_GAIN_TRAUMA, COMSIG_LIVING_LIFE))
 	return ..()
 
