@@ -32,7 +32,7 @@
 	var/stored_in
 	/// Bitflags to check module compability
 	var/module_type = ALL
-	/// Bitflags to check modules count
+	/// variable for checking module copies count
 	var/max_multiple_count = 1
 
 /obj/item/mecha_parts/mecha_equipment/Destroy()//missiles detonating, teleporter creating singularity?
@@ -151,14 +151,13 @@
 	return TRUE
 
 /obj/item/mecha_parts/mecha_equipment/proc/check_multiple_equipment(obj/mecha/M)
-	var/modules = 1
+	var/installed_modules = 0
 	for(var/obj/item/mecha_parts/mecha_equipment/module in M.equipment)
 		if(!istype(module, src.type))
 			continue
-		modules += 1
-		if(modules <= max_multiple_count)
-			continue
-		return FALSE
+		installed_modules += 1
+		if(installed_modules >= max_multiple_count)
+			return FALSE
 	return TRUE
 
 /obj/item/mecha_parts/mecha_equipment/proc/can_detach()
