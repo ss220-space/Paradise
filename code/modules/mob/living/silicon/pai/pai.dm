@@ -472,9 +472,7 @@
 
 //Overriding this will stop a number of headaches down the track.
 /mob/living/silicon/pai/attackby(obj/item/I, mob/user, list/modifiers)
-	if(istype(I, /obj/item/clothing/head) && user.a_intent == INTENT_HELP)
-		return ..()	// let the silicon hat-placement (and standard chain) handle headwear
-
+	SHOULD_CALL_PARENT(FALSE)
 	if(istype(I, /obj/item/stack/nanopaste))
 		var/obj/item/stack/nanopaste/nanopaste = I
 		if(stat == DEAD)

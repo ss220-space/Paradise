@@ -112,9 +112,10 @@ effective or pretty fucking useless.
 	icon_state = used ? "health1" : "health2"
 
 /obj/item/rad_laser/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
+	SHOULD_CALL_PARENT(FALSE)
 	if(used)
 		balloon_alert(user, "идёт перезарядка!")
-		return ..()
+		return ATTACK_CHAIN_PROCEED
 
 	. = ATTACK_CHAIN_PROCEED_SUCCESS
 	add_attack_logs(user, target, "Irradiated by [src]")

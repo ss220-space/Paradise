@@ -104,6 +104,7 @@
 	last_used = world.time
 
 /obj/item/storage/bible/attack(mob/living/carbon/human/target, mob/living/carbon/human/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
+	SHOULD_CALL_PARENT(FALSE)
 	. = ATTACK_CHAIN_PROCEED
 
 	if(!ishuman(user) || is_monkeybasic(user))
@@ -141,7 +142,7 @@
 		return .|ATTACK_CHAIN_SUCCESS
 
 	if(!ishuman(target))
-		return ..()
+		return .
 
 	. |= ATTACK_CHAIN_SUCCESS
 

@@ -28,8 +28,9 @@
 	COOLDOWN_DECLARE(cooldown)
 
 /obj/item/banhammer/meta_hammer/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
+	SHOULD_CALL_PARENT(FALSE)
 	if(!target)
-		return ..()
+		return ATTACK_CHAIN_PROCEED
 
 	if(!COOLDOWN_FINISHED(src, cooldown))
 		user.balloon_alert(user, "перезарядка!")

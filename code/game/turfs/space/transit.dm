@@ -26,9 +26,9 @@
 	return ..()
 
 /turf/space/transit/attackby(obj/item/I, mob/user, list/modifiers)
+	SHOULD_CALL_PARENT(FALSE)
 	//Overwrite because we dont want people building rods in space.
-	. = ..()
-	return .|ATTACK_CHAIN_BLOCKED_ALL
+	return ATTACK_CHAIN_BLOCKED_ALL
 
 ///Get rid of all our contents, called when our reservation is released (which in our case means the shuttle arrived)
 /turf/space/transit/proc/launch_contents(datum/turf_reservation/reservation)

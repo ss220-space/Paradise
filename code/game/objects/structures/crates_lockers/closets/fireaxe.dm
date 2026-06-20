@@ -70,9 +70,7 @@
 	to_chat(user, span_caution("You re-enable the locking modules."))
 
 /obj/structure/closet/fireaxecabinet/attackby(obj/item/I, mob/living/user, list/modifiers)
-	. = ..()
-	if(ATTACK_CHAIN_CANCEL_CHECK(.))
-		return .
+	SHOULD_CALL_PARENT(FALSE)
 	. = ATTACK_CHAIN_BLOCKED_ALL
 	add_fingerprint(user)
 

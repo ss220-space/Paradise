@@ -72,10 +72,8 @@
 	return TRUE
 
 /obj/item/clothing/mask/facehugger/attackby(obj/item/I, mob/user, list/modifiers)
-	. = ..()
-	if(ATTACK_CHAIN_CANCEL_CHECK(.))
-		return .
-	return . | I.attack_obj(src, user, modifiers)
+	SHOULD_CALL_PARENT(FALSE)
+	return I.attack_obj(src, user, modifiers)
 
 /obj/item/clothing/mask/facehugger/attack_alien(mob/user) //can be picked up by aliens
 	return attack_hand(user)

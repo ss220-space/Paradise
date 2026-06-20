@@ -144,10 +144,11 @@
 	return FALSE
 
 /obj/item/reagent_containers/borghypo/attack(mob/living/carbon/human/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
-	if(!ishuman(target) || !target.reagents)
-		return ..()
-
+	SHOULD_CALL_PARENT(FALSE)
 	. = ATTACK_CHAIN_PROCEED
+
+	if(!ishuman(target) || !target.reagents)
+		return .
 
 	var/datum/reagents/our_reagents = reagent_list[mode]
 	if(!our_reagents.total_volume)

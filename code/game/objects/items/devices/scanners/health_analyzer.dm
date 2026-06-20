@@ -45,14 +45,12 @@
 	)
 
 /obj/item/healthanalyzer/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
-	. = ..()
-	if(ATTACK_CHAIN_CANCEL_CHECK(.))
-		return .
+	SHOULD_CALL_PARENT(FALSE)
 	add_fingerprint(user)
 	scan_title = "Сканирование: [target]"
 	scan_data = medical_scan_action(user, target, src, mode, advanced)
 	show_results(user)
-	return .|ATTACK_CHAIN_SUCCESS
+	return ATTACK_CHAIN_PROCEED_SUCCESS
 
 /obj/item/healthanalyzer/attack_self(mob/user)
 	if(!scan_data)
@@ -891,8 +889,8 @@
 	)
 
 /obj/item/healthanalyzer/gem_analyzer/attackby(obj/item/I, mob/user, list/modifiers)
-	. = ..()
-	return .|ATTACK_CHAIN_BLOCKED_ALL
+	SHOULD_CALL_PARENT(FALSE)
+	return ATTACK_CHAIN_BLOCKED_ALL
 
 #undef ORGAN_STATUS_LESS
 #undef ORGAN_STATUS_NECROSIS

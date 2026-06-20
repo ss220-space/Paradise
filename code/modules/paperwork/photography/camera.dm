@@ -54,7 +54,8 @@
 	. += span_notice("Alt-Shift-Click on [src] to toggle camera flashing")
 
 /obj/item/camera/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
-	return ..()
+	SHOULD_CALL_PARENT(FALSE)
+	return ATTACK_CHAIN_PROCEED
 
 /obj/item/camera/attack_self(mob/user)
 	on = !on

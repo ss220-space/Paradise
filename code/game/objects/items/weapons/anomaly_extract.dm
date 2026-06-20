@@ -33,9 +33,10 @@
 	icon_state = "slime_extract[used ? "0" : "1"]"
 
 /obj/item/anomaly_extract/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
+	SHOULD_CALL_PARENT(FALSE)
 	if(target == user && attack_self(user))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
-	return ..()
+	return ATTACK_CHAIN_PROCEED
 
 /obj/effect/proc_holder/spell/slime_degradation
 	name = "Slime degradation"

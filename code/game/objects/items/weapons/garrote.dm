@@ -47,10 +47,11 @@
 		STOP_PROCESSING(SSobj, src)
 
 /obj/item/twohanded/garrote/attack(mob/living/carbon/human/target, mob/living/carbon/human/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
-	if(!COOLDOWN_FINISHED(src, garrote_cooldown) || !ishuman(user))
-		return ..()
-
+	SHOULD_CALL_PARENT(FALSE)
 	. = ATTACK_CHAIN_PROCEED
+
+	if(!COOLDOWN_FINISHED(src, garrote_cooldown) || !ishuman(user))
+		return .
 
 	if(!ishuman(target))
 		user.balloon_alert(user, "неподходящая цель!")

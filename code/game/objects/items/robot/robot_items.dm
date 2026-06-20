@@ -13,13 +13,14 @@
 	var/charge_cost = 30
 
 /obj/item/borg/stun/attack(mob/living/carbon/human/target, mob/living/silicon/robot/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
+	SHOULD_CALL_PARENT(FALSE)
 	. = ATTACK_CHAIN_PROCEED
 	if(ishuman(target) && target.check_shields(src, 0, "[target]'s [name]", ITEM_ATTACK))
 		playsound(target, 'sound/weapons/genhit.ogg', 50, TRUE)
 		return .
 
 	if(isrobot(user) && !user.cell.use(charge_cost))
-		return ..()
+		return .
 
 	. |= ATTACK_CHAIN_SUCCESS
 	user.do_attack_animation(target)

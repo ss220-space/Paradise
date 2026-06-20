@@ -1361,12 +1361,10 @@
 	verbs.Cut()
 
 /atom/movable/overlay/attackby(obj/item/I, mob/user, list/modifiers)
-	. = ..()
-	if(ATTACK_CHAIN_CANCEL_CHECK(.))
-		return .
+	SHOULD_CALL_PARENT(FALSE)
 	if(master)
 		I.melee_attack_chain(user, master, modifiers)
-	return .|ATTACK_CHAIN_BLOCKED_ALL
+	return ATTACK_CHAIN_BLOCKED_ALL
 
 /atom/movable/overlay/attack_hand(mob/user)
 	if(master)

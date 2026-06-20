@@ -30,10 +30,11 @@
 	icon_state = "implanter[imp ? "1" : "0"]"
 
 /obj/item/implanter/attack(mob/living/carbon/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
-	if(!iscarbon(target))
-		return ..()
-
+	SHOULD_CALL_PARENT(FALSE)
 	. = ATTACK_CHAIN_PROCEED
+
+	if(!iscarbon(target))
+		return .
 
 	if(!user || !imp)
 		return .

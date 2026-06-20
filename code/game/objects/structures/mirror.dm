@@ -176,8 +176,8 @@
 	curse(user)
 
 /obj/structure/mirror/magic/attackby(obj/item/I, mob/living/user, list/modifiers)
-	. = ..()
-	return .|ATTACK_CHAIN_BLOCKED_ALL
+	SHOULD_CALL_PARENT(FALSE)
+	return ATTACK_CHAIN_BLOCKED_ALL
 
 /obj/structure/mirror/magic/proc/curse(mob/living/user)
 	return

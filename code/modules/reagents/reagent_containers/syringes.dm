@@ -58,9 +58,8 @@
 	update_icon()
 
 /obj/item/reagent_containers/syringe/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
-	if(user.a_intent == INTENT_HARM)	// syringes don't bludgeon, they inject in afterattack
-		return ATTACK_CHAIN_PROCEED
-	return ..()
+	SHOULD_CALL_PARENT(FALSE)
+	return ATTACK_CHAIN_PROCEED
 
 /obj/item/reagent_containers/syringe/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(!proximity_flag)

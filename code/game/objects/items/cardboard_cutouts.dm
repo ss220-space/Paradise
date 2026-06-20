@@ -53,19 +53,17 @@
 	user.remove_alt_appearance("sneaking_mission")
 
 /obj/item/twohanded/cardboard_cutout/attackby(obj/item/I, mob/living/user, list/modifiers)
-	. = ..()
-	if(ATTACK_CHAIN_CANCEL_CHECK(.))
-		return .
+	SHOULD_CALL_PARENT(FALSE)
 	add_fingerprint(user)
 	if(iscrayon(I))
 		change_appearance(I, user)
-		return .|ATTACK_CHAIN_SUCCESS
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	// Why yes, this does closely resemble mob and object attack code.
 	if(I.item_flags & NOBLUDGEON)
-		return .
+		return ATTACK_CHAIN_PROCEED
 
-	. |= ATTACK_CHAIN_SUCCESS
+	. = ATTACK_CHAIN_PROCEED_SUCCESS
 
 	if(!I.force)
 		playsound(loc, 'sound/weapons/tap.ogg', 20, TRUE, -1)

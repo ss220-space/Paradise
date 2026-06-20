@@ -299,9 +299,8 @@
 	)
 
 /obj/item/reagent_containers/food/condiment/pack/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
-	if(iscarbon(target))
-		return ATTACK_CHAIN_PROCEED	// Can't feed these to people directly.
-	return ..()
+	SHOULD_CALL_PARENT(FALSE)
+	return ATTACK_CHAIN_PROCEED	// Can't feed these to people directly.
 
 /obj/item/reagent_containers/food/condiment/pack/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(!proximity_flag)

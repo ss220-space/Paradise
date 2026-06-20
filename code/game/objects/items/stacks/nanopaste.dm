@@ -18,6 +18,7 @@
 	return ..()
 
 /obj/item/stack/nanopaste/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
+	SHOULD_CALL_PARENT(FALSE)
 	. = ATTACK_CHAIN_PROCEED
 
 	if(isrobot(target))	//Repairing cyborgs
@@ -44,7 +45,7 @@
 		return .|ATTACK_CHAIN_SUCCESS
 
 	if(!ishuman(target)) //Repairing robotic limbs and IPCs
-		return ..()
+		return .
 
 	var/mob/living/carbon/human/human_target = target
 	var/obj/item/organ/external/bodypart = human_target.get_organ(user.zone_selected)

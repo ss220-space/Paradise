@@ -10,9 +10,10 @@
 	materials = list(MAT_METAL=30, MAT_GLASS=20)
 
 /obj/item/slime_scanner/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
-	if(user.incapacitated() || user.AmountBlinded())
-		return ..()
+	SHOULD_CALL_PARENT(FALSE)
 	. = ATTACK_CHAIN_PROCEED
+	if(user.incapacitated() || user.AmountBlinded())
+		return .
 	if(!isslime(target))
 		to_chat(user, span_warning("This device can only scan slimes!"))
 		return .

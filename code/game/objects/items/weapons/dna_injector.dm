@@ -75,14 +75,15 @@
 		return buf.dna.SetUIValue(real_block,val)
 
 /obj/item/dnainjector/attack(mob/living/carbon/human/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
+	SHOULD_CALL_PARENT(FALSE)
 	if(used)
 		to_chat(user, span_warning("This injector is used up!"))
 		return ATTACK_CHAIN_PROCEED
 
-	if(!ishuman(target) || HAS_TRAIT(target, TRAIT_NO_DNA))
-		return ..()
-
 	. = ATTACK_CHAIN_PROCEED_SUCCESS
+
+	if(!ishuman(target) || HAS_TRAIT(target, TRAIT_NO_DNA))
+		return .
 
 	if(!user.IsAdvancedToolUser())
 		return .

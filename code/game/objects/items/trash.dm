@@ -137,7 +137,8 @@
 	desc = "Still has a delicious smell."
 
 /obj/item/trash/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
-	return ..()
+	SHOULD_CALL_PARENT(FALSE)
+	return ATTACK_CHAIN_PROCEED
 
 /obj/item/trash/broken_ashtray
 	name = "ashtray shards"

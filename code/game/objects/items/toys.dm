@@ -56,7 +56,8 @@
 	create_reagents(10)
 
 /obj/item/toy/balloon/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
-	return ..()
+	SHOULD_CALL_PARENT(FALSE)	// effect is applied in afterattack, no normal melee hit
+	return ATTACK_CHAIN_PROCEED
 
 /obj/item/toy/balloon/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(!proximity_flag)
@@ -1357,11 +1358,12 @@
 	icon_state = "banana"
 
 /obj/item/toy/plushie/banbanana/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
+	SHOULD_CALL_PARENT(FALSE)	// joke plushie, does its own thing instead of a normal melee hit
 	to_chat(target, span_danger("Вас забанил ХО$Т.\nПричина: Хонк."))
 	to_chat(target, span_danger("Это ПЕРМАНЕНТНЫЙ бан."))
 	to_chat(user, span_danger("Вы <b>ЗАБАНИЛИ</b> [target]"))
 	playsound(loc, 'sound/effects/adminhelp.ogg', 25)
-	return ..()
+	return ATTACK_CHAIN_PROCEED_SUCCESS
 
 /obj/item/toy/plushie/pig
 	name = "rubber piggy"
@@ -1619,10 +1621,11 @@
 	w_class = WEIGHT_CLASS_TINY
 
 /obj/item/toy/flash/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
+	SHOULD_CALL_PARENT(FALSE)	// fake flash, never a real melee hit (no double attack/animation)
 	playsound(loc, 'sound/weapons/flash.ogg', 100, TRUE)
 	flick("[initial(icon_state)]2", src)
 	user.visible_message(span_disarm("[user] ослепля[PLUR_ET_YUT(user)] [target.declent_ru(ACCUSATIVE)] вспышкой флешера!"))
-	return ..()
+	return ATTACK_CHAIN_PROCEED_SUCCESS
 
 /*
  * Toy big red button
@@ -1939,7 +1942,8 @@
 		spin_cylinder()
 
 /obj/item/toy/russian_revolver/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
-	return ..()
+	SHOULD_CALL_PARENT(FALSE)	// russian roulette resolves in afterattack, no normal melee hit
+	return ATTACK_CHAIN_PROCEED
 
 /obj/item/toy/russian_revolver/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(proximity_flag)

@@ -1152,7 +1152,8 @@
 					H.s_active.show_to(H)
 
 /obj/item/storage/belt/bluespace/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
-	return ..()
+	SHOULD_CALL_PARENT(FALSE)
+	return ATTACK_CHAIN_PROCEED
 
 /obj/item/storage/belt/bluespace/admin
 	name = "Admin's Tool-belt"

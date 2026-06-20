@@ -67,20 +67,18 @@
 	return ..()
 
 /obj/item/shared_storage/attackby(obj/item/I, mob/user, list/modifiers)
-	. = ..()
-	if(ATTACK_CHAIN_CANCEL_CHECK(.))
-		return .
+	SHOULD_CALL_PARENT(FALSE)
 	add_fingerprint(user)
 	if(!bag)
-		return .
+		return ATTACK_CHAIN_PROCEED
 	if(loc != user)
 		if(user.s_active == bag)
 			user.s_active.close(user)
-		return .
+		return ATTACK_CHAIN_PROCEED
 	if(bag.loc != user)
 		bag.forceMove(user)
-	. |= bag.attackby(I, user, modifiers)
-	return .|ATTACK_CHAIN_BLOCKED_ALL
+	bag.attackby(I, user, modifiers)
+	return ATTACK_CHAIN_BLOCKED_ALL
 
 /obj/item/shared_storage/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
@@ -529,7 +527,8 @@
 	var/can_destroy = FALSE
 
 /obj/effect/immortality_talisman/attackby(obj/item/I, mob/user, list/modifiers)
-	return ..()
+	SHOULD_CALL_PARENT(FALSE)
+	return ATTACK_CHAIN_PROCEED
 
 /obj/effect/immortality_talisman/ex_act()
 	return

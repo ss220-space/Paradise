@@ -39,8 +39,8 @@
 	return
 
 /turf/simulated/wall/shuttle/attackby(obj/item/I, mob/user, list/modifiers)
-	. = ..()
-	return .|ATTACK_CHAIN_BLOCKED_ALL
+	SHOULD_CALL_PARENT(FALSE)
+	return ATTACK_CHAIN_BLOCKED_ALL
 
 /turf/simulated/wall/shuttle/attack_hand(mob/user)
 	return
@@ -149,8 +149,8 @@
 	icon_state = "floor"
 
 /turf/simulated/floor/shuttle/attackby(obj/item/I, mob/user, list/modifiers)
-	. = ..()
-	return .|ATTACK_CHAIN_BLOCKED_ALL
+	SHOULD_CALL_PARENT(FALSE)
+	return ATTACK_CHAIN_BLOCKED_ALL
 
 /turf/simulated/floor/shuttle/tool_act(mob/living/user, obj/item/tool, list/modifiers)
 	return FALSE

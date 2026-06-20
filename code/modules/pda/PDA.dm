@@ -522,10 +522,11 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 	return ..()
 
 /obj/item/pda/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
-	if(!scanmode || !iscarbon(target))
-		return ..()
-	. = ATTACK_CHAIN_PROCEED_SUCCESS
-	scanmode.scan_mob(target, user)
+	SHOULD_CALL_PARENT(FALSE)
+	. = ATTACK_CHAIN_PROCEED
+	if(scanmode && iscarbon(target))
+		. |= ATTACK_CHAIN_SUCCESS
+		scanmode.scan_mob(target, user)
 
 /obj/item/pda/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(proximity_flag && scanmode)

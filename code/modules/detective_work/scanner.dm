@@ -100,7 +100,8 @@
 		to_chat(usr, span_warning("The scanner has no logs or is in use."))
 
 /obj/item/detective_scanner/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
-	return ..()
+	SHOULD_CALL_PARENT(FALSE)
+	return ATTACK_CHAIN_PROCEED
 
 /obj/item/detective_scanner/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	scan(target, user)

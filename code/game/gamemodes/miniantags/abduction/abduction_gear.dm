@@ -184,8 +184,9 @@
 	to_chat(user, span_notice("You switch the device to [mode==GIZMO_SCAN? "SCAN": "MARK"] MODE"))
 
 /obj/item/abductor/gizmo/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
+	SHOULD_CALL_PARENT(FALSE)
 	if(!ScientistCheck(user))
-		return ..()
+		return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 	if(!console)
 		to_chat(user, span_warning("The device is not linked to console!"))
 		return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
@@ -253,8 +254,9 @@
 	origin_tech = "materials=4;programming=7;abductor=3"
 
 /obj/item/abductor/silencer/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
+	SHOULD_CALL_PARENT(FALSE)
 	if(!isgrey(user) && !AbductorCheck(user))
-		return ..()
+		return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 	. = ATTACK_CHAIN_PROCEED_SUCCESS
 	radio_off(target, user)
 

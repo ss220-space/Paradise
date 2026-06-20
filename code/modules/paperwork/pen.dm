@@ -161,8 +161,9 @@
 	origin_tech = "engineering=4;syndicate=2"
 
 /obj/item/pen/sleepy/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
+	SHOULD_CALL_PARENT(FALSE)
 	if(!target.can_inject(user, TRUE, ignore_pierceimmune = TRUE))
-		return ..()
+		return ATTACK_CHAIN_PROCEED
 	. = ATTACK_CHAIN_PROCEED_SUCCESS
 	var/transfered = 0
 	if(reagents.total_volume && target.reagents)

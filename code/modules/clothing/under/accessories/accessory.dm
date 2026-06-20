@@ -735,6 +735,7 @@
 	)
 
 /obj/item/clothing/accessory/holobadge/attack(mob/living/carbon/human/target, mob/living/user, def_zone, skip_attack_anim = FALSE)
+	SHOULD_CALL_PARENT(FALSE)
 	if(user == target)
 		user.visible_message(
 			span_userdanger("[user] starts thrusting [src] to [user.p_their()] own face! What a dumbass?"),
@@ -745,7 +746,7 @@
 			span_userdanger("[user] invades [target]'s personal space, thrusting [src] to [target.p_their()] face insistently!"),
 			span_userdanger("You invade [target]'s personal space, thrusting [src] to [target.p_their()] face insistently. You are the law!"),
 		)
-	return ..()
+	return ATTACK_CHAIN_PROCEED_SUCCESS
 
 /obj/item/clothing/accessory/holobadge/attackby(obj/item/I, mob/user, list/modifiers)
 	var/obj/item/card/id/id = I.GetID()

@@ -117,9 +117,7 @@
 		walk_link(arrived)
 
 /obj/effect/cross_action/spacetime_dist/attackby(obj/item/I, mob/user, list/modifiers)
-	. = ..()
-	if(ATTACK_CHAIN_CANCEL_CHECK(.))
-		return .
+	SHOULD_CALL_PARENT(FALSE)
 	. = ATTACK_CHAIN_BLOCKED_ALL
 	if(user.drop_item_ground(I))
 		walk_link(I)

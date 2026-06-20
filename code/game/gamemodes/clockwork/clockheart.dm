@@ -323,11 +323,9 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	return parent.mouse_drop_receive(dropping, user, params)
 
 /obj/structure/heart_filler/attackby(obj/item/I, mob/user, list/modifiers)
-	. = ..()
-	if(ATTACK_CHAIN_CANCEL_CHECK(.))
-		return .
+	SHOULD_CALL_PARENT(FALSE)
 	parent.attackby(I, user, modifiers)
-	return .
+	return ATTACK_CHAIN_PROCEED
 
 /obj/structure/heart_filler/proc/update_parent(obj/new_parent)
 	parent = new_parent

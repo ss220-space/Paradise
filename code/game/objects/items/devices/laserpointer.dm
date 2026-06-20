@@ -45,9 +45,10 @@
 	icon_state = "pointer[is_pointing ? "_[pointer_icon_state]" : ""]"
 
 /obj/item/laser_pointer/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
+	SHOULD_CALL_PARENT(FALSE)
 	if(laser_act(target, user))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
-	return ..()
+	return ATTACK_CHAIN_PROCEED
 
 /obj/item/laser_pointer/attackby(obj/item/I, mob/user, list/modifiers)
 	if(istype(I, /obj/item/stock_parts/micro_laser))

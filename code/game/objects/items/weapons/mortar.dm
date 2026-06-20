@@ -206,37 +206,35 @@
 	SStgui.update_uis(src)
 
 /obj/structure/mortar/attackby(obj/item/item, mob/user)
-	. = ..()
-	if(ATTACK_CHAIN_CANCEL_CHECK(.))
-		return .
+	SHOULD_CALL_PARENT(FALSE)
 	if(!ismortarcasing(item))
-		return .
+		return ATTACK_CHAIN_PROCEED
 	var/obj/item/mortar_shell/mortar_shell = item
 
 	if(!mortar_shell.locked)
-		return .
+		return ATTACK_CHAIN_PROCEED
 	var/turf/target_turf = locate(targ_x + dial_x + offset_x, targ_y + dial_y + offset_y, targ_z)
 	var/area/target_area = get_area(target_turf)
 	if(busy)
 		to_chat(user, span_warning("Someone else is currently using [src]."))
-		return .
+		return ATTACK_CHAIN_PROCEED
 
 	if(targ_x == 0 && targ_y == 0 && targ_z == 0) //Mortar wasn't set
 		to_chat(user, span_warning("[src] needs to be aimed first."))
-		return .
+		return ATTACK_CHAIN_PROCEED
 
 	if(!target_turf)
 		to_chat(user, span_warning("You cannot fire [src] to this target."))
-		return .
+		return ATTACK_CHAIN_PROCEED
 
 	if(!istype(target_area))
 		to_chat(user, span_warning("This area is out of bounds!"))
-		return .
+		return ATTACK_CHAIN_PROCEED
 
 	var/turf/above_turf = GET_TURF_ABOVE(target_turf)
 	if(above_turf && !isopenspaceturf(above_turf))
 		to_chat(user, span_warning("You cannot hit the target. It is probably underground."))
-		return .
+		return ATTACK_CHAIN_PROCEED
 
 	var/turf/deviation_turf = locate(target_turf.x + pick(-1,0,0,1), target_turf.y + pick(-1,0,0,1), target_turf.z) //Small amount of spread so that consecutive mortar shells don't all land on the same tile
 	if(deviation_turf)
@@ -252,7 +250,7 @@
 	busy = FALSE
 
 	if(!success)
-		return .
+		return ATTACK_CHAIN_PROCEED
 
 	user.visible_message(
 		span_notice("[user] loads \a [mortar_shell.name] into [src]."),
@@ -270,7 +268,7 @@
 		shake_camera(mob, 3, 1)
 
 	addtimer(CALLBACK(src, PROC_REF(handle_shell), target_turf, mortar_shell), travel_time)
-	return .|ATTACK_CHAIN_SUCCESS
+	return ATTACK_CHAIN_PROCEED_SUCCESS
 
 /obj/structure/mortar/wrench_act(mob/living/user, obj/item/I)
 	. = ..()

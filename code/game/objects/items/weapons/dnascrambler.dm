@@ -28,9 +28,10 @@
 	name = used ? "used [initial(name)]" : initial(name)
 
 /obj/item/dnascrambler/attack(mob/living/carbon/human/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
-	if(used || !ishuman(target) || !ishuman(user))
-		return ..()
+	SHOULD_CALL_PARENT(FALSE)
 	. = ATTACK_CHAIN_PROCEED
+	if(used || !ishuman(target) || !ishuman(user))
+		return .
 
 	if(HAS_TRAIT(target, TRAIT_NO_DNA))
 		to_chat(user, span_warning("You failed to inject [target], as [target.p_they()] [target.p_have()] no DNA to scramble, nor flesh to inject."))

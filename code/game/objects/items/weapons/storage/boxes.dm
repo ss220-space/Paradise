@@ -962,10 +962,11 @@
 	return ..()
 
 /obj/item/storage/box/papersack/attack(mob/living/carbon/human/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
-	if(!ishuman(target))
-		return ..()
-
+	SHOULD_CALL_PARENT(FALSE)
 	. = ATTACK_CHAIN_PROCEED
+
+	if(!ishuman(target))
+		return .
 
 	if(length(contents))
 		to_chat(user, span_notice("Пакет должен быть пуст!"))

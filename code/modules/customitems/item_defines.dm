@@ -30,6 +30,7 @@
 	usesound = 'sound/items/welder2.ogg'
 
 /obj/item/fluff/tattoo_gun/attack(mob/living/carbon/human/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
+	SHOULD_CALL_PARENT(FALSE)
 	. = ATTACK_CHAIN_PROCEED
 	if(user.a_intent == INTENT_HARM)
 		user.visible_message(
@@ -42,7 +43,7 @@
 
 	if(used)
 		to_chat(user, span_notice("The [src] is out of ink."))
-		return ..()
+		return .
 
 	if(!ishuman(target))
 		to_chat(user, span_notice("You don't think tattooing [target] is the best idea."))

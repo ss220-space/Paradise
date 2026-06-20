@@ -175,9 +175,10 @@
 		target.AdjustConfused(power)
 
 /obj/item/flash/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
-	if(!try_use_flash(user))
-		return ..()
+	SHOULD_CALL_PARENT(FALSE)
 	. = ATTACK_CHAIN_PROCEED
+	if(!try_use_flash(user))
+		return .
 	if(iscarbon(target))
 		flash_carbon(target, user, 10 SECONDS, TRUE)
 		if(overcharged)

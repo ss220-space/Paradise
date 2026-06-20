@@ -130,8 +130,8 @@
 //All of this shit is useless for vines
 
 /turf/simulated/floor/vines/attackby(obj/item/item, mob/user, list/modifiers)
-	. = ..()
-	return .|ATTACK_CHAIN_BLOCKED_ALL
+	SHOULD_CALL_PARENT(FALSE)
+	return ATTACK_CHAIN_BLOCKED_ALL
 
 /turf/simulated/floor/vines/burn_tile()
 	return

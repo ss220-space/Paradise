@@ -38,9 +38,10 @@
 		. += span_warning("Слот для био-чипа пуст.")
 
 /obj/item/mod/module/pathfinder/attack(mob/living/target, mob/living/user, def_zone, skip_attack_anim)
-	if(!ishuman(target) || !implant)
-		return ..()
+	SHOULD_CALL_PARENT(FALSE)
 	. = ATTACK_CHAIN_PROCEED
+	if(!ishuman(target) || !implant)
+		return .
 	if(!do_after(user, 1.5 SECONDS, target = target))
 		return .
 	if(!implant.implant(target, user))

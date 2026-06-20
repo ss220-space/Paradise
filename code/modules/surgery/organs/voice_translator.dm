@@ -133,20 +133,20 @@
 		desc = initial(desc)
 
 /obj/item/organ/internal/cyberimp/mouth/translator/attackby(obj/item/I, mob/user, list/modifiers)
-	. = ..()
-	if(ATTACK_CHAIN_CANCEL_CHECK(.))
-		return .
+	SHOULD_CALL_PARENT(FALSE)
 	if(istype(I, /obj/item/translator_chip))
 		var/obj/item/translator_chip/chip = I
 		install_chip(user, chip, silent = FALSE)
-		return .|ATTACK_CHAIN_BLOCKED_ALL
+		return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(istype(I, /obj/item/translator_upgrade))
 		if(!stored_upgrade)
 			install_upgrade(user, I)
 		else
 			balloon_alert(user, "уже установлено!")
-		return .|ATTACK_CHAIN_BLOCKED_ALL
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ATTACK_CHAIN_PROCEED
 
 /obj/item/organ/internal/cyberimp/mouth/translator/proc/install_upgrade(mob/living/carbon/human/user, obj/item/translator_upgrade/upgrade)
 	if(!open)

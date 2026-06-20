@@ -159,8 +159,8 @@
 	return
 
 /obj/machinery/computer/HolodeckControl/attackby(obj/item/I, mob/user, list/modifiers)
-	. = ..()
-	return .|ATTACK_CHAIN_BLOCKED
+	SHOULD_CALL_PARENT(FALSE)
+	return ATTACK_CHAIN_BLOCKED
 
 /obj/machinery/computer/HolodeckControl/emag_act(mob/user)
 	if(!emagged)
@@ -320,8 +320,8 @@
 		icon_state = "grass[pick("1","2","3","4")]"
 
 /turf/simulated/floor/holofloor/attackby(obj/item/I, mob/user, list/modifiers)
-	. = ..()
-	return .|ATTACK_CHAIN_BLOCKED
+	SHOULD_CALL_PARENT(FALSE)
+	return ATTACK_CHAIN_BLOCKED
 	// HOLOFLOOR DOES NOT GIVE A FUCK
 
 /turf/simulated/floor/holofloor/space
@@ -577,12 +577,10 @@
 	return
 
 /obj/machinery/readybutton/attackby(obj/item/I, mob/user, list/modifiers)
-	. = ..()
-	if(ATTACK_CHAIN_CANCEL_CHECK(.))
-		return .
+	SHOULD_CALL_PARENT(FALSE)
 	add_fingerprint(user)
 	to_chat(user, "The device is a solid button, there's nothing you can do with it!")
-	return .|ATTACK_CHAIN_BLOCKED
+	return ATTACK_CHAIN_BLOCKED
 
 /obj/machinery/readybutton/attack_hand(mob/user as mob)
 	if(user.stat || stat & (BROKEN))

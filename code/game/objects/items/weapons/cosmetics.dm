@@ -72,10 +72,10 @@
 	update_icon()
 
 /obj/item/lipstick/attack(mob/living/carbon/human/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
-	if(!open)
-		return ..()
-
+	SHOULD_CALL_PARENT(FALSE)
 	. = ATTACK_CHAIN_PROCEED
+	if(!open)
+		return .
 
 	if(!ishuman(target) || !target.get_organ(BODY_ZONE_HEAD))
 		to_chat(user, span_notice("Where are the lips on that?"))

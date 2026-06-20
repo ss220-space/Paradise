@@ -147,10 +147,11 @@
 	var/being_used = FALSE
 
 /obj/item/slimepotion/slime/docility/attack(mob/living/simple_animal/slime/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
+	SHOULD_CALL_PARENT(FALSE)
+	. = ATTACK_CHAIN_PROCEED
 	if(!isslime(target))
 		to_chat(user, span_warning("The potion only works on slimes!"))
-		return ..()
-	. = ATTACK_CHAIN_PROCEED
+		return .
 	if(target.stat)
 		to_chat(user, span_warning("The slime is dead!"))
 		return .
@@ -439,10 +440,11 @@
 	icon_state = "bottle16"
 
 /obj/item/slimepotion/slime/steroid/attack(mob/living/simple_animal/slime/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
+	SHOULD_CALL_PARENT(FALSE)
+	. = ATTACK_CHAIN_PROCEED
 	if(!isslime(target))//If target is not a slime.
 		to_chat(user, span_warning("The steroid only works on baby slimes!"))
-		return ..()
-	. = ATTACK_CHAIN_PROCEED
+		return .
 	if(target.age_state.age != SLIME_BABY) //Can't steroidify adults
 		to_chat(user, span_warning("Only baby slimes can use the steroid!"))
 		return .
@@ -474,10 +476,11 @@
 	icon_state = "bottle15"
 
 /obj/item/slimepotion/slime/stabilizer/attack(mob/living/simple_animal/slime/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
+	SHOULD_CALL_PARENT(FALSE)
+	. = ATTACK_CHAIN_PROCEED
 	if(!isslime(target))
 		to_chat(user, span_warning("The stabilizer only works on slimes!"))
-		return ..()
-	. = ATTACK_CHAIN_PROCEED
+		return .
 	if(target.stat)
 		to_chat(user, span_warning("The slime is dead!"))
 		return .
@@ -499,10 +502,11 @@
 	icon_state = "bottle3"
 
 /obj/item/slimepotion/slime/mutator/attack(mob/living/simple_animal/slime/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
+	SHOULD_CALL_PARENT(FALSE)
+	. = ATTACK_CHAIN_PROCEED
 	if(!isslime(target))
 		to_chat(user, span_warning("The mutator only works on slimes!"))
-		return ..()
-	. = ATTACK_CHAIN_PROCEED
+		return .
 	if(target.stat)
 		to_chat(user, span_warning("The slime is dead!"))
 		return .

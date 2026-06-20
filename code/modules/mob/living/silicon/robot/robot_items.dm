@@ -51,7 +51,8 @@
 	item_state = "sheet-metal"
 
 /obj/item/form_printer/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
-	return ..()
+	SHOULD_CALL_PARENT(FALSE)
+	return ATTACK_CHAIN_PROCEED
 
 /obj/item/form_printer/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(!target || !proximity_flag)

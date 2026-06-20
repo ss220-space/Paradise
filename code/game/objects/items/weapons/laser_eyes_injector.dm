@@ -24,10 +24,11 @@
 	name = used ? "used [initial(name)]" : initial(name)
 
 /obj/item/laser_eyes_injector/attack(mob/living/target, mob/living/user, list/modifiers, def_zone, skip_attack_anim = FALSE)
-	if(!ishuman(target))
-		return ..()
-
+	SHOULD_CALL_PARENT(FALSE)
 	. = ATTACK_CHAIN_PROCEED
+
+	if(!ishuman(target))
+		return .
 
 	if(HAS_TRAIT(target, TRAIT_NO_DNA))
 		balloon_alert(user, UNLINT("ДНК не обнаружена!"))

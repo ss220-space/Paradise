@@ -37,8 +37,8 @@
 	return
 
 /turf/simulated/wall/indestructible/attackby(obj/item/I, mob/user, list/modifiers)
-	. = ..()
-	return .|ATTACK_CHAIN_BLOCKED_ALL
+	SHOULD_CALL_PARENT(FALSE)
+	return ATTACK_CHAIN_BLOCKED_ALL
 
 /turf/simulated/wall/indestructible/attack_hand(mob/user)
 	return
