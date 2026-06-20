@@ -1,14 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
-import {
-  Box,
-  Button,
-  DmIcon,
-  NoticeBox,
-  Section,
-  Stack,
-} from '../components';
+import { Box, Button, DmIcon, NoticeBox, Section, Stack } from '../components';
 import { toTitleCase } from 'common/string';
 import { storage } from 'common/storage';
 
@@ -95,7 +88,11 @@ export const ComponentPrinter = (props) => {
       <Window.Content scrollable>
         <Section
           title="Локальные схемы"
-          buttons={<Button icon="refresh" onClick={loadLocalSaves}>Обновить</Button>}
+          buttons={
+            <Button icon="refresh" onClick={loadLocalSaves}>
+              Обновить
+            </Button>
+          }
         >
           {localSaves.length === 0 && (
             <NoticeBox info>Нет локально сохранённых схем.</NoticeBox>
@@ -104,8 +101,16 @@ export const ComponentPrinter = (props) => {
             <Stack key={save.key} align="center" mb={1}>
               <Stack.Item grow>{save.name}</Stack.Item>
               <Stack.Item>
-                <Button icon="upload" onClick={() => handleLoadLocal(save.key)} tooltip="Загрузить" />
-                <Button icon="trash" onClick={() => handleDeleteLocal(save.key)} tooltip="Удалить" />
+                <Button
+                  icon="upload"
+                  onClick={() => handleLoadLocal(save.key)}
+                  tooltip="Загрузить"
+                />
+                <Button
+                  icon="trash"
+                  onClick={() => handleDeleteLocal(save.key)}
+                  tooltip="Удалить"
+                />
               </Stack.Item>
             </Stack>
           ))}
@@ -113,7 +118,9 @@ export const ComponentPrinter = (props) => {
 
         <Section title="Сохранённые схемы">
           {Object.values(designs).length === 0 && (
-            <NoticeBox info mt={1}>Сохранённые схемы отсутствуют.</NoticeBox>
+            <NoticeBox info mt={1}>
+              Сохранённые схемы отсутствуют.
+            </NoticeBox>
           )}
           {Object.values(designs).map((design) => (
             <Section key={design.id} style={{ position: 'relative' }}>
@@ -140,10 +147,19 @@ export const ComponentPrinter = (props) => {
                 {(design.cost &&
                   Object.keys(design.cost)
                     .map((mat) => toTitleCase(mat) + ': ' + design.cost[mat])
-                    .join(', ')) || 'Ресурсы для печати не требуются.'}
+                    .join(', ')) ||
+                  'Ресурсы для печати не требуются.'}
               </Box>
 
-              <Box style={{ position: 'absolute', right: '8px', top: '8px', display: 'flex', gap: '5px' }}>
+              <Box
+                style={{
+                  position: 'absolute',
+                  right: '8px',
+                  top: '8px',
+                  display: 'flex',
+                  gap: '5px',
+                }}
+              >
                 <Button
                   icon="floppy-disk"
                   tooltip="Сохранить локально"
