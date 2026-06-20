@@ -439,7 +439,6 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 	. = ..()
 	if(.)
 		return
-
 	switch(action)
 		if("print")
 			var/design_id = text2num(params["designId"])
@@ -463,67 +462,6 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 			LAZYREMOVE(scanned_designs, design)
 
 			update_static_data_for_all_viewers()
-
-		if("export")
-			var/mob/user = ui.user
-			tgui_alert(user, "Функция отключена до исправления по соображениям безопасности", "ВНИМАНИЕ!")
-
-			var/design_id = text2num(params["designId"])
-
-			if(design_id < 1 || design_id > length(scanned_designs))
-				return TRUE
-
-			var/list/design = LAZYACCESS(scanned_designs, design_id)
-
-			var/list/data = list(
-				"dupe_data" = design["dupe_data"],
-				"name" = design["name"],
-				"desc" = design["desc"],
-				"integrated_circuit" = design["integrated_circuit"],
-				"Icon" = design["Icon"],
-				"IconState" = design["IconState"]
-			)
-
-			var/json_base64 = rustg_encode_base64(json_encode(data))
-
-			if(!json_base64)
-				tgui_alert(user, message = "Ошибка экспорта!", title = "Ошибка!")
-				return
-
-			var/file_path = "data/player_saves/[copytext(user.ckey, 1, 2)]/[user.ckey]/circuit_[data["name"]].txt"
-			text2file(json_base64, file_path)
-			ui.user << ftp(WRAP_FILE(file_path))
-
-			tgui_input_text(user, "Скопируйте текст схемы:", "Экспорт схемы", default = json_base64)
-
-
-		if("import")
-			var/mob/user = ui.user
-			tgui_alert(user, "Функция отключена до исправления по соображениям безопасности", "ВНИМАНИЕ!")
-
-			var/json_base64 = params["import"]
-			if(!json_base64)
-				return TRUE
-
-			json_base64 = replacetext(json_base64, "\n", "")
-			json_base64 = trim(json_base64)
-
-			var/decoded = rustg_decode_base64(json_base64)
-			if(!decoded)
-				tgui_alert(user, "Не удалось декодировать Base64!", "Ошибка импорта")
-				return TRUE
-
-			var/list/data = json_decode(decoded)
-			if(!islist(data))
-				tgui_alert(user, "Некорректный формат JSON!", "Ошибка импорта")
-				return TRUE
-
-			if(data["name"])
-				data["name"] = copytext(sanitize(data["name"]), 1, MAX_CHAR_IN_NAME)
-			if(data["desc"])
-				data["desc"] = copytext(sanitize(data["desc"]), 1, MAX_CHAR_IN_DESC)
-
-			save_circuit_by_import(user, data)
 		if("save_local")
 			var/design_id = text2num(params["designId"])
 			if(design_id < 1 || design_id > length(scanned_designs))
@@ -541,20 +479,12 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 			export_payload = list("key" = "circuit_[design["name"]]", "value" = json_base64)
 			update_static_data_for_all_viewers()
 			return TRUE
-
 		if("import_local")
 			var/json_base64 = params["payload"]
 			if(!json_base64)
 				return TRUE
 			var/list/data = json_decode(rustg_decode_base64(json_base64))
 			save_circuit_by_import(usr, data)
-			return TRUE
-
-		if("clear_browser_save")
-			export_payload = null
-			return TRUE
-
-	return TRUE
 
 #undef MAX_CHAR_IN_NAME
 #undef MAX_CHAR_IN_DESC

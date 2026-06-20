@@ -95,11 +95,7 @@ export const ComponentPrinter = (props) => {
       <Window.Content scrollable>
         <Section
           title="Локальные схемы"
-          buttons={
-            <Button icon="refresh" onClick={loadLocalSaves}>
-              Обновить
-            </Button>
-          }
+          buttons={<Button icon="refresh" onClick={loadLocalSaves}>Обновить</Button>}
         >
           {localSaves.length === 0 && (
             <NoticeBox info>Нет локально сохранённых схем.</NoticeBox>
@@ -108,33 +104,14 @@ export const ComponentPrinter = (props) => {
             <Stack key={save.key} align="center" mb={1}>
               <Stack.Item grow>{save.name}</Stack.Item>
               <Stack.Item>
-                <Button
-                  icon="upload"
-                  onClick={() => handleLoadLocal(save.key)}
-                  tooltip="Загрузить"
-                />
-                <Button
-                  icon="trash"
-                  onClick={() => handleDeleteLocal(save.key)}
-                  tooltip="Удалить"
-                />
+                <Button icon="upload" onClick={() => handleLoadLocal(save.key)} tooltip="Загрузить" />
+                <Button icon="trash" onClick={() => handleDeleteLocal(save.key)} tooltip="Удалить" />
               </Stack.Item>
             </Stack>
           ))}
         </Section>
-        <Section
-          title="Сохранённые схемы"
-          buttons={
-            <Button.File
-              icon="upload"
-              accept=".txt"
-              onSelectFiles={(value) => act('import', { import: value })}
-            >
-              Импорт
-            </Button.File>
-          }
-        />
-        <Box>
+
+        <Section title="Сохранённые схемы">
           {Object.values(designs).length === 0 && (
             <NoticeBox info mt={1}>Сохранённые схемы отсутствуют.</NoticeBox>
           )}
@@ -166,20 +143,7 @@ export const ComponentPrinter = (props) => {
                     .join(', ')) || 'Ресурсы для печати не требуются.'}
               </Box>
 
-              <Box
-                style={{
-                  position: 'absolute',
-                  right: '8px',
-                  top: '8px',
-                  display: 'flex',
-                  gap: '5px',
-                }}
-              >
-                <Button
-                  icon="save"
-                  onClick={() => act('export', { designId: design.id })}
-                  tooltip="Экспорт (скопировать)"
-                />
+              <Box style={{ position: 'absolute', right: '8px', top: '8px', display: 'flex', gap: '5px' }}>
                 <Button
                   icon="floppy-disk"
                   tooltip="Сохранить локально"
@@ -192,7 +156,7 @@ export const ComponentPrinter = (props) => {
               </Box>
             </Section>
           ))}
-        </Box>
+        </Section>
       </Window.Content>
     </Window>
   );
