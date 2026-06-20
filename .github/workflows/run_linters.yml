@@ -137,4 +137,5 @@ jobs:
 
       - name: Run TGUI Checks
         if: steps.linter-setup.conclusion == 'success' && !cancelled()
+        shell: bash
         run: tgui/bin/tgui --ci
