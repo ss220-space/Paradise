@@ -39,27 +39,32 @@
 		"Используйте «Волка среди овец» с осторожностью: помимо большого отката, он вооружает клинками и тех, \
 		кто заперт вместе с вами. Это последний рубеж обороны — или добивающий удар при явном преимуществе.",
 	)
-	// "Танец Клинка" — the blade path's signature passive (the riposte). NOTE: currently the riposte still
-	// lives in the researchable /datum/heretic_knowledge/blade_dance node (this column is still in the LEGACY
-	// format). The next step of the TG-format conversion folds it into a /datum/status_effect/heretic_passive/
-	// blade so it scales like the other paths' passives; these descriptions preview that.
+	// "Танец Клинка" passive (see /datum/status_effect/heretic_passive/blade): the riposte, folded into the
+	// path's passive (tg parity, replacing the old standalone blade_dance node) and scaling as you grow.
 	passive_name = "Танец Клинка"
 	passive_descriptions = list(
 		"Атакованный в ближнем бою с клинком Еретика в руке, вы отвечаете контрударом (раз в 10 секунд).",
-		"Откат контратаки сокращается.",
-		"Контратака становится почти мгновенной.",
+		"Откат контратаки сокращён до 7 секунд.",
+		"Откат контратаки сокращён до 4 секунд.",
 	)
 
+	// TG-format column (1:1 with tgstation Blade). Main line:
+	// base_blade -> Realignment -> Stance of the Torn Champion -> Shattered Panoply(robes) ->
+	// Furious Steel -> Empowered Blades -> Wolves Among Sheep -> ascension.
+	// The grasp (backstab stun), the blade mark and the riposte passive are all folded into base_blade
+	// (matching TG, no separate grasp/mark/dance nodes).
 	start = /datum/heretic_knowledge/limited_amount/starting/base_blade
-	grasp = /datum/heretic_knowledge/blade_grasp
-	tier1 = /datum/heretic_knowledge/blade_dance
-	mark = /datum/heretic_knowledge/mark/blade_mark
-	ritual_of_knowledge = /datum/heretic_knowledge/knowledge_ritual/blade
-	unique_ability = /datum/heretic_knowledge/spell/realignment
-	tier2 = /datum/heretic_knowledge/spell/furious_steel
+	knowledge_tier1 = /datum/heretic_knowledge/spell/realignment
+	knowledge_tier2 = /datum/heretic_knowledge/duel_stance
+	robes = /datum/heretic_knowledge/armor/blade
+	knowledge_tier3 = /datum/heretic_knowledge/spell/furious_steel
 	blade = /datum/heretic_knowledge/blade_upgrade/blade
-	tier3 = /datum/heretic_knowledge/spell/wolves_among_sheep
+	knowledge_tier4 = /datum/heretic_knowledge/spell/wolves_among_sheep
 	ascension = /datum/heretic_knowledge/ultimate/blade_final
+	// Side knowledges guaranteed to be offered in this path's drafts (TG).
+	guaranteed_side_tier1 = /datum/heretic_knowledge/greaves_of_the_prophet
+	guaranteed_side_tier2 = /datum/heretic_knowledge/essence
+	guaranteed_side_tier3 = /datum/heretic_knowledge/rune_carver
 
 
 /datum/heretic_knowledge/limited_amount/starting/base_blade
@@ -76,30 +81,15 @@
 	limit = 4 // It's the blade path, it's a given
 	research_tree_icon_path = 'icons/obj/weapons/khopesh.dmi'
 	research_tree_icon_state = "dark_blade"
+	// The blade mark and the riposte passive both live on the starting knowledge now (matching TG).
+	mark_type = /datum/status_effect/eldritch/blade
+	// "Танец Клинка" passive: the riposte, granted on picking the path and scaling with power.
+	passive_type = /datum/status_effect/heretic_passive/blade
 
 
-/datum/heretic_knowledge/blade_grasp
-	name = "Прикосновение клинка"
-	desc = "Ваше Прикосновение Мансуса вызовет кратковременное оглушение, если применить его к человеку, \
-			лежащему или отвернувшемуся от вас."
-	gain_text = "История пехотинца известна с древних времён. Она полна крови и доблести, \
-				её верные спутники - меч, сталь и серебро."
-	cost = 1
-	research_tree_icon_path = 'icons/ui_icons/antags/heretic/knowledge.dmi'
-	research_tree_icon_state = "grasp_blade"
-
-
-/datum/heretic_knowledge/blade_grasp/on_gain(mob/user, datum/antagonist/heretic/our_heretic)
-	RegisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK, PROC_REF(on_mansus_grasp))
-
-
-/datum/heretic_knowledge/blade_grasp/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
-	UnregisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK)
-
-
-/datum/heretic_knowledge/blade_grasp/proc/on_mansus_grasp(mob/living/source, mob/living/target)
-	SIGNAL_HANDLER
-
+// Folded grasp (tg parity): the Mansus Grasp backstab-stuns a target hit from behind or while prone.
+/datum/heretic_knowledge/limited_amount/starting/base_blade/on_mansus_grasp(mob/living/source, mob/living/target)
+	. = ..()
 	if(!check_behind(source, target))
 		return
 
@@ -110,111 +100,30 @@
 	playsound(target, 'sound/weapons/guillotine.ogg', 100, TRUE)
 
 
-/// The cooldown duration between triggers of blade dance
-#define BLADE_DANCE_COOLDOWN (10 SECONDS)
+// Folded mark (tg parity): the blade mark locks the victim to their current area until it expires/triggers,
+// and triggering it (via a moon... blade hit) grants the heretic an orbiting protective blade.
+/datum/heretic_knowledge/limited_amount/starting/base_blade/create_mark(mob/living/source, mob/living/target)
+	var/datum/status_effect/eldritch/blade/blade_mark = ..()
+	if(!istype(blade_mark))
+		return blade_mark
+
+	var/area/to_lock_to = get_area(target)
+	blade_mark.locked_to = to_lock_to
+	to_chat(target, span_purple("Потусторонняя сила заставляет вас оставаться в [get_area_name(to_lock_to)]!"))
+	return blade_mark
 
 
-/datum/heretic_knowledge/blade_dance
-	name = "Танец Клинка"
-	desc = "Если вас атакуют, пока вы держите в любой из рук клинок Еретика, вы нанесёте ответный удар \
-			по атакующему. Этот эффект может сработать только раз в 10 секунд."
-	gain_text = "Этот пехотинец был известен как грозный дуэлянт. \
-				Их генерал даровал ему титул Чемпиона."
-	cost = 1
-	research_tree_icon_path = 'icons/mob/actions/actions_ecult.dmi'
-	research_tree_icon_state = "shatter"
-	/// Whether the counter-attack is ready or not.
-	/// Used instead of cooldowns, so we can give feedback when it's ready again
-	var/riposte_ready = TRUE
-
-
-/datum/heretic_knowledge/blade_dance/on_gain(mob/user, datum/antagonist/heretic/our_heretic)
-	RegisterSignal(user, COMSIG_ATOM_WAS_ATTACKED, PROC_REF(on_shield_reaction))
-	if(!HAS_TRAIT(user, TRAIT_RELAYING_ATTACKER))
-		user.AddElement(/datum/element/relay_attackers)
-
-
-/datum/heretic_knowledge/blade_dance/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
-	UnregisterSignal(user, COMSIG_ATOM_WAS_ATTACKED)
-
-
-/datum/heretic_knowledge/blade_dance/proc/on_shield_reaction(
-	mob/living/carbon/human/source,
-	atom/movable/hitby,
-	damage = 0,
-	attack_text = "атакует",
-	attack_type = ITEM_ATTACK,
-	armour_penetration = 0,
-	damage_type = BRUTE,
-)
-
-	SIGNAL_HANDLER
-
-	if(attack_type != ITEM_ATTACK)
+/datum/heretic_knowledge/limited_amount/starting/base_blade/trigger_mark(mob/living/source, mob/living/target)
+	. = ..()
+	if(!.)
 		return
 
-	if(!riposte_ready)
-		return
-
-	//if(INCAPACITATED_IGNORING(source, INCAPABLE_GRAB))
-	//	return
-
-	var/mob/living/attacker = isliving(hitby) ? hitby : hitby.loc
-	if(!istype(attacker))
-		return
-
-	if(!source.Adjacent(attacker))
-		return
-
-	// Let's check their held items to see if we can do a riposte
-	var/obj/item/main_hand = source.get_active_hand()
-	var/obj/item/off_hand = source.get_inactive_hand()
-	// This is the item that ends up doing the "blocking" (flavor)
-	var/obj/item/striking_with
-
-	// First we'll check if the offhand is valid
-	if(!QDELETED(off_hand) && istype(off_hand, /obj/item/melee/sickly_blade))
-		striking_with = off_hand
-
-	// Then we'll check the mainhand
-	// We do mainhand second, because we want to prioritize it over the offhand
-	if(!QDELETED(main_hand) && istype(main_hand, /obj/item/melee/sickly_blade))
-		striking_with = main_hand
-
-	// No valid item in either slot? No riposte
-	if(!striking_with)
-		return
-
-	// And reset after a bit
-	riposte_ready = FALSE
-	addtimer(CALLBACK(src, PROC_REF(reset_riposte), source), BLADE_DANCE_COOLDOWN)
-
-	// If we made it here, deliver the strike
-	INVOKE_ASYNC(src, PROC_REF(counter_attack), source, attacker, striking_with, attack_text)
-
-
-/datum/heretic_knowledge/blade_dance/proc/counter_attack(mob/living/carbon/human/source, mob/living/target, obj/item/melee/sickly_blade/weapon, attack_text)
-	playsound(get_turf(source), 'sound/weapons/parry.ogg', 100, TRUE)
-	source.balloon_alert(source, "контратака")
-	source.visible_message(
-		span_warning("[source.declent_ru(NOMINATIVE)] наклоняется к [target.declent_ru(ACCUSATIVE)] и наносит внезапный ответный удар!"),
-		span_warning("Вы наклоняетесь и наносите внезапный ответный удар!"),
-		span_hear("Вы слышите звон, и тяжелый удар."),
-	)
-	weapon.melee_attack_chain(source, target)
-
-
-/datum/heretic_knowledge/blade_dance/proc/reset_riposte(mob/living/carbon/human/source)
-	riposte_ready = TRUE
-	source.balloon_alert(source, "контратака готова")
-
-
-#undef BLADE_DANCE_COOLDOWN
+	source.apply_status_effect(/datum/status_effect/protective_blades, 60 SECONDS, 1, 20, 0 SECONDS)
 
 
 /*
- * Stance of the Torn Champion (TG `duel_stance`). A passive Blade tier-1 ability, available to other
- * paths as a Tier-5 shop/draft side. master220 has no TG wound system, so the wound-resilience parts are
+ * Stance of the Torn Champion (TG `duel_stance`). The Blade path's knowledge_tier2, ALSO offered to other
+ * paths as a Tier-5 shop/draft side (drafting_tier 5, matching TG). master220 has no TG wound system, so the wound-resilience parts are
  * dropped; kept the iconic immunity-to-dismemberment, plus the low-health (<50%) "duelist stance".
  *
  * IMPORTANT (matches TG): the duelist stance does NOT make you flat-out faster. It grants immunity to the
@@ -272,37 +181,24 @@
 		ADD_TRAIT(source, TRAIT_IGNOREDAMAGESLOWDOWN, type)
 
 
-/datum/heretic_knowledge/mark/blade_mark
-	name = "Метка Клинка"
-	desc = "Ваше «Прикосновение Мансуса» теперь накладывает Метку Клинка. Пока метка находится на вас, \
-			жертва не сможет покинуть свою комнату, пока метка не истечёт или не сработает. \
-			Срабатывание метки призовёт нож, который будет вращаться вокруг вас в течение короткого времени. \
-			Нож блокирует любую атаку, направленную в вас, но расходуется при использовании."
-	gain_text = "Его генерал хотел положить конец войне, но Чемпион знал, что жизнь без смерти невозможна. \
-				Он решил что убьёт труса и любого, кто попытается бежать."
-	mark_type = /datum/status_effect/eldritch/blade
-
-
-/datum/heretic_knowledge/mark/blade_mark/create_mark(mob/living/source, mob/living/target)
-	var/datum/status_effect/eldritch/blade/blade_mark = ..()
-	if(!istype(blade_mark))
-		return blade_mark
-
-	var/area/to_lock_to = get_area(target)
-	blade_mark.locked_to = to_lock_to
-	to_chat(target, span_purple("Потусторонняя сила заставляет вас оставаться в [get_area_name(to_lock_to)]!"))
-	return blade_mark
-
-
-/datum/heretic_knowledge/mark/blade_mark/trigger_mark(mob/living/source, mob/living/target)
-	. = ..()
-	if(!.)
-		return
-
-	source.apply_status_effect(/datum/status_effect/protective_blades, 60 SECONDS, 1, 20, 0 SECONDS)
-
-
-/datum/heretic_knowledge/knowledge_ritual/blade
+// Расколотая Эгида (Shattered Panoply) — Blade path robes. Inherits the armor base (table/suit + mask +
+// silver/titanium; cost 1). The robe grants shock immunity + baton resistance (see the item).
+/datum/heretic_knowledge/armor/blade
+	name = "Расколотая Эгида" // Shattered Panoply
+	desc = "Позволяет преобразовать стол (или верхнюю одежду), маску и слиток серебра или титана \
+			в Расколотую Эгиду. Полностью защищает от шока и сопротивляется оглушению дубинками, \
+			пока надета. Действует как фокус, пока поднят капюшон."
+	gain_text = "Эхо бесцельной какофонии насилия отдаётся вокруг меня. Даже когда стальную эгиду Чемпиона \
+				сорвали с его тела, каждая её часть всё ещё жаждет цели, стремясь перехватить незримые удары."
+	result_atoms = list(/obj/item/clothing/suit/hooded/cultrobes/eldritch/blade)
+	// Dedicated research-icon copy of the robe sprite (same proven dir/pattern as the moon robe icon).
+	research_tree_icon_path = 'icons/ui_icons/antags/heretic/blade_robe.dmi'
+	research_tree_icon_state = "blade_armor"
+	required_atoms = list(
+		list(/obj/structure/table, /obj/item/clothing/suit) = 1,
+		/obj/item/clothing/mask = 1,
+		list(/obj/item/stack/sheet/mineral/silver, /obj/item/stack/sheet/mineral/titanium) = 1,
+	)
 
 
 /datum/heretic_knowledge/spell/realignment
@@ -314,7 +210,7 @@
 	research_tree_icon_path = 'icons/hud/implants.dmi'
 	research_tree_icon_state = "adrenal"
 	spell_to_add = /obj/effect/proc_holder/spell/realignment
-	cost = 1
+	cost = 2 // TG: Realignment costs 2.
 
 
 /datum/heretic_knowledge/spell/wolves_among_sheep
@@ -329,8 +225,9 @@
 				разорвал все союзы. В этой истине я теперь знаю хрупкость товарищества. Мои враги падут."
 	research_tree_icon_path = 'icons/mob/actions/actions_ecult.dmi'
 	research_tree_icon_state = "among_sheep"
-	cost = 1
+	cost = 2 // TG: Wolves Among Sheep costs 2.
 	spell_to_add = /obj/effect/proc_holder/spell/wolves_among_sheep
+	is_final_knowledge = TRUE // TG's knowledge_tier4 / final pre-ascension power.
 
 
 /datum/heretic_knowledge/blade_upgrade/blade
@@ -458,7 +355,7 @@
 	research_tree_icon_path = 'icons/mob/actions/actions_ecult.dmi'
 	research_tree_icon_state = "furious_steel"
 	spell_to_add = /obj/effect/proc_holder/spell/pointed/projectile/furious_steel
-	cost = 1
+	cost = 2 // TG: Furious Steel costs 2.
 
 
 /datum/heretic_knowledge/ultimate/blade_final

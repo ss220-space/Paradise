@@ -684,6 +684,94 @@
 			icon_state = "[base_icon_state]_6"
 
 
+// Расколотая Эгида (Shattered Panoply) — Blade path robes.
+// Matching TG: solid all-round armour, full shock insulation + shock/baton immunity while worn, and acts as
+// a focus while hooded (inherited from the eldritch base hood). master220 uses /datum/armor datums, so the
+// flat tg armor_type (50 across the board) is a list here.
+/datum/armor/eldritch_armor_blade
+	melee = 50
+	bullet = 50
+	laser = 50
+	energy = 50
+	bomb = 50
+	bio = 50
+	fire = 50
+	acid = 50
+
+
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/blade
+	name = "расколотая эгида"
+	desc = "Заострённые края этого древнего доспеха несут истину, ведомую лишь воинам: \
+			истинного бойца не отличить от клинка, что он держит."
+	icon = 'icons/obj/clothing/heretic_blade_robe.dmi'
+	icon_state = "blade_armor"
+	item_state = "blade_armor"
+	// master220 resolves the worn (on-mob) sprite via onmob_sheets[slot].
+	onmob_sheets = list(
+		ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/heretic_blade_robe.dmi',
+	)
+	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie/eldritch/blade
+	armor = list(MELEE = 50, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 50, BIO = 50, FIRE = 50, ACID = 50)
+	// Shock insulation (tg's siemens_coefficient = 0): the robe shrugs off electric attacks entirely.
+	siemens_coefficient = 0
+	allowed = list(/obj/item/melee/sickly_blade)
+	/// Traits granted while worn (tg: shock immunity + baton-knockdown resistance).
+	var/static/list/panoply_traits = list(TRAIT_SHOCKIMMUNE, TRAIT_BATON_RESISTANCE)
+
+
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/blade/get_ru_names()
+	return alist(
+		NOMINATIVE = "расколотая эгида",
+		GENITIVE = "расколотой эгиды",
+		DATIVE = "расколотой эгиде",
+		ACCUSATIVE = "расколотую эгиду",
+		INSTRUMENTAL = "расколотой эгидой",
+		PREPOSITIONAL = "расколотой эгиде",
+	)
+
+
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/blade/examine(mob/user)
+	. = ..()
+	if(!isheretic(user))
+		return
+	. += span_notice("Полностью защищает от шока и сопротивляется оглушению дубинками, пока надета.")
+
+
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/blade/equipped(mob/user, slot, initial = FALSE)
+	. = ..()
+	if(slot == ITEM_SLOT_CLOTH_OUTER)
+		user.add_traits(panoply_traits, UID())
+	else
+		user.remove_traits(panoply_traits, UID())
+
+
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/blade/dropped(mob/user, slot, silent = FALSE)
+	. = ..()
+	user.remove_traits(panoply_traits, UID())
+
+
+/obj/item/clothing/head/hooded/cult_hoodie/eldritch/blade
+	name = "капюшон расколотой эгиды"
+	desc = "Заострённые края этого древнего доспеха несут истину, ведомую лишь воинам."
+	icon = 'icons/obj/clothing/heretic_blade_hood.dmi'
+	icon_state = "blade_armor"
+	onmob_sheets = list(
+		ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/heretic_blade_hood.dmi',
+	)
+	armor = list(MELEE = 50, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 50, BIO = 50, FIRE = 50, ACID = 50)
+
+
+/obj/item/clothing/head/hooded/cult_hoodie/eldritch/blade/get_ru_names()
+	return alist(
+		NOMINATIVE = "капюшон расколотой эгиды",
+		GENITIVE = "капюшона расколотой эгиды",
+		DATIVE = "капюшону расколотой эгиды",
+		ACCUSATIVE = "капюшон расколотой эгиды",
+		INSTRUMENTAL = "капюшоном расколотой эгиды",
+		PREPOSITIONAL = "капюшоне расколотой эгиды",
+	)
+
+
 // Плащ Пустоты. Turns invisible with the hood up, lets you hide stuff.
 /obj/item/clothing/head/hooded/cult_hoodie/void
 	name = "капюшон пустоты"

@@ -296,8 +296,9 @@
 	if(!heretic_datum)
 		return
 
-	//Apply our heretic mark
-	var/datum/heretic_knowledge/mark/blade_mark/mark_to_apply = heretic_datum.get_knowledge(/datum/heretic_knowledge/mark/blade_mark)
+	//Apply our heretic mark. The blade mark is folded into the starting knowledge now (tg parity), so we ask
+	//base_blade (which provides create_mark) for it rather than a separate mark node.
+	var/datum/heretic_knowledge/limited_amount/starting/base_blade/mark_to_apply = heretic_datum.get_knowledge(/datum/heretic_knowledge/limited_amount/starting/base_blade)
 	if(!mark_to_apply)
 		return
 

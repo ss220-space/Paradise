@@ -286,3 +286,112 @@
 		if(istype(human_owner.neck, /obj/item/clothing/neck/heretic_focus/moon_amulet))
 			heal *= 2
 	carbon_owner.adjustOrganLoss(INTERNAL_ORGAN_BRAIN, -heal)
+
+
+//---- Blade Passive: "Танец Клинка" (riposte) — ported from /tg/station, adapted to master220.
+// When attacked in melee while holding a heretic blade, you instantly strike back at the attacker, once per
+// cooldown. tg makes this riposte the blade path's PASSIVE (it folded the old standalone blade_dance node
+// into the passive), so it's granted on picking the path and strengthens as you grow.
+// Level 1 - riposte, 10s cooldown (granted on picking the path).
+// Level 2 - riposte cooldown shortened to 7s (granted on crafting the robe).
+// Level 3 - riposte cooldown shortened to 4s (granted on ascension).
+/datum/status_effect/heretic_passive/blade
+	id = "heretic_passive_blade"
+	name = "Танец Клинка"
+	passive_descriptions = list(
+		"Атакованный в ближнем бою с клинком Еретика в руке, вы отвечаете контрударом (раз в 10 секунд).",
+		"Откат контратаки сокращён до 7 секунд.",
+		"Откат контратаки сокращён до 4 секунд.",
+	)
+	/// Whether the counter-attack is ready (used instead of a raw cooldown so we can announce when it returns).
+	var/riposte_ready = TRUE
+	/// Cooldown between ripostes; shortens as the passive levels up.
+	var/riposte_cooldown = 10 SECONDS
+	/// Stoppable timer that re-arms the riposte.
+	var/riposte_timer
+
+
+/datum/status_effect/heretic_passive/blade/on_apply()
+	. = ..()
+	if(!.)
+		return
+	RegisterSignal(owner, COMSIG_ATOM_WAS_ATTACKED, PROC_REF(on_shield_reaction))
+	if(!HAS_TRAIT(owner, TRAIT_RELAYING_ATTACKER))
+		owner.AddElement(/datum/element/relay_attackers)
+
+
+/datum/status_effect/heretic_passive/blade/level_upgrade()
+	. = ..()
+	if(!.)
+		return
+	riposte_cooldown = 7 SECONDS
+
+
+/datum/status_effect/heretic_passive/blade/level_final()
+	. = ..()
+	if(!.)
+		return
+	riposte_cooldown = 4 SECONDS
+
+
+/datum/status_effect/heretic_passive/blade/on_remove()
+	UnregisterSignal(owner, COMSIG_ATOM_WAS_ATTACKED)
+	if(riposte_timer)
+		deltimer(riposte_timer)
+		riposte_timer = null
+	return ..()
+
+
+/datum/status_effect/heretic_passive/blade/proc/on_shield_reaction(
+	mob/living/carbon/human/source,
+	atom/movable/hitby,
+	damage = 0,
+	attack_text = "атакует",
+	attack_type = ITEM_ATTACK,
+	armour_penetration = 0,
+	damage_type = BRUTE,
+)
+	SIGNAL_HANDLER
+
+	if(attack_type != ITEM_ATTACK)
+		return
+	if(!riposte_ready)
+		return
+
+	var/mob/living/attacker = isliving(hitby) ? hitby : hitby.loc
+	if(!istype(attacker))
+		return
+	if(!ishuman(source) || !source.Adjacent(attacker))
+		return
+
+	// We can only riposte with a heretic blade in either hand (mainhand prioritised).
+	var/obj/item/main_hand = source.get_active_hand()
+	var/obj/item/off_hand = source.get_inactive_hand()
+	var/obj/item/striking_with
+	if(!QDELETED(off_hand) && istype(off_hand, /obj/item/melee/sickly_blade))
+		striking_with = off_hand
+	if(!QDELETED(main_hand) && istype(main_hand, /obj/item/melee/sickly_blade))
+		striking_with = main_hand
+	if(!striking_with)
+		return
+
+	riposte_ready = FALSE
+	riposte_timer = addtimer(CALLBACK(src, PROC_REF(reset_riposte), source), riposte_cooldown, TIMER_STOPPABLE)
+	INVOKE_ASYNC(src, PROC_REF(counter_attack), source, attacker, striking_with, attack_text)
+
+
+/datum/status_effect/heretic_passive/blade/proc/counter_attack(mob/living/carbon/human/source, mob/living/target, obj/item/melee/sickly_blade/weapon, attack_text)
+	playsound(get_turf(source), 'sound/weapons/parry.ogg', 100, TRUE)
+	source.balloon_alert(source, "контратака")
+	source.visible_message(
+		span_warning("[source.declent_ru(NOMINATIVE)] наклоняется к [target.declent_ru(ACCUSATIVE)] и наносит внезапный ответный удар!"),
+		span_warning("Вы наклоняетесь и наносите внезапный ответный удар!"),
+		span_hear("Вы слышите звон, и тяжёлый удар."),
+	)
+	weapon.melee_attack_chain(source, target)
+
+
+/datum/status_effect/heretic_passive/blade/proc/reset_riposte(mob/living/carbon/human/source)
+	riposte_ready = TRUE
+	riposte_timer = null
+	source.balloon_alert(source, "контратака готова")
