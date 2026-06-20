@@ -157,13 +157,11 @@
 				Труппа кружилась в переливающихся каскадах, ослепляя зрителей истиной, которую те искали. \
 				Я смотрел, купаясь в свете, чтобы обрести себя."
 	result_atoms = list(/obj/item/clothing/suit/hooded/cultrobes/eldritch/moon)
-	// The research-tree node icon is rendered tgui-side by DmIcon, which resolves the dmi through BYOND's
-	// runtime icon-reference map (asset_icon_ref_map.dm). The in-world robe sheet at
-	// icons/obj/clothing/heretic_moon_robe.dmi came back blank in the tree (the node showed only its
-	// background, obvious once the node finished and the background went plain). The sibling moon node that
-	// DOES render - the ascension medallion - is a research-ONLY dmi under icons/ui_icons/antags/heretic/, so
-	// we mirror that exactly: a dedicated research-icon copy of the robe sprite in the same proven directory.
-	research_tree_icon_path = 'icons/ui_icons/antags/heretic/moon_robe.dmi'
+	// The node icon is drawn tgui-side by DmIcon via BYOND's runtime icon-reference map. Dedicated dmis kept
+	// coming back blank in the tree (only the background rendered). The ONE sheet proven to resolve in that
+	// exact node is knowledge.dmi - it's the node's own background - so the robe sprite was added there as a
+	// "moon_armor" state (a free cell, existing icons untouched) and the node points at it. Guaranteed render.
+	research_tree_icon_path = 'icons/ui_icons/antags/heretic/knowledge.dmi'
 	research_tree_icon_state = "moon_armor"
 	required_atoms = list(
 		list(/obj/structure/table, /obj/item/clothing/suit) = 1,

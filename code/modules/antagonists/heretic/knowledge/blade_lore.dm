@@ -191,8 +191,9 @@
 	gain_text = "Эхо бесцельной какофонии насилия отдаётся вокруг меня. Даже когда стальную эгиду Чемпиона \
 				сорвали с его тела, каждая её часть всё ещё жаждет цели, стремясь перехватить незримые удары."
 	result_atoms = list(/obj/item/clothing/suit/hooded/cultrobes/eldritch/blade)
-	// Dedicated research-icon copy of the robe sprite (same proven dir/pattern as the moon robe icon).
-	research_tree_icon_path = 'icons/ui_icons/antags/heretic/blade_robe.dmi'
+	// Robe sprite lives as a "blade_armor" state in knowledge.dmi (the node's own background sheet, the one
+	// proven to resolve in-tree). Dedicated dmis came back blank; this guarantees the node renders.
+	research_tree_icon_path = 'icons/ui_icons/antags/heretic/knowledge.dmi'
 	research_tree_icon_state = "blade_armor"
 	required_atoms = list(
 		list(/obj/structure/table, /obj/item/clothing/suit) = 1,
