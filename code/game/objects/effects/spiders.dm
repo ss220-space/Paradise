@@ -244,6 +244,7 @@
 	if(spider.master_commander)
 		to_chat(spider, span_biggerdanger("You are a spider who is loyal to [spider.master_commander], obey [spider.master_commander]'s every order and assist [spider.master_commander.p_them()] in completing [spider.master_commander.p_their()] goals at any cost."))
 	add_game_logs("was made giant spider, master: [spider.master_commander ? spider.master_commander : "None"]")
+	qdel(src)
 
 /obj/structure/spider/spiderling/proc/random_skitter()
 	var/list/available_turfs = list()
