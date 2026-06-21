@@ -71,29 +71,6 @@
 
 //Advanced Mimery traitor item spells
 
-/obj/effect/proc_holder/spell/forcewall/mime
-	name = "Великая Невидимая стена"
-	desc = "Создайте перед собой невидимую стену шириной в три тайла."
-	school = "mime"
-	wall_type = /obj/effect/forcefield/mime/advanced
-	invocation_type = "emote"
-	invocation_emote_self = span_notice_alt("Вы создаёте стену перед cобой.")
-	base_cooldown = 60 SECONDS
-	sound =  null
-
-	action_icon_state = "mime_bigwall"
-	action_background_icon_state = "bg_mime"
-	large = TRUE
-
-/obj/effect/proc_holder/spell/forcewall/mime/Click()
-	if(usr?.mind)
-		if(!HAS_MIND_TRAIT(usr, TRAIT_MIMING))
-			to_chat(usr, span_warning("Сначала вы должны принять обет молчания!"))
-			return
-		invocation = "<b>[usr]</b> выглядит так, как будто бы перед н[GEND_IM_EI_IM_IMI(usr)] находится стена."
-	else
-		invocation_type ="none"
-	..()
 
 /obj/effect/proc_holder/spell/mime/fingergun
 	name = "Пальцы-пистолеты"
@@ -189,7 +166,7 @@
 	spell = /obj/effect/proc_holder/spell/mime/fingergun/fake
 
 /obj/item/spellbook/oneuse/mime/greaterwall
-	spell = /obj/effect/proc_holder/spell/forcewall/mime
+	spell_type = /datum/action/cooldown/spell/forcewall/greater/mime
 	spellname = "Великая Невидимая стена"
 	desc = "Содержит изображения выдающихся сооружений, которые оставили след в истории человечества."
 

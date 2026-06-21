@@ -435,35 +435,31 @@
 				M.Knockdown(4 SECONDS)
 		sleep(1)
 
-/obj/effect/proc_holder/spell/fireball/hulk_spit
+/datum/action/cooldown/spell/pointed/projectile/hulk_spit
 	name = "Fire Spit"
 	desc = "Вы харкаете во врага зеленой соплей и поджигаете его."
-	invocation_type = "none"
-	action_icon_state = "harchok_hulk"
-	action_background_icon_state = "bg_hulk"
-	selection_activated_message	= span_notice_alt("Your prepare to spit fire! <b>Left-click to spit at a target!</b>")
-	selection_deactivated_message = span_notice_alt("You swallow your spit...for now.")
-	fireball_type = /obj/projectile/energy/hulkspit
-	base_cooldown = 25 SECONDS
-	need_active_overlay = TRUE
+	invocation_type = INVOCATION_NONE
+	button_icon_state = "harchok_hulk"
+	background_icon_state = "bg_hulk"
+	active_msg = span_notice_alt("Your prepare to spit fire! <b>Left-click to spit at a target!</b>")
+	deactive_msg = span_notice_alt("You swallow your spit...for now.")
+	projectile_type = /obj/projectile/energy/hulkspit
+	cooldown_time = 25 SECONDS
 
-/obj/effect/proc_holder/spell/fireball/hulk_spit/can_cast(mob/living/user = usr, charge_check = TRUE, show_message = FALSE)
-	if(user.incapacitated())
+/datum/action/cooldown/spell/pointed/projectile/hulk_spit/can_cast_spell(feedback)
+	if(owner.incapacitated())
 		return FALSE
 	return ..()
 
-/obj/effect/proc_holder/spell/fireball/hulk_spit/update_icon_state()
-	return
-
 //Laser
 
-/obj/effect/proc_holder/spell/fireball/hulk_spit/hulk_lazor
+/datum/action/cooldown/spell/pointed/projectile/hulk_spit/hulk_lazor
 	name = "LazorZ"
 	desc = "Вы стреляете из глаз слабеньким лазером. Может помочь, если хитрые СБшники прячутся за стеклами."
-	action_icon_state = "lazer_hulk"
-	selection_activated_message	= span_notice_alt("You strained your eyes preparing the LAZOR! <b>Left-click to fire at a target!</b>")
-	selection_deactivated_message = span_notice_alt("You relax your eyes...for now.")
-	fireball_type = /obj/projectile/beam
-	base_cooldown = 7 SECONDS
+	button_icon_state = "lazer_hulk"
+	active_msg = span_notice_alt("You strained your eyes preparing the LAZOR! <b>Left-click to fire at a target!</b>")
+	deactive_msg = span_notice_alt("You relax your eyes...for now.")
+	projectile_type = /obj/projectile/beam
+	cooldown_time = 7 SECONDS
 	sound = 'sound/weapons/laser.ogg'
 

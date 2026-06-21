@@ -43,3 +43,21 @@
 			to_chat(victim_mob, span_userdanger("You're thrown back by a mystical force!"))
 		spawn(0)
 			victim.throw_at(throwtarget, ((clamp((maxthrow - (clamp(distfromcaster - 2, 0, distfromcaster))), 3, maxthrow))), 1)
+
+/datum/action/cooldown/spell/aoe/repulse/spacedragon
+	name = "Удар хвостом"
+	desc = "Отбрасывайте нападающих ударом хвоста."
+	sound = 'sound/magic/tail_swing.ogg'
+	cooldown_time = 15 SECONDS
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
+	invocation_type = INVOCATION_NONE
+	sparkle_path = /obj/effect/temp_visual/dir_setting/tailsweep
+	button_icon_state = "tailsweep"
+	background_icon_state = "bg_alien"
+
+/datum/action/cooldown/spell/aoe/repulse/spacedragon/cast(atom/cast_on)
+	. = ..()
+	if(iscarbon(cast_on))
+		var/mob/living/carbon/C = cast_on
+		playsound(C.loc, 'sound/effects/hit_punch.ogg', 80, TRUE, 1)
+		C.spin(6, 1)

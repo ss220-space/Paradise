@@ -611,10 +611,8 @@ GLOBAL_LIST_INIT(spells_a, typesof(/datum/action/cooldown/spell))
 	if(ishuman(user))
 
 		var/mob/living/carbon/human/h_user = user
-		var/clothcheck = locate(/obj/effect/proc_holder/spell/noclothes) in h_user.mob_spell_list
-		var/clothcheck2 = h_user.mind && (locate(/obj/effect/proc_holder/spell/noclothes) in h_user.mind.spell_list)
 
-		if(clothes_req && !clothcheck && !clothcheck2) //clothes check
+		if(clothes_req && HAS_MIND_TRAIT(user, TRAIT_NO_WIZARD_CLOTHES)) //clothes check
 			var/obj/item/clothing/robe = h_user.wear_suit
 			var/obj/item/clothing/hat = h_user.head
 			var/obj/item/clothing/shoes = h_user.shoes

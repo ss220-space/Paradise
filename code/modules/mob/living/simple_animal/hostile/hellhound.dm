@@ -132,27 +132,25 @@
 	// Movement
 	var/datum/action/cooldown/spell/jaunt/ethereal_jaunt/shift/j_spell = new
 	j_spell.Grant(src)
-	var/obj/effect/proc_holder/spell/area_teleport/teleport/telespell = new
-	telespell.clothes_req = FALSE
-	telespell.human_req = FALSE
-	telespell.invocation_type = "none"
-	AddSpell(telespell)
-	var/obj/effect/proc_holder/spell/aoe/knock/knockspell = new
-	knockspell.invocation_type = "none"
-	AddSpell(knockspell)
+	var/datum/action/cooldown/spell/teleport/area_teleport/telespell = new
+	telespell.spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
+	telespell.invocation_type = INVOCATION_NONE
+	telespell.Grant(src)
+	var/datum/action/cooldown/spell/aoe/knock/knockspell = new
+	knockspell.invocation_type = INVOCATION_NONE
+	knockspell.Grant(src)
 	// Defense
-	var/obj/effect/proc_holder/spell/forcewall/greater/wallspell = new
-	wallspell.clothes_req = FALSE
-	wallspell.human_req = FALSE
-	wallspell.invocation_type = "none"
-	AddSpell(wallspell)
+	var/datum/action/cooldown/spell/forcewall/greater/wallspell = new
+	wallspell.spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
+	wallspell.invocation_type = INVOCATION_NONE
+	wallspell.Grant(src)
 	// Offense
-	var/obj/effect/proc_holder/spell/aoe/conjure/creature/summonspell = new
-	summonspell.base_cooldown = 1
-	summonspell.invocation_type = "none"
+	var/datum/action/cooldown/spell/conjure/creature/summonspell = new
+	summonspell.cooldown_time = 1
+	summonspell.invocation_type = INVOCATION_NONE
 	summonspell.summon_type = list(/mob/living/simple_animal/hostile/hellhound)
-	summonspell.summon_amt = 1
-	AddSpell(summonspell)
+	summonspell.summon_amount = 1
+	summonspell.Grant(src)
 
 /mob/living/simple_animal/hostile/hellhound/greater/AttackingTarget()
 	. = ..()

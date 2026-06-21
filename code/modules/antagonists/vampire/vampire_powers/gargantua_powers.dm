@@ -119,7 +119,7 @@
 	desc = "Выстрелите сгустком демонической энергии, захватывая или отбрасывая цель в зависимости от вашего намерения: «ОБЕЗОРУЖИТЬ» — оттолкнуть, «СХВАТИТЬ» — притянуть."
 	gain_desc = "Вы получили способность притягивать и отталкивать людей с помощью демонических отростков."
 	base_cooldown = 15 SECONDS
-	fireball_type = /obj/projectile/magic/demonic_grasp
+//	fireball_type = /obj/projectile/magic/demonic_grasp
 
 	selection_activated_message = span_notice_alt("Вы поднимаете руку, полную демонической энергии!")
 	selection_deactivated_message = span_notice_alt("Вы возвращаете себе энергию... пока что.")

@@ -88,8 +88,8 @@
 
 	hulk_powers = list(
 		/obj/effect/proc_holder/spell/hulk_mill,
-		/obj/effect/proc_holder/spell/fireball/hulk_spit,
-		/obj/effect/proc_holder/spell/fireball/hulk_spit/hulk_lazor,
+		/datum/action/cooldown/spell/pointed/projectile/hulk_spit,
+		/datum/action/cooldown/spell/pointed/projectile/hulk_spit/hulk_lazor,
 	)
 
 /mob/living/simple_animal/hulk/Life()
@@ -212,4 +212,5 @@
 	real_name = name
 	status_flags ^= CANPUSH
 	for(var/spell in hulk_powers)
-		src.AddSpell(new spell)
+		var/datum/action/cooldown/spell/spell_to_add = new spell
+		spell_to_add.Grant(src)

@@ -151,12 +151,10 @@
 
 /mob/living/simple_animal/hostile/morph/wizard/Initialize(mapload)
 	. = ..()
-	var/obj/effect/proc_holder/spell/smoke/smoke = new
-	var/obj/effect/proc_holder/spell/forcewall/forcewall = new
-	smoke.human_req = FALSE
-	forcewall.human_req = FALSE
-	AddSpell(smoke)
-	AddSpell(forcewall)
+	var/datum/action/cooldown/spell/smoke/smoke = new
+	var/datum/action/cooldown/spell/forcewall/forcewall = new
+	smoke.Grant(src)
+	forcewall.Grant(src)
 
 /mob/living/simple_animal/hostile/morph/proc/try_eat(atom/movable/item)
 	var/food_value = calc_food_gained(item)

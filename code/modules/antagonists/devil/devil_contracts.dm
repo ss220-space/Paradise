@@ -108,29 +108,29 @@ GLOBAL_LIST_INIT(devil_guns, (GLOB.summoned_guns - NOT_DEVIL_GUNS + DEVIL_GUNS))
 	contract_subject = "магии"
 	contract_subject_text = ", в обмен на запретные магические способности, выходящие за пределы человеческих возможностей"
 	var/static/list/possible_magic = list(
-		/obj/effect/proc_holder/spell/smoke,
-		/obj/effect/proc_holder/spell/emplosion,
-		/obj/effect/proc_holder/spell/turf_teleport/blink,
-		/obj/effect/proc_holder/spell/area_teleport/teleport,
-		/obj/effect/proc_holder/spell/forcewall,
-		/obj/effect/proc_holder/spell/forcewall/greater,
-		/obj/effect/proc_holder/spell/aoe/conjure/timestop,
-		/obj/effect/proc_holder/spell/aoe/conjure/carp,
-		/obj/effect/proc_holder/spell/projectile/magic_missile,
-		/obj/effect/proc_holder/spell/projectile/honk_missile,
-		/obj/effect/proc_holder/spell/charge,
-		/obj/effect/proc_holder/spell/aoe/conjure/creature,
-		/obj/effect/proc_holder/spell/trigger/blind,
-		/obj/effect/proc_holder/spell/aoe/repulse,
-		/obj/effect/proc_holder/spell/sacred_flame,
-		/obj/effect/proc_holder/spell/charge_up/bounce/lightning,
-		/obj/effect/proc_holder/spell/summonitem,
-		/obj/effect/proc_holder/spell/aoe/knock,
-		/obj/effect/proc_holder/spell/aoe/conjure/legion_skulls,
-		/obj/effect/proc_holder/spell/goliath_dash,
-		/obj/effect/proc_holder/spell/goliath_tentacles,
-		/obj/effect/proc_holder/spell/touch/healtouch/advanced,
-		/obj/effect/proc_holder/spell/watchers_look,
+		/datum/action/cooldown/spell/smoke,
+		/datum/action/cooldown/spell/emplosion/disable_tech,
+		/datum/action/cooldown/spell/teleport/radius_turf/blink,
+		/datum/action/cooldown/spell/teleport/area_teleport/wizard,
+		/datum/action/cooldown/spell/forcewall,
+		/datum/action/cooldown/spell/forcewall/greater,
+		/datum/action/cooldown/spell/conjure/timestop,
+		/datum/action/cooldown/spell/conjure/carp,
+		/datum/action/cooldown/spell/aoe/magic_missile,
+		/datum/action/cooldown/spell/aoe/magic_missile/honk_missile,
+		/datum/action/cooldown/spell/charge,
+		/datum/action/cooldown/spell/conjure/creature,
+		/datum/action/cooldown/spell/aoe/blind,
+		/datum/action/cooldown/spell/aoe/repulse,
+		/datum/action/cooldown/spell/aoe/sacred_flame,
+		/datum/action/cooldown/spell/charged/beam/tesla,
+		/datum/action/cooldown/spell/summon_item,
+		/datum/action/cooldown/spell/aoe/knock,
+		/datum/action/cooldown/spell/conjure/legion_skulls,
+		/datum/action/cooldown/spell/pointed/goliath_dash,
+		/datum/action/cooldown/spell/pointed/goliath_tentacles,
+		/datum/action/cooldown/spell/touch/healtouch,
+		/datum/action/cooldown/spell/pointed/projectile/watchers_look,
 	)
 
 /datum/devil_contract/magic/check_contract(mob/living/carbon/human/user)
@@ -142,14 +142,10 @@ GLOBAL_LIST_INIT(devil_guns, (GLOB.summoned_guns - NOT_DEVIL_GUNS + DEVIL_GUNS))
 	var/list/spell_list = possible_magic.Copy()
 	for(var/i in 1 to MAGIC_SPELLS_COUNT)
 		var/spell_type = pick_n_take(spell_list)
-		var/obj/effect/proc_holder/spell/spell = new spell_type(null)
-		spell.clothes_req = FALSE
-		spell.cooldown_min *= 2
-		spell.base_cooldown *= 2
-		QDEL_NULL(spell.cooldown_handler)
-		spell.cooldown_handler = spell.create_new_cooldown()
-		spell.cooldown_handler.cooldown_init(spell)
-		user.mind.AddSpell(spell)
+		var/datum/action/cooldown/spell/spell = new spell_type(null)
+		spell.spell_requirements = FALSE
+		spell.cooldown_time *= 2
+		spell.Grant(user)
 
 /datum/devil_contract/revive
 	name = "контракт воскрешения"

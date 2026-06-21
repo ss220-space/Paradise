@@ -69,38 +69,30 @@
 //WIDOW//
 
 //VENOM SPIT
-/obj/effect/proc_holder/spell/fireball/venom_spit
+/datum/action/cooldown/spell/pointed/projectile/venom_spit
 	name = "Кислотный плевок"
 	desc = "Плюнуть кислоту, при контакте создающую дым, наполненный наркотиками и ядом."
-	invocation_type = "none"
-	action_icon_state = "fake_death"
-	action_background_icon_state = "bg_terror"
-	selection_activated_message	= span_notice_alt("Вы подготавливаете свой ядовитый плевок! <b>ЛКМ, чтобы плюнуть в цель</b>.")
-	selection_deactivated_message = span_notice_alt("Вы отменяете свой плевок.")
+	invocation_type = INVOCATION_NONE
+	button_icon_state = "fake_death"
+	background_icon_state = "bg_terror"
+	active_msg = span_notice_alt("Вы подготавливаете свой ядовитый плевок! <b>ЛКМ, чтобы плюнуть в цель</b>.")
+	deactive_msg = span_notice_alt("Вы отменяете свой плевок.")
 	sound = 'sound/creatures/terrorspiders/spit2.ogg'
-	need_active_overlay = TRUE
-	base_cooldown = 25 SECONDS
-	fireball_type = /obj/projectile/terrorspider/widow/venom
-
-/obj/effect/proc_holder/spell/fireball/venom_spit/update_icon_state()
-	return
+	cooldown_time = 25 SECONDS
+	projectile_type = /obj/projectile/terrorspider/widow/venom
 
 //SMOKE SPIT
-/obj/effect/proc_holder/spell/fireball/smoke_spit
+/datum/action/cooldown/spell/pointed/projectile/smoke_spit
 	name = "Плевок дымящейся кислотой"
 	desc = "Плюнуть кислоту, создающую дым при контакте."
-	invocation_type = "none"
-	action_icon_state = "smoke"
-	action_background_icon_state = "bg_terror"
-	selection_activated_message	= span_notice_alt("Вы подготавливаете дымный плевок! <b>ЛКМ, чтобы плюнуть в цель</b>")
-	selection_deactivated_message = span_notice_alt("Вы отменяете свой плевок.")
+	invocation_type = INVOCATION_NONE
+	button_icon_state = "smoke"
+	background_icon_state = "bg_terror"
+	active_msg = span_notice_alt("Вы подготавливаете дымный плевок! <b>ЛКМ, чтобы плюнуть в цель</b>")
+	deactive_msg = span_notice_alt("Вы отменяете свой плевок.")
 	sound = 'sound/creatures/terrorspiders/spit2.ogg'
-	need_active_overlay = TRUE
-	base_cooldown = 10 SECONDS
-	fireball_type = /obj/projectile/terrorspider/widow/smoke
-
-/obj/effect/proc_holder/spell/fireball/smoke_spit/update_icon_state()
-	return
+	cooldown_time = 10 SECONDS
+	projectile_type = /obj/projectile/terrorspider/widow/smoke
 
 /obj/effect/proc_holder/spell/emplosion/terror_emp
 	name = "Электро-магнитный визг"

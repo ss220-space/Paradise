@@ -713,7 +713,7 @@
 			new path(B)
 		user.put_in_hands(B)
 	for(var/path in spells_path)
-		var/obj/effect/proc_holder/spell/S = new path()
+		var/datum/action/cooldown/spell/S = new path()
 		LearnSpell(user, book, S)
 	return TRUE
 
