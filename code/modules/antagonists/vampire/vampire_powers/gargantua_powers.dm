@@ -140,8 +140,6 @@
 	T.click_radius = 0
 	return T
 
-
-
 /obj/effect/proc_holder/spell/fireball/demonic_grasp/after_spell_init()
 	update_vampire_spell_name()
 
