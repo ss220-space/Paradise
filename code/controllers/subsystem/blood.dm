@@ -29,7 +29,7 @@
 /// Decrease bleeding size if no wounds (units per 2 sec)
 #define BLEEDING_DECREASE 0.025
 /// Multiplyer for bleeding calculate from bodypart value
-#define BLEEDING_MODIFIER 0.3
+#define BLEEDING_MODIFIER 0.5
 /// Oxy damage if use tourniquet on head
 #define MAX_SUPPRESS_BLEEDING_BY_HAND 15
 
