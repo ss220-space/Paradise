@@ -38,7 +38,6 @@
 	background_icon_state = "bg_demon"
 	overlay_icon_state = "bg_demon_border"
 	cooldown_time = 40 SECONDS
-	invocation_type = INVOCATION_NONE
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 	max_targets = 6
 	shuffle_targets_list = TRUE

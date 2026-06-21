@@ -50,7 +50,6 @@
 	sound = 'sound/magic/tail_swing.ogg'
 	cooldown_time = 15 SECONDS
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
-	invocation_type = INVOCATION_NONE
 	sparkle_path = /obj/effect/temp_visual/dir_setting/tailsweep
 	button_icon_state = "tailsweep"
 	background_icon_state = "bg_alien"

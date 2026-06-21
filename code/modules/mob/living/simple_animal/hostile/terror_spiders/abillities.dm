@@ -72,7 +72,6 @@
 /datum/action/cooldown/spell/pointed/projectile/venom_spit
 	name = "Кислотный плевок"
 	desc = "Плюнуть кислоту, при контакте создающую дым, наполненный наркотиками и ядом."
-	invocation_type = INVOCATION_NONE
 	button_icon_state = "fake_death"
 	background_icon_state = "bg_terror"
 	active_msg = span_notice_alt("Вы подготавливаете свой ядовитый плевок! <b>ЛКМ, чтобы плюнуть в цель</b>.")
@@ -85,7 +84,6 @@
 /datum/action/cooldown/spell/pointed/projectile/smoke_spit
 	name = "Плевок дымящейся кислотой"
 	desc = "Плюнуть кислоту, создающую дым при контакте."
-	invocation_type = INVOCATION_NONE
 	button_icon_state = "smoke"
 	background_icon_state = "bg_terror"
 	active_msg = span_notice_alt("Вы подготавливаете дымный плевок! <b>ЛКМ, чтобы плюнуть в цель</b>")

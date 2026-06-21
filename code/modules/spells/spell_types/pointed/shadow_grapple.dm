@@ -3,7 +3,6 @@
 	desc = "Выстрелите одной из своих рук. Если она попадёт в человека, вы притянете его к себе. Если же она попадёт в структуру, то вы сами притянетесь к ней."
 	background_icon_state = "shadow_demon_bg"
 	button_icon_state = "shadow_grapple"
-	invocation_type = INVOCATION_NONE
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 	invocation = null
 	sound = null

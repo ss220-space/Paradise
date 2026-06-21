@@ -6,7 +6,6 @@
 	hand_path = /obj/item/melee/magic_hand/mime_malaise
 	school = SCHOOL_MIME
 	invocation = ""
-	invocation_type = INVOCATION_NONE
 	cooldown_time = 30 SECONDS
 	cooldown_reduction_per_rank = 5 SECONDS //50 deciseconds reduction per rank
 	sound = null

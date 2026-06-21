@@ -128,10 +128,19 @@
 
 	school = "vampire"
 	action_background_icon_state = "bg_vampire"
-	invocation_type = "none"
 	invocation = null
 	sound = 'sound/misc/exit_blood.ogg'
 	need_active_overlay = TRUE
+
+/obj/effect/proc_holder/spell/fireball/demonic_grasp/create_new_targeting()
+	//temp
+	var/datum/spell_targeting/click/T = new()
+	T.allowed_type = /mob/living
+	T.range = 1
+	T.click_radius = 0
+	return T
+
+
 
 /obj/effect/proc_holder/spell/fireball/demonic_grasp/after_spell_init()
 	update_vampire_spell_name()

@@ -63,7 +63,6 @@
 
 /datum/action/cooldown/spell/charged/beam/tesla/lightnian
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
-	invocation_type = INVOCATION_NONE
 
 /datum/action/cooldown/spell/charged/beam/tesla/guardian
 	name = "Малая молния"

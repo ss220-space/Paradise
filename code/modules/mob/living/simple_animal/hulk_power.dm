@@ -438,7 +438,6 @@
 /datum/action/cooldown/spell/pointed/projectile/hulk_spit
 	name = "Fire Spit"
 	desc = "Вы харкаете во врага зеленой соплей и поджигаете его."
-	invocation_type = INVOCATION_NONE
 	button_icon_state = "harchok_hulk"
 	background_icon_state = "bg_hulk"
 	active_msg = span_notice_alt("Your prepare to spit fire! <b>Left-click to spit at a target!</b>")
