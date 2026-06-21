@@ -912,7 +912,6 @@
 	amount = 10
 	max_amount = 10
 	heal_brute = 10
-	bleeding_heal = 10
 	damage = 0
 	merge_type = /obj/item/stack/medical/suture/advanced
 	custom_premium_price = PAYCHECK_LOWER
