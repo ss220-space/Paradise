@@ -21,7 +21,7 @@
 	marked_item = null
 	current_body = null
 	for(var/datum/mind/w_mind in SSticker.mode.wizards) //Make sure no other bones are about
-		for(var/obj/effect/proc_holder/spell/lichdom/spell in w_mind.spell_list)
+		for(var/datum/action/cooldown/spell/lichdom/spell in w_mind.current?.actions)
 			if(spell != src && spell.existence_stops_round_end)
 				return ..()
 

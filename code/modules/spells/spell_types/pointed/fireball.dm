@@ -11,3 +11,17 @@
 	projectile_type = /obj/projectile/magic/fireball
 	button_icon_state = "fireball0"
 	sound = 'sound/magic/fireball.ogg'
+
+/datum/action/cooldown/spell/pointed/projectile/fireballl/hellish
+	name = "Адское пламя"
+	desc = "Это заклинание запускает сгусток адского пламени в цель."
+
+	cooldown_time = 15 SECONDS
+
+	invocation = "Quaeso, quemdam inter vos quaero!"
+
+	projectile_type = /obj/projectile/magic/fireball/infernal
+	button_icon_state = "bg_demon"
+
+/datum/action/cooldown/spell/pointed/projectile/fireball/hellish/acsend
+	projectile_type = /obj/projectile/magic/fireball/infernal/acsend

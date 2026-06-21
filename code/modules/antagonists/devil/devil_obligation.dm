@@ -25,17 +25,17 @@
 	return ..()
 
 /datum/devil_obligation/proc/give_spells()
-	for(var/obj/effect/proc_holder/spell/spell as anything in obligation_spells)
-		if(owner.mind && (locate(spell) in owner.mind.spell_list))
+	for(var/datum/action/cooldown/spell/spell as anything in obligation_spells)
+		if(owner.mind && (locate(spell) in owner.actions))
 			continue
-		owner.mind?.AddSpell(new spell)
+		var/datum/action/cooldown/spell/spell_to_add = new spell
+		spell_to_add.Grant(owner)
 
 /datum/devil_obligation/proc/remove_spells()
-	for(var/obj/effect/proc_holder/spell/spell as anything in owner.mind?.spell_list)
-		if(!(owner.mind && (locate(spell) in owner.mind.spell_list)))
+	for(var/datum/action/cooldown/spell/spell as anything in owner.actions)
+		if(!(owner.mind && (locate(spell) in owner.actions)))
 			continue
-
-		owner.mind?.RemoveSpell(spell)
+		qdel(spell)
 
 /datum/devil_obligation/proc/apply_obligation_effect()
 	return
@@ -55,7 +55,7 @@
 	desc = "Этот дьявол никогда не откажется от музыкального поединка"
 	law = "Пока вы не находитесь в опасности, при предложении музыкального поединка, то вы обязаны его принять."
 
-	obligation_spells = list(/obj/effect/proc_holder/spell/conjure_item/violin)
+	obligation_spells = list(/datum/action/cooldown/spell/conjure_item/violin)
 
 /datum/devil_obligation/danceoff
 	name = OBLIGATION_DANCEOFF
@@ -63,7 +63,7 @@
 	desc = "Этот дьявол никогда не откажется от танцевального поединка."
 	law = "Когда вам ничего не угрожает и вас вызвали на танцевальный поединок, то вы обязаны его принять."
 
-	obligation_spells = list(/obj/effect/proc_holder/spell/summon_dancefloor)
+	obligation_spells = list(/datum/action/cooldown/spell/summon_dancefloor)
 
 /datum/devil_obligation/greet
 	name = OBLIGATION_GREET
