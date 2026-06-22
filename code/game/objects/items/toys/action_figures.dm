@@ -271,7 +271,7 @@
 
 /obj/item/toy/character/alien
 	name = "Xenomorph Miniature"
-	desc = "A miniature xenomorph. Scary!"
+	desc = "Миниатюрный ксеноморф. Жуткий!"
 	icon_state = "aliencharacter"
 
 /obj/item/toy/character/alien/get_ru_names()
@@ -286,7 +286,7 @@
 
 /obj/item/toy/character/cleric
 	name = "Cleric Miniature"
-	desc = "A wee little cleric, with his wee little staff."
+	desc = "Крошечный жрец со своим крошечным посохом."
 	icon_state = "clericcharacter"
 
 /obj/item/toy/character/cleric/get_ru_names()
@@ -301,7 +301,7 @@
 
 /obj/item/toy/character/warrior
 	name = "Warrior Miniature"
-	desc = "That sword would make a decent toothpick."
+	desc = "Из этого меча вышла бы неплохая зубочистка."
 	icon_state = "warriorcharacter"
 
 /obj/item/toy/character/warrior/get_ru_names()
@@ -316,7 +316,7 @@
 
 /obj/item/toy/character/thief
 	name = "Thief Miniature"
-	desc = "Hey, where did my wallet go!?"
+	desc = "Эй, куда делся мой кошелёк?!"
 	icon_state = "thiefcharacter"
 
 /obj/item/toy/character/thief/get_ru_names()
@@ -331,7 +331,7 @@
 
 /obj/item/toy/character/wizard
 	name = "Wizard Miniature"
-	desc = "MAGIC!"
+	desc = "МАГИЯ!"
 	icon_state = "wizardcharacter"
 
 /obj/item/toy/character/wizard/get_ru_names()
@@ -346,7 +346,7 @@
 
 /obj/item/toy/character/cthulhu
 	name = "Cthulhu Miniature"
-	desc = "The dark lord has risen!"
+	desc = "Тёмный лорд вернулся!"
 	icon_state = "darkmastercharacter"
 
 /obj/item/toy/character/cthulhu/get_ru_names()
@@ -361,7 +361,7 @@
 
 /obj/item/toy/character/lich
 	name = "Lich Miniature"
-	desc = "Murderboner extraordinaire."
+	desc = "Непревзойденный аннигилятор."
 	icon_state = "lichcharacter"
 
 /obj/item/toy/character/lich/get_ru_names()
@@ -376,7 +376,7 @@
 
 /obj/item/storage/box/characters
 	name = "Box of Miniatures"
-	desc = "The nerd's best friends."
+	desc = "Лучшие друзья ботана."
 
 /obj/item/storage/box/characters/get_ru_names()
 	return alist(
@@ -404,7 +404,7 @@
 /obj/item/toy/toy_xeno
 	icon_state = "toy_xeno"
 	name = "xenomorph action figure"
-	desc = "MEGA presents the new Xenos Isolated action figure! Comes complete with realistic sounds! Pull back string to use."
+	desc = "MEGA представляет новую фигурку \"Xenos Isolated\"! В комплект входят реалистичные звуковые эффекты. Чтобы активировать их, потяните за шнурок."
 	w_class = WEIGHT_CLASS_SMALL
 	bubble_icon = "alien"
 	var/cooldown = 0
@@ -456,7 +456,7 @@
 
 /obj/item/toy/figure
 	name = "Non-Specific Action Figure action figure"
-	desc = "A \"Space Life\" brand... wait, what the hell is this thing?"
+	desc = "Бренд \"Space Life\"... погодите, что это вообще за штука?"
 	icon_state = "nuketoy"
 	w_class = WEIGHT_CLASS_SMALL
 	var/cooldown = 0
@@ -484,7 +484,7 @@
 
 /obj/item/toy/figure/cmo
 	name = "Chief Medical Officer action figure"
-	desc = "The ever-suffering CMO, from Space Life's SS12 figurine collection."
+	desc = "Вечно страдающий главный врач из коллекции фигурок SS12 от \"Space life\"."
 	icon_state = "cmo"
 	toysay = "Переключи датчики!"
 
@@ -500,7 +500,7 @@
 
 /obj/item/toy/figure/assistant
 	name = "Assistant action figure"
-	desc = "The faceless, hairless scourge of the station, from Space Life's SS12 figurine collection."
+	desc = "Безликий и безволосый кошмар станции из коллекции фигурок SS12 от \"Space life\"."
 	icon_state = "assistant"
 	toysay = "Грейтайд един!"
 
@@ -516,7 +516,7 @@
 
 /obj/item/toy/figure/atmos
 	name = "Atmospheric Technician action figure"
-	desc = "The faithful atmospheric technician, from Space Life's SS12 figurine collection."
+	desc = "Верный атмосферный техник из коллекции фигурок SS12 от \"Space life\"."
 	icon_state = "atmos"
 	toysay = "Слава Атмосии!"
 
@@ -532,7 +532,7 @@
 
 /obj/item/toy/figure/bartender
 	name = "Bartender action figure"
-	desc = "The suave bartender, from Space Life's SS12 figurine collection."
+	desc = "Очаровательный бармен из коллекции фигурок SS12 от \"Space life\"."
 	icon_state = "bartender"
 	toysay = "Где моя обезьяна?"
 
@@ -548,7 +548,7 @@
 
 /obj/item/toy/figure/borg
 	name = "Cyborg action figure"
-	desc = "The iron-willed cyborg, from Space Life's SS12 figurine collection."
+	desc = "Киборг с железной волей из коллекции фигурок SS12 от \"Space life\"."
 	icon_state = "borg"
 	toysay = "Я. СНОВА. ЖИВОЙ."
 
@@ -564,7 +564,7 @@
 
 /obj/item/toy/figure/botanist
 	name = "Botanist action figure"
-	desc = "The drug-addicted botanist, from Space Life's SS12 figurine collection."
+	desc = "Ботаник-наркоман из коллекции фигурок SS12 от \"Space life\"."
 	icon_state = "botanist"
 	toysay = "Чувак, я вижу цвета..."
 
@@ -580,7 +580,7 @@
 
 /obj/item/toy/figure/captain
 	name = "Captain action figure"
-	desc = "The inept captain, from Space Life's SS12 figurine collection."
+	desc = "Некомпетентный капитан из коллекции фигурок SS12 от \"Space life\"."
 	icon_state = "captain"
 	toysay = "Экипаж, ядерный диск в безопасности, в меня в жопе."
 
@@ -596,7 +596,7 @@
 
 /obj/item/toy/figure/cargotech
 	name = "Cargo Technician action figure"
-	desc = "The hard-working cargo tech, from Space Life's SS12 figurine collection."
+	desc = "Трудолюбивый грузчик из коллекции фигурок SS12 от \"Space life\"."
 	icon_state = "cargotech"
 	toysay = "За Каргонию!"
 
@@ -612,7 +612,7 @@
 
 /obj/item/toy/figure/ce
 	name = "Chief Engineer action figure"
-	desc = "The expert Chief Engineer, from Space Life's SS12 figurine collection."
+	desc = "Умелый главный инженер из коллекции фигурок SS12 от \"Space life\"."
 	icon_state = "ce"
 	toysay = "Подключите соляры!"
 
@@ -628,7 +628,7 @@
 
 /obj/item/toy/figure/chaplain
 	name = "Chaplain action figure"
-	desc = "The obsessed Chaplain, from Space Life's SS12 figurine collection."
+	desc = "Одержимый священник из коллекции фигурок SS12 от \"Space life\"."
 	icon_state = "chaplain"
 	toysay = "Боги, сделайте меня машиной для убийств!"
 
@@ -644,7 +644,7 @@
 
 /obj/item/toy/figure/chef
 	name = "Chef action figure"
-	desc = "The cannibalistic chef, from Space Life's SS12 figurine collection."
+	desc = "Повар-канибал из коллекции фигурок SS12 от \"Space life\"."
 	icon_state = "chef"
 	toysay = "Клянусь, это не человечина."
 
@@ -660,7 +660,7 @@
 
 /obj/item/toy/figure/chemist
 	name = "Chemist action figure"
-	desc = "The legally dubious Chemist, from Space Life's SS12 figurine collection."
+	desc = "Незаконный химик из коллекции фигурок SS12 от \"Space life\"."
 	icon_state = "chemist"
 	toysay = "Забери свои таблетки!"
 
@@ -676,7 +676,7 @@
 
 /obj/item/toy/figure/clown
 	name = "Clown action figure"
-	desc = "The mischevious Clown, from Space Life's SS12 figurine collection."
+	desc = "Озорной клоун из коллекции фигурок SS12 от \"Space life\"."
 	icon_state = "clown"
 	toysay = "Хонк!"
 
@@ -692,7 +692,7 @@
 
 /obj/item/toy/figure/ian
 	name = "Ian action figure"
-	desc = "The adorable corgi, from Space Life's SS12 figurine collection."
+	desc = "Очаровательный корги из коллекции фигурок SS12 от \"Space life\"."
 	icon_state = "ian"
 	toysay = "Гав!"
 
@@ -708,7 +708,7 @@
 
 /obj/item/toy/figure/detective
 	name = "Detective action figure"
-	desc = "The clever detective, from Space Life's SS12 figurine collection."
+	desc = "Гениальный детектив из коллекции фигурок SS12 от \"Space life\"."
 	icon_state = "detective"
 	toysay = "На этом шлюзе есть следы серого комбинезона и изоляционных перчаток."
 
@@ -724,7 +724,8 @@
 
 /obj/item/toy/figure/dsquad
 	name = "Death Squad Officer action figure"
-	desc = "It's a member of the DeathSquad, a TV drama where loose-cannon ERT officers face up against the threats of the galaxy! It's from Space Life's special edition SS12 figurine collection."
+	desc = "Это персонаж из сериала \"Отряд смерти\", в котором езбашенные офицеры отряда быстрого реагирования противостоят угрозам, \
+			исходящим из всех уголков галактики! Входит в коллекцию фигурок SS12 от \"Space life\"."
 	icon_state = "dsquad"
 	toysay = "Уничтожить все угрозы!"
 
@@ -740,7 +741,7 @@
 
 /obj/item/toy/figure/engineer
 	name = "Engineer action figure"
-	desc = "The frantic engineer, from Space Life's SS12 figurine collection."
+	desc = "Сумасшедший инженер из коллекции фигурок SS12 от \"Space life\"."
 	icon_state = "engineer"
 	toysay = "О боже, сингулярность сбежала!"
 
@@ -756,7 +757,7 @@
 
 /obj/item/toy/figure/geneticist
 	name = "Geneticist action figure"
-	desc = "The balding geneticist, from Space Life's SS12 figurine collection."
+	desc = "Лысеющий генетик из коллекции фигурок SS12 от \"Space life\"."
 	icon_state = "geneticist"
 	toysay = "Я не квалифицирован для этой работы."
 
@@ -772,7 +773,7 @@
 
 /obj/item/toy/figure/hop
 	name = "Head of Personnel action figure"
-	desc = "The officious Head of Personnel, from Space Life's SS12 figurine collection."
+	desc = "Назойливый глава персонала из коллекции фигурок SS12 от \"Space life\"."
 	icon_state = "hop"
 	toysay = "Бумаги, пожалуйста!"
 
@@ -788,7 +789,7 @@
 
 /obj/item/toy/figure/hos
 	name = "Head of Security action figure"
-	desc = "The bloodlust-filled Head of Security, from Space Life's SS12 figurine collection."
+	desc = "Кровожадный глава службы безопасности из коллекции фигурок SS12 от \"Space life\"."
 	icon_state = "hos"
 	toysay = "Космозакон? Чего?"
 
@@ -804,7 +805,7 @@
 
 /obj/item/toy/figure/qm
 	name = "Quartermaster action figure"
-	desc = "The nationalistic Quartermaster, from Space Life's SS12 figurine collection."
+	desc = "Националистичный квартирмейстер из коллекции фигурок SS12 от \"Space life\"."
 	icon_state = "qm"
 	toysay = "Хайль Каргония!"
 
@@ -820,7 +821,7 @@
 
 /obj/item/toy/figure/janitor
 	name = "Janitor action figure"
-	desc = "The water-using Janitor, from Space Life's SS12 figurine collection."
+	desc = "Грязный уборщик из коллекции фигурок SS12 от \"Space life\"."
 	icon_state = "janitor"
 	toysay = "Читай знаки, идиот."
 
@@ -836,7 +837,7 @@
 
 /obj/item/toy/figure/lawyer
 	name = "Lawyer action figure"
-	desc = "The unappreciated Lawyer, from Space Life's SS12 figurine collection."
+	desc = "Недооцененный юрист из коллекции фигурок SS12 от \"Space life\"."
 	icon_state = "lawyer"
 	toysay = "СРП говорит, что они виновны! Взлом — доказательство того, что они Враги Корпорации!"
 
@@ -852,7 +853,7 @@
 
 /obj/item/toy/figure/librarian
 	name = "Librarian action figure"
-	desc = "The quiet Librarian, from Space Life's SS12 figurine collection."
+	desc = "Тихий библиотекарь из коллекции фигурок SS12 от \"Space life\"."
 	icon_state = "librarian"
 	toysay = "Однажды, в..."
 
@@ -868,7 +869,7 @@
 
 /obj/item/toy/figure/md
 	name = "Medical Doctor action figure"
-	desc = "The stressed-out doctor, from Space Life's SS12 figurine collection."
+	desc = "Утомленный врач из коллекции фигурок SS12 от \"Space life\"."
 	icon_state = "md"
 	toysay = "Пациент уже мёртв!"
 
@@ -884,7 +885,7 @@
 
 /obj/item/toy/figure/mime
 	name = "Mime action figure"
-	desc = "... from Space Life's SS12 figurine collection."
+	desc = "... из коллекции фигурок SS12 от \"Space life\"."
 	icon_state = "mime"
 	toysay = "..."
 
@@ -900,7 +901,7 @@
 
 /obj/item/toy/figure/miner
 	name = "Shaft Miner action figure"
-	desc = "The gun-toting Shaft Miner, from Space Life's SS12 figurine collection."
+	desc = "Вооруженный до зубов шахтёр из коллекции фигурок SS12 от \"Space life\"."
 	icon_state = "miner"
 	toysay = "О боже, оно жрёт мои кишки!"
 
@@ -916,7 +917,7 @@
 
 /obj/item/toy/figure/ninja
 	name = "Ninja action figure"
-	desc = "It's the mysterious ninja! It's from Space Life's special edition SS12 figurine collection."
+	desc = "Это таинственный ниндзя! Входит в коллекцию фигурок SS12 от \"Space life\"."
 	icon_state = "ninja"
 	toysay = "О боже! Хватит стрелять, я косплеер!"
 
@@ -932,7 +933,7 @@
 
 /obj/item/toy/figure/wizard
 	name = "Wizard action figure"
-	desc = "It's the deadly, spell-slinging wizard! It's from Space Life's special edition SS12 figurine collection."
+	desc = "Это тот самый смертоносный волшебник, метающий заклинания! Входит в коллекцию фигурок SS12 от \"Space life\"."
 	icon_state = "wizard"
 	toysay = "Ei Nath!"
 
@@ -948,7 +949,7 @@
 
 /obj/item/toy/figure/rd
 	name = "Research Director action figure"
-	desc = "The ambitious RD, from Space Life's SS12 figurine collection."
+	desc = "Амбициозный директор исследований из коллекции фигурок SS12 от \"Space life\"."
 	icon_state = "rd"
 	toysay = "Уничтожить всех боргов!"
 
@@ -964,7 +965,7 @@
 
 /obj/item/toy/figure/roboticist
 	name = "Roboticist action figure"
-	desc = "The skillful Roboticist, from Space Life's SS12 figurine collection."
+	desc = "Искусный робототехник из коллекции фигурок SS12 от \"Space life\"."
 	icon_state = "roboticist"
 	toysay = "Он сам просил боргизацию!"
 
@@ -980,7 +981,7 @@
 
 /obj/item/toy/figure/scientist
 	name = "Scientist action figure"
-	desc = "The mad Scientist, from Space Life's SS12 figurine collection."
+	desc = "Безумный учёный из коллекции фигурок SS12 от \"Space life\"."
 	icon_state = "scientist"
 	toysay = "Кто-то другой сделал эти бомбы!"
 
@@ -996,7 +997,7 @@
 
 /obj/item/toy/figure/syndie
 	name = "Nuclear Operative action figure"
-	desc = "It's the red-suited Nuclear Operative! It's from Space Life's special edition SS12 figurine collection."
+	desc = "Это ядерный оперативник в кроваво-красном костюме! Входит в коллекцию фигурок SS12 от \"Space life\"."
 	icon_state = "syndie"
 	toysay = "Заберите этот ёбанный диск!"
 
@@ -1012,7 +1013,7 @@
 
 /obj/item/toy/figure/secofficer
 	name = "Security Officer action figure"
-	desc = "The power-tripping Security Officer, from Space Life's SS12 figurine collection."
+	desc = "Злоупотребляющий властью офицер службы безопасности из коллекции фигурок SS12 от \"Space life\"."
 	icon_state = "secofficer"
 	toysay = "Я есть закон!"
 
@@ -1028,7 +1029,7 @@
 
 /obj/item/toy/figure/virologist
 	name = "Virologist action figure"
-	desc = "The pandemic-starting Virologist, from Space Life's SS12 figurine collection."
+	desc = "Заразный вирусолог из коллекции фигурок SS12 от \"Space life\"."
 	icon_state = "virologist"
 	toysay = "Это не мой вирус!"
 
@@ -1044,7 +1045,7 @@
 
 /obj/item/toy/figure/warden
 	name = "Warden action figure"
-	desc = "The amnesiac Warden, from Space Life's SS12 figurine collection."
+	desc = "Забывчивый смотритель из коллекции фигурок SS12 от \"Space life\"."
 	icon_state = "warden"
 	toysay = "Казнить за взлом!"
 
@@ -1060,7 +1061,7 @@
 
 /obj/item/toy/figure/magistrate
 	name = "Magistrate action figure"
-	desc = "The relevant magistrate, from Space Life's SS12 figurine collection."
+	desc = "Справедливый магистрат из коллекции фигурок SS12 от \"Space life\"."
 	icon_state = "magistrate"
 	toysay = "Казнить или не казнить — вот в чём вопрос."
 
