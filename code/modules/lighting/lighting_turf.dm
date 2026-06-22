@@ -90,7 +90,7 @@
 /turf/proc/transfer_area_lighting(area/old_area, area/new_area)
 	if(SSlighting.initialized && !always_lit)
 		if(new_area.static_lighting != old_area.static_lighting)
-			if (new_area.static_lighting)
+			if(new_area.static_lighting)
 				lighting_build_overlay()
 			else
 				lighting_clear_overlay()
