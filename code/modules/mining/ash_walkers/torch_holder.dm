@@ -14,7 +14,7 @@
 	metal_sheets_refunded = 0
 
 /obj/item/mounted/frame/torch_holder/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "крепление для факела",
 		GENITIVE = "крепления для факела",
 		DATIVE = "креплению для факела",
@@ -67,7 +67,7 @@
 	var/timer = null
 
 /obj/structure/torch_holder/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "крепление для факела",
 		GENITIVE = "крепления для факела",
 		DATIVE = "креплению для факела",
@@ -256,7 +256,7 @@
 	ancient = TRUE
 
 /obj/structure/torch_holder/mapping/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "древнее крепление для факела",
 		GENITIVE = "древнего крепления для факела",
 		DATIVE = "древнему креплению для факела",

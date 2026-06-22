@@ -22,7 +22,7 @@
 	var/list/devil_overlays[DEVIL_TOTAL_LAYERS]
 
 /mob/living/carbon/true_devil/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "истинный Дьявол",
 		GENITIVE = "истинного Дьявола",
 		DATIVE = "истинному Дьяволу",
@@ -229,7 +229,7 @@
 	)
 
 /mob/living/carbon/true_devil/krampus/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Крампус",
 		GENITIVE = "Крампуса",
 		DATIVE = "Крампусу",

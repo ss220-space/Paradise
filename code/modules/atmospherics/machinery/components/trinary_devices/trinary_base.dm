@@ -63,6 +63,22 @@
 		node3.disconnect(src)
 		node3 = null
 		nullifyPipenet(parent3)
+	if(parent1)
+		if(parent1.has_one_member())
+			QDEL_NULL(parent1)
+		else
+			nullifyPipenet(parent1)
+	if(parent2)
+		if(parent2.has_one_member())
+			QDEL_NULL(parent2)
+		else
+			nullifyPipenet(parent2)
+
+	if(parent3)
+		if(parent3.has_one_member())
+			QDEL_NULL(parent3)
+		else
+			nullifyPipenet(parent3)
 	return ..()
 
 /obj/machinery/atmospherics/trinary/atmos_init()

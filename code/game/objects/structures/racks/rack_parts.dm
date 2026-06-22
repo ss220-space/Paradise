@@ -14,7 +14,7 @@
 	var/rack_type = /obj/structure/rack
 
 /obj/item/rack_parts/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "детали стеллажа",
 		GENITIVE = "деталей стеллажа",
 		DATIVE = "деталям стеллажа",
@@ -80,7 +80,7 @@
 	rack_type = /obj/structure/rack/gunrack
 
 /obj/item/rack_parts/gunrack_parts/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "детали стеллажа для оружия",
 		GENITIVE = "деталей стеллажа для оружия",
 		DATIVE = "деталям стеллажа для оружия",
@@ -99,7 +99,7 @@
 	rack_type = /obj/structure/cargo_shelf
 
 /obj/item/rack_parts/cargo_shelf/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "детали стеллажа для ящиков",
 		GENITIVE = "деталей стеллажа для ящиков",
 		DATIVE = "деталям стеллажа для ящиков",

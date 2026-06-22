@@ -277,7 +277,7 @@
 	req_access = list(ACCESS_MEDICAL)
 
 /obj/structure/closet/crate/secure/blood/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "комплект донорской крови (человеческий)",
 		GENITIVE = "комплекта донорской крови (человеческий)",
 		DATIVE = "комплекту донорской крови (человеческий)",
@@ -292,7 +292,7 @@
 	icon_state = "xenobloodcrate"
 
 /obj/structure/closet/crate/secure/blood/xeno/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "комплект донорской крови (ксено)",
 		GENITIVE = "комплекта донорской крови (ксено)",
 		DATIVE = "комплекту донорской крови (ксено)",
@@ -307,7 +307,7 @@
 	icon_state = "mixbloodcrate"
 
 /obj/structure/closet/crate/secure/blood/mixed/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "комплект донорской крови (смешанная)",
 		GENITIVE = "комплекта донорской крови (смешанная)",
 		DATIVE = "комплекту донорской крови (смешанная)",
@@ -322,7 +322,7 @@
 	icon_state = "syntheticbloodcrate"
 
 /obj/structure/closet/crate/secure/blood/nitrogenis/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "комплект донорской крови (синтетическая кровь — азот)",
 		GENITIVE = "комплекта донорской крови (синтетическая кровь — азот)",
 		DATIVE = "комплекту донорской крови (синтетическая кровь — азот)",
@@ -337,7 +337,7 @@
 	icon_state = "nitrogenbloodcrate"
 
 /obj/structure/closet/crate/secure/blood/oxygenis/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "комплект донорской крови (синтетическая кровь — кислород)",
 		GENITIVE = "комплекта донорской крови (синтетическая кровь — кислород)",
 		DATIVE = "комплекту донорской крови (синтетическая кровь — кислород)",

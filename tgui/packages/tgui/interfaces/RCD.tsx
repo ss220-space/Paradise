@@ -51,7 +51,7 @@ const MatterReadout = (_props: unknown) => {
   const average_matter = max_matter * 0.25;
   return (
     <Stack.Item>
-      <Section title="Matter Storage">
+      <Section title="Хранилище материи">
         <ProgressBar
           ranges={{
             good: [good_matter, Infinity],
@@ -62,7 +62,7 @@ const MatterReadout = (_props: unknown) => {
           maxValue={max_matter}
         >
           <Stack.Item textAlign="center">
-            {matter + ' / ' + max_matter + ' units'}
+            {matter + ' / ' + max_matter + ' единиц'}
           </Stack.Item>
         </ProgressBar>
       </Section>
@@ -73,13 +73,13 @@ const MatterReadout = (_props: unknown) => {
 const ConstructionType = () => {
   return (
     <Stack.Item>
-      <Section title="Construction Type">
+      <Section title="Режим работы">
         <Stack>
-          <ConstructionTypeCheckbox mode_type="Floors and Walls" />
-          <ConstructionTypeCheckbox mode_type="Airlocks" />
-          <ConstructionTypeCheckbox mode_type="Windows" />
-          <ConstructionTypeCheckbox mode_type="Deconstruction" />
-          <ConstructionTypeCheckbox mode_type="Firelocks" />
+          <ConstructionTypeCheckbox mode_type="Пол и стены" />
+          <ConstructionTypeCheckbox mode_type="Шлюз" />
+          <ConstructionTypeCheckbox mode_type="Окна" />
+          <ConstructionTypeCheckbox mode_type="Деконструкция" />
+          <ConstructionTypeCheckbox mode_type="Пожарный шлюз" />
         </Stack>
       </Section>
     </Stack.Item>
@@ -117,7 +117,7 @@ const AirlockSettings = (_props: unknown) => {
   const { door_name, electrochromic, airlock_glass } = data;
   return (
     <Stack.Item>
-      <Section title="Airlock Settings">
+      <Section title="Настройка шлюзов">
         <Stack textAlign="center">
           <Stack.Item grow>
             <Button
@@ -126,7 +126,7 @@ const AirlockSettings = (_props: unknown) => {
               icon="pen-alt"
               onClick={() => modalOpen('renameAirlock')}
             >
-              <>Rename: {<b>{door_name}</b>}</>
+              <>Переименовать: {<b>{door_name}</b>}</>
             </Button>
           </Stack.Item>
           <Stack.Item>
@@ -159,20 +159,20 @@ const TypesAndAccess = (_props: unknown) => {
             selected={tab === 1}
             onClick={() => act('set_tab', { tab: 1 })}
           >
-            Airlock Types
+            Тип шлюза
           </Tabs.Tab>
           <Tabs.Tab
             selected={tab === 2}
             icon="list"
             onClick={() => act('set_tab', { tab: 2 })}
           >
-            Airlock Access
+            Доступ шлюза
           </Tabs.Tab>
         </Tabs>
       </Stack.Item>
       <Stack.Item grow>
         {tab === 1 ? (
-          <Section fill scrollable title="Types">
+          <Section fill scrollable title="Типы">
             <Stack>
               <Stack.Item grow>
                 <AirlockTypeList check_number={0} />
@@ -195,7 +195,7 @@ const TypesAndAccess = (_props: unknown) => {
                   })
                 }
               >
-                Unlock
+                Разблокировать
               </Button>
             }
           >
@@ -203,7 +203,7 @@ const TypesAndAccess = (_props: unknown) => {
               <Stack.Item grow textAlign="center" align="center" color="label">
                 <Icon name="lock" size={5} mb={3} />
                 <br />
-                Airlock access selection is currently locked.
+                Выбор доступа для шлюзов сейчас заблокирован.
               </Stack.Item>
             </Stack>
           </Section>
@@ -219,7 +219,7 @@ const TypesAndAccess = (_props: unknown) => {
                   })
                 }
               >
-                Lock
+                Заблокировать
               </Button>,
             ]}
             usedByRcd
@@ -233,7 +233,7 @@ const TypesAndAccess = (_props: unknown) => {
                   })
                 }
               >
-                One
+                Один
               </Button.Checkbox>,
               <Button.Checkbox
                 checked={!one_access}
@@ -245,7 +245,7 @@ const TypesAndAccess = (_props: unknown) => {
                   })
                 }
               >
-                All
+                Все
               </Button.Checkbox>,
             ]}
             accesses={regions}

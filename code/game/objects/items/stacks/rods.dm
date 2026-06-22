@@ -25,6 +25,7 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 	throwforce = 10
 	throw_speed = 3
 	materials = list(MAT_METAL=1000)
+	matter_amount = 0.5
 	attack_verb = list("ударил", "огрел")
 	hitsound = 'sound/weapons/grenadelaunch.ogg'
 	usesound = 'sound/items/deconstruct.ogg'
@@ -90,6 +91,7 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 	item_state = "f_rods"
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	materials = list(MAT_METAL=800, MAT_PLASMA=200, MAT_TITANIUM=400)
+	matter_amount = 2
 
 /obj/item/stack/rods/fireproof/twentyfive
 	amount = 25

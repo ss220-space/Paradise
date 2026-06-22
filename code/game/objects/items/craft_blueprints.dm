@@ -28,7 +28,7 @@
 	var/required_toner = 10
 
 /obj/item/craft_blueprints/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "чертежи для крафта",
 		GENITIVE = "чертежей для крафта",
 		DATIVE = "чертежам для крафта",

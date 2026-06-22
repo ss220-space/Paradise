@@ -29,7 +29,7 @@
 	var/catch_sound = 'sound/objects/fishing_rod_catch.ogg'
 
 /obj/item/twohanded/fishing_rod/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "удочка",
 		GENITIVE = "удочки",
 		DATIVE = "удочке",
@@ -45,7 +45,7 @@
 	item_state = "tribal_rod"
 
 /obj/item/twohanded/fishing_rod/tribal/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "примитивная удочка",
 		GENITIVE = "примитивной удочки",
 		DATIVE = "примитивной удочке",

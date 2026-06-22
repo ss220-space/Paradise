@@ -42,7 +42,7 @@
 	var/toolbox_color = ""
 
 /mob/living/simple_animal/bot/floorbot/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ремонтный робот",
 		GENITIVE = "ремонтного робота",
 		DATIVE = "ремонтному роботу",

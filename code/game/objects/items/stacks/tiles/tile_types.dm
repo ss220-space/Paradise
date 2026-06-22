@@ -68,6 +68,11 @@
 	resistance_flags = FLAMMABLE
 	energy_type = /datum/robot_energy_storage/wood
 
+/obj/item/stack/tile/wood/decompile_act(obj/item/matter_decompiler/C, mob/user)
+	C.stored_comms["wood"] += 1
+	qdel(src)
+	return TRUE
+
 /obj/item/stack/tile/wood/dark
 	name = "dark wood floor tiles"
 	singular_name = "dark wood floor tile"
@@ -229,6 +234,7 @@
 	throw_range = 7
 	turf_type = /turf/simulated/floor/plasteel
 	mineralType = "metal"
+	matter_amount = 0.25
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 100, ACID = 70)
 	resistance_flags = FIRE_PROOF
 	energy_type = /datum/robot_energy_storage/metal

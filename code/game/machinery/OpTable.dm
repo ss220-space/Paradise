@@ -17,7 +17,7 @@
 	var/inject_amount = 1
 
 /obj/machinery/optable/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "операционный стол",
 		GENITIVE = "операционного стола",
 		DATIVE = "операционному столу",

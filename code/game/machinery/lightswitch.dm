@@ -12,7 +12,7 @@
 	var/autoname = TRUE
 
 /obj/machinery/light_switch/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "выключатель света",
 		GENITIVE = "выключателя света",
 		DATIVE = "выключателю света",

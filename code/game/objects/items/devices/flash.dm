@@ -37,7 +37,7 @@
 	light_range = 2
 
 /obj/item/flash/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "флешер",
 		GENITIVE = "флешера",
 		DATIVE = "флешеру",
@@ -269,7 +269,7 @@
 	use_sound = 'sound/items/polaroid1.ogg'
 
 /obj/item/flash/cameraflash/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "фотоаппарат",
 		GENITIVE = "фотоаппарата",
 		DATIVE = "фотоаппарату",
@@ -320,7 +320,7 @@
 	var/obj/item/organ/internal/cyberimp/arm/flash/I = null
 
 /obj/item/flash/armimplant/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "фотонный излучатель",
 		GENITIVE = "фотонного излучателя",
 		DATIVE = "фотонному излучателю",

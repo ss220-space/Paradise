@@ -6,7 +6,7 @@
 	speed = 3.5
 
 /obj/projectile/colossus/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "смертоносный заряд",
 		GENITIVE = "смертоносного заряда",
 		DATIVE = "смертоносному заряду",

@@ -67,6 +67,8 @@
 	var/can_be_shared = TRUE
 	/// Action in targeting mode (use only for overlay)
 	var/targeting_process = FALSE
+	/// Action is allowed to be used in this state and any state "better" (for example DEAD means you can use it in any state)
+	var/stat_allowed = CONSCIOUS
 
 /datum/action/New(Target)
 	link_to(Target)
@@ -212,9 +214,15 @@
 			if(feedback)
 				owner.balloon_alert(owner, "must stand up!")
 			return FALSE
-	if((check_flags & AB_CHECK_CONSCIOUS) && owner.stat != CONSCIOUS)
+	if((check_flags & AB_CHECK_CONSCIOUS) && (stat_allowed < owner.stat)) // If current state is "worse" than allowed
 		if(feedback)
-			owner.balloon_alert(owner, "unconscious!")
+			switch(owner.stat)
+				if(UNCONSCIOUS)
+					owner.balloon_alert(owner, "без сознания!")
+				if(DEAD)
+					owner.balloon_alert(owner, "мёртв!")
+				else
+					owner.balloon_alert(owner, "сейчас нельзя использовать!")
 		return FALSE
 	if((check_flags & AB_CHECK_TURF) && !isturf(owner.loc))
 		if(feedback)

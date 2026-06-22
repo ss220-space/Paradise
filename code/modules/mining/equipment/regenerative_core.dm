@@ -9,7 +9,7 @@
 	origin_tech = "biotech=3"
 
 /obj/item/hivelordstabilizer/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "стабилизатор ядра",
 		GENITIVE = "стабилизатора ядра",
 		DATIVE = "стабилизатору ядра",
@@ -33,7 +33,7 @@
 	light_system = MOVABLE_LIGHT
 
 /obj/item/hivelordstabilizer/molten_mass/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сплавленный сгусток",
 		GENITIVE = "сплавленного сгустка",
 		DATIVE = "сплавленному сгустку",
@@ -72,7 +72,7 @@
 	var/preserved = 0
 
 /obj/item/organ/internal/regenerative_core/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "регенеративное ядро",
 		GENITIVE = "регенеративного ядра",
 		DATIVE = "регенеративному ядру",
@@ -105,7 +105,7 @@
 	inert = TRUE
 	name = "decayed regenerative core"
 	desc = "Всё, что осталось от легиона. Оно сгнило и совершенно бесполезно."
-	ru_names = list(
+	ru_names = alist(
 		NOMINATIVE = "сгнившее регенеративное ядро",
 		GENITIVE = "сгнившего регенеративного ядра",
 		DATIVE = "сгнившему регенеративному ядру",
@@ -261,7 +261,7 @@
 	)
 
 /obj/item/organ/internal/legion_tumour/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "опухоль легиона",
 		GENITIVE = "опухоли легиона",
 		DATIVE = "опухоли легиона",

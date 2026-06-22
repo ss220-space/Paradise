@@ -66,7 +66,7 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 		src << browse_rsc(sprite, "vv[hash].png")
 		sprite_text = no_icon ? "\[NO ICON\]" : "<img src='vv[hash].png'></td><td>"
 
-	title = "[thing] ([UID_of(thing)]) = [type]"
+	title = "[thing] ([refid]) = [type]"
 	var/formatted_type = replacetext("[type]", "/", "<wbr>/")
 
 	var/list/header = islist ? (isalist ? list("<b>/alist</b>") : list("<b>/list</b>")) : thing.vv_get_header()

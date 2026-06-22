@@ -32,7 +32,7 @@
 	)
 
 /obj/machinery/vending/robotics/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат Robotech Deluxe",
 		GENITIVE = "торгового автомата Robotech Deluxe",
 		DATIVE = "торговому автомату Robotech Deluxe",
@@ -52,6 +52,7 @@
 		/obj/item/mecha_parts/mecha_equipment/anticcw_armor_booster = 3,
 		/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot = 3,
 		/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg = 3,
+		/obj/item/mecha_parts/mecha_equipment/cage = 3,
 	)
 
 /obj/machinery/vending/robotics/nt/gygax
@@ -61,4 +62,5 @@
 		/obj/item/mecha_parts/mecha_equipment/anticcw_armor_booster = 3,
 		/obj/item/mecha_parts/mecha_equipment/weapon/energy/ion = 3,
 		/obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/heavy = 3,
+		/obj/item/mecha_parts/mecha_equipment/cage = 3,
 	)

@@ -93,7 +93,7 @@ Difficulty: Very Hard
 	var/obj/effect/abstract/beam = null
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Ветус Спекулятор",
 		GENITIVE = "Ветус Спекулятора",
 		DATIVE = "Ветус Спекулятору",
@@ -644,7 +644,7 @@ Difficulty: Very Hard
 	var/who_am_i = null
 
 /mob/living/simple_animal/hostile/ancient_robot_leg/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "опора",
 		GENITIVE = "опоры",
 		DATIVE = "опоре",
@@ -786,7 +786,7 @@ Difficulty: Very Hard
 	duration = 20
 
 /obj/effect/temp_visual/rock/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "парящий камень",
 		GENITIVE = "парящего камня",
 		DATIVE = "парящему камню",

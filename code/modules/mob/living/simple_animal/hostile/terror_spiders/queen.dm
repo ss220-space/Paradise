@@ -64,7 +64,7 @@
 	tts_seed = "Anivia"
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Королева Ужаса",
 		GENITIVE = "Королевы Ужаса",
 		DATIVE = "Королеве Ужаса",
@@ -371,7 +371,7 @@
 	max_integrity = 30
 
 /obj/structure/spider/terrorweb/queen/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "воздухонепроницаемая паутина",
 		GENITIVE = "воздухонепроницаемой паутины",
 		DATIVE = "воздухонепроницаемой паутине",

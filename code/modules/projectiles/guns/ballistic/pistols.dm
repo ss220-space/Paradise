@@ -75,7 +75,7 @@
 	magazine_icon = "enforcer_mag"
 
 /obj/item/gun/projectile/automatic/pistol/enforcer/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Блюститель",
 		GENITIVE = "Блюстителя",
 		DATIVE = "Блюстителю",
@@ -184,7 +184,7 @@
 	)
 
 /obj/item/gun/projectile/automatic/pistol/aps/scarecrow/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Пугало",
 		GENITIVE = "Пугала",
 		DATIVE = "Пугалу",

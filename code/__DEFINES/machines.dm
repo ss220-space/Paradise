@@ -236,3 +236,12 @@
 #define AIR_ALARM_BUILD_NO_CIRCUIT 0
 #define AIR_ALARM_BUILD_CIRCUIT 1
 #define AIR_ALARM_WIRED 2
+
+// Field generator construction defines
+#define FG_UNSECURED 0
+#define FG_SECURED 1
+#define FG_WELDED 2
+
+#define FG_OFFLINE 0
+#define FG_CHARGING 1
+#define FG_ONLINE 2

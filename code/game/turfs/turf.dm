@@ -680,7 +680,7 @@
 	var/static/list/ignored_atoms = typecacheof(list(/mob/dead, /obj/effect/landmark, /obj/docking_port))
 	var/list/allowed_contents = typecache_filter_list_reverse(get_all_contents_ignoring(ignore_typecache), ignored_atoms)
 	allowed_contents -= src
-	for(var/i in 1 to allowed_contents.len)
+	for(var/i in 1 to length(allowed_contents))
 		var/thing = allowed_contents[i]
 		qdel(thing, force=TRUE)
 
@@ -962,7 +962,7 @@
 	var/fuel_burnt = 0
 	var/obj/effect/hotspot/current_hotspot = active_hotspot
 	var/milla_tick = SSair.milla_tick
-	if(isnull(current_hotspot))
+	if(QDELETED(current_hotspot))
 		if(isnull(bound_air) || bound_air.lastread < milla_tick)
 			air = get_readonly_air()
 		else
@@ -1021,7 +1021,7 @@
 
 	var/obj/effect/wind/current_wind = wind_effect
 
-	if(isnull(current_wind))
+	if(QDELETED(current_wind))
 		current_wind = new(src)
 		wind_effect = current_wind
 

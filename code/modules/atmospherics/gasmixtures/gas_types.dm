@@ -191,3 +191,10 @@ GLOBAL_LIST_INIT(gas_meta, meta_gas_list())
 	primary_color = COLOR_MAROON
 	scrub_flag = SCRUB_ANTINOBLIUM
 	sensor_flag = SENSOR_COMPOSITION_ANTINOBLIUM
+
+/datum/gas/agent_b
+	id = TLV_AGENT_B
+	name = "Agent b"
+	desc = "Unknown gas."
+	primary_color = COLOR_GRAY
+	sensor_flag = SENSOR_COMPOSITION_AGENT_B

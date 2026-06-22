@@ -126,6 +126,7 @@
 
 	else if(islist(potential_container))
 		var/list/potential_cache = potential_container
+		var/is_alist = isalist(potential_cache)
 		for(var/element_in_list in potential_cache)
 			//Check normal sublists
 			if(islist(element_in_list))
@@ -162,7 +163,7 @@
 					log_reftracker("All references to [type] [text_ref(src)] found, exiting.")
 					return
 
-			if(!isnum(element_in_list) && !is_special_list)
+			if((!isnum(element_in_list) || is_alist) && !is_special_list)
 				// This exists to catch an error that throws when we access a special list
 				// is_special_list is a hint, it can be wrong
 				try
@@ -196,7 +197,14 @@
 #undef REFSEARCH_RECURSE_LIMIT
 
 ADMIN_VERB(find_refs, R_DEBUG, "Find References", "Find references.", ADMIN_CATEGORY_DEBUG, datum/target in world)
-	find_references()
+	target.find_references()
+
+ADMIN_VERB(find_refs_by_ref, R_DEBUG, "Find References by ref", "Find references by ref.", ADMIN_CATEGORY_DEBUG)
+	var/ref = tgui_input_text(usr, "Enter datum ref to search references", "Ref")
+	if(!ref)
+		return
+	var/datum/target = locate(ref)
+	target.find_references()
 
 ADMIN_VERB(qdel_then_find_references, R_DEBUG, "qdel() then Find References", "qdel() then Find References", ADMIN_CATEGORY_DEBUG, datum/target in world)
 	qdel(target, TRUE) //force a qdel

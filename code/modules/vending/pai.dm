@@ -74,7 +74,7 @@
 	)
 
 /obj/machinery/vending/pai/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат RoboFriends",
 		GENITIVE = "торгового автомата RoboFriends",
 		DATIVE = "торговому автомату RoboFriends",

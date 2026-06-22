@@ -30,7 +30,7 @@
 	var/obj/projectile/destabilizer/destab = /obj/projectile/destabilizer
 
 /obj/item/twohanded/kinetic_crusher/get_ru_names()
-	return list(
+	return alist(
 			NOMINATIVE = "прото-кинетический крушитель",
 			GENITIVE = "прото-кинетического крушителя",
 			DATIVE = "прото-кинетическому крушителю",
@@ -276,7 +276,7 @@
 	var/denied_type = /obj/item/crusher_trophy
 
 /obj/item/crusher_trophy/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "хвостовой шип",
 		GENITIVE = "хвостового шипа",
 		DATIVE = "хвостовому шипу",
@@ -342,7 +342,7 @@
 	var/missing_health_desc = 10
 
 /obj/item/crusher_trophy/goliath_tentacle/get_ru_names()
-	return list(
+	return alist(
 			NOMINATIVE = "щупальце голиафа",
 			GENITIVE = "щупальца голиафа",
 			DATIVE = "щупальцу голиафа",
@@ -370,7 +370,7 @@
 	bonus_value = 5
 
 /obj/item/crusher_trophy/watcher_wing/get_ru_names()
-	return list(
+	return alist(
 			NOMINATIVE = "крыло наблюдателя",
 			GENITIVE = "крыла наблюдателя",
 			DATIVE = "крылу наблюдателя",
@@ -400,7 +400,7 @@
 	bonus_value = 5
 
 /obj/item/crusher_trophy/blaster_tubes/magma_wing/get_ru_names()
-	return list(
+	return alist(
 			NOMINATIVE = "крыло магмового наблюдателя",
 			GENITIVE = "крыла магмового наблюдателя",
 			DATIVE = "крылу магмового наблюдателя",
@@ -428,7 +428,7 @@
 	bonus_value = 8
 
 /obj/item/crusher_trophy/watcher_wing/ice_wing/get_ru_names()
-	return list(
+	return alist(
 			NOMINATIVE = "крыло ледяного наблюдателя",
 			GENITIVE = "крыла ледяного наблюдателя",
 			DATIVE = "крылу ледяного наблюдателя",
@@ -447,7 +447,7 @@
 	bonus_value = 3
 
 /obj/item/crusher_trophy/legion_skull/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "череп легиона",
 		GENITIVE = "черепа легиона",
 		DATIVE = "черепу легиона",
@@ -478,7 +478,7 @@
 	bonus_value = 1
 
 /obj/item/crusher_trophy/eyed_tentacle/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "огромное щупальце голиафа",
 		GENITIVE = "огромного щупальца голиафа",
 		DATIVE = "огромному щупальцу голиафа",
@@ -511,7 +511,7 @@
 	bonus_value = 1.1
 
 /obj/item/crusher_trophy/fang/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ядовитый клык",
 		GENITIVE = "ядовитого клыка",
 		DATIVE = "ядовитому клыку",
@@ -536,7 +536,7 @@
 	bonus_value = 0.9
 
 /obj/item/crusher_trophy/gland/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "морозная железа",
 		GENITIVE = "морозной железы",
 		DATIVE = "морозной железе",
@@ -574,7 +574,7 @@
 	denied_type = /obj/item/crusher_trophy/miner_eye
 
 /obj/item/crusher_trophy/miner_eye/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "глаз кровожадного шахтёра",
 		GENITIVE = "глаза кровожадного шахтёра",
 		DATIVE = "глазу кровожадного шахтёра",
@@ -597,7 +597,7 @@
 	bonus_value = 5
 
 /obj/item/crusher_trophy/tail_spike/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "хвостовой шип",
 		GENITIVE = "хвостового шипа",
 		DATIVE = "хвостовому шипу",
@@ -632,7 +632,7 @@
 	var/static/list/damage_heal_order = list(BRUTE, BURN, OXY)
 
 /obj/item/crusher_trophy/demon_claws/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "демонические когти",
 		GENITIVE = "демонических когтей",
 		DATIVE = "демоническим когтям",
@@ -678,7 +678,7 @@
 	var/deadly_shot = FALSE
 
 /obj/item/crusher_trophy/blaster_tubes/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бластерные трубки",
 		GENITIVE = "бластерных трубок",
 		DATIVE = "бластерным трубкам",
@@ -715,7 +715,7 @@
 	denied_type = /obj/item/crusher_trophy/vortex_talisman
 
 /obj/item/crusher_trophy/vortex_talisman/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "талисман вихря",
 		GENITIVE = "талисмана вихря",
 		DATIVE = "талисману вихря",
@@ -743,7 +743,7 @@
 	bonus_value = 2
 
 /obj/item/crusher_trophy/adaptive_intelligence_core/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "адаптивное ядро ИИ",
 		GENITIVE = "адаптивного ядра ИИ",
 		DATIVE = "адаптивному ядру ИИ",
@@ -775,7 +775,7 @@
 	denied_type = /obj/item/crusher_trophy/empowered_legion_skull
 
 /obj/item/crusher_trophy/empowered_legion_skull/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "усиленный череп легиона",
 		GENITIVE = "усиленного черепа легиона",
 		DATIVE = "усиленному черепу легиона",
@@ -801,7 +801,7 @@
 	upgraded = TRUE
 
 /obj/item/twohanded/kinetic_crusher/mega/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "магмитовый прото-кинетический крушитель",
 		GENITIVE = "магмитового прото-кинетического крушителя",
 		DATIVE = "магмитовому прото-кинетическому крушителю",

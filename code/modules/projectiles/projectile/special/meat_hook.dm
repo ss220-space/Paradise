@@ -7,9 +7,11 @@
 	hitsound = 'sound/effects/splat.ogg'
 	weaken = 2 SECONDS
 	ricochet_chance = 0
+	speed = 2
+	range = 15
 
 /obj/projectile/hook/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "крюк",
 		GENITIVE = "крюка",
 		DATIVE = "крюку",

@@ -27,7 +27,7 @@
 	var/list/crates_stored
 
 /obj/structure/cargo_shelf/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "стеллаж для ящиков",
 		GENITIVE = "стеллажа для ящиков",
 		DATIVE = "стеллажу для ящиков",

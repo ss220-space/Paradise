@@ -57,7 +57,8 @@
 /turf/simulated/wall/indestructible/try_decon(obj/item/I, mob/user, params)
 	return
 
-/turf/simulated/wall/indestructible/rcd_deconstruct_act()
+/turf/simulated/wall/indestructible/rcd_deconstruct_act(mob/user, obj/item/rcd/our_rcd)
+	balloon_alert(user, "нельзя деконструировать!")
 	return RCD_NO_ACT
 
 /turf/simulated/wall/indestructible/thermitemelt(mob/user, time)
@@ -260,7 +261,7 @@
 	smooth = SMOOTH_BITMASK
 
 /turf/simulated/wall/indestructible/bingle/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "яма Бинглов",
 		GENITIVE = "ямы Бинглов",
 		DATIVE = "яме Бинглов",

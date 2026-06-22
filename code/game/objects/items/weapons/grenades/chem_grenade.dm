@@ -597,7 +597,7 @@
 	stage = GRENADE_READY
 
 /obj/item/grenade/chem_grenade/teargas/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "газовая граната (Капсаицин)",
 		GENITIVE = "газовой гранаты (Капсаицин)",
 		DATIVE = "газовой гранате (Капсаицин)",

@@ -54,7 +54,7 @@
 	allow_floor_mounting = TRUE
 
 /obj/item/mounted/frame/light_fixture/floor/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "каркас напольного светильника",
 		GENITIVE = "каркаса напольного светильника",
 		DATIVE = "каркасу напольного светильника",

@@ -17,7 +17,7 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 	var/max_toxins_tech = 7
 
 /obj/machinery/doppler_array/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "тахионно-доплеровская установка",
 		GENITIVE = "тахионно-доплеровской установки",
 		DATIVE = "тахионно-доплеровской установке",

@@ -4,7 +4,7 @@
 	name = "money bag"
 	desc = "Просторный мешок из плотной ткани, украшенный крупным символом доллара. \
 	Идеально подходит для хранения монет или банкнот. "
-	
+
 	icon_state = "moneybag"
 	item_state = "moneybag"
 	force = 10
@@ -17,7 +17,7 @@
 	can_hold = list(/obj/item/coin, /obj/item/stack/spacecash)
 
 /obj/item/storage/bag/money/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "денежный мешок",
 		GENITIVE = "денежного мешка",
 		DATIVE = "денежному мешку",

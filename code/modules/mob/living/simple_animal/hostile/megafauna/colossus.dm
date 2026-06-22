@@ -66,7 +66,7 @@ Difficulty: Very Hard
 	var/final_available = TRUE
 
 /mob/living/simple_animal/hostile/megafauna/colossus/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Колосс",
 		GENITIVE = "Колосса",
 		DATIVE = "Колоссу",

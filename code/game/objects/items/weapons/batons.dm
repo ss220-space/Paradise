@@ -45,7 +45,7 @@
 	var/activated_word = "готова"
 
 /obj/item/melee/baton/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "полицейская дубинка",
 		GENITIVE = "полицейской дубинки",
 		DATIVE = "полицейской дубинке",
@@ -315,7 +315,7 @@
 	needs_permit = FALSE
 
 /obj/item/melee/baton/ntcane/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "парадная трость",
 		GENITIVE = "парадной трости",
 		DATIVE = "парадной трости",
@@ -346,7 +346,7 @@
 	var/extend_force = 10
 
 /obj/item/melee/baton/telescopic/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "телескопическая дубинка",
 		GENITIVE = "телескопической дубинки",
 		DATIVE = "телескопической дубинке",
@@ -422,7 +422,7 @@
 	var/cell_hit_cost = 500
 
 /obj/item/melee/baton/security/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "оглушающая дубинка",
 		GENITIVE = "оглушающей дубинки",
 		DATIVE = "оглушающей дубинке",
@@ -645,7 +645,7 @@
 	var/obj/item/assembly/igniter/sparkler
 
 /obj/item/melee/baton/security/cattleprod/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "оглушающий прут",
 		GENITIVE = "оглушающего прута",
 		DATIVE = "оглушающему пруту",
@@ -684,7 +684,7 @@
 	origin_tech = "combat=2;bluespace=4;materials=3"
 
 /obj/item/melee/baton/security/cattleprod/teleprod/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "теле-прут",
 		GENITIVE = "теле-прута",
 		DATIVE = "теле-пруту",

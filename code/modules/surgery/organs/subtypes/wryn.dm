@@ -12,7 +12,7 @@
 	var/hair_style = "Normal antennae"
 
 /obj/item/organ/internal/wryn/hivenode/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "антенна",
 		GENITIVE = "антенны",
 		DATIVE = "антенне",
@@ -61,7 +61,7 @@
 	var/producing = FALSE
 
 /obj/item/organ/internal/wryn/glands/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "восковые железы",
 		GENITIVE = "восковых желез",
 		DATIVE = "восковым железам",
@@ -127,7 +127,7 @@
 	mmi_icon = 'icons/obj/species_organs/wryn.dmi'
 
 /obj/item/organ/internal/brain/wryn/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мозг врина",
 		GENITIVE = "мозга врина",
 		DATIVE = "мозгу врина",
@@ -145,7 +145,7 @@
 	item_base = "wryn_heart"
 
 /obj/item/organ/internal/heart/wryn/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сердце врина",
 		GENITIVE = "сердца врина",
 		DATIVE = "сердцу врина",
@@ -163,7 +163,7 @@
 	see_in_dark = 3
 
 /obj/item/organ/internal/eyes/wryn/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "глаза врина",
 		GENITIVE = "глаз врина",
 		DATIVE = "глазам врина",
@@ -178,7 +178,7 @@
 	desc = "Парный орган, отвечающий за аудиальное восприятие окружающей среды и получение информации о положении гуманоида в пространстве. Эти принадлежали врину."
 
 /obj/item/organ/internal/ears/wryn/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "уши врина",
 		GENITIVE = "ушей врина",
 		DATIVE = "ушам врина",
@@ -196,7 +196,7 @@
 	min_broken_damage = 25
 
 /obj/item/organ/external/tail/wryn/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "хвост врина",
 		GENITIVE = "хвоста врина",
 		DATIVE = "хвосту врина",

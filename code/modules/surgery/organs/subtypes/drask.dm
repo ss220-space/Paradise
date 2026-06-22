@@ -8,7 +8,7 @@
 	item_state = "drask_innards"
 
 /obj/item/organ/internal/drask/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "орган драска",
 		GENITIVE = "органа драска",
 		DATIVE = "органу драска",
@@ -27,7 +27,7 @@
 	parent_organ_zone = BODY_ZONE_HEAD
 
 /obj/item/organ/internal/heart/drask/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сердце драска",
 		GENITIVE = "сердца драска",
 		DATIVE = "сердцу драска",
@@ -47,7 +47,7 @@
 	alcohol_intensity = 0.8
 
 /obj/item/organ/internal/liver/drask/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "метаболический фильтр",
 		GENITIVE = "метаболического фильтра",
 		DATIVE = "метаболическому фильтру",
@@ -64,7 +64,7 @@
 	mmi_icon = 'icons/obj/species_organs/drask.dmi'
 
 /obj/item/organ/internal/brain/drask/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мозг драска",
 		GENITIVE = "мозга драска",
 		DATIVE = "мозгу драска",
@@ -82,7 +82,7 @@
 	see_in_dark = 5
 
 /obj/item/organ/internal/eyes/drask/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "глаза драска",
 		GENITIVE = "глаз драска",
 		DATIVE = "глазам драска",
@@ -97,7 +97,7 @@
 	desc = "Парный орган, отвечающий за аудиальное восприятие окружающей среды и получение информации о положении гуманоида в пространстве. Эти принадлежали драску."
 
 /obj/item/organ/internal/ears/drask/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "уши драска",
 		GENITIVE = "ушей драска",
 		DATIVE = "ушам драска",
@@ -121,7 +121,7 @@
 	var/cooling_stop_temp = DRASK_LUNGS_COOLING_STOP_TEMP
 
 /obj/item/organ/internal/lungs/drask/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "лёгкие драска",
 		GENITIVE = "лёгких драска",
 		DATIVE = "лёгким драска",
