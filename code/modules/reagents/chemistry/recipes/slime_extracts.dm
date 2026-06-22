@@ -696,8 +696,15 @@
 
 /datum/chemical_reaction/slimestop/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
-	var/mob/mob = get_mob_by_key(holder.my_atom.fingerprintslast)
-	new /obj/effect/timestop(get_turf(holder.my_atom), 2, 8 SECONDS, list(mob))
+	var/mob/user = get_mob_by_key(holder.my_atom.fingerprintslast)
+	var/color_matrix = COLOR_MATRIX_INVERT
+	user.add_atom_colour(color_matrix, TEMPORARY_COLOUR_PRIORITY)
+	addtimer(CALLBACK(src, PROC_REF(spawn_stoptime), holder), 3 SECONDS)
+
+/datum/chemical_reaction/slimestop/proc/spawn_stoptime(datum/reagents/holder)
+	var/mob/user = get_mob_by_key(holder.my_atom.fingerprintslast)
+	user.remove_atom_colour(TEMPORARY_COLOUR_PRIORITY)
+	new /obj/effect/timestop/slowing(get_turf(holder.my_atom), 2, null, list(user))
 
 /datum/chemical_reaction/slimepotionlaser
 	name = "Slime Laser Resistence Potion"

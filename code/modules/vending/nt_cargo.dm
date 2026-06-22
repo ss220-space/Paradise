@@ -177,16 +177,33 @@
 	broken_overlay = "magivend_broken"
 	broken_lightmask_overlay = "magivend_broken_lightmask"
 
-	products = list(
-		/obj/structure/closet/crate/trashcart/NTdelivery = 100,
-		/obj/structure/closet/crate/secure/gear = 100,
-		/obj/structure/closet/crate/secure/weapon = 100,
-		/obj/item/storage/backpack/duffel/security/riot = 100,
-		/obj/item/storage/backpack/duffel/security/war = 100,
-		/obj/item/storage/backpack/duffel/hydro/weed = 100,
-		/obj/item/storage/backpack/duffel/security/spiders = 100,
-		/obj/item/storage/backpack/duffel/security/blob = 100,
-		/obj/item/storage/backpack/duffel/engineering/building_event = 100,
+	product_categories = list(
+		list(
+			"name" = "Особое",
+			"products" = list(
+				/obj/structure/closet/crate/trashcart/NTdelivery = 100,
+				/obj/structure/closet/crate/secure/gear = 100,
+				/obj/structure/closet/crate/secure/weapon = 100,
+				/obj/item/storage/backpack/duffel/engineering/building_event = 100,
+			),
+		),
+		list(
+			"name" = "Снаряжение",
+			"products" = list(
+				/obj/item/storage/backpack/duffel/security/riot = 100,
+				/obj/item/storage/backpack/duffel/security/war = 100,
+				/obj/item/storage/backpack/duffel/hydro/weed = 100,
+				/obj/item/storage/backpack/duffel/security/spiders = 100,
+				/obj/item/storage/backpack/duffel/security/blob = 100,
+			),
+		),
+		list(
+			"name" = "Детали",
+			"products" = list(
+				/obj/item/storage/part_replacer/bluespace/tier4 = 40,
+				/obj/item/storage/part_replacer/bluespace/experimental = 40,
+			),
+		),
 	)
 
 /obj/machinery/vending/ntcrates/get_ru_names()
@@ -242,21 +259,45 @@
 	deny_overlay = "engi_deny"
 	deny_lightmask = "engi_deny_lightmask"
 
-	products = list(
-		/obj/item/stack/sheet/mineral/diamond/fifty = 50,
-		/obj/item/stack/sheet/mineral/gold/fifty = 50,
-		/obj/item/stack/sheet/glass/fifty = 50,
-		/obj/item/stack/sheet/metal/fifty = 50,
-		/obj/item/stack/sheet/mineral/plasma/fifty = 50,
-		/obj/item/stack/sheet/mineral/silver/fifty = 50,
-		/obj/item/stack/sheet/mineral/titanium/fifty = 50,
-		/obj/item/stack/sheet/mineral/uranium/fifty = 50,
-	)
-	contraband = list(
-		/obj/item/stack/sheet/mineral/tranquillite/fifty = 50,
-		/obj/item/stack/sheet/mineral/bananium/fifty = 50,
-		/obj/item/stack/sheet/mineral/sandstone/fifty = 50,
-		/obj/item/stack/sheet/mineral/abductor/fifty = 50,
+	product_categories = list(
+		list(
+			"name" = "Материалы",
+			"products" = list(
+				/obj/item/stack/sheet/mineral/diamond/fifty = 50,
+				/obj/item/stack/sheet/mineral/gold/fifty = 50,
+				/obj/item/stack/sheet/metal/fifty = 50,
+				/obj/item/stack/sheet/mineral/plasma/fifty = 50,
+				/obj/item/stack/sheet/mineral/silver/fifty = 50,
+				/obj/item/stack/sheet/mineral/titanium/fifty = 50,
+				/obj/item/stack/sheet/mineral/uranium/fifty = 50,
+				/obj/item/stack/sheet/mineral/mythril/fifty = 50,
+				/obj/item/stack/sheet/mineral/tranquillite/fifty = 50,
+				/obj/item/stack/sheet/mineral/bananium/fifty = 50,
+				/obj/item/stack/sheet/mineral/sandstone/fifty = 50,
+				/obj/item/stack/sheet/mineral/abductor/fifty = 50,
+				/obj/item/stack/sheet/mineral/adamantine/fifty = 50,
+				/obj/item/stack/sheet/mineral/snow/fifty = 50,
+				/obj/item/stack/sheet/mineral/plastitanium/fifty = 50,
+				/obj/item/stack/sheet/plastic/fifty = 50,
+			),
+		),
+		list(
+			"name" = "Стёкла",
+			"products" = list(
+				/obj/item/stack/sheet/glass/fifty = 50,
+				/obj/item/stack/sheet/rglass/fifty = 50,
+				/obj/item/stack/sheet/plasmaglass/fifty = 50,
+				/obj/item/stack/sheet/plasmarglass/fifty = 50,
+				/obj/item/stack/sheet/titaniumglass/fifty = 50,
+				/obj/item/stack/sheet/plastitaniumglass/fifty = 50,
+			),
+		),
+		list(
+			"name" = "Щитспавн",
+			"products" = list(
+				/obj/item/storage/box/debug/material = 50,
+			),
+		),
 	)
 
 /obj/machinery/vending/ntc_resources/get_ru_names()

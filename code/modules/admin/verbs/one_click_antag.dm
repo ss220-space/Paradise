@@ -29,7 +29,7 @@ ADMIN_VERB(one_click_antag, R_SERVER|R_EVENT, "Create Antagonist", "Auto-create 
 
 /datum/admins/proc/CandCheck(role = null, mob/living/carbon/human/M, datum/game_mode/temp = null)
 	// You pass in ROLE define (optional), the applicant, and the gamemode, and it will return true / false depending on whether the applicant qualify for the candidacy in question
-	if(jobban_isbanned(M, "Syndicate"))
+	if(jobban_isbanned(M, ROLE_SYNDICATE))
 		return FALSE
 	if(M.stat || !M.mind || M.mind.special_role || M.mind.offstation_role)
 		return FALSE
@@ -347,58 +347,6 @@ ADMIN_VERB(one_click_antag, R_SERVER|R_EVENT, "Create Antagonist", "Auto-create 
 
 	return new_character
 
-/datum/admins/proc/makeVoxRaiders()
-	var/antnum = tgui_input_number(owner, "How many raiders you want to create? Enter 0 to cancel.", "Amount:", 0)
-	if(!antnum || antnum <= 0)
-		return
-	log_admin("[key_name(owner)] tried making Vox Raiders with One-Click-Antag")
-	message_admins("[key_name_admin(owner)] tried making Vox Raiders with One-Click-Antag")
-
-	var/list/candidates = SSghost_spawns.poll_candidates("Do you wish to be considered for a vox raiding party arriving on the station?", ROLE_RAIDER)
-
-	if(!length(candidates))
-		return 0
-
-	var/raider_num = min(antnum, length(candidates))
-	var/datum/game_mode/mode = SSticker.mode
-	//If there no vox objectives - create them
-	if(!mode.raid_objectives || !length(mode.raid_objectives))
-		mode.raid_objectives = mode.forge_vox_objectives()
-	//Spawns vox raiders and equips them.
-	while(raider_num > 0)
-		var/mob/dead/observer/candidate = pick(candidates)
-		candidates -= candidate
-
-		var/datum/mind/raider = new
-
-		SSticker.minds += raider
-		mode.raiders += raider
-
-		raider.assigned_role = SPECIAL_ROLE_RAIDER
-		raider.special_role = SPECIAL_ROLE_RAIDER
-		raider.offstation_role = TRUE
-
-		if(mode.raid_objectives)
-			raider.objectives = mode.raid_objectives.Copy()
-
-		var/index = raider_num
-		if(index > length(GLOB.raider_spawn))
-			index = 1
-
-		var/mob/living/carbon/human/new_vox = new /mob/living/carbon/human/vox(GLOB.raider_spawn[index])
-		new_vox.mind = raider
-		raider.current = new_vox
-		raider.set_original_mob(new_vox)
-
-		raider.key = candidate.key
-		new_vox.possess_by_player(raider.key)
-
-		mode.create_vox(raider)
-		mode.greet_vox(raider)
-
-		raider_num--
-	return 1
-
 /datum/admins/proc/makeVampires()
 
 	var/datum/game_mode/vampire/temp = new
@@ -539,3 +487,18 @@ ADMIN_VERB(one_click_antag, R_SERVER|R_EVENT, "Create Antagonist", "Auto-create 
 
 		return 1
 	return 0
+
+/datum/admins/proc/makeVoxRaiders()
+	var/confirm = tgui_alert(usr, "Создать команду воксов-рейдеров?", "Подтверждение", list("Да", "Нет"))
+	if(confirm != "Да")
+		return FALSE
+
+	var/amount = tgui_input_number(usr, "Размер команды (1-20)?", "Подтверждение", 0, 20)
+	if(!amount || amount <= 0)
+		return FALSE
+
+	create_vox_team(amount)
+
+	log_admin("[key_name(owner)] tried making Vox Raiders with One-Click-Antag")
+	message_admins("[key_name_admin(owner)] tried making Vox Raiders with One-Click-Antag")
+	return TRUE

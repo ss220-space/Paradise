@@ -147,19 +147,6 @@
 	dir = 5
 	},
 /area/maintenance/trading)
-"aas" = (
-/obj/docking_port/stationary{
-	dir = 2;
-	dwidth = 2;
-	height = 18;
-	id = "skipjack_ne";
-	name = "northeast of station";
-	width = 19
-	},
-/turf/space{
-	icon_state = "black"
-	},
-/area/space)
 "aat" = (
 /obj/structure/bed/dogbed,
 /obj/effect/decal/cleanable/dirt,
@@ -868,19 +855,6 @@
 /obj/structure/cable,
 /turf/space,
 /area/solar/starboard)
-"aiZ" = (
-/obj/docking_port/stationary{
-	dir = 2;
-	dwidth = 2;
-	height = 18;
-	id = "skipjack_nw";
-	name = "northwest of station";
-	width = 19
-	},
-/turf/space{
-	icon_state = "black"
-	},
-/area/space)
 "ajg" = (
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -33150,18 +33124,6 @@
 	icon_state = "darkredfull"
 	},
 /area/security/securearmory)
-"dIk" = (
-/obj/machinery/shower{
-	dir = 4
-	},
-/obj/structure/curtain/open/shower{
-	anchored = 1
-	},
-/obj/item/soap/homemade_banana,
-/turf/simulated/floor/plasteel{
-	icon_state = "cmo"
-	},
-/area/security/permabrig)
 "dIm" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -76137,19 +76099,6 @@
 	icon_state = "purplefull"
 	},
 /area/toxins/test_chamber)
-"mQL" = (
-/obj/docking_port/stationary{
-	dir = 2;
-	dwidth = 2;
-	height = 18;
-	id = "skipjack_sw";
-	name = "southwest of station";
-	width = 19
-	},
-/turf/space{
-	icon_state = "black"
-	},
-/area/space)
 "mQO" = (
 /obj/machinery/door/airlock/maintenance,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -78980,6 +78929,16 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
+"nuJ" = (
+/obj/machinery/shower{
+	dir = 4
+	},
+/obj/structure/curtain/open/shower/anchored,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "cmo"
+	},
+/area/security/permabrig)
 "nuU" = (
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /obj/machinery/light/small{
@@ -83221,6 +83180,17 @@
 	},
 /turf/simulated/floor/carpet,
 /area/crew_quarters/bar/atrium)
+"otc" = (
+/obj/structure/table/reinforced,
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/item/reagent_containers/spray/cleaner,
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "darkblue"
+	},
+/area/turret_protected/aisat)
 "oth" = (
 /obj/machinery/requests_console{
 	announcementConsole = 1;
@@ -108303,6 +108273,16 @@
 	},
 /turf/space,
 /area/maintenance/ai)
+"tKQ" = (
+/obj/machinery/shower{
+	dir = 4
+	},
+/obj/structure/curtain/open/shower/anchored,
+/obj/item/soap/homemade_banana,
+/turf/simulated/floor/plasteel{
+	icon_state = "cmo"
+	},
+/area/security/permabrig)
 "tKW" = (
 /obj/machinery/door/airlock/engineering{
 	name = "Electrical Maintenance";
@@ -112943,6 +112923,17 @@
 	icon_state = "darkblue"
 	},
 /area/bridge)
+"uKH" = (
+/obj/machinery/shower{
+	pixel_y = 22
+	},
+/obj/structure/curtain/open/shower/anchored,
+/mob/living/simple_animal/frog,
+/obj/item/reagent_containers/syringe/steroids,
+/turf/simulated/floor/plasteel{
+	icon_state = "cmo"
+	},
+/area/security/permabrig)
 "uKK" = (
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -121815,18 +121806,6 @@
 	icon_state = "freezerfloor"
 	},
 /area/security/brigstaff)
-"wGg" = (
-/obj/machinery/shower{
-	dir = 4
-	},
-/obj/structure/curtain/open/shower{
-	anchored = 1
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "cmo"
-	},
-/area/security/permabrig)
 "wGp" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -125346,17 +125325,6 @@
 	icon_state = "darkred"
 	},
 /area/security/permabrig)
-"xvs" = (
-/obj/structure/table/reinforced,
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/item/reagent_containers/spray/cleaner,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "darkblue"
-	},
-/area/turret_protected/aisat)
 "xvt" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
@@ -129385,19 +129353,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/security/hos)
-"yhN" = (
-/obj/machinery/shower{
-	pixel_y = 22
-	},
-/obj/structure/curtain/open/shower{
-	anchored = 1
-	},
-/mob/living/simple_animal/frog,
-/obj/item/reagent_containers/syringe/steroids,
-/turf/simulated/floor/plasteel{
-	icon_state = "cmo"
-	},
-/area/security/permabrig)
 "yhO" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
@@ -138422,7 +138377,7 @@ qni
 bJW
 waS
 yiu
-xvs
+otc
 hTo
 uxy
 bUD
@@ -143155,7 +143110,7 @@ aaq
 aaq
 aaq
 aaq
-mQL
+yhg
 yhg
 yhg
 yhg
@@ -145276,7 +145231,7 @@ aaq
 aaq
 aaq
 aaq
-aiZ
+yhg
 yhg
 yhg
 yhg
@@ -184384,9 +184339,9 @@ coE
 coE
 aru
 aru
-yhN
-dIk
-wGg
+uKH
+tKQ
+nuJ
 aru
 wGV
 rhM
@@ -189745,7 +189700,7 @@ aaq
 aaq
 aaq
 aaq
-aas
+yhg
 yhg
 yhg
 yhg

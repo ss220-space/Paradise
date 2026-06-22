@@ -312,11 +312,6 @@
 	icon_state = "vault"
 	},
 /area/tdome/arena_source)
-"cW" = (
-/obj/structure/table/wood,
-/obj/item/gun/energy/spikethrower,
-/turf/simulated/floor/wood,
-/area/admin)
 "cX" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/arg,
@@ -3138,6 +3133,11 @@
 /obj/item/gun/projectile/automatic/smg/c20r/toy,
 /turf/simulated/floor/carpet/arcade,
 /area/admin)
+"Kf" = (
+/obj/item/gun/projectile/revolver/rocketlauncher/rpg232,
+/obj/structure/table/wood,
+/turf/simulated/floor/wood,
+/area/admin)
 "Kp" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/lasercannon,
@@ -3462,17 +3462,17 @@
 	icon_state = "darkgrey"
 	},
 /area/admin)
+"OQ" = (
+/obj/structure/table/wood,
+/obj/item/gun/energy/spike,
+/turf/simulated/floor/wood,
+/area/admin)
 "OT" = (
 /turf/simulated/floor/beach/sand{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "asteroid"
 	},
 /area/holodeck/source_beach)
-"OU" = (
-/obj/item/gun/projectile/revolver/rocketlauncher/rpg232,
-/obj/structure/table/wood,
-/turf/simulated/floor/wood,
-/area/admin)
 "Pa" = (
 /obj/structure/table,
 /obj/item/storage/pill_bottle/random_drug_bottle,
@@ -7729,7 +7729,7 @@ fE
 Uu
 PB
 oK
-cW
+OQ
 ZG
 ZG
 ax
@@ -11065,7 +11065,7 @@ Iu
 ZG
 ZG
 Do
-OU
+Kf
 DV
 Ep
 Ep

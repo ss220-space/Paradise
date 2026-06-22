@@ -1,4 +1,0 @@
-author: "SCPfollower"
-delete-after: True
-changes:
-  - tweak: "Убирает возможность проигрывать эмоции через куклу Вуду с Лазиса и аплинка. (PR #9364)"

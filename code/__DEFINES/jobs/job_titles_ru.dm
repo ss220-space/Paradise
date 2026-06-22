@@ -95,7 +95,7 @@ GLOBAL_LIST_EMPTY(job_titles_ru_to_en)
 #define JOB_TITLE_RU_CCOFFICER "Офицер ЦК \"Нанотрейзен\""
 #define JOB_TITLE_RU_CCFIELD "Полевой офицер ЦК \"Нанотрейзен\""
 #define JOB_TITLE_RU_CCSPECOPS "Офицер специальных операций \"Нанотрейзен\""
-#define JOB_TITLE_RU_CCSUPREME "Верховный главнокомандующий \"Нанотрейзен\""
+#define JOB_TITLE_RU_CCCAPTAIN "Капитан флота \"Нанотрейзен\""
 #define JOB_TITLE_RU_CCSOLGOV "Адмирал Солнечного Флота ТСФ"
 
 // Emergency Response Team (ERT)
@@ -211,7 +211,7 @@ GLOBAL_LIST_INIT(job_titles_ru, list(
 	JOB_TITLE_CCOFFICER = JOB_TITLE_RU_CCOFFICER,
 	JOB_TITLE_CCFIELD = JOB_TITLE_RU_CCFIELD,
 	JOB_TITLE_CCSPECOPS = JOB_TITLE_RU_CCSPECOPS,
-	JOB_TITLE_CCSUPREME = JOB_TITLE_RU_CCSUPREME,
+	JOB_TITLE_CCCAPTAIN = JOB_TITLE_RU_CCCAPTAIN,
 	JOB_TITLE_CCSOLGOV = JOB_TITLE_RU_CCSOLGOV,
 
 // Emergency Response Team (ERT)

@@ -308,7 +308,7 @@
 	QDEL_NULL(proximity_monitor)
 	parent.proxies.RemoveAll(src)
 	parent = null
-	. = ..()
+	return ..()
 
 /obj/effect/abstract/meteor_shield_proxy/HasProximity(atom/movable/AM)
 	parent.shoot_meteor(AM)

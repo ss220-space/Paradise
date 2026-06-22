@@ -52,6 +52,7 @@
 		/obj/item/mecha_parts/mecha_equipment/anticcw_armor_booster = 3,
 		/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot = 3,
 		/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg = 3,
+		/obj/item/mecha_parts/mecha_equipment/cage = 3,
 	)
 
 /obj/machinery/vending/robotics/nt/gygax
@@ -61,4 +62,5 @@
 		/obj/item/mecha_parts/mecha_equipment/anticcw_armor_booster = 3,
 		/obj/item/mecha_parts/mecha_equipment/weapon/energy/ion = 3,
 		/obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/heavy = 3,
+		/obj/item/mecha_parts/mecha_equipment/cage = 3,
 	)

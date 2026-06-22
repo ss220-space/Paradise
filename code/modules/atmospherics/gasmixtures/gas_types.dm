@@ -2,7 +2,7 @@ GLOBAL_LIST_INIT(gas_meta, meta_gas_list())
 /proc/meta_gas_list()
 	. = list()
 	for(var/gas_path in subtypesof(/datum/gas))
-		var/list/gas_info = new(6)
+		var/list/gas_info = new(7)
 		var/datum/gas/gas = gas_path
 
 		gas_info[META_GAS_ID] = gas.id
@@ -11,6 +11,7 @@ GLOBAL_LIST_INIT(gas_meta, meta_gas_list())
 		gas_info[META_GAS_PRIMARY_COLOR] = gas.primary_color
 		gas_info[META_GAS_SCRUB_FLAG] = gas.scrub_flag
 		gas_info[META_GAS_SENSOR_FLAG] = gas.sensor_flag
+		gas_info[META_BASE_VALUE] = gas.base_value
 		.[gas.id] = gas_info
 
 
@@ -31,6 +32,7 @@ GLOBAL_LIST_INIT(gas_meta, meta_gas_list())
 	var/primary_color
 	var/scrub_flag
 	var/sensor_flag
+	var/base_value = 0
 
 /datum/gas/oxygen
 	id = TLV_O2
@@ -39,6 +41,7 @@ GLOBAL_LIST_INIT(gas_meta, meta_gas_list())
 	primary_color = "#0000ff"
 	scrub_flag = SCRUB_O2
 	sensor_flag = SENSOR_COMPOSITION_OXYGEN
+	base_value = 0.2
 
 /datum/gas/nitrogen
 	id = TLV_N2
@@ -47,6 +50,7 @@ GLOBAL_LIST_INIT(gas_meta, meta_gas_list())
 	primary_color = "#ffff00"
 	scrub_flag = SCRUB_N2
 	sensor_flag = SENSOR_COMPOSITION_NITROGEN
+	base_value = 0.1
 
 /datum/gas/carbon_dioxide
 	id = TLV_CO2
@@ -55,6 +59,7 @@ GLOBAL_LIST_INIT(gas_meta, meta_gas_list())
 	primary_color = COLOR_GRAY
 	scrub_flag = SCRUB_CO2
 	sensor_flag = SENSOR_COMPOSITION_CO2
+	base_value = 0.2
 
 /datum/gas/plasma
 	id = TLV_PL
@@ -63,6 +68,7 @@ GLOBAL_LIST_INIT(gas_meta, meta_gas_list())
 	primary_color = "#ffc0cb"
 	scrub_flag = SCRUB_PL
 	sensor_flag = SENSOR_COMPOSITION_TOXINS
+	base_value = 1.5
 
 /datum/gas/water_vapor
 	id = TLV_H2O
@@ -71,6 +77,7 @@ GLOBAL_LIST_INIT(gas_meta, meta_gas_list())
 	primary_color = "#b0c4de"
 	scrub_flag = SCRUB_H2O
 	sensor_flag = SENSOR_COMPOSITION_H2O
+	base_value = 0.5
 
 /datum/gas/hypernoblium
 	id = TLV_HYPERNOBLIUM
@@ -79,6 +86,7 @@ GLOBAL_LIST_INIT(gas_meta, meta_gas_list())
 	primary_color = COLOR_TEAL
 	scrub_flag = SCRUB_HYPERNOBLIUM
 	sensor_flag = SENSOR_COMPOSITION_HYPERNOBLIUM
+	base_value = 2.5
 
 /datum/gas/nitrous_oxide
 	id = TLV_N2O
@@ -87,6 +95,7 @@ GLOBAL_LIST_INIT(gas_meta, meta_gas_list())
 	primary_color = "#ffe4c4"
 	scrub_flag = SCRUB_N2O
 	sensor_flag = SENSOR_COMPOSITION_N2O
+	base_value = 1.5
 
 /datum/gas/nitrium
 	id = TLV_NITRIUM
@@ -95,6 +104,7 @@ GLOBAL_LIST_INIT(gas_meta, meta_gas_list())
 	primary_color = "#a52a2a"
 	scrub_flag = SCRUB_NITRIUM
 	sensor_flag = SENSOR_COMPOSITION_NITRIUM
+	base_value = 6
 
 /datum/gas/tritium
 	id = TLV_TRITIUM
@@ -103,6 +113,7 @@ GLOBAL_LIST_INIT(gas_meta, meta_gas_list())
 	primary_color = "#32cd32"
 	scrub_flag = SCRUB_TRITIUM
 	sensor_flag = SENSOR_COMPOSITION_TRITIUM
+	base_value = 2.5
 
 /datum/gas/bz
 	id = TLV_BZ
@@ -111,6 +122,7 @@ GLOBAL_LIST_INIT(gas_meta, meta_gas_list())
 	primary_color = "#9370db"
 	scrub_flag = SCRUB_BZ
 	sensor_flag = SENSOR_COMPOSITION_BZ
+	base_value = 1.5
 
 /datum/gas/pluoxium
 	id = TLV_PLUOXIUM
@@ -119,6 +131,7 @@ GLOBAL_LIST_INIT(gas_meta, meta_gas_list())
 	primary_color = "#7b68ee"
 	scrub_flag = SCRUB_PLUOXIUM
 	sensor_flag = SENSOR_COMPOSITION_PLUOXIUM
+	base_value = 2.5
 
 /datum/gas/miasma
 	id = TLV_MIASMA
@@ -127,6 +140,7 @@ GLOBAL_LIST_INIT(gas_meta, meta_gas_list())
 	primary_color = COLOR_OLIVE
 	scrub_flag = SCRUB_MIASMA
 	sensor_flag = SENSOR_COMPOSITION_MIASMA
+	base_value = 1
 
 /datum/gas/freon
 	id = TLV_FREON
@@ -135,6 +149,7 @@ GLOBAL_LIST_INIT(gas_meta, meta_gas_list())
 	primary_color = "#afeeee"
 	scrub_flag = SCRUB_FREON
 	sensor_flag = SENSOR_COMPOSITION_FREON
+	base_value = 5
 
 /datum/gas/hydrogen
 	id = TLV_H2
@@ -143,6 +158,7 @@ GLOBAL_LIST_INIT(gas_meta, meta_gas_list())
 	primary_color = "#ffffff"
 	scrub_flag = SCRUB_H2
 	sensor_flag = SENSOR_COMPOSITION_H2
+	base_value = 1
 
 /datum/gas/healium
 	id = TLV_HEALIUM
@@ -151,6 +167,7 @@ GLOBAL_LIST_INIT(gas_meta, meta_gas_list())
 	primary_color = "#fa8072"
 	scrub_flag = SCRUB_HEALIUM
 	sensor_flag = SENSOR_COMPOSITION_HEALIUM
+	base_value = 5.5
 
 /datum/gas/proto_nitrate
 	id = TLV_PROTO_NITRATE
@@ -159,6 +176,7 @@ GLOBAL_LIST_INIT(gas_meta, meta_gas_list())
 	primary_color = "#adff2f"
 	scrub_flag = SCRUB_PROTO_NITRATE
 	sensor_flag = SENSOR_COMPOSITION_PROTO_NITRATE
+	base_value = 2.5
 
 /datum/gas/zauker
 	id = TLV_ZAUKER
@@ -167,6 +185,7 @@ GLOBAL_LIST_INIT(gas_meta, meta_gas_list())
 	primary_color = "#006400"
 	scrub_flag = SCRUB_ZAUKER
 	sensor_flag = SENSOR_COMPOSITION_ZAUKER
+	base_value = 7
 
 /datum/gas/halon
 	id = TLV_HALON
@@ -175,6 +194,7 @@ GLOBAL_LIST_INIT(gas_meta, meta_gas_list())
 	primary_color = COLOR_PURPLE
 	scrub_flag = SCRUB_HALON
 	sensor_flag = SENSOR_COMPOSITION_HALON
+	base_value = 4
 
 /datum/gas/helium
 	id = TLV_HELIUM
@@ -183,6 +203,7 @@ GLOBAL_LIST_INIT(gas_meta, meta_gas_list())
 	primary_color = "#f0f8ff"
 	scrub_flag = SCRUB_HELIUM
 	sensor_flag = SENSOR_COMPOSITION_HELIUM
+	base_value = 3.5
 
 /datum/gas/antinoblium
 	id = TLV_ANTINOBLIUM
@@ -191,6 +212,7 @@ GLOBAL_LIST_INIT(gas_meta, meta_gas_list())
 	primary_color = COLOR_MAROON
 	scrub_flag = SCRUB_ANTINOBLIUM
 	sensor_flag = SENSOR_COMPOSITION_ANTINOBLIUM
+	base_value = 10
 
 /datum/gas/agent_b
 	id = TLV_AGENT_B
@@ -198,3 +220,4 @@ GLOBAL_LIST_INIT(gas_meta, meta_gas_list())
 	desc = "Unknown gas."
 	primary_color = COLOR_GRAY
 	sensor_flag = SENSOR_COMPOSITION_AGENT_B
+	base_value = 5

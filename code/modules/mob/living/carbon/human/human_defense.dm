@@ -734,6 +734,11 @@ emp_act
 					visible_message(span_danger("[M] попытал[GEND_SYA_AS_OS_IS(M)] сбить с ног [src]!"))
 					add_attack_logs(M, src, "Alien tried to tackle")
 
+/mob/living/carbon/human/attackby(obj/item/item, mob/living/user, list/modifiers)
+	if(SEND_SIGNAL(src, COMSIG_HUMAN_ATTACKED, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
+		return ATTACK_CHAIN_BLOCKED_ALL
+	return ..()
+
 /mob/living/carbon/human/attack_animal(mob/living/simple_animal/M)
 	. = ..()
 	if(.)

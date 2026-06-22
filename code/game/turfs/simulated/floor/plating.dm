@@ -311,3 +311,8 @@
 
 /turf/simulated/floor/plating/ice/smooth
 	icon_state = "smooth"
+
+
+/turf/simulated/floor/plating/nitrogen
+	oxygen = 0
+	nitrogen = MOLES_N2STANDARD + MOLES_O2STANDARD

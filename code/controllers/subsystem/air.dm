@@ -204,6 +204,11 @@ SUBSYSTEM_DEF(air)
 	was_paused = TRUE
 	return ..()
 
+/datum/controller/subsystem/air/Shutdown()
+	while(!milla_idle)
+		sleep(1)
+	return ..()
+
 /datum/controller/subsystem/air/fire(resumed = 0)
 	// All atmos stuff assumes MILLA is synchronous. Ensure it actually is.
 	var/now = world.timeofday + (world.tick_lag * world.tick_usage) / 100

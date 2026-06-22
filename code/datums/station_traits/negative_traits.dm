@@ -383,21 +383,14 @@
 
 /datum/station_trait/looted_armory
 	name = "Разграбленная оружейная"
-	report_message = "Из-за острой нехватки финансирования, часть снаряжения в оружейной объекта была списана. В качестве компенсации стоимость заказа вооружения была снижена."
+	report_message = "Из-за острой нехватки финансирования, часть снаряжения в оружейной объекта была списана."
 	trait_type = STATION_TRAIT_NEGATIVE
 	show_in_report = TRUE
 	trait_to_give = STATION_TRAIT_LOOTED_ARMORY
 	weight = 2
-	blacklist = list(/datum/station_trait/upgraded_armory)
 
 /datum/station_trait/looted_armory/on_round_start()
 	. = ..()
-	for(var/set_name in SSshuttle.supply_packs)
-		var/datum/supply_packs/pack = SSshuttle.supply_packs[set_name]
-		if(pack.group != SUPPLY_SECURITY)
-			continue
-		pack.cost *= 0.6
-
 	INVOKE_ASYNC(src, PROC_REF(loot_armory))
 
 /datum/station_trait/looted_armory/proc/loot_armory()

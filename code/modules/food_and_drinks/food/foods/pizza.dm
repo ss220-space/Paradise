@@ -227,6 +227,10 @@
 	var/list/boxes = list() // If the boxes are stacked, they come here
 	var/box_tag = ""
 
+/obj/item/pizzabox/open
+	icon_state = "pizzabox_open"
+	open = TRUE
+
 /obj/item/pizzabox/Initialize(mapload)
 	. = ..()
 	update_appearance(UPDATE_DESC|UPDATE_ICON)
@@ -234,7 +238,7 @@
 /obj/item/pizzabox/Destroy()
 	QDEL_NULL(pizza)
 	LAZYCLEARLIST(boxes)
-	. = ..()
+	return ..()
 
 /obj/item/pizzabox/update_desc(updates = ALL)
 	. = ..()

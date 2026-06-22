@@ -44,6 +44,7 @@
 	return
 
 /turf/simulated/floor/indestructible/rcd_deconstruct_act(mob/user, obj/item/rcd/our_rcd)
+	balloon_alert(user, "нельзя деконструировать!")
 	return
 
 /turf/simulated/floor/indestructible/plating

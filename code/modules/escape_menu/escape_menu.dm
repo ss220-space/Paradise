@@ -54,7 +54,7 @@ GLOBAL_LIST_EMPTY(escape_menus)
 	page_holder = new(client)
 	show_page()
 
-	if(isnewplayer(client.mob))
+	if(isnewplayer(client?.mob))
 		SStitle.hide_title_screen_from(client)
 
 	RegisterSignal(client, COMSIG_QDELETING, PROC_REF(on_client_qdel))
@@ -76,7 +76,7 @@ GLOBAL_LIST_EMPTY(escape_menus)
 
 	UnregisterSignal(client, COMSIG_TILE_MENU_OPEN)
 
-	if(isnewplayer(client.mob))
+	if(isnewplayer(client?.mob))
 		SStitle.show_title_screen_to(client)
 
 	var/datum/our_hud = our_hud_ref?.resolve()
