@@ -13,7 +13,7 @@
 	if(!is_admin_forced)
 		return
 	var/list/messages = greet()
-	to_chat(mind.current, chat_box_red(messages.Join("<br>")))
+	to_chat(mind.current, custom_boxed_message("red_box center", messages.Join("<br>")))
 
 /datum/contractor_pending/proc/greet()
 	// Greet them with the unique message

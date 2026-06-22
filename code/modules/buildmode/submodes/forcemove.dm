@@ -6,7 +6,7 @@
 	var/image/selected_overlay			// Overlay for the selected atom only visible for the build mode user
 
 /datum/buildmode_mode/forcemove/show_help(mob/user)
-	to_chat(user, span_purple(chat_box_examine(
+	to_chat(user, span_purple(boxed_message(
 		"[span_bold("Выбрать точку назначения")] -> ЛКМ на obj/mob\n\
 		[span_bold("Выбрать атом для перемещения")] -> ПКМ на obj/mob\n\
 		\n\

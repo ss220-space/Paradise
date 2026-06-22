@@ -234,7 +234,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 					SSticker.mode.traitors += usr.mind
 					usr.mind.special_role = "[usr.real_name] Prime"
 					evil = FALSE
-				to_chat(user, chat_box_red(messages.Join("<br>")))
+				to_chat(user, custom_boxed_message("red_box center", messages.Join("<br>")))
 		else
 			cooldown = world.time + cooldown_between_uses
 			for(var/obj/item/multisword/M in GLOB.multiverse)
@@ -291,7 +291,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 		hijack_objective.owner = usr.mind
 		usr.mind.objectives += hijack_objective
 		var/list/messages = list(M.mind.prepare_announce_objectives(FALSE))
-		to_chat(M, chat_box_red(messages.Join("<br>")))
+		to_chat(M, custom_boxed_message("red_box center", messages.Join("<br>")))
 		M.mind.special_role = SPECIAL_ROLE_MULTIVERSE
 		add_game_logs("[M.key] was made a multiverse traveller with the objective to help [usr.real_name] hijack.", M)
 	else
@@ -300,7 +300,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 		new_objective.owner = M.mind
 		M.mind.objectives += new_objective
 		var/list/messages = list(M.mind.prepare_announce_objectives(FALSE))
-		to_chat(M, chat_box_red(messages.Join("<br>")))
+		to_chat(M, custom_boxed_message("red_box center", messages.Join("<br>")))
 		M.mind.special_role = SPECIAL_ROLE_MULTIVERSE
 		add_game_logs("[M.key] was made a multiverse traveller with the objective to help [usr.real_name] protect the station.", M)
 

@@ -533,7 +533,7 @@
 		maroon_objective.update_explanation()
 		maroon_objective.alarm_changes()
 		var/list/messages = maroon_objective.owner.prepare_announce_objectives()
-		to_chat(maroon_objective.owner.current, chat_box_red(messages.Join("<br>")))
+		to_chat(maroon_objective.owner.current, custom_boxed_message("red_box center", messages.Join("<br>")))
 
 /datum/antagonist/ninja/proc/forge_hacker_ninja_objectives()
 

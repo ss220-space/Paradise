@@ -389,7 +389,7 @@
 		else
 			status_list += span_notice("Вы чувствуете усталость.")
 
-	to_chat(src, chat_box_examine(status_list.Join("\n")))
+	to_chat(src, boxed_message(status_list.Join("\n")))
 
 	if((isskeleton(human_src) || HAS_TRAIT(human_src, TRAIT_SKELETON)) && (!human_src.w_uniform) && (!human_src.wear_suit))
 		human_src.play_xylophone()
