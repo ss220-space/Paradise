@@ -108,8 +108,8 @@
 		head.disfigure()
 		victim.apply_damage(50, BRUTE, BODY_ZONE_HEAD)
 	else
-		head.visible_message(
-			span_danger("[victim]'s head seems to be crushed under [machine]!"))
+		victim.visible_message(
+			span_danger("[victim]'s head seems to be crushed under [machine]...but wait, they had none in the first place!"))
 	if(brain in head)
 		victim.adjustBrainLoss(80)
 
