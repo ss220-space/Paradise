@@ -51,7 +51,7 @@
 	var/speak_cooldown = FALSE
 
 /mob/living/simple_animal/bot/secbot/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "охранный робот",
 		GENITIVE = "охранного робота",
 		DATIVE = "охранному роботу",
@@ -66,7 +66,7 @@
 	auto_patrol = TRUE
 
 /mob/living/simple_animal/bot/secbot/beepsky/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Офицер Бипски",
 		GENITIVE = "Офицера Бипски",
 		DATIVE = "Офицеру Бипски",
@@ -89,7 +89,7 @@
 	radio_channel = AI_FREQ_NAME
 
 /mob/living/simple_animal/bot/secbot/pingsky/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Офицер Пингски",
 		GENITIVE = "Офицера Пингски",
 		DATIVE = "Офицеру Пингски",
@@ -105,7 +105,7 @@
 	auto_patrol = TRUE
 
 /mob/living/simple_animal/bot/secbot/ofitser/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Офицер Тюремски",
 		GENITIVE = "Офицера Тюремски",
 		DATIVE = "Офицеру Тюремски",
@@ -125,7 +125,7 @@
 	emagged = 2
 
 /mob/living/simple_animal/bot/secbot/buzzsky/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Офицер Баззски",
 		GENITIVE = "Офицера Баззски",
 		DATIVE = "Офицеру Баззски",
@@ -143,7 +143,7 @@
 	auto_patrol = TRUE
 
 /mob/living/simple_animal/bot/secbot/armsky/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Офицер Арсеналски",
 		GENITIVE = "Офицера Арсеналски",
 		DATIVE = "Офицеру Арсеналски",
@@ -160,7 +160,7 @@
 	weaponscheck = TRUE
 
 /mob/living/simple_animal/bot/secbot/podsky/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Офицер Подски",
 		GENITIVE = "Офицера Подски",
 		DATIVE = "Офицеру Подски",

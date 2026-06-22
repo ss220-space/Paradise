@@ -33,7 +33,7 @@
 	var/running_bob_animation = 0 // This is used to prevent threads from building up if update_icons is called multiple times
 
 /obj/machinery/atmospherics/unary/cryo_cell/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "криогенная капсула",
 		GENITIVE = "криогенной капсулы",
 		DATIVE = "криогенной капсуле",

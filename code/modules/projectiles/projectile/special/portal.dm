@@ -13,7 +13,7 @@
 	var/is_orange = FALSE
 
 /obj/projectile/beam/wormhole/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "блюспейс-луч",
 		GENITIVE = "блюспейс-луча",
 		DATIVE = "блюспейс-лучу",
@@ -28,7 +28,7 @@
 	is_orange = TRUE
 
 /obj/projectile/beam/wormhole/orange/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "оранжевый блюспейс-луч",
 		GENITIVE = "оранжевого блюспейс-луча",
 		DATIVE = "оранжевому блюспейс-лучу",
@@ -57,7 +57,7 @@
 	var/teleport_target = null
 
 /obj/projectile/energy/teleport/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "вспышка телепортации",
 		GENITIVE = "вспышки телепортации",
 		DATIVE = "вспышке телепортации",

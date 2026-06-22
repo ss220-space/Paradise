@@ -386,6 +386,14 @@
 	explosion_block = 1
 	var/id = null
 
+/obj/machinery/door/window/brigdoor/normal
+	name = ".custom placement"
+
+/obj/machinery/door/window/brigdoor/reversed
+	name = ".custom placement"
+	icon_state = "rightsecure"
+	base_state = "rightsecure"
+
 /obj/machinery/door/window/brigdoor/security/cell
 	name = "cell door"
 	desc = "For keeping in criminal scum."

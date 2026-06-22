@@ -12,7 +12,7 @@
 	var/is_GUI_opened = FALSE
 
 /obj/item/mixing_bowl/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "миска для смешивания",
 		GENITIVE = "миски для смешивания",
 		DATIVE = "миске для смешивания",

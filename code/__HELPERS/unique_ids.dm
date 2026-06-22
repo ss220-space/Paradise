@@ -25,6 +25,9 @@ GLOBAL_LIST_EMPTY(uid_log)
  * Returns: the UID of the datum
  */
 /datum/proc/UID()
+	if(datum_flags & DF_UID_INVALID)
+		return
+
 	if(!unique_datum_id)
 		unique_datum_id = RUSTLIB_CALL(get_uuid, src)
 		GLOB.uid_log[type]++
@@ -38,11 +41,11 @@ GLOBAL_LIST_EMPTY(uid_log)
  * Returns: `UID` string if input is datum, `text_ref` if other.
  */
 /proc/UID_of(input)
-	if(!isdatum(input))
+	var/datum/value = input
+	if(!istype(value) || (value.datum_flags & DF_UID_INVALID))
 		return text_ref(input)
 
-	var/datum/datum = input
-	return datum.UID()
+	return value.UID()
 
 /**
  * Locates a datum based off of the UID

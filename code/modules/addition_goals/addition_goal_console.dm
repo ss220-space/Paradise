@@ -17,7 +17,7 @@
 	circuit = /obj/item/circuitboard/computer/addition_goals
 
 /obj/machinery/computer/addition_goals/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "консоль управления дополнительными целями смены",
 		GENITIVE = "консоли управления дополнительными целями смены",
 		DATIVE = "консоли управления дополнительными целями смены",

@@ -53,14 +53,14 @@
 	male_sneeze_sound = list('sound/voice/shrieksneeze.ogg')
 	female_sneeze_sound = list('sound/voice/shrieksneeze.ogg')
 
-	icon_skin_tones = list(
+	icon_skin_tones = alist(
 		1 = "Default Green",
 		2 = "Dark Green",
 		3 = "Brown",
 		4 = "Grey",
 		5 = "Emerald",
 		6 = "Azure"
-		)
+	)
 
 	has_organ = list(
 		INTERNAL_ORGAN_HEART = /obj/item/organ/internal/heart/vox,
@@ -127,6 +127,7 @@
 	add_verb(H, /mob/living/carbon/human/proc/emote_wag)
 	add_verb(H, /mob/living/carbon/human/proc/emote_swag)
 	add_verb(H, /mob/living/carbon/human/proc/emote_quill)
+	H.faction |= list("Vox")
 
 /datum/species/vox/gain_muscles(mob/living/target, default, max_level, can_become_stronger)
 	..(target, default, STRENGTH_LEVEL_STRONG, can_become_stronger)
@@ -136,6 +137,7 @@
 	remove_verb(H, /mob/living/carbon/human/proc/emote_wag)
 	remove_verb(H, /mob/living/carbon/human/proc/emote_swag)
 	remove_verb(H, /mob/living/carbon/human/proc/emote_quill)
+	H.faction -= "Vox"
 
 /datum/species/vox/after_equip_job(datum/job/J, mob/living/carbon/human/H)
 	if(!H.mind || !H.mind.assigned_role || H.mind.assigned_role != JOB_TITLE_CLOWN && H.mind.assigned_role != JOB_TITLE_MIME)

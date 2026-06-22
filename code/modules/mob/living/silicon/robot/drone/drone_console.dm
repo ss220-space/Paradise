@@ -14,7 +14,7 @@
 	COOLDOWN_DECLARE(ping_cooldown)
 
 /obj/machinery/computer/drone_control/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "консоль управления дронами",
 		GENITIVE = "консоли управления дронами",
 		DATIVE = "консоли управления дронами",

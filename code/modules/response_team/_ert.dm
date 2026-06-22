@@ -91,7 +91,7 @@ ADMIN_VERB(dispatch_ert, R_EVENT, "Dispatch CentComm Response Team", "Send an Ce
 		if(!length(ert_prefs))
 			break
 		var/mob/user = pick(ert_prefs)
-		if(!GLOB.active_team.get_slot_list().len)
+		if(!length(GLOB.active_team.get_slot_list()))
 			break
 		var/gender_pref = ert_prefs[user]["gender"]
 		var/role_pref = ert_prefs[user]["roles"]

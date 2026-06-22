@@ -22,7 +22,7 @@
 	var/obj/item/organ/external/injection_limb
 
 /obj/item/reagent_containers/iv_bag/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "капельница",
 		GENITIVE = "капельницы",
 		DATIVE = "капельнице",
@@ -214,7 +214,7 @@
 	list_reagents = list("salglu_solution" = 200)
 
 /obj/item/reagent_containers/iv_bag/salglu/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "капельница (Физраствор)",
 		GENITIVE = "капельницы (Физраствор)",
 		DATIVE = "капельнице (Физраствор)",
@@ -249,7 +249,7 @@
 	)
 
 /obj/item/reagent_containers/iv_bag/blood/get_ru_names()
-	return list(
+	return alist(
 			NOMINATIVE = "капельница — [get_ru_names_for_blood_species()[blood_species]] ([blood_type])" ,
 			GENITIVE = "капельницы — [get_ru_names_for_blood_species()[blood_species]] ([blood_type])",
 			DATIVE = "капельнице — [get_ru_names_for_blood_species()[blood_species]] ([blood_type])",
@@ -337,7 +337,7 @@
 	var/blood_species = "Oxygen - synthetic"
 
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis/get_ru_names()
-	return list(
+	return alist(
 			NOMINATIVE = "капельница — Синтетическая кровь (Кислород)" ,
 			GENITIVE = "капельницы — Синтетическая кровь (Кислород)",
 			DATIVE = "капельнице — Синтетическая кровь (Кислород)",
@@ -356,7 +356,7 @@
 	var/blood_species = "Vox - synthetic"
 
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis/get_ru_names()
-	return list(
+	return alist(
 			NOMINATIVE = "капельница — Синтетическая кровь (Азот)" ,
 			GENITIVE = "капельницы — Синтетическая кровь (Азот)",
 			DATIVE = "капельнице — Синтетическая кровь (Азот)",
@@ -376,7 +376,7 @@
 	list_reagents = list("slimejelly" = 200)
 
 /obj/item/reagent_containers/iv_bag/slime/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "капельница — Слаймовое желе" ,
 		GENITIVE = "капельницы — Слаймовое желе",
 		DATIVE = "капельнице — Слаймовое желе",

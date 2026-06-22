@@ -47,7 +47,7 @@
 	 * This cannot be disabled by child overrides.
 	 */
 	#define SHOULD_BE_PURE(X) set SpacemanDMM_should_be_pure = X
-	///Private procs can only be called by things of exactly the same type.
+	///Private procs can only be called by things of exactly the same type. Private procs cannot be overridden.
 	#define PRIVATE_PROC(X) set SpacemanDMM_private_proc = X
 	///Protected procs can only be call by things of the same type *or subtypes*.
 	#define PROTECTED_PROC(X) set SpacemanDMM_protected_proc = X

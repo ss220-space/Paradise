@@ -1,4 +1,5 @@
 /obj/item/gun
+	abstract_type = /obj/item/gun
 	name = "gun"
 	desc = "It's a gun. It's pretty terrible, though."
 	icon = 'icons/obj/weapons/projectile.dmi'
@@ -85,6 +86,9 @@
 	var/damage_mod = 1
 	/// Stamina modifier for projectile
 	var/stamina_mod = 1
+
+	///Can we hold up our target with this? Default to yes
+	var/can_hold_up = TRUE
 
 /*
  * Gun modules
@@ -642,12 +646,15 @@
 /obj/item/gun/proc/fast_fire(atom/target, mob/user, zone_override)
 	var/old_target = src.target
 	var/old_user = gun_user
+	var/list/old_modifiers = modifiers
 	src.target = target
 	gun_user = user
+	modifiers = null
 	setup_bullet_accuracy()
 	. = process_fire(zone_override)
 	src.target = old_target
 	gun_user = old_user
+	modifiers = old_modifiers
 	setup_bullet_accuracy()
 
 /obj/item/gun/proc/process_fire(zone_override)
@@ -709,26 +716,49 @@
 	SEND_SIGNAL(src, COMSIG_GUN_AFTER_PROCESS_FIRE, target, user)
 	return AUTOFIRE_CONTINUE
 
+/obj/item/gun/interact_with_atom_secondary(atom/interacting_with, mob/living/user, list/modifiers)
+	if(user.a_intent != INTENT_HARM || user == interacting_with || !isliving(interacting_with) || !can_hold_up)
+		return ..()
+
+	if(SEND_SIGNAL(user, COMSIG_LIVING_GUNPOINT_START, user) & COMPONENT_LIVING_ALREADY_HELD_UP)
+		balloon_alert(user, "уже кто-то на мушке!")
+		return ITEM_INTERACT_BLOCKING
+
+	if(SEND_SIGNAL(interacting_with, COMSIG_LIVING_GUNPOINT_START, user) & COMPONENT_LIVING_ALREADY_HELD_UP)
+		balloon_alert(user, "уже на мушке!")
+		return ITEM_INTERACT_BLOCKING
+
+	if(do_after(user, 0.5 SECONDS, interacting_with))
+		if(!user.is_in_hands(src))
+			return ITEM_INTERACT_BLOCKING
+
+		user.AddComponent(/datum/component/gunpoint, interacting_with, src)
+
+	return ITEM_INTERACT_SUCCESS
+
 /obj/item/gun/ranged_interact_with_atom_secondary(atom/interacting_with, mob/living/user, list/modifiers)
+	if(isliving(interacting_with) && IN_GIVEN_RANGE(user, interacting_with, GUNPOINT_SHOOTER_STRAY_RANGE))
+		return interact_with_atom_secondary(interacting_with, user, modifiers)
+
 	if(azoom)
 		zoom(user)
 		return ITEM_INTERACT_SUCCESS
 	return ..()
 
-/obj/item/gun/attackby(obj/item/I, mob/user, list/modifiers)
-	if(is_pen(I))
+/obj/item/gun/attackby(obj/item/item, mob/living/user, list/modifiers)
+	if(is_pen(item))
 		if(!unique_rename)
 			add_fingerprint(user)
 			to_chat(user, span_warning("Вы не можете переименовать [declent_ru(ACCUSATIVE)]!"))
 			return ATTACK_CHAIN_BLOCKED_ALL
-		var/new_name = rename_interactive(user, I, use_prefix = FALSE)
+		var/new_name = rename_interactive(user, item, use_prefix = FALSE)
 		if(!isnull(new_name))
 			to_chat(user, span_notice("Вы переименовываете \"[name]\". Познакомьтесь со своим новым другом."))
 		return ATTACK_CHAIN_BLOCKED
 
-	if(istype(I, /obj/item/gun_module))
+	if(istype(item, /obj/item/gun_module))
 		add_fingerprint(user)
-		var/obj/item/gun_module/module = I
+		var/obj/item/gun_module/module = item
 		if(module.try_attach(src, user))
 			return ATTACK_CHAIN_BLOCKED_ALL
 

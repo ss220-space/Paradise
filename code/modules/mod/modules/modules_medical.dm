@@ -24,7 +24,7 @@
 	var/static/list/modes = list(HEALTH_SCAN, CHEM_SCAN)
 
 /obj/item/mod/module/health_analyzer/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль анализатора здоровья",
 		GENITIVE = "модуля анализатора здоровья",
 		DATIVE = "модулю анализатора здоровья",
@@ -83,7 +83,7 @@
 	var/quick_carry_trait = TRAIT_QUICK_CARRY
 
 /obj/item/mod/module/quick_carry/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль сильного хвата",
 		GENITIVE = "модуля сильного хвата",
 		DATIVE = "модулю сильного хвата",
@@ -107,7 +107,7 @@
 	quick_carry_trait = TRAIT_QUICKER_CARRY
 
 /obj/item/mod/module/quick_carry/advanced/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль улучшенного хвата",
 		GENITIVE = "модуля улучшенного хвата",
 		DATIVE = "модулю улучшенного хвата",
@@ -132,7 +132,7 @@
 	cooldown_time = 0.5 SECONDS
 
 /obj/item/mod/module/injector/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль инъектора",
 		GENITIVE = "модуля инъектора",
 		DATIVE = "модулю инъектора",
@@ -152,7 +152,7 @@
 	ignores_pierceimmune = TRUE
 
 /obj/item/reagent_containers/syringe/mod/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шприц-инъектор МЭК",
 		GENITIVE = "шприца-инъектора МЭК",
 		DATIVE = "шприцу-инъектору МЭК",
@@ -185,7 +185,7 @@
 	cooldown_time = 0.5 SECONDS
 
 /obj/item/mod/module/defibrillator/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль дефибриллятора",
 		GENITIVE = "модуля дефибриллятора",
 		DATIVE = "модулю дефибриллятора",
@@ -217,7 +217,7 @@
 	var/on_cooldown = FALSE
 
 /obj/item/mod_defib/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "рукавицы-дефибрилляторы",
 		GENITIVE = "рукавиц-дефибрилляторов",
 		DATIVE = "рукавицам-дефибрилляторам",
@@ -264,7 +264,7 @@
 	device = /obj/item/mod_defib/syndicate
 
 /obj/item/mod/module/defibrillator/combat/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль боевого дефибриллятора",
 		GENITIVE = "модуля боевого дефибриллятора",
 		DATIVE = "модулю боевого дефибриллятора",
@@ -281,7 +281,7 @@
 	defib_cooldown = 2.5 SECONDS
 
 /obj/item/mod_defib/syndicate/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "боевые рукавицы-дефибрилляторы",
 		GENITIVE = "боевых рукавиц-дефибрилляторов",
 		DATIVE = "боевым рукавицам-дефибрилляторам",
@@ -306,7 +306,7 @@
 	cooldown_time = 0.5 SECONDS
 
 /obj/item/mod/module/monitor/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль монитора экипажа",
 		GENITIVE = "модуля монитора экипажа",
 		DATIVE = "модулю монитора экипажа",
@@ -321,7 +321,7 @@
 			информацию о состоянии здоровья экипажа, считывая данные с их датчиков жизнеобеспечения."
 
 /obj/item/sensor_device/mod/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ручной монитор экипажа",
 		GENITIVE = "ручного монитора экипажа",
 		DATIVE = "ручному монитору экипажа",
@@ -353,7 +353,7 @@
 	var/organ_list = list()
 
 /obj/item/mod/module/organizer/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль замены органов",
 		GENITIVE = "модуля замены органов",
 		DATIVE = "модулю замены органов",
@@ -404,7 +404,7 @@
 	packup_time = 0.5 SECONDS
 
 /obj/item/mod/module/criminalcapture/patienttransport/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль мешков для тел",
 		GENITIVE = "модуля мешков для тел",
 		DATIVE = "модулю мешков для тел",

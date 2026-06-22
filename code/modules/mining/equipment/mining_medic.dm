@@ -32,7 +32,7 @@ Almost every mining medic related stuff
 	var/multiz = TRUE
 
 /obj/item/clothing/accessory/camera/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шахтёрская видеокамера",
 		GENITIVE = "шахтёрской видеокамеры",
 		DATIVE = "шахтёрской видеокамере",
@@ -130,7 +130,7 @@ Almost every mining medic related stuff
 	feed = "secfeed"
 
 /obj/item/clothing/accessory/camera/security/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "нагрудная видеокамера",
 		GENITIVE = "нагрудной видеокамеры",
 		DATIVE = "нагрудной видеокамере",
@@ -150,7 +150,7 @@ Almost every mining medic related stuff
 	)
 
 /obj/item/storage/box/mining_cameras/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "коробка с шахтёрскими видеокамерами",
 		GENITIVE = "коробки с шахтёрскими видеокамерами",
 		DATIVE = "коробке с шахтёрскими видеокамерами",
@@ -169,7 +169,7 @@ Almost every mining medic related stuff
 	icon_state = "security_camera_box"
 
 /obj/item/storage/box/sec_cameras/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "коробка с нагрудными видеокамерами",
 		GENITIVE = "коробки с нагрудными видеокамерами",
 		DATIVE = "коробке с нагрудными видеокамерами",
@@ -192,7 +192,7 @@ Almost every mining medic related stuff
 	origin_tech = "engineering=3"
 
 /obj/item/camera_bug/mining/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шахтёрский монитор видеокамер",
 		GENITIVE = "шахтёрского монитора видеокамер",
 		DATIVE = "шахтёрскому монитору видеокамер",
@@ -215,7 +215,7 @@ Almost every mining medic related stuff
 	origin_tech = "engineering=3"
 
 /obj/item/camera_bug/security/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "офицерский монитор видеокамер",
 		GENITIVE = "офицерского монитора видеокамер",
 		DATIVE = "офицерскому монитору видеокамер",

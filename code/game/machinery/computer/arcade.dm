@@ -9,7 +9,7 @@
 	var/list/prize_storage
 
 /obj/machinery/computer/arcade/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "игровой автомат",
 		GENITIVE = "игрового автомата",
 		DATIVE = "игровому автомату",
@@ -91,7 +91,7 @@
 
 	enemy_name = replacetext((name_part1 + name_part2), "the ", "")
 	name = (name_action + name_part1 + name_part2)
-	ru_names = list(
+	ru_names = alist(
 		NOMINATIVE = "игровой автомат [name]",
 		GENITIVE = "игрового автомата [name]",
 		DATIVE = "игровому автомату [name]",
@@ -332,7 +332,7 @@
 	var/killed_crew = 0
 
 /obj/machinery/computer/arcade/orion_trail/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "игровой автомат The Orion Trail",
 		GENITIVE = "игрового автомата The Orion Trail",
 		DATIVE = "игровому автомату The Orion Trail",
@@ -449,7 +449,7 @@
 			emagged = 0 //removes the emagged status after you lose
 			playing = 0 //also a new game
 			name = "The Orion Trail"
-			ru_names = list(
+			ru_names = alist(
 				NOMINATIVE = "игровой автомат The Orion Trail",
 				GENITIVE = "игрового автомата The Orion Trail",
 				DATIVE = "игровому автомату The Orion Trail",
@@ -1035,7 +1035,7 @@
 		if(user)
 			to_chat(user, span_notice("Вы переопределяете меню чит-кода и переходите к разделу Чит-код #[rand(1, 50)]: Реализм Мод."))
 		name = "The Orion Trail: Realism Edition"
-		ru_names = list(
+		ru_names = alist(
 			NOMINATIVE = "игровой автомат The Orion Trail: Realism Edition",
 			GENITIVE = "игрового автомата The Orion Trail: Realism Edition",
 			DATIVE = "игровому автомату The Orion Trail: Realism Edition",
@@ -1054,7 +1054,7 @@
 	loot = list()
 
 /mob/living/simple_animal/hostile/syndicate/ranged/orion/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "охрана космопорта",
 		GENITIVE = "охраны космопорта",
 		DATIVE = "охране космопорта",
@@ -1072,7 +1072,7 @@
 	var/active = 0 //if the ship is on
 
 /obj/item/orion_ship/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модель корабля колонистов",
 		GENITIVE = "модели корабля колонистов",
 		DATIVE = "модели корабля колонистов",

@@ -696,6 +696,18 @@
 		. += "." //hiel grammar
 		//         ^ whoever left this comment is literally a grammar nazi. stalin better. in russia grammar correct you.
 
+/datum/mind/proc/memory_edit_vox_raider()
+	. = _memory_edit_header("vox raider")
+	if(has_antag_datum(/datum/antagonist/vox_raider))
+		. += "<b>[span_color("VOX RAIDER", "red")]</b>|<a href='byond://?src=[UID()];vox_raider=clear'>Remove</a>"
+		. += "<br><a href='byond://?src=[UID()];vox_raider=landmark'>To Vox Base</a>."
+		. += "<br><a href='byond://?src=[UID()];vox_raider=equip'>Equip</a>."
+		. += "<br><a href='byond://?src=[UID()];vox_raider=body'>Transform body</a>."
+	else
+		. += "<a href='byond://?src=[UID()];vox_raider=make'>Make Vox Raider</a>"
+
+	. += _memory_edit_role_enabled(ROLE_VOX_RAIDER)
+
 /datum/mind/proc/edit_memory()
 	if(!SSticker || !SSticker.mode)
 		tgui_alert(usr, "Not before round-start!", "Alert")
@@ -746,6 +758,8 @@
 		sections["thief"] = memory_edit_thief()
 		/** TRAITOR ***/
 		sections["traitor"] = memory_edit_traitor()
+		/** VOX RAIDER ***/
+		sections["vox raider"] = memory_edit_vox_raider()
 
 	if(isAI(current))
 		sections["malf_ai"] = memory_edit_malf_ai()
@@ -1584,7 +1598,7 @@
 					cling.give_objectives = FALSE
 					add_antag_datum(cling)
 					to_chat(usr, span_notice("Changeling [key] has no objectives. You can add custom ones or generate random set by using <b>Randomize!</b> button."))
-					to_chat(current, span_biggerdanger("Your powers have awoken. A flash of memory returns to us... we are a changeling!"))
+					to_chat(current, span_biggerdanger("Наши способности пробудились. Мы вернули обрывки воспоминаний... Мы ГЕНОКРАД!"))
 					log_admin("[key_name(usr)] has changelinged [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has changelinged [key_name_admin(current)]")
 
@@ -2494,6 +2508,30 @@
 				alien.update_datum()
 				log_and_message_admins("has made [key_name(current)] into a \"Xenomorph\"")
 
+	else if(href_list["vox_raider"])
+		switch(href_list["vox_raider"])
+			if("clear")
+				remove_antag_datum(/datum/antagonist/vox_raider)
+
+			if("make")
+				add_antag_datum(/datum/antagonist/vox_raider, /datum/team/vox_raiders)
+
+			if("equip")
+				if(!ishuman(current))
+					return
+				var/mob/living/carbon/human/current_human = current
+				current_human.equipOutfit(/datum/outfit/vox)
+
+			if("body")
+				if(!ishuman(current))
+					return
+				transform_body_vox_raider(current)
+
+			if("landmark")
+				var/picked_landmark = safepick(GLOB.raider_spawn)
+				var/turf/loc_spawn = get_turf(picked_landmark)
+				current.forceMove(loc_spawn)
+
 	else if(href_list["common"])
 		switch(href_list["common"])
 			if("undress")
@@ -2803,6 +2841,16 @@
 		return nuclear_datum.uplink = null
 
 	qdel(uplink)
+
+/// Old uplink's owner search via "owner" var in uplink in GLOB.world_uplinks and traitor "key"
+/datum/mind/proc/find_uplink_by_key()
+	if(!key)
+		return
+	var/my_ckey = ckey(key)
+	for(var/obj/item/uplink/uplink as anything in GLOB.world_uplinks)
+		if(!uplink.uplink_owner || ckey(uplink.uplink_owner) != my_ckey)
+			continue
+		return uplink
 
 /datum/mind/proc/make_Traitor()
 	if(!has_antag_datum(/datum/antagonist/traitor))

@@ -41,7 +41,7 @@
 	var/blowing_up = FALSE
 
 /obj/item/extinguisher/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "огнетушитель",
 		GENITIVE = "огнетушителя",
 		DATIVE = "огнетушителю",
@@ -68,7 +68,7 @@
 	can_explode = FALSE
 
 /obj/item/extinguisher/mini/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "карманный огнетушитель",
 		GENITIVE = "карманного огнетушителя",
 		DATIVE = "карманному огнетушителю",
@@ -126,7 +126,7 @@
 	if(blowing_up)
 		return
 
-	if(can_explode && safety && reagents && reagents.reagent_list.len)
+	if(can_explode && safety && reagents && length(reagents.reagent_list))
 		var/temp = reagents.chem_temp
 
 		if(temp >= EXTINGUISHER_TEMP_DETONATION)
@@ -195,7 +195,7 @@
 	update_appearance(UPDATE_ICON_STATE|UPDATE_DESC)
 
 /obj/item/extinguisher/proc/explode_at_heat()
-	if(!safety || blowing_up || !reagents || !reagents.reagent_list.len)
+	if(!safety || blowing_up || !reagents || !length(reagents.reagent_list))
 		return
 
 	var/temp = reagents.chem_temp
@@ -368,7 +368,7 @@
 	addtimer(CALLBACK(src, PROC_REF(finalize_steam_explosion)), current_delay)
 
 /obj/item/extinguisher/proc/finalize_steam_explosion()
-	if(QDELETED(src) || !reagents || !reagents.reagent_list.len)
+	if(QDELETED(src) || !reagents || !length(reagents.reagent_list))
 		return
 
 	var/turf/landed_turf = get_turf(src)

@@ -234,7 +234,7 @@
 #define SPECIES_GREY "Grey"
 #define SPECIES_HUMAN "Human"
 #define SPECIES_KIDAN "Kidan"
-#define SPECIES_MACNINEPERSON "Machine"
+#define SPECIES_MACHINEPERSON "Machine"
 #define SPECIES_MONKEY "Monkey"
 #define SPECIES_FARWA "Farwa"
 #define SPECIES_WOLPIN "Wolpin"
@@ -293,7 +293,7 @@ GLOBAL_LIST_INIT(ru_species, list(
 	SPECIES_GREY = "серый",
 	SPECIES_HUMAN = "человек",
 	SPECIES_KIDAN = "кидан",
-	SPECIES_MACNINEPERSON = "КПБ",
+	SPECIES_MACHINEPERSON = "КПБ",
 	SPECIES_MONKEY = "шимпанзе",
 	SPECIES_FARWA = "фарва",
 	SPECIES_WOLPIN = "вульпин",

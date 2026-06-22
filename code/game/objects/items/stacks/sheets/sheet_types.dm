@@ -103,6 +103,7 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 	icon_state = "sheet-metal"
 	protolathe_name = "metal"
 	materials = list(MAT_METAL=MINERAL_MATERIAL_AMOUNT)
+	matter_amount = 1
 	throwforce = 10.0
 	flags = CONDUCT
 	resistance_flags = FIRE_PROOF
@@ -151,7 +152,8 @@ GLOBAL_LIST_INIT(plasteel_recipes, list(
 	protolathe_name = "metal"
 	icon_state = "sheet-plasteel"
 	item_state = "sheet-plasteel"
-	materials = list(MAT_METAL=2000, MAT_PLASMA=2000)
+	materials = list(MAT_METAL=MINERAL_MATERIAL_AMOUNT, MAT_PLASMA=MINERAL_MATERIAL_AMOUNT)
+	matter_amount = 8
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 100, ACID = 80)
 	resistance_flags = FIRE_PROOF
 	throwforce = 10
@@ -477,6 +479,7 @@ GLOBAL_LIST_INIT(cult_fake_recipes, list(
 	item_state = "sheet-runed"
 	sheettype = "runed"
 	merge_type = /obj/item/stack/sheet/runed_metal
+	matter_amount = 8
 
 /obj/item/stack/sheet/runed_metal_fake
 	name = "runed metal"
@@ -486,6 +489,7 @@ GLOBAL_LIST_INIT(cult_fake_recipes, list(
 	item_state = "sheet-runed"
 	sheettype = "runed"
 	merge_type = /obj/item/stack/sheet/runed_metal_fake
+	matter_amount = 8
 
 /obj/item/stack/sheet/runed_metal/Initialize(mapload, new_amount, merge = TRUE)
 	. = ..()
@@ -592,6 +596,7 @@ GLOBAL_LIST_INIT(fake_brass_recipes, list(
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	throwforce = 10
 	merge_type = /obj/item/stack/sheet/brass
+	matter_amount = 8
 
 /obj/item/stack/sheet/brass/narsie_act()
 	new /obj/item/stack/sheet/runed_metal(loc, amount)
@@ -640,6 +645,7 @@ GLOBAL_LIST_INIT(fake_brass_recipes, list(
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	throwforce = 10
 	merge_type = /obj/item/stack/sheet/brass_fake
+	matter_amount = 8
 
 /obj/item/stack/sheet/brass_fake/narsie_act()
 	qdel(src)
@@ -675,7 +681,7 @@ GLOBAL_LIST_INIT(fake_brass_recipes, list(
 	origin_tech = "materials=2;biotech=2"
 
 /obj/item/stack/sheet/bone/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кости",
 		GENITIVE = "костей",
 		DATIVE = "костям",
@@ -699,7 +705,7 @@ GLOBAL_LIST_INIT(fake_brass_recipes, list(
 	origin_tech = "materials=4;biotech=5"
 
 /obj/item/stack/sheet/razor_sharp_teeth/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бритвенно-острые зубы",
 		GENITIVE = "бритвенно-острых зубов",
 		DATIVE = "бритвенно-острым зубам",
@@ -724,6 +730,7 @@ GLOBAL_LIST_INIT(plastic_recipes, list(
 		new /datum/stack_recipe("plastic flaps", /obj/structure/plasticflaps, 5, time = 4 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("warning cone", /obj/item/clothing/head/cone, 5, on_floor = TRUE),
 		new /datum/stack_recipe("wet floor sign", /obj/item/caution, 2),
+		new /datum/stack_recipe("пластиковый стул", /obj/structure/chair/plastic, 2, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	)),
 	new /datum/stack_recipe_list("plastic utensils", list(
 		new /datum/stack_recipe("plastic fork", /obj/item/kitchen/utensil/pfork, on_floor = TRUE),

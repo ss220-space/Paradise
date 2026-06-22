@@ -222,7 +222,7 @@
 	refill_canister = /obj/item/vending_refill/autodrobe
 
 /obj/machinery/vending/autodrobe/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат AutoDrobe",
 		GENITIVE = "торгового автомата AutoDrobe",
 		DATIVE = "торговому автомату AutoDrobe",
@@ -230,3 +230,6 @@
 		INSTRUMENTAL = "торговым автоматом AutoDrobe",
 		PREPOSITIONAL = "торговом автомате AutoDrobe",
 	)
+
+/obj/machinery/vending/autodrobe/free
+	all_products_free = TRUE

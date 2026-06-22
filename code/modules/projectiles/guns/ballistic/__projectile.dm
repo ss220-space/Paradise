@@ -1,4 +1,5 @@
 /obj/item/gun/projectile
+	abstract_type = /obj/item/gun/projectile
 	name = "projectile gun"
 	desc = "Now comes in flavors like GUN. Uses 10mm ammo, for some reason."
 	icon_state = "default"

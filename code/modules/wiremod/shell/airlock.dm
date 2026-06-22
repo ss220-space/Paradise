@@ -14,7 +14,7 @@
 	autoclose = FALSE
 
 /obj/machinery/door/airlock/shell/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "программируемый шлюз",
 		GENITIVE = "программируемого шлюза",
 		DATIVE = "программируемому шлюзу",

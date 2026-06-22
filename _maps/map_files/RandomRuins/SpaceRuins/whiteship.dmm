@@ -986,9 +986,7 @@
 /obj/machinery/optable,
 /obj/item/clothing/mask/breath/medical,
 /obj/item/tank/internals/anesthetic,
-/obj/machinery/defibrillator_mount/loaded{
-	pixel_x = 26
-	},
+/obj/machinery/defibrillator_mount/loaded/directional/east,
 /obj/effect/turf_decal/delivery/blue/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"

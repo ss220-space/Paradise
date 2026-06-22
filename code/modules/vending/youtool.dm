@@ -36,7 +36,7 @@
 	)
 
 /obj/machinery/vending/tool/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат YouTool",
 		GENITIVE = "торгового автомата YouTool",
 		DATIVE = "торговому автомату YouTool",
@@ -44,3 +44,6 @@
 		INSTRUMENTAL = "торговым автоматом YouTool",
 		PREPOSITIONAL = "торговом автомате YouTool",
 	)
+
+/obj/machinery/vending/tool/free
+	all_products_free = TRUE

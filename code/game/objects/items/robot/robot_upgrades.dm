@@ -820,7 +820,7 @@
 	var/datum/action/innate/launch_riders/launch_action = new
 
 /obj/item/borg/upgrade/mounted_seat/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль встроенного сидения",
 		GENITIVE = "модуля встроенного сидения",
 		DATIVE = "модулю встроенного сидения",
@@ -866,13 +866,9 @@
 
 	var/mob/living/silicon/robot/robot = usr
 	robot.toggle_seat()
-	switch(robot.can_buckle)
-		if(TRUE)
-			button_icon_state = "seat_on"
-			UpdateButtonIcon()
-		if(FALSE)
-			button_icon_state = "seat_off"
-			UpdateButtonIcon()
+
+	button_icon_state = robot.can_buckle ? "seat_on" : "seat_off"
+	UpdateButtonIcon()
 
 /datum/action/innate/launch_riders
 	name = "Выкинуть всех пассажиров"
@@ -896,7 +892,7 @@
 	icon_state = "r_boris"
 
 /obj/item/borg/upgrade/ai/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль Б.О.Р.И.С.",
 		GENITIVE = "модуля Б.О.Р.И.С.",
 		DATIVE = "модулю Б.О.Р.И.С.",
@@ -931,7 +927,7 @@
 	module_type = /obj/item/robot_module/miner
 
 /obj/item/borg/upgrade/borg_mining_sat_upgr/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль рудного магнита",
 		GENITIVE = "модуля рудного магнита",
 		DATIVE = "модулю рудного магнита",

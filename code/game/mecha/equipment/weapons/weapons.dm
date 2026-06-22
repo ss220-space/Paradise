@@ -412,7 +412,7 @@
 	projectile = /obj/item/missile/heavy
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/heavy/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "тяжёлая пусковая ракетная установка SRX-13",
 		GENITIVE = "тяжёлой пусковой ракетной установки SRX-13",
 		DATIVE = "тяжёлой пусковой ракетной установке SRX-13",
@@ -428,7 +428,7 @@
 	projectile = /obj/item/missile
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/medium/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пусковая ракетная установка SRM-8",
 		GENITIVE = "пусковой ракетной установки SRM-8",
 		DATIVE = "пусковой ракетной установке SRM-8",

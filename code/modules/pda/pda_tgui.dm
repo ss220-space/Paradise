@@ -155,7 +155,7 @@
 				"spider_clan",
 			)
 			var/current_index = themes.Find(current_theme)
-			if(!current_index || current_index >= themes.len)
+			if(!current_index || current_index >= length(themes))
 				current_index = 1
 			else
 				current_index++

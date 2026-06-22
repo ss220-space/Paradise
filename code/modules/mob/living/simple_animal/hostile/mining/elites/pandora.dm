@@ -54,7 +54,7 @@
 	var/recalculation_speed = 4 //How many times chasers moves before recalculating
 
 /mob/living/simple_animal/hostile/asteroid/elite/pandora/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пандора",
 		GENITIVE = "пандоры",
 		DATIVE = "пандоре",
@@ -225,7 +225,7 @@
 	resistance_flags = FIRE_PROOF
 
 /obj/item/clothing/accessory/necklace/pandora_hope/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "надежда",
 		GENITIVE = "надежды",
 		DATIVE = "надежде",

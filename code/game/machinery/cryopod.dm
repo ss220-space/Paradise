@@ -255,7 +255,7 @@
 	)
 
 /obj/machinery/cryopod/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "криогенный морозильник",
 		GENITIVE = "криогенного морозильника",
 		DATIVE = "криогенному морозильнику",
@@ -272,6 +272,10 @@
 	base_icon_state = "cryo_s-open"
 	occupied_icon_state = "cryo_s"
 	dir = WEST
+	syndicate = TRUE
+
+/obj/machinery/cryopod/offstation
+	// Won't announce when used for cryoing.
 	syndicate = TRUE
 
 /obj/machinery/cryopod/Initialize(mapload)

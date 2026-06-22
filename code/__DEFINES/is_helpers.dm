@@ -158,6 +158,8 @@ GLOBAL_VAR_INIT(refid_filter, TYPEID(filter(type="angular_blur")))
 
 #define is_cash(A) (istype(A, /obj/item/coin) || istype(A, /obj/item/stack/spacecash))
 
+#define isvoxcash(W) (istype(W, /obj/item/stack/vox_cash))
+
 #define is_airlock(A) (istype(A, /obj/machinery/door/airlock))
 
 #define is_camera(A) (istype(A, /obj/item/camera))
@@ -395,6 +397,9 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 #define isdrask(A) (is_species(A, /datum/species/drask))
 #define iswryn(A) (is_species(A, /datum/species/wryn))
 #define ismoth(A) (is_species(A, /datum/species/moth))
+
+// Antag
+#define IS_CHANGELING(A) (A?.mind?.has_antag_datum(/datum/antagonist/changeling))
 
 #define is_clown_job(job_type) (istype(job_type, /datum/job/service/clown))
 

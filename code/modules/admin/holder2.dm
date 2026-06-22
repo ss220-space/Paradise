@@ -56,8 +56,7 @@ GLOBAL_PROTECT(href_token)
 		to_chat(usr, span_boldannounceooc("Admin rank deletion blocked: Advanced ProcCall detected."))
 		log_and_message_admins("attempted to delete an admin rank via advanced proc-call")
 		return
-	..()
-	return QDEL_HINT_HARDDEL_NOW
+	return ..()
 
 /datum/admins/proc/associate(client/C)
 	if(IsAdminAdvancedProcCall())

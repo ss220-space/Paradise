@@ -48,7 +48,7 @@
 	var/list/shocked_things = list()
 
 /obj/energy_ball/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "энергетический шар",
 		GENITIVE = "энергетического шара",
 		DATIVE = "энергетическому шару",

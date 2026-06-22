@@ -44,7 +44,7 @@
 	)
 
 /obj/machinery/vending/coffee/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат Solar's Best Hot Drinks",
 		GENITIVE = "торгового автомата Solar's Best Hot Drinks",
 		DATIVE = "торговому автомату Solar's Best Hot Drinks",

@@ -6,7 +6,7 @@
 	item_color = "doctor_envirosuit"
 
 /obj/item/clothing/under/plasmaman/medical/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "защитный костюм врача",
 		GENITIVE = "защитного костюма врача",
 		DATIVE = "защитному костюму врача",
@@ -23,7 +23,7 @@
 	item_color = "cmo_envirosuit"
 
 /obj/item/clothing/under/plasmaman/cmo/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "защитный костюм главного врача",
 		GENITIVE = "защитного костюма главного врача",
 		DATIVE = "защитному костюму главного врача",
@@ -40,7 +40,7 @@
 	item_color = "scientist_envirosuit"
 
 /obj/item/clothing/under/plasmaman/science/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "защитный костюм учёного",
 		GENITIVE = "защитного костюма учёного",
 		DATIVE = "защитному костюму учёного",
@@ -57,7 +57,7 @@
 	item_color = "rd_envirosuit"
 
 /obj/item/clothing/under/plasmaman/rd/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "защитный костюм научного руководителя",
 		GENITIVE = "защитного костюма научного руководителя",
 		DATIVE = "защитному костюму научного руководителя",
@@ -74,7 +74,7 @@
 	item_color = "roboticist_envirosuit"
 
 /obj/item/clothing/under/plasmaman/robotics/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "защитный костюм робототехника",
 		GENITIVE = "защитного костюма робототехника",
 		DATIVE = "защитному костюму робототехника",
@@ -91,7 +91,7 @@
 	item_color = "virologist_envirosuit"
 
 /obj/item/clothing/under/plasmaman/viro/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "защитный костюм вирусолога",
 		GENITIVE = "защитного костюма вирусолога",
 		DATIVE = "защитному костюму вирусолога",
@@ -108,7 +108,7 @@
 	item_color = "geneticist_envirosuit"
 
 /obj/item/clothing/under/plasmaman/genetics/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "защитный костюм генетика",
 		GENITIVE = "защитного костюма генетика",
 		DATIVE = "защитному костюму генетика",
@@ -125,7 +125,7 @@
 	item_color = "chemist_envirosuit"
 
 /obj/item/clothing/under/plasmaman/chemist/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "защитный костюм химика",
 		GENITIVE = "защитного костюма химика",
 		DATIVE = "защитному костюму химика",
@@ -142,7 +142,7 @@
 	item_color = "brigphysician_envirosuit"
 
 /obj/item/clothing/under/plasmaman/brigphysician/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "защитный костюм бригмедика",
 		GENITIVE = "защитного костюма бригмедика",
 		DATIVE = "защитному костюму бригмедика",
@@ -159,7 +159,7 @@
 	item_color = "coroner_envirosuit"
 
 /obj/item/clothing/under/plasmaman/coroner/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "защитный костюм патологоанатома",
 		GENITIVE = "защитного костюма патологоанатома",
 		DATIVE = "защитному костюму патологоанатома",
@@ -176,7 +176,7 @@
 	item_color = "paramedic_envirosuit"
 
 /obj/item/clothing/under/plasmaman/paramedic/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "защитный костюм парамедика",
 		GENITIVE = "защитного костюма парамедика",
 		DATIVE = "защитному костюму парамедика",
@@ -193,7 +193,7 @@
 	item_color = "mining_medic_envirosuit"
 
 /obj/item/clothing/under/plasmaman/mining_medic/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "защитный костюм шахтёрского врача",
 		GENITIVE = "защитного костюма шахтёрского врача",
 		DATIVE = "защитному костюму шахтёрского врача",
