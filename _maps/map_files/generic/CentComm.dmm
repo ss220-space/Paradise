@@ -44198,18 +44198,6 @@
 	icon_state = "darkfull"
 	},
 /area/syndicate_mothership)
-"ucy" = (
-/obj/structure/closet/crate,
-/obj/item/toy/plushie/fox/blue,
-/obj/item/radio/off,
-/obj/item/extinguisher,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/turf/space,
-/area/space)
 "uda" = (
 /obj/structure/closet/secure_closet/freezer/kitchen,
 /obj/item/reagent_containers/food/condiment/flour,
@@ -96281,7 +96269,7 @@ mVX
 mVX
 mVX
 mVX
-ucy
+mVX
 mVX
 mVX
 mVX
