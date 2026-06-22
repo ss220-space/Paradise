@@ -269,5 +269,6 @@
 
 /turf/simulated/wall/r_wall/rcd_deconstruct_act(mob/user, obj/item/rcd/our_rcd)
 	if(!our_rcd.canRwall)
+		balloon_alert(user, "нельзя деконструировать!")
 		return RCD_NO_ACT
 	. = ..()

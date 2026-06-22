@@ -1,4 +1,0 @@
-author: "DraumLord"
-delete-after: True
-changes:
-  - bugfix: "Термальным зрением от фонаря больше нельзя поделиться. (PR #9276)"

@@ -49,7 +49,7 @@ const setWindowVisibility = (visible: boolean, scale: boolean): void => {
   });
 };
 
-const CHANNEL_REGEX = /^[:#.][\p{L}0-9_$+,'*]\s/u;
+const CHANNEL_REGEX = /^[:#.][\p{L}\p{M}0-9_$+,'*]+/u;
 
 /** Tests for a channel prefix, returning it or none */
 export const getPrefix = (
@@ -59,10 +59,10 @@ export const getPrefix = (
     return;
   }
 
-  let adjusted = value
-    .slice(0, 3)
+  let adjusted = (value
+    .split(' ')[0]
     ?.toLowerCase()
-    ?.replace('.', ':') as keyof typeof RADIO_PREFIXES;
+    ?.replace(/[:#.,]/, ':') + ' ') as keyof typeof RADIO_PREFIXES;
 
   if (!RADIO_PREFIXES[adjusted]) {
     return;

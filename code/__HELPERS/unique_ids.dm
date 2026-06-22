@@ -25,7 +25,7 @@ GLOBAL_LIST_EMPTY(uid_log)
  * Returns: the UID of the datum
  */
 /datum/proc/UID()
-	if(QDELING(src))
+	if(datum_flags & DF_UID_INVALID)
 		return
 
 	if(!unique_datum_id)
@@ -42,11 +42,10 @@ GLOBAL_LIST_EMPTY(uid_log)
  */
 /proc/UID_of(input)
 	var/datum/value = input
-	if(!istype(value) || QDELING(value))
+	if(!istype(value) || (value.datum_flags & DF_UID_INVALID))
 		return text_ref(input)
 
-	var/datum/datum = input
-	return datum.UID()
+	return value.UID()
 
 /**
  * Locates a datum based off of the UID

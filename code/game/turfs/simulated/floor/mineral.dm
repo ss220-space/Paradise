@@ -157,8 +157,29 @@
 	nitrogen = 0
 	temperature = TCMB
 
+/turf/simulated/floor/mineral/plastitanium/red/nitrogen
+	oxygen = 0
+	nitrogen = MOLES_N2STANDARD + MOLES_O2STANDARD
+
 /turf/simulated/floor/mineral/plastitanium/red/brig
 	name = "brig floor"
+
+/turf/simulated/floor/mineral/plastitanium/nitrogen
+	oxygen = 0
+	nitrogen = MOLES_N2STANDARD + MOLES_O2STANDARD
+
+/turf/simulated/floor/mineral/plastitanium/nitrogen/yellow
+	color = "#fff894"
+
+/turf/simulated/floor/mineral/plastitanium/nitrogen/orange
+	color = "#ffae00"
+
+/turf/simulated/floor/mineral/plastitanium/nitrogen/pink
+
+	color = "#ff78f4"
+
+/turf/simulated/floor/mineral/plastitanium/nitrogen/blue
+	color = "#00ffea"
 
 //BANANIUM
 /turf/simulated/floor/mineral/bananium

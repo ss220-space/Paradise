@@ -1,4 +1,0 @@
-author: "PlayTheGoat"
-delete-after: True
-changes:
-  - bugfix: "Слейв имплант работает корректно. (PR #9385)"
