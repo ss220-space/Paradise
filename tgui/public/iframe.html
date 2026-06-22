@@ -191,6 +191,10 @@
           };
         });
       };
+
+      window.onload = () => {
+        window.parent.postMessage("ready", "*");
+      }
     </script>
   </head>
 </html>

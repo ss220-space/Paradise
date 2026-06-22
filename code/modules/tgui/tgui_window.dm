@@ -20,7 +20,6 @@
 	var/list/sent_assets = list()
 	// Vars passed to initialize proc (and saved for later)
 	var/initial_strict_mode
-	var/initial_fancy
 	var/initial_assets
 	var/initial_inline_html
 	var/initial_inline_js
@@ -70,7 +69,6 @@
  */
 /datum/tgui_window/proc/initialize(
 		strict_mode = FALSE,
-		fancy = FALSE,
 		assets = list(),
 		inline_html = "",
 		inline_js = "",
@@ -78,7 +76,6 @@
 	log_tgui(client, "[id]/initialize")
 	if(!client)
 		return
-	src.initial_fancy = fancy
 	src.initial_assets = assets
 	src.initial_inline_html = inline_html
 	src.initial_inline_js = inline_js
@@ -86,12 +83,7 @@
 	status = TGUI_WINDOW_LOADING
 	fatally_errored = FALSE
 	// Build window options
-	var/options = "file=[id].html;can_minimize=0;auto_format=0;"
-	// Remove titlebar and resize handles for a fancy window
-	if(fancy)
-		options += "titlebar=0;can_resize=0;"
-	else
-		options += "titlebar=1;can_resize=1;"
+	var/options = "file=[id].html;can_minimize=0;auto_format=0;titlebar=0;can_resize=0;"
 	// Generate page html
 	var/html = SStgui.basehtml
 	html = replacetextEx(html, "\[tgui:windowId]", id)
@@ -138,7 +130,6 @@
 /datum/tgui_window/proc/reinitialize()
 	initialize(
 		strict_mode = initial_strict_mode,
-		fancy = initial_fancy,
 		assets = initial_assets,
 		inline_html = initial_inline_html,
 		inline_js = initial_inline_js,
