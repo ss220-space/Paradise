@@ -1513,5 +1513,5 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
  */
 /mob/verb/reset_ui_positions_for_mob()
 	set name = "Reset UI Positions"
-	set category = VERB_CATEGORY_OOC
+	set category = VERB_CATEGORY_SPECIALVERBS
 	SStgui.reset_ui_position(src)
