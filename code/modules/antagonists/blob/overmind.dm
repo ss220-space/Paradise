@@ -217,7 +217,7 @@ GLOBAL_LIST_EMPTY(overminds)
 
 	if(had_strain && !first_select)
 		var/list/messages = get_strain_info()
-		to_chat(src, chat_box_red(messages.Join("<br>")))
+		to_chat(src, custom_boxed_message("red_box center", messages.Join("<br>")))
 	SEND_SIGNAL(src, COMSIG_BLOB_SELECTED_STRAIN, blobstrain)
 
 /mob/camera/blob/proc/get_strain_info()

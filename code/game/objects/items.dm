@@ -619,9 +619,9 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 // Due to storage type consolidation this should get used more now.
 // I have cleaned it up a little, but it could probably use more.  -Sayu
-/obj/item/attackby(obj/item/I, mob/user, list/modifiers)
-	if(isstorage(I))
-		var/obj/item/storage/storage = I
+/obj/item/attackby(obj/item/item, mob/living/user, list/modifiers)
+	if(isstorage(item))
+		var/obj/item/storage/storage = item
 		if(!storage.use_to_pickup)
 			return ..()
 		if(storage.pickup_all_on_tile) //Mode is set to collect all items on a tile and we clicked on a valid one.
@@ -629,13 +629,13 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 				return ..()
 			var/success = FALSE
 			var/failure = FALSE
-			for(var/obj/item/item as anything in loc)
-				if(!storage.can_be_inserted(item, stop_messages = TRUE))
+			for(var/obj/item/item_in_loc as anything in loc)
+				if(!storage.can_be_inserted(item_in_loc, stop_messages = TRUE))
 					failure = TRUE
 					continue
 				success = TRUE
-				item.do_pickup_animation(user)
-				storage.handle_item_insertion(item, prevent_warning = TRUE)
+				item_in_loc.do_pickup_animation(user)
+				storage.handle_item_insertion(item_in_loc, prevent_warning = TRUE)
 			if(success && !failure)
 				playsound(loc, 'sound/items/handling/pickup/generic_pickup3.ogg', PICKUP_SOUND_VOLUME, channel = CHANNEL_INTERACTION_SOUNDS, ignore_walls = FALSE)
 				to_chat(user, span_notice("Вы [pick(list("помещаете", "складываете", "кладёте"))] все в [storage.declent_ru(ACCUSATIVE)]."))
@@ -648,18 +648,18 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 			return ATTACK_CHAIN_PROCEED
 
 		if(storage.can_be_inserted(src))
-			I.do_pickup_animation(user)
+			item.do_pickup_animation(user)
 			storage.handle_item_insertion(src)
 			return ATTACK_CHAIN_BLOCKED_ALL
 
 		return ATTACK_CHAIN_PROCEED
 
-	if(istype(I, /obj/item/stack/tape_roll))
+	if(istype(item, /obj/item/stack/tape_roll))
 		if(isstorage(src)) //Don't tape the bag if we can put the duct tape inside it instead
 			var/obj/item/storage/bag = src
-			if(bag.can_be_inserted(I))
+			if(bag.can_be_inserted(item))
 				return ..()
-		var/obj/item/stack/tape_roll/tape = I
+		var/obj/item/stack/tape_roll/tape = item
 		var/x_offset = text2num(LAZYACCESS(modifiers, ICON_X))
 		var/y_offset = text2num(LAZYACCESS(modifiers, ICON_Y))
 		add_fingerprint(user)

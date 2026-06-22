@@ -475,6 +475,10 @@ h2.alert {
   color: hsl(0, 100%, 50%);
 }
 
+.vox {
+  color: hsl(292, 80%, 45%);
+}
+
 // MARK: Alerts
 .alert {
   color: hsl(0, 74%, 49%);
@@ -856,7 +860,7 @@ h2.alert {
   color: hsl(120, 61%, 34%);
 }
 
-.vox {
+.vox_raid {
   color: hsl(300, 100%, 33%);
 }
 
@@ -981,7 +985,6 @@ h2.alert {
   margin: 0.5em 0;
   padding: 0.5em 0.75em;
   border-radius: 0.33rem;
-  text-align: center;
 
   &.red_box {
     background: hsl(0, 20%, 10%);
@@ -1014,47 +1017,6 @@ h2.alert {
   }
 }
 
-// !!! DEPRECATED !!!
-.boxed_message.red_border {
-  background: hsl(0, 22%, 10%);
-  border-color: hsla(0, 100%, 50%, 0.502);
-}
-
-.boxed_message.green_border {
-  background: hsl(142, 22%, 10%);
-  border-color: hsla(120, 100%, 50%, 0.502);
-}
-
-.boxed_message.purple_border {
-  background: hsl(259, 25%, 13%);
-  border-color: hsla(260, 100%, 75%, 0.502);
-}
-
-.boxed_message.yellow_border {
-  background: hsl(259, 25%, 13%);
-  border-color: hsla(56, 100%, 50%, 0.502);
-}
-
-.boxed_message.notice_border {
-  background: hsl(218, 22%, 10%);
-  border-color: hsla(225, 90%, 65%, 0.502);
-}
-
-.boxed_message.thick_border {
-  border-width: 0.5em;
-}
-
-.boxed_message.left_align_text {
-  text-align: left;
-}
-
-// MARK:  HELPER CLASSES
-
-.tooltip {
-  font-style: italic;
-  border-bottom: 1px dashed;
-}
-
 .fieldset_legend {
   position: relative;
   max-width: 95%;
@@ -1074,6 +1036,13 @@ h2.alert {
     mask-image: linear-gradient(to top, black 50%, transparent 50%);
     z-index: -1;
   }
+}
+
+// MARK:  Helper classes
+
+.tooltip {
+  font-style: italic;
+  border-bottom: 1px dashed;
 }
 
 // Provides a horizontal bar with text in the middle

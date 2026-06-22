@@ -247,6 +247,22 @@
 	name = "statue of a security cyborg"
 	icon_state = "secborg"
 
+/obj/structure/statue/silver/secborg/piano
+	name = "piano robot"
+	desc = "Статуя робота во фраке сидящего за пианино в открытом космосе. Судя по всему он здесь уже давно. И у него отличный металлический блестящий зад."
+	icon = 'icons/mob/robots.dmi'
+	icon_state = "Robot-MAN"
+
+/obj/structure/statue/silver/secborg/piano/get_ru_names()
+	return alist(
+		NOMINATIVE = "робот-пианист в глубоком космосе",
+		GENITIVE = "робота-пианиста в глубоком космосе",
+		DATIVE = "роботу-пианисту в глубоком космосе",
+		ACCUSATIVE = "робота-пианиста в глубоком космосе",
+		INSTRUMENTAL = "роботом-пианистом в глубоком космосе",
+		PREPOSITIONAL = "роботе-пианисте в глубоком космосе",
+	)
+
 /obj/structure/statue/silver/medborg
 	name = "statue of a medical cyborg"
 	icon_state = "medborg"

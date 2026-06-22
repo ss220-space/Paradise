@@ -256,6 +256,9 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		PREPOSITIONAL = "алмазной руде",
 	)
 
+/obj/item/stack/ore/diamond/ten
+	amount = 10
+
 /obj/item/stack/ore/bananium
 	name = "bananium ore"
 	icon_state = "Clown ore"

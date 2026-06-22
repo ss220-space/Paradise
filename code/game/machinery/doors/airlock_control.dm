@@ -220,6 +220,10 @@
 				2=Network Access
 	*/
 
+
+MAPPING_BUTTON_HELPERS(/obj/machinery/access_button, 25, 7)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/access_button, 24, 24)
+
 /obj/machinery/access_button/update_icon_state()
 	if(on)
 		icon_state = "access_button_standby"

@@ -49,12 +49,18 @@
 /datum/status_effect/genetic_damage/proc/on_healthscan(datum/source, list/render_list, advanced, mob/user, mode, tochat)
 	SIGNAL_HANDLER
 
+	var/message = ""
 	if(advanced)
-		render_list = "Genetic damage: [round(total_damage / minimum_before_tox_damage * 100, 0.1)]%"
+		message = "Genetic damage: [round(total_damage / minimum_before_tox_damage * 100, 0.1)]%"
 	else if(total_damage >= minimum_before_tox_damage)
-		render_list = "Severe genetic damage detected."
+		message = "Severe genetic damage detected."
 	else
-		render_list = "Minor genetic damage detected."
+		message = "Minor genetic damage detected."
+
+	if(message)
+		render_list += "<span class='alert ml-1'>"
+		render_list += conditional_tooltip("[message]", "Irreparable under normal circumstances - will decay over time.", tochat)
+		render_list += "</span><br>"
 
 #undef GORILLA_MUTATION_CHANCE_PER_SECOND
 #undef GORILLA_MUTATION_MINIMUM_DAMAGE

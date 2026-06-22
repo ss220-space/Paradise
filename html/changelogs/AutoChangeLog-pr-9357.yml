@@ -1,6 +1,0 @@
-author: "FlitchTime"
-delete-after: True
-changes:
-  - tweak: "Комфортный сон лечит всегда. (PR #9357)"
-  - map: "Изменение техтонелей спутника. (PR #9357)"
-  - local: "Перевод файла bed.dm. (PR #9357)"

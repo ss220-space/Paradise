@@ -184,7 +184,7 @@ ADMIN_VERB(jump_to_ruin, R_DEBUG, "Jump to Ruin", "Displays a list of all placed
 		span_name("Jumped to <b>[template?.name]</b>:"),
 		span_italics("[template?.description]"),
 	)
-	to_chat(user, chat_box_examine(messages.Join("<br/>")), confidential = TRUE)
+	to_chat(user, boxed_message(messages.Join("<br/>")), confidential = TRUE)
 
 /mob/admin_teleport(atom/new_location)
 	var/turf/location = get_turf(new_location)

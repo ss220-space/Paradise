@@ -9,22 +9,26 @@
 // MARK: Boxed messages
 .boxed_message {
   background: hsl(0, 70%, 12.5%);
-}
 
-.boxed_message.red_border {
-  background: hsl(0, 100%, 12.5%);
-}
+  &.red_box {
+    background: hsl(0, 100%, 12.5%);
+  }
 
-.boxed_message.green_border {
-  background: hsl(40, 100%, 7.5%);
-}
+  &.green_box {
+    background: hsl(40, 100%, 7.5%);
+  }
 
-.boxed_message.purple_border {
-  background: hsl(300, 100%, 7.5%);
-}
+  &.blue_box {
+    background: hsl(325, 100%, 7.5%);
+  }
 
-.boxed_message.notice_border {
-  background: hsl(325, 100%, 7.5%);
+  &.purple_box {
+    background: hsl(300, 100%, 7.5%);
+  }
+
+  &.yellow_box {
+    background: hsl(55, 100%, 7.5%);
+  }
 }
 
 .fieldset_legend {

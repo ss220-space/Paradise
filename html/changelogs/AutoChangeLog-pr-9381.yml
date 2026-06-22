@@ -1,5 +1,0 @@
-author: "dageavtobusnick"
-delete-after: True
-changes:
-  - bugfix: "Исправлены некоторые хардделы и их источники (PR #9381)"
-  - server: "Бьендапи в растлибе заменено на адаптированное к новым версиям BYOND. (PR #9381)"

@@ -6,7 +6,7 @@
 	var/hide_role
 
 /datum/buildmode_mode/offer/show_help(mob/user)
-	to_chat(user, span_purple(chat_box_examine(
+	to_chat(user, span_purple(boxed_message(
 		"[span_bold("Предложить существо")] -> ЛКМ по существу\n\
 		[span_bold("Изменить необходимое количество часов, необходимое для управления существом")] -> ПКМ по кнопке билдмода"))
 	)

@@ -64,6 +64,8 @@
 	/// Guest pass attached to the ID
 	var/obj/item/card/id/guest/guest_pass = null
 
+	var/cart_prefix = "`s ID-card"
+
 /obj/item/card/id/get_ru_names()
 	return alist(
 		NOMINATIVE = "ID-карта",
@@ -217,7 +219,7 @@
 	if(!newjob)
 		newjob = assignment
 
-	name = "[newname ? "[newname]`s ID-card" : "identification card"][newjob ? " ([newjob])" : ""]"
+	name = "[newname ? "[newname][cart_prefix]" : "identification card"][newjob ? " ([newjob])" : ""]"
 	set_ru_names_suffix("[newname ? " \"[newname]\"" : ""][newjob ? " ([newjob])" : ""]")
 
 /obj/item/card/id/attackby(obj/item/I, mob/user, params)

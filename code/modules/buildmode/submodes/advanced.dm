@@ -3,7 +3,7 @@
 	var/atom/objholder = null
 
 /datum/buildmode_mode/advanced/show_help(mob/builder)
-	to_chat(builder, span_purple(chat_box_examine(
+	to_chat(builder, span_purple(boxed_message(
 		"[span_bold("Установите тип объекта")] -> ПКМ по кнопке buildmode\n\
 		[span_bold("Копировать тип объекта")] -> Alt на turf/obj + ЛКМ\n\
 		[span_bold("Разместить объект")] -> ЛКМ на turf/obj\n\
