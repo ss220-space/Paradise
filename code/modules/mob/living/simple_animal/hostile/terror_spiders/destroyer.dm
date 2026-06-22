@@ -37,7 +37,7 @@
 	var/datum/action/innate/terrorspider/ventsmash/ventsmash_action
 
 /mob/living/simple_animal/hostile/poison/terror_spider/destroyer/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Разрушитель Ужаса",
 		GENITIVE = "Разрушителя Ужаса",
 		DATIVE = "Разрушителю Ужаса",
@@ -46,8 +46,8 @@
 		PREPOSITIONAL = "Разрушителе Ужаса",
 	)
 
-/mob/living/simple_animal/hostile/poison/terror_spider/destroyer/New()
-	..()
+/mob/living/simple_animal/hostile/poison/terror_spider/destroyer/Initialize(mapload)
+	. = ..()
 	ventsmash_action = new()
 	ventsmash_action.Grant(src)
 

@@ -172,8 +172,8 @@
 	/// How much essence it costs to use
 	var/cast_amount = 50
 
-/obj/effect/proc_holder/spell/aoe/revenant/New()
-	..()
+/obj/effect/proc_holder/spell/aoe/revenant/Initialize(mapload)
+	. = ..()
 	if(locked)
 		name = "[initial(name)] ([unlock_amount]E)"
 	else

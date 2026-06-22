@@ -14,7 +14,7 @@
 	foodtype = SUGAR | DAIRY
 
 /obj/item/reagent_containers/food/snacks/icecream/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мороженое",
 		GENITIVE = "мороженого",
 		DATIVE = "мороженому",

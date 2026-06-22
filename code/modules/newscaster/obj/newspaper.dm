@@ -53,7 +53,7 @@
 	)
 
 /obj/item/newspaper/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "газета",
 		GENITIVE = "газеты",
 		DATIVE = "газете",
@@ -163,7 +163,7 @@
 			return ATTACK_CHAIN_PROCEED
 		scribble += list(list(
 			id = current_page,
-			text = new_scribble
+			text = strip_html_full(new_scribble)
 		))
 		user.visible_message(
 			span_notice("[user] дела[PLUR_ET_YUT(user)] пометку в газете."),
@@ -181,7 +181,7 @@
 	user.visible_message(span_notice("[user] [rolled ? "с" : "раз"]ворачива[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)]."),\
 							span_notice("Вы [rolled ? "с" : "раз"]ворачиваете [declent_ru(ACCUSATIVE)]."))
 	name = "[rolled ? "rolled" : ""] [initial(name)]"
-	ru_names = list(
+	ru_names = alist(
 		NOMINATIVE = "[rolled ? "свёрнутая " : ""]газета",
 		GENITIVE = "[rolled ? "свёрнутой " : ""]газеты",
 		DATIVE = "[rolled ? "свёрнутой " : ""]газете",

@@ -619,9 +619,9 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 // Due to storage type consolidation this should get used more now.
 // I have cleaned it up a little, but it could probably use more.  -Sayu
-/obj/item/attackby(obj/item/I, mob/user, list/modifiers)
-	if(isstorage(I))
-		var/obj/item/storage/storage = I
+/obj/item/attackby(obj/item/item, mob/living/user, list/modifiers)
+	if(isstorage(item))
+		var/obj/item/storage/storage = item
 		if(!storage.use_to_pickup)
 			return ..()
 		if(storage.pickup_all_on_tile) //Mode is set to collect all items on a tile and we clicked on a valid one.
@@ -629,13 +629,13 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 				return ..()
 			var/success = FALSE
 			var/failure = FALSE
-			for(var/obj/item/item as anything in loc)
-				if(!storage.can_be_inserted(item, stop_messages = TRUE))
+			for(var/obj/item/item_in_loc as anything in loc)
+				if(!storage.can_be_inserted(item_in_loc, stop_messages = TRUE))
 					failure = TRUE
 					continue
 				success = TRUE
-				item.do_pickup_animation(user)
-				storage.handle_item_insertion(item, prevent_warning = TRUE)
+				item_in_loc.do_pickup_animation(user)
+				storage.handle_item_insertion(item_in_loc, prevent_warning = TRUE)
 			if(success && !failure)
 				playsound(loc, 'sound/items/handling/pickup/generic_pickup3.ogg', PICKUP_SOUND_VOLUME, channel = CHANNEL_INTERACTION_SOUNDS, ignore_walls = FALSE)
 				to_chat(user, span_notice("Вы [pick(list("помещаете", "складываете", "кладёте"))] все в [storage.declent_ru(ACCUSATIVE)]."))
@@ -648,18 +648,18 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 			return ATTACK_CHAIN_PROCEED
 
 		if(storage.can_be_inserted(src))
-			I.do_pickup_animation(user)
+			item.do_pickup_animation(user)
 			storage.handle_item_insertion(src)
 			return ATTACK_CHAIN_BLOCKED_ALL
 
 		return ATTACK_CHAIN_PROCEED
 
-	if(istype(I, /obj/item/stack/tape_roll))
+	if(istype(item, /obj/item/stack/tape_roll))
 		if(isstorage(src)) //Don't tape the bag if we can put the duct tape inside it instead
 			var/obj/item/storage/bag = src
-			if(bag.can_be_inserted(I))
+			if(bag.can_be_inserted(item))
 				return ..()
-		var/obj/item/stack/tape_roll/tape = I
+		var/obj/item/stack/tape_roll/tape = item
 		var/x_offset = text2num(LAZYACCESS(modifiers, ICON_X))
 		var/y_offset = text2num(LAZYACCESS(modifiers, ICON_Y))
 		add_fingerprint(user)
@@ -922,7 +922,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	// if an item is already on user you cannot reequip it anywhere if it has NODROP trait
 	if(loc == user && HAS_TRAIT(src, TRAIT_NODROP))
 		if(!silent)
-			//cringe momemt
 			to_chat(user, span_warning("Неведомая сила не позволяет Вам надеть [declent_ru(ACCUSATIVE)]."))
 		return FALSE
 	return TRUE
@@ -1041,10 +1040,10 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	else
 		target.apply_damage(7)
 
-/obj/item/singularity_pull(S, current_size)
+/obj/item/singularity_pull(atom/singularity, current_size)
 	..()
 	if(current_size >= STAGE_FOUR)
-		throw_at(S, 14, 3, spin = 0)
+		throw_at(singularity, 14, 3, spin = 0)
 	else
 		return
 
@@ -1177,12 +1176,12 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 /obj/item/mouse_drop_receive(atom/dropping, mob/user, params)
 	if(!user || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || src == dropping)
-		return FALSE
+		return
 
 	if(loc && dropping.loc == loc && isstorage(loc) && loc.Adjacent(user)) // Are we trying to swap two items in the storage?
 		var/obj/item/storage/S = loc
 		S.swap_items(src, dropping, user)
-		return TRUE
+		return
 	remove_outline() //get rid of the hover effect in case the mouse exit isn't called if someone drags and drops an item and somthing goes wrong
 
 /obj/item/proc/apply_outline(mob/user, outline_color = null)
@@ -1531,3 +1530,12 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 /obj/item/proc/on_tripwire_trigger(obj/item/tripwire/base, mob/user)
 	SIGNAL_HANDLER
 	return
+
+/obj/item/vv_get_header()
+	. = ..()
+	. += {"
+		<br><font size='1'>
+			DAMTYPE: <font size='1'><a href='byond://?_src_=vars;item_to_tweak=[UID_of(src)];var_tweak=damtype' id='damtype'>[uppertext(damtype)]</a>
+			FORCE: <font size='1'><a href='byond://?_src_=vars;item_to_tweak=[UID_of(src)];var_tweak=force' id='force'>[force]</a>
+		</font>
+	"}

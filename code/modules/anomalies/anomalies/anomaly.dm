@@ -45,7 +45,7 @@
 	var/has_warp = FALSE
 
 /obj/effect/anomaly/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "аномалия", \
 		GENITIVE = "аномалии", \
 		DATIVE = "аномалии", \

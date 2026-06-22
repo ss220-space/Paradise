@@ -307,7 +307,7 @@
 		"speak" = CALLBACK(src, PROC_REF(handle_automated_speech), TRUE),
 		"wear_hat" = CALLBACK(src, PROC_REF(find_new_hat)),
 		"drop_hat" = CALLBACK(src, PROC_REF(drop_hat)),
-		"spin" = CALLBACK(src, TYPE_PROC_REF(/mob, emote), "spin")), cooldown, CALLBACK(src, PROC_REF(end_dchat_plays)))
+		"spin" = CALLBACK(src, TYPE_PROC_REF(/mob, emote), "spin")), cooldown, CALLBACK(src, PROC_REF(stop_deadchat_plays)))
 
 	if(. == COMPONENT_INCOMPATIBLE)
 		return
@@ -778,7 +778,7 @@
 	health = 30
 
 /mob/living/simple_animal/pet/dog/pug/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мопс",
 		GENITIVE = "мопса",
 		DATIVE = "мопсу",

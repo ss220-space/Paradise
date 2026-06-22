@@ -45,9 +45,11 @@ GLOBAL_LIST_EMPTY(gear_datums)
 	return icon2base64(new_icon)
 
 /datum/gear/proc/get_display_name()
-	var/atom/item = new path(src)
-	var/list/names = item.ru_names || item.get_ru_names_cached()
-	return capitalize((display_name == /datum/gear::display_name)? (names ? names[NOMINATIVE] : item.name) : display_name)
+	var/atom/item = new path(null)
+	var/ru_name = item.declent_ru(NOMINATIVE)
+	var/gear_name = capitalize((display_name == /datum/gear::display_name)? ru_name : display_name)
+	qdel(item)
+	return gear_name
 
 /datum/gear_data
 	var/path
@@ -63,6 +65,8 @@ GLOBAL_LIST_EMPTY(gear_datums)
 		tweak.tweak_gear_data(metadata["[tweak]"], gear_data)
 	var/gear_path = gear_data.path || path
 	var/item = new gear_path(gear_data.location)
+	if(!item)
+		return
 	for(var/datum/gear_tweak/tweak in gear_tweaks)
 		tweak.tweak_item(item, metadata["[tweak]"])
 	return item

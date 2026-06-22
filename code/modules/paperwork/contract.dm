@@ -17,11 +17,10 @@
 	icon_state = "good_contract"
 	signed = TRUE
 
-/obj/item/paper/contract/employment/New(atom/loc, mob/living/nOwner)
+/obj/item/paper/contract/employment/Initialize(mapload, mob/living/nOwner)
 	. = ..()
 	if(!nOwner || !nOwner.mind)
-		qdel(src)
-		return -1
+		return INITIALIZE_HINT_QDEL
 	target = nOwner.mind
 	update_text()
 	GLOB.employmentContracts |= src
@@ -60,7 +59,7 @@
 	src.contract = contract
 	name = "адский контракт [contract.contract_subject]"
 	close_button = "<a href='byond://?src=[UID()];close_contract=1' class='close-button'>✖</a>"
-	ru_names = list(
+	ru_names = alist(
 		NOMINATIVE = "адский контракт [contract.contract_subject]",
 		GENITIVE = "адского контракта [contract.contract_subject]",
 		DATIVE = "адскому контракту [contract.contract_subject]",
@@ -147,7 +146,7 @@
 			("[user.declent_ru(NOMINATIVE)] поднос[PLUR_IT_YAT(user)] [I.declent_ru(ACCUSATIVE)] к [declent_ru(DATIVE)], но [I.declent_ru(NOMINATIVE)] не загорается!"),
 			span_danger("[declent_ru(NOMINATIVE)] не загорается!"),
 		)
-		return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+		return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 
 	return ..()
 

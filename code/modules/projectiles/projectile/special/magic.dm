@@ -8,10 +8,11 @@
 	damage_type = OXY
 	nodamage = TRUE
 	armour_penetration = 100
+	ricochet_chance = 0
 	flag = "magic"
 
 /obj/projectile/magic/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "разряд пустоты",
 		GENITIVE = "разряда пустоты",
 		DATIVE = "разряду пустоты",
@@ -38,7 +39,7 @@
 	impact_light_color_override = LIGHT_COLOR_PURPLE
 
 /obj/projectile/magic/death/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "заряд смерти",
 		GENITIVE = "заряда смерти",
 		DATIVE = "заряду смерти",
@@ -72,7 +73,7 @@
 	var/exp_fire = 2
 
 /obj/projectile/magic/fireball/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "огненный шар",
 		GENITIVE = "огненного шара",
 		DATIVE = "огненному шару",
@@ -118,7 +119,7 @@
 	var/hellfire_type = /datum/reagent/napalm/hellfire
 
 /obj/projectile/magic/fireball/infernal/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "адский фаербол",
 		GENITIVE = "адского фаербола",
 		DATIVE = "адскому фаерболу",
@@ -143,7 +144,7 @@
 	icon_state = "ion"
 
 /obj/projectile/magic/resurrection/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "воскрешающий заряд",
 		GENITIVE = "воскрешающего заряда",
 		DATIVE = "воскрешающему заряду",
@@ -178,7 +179,7 @@
 	var/outer_tele_radius = 6
 
 /obj/projectile/magic/teleport/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "телепортационный импульс",
 		GENITIVE = "телепортационного импульса",
 		DATIVE = "телепортационному импульсу",
@@ -209,7 +210,7 @@
 		/obj/structure/mineral_door/transparent/diamond)
 
 /obj/projectile/magic/door/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "заряд создания дверей",
 		GENITIVE = "заряда создания дверей",
 		DATIVE = "заряду создания дверей",
@@ -254,7 +255,7 @@
 	damage_type = BURN
 
 /obj/projectile/magic/change/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "заряд полиморфа",
 		GENITIVE = "заряда полиморфа",
 		DATIVE = "заряду полиморфа",
@@ -426,7 +427,7 @@
 	damage_type = BURN
 
 /obj/projectile/magic/animate/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "анимационный заряд",
 		GENITIVE = "анимационного заряда",
 		DATIVE = "анимационному заряду",
@@ -476,7 +477,7 @@
 	nodamage = FALSE
 
 /obj/projectile/magic/spellblade/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "энергия лезвия",
 		GENITIVE = "энергии лезвия",
 		DATIVE = "энергии лезвия",
@@ -494,7 +495,7 @@
 	var/slip_disable_time = 10 SECONDS
 
 /obj/projectile/magic/slipping/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "волшебный банан",
 		GENITIVE = "волшебного банана",
 		DATIVE = "волшебному банану",
@@ -503,8 +504,8 @@
 		PREPOSITIONAL = "волшебном банане",
 	)
 
-/obj/projectile/magic/slipping/New()
-	..()
+/obj/projectile/magic/slipping/Initialize(mapload)
+	. = ..()
 	SpinAnimation()
 
 /obj/projectile/magic/slipping/on_hit(atom/target, blocked = 0)
@@ -536,7 +537,7 @@
 	forced_accuracy = TRUE
 
 /obj/projectile/magic/arcane_barrage/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "тайный заряд",
 		GENITIVE = "тайного заряда",
 		DATIVE = "тайному заряду",
@@ -577,7 +578,7 @@
 	var/hit = FALSE
 
 /obj/projectile/magic/shadow_hand/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "теневая рука",
 		GENITIVE = "теневой руки",
 		DATIVE = "теневой руке",
@@ -614,7 +615,7 @@
 	icon_state = null
 
 /obj/projectile/magic/demonic_grasp/get_ru_names()
-	return list(
+	return alist(
 			NOMINATIVE = "демоническая хватка",
 			GENITIVE = "демонической хватки",
 			DATIVE = "демонической хватке",

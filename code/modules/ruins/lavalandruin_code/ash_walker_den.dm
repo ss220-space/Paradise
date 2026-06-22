@@ -18,7 +18,7 @@
 	var/meat_counter = 6
 
 /obj/structure/lavaland/ash_walker/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "гнездо некрополя",
 		GENITIVE = "гнезда некрополя",
 		DATIVE = "гнезду некрополя",
@@ -118,7 +118,7 @@
 	var/eggtype = "пеплоходца"
 
 /obj/effect/mob_spawn/human/ash_walker/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "яйцо пеплоходца",
 		GENITIVE = "яйца пеплоходца",
 		DATIVE = "яйцу пеплоходца",
@@ -131,7 +131,7 @@
 	new_spawn.rename_character(new_spawn.real_name, new_spawn.dna.species.get_random_name(new_spawn.gender))
 	new_spawn.faction += "ashwalker"
 
-/obj/effect/mob_spawn/human/ash_walker/New()
+/obj/effect/mob_spawn/human/ash_walker/Initialize(mapload)
 	. = ..()
 	var/area/A = get_area(src)
 	if(A)
@@ -150,7 +150,7 @@
 	eggtype = "шамана пеплоходцев"
 
 /obj/effect/mob_spawn/human/ash_walker/shaman/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "яйцо шамана пеплоходцев",
 		GENITIVE = "яйца шамана пеплоходцев",
 		DATIVE = "яйцу шамана пеплоходцев",

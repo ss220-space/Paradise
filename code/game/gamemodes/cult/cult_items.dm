@@ -90,7 +90,7 @@
 	knockdown_amt = 2 SECONDS
 
 /obj/item/restraints/legcuffs/bola/cult/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "руническая бола",
 		GENITIVE = "рунической болы",
 		DATIVE = "рунической боле",
@@ -350,7 +350,7 @@
 		to_chat(user, span_danger(span_big("Похоже, что культ крови исчерпал свои силы для наложения проклятий на эвакуационный шаттл. Создавать новые проклятые сферы или продолжать пытаться разбить эту — неразумно.")))
 		return
 
-	if(locate(/obj/singularity/god/narsie) in GLOB.poi_list || locate(/mob/living/simple_animal/demon/slaughter/cult) in GLOB.mob_list)
+	if(locate(/obj/god/narsie) in GLOB.poi_list || locate(/mob/living/simple_animal/demon/slaughter/cult) in GLOB.mob_list)
 		to_chat(user, span_danger("Nar'Sie or her avatars are already on this plane, there is no delaying the end of all things."))
 		return
 

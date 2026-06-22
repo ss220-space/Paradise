@@ -32,7 +32,7 @@
 	)
 
 /obj/item/clothing/mask/breath/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "дыхательная маска",
 		GENITIVE = "дыхательной маски",
 		DATIVE = "дыхательной маске",
@@ -63,7 +63,7 @@
 	put_on_delay = 10
 
 /obj/item/clothing/mask/breath/medical/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "медицинская маска",
 		GENITIVE = "медицинской маски",
 		DATIVE = "медицинской маске",
@@ -84,7 +84,7 @@
 	species_restricted = list(SPECIES_VOX, SPECIES_VOX_ARMALIS) //These should fit the "Mega Vox" just fine.
 
 /obj/item/clothing/mask/breath/vox/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "дыхательная маска для воксов",
 		GENITIVE = "дыхательной маски для воксов",
 		DATIVE = "дыхательной маске для воксов",
@@ -98,3 +98,18 @@
 
 /obj/item/clothing/mask/breath/vox/click_alt(mob/user)
 	return NONE
+
+/obj/item/clothing/mask/breath/vox/respirator
+	name = "vox respirator"
+	desc = "Эта маска для дыхания странной формы, похоже, предназначена для вокс-рейдера."
+	icon_state = "voxmask2"
+
+/obj/item/clothing/mask/breath/vox/get_ru_names()
+	return alist(
+		NOMINATIVE = "респиратор воксов",
+		GENITIVE = "респиратора воксов",
+		DATIVE = "респиратору воксов",
+		ACCUSATIVE = "респиратор воксов",
+		INSTRUMENTAL = "респиратором воксов",
+		PREPOSITIONAL = "респираторе воксов",
+	)

@@ -132,7 +132,7 @@
 	biological = TRUE
 
 /obj/item/organ/internal/cyberimp/tail/blade/organic_upgrade/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "хвостовая опухоль",
 		GENITIVE = "хвостовой опухоли",
 		DATIVE = "хвостовой опухоли",

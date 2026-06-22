@@ -2196,8 +2196,6 @@
 	req_access = list(150)
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/indestructible/plating,
@@ -2233,7 +2231,9 @@
 	},
 /area/awaymission/spacehotel)
 "ir" = (
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
 	},
@@ -2286,8 +2286,6 @@
 /area/awaymission/spacehotel)
 "iz" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/indestructible/plating,
@@ -2369,7 +2367,9 @@
 /obj/machinery/gateway{
 	dir = 9
 	},
-/obj/effect/decal/warning_stripes/northwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
 	},
@@ -2378,7 +2378,9 @@
 /obj/machinery/gateway{
 	dir = 1
 	},
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
 	},
@@ -2387,7 +2389,9 @@
 /obj/machinery/gateway{
 	dir = 5
 	},
-/obj/effect/decal/warning_stripes/northeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
 	},
@@ -2444,47 +2448,33 @@
 /area/awaymission/spacehotel)
 "iW" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/indestructible/plating,
 /area/awaymission/spacehotel)
 "iX" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/indestructible/plating,
 /area/awaymission/spacehotel)
 "iY" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/indestructible/plating,
 /area/awaymission/spacehotel)
 "iZ" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/mapping_helpers/turfs/damage,
@@ -2492,13 +2482,9 @@
 /area/awaymission/spacehotel)
 "ja" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/indestructible/plating,
@@ -2513,7 +2499,9 @@
 /obj/machinery/gateway{
 	dir = 8
 	},
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
 	},
@@ -2530,7 +2518,9 @@
 /obj/machinery/gateway{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
 	},
@@ -2625,14 +2615,18 @@
 /obj/machinery/gateway{
 	dir = 10
 	},
-/obj/effect/decal/warning_stripes/southwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
 	},
 /area/awaymission/spacehotel)
 "jv" = (
 /obj/machinery/gateway,
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
 	},
@@ -2641,7 +2635,9 @@
 /obj/machinery/gateway{
 	dir = 6
 	},
-/obj/effect/decal/warning_stripes/southeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
 	},
@@ -2701,7 +2697,7 @@
 /turf/simulated/floor/indestructible/carpet,
 /area/awaymission/spacehotel)
 "jD" = (
-/obj/effect/decal/warning_stripes/white/hollow,
+/obj/effect/turf_decal/delivery/white/hollow,
 /turf/simulated/floor/indestructible/carpet,
 /area/awaymission/spacehotel)
 "jE" = (
@@ -2767,29 +2763,21 @@
 /area/awaymission/spacehotel)
 "jJ" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/indestructible/plating,
 /area/awaymission/spacehotel)
 "jK" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/indestructible/plating,
 /area/awaymission/spacehotel)
 "jL" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/indestructible/plating,
@@ -2997,7 +2985,7 @@
 /obj/structure/chair/sofa/left{
 	dir = 1
 	},
-/obj/effect/decal/warning_stripes/white/hollow,
+/obj/effect/turf_decal/delivery/white/hollow,
 /turf/simulated/floor/indestructible/carpet,
 /area/awaymission/spacehotel)
 "kv" = (

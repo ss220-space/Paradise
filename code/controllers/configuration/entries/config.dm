@@ -284,7 +284,7 @@
 		SPECIES_DRASK,
 		SPECIES_GREY,
 		SPECIES_KIDAN,
-		SPECIES_MACNINEPERSON,
+		SPECIES_MACHINEPERSON,
 		SPECIES_NUCLEATION,
 		SPECIES_PLASMAMAN,
 		SPECIES_SLIMEPERSON,
@@ -443,6 +443,7 @@
 	default = list(
 		ROLE_TRAITOR,
 		ROLE_VAMPIRE,
+		ROLE_CHANGELING,
 	)
 
 /datum/config_entry/keyed_list/antag_paradise_single_antags_weights
@@ -452,7 +453,7 @@
 		ROLE_TRAITOR = 60,
 		ROLE_THIEF = 0,
 		ROLE_VAMPIRE = 20,
-		ROLE_CHANGELING = 0,
+		ROLE_CHANGELING = 20,
 	)
 
 /datum/config_entry/keyed_list/antag_paradise_double_antags_weights
@@ -822,6 +823,15 @@
 /datum/config_entry/string/invoke_youtubedl
 	protection = CONFIG_ENTRY_LOCKED | CONFIG_ENTRY_HIDDEN
 
+/// Allows players to request internet sounds (via the OOC verb) for admins to play.
+/datum/config_entry/flag/request_internet_sound
+	default = TRUE
+
+/// Comma separated list of url patterns players are allowed to request. Each entry is matched as a regex.
+/datum/config_entry/string/request_internet_allowed
+	protection = CONFIG_ENTRY_LOCKED
+	default = "youtube.com/watch,youtu.be/,soundcloud.com/,bandcamp.com/track/"
+
 /datum/config_entry/str_list/lobby_music
 
 /datum/config_entry/string/override_away_mission
@@ -851,6 +861,21 @@
 
 /datum/config_entry/string/internal_ip
 	protection = CONFIG_ENTRY_LOCKED | CONFIG_ENTRY_HIDDEN
+
+/datum/config_entry/keyed_list/positive_station_traits
+	default = list("0" = 8, "1" = 4, "2" = 2, "3" = 1)
+	key_mode = KEY_MODE_TEXT
+	value_mode = VALUE_MODE_NUM
+
+/datum/config_entry/keyed_list/negative_station_traits
+	default = list("0" = 8, "1" = 4, "2" = 2, "3" = 1)
+	key_mode = KEY_MODE_TEXT
+	value_mode = VALUE_MODE_NUM
+
+/datum/config_entry/keyed_list/neutral_station_traits
+	default = list("0" = 10, "1" = 10, "2" = 3, "2.5" = 1)
+	key_mode = KEY_MODE_TEXT
+	value_mode = VALUE_MODE_NUM
 
 /datum/config_entry/flag/smart_cache_assets
 	default = TRUE

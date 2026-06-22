@@ -52,7 +52,7 @@
 	max_combined_w_class = 42 // 21*2
 
 /obj/item/storage/box/large/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "большая коробка",
 		GENITIVE = "большой коробки",
 		DATIVE = "большой коробке",
@@ -300,7 +300,7 @@
 	item_state = "donks"
 
 /obj/item/storage/box/donkpockets/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "коробка с Донк-покетами",
 		GENITIVE = "коробки с Донк-покетами",
 		DATIVE = "коробке с Донк-покетами",
@@ -320,7 +320,7 @@
 	item_state = "donks"
 
 /obj/item/storage/box/warmdonkpockets/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "коробка с разогретыми Донк-покетами",
 		GENITIVE = "коробки с разогретыми Донк-покетами",
 		DATIVE = "коробке с разогретыми Донк-покетами",
@@ -341,7 +341,7 @@
 	item_state = "donks"
 
 /obj/item/storage/box/syndidonkpockets/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "коробка с Донк-покетами",
 		GENITIVE = "коробки с Донк-покетами",
 		DATIVE = "коробке с Донк-покетами",
@@ -365,7 +365,7 @@
 	var/beantype = /obj/item/reagent_containers/food/snacks/grown/coffee
 
 /obj/item/storage/box/coffeepack/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "зёрна кофе арабика",
 		GENITIVE = "зёрен кофе арабика",
 		DATIVE = "зёрнам кофе арабика",
@@ -399,7 +399,7 @@
 	beantype = /obj/item/reagent_containers/food/snacks/grown/coffee/robusta
 
 /obj/item/storage/box/coffeepack/robusta/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "зёрна кофе робуста",
 		GENITIVE = "зёрен кофе робуста",
 		DATIVE = "зёрнам кофе робуста",
@@ -417,7 +417,7 @@
 	var/monkey_cube_type = /obj/item/reagent_containers/food/snacks/monkeycube
 
 /obj/item/storage/box/monkeycubes/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "коробка кубов шимпанзе",
 		GENITIVE = "коробки кубов шимпанзе",
 		DATIVE = "коробке кубов шимпанзе",
@@ -446,7 +446,7 @@
 	monkey_cube_type = /obj/item/reagent_containers/food/snacks/monkeycube/farwacube
 
 /obj/item/storage/box/monkeycubes/farwacubes/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "коробка кубов фарв",
 		GENITIVE = "коробки кубов фарв",
 		DATIVE = "коробке кубов фарв",
@@ -462,7 +462,7 @@
 	monkey_cube_type = /obj/item/reagent_containers/food/snacks/monkeycube/stokcube
 
 /obj/item/storage/box/monkeycubes/stokcubes/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "коробка кубов стоков",
 		GENITIVE = "коробки кубов стоков",
 		DATIVE = "коробке кубов стоков",
@@ -479,7 +479,7 @@
 
 
 /obj/item/storage/box/monkeycubes/neaeracubes/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "коробка кубов неар",
 		GENITIVE = "коробки кубов неар",
 		DATIVE = "коробке кубов неар",
@@ -495,7 +495,7 @@
 	monkey_cube_type = /obj/item/reagent_containers/food/snacks/monkeycube/wolpincube
 
 /obj/item/storage/box/monkeycubes/wolpincubes/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "коробка кубов вульпинов",
 		GENITIVE = "коробки кубов вульпинов",
 		DATIVE = "коробке кубов вульпинов",
@@ -765,7 +765,7 @@
 	custom_price = PAYCHECK_MIN * 0.5
 
 /obj/item/storage/box/matches/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "коробок спичек",
 		GENITIVE = "коробка спичек",
 		DATIVE = "коробку спичек",
@@ -896,7 +896,7 @@
 	var/apply_paper_bag_delay = BAG_PUTTING_DELAY
 
 /obj/item/storage/box/papersack/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бумажный пакет",
 		GENITIVE = "бумажного пакета",
 		DATIVE = "бумажному пакету",
@@ -1187,42 +1187,6 @@
 		new /obj/item/reagent_containers/food/snacks/candy/jellybean/wtf(src)
 	new /obj/item/reagent_containers/food/snacks/candy/sucker(src)
 
-/obj/item/storage/pouch
-	name = "pouch"
-	desc = "Подсумок на два магазина."
-	icon_state = "pouch"
-	item_state = "pouch"
-	storage_slots = 2
-	w_class = WEIGHT_CLASS_TINY
-	slot_flags = ITEM_SLOT_BELT
-	can_hold = list(/obj/item/ammo_box/magazine)
-
-/obj/item/storage/pouch/fast
-	name = "fast pouch"
-	desc = "Подсумок на два магазина, модифицированный для быстрой перезарядки."
-	icon_state = "pouch_fast"
-	item_state = "pouch_fast"
-
-/obj/item/storage/pouch/fast/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/gun/projectile/automatic))
-		add_fingerprint(user)
-		var/obj/item/gun/projectile/automatic/gun = I
-		for(var/obj/item/ammo_box/magazine/magazine in contents)
-			if(!istype(magazine, gun.mag_type))
-				continue
-			var/obj/item/ammo_box/magazine/gun_magazine = gun.magazine
-			gun.attackby(magazine, user, params)
-			var/mag_changed = (gun_magazine && gun_magazine.loc != gun)
-			var/success = mag_changed || (!gun_magazine && gun.magazine)
-			if(mag_changed && can_be_inserted(gun_magazine))
-				handle_item_insertion(gun_magazine)
-				gun_magazine.update_appearance()
-			if(success)
-				break
-		return ATTACK_CHAIN_PROCEED_SUCCESS
-
-	return ..()
-
 /obj/item/storage/box/sec
 	name = "officer starter kit"
 	desc = "Коробка, что вмещает в себе все нужное дабы стать офицером! Мелким шрифтом вы можете разобрать: Не включает действительно все."
@@ -1269,7 +1233,7 @@
 	item_state = "sec"
 
 /obj/item/storage/box/specter_kit/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "набор Спектр",
 		GENITIVE = "набора Спектр",
 		DATIVE = "набору Спектр",
@@ -1291,7 +1255,7 @@
 	item_state = "sec"
 
 /obj/item/storage/box/taurus_kit/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "набор \"Таурус\"",
 		GENITIVE = "набора \"Таурус\"",
 		DATIVE = "набору \"Таурус\"",
@@ -1397,8 +1361,8 @@
 	name = "plant data disks box"
 	icon_state = "box_disc"
 
-/obj/item/storage/box/disks_plantgene/New()
-	..()
+/obj/item/storage/box/disks_plantgene/Initialize(mapload)
+	. = ..()
 	for(var/i in 1 to 7)
 		new /obj/item/disk/plantgene(src)
 
@@ -1424,6 +1388,45 @@
 	new /obj/item/ammo_box/speedloader/a357(src)
 	new /obj/item/ammo_box/speedloader/a357(src)
 	new /obj/item/clothing/accessory/holster(src)
+
+/obj/item/storage/box/pen_case
+	name = "box of pens"
+	icon_state = "pen_case"
+	item_state = "pen_case"
+	custom_price = PAYCHECK_MIN * 2
+
+	/**
+	 * Weighted list of possible loot items.
+	 * random_pen = ((probability in list * weight) / 100)
+	 */
+	var/static/list/random_pen = list(
+		/obj/item/pen = 50,
+		/obj/item/pen/blue = 10,
+		/obj/item/pen/red = 10,
+		/obj/item/pen/gray = 10,
+		/obj/item/pen/invisible = 5,
+		/obj/item/pen/fancy = 5,
+		/obj/item/pen/multi = 3,
+		/obj/item/pen/multi/fountain = 3,
+		/obj/item/pen/survival = 3,
+		/obj/item/pen/multi/gold = 1,
+	)
+
+/obj/item/storage/box/pen_case/get_ru_names()
+	return alist(
+		NOMINATIVE = "набор ручек",
+		GENITIVE = "набора ручек",
+		DATIVE = "набору ручек",
+		ACCUSATIVE = "набор ручек",
+		INSTRUMENTAL = "набором ручек",
+		PREPOSITIONAL = "наборе ручек",
+	)
+
+/obj/item/storage/box/pen_case/populate_contents()
+	for(var/i in 1 to 7)
+		var/rand_pen = pickweight(random_pen)
+		new rand_pen(src)
+
 
 #undef BAG_PUTTING_DELAY
 #undef NODESIGN

@@ -68,8 +68,15 @@
 	)
 	var/obj/item/clothing/accessory/holobadge/attached_badge
 
-/obj/item/clothing/suit/armor/vest/security/update_icon_state()
-	icon_state = "armor[attached_badge ? "sec" : ""]"
+/obj/item/clothing/suit/armor/vest/security/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/item_skins)
+
+/obj/item/clothing/suit/armor/vest/security/update_overlays()
+	. = ..()
+	if(!attached_badge)
+		return
+	. += mutable_appearance(icon, "badge")
 	update_equipped_item(update_speedmods = FALSE)
 
 /obj/item/clothing/suit/armor/vest/security/update_desc(updates = ALL)
@@ -91,7 +98,7 @@
 		attached_badge = I
 		var/datum/action/item_action/remove_badge/holoaction = new(src)
 		holoaction.Grant(user)
-		update_appearance(UPDATE_ICON_STATE|UPDATE_DESC)
+		update_appearance(UPDATE_ICON_STATE|UPDATE_OVERLAYS|UPDATE_DESC)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
@@ -103,10 +110,10 @@
 		for(var/datum/action/item_action/remove_badge/action in actions)
 			LAZYREMOVE(actions, action)
 			action.Remove(user)
+		to_chat(user, span_notice("Вы снимаете [attached_badge.declent_ru(ACCUSATIVE)] с [declent_ru(GENITIVE)]."))
 		attached_badge = null
 		update_appearance(UPDATE_ICON_STATE|UPDATE_DESC)
 		update_equipped_item()
-		to_chat(user, span_notice("Вы снимаете [attached_badge.declent_ru(ACCUSATIVE)] с [declent_ru(GENITIVE)]."))
 		return
 	..()
 
@@ -332,7 +339,7 @@
 	var/hit_reflect_chance = 50
 
 /obj/item/clothing/suit/armor/laserproof/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "абляционный бронежилет",
 		GENITIVE = "абляционного бронежилета",
 		DATIVE = "абляционному бронежилету",
@@ -368,7 +375,7 @@
 	var/hit_reflect_chance = 50
 
 /obj/item/clothing/suit/armor/reflector/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "рефлекторное пальто",
 		GENITIVE = "рефлекторное пальто",
 		DATIVE = "рефлекторному пальто",
@@ -692,7 +699,7 @@
 	hide_tail_by_species = list(SPECIES_VULPKANIN)
 
 /obj/item/clothing/suit/hooded/drake/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "доспех из дрейка",
 		GENITIVE = "доспеха из дрейка",
 		DATIVE = "доспеху из дрейка",
@@ -713,7 +720,7 @@
 	flags_cover = HEADCOVERSEYES
 
 /obj/item/clothing/head/hooded/drake/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шлем из дрейка",
 		GENITIVE = "шлема из дрейка",
 		DATIVE = "шлему из дрейка",
@@ -733,7 +740,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
 /obj/item/clothing/suit/hooded/goliath/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "накидка из голиафа",
 		GENITIVE = "накидки из голиафа",
 		DATIVE = "накидке из голиафа",
@@ -751,7 +758,7 @@
 	flags_cover = HEADCOVERSEYES
 
 /obj/item/clothing/head/hooded/goliath/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "капюшон накидки из голиафа",
 		GENITIVE = "капюшона накидки из голиафа",
 		DATIVE = "капюшону накидки из голиафа",
@@ -774,7 +781,7 @@
 	magical = TRUE
 
 /obj/item/clothing/head/hooded/goliath/wizard/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "череп шамана",
 		GENITIVE = "черепа шамана",
 		DATIVE = "черепу шамана",
@@ -814,7 +821,7 @@
 	hide_tail_by_species = list(SPECIES_VULPKANIN)
 
 /obj/item/clothing/suit/armor/bone/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "костяная броня",
 		GENITIVE = "костяной брони",
 		DATIVE = "костяной броне",
@@ -867,7 +874,7 @@
 	)
 
 /obj/item/clothing/suit/armor/cartilage/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "броня из хрящевых пластин",
 		GENITIVE = "брони из хрящевых пластин",
 		DATIVE = "броне из хрящевых пластин",
@@ -885,7 +892,7 @@
 	body_parts_covered = UPPER_TORSO|ARMS
 
 /obj/item/clothing/suit/armor/cartilage/cartilage_pads/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "наплечники из хрящевых пластин",
 		GENITIVE = "наплечников из хрящевых пластин",
 		DATIVE = "наплечникам из хрящевых пластин",
@@ -917,7 +924,7 @@
 	body_parts_covered = LOWER_TORSO|LEGS
 
 /obj/item/clothing/suit/armor/cartilage/cartilage_greaves/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "поножи из хрящевых пластин",
 		GENITIVE = "поножей из хрящевых пластин",
 		DATIVE = "поножам из хрящевых пластин",

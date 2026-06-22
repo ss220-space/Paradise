@@ -4,10 +4,9 @@
 SUBSYSTEM_DEF(title)
 	name = "Title Screen"
 	wait = 30 SECONDS
-	init_order = INIT_ORDER_TITLE
 	init_stage = INITSTAGE_EARLY
-	runlevels = RUNLEVELS_DEFAULT|RUNLEVEL_LOBBY
-	ss_id = "title_screen"
+	runlevels = RUNLEVELS_DEFAULT | RUNLEVEL_LOBBY
+
 	/// Basic html that includes styles. Can be customised by host
 	var/base_html
 	/// Currently set title screen
@@ -22,7 +21,7 @@ SUBSYSTEM_DEF(title)
 	fill_title_images_pool()
 
 	if(!CONFIG_GET(flag/enable_multi_instance))
-		flags |= SS_NO_FIRE
+		ss_flags |= SS_NO_FIRE
 	else
 		update_servers_info()
 

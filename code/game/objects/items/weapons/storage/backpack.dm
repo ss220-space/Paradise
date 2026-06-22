@@ -65,7 +65,7 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 60, ACID = 50)
 
 /obj/item/storage/backpack/holding/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "блюспейс рюкзак",
 		GENITIVE = "блюспейс рюкзака",
 		DATIVE = "блюспейс рюкзаку",
@@ -113,9 +113,9 @@
 		span_italics("You hear the sound of scientific evil brewing!"),
 	)
 	qdel(I)
-	var/obj/singularity/singulo = new(get_turf(user))
-	singulo.energy = 300 //To give it a small boost
-	message_admins("[ADMIN_FULLMONTY(user)] created singularity using two bag of holding at [ADMIN_COORDJMP(singulo)]!")
+	var/obj/reality_tear/tear = new(get_turf(user))
+	tear.start_disaster()
+	message_admins("[ADMIN_FULLMONTY(user)] created singularity using two bag of holding at [ADMIN_COORDJMP(tear)]!")
 	add_game_logs("created singularity using two bag of holding!", user)
 	qdel(src)
 
@@ -126,7 +126,7 @@
 	item_state = "holdingsat"
 
 /obj/item/storage/backpack/holding/satchel/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "блюспейс сумка",
 		GENITIVE = "блюспейс сумки",
 		DATIVE = "блюспейс сумке",
@@ -147,7 +147,7 @@
 	max_combined_w_class = 40
 
 /obj/item/storage/backpack/holding/satchel/duffelbag/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "блюспейс спортивная сумка",
 		GENITIVE = "блюспейс спортивная сумки",
 		DATIVE = "блюспейс спортивная сумке",
@@ -164,7 +164,7 @@
 	max_combined_w_class = 60
 
 /obj/item/storage/backpack/santabag/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мешок с подарками",
 		GENITIVE = "мешка с подарками",
 		DATIVE = "мешку с подарками",
@@ -264,7 +264,7 @@
 	item_state = "explorerpack"
 
 /obj/item/storage/backpack/explorer/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "рюкзак исследователя",
 		GENITIVE = "рюкзака исследователя",
 		DATIVE = "рюкзаку исследователя",
@@ -438,7 +438,7 @@
 	item_state = "securitypack"
 
 /obj/item/storage/backpack/satchel_explorer/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сумка исследователя",
 		GENITIVE = "сумки исследователя",
 		DATIVE = "сумке исследователя",
@@ -623,11 +623,6 @@
 	for(var/i in 1 to 9)
 		new /obj/item/ammo_box/magazine/m556(src)
 
-/* UZI ammobag
-name = "Пистолет-пулемёт Uzi — сумка с магазинами 9 мм"
-desc = "Сумка, содержащая 10 магазинов на 30 патронов калибра 9 мм. Для тех, кто идёт на серьёзное дело."
-TODO Use this name and desc for localisation*/
-
 /obj/item/storage/backpack/duffel/syndie/ammo/uzi
 	desc = "A large duffel bag, packed to the brim with Type U3 Uzi magazines"
 
@@ -640,7 +635,7 @@ TODO Use this name and desc for localisation*/
 	desc = "Набор с необходимым минимумом, чтобы превратить рядового члена экипажа в Шахтёра."
 
 /obj/item/storage/backpack/duffel/mining_conscript/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "стартовый набор Шахтёра",
 		GENITIVE = "стартового набора Шахтёра",
 		DATIVE = "стартовому набору Шахтёра",
@@ -681,7 +676,7 @@ TODO Use this name and desc for localisation*/
 	desc = "Набор, содержащий всё необходимое для спасения ваших товарищей-шахтёров от неминуемой смерти."
 
 /obj/item/storage/backpack/duffel/vendor_ext/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "набор для спасения и эвакуации",
 		GENITIVE = "набора для спасения и эвакуации",
 		DATIVE = "набору для спасения и эвакуации",
@@ -711,7 +706,7 @@ TODO Use this name and desc for localisation*/
 	new /obj/item/ammo_box/magazine/smgm45(src)
 	new /obj/item/ammo_box/magazine/smgm45(src)
 	new /obj/item/ammo_box/magazine/smgm45(src)
-	new /obj/item/gun/projectile/automatic/c20r(src)
+	new /obj/item/gun/projectile/automatic/smg/c20r(src)
 	new /obj/item/gun_module/muzzle/suppressor(src)
 
 /obj/item/storage/backpack/duffel/syndie/bulldogbundle

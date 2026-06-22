@@ -141,7 +141,7 @@
 	var/obj/effect/proc_holder/spell/borer_dominate/dominate_spell = new
 
 /mob/living/simple_animal/borer/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мозговой червь",
 		GENITIVE = "мозгового червя",
 		DATIVE = "мозговому червю",
@@ -150,9 +150,9 @@
 		PREPOSITIONAL = "мозговом черве",
 	)
 
-/mob/living/simple_animal/borer/New(atom/newloc, gen=1)
+/mob/living/simple_animal/borer/Initialize(mapload, gen = 1)
 	antag_datum.borer_rank = new BORER_RANK_YOUNG(src)
-	..(newloc)
+	. = ..()
 	remove_from_all_data_huds()
 	generation = gen
 	add_language(LANGUAGE_HIVE_BORER)

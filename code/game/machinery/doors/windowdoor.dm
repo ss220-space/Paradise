@@ -141,7 +141,7 @@
 /obj/machinery/door/window/CanAStarPass(to_dir, datum/can_pass_info/pass_info)
 	return !density || (dir != to_dir) || (check_access_list(pass_info.access) && hasPower() && !pass_info.no_id)
 
-/obj/machinery/door/window/proc/on_exit(datum/source, atom/movable/leaving, atom/newLoc)
+/obj/machinery/door/window/proc/on_exit(datum/source, atom/movable/leaving, direction)
 	SIGNAL_HANDLER
 
 	if(leaving.movement_type & PHASING)
@@ -153,7 +153,7 @@
 	if(leaving.pass_flags == PASSEVERYTHING || (pass_flags_self & leaving.pass_flags) || ((pass_flags_self & LETPASSTHROW) && leaving.throwing))
 		return
 
-	if(density && dir == get_dir(leaving, newLoc))
+	if(density && dir == direction)
 		leaving.Bump(src)
 		return COMPONENT_ATOM_BLOCK_EXIT
 
@@ -166,7 +166,7 @@
 		else
 			icon_state = "[base_state][density ? "" : "open"]"
 
-	SSdemo.mark_dirty(src)
+	//SSdemo.mark_dirty(src)
 
 /obj/machinery/door/window/open(forced=0)
 
@@ -385,6 +385,14 @@
 	reinf = 1
 	explosion_block = 1
 	var/id = null
+
+/obj/machinery/door/window/brigdoor/normal
+	name = ".custom placement"
+
+/obj/machinery/door/window/brigdoor/reversed
+	name = ".custom placement"
+	icon_state = "rightsecure"
+	base_state = "rightsecure"
 
 /obj/machinery/door/window/brigdoor/security/cell
 	name = "cell door"

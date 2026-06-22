@@ -8,7 +8,7 @@
 	w_class = WEIGHT_CLASS_TINY
 
 /obj/item/organ/internal/cyberimp/brain/bci/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "интерфейс \"Мозг-Компьютер\"",
 		GENITIVE = "интерфейса \"Мозг-Компьютер\"",
 		DATIVE = "интерфейсу \"Мозг-Компьютер\"",
@@ -180,7 +180,7 @@
 
 	user_port.set_output(owner)
 
-	RegisterSignal(owner, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
+	RegisterSignal(owner, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
 	RegisterSignal(owner, COMSIG_PROCESS_BORGCHARGER_OCCUPANT, PROC_REF(on_borg_charge))
 	RegisterSignal(owner, COMSIG_LIVING_ELECTROCUTE_ACT, PROC_REF(on_electrocute))
 
@@ -196,7 +196,7 @@
 	user_port.set_output(null)
 
 	UnregisterSignal(owner, list(
-		COMSIG_PARENT_EXAMINE,
+		COMSIG_ATOM_EXAMINE,
 		COMSIG_PROCESS_BORGCHARGER_OCCUPANT,
 		COMSIG_LIVING_ELECTROCUTE_ACT,
 	))
@@ -308,7 +308,7 @@
 	COOLDOWN_DECLARE(message_cooldown)
 
 /obj/machinery/bci_implanter/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "камера манипуляций интерфейсом \"Мозг-компьютер\"",
 		GENITIVE = "камеры манипуляций интерфейсом \"Мозг-компьютер\"",
 		DATIVE = "камере манипуляций интерфейсом \"Мозг-компьютер\"",
@@ -467,21 +467,20 @@
 
 	if(occupant)
 		balloon_alert(user, "внутри кто-то есть!")
-		return TRUE
+		return
 
 	if(target.buckled)
 		return
 
 	if(target.abiotic())
 		balloon_alert(user, "руки субъекта заняты!")
-		return TRUE
+		return
 
 	if(target.has_buckled_mobs()) //mob attached to us
 		to_chat(user, span_warning("[target] не помест[PLUR_IT_YAT(target)]ся в [declent_ru(ACCUSATIVE)], пока на [GEND_ON_IN_HIM(target)] сидит слайм!"))
-		return TRUE
+		return
 
 	put_in(target, user)
-	return TRUE
 
 /obj/machinery/bci_implanter/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
 	. = TRUE

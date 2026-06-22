@@ -58,7 +58,7 @@
 	var/list/reverse_option_list = list(MOB_OPTION=FALSE, UNANCHORED_OPTION=FALSE, ANCHORED_OPTION=FALSE, MECHA_OPTION=FALSE)
 
 /obj/structure/closet/supplypod/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "капсула снабжения",
 		GENITIVE = "капсулы снабжения",
 		DATIVE = "капсуле снабжения",
@@ -112,7 +112,7 @@
 	reverse_option_list = list(MOB_OPTION = FALSE, UNANCHORED_OPTION = FALSE, ANCHORED_OPTION = FALSE, MECHA_OPTION = FALSE)
 
 /obj/structure/closet/supplypod/extractionpod/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "капсула эвакуации \"Синдиката\"",
 		GENITIVE = "капсулы эвакуации \"Синдиката\"",
 		DATIVE = "капсуле эвакуации \"Синдиката\"",
@@ -202,7 +202,7 @@
 	specialised = TRUE
 
 /obj/structure/closet/supplypod/back_to_station/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кроваво-красная капсула снабжения",
 		GENITIVE = "кроваво-красной капсулы снабжения",
 		DATIVE = "кроваво-красной капсуле снабжения",
@@ -222,7 +222,7 @@
 	effectMissile = TRUE
 
 /obj/structure/closet/supplypod/deadmatch_missile/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "крылатая ракета",
 		GENITIVE = "крылатой ракеты",
 		DATIVE = "крылатой ракете",
@@ -283,9 +283,9 @@
 	SIGNAL_HANDLER
 	SEND_SIGNAL(src, COMSIG_SUPPLYPOD_ENTERED, arrived, old_loc, old_locs)
 
-/obj/structure/closet/supplypod/proc/on_exited(datum/source, mob/living/exited, atom/new_loc)
+/obj/structure/closet/supplypod/proc/on_exited(datum/source, mob/living/exited, direction)
 	SIGNAL_HANDLER
-	SEND_SIGNAL(src, COMSIG_SUPPLYPOD_EXITED, exited, new_loc)
+	SEND_SIGNAL(src, COMSIG_SUPPLYPOD_EXITED, exited, direction)
 
 /obj/structure/closet/supplypod/proc/setStyle(datum/pod_style/chosen_style) //Used to give the sprite an icon state, name, and description.
 	style = chosen_style
@@ -606,23 +606,20 @@
 	reverse_dropoff_coords = list(picked_turf.x, picked_turf.y, picked_turf.z)
 	return ..()
 
-/obj/structure/closet/supplypod/mouse_drop_receive(atom/movable/O, mob/living/user, params)
-	if(!(SEND_SIGNAL(src, COMSIG_SUPPLYPOD_CLIMB_CHECK, O, user) & COMPONENT_CLIMB))
+/obj/structure/closet/supplypod/mouse_drop_receive(atom/movable/target_movable, mob/living/user, params)
+	if(!(SEND_SIGNAL(src, COMSIG_SUPPLYPOD_CLIMB_CHECK, target_movable, user) & COMPONENT_CLIMB))
 		return ..()
 
-	to_chat(user, span_notice("Вы начинаетезаталкивать"))
-	user.visible_message(span_notice("[DECLENT_RU_CAP(user, NOMINATIVE)] начинает запихивать [O.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."),
-						span_notice("Вы начинаете запихивать [O.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
+	balloon_alert(user, "заталкивание...")
+	user.visible_message(
+		span_notice("[DECLENT_RU_CAP(user, NOMINATIVE)] начинает запихивать [target_movable.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."),
+		span_notice("Вы начинаете запихивать [target_movable.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."),
+	)
 
 	if(!do_after(user, 5 SECONDS, src))
 		return
 
-	. = ..()
-
-	if(!.)
-		return
-
-	O.forceMove(get_turf(src))
+	target_movable.forceMove(get_turf(src))
 
 /obj/structure/closet/supplypod/set_opened() //Proc exists here, as well as in any atom that can assume the role of a "holder" of a supplypod. Check the open_pod() proc for more details
 	opened = TRUE
@@ -741,7 +738,7 @@
 	var/verticle_offset = 0
 
 /obj/effect/supplypod_rubble/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "обломки",
 		GENITIVE = "обломков",
 		DATIVE = "обломкам",
@@ -802,7 +799,7 @@
 	var/list/smoke_effects = new /list(13)
 
 /obj/effect/pod_landingzone/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "индикатор зоны приземления",
 		GENITIVE = "индикатора зоны приземления",
 		DATIVE = "индикатору зоны приземления",

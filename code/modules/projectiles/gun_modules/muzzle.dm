@@ -11,13 +11,13 @@
 	item_state = "supp"
 	overlay_state = "supp_o"
 	overlay_offset = list("x" = -1, "y" = 0)
-	class = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_SNIPER_MUZZLE
+	class = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_RIFLE_MUZZLE
 	custom_price = 2 * PAYCHECK_LOWER
 	var/oldsound
 	var/initial_w_class
 
 /obj/item/gun_module/muzzle/suppressor/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "универсальный глушитель",
 		GENITIVE = "универсального глушителя",
 		DATIVE = "универсальному глушителю",
@@ -53,7 +53,7 @@
 	custom_price = 2.5 * PAYCHECK_LOWER
 
 /obj/item/gun_module/muzzle/suppressor/shotgun/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ружейный глушитель",
 		GENITIVE = "ружейного глушителя",
 		DATIVE = "ружейному глушителю",
@@ -71,7 +71,7 @@
 	custom_price = 3 * PAYCHECK_LOWER
 
 /obj/item/gun_module/muzzle/suppressor/heavy/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "тяжёлый глушитель",
 		GENITIVE = "тяжёлого глушителя",
 		DATIVE = "тяжёлому глушителю",
@@ -101,7 +101,7 @@
 	overlay_state = "[base_icon_state]_o"
 
 /obj/item/gun_module/muzzle/suppressor/handmade/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "самодельный глушитель",
 		GENITIVE = "самодельного глушителя",
 		DATIVE = "самодельному глушителю",
@@ -141,7 +141,7 @@
 	item_state = "comp"
 	overlay_state = "comp_o"
 	overlay_offset = list("x" = -3, "y" = 0)
-	class = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_SNIPER_MUZZLE
+	class = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_RIFLE_MUZZLE
 	var/bonus_accuracy = 10
 	var/initial_w_class
 	var/spread_decrease = 0
@@ -149,7 +149,7 @@
 	custom_price = 2 * PAYCHECK_LOWER
 
 /obj/item/gun_module/muzzle/compensator/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "универсальный компенсатор",
 		GENITIVE = "универсального компенсатора",
 		DATIVE = "универсальному компенсатору",

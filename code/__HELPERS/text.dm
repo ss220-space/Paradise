@@ -75,6 +75,10 @@
 	else
 		return trim(html_encode(name), max_length)
 
+/// Runs STRIP_HTML_FULL and sanitize.
+/proc/strip_html_full(text, limit = MAX_MESSAGE_LEN)
+	return sanitize(STRIP_HTML_FULL(text, limit))
+
 /// Runs byond's sanitization proc along-side strip_html_simple
 /// I believe strip_html_simple() is required to run first to prevent '<' from displaying as '&lt;' that html_encode() would cause
 /proc/adminscrub(t, limit=MAX_MESSAGE_LEN)

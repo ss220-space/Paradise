@@ -268,7 +268,7 @@
 /turf/simulated/floor/grass,
 /area/ruin/space/spacebotany/Garden)
 "dW" = (
-/obj/effect/decal/warning_stripes/white/hollow,
+/obj/effect/turf_decal/delivery/white/hollow,
 /obj/machinery/hydroponics/constructable,
 /obj/machinery/light{
 	dir = 1
@@ -701,7 +701,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/spacebotany/Hydro)
 "iA" = (
-/obj/effect/decal/warning_stripes/white/hollow,
+/obj/effect/turf_decal/delivery/white/hollow,
 /obj/machinery/hydroponics/constructable,
 /obj/structure/spacevine,
 /turf/simulated/floor/plasteel{
@@ -1029,7 +1029,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/spacebotany/Hydro)
 "ng" = (
-/obj/effect/decal/warning_stripes/white/hollow,
+/obj/effect/turf_decal/delivery/white/hollow,
 /obj/machinery/hydroponics/constructable,
 /obj/machinery/light,
 /obj/structure/spacevine,
@@ -2656,7 +2656,7 @@
 /turf/simulated/wall,
 /area/ruin/space/spacebotany/Dorm)
 "Jr" = (
-/obj/effect/decal/warning_stripes/white/hollow,
+/obj/effect/turf_decal/delivery/white/hollow,
 /obj/machinery/hydroponics/constructable,
 /obj/structure/spacevine,
 /obj/structure/disposalpipe/segment,
@@ -3009,7 +3009,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/spacebotany/WestGarden)
 "Oj" = (
-/obj/effect/decal/warning_stripes/white/hollow,
+/obj/effect/turf_decal/delivery/white/hollow,
 /obj/machinery/hydroponics/constructable,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"

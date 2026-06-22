@@ -131,7 +131,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	return capitalize(return_name)
 
 /obj/machinery/computer/rdconsole/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "консоль НИО",
 		GENITIVE = "консоли НИО",
 		DATIVE = "консоли НИО",
@@ -536,7 +536,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					real_item.forceMove(lockbox)
 					lockbox.name += " ([real_item.name])"
 					var/real_item_ru_name = DECLENT_RU_CAP(real_item, NOMINATIVE)
-					lockbox.ru_names = list(
+					lockbox.ru_names = alist(
 						NOMINATIVE = "защищённый кейс ([real_item_ru_name])",
 						GENITIVE = "защищённого кейса ([real_item_ru_name])",
 						DATIVE = "защищённому кейсу ([real_item_ru_name])",
@@ -634,7 +634,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			if(t_disk && known)
 				var/datum/tech/new_known = known.copyTech()
 				t_disk.name = "[t_disk.default_name] ([new_known])"
-				t_disk.ru_names = list(
+				t_disk.ru_names = alist(
 					NOMINATIVE = "дискета технологий ([new_known])",
 					GENITIVE = "дискеты технологий ([new_known])",
 					DATIVE = "дискете технологий ([new_known])",
@@ -836,15 +836,14 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	if(submenu == SUBMENU_LATHE_CATEGORY)
 		for(var/datum/design/D in matching_designs)
-			var/item_name = D.build_object_name
 			var/list/design_list = list()
 			designs_list[++designs_list.len] = design_list
 			var/list/design_materials_list = list()
 			var/obj/item/created_object = D.build_path
 			design_list["materials"] = design_materials_list
 			design_list["id"] = D.id
-			design_list["name"] = item_name
-			design_list["desc"] = created_object.desc
+			design_list["name"] = D.build_object_name
+			design_list["desc"] = D.build_object_desc
 			design_list["icon"] = created_object.icon
 			design_list["icon_state"] = created_object.icon_state
 			var/can_build = is_imprinter ? 1 : 50
@@ -1051,7 +1050,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	id = 1
 
 /obj/machinery/computer/rdconsole/core/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "главная консоль НИО",
 		GENITIVE = "главной консоли НИО",
 		DATIVE = "главной консоли НИО",
@@ -1076,7 +1075,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	circuit = /obj/item/circuitboard/rdconsole/robotics
 
 /obj/machinery/computer/rdconsole/robotics/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "робототехническая консоль НИО",
 		GENITIVE = "робототехнической консоли НИО",
 		DATIVE = "робототехнической консоли НИО",
@@ -1095,7 +1094,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	circuit = /obj/item/circuitboard/rdconsole/experiment
 
 /obj/machinery/computer/rdconsole/experiment/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "консоль НИО (Э.К.С.П.Е.Р.И-МЕНТОР)",
 		GENITIVE = "консоли НИО (Э.К.С.П.Е.Р.И-МЕНТОР)",
 		DATIVE = "консоли НИО (Э.К.С.П.Е.Р.И-МЕНТОР)",
@@ -1114,7 +1113,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	circuit = /obj/item/circuitboard/rdconsole/mechanics
 
 /obj/machinery/computer/rdconsole/mechanics/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "консоль НИО (Мастерская челноков)",
 		GENITIVE = "консоли НИО (Мастерская челноков)",
 		DATIVE = "консоли НИО (Мастерская челноков)",
@@ -1138,7 +1137,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	circuit = /obj/item/circuitboard/rdconsole/public
 
 /obj/machinery/computer/rdconsole/public/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "публичная консоль НИО",
 		GENITIVE = "публичной консоли НИО",
 		DATIVE = "публичной консоли НИО",
@@ -1161,7 +1160,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	icon_keyboard = null
 
 /obj/machinery/computer/rdconsole/cargo/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "консоль НИО отдела Снабжения",
 		GENITIVE = "консоли НИО отдела Снабжения",
 		DATIVE = "консоли НИО отдела Снабжения",

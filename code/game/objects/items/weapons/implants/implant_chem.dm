@@ -39,6 +39,8 @@
 	reagents.trans_to(carrier, injectamount)
 	add_attack_logs(usr, carrier, "Chem bio-chip activated injecting [injectamount]u of [contained_chemicals]")
 
+	. = ..()
+
 	if(!reagents.total_volume)
 		to_chat(carrier, span_italics("You hear a faint click from your chest."))
 		qdel(src)

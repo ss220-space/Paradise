@@ -1,4 +1,5 @@
 /obj/item/gun/energy
+	abstract_type = /obj/item/gun/energy
 	icon_state = "energy"
 	name = "energy gun"
 	desc = "A basic energy-based gun."
@@ -81,10 +82,10 @@
 
 	return readout.Join("\n") // Sending over the singular string, rather than the whole list
 
-/obj/item/gun/energy/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/gun_module/sibyl))
+/obj/item/gun/energy/attackby(obj/item/item, mob/living/user, list/modifiers)
+	if(istype(item, /obj/item/gun_module/sibyl))
 		add_fingerprint(user)
-		var/obj/item/gun_module/sibyl/new_sibyl = I
+		var/obj/item/gun_module/sibyl/new_sibyl = item
 		if(!can_add_sibyl_system)
 			to_chat(user, span_warning("The [name] is incompatible with the sibyl systems module."))
 			return ATTACK_CHAIN_PROCEED
@@ -97,9 +98,9 @@
 			return ATTACK_CHAIN_BLOCKED_ALL
 		return ATTACK_CHAIN_PROCEED
 
-	if(sibyl_mod && is_id_card(I))
+	if(sibyl_mod && is_id_card(item))
 		add_fingerprint(user)
-		sibyl_mod.toggle_authorization(I, user)
+		sibyl_mod.toggle_authorization(item, user)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
@@ -146,7 +147,7 @@
 		ammo_type[i] = shot
 	shot = ammo_type[select]
 	fire_sound = shot.fire_sound
-	fire_delay = shot.delay
+	set_fire_delay(shot.delay)
 
 /obj/item/gun/energy/Destroy()
 	if(selfcharge)
@@ -209,8 +210,8 @@
 	chambered = null //either way, released the prepared shot
 	newshot()
 
-/obj/item/gun/energy/process_fire(atom/target, mob/living/user, message = TRUE, list/modifiers, zone_override, bonus_spread = 0)
-	if(!chambered && can_shoot(user))
+/obj/item/gun/energy/process_fire(zone_override, secondary_fire = FALSE)
+	if(!chambered && can_shoot(gun_user))
 		process_chamber()
 	return ..()
 
@@ -224,7 +225,7 @@
 			select = 1
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 	fire_sound = shot.fire_sound
-	fire_delay = shot.delay
+	set_fire_delay(shot.delay)
 	if(!isnull(user) && (shot.select_name || shot.fluff_select_name))
 		var/static/gun_modes_ru = list(//about 2/3 of them will never be shown in game, but better save, than sorry
 			"practice" = "режим практики",

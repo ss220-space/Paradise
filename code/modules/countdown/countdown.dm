@@ -76,7 +76,7 @@
 /obj/effect/countdown/ex_act(severity, target) //immune to explosions
 	return
 
-/obj/effect/countdown/singularity_pull()
+/obj/effect/countdown/singularity_pull(atom/singularity, current_size)
 	return
 
 /obj/effect/countdown/singularity_act()
@@ -115,7 +115,7 @@
 
 /obj/effect/countdown/clockworkgate
 	name = "gateway countdown"
-	color = "#BE8700"
+	color = COLOR_CULT_RATVAR
 
 /obj/effect/countdown/clockworkgate/get_value()
 	var/obj/structure/clockwork/functional/celestial_gateway/gateway = attached_to

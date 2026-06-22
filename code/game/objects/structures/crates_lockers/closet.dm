@@ -373,8 +373,7 @@ GLOBAL_LIST_EMPTY(closets)
 		bust_open()
 
 /obj/structure/closet/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
-	mouse_drop_receive(grabbed_thing, grabber)	//act like they were dragged onto the closet
-	return TRUE
+	return mouse_drop_receive(grabbed_thing, grabber) //act like they were dragged onto the closet
 
 /obj/structure/closet/attackby(obj/item/used, mob/user, params)
 	if(opened)
@@ -628,7 +627,7 @@ GLOBAL_LIST_EMPTY(closets)
 // Objects that try to exit a locker by stepping were doing so successfully,
 // and due to an oversight in turf/Enter() were going through walls.  That
 // should be independently resolved, but this is also an interesting twist.
-/obj/structure/closet/Exit(atom/movable/leaving, atom/newLoc)
+/obj/structure/closet/Exit(atom/movable/leaving, direction)
 	open()
 	if(leaving.loc == src)
 		return FALSE
@@ -739,7 +738,7 @@ GLOBAL_LIST_EMPTY(closets)
 
 /obj/structure/closet/singularity_act()
 	dump_contents()
-	..()
+	return ..()
 
 /obj/structure/closet/AllowDrop()
 	return TRUE

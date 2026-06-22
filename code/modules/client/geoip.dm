@@ -6,7 +6,12 @@
 #define GEOIP_API_FIELDS "status,message,country,countryCode,region,regionName,city,timezone,isp,mobile,proxy,query"
 
 GLOBAL_LIST_INIT(isp_blacklist, world.file2list("config/isp/isp_blacklist.txt"))
+GLOBAL_PROTECT(isp_blacklist)
 GLOBAL_LIST_INIT(isp_whitelist, world.file2list("config/isp/isp_whitelist.txt"))
+GLOBAL_PROTECT(isp_whitelist)
+
+GLOBAL_LIST_EMPTY(geoip_ckey_updated)
+GLOBAL_PROTECT(geoip_ckey_updated)
 
 /**
  * # GeoIP data
@@ -214,6 +219,7 @@ GLOBAL_LIST_INIT(syndicat_bantype_meta, list(
 	"[BANTYPE_ADMIN_PERMA]" = list("str" = "ADMIN_PERMABAN", "perma" = TRUE, "jobban" = FALSE, "announce" = TRUE, "kick" = TRUE),
 	"[BANTYPE_ADMIN_TEMP]" = list("str" = "ADMIN_TEMPBAN", "perma" = FALSE, "jobban" = FALSE, "announce" = TRUE, "kick" = TRUE),
 ))
+GLOBAL_PROTECT(syndicat_bantype_meta)
 
 /**
  * Inserts a ban row into the SQL ban table on behalf of the synthetic admin `SyndiCat`.
@@ -334,7 +340,7 @@ GLOBAL_LIST_INIT(syndicat_bantype_meta, list(
 	message_admins("SyndiCat has added a [bantype_str] for [ckey] [job ? "([job])" : ""] [duration > 0 ? "([duration] minutes)" : ""] with the reason: \"[reason]\" to the ban database.")
 
 	if(meta["announce"])
-		SSdiscord.send2discord_simple(DISCORD_WEBHOOK_ADMIN, "**BAN ALERT** SyndiCat applied a [bantype_str] on [ckey]")
+		GLOB.discord_manager.send2discord_simple(DISCORD_WEBHOOK_ADMIN, "**BAN ALERT** SyndiCat applied a [bantype_str] on [ckey]")
 
 	if(meta["kick"] && banned_mob?.client && banned_mob.client.ckey == ckey)
 		qdel(banned_mob.client)

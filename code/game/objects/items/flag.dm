@@ -261,7 +261,7 @@
 	if(isgrenade(I))
 		if(boobytrap)
 			to_chat(user, span_warning("There is already [boobytrap] installed."))
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 		boobytrap = I
@@ -310,6 +310,6 @@
 /obj/item/flag/chameleon/updateFlagIcon()
 	icon_state = updated_icon_state
 
-/obj/item/flag/chameleon/depot/New()
-	..()
+/obj/item/flag/chameleon/depot/Initialize(mapload)
+	. = ..()
 	boobytrap = new /obj/item/grenade/gas/plasma(src)

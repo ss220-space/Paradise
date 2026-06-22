@@ -32,7 +32,7 @@
 	)
 
 /obj/machinery/vending/hatdispenser/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат Hatlord 9000",
 		GENITIVE = "торгового автомата Hatlord 9000",
 		DATIVE = "торговому автомату Hatlord 9000",
@@ -40,3 +40,6 @@
 		INSTRUMENTAL = "торговым автоматом Hatlord 9000",
 		PREPOSITIONAL = "торговом автомате Hatlord 9000",
 	)
+
+/obj/machinery/vending/hatdispenser/free
+	all_products_free = TRUE

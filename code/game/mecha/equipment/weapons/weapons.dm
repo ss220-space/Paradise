@@ -135,7 +135,7 @@
 	icon_state = "mecha_teslacannon"
 	origin_tech = "materials=4;engineering=4;combat=6;magnets=6"
 	energy_drain = 500
-	projectile = /obj/projectile/energy/shock_revolver
+	projectile = /obj/projectile/energy/tesla/cannon
 	fire_sound = 'sound/magic/lightningbolt.ogg'
 	harmful = TRUE
 
@@ -232,10 +232,7 @@
 			if(isobj(H.shoes) && !HAS_TRAIT(H.shoes, TRAIT_NODROP))
 				var/thingy = H.shoes
 				H.drop_item_ground(H.shoes)
-				GLOB.move_manager.move_away(thingy, chassis, 15, 2)
-				spawn(20)
-					if(thingy)
-						GLOB.move_manager.stop_looping(thingy)
+				GLOB.move_manager.move_away(thingy, chassis, 15, 2, timeout = 2 SECONDS)
 	for(var/obj/mecha/combat/reticence/R in oview(6, chassis))
 		R.occupant_message("\The [R] has protected you from [chassis]'s HONK at the cost of some power.")
 		R.use_power(R.get_charge() / 4)
@@ -415,7 +412,7 @@
 	projectile = /obj/item/missile/heavy
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/heavy/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "тяжёлая пусковая ракетная установка SRX-13",
 		GENITIVE = "тяжёлой пусковой ракетной установки SRX-13",
 		DATIVE = "тяжёлой пусковой ракетной установке SRX-13",
@@ -431,7 +428,7 @@
 	projectile = /obj/item/missile
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/medium/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пусковая ракетная установка SRM-8",
 		GENITIVE = "пусковой ракетной установки SRM-8",
 		DATIVE = "пусковой ракетной установке SRM-8",

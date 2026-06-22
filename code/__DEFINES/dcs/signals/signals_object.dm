@@ -234,6 +234,12 @@
 /// Sent from /datum/powernet/remove_cable()
 #define COMSIG_UPDATE_TWOHANDED_DAMAGE "update_twohanded_damage"
 
+/// called on implants, after a successful implantation: (mob/living/target, mob/user, silent, force)
+#define COMSIG_IMPLANT_IMPLANTED "implant_implanted"
+
+/// called on implants, after an implant has been removed: (mob/living/source, silent, special)
+#define COMSIG_IMPLANT_REMOVED "implant_removed"
+
 /// Sent from /obj/structure/bingle_hole to /datum/team/bingles
 #define COMSIG_BINGLE_HOLE_INITIALIZED "bingle_hole_initialized"
 
@@ -343,11 +349,17 @@
 /// /obj/item/card/id/proc/freeze_linked_account(datum/source)
 #define COMSIG_FREEZE_LINKED_ACCOUNT "nigga_freeze"
 
-/// from base of atom/obj/item/death_book
-#define COMSIG_PHANTOM_DELETE "phantom_delete"
-
 /// Called after placing item on table. (mob/user, obj/structure/table)
 #define COMSIG_ITEM_PLACED_ON_TABLE "item_placed_on_table"
 
 /// Called when attempting to swap two-handed weapons
 #define COMSIG_ITEM_SWAP_BLOCKED "item_swap_blocked"
+
+/// Called when card decal applied to ID card.
+#define COMSIG_CARD_DECAL_APPLIED "card_decal_applied"
+
+/// Called when item inserted into storage. [/obj/item/storage/proc/handle_item_insertion()]: (obj/item/W, prevent_warning = FALSE)
+#define COMSIG_ITEM_INSERTED_INTO_STORAGE "inserted_into_storage"
+
+/// Called when item removed from storage. [/obj/item/storage/proc/remove_from_storage()]: (obj/item/W, atom/new_location)
+#define COMSIG_ITEM_REMOVED_FROM_STORAGE "removed_from_storage"

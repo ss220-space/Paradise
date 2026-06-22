@@ -89,13 +89,13 @@
 			return ATTACK_CHAIN_BLOCKED_ALL
 		if(!anchored && !isfloorturf(loc))
 			to_chat(user, span_warning("A floor must be present to secure [src]!"))
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 		if(locate(/obj/structure/clockwork) in (loc.contents-src))
 			to_chat(user, span_warning("There is a structure here!"))
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 		if(locate(/obj/structure/falsewall) in loc)
 			to_chat(user, span_warning("There is a structure here!"))
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 		set_anchored(!anchored)
 		to_chat(user, span_notice("You [anchored ? "":"un"]secure [src] [anchored ? "to":"from"] the floor."))
 		update_icon(UPDATE_ICON_STATE)
@@ -267,7 +267,7 @@
 				if(I.enchant_type != HIDE_SPELL || !choice || !Adjacent(user) || user.incapacitated())
 					return ATTACK_CHAIN_BLOCKED_ALL
 			toggle_hide(choice)//cuz we sure its unhidden
-			if(isprocessing)
+			if(datum_flags & DF_ISPROCESSING)
 				STOP_PROCESSING(SSprocessing, src)
 				if(glow)
 					QDEL_NULL(glow)
@@ -281,13 +281,13 @@
 			return ATTACK_CHAIN_BLOCKED_ALL
 		if(!anchored && !isfloorturf(loc))
 			to_chat(user, span_warning("A floor must be present to secure [src]!"))
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 		if(!anchored && locate(/obj/structure/clockwork) in (loc.contents-src))
 			to_chat(user, span_warning("There is a structure here!"))
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 		if(locate(/obj/structure/falsewall) in loc)
 			to_chat(user, span_warning("There is a structure here!"))
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 		set_anchored(!anchored)
 		update_icon(UPDATE_ICON_STATE)
 		to_chat(user, span_notice("You [anchored ? "":"un"]secure [src] [anchored ? "to":"from"] the floor."))
@@ -385,7 +385,9 @@
 			return ATTACK_CHAIN_PROCEED
 		GLOB.major_announcement.announce("Был обнаружен аномально высокий выброс энергии. Вероятно появление неизвестного блюспейс-артефакта. Сканирование показывает, что артефакт принадлежит потустороннему божеству, известному как Ратвар. Служба безопасности получает право свободно применять летальную силу для уничтожения угрозы. Прочий персонал должен быть готов защищать себя и свои рабочие места от нападений культистов (в том числе используя летальную силу в качестве крайней меры самообороны), но не должен выслеживать культистов и охотиться на них. Погибшие члены экипажа должны быть оживлены и деконвертированы, как только ситуация будет взята под контроль.",
 			ANNOUNCE_CCPARANORMAL_RU,
-			'sound/AI/commandreport.ogg')
+			SSstation.announcer.get_rand_report_sound(),
+		)
+
 		visible_message(span_biggerdanger("[user] ominously presses [I] into [src] as the mechanism inside starts to shine!"))
 		qdel(I)
 		begin_the_ritual(user)
@@ -479,13 +481,13 @@
 		add_fingerprint(user)
 		if(!anchored && !isfloorturf(loc))
 			to_chat(user, span_warning("A floor must be present to secure [src]!"))
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 		if(locate(/obj/structure/clockwork) in (loc.contents-src))
 			to_chat(user, span_warning("There is a structure here!"))
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 		if(locate(/obj/structure/falsewall) in loc)
 			to_chat(user, span_warning("There is a structure here!"))
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 		set_anchored(!anchored)
 		update_icon(UPDATE_ICON_STATE)
 		to_chat(user, span_notice("You [anchored ? "":"un"]secure [src] [anchored ? "to":"from"] the floor."))

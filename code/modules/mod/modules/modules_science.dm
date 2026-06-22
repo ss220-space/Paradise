@@ -14,7 +14,7 @@
 	required_slots = list(ITEM_SLOT_HEAD|ITEM_SLOT_EYES|ITEM_SLOT_MASK)
 
 /obj/item/mod/module/reagent_scanner/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль сканера реагентов",
 		GENITIVE = "модуля сканера реагентов",
 		DATIVE = "модулю сканера реагентов",
@@ -49,7 +49,7 @@
 	var/explosion_detection_dist = 21
 
 /obj/item/mod/module/reagent_scanner/advanced/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль продвинутого сканера реагентов",
 		GENITIVE = "модуля продвинутого сканера реагентов",
 		DATIVE = "модулю продвинутого сканера реагентов",
@@ -101,7 +101,7 @@
 	var/limited_range = 12
 
 /obj/item/mod/module/anomaly_locked/teleporter/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль телепортера",
 		GENITIVE = "модуля телепортера",
 		DATIVE = "модулю телепортера",
@@ -141,9 +141,11 @@ tier 3 - 10-12 range, 125 energy per teleport, 1 sec teleport
 	if(!istype(target_turf))
 		balloon_alert(mod.wearer, "неподходящая цель!")
 		return
-	if(target_turf.density)
+
+	if(target_turf.is_blocked_turf_ignore_climbable() || !los_check(mod.wearer, target, pass_args = PASSTABLE|PASSGLASS|PASSGRILLE|PASSMOB|PASSMACHINE|PASSSTRUCTURE|PASSFLAPS))
 		balloon_alert(mod.wearer, "невозможно!")
 		return
+
 	if(!is_teleport_allowed(target_turf.z))
 		balloon_alert(mod.wearer, "сбой в работе!")
 		return
@@ -181,7 +183,7 @@ tier 3 - 10-12 range, 125 energy per teleport, 1 sec teleport
 	required_slots = list(ITEM_SLOT_BACK|ITEM_SLOT_BELT)
 
 /obj/item/mod/module/anomaly_locked/antigrav/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль антигравитации",
 		GENITIVE = "модуля антигравитации",
 		DATIVE = "модулю антигравитации",

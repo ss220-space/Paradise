@@ -48,7 +48,7 @@
 		remove_on = COMSIG_MOB_LOGOUT, \
 		acceptable_zs = fitting_z_levels, \
 	)
-	our_comp.RegisterSignal(SSdcs, sound_change_signals, TYPE_PROC_REF(/datum/component/area_sound_manager, handle_change))
+	our_comp.RegisterSignals(SSdcs, sound_change_signals, TYPE_PROC_REF(/datum/component/area_sound_manager, handle_change))
 
 /datum/element/weather_listener/proc/handle_logout(datum/source)
 	SIGNAL_HANDLER

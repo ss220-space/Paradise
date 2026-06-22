@@ -8,7 +8,7 @@ GLOBAL_LIST_EMPTY(mechas_list)											//list of all mechs. Used by hostile mo
 GLOBAL_LIST_EMPTY(spacepods_list)										//list of all space pods. Used by hostile mobs target tracking.
 GLOBAL_LIST_EMPTY(joblist)												//list of all jobstypes, minus borg and AI
 GLOBAL_LIST_EMPTY(airlocks)												//list of all airlocks
-GLOBAL_LIST_EMPTY(singularities)										//list of all singularities on the station
+GLOBAL_LIST_EMPTY_TYPED(singularities, /datum/component/singularity) //list of all singularities on the station
 GLOBAL_LIST_EMPTY(janitorial_equipment)									//list of janitorial equipment
 GLOBAL_LIST_EMPTY(crafting_recipes)										//list of all crafting recipes
 GLOBAL_LIST_EMPTY(slime_potions)										//list of all slime potions
@@ -62,6 +62,7 @@ GLOBAL_LIST_EMPTY(explosive_walls)
 GLOBAL_LIST_EMPTY(mini_games)											//Mini games pollers
 
 GLOBAL_LIST_EMPTY(engine_beacon_list)
+GLOBAL_LIST_EMPTY(particle_accelerator_list)
 
 /// List of wire colors for each object type of that round. One for airlocks, one for vendors, etc.
 GLOBAL_LIST_EMPTY(wire_color_directory)									// This is an associative list with the `holder_type` as the key, and a list of colors as the value.
@@ -73,3 +74,4 @@ GLOBAL_LIST_EMPTY(pod_styles_by_type)
 GLOBAL_LIST_EMPTY(loot_tiers)
 
 GLOBAL_LIST_EMPTY(design_names_cached)
+GLOBAL_LIST_EMPTY(design_descs_cached)

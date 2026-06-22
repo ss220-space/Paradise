@@ -48,7 +48,6 @@
 /obj/structure/closet/firecloset,
 /obj/machinery/power/apc/directional/north,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -650,7 +649,6 @@
 /obj/item/restraints/handcuffs,
 /obj/machinery/power/apc/directional/west,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/item/card/id/away/gtl,
@@ -1372,7 +1370,6 @@
 "YR" = (
 /obj/machinery/power/smes/magical,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plating,

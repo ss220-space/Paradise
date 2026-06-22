@@ -31,7 +31,7 @@
 	var/syndicate_aligned = FALSE
 
 /obj/item/storage/firstaid/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "аптечка первой помощи",
 		GENITIVE = "аптечки первой помощи",
 		DATIVE = "аптечке первой помощи",
@@ -48,7 +48,7 @@
 	med_bot_skin = "ointment"
 
 /obj/item/storage/firstaid/fire/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "аптечка первой помощи (Терм.)",
 		GENITIVE = "аптечки первой помощи (Терм.)",
 		DATIVE = "аптечке первой помощи (Терм.)",
@@ -57,8 +57,9 @@
 		PREPOSITIONAL = "аптечке первой помощи (Терм.)",
 	)
 
-/obj/item/storage/firstaid/fire/New()
-	..()
+/obj/item/storage/firstaid/fire/Initialize(mapload)
+	. = ..()
+
 	icon_state = pick("ointment", "firefirstaid")
 
 /obj/item/storage/firstaid/fire/populate_contents()
@@ -75,7 +76,7 @@
 	desc = "Это аптечка общего назначения для экстренной первой помощи."
 
 /obj/item/storage/firstaid/regular/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "аптечка первой помощи (Общая)",
 		GENITIVE = "аптечки первой помощи (Общая)",
 		DATIVE = "аптечке первой помощи (Общая)",
@@ -100,7 +101,7 @@
 	desc = "Это аптечка для экстренной первой помощи при повреждениях, улучшенная версия."
 
 /obj/item/storage/firstaid/doctor/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "аптечка первой помощи (Общая+)",
 		GENITIVE = "аптечки первой помощи (Общая+)",
 		DATIVE = "аптечке первой помощи (Общая+)",
@@ -129,7 +130,7 @@
 	med_bot_skin = "tox"
 
 /obj/item/storage/firstaid/toxin/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "аптечка первой помощи (Отравления)",
 		GENITIVE = "аптечки первой помощи (Отравления)",
 		DATIVE = "аптечке первой помощи (Отравления)",
@@ -162,7 +163,7 @@
 	med_bot_skin = "o2"
 
 /obj/item/storage/firstaid/o2/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "аптечка первой помощи (Удушье)",
 		GENITIVE = "аптечки первой помощи (Удушье)",
 		DATIVE = "аптечке первой помощи (Удушье)",
@@ -189,7 +190,7 @@
 	med_bot_skin = "brute"
 
 /obj/item/storage/firstaid/brute/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "аптечка первой помощи (Мех.)",
 		GENITIVE = "аптечки первой помощи (Мех.)",
 		DATIVE = "аптечке первой помощи (Мех.)",
@@ -198,8 +199,9 @@
 		PREPOSITIONAL = "аптечке первой помощи (Мех.)",
 	)
 
-/obj/item/storage/firstaid/brute/New()
-	..()
+/obj/item/storage/firstaid/brute/Initialize(mapload)
+	. = ..()
+
 	icon_state = pick("brute", "brute2")
 
 /obj/item/storage/firstaid/brute/populate_contents()
@@ -221,7 +223,7 @@
 	med_bot_skin = "adv"
 
 /obj/item/storage/firstaid/adv/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "аптечка первой помощи (Продвинутая)",
 		GENITIVE = "аптечки первой помощи (Продвинутая)",
 		DATIVE = "аптечке первой помощи (Продвинутая)",
@@ -250,7 +252,7 @@
 	med_bot_skin = "adv"
 
 /obj/item/storage/firstaid/premium/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "аптечка первой помощи (Премиум)",
 		GENITIVE = "аптечки первой помощи (Премиум)",
 		DATIVE = "аптечке первой помощи (Премиум)",
@@ -279,7 +281,7 @@
 	med_bot_skin = "paramed"
 
 /obj/item/storage/firstaid/paramed/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "аптечка первой помощи (Парамедик)",
 		GENITIVE = "аптечки первой помощи (Парамедик)",
 		DATIVE = "аптечке первой помощи (Парамедик)",
@@ -309,7 +311,7 @@
 	med_bot_skin = "machine"
 
 /obj/item/storage/firstaid/machine/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ремонтный набор (Синт.)",
 		GENITIVE = "ремонтного набора (Синт.)",
 		DATIVE = "ремонтному набору (Синт.)",
@@ -341,7 +343,7 @@
 	med_bot_skin = "bezerk"
 
 /obj/item/storage/firstaid/tactical/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "тактическая аптечка НТ",
 		GENITIVE = "тактической аптечки НТ",
 		DATIVE = "тактической аптечке НТ",
@@ -355,7 +357,7 @@
 	syndicate_aligned = TRUE
 
 /obj/item/storage/firstaid/tactical/sst/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "продвинутая тактическая аптечка",
 		GENITIVE = "продвинутой тактической аптечки",
 		DATIVE = "продвинутой тактической аптечке",
@@ -387,7 +389,7 @@
 	med_bot_skin = "bezerk"
 
 /obj/item/storage/firstaid/ertm/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "продвинутая тактическая аптечка НТ",
 		GENITIVE = "продвинутой тактической аптечки НТ",
 		DATIVE = "продвинутой тактической аптечке НТ",
@@ -421,7 +423,7 @@
 	syndicate_aligned = TRUE
 
 /obj/item/storage/firstaid/syndie/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "тактическая аптечка",
 		GENITIVE = "тактической аптечки",
 		DATIVE = "тактической аптечке",
@@ -458,7 +460,7 @@
 		/obj/item/cautery, /obj/item/retractor, /obj/item/FixOVein, /obj/item/surgicaldrill, /obj/item/circular_saw)
 
 /obj/item/storage/firstaid/surgery/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "набор полевой хирургии",
 		GENITIVE = "набора полевой хирургии",
 		DATIVE = "набору полевой хирургии",
@@ -496,7 +498,7 @@
 	storage_slots = 9
 
 /obj/item/storage/firstaid/crew/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "экстренная аптечка",
 		GENITIVE = "экстренной аптечки",
 		DATIVE = "экстренной аптечке",
@@ -525,7 +527,7 @@
 	desc = "Небольшого размера подсумок, содержащий в себе минимальный набор медикаментов для экстренных ситуаций. Специализированная версия для сотрудников НТ, подвергшихся «синдрому суперматериальной дисплазии»."
 
 /obj/item/storage/firstaid/crew/nucleation/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "экстренная аптечка (Нуклеация)",
 		GENITIVE = "экстренной аптечки (Нуклеация)",
 		DATIVE = "экстренной аптечке (Нуклеация)",
@@ -548,7 +550,7 @@
 	desc = "Небольшого размера подсумок, содержащий в себе минимальный набор медикаментов для экстренных ситуаций. Специализированная версия для сотрудников НТ, чья кожа слишком толстая для использования патчей."
 
 /obj/item/storage/firstaid/crew/unathi/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "экстренная аптечка (Унати)",
 		GENITIVE = "экстренной аптечки (Унати)",
 		DATIVE = "экстренной аптечке (Унати)",
@@ -573,7 +575,7 @@
 	item_state = "medkit_mining"
 
 /obj/item/storage/firstaid/doctor/mining_medic/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "аптечка первой помощи (Шахтёрский Врач)",
 		GENITIVE = "аптечки первой помощи (Шахтёрский Врач)",
 		DATIVE = "аптечке первой помощи (Шахтёрский Врач)",
@@ -617,7 +619,7 @@
 	var/wrapper_state = "pill_bottle_wrap"
 
 /obj/item/storage/pill_bottle/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пузырёк для таблеток",
 		GENITIVE = "пузырька для таблеток",
 		DATIVE = "пузырьку для таблеток",
@@ -679,7 +681,7 @@
 
 /obj/item/storage/pill_bottle/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
 	if(!iscarbon(user) || src != user.get_active_hand() || over_object != user)
-		return
+		return ..()
 
 	if(!length(contents))
 		balloon_alert(user, "пусто!")
@@ -687,10 +689,9 @@
 
 	get_use_start_message(user)
 
-	if(!do_after(user, 10 SECONDS, user, NONE) || src != user.get_active_hand())
-		return
-
 	for(var/obj/item/reagent_containers/food/pill/pill in src)
+		if(!do_after(user, 2 SECONDS, user, NONE) || src != user.get_active_hand())
+			return
 		pill.attack(user, user)
 
 	get_use_end_message(user)
@@ -715,7 +716,7 @@
 	wrapper_state = "patch_pack_wrap"
 
 /obj/item/storage/pill_bottle/patch_pack/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "коробок для пластырей",
 		GENITIVE = "коробка для пластырей",
 		DATIVE = "коробку для пластырей",
@@ -725,10 +726,10 @@
 	)
 
 /obj/item/storage/pill_bottle/patch_pack/filled/populate_contents()
-	for(var/I in 1 to 10)
+	for(var/i in 1 to 10)
 		new /obj/item/reagent_containers/food/pill/patch/silver_sulf(src)
 
-	for(var/I in 1 to 10)
+	for(var/i in 1 to 10)
 		new /obj/item/reagent_containers/food/pill/patch/styptic(src)
 
 /obj/item/storage/pill_bottle/patch_pack/get_use_start_message(mob/user)
@@ -752,7 +753,7 @@
 	origin_tech = "materials=2;bluespace=1;biotech=1;plasmatech=1"
 
 /obj/item/storage/pill_bottle/bluespace/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "блюспейс-хранилище для лекарств",
 		GENITIVE = "блюспейс-хранилищя для лекарств",
 		DATIVE = "блюспейс-хранилищу для лекарств",
@@ -767,7 +768,7 @@
 	wrapper_color = COLOR_GREEN
 
 /obj/item/storage/pill_bottle/charcoal/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пузырёк для таблеток (Активированный уголь)",
 		GENITIVE = "пузырька для таблеток (Активированный уголь)",
 		DATIVE = "пузырьку для таблеток (Активированный уголь)",
@@ -786,7 +787,7 @@
 	wrapper_color = COLOR_RED
 
 /obj/item/storage/pill_bottle/painkillers/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пузырёк для таблеток (Салициловая кислота)",
 		GENITIVE = "пузырька для таблеток (Салициловая кислота)",
 		DATIVE = "пузырьку для таблеток (Салициловая кислота)",

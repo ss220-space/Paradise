@@ -7,16 +7,17 @@
 	damage = 15
 
 /obj/projectile/bullet/weakbullet3/foursix/ap
-	damage = 12
-	armour_penetration = 40
+	damage = 10
+	armour_penetration = 70
 
 /obj/projectile/bullet/weakbullet3/foursix/tox
 	damage = 10
 	damage_type = TOX
-	armour_penetration = 10
+	armour_penetration = 30
 
 /obj/projectile/bullet/incendiary/foursix
-	damage = 10
+	damage = 15
+	damage_type = BURN
 	armour_penetration = 10
 
 // MARK: 5.45x39mm - Fusty
@@ -26,7 +27,7 @@
 	stamina = 6
 
 /obj/projectile/bullet/f545/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "старая пуля FMJ 5,45x39 мм",
 		GENITIVE = "старой пули FMJ 5,45x39 мм",
 		DATIVE = "старой пуле FMJ 5,45x39 мм",

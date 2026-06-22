@@ -88,13 +88,11 @@
 	// when switching locs in the same turf so i commented it out
 	// - Ksaikok
 
-	// I didn't find any issues.
-	// - LittleBoobs
-
 	// Only register/unregister turf signals if it's moved to a new turf.
-	if(current_turf == get_turf(old_loc))
+	/*if(current_turf == get_turf(old_loc))
 		unregister_signals(old_loc, null)
-		return
+		return*/
+
 	var/list/old_turfs = turfs
 	turfs = RANGE_TURFS(range, current_turf)
 	unregister_signals(old_loc, old_turfs - turfs)

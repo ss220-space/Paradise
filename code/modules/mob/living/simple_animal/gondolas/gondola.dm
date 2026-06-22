@@ -30,7 +30,7 @@
 	)
 
 /mob/living/simple_animal/pet/gondola/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "гандола",
 		GENITIVE = "гандолы",
 		DATIVE = "гандоле",

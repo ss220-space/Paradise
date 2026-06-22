@@ -20,7 +20,17 @@
 	var/w_class_on = WEIGHT_CLASS_BULKY
 	var/icon_state_on
 	var/list/attack_verb_on = list("атаковал", "полоснул", "уколол", "поранил", "порезал")
-	var/colormap = list(red=COLOR_SOFT_RED, blue=LIGHT_COLOR_BLUE, green=LIGHT_COLOR_GREEN, purple=LIGHT_COLOR_PURPLE, yellow=LIGHT_COLOR_BRIGHT_YELLOW, pink =LIGHT_COLOR_PURPLE, orange =LIGHT_COLOR_ORANGE, darkblue=LIGHT_COLOR_BLUE, rainbow=LIGHT_COLOR_DEFAULT)
+	var/static/alist/colormap = alist(
+		"red" = COLOR_SOFT_RED,
+		"blue" = LIGHT_COLOR_BLUE,
+		"green" = LIGHT_COLOR_GREEN,
+		"purple" = LIGHT_COLOR_PURPLE,
+		"yellow" = LIGHT_COLOR_BRIGHT_YELLOW,
+		"pink" = LIGHT_COLOR_PURPLE,
+		"orange" = LIGHT_COLOR_ORANGE,
+		"darkblue" = LIGHT_COLOR_BLUE,
+		"rainbow" = LIGHT_COLOR_DEFAULT,
+	)
 
 /obj/item/melee/energy/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	var/nemesis_faction = FALSE
@@ -141,8 +151,8 @@
 		swing_sound = SFX_ENERGY_SWORD_SWING \
 	)
 
-/obj/item/melee/energy/sword/New()
-	..()
+/obj/item/melee/energy/sword/Initialize(mapload)
+	. = ..()
 	if(item_color == null)
 		item_color = pick("red", "blue", "green", "purple", "yellow", "pink", "darkblue", "orange")
 
@@ -176,8 +186,8 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	tool_behaviour = TOOL_SAW
 
-/obj/item/melee/energy/sword/cyborg/saw/New()
-	..()
+/obj/item/melee/energy/sword/cyborg/saw/Initialize(mapload)
+	. = ..()
 	item_color = null
 
 /obj/item/melee/energy/sword/cyborg/saw/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)

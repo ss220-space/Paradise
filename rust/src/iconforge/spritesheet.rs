@@ -7,13 +7,16 @@ use dashmap::{DashMap, DashSet};
 use dmi::icon::{DmiVersion, Icon, IconState};
 use image::RgbaImage;
 use indexmap::IndexMap;
+use meowtonin::{ByondError, ByondResult};
 use once_cell::sync::Lazy;
 use rayon::iter::{IntoParallelIterator, IntoParallelRefIterator, ParallelIterator};
 use serde::Serialize;
+use std::error::Error;
 use std::{
     collections::{HashMap, HashSet},
     fs::File,
     hash::BuildHasherDefault,
+    path::PathBuf,
     sync::{Arc, Mutex, RwLock},
 };
 use tracy_full::zone;
@@ -46,6 +49,20 @@ struct SpritesheetEntry {
     position: u32,
 }
 
+static CREATED_DIRS: Lazy<DashSet<PathBuf>> = Lazy::new(DashSet::new);
+
+fn ensure_dir_exists(path: PathBuf, error: &Arc<Mutex<Vec<String>>>) {
+    if CREATED_DIRS.insert(path.clone()) {
+        if let Err(err) = std::fs::create_dir_all(&path) {
+            error.lock().unwrap().push(format!(
+                "Failed to create directory '{}': {}",
+                path.display(),
+                err
+            ));
+        }
+    }
+}
+
 pub fn generate_spritesheet(
     file_path: &str,
     spritesheet_name: &str,
@@ -53,8 +70,9 @@ pub fn generate_spritesheet(
     hash_icons: bool,
     generate_dmi: bool,
     flatten: bool,
-) -> eyre::Result<String> {
+) -> ByondResult<String> {
     zone!("generate_spritesheet");
+    let base_path = image_cache::ICON_ROOT.join(file_path);
     // PNGs cannot be non-flat
     let flatten: bool = !generate_dmi || flatten;
     let error = Arc::new(Mutex::new(Vec::<String>::new()));
@@ -85,7 +103,8 @@ pub fn generate_spritesheet(
         Some(sprites) => sprites.clone(),
         None => {
             zone!("from_json_sprites"); // byondapi, save us
-            serde_json::from_str::<IndexMap<String, UniversalIcon>>(sprites)?
+            serde_json::from_str::<IndexMap<String, UniversalIcon>>(sprites)
+                .map_err(ByondError::boxed)?
         }
     };
 
@@ -129,14 +148,16 @@ pub fn generate_spritesheet(
     // cache this here so we don't generate the same string 5000 times
     let sprite_name = String::from("N/A, in tree generation stage");
 
-    // Map duplicate transform sets into a tree.
-    // This is beneficial in the case where we have the same base image, and the same set of transforms, but change 1 or 2 things at the end.
-    // We can greatly reduce the amount of RgbaImages created by first finding these.
-    tree_bases
-        .lock()
-        .unwrap()
-        .par_iter()
-        .for_each(|(_, icons)| {
+    {
+        // Map duplicate transform sets into a tree.
+        // This is beneficial in the case where we have the same base image, and the same set of transforms, but change 1 or 2 things at the end.
+        // We can greatly reduce the amount of RgbaImages created by first finding these.
+        let tree_vec: Vec<Vec<(&String, &UniversalIcon)>> = {
+            let guard = tree_bases.lock().unwrap();
+            guard.values().cloned().collect()
+        };
+
+        tree_vec.par_iter().for_each(|icons| {
             zone!("transform_trees");
             let first_icon = match icons.first() {
                 Some((_, icon)) => icon,
@@ -187,6 +208,7 @@ pub fn generate_spritesheet(
                 }
             }
         });
+    }
 
     // Pick the specific icon states out of the DMI, also generating their transforms, build the spritesheet metadata.
     sprites_map.par_iter().for_each(|sprite_entry| {
@@ -244,28 +266,69 @@ pub fn generate_spritesheet(
 
     // all images have been returned now, so continue...
     // Get all the sprites and spew them onto a spritesheet.
-    size_to_icon_objects
-        .lock()
-        .unwrap()
+    let size_entries: Vec<(String, Vec<(&String, &UniversalIcon)>)> = {
+        let guard = size_to_icon_objects.lock().unwrap();
+        guard.iter().map(|(k, v)| (k.clone(), v.clone())).collect()
+    };
+    {
+        zone!("precreate_dirs");
+        let mut parent_dirs = std::collections::HashSet::<std::path::PathBuf>::new();
+
+        for (size_id, _) in &size_entries {
+            let output_path = base_path.join(format!(
+                "{}_{}.{}",
+                spritesheet_name,
+                size_id,
+                if generate_dmi { "dmi" } else { "png" }
+            ));
+            if let Some(parent) = output_path.parent() {
+                parent_dirs.insert(parent.to_path_buf());
+            }
+        }
+
+        for dir in parent_dirs {
+            ensure_dir_exists(dir, &error);
+        }
+    }
+
+    let size_entries: Vec<(String, Vec<(&String, &UniversalIcon)>)> = {
+        let guard = size_to_icon_objects.lock().unwrap();
+        guard.iter().map(|(k, v)| (k.clone(), v.clone())).collect()
+    };
+    {
+        zone!("precreate_dirs");
+        let mut parent_dirs = std::collections::HashSet::<std::path::PathBuf>::new();
+
+        for (size_id, _) in &size_entries {
+            let output_path = base_path.join(format!(
+                "{}_{}.{}",
+                spritesheet_name,
+                size_id,
+                if generate_dmi { "dmi" } else { "png" }
+            ));
+            if let Some(parent) = output_path.parent() {
+                parent_dirs.insert(parent.to_path_buf());
+            }
+        }
+
+        for dir in parent_dirs {
+            ensure_dir_exists(dir, &error);
+        }
+    }
+
+    size_entries
         .par_iter()
         .for_each(|(size_id, sprite_entries)| {
             zone!("join_sprites");
-            let file_path = format!(
-                "{file_path}{spritesheet_name}_{size_id}.{}",
+            let file_path = base_path.join(format!(
+                "{}_{}.{}",
+                spritesheet_name,
+                size_id,
                 if generate_dmi { "dmi" } else { "png" }
-            );
-            let size_data: Vec<&str> = size_id.split('x').collect();
-            let base_width = size_data
-                .first()
-                .unwrap()
-                .to_string()
-                .parse::<u32>()
-                .unwrap();
-            let base_height = size_data
-                .last()
-                .unwrap()
-                .to_string()
-                .parse::<u32>()
+            ));
+            let (base_width, base_height) = size_id
+                .split_once('x')
+                .map(|(w, h)| (w.parse::<u32>().unwrap(), h.parse::<u32>().unwrap()))
                 .unwrap();
 
             if generate_dmi {
@@ -280,15 +343,14 @@ pub fn generate_spritesheet(
                     zone!("write_spritesheet_dmi");
                     {
                         zone!("create_file");
-                        let path = std::path::Path::new(&file_path);
-                        if let Err(err) = std::fs::create_dir_all(path.parent().unwrap()) {
-                            error.lock().unwrap().push(err.to_string());
-                            return;
-                        };
-                        let mut output_file = match File::create(path) {
-                            Ok(file) => file,
+                        let mut output_file = match File::create(&file_path) {
+                            Ok(f) => f,
                             Err(err) => {
-                                error.lock().unwrap().push(err.to_string());
+                                error.lock().unwrap().push(format!(
+                                    "Failed to create DMI file '{}': {}",
+                                    file_path.display(),
+                                    err
+                                ));
                                 return;
                             }
                         };
@@ -316,13 +378,12 @@ pub fn generate_spritesheet(
                 };
                 {
                     zone!("write_spritesheet_png");
-                    let path = std::path::Path::new(&file_path);
-                    if let Err(err) = std::fs::create_dir_all(path.parent().unwrap()) {
-                        error.lock().unwrap().push(err.to_string());
-                        return;
-                    };
-                    if let Err(err) = final_image.save(file_path) {
-                        error.lock().unwrap().push(err.to_string());
+                    if let Err(err) = final_image.save(&file_path) {
+                        error.lock().unwrap().push(format!(
+                            "Failed to save PNG file '{}': {}",
+                            file_path.display(),
+                            err
+                        ));
                     }
                 }
             }
@@ -343,14 +404,14 @@ pub fn generate_spritesheet(
         sprites_hash,
         error: error.lock().unwrap().join("\n"),
     };
-    Ok(serde_json::to_string::<SpritesheetResult>(&returned)?)
+    Ok(serde_json::to_string::<SpritesheetResult>(&returned).map_err(ByondError::boxed)?)
 }
 
 fn create_png_image(
     base_width: u32,
     base_height: u32,
     sprite_entries: &Vec<(&String, &UniversalIcon)>,
-) -> eyre::Result<RgbaImage> {
+) -> ByondResult<RgbaImage> {
     zone!("create_png_image");
     let mut final_image = RgbaImage::new(base_width * sprite_entries.len() as u32, base_height);
     for (idx, sprite_entry) in sprite_entries.iter().enumerate() {
@@ -359,11 +420,14 @@ fn create_png_image(
         let image_data = match icon.get_image_data(sprite_name, true, true, true) {
             Ok((image, _)) => image,
             Err(err) => {
-                return Err(eyre::eyre!(err.to_string()));
+                return Err(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+                    err.to_string(),
+                )));
             }
         };
         if image_data.images.len() > 1 {
-            return Err(eyre::eyre!("More than one image (non-flattened) sprite {sprite_name} in PNG spritesheet for icon {icon}!"));
+            return Err(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+                format!("More than one image (non-flattened) sprite {sprite_name} in PNG spritesheet for icon {icon}!"))));
         }
         let image = image_data.images.first().unwrap();
         let base_x: u32 = base_width * idx as u32;
@@ -379,7 +443,7 @@ fn create_png_image(
 fn create_dmi_output_states(
     sprite_entries: &Vec<(&String, &UniversalIcon)>,
     sprites_map: &IndexMap<String, UniversalIcon>,
-) -> eyre::Result<Arc<Mutex<Vec<IconState>>>> {
+) -> ByondResult<Arc<Mutex<Vec<IconState>>>> {
     zone!("create_dmi_output_states");
     let output_states = Arc::new(Mutex::new(Vec::<IconState>::with_capacity(
         sprite_entries.len(),
@@ -418,7 +482,9 @@ fn create_dmi_output_states(
         });
     });
     if !errors.lock().unwrap().is_empty() {
-        return Err(eyre::eyre!(errors.lock().unwrap().join("\n")));
+        return Err(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+            errors.lock().unwrap().join("\n"),
+        )));
     }
     // Sort the output states in the relative order of their existence in the input sprites object.
     // This is important for consistency with DM behavior, and it allows the outputted DMI to be used in IconForge's own cache - they will output in the same order between runs.
@@ -437,12 +503,12 @@ fn transform_leaves(
     image_data: Arc<UniversalIconData>,
     depth: u8,
     flatten: bool,
-) -> eyre::Result<()> {
+) -> ByondResult<()> {
     zone!("transform_leaf");
     if depth > 128 {
-        return Err(eyre::eyre!(
+        return Err(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
             "Transform depth exceeded 128. https://www.youtube.com/watch?v=CUjrySBwi5Q",
-        ));
+        )));
     }
     let next_transforms = DashMap::<Transform, Vec<&UniversalIcon>>::new();
     let errors = Mutex::new(Vec::<String>::new());
@@ -464,7 +530,7 @@ fn transform_leaves(
         zone!("do_next_transforms");
         next_transforms
             .into_par_iter()
-            .for_each(|(transform, mut associated_icons)| {
+            .for_each(|(transform, associated_icons)| {
                 let altered_image_data = match transform.apply(image_data.clone(), flatten) {
                     Ok(data) => Arc::new(data),
                     Err(err) => {
@@ -472,37 +538,29 @@ fn transform_leaves(
                         return;
                     }
                 };
-                {
-                    zone!("filter_associated_icons");
-                    associated_icons
-                        .clone()
-                        .into_iter()
-                        .enumerate()
-                        .for_each(|(idx, icon)| {
-                            if icon.transform.len() as u8 == depth + 1
-                                && *icon.transform.last().unwrap() == transform
-                            {
-                                associated_icons.swap_remove(idx);
-                                image_cache::cache_transformed_images(
-                                    icon,
-                                    altered_image_data.clone(),
-                                );
-                            }
-                        });
+                zone!("filter_associated_icons");
+                let (finished, remaining): (Vec<_>, Vec<_>) =
+                    associated_icons.into_iter().partition(|icon| {
+                        icon.transform.len() as u8 == depth + 1
+                            && *icon.transform.last().unwrap() == transform
+                    });
+
+                for icon in finished {
+                    image_cache::cache_transformed_images(icon, altered_image_data.clone());
                 }
-                if let Err(err) = transform_leaves(
-                    &associated_icons,
-                    altered_image_data.clone(),
-                    depth + 1,
-                    flatten,
-                ) {
+
+                if let Err(err) =
+                    transform_leaves(&remaining, altered_image_data.clone(), depth + 1, flatten)
+                {
                     errors.lock().unwrap().push(err.to_string());
                 }
             });
     }
 
     if !errors.lock().unwrap().is_empty() {
-        return Err(eyre::eyre!(errors.lock().unwrap().join("\n")));
+        return Err(ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+            errors.lock().unwrap().join("\n"),
+        )));
     }
     Ok(())
 }
@@ -513,23 +571,21 @@ struct CacheResult {
     fail_reason: String,
 }
 
-pub fn cache_valid(
-    input_hash: &str,
-    dmi_hashes_in: &str,
-    sprites_in: &str,
-) -> eyre::Result<String> {
+pub fn cache_valid(input_hash: &str, dmi_hashes_in: &str, sprites_in: &str) -> ByondResult<String> {
     zone!("cache_valid");
     let sprites_hash = string_hash("xxh64_fixed", sprites_in)?;
     if sprites_hash != input_hash {
         return Ok(serde_json::to_string::<CacheResult>(&CacheResult {
             result: String::from("0"),
             fail_reason: String::from("Input hash did not match."),
-        })?);
+        })
+        .map_err(ByondError::boxed)?);
     }
     let dmi_hashes: DashMap<String, String>;
     {
         zone!("from_json_hashes");
-        dmi_hashes = serde_json::from_str::<DashMap<String, String>>(dmi_hashes_in)?;
+        dmi_hashes = serde_json::from_str::<DashMap<String, String>>(dmi_hashes_in)
+            .map_err(ByondError::boxed)?;
     }
     let mut sprites_json: std::sync::MutexGuard<
         '_,
@@ -542,7 +598,8 @@ pub fn cache_valid(
             {
                 sprites_json.insert(
                     sprites_hash.clone(),
-                    serde_json::from_str::<IndexMap<String, UniversalIcon>>(sprites_in)?,
+                    serde_json::from_str::<IndexMap<String, UniversalIcon>>(sprites_in)
+                        .map_err(ByondError::boxed)?,
                 );
             }
             sprites_json.get(&sprites_hash).unwrap()
@@ -570,7 +627,7 @@ pub fn cache_valid(
         return Ok(serde_json::to_string::<CacheResult>(&CacheResult {
             result: String::from("0"),
             fail_reason: format!("Input hash matched, but more DMIs exist than DMI hashes provided ({} DMIs, {} DMI hashes).", dmis.len(), dmi_hashes.len()),
-        })?);
+        }).map_err(ByondError::boxed)?);
     }
 
     let fail_reason: Arc<RwLock<Option<String>>> = Arc::new(RwLock::new(None));
@@ -615,10 +672,12 @@ pub fn cache_valid(
         return Ok(serde_json::to_string::<CacheResult>(&CacheResult {
             result: String::from("0"),
             fail_reason: err,
-        })?);
+        })
+        .map_err(ByondError::boxed)?);
     }
     Ok(serde_json::to_string::<CacheResult>(&CacheResult {
         result: String::from("1"),
         fail_reason: String::from(""),
-    })?)
+    })
+    .map_err(ByondError::boxed)?)
 }

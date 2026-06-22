@@ -32,9 +32,6 @@
 			icon = alt_icon
 			alt_icon = old_icon
 
-	pixel_x = base_pixel_x + body_position_pixel_x_offset
-	pixel_y = base_pixel_y + body_position_pixel_y_offset
-
 	update_held_items()
 	update_pockets()
 	update_fire()

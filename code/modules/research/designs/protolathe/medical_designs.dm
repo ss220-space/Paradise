@@ -340,6 +340,24 @@
 	build_path = /obj/item/organ/internal/cyberimp/arm/surgery
 	category = list(PROTOLATHE_CATEGORY_MEDICAL)
 
+/datum/design/cyberimp_surgical_laser
+	id = "ls_surgery"
+	req_tech = list(RESEARCH_TREE_MATERIALS = 6, RESEARCH_TREE_BIOTECH = 4, RESEARCH_TREE_MAGNETS = 5)
+	build_type = PROTOLATHE | MECHFAB
+	materials = list(MAT_METAL = 14000, MAT_GLASS = 11000, MAT_SILVER = 6000, MAT_GOLD = 6000)
+	construction_time = 200
+	build_path = /obj/item/organ/internal/cyberimp/arm/surgery/adv
+	category = list(PROTOLATHE_CATEGORY_MEDICAL)
+
+/datum/design/cyberimp_surgical_alien
+	id = "al_surgery"
+	req_tech = list(RESEARCH_TREE_MATERIALS = 5, RESEARCH_TREE_BIOTECH = 4, RESEARCH_TREE_ALIEN = 3)
+	build_type = PROTOLATHE | MECHFAB
+	materials = list(MAT_METAL = 35500, MAT_SILVER = 16500, MAT_PLASMA = 5600, MAT_TITANIUM = 13500)
+	construction_time = 200
+	build_path = /obj/item/organ/internal/cyberimp/arm/surgery/alien
+	category = list(PROTOLATHE_CATEGORY_MEDICAL)
+
 /datum/design/cyberimp_toolset
 	id = "ci-toolset"
 	req_tech = list(RESEARCH_TREE_MATERIALS = 3, RESEARCH_TREE_ENGINEERING = 4, RESEARCH_TREE_BIOTECH = 4, RESEARCH_TREE_POWERSTORAGE = 4)
@@ -653,6 +671,15 @@
 	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
 	construction_time = 60
 	build_path = /obj/item/organ/internal/liver/cybernetic
+	category = list(PROTOLATHE_CATEGORY_MEDICAL)
+
+/datum/design/cybernetic_liver_u
+	id = "cybernetic_liver_u"
+	req_tech = list(RESEARCH_TREE_BIOTECH = 5, RESEARCH_TREE_MATERIALS = 5, RESEARCH_TREE_ENGINEERING = 5)
+	build_type = PROTOLATHE | MECHFAB
+	materials = list(MAT_METAL = 500, MAT_GLASS = 500, MAT_SILVER = 500)
+	construction_time = 60
+	build_path = /obj/item/organ/internal/liver/cybernetic/upgraded
 	category = list(PROTOLATHE_CATEGORY_MEDICAL)
 
 /datum/design/cybernetic_kidneys

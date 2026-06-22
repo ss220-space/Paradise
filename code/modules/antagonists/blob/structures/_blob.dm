@@ -43,7 +43,6 @@
 /obj/structure/blob/Initialize(mapload, owner_overmind)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_CHASM_DESTROYED, INNATE_TRAIT)
-	GLOB.blobs |= src
 	if(owner_overmind && isovermind(owner_overmind))
 		link_to_overmind(owner_overmind)
 	setDir(pick(GLOB.cardinal))
@@ -61,8 +60,7 @@
 	if(atmosblock)
 		atmosblock = FALSE
 		recalculate_atmos_connectivity()
-	GLOB.blobs -= src
-	SSticker?.mode?.legit_blobs -= src
+	SSticker?.mode?.remove_blob_tile(src)
 	if(overmind)
 		overmind.all_blobs -= src
 		overmind.blobs_legit -= src  //if it was in the legit blobs list, it isn't now
@@ -125,7 +123,7 @@
 
 /obj/structure/blob/proc/ConsumeTile()
 	for(var/atom/thing in loc)
-		if(!thing.can_blob_attack())
+		if(QDELETED(thing) || !thing.can_blob_attack())
 			continue
 		if(isliving(thing) && overmind && !HAS_TRAIT(thing, TRAIT_BLOB_ALLY)) // Make sure to inject strain-reagents with automatic attacks when needed.
 			overmind.blobstrain.attack_living(thing)
@@ -204,7 +202,7 @@
 			if(Ablob.area_flags & BLOBS_ALLOWED) //Is this area allowed for winning as blob?
 				if(overmind)
 					overmind.blobs_legit |= B
-				SSticker?.mode?.legit_blobs |= B
+				SSticker?.mode?.add_blob_tile(B)
 			else if(controller)
 				B.balloon_alert(overmind, "вне станции, не считается!")
 				offstation = TRUE

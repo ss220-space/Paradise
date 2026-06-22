@@ -29,11 +29,12 @@
 
 	//these objects are indestructible
 /obj/docking_port/Destroy(force)
+	// unless you assert that you know what you're doing. Horrible things
+	// may result.
 	if(force)
 		..()
-		. = QDEL_HINT_HARDDEL_NOW
+		return QDEL_HINT_QUEUE
 	else
-
 		return QDEL_HINT_LETMELIVE
 
 /obj/docking_port/get_gravity(turf/T)
@@ -42,7 +43,7 @@
 /obj/docking_port/take_damage()
 	return
 
-/obj/docking_port/singularity_pull()
+/obj/docking_port/singularity_pull(atom/singularity, current_size)
 	return
 
 /obj/docking_port/singularity_act()
@@ -829,14 +830,12 @@
 	var/max_connect_range = 7
 	var/moved = FALSE	//workaround for nukie shuttle, hope I find a better way to do this...
 
-/obj/machinery/computer/shuttle/New(location, obj/item/circuitboard/shuttle/C)
-	..()
+/obj/machinery/computer/shuttle/Initialize(mapload, obj/item/circuitboard/shuttle/C)
+	. = ..()
 	if(istype(C))
 		possible_destinations = C.possible_destinations
 		shuttleId = C.shuttleId
 
-/obj/machinery/computer/shuttle/Initialize(mapload)
-	. = ..()
 	if(mapload)
 		return INITIALIZE_HINT_LATELOAD
 

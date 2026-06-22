@@ -6,7 +6,7 @@
 	implant_data = /datum/implant_fluff/suppression
 
 /obj/item/implant/suppression/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "био-чип подавления",
 		GENITIVE = "био-чипа подавления",
 		DATIVE = "био-чипу подавления",
@@ -42,7 +42,7 @@
 	imp = /obj/item/implant/suppression
 
 /obj/item/implanter/suppression/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "имплантер био-чипов \"Подавление\"",
 		GENITIVE = "имплантера био-чипов \"Подавление\"",
 		DATIVE = "имплантеру био-чипов \"Подавление\"",
@@ -57,7 +57,7 @@
 	imp = /obj/item/implant/suppression
 
 /obj/item/implantcase/suppression/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "контейнер для био-чипа — \"Подавление\"",
 		GENITIVE = "контейнера для био-чипа — \"Подавление\"",
 		DATIVE = "контейнеру для био-чипа — \"Подавление\"",

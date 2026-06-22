@@ -24,10 +24,9 @@
 	all_products_free = TRUE
 
 	products = list(
-		/obj/item/gun/projectile/automatic/pistol/deagle/gold = 2,
-		/obj/item/gun/projectile/automatic/pistol/deagle/camo = 2,
+		/obj/item/gun/projectile/automatic/pistol/deagle = 2,
 		/obj/item/gun/projectile/automatic/pistol/m1911 = 2,
-		/obj/item/gun/projectile/automatic/proto = 2,
+		/obj/item/gun/projectile/automatic/smg/saber = 2,
 		/obj/item/gun/projectile/shotgun/automatic/combat = 2,
 		/obj/item/gun/projectile/automatic/gyropistol = 1,
 		/obj/item/gun/projectile/shotgun = 2,
@@ -48,7 +47,7 @@
 	resistance_flags = FIRE_PROOF
 
 /obj/machinery/vending/liberationstation/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат Liberation Station",
 		GENITIVE = "торгового автомата Liberation Station",
 		DATIVE = "торговому автомату Liberation Station",
@@ -90,7 +89,7 @@
 	)
 	contraband = list(
 		/obj/item/gun/projectile/shotgun/toy/crossbow = 10,
-		/obj/item/gun/projectile/automatic/c20r/toy/riot = 10,
+		/obj/item/gun/projectile/automatic/smg/c20r/toy/riot = 10,
 		/obj/item/gun/projectile/automatic/l6_saw/toy/riot = 10,
 		/obj/item/gun/projectile/automatic/sniper_rifle/toy = 10,
 		/obj/item/ammo_box/foambox/riot = 20,
@@ -103,7 +102,7 @@
 	resistance_flags = FIRE_PROOF
 
 /obj/machinery/vending/toyliberationstation/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат Syndicate Donksoft Toy Vendor",
 		GENITIVE = "торгового автомата Syndicate Donksoft Toy Vendor",
 		DATIVE = "торговому автомату Syndicate Donksoft Toy Vendor",

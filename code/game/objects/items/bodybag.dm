@@ -11,7 +11,7 @@
 	var/unfoldedbag_path = /obj/structure/closet/body_bag
 
 /obj/item/bodybag/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мешок для трупов",
 		GENITIVE = "мешка для трупов",
 		DATIVE = "мешку для трупов",
@@ -69,14 +69,16 @@
 	open_sound_volume = 15
 	close_sound_volume = 15
 	density = FALSE
+	anchorable = FALSE
 	pull_push_slowdown = 0
 	ignore_density_closed = TRUE
 	interaction_flags_mouse_drop = NEED_HANDS
+	ignore_shoves = TRUE
 	var/foldedbag_path = /obj/item/bodybag
 	var/obj/item/bodybag/foldedbag_instance = null
 
 /obj/structure/closet/body_bag/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мешок для трупов",
 		GENITIVE = "мешка для трупов",
 		DATIVE = "мешку для трупов",
@@ -154,9 +156,6 @@
 		qdel(src)
 		return FALSE
 
-/obj/structure/closet/body_bag/shove_impact(mob/living/target, mob/living/attacker)
-	return FALSE
-
 /obj/structure/closet/body_bag/relaymove(mob/user)
 	if(user.stat)
 		return
@@ -177,7 +176,7 @@
 	unfoldedbag_path = /obj/structure/closet/body_bag/biohazard
 
 /obj/item/bodybag/biohazard/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мешок для инфицированных трупов",
 		GENITIVE = "мешка для инфицированных трупов",
 		DATIVE = "мешку для инфицированных трупов",
@@ -195,7 +194,7 @@
 	foldedbag_path = /obj/item/bodybag/biohazard
 
 /obj/structure/closet/body_bag/biohazard/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мешок для инфицированных трупов",
 		GENITIVE = "мешка для инфицированных трупов",
 		DATIVE = "мешку для инфицированных трупов",
@@ -212,7 +211,7 @@
 	item_flags = NO_MAT_REDEMPTION
 
 /obj/item/bodybag/bluespace/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "блюспейс мешок для трупов",
 		GENITIVE = "блюспейс мешка для трупов",
 		DATIVE = "блюспейс мешку для трупов",
@@ -276,7 +275,7 @@
 	foldedbag_path = /obj/item/bodybag/bluespace
 
 /obj/structure/closet/body_bag/bluespace/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "блюспейс мешок для трупов",
 		GENITIVE = "блюспейс мешка для трупов",
 		DATIVE = "блюспейс мешку для трупов",
@@ -339,7 +338,7 @@
 	resistance_flags = ACID_PROOF | FIRE_PROOF | FREEZE_PROOF
 
 /obj/item/bodybag/environmental/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "защитный мешок",
 		GENITIVE = "защитного мешка",
 		DATIVE = "защитному мешку",
@@ -356,7 +355,7 @@
 	resistance_flags = ACID_PROOF | FIRE_PROOF | FREEZE_PROOF | LAVA_PROOF
 
 /obj/item/bodybag/environmental/nanotrasen/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "элитный защитный мешок",
 		GENITIVE = "элитного защитного мешка",
 		DATIVE = "элитному защитному мешку",
@@ -373,7 +372,7 @@
 	unfoldedbag_path = /obj/structure/closet/body_bag/environmental/prisoner
 
 /obj/item/bodybag/environmental/prisoner/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "защитный мешок для заключённых",
 		GENITIVE = "защитного мешка для заключённых",
 		DATIVE = "защитному мешку для заключённых",
@@ -394,7 +393,7 @@
 	resistance_flags = ACID_PROOF | FIRE_PROOF | FREEZE_PROOF | LAVA_PROOF
 
 /obj/item/bodybag/environmental/prisoner/syndicate/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мешок для заключённых синдиката",
 		GENITIVE = "мешка для заключённых синдиката",
 		DATIVE = "мешку для заключённых синдиката",
@@ -418,7 +417,7 @@
 	var/datum/gas_mixture/air_contents = null
 
 /obj/structure/closet/body_bag/environmental/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "защитный мешок",
 		GENITIVE = "защитного мешка",
 		DATIVE = "защитному мешку",
@@ -480,7 +479,7 @@
 	weather_protection = list(TRAIT_WEATHER_IMMUNE)
 
 /obj/structure/closet/body_bag/environmental/nanotrasen/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "элитный защитный мешок",
 		GENITIVE = "элитного защитного мешка",
 		DATIVE = "элитному защитному мешку",
@@ -505,7 +504,7 @@
 	var/sinch_sound = 'sound/items/handling/equip/toolbelt_equip.ogg'
 
 /obj/structure/closet/body_bag/environmental/prisoner/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "защитный мешок для заключённых",
 		GENITIVE = "защитного мешка для заключённых",
 		DATIVE = "защитному мешку для заключённых",
@@ -566,7 +565,7 @@
 		)
 
 	user.balloon_alert(user, "вы вырываетесь!")
-	if(istype(loc, /obj/machinery/disposal))
+	if(isdisposalunit(loc))
 		return ..()
 	bust_open()
 
@@ -644,7 +643,7 @@
 	weather_protection = list(TRAIT_SNOWSTORM_IMMUNE)
 
 /obj/structure/closet/body_bag/environmental/hardlight/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "голографический защитный мешок",
 		GENITIVE = "голографического защитного мешка",
 		DATIVE = "голографическому защитному мешку",
@@ -667,7 +666,7 @@
 	weather_protection = list(TRAIT_SNOWSTORM_IMMUNE)
 
 /obj/structure/closet/body_bag/environmental/prisoner/hardlight/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "голографический защитный мешок для заключённых",
 		GENITIVE = "голографического защитного мешка для заключённых",
 		DATIVE = "голографическому защитному мешку для заключённых",

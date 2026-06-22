@@ -24,7 +24,7 @@
 	var/current_emotion = 1
 
 /obj/item/paicard/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "интелкарта пИИ",
 		GENITIVE = "интелкарты пИИ",
 		DATIVE = "интелкарте пИИ",
@@ -39,8 +39,8 @@
 	is_syndicate_type = TRUE
 	upgrade = new()
 
-/obj/item/paicard/New()
-	..()
+/obj/item/paicard/Initialize(mapload)
+	. = ..()
 	add_overlay("pai-off")
 	LAZYADD(GLOB.paiController.paicards, src)
 

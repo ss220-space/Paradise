@@ -1,4 +1,0 @@
-author: "vovakons"
-delete-after: True
-changes:
-  - add: "Добавлены подствольные модули на оружие в щитспавн. (PR #8992)"

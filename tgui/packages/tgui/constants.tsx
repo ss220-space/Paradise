@@ -196,6 +196,11 @@ export const RADIO_CHANNELS: Channel[] = [
     freq: 1251,
     color: '#776f96',
   },
+  {
+    name: 'Воксы',
+    freq: 1220,
+    color: '#952aa5',
+  },
 ] as const;
 
 export const GASES = [

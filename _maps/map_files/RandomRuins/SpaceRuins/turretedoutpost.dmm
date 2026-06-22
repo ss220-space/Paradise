@@ -124,7 +124,6 @@
 /obj/structure/table/reinforced,
 /obj/item/clothing/head/ushanka,
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "darkredfull"
 	},
 /area/ruin/unpowered)
@@ -207,14 +206,13 @@
 /obj/structure/table/reinforced,
 /obj/item/paper/crumpled,
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "darkredfull"
 	},
 /area/ruin/unpowered)
 "M" = (
 /obj/structure/table/reinforced,
 /obj/machinery/light,
-/obj/item/camera_bug,
+/obj/item/camera_bug/syndicate,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "N" = (

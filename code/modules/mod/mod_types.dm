@@ -565,8 +565,10 @@
 		/obj/item/mod/module/chameleon,
 	)
 	default_pins = list(
+		/obj/item/mod/module/dna_lock/emp_shield,
 		/obj/item/mod/module/anomaly_locked/kinesis/plus,
 		/obj/item/mod/module/magboot/advanced/elite,
+		/obj/item/mod/module/chameleon,
 	)
 
 /obj/item/mod/control/pre_equipped/debug

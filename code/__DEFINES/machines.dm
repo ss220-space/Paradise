@@ -200,9 +200,19 @@
 #define MECH_FAB_CATEGORY_DARK_GYGAX "Тёмный Гигакс"
 #define MECH_FAB_CATEGORY_SYNDICATE "Синдикат"
 
+
+// Pod fabricator categories
+#define POD_FAB_CATEGORY_WEAPONRY "Вооружение"
+#define POD_FAB_CATEGORY_ARMOR "Броня"
+#define POD_FAB_CATEGORY_CARGO "Хранилища"
+#define POD_FAB_CATEGORY_PARTS "Детали"
+#define POD_FAB_CATEGORY_FRAME "Корпус"
+#define POD_FAB_CATEGORY_MISC "Разное"
+
 // Engine types
 #define ENGTYPE_SING "Сингулярность"
 #define ENGTYPE_TESLA "Тесла"
+#define ENGTYPE_TEG "Термоэлектрический генератор"
 
 #define AALARM_MODE_FILTERING 1
 /// Makes draught
@@ -221,3 +231,17 @@
 /// Emagged mode; turns off scrubbers and pressure checks on vents
 #define AALARM_MODE_FLOOD 9
 #define AALARM_MODE_CUSTOM 10
+
+// Air alarm build stages
+#define AIR_ALARM_BUILD_NO_CIRCUIT 0
+#define AIR_ALARM_BUILD_CIRCUIT 1
+#define AIR_ALARM_WIRED 2
+
+// Field generator construction defines
+#define FG_UNSECURED 0
+#define FG_SECURED 1
+#define FG_WELDED 2
+
+#define FG_OFFLINE 0
+#define FG_CHARGING 1
+#define FG_ONLINE 2

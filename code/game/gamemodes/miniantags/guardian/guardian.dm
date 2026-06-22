@@ -47,7 +47,7 @@ GLOBAL_LIST_EMPTY(parasites)
 	var/name_color = "white"//only used with protector shields for the time being
 
 /mob/living/simple_animal/hostile/guardian/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Дух-Хранитель",
 		GENITIVE = "Духа-Хранителя",
 		DATIVE = "Духу-Хранителю",
@@ -281,7 +281,7 @@ GLOBAL_LIST_EMPTY(parasites)
 	var/name_list = list("Aries", "Leo", "Sagittarius", "Taurus", "Virgo", "Capricorn", "Gemini", "Libra", "Aquarius", "Cancer", "Scorpio", "Pisces")
 
 /obj/item/guardiancreator/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "колода карт Таро",
 		GENITIVE = "колоды карт Таро",
 		DATIVE = "колоде карт Таро",
@@ -291,19 +291,18 @@ GLOBAL_LIST_EMPTY(parasites)
 	)
 
 /obj/item/guardiancreator/attack_self(mob/living/user)
-	for(var/mob/living/simple_animal/hostile/guardian/G in GLOB.alive_mob_list)
-		if(G.summoner == user)
-			to_chat(user, "У вас уже есть [mob_name]!")
-			return
+	if(has_guardian(user))
+		to_chat(user, "У вас уже есть [mob_name]!")
+		return
 	if(user.mind && (ischangeling(user) || isvampire(user)))
 		to_chat(user, "[ling_failure]")
 		return
-	if(used == TRUE)
+	if(used)
 		to_chat(user, "[used_message]")
 		return
 	used = TRUE // Set this BEFORE the popup to prevent people using the injector more than once, polling ghosts multiple times, and receiving multiple guardians.
 	var/choice = tgui_alert(user, "[confirmation_message]", "Confirm", list("Да", "Нет"))
-	if(choice == "Нет")
+	if(choice != "Да")
 		to_chat(user, span_warning("Вы решили не использовать [name]."))
 		used = FALSE
 		return
@@ -330,6 +329,10 @@ GLOBAL_LIST_EMPTY(parasites)
 
 	if(length(candidates))
 		theghost = pick(candidates)
+		if(has_guardian(user))
+			to_chat(user, "У вас уже есть [mob_name]!")
+			used = FALSE
+			return
 		log_game("[user](ckey: [user.key]) has successfully spawned [guardian_type] type guardian(ckey: [theghost.key])")
 		spawn_guardian(user, theghost.key, guardian_type)
 	else
@@ -341,6 +344,13 @@ GLOBAL_LIST_EMPTY(parasites)
 	. = ..()
 	if(used)
 		. += span_notice("[used_message]")
+
+/obj/item/guardiancreator/proc/has_guardian(mob/living/user)
+	for(var/mob/living/simple_animal/hostile/guardian/guardian in GLOB.alive_mob_list)
+		if(guardian.summoner != user)
+			continue
+		return TRUE
+	return FALSE
 
 /obj/item/guardiancreator/proc/spawn_guardian(mob/living/user, key, guardian_type)
 	var/pickedtype = /mob/living/simple_animal/hostile/guardian/punch
@@ -425,7 +435,7 @@ GLOBAL_LIST_EMPTY(parasites)
 	name_list = list("Gallium", "Indium", "Thallium", "Bismuth", "Aluminium", "Mercury", "Iron", "Silver", "Zinc", "Titanium", "Chromium", "Nickel", "Platinum", "Tellurium", "Palladium", "Rhodium", "Cobalt", "Osmium", "Tungsten", "Iridium")
 
 /obj/item/guardiancreator/tech/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "инъектор голопаразитов",
 		GENITIVE = "инъектора голопаразитов",
 		DATIVE = "инъектору голопаразитов",
@@ -473,7 +483,7 @@ GLOBAL_LIST_EMPTY(parasites)
 	name_list = list("brood", "hive", "nest")
 
 /obj/item/guardiancreator/biological/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "скопление яиц скарабеев",
 		GENITIVE = "скопления яиц скарабеев",
 		DATIVE = "скоплению яиц скарабеев",

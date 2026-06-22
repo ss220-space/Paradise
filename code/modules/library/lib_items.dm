@@ -32,7 +32,7 @@
 	var/books_to_load = 0
 
 /obj/structure/bookcase/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "книжный шкаф",
 		GENITIVE = "книжного шкафа",
 		DATIVE = "книжному шкафу",
@@ -253,7 +253,7 @@
 	var/has_drm = FALSE
 
 /obj/item/book/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "книга",
 		GENITIVE = "книги",
 		DATIVE = "книге",
@@ -403,7 +403,7 @@
 /obj/item/book/proc/carve_book(mob/user, obj/item/I)
 	if(I.tool_behaviour != TOOL_WIRECUTTER) //Only sharp and wirecutter things can carve books
 		return FALSE
-	if(I.sharp)
+	if(!I.sharp)
 		balloon_alert(user, "недостаточно острое!")
 		return FALSE
 	if(carved)
@@ -436,7 +436,7 @@
 	var/mode = 0					// 0 - Scan only, 1 - Scan and Set Buffer, 2 - Scan and Attempt to Check In, 3 - Scan and Attempt to Add to Inventory
 
 /obj/item/barcodescanner/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сканнер штрих-кодов",
 		GENITIVE = "сканнера штрих-кодов",
 		DATIVE = "сканнеру штрих-кодов",

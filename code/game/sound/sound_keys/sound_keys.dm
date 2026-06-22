@@ -5,6 +5,7 @@
  * Initialized and added to sfx_datum_by_key in /datum/controller/subsystem/sounds/init_sound_keys()
  */
 /datum/sound_effect
+	abstract_type = /datum/sound_effect
 	/// sfx key define with which we are associated with, see code\__DEFINES\sound.dm
 	var/key
 	/// list of paths to our files, use the /assoc subtype if your paths are weighted
@@ -708,4 +709,11 @@
 	file_paths = list(
 		'sound/goonstation/items/mender.ogg',
 		'sound/goonstation/items/mender2.ogg',
+	)
+
+/datum/sound_effect/glitched_pda
+	key = SFX_GLITCHED_PDA_RINGTONE
+	file_paths = list(
+		'sound/machines/twobeep_voice1.ogg',
+		'sound/machines/twobeep_voice2.ogg',
 	)

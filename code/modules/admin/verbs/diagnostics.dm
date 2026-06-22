@@ -130,13 +130,13 @@ ADMIN_VERB(print_jobban_old_filter, R_ADMIN, "Search Jobban Log", "This searches
 	log_admin("[key_name(user)] has searched the jobban log for [filter]")
 
 ADMIN_VERB(vv_by_ref, R_DEBUG, "VV by Ref", "Give this a ref string, and you will see its corresponding VV panel if it exists.", ADMIN_CATEGORY_DEBUG)
-	var/refstring = tgui_input_text(user, "Which reference?", "Ref")
-	if(!refstring)
+	var/ref_string = tgui_input_text(user, "Which reference?", "Ref")
+	if(!ref_string)
 		return
 
-	var/datum/D = locate(refstring)
-	if(!D)
+	var/datum/thing = locate(ref_string)
+	if(!thing)
 		to_chat(user, span_warning("That ref string does not correspond to any datum."))
 		return
 
-	SSadmin_verbs.dynamic_invoke_verb(user, /datum/admin_verb/debug_variables, D)
+	user.debug_variables(thing)

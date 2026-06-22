@@ -13,7 +13,7 @@
 	var/obj/machinery/power/supermatter_crystal/focused_supermatter
 
 /obj/machinery/computer/sm_monitor/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "консоль мониторинга суперматерии",
 		GENITIVE = "консоли мониторинга суперматерии",
 		DATIVE = "консоли мониторинга суперматерии",

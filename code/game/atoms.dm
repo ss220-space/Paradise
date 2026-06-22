@@ -58,8 +58,11 @@
 	var/list/image/hud_list = null
 	///all of this atom's HUD images which can actually be seen by players with that hud
 	var/list/image/active_hud_list = null
-	//HUD images that this atom can provide.
+	///HUD images that this atom can provide.
 	var/list/hud_possible
+
+	///vis overlays managed by SSvis_overlays to automaticaly turn them like other overlays.
+	var/list/managed_vis_overlays
 
 	//Value used to increment ex_act() if reactionary_explosions is on
 	var/explosion_block = 0
@@ -122,10 +125,12 @@
 	/// A luminescence-shifted value of the last color calculated for chatmessage overlays
 	var/chat_color_darkened
 
-
-	/// Список склонений русского названия атома в разных грамматических падежах.
-	/// Формат: list(CASE_ID = "name_in_case", ...)
-	var/list/ru_names
+	/**
+	 * Список склонений русского названия атома в разных грамматических падежах.
+	 *
+	 * Формат: alist(CASE_ID = "name_in_case", ...)
+	 */
+	var/alist/ru_names
 
 	// Can it be drained of energy by ninja?
 	var/drain_act_protected = FALSE
@@ -176,6 +181,7 @@
 	/// List of underlay "keys" (info about the appearance) -> mutable versions of static appearances
 	/// Drawn from the underlays list
 	var/list/realized_underlays
+
 	/// Sources that changes gravity of object. Treated as lazy list.
 	var/list/gravity_sources
 	/// Sources that 100% won't changes gravity of object. Treated as lazy list.
@@ -197,6 +203,9 @@
 	/// Radiation insulation types
 	var/rad_insulation = RAD_NO_INSULATION
 
+	/// Preferred way to render this atom's icon in the lootpanel, as one of the LOOT_ICON_* defines.
+	/// Null lets [/datum/search_object] decide heuristically; subtypes set it when the heuristic
+	/// would pick wrong (e.g. mobs force [LOOT_ICON_FLAT_ICON] for their layered appearances).
 	var/looting_icon_mode
 
 	/// Text that appears preceding the name in [/atom/proc/examine_title]
@@ -261,6 +270,13 @@
 		QDEL_NULL(light)
 	if(length(light_sources))
 		light_sources.Cut()
+
+	for(var/mob/orbiter as anything in orbiters)
+		if(orbiter?.orbiting != src)
+			continue
+		orbiter.stop_orbit()
+
+	LAZYCLEARLIST(orbiters)
 
 	if(smooth & SMOOTH_QUEUED)
 		SSicon_smooth.remove_from_queues(src)
@@ -617,7 +633,7 @@
 /atom/proc/remove_persistent_overlay(id)
 	if(!istext(id))
 		CRASH("Non-text argument passed as an ID.")
-	var/all_persistent = datum_components?[/datum/component/persistent_overlay]
+	var/all_persistent = _datum_components?[/datum/component/persistent_overlay]
 	if(!all_persistent)
 		return
 	if(!islist(all_persistent))
@@ -914,28 +930,24 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	return list("UNKNOWN DNA" = "X*")
 
 //to add a mob's dna info into an object's blood_DNA list.
-/atom/proc/transfer_mob_blood_dna(mob/living/L)
-	var/new_blood_dna = L.get_blood_dna_list()
+/atom/proc/transfer_mob_blood_dna(mob/living/living_mob)
+	var/new_blood_dna = living_mob.get_blood_dna_list()
 	if(!new_blood_dna)
 		return FALSE
 	return transfer_blood_dna(new_blood_dna)
 
-/obj/effect/decal/cleanable/blood/splatter/transfer_mob_blood_dna(mob/living/L)
-	..(L)
-	var/list/b_data = L.get_blood_data(L.get_blood_id())
-	if(b_data)
-		basecolor = b_data["blood_color"]
-	else
-		basecolor = BLOOD_COLOR_RED
+/obj/effect/decal/cleanable/blood/splatter/transfer_mob_blood_dna(mob/living/living_mob)
+	..(living_mob)
+	var/splatter_color = living_mob.get_blood_color()
+	if(splatter_color)
+		basecolor = splatter_color
 	update_icon()
 
-/obj/effect/decal/cleanable/blood/footprints/transfer_mob_blood_dna(mob/living/L)
-	..(L)
-	var/list/b_data = L.get_blood_data(L.get_blood_id())
-	if(b_data)
-		basecolor = b_data["blood_color"]
-	else
-		basecolor = BLOOD_COLOR_RED
+/obj/effect/decal/cleanable/blood/footprints/transfer_mob_blood_dna(mob/living/living_mob)
+	..(living_mob)
+	var/footprints_color = living_mob.get_blood_color()
+	if(footprints_color)
+		basecolor = footprints_color
 	update_icon()
 
 //to add blood dna info to the object's blood_DNA list
@@ -948,14 +960,13 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	return length(blood_DNA) > old_length //some new blood DNA was added
 
 //to add blood from a mob onto something, and transfer their dna info
-/atom/proc/add_mob_blood(mob/living/M)
-	var/list/blood_dna = M.get_blood_dna_list()
+/atom/proc/add_mob_blood(mob/living/living_mob)
+	var/list/blood_dna = living_mob.get_blood_dna_list()
 	if(!blood_dna)
 		return FALSE
-	var/bloodcolor = BLOOD_COLOR_RED
-	var/list/b_data = M.get_blood_data(M.get_blood_id())
-	if(b_data)
-		bloodcolor = b_data["blood_color"]
+	var/bloodcolor = living_mob.get_blood_color()
+	if(!bloodcolor)
+		return FALSE
 
 	return add_blood(blood_dna, bloodcolor)
 
@@ -991,6 +1002,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		B = new /obj/effect/decal/cleanable/blood/splatter(src)
 	B.transfer_blood_dna(blood_dna) //give blood info to the blood decal.
 	B.basecolor = color
+	B.update_appearance(UPDATE_ICON)
 	return TRUE //we bloodied the floor
 
 /mob/living/carbon/human/add_blood(list/blood_dna, color)
@@ -1150,11 +1162,17 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /atom/proc/handle_fall(mob/living/carbon/faller)
 	return
 
+/// Respond to the singularity eating this atom
 /atom/proc/singularity_act()
 	return
 
-/atom/proc/singularity_pull(obj/singularity/S, current_size)
-	SEND_SIGNAL(src, COMSIG_ATOM_SING_PULL, S, current_size)
+/**
+ * Respond to the singularity pulling on us
+ *
+ * Default behaviour is to send [COMSIG_ATOM_SING_PULL] and return
+ */
+/atom/proc/singularity_pull(atom/singularity, current_size)
+	SEND_SIGNAL(src, COMSIG_ATOM_SING_PULL, singularity, current_size)
 
 /**
  * Respond to acid being used on our atom
@@ -1194,7 +1212,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		if(M.client)
 			speech_bubble_hearers += M.client
 
-			if(!M.can_hear() || M.stat == UNCONSCIOUS)
+			if(HAS_TRAIT(M, TRAIT_DEAF) || M.stat == UNCONSCIOUS)
 				continue
 
 			if(M.client.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
@@ -1251,98 +1269,6 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 	runechat_emote(src, emote)
 
-/**
- * Call back when a var is edited on this atom
- *
- * Can be used to implement special handling of vars
- *
- * At the atom level, if you edit a var named "color" it will add the atom colour with
- * admin level priority to the atom colours list
- *
- * Also, if GLOB.debugging_enabled is FALSE, it sets the [ADMIN_SPAWNED] flag on [flags][/atom/var/flags], which signifies
- * the object has been admin edited
- */
-/atom/vv_edit_var(var_name, var_value)
-	var/old_light_flags = light_flags
-	switch(var_name)
-		if(NAMEOF(src, light_range))
-			if(light_system == STATIC_LIGHT)
-				set_light(l_range = var_value)
-			else
-				set_light_range(var_value)
-			. = TRUE
-
-		if(NAMEOF(src, light_power))
-			if(light_system == STATIC_LIGHT)
-				set_light(l_power = var_value)
-			else
-				set_light_power(var_value)
-			. = TRUE
-
-		if(NAMEOF(src, light_color))
-			if(light_system == STATIC_LIGHT)
-				set_light(l_color = var_value)
-			else
-				set_light_color(var_value)
-			. = TRUE
-
-		if(NAMEOF(src, light_on))
-			if(light_system == STATIC_LIGHT)
-				set_light(l_on = var_value)
-			else
-				set_light_on(var_value)
-			. = TRUE
-
-		if(NAMEOF(src, light_flags))
-			set_light_flags(var_value)
-			// I'm sorry
-			old_light_flags = var_value
-			. = TRUE
-
-		if(NAMEOF(src, opacity))
-			set_opacity(var_value)
-			. = TRUE
-
-		if(NAMEOF(src, density))
-			set_density(var_value)
-			. = TRUE
-
-		if(NAMEOF(src, base_pixel_x))
-			set_base_pixel_x(var_value)
-			. = TRUE
-
-		if(NAMEOF(src, base_pixel_y))
-			set_base_pixel_y(var_value)
-			. = TRUE
-
-	light_flags = old_light_flags
-	if(!isnull(.))
-		datum_flags |= DF_VAR_EDITED
-		return .
-
-	if(!GLOB.debugging_enabled)
-		flags |= ADMIN_SPAWNED
-
-	. = ..()
-
-	switch(var_name)
-		if(NAMEOF(src, color))
-			add_atom_colour(color, ADMIN_COLOUR_PRIORITY)
-			update_appearance()
-
-/atom/vv_get_dropdown()
-	. = ..()
-	var/turf/curturf = get_turf(src)
-	if(curturf)
-		.["Jump to turf"] = "byond://?_src_=holder;adminplayerobservecoodjump=1;X=[curturf.x];Y=[curturf.y];Z=[curturf.z]"
-	.["Atom say"] = "byond://?_src_=vars;atom_say=[UID()]"
-	.["Add reagent"] = "byond://?_src_=vars;addreagent=[UID()]"
-	.["Edit reagents"] = "byond://?_src_=vars;editreagents=[UID()]"
-	.["Transform editor"] = "byond://?_src_=vars;matrix_tester=[UID()]"
-	.["Trigger explosion"] = "byond://?_src_=vars;explode=[UID()]"
-	.["Trigger EM pulse"] = "byond://?_src_=vars;emp=[UID()]"
-	.["Modify greyscale colors"] = "byond://?_src_=vars;modify_greyscale=[UID()]"
-
 /// Are you allowed to drop stuff inside this atom
 /atom/proc/AllowDrop()
 	return FALSE
@@ -1368,11 +1294,11 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
  *
  * Default behaviour is to send the [COMSIG_ATOM_EXIT]
  */
-/atom/Exit(atom/movable/leaving, atom/newLoc)
+/atom/Exit(atom/movable/leaving, direction)
 	// Don't call `..()` here, otherwise `Uncross()` gets called.
 	// See the doc comment on `Uncross()` to learn why this is bad.
 
-	if(SEND_SIGNAL(src, COMSIG_ATOM_EXIT, leaving, newLoc) & COMPONENT_ATOM_BLOCK_EXIT)
+	if(SEND_SIGNAL(src, COMSIG_ATOM_EXIT, leaving, direction) & COMPONENT_ATOM_BLOCK_EXIT)
 		return FALSE
 
 	return TRUE
@@ -1382,8 +1308,9 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
  *
  * Default behaviour is to send the [COMSIG_ATOM_EXITED]
  */
-/atom/Exited(atom/movable/departed, atom/newLoc)
-	SEND_SIGNAL(src, COMSIG_ATOM_EXITED, departed, newLoc)
+/atom/Exited(atom/movable/gone, direction)
+	SEND_SIGNAL(src, COMSIG_ATOM_EXITED, gone, direction)
+	SEND_SIGNAL(gone, COMSIG_ATOM_EXITING, src, direction)
 
 /** Call this when you want to present a renaming prompt to the user.
 
@@ -1451,20 +1378,21 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		logged_name = "[use_prefix ? "[prefix][t]" : t]"
 	investigate_log("[key_name(user)] ([ADMIN_FLW(user,"FLW")]) renamed \"[src]\" ([ADMIN_VV(src, "VV")]) as \"[logged_name]\".", INVESTIGATE_RENAME)
 
-	if(actually_rename)
-		if(t == "")
-			ru_names = get_ru_names_cached()
-			name = "[initial(name)]"
-		else
-			var/list/names = get_ru_names_cached()
-			ru_names = names ? names.Copy() : new /list(6)
-			if(use_prefix)
-				for(var/i = 1; i <= 6; i++)
-					ru_names[i] = "[names ? names[i] : initial(name)] - [t]"
-			else
-				for(var/i = 1; i <= 6; i++)
-					ru_names[i] = "[t]"
-			name = "[prefix][t]"
+	if(!actually_rename)
+		return t
+
+	if(t == "")
+		ru_names = get_ru_names_cached()
+		name = "[initial(name)]"
+		return t
+
+	if(use_prefix)
+		set_ru_names_suffix(" - [t]")
+	else
+		ru_names = alist()
+		for(var/case_id in NOMINATIVE to PREPOSITIONAL)
+			ru_names[case_id] = "[t]"
+	name = "[prefix][t]"
 	return t
 
 /**
@@ -1486,9 +1414,6 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(pass_info.pass_flags & pass_flags_self)
 		return TRUE
 	. = !density
-
-/atom/proc/get_examine_time() // Used only in /mob/living/carbon/human and /mob/living/simple_animal/hostile/morph
-	return 0 SECONDS
 
 /atom/proc/get_visible_gender() // Used only in /mob/living/carbon/human and /mob/living/simple_animal/hostile/morph
 	return gender
@@ -1808,3 +1733,4 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /// Called when something resists while this atom is its loc
 /atom/proc/container_resist_act(mob/living/user)
 	return
+

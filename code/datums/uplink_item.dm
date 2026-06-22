@@ -20,6 +20,10 @@
 
 		if(uplink_item.limited_stock != -1 || (uplink_item.can_discount && uplink_item.refundable))
 			uplink_item = new uplink_item.type //If item has limited stock or can be discounted and refundable at same time make a copy
+
+		if(HAS_TRAIT(SSstation, STATION_TRAIT_CYBERNETIC_REVOLUTION) && uplink_item.cybernetic_sensitive)
+			uplink_item.cost = initial(uplink_item.cost) * 3
+
 		. += uplink_item
 
 		if(generate_discounts && uplink_item.limited_stock < 0 && uplink_item.can_discount && uplink_item.cost > 5)
@@ -43,6 +47,7 @@
 			discount_item.surplus = 0 // stops the surplus crate potentially giving out a bit too much
 
 			. += discount_item
+
 
 	return .
 
@@ -81,6 +86,8 @@
 	var/refund_path
 	/// Associative list UID - refund cost
 	var/static/list/item_to_refund_cost
+	/// This item can cause harm to robots and augmented people, used to tripple the cost with "cybernetic revolution" station trait
+	var/cybernetic_sensitive = FALSE
 
 /datum/uplink_item/Destroy(force)
 	if(force)
@@ -163,10 +170,7 @@
 		buyer.put_in_any_hand_if_possible(spawned)
 
 	// Append item icons to the uplink's purchase log
-	var/list/items_to_log = spawned.get_uplink_log_items()
-	for(var/atom/atom_to_display in items_to_log)
-		target_uplink.purchase_log += span_fontsize4(icon2base64html(atom_to_display))
-
+	spawned.log_contents_to_uplink(target_uplink)
 	return spawned
 
 /// Handles refund tracking for discount category items.
@@ -620,13 +624,6 @@
 	job = list(JOB_TITLE_LIBRARIAN)
 	surplus = 0
 
-/datum/uplink_item/jobspecific/death_book
-	name = "Летопись вашей погибели"
-	desc = "Магический артефакт, захваченный \"Синдикатом\" для своих агентов. Эта книга рассказывает о том, как погибали целые миры, и тот, кто её прочтёт, сможет на время ощутить себя одним из тех, кто несёт ответственность за эти события."
-	item = /obj/item/death_book
-	cost = 50
-	job = list(JOB_TITLE_LIBRARIAN)
-
 //Botanist
 
 /datum/uplink_item/jobspecific/ambrosiacruciatus
@@ -696,7 +693,7 @@
 			Оно оснащено алгоритмами ближнего боя и имеет обновленные протоколы безопасности для работы с микробатареями."
 	item = /obj/item/ipc_combat_upgrade
 	cost = 11
-	race = list(SPECIES_MACNINEPERSON)
+	race = list(SPECIES_MACHINEPERSON)
 
 /datum/uplink_item/racial/supercharge
 	name = "Имплант cуперзаряда"
@@ -704,7 +701,7 @@
 			Он выпускает специальный химический коктейль, который снимает и значительно сокращает эффект оглушения, а также повышает скорость передвижения."
 	item = /obj/item/implanter/supercharge
 	cost = 40
-	race = list(SPECIES_MACNINEPERSON)
+	race = list(SPECIES_MACHINEPERSON)
 
 /datum/uplink_item/racial/combat_exoframe
 	name = "Боевой каркас экзоскелета"
@@ -713,7 +710,7 @@
 			Поставляется с одноразовым автоимплантером для установки на месте."
 	item = /obj/item/storage/box/syndie_kit/combat_exoframe
 	cost = 28
-	race = list(SPECIES_MACNINEPERSON)
+	race = list(SPECIES_MACHINEPERSON)
 
 //Slime People
 
@@ -830,13 +827,19 @@
 	desc = "Легендарный мощный пистолет с магазином на 7 патронов калибра .50AE. Поставляется с тремя дополнительными магазинами и двумя коробками патронов."
 	item = /obj/item/storage/box/syndie_kit/desert_eagle
 	cost = 50
-	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
+/datum/uplink_item/dangerous/kedr
+	name = "Пистолет-пулемёт K-45"
+	desc = "Комплект с компактным пистолет-пулемётом K-45 калибра 9 мм, четыре дополнительных магазина к нему и универсальный глушитель."
+	item = /obj/item/storage/box/syndie_kit/kedr_kit
+	cost = 35
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/dangerous/smg
 	name = "Пистолет-пулемёт \"C-20rm\""
 	desc = "Полностью заряженный пистолет-пулемёт, оснащённый магазином на 20 патронов .45 калибра. \
 			Имеет только автоматический режим огня. Совместим с глушителем."
-	item = /obj/item/gun/projectile/automatic/c20r/auto
+	item = /obj/item/gun/projectile/automatic/smg/c20r/auto
 	cost = 70
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 40
@@ -948,7 +951,7 @@
 	desc = "Полностью заряженный игрушечный пистолет-пулемёт, оснащённый магазином на 20 усиленных пенных патронов. \
 			Предназначен для выведения из строя цели, не причиняя ей вреда. \
 			Имеет два режима стрельбы: полуавтоматический и с отсечкой по 2 патрона."
-	item = /obj/item/gun/projectile/automatic/c20r/toy
+	item = /obj/item/gun/projectile/automatic/smg/c20r/toy
 	cost = 20
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0
@@ -1081,6 +1084,13 @@
 	item = /obj/item/ammo_box/magazine/m10mm/hp
 	cost = 2
 
+
+/datum/uplink_item/ammo/kedr_ammo
+	name = "Пистолет-пулемет K-45 — 4 магазина 9 мм"
+	desc = "Четыре магазина на 20 стандартных патронов калибра 9 мм. Подходят к пистолет-пулемету K-45."
+	item = /obj/item/storage/box/syndie_kit/kedr_ammo
+	cost = 4
+
 /datum/uplink_item/ammo/bullbuck
 	name = "Барабан 12g — \"Магнум Картечь\""
 	desc = "Барабан на 12 патронов магнум картечи калибра 12g. Отлично подходит для ближней дистанции."
@@ -1192,7 +1202,7 @@
 
 /datum/uplink_item/ammo/LMG_ammobag
 	name = "Ручной пулемёт L6 SAW — сумка с магазинами 5.56x45 мм"
-	desc = "Сумка, содержащая 5 магазинов на 50 патронов калибра 5.56x45 мм. И помните, ни слова на общесолнечном."
+	desc = "Сумка, содержащая 5 магазинов на 50 патронов калибра 5.56x45 мм. И помните, ни слова по-неорусски!"
 	item = /obj/item/storage/backpack/duffel/syndie/ammo/lmg
 	cost = 200 // normally 250
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
@@ -1528,6 +1538,7 @@
 	can_discount = FALSE
 	hijack_only = TRUE
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	cybernetic_sensitive = TRUE
 
 /datum/uplink_item/explosives/emp_bomb/nuke
 	cost = 50
@@ -1623,6 +1634,7 @@
 	desc = "Коробка, содержащая две ЭМИ-гранаты и имплантер с ЭМИ-имплантом, имеющим два заряда."
 	item = /obj/item/storage/box/syndie_kit/emp
 	cost = 10
+	cybernetic_sensitive = TRUE
 
 /**
  * MARK: Stealthy Tools
@@ -1703,8 +1715,8 @@
 /datum/uplink_item/stealthy_tools/camera_bug
 	name = "Переносной монитор"
 	desc = "Мобильное устройство, которое позволяет просматривать изображения с камер наблюдения, установленных на станции. \
-			При переключении между камерами издаётся характерный звук."
-	item = /obj/item/camera_bug
+			При переключении между камерами издаётся характерный звук. Обладает режимом продвинутого слежения."
+	item = /obj/item/camera_bug/syndicate
 	cost = 3
 	surplus = 90
 
@@ -1729,6 +1741,7 @@
 	item = /obj/item/flashlight/emp
 	cost = 19
 	surplus = 30
+	cybernetic_sensitive = TRUE
 
 /datum/uplink_item/stealthy_tools/syndigaloshes
 	name = "Ботинки с защитой от скольжения \"Хамелеон\""
@@ -1839,6 +1852,7 @@
 			бронежилет, штурмовой пояс, балаклава и очки ночного видения."
 	item = /obj/item/storage/box/syndie_kit/blackops_kit
 	cost = 8
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/device_tools/surgerybag
 	name = "Сумка с хирургическими инструментами"
@@ -2409,13 +2423,6 @@
 	category = "Безделушки"
 	surplus = 0
 
-/datum/uplink_item/badass/desert_eagle
-	name = "Комплект с пистолетом Desert Eagle"
-	desc = "Легендарный мощный пистолет с магазином на 7 патронов калибра .50AE. Полностью покрыт ЗОЛОТОМ, убивайте стильно! \
-			Поставляется с тремя дополнительными магазинами и двумя коробками патронов."
-	item = /obj/item/storage/box/syndie_kit/desert_eagle_gold
-	cost = 50
-
 /datum/uplink_item/badass/syndiecigs
 	name = "Сигареты \"Синдиката\""
 	desc = "Насыщенный аромат, плотный дым и вкус синдизина. Обычные сигареты."
@@ -2426,7 +2433,7 @@
 	name = "Электронная сигарета \"Синдиката\""
 	desc = "Со вкусом \"Двойное яблочко\"."
 	item = /obj/item/ecig/syndi
-	cost = 6
+	cost = 3
 
 /datum/uplink_item/badass/syndiecards
 	name = "Игральные карты \"Синдиката\""
@@ -2468,6 +2475,12 @@
 	desc = "Специальный комплект для быстрой остановки кровотечения по всему телу. Применяют в основном военными или тем кто работает в опасных условиях."
 	item = /obj/item/stack/medical/bruise_pack/military
 	cost = 1
+
+/datum/uplink_item/badass/fast_pouch
+	name = "Подсумок на два магазина"
+	desc = "Подсумок на два магазина, модифицированный для быстрой перезарядки."
+	item = /obj/item/storage/belt/security/webbing/pouch/fast
+	cost = 2
 
 /**
  * MARK: Bundles & TC
@@ -2570,10 +2583,9 @@
 		remaining_TC -= chosen_item.cost
 		itemlog += chosen_item.name // To make the name more readable for the log compared to just i.item
 
-	target_uplink.purchase_log += "<big>[icon2base64html(crate)]</big>"
 	for(var/bought_item in bought_items)
-		var/obj/purchased = new bought_item(crate)
-		target_uplink.purchase_log += "<big>[icon2base64html(purchased)]</big>"
+		new bought_item(crate)
+	crate.log_contents_to_uplink(target_uplink)
 	add_game_logs("purchased a surplus crate with [jointext(itemlog, ", ")]", buyer)
 
 /datum/uplink_item/bundles_TC/telecrystal

@@ -24,7 +24,7 @@
 	var/manual_title_ru = ""
 
 /obj/item/book/manual/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "руководство \"[manual_title_ru]\"",
 		GENITIVE = "руководства \"[manual_title_ru]\"",
 		DATIVE = "руководству \"[manual_title_ru]\"",

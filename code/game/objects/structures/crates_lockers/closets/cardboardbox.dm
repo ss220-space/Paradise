@@ -6,6 +6,7 @@
 	desc = "Just a box..."
 	icon = 'icons/obj/cardboard_boxes.dmi'
 	icon_state = "cardboard"
+	anchorable = FALSE
 	resistance_flags = FLAMMABLE
 	max_integrity = 70
 	integrity_failure = 0
@@ -236,7 +237,7 @@
 	default_alpha = LIGHTING_PLANE_ALPHA_VISIBLE
 
 /obj/structure/closet/cardboard/agent/nullspace/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "блюспейс коробка",
 		GENITIVE = "блюспейс коробки",
 		DATIVE = "блюспейс коробке",

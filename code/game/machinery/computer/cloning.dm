@@ -26,7 +26,7 @@
 	light_color = LIGHT_COLOR_DARK_BLUE
 
 /obj/machinery/computer/cloning/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "консоль капсулы клонирования",
 		GENITIVE = "консоли капсулы клонирования",
 		DATIVE = "консоли капсулы клонирования",
@@ -65,7 +65,9 @@
 
 /obj/machinery/computer/cloning/proc/updatemodules()
 	src.scanner = findscanner()
-	releasecloner()
+	for(var/obj/machinery/clonepod/pod as anything in pods)
+		if(QDELETED(pod) || pod.connected != src)
+			pods -= pod
 	findcloner()
 	if(!selected_pod && length(pods))
 		selected_pod = pods[1]
@@ -92,12 +94,13 @@
 	pods.Cut()
 
 /obj/machinery/computer/cloning/proc/findcloner()
-	var/num = 1
-	for(var/obj/machinery/clonepod/P in get_area(src))
-		if(!P.connected)
-			pods += P
-			P.connected = src
-			P.name = "[initial(P.name)] #[num++]"
+	var/num = 1 + length(pods)
+	for(var/obj/machinery/clonepod/pod in get_area(src))
+		if(pod.connected || (pod in pods))
+			continue
+		pods += pod
+		pod.connected = src
+		pod.name = "[initial(pod.name)] #[num++]"
 
 /obj/machinery/computer/cloning/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)

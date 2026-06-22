@@ -43,7 +43,7 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 		// if rustlib for whatever reason fails and returns null
 		// try to load it the old dm way instead
 		if(!map_data)
-			map_data = wrap_file2text(dmm_file)
+			map_data = WRAP_FILE2TEXT(dmm_file)
 
 		if(!LAZYLEN(map_data))
 			CRASH("Map path '[fname]' does not exist!")
@@ -430,7 +430,7 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 
 	// Check for file
 	else if(copytext(value_text, 1, 2) == "'")
-		. = wrap_file(copytext(value_text, 2, LAZYLEN(value_text)))
+		. = WRAP_FILE(copytext(value_text, 2, LAZYLEN(value_text)))
 
 	// Check for path
 	else if(ispath(text2path(value_text)))

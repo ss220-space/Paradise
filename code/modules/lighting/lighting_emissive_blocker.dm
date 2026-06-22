@@ -35,7 +35,7 @@
 /atom/movable/emissive_blocker/singularity_act()
 	return
 
-/atom/movable/emissive_blocker/singularity_pull()
+/atom/movable/emissive_blocker/singularity_pull(atom/singularity, current_size)
 	return
 
 /atom/movable/emissive_blocker/blob_act()

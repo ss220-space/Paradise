@@ -108,3 +108,13 @@ paradise.json
 # dmdoc and output
 dmdoc.exe
 dmdoc/
+
+# AI assistants
+.claude/
+
+# dotenv
+.env
+
+# Ignore custom music and title screens (amend as appropriate)
+/config/jukebox_music/sounds/*
+!/config/jukebox_music/sounds/exclude

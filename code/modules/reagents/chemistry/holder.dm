@@ -751,33 +751,34 @@
 					return FALSE
 	return FALSE
 
-/datum/reagents/proc/get_reagent_amount(reagent)
-	for(var/A in reagent_list)
-		var/datum/reagent/R = A
-		if(R.id == reagent)
-			return R.volume
+/datum/reagents/proc/get_reagent_amount(reagent_id)
+	if(ispath(reagent_id))
+		var/datum/reagent/found_reagent = get_reagent(reagent_id)
+		return found_reagent ? found_reagent.volume : FALSE
+
+	for(var/datum/reagent/current_reagent as anything in reagent_list)
+		if(current_reagent.id != reagent_id)
+			continue
+		return current_reagent.volume
+
 	return FALSE
 
 /datum/reagents/proc/get_reagents()
-	var/res = ""
-	for(var/A in reagent_list)
-		var/datum/reagent/R = A
-		if(res != "")
-			res += ","
-		res += R.name
-	return res
+	var/result = ""
+	for(var/datum/reagent/current_reagent as anything in reagent_list)
+		if(result != "")
+			result += ","
+		result += current_reagent.name
+	return result
 
 /datum/reagents/proc/get_reagent(type)
 	. = locate(type) in reagent_list
 
-/datum/reagents/proc/get_reagent_by_id(id)
-	var/list/cached_reagents = reagent_list
-	for(var/A in cached_reagents)
-		var/datum/reagent/R = A
-		if(R.id == id)
-			return R
-
-	return
+/datum/reagents/proc/get_reagent_by_id(reagent_id)
+	for(var/datum/reagent/current_reagent as anything in reagent_list)
+		if(current_reagent.id != reagent_id)
+			continue
+		return current_reagent
 
 /datum/reagents/proc/remove_all_type(reagent_type, amount, strict = FALSE, safety = TRUE) // Removes all reagent of X type. @strict set to 1 determines whether the childs of the type are included.
 	if(!isnum(amount))

@@ -26,7 +26,7 @@
 	/// Variance for inaccuracy fundamental to the casing
 	var/variance = 0
 	/// Delay for energy weapons
-	var/delay = 0
+	var/delay = 0.4 SECONDS
 	/// Randomspread for automatics
 	var/randomspread = FALSE
 	/// Override this to make your gun have a faster fire rate, in tenths of a second. 4 is the default gun cooldown.
@@ -44,8 +44,6 @@
 	var/muzzle_flash_range = MUZZLE_FLASH_RANGE_WEAK
 	/// How strong the flash is
 	var/muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_WEAK
-	/// Ammo type overlay for magazines (not add overlay if null)
-	var/bullet_type = null
 
 	/// Ammo marking for desc and names. Should be like `"9x19 мм БП."`
 	var/ammo_marking = null
@@ -148,7 +146,7 @@
 	if(BB)
 		gender = MALE
 		name = "[get_ammo_marking()] cartridge"
-		ru_names = string_list(list(
+		ru_names = string_list(alist(
 			NOMINATIVE = "патрон [get_ammo_marking()]",
 			GENITIVE = "патрона [get_ammo_marking()]",
 			DATIVE = "патрону [get_ammo_marking()]",
@@ -159,7 +157,7 @@
 	else
 		gender = FEMALE
 		name = "[caliber] bullet casing"
-		ru_names = string_list(list(
+		ru_names = string_list(alist(
 			NOMINATIVE = "гильза [caliber]",
 			GENITIVE = "гильзы [caliber]",
 			DATIVE = "гильзе [caliber]",
@@ -243,7 +241,7 @@
 		BB.name = initial(BB.name)
 	else
 		to_chat(user, span_notice("Вы наносите \"[label_text]\" на патрон."))
-		BB.ru_names = list(
+		BB.ru_names = alist(
 			NOMINATIVE = "пуля \"[label_text]\"",
 			GENITIVE = "пули \"[label_text]\"",
 			DATIVE = "пуле \"[label_text]\"",

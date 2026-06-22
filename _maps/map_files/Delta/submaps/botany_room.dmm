@@ -2,7 +2,6 @@
 "an" = (
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/maintenance/garden)
@@ -37,7 +36,6 @@
 "bQ" = (
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/maintenance/garden)
@@ -58,7 +56,9 @@
 	},
 /area/maintenance/garden)
 "cW" = (
-/obj/effect/decal/warning_stripes/northeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
 /obj/machinery/floodlight,
 /turf/simulated/floor/plating,
 /area/maintenance/garden)
@@ -69,7 +69,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/garden)
 "dL" = (
@@ -115,7 +117,9 @@
 /area/maintenance/garden)
 "eV" = (
 /obj/machinery/firealarm/directional/south,
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellow"
@@ -162,7 +166,9 @@
 /obj/item/clothing/suit/storage/hazardvest,
 /obj/item/clothing/gloves/color/black,
 /obj/item/clothing/mask/gas,
-/obj/effect/decal/warning_stripes/northwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -176,7 +182,9 @@
 /turf/simulated/floor/grass,
 /area/maintenance/garden)
 "gX" = (
-/obj/effect/decal/warning_stripes/northeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
 /obj/structure/table,
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/decal/cleanable/dirt,
@@ -201,8 +209,12 @@
 /turf/simulated/floor/grass,
 /area/maintenance/garden)
 "iY" = (
-/obj/effect/decal/warning_stripes/north,
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/structure/table,
 /obj/item/storage/toolbox/emergency/old{
 	pixel_x = 5;
@@ -254,7 +266,9 @@
 	},
 /area/maintenance/garden)
 "kb" = (
-/obj/effect/decal/warning_stripes/southwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
 /obj/structure/table,
 /obj/item/flashlight/lamp{
 	pixel_x = -2;
@@ -326,7 +340,9 @@
 /area/maintenance/garden)
 "pu" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/plating,
 /area/maintenance/garden)
@@ -335,7 +351,9 @@
 	dir = 8
 	},
 /obj/machinery/alarm/directional/south,
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "yellow"
 	},
@@ -359,7 +377,9 @@
 /turf/template_noop,
 /area/template_noop)
 "re" = (
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/oil,
 /turf/simulated/floor/plating,
@@ -368,7 +388,9 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/structure/table,
 /obj/machinery/door_control{
 	pixel_y = -2;
@@ -387,7 +409,9 @@
 /turf/simulated/wall,
 /area/maintenance/garden)
 "sk" = (
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/engineeringcart,
 /turf/simulated/floor/plating,
@@ -398,7 +422,9 @@
 /turf/simulated/floor/grass,
 /area/maintenance/garden)
 "td" = (
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/garden)
 "tl" = (
@@ -466,7 +492,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/maintenance/garden)
@@ -521,7 +546,9 @@
 /turf/simulated/floor/plating,
 /area/maintenance/garden)
 "xR" = (
-/obj/effect/decal/warning_stripes/northeastcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
 /obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -601,7 +628,6 @@
 	icon_state = "medium"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/maintenance/garden)
@@ -629,7 +655,6 @@
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/maintenance/garden)
@@ -638,7 +663,9 @@
 /area/maintenance/garden)
 "Ed" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/northwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
 /obj/structure/closet/crate/engineering,
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -725,7 +752,9 @@
 /obj/structure/sign/poster/official/random{
 	pixel_y = -32
 	},
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/effect/decal/cleanable/blood/oil,
 /turf/simulated/floor/plating,
 /area/maintenance/garden)
@@ -811,7 +840,9 @@
 	dir = 4
 	},
 /obj/machinery/power/apc/directional/south,
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "yellow"
 	},
@@ -881,7 +912,9 @@
 /turf/template_noop,
 /area/template_noop)
 "QG" = (
-/obj/effect/decal/warning_stripes/northwestcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellowcorner"
@@ -902,7 +935,7 @@
 /area/maintenance/garden)
 "SO" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/table,
 /obj/item/reagent_containers/glass/bucket,
 /obj/item/plant_analyzer,
@@ -959,7 +992,9 @@
 /turf/simulated/floor/plating,
 /area/maintenance/garden)
 "Vy" = (
-/obj/effect/decal/warning_stripes/southeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
 /obj/structure/table,
 /obj/machinery/cell_charger{
 	pixel_x = -1;
@@ -975,7 +1010,9 @@
 /turf/space,
 /area/template_noop)
 "Xf" = (
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plasteel{

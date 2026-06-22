@@ -29,6 +29,8 @@
 	var/to_transfer = 0
 	/// The maximum amount of this stack. Also see stack recipes initialisation, param "max_res_amount" must be equal to this max_amount
 	var/max_amount = 50
+	/// Amount of matter given back to RCDs
+	var/matter_amount = 0
 	/// The path and its children that should merge with this stack, defaults to src.type.
 	var/merge_type
 	/// The type of table that is made when applying this stack to a frame.
@@ -41,7 +43,6 @@
 	var/protolathe_name
 
 /obj/item/stack/Initialize(mapload, new_amount, merge = TRUE)
-
 	if(new_amount != null)
 		amount = new_amount
 

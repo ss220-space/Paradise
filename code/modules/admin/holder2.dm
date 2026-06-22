@@ -26,8 +26,14 @@ GLOBAL_PROTECT(href_token)
 	/// Tabs of secrets
 	var/current_tab = 0
 
+	var/datum/filter_editor/filterrific
+	var/datum/particle_editor/particle_test
+	var/datum/colorblind_tester/color_test
 	var/datum/spawn_menu/spawn_menu
 	var/datum/spawnpanel/spawn_panel
+
+	/// A lazylist of tagged datums, for quick reference with the View Tags verb
+	var/list/tagged_datums
 
 /datum/admins/New(initial_rank, initial_rights, ckey)
 	if(IsAdminAdvancedProcCall())
@@ -50,8 +56,7 @@ GLOBAL_PROTECT(href_token)
 		to_chat(usr, span_boldannounceooc("Admin rank deletion blocked: Advanced ProcCall detected."))
 		log_and_message_admins("attempted to delete an admin rank via advanced proc-call")
 		return
-	..()
-	return QDEL_HINT_HARDDEL_NOW
+	return ..()
 
 /datum/admins/proc/associate(client/C)
 	if(IsAdminAdvancedProcCall())

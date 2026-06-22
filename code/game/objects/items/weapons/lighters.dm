@@ -27,7 +27,7 @@
 	var/next_off_message
 
 /obj/item/lighter/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "дешёвая зажигалка",
 		GENITIVE = "дешёвой зажигалки",
 		DATIVE = "дешёвой зажигалке",
@@ -36,8 +36,8 @@
 		PREPOSITIONAL = "дешёвой зажигалке",
 	)
 
-/obj/item/lighter/random/New()
-	..()
+/obj/item/lighter/random/Initialize(mapload)
+	. = ..()
 	var/color = pick("r","c","y","g")
 	icon_on = "lighter-[color]-on"
 	icon_off = "lighter-[color]"
@@ -151,14 +151,14 @@
 	desc = "Металлическая бензиновая зажигалка Зиппо."
 	icon_state = "zippo"
 	item_state = "zippo"
-	icon_on = "zippoon"
+	icon_on = "zippo_on"
 	icon_off = "zippo"
 	lefthand_file = 'icons/mob/inhands/zippo_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/zippo_righthand.dmi'
 	custom_price = PAYCHECK_LOWER
 
 /obj/item/lighter/zippo/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "зажигалка Зиппо",
 		GENITIVE = "зажигалки Зиппо",
 		DATIVE = "зажигалке Зиппо",
@@ -206,13 +206,13 @@
 /obj/item/lighter/zippo/nt_rep
 	name = "gold engraved zippo"
 	desc = "Золотая зажигалка Зиппо с выгравированными буквами \"НТ\" на ней."
-	icon_state = "zippo_nt_off"
+	icon_state = "zippo_nt"
 	item_state = "ntzippo"
 	icon_on = "zippo_nt_on"
-	icon_off = "zippo_nt_off"
+	icon_off = "zippo_nt"
 
 /obj/item/lighter/zippo/nt_rep/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "золотая зажигалка Зиппо",
 		GENITIVE = "золотой зажигалки Зиппо",
 		DATIVE = "золотой зажигалке Зиппо",
@@ -224,13 +224,13 @@
 /obj/item/lighter/zippo/blue
 	name = "blue zippo lighter"
 	desc = "Зажигалка Зиппо, сделанная из какого-то синего металла."
-	icon_state = "bluezippo"
+	icon_state = "blue_zippo"
 	item_state = "bluezippo"
-	icon_on = "bluezippoon"
-	icon_off = "bluezippo"
+	icon_on = "blue_zippo_on"
+	icon_off = "blue_zippo"
 
 /obj/item/lighter/zippo/blue/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "синяя зажигалка Зиппо",
 		GENITIVE = "синей зажигалки Зиппо",
 		DATIVE = "синей зажигалке Зиппо",
@@ -242,13 +242,13 @@
 /obj/item/lighter/zippo/black
 	name = "black zippo lighter"
 	desc = "Чёрная зажигалка Зиппо."
-	icon_state = "blackzippo"
+	icon_state = "black_zippo"
 	item_state = "chapzippo"
-	icon_on = "blackzippoon"
-	icon_off = "blackzippo"
+	icon_on = "black_zippo_on"
+	icon_off = "black_zippo"
 
 /obj/item/lighter/zippo/black/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "чёрная зажигалка Зиппо",
 		GENITIVE = "чёрной зажигалки Зиппо",
 		DATIVE = "чёрной зажигалке Зиппо",
@@ -260,13 +260,13 @@
 /obj/item/lighter/zippo/engraved
 	name = "engraved zippo lighter"
 	desc = "Зажигалка Зиппо с замысловатой гравировкой."
-	icon_state = "engravedzippo"
+	icon_state = "engraved_zippo"
 	item_state = "engravedzippo"
-	icon_on = "engravedzippoon"
-	icon_off = "engravedzippo"
+	icon_on = "engraved_zippo_on"
+	icon_off = "engraved_zippo"
 
 /obj/item/lighter/zippo/engraved/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "гравированная зажигалка Зиппо",
 		GENITIVE = "гравированной зажигалки Зиппо",
 		DATIVE = "гравированной зажигалке Зиппо",
@@ -278,13 +278,13 @@
 /obj/item/lighter/zippo/gonzofist
 	name = "Gonzo Fist zippo"
 	desc = "Зажигалка Зиппо с культовым изображением Кулака Гонзо на матовой чёрной поверхности."
-	icon_state = "gonzozippo"
+	icon_state = "gonzo_zippo"
 	item_state = "gonzozippo"
-	icon_on = "gonzozippoon"
-	icon_off = "gonzozippo"
+	icon_on = "gonzo_zippo_on"
+	icon_off = "gonzo_zippo"
 
 /obj/item/lighter/zippo/gonzofist/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "зажигалка Зиппо с кулаком Гонзо",
 		GENITIVE = "зажигалки Зиппо с кулаком Гонзо",
 		DATIVE = "зажигалке Зиппо с кулаком Гонзо",
@@ -302,7 +302,7 @@
 	icon_off = "zippo_cap"
 
 /obj/item/lighter/zippo/cap/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "зажигалка Зиппо Капитана",
 		GENITIVE = "зажигалки Зиппо Капитана",
 		DATIVE = "зажигалке Зиппо Капитана",
@@ -320,7 +320,7 @@
 	icon_off = "zippo_hop"
 
 /obj/item/lighter/zippo/hop/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "зажигалка Зиппо Главы Персонала",
 		GENITIVE = "зажигалки Зиппо Главы Персонала",
 		DATIVE = "зажигалке Зиппо Главы Персонала",
@@ -338,7 +338,7 @@
 	icon_off = "zippo_hos"
 
 /obj/item/lighter/zippo/hos/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "зажигалка Зиппо Главы Службы Безопасности",
 		GENITIVE = "зажигалки Зиппо Главы Службы Безопасности",
 		DATIVE = "зажигалке Зиппо Главы Службы Безопасности",
@@ -356,7 +356,7 @@
 	icon_off = "zippo_cmo"
 
 /obj/item/lighter/zippo/cmo/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "зажигалка Зиппо Главного Врача",
 		GENITIVE = "зажигалки Зиппо Главного Врача",
 		DATIVE = "зажигалке Зиппо Главного Врача",
@@ -374,7 +374,7 @@
 	icon_off = "zippo_ce"
 
 /obj/item/lighter/zippo/ce/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "зажигалка Зиппо Старшего Инженера",
 		GENITIVE = "зажигалки Зиппо Старшего Инженера",
 		DATIVE = "зажигалке Зиппо Старшего Инженера",
@@ -392,7 +392,7 @@
 	icon_off = "zippo_rd"
 
 /obj/item/lighter/zippo/rd/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "зажигалка Зиппо Научного Руководителя",
 		GENITIVE = "зажигалки Зиппо Научного Руководителя",
 		DATIVE = "зажигалке Зиппо Научного Руководителя",
@@ -410,7 +410,7 @@
 	icon_off = "zippo_qm"
 
 /obj/item/lighter/zippo/qm/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "зажигалка Зиппо Квартирмейстера",
 		GENITIVE = "зажигалки Зиппо Квартирмейстера",
 		DATIVE = "зажигалке Зиппо Квартирмейстера",
@@ -428,7 +428,7 @@
 	icon_off = "zippo_dec"
 
 /obj/item/lighter/zippo/detective/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "зажигалка Зиппо детектива",
 		GENITIVE = "зажигалки Зиппо детектива",
 		DATIVE = "зажигалке Зиппо детектива",
@@ -440,13 +440,13 @@
 /obj/item/lighter/zippo/contractor
 	name = "contractor zippo lighter"
 	desc = "Уникальная чёрная Zippo с золотыми вкраплениями. Такие обычно достаются элите агентуры \"Синдиката\"."
-	icon_state = "contractorzippo"
+	icon_state = "contractor_zippo"
 	item_state = "contractorzippo"
-	icon_on = "contractorzippoon"
-	icon_off = "contractorzippo"
+	icon_on = "contractor_zippo_on"
+	icon_off = "contractor_zippo"
 
 /obj/item/lighter/zippo/contractor/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "зажигалка Зиппо контрактора",
 		GENITIVE = "зажигалки Зиппо контрактора",
 		DATIVE = "зажигалке Зиппо контрактора",
@@ -459,22 +459,55 @@
 /obj/item/lighter/zippo/ninja
 	name = "\"Shinobi on a rice field\" zippo"
 	desc = "Zippo, сделанная на заказ. Она выглядит практически как упаковка китайской лапши. На ней есть пятно крови, и от неё несёт горелым рисом..."
-	icon = 'icons/obj/ninjaobjects.dmi'
-	lefthand_file = 'icons/mob/inhands/antag/ninja_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/antag/ninja_righthand.dmi'
 	icon_state = "zippo_ninja"
 	item_state = "zippo_ninja"
 	icon_on = "zippo_ninja_on"
 	icon_off = "zippo_ninja"
 
 /obj/item/lighter/zippo/ninja/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "зажигалка Зиппо \"Шиноби в рисовом поле\"",
 		GENITIVE = "зажигалки Зиппо \"Шиноби в рисовом поле\"",
 		DATIVE = "зажигалке Зиппо \"Шиноби в рисовом поле\"",
 		ACCUSATIVE = "зажигалку Зиппо \"Шиноби в рисовом поле\"",
 		INSTRUMENTAL = "зажигалкой Зиппо \"Шиноби в рисовом поле\"",
 		PREPOSITIONAL = "зажигалке Зиппо \"Шиноби в рисовом поле\"",
+	)
+
+/obj/item/lighter/zippo/purple
+	name = "purple engraved zippo"
+	desc = "Фиолетовая зажигалка Zippo, инкрустирована пластинами из плазмы."
+	icon_state = "purple_zippo"
+	item_state = "purplezippo"
+	icon_on = "purple_zippo_on"
+	icon_off = "purple_zippo"
+
+/obj/item/lighter/zippo/purple/get_ru_names()
+	return alist(
+		NOMINATIVE = "фиолетовая зажигалка Зиппо",
+		GENITIVE = "фиолетовой зажигалки Зиппо",
+		DATIVE = "фиолетовой зажигалке Зиппо",
+		ACCUSATIVE = "фиолетовую зажигалку Зиппо",
+		INSTRUMENTAL = "фиолетовой зажигалкой Зиппо",
+		PREPOSITIONAL = "фиолетовой зажигалке Зиппо",
+	)
+
+/obj/item/lighter/zippo/gold
+	name = "gold lighter"
+	desc = "Зажигалка Zippo из настоящего золота с замысловатой гравировкой."
+	icon_state = "gold_zippo"
+	item_state = "goldzippo"
+	icon_on = "gold_zippo_on"
+	icon_off = "gold_zippo"
+
+/obj/item/lighter/zippo/gold/get_ru_names()
+	return alist(
+		NOMINATIVE = "золотая зажигалка Зиппо",
+		GENITIVE = "золотой зажигалки Зиппо",
+		DATIVE = "золотой зажигалке Зиппо",
+		ACCUSATIVE = "золотую зажигалку Зиппо",
+		INSTRUMENTAL = "золотой зажигалкой Зиппо",
+		PREPOSITIONAL = "золотой зажигалке Зиппо",
 	)
 
 ///////////
@@ -498,7 +531,7 @@
 	var/smoketime = 5
 
 /obj/item/match/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "спичка",
 		GENITIVE = "спички",
 		DATIVE = "спичке",
@@ -637,7 +670,7 @@
 	smoketime = 20 //40 seconds
 
 /obj/item/match/firebrand/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "лучина",
 		GENITIVE = "лучины",
 		DATIVE = "лучине",
@@ -661,7 +694,7 @@
 	w_class = WEIGHT_CLASS_BULKY //to prevent it going to pockets
 
 /obj/item/match/unathi/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "маленькое пламя",
 		GENITIVE = "маленького пламени",
 		DATIVE = "маленькому пламени",

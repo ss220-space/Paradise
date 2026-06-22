@@ -18,7 +18,7 @@
 	var/tasered_duration = 8 SECONDS
 
 /obj/projectile/energy/electrode/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "электрод",
 		GENITIVE = "электрода",
 		DATIVE = "электроду",

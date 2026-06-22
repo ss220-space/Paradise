@@ -194,8 +194,6 @@
 	/// Can move on the shuttle.
 	var/move_on_shuttle = 1
 
-	/// Whether antagHUD has been enabled previously.
-	var/has_enabled_antagHUD = FALSE
 	/// Whether AntagHUD is active right now
 	var/antagHUD = FALSE
 	/// Just a handler for permanent/temporary THOUGHTS_HUD changing.
@@ -338,6 +336,9 @@
 
 	/// Mob bitflags
 	var/mob_flags = NONE
+
+	/// A ref of the area we're taking our ambient loop from.
+	var/area/ambience_tracked_area
 
 	var/shift_to_open_context_menu = TRUE
 

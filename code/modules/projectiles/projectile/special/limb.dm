@@ -9,8 +9,8 @@
 	stun = 0.5
 	eyeblur = 20
 
-/obj/projectile/limb/New(loc, obj/item/organ/external/limb)
-	..(loc)
+/obj/projectile/limb/Initialize(mapload, obj/item/organ/external/limb)
+	. = ..()
 	if(istype(limb))
 		name = limb.name
 		ru_names = get_ru_names_cached()

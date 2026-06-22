@@ -19,7 +19,7 @@
 	heavyfootstep = null
 
 /turf/simulated/floor/chasm/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пропасть",
 		GENITIVE = "пропасти",
 		DATIVE = "пропасти",
@@ -141,7 +141,7 @@
 /turf/simulated/floor/chasm/singularity_act()
 	return
 
-/turf/simulated/floor/chasm/singularity_pull(S, current_size)
+/turf/simulated/floor/chasm/singularity_pull(atom/singularity, current_size)
 	return
 
 /turf/simulated/floor/chasm/crowbar_act()

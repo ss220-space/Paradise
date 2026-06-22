@@ -17,6 +17,10 @@
 	var/exit_delay = 1
 	var/enter_delay = 0
 
+/obj/structure/transit_tube/ComponentInitialize()
+	AddElement(/datum/element/climbable)
+	AddElement(/datum/element/elevation, pixel_shift = 12)
+
 /obj/structure/transit_tube/Initialize(mapload, new_direction)
 	. = ..()
 	if(new_direction)

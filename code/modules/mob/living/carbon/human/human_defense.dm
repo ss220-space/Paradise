@@ -72,6 +72,8 @@ emp_act
 
 	var/obj/item/organ/external/organ = get_organ(check_zone(def_zone))
 	if(isnull(organ))
+		if(def_zone == BODY_ZONE_CHEST)
+			return -1
 		return bullet_act(P, BODY_ZONE_CHEST) //act on chest instead
 
 	organ.add_autopsy_data(P.name, P.damage) // Add the bullet's name to the autopsy data
@@ -731,6 +733,11 @@ emp_act
 				else
 					visible_message(span_danger("[M] попытал[GEND_SYA_AS_OS_IS(M)] сбить с ног [src]!"))
 					add_attack_logs(M, src, "Alien tried to tackle")
+
+/mob/living/carbon/human/attackby(obj/item/item, mob/living/user, list/modifiers)
+	if(SEND_SIGNAL(src, COMSIG_HUMAN_ATTACKED, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
+		return ATTACK_CHAIN_BLOCKED_ALL
+	return ..()
 
 /mob/living/carbon/human/attack_animal(mob/living/simple_animal/M)
 	. = ..()

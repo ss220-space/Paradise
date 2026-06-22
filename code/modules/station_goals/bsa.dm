@@ -140,7 +140,7 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 	icon_state = "power_box"
 
 /obj/machinery/bsa/back/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "генератор блюспейс-артиллерии",
 		GENITIVE = "генератора блюспейс-артиллерии",
 		DATIVE = "генератору блюспейс-артиллерии",
@@ -168,7 +168,7 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 	icon_state = "emitter_center"
 
 /obj/machinery/bsa/front/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ускоритель блюспейс-артиллерии",
 		GENITIVE = "ускорителя блюспейс-артиллерии",
 		DATIVE = "ускорителю блюспейс-артиллерии",
@@ -198,7 +198,7 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 	var/obj/machinery/bsa/front/front
 
 /obj/machinery/bsa/middle/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "фузор блюспейс-артиллерии",
 		GENITIVE = "фузора блюспейс-артиллерии",
 		DATIVE = "фузору блюспейс-артиллерии",
@@ -284,7 +284,7 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 	bound_x = -192
 
 /obj/machinery/bsa/full/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "блюспейс-артиллерия",
 		GENITIVE = "блюспейс-артиллерии",
 		DATIVE = "блюспейс-артиллерии",
@@ -333,8 +333,8 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 			return locate(world.maxx,y,z)
 	return get_turf(src)
 
-/obj/machinery/bsa/full/New(loc, direction)
-	..()
+/obj/machinery/bsa/full/Initialize(mapload, direction)
+	. = ..()
 
 	if(direction)
 		cannon_direction = direction
@@ -494,7 +494,7 @@ GLOBAL_LIST_EMPTY(BSA_modes_list)
 	var/image/crosshair
 
 /obj/machinery/computer/bsa_control/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "консоль управления БСА",
 		GENITIVE = "консоли управления БСА",
 		DATIVE = "консоли управления БСА",

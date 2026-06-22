@@ -212,19 +212,19 @@
 
 /turf/simulated/wall/rcd_deconstruct_act(mob/user, obj/item/rcd/our_rcd)
 	. = ..()
-	if(our_rcd.checkResource(5, user))
-		to_chat(user, "Разборка стены...")
+	if(our_rcd.checkResource(RCD_COST_WALL * 2, user))
+		to_chat(user, "Деконструкция стены...")
 		playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, TRUE)
 		if(do_after(user, 4 SECONDS * our_rcd.toolspeed, src, category = DA_CAT_TOOL))
-			if(!our_rcd.useResource(5, user))
+			if(!our_rcd.useResource(RCD_COST_WALL * 2, user))
 				return RCD_ACT_FAILED
 			playsound(get_turf(our_rcd), our_rcd.usesound, 50, TRUE)
 			add_attack_logs(user, src, "Deconstructed wall with RCD")
 			src.ChangeTurf(our_rcd.floor_type)
 			return RCD_ACT_SUCCESSFULL
-		to_chat(user, span_warning("ОШИБКА! Прервана разборка!"))
+		to_chat(user, span_warning("ОШИБКА! Деконструкция прервана!"))
 		return RCD_ACT_FAILED
-	to_chat(user, span_warning("ОШИБКА! Недостаточно вещества в устройстве для разборки этой стены!"))
+	to_chat(user, span_warning("ОШИБКА! Недостаточно материи для деконструкции стены!"))
 	playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, TRUE)
 	return RCD_ACT_FAILED
 
@@ -556,7 +556,7 @@
 		return TRUE
 	return FALSE
 
-/turf/simulated/wall/singularity_pull(S, current_size)
+/turf/simulated/wall/singularity_pull(atom/singularity, current_size)
 	..()
 	wall_singularity_pull(current_size)
 
@@ -584,6 +584,10 @@
 
 /turf/simulated/wall/acid_melt()
 	dismantle_wall(1)
+
+/turf/simulated/wall/proc/add_multiple_dents(dent_count, denttype)
+	for(var/i in 1 to dent_count)
+		add_dent(denttype)
 
 /turf/simulated/wall/proc/add_dent(denttype, x=rand(-8, 8), y=rand(-8, 8))
 	if(LAZYLEN(dent_decals) >= MAX_DENT_DECALS)

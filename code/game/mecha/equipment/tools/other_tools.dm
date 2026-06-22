@@ -563,7 +563,7 @@
 	var/obj/effect/supress/supress_effect
 
 /obj/item/mecha_parts/mecha_equipment/cage/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль \"Клетка SCS-3\"",
 		GENITIVE = "модуля \"Клетка SCS-3\"",
 		DATIVE = "модулю \"Клетка SCS-3\"",
@@ -776,7 +776,7 @@
 	plane = ABOVE_GAME_PLANE
 
 /obj/effect/supress/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "механические клешни",
 		GENITIVE = "механических клешней",
 		DATIVE = "механическим клешням",

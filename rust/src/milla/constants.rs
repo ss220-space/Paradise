@@ -149,7 +149,7 @@ pub(crate) const PLASMA_BURN_MIN_TEMP: f32 = FIRE_MINIMUM_TEMPERATURE_TO_EXIST;
 pub(crate) const PLASMA_BURN_OPTIMAL_TEMP: f32 = 1370.0 + T0C;
 
 /// How much of the plasma are we willing to burn each tick?
-pub(crate) const PLASMA_BURN_MAX_RATIO: f32 = 0.01;
+pub(crate) const PLASMA_BURN_MAX_RATIO: f32 = 0.02;
 
 /// How much of the plasma do we burn anyway if the ratio would make it really small?
 pub(crate) const PLASMA_BURN_MIN_MOLES: f32 = 0.001;
@@ -387,6 +387,8 @@ pub(crate) const REACTION_OPPRESSION_MIN_TEMP: f32 = 20.0;
 
 pub(crate) const MOLAR_ACCURACY: f32 = 0.0001;
 
-pub const FREON_OPTIMAL_TEMP: f32 = 283.0;
+pub(crate) const FREON_OPTIMAL_TEMP: f32 = 283.0;
 
-pub const MINIMUM_HEAT_CAPACITY: f32 = 0.0003;
+pub(crate) const MINIMUM_HEAT_CAPACITY: f32 = 0.0003;
+
+pub(crate) const REACTION_OPPRESSION_THRESHOLD: f32 = 5.0;

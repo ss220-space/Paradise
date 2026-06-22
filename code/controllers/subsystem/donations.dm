@@ -4,9 +4,11 @@
 SUBSYSTEM_DEF(donations)
 	name = "Donations"
 	wait = 10 MINUTES
-	flags = SS_POST_FIRE_TIMING|SS_BACKGROUND
+	ss_flags = SS_POST_FIRE_TIMING|SS_BACKGROUND
 	priority = FIRE_PRIORITY_DONATIONS
-	init_order = INIT_ORDER_DONATIONS
+	dependencies = list(
+		/datum/controller/subsystem/dbcore,
+	)
 	var/list/donators = list()
 	var/month_donations = 0
 	var/target_donation = 0

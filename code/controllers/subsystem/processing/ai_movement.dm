@@ -1,11 +1,9 @@
 /// The subsystem used to tick [/datum/ai_movement] instances. Handling the movement of individual AI instances
 MOVEMENT_SUBSYSTEM_DEF(ai_movement)
 	name = "AI movement"
-	flags = SS_BACKGROUND|SS_TICKER
+	ss_flags = SS_BACKGROUND|SS_TICKER
 	priority = FIRE_PRIORITY_NPC_MOVEMENT
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
-	init_order = INIT_ORDER_AI_MOVEMENT
-	wait = 1
 
 	///an assoc list of all ai_movement types. Assoc type to instance
 	var/list/movement_types

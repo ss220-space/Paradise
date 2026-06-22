@@ -144,7 +144,6 @@
 		return
 
 	qdel(pipe)
-	return TRUE
 
 /obj/machinery/pipedispenser/disposal/attack_hand(mob/user)
 	if(..())

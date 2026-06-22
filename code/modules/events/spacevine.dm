@@ -152,7 +152,7 @@
 	if(prob(20))
 		ChangeTurf(baseturf) //nar sie eats this shit
 
-/turf/simulated/floor/vines/singularity_pull(S, current_size)
+/turf/simulated/floor/vines/singularity_pull(atom/singularity, current_size)
 	if(current_size >= STAGE_FIVE)
 		if(prob(50))
 			ChangeTurf(baseturf)
@@ -604,7 +604,8 @@
 	spreads_per_process = 3
 	vines_per_spread = 3
 
-/obj/structure/spacevine_controller/New(loc, list/muts, potency, production)
+/obj/structure/spacevine_controller/Initialize(mapload, list/muts, potency, production)
+	. = ..()
 	color = "#ffffff"
 	spawn_spacevine_piece(loc, null, muts)
 	START_PROCESSING(SSobj, src)
@@ -625,15 +626,13 @@
 		// ~2.5 vines/spread at 1 production
 		spread_multiplier /= spread_value / 5
 
-	..()
-
 /obj/structure/spacevine_controller/ex_act() //only killing all vines will end this suffering
 	return
 
 /obj/structure/spacevine_controller/singularity_act()
 	return
 
-/obj/structure/spacevine_controller/singularity_pull()
+/obj/structure/spacevine_controller/singularity_pull(atom/singularity, current_size)
 	return
 
 /obj/structure/spacevine_controller/Destroy()

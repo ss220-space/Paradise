@@ -90,7 +90,7 @@
 	icon_state = "fake_mindshield0"
 
 /obj/item/implant/fake_mindshield/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "фальшивый имплант защиты разума",
 		GENITIVE = "фальшивого импланта защиты разума",
 		DATIVE = "фальшивому импланту защиты разума",
@@ -127,6 +127,8 @@
 	if(ishuman(imp_in))
 		var/mob/living/carbon/human/H = imp_in
 		H.sec_hud_set_implants()
+
+	return ..()
 
 /obj/item/implant/fake_mindshield/update_icon_state()
 	var/is_active = HAS_TRAIT(imp_in, TRAIT_MINDSHIELD_HUD)

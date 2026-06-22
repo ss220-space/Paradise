@@ -258,10 +258,6 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
 	)
 
-/obj/item/clothing/suit/hooded/chaplain_hoodie/armoured
-		armor = list(MELEE = 15, BULLET = 60, LASER = 10, ENERGY = 20, BOMB = 40, BIO = 0, FIRE = 50, ACID = 50)
-		hoodtype = /obj/item/clothing/head/hooded/chaplain_hood/armoured
-
 /obj/item/clothing/suit/hooded/chaplain_hoodie/no_name
 	name = "dark hoodie"
 	desc = "A dark robe made of thick fabric that looks intimidating"
@@ -689,10 +685,10 @@
 		var/obj/item/toy/crayon/spraycan/can = I
 		if(!paintable)
 			to_chat(user, span_warning("You cannot paint [src]."))
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 		if(can.capped)
 			to_chat(user, span_warning("The cap on [can] is sealed."))
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 		to_chat(user, span_notice("You paint [src]."))
 		playsound(user.loc, 'sound/effects/spray.ogg', 20, TRUE)
 		color = can.colour
@@ -725,7 +721,7 @@
 	allowed = list(/obj/item/scalpel, /obj/item/surgical_drapes, /obj/item/cautery, /obj/item/hemostat, /obj/item/retractor)
 
 /obj/item/clothing/suit/apron/surgical/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "хирургический фартук",
 		GENITIVE = "хирургического фартука",
 		DATIVE = "хирургическому фартуку",

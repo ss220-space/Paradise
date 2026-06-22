@@ -209,7 +209,7 @@
 	log_eating = TRUE
 
 /obj/item/reagent_containers/food/condiment/syndisauce/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "элитарный соус шефа",
 		GENITIVE = "элитарного соуса шефа",
 		DATIVE = "элитарному соусу шефа",
@@ -353,7 +353,7 @@
 	list_reagents = list("ketchup" = 10)
 
 /obj/item/reagent_containers/food/condiment/pack/ketchup/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пакетик кетчупа",
 		GENITIVE = "пакетика кетчупа",
 		DATIVE = "пакетику кетчупа",
@@ -368,7 +368,7 @@
 	list_reagents = list("capsaicin" = 10)
 
 /obj/item/reagent_containers/food/condiment/pack/hotsauce/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пакетик острого соуса",
 		GENITIVE = "пакетика острого соуса",
 		DATIVE = "пакетику острого соуса",
@@ -396,7 +396,7 @@
 	list_reagents = list("cream" = 10)
 
 /obj/item/reagent_containers/food/condiment/pack/creamer/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пакетик сливок",
 		GENITIVE = "пакетика сливок",
 		DATIVE = "пакетику сливок",
@@ -416,7 +416,7 @@
 	list_reagents = list("sugar" = 10)
 
 /obj/item/reagent_containers/food/condiment/pack/sugar/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пакетик сахара",
 		GENITIVE = "пакетика сахара",
 		DATIVE = "пакетику сахара",
@@ -436,7 +436,7 @@
 	list_reagents = list("aspartame" = 10)
 
 /obj/item/reagent_containers/food/condiment/pack/aspartame/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пакетик аспартама",
 		GENITIVE = "пакетика аспартама",
 		DATIVE = "пакетику аспартама",
@@ -456,7 +456,7 @@
 	list_reagents = list("chocolate_sprinkle" = 10)
 
 /obj/item/reagent_containers/food/condiment/pack/chocolate/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пакетик шоколадной посыпки",
 		GENITIVE = "пакетика шоколадной посыпки",
 		DATIVE = "пакетику шоколадной посыпки",

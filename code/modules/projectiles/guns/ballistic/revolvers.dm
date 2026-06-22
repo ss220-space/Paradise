@@ -36,7 +36,7 @@
 	AddElement(/datum/element/item_skins)
 
 /obj/item/gun/projectile/revolver/taurus/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "револьвер \"Таурус\"",
 		GENITIVE = "револьвера \"Таурус\"",
 		DATIVE = "револьверу \"Таурус\"",
@@ -123,7 +123,6 @@
 	icon_state = "12garevolver"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/ga12
 	fire_sound = 'sound/weapons/gunshots/1rev12.ogg'
-	fire_delay = 5
 	accuracy = new /datum/gun_accuracy/pistol/extends_spread()
 	accuracy = GUN_ACCURACY_PISTOL
 	recoil = GUN_RECOIL_HIGH
@@ -451,7 +450,7 @@
 	var/opened = FALSE
 
 /obj/item/gun/projectile/revolver/rsh_12/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "револьвер \"РШ-12\"",
 		GENITIVE = "револьвера \"РШ-12\"",
 		DATIVE = "револьверу \"РШ-12\"",
