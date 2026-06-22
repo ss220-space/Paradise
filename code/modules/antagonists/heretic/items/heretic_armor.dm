@@ -285,6 +285,15 @@
 	. += span_notice("Стоя на ржавчине, вы получаете значительно усиленную защиту.")
 
 
+// Switches the worn body to the hood-up sprite (rust_armor_hood, whose opaque interior covers the head) when
+// the hood is raised, and back to the collar (rust_armor) when lowered - exactly what the stock
+// /obj/item/clothing/suit/hooded/update_icon_state does. We must re-implement it because master220 has a bug:
+// a typo'd no-op `/obj/item/clothing/suit/hooded/update_icon_state() return` in miscellaneous.dm:1600 (meant
+// for /ghostfacesuit) shadows the real one, so the stock _hood body-switch never fires for ANY hooded suit.
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/rust/update_icon_state()
+	icon_state = "rust_armor[suit_adjusted ? "_hood" : ""]"
+
+
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/rust/equipped(mob/user, slot, initial = FALSE)
 	. = ..()
 	if(slot == ITEM_SLOT_CLOTH_OUTER)
@@ -450,11 +459,11 @@
 			Что-то пульсирует под ней, словно силясь затянуть вас внутрь."
 	icon = 'icons/obj/clothing/heretic_rust_hood.dmi'
 	icon_state = "rust_armor"
-	// Worn (on-mob) head-slot cowl, extracted 1:1 from TG's hooded robe sprite (rust_armor_t). master220 draws
-	// the head slot (HEAD_LAYER) ABOVE the oversuit and the face, so the cowl here is what actually covers the
-	// head - its dark interior hides the face, giving TG's deep "no visible head" hood. The suit's hood-up body
-	// (rust_armor_hood) draws the rest of the hood mass behind it. (A blank head slot left the head bald; the
-	// suit cowl alone can't cover the face because it renders under it.)
+	// Worn (on-mob) head-slot sprite is BLANK - 1:1 with TG. When the hood is raised the SUIT body switches to
+	// its "_hood" worn state (rust_armor_hood = TG's rust_armor_t), whose opaque dark interior covers the whole
+	// head; the suit renders above the face (SUIT_LAYER over the body limbs) and HIDEHAIR (inherited) hides the
+	// hair, so the head fully disappears into the hood. The head slot only exists to toggle the hood + carry the
+	// head armor; drawing anything here would just double up / poke out.
 	onmob_sheets = list(
 		ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/heretic_rust_hood.dmi',
 	)
@@ -527,9 +536,9 @@
 		update_rust_state(wearer)
 
 
-// The hood swaps its own on-rust armor datum (so head armor surges with the set) and rusts its worn cowl in
-// step with the robe - the metallic cowl is added in worn_overlays() and the head sprite is rebuilt here when
-// the rust state flips. Its inventory icon rust is driven by the suit.
+// The hood only swaps its own on-rust armor datum (so head armor surges with the set). It has no worn visuals
+// of its own (blank head slot) - the visible hood, and its rust animation, are the SUIT body's rust_armor_hood
+// state. Its inventory icon rust is driven by the suit.
 /obj/item/clothing/head/hooded/cult_hoodie/eldritch/rust/proc/update_rust_state(mob/living/wearer)
 	var/turf/wearer_turf = get_turf(wearer)
 	if(HAS_TRAIT(wearer_turf, TRAIT_RUSTY))
@@ -537,8 +546,6 @@
 			return
 		rusted = TRUE
 		set_armor(/datum/armor/eldritch_armor_rust/on_rust)
-		if(ishuman(wearer))
-			wearer.update_worn_head()
 		return
 	reset_rust_armor(wearer)
 
@@ -548,16 +555,6 @@
 		return
 	rusted = FALSE
 	set_armor(/datum/armor/eldritch_armor_rust)
-	if(ishuman(wearer))
-		wearer.update_worn_head()
-
-
-// Lays the metallic version of the cowl over the worn hood while on rust, matching the robe. Same silhouette,
-// fully opaque, so the head stays hidden. Rebuilt by update_worn_head() above when the rust state flips.
-/obj/item/clothing/head/hooded/cult_hoodie/eldritch/rust/worn_overlays(mutable_appearance/standing, isinhands = FALSE, icon_file)
-	. = ..()
-	if(rusted && !isinhands)
-		. += mutable_appearance('icons/mob/clothing/heretic_rust_hood_overlay.dmi', "rust_armor_overlay")
 
 
 // Сияющее Облачение (Resplendent Regalia) — Moon path robes.
