@@ -92,27 +92,35 @@
 	)
 
 /obj/item/toy/plushie/fox/black
+	name = "black fox plushie"
 	icon_state = "blackfox"
 
 /obj/item/toy/plushie/fox/marble
+	name = "marble fox plushie"
 	icon_state = "marblefox"
 
 /obj/item/toy/plushie/fox/blue
+	name = "blue fox plushie"
 	icon_state = "bluefox"
 
 /obj/item/toy/plushie/fox/coffee
+	name = "coffee fox plushie"
 	icon_state = "coffeefox"
 
 /obj/item/toy/plushie/fox/pink
+	name = "pink fox plushie"
 	icon_state = "pinkfox"
 
 /obj/item/toy/plushie/fox/purple
+	name = "purple fox plushie"
 	icon_state = "purplefox"
 
 /obj/item/toy/plushie/fox/crimson
+	name = "crimson fox plushie"
 	icon_state = "crimsonfox"
 
 /obj/item/toy/plushie/fox/orange
+	name = "orange fox plushie"
 	icon_state = "orangefox"
 
 /obj/item/toy/plushie/fox/orange/grump
@@ -147,21 +155,27 @@
 	)
 
 /obj/item/toy/plushie/cat/grey
+	name = "grey cat plushie"
 	icon_state = "greycat"
 
 /obj/item/toy/plushie/cat/white
+	name = "white cat plushie"
 	icon_state = "whitecat"
 
 /obj/item/toy/plushie/cat/orange
+	name = "orange cat plushie"
 	icon_state = "orangecat"
 
 /obj/item/toy/plushie/cat/siamese
+	name = "siamese cat plushie"
 	icon_state = "siamesecat"
 
 /obj/item/toy/plushie/cat/tabby
+	name = "tabby cat plushie"
 	icon_state = "tabbycat"
 
 /obj/item/toy/plushie/cat/tuxedo
+	name = "tuxedo cat plushie"
 	icon_state = "tuxedocat"
 
 /obj/item/toy/plushie/cat/kotrazumist
@@ -764,33 +778,43 @@
 	return pick(typesof(/obj/item/toy/plushie/carp)) //can pick any carp plushie, even the original.
 
 /obj/item/toy/plushie/carp/ice
+	name = "ice carp"
 	icon_state = "icecarp"
 
 /obj/item/toy/plushie/carp/silent
+	name = "silent carp"
 	icon_state = "silentcarp"
 
 /obj/item/toy/plushie/carp/electric
+	name = "electric carp"
 	icon_state = "electriccarp"
 
 /obj/item/toy/plushie/carp/gold
+	name = "gold carp"
 	icon_state = "goldcarp"
 
 /obj/item/toy/plushie/carp/toxin
+	name = "toxin carp"
 	icon_state = "toxincarp"
 
 /obj/item/toy/plushie/carp/dragon
+	name = "dragon carp"
 	icon_state = "dragoncarp"
 
 /obj/item/toy/plushie/carp/pink
+	name = "pink carp"
 	icon_state = "pinkcarp"
 
 /obj/item/toy/plushie/carp/candy
+	name = "candy carp"
 	icon_state = "candycarp"
 
 /obj/item/toy/plushie/carp/nebula
+	name = "nebula carp"
 	icon_state = "nebulacarp"
 
 /obj/item/toy/plushie/carp/void
+	name = "void carp"
 	icon_state = "voidcarp"
 
 /*
