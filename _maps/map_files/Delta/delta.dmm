@@ -45204,9 +45204,7 @@
 /area/maintenance/incinerator)
 "ghI" = (
 /obj/effect/turf_decal/delivery/hollow,
-/obj/machinery/light/small{
-	dir = 1
-	},
+/obj/machinery/light/floor,
 /turf/simulated/floor/plating,
 /area/security/prisonershuttle)
 "ghL" = (
@@ -54819,6 +54817,12 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/toxins/mixing)
+"iqG" = (
+/obj/machinery/light/floor,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/security/prisonershuttle)
 "iqN" = (
 /obj/machinery/door/airlock/maintenance,
 /obj/structure/barricade/wooden,
@@ -75416,11 +75420,6 @@
 /obj/item/target,
 /turf/simulated/floor/plasteel/airless,
 /area/toxins/test_area)
-"naI" = (
-/obj/effect/turf_decal/delivery/hollow,
-/obj/machinery/light/small,
-/turf/simulated/floor/plating,
-/area/security/prisonershuttle)
 "naQ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -99340,9 +99339,6 @@
 /obj/structure/table/reinforced,
 /obj/item/storage/box/handcuffs,
 /obj/structure/extinguisher_cabinet/directional/north,
-/obj/machinery/light{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkred"
@@ -122819,6 +122815,15 @@
 	icon_state = "darkpurple"
 	},
 /area/bridge)
+"xsE" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/light/floor,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/security/prisonershuttle)
 "xsI" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -125612,9 +125617,6 @@
 "xTL" = (
 /obj/structure/closet/secure_closet/brig,
 /obj/machinery/newscaster/security_unit/directional/south,
-/obj/machinery/light{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkred"
@@ -186822,7 +186824,7 @@ aaq
 tQG
 tgF
 pgR
-pJx
+iqG
 pJx
 bTJ
 oqG
@@ -187340,7 +187342,7 @@ gnT
 ycr
 dEO
 pJx
-pgR
+xsE
 pJx
 teS
 bEv
@@ -188107,7 +188109,7 @@ yhg
 coE
 coE
 vkC
-naI
+ghI
 vkC
 aaq
 vkC
