@@ -1003,6 +1003,7 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 		/obj/item/storage/box/syndie_kit/chameleon_base,
 		/obj/item/storage/belt/grenade/grenadier,
 		/obj/item/storage/box/syndie_kit/knife,
+		/obj/item/storage/box/syndie_kit/slip,
 	)
 
 /obj/item/storage/box/syndie_kit/agent_base_kit/get_ru_names()
@@ -1064,3 +1065,10 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/clothing/shoes/combat(src)
 	new /obj/item/clothing/gloves/combat(src)
 	new /obj/item/clothing/under/syndicate(src)
+
+/obj/item/storage/box/syndie_kit/slip/populate_contents()
+	new /obj/item/clothing/shoes/chameleon/noslip(src)
+	for(var/I in 1 to 5)
+		new /obj/item/grenade/chem_grenade/cleaner(src)
+	for(var/I in 1 to 5)
+		new /obj/item/soap/syndie(src)
