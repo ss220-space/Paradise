@@ -10,8 +10,6 @@
 	layer = LIGHTING_LAYER
 	invisibility = INVISIBILITY_LIGHTING
 	simulated = FALSE
-	//light_system = NO_LIGHT_SUPPORT
-	//resistance_flags = FIRE_PROOF|ACID_PROOF
 	move_resist = INFINITY
 	///whether we are already in the SSlighting.objects_queue list
 	var/needs_update = FALSE
@@ -149,4 +147,4 @@
 	return
 
 /atom/movable/lighting_object/ref_search_details()
-	return "[text_ref(src)] (turf: [affected_turf ? "[affected_turf.type] @ [AREACOORD(affected_turf)]" : "null"] needs_update: [needs_update ? "true" : "false"])"
+	return "[UID_of(src)] (turf: [affected_turf ? "[affected_turf.type] @ [AREACOORD(affected_turf)]" : "null"] needs_update: [needs_update ? "true" : "false"])"
