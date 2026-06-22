@@ -367,14 +367,13 @@
 	del_on_death = 1
 	deathmessage = "is smashed into pieces!"
 	AI_delay_max = 0 SECONDS
-
-/mob/living/simple_animal/hostile/viscerator/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/swarming)
-	AddElement(/datum/element/simple_flying)
+	var/flying = TRUE
 
 /mob/living/simple_animal/hostile/viscerator/ComponentInitialize()
 	AddComponent( \
 		/datum/component/animal_temperature, \
 		minbodytemp = 0, \
 	)
+	AddComponent(/datum/component/swarming)
+	if(flying)
+		AddElement(/datum/element/simple_flying)

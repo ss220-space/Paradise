@@ -166,6 +166,7 @@ GLOBAL_LIST_EMPTY(dug_up_basalt)
 	GLOB.dug_up_basalt -= src
 	return ..()
 
+
 /turf/simulated/floor/plating/asteroid/basalt/lava //lava underneath
 	baseturf = /turf/simulated/floor/lava
 
@@ -202,6 +203,14 @@ GLOBAL_LIST_EMPTY(dug_up_basalt)
 			B.set_light(2, 0.6, LIGHT_COLOR_LAVA) //more light
 		if("basalt5", "basalt9")
 			B.set_light(1.4, 0.6, LIGHT_COLOR_LAVA) //barely anything!
+
+/turf/simulated/floor/plating/asteroid/ancient
+	baseturf = /turf/simulated/floor/plating/asteroid/ancient/airless
+
+/turf/simulated/floor/plating/asteroid/ancient/airless
+	temperature = TCMB
+	oxygen = 0
+	nitrogen = 0
 
 ///////Surface. The surface is warm, but survivable without a suit. Internals are required. The floors break to chasms, which drop you into the underground.
 

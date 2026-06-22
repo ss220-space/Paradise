@@ -47,10 +47,12 @@
 #define T1_FREQ 1371 //team 1
 #define T2_FREQ 1381 //team 2
 #define T3_FREQ 1391 //team 3
+#define VOX_RAID_FREQ 1220
 
 // Internal department channels
 #define MED_I_FREQ 1485
 #define SEC_I_FREQ 1475
+
 
 // Transmission methods
 #define TRANSMISSION_WIRE 0
@@ -104,7 +106,8 @@
 #define NINJA_FREQ_NAME "Клан Паука"
 #define EVENT_ALPHA_FREQ_NAME "Альфа частота"
 #define EVENT_BETA_FREQ_NAME "Бета частота"
-#define EVENT_GAMMA_FRE_NAME "Гамма частота"
+#define EVENT_GAMMA_FREQ_NAME "Гамма частота"
+#define VOX_RAID_FREQ_NAME "Вокс Рейдер"
 
 #define RED_NAME "Красные"
 #define BLUE_NAME "Синие"

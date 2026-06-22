@@ -74,6 +74,26 @@
 	canSmoothWith = SMOOTH_GROUP_WINDOW_FULLTILE
 	smoothing_groups = SMOOTH_GROUP_WINDOW_FULLTILE
 
+/turf/simulated/wall/indestructible/fakeglass/brass
+	icon = 'icons/obj/smooth_structures/clockwork_window.dmi'
+	icon_state = "clockwork_window-0"
+	base_icon_state = "clockwork_window"
+	canSmoothWith = SMOOTH_GROUP_WINDOW_FULLTILE_BRONZE
+	smoothing_groups = SMOOTH_GROUP_WINDOW_FULLTILE_BRONZE
+
+/turf/simulated/wall/indestructible/fakeglass/brass/showcase
+	color = "#ff00fb"
+
+/turf/simulated/wall/indestructible/fakeglass/brass/showcase/get_ru_names()
+	return alist(
+		NOMINATIVE = "витрина",
+		GENITIVE = "витрины",
+		DATIVE = "витрине",
+		ACCUSATIVE = "витрину",
+		INSTRUMENTAL = "витриной",
+		PREPOSITIONAL = "витрине",
+	)
+
 /turf/simulated/wall/indestructible/reinforced
 	name = "reinforced wall"
 	desc = "A huge chunk of reinforced metal used to seperate rooms."
@@ -269,3 +289,30 @@
 		INSTRUMENTAL = "ямой Бинглов",
 		PREPOSITIONAL = "яме Бинглов",
 	)
+
+/turf/simulated/wall/indestructible/opsglass
+	name = "window"
+	icon = 'icons/obj/smooth_structures/plastitanium_window.dmi'
+	icon_state = "plastitanium_window-0"
+	base_icon_state = "plastitanium_window"
+	opacity = FALSE
+	smoothing_groups = SMOOTH_GROUP_SHUTTLE_PARTS + SMOOTH_GROUP_WINDOW_FULLTILE_PLASTITANIUM + SMOOTH_GROUP_PLASTITANIUM_WALLS
+	canSmoothWith = SMOOTH_GROUP_WINDOW_FULLTILE_PLASTITANIUM + SMOOTH_GROUP_SYNDICATE_WALLS + SMOOTH_GROUP_PLASTITANIUM_WALLS
+
+/turf/simulated/wall/indestructible/opsglass/Initialize(mapload)
+	. = ..()
+	icon_state = null
+	underlays += mutable_appearance('icons/obj/structures.dmi', "grille")
+	underlays += mutable_appearance('icons/turf/floors.dmi', "plating")
+
+/turf/simulated/wall/indestructible/opsglass/limited_smooth
+	smoothing_groups = SMOOTH_GROUP_WINDOW_FULLTILE_PLASTITANIUM
+	canSmoothWith = SMOOTH_GROUP_WINDOW_FULLTILE_PLASTITANIUM
+
+/turf/simulated/wall/indestructible/syndicate
+	icon = 'icons/turf/walls/plastitanium_wall.dmi'
+	icon_state = "plastitanium_wall-0"
+	base_icon_state = "plastitanium_wall"
+	smooth = SMOOTH_BITMASK | SMOOTH_DIAGONAL_CORNERS
+	canSmoothWith = SMOOTH_GROUP_PLASTITANIUM_WALLS + SMOOTH_GROUP_AIRLOCK
+	smoothing_groups = SMOOTH_GROUP_PLASTITANIUM_WALLS

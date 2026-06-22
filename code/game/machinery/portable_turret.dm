@@ -1117,6 +1117,12 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	projectile = /obj/projectile/bullet/weakbullet3
 	eprojectile = /obj/projectile/bullet/weakbullet3
 
+/obj/machinery/porta_turret/syndicate/vox
+	name = "vox turret"
+	projectile = /obj/projectile/beam/disabler
+	eprojectile = /obj/projectile/beam/disabler
+	faction = "Vox"
+
 #undef TURRET_BUILD_LOOSEN
 #undef TURRET_BUILD_ANCHORED
 #undef TURRET_BUILD_ARMORED

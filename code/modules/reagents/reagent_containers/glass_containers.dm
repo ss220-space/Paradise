@@ -679,3 +679,17 @@
 
 	filling.color = get_color_matrix_from_reagents(reagents.reagent_list)
 	. += filling
+
+/obj/item/reagent_containers/glass/bucket/wooden/shit
+	name = "shit bucket"
+	desc = "Омерзительно. Им кто-то недавно пользовался?!"
+
+/obj/item/reagent_containers/glass/bucket/wooden/shit/get_ru_names()
+	return alist(
+		NOMINATIVE = "сральное ведро",
+		GENITIVE = "срального ведра",
+		DATIVE = "сральному ведру",
+		ACCUSATIVE = "сральное ведро",
+		INSTRUMENTAL = "сральным ведром",
+		PREPOSITIONAL = "сральном ведре",
+	)

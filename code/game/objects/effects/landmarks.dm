@@ -182,13 +182,6 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 	spawner_list = GLOB.carplist
 	return ..()
 
-/obj/effect/landmark/spawner/raider_spawn
-	name = "voxstart"
-
-/obj/effect/landmark/spawner/raider_spawn/Initialize(mapload)
-	spawner_list = GLOB.raider_spawn
-	return ..()
-
 /obj/effect/landmark/spawner/ertdirector
 	name = "ERT Director"
 	icon_state = "ERT Director"
