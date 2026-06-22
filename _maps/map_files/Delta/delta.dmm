@@ -6980,17 +6980,6 @@
 	icon_state = "white"
 	},
 /area/crew_quarters/kitchen)
-"bdR" = (
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 1
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/security/prisonershuttle)
 "bdY" = (
 /obj/effect/turf_decal/box,
 /obj/machinery/hologram/holopad,
@@ -18097,6 +18086,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -28201,7 +28191,6 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
-/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -30962,14 +30951,14 @@
 	},
 /area/maintenance/kitchen)
 "dEO" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 10
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -45720,6 +45709,15 @@
 	icon_state = "neutralfull"
 	},
 /area/hallway/primary/port)
+"gnT" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/unary/vent_pump/on,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/security/prisonershuttle)
 "gnV" = (
 /obj/structure/girder,
 /turf/simulated/floor/plating,
@@ -60889,9 +60887,6 @@
 /obj/structure/table/reinforced,
 /obj/item/storage/box/prisoner,
 /obj/item/radio/intercom/directional/north,
-/obj/machinery/light{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkred"
@@ -64775,9 +64770,6 @@
 /obj/machinery/power/apc/directional/east,
 /obj/structure/cable{
 	icon_state = "0-8"
-	},
-/obj/machinery/light{
-	dir = 4
 	},
 /obj/machinery/camera{
 	c_tag = "Brig Labor Camp Airlock North";
@@ -99348,6 +99340,9 @@
 /obj/structure/table/reinforced,
 /obj/item/storage/box/handcuffs,
 /obj/structure/extinguisher_cabinet/directional/north,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkred"
@@ -187341,11 +187336,11 @@ yhg
 bEv
 iLb
 pJx
-pgR
-pJx
-dEO
+gnT
 ycr
-bdR
+dEO
+pJx
+pgR
 pJx
 teS
 bEv
