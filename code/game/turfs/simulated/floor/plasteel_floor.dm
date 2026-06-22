@@ -65,6 +65,15 @@
 /turf/simulated/floor/plasteel/dark
 	icon_state = "darkfull"
 
+/turf/simulated/floor/plasteel/dark/airless
+	oxygen = 0
+	nitrogen = 0
+	temperature = TCMB
+
+/turf/simulated/floor/plasteel/dark/nitrogen
+	nitrogen = MOLES_N2STANDARD + MOLES_O2STANDARD
+	oxygen = 0
+
 /turf/simulated/floor/plasteel/dark/telecomms
 	nitrogen = 100
 	oxygen = 0

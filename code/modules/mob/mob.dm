@@ -452,7 +452,7 @@
 			var/list/result = examinify.examine_more(src)
 			if(!length(result))
 				result += span_notice("<i>Вы внимательно осматриваете [examinify.declent_ru(ACCUSATIVE)], но не замечаете новых деталей...</i>")
-			result_combined = chat_box_examine(jointext(result, "<br>"))
+			result_combined = boxed_message(jointext(result, "<br>"))
 		else
 			client.recent_examines[ref_to_atom] = world.time // set to when we last normal examine'd them
 			addtimer(CALLBACK(src, PROC_REF(clear_from_recent_examines), ref_to_atom), RECENT_EXAMINE_MAX_WINDOW)
@@ -464,7 +464,7 @@
 		examining(examinify, result)
 		SEND_SIGNAL(src, COMSIG_MOB_EXAMINING, examinify, result)
 		result += span_notice("<i>Вы можете <a href='byond://?src=[UID()];run_examinate=[examinify.UID()]'>осмотреть</a> [examinify.declent_ru(ACCUSATIVE)] более тщательно...</i>")
-		result_combined = (atom_title ? fieldset_block("[atom_title].", jointext(result, "<br>"), "boxed_message left_align_text") : chat_box_examine(jointext(result, "<br>")))
+		result_combined = (atom_title ? fieldset_block("[atom_title].", jointext(result, "<br>"), "boxed_message left_align_text") : boxed_message(jointext(result, "<br>")))
 
 	to_chat(src, span_infoplain(result_combined))
 	SEND_SIGNAL(src, COMSIG_MOB_EXAMINATE, examinify)

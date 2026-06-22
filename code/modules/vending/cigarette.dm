@@ -81,6 +81,9 @@
 		PREPOSITIONAL = "торговом автомате ShadyCigs Deluxe",
 	)
 
+/obj/machinery/vending/cigarette/free
+	all_products_free = TRUE
+
 /obj/machinery/vending/cigarette/syndicate
 	product_categories = list(
 		list(

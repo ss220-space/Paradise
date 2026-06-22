@@ -476,7 +476,7 @@
 	human.set_species(/datum/species/shadow)
 	var/text = "Вы — создание тьмы. Старайтесь сохранить свою истинную форму и выполнить свои цели."
 	human.store_memory(text, TRUE)
-	to_chat(human, chat_box_red(text))
+	to_chat(human, custom_boxed_message("red_box center", text))
 
 	var/datum/objective/assassinate/shadow_kill/kill = new
 	kill.owner = human.mind
@@ -486,7 +486,7 @@
 	LAZYADD(human.faction, "hell")
 
 	var/list/messages = human.mind.prepare_announce_objectives()
-	to_chat(human, chat_box_red(messages.Join("<br>")))
+	to_chat(human, custom_boxed_message("red_box center", messages.Join("<br>")))
 
 	LAZYOR(devil.shadows, human.mind)
 	playsound(human, 'sound/magic/mutate.ogg', 100, TRUE)

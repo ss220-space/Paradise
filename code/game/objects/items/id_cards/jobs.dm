@@ -180,3 +180,15 @@
 	icon_state = "investor"
 	item_state = "investor-id"
 	access = list(ACCESS_HEADS, ACCESS_INVESTOR, ACCESS_ALL_PERSONAL_LOCKERS)
+
+/obj/item/card/id/representative_ussp
+	name = "Representative USSP ID"
+	access = list(ACCESS_MAINT_TUNNELS, ACCESS_LIBRARY, ACCESS_HEADS, ACCESS_RC_ANNOUNCE, ACCESS_EVA)
+	icon_state = "ussp"
+	item_state = "ussp"
+
+/obj/item/card/id/representative_tsf
+	name = "Representative TSF ID"
+	access = list(ACCESS_MAINT_TUNNELS, ACCESS_LIBRARY, ACCESS_HEADS, ACCESS_RC_ANNOUNCE, ACCESS_EVA)
+	icon_state = "lifetimeid"
+	item_state = "silver_id"

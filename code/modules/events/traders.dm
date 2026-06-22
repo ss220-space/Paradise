@@ -94,7 +94,7 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 	messages.Add(span_notice("В данный момент вы находитесь на [get_area(M)]."))
 	messages.Add(span_notice("Вам предстоит торговать со станцией [station_name()]."))
 	messages.Add(M.mind.prepare_announce_objectives())
-	to_chat(M, chat_box_green(messages.Join("<br>")))
+	to_chat(M, custom_boxed_message("green_box", messages.Join("<br>")))
 	log_game("[M] was made into a Sol Trader")
 
 /datum/event/traders/proc/forge_trader_objectives()

@@ -313,3 +313,42 @@
 	bitesize = 4
 	list_reagents = list("nutriment" = 20, "iron" = 3, "vitamin" = 2)
 	foodtype = GROSS
+
+// Disk croutons
+/obj/item/reagent_containers/food/snacks/disk
+	name = "disk snack"
+	desc = "Вкуснейшие сухарики с запахом дымка!"
+	icon_state = "disk"
+	item_state = "chips"
+	bitesize = 3
+	junkiness = 20
+	antable = FALSE
+	trash = /obj/item/trash/disk
+	filling_color = "#d1ac45"
+	list_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/sodiumchloride = 1, /datum/reagent/ash = 1, /datum/reagent/saltpetre = 1)
+	tastes = list("хлеб" = 3, "соль" = 1, "пепел" = 1)
+
+/obj/item/reagent_containers/food/snacks/disk/get_ru_names()
+	return alist(
+		NOMINATIVE = "cухарики \"Диск\"",
+		GENITIVE = "cухариков \"Диск\"",
+		DATIVE = "cухарикам \"Диск\"",
+		ACCUSATIVE = "cухарики \"Диск\"",
+		INSTRUMENTAL = "cухариками \"Диск\"",
+		PREPOSITIONAL = "cухариках \"Диск\"",
+	)
+
+/obj/item/trash/disk
+	name = "disk snack"
+	icon_state = "disk"
+	item_state = "chips"
+
+/obj/item/trash/disk/get_ru_names()
+	return alist(
+		NOMINATIVE = "cухарики \"Диск\"",
+		GENITIVE = "cухариков \"Диск\"",
+		DATIVE = "cухарикам \"Диск\"",
+		ACCUSATIVE = "cухарики \"Диск\"",
+		INSTRUMENTAL = "cухариками \"Диск\"",
+		PREPOSITIONAL = "cухариках \"Диск\"",
+	)

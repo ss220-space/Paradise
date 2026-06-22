@@ -60,6 +60,7 @@
 	smoke_wave.particles.count = 0
 
 /obj/effect/temp_visual/explosion/Destroy()
+	LAZYCLEARLIST(vis_contents)
 	QDEL_NULL(smoke_wave)
 	QDEL_NULL(explosion_smoke)
 	QDEL_NULL(sparks)

@@ -7,7 +7,7 @@
 	return ..()
 
 /datum/buildmode_mode/copy/show_help(mob/builder)
-	to_chat(builder, span_purple(chat_box_examine(
+	to_chat(builder, span_purple(boxed_message(
 		"[span_bold("Создать копию выбранной цели")] -> ЛКМ на obj/turf/mob\n\
 		[span_bold("Выбрать цель для копирования")] -> ПКМ на obj/mob"))
 	)

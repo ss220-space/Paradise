@@ -24,7 +24,7 @@ GLOBAL_REAL(SSmentor_tickets, /datum/controller/subsystem/tickets/mentor_tickets
 	return ..()
 
 /datum/controller/subsystem/tickets/mentor_tickets/message_staff(msg, prefix_type = NONE, important = FALSE)
-	message_mentorTicket(chat_box_mhelp(msg), important)
+	message_mentorTicket(fieldset_block("<span class='[span_class]'>[ticket_name]</span>", msg, "boxed_message blue_box"), important)
 
 /datum/controller/subsystem/tickets/mentor_tickets/create_other_system_ticket(datum/ticket/T)
 	SStickets.newTicket(get_client_by_ckey(T.client_ckey), T.first_raw_response, T.title)

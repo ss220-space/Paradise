@@ -45,7 +45,7 @@
 
 
 /datum/buildmode_mode/atmos/show_help(mob/user)
-	to_chat(user, span_purple(chat_box_examine(
+	to_chat(user, span_purple(boxed_message(
 		"[span_bold("Select corner")] -> Left Mouse Button on turf\n\
 		[span_bold("Adjust target atmos")] -> Right Mouse Button on buildmode button\n\
 		\n\

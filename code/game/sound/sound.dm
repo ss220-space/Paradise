@@ -178,10 +178,10 @@ GLOBAL_LIST_EMPTY(cached_songs)
 		sound_to_use.volume *= USER_VOLUME(src, channel)
 
 	if(sound_to_use.volume < 0.1)
-		return FALSE
+		return
 
 	SEND_SOUND(src, sound_to_use)
-	return TRUE
+	return sound_to_use
 
 /proc/sound_to_playing_players_on_station_level(soundin, volume = 100, vary = FALSE, frequency = 0, channel = 0, pressure_affected = FALSE, sound/sound_to_use)
 	if(!sound_to_use)
