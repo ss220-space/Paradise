@@ -10,7 +10,6 @@
 	icon_state = "generic" //Shows up as a auto surgeon, used as a placeholder when a implant doesn't have a sprite
 	origin_tech = "materials=2;biotech=3;programming=2"
 	actions_types = list(/datum/action/item_action/hands_free/activate)
-	var/datum/action/item_action/hands_free/activate/action
 	item_color = "black"
 	item_flags = DROPDEL  // By default, don't let implants be harvestable.
 
@@ -41,6 +40,8 @@
 	///the implant_fluff datum attached to this implant, purely cosmetic "lore" information
 	var/datum/implant_fluff/implant_data = /datum/implant_fluff
 
+	var/datum/action/item_action/hands_free/activate/action
+
 /obj/item/implant/Initialize(mapload)
 	. = ..()
 	RegisterSignal(src, COMSIG_ACTION_BUTTON_UPDATE, PROC_REF(update_button))
@@ -69,6 +70,7 @@
 		implantcase.update_state()
 	QDEL_NULL(implant_data)
 	QDEL_NULL(cooldown_system)
+	QDEL_NULL(action)
 	UnregisterSignal(src, COMSIG_ACTION_BUTTON_UPDATE)
 	return ..()
 
