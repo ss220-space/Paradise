@@ -955,29 +955,6 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/ammo_box/magazine/kedr(src)
 	new /obj/item/ammo_box/magazine/kedr(src)
 
-/obj/item/storage/box/syndie_kit/agent_base_kit
-	name = "agent base kit"
-	desc = "Набор, содержащий минимальный комплект снаряжения для выполнения задач."
-
-/obj/item/storage/box/syndie_kit/agent_base_kit/get_ru_names()
-	return alist(
-		NOMINATIVE = "базовый набор агента",
-		GENITIVE = "базового набора агента",
-		DATIVE = "базовому набору агента",
-		ACCUSATIVE = "базовый набор агента",
-		INSTRUMENTAL = "базовым набором агента",
-		PREPOSITIONAL = "базовом наборе агента",
-	)
-
-/obj/item/storage/box/syndie_kit/agent_base_kit/populate_contents()
-	new /obj/item/storage/box/survival/survival_syndi(src)
-	new /obj/item/clothing/under/syndicate(src)
-	new /obj/item/clothing/shoes/combat(src)
-	new /obj/item/clothing/gloves/combat(src)
-	new /obj/item/flashlight(src)
-	new /obj/item/reagent_containers/food/snacks/donkpocket(src)
-	new	/obj/item/gun/projectile/automatic/pistol/aps/scarecrow(src)
-
 /obj/item/storage/box/syndie_kit/rsh12_revolver
 	name = "RSh-12 revolver kit"
 	desc = "Коробка, содержащая револьвер \"РШ-12\", и три пачки патронов калибра 12.7х55."
@@ -1017,3 +994,82 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 /obj/item/storage/box/syndie_kit/combat_exoframe/populate_contents()
 	new /obj/item/organ/internal/cyberimp/chest/exoframe/combat(src)
 	new /obj/item/autoimplanter/oneuse(src)
+
+/obj/item/storage/box/syndie_kit/agent base kit
+	name = "agent base kit"
+	desc = "Набор, содержащий минимальный комплект снаряжения для выполнения задач."
+	var/static/list/possible_kits = list(
+		/obj/item/storage/box/syndie_kit/scarecrow,
+		/obj/item/storage/box/syndie_kit/chameleon_base,
+		/obj/item/storage/belt/grenade/grenadier,
+		/obj/item/storage/box/syndie_kit/knife,
+	)
+
+/obj/item/storage/box/syndie_kit/agent_base_kit/get_ru_names()
+	return alist(
+		NOMINATIVE = "базовый набор агента",
+		GENITIVE = "базового набора агента",
+		DATIVE = "базовому набору агента",
+		ACCUSATIVE = "базовый набор агента",
+		INSTRUMENTAL = "базовым набором агента",
+		PREPOSITIONAL = "базовом наборе агента",
+	)
+
+/obj/item/storage/box/syndie_kit/random_agent_kit/populate_contents()
+	. = ..()
+	var/selected_type = pick(possible_kits)
+	new selected_type(src)
+	new /obj/item/clothing/glasses/sunglasses(src)
+	new /obj/item/stack/medical/ointment/advanced(src)
+	new /obj/item/stack/medical/bruise_pack/advanced(src)
+	new /obj/item/stack/medical/bruise_pack/military(src)
+
+/obj/item/storage/box/syndie_kit/scarecrow
+	name = "scarecrow"
+	desc = "Набор, содержащий минимальный комплект снаряжения для выполнения задач."
+
+/obj/item/storage/box/syndie_kit/scarecrow/populate_contents()
+	new	/obj/item/gun/projectile/automatic/pistol/aps/scarecrow(src)
+	new /obj/item/ammo_box/magazine/m10mm(src)
+	new /obj/item/ammo_box/magazine/m10mm(src)
+	new /obj/item/clothing/accessory/holster(src)
+	new /obj/item/storage/belt/security/webbing/pouch/fast(src)
+
+/obj/item/storage/box/syndie_kit/chameleon_base
+	name = "chameleon"
+	desc = "Набор, содержащий минимальный комплект снаряжения для выполнения задач."
+
+/obj/item/storage/box/syndie_kit/chameleon_base/populate_contents()
+	new /obj/item/clothing/under/chameleon(src)
+	new /obj/item/clothing/mask/chameleon(src)
+	new /obj/item/clothing/head/chameleon(src)
+	new /obj/item/clothing/shoes/chameleon(src)
+	new /obj/item/clothing/suit/chameleon(src)
+	new /obj/item/radio/headset/chameleon(src)
+	new /obj/item/encryptionkey/syndicate(src)
+	new /obj/item/card/id/syndicate(src)
+
+/obj/item/storage/belt/grenade/grenadier
+	name = "grenadier"
+	desc = "Набор, содержащий минимальный комплект снаряжения для выполнения задач."
+
+/obj/item/storage/belt/grenade/grenadier/populate_contents()
+	for(var/I in 1 to 8)
+		new /obj/item/grenade/smokebomb(src)
+	for(var/I in 1 to 2)
+		new /obj/item/grenade/gluon(src)
+		new /obj/item/grenade/empgrenade(src)
+
+
+/obj/item/storage/box/syndie_kit/knife
+	name = "knife"
+	desc = "Набор, содержащий минимальный комплект снаряжения для выполнения задач."
+
+/obj/item/storage/box/syndie_kit/knife/populate_contents()
+	new /obj/item/kitchen/knife/combat(src)
+	new /obj/item/whetstone/cult(src)
+	new /obj/item/storage/fancy/cigarettes/cigpack_syndicate(src)
+	new /obj/item/lighter/zippo/engraved(src)
+	new /obj/item/clothing/shoes/combat(src)
+	new /obj/item/clothing/gloves/combat(src)
+	new /obj/item/clothing/under/syndicate(src)
