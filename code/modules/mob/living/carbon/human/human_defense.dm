@@ -102,14 +102,14 @@ emp_act
 	if(HAS_TRAIT(H, TRAIT_REPAIRING_LIMB))
 		balloon_alert(user, "уже ремонтируется!")
 		return
-	ADD_TRAIT(H, TRAIT_REPAIRING_LIMB, UNIQUE_TRAIT_SOURCE(src))
+	ADD_TRAIT(H, TRAIT_REPAIRING_LIMB, UNIQUE_TRAIT_SOURCE(user))
 
 	var/surgery_time = 0
 	if(user == src)
 		surgery_time = H.robotic_limb_repair_time
 
 	if(!item.use_tool(src, user, surgery_time, amount = 1, volume = item.tool_volume))
-		REMOVE_TRAIT(H, TRAIT_REPAIRING_LIMB, UNIQUE_TRAIT_SOURCE(src))
+		REMOVE_TRAIT(H, TRAIT_REPAIRING_LIMB, UNIQUE_TRAIT_SOURCE(user))
 		return
 	var/rembrute = HEALPERWELD
 	var/nrembrute = 0
@@ -151,7 +151,7 @@ emp_act
 	if(IgniteMob())
 		add_attack_logs(user, src, "set on fire with [item]")
 
-	REMOVE_TRAIT(H, TRAIT_REPAIRING_LIMB, UNIQUE_TRAIT_SOURCE(src))
+	REMOVE_TRAIT(H, TRAIT_REPAIRING_LIMB, UNIQUE_TRAIT_SOURCE(user))
 
 /mob/living/carbon/human/check_projectile_dismemberment(obj/projectile/P, def_zone)
 	var/obj/item/organ/external/affecting = get_organ(check_zone(def_zone))

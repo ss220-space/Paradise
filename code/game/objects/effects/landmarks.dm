@@ -8,7 +8,7 @@
 /obj/effect/landmark/Initialize(mapload)
 	. = ..()
 	set_tag()
-	GLOB.landmarks_list += src
+	GLOB.landmarks_list |= src
 
 /obj/effect/landmark/Destroy()
 	GLOB.landmarks_list -= src
@@ -374,13 +374,14 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 
 /obj/effect/landmark/start/Initialize(mapload)
 	. = ..()
-	GLOB.start_landmarks_list += src
+	GLOB.start_landmarks_list |= src
+
+/obj/effect/landmark/start/set_tag()
 	if(name != "start")
 		tag = "start*[name]"
 
 /obj/effect/landmark/start/Destroy()
 	GLOB.start_landmarks_list -= src
-	tag = null
 	return ..()
 
 /obj/effect/landmark/start/civilian
@@ -843,14 +844,14 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 	/// Whether our landmark was taken
 	var/used = FALSE
 
-/obj/effect/landmark/start/hangover/Destroy()
-	hangover_debris = null
-	party_debris = null
-	return ..()
-
 /obj/effect/landmark/start/hangover/Initialize(mapload)
 	. = ..()
 	create_debris(get_turf(src))
+
+/obj/effect/landmark/start/hangover/Destroy()
+	LAZYCLEARLIST(hangover_debris)
+	LAZYCLEARLIST(party_debris)
+	return ..()
 
 /obj/effect/landmark/start/hangover/proc/create_debris(turf/our_turf)
 	if(HAS_TRAIT(SSstation, STATION_TRAIT_BIRTHDAY))
