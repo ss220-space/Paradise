@@ -157,12 +157,14 @@
 				Труппа кружилась в переливающихся каскадах, ослепляя зрителей истиной, которую те искали. \
 				Я смотрел, купаясь в свете, чтобы обрести себя."
 	result_atoms = list(/obj/item/clothing/suit/hooded/cultrobes/eldritch/moon)
-	// The node icon is drawn tgui-side by DmIcon via BYOND's runtime icon-reference map. Dedicated dmis kept
-	// coming back blank in the tree (only the background rendered). The ONE sheet proven to resolve in that
-	// exact node is knowledge.dmi - it's the node's own background - so the robe sprite was added there as a
-	// "moon_armor" state (a free cell, existing icons untouched) and the node points at it. Guaranteed render.
-	research_tree_icon_path = 'icons/ui_icons/antags/heretic/knowledge.dmi'
+	// The pink Resplendent Regalia sprite was inserted into the already-mapped armor.dmi (matching tg, which
+	// points this node at suits/armor.dmi "moon_armor").
+	research_tree_icon_path = 'icons/obj/clothing/armor.dmi'
 	research_tree_icon_state = "moon_armor"
+	// The /armor parent points at eldritch_armor (a 14-frame anim) and asks for frame 12. moon_armor is a
+	// single-frame sprite, so we MUST override back to frame 1 - requesting frame 12 of a 1-frame state
+	// returns a blank PNG (this, not PIL-vs-native, was why the node rendered empty).
+	research_tree_icon_frame = 1
 	required_atoms = list(
 		list(/obj/structure/table, /obj/item/clothing/suit) = 1,
 		/obj/item/clothing/mask = 1,

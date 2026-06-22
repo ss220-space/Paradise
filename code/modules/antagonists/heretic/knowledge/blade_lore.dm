@@ -191,10 +191,12 @@
 	gain_text = "Эхо бесцельной какофонии насилия отдаётся вокруг меня. Даже когда стальную эгиду Чемпиона \
 				сорвали с его тела, каждая её часть всё ещё жаждет цели, стремясь перехватить незримые удары."
 	result_atoms = list(/obj/item/clothing/suit/hooded/cultrobes/eldritch/blade)
-	// Robe sprite lives as a "blade_armor" state in knowledge.dmi (the node's own background sheet, the one
-	// proven to resolve in-tree). Dedicated dmis came back blank; this guarantees the node renders.
-	research_tree_icon_path = 'icons/ui_icons/antags/heretic/knowledge.dmi'
+	// The blade robe sprite was inserted into the already-mapped armor.dmi (matches tg, which points this node
+	// at suits/armor.dmi "blade_armor"). The /armor parent asks for frame 12 (eldritch_armor is a 14-frame
+	// anim); blade_armor is single-frame, so override back to frame 1 or the node renders a blank PNG.
+	research_tree_icon_path = 'icons/obj/clothing/armor.dmi'
 	research_tree_icon_state = "blade_armor"
+	research_tree_icon_frame = 1
 	required_atoms = list(
 		list(/obj/structure/table, /obj/item/clothing/suit) = 1,
 		/obj/item/clothing/mask = 1,
