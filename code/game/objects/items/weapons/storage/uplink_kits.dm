@@ -995,7 +995,7 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/organ/internal/cyberimp/chest/exoframe/combat(src)
 	new /obj/item/autoimplanter/oneuse(src)
 
-/obj/item/storage/box/syndie_kit/agent base kit
+/obj/item/storage/box/syndie_kit/agent_base_kit
 	name = "agent base kit"
 	desc = "Набор, содержащий минимальный комплект снаряжения для выполнения задач."
 	var/static/list/possible_kits = list(
@@ -1015,18 +1015,17 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 		PREPOSITIONAL = "базовом наборе агента",
 	)
 
-/obj/item/storage/box/syndie_kit/random_agent_kit/populate_contents()
+/obj/item/storage/box/syndie_kit/agent_base_kit/populate_contents()
 	. = ..()
 	var/selected_type = pick(possible_kits)
 	new selected_type(src)
 	new /obj/item/clothing/glasses/sunglasses(src)
 	new /obj/item/stack/medical/ointment/advanced(src)
+	new /obj/item/stack/medical/ointment/advanced(src)
+	new /obj/item/stack/medical/bruise_pack/advanced(src)
 	new /obj/item/stack/medical/bruise_pack/advanced(src)
 	new /obj/item/stack/medical/bruise_pack/military(src)
 
-/obj/item/storage/box/syndie_kit/scarecrow
-	name = "scarecrow"
-	desc = "Набор, содержащий минимальный комплект снаряжения для выполнения задач."
 
 /obj/item/storage/box/syndie_kit/scarecrow/populate_contents()
 	new	/obj/item/gun/projectile/automatic/pistol/aps/scarecrow(src)
@@ -1035,9 +1034,6 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/clothing/accessory/holster(src)
 	new /obj/item/storage/belt/security/webbing/pouch/fast(src)
 
-/obj/item/storage/box/syndie_kit/chameleon_base
-	name = "chameleon"
-	desc = "Набор, содержащий минимальный комплект снаряжения для выполнения задач."
 
 /obj/item/storage/box/syndie_kit/chameleon_base/populate_contents()
 	new /obj/item/clothing/under/chameleon(src)
@@ -1049,9 +1045,6 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/encryptionkey/syndicate(src)
 	new /obj/item/card/id/syndicate(src)
 
-/obj/item/storage/belt/grenade/grenadier
-	name = "grenadier"
-	desc = "Набор, содержащий минимальный комплект снаряжения для выполнения задач."
 
 /obj/item/storage/belt/grenade/grenadier/populate_contents()
 	for(var/I in 1 to 8)
@@ -1059,11 +1052,9 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	for(var/I in 1 to 2)
 		new /obj/item/grenade/gluon(src)
 		new /obj/item/grenade/empgrenade(src)
+		new /obj/item/grenade/chem_grenade/lube(src)
+		new /obj/item/grenade/chem_grenade/metalfoam(src)
 
-
-/obj/item/storage/box/syndie_kit/knife
-	name = "knife"
-	desc = "Набор, содержащий минимальный комплект снаряжения для выполнения задач."
 
 /obj/item/storage/box/syndie_kit/knife/populate_contents()
 	new /obj/item/kitchen/knife/combat(src)
