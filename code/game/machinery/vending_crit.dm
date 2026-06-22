@@ -101,12 +101,12 @@
 	var/obj/item/organ/internal/brain/brain = victim.get_organ_slot(INTERNAL_ORGAN_BRAIN)
 	if(head)
 		victim.visible_message(
-			span_danger("[head] gets crushed under [machine]!"),
+			span_danger("[head] gets crushed under [machine], and explodes in a shower of gore!"),
 			span_userdanger("Oh f-"))
 		new /obj/effect/gibspawner/human(get_turf(victim))
-		head.fracture()
+		head.drop_organs()
+		head.droplimb(TRUE)
 		head.disfigure()
-		victim.apply_damage(50, BRUTE, BODY_ZONE_HEAD)
 	else
 		victim.visible_message(
 			span_danger("[victim]'s head seems to be crushed under [machine]...but wait, they had none in the first place!"))
