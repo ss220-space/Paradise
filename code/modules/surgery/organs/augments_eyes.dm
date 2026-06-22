@@ -354,7 +354,6 @@
 	holomap_datum.reset_map()
 
 
-
 /obj/item/organ/internal/cyberimp/eyes/map/security
 	name = "security map implant "
 	desc = "Имплант для постоянного отображения мини-карты в левом верхнем углу поля зрения пользователя с помощью технологии дополненной реальности. Показывает владельцев импланта защиты разума."
