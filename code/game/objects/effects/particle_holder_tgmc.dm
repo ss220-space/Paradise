@@ -5,7 +5,7 @@
 	vis_flags = VIS_INHERIT_PLANE
 	invisibility = INVISIBILITY_NONE
 	appearance_flags = KEEP_APART | TILE_BOUND
-	plane = GRAVITY_PULSE_PLANE
+	plane = DISPLACEMENT_PLANE
 	/// Typepath of the last location we're in, if it's different when moved then we need to update vis contents.
 	var/last_attached_location_type
 	/// The main item we're attached to at the moment, particle holders hold particles for something.

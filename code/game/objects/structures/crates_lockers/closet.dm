@@ -13,6 +13,7 @@ GLOBAL_LIST_EMPTY(closets)
 	integrity_failure = 50
 	armor = list(MELEE = 20, BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 10, BIO = 0, FIRE = 70, ACID = 60)
 	pass_flags_self = PASSSTRUCTURE | LETPASSCLICKS
+	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 
 	/// If TRUE, uses only icon_closed/icon_opened states and skips all overlay logic.
 	var/no_overlays = FALSE

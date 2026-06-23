@@ -9,7 +9,7 @@
 	icon = 'icons/obj/pipes_and_stuff/not_atmos/transit_tube.dmi'
 	icon_state = "straight"
 	density = TRUE
-	layer = 3.1
+	layer = LOW_ITEM_LAYER
 	anchored = TRUE
 	pass_flags_self = PASSGLASS
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF //indestructible until i make this createble
@@ -28,6 +28,8 @@
 	// set up our appearance after the initialize in case someone's setting our direction afterwards
 	// (especially for things like admin spawning)
 	addtimer(CALLBACK(src, PROC_REF(setup_appearance)), 1)
+	AddElement(/datum/element/climbable)
+	AddElement(/datum/element/elevation, pixel_shift = 12)
 
 /obj/structure/transit_tube/proc/setup_appearance()
 	init_tube_dirs()

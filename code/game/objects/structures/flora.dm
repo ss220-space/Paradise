@@ -352,7 +352,7 @@
 	/// Light power plant will get on init
 	var/l_power_init
 	light_on = FALSE
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 
 /obj/item/twohanded/required/kirbyplants/Initialize(mapload)
 	. = ..()

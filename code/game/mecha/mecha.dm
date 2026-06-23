@@ -49,7 +49,7 @@
 	var/datum/effect_system/spark_spread/spark_system = new
 	var/lights = 0
 	var/lights_power = 6
-	var/lights_color = -99999 // "NONSENSICAL_VALUE"
+	var/lights_color = NONSENSICAL_VALUE
 	var/frozen = FALSE
 	var/repairing = FALSE
 	/// The internal storage of the exosuit. For the cargo module

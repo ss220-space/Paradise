@@ -32,7 +32,7 @@
 	resistance_flags = FLAMMABLE
 	container_type = INJECTABLE
 	var/log_eating = FALSE // do we log if someone eats us?
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	light_on = FALSE
 	var/randomize_position = TRUE
 
@@ -47,7 +47,7 @@
 
 	if(!antable)
 		return
-		
+
 	START_PROCESSING(SSobj, src)
 	ant_location = get_turf(src)
 	last_ant_time = world.time

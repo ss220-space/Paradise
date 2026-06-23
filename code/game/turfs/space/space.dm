@@ -1,7 +1,51 @@
+///The base color of light space emits
+GLOBAL_VAR_INIT(base_starlight_color, default_starlight_color())
+///The color of light space is currently emitting
+GLOBAL_VAR_INIT(starlight_color, default_starlight_color())
+/proc/default_starlight_color()
+	var/turf/space/read_from = /turf/space
+	return initial(read_from.light_color)
+
+///The range of the light space is displaying
+GLOBAL_VAR_INIT(starlight_range, default_starlight_range())
+/proc/default_starlight_range()
+	var/turf/space/read_from = /turf/space
+	return initial(read_from.light_range)
+
+///The power of the light space is throwin out
+GLOBAL_VAR_INIT(starlight_power, default_starlight_power())
+/proc/default_starlight_power()
+	var/turf/space/read_from = /turf/space
+	return initial(read_from.light_power)
+
+/proc/set_base_starlight(star_color = null, range = null, power = null)
+	GLOB.base_starlight_color = star_color
+	set_starlight(star_color, range, power)
+
+/proc/set_starlight(star_color = null, range = null, power = null)
+	if(isnull(star_color))
+		star_color = GLOB.starlight_color
+	var/old_star_color = GLOB.starlight_color
+	GLOB.starlight_color = star_color
+	// set light color on all lit turfs
+	for(var/turf/space/spess as anything in GLOB.starlight)
+		spess.set_light(l_range = range, l_power = power, l_color = star_color)
+
+	if(star_color == old_star_color)
+		return
+
+	// Update the base overlays
+	for(var/obj/light as anything in GLOB.starlight_objects)
+		light.color = star_color
+	// Send some signals that'll update everything that uses the color
+	SEND_GLOBAL_SIGNAL(COMSIG_STARLIGHT_COLOR_CHANGED, old_star_color, star_color)
+
+GLOBAL_LIST_EMPTY(starlight)
+
 /turf/space
 	icon = 'icons/turf/space.dmi'
-	name = "\proper space"
-	icon_state = "0"
+	name = "space"
+	icon_state = "space"
 
 	temperature = TCMB
 	thermal_conductivity = OPEN_HEAT_TRANSFER_COEFFICIENT
@@ -12,14 +56,19 @@
 
 	plane = PLANE_SPACE
 	layer = SPACE_LAYER
-	light_power = 0.25
-	always_lit = TRUE
+
+	light_power = 1
+	light_range = 2
+	light_color = COLOR_STARLIGHT
+	light_height = LIGHTING_HEIGHT_SPACE
+	light_on = FALSE
+	space_lit = TRUE
+
 	intact = FALSE
 	underfloor_accessibility = UNDERFLOOR_INTERACTABLE
 	// We do NOT want atmos adjacent turfs
 	init_air = FALSE
 
-	plane = PLANE_SPACE
 	footstep = null
 	barefootstep = null
 	clawfootstep = null
@@ -52,11 +101,11 @@
 		plane = PLANE_SPACE - (PLANE_RANGE * SSmapping.z_level_to_plane_offset[z])
 
 	var/area/our_area = loc
-	if(!our_area.area_has_base_lighting && always_lit) //Only provide your own lighting if the area doesn't for you
+	if(!our_area.area_has_base_lighting && space_lit) //Only provide your own lighting if the area doesn't for you
 		// Intentionally not add_overlay for performance reasons.
 		// add_overlay does a bunch of generic stuff, like creating a new list for overlays,
 		// queueing compile, cloning appearance, etc etc etc that is not necessary here.
-		overlays += GLOB.fullbright_overlays[GET_TURF_PLANE_OFFSET(src) + 1]
+		overlays += GLOB.starlight_overlays[GET_TURF_PLANE_OFFSET(src) + 1]
 
 	if(light_power && light_range)
 		update_light()
@@ -71,6 +120,10 @@
 		return
 	AddComponent(/datum/component/blob_turf_consuming, 4)
 
+/turf/space/Destroy()
+	GLOB.starlight -= src
+	return ..()
+
 /turf/space/BeforeChange()
 	..()
 	var/datum/space_level/S = GLOB.space_manager.get_zlev(z)
@@ -84,15 +137,25 @@
 	S.add_to_transit(src)
 	S.apply_transition(src)
 
+/// Updates starlight. Called when we're unsure of a turf's starlight state
+/// Returns TRUE if we succeed, FALSE otherwise
 /turf/space/proc/update_starlight()
-	if(CONFIG_GET(flag/starlight))
-		for(var/t in RANGE_TURFS(1,src)) //RANGE_TURFS is in code\__HELPERS\game.dm
-			if(isspaceturf(t))
-				//let's NOT update this that much pls
-				continue
-			set_light(2, l_on = TRUE)
-			return
-		set_light_on(FALSE)
+	for(var/t in RANGE_TURFS(1, src)) //RANGE_TURFS is in code\__HELPERS\game.dm
+		// I've got a lot of cordons near spaceturfs, be good kids
+		if(isspaceturf(t) || istype(t, /turf/cordon))
+			//let's NOT update this that much pls
+			continue
+		enable_starlight()
+		return TRUE
+	GLOB.starlight -= src
+	set_light(l_on = FALSE)
+	return FALSE
+
+/// Turns on the stars, if they aren't already
+/turf/space/proc/enable_starlight()
+	if(!light_on)
+		set_light(l_on = TRUE, l_range = GLOB.starlight_range, l_power = GLOB.starlight_power, l_color = GLOB.starlight_color)
+		GLOB.starlight += src
 
 /turf/space/attackby(obj/item/I, mob/user, params)
 	. = ..()
@@ -211,115 +274,6 @@
 	if(arrived_is_mob)
 		to_chat(arrived_mob, span_warning("Вы попадаете в загадочный сектор полный астероидов... Тут стоит быть осторожнее..."))
 	return destination_z
-
-/turf/space/proc/Sandbox_Spacemove(atom/movable/A as mob|obj)
-	var/cur_x
-	var/cur_y
-	var/next_x
-	var/next_y
-	var/target_z
-	var/list/y_arr
-
-	if(src.x <= 1)
-		if(istype(A, /obj/effect/meteor))
-			qdel(A)
-			return
-
-		var/list/cur_pos = src.get_global_map_pos()
-		if(!cur_pos) return
-		cur_x = cur_pos["x"]
-		cur_y = cur_pos["y"]
-		next_x = (--cur_x||length(GLOB.global_map))
-		y_arr = GLOB.global_map[next_x]
-		target_z = y_arr[cur_y]
-/*
-		//debug
-		to_chat(world, "Src.z = [src.z] in global map X = [cur_x], Y = [cur_y]")
-		to_chat(world, "Target Z = [target_z]")
-		to_chat(world, "Next X = [next_x]")
-		//debug
-*/
-		if(target_z)
-			A.z = target_z
-			A.x = world.maxx - 2
-			spawn (0)
-				if(A?.loc)
-					A.loc.Entered(A)
-	else if(src.x >= world.maxx)
-		if(istype(A, /obj/effect/meteor))
-			qdel(A)
-			return
-
-		var/list/cur_pos = src.get_global_map_pos()
-		if(!cur_pos) return
-		cur_x = cur_pos["x"]
-		cur_y = cur_pos["y"]
-		next_x = (++cur_x > length(GLOB.global_map) ? 1 : cur_x)
-		y_arr = GLOB.global_map[next_x]
-		target_z = y_arr[cur_y]
-/*
-		//debug
-		to_chat(world, "Src.z = [src.z] in global map X = [cur_x], Y = [cur_y]")
-		to_chat(world, "Target Z = [target_z]")
-		to_chat(world, "Next X = [next_x]")
-		//debug
-*/
-		if(target_z)
-			A.z = target_z
-			A.x = 3
-			spawn (0)
-				if(A?.loc)
-					A.loc.Entered(A)
-	else if(src.y <= 1)
-		if(istype(A, /obj/effect/meteor))
-			qdel(A)
-			return
-		var/list/cur_pos = src.get_global_map_pos()
-		if(!cur_pos) return
-		cur_x = cur_pos["x"]
-		cur_y = cur_pos["y"]
-		y_arr = GLOB.global_map[cur_x]
-		next_y = (--cur_y||length(y_arr))
-		target_z = y_arr[next_y]
-/*
-		//debug
-		to_chat(world, "Src.z = [src.z] in global map X = [cur_x], Y = [cur_y]")
-		to_chat(world, "Next Y = [next_y]")
-		to_chat(world, "Target Z = [target_z]")
-		//debug
-*/
-		if(target_z)
-			A.z = target_z
-			A.y = world.maxy - 2
-			spawn (0)
-				if(A?.loc)
-					A.loc.Entered(A)
-
-	else if(src.y >= world.maxy)
-		if(istype(A, /obj/effect/meteor))
-			qdel(A)
-			return
-		var/list/cur_pos = src.get_global_map_pos()
-		if(!cur_pos) return
-		cur_x = cur_pos["x"]
-		cur_y = cur_pos["y"]
-		y_arr = GLOB.global_map[cur_x]
-		next_y = (++cur_y > length(y_arr) ? 1 : cur_y)
-		target_z = y_arr[next_y]
-/*
-		//debug
-		to_chat(world, "Src.z = [src.z] in global map X = [cur_x], Y = [cur_y]")
-		to_chat(world, "Next Y = [next_y]")
-		to_chat(world, "Target Z = [target_z]")
-		//debug
-*/
-		if(target_z)
-			A.z = target_z
-			A.y = 3
-			spawn (0)
-				if(A?.loc)
-					A.loc.Entered(A)
-	return
 
 /turf/space/singularity_act()
 	return

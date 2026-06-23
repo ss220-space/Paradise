@@ -173,16 +173,6 @@
 	color = "#000000"
 	show_when_dead = TRUE
 
-/atom/movable/screen/fullscreen/lighting_backdrop
-	icon = 'icons/mob/screen_gen.dmi'
-	icon_state = "flash"
-	screen_loc = "WEST,SOUTH to EAST,NORTH"
-	plane = LIGHTING_PLANE
-	layer = LIGHTING_LAYER
-	blend_mode = BLEND_OVERLAY
-	show_when_dead = TRUE
-	needs_offsetting = FALSE
-
 /atom/movable/screen/fullscreen/curse
 	icon_state = "curse"
 	layer = CURSE_LAYER
@@ -190,6 +180,16 @@
 /atom/movable/screen/fullscreen/bloody_screen
 	icon_state = "bloody_screen"
 	layer = BLOODY_SCREEN_LAYER
+
+/atom/movable/screen/fullscreen/lighting_backdrop
+	icon = 'icons/mob/screen_gen.dmi'
+	icon_state = "flash"
+	screen_loc = "WEST,SOUTH to EAST,NORTH"
+	plane = LIGHTING_PLANE
+	layer = LIGHTING_ABOVE_ALL
+	blend_mode = BLEND_OVERLAY
+	show_when_dead = TRUE
+	needs_offsetting = FALSE
 
 //Provides darkness to the back of the lighting plane
 /atom/movable/screen/fullscreen/lighting_backdrop/lit
@@ -204,7 +204,7 @@
 /atom/movable/screen/fullscreen/see_through_darkness
 	icon_state = "nightvision"
 	plane = LIGHTING_PLANE
-	layer = LIGHTING_LAYER
+	layer = LIGHTING_ABOVE_ALL
 	blend_mode = BLEND_ADD
 	show_when_dead = TRUE
 

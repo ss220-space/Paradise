@@ -269,14 +269,12 @@
 	desc = "Вращающаяся вывеска, указывающая на близость парикмахерской."
 	icon_state = "barber"
 	does_emissive = TRUE
-	blocks_emissive = FALSE
 
 /obj/structure/sign/chinese
 	name = "знак китайского ресторана"
 	desc = "Светящийся дракон приглашает вас внутрь."
 	icon_state = "chinese"
 	does_emissive = TRUE
-	blocks_emissive = FALSE
 
 /obj/structure/sign/bathhouse
 	name = "знак бани"

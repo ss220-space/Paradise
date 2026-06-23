@@ -168,7 +168,6 @@
 	name = "alien wall"
 	desc = "A wall with alien alloy plating."
 	icon_state = "alien1"
-	always_lit = TRUE
 
 /turf/simulated/wall/indestructible/splashscreen
 	name = "Splash Screen"
@@ -270,7 +269,6 @@
 // used with /effect/view_portal in order to get rid of dynamic lighting.
 /turf/simulated/wall/indestructible/invisible/view_portal
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	always_lit = TRUE
 
 /turf/simulated/wall/indestructible/bingle
 	name = "Bingle Pit wall"

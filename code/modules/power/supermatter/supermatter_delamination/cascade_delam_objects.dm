@@ -11,7 +11,7 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	light_range = 5
 	light_color = COLOR_VIVID_YELLOW
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	move_resist = INFINITY
 	var/list/possible_dirs
 	///Cooldown on the expansion process

@@ -152,7 +152,7 @@
 	belt_icon = "lantern"
 	light_range = 6		// luminosity when on
 	light_color = LIGHT_COLOR_DIM_YELLOW
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	var/obj/item/gem/inserted_gem = null
 	var/mutable_appearance/lantern_light_overlay
 

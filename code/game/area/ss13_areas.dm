@@ -46,6 +46,7 @@ This applies to all STANDARD station areas
 	always_unpowered = TRUE
 	static_lighting = FALSE
 	base_lighting_alpha = 255
+	base_lighting_color = COLOR_STARLIGHT
 	power_light = FALSE
 	power_equip = FALSE
 	power_environ = FALSE
@@ -58,7 +59,6 @@ This applies to all STANDARD station areas
 
 /area/space/nearstation
 	icon_state = "space_near"
-	use_starlight = TRUE
 
 /area/space/planetary
 	icon_state = "space_planet"

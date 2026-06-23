@@ -878,7 +878,6 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/light/small, 0, 0)
 	force = 2
 	throwforce = 5
 	w_class = WEIGHT_CLASS_TINY
-	blocks_emissive = FALSE
 	/// Light status (LIGHT_OK | LIGHT_BURNED | LIGHT_BROKEN)
 	var/status = LIGHT_OK
 	/// How many times has the light been switched on/off?

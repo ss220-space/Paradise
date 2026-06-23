@@ -15,7 +15,6 @@
 	anchored = TRUE
 	w_class = WEIGHT_CLASS_BULKY
 	canhear_range = 2
-	blocks_emissive = FALSE
 	dog_fashion = null
 	var/circuitry_installed = TRUE
 	/// Current buildstage of the object

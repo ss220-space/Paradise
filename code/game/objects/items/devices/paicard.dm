@@ -258,8 +258,6 @@
 	pai = null
 	cut_overlays()
 	add_overlay("pai-off")
-	if(blocks_emissive)
-		add_overlay(get_emissive_block())
 	QDEL_LIST(upgrades)
 
 /obj/item/paicard/proc/setEmotion(emotion)
@@ -290,8 +288,6 @@
 				add_overlay("pai-spaic")
 			if(12)
 				add_overlay("pai-spaiv")
-		if(blocks_emissive)
-			add_overlay(get_emissive_block())
 		current_emotion = emotion
 
 /obj/item/paicard/proc/alertUpdate()

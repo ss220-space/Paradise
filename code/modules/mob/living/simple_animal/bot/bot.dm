@@ -24,7 +24,7 @@
 	bubble_icon = "machine"
 	faction = list("neutral", "silicon")
 
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 
 	hud_type = /datum/hud/bot
 

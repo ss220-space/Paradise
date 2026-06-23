@@ -32,7 +32,7 @@
 	speed = -0.5
 	mob_size = MOB_SIZE_TINY
 	density = FALSE
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	attacktext = "electrocutes"
 	attack_sound = SFX_SPARKS
 	harm_intent_damage = 0

@@ -41,7 +41,7 @@ SUBSYSTEM_DEF(lighting)
 			continue
 		for(var/list/zlevel_turfs as anything in area.get_zlevel_turf_lists())
 			for(var/turf/area_turf as anything in zlevel_turfs)
-				if(area_turf.always_lit)
+				if(area_turf.space_lit)
 					continue
 				new /atom/movable/lighting_object(null, area_turf)
 			CHECK_TICK
@@ -142,7 +142,7 @@ SUBSYSTEM_DEF(lighting)
 /// Exactly what it says on the tin.
 /datum/controller/subsystem/lighting/proc/setup_static_lighting_if_needed(list/turfs)
 	for(var/turf/unlit as anything in turfs)
-		if(unlit.always_lit)
+		if(unlit.space_lit)
 			continue
 		var/area/loc_area = unlit.loc
 		if(loc_area.static_lighting)

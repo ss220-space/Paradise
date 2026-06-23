@@ -12,7 +12,7 @@
 	slot_flags = ITEM_SLOT_BELT
 	attack_verb = null
 	resistance_flags = FIRE_PROOF
-	light_system = MOVABLE_LIGHT_DIRECTIONAL
+	light_system = OVERLAY_LIGHT_DIRECTIONAL
 	light_range = 2
 	light_on = FALSE
 	custom_price = PAYCHECK_MIN
