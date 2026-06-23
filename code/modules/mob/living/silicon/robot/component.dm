@@ -339,4 +339,4 @@
 			if(!organ_found)
 				msgs += (span_warning("No prosthetics located."))
 
-	to_chat(user, chat_box_healthscan(msgs.Join("<br>")))
+	to_chat(user, custom_boxed_message("blue_box", msgs.Join("<br>")))

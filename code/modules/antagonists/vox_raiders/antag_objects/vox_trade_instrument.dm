@@ -42,7 +42,7 @@
 		return
 
 	var/value = trader.get_value(user, list(interacting_with), TRUE)
-	to_chat(user, chat_box_notice(span_green("Ценность [interacting_with.declent_ru(GENITIVE)]: [value]")))
+	to_chat(user, custom_boxed_message("blue_box", span_green("Ценность [interacting_with.declent_ru(GENITIVE)]: [value]")))
 	return ITEM_INTERACT_SUCCESS
 
 /obj/item/hand_valuer/proc/connect(mob/living/user, obj/machinery/vox_trader/input_trader)

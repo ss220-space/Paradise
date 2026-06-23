@@ -241,7 +241,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	for(var/datum/mind/user in owners)
 		var/list/messages = list()
 		messages.Add(user.prepare_announce_objectives(FALSE))
-		to_chat(user.current, chat_box_red(messages.Join("<br>")))
+		to_chat(user.current, custom_boxed_message("red_box center", messages.Join("<br>")))
 
 /**
  * Borgs, brains, AIs, etc count as dead for traitor objectives
@@ -522,7 +522,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 		for(var/datum/mind/user in get_owners())
 			var/list/messages = list()
 			messages.Add(user.prepare_announce_objectives(FALSE))
-			to_chat(user.current, chat_box_red(messages.Join("<br>")))
+			to_chat(user.current, custom_boxed_message("red_box center", messages.Join("<br>")))
 	else
 		..()
 
@@ -538,7 +538,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 			for(var/datum/mind/user in get_owners())
 				var/list/messages = list()
 				messages.Add(user.prepare_announce_objectives(FALSE))
-				to_chat(user.current, chat_box_red(messages.Join("<br>")))
+				to_chat(user.current, custom_boxed_message("red_box center", messages.Join("<br>")))
 	else
 		if((world.time - start_of_completing) >= 10	MINUTES)
 			if(target && ishuman(target.current) && target.current.stat != DEAD)
@@ -550,7 +550,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 			for(var/datum/mind/user in get_owners())
 				var/list/messages = list()
 				messages.Add(user.prepare_announce_objectives(FALSE))
-				to_chat(user.current, chat_box_red(messages.Join("<br>")))
+				to_chat(user.current, custom_boxed_message("red_box center", messages.Join("<br>")))
 			deltimer(checking_timer)
 			checking_timer = null
 
@@ -1414,7 +1414,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 	for(var/datum/mind/user in owners)
 		var/list/messages = user.prepare_announce_objectives()
-		to_chat(user.current, chat_box_red(messages.Join("<br>")))
+		to_chat(user.current, custom_boxed_message("red_box center", messages.Join("<br>")))
 
 /datum/objective/protect/ninja/proc/update_killers()
 	if(!length(killers_objectives))

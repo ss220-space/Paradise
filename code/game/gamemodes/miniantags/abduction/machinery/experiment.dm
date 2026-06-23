@@ -147,7 +147,7 @@
 		SSticker.mode.abductees += H.mind
 		H.mind.objectives += O
 		var/list/messages = H.mind.prepare_announce_objectives()
-		to_chat(H, chat_box_red(messages.Join("<br>"))) // let the player know they have a new objective
+		to_chat(H, custom_boxed_message("red_box center", messages.Join("<br>"))) // let the player know they have a new objective
 		SSticker.mode.update_abductor_icons_added(H.mind)
 
 		for(var/obj/item/organ/internal/heart/gland/G in H.internal_organs)

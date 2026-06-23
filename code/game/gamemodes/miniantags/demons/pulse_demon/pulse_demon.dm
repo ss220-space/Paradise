@@ -267,7 +267,7 @@
 	tampermach.owner = mind
 	greeting.Add(mind.prepare_announce_objectives(FALSE))
 	greeting.Add(span_motd("С полной информацией вы можете ознакомиться на вики: <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Pulse_Demon\">Электродемон</a>"))
-	to_chat(src, chat_box_yellow(greeting.Join("<br>")))
+	to_chat(src, custom_boxed_message("yellow_box", greeting.Join("<br>")))
 	SSticker.mode.traitors |= mind
 	return
 

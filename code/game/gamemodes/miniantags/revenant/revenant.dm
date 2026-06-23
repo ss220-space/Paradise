@@ -214,7 +214,7 @@
 			mind.objectives += objective2
 			SSticker.mode.traitors |= mind //Necessary for announcing
 			messages.Add(mind.prepare_announce_objectives(FALSE))
-			to_chat(src, chat_box_red(messages.Join("<br>")))
+			to_chat(src, custom_boxed_message("red_box center", messages.Join("<br>")))
 
 /mob/living/simple_animal/revenant/proc/giveSpells()
 	mind.AddSpell(new /obj/effect/proc_holder/spell/night_vision/revenant(null))
