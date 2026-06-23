@@ -273,6 +273,8 @@
 	after_use_message = "Чемпион слышит ваш зов..."
 	///If our blade is currently infused with the mansus grasp
 	var/infused = FALSE
+	/// Force multiplier vs objects/mechs/silicons once the wielder has Empowered Blades (tg's demolition_mod = 2.5).
+	var/demolition_bonus = 2.5
 
 
 /obj/item/melee/sickly_blade/dark/get_ru_names()
@@ -338,6 +340,36 @@
 
 	icon_state = base_icon_state
 	item_state = base_icon_state
+
+
+// Empowered Blades (tg's demolition_mod): once the heretic learns "Усиленные Клинки", their dark blades hit
+// structures, machinery, mechs and silicons far harder. master220 has no /obj/item/demolition_mod var, and
+// COMSIG_MOB_EQUIPPED_ITEM (which tg registers on the user to set demolition_mod on equip) is never emitted
+// here - so instead of an equip-time signal we check the knowledge at swing time and briefly scale the
+// blade's force for that single hit. Same net effect as tg, and it can never go stale on a body/inventory
+// change. Mobs that aren't silicons go through the normal path (their dual-strike bonus lives in blade_lore).
+/// Returns TRUE if the wielder is a heretic who has learned Empowered Blades.
+/obj/item/melee/sickly_blade/dark/proc/wielder_has_empowered_blades(mob/user)
+	var/datum/antagonist/heretic/heretic_datum = isheretic(user)
+	return !isnull(heretic_datum?.get_knowledge(/datum/heretic_knowledge/blade_upgrade/blade))
+
+
+/obj/item/melee/sickly_blade/dark/attack_obj(obj/object, mob/living/user, list/modifiers)
+	if(!wielder_has_empowered_blades(user))
+		return ..()
+	var/old_force = force
+	force = round(force * demolition_bonus)
+	. = ..()
+	force = old_force
+
+
+/obj/item/melee/sickly_blade/dark/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE, list/attack_modifiers)
+	if(!issilicon(target) || !wielder_has_empowered_blades(user))
+		return ..()
+	var/old_force = force
+	force = round(force * demolition_bonus)
+	. = ..()
+	force = old_force
 
 
 // Path of Cosmos's blade

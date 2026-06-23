@@ -200,11 +200,8 @@
 	desc = "Частица разума, души и луны. От простого взгляда на неё кружится голова. Вы слышите шепот полный смеха и радости."
 	icon = 'icons/obj/eldritch.dmi'
 	icon_state = "moon_amulette"
-	// The shared worn neck sheet (neck.dmi) has no "moon_amulette" state, so the amulet rendered invisible on
-	// the wearer. Point its worn (on-mob) sprite at a dedicated sheet carrying tg's worn amulet sprite.
-	onmob_sheets = list(
-		ITEM_SLOT_NECK_STRING = 'icons/mob/clothing/heretic_moon_amulet.dmi',
-	)
+	// Worn (on-mob) sprite lives in the shared neck.dmi as the "moon_amulette" state (tg's worn amulet),
+	// resolved by inheritance - no onmob_sheets override needed.
 	// How much damage does this item do to the targets sanity?
 	var/sanity_damage = 20
 	// Brain damage a non-heretic wearer must accrue from the curse before their mind shatters and they go

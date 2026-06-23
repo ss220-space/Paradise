@@ -16,12 +16,19 @@
 	human_req = FALSE
 	clothes_req = FALSE
 	base_cooldown = 6 SECONDS
-	//cooldown_reduction_per_rank = -6 SECONDS // we're not a wizard spell but we use the levelling mechanic
-	//spell_max_level = 10 // we can get up to / over a minute duration cd time
-
+	// TG's Realignment ramps its OWN cooldown each cast (the spell-levelling mechanic): every cast lengthens
+	// the cooldown by realign_cooldown_step up to realign_max_level steps (6s -> ... -> 60s), and each cast
+	// schedules a delevel that walks it back down after a while. master220's proc_holder spells have no
+	// built-in levelling, so we drive cooldown_handler.recharge_duration directly to reproduce it 1:1.
 	invocation = "П'Р'СТР'ЙК"
 	invocation_type = INVOCATION_SHOUT
 	spell_requirements = NONE
+	/// Current ramp level (0 = base cooldown). Climbs with each cast, decays over time.
+	var/realign_level = 0
+	/// How many times the cooldown can ramp up (tg: spell_max_level 10).
+	var/realign_max_level = 10
+	/// How much each ramp level adds to the cooldown (tg: -cooldown_reduction_per_rank = 6s).
+	var/realign_cooldown_step = 6 SECONDS
 
 
 /obj/effect/proc_holder/spell/realignment/valid_target(atom/cast_on)
@@ -33,6 +40,33 @@
 	. = ..()
 	cast_on.apply_status_effect(/datum/status_effect/realignment)
 	to_chat(cast_on, span_notice("Вы начали перестраивать свой организм."))
+
+
+/obj/effect/proc_holder/spell/realignment/after_cast(list/targets, mob/user)
+	. = ..()
+	// Every cast ramps the cooldown up one level (for a while), matching tg's escalating Realignment cost.
+	// start_recharge() already ran with the OLD duration in perform(), so this only affects future casts.
+	if(!level_realignment())
+		return
+	var/reduction_timer = max(cooldown_handler.recharge_duration * realign_max_level * 0.5, 1.5 MINUTES)
+	addtimer(CALLBACK(src, PROC_REF(delevel_realignment)), reduction_timer)
+
+
+/// Ramps the cooldown up a level. Returns TRUE if it actually changed (i.e. not already capped).
+/obj/effect/proc_holder/spell/realignment/proc/level_realignment()
+	if(realign_level >= realign_max_level)
+		return FALSE
+	realign_level++
+	cooldown_handler.recharge_duration = min(base_cooldown + realign_cooldown_step * realign_level, base_cooldown * realign_max_level)
+	return TRUE
+
+
+/// Walks the cooldown back down a level. Scheduled on a delay after each cast.
+/obj/effect/proc_holder/spell/realignment/proc/delevel_realignment()
+	if(realign_level <= 0)
+		return
+	realign_level--
+	cooldown_handler.recharge_duration = max(base_cooldown + realign_cooldown_step * realign_level, base_cooldown)
 
 
 /datum/status_effect/realignment

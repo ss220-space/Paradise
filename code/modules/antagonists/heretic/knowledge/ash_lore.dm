@@ -146,11 +146,9 @@
 		/obj/item/match = 1,
 	)
 	result_atoms = list(/obj/item/clothing/suit/hooded/cultrobes/eldritch/ash)
-	// TG points this node at the Scorched Mantle's own "ash_armor" sprite. master220's armor.dmi only ever got
-	// moon_armor/blade_armor inserted (not ash_armor), so this node was left on the shared eldritch_armor frame
-	// 12 - the same assembled-armor sprite the rust node uses, which reads as the rusty mantle. Point it at a
-	// dedicated heretic_ash_robe.dmi (the scorched mantle extracted from TG) instead. Single-frame, so frame 1.
-	research_tree_icon_path = 'icons/obj/clothing/heretic_ash_robe.dmi'
+	// Point this node at the Scorched Mantle's own "ash_armor" sprite, which lives in the shared suits.dmi.
+	// (The base eldritch_armor frame would read as the rusty mantle instead.) Single-frame, so frame 1.
+	research_tree_icon_path = 'icons/obj/clothing/suits.dmi'
 	research_tree_icon_state = "ash_armor"
 	research_tree_icon_frame = 1
 

@@ -2,8 +2,8 @@
 /obj/item/clothing/head/hooded/cult_hoodie/eldritch
 	name = "зловещий капюшон"
 	desc = "Рваный, покрытый пылью капюшон. Внутри виднеются жуткие глаза."
-	icon = 'icons/obj/clothing/helmet.dmi'
-	//worn_icon = 'icons/mob/clothing/head/helmet.dmi'
+	// Hood sprites live in the shared hats.dmi (item) / head.dmi (worn) as the "eldritch" state, resolved by
+	// inheritance from the base cult hoodie - no icon/worn override needed.
 	icon_state = "eldritch"
 	//item_state = "eldritch"
 	flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME|HIDEHAIR
@@ -185,14 +185,9 @@
 
 /obj/item/clothing/head/hooded/cult_hoodie/eldritch/ash
 	name = "капюшон опалённой мантии"
-	// Dedicated scorched-mantle hood sprites (ported from TG). The base eldritch hood's icons
-	// only had an "eldritch" state, so without these the ash hood fell back to the wrong sprite.
-	icon = 'icons/obj/clothing/heretic_ash_hood.dmi'
+	// Scorched-mantle hood sprites (ported from TG) live in the shared helmet.dmi (item) / head.dmi (worn)
+	// as the "ash_armor" state, resolved by inheritance from the base eldritch hood.
 	icon_state = "ash_armor"
-	// Paradise resolves the worn (on-mob) sprite via onmob_sheets[slot], not worn_icon.
-	onmob_sheets = list(
-		ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/heretic_ash_hood.dmi',
-	)
 	armor = list("melee" = 30, "bullet" = 30, "laser" = 30, "energy" = 30, "bomb" = 15, "bio" = 10, "rad" = 10, "fire" = 100, "acid" = 10)
 
 
@@ -239,14 +234,10 @@
 	desc = "Прикосновение к складкам этой простой робы наполняет вас тревогой. \
 			Даже один взгляд вызывает головокружение. \
 			Что-то пульсирует под ней, словно силясь затянуть вас внутрь."
-	icon = 'icons/obj/clothing/heretic_rust_robe.dmi'
 	icon_state = "rust_armor"
 	item_state = "rust_armor"
-	// master220 resolves the worn (on-mob) sprite via onmob_sheets[slot] - the rust robe keeps TG's
-	// animated rust shimmer here.
-	onmob_sheets = list(
-		ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/heretic_rust_robe.dmi',
-	)
+	// Item sprite lives in the shared suits.dmi; worn sprite (with TG's animated rust shimmer) in suit.dmi -
+	// both resolved by inheritance, so no icon/onmob_sheets override is needed.
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie/eldritch/rust
 	armor = list(MELEE = 30, BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 50, BIO = 30, FIRE = 30, ACID = 30)
 	/// TRUE while we are currently granting the empowered on-rust armor (and showing the rusted look).
@@ -324,16 +315,16 @@
 	overlay_id++
 	render_id = "*heretic_rust_overlay_[overlay_id]"
 	rust_overlay = new()
-	rust_overlay.icon = 'icons/mob/clothing/heretic_rust_robe_overlay.dmi'
+	rust_overlay.icon = 'icons/mob/clothing/suit.dmi'
 	rust_overlay.render_target = render_id
 	rust_overlay.vis_flags |= VIS_INHERIT_DIR | VIS_INHERIT_LAYER | VIS_INHERIT_ID
 	user.vis_contents += rust_overlay // invisible itself (render_target); we just mirror its sprite onto the worn robe
 	rust_appearance = new /mutable_appearance()
 	rust_appearance.render_source = render_id
 	if(!object_overlay)
-		object_overlay = image('icons/obj/clothing/heretic_rust_robe_overlay.dmi', icon_state = "rust_armor_overlay")
+		object_overlay = image('icons/obj/clothing/suits.dmi', icon_state = "rust_armor_overlay")
 	if(!hood_object_overlay)
-		hood_object_overlay = image('icons/obj/clothing/heretic_rust_hood_overlay.dmi', icon_state = "rust_armor_overlay")
+		hood_object_overlay = image('icons/obj/clothing/hats.dmi', icon_state = "rust_armor_overlay")
 
 
 /// Tears everything setup_rust_overlay built back down and reverts to the base (un-rusted) armor.
@@ -457,16 +448,12 @@
 	desc = "Прикосновение к складкам этой простой робы наполняет вас тревогой. \
 			Даже один взгляд вызывает головокружение. \
 			Что-то пульсирует под ней, словно силясь затянуть вас внутрь."
-	icon = 'icons/obj/clothing/heretic_rust_hood.dmi'
 	icon_state = "rust_armor"
-	// Worn (on-mob) head-slot sprite is BLANK - 1:1 with TG. When the hood is raised the SUIT body switches to
-	// its "_hood" worn state (rust_armor_hood = TG's rust_armor_t), whose opaque dark interior covers the whole
-	// head; the suit renders above the face (SUIT_LAYER over the body limbs) and HIDEHAIR (inherited) hides the
-	// hair, so the head fully disappears into the hood. The head slot only exists to toggle the hood + carry the
-	// head armor; drawing anything here would just double up / poke out.
-	onmob_sheets = list(
-		ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/heretic_rust_hood.dmi',
-	)
+	// Item sprite lives in the shared helmet.dmi (inherited). Worn (on-mob) head-slot sprite is BLANK - 1:1
+	// with TG. When the hood is raised the SUIT body switches to its "_hood" worn state (rust_armor_hood =
+	// TG's rust_armor_t), whose opaque dark interior covers the whole head; the suit renders above the face
+	// (SUIT_LAYER over the body limbs) and HIDEHAIR (inherited) hides the hair, so the head fully disappears
+	// into the hood. The head slot only exists to toggle the hood + carry the head armor.
 	armor = list(MELEE = 30, BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 50, BIO = 30, FIRE = 30, ACID = 30)
 	/// TRUE while granting the empowered on-rust armor.
 	var/rusted = FALSE
@@ -566,15 +553,10 @@
 	name = "сияющее облачение"
 	desc = "Переливающаяся мантия из лунного света и зеркальных нитей. Она не защищает тело — \
 			лишь освобождает разум от оков боли и страха."
-	// Moon robe sprites (item + worn) extracted from tg's armor sheet; the base cult-robe dmi has no
-	// moon_armor state, which is why the regalia rendered with a wrong/blank sprite.
-	icon = 'icons/obj/clothing/heretic_moon_robe.dmi'
+	// Moon robe sprites (item + worn) live in the shared suits.dmi / suit.dmi as the "moon_armor" state,
+	// resolved by inheritance from the base cult robes.
 	icon_state = "moon_armor"
 	item_state = "moon_armor"
-	// master220 resolves the worn (on-mob) sprite via onmob_sheets[slot].
-	onmob_sheets = list(
-		ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/heretic_moon_robe.dmi',
-	)
 	// The regalia has no protective value of its own (tg parity).
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
 	// Only the moon blade may be carried in it (no Lionhunter's Rifle).
@@ -723,11 +705,8 @@
 /obj/item/clothing/head/hooded/cult_hoodie/eldritch/moon
 	name = "капюшон сияющего облачения"
 	desc = "Переливающийся капюшон из лунного света и зеркальных нитей."
-	icon = 'icons/obj/clothing/heretic_moon_hood.dmi'
+	// Item + worn sprites live in the shared helmet.dmi / head.dmi as the "moon_armor" state (inherited).
 	icon_state = "moon_armor"
-	onmob_sheets = list(
-		ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/heretic_moon_hood.dmi',
-	)
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
 
 
@@ -791,20 +770,18 @@
 	name = "расколотая эгида"
 	desc = "Заострённые края этого древнего доспеха несут истину, ведомую лишь воинам: \
 			истинного бойца не отличить от клинка, что он держит."
-	icon = 'icons/obj/clothing/heretic_blade_robe.dmi'
+	// Item + worn sprites live in the shared suits.dmi / suit.dmi as the "blade_armor" state (inherited).
 	icon_state = "blade_armor"
 	item_state = "blade_armor"
-	// master220 resolves the worn (on-mob) sprite via onmob_sheets[slot].
-	onmob_sheets = list(
-		ITEM_SLOT_CLOTH_OUTER_STRING = 'icons/mob/clothing/heretic_blade_robe.dmi',
-	)
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie/eldritch/blade
 	armor = list(MELEE = 50, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 50, BIO = 50, FIRE = 50, ACID = 50)
 	// Shock insulation (tg's siemens_coefficient = 0): the robe shrugs off electric attacks entirely.
 	siemens_coefficient = 0
 	allowed = list(/obj/item/melee/sickly_blade)
-	/// Traits granted while worn (tg: shock immunity + baton-knockdown resistance).
+	/// Traits granted while worn by a heretic (tg: shock immunity + baton-knockdown resistance).
 	var/static/list/panoply_traits = list(TRAIT_SHOCKIMMUNE, TRAIT_BATON_RESISTANCE)
+	/// TRUE while the anti-thief blade barrage is mid-volley (so we don't stack volleys).
+	var/murdering_with_blades = FALSE
 
 
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/blade/get_ru_names()
@@ -827,10 +804,14 @@
 
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/blade/equipped(mob/user, slot, initial = FALSE)
 	. = ..()
-	if(slot == ITEM_SLOT_CLOTH_OUTER)
+	if(slot != ITEM_SLOT_CLOTH_OUTER)
+		user.remove_traits(panoply_traits, UID())
+		return
+	// Heretics get the Panoply's protection; anyone else who dons it is shredded by a barrage of blades (tg parity).
+	if(isheretic(user))
 		user.add_traits(panoply_traits, UID())
 	else
-		user.remove_traits(panoply_traits, UID())
+		INVOKE_ASYNC(src, PROC_REF(start_throwing_blades), user)
 
 
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/blade/dropped(mob/user, slot, silent = FALSE)
@@ -838,15 +819,100 @@
 	user.remove_traits(panoply_traits, UID())
 
 
+// --- Anti-thief blade barrage (tg's robes_side_effect / start_throwing_blades) ---------------------------
+// A non-heretic who equips the Shattered Panoply is assailed by an accelerating volley of phantom blades that
+// fly in from the surrounding tiles. tg throws embedding "magic knives"; master220 has no wound system, so a
+// blade with no room to spawn just deals a sharp brute hit + bleeding instead.
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/blade/proc/start_throwing_blades(mob/living/target)
+	if(murdering_with_blades)
+		return
+	murdering_with_blades = TRUE
+
+	var/delay = 2 SECONDS
+	for(var/knife in 1 to 100)
+		if(!should_keep_cutting(target))
+			break
+		addtimer(CALLBACK(src, PROC_REF(cut_em_good), target), delay * knife)
+		delay = max(0.5 SECONDS, delay - 0.1 SECONDS)
+
+	murdering_with_blades = FALSE
+
+
+/// Keeps the barrage going only while the (living, non-heretic) victim is still wearing us.
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/blade/proc/should_keep_cutting(mob/living/target)
+	if(QDELETED(target) || target.stat == DEAD || isheretic(target))
+		return FALSE
+	if(!ishuman(target))
+		return FALSE
+	var/mob/living/carbon/human/human_target = target
+	return human_target.wear_suit == src
+
+
+/// Spawns one blade on a nearby free tile and hurls it at the victim; if there's no room, cuts them directly.
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/blade/proc/cut_em_good(mob/living/target)
+	if(!should_keep_cutting(target))
+		return
+
+	var/list/turf/valid_turfs = get_blade_turfs(target)
+	if(!length(valid_turfs))
+		target.apply_damage(15, BRUTE, sharp = TRUE) // sharp brute also rolls bleeding, no room for a thrown blade
+		return
+
+	throw_blade(pick(valid_turfs), target)
+
+
+/// Open, unblocked tiles a few steps out from the victim, that a blade can come flying from.
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/blade/proc/get_blade_turfs(mob/user)
+	var/list/turf/valid_turfs = list()
+	for(var/turf/simulated/floor/candidate in range(4, user))
+		if(candidate.density || get_dist(candidate, user) < 2)
+			continue
+		valid_turfs |= candidate
+	return valid_turfs
+
+
+/// Materialises a magic knife on `target_turf` and throws it into the victim.
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/blade/proc/throw_blade(turf/target_turf, mob/living/user)
+	var/obj/item/kitchen/knife/magic/knife = new(target_turf)
+	knife.throw_at(user, 50, 5, spin = FALSE)
+
+
+/obj/item/kitchen/knife/magic
+	name = "магический нож"
+	desc = "Призрачный клинок, который рвётся к плоти недостойного."
+	icon = 'icons/effects/eldritch.dmi'
+	icon_state = "dio_knife"
+	item_state = "knife"
+	throwforce = 15
+	armour_penetration = 200 // most importantly, this ignores armour and shields
+	embed_chance = 100
+	pass_flags = PASSTABLE | PASSGRILLE | PASSFLAPS
+
+
+/obj/item/kitchen/knife/magic/get_ru_names()
+	return alist(
+		NOMINATIVE = "магический нож",
+		GENITIVE = "магического ножа",
+		DATIVE = "магическому ножу",
+		ACCUSATIVE = "магический нож",
+		INSTRUMENTAL = "магическим ножом",
+		PREPOSITIONAL = "магическом ноже",
+	)
+
+
+/obj/item/kitchen/knife/magic/Initialize(mapload)
+	. = ..()
+	add_filter("dio_knife", 2, list("type" = "outline", "color" = "#ececff", "size" = 1))
+	QDEL_IN(src, 30 SECONDS) // don't litter the floor with phantom knives
+
+
 /obj/item/clothing/head/hooded/cult_hoodie/eldritch/blade
 	name = "капюшон расколотой эгиды"
 	desc = "Заострённые края этого древнего доспеха несут истину, ведомую лишь воинам."
-	icon = 'icons/obj/clothing/heretic_blade_hood.dmi'
+	// Item + worn sprites live in the shared helmet.dmi / head.dmi as the "blade_armor" state (inherited).
 	icon_state = "blade_armor"
-	onmob_sheets = list(
-		ITEM_SLOT_HEAD_STRING = 'icons/mob/clothing/heretic_blade_hood.dmi',
-	)
 	armor = list(MELEE = 50, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 50, BIO = 50, FIRE = 50, ACID = 50)
+	siemens_coefficient = 0 // shock insulation, matching the suit (tg parity)
 
 
 /obj/item/clothing/head/hooded/cult_hoodie/eldritch/blade/get_ru_names()
@@ -865,8 +931,7 @@
 	name = "капюшон пустоты"
 	desc = "Чёрный, как смола, не отражающий свет. Покрытый рунами. \
 			С каждой вспышкой вы теряете понимание того, что видите."
-	icon = 'icons/obj/clothing/helmet.dmi'
-	//worn_icon = 'icons/mob/clothing/head/helmet.dmi'
+	// Item sprite lives in the shared hats.dmi as the "void_cloak" state (inherited).
 	icon_state = "void_cloak"
 	//item_state = "void_cloak"
 	flags_inv = NONE

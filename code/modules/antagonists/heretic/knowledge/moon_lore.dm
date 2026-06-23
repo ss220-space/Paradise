@@ -159,7 +159,7 @@
 	result_atoms = list(/obj/item/clothing/suit/hooded/cultrobes/eldritch/moon)
 	// The pink Resplendent Regalia sprite was inserted into the already-mapped armor.dmi (matching tg, which
 	// points this node at suits/armor.dmi "moon_armor").
-	research_tree_icon_path = 'icons/obj/clothing/armor.dmi'
+	research_tree_icon_path = 'icons/obj/clothing/suits.dmi'
 	research_tree_icon_state = "moon_armor"
 	// The /armor parent points at eldritch_armor (a 14-frame anim) and asks for frame 12. moon_armor is a
 	// single-frame sprite, so we MUST override back to frame 1 - requesting frame 12 of a 1-frame state

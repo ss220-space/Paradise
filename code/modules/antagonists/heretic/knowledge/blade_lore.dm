@@ -43,9 +43,9 @@
 	// path's passive (tg parity, replacing the old standalone blade_dance node) and scaling as you grow.
 	passive_name = "Танец Клинка"
 	passive_descriptions = list(
-		"Атакованный в ближнем бою с клинком Еретика в руке, вы отвечаете контрударом (раз в 10 секунд).",
-		"Откат контратаки сокращён до 7 секунд.",
-		"Откат контратаки сокращён до 4 секунд.",
+		"Атакованный в ближнем бою с клинком Еретика в любой руке, вы наносите мгновенный бесплатный ответный удар атакующему. Срабатывает не чаще раза в 20 секунд.",
+		"Иммунитет к урону от падения.",
+		"Откат контратаки сокращён до 10 секунд.",
 	)
 
 	// TG-format column (1:1 with tgstation Blade). Main line:
@@ -194,7 +194,7 @@
 	// The blade robe sprite was inserted into the already-mapped armor.dmi (matches tg, which points this node
 	// at suits/armor.dmi "blade_armor"). The /armor parent asks for frame 12 (eldritch_armor is a 14-frame
 	// anim); blade_armor is single-frame, so override back to frame 1 or the node renders a blank PNG.
-	research_tree_icon_path = 'icons/obj/clothing/armor.dmi'
+	research_tree_icon_path = 'icons/obj/clothing/suits.dmi'
 	research_tree_icon_state = "blade_armor"
 	research_tree_icon_frame = 1
 	required_atoms = list(
@@ -237,7 +237,8 @@
 	name = "Усиленные Клинки"
 	desc = "Атака с Клинками в обеих руках теперь будет наносить удар обоими руками \
 			одновременно. Второй удар будет немного слабее. Вы можете вкладывать силу \
-			Мансуса непосредственно в свои клинки, чтобы сделать их более эффективными против строений."
+			Мансуса непосредственно в свои клинки, а сами клинки наносят гораздо больше \
+			урона строениям, силиконам и мехам."
 	gain_text = "Я нашел его расколотым надвое, половинки сцепились в бесконечном поединке; \
 				Вокруг был шквал клинков, но ни один не достиг цели, ибо Воитель был неукротим."
 	research_tree_icon_path = 'icons/ui_icons/antags/heretic/knowledge.dmi'
@@ -251,13 +252,15 @@
 /datum/heretic_knowledge/blade_upgrade/blade/on_gain(mob/user, datum/antagonist/heretic/our_heretic)
 	. = ..()
 	RegisterSignal(user, COMSIG_TOUCH_HANDLESS_CAST, PROC_REF(on_grasp_cast))
-	//RegisterSignal(user, COMSIG_MOB_EQUIPPED_ITEM, PROC_REF(on_blade_equipped))
+	// The "blades are stronger against structures/silicons/mechs" half of this knowledge (tg's demolition_mod)
+	// is handled directly on the blade (/obj/item/melee/sickly_blade/dark checks for THIS knowledge at swing
+	// time), since master220 never emits COMSIG_MOB_EQUIPPED_ITEM - so no equip-time signal is needed here.
 	RegisterSignal(user, COMSIG_HERETIC_BLADE_ATTACK, PROC_REF(do_melee_effects), override = TRUE)
 
 
 /datum/heretic_knowledge/blade_upgrade/blade/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
 	. = ..()
-	UnregisterSignal(user, list(COMSIG_TOUCH_HANDLESS_CAST/*, COMSIG_MOB_EQUIPPED_ITEM*/, COMSIG_HERETIC_BLADE_ATTACK))
+	UnregisterSignal(user, list(COMSIG_TOUCH_HANDLESS_CAST, COMSIG_HERETIC_BLADE_ATTACK))
 
 
 ///Tries to infuse our held blade with our mansus grasp
@@ -337,15 +340,6 @@
 	// Perform the offhand attack
 	blade.melee_attack_chain(source, target, null, list(FORCE_MODIFIER = -offand_force_decrement))
 
-
-/*
-///Modifies our blade demolition modifier so we can take down doors with it
-/datum/heretic_knowledge/blade_upgrade/blade/proc/on_blade_equipped(mob/user, obj/item/equipped, slot)
-	SIGNAL_HANDLER
-	if(istype(equipped, /obj/item/melee/sickly_blade/dark))
-		equipped.demolition_mod = 1.5
-*/
-
 /datum/heretic_knowledge/spell/furious_steel
 	name = "Яростная сталь"
 	desc = "Даёт вам «Яростную сталь», направляемое заклинание. При его использовании вокруг \
@@ -369,12 +363,17 @@
 			Эти клинки защитят вас от всех атак, но расходуются при использовании. \
 			Ваше заклинание «Неистовая сталь» также будет перезаряжаться быстрее. \
 			Кроме того, вы становитесь мастером боя, получая полную невосприимчивость \
-			к переломам и способность игнорировать кратковременные оглушения. \
+			к переломам и любым кровотечениям — внутренним, артериальным и обычным, — \
+			а также способность игнорировать кратковременные оглушения. \
 			Ваши клинки наносят дополнительный урон и исцеляют вас при \
 			атаке на часть нанесенного урона."
 	gain_text = "Я достиг вершины боевого мастерства! МНЕ НЕТ РАВНЫХ! ДА НАГНЕТАЕТ МОИХ ВРАГОВ БУРЯ ИЗ СТАЛИ И СЕРЕБРА! СТАНЬТЕ СВИДЕТЕЛЯМИ МОЕГО ВОЗНЕСЕНИЯ!"
 
 	//ascension_achievement = /datum/award/achievement/misc/blade_ascension
+	// tg derives the ascension node's tree icon from its achievement medal sprite; we point straight at that
+	// same medal sheet (state "bladeascend") since the achievement system itself isn't ported.
+	research_tree_icon_path = 'icons/ui/achievements/achievements.dmi'
+	research_tree_icon_state = "bladeascend"
 	announcement_text = "%SPOOKY% Мастер Клинка, %NAME% вознесся! Сталь клинков рассечет реальность в серебрянном водовороте! %SPOOKY%"
 	announcement_sound = 'sound/music/heretic/ascend_blade.ogg'
 
@@ -389,9 +388,27 @@
 
 /datum/heretic_knowledge/ultimate/blade_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	. = ..()
-	//ADD_TRAIT(user, TRAIT_NEVER_WOUNDED, type)
+	// tg grants TRAIT_NEVER_WOUNDED (full wound immunity). master220 has no wound system, but it DOES have
+	// fractures - so the master220 equivalent of "full wound immunity" is fracture immunity (TRAIT_IGNORE_FRACTURE).
+	if(ishuman(user))
+		var/mob/living/carbon/human/human_user = user
+		human_user.add_fracture_ignore_trait(type)
+		human_user.physiology.knockdown_mod = 0.75 // Otherwise knockdowns would probably overpower the stun absorption effect.
+		// A true master of combat shrugs off bodily harm. Fractures and internal/arterial bleeding are gated by
+		// PERSISTENT per-limb vars, so we set them ONCE here (no per-tick work) and clear anything already present.
+		for(var/obj/item/organ/external/bodypart as anything in human_user.bodyparts)
+			bodypart.cannot_break = TRUE
+			bodypart.cannot_internal_bleed = TRUE
+			bodypart.cannot_arterial_bleed = TRUE
+			bodypart.stop_internal_bleeding()
+			bodypart.stop_bleeding()
 	RegisterSignal(user, COMSIG_HERETIC_BLADE_ATTACK, PROC_REF(on_eldritch_blade))
-	user.apply_status_effect(/datum/status_effect/protective_blades/recharging, null, 8, 30, 0.25 SECONDS, /obj/effect/floating_blade, 30 SECONDS)
+	// Plain external bleeding is the only kind with no prevention flag in master220 (only the over-broad
+	// TRAIT_NO_BLOOD, which makes the heretic literally bloodless). It can only accrue from brute hits, so we
+	// wipe it on the Life tick - but behind a cheap bleed_rate early-out, so idle ticks do effectively nothing.
+	RegisterSignal(user, COMSIG_LIVING_LIFE, PROC_REF(suppress_external_bleeding))
+	// Permanent, self-regenerating orbit of 8 protective blades; each consumed blade recharges after 60s (tg parity).
+	user.apply_status_effect(/datum/status_effect/protective_blades/recharging, STATUS_EFFECT_PERMANENT, 8, 30, 0.25 SECONDS, /obj/effect/floating_blade, 60 SECONDS)
 	user.add_stun_absorption(
 		source = name,
 		message = span_warning("%EFFECT_OWNER выдерживает оглушение!"),
@@ -406,11 +423,29 @@
 		delete_after_passing_max = FALSE,
 		recharge_time = 2 MINUTES,
 	)
+	// Halve the Furious Steel cooldown (tg). base_cooldown alone won't re-cut the live cooldown - the handler's
+	// recharge_duration was already seeded from it at init - so we halve both.
 	var/obj/effect/proc_holder/spell/pointed/projectile/furious_steel/steel_spell = locate() in user.mob_spell_list
-	steel_spell?.base_cooldown /= 2
+	if(steel_spell)
+		steel_spell.base_cooldown /= 2
+		if(steel_spell.cooldown_handler)
+			steel_spell.cooldown_handler.recharge_duration /= 2
 
-	var/mob/living/carbon/human/heretic = user
-	heretic.physiology.knockdown_mod = 0.75 // Otherwise knockdowns would probably overpower the stun absorption effect.
+
+/// Wipes plain external bleeding (the only kind master220 has no per-limb prevention flag for). Early-outs
+/// when the heretic isn't bleeding, so it's essentially free on idle ticks and only acts right after a hit.
+/datum/heretic_knowledge/ultimate/blade_final/proc/suppress_external_bleeding(mob/living/source)
+	SIGNAL_HANDLER
+
+	if(!ishuman(source))
+		return
+
+	var/mob/living/carbon/human/human_source = source
+	if(!human_source.bleed_rate) // Cheap O(1) check - nothing to do unless we're actually bleeding.
+		return
+
+	for(var/obj/item/organ/external/bodypart as anything in human_source.bleeding_bodyparts)
+		bodypart.stop_bleeding() // bleeding_amount = 0; SSblood prunes the part from bleeding_bodyparts next pass
 
 
 /datum/heretic_knowledge/ultimate/blade_final/proc/on_eldritch_blade(mob/living/source, mob/living/target, obj/item/melee/sickly_blade/blade)
@@ -461,5 +496,10 @@
 		if(living_target.body_position == LYING_DOWN)
 			return TRUE
 
-	// Exceptions aside, let's actually check if they're, yknow, behind
-	return source.dir == get_dir(source, target)
+	// Exceptions aside, let's actually check if they're, yknow, behind: the attacker is behind the target
+	// when the target is facing AWAY from the attacker (target.dir matches the reverse of target->source).
+	var/dir_target_to_source = get_dir(target, source)
+	if(target.dir & REVERSE_DIR(dir_target_to_source))
+		return TRUE
+
+	return FALSE

@@ -288,25 +288,32 @@
 	carbon_owner.adjustOrganLoss(INTERNAL_ORGAN_BRAIN, -heal)
 
 
-//---- Blade Passive: "Танец Клинка" (riposte) — ported from /tg/station, adapted to master220.
+//---- Blade Passive: "Танец Клинка" (riposte) — ported 1:1 from /tg/station, adapted to master220.
 // When attacked in melee while holding a heretic blade, you instantly strike back at the attacker, once per
 // cooldown. tg makes this riposte the blade path's PASSIVE (it folded the old standalone blade_dance node
-// into the passive), so it's granted on picking the path and strengthens as you grow.
-// Level 1 - riposte, 10s cooldown (granted on picking the path).
-// Level 2 - riposte cooldown shortened to 7s (granted on crafting the robe).
-// Level 3 - riposte cooldown shortened to 4s (granted on ascension).
+// into the passive), so it's granted on picking the path and strengthens as you grow. Cooldown scales with
+// power: tg uses base_cooldown - cooldown_reduction * (level - 1) -> 20s / 15s / 10s.
+// Level 1 - riposte, 20s cooldown (granted on picking the path).
+// Level 2 - immunity to fall damage (granted on crafting the robe), cooldown drops to 15s.
+// Level 3 - cooldown of the riposte reduced to 10s (granted on ascension).
+// NB: tg also makes the level-2+ riposte count as a SUCCESSFUL_BLOCK (nullifying the hit). master220 has no
+// COMSIG_LIVING_CHECK_BLOCK / block-reaction system, so we drive the riposte off COMSIG_ATOM_WAS_ATTACKED
+// (the relay_attackers element) instead - the counter-attack still lands, it just can't cancel the incoming
+// hit. The player-facing levels (riposte / fall immunity / cooldown) are otherwise identical to tg.
 /datum/status_effect/heretic_passive/blade
 	id = "heretic_passive_blade"
 	name = "Танец Клинка"
 	passive_descriptions = list(
-		"Атакованный в ближнем бою с клинком Еретика в руке, вы отвечаете контрударом (раз в 10 секунд).",
-		"Откат контратаки сокращён до 7 секунд.",
-		"Откат контратаки сокращён до 4 секунд.",
+		"Атакованный в ближнем бою с клинком Еретика в любой руке, вы наносите мгновенный бесплатный ответный удар атакующему. Срабатывает не чаще раза в 20 секунд.",
+		"Иммунитет к урону от падения.",
+		"Откат контратаки сокращён до 10 секунд.",
 	)
 	/// Whether the counter-attack is ready (used instead of a raw cooldown so we can announce when it returns).
 	var/riposte_ready = TRUE
-	/// Cooldown between ripostes; shortens as the passive levels up.
-	var/riposte_cooldown = 10 SECONDS
+	/// Base cooldown between ripostes at level 1.
+	var/base_cooldown = 20 SECONDS
+	/// How much the cooldown shortens per level gained (20s -> 15s -> 10s).
+	var/cooldown_reduction = 5 SECONDS
 	/// Stoppable timer that re-arms the riposte.
 	var/riposte_timer
 
@@ -320,47 +327,46 @@
 		owner.AddElement(/datum/element/relay_attackers)
 
 
+/// Level 2 grants immunity to fall damage (tg parity), landing safely and stylishly instead.
 /datum/status_effect/heretic_passive/blade/level_upgrade()
 	. = ..()
 	if(!.)
 		return
-	riposte_cooldown = 7 SECONDS
-
-
-/datum/status_effect/heretic_passive/blade/level_final()
-	. = ..()
-	if(!.)
-		return
-	riposte_cooldown = 4 SECONDS
+	RegisterSignal(owner, COMSIG_LIVING_Z_IMPACT, PROC_REF(z_impact_react))
 
 
 /datum/status_effect/heretic_passive/blade/on_remove()
-	UnregisterSignal(owner, COMSIG_ATOM_WAS_ATTACKED)
+	UnregisterSignal(owner, list(COMSIG_ATOM_WAS_ATTACKED, COMSIG_LIVING_Z_IMPACT))
 	if(riposte_timer)
 		deltimer(riposte_timer)
 		riposte_timer = null
 	return ..()
 
 
-/datum/status_effect/heretic_passive/blade/proc/on_shield_reaction(
-	mob/living/carbon/human/source,
-	atom/movable/hitby,
-	damage = 0,
-	attack_text = "атакует",
-	attack_type = ITEM_ATTACK,
-	armour_penetration = 0,
-	damage_type = BRUTE,
-)
+/// Blocks the effects of falling, landing on our feet with a stylish flip (tg parity).
+/datum/status_effect/heretic_passive/blade/proc/z_impact_react(datum/source, levels, turf/fell_on)
+	SIGNAL_HANDLER
+	new /obj/effect/temp_visual/mook_dust(fell_on)
+	owner.visible_message(span_notice("[owner.declent_ru(NOMINATIVE)] приземляется безопасно и весьма эффектно — точно на ноги!"))
+	INVOKE_ASYNC(owner, TYPE_PROC_REF(/atom, SpinAnimation), 0.5 SECONDS, 0)
+	INVOKE_ASYNC(owner, TYPE_PROC_REF(/mob, emote), "flip")
+	return ZIMPACT_CANCEL_DAMAGE | ZIMPACT_NO_MESSAGE | ZIMPACT_NO_SPIN
+
+
+// Signal handler for COMSIG_ATOM_WAS_ATTACKED (relay_attackers): args are (source, attacker, attack_flags).
+/datum/status_effect/heretic_passive/blade/proc/on_shield_reaction(mob/living/carbon/human/source, atom/movable/hitby, attack_flags)
 	SIGNAL_HANDLER
 
-	if(attack_type != ITEM_ATTACK)
+	// Shoves aren't a real "melee strike" - they don't provoke a riposte (tg only ripostes melee attacks).
+	if(attack_flags & ATTACKER_SHOVING)
 		return
 	if(!riposte_ready)
 		return
 
-	var/mob/living/attacker = isliving(hitby) ? hitby : hitby.loc
+	var/mob/living/attacker = isliving(hitby) ? hitby : hitby?.loc
 	if(!istype(attacker))
 		return
+	// Adjacency gates out ranged attacks - the riposte is a melee counter (tg parity).
 	if(!ishuman(source) || !source.Adjacent(attacker))
 		return
 
@@ -376,8 +382,8 @@
 		return
 
 	riposte_ready = FALSE
-	riposte_timer = addtimer(CALLBACK(src, PROC_REF(reset_riposte), source), riposte_cooldown, TIMER_STOPPABLE)
-	INVOKE_ASYNC(src, PROC_REF(counter_attack), source, attacker, striking_with, attack_text)
+	riposte_timer = addtimer(CALLBACK(src, PROC_REF(reset_riposte), source), (base_cooldown - cooldown_reduction * (applied_level - 1)), TIMER_STOPPABLE)
+	INVOKE_ASYNC(src, PROC_REF(counter_attack), source, attacker, striking_with, "атакует")
 
 
 /datum/status_effect/heretic_passive/blade/proc/counter_attack(mob/living/carbon/human/source, mob/living/target, obj/item/melee/sickly_blade/weapon, attack_text)

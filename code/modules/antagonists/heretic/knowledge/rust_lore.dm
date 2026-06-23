@@ -191,7 +191,7 @@
 		/obj/item/trash = 1,
 	)
 	result_atoms = list(/obj/item/clothing/suit/hooded/cultrobes/eldritch/rust)
-	research_tree_icon_path = 'icons/obj/clothing/armor.dmi'
+	research_tree_icon_path = 'icons/obj/clothing/suits.dmi'
 	research_tree_icon_state = "eldritch_armor"
 	research_tree_icon_frame = 12
 
