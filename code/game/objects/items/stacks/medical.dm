@@ -951,14 +951,10 @@
 	var/obj/item/organ/external/applied_bodypart = null
 	/// Addition bodypart on which tourniquet is applied  (hand for arm, foot for leg)
 	var/obj/item/organ/external/applied_addition_bodypart = null
-	/// Duration of limb necrotize warning in chat
-	var/necrotize_warning_duration = 7 MINUTES
-	/// Limb necrotize warning timer identifier
-	var/necrotize_warning_timer_id = null
 	/// Duration of limb necrotize if apply tourniquet
-	var/necrotize_duration = 10 MINUTES
+	var/tourniquet_duration = 3 MINUTES
 	/// Limb necrotize timer identifier if apply tourniquet
-	var/necrotize_timer_id = null
+	var/tourniquet_timer_id = null
 
 /obj/item/tourniquet/Destroy()
 	. = ..()
@@ -967,14 +963,11 @@
 	stop_apply_timers()
 
 /obj/item/tourniquet/proc/stop_apply_timers()
-	if(necrotize_warning_timer_id)
-		deltimer(necrotize_warning_timer_id)
-		necrotize_warning_timer_id = null
-	if(!necrotize_timer_id)
+	if(!tourniquet_timer_id)
 		return
 
-	deltimer(necrotize_timer_id)
-	necrotize_timer_id = null
+	deltimer(tourniquet_timer_id)
+	tourniquet_timer_id = null
 
 /obj/item/tourniquet/get_ru_names()
 	return alist(
@@ -1019,8 +1012,7 @@
 	target.balloon_alert_to_viewers("турникет наложен", "вы наложили турникет")
 	target.UpdateDamageIcon()
 	update_icon()
-	necrotize_warning_timer_id = addtimer(CALLBACK(src, PROC_REF(necrotize_limbs_warning), target), necrotize_warning_duration, TIMER_STOPPABLE)
-	necrotize_timer_id = addtimer(CALLBACK(src, PROC_REF(necrotize_limbs), target), necrotize_duration, TIMER_STOPPABLE)
+	tourniquet_timer_id = addtimer(CALLBACK(src, PROC_REF(tourniquet_duration_end), target), tourniquet_duration, TIMER_STOPPABLE)
 
 /obj/item/tourniquet/proc/apply_to_self(mob/living/carbon/human/user, obj/item/organ/external/affecting, obj/item/organ/external/addition_affecting)
 	var/selected_zone = user.zone_selected
@@ -1078,20 +1070,26 @@
 
 	return TRUE
 
-/obj/item/tourniquet/proc/necrotize_limbs_warning(mob/living/user)
+/obj/item/tourniquet/proc/tourniquet_duration_end(mob/living/user)
 	if(!applied_bodypart)
 		return
 
-	user.balloon_alert(user, "конечность онемела!")
-	to_chat(user, span_danger("Ваш[GEND_A_E_I(user)] [applied_bodypart.declent_ru(NOMINATIVE)] неме[PLUR_ET_YUT(applied_bodypart)]!"))
+	user.balloon_alert_to_viewers("турникет упал!")
+	user.visible_message(
+		span_notice("С [applied_bodypart.declent_ru(GENITIVE)] [user] упал турникет."),
+		blind_message = span_hear("Вы слышите звук падения чего-то."),
+		ignored_mobs = user,
+	)
 
-/obj/item/tourniquet/proc/necrotize_limbs(mob/living/target)
-	if(applied_bodypart)
-		applied_bodypart.necrotize()
-	if(!applied_addition_bodypart)
-		return
+	applied_bodypart.tourniquet = null
+	applied_bodypart = null
 
-	applied_addition_bodypart.necrotize()
+	if(applied_addition_bodypart)
+		applied_addition_bodypart.tourniquet = null
+		applied_addition_bodypart = null
+
+	stop_apply_timers()
+	qdel(src)
 
 /obj/item/tourniquet/proc/remove_from_bodypart(mob/living/user)
 	if(!applied_bodypart)
@@ -1137,8 +1135,7 @@
 		if(!affecting.tourniquet)
 			continue
 		var/obj/item/tourniquet/tourniquet = affecting.tourniquet
-		var/drop_loc = affecting.drop_location()
-		tourniquet.forceMove(drop_loc)
+
 		affecting.tourniquet = null
 		tourniquet.applied_bodypart = null
 
@@ -1147,6 +1144,7 @@
 			tourniquet.applied_addition_bodypart = null
 
 		tourniquet.stop_apply_timers()
+		qdel(tourniquet)
 
 /obj/item/tourniquet/makeshift
 	name = "makeshift tourniquet"
@@ -1178,8 +1176,9 @@
 			Длительное использование без последующей медицинской помощи ведёт к некрозу тканей."
 	icon_state = "advanced_tourniquet"
 	item_state = "advanced_tourniquet"
+	tourniquet_duration = 5 MINUTES
 	self_duration = 1 SECONDS
-	custom_price = PAYCHECK_MIN * 2
+	custom_price = PAYCHECK_MIN * 1.2
 
 /obj/item/tourniquet/advanced/get_ru_names()
 	return alist(
