@@ -51,27 +51,42 @@
 	desc = "Влияет на скорость перезарядки."
 	duration_mod_signals = list(COMSIG_GET_GUN_RELOAD_MOD, COMSIG_GET_MAGAZINE_RELOAD_MOD)
 	var/missfire_chances = alist(
-		SKILL_LEVEL_NONE = 10,
-		SKILL_LEVEL_BEGINNER = 5,
-		SKILL_LEVEL_BASIC = 2.5,
-		SKILL_LEVEL_ADVANCED = 1,
+		SKILL_LEVEL_NONE = 4,
+		SKILL_LEVEL_BEGINNER = 2,
+		SKILL_LEVEL_BASIC = 1,
+		SKILL_LEVEL_ADVANCED = 0,
 		SKILL_LEVEL_PROFESSIONAL = 0,
 		SKILL_LEVEL_EXPERT = 0,
 		SKILL_LEVEL_LEGEND = 0,
 		SKILL_LEVEL_UNAVAILABLE = 50,
 	)
+	var/recoil_modifiers = alist(
+		SKILL_LEVEL_NONE = 2,
+		SKILL_LEVEL_BEGINNER = 1.5,
+		SKILL_LEVEL_BASIC = 1,
+		SKILL_LEVEL_ADVANCED = 0.75,
+		SKILL_LEVEL_PROFESSIONAL = 0.5,
+		SKILL_LEVEL_EXPERT = 0.25,
+		SKILL_LEVEL_LEGEND = 0.1,
+		SKILL_LEVEL_UNAVAILABLE = 5,
+	)
 
 /datum/skill/combat/guns/apply_to_mob(mob/owner)
 	. = ..()
 	RegisterSignal(owner, COMSIG_GET_MISSFIRE_CHANCE, PROC_REF(get_missfire_chance))
+	RegisterSignal(owner, COMSIG_GET_RECOIL_MOD, PROC_REF(get_recoil_mod))
 
 /datum/skill/combat/guns/remove_from_mob(mob/owner)
 	. = ..()
-	UnregisterSignal(owner, COMSIG_GET_MISSFIRE_CHANCE)
+	UnregisterSignal(owner, list(COMSIG_GET_MISSFIRE_CHANCE, COMSIG_GET_RECOIL_MOD))
 
 /datum/skill/combat/guns/proc/get_missfire_chance(mob/living/user, list/results)
 	SIGNAL_HANDLER
 	get_modifier(user, results, missfire_chances)
+
+/datum/skill/combat/guns/proc/get_recoil_mod(mob/living/user, list/results)
+	SIGNAL_HANDLER
+	get_modifier(user, results, recoil_modifiers)
 
 /datum/skill/combat/melee
 	id = "combat.melee"

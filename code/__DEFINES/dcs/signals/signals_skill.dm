@@ -67,3 +67,5 @@
 #define COMSIG_GET_MAGAZINE_RELOAD_MOD "get_magazine_reload_mod"
 /// Get missfire chance for guns skill (mob/living/user, list/modifiers)
 #define COMSIG_GET_MISSFIRE_CHANCE "get_missfire_chance"
+/// Get gun recoil mod for guns skill (mob/living/user, list/modifiers)
+#define COMSIG_GET_RECOIL_MOD "get_recoil_mod"
