@@ -125,6 +125,8 @@
 	///a list of objectives that a player with this job could complete for space credit rewards
 	var/list/job_objectives = list()
 
+	/// Flag for skills initialization
+	var/skills_initialized = FALSE
 	/// List of skill levels (associative map of type to level (number))
 	var/list/skills = list()
 
@@ -3080,7 +3082,7 @@
 			SSticker.minds += mind
 		else
 			error("mind_initialize(): No ticker ready yet! Please inform Carn")
-		mind.init_skills()
+		mind.init_skills(src)
 	if(!mind.name)
 		mind.name = real_name
 	mind.current = src

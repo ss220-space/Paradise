@@ -35,7 +35,7 @@
 
 /datum/skill/combat/accuracy/remove_from_mob(mob/owner)
 	. = ..()
-	UnregisterSignal(owner, COMSIG_GET_ACCURACY_MOD, COMSIG_GET_SPREAD_MOD)
+	UnregisterSignal(owner, list(COMSIG_GET_ACCURACY_MOD, COMSIG_GET_SPREAD_MOD))
 
 /datum/skill/combat/accuracy/proc/get_accuracy_modifier(mob/living/user, list/results)
 	SIGNAL_HANDLER
