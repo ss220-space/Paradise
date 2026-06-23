@@ -1506,3 +1506,12 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 		return TRUE
 
 	return FALSE
+
+/**
+ * Helpful for when a players uplink window gets glitched to above their screen.
+ * preventing them from moving the UPLINK window.
+ */
+/mob/verb/reset_ui_positions_for_mob()
+	set name = "Reset UI Positions"
+	set category = VERB_CATEGORY_SPECIALVERBS
+	SStgui.reset_ui_position(src)

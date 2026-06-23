@@ -4,15 +4,12 @@
  * @file
  * @copyright 2020 Aleksej Komarov
  * @license MIT
- *
  */
 
-export const IMPL_MEMORY = 0;
 export const IMPL_HUB_STORAGE = 1;
 export const IMPL_IFRAME_INDEXED_DB = 2;
 
 type StorageImplementation =
-  | typeof IMPL_MEMORY
   | typeof IMPL_HUB_STORAGE
   | typeof IMPL_IFRAME_INDEXED_DB;
 
@@ -39,6 +36,10 @@ const testHubStorage = testGeneric(
   () => window.hubStorage && !!window.hubStorage.getItem
 );
 
+const STORAGE_CDN_TIMEOUT = 5000;
+const persistedStorageKeys = ['panel-settings', 'chat-state', 'chat-messages'];
+const legacyHubMigrationKeys = ['panel-settings'];
+
 class HubStorageBackend implements StorageBackend {
   public impl: StorageImplementation;
 
@@ -47,67 +48,39 @@ class HubStorageBackend implements StorageBackend {
   }
 
   async get(key: string): Promise<any> {
-    return new Promise((resolve) => {
-      queueMicrotask(() => {
-        const value = window.hubStorage.getItem('paradise-' + key);
-        if (typeof value === 'string') {
-          resolve(JSON.parse(value));
-        } else {
-          resolve(undefined);
-        }
-      });
-    });
+    const value = await window.hubStorage.getItem('paradise-' + key);
+    if (typeof value === 'string') {
+      return JSON.parse(value);
+    }
+    return undefined;
   }
 
   async set(key: string, value: any): Promise<void> {
-    return new Promise((resolve) => {
-      queueMicrotask(() => {
-        window.hubStorage.setItem('paradise-' + key, JSON.stringify(value));
-        resolve();
-      });
-    });
+    window.hubStorage.setItem('paradise-' + key, JSON.stringify(value));
   }
 
   async remove(key: string): Promise<void> {
-    return new Promise((resolve) => {
-      queueMicrotask(() => {
-        window.hubStorage.removeItem('paradise-' + key);
-        resolve();
-      });
-    });
+    window.hubStorage.removeItem('paradise-' + key);
   }
 
   async clear(): Promise<void> {
-    return new Promise((resolve) => {
-      queueMicrotask(() => {
-        window.hubStorage.clear();
-        resolve();
-      });
-    });
+    window.hubStorage.clear();
   }
+
   async processChatMessages(messages): Promise<void> {
-    return new Promise((resolve) => {
-      queueMicrotask(() => {
-        window.hubStorage.setItem(
-          'paradise-chat-messages',
-          JSON.stringify(messages)
-        );
-        resolve();
-      });
-    });
+    window.hubStorage.setItem(
+      'paradise-chat-messages',
+      JSON.stringify(messages)
+    );
   }
 
   async getChatMessages(): Promise<any> {
-    return new Promise((resolve) => {
-      queueMicrotask(() => {
-        const value = window.hubStorage.getItem('paradise-chat-messages');
-        if (typeof value === 'string') {
-          resolve(JSON.parse(value));
-        } else {
-          resolve(undefined);
-        }
-      });
-    });
+    const value = window.hubStorage.getItem('paradise-chat-messages');
+    if (typeof value === 'string') {
+      return JSON.parse(value);
+    } else {
+      return undefined;
+    }
   }
   async iframe_check(): Promise<boolean> {
     return false;
@@ -116,8 +89,10 @@ class HubStorageBackend implements StorageBackend {
 
 export class IFrameIndexedDbBackend implements StorageBackend {
   public impl: StorageImplementation;
+
   private documentElement: HTMLIFrameElement;
   private iframeWindow: Window;
+
   constructor() {
     this.impl = IMPL_IFRAME_INDEXED_DB;
   }
@@ -125,17 +100,45 @@ export class IFrameIndexedDbBackend implements StorageBackend {
   async ready(): Promise<boolean | null> {
     const iframe = document.createElement('iframe');
     iframe.style.display = 'none';
-    iframe.sandbox = 'allow-scripts allow-same-origin allow-forms';
     iframe.src = Byond.storageCdn;
 
     const completePromise: Promise<boolean> = new Promise((resolve) => {
-      iframe.onload = () => resolve(!!this);
+      const listener = (message: MessageEvent) => {
+        if (
+          message.source === iframe.contentWindow &&
+          message.data === 'ready'
+        ) {
+          resolveReady(true);
+        }
+      };
+      const resolveReady = (ready: boolean) => {
+        clearTimeout(timeout);
+        window.removeEventListener('message', listener);
+        resolve(ready);
+      };
+      const timeout = setTimeout(
+        () => resolveReady(false),
+        STORAGE_CDN_TIMEOUT
+      );
+
+      fetch(Byond.storageCdn, { method: 'HEAD' })
+        .then((response) => {
+          if (response.status !== 200) {
+            resolveReady(false);
+          }
+        })
+        .catch(() => {
+          resolveReady(false);
+        });
+
+      window.addEventListener('message', listener);
     });
 
     this.documentElement = document.body.appendChild(iframe);
     if (!this.documentElement.contentWindow) {
       return new Promise((res) => res(false));
     }
+
     this.iframeWindow = this.documentElement.contentWindow;
 
     return completePromise;
@@ -143,11 +146,23 @@ export class IFrameIndexedDbBackend implements StorageBackend {
 
   async get(key: string): Promise<any> {
     const promise = new Promise((resolve) => {
-      window.addEventListener('message', (message) => {
-        if (message.data.key && message.data.key === key) {
+      const listener = (message: MessageEvent) => {
+        if (
+          message.source === this.iframeWindow &&
+          message.data.key &&
+          message.data.key === key
+        ) {
+          clearTimeout(timeout);
+          window.removeEventListener('message', listener);
           resolve(message.data.value);
         }
-      });
+      };
+      const timeout = setTimeout(() => {
+        window.removeEventListener('message', listener);
+        resolve(undefined);
+      }, STORAGE_CDN_TIMEOUT);
+
+      window.addEventListener('message', listener);
     });
 
     this.iframeWindow.postMessage({ type: 'get', key: key }, '*');
@@ -166,20 +181,10 @@ export class IFrameIndexedDbBackend implements StorageBackend {
     this.iframeWindow.postMessage({ type: 'clear' }, '*');
   }
 
-  async ping(): Promise<boolean> {
-    const promise: Promise<boolean> = new Promise((resolve) => {
-      window.addEventListener('message', (message) => {
-        if (message.data === true) {
-          resolve(true);
-        }
-      });
-
-      setTimeout(() => resolve(false), 100);
-    });
-
-    this.iframeWindow.postMessage({ type: 'ping' }, '*');
-    return promise;
+  async destroy(): Promise<void> {
+    document.body.removeChild(this.documentElement);
   }
+
   async processChatMessages(messages) {
     this.iframeWindow.postMessage(
       { type: 'processChatMessages', messages: messages },
@@ -199,12 +204,6 @@ export class IFrameIndexedDbBackend implements StorageBackend {
     this.iframeWindow.postMessage({ type: 'getChatMessages' }, '*');
     return promise;
   }
-  async destroy(): Promise<void> {
-    document.body.removeChild(this.documentElement);
-    this.documentElement = null;
-    this.iframeWindow = null;
-  }
-
   async iframe_check(): Promise<boolean> {
     return true;
   }
@@ -214,55 +213,98 @@ export class IFrameIndexedDbBackend implements StorageBackend {
  * Web Storage Proxy object, which selects the best backend available
  * depending on the environment.
  */
-export class StorageProxy implements StorageBackend {
+class StorageProxy implements StorageBackend {
   private backendPromise: Promise<StorageBackend>;
-  public impl: StorageImplementation = IMPL_MEMORY;
+  public impl: StorageImplementation = IMPL_IFRAME_INDEXED_DB;
 
   constructor() {
     this.backendPromise = (async () => {
+      // Prefer the configured iframe storage when available. hubStorage may
+      // already be enabled by another window/server, but the iframe origin is
+      // the server-configured storage boundary.
       if (Byond.storageCdn) {
         const iframe = new IFrameIndexedDbBackend();
-        await iframe.ready();
 
-        if ((await iframe.ping()) === true) {
-          // Remove with 516... eventually
+        if ((await iframe.ready()) === true) {
           if (await iframe.get('byondstorage-migrated')) return iframe;
 
-          Byond.winset(null, 'browser-options', '+byondstorage');
+          const iframeHasPersistedStorage = (
+            await Promise.all(
+              persistedStorageKeys.map((setting) => iframe.get(setting))
+            )
+          ).some((settings) => settings !== undefined);
 
-          await new Promise<void>((resolve) => {
-            document.addEventListener('byondstorageupdated', async () => {
-              setTimeout(() => {
-                const hub = new HubStorageBackend();
-                hub
-                  .get('panel-settings')
-                  .then((settings) => iframe.set('panel-settings', settings));
-                iframe.set('byondstorage-migrated', true);
+          if (!iframeHasPersistedStorage) {
+            const hubStorageWasEnabled = testHubStorage();
+            if (!hubStorageWasEnabled) {
+              Byond.winset(null, 'browser-options', '+byondstorage');
 
-                resolve();
-              }, 1);
-            });
-          });
+              await new Promise<void>((resolve) => {
+                document.addEventListener(
+                  'byondstorageupdated',
+                  () => {
+                    // This event is emitted *before* byondstorage is actually
+                    // created, so we have to wait a little bit before using it.
+                    setTimeout(resolve, 1);
+                  },
+                  { once: true }
+                );
+              });
+            }
+
+            const hub = new HubStorageBackend();
+
+            // Migrate safe legacy settings from byondstorage to the IFrame.
+            // Chat history may contain server-specific HTML/components from
+            // other codebases that shared the old byondstorage namespace.
+            await Promise.all(
+              legacyHubMigrationKeys.map(async (setting) => {
+                try {
+                  const settings = await hub.get(setting);
+                  if (settings !== undefined) {
+                    await iframe.set(setting, settings);
+                  }
+                } catch {
+                  // Ignore unreadable legacy storage entries. A bad old cache
+                  // key should not keep the client on byondstorage.
+                }
+              })
+            );
+
+            if (!hubStorageWasEnabled) {
+              Byond.winset(null, 'browser-options', '-byondstorage');
+            }
+          }
+
+          await iframe.set('byondstorage-migrated', true);
+
           return iframe;
         }
 
         iframe.destroy();
       }
-      if (!testHubStorage()) {
-        Byond.winset(null, 'browser-options', '+byondstorage');
 
-        return new Promise((resolve) => {
-          const listener = () => {
-            document.removeEventListener('byondstorageupdated', listener);
-            resolve(new HubStorageBackend());
-          };
-
-          document.addEventListener('byondstorageupdated', listener);
-        });
+      if (testHubStorage()) {
+        return new HubStorageBackend();
       }
-      return new HubStorageBackend();
+
+      // IFrame hasn't worked out for us, we'll need to enable byondstorage
+      Byond.winset(null, 'browser-options', '+byondstorage');
+
+      return new Promise((resolve) => {
+        const listener = () => {
+          document.removeEventListener('byondstorageupdated', listener);
+
+          // This event is emitted *before* byondstorage is actually created
+          // so we have to wait a little bit before we can use it
+          setTimeout(() => resolve(new HubStorageBackend()), 1);
+        };
+
+        document.addEventListener('byondstorageupdated', listener);
+      });
     })();
   }
+
   async get(key: string): Promise<any> {
     const backend = await this.backendPromise;
     return backend.get(key);
@@ -282,7 +324,6 @@ export class StorageProxy implements StorageBackend {
     const backend = await this.backendPromise;
     return backend.clear();
   }
-
   async processChatMessages(messages) {
     const backend = await this.backendPromise;
     return backend.processChatMessages(messages);
@@ -292,7 +333,6 @@ export class StorageProxy implements StorageBackend {
     const backend = await this.backendPromise;
     return backend.getChatMessages();
   }
-
   async iframe_check(): Promise<boolean> {
     const backend = await this.backendPromise;
 

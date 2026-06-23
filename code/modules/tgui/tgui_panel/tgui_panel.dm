@@ -89,7 +89,6 @@
 					"computer_id" = client.computer_id,
 				),
 				"window" = list(
-					"fancy" = FALSE,
 					"locked" = FALSE,
 				),
 			),
