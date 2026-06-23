@@ -1,4 +1,5 @@
 // Mech equipment types
+#define MECH_EQUIPMENT_ALL (ALL)
 #define MECH_EQUIPMENT_GYGAX (1<<0)
 #define MECH_EQUIPMENT_DURAND (1<<1)
 #define MECH_EQUIPMENT_PHAZON (1<<2)

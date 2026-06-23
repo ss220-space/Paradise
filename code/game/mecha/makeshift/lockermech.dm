@@ -43,7 +43,7 @@
 	force = 20
 	max_equip = 4
 	ui_theme = "syndicate"
-	allowed_equipment = ALL
+	allowed_equipment = MECH_EQUIPMENT_ALL
 
 /obj/mecha/makeshift/lockersyndie/get_ru_names()
 	return alist(

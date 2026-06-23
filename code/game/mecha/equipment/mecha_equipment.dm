@@ -31,8 +31,8 @@
 	var/integrated = FALSE // Preventing modules from getting detached.
 	var/stored_in
 	/// Bitflags to check module compability
-	var/module_type = ALL
-	/// variable for checking module copies count
+	var/module_type = MECH_EQUIPMENT_ALL
+	/// Variable for checking module copies count
 	var/max_multiple_count = 1
 
 /obj/item/mecha_parts/mecha_equipment/Destroy()//missiles detonating, teleporter creating singularity?
@@ -144,18 +144,18 @@
 		return FALSE
 	if(!(M.allowed_equipment & module_type))
 		return FALSE
-	if(!check_multiple_equipment(M))
+	if(!check_installed_modules(M))
 		return FALSE
 	if(length(M.equipment) >= M.max_equip)
 		return FALSE
 	return TRUE
 
-/obj/item/mecha_parts/mecha_equipment/proc/check_multiple_equipment(obj/mecha/M)
+/obj/item/mecha_parts/mecha_equipment/proc/check_installed_modules(obj/mecha/M)
 	var/installed_modules = 0
 	for(var/obj/item/mecha_parts/mecha_equipment/module in M.equipment)
-		if(!istype(module, src.type))
+		if(!istype(module))
 			continue
-		installed_modules += 1
+		installed_modules++
 		if(installed_modules >= max_multiple_count)
 			return FALSE
 	return TRUE

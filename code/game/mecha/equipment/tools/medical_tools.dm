@@ -3,7 +3,6 @@
 /obj/item/mecha_parts/mecha_equipment/medical
 	module_type = MECH_EQUIPMENT_MEDICAL
 
-
 /obj/item/mecha_parts/mecha_equipment/medical/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
