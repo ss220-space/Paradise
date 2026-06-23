@@ -104,6 +104,7 @@
 			span_danger("[head] gets crushed under [machine], and explodes in a shower of gore!"),
 			span_userdanger("Oh f-"))
 		new /obj/effect/gibspawner/human(get_turf(victim))
+		victim.apply_damage(50, BRUTE, BODY_ZONE_HEAD)
 		head.drop_organs()
 		head.droplimb(TRUE)
 		head.disfigure()
