@@ -151,10 +151,10 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/item/mecha_parts/mecha_equipment/mining_scanner/attach_act(obj/mecha/M)
+/obj/item/mecha_parts/mecha_equipment/mining_scanner/attach_act(obj/mecha/mech)
 	START_PROCESSING(SSobj, src)
 
-/obj/item/mecha_parts/mecha_equipment/mining_scanner/detach_act(obj/mecha/M)
+/obj/item/mecha_parts/mecha_equipment/mining_scanner/detach_act(obj/mecha/mech)
 	STOP_PROCESSING(SSobj, src)
 
 /obj/item/mecha_parts/mecha_equipment/mining_scanner/process()

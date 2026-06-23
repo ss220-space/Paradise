@@ -202,9 +202,9 @@
 	chassis?.cut_overlay(droid_overlay)
 	return ..()
 
-/obj/item/mecha_parts/mecha_equipment/repair_droid/attach_act(obj/mecha/M)
+/obj/item/mecha_parts/mecha_equipment/repair_droid/attach_act(obj/mecha/mech)
 	droid_overlay = new(icon, icon_state = "repair_droid")
-	M.add_overlay(droid_overlay)
+	mech.add_overlay(droid_overlay)
 
 /obj/item/mecha_parts/mecha_equipment/repair_droid/detach_act()
 	chassis.cut_overlay(droid_overlay)
@@ -466,11 +466,11 @@
 	var/energy_per_step = 50 //How much energy this module drains per step in strafe mode
 	module_type = MECH_EQUIPMENT_MEDICAL | MECH_EQUIPMENT_WORKING | MECH_EQUIPMENT_DURAND
 
-/obj/item/mecha_parts/mecha_equipment/servo_hydra_actuator/attach_act(obj/mecha/M)
-	M.strafe_allowed = TRUE
-	M.actuator = src
-	if(M.occupant)
-		M.strafe_action.Grant(M.occupant, M)
+/obj/item/mecha_parts/mecha_equipment/servo_hydra_actuator/attach_act(obj/mecha/mech)
+	mech.strafe_allowed = TRUE
+	mech.actuator = src
+	if(mech.occupant)
+		mech.strafe_action.Grant(mech.occupant, mech)
 
 /obj/item/mecha_parts/mecha_equipment/servo_hydra_actuator/detach_act()
 	chassis.strafe_allowed = FALSE

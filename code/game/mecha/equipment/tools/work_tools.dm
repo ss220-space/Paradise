@@ -114,12 +114,11 @@
 	selectable = MODULE_SELECTABLE_NONE
 	module_type = MECH_EQUIPMENT_WORKING
 
-/obj/item/mecha_parts/mecha_equipment/cargo_upgrade/attach_act(obj/mecha/M)
+/obj/item/mecha_parts/mecha_equipment/cargo_upgrade/attach_act(obj/mecha/mech)
 	chassis.cargo_expanded = TRUE
 	chassis.cargo_capacity = 40
 
-/obj/item/mecha_parts/mecha_equipment/cargo_upgrade/detach_act(obj/mecha/M)
-	chassis.cargo_expanded = FALSE
+/obj/item/mecha_parts/mecha_equipment/cargo_upgrade/detach_act(obj/mecha/mech)
 	chassis.cargo_capacity = initial(chassis.cargo_capacity)
 
 /obj/item/mecha_parts/mecha_equipment/rcd
@@ -147,8 +146,8 @@
 	QDEL_NULL(rcd_holder)
 	return ..()
 
-/obj/item/mecha_parts/mecha_equipment/rcd/attach_act(obj/mecha/M)
-	rcd_holder.chassis = M
+/obj/item/mecha_parts/mecha_equipment/rcd/attach_act(obj/mecha/mech)
+	rcd_holder.chassis = mech
 
 /obj/item/mecha_parts/mecha_equipment/rcd/action(atom/target, list/modifiers)
 	if(!action_checks(target) || get_dist(chassis, target)>3)
@@ -284,11 +283,11 @@
 /obj/item/mecha_parts/mecha_equipment/multimodule/is_melee()
 	return targeted_module?.is_melee()
 
-/obj/item/mecha_parts/mecha_equipment/multimodule/attach_act(obj/mecha/M)
+/obj/item/mecha_parts/mecha_equipment/multimodule/attach_act(obj/mecha/mech)
 	for(var/thing in modules)
 		var/obj/item/mecha_parts/mecha_equipment/module = modules[thing]
 		module.chassis = chassis
-		module.attach_act(M)
+		module.attach_act(mech)
 
 /obj/item/mecha_parts/mecha_equipment/multimodule/detach_act()
 	for(var/thing in modules)

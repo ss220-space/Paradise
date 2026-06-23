@@ -139,20 +139,20 @@
 	if(!chassis ||	chassis.loc != C || (stored_in && src != chassis.selected_equipment_in_hands[stored_in]) || !(get_dir(chassis, target) & chassis.dir))
 		return FALSE
 
-/obj/item/mecha_parts/mecha_equipment/proc/can_attach(obj/mecha/M)
-	if(!istype(M))
+/obj/item/mecha_parts/mecha_equipment/proc/can_attach(obj/mecha/mech)
+	if(!istype(mech))
 		return FALSE
-	if(!(M.allowed_equipment & module_type))
+	if(!(mech.allowed_equipment & module_type))
 		return FALSE
-	if(!check_installed_modules(M))
+	if(!check_installed_modules(mech))
 		return FALSE
-	if(length(M.equipment) >= M.max_equip)
+	if(length(mech.equipment) >= mech.max_equip)
 		return FALSE
 	return TRUE
 
-/obj/item/mecha_parts/mecha_equipment/proc/check_installed_modules(obj/mecha/M)
+/obj/item/mecha_parts/mecha_equipment/proc/check_installed_modules(obj/mecha/mech)
 	var/installed_modules = 0
-	for(var/obj/item/mecha_parts/mecha_equipment/module in M.equipment)
+	for(var/obj/item/mecha_parts/mecha_equipment/module in mech.equipment)
 		if(!istype(module, type))
 			continue
 		installed_modules++
@@ -185,7 +185,7 @@
 	if(M.occupant)
 		give_targeted_action()
 
-/obj/item/mecha_parts/mecha_equipment/proc/attach_act(obj/mecha/M)
+/obj/item/mecha_parts/mecha_equipment/proc/attach_act(obj/mecha/mech)
 	return
 
 /obj/item/mecha_parts/mecha_equipment/proc/give_targeted_action()
