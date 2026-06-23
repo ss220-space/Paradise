@@ -1,4 +1,0 @@
-author: "makaroshka003"
-delete-after: True
-changes:
-  - add: "Данталион при использовании энтрала на мёртвого раба воскресит его. (PR #9328)"

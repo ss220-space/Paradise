@@ -199,7 +199,7 @@
 
 	var/list/modifiers = params2list(params)
 	if(LAZYACCESS(modifiers, SHIFT_CLICK)) // screen objects don't do the normal Click() stuff so we'll cheat
-		to_chat(usr, chat_box_regular(jointext(examine(usr), "\n")))
+		to_chat(usr, boxed_message(jointext(examine(usr), "\n")))
 		return FALSE
 
 	if(!click_master)

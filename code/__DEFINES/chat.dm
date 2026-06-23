@@ -37,29 +37,6 @@
 /// Used for debug messages to the server
 #define debug_world_log(msg) if(GLOB.debugging_enabled) log_world("DEBUG: [msg]")
 
-/// Wraps text in a standard boxed message container
-#define chat_box_regular(str) ("<div class='boxed_message'>" + str + "</div>")
-/// Formats text as left-aligned examination text in a boxed container
-#define chat_box_examine(str) ("<div class='boxed_message left_align_text'>" + str + "</div>")
-/// Creates a boxed message with red border for warning/alert messages
-#define chat_box_red(str) ("<div class='boxed_message red_border'>" + str + "</div>")
-/// Creates a boxed message with purple border for unique/special notifications
-#define chat_box_purple(str) ("<div class='boxed_message purple_border left_align_text'>" + str + "</div>")
-/// Creates a boxed message with yellow border for cautionary messages
-#define chat_box_yellow(str) ("<div class='boxed_message yellow_border'>" + str + "</div>")
-/// Creates a boxed message with green border for positive/success notifications
-#define chat_box_green(str) ("<div class='boxed_message green_border'>" + str + "</div>")
-/// Creates a boxed message with standard notice border for important information
-#define chat_box_notice(str) ("<div class='boxed_message notice_border'>" + str + "</div>")
-/// Formats health scan results as left-aligned text in a notice-bordered box
-#define chat_box_healthscan(str) ("<div class='boxed_message notice_border left_align_text'>" + str + "</div>")
-/// Creates a prominent boxed notice with thick border for critical information
-#define chat_box_notice_thick(str) ("<div class='boxed_message notice_border thick_border'>" + str + "</div>")
-/// Creates an urgent red-bordered box for admin help messages (ahelp)
-#define chat_box_ahelp(str) ("<div class='boxed_message red_border'>" + str + "</div>")
-/// Creates a notice-bordered box for mentor help messages (mhelp)
-#define chat_box_mhelp(str) ("<div class='boxed_message notice_border'>" + str + "</div>")
-
 /// Adds a generic box around whatever message you're sending in chat. Really makes things stand out.
 #define boxed_message(str) ("<div class='boxed_message'>" + str + "</div>")
 /// Adds a box around whatever message you're sending in chat. Can apply color and/or additional classes. Available colors: red, green, blue, purple. Use it like red_box

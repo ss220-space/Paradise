@@ -191,6 +191,10 @@
           };
         });
       };
+
+      window.addEventListener('load', () => {
+        window.parent.postMessage("ready", "*");
+      });
     </script>
   </head>
 </html>

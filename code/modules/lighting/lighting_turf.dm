@@ -1,4 +1,4 @@
-// Causes any affecting light sources to be queued for a visibility update, for example a door got opened.
+/// Causes any affecting light sources to be queued for a visibility update, for example a door got opened.
 /turf/proc/reconsider_lights()
 	lighting_corner_NE?.vis_update()
 	lighting_corner_SE?.vis_update()
@@ -7,14 +7,14 @@
 
 /turf/proc/lighting_clear_overlay()
 	if(lighting_object)
-		qdel(lighting_object, force=TRUE)
+		qdel(lighting_object, force = TRUE)
 
-// Builds a lighting object for us, but only if our area is dynamic.
+/// Builds a lighting object for us, but only if our area is dynamic.
 /turf/proc/lighting_build_overlay()
 	if(lighting_object)
-		qdel(lighting_object,force=TRUE) //Shitty fix for lighting objects persisting after death
+		qdel(lighting_object, force = TRUE) //Shitty fix for lighting objects persisting after death
 
-	new /atom/movable/lighting_object(src)
+	new /atom/movable/lighting_object(null, src)
 
 /// Used to get a scaled lumcount.
 /turf/proc/get_lumcount(minlum = 0, maxlum = 1)
@@ -55,9 +55,13 @@
 	return !(luminosity || dynamic_lumcount)
 
 /turf/proc/change_area(area/old_area, area/new_area)
+	//don't waste our time
+	if(old_area == new_area)
+		return
 
 	old_area.contents -= src
 
+	//move the turf
 	LISTASSERTLEN(old_area.turfs_to_uncontain_by_zlevel, z, list())
 	LISTASSERTLEN(new_area.turfs_by_zlevel, z, list())
 	old_area.turfs_to_uncontain_by_zlevel[z] += src
@@ -75,7 +79,16 @@
 		for(var/mob/living/mob in contents)
 			mob.refresh_gravity()
 
-	if(SSlighting.initialized)
+	//changes to make after turf has moved
+	on_change_area(old_area, new_area)
+
+/// Allows for reactions to an area change without inherently requiring change_area() be called (I hate maploading)
+/turf/proc/on_change_area(area/old_area, area/new_area)
+	transfer_area_lighting(old_area, new_area)
+
+///Transfer the lighting of one area to another
+/turf/proc/transfer_area_lighting(area/old_area, area/new_area)
+	if(SSlighting.initialized && !always_lit)
 		if(new_area.static_lighting != old_area.static_lighting)
 			if(new_area.static_lighting)
 				lighting_build_overlay()
@@ -85,7 +98,7 @@
 	// We will only run this logic on turfs off the prime z layer
 	// Since on the prime z layer, we use an overlay on the area instead, to save time
 	if(SSmapping.z_level_to_plane_offset[z])
-		var/index = SSmapping.z_level_to_plane_offset[z]
+		var/index = SSmapping.z_level_to_plane_offset[z] + 1
 		//Inherit overlay of new area
 		if(old_area.lighting_effects)
 			cut_overlay(old_area.lighting_effects[index])

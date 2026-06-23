@@ -45,9 +45,11 @@ GLOBAL_LIST_EMPTY(gear_datums)
 	return icon2base64(new_icon)
 
 /datum/gear/proc/get_display_name()
-	var/atom/item = new path(src)
-	var/alist/names = item.ru_names || item.get_ru_names_cached()
-	return capitalize((display_name == /datum/gear::display_name)? (names ? names[NOMINATIVE] : item.name) : display_name)
+	var/atom/item = new path(null)
+	var/ru_name = item.declent_ru(NOMINATIVE)
+	var/gear_name = capitalize((display_name == /datum/gear::display_name)? ru_name : display_name)
+	qdel(item)
+	return gear_name
 
 /datum/gear_data
 	var/path

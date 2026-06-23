@@ -64,7 +64,7 @@
 	give_objectives()
 	finalize_antag()
 	messages.Add(span_motd("С полной информацией вы можете ознакомиться на вики: <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Contractor\">Контрактор"))
-	to_chat(owner.current, chat_box_red(messages.Join("<br>")))
+	to_chat(owner.current, custom_boxed_message("red_box center", messages.Join("<br>")))
 	if(is_banned(owner.current) && replace_banned)
 		INVOKE_ASYNC(src, PROC_REF(replace_banned_player))
 	owner.current.create_log(MISC_LOG, "[owner.current] was made into \an [special_role]")

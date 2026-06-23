@@ -238,8 +238,7 @@
  */
 /datum/game_mode/proc/post_setup()
 
-	spawn(ROUNDSTART_LOGOUT_REPORT_TIME)
-		display_roundstart_logout_report()
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(display_roundstart_logout_report)), ROUNDSTART_LOGOUT_REPORT_TIME)
 
 	INVOKE_ASYNC(src, PROC_REF(set_mode_in_db)) // Async query, dont bother slowing roundstart
 
@@ -878,7 +877,6 @@
 	. += auto_declare_completion_sst()
 	. += auto_declare_completion_sit()
 	. += auto_declare_completion_blob()
-	. += auto_declare_completion_heist()
 	. += auto_declare_completion_ninja()
 	. += auto_declare_completion_thief()
 	. += auto_declare_completion_goon_vampire()

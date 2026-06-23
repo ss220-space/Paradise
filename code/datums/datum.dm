@@ -130,9 +130,6 @@
 	tag = null
 	weak_reference = null //ensure prompt GCing of weakref.
 
-	if(unique_datum_id)
-		RUSTLIB_CALL(untick_by_uuid, unique_datum_id)
-
 	if(_active_timers)
 		var/list/timers = _active_timers
 		_active_timers = null
@@ -156,6 +153,10 @@
 
 	_clear_signal_refs()
 	//END: ECS SHIT
+
+	datum_flags |= DF_UID_INVALID
+	if(unique_datum_id)
+		RUSTLIB_CALL(untick_by_uuid, unique_datum_id)
 
 	return QDEL_HINT_QUEUE
 

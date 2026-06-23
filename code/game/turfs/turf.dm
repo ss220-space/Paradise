@@ -443,19 +443,20 @@
 		mob.refresh_gravity()
 
 	if(SSlighting.initialized)
-		lighting_object = old_lighting_object
+		// Space tiles should never have lighting objects
+		if(!always_lit)
+			if(old_lighting_object)
+				lighting_object = old_lighting_object
+				vis_contents += lighting_object
+			// Should have a lighting object if we never had one
+			else
+				new /atom/movable/lighting_object(null, src)
 
 		directional_opacity = old_directional_opacity
 		recalculate_directional_opacity()
 
 		if(lighting_object && !lighting_object.needs_update)
 			lighting_object.update()
-
-		if(old_always_lit != always_lit)
-			if(!always_lit)
-				lighting_build_overlay()
-			else
-				lighting_clear_overlay()
 
 		for(var/turf/space/S in RANGE_TURFS(1, src)) //RANGE_TURFS is in code\__HELPERS\game.dm
 			S.update_starlight()
@@ -895,7 +896,7 @@
 	// I would like to use GLOB.starbright_overlays here
 	// But that breaks down for... some? reason. I think receiving a render relay breaks keep_together or something
 	// So we're just gonna accept  that this'll break with starlight color changing. hardly matters since this is really only for offset stuff, but I'd love to fix it someday
-	var/mutable_appearance/light = new(GLOB.default_lighting_underlays_by_z[generate_for.z])
+	var/mutable_appearance/light = new(GLOB.fullbright_overlays[GET_TURF_PLANE_OFFSET(generate_for) + 1])
 	light.render_target = ""
 	light.appearance_flags |= KEEP_TOGETHER
 	// Now apply a copy of the turf, set to multiply

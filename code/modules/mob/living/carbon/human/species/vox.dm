@@ -127,6 +127,7 @@
 	add_verb(H, /mob/living/carbon/human/proc/emote_wag)
 	add_verb(H, /mob/living/carbon/human/proc/emote_swag)
 	add_verb(H, /mob/living/carbon/human/proc/emote_quill)
+	H.faction |= list("Vox")
 
 /datum/species/vox/gain_muscles(mob/living/target, default, max_level, can_become_stronger)
 	..(target, default, STRENGTH_LEVEL_STRONG, can_become_stronger)
@@ -136,6 +137,7 @@
 	remove_verb(H, /mob/living/carbon/human/proc/emote_wag)
 	remove_verb(H, /mob/living/carbon/human/proc/emote_swag)
 	remove_verb(H, /mob/living/carbon/human/proc/emote_quill)
+	H.faction -= "Vox"
 
 /datum/species/vox/after_equip_job(datum/job/J, mob/living/carbon/human/H)
 	if(!H.mind || !H.mind.assigned_role || H.mind.assigned_role != JOB_TITLE_CLOWN && H.mind.assigned_role != JOB_TITLE_MIME)
