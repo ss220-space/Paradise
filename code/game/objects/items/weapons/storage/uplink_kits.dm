@@ -1026,6 +1026,7 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/stack/medical/bruise_pack/advanced(src)
 	new /obj/item/stack/medical/bruise_pack/advanced(src)
 	new /obj/item/stack/medical/bruise_pack/military(src)
+	new /obj/item/storage/box/syndie_kit/bonerepair(src)
 
 
 /obj/item/storage/box/syndie_kit/scarecrow/populate_contents()
@@ -1059,7 +1060,7 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 
 /obj/item/storage/box/syndie_kit/knife/populate_contents()
 	new /obj/item/kitchen/knife/combat(src)
-	new /obj/item/whetstone/cult(src)
+	new /obj/item/clothing/accessory/holster/knives(src)
 	new /obj/item/storage/fancy/cigarettes/cigpack_syndicate(src)
 	new /obj/item/lighter/zippo/engraved(src)
 	new /obj/item/clothing/shoes/combat(src)
@@ -1072,3 +1073,5 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 		new /obj/item/grenade/chem_grenade/cleaner(src)
 	for(var/I in 1 to 5)
 		new /obj/item/soap/syndie(src)
+	for(var/I in 1 to 2)
+		new /obj/item/grenade/clusterbuster/honk(src)
