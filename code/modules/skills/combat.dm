@@ -10,13 +10,13 @@
 	name = "Точность стрельбы"
 	desc = "Влияет на меткость стрельбы."
 	var/accuracy_modifiers = alist(
-		SKILL_LEVEL_NONE = 0.9,
-		SKILL_LEVEL_BEGINNER = 1,
-		SKILL_LEVEL_BASIC = 1.1,
-		SKILL_LEVEL_ADVANCED = 1.2,
-		SKILL_LEVEL_PROFESSIONAL = 1.3,
-		SKILL_LEVEL_EXPERT = 1.4,
-		SKILL_LEVEL_LEGEND = 1.5,
+		SKILL_LEVEL_NONE = 0.8,
+		SKILL_LEVEL_BEGINNER = 0.9,
+		SKILL_LEVEL_BASIC = 1,
+		SKILL_LEVEL_ADVANCED = 1.1,
+		SKILL_LEVEL_PROFESSIONAL = 1.2,
+		SKILL_LEVEL_EXPERT = 1.3,
+		SKILL_LEVEL_LEGEND = 1.4,
 		SKILL_LEVEL_UNAVAILABLE = 0.1,
 	)
 	var/spread_modifiers = alist(
@@ -127,7 +127,30 @@
 	id = "combat.fists"
 	name = "Безоружный бой"
 	desc = "Влияет на урон кулаками, шансы обезоруживания и скорость грабов."
+	duration_mod_signals = list(COMSIG_GET_FISTS_GRAB_MOD)
+	quality_mod_signals = list(COMSIG_GET_FISTS_DISARM_MOD)
+	var/damage_mod = alist(
+		SKILL_LEVEL_NONE = 0.6,
+		SKILL_LEVEL_BEGINNER = 0.75,
+		SKILL_LEVEL_BASIC = 1.0,
+		SKILL_LEVEL_ADVANCED = 1.25,
+		SKILL_LEVEL_PROFESSIONAL = 1.5,
+		SKILL_LEVEL_EXPERT = 1.75,
+		SKILL_LEVEL_LEGEND = 2,
+		SKILL_LEVEL_UNAVAILABLE = 0.01,
+	)
 
+/datum/skill/combat/fists/apply_to_mob(mob/owner)
+	. = ..()
+	RegisterSignal(owner, COMSIG_GET_FISTS_DAMAGE_MOD, PROC_REF(get_fists_damage_mod))
+
+/datum/skill/combat/fists/remove_from_mob(mob/owner)
+	. = ..()
+	UnregisterSignal(owner, COMSIG_GET_FISTS_DAMAGE_MOD)
+
+/datum/skill/combat/fists/proc/get_fists_damage_mod(mob/living/user, list/results)
+	SIGNAL_HANDLER
+	get_modifier(user, results, damage_mod)
 
 // MARK: Shields
 /datum/skill/combat/shields
