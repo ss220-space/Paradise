@@ -153,7 +153,7 @@
 /obj/item/mecha_parts/mecha_equipment/proc/check_installed_modules(obj/mecha/M)
 	var/installed_modules = 0
 	for(var/obj/item/mecha_parts/mecha_equipment/module in M.equipment)
-		if(!istype(module))
+		if(!istype(module, type))
 			continue
 		installed_modules++
 		if(installed_modules >= max_multiple_count)
