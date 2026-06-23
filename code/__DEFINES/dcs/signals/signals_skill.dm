@@ -69,3 +69,7 @@
 #define COMSIG_GET_MISSFIRE_CHANCE "get_missfire_chance"
 /// Get gun recoil mod for guns skill (mob/living/user, list/modifiers)
 #define COMSIG_GET_RECOIL_MOD "get_recoil_mod"
+/// Get gun recoil mod for guns skill (mob/living/user, list/modifiers)
+#define COMSIG_GET_RECOIL_MOD "get_recoil_mod"
+/// Get melee weapon damage mod for melee skill (mob/living/user, list/modifiers)
+#define COMSIG_GET_MELEE_DAMAGE_MOD "get_melee_damage_mod"

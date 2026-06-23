@@ -3,6 +3,8 @@
 	category = "Боевые"
 	category_color = "#dd3535"
 
+
+// MARK: Accuracy
 /datum/skill/combat/accuracy
 	id = "combat.accuracy"
 	name = "Точность стрельбы"
@@ -45,6 +47,8 @@
 	SIGNAL_HANDLER
 	get_modifier(user, results, spread_modifiers)
 
+
+// MARK: Guns
 /datum/skill/combat/guns
 	id = "combat.guns"
 	name = "Владение стрелковым оружием"
@@ -88,16 +92,44 @@
 	SIGNAL_HANDLER
 	get_modifier(user, results, recoil_modifiers)
 
+
+// MARK: Melee
 /datum/skill/combat/melee
 	id = "combat.melee"
 	name = "Владение оружием ближнего боя"
 	desc = "Влияет на урон и скорость работы с оружием ближнего боя."
+	var/damage_mod = alist(
+		SKILL_LEVEL_NONE = 0.70,
+		SKILL_LEVEL_BEGINNER = 0.80,
+		SKILL_LEVEL_BASIC = 1.0,
+		SKILL_LEVEL_ADVANCED = 1.10,
+		SKILL_LEVEL_PROFESSIONAL = 1.20,
+		SKILL_LEVEL_EXPERT = 1.35,
+		SKILL_LEVEL_LEGEND = 1.50,
+		SKILL_LEVEL_UNAVAILABLE = 0.01,
+	)
 
+/datum/skill/combat/melee/apply_to_mob(mob/owner)
+	. = ..()
+	RegisterSignal(owner, COMSIG_GET_MELEE_DAMAGE_MOD, PROC_REF(get_melee_damage_mod))
+
+/datum/skill/combat/melee/remove_from_mob(mob/owner)
+	. = ..()
+	UnregisterSignal(owner, COMSIG_GET_MELEE_DAMAGE_MOD)
+
+/datum/skill/combat/melee/proc/get_melee_damage_mod(mob/living/user, list/results)
+	SIGNAL_HANDLER
+	get_modifier(user, results, damage_mod)
+
+
+// MARK: Fists
 /datum/skill/combat/fists
 	id = "combat.fists"
 	name = "Безоружный бой"
 	desc = "Влияет на урон кулаками, шансы обезоруживания и скорость грабов."
 
+
+// MARK: Shields
 /datum/skill/combat/shields
 	id = "combat.shields"
 	name = "Владение щитами (парирование)"
