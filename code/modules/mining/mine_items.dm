@@ -168,7 +168,8 @@
 
 /obj/item/flashlight/lantern/Initialize(mapload)
 	. = ..()
-	lantern_light_overlay = mutable_appearance('icons/obj/lighting.dmi',"lantern_light", color = light_color)
+	lantern_light_overlay = mutable_appearance('icons/obj/lighting.dmi', "lantern_light")
+	lantern_light_overlay.color = light_color
 
 /obj/item/flashlight/lantern/examine(mob/user)
 	. = ..()
@@ -202,10 +203,12 @@
 	cut_overlay(lantern_light_overlay)
 	if(!inserted_gem)
 		set_light_color(LIGHT_COLOR_DIM_YELLOW)
-		lantern_light_overlay = mutable_appearance('icons/obj/lighting.dmi',"lantern_light", color = light_color)
+		lantern_light_overlay = mutable_appearance('icons/obj/lighting.dmi', "lantern_light")
+		lantern_light_overlay.color = light_color
 	else
 		set_light_color(inserted_gem.light_color)
-		lantern_light_overlay = mutable_appearance('icons/obj/lighting.dmi',"lantern_light", color = light_color)
+		lantern_light_overlay = mutable_appearance('icons/obj/lighting.dmi', "lantern_light")
+		lantern_light_overlay.color = light_color
 
 /obj/item/flashlight/lantern/attackby(obj/item/I, mob/user, params)
 	. = ..()
