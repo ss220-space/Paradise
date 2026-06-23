@@ -61,3 +61,9 @@
 #define COMSIG_GET_ACCURACY_MOD "get_accuracy_mod"
 /// Get gun spread modifier for accuracy skill (mob/living/user, list/modifiers)
 #define COMSIG_GET_SPREAD_MOD "get_spread_mod"
+/// Get gun reload speed modifier for guns skill (mob/living/user, list/modifiers)
+#define COMSIG_GET_GUN_RELOAD_MOD "get_gun_reload_mod"
+/// Get magazine reload speed modifier for guns skill (mob/living/user, list/modifiers)
+#define COMSIG_GET_MAGAZINE_RELOAD_MOD "get_magazine_reload_mod"
+/// Get missfire chance for guns skill (mob/living/user, list/modifiers)
+#define COMSIG_GET_MISSFIRE_CHANCE "get_missfire_chance"

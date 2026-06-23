@@ -688,6 +688,7 @@
 		rotate_to_target(target)
 
 	if(chambered)
+		on_pre_process_fire(user, target)
 		if(HAS_TRAIT(user, TRAIT_PACIFISM) || GLOB.pacifism_after_gt) // If the user has the pacifist trait, then they won't be able to fire [src] if the round chambered inside of [src] is lethal.
 			if(chambered.harmful) // Is the bullet chambered harmful?
 				to_chat(user, span_warning("В [declent_ru(ACCUSATIVE)] заряжены смертельные патроны! Лучше не рисковать..."))
@@ -715,6 +716,9 @@
 	shots_counter++
 	SEND_SIGNAL(src, COMSIG_GUN_AFTER_PROCESS_FIRE, target, user)
 	return AUTOFIRE_CONTINUE
+
+/obj/item/gun/proc/on_pre_process_fire(mob/living/user, atom/target)
+	return
 
 /obj/item/gun/interact_with_atom_secondary(atom/interacting_with, mob/living/user, list/modifiers)
 	if(user.a_intent != INTENT_HARM || user == interacting_with || !isliving(interacting_with) || !can_hold_up)

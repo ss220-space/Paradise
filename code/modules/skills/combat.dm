@@ -49,6 +49,29 @@
 	id = "combat.guns"
 	name = "Владение стрелковым оружием"
 	desc = "Влияет на скорость перезарядки."
+	duration_mod_signals = list(COMSIG_GET_GUN_RELOAD_MOD, COMSIG_GET_MAGAZINE_RELOAD_MOD)
+	var/missfire_chances = alist(
+		SKILL_LEVEL_NONE = 10,
+		SKILL_LEVEL_BEGINNER = 5,
+		SKILL_LEVEL_BASIC = 2.5,
+		SKILL_LEVEL_ADVANCED = 1,
+		SKILL_LEVEL_PROFESSIONAL = 0,
+		SKILL_LEVEL_EXPERT = 0,
+		SKILL_LEVEL_LEGEND = 0,
+		SKILL_LEVEL_UNAVAILABLE = 50,
+	)
+
+/datum/skill/combat/guns/apply_to_mob(mob/owner)
+	. = ..()
+	RegisterSignal(owner, COMSIG_GET_MISSFIRE_CHANCE, PROC_REF(get_missfire_chance))
+
+/datum/skill/combat/guns/remove_from_mob(mob/owner)
+	. = ..()
+	UnregisterSignal(owner, COMSIG_GET_MISSFIRE_CHANCE)
+
+/datum/skill/combat/guns/proc/get_missfire_chance(mob/living/user, list/results)
+	SIGNAL_HANDLER
+	get_modifier(user, results, missfire_chances)
 
 /datum/skill/combat/melee
 	id = "combat.melee"
