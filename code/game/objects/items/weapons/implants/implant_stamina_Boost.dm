@@ -1,7 +1,7 @@
 // Имплант: "Stamina Boost"
 /obj/item/implant/stamina_boost
 	name = "stamina boost bio-chip"
-	desc = "Мгновенно восстанавливает запас стамины, но временно ограничивает её максимальное значение. Эффект может накладываться несколько раз."
+	desc = "Мгновенно восстанавливает запас выносливости, но временно ограничивает её максимальное значение. Эффект может накладываться несколько раз."
 	icon_state = "adrenal"
 	implant_state = "implant-syndicate"
 	origin_tech = "materials=2;biotech=3;combat=2"
@@ -30,7 +30,7 @@
 	return ..()
 
 /obj/item/implant/stamina_boost/activate()
-	if(imp_in.max_stamina <= 0)
+	if(imp_in.max_stamina <= STAMINA_PENALTY)
 		balloon_alert(imp_in, "организм истощён")
 		return FALSE
 
@@ -45,9 +45,9 @@
 	imp_in.set_resting(FALSE, instant = TRUE)
 	imp_in.get_up(instant = TRUE)
 
-	var/datum/status_effect/stamina_boost_restriction/E = imp_in.has_status_effect(/datum/status_effect/stamina_boost_restriction)
-	if(E)
-		E.add_stack()
+	var/datum/status_effect/stamina_boost_restriction/effect = imp_in.has_status_effect(/datum/status_effect/stamina_boost_restriction)
+	if(effect)
+		effect.add_stack()
 	else
 		imp_in.apply_status_effect(/datum/status_effect/stamina_boost_restriction)
 

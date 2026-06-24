@@ -1596,15 +1596,14 @@
 	alert_type = /atom/movable/screen/alert/status_effect/stamina_boost_restriction
 	duration = 30 SECONDS
 
-	var/penalty_per_stack = 30
-	var/original_max_stamina = null
+	var/original_max_stamina
 	var/current_penalty = 0
 
 /datum/status_effect/stamina_boost_restriction/on_apply(initial_max)
 	if(!ishuman(owner))
 		return FALSE
 	original_max_stamina = (initial_max != null) ? initial_max : owner.max_stamina
-	current_penalty = penalty_per_stack
+	current_penalty = STAMINA_PENALTY
 	owner.set_max_stamina(max(0, original_max_stamina - current_penalty))
 	return TRUE
 
@@ -1615,33 +1614,26 @@
 		owner.setStaminaLoss(1)
 
 /datum/status_effect/stamina_boost_restriction/proc/add_stack()
-	var/mob/living/carbon/human/H = owner
-	if(!istype(H))
+	var/mob/living/carbon/human/human = owner
+	if(!istype(human))
 		return
 
 	var/saved_original = original_max_stamina
-	var/saved_penalty = current_penalty + penalty_per_stack
+	var/saved_penalty = current_penalty + STAMINA_PENALTY
 
-	H.remove_status_effect(/datum/status_effect/stamina_boost_restriction)
+	human.remove_status_effect(/datum/status_effect/stamina_boost_restriction)
 
-	var/datum/status_effect/stamina_boost_restriction/new_effect = H.apply_status_effect(
-		/datum/status_effect/stamina_boost_restriction,
-		initial(duration),
-		saved_original
-	)
+	var/datum/status_effect/stamina_boost_restriction/new_effect = human.apply_status_effect(/datum/status_effect/stamina_boost_restriction, initial(duration), saved_original)
 	if(new_effect)
 		new_effect.current_penalty = saved_penalty
 		new_effect.original_max_stamina = saved_original
-		H.set_max_stamina(max(0, saved_original - saved_penalty))
+		human.set_max_stamina(max(0, saved_original - saved_penalty))
 		new_effect.update_alert()
-		// Мгновенно включаем крит, если максимум стал 0
-		if(H.max_stamina <= 0)
-			H.setStaminaLoss(1)
 
 /datum/status_effect/stamina_boost_restriction/proc/update_alert()
 	if(!linked_alert)
 		return
-	var/stacks = round(current_penalty / penalty_per_stack)
+	var/stacks = round(current_penalty / STAMINA_PENALTY)
 	linked_alert.name = "Ограничение стамины x[stacks]"
 
 /datum/status_effect/stamina_boost_restriction/on_remove()
@@ -1650,6 +1642,6 @@
 		original_max_stamina = null
 
 /atom/movable/screen/alert/status_effect/stamina_boost_restriction
-	name = "Ограничение стамины"
-	desc = "Максимальная стамина временно снижена."
+	name = "Ограничение выносливости"
+	desc = "Расплата за использование."
 	icon_state = "blooddrunk"

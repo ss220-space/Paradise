@@ -35,3 +35,5 @@
 
 /// Stealth box alpha
 #define STEALTHBOX_ALPHA 20
+/// Stamina boost stamina loss per stack
+#define STAMINA_PENALTY 30
