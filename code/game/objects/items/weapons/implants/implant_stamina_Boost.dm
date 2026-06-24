@@ -7,6 +7,7 @@
 	origin_tech = "materials=2;biotech=3;combat=2"
 	implant_data = /datum/implant_fluff/stamina_boost
 	actions_types = null
+	base_cooldown = 2 SECONDS
 
 /obj/item/implant/stamina_boost/Initialize(mapload)
 	. = ..()
@@ -30,6 +31,9 @@
 	return ..()
 
 /obj/item/implant/stamina_boost/activate()
+	if(cooldown_system?.is_on_cooldown())
+		return FALSE
+
 	if(imp_in.max_stamina <= STAMINA_PENALTY)
 		balloon_alert(imp_in, "организм истощён")
 		return FALSE
@@ -51,6 +55,7 @@
 	else
 		imp_in.apply_status_effect(/datum/status_effect/stamina_boost_restriction)
 
+	cooldown_system.start_recharge()
 	return ..()
 
 // Имплантер и кейс остаются без изменений
