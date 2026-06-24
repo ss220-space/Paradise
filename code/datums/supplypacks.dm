@@ -6669,7 +6669,9 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/contraband/autoimplanter
 	name = "Автоимплантер"
 	contains = list(
-		/obj/item/autoimplanter/traitor,
+		/obj/item/autoimplanter/oneuse,
+		/obj/item/autoimplanter/oneuse,
+		/obj/item/autoimplanter/oneuse,
 	)
 	credits_cost = 10000
 	containertype = /obj/structure/closet/crate/syndicate

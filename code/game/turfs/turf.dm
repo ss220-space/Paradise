@@ -372,7 +372,6 @@
 
 	set_light_on(FALSE)
 	var/old_opacity = opacity
-	var/old_always_lit = always_lit
 	var/old_lighting_object = lighting_object
 	var/old_blueprint_data = blueprint_data
 	var/old_directional_opacity = directional_opacity
@@ -396,27 +395,27 @@
 	var/list/old_comp_lookup = _listen_lookup?.Copy()
 	var/list/old_signal_procs = _signal_procs?.Copy()
 	var/carryover_turf_flags = (RESERVATION_TURF | UNUSED_RESERVATION_TURF) & turf_flags
-	var/turf/W = new path(src)
-	W.turf_flags |= carryover_turf_flags
+	var/turf/new_turf = new path(src)
+	new_turf.turf_flags |= carryover_turf_flags
 
 	// WARNING WARNING
 	// Turfs DO NOT lose their signals when they get replaced, REMEMBER THIS
 	// It's possible because turfs are fucked, and if you have one in a list and it's replaced with another one, the list ref points to the new turf
 	if(old_comp_lookup)
-		LAZYOR(W._listen_lookup, old_comp_lookup)
+		LAZYOR(new_turf._listen_lookup, old_comp_lookup)
 	if(old_signal_procs)
-		LAZYOR(W._signal_procs, old_signal_procs)
+		LAZYOR(new_turf._signal_procs, old_signal_procs)
 
 	for(var/datum/callback/callback as anything in post_change_callbacks)
-		callback.InvokeAsync(W)
+		callback.InvokeAsync(new_turf)
 
 	if(copy_existing_baseturf)
-		W.baseturf = old_baseturf
+		new_turf.baseturf = old_baseturf
 
 	if(!defer_change)
-		W.AfterChange(after_flags, oldType = old_type)
+		new_turf.AfterChange(after_flags, oldType = old_type)
 
-	W.blueprint_data = old_blueprint_data
+	new_turf.blueprint_data = old_blueprint_data
 
 	lighting_corner_NE = old_lighting_corner_NE
 	lighting_corner_SE = old_lighting_corner_SE
@@ -424,14 +423,6 @@
 	lighting_corner_NW = old_lighting_corner_NW
 
 	dynamic_lumcount = old_dynamic_lumcount
-
-	if(W.always_lit)
-		// We are guarenteed to have these overlays because of how generation works
-		var/mutable_appearance/overlay = GLOB.fullbright_overlays[GET_TURF_PLANE_OFFSET(src) + 1]
-		W.add_overlay(overlay)
-	else if(old_always_lit)
-		var/mutable_appearance/overlay = GLOB.fullbright_overlays[GET_TURF_PLANE_OFFSET(src) + 1]
-		W.cut_overlay(overlay)
 
 	// we need to refresh gravity for all living mobs to cover possible gravity change
 	for(var/mob/living/mob in contents)
@@ -451,6 +442,8 @@
 			// Should have a lighting object if we never had one
 			else
 				new /atom/movable/lighting_object(null, src)
+		else if(old_lighting_object)
+			qdel(old_lighting_object, force = TRUE)
 
 		directional_opacity = old_directional_opacity
 		recalculate_directional_opacity()
@@ -458,20 +451,19 @@
 		if(lighting_object && !lighting_object.needs_update)
 			lighting_object.update()
 
-		for(var/turf/space/S in RANGE_TURFS(1, src)) //RANGE_TURFS is in code\__HELPERS\game.dm
-			S.update_starlight()
+		for(var/turf/space/space_tile in RANGE_TURFS(1, src))
+			space_tile.update_starlight()
 
 	if(old_opacity != opacity && SSticker)
 		GLOB.cameranet.bareMajorChunkChange(src)
 
 	// We will only run this logic if the tile is not on the prime z layer, since we use area overlays to cover that
 	if(SSmapping.z_level_to_plane_offset[z])
-		var/area/our_area = W.loc
+		var/area/our_area = new_turf.loc
 		if(our_area.lighting_effects)
-			W.add_overlay(our_area.lighting_effects[SSmapping.z_level_to_plane_offset[z] + 1])
-	//SSdemo.mark_turf(W)
+			new_turf.add_overlay(our_area.lighting_effects[SSmapping.z_level_to_plane_offset[z] + 1])
 
-	return W
+	return new_turf
 
 /turf/proc/BeforeChange()
 	return
