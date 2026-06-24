@@ -337,7 +337,7 @@
 		STOP_PROCESSING(SSmachines, src)
 
 /obj/machinery/shieldwallgen/update_icon_state()
-	icon_state = "Shield_Gen[activated ? " +a" : ""]"
+	icon_state = "shieldgen[activated ? "_on" : ""]"
 
 /obj/machinery/shieldwallgen/proc/try_charge_shields_power()
 	var/turf/T = loc
@@ -384,9 +384,11 @@
 	add_fingerprint(user)
 
 /obj/machinery/shieldwallgen/process()
-	if(!try_charge_shields_power())
-		visible_message(span_warning("The [name] shuts down due to lack of power!"), \
-				"You hear heavy droning fade out")
+	if(try_charge_shields_power())
+		return
+
+	visible_message(span_warning("The [name] shuts down due to lack of power!"), \
+			"You hear heavy droning fade out")
 	deactivate()
 	update_icon(UPDATE_ICON_STATE)
 

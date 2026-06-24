@@ -766,7 +766,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 		var/list/possible_tragets = get_targets()
 		if(!LAZYLEN(possible_tragets))
 			return
-		var/target = tgui_input_list(user, "Select your victim!", "Voodoo", possible_tragets)
+		target = tgui_input_list(user, "Select your victim!", "Voodoo", possible_tragets)
 		if(!target)
 			return
 		target_ref = WEAKREF(target)

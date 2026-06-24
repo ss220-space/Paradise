@@ -199,8 +199,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	// Install a default cell into the borg if none is there yet
 	var/datum/robot_component/cell_component = components["power cell"]
-	var/obj/item/stock_parts/cell/cell = cell || new default_cell_type(src)
-	cell_component.install(cell)
+	var/obj/item/stock_parts/cell/new_cell = cell || new default_cell_type(src)
+	cell_component.install(new_cell)
 
 	diag_hud_set_borgcell()
 	scanner = new()
