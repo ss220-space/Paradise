@@ -92,6 +92,7 @@
 	id = "medical.genetic"
 	name = "Генетика"
 	desc = "Влияет на работу с генетикой."
+	duration_mod_signals = list(COMSIG_GET_IRRADIATION_DURATION_MOD)
 
 /datum/skill/medical/virusology
 	id = "medical.virusology"

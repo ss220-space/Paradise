@@ -91,3 +91,5 @@
 #define COMSIG_GET_HEAL_AMOUNT_MOD "get_heal_amount_mod"
 /// Get chem reaction amount modifier for chemistry skill (mob/living/user, list/modifiers)
 #define COMSIG_GET_CHEMISTRY_DISPENSE_RAND_SIZE "get_chemistry_dispense_rand_size"
+/// Get genetic irradiation duration modifier for genetic skill (mob/living/user, list/modifiers)
+#define COMSIG_GET_IRRADIATION_DURATION_MOD "get_irradiation_duration_mod"
