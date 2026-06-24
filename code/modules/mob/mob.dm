@@ -16,6 +16,7 @@
 		spellremove(src)
 	mobspellremove(src)
 	QDEL_LIST(diseases)
+	QDEL_LIST(actions)
 
 	if(length(progressbars))
 		stack_trace("[src] destroyed with elements in its progressbars list")
@@ -745,7 +746,7 @@
 		add_game_logs("respawn failed due to disconnect.", usr)
 		return
 
-	GLOB.respawnable_list -= usr
+	usr.remove_from_respawnable_list()
 	var/mob/new_player/M = new /mob/new_player()
 	if(!client)
 		add_game_logs("respawn failed due to disconnect.", usr)
@@ -753,7 +754,7 @@
 		return
 
 	M.possess_by_player(key)
-	GLOB.respawnable_list += usr
+	usr.add_to_respawnable_list()
 	return
 
 /mob/proc/is_dead()
@@ -956,7 +957,7 @@
 		return
 
 	to_chat(usr, span_notice(message))
-	GLOB.respawnable_list -= usr
+	usr.remove_from_respawnable_list()
 	picked_mob.possess_by_player(key)
 
 /mob/proc/become_mouse()
@@ -969,7 +970,7 @@
 	//find a viable mouse candidate
 	var/list/found_vents = get_valid_vent_spawns(min_network_size = 0)
 	if(length(found_vents))
-		GLOB.respawnable_list -= src
+		remove_from_respawnable_list()
 		client.time_joined_as_mouse = world.time
 		var/obj/vent_found = pick(found_vents)
 		var/choosen_type = prob(90) ? /mob/living/simple_animal/mouse : /mob/living/simple_animal/mouse/rat
@@ -1515,3 +1516,11 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 	set name = "Reset UI Positions"
 	set category = VERB_CATEGORY_SPECIALVERBS
 	SStgui.reset_ui_position(src)
+
+/mob/proc/add_to_respawnable_list()
+	GLOB.respawnable_list += src
+	RegisterSignal(src, COMSIG_QDELETING, PROC_REF(remove_from_respawnable_list))
+
+/mob/proc/remove_from_respawnable_list()
+	GLOB.respawnable_list -= src
+	UnregisterSignal(src, COMSIG_QDELETING)

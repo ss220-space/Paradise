@@ -94,7 +94,7 @@
 
 	if(mind)
 		mind.store_memory("Время смерти: [station_time_timestamp("hh:mm:ss", timeofdeath)]", 0)
-		GLOB.respawnable_list += src
+		add_to_respawnable_list()
 		if(mind.name && !isbrain(src)) // !isbrain() is to stop it from being called twice
 			var/turf/T = get_turf(src)
 			var/area_name = get_area_name(T)

@@ -13,7 +13,7 @@ GLOBAL_LIST_EMPTY(radial_menus)
 
 /atom/movable/screen/radial/Destroy()
 	parent = null
-	. = ..()
+	return ..()
 
 /atom/movable/screen/radial/slice
 	icon_state = "radial_slice"
@@ -331,13 +331,14 @@ GLOBAL_LIST_EMPTY(radial_menus)
 	custom_check_callback = null
 	for(var/atom/movable/screen/radial/element as anything in elements)
 		element.parent = null
-	elements.Cut()
-	close_button = null
+		qdel(element)
+	LAZYCLEARLIST(elements)
+	QDEL_NULL(close_button)
 	current_user = null
 	anchor = null
-	screen_center = null
+	QDEL_NULL(screen_center)
 	menu_holder = null
-	. = ..()
+	return ..()
 
 /**
  * Presents radial menu to user anchored to anchor (or user if the anchor is currently in users screen)

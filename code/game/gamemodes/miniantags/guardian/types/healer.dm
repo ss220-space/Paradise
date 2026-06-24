@@ -31,6 +31,10 @@
 	. = ..()
 	AddSpell(new /obj/effect/proc_holder/spell/guardian_quickmend(src, summoner))
 
+/mob/living/simple_animal/hostile/guardian/healer/Destroy()
+	beacon = null
+	return ..()
+
 /mob/living/simple_animal/hostile/guardian/healer/Life(seconds, times_fired)
 	..()
 	var/datum/atom_hud/medsensor = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]

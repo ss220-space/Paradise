@@ -59,8 +59,6 @@
 	var/datum/action/innate/terrorspider/queen/queennest/queennest_action
 	var/datum/action/innate/terrorspider/queen/queensense/queensense_action
 	var/datum/action/innate/terrorspider/queen/queeneggs/queeneggs_action
-	var/datum/action/innate/terrorspider/ventsmash/ventsmash_action
-	var/datum/action/innate/terrorspider/remoteview/remoteview_action
 	tts_seed = "Anivia"
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/get_ru_names()
@@ -75,15 +73,21 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/Initialize(mapload)
 	. = ..()
-	ventsmash_action = new()
+	var/datum/action/innate/terrorspider/ventsmash/ventsmash_action = new
 	ventsmash_action.Grant(src)
-	remoteview_action = new()
+	var/datum/action/innate/terrorspider/remoteview/remoteview_action = new
 	remoteview_action.Grant(src)
 	grant_queen_subtype_abilities()
 	spider_myqueen = src
 	if(spider_awaymission)
 		spider_growinstantly = TRUE
 		spider_spawnfrequency = 150
+
+/mob/living/simple_animal/hostile/poison/terror_spider/queen/Destroy()
+	QDEL_NULL(queennest_action)
+	QDEL_NULL(queensense_action)
+	QDEL_NULL(queeneggs_action)
+	return ..()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/grant_queen_subtype_abilities()
 	queennest_action = new()

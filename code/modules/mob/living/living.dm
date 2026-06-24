@@ -55,7 +55,7 @@
 			else
 				S.be_replaced()
 	GLOB.mob_living_list -= src
-	GLOB.respawnable_list -= src
+	remove_from_respawnable_list()
 	return ..()
 
 // Used to determine the forces dependend on the mob size

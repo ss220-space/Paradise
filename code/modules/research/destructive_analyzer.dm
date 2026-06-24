@@ -25,27 +25,30 @@ Note: Must be placed within 3 tiles of the R&D Console
 
 /obj/machinery/r_n_d/destructive_analyzer/Initialize(mapload)
 	. = ..()
-	component_parts = list()
-	component_parts += new /obj/item/circuitboard/destructive_analyzer(null)
-	component_parts += new /obj/item/stock_parts/scanning_module(null)
-	component_parts += new /obj/item/stock_parts/manipulator(null)
-	component_parts += new /obj/item/stock_parts/micro_laser(null)
+	init_parts()
 	RefreshParts()
 	if(is_taipan(z))
 		icon_state = "syndie_d_analyzer"
 		base_icon_state = "syndie_d_analyzer"
 
-/obj/machinery/r_n_d/destructive_analyzer/upgraded/Initialize(mapload)
-	. = ..()
+/obj/machinery/r_n_d/destructive_analyzer/proc/init_parts()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/destructive_analyzer(null)
+	component_parts += new /obj/item/stock_parts/scanning_module(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
+	component_parts += new /obj/item/stock_parts/micro_laser(null)
+
+/obj/machinery/r_n_d/destructive_analyzer/upgraded/init_parts()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/destructive_analyzer(null)
 	component_parts += new /obj/item/stock_parts/scanning_module/phasic(null)
 	component_parts += new /obj/item/stock_parts/manipulator/pico(null)
 	component_parts += new /obj/item/stock_parts/micro_laser/ultra(null)
-	RefreshParts()
-	if(is_taipan(z))
-		icon_state = "syndie_d_analyzer"
-		base_icon_state = "syndie_d_analyzer"
+
+/obj/machinery/r_n_d/destructive_analyzer/Destroy(force)
+	if(linked_console)
+		linked_console.linked_destroy = null
+	return ..()
 
 /obj/machinery/r_n_d/destructive_analyzer/RefreshParts()
 	var/T = 0
