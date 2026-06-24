@@ -35,7 +35,7 @@
 	normal_icon = "seclaptop"
 	density = FALSE
 
-/obj/machinery/computer/message_monitor/Initialize()
+/obj/machinery/computer/message_monitor/Initialize(mapload)
 	..()
 	return INITIALIZE_HINT_LATELOAD
 

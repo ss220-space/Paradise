@@ -414,7 +414,7 @@
 	if(!other_generator?.activated)
 		return
 
-	sleep(rand(0.1 SECONDS, 0.4 SECONDS)) // TODO check if we want this behaviourExpand commentComment on line R400Resolved
+	sleep(randfloat(0.1 SECONDS, 0.4 SECONDS)) // TODO check if we want this behaviourExpand commentComment on line R400Resolved
 
 	var/opposite_direction = turn(direction, 180)
 	for(var/turf in traveled_turfs)
@@ -467,6 +467,8 @@
 	stored_power -= Proj.damage
 	..()
 	return
+
+#undef MAX_STORED_POWER
 
 ////////////// Containment Field START
 /obj/machinery/shieldwall
