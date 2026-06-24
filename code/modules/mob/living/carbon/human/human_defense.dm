@@ -245,7 +245,7 @@ emp_act
 /mob/living/carbon/human/proc/check_shields(atom/AM, damage, attack_text = "атаку", attack_type = ITEM_ATTACK, armour_penetration = 0, shields_penetration = 0)
 	var/block_chance_modifier = round(damage / -3) - shields_penetration
 	var/is_crawling = (body_position == LYING_DOWN)
-	CALCULATE_SKILL_MOD(grabber, COMSIG_GET_SHIELD_MOD, shield_skill_mod)
+	CALCULATE_SKILL_MOD(src, COMSIG_GET_SHIELD_MOD, shield_skill_mod)
 	if(l_hand && !isclothing(l_hand))
 		var/final_block_chance = is_crawling ? 0 : l_hand.block_chance - (clamp((armour_penetration-l_hand.armour_penetration)/2,0,100)) + block_chance_modifier //So armour piercing blades can still be parried by other blades, for example
 		final_block_chance *= shield_skill_mod
