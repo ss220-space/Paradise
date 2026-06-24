@@ -31,10 +31,34 @@
 	SIGNAL_HANDLER
 	get_modifier(user, results, success_chance_mods)
 
+
 /datum/skill/medical/heal
 	id = "medical.heal"
 	name = "Лучение"
 	desc = "Влияет на скорось и величину лечения медикаментами."
+	duration_mod_signals = list(COMSIG_GET_HEAL_DURATION_MOD)
+	var/heal_mods = alist(
+		SKILL_LEVEL_NONE = 0.75,
+		SKILL_LEVEL_BEGINNER = 0.9,
+		SKILL_LEVEL_BASIC = 1,
+		SKILL_LEVEL_ADVANCED = 1.1,
+		SKILL_LEVEL_PROFESSIONAL = 1.2,
+		SKILL_LEVEL_EXPERT = 1.35,
+		SKILL_LEVEL_LEGEND = 1.5,
+		SKILL_LEVEL_UNAVAILABLE = 0.001,
+	)
+
+/datum/skill/medical/heal/apply_to_mob(mob/owner)
+	. = ..()
+	RegisterSignal(owner, COMSIG_GET_HEAL_AMOUNT_MOD, PROC_REF(get_heal_amount_mod))
+
+/datum/skill/medical/heal/remove_from_mob(mob/owner)
+	. = ..()
+	UnregisterSignal(owner, COMSIG_GET_HEAL_AMOUNT_MOD)
+
+/datum/skill/medical/heal/proc/get_heal_amount_mod(mob/living/user, list/results)
+	SIGNAL_HANDLER
+	get_modifier(user, results, heal_mods)
 
 /datum/skill/medical/chemistry
 	id = "medical.chemistry"

@@ -85,3 +85,7 @@
 #define COMSIG_GET_SURGERY_DURATION_MOD "get_surgery_duration_mod"
 /// Get surgeon success chance modifier for surgery skill (mob/living/user, list/modifiers)
 #define COMSIG_GET_SURGERY_SUCCESS_MOD "get_surgery_success_mod"
+/// Get heal duration modifier for heal skill (mob/living/user, list/modifiers)
+#define COMSIG_GET_HEAL_DURATION_MOD "get_heal_duration_mod"
+/// Get heal amount modifier for heal skill (mob/living/user, list/modifiers)
+#define COMSIG_GET_HEAL_AMOUNT_MOD "get_heal_amount_mod"
