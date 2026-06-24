@@ -152,8 +152,31 @@
 	SIGNAL_HANDLER
 	get_modifier(user, results, damage_mod)
 
+
 // MARK: Shields
 /datum/skill/combat/shields
 	id = "combat.shields"
 	name = "Владение щитами (парирование)"
 	desc = "Влияет на шансы блока щитами и парирование."
+	var/block_chance_mod = alist(
+		SKILL_LEVEL_NONE = 0.25,
+		SKILL_LEVEL_BEGINNER = 0.50,
+		SKILL_LEVEL_BASIC = 0.75,
+		SKILL_LEVEL_ADVANCED = 1,
+		SKILL_LEVEL_PROFESSIONAL = 1.25,
+		SKILL_LEVEL_EXPERT = 1.5,
+		SKILL_LEVEL_LEGEND = 1.75,
+		SKILL_LEVEL_UNAVAILABLE = 0.001,
+	)
+
+/datum/skill/combat/shields/apply_to_mob(mob/owner)
+	. = ..()
+	RegisterSignal(owner, COMSIG_GET_SHIELD_MOD, PROC_REF(get_shields_mod))
+
+/datum/skill/combat/shields/remove_from_mob(mob/owner)
+	. = ..()
+	UnregisterSignal(owner, COMSIG_GET_SHIELD_MOD)
+
+/datum/skill/combat/shields/proc/get_shields_mod(mob/living/user, list/results)
+	SIGNAL_HANDLER
+	get_modifier(user, results, block_chance_mod)

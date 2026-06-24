@@ -69,8 +69,6 @@
 #define COMSIG_GET_MISSFIRE_CHANCE "get_missfire_chance"
 /// Get gun recoil mod for guns skill (mob/living/user, list/modifiers)
 #define COMSIG_GET_RECOIL_MOD "get_recoil_mod"
-/// Get gun recoil mod for guns skill (mob/living/user, list/modifiers)
-#define COMSIG_GET_RECOIL_MOD "get_recoil_mod"
 /// Get melee weapon damage mod for melee skill (mob/living/user, list/modifiers)
 #define COMSIG_GET_MELEE_DAMAGE_MOD "get_melee_damage_mod"
 /// Get unarmed melee damage mod for fists skill (mob/living/user, list/modifiers)
@@ -79,3 +77,5 @@
 #define COMSIG_GET_FISTS_DISARM_MOD "get_fists_disarm_mod"
 /// Get grab duration mod for fists skill (mob/living/user, list/modifiers)
 #define COMSIG_GET_FISTS_GRAB_MOD "get_fists_grab_mod"
+/// Get shield chance mod for shields skill (mob/living/user, list/modifiers)
+#define COMSIG_GET_SHIELD_MOD "get_shield_mod"
