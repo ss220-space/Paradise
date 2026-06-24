@@ -12,6 +12,8 @@ GLOBAL_LIST_EMPTY(radial_menus)
 	var/datum/radial_menu/parent
 
 /atom/movable/screen/radial/Destroy()
+	if(parent?.current_user)
+		parent.current_user.screen -= src
 	parent = null
 	return ..()
 

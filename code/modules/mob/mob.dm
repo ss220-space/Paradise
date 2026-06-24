@@ -5,6 +5,8 @@
 	remove_from_alive_mob_list()
 	remove_from_dead_mob_list()
 	focus = null
+	if(s_active)
+		s_active.close(src)
 	for(var/mob/dead/observer/observe in orbiters)
 		if(!istype(observe))
 			continue
@@ -1518,7 +1520,7 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 	SStgui.reset_ui_position(src)
 
 /mob/proc/add_to_respawnable_list()
-	GLOB.respawnable_list += src
+	GLOB.respawnable_list |= src
 	RegisterSignal(src, COMSIG_QDELETING, PROC_REF(remove_from_respawnable_list))
 
 /mob/proc/remove_from_respawnable_list()

@@ -107,9 +107,10 @@
 	set_nutrition(new_set_nutrition)
 	add_language(LANGUAGE_SLIME)
 
-/mob/living/simple_animal/slime/Destroy()
+/mob/living/simple_animal/slime/Destroy(force)
 	for(var/datum/action/AC as anything in actions)
 		AC.Remove(src)
+		qdel(AC)
 	Target = null
 	Leader = null
 	Friends.Cut()

@@ -64,10 +64,12 @@ ADMIN_VERB(dispatch_ert, R_EVENT, "Dispatch CentComm Response Team", "Send an Ce
 	for(var/mob/dead/observer/M in ert_candidates)
 		if((M in GLOB.respawnable_list) && M.JoinResponseTeam())
 			GLOB.response_team_members |= M
+			M.RegisterSignal(M, COMSIG_QDELETING, TYPE_PROC_REF(/mob/dead/observer, remove_from_ert_list), TRUE)
 	// If there's still open slots, non-respawnable players can fill them
 	for(var/mob/dead/observer/M in (ert_candidates - GLOB.respawnable_list))
 		if(M.JoinResponseTeam())
 			GLOB.response_team_members |= M
+			M.RegisterSignal(M, COMSIG_QDELETING, TYPE_PROC_REF(/mob/dead/observer, remove_from_ert_list), TRUE)
 
 	if(!length(GLOB.response_team_members))
 		GLOB.active_team.cannot_send_team()
@@ -78,6 +80,12 @@ ADMIN_VERB(dispatch_ert, R_EVENT, "Dispatch CentComm Response Team", "Send an Ce
 	for(var/mob/M in GLOB.response_team_members)
 		INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(get_ert_prefs), M, ert_prefs)
 	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(dispatch_response_team), GLOB.response_team_members, ert_prefs), 31 SECONDS) // one additional second for some client-server lags
+
+/mob/dead/observer/proc/remove_from_ert_list(ghost)
+	SIGNAL_HANDLER
+	GLOB.response_team_members -= src
+	UnregisterSignal(ghost, COMSIG_QDELETING)
+	remove_from_respawnable_list()
 
 /proc/get_ert_prefs(mob/user, list/ert_prefs)
 	ert_prefs[user] = list()

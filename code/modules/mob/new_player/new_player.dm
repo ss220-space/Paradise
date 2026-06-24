@@ -18,6 +18,11 @@
 	add_to_mob_list()
 	return INITIALIZE_HINT_NORMAL
 
+/mob/new_player/Destroy(force)
+	if(mind)
+		mind.current = null // We best null their mind as well, otherwise /every/ single new player is going to explode the server a little more going in/out of the round
+	return ..()
+
 /mob/new_player/proc/privacy_consent()
 	close_window(src, "playersetup")
 	var/output = GLOB.join_tos
@@ -181,7 +186,6 @@
 			observer.persistent_client.time_of_death = world.time
 			if(CONFIG_GET(flag/respawn_observer))
 				observer.add_to_respawnable_list()			// If enabled in config - observer cant respawn as Player
-			mind.current = null
 			qdel(src)
 			return 1
 
