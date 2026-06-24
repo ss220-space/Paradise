@@ -64,6 +64,29 @@
 	id = "medical.chemistry"
 	name = "Химия"
 	desc = "Влияет на работу с химией."
+	var/chem_dispense_randomizatin_sizes = alist(
+		SKILL_LEVEL_NONE = 0.25,
+		SKILL_LEVEL_BEGINNER = 0.2,
+		SKILL_LEVEL_BASIC = 0.1,
+		SKILL_LEVEL_ADVANCED = 0.05,
+		SKILL_LEVEL_PROFESSIONAL = 0.025,
+		SKILL_LEVEL_EXPERT = 0.01,
+		SKILL_LEVEL_LEGEND = 0,
+		SKILL_LEVEL_UNAVAILABLE = 0.5,
+	)
+
+/datum/skill/medical/chemistry/apply_to_mob(mob/owner)
+	. = ..()
+	RegisterSignal(owner, COMSIG_GET_CHEMISTRY_DISPENSE_RAND_SIZE, PROC_REF(get_chemistry_dispense_rand_size))
+
+/datum/skill/medical/chemistry/remove_from_mob(mob/owner)
+	. = ..()
+	UnregisterSignal(owner, COMSIG_GET_CHEMISTRY_DISPENSE_RAND_SIZE)
+
+/datum/skill/medical/chemistry/proc/get_chemistry_dispense_rand_size(mob/living/user, list/results)
+	SIGNAL_HANDLER
+	get_modifier(user, results, chem_dispense_randomizatin_sizes)
+
 
 /datum/skill/medical/genetic
 	id = "medical.genetic"

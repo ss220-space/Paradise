@@ -33,8 +33,8 @@
 #define COMSIG_GET_BUTCHERING_SPEED_MOD "get_butchering_speed"
 /// Get chance to extra cooking count for cooking skill (mob/living/user, list/chances)
 #define COMSIG_GET_COOKING_EXTRA_COUNT_CHANCE "get_cooking_extra_count_chance"
-/// Get modifier for mixing (mob/living/user, list/modifiers)
-#define COMSIG_GET_DRINKS_MIXING_SPEED_MOD "get_drinks_mixing_speed"
+/// Get chem reaction amount modifier for drinks skill (mob/living/user, list/modifiers)
+#define COMSIG_GET_DRINKS_DISPENSE_RAND_SIZE "get_drinks_dispense_rand_size"
 
 // MARK: General
 /// Get speed modifier for mech driving skill (mob/living/user, list/modifiers)
@@ -89,3 +89,5 @@
 #define COMSIG_GET_HEAL_DURATION_MOD "get_heal_duration_mod"
 /// Get heal amount modifier for heal skill (mob/living/user, list/modifiers)
 #define COMSIG_GET_HEAL_AMOUNT_MOD "get_heal_amount_mod"
+/// Get chem reaction amount modifier for chemistry skill (mob/living/user, list/modifiers)
+#define COMSIG_GET_CHEMISTRY_DISPENSE_RAND_SIZE "get_chemistry_dispense_rand_size"
