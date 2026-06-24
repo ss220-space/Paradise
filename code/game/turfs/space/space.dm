@@ -44,8 +44,8 @@ GLOBAL_LIST_EMPTY(starlight)
 
 /turf/space
 	icon = 'icons/turf/space.dmi'
-	name = "space"
-	icon_state = "space"
+	icon_state = MAP_SWITCH("space", "space_map")
+	name = "\proper space"
 
 	temperature = TCMB
 	thermal_conductivity = OPEN_HEAT_TRANSFER_COEFFICIENT
@@ -84,45 +84,14 @@ GLOBAL_LIST_EMPTY(starlight)
 	//when this be added to vis_contents of something it be associated with something on clicking,
 	//important for visualisation of turf in openspace and interraction with openspace that show you turf.
 
-/turf/space/Initialize(mapload)
+/turf/space/basic
+	icon_state = MAP_SWITCH("space", "space_basic_map")
+
+// Do not convert to Initialize!
+/turf/space/basic/New()
 	SHOULD_CALL_PARENT(FALSE)
-	if(!istype(src, /turf/space/transit) && !isopenspaceturf(src))
-		icon_state = SPACE_ICON_STATE
-
-	if(length(vis_contents))
-		vis_contents.Cut() //removes inherited overlays
-
-	if(flags & INITIALIZED)
-		stack_trace("Warning: [src]([type]) initialized multiple times!")
-	flags |= INITIALIZED
-
-	// We make the assumption that the space plane will never be blacklisted, as an optimization
-	if(SSmapping.max_plane_offset)
-		plane = PLANE_SPACE - (PLANE_RANGE * SSmapping.z_level_to_plane_offset[z])
-
-	var/area/our_area = loc
-	if(!our_area.area_has_base_lighting && space_lit) //Only provide your own lighting if the area doesn't for you
-		// Intentionally not add_overlay for performance reasons.
-		// add_overlay does a bunch of generic stuff, like creating a new list for overlays,
-		// queueing compile, cloning appearance, etc etc etc that is not necessary here.
-		overlays += GLOB.starlight_overlays[GET_TURF_PLANE_OFFSET(src) + 1]
-
-	if(light_power && light_range)
-		update_light()
-
-	if(opacity)
-		directional_opacity = ALL_CARDINALS
-	ComponentInitialize()
-	return INITIALIZE_HINT_NORMAL
-
-/turf/space/ComponentInitialize()
-	if(!is_station_level(z))
-		return
-	AddComponent(/datum/component/blob_turf_consuming, 4)
-
-/turf/space/Destroy()
-	GLOB.starlight -= src
-	return ..()
+	//This is used to optimize the map loader
+	return
 
 /turf/space/BeforeChange()
 	..()

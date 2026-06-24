@@ -1,4 +1,4 @@
-//INITIALIZE_IMMEDIATE(/atom/movable/screen/plane_master)
+INITIALIZE_IMMEDIATE(/atom/movable/screen/plane_master)
 /atom/movable/screen/plane_master
 	screen_loc = "CENTER"
 	icon_state = "blank"
@@ -149,9 +149,6 @@
 			for(var/atom/movable/render_plane_relay/relay as anything in relays)
 				our_client.register_render_plane_relay(relay)
 			return TRUE
-		for(var/atom/movable/render_plane_relay/relay as anything in relays)
-			if(relay.critical_target)
-				our_client.register_render_plane_relay(relay)
 		return TRUE
 
 	if(!our_client)

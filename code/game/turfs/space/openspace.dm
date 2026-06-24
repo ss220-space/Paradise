@@ -1,7 +1,9 @@
 /turf/space/openspace
 	name = "open space"
 	desc = "Watch your step!"
-	icon_state = "openspace" //transparent
+	icon = 'icons/turf/floors.dmi'
+	icon_state = MAP_SWITCH("pure_white", "invisible")
+	plane = TRANSPARENT_FLOOR_PLANE
 	baseturf = /turf/space/openspace
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	pathing_pass_method = TURF_PATHING_PASS_PROC
@@ -13,6 +15,10 @@
 	if(!GET_TURF_BELOW(src))
 		stack_trace("[src] was inited as openspace with nothing below it at ([x], [y], [z])")
 	RegisterSignal(src, COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZED_ON, PROC_REF(on_atom_created))
+	icon_state = "pure_white"
+	// We make the assumption that the space plane will never be blacklisted, as an optimization
+	if(SSmapping.max_plane_offset)
+		plane = TRANSPARENT_FLOOR_PLANE - (PLANE_RANGE * SSmapping.z_level_to_plane_offset[z])
 	return INITIALIZE_HINT_LATELOAD
 
 /turf/space/openspace/LateInitialize()

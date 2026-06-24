@@ -653,6 +653,19 @@ ADMIN_VERB(toggle_medal_disable, R_DEBUG, "Toggle Medal Disable", "Toggles the s
 ADMIN_VERB(display_overlay_log, R_DEBUG, "Display Overlay Log", "Display the overlay manager log of everything that's passed through it.", ADMIN_CATEGORY_DEBUG)
 	render_stats(GLOB.overlay_manager.stats, user)
 
+ADMIN_VERB(debug_plane_masters, R_DEBUG, "Edit/Debug Planes", "Edit and visualize plane masters and their connections (relays).", ADMIN_CATEGORY_DEBUG)
+	user.edit_plane_masters()
+
+/client/proc/edit_plane_masters(mob/debug_on)
+	if(!holder)
+		return
+	if(debug_on)
+		holder.plane_debug.set_mirroring(TRUE)
+		holder.plane_debug.set_target(debug_on)
+	else
+		holder.plane_debug.set_mirroring(FALSE)
+	holder.plane_debug.ui_interact(mob)
+
 ADMIN_VERB(clear_turf_reservations, R_DEBUG, "Clear Dynamic Turf Reservations", "Deallocates all reserved space, restoring it to round start conditions.", ADMIN_CATEGORY_DEBUG)
 	var/answer = tgui_alert(user, "WARNING: THIS WILL WIPE ALL RESERVED SPACE TO A CLEAN SLATE! ANY MOVING SHUTTLES, ELEVATORS, OR IN-PROGRESS PHOTOGRAPHY WILL BE DELETED!", "Really wipe dynamic turfs?", list("YES", "NO"))
 	if(answer != "YES")

@@ -1,9 +1,9 @@
-/// A component that lets you turn an object invisible when you're standing on certain relative turfs to it, like behind a tree
+///A component that lets you turn an object invisible when you're standing on certain relative turfs to it, like behind a tree
 /datum/component/seethrough
-	/// A list of turfs on which we make ourself transparent
+	///A list of turfs on which we make ourself transparent
 	var/list/watched_turfs
 	/// Associate list, with client = trickery_image. Track which client is being tricked with which image
-	var/list/tricked_mobs = list()
+	var/list/tricked_mobs
 	/// Which alpha do we animate towards?
 	var/target_alpha
 	/// How long our fase in/out takes
@@ -34,8 +34,6 @@
 	src.animation_time = animation_time
 	src.perimeter_reset_timer = perimeter_reset_timer
 	src.clickthrough = clickthrough
-
-	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(dismantle_perimeter))
 
 	setup_perimeter(parent)
 
@@ -104,7 +102,7 @@
 	if(mob in tricked_mobs)
 		var/image/trickery_image = tricked_mobs[mob]
 		animate(trickery_image, alpha = 255, time = animation_time)
-		tricked_mobs.Remove(mob)
+		LAZYREMOVE(tricked_mobs, mob)
 		UnregisterSignal(mob, COMSIG_MOB_LOGOUT)
 
 		// after playing the fade-in animation, remove the screen obj

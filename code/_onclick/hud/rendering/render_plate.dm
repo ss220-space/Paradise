@@ -228,8 +228,6 @@
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	critical = PLANE_CRITICAL_DISPLAY
 	render_relay_planes = list(RENDER_PLANE_GAME)
-	/// A list of light cutoffs we're actively using, (mass, r, g, b) to avoid filter churn
-	var/list/light_cutoffs
 
 /*!
  * This system works by exploiting BYONDs color matrix filter to use layers to handle emissive blockers.
@@ -244,7 +242,6 @@
 /atom/movable/screen/plane_master/rendering_plate/lighting/Initialize(mapload, datum/hud/hud_owner)
 	. = ..()
 	add_filter("emissives", 1, alpha_mask_filter(render_source = OFFSET_RENDER_TARGET(EMISSIVE_RENDER_TARGET, offset), flags = MASK_INVERSE))
-	set_light_cutoff(10)
 
 /atom/movable/screen/plane_master/rendering_plate/lighting/set_home(datum/plane_master_group/home)
 	. = ..()
@@ -267,7 +264,7 @@
 	backdrop = mymob.overlay_fullscreen("lighting_backdrop_unlit_[home.key]#[offset]", /atom/movable/screen/fullscreen/lighting_backdrop/unlit)
 	SET_PLANE_EXPLICIT(backdrop, PLANE_TO_TRUE(backdrop.plane), src)
 
-	set_light_cutoff(mymob.lighting_cutoff, mymob.lighting_color_cutoffs)
+	set_alpha(mymob.lighting_alpha)
 
 /atom/movable/screen/plane_master/rendering_plate/lighting/hide_from(mob/oldmob)
 	. = ..()
@@ -292,24 +289,6 @@
 		disable_alpha()
 	else
 		enable_alpha()
-
-/atom/movable/screen/plane_master/rendering_plate/lighting/proc/set_light_cutoff(light_cutoff, list/color_cutoffs)
-	var/list/new_cutoffs = list(light_cutoff)
-	new_cutoffs += color_cutoffs
-	if(new_cutoffs ~= light_cutoffs)
-		return
-
-	remove_filter(list("light_cutdown", "light_cutup"))
-
-	var/ratio = light_cutoff/100
-	if(!color_cutoffs)
-		color_cutoffs = list(0, 0, 0)
-
-	var/red = color_cutoffs[1] / 100
-	var/green = color_cutoffs[2] / 100
-	var/blue = color_cutoffs[3] / 100
-	add_filter("light_cutdown", 3, color_matrix_filter(list(1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1, -(ratio + red),-(ratio+green),-(ratio+blue),0)))
-	add_filter("light_cutup", 4, color_matrix_filter(list(1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1, ratio+red,ratio+green,ratio+blue,0)))
 
 /atom/movable/screen/plane_master/rendering_plate/light_mask
 	name = "Light Mask"

@@ -367,6 +367,11 @@
 				if(!ispath(path))
 					warning("Z-level [z] has invalid baseturf '[check_level_trait(z, ZTRAIT_BASETURF)]'")
 					path = /turf/space
+		if(/turf/space/basic)
+			// basic doesn't initialize and this will cause issues
+			// no warning though because this can happen naturaly as a result of it being built on top of
+			path = /turf/space
+
 	if(!GLOB.use_preloader && path == type) // Don't no-op if the map loader requires it to be reconstructed
 		return src
 
