@@ -416,6 +416,9 @@
 
 	sleep(randfloat(0.1 SECONDS, 0.4 SECONDS)) // TODO check if we want this behaviourExpand commentComment on line R400Resolved
 
+	if(QDELETED(src) || QDELETED(other_generator) || !other_generator.activated)
+		return
+
 	var/opposite_direction = turn(direction, 180)
 	for(var/turf in traveled_turfs)
 		var/obj/machinery/shieldwall/shieldwall = new(turf, src, other_generator) //(ref to this gen, ref to connected gen)

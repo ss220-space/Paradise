@@ -745,7 +745,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 		COOLDOWN_START(src, cooldown, cooldown_time)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	if(!link_ref && I.loc == user && I.w_class <= WEIGHT_CLASS_SMALL)
+	if(!link_ref?.resolve() && I.loc == user && I.w_class <= WEIGHT_CLASS_SMALL)
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 		add_fingerprint(user)

@@ -263,6 +263,10 @@
 		PREPOSITIONAL = "древнем голиафе",
 	)
 
+/mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient/Initialize(mapload)
+	. = ..()
+	find_tentacle_turfs()
+
 /mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient/handle_automated_action()
 	. = ..()
 
@@ -286,9 +290,12 @@
 /mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change)
 	. = ..()
 	LAZYCLEARLIST(cached_tentacle_turfs)
-	for(var/turf/simulated/floor/turf in RECT_TURFS(4, 4, loc))
-		LAZYADD(cached_tentacle_turfs, turf)
+	find_tentacle_turfs()
 
+/mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient/proc/find_tentacle_turfs()
+	LAZYINITLIST(cached_tentacle_turfs)
+	for(var/turf/simulated/floor/turf in RECT_TURFS(4, 4, loc))
+		cached_tentacle_turfs |= turf
 
 /mob/living/simple_animal/hostile/asteroid/goliath/beast/tendril
 	fromtendril = TRUE
