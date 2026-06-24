@@ -442,7 +442,7 @@
 			// Should have a lighting object if we never had one
 			else
 				new /atom/movable/lighting_object(null, src)
-		else if (old_lighting_object)
+		else if(old_lighting_object)
 			qdel(old_lighting_object, force = TRUE)
 
 		directional_opacity = old_directional_opacity
