@@ -38,7 +38,7 @@
 		stack_trace("[src] was inited as openspace with nothing below it at ([x], [y], [z])")
 	RegisterSignal(src, COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZED_ON, PROC_REF(on_atom_created))
 	var/area/our_area = loc
-	if(istype(our_area, /area/space))
+	if(isspacearea(our_area))
 		force_no_gravity = TRUE
 	return INITIALIZE_HINT_LATELOAD
 

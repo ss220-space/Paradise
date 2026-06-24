@@ -90,7 +90,7 @@
 /turf/proc/transfer_area_lighting(area/old_area, area/new_area)
 	if(SSlighting.initialized && !space_lit)
 		if(new_area.static_lighting != old_area.static_lighting)
-			if (new_area.static_lighting)
+			if(new_area.static_lighting)
 				lighting_build_overlay()
 			else
 				lighting_clear_overlay()
@@ -109,7 +109,7 @@
 	if(space_lit)
 		if(!new_area.lighting_effects && old_area.lighting_effects)
 			overlays += GLOB.starlight_overlays[GET_TURF_PLANE_OFFSET(src) + 1]
-		else if (new_area.lighting_effects && !old_area.lighting_effects)
+		else if(new_area.lighting_effects && !old_area.lighting_effects)
 			overlays -= GLOB.starlight_overlays[GET_TURF_PLANE_OFFSET(src) + 1]
 
 ///Proc to add movable sources of opacity on the turf and let it handle lighting code.

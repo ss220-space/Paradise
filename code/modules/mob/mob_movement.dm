@@ -534,7 +534,7 @@
 	if(oldarea != newarea)
 		newarea.Entered(src, oldarea)
 
-	if(new_turf && (istype(new_turf, /turf/cordon)))
+	if(new_turf && (iscordon(new_turf)))
 		return
 	return ..()
 

@@ -15,6 +15,7 @@ GLOBAL_LIST_INIT(traits_by_type, list(
 
 	/datum/hud = list(
 		"TRAIT_ESCAPE_MENU_OPEN" = TRAIT_ESCAPE_MENU_OPEN,
+		"TRAIT_PARALLAX_DISPLAYED" = TRAIT_PARALLAX_DISPLAYED,
 	),
 
 	/datum/controller/global_vars = list(

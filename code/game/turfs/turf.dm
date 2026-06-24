@@ -478,7 +478,7 @@
 			lit_turf.enable_starlight()
 
 	// If we're a cordon we count against a light, but also don't produce any ourselves
-	else if (istype(src, /turf/cordon))
+	else if(iscordon(src))
 		// This counts as removing a source of starlight, so we need to update the space tile to inform it
 		if(!ispath(old_type, /turf/space))
 			for(var/turf/space/space_tile in RANGE_TURFS(1, src))

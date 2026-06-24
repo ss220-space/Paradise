@@ -203,10 +203,10 @@
 /proc/display_corners()
 	var/list/corners = list()
 	var/max_lum = 0
-	for(var/datum/lighting_corner/corner) // I am so sorry
+	// comms for hack linter --LittleBoobs
+	for(/* */var/datum/lighting_corner/corner/* */) // I am so sorry - TG comment
 		corners += corner
 		max_lum = max(max_lum, corner.largest_color_luminosity)
-
 
 	for(var/datum/lighting_corner/corner as anything in corners)
 		corner.display(max_lum)

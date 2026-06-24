@@ -84,7 +84,7 @@
 
 	add_overlay(lighting_effects[1])
 	var/list/z_offsets = SSmapping.z_level_to_plane_offset
-	for (var/area_zlevel in 1 to get_highest_zlevel())
+	for(var/area_zlevel in 1 to get_highest_zlevel())
 		// We will only add overlays to turfs not on the first z layer, because that's a significantly lesser portion
 		// And we need to do them separate, or lighting will go fuckey
 		// This inside loop is EXTREMELY hot because it's run by space tiles, so we do the if check once on the outside

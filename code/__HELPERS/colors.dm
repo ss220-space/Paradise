@@ -85,7 +85,7 @@ GLOBAL_LIST_INIT(hex_characters, list("0","1","2","3","4","5","6","7","8","9","a
 	// Do we have an alpha row/parameters?
 	var/has_alpha = FALSE
 
-	switch (length(matrix))
+	switch(length(matrix))
 		if(9)
 			has_constants = FALSE
 			has_alpha = FALSE
@@ -122,7 +122,7 @@ GLOBAL_LIST_INIT(hex_characters, list("0","1","2","3","4","5","6","7","8","9","a
 
 			// HSV/HSL/HCY have non-255 maximums for their values
 			var/multiplier = 255
-			switch (row_elem)
+			switch(row_elem)
 				// Hue goes from 0 to 360
 				if(1)
 					multiplier = 360

@@ -10,7 +10,6 @@
 	icon_state = "nothing"
 	light_system = OVERLAY_LIGHT
 	light_range = MINIMUM_USEFUL_LIGHT_RANGE
-	light_color = COLOR_WHITE
 	blocks_emissive = EMISSIVE_BLOCK_NONE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 

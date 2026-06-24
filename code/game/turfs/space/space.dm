@@ -45,7 +45,7 @@ GLOBAL_LIST_EMPTY(starlight)
 /turf/space
 	icon = 'icons/turf/space.dmi'
 	icon_state = MAP_SWITCH("space", "space_map")
-	name = "\proper space"
+	name = "space"
 
 	temperature = TCMB
 	thermal_conductivity = OPEN_HEAT_TRANSFER_COEFFICIENT
@@ -57,7 +57,6 @@ GLOBAL_LIST_EMPTY(starlight)
 	plane = PLANE_SPACE
 	layer = SPACE_LAYER
 
-	light_power = 1
 	light_range = 2
 	light_color = COLOR_STARLIGHT
 	light_height = LIGHTING_HEIGHT_SPACE
@@ -95,23 +94,23 @@ GLOBAL_LIST_EMPTY(starlight)
 
 /turf/space/BeforeChange()
 	..()
-	var/datum/space_level/S = GLOB.space_manager.get_zlev(z)
-	S.remove_from_transit(src)
+	var/datum/space_level/space_level = GLOB.space_manager.get_zlev(z)
+	space_level.remove_from_transit(src)
 	if(light_sources) // Turn off starlight, if present
 		set_light_on(FALSE)
 
 /turf/space/AfterChange(flags = NONE, oldType)
 	..()
-	var/datum/space_level/S = GLOB.space_manager.get_zlev(z)
-	S.add_to_transit(src)
-	S.apply_transition(src)
+	var/datum/space_level/space_level = GLOB.space_manager.get_zlev(z)
+	space_level.add_to_transit(src)
+	space_level.apply_transition(src)
 
 /// Updates starlight. Called when we're unsure of a turf's starlight state
 /// Returns TRUE if we succeed, FALSE otherwise
 /turf/space/proc/update_starlight()
 	for(var/t in RANGE_TURFS(1, src)) //RANGE_TURFS is in code\__HELPERS\game.dm
 		// I've got a lot of cordons near spaceturfs, be good kids
-		if(isspaceturf(t) || istype(t, /turf/cordon))
+		if(isspaceturf(t) || iscordon(t))
 			//let's NOT update this that much pls
 			continue
 		enable_starlight()

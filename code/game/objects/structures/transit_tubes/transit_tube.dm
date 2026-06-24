@@ -28,8 +28,6 @@
 	// set up our appearance after the initialize in case someone's setting our direction afterwards
 	// (especially for things like admin spawning)
 	addtimer(CALLBACK(src, PROC_REF(setup_appearance)), 1)
-	AddElement(/datum/element/climbable)
-	AddElement(/datum/element/elevation, pixel_shift = 12)
 
 /obj/structure/transit_tube/proc/setup_appearance()
 	init_tube_dirs()

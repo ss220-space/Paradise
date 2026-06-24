@@ -161,6 +161,9 @@
 				managed_overlays = em_block
 	else
 		var/static/mutable_appearance/emissive_blocker/blocker = new()
+		if(!blocker)
+			WARNING("Emissive blocker static instance is null during init of [src]! Skipping emissive setup.")
+			return
 		blocker.icon = icon
 		blocker.icon_state = icon_state
 		blocker.dir = dir

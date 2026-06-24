@@ -306,7 +306,7 @@
 		return
 	if(isturf(inside.loc))
 		// storage items block light, also don't be moving into a qdeleted item
-		if(QDELETED(inside) || istype(inside, /obj/item/storage))
+		if(QDELETED(inside) || isstorage(inside))
 			set_holder(null)
 		else
 			set_holder(inside)
