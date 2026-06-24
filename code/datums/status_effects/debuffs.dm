@@ -1607,12 +1607,6 @@
 	owner.set_max_stamina(max(0, original_max_stamina - current_penalty))
 	return TRUE
 
-/datum/status_effect/stamina_boost_restriction/tick()
-	if(!istype(owner) || isnull(original_max_stamina))
-		return
-	if(owner.max_stamina <= 0)
-		owner.setStaminaLoss(1)
-
 /datum/status_effect/stamina_boost_restriction/proc/add_stack()
 	var/mob/living/carbon/human/human = owner
 	if(!istype(human))
@@ -1642,6 +1636,6 @@
 		original_max_stamina = null
 
 /atom/movable/screen/alert/status_effect/stamina_boost_restriction
-	name = "Ограничение выносливости"
-	desc = "Расплата за использование."
-	icon_state = "blooddrunk"
+	name = "Сниженная выносливость"
+	desc = "Расплата за использование импланта."
+	icon_state = "pd_nopower"
