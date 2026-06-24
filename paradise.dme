@@ -1818,6 +1818,7 @@
 #include "code\game\objects\items\weapons\implants\implant_sad_trombone.dm"
 #include "code\game\objects\items\weapons\implants\implant_second_chance.dm"
 #include "code\game\objects\items\weapons\implants\implant_stealth.dm"
+#include "code\game\objects\items\weapons\implants\implant_stamina_Boost.dm"
 #include "code\game\objects\items\weapons\implants\implant_storage.dm"
 #include "code\game\objects\items\weapons\implants\implant_supercharge.dm"
 #include "code\game\objects\items\weapons\implants\implant_suppression.dm"
