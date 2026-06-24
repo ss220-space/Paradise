@@ -116,6 +116,14 @@
 	index_name = "Razumist cat"
 	path = /obj/item/toy/plushie/cat/kotrazumist
 
+/datum/gear/donor/heartballoon
+	index_name = "Heart balloon"
+	path = /obj/item/toy/balloon/heart
+
+/datum/gear/donor/corgiballoon
+	index_name = "Corgi balloon"
+	path = /obj/item/toy/balloon/corgi
+
 /datum/gear/donor/id_decal_silver
 	index_name = "Silver ID Decal"
 	path = /obj/item/id_decal/silver
@@ -607,6 +615,11 @@
 /datum/gear/donor/beaver
 	index_name = "Beaver Plushie"
 	path = /obj/item/toy/plushie/beaver
+	donator_tier = 3
+
+/datum/gear/donor/chikaboomchik
+	index_name = "Chikaboomchik Plushie"
+	path = /obj/item/toy/plushie/chikaboomchik
 	donator_tier = 3
 
 /datum/gear/donor/masterli

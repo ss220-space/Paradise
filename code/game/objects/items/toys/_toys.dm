@@ -18,14 +18,14 @@
 /obj/item/toy/examine(mob/user)
 	. = ..()
 	if(unique_toy_rename)
-		. += span_notice("Используй ручку на игрушке, чтобы переименовать её.")
+		. += span_notice("Используйте ручку на игрушке, чтобы переименовать её.")
 
 /obj/item/toy/attackby(obj/item/I, mob/user, params)
 	if(unique_toy_rename && is_pen(I))
 		add_fingerprint(user)
 		var/new_name = rename_interactive(user, I, use_prefix = FALSE)
 		if(!isnull(new_name))
-			to_chat(user, span_notice("Вы называете игрушку '[name]'. Поздоровайся со своим новым другом."))
+			to_chat(user, span_notice("Вы называете игрушку '[name]'. Поздоровайтесь со своим новым другом."))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
@@ -80,7 +80,7 @@
 /obj/item/toy/nuke/attack_self(mob/user)
 	if(cooldown < world.time)
 		cooldown = world.time + 3 MINUTES
-		user.visible_message(span_warning("[user] нажима[PLUR_ET_YUT(user)] кнопку на [declent_ru(GENITIVE)]"), span_notice("Вы активируете [declent_ru(NOMINATIVE)], раздаётся громкий звук!"), span_notice("Слышишь щелчок кнопки."))
+		user.visible_message(span_warning("[user] нажима[PLUR_ET_YUT(user)] кнопку на [declent_ru(DATIVE)]"), span_notice("Вы активируете [declent_ru(ACCUSATIVE)], раздаётся громкий звук!"), span_notice("Слышишь щелчок кнопки."))
 		INVOKE_ASYNC(src, PROC_REF(async_animation))
 	else
 		var/timeleft = (cooldown - world.time)
@@ -147,7 +147,7 @@
 /obj/item/toy/AI/attack_self(mob/user)
 	if(!cooldown) //for the sanity of everyone
 		var/message = generate_ion_law()
-		to_chat(user, span_notice("Вы нажимаете кнопку на [declent_ru(GENITIVE)]."))
+		to_chat(user, span_notice("Вы нажимаете кнопку на [declent_ru(DATIVE)]."))
 		playsound(user, 'sound/machines/click.ogg', 20, TRUE)
 		user.visible_message(span_danger("[get_examine_icon(viewers(user))] [message]"))
 		cooldown = 1
@@ -188,7 +188,7 @@
 		NOMINATIVE = "камень-питомец Фред",
 		GENITIVE = "камня-питомца Фреда",
 		DATIVE = "камню-питомцу Фреду",
-		ACCUSATIVE = "камень-питомец Фреда",
+		ACCUSATIVE = "камень-питомца Фреда",
 		INSTRUMENTAL = "камнем-питомцем Фредом",
 		PREPOSITIONAL = "камне-питомце Фреде",
 	)
@@ -203,7 +203,7 @@
 		NOMINATIVE = "камень-питомец Рокси",
 		GENITIVE = "камня-питомца Рокси",
 		DATIVE = "камню-питомцу Рокси",
-		ACCUSATIVE = "камень-питомец Рокси",
+		ACCUSATIVE = "камень-питомца Рокси",
 		INSTRUMENTAL = "камнем-питомцем Рокси",
 		PREPOSITIONAL = "камне-питомце Рокси",
 	)

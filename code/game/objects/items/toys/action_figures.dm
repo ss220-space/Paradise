@@ -472,10 +472,6 @@
 		PREPOSITIONAL = "фигурке неустановленного персонажа",
 	)
 
-/obj/item/toy/figure/Initialize(mapload)
-	. = ..()
-	desc = "A \"Space Life\" brand [name]"
-
 /obj/item/toy/figure/attack_self(mob/user as mob)
 	if(cooldown < world.time)
 		cooldown = (world.time + 30) //3 second cooldown

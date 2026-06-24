@@ -36,7 +36,7 @@
 		user.visible_message(span_notice("[get_examine_icon(viewers(user))] [pick(cuddle_verb)]"))
 	else
 		var/list/defauld_cuddle = list("обнима[PLUR_ET_YUT(user)]", "тиска[PLUR_ET_YUT(user)]", "прижима[PLUR_ET_YUT(user)]")
-		user.visible_message(span_notice("[user] [pick(defauld_cuddle)] [src]."))
+		user.visible_message(span_notice("[user] [pick(defauld_cuddle)] [declent_ru(ACCUSATIVE)]."))
 
 /obj/item/toy/plushie/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ..()

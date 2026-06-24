@@ -108,6 +108,16 @@
 	/// the string describing the name of balloon's current colour.
 	var/current_color
 
+/obj/item/toy/balloon/get_ru_names()
+	return alist(
+		NOMINATIVE = "воздушный шарик",
+		GENITIVE = "воздушного шарика",
+		DATIVE = "воздушному шарику",
+		ACCUSATIVE = "воздушный шарик",
+		INSTRUMENTAL = "воздушным шариком",
+		PREPOSITIONAL = "воздушном шарике",
+	)
+
 /obj/item/toy/balloon/long
 	name = "long balloon"
 	desc = "Воздушный шарик, идеальный для скручивания в различные формы. Использованные блюспейс технологии позволили ему парить при любых условиях."
