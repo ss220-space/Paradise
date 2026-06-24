@@ -213,6 +213,8 @@
 			qdel(A)
 		return
 
+	REMOVE_FROM_SMOOTH_QUEUE(src)
+
 	LAZYCLEARLIST(blueprint_data)
 	flags &= ~INITIALIZED
 	bound_air = null
@@ -495,7 +497,6 @@
 		var/area/our_area = new_turf.loc
 		if(our_area.lighting_effects)
 			new_turf.add_overlay(our_area.lighting_effects[SSmapping.z_level_to_plane_offset[z] + 1])
-	//SSdemo.mark_turf(new_turf)
 
 	return new_turf
 

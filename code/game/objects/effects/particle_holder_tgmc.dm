@@ -47,6 +47,7 @@
 /// Signal called when parent is deleted.
 /obj/effect/abstract/particle_holder_tgmc/proc/on_qdel(atom/movable/attached, force)
 	SIGNAL_HANDLER
+	attached.vis_contents -= src
 	qdel(src) // Our parent is gone and we need to be as well.
 
 /// Logic proc for particle holders, aka where they move.

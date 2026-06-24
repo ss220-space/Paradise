@@ -161,6 +161,10 @@
 		QDEL_NULL(path_hud)
 		path_hud = null
 
+	var/datum/atom_hud/data_hud = GLOB.huds[data_hud_type]
+	if(data_hud)
+		data_hud.hide_from(src)
+
 	GLOB.bots_list -= src
 
 	QDEL_LIST(path)
@@ -270,14 +274,12 @@
 	prepare_huds()
 	var/datum/atom_hud/data/diagnostic/diag_hud = GLOB.huds[DATA_HUD_DIAGNOSTIC]
 	diag_hud.add_atom_to_hud(src)
-	diag_hud.show_to(src)
 	diag_hud_set_bothealth()
 	diag_hud_set_botstat()
 	diag_hud_set_botmode()
 	// give us the hud too!
 	if(path_hud)
 		path_hud.add_atom_to_hud(src)
-		path_hud.show_to(src)
 
 /mob/living/simple_animal/bot/proc/add_bot_filter()
 	if(QDELETED(src) || !SSradio || !bot_filter)

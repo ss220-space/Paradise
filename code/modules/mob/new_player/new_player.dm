@@ -18,6 +18,11 @@
 	add_to_mob_list()
 	return INITIALIZE_HINT_NORMAL
 
+/mob/new_player/Destroy(force)
+	if(mind)
+		mind.current = null // We best null their mind as well, otherwise /every/ single new player is going to explode the server a little more going in/out of the round
+	return ..()
+
 /mob/new_player/proc/privacy_consent()
 	close_window(src, "playersetup")
 	var/output = GLOB.join_tos
@@ -179,8 +184,8 @@
 			observer.name = observer.real_name
 			observer.possess_by_player(key)
 			observer.persistent_client.time_of_death = world.time
-			QDEL_NULL(mind)
-			if(CONFIG_GET(flag/respawn_observer)) GLOB.respawnable_list += observer			// If enabled in config - observer cant respawn as Player
+			if(CONFIG_GET(flag/respawn_observer))
+				observer.add_to_respawnable_list()			// If enabled in config - observer cant respawn as Player
 			qdel(src)
 			return 1
 
@@ -497,7 +502,7 @@
 	if(!IsAdminJob(rank))
 		GLOB.data_core.manifest_inject(character)
 		AnnounceArrival(character, rank, join_message)
-		AddEmploymentContract(character)
+		addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(add_employment_contract), character), 3 SECONDS)
 
 		if(GLOB.summon_guns_triggered)
 			give_guns(character)
@@ -541,12 +546,10 @@
 	message = replacetext(message,"$join_message",join_message)
 	return message
 
-/mob/new_player/proc/AddEmploymentContract(mob/living/carbon/human/employee)
-	spawn(30)
-		for(var/C in GLOB.employmentCabinets)
-			var/obj/structure/filingcabinet/employment/employmentCabinet = C
-			if(employmentCabinet.populated)
-				employmentCabinet.addFile(employee)
+/proc/add_employment_contract(mob/living/carbon/human/employee)
+	for(var/obj/structure/filingcabinet/employment/cabinet as anything in GLOB.employmentCabinets)
+		if(cabinet.populated)
+			cabinet.addFile(employee)
 
 /mob/new_player/proc/AnnounceCyborg(mob/living/character, rank, join_message)
 	if(SSticker.current_state == GAME_STATE_PLAYING)

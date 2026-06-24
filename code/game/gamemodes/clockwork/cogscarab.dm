@@ -88,9 +88,12 @@
 		return
 	SSticker.mode.add_clocker(mind)
 
-/mob/living/silicon/robot/drone/Destroy()
+/mob/living/silicon/robot/cogscarab/Destroy()
 	for(var/datum/action/innate/hide/drone/cogscarab/hide in actions)
 		hide.Remove(src)
+	if(fabr)
+		fabr.cogscarab_list -= src
+	fabr = null
 	return ..()
 
 /mob/living/silicon/robot/cogscarab/add_strippable_element()

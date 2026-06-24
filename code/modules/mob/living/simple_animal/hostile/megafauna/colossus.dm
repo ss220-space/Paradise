@@ -114,7 +114,7 @@ Difficulty: Very Hard
 	chosen_message = span_colossus_alt("Вы стреляете в чередующихся кардинальных направлениях.")
 	chosen_attack_num = 4
 
-/mob/living/simple_animal/hostile/megafauna/colossus/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null, filterproof = null)
+/mob/living/simple_animal/hostile/megafauna/colossus/say(message, verb = "говор[PLUR_IT_YAT(src)]", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE, ignore_emotes = FALSE, bubble_type, list/spans = list(), datum/language/language = null, ignore_spam = FALSE, forced = null, filterproof = null)
 	. = ..((span_colossus("<b>[uppertext(message)]</b>")), sanitize = FALSE, ignore_speech_problems = TRUE, ignore_atmospherics = TRUE)
 
 /mob/living/simple_animal/hostile/megafauna/colossus/enrage()

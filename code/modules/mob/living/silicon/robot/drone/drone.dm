@@ -138,7 +138,13 @@
 	for(var/datum/action/innate/hide/drone/hide in actions)
 		hide.Remove(src)
 
-	. = ..()
+	QDEL_NULL(stack_glass)
+	QDEL_NULL(stack_metal)
+	QDEL_NULL(stack_wood)
+	QDEL_NULL(stack_plastic)
+	QDEL_NULL(decompiler)
+
+	return ..()
 
 /mob/living/silicon/robot/drone/init(alien = FALSE, mob/living/silicon/ai/ai_to_sync_to = null)
 	laws = new /datum/ai_laws/drone()
