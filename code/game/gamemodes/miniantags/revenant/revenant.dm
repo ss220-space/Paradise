@@ -129,7 +129,7 @@
 	if(essence == 0)
 		to_chat(src, span_revendanger("Вы чувствуете, как ваша сущность распадается!"))
 
-/mob/living/simple_animal/revenant/say(message)
+/mob/living/simple_animal/revenant/say(message, verb = "говор[PLUR_IT_YAT(src)]", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE, ignore_emotes = FALSE)
 	if(!message)
 		return
 

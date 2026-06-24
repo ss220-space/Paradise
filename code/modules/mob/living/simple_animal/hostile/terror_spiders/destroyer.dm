@@ -34,7 +34,6 @@
 		/obj/effect/proc_holder/spell/explosion/terror_burn,
 	)
 	spider_intro_text = "Будучи Разрушителем Ужаса, ваша цель — саботировать станцию. Выбивайте заваренную вентиляцию, ломайте канистры с опасными газами, уничтожайте АПЦ и любое оборудование, до которого доберётесь. Помните, вы — не боевой паук, хоть вы и можете справиться с небольшой угрозой, убийства это не ваша забота!"
-	var/datum/action/innate/terrorspider/ventsmash/ventsmash_action
 
 /mob/living/simple_animal/hostile/poison/terror_spider/destroyer/get_ru_names()
 	return alist(
@@ -48,8 +47,8 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/destroyer/Initialize(mapload)
 	. = ..()
-	ventsmash_action = new()
-	ventsmash_action.Grant(src)
+	var/datum/action/innate/terrorspider/ventsmash/act = new
+	act.Grant(src)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/destroyer/death(gibbed)
 	if(can_die())

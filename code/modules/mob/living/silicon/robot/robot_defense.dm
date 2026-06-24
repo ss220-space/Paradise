@@ -57,9 +57,7 @@
 			cell.forceMove_turf()
 			user.put_in_active_hand(cell, ignore_anim = FALSE)
 			to_chat(user, span_notice("You remove \the [cell]."))
-			cell = null
 			var/datum/robot_component/C = components["power cell"]
-			C.installed = 0
 			C.uninstall()
 			module?.update_cells(unlink_cell = TRUE)
 			diag_hud_set_borgcell()

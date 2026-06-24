@@ -213,6 +213,8 @@
 			qdel(A)
 		return
 
+	REMOVE_FROM_SMOOTH_QUEUE(src)
+
 	QDEL_LIST(blueprint_data)
 	flags &= ~INITIALIZED
 	bound_air = null

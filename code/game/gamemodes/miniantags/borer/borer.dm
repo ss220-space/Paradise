@@ -4,7 +4,7 @@
 	tts_seed = "Gman"
 	var/host_resisting = FALSE
 
-/mob/living/captive_brain/say(message)
+/mob/living/captive_brain/say(message, verb = "говор[PLUR_IT_YAT(src)]", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE, ignore_emotes = FALSE)
 	if(client)
 		if(check_mute(client.ckey, MUTE_IC))
 			to_chat(src, span_warning("Вы не можете говорить в IC (muted)."))
@@ -211,7 +211,7 @@
 	status_tab_data[++status_tab_data.len] = list("Rank", antag_datum.borer_rank?.rankname)
 	status_tab_data[++status_tab_data.len] = list("Evolution points", antag_datum.evo_points)
 
-/mob/living/simple_animal/borer/say(message, verb = "говор%(ит,ят)%", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE)
+/mob/living/simple_animal/borer/say(message, verb = "говор[PLUR_IT_YAT(src)]", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE, ignore_emotes = FALSE)
 	var/list/message_pieces = parse_languages(message)
 
 	for(var/datum/multilingual_say_piece/S in message_pieces)
@@ -553,9 +553,9 @@
 	RemoveInfestActions()
 	forceMove(get_turf(host))
 
-	machine = null
+	unset_machine()
 	host.reset_perspective(null)
-	host.machine = null
+	host.unset_machine()
 
 	var/mob/living/carbon/human = host
 	human.borer = null
@@ -725,7 +725,7 @@
 
 	controlling = FALSE
 	reset_perspective(null)
-	machine = null
+	unset_machine()
 	sneaking = FALSE
 
 	RemoveControlActions()

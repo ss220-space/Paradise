@@ -151,6 +151,11 @@
 	. = ..()
 	animate(src, alpha = 0, time = duration, easing = EASE_IN)
 
+/obj/effect/temp_visual/mining_overlay/Destroy(force)
+	for(var/turf/location in vis_locs)
+		location.vis_contents -= src // safety
+	return ..()
+
 /obj/item/t_scanner/adv_mining_scanner/bleary_eye
 	name = "bleary eye"
 	desc = "Глаз, вырванный из тела массивного сернистого странника. Даже спустя долгое время, он всё ещё движется и внимательно осматривает местность в поисках руды."

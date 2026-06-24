@@ -62,6 +62,7 @@
 	owner.current.create_log(CONVERSION_LOG, "De-vampired")
 	draining = null
 	QDEL_NULL(subclass)
+	QDEL_NULL(diablerie)
 	return ..()
 
 /datum/antagonist/vampire/greet()
