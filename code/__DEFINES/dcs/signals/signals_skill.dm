@@ -79,3 +79,9 @@
 #define COMSIG_GET_FISTS_GRAB_MOD "get_fists_grab_mod"
 /// Get shield chance mod for shields skill (mob/living/user, list/modifiers)
 #define COMSIG_GET_SHIELD_MOD "get_shield_mod"
+
+// MARK: Medical
+/// Get surgeon duration modifier for surgery skill (mob/living/user, list/modifiers)
+#define COMSIG_GET_SURGERY_DURATION_MOD "get_surgery_duration_mod"
+/// Get surgeon success chance modifier for surgery skill (mob/living/user, list/modifiers)
+#define COMSIG_GET_SURGERY_SUCCESS_MOD "get_surgery_success_mod"
