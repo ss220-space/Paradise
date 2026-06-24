@@ -7,15 +7,15 @@
 	id = "medical.surgery"
 	name = "Хирургия"
 	desc = "Влияет на скорось и шанс провала хирургических операций."
-	speed_modifiers = list(COMSIG_GET_SURGERY_DURATION_MOD)
+	duration_mod_signals = list(COMSIG_GET_SURGERY_DURATION_MOD)
 	var/success_chance_mods = alist(
 		SKILL_LEVEL_NONE = 0.5,
 		SKILL_LEVEL_BEGINNER = 0.8,
 		SKILL_LEVEL_BASIC = 1,
-		SKILL_LEVEL_ADVANCED = 1.1,
-		SKILL_LEVEL_PROFESSIONAL = 1.2,
-		SKILL_LEVEL_EXPERT = 1.3,
-		SKILL_LEVEL_LEGEND = 1.5,
+		SKILL_LEVEL_ADVANCED = 1.15,
+		SKILL_LEVEL_PROFESSIONAL = 1.3,
+		SKILL_LEVEL_EXPERT = 1.5,
+		SKILL_LEVEL_LEGEND = 2,
 		SKILL_LEVEL_UNAVAILABLE = 0.001,
 	)
 

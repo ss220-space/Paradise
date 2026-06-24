@@ -33,6 +33,7 @@
 		/datum/skill/combat/melee = SKILL_LEVEL_BEGINNER,
 		//science
 		/datum/skill/general/mech_drive = SKILL_LEVEL_ADVANCED,
+		/datum/skill/general/mod_use = SKILL_LEVEL_ADVANCED,
 	)
 
 /datum/outfit/job/chief_engineer
@@ -95,6 +96,7 @@
 		/datum/skill/engineering/lockpick = SKILL_LEVEL_ADVANCED,
 		//science
 		/datum/skill/general/mech_drive = SKILL_LEVEL_BASIC,
+		/datum/skill/general/mod_use = SKILL_LEVEL_BASIC,
 	)
 
 /datum/outfit/job/engineer
@@ -170,6 +172,7 @@
 		/datum/skill/engineering/lockpick = SKILL_LEVEL_BEGINNER,
 		//science
 		/datum/skill/general/mech_drive = SKILL_LEVEL_BEGINNER,
+		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
 	)
 
 /datum/outfit/job/engineer/trainee
@@ -214,6 +217,7 @@
 		/datum/skill/engineering/lockpick = SKILL_LEVEL_BASIC,
 		//science
 		/datum/skill/general/mech_drive = SKILL_LEVEL_BASIC,
+		/datum/skill/general/mod_use = SKILL_LEVEL_BASIC,
 	)
 
 /datum/outfit/job/atmos

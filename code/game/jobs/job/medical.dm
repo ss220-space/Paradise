@@ -13,6 +13,20 @@
 			ACCESS_KEYCARD_AUTH, ACCESS_SEC_DOORS, ACCESS_PSYCHIATRIST, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_PARAMEDIC, ACCESS_MINERAL_STOREROOM)
 	exp_type = EXP_TYPE_MEDICAL
 	outfit = /datum/outfit/job/cmo
+	skill_levels = list(
+		//medical
+		/datum/skill/medical/surgery = SKILL_LEVEL_PROFESSIONAL,
+		/datum/skill/medical/heal = SKILL_LEVEL_PROFESSIONAL,
+		/datum/skill/medical/chemistry = SKILL_LEVEL_PROFESSIONAL,
+		/datum/skill/medical/genetic = SKILL_LEVEL_PROFESSIONAL,
+		/datum/skill/medical/virusology = SKILL_LEVEL_PROFESSIONAL,
+		//combat
+		/datum/skill/combat/accuracy = SKILL_LEVEL_BEGINNER,
+		/datum/skill/combat/guns = SKILL_LEVEL_BEGINNER,
+		/datum/skill/combat/melee = SKILL_LEVEL_BEGINNER,
+		//science
+		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
+	)
 
 /datum/outfit/job/cmo
 	name = JOB_TITLE_RU_CMO
@@ -63,6 +77,14 @@
 		ALT_JOB_TITLE_RU_THERAPIST,
 	)
 	outfit = /datum/outfit/job/doctor
+	skill_levels = list(
+		//medical
+		/datum/skill/medical/surgery = SKILL_LEVEL_BEGINNER,
+		/datum/skill/medical/heal = SKILL_LEVEL_ADVANCED,
+		/datum/skill/medical/chemistry = SKILL_LEVEL_BASIC,
+		/datum/skill/medical/genetic = SKILL_LEVEL_BEGINNER,
+		/datum/skill/medical/virusology = SKILL_LEVEL_BEGINNER,
+	)
 
 /datum/outfit/job/doctor
 	name = JOB_TITLE_RU_DOCTOR
@@ -105,6 +127,14 @@
 	is_novice = TRUE
 	outfit = /datum/outfit/job/doctor/intern
 	paycheck = PAYCHECK_LOWER
+	skill_levels = list(
+		//medical
+		/datum/skill/medical/surgery = SKILL_LEVEL_BEGINNER,
+		/datum/skill/medical/heal = SKILL_LEVEL_BEGINNER,
+		/datum/skill/medical/chemistry = SKILL_LEVEL_BEGINNER,
+		/datum/skill/medical/genetic = SKILL_LEVEL_BEGINNER,
+		/datum/skill/medical/virusology = SKILL_LEVEL_BEGINNER,
+	)
 
 /datum/outfit/job/doctor/intern
 	name = JOB_TITLE_RU_MEDICAL_INTERN
@@ -134,6 +164,14 @@
 		ALT_JOB_TITLE_RU_THANATOLOGIST,
 	)
 	outfit = /datum/outfit/job/coroner
+	skill_levels = list(
+		//medical
+		/datum/skill/medical/surgery = SKILL_LEVEL_BASIC,
+		/datum/skill/medical/heal = SKILL_LEVEL_BEGINNER,
+		/datum/skill/medical/chemistry = SKILL_LEVEL_BASIC,
+		/datum/skill/medical/genetic = SKILL_LEVEL_BEGINNER,
+		/datum/skill/medical/virusology = SKILL_LEVEL_BEGINNER,
+	)
 
 /datum/outfit/job/coroner
 	name = JOB_TITLE_RU_CORONER
@@ -172,6 +210,14 @@
 		ALT_JOB_TITLE_RU_PHARMACIST,
 	)
 	outfit = /datum/outfit/job/chemist
+	skill_levels = list(
+		//medical
+		/datum/skill/medical/surgery = SKILL_LEVEL_BEGINNER,
+		/datum/skill/medical/heal = SKILL_LEVEL_BASIC,
+		/datum/skill/medical/chemistry = SKILL_LEVEL_ADVANCED,
+		/datum/skill/medical/genetic = SKILL_LEVEL_BEGINNER,
+		/datum/skill/medical/virusology = SKILL_LEVEL_BEGINNER,
+	)
 
 /datum/outfit/job/chemist
 	name = JOB_TITLE_RU_CHEMIST
@@ -205,6 +251,14 @@
 		ALT_JOB_TITLE_RU_CLONING_SPECIALIST,
 	)
 	outfit = /datum/outfit/job/geneticist
+	skill_levels = list(
+		//medical
+		/datum/skill/medical/surgery = SKILL_LEVEL_BEGINNER,
+		/datum/skill/medical/heal = SKILL_LEVEL_BASIC,
+		/datum/skill/medical/chemistry = SKILL_LEVEL_BASIC,
+		/datum/skill/medical/genetic = SKILL_LEVEL_ADVANCED,
+		/datum/skill/medical/virusology = SKILL_LEVEL_BEGINNER,
+	)
 
 /datum/outfit/job/geneticist
 	name = JOB_TITLE_RU_GENETICIST
@@ -238,6 +292,14 @@
 		ALT_JOB_TITLE_RU_IMMUNOLOGIST,
 	)
 	outfit = /datum/outfit/job/virologist
+	skill_levels = list(
+		//medical
+		/datum/skill/medical/surgery = SKILL_LEVEL_BEGINNER,
+		/datum/skill/medical/heal = SKILL_LEVEL_BASIC,
+		/datum/skill/medical/chemistry = SKILL_LEVEL_BASIC,
+		/datum/skill/medical/genetic = SKILL_LEVEL_BEGINNER,
+		/datum/skill/medical/virusology = SKILL_LEVEL_ADVANCED,
+	)
 
 /datum/outfit/job/virologist
 	name = JOB_TITLE_RU_VIROLOGIST
