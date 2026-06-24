@@ -1590,31 +1590,29 @@
 		return
 	owner.drop_all_held_items()
 
+// Статус-эффект с поддержкой накопления штрафов
 /datum/status_effect/stamina_boost_restriction
 	id = "stamina_boost_restriction"
 	alert_type = /atom/movable/screen/alert/status_effect/stamina_boost_restriction
 	duration = 30 SECONDS
 
 	var/penalty_per_stack = 30
-	var/original_max_stamina
+	var/original_max_stamina = null
 	var/current_penalty = 0
 
-/datum/status_effect/stamina_boost_restriction/on_apply()
+/datum/status_effect/stamina_boost_restriction/on_apply(initial_max)
 	if(!ishuman(owner))
 		return FALSE
-	var/mob/living/carbon/human/H = owner
-	original_max_stamina = H.max_stamina
+	original_max_stamina = (initial_max != null) ? initial_max : owner.max_stamina
 	current_penalty = penalty_per_stack
-	H.set_max_stamina(max(0, original_max_stamina - current_penalty))
+	owner.set_max_stamina(max(0, original_max_stamina - current_penalty))
 	return TRUE
 
 /datum/status_effect/stamina_boost_restriction/tick()
-	var/mob/living/carbon/human/H = owner
-	if(!istype(H) || isnull(original_max_stamina))
+	if(!istype(owner) || isnull(original_max_stamina))
 		return
-	// Если максимум упал до 0 – всегда держим staminaLoss = 1, чтобы не выйти из крита
-	if(H.max_stamina <= 0)
-		H.setStaminaLoss(1)
+	if(owner.max_stamina <= 0)
+		owner.setStaminaLoss(1)
 
 /datum/status_effect/stamina_boost_restriction/proc/add_stack()
 	var/mob/living/carbon/human/H = owner
@@ -1647,12 +1645,11 @@
 	linked_alert.name = "Ограничение стамины x[stacks]"
 
 /datum/status_effect/stamina_boost_restriction/on_remove()
-	var/mob/living/carbon/human/H = owner
-	if(istype(H) && !isnull(original_max_stamina))
-		H.set_max_stamina(original_max_stamina)
+	if(istype(owner) && !isnull(original_max_stamina))
+		owner.set_max_stamina(original_max_stamina)
 		original_max_stamina = null
 
 /atom/movable/screen/alert/status_effect/stamina_boost_restriction
 	name = "Ограничение стамины"
-	desc = "Расплата за перегруз ЦНС."
+	desc = "Максимальная стамина временно снижена."
 	icon_state = "blooddrunk"
