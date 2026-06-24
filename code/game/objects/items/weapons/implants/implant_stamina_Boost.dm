@@ -30,12 +30,6 @@
 	return ..()
 
 /obj/item/implant/stamina_boost/activate()
-	var/datum/implant_cooldown/charges/charges_cooldown = cooldown_system
-
-	if(charges_cooldown.is_on_cooldown())
-		return FALSE
-
-	// Не даём активироваться, если максимум стамины уже равен 0
 	if(imp_in.max_stamina <= 0)
 		balloon_alert(imp_in, "организм истощён")
 		return FALSE

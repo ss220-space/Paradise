@@ -1595,8 +1595,8 @@
 	alert_type = /atom/movable/screen/alert/status_effect/stamina_boost_restriction
 	duration = 30 SECONDS
 
-	var/penalty_per_stack = 40
-	var/original_max_stamina = null
+	var/penalty_per_stack = 30
+	var/original_max_stamina
 	var/current_penalty = 0
 
 /datum/status_effect/stamina_boost_restriction/on_apply()
@@ -1645,7 +1645,6 @@
 		return
 	var/stacks = round(current_penalty / penalty_per_stack)
 	linked_alert.name = "Ограничение стамины x[stacks]"
-	linked_alert.desc = "Максимальная стамина снижена на [current_penalty]."
 
 /datum/status_effect/stamina_boost_restriction/on_remove()
 	var/mob/living/carbon/human/H = owner
@@ -1655,5 +1654,5 @@
 
 /atom/movable/screen/alert/status_effect/stamina_boost_restriction
 	name = "Ограничение стамины"
-	desc = "Максимальная стамина временно снижена."
+	desc = "Расплата за перегруз ЦНС."
 	icon_state = "blooddrunk"
