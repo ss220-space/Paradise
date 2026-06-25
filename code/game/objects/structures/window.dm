@@ -621,7 +621,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 /obj/machinery/button/windowtint
 	name = "window tint control"
 	icon = 'icons/obj/engines_and_power/power.dmi'
-	icon_state = "light0"
+	icon_state = "light-off"
 	desc = "Пульт дистанционного управления для поляризованных окон."
 	anchored = TRUE
 	var/range = 7

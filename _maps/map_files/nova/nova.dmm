@@ -63965,7 +63965,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/button/windowtint{
 	active = 1;
-	icon_state = "light1";
 	id = "pokerclub";
 	pixel_x = -24
 	},

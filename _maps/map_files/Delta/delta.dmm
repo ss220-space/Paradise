@@ -59149,7 +59149,6 @@
 /obj/effect/spawner/random_spawners/blood_20,
 /obj/machinery/button/windowtint{
 	active = 1;
-	icon_state = "light1";
 	id = "pokerclub";
 	pixel_x = -24
 	},
