@@ -278,6 +278,8 @@ GLOBAL_LIST_EMPTY(overflow_whitelist)
 			continue
 		if(mode.can_start())
 			runnable_modes[mode] = probabilities[mode.config_tag]
+	if(!length(runnable_modes))
+		runnable_modes = list(new /datum/game_mode/extended = 1)
 	return runnable_modes
 
 /datum/controller/configuration/proc/load_twitch_censor_list()
