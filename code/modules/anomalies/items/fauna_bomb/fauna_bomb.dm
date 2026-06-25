@@ -65,7 +65,7 @@
 	chooser = null
 	core?.forceMove(get_turf(src))
 	core = null
-	. = ..()
+	return ..()
 
 /obj/item/fauna_bomb/proc/use_charge(amount)
 	if(amount > charge)
