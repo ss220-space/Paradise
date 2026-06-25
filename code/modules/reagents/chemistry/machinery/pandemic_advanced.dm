@@ -61,6 +61,14 @@
 	if(user.a_intent == INTENT_HARM || (stat & (NOPOWER|BROKEN)))
 		return ..()
 
+	if(istype(item, /obj/item/reagent_containers/dropper) && beaker)
+		add_fingerprint(user)
+		balloon_alert(user, "добавление реагента")
+		var/obj/item/reagent_containers/dropper/dropper = item
+		dropper.afterattack(beaker, user, TRUE, params, .)
+		beaker.attackby(item, user, params)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
 	if(istype(item, /obj/item/reagent_containers))
 		add_fingerprint(user)
 		if(!(item.container_type & OPENCONTAINER))
@@ -81,7 +89,7 @@
 				var/list/resistances = original_resistances.Copy()
 				for(var/path in resistances)
 					var/datum/disease/virus/virus_res = path
-					if(virus_res.no_vaccine)
+					if(initial(virus_res.no_vaccine))
 						reagent_data["resistances"] -= path
 		update_icon(UPDATE_ICON_STATE)
 		return ATTACK_CHAIN_BLOCKED_ALL
@@ -148,7 +156,7 @@
 	blood_data["dna"] = blood.data["blood_DNA"] || "нет"
 	blood_data["group"] = blood.data["blood_type"] || "нет"
 	blood_data["type"] = blood.data["blood_species"] || "нет"
-	data["bloodData"] = blood_data
+	data["blood_data"] = blood_data
 
 	data["diseases"] = null
 	if(blood.data["diseases"])
@@ -182,6 +190,8 @@
 			disease_data["route"] = disease.additional_info || "нет"
 			disease_data["possibleMedicine"] = disease.cure_text || "нет"
 			disease_data["antibodiesPossibility"] = disease.can_immunity ? "Присутствует" : "Отсутствует"
+			disease_data["allow_remove_sympthoms"] = FALSE
+			disease_data["allow_add_sympthoms"] = FALSE
 
 			if(istype(disease, /datum/disease/virus/advance))
 				var/datum/disease/virus/advance/advance_virus = disease
@@ -189,6 +199,9 @@
 				for(var/datum/symptom/symptom in advance_virus.symptoms)
 					symptoms_list += symptom.name
 				disease_data["symptoms"] = russian_list(symptoms_list)
+				if(length(symptoms_list) > 1)
+					disease_data["allow_remove_sympthoms"] = TRUE
+				disease_data["allow_add_sympthoms"] = TRUE
 			else
 				disease_data["symptoms"] = "Отсутствуют"
 
@@ -291,6 +304,14 @@
 			)
 			bottle.desc = "Небольшая бутылка. Содержит синтетическую кровь, заражённую культурой [capitalize(copy.agent)]."
 			bottle.reagents.add_reagent("blood", 20, data)
+
+		if("addSympthom")
+			add_random_sympthom(text2num(params["index"]))
+			SStgui.update_uis(src)
+
+		if("removeSympthom")
+			remove_random_sympthom(text2num(params["index"]))
+			SStgui.update_uis(src)
 
 		if("createVaccine")
 			if(wait)
@@ -407,3 +428,35 @@
 		wait = null
 		update_icon()
 		playsound(loc, 'sound/machines/ping.ogg', 30, TRUE)
+
+/obj/machinery/computer/pandemic_super/proc/add_random_sympthom(index)
+	var/datum/disease/disease = GetDiseaseByIndex(index)
+	if(!istype(disease, /datum/disease/virus/advance))
+		balloon_alert(usr, "Ошибка!")
+		return
+
+	var/datum/disease/virus/advance/advance_virus = disease
+	GET_SKILL_LEVEL(usr, /datum/skill/medical/virusology, virusology_skill_level)
+	var/random_sympthom = safepick(advance_virus.GenerateSymptoms(level_max = virusology_skill_level))
+	if(random_sympthom)
+		advance_virus.AddSymptom(random_sympthom)
+		advance_virus.Refresh(reset_name = TRUE)
+
+
+/obj/machinery/computer/pandemic_super/proc/remove_random_sympthom(index)
+	var/datum/disease/disease = GetDiseaseByIndex(index)
+	if(!istype(disease, /datum/disease/virus/advance))
+		balloon_alert(usr, "Ошибка!")
+		return
+
+	var/datum/disease/virus/advance/advance_virus = disease
+	GET_SKILL_LEVEL(usr, /datum/skill/medical/virusology, virusology_skill_level)
+	var/random_sympthom = null
+	if(virusology_skill_level > SKILL_LEVEL_BASIC)
+		random_sympthom = tgui_input_list(usr, "Выберите симптом для удаления", "Удаление симптома", advance_virus.symptoms)
+	else
+		random_sympthom = safepick(advance_virus.symptoms)
+
+	if(random_sympthom)
+		advance_virus.RemoveSymptom(random_sympthom)
+		advance_virus.Refresh(reset_name = TRUE)
