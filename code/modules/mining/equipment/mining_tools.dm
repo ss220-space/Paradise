@@ -335,3 +335,41 @@
 		INSTRUMENTAL = "безопасной лопатой",
 		PREPOSITIONAL = "безопасной лопате",
 	)
+
+// Добровольное закапывание себя (клик по себе на Grab)
+/obj/item/shovel/attack(mob/living/M, mob/user, list/modifiers)
+	if(user.a_intent == INTENT_GRAB && M == user)
+		if(istype(get_turf(user), /turf/simulated/floor/plating/asteroid))
+			bury_mob(user, user, 8 SECONDS)
+			return TRUE
+		else
+			to_chat(user, span_warning("Здесь неподходящая поверхность для закапывания."))
+			return TRUE
+	return ..()
+
+/obj/item/pickaxe/attack(mob/living/M, mob/user, list/modifiers)
+	if(user.a_intent == INTENT_GRAB && M == user)
+		if(istype(get_turf(user), /turf/simulated/floor/plating/asteroid))
+			bury_mob(user, user, 10 SECONDS)
+			return TRUE
+		else
+			to_chat(user, span_warning("Здесь неподходящая поверхность для закапывания."))
+			return TRUE
+	return ..()
+
+// Закапывание предметов (клик по предмету на земле, интент Grab)
+/obj/item/shovel/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+	if(proximity_flag && user.a_intent == INTENT_GRAB && isitem(target) && isturf(target.loc) && istype(target.loc, /turf/simulated/floor/plating/asteroid))
+		var/obj/item/I = target
+		if(!I.anchored && can_bury_structure(I))
+			bury_thing(I, user, 5 SECONDS)
+			return
+	return ..()
+
+/obj/item/pickaxe/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+	if(proximity_flag && user.a_intent == INTENT_GRAB && isitem(target) && isturf(target.loc) && istype(target.loc, /turf/simulated/floor/plating/asteroid))
+		var/obj/item/I = target
+		if(!I.anchored && can_bury_structure(I))
+			bury_thing(I, user, 5 SECONDS)
+			return
+	return ..()

@@ -132,3 +132,63 @@
 	aesthetic = TRUE
 
 	probability = 10
+
+
+// ============================================================
+// АВТОМАТИЧЕСКОЕ ПЕПЕЛЬНОЕ ПОГРЕБЕНИЕ
+// ============================================================
+
+/datum/weather/ash_storm/start()
+	. = ..()
+	addtimer(CALLBACK(src, PROC_REF(process_burial)), 3 SECONDS, TIMER_LOOP | TIMER_STOPPABLE)
+
+/datum/weather/ash_storm/proc/process_burial()
+	if(stage != MAIN_STAGE)
+		return
+
+	var/list/turfs_to_check = list()
+	for(var/z in impacted_z_levels)
+		for(var/turf/simulated/floor/plating/asteroid/T in block(locate(1,1,z), locate(world.maxx, world.maxy, z)))
+			var/area/A = get_area(T)
+			if(!(A in impacted_areas))
+				continue
+			if(locate(/obj/structure/closet/ash_mound) in T)
+				continue
+			var/list/to_bury = list()
+			for(var/obj/item/I in T.contents)
+				if(I.anchored)
+					continue
+				to_bury += I
+			for(var/mob/living/carbon/human/H in T.contents)
+				if(H.stat >= UNCONSCIOUS)
+					to_bury += H
+			for(var/obj/structure/S in T.contents)
+				if(istype(S, /obj/structure/closet/ash_mound))
+					continue
+				if(S.anchored)
+					continue
+				if(istype(S, /obj/structure/window))
+					continue
+				if(istype(S, /obj/structure/grille))
+					continue
+				if(istype(S, /obj/structure/table))
+					continue
+				if(istype(S, /obj/structure/rack))
+					continue
+				to_bury += S
+			if(to_bury.len)
+				turfs_to_check[T] = to_bury
+
+	var/max_process = 10
+	for(var/i in 1 to max_process)
+		if(!turfs_to_check.len)
+			break
+		var/turf/T = pick(turfs_to_check)
+		var/obj/structure/closet/ash_mound/forming/mound = new(T)
+		mound.visible_message(span_warning("Пепел начинает заметать [turfs_to_check[T].len > 1 ? "несколько предметов" : "что-то"] в холмик."))
+		turfs_to_check -= T
+
+/datum/weather/ash_storm/weather_act(mob/living/target)
+	if(istype(target.loc, /obj/structure/closet/ash_mound))
+		return
+	return ..()
