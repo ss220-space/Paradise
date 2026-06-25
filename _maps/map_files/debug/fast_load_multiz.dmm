@@ -239,7 +239,7 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/fastload/blue)
 "SK" = (
-/obj/machinery/computer/pandemic_super,
+/obj/machinery/computer/pandemic,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/fastload/blue)
 "Tl" = (
