@@ -306,11 +306,11 @@
 			bottle.reagents.add_reagent("blood", 20, data)
 
 		if("addSympthom")
-			add_random_sympthom(text2num(params["index"]))
+			add_random_symptom(text2num(params["index"]))
 			SStgui.update_uis(src)
 
 		if("removeSympthom")
-			remove_random_sympthom(text2num(params["index"]))
+			remove_random_symptom(text2num(params["index"]))
 			SStgui.update_uis(src)
 
 		if("createVaccine")
@@ -429,7 +429,7 @@
 		update_icon()
 		playsound(loc, 'sound/machines/ping.ogg', 30, TRUE)
 
-/obj/machinery/computer/pandemic_super/proc/add_random_sympthom(index)
+/obj/machinery/computer/pandemic_super/proc/add_random_symptom(index)
 	var/datum/disease/disease = GetDiseaseByIndex(index)
 	if(!istype(disease, /datum/disease/virus/advance))
 		balloon_alert(usr, "Ошибка!")
@@ -437,13 +437,19 @@
 
 	var/datum/disease/virus/advance/advance_virus = disease
 	GET_SKILL_LEVEL(usr, /datum/skill/medical/virusology, virusology_skill_level)
-	var/random_sympthom = safepick(advance_virus.GenerateSymptoms(level_max = virusology_skill_level))
-	if(random_sympthom)
-		advance_virus.AddSymptom(random_sympthom)
+	var/random_symptom = null
+	if(virusology_skill_level > SKILL_LEVEL_BASIC)
+		var/list/random_symptoms = advance_virus.GenerateSymptoms(level_max = virusology_skill_level, count_of_symptoms = (2 + (virusology_skill_level-SKILL_LEVEL_BASIC)))
+		random_symptom = tgui_input_list(usr, "Выберите симптом для добавления", "Добавление симптома", random_symptoms)
+	else
+		random_symptom = safepick(advance_virus.GenerateSymptoms(level_max = virusology_skill_level))
+
+	if(random_symptom)
+		advance_virus.AddSymptom(random_symptom)
 		advance_virus.Refresh(reset_name = TRUE)
 
 
-/obj/machinery/computer/pandemic_super/proc/remove_random_sympthom(index)
+/obj/machinery/computer/pandemic_super/proc/remove_random_symptom(index)
 	var/datum/disease/disease = GetDiseaseByIndex(index)
 	if(!istype(disease, /datum/disease/virus/advance))
 		balloon_alert(usr, "Ошибка!")
@@ -451,12 +457,12 @@
 
 	var/datum/disease/virus/advance/advance_virus = disease
 	GET_SKILL_LEVEL(usr, /datum/skill/medical/virusology, virusology_skill_level)
-	var/random_sympthom = null
+	var/random_symptom = null
 	if(virusology_skill_level > SKILL_LEVEL_BASIC)
-		random_sympthom = tgui_input_list(usr, "Выберите симптом для удаления", "Удаление симптома", advance_virus.symptoms)
+		random_symptom = tgui_input_list(usr, "Выберите симптом для удаления", "Удаление симптома", advance_virus.symptoms)
 	else
-		random_sympthom = safepick(advance_virus.symptoms)
+		random_symptom = safepick(advance_virus.symptoms)
 
-	if(random_sympthom)
-		advance_virus.RemoveSymptom(random_sympthom)
+	if(random_symptom)
+		advance_virus.RemoveSymptom(random_symptom)
 		advance_virus.Refresh(reset_name = TRUE)
