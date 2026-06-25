@@ -3963,19 +3963,18 @@
 /datum/admins/proc/mass_mindswap()
 	if(!check_rights(R_EVENT) || !you_realy_want_do_this(owner.mob))
 		return
-
+	var/datum/action/cooldown/spell/pointed/mindswap/swap = new
 	for(var/mob/living/carbon/human/human as anything in GLOB.human_list)
 		if(!human.mind)
 			continue
 
 		var/mob/living/target = safepick(GLOB.human_list - human)
-
 		if(!target \
-		|| !/obj/effect/proc_holder/spell/mind_transfer::valid_target(target, human))
+		|| !swap.is_valid_target(target))
 			continue
-
-		/obj/effect/proc_holder/spell/mind_transfer::cast(list(target), human)
-
+		swap.owner = human
+		swap.cast(target)
+	qdel(swap)
 	log_and_message_admins("Initiated mass mindswap")
 
 /datum/admins/proc/change_lava_type()

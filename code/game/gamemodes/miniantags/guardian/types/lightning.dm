@@ -22,7 +22,8 @@
 
 /mob/living/simple_animal/hostile/guardian/beam/Initialize(mapload)
 	. = ..()
-	AddSpell(new /obj/effect/proc_holder/spell/charge_up/bounce/lightning/guardian)
+	var/datum/action/cooldown/spell/charged/beam/tesla/guardian/spell = new
+	spell.Grant(src)
 
 /mob/living/simple_animal/hostile/guardian/beam/electrocute_act(shock_damage, atom/source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
 	return FALSE //You are lightning, you should not be hurt by such things.

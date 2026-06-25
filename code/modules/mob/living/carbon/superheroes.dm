@@ -30,12 +30,11 @@
 	H.gene_stability = 100
 
 /datum/superheroes/proc/assign_spells(mob/living/carbon/human/H)
-	if(length(default_spells))
-		for(var/spell in default_spells)
-			var/obj/effect/proc_holder/spell/S = spell
-			if(!S)
-				return
-			H.mind.AddSpell(new S(null))
+	if(!length(default_spells))
+		return
+	for(var/datum/action/cooldown/spell/spell in default_spells)
+		var/datum/action/cooldown/spell/new_spell = new spell
+		new_spell.Grant(H)
 
 /datum/superheroes/proc/assign_id(mob/living/carbon/human/H)
 	var/obj/item/card/id/syndicate/W = new(H)
@@ -100,7 +99,7 @@
 	desc = "You are LightnIan, the lord of lightning! A freak electrical accident while working in the station's kennel \
 	has given you mastery over lightning and a peculiar desire to sniff butts. Although you are a recent addition to the \
 	station's hero roster, you intend to leave your mark."
-	default_spells = list(/obj/effect/proc_holder/spell/charge_up/bounce/lightning/lightnian)
+	default_spells = list(/datum/action/cooldown/spell/charged/beam/tesla/lightnian)
 
 /datum/superheroes/lightnian/equip(mob/living/carbon/human/H)
 	..()

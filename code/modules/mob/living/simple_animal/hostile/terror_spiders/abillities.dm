@@ -92,36 +92,34 @@
 	cooldown_time = 10 SECONDS
 	projectile_type = /obj/projectile/terrorspider/widow/smoke
 
-/obj/effect/proc_holder/spell/emplosion/terror_emp
+/datum/action/cooldown/spell/emplosion/terror_emp
 	name = "Электро-магнитный визг"
 	desc = "Издать визг, вызывающий ЭМИ."
-	action_icon_state = "emp_new"
-	action_background_icon_state = "bg_terror"
-	base_cooldown = 40 SECONDS
-	clothes_req = FALSE
-	human_req = FALSE
+	button_icon_state = "emp_new"
+	background_icon_state = "bg_terror"
+	cooldown_time = 40 SECONDS
+	spell_requirements = NONE
 	sound = 'sound/creatures/terrorspiders/brown_shriek.ogg'
 	emp_heavy = 3
 	emp_light = 2
 
-/obj/effect/proc_holder/spell/emplosion/terror_emp/can_cast(mob/user = usr, charge_check = TRUE, show_message = FALSE)
-	if(!isturf(user.loc))
+/datum/action/cooldown/spell/emplosion/terror_emp/can_cast_spell(feedback)
+	if(!isturf(owner.loc))
 		return FALSE
 	return ..()
 
 //EXPLOSION
-/obj/effect/proc_holder/spell/explosion/terror_burn
+/datum/action/cooldown/spell/explosion/terror_spider
 	name = "Воспламенение"
 	desc = "Высвободить энергию, создавая огромное огненное кольцо."
-	action_background_icon_state = "bg_terror"
-	base_cooldown = 60 SECONDS
-	clothes_req = FALSE
-	human_req = FALSE
+	background_icon_state = "bg_terror"
+	cooldown_time = 60 SECONDS
+	spell_requirements = NONE
 	sound = 'sound/creatures/terrorspiders/brown_shriek.ogg'
 	ex_flame = 5
 
-/obj/effect/proc_holder/spell/explosion/terror_burn/can_cast(mob/user = usr, charge_check = TRUE, show_message = FALSE)
-	if(!isturf(user.loc))
+/datum/action/cooldown/spell/explosion/terror_spider/can_cast_spell(feedback)
+	if(!isturf(owner.loc))
 		return FALSE
 	return ..()
 
