@@ -155,7 +155,7 @@
 	messages.Add("<b>The Space Wizards Federation has given you the following tasks:</b>")
 	messages.Add(wizard.prepare_announce_objectives(title = FALSE))
 	messages.Add(span_motd("С полной информацией вы можете ознакомиться на вики: <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Wizard\">Маг</a>"))
-	to_chat(wizard.current, chat_box_red(messages.Join("<br>")))
+	to_chat(wizard.current, custom_boxed_message("red_box center", messages.Join("<br>")))
 	return
 
 /datum/game_mode/proc/equip_wizard(mob/living/carbon/human/wizard_mob)

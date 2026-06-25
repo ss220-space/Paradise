@@ -1,18 +1,24 @@
-//! # Unique Datum Identifiers
-//!
-//! A replacement for plain \refs. Ensures the reference still points to the exact same datum/client,
-//! but doesn't prevent GC like tags do.
-//!
-//! An unintended side effect of how UIDs are formatted: locate() ignores the number and attempts
-//! to locate the reference. This is considered a feature — backwards compatibility.
-//!
-//! Before:
-//!   var/my_ref = "\ref[my_datum]"
-//!   var/datum/thing = locate(my_ref)
-//!
-//! After:
-//!   var/my_UID = my_datum.UID()
-//!   var/datum/thing = locateUID(my_UID)
+/*!
+ * # Unique Datum Identifiers
+ *
+ * A replacement for plain \refs. Ensures the reference still points to the exact same datum/client,
+ * but doesn't prevent GC like tags do.
+ *
+ * An unintended side effect of how UIDs are formatted: locate() ignores the number and attempts
+ * to locate the reference. This is considered a feature — backwards compatibility.
+ *
+ * Before:
+ * ```
+ *   var/my_ref = "\ref[my_datum]"
+ *   var/datum/thing = locate(my_ref)
+ * ```
+ *
+ * After:
+ * ```
+ *   var/my_UID = my_datum.UID()
+ *   var/datum/thing = locateUID(my_UID)
+ * ```
+ */
 
 /// Log of all UIDs created in the round. Assoc list with type as key and amount as value
 GLOBAL_LIST_EMPTY(uid_log)
@@ -25,6 +31,9 @@ GLOBAL_LIST_EMPTY(uid_log)
  * Returns: the UID of the datum
  */
 /datum/proc/UID()
+	if(datum_flags & DF_UID_INVALID)
+		return
+
 	if(!unique_datum_id)
 		unique_datum_id = RUSTLIB_CALL(get_uuid, src)
 		GLOB.uid_log[type]++
@@ -38,11 +47,11 @@ GLOBAL_LIST_EMPTY(uid_log)
  * Returns: `UID` string if input is datum, `text_ref` if other.
  */
 /proc/UID_of(input)
-	if(!isdatum(input))
+	var/datum/value = input
+	if(!istype(value) || (value.datum_flags & DF_UID_INVALID))
 		return text_ref(input)
 
-	var/datum/datum = input
-	return datum.UID()
+	return value.UID()
 
 /**
  * Locates a datum based off of the UID

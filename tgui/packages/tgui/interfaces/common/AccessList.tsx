@@ -98,10 +98,10 @@ export const AccessList = (props: AccessListProps) => {
       buttons={
         <>
           <Button icon="check-double" color="good" onClick={() => grantAll()}>
-            Select All
+            Выбрать всё
           </Button>
           <Button icon="undo" color="bad" onClick={() => denyAll()}>
-            Deselect All
+            Убрать всё
           </Button>
           {sectionButtons}
         </>
@@ -142,7 +142,7 @@ export const AccessList = (props: AccessListProps) => {
                 color="good"
                 onClick={() => grantDep(selectedAccess.regid)}
               >
-                Select All In Region
+                Выбрать всё в отделе
               </Button>
             </Stack.Item>
             <Stack.Item grow>
@@ -152,14 +152,14 @@ export const AccessList = (props: AccessListProps) => {
                 color="bad"
                 onClick={() => denyDep(selectedAccess.regid)}
               >
-                Deselect All In Region
+                Убрать всё в отделе
               </Button>
             </Stack.Item>
           </Stack>
           {!!usedByRcd && (
             <Box my={1.5}>
               <LabeledList>
-                <LabeledList.Item label="Require">
+                <LabeledList.Item label="Требуется">
                   {rcdButtons}
                 </LabeledList.Item>
               </LabeledList>

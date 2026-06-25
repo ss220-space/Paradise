@@ -40,3 +40,6 @@
 		INSTRUMENTAL = "торговым автоматом Hatlord 9000",
 		PREPOSITIONAL = "торговом автомате Hatlord 9000",
 	)
+
+/obj/machinery/vending/hatdispenser/free
+	all_products_free = TRUE

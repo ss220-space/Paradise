@@ -98,3 +98,18 @@
 
 /obj/item/clothing/mask/breath/vox/click_alt(mob/user)
 	return NONE
+
+/obj/item/clothing/mask/breath/vox/respirator
+	name = "vox respirator"
+	desc = "Эта маска для дыхания странной формы, похоже, предназначена для вокс-рейдера."
+	icon_state = "voxmask2"
+
+/obj/item/clothing/mask/breath/vox/get_ru_names()
+	return alist(
+		NOMINATIVE = "респиратор воксов",
+		GENITIVE = "респиратора воксов",
+		DATIVE = "респиратору воксов",
+		ACCUSATIVE = "респиратор воксов",
+		INSTRUMENTAL = "респиратором воксов",
+		PREPOSITIONAL = "респираторе воксов",
+	)

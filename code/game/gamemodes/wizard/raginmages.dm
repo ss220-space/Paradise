@@ -21,7 +21,7 @@
 	messages.Add("<b>The Space Wizards Federation has given you the following tasks:</b>")
 	messages.Add("<b>Supreme Objective</b>: Make sure the station pays for its actions against our diplomats. We might send more Wizards to the station if the situation is not developing in our favour.")
 	messages.Add(wizard.prepare_announce_objectives(title = FALSE))
-	to_chat(wizard.current, chat_box_red(messages.Join("<br>")))
+	to_chat(wizard.current, custom_boxed_message("red_box center", messages.Join("<br>")))
 	return
 
 /datum/game_mode/wizard/raginmages/check_finished()

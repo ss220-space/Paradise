@@ -6,10 +6,11 @@ pub use to_grid_map::to_grid_map;
 pub mod map_to_string;
 pub use map_to_string::map_to_string;
 
-use eyre::Context;
-
 use dmmtools::dmm;
 use dmmtools::dmm::Coord3;
+
+use meowtonin::{ByondError, ByondResult};
+use std::error::Error;
 
 /// A representation of a single tile on a map that may or may not be mapped to an existing key.
 #[derive(Clone, Debug, Default)]
@@ -144,9 +145,11 @@ pub struct GridMap {
 }
 
 impl GridMap {
-    pub fn from_file(path: &std::path::Path) -> eyre::Result<GridMap> {
-        Ok(to_grid_map(
-            &dmm::Map::from_file(path).wrap_err("failure to read from dmm parser")?,
-        ))
+    pub fn from_file(path: &std::path::Path) -> ByondResult<GridMap> {
+        Ok(to_grid_map(&dmm::Map::from_file(path).map_err(|_| {
+            ByondError::Boxed(Box::<dyn Error + Send + Sync>::from(
+                "failure to read from dmm parser",
+            ))
+        })?))
     }
 }

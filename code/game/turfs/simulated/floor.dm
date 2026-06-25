@@ -293,52 +293,52 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 
 /turf/simulated/floor/rcd_deconstruct_act(mob/user, obj/item/rcd/our_rcd)
 	. = ..()
-	if(our_rcd.checkResource(5, user))
-		to_chat(user, "Deconstructing floor...")
+	if(our_rcd.checkResource(RCD_COST_FLOOR * 2, user))
+		to_chat(user, "Деконструкция пола...")
 		playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, TRUE)
 		if(do_after(user, 5 SECONDS * our_rcd.toolspeed, src, category = DA_CAT_TOOL))
-			if(!our_rcd.useResource(5, user))
+			if(!our_rcd.useResource(RCD_COST_FLOOR * 2, user))
 				return RCD_ACT_FAILED
 			playsound(get_turf(our_rcd), our_rcd.usesound, 50, TRUE)
 			add_attack_logs(user, src, "Deconstructed floor with RCD")
 			src.ChangeTurf(baseturf)
 			return RCD_ACT_SUCCESSFULL
 		return RCD_ACT_FAILED
-	to_chat(user, span_warning("ERROR! Not enough matter in unit to deconstruct this floor!"))
+	to_chat(user, span_warning("ОШИБКА! Недостаточно материи для деконструкции пола!"))
 	playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, TRUE)
 	return RCD_ACT_FAILED
 
 /turf/simulated/floor/rcd_construct_act(mob/user, obj/item/rcd/our_rcd, rcd_mode)
 	. = ..()
 	if(locate(/obj/machinery/field) in src)
-		to_chat(user, span_warning("ERROR! Due to safety protocols building is prohibited in high-energy field areas!"))
+		to_chat(user, span_warning("ОШИБКА! В соответствии с протоколами безопасности строительства в высокоэнергетических зонах запрещено!"))
 		playsound(loc, 'sound/machines/click.ogg', 50, TRUE)
 		return RCD_ACT_FAILED
 	switch(rcd_mode)
 		if(RCD_MODE_TURF)
-			if(our_rcd.checkResource(3, user))
-				to_chat(user, "Building Wall...")
+			if(our_rcd.checkResource(RCD_COST_WALL, user))
+				to_chat(user, "Печать стены...")
 				playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, TRUE)
 				if(do_after(user, 2 SECONDS * our_rcd.toolspeed, src, category = DA_CAT_TOOL))
-					if(!our_rcd.useResource(3, user))
+					if(!our_rcd.useResource(RCD_COST_WALL, user))
 						return RCD_ACT_FAILED
 					playsound(get_turf(our_rcd), our_rcd.usesound, 50, TRUE)
 					add_attack_logs(user, src, "Constructed wall with RCD")
 					ChangeTurf(our_rcd.wall_type)
 					return RCD_ACT_SUCCESSFULL
-				to_chat(user, span_warning("ERROR! Construction interrupted!"))
+				to_chat(user, span_warning("ОШИБКА! Печать прервана!"))
 				return RCD_ACT_FAILED
-			to_chat(user, span_warning("ERROR! Not enough matter in unit to construct this wall!"))
+			to_chat(user, span_warning("ОШИБКА! Недостаточно материи для печати стены!"))
 			playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, TRUE)
 			return RCD_ACT_FAILED
 		if(RCD_MODE_AIRLOCK)
-			if(our_rcd.checkResource(10, user))
-				to_chat(user, "Building Airlock...")
+			if(our_rcd.checkResource(RCD_COST_AIRLOCK, user))
+				to_chat(user, "Печать шлюза...")
 				playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, TRUE)
 				if(do_after(user, 5 SECONDS * our_rcd.toolspeed, src, category = DA_CAT_TOOL))
 					if(locate(/obj/machinery/door/airlock) in src.contents)
 						return RCD_NO_ACT
-					if(!our_rcd.useResource(10, user))
+					if(!our_rcd.useResource(RCD_COST_AIRLOCK, user))
 						return RCD_ACT_FAILED
 					playsound(get_turf(our_rcd), our_rcd.usesound, 50, TRUE)
 					var/obj/machinery/door/airlock/T = new our_rcd.door_type(src)
@@ -348,26 +348,26 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 					T.req_access = our_rcd.selected_accesses.Copy()
 					T.check_one_access = our_rcd.one_access
 					return RCD_ACT_SUCCESSFULL
-				to_chat(user, span_warning("ERROR! Construction interrupted!"))
+				to_chat(user, span_warning("ОШИБКА! Печать прервана!"))
 				return RCD_ACT_FAILED
-			to_chat(user, span_warning("ERROR! Not enough matter in unit to construct this airlock!"))
+			to_chat(user, span_warning("ОШИБКА! Недостаточно материи для печати шлюза!"))
 			playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, TRUE)
 			return RCD_ACT_FAILED
 		if(RCD_MODE_WINDOW)
 			if(locate(/obj/structure/grille) in src)
 				return // We already have window
-			if(!our_rcd.checkResource(2, user))
-				to_chat(user, span_warning("ERROR! Not enough matter in unit to construct this window!"))
+			if(!our_rcd.checkResource(RCD_COST_WINDOW, user))
+				to_chat(user, span_warning("ОШИБКА! Недостаточно материи для печати окна!"))
 				playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, TRUE)
 				return RCD_ACT_FAILED
-			to_chat(user, "Constructing window...")
+			to_chat(user, "Печать окна...")
 			playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, TRUE)
 			if(!do_after(user, 2 SECONDS * our_rcd.toolspeed, src, category = DA_CAT_TOOL))
-				to_chat(user, span_warning("ERROR! Construction interrupted!"))
+				to_chat(user, span_warning("ОШИБКА! Печать прервана!"))
 				return RCD_ACT_FAILED
 			if(locate(/obj/structure/grille) in src)
 				return RCD_NO_ACT// We already have window
-			if(!our_rcd.useResource(2, user))
+			if(!our_rcd.useResource(RCD_COST_WINDOW, user))
 				return RCD_ACT_FAILED
 			playsound(get_turf(our_rcd), our_rcd.usesound, 50, TRUE)
 			add_attack_logs(user, src, "Constructed window with RCD")
@@ -389,21 +389,21 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 			ChangeTurf(our_rcd.floor_type, after_flags = CHANGETURF_IGNORE_AIR) // Platings go under windows.
 			return RCD_ACT_SUCCESSFULL
 		if(RCD_MODE_FIRELOCK)
-			if(our_rcd.checkResource(8, user))
-				to_chat(user, "Building Firelock...")
+			if(our_rcd.checkResource(RCD_COST_FIRELOCK, user))
+				to_chat(user, "Печать пожарного шлюза...")
 				playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, TRUE)
 				if(do_after(user, 5 SECONDS * our_rcd.toolspeed, src, category = DA_CAT_TOOL))
 					if(locate(/obj/machinery/door/firedoor) in src)
 						return RCD_NO_ACT
-					if(!our_rcd.useResource(8, user))
+					if(!our_rcd.useResource(RCD_COST_FIRELOCK, user))
 						return RCD_ACT_FAILED
 					playsound(get_turf(our_rcd), our_rcd.usesound, 50, TRUE)
 					new our_rcd.firelock_type(src)
 					add_attack_logs(user, src, "Constructed firelock with RCD")
 					return RCD_ACT_SUCCESSFULL
-				to_chat(user, span_warning("ERROR! Construction interrupted!"))
+				to_chat(user, span_warning("ОШИБКА! Печать прервана!"))
 				return RCD_ACT_FAILED
-			to_chat(user, span_warning("ERROR! Not enough matter in unit to construct this Firelock!"))
+			to_chat(user, span_warning("ОШИБКА! Недостаточно материи для печати пожарного шлюза!"))
 			playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, TRUE)
 			return RCD_ACT_FAILED
 	return RCD_NO_ACT

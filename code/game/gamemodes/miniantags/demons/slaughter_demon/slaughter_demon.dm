@@ -72,7 +72,7 @@
 	mind.objectives += fluffObjective
 	messages.Add(mind.prepare_announce_objectives(FALSE))
 	messages.Add(span_motd("С полной информацией вы можете ознакомиться на вики: <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Slaughter_Demon\">Демон резни</a>"))
-	to_chat(src, chat_box_red(messages.Join("<br>")))
+	to_chat(src, custom_boxed_message("red_box center", messages.Join("<br>")))
 
 /obj/effect/decal/cleanable/blood/innards
 	icon = 'icons/obj/surgery.dmi'
@@ -183,7 +183,7 @@
 		new_objective.explanation_text = "Устройте Резню неверующим!"
 		S.mind.objectives += new_objective
 		var/list/messages = list(S.mind.prepare_announce_objectives(FALSE))
-		to_chat(S, chat_box_red(messages.Join("<br>")))
+		to_chat(S, custom_boxed_message("red_box center", messages.Join("<br>")))
 		log_game("[S.key] has become Slaughter demon.")
 
 /**

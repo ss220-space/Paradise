@@ -53,14 +53,11 @@ PROCESSING_SUBSYSTEM_DEF(station)
 			setup_trait(station_trait_path)
 		return
 
-	for(var/datum/station_trait/trait_typepath as anything in subtypesof(/datum/station_trait))
+	for(var/datum/station_trait/trait_typepath as anything in valid_subtypesof(/datum/station_trait))
 		// If forced, (probably debugging), just set it up now, keep it out of the pool.
 		if(trait_typepath.force)
 			setup_trait(trait_typepath)
 			continue
-
-		if(trait_typepath.abstract_type == trait_typepath)
-			continue //Dont add abstract ones to it
 
 		if(!(trait_typepath.trait_flags & STATION_TRAIT_PLANETARY) && SSmapping.is_planetary()) // we're on a planet but we can't do planet ;_;
 			continue

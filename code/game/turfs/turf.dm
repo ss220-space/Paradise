@@ -213,6 +213,8 @@
 			qdel(A)
 		return
 
+	REMOVE_FROM_SMOOTH_QUEUE(src)
+
 	QDEL_LIST(blueprint_data)
 	flags &= ~INITIALIZED
 	bound_air = null
@@ -372,7 +374,6 @@
 
 	set_light_on(FALSE)
 	var/old_opacity = opacity
-	var/old_always_lit = always_lit
 	var/old_lighting_object = lighting_object
 	var/old_blueprint_data = blueprint_data
 	var/old_directional_opacity = directional_opacity
@@ -396,27 +397,27 @@
 	var/list/old_comp_lookup = _listen_lookup?.Copy()
 	var/list/old_signal_procs = _signal_procs?.Copy()
 	var/carryover_turf_flags = (RESERVATION_TURF | UNUSED_RESERVATION_TURF) & turf_flags
-	var/turf/W = new path(src)
-	W.turf_flags |= carryover_turf_flags
+	var/turf/new_turf = new path(src)
+	new_turf.turf_flags |= carryover_turf_flags
 
 	// WARNING WARNING
 	// Turfs DO NOT lose their signals when they get replaced, REMEMBER THIS
 	// It's possible because turfs are fucked, and if you have one in a list and it's replaced with another one, the list ref points to the new turf
 	if(old_comp_lookup)
-		LAZYOR(W._listen_lookup, old_comp_lookup)
+		LAZYOR(new_turf._listen_lookup, old_comp_lookup)
 	if(old_signal_procs)
-		LAZYOR(W._signal_procs, old_signal_procs)
+		LAZYOR(new_turf._signal_procs, old_signal_procs)
 
 	for(var/datum/callback/callback as anything in post_change_callbacks)
-		callback.InvokeAsync(W)
+		callback.InvokeAsync(new_turf)
 
 	if(copy_existing_baseturf)
-		W.baseturf = old_baseturf
+		new_turf.baseturf = old_baseturf
 
 	if(!defer_change)
-		W.AfterChange(after_flags, oldType = old_type)
+		new_turf.AfterChange(after_flags, oldType = old_type)
 
-	W.blueprint_data = old_blueprint_data
+	new_turf.blueprint_data = old_blueprint_data
 
 	lighting_corner_NE = old_lighting_corner_NE
 	lighting_corner_SE = old_lighting_corner_SE
@@ -424,14 +425,6 @@
 	lighting_corner_NW = old_lighting_corner_NW
 
 	dynamic_lumcount = old_dynamic_lumcount
-
-	if(W.always_lit)
-		// We are guarenteed to have these overlays because of how generation works
-		var/mutable_appearance/overlay = GLOB.fullbright_overlays[GET_TURF_PLANE_OFFSET(src) + 1]
-		W.add_overlay(overlay)
-	else if(old_always_lit)
-		var/mutable_appearance/overlay = GLOB.fullbright_overlays[GET_TURF_PLANE_OFFSET(src) + 1]
-		W.cut_overlay(overlay)
 
 	// we need to refresh gravity for all living mobs to cover possible gravity change
 	for(var/mob/living/mob in contents)
@@ -443,7 +436,16 @@
 		mob.refresh_gravity()
 
 	if(SSlighting.initialized)
-		lighting_object = old_lighting_object
+		// Space tiles should never have lighting objects
+		if(!always_lit)
+			if(old_lighting_object)
+				lighting_object = old_lighting_object
+				vis_contents += lighting_object
+			// Should have a lighting object if we never had one
+			else
+				new /atom/movable/lighting_object(null, src)
+		else if(old_lighting_object)
+			qdel(old_lighting_object, force = TRUE)
 
 		directional_opacity = old_directional_opacity
 		recalculate_directional_opacity()
@@ -451,26 +453,19 @@
 		if(lighting_object && !lighting_object.needs_update)
 			lighting_object.update()
 
-		if(old_always_lit != always_lit)
-			if(!always_lit)
-				lighting_build_overlay()
-			else
-				lighting_clear_overlay()
-
-		for(var/turf/space/S in RANGE_TURFS(1, src)) //RANGE_TURFS is in code\__HELPERS\game.dm
-			S.update_starlight()
+		for(var/turf/space/space_tile in RANGE_TURFS(1, src))
+			space_tile.update_starlight()
 
 	if(old_opacity != opacity && SSticker)
 		GLOB.cameranet.bareMajorChunkChange(src)
 
 	// We will only run this logic if the tile is not on the prime z layer, since we use area overlays to cover that
 	if(SSmapping.z_level_to_plane_offset[z])
-		var/area/our_area = W.loc
+		var/area/our_area = new_turf.loc
 		if(our_area.lighting_effects)
-			W.add_overlay(our_area.lighting_effects[SSmapping.z_level_to_plane_offset[z] + 1])
-	//SSdemo.mark_turf(W)
+			new_turf.add_overlay(our_area.lighting_effects[SSmapping.z_level_to_plane_offset[z] + 1])
 
-	return W
+	return new_turf
 
 /turf/proc/BeforeChange()
 	return
@@ -895,7 +890,7 @@
 	// I would like to use GLOB.starbright_overlays here
 	// But that breaks down for... some? reason. I think receiving a render relay breaks keep_together or something
 	// So we're just gonna accept  that this'll break with starlight color changing. hardly matters since this is really only for offset stuff, but I'd love to fix it someday
-	var/mutable_appearance/light = new(GLOB.default_lighting_underlays_by_z[generate_for.z])
+	var/mutable_appearance/light = new(GLOB.fullbright_overlays[GET_TURF_PLANE_OFFSET(generate_for) + 1])
 	light.render_target = ""
 	light.appearance_flags |= KEEP_TOGETHER
 	// Now apply a copy of the turf, set to multiply
@@ -962,7 +957,7 @@
 	var/fuel_burnt = 0
 	var/obj/effect/hotspot/current_hotspot = active_hotspot
 	var/milla_tick = SSair.milla_tick
-	if(isnull(current_hotspot))
+	if(QDELETED(current_hotspot))
 		if(isnull(bound_air) || bound_air.lastread < milla_tick)
 			air = get_readonly_air()
 		else
@@ -1021,7 +1016,7 @@
 
 	var/obj/effect/wind/current_wind = wind_effect
 
-	if(isnull(current_wind))
+	if(QDELETED(current_wind))
 		current_wind = new(src)
 		wind_effect = current_wind
 

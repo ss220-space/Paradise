@@ -857,7 +857,7 @@
 	if(dreamer.get_drunkenness() > 0)
 		comfort += 1 //Aren't naps SO much better when drunk?
 		dreamer.AdjustDrunk(-0.4 SECONDS * comfort) //reduce drunkenness while sleeping.
-	if(comfort > 1 && prob(3))//You don't heal if you're just sleeping on the floor without a blanket.
+	if(comfort > 1)//You don't heal if you're just sleeping on the floor without a blanket.
 		brute_heal += 1 * comfort
 		burn_heal += 1 * comfort
 	if(brute_heal > 0 || burn_heal > 0)

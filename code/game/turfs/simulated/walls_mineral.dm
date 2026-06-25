@@ -351,7 +351,8 @@
 /turf/simulated/wall/mineral/titanium/nodecon/welder_act()
 	return
 
-/turf/simulated/wall/mineral/titanium/nodecon/rcd_deconstruct_act()
+/turf/simulated/wall/mineral/titanium/nodecon/rcd_deconstruct_act(mob/user, obj/item/rcd/our_rcd)
+	balloon_alert(user, "нельзя деконструировать!")
 	return RCD_NO_ACT
 
 /////////////////////Plastitanium walls/////////////////////

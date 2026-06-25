@@ -43,6 +43,8 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	var/ini_dir = null
 	var/state = WINDOW_OUT_OF_FRAME
 	var/reinf = FALSE
+	/// Minimum singularity stage that can rip this window from its anchors and start dragging it.
+	var/singularity_unanchor_stage = STAGE_TWO
 	var/heat_resistance = 800
 	var/decon_speed = null
 	var/fulltile = FALSE
@@ -168,7 +170,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 
 /obj/structure/window/singularity_pull(atom/singularity, current_size)
 	..()
-	if(anchored && current_size >= STAGE_TWO)
+	if(anchored && current_size >= singularity_unanchor_stage)
 		set_anchored(FALSE)
 	if(current_size >= STAGE_FIVE)
 		deconstruct(FALSE)
@@ -540,6 +542,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	explosion_block = 1
 	glass_type = /obj/item/stack/sheet/rglass
 	rad_insulation = RAD_LIGHT_INSULATION
+	singularity_unanchor_stage = STAGE_THREE
 
 /obj/structure/window/reinforced/get_ru_names()
 	return alist(
@@ -693,6 +696,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	armor = list(MELEE = 75, BULLET = 5, LASER = 0, ENERGY = 0, BOMB = 45, BIO = 100, FIRE = 99, ACID = 100)
 	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
 	rad_insulation = RAD_MEDIUM_INSULATION
+	singularity_unanchor_stage = STAGE_THREE
 
 /obj/structure/window/plasmabasic/get_ru_names()
 	return alist(
@@ -719,6 +723,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
 	rad_insulation = RAD_HEAVY_INSULATION
 	cares_about_temperature = FALSE
+	singularity_unanchor_stage = STAGE_FOUR
 
 /obj/structure/window/plasmareinforced/get_ru_names()
 	return alist(
@@ -797,6 +802,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	armor = list(MELEE = 75, BULLET = 5, LASER = 0, ENERGY = 0, BOMB = 45, BIO = 100, FIRE = 99, ACID = 100)
 	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
 	rad_insulation = RAD_MEDIUM_INSULATION
+	singularity_unanchor_stage = STAGE_THREE
 
 /obj/structure/window/full/plasmabasic/get_ru_names()
 	return alist(
@@ -847,6 +853,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
 	rad_insulation = RAD_HEAVY_INSULATION
 	cares_about_temperature = FALSE
+	singularity_unanchor_stage = STAGE_FOUR
 
 /obj/structure/window/full/plasmareinforced/get_ru_names()
 	return alist(
@@ -878,6 +885,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	glass_type = /obj/item/stack/sheet/rglass
 	cancolor = TRUE
 	rad_insulation = RAD_LIGHT_INSULATION
+	singularity_unanchor_stage = STAGE_THREE
 
 /obj/structure/window/full/reinforced/get_ru_names()
 	return alist(

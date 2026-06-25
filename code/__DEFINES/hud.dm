@@ -110,10 +110,11 @@
 #define ANTAG_HUD_TEAM_1 29
 #define ANTAG_HUD_TEAM_2 30
 #define ANTAG_HUD_TEAM_3 31
-#define THOUGHTS_HUD 32
+#define ANTAG_HUD_VOX_RAIDER 32
+#define THOUGHTS_HUD 33
 #define ANTAG_HUD_HERETIC 34
 //species hud
-#define DATA_HUD_KIDAN_PHEROMONES 33
+#define DATA_HUD_KIDAN_PHEROMONES 35
 
 // Notification action types
 #define NOTIFY_JUMP "jump"

@@ -224,6 +224,14 @@
 	mask_type    = /obj/item/clothing/mask/breath
 	storage_type = /obj/item/tank/internals/emergency_oxygen/double
 
+/obj/machinery/suit_storage_unit/centcom/director
+	name = "corporate storage unit"
+	suit_type = /obj/item/mod/control/pre_equipped/corporate
+	mask_type = /obj/item/clothing/mask/gas/swat
+	storage_type = /obj/item/tank/internals/emergency_oxygen/double
+	magboots_type = /obj/item/clothing/shoes/magboots/syndie/advance
+	req_access = list(ACCESS_CENT_SPECOPS)
+
 /obj/machinery/suit_storage_unit/ert/security
 	suit_type    = /obj/item/clothing/suit/space/hardsuit/ert/security
 	mask_type    = /obj/item/clothing/mask/breath

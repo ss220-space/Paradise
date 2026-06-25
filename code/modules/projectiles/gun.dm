@@ -1,4 +1,5 @@
 /obj/item/gun
+	abstract_type = /obj/item/gun
 	name = "gun"
 	desc = "It's a gun. It's pretty terrible, though."
 	icon = 'icons/obj/weapons/projectile.dmi'
@@ -645,12 +646,15 @@
 /obj/item/gun/proc/fast_fire(atom/target, mob/user, zone_override)
 	var/old_target = src.target
 	var/old_user = gun_user
+	var/list/old_modifiers = modifiers
 	src.target = target
 	gun_user = user
+	modifiers = null
 	setup_bullet_accuracy()
 	. = process_fire(zone_override)
 	src.target = old_target
 	gun_user = old_user
+	modifiers = old_modifiers
 	setup_bullet_accuracy()
 
 /obj/item/gun/proc/process_fire(zone_override)
@@ -741,20 +745,20 @@
 		return ITEM_INTERACT_SUCCESS
 	return ..()
 
-/obj/item/gun/attackby(obj/item/I, mob/user, list/modifiers)
-	if(is_pen(I))
+/obj/item/gun/attackby(obj/item/item, mob/living/user, list/modifiers)
+	if(is_pen(item))
 		if(!unique_rename)
 			add_fingerprint(user)
 			to_chat(user, span_warning("Вы не можете переименовать [declent_ru(ACCUSATIVE)]!"))
 			return ATTACK_CHAIN_BLOCKED_ALL
-		var/new_name = rename_interactive(user, I, use_prefix = FALSE)
+		var/new_name = rename_interactive(user, item, use_prefix = FALSE)
 		if(!isnull(new_name))
 			to_chat(user, span_notice("Вы переименовываете \"[name]\". Познакомьтесь со своим новым другом."))
 		return ATTACK_CHAIN_BLOCKED
 
-	if(istype(I, /obj/item/gun_module))
+	if(istype(item, /obj/item/gun_module))
 		add_fingerprint(user)
-		var/obj/item/gun_module/module = I
+		var/obj/item/gun_module/module = item
 		if(module.try_attach(src, user))
 			return ATTACK_CHAIN_BLOCKED_ALL
 

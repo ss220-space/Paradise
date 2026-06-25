@@ -103,7 +103,7 @@ GLOBAL_LIST_INIT(valid_blobstrains, subtypesof(/datum/blobstrain) - list(/datum/
 		var/list/messages = list()
 		messages += "Штамм вашего надразума: <b><font color=\"[color]\">[name]</b></font>!"
 		messages += "Штамм <b><font color=\"[color]\">[name]</b></font> [shortdesc ? "[shortdesc]" : "[description]"]"
-		to_chat(blob_mob, chat_box_red(messages.Join("<br>")))
+		to_chat(blob_mob, custom_boxed_message("red_box center", messages.Join("<br>")))
 
 /datum/blobstrain/proc/on_lose()
 	if(overmind.blob_core)

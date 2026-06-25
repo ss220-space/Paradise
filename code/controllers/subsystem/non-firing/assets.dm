@@ -38,9 +38,7 @@ SUBSYSTEM_DEF(assets)
 	transport.Load()
 
 /datum/controller/subsystem/assets/proc/load_assets()
-	for(var/type in typesof(/datum/asset))
-		var/datum/asset/A = type
-		if(type != initial(A._abstract))
-			load_asset_datum(type)
+	for(var/datum/asset/asset_type as anything in valid_subtypesof(/datum/asset))
+		load_asset_datum(asset_type)
 
 	transport.Initialize(cache)

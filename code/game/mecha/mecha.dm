@@ -78,7 +78,8 @@
 	/// Required access level to open cell compartment.
 	var/list/internals_req_access = list(ACCESS_ENGINE,ACCESS_ROBOTICS)
 
-	var/wreckage
+	/// Type that the mecha becomes when destroyed
+	var/obj/structure/mecha_wreckage/wreckage = null
 
 	var/list/equipment = new
 	var/list/list/equipment_in_hands
@@ -203,7 +204,7 @@
 	AddElement(/datum/element/falling_hazard, damage = 100, hardhat_safety = FALSE, crushes = TRUE)
 
 /obj/mecha/Destroy()
-
+	STOP_PROCESSING(SSobj, src)
 	for(var/atom/movable/cargo_thing as anything in cargo)
 		cargo -= cargo_thing
 		cargo_thing.forceMove(drop_location())
@@ -212,22 +213,20 @@
 	if(occupant)
 		occupant.SetSleeping(destruction_sleep_duration)
 	go_out()
-	var/mob/living/silicon/ai/AI
 	for(var/mob/M in src) //Let's just be ultra sure
 		if(isAI(M))
-			occupant = null
-			AI = M //AIs are loaded into the mech computer itself. When the mech dies, so does the AI. They can be recovered with an AI card from the wreck.
+			var/mob/living/silicon/ai/AI = M //AIs are loaded into the mech computer itself. When the mech dies, so does the AI. They can be recovered with an AI card from the wreck.
+			AI.gib() //No wreck, no AI to recover
 		else
 			M.forceMove(loc)
+	occupant = null
 	for(var/obj/item/mecha_parts/mecha_equipment/E in equipment)
 		E.detach(loc)
 		qdel(E)
 	equipment.Cut()
 	QDEL_NULL(cell)
 	QDEL_NULL(internal_tank)
-	if(AI)
-		AI.gib() //No wreck, no AI to recover
-	STOP_PROCESSING(SSobj, src)
+	QDEL_NULL(radio)
 	GLOB.poi_list.Remove(src)
 	var/turf/location = get_turf(src)
 	if(location)
@@ -235,15 +234,16 @@
 	else
 		qdel(cabin_air)
 	cabin_air = null
+	connected_port = null
 	QDEL_NULL(spark_system)
 	QDEL_NULL(smoke_system)
 	QDEL_LIST(trackers)
-	selected_equipment_in_hands.Cut()
+	LAZYCLEARLIST(selected_equipment_in_hands)
 	for(var/list/equipment in equipment_in_hands)
 		equipment.Cut()
 	QDEL_NULL(ui_view)
-	QDEL_NULL(radio)
 	lose_hearing_sensitivity(trait_source = ROUNDSTART_TRAIT)
+	remove_from_all_data_huds()
 	GLOB.mechas_list -= src //global mech list
 	return ..()
 
@@ -283,10 +283,12 @@
 	. = ..()
 	var/integrity = obj_integrity * 100 / max_integrity
 	switch(integrity)
-		if(85 to 100)
+		if(100)
 			. += span_notice("Он полностью невредим.")
-		if(65 to 85)
+		if(85 to 99)
 			. += span_notice("Он незначительно повреждён.")
+		if(65 to 85)
+			. += span_notice("Он немного повреждён.")
 		if(45 to 65)
 			. += span_notice("Он сильно повреждён.")
 		if(25 to 45)
@@ -705,7 +707,7 @@
 	if(!islist(possible_int_damage) || isemptylist(possible_int_damage))
 		return
 	if(prob(20))
-		if(ignore_threshold || obj_integrity*100/max_integrity < internal_damage_threshold)
+		if(ignore_threshold || obj_integrity * 100 / max_integrity < internal_damage_threshold)
 			for(var/T in possible_int_damage)
 				if(internal_damage & T)
 					possible_int_damage -= T
@@ -713,7 +715,7 @@
 			if(int_dam_flag)
 				setInternalDamage(int_dam_flag)
 	if(prob(5))
-		if(ignore_threshold || obj_integrity*100/max_integrity < internal_damage_threshold)
+		if(ignore_threshold || obj_integrity * 100 / max_integrity < internal_damage_threshold)
 			var/obj/item/mecha_parts/mecha_equipment/ME = safepick(equipment)
 			if(ME)
 				qdel(ME)
@@ -1112,38 +1114,39 @@
 		maintenance_progress = MECHA_SECURE_BOLTS
 		to_chat(user, span_notice("You tighten the securing bolts."))
 
-/obj/mecha/welder_act(mob/user, obj/item/I)
+/obj/mecha/welder_act(mob/user, obj/item/welder)
 	if(user.a_intent == INTENT_HARM)
 		return
 	. = TRUE
-	if(!I.tool_use_check(user, 0))
+	if(!welder.tool_use_check(user, 0))
 		return
 	if((obj_integrity >= max_integrity) && !internal_damage)
-		to_chat(user, span_notice("[src] is at full integrity!"))
+		balloon_alert(user, "мех целый!")
 		return
 	if(repairing)
-		to_chat(user, span_notice("[src] is currently being repaired!"))
-		return
-	if(maintenance_progress == MECHA_LOCKED) // If maint protocols are not active, the state is zero
-		to_chat(user, span_warning("[src] can not be repaired without maintenance protocols active!"))
+		balloon_alert(user, "мех уже ремонтируется!")
 		return
 	WELDER_ATTEMPT_REPAIR_MESSAGE
 	repairing = TRUE
-	if(I.use_tool(src, user, 15, volume = I.tool_volume))
+	while(obj_integrity < max_integrity || (internal_damage & MECHA_INT_TANK_BREACH))
+		if(!welder.use_tool(src, user, 15, volume = welder.tool_volume))
+			break
+
 		if(internal_damage & MECHA_INT_TANK_BREACH)
 			clearInternalDamage(MECHA_INT_TANK_BREACH)
 			user.visible_message(
-				span_notice("[user] repairs the damaged gas tank."),
-				span_notice("You repair the damaged gas tank.")
+				span_notice("[user] отремонтировал[GEND_A_O_I(user)] повреждённый кислородный балон."),
+				span_notice("Вы отремонтировали повреждённый кислородный балон.")
 			)
 		else if(obj_integrity < max_integrity)
 			user.visible_message(
-				span_notice("[user] repairs some damage to [name]."),
-				span_notice("You repair some damage to [name].")
+				span_notice("[user] частично отремонтировал[GEND_A_O_I(user)] [name]."),
+				span_notice("Вы частично отремонтировали [name].")
 			)
 			repair_damage(min(10, max_integrity - obj_integrity))
-		else
-			to_chat(user, span_notice("[src] is at full integrity!"))
+
+	if((obj_integrity >= max_integrity) && !internal_damage)
+		balloon_alert(user, "мех полностью отремонтирован!")
 	repairing = FALSE
 
 /obj/mecha/mech_melee_attack(obj/mecha/mech, obj/item/mecha_parts/mecha_equipment/selected_module = null)

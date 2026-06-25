@@ -158,6 +158,8 @@ GLOBAL_VAR_INIT(refid_filter, TYPEID(filter(type="angular_blur")))
 
 #define is_cash(A) (istype(A, /obj/item/coin) || istype(A, /obj/item/stack/spacecash))
 
+#define isvoxcash(W) (istype(W, /obj/item/stack/vox_cash))
+
 #define is_airlock(A) (istype(A, /obj/machinery/door/airlock))
 
 #define is_camera(A) (istype(A, /obj/item/camera))

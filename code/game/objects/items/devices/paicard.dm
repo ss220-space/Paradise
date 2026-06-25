@@ -182,7 +182,7 @@
 			pai.master_dna = dna.unique_enzymes
 			var/list/message_box = list()
 			message_box.Add(span_notice("<b>Обнаружен новый мастер: [pai.master]!</b>"))
-			to_chat(pai, chat_box_notice(message_box.Join("<br>")))
+			to_chat(pai, custom_boxed_message("blue_box", message_box.Join("<br>")))
 
 	if(href_list["request"])
 		var/delta = (world.time / 10) - last_request
@@ -251,7 +251,7 @@
 	else if(upgrade)
 		welcome_message.Add(span_warning("<b>Будучи СпИИ, вы имеете доступ к особым программам, а так же доступ к зашифрованному каналу связи \"Синдиката\" — :t</b>"))
 
-	to_chat(pai, chat_box_notice(welcome_message.Join("<br>")))
+	to_chat(pai, custom_boxed_message("blue_box", welcome_message.Join("<br>")))
 
 /obj/item/paicard/proc/removePersonality()
 	extinguish_light(TRUE)

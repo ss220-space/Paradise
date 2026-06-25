@@ -26,7 +26,7 @@
 	..()
 
 /datum/buildmode_mode/link/show_help(mob/user)
-	to_chat(user, span_purple(chat_box_examine(
+	to_chat(user, span_purple(boxed_message(
 		"[span_bold("Select button to link")] -> Left Mouse Button on obj\n\
 		[span_bold("Link/unlink to selected button")] -> Right Mouse Button on obj"))
 	)

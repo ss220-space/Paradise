@@ -35,8 +35,6 @@
 	var/sec_hud = DATA_HUD_SECURITY_ADVANCED //Determines the sec hud to use
 	var/d_hud = DATA_HUD_DIAGNOSTIC_ADVANCED //There is only one kind of diag hud
 
-	var/obj/item/radio/common_radio
-
 	var/register_alarms = TRUE
 	var/datum/ui_module/atmos_control/atmos_control
 	var/datum/ui_module/crew_monitor/crew_monitor
@@ -125,8 +123,12 @@
 	QDEL_NULL(power_monitor)
 	QDEL_NULL(gps)
 	QDEL_NULL(blueprints)
+	QDEL_NULL(aiCamera)
 
 	return ..()
+
+/mob/living/silicon/proc/get_radio()
+	return
 
 /mob/living/silicon/proc/alarm_triggered(source, class, area/A, list/O, obj/alarmsource)
 	return

@@ -629,3 +629,6 @@ GLOBAL_LIST_INIT(cable_colors, list(
 #define COLOR_MENDER_DUAL "#ffb3b3"
 #define COLOR_MENDER_BRUTE "#ff0000"
 #define COLOR_MENDER_BURN "#ff8800"
+
+#define COLOR_ANCIENT_ROCK "#575757"
+#define COLOR_COLD_ANCIENT_ROCK "#575764"

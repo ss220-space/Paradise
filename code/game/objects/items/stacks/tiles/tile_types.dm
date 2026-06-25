@@ -234,6 +234,7 @@
 	throw_range = 7
 	turf_type = /turf/simulated/floor/plasteel
 	mineralType = "metal"
+	matter_amount = 0.25
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 100, ACID = 70)
 	resistance_flags = FIRE_PROOF
 	energy_type = /datum/robot_energy_storage/metal

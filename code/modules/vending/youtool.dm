@@ -175,3 +175,6 @@
 		INSTRUMENTAL = "торговым автоматом YouTool",
 		PREPOSITIONAL = "торговом автомате YouTool",
 	)
+
+/obj/machinery/vending/tool/free
+	all_products_free = TRUE

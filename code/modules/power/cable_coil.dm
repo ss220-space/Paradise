@@ -203,9 +203,9 @@
 		to_chat(user, span_notice("Nothing to fix!"))
 		return .
 
-	ADD_TRAIT(target, TRAIT_REPAIRING_LIMB, UNIQUE_TRAIT_SOURCE(src))
+	ADD_TRAIT(target, TRAIT_REPAIRING_LIMB, UNIQUE_TRAIT_SOURCE(user))
 	if(target == user && !do_after(user, target.robotic_limb_repair_time, target, NONE))
-		REMOVE_TRAIT(target, TRAIT_REPAIRING_LIMB, UNIQUE_TRAIT_SOURCE(src))
+		REMOVE_TRAIT(target, TRAIT_REPAIRING_LIMB, UNIQUE_TRAIT_SOURCE(user))
 		return .
 
 	. |= ATTACK_CHAIN_SUCCESS
@@ -242,7 +242,7 @@
 		target.updatehealth("cable repair")
 	if(update_damage_icon)
 		target.UpdateDamageIcon()
-	REMOVE_TRAIT(target, TRAIT_REPAIRING_LIMB, UNIQUE_TRAIT_SOURCE(src))
+	REMOVE_TRAIT(target, TRAIT_REPAIRING_LIMB, UNIQUE_TRAIT_SOURCE(user))
 
 /obj/item/stack/cable_coil/attackby(obj/item/I, mob/user, params)
 	if(iscrayon(I))

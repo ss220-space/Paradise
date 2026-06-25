@@ -44,6 +44,7 @@ $_channel_map: (
   'Альфа': hsl(64, 81%, 31%),
   'Бета': hsl(212, 93%, 54%),
   'Гамма': hsl(12, 62%, 56%),
+  'Воксы': hsl(279, 86%, 47%),
 );
 
 $channel_keys: map.keys($_channel_map) !default;

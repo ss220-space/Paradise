@@ -15,7 +15,7 @@
 	add_attack_logs(src, null, "Came back to life", ATKLOG_ALL)
 	set_stat(CONSCIOUS)
 	if(mind)
-		GLOB.respawnable_list -= src
+		remove_from_respawnable_list()
 	timeofdeath = null
 	if(updating)
 		updatehealth("update revive")

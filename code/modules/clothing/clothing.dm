@@ -162,7 +162,7 @@
 			readout += "Нет информации о прочности или защите."
 
 		var/formatted_readout = span_notice("<b>ЗАЩИТНЫЕ ХАРАКТЕРИСТИКИ</b><hr>[jointext(readout, "\n")]")
-		to_chat(usr, chat_box_examine(formatted_readout))
+		to_chat(usr, boxed_message(formatted_readout))
 
 /obj/item/clothing/update_icon_state()
 	if(!can_toggle)

@@ -77,6 +77,8 @@ GLOBAL_LIST_INIT(battle_teams_spawns, list(
 	JOB_TITLE_TEAM3 = list()
 ))
 
+GLOBAL_LIST_EMPTY(raider_spawn)
+
 //away missions
 GLOBAL_LIST_EMPTY(awaydestinations) //a list of landmarks that the warpgate can take you to
 

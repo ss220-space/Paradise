@@ -1,5 +1,5 @@
 //TODO: Convert this over for languages.
-/mob/living/carbon/brain/say(message, datum/language/speaking = null)
+/mob/living/carbon/brain/say(message, verb = "говор[PLUR_IT_YAT(src)]", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE, ignore_emotes = FALSE, datum/language/speaking = null)
 	if(stat == DEAD)
 		return ..()
 	if(!can_speak(warning = TRUE))

@@ -280,6 +280,8 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 			EVENT_LEVEL_MODERATE, EVENT_DRIFTING_CONTRACTOR, /datum/event/drifting_contractor, 60, list(ASSIGNMENT_SECURITY = 10)),
 		new /datum/event_meta(
 			EVENT_LEVEL_MODERATE, EVENT_TRADERS, /datum/event/traders, 85, is_one_shot = TRUE),
+		new /datum/event_meta(
+			EVENT_LEVEL_MODERATE, EVENT_VOX_RAIDERS, /datum/event/vox_raiders, 85, is_one_shot = TRUE),
 	)
 
 /datum/event_container/major
