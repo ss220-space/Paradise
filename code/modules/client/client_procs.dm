@@ -510,7 +510,6 @@
 	QDEL_NULL(loot_panel)
 	QDEL_NULL(parallax_rock)
 	seen_messages = null
-	sound_tokens = null
 	Master.UpdateTickRate()
 	..() //Even though we're going to be hard deleted there are still some things that want to know the destroy is happening
 	return QDEL_HINT_HARDDEL_NOW
