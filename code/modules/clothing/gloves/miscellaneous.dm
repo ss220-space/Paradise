@@ -114,7 +114,7 @@
 	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	resistance_flags = NONE
-	armor = list(MELEE = 25, BULLET = 30, LASER = 20, ENERGY = 25, BOMB = 35, BIO = 10, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 10, BULLET = 15, LASER = 10, ENERGY = 10, BOMB = 15, BIO = 10, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/gloves/bracer/get_ru_names()
 	return alist(
