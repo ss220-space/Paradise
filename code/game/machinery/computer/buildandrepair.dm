@@ -194,6 +194,12 @@
 	build_path = /obj/machinery/computer/pandemic
 	origin_tech = "programming=2;biotech=2"
 
+/obj/item/circuitboard/pandemic_super
+	board_name = "PanD.E.M.I.C. 2200 Super"
+	greyscale_colors = CIRCUIT_COLOR_MEDICAL
+	build_path = /obj/machinery/computer/pandemic_super
+	origin_tech = "programming=3;biotech=4"
+
 /obj/item/circuitboard/scan_consolenew
 	board_name = "DNA Machine"
 	greyscale_colors = CIRCUIT_COLOR_SCIENCE

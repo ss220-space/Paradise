@@ -154,6 +154,14 @@
 	build_path = /obj/item/circuitboard/pandemic
 	category = list(CIRCUIT_IMPRINTER_CATEGORY_COMPUTER)
 
+/datum/design/pandemic_super
+	id = "pandemic super"
+	req_tech = list(RESEARCH_TREE_PROGRAMMING = 3, RESEARCH_TREE_BIOTECH = 4)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/pandemic_super
+	category = list(CIRCUIT_IMPRINTER_CATEGORY_COMPUTER)
+
 /datum/design/powermonitor
 	id = "powermonitor"
 	req_tech = list(RESEARCH_TREE_PROGRAMMING = 2, RESEARCH_TREE_POWERSTORAGE = 2)
