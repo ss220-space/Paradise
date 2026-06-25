@@ -314,6 +314,8 @@
 	/// Maximum amount on initialization
 	var/fuel_upp = 1000
 	var/spawn_fuel = TRUE
+	/// Lighting middleman, lets us do a flicker effect
+	var/datum/light_middleman/middleman
 
 /obj/item/flashlight/flare/get_ru_names()
 	return alist(
@@ -328,10 +330,16 @@
 /obj/item/flashlight/flare/Initialize(mapload)
 	if(spawn_fuel)
 		fuel = rand(fuel_lower, fuel_upp)
-	return ..()
+	. = ..()
+	if(IS_OVERLAY_LIGHT_SYSTEM(light_system))
+		middleman = new(src, "flashlight")
+		RegisterSignal(middleman, COMSIG_LIGHT_MIDDLEMAN_UPDATED, PROC_REF(light_updated))
+		middleman.being_overriding_light()
 
 /obj/item/flashlight/flare/Destroy()
 	STOP_PROCESSING(SSobj, src)
+	if(middleman)
+		QDEL_NULL(middleman)
 	return ..()
 
 /obj/item/flashlight/flare/update_icon_state()
@@ -365,10 +373,14 @@
 	damtype = FIRE
 
 /obj/item/flashlight/flare/proc/turn_off()
-	on = FALSE
+	set_light_on(FALSE)
 	force = initial(force)
 	damtype = initial(damtype)
 	update_brightness()
+
+/obj/item/flashlight/flare/proc/light_updated(datum/source)
+	SIGNAL_HANDLER
+	fire_flicker_middleman(middleman)
 
 /obj/item/flashlight/flare/extinguish_light(force = FALSE)
 	if(force)
@@ -455,7 +467,7 @@
 	)
 
 /obj/item/flashlight/flare/glowstick/Initialize(mapload)
-	light_color = color
+	set_light_color(color)
 	return ..()
 
 /obj/item/flashlight/flare/glowstick/update_icon_state()

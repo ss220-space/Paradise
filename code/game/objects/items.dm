@@ -1400,6 +1400,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	if(!isturf(loc) || !istype(moving_from))
 		return
 
+	SEND_SIGNAL(src, COMSIG_ITEM_BEFORE_DROP_ANIMATION)
 	var/from_x = moving_from.pixel_x
 	var/from_y = moving_from.pixel_y
 	var/direction = get_dir(moving_from, get_turf(src))
