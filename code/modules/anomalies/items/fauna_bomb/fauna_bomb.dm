@@ -58,8 +58,8 @@
 	for(var/mob/living/mob in created_mobs)
 		mob.death()
 
-	QDEL_LAZYLIST(created_mobs)
-	QDEL_LAZYLIST(datas)
+	QDEL_LIST(created_mobs)
+	QDEL_LIST(datas)
 	current_target = null
 	owner = null
 	chooser = null
