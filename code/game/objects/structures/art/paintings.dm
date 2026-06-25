@@ -66,7 +66,7 @@
 
 /obj/structure/easel
 	name = "мольберт"
-	ru_names = list(
+	ru_names = alist(
 		NOMINATIVE = "мольберт",
 		GENITIVE = "мольберта",
 		DATIVE = "мольберту",
@@ -114,7 +114,7 @@
 
 /obj/item/canvas
 	name = "холст"
-	ru_names = list(
+	ru_names = alist(
 		NOMINATIVE = "холст",
 		GENITIVE = "холста",
 		DATIVE = "холсту",
@@ -663,7 +663,7 @@
 
 /obj/item/canvas/nineteen_nineteen
 	name = "холст (19x19)"
-	ru_names = list(
+	ru_names = alist(
 		NOMINATIVE = "холст (19x19)",
 		GENITIVE = "холста (19x19)",
 		DATIVE = "холсту (19x19)",
@@ -681,7 +681,7 @@
 
 /obj/item/canvas/twentythree_nineteen
 	name = "холст (23x19)"
-	ru_names = list(
+	ru_names = alist(
 		NOMINATIVE = "холст (23x19)",
 		GENITIVE = "холста (23x19)",
 		DATIVE = "холсту (23x19)",
@@ -700,7 +700,7 @@
 
 /obj/item/canvas/twentythree_twentythree
 	name = "холст (23x23)"
-	ru_names = list(
+	ru_names = alist(
 		NOMINATIVE = "холст (23x23)",
 		GENITIVE = "холста (23x23)",
 		DATIVE = "холсту (23x23)",
@@ -719,7 +719,7 @@
 
 /obj/item/canvas/twentyfour_twentyfour
 	name = "холст (24x24)"
-	ru_names = list(
+	ru_names = alist(
 		NOMINATIVE = "холст (24x24)",
 		GENITIVE = "холста (24x24)",
 		DATIVE = "холсту (24x24)",
@@ -743,7 +743,7 @@
 // standard painting frame (not in accepted_canvas_types), same as TG.
 /obj/item/canvas/thirtysix_twentyfour
 	name = "холст (36x24)"
-	ru_names = list(
+	ru_names = alist(
 		NOMINATIVE = "холст (36x24)",
 		GENITIVE = "холста (36x24)",
 		DATIVE = "холсту (36x24)",
@@ -771,7 +771,7 @@
 
 /obj/item/canvas/fortyfive_twentyseven
 	name = "холст (45x27)"
-	ru_names = list(
+	ru_names = alist(
 		NOMINATIVE = "холст (45x27)",
 		GENITIVE = "холста (45x27)",
 		DATIVE = "холсту (45x27)",
@@ -805,7 +805,7 @@
 /// the active colour, right-click a swatch to recolour that slot.
 /obj/item/paint_palette
 	name = "палитра"
-	ru_names = list(
+	ru_names = alist(
 		NOMINATIVE = "палитра",
 		GENITIVE = "палитры",
 		DATIVE = "палитре",
@@ -959,7 +959,7 @@
 
 /obj/item/wallframe/painting
 	name = "рама"
-	ru_names = list(
+	ru_names = alist(
 		NOMINATIVE = "рама",
 		GENITIVE = "рамы",
 		DATIVE = "раме",
@@ -977,7 +977,7 @@
 
 /obj/structure/sign/painting
 	name = "картина"
-	ru_names = list(
+	ru_names = alist(
 		NOMINATIVE = "картина",
 		GENITIVE = "картины",
 		DATIVE = "картине",

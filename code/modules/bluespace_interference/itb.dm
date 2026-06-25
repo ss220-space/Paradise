@@ -29,7 +29,7 @@
 	var/nodrop_applied = FALSE
 
 /obj/item/clothing/suit/itb/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ITB",
 		GENITIVE = "ITB",
 		DATIVE = "ITB",

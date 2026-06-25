@@ -24,7 +24,7 @@
 	)
 
 /obj/item/circuitboard/machine/bsig_stationary/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "плата BSIG-S",
 		GENITIVE = "платы BSIG-S",
 		DATIVE = "плате BSIG-S",
@@ -223,7 +223,7 @@
 	COOLDOWN_DECLARE(toggle_cooldown)
 
 /obj/machinery/power/bluespace_interference_generator/stationary/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "BSIG-S",
 		GENITIVE = "BSIG-S",
 		DATIVE = "BSIG-S",

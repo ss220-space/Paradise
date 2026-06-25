@@ -2714,7 +2714,7 @@
 	qdel(src)
 
 /obj/structure/sect_altar/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "алтарь",
 		GENITIVE = "алтаря",
 		DATIVE = "алтарю",
@@ -3133,7 +3133,7 @@
 	return ..()
 
 /obj/structure/sect_shrine/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "святилище",
 		GENITIVE = "святилища",
 		DATIVE = "святилищу",

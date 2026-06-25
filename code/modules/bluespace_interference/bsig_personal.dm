@@ -19,7 +19,7 @@
 	var/datum/weakref/interference_wearer_ref
 
 /obj/item/clothing/gloves/bsig_personal/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "BSIG-P",
 		GENITIVE = "BSIG-P",
 		DATIVE = "BSIG-P",

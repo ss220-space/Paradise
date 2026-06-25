@@ -184,7 +184,7 @@ GLOBAL_LIST_EMPTY(heretic_arenas)
 
 
 /turf/simulated/wall/indestructible/heretic_wall/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "жуткая стена",
 		GENITIVE = "жуткой стены",
 		DATIVE = "жуткой стене",

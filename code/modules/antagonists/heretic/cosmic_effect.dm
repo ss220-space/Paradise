@@ -49,7 +49,7 @@
 /// The cosmic heretic's forcefield (extracted from tg construct_spells.dm during the port).
 /obj/effect/forcefield/cosmic_field
 	name = "космический щит"
-	ru_names = list(
+	ru_names = alist(
 		NOMINATIVE = "космический щит",
 		GENITIVE = "космического щита",
 		DATIVE = "космическому щиту",

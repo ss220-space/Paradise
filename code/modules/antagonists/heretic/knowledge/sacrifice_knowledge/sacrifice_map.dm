@@ -142,7 +142,7 @@ GLOBAL_LIST_EMPTY(heretic_sacrifice_landmarks)
 
 
 /turf/simulated/floor/indestructible/mansus/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "плоть Мансуса",
 		GENITIVE = "плоти Мансуса",
 		DATIVE = "плоти Мансуса",

@@ -157,7 +157,7 @@
 	last_prana_sale = 0
 
 /obj/machinery/vending/tool/sect_merconicism/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "божественный ларёк",
 		GENITIVE = "божественного ларька",
 		DATIVE = "божественному ларьку",

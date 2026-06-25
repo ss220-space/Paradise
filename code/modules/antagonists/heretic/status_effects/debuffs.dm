@@ -221,7 +221,7 @@
 		moon_objective.owner = owner.mind
 		owner.mind.objectives += moon_objective
 		var/list/messages = owner.mind.prepare_announce_objectives()
-		to_chat(owner, chat_box_red(messages.Join("<br>")))
+		to_chat(owner, custom_boxed_message("red_box center", messages.Join("<br>")))
 
 	to_chat(owner, span_purple(("ЛУНА ПОКАЗЫВАЕТ ВАМ ПРАВДУ, А ЛЖЕЦЫ ХОТЯТ ЕЁ СКРЫТЬ, УБЕЙТЕ ИХ ВСЕХ!!!")))
 	owner.balloon_alert(owner, "они. все. ЛГАЛИ!")

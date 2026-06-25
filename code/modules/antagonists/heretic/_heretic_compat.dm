@@ -194,10 +194,7 @@
 /proc/is_phase_allowed(z)
 	return TRUE
 
-// tg objectives recompute their explanation_text via this hook; master220 sets it directly.
-// Base no-op so heretic objective overrides (and calls on plain objectives) resolve.
-/datum/objective/proc/update_explanation_text()
-	return
+// (update_explanation_text() is now provided upstream by master220's objective.dm; shim removed.)
 
 // Russian "in the <dir>" helper used by the living-heart compass.
 // (dir2rustext already exists in master220's type2type.dm; only this wrapper is missing.)

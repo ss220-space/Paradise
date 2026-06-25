@@ -311,7 +311,7 @@
 	var/obj/effect/visible_heretic_influence/illusion = new /obj/effect/visible_heretic_influence(drop_location())
 	var/choosen_name = pick_list(HERETIC_INFLUENCE_FILE, "drained")
 	illusion.name = "\improper" + choosen_name + "ый " + format_text(name)
-	illusion.ru_names = list(
+	illusion.ru_names = alist(
 		NOMINATIVE = "[choosen_name]ый [declent_ru(NOMINATIVE)]",
 		GENITIVE = "[choosen_name]ого [declent_ru(GENITIVE)]",
 		DATIVE = "[choosen_name]ому [declent_ru(DATIVE)]",
