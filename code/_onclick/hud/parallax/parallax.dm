@@ -131,7 +131,11 @@
 
 	var/area/areaobj = posobj.loc
 	// Update the movement direction of the parallax if necessary (for shuttles)
-	set_parallax_movedir(areaobj.parallax_movedir, FALSE, mymob)
+	var/area/shuttle/shuttle = areaobj
+	if(!shuttle || !shuttle.moving)
+		set_parallax_movedir(NONE, FALSE, mymob)
+	else
+		set_parallax_movedir(shuttle.parallax_movedir, FALSE, mymob)
 
 	if(!displaying_client.previous_turf || (displaying_client.previous_turf.z != posobj.z))
 		displaying_client.previous_turf = posobj
@@ -148,7 +152,7 @@
 	var/atom/movable/screen/parallax_home/rock = displaying_client.parallax_rock
 
 	// If we aren't already moving/don't allow parallax, have made some movement, and that movement was smaller then our "glide" size, animate
-	var/run_parralax = (rock.animate_parallax && glide_rate && !areaobj.parallax_movedir && displaying_client.dont_animate_parallax <= world.time && largest_change <= max_allowed_dist)
+	var/run_parralax = (rock.animate_parallax && glide_rate && !areaobj.parallax_movedir && !shuttle?.moving && displaying_client.dont_animate_parallax <= world.time && largest_change <= max_allowed_dist)
 
 	for(var/atom/movable/screen/parallax_layer/parallax_layer as anything in rock.parallax_layers)
 		var/our_speed = parallax_layer.speed
@@ -183,14 +187,17 @@
 		parallax_layer.offset_x -= change_x
 		parallax_layer.offset_y -= change_y
 
+		parallax_layer.pixel_w = round(parallax_layer.offset_x, 1)
+		parallax_layer.pixel_z = round(parallax_layer.offset_y, 1)
+
 		// Now that we have our offsets, let's do our positioning
 		// We're going to use an animate to "glide" that last movement out, so it looks nicer
 		// Don't do any animates if we're not actually moving enough distance yeah? thanks lad
 		if(run_parralax && (largest_change * our_speed > 1))
 			animate(parallax_layer, pixel_w = round(parallax_layer.offset_x, 1), pixel_z = round(parallax_layer.offset_y, 1), time = glide_rate)
-		else
-			parallax_layer.pixel_w = round(parallax_layer.offset_x, 1)
-			parallax_layer.pixel_z = round(parallax_layer.offset_y, 1)
+		//else
+		//	parallax_layer.pixel_w = round(parallax_layer.offset_x, 1)
+		//	parallax_layer.pixel_z = round(parallax_layer.offset_y, 1)
 
 /atom/movable/proc/update_parallax_contents()
 	for(var/mob/client_mob as anything in client_mobs_in_contents)
@@ -203,6 +210,7 @@
 		hud_used.set_parallax_movedir(areaobj.parallax_movedir, TRUE)
 
 // Root object for parallax, all parallax layers are drawn onto this and it manages them
+INITIALIZE_IMMEDIATE(/atom/movable/screen/parallax_home)
 /atom/movable/screen/parallax_home
 	icon = null
 	blend_mode = BLEND_ADD
@@ -294,6 +302,7 @@
 	QDEL_LIST(parallax_layers_cached)
 
 // We need parallax to always pass its args down into initialize, so we immediate init it
+INITIALIZE_IMMEDIATE(/atom/movable/screen/parallax_layer)
 /atom/movable/screen/parallax_layer
 	icon = 'icons/effects/parallax.dmi'
 	appearance_flags = APPEARANCE_UI | KEEP_TOGETHER

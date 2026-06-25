@@ -135,6 +135,9 @@
 
 	newA.reg_in_areas_in_z()
 
+	if(!isarea(area_choice) && newA.static_lighting)
+		newA.create_area_lighting_objects()
+
 	//convert map to list
 	var/list/area/area_list = list()
 	for(var/area_name in affected_areas)

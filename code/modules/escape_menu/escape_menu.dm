@@ -19,6 +19,9 @@ GLOBAL_LIST_EMPTY(escape_menus)
 #define PAGE_LEAVE_BODY "PAGE_LEAVE_BODY"
 #define PAGE_QUIT_GAME "PAGE_QUIT_GAME"
 
+// The escape menu can be opened before SSatoms
+INITIALIZE_IMMEDIATE(/atom/movable/screen/escape_menu)
+
 /datum/escape_menu
 	/// The client that owns this escape menu
 	var/client/client

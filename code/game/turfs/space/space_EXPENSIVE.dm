@@ -13,9 +13,6 @@
 /turf/space/Initialize(mapload)
 	SHOULD_CALL_PARENT(FALSE)
 
-	if(length(vis_contents))
-		vis_contents.Cut() //removes inherited overlays
-
 	if(flags & INITIALIZED)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
 	flags |= INITIALIZED

@@ -151,12 +151,12 @@
 	if(SSmapping.max_plane_offset)
 		if(!SSmapping.plane_offset_blacklist["[plane]"])
 			plane = plane - (PLANE_RANGE * SSmapping.z_level_to_plane_offset[z])
-		var/turf/T = GET_TURF_ABOVE(src)
-		if(T)
-			T.multiz_turf_new(src, DOWN)
-		T = GET_TURF_BELOW(src)
-		if(T)
-			T.multiz_turf_new(src, UP)
+		var/turf/turf = GET_TURF_ABOVE(src)
+		if(turf)
+			turf.multiz_turf_new(src, DOWN)
+		turf = GET_TURF_BELOW(src)
+		if(turf)
+			turf.multiz_turf_new(src, UP)
 
 	// by default, vis_contents is inherited from the turf that was here before
 	// Checking length(vis_contents) in a proc this hot has huge wins for performance.

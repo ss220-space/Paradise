@@ -1,3 +1,5 @@
+INITIALIZE_IMMEDIATE(/atom/movable/screen/plane_master)
+
 /atom/movable/screen/plane_master
 	screen_loc = "CENTER"
 	icon_state = "blank"

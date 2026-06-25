@@ -149,7 +149,7 @@
 	// This saves several hundred milliseconds of init time.
 	if(blocks_emissive)
 		if(blocks_emissive == EMISSIVE_BLOCK_UNIQUE)
-			render_target = ref(src)
+			render_target = UID_of(src)
 			em_block = new(null, src)
 			overlays += em_block
 			if(managed_overlays)
@@ -251,7 +251,7 @@
 			if(em_block)
 				SET_PLANE(em_block, EMISSIVE_PLANE, src)
 			else if(!QDELETED(src))
-				render_target = ref(src)
+				render_target = UID_of(src)
 				em_block = new(null, src)
 			return em_block
 		// Implied else if(blocks_emissive == EMISSIVE_BLOCK_NONE) -> return

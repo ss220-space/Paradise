@@ -368,10 +368,23 @@
 /area/Destroy()
 	if(GLOB.areas_by_type[type] == src)
 		GLOB.areas_by_type[type] = null
-	GLOB.areas -= src
+	//this is not initialized until get_sorted_areas() is called so we have to do a null check
+	if(!isnull(GLOB.sortedAreas))
+		GLOB.sortedAreas -= src
+	//just for sanity sake cause why not
+	if(!isnull(GLOB.areas))
+		GLOB.areas -= src
+	//machinery cleanup
+	STOP_PROCESSING(SSobj, src)
+	firedoors = null
+	//atmos cleanup
+	firealarms = null
+	air_vents = null
+	air_scrubs = null
+	//turf cleanup
 	turfs_by_zlevel = null
 	turfs_to_uncontain_by_zlevel = null
-	STOP_PROCESSING(SSobj, src)
+	//parent cleanup
 	return ..()
 
 /**

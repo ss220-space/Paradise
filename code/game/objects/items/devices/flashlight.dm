@@ -16,9 +16,9 @@
 	materials = list(MAT_METAL=50, MAT_GLASS=20)
 	actions_types = list(/datum/action/item_action/toggle_light)
 	light_system = OVERLAY_LIGHT_DIRECTIONAL
+	light_color = COLOR_LIGHT_ORANGE
 	light_range = 4
 	light_on = FALSE
-	light_color = COLOR_LIGHT_ORANGE
 	toolbox_radial_menu_compatibility = TRUE
 	/// Should the flashlight start turned on?
 	var/on = FALSE
@@ -238,11 +238,12 @@
 	gender = FEMALE
 	icon_state = "lamp"
 	item_state = "lamp"
-	light_range = 5
+	light_range = 3.5
+	light_system = COMPLEX_LIGHT
+	light_color = LIGHT_COLOR_FAINT_BLUE
 	w_class = WEIGHT_CLASS_BULKY
 	materials = list()
 	on = TRUE
-	light_color = COLOR_PALE_YELLOW
 
 /obj/item/flashlight/lamp/get_ru_names()
 	return alist(
@@ -259,7 +260,7 @@
 	desc = "Стационарный источник света. Классический вариант зелёного цвета."
 	icon_state = "lampgreen"
 	item_state = "lampgreen"
-	light_color = COLOR_LIGHT_GREEN
+	light_color = LIGHT_COLOR_TUNGSTEN
 
 /obj/item/flashlight/lamp/green/get_ru_names()
 	return alist(
@@ -277,7 +278,7 @@
 			банановой кожуры и дурацким шнуром включения."
 	icon_state = "bananalamp"
 	item_state = "bananalamp"
-	light_color = COLOR_BRIGHT_LIME
+	light_color = LIGHT_COLOR_BRIGHT_YELLOW
 
 /obj/item/flashlight/lamp/bananalamp/get_ru_names()
 	return alist(
@@ -476,10 +477,11 @@
 
 /obj/item/flashlight/flare/glowstick/update_overlays()
 	. = ..()
-	if(on)
-		var/mutable_appearance/glowstick_overlay = mutable_appearance(icon, "glowstick-glow")
-		glowstick_overlay.color = color
-		. += glowstick_overlay
+	if(!on)
+		return
+	var/mutable_appearance/glowstick_overlay = mutable_appearance(icon, "glowstick-glow")
+	glowstick_overlay.color = color
+	. += glowstick_overlay
 
 /obj/item/flashlight/flare/glowstick/used
 	spawn_fuel = FALSE

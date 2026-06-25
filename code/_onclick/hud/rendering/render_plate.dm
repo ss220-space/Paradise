@@ -4,6 +4,7 @@
  * if you want to read more read the _render_readme.md
  */
 
+INITIALIZE_IMMEDIATE(/atom/movable/render_plane_relay)
 /**
  * Render relay object assigned to a plane master to be able to relay its render onto other planes that are not its own
  */
