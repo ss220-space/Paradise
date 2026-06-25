@@ -7,7 +7,7 @@
 	origin_tech = "materials=2;biotech=3;combat=2"
 	implant_data = /datum/implant_fluff/stamina_boost
 	actions_types = null
-	base_cooldown = 2 SECONDS
+	base_cooldown = 3 SECONDS
 
 /obj/item/implant/stamina_boost/Initialize(mapload)
 	. = ..()

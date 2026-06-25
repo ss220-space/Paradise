@@ -1590,7 +1590,6 @@
 		return
 	owner.drop_all_held_items()
 
-// Статус-эффект с поддержкой накопления штрафов
 /datum/status_effect/stamina_boost_restriction
 	id = "stamina_boost_restriction"
 	alert_type = /atom/movable/screen/alert/status_effect/stamina_boost_restriction
@@ -1628,7 +1627,7 @@
 	if(!linked_alert)
 		return
 	var/stacks = round(current_penalty / STAMINA_PENALTY)
-	linked_alert.name = "Ограничение стамины x[stacks]"
+	linked_alert.name = "Ограничение выносливости x[stacks]"
 
 /datum/status_effect/stamina_boost_restriction/on_remove()
 	if(istype(owner) && !isnull(original_max_stamina))
@@ -1636,6 +1635,6 @@
 		original_max_stamina = null
 
 /atom/movable/screen/alert/status_effect/stamina_boost_restriction
-	name = "Сниженная выносливость"
+	name = "Ограничение выносливости"
 	desc = "Расплата за использование импланта."
 	icon_state = "pd_nopower"
