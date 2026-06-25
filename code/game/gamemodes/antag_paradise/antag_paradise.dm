@@ -13,7 +13,8 @@
 	required_enemies = 1
 	forbidden_antag_jobs = list(ROLE_VAMPIRE = list(JOB_TITLE_CHAPLAIN))
 	var/list/protected_jobs_AI = list(JOB_TITLE_CIVILIAN, JOB_TITLE_PRISONER, JOB_TITLE_CHIEF_ENGINEER, JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_ATMOSTECH, JOB_TITLE_SPACEPOD_TECHNICIAN, JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_MEDICAL_INTERN, JOB_TITLE_CORONER, JOB_TITLE_CHEMIST, JOB_TITLE_GENETICIST, JOB_TITLE_VIROLOGIST, JOB_TITLE_PSYCHIATRIST, JOB_TITLE_PARAMEDIC, JOB_TITLE_RD, JOB_TITLE_SCIENTIST, JOB_TITLE_SCIENCE_STUDENT, JOB_TITLE_ROBOTICIST, JOB_TITLE_HOP, JOB_TITLE_CHAPLAIN, JOB_TITLE_BARTENDER, JOB_TITLE_CHEF, JOB_TITLE_BOTANIST, JOB_TITLE_QUARTERMASTER, JOB_TITLE_CARGOTECH, JOB_TITLE_MINER, JOB_TITLE_MINING_MEDIC, JOB_TITLE_CLOWN, JOB_TITLE_MIME, JOB_TITLE_JANITOR, JOB_TITLE_LIBRARIAN, JOB_TITLE_EXPLORER)	// Basically all jobs, except AI.
-	var/secondary_protected_species = list(SPECIES_MACHINEPERSON, SPECIES_PLASMAMAN)
+	var/list/vampire_protected_species = list(SPECIES_MACHINEPERSON, SPECIES_PLASMAMAN)
+	var/list/changeling_protected_species = list(SPECIES_MACHINEPERSON, SPECIES_PLASMAMAN, SPECIES_SLIMEPERSON)
 	var/vampire_restricted_jobs = list(JOB_TITLE_CHAPLAIN)
 	/// Chosen antags if any. Key - mind, value - antag type
 	var/list/datum/mind/pre_antags = list()
@@ -162,7 +163,7 @@
 					var/datum/mind/vampire = pick_n_take(antag_possibilities[ROLE_VAMPIRE])
 					if(!vampire)
 						continue
-					if(vampire.current.client.prefs.species in secondary_protected_species)
+					if(vampire.current.client.prefs.species in vampire_protected_species)
 						continue
 					if(vampire.special_role)
 						continue
@@ -173,7 +174,7 @@
 					var/datum/mind/changeling = pick_n_take(antag_possibilities[ROLE_CHANGELING])
 					if(!changeling)
 						continue
-					if(changeling.current.client.prefs.species in secondary_protected_species)
+					if(changeling.current.client.prefs.species in changeling_protected_species)
 						continue
 					if(changeling.special_role)
 						continue
@@ -220,7 +221,7 @@
 			if(second_role == ROLE_VAMPIRE && \
 				!jobban_isbanned(antag.current, second_role) && \
 				player_old_enough_antag(antag.current.client, second_role) && \
-				!(antag.current.client.prefs.species in secondary_protected_species))
+				!(antag.current.client.prefs.species in vampire_protected_species))
 
 				antag.restricted_roles |= vampire_restricted_jobs
 				pre_double_antags[antag] = ROLE_VAMPIRE
@@ -229,7 +230,7 @@
 			if(second_role == ROLE_CHANGELING && \
 				!jobban_isbanned(antag.current, second_role) && \
 				player_old_enough_antag(antag.current.client, second_role) && \
-				!(antag.current.client.prefs.species in secondary_protected_species))
+				!(antag.current.client.prefs.species in changeling_protected_species))
 
 				pre_double_antags[antag] = ROLE_CHANGELING
 				break
