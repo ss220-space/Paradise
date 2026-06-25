@@ -303,9 +303,9 @@ GLOBAL_LIST_INIT(more_bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024
 #define KEEP_TOGETHER_ORIGINAL "keep_together_original"
 
 /// Setter for KEEP_TOGETHER to allow for multiple sources to set and unset it
-#define ADD_KEEP_TOGETHER(x, source)\
-	if ((x.appearance_flags & KEEP_TOGETHER) && !HAS_TRAIT(x, TRAIT_KEEP_TOGETHER)) ADD_TRAIT(x, TRAIT_KEEP_TOGETHER, KEEP_TOGETHER_ORIGINAL); \
-	ADD_TRAIT(x, TRAIT_KEEP_TOGETHER, source);\
+#define ADD_KEEP_TOGETHER(x, source) \
+	if((x.appearance_flags & KEEP_TOGETHER) && !HAS_TRAIT(x, TRAIT_KEEP_TOGETHER)) ADD_TRAIT(x, TRAIT_KEEP_TOGETHER, KEEP_TOGETHER_ORIGINAL); \
+	ADD_TRAIT(x, TRAIT_KEEP_TOGETHER, source); \
 	x.appearance_flags |= KEEP_TOGETHER
 
 #define REMOVE_KEEP_TOGETHER(x, source)\
