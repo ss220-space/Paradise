@@ -202,6 +202,97 @@
 	)
 
 
+// Извивающиеся Объятия (Writhing Embrace) — Flesh path robes.
+// Matching TG: grants a passive aura that slowly heals nearby summons (but not the wearer), and a medical
+// HUD (health detection) while the hood is up. Acts as a focus while hooded (inherited from the eldritch base).
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/flesh
+	name = "извивающиеся объятия"
+	desc = "Гниющая туша, а может, и несколько, скрученные в мясистые полипы, спутанные кишки и треснувшие кости. \
+			Как такое вообще «носят» — выше всякого разумения. Оно шевелится, когда думает, что за ним не наблюдают."
+	icon_state = "flesh_armor"
+	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie/eldritch/flesh
+	armor = list("melee" = 70, "bullet" = 40, "laser" = 30, "energy" = 30, "bomb" = 35, "bio" = 100, "rad" = 20, "fire" = 0, "acid" = 100)
+	/// The aura healing component on the wearer. Deleted when the robe is taken off.
+	var/datum/component/healing_aura
+
+
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/flesh/get_ru_names()
+	return alist(
+		NOMINATIVE = "извивающиеся объятия",
+		GENITIVE = "извивающихся объятий",
+		DATIVE = "извивающимся объятиям",
+		ACCUSATIVE = "извивающиеся объятия",
+		INSTRUMENTAL = "извивающимися объятиями",
+		PREPOSITIONAL = "извивающихся объятиях",
+	)
+
+
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/flesh/equipped(mob/user, slot, initial = FALSE)
+	. = ..()
+	if(slot == ITEM_SLOT_CLOTH_OUTER)
+		// The aura only heals our summons/ghouls (TRAIT_HERETIC_SUMMON) - never the wearer, matching TG's
+		// self_heal = FALSE (master220's aura_healing has no self_heal flag; limit_to_trait achieves the same).
+		if(!healing_aura)
+			healing_aura = user.AddComponent( \
+				/datum/component/aura_healing, \
+				range = 15, \
+				brute_heal = 3, \
+				burn_heal = 3, \
+				blood_heal = 3, \
+				suffocation_heal = 3, \
+				stamina_heal = 15, \
+				simple_heal = 3, \
+				requires_visibility = FALSE, \
+				limit_to_trait = TRAIT_HERETIC_SUMMON, \
+				healing_color = COLOR_RED, \
+			)
+	else
+		QDEL_NULL(healing_aura)
+
+
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/flesh/dropped(mob/user, slot, silent = FALSE)
+	. = ..()
+	QDEL_NULL(healing_aura)
+
+
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/flesh/Destroy()
+	QDEL_NULL(healing_aura)
+	return ..()
+
+
+/obj/item/clothing/head/hooded/cult_hoodie/eldritch/flesh
+	name = "капюшон извивающихся объятий"
+	icon_state = "flesh_armor"
+	armor = list("melee" = 40, "bullet" = 25, "laser" = 20, "energy" = 20, "bomb" = 20, "bio" = 60, "rad" = 10, "fire" = 0, "acid" = 60)
+
+
+/obj/item/clothing/head/hooded/cult_hoodie/eldritch/flesh/get_ru_names()
+	return alist(
+		NOMINATIVE = "капюшон извивающихся объятий",
+		GENITIVE = "капюшона извивающихся объятий",
+		DATIVE = "капюшону извивающихся объятий",
+		ACCUSATIVE = "капюшон извивающихся объятий",
+		INSTRUMENTAL = "капюшоном извивающихся объятий",
+		PREPOSITIONAL = "капюшоне извивающихся объятий",
+	)
+
+
+// Health-detection: the hood grants an advanced medical HUD while up (tg's TRAIT_MEDICAL_HUD clothing trait;
+// master220 grants data HUDs via GLOB.huds show_to/hide_from like HUD glasses do).
+/obj/item/clothing/head/hooded/cult_hoodie/eldritch/flesh/equipped(mob/user, slot, initial = FALSE)
+	. = ..()
+	if(slot == ITEM_SLOT_HEAD && ishuman(user))
+		var/datum/atom_hud/hud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
+		hud.show_to(user)
+
+
+/obj/item/clothing/head/hooded/cult_hoodie/eldritch/flesh/dropped(mob/user, slot, silent = FALSE)
+	. = ..()
+	if(ishuman(user))
+		var/datum/atom_hud/hud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
+		hud.hide_from(user)
+
+
 // Собранный Раймент (Salvaged Remains / Reassembled Raiment) — Rust path robes.
 // Matching TG: provides solid armor that surges to a much higher tier (plus pierce immunity) while the
 // wearer stands on rusted tiles, and acts as a focus while hooded (inherited from the eldritch base).

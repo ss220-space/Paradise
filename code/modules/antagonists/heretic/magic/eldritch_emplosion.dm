@@ -15,5 +15,5 @@
 	invocation_type = INVOCATION_WHISPER
 	spell_requirements = NONE
 
-	emp_heavy = 3
-	emp_light = 6
+	emp_heavy = 6
+	emp_light = 10

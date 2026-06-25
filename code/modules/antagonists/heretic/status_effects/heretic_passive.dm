@@ -401,3 +401,91 @@
 	riposte_ready = TRUE
 	riposte_timer = null
 	source.balloon_alert(source, "контратака готова")
+
+
+//---- Flesh Passive: "Ненасытный голод" ("Ravenous Hunger") - ported from /tg/station, adapted to master220.
+// Level 1 - immunity to diseases (granted on picking the path). tg also nulls disgust and grants space-ant
+//           immunity, but master220 has no disgust mechanic and no space ants, so those are dropped.
+// Level 2 - eating meat or organs heals you, and being fat no longer slows you down. tg's voracious/glutton
+//           food-preference traits don't exist in master220, so we keep the heal-on-meat + no-fat-slowdown.
+// Level 3 - while fat, gain a flat 25% damage resistance and baton-knockdown resistance (tg parity).
+/datum/status_effect/heretic_passive/flesh
+	id = "heretic_passive_flesh"
+	name = "Ненасытный голод"
+	passive_descriptions = list(
+		"Иммунитет к болезням.",
+		"Поедание мяса или органов исцеляет вас, а полнота больше вас не замедляет.",
+		"Будучи толстым, вы получаете 25% сопротивления урону и устойчивость к электродубинкам.",
+	)
+
+
+/datum/status_effect/heretic_passive/flesh/on_apply()
+	. = ..()
+	if(!.)
+		return
+	ADD_TRAIT(owner, TRAIT_VIRUSIMMUNE, TRAIT_STATUS_EFFECT(id))
+
+
+/datum/status_effect/heretic_passive/flesh/level_upgrade()
+	. = ..()
+	if(!.)
+		return
+	RegisterSignal(owner, COMSIG_FOOD_EATEN, PROC_REF(on_eat))
+	// Being fat no longer slows us down, and (at level 3) makes us tougher: react to fatness changes.
+	// The native human on_fat (init_signals.dm) is registered at init, so it runs first and adds the
+	// obesity movespeed modifiers - our later-registered handler then strips them right back off.
+	RegisterSignals(owner, list(SIGNAL_ADDTRAIT(TRAIT_FAT), SIGNAL_REMOVETRAIT(TRAIT_FAT)), PROC_REF(on_fat_changed))
+	on_fat_changed()
+
+
+/datum/status_effect/heretic_passive/flesh/level_final()
+	. = ..()
+	if(!.)
+		return
+	// Re-evaluate now that level 3 grants the fat damage-resistance bonus.
+	on_fat_changed()
+
+
+/datum/status_effect/heretic_passive/flesh/on_remove()
+	if(ishuman(owner) && HAS_TRAIT_FROM(owner, TRAIT_BATON_RESISTANCE, TRAIT_STATUS_EFFECT(id)))
+		var/mob/living/carbon/human/heretic = owner
+		heretic.physiology.damage_resistance -= 25
+	owner.remove_traits(list(TRAIT_VIRUSIMMUNE, TRAIT_BATON_RESISTANCE), TRAIT_STATUS_EFFECT(id))
+	UnregisterSignal(owner, list(COMSIG_FOOD_EATEN, SIGNAL_ADDTRAIT(TRAIT_FAT), SIGNAL_REMOVETRAIT(TRAIT_FAT)))
+	return ..()
+
+
+/// Any time we eat meat or an organ, heal some damage (tg's glutton heal).
+/datum/status_effect/heretic_passive/flesh/proc/on_eat(mob/living/eater, obj/item/reagent_containers/food/snacks/food, mob/feeder)
+	SIGNAL_HANDLER
+	if(istype(food, /obj/item/reagent_containers/food/snacks/meat) || istype(food, /obj/item/reagent_containers/food/snacks/organ))
+		heal_glutton()
+
+
+/datum/status_effect/heretic_passive/flesh/proc/heal_glutton()
+	owner.heal_overall_damage(2, 2, updating_health = FALSE)
+	owner.adjustOxyLoss(-2, updating_health = FALSE)
+	owner.adjustToxLoss(-2, updating_health = FALSE)
+	owner.AdjustBlood(2)
+	owner.updatehealth("flesh glutton heal")
+	new /obj/effect/temp_visual/heal(get_turf(owner), COLOR_RED)
+
+
+/// Strips the obesity slowdown (so fat costs no speed) and toggles the level-3 fat resistance bonus.
+/datum/status_effect/heretic_passive/flesh/proc/on_fat_changed(datum/source)
+	SIGNAL_HANDLER
+	if(!ishuman(owner))
+		return
+	var/mob/living/carbon/human/heretic = owner
+	if(HAS_TRAIT(heretic, TRAIT_FAT))
+		// tg's TRAIT_FAT_IGNORE_SLOWDOWN: undo the obesity movespeed the native on_fat just applied.
+		heretic.remove_movespeed_modifier(/datum/movespeed_modifier/obesity)
+		heretic.remove_movespeed_modifier(/datum/movespeed_modifier/obesity_flying)
+	var/has_bonus = HAS_TRAIT_FROM(heretic, TRAIT_BATON_RESISTANCE, TRAIT_STATUS_EFFECT(id))
+	if(applied_level >= 3 && HAS_TRAIT(heretic, TRAIT_FAT))
+		if(!has_bonus)
+			heretic.physiology.damage_resistance += 25
+			ADD_TRAIT(heretic, TRAIT_BATON_RESISTANCE, TRAIT_STATUS_EFFECT(id))
+	else if(has_bonus)
+		heretic.physiology.damage_resistance -= 25
+		REMOVE_TRAIT(heretic, TRAIT_BATON_RESISTANCE, TRAIT_STATUS_EFFECT(id))

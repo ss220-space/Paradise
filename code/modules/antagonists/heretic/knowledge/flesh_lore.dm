@@ -9,17 +9,57 @@
 
 	route = PATH_FLESH
 	ui_bgr = "node_flesh"
-
+	complexity = "Варьируется"
+	complexity_color = COLOR_ORANGE
+	path_description = list(
+		"Путь Плоти строится вокруг призыва гулей и чудовищ, выполняющих ваши приказы.",
+		"Выбирайте этот путь, если вам по душе роль некроманта, ведущего в бой легионы союзников.",
+	)
+	path_pros = list(
+		"Может превращать мёртвых гуманоидов в хрупких, но верных гулей.",
+		"Доступ к разнообразному списку призываемых миньонов.",
+		"Ваши миньоны очень универсальны и при слаженной атаке быстро задавят экипаж числом.",
+		"Поедание органов или полнота даруют различные бонусы (в зависимости от уровня вашей пассивки).",
+	)
+	path_cons = list(
+		"Значительная часть вашего развития — это получение новых призываемых чудовищ.",
+		"За пределами своих миньонов вы почти ничего не умеете.",
+		"Вы не получаете врождённого доступа к защитным, атакующим или мобильным заклинаниям.",
+		"Вы в основном сосредоточены на поддержке своих миньонов.",
+	)
+	path_tips = list(
+		"Ваше Прикосновение Мансуса превращает мёртвых гуманоидов в гулей (даже защищённых разумом — офицеров СБ и капитана). Оно также оставляет метку, вызывающую сильное кровотечение при срабатывании от вашего Кровавого Клинка.",
+		"Для Еретика Плоти органы и трупы — лучшие друзья! Их можно использовать в ритуалах, для лечения или получения бонусов.",
+		"Заклинание «Управление Плотью» лечит ваших призванных существ. Ваши робы создают ауру, что также исцеляет миньонов поблизости (но не вас самих).",
+		"«Управление Плотью» также позволяет красть органы у гуманоидов. Полезно, если нужна запасная печень.",
+		"Пророки Сырости могут связать вас и других миньонов в телепатическую сеть для координации на расстоянии.",
+		"Ловцы Плоти — неплохие бойцы, способные маскироваться под мелких существ вроде ботов-уборщиков и корги. Они также владеют ЭМИ, но это может навредить им самим, если они обернулись роботом!",
+		"Ваш успех на этом пути зависит от того, насколько умелы и живучи ваши миньоны. Но в количестве всегда есть сила: чем больше миньонов, тем выше шансы на успех.",
+		"Ваши миньоны куда расходнее вас. Не бойтесь посылать их на смерть. Вы всегда сможете вернуть их позже... наверное.",
+	)
+	// "Ненасытный Голод" passive (see /datum/status_effect/heretic_passive/flesh): tiers light up as you grow.
+	passive_name = "Ненасытный Голод"
+	passive_descriptions = list(
+		"Иммунитет к болезням.",
+		"Поедание мяса или органов исцеляет вас, а полнота больше вас не замедляет.",
+		"Будучи толстым, вы получаете 25% сопротивления урону и устойчивость к электродубинкам.",
+	)
+	// TG-format column (1:1 with tgstation Flesh). Main line:
+	// base_flesh -> flesh_ghoul -> flesh_surgery -> Writhing Embrace(robes) -> raw_prophet -> Bleeding Steel ->
+	// stalker -> ascension. The grasp-ghoul, the flesh mark and the passive are folded into base_flesh
+	// (matching TG, no separate grasp/mark nodes).
 	start = /datum/heretic_knowledge/limited_amount/starting/base_flesh
-	grasp = /datum/heretic_knowledge/limited_amount/flesh_grasp
-	tier1 = /datum/heretic_knowledge/limited_amount/flesh_ghoul
-	mark = 	/datum/heretic_knowledge/mark/flesh_mark
-	ritual_of_knowledge = /datum/heretic_knowledge/knowledge_ritual/flesh
-	unique_ability = /datum/heretic_knowledge/spell/flesh_surgery
-	tier2 = /datum/heretic_knowledge/limited_amount/summon/raw_prophet
+	knowledge_tier1 = /datum/heretic_knowledge/limited_amount/flesh_ghoul
+	knowledge_tier2 = /datum/heretic_knowledge/spell/flesh_surgery
+	robes = /datum/heretic_knowledge/armor/flesh
+	knowledge_tier3 = /datum/heretic_knowledge/limited_amount/summon/raw_prophet
 	blade = /datum/heretic_knowledge/blade_upgrade/flesh
-	tier3 = /datum/heretic_knowledge/limited_amount/summon/stalker
+	knowledge_tier4 = /datum/heretic_knowledge/limited_amount/summon/stalker
 	ascension = /datum/heretic_knowledge/ultimate/flesh_final
+	// Side knowledges guaranteed to be offered in this path's drafts (TG).
+	guaranteed_side_tier1 = /datum/heretic_knowledge/limited_amount/risen_corpse
+	guaranteed_side_tier2 = /datum/heretic_knowledge/crucible
+	guaranteed_side_tier3 = /datum/heretic_knowledge/spell/cleave
 
 
 /datum/heretic_knowledge/limited_amount/starting/base_flesh
@@ -36,6 +76,10 @@
 	limit = 3 // Bumped up so they can arm up their ghouls too.
 	research_tree_icon_path = 'icons/obj/weapons/khopesh.dmi'
 	research_tree_icon_state = "flesh_blade"
+	// The flesh mark and the grasp-ghoul both live here now (matching TG), instead of separate nodes.
+	mark_type = /datum/status_effect/eldritch/flesh
+	// "Ненасытный Голод" passive: disease immunity now, glutton healing on robe craft, fat resistance on ascension.
+	passive_type = /datum/status_effect/heretic_passive/flesh
 
 
 /datum/heretic_knowledge/limited_amount/starting/base_flesh/on_research(mob/user, datum/antagonist/heretic/our_heretic)
@@ -48,28 +92,10 @@
 	our_heretic.announce_objectives()
 
 
-/datum/heretic_knowledge/limited_amount/flesh_grasp
-	name = "Прикосновение Плоти"
-	desc = "Ваше Прикосновение Мансуса получает способность создавать гулей из трупов с душой. \
-			У гулей всего 25 единиц здоровья, но они могут эффективно использовать Кровавые Клинки. \
-			Этим методом можно создавать только одного гуля за раз."
-	gain_text = "Мои новые желания вели меня ко все большим и большим высотам."
-	cost = 1
-
-	research_tree_icon_path = 'icons/ui_icons/antags/heretic/knowledge.dmi'
-	research_tree_icon_state = "grasp_flesh"
-
-
-/datum/heretic_knowledge/limited_amount/flesh_grasp/on_gain(mob/user, datum/antagonist/heretic/our_heretic)
-	RegisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK, PROC_REF(on_mansus_grasp))
-
-
-/datum/heretic_knowledge/limited_amount/flesh_grasp/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
-	UnregisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK)
-
-
-/datum/heretic_knowledge/limited_amount/flesh_grasp/proc/on_mansus_grasp(mob/living/source, mob/living/target)
-	SIGNAL_HANDLER
+/// Mansus Grasp turns dead, valid humanoids into loyal ghouls (was the separate "Прикосновение Плоти" node).
+/// Living targets instead receive the flesh mark via the parent call.
+/datum/heretic_knowledge/limited_amount/starting/base_flesh/on_mansus_grasp(mob/living/source, mob/living/target)
+	..() // applies the flesh mark to a living target (no-op on the dead)
 
 	if(target.stat != DEAD)
 		return
@@ -93,8 +119,7 @@
 
 
 /// Makes [victim] into a ghoul.
-/datum/heretic_knowledge/limited_amount/flesh_grasp/proc/make_ghoul(mob/living/user, mob/living/carbon/human/victim)
-	//user.log_message("created a ghoul, controlled by [key_name(victim)].", LOG_GAME)
+/datum/heretic_knowledge/limited_amount/starting/base_flesh/proc/make_ghoul(mob/living/user, mob/living/carbon/human/victim)
 	message_admins("[ADMIN_LOOKUPFLW(user)] created a ghoul, [ADMIN_LOOKUPFLW(victim)].")
 
 	victim.apply_status_effect(
@@ -107,12 +132,12 @@
 
 
 /// Callback for the ghoul status effect - Tracking all of our ghouls
-/datum/heretic_knowledge/limited_amount/flesh_grasp/proc/apply_to_ghoul(mob/living/ghoul)
+/datum/heretic_knowledge/limited_amount/starting/base_flesh/proc/apply_to_ghoul(mob/living/ghoul)
 	LAZYADD(created_items, WEAKREF(ghoul))
 
 
 /// Callback for the ghoul status effect - Tracking all of our ghouls
-/datum/heretic_knowledge/limited_amount/flesh_grasp/proc/remove_from_ghoul(mob/living/ghoul)
+/datum/heretic_knowledge/limited_amount/starting/base_flesh/proc/remove_from_ghoul(mob/living/ghoul)
 	LAZYREMOVE(created_items, WEAKREF(ghoul))
 
 
@@ -129,7 +154,7 @@
 		/obj/item/reagent_containers/food/snacks/grown/poppy = 1,
 	)
 	limit = 2
-	cost = 1
+	cost = 2
 	research_tree_icon_path = 'icons/ui_icons/antags/heretic/knowledge.dmi'
 	research_tree_icon_state = "ghoul_voiceless"
 
@@ -188,7 +213,6 @@
 
 /// Makes [victim] into a ghoul.
 /datum/heretic_knowledge/limited_amount/flesh_ghoul/proc/make_ghoul(mob/living/user, mob/living/carbon/human/victim)
-	//user.log_message("created a voiceless dead, controlled by [key_name(victim)].", LOG_GAME)
 	message_admins("[ADMIN_LOOKUPFLW(user)] created a voiceless dead, [ADMIN_LOOKUPFLW(victim)].")
 
 	victim.apply_status_effect(
@@ -212,18 +236,6 @@
 	REMOVE_TRAIT(ghoul, TRAIT_MUTE, MAGIC_TRAIT)
 
 
-/datum/heretic_knowledge/mark/flesh_mark
-	name = "Метка Плоти"
-	desc = "Ваше Прикосновение Мансуса теперь применяет Метку Плоти. \
-			Метка активируется в результате атаки вашим Кровавым клинком. \
-			При активации у жертвы начинается внутреннее кровотечение."
-	gain_text = "Вот тогда я их и увидел, несущих метку. Они были вне досягаемости. Они кричали и кричали."
-	mark_type = /datum/status_effect/eldritch/flesh
-
-
-/datum/heretic_knowledge/knowledge_ritual/flesh
-
-
 /datum/heretic_knowledge/spell/flesh_surgery
 	drafting_tier = 5
 	name = "Управление Плотью"
@@ -237,7 +249,28 @@
 	research_tree_icon_path = 'icons/mob/actions/actions_ecult.dmi'
 	research_tree_icon_state = "mad_touch"
 	spell_to_add = /obj/effect/proc_holder/spell/touch/flesh_surgery
-	cost = 1
+	cost = 2
+
+
+/datum/heretic_knowledge/armor/flesh
+	name = "Извивающиеся Объятия"
+	desc = "Позволяет преобразовать стол (или верхнюю одежду), маску и лужу крови в Извивающиеся Объятия. \
+			Они дают вам способность определять состояние здоровья живых (и не очень) существ, а также \
+			создают ауру, медленно исцеляющую ваших призванных существ. \
+			Действует как амулет, пока капюшон надет."
+	gain_text = "Я обернул вокруг себя этих жалких, копошащихся тварей, словно тёплое одеяло. \
+				Глазами-не-моими они будут смотреть. Зубами-не-моими они будут стискивать. Руками-не-моими они будут ломать."
+	result_atoms = list(/obj/item/clothing/suit/hooded/cultrobes/eldritch/flesh)
+	// Point this node at the Writhing Embrace's own "flesh_armor" sprite in the shared suits.dmi (the base
+	// eldritch_armor frame would read as the rusty mantle instead). Single-frame, so frame 1.
+	research_tree_icon_path = 'icons/obj/clothing/suits.dmi'
+	research_tree_icon_state = "flesh_armor"
+	research_tree_icon_frame = 1
+	required_atoms = list(
+		list(/obj/structure/table, /obj/item/clothing/suit) = 1,
+		/obj/item/clothing/mask = 1,
+		/obj/effect/decal/cleanable/blood = 1,
+	)
 
 
 /datum/heretic_knowledge/limited_amount/summon/raw_prophet
@@ -254,18 +287,16 @@
 		/obj/item/organ/external/arm = 1,
 	)
 	mob_to_summon = /mob/living/simple_animal/hostile/heretic_summon/raw_prophet
-	cost = 1
+	cost = 2
 
 
 /datum/heretic_knowledge/blade_upgrade/flesh
 	name = "Кровоточащая Cталь"
-	desc = "Теперь «Кровавый клинок» поглощает кровь ваших врагов при атаке."
+	desc = "Теперь ваш Кровавый Клинок при атаке вызывает у врагов обильное кровотечение."
 	gain_text = "Подобных существ было множество. Они привели меня к Маршалу. \
 				Я наконец начал понимать. Небеса окрасились в алый."
 	research_tree_icon_path = 'icons/ui_icons/antags/heretic/knowledge.dmi'
 	research_tree_icon_state = "blade_upgrade_flesh"
-	///What type of wound do we apply on hit
-	//var/wound_type = /datum/wound/slash/flesh/severe
 
 
 /datum/heretic_knowledge/blade_upgrade/flesh/do_melee_effects(mob/living/source, mob/living/target, obj/item/melee/sickly_blade/blade)
@@ -273,7 +304,23 @@
 		return
 
 	var/mob/living/carbon/human/human_target = target
-	human_target.AdjustBlood(-25)
+	if(HAS_TRAIT(human_target, TRAIT_NO_BLOOD))
+		return
+
+	// master220 has no tg wound system. TG applies /datum/wound/slash/flesh/severe (an "Open Laceration":
+	// a sustained, bandageable/suturable bleed that clots slowly) to a picked bodypart. We mirror that by
+	// opening a sustained external bleed on a random non-robotic limb, capped at max_bleeding_amount so it
+	// stays plain external bleeding (treatable with gauze/sutures), not arterial (surgery-only).
+	var/list/valid_limbs = list()
+	for(var/obj/item/organ/external/bodypart as anything in human_target.bodyparts)
+		if(!bodypart.is_robotic())
+			valid_limbs += bodypart
+	if(!length(valid_limbs))
+		return
+
+	var/obj/item/organ/external/limb = pick(valid_limbs)
+	limb.bleeding_amount = min(limb.bleeding_amount + limb.max_bleeding_amount, limb.max_bleeding_amount)
+	human_target.add_bleeding_bodypart(limb)
 
 
 /datum/heretic_knowledge/limited_amount/summon/stalker
@@ -286,14 +333,14 @@
 
 	required_atoms = list(
 		/obj/item/organ/external/tail = 1,
-		///obj/item/organ/internal/stomach = 1,
 		/obj/item/organ/internal/liver = 1,
 		/obj/item/organ/internal/lungs = 1,
 		/obj/item/pen = 1,
 		/obj/item/paper = 1,
 	)
 	mob_to_summon = /mob/living/simple_animal/hostile/heretic_summon/stalker
-	cost = 1
+	cost = 2
+	is_final_knowledge = TRUE
 
 
 /datum/heretic_knowledge/ultimate/flesh_final
@@ -320,12 +367,11 @@
 	user.mind.AddSpell(new /obj/effect/proc_holder/spell/shapeshift/shed_human_form)
 
 	var/datum/antagonist/heretic/heretic_datum = user.mind.has_antag_datum(/datum/antagonist/heretic)
-	var/datum/heretic_knowledge/limited_amount/flesh_grasp/grasp_ghoul = heretic_datum.get_knowledge(/datum/heretic_knowledge/limited_amount/flesh_grasp)
-	grasp_ghoul.limit *= 3
-	var/datum/heretic_knowledge/limited_amount/flesh_ghoul/ritual_ghoul = heretic_datum.get_knowledge(/datum/heretic_knowledge/limited_amount/flesh_ghoul)
-	ritual_ghoul.limit *= 3
+	// The grasp-ghoul limit and the blade limit both live on base_flesh now (folded), so bump it there.
 	var/datum/heretic_knowledge/limited_amount/starting/base_flesh/blade_ritual = heretic_datum.get_knowledge(/datum/heretic_knowledge/limited_amount/starting/base_flesh)
 	blade_ritual.limit = 999
+	var/datum/heretic_knowledge/limited_amount/flesh_ghoul/ritual_ghoul = heretic_datum.get_knowledge(/datum/heretic_knowledge/limited_amount/flesh_ghoul)
+	ritual_ghoul.limit *= 3
 
 #undef GHOUL_MAX_HEALTH
 #undef MUTE_MAX_HEALTH
