@@ -44,6 +44,7 @@ Note: Must be placed west/left of and R&D console to function.
 
 /obj/machinery/r_n_d/protolathe/Initialize(mapload)
 	. = ..()
+	init_parts()
 	create_reagents()
 	RefreshParts()
 	if(is_taipan(z))
