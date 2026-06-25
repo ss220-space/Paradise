@@ -43,4 +43,4 @@
 	human.set_species(/datum/species/shadow)
 	var/text = "Вы — создание тьмы. Старайтесь сохранить свою истинную форму и выполнить свои цели."
 	human.store_memory(text, TRUE)
-	to_chat(human, chat_box_red(text))
+	to_chat(human, custom_boxed_message("red_box center", text))
