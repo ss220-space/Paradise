@@ -695,6 +695,18 @@
 		. += "." //hiel grammar
 		//         ^ whoever left this comment is literally a grammar nazi. stalin better. in russia grammar correct you.
 
+/datum/mind/proc/memory_edit_vox_raider()
+	. = _memory_edit_header("vox raider")
+	if(has_antag_datum(/datum/antagonist/vox_raider))
+		. += "<b>[span_color("VOX RAIDER", "red")]</b>|<a href='byond://?src=[UID()];vox_raider=clear'>Remove</a>"
+		. += "<br><a href='byond://?src=[UID()];vox_raider=landmark'>To Vox Base</a>."
+		. += "<br><a href='byond://?src=[UID()];vox_raider=equip'>Equip</a>."
+		. += "<br><a href='byond://?src=[UID()];vox_raider=body'>Transform body</a>."
+	else
+		. += "<a href='byond://?src=[UID()];vox_raider=make'>Make Vox Raider</a>"
+
+	. += _memory_edit_role_enabled(ROLE_VOX_RAIDER)
+
 /datum/mind/proc/edit_memory()
 	if(!SSticker || !SSticker.mode)
 		tgui_alert(usr, "Not before round-start!", "Alert")
@@ -745,6 +757,8 @@
 		sections["thief"] = memory_edit_thief()
 		/** TRAITOR ***/
 		sections["traitor"] = memory_edit_traitor()
+		/** VOX RAIDER ***/
+		sections["vox raider"] = memory_edit_vox_raider()
 
 	if(isAI(current))
 		sections["malf_ai"] = memory_edit_malf_ai()
@@ -2493,6 +2507,30 @@
 				alien.update_datum()
 				log_and_message_admins("has made [key_name(current)] into a \"Xenomorph\"")
 
+	else if(href_list["vox_raider"])
+		switch(href_list["vox_raider"])
+			if("clear")
+				remove_antag_datum(/datum/antagonist/vox_raider)
+
+			if("make")
+				add_antag_datum(/datum/antagonist/vox_raider, /datum/team/vox_raiders)
+
+			if("equip")
+				if(!ishuman(current))
+					return
+				var/mob/living/carbon/human/current_human = current
+				current_human.equipOutfit(/datum/outfit/vox)
+
+			if("body")
+				if(!ishuman(current))
+					return
+				transform_body_vox_raider(current)
+
+			if("landmark")
+				var/picked_landmark = safepick(GLOB.raider_spawn)
+				var/turf/loc_spawn = get_turf(picked_landmark)
+				current.forceMove(loc_spawn)
+
 	else if(href_list["common"])
 		switch(href_list["common"])
 			if("undress")
@@ -2549,7 +2587,7 @@
 
 	else if(href_list["obj_announce"])
 		var/list/messages = prepare_announce_objectives()
-		to_chat(current, chat_box_red(messages.Join("<br>")))
+		to_chat(current, custom_boxed_message("red_box center", messages.Join("<br>")))
 		SEND_SOUND(current, sound('sound/ambience/misc/alarm4.ogg'))
 		log_admin("[key_name(usr)] has announced [key_name(current)]'s objectives")
 		message_admins("[key_name_admin(usr)] has announced [key_name_admin(current)]'s objectives")

@@ -64,7 +64,7 @@ GLOBAL_LIST_EMPTY(message_servers)
 	decryptkey = GenerateKey()
 	send_pda_message("System Administrator", "system", "This is an automated message. The messaging system is functioning correctly.")
 
-/obj/machinery/message_server/Destroy()
+/obj/machinery/message_server/Destroy(force)
 	GLOB.message_servers -= src
 	QDEL_LIST(pda_msgs)
 	QDEL_LIST(rc_msgs)

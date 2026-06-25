@@ -29,7 +29,7 @@
 	addiction_list = null
 	if(my_atom && my_atom.reagents == src)
 		my_atom.reagents = null
-		my_atom = null
+	my_atom = null
 
 /datum/reagents/proc/remove_any(amount = 1)
 	var/list/cached_reagents = reagent_list

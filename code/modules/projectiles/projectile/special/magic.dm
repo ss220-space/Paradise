@@ -534,7 +534,7 @@
 					messages.Add(span_userdanger("You have been transformed into an animated statue."))
 					messages.Add("You cannot move when monitored, but are nearly invincible and deadly when unobserved! Hunt down those who shackle you.")
 					messages.Add("Do not harm [firer.real_name], your creator.")
-					to_chat(statue, chat_box_red(messages.Join("<br>")))
+					to_chat(statue, custom_boxed_message("red_box center", messages.Join("<br>")))
 				prisoner.forceMove(statue)
 				qdel(target)
 		else

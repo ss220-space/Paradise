@@ -82,10 +82,10 @@
 
 	return readout.Join("\n") // Sending over the singular string, rather than the whole list
 
-/obj/item/gun/energy/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/gun_module/sibyl))
+/obj/item/gun/energy/attackby(obj/item/item, mob/living/user, list/modifiers)
+	if(istype(item, /obj/item/gun_module/sibyl))
 		add_fingerprint(user)
-		var/obj/item/gun_module/sibyl/new_sibyl = I
+		var/obj/item/gun_module/sibyl/new_sibyl = item
 		if(!can_add_sibyl_system)
 			to_chat(user, span_warning("The [name] is incompatible with the sibyl systems module."))
 			return ATTACK_CHAIN_PROCEED
@@ -98,9 +98,9 @@
 			return ATTACK_CHAIN_BLOCKED_ALL
 		return ATTACK_CHAIN_PROCEED
 
-	if(sibyl_mod && is_id_card(I))
+	if(sibyl_mod && is_id_card(item))
 		add_fingerprint(user)
-		sibyl_mod.toggle_authorization(I, user)
+		sibyl_mod.toggle_authorization(item, user)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()

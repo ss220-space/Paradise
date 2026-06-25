@@ -31,7 +31,7 @@
 	Reset()
 
 /obj/machinery/computer/arcade/Destroy(force)
-	QDEL_LAZYLIST(prize_storage)
+	QDEL_LIST(prize_storage)
 	return ..()
 
 /obj/machinery/computer/arcade/proc/prizevend(score)

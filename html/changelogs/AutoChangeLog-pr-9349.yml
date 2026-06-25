@@ -1,6 +1,0 @@
-author: "SCPfollower"
-delete-after: True
-changes:
-  - tweak: "Ракетница с гамма оружейки теперь RPG-232 и использует 70мм ракеты. (PR #9349)"
-  - refactor: "Ракетница с гамма оружейки передена c /obj/item/gun на /obj/item/gun/projectile/revolver/rocketlauncher. (PR #9349)"
-  - add: "Новые 70мм ракеты для РПГ-232 вместо старых ракет от ракетницы с гамма оружейки. (PR #9349)"

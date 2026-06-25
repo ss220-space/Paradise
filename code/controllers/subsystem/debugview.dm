@@ -58,7 +58,7 @@ SUBSYSTEM_DEF(debugview)
 /datum/controller/subsystem/debugview/proc/stop_processing(client/cur_client)
 	processing -= cur_client
 	cur_client.screen -= cur_client.debug_text_overlay
-	qdel(cur_client.debug_text_overlay)
+	QDEL_NULL(cur_client.debug_text_overlay)
 
 /atom/movable/screen/debugtextholder
 	icon = 'icons/mob/screen_full.dmi'

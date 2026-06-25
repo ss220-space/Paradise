@@ -133,6 +133,13 @@
 		else
 			to_chat(C, span_warning("[pick("Вы слышите тихий шепот.", "Вы чуете пепел.", "Вам жарко.", "Вы слышите рёв вдали.")]"))
 
+/obj/item/clothing/suit/space/hostile_environment/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer, notify_contents)
+	. = ..()
+	if(!is_mining_level(new_turf.z))
+		armor = list(MELEE = 35, BULLET = 25, LASER = 25, ENERGY = 25, BOMB = 25, BIO = 50, FIRE = 50, ACID = 50)
+		return
+	armor = list(MELEE = 70, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 50, BIO = 100, FIRE = 100, ACID = 100)
+
 /obj/item/clothing/head/helmet/space/hostile_environment
 	name = "H.E.C.K. helmet"
 	desc = "Экспериментальный Кинетический Защитный Обшитый Шлем: шлем, специально созданный для защиты от широкого спектра опасностей Лазиса. Прошлому его владельцу этого, видимо, не хватило."
@@ -171,6 +178,13 @@
 /obj/item/clothing/head/helmet/space/hostile_environment/update_overlays()
 	. = ..()
 	. += mutable_appearance(icon, "hostile_env_glass", appearance_flags = RESET_COLOR)
+
+/obj/item/clothing/suit/space/hostile_environment/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer, notify_contents)
+	. = ..()
+	if(!is_mining_level(new_turf.z))
+		armor = list(MELEE = 35, BULLET = 25, LASER = 25, ENERGY = 25, BOMB = 25, BIO = 50, FIRE = 50, ACID = 50)
+		return
+	armor = list(MELEE = 70, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 50, BIO = 100, FIRE = 100, ACID = 100)
 
 /obj/item/clothing/head/helmet/space/hardsuit/champion
 	name = "champion's helmet"

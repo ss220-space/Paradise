@@ -162,7 +162,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	update_headlamp()
 
 	radio = new /obj/item/radio/borg(src)
-	common_radio = radio
 
 	init(alien, connect_to_AI, ai_to_sync_to)
 
@@ -186,27 +185,22 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	else if(mmi.clock)
 		INVOKE_ASYNC(src, TYPE_PROC_REF(/atom, ratvar_act), TRUE)
 
-	if(!cell) // Make sure a new cell gets created *before* executing initialize_components(). The cell component needs an existing cell for it to get set up properly
-		cell = new default_cell_type(src)
-
 	initialize_components()
 
 	for(var/V in components)
 		if(V != "power cell")
 			var/datum/robot_component/C = components[V]
-			C.installed = 1
-			C.wrapped = new C.external_type
+			C.install(new C.external_type, FALSE)
 
 	. = ..()
 
 	robot_module_hat_offset(icon_state)
 	add_robot_verbs()
 
-	if(cell)
-		var/datum/robot_component/cell_component = components["power cell"]
-		cell_component.wrapped = cell
-		cell_component.installed = 1
-		cell_component.install()
+	// Install a default cell into the borg if none is there yet
+	var/datum/robot_component/cell_component = components["power cell"]
+	var/obj/item/stock_parts/cell/new_cell = cell || new default_cell_type(src)
+	cell_component.install(new_cell)
 
 	diag_hud_set_borgcell()
 	scanner = new()
@@ -270,8 +264,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	QDEL_LIST_ASSOC_VAL(components)
 	QDEL_LIST(upgrades)
 	QDEL_LIST(module_actions)
-
 	return ..()
+
+/mob/living/silicon/robot/get_radio()
+	return radio
 
 /mob/living/silicon/robot/proc/add_strippable_element()
 	AddElement(/datum/element/strippable, create_strippable_list(list(/datum/strippable_item/borg_head)))
@@ -579,7 +575,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	for(var/V in components)
 		if(V == "power cell") continue
 		var/datum/robot_component/C = components[V]
-		if(C.installed)
+		if(!C.is_missing())
 			installed_components += V
 
 	var/toggle = tgui_input_list(src, "Which component do you want to toggle?", "Toggle Component", installed_components)
@@ -773,13 +769,11 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 		for(var/V in components)
 			var/datum/robot_component/component = components[V]
-			if(!component.installed && istype(I, component.external_type))
+			if(component.is_missing() && istype(I, component.external_type))
 				if(!user.drop_transfer_item_to_loc(I, src))
 					return ..()
 
-				component.installed = TRUE
-				component.wrapped = I
-				component.install()
+				component.install(I)
 
 				I.move_to_null_space()
 				var/obj/item/robot_parts/robot_component/robot_component = I
@@ -840,11 +834,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		to_chat(user, span_notice("You have installed the power cell."))
 		var/datum/robot_component/cell/cell_component = components["power cell"]
 
-		cell = I
-		cell_component.installed = TRUE
-		cell_component.wrapped = I
-		cell_component.install()
-		cell_component.external_type = I.type // Update the cell component's `external_type` to the path of new cell
+		cell_component.install(I)
 		//This will mean that removing and replacing a power cell will repair the mount, but I don't care at this point. ~Z
 		cell_component.brute_damage = 0
 		cell_component.electronics_damage = 0
@@ -1079,7 +1069,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			continue
 
 		var/datum/robot_component/C = components[V]
-		if(C.installed == 1 || C.installed == -1)
+		if(!C.is_missing())
 			removable_components += V
 
 	if(module)
@@ -1104,10 +1094,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		thing.burn = C.electronics_damage
 
 	thing.loc = loc
-	var/was_installed = C.installed
-	C.installed = 0
-
-	if(was_installed == 1)
+	if(C.installed)
 		C.uninstall()
 
 /mob/living/silicon/robot/welder_act(mob/user, obj/item/I)
@@ -2072,14 +2059,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	for(var/datum/robot_component/borked_part in borked_parts)
 		brute = borked_part.brute_damage
 		burn = borked_part.electronics_damage
-		borked_part.installed = 1
-		borked_part.wrapped = new borked_part.external_type
-
-		if(ispath(borked_part.external_type, /obj/item/stock_parts/cell)) // is the broken part a cell?
-			cell = new borked_part.external_type // borgs that have their cell destroyed have their `cell` var set to null. we need create a new cell for them based on their old cell type.
-
 		borked_part.heal_damage(brute,burn)
-		borked_part.install()
+		borked_part.install(new borked_part.external_type)
 
 /mob/living/silicon/robot/check_eye_prot()
 	return eye_protection

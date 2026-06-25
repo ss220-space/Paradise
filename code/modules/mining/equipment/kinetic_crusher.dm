@@ -285,6 +285,12 @@
 		PREPOSITIONAL = "хвостовом шипе",
 	)
 
+/obj/item/crusher_trophy/Destroy()
+	if(istype(loc, /obj/item/twohanded/kinetic_crusher))
+		var/obj/item/twohanded/kinetic_crusher/crusher = loc
+		crusher.trophies -= src
+	return ..()
+
 /obj/item/crusher_trophy/examine(mob/living/user)
 	. = ..()
 	. += span_notice("Вызывает следующий эффект, если используется как трофей крушителя: [effect_desc()].")

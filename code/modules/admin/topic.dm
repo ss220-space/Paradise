@@ -1699,10 +1699,10 @@
 			to_chat(usr, "This can only be used on instances of type /mob/dead/observer", confidential = TRUE)
 			return
 		if(!(O in GLOB.respawnable_list))
-			GLOB.respawnable_list += O
+			O.add_to_respawnable_list()
 			log_and_message_admins("allowed [key_name(O)] to respawn!")
 		else
-			GLOB.respawnable_list -= O
+			O.remove_from_respawnable_list()
 			log_and_message_admins("disallowed [key_name(O)] to respawn!")
 
 	else if(href_list["revive"])

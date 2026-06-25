@@ -78,6 +78,22 @@
 	desc = "A towering basalt sculpture of a drake. Cracks run down its surface and parts of it have fallen off."
 	icon_state = "drake_statue_falling"
 
+/obj/structure/fluff/drake_statue/great
+	name = "great lizard statue"
+
+	desc = "Когда-то племена ящеров поклонялись огромному ящеру, вселяющий ужас во всех неугодных. Но некий Русс его сразил. О былом величии Великого Ящера теперь напоминают только такие статуи, которые уже успели растащить коллекционеры-чаелюбы, не оставив ничего аборигенам."
+	color = COLOR_YELLOW
+
+/obj/structure/fluff/drake_statue/great/get_ru_names()
+	return alist(
+		NOMINATIVE = "cтатуя Великому Ящеру",
+		GENITIVE = "статуи Великого Ящера",
+		DATIVE = "статуе Великого Ящера",
+		ACCUSATIVE = "статую Великому Ящеру",
+		INSTRUMENTAL = "статуей Великого Ящера",
+		PREPOSITIONAL = "статуе Великого Ящера",
+	)
+
 /obj/structure/fluff/divine
 	name = "Miracle"
 	icon = 'icons/obj/hand_of_god_structures.dmi'

@@ -224,7 +224,7 @@
 	KillDaCrew.completed = TRUE
 	demon.mind.objectives += KillDaCrew
 	var/list/messages = demon.mind.prepare_announce_objectives()
-	to_chat(demon, chat_box_red(messages.Join("<br>")))
+	to_chat(demon, custom_boxed_message("red_box center", messages.Join("<br>")))
 
 /obj/item/antag_spawner/slaughter_demon/laughter
 	name = "vial of tickles"
@@ -306,7 +306,7 @@
 	KillDaCrew.completed = TRUE
 	M.mind.objectives += KillDaCrew
 	var/list/messages = M.mind.prepare_announce_objectives()
-	to_chat(M, chat_box_red(messages.Join("<br>")))
+	to_chat(M, custom_boxed_message("red_box center", messages.Join("<br>")))
 	SEND_SOUND(src, sound('sound/magic/mutate.ogg'))
 
 ///////////Pulse Demon
@@ -378,4 +378,4 @@
 	demon.mind.objectives += kill_crew
 
 	var/list/messages = demon.mind.prepare_announce_objectives()
-	to_chat(demon, chat_box_red(messages.Join("<br>")))
+	to_chat(demon, custom_boxed_message("red_box center", messages.Join("<br>")))

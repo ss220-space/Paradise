@@ -65,7 +65,7 @@
 	src.windup_autofire_cap = windup_autofire_cap
 	src.windup_spindown = windup_spindown
 
-/datum/component/automatedfire/autofire/Destroy(force, silent)
+/datum/component/automatedfire/autofire/Destroy(force)
 	callback_fire = null
 	callback_reset_fire = null
 	callback_bursting = null

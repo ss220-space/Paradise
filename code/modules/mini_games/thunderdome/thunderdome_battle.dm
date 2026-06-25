@@ -111,7 +111,7 @@ GLOBAL_VAR_INIT(tdome_arena_melee, locate(/area/tdome/newtdome/CQC))
 		if(ghost?.client?.persistent_client)
 			var/datum/persistent_client/persistent = ghost.client.persistent_client
 			persistent.respawn_locked = TRUE
-			GLOB.respawnable_list -= ghost
+			ghost.remove_from_respawnable_list()
 			ghost.can_reenter_corpse = FALSE
 
 		fighters += brawler
@@ -226,7 +226,7 @@ GLOBAL_VAR_INIT(tdome_arena_melee, locate(/area/tdome/newtdome/CQC))
 	ghost.antagHUD = persistent.antaghud_enabled
 
 	if(persistent.respawn_eligible)
-		GLOB.respawnable_list |= ghost
+		ghost.add_to_respawnable_list()
 		ghost.can_reenter_corpse = TRUE
 
 /**

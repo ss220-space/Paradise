@@ -547,25 +547,6 @@
 /obj/item/gun/energy/shuriken_emitter/borg/can_shoot(mob/user)
 	return TRUE
 
-// MARK: Vox spike thrower
-/obj/item/gun/energy/spikethrower //It's like the cyborg LMG, uses energy to make spikes
-	name = "Vox spike thrower"
-	desc = "A vicious alien projectile weapon. Parts of it quiver gelatinously, as though the thing is insectile and alive."
-	icon = 'icons/obj/weapons/projectile.dmi'
-	icon_state = "spikethrower"
-	item_state = "spikethrower"
-	w_class = WEIGHT_CLASS_SMALL
-	fire_sound_text = "a strange noise"
-	burst_amount = 2 // burst has to be stored here
-	can_charge = FALSE
-	selfcharge = TRUE
-	charge_delay = 10
-	restricted_species = list(/datum/species/vox)
-	ammo_type = list(/obj/item/ammo_casing/energy/spike)
-
-/obj/item/gun/energy/spikethrower/emp_act()
-	return
-
 // MARK: Noise cannon
 /obj/item/gun/energy/noisecannon
 	name = "alien heavy cannon"
