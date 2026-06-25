@@ -129,11 +129,11 @@
 
 	QDEL_LIST(static_inventory)
 
-	inv_slots.Cut()
+	LAZYCLEARLIST(inv_slots)
 	action_intent = null
 	zone_select = null
 	move_intent = null
-	hand_slots.Cut()
+	LAZYCLEARLIST(hand_slots)
 
 	QDEL_LIST(toggleable_inventory)
 
@@ -169,7 +169,7 @@
 	QDEL_NULL(screentip_text)
 
 	QDEL_NULL(mini_holomap)
-	. = ..()
+	return ..()
 
 /datum/hud/proc/client_refresh(datum/source)
 	SIGNAL_HANDLER
@@ -281,6 +281,13 @@
 	hud_used = new_hud
 	new_hud.build_action_groups()
 
+/**
+ * Shows this hud's hud to some mob
+ *
+ * Arguments
+ * * version - denotes which style should be displayed. blank or 0 means "next version"
+ * * viewmob - what mob to show the hud to. Can be this hud's mob, can be another mob, can be null (will use this hud's mob if so)
+ */
 /datum/hud/proc/show_hud(version = 0, mob/viewmob)
 	if(!ismob(mymob))
 		return FALSE
@@ -352,7 +359,7 @@
 	reorganize_alerts(screenmob)
 	reload_fullscreen()
 	if(screenmob == mymob)
-		update_parallax_pref(screenmob)
+		update_parallax_pref()
 	else
 		viewmob.hud_used.update_parallax_pref()
 
