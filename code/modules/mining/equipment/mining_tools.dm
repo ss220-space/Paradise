@@ -336,24 +336,35 @@
 		PREPOSITIONAL = "безопасной лопате",
 	)
 
-// Добровольное закапывание себя (клик по себе на Grab)
+// ============================================================
+// ДОБРОВОЛЬНОЕ ЗАКАПЫВАНИЕ (интент GRAB)
+// ============================================================
+
 /obj/item/shovel/attack(mob/living/M, mob/user, list/modifiers)
-	if(user.a_intent == INTENT_GRAB && M == user)
-		if(istype(get_turf(user), /turf/simulated/floor/plating/asteroid))
-			bury_mob(user, user, 8 SECONDS)
-			return TRUE
-		else
-			to_chat(user, span_warning("Здесь неподходящая поверхность для закапывания."))
+	if(user.a_intent == INTENT_GRAB)
+		if(M == user)
+			if(istype(get_turf(user), /turf/simulated/floor/plating/asteroid))
+				bury_mob(user, user, 8 SECONDS)
+				return TRUE
+			else
+				to_chat(user, span_warning("Здесь неподходящая поверхность для закапывания."))
+				return TRUE
+		else if(M.stat >= UNCONSCIOUS && istype(get_turf(M), /turf/simulated/floor/plating/asteroid))
+			bury_mob(M, user, 8 SECONDS)
 			return TRUE
 	return ..()
 
 /obj/item/pickaxe/attack(mob/living/M, mob/user, list/modifiers)
-	if(user.a_intent == INTENT_GRAB && M == user)
-		if(istype(get_turf(user), /turf/simulated/floor/plating/asteroid))
-			bury_mob(user, user, 10 SECONDS)
-			return TRUE
-		else
-			to_chat(user, span_warning("Здесь неподходящая поверхность для закапывания."))
+	if(user.a_intent == INTENT_GRAB)
+		if(M == user)
+			if(istype(get_turf(user), /turf/simulated/floor/plating/asteroid))
+				bury_mob(user, user, 10 SECONDS)
+				return TRUE
+			else
+				to_chat(user, span_warning("Здесь неподходящая поверхность для закапывания."))
+				return TRUE
+		else if(M.stat >= UNCONSCIOUS && istype(get_turf(M), /turf/simulated/floor/plating/asteroid))
+			bury_mob(M, user, 10 SECONDS)
 			return TRUE
 	return ..()
 
