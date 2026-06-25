@@ -293,6 +293,8 @@
 	find_tentacle_turfs()
 
 /mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient/proc/find_tentacle_turfs()
+	if(!loc)
+		return
 	LAZYINITLIST(cached_tentacle_turfs)
 	for(var/turf/simulated/floor/turf in RECT_TURFS(4, 4, loc))
 		cached_tentacle_turfs |= turf

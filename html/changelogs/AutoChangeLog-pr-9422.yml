@@ -1,0 +1,4 @@
+author: "FlitchTime"
+delete-after: True
+changes:
+  - bugfix: "Пофикшен рантайм генокрада. (PR #9422)"
