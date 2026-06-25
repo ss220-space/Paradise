@@ -584,3 +584,6 @@
 
 /// Mob has fov applied to it
 #define TRAIT_FOV_APPLIED "fov_applied"
+
+/// Used for managing KEEP_TOGETHER in [/atom/var/appearance_flags]
+#define TRAIT_KEEP_TOGETHER "keep-together"

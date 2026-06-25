@@ -204,3 +204,6 @@
 #define GIVE_TRAIT "give"
 /// Trait from mob/living/update_transform()
 #define UPDATE_TRANSFORM_TRAIT "update_transform"
+
+/// Trait acquired from being painted a certain color
+#define ATOM_COLOR_TRAIT "atom_color"

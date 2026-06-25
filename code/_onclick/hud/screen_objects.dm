@@ -1,3 +1,4 @@
+INITIALIZE_IMMEDIATE(/atom/movable/screen)
 /**
  * Screen objects
  * Todo: improve/re-implement

@@ -227,6 +227,9 @@
 	///Cooldown tick timer for buckle messages
 	COOLDOWN_DECLARE(buckle_message_cd)
 
+	VAR_PRIVATE/list/invisibility_sources
+	VAR_PRIVATE/current_invisibility_priority = -INFINITY
+
 /atom/proc/onCentcom()
 	. = FALSE
 	var/turf/T = get_turf(src)

@@ -498,6 +498,11 @@
 		else
 			to_chat(src, span_notice("Вы не Супермен чтобы взлететь вверх."))
 		return
+
+	balloon_alert(src, "двигаетесь вверх...")
+	if(!do_after(src, 1 SECONDS/*, hidden = TRUE*/))
+		return
+
 	if(zMove(UP, z_move_flags = ZMOVE_FLIGHT_FLAGS|ZMOVE_FEEDBACK|ventcrawling_flag))
 		to_chat(src, span_notice("Вы двигаетесь вверх."))
 
@@ -518,6 +523,13 @@
 	if(ismovable(loc)) //Inside an object, tell it we moved
 		var/atom/loc_atom = loc
 		return loc_atom.relaymove(src, DOWN)
+
+	if(!can_z_move(DOWN, current_turf, null, ZMOVE_CAN_FLY_CHECKS|ZMOVE_FEEDBACK))
+		return
+
+	balloon_alert(src, "двигаетесь вниз...")
+	if(!do_after(src, 1 SECONDS/*, hidden = TRUE*/))
+		return
 
 	var/ventcrawling_flag = HAS_TRAIT(src, TRAIT_MOVE_VENTCRAWLING) ? ZMOVE_VENTCRAWLING : NONE
 	if(zMove(DOWN, z_move_flags = ZMOVE_FLIGHT_FLAGS|ZMOVE_FEEDBACK|ventcrawling_flag))

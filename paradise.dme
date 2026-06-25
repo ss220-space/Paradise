@@ -1194,6 +1194,7 @@
 #include "code\game\atom\_atom.dm"
 #include "code\game\atom\atom_color.dm"
 #include "code\game\atom\atom_examine.dm"
+#include "code\game\atom\atom_invisibility.dm"
 #include "code\game\atom\atom_localization.dm"
 #include "code\game\atom\atom_tool_acts.dm"
 #include "code\game\atom\atom_vv.dm"
