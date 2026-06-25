@@ -68,8 +68,22 @@
 		return ..()
 
 	var/mob/living/carbon/human/human_owner = owner
-	var/obj/item/organ/external/bodypart = pick(human_owner.bodyparts)
-	bodypart.internal_bleeding() // IDK what is "SLASH" in tg, so let's it will be int.bleeding.
+	if(HAS_TRAIT(human_owner, TRAIT_NO_BLOOD))
+		return ..()
+
+	// TG fires cause_wound_of_type_and_severity(WOUND_SLASH, ..., WOUND_SEVERITY_SEVERE) here - the exact same
+	// severe laceration the Bleeding Steel blade upgrade applies. master220 has no wound datums, so we model it
+	// identically: a sustained, bandageable external bleed on a random non-robotic limb, capped at
+	// max_bleeding_amount so it stays plain external bleeding (gauze/sutures), not arterial (surgery-only).
+	var/list/valid_limbs = list()
+	for(var/obj/item/organ/external/bodypart as anything in human_owner.bodyparts)
+		if(!bodypart.is_robotic())
+			valid_limbs += bodypart
+	if(length(valid_limbs))
+		var/obj/item/organ/external/limb = pick(valid_limbs)
+		limb.bleeding_amount = min(limb.bleeding_amount + limb.max_bleeding_amount, limb.max_bleeding_amount)
+		human_owner.add_bleeding_bodypart(limb)
+
 	return ..()
 
 

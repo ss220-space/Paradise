@@ -1,7 +1,7 @@
 // Heretic passive ("empowerment") - a path-specific buff granted when you choose your path, which
 // strengthens in two further stages as you grow in power:
 //   * Level 1 - applied when the path's starting knowledge is gained.
-//   * Level 2 - applied when you upgrade your blade (a mid/late-game milestone).
+//   * Level 2 - applied when you craft your path's robe (tg's Armorer's Ritual sends UPGRADE_FIRST there).
 //   * Level 3 - applied when you ascend.
 // Ported (Ash only for now) and adapted from /tg/station's heretic_passive system. master220 has no
 // COMSIG_HERETIC_PASSIVE_UPGRADE signals, so the heretic antag datum drives the level changes directly
