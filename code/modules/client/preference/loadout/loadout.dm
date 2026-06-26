@@ -45,6 +45,8 @@ GLOBAL_LIST_EMPTY(gear_datums)
 	return icon2base64(new_icon)
 
 /datum/gear/proc/get_display_name()
+	if(!path)
+		return "Неизвестно"
 	var/atom/item = new path(null)
 	var/ru_name = item.declent_ru(NOMINATIVE)
 	var/gear_name = capitalize((display_name == /datum/gear::display_name)? ru_name : display_name)
