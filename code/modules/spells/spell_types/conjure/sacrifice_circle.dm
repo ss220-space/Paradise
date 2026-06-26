@@ -10,6 +10,10 @@
 	summon_radius = 0
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 
+/datum/action/cooldown/spell/conjure/sacrifice_circle/create_new_handler()
+	var/datum/spell_handler/devil/devil = new
+	return devil
+
 /datum/action/cooldown/spell/conjure/sacrifice_circle/post_summon(atom/summoned_object, atom/cast_on)
 	. = ..()
 	var/mob/living/carbon/carbon = cast_on

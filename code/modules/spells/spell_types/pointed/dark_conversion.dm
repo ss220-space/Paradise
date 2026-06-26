@@ -11,6 +11,10 @@
 	var/say_name_prob = 40
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 
+/datum/action/cooldown/spell/pointed/dark_conversion/create_new_handler()
+	var/datum/spell_handler/devil/devil = new
+	return devil
+
 /datum/action/cooldown/spell/pointed/dark_conversion/is_valid_target(atom/cast_on)
 	. = ..()
 	if(!ishuman(cast_on))

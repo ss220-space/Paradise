@@ -86,6 +86,22 @@
 	var/smoke_type
 	/// The amount of smoke to create on cast. This is a range, so a value of 5 will create enough smoke to cover everything within 5 steps.
 	var/smoke_amt = 0
+	/// Which spell_handler is used in addition to the normal spells behaviour, can be null. Set this in create_new_handler if needed
+	var/datum/spell_handler/custom_handler
+	/// List with the handler datums per spell type. Key = src.type, value = the handler datum created by create_new_handler()
+	var/static/list/spell_handlers = list()
+
+/datum/action/cooldown/spell/New(Target, original)
+	. = ..()
+	if(isnull(spell_handlers[type]))
+		spell_handlers[type] = create_new_handler()
+
+	if(spell_handlers[type] != NONE)
+		custom_handler = spell_handlers[type]
+
+/datum/action/cooldown/spell/proc/create_new_handler()
+	RETURN_TYPE(/datum/spell_handler)
+	return NONE
 
 /datum/action/cooldown/spell/Grant(mob/grant_to)
 	// If our spell is mind-bound, we only wanna grant it to our mind
@@ -223,6 +239,9 @@
 				to_chat(owner, span_warning("[src] can't be cast in this state!"))
 			return FALSE
 
+	if(custom_handler && !custom_handler.can_cast(owner, feedback, src))
+		return FALSE
+
 	return TRUE
 
 /**
@@ -334,6 +353,8 @@
 	if(owner)
 		sig_return |= SEND_SIGNAL(owner, COMSIG_MOB_BEFORE_SPELL_CAST, src, cast_on)
 
+	custom_handler?.before_cast(cast_on, owner, src)
+
 	return sig_return
 
 /**
@@ -371,6 +392,8 @@
 		var/datum/effect_system/fluid_spread/smoke/smoke = new smoke_type()
 		smoke.set_up(smoke_amt, holder = owner, location = get_turf(owner))
 		smoke.start()
+	custom_handler?.after_cast(cast_on, owner, src)
+	custom_handler?.spend_spell_cost(owner, src)
 
 	// Send signals last in case they delete the spell
 	SEND_SIGNAL(owner, COMSIG_MOB_AFTER_SPELL_CAST, src, cast_on)
@@ -453,6 +476,7 @@
 /datum/action/cooldown/spell/proc/reset_spell_cooldown()
 	SEND_SIGNAL(src, COMSIG_SPELL_CAST_RESET)
 	next_use_time -= cooldown_time // Basically, ensures that the ability can be used now
+	custom_handler?.revert_cast(owner, src)
 	build_all_button_icons()
 
 /**
