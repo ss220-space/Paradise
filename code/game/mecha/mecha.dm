@@ -1178,9 +1178,9 @@
 	emagged = TRUE
 	allowed_equipment |= MECH_EQUIPMENT_COMBAT
 	if(user)
-		to_chat(user, span_notice("Вы проводите картой по ID слоту меха [src]."))
+	to_chat(user, span_notice("Вы проводите картой по ID слоту меха [src]."))
 	playsound(loc, SFX_SPARKS, 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-	desc |= emag_desc
+	desc += emag_desc
 
 /////////////////////////////////////
 //////////// AI piloting ////////////
