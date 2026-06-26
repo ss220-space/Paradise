@@ -215,6 +215,8 @@
 	master_commander = null
 	GLOB.simple_animals[AIStatus] -= src
 	SSnpcpool.currentrun -= src
+	SSidlenpcpool.currentrun -= src
+	walk(src, NONE)
 
 	if(nest)
 		nest.spawned_mobs -= src

@@ -1,0 +1,4 @@
+author: "vovakons"
+delete-after: True
+changes:
+  - bugfix: "Исправлен баг с названиями патронов. (PR #9429)"

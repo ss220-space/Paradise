@@ -1,0 +1,7 @@
+author: "makaroshka003"
+delete-after: True
+changes:
+  - tweak: "SLIMEPERSON не могут быть вампирами и генокрадами. (PR #9425)"
+  - tweak: "PLASMAMAN могут быть генокрадами, т.к. у них есть гены (PR #9425)"
+  - bugfix: "Синхронизировал запреты species у режимов по типу vampire и антаг парадиза. (PR #9425)"
+  - refactor: "Вывел в define листы с species для антагов (PR #9425)"
