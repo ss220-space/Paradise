@@ -95,12 +95,12 @@
 
 /obj/effect/anomaly/Destroy()
 	STOP_PROCESSING(SSobj, src)
+	QDEL_LIST(impulses)
 	if(!has_warp)
 		return ..()
 
 	vis_contents -= warp
 	QDEL_NULL(warp)
-	QDEL_LAZYLIST(impulses)
 	return ..()
 
 /obj/effect/anomaly/proc/update_warp()
