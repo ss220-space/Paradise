@@ -369,7 +369,7 @@
 	if(capped)
 		return
 
-	if(istype(target, /obj/structure/window))
+	if(is_window(target))
 		if(!can_paint(target, user))
 			return
 
