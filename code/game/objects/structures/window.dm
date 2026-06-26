@@ -76,7 +76,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 
 /obj/structure/window/Initialize(mapload, direct)
 	. = ..()
-	RegisterSignal(src, COMSIG_WINDOW_PAINTED, PROC_REF(on_painted))
+	RegisterSignal(src, COMSIG_OBJ_PAINTED, PROC_REF(on_painted))
 	RegisterSignal(src, COMSIG_COMPONENT_CLEAN_ACT, PROC_REF(on_cleaned))
 
 	if(direct)

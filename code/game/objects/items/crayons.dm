@@ -382,7 +382,7 @@
 
 		uses--
 		playsound(src, 'sound/effects/spray.ogg', 20, TRUE)
-		SEND_SIGNAL(target, COMSIG_WINDOW_PAINTED, colour)
+		SEND_SIGNAL(target, COMSIG_OBJ_PAINTED, colour)
 		return
 
 	if(iscarbon(target))
