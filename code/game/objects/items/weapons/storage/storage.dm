@@ -247,7 +247,7 @@
 	LAZYREMOVE(mobs_viewing, user) // Remove clientless mobs too
 	var/datum/storage_box/box = LAZYACCESS(storage_boxes, user)
 	var/client/user_client = user.client
-	storage_boxes -= user
+	LAZYREMOVE(storage_boxes, user)
 	if(user_client)
 		if(box)
 			user_client.screen -= box.screens_list()
@@ -369,6 +369,8 @@
 			line_width = min(1 + storage_slots * ICON_SIZE_X, max(total_width + 32, BASE_STORAGE_WIDTH))
 
 	var/first_time = TRUE
+	if (!storage_boxes)
+		return
 	for(var/mob/user as anything in storage_boxes)
 		var/ui_style
 		var/ui_color
