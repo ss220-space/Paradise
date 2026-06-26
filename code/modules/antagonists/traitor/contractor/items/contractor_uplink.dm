@@ -28,7 +28,6 @@
 /obj/item/contractor_uplink/Destroy()
 	// Right now, one uplink = one hub so this is fine.
 	if(hub)
-		var/datum/antagonist/contractor/antag = hub.owner?.has_antag_datum(/datum/antagonist/contractor)
 		QDEL_NULL(hub)
 	return ..()
 
