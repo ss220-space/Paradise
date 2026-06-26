@@ -9,8 +9,8 @@
 /datum/antagonist/contractor/proc/become_contractor(mob/living/carbon/human/our_contractor)
 	var/obj/item/contractor_uplink/uplink = new
 	our_contractor.put_in_hands(uplink)
-	contractor_uplink = uplink
-	uplink.hub = new(owner, contractor_uplink)
+	contractor_uplink_ref = WEAKREF(uplink)
+	uplink.hub = new(owner, uplink)
 
 /datum/antagonist/contractor/drifting_contractor/greet()
 	var/list/messages = list()
@@ -105,7 +105,8 @@
 	var/completed_contracts = null
 
 	for(var/datum/antagonist/contractor/antag_datum in owner.antag_datums)
-		completed_contracts = antag_datum?.contractor_uplink?.hub?.completed_contracts
+		var/obj/item/contractor_uplink/contractor_uplink = antag_datum?.contractor_uplink_ref?.resolve()
+		completed_contracts = contractor_uplink?.hub?.completed_contracts
 
 	if(isnull(completed_contracts))
 		return FALSE

@@ -137,10 +137,11 @@
 				special_role_text = "antagonist"
 
 			var/datum/antagonist/contractor/contractor = traitor?.has_antag_datum(/datum/antagonist/contractor)
-			if(istype(contractor) && contractor.contractor_uplink)
+			var/obj/item/contractor_uplink/uplink = contractor?.contractor_uplink_ref?.resolve()
+			if(istype(contractor) && uplink)
 				var/count = 1
-				var/earned_tc = contractor.contractor_uplink.hub.reward_tc_paid_out
-				for(var/datum/syndicate_contract/s_contract in contractor.contractor_uplink.hub.contracts)
+				var/earned_tc = uplink.hub.reward_tc_paid_out
+				for(var/datum/syndicate_contract/s_contract in uplink.hub.contracts)
 					// Locations
 					var/locations = list()
 					for(var/area/c_area in s_contract.contract.candidate_zones)

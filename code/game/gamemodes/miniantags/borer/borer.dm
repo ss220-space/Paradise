@@ -161,6 +161,11 @@
 	truename = "[borer_names[min(generation, length(borer_names))]] [rand(1000,9999)]"
 	GrantBorerActions()
 
+/mob/living/simple_animal/borer/Destroy()
+	detach()
+	host = null
+	return ..()
+
 /mob/living/simple_animal/borer/death(gibbed)
 	. = ..()
 
@@ -756,7 +761,7 @@
 		host_brain.computer_id = null
 		host_brain.lastKnownIP = null
 
-		host.ckey = host_brain.ckey
+		host.possess_by_player(host_brain.ckey)
 
 		if(!host.computer_id)
 			host.computer_id = b2h_id
@@ -764,7 +769,7 @@
 		if(!host.lastKnownIP)
 			host.lastKnownIP = b2h_ip
 
-	qdel(host_brain)
+	QDEL_NULL(host_brain)
 
 	return
 

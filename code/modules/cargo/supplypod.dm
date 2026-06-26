@@ -905,4 +905,5 @@
 	QDEL_NULL(helper)
 	pod.preOpen() //Begin supplypod open procedures. Here effects like explosions, damage, and other dangerous (and potentially admin-caused, if the centcom_podlauncher datum was used) memes will take place
 	drawSmoke()
+	pod = null
 	qdel(src) //The pod_landingzone's purpose is complete. It can rest easy now

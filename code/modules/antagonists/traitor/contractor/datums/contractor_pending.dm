@@ -49,7 +49,7 @@
 	var/obj/item/storage/box/syndie_kit/contractor/contractor_kit = new(user)
 	user.put_in_hands(contractor_kit)
 	var/obj/item/contractor_uplink/contractor_uplink = locate(/obj/item/contractor_uplink, contractor_kit)
-	contractor.contractor_uplink = contractor_uplink
+	contractor.contractor_uplink_ref = WEAKREF(contractor_uplink)
 	contractor_uplink.hub = new(user.mind, contractor_uplink)
 
 	// Remove the TC

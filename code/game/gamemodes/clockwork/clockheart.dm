@@ -172,7 +172,8 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 		QDEL_NULL(gateway)
 	spawned_parts = null
 	GLOB.total_curses = 3
-	. = ..()
+	return ..()
+
 /obj/structure/clockwork/functional/heart/mouse_drop_receive(atom/movable/dropping, mob/user, params)
 	if(!isclocker(user))
 		return

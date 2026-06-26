@@ -34,7 +34,7 @@
 	QDEL_NULL(radio)
 	QDEL_NULL(radio_action)
 	QDEL_NULL(held_brain)
-	. = ..()
+	return ..()
 
 /obj/item/mmi/update_icon_state()
 	if(held_brain)

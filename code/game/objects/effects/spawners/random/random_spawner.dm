@@ -52,8 +52,8 @@
 	return INITIALIZE_HINT_QDEL
 
 /obj/effect/spawner/random/Destroy()
-	. = ..()
-	qdel(pixel_placer)
+	QDEL_NULL(pixel_placer)
+	return ..()
 
 /obj/effect/spawner/random/proc/generate_loot_list()
 	if(loot_type_path)
@@ -136,7 +136,7 @@
 		else if(spawn_loot_split && loot_spawned)
 			pixel_placer.place(spawned_loot, loot_spawned)
 
-		if(container)
+		if(container && !QDELETED(spawned_loot))
 			spawned_loot.forceMove(container)
 
 /**

@@ -33,6 +33,8 @@
 	GLOB.mob_living_list += src
 
 /mob/living/Destroy()
+	if(leaned_object)
+		stop_leaning()
 	for(var/s in ownedSoullinks)
 		var/datum/soullink/S = s
 		S.ownerDies(FALSE)
