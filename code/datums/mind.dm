@@ -579,7 +579,8 @@
 	var/datum/antagonist/contractor/C = has_antag_datum(/datum/antagonist/contractor)
 	if(traitor_datum?.contractor_pending)
 		var/status
-		if(C?.contractor_uplink) // Offer accepted
+		var/obj/item/contractor_uplink/contractor_uplink = C?.contractor_uplink_ref?.resolve()
+		if(contractor_uplink) // Offer accepted
 			status = "<b><font color='red'>CONTRACTOR</font></b>"
 		else if(world.time >= traitor_datum.contractor_pending.offer_deadline)
 			status = "<b><font color='darkorange'>CONTRACTOR (EXPIRED)</font></b>"
@@ -587,11 +588,11 @@
 			status = "<b><font color='orange'>CONTRACTOR (PENDING)</font></b>"
 		. += "[status]|<a href='byond://?src=[UID()];contractor=clear'>no</a>"
 		// List all their contracts
-		if(C?.contractor_uplink)
+		if(contractor_uplink)
 			. += "<br><b>Contracts:</b>"
-			if(C.contractor_uplink.hub.contracts)
+			if(contractor_uplink.hub.contracts)
 				var/count = 1
-				for(var/co in C.contractor_uplink.hub.contracts)
+				for(var/co in contractor_uplink.hub.contracts)
 					var/datum/syndicate_contract/CO = co
 					. += "<br><b>Contract #[count++]</b>: "
 					. += "<a href='byond://?src=[UID()];cuid=[CO.UID()];contractor=target'><b>[CO.contract.target?.name || "Invalid target!"]</b></a>|"
@@ -612,8 +613,8 @@
 							. += "<font color='red'>FAILED</font>"
 				. += "<br>"
 				. += "<a href='byond://?src=[UID()];contractor=add'>Add Contract</a><br>"
-				. += "Claimable TC: <a href='byond://?src=[UID()];contractor=tc'>[C.contractor_uplink.hub.reward_tc_available]</a><br>"
-				. += "Available Rep: <a href='byond://?src=[UID()];contractor=rep'>[C.contractor_uplink.hub.rep]</a><br>"
+				. += "Claimable TC: <a href='byond://?src=[UID()];contractor=tc'>[contractor_uplink.hub.reward_tc_available]</a><br>"
+				. += "Available Rep: <a href='byond://?src=[UID()];contractor=rep'>[contractor_uplink.hub.rep]</a><br>"
 			else
 				. += "<br>"
 				. += "<i>Has not logged in to contractor uplink</i>"
@@ -2011,7 +2012,8 @@
 
 	else if(href_list["contractor"])
 		var/datum/antagonist/contractor/C = has_antag_datum(/datum/antagonist/contractor)
-		var/datum/contractor_hub/H = C?.contractor_uplink?.hub
+		var/obj/item/contractor_uplink/contractor_uplink = C?.contractor_uplink_ref?.resolve()
+		var/datum/contractor_hub/H = contractor_uplink?.hub
 		var/datum/antagonist/traitor/traitor = has_antag_datum(/datum/antagonist/traitor)
 		switch(href_list["contractor"])
 			if("clear")
@@ -2044,7 +2046,7 @@
 				var/datum/syndicate_contract/new_contract = new(H, src, list(), target)
 				new_contract.reward_tc = list(0, 0, 0)
 				H.contracts += new_contract
-				SStgui.update_uis(C.contractor_uplink.hub)
+				SStgui.update_uis(contractor_uplink.hub)
 				log_admin("[key_name(usr)] has given a new contract to [key_name(current)] with [target.current] as the target")
 				message_admins("[key_name_admin(usr)] has given a new contract to [key_name_admin(current)] with [target.current] as the target")
 
@@ -2056,7 +2058,7 @@
 				if(isnull(new_tc) || new_tc < 0)
 					return
 				H.reward_tc_available = new_tc
-				SStgui.update_uis(C.contractor_uplink.hub)
+				SStgui.update_uis(contractor_uplink.hub)
 				log_admin("[key_name(usr)] has set [key_name(current)]'s claimable TC to [new_tc]")
 				message_admins("[key_name_admin(usr)] has set [key_name_admin(current)]'s claimable TC to [new_tc]")
 
@@ -2068,7 +2070,7 @@
 				if(isnull(new_rep) || new_rep < 0)
 					return
 				H.rep = new_rep
-				SStgui.update_uis(C.contractor_uplink.hub)
+				SStgui.update_uis(contractor_uplink.hub)
 				log_admin("[key_name(usr)] has set [key_name(current)]'s contractor Rep to [new_rep]")
 				message_admins("[key_name_admin(usr)] has set [key_name_admin(current)]'s contractor Rep to [new_rep]")
 
@@ -2102,7 +2104,7 @@
 					temp.Blend(R.fields["photo"], ICON_OVERLAY)
 					CO.target_photo = temp
 				// Notify
-				SStgui.update_uis(C.contractor_uplink.hub)
+				SStgui.update_uis(contractor_uplink.hub)
 				log_admin("[key_name(usr)] has set [key_name(current)]'s contract target to [target.current]")
 				message_admins("[key_name_admin(usr)] has set [key_name_admin(current)]'s contract target to [target.current]")
 
@@ -2139,7 +2141,7 @@
 					return
 				CO.contract.candidate_zones[difficulty] = new_area
 				CO.reward_tc[difficulty] = new_reward
-				SStgui.update_uis(C.contractor_uplink.hub)
+				SStgui.update_uis(contractor_uplink.hub)
 				log_admin("[key_name(usr)] has set [key_name(current)]'s contract location to [new_area] with [new_reward] TC as reward")
 				message_admins("[key_name_admin(usr)] has set [key_name_admin(current)]'s contract location to [new_area] with [new_reward] TC as reward")
 
@@ -2184,7 +2186,7 @@
 						message_admins("[key_name_admin(usr)] has deleted [key_name_admin(current)]'s contract")
 					else
 						return
-				SStgui.update_uis(C.contractor_uplink.hub)
+				SStgui.update_uis(contractor_uplink.hub)
 
 			if("interrupt")
 				if(!C)
@@ -2209,7 +2211,7 @@
 				if(!fail_reason || CO.status != CONTRACT_STATUS_ACTIVE)
 					return
 				CO.fail(fail_reason)
-				SStgui.update_uis(C.contractor_uplink.hub)
+				SStgui.update_uis(contractor_uplink.hub)
 				log_admin("[key_name(usr)] has failed [key_name(current)]'s contract with reason: [fail_reason]")
 				message_admins("[key_name_admin(usr)] has failed [key_name_admin(current)]'s contract with reason: [fail_reason]")
 
@@ -2732,7 +2734,7 @@
 	if(!contractor_datum && !traitor_datum?.contractor_pending)
 		return
 
-	if(contractor_datum?.contractor_uplink && !traitor_datum.contractor_pending.is_admin_forced)
+	if(contractor_datum?.contractor_uplink_ref?.resolve() && !traitor_datum.contractor_pending.is_admin_forced)
 		SSticker?.mode?.contractor_accepted--
 	remove_antag_datum(/datum/antagonist/contractor)
 	traitor_datum.contractor_pending = null

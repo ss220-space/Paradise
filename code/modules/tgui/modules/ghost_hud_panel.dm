@@ -71,7 +71,7 @@ GLOBAL_DATUM_INIT(ghost_hud_panel, /datum/ui_module/ghost_hud_panel, new)
 				persistent.respawn_eligible = FALSE
 
 				ghost.can_reenter_corpse = FALSE
-				GLOB.respawnable_list -= ghost
+				ghost.remove_from_respawnable_list()
 
 			ghost.antagHUD = TRUE
 			for(var/hud_key, hud_type in GLOB.huds)

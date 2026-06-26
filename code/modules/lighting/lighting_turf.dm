@@ -105,6 +105,13 @@
 		if(new_area.lighting_effects)
 			add_overlay(new_area.lighting_effects[index])
 
+	// Manage removing/adding starlight overlays, we'll inherit from the area so we can drop it if the area has it already
+	if(always_lit)
+		if(!new_area.lighting_effects && old_area.lighting_effects)
+			overlays += GLOB.fullbright_overlays[GET_TURF_PLANE_OFFSET(src) + 1]
+		else if(new_area.lighting_effects && !old_area.lighting_effects)
+			overlays -= GLOB.fullbright_overlays[GET_TURF_PLANE_OFFSET(src) + 1]
+
 ///Proc to add movable sources of opacity on the turf and let it handle lighting code.
 /turf/proc/add_opacity_source(atom/movable/new_source)
 	LAZYADD(opacity_sources, new_source)
