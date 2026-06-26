@@ -1593,7 +1593,7 @@
 /datum/status_effect/stamina_boost_restriction
 	id = "stamina_boost_restriction"
 	alert_type = /atom/movable/screen/alert/status_effect/stamina_boost_restriction
-	duration = 30 SECONDS
+	duration = 40 SECONDS
 
 	var/original_max_stamina
 	var/current_penalty = 0
