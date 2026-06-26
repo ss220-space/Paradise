@@ -16,9 +16,10 @@
 	antag_hud_type = ANTAG_HUD_TRAITOR
 	antag_menu_name = "Контрактник"
 	/// The associated contractor uplink. Only present if the offer was accepted.
-	var/obj/item/contractor_uplink/contractor_uplink = null
+	var/datum/weakref/contractor_uplink_ref = null
 
 /datum/antagonist/contractor/Destroy(force)
+	var/obj/item/contractor_uplink/contractor_uplink = contractor_uplink_ref?.resolve()
 	if(contractor_uplink)
 		contractor_uplink.hub?.owner = null
 		contractor_uplink.hub?.contractor_uplink = null
@@ -26,6 +27,7 @@
 	return ..()
 
 /datum/antagonist/contractor/add_antag_hud(mob/living/antag_mob)
+	var/obj/item/contractor_uplink/contractor_uplink = contractor_uplink_ref?.resolve()
 	if(HAS_TRAIT(owner, TRAIT_HIJACK))
 		antag_hud_name = contractor_uplink ? "hudhijackcontractor" : "hudhijack"
 	else

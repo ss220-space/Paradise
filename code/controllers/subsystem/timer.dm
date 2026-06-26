@@ -430,12 +430,13 @@ SUBSYSTEM_DEF(timer)
 	if(flags & TIMER_UNIQUE && hash)
 		timer_subsystem.hashes -= hash
 
-	if(callBack?.object && callBack.object != GLOBAL_PROC && callBack.object._active_timers)
-		callBack.object._active_timers -= src
-		UNSETEMPTY(callBack.object._active_timers)
-	callBack.object = null
-	LAZYCLEARLIST(callBack?.arguments)
-	callBack = null
+	if(callBack)
+		if(callBack.object && callBack.object != GLOBAL_PROC && callBack.object._active_timers)
+			callBack.object._active_timers -= src
+			UNSETEMPTY(callBack.object._active_timers)
+		callBack.object = null
+		LAZYCLEARLIST(callBack.arguments)
+		callBack = null
 
 	if(flags & TIMER_STOPPABLE)
 		timer_subsystem.timer_id_dict -= id

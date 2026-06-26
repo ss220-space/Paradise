@@ -25,9 +25,8 @@
 	web_type = /obj/structure/spider/terrorweb/green
 	special_abillity = list(/obj/effect/proc_holder/spell/aoe/terror_healing)
 	spider_intro_text = "Будучи Лекарем Ужаса, ваша задача — исцелять других пауков и откладывать яйца. Чем больше трупов вы поглотили, тем эффективнее исцеление и тем больше яиц вы сможете отложить."
-	var/feedings_to_lay = 3
-	var/datum/action/innate/terrorspider/greeneggs/greeneggs_action
 	tts_seed = "Jolene"
+	var/feedings_to_lay = 3
 
 /mob/living/simple_animal/hostile/poison/terror_spider/healer/get_ru_names()
 	return alist(
@@ -48,8 +47,8 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/healer/Initialize(mapload)
 	. = ..()
-	greeneggs_action = new()
-	greeneggs_action.Grant(src)
+	var/datum/action/innate/terrorspider/greeneggs/act = new
+	act.Grant(src)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/healer/proc/DoLayGreenEggs()
 	var/obj/structure/spider/eggcluster/E = locate() in get_turf(src)

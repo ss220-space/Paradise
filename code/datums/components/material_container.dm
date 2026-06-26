@@ -52,6 +52,10 @@
 			var/mat_path = possible_mats[id]
 			materials[id] = new mat_path()
 
+/datum/component/material_container/Destroy(force)
+	QDEL_LIST_ASSOC_VAL(materials)
+	return ..()
+
 /// / Signal handler for stack insertion, returns container insertion flags.
 /datum/component/material_container/proc/on_insert_stack_signal(datum/source, obj/item/stack/stack, amt)
 	SIGNAL_HANDLER

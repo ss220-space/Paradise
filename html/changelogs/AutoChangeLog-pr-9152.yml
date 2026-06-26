@@ -1,0 +1,4 @@
+author: "FlitchTime"
+delete-after: True
+changes:
+  - bugfix: "Сообщение от падение вендомата на жертву без головы отображается корректно (PR #9152)"

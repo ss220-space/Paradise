@@ -8,6 +8,11 @@
 	banType = ROLE_THUNDERDOME
 	var/datum/mini_game/thunderdome_battle/thunderdome
 
+/obj/effect/mob_spawn/human/thunderdome/Destroy()
+	thunderdome?.fighters -= src
+	thunderdome = null
+	return ..()
+
 /obj/effect/mob_spawn/human/thunderdome/attack_ghost(mob/dead/observer/user)
 	if(SSticker.current_state != GAME_STATE_PLAYING || !loc || !ghost_usable)
 		return

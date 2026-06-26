@@ -25,8 +25,6 @@
 	icon_living = "terror_empress"
 	icon_dead = "terror_empress_dead"
 	datum_type = /datum/antagonist/terror_spider/main_spider/empress
-	var/datum/action/innate/terrorspider/queen/empress/empresslings/empresslings_action
-	var/datum/action/innate/terrorspider/queen/empress/empresserase/empresserase_action
 	tts_seed = "Queen"
 	spider_intro_text = "Вы — Императрица Ужаса, вершина иерархии гнезда и одно из самых опасных существ этого мира. Управляйте, разрушайте, захватывайте. Теперь это ВАША станция."
 
@@ -45,15 +43,17 @@
 	grant_actions()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/empress/proc/grant_actions()
-	empresslings_action = new()
-	empresslings_action.Grant(src)
-	empresserase_action = new()
-	empresserase_action.Grant(src)
+	var/datum/action/innate/terrorspider/queen/empress/empresslings/act_ling = new
+	act_ling.Grant(src)
+	var/datum/action/innate/terrorspider/queen/empress/empresserase/act_erase = new
+	act_erase.Grant(src)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/empress/spider_special_action()
 	return
+
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/empress/getSpiderLevel()
 	return 50
+
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/empress/NestMode()
 	..()
 	queeneggs_action.name = "Empress Eggs"
@@ -105,7 +105,7 @@
 	var/sbpc = tgui_input_number(usr, "Шанс быть мертворождённым?", "", 0, 100, 0)
 	if(!numlings || isnull(sbpc))
 		return
-	for(var/i=0, i<numlings, i++)
+	for(var/i in 1 to numlings)
 		var/obj/structure/spider/spiderling/terror_spiderling/S = new /obj/structure/spider/spiderling/terror_spiderling(get_turf(src))
 		S.grow_as = pick(/mob/living/simple_animal/hostile/poison/terror_spider/knight, \
 		/mob/living/simple_animal/hostile/poison/terror_spider/lurker, \
@@ -141,5 +141,5 @@
 	return 7
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/empress/weak/grant_actions()
-	empresserase_action = new()
-	empresserase_action.Grant(src)
+	var/datum/action/innate/terrorspider/queen/empress/empresserase/act_erase = new
+	act_erase.Grant(src)

@@ -1,0 +1,4 @@
+author: "DraumLord"
+delete-after: True
+changes:
+  - tweak: "Добавлен (возвращён из прошлого) оврелей алмазной руды (PR #9431)"

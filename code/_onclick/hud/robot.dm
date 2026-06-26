@@ -201,6 +201,17 @@
 	using.screen_loc = ui_borg_lawmanager
 	static_inventory += using
 
+/datum/hud/robot/Destroy(force)
+	var/mob/living/silicon/robot/myrob = mymob
+	myrob.inv1 = null
+	myrob.hands = null
+	myrob.inv2 = null
+	myrob.inv3 = null
+	myrob.lamp_button = null
+	myrob.thruster_button = null
+
+	return ..()
+
 /datum/hud/proc/toggle_show_robot_modules()
 	if(!isrobot(mymob))
 		return
