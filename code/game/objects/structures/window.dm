@@ -534,8 +534,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	if(painted)
 		return
 	painted = TRUE
-	density = FALSE
-	opacity = TRUE
+	set_opacity(TRUE)
 	paint_overlay = mutable_appearance(icon, icon_state, layer + 0.1)
 	paint_overlay.color = new_color
 	paint_overlay.alpha = 200
@@ -546,8 +545,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	if(!painted)
 		return
 	painted = FALSE
-	density = initial(density)
-	opacity = initial(opacity)
+	set_opacity(initial(opacity))
 	if(paint_overlay)
 		cut_overlay(paint_overlay)
 		paint_overlay = null
