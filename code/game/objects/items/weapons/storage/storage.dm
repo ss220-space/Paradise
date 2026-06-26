@@ -369,7 +369,7 @@
 			line_width = min(1 + storage_slots * ICON_SIZE_X, max(total_width + 32, BASE_STORAGE_WIDTH))
 
 	var/first_time = TRUE
-	if (!storage_boxes)
+	if(!storage_boxes)
 		return
 	for(var/mob/user as anything in storage_boxes)
 		var/ui_style
