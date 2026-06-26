@@ -363,3 +363,5 @@
 
 /// Called when item removed from storage. [/obj/item/storage/proc/remove_from_storage()]: (obj/item/W, atom/new_location)
 #define COMSIG_ITEM_REMOVED_FROM_STORAGE "removed_from_storage"
+
+#define COMSIG_WINDOW_PAINTED "window_painted"

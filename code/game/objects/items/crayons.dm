@@ -366,8 +366,20 @@
 /obj/item/toy/crayon/spraycan/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	if(!proximity_flag)
 		return
-
 	if(capped)
+		return
+
+	if(istype(target, /obj/structure/window))
+		if(!can_paint(target, user))
+			return
+
+		user.balloon_alert(user, "закрашивание")
+		if(!do_after(user, 5 SECONDS, target, NONE))
+			return
+
+		uses--
+		playsound(src, 'sound/effects/spray.ogg', 20, TRUE)
+		SEND_SIGNAL(target, COMSIG_WINDOW_PAINTED, colour)
 		return
 
 	if(iscarbon(target))
