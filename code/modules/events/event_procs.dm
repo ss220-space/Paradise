@@ -30,8 +30,6 @@ ADMIN_VERB(event_manager_panel, R_EVENT, "Event Manager Panel", "Event Manager P
 		//These are needed because /area/station/engineering has to be removed from the list, but we still want these areas to get fucked up.
 		var/list/allowed_areas = list(
 			/area/engineering/break_room,
-			/area/engineering/equipmentstorage,
-			/area/engineering/chiefs_office,
 			/area/engineering/controlroom,
 			/area/engineering/mechanic_workshop
 		)

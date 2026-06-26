@@ -281,7 +281,7 @@
 		var/area/A = get_area(nuke)
 
 		var/list/thousand_penalty = list(/area/wizard_station, /area/solar)
-		var/list/fiftythousand_penalty = list(/area/security/main, /area/security/brig, /area/security/armory, /area/security/checkpoint/south)
+		var/list/fiftythousand_penalty = list(/area/security/main, /area/security/brig, /area/security/securearmory, /area/security/checkpoint/south)
 
 		if(is_type_in_list(A, thousand_penalty))
 			scoreboard.nuked_penalty = 1000

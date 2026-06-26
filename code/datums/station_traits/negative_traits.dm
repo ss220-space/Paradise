@@ -307,7 +307,6 @@
 		/area/crew_quarters/hos,
 		/area/crew_quarters/chief,
 		/area/crew_quarters/courtroom,
-		/area/crew_quarters/recruit,
 	)
 
 /datum/station_trait/revolutionary_trashing/on_round_start()

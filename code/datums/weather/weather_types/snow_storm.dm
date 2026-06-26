@@ -25,10 +25,7 @@
 	protected_areas = list(
 		/area/maintenance,
 		/area/turret_protected/ai_upload,
-		/area/turret_protected/ai_upload_foyer,
 		/area/turret_protected/ai,
-		/area/storage/emergency,
-		/area/storage/emergency2,
 		/area/solar,
 		/area/toxins/test_area,
 		/area/engineering/engine,
@@ -37,7 +34,6 @@
 		/area/shuttle,
 		/area/space,
 		/area/coldcolony/malta,
-		/area/crew_quarters/bar/atrium/safe,
 		/area/toxins/xenobiology,
 	)
 
