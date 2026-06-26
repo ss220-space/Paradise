@@ -69,7 +69,7 @@ GLOBAL_LIST_EMPTY(unit_test_tguis)
 /datum/unit_test/Destroy()
 	QDEL_LIST(allocated)
 	// clear the whole test area, not just the bounds of the landmarks
-	for(var/turf/turf in get_area_turfs(/area/unit_test))
+	for(var/turf/turf in get_area_turfs(/area/misc/testroom))
 		for(var/atom/movable/target in turf)
 			qdel(target)
 

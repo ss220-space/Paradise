@@ -1,4 +1,4 @@
-/area/admin
+/area/centcom/admin_room
 	name = "Admin Room"
 	icon_state = "start"
 	requires_power = FALSE
@@ -8,7 +8,7 @@
 	has_gravity = STANDARD_GRAVITY
 	area_flags = NONE
 
-/area/adminconstruction
+/area/centcom/admin_room/construction
 	name = "Admin Testing Area"
 	icon_state = "start"
 	requires_power = FALSE

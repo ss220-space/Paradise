@@ -1,4 +1,4 @@
-/area/ninja
+/area/centcom/ninja
 	name = "Ninja Area Parent"
 	icon_state = "ninjabase"
 	requires_power = FALSE
@@ -10,15 +10,15 @@
 	nad_allowed = TRUE
 	area_flags = NONE
 
-/area/ninja/outpost
+/area/centcom/ninja/outpost
 	name = "SpiderClan Dojo"
 	icon_state = "ninja_dojo"
 
-/area/ninja/holding
+/area/centcom/ninja/holding
 	name = "SpiderClan Holding Facility"
 	icon_state = "ninja_holding"
 
-/area/ninja/outside
+/area/centcom/ninja/outside
 	name = "SpiderClan Territory"
 	icon_state = "ninja_outside"
 	sound_environment = SOUND_AREA_ASTEROID

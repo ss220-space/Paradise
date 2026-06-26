@@ -1,4 +1,4 @@
-/area/tdome
+/area/centcom/tdome
 	name = "THUNDERDOME"
 	icon_state = "thunder"
 	requires_power = FALSE
@@ -8,31 +8,31 @@
 	hide_attacklogs = TRUE
 	area_flags = NONE
 
-/area/tdome/arena_source
+/area/centcom/tdome/arena_source
 	name = "Thunderdome Arena Template"
 
-/area/tdome/arena
+/area/centcom/tdome/arena
 	name = "Thunderdome Arena"
 
-/area/tdome/tdome1
+/area/centcom/tdome/tdome1
 	name = "Thunderdome (Team 1)"
 	icon_state = "green"
 
-/area/tdome/tdome2
+/area/centcom/tdome/tdome2
 	name = "Thunderdome (Team 2)"
 	icon_state = "yellow"
 
-/area/tdome/tdomeadmin
+/area/centcom/tdome/administration
 	name = "Thunderdome (Admin.)"
 	icon_state = "purple"
 
-/area/tdome/tdomeobserve
+/area/centcom/tdome/observation
 	name = "Thunderdome (Observer.)"
 	icon_state = "purple"
 
-/area/tdome/newtdome
+/area/centcom/tdome/new_arena
 	name = "New Thunderdome Arena"
 
-/area/tdome/newtdome/CQC
+/area/centcom/tdome/new_arena/CQC
 	name = "New Thunderdome Arena - Close Combat"
 	icon_state = "thunderCQC"

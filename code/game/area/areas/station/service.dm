@@ -10,65 +10,65 @@
 	sound_environment = SOUND_AREA_STANDARD_STATION
 	holomap_color = HOLOMAP_AREACOLOR_SERVICE
 
-/area/civilian/barber
+/area/station/service/barber
 	name = "Barber Shop"
 	icon_state = "barber"
 
-/area/clownoffice
+/area/station/service/clown
 	name = "Clown's Office"
 	icon_state = "clown_office"
 	sound_environment = SOUND_ENVIRONMENT_PADDED_CELL
 	holomap_color = HOLOMAP_AREACOLOR_SERVICE
 
-/area/mimeoffice
+/area/station/service/mime
 	name = "Mime's Office"
 	icon_state = "mime_office"
 	holomap_color = HOLOMAP_AREACOLOR_SERVICE
 
-/area/library
+/area/station/service/library
 	name = "Library"
 	icon_state = "library"
 	sound_environment = SOUND_AREA_LARGE_SOFTFLOOR
 	holomap_color = HOLOMAP_AREACOLOR_SERVICE
 
-/area/library/game_zone
+/area/station/service/library/game_zone
 	name = "Library Games Room"
 
-/area/chapel
+/area/station/service/chapel
 	icon_state = "chapel"
 	ambience_index = AMBIENCE_HOLY
 	is_haunted = TRUE
 	holomap_color = HOLOMAP_AREACOLOR_SERVICE
 
-/area/chapel/main
+/area/station/service/chapel
 	name = "Chapel"
 
-/area/chapel/office
+/area/station/service/chapel/office
 	name = "Chapel Office"
 	icon_state = "chapeloffice"
 
-/area/chapel/morgue
+/area/station/service/chapel/morgue
 	name = "Chapel Morgue"
 
-/area/chapel/massdriver
+/area/station/service/chapel/massdriver
 	name = "Chapel Mass Driver"
 
-/area/crew_quarters/kitchen
+/area/station/service/kitchen
 	name = "Kitchen"
 	icon_state = "kitchen"
 	holomap_color = HOLOMAP_AREACOLOR_SERVICE
 
-/area/crew_quarters/bar
+/area/station/service/bar
 	name = "Bar"
 	icon_state = "barstation"
 	sound_environment = SOUND_AREA_WOODFLOOR
 	holomap_color = HOLOMAP_AREACOLOR_SERVICE
 
-/area/crew_quarters/bar/atrium
+/area/station/service/bar/atrium
 	name = "Atrium"
 	icon_state = "bar"
 
-/area/crew_quarters/theatre
+/area/station/service/theatre
 	name = "Theatre"
 	icon_state = "Theatre"
 	sound_environment = SOUND_AREA_WOODFLOOR

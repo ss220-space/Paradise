@@ -1,4 +1,4 @@
-/area/AIsattele
+/area/ruin/space/abandoned_tele
 	name = "Unknown Teleporter"
 	icon_state = "teleporter"
 	ambientsounds = list(

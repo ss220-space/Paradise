@@ -1,4 +1,4 @@
-/area/unit_test
+/area/misc/testroom
 	name = "Unit Test Room"
 	icon_state = "test_room"
 	requires_power = FALSE
@@ -8,7 +8,7 @@
 	base_lighting_alpha = 255
 
 // will be unused once kurper gets his login interface patch done
-/area/start
+/area/misc/start
 	name = "start area"
 	icon_state = "start"
 	requires_power = FALSE

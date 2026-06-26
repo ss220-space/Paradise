@@ -1,4 +1,4 @@
-/area/vox_station
+/area/centcom/vox_station
 	name = "Vox Base"
 	name = "База Воксов-Рейдеров"
 	icon_state = "yellow"

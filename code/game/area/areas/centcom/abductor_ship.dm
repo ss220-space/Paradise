@@ -1,4 +1,4 @@
-/area/abductor_ship
+/area/centcom/abductor_ship
 	name = "Abductor Ship"
 	icon_state = "yellow"
 	requires_power = FALSE

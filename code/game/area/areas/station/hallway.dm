@@ -121,7 +121,7 @@
 	icon_state = "escape"
 	holomap_color = HOLOMAP_AREACOLOR_ESCAPE
 
-/area/escapepodbay
+/area/station/hallway/secondary/exit/escape_pod
 	name = "Escape Shuttle Hallway Pod Bay"
 	icon_state = "escape"
 	holomap_color = HOLOMAP_AREACOLOR_HANGAR

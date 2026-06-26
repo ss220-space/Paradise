@@ -190,7 +190,7 @@
 			span_hear("Вы слышите громкий треск, когда сквозь вас проходит искажение."),
 		)
 
-		var/list/arrival_turfs = get_area_turfs(/area/centcom/evac)
+		var/list/arrival_turfs = get_area_turfs(/area/centcom/central_command_areas/evacuation)
 		var/turf/arrival_turf
 		do
 			arrival_turf = pick_n_take(arrival_turfs)

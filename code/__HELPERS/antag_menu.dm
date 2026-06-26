@@ -28,7 +28,7 @@
 			temp_list["status"] = "(МЁРТВ)"
 		else if(!antag_mind.current.client)
 			temp_list["status"] = "(КРС)"
-		if(istype(get_area(antag_mind.current), /area/security/permabrig))
+		if(istype(get_area(antag_mind.current), /area/station/security/prison/perma))
 			temp_list["status"] += "(ПЕРМА)"
 		// temp_list["ckey"] = antag_mind.current.client?.ckey
 	temp_list["ckey"] = ckey(antag_mind.key)

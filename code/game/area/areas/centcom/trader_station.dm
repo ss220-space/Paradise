@@ -1,4 +1,4 @@
-/area/trader_station
+/area/centcom/trader_station
 	name = "Trade Base"
 	icon_state = "yellow"
 	requires_power = FALSE
@@ -7,5 +7,5 @@
 	base_lighting_alpha = 255
 	area_flags = NONE
 
-/area/trader_station/sol
+/area/centcom/trader_station/sol
 	name = "Jupiter Station 6"

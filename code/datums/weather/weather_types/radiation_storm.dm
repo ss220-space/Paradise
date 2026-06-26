@@ -18,10 +18,10 @@
 	area_type = /area
 	protected_areas = list(
 		/area/maintenance,
-		/area/turret_protected/ai_upload,
-		/area/turret_protected/ai,
-		/area/crew_quarters/sleep,
-		/area/security/brig,
+		/area/station/ai/upload/chamber,
+		/area/station/ai/satellite/chamber,
+		/area/station/commons/sleep,
+		/area/station/security/brig,
 		/area/shuttle,
 		/area/coldcolony/malta/maintenance,
 		/area/coldcolony/malta/turret_protected,

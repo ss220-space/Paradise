@@ -1,72 +1,72 @@
-/area/engineering
+/area/station/engineering
 	ambience_index = AMBIENCE_ENGI
 	sound_environment = SOUND_AREA_LARGE_ENCLOSED
 	holomap_color = HOLOMAP_AREACOLOR_ENGINEERING
 
-/area/engineering/engine
+/area/station/engineering/engine
 	name = "Engineering"
 	icon_state = "engine_smes"
 
-/area/engineering/engine/monitor
+/area/station/engineering/monitor
 	name = "Engineering Monitoring Room"
 	icon_state = "engine_control"
 
-/area/engineering/break_room
+/area/station/engineering/break_room
 	name = "Engineering Foyer"
 	icon_state = "engine"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
-/area/engineering/aienter
+/area/station/engineering/transit_tube
 	name = "AI Sattelit Access Point"
 	icon_state = "engine"
 
-/area/engineering/hardsuitstorage
+/area/station/engineering/storage
 	name = "Engineering Hardsuit Storage"
 	icon_state = "storage"
 
-/area/engineering/controlroom
+/area/station/engineering/supermatter/room
 	name = "Engineering Control Room"
 	icon_state = "engine_control"
 
-/area/engineering/gravitygenerator
+/area/station/engineering/gravity_generator
 	name = "Gravity Generator"
 	icon_state = "engine"
 
-/area/engineering/mechanic_workshop
+/area/station/engineering/mechanic_workshop
 	name = "Mechanic Workshop"
 	icon_state = "engine"
 	holomap_color = HOLOMAP_AREACOLOR_HANGAR
 
-/area/engineering/mechanic_workshop/expedition
+/area/station/engineering/mechanic_workshop/expedition
 	name = "Hangar Expedition"
 
-/area/engineering/mechanic_workshop/hangar
+/area/station/engineering/mechanic_workshop/hangar
 	name = "Hangаr Bay"
 
-/area/engineering/supermatter
+/area/station/engineering/supermatter/engine
 	name = "Supermatter Engine"
 	icon_state = "engine"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
-/area/atmos
+/area/station/engineering/atmos
 	name = "Atmospherics"
 	icon_state = "atmos"
 	sound_environment = SOUND_AREA_LARGE_ENCLOSED
 	holomap_color = HOLOMAP_AREACOLOR_ENGINEERING
 
-/area/atmos/control
+/area/station/engineering/atmos/control
 	name = "Atmospherics Control Room"
 	sound_environment = SOUND_AREA_STANDARD_STATION
 
-/area/atmos/distribution
+/area/station/engineering/atmos/distribution
 	name = "Atmospherics Distribution Loop"
 
-/area/storage/tech
+/area/station/engineering/storage/tech
 	name = "Technical Storage"
 	icon_state = "auxstorage"
 	holomap_color = HOLOMAP_AREACOLOR_ENGINEERING
 
-/area/storage/secure
+/area/station/engineering/storage/secure
 	name = "Secure Storage"
 	icon_state = "storage"
 	ambience_index = AMBIENCE_DANGER

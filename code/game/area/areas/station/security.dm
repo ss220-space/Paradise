@@ -1,21 +1,21 @@
-/area/security
+/area/station/security
 	ambience_index = AMBIENCE_DANGER
 	sound_environment = SOUND_AREA_STANDARD_STATION
 	holomap_color = HOLOMAP_AREACOLOR_SECURITY
 
-/area/security/main
+/area/station/security/main
 	name = "Security Office"
 	icon_state = "securityoffice"
 
-/area/security/lobby
+/area/station/security/lobby
 	name = "Security Lobby"
 	icon_state = "securitylobby"
 
-/area/security/brig
+/area/station/security/brig
 	name = "Brig"
 	icon_state = "brig"
 
-/area/security/brig/prison_break()
+/area/station/security/brig/prison_break()
 	for(var/obj/structure/closet/secure_closet/brig/temp_closet in src)
 		temp_closet.locked = 0
 		temp_closet.update_icon()
@@ -23,18 +23,18 @@
 		temp_timer.releasetime = 1
 	return ..()
 
-/area/security/permabrig
+/area/station/security/prison/perma
 	name = "Prison Wing"
 	icon_state = "sec_prison_perma"
 	fast_despawn = TRUE
 	can_get_auto_cryod = FALSE
 
-/area/security/prison
+/area/station/security/prison
 	name = "Prison Wing"
 	icon_state = "sec_prison"
 	can_get_auto_cryod = FALSE
 
-/area/security/prison/prison_break()
+/area/station/security/prison/prison_break()
 	for(var/obj/structure/closet/secure_closet/brig/temp_closet in src)
 		temp_closet.locked = 0
 		temp_closet.update_icon()
@@ -42,89 +42,89 @@
 		temp_timer.releasetime = 1
 	return ..()
 
-/area/security/prison/cell_block
+/area/station/security/prison/cell_block
 	name = "Prison Cell Block"
 	icon_state = "brig"
 
-/area/security/prison/cell_block/A
+/area/station/security/prison/cell_block/secondary
 	name = "Prison Cell Block A"
 	icon_state = "brigcella"
 
-/area/security/reception
+/area/station/security/hallway/reception
 	name = "Brig Reception"
 	icon_state = "brig"
 
-/area/security/execution
+/area/station/security/hallway/execution
 	name = "Execution"
 	icon_state = "execution"
 	can_get_auto_cryod = FALSE
 
-/area/security/permahallway
+/area/station/security/hallway/perma
 	name = "Permabrig Hallway"
 	icon_state = "sec_prison_perma"
 
-/area/security/processing
+/area/station/security/processing
 	name = "Prisoner Processing"
 	icon_state = "prisonerprocessing"
 	can_get_auto_cryod = FALSE
 
-/area/security/interrogation
+/area/station/security/interrogation
 	name = "Interrogation"
 	icon_state = "interrogation"
 	can_get_auto_cryod = FALSE
 
-/area/security/seceqstorage
+/area/station/security/storage
 	name = "Security Equipment Storage"
 	icon_state = "securityequipmentstorage"
 
-/area/security/brigstaff
+/area/station/security/courtroom
 	name = "Brig Staff Room"
 	icon_state = "brig"
 
-/area/security/evidence
+/area/station/security/evidence
 	name = "Evidence Room"
 	icon_state = "evidence"
 
-/area/security/visiting_room
+/area/station/security/prison/visit
 	name = "Visiting Room"
 	icon_state = "visiting-room"
 
-/area/security/prisonlockers
+/area/station/security/prison/lockers
 	name = "Prisoner Lockers"
 	icon_state = "sec_prison_lockers"
 	can_get_auto_cryod = FALSE
 
-/area/security/medbay
+/area/station/security/medical
 	name = "Security Medbay"
 	icon_state = "security_medbay"
 
-/area/security/prisonershuttle
+/area/station/security/prisoner_shuttle
 	name = "Security Prisoner Shuttle"
 	icon_state = "security"
 	can_get_auto_cryod = FALSE
 
-/area/security/warden
+/area/station/security/warden
 	name = "Warden's Office"
 	icon_state = "Warden"
 	sound_environment = SOUND_AREA_SMALL_SOFTFLOOR
 
-/area/security/securearmory
+/area/station/security/hallway/armory
 	name = "Secure Armory"
 	icon_state = "secarmory"
 
-/area/security/securehallway
+/area/station/security/hallway/secure
 	name = "Brig Secure Hallway"
 	icon_state = "securehall"
 
-/area/security/hos
+/area/station/command/office/hos
 	name = "Head of Security's Office"
 	icon_state = "sec_hos"
 
-/area/security/podbay
+/area/station/security/podbay
 	name = "Security Podbay"
 	icon_state = "securitypodbay"
 
-/area/security/detectives_office
+/area/station/security/detectives_office
 	name = "Detective's Office"
 	icon_state = "detective"
 	ambientsounds = list(
@@ -132,42 +132,42 @@
 		'sound/ambience/security/ambidet2.ogg',
 	)
 
-/area/security/range
+/area/station/security/range
 	name = "Firing Range"
 	icon_state = "firingrange"
 
-/area/security/nuke_storage
+/area/station/command/vault
 	name = "Vault"
 	icon_state = "nuke_storage"
 	holomap_color = HOLOMAP_AREACOLOR_COMMAND
 
-/area/security/customs
+/area/station/security/customs
 	name = "Customs"
 	icon_state = "checkpoint1"
 
-/area/security/customs2
+/area/station/security/customs/secondary
 	name = "Customs"
 	icon_state = "security"
 
-/area/security/checkpoint
+/area/station/security/checkpoint
 	name = "Security Checkpoint"
 	icon_state = "checkpoint1"
 
-/area/security/checkpoint/south
+/area/station/security/checkpoint/south
 	name = "Escape Security Checkpoint"
 	icon_state = "security"
 
-/area/lawoffice
+/area/station/legal/office/law
 	name = "Law Office"
 	icon_state = "law"
 	sound_environment = SOUND_AREA_SMALL_SOFTFLOOR
 	holomap_color = HOLOMAP_AREACOLOR_SECURITY
 
-/area/bridge/checkpoint
+/area/station/security/checkpoint/customs
 	name = "Command Checkpoint"
 
-/area/bridge/checkpoint/north
+/area/station/security/checkpoint/fore
 	name = "North Command Checkpoint"
 
-/area/bridge/checkpoint/south
+/area/station/security/checkpoint/aft
 	name = "South Command Checkpoint"

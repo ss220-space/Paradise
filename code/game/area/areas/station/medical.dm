@@ -1,115 +1,115 @@
-/area/medical
+/area/station/medical
 	ambience_index = AMBIENCE_MEDICAL
 	sound_environment = SOUND_AREA_STANDARD_STATION
 	holomap_color = HOLOMAP_AREACOLOR_MEDICAL
 
-/area/medical/medbay
+/area/station/medical/medbay
 	name = "Medbay"
 	icon_state = "medbay"
 
 // Medbay is a large area, these additional areas help level out APC load. wtf dude, nobody use THIS MUCH ZONES
-/area/medical/medbay2
+/area/station/medical/secondary
 	name = "Medbay"
 	icon_state = "medbay2"
 
-/area/medical/biostorage
+/area/station/medical/storage/bio
 	name = "Medical Storage"
 	icon_state = "medbaysecstorage"
 
-/area/medical/reception
+/area/station/medical/reception
 	name = "Medbay Reception"
 	icon_state = "medbay"
 
-/area/medical/psych
+/area/station/medical/psych
 	name = "Psych Room"
 	icon_state = "medbaypsych"
 
-/area/medical/medbreak
+/area/station/medical/break_room
 	name = "Break Room"
 	icon_state = "medbaybreak"
 
-/area/medical/medrest
+/area/station/medical/break_room
 	name = "Med Restroom"
 	icon_state = "medbaybreak"
 
-/area/medical/patients_rooms
+/area/station/medical/patients_rooms
 	name = "Patient's Rooms"
 	icon_state = "patients"
 	sound_environment = SOUND_AREA_SMALL_SOFTFLOOR
 
-/area/medical/ward
+/area/station/medical/ward
 	name = "Medbay Patient Ward"
 	icon_state = "patientsward"
 
-/area/medical/cmo
+/area/station/command/office/cmo
 	name = "Chief Medical Officer's Office"
 	icon_state = "CMO"
 
-/area/medical/cmostore
+/area/station/medical/storage
 	name = "Medical Secondary Storage"
 	icon_state = "medbaysecstorage"
 
-/area/medical/research
+/area/station/science/research/lobby
 	name = "Research Division"
 	icon_state = "research"
 	holomap_color = HOLOMAP_AREACOLOR_SCIENCE
 
-/area/medical/research/nhallway
+/area/station/science/research
 	name = "RnD North Hallway"
 
-/area/medical/research/shallway
+/area/station/science/robotics
 	name = "RnD South Hallway"
 
-/area/medical/research/restroom
+/area/station/science/break_room
 	name = "RnD Restroom"
 
-/area/medical/virology
+/area/station/medical/virology
 	name = "Virology"
 	icon_state = "virology"
 	ambience_index = AMBIENCE_VIROLOGY
 
-/area/medical/virology/lab
+/area/station/medical/virology/lab
 	name = "Virology Laboratory"
 
-/area/medical/morgue
+/area/station/medical/morgue
 	name = "Morgue"
 	icon_state = "morgue"
 	ambience_index = AMBIENCE_SPOOKY
 	is_haunted = TRUE
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
-/area/medical/chemistry
+/area/station/medical/chemistry
 	name = "Chemistry"
 	icon_state = "chem"
 
-/area/medical/surgery
+/area/station/medical/surgery
 	name = "Surgery"
 	icon_state = "surgery"
 
-/area/medical/surgery/north
+/area/station/medical/surgery/north
 	name = "Surgery 1"
 	icon_state = "surgery1"
 
-/area/medical/surgery/south
+/area/station/medical/surgery/south
 	name = "Surgery 2"
 	icon_state = "surgery2"
 
-/area/medical/cryo
+/area/station/medical/cryo
 	name = "Cryogenics"
 	icon_state = "cryo"
 
-/area/medical/genetics
+/area/station/science/genetics
 	name = "Genetics Lab"
 	icon_state = "genetics"
 
-/area/medical/cloning
+/area/station/medical/cloning
 	name = "Cloning Lab"
 	icon_state = "cloning"
 
-/area/medical/sleeper
+/area/station/medical/sleeper
 	name = "Medical Treatment Center"
 	icon_state = "exam_room"
 
-/area/medical/paramedic
+/area/station/medical/paramedic
 	name = "Paramedic"
 	icon_state = "medbay"
