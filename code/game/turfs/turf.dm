@@ -377,25 +377,24 @@
 	if(!GLOB.use_preloader && path == type) // Don't no-op if the map loader requires it to be reconstructed
 		return src
 
-	set_light_on(FALSE)
-	var/old_opacity = opacity
 	var/old_lighting_object = lighting_object
-	var/old_blueprint_data = blueprint_data
-	var/old_directional_opacity = directional_opacity
-	var/old_dynamic_lumcount = dynamic_lumcount
 	var/old_lighting_corner_NE = lighting_corner_NE
 	var/old_lighting_corner_SE = lighting_corner_SE
 	var/old_lighting_corner_SW = lighting_corner_SW
 	var/old_lighting_corner_NW = lighting_corner_NW
-	var/old_type = type
+	var/old_directional_opacity = directional_opacity
+	var/old_dynamic_lumcount = dynamic_lumcount
+	var/old_opacity = opacity
 	// I'm so sorry brother
 	// This is used for a starlight optimization
 	var/old_light_range = light_range
 
+	var/old_blueprint_data = blueprint_data
+
 	BeforeChange()
 
 	var/old_baseturf = baseturf
-
+	var/old_type = type
 	var/datum/weakref/old_ref = weak_reference
 	weak_reference = null
 
@@ -403,9 +402,9 @@
 	SEND_SIGNAL(src, COMSIG_TURF_CHANGE, path, post_change_callbacks)
 
 	changing_turf = TRUE
-	qdel(src)	//Just get the side effects and call Destroy
+	qdel(src) //Just get the side effects and call Destroy
 	//We do this here so anything that doesn't want to persist can clear itself
-	var/list/old_comp_lookup = _listen_lookup?.Copy()
+	var/list/old_listen_lookup = _listen_lookup?.Copy()
 	var/list/old_signal_procs = _signal_procs?.Copy()
 	var/carryover_turf_flags = (RESERVATION_TURF | UNUSED_RESERVATION_TURF) & turf_flags
 	var/turf/new_turf = new path(src)
@@ -414,8 +413,8 @@
 	// WARNING WARNING
 	// Turfs DO NOT lose their signals when they get replaced, REMEMBER THIS
 	// It's possible because turfs are fucked, and if you have one in a list and it's replaced with another one, the list ref points to the new turf
-	if(old_comp_lookup)
-		LAZYOR(new_turf._listen_lookup, old_comp_lookup)
+	if(old_listen_lookup)
+		LAZYOR(new_turf._listen_lookup, old_listen_lookup)
 	if(old_signal_procs)
 		LAZYOR(new_turf._signal_procs, old_signal_procs)
 
@@ -438,15 +437,6 @@
 	dynamic_lumcount = old_dynamic_lumcount
 
 	new_turf.weak_reference = old_ref
-
-	// we need to refresh gravity for all living mobs to cover possible gravity change
-	for(var/mob/living/mob in contents)
-		if(HAS_TRAIT(mob, TRAIT_NEGATES_GRAVITY))
-			if(!isgroundlessturf(src))
-				ADD_TRAIT(mob, TRAIT_IGNORING_GRAVITY, IGNORING_GRAVITY_NEGATION)
-			else
-				REMOVE_TRAIT(mob, TRAIT_IGNORING_GRAVITY, IGNORING_GRAVITY_NEGATION)
-		mob.refresh_gravity()
 
 	if(SSlighting.initialized)
 		// Space tiles should never have lighting objects
@@ -498,6 +488,15 @@
 		if(our_area.lighting_effects)
 			new_turf.add_overlay(our_area.lighting_effects[SSmapping.z_level_to_plane_offset[z] + 1])
 
+	// we need to refresh gravity for all living mobs to cover possible gravity change
+	for(var/mob/living/mob in new_turf.contents)
+		if(HAS_TRAIT(mob, TRAIT_NEGATES_GRAVITY))
+			if(!isgroundlessturf(src))
+				ADD_TRAIT(mob, TRAIT_IGNORING_GRAVITY, IGNORING_GRAVITY_NEGATION)
+			else
+				REMOVE_TRAIT(mob, TRAIT_IGNORING_GRAVITY, IGNORING_GRAVITY_NEGATION)
+		mob.refresh_gravity()
+
 	return new_turf
 
 /turf/proc/BeforeChange()
@@ -507,20 +506,21 @@
 	return FALSE
 
 // I'm including `ignore_air` because BYOND lacks positional-only arguments
-/turf/proc/AfterChange(flags, oldType = null) //called after a turf has been replaced in ChangeTurf()
+/// Called after a turf has been replaced in ChangeTurf()
+/turf/proc/AfterChange(flags, oldType = null)
 	levelupdate()
 	initialize_milla()
 	recalculate_atmos_connectivity()
 
 	//update firedoor adjacency
 	var/list/turfs_to_check = get_adjacent_open_turfs(src) | src
-	for(var/turf/T in turfs_to_check)
-		for(var/obj/machinery/door/firedoor/FD in T)
-			FD.CalculateAffectingAreas()
+	for(var/turf/neighbor_turf in turfs_to_check)
+		for(var/obj/machinery/door/firedoor/firedoor in neighbor_turf)
+			firedoor.CalculateAffectingAreas()
 
 	if(!(flags & CHANGETURF_KEEP_CABLING) && !can_have_cabling())
-		for(var/obj/structure/cable/C in contents)
-			qdel(C)
+		for(var/obj/structure/cable/cable in contents)
+			qdel(cable)
 
 /turf/proc/ReplaceWithLattice()
 	ChangeTurf(baseturf)

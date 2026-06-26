@@ -96,8 +96,8 @@ GLOBAL_LIST_EMPTY(starlight)
 	..()
 	var/datum/space_level/space_level = GLOB.space_manager.get_zlev(z)
 	space_level.remove_from_transit(src)
-	if(light_sources) // Turn off starlight, if present
-		set_light_on(FALSE)
+	//if(light_sources) // Turn off starlight, if present
+	//	set_light_on(FALSE)
 
 /turf/space/AfterChange(flags = NONE, oldType)
 	..()

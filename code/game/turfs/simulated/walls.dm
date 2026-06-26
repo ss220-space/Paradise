@@ -54,7 +54,7 @@
 /turf/simulated/wall/BeforeChange()
 	for(var/obj/effect/overlay/wall_rot/WR in src)
 		qdel(WR)
-	. = ..()
+	return ..()
 
 /turf/simulated/wall/Initialize(mapload)
 	. = ..()

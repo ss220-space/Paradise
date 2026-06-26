@@ -145,5 +145,8 @@
 /atom/movable/lighting_object/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback, force, dodgeable)
 	return
 
+/atom/movable/lighting_object/onShuttleMove()
+	return FALSE
+
 /atom/movable/lighting_object/ref_search_details()
 	return "[UID_of(src)] (turf: [affected_turf ? "[affected_turf.type] @ [AREACOORD(affected_turf)]" : "null"] needs_update: [needs_update ? "true" : "false"])"

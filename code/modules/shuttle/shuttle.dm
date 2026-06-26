@@ -268,7 +268,7 @@
 	. = ..()
 
 	var/area/A = get_area(src)
-	if(istype(A, /area/shuttle))
+	if(is_area_shuttle(A))
 		areaInstance = A
 
 	if(!areaInstance)

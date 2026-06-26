@@ -59,6 +59,9 @@ This applies to all STANDARD station areas
 
 /area/space/nearstation
 	icon_state = "space_near"
+	static_lighting = TRUE
+	base_lighting_alpha = 0
+	base_lighting_color = null
 
 /area/space/planetary
 	icon_state = "space_planet"

@@ -82,6 +82,3 @@
 // Holy shit go away
 /obj/effect/abstract/z_holder/onShuttleMove()
 	return FALSE
-
-/atom/movable/lighting_object/onShuttleMove()
-	return FALSE
