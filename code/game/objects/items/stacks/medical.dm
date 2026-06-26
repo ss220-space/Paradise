@@ -365,7 +365,7 @@
 	amount = 1
 	max_amount = 1
 	heal_brute = 0
-	bleedsuppress = 10
+	bleedsuppress = 3
 	stop_bleeding = 300 SECONDS
 	merge_type = /obj/item/stack/medical/bruise_pack/military
 	custom_premium_price = PAYCHECK_CREW
@@ -830,7 +830,7 @@
 	icon_state = "suture_3"
 	item_state = "suture"
 	origin_tech = "biotech=3"
-	var/bleeding_heal = 10
+	var/bleeding_heal = 5
 	var/damage = 5
 	use_flags = DA_IGNORE_LYING
 	energy_type = /datum/robot_energy_storage/medical
@@ -912,6 +912,7 @@
 	amount = 10
 	max_amount = 10
 	heal_brute = 10
+	bleeding_heal = 10
 	damage = 0
 	merge_type = /obj/item/stack/medical/suture/advanced
 	custom_premium_price = PAYCHECK_LOWER
