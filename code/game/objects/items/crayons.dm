@@ -377,6 +377,9 @@
 		if(!do_after(user, 5 SECONDS, target, NONE))
 			return
 
+		if(!can_paint(target, user))
+			return
+
 		uses--
 		playsound(src, 'sound/effects/spray.ogg', 20, TRUE)
 		SEND_SIGNAL(target, COMSIG_WINDOW_PAINTED, colour)
