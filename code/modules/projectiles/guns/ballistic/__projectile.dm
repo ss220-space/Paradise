@@ -76,10 +76,10 @@
 
 /obj/item/gun/projectile/handle_chamber(eject_casing = TRUE, empty_chamber = TRUE)
 	var/obj/item/ammo_casing/hold_casing = chambered //Find chambered round
-	if(isnull(hold_casing) || !istype(hold_casing))
+	if(!istype(hold_casing))
 		chamber_round()
 		return
-	if(eject_casing)
+	if(eject_casing && !QDELETED(hold_casing))
 		hold_casing.forceMove(drop_location())	//Eject casing onto ground.
 		hold_casing.pixel_x = rand(-10, 10)
 		hold_casing.pixel_y = rand(-10, 10)

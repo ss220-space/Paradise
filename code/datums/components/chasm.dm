@@ -226,7 +226,7 @@
 
 	if(isrobot(dropped_thing))
 		var/mob/living/silicon/robot/robot = dropped_thing
-		qdel(robot.mmi)
+		QDEL_NULL(robot.mmi)
 		qdel(dropped_thing)
 		falling_atoms -= falling_ref
 		return

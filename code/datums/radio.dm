@@ -80,6 +80,10 @@ GLOBAL_LIST_EMPTY(all_radios)
 	var/list/devices_line = devices[filter]
 	if(!devices_line)
 		devices[filter] = devices_line = list()
+
+	if(new_listener in devices_line)
+		return
+
 	devices_line += new_listener
 
 /// Handles removing a listener from this radio frequency.

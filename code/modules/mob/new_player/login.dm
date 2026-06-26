@@ -47,7 +47,7 @@
 
 	SStitle.show_title_screen_to(client)
 
-	client.playtitlemusic()
+	client?.playtitlemusic()
 
 /mob/new_player/proc/whitelist_check()
 	// Admins are immune to overflow rerouting

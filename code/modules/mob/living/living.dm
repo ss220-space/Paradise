@@ -33,6 +33,8 @@
 	GLOB.mob_living_list += src
 
 /mob/living/Destroy()
+	if(leaned_object)
+		stop_leaning()
 	for(var/s in ownedSoullinks)
 		var/datum/soullink/S = s
 		S.ownerDies(FALSE)
@@ -55,7 +57,10 @@
 			else
 				S.be_replaced()
 	GLOB.mob_living_list -= src
-	GLOB.respawnable_list -= src
+	remove_from_respawnable_list()
+	QDEL_NULL(middleClickOverride)
+	if(mind?.current == src)
+		mind.current = null
 	return ..()
 
 // Used to determine the forces dependend on the mob size

@@ -41,7 +41,7 @@
 	STOP_PROCESSING(SSobj, src)
 	core?.forceMove(get_turf(src))
 	core = null
-	QDEL_LAZYLIST(synth_reagents)
+	QDEL_LIST(synth_reagents)
 	qdel(ready_reagents)
 	return ..()
 
