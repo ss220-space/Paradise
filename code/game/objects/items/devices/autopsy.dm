@@ -195,7 +195,12 @@
 	user.put_in_hands(paper, ignore_anim = FALSE)
 
 /obj/item/autopsy_scanner/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
-	if(!ishuman(target) || !on_operable_surface(target))
+	if(!ishuman(target))
+		target.balloon_alert(user, "неправильная цель")
+		return ATTACK_CHAIN_PROCEED
+
+	if(!on_operable_surface(target))
+		target.balloon_alert(user, "нельзя сканировать на этой поверхности!")
 		return ATTACK_CHAIN_PROCEED
 
 	. = ATTACK_CHAIN_PROCEED_SUCCESS
