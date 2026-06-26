@@ -358,6 +358,10 @@
 				Реальность покорится ВЛАДЫКЕ НОЧИ или будет разрушена! СТАНЬТЕ СВИДЕТЕЛЯМИ МОЕГО ВОЗНЕСЕНИЯ!"
 	required_atoms = list(/mob/living/carbon/human = 4)
 	//ascension_achievement = /datum/award/achievement/misc/flesh_ascension
+	// tg derives the ascension node's tree icon from its achievement medal sprite; we point straight at
+	// that same medal sheet (state "fleshascend") since the achievement system itself isn't ported.
+	research_tree_icon_path = 'icons/ui/achievements/achievements.dmi'
+	research_tree_icon_state = "fleshascend"
 	announcement_text = "%SPOOKY% Реальность развернулась. ВОЗДЕНЬТЕ РУКИ К НЕБУ И ПОПРИВЕТСТВУЙТЕ, ВЛАДЫКУ НОЧИ! %NAME% вознесся! %SPOOKY%"
 	announcement_sound = 'sound/music/heretic/ascend_flesh.ogg'
 
