@@ -253,9 +253,8 @@ GLOBAL_ALIST_INIT(huds, alist(
 
 	var/turf/atom_turf = get_turf(hud_atom_to_remove)
 	if(!atom_turf)
-		for(var/z, list in hud_atoms)
-			var/list/huds_list = list
-			LAZYREMOVE(huds_list, hud_atom_to_remove)
+		for(var/z in 1 to length(hud_atoms))
+			LAZYREMOVE(hud_atoms[z], hud_atom_to_remove)
 		return TRUE
 
 	hud_atoms[atom_turf.z] -= hud_atom_to_remove
