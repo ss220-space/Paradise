@@ -43,6 +43,10 @@
 	},
 /turf/simulated/floor/mineral/titanium/purple,
 /area/fastload/purple)
+"hz" = (
+/obj/structure/bed,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
 "jk" = (
 /turf/simulated/wall/indestructible/reinforced,
 /area/fastload/blue)
@@ -61,6 +65,14 @@
 /obj/machinery/door/airlock/engineering,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/fastload)
+"kP" = (
+/mob/living/carbon/human,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
+"kZ" = (
+/obj/item/gun/projectile/automatic/l6_saw,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
 "nd" = (
 /obj/structure/rack,
 /obj/item/stack/sheet/metal/fifty,
@@ -88,6 +100,10 @@
 /obj/machinery/light,
 /turf/simulated/floor/mineral/titanium/purple,
 /area/fastload/purple)
+"se" = (
+/obj/item/storage/box/enforcer_lethal,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
 "sP" = (
 /obj/machinery/light{
 	dir = 1
@@ -143,6 +159,10 @@
 	},
 /turf/simulated/floor/mineral/titanium/purple,
 /area/fastload/purple)
+"Bb" = (
+/obj/item/autopsy_scanner,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
 "By" = (
 /obj/machinery/light{
 	dir = 8
@@ -206,6 +226,14 @@
 "Pd" = (
 /turf/simulated/openspace,
 /area/fastload)
+"Qr" = (
+/obj/item/kitchen/knife/combat,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
+"QD" = (
+/obj/item/melee/baseball_bat,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
 "QS" = (
 /obj/machinery/station_map/security/directional/north,
 /turf/simulated/floor/mineral/titanium/blue,
@@ -2267,9 +2295,9 @@ HE
 HE
 HE
 HE
-HE
-HE
-HE
+hz
+kP
+Bb
 HE
 HE
 HE
@@ -2333,10 +2361,10 @@ HE
 HE
 HE
 HE
-HE
-HE
-HE
-HE
+kZ
+se
+Qr
+QD
 HE
 HE
 HE
