@@ -1,5 +1,5 @@
 // Telecommunications Satellite
-/area/tcommsat
+/area/station/telecomms
 	ambientsounds = list(
 		'sound/ambience/engineering/ambisin2.ogg',
 		'sound/ambience/misc/signal.ogg',
@@ -12,11 +12,11 @@
 	)
 	holomap_color = HOLOMAP_AREACOLOR_COMMAND
 
-/area/tcommsat/chamber
+/area/station/telecomms/chamber
 	name = "Telecoms Central Compartment"
 	icon_state = "tcomms"
 
 // On-Station Telecommunications Areas
-/area/tcommsat/server
+/area/station/telecomms/server
 	name = "Telecoms Server Room"
 	icon_state = "tcomms"

@@ -51,8 +51,6 @@
 /area/station/engineering/atmos
 	name = "Atmospherics"
 	icon_state = "atmos"
-	sound_environment = SOUND_AREA_LARGE_ENCLOSED
-	holomap_color = HOLOMAP_AREACOLOR_ENGINEERING
 
 /area/station/engineering/atmos/control
 	name = "Atmospherics Control Room"
@@ -64,10 +62,7 @@
 /area/station/engineering/storage/tech
 	name = "Technical Storage"
 	icon_state = "auxstorage"
-	holomap_color = HOLOMAP_AREACOLOR_ENGINEERING
 
 /area/station/engineering/storage/secure
 	name = "Secure Storage"
-	icon_state = "storage"
 	ambience_index = AMBIENCE_DANGER
-	holomap_color = HOLOMAP_AREACOLOR_ENGINEERING

@@ -17,7 +17,7 @@
 	var/static/list/spawn_areas = list(
 		/area/station/service/kitchen,
 		/area/station/engineering/atmos,
-		/area/maintenance/incinerator,
+		/area/station/maintenance/incinerator,
 		/area/station/service/chapel,
 		/area/station/service/library,
 		/area/hydroponics,

@@ -1,12 +1,7 @@
 /area/centcom/tdome
 	name = "THUNDERDOME"
 	icon_state = "thunder"
-	requires_power = FALSE
-	has_gravity = STANDARD_GRAVITY
-	static_lighting = FALSE
-	base_lighting_alpha = 255
 	hide_attacklogs = TRUE
-	area_flags = NONE
 
 /area/centcom/tdome/arena_source
 	name = "Thunderdome Arena Template"
@@ -33,6 +28,6 @@
 /area/centcom/tdome/new_arena
 	name = "New Thunderdome Arena"
 
-/area/centcom/tdome/new_arena/CQC
+/area/centcom/tdome/new_arena/cqc
 	name = "New Thunderdome Arena - Close Combat"
 	icon_state = "thunderCQC"

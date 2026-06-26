@@ -9,8 +9,6 @@
 	name = "Pet Store"
 	icon_state = "pet_store"
 
-
-
 /area/station/commons
 	name = "Dormitories"
 	icon_state = "Sleep"

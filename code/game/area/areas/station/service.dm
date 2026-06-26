@@ -40,9 +40,6 @@
 	is_haunted = TRUE
 	holomap_color = HOLOMAP_AREACOLOR_SERVICE
 
-/area/station/service/chapel
-	name = "Chapel"
-
 /area/station/service/chapel/office
 	name = "Chapel Office"
 	icon_state = "chapeloffice"

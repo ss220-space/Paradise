@@ -23,7 +23,7 @@
 	area_type = /area
 	target_trait = ZTRAIT_SNOWSTORM
 	protected_areas = list(
-		/area/maintenance,
+		/area/station/maintenance,
 		/area/station/ai/upload/chamber,
 		/area/station/ai/satellite/chamber,
 		/area/station/solars,

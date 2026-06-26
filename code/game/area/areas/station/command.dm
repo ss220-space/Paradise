@@ -63,9 +63,6 @@
 /area/station/command/office/captain/bedroom
 	name = "Captain's Bedroom"
 
-/area/station/command/office/hop
-	name = "Head of Personnel's Quarters"
-
 /area/station/legal/courtroom
 	name = "Courtroom"
 	icon_state = "courtroom"

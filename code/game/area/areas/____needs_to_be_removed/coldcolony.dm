@@ -679,6 +679,5 @@
 // Malta event map
 /area/ruin/unpowered/coldcolony_outside
 	name = "Surface"
-	always_unpowered = TRUE
 	ignore_gravgen = TRUE
 	outdoors = TRUE

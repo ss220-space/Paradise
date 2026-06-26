@@ -21,7 +21,7 @@ ADMIN_VERB(event_manager_panel, R_EVENT, "Event Manager Panel", "Event Manager P
 			/area/station/engineering,
 			/area/holodeck,
 			/area/shuttle,
-			/area/maintenance,
+			/area/station/maintenance,
 			/area/station/science/toxins/test,
 			/area/space,
 			/area/station/solars,

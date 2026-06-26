@@ -1312,7 +1312,7 @@
 
 GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 	/area/station/service/chapel,
-	/area/maintenance/chapel
+	/area/station/maintenance/chapel
 )))
 
 /mob/proc/holy_check()

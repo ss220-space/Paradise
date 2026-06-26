@@ -24,10 +24,9 @@
 	return ..()
 
 /area/station/security/prison/perma
-	name = "Prison Wing"
+	name = "Perma Prison Wing"
 	icon_state = "sec_prison_perma"
 	fast_despawn = TRUE
-	can_get_auto_cryod = FALSE
 
 /area/station/security/prison
 	name = "Prison Wing"
@@ -92,7 +91,6 @@
 /area/station/security/prison/lockers
 	name = "Prisoner Lockers"
 	icon_state = "sec_prison_lockers"
-	can_get_auto_cryod = FALSE
 
 /area/station/security/medical
 	name = "Security Medbay"
@@ -115,10 +113,6 @@
 /area/station/security/hallway/secure
 	name = "Brig Secure Hallway"
 	icon_state = "securehall"
-
-/area/station/command/office/hos
-	name = "Head of Security's Office"
-	icon_state = "sec_hos"
 
 /area/station/security/podbay
 	name = "Security Podbay"
@@ -146,7 +140,7 @@
 	icon_state = "checkpoint1"
 
 /area/station/security/customs/secondary
-	name = "Customs"
+	name = "Customs Secondary"
 	icon_state = "security"
 
 /area/station/security/checkpoint

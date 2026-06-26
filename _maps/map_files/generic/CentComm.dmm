@@ -40962,7 +40962,7 @@
 /area/centcom/central_command_areas/zone/three)
 "sHW" = (
 /obj/docking_port/stationary{
-	area_type = /area/syndicate_mothership;
+	area_type = /area/centcom/syndicate_base;
 	dir = 2;
 	dwidth = 11;
 	height = 18;
@@ -47241,7 +47241,7 @@
 	},
 /obj/structure/fans/tiny/invisible,
 /obj/docking_port/stationary{
-	area_type = /area/ninja/outside;
+	area_type = /area/centcom/ninja/outside;
 	dheight = 2;
 	dir = 2;
 	dwidth = 4;
@@ -50610,7 +50610,7 @@
 	},
 /obj/structure/lattice/catwalk,
 /obj/docking_port/stationary{
-	area_type = /area/syndicate_mothership;
+	area_type = /area/centcom/syndicate_base;
 	dwidth = 8;
 	height = 22;
 	id = "syndicate_away";

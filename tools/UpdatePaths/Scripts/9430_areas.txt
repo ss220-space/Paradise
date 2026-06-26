@@ -127,8 +127,6 @@
 /area/maintenance/portsolar : /area/station/maintenance/solars/port/aft
 /area/maintenance/auxsolarstarboard : /area/station/maintenance/solars/starboard/fore
 
-/area/maintenance/@SUBTYPES : /area/station/maintenance/@SUBTYPES{@OLD}
-
 /area/service/hydroponics : /area/station/service/hydroponics
 /area/service/janitor : /area/station/service/janitor
 
@@ -226,8 +224,6 @@
 /area/atmos/control : /area/station/engineering/atmos/control
 /area/atmos/distribution : /area/station/engineering/atmos/distribution
 
-/area/hallway/@SUBTYPES : /area/station/hallway/@SUBTYPES{@OLD}
-
 /area/civilian/barber : /area/station/service/barber
 /area/civilian/vacantoffice : /area/station/commons/vacant_office
 /area/civilian/pet_store : /area/station/commons/pet_store
@@ -297,3 +293,6 @@
 /area/crew_quarters/fitness : /area/station/commons/fitness
 /area/crew_quarters/dorms : /area/station/commons/dorms
 /area/crew_quarters/trading : /area/station/commons/trading
+
+/area/maintenance/@SUBTYPES : /area/station/maintenance/@SUBTYPES{@OLD}
+/area/hallway/@SUBTYPES : /area/station/hallway/@SUBTYPES{@OLD}

@@ -1213,6 +1213,7 @@
 #include "code\game\area\areas\ruins\spaceprison.dm"
 #include "code\game\area\areas\ruins\ussp_space_banya.dm"
 #include "code\game\area\areas\ruins\way_home.dm"
+#include "code\game\area\areas\station\_station.dm"
 #include "code\game\area\areas\station\ai.dm"
 #include "code\game\area\areas\station\cargo.dm"
 #include "code\game\area\areas\station\command.dm"

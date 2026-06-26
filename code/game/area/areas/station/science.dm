@@ -6,10 +6,6 @@
 	name = "Research and Development"
 	icon_state = "toxlab"
 
-/area/station/command/office/rd
-	name = "Research Director's Office"
-	icon_state = "head_quarters"
-
 /area/station/science/xenobiology
 	name = "Xenobiology Lab"
 	icon_state = "toxmix"
@@ -55,10 +51,6 @@
 
 /area/station/science/explab/chamber
 	name = "E.X.P.E.R.I-MENTOR Chamber"
-	icon_state = "toxmisc"
-
-/area/assembly
-	holomap_color = HOLOMAP_AREACOLOR_SCIENCE
 
 /area/station/science/robotics/chargebay
 	name = "Mech Bay"
@@ -67,7 +59,3 @@
 /area/station/science/robotics/showroom
 	name = "Robotics Showroom"
 	icon_state = "showroom"
-
-/area/station/science/robotics
-	name = "Robotics Lab"
-	icon_state = "ass_line"

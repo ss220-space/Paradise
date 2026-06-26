@@ -14,7 +14,6 @@
 
 /area/station/medical/storage/bio
 	name = "Medical Storage"
-	icon_state = "medbaysecstorage"
 
 /area/station/medical/reception
 	name = "Medbay Reception"
@@ -23,10 +22,6 @@
 /area/station/medical/psych
 	name = "Psych Room"
 	icon_state = "medbaypsych"
-
-/area/station/medical/break_room
-	name = "Break Room"
-	icon_state = "medbaybreak"
 
 /area/station/medical/break_room
 	name = "Med Restroom"
@@ -52,7 +47,6 @@
 /area/station/science/research/lobby
 	name = "Research Division"
 	icon_state = "research"
-	holomap_color = HOLOMAP_AREACOLOR_SCIENCE
 
 /area/station/science/research
 	name = "RnD North Hallway"

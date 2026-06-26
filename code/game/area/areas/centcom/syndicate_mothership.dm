@@ -1,13 +1,7 @@
 /area/centcom/syndicate_base
 	name = "Syndicate Forward Base"
 	icon_state = "syndie-ship"
-	requires_power = FALSE
-	has_gravity = STANDARD_GRAVITY
-	static_lighting = FALSE
-	base_lighting_alpha = 255
-	nad_allowed = TRUE
 	ambience_index = AMBIENCE_DANGER
-	area_flags = NONE
 
 /area/centcom/syndicate_base/outside
 	name = "Syndicate Controlled Territory"

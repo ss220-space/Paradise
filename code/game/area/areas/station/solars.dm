@@ -5,6 +5,7 @@
 	sound_environment = SOUND_AREA_SPACE
 	static_lighting = FALSE
 	base_lighting_alpha = 255
+	holomap_color = HOLOMAP_AREACOLOR_ENGINEERING
 
 /area/station/solars/port/fore
 	name = "North-West Solar Array"
@@ -30,24 +31,18 @@
 /area/station/maintenance/solars/port/fore
 	name = "North-West Solar Maintenance"
 	icon_state = "SolarcontrolA"
-	holomap_color = HOLOMAP_AREACOLOR_ENGINEERING
 
 /area/station/maintenance/solars/starboard
 	name = "East Solar Maintenance"
 	icon_state = "SolarcontrolS"
-	holomap_color = HOLOMAP_AREACOLOR_ENGINEERING
 
 /area/station/maintenance/solars/starboard/aft
 	name = "South-East Solar Maintenance"
-	icon_state = "SolarcontrolS"
-	holomap_color = HOLOMAP_AREACOLOR_ENGINEERING
 
 /area/station/maintenance/solars/port/aft
 	name = "South-West Solar Maintenance"
 	icon_state = "SolarcontrolP"
-	holomap_color = HOLOMAP_AREACOLOR_ENGINEERING
 
 /area/station/maintenance/solars/starboard/fore
 	name = "North-East Solar Maintenance"
 	icon_state = "SolarcontrolA"
-	holomap_color = HOLOMAP_AREACOLOR_ENGINEERING

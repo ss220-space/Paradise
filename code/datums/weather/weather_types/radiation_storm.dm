@@ -17,7 +17,7 @@
 	var/pre_maint_all_access
 	area_type = /area
 	protected_areas = list(
-		/area/maintenance,
+		/area/station/maintenance,
 		/area/station/ai/upload/chamber,
 		/area/station/ai/satellite/chamber,
 		/area/station/commons/sleep,

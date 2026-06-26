@@ -265,7 +265,7 @@
 /area/centcom/admin_room)
 "cD" = (
 /turf/simulated/floor/indestructible/asteroid,
-/area/tdome/newtdome/CQC)
+/area/centcom/tdome/new_arena/cqc)
 "cE" = (
 /turf/simulated/floor/holofloor{
 	dir = 10;
@@ -503,7 +503,7 @@
 /area/centcom/admin_room)
 "eT" = (
 /turf/simulated/wall/indestructible/wood,
-/area/tdome/newtdome/CQC)
+/area/centcom/tdome/new_arena/cqc)
 "eW" = (
 /obj/structure/flora/grass/green,
 /turf/simulated/floor/holofloor{
@@ -821,7 +821,7 @@
 	name = "grass"
 	},
 /turf/simulated/floor/indestructible/asteroid,
-/area/tdome/newtdome/CQC)
+/area/centcom/tdome/new_arena/cqc)
 "iz" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/pistol,
@@ -1113,7 +1113,7 @@
 	armor = list("melee" = 1000, "bullet" = 1000, "laser" = 1000, "energy" = 1000, "bomb" = 1000, "bio" = 1000, "fire" = 500, "acid" = 500)
 	},
 /turf/simulated/floor/indestructible/asteroid,
-/area/tdome/newtdome/CQC)
+/area/centcom/tdome/new_arena/cqc)
 "lc" = (
 /obj/structure/holowindow{
 	dir = 1
@@ -1229,7 +1229,7 @@
 	icon_state = "grass_edge_medium_corner"
 	},
 /turf/simulated/floor/indestructible/asteroid,
-/area/tdome/newtdome/CQC)
+/area/centcom/tdome/new_arena/cqc)
 "mO" = (
 /obj/structure/table/wood,
 /obj/item/twohanded/chainsaw,
@@ -1460,7 +1460,7 @@
 	name = "grass"
 	},
 /turf/simulated/floor/indestructible/grass,
-/area/tdome/newtdome/CQC)
+/area/centcom/tdome/new_arena/cqc)
 "qi" = (
 /turf/simulated/floor/holofloor{
 	icon_state = "green"
@@ -1473,7 +1473,7 @@
 	name = "grass"
 	},
 /turf/simulated/floor/indestructible/asteroid,
-/area/tdome/newtdome/CQC)
+/area/centcom/tdome/new_arena/cqc)
 "qt" = (
 /obj/machinery/computer/card/centcom{
 	req_access = list(150)
@@ -1495,7 +1495,7 @@
 	icon_state = "grass_edge_medium_corner"
 	},
 /turf/simulated/floor/indestructible/asteroid,
-/area/tdome/newtdome/CQC)
+/area/centcom/tdome/new_arena/cqc)
 "qx" = (
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser,
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/ion,
@@ -2155,7 +2155,7 @@
 /area/centcom/admin_room)
 "yQ" = (
 /turf/simulated/floor/indestructible/grass,
-/area/tdome/newtdome/CQC)
+/area/centcom/tdome/new_arena/cqc)
 "yV" = (
 /obj/structure/rack,
 /obj/item/beach_ball/holoball{
@@ -2577,7 +2577,7 @@
 	icon_state = "grass_edge_medium"
 	},
 /turf/simulated/floor/indestructible/asteroid,
-/area/tdome/newtdome/CQC)
+/area/centcom/tdome/new_arena/cqc)
 "DF" = (
 /obj/structure/table/wood,
 /obj/item/gun/magic/wand/fireball,
@@ -2664,7 +2664,7 @@
 	name = "grass"
 	},
 /turf/simulated/floor/indestructible/asteroid,
-/area/tdome/newtdome/CQC)
+/area/centcom/tdome/new_arena/cqc)
 "EU" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/pistol/aps,
@@ -2762,7 +2762,7 @@
 	icon_state = "grass_edge_medium_corner"
 	},
 /turf/simulated/floor/indestructible/asteroid,
-/area/tdome/newtdome/CQC)
+/area/centcom/tdome/new_arena/cqc)
 "FF" = (
 /turf/simulated/floor/holofloor{
 	dir = 8;
@@ -2977,7 +2977,7 @@
 	name = "ТАНДЕРДРОМНЫЙ КРИИЛ"
 	},
 /turf/simulated/floor/indestructible/asteroid,
-/area/tdome/newtdome/CQC)
+/area/centcom/tdome/new_arena/cqc)
 "HZ" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/l6_saw/toy/riot,
@@ -2992,7 +2992,7 @@
 /area/centcom/admin_room)
 "Ie" = (
 /turf/simulated/wall/indestructible/sandstone,
-/area/tdome/newtdome/CQC)
+/area/centcom/tdome/new_arena/cqc)
 "If" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/alien,
@@ -3538,7 +3538,7 @@
 	armor = list("melee" = 1000, "bullet" = 1000, "laser" = 1000, "energy" = 1000, "bomb" = 1000, "bio" = 1000, "fire" = 500, "acid" = 500)
 	},
 /turf/simulated/floor/indestructible/asteroid,
-/area/tdome/newtdome/CQC)
+/area/centcom/tdome/new_arena/cqc)
 "PY" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/tommygun,
@@ -3649,7 +3649,7 @@
 	icon_state = "grass_edge_medium_corner"
 	},
 /turf/simulated/floor/indestructible/asteroid,
-/area/tdome/newtdome/CQC)
+/area/centcom/tdome/new_arena/cqc)
 "RF" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/l6_saw,
@@ -3892,7 +3892,7 @@
 /obj/minigame_anchor/thunderdome_poller/mixed,
 /obj/minigame_anchor/thunderdome_poller/ranged,
 /turf/simulated/floor/indestructible/asteroid,
-/area/tdome/newtdome/CQC)
+/area/centcom/tdome/new_arena/cqc)
 "UB" = (
 /obj/structure/table/wood,
 /obj/item/adminfu_scroll,
@@ -3929,7 +3929,7 @@
 	icon_state = "grass_edge_medium_corner"
 	},
 /turf/simulated/floor/indestructible/asteroid,
-/area/tdome/newtdome/CQC)
+/area/centcom/tdome/new_arena/cqc)
 "Vb" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -4267,7 +4267,7 @@
 	icon_state = "grass_edge_medium_corner"
 	},
 /turf/simulated/wall/indestructible/sandstone,
-/area/tdome/newtdome/CQC)
+/area/centcom/tdome/new_arena/cqc)
 "Za" = (
 /obj/structure/table/wood,
 /obj/item/gun/magic/staff/change,

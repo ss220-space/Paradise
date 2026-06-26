@@ -1,4 +1,4 @@
-/area/maintenance
+/area/station/maintenance
 	name = "Generic Maintenance"
 	ambience_index = AMBIENCE_MAINT
 	valid_territory = FALSE
@@ -21,143 +21,143 @@
 		'sound/ambience/misc/cavesound3.ogg',
 	)
 
-/area/maintenance/play_ambience(mob/target, sound/override_sound, volume)
+/area/station/maintenance/play_ambience(mob/target, sound/override_sound, volume)
 	if(!target.has_light_nearby() && prob(0.5))
 		return ..(target, pick(minecraft_cave_noises))
 	return ..()
 
-/area/maintenance/ai
+/area/station/maintenance/ai
 	name = "AI Maintenance"
 	icon_state = "green"
 
-/area/maintenance/fore //should be refactored
+/area/station/maintenance/fore //should be refactored
 	name = "North Maintenance"
 	icon_state = "fmaint"
 
-/area/maintenance/fore2
+/area/station/maintenance/fore2
 	name = "North Secondary Maintenance"
 	icon_state = "fmaint"
 
-/area/maintenance/fpmaint
+/area/station/maintenance/fpmaint
 	name = "North-West Maintenance"
 	icon_state = "fpmaint"
 
-/area/maintenance/fsmaint
+/area/station/maintenance/fsmaint
 	name = "Dormitory Maintenance"
 	icon_state = "fsmaint"
 
-/area/maintenance/fsmaint2
+/area/station/maintenance/fsmaint2
 	name = "Bar Maintenance"
 	icon_state = "fsmaint"
 
-/area/maintenance/fsmaint3
+/area/station/maintenance/fsmaint3
 	name = "Cargo East Maintenance"
 	icon_state = "fsmaint"
 
-/area/maintenance/tourist
+/area/station/maintenance/tourist
 	name = "Tourist Area Maintenance"
 	icon_state = "fsmaint"
 
-/area/maintenance/asmaint
+/area/station/maintenance/asmaint
 	name = "Medbay Maintenance"
 	icon_state = "asmaint"
 
-/area/maintenance/asmaint2
+/area/station/maintenance/asmaint2
 	name = "Science Maintenance"
 	icon_state = "asmaint"
 
-/area/maintenance/asmaint3
+/area/station/maintenance/asmaint3
 	name = "Research Maintenance"
 	icon_state = "asmaint"
 
-/area/maintenance/asmaint4
+/area/station/maintenance/asmaint4
 	name = "Virology Maintenance"
 	icon_state = "asmaint"
 
-/area/maintenance/asmaint6
+/area/station/maintenance/asmaint6
 	name = "RnD Restroom Maintenance"
 	icon_state = "asmaint"
 
-/area/maintenance/apmaint
+/area/station/maintenance/apmaint
 	name = "Cargo Maintenance"
 	icon_state = "apmaint"
 
-/area/maintenance/maintcentral
+/area/station/maintenance/maintcentral
 	name = "Bridge Maintenance"
 	icon_state = "central"
 
-/area/maintenance/starboard
+/area/station/maintenance/starboard
 	name = "East Maintenance"
 	icon_state = "smaint"
 
-/area/maintenance/port
+/area/station/maintenance/port
 	name = "West Maintenance"
 	icon_state = "pmaint"
 
-/area/maintenance/brig
+/area/station/maintenance/brig
 	name = "Brig Maintenance"
 	icon_state = "pmaint"
 
-/area/maintenance/perma
+/area/station/maintenance/perma
 	name = "Prison Maintenance"
 	icon_state = "green"
 
-/area/maintenance/atmospherics
+/area/station/maintenance/atmospherics
 	name = "Atmospherics Maintenance"
 	icon_state = "green"
 
-/area/maintenance/incinerator
+/area/station/maintenance/incinerator
 	name = "Incinerator"
 	icon_state = "disposal"
 
-/area/maintenance/turbine
+/area/station/maintenance/turbine
 	name = "Turbine"
 	icon_state = "disposal"
 
-/area/maintenance/disposal
+/area/station/maintenance/disposal
 	name = "Waste Disposal"
 	icon_state = "disposal"
 
-/area/maintenance/genetics
+/area/station/maintenance/genetics
 	name = "Genetics Maintenance"
 	icon_state = "asmaint"
 
-/area/maintenance/electrical
+/area/station/maintenance/electrical
 	name = "Electrical Maintenance"
 	icon_state = "elec"
 
-/area/maintenance/engineering
+/area/station/maintenance/engineering
 	name = "Engineering Maintenance"
 	icon_state = "green"
 
-/area/maintenance/bar
+/area/station/maintenance/bar
 	name = "Maintenance Bar"
 	icon_state = "oldbar"
 	power_equip = FALSE
 	power_light = FALSE
 	power_environ = FALSE
 
-/area/maintenance/electrical_shop
+/area/station/maintenance/electrical_shop
 	name = "Electronics Den"
 	icon_state = "elec"
 
-/area/maintenance/gambling_den
-	name = "Abandoned Fight Club"//Отличное соотвествие названия
+/area/station/maintenance/gambling_den
+	name = "Abandoned Fight Club"
 	icon_state = "yellow"
 
-/area/maintenance/casino
+/area/station/maintenance/casino
 	name = "Abandoned Casino"
 	icon_state = "yellow"
 
-/area/maintenance/consarea
+/area/station/maintenance/consarea
 	name = "Alternate Construction Area"
 	icon_state = "construction"
 
-/area/maintenance/consarea_virology
+/area/station/maintenance/consarea_virology
 	name = "Virology Maintenance Construction Area"
 	icon_state = "yellow"
 
-/area/maintenance/detectives_office
+/area/station/maintenance/detectives_office
 	name = "Abandoned Detective's Office"
 	icon_state = "detective"
 	ambientsounds = list(
@@ -165,81 +165,81 @@
 		'sound/ambience/security/ambidet2.ogg',
 	)
 
-/area/maintenance/library
+/area/station/maintenance/library
 	name = "Abandoned Library"
 	icon_state = "library"
 	sound_environment = SOUND_AREA_LARGE_ENCLOSED
 
-/area/maintenance/secpost
+/area/station/maintenance/secpost
 	name = "Abandoned Security Post"
 	icon_state = "security"
 
-/area/maintenance/banya
+/area/station/maintenance/banya
 	name = "Abandoned Banya"
 	icon_state = "yellow"
 
-/area/maintenance/medroom
+/area/station/maintenance/medroom
 	name = "Abandoned Medical Emergency Ward"
 	icon_state = "medbay3"
 
-/area/maintenance/chapel
+/area/station/maintenance/chapel
 	name = "Abandoned Chapel"
 	icon_state = "chapel"
 	ambience_index = AMBIENCE_HOLY
 	is_haunted = TRUE
 
-/area/maintenance/livingcomplex
+/area/station/maintenance/livingcomplex
 	name = "Abandoned Living Complex Lobby"
 	icon_state = "quart"
 
-/area/maintenance/cafeteria
+/area/station/maintenance/cafeteria
 	name = "Abandoned Cafeteria"
 	icon_state = "cafeteria"
 
-/area/maintenance/xenozoo
+/area/station/maintenance/xenozoo
 	name = "Maintenance Xeno Zoo"
 	icon_state = "yellow"
 
-/area/maintenance/club
+/area/station/maintenance/club
 	name = "Old Poker Club"
 	icon_state = "yellow"
 
-/area/maintenance/backstage
+/area/station/maintenance/backstage
 	name = "Backstage"
 	icon_state = "yellow"
 
-/area/maintenance/trading
+/area/station/maintenance/trading
 	name = "Trading area"
 	icon_state = "yellow"
 
-/area/maintenance/server
+/area/station/maintenance/server
 	name = "Abandoned Server Room"
 	icon_state = "yellow"
 
-/area/maintenance/abandonedwarehouse
+/area/station/maintenance/abandonedwarehouse
 	name = "Abandoned Warehouse"
 	icon_state = "yellow"
 
-/area/maintenance/abandonedoffices
+/area/station/maintenance/abandonedoffices
 	name = "Abandoned Offices"
 	icon_state = "yellow"
 
-/area/maintenance/abandonedclub
+/area/station/maintenance/abandonedclub
 	name = "Abandoned Club"
 	icon_state = "yellow"
 
-/area/maintenance/abandonedhangar
+/area/station/maintenance/abandonedhangar
 	name = "Abandoned Hangar"
 	icon_state = "yellow"
 
-/area/maintenance/garden
+/area/station/maintenance/garden
 	name = "Old Garden"
 	icon_state = "hydro"
 	power_equip = FALSE
 	power_light = FALSE
 	power_environ = FALSE
 
-/area/maintenance/kitchen
+/area/station/maintenance/kitchen
 	name = "Old Restaurant"
 	icon_state = "kitchen"
 	power_equip = FALSE

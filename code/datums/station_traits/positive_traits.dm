@@ -103,7 +103,7 @@
 		/obj/item/flashlight/flare/glowstick/blue,
 		/obj/item/flashlight/flare/glowstick/red,
 	)
-	for(var/area/maintenance/maint in GLOB.areas)
+	for(var/area/station/maintenance/maint in GLOB.areas)
 		var/list/turfs = get_area_turfs(maint)
 		for(var/i in 1 to round(length(turfs) * 0.115))
 			CHECK_TICK

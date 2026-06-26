@@ -2,7 +2,6 @@
 /area/station/ai/satellite/hallway
 	name = "AI Satellite Hallway"
 	icon_state = "yellow"
-	holomap_color = HOLOMAP_AREACOLOR_COMMAND
 
 /area/station/ai/satellite/exterior
 	name = "AI Satellite Exterior Hallway"
@@ -43,7 +42,6 @@
 
 /area/station/ai/satellite/interior
 	name = "AI Satellite Antechamber"
-	icon_state = "ai"
 	sound_environment = SOUND_AREA_LARGE_ENCLOSED
 
 /area/station/ai/satellite/interior/secondary
