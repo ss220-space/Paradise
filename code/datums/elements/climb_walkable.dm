@@ -9,8 +9,8 @@
 /datum/element/climb_walkable/Attach(datum/target)
 	. = ..()
 	target.AddElement(/datum/element/connect_loc, turf_connections)
-	RegisterSignal(target, COMSIG_ATOM_TRIED_PASS, PROC_REF(can_allow_through))
-	RegisterSignal(target, COMSIG_MOVABLE_MOVED, PROC_REF(on_climbable_moved))
+	RegisterSignal(target, COMSIG_ATOM_TRIED_PASS, PROC_REF(can_allow_through), override = TRUE)
+	RegisterSignal(target, COMSIG_MOVABLE_MOVED, PROC_REF(on_climbable_moved), override = TRUE)
 
 /datum/element/climb_walkable/Detach(datum/source, ...)
 	. = ..()
