@@ -1,9 +1,67 @@
-// Given to heretic monsters.
-/obj/effect/proc_holder/spell/remotetalk/eldritch
+/**
+ * ## Eldritch Telepathy
+ *
+ * tg's eldritch telepathy is a /datum/action/cooldown/spell/list_target/telepathy/eldritch: a pointed
+ * spell that whispers a typed message into a single target's head. The old port mapped it onto master220's
+ * genetics `remotetalk` spell, whose cast() early-returns unless `ishuman(user)` — Raw Prophets are
+ * simple_animals, so it did nothing. This is a faithful pointed reimplementation.
+ */
+/obj/effect/proc_holder/spell/pointed/eldritch_telepathy
 	name = "Жуткая телепатия"
-	school = SCHOOL_FORBIDDEN
-	human_req = FALSE
+	desc = "Телепатически передаёт сообщение цели."
+	action_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_icon_state = "mansus_link"
 	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
+	ranged_mousepointer = 'icons/effects/mouse_pointers/throw_target.dmi'
+
+	school = SCHOOL_FORBIDDEN
+	human_req = FALSE
+	clothes_req = FALSE
+	base_cooldown = 5 SECONDS
+
+	invocation_type = INVOCATION_NONE
+	spell_requirements = NONE
 	antimagic_flags = MAGIC_RESISTANCE|MAGIC_RESISTANCE_MIND
+
+	active_msg = "Вы готовитесь прошептать кому-то в голову..."
+
+	/// The span surrounding the telepathy message.
+	var/telepathy_span = "notice"
+	/// The bolded span surrounding the telepathy message.
+	var/bold_telepathy_span = "boldnotice"
+
+
+/obj/effect/proc_holder/spell/pointed/eldritch_telepathy/valid_target(atom/cast_on)
+	. = ..()
+	if(!.)
+		return FALSE
+	return isliving(cast_on)
+
+
+/obj/effect/proc_holder/spell/pointed/eldritch_telepathy/cast(list/targets, mob/user = usr)
+	. = ..()
+	var/mob/living/cast_on = targets[1]
+	if(!istype(cast_on))
+		return FALSE
+
+	var/message = tgui_input_text(user, "Что вы хотите прошептать [cast_on.declent_ru(DATIVE)]?", "[name]", max_length = MAX_MESSAGE_LEN)
+	if(!message || QDELETED(src) || QDELETED(user) || QDELETED(cast_on))
+		return FALSE
+
+	var/formatted_message = "<span class='[telepathy_span]'>[message]</span>"
+
+	to_chat(user, "<span class='[bold_telepathy_span]'>Вы передаёте [cast_on.declent_ru(DATIVE)]:</span> [formatted_message]")
+	if(!cast_on.can_block_magic(antimagic_flags, charge_cost = 0)) // hear no evil
+		cast_on.balloon_alert(cast_on, "вы слышите голос")
+		to_chat(cast_on, "<span class='[bold_telepathy_span]'>Вы слышите голос в своей голове...</span> [formatted_message]")
+	else
+		user.balloon_alert(user, "передача заблокирована!")
+		to_chat(user, span_warning("Что-то заблокировало вашу передачу!"))
+
+	for(var/mob/dead/observer/ghost in GLOB.dead_mob_list)
+		to_chat(ghost, "[ghost_follow_link(user, ghost)] <span class='[bold_telepathy_span]'>[user] [name] [cast_on]:</span> [formatted_message]")
+
+	log_say("(ELDRITCH TPATH to [key_name(cast_on)]) [message]", user)
+	return TRUE

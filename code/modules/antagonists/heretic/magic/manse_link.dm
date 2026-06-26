@@ -22,6 +22,9 @@
 
 	/// The time it takes to link to a mob.
 	var/link_time = 6 SECONDS
+	/// The mind_linker component that created us. On master220 proc_holder spells store the
+	/// linker here (tg actions kept it in `target`); `action.owner` is the CASTER mob, not the component.
+	var/datum/component/mind_linker/linker
 
 
 /obj/effect/proc_holder/spell/pointed/manse_link/New(Target)
@@ -29,6 +32,13 @@
 	if(!istype(Target, /datum/component/mind_linker))
 		stack_trace("[name] ([type]) was instantiated on a non-mind_linker target, this doesn't work.")
 		qdel(src)
+		return
+	linker = Target
+
+
+/obj/effect/proc_holder/spell/pointed/manse_link/Destroy(force)
+	linker = null
+	return ..()
 
 
 /obj/effect/proc_holder/spell/pointed/manse_link/valid_target(atom/cast_on)
@@ -57,25 +67,28 @@
  * The actual process of linking [linkee] to our network.
  */
 /obj/effect/proc_holder/spell/pointed/manse_link/proc/do_linking(mob/living/linkee)
-	var/datum/component/mind_linker/linker = action.owner
-	if(linkee.stat == DEAD)
-		to_chat(action.owner, span_warning("[genderize_ru(linkee.gender, "Он мёртв", "Она мертва", "Оно мертво", "Они мертвы")]!"))
+	var/mob/living/caster = action?.owner
+	if(QDELETED(linker) || QDELETED(caster))
 		return FALSE
 
-	to_chat(action.owner, span_notice("Вы начинаете соединять разум [linkee.declent_ru(GENITIVE)] с вашим..."))
+	if(linkee.stat == DEAD)
+		to_chat(caster, span_warning("[genderize_ru(linkee.gender, "Он мёртв", "Она мертва", "Оно мертво", "Они мертвы")]!"))
+		return FALSE
+
+	to_chat(caster, span_notice("Вы начинаете соединять разум [linkee.declent_ru(GENITIVE)] с вашим..."))
 	to_chat(linkee, span_warning("Вы чувствуете, как ваш разум куда-то тянется... соединяется... переплетается с самой тканью реальности..."))
 
-	if(!do_after(action.owner, link_time, linkee))
-		to_chat(action.owner, span_warning("Вы не смогли соединиться с разумом [linkee.declent_ru(GENITIVE)]."))
+	if(!do_after(caster, link_time, linkee))
+		to_chat(caster, span_warning("Вы не смогли соединиться с разумом [linkee.declent_ru(GENITIVE)]."))
 		to_chat(linkee, span_warning("Чужое присутствие покидает ваш разум."))
 		return FALSE
 
-	if(QDELETED(src) || QDELETED(action.owner) || QDELETED(linkee))
+	if(QDELETED(src) || QDELETED(caster) || QDELETED(linkee))
 		return FALSE
 
 	if(linker.link_mob(linkee))
 		return TRUE
 
-	to_chat(action.owner, span_warning("Похоже, вы не можете подключиться к разуму [linkee.declent_ru(GENITIVE)]."))
+	to_chat(caster, span_warning("Похоже, вы не можете подключиться к разуму [linkee.declent_ru(GENITIVE)]."))
 	to_chat(linkee, span_warning("Нечто чужеродное покидает ваш разум."))
 	return FALSE

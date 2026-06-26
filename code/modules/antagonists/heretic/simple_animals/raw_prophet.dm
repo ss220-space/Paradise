@@ -18,7 +18,7 @@
 	/// List of innate abilities we have to add.
 	var/static/list/innate_spells = list(
 		/obj/effect/proc_holder/spell/ethereal_jaunt/ash/long = null,
-		/obj/effect/proc_holder/spell/remotetalk/eldritch = null,
+		/obj/effect/proc_holder/spell/pointed/eldritch_telepathy = null,
 		/obj/effect/proc_holder/spell/view_range/expand_sight = null,
 	)
 
