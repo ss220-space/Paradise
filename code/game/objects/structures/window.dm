@@ -534,21 +534,26 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	if(painted)
 		return
 	painted = TRUE
-	set_opacity(TRUE)
+
 	paint_overlay = mutable_appearance(icon, icon_state, layer + 0.1)
 	paint_overlay.color = new_color
 	paint_overlay.alpha = 200
 	add_overlay(paint_overlay)
 
+	if(new_color == "#000000")
+		set_opacity(TRUE)
+
 /obj/structure/window/proc/on_cleaned(datum/source, clean_strength)
 	SIGNAL_HANDLER
 	if(!painted)
 		return
+
 	painted = FALSE
-	set_opacity(initial(opacity))
 	if(paint_overlay)
 		cut_overlay(paint_overlay)
 		paint_overlay = null
+
+	set_opacity(initial(opacity))
 	. = COMPONENT_CLEANED
 
 /obj/structure/window/basic
