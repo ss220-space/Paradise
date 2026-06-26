@@ -20,7 +20,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 	///Constant material cost per component
 	var/cost_per_component = CIRCUIT_COMPONENT_COST
 
-	var/list/export_payload
+	var/list/export_payloads
 
 	categories = list(
 		CIRCUIT_IMPRINTER_CATEGORY_AI,
@@ -476,15 +476,36 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 				"IconState" = design["IconState"]
 			)
 			var/json_base64 = rustg_encode_base64(json_encode(data))
-			export_payload = list("key" = "circuit_[design["name"]]", "value" = json_base64)
-			update_static_data_for_all_viewers()
+			var/mob/user = ui.user
+			if(!export_payloads)
+				export_payloads = list()
+			export_payloads[WEAKREF(user)] = list("key" = "circuit_[design["name"]]", "value" = json_base64)
+			SStgui.update_uis(src)
 			return TRUE
 		if("import_local")
 			var/json_base64 = params["payload"]
 			if(!json_base64)
 				return TRUE
-			var/list/data = json_decode(rustg_decode_base64(json_base64))
-			save_circuit_by_import(usr, data)
+			var/decoded = rustg_decode_base64(json_base64)
+			if(!decoded)
+				return TRUE
+			var/list/data = json_decode(decoded)
+			if(!islist(data))
+				return TRUE
+			if(data["name"])
+				data["name"] = copytext(sanitize(data["name"]), 1, MAX_CHAR_IN_NAME)
+			if(data["desc"])
+				data["desc"] = copytext(sanitize(data["desc"]), 1, MAX_CHAR_IN_DESC)
+			save_circuit_by_import(ui.user, data)
+			return TRUE
+		if("clear_browser_save")
+			var/user_ref = WEAKREF(ui.user)
+			if(export_payloads)
+				export_payloads.Remove(user_ref)
+				if(!length(export_payloads))
+					export_payloads = null
+			SStgui.update_uis(src)
+			return TRUE
 
 #undef MAX_CHAR_IN_NAME
 #undef MAX_CHAR_IN_DESC
@@ -492,8 +513,10 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 /obj/machinery/r_n_d/circuit_imprinter/ui_data(mob/user)
 	var/list/data = list()
 	data["materials"] = materials.ui_data()
-	if(export_payload)
-		data["_browser_save"] = export_payload
+	if(export_payloads)
+		var/user_ref = WEAKREF(user)
+		if(export_payloads[user_ref])
+			data["_browser_save"] = export_payloads[user_ref]
 	return data
 
 /obj/machinery/r_n_d/circuit_imprinter/ui_static_data(mob/user)

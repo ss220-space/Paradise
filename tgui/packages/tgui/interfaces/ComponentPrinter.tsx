@@ -42,7 +42,7 @@ export const ComponentPrinter = (props) => {
 
   const loadLocalSaves = async () => {
     const saves = await storage.get(SAVES_LIST_KEY);
-    setLocalSaves(saves || []);
+    setLocalSaves(Array.isArray(saves) ? saves : []);
   };
 
   useEffect(() => {
@@ -54,9 +54,12 @@ export const ComponentPrinter = (props) => {
     if (!payload) return;
 
     (async () => {
+      let saves = await storage.get(SAVES_LIST_KEY);
+      if (!Array.isArray(saves)) {
+        saves = [];
+      }
       await storage.set(payload.key, payload.value);
 
-      const saves = (await storage.get(SAVES_LIST_KEY)) || [];
       const exists = saves.some((s: LocalSave) => s.key === payload.key);
       if (!exists) {
         const name = payload.key.replace('circuit_', '');
@@ -70,7 +73,10 @@ export const ComponentPrinter = (props) => {
 
   const handleDeleteLocal = async (key: string) => {
     await storage.remove(key);
-    const saves = (await storage.get(SAVES_LIST_KEY)) || [];
+    let saves = await storage.get(SAVES_LIST_KEY);
+    if (!Array.isArray(saves)) {
+      saves = [];
+    }
     const newSaves = saves.filter((s: LocalSave) => s.key !== key);
     await storage.set(SAVES_LIST_KEY, newSaves);
     setLocalSaves(newSaves);
