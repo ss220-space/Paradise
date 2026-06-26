@@ -64,15 +64,6 @@
 	SStgui.update_uis(src)
 	ui_interact(user)
 
-/obj/item/autopsy_scanner/examine(mob/user)
-	. = ..()
-	if(in_range(user, src) || isobserver(user))
-		SStgui.update_uis(src)
-		ui_interact(user)
-		return
-	. += span_notice("Нужно подойти ближе, чтобы посмотреть содержмое.")
-	balloon_alert(user, "слишком далеко!")
-
 // MARK: TGUI
 /obj/item/autopsy_scanner/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -146,6 +137,7 @@
 			target_rank = null
 			LAZYCLEARLIST(wdata)
 			LAZYCLEARLIST(chemtraces)
+			SStgui.update_uis(src)
 
 		if("print_data")
 			print_data(usr)
@@ -230,6 +222,10 @@
 
 
 /obj/item/autopsy_scanner/proc/print_report_form(mob/user)
+	if(!COOLDOWN_FINISHED(src, print_cooldown))
+		user.balloon_alert(user, "идёт печать...")
+		return
+
 	var/dead_name = tgui_input_text(user, "Укажите имя субъекта", default = target_name, title = "Отчёт патологоанатома", max_length = 60)
 	var/dead_rank = tgui_input_text(user, "Укажите должность субъекта", default = target_rank, title = "Отчёт патологоанатома", max_length = 60)
 	var/dead_tod = tgui_input_text(user, "Укажите время смерти", default = station_time_timestamp("hh:mm", timeofdeath), title = "Отчёт патологоанатома", max_length = 60)
@@ -277,6 +273,7 @@
 
 	add_autopsy_data(limb)
 	add_chemical_traces(limb)
+	SStgui.update_uis(src)
 
 /obj/item/autopsy_scanner/proc/add_autopsy_data(obj/item/organ/check_organ)
 	if(!length(check_organ.autopsy_data))
