@@ -337,7 +337,7 @@
 	)
 
 // ============================================================
-// ДОБРОВОЛЬНОЕ ЗАКАПЫВАНИЕ (интент GRAB)
+// VOLUNTARY BURIAL (GRAB intent)
 // ============================================================
 
 /obj/item/shovel/attack(mob/living/M, mob/user, list/modifiers)
@@ -349,9 +349,13 @@
 			else
 				to_chat(user, span_warning("Здесь неподходящая поверхность для закапывания."))
 				return TRUE
-		else if(M.stat >= UNCONSCIOUS && istype(get_turf(M), /turf/simulated/floor/plating/asteroid))
-			bury_mob(M, user, 8 SECONDS)
-			return TRUE
+		else if(M.stat >= UNCONSCIOUS)
+			if(istype(get_turf(M), /turf/simulated/floor/plating/asteroid))
+				bury_mob(M, user, 8 SECONDS)
+				return TRUE
+			else
+				to_chat(user, span_warning("Здесь неподходящая поверхность для закапывания."))
+				return TRUE
 	return ..()
 
 /obj/item/pickaxe/attack(mob/living/M, mob/user, list/modifiers)
@@ -363,12 +367,16 @@
 			else
 				to_chat(user, span_warning("Здесь неподходящая поверхность для закапывания."))
 				return TRUE
-		else if(M.stat >= UNCONSCIOUS && istype(get_turf(M), /turf/simulated/floor/plating/asteroid))
-			bury_mob(M, user, 10 SECONDS)
-			return TRUE
+		else if(M.stat >= UNCONSCIOUS)
+			if(istype(get_turf(M), /turf/simulated/floor/plating/asteroid))
+				bury_mob(M, user, 10 SECONDS)
+				return TRUE
+			else
+				to_chat(user, span_warning("Здесь неподходящая поверхность для закапывания."))
+				return TRUE
 	return ..()
 
-// Закапывание предметов (клик по предмету на земле, интент Grab)
+// Burying items (click on item on ground, Grab intent)
 /obj/item/shovel/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	if(proximity_flag && user.a_intent == INTENT_GRAB && isitem(target) && isturf(target.loc) && istype(target.loc, /turf/simulated/floor/plating/asteroid))
 		var/obj/item/I = target

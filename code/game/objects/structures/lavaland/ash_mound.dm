@@ -1,10 +1,10 @@
 // ============================================================
-// ПЕПЕЛЬНЫЙ ХОЛМИК
+// ASH MOUND
 // ============================================================
 
 /obj/structure/closet/ash_mound
-	name = "пепельный холмик"
-	desc = "Небольшая насыпь пепла. Кажется, под ней что-то зарыто."
+	name = "ash mound"
+	desc = "A small mound of ash. It looks like something is buried underneath."
 	icon = 'icons/obj/lavaland/ash_mound.dmi'
 	icon_state = "ash_mound"
 	anchored = TRUE
@@ -12,6 +12,16 @@
 	mob_storage_capacity = 1
 	locked = TRUE
 	breakout_time = 0
+
+/obj/structure/closet/ash_mound/get_ru_names()
+	return alist(
+		NOMINATIVE = "пепельный холмик",
+		GENITIVE = "пепельного холмика",
+		DATIVE = "пепельному холмику",
+		ACCUSATIVE = "пепельный холмик",
+		INSTRUMENTAL = "пепельным холмиком",
+		PREPOSITIONAL = "пепельном холмике",
+	)
 
 /obj/structure/closet/ash_mound/Initialize(mapload)
 	. = ..()
@@ -54,6 +64,8 @@
 		return
 
 	var/turf/T = get_turf(src)
+	if(!T)
+		return
 	if(T.is_blocked_turf(exclude_mobs = TRUE))
 		to_chat(user, span_warning("Место над холмиком занято, раскопать не получится."))
 		return
@@ -80,14 +92,24 @@
 	qdel(src)
 
 // ============================================================
-// ФОРМИРУЮЩИЙСЯ ХОЛМИК (автоматическое погребение)
+// FORMING MOUND (automatic burial)
 // ============================================================
 
 /obj/structure/closet/ash_mound/forming
-	name = "пепельный холмик"
-	desc = "Пепел скапливается, образуя холмик. Кажется, что-то исчезает под ним."
-	icon_state = "ash_mound_forming"					// нужен отдельный спрайт (пока можно использовать ash_mound)
+	name = "ash mound"
+	desc = "Ash is accumulating, forming a mound. Something seems to be disappearing underneath it."
+	icon_state = "ash_mound_forming"
 	var/form_time = 20 SECONDS
+
+/obj/structure/closet/ash_mound/forming/get_ru_names()
+	return alist(
+		NOMINATIVE = "пепельный холмик",
+		GENITIVE = "пепельного холмика",
+		DATIVE = "пепельному холмику",
+		ACCUSATIVE = "пепельный холмик",
+		INSTRUMENTAL = "пепельным холмиком",
+		PREPOSITIONAL = "пепельном холмике",
+	)
 
 /obj/structure/closet/ash_mound/forming/Initialize(mapload)
 	. = ..()
@@ -112,7 +134,7 @@
 	desc = initial(desc)
 
 // ============================================================
-// КНОПКА «ВЫБРАТЬСЯ ИЗ ПЕПЛА»
+// DIG OUT BUTTON
 // ============================================================
 
 /obj/structure/closet/ash_mound/Entered(atom/movable/AM, atom/oldLoc)
@@ -132,6 +154,7 @@
 	var/time_to_exit = 15 SECONDS
 
 /datum/action/innate/ash_unbury/Trigger(trigger_flags)
+	. = ..()
 	var/mob/living/user = owner
 	var/obj/structure/closet/ash_mound/mound = user.loc
 	if(!istype(mound))
@@ -149,7 +172,7 @@
 	Remove(user)
 
 // ============================================================
-// ВСПОМОГАТЕЛЬНЫЕ ПРОЦЕДУРЫ
+// HELPER PROCS
 // ============================================================
 
 /proc/add_unbury_action(mob/living/L)
@@ -166,7 +189,7 @@
 	if(A)
 		A.Remove(L)
 
-// Можно ли закопать предмет или структуру (не заякоренную, не крупную)
+// Checks if an item or structure can be buried (not anchored, not large)
 /proc/can_bury_structure(atom/movable/AM)
 	if(isitem(AM))
 		var/obj/item/I = AM
@@ -188,7 +211,7 @@
 		return TRUE
 	return FALSE
 
-// Закапывание моба (себя) + всё незакреплённое и бессознательное на тайле
+// Buries a mob (self or another) along with all unanchored items/structures and unconscious mobs on the turf
 /proc/bury_mob(mob/living/target, mob/user, time_to_bury)
 	var/turf/T = get_turf(target)
 	if(!istype(T, /turf/simulated/floor/plating/asteroid))
@@ -217,7 +240,7 @@
 	T.visible_message(span_warning("[target] зарывается в пепел, и всё вокруг исчезает под холмиком."))
 	add_unbury_action(target)
 
-// Закапывание одного предмета/структуры (без захвата мобов)
+// Buries a single item/structure without mobs
 /proc/bury_thing(atom/movable/AM, mob/user, time_to_bury)
 	var/turf/T = get_turf(AM)
 	if(!istype(T, /turf/simulated/floor/plating/asteroid))
@@ -241,7 +264,7 @@
 	T.visible_message(span_warning("[user] закапывает [AM], и всё вокруг исчезает под холмиком."))
 
 // ============================================================
-// БЛОКИРОВКА ОТКРЫТИЯ ЯЩИКОВ НА GRAB (закапывание)
+// BLOCK CRATE/CLOSET OPENING ON GRAB (burial instead)
 // ============================================================
 
 /obj/structure/closet/attackby(obj/item/W, mob/user, params)
