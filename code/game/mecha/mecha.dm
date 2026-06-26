@@ -1170,6 +1170,10 @@
 /obj/mecha/emag_act(mob/user)
 	if(emagged)
 		return FALSE
+	if(!emaggable)
+		if(user)
+			to_chat(user, span_warning("ID слот меха [src] отклоняет карту."))
+		return
 	if(emaggable)
 		add_attack_logs(user, src, "emagged")
 		emagged = TRUE
@@ -1178,8 +1182,6 @@
 			to_chat(user, span_notice("Вы проводите картой по ID слоту меха [src]."))
 		playsound(loc, SFX_SPARKS, 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		desc |= emag_desc
-	else if(user)
-		to_chat(user, span_warning("ID слот меха [src] отклоняет карту."))
 
 /////////////////////////////////////
 //////////// AI piloting ////////////
