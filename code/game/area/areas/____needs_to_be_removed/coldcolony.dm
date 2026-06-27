@@ -586,7 +586,7 @@
 	name = "AI Hallway"
 	icon_state = "ai"
 
-//Malta Research
+// MARK: Malta Research
 /area/coldcolony/malta/research
 	name = "Research Division"
 	icon_state = "research"
