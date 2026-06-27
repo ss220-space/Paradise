@@ -562,7 +562,7 @@
 /area/coldcolony/malta/bridge/checkpoint
 	name = "Command Checkpoint"
 
-//Malta AI
+// MARK: Malta AI
 /area/coldcolony/malta/turret_protected
 	ambientsounds = list(
 		'sound/ambience/misc/ambimalf.ogg',
