@@ -431,4 +431,9 @@
 /obj/machinery/computer/security/mortar/set_broken()
 	return
 
+/obj/machinery/computer/security/labor_camp
+	name = "labor camp camera console"
+	desc = "Используется для слежки за каторжными заключенными."
+	network = list("Labor Camp")
+
 #undef DEFAULT_MAP_SIZE

@@ -1367,9 +1367,7 @@
 /area/mine/living_quarters)
 "eV" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/computer/security{
-	network = list("Labor Camp")
-	},
+/obj/machinery/computer/security/labor_camp,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
