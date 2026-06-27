@@ -74,6 +74,9 @@
 
 
 /obj/effect/proc_holder/spell/shapeshift/shed_human_form/Restore(mob/living/simple_animal/hostile/heretic_summon/armsy/shape)
+	// Hold onto the human trapped inside the worm so we can re-arm their spell buttons after the base
+	// transfer pulls them back out (see the re-grant below).
+	var/mob/living/trapped_caster
 	if(istype(shape))
 		segment_length = shape.get_length() - 1 // Don't count the head
 
@@ -85,9 +88,18 @@
 		for(var/mob/living/trapped in shape)
 			if(HAS_TRAIT_FROM(trapped, TRAIT_GODMODE, UNIQUE_TRAIT_SOURCE(src)))
 				current_casters |= trapped
+				trapped_caster = trapped
 				break
 
-	return ..()
+	. = ..() // base transfers the mind back to the human and gibs the worm
+
+	// Shapeshift() stripped every other spell's button off the worm; the mind transfer above is supposed to
+	// re-grant them to the restored human (master220 transfer_mindbound_actions), but if that ever fails the
+	// heretic comes back with NO abilities and can't even shed again. Re-grant every mind spell's button
+	// straight onto the human - Grant() is a no-op when the button's already there, so this is just insurance.
+	if(!QDELETED(trapped_caster) && trapped_caster.mind)
+		for(var/obj/effect/proc_holder/spell/spell as anything in trapped_caster.mind.spell_list)
+			spell.action?.Grant(trapped_caster)
 
 
 /obj/effect/proc_holder/spell/shapeshift/shed_human_form/create_shapeshift_mob(atom/loc)

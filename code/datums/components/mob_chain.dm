@@ -265,6 +265,12 @@
 	//melee_cooldown_time = 0 SECONDS
 
 
+// Self-cast: master220 spells runtime in choose_targets() without a targeting datum (the base spell
+// doesn't supply one), which is why the button looked dead - the click threw before reaching cast().
+/obj/effect/proc_holder/spell/worm_contract/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+
 /obj/effect/proc_holder/spell/worm_contract/cast(list/targets, mob/user = usr)
 	SEND_SIGNAL(action.owner, COMSIG_MOB_CHAIN_CONTRACT)
 	. = ..()
