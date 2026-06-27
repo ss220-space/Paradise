@@ -91,7 +91,7 @@
 /area/coldcolony/malta/quartermaster/qm
 	name = "Quartermaster's Office"
 
-//Malta Other
+// MARK: Malta Other
 /area/coldcolony/malta/chapel
 	icon_state = "chapel"
 	ambience_index = AMBIENCE_HOLY
