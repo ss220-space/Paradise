@@ -53,7 +53,7 @@
 	icon_state = "entry"
 	holomap_color = HOLOMAP_AREACOLOR_ARRIVALS
 
-//Malta Cargo
+// MARK: Malta Cargo
 /area/coldcolony/malta/quartermaster
 	name = "Quartermasters"
 	icon_state = "quart"
