@@ -4487,7 +4487,7 @@
 "sO" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/computer/security{
-	network = list("Labor    Camp")
+	network = list("Labor Camp")
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
