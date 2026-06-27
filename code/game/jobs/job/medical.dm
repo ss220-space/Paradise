@@ -78,12 +78,20 @@
 	)
 	outfit = /datum/outfit/job/doctor
 	skill_levels = list(
-		//medical
 		/datum/skill/medical/surgery = SKILL_LEVEL_BEGINNER,
 		/datum/skill/medical/heal = SKILL_LEVEL_ADVANCED,
 		/datum/skill/medical/chemistry = SKILL_LEVEL_BASIC,
 		/datum/skill/medical/genetic = SKILL_LEVEL_BEGINNER,
 		/datum/skill/medical/virusology = SKILL_LEVEL_BEGINNER,
+	)
+	alt_skill_levels = alist(
+		ALT_JOB_TITLE_RU_SURGEON = list(
+			/datum/skill/medical/surgery = SKILL_LEVEL_ADVANCED,
+			/datum/skill/medical/heal = SKILL_LEVEL_BASIC,
+			/datum/skill/medical/chemistry = SKILL_LEVEL_BEGINNER,
+			/datum/skill/medical/genetic = SKILL_LEVEL_BEGINNER,
+			/datum/skill/medical/virusology = SKILL_LEVEL_BEGINNER,
+		)
 	)
 
 /datum/outfit/job/doctor
@@ -333,6 +341,11 @@
 		ALT_JOB_TITLE_RU_PSYCHONEURO,
 	)
 	outfit = /datum/outfit/job/psychiatrist
+	skill_levels = list(
+		/datum/skill/medical/surgery = SKILL_LEVEL_BEGINNER,
+		/datum/skill/medical/heal = SKILL_LEVEL_BEGINNER,
+		/datum/skill/medical/chemistry = SKILL_LEVEL_BEGINNER,
+	)
 
 /datum/outfit/job/psychiatrist
 	name = JOB_TITLE_RU_PSYCHIATRIST
@@ -370,7 +383,14 @@
 	)
 	outfit = /datum/outfit/job/paramedic
 	skill_levels = list(
-		/datum/skill/general/carring = SKILL_LEVEL_ADVANCED,
+		/datum/skill/general/carring = SKILL_LEVEL_BASIC,
+		/datum/skill/general/mech_drive = SKILL_LEVEL_BEGINNER,
+		/datum/skill/engineering/lockpick = SKILL_LEVEL_BEGINNER,
+		/datum/skill/medical/surgery = SKILL_LEVEL_BEGINNER,
+		/datum/skill/medical/heal = SKILL_LEVEL_BASIC,
+		/datum/skill/medical/chemistry = SKILL_LEVEL_BEGINNER,
+		/datum/skill/medical/genetic = SKILL_LEVEL_BEGINNER,
+		/datum/skill/medical/virusology = SKILL_LEVEL_BEGINNER,
 	)
 
 /datum/outfit/job/paramedic

@@ -70,7 +70,7 @@ GLOBAL_LIST_EMPTY(skills)
 	var/datum/mind/user_mind = user.mind
 	for(var/skill_name in GLOB.skills)
 		var/datum/skill/skill = GLOB.skills[skill_name]
-		var/level = get_skill_level(skill.type)
+		var/level = get_skill_level(skill.type, user.job)
 		user_mind.set_skill_level(skill.type, level)
 		if(level == SKILL_LEVEL_UNAVAILABLE)
 			skill.remove_from_mob(user)

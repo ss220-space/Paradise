@@ -107,6 +107,8 @@
 
 	/// Skill levels by job list
 	var/list/skill_levels = list()
+	/// Skill levels by alt titles jobs
+	var/alist/alt_skill_levels = null
 
 #define MAX_START_MONEY_MULTIPLIER 3
 
@@ -316,7 +318,7 @@
 	if(length(gear_leftovers))
 		for(var/datum/gear/G in gear_leftovers)
 			var/obj/item/placed_in = G.spawn_item(null, H.client.prefs.get_gear_metadata(G))
-			if(!placed_in) 
+			if(!placed_in)
 				continue
 			if(placed_in.equip_to_best_slot(H))
 				to_chat(H, span_notice("Placing [placed_in.name] in your inventory!"))
@@ -394,7 +396,14 @@
 			return FALSE
 	return TRUE
 
-/datum/job/proc/get_skill_level(skill_type)
+/datum/job/proc/get_skill_level(skill_type, alt_job_title)
+	var/used_skill_table = skill_levels[skill_type]
+
+	if(alt_job_title && alt_skill_levels)
+		var/list/alt_skills = alt_skill_levels[alt_job_title]
+		if(alt_skills)
+			used_skill_table = alt_skills
+
 	var/level = skill_levels[skill_type]
 	if(level == null)
 		return SKILL_LEVEL_NONE

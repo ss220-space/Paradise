@@ -258,6 +258,14 @@
 	id = /obj/item/card/id/security/cadet
 	l_pocket = /obj/item/reagent_containers/spray/pepper
 	box = /obj/item/storage/box/survival/survival_security/cadet
+	skill_levels = list(
+		/datum/skill/general/mech_drive = SKILL_LEVEL_BEGINNER,
+		/datum/skill/combat/accuracy = SKILL_LEVEL_BEGINNER,
+		/datum/skill/combat/guns = SKILL_LEVEL_BEGINNER,
+		/datum/skill/combat/melee = SKILL_LEVEL_BEGINNER,
+		/datum/skill/combat/fists = SKILL_LEVEL_BEGINNER,
+		/datum/skill/combat/shields = SKILL_LEVEL_BEGINNER,
+	)
 
 /datum/job/security/brigdoc
 	title = JOB_TITLE_BRIGDOC

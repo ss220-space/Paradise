@@ -100,6 +100,33 @@
 		/datum/skill/research/anomaly = SKILL_LEVEL_BEGINNER,
 		/datum/skill/research/xenobiology = SKILL_LEVEL_BEGINNER,
 	)
+	alt_skill_levels = alist(
+		ALT_JOB_TITLE_RU_XENOBIOLOGIST = list(
+			/datum/skill/medical/chemistry = SKILL_LEVEL_BEGINNER,
+			/datum/skill/medical/genetic = SKILL_LEVEL_BEGINNER,
+			/datum/skill/research/research = SKILL_LEVEL_BEGINNER,
+			/datum/skill/research/protolathe = SKILL_LEVEL_BEGINNER,
+			/datum/skill/research/mech_construct = SKILL_LEVEL_BEGINNER,
+			/datum/skill/research/anomaly = SKILL_LEVEL_BEGINNER,
+			/datum/skill/research/xenobiology = SKILL_LEVEL_ADVANCED,
+		),
+		ALT_JOB_TITLE_RU_ANOMALIST = list(
+			/datum/skill/research/research = SKILL_LEVEL_BEGINNER,
+			/datum/skill/research/protolathe = SKILL_LEVEL_BEGINNER,
+			/datum/skill/research/mech_construct = SKILL_LEVEL_BEGINNER,
+			/datum/skill/research/anomaly = SKILL_LEVEL_ADVANCED,
+			/datum/skill/research/xenobiology = SKILL_LEVEL_BEGINNER,
+		),
+		ALT_JOB_TITLE_RU_PLASMOLOGIST = list(
+			/datum/skill/engineering/atmos = SKILL_LEVEL_BASIC,
+			/datum/skill/medical/chemistry = SKILL_LEVEL_BASIC,
+			/datum/skill/research/research = SKILL_LEVEL_BEGINNER,
+			/datum/skill/research/protolathe = SKILL_LEVEL_BEGINNER,
+			/datum/skill/research/mech_construct = SKILL_LEVEL_BEGINNER,
+			/datum/skill/research/anomaly = SKILL_LEVEL_BEGINNER,
+			/datum/skill/research/xenobiology = SKILL_LEVEL_BEGINNER,
+		)
+	)
 
 /datum/outfit/job/scientist
 	name = JOB_TITLE_RU_SCIENTIST
