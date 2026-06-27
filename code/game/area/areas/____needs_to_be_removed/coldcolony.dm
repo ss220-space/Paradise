@@ -676,7 +676,7 @@
 	name = "Engineering Thermo Generator"
 	icon_state = "engine"
 
-// Malta event map
+// MARK: Malta event map
 /area/ruin/unpowered/coldcolony_outside
 	name = "Surface"
 	ignore_gravgen = TRUE
