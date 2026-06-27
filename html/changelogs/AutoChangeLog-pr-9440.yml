@@ -1,0 +1,4 @@
+author: "makaroshka003"
+delete-after: True
+changes:
+  - bugfix: "Автоимплантер можно купить в аплинке тритора (PR #9440)"
