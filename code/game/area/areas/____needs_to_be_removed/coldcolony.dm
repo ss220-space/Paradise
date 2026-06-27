@@ -635,7 +635,7 @@
 	icon_state = "toxmix"
 	xenobiology_compatible = TRUE
 
-//Malta Engineering
+// MARK: Malta Engineering
 /area/coldcolony/malta/engineering
 	ambience_index = AMBIENCE_ENGI
 	sound_environment = SOUND_AREA_LARGE_ENCLOSED
