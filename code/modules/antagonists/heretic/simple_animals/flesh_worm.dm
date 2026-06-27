@@ -13,6 +13,8 @@
 	base_icon_state = "armsy"
 	maxHealth = 400
 	health = 400
+	// Brisk, roughly running-human pace (heretic_summon base 0 felt sluggish on the worm). Negative = faster.
+	speed = -1
 	melee_damage_lower = 30
 	melee_damage_upper = 50
 	obj_damage = 200

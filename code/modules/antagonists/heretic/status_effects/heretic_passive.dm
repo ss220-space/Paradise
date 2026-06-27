@@ -404,8 +404,9 @@
 
 
 //---- Flesh Passive: "Ненасытный голод" ("Ravenous Hunger") - ported from /tg/station, adapted to master220.
-// Level 1 - immunity to diseases (granted on picking the path). tg also nulls disgust and grants space-ant
-//           immunity, but master220 has no disgust mechanic and no space ants, so those are dropped.
+// Level 1 - immunity to diseases and disgust (granted on picking the path). Nulling disgust (tg parity)
+//           is essential here: the path revolves around eating organs/meat, which are GROSS food and would
+//           otherwise pile on revulsion. tg also grants space-ant immunity, but master220 has no space ants.
 // Level 2 - eating meat or organs heals you, and being fat no longer slows you down. tg's voracious/glutton
 //           food-preference traits don't exist in master220, so we keep the heal-on-meat + no-fat-slowdown.
 // Level 3 - while fat, gain a flat 25% damage resistance and baton-knockdown resistance (tg parity).
@@ -413,7 +414,7 @@
 	id = "heretic_passive_flesh"
 	name = "Ненасытный голод"
 	passive_descriptions = list(
-		"Иммунитет к болезням.",
+		"Иммунитет к болезням и отвращению — никакая еда не вызывает у вас тошноты.",
 		"Поедание мяса или органов исцеляет вас, а полнота больше вас не замедляет.",
 		"Будучи толстым, вы получаете 25% сопротивления урону и устойчивость к электродубинкам.",
 	)
@@ -423,7 +424,9 @@
 	. = ..()
 	if(!.)
 		return
-	ADD_TRAIT(owner, TRAIT_VIRUSIMMUNE, TRAIT_STATUS_EFFECT(id))
+	owner.add_traits(list(TRAIT_VIRUSIMMUNE, TRAIT_NODISGUST), TRAIT_STATUS_EFFECT(id))
+	// Clear any revulsion already built up (e.g. from eating organs before picking the path).
+	owner.SetDisgust(0)
 
 
 /datum/status_effect/heretic_passive/flesh/level_upgrade()
@@ -450,7 +453,7 @@
 	if(ishuman(owner) && HAS_TRAIT_FROM(owner, TRAIT_BATON_RESISTANCE, TRAIT_STATUS_EFFECT(id)))
 		var/mob/living/carbon/human/heretic = owner
 		heretic.physiology.damage_resistance -= 25
-	owner.remove_traits(list(TRAIT_VIRUSIMMUNE, TRAIT_BATON_RESISTANCE), TRAIT_STATUS_EFFECT(id))
+	owner.remove_traits(list(TRAIT_VIRUSIMMUNE, TRAIT_NODISGUST, TRAIT_BATON_RESISTANCE), TRAIT_STATUS_EFFECT(id))
 	UnregisterSignal(owner, list(COMSIG_FOOD_EATEN, SIGNAL_ADDTRAIT(TRAIT_FAT), SIGNAL_REMOVETRAIT(TRAIT_FAT)))
 	return ..()
 

@@ -311,7 +311,8 @@
 		to_infuse.infused = FALSE
 		to_infuse.update_appearance(UPDATE_ICON)
 
-	//user.update_held_items()
+	// Refresh in-hand sprites so the blade visibly drops its infused look once the charge is spent.
+	user.update_held_items()
 
 	if(!check_behind(user, living_target))
 		return

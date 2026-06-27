@@ -278,6 +278,11 @@
 	//greyscale_config = /datum/greyscale_config/heretic_rune
 	/// The path colour this rune is tinted with, kept so the activation animation can match it.
 	var/rune_colour = COLOR_WHITE
+	/// Pre-baked, rsc-registered "ritual completed" animation. Baking it lazily inside flick() meant the
+	/// very first craft raced the client's download of the freshly-generated icon and showed nothing - the
+	/// animation only appeared on later uses once it was cached. Building it once here and registering it in
+	/// the rsc (fcopy_rsc) gives it a stable resource the client receives reliably, so the first flick plays.
+	var/icon/activation_icon
 
 
 /obj/effect/decal/heretic_rune/big/Initialize(mapload, path_colour)
@@ -286,14 +291,17 @@
 		rune_colour = path_colour
 
 	// master220 has no GAGS, so bake the coloured static rune by hand (multiply greyscale * colour).
+	// fcopy_rsc registers each hand-baked icon as a proper resource file (see activation_icon comment).
 	var/source_icon = icon
-	icon = heretic_rune_icon(source_icon, "transmutation_rune", rune_colour)
+	icon = fcopy_rsc(heretic_rune_icon(source_icon, "transmutation_rune", rune_colour))
 	icon_state = ""
+
+	// Composite the two-layer "activate" animation (coloured linework + untinted white pen) up-front.
+	activation_icon = fcopy_rsc(heretic_rune_icon(source_icon, "transmutation_rune_activate_colour", rune_colour, "transmutation_rune_activate_white"))
 
 
 /obj/effect/decal/heretic_rune/big/play_activation_animation()
-	// Composite the two-layer "activate" animation (coloured linework + untinted white pen) and flick it.
-	flick(heretic_rune_icon(initial(icon), "transmutation_rune_activate_colour", rune_colour, "transmutation_rune_activate_white"), src)
+	flick(activation_icon, src)
 
 
 /obj/effect/temp_visual/drawing_heretic_rune

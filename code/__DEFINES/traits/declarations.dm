@@ -314,6 +314,8 @@
 #define TRAIT_NO_INTORGANS "no_internal_organs"
 /// This mob is completely immune to viruses and diseases, unless they ignore us
 #define TRAIT_VIRUSIMMUNE "virus_immunity"
+/// This mob never builds up disgust (e.g. eating gross/raw food has no revulsion effect)
+#define TRAIT_NODISGUST "no_disgust"
 /// This mob is completely immune to viruses and diseases
 #define TRAIT_ABSOLUTE_VIRUSIMMUNE "absolute_virus_immunity"
 /// This human mob will not show its species on examine

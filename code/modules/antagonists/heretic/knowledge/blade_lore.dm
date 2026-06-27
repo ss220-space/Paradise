@@ -284,7 +284,8 @@
 		off_hand_blade.infused = TRUE
 		off_hand_blade.update_appearance(UPDATE_ICON)
 
-	//cast_on.update_held_items()
+	// Refresh the in-hand sprites so the blade(s) visibly switch to their infused look (tg parity).
+	cast_on.update_held_items()
 
 	return COMPONENT_CAST_HANDLESS
 

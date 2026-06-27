@@ -13,6 +13,9 @@
 	spell_requirements = NONE
 
 	//convert_damage = FALSE // Functionally meaningless on Armsy, we track how many segments it had instead
+	// Only one possible form, so fix it up-front (TG auto-picks for a single shape) — no pointless
+	// one-option "choose your form" popup, and the button is a clean become-worm / return-to-human toggle.
+	shapeshift_type = /mob/living/simple_animal/hostile/heretic_summon/armsy
 	possible_shapes = list(/mob/living/simple_animal/hostile/heretic_summon/armsy)
 
 	/// The length of our new wormy when we shed.
@@ -36,7 +39,18 @@
 		nearby_human.adjustBrainLoss(50)
 		nearby_human.Hallucinate(300 SECONDS)
 
-	return ..()
+	. = ..()
+
+	// TG 1:1: while shed into the worm, the ONLY ability is "return to your old form". master220's
+	// mind.transfer_to (called by the base Shapeshift) re-grants EVERY heretic spell to the new body,
+	// which would litter the worm with useless human-only spell buttons. Strip them off the worm — they
+	// stay on the mind and are re-granted automatically (transfer_mindbound_actions) when we Restore.
+	var/mob/living/worm = caster.loc
+	if(istype(worm) && worm.mind)
+		for(var/obj/effect/proc_holder/spell/spell as anything in worm.mind.spell_list)
+			if(spell == src || !spell.action)
+				continue
+			spell.action.Remove(worm)
 
 
 /obj/effect/proc_holder/spell/shapeshift/shed_human_form/Restore(mob/living/simple_animal/hostile/heretic_summon/armsy/caster)
