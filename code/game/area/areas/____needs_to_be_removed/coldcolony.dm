@@ -39,7 +39,7 @@
 	name = "Mech Garage"
 	icon_state = "mining"
 
-//Malta
+// MARK: Malta
 /area/coldcolony/malta
 	name = "malta"
 	holomap_should_draw = TRUE
