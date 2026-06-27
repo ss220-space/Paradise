@@ -131,6 +131,8 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	LoadComponent(/datum/component/leanable, dropping)
 
 /obj/structure/window/Destroy()
+	UnregisterSignal(src, COMSIG_OBJ_PAINTED, PROC_REF(on_painted))
+	UnregisterSignal(src, COMSIG_COMPONENT_CLEAN_ACT, PROC_REF(on_cleaned))
 	set_density(FALSE)
 	recalculate_atmos_connectivity()
 	update_nearby_icons()
@@ -535,12 +537,12 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		return
 	painted = TRUE
 
-	paint_overlay = mutable_appearance(icon, icon_state, layer + 0.1)
+	paint_overlay = mutable_appearance(icon, icon_state, layer + 0.01)
 	paint_overlay.color = new_color
 	paint_overlay.alpha = 200
 	add_overlay(paint_overlay)
 
-	if(new_color == "#000000")
+	if(new_color == COLOR_BLACK)
 		set_opacity(TRUE)
 
 /obj/structure/window/proc/on_cleaned(datum/source, clean_strength)
@@ -554,7 +556,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		paint_overlay = null
 
 	set_opacity(initial(opacity))
-	. = COMPONENT_CLEANED
+	return COMPONENT_CLEANED
 
 /obj/structure/window/basic
 	desc = "Выглядит тонким и хрупким. Пары ударов чем угодно будет достаточно, чтобы разбить его."
