@@ -27,6 +27,7 @@
 	name = "Готовка"
 	desc = "Влияет на готовку."
 	duration_mod_signals = list(COMSIG_GET_COOKING_SPEED_MOD, COMSIG_GET_BUTCHERING_SPEED_MOD)
+	quality_mod_signals = list(COMSIG_GET_COOKING_BROKE_MOD)
 	// chance to create extra dish for cooking
 	var/extra_count_chance = alist(
 		SKILL_LEVEL_NONE = 0,

@@ -28,7 +28,9 @@
 
 // MARK: Service
 /// Get speed modifier for cooking skill (mob/living/user, list/modifiers)
-#define COMSIG_GET_COOKING_SPEED_MOD "get_cooking_speed"
+#define COMSIG_GET_COOKING_SPEED_MOD "get_cooking_speed_mod"
+/// Get broke modifier for cooking skill (mob/living/user, list/modifiers)
+#define COMSIG_GET_COOKING_BROKE_MOD "get_cooking_broke_mod"
 /// Get speed modifier for butchering (mob/living/user, list/modifiers)
 #define COMSIG_GET_BUTCHERING_SPEED_MOD "get_butchering_speed"
 /// Get chance to extra cooking count for cooking skill (mob/living/user, list/chances)
