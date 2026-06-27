@@ -1530,6 +1530,7 @@
 
 	for(var/mob/dead/observer/observe in mob.inventory_observers)
 		if(!observe.client)
+			observe.handle_when_autoobserve_move()
 			LAZYREMOVE(mob.inventory_observers, observe)
 			continue
 		observe.client.eye = new_eye

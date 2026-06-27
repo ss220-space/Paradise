@@ -58,6 +58,7 @@
 		// Ghosts wants to see a do_afters too!
 		for(var/mob/dead/observer/observe in user.inventory_observers)
 			if(!observe.client)
+				observe.handle_when_autoobserve_move()
 				LAZYREMOVE(user.inventory_observers, observe)
 				continue
 			user_client = observe.client

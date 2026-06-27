@@ -151,6 +151,7 @@
 /mob/living/carbon/proc/update_observer_view(obj/item/worn_item, inventory)
 	for(var/mob/dead/observer/observe as anything in inventory_observers)
 		if(!observe.client || observe.client.eye != src || !observe.do_observe_target != src)
+			observe.handle_when_autoobserve_move()
 			LAZYREMOVE(inventory_observers, observe)
 			continue
 

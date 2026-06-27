@@ -711,9 +711,9 @@
 /obj/item/clothing/suit/hooded/drake/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer, notify_contents)
 	. = ..()
 	if(!is_mining_level(new_turf.z))
-		armor = list(MELEE = 35, BULLET = 15, LASER = 25, ENERGY = 20, BOMB = 35, BIO = 30, FIRE = 50, ACID = 50)
+		armor = getArmor(melee = 35, bullet = 15, laser = 25, energy = 20, bomb = 35, bio = 30, fire = 50, acid = 50)
 		return
-	armor = list(MELEE = 70, BULLET = 30, LASER = 50, ENERGY = 40, BOMB = 70, BIO = 60, FIRE = 100, ACID = 100)
+	armor = getArmor(melee = 70, bullet = 30, laser = 50, energy = 40, bomb = 70, bio = 60, fire = 100, acid = 100)
 
 /obj/item/clothing/head/hooded/drake
 	name = "drake helmet"
@@ -739,9 +739,9 @@
 /obj/item/clothing/head/hooded/drake/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer, notify_contents)
 	. = ..()
 	if(!is_mining_level(new_turf.z))
-		armor = list(MELEE = 35, BULLET = 15, LASER = 25, ENERGY = 20, BOMB = 35, BIO = 30, FIRE = 50, ACID = 50)
+		armor = getArmor(melee = 35, bullet = 15, laser = 25, energy = 20, bomb = 35, bio = 30, fire = 50, acid = 50)
 		return
-	armor = list(MELEE = 70, BULLET = 30, LASER = 50, ENERGY = 40, BOMB = 70, BIO = 60, FIRE = 100, ACID = 100)
+	armor = getArmor(melee = 70, bullet = 30, laser = 50, energy = 40, bomb = 70, bio = 60, fire = 100, acid = 100)
 
 /obj/item/clothing/suit/hooded/goliath
 	name = "goliath cloak"

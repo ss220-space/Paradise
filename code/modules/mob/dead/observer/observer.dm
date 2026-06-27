@@ -129,7 +129,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	if(orbit_menu)
 		SStgui.close_uis(orbit_menu)
 		QDEL_NULL(orbit_menu)
-	do_observe_target = null
+	handle_when_autoobserve_move()
 	remove_from_respawnable_list()
 	return ..()
 
