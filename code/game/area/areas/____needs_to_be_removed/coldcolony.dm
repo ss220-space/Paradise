@@ -333,7 +333,7 @@
 	name = "Prison Maintenance"
 	icon_state = "green"
 
-//Malta Medical
+// MARK: Malta Medical
 /area/coldcolony/malta/medical
 	ambience_index = AMBIENCE_MEDICAL
 	holomap_color = HOLOMAP_AREACOLOR_MEDICAL
