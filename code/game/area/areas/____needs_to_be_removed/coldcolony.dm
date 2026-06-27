@@ -503,7 +503,7 @@
 	name = "Security Checkpoint"
 	icon_state = "checkpoint1"
 
-//Malta Bridge
+// MARK: Malta Bridge
 /area/coldcolony/malta/bridge
 	name = "Bridge"
 	icon_state = "bridge"
