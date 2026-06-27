@@ -34264,9 +34264,7 @@
 /turf/simulated/floor/plating,
 /area/medical/virology/lab)
 "dNw" = (
-/obj/machinery/computer/security/mining{
-	dir = 8
-	},
+/obj/machinery/computer/security/mining,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -44559,9 +44557,7 @@
 	},
 /area/space)
 "fHL" = (
-/obj/machinery/computer/security{
-	network = list("SS13","Research Outpost","Mining Outpost")
-	},
+/obj/machinery/computer/security,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -52468,9 +52464,7 @@
 /turf/simulated/floor/plasteel,
 /area/toxins/xenobiology)
 "hvO" = (
-/obj/machinery/computer/security{
-	network = list("SS13","Research Outpost","Mining Outpost")
-	},
+/obj/machinery/computer/security,
 /obj/machinery/firealarm/directional/west,
 /obj/machinery/light{
 	dir = 8
@@ -77174,9 +77168,7 @@
 	},
 /area/medical/reception)
 "nbJ" = (
-/obj/machinery/computer/security/mining{
-	dir = 8
-	},
+/obj/machinery/computer/security/mining,
 /obj/structure/extinguisher_cabinet/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -79724,7 +79716,7 @@
 "nGe" = (
 /obj/machinery/camera{
 	c_tag = "Research Outpost Temporary Storage";
-	network = list("Research Outpost")
+	network = list("Research Outpost", "SS13")
 	},
 /obj/structure/extinguisher_cabinet/directional/north,
 /obj/item/twohanded/required/kirbyplants,
@@ -89778,9 +89770,7 @@
 /turf/simulated/floor/wood/fancy/light,
 /area/blueshield)
 "pPW" = (
-/obj/machinery/computer/security{
-	network = list("SS13","Research Outpost","Mining Outpost")
-	},
+/obj/machinery/computer/security,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -108752,9 +108742,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/tourist)
 "tOT" = (
-/obj/machinery/computer/security{
-	network = list("SS13","Research Outpost","Mining Outpost")
-	},
+/obj/machinery/computer/security,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "red"

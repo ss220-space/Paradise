@@ -554,7 +554,7 @@
 "eb" = (
 /obj/machinery/camera{
 	c_tag = "Labor Camp Infirmary";
-	network = list("Labor    Camp")
+	network = list("Labor Camp")
 	},
 /obj/effect/decal/cleanable/cobweb,
 /obj/machinery/alarm/directional/west,
@@ -914,7 +914,7 @@
 "gu" = (
 /obj/machinery/camera{
 	c_tag = "Labor Camp Airlock";
-	network = list("Labor    Camp")
+	network = list("Labor Camp")
 	},
 /obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/plasteel{
@@ -1207,7 +1207,7 @@
 /obj/machinery/camera{
 	c_tag = "Labor Bedroom 2";
 	dir = 1;
-	network = list("Labor    Camp")
+	network = list("Labor Camp")
 	},
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/wood{
@@ -2710,7 +2710,7 @@
 /obj/machinery/camera{
 	c_tag = "Labor Camp External";
 	dir = 4;
-	network = list("Labor    Camp")
+	network = list("Labor Camp")
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/explored)
@@ -3187,7 +3187,7 @@
 /obj/machinery/camera{
 	c_tag = "Labor Camp Bathroom";
 	dir = 1;
-	network = list("Labor    Camp")
+	network = list("Labor Camp")
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -4921,7 +4921,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/camera{
 	c_tag = "Labor Bedroom 1";
-	network = list("Labor    Camp");
+	network = list("Labor Camp");
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -6332,7 +6332,7 @@
 	},
 /obj/machinery/camera{
 	c_tag = "Labor Camp Central";
-	network = list("Labor    Camp");
+	network = list("Labor Camp");
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -8447,7 +8447,7 @@
 /obj/machinery/camera{
 	c_tag = "Labor Camp Storage";
 	dir = 1;
-	network = list("Labor    Camp")
+	network = list("Labor Camp")
 	},
 /obj/machinery/alarm/directional/south,
 /turf/simulated/floor/plasteel{
@@ -8480,7 +8480,7 @@
 "Xz" = (
 /obj/machinery/camera{
 	c_tag = "Labor Camp Monitoring";
-	network = list("Labor    Camp")
+	network = list("Labor Camp")
 	},
 /obj/machinery/firealarm/directional/north,
 /mob/living/simple_animal/bot/secbot/beepsky{

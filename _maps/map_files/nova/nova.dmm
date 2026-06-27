@@ -33202,9 +33202,7 @@
 	},
 /area/quartermaster/storage)
 "eWc" = (
-/obj/machinery/computer/security/mining{
-	dir = 8
-	},
+/obj/machinery/computer/security/mining,
 /obj/effect/turf_decal/siding/wood{
 	dir = 9
 	},
@@ -47873,7 +47871,7 @@
 /obj/machinery/camera{
 	c_tag = "Research Outpost Temporary Storage";
 	dir = 1;
-	network = list("Research Outpost")
+	network = list("Research Outpost", "SS13")
 	},
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
@@ -79527,9 +79525,7 @@
 /turf/simulated/floor/carpet/royalblack,
 /area/hallway/secondary/exit)
 "mfW" = (
-/obj/machinery/computer/security{
-	network = list("SS13","Research Outpost","Mining Outpost")
-	},
+/obj/machinery/computer/security,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
@@ -98607,9 +98603,7 @@
 	},
 /area/quartermaster/office)
 "pfw" = (
-/obj/machinery/computer/security{
-	network = list("SS13","Research Outpost","Mining Outpost")
-	},
+/obj/machinery/computer/security,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "red"
@@ -107258,9 +107252,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "qtJ" = (
-/obj/machinery/computer/security{
-	network = list("SS13","Research Outpost","Mining Outpost")
-	},
+/obj/machinery/computer/security,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkred"
@@ -108317,9 +108309,7 @@
 	},
 /area/crew_quarters/fitness)
 "qBl" = (
-/obj/machinery/computer/security{
-	network = list("SS13","Research Outpost","Mining Outpost")
-	},
+/obj/machinery/computer/security,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -111348,9 +111338,7 @@
 /turf/simulated/floor/carpet/purple,
 /area/toxins/rdoffice)
 "qYd" = (
-/obj/machinery/computer/security/mining{
-	dir = 8
-	},
+/obj/machinery/computer/security/mining,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/miningdock)
 "qYe" = (
@@ -129311,9 +129299,7 @@
 	},
 /area/toxins/mixing)
 "tGa" = (
-/obj/machinery/computer/security{
-	network = list("SS13","Research Outpost","Mining Outpost")
-	},
+/obj/machinery/computer/security,
 /obj/machinery/computer/security/telescreen/prison{
 	pixel_y = 32
 	},
@@ -129700,9 +129686,7 @@
 	},
 /area/toxins/rdoffice)
 "tIf" = (
-/obj/machinery/computer/security{
-	network = list("SS13","Research Outpost","Mining Outpost")
-	},
+/obj/machinery/computer/security,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "red"

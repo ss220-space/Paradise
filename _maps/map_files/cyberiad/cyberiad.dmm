@@ -5013,9 +5013,7 @@
 	},
 /area/security/permabrig)
 "avd" = (
-/obj/machinery/computer/security{
-	network = list("SS13","Research Outpost","Mining Outpost")
-	},
+/obj/machinery/computer/security,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkred"
@@ -8505,9 +8503,7 @@
 	},
 /area/security/warden)
 "aIE" = (
-/obj/machinery/computer/security{
-	network = list("SS13","Research Outpost","Mining Outpost")
-	},
+/obj/machinery/computer/security,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -9997,9 +9993,7 @@
 	},
 /area/security/podbay)
 "aPz" = (
-/obj/machinery/computer/security{
-	network = list("SS13","Research Outpost","Mining Outpost")
-	},
+/obj/machinery/computer/security,
 /obj/machinery/camera{
 	c_tag = "Brig Pod Pilot's Office";
 	dir = 8
@@ -11632,9 +11626,7 @@
 	},
 /area/bridge)
 "aYi" = (
-/obj/machinery/computer/security{
-	network = list("SS13","Research Outpost","Mining Outpost")
-	},
+/obj/machinery/computer/security,
 /obj/machinery/computer/security/telescreen/prison{
 	pixel_y = 32
 	},
@@ -11870,9 +11862,7 @@
 /turf/space,
 /area/solar/auxstarboard)
 "aZl" = (
-/obj/machinery/computer/security/mining{
-	dir = 8
-	},
+/obj/machinery/computer/security/mining,
 /obj/machinery/alarm/directional/west,
 /obj/structure/extinguisher_cabinet/directional/south,
 /turf/simulated/floor/plasteel{
@@ -17896,9 +17886,7 @@
 	},
 /area/quartermaster/storage)
 "bzz" = (
-/obj/machinery/computer/security/mining{
-	dir = 8
-	},
+/obj/machinery/computer/security/mining,
 /obj/machinery/light_switch/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -54994,9 +54982,7 @@
 /turf/simulated/floor/plasteel,
 /area/toxins/launch)
 "jld" = (
-/obj/machinery/computer/security{
-	network = list("SS13","Research Outpost","Mining Outpost")
-	},
+/obj/machinery/computer/security,
 /obj/item/radio/intercom/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -85972,9 +85958,7 @@
 	},
 /area/aisat)
 "vUq" = (
-/obj/machinery/computer/security{
-	network = list("SS13","Research Outpost","Mining Outpost")
-	},
+/obj/machinery/computer/security,
 /obj/machinery/alarm/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;

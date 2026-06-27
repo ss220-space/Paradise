@@ -1,0 +1,5 @@
+/obj/machinery/camera{network=list("Mining  Outpost")} : /obj/machinery/camera{@OLD;network=list("Mining Outpost")}
+/obj/machinery/camera{network=list("Labor    Camp")} : /obj/machinery/camera{@OLD;network=list("Labor Camp")}
+
+/obj/machinery/computer/security/mining{dir=8} : /obj/machinery/computer/security/mining{dir=@SKIP}
+/obj/machinery/computer/security{network=list("SS13","Research Outpost","Mining Outpost")} : /obj/machinery/computer/security{network=@SKIP}
