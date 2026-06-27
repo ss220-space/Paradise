@@ -128,7 +128,7 @@
 	icon_state = "Theatre"
 	holomap_color = HOLOMAP_AREACOLOR_HALLWAYS
 
-//Malta Residental
+// MARK: Malta Residental
 /area/coldcolony/malta/resid_serv
 	holomap_color = HOLOMAP_AREACOLOR_SERVICE
 
