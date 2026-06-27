@@ -207,7 +207,7 @@
 	name = "Kitchen"
 	icon_state = "kitchen"
 
-//Malta Hallways
+// MARK: Malta Hallways
 /area/coldcolony/malta/hallway
 	valid_territory = FALSE
 	holomap_color = HOLOMAP_AREACOLOR_HALLWAYS
