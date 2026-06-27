@@ -260,7 +260,7 @@
 /area/coldcolony/malta/hallway/cargo_escape/port/east
 	name = "Port East Hallway"
 
-//Malta Maintenance
+// MARK: Malta Maintenance
 /area/coldcolony/malta/maintenance
 	ambience_index = AMBIENCE_MAINT
 	valid_territory = FALSE
