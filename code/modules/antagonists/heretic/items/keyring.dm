@@ -97,6 +97,12 @@
 		if(airlock.loc == loc)
 			continue
 
+		// Don't dump heathens (or ourselves) into no-teleport areas - the CC shuttle, mining base, etc.
+		// (tg filters NOTELEPORT areas here; master220's equivalent area flag is tele_proof.)
+		var/area/airlock_area = get_area(airlock)
+		if(airlock_area?.tele_proof)
+			continue
+
 		possible_destinations += airlock
 
 	return pick(possible_destinations)

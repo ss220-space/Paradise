@@ -117,6 +117,21 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 			to_chat(user, span_boldnotice("Поскольку у вашего вида нет сердца, ваше Живое Сердце находится в вашем [look_for_backup.declent_ru(PREPOSITIONAL)]."))
 			break
 
+	// Fully synthetic crew (IPCs / machinepeople) carry only robotic organs, so every is_valid_heart() check
+	// above fails and they'd be left unable to track sacrifice targets. The living heart only needs *some*
+	// organ to anchor its tracking spell, so bind it to whatever sits in their chest - their power cell
+	// (heart slot) or, failing that, their positronic brain - robotic status be damned. The re-make ritual
+	// (recipe_snowflake_check / is_valid_heart) still refuses a cybernetic heart, matching the flavour text.
+	if(!where_to_put_our_heart)
+		for(var/fallback_slot in list(INTERNAL_ORGAN_HEART, INTERNAL_ORGAN_BRAIN))
+			var/obj/item/organ/fallback_organ = user.get_organ_slot(fallback_slot)
+			if(!fallback_organ)
+				continue
+			where_to_put_our_heart = fallback_organ
+			our_heretic.living_heart_organ_slot = fallback_slot
+			to_chat(user, span_boldnotice("Поскольку ваше тело синтетическое, ваше Живое Сердце пробуждается в вашем [fallback_organ.declent_ru(PREPOSITIONAL)]."))
+			break
+
 	if(!where_to_put_our_heart)
 		to_chat(user, span_boldnotice("У вас нет сердца, да и вообще каких-либо органов в грудной клетке. Из-за этого вы не получили живое сердце."))
 		return

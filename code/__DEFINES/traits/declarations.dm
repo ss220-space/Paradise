@@ -593,6 +593,8 @@
 #define TRAIT_MANSUS_TOUCHED "mansus_touched"
 /// Suppresses the visible eldritch aura a grown heretic radiates (e.g. while disguised). tg parity.
 #define TRAIT_HERETIC_AURA_HIDDEN "heretic_aura_hidden"
+/// Lock path final passive: the mansus grasp no longer goes on cooldown when used to open a lock.
+#define TRAIT_LOCK_GRASP_UPGRADED "lock_grasp_upgraded"
 #define TRAIT_LIVING_HEART "living_heart"
 #define TRAIT_RUSTY "rust_trait"
 #define TRAIT_BEING_BLADE_SHIELDED "being_blade_shielded"

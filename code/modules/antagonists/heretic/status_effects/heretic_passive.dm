@@ -492,3 +492,48 @@
 	else if(has_bonus)
 		heretic.physiology.damage_resistance -= 25
 		REMOVE_TRAIT(heretic, TRAIT_BATON_RESISTANCE, TRAIT_STATUS_EFFECT(id))
+
+
+//---- Lock Passive: "Open Invitation" ("Открытое Приглашение") - ported 1:1 from /tg/station.
+// Level 1 - shock insulation (granted on picking the path). tg also makes the Knowledge Shop cheaper at this
+//           tier; in master220 that discount is the always-on column shop_cost_discount (see lock_lore.dm),
+//           so we only grant the shock immunity here to avoid double-applying it.
+// Level 2 - x-ray vision (granted on crafting the robe), letting you see through walls and objects.
+// Level 3 - TRAIT_LOCK_GRASP_UPGRADED (granted on ascension): opening a lock no longer puts the grasp on
+//           cooldown (handled in base_knock's secondary grasp).
+/datum/status_effect/heretic_passive/lock
+	id = "heretic_passive_lock"
+	name = "Открытое Приглашение"
+	passive_descriptions = list(
+		"Изоляция от тока; все знания из магазина знаний дешевле.",
+		"Рентген-зрение: вы видите сквозь стены и предметы.",
+		"Захват больше не уходит на откат, когда им открывают дверь или шкаф.",
+	)
+
+
+/datum/status_effect/heretic_passive/lock/on_apply()
+	. = ..()
+	if(!.)
+		return
+	ADD_TRAIT(owner, TRAIT_SHOCKIMMUNE, TRAIT_STATUS_EFFECT(id))
+
+
+/datum/status_effect/heretic_passive/lock/level_upgrade()
+	. = ..()
+	if(!.)
+		return
+	ADD_TRAIT(owner, TRAIT_XRAY_VISION, TRAIT_STATUS_EFFECT(id))
+	owner.update_sight()
+
+
+/datum/status_effect/heretic_passive/lock/level_final()
+	. = ..()
+	if(!.)
+		return
+	ADD_TRAIT(owner, TRAIT_LOCK_GRASP_UPGRADED, TRAIT_STATUS_EFFECT(id))
+
+
+/datum/status_effect/heretic_passive/lock/on_remove()
+	owner.remove_traits(list(TRAIT_SHOCKIMMUNE, TRAIT_XRAY_VISION, TRAIT_LOCK_GRASP_UPGRADED), TRAIT_STATUS_EFFECT(id))
+	owner.update_sight()
+	return ..()

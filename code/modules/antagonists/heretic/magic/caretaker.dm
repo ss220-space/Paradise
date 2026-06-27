@@ -37,7 +37,8 @@
 		return
 
 	for(var/mob/living/alive in orange(5, action.owner))
-		if(alive.stat == DEAD || !alive.client)
+		// tg only blocks entering the Refuge if a conscious mind can actually SEE us, not merely stand nearby.
+		if(alive.stat == DEAD || !alive.client || !(action.owner in view(alive)))
 			continue
 
 		action.owner.balloon_alert(action.owner, "рядом разумное существо!")

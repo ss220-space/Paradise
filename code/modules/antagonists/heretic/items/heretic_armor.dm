@@ -78,6 +78,76 @@
 	. += span_notice("Позволяет использовать еретические заклинания при надетом капюшоне.")
 
 
+// Изменчивая Личина (Shifting Guise) — Lock path robes. Ported 1:1 from tg's lock armor:
+// while worn by a heretic it grants camera camouflage, hides identity/voice and silences footsteps.
+// A non-heretic who dares to don it is violently relieved of everything they carry.
+// (tg's /datum/element/digitalcamo is master220's TRAIT_AI_UNTRACKABLE; the rest are the same traits the
+//  shadow cloak uses, see status_effects/buffs.dm.)
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/lock
+	name = "изменчивая личина"
+	desc = "Набор затенённых одеяний с глубоким капюшоном. Под ним невозможно разглядеть, кто скрывается."
+	icon_state = "lock_armor"
+	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie/eldritch/lock
+	armor = list("melee" = 40, "bullet" = 40, "laser" = 40, "energy" = 40, "bomb" = 40, "bio" = 40, "rad" = 40, "fire" = 40, "acid" = 40)
+	/// Traits granted to a heretic wearer: camera camo + the shifting guise (hidden identity/voice, silent steps).
+	var/static/list/guise_traits = list(TRAIT_AI_UNTRACKABLE, TRAIT_SILENT_FOOTSTEPS, TRAIT_UNKNOWN_APPEARANCE, TRAIT_UNKNOWN_VOICE)
+
+
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/lock/get_ru_names()
+	return alist(
+		NOMINATIVE = "изменчивая личина",
+		GENITIVE = "изменчивой личины",
+		DATIVE = "изменчивой личине",
+		ACCUSATIVE = "изменчивую личину",
+		INSTRUMENTAL = "изменчивой личиной",
+		PREPOSITIONAL = "изменчивой личине",
+	)
+
+
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/lock/equipped(mob/user, slot, initial = FALSE)
+	. = ..()
+	if(slot != ITEM_SLOT_CLOTH_OUTER)
+		return
+	if(!isheretic(user))
+		robes_side_effect(user)
+		return
+	user.add_traits(guise_traits, REF(src))
+
+
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/lock/dropped(mob/user, slot, silent = FALSE)
+	. = ..()
+	user.remove_traits(guise_traits, REF(src))
+
+
+/// A non-heretic who dons the guise is violently relieved of everything they are carrying (tg parity).
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/lock/proc/robes_side_effect(mob/living/user)
+	if(!iscarbon(user))
+		return
+	var/mob/living/carbon/victim = user
+	var/turf/our_turf = get_turf(victim)
+	var/list/turf/nearby_turfs = RANGE_TURFS(5, our_turf) - our_turf
+	for(var/obj/item/to_throw in victim.get_equipped_items())
+		if(victim.drop_item_ground(to_throw))
+			to_throw.throw_at(pick(nearby_turfs), 2, 1, spin = TRUE)
+
+
+/obj/item/clothing/head/hooded/cult_hoodie/eldritch/lock
+	name = "капюшон изменчивой личины"
+	icon_state = "lock_armor"
+	armor = list("melee" = 40, "bullet" = 40, "laser" = 40, "energy" = 40, "bomb" = 40, "bio" = 40, "rad" = 40, "fire" = 40, "acid" = 40)
+
+
+/obj/item/clothing/head/hooded/cult_hoodie/eldritch/lock/get_ru_names()
+	return alist(
+		NOMINATIVE = "капюшон изменчивой личины",
+		GENITIVE = "капюшона изменчивой личины",
+		DATIVE = "капюшону изменчивой личины",
+		ACCUSATIVE = "капюшон изменчивой личины",
+		INSTRUMENTAL = "капюшоном изменчивой личины",
+		PREPOSITIONAL = "капюшоне изменчивой личины",
+	)
+
+
 
 /**
  * Returns TRUE if this mob can currently cast EMPOWERED ashen spells.

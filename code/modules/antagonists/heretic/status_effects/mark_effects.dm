@@ -120,15 +120,15 @@
 	effect_icon_state = "emark3"
 
 /datum/status_effect/eldritch/rust/on_effect()
-	// TG hits the marked target with near-max disgust + confusion. Disgust alone only makes you vomit on a
-	// per-tick probability roll (and decays), so the Rust path's promised "сильное отвращение и рвоту,
-	// ненадолго сбивая с ног" never reliably fired. Force the retch here - vomit() also briefly stuns
-	// (VOMIT_STUN_TIME), which is the "knocked off their feet" part.
-	owner.AdjustDisgust(100 STATUS_EFFECT_CONSTANT)
-	owner.Confused(10 SECONDS)
+	// Rebalanced: the old near-max disgust (2000 strength, above DISGUST_LEVEL_DISGUSTED) plus the default 8s
+	// vomit stun left grasp+blade targets retching and stumbling for minutes - far too strong. Keep it light:
+	// disgust decays at 10 strength/sec, so 50 = a brief ~5s queasiness, a touch of confusion, and a single
+	// retch with a short stun. Enough to interrupt, not to lock them down.
+	owner.AdjustDisgust(50)
+	owner.Confused(3 SECONDS)
 	if(iscarbon(owner))
 		var/mob/living/carbon/carbon_owner = owner
-		carbon_owner.vomit()
+		carbon_owner.vomit(stun = 2 SECONDS)
 	return ..()
 
 // MARK OF VOID

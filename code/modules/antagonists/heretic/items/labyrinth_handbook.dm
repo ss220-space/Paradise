@@ -7,7 +7,7 @@
 	// invisible. (TG ships "lintel" inside its effects.dmi; this port keeps it in the heretic icon instead.)
 	icon = 'icons/effects/eldritch.dmi'
 	icon_state = "lintel"
-	lifetime = 8 SECONDS
+	lifetime = 15 SECONDS
 
 
 /obj/effect/forcefield/wizard/heretic/get_ru_names()
@@ -58,8 +58,14 @@
 	pickup_sound = 'sound/items/handling/pickup/book_pickup.ogg'
 	///what type of barrier do we spawn when used
 	var/barrier_type = /obj/effect/forcefield/wizard/heretic
-	///how many uses do we have left
-	var/uses = 3
+	/// Current charges remaining
+	var/charges = 5
+	/// Max possible amount of charges
+	var/max_charges = 5
+	/// List that contains each running recharge timer
+	var/list/charge_timers = list()
+	/// How long before a spent charge is restored
+	var/charge_time = 15 SECONDS
 
 
 /obj/item/heretic_labyrinth_handbook/get_ru_names()
@@ -78,8 +84,8 @@
 	if(!IS_HERETIC_OR_MONSTER(user))
 		return
 
-	. += span_purple("Создаёт барьер на любой плитке в поле зрения, через который можете пройти только вы. Действует 8 секунд.")
-	. += span_purple("Вы можете создать барьер ещё <b>[uses]</b> [uses == 1 ? "раз" : "раза"].")
+	. += span_purple("Создаёт барьер на любой плитке в поле зрения, через который можете пройти только вы. Действует 15 секунд.")
+	. += span_purple("Осталось <b>[charges]</b> [charges == 1 ? "заряд" : "зарядов"]. Заряды восстанавливаются со временем.")
 
 
 /obj/item/heretic_labyrinth_handbook/afterattack(atom/interacting_with, mob/user, proximity, params, status)
@@ -94,6 +100,10 @@
 
 		return ATTACK_CHAIN_BLOCKED
 
+	if(charges <= 0)
+		user.balloon_alert(user, "нет зарядов!")
+		return ATTACK_CHAIN_BLOCKED
+
 	var/turf/turf_target = get_turf(interacting_with)
 	if(locate(barrier_type) in turf_target)
 		user.balloon_alert(user, "барьер уже есть!")
@@ -103,13 +113,14 @@
 	new /obj/effect/temp_visual/paper_scatter(turf_target)
 	playsound(turf_target, 'sound/magic/smoke.ogg', 30)
 	new barrier_type(turf_target, user)
-	uses--
-	if(uses > 0)
-		return ATTACK_CHAIN_SUCCESS
-
-	to_chat(user, span_warning("[declent_ru(NOMINATIVE)] рассыпается, превращаясь в пыль!"))
-	qdel(src)
+	charges--
+	// The handbook is never consumed - each spent charge regenerates on its own timer (tg parity).
+	charge_timers += addtimer(CALLBACK(src, PROC_REF(recharge)), charge_time, TIMER_STOPPABLE)
 	return ATTACK_CHAIN_SUCCESS
+
+
+/obj/item/heretic_labyrinth_handbook/proc/recharge()
+	charges = min(charges + 1, max_charges)
 
 
 //fancy effects
