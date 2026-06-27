@@ -397,14 +397,14 @@
 	return TRUE
 
 /datum/job/proc/get_skill_level(skill_type, alt_job_title)
-	var/used_skill_table = skill_levels[skill_type]
+	var/list/used_skill_table = skill_levels
 
 	if(alt_job_title && alt_skill_levels)
 		var/list/alt_skills = alt_skill_levels[alt_job_title]
 		if(alt_skills)
 			used_skill_table = alt_skills
 
-	var/level = skill_levels[skill_type]
+	var/level = used_skill_table[skill_type]
 	if(level == null)
 		return SKILL_LEVEL_NONE
 	return level

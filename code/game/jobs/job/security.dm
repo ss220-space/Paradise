@@ -213,7 +213,7 @@
 	minimal_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_WEAPONS)
 	law_level = LAW_LEVEL_SEC
 	alt_titles = list(
-		ALT_JOB_TITLE_RU_PATROL_OFFICER,
+		ALT_JOB_TITLE_RU_PATROL_OFFICER, ALT_JOB_TITLE_RU_SECURITY_CADET,
 	)
 	outfit = /datum/outfit/job/officer
 	skill_levels = list(
@@ -224,6 +224,16 @@
 		/datum/skill/combat/fists = SKILL_LEVEL_BASIC,
 		/datum/skill/combat/shields = SKILL_LEVEL_BASIC,
 		/datum/skill/medical/heal = SKILL_LEVEL_BEGINNER,
+	)
+	alt_skill_levels = alist(
+		ALT_JOB_TITLE_RU_SECURITY_CADET = list(
+			/datum/skill/general/mech_drive = SKILL_LEVEL_BEGINNER,
+			/datum/skill/combat/accuracy = SKILL_LEVEL_BEGINNER,
+			/datum/skill/combat/guns = SKILL_LEVEL_BEGINNER,
+			/datum/skill/combat/melee = SKILL_LEVEL_BEGINNER,
+			/datum/skill/combat/fists = SKILL_LEVEL_BEGINNER,
+			/datum/skill/combat/shields = SKILL_LEVEL_BEGINNER,
+		),
 	)
 
 /datum/outfit/job/officer
@@ -258,14 +268,6 @@
 	id = /obj/item/card/id/security/cadet
 	l_pocket = /obj/item/reagent_containers/spray/pepper
 	box = /obj/item/storage/box/survival/survival_security/cadet
-	skill_levels = list(
-		/datum/skill/general/mech_drive = SKILL_LEVEL_BEGINNER,
-		/datum/skill/combat/accuracy = SKILL_LEVEL_BEGINNER,
-		/datum/skill/combat/guns = SKILL_LEVEL_BEGINNER,
-		/datum/skill/combat/melee = SKILL_LEVEL_BEGINNER,
-		/datum/skill/combat/fists = SKILL_LEVEL_BEGINNER,
-		/datum/skill/combat/shields = SKILL_LEVEL_BEGINNER,
-	)
 
 /datum/job/security/brigdoc
 	title = JOB_TITLE_BRIGDOC
