@@ -15,6 +15,7 @@
 		client.screen += screen
 		for(var/mob/dead/observer/observe as anything in inventory_observers)
 			if(!observe.client)
+				observe.handle_when_autoobserve_move()
 				LAZYREMOVE(inventory_observers, observe)
 				continue
 			observe.client.screen += screen
@@ -32,6 +33,7 @@
 	screens -= category
 	for(var/mob/dead/observer/observe as anything in inventory_observers)
 		if(!observe.client)
+			observe.handle_when_autoobserve_move()
 			LAZYREMOVE(inventory_observers, observe)
 			continue
 		observe.screens -= category
@@ -45,6 +47,7 @@
 
 			for(var/mob/dead/observer/observe as anything in inventory_observers)
 				if(!observe.client)
+					observe.handle_when_autoobserve_move()
 					LAZYREMOVE(inventory_observers, observe)
 					continue
 				observe.client.screen -= screen
@@ -55,6 +58,7 @@
 		client.screen -= screen
 		for(var/mob/dead/observer/observe as anything in inventory_observers)
 			if(!observe.client)
+				observe.handle_when_autoobserve_move()
 				LAZYREMOVE(inventory_observers, observe)
 				continue
 			observe.client.screen -= screen
@@ -76,6 +80,7 @@
 
 				for(var/mob/dead/observer/observe in mymob.inventory_observers)
 					if(!observe.client)
+						observe.handle_when_autoobserve_move()
 						LAZYREMOVE(mymob.inventory_observers, observe)
 						continue
 					observe.client.screen |= screen
@@ -84,6 +89,7 @@
 
 				for(var/mob/dead/observer/observe in mymob.inventory_observers)
 					if(!observe.client)
+						observe.handle_when_autoobserve_move()
 						LAZYREMOVE(mymob.inventory_observers, observe)
 						continue
 					observe.client.screen -= screen

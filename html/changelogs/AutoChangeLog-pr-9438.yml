@@ -1,0 +1,4 @@
+author: "makaroshka003"
+delete-after: True
+changes:
+  - bugfix: "Борг больше не может взорвать свой огнетушитель . (PR #9438)"

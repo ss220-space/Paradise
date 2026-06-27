@@ -1,0 +1,4 @@
+author: "makaroshka003"
+delete-after: True
+changes:
+  - bugfix: "meatgrinder вместо костыля, использую прок gib(). (PR #9442)"

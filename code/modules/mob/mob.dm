@@ -12,13 +12,18 @@
 			continue
 		observe.stop_orbit()
 		observe.reset_perspective(null)
+
+	for(var/mob/dead/observer/ghost as anything in inventory_observers)
+		ghost.handle_when_autoobserve_move()
+
 	QDEL_NULL(hud_used)
 	lose_hearing_sensitivity()
 	if(mind && mind.current == src)
 		spellremove(src)
 	mobspellremove(src)
 	QDEL_LIST(diseases)
-	QDEL_LIST(actions)
+	for(var/datum/action/action in actions)
+		action.Remove(src)
 
 	if(length(progressbars))
 		stack_trace("[src] destroyed with elements in its progressbars list")
@@ -1247,6 +1252,7 @@
 		vision_type = new O
 		for(var/mob/dead/observer/observe as anything in inventory_observers)
 			if(!observe.client)
+				observe.handle_when_autoobserve_move()
 				LAZYREMOVE(inventory_observers, observe)
 				continue
 			observe.vision_type = vision_type

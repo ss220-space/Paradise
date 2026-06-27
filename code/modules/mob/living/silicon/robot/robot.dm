@@ -187,10 +187,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	initialize_components()
 
-	for(var/V in components)
-		if(V != "power cell")
-			var/datum/robot_component/C = components[V]
-			C.install(new C.external_type, FALSE)
+	for(var/key, value in components)
+		if(key != "power cell")
+			var/datum/robot_component/component = value
+			component.install(new component.external_type, FALSE)
 
 	. = ..()
 
@@ -572,11 +572,12 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	set desc = "Toggle a component, conserving power."
 
 	var/list/installed_components = list()
-	for(var/V in components)
-		if(V == "power cell") continue
-		var/datum/robot_component/C = components[V]
-		if(!C.is_missing())
-			installed_components += V
+	for(var/key, value in components)
+		if(key == "power cell")
+			continue
+		var/datum/robot_component/component = value
+		if(!component.is_missing())
+			installed_components += key
 
 	var/toggle = tgui_input_list(src, "Which component do you want to toggle?", "Toggle Component", installed_components)
 	if(!toggle)
@@ -767,23 +768,23 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			to_chat(user, span_warning("You must open the cover to access cyborg's internals!"))
 			return ATTACK_CHAIN_PROCEED
 
-		for(var/V in components)
-			var/datum/robot_component/component = components[V]
-			if(component.is_missing() && istype(I, component.external_type))
-				if(!user.drop_transfer_item_to_loc(I, src))
-					return ..()
+		for(var/key, value in components)
+			var/datum/robot_component/component = value
+			if(!component.is_missing() || !istype(I, component.external_type))
+				continue
 
-				component.install(I)
+			if(!user.drop_transfer_item_to_loc(I, src))
+				return ..()
 
-				I.move_to_null_space()
-				var/obj/item/robot_parts/robot_component/robot_component = I
+			component.install(I)
+			var/obj/item/robot_parts/robot_component/robot_component = I
 
-				if(istype(robot_component))
-					component.brute_damage = robot_component.brute
-					component.electronics_damage = robot_component.burn
+			if(istype(robot_component))
+				component.brute_damage = robot_component.brute
+				component.electronics_damage = robot_component.burn
 
-				to_chat(user, span_notice("You have installed [I]."))
-				return ATTACK_CHAIN_BLOCKED_ALL
+			to_chat(user, span_notice("You have installed [I]."))
+			return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(iscoil(I))
 		add_fingerprint(user)
@@ -1064,13 +1065,13 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		return
 	// Okay we're not removing the cell or an MMI, but maybe something else?
 	var/list/removable_components = list()
-	for(var/V in components)
-		if(V == "power cell")
+	for(var/key, value in components)
+		if(key == "power cell")
 			continue
 
-		var/datum/robot_component/C = components[V]
-		if(!C.is_missing())
-			removable_components += V
+		var/datum/robot_component/component = value
+		if(!component.is_missing())
+			removable_components += key
 
 	if(module)
 		removable_components += module.custom_removals
@@ -1082,20 +1083,24 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(module && module.handle_custom_removal(remove, user, I))
 		return
 
+	var/datum/robot_component/component = components[remove]
+
+	if(component.is_missing()) // Somebody else removed it during the input
+		return
+
+
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 
-	var/datum/robot_component/C = components[remove]
-	var/obj/item/robot_parts/robot_component/thing = C.wrapped
+	var/obj/item/robot_parts/robot_component/thing = component.wrapped
 	to_chat(user, "You remove \the [thing].")
 
 	if(istype(thing))
-		thing.brute = C.brute_damage
-		thing.burn = C.electronics_damage
+		thing.brute = component.brute_damage
+		thing.burn = component.electronics_damage
 
-	thing.loc = loc
-	if(C.installed)
-		C.uninstall()
+	component.uninstall()
+	thing.forceMove(loc)
 
 /mob/living/silicon/robot/welder_act(mob/user, obj/item/I)
 	if(user.a_intent == INTENT_HARM)	// no interactions in combat

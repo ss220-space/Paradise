@@ -2413,7 +2413,7 @@
 	desc = "Устройство, позволяющее устанавливать кибернетический имплант в полевых условиях без необходимости хирургического вмешательства."
 	item = /obj/item/autoimplanter/oneuse
 	cost = 4
-	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+	uplinktypes = list(UPLINK_TYPE_TRAITOR)
 
 /**
  * MARK: Pointless Badassery
