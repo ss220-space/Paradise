@@ -20,7 +20,10 @@
 	//wound_bonus = 5
 	//bare_wound_bonus = 15
 	toolspeed = 0.375
-	//demolition_mod = 0.8
+	// TG's demolition_mod: heretic blades are clumsy against objects/silicons (0.8x). master220 has no
+	// /obj/item/demolition_mod var, so we apply it by briefly scaling force at swing time (see attack_obj /
+	// attack below). The Blade path's Empowered Blades upgrade bumps the dark blade up to 2.5x (3x+ jump).
+	var/demolition_mod = 0.8
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	armour_penetration = 35
 	//attack_verb_continuous = list("attacks", "slashes", "slices", "tears", "lacerates", "rips", "dices", "rends")
@@ -82,13 +85,35 @@
 
 
 /obj/item/melee/sickly_blade/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE, list/attack_modifiers)
-	if(check_usability(user))
-		return ..()
+	if(!check_usability(user))
+		to_chat(user, span_danger("Вы чувствуете, как нечто инородное вторгается в ваш разум!"))
+		var/mob/living/carbon/human/human_user = user
+		human_user.AdjustParalysis(5 SECONDS)
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-	to_chat(user, span_danger("Вы чувствуете, как нечто инородное вторгается в ваш разум!"))
-	var/mob/living/carbon/human/human_user = user
-	human_user.AdjustParalysis(5 SECONDS)
-	return ATTACK_CHAIN_BLOCKED_ALL
+	// Silicons (borgs/AI shells) count as "structures" for the demolition_mod (TG parity).
+	var/mod = issilicon(target) ? get_current_demolition_mod(user) : 1
+	if(mod == 1)
+		return ..()
+	var/old_force = force
+	force = round(force * mod)
+	. = ..()
+	force = old_force
+
+
+// Returns the force multiplier this blade currently applies to objects / silicons (TG's get_demolition_modifier).
+/obj/item/melee/sickly_blade/proc/get_current_demolition_mod(mob/user)
+	return demolition_mod
+
+
+/obj/item/melee/sickly_blade/attack_obj(obj/object, mob/living/user, list/modifiers)
+	var/mod = get_current_demolition_mod(user)
+	if(mod == 1)
+		return ..()
+	var/old_force = force
+	force = round(force * mod)
+	. = ..()
+	force = old_force
 
 
 /obj/item/melee/sickly_blade/attack_self(mob/user)
@@ -344,33 +369,19 @@
 
 
 // Empowered Blades (tg's demolition_mod): once the heretic learns "Усиленные Клинки", their dark blades hit
-// structures, machinery, mechs and silicons far harder. master220 has no /obj/item/demolition_mod var, and
-// COMSIG_MOB_EQUIPPED_ITEM (which tg registers on the user to set demolition_mod on equip) is never emitted
-// here - so instead of an equip-time signal we check the knowledge at swing time and briefly scale the
-// blade's force for that single hit. Same net effect as tg, and it can never go stale on a body/inventory
-// change. Mobs that aren't silicons go through the normal path (their dual-strike bonus lives in blade_lore).
+// structures, machinery, mechs and silicons far harder - the blade's demolition_mod jumps from the base 0.8
+// to 2.5 (a >3x increase, exactly like tg). master220 has no /obj/item/demolition_mod var and never emits
+// COMSIG_MOB_EQUIPPED_ITEM (which tg uses to set the mod on equip), so we resolve the modifier at swing time
+// from the wielder's knowledge instead - it can never go stale on a body/inventory change. The actual force
+// scaling lives on the base blade's attack_obj / attack (silicon) above.
 /// Returns TRUE if the wielder is a heretic who has learned Empowered Blades.
 /obj/item/melee/sickly_blade/dark/proc/wielder_has_empowered_blades(mob/user)
 	var/datum/antagonist/heretic/heretic_datum = isheretic(user)
 	return !isnull(heretic_datum?.get_knowledge(/datum/heretic_knowledge/blade_upgrade/blade))
 
 
-/obj/item/melee/sickly_blade/dark/attack_obj(obj/object, mob/living/user, list/modifiers)
-	if(!wielder_has_empowered_blades(user))
-		return ..()
-	var/old_force = force
-	force = round(force * demolition_bonus)
-	. = ..()
-	force = old_force
-
-
-/obj/item/melee/sickly_blade/dark/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE, list/attack_modifiers)
-	if(!issilicon(target) || !wielder_has_empowered_blades(user))
-		return ..()
-	var/old_force = force
-	force = round(force * demolition_bonus)
-	. = ..()
-	force = old_force
+/obj/item/melee/sickly_blade/dark/get_current_demolition_mod(mob/user)
+	return wielder_has_empowered_blades(user) ? demolition_bonus : demolition_mod
 
 
 // Path of Cosmos's blade
