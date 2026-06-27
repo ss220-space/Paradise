@@ -395,7 +395,7 @@
 	icon_state = "virology"
 	ambience_index = AMBIENCE_VIROLOGY
 
-//Malta Security
+// MARK: Malta Security
 /area/coldcolony/malta/security
 	ambience_index = AMBIENCE_DANGER
 	holomap_color = HOLOMAP_AREACOLOR_SECURITY
