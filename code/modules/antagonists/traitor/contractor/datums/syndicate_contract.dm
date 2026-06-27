@@ -109,6 +109,15 @@
 	contract.target_blacklist = target_blacklist
 	generate(target_override)
 
+/datum/syndicate_contract/Destroy(force)
+	owning_hub = null
+	contract = null
+	pod = null
+	extraction_flare = null
+	QDEL_LIST(victim_belongings)
+	QDEL_LIST(temp_objs)
+	return ..()
+
 /**
  * Fills the contract with valid data to be used.
  */

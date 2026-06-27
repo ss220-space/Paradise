@@ -18,3 +18,7 @@
 	. = ..()
 	QUEUE_SMOOTH(src)
 	animate(src, alpha=255, time=SHUTTLE_RIPPLE_TIME)
+
+/obj/effect/temp_visual/ripple/Destroy()
+	REMOVE_FROM_SMOOTH_QUEUE(src)
+	return ..()

@@ -391,20 +391,11 @@
 	weapon_check_type = /obj/item/shield/changeling
 	weapon_name_simple = "костяной щит"
 
-/datum/action/changeling/weapon/shield/sting_action(mob/user)
-	var/obj/item/shield/changeling/shield = ..(user)
-	if(!shield)
-		return FALSE
-
-	shield.remaining_uses = round(cling.absorbed_count * 3)
-	return TRUE
-
 /obj/item/shield/changeling
 	name = "shield-like mass"
 	desc = "Щит из плотной костяной ткани. На нём можно разглядеть скрюченные в безумном узоре пальцы."
 	item_flags = DROPDEL
 	icon_state = "ling_shield"
-	var/remaining_uses //Set by the changeling ability.
 
 /obj/item/shield/changeling/Initialize(mapload)
 	. = ..()

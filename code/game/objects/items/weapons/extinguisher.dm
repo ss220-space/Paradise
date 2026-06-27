@@ -81,7 +81,7 @@
 	. = ..()
 	if(!reagents && starting_water)
 		create_reagents(max_water)
-		reagents.add_reagent("water", max_water)
+		reagents.add_reagent(/datum/reagent/water, max_water)
 
 	if(!can_explode)
 		return .

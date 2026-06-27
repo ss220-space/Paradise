@@ -28,19 +28,21 @@
 
 	var/span_type
 	var/message_type
+	var/box_class
 	var/datum/ticket/T
 	if(selected_type == MENTORHELP)
 		T = SSmentor_tickets.newHelpRequest(src, msg) // Mhelp
 		span_type = "mentorhelp"
 		message_type = MESSAGE_TYPE_MENTORPM
-		//show it to the person mentorhelping too
-		to_chat(src, chat_box_mhelp("<span class='[span_type]'><b>[selected_type]</b><br><br>[msg]</span>"), message_type, confidential = TRUE)
+		box_class = "boxed_message blue_box"
 	else
 		T = SStickets.newHelpRequest(src, msg) // Ahelp
 		span_type = "adminhelp"
 		message_type = MESSAGE_TYPE_ADMINPM
-		//show it to the person adminhelping too
-		to_chat(src, chat_box_ahelp("<span class='[span_type]'><b>[selected_type]</b><br><br>[msg]</span>"), message_type, confidential = TRUE)
+		box_class = "boxed_message red_box"
+
+	//show it to the person helping too
+	to_chat(src, fieldset_block("<span class='[span_type]'><b>[selected_type]</b></span>", "<span class='[span_type]'>[msg]</span>", box_class), message_type, confidential = TRUE)
 
 	BLACKBOX_LOG_ADMIN_VERB("Adminhelp")
 

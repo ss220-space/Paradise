@@ -341,6 +341,8 @@
 	desc = "Еретический постер, изображающий главную звезду столь же еретической книги."
 	icon_state = "poster4"
 
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/poster/contraband/lusty_xenomorph, 32, 32)
+
 /obj/structure/sign/poster/contraband/syndicate_recruitment
 	name = "Набор в Синдикат"
 	desc = "Увидьте галактику! Разрушьте коррумпированные мегакорпорации! Вступайте сегодня!"
@@ -782,6 +784,8 @@
 	name = "Фруктовая тарелка"
 	desc = "Просто, но впечатляюще."
 	icon_state = "poster27_legit"
+
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sign/poster/official/fruit_bowl, 32, 32)
 
 /obj/structure/sign/poster/official/pda_ad
 	name = "Реклама КПК"

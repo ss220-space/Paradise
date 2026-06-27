@@ -730,6 +730,7 @@ GLOBAL_LIST_INIT(plastic_recipes, list(
 		new /datum/stack_recipe("plastic flaps", /obj/structure/plasticflaps, 5, time = 4 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("warning cone", /obj/item/clothing/head/cone, 5, on_floor = TRUE),
 		new /datum/stack_recipe("wet floor sign", /obj/item/caution, 2),
+		new /datum/stack_recipe("пластиковый стул", /obj/structure/chair/plastic, 2, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	)),
 	new /datum/stack_recipe_list("plastic utensils", list(
 		new /datum/stack_recipe("plastic fork", /obj/item/kitchen/utensil/pfork, on_floor = TRUE),

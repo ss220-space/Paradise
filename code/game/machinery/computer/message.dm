@@ -35,6 +35,25 @@
 	normal_icon = "seclaptop"
 	density = FALSE
 
+/obj/machinery/computer/message_monitor/Initialize(mapload)
+	..()
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/machinery/computer/message_monitor/LateInitialize()
+	//If the monitor isn't linked to a server, and there's a server available, default it to the first one in the list.
+	if(!linkedServer && length(GLOB.message_servers))
+		linkedServer = GLOB.message_servers[1]
+		RegisterSignal(linkedServer, COMSIG_QDELETING, PROC_REF(unlink_server))
+
+/obj/machinery/computer/message_monitor/proc/unlink_server()
+	SIGNAL_HANDLER
+	linkedServer = null
+
+/obj/machinery/computer/message_monitor/Destroy(force)
+	customrecepient = null
+	linkedServer = null
+	return ..()
+
 /obj/machinery/computer/message_monitor/screwdriver_act(mob/user, obj/item/I)
 	if(emag) //Stops people from just unscrewing the monitor and putting it back to get the console working again.
 		to_chat(user, span_warning("It is too hot to mess with!"))
@@ -69,14 +88,6 @@
 	else
 		icon_screen = normal_icon
 	..()
-
-/obj/machinery/computer/message_monitor/Initialize(mapload)
-	. = ..()
-	//Is the server isn't linked to a server, and there's a server available, default it to the first one in the list.
-	if(!linkedServer)
-		if(GLOB.message_servers && length(GLOB.message_servers) > 0)
-			linkedServer = GLOB.message_servers[1]
-	return
 
 /obj/machinery/computer/message_monitor/attack_hand(mob/user as mob)
 	if(..())

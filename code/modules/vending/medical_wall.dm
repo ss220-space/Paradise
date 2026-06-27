@@ -52,6 +52,8 @@
 		PREPOSITIONAL = "торговом автомате NanoMed",
 	)
 
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/vending/wallmed, 25, 30)
+
 /obj/machinery/vending/wallmed/syndicate
 	name = "SyndiWallMed"
 	desc = "<b>Злое</b> воплощение настенного раздатчика медицинских изделий."

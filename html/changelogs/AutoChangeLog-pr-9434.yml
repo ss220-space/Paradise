@@ -1,0 +1,4 @@
+author: "dageavtobusnick"
+delete-after: True
+changes:
+  - bugfix: "Исправлен рантайм при скрытии хранилища. (PR #9434)"

@@ -78,7 +78,8 @@
 	/// Required access level to open cell compartment.
 	var/list/internals_req_access = list(ACCESS_ENGINE,ACCESS_ROBOTICS)
 
-	var/wreckage
+	/// Type that the mecha becomes when destroyed
+	var/obj/structure/mecha_wreckage/wreckage = null
 
 	var/list/equipment = new
 	var/list/list/equipment_in_hands
@@ -203,7 +204,7 @@
 	AddElement(/datum/element/falling_hazard, damage = 100, hardhat_safety = FALSE, crushes = TRUE)
 
 /obj/mecha/Destroy()
-
+	STOP_PROCESSING(SSobj, src)
 	for(var/atom/movable/cargo_thing as anything in cargo)
 		cargo -= cargo_thing
 		cargo_thing.forceMove(drop_location())
@@ -212,22 +213,20 @@
 	if(occupant)
 		occupant.SetSleeping(destruction_sleep_duration)
 	go_out()
-	var/mob/living/silicon/ai/AI
 	for(var/mob/M in src) //Let's just be ultra sure
 		if(isAI(M))
-			occupant = null
-			AI = M //AIs are loaded into the mech computer itself. When the mech dies, so does the AI. They can be recovered with an AI card from the wreck.
+			var/mob/living/silicon/ai/AI = M //AIs are loaded into the mech computer itself. When the mech dies, so does the AI. They can be recovered with an AI card from the wreck.
+			AI.gib() //No wreck, no AI to recover
 		else
 			M.forceMove(loc)
+	occupant = null
 	for(var/obj/item/mecha_parts/mecha_equipment/E in equipment)
 		E.detach(loc)
 		qdel(E)
 	equipment.Cut()
 	QDEL_NULL(cell)
 	QDEL_NULL(internal_tank)
-	if(AI)
-		AI.gib() //No wreck, no AI to recover
-	STOP_PROCESSING(SSobj, src)
+	QDEL_NULL(radio)
 	GLOB.poi_list.Remove(src)
 	var/turf/location = get_turf(src)
 	if(location)
@@ -235,15 +234,16 @@
 	else
 		qdel(cabin_air)
 	cabin_air = null
+	connected_port = null
 	QDEL_NULL(spark_system)
 	QDEL_NULL(smoke_system)
 	QDEL_LIST(trackers)
-	selected_equipment_in_hands.Cut()
+	LAZYCLEARLIST(selected_equipment_in_hands)
 	for(var/list/equipment in equipment_in_hands)
 		equipment.Cut()
 	QDEL_NULL(ui_view)
-	QDEL_NULL(radio)
 	lose_hearing_sensitivity(trait_source = ROUNDSTART_TRAIT)
+	remove_from_all_data_huds()
 	GLOB.mechas_list -= src //global mech list
 	return ..()
 

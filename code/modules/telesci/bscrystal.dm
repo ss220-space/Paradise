@@ -43,6 +43,9 @@
 		blink_mob(hit_atom)
 	qdel(src)
 
+/obj/item/stack/ore/bluespace_crystal/five
+	amount = 5
+
 // Bluespace crystal fragments (stops point farming)
 /obj/item/stack/ore/bluespace_crystal/refined
 	name = "refined bluespace crystal"

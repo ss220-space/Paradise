@@ -804,6 +804,22 @@
 	item_state = "plushie_vox"
 	var/cooldown = 0
 
+/obj/item/toy/plushie/voxplushie/brick
+	name = "vox brick toy"
+	desc = "Мини-прималис. Главное в воксе — держать клюв Кирпичом. Игрушка сшитая основателем камневидного базирования в перерыве между рейдами."
+	color = "#ff78f4"
+
+/obj/item/toy/plushie/voxplushie/brick/get_ru_names()
+	return alist(
+		NOMINATIVE = "Кирпич",
+		GENITIVE = "Кирпича",
+		DATIVE = "Кирпичу",
+		ACCUSATIVE = "Кирпича",
+		INSTRUMENTAL = "Кирпичом",
+		PREPOSITIONAL = "Кирпиче",
+	)
+
+
 /obj/item/toy/plushie/rdplushie
 	name = "RD doll"
 	desc = "Это обычная кукла РД."

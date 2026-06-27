@@ -313,6 +313,7 @@ This applies to all STANDARD station areas
 	name = "Vox Skipjack"
 	icon_state = "shuttle"
 	area_flags = NONE
+	parallax_movedir = SOUTH
 
 /area/shuttle/vox/station
 	icon_state = "yellow"
@@ -714,6 +715,7 @@ This applies to all STANDARD station areas
 
 /area/vox_station
 	name = "Vox Base"
+	name = "База Воксов-Рейдеров"
 	icon_state = "yellow"
 	requires_power = FALSE
 	has_gravity = STANDARD_GRAVITY
@@ -721,6 +723,7 @@ This applies to all STANDARD station areas
 	base_lighting_alpha = 255
 	no_teleportlocs = TRUE
 	area_flags = NONE
+	report_alerts = FALSE
 
 /area/trader_station
 	name = "Trade Base"

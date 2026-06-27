@@ -98,6 +98,9 @@
 	color = "#ACD1E9"
 	alpha = 200
 
+/obj/structure/curtain/open/shower/anchored
+	anchored = TRUE
+
 /obj/structure/curtain/open/shower/engineering
 	color = "#FFA500"
 
