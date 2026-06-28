@@ -847,7 +847,7 @@
 
 	// They should be in a cell or the Brig portion of the shuttle.
 	var/area/A = loc.loc
-	if(!istype(A, /area/security/prison))
+	if(!istype(A, /area/station/security/prison))
 		if(!istype(A, /area/shuttle/escape) || loc.name != "Brig floor")
 			return 0
 
@@ -1317,8 +1317,8 @@
 	usr = temp
 
 GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
-	/area/chapel,
-	/area/maintenance/chapel
+	/area/station/service/chapel,
+	/area/station/maintenance/chapel
 )))
 
 /mob/proc/holy_check()

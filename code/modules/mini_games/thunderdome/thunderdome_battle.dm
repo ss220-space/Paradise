@@ -1,6 +1,6 @@
 GLOBAL_DATUM_INIT(thunderdome_battle, /datum/mini_game/thunderdome_battle, new())
-GLOBAL_VAR_INIT(tdome_arena, locate(/area/tdome/newtdome))
-GLOBAL_VAR_INIT(tdome_arena_melee, locate(/area/tdome/newtdome/CQC))
+GLOBAL_VAR_INIT(tdome_arena, locate(/area/centcom/tdome/new_arena))
+GLOBAL_VAR_INIT(tdome_arena_melee, locate(/area/centcom/tdome/new_arena/cqc))
 
 /**
  * #thunderdome_battle

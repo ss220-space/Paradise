@@ -293,21 +293,20 @@
 	)
 	/// Lists of area to trash
 	var/static/list/areas_to_trash = list(
-		/area/bridge,
-		/area/security,
-		/area/medical/cmo,
-		/area/quartermaster/qm,
-		/area/blueshield,
-		/area/ntrep,
-		/area/lawoffice,
-		/area/magistrateoffice,
-		/area/crew_quarters/captain,
-		/area/crew_quarters/heads,
-		/area/crew_quarters/hor,
-		/area/crew_quarters/hos,
-		/area/crew_quarters/chief,
-		/area/crew_quarters/courtroom,
-		/area/crew_quarters/recruit,
+		/area/station/command/bridge,
+		/area/station/security,
+		/area/station/command/office/cmo,
+		/area/station/command/office/qm,
+		/area/station/command/office/blueshield,
+		/area/station/command/office/ntrep,
+		/area/station/legal/office/law,
+		/area/station/legal/office/magistrate,
+		/area/station/command/office/captain,
+		/area/station/command/office/hop,
+		/area/station/command/office/rd,
+		/area/station/command/office/hos,
+		/area/station/command/office/ce,
+		/area/station/legal/courtroom,
 	)
 
 /datum/station_trait/revolutionary_trashing/on_round_start()
@@ -394,7 +393,7 @@
 	INVOKE_ASYNC(src, PROC_REF(loot_armory))
 
 /datum/station_trait/looted_armory/proc/loot_armory()
-	for(var/area/security/securearmory/armory in GLOB.areas)
+	for(var/area/station/security/hallway/armory/armory in GLOB.areas)
 		for(var/list/zlevel_turfs as anything in armory.get_zlevel_turf_lists())
 			for(var/turf/current_turf as anything in zlevel_turfs)
 				for(var/obj/current_thing as anything in current_turf.contents)

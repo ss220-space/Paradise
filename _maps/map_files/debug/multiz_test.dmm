@@ -5,13 +5,13 @@
 	},
 /obj/effect/landmark/spawner/late/cyborg,
 /turf/simulated/floor/plasteel,
-/area/storage/primary)
+/area/station/commons/storage/primary)
 "ae" = (
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
 /turf/simulated/wall/r_wall,
-/area/hallway/secondary/entry)
+/area/station/hallway/secondary/entry)
 "aq" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 1
@@ -35,25 +35,25 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
-/area/hallway/primary/central)
+/area/station/hallway/primary/central)
 "aZ" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
-/area/storage/primary)
+/area/station/commons/storage/primary)
 "bb" = (
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
 /turf/simulated/wall/r_wall,
-/area/hallway/primary/central)
+/area/station/hallway/primary/central)
 "bc" = (
 /obj/item/pizzabox,
 /turf/simulated/floor/plasteel{
 	icon_state = "L8"
 	},
-/area/storage/primary)
+/area/station/commons/storage/primary)
 "bd" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -62,7 +62,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
-/area/engineering/gravitygenerator)
+/area/station/engineering/gravity_generator)
 "bC" = (
 /turf/space/openspace,
 /area/space/nearstation)
@@ -71,13 +71,13 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/engineering/gravitygenerator)
+/area/station/engineering/gravity_generator)
 "bW" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/atmos)
+/area/station/engineering/atmos)
 "cg" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -89,7 +89,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/engineering/engine)
+/area/station/engineering/engine)
 "co" = (
 /obj/item/mod/control/pre_equipped/responsory/inquisitory/commander,
 /turf/simulated/floor/plasteel,
@@ -117,13 +117,13 @@
 /obj/item/screwdriver/power,
 /obj/item/wirecutters/power,
 /turf/simulated/floor/plating,
-/area/engineering/engine)
+/area/station/engineering/engine)
 "cT" = (
 /turf/simulated/wall/r_wall,
-/area/atmos)
+/area/station/engineering/atmos)
 "dg" = (
 /turf/simulated/floor/plating,
-/area/maintenance/maintcentral)
+/area/station/maintenance/maintcentral)
 "dm" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "L14"
@@ -140,20 +140,20 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/hallway/primary/central)
+/area/station/hallway/primary/central)
 "eb" = (
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel,
-/area/bridge)
+/area/station/command/bridge)
 "eA" = (
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
 /obj/structure/dispenser,
 /turf/simulated/floor/plating,
-/area/engineering/engine)
+/area/station/engineering/engine)
 "eD" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 1
@@ -169,7 +169,7 @@
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
-/area/hallway/secondary/entry)
+/area/station/hallway/secondary/entry)
 "eR" = (
 /obj/structure/window/plasmareinforced{
 	dir = 1
@@ -180,7 +180,7 @@
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
-/area/engineering/engine)
+/area/station/engineering/engine)
 "fa" = (
 /obj/docking_port/stationary{
 	dir = 4;
@@ -217,7 +217,7 @@
 /obj/item/ammo_box/m10mm,
 /obj/item/gun/projectile/automatic/pistol/enforcer/lethal,
 /turf/simulated/floor/plasteel,
-/area/bridge)
+/area/station/command/bridge)
 "gj" = (
 /obj/effect/turf_decal/stripes/asteroid/line,
 /obj/item/mod/control/pre_equipped/responsory/security,
@@ -226,14 +226,14 @@
 "gn" = (
 /obj/machinery/atmospherics/unary/tank/air,
 /turf/simulated/floor/plating,
-/area/atmos)
+/area/station/engineering/atmos)
 "go" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 9
 	},
 /obj/effect/spawner/window/reinforced/plasma,
 /turf/simulated/floor/plating,
-/area/engineering/engine)
+/area/station/engineering/engine)
 "gt" = (
 /obj/effect/turf_decal/stripes/asteroid/corner{
 	dir = 8
@@ -246,13 +246,13 @@
 "gw" = (
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
 /turf/simulated/floor/plasteel,
-/area/hallway/primary/central)
+/area/station/hallway/primary/central)
 "gE" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
-/area/storage/primary)
+/area/station/commons/storage/primary)
 "gH" = (
 /obj/structure/lattice/catwalk,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
@@ -263,7 +263,7 @@
 "gP" = (
 /obj/machinery/computer/arcade,
 /turf/simulated/floor/plasteel,
-/area/hallway/primary/central)
+/area/station/hallway/primary/central)
 "gR" = (
 /obj/machinery/door/airlock/glass,
 /turf/simulated/floor/plasteel,
@@ -275,17 +275,17 @@
 /area/construction/solars)
 "hj" = (
 /turf/simulated/floor/plating,
-/area/storage/primary)
+/area/station/commons/storage/primary)
 "hm" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
-/area/hallway/primary/central)
+/area/station/hallway/primary/central)
 "ho" = (
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
 /turf/simulated/wall/r_wall,
-/area/bridge)
+/area/station/command/bridge)
 "hw" = (
 /obj/effect/turf_decal/stripes/asteroid/line,
 /obj/effect/turf_decal/stripes/asteroid/line{
@@ -299,7 +299,7 @@
 /obj/item/storage/box/lights/tubes,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel,
-/area/storage/primary)
+/area/station/commons/storage/primary)
 "hI" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 4
@@ -312,7 +312,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/engineering/engine)
+/area/station/engineering/engine)
 "ih" = (
 /obj/item/wirecutters,
 /turf/simulated/floor/glass/plasma,
@@ -322,7 +322,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
-/area/engineering/engine)
+/area/station/engineering/engine)
 "is" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 8
@@ -337,7 +337,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/engineering/gravitygenerator)
+/area/station/engineering/gravity_generator)
 "iA" = (
 /turf/simulated/floor/plasteel{
 	dir = 10
@@ -346,7 +346,7 @@
 "iC" = (
 /obj/structure/closet/secure_closet/CMO,
 /turf/simulated/floor/plasteel,
-/area/hallway/primary/central)
+/area/station/hallway/primary/central)
 "iE" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -358,19 +358,19 @@
 	anchored = 1
 	},
 /turf/simulated/floor/plating,
-/area/engineering/engine)
+/area/station/engineering/engine)
 "iP" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
-/area/engineering/gravitygenerator)
+/area/station/engineering/gravity_generator)
 "ja" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 5
 	},
 /turf/simulated/floor/plating,
-/area/atmos)
+/area/station/engineering/atmos)
 "je" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -400,7 +400,7 @@
 	},
 /obj/machinery/disposal,
 /turf/simulated/floor/plasteel,
-/area/storage/primary)
+/area/station/commons/storage/primary)
 "kd" = (
 /obj/machinery/camera/autoname,
 /turf/simulated/openspace,
@@ -416,7 +416,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/engineering/engine)
+/area/station/engineering/engine)
 "kN" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -440,7 +440,7 @@
 	on = 1
 	},
 /turf/simulated/floor/plasteel,
-/area/atmos)
+/area/station/engineering/atmos)
 "lh" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "L4"
@@ -461,7 +461,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "L7"
 	},
-/area/storage/primary)
+/area/station/commons/storage/primary)
 "lE" = (
 /turf/simulated/floor/plasteel{
 	dir = 8
@@ -498,7 +498,7 @@
 /obj/item/analyzer,
 /obj/item/wrench,
 /turf/simulated/floor/plating,
-/area/atmos)
+/area/station/engineering/atmos)
 "mh" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 8
@@ -516,26 +516,26 @@
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
-/area/hallway/primary/central)
+/area/station/hallway/primary/central)
 "mH" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/storage/primary)
+/area/station/commons/storage/primary)
 "mN" = (
 /turf/space,
 /area/space/nearstation)
 "mX" = (
 /obj/machinery/door/airlock,
 /turf/simulated/floor/plating,
-/area/hallway/secondary/entry)
+/area/station/hallway/secondary/entry)
 "nk" = (
 /turf/simulated/floor/glass,
 /area/construction/solars)
 "np" = (
 /turf/simulated/wall/r_wall,
-/area/hallway/secondary/entry)
+/area/station/hallway/secondary/entry)
 "nr" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 8
@@ -550,19 +550,19 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/storage/primary)
+/area/station/commons/storage/primary)
 "nx" = (
 /obj/structure/table,
 /obj/item/card/id/captains_spare,
 /turf/simulated/floor/plasteel,
-/area/bridge)
+/area/station/command/bridge)
 "nz" = (
 /obj/structure/table,
 /obj/item/storage/fancy/donut_box,
 /turf/simulated/floor/plasteel{
 	dir = 10
 	},
-/area/hallway/secondary/entry)
+/area/station/hallway/secondary/entry)
 "nB" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "L10"
@@ -580,7 +580,7 @@
 /turf/simulated/floor/plasteel{
 	dir = 8
 	},
-/area/engineering/gravitygenerator)
+/area/station/engineering/gravity_generator)
 "nR" = (
 /obj/machinery/light{
 	dir = 1
@@ -589,7 +589,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "L3"
 	},
-/area/storage/primary)
+/area/station/commons/storage/primary)
 "of" = (
 /obj/machinery/light{
 	dir = 1
@@ -603,7 +603,7 @@
 "os" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/wall/r_wall,
-/area/storage/primary)
+/area/station/commons/storage/primary)
 "oH" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel,
@@ -613,14 +613,14 @@
 /turf/simulated/floor/plasteel{
 	dir = 4
 	},
-/area/bridge)
+/area/station/command/bridge)
 "oV" = (
 /obj/structure/closet/radiation,
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
 /turf/simulated/floor/plasteel,
-/area/engineering/gravitygenerator)
+/area/station/engineering/gravity_generator)
 "pi" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
@@ -629,7 +629,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
-/area/engineering/engine)
+/area/station/engineering/engine)
 "pp" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
@@ -641,18 +641,18 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/storage/primary)
+/area/station/commons/storage/primary)
 "qe" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
 /turf/simulated/floor/plating,
-/area/engineering/engine)
+/area/station/engineering/engine)
 "qg" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{
 	dir = 1
 	},
 /obj/effect/spawner/window/reinforced/plasma,
 /turf/simulated/floor/plating,
-/area/engineering/engine)
+/area/station/engineering/engine)
 "qq" = (
 /turf/space,
 /area/space)
@@ -671,7 +671,7 @@
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plating,
-/area/engineering/engine)
+/area/station/engineering/engine)
 "ri" = (
 /obj/machinery/light{
 	dir = 1
@@ -679,12 +679,12 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "L11"
 	},
-/area/storage/primary)
+/area/station/commons/storage/primary)
 "rs" = (
 /obj/machinery/power/supermatter_crystal/engine,
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plating,
-/area/engineering/engine)
+/area/station/engineering/engine)
 "rB" = (
 /obj/machinery/light,
 /turf/simulated/floor/glass,
@@ -695,7 +695,7 @@
 	on = 1
 	},
 /turf/simulated/floor/plating,
-/area/engineering/engine)
+/area/station/engineering/engine)
 "rW" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -703,7 +703,7 @@
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
-/area/hallway/primary/central)
+/area/station/hallway/primary/central)
 "rY" = (
 /turf/simulated/floor/plasteel{
 	dir = 9
@@ -725,7 +725,7 @@
 	color = "#dd1010"
 	},
 /turf/simulated/floor/plating,
-/area/storage/primary)
+/area/station/commons/storage/primary)
 "sp" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 1
@@ -736,7 +736,7 @@
 "ss" = (
 /obj/effect/spawner/window/reinforced/plasma,
 /turf/simulated/floor/plating,
-/area/engineering/engine)
+/area/station/engineering/engine)
 "sv" = (
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel,
@@ -747,24 +747,24 @@
 /obj/item/twohanded/fireaxe,
 /obj/item/extinguisher,
 /turf/simulated/floor/plasteel,
-/area/storage/primary)
+/area/station/commons/storage/primary)
 "sR" = (
 /obj/machinery/vending/cola,
 /turf/simulated/floor/plasteel,
-/area/hallway/primary/central)
+/area/station/hallway/primary/central)
 "sS" = (
 /obj/structure/table,
 /obj/item/storage/backpack/holding,
 /turf/simulated/floor/plasteel,
-/area/bridge)
+/area/station/command/bridge)
 "tg" = (
 /obj/structure/table,
 /turf/simulated/floor/plasteel,
-/area/storage/primary)
+/area/station/commons/storage/primary)
 "tk" = (
 /obj/machinery/vending/snack,
 /turf/simulated/floor/plasteel,
-/area/hallway/primary/central)
+/area/station/hallway/primary/central)
 "tD" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
@@ -772,7 +772,7 @@
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
-/area/hallway/primary/central)
+/area/station/hallway/primary/central)
 "tG" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -783,7 +783,7 @@
 /turf/simulated/floor/plasteel{
 	dir = 8
 	},
-/area/bridge)
+/area/station/command/bridge)
 "tI" = (
 /obj/item/mod/control/pre_equipped/responsory/engineer,
 /turf/simulated/floor/plasteel,
@@ -799,7 +799,7 @@
 	pixel_y = 7
 	},
 /turf/simulated/floor/plasteel,
-/area/hallway/secondary/entry)
+/area/station/hallway/secondary/entry)
 "tV" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 1
@@ -815,23 +815,23 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/engineering/gravitygenerator)
+/area/station/engineering/gravity_generator)
 "uh" = (
 /turf/simulated/floor/plasteel{
 	dir = 4
 	},
-/area/engineering/gravitygenerator)
+/area/station/engineering/gravity_generator)
 "ur" = (
 /obj/machinery/light{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/hallway/primary/central)
+/area/station/hallway/primary/central)
 "uM" = (
 /obj/structure/lattice/catwalk,
 /obj/machinery/atmospherics/unary/outlet_injector/on,
 /turf/space,
-/area/engineering/engine)
+/area/station/engineering/engine)
 "uO" = (
 /obj/structure/cable{
 	icon_state = "1-4"
@@ -840,7 +840,7 @@
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel,
-/area/hallway/primary/central)
+/area/station/hallway/primary/central)
 "uP" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 8
@@ -860,14 +860,14 @@
 	},
 /obj/machinery/door/airlock,
 /turf/simulated/floor/plating,
-/area/engineering/engine)
+/area/station/engineering/engine)
 "vq" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
 	},
 /obj/item/wrench/power,
 /turf/simulated/floor/plating,
-/area/engineering/engine)
+/area/station/engineering/engine)
 "vr" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 4
@@ -875,7 +875,7 @@
 /obj/machinery/portable_atmospherics/canister,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
-/area/atmos)
+/area/station/engineering/atmos)
 "vC" = (
 /obj/structure/lattice/catwalk,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
@@ -886,28 +886,28 @@
 "vI" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
-/area/maintenance/maintcentral)
+/area/station/maintenance/maintcentral)
 "vP" = (
 /obj/machinery/vending/coffee,
 /turf/simulated/floor/plasteel,
-/area/hallway/primary/central)
+/area/station/hallway/primary/central)
 "wd" = (
 /obj/machinery/light,
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
 	dir = 10
 	},
-/area/bridge)
+/area/station/command/bridge)
 "we" = (
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
-/area/hallway/secondary/entry)
+/area/station/hallway/secondary/entry)
 "wj" = (
 /obj/machinery/computer/sm_monitor,
 /turf/simulated/floor/plating,
-/area/engineering/engine)
+/area/station/engineering/engine)
 "wl" = (
 /turf/simulated/floor/plasteel,
 /area/construction/hallway)
@@ -921,14 +921,14 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
-/area/storage/primary)
+/area/station/commons/storage/primary)
 "wz" = (
 /obj/machinery/computer/monitor,
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plating,
-/area/engineering/engine)
+/area/station/engineering/engine)
 "wB" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 1
@@ -949,7 +949,7 @@
 /obj/item/stack/rods/fifty,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel,
-/area/hallway/secondary/entry)
+/area/station/hallway/secondary/entry)
 "wP" = (
 /obj/effect/spawner/window/reinforced/plasma,
 /turf/simulated/floor/plating,
@@ -967,21 +967,21 @@
 /turf/simulated/floor/plasteel{
 	dir = 4
 	},
-/area/bridge)
+/area/station/command/bridge)
 "wZ" = (
 /obj/machinery/door/airlock,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
-/area/atmos)
+/area/station/engineering/atmos)
 "xg" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
-/area/engineering/gravitygenerator)
+/area/station/engineering/gravity_generator)
 "xs" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/item/pizzabox,
 /turf/simulated/floor/plasteel,
-/area/storage/primary)
+/area/station/commons/storage/primary)
 "xy" = (
 /obj/effect/turf_decal/stripes/asteroid/line,
 /obj/structure/disposalpipe/segment{
@@ -1017,7 +1017,7 @@
 	},
 /obj/structure/closet/jcloset,
 /turf/simulated/floor/plasteel,
-/area/hallway/primary/central)
+/area/station/hallway/primary/central)
 "xW" = (
 /obj/effect/turf_decal/stripes/asteroid/line,
 /obj/structure/disposalpipe/segment{
@@ -1041,25 +1041,25 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "L5"
 	},
-/area/storage/primary)
+/area/station/commons/storage/primary)
 "yi" = (
 /obj/item/pizzabox,
 /turf/simulated/floor/plasteel{
 	icon_state = "L14"
 	},
-/area/storage/primary)
+/area/station/commons/storage/primary)
 "yj" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
 /turf/simulated/wall/r_wall,
-/area/hallway/secondary/entry)
+/area/station/hallway/secondary/entry)
 "yD" = (
 /obj/machinery/light{
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/storage/primary)
+/area/station/commons/storage/primary)
 "yH" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "L6"
@@ -1071,7 +1071,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
-/area/hallway/primary/central)
+/area/station/hallway/primary/central)
 "ze" = (
 /obj/structure/window/plasmareinforced{
 	dir = 1
@@ -1084,7 +1084,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
-/area/engineering/engine)
+/area/station/engineering/engine)
 "zt" = (
 /obj/effect/turf_decal/stripes/asteroid/line,
 /obj/item/mod/control/pre_equipped/responsory/medic,
@@ -1095,13 +1095,13 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "L4"
 	},
-/area/storage/primary)
+/area/station/commons/storage/primary)
 "Ac" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/storage/primary)
+/area/station/commons/storage/primary)
 "Ak" = (
 /turf/simulated/floor/glass/plasma,
 /area/construction/solars)
@@ -1119,13 +1119,13 @@
 "Aw" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
-/area/hallway/primary/central)
+/area/station/hallway/primary/central)
 "AG" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 9
 	},
 /turf/simulated/floor/plating,
-/area/engineering/engine)
+/area/station/engineering/engine)
 "AI" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/openspace,
@@ -1142,7 +1142,7 @@
 /area/space)
 "Bb" = (
 /turf/simulated/wall/r_wall,
-/area/storage/primary)
+/area/station/commons/storage/primary)
 "Bg" = (
 /obj/item/mod/control/pre_equipped/empty/syndicate,
 /turf/simulated/floor/plasteel,
@@ -1157,7 +1157,7 @@
 	dir = 9
 	},
 /turf/simulated/floor/plasteel,
-/area/storage/primary)
+/area/station/commons/storage/primary)
 "Bw" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -1194,13 +1194,13 @@
 /turf/simulated/floor/plasteel{
 	dir = 8
 	},
-/area/engineering/gravitygenerator)
+/area/station/engineering/gravity_generator)
 "Cm" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
 /turf/simulated/floor/plasteel,
-/area/engineering/gravitygenerator)
+/area/station/engineering/gravity_generator)
 "Cy" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 8
@@ -1217,7 +1217,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/maintcentral)
+/area/station/maintenance/maintcentral)
 "CL" = (
 /obj/structure/lattice/catwalk,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
@@ -1243,7 +1243,7 @@
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plating,
-/area/engineering/engine)
+/area/station/engineering/engine)
 "Dn" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 4
@@ -1254,13 +1254,13 @@
 "Dr" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/wall/r_wall,
-/area/bridge)
+/area/station/command/bridge)
 "Ds" = (
 /obj/item/pizzabox,
 /turf/simulated/floor/plasteel{
 	icon_state = "L10"
 	},
-/area/storage/primary)
+/area/station/commons/storage/primary)
 "Dw" = (
 /obj/structure/lattice/catwalk,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
@@ -1295,7 +1295,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/atmos)
+/area/station/engineering/atmos)
 "Ev" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -1305,7 +1305,7 @@
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plating,
-/area/bridge)
+/area/station/command/bridge)
 "Ex" = (
 /obj/machinery/light{
 	dir = 8
@@ -1318,7 +1318,7 @@
 	},
 /obj/effect/spawner/window/reinforced/plasma,
 /turf/simulated/floor/plating,
-/area/engineering/engine)
+/area/station/engineering/engine)
 "EL" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "L13"
@@ -1337,7 +1337,7 @@
 "FT" = (
 /obj/structure/closet/secure_closet/engineering_chief,
 /turf/simulated/floor/plating,
-/area/engineering/engine)
+/area/station/engineering/engine)
 "FX" = (
 /obj/machinery/power/smes{
 	charge = 5e+006
@@ -1352,7 +1352,7 @@
 	dir = 9
 	},
 /turf/simulated/floor/plasteel,
-/area/engineering/gravitygenerator)
+/area/station/engineering/gravity_generator)
 "Gh" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/camera/autoname,
@@ -1361,7 +1361,7 @@
 "Gk" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
-/area/bridge)
+/area/station/command/bridge)
 "Gu" = (
 /obj/item/mod/control/pre_equipped/safeguard_mk_one,
 /turf/simulated/floor/plasteel,
@@ -1372,19 +1372,19 @@
 /obj/item/storage/firstaid/regular,
 /obj/item/healthanalyzer,
 /turf/simulated/floor/plasteel,
-/area/hallway/secondary/entry)
+/area/station/hallway/secondary/entry)
 "Gx" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/engineering/gravitygenerator)
+/area/station/engineering/gravity_generator)
 "Gy" = (
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
-/area/hallway/primary/central)
+/area/station/hallway/primary/central)
 "GG" = (
 /obj/machinery/light{
 	dir = 8
@@ -1406,13 +1406,13 @@
 /turf/simulated/floor/plasteel{
 	dir = 8
 	},
-/area/bridge)
+/area/station/command/bridge)
 "GW" = (
 /turf/simulated/wall/r_wall,
-/area/engineering/gravitygenerator)
+/area/station/engineering/gravity_generator)
 "Hk" = (
 /turf/simulated/wall/r_wall,
-/area/maintenance/maintcentral)
+/area/station/maintenance/maintcentral)
 "Ht" = (
 /turf/simulated/openspace,
 /area/construction/solars)
@@ -1425,7 +1425,7 @@
 "HQ" = (
 /obj/effect/landmark/spawner/late/crew,
 /turf/simulated/floor/plasteel,
-/area/storage/primary)
+/area/station/commons/storage/primary)
 "HU" = (
 /obj/item/mod/control/pre_equipped/responsory/inquisitory/medic,
 /turf/simulated/floor/plasteel,
@@ -1436,7 +1436,7 @@
 	},
 /obj/machinery/door/airlock,
 /turf/simulated/floor/plating,
-/area/engineering/engine)
+/area/station/engineering/engine)
 "If" = (
 /obj/structure/lattice/catwalk,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging,
@@ -1468,7 +1468,7 @@
 /turf/simulated/floor/plasteel{
 	dir = 4
 	},
-/area/hallway/primary/central)
+/area/station/hallway/primary/central)
 "IY" = (
 /turf/simulated/floor/plasteel,
 /area/construction/solars)
@@ -1482,31 +1482,31 @@
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
-/area/hallway/secondary/entry)
+/area/station/hallway/secondary/entry)
 "Jo" = (
 /obj/structure/table,
 /obj/item/lightreplacer,
 /turf/simulated/floor/plasteel,
-/area/storage/primary)
+/area/station/commons/storage/primary)
 "Jw" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
-/area/hallway/primary/central)
+/area/station/hallway/primary/central)
 "JJ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel,
-/area/hallway/primary/central)
+/area/station/hallway/primary/central)
 "JO" = (
 /obj/structure/disposalpipe/segment{
 	dir = 9
 	},
 /turf/simulated/floor/plating,
-/area/storage/primary)
+/area/station/commons/storage/primary)
 "JX" = (
 /obj/effect/turf_decal/stripes/asteroid/line,
 /obj/item/mod/control/pre_equipped/debug,
@@ -1528,7 +1528,7 @@
 "Kb" = (
 /obj/machinery/door/airlock/glass,
 /turf/simulated/floor/plasteel,
-/area/hallway/secondary/entry)
+/area/station/hallway/secondary/entry)
 "Kc" = (
 /obj/structure/cable{
 	icon_state = "0-4"
@@ -1542,7 +1542,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
-/area/engineering/engine)
+/area/station/engineering/engine)
 "Ko" = (
 /obj/structure/lattice/catwalk,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
@@ -1555,7 +1555,7 @@
 	dir = 10
 	},
 /turf/simulated/floor/plasteel,
-/area/storage/primary)
+/area/station/commons/storage/primary)
 "Kw" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -1564,12 +1564,12 @@
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel,
-/area/hallway/primary/central)
+/area/station/hallway/primary/central)
 "KF" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "L13"
 	},
-/area/storage/primary)
+/area/station/commons/storage/primary)
 "KO" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "L1"
@@ -1582,14 +1582,14 @@
 /turf/simulated/floor/plasteel{
 	dir = 8
 	},
-/area/hallway/secondary/entry)
+/area/station/hallway/secondary/entry)
 "Lg" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/construction/hallway)
 "Lr" = (
 /turf/simulated/floor/plating,
-/area/engineering/engine)
+/area/station/engineering/engine)
 "Ly" = (
 /turf/simulated/floor/plasteel{
 	dir = 1
@@ -1601,23 +1601,23 @@
 /turf/simulated/floor/plasteel{
 	dir = 8
 	},
-/area/hallway/secondary/entry)
+/area/station/hallway/secondary/entry)
 "LI" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
 /turf/simulated/floor/plasteel,
-/area/storage/primary)
+/area/station/commons/storage/primary)
 "LZ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/wall/r_wall,
-/area/engineering/engine)
+/area/station/engineering/engine)
 "Md" = (
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel,
-/area/hallway/primary/central)
+/area/station/hallway/primary/central)
 "Mn" = (
 /obj/structure/table,
 /obj/item/rcd_ammo/large,
@@ -1625,7 +1625,7 @@
 /obj/item/rcd_ammo/large,
 /obj/item/rcd,
 /turf/simulated/floor/plasteel,
-/area/bridge)
+/area/station/command/bridge)
 "Mq" = (
 /obj/item/mod/control/pre_equipped/safeguard_mk_two,
 /turf/simulated/floor/plasteel,
@@ -1647,7 +1647,7 @@
 	},
 /obj/item/airlock_painter,
 /turf/simulated/floor/plating,
-/area/engineering/engine)
+/area/station/engineering/engine)
 "MN" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "L9"
@@ -1659,7 +1659,7 @@
 	},
 /obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plating,
-/area/atmos)
+/area/station/engineering/atmos)
 "Ng" = (
 /obj/machinery/light{
 	dir = 8
@@ -1670,7 +1670,7 @@
 /turf/simulated/floor/plasteel{
 	dir = 8
 	},
-/area/hallway/secondary/entry)
+/area/station/hallway/secondary/entry)
 "Nm" = (
 /obj/machinery/light{
 	dir = 8
@@ -1682,15 +1682,15 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "L6"
 	},
-/area/storage/primary)
+/area/station/commons/storage/primary)
 "Nu" = (
 /turf/simulated/wall/r_wall,
-/area/engineering/engine)
+/area/station/engineering/engine)
 "Nz" = (
 /obj/item/clothing/head/welding,
 /obj/item/weldingtool/experimental/mecha,
 /turf/simulated/floor/plating,
-/area/engineering/engine)
+/area/station/engineering/engine)
 "ND" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 1
@@ -1705,7 +1705,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/wall/r_wall,
-/area/storage/primary)
+/area/station/commons/storage/primary)
 "Oc" = (
 /obj/machinery/light{
 	dir = 8
@@ -1715,7 +1715,7 @@
 "Ok" = (
 /obj/machinery/door/airlock,
 /turf/simulated/floor/plasteel,
-/area/bridge)
+/area/station/command/bridge)
 "On" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "L5"
@@ -1723,7 +1723,7 @@
 /area/construction/hallway)
 "Os" = (
 /turf/simulated/wall/r_wall,
-/area/bridge)
+/area/station/command/bridge)
 "Ot" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "L7"
@@ -1740,7 +1740,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
-/area/hallway/primary/central)
+/area/station/hallway/primary/central)
 "OZ" = (
 /obj/machinery/alarm/directional/north{
 	locked = 0
@@ -1751,7 +1751,7 @@
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
-/area/engineering/engine)
+/area/station/engineering/engine)
 "Pf" = (
 /obj/machinery/light{
 	dir = 4
@@ -1780,11 +1780,11 @@
 "PR" = (
 /obj/machinery/alarm/all_access/directional/west,
 /turf/simulated/floor/plating,
-/area/engineering/engine)
+/area/station/engineering/engine)
 "PS" = (
 /obj/machinery/atmospherics/pipe/manifold/visible,
 /turf/simulated/floor/plating,
-/area/atmos)
+/area/station/engineering/atmos)
 "PW" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 1
@@ -1794,19 +1794,19 @@
 "PY" = (
 /obj/machinery/suit_storage_unit/ce,
 /turf/simulated/floor/plating,
-/area/atmos)
+/area/station/engineering/atmos)
 "Qh" = (
 /obj/machinery/light,
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 9
 	},
 /turf/simulated/floor/plating,
-/area/atmos)
+/area/station/engineering/atmos)
 "Ql" = (
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
-/area/engineering/gravitygenerator)
+/area/station/engineering/gravity_generator)
 "Qm" = (
 /obj/item/mod/control/pre_equipped/prototype,
 /turf/simulated/floor/plasteel,
@@ -1816,7 +1816,7 @@
 	dir = 6
 	},
 /turf/simulated/floor/plasteel,
-/area/storage/primary)
+/area/station/commons/storage/primary)
 "Qt" = (
 /obj/item/mod/control/pre_equipped/cosmohonk,
 /turf/simulated/floor/plasteel,
@@ -1831,7 +1831,7 @@
 	on = 1
 	},
 /turf/simulated/floor/plasteel,
-/area/atmos)
+/area/station/engineering/atmos)
 "Rw" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -1860,42 +1860,42 @@
 /obj/machinery/portable_atmospherics/canister/sleeping_agent,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
-/area/atmos)
+/area/station/engineering/atmos)
 "Sj" = (
 /turf/simulated/floor/plasteel,
-/area/hallway/primary/central)
+/area/station/hallway/primary/central)
 "Sk" = (
 /obj/structure/table,
 /obj/item/flashlight{
 	pixel_y = 5
 	},
 /turf/simulated/floor/plasteel,
-/area/storage/primary)
+/area/station/commons/storage/primary)
 "Sx" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/engineering/engine)
+/area/station/engineering/engine)
 "SC" = (
 /turf/simulated/floor/plating,
-/area/hallway/secondary/entry)
+/area/station/hallway/secondary/entry)
 "SD" = (
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel,
-/area/storage/primary)
+/area/station/commons/storage/primary)
 "SI" = (
 /obj/machinery/atmospherics/meter,
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/atmos)
+/area/station/engineering/atmos)
 "SP" = (
 /obj/structure/table,
 /obj/item/weldingtool/experimental,
 /turf/simulated/floor/plating,
-/area/engineering/engine)
+/area/station/engineering/engine)
 "SX" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "L11"
@@ -1906,10 +1906,10 @@
 	dir = 2
 	},
 /turf/simulated/floor/plating,
-/area/storage/primary)
+/area/station/commons/storage/primary)
 "Tz" = (
 /turf/simulated/floor/plasteel,
-/area/storage/primary)
+/area/station/commons/storage/primary)
 "TG" = (
 /obj/effect/turf_decal/stripes/asteroid/line,
 /obj/effect/turf_decal/stripes/asteroid/line{
@@ -1928,7 +1928,7 @@
 /obj/item/storage/box/lights/mixed,
 /obj/item/lightreplacer,
 /turf/simulated/floor/plating,
-/area/engineering/engine)
+/area/station/engineering/engine)
 "TR" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 8
@@ -1952,11 +1952,11 @@
 	},
 /obj/structure/closet/secure_closet/atmos_personal,
 /turf/simulated/floor/plating,
-/area/atmos)
+/area/station/engineering/atmos)
 "UH" = (
 /obj/machinery/door/airlock/glass,
 /turf/simulated/floor/plasteel,
-/area/storage/primary)
+/area/station/commons/storage/primary)
 "UJ" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 4
@@ -1971,7 +1971,7 @@
 /turf/simulated/floor/plasteel{
 	dir = 8
 	},
-/area/hallway/secondary/entry)
+/area/station/hallway/secondary/entry)
 "Ve" = (
 /obj/machinery/light{
 	dir = 4
@@ -1985,7 +1985,7 @@
 	name = "nitrogen filter"
 	},
 /turf/simulated/floor/plating,
-/area/engineering/engine)
+/area/station/engineering/engine)
 "Vp" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
@@ -2014,19 +2014,19 @@
 /area/construction)
 "VG" = (
 /turf/simulated/openspace,
-/area/maintenance/maintcentral)
+/area/station/maintenance/maintcentral)
 "VW" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
-/area/bridge)
+/area/station/command/bridge)
 "Wc" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/landmark/spawner/late/cyborg,
 /turf/simulated/floor/plasteel,
-/area/storage/primary)
+/area/station/commons/storage/primary)
 "Wd" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -2045,12 +2045,12 @@
 /turf/simulated/floor/plasteel{
 	dir = 9
 	},
-/area/hallway/secondary/entry)
+/area/station/hallway/secondary/entry)
 "Wj" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "L9"
 	},
-/area/storage/primary)
+/area/station/commons/storage/primary)
 "Wn" = (
 /obj/machinery/atmospherics/pipe/multiz{
 	dir = 1
@@ -2078,7 +2078,7 @@
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
-/area/hallway/primary/central)
+/area/station/hallway/primary/central)
 "Wu" = (
 /obj/machinery/door/airlock/glass,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -2093,11 +2093,11 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel,
-/area/engineering/gravitygenerator)
+/area/station/engineering/gravity_generator)
 "WT" = (
 /obj/structure/closet/secure_closet/engineering_welding,
 /turf/simulated/floor/plating,
-/area/engineering/engine)
+/area/station/engineering/engine)
 "Xl" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
@@ -2108,17 +2108,17 @@
 /area/construction/hallway)
 "XH" = (
 /turf/simulated/floor/plasteel,
-/area/engineering/gravitygenerator)
+/area/station/engineering/gravity_generator)
 "XI" = (
 /turf/simulated/wall/r_wall,
-/area/hallway/primary/central)
+/area/station/hallway/primary/central)
 "XM" = (
 /obj/machinery/portable_atmospherics/canister/toxins,
 /turf/simulated/floor/plating,
-/area/engineering/engine)
+/area/station/engineering/engine)
 "XO" = (
 /turf/simulated/floor/plasteel,
-/area/bridge)
+/area/station/command/bridge)
 "XP" = (
 /obj/machinery/light{
 	dir = 4
@@ -2131,7 +2131,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
-/area/hallway/primary/central)
+/area/station/hallway/primary/central)
 "XY" = (
 /obj/structure/disposalpipe/trunk/multiz/down{
 	dir = 1
@@ -2140,10 +2140,10 @@
 /area/construction/hallway)
 "Yf" = (
 /turf/simulated/floor/plasteel,
-/area/hallway/secondary/entry)
+/area/station/hallway/secondary/entry)
 "Yi" = (
 /turf/simulated/floor/plating,
-/area/atmos)
+/area/station/engineering/atmos)
 "Yk" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 4
@@ -2155,11 +2155,11 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "L12"
 	},
-/area/storage/primary)
+/area/station/commons/storage/primary)
 "Yr" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plating,
-/area/atmos)
+/area/station/engineering/atmos)
 "Ys" = (
 /obj/machinery/power/terminal{
 	dir = 1
@@ -2171,7 +2171,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
-/area/engineering/gravitygenerator)
+/area/station/engineering/gravity_generator)
 "Yt" = (
 /obj/effect/turf_decal/stripes/asteroid/line,
 /obj/item/mod/control/pre_equipped/apocryphal,
@@ -2182,17 +2182,17 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/atmos)
+/area/station/engineering/atmos)
 "YE" = (
 /obj/machinery/vending/cigarette,
 /turf/simulated/floor/plasteel,
-/area/hallway/primary/central)
+/area/station/hallway/primary/central)
 "YH" = (
 /obj/item/pizzabox,
 /turf/simulated/floor/plasteel{
 	icon_state = "L2"
 	},
-/area/storage/primary)
+/area/station/commons/storage/primary)
 "YK" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "L3"
@@ -2214,20 +2214,20 @@
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plating,
-/area/engineering/engine)
+/area/station/engineering/engine)
 "YY" = (
 /obj/machinery/portable_atmospherics/canister/nitrogen,
 /turf/simulated/floor/plating,
-/area/engineering/engine)
+/area/station/engineering/engine)
 "Zg" = (
 /obj/structure/table,
 /turf/simulated/floor/plasteel,
-/area/bridge)
+/area/station/command/bridge)
 "Zh" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "L1"
 	},
-/area/storage/primary)
+/area/station/commons/storage/primary)
 "Zi" = (
 /obj/machinery/power/apc/directional/north,
 /obj/structure/cable{
@@ -2240,7 +2240,7 @@
 	dir = 5
 	},
 /turf/simulated/floor/plasteel,
-/area/engineering/gravitygenerator)
+/area/station/engineering/gravity_generator)
 "Zl" = (
 /obj/effect/turf_decal/stripes/asteroid/line,
 /obj/structure/disposalpipe/segment{
@@ -2259,7 +2259,7 @@
 /turf/simulated/floor/plasteel{
 	dir = 6
 	},
-/area/bridge)
+/area/station/command/bridge)
 
 (1,1,1) = {"
 qq

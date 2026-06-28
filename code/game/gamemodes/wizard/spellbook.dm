@@ -69,7 +69,7 @@
 	return FALSE
 
 /datum/spellbook_entry/proc/Refund(mob/living/carbon/human/user, obj/item/spellbook/book)//return point value or -1 for failure
-	var/area/wizard_station/A = locate()
+	var/area/centcom/wizard_station/A = locate()
 	if(!(user in A.contents))
 		to_chat(user, span_warning("You can only refund spells at the wizard lair."))
 		return -1
