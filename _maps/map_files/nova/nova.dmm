@@ -5317,7 +5317,7 @@
 /area/station/maintenance/medroom)
 "aQe" = (
 /obj/docking_port/stationary{
-	area_type = /area/quartermaster/miningdock;
+	area_type = /area/station/cargo/miningdock;
 	dir = 2;
 	dwidth = 3;
 	height = 5;
