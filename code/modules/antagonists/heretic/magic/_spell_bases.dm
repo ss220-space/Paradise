@@ -230,9 +230,6 @@
 /obj/effect/proc_holder/spell/realignment/create_new_targeting()
 	return new /datum/spell_targeting/self
 
-/obj/effect/proc_holder/spell/caretaker/create_new_targeting()
-	return new /datum/spell_targeting/self
-
 /obj/effect/proc_holder/spell/fire_sworn/create_new_targeting()
 	return new /datum/spell_targeting/self
 

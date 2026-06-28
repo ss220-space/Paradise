@@ -111,12 +111,12 @@
 	if(!isheretic(user))
 		robes_side_effect(user)
 		return
-	user.add_traits(guise_traits, REF(src))
+	user.add_traits(guise_traits, UID())
 
 
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/lock/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
-	user.remove_traits(guise_traits, REF(src))
+	user.remove_traits(guise_traits, UID())
 
 
 /// A non-heretic who dons the guise is violently relieved of everything they are carrying (tg parity).

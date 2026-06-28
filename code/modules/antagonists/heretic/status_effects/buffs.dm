@@ -346,75 +346,8 @@
 	addtimer(CALLBACK(src, PROC_REF(create_blade)), blade_recharge_time)
 
 
-/datum/status_effect/caretaker_refuge
-	id = "Caretaker’s Last Refuge"
-	status_type = STATUS_EFFECT_REFRESH
-	alert_type = null
-	var/static/list/caretaking_traits = list(TRAIT_GODMODE, TRAIT_HANDS_BLOCKED, TRAIT_IGNORESLOWDOWN, TRAIT_SECLUDED_LOCATION)
-
-
-/datum/status_effect/caretaker_refuge/on_apply()
-	animate(owner, alpha = 45, time = 0.5 SECONDS)
-	owner.set_density(FALSE)
-	RegisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_ALLOW_HERETIC_CASTING), PROC_REF(on_focus_lost))
-	RegisterSignal(owner, COMSIG_MOB_BEFORE_SPELL_CAST, PROC_REF(prevent_spell_usage))
-	RegisterSignal(owner, COMSIG_ATOM_HOLYATTACK, PROC_REF(nullrod_handler))
-	RegisterSignal(owner, COMSIG_CARBON_CUFF_ATTEMPTED, PROC_REF(prevent_cuff))
-	RegisterSignal(owner, COMSIG_BEING_STRIPPED, PROC_REF(no_strip))
-	owner.add_traits(caretaking_traits, TRAIT_STATUS_EFFECT(id))
-	return TRUE
-
-
-/datum/status_effect/caretaker_refuge/on_remove()
-	owner.remove_traits(caretaking_traits, TRAIT_STATUS_EFFECT(id))
-	owner.alpha = initial(owner.alpha)
-	owner.density = initial(owner.density)
-	UnregisterSignal(owner, SIGNAL_REMOVETRAIT(TRAIT_ALLOW_HERETIC_CASTING))
-	UnregisterSignal(owner, COMSIG_MOB_BEFORE_SPELL_CAST)
-	UnregisterSignal(owner, COMSIG_ATOM_HOLYATTACK)
-	UnregisterSignal(owner, COMSIG_CARBON_CUFF_ATTEMPTED)
-	UnregisterSignal(owner, COMSIG_BEING_STRIPPED)
-	owner.visible_message(
-		span_warning("Дымка вокруг [owner.declent_ru(GENITIVE)] исчезает, оставляя его в этой реальности!"),
-		span_notice("Вы больше не в домике."),
-	)
-
-
-/datum/status_effect/caretaker_refuge/get_examine_text()
-	return span_warning("[genderize_ru(owner.gender, "Он", "Она", "Оно", "Они")] окутан[genderize_ru(owner.gender, "", "а", "о", "ы")] нечестивой дымкой!")
-
-
-/datum/status_effect/caretaker_refuge/proc/nullrod_handler(datum/source, obj/item/weapon)
-	SIGNAL_HANDLER
-	playsound(get_turf(owner), 'sound/effects/curse/curse1.ogg', 80, TRUE)
-	owner.visible_message(span_warning("[weapon.declent_ru(NOMINATIVE)] рассеивает дымку вокруг [owner.declent_ru(GENITIVE)]!"))
-	owner.remove_status_effect(type)
-
-
-/datum/status_effect/caretaker_refuge/proc/on_focus_lost()
-	SIGNAL_HANDLER
-	to_chat(owner, span_danger("Из-за того, что вы потеряли концентрацию, окружающая дымка бледнеет и рассеивается!"))
-	qdel(src)
-
-
-/datum/status_effect/caretaker_refuge/proc/no_strip(atom/source, mob/user, obj/item/equipping)
-	SIGNAL_HANDLER
-	to_chat(user, span_warning("[source.declent_ru(NOMINATIVE)] бестелесен!"))
-	return COMPONENT_CANT_STRIP
-
-
-/datum/status_effect/caretaker_refuge/proc/prevent_spell_usage(datum/source, datum/spell)
-	SIGNAL_HANDLER
-	if(istype(spell, /obj/effect/proc_holder/spell/caretaker))
-		return
-
-	owner.balloon_alert(owner, "нельзя колдовать!")
-	return SPELL_CANCEL_CAST
-
-
-/datum/status_effect/caretaker_refuge/proc/prevent_cuff(datum/source, mob/attemptee)
-	SIGNAL_HANDLER
-	return COMSIG_CARBON_CUFF_PREVENT
+// NB: the old /datum/status_effect/caretaker_refuge (an intangible status effect) was removed when the
+// Caretaker's Last Refuge ability was reworked into a jaunt (see magic/caretaker.dm).
 
 
 // Path Of Moon status effect which hides the identity of the heretic

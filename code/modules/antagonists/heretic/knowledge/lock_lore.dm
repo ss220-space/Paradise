@@ -202,7 +202,12 @@
 	gain_text = "Хотя Стюарды известны Консьержу, между собой и с чужаками они общаются под тенью капюшонов. \
 				Узнавание — это предательство, даже самого себя."
 	result_atoms = list(/obj/item/clothing/suit/hooded/cultrobes/eldritch/lock)
+	// The /armor parent points at eldritch_armor (a multi-frame anim) and asks for frame 12. lock_armor is a
+	// single-frame sprite, so we MUST override path + frame 1 - requesting frame 12 of a 1-frame state renders
+	// a blank node in the research tree (same bug class as the moon robe).
+	research_tree_icon_path = 'icons/obj/clothing/suits.dmi'
 	research_tree_icon_state = "lock_armor"
+	research_tree_icon_frame = 1
 	required_atoms = list(
 		list(/obj/structure/table, /obj/item/clothing/suit) = 1,
 		/obj/item/clothing/mask = 1,
@@ -240,13 +245,13 @@
 
 /datum/heretic_knowledge/spell/caretaker_refuge
 	name = "Последнее пристанище смотрителя"
-	desc = "Даёт вам заклинание, делающее вас прозрачным и неосязаемым. Нельзя использовать рядом с живыми разумными существами. \
-			В этом состоянии вы не можете использовать руки или заклинания, а также невосприимчивы к замедлению. \
-			Вы неуязвимы, но не можете причинить вред кому-либо. Отменяется ударом антимагического предмета."
+	desc = "Даёт вам заклинание, скрывающее вас в Убежище Смотрителя — прозрачным и неосязаемым. \
+			Войти в него можно, только пока вас никто не видит, и выйти — лишь там, где вас никто не видит. \
+			В убежище вы неуязвимы, но не можете действовать."
 	gain_text = "Завистливо преследовали меня Страж и Гончая. Но я скрыл свой облик став неосязаемым туманом."
 	research_tree_icon_path = 'icons/mob/actions/actions_ecult.dmi'
 	research_tree_icon_state = "caretaker"
-	spell_to_add = /obj/effect/proc_holder/spell/caretaker
+	spell_to_add = /obj/effect/proc_holder/spell/jaunt/space_crawl/caretaker
 	cost = 2 // TG: caretaker_refuge costs 2
 	is_final_knowledge = TRUE
 

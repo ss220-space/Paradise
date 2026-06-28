@@ -28,6 +28,10 @@
 	jaunt_type = /obj/effect/dummy/spell_jaunt/space
 	///List of traits that are added to the heretic while in space phase jaunt
 	var/static/list/jaunting_traits = list(TRAIT_RESIST_COLD, TRAIT_RESIST_COLD, TRAIT_NO_BREATH)
+	/// Message shown when the caster tries to enter/exit on a turf that isn't valid (see is_valid_turf).
+	var/invalid_turf_message = "Вы должны находиться в космосе или на открытом воздухе с низким давлением!"
+	/// The "hands" given to a carbon jaunter to stop them acting. Subtypes override this to rename them.
+	var/jaunt_hand_type = /obj/item/space_crawl
 
 
 /obj/effect/proc_holder/spell/jaunt/space_crawl/on_spell_gain(mob/user = usr)
@@ -55,7 +59,7 @@
 		return TRUE
 
 	if(show_message)
-		to_chat(user, span_warning("Вы должны находиться в космосе или на открытом воздухе с низким давлением!"))
+		to_chat(user, span_warning(invalid_turf_message))
 	return FALSE
 
 
@@ -109,6 +113,11 @@
 	RegisterSignal(holder, COMSIG_MOVABLE_MOVED, PROC_REF(update_status_on_signal))
 	if(iscarbon(jaunter))
 		jaunter.drop_all_held_items()
+		// Touch-spell hands (e.g. the Mansus Grasp fist) carry TRAIT_NODROP, so drop_all_held_items() can't
+		// clear them - they'd keep occupying a hand, leaving one of the jaunt-hands unplaced (a "free hand"
+		// the jaunter could still act with). qdel bypasses NODROP and resets the owning touch spell.
+		for(var/obj/item/melee/touch_attack/touch_hand in jaunter.get_held_items())
+			qdel(touch_hand)
 		// Sanity check to ensure we didn't lose our focus as a result.
 		if(!HAS_TRAIT(jaunter, TRAIT_ALLOW_HERETIC_CASTING))
 			REMOVE_TRAIT(jaunter, TRAIT_NO_TRANSFORM, UID())
@@ -116,8 +125,8 @@
 			return FALSE
 
 		// Give them some space hands to prevent them from doing things
-		var/obj/item/space_crawl/left_hand = new(jaunter)
-		var/obj/item/space_crawl/right_hand = new(jaunter)
+		var/obj/item/space_crawl/left_hand = new jaunt_hand_type(jaunter)
+		var/obj/item/space_crawl/right_hand = new jaunt_hand_type(jaunter)
 		left_hand.icon_state = "spacehand_right" // Icons swapped intentionally..
 		right_hand.icon_state = "spacehand_left" // ..because perspective, or something
 		jaunter.put_in_hands(left_hand)
