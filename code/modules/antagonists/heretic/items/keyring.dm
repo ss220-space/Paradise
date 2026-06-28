@@ -90,7 +90,9 @@
 ///Returns a random airlock on the same Z level as our portal, that isnt our airlock
 /obj/effect/lock_portal/proc/find_random_airlock()
 	var/list/turf/possible_destinations = list()
-	for(var/obj/machinery/door/airlock/airlock as anything in GLOB.airlocks)
+	// GLOB.airlocks holds every /obj/machinery/door (poddoors, firedoors...); the implicit
+	// istype filter (no "as anything") keeps us to real airlocks, matching TG.
+	for(var/obj/machinery/door/airlock/airlock in GLOB.airlocks)
 		if(airlock.z != z)
 			continue
 
@@ -139,7 +141,7 @@
 		return
 
 	. += span_purple("Благославлена Мансусом")
-	. += span_purple("Использование на другой карте, поглотит её переняв все доступы.")
+	. += span_purple("Использование этой карты на другой ID-карте или другой ID-карты на этой — поглотит её, переняв все доступы.")
 	. += span_purple("<b>Использование в руке</b> позволяет вам изменить внешний вид этой карты.")
 	. += span_purple("<b>Использование на паре дверей</b>, позволит соединить их. Входя в одну дверь, вы перенесётесь к другой, в то время как язычники телепортируются к случайному шлюзу.")
 	. += span_purple("<b>Альтклик по карте</b> заставляет идентификатор создавать инвертированные порталы, которые будут телепортировать вас в случайный шлюз на станции, в то время как язычники телепортируются в пункт назначения.")
@@ -182,6 +184,7 @@
 	icon_state = card.icon_state
 	assignment = card.assignment
 	rank = card.rank
+	registered_name = card.registered_name
 	sex = card.sex
 	age = card.age
 	photo = card.photo
@@ -205,7 +208,7 @@
 
 ///Creates a portal pair at door1 and door2, displays a balloon alert to user
 /obj/item/card/id/advanced/heretic/proc/make_portal(mob/user, obj/machinery/door/door1, obj/machinery/door/door2)
-	var/message = "привазка"
+	var/message = "привязка"
 	if(portal_one || portal_two)
 		clear_portals()
 		message += ", старые стёрты"
@@ -250,6 +253,15 @@
 	link = null
 	balloon_alert(user, "привязка 2/2")
 	return ATTACK_CHAIN_SUCCESS
+
+
+// TG mirrors this on item_interaction: using a normal ID *on* the heretic card consumes it too.
+/obj/item/card/id/advanced/heretic/attackby(obj/item/I, mob/user, params)
+	if(isheretic(user) && istype(I, /obj/item/card/id))
+		eat_card(I, user)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
 
 
 /obj/item/card/id/advanced/heretic/proc/eat_card(obj/item/card/id/card, mob/user)
