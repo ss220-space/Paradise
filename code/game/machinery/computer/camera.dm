@@ -436,4 +436,7 @@
 	desc = "Используется для слежки за каторжными заключенными."
 	network = list("Labor Camp")
 
+/obj/machinery/camera/labor_camp
+	network = list("Labor Camp")
+
 #undef DEFAULT_MAP_SIZE
