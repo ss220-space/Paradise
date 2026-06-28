@@ -17,8 +17,10 @@
 	var/squeak = 0
 	ui_theme = "honker"
 	ui_honked = TRUE
-
+	allowed_equipment = MECH_EQUIPMENT_CLOWN
 	mech_type = MECH_TYPE_HONKER
+	emaggable = TRUE
+	emag_desc = span_danger_alt("</br>Слоты оборудования меха выглядят КРАЙНЕ забавно!")
 
 /obj/mecha/combat/honker/loaded/Initialize(mapload)
 	. = ..()
