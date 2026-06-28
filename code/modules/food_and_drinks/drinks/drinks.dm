@@ -338,9 +338,6 @@
 	materials = list(MAT_METAL=1500)
 	volume = 100
 
-/obj/item/reagent_containers/food/drinks/shaker/cyborg
-	gripper_hold = FALSE
-
 /obj/item/reagent_containers/food/drinks/flask
 	name = "flask"
 	desc = "Every good spaceman knows it's a good idea to bring along a couple of pints of whiskey wherever they go."

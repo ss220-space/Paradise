@@ -313,7 +313,7 @@
 
 	else if(isitem(target)) //Check that we're not pocketing a mob.
 		var/obj/item/item = target
-		if(is_type_in_typecache(item, can_hold) && item.gripper_hold) // Make sure the item is something the gripper can hold
+		if(is_type_in_typecache(item, can_hold) && !HAS_TRAIT(item, TRAIT_NODROP)) // Make sure the item is something the gripper can hold
 			. |= ATTACK_CHAIN_SUCCESS
 			balloon_alert(user, "подобрано")
 			item.forceMove(src)
