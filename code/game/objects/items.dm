@@ -77,6 +77,9 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	/// It's used in a few places. Stop using it, and optimially replace all uses please
 	var/obj/item/master = null
 
+	/// Needed to check cyborg gripper can take it
+	var/gripper_hold = TRUE
+
 	/// Price of an item in a vending machine, overriding the base vending machine price. Define in terms of PAYCHECK defines as opposed to raw numbers.
 	var/custom_price
 	/// Price of an item in a vending machine, overriding the base premium vending machine price. Define in terms of PAYCHECK defines as opposed to raw numbers.
