@@ -163,8 +163,13 @@
 		spawned_mob.equip_to_slot_if_possible(hat, ITEM_SLOT_BACKPACK, disable_warning = TRUE)
 
 	var/obj/item/toy = pick_weight_classic(list(
+		/obj/item/toy/balloon = 4,
+		/obj/item/toy/balloon/long = 4,
 		/obj/item/toy/balloon/syndicate = 3,
 		/obj/item/toy/balloon/contractor = 3,
+		/obj/item/toy/balloon/arrest = 3,
+		/obj/item/toy/balloon/corgi = 2,
+		/obj/item/toy/balloon/heart = 2,
 		/obj/item/toy/plushie/carp/void = 1,
 		/obj/item/toy/foamblade = 1,
 	))
