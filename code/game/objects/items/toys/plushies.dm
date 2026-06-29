@@ -186,12 +186,12 @@
 
 /obj/item/toy/plushie/cat/kotrazumist/get_ru_names()
 	return alist(
-		NOMINATIVE = "кот разумист",
-		GENITIVE = "кота разумиста",
-		DATIVE = "коту разумисту",
-		ACCUSATIVE = "кота разумиста",
-		INSTRUMENTAL = "котом разумистом",
-		PREPOSITIONAL = "коте разумисте",
+		NOMINATIVE = "кот-разумист",
+		GENITIVE = "кота-разумиста",
+		DATIVE = "коту-разумисту",
+		ACCUSATIVE = "кота-разумиста",
+		INSTRUMENTAL = "котом-разумистом",
+		PREPOSITIONAL = "коте-разумисте",
 	)
 
 /obj/item/toy/plushie/cat/ricehat
@@ -212,7 +212,7 @@
 
 /obj/item/toy/plushie/manulplushie
 	name = "manul plushie"
-	desc = "Чёрный котик в красными ушами, в халатике, на халате бирка \"Манул\". Кто-то оставил эту игрушку здесь в память..."
+	desc = "Чёрный котик в красными ушами, в халатике. На халате бирка \"Манул\". Кто-то оставил эту игрушку здесь в память..."
 	icon_state = "kotik_plushie"
 	item_state = "kotik_hand"
 	gender = FEMALE
@@ -297,7 +297,7 @@
 		NOMINATIVE = "плюшевый кристалл суперматерии",
 		GENITIVE = "плюшевого кристалла суперматерии",
 		DATIVE = "плюшевому кристаллу суперматерии",
-		ACCUSATIVE = "плюшевого кристалла суперматерии",
+		ACCUSATIVE = "плюшевый кристалл суперматерии",
 		INSTRUMENTAL = "плюшевым кристаллом суперматерии",
 		PREPOSITIONAL = "плюшевом кристалле суперматерии",
 	)
@@ -344,7 +344,7 @@
 
 /obj/item/toy/plushie/ipcplushie
 	name = "IPC plushie"
-	desc = "Очаровательная плюшевая игрушка IPC прямо из Нью-Кэнаана. Пожалуй, даже прочнее, чем настоящая. Функционально напоминает тостер."
+	desc = "Очаровательная плюшевая игрушка КПБ прямо из Нью-Кэнаана. Пожалуй, даже прочнее, чем настоящая. Функционально напоминает тостер."
 	icon_state = "plushie_ipc"
 	gender = MALE
 
@@ -472,7 +472,7 @@
 
 /obj/item/toy/plushie/nianplushie
 	name = "nian plushie"
-	desc = "Мягкая плюшевая игрушка в виде Ниана, добытая прямо из туманности. Потяните за усики, чтобы услышать жужжание!"
+	desc = "Мягкая плюшевая игрушка в виде Ниана, добытая прямо из Тёмной Туманности. Потяните за усики, чтобы услышать жужжание!"
 	icon_state = "plushie_nian"
 	item_state = "plushie_nian"
 	poof_sound = 'sound/voice/scream_moth.ogg'
@@ -1065,12 +1065,12 @@
 
 /obj/item/toy/plushie/beepsky/get_ru_names()
 	return alist(
-		NOMINATIVE = "плюшевый робот уборщик",
-		GENITIVE = "плюшевого робота уборщика",
-		DATIVE = "плюшевому роботу уборщику",
-		ACCUSATIVE = "плюшевого робота уборщика",
-		INSTRUMENTAL = "плюшевым роботом уборщиком",
-		PREPOSITIONAL = "плюшевом роботе уборщике",
+		NOMINATIVE = "плюшевый робот-уборщик",
+		GENITIVE = "плюшевого робота-уборщика",
+		DATIVE = "плюшевому роботу-уборщику",
+		ACCUSATIVE = "плюшевого робота-уборщика",
+		INSTRUMENTAL = "плюшевым роботом-уборщиком",
+		PREPOSITIONAL = "плюшевом роботе-уборщике",
 	)
 
 /obj/item/toy/plushie/axolotlplushie
@@ -1243,7 +1243,7 @@
 
 /obj/item/toy/plushie/chikaboomchik
 	name = "plushie chikaboomchik"
-	desc = "Милая плюшевая игрушка птички Чикабумчика. Маленькая, круглая и очень пушистая."
+	desc = "Милая плюшевая игрушка птички чикабумчика. Маленькая, круглая и очень пушистая."
 	icon_state = "plushie_chikaboom"
 	item_state = "chikaboom"
 	attack_verb = list("цапнул", "клюнул")

@@ -43,12 +43,12 @@
 
 /obj/item/toy/prize/ripley/get_ru_names()
 	return alist(
-		NOMINATIVE = "фигурка меха Рипли",
-		GENITIVE = "фигурки меха Рипли",
-		DATIVE = "фигурке меха Рипли",
-		ACCUSATIVE = "фигурку меха Рипли",
-		INSTRUMENTAL = "фигуркой меха Рипли",
-		PREPOSITIONAL = "фигурке меха Рипли",
+		NOMINATIVE = "фигурка меха \"Рипли\"",
+		GENITIVE = "фигурки меха \"Рипли\"",
+		DATIVE = "фигурке меха \"Рипли\"",
+		ACCUSATIVE = "фигурку меха \"Рипли\"",
+		INSTRUMENTAL = "фигуркой меха \"Рипли\"",
+		PREPOSITIONAL = "фигурке меха \"Рипли\"",
 	)
 
 /obj/item/toy/prize/fireripley
@@ -58,28 +58,28 @@
 
 /obj/item/toy/prize/fireripley/get_ru_names()
 	return alist(
-		NOMINATIVE = "фигурка меха Огнеборец",
-		GENITIVE = "фигурки меха Огнеборец",
-		DATIVE = "фигурке меха Огнеборец",
-		ACCUSATIVE = "фигурку меха Огнеборец",
-		INSTRUMENTAL = "фигуркой меха Огнеборец",
-		PREPOSITIONAL = "фигурке меха Огнеборец",
+		NOMINATIVE = "фигурка меха \"Огнеборец\"",
+		GENITIVE = "фигурки меха \"Огнеборец\"",
+		DATIVE = "фигурке меха \"Огнеборец\"",
+		ACCUSATIVE = "фигурку меха \"Огнеборец\"",
+		INSTRUMENTAL = "фигуркой меха \"Огнеборец\"",
+		PREPOSITIONAL = "фигурке меха \"Огнеборец\"",
 	)
 
 /obj/item/toy/prize/deathripley
 	name = "toy deathsquad ripley"
-	desc = "Mаленькая фигурка меха, собери всю коллекцию! Номер 3 из 11. Эта фигурка изображает чёрный вариант рипли, использовался \
+	desc = "Mаленькая фигурка меха, собери всю коллекцию! Номер 3 из 11. Эта фигурка изображает чёрный вариант рипли, который использовался \
 			героем сериала \"Отряд смерти\", который повествует о безбашенных офицерах отряда быстрого реагирования."
 	icon_state = "deathripleytoy"
 
 /obj/item/toy/prize/deathripley/get_ru_names()
 	return alist(
-		NOMINATIVE = "фигурка меха Рипли-жнец",
-		GENITIVE = "фигурки меха Рипли-жнец",
-		DATIVE = "фигурке меха Рипли-жнец",
-		ACCUSATIVE = "фигурку меха Рипли-жнец",
-		INSTRUMENTAL = "фигуркой меха Рипли-жнец",
-		PREPOSITIONAL = "фигурке меха Рипли-жнец",
+		NOMINATIVE = "фигурка меха \"Рипли-жнец\"",
+		GENITIVE = "фигурки меха \"Рипли-жнец\"",
+		DATIVE = "фигурке меха \"Рипли-жнец\"",
+		ACCUSATIVE = "фигурку меха \"Рипли-жнец\"",
+		INSTRUMENTAL = "фигуркой меха \"Рипли-жнец\"",
+		PREPOSITIONAL = "фигурке меха \"Рипли-жнец\"",
 	)
 
 /obj/item/toy/prize/gygax
@@ -89,12 +89,12 @@
 
 /obj/item/toy/prize/gygax/get_ru_names()
 	return alist(
-		NOMINATIVE = "фигурка меха Гигакс",
-		GENITIVE = "фигурки меха Гигакс",
-		DATIVE = "фигурке меха Гигакс",
-		ACCUSATIVE = "фигурку меха Гигакс",
-		INSTRUMENTAL = "фигуркой меха Гигакс",
-		PREPOSITIONAL = "фигурке меха Гигакс",
+		NOMINATIVE = "фигурка меха \"Гигакс\"",
+		GENITIVE = "фигурки меха \"Гигакс\"",
+		DATIVE = "фигурке меха \"Гигакс\"",
+		ACCUSATIVE = "фигурку меха \"Гигакс\"",
+		INSTRUMENTAL = "фигуркой меха \"Гигакс\"",
+		PREPOSITIONAL = "фигурке меха \"Гигакс\"",
 	)
 
 /obj/item/toy/prize/durand
@@ -104,12 +104,12 @@
 
 /obj/item/toy/prize/durand/get_ru_names()
 	return alist(
-		NOMINATIVE = "фигурка меха Дюранд",
-		GENITIVE = "фигурки меха Дюранд",
-		DATIVE = "фигурке меха Дюранд",
-		ACCUSATIVE = "фигурку меха Дюранд",
-		INSTRUMENTAL = "фигуркой меха Дюранд",
-		PREPOSITIONAL = "фигурке меха Дюранд",
+		NOMINATIVE = "фигурка меха \"Дюранд\"",
+		GENITIVE = "фигурки меха \"Дюранд\"",
+		DATIVE = "фигурке меха \"Дюранд\"",
+		ACCUSATIVE = "фигурку меха \"Дюранд\"",
+		INSTRUMENTAL = "фигуркой меха \"Дюранд\"",
+		PREPOSITIONAL = "фигурке меха \"Дюранд\"",
 	)
 
 /obj/item/toy/prize/honk
@@ -134,12 +134,12 @@
 
 /obj/item/toy/prize/marauder/get_ru_names()
 	return alist(
-		NOMINATIVE = "фигурка меха Мародёр",
-		GENITIVE = "фигурки меха Мародёр",
-		DATIVE = "фигурке меха Мародёр",
-		ACCUSATIVE = "фигурку меха Мародёр",
-		INSTRUMENTAL = "фигуркой меха Мародёр",
-		PREPOSITIONAL = "фигурке меха Мародёр",
+		NOMINATIVE = "фигурка меха \"Мародёр\"",
+		GENITIVE = "фигурки меха \"Мародёр\"",
+		DATIVE = "фигурке меха \"Мародёр\"",
+		ACCUSATIVE = "фигурку меха \"Мародёр\"",
+		INSTRUMENTAL = "фигуркой меха \"Мародёр\"",
+		PREPOSITIONAL = "фигурке меха \"Мародёр\"",
 	)
 
 /obj/item/toy/prize/seraph
@@ -149,12 +149,12 @@
 
 /obj/item/toy/prize/seraph/get_ru_names()
 	return alist(
-		NOMINATIVE = "фигурка меха Серафим",
-		GENITIVE = "фигурки меха Серафим",
-		DATIVE = "фигурке меха Серафим",
-		ACCUSATIVE = "фигурку меха Серафим",
-		INSTRUMENTAL = "фигуркой меха Серафим",
-		PREPOSITIONAL = "фигурке меха Серафим",
+		NOMINATIVE = "фигурка меха \"Серафим\"",
+		GENITIVE = "фигурки меха \"Серафим\"",
+		DATIVE = "фигурке меха \"Серафим\"",
+		ACCUSATIVE = "фигурку меха \"Серафим\"",
+		INSTRUMENTAL = "фигуркой меха \"Серафим\"",
+		PREPOSITIONAL = "фигурке меха \"Серафим\"",
 	)
 
 /obj/item/toy/prize/mauler
@@ -164,27 +164,27 @@
 
 /obj/item/toy/prize/mauler/get_ru_names()
 	return alist(
-		NOMINATIVE = "фигурка меха Маулер",
-		GENITIVE = "фигурки меха Маулер",
-		DATIVE = "фигурке меха Маулер",
-		ACCUSATIVE = "фигурку меха Маулер",
-		INSTRUMENTAL = "фигуркой меха Маулер",
-		PREPOSITIONAL = "фигурке меха Маулер",
+		NOMINATIVE = "фигурка меха \"Маулер\"",
+		GENITIVE = "фигурки меха \"Маулер\"",
+		DATIVE = "фигурке меха \"Маулер\"",
+		ACCUSATIVE = "фигурку меха \"Маулер\"",
+		INSTRUMENTAL = "фигуркой меха \"Маулер\"",
+		PREPOSITIONAL = "фигурке меха \"Маулер\"",
 	)
 
 /obj/item/toy/prize/odysseus
 	name = "toy odysseus"
-	desc = "Mаленькая фигурка меха, собери всю коллекцию! Номер 10 из 11. Эта фигурка изображает белого изворотливого меха — Одиссея. Его используют врачи и парамедики по всей галактике."
+	desc = "Mаленькая фигурка меха, собери всю коллекцию! Номер 10 из 11. Эта фигурка изображает белого изворотливого меха Одиссея. Его используют врачи и парамедики по всей галактике."
 	icon_state = "odysseusprize"
 
 /obj/item/toy/prize/odysseus/get_ru_names()
 	return alist(
-		NOMINATIVE = "фигурка меха Одиссей",
-		GENITIVE = "фигурки меха Одиссей",
-		DATIVE = "фигурке меха Одиссей",
-		ACCUSATIVE = "фигурку меха Одиссей",
-		INSTRUMENTAL = "фигуркой меха Одиссей",
-		PREPOSITIONAL = "фигурке меха Одиссей",
+		NOMINATIVE = "фигурка меха \"Одиссей\"",
+		GENITIVE = "фигурки меха \"Одиссей\"",
+		DATIVE = "фигурке меха \"Одиссей\"",
+		ACCUSATIVE = "фигурку меха \"Одиссей\"",
+		INSTRUMENTAL = "фигуркой меха \"Одиссей\"",
+		PREPOSITIONAL = "фигурке меха \"Одиссей\"",
 	)
 
 /obj/item/toy/prize/phazon
@@ -194,12 +194,12 @@
 
 /obj/item/toy/prize/phazon/get_ru_names()
 	return alist(
-		NOMINATIVE = "фигурка меха Фазон",
-		GENITIVE = "фигурки меха Фазон",
-		DATIVE = "фигурке меха Фазон",
-		ACCUSATIVE = "фигурку меха Фазон",
-		INSTRUMENTAL = "фигуркой меха Фазон",
-		PREPOSITIONAL = "фигурке меха Фазон",
+		NOMINATIVE = "фигурка меха \"Фазон\"",
+		GENITIVE = "фигурки меха \"Фазон\"",
+		DATIVE = "фигурке меха \"Фазон\"",
+		ACCUSATIVE = "фигурку меха \"Фазон\"",
+		INSTRUMENTAL = "фигуркой меха \"Фазон\"",
+		PREPOSITIONAL = "фигурке меха \"Фазон\"",
 	)
 
 /*
@@ -214,17 +214,17 @@
 
 /obj/item/toy/owl/get_ru_names()
 	return alist(
-		NOMINATIVE = "фигурка супергерой \"Сова\"",
-		GENITIVE = "фигурки супергерой \"Сова\"",
-		DATIVE = "фигурке супергерой \"Сова\"",
-		ACCUSATIVE = "фигурку супергерой \"Сова\"",
-		INSTRUMENTAL = "фигуркой супергерой \"Сова\"",
-		PREPOSITIONAL = "фигурке супергерой \"Сова\"",
+		NOMINATIVE = "фигурка \"супергерой Сова\"",
+		GENITIVE = "фигурки \"супергерой Сова\"",
+		DATIVE = "фигурке \"супергерой Сова\"",
+		ACCUSATIVE = "фигурку \"супергерой Сова\"",
+		INSTRUMENTAL = "фигуркой \"супергерой Сова\"",
+		PREPOSITIONAL = "фигурке \"супергерой Сова\"",
 	)
 
 /obj/item/toy/owl/attack_self(mob/user)
 	if(!cooldown) //for the sanity of everyone
-		var/message = pick("На этот раз тебе не уйти, Гриффин!", "Стой, преступник!", "Ух! Ух!", "Я — ночь!")
+		var/message = pick("На этот раз тебе не уйти, Грифон!", "Стой, преступник!", "Ух! Ух!", "Я — ночь!")
 		to_chat(user, span_notice("Вы дёргаете верёвочку на [declent_ru(PREPOSITIONAL)]."))
 		playsound(user, 'sound/creatures/hoot.ogg', 25, TRUE)
 		user.visible_message(span_danger("[get_examine_icon(viewers(user))] [message]"))
@@ -242,12 +242,12 @@
 
 /obj/item/toy/griffin/get_ru_names()
 	return alist(
-		NOMINATIVE = "фигурка суперзлодей \"Грифон\"",
-		GENITIVE = "фигурки суперзлодей \"Грифон\"",
-		DATIVE = "фигурке суперзлодей \"Грифон\"",
-		ACCUSATIVE = "фигурку суперзлодей \"Грифон\"",
-		INSTRUMENTAL = "фигуркой суперзлодей \"Грифон\"",
-		PREPOSITIONAL = "фигурке суперзлодей \"Грифон\"",
+		NOMINATIVE = "фигурка \"суперзлодей Грифон\"",
+		GENITIVE = "фигурки \"суперзлодей Грифон\"",
+		DATIVE = "фигурке \"суперзлодей Грифон\"",
+		ACCUSATIVE = "фигурку \"суперзлодей Грифон\"",
+		INSTRUMENTAL = "фигуркой \"суперзлодей Грифон\"",
+		PREPOSITIONAL = "фигурке \"суперзлодей Грифон\"",
 	)
 
 /obj/item/toy/griffin/attack_self(mob/user)
@@ -278,10 +278,10 @@
 	return alist(
 		NOMINATIVE = "миниатюра ксеноморфа",
 		GENITIVE = "миниатюры ксеноморфа",
-		DATIVE = "миниатюре ксеноморфу",
+		DATIVE = "миниатюре ксеноморфа",
 		ACCUSATIVE = "миниатюру ксеноморфа",
-		INSTRUMENTAL = "миниатюрой ксеноморфом",
-		PREPOSITIONAL = "миниатюре ксеноморфе",
+		INSTRUMENTAL = "миниатюрой ксеноморфа",
+		PREPOSITIONAL = "миниатюре ксеноморфа",
 	)
 
 /obj/item/toy/character/cleric
@@ -293,10 +293,10 @@
 	return alist(
 		NOMINATIVE = "миниатюра жреца",
 		GENITIVE = "миниатюры жреца",
-		DATIVE = "миниатюре жрецу",
+		DATIVE = "миниатюре жреца",
 		ACCUSATIVE = "миниатюру жреца",
-		INSTRUMENTAL = "миниатюрой жрецом",
-		PREPOSITIONAL = "миниатюре жреце",
+		INSTRUMENTAL = "миниатюрой жреца",
+		PREPOSITIONAL = "миниатюре жреца",
 	)
 
 /obj/item/toy/character/warrior
@@ -308,10 +308,10 @@
 	return alist(
 		NOMINATIVE = "миниатюра воина",
 		GENITIVE = "миниатюры воина",
-		DATIVE = "миниатюре воину",
+		DATIVE = "миниатюре воина",
 		ACCUSATIVE = "миниатюру воина",
-		INSTRUMENTAL = "миниатюрой воином",
-		PREPOSITIONAL = "миниатюре воине",
+		INSTRUMENTAL = "миниатюрой воина",
+		PREPOSITIONAL = "миниатюре воина",
 	)
 
 /obj/item/toy/character/thief
@@ -323,10 +323,10 @@
 	return alist(
 		NOMINATIVE = "миниатюра плута",
 		GENITIVE = "миниатюры плута",
-		DATIVE = "миниатюре плуту",
+		DATIVE = "миниатюре плута",
 		ACCUSATIVE = "миниатюру плута",
-		INSTRUMENTAL = "миниатюрой плутом",
-		PREPOSITIONAL = "миниатюре плуте",
+		INSTRUMENTAL = "миниатюрой плута",
+		PREPOSITIONAL = "миниатюре плута",
 	)
 
 /obj/item/toy/character/wizard
@@ -338,10 +338,10 @@
 	return alist(
 		NOMINATIVE = "миниатюра волшебника",
 		GENITIVE = "миниатюры волшебника",
-		DATIVE = "миниатюре волшебнику",
+		DATIVE = "миниатюре волшебника",
 		ACCUSATIVE = "миниатюру волшебника",
-		INSTRUMENTAL = "миниатюрой волшебником",
-		PREPOSITIONAL = "миниатюре волшебнике",
+		INSTRUMENTAL = "миниатюрой волшебника",
+		PREPOSITIONAL = "миниатюре волшебника",
 	)
 
 /obj/item/toy/character/cthulhu
@@ -368,10 +368,10 @@
 	return alist(
 		NOMINATIVE = "миниатюра лича",
 		GENITIVE = "миниатюры лича",
-		DATIVE = "миниатюре личу",
+		DATIVE = "миниатюре лича",
 		ACCUSATIVE = "миниатюру лича",
-		INSTRUMENTAL = "миниатюрой личом",
-		PREPOSITIONAL = "миниатюре личе",
+		INSTRUMENTAL = "миниатюрой лича",
+		PREPOSITIONAL = "миниатюре лича",
 	)
 
 /obj/item/storage/box/characters
@@ -578,7 +578,7 @@
 	name = "Captain action figure"
 	desc = "Некомпетентный капитан из коллекции фигурок SS12 от \"Space life\"."
 	icon_state = "captain"
-	toysay = "Экипаж, ядерный диск в безопасности, в меня в жопе."
+	toysay = "Экипаж, ядерный диск в безопасности, он в меня в трусах!"
 
 /obj/item/toy/figure/captain/get_ru_names()
 	return alist(
@@ -640,7 +640,7 @@
 
 /obj/item/toy/figure/chef
 	name = "Chef action figure"
-	desc = "Повар-канибал из коллекции фигурок SS12 от \"Space life\"."
+	desc = "Повар-каннибал из коллекции фигурок SS12 от \"Space life\"."
 	icon_state = "chef"
 	toysay = "Клянусь, это не человечина."
 
@@ -720,7 +720,7 @@
 
 /obj/item/toy/figure/dsquad
 	name = "Death Squad Officer action figure"
-	desc = "Это персонаж из сериала \"Отряд смерти\", в котором езбашенные офицеры отряда быстрого реагирования противостоят угрозам, \
+	desc = "Это персонаж из сериала \"Отряд смерти\", в котором безбашенные офицеры отряда быстрого реагирования противостоят угрозам, \
 			исходящим из всех уголков галактики! Входит в коллекцию фигурок SS12 от \"Space life\"."
 	icon_state = "dsquad"
 	toysay = "Уничтожить все угрозы!"
@@ -983,12 +983,12 @@
 
 /obj/item/toy/figure/scientist/get_ru_names()
 	return alist(
-		NOMINATIVE = "фигурка ученого",
-		GENITIVE = "фигурки ученого",
-		DATIVE = "фигурке ученого",
-		ACCUSATIVE = "фигурку ученого",
-		INSTRUMENTAL = "фигуркой ученого",
-		PREPOSITIONAL = "фигурке ученого",
+		NOMINATIVE = "фигурка учёного",
+		GENITIVE = "фигурки учёного",
+		DATIVE = "фигурке учёного",
+		ACCUSATIVE = "фигурку учёного",
+		INSTRUMENTAL = "фигуркой учёного",
+		PREPOSITIONAL = "фигурке учёного",
 	)
 
 /obj/item/toy/figure/syndie
