@@ -18,7 +18,7 @@
 				observe.handle_when_autoobserve_move()
 				LAZYREMOVE(inventory_observers, observe)
 				continue
-			observe.client.screen += screen
+			observe.overlay_fullscreen(category, type, severity)
 
 	if(screen.needs_offsetting)
 		SET_PLANE_EXPLICIT(screen, PLANE_TO_TRUE(screen.plane), src)
@@ -31,12 +31,6 @@
 		return
 
 	screens -= category
-	for(var/mob/dead/observer/observe as anything in inventory_observers)
-		if(!observe.client)
-			observe.handle_when_autoobserve_move()
-			LAZYREMOVE(inventory_observers, observe)
-			continue
-		observe.screens -= category
 
 	if(animated)
 		animate(screen, alpha = 0, time = animated)
@@ -44,14 +38,14 @@
 	else
 		if(client)
 			client.screen -= screen
-
-			for(var/mob/dead/observer/observe as anything in inventory_observers)
-				if(!observe.client)
-					observe.handle_when_autoobserve_move()
-					LAZYREMOVE(inventory_observers, observe)
-					continue
-				observe.client.screen -= screen
 		qdel(screen)
+
+	for(var/mob/dead/observer/observe as anything in inventory_observers)
+		if(!observe.client)
+			observe.handle_when_autoobserve_move()
+			LAZYREMOVE(inventory_observers, observe)
+			continue
+		observe.clear_fullscreen(category, animated)
 
 /mob/proc/clear_fullscreen_after_animate(atom/movable/screen/fullscreen/screen)
 	if(client)

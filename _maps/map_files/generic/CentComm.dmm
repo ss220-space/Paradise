@@ -21275,7 +21275,7 @@
 	},
 /area/centcom/syndicate_base/control)
 "kgJ" = (
-/mob/living/carbon/human/lesser/farwa,
+/obj/effect/mob_spawn/human/farwa,
 /turf/simulated/floor/carpet/black,
 /area/centcom/wizard_station)
 "kgM" = (
