@@ -127,13 +127,24 @@
 	action_icon_state = "alien_sneak"
 	action_background_icon_state = "bg_alien"
 	base_cooldown = 1 SECONDS
+	// This is a form-only toggle granted to the (non-human) ascended monster, so it must NOT require a human
+	// body or wizard garb - otherwise can_cast() short-circuits with "only humans can cast" (TG's action has
+	// no such requirement). Matches TG /datum/action/cooldown/toggle_seethrough.
+	clothes_req = FALSE
+	human_req = FALSE
 	//melee_cooldown_time = 0
 	//can_be_shared = FALSE
 
 
+// Without this, `targeting` stays null and master220's choose_targets() null-derefs `targeting.use_intercept_click`
+// on click - the button looks dead ("не кликабельная кнопка"). Self-cast, like every other heretic toggle.
+/obj/effect/proc_holder/spell/toggle_seethrough/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+
 /obj/effect/proc_holder/spell/toggle_seethrough/on_spell_loss(mob/remove_from)
 	var/datum/component/seethrough_mob/transparency = remove_from.GetComponent(/datum/component/seethrough_mob)
-	if(!transparency.is_active)
+	if(!transparency || !transparency.is_active)
 		return ..()
 
 	transparency.untrick_mob()

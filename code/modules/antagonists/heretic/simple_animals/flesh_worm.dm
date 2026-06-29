@@ -96,12 +96,16 @@
 
 /// Grows a new segment behind the passed mob
 /mob/living/simple_animal/hostile/heretic_summon/armsy/proc/new_segment(mob/living/simple_animal/hostile/heretic_summon/armsy/behind)
-	var/mob/living/segment = new type(drop_location(), FALSE)
+	var/mob/living/simple_animal/hostile/heretic_summon/armsy/segment = new type(drop_location(), FALSE)
 	segment.AddComponent(/datum/component/mob_chain, front = behind, vary_icon_state = TRUE)
 	behind.register_behind(segment)
-	toggle_ai(AI_OFF)
-	can_have_ai = FALSE
-	shouldwakeup = FALSE
+	// TG's segments are inert basic mobs with no AI controller; here they're hostile simple_animals, so we
+	// must kill their AI explicitly. NOTE: these MUST target `segment`, not `src` — a segment that keeps its
+	// own hostile AI wanders off, picks its own targets and flees when hurt (each part acting like its own
+	// animal). The chain only moves/attacks the body through mob_chain; the segment itself stays a puppet.
+	segment.toggle_ai(AI_OFF)
+	segment.can_have_ai = FALSE
+	segment.shouldwakeup = FALSE
 	return segment
 
 

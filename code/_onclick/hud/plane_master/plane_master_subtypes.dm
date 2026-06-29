@@ -122,6 +122,27 @@
 	plane = ABOVE_GAME_PLANE
 	render_relay_planes = list(RENDER_PLANE_GAME_WORLD)
 
+/atom/movable/screen/plane_master/seethrough
+	name = "Seethrough"
+	documentation = "Holds the seethrough versions (done using image overrides) of large objects/mobs. Mouse \
+		transparent, so you can click through them (e.g. the heretic Lock ascension form clicking through its \
+		own massive body, or seethrough trees). Hidden by default; revealed per-mob via unhide_plane()."
+	plane = SEETHROUGH_PLANE
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	render_relay_planes = list(RENDER_PLANE_GAME_WORLD)
+	start_hidden = TRUE
+
+/atom/movable/screen/plane_master/camera_camo
+	name = "Camera Camo"
+	documentation = "Holds the render-target proxy of lock-heretic robe wearers (Shifting Guise). Relays to the \
+		game world exactly like the game plane, so the wearer looks and is lit normally in person. The camera \
+		console popup plane group force-hides this plane (see /datum/plane_master_group/popup/prep_plane_instance), \
+		so the wearer is absent from basic security camera monitors WITHOUT being hidden from anyone's normal \
+		view. Kept clickable (the real body is render-target'd and not drawn, so the proxy has to catch the \
+		clicks - it inherits the body's id via VIS_INHERIT_ID, so they still resolve to the real mob)."
+	plane = CAMERA_CAMO_PLANE
+	render_relay_planes = list(RENDER_PLANE_GAME_WORLD)
+
 /**
  * Plane master that byond will by default draw to
  * Shouldn't be used, exists to prevent people using plane 0

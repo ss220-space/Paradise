@@ -16,6 +16,55 @@
 	)
 
 
+// TG presents the four forms in a radial menu showing each monster's sprite (its before_cast()), instead of
+// master220's base shapeshift text dropdown (tgui_input_list). We override cast() to replicate that flow 1:1:
+// revert if already shifted, otherwise pop the radial and shift into the picked form.
+/obj/effect/proc_holder/spell/shapeshift/eldritch/ascension/cast(list/targets, mob/user = usr)
+	for(var/mob/living/caster in targets)
+		// Already one of the forms -> revert (TG do_unshapeshift). The previous Restore cleared shapeshift_type,
+		// so we never re-prompt for a form when reverting.
+		if(caster in current_shapes)
+			Restore(caster)
+			continue
+
+		if(!shapeshift_type)
+			shapeshift_type = pick_eldritch_form(caster)
+			if(!shapeshift_type) // menu was closed without a pick - refund the cooldown perform() already started
+				revert_cast(caster)
+				return
+
+		Shapeshift(caster)
+
+
+/// Builds a radial menu of possible_shapes - keyed by name, each slice showing that monster's on-map sprite -
+/// mirroring TG's /datum/action/cooldown/spell/shapeshift before_cast() radial selection.
+/obj/effect/proc_holder/spell/shapeshift/eldritch/ascension/proc/pick_eldritch_form(mob/living/caster)
+	var/list/shape_names_to_types = list()
+	var/list/shape_names_to_image = list()
+	for(var/mob/living/path as anything in possible_shapes)
+		var/shape_name = initial(path.name)
+		shape_names_to_types[shape_name] = path
+		shape_names_to_image[shape_name] = image(icon = initial(path.icon), icon_state = initial(path.icon_state))
+
+	var/picked = show_radial_menu(
+		caster,
+		caster,
+		shape_names_to_image,
+		radius = 38,
+		custom_check = CALLBACK(src, PROC_REF(check_menu), caster),
+	)
+	if(!picked)
+		return null
+	return shape_names_to_types[picked]
+
+
+/// Radial keep-open check (TG's check_menu): bail if the caster can no longer act.
+/obj/effect/proc_holder/spell/shapeshift/eldritch/ascension/proc/check_menu(mob/living/caster)
+	if(QDELETED(caster))
+		return FALSE
+	return !caster.incapacitated()
+
+
 /obj/effect/proc_holder/spell/shapeshift/eldritch/ascension/Shapeshift(mob/living/caster)
 	. = ..()
 	if(!.)

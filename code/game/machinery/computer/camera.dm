@@ -1,5 +1,9 @@
 #define DEFAULT_MAP_SIZE 15
 
+/// Living mobs currently watching any camera console (security console / advanced camera console). The
+/// digitalcamo element (lock-path heretic robes) reads this to hide its wearers from the camera feed.
+GLOBAL_LIST_EMPTY(camera_console_watchers)
+
 /obj/machinery/computer/security
 	name = "security camera console"
 	desc = "Используется для доступа к сетям камер на станции."

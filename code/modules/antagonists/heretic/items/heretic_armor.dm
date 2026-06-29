@@ -47,7 +47,7 @@
 	allowed = list(/obj/item/melee/sickly_blade, /obj/item/gun/projectile/shotgun/boltaction/lionhunter)
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie/eldritch
 	// Slightly better than normal cult robes
-	armor = list("melee" = 50, "bullet" = 50, "laser" = 50,"energy" = 50, "bomb" = 35, "bio" = 20, "rad" = 20, "fire" = 20, "acid" = 20)
+	armor = list("melee" = 50, "bullet" = 50, "laser" = 50,"energy" = 50, "bomb" = 35, "bio" = 20, "fire" = 20, "acid" = 20)
 	sprite_sheets = list(
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
@@ -88,7 +88,7 @@
 	desc = "Набор затенённых одеяний с глубоким капюшоном. Под ним невозможно разглядеть, кто скрывается."
 	icon_state = "lock_armor"
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie/eldritch/lock
-	armor = list("melee" = 40, "bullet" = 40, "laser" = 40, "energy" = 40, "bomb" = 40, "bio" = 40, "rad" = 40, "fire" = 40, "acid" = 40)
+	armor = list("melee" = 40, "bullet" = 40, "laser" = 40, "energy" = 40, "bomb" = 40, "bio" = 40, "fire" = 40, "acid" = 40)
 	/// Traits granted to a heretic wearer: camera camo + the shifting guise (hidden identity/voice, silent steps).
 	var/static/list/guise_traits = list(TRAIT_AI_UNTRACKABLE, TRAIT_SILENT_FOOTSTEPS, TRAIT_UNKNOWN_APPEARANCE, TRAIT_UNKNOWN_VOICE)
 
@@ -112,16 +112,21 @@
 		robes_side_effect(user)
 		return
 	user.add_traits(guise_traits, UID())
-	// TRAIT_AI_UNTRACKABLE (in guise_traits) only blocks the AI's track command. The digitalcamo element
-	// supplies the rest of tg's camera camo: it actually hides the wearer from AI eyes (blank override image
-	// on AI clients) and from the silicon data HUDs, so the AI cannot see them on cameras at all.
+	// TRAIT_AI_UNTRACKABLE (in guise_traits) only blocks the AI's track command. Two more pieces give the
+	// full camera camo:
+	// - digitalcamo element: hides the wearer from AI eyes + advanced camera consoles (blank override image
+	//   on those clients) and from the AI silicon data HUDs.
+	// - camera_camo component: hides the wearer from the BASIC security camera console feed WITHOUT making
+	//   them invisible in person (render-target proxy on the camera-hidden plane). See its file for details.
 	user.AddElement(/datum/element/digitalcamo)
+	user.AddComponent(/datum/component/camera_camo)
 
 
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/lock/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
 	user.remove_traits(guise_traits, UID())
 	user.RemoveElement(/datum/element/digitalcamo)
+	qdel(user.GetComponent(/datum/component/camera_camo))
 
 
 /// A non-heretic who dons the guise is violently relieved of everything they are carrying (tg parity).
@@ -139,7 +144,7 @@
 /obj/item/clothing/head/hooded/cult_hoodie/eldritch/lock
 	name = "капюшон изменчивой личины"
 	icon_state = "lock_armor"
-	armor = list("melee" = 40, "bullet" = 40, "laser" = 40, "energy" = 40, "bomb" = 40, "bio" = 40, "rad" = 40, "fire" = 40, "acid" = 40)
+	armor = list("melee" = 40, "bullet" = 40, "laser" = 40, "energy" = 40, "bomb" = 40, "bio" = 40, "fire" = 40, "acid" = 40)
 
 
 /obj/item/clothing/head/hooded/cult_hoodie/eldritch/lock/get_ru_names()
@@ -192,7 +197,7 @@
 	// (matching TG) shouldn't hide footwear — only the jumpsuit.
 	flags_inv = HIDEJUMPSUIT
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie/eldritch/ash
-	armor = list("melee" = 50, "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 35, "bio" = 20, "rad" = 20, "fire" = 100, "acid" = 20)
+	armor = list("melee" = 50, "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 35, "bio" = 20, "fire" = 100, "acid" = 20)
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF | LAVA_PROOF
 	heat_protection = FULL_BODY
 	max_heat_protection_temperature = 50000
@@ -263,7 +268,7 @@
 	// Scorched-mantle hood sprites (ported from TG) live in the shared helmet.dmi (item) / head.dmi (worn)
 	// as the "ash_armor" state, resolved by inheritance from the base eldritch hood.
 	icon_state = "ash_armor"
-	armor = list("melee" = 30, "bullet" = 30, "laser" = 30, "energy" = 30, "bomb" = 15, "bio" = 10, "rad" = 10, "fire" = 100, "acid" = 10)
+	armor = list("melee" = 30, "bullet" = 30, "laser" = 30, "energy" = 30, "bomb" = 15, "bio" = 10, "fire" = 100, "acid" = 10)
 
 
 /obj/item/clothing/head/hooded/cult_hoodie/eldritch/ash/get_ru_names()
@@ -286,7 +291,7 @@
 			Как такое вообще «носят» — выше всякого разумения. Оно шевелится, когда думает, что за ним не наблюдают."
 	icon_state = "flesh_armor"
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie/eldritch/flesh
-	armor = list("melee" = 70, "bullet" = 40, "laser" = 30, "energy" = 30, "bomb" = 35, "bio" = 100, "rad" = 20, "fire" = 0, "acid" = 100)
+	armor = list("melee" = 70, "bullet" = 40, "laser" = 30, "energy" = 30, "bomb" = 35, "bio" = 100, "fire" = 0, "acid" = 100)
 	/// The aura healing component on the wearer. Deleted when the robe is taken off.
 	var/datum/component/healing_aura
 
@@ -338,7 +343,7 @@
 /obj/item/clothing/head/hooded/cult_hoodie/eldritch/flesh
 	name = "капюшон извивающихся объятий"
 	icon_state = "flesh_armor"
-	armor = list("melee" = 40, "bullet" = 25, "laser" = 20, "energy" = 20, "bomb" = 20, "bio" = 60, "rad" = 10, "fire" = 0, "acid" = 60)
+	armor = list("melee" = 40, "bullet" = 25, "laser" = 20, "energy" = 20, "bomb" = 20, "bio" = 60, "fire" = 0, "acid" = 60)
 
 
 /obj/item/clothing/head/hooded/cult_hoodie/eldritch/flesh/get_ru_names()
@@ -724,7 +729,7 @@
 	icon_state = "moon_armor"
 	item_state = "moon_armor"
 	// The regalia has no protective value of its own (tg parity).
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "fire" = 0, "acid" = 0)
 	// Only the moon blade may be carried in it (no Lionhunter's Rifle).
 	allowed = list(/obj/item/melee/sickly_blade/moon)
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie/eldritch/moon
@@ -873,7 +878,7 @@
 	desc = "Переливающийся капюшон из лунного света и зеркальных нитей."
 	// Item + worn sprites live in the shared helmet.dmi / head.dmi as the "moon_armor" state (inherited).
 	icon_state = "moon_armor"
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "fire" = 0, "acid" = 0)
 
 
 /obj/item/clothing/head/hooded/cult_hoodie/eldritch/moon/get_ru_names()
@@ -1102,7 +1107,7 @@
 	//item_state = "void_cloak"
 	flags_inv = NONE
 	flags_cover = NONE
-	armor = list("melee" = 30, "bullet" = 30, "laser" = 30, "energy" = 30, "bomb" = 15, "bio" = 10, "rad" = 0, "fire" = 15, "acid" = 0)
+	armor = list("melee" = 30, "bullet" = 30, "laser" = 30, "energy" = 30, "bomb" = 15, "bio" = 10, "fire" = 15, "acid" = 0)
 	sprite_sheets = list(
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
@@ -1141,7 +1146,7 @@
 	flags_inv = NONE
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	// slightly worse than normal cult robes
-	armor = list("melee" = 30, "bullet" = 30, "laser" = 30,"energy" = 30, "bomb" = 15, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+	armor = list("melee" = 30, "bullet" = 30, "laser" = 30,"energy" = 30, "bomb" = 15, "bio" = 0, "fire" = 0, "acid" = 0)
 	//alternative_mode = TRUE
 	sprite_sheets = list(
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/suit.dmi',

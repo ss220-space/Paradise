@@ -26,7 +26,15 @@
 #define ABOVE_GAME_PLANE -2
 
 /// Slightly above the game plane but does not catch mouse clicks. Useful for certain visuals that should be clicked through, like seethrough trees
-#define SEETHROUGH_PLANE -2
+/// MUST be its own value (not shared with ABOVE_GAME_PLANE) - Paradise keys plane masters by "[plane]", so a
+/// shared value would collapse into ABOVE_GAME_PLANE's click-catching master and the clickthrough would never work.
+#define SEETHROUGH_PLANE -3
+
+/// Holds the render-target proxy of lock-heretic robe wearers. Relays to the game world like GAME_PLANE, so
+/// they look and light up normally in person, but the camera console popup plane group force-hides this plane,
+/// so they don't appear on (basic) security camera monitors. Its own value for the same per-"[plane]"-keying
+/// reason as SEETHROUGH_PLANE above.
+#define CAMERA_CAMO_PLANE -4
 
 #define RENDER_PLANE_GAME_WORLD -1
 
