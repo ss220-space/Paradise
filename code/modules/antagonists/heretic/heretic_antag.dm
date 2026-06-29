@@ -609,6 +609,11 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 		var/datum/heretic_knowledge/spell/spell_knowledge = researched_knowledge[knowledge_index]
 		if(!istype(spell_knowledge) || !spell_knowledge.spell_to_add)
 			continue
+		// Growing strong sheds your stealth: disable_blade_breaking() permanently strips the Cloak of Shadows
+		// (tg parity). Don't let the resync hand it back on the next body transfer (e.g. returning from the
+		// flesh worm), which is why an ascended heretic kept getting the cloak back when they shouldn't.
+		if(unlimited_blades && spell_knowledge.spell_to_add == /obj/effect/proc_holder/spell/shadow_cloak)
+			continue
 		if(locate(spell_knowledge.spell_to_add) in source.mind.spell_list)
 			continue
 		source.mind.AddSpell(new spell_knowledge.spell_to_add())

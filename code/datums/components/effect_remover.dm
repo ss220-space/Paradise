@@ -46,7 +46,9 @@
 	return ..()
 
 /datum/component/effect_remover/RegisterWithParent()
-	RegisterSignal(parent, COMSIG_ITEM_ATTACK, PROC_REF(try_remove_effect))
+	// The effects we clear (heretic runes, cult runes) are /obj, so the attack chain routes them
+	// through COMSIG_ITEM_ATTACK_OBJ, not COMSIG_ITEM_ATTACK (which only fires on living mobs).
+	RegisterSignal(parent, list(COMSIG_ITEM_ATTACK, COMSIG_ITEM_ATTACK_OBJ), PROC_REF(try_remove_effect))
 
 	/*
 	if(tip_text)
@@ -56,7 +58,7 @@
 	*/
 
 /datum/component/effect_remover/UnregisterFromParent()
-	UnregisterSignal(parent, list(COMSIG_ITEM_ATTACK/*, COMSIG_ITEM_REQUESTING_CONTEXT_FOR_TARGET*/))
+	UnregisterSignal(parent, list(COMSIG_ITEM_ATTACK, COMSIG_ITEM_ATTACK_OBJ/*, COMSIG_ITEM_REQUESTING_CONTEXT_FOR_TARGET*/))
 
 /*
  * Signal proc for [COMSIG_ITEM_ATTACK].

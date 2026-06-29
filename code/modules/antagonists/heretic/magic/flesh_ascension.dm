@@ -66,11 +66,19 @@
 				continue
 			spell.action.Remove(worm)
 
+		// Insurance: the shed toggle IS the only way back to human form, so guarantee its button is actually
+		// on the worm after the strip above (Grant() no-ops if already present). Without a reliable return
+		// button the player is stuck as the worm ("нет абилки для возвращения").
+		src.action?.Grant(worm)
+
 		// Hide the heretic's visible eldritch aura while we're the worm — apply_innate_effects() re-drew it
 		// on the new body during the mind transfer above. The trait makes should_show_aura() return FALSE,
 		// and the SIGNAL_ADDTRAIT hook refreshes the worm's overlays to clear it now. It returns on its own
 		// when we Restore: the worm is gibbed and apply_innate_effects() redraws the aura on the human.
 		ADD_TRAIT(worm, TRAIT_HERETIC_AURA_HIDDEN, HERETIC_TRAIT)
+
+		// Same client-timing reason as Restore: make sure the worm's remaining buttons actually draw.
+		worm.update_action_buttons(reload_screen = TRUE)
 
 
 /obj/effect/proc_holder/spell/shapeshift/shed_human_form/Restore(mob/living/simple_animal/hostile/heretic_summon/armsy/shape)
@@ -98,8 +106,16 @@
 	// heretic comes back with NO abilities and can't even shed again. Re-grant every mind spell's button
 	// straight onto the human - Grant() is a no-op when the button's already there, so this is just insurance.
 	if(!QDELETED(trapped_caster) && trapped_caster.mind)
+		// Re-add any knowledge spell that went missing (a duplicate/dead-action spell pruned during the
+		// transfer would otherwise be gone for good - this is why repeated shed/return cycles bled abilities).
+		var/datum/antagonist/heretic/our_heretic = trapped_caster.mind.has_antag_datum(/datum/antagonist/heretic)
+		our_heretic?.resync_knowledge_spells(trapped_caster)
 		for(var/obj/effect/proc_holder/spell/spell as anything in trapped_caster.mind.spell_list)
 			spell.action?.Grant(trapped_caster)
+		// CRUCIAL: mind.transfer_to() grants the spell actions BEFORE possess_by_player() re-attaches the
+		// client, so GiveAction() had no client.screen to draw onto and the buttons silently never appeared
+		// (only some abilities came back). A full rebuild re-shows every granted action now the client is back.
+		trapped_caster.update_action_buttons(reload_screen = TRUE)
 
 
 /obj/effect/proc_holder/spell/shapeshift/shed_human_form/create_shapeshift_mob(atom/loc)

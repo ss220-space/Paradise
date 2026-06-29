@@ -125,11 +125,11 @@
 		return
 
 	back.forceMove(shrinking.loc)
-	var/obj/effect/proc_holder/spell/worm_contract/shrink = locate() in back.actions
-	if(isnull(shrink))
-		return
-
-	INVOKE_ASYNC(shrink, TYPE_PROC_REF(/datum/action, Trigger))
+	// Cascade onto the next segment via the signal directly, instead of re-triggering its action button.
+	// Triggering the button routes through the spell's Click()/can_cast using `usr` (the player-controlled
+	// head), which fails the per-mob spell-ownership check for the *segment's own* worm_contract instance -
+	// so the chain stopped after a single segment. Re-firing the signal makes every segment pile onto the tile.
+	SEND_SIGNAL(back, COMSIG_MOB_CHAIN_CONTRACT)
 
 
 /// If we die so does the guy behind us, then stop following the leader

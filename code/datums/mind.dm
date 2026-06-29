@@ -3084,7 +3084,14 @@
 	transfer_mindbound_actions(new_character)
 
 /datum/mind/proc/transfer_mindbound_actions(mob/living/new_character)
-	for(var/obj/effect/proc_holder/spell/spell as anything in spell_list)
+	// Iterate a copy: a stray qdeleted/null-action spell (e.g. duplicate spells left over from heretic
+	// shapeshift churn) used to runtime on `spell.action.Grant()` and ABORT the loop, so every spell after
+	// it silently failed to transfer - the "only my first couple of abilities come back" bug. Null-check and
+	// prune the dead entry instead, so the rest of the spells always transfer.
+	for(var/obj/effect/proc_holder/spell/spell as anything in spell_list?.Copy())
+		if(QDELETED(spell) || isnull(spell.action))
+			LAZYREMOVE(spell_list, spell)
+			continue
 		spell.action.Grant(new_character)
 
 /datum/mind/proc/disrupt_spells(delay, list/exceptions)

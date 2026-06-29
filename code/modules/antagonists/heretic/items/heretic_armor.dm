@@ -112,11 +112,16 @@
 		robes_side_effect(user)
 		return
 	user.add_traits(guise_traits, UID())
+	// TRAIT_AI_UNTRACKABLE (in guise_traits) only blocks the AI's track command. The digitalcamo element
+	// supplies the rest of tg's camera camo: it actually hides the wearer from AI eyes (blank override image
+	// on AI clients) and from the silicon data HUDs, so the AI cannot see them on cameras at all.
+	user.AddElement(/datum/element/digitalcamo)
 
 
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/lock/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
 	user.remove_traits(guise_traits, UID())
+	user.RemoveElement(/datum/element/digitalcamo)
 
 
 /// A non-heretic who dons the guise is violently relieved of everything they are carrying (tg parity).

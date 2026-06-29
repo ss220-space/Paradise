@@ -229,18 +229,35 @@
 
 /datum/heretic_knowledge/blade_upgrade/flesh/lock
 	name = "Клинок Открытия"
-	desc = "Ваш клинок при атаке имеет шанс вызвать у врагов обильное кровотечение."
+	desc = "Ваш клинок при атаке имеет шанс вызвать у врага артериальное кровотечение."
 	gain_text = "«Пилигрим-хирург» не был стюардом. Тем не менее, его лезвия и нити оказались не хуже ключей."
 	research_tree_icon_state = "blade_upgrade_lock"
-	// TG applies a *critical* weeping avulsion; the flesh parent applies a *severe* one. master220 has no
-	// wound system, so the flesh parent already adapts that to sustained external bleeding - the lock blade
-	// is simply a chance-gated version of it, exactly mirroring TG's "if(prob(chance)) return ..()".
+	// TG applies a *critical* weeping avulsion - one step nastier than the flesh blade's *severe* laceration.
+	// master220 has no wound system, but it DOES model arterial bleeding (surgery-only, far worse than the
+	// flesh blade's plain gauze-treatable bleed), so the lock blade opens an arterial bleed instead of calling
+	// the flesh parent. Chance-gated, mirroring TG's "if(prob(chance)) return ..()".
 	var/chance = 35
 
 
 /datum/heretic_knowledge/blade_upgrade/flesh/lock/do_melee_effects(mob/living/source, mob/living/target, obj/item/melee/sickly_blade/blade)
-	if(prob(chance))
-		return ..()
+	if(!prob(chance))
+		return
+	if(!ishuman(target) || source == target)
+		return
+
+	var/mob/living/carbon/human/human_target = target
+	if(HAS_TRAIT(human_target, TRAIT_NO_BLOOD))
+		return
+
+	var/list/valid_limbs = list()
+	for(var/obj/item/organ/external/bodypart as anything in human_target.bodyparts)
+		if(!bodypart.is_robotic() && !bodypart.has_arterial_bleeding() && !bodypart.cannot_arterial_bleed)
+			valid_limbs += bodypart
+	if(!length(valid_limbs))
+		return
+
+	var/obj/item/organ/external/limb = pick(valid_limbs)
+	limb.arterial_bleeding()
 
 
 /datum/heretic_knowledge/spell/caretaker_refuge
@@ -271,6 +288,11 @@
 				Лабиринт больше не будет заперт, и мы обретём свободу! СТАНЬТЕ СВИДЕТЕЛЯМИ НАШЕГО ОСВОБОЖДЕНИЯ!"
 	required_atoms = list(/mob/living/carbon/human = 3)
 	//ascension_achievement = /datum/award/achievement/misc/lock_ascension
+	// The achievement system isn't ported, so get_icon_of_knowledge can't derive the ascension sprite from it
+	// (as TG does). Point straight at the achievement dmi's "lockascend" state - matches the other _final nodes
+	// (blade/flesh/ash/rust) and is what TG ultimately renders. Without this the node falls back to the "eye".
+	research_tree_icon_path = 'icons/ui/achievements/achievements.dmi'
+	research_tree_icon_state = "lockascend"
 	announcement_text = "Обнаружена пространственная аномалия класса «Дельта» %SPOOKY% Реальность пала. Врата открыты, двери открыты, %NAME% вознёсся! %SPOOKY%"
 	announcement_sound = 'sound/music/heretic/ascend_knock.ogg'
 

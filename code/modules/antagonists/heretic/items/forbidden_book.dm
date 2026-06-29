@@ -42,6 +42,15 @@
 	new /obj/effect/temp_visual/drawing_heretic_rune/fail(target.loc/*, target.greyscale_colors*/)
 
 
+/// Explicitly wipes a transmutation rune (1:1 with the Mansus Grasp). The effect_remover component above is
+/// the TG mechanism, but the master220 attack chain routes /obj effects unreliably, so the codex erases the
+/// rune directly here to guarantee it works on both left- and right-click.
+/obj/item/codex_cicatrix/proc/erase_rune(obj/effect/decal/heretic_rune/rune, mob/living/user)
+	to_chat(user, span_notice("Вы стираете [rune.declent_ru(ACCUSATIVE)]."))
+	after_clear_rune(rune, user)
+	qdel(rune)
+
+
 /obj/item/codex_cicatrix/examine(mob/user)
 	. = ..()
 	if(!isheretic(user))
@@ -68,6 +77,17 @@
 	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/codex_cicatrix/melee_attack_chain(mob/user, atom/target, params)
+	// Erase a transmutation rune on left- OR right-click, exactly like the Mansus Grasp. Catches both clicking
+	// the rune decal directly and clicking the turf it sits on. (Morbus intercepts its right-click curse before
+	// this in its own override, so RMB-curse still wins there; LMB on a rune falls through to here and erases.)
+	if(isheretic(user))
+		var/obj/effect/decal/heretic_rune/rune = istype(target, /obj/effect/decal/heretic_rune) \
+			? target \
+			: (locate(/obj/effect/decal/heretic_rune) in get_turf(target))
+		if(rune && user.Adjacent(rune))
+			erase_rune(rune, user)
+			return ATTACK_CHAIN_BLOCKED
+
 	var/obj/effect/heretic_influence/influence = locate(/obj/effect/heretic_influence) in target
 	if(!isturf(target) && !influence)
 		return ..()
@@ -137,8 +157,10 @@
 	human_user.adjustOrganLoss(INTERNAL_ORGAN_BRAIN, 10, 190)
 
 
+// TG casts the curse on RIGHT-click of a rune (interact_with_atom_secondary); left-clicking a rune
+// still wipes it through the inherited effect_remover, exactly like the base Кодекс Истезания.
 /obj/item/codex_cicatrix/morbus/melee_attack_chain(mob/user, atom/interacting_with, params)
-	if(!istype(interacting_with, /obj/effect/decal/heretic_rune))
+	if(!istype(interacting_with, /obj/effect/decal/heretic_rune) || !LAZYACCESS(params, RIGHT_CLICK))
 		return ..()
 
 	var/list/curse_list = list()
