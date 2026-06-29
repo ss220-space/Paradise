@@ -63,13 +63,21 @@
 	icon_state = "taipan_main_hallway"
 
 /area/syndicate/unpowered/syndicate_space_base/main/central_n
+
 /area/syndicate/unpowered/syndicate_space_base/main/central_s
+
 /area/syndicate/unpowered/syndicate_space_base/main/central_w
+
 /area/syndicate/unpowered/syndicate_space_base/main/central_e
+
 /area/syndicate/unpowered/syndicate_space_base/main/north
+
 /area/syndicate/unpowered/syndicate_space_base/main/south
+
 /area/syndicate/unpowered/syndicate_space_base/main/west
+
 /area/syndicate/unpowered/syndicate_space_base/main/east
+
 /area/syndicate/unpowered/syndicate_space_base/main/west_arrivals
 
 /area/syndicate/unpowered/syndicate_space_base/cargo
@@ -130,6 +138,7 @@
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
 /area/syndicate/unpowered/syndicate_space_base/dormitories/cabin1
+
 /area/syndicate/unpowered/syndicate_space_base/dormitories/cabin2
 
 /area/syndicate/unpowered/syndicate_space_base/cryo
@@ -160,10 +169,13 @@
 
 /area/syndicate/unpowered/syndicate_space_base/maintenance/north
 	icon_state = "taipan_maint_north"
+
 /area/syndicate/unpowered/syndicate_space_base/maintenance/central
 	icon_state = "taipan_maint_central"
+
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south
 	icon_state = "taipan_maint_south"
+
 /area/syndicate/unpowered/syndicate_space_base/maintenance/east
 	icon_state = "taipan_maint_east"
 
@@ -182,6 +194,7 @@
 
 /area/syndicate/unpowered/syndicate_space_base/armory/hallway
 	icon_state = "taipan_armory_hallway"
+	
 /area/syndicate/unpowered/syndicate_space_base/armory/hall_middle
 	icon_state = "taipan_armory_hall_middle"
 

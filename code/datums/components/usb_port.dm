@@ -228,7 +228,7 @@
 /datum/component/usb_port/proc/on_circuit_deleting()
 	SIGNAL_HANDLER
 	detach()
-	qdel(usb_cable_ref)
+	QDEL_NULL(usb_cable_ref)
 
 /datum/component/usb_port/proc/on_circuit_component_removed(datum/source)
 	SIGNAL_HANDLER

@@ -238,7 +238,7 @@
 		addition_text += span_notice("\nЦены на некоторые товары снижены!")
 
 	if(user && length(addition_text))
-		to_chat(user, chat_box_notice(addition_text.Join("")))
+		to_chat(user, custom_boxed_message("blue_box", addition_text.Join("")))
 
 	values_sum -= values_sum % 10
 	values_sum += values_sum_precious

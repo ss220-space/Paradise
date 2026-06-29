@@ -24,7 +24,7 @@
 
 	var/obj/structure/spacevine/SV = new()
 
-	for(var/area/hallway/A in GLOB.areas)
+	for(var/area/station/hallway/A in GLOB.areas)
 		for(var/turf/F in A)
 			if(F.Enter(SV))
 				turfs += F

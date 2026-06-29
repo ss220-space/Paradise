@@ -43,6 +43,10 @@
 		S.immediate_ventcrawl = TRUE
 	var/datum/team/terror_spiders/spider_team = GLOB.antagonist_teams[/datum/team/terror_spiders]
 	spider_team?.terror_eggs -= src
+	spider_myqueen = null
+	spider_mymother = null
+	asigned_ghost = null
+	LAZYCLEARLIST(enemies)
 	return ..()
 
 /obj/structure/spider/spiderling/terror_spiderling/proc/score_surroundings(atom/A = src)

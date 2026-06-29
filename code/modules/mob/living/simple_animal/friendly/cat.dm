@@ -62,6 +62,10 @@
 	. = ..()
 	SSpersistent_data.register(src)
 
+/mob/living/simple_animal/pet/cat/Runtime/Destroy()
+	SSpersistent_data.registered_atoms -= src
+	return ..()
+
 /mob/living/simple_animal/pet/cat/Runtime/persistent_load()
 	read_memory()
 	deploy_the_cats()
@@ -78,7 +82,6 @@
 /mob/living/simple_animal/pet/cat/Runtime/death(gibbed)
 	if(can_die())
 		write_memory(TRUE)
-		SSpersistent_data.registered_atoms -= src // We just saved. Dont save at round end
 	return ..()
 
 /mob/living/simple_animal/pet/cat/Runtime/proc/read_memory()

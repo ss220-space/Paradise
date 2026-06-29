@@ -211,6 +211,8 @@
  */
 /mob/living/proc/apply_status_effect(datum/status_effect/new_effect, ...)
 	RETURN_TYPE(/datum/status_effect)
+	if(QDELETED(src))
+		return
 
 	var/list/arguments = args.Copy()
 

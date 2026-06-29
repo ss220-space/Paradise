@@ -288,6 +288,12 @@
 		PREPOSITIONAL = "наборе модификаций кинетического акселератора"
 	)
 
+/obj/item/borg/upgrade/modkit/Destroy()
+	if(istype(loc, /obj/item/gun/energy/kinetic_accelerator))
+		var/obj/item/gun/energy/kinetic_accelerator/accelerator = loc
+		accelerator.modkits -= src
+	return ..()
+
 /obj/item/borg/upgrade/modkit/examine(mob/user)
 	. = ..()
 	if(in_range(user, src))
@@ -482,7 +488,7 @@
 	. = ..()
 	if(.)
 		KA.add_firemode(GUN_FIREMODE_AUTOMATIC, user)
-		KA.set_fire_delay(0.4 SECONDS)
+		KA.set_fire_delay(0.2 SECONDS)
 		KA.balloon_alert(user, "установлено")
 
 /obj/item/borg/upgrade/modkit/cooldown/repeater/uninstall(obj/item/gun/energy/kinetic_accelerator/KA)

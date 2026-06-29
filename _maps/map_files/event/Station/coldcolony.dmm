@@ -13552,9 +13552,7 @@
 	},
 /area/coldcolony/malta/medical/sleeper)
 "eXP" = (
-/obj/machinery/computer/security{
-	network = list("SS13","Research Outpost","Mining Outpost")
-	},
+/obj/machinery/computer/security,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "red"
@@ -16911,9 +16909,7 @@
 /turf/simulated/floor/grass,
 /area/coldcolony/malta/hallway/service/central)
 "grj" = (
-/obj/machinery/computer/security{
-	network = list("SS13","Research Outpost","Mining Outpost")
-	},
+/obj/machinery/computer/security,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -20662,9 +20658,7 @@
 /turf/simulated/floor/plating,
 /area/shuttle/pirate_corvette)
 "hMa" = (
-/obj/machinery/computer/security{
-	network = list("SS13","Research Outpost","Mining Outpost")
-	},
+/obj/machinery/computer/security,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

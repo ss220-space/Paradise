@@ -200,7 +200,7 @@ GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
 		mob.possess_by_player(plr.ckey)
 		if(flavour)
 
-			to_chat(mob, chat_box_green(flavour_text))
+			to_chat(mob, custom_boxed_message("green_box", flavour_text))
 		var/datum/mind/MM = mob.mind
 
 		if(objectives)

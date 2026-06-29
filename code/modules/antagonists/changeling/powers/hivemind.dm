@@ -65,7 +65,7 @@ GLOBAL_LIST_EMPTY(hivemind_bank)
 /datum/action/changeling/proc/dna_upload(mob/user)
 	var/datum/dna/chosen_dna = cling.select_dna("Каким ДНК мы хотим поделиться?: ", "Поделиться ДНК", TRUE)
 	if(!chosen_dna)
-		user.balloon_alert(user, "уже есть ДНК [chosen_dna.real_name]")
+		user.balloon_alert(user, "не выбрано ДНК!")
 		return FALSE
 
 	GLOB.hivemind_bank += chosen_dna
@@ -80,7 +80,7 @@ GLOBAL_LIST_EMPTY(hivemind_bank)
 			names[DNA.real_name] = DNA
 
 	if(!length(names))
-		user.balloon_alert(user, "нет новых ДНК")
+		user.balloon_alert(user, "нет новых ДНК!")
 		return FALSE
 
 	var/choice = tgui_input_list(user, "Какое ДНК мы хотим поглотить?: ", "Поглощение ДНК", names)

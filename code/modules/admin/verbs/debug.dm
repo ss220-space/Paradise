@@ -205,7 +205,7 @@ ADMIN_VERB(cmd_admin_areatest, R_DEBUG, "Test Areas", "Tests the areas for vario
 			var/turf/picked = pick(area_turfs)
 			if(is_station_level(picked.z))
 				if(!(A.type in areas_all))
-					if(filter_maint && istype(A, /area/maintenance))
+					if(filter_maint && istype(A, /area/station/maintenance))
 						continue
 					areas_all.Add(A.type)
 		else if(!(A.type in areas_all))

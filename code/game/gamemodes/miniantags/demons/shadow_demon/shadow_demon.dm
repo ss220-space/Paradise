@@ -257,7 +257,7 @@
 	mind.objectives += wrap_objective
 	mind.objectives += survive_objective
 	messages.Add(mind.prepare_announce_objectives())
-	to_chat(src, chat_box_red(messages.Join("<br>")))
+	to_chat(src, custom_boxed_message("red_box center", messages.Join("<br>")))
 
 /datum/objective/wrap
 	name = "Обёртывание"

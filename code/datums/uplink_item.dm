@@ -490,10 +490,10 @@
 /datum/uplink_item/jobspecific/lockermech
 	name = "Синди-Шкафомех"
 	desc = "Массивный и невероятно смертоносный экзоскетлет \"Синдиката\" (на самом деле нет)."
-	item = /obj/mecha/combat/lockersyndie/loaded
+	item = /obj/item/mecha_drop
 	cost = 25
 	job = list(JOB_TITLE_CIVILIAN, JOB_TITLE_ROBOTICIST)
-	surplus = 0
+	surplus = TRUE
 
 /datum/uplink_item/jobspecific/combat_drone
 	name = "Руководство по эксплуатации боевого дрона"
@@ -1958,13 +1958,6 @@
 	cost = 30
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
-/datum/uplink_item/device_tools/autoimplanter
-	name = "Автоимплантер"
-	desc = "Устройство, позволяющее устанавливать 3 кибернетических импланта в полевых условиях без необходимости хирургического вмешательства."
-	item = /obj/item/autoimplanter/traitor
-	cost = 28
-	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-
 /datum/uplink_item/device_tools/binary
 	name = "Ключ бинарного перевода"
 	desc = "Ключ для гарнитуры, который позволяет подключаться к двоичному каналу связи синтетиков."
@@ -2415,6 +2408,12 @@
 	cost = 33
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
+/datum/uplink_item/cyber_implants/autoimplanter
+	name = "Автоимплантер"
+	desc = "Устройство, позволяющее устанавливать кибернетический имплант в полевых условиях без необходимости хирургического вмешательства."
+	item = /obj/item/autoimplanter/oneuse
+	cost = 4
+	uplinktypes = list(UPLINK_TYPE_TRAITOR)
 
 /**
  * MARK: Pointless Badassery

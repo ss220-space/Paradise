@@ -108,6 +108,7 @@
 
 		for(var/mob/dead/observer/observe as anything in inventory_observers)
 			if(!observe.client)
+				observe.handle_when_autoobserve_move()
 				LAZYREMOVE(inventory_observers, observe)
 				continue
 			observe.client.screen -= alert
@@ -199,7 +200,7 @@
 
 	var/list/modifiers = params2list(params)
 	if(LAZYACCESS(modifiers, SHIFT_CLICK)) // screen objects don't do the normal Click() stuff so we'll cheat
-		to_chat(usr, chat_box_regular(jointext(examine(usr), "\n")))
+		to_chat(usr, boxed_message(jointext(examine(usr), "\n")))
 		return FALSE
 
 	if(!click_master)
@@ -907,6 +908,7 @@
 
 			for(var/mob/dead/observer/observe in mymob.inventory_observers)
 				if(!observe.client)
+					observe.handle_when_autoobserve_move()
 					LAZYREMOVE(mymob.inventory_observers, observe)
 					continue
 				observe.client.screen -= alerts[alerts[i]]
@@ -925,6 +927,7 @@
 
 		for(var/mob/dead/observer/observe in mymob.inventory_observers)
 			if(!observe.client)
+				observe.handle_when_autoobserve_move()
 				LAZYREMOVE(mymob.inventory_observers, observe)
 				continue
 			observe.client.screen |= alert

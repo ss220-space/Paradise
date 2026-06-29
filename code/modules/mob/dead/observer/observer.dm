@@ -129,8 +129,8 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	if(orbit_menu)
 		SStgui.close_uis(orbit_menu)
 		QDEL_NULL(orbit_menu)
-	do_observe_target = null
-	GLOB.respawnable_list -= src
+	handle_when_autoobserve_move()
+	remove_from_respawnable_list()
 	return ..()
 
 /mob/dead/observer/examine(mob/user)
@@ -209,10 +209,10 @@ Works together with spawning an observer, noted above.
 		recordable_time = former_mob.timeofdeath
 
 	ghost.persistent_client?.time_of_death = recordable_time
-	GLOB.respawnable_list -= src
+	remove_from_respawnable_list()
 
 	if(ghost.can_reenter_corpse)
-		GLOB.respawnable_list += ghost
+		ghost.add_to_respawnable_list()
 	else
 		GLOB.non_respawnable_keys[ckey] = 1
 

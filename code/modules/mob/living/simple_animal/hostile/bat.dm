@@ -33,30 +33,17 @@
 /mob/living/simple_animal/hostile/scarybat/Initialize(mapload, mob/living/L)
 	. = ..()
 	if(istype(L))
-		owner = L
-
-/mob/living/simple_animal/hostile/scarybat/Initialize(mapload)
-	. = ..()
-	AddElement(/datum/element/simple_flying)
+		faction += PERSONAL_FACTION(L)
 
 /mob/living/simple_animal/hostile/scarybat/ComponentInitialize()
 	AddComponent( \
 		/datum/component/animal_temperature, \
 		minbodytemp = 0, \
 	)
-
-/mob/living/simple_animal/hostile/scarybat/Found(atom/A)//This is here as a potential override to pick a specific target if available
-	if(istype(A) && A == owner)
-		return 0
-	return ..()
-
-/mob/living/simple_animal/hostile/scarybat/CanAttack(atom/the_target)//This is here as a potential override to pick a specific target if available
-	if(istype(the_target) && the_target == owner)
-		return 0
-	return ..()
+	AddElement(/datum/element/simple_flying)
 
 /mob/living/simple_animal/hostile/scarybat/AttackingTarget()
-	. =..()
+	. = ..()
 	var/mob/living/L = .
 	if(istype(L))
 		if(prob(15))

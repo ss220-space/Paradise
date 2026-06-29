@@ -155,7 +155,7 @@
 	messages.Add(span_notice("Use your stealth technology and equipment to incapacitate humans for your scientist to retrieve."))
 	messages.Add(span_motd("С полной информацией вы можете ознакомиться на вики: <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Abductor\">Абдуктор</a>"))
 	messages.Add(abductor.prepare_announce_objectives())
-	to_chat(abductor.current, chat_box_red(messages.Join("<br>")))
+	to_chat(abductor.current, custom_boxed_message("red_box center", messages.Join("<br>")))
 	log_game("[abductor] has become an abductor agent.")
 
 /datum/game_mode/abduction/proc/greet_scientist(datum/mind/abductor,team_number)
@@ -170,7 +170,7 @@
 	messages.Add(span_notice("Use your tool and ship consoles to support the agent and retrieve human specimens."))
 	messages.Add(span_motd("For more information, check the wiki page: <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Abductor\">Абдуктор</a>"))
 	messages.Add(abductor.prepare_announce_objectives())
-	to_chat(abductor.current, chat_box_red(messages.Join("<br>")))
+	to_chat(abductor.current, custom_boxed_message("red_box center", messages.Join("<br>")))
 	abductor.current.create_log(MISC_LOG, "[abductor.current] was made into an abductor scientist")
 	log_game("[abductor] has become an abductor scientist.")
 

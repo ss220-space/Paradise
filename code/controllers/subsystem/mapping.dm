@@ -195,7 +195,7 @@ SUBSYSTEM_DEF(mapping)
 		var/time_spent = stop_watch(lavaland_setup_timer)
 		log_startup_progress("Successfully populated lavaland in [time_spent]s.")
 		// This number is already in seconds
-		if(time_spent >= 10)
+		if(time_spent >= 15)
 			log_startup_progress("!!!ERROR!!! Lavaland took FAR too long to generate at [time_spent] seconds. Notify maintainers immediately! !!!ERROR!!!") //In 3 testing cases so far, I have had it take far too long to generate. I am 99% sure I have fixed this issue, but never hurts to be sure
 			WARNING("!!!ERROR!!! Lavaland took FAR too long to generate at [time_spent] seconds. Notify maintainers immediately! !!!ERROR!!!")
 	else
@@ -526,7 +526,7 @@ SUBSYSTEM_DEF(mapping)
 	log_world("Ruin loader finished with [budget] left to spend.")
 
 /datum/controller/subsystem/mapping/proc/make_maint_all_access()
-	for(var/area/maintenance/area in existing_station_areas)
+	for(var/area/station/maintenance/area in existing_station_areas)
 		for(var/obj/machinery/door/airlock/door in area)
 			door.emergency = TRUE
 			door.update_icon()
@@ -537,7 +537,7 @@ SUBSYSTEM_DEF(mapping)
 	SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("emergency maintenance access", "enabled"))
 
 /datum/controller/subsystem/mapping/proc/revoke_maint_all_access()
-	for(var/area/maintenance/area in existing_station_areas)
+	for(var/area/station/maintenance/area in existing_station_areas)
 		for(var/obj/machinery/door/airlock/door in area)
 			door.emergency = FALSE
 			door.update_icon()
@@ -715,11 +715,6 @@ SUBSYSTEM_DEF(mapping)
 	if(contain_turfs)
 		build_area_turfs(z_value, filled_with_space)
 
-	// And finally, misc global generation
-
-	// We'll have to update this if offsets change, because we load lowest z to highest z
-	generate_lighting_appearance_by_z(z_value)
-
 /datum/controller/subsystem/mapping/proc/build_area_turfs(z_level, space_guaranteed)
 	// If we know this is filled with default tiles, we can use the default area
 	// Faster
@@ -756,11 +751,6 @@ SUBSYSTEM_DEF(mapping)
 	for(var/datum/space_level/level_to_update in levels_checked)
 		z_level_to_lowest_plane_offset[level_to_update.zpos] = plane_offset
 		z_level_to_stack[level_to_update.zpos] = z_stack
-
-	// This can be affected by offsets, so we need to update it
-	// PAIN
-	for(var/i in 1 to length(GLOB.space_manager.z_list))
-		generate_lighting_appearance_by_z(i)
 
 	var/old_max = max_plane_offset
 	max_plane_offset = max(max_plane_offset, plane_offset)
@@ -808,11 +798,6 @@ SUBSYSTEM_DEF(mapping)
 				true_to_offset_planes[string_real] = list()
 
 			true_to_offset_planes[string_real] |= offset_plane
-
-/datum/controller/subsystem/mapping/proc/generate_lighting_appearance_by_z(z_level)
-	if(length(GLOB.default_lighting_underlays_by_z) < z_level)
-		GLOB.default_lighting_underlays_by_z.len = z_level
-	GLOB.default_lighting_underlays_by_z[z_level] = mutable_appearance(LIGHTING_ICON, "transparent_lighting_object", z_level * 0.01, null, LIGHTING_PLANE, 255, RESET_COLOR | RESET_ALPHA | RESET_TRANSFORM, offset_const = GET_Z_PLANE_OFFSET(z_level))
 
 /// Takes a turf or a z level, and returns a list of all the z levels that are connected to it
 /datum/controller/subsystem/mapping/proc/get_connected_levels(turf/connected)

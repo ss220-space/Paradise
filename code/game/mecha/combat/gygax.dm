@@ -15,8 +15,8 @@
 	internal_damage_threshold = 35
 	step_energy_drain = 3
 	normal_step_energy_drain = 3
-
 	mech_type = MECH_TYPE_GYGAX
+	allowed_equipment = MECH_EQUIPMENT_GYGAX
 
 /obj/mecha/combat/gygax/GrantActions(mob/living/user, human_occupant = 0)
 	..()

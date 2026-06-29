@@ -16,24 +16,22 @@ ADMIN_VERB(event_manager_panel, R_EVENT, "Event Manager Panel", "Event Manager P
 	var/static/list/possible_areas
 	if(!length(possible_areas))
 		var/list/safe_areas = typecacheof(list(
-			/area/turret_protected/ai,
-			/area/turret_protected/ai_upload,
-			/area/engineering,
+			/area/station/ai/satellite/chamber,
+			/area/station/ai/upload/chamber,
+			/area/station/engineering,
 			/area/holodeck,
 			/area/shuttle,
-			/area/maintenance,
-			/area/toxins/test_area,
+			/area/station/maintenance,
+			/area/station/science/toxins/test,
 			/area/space,
-			/area/solar,
-			/area/crew_quarters/sleep))
+			/area/station/solars,
+			/area/station/commons/sleep))
 
 		//These are needed because /area/station/engineering has to be removed from the list, but we still want these areas to get fucked up.
 		var/list/allowed_areas = list(
-			/area/engineering/break_room,
-			/area/engineering/equipmentstorage,
-			/area/engineering/chiefs_office,
-			/area/engineering/controlroom,
-			/area/engineering/mechanic_workshop
+			/area/station/engineering/break_room,
+			/area/station/engineering/supermatter/room,
+			/area/station/engineering/mechanic_workshop
 		)
 
 		var/list/remove_these_areas = safe_areas - allowed_areas
