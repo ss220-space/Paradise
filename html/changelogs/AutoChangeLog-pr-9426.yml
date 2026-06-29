@@ -1,4 +1,0 @@
-author: "vovakons"
-delete-after: True
-changes:
-  - qol: "tgui интерфейс для сканера аутопсии (PR #9426)"
