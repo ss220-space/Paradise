@@ -118,6 +118,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	abstract_move(location) //let ghost initialize properly, then off to spawn point
 
 /mob/dead/observer/Destroy()
+	handle_when_autoobserve_move()
 	toggle_all_huds_off()
 	remove_the_hud(THOUGHTS_HUD)
 	UnregisterSignal(src, COMSIG_MOB_HUD_CREATED)
@@ -129,7 +130,6 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	if(orbit_menu)
 		SStgui.close_uis(orbit_menu)
 		QDEL_NULL(orbit_menu)
-	handle_when_autoobserve_move()
 	remove_from_respawnable_list()
 	return ..()
 
@@ -749,6 +749,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	do_observe_target = null
 	REMOVE_TRAIT(src, TRAIT_OBSERVING_INVENTORY, UNIQUE_TRAIT_SOURCE(src))
+	hud_used?.show_hud(hud_used?.hud_version, src)
 
 /mob/dead/observer/proc/handle_when_autoobserve_sight_updated()
 	SIGNAL_HANDLER
