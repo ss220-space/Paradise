@@ -181,7 +181,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 		if(CONFIG_GET(flag/kill_on_shutdown))
 			world.KillImmediately()
 			return
-		
+
 		rustlib_clear_uuid_storage()
 		rustg_log_close_all() // Past this point, no logging procs can be used, at risk of data loss.
 		sleep(0)
@@ -339,7 +339,6 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	PrepareShutdown()
 	log_world("Shutting down current instance via forceful killing from shell...")
 
-	rustlib_clear_uuid_storage()
 	log_debug("Kill via shell initiated...")
 	rustlib_clear_uuid_storage()
 	rustg_log_close_all() // Past this point, no logging procs can be used, at risk of data loss.
