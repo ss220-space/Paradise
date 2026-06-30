@@ -158,15 +158,15 @@
 	if(length(message) >= 1 && copytext(message, 1, 2) == ";")
 		return list(standard_mode, copytext(message, 2))
 
-	if(length(message) >= 2)
-		var/prefix_2 = copytext(message, 1, 3)
-		if(GLOB.department_radio_keys[prefix_2])
-			return list(GLOB.department_radio_keys[prefix_2], trim(copytext(message, 3)))
-
 	if(length(message) >= 3)
 		var/prefix_3 = copytext(message, 1, 4)
 		if(GLOB.department_radio_keys[prefix_3])
 			return list(GLOB.department_radio_keys[prefix_3], trim(copytext(message, 4)))
+
+	if(length(message) >= 2)
+		var/prefix_2 = copytext(message, 1, 3)
+		if(GLOB.department_radio_keys[prefix_2])
+			return list(GLOB.department_radio_keys[prefix_2], trim(copytext(message, 3)))
 
 	return null
 
