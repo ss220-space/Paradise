@@ -23,7 +23,9 @@
 	mobspellremove(src)
 	QDEL_LIST(diseases)
 	for(var/datum/action/action in actions)
-		action.Remove(src)
+		action.HideFrom(src)
+		action.clear_ref(src)
+	LAZYCLEARLIST(actions)
 
 	if(length(progressbars))
 		stack_trace("[src] destroyed with elements in its progressbars list")
@@ -44,6 +46,9 @@
 
 	if(mind?.current == src)
 		mind.current = null
+
+	LAZYCLEARLIST(screens)
+	clear_fullscreens()
 
 	key = null
 	ckey = null

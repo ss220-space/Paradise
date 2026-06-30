@@ -861,3 +861,9 @@ GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
 	brute_damage = rand(150, 500)
 	burn_damage = rand(100, 300)
 	return ..()
+
+/obj/effect/mob_spawn/human/farwa
+	name = "wizard farwa"
+	mob_name = "dobby"
+	mob_species = /datum/species/monkey/tajaran
+	mob_gender = NEUTER
