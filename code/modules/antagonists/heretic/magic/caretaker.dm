@@ -44,11 +44,19 @@
 			continue
 		if(our_turf in view(watcher.client.view, watcher))
 			return FALSE
-	// Eyes on the other end of a camera count too: you can't slip into (or out of) the Refuge anywhere the AI
-	// or someone on a camera console could be watching the spot.
-	if(is_watched_by_camera(our_turf))
-		return FALSE
 	return TRUE
+
+
+// The in-person watcher test above is cheap, so the parent runs it on every button-status refresh (each move,
+// and each SSfastprocess tick while on cooldown). The camera/AI sweep is heavier, so we DON'T put it there -
+// instead can_cast() runs it only on a genuine cast attempt (show_message), never on a button repaint.
+/obj/effect/proc_holder/spell/jaunt/space_crawl/caretaker/can_cast(mob/user = usr, charge_check = TRUE, show_message = FALSE)
+	. = ..()
+	if(!.)
+		return FALSE
+	if(show_message && is_watched_by_camera(get_turf(user)))
+		to_chat(user, span_warning(invalid_turf_message))
+		return FALSE
 
 
 /// TRUE if the AI, or anyone actively driving a camera console, could currently see this turf through a camera.
