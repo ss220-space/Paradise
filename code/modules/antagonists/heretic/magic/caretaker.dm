@@ -1,3 +1,9 @@
+// Widest viewport a player can pick in Settings -> "Диапазон обзора" is "19x15" (Ультраширокий): 19 tiles
+// wide -> a horizontal view radius of (19-1)/2 = 9 tiles (vertical is only 7). The Refuge's watcher scan has
+// to reach that far, or an ultrawide onlooker standing 8-9 tiles away (off-screen for the heretic) could
+// watch them slip into / out of hiding. See setviewrange in preference/preferences.dm.
+#define CARETAKER_MAX_WATCH_RANGE 9
+
 // Последнее пристанище смотрителя (Caretaker's Last Refuge) — reworked into a jaunt (Paradise-original,
 // improving on tg's intangible status-effect version). Built on the Space Crawl jaunt, but instead of
 // requiring a space/low-pressure turf, the gate is "nobody is watching you":
@@ -18,6 +24,9 @@
 	invalid_turf_message = "За вами наблюдают — вы не можете скрыться!"
 	jaunt_type = /obj/effect/dummy/spell_jaunt/caretaker
 	jaunt_hand_type = /obj/item/space_crawl/caretaker
+	// One "locked door / turning key" sound for both submerging into and resurfacing from the Refuge.
+	jaunt_in_sound = 'sound/magic/heretic/caretaker_lock.ogg'
+	jaunt_out_sound = 'sound/magic/heretic/caretaker_lock.ogg'
 
 
 /// The Refuge's "valid turf" is any spot where no conscious onlooker can see us. Used for both entering
@@ -26,11 +35,48 @@
 	var/turf/our_turf = get_turf(user)
 	if(!our_turf)
 		return FALSE
-	for(var/mob/living/watcher in viewers(7, our_turf))
+	// Gather every living onlooker that could POSSIBLY see this turf (max viewport radius), then defer to each
+	// watcher's OWN client.view for the real line-of-sight test - so a classic-view player 8 tiles away (who
+	// genuinely can't see us) won't block the Refuge, but an ultrawide one at that distance will. view() also
+	// respects walls/opacity, so a watcher behind a wall doesn't count.
+	for(var/mob/living/watcher in range(CARETAKER_MAX_WATCH_RANGE, our_turf))
 		if(watcher == user || watcher.stat == DEAD || !watcher.client)
 			continue
+		if(our_turf in view(watcher.client.view, watcher))
+			return FALSE
+	// Eyes on the other end of a camera count too: you can't slip into (or out of) the Refuge anywhere the AI
+	// or someone on a camera console could be watching the spot.
+	if(is_watched_by_camera(our_turf))
 		return FALSE
 	return TRUE
+
+
+/// TRUE if the AI, or anyone actively driving a camera console, could currently see this turf through a camera.
+/obj/effect/proc_holder/spell/jaunt/space_crawl/caretaker/proc/is_watched_by_camera(turf/our_turf)
+	// Cheap gate first: if no working camera covers this spot at all, no camera-watcher can possibly see it.
+	if(!GLOB.cameranet.checkTurfVis(our_turf))
+		return FALSE
+	// An AI only actually sees what's around its camera eye RIGHT NOW (not the whole net at once), so block only
+	// when this turf is inside an AI's current view (and camera-covered, per the checkTurfVis gate above).
+	for(var/mob/living/silicon/ai/ai as anything in GLOB.ai_list)
+		if(!ai.client || ai.stat == DEAD)
+			continue
+		var/mob/camera/aiEye/eye = ai.eyeobj
+		if(isnull(eye))
+			continue
+		if(our_turf in view(ai.client.view, eye))
+			return TRUE
+	// Advanced camera consoles relocate the operator's own perspective into the camera eye.
+	for(var/mob/watcher as anything in GLOB.camera_console_watchers)
+		if(watcher.client)
+			return TRUE
+	// Basic security monitors: a working camera that can see us AND is currently being watched on a console.
+	for(var/obj/machinery/camera/cam in range(CARETAKER_MAX_WATCH_RANGE, our_turf))
+		if(!length(cam.computers_watched_by) || !cam.can_use())
+			continue
+		if(our_turf in view(cam.view_range, cam))
+			return TRUE
+	return FALSE
 
 
 /// Jaunt holder for the Caretaker's Refuge. The holder itself is invisible; this only defines the
@@ -57,3 +103,5 @@
 		INSTRUMENTAL = "нечестивой дымкой",
 		PREPOSITIONAL = "нечестивой дымке",
 	)
+
+#undef CARETAKER_MAX_WATCH_RANGE

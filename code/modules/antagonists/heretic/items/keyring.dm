@@ -190,6 +190,15 @@
 	photo = card.photo
 	dat = card.dat
 	name = card.name //not update_label because of the captains spare moment
+	// PARADISE GOTCHA: every on-map/examine name goes through declent_ru() -> the instance `ru_names`, NOT the
+	// `name` var. Copying only `name` (as tg does) leaves the disguise reading the generic "ID-карта" with no
+	// owner/job in every RU context - this is the "card has no name / whose it is" bug. Carry the source card's
+	// declensions across: copy its instance ru_names when present (preserves special names like the captain's
+	// spare), otherwise rebuild them from the copied registered_name/assignment.
+	if(card.ru_names)
+		ru_names = card.ru_names.Copy()
+	else
+		update_label(card.registered_name, card.assignment)
 	update_icon()
 
 

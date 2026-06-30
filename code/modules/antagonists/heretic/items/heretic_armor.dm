@@ -78,18 +78,21 @@
 	. += span_notice("Позволяет использовать еретические заклинания при надетом капюшоне.")
 
 
-// Изменчивая Личина (Shifting Guise) — Lock path robes. Ported 1:1 from tg's lock armor:
-// while worn by a heretic it grants camera camouflage, hides identity/voice and silences footsteps.
-// A non-heretic who dares to don it is violently relieved of everything they carry.
-// (tg's /datum/element/digitalcamo is master220's TRAIT_AI_UNTRACKABLE; the rest are the same traits the
-//  shadow cloak uses, see status_effects/buffs.dm.)
+// Изменчивая Личина (Shifting Guise) — Lock path robes. Based on tg's lock armor (hidden identity/voice, silenced
+// footsteps), with two deliberate Paradise changes/improvements over tg:
+//  1) the guise is tied to the HOOD being raised, not to wearing the robe (tg grants it on equip);
+//  2) the wearer is invisible on EVERY camera - AI, advanced AND basic monitors, body and data-HUD markers alike -
+//     while staying fully VISIBLE in person (tg only ever hides from the AI). Camera coverage = digitalcamo
+//     (AI + advanced console) + the camera_camo component (basic monitors, via the CAMERA_CAMO_PLANE popup-hide).
+// A non-heretic who dares to don it is violently relieved of everything they carry, the instant they put it on.
+// (the guise traits are the same ones the shadow cloak uses, see status_effects/buffs.dm.)
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/lock
 	name = "изменчивая личина"
 	desc = "Набор затенённых одеяний с глубоким капюшоном. Под ним невозможно разглядеть, кто скрывается."
 	icon_state = "lock_armor"
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie/eldritch/lock
 	armor = list("melee" = 40, "bullet" = 40, "laser" = 40, "energy" = 40, "bomb" = 40, "bio" = 40, "fire" = 40, "acid" = 40)
-	/// Traits granted to a heretic wearer: camera camo + the shifting guise (hidden identity/voice, silent steps).
+	/// Traits granted to a heretic wearer while hooded: AI-untrackable + the shifting guise (hidden identity/voice, silent steps).
 	var/static/list/guise_traits = list(TRAIT_AI_UNTRACKABLE, TRAIT_SILENT_FOOTSTEPS, TRAIT_UNKNOWN_APPEARANCE, TRAIT_UNKNOWN_VOICE)
 
 
@@ -108,22 +111,56 @@
 	. = ..()
 	if(slot != ITEM_SLOT_CLOTH_OUTER)
 		return
+	// Non-heretics who dare don the guise are punished the instant they put the robe on (tg parity). The actual
+	// camouflage is NOT granted here - unlike tg (which gives it on equip), this port ties the guise to the HOOD
+	// being raised (see EngageHood/RemoveHood below), so a heretic only vanishes while actually hooded up.
 	if(!isheretic(user))
 		robes_side_effect(user)
-		return
-	user.add_traits(guise_traits, UID())
-	// TRAIT_AI_UNTRACKABLE (in guise_traits) only blocks the AI's track command. Two more pieces give the
-	// full camera camo:
-	// - digitalcamo element: hides the wearer from AI eyes + advanced camera consoles (blank override image
-	//   on those clients) and from the AI silicon data HUDs.
-	// - camera_camo component: hides the wearer from the BASIC security camera console feed WITHOUT making
-	//   them invisible in person (render-target proxy on the camera-hidden plane). See its file for details.
-	user.AddElement(/datum/element/digitalcamo)
-	user.AddComponent(/datum/component/camera_camo)
 
 
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/lock/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
+	// Safety net: base dropped() already calls RemoveHood() (which strips the guise when the hood was up), but
+	// remove it unconditionally here too in case the robe leaves the body some other way. All removals below
+	// are no-ops if the guise was never granted.
+	remove_guise(user)
+
+
+// Raising the hood pulls the Shifting Guise over the wearer; lowering it (or losing the robe) drops it.
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/lock/EngageHood()
+	. = ..()
+	if(!.) // hood didn't actually go up (already up, no robe worn, head occupied, etc.)
+		return
+	if(isheretic(loc))
+		grant_guise(loc)
+
+
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/lock/RemoveHood()
+	// Capture the wearer before ..() unequips the hood - by the time RemoveHood returns the hood is back in the
+	// suit, so its loc no longer points at the mob.
+	var/mob/living/wearer = isliving(hood?.loc) ? hood.loc : (isliving(loc) ? loc : null)
+	. = ..()
+	if(. && wearer) // RemoveHood only returns TRUE when the hood was actually up, i.e. the guise was active
+		remove_guise(wearer)
+
+
+/// Grants the full Shifting Guise to a heretic wearer: hidden identity/voice + silent steps, plus full camera camo.
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/lock/proc/grant_guise(mob/living/user)
+	user.add_traits(guise_traits, UID())
+	// The wearer is fully VISIBLE in person but invisible on EVERY camera (a deliberate improvement over tg,
+	// which only hides from the AI). Three pieces:
+	// - TRAIT_AI_UNTRACKABLE (in guise_traits): the AI can't lock the track command onto them.
+	// - digitalcamo element: blanks the body (and AI data-HUDs) for AI eyes + ADVANCED camera consoles.
+	// - camera_camo component: render-target proxy on CAMERA_CAMO_PLANE - shows in person but is force-hidden
+	//   in the camera popup plane group, so the body AND its data-HUD markers vanish on BASIC camera monitors.
+	user.AddElement(/datum/element/digitalcamo)
+	user.AddComponent(/datum/component/camera_camo)
+
+
+/// Strips the Shifting Guise. Idempotent: safe to call when it was never granted.
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/lock/proc/remove_guise(mob/living/user)
+	if(!user)
+		return
 	user.remove_traits(guise_traits, UID())
 	user.RemoveElement(/datum/element/digitalcamo)
 	qdel(user.GetComponent(/datum/component/camera_camo))

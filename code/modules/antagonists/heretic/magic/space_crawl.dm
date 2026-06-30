@@ -32,6 +32,10 @@
 	var/invalid_turf_message = "Вы должны находиться в космосе или на открытом воздухе с низким давлением!"
 	/// The "hands" given to a carbon jaunter to stop them acting. Subtypes override this to rename them.
 	var/jaunt_hand_type = /obj/item/space_crawl
+	/// Sound played at the turf when the caster submerges into the jaunt. Subtypes override for their own flavour.
+	var/jaunt_in_sound = 'sound/magic/cosmic_energy.ogg'
+	/// Sound played at the turf when the caster resurfaces from the jaunt. Subtypes override for their own flavour.
+	var/jaunt_out_sound = 'sound/magic/cosmic_energy.ogg'
 
 
 /obj/effect/proc_holder/spell/jaunt/space_crawl/on_spell_gain(mob/user = usr)
@@ -134,7 +138,8 @@
 
 	jaunter.add_traits(jaunting_traits, SPACE_PHASING)
 	RegisterSignal(jaunter, SIGNAL_REMOVETRAIT(TRAIT_ALLOW_HERETIC_CASTING), PROC_REF(on_focus_lost), override = TRUE)
-	playsound(our_turf, 'sound/magic/cosmic_energy.ogg', 50, TRUE, -1)
+	if(jaunt_in_sound)
+		playsound(our_turf, jaunt_in_sound, 50, TRUE, -1)
 	our_turf.visible_message(span_warning("[jaunter.declent_ru(NOMINATIVE)] погружается в [our_turf.declent_ru(ACCUSATIVE)]!"))
 	new /obj/effect/temp_visual/space_explosion(our_turf)
 	jaunter.ExtinguishMob()
@@ -163,7 +168,8 @@
 /obj/effect/proc_holder/spell/jaunt/space_crawl/on_jaunt_exited(obj/effect/dummy/spell_jaunt/jaunt, mob/living/carbon/human/unjaunter)
 	UnregisterSignal(jaunt, COMSIG_MOVABLE_MOVED)
 	UnregisterSignal(unjaunter, list(SIGNAL_REMOVETRAIT(TRAIT_ALLOW_HERETIC_CASTING)))
-	playsound(get_turf(unjaunter), 'sound/magic/cosmic_energy.ogg', 50, TRUE, -1)
+	if(jaunt_out_sound)
+		playsound(get_turf(unjaunter), jaunt_out_sound, 50, TRUE, -1)
 	new /obj/effect/temp_visual/space_explosion(get_turf(unjaunter))
 	if(!ishuman(unjaunter))
 		return ..()
