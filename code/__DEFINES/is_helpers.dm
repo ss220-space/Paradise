@@ -446,5 +446,5 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 #define is_cargo_shelf(A) (istype(A, /obj/structure/cargo_shelf))
 #define is_crate(A) (istype(A, /obj/structure/closet/crate))
 
-#define is_area_nearby_station(checked_area) (istype(checked_area, /area/space) || istype(checked_area, /area/space/nearstation) || istype(checked_area, /area/asteroid))
+#define is_area_nearby_station(checked_area) (istype(checked_area, /area/space) || istype(checked_area, /area/space/nearstation) || istype(checked_area, /area/centcom/asteroid))
 #define is_area_shuttle(checked_area) (istype(checked_area, /area/shuttle))

@@ -1176,3 +1176,31 @@
 		if(atom_content.density && !(atom_content.flags & ON_BORDER) && !HAS_TRAIT(atom_content, TRAIT_CLIMBABLE))
 			return TRUE
 	return FALSE
+
+/// Builds with rods. This doesn't exist to be overridden, just to remove duplicate logic for turfs that want
+/// To support floor tile creation
+/// I'd make it a component, but one of these things is space. So no.
+/turf/proc/build_with_rods(obj/item/stack/rods/used_rods, mob/user)
+	var/obj/structure/lattice/catwalk_bait = locate(/obj/structure/lattice, src)
+	var/obj/structure/lattice/catwalk/existing_catwalk = locate(/obj/structure/lattice/catwalk, src)
+	if(existing_catwalk)
+		to_chat(user, span_warning("There is already a catwalk here!"))
+		return
+
+	if(catwalk_bait)
+		if(!used_rods.use(1))
+			to_chat(user, span_warning("You need two rods to build a catwalk!"))
+			return
+
+		to_chat(user, span_notice("You construct a catwalk."))
+		playsound(src, 'sound/weapons/genhit.ogg', 50, TRUE)
+		catwalk_bait.replace_with_catwalk()
+		return
+
+	if(!used_rods.use(1))
+		to_chat(user, span_warning("You need one rod to build a lattice."))
+		return
+	to_chat(user, span_notice("You construct a lattice."))
+	playsound(src, 'sound/weapons/genhit.ogg', 50, TRUE)
+	ReplaceWithLattice()
+

@@ -58,7 +58,7 @@
 	// Ignore these areas and dont let people expand them. They can expand into them though
 	var/static/list/blacklisted_areas = typecacheof(list(
 		/area/space,
-		/area/asteroid,
+		/area/centcom/asteroid,
 	))
 
 	var/error = ""

@@ -146,24 +146,7 @@
 		return .
 
 	if(istype(I, /obj/item/stack/rods))
-		var/obj/item/stack/rods/rods = I
-		if(locate(/obj/structure/lattice/catwalk, src))
-			to_chat(user, span_warning("There is already a catwalk here!"))
-			return .
-		if(locate(/obj/structure/lattice, src))
-			if(!rods.use(1))
-				to_chat(user, span_warning("You need two rods to build a catwalk!"))
-				return .
-			to_chat(user, span_notice("You construct a catwalk."))
-			playsound(src, 'sound/weapons/genhit.ogg', 50, TRUE)
-			new /obj/structure/lattice/catwalk(src)
-			return .|ATTACK_CHAIN_SUCCESS
-		if(!rods.use(1))
-			to_chat(user, span_warning("You need one rod to build a lattice."))
-			return .
-		to_chat(user, span_notice("Constructing support lattice..."))
-		playsound(src, 'sound/weapons/genhit.ogg', 50, TRUE)
-		ReplaceWithLattice()
+		build_with_rods(I, user)
 		return .|ATTACK_CHAIN_BLOCKED_ALL
 
 	if(istype(I, /obj/item/stack/tile/plasteel))
