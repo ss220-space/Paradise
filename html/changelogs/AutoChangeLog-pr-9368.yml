@@ -1,4 +1,0 @@
-author: "SCPfollower"
-delete-after: True
-changes:
-  - tweak: "Значительно уменьшено время между автоогнем у КА с репитером. (PR #9368)"
