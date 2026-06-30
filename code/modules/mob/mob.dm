@@ -22,6 +22,9 @@
 		spellremove(src)
 	mobspellremove(src)
 	QDEL_LIST(diseases)
+	for(var/datum/action/action in actions)
+		action.HideFrom(src)
+		action.clear_ref(src)
 	LAZYCLEARLIST(actions)
 
 	if(length(progressbars))

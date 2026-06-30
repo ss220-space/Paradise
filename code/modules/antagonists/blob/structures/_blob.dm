@@ -80,7 +80,7 @@
 		return
 	var/result = 0
 	var/direction = get_dir(src, neighbour)
-	var/list/dirs = alist(NORTHWEST = list(NORTH, WEST), NORTHEAST = list(NORTH, EAST), "[SOUTHEAST]" = list(SOUTH, EAST), "[SOUTHWEST]" = list(SOUTH, WEST))
+	var/list/dirs = alist(NORTHWEST = list(NORTH, WEST), NORTHEAST = list(NORTH, EAST), SOUTHEAST = list(SOUTH, EAST), SOUTHWEST = list(SOUTH, WEST))
 	for(var/possible_dir, dir_list in dirs)
 		if(direction != possible_dir)
 			return

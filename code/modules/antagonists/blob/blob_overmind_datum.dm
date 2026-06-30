@@ -62,7 +62,8 @@
 	var/datum/blobstrain/blob_reagent_datum = blob_reagent_ref.resolve()
 	var/list/messages = list()
 	messages += "<b>Как надразум, вы можете управлять блобом!</b>"
-	messages += blob_reagent_datum.overmind.get_strain_info()
+	if(blob_reagent_datum?.overmind)
+		messages += blob_reagent_datum.overmind.get_strain_info()
 	messages += "<b>Вы можете расширяться, атакуя людей, повреждая объекты или размещая простую плитку, если клетка свободна.</b>"
 	messages += "<i>Обычная плитка</i> будет расширять ваше влияние и может быть улучшена до специальной плитки, выполняющей определённую функцию."
 	messages += "<b>Вы можете улучшить обычные плитки до следующих типов:</b>"
