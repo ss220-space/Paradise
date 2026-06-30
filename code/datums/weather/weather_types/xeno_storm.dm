@@ -12,7 +12,7 @@
 	end_duration = 10 SECONDS
 
 	area_type = /area
-	protected_areas = list(/area/space, /area/crew_quarters/sleep)
+	protected_areas = list(/area/space, /area/station/commons/sleep)
 
 	immunity_type = TRAIT_WEATHER_IMMUNE
 

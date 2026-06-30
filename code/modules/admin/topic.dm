@@ -3332,7 +3332,7 @@
 					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Egalitarian Station")
 				for(var/obj/machinery/door/airlock/W in GLOB.airlocks)
-					if(is_station_level(W.z) && !istype(get_area(W), /area/bridge) && !istype(get_area(W), /area/crew_quarters) && !istype(get_area(W), /area/security/prison))
+					if(is_station_level(W.z) && !istype(get_area(W), /area/station/command/bridge) && !istype(get_area(W), /area/station/commons) && !istype(get_area(W), /area/station/security/prison))
 						W.req_access = list()
 				message_admins("[key_name_admin(usr)] activated Egalitarian Station mode")
 				GLOB.minor_announcement.announce(
@@ -3387,9 +3387,9 @@
 				var/delete_mobs = tgui_alert(usr, "Clear all mobs?", "Confirm", list("Yes", "No", "Cancel"))
 				if(delete_mobs == "Cancel")
 					return
-				var/area/thunderdome = locate(/area/tdome/arena)
-				var/area/team1 = locate(/area/tdome/tdome1)
-				var/area/team2 = locate(/area/tdome/tdome2)
+				var/area/thunderdome = locate(/area/centcom/tdome/arena)
+				var/area/team1 = locate(/area/centcom/tdome/tdome1)
+				var/area/team2 = locate(/area/centcom/tdome/tdome2)
 				if(delete_mobs == "Yes")
 					var/clear_team_spawns = tgui_alert(usr, "Clear mobs on thunderdome spawns too?", "Confirm", list("Yes", "No"))
 					if(clear_team_spawns == "Yes")
@@ -3402,7 +3402,7 @@
 				for(var/obj/obj in thunderdome)
 					if(!istype(obj,/obj/machinery/camera))
 						qdel(obj) //Clear objects
-				var/area/template = locate(/area/tdome/arena_source)
+				var/area/template = locate(/area/centcom/tdome/arena_source)
 				template.copy_contents_to(thunderdome)
 				log_admin("[key_name(usr)] reset the thunderdome to default with delete_mobs==[delete_mobs].", 1)
 				message_admins(span_adminnotice("[key_name_admin(usr)] reset the thunderdome to default with delete_mobs==[delete_mobs]."))

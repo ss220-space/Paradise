@@ -1,0 +1,4 @@
+author: "saizenlow"
+delete-after: True
+changes:
+  - bugfix: "Исправлен баг с условием проверки Тандердома (PR #9449)"

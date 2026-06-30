@@ -1146,7 +1146,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		return ..()
 	return FALSE
 
-/obj/item/mech_melee_attack(obj/mecha/M)
+/obj/item/mech_melee_attack(obj/mecha/mech)
 	return FALSE
 
 /obj/item/proc/openTip(location, control, params, user)

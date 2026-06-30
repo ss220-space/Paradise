@@ -114,8 +114,8 @@
 		qdel(AC)
 	Target = null
 	Leader = null
-	Friends.Cut()
-	speech_buffer.Cut()
+	LAZYCLEARLIST(Friends)
+	LAZYCLEARLIST(speech_buffer)
 	return ..()
 
 /mob/living/simple_animal/slime/proc/set_colour(new_colour)

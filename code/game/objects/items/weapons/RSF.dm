@@ -18,7 +18,7 @@ RSF
 	. = ..()
 	if(use_rsf_list)
 		configured_items = list(
-			list("Dosh", 50, /obj/item/stack/spacecash/c10),
+			list("Dosh", 1000, /obj/item/stack/spacecash/c10),
 			list("Drinking Glass", 50, /obj/item/reagent_containers/food/drinks/drinkingglass),
 			list("Paper", 50, /obj/item/paper),
 			list("Pen", 50, /obj/item/pen),
