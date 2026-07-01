@@ -36,9 +36,9 @@
  */
 /proc/depower_apcs()
 	var/static/list/skipped_areas_apc = typecacheof(list(
-		/area/engineering/engine,
-		/area/engineering/supermatter,
-		/area/turret_protected/ai,
+		/area/station/engineering/engine,
+		/area/station/engineering/supermatter/engine,
+		/area/station/ai/satellite/chamber,
 	))
 	GLOB.minor_announcement.announce(
 		message = "Зафиксирована перегрузка энергосети объекта [station_name()]. Вероятно, отказали гравитационные системы.",
@@ -68,9 +68,9 @@
  */
 /proc/power_failure(announce = TRUE, probability = APC_BREAK_PROBABILITY)
 	var/static/list/skipped_areas_apc = typecacheof(list(
-		/area/engineering/engine,
-		/area/engineering/supermatter,
-		/area/turret_protected/ai,
+		/area/station/engineering/engine,
+		/area/station/engineering/supermatter/engine,
+		/area/station/ai/satellite/chamber,
 	))
 
 	if(announce)

@@ -27,8 +27,6 @@
 		/obj/effect/proc_holder/spell/aoe/terror_healing/greater,
 	)
 	spider_intro_text = "Будучи Матерью Ужаса, ваша задача — массовое исцеление пауков. Вы пассивно исцеляете всех пауков вокруг вас и наносите наносите урон гуманоидам. Вы также можете создавать желе, употребив которое, пауки быстро исцеляются. Ваша вторая способность действует аналогично желе, но работает по области для всех пауков в радиусе вашей видимости!"
-	var/datum/action/innate/terrorspider/ventsmash/ventsmash_action
-	var/datum/action/innate/terrorspider/remoteview/remoteview_action
 	tts_seed = "Deathwhisper"
 
 /mob/living/simple_animal/hostile/poison/terror_spider/mother/get_ru_names()
@@ -43,10 +41,13 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/mother/Initialize(mapload)
 	. = ..()
-	ventsmash_action = new()
-	ventsmash_action.Grant(src)
-	remoteview_action = new()
-	remoteview_action.Grant(src)
+	var/static/list/action_paths = list(
+		/datum/action/innate/terrorspider/ventsmash,
+		/datum/action/innate/terrorspider/remoteview,
+	)
+	for(var/action_path in action_paths)
+		var/datum/action/act = new action_path
+		act.Grant(src)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/mother/AttackingTarget()
 	. = ..()

@@ -591,6 +591,8 @@
 
 /datum/config_entry/flag/shutdown_on_reboot
 
+/datum/config_entry/flag/kill_on_shutdown
+
 /datum/config_entry/flag/autoreconnect
 
 /datum/config_entry/flag/disable_karma

@@ -81,7 +81,7 @@
 	. = ..()
 	if(!reagents && starting_water)
 		create_reagents(max_water)
-		reagents.add_reagent("water", max_water)
+		reagents.add_reagent(/datum/reagent/water, max_water)
 
 	if(!can_explode)
 		return .
@@ -392,6 +392,9 @@
 	if(!blowing_up)
 		return
 	icon_state = new_state
+
+/obj/item/extinguisher/cyborg
+	can_explode = FALSE
 
 #undef EXTINGUISHER_TEMP_MED
 #undef EXTINGUISHER_TEMP_HIGH

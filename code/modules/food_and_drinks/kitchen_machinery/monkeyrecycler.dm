@@ -136,6 +136,7 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 	to_chat(grabber, span_notice("Вы запихиваете [victim] в [declent_ru(ACCUSATIVE)]."))
 	grabber.stop_pulling()
 	qdel(victim)
+	victim = null
 	playsound(loc, 'sound/machines/juicer.ogg', 50, TRUE)
 	Shake(pixelshiftx = 1, pixelshifty = 0, duration = 3.4 SECONDS)
 	use_power(500)

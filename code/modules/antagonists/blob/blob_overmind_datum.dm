@@ -15,14 +15,14 @@
 	/// Was the blob with this datum bursted blob_infected.
 	var/is_tranformed = FALSE
 	//Link to the datum of the selected blob reagent.
-	var/datum/blobstrain/strain
+	var/datum/weakref/strain_ref
 
 /datum/antagonist/blob_overmind/can_be_owned(datum/mind/new_owner)
 	return ..() && isovermind(new_owner?.current)
 
 /datum/antagonist/blob_overmind/on_gain()
 	var/mob/camera/blob/camera = owner.current
-	strain = camera.blobstrain
+	strain_ref = WEAKREF(camera.blobstrain)
 	return ..()
 
 /datum/antagonist/blob_overmind/add_owner_to_gamemode()
@@ -54,15 +54,16 @@
 /datum/antagonist/blob_overmind/greet()
 	var/list/messages = list()
 	messages.Add(span_danger("Вы Блоб!"))
-	for(var/message in get_blob_help_messages(strain))
-		messages.Add(message)
+	messages += get_blob_help_messages(strain_ref)
 	SEND_SOUND(owner.current, sound('sound/magic/mutate.ogg'))
 	return messages
 
-/proc/get_blob_help_messages(datum/blobstrain/blob_reagent_datum)
+/proc/get_blob_help_messages(datum/weakref/blob_reagent_ref)
+	var/datum/blobstrain/blob_reagent_datum = blob_reagent_ref.resolve()
 	var/list/messages = list()
 	messages += "<b>Как надразум, вы можете управлять блобом!</b>"
-	messages += blob_reagent_datum.overmind.get_strain_info()
+	if(blob_reagent_datum?.overmind)
+		messages += blob_reagent_datum.overmind.get_strain_info()
 	messages += "<b>Вы можете расширяться, атакуя людей, повреждая объекты или размещая простую плитку, если клетка свободна.</b>"
 	messages += "<i>Обычная плитка</i> будет расширять ваше влияние и может быть улучшена до специальной плитки, выполняющей определённую функцию."
 	messages += "<b>Вы можете улучшить обычные плитки до следующих типов:</b>"

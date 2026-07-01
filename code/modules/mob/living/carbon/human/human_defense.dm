@@ -76,7 +76,7 @@ emp_act
 			return -1
 		return bullet_act(P, BODY_ZONE_CHEST) //act on chest instead
 
-	organ.add_autopsy_data(P.name, P.damage) // Add the bullet's name to the autopsy data
+	organ.add_autopsy_data(P.declent_ru(NOMINATIVE), P.damage) // Add the bullet's name to the autopsy data
 	SEND_SIGNAL(src, COMSIG_ATOM_BULLET_ACT, P, def_zone)
 	return (..(P , def_zone))
 

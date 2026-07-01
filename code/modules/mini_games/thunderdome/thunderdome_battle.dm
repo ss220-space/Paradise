@@ -1,6 +1,6 @@
 GLOBAL_DATUM_INIT(thunderdome_battle, /datum/mini_game/thunderdome_battle, new())
-GLOBAL_VAR_INIT(tdome_arena, locate(/area/tdome/newtdome))
-GLOBAL_VAR_INIT(tdome_arena_melee, locate(/area/tdome/newtdome/CQC))
+GLOBAL_VAR_INIT(tdome_arena, locate(/area/centcom/tdome/new_arena))
+GLOBAL_VAR_INIT(tdome_arena_melee, locate(/area/centcom/tdome/new_arena/cqc))
 
 /**
  * #thunderdome_battle
@@ -28,6 +28,11 @@ GLOBAL_VAR_INIT(tdome_arena_melee, locate(/area/tdome/newtdome/CQC))
 	var/obj/minigame_anchor/thunderdome_poller/last_poller = null
 	var/list/fighters = list()	//list of current players on thunderdome, used for tracking winners and stuff.
 	var/is_cleansing_going = FALSE
+
+/datum/mini_game/thunderdome_battle/Destroy(force)
+	QDEL_NULL(last_poller)
+	QDEL_LIST(fighters)
+	return ..()
 
 /**
  * Starts poll for candidates with a question and a preview of the mode
@@ -111,7 +116,7 @@ GLOBAL_VAR_INIT(tdome_arena_melee, locate(/area/tdome/newtdome/CQC))
 		if(ghost?.client?.persistent_client)
 			var/datum/persistent_client/persistent = ghost.client.persistent_client
 			persistent.respawn_locked = TRUE
-			GLOB.respawnable_list -= ghost
+			ghost.remove_from_respawnable_list()
 			ghost.can_reenter_corpse = FALSE
 
 		fighters += brawler
@@ -199,7 +204,7 @@ GLOBAL_VAR_INIT(tdome_arena_melee, locate(/area/tdome/newtdome/CQC))
 	if(dead_fighter.ckey)
 		addtimer(CALLBACK(src, PROC_REF(restore_ghost_state), dead_fighter.ckey), 5 SECONDS)
 
-	if(!length(fighters) && !is_cleansing_going)
+	if(length(fighters) <= 1 && !is_cleansing_going)
 		for(var/datum/timedevent/timer in _active_timers)
 			qdel(timer)
 		is_cleansing_going = TRUE
@@ -226,7 +231,7 @@ GLOBAL_VAR_INIT(tdome_arena_melee, locate(/area/tdome/newtdome/CQC))
 	ghost.antagHUD = persistent.antaghud_enabled
 
 	if(persistent.respawn_eligible)
-		GLOB.respawnable_list |= ghost
+		ghost.add_to_respawnable_list()
 		ghost.can_reenter_corpse = TRUE
 
 /**
@@ -261,6 +266,16 @@ GLOBAL_VAR_INIT(tdome_arena_melee, locate(/area/tdome/newtdome/CQC))
 	mode = new gamemode_type(src)
 	LAZYADD(GLOB.mini_games[mode.name], src)
 	GLOB.poi_list |= src
+
+/obj/minigame_anchor/thunderdome_poller/Destroy(force)
+	if(thunderdome && thunderdome.last_poller == src)
+		thunderdome.last_poller = null
+	GLOB.poi_list -= src
+	if(mode)
+		LAZYREMOVE(GLOB.mini_games[mode.name], src)
+	QDEL_NULL(mode)
+	thunderdome = null
+	return ..()
 
 /obj/minigame_anchor/thunderdome_poller/attack_ghost(mob/dead/observer/user)
 	. = ..()

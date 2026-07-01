@@ -4,7 +4,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "ap" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/poster/official/random{
@@ -16,7 +16,7 @@
 	},
 /obj/machinery/light/small,
 /turf/simulated/floor/plating,
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "bi" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
@@ -27,23 +27,23 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "bp" = (
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/seed_extractor,
 /turf/simulated/floor/wood,
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "bQ" = (
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "ct" = (
 /obj/effect/map_effect/marker/mapmanip/submap/extract/delta/better_botany_room,
 /obj/effect/map_effect/marker_helper/submap_def/delta/botany_room/surgery,
 /turf/simulated/wall,
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "cC" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -54,14 +54,14 @@
 	dir = 1;
 	icon_state = "whiteblue"
 	},
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "cW" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
 /obj/machinery/floodlight,
 /turf/simulated/floor/plating,
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "dG" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
@@ -73,7 +73,7 @@
 	dir = 2
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "dL" = (
 /obj/structure/table,
 /obj/effect/spawner/lootdrop/maintenance{
@@ -85,16 +85,16 @@
 	pixel_y = -3
 	},
 /turf/simulated/floor/plasteel,
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "dR" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "eo" = (
 /obj/machinery/hydroponics/soil,
 /obj/item/seeds/sunflower,
 /turf/simulated/floor/grass,
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "ex" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -103,7 +103,7 @@
 /obj/machinery/hydroponics/soil,
 /obj/item/seeds/ambrosia/cruciatus,
 /turf/simulated/floor/grass,
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "eF" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -114,7 +114,7 @@
 "eQ" = (
 /obj/structure/sign/botany,
 /turf/simulated/wall/r_wall,
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "eV" = (
 /obj/machinery/firealarm/directional/south,
 /obj/effect/turf_decal/stripes/line{
@@ -124,7 +124,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "yellow"
 	},
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "fL" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -145,12 +145,12 @@
 	pixel_x = -7
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "fW" = (
 /obj/effect/map_effect/marker/mapmanip/submap/extract/delta/better_botany_room,
 /obj/effect/map_effect/marker_helper/submap_def/delta/botany_room/destroyed,
 /turf/simulated/wall,
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "gE" = (
 /obj/structure/grille/broken,
 /obj/structure/window/reinforced,
@@ -159,7 +159,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "gM" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
@@ -174,13 +174,13 @@
 	dir = 9;
 	icon_state = "yellow"
 	},
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "gN" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
 /turf/simulated/floor/grass,
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "gX" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
@@ -190,7 +190,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random_spawners/cobweb_right_frequent,
 /turf/simulated/floor/plating,
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "hy" = (
 /obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
 	dir = 4
@@ -207,7 +207,7 @@
 /obj/machinery/hydroponics/soil,
 /obj/item/reagent_containers/spray/pestspray,
 /turf/simulated/floor/grass,
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "iY" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -228,7 +228,7 @@
 	dir = 1;
 	icon_state = "yellow"
 	},
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "iZ" = (
 /turf/simulated/wall/rust,
 /area/template_noop)
@@ -236,7 +236,7 @@
 /obj/machinery/firealarm/directional/south,
 /obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "ji" = (
 /obj/structure/closet/crate/freezer,
 /obj/item/reagent_containers/food/snacks/grown/grapes,
@@ -248,13 +248,13 @@
 	dir = 4
 	},
 /turf/simulated/floor/wood,
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "jC" = (
 /obj/machinery/light/small{
 	dir = 1
 	},
 /turf/simulated/floor/grass,
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "jV" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/poster/official/random{
@@ -264,7 +264,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "kb" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
@@ -279,14 +279,14 @@
 	dir = 10;
 	icon_state = "yellow"
 	},
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "kV" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/barricade/wooden/crude{
 	layer = 4
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "le" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
@@ -295,18 +295,18 @@
 	dir = 6
 	},
 /turf/simulated/floor/grass,
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "lw" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/grass,
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "nc" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitebluecorner"
 	},
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "nf" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
@@ -321,10 +321,10 @@
 "nk" = (
 /obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/grass,
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "nM" = (
 /turf/simulated/wall/rust,
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "nU" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -332,12 +332,12 @@
 	},
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "oq" = (
 /obj/machinery/hydroponics/soil,
 /obj/item/seeds/tea,
 /turf/simulated/floor/grass,
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "pu" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line{
@@ -345,7 +345,7 @@
 	},
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/plating,
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "pV" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -357,13 +357,13 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "yellow"
 	},
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "qb" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
 /turf/simulated/floor/grass,
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "qn" = (
 /obj/machinery/light{
 	dir = 8
@@ -372,7 +372,7 @@
 /obj/machinery/biogenerator,
 /obj/effect/spawner/random_spawners/cobweb_left_rare,
 /turf/simulated/floor/wood,
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "qr" = (
 /turf/template_noop,
 /area/template_noop)
@@ -383,7 +383,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/oil,
 /turf/simulated/floor/plating,
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "rn" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -402,12 +402,12 @@
 	pixel_x = 2
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "rB" = (
 /obj/effect/map_effect/marker/mapmanip/submap/extract/delta/better_botany_room,
 /obj/effect/map_effect/marker_helper/submap_def/delta/botany_room/better,
 /turf/simulated/wall,
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "sk" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -415,18 +415,18 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/engineeringcart,
 /turf/simulated/floor/plating,
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "sQ" = (
 /obj/machinery/firealarm/directional/south,
 /obj/machinery/hydroponics/soil,
 /turf/simulated/floor/grass,
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "td" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "tl" = (
 /obj/item/stack/rods,
 /turf/space,
@@ -435,7 +435,7 @@
 /obj/effect/map_effect/marker/mapmanip/submap/extract/delta/better_botany_room,
 /obj/effect/map_effect/marker_helper/submap_def/delta/botany_room/engi,
 /turf/simulated/wall,
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "tX" = (
 /obj/structure/mirror{
 	icon_state = "mirror_broke";
@@ -450,12 +450,12 @@
 	dir = 5;
 	icon_state = "whiteblue"
 	},
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "uj" = (
 /obj/machinery/hydroponics/soil,
 /obj/item/seeds/tower,
 /turf/simulated/floor/grass,
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "uA" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
@@ -465,12 +465,12 @@
 	},
 /obj/structure/holosign/barrier/atmos,
 /turf/simulated/floor/plating,
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "uU" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "vo" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -480,30 +480,30 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "vu" = (
 /obj/machinery/vending/hydronutrients,
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
 /turf/simulated/floor/wood,
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "wg" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "wh" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/glass,
 /obj/structure/grille/broken,
 /turf/simulated/floor/plating,
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "wk" = (
 /turf/simulated/floor/grass,
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "wX" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sink{
@@ -524,13 +524,13 @@
 	dir = 9;
 	icon_state = "whiteblue"
 	},
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "xb" = (
 /obj/structure/grille/broken,
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/girder,
 /turf/simulated/floor/plating,
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "xe" = (
 /obj/effect/decal/cleanable/blood,
 /obj/machinery/iv_drip,
@@ -538,13 +538,13 @@
 	dir = 1;
 	icon_state = "whiteblue"
 	},
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "xp" = (
 /obj/machinery/alarm/directional/south,
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "xR" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
@@ -554,7 +554,7 @@
 	dir = 4;
 	icon_state = "yellowcorner"
 	},
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "yg" = (
 /obj/structure/closet/crate/freezer,
 /obj/item/reagent_containers/food/snacks/grown/grapes,
@@ -578,7 +578,7 @@
 	id_tag = "botany_room_door"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "zG" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -593,7 +593,7 @@
 	dir = 1;
 	icon_state = "whiteblue"
 	},
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "An" = (
 /obj/machinery/constructable_frame/machine_frame,
 /obj/item/stack/cable_coil/random{
@@ -603,7 +603,7 @@
 	dir = 10;
 	icon_state = "whiteblue"
 	},
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "AH" = (
 /obj/structure/grille/broken,
 /obj/structure/window/reinforced,
@@ -613,7 +613,7 @@
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/plating,
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "AI" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "construction access"
@@ -621,7 +621,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "BH" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/shard{
@@ -630,11 +630,11 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "BQ" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "Cj" = (
 /obj/structure/lattice,
 /turf/space,
@@ -648,7 +648,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "Df" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -657,10 +657,10 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "Dy" = (
 /turf/simulated/wall/r_wall,
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "Ed" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line{
@@ -671,18 +671,18 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/spawner/random_spawners/cobweb_left_rare,
 /turf/simulated/floor/plating,
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "Ek" = (
 /obj/machinery/power/apc/directional/south,
 /obj/machinery/hydroponics/soil,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/grass,
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "Ew" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate/secure/loot,
 /turf/simulated/floor/plasteel,
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "Fm" = (
 /obj/machinery/light_construct{
 	dir = 4
@@ -696,7 +696,7 @@
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken5"
 	},
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "GT" = (
 /obj/machinery/computer/operating/old_frame,
 /obj/effect/spawner/random_spawners/cobweb_left_rare,
@@ -704,7 +704,7 @@
 	dir = 9;
 	icon_state = "whiteblue"
 	},
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "Hd" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/reinforced,
@@ -720,19 +720,19 @@
 	pixel_y = 12
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "Ho" = (
 /turf/simulated/wall,
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "Id" = (
 /obj/structure/flora/ausbushes/reedbush,
 /turf/simulated/floor/grass,
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "Ig" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/item/stack/rods,
 /turf/simulated/floor/plating,
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "In" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/window/reinforced{
@@ -746,7 +746,7 @@
 	dir = 1;
 	icon_state = "whiteblue"
 	},
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "Iz" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/poster/official/random{
@@ -757,11 +757,11 @@
 	},
 /obj/effect/decal/cleanable/blood/oil,
 /turf/simulated/floor/plating,
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "IC" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel,
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "IY" = (
 /obj/machinery/firealarm/directional/south,
 /obj/machinery/door/window/eastright{
@@ -771,7 +771,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "Jg" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/barricade/wooden/crude,
@@ -780,17 +780,17 @@
 	id_tag = "botany_room_door"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "JY" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/spawner/random_barrier/possibly_welded_airlock,
 /turf/simulated/floor/plating,
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "Kb" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "KF" = (
 /obj/effect/map_effect/marker/mapmanip/submap/extract/delta/better_botany_room,
 /obj/effect/map_effect/marker_helper/submap_def/delta/botany_room/slightly_worse,
@@ -809,7 +809,7 @@
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken5"
 	},
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "Lo" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "construction access"
@@ -846,12 +846,12 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "yellow"
 	},
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "Mi" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/oil,
 /turf/simulated/floor/plating,
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "Mm" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -862,7 +862,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "MB" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/poster/official/random{
@@ -870,25 +870,25 @@
 	},
 /obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "MX" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood,
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "NG" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/poster/official/random{
 	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel,
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "Oh" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "OT" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -897,7 +897,7 @@
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "PG" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/barricade/wooden/crude,
@@ -919,20 +919,20 @@
 	dir = 1;
 	icon_state = "yellowcorner"
 	},
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "Rx" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/window/eastright,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "SJ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/vending/tool,
 /turf/simulated/floor/plating,
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "SO" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/delivery/hollow,
@@ -950,7 +950,7 @@
 	icon_state = "plant-dead"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "TV" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -963,11 +963,11 @@
 "Ul" = (
 /obj/structure/flora/ausbushes/ywflowers/hell,
 /turf/simulated/floor/grass,
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "Uv" = (
 /obj/structure/sink/puddle,
 /turf/simulated/floor/grass,
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "UN" = (
 /obj/structure/lattice,
 /obj/item/stack/ore/bananium,
@@ -985,12 +985,12 @@
 	dir = 5;
 	icon_state = "whiteblue"
 	},
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "Vl" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating,
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "Vy" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
@@ -1005,7 +1005,7 @@
 	dir = 6;
 	icon_state = "yellow"
 	},
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "WQ" = (
 /turf/space,
 /area/template_noop)
@@ -1018,12 +1018,12 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "yellow"
 	},
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "Yd" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/structure/girder,
 /turf/simulated/floor/plating,
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "Yh" = (
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plasteel,
@@ -1031,11 +1031,11 @@
 "Ys" = (
 /obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating,
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "YV" = (
 /obj/machinery/hydroponics/soil,
 /turf/simulated/floor/grass,
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "Ze" = (
 /obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
 	dir = 1
@@ -1047,12 +1047,12 @@
 /obj/item/wrench,
 /obj/item/crowbar,
 /turf/simulated/floor/plasteel,
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 "ZO" = (
 /obj/machinery/alarm/directional/south,
 /obj/item/storage/bag/plants/portaseeder,
 /turf/simulated/floor/grass,
-/area/maintenance/garden)
+/area/station/maintenance/garden)
 
 (1,1,1) = {"
 qr

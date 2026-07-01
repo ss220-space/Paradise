@@ -25,7 +25,7 @@
 		findhost.antag_menu_name = "Найти носителя"
 		mind.objectives += findhost
 		messages.Add(mind.prepare_announce_objectives())
-	to_chat(src, chat_box_red(messages.Join("<br>")))
+	to_chat(src, custom_boxed_message("red_box center", messages.Join("<br>")))
 
 /datum/antagonist/changeling/evented // make buffed changeling
 	evented = TRUE

@@ -214,6 +214,8 @@ ADMIN_VERB(qdel_then_find_references, R_DEBUG, "qdel() then Find References", "q
 ADMIN_VERB(qdel_then_if_fail_find_references, R_DEBUG, "qdel() then Find References if GC failure", "qdel() then Find References if GC failure", ADMIN_CATEGORY_DEBUG, datum/target in world)
 	qdel_and_find_ref_if_fail(target, TRUE)
 
+#endif
+
 // Kept outside the ifdef so overrides are easy to implement
 
 /// Return info about us for reference searching purposes
@@ -223,4 +225,3 @@ ADMIN_VERB(qdel_then_if_fail_find_references, R_DEBUG, "qdel() then Find Referen
 
 /datum/callback/ref_search_details()
 	return "[text_ref(src)] (obj: [object] proc: [delegate] args: [json_encode(arguments)] user: [user?.resolve() || "null"])"
-#endif

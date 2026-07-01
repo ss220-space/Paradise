@@ -16,7 +16,7 @@
 		)
 
 /datum/buildmode_mode/boom/show_help(mob/builder)
-	to_chat(builder, span_purple(chat_box_examine(
+	to_chat(builder, span_purple(boxed_message(
 		"[span_bold("Установить силу взрыва")] -> ПКМ по кнопке buildmode\n\
 		[span_bold("KABOOM")] -> ЛКМ на obj\n\n\
 		[span_warning("ПРИМЕЧАНИЕ:")] Использование кнопки \"Launch Supplypod\" позволит вам сделать это в IC поле (т. е. заставить крылатую ракету упасть с неба и взорваться там, где вы щелкнете!)"))

@@ -1,0 +1,4 @@
+author: "Vladisvell"
+delete-after: True
+changes:
+  - bugfix: "Добавлена возможность принудительного отключения мира через средства Windows/Linux при рестарте (PR #9366)"

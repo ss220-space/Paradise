@@ -7,25 +7,23 @@
 
 	var/eventDept = "Security"			//Department name in announcement
 	var/list/areaName = list("Brig")	//Names of areas mentioned in AI and Engineering announcements
-	var/list/areaType = list(/area/security/prison, /area/security/brig, /area/security/permabrig, /area/security/permahallway)	//Area types to include.
+	var/list/areaType = list(/area/station/security/prison, /area/station/security/brig, /area/station/security/prison/perma, /area/station/security/hallway/perma)	//Area types to include.
 	var/list/areaNotType = list()		//Area types to specifically exclude.
 
 /datum/event/prison_break/virology
 	eventDept = "Medical"
 	areaName = list("Virology")
-	areaType = list(/area/medical/virology, /area/medical/virology/lab)
+	areaType = list(/area/station/medical/virology, /area/station/medical/virology/lab)
 
 /datum/event/prison_break/xenobiology
 	eventDept = "Science"
 	areaName = list("Xenobiology")
-	areaType = list(/area/toxins/xenobiology)
-	areaNotType = list(/area/toxins/xenobiology/xenoflora, /area/toxins/xenobiology/xenoflora_storage)
+	areaType = list(/area/station/science/xenobiology)
 
 /datum/event/prison_break/station
 	eventDept = "Station"
 	areaName = list("Brig", "Virology", "Xenobiology")
-	areaType = list(/area/security/prison, /area/security/brig, /area/security/permabrig,  /area/security/permahallway, /area/medical/virology, /area/medical/virology/lab, /area/toxins/xenobiology)
-	areaNotType = list(/area/toxins/xenobiology/xenoflora, /area/toxins/xenobiology/xenoflora_storage)
+	areaType = list(/area/station/security/prison, /area/station/security/brig, /area/station/security/prison/perma,  /area/station/security/hallway/perma, /area/station/medical/virology, /area/station/medical/virology/lab, /area/station/science/xenobiology)
 
 /datum/event/prison_break/setup()
 	announceWhen = rand(75, 105)
@@ -42,7 +40,7 @@
 
 /datum/event/prison_break/start()
 	for(var/area/A as anything in GLOB.areas)
-		if(is_type_in_list(A,areaType) && !is_type_in_list(A,areaNotType))
+		if(is_type_in_list(A,areaType) && !is_type_in_list(A, areaNotType))
 			areas += A
 
 	if(areas && length(areas) > 0)

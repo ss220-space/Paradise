@@ -48,31 +48,33 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 
 /obj/machinery/r_n_d/circuit_imprinter/Initialize(mapload)
 	. = ..()
+	init_parts()
+	create_reagents()
+	RefreshParts()
+	if(is_taipan(z))
+		icon_state = "syndie_circuit_imprinter"
+		base_icon_state = "syndie_circuit_imprinter"
+
+/obj/machinery/r_n_d/circuit_imprinter/Destroy(force)
+	if(linked_console)
+		linked_console.linked_imprinter = null
+	return ..()
+
+/obj/machinery/r_n_d/circuit_imprinter/proc/init_parts()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/circuit_imprinter(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/reagent_containers/glass/beaker(null)
 	component_parts += new /obj/item/reagent_containers/glass/beaker(null)
-	RefreshParts()
-	if(is_taipan(z))
-		icon_state = "syndie_circuit_imprinter"
-		base_icon_state = "syndie_circuit_imprinter"
-	reagents.my_atom = src
 
-/obj/machinery/r_n_d/circuit_imprinter/upgraded/Initialize(mapload)
-	. = ..()
+/obj/machinery/r_n_d/circuit_imprinter/upgraded/init_parts()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/circuit_imprinter(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
 	component_parts += new /obj/item/stock_parts/manipulator/pico(null)
 	component_parts += new /obj/item/reagent_containers/glass/beaker/large(null)
 	component_parts += new /obj/item/reagent_containers/glass/beaker/large(null)
-	RefreshParts()
-	if(is_taipan(z))
-		icon_state = "syndie_circuit_imprinter"
-		base_icon_state = "syndie_circuit_imprinter"
-	reagents.my_atom = src
 
 /obj/machinery/r_n_d/circuit_imprinter/RefreshParts()
 	reagents.maximum_volume = 0

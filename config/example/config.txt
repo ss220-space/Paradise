@@ -307,8 +307,11 @@ PLAYER_REROUTE_CAP 0
 
 ## Uncomment this to shut down the world any time it would normally reboot
 #SHUTDOWN_ON_REBOOT
+## Also uncomment this to shut down the world by killing DreamDaemon/DreamSeeker instance. Overrides SHUTDOWN_SHELL_COMMAND config.
+#KILL_ON_SHUTDOWN
 ## A command to run prior to the world shutting down, only used if the above option is enabled
 ## This default value will kill Dream Daemon on Windows machines
+## Gets overriden by KILL_ON_SHUTDOWN
 #SHUTDOWN_SHELL_COMMAND taskkill /f /im dreamdaemon.exe
 
 ## Uncomment this to disable karma and unlock all karma purchases for players by default
