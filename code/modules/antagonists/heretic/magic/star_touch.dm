@@ -44,14 +44,15 @@
 	if(!istype(victim))
 		return FALSE
 
-	if(victim.has_status_effect(/datum/status_effect/star_mark))
-		victim.apply_effect(4 SECONDS, effecttype = SLEEPING)
-		victim.remove_status_effect(/datum/status_effect/star_mark)
-	else
+	// tg parity: an unmarked victim just gets the star mark; the fields + tether only fire on an already-marked one.
+	if(!victim.has_status_effect(/datum/status_effect/star_mark))
 		victim.apply_status_effect(/datum/status_effect/star_mark, caster)
+		return ..()
 
+	victim.remove_status_effect(/datum/status_effect/star_mark)
+	victim.Drowsy(8 SECONDS)
 	for(var/turf/cast_turf as anything in get_turfs(victim))
-		new /obj/effect/forcefield/cosmic_field(cast_turf)
+		create_cosmic_field(cast_turf, caster)
 
 	caster.apply_status_effect(/datum/status_effect/cosmic_beam, victim)
 	return ..()
@@ -154,58 +155,50 @@
 
 /datum/status_effect/cosmic_beam
 	id = "cosmic_beam"
-	tick_interval = 0.2 SECONDS
-	duration = 1 MINUTES
+	duration = 8 SECONDS
 	status_type = STATUS_EFFECT_REPLACE
 	alert_type = null
 	/// Stores the current beam target
 	var/mob/living/current_target
-	/// Checks the time of the last check
-	var/last_check = 0
-	/// The delay of when the beam gets checked
-	var/check_delay = 10 //Check los as often as possible, max resolution is SSobj tick though
 	/// The maximum range of the beam
 	var/max_range = 8
 	/// Wether the beam is active or not
 	var/active = FALSE
 	/// The storage for the beam
 	var/datum/beam/current_beam = null
+	/// The effect-trail element type we drape on our victim while tethered (passive-scaled).
+	var/cosmic_effect_trail
+	/// Whether we successfully reeled the victim in (suppresses the "tether broken" warning).
+	var/successful_teleport = FALSE
 
 
 /datum/status_effect/cosmic_beam/on_creation(mob/living/new_owner, mob/living/current_target)
-	src.current_target = current_target
+	cosmic_effect_trail = cosmic_trail_based_on_passive(new_owner)
 	start_beam(current_target, new_owner)
 	return ..()
 
 
+/datum/status_effect/cosmic_beam/on_remove()
+	// The tether resolves here: if it survived the full duration and the victim is still in range, reel them in.
+	if(current_target && get_dist(owner, current_target) <= max_range)
+		yoink_victim()
+		successful_teleport = TRUE
+	lose_target()
+	return ..()
+
+
+/// Puts the victim to sleep and reels them in to the caster's feet, re-marking them.
+/datum/status_effect/cosmic_beam/proc/yoink_victim()
+	current_target.Sleeping(8 SECONDS)
+	do_teleport(current_target, get_turf(owner), ignore_blocking_traits = TRUE)
+	current_target.apply_status_effect(/datum/status_effect/star_mark)
+
+
 /datum/status_effect/cosmic_beam/be_replaced()
-	if(!active)
-		return ..()
-
-	QDEL_NULL(current_beam)
-	active = FALSE
-
-
-/datum/status_effect/cosmic_beam/tick(seconds_between_ticks)
-	if(!current_target)
-		lose_target()
-		return
-
-	if(world.time <= last_check+check_delay)
-		return
-
-	last_check = world.time
-
-/*
-	if(!los_check(owner, current_target))
-		QDEL_NULL(current_beam)//this will give the target lost message
-		return
-*/
-
-	if(!current_target)
-		return
-
-	on_beam_tick(current_target)
+	if(active)
+		QDEL_NULL(current_beam)
+		active = FALSE
+	return ..()
 
 
 /**
@@ -213,7 +206,7 @@
  */
 /datum/status_effect/cosmic_beam/proc/lose_target()
 	if(active)
-		//QDEL_NULL(current_beam)
+		QDEL_NULL(current_beam)
 		active = FALSE
 
 	if(current_target)
@@ -223,13 +216,15 @@
 
 
 /**
- * Proc that is only called when the beam fails due to something, so not when manually ended.
- * manual disconnection = lose_target, so it can silently end
- * automatic disconnection = beam_died, so we can give a warning message first
+ * Only called when the beam fails on its own (target fled out of range / died), not on a manual end. Warns the
+ * caster the tether snapped and ends the effect without reeling the victim in.
  */
 /datum/status_effect/cosmic_beam/proc/beam_died()
 	SIGNAL_HANDLER
-	to_chat(owner, span_warning("Вы теряете контроль над лучом!"))
+	if(successful_teleport)
+		return
+	to_chat(owner, span_warning("Ваша космическая связь с [current_target?.declent_ru(INSTRUMENTAL) || "целью"] разорвана!"))
+	active = FALSE
 	lose_target()
 	duration = 0
 
@@ -244,30 +239,22 @@
 
 	current_target = target
 	active = TRUE
-	current_beam = user.Beam(current_target, icon_state="cosmic_beam", time = 1 MINUTES, maxdistance = max_range, beam_type = /obj/effect/ebeam/cosmic)
+	current_beam = user.Beam(current_target, icon_state = "cosmic_beam", time = 1 MINUTES, maxdistance = max_range, beam_type = /obj/effect/ebeam/cosmic)
 	RegisterSignal(current_beam, COMSIG_QDELETING, PROC_REF(beam_died))
+	RegisterSignal(current_target, COMSIG_QDELETING, PROC_REF(beam_died))
 
 	SSblackbox.record_feedback("tally", "gun_fired", 1, type)
-	if(!current_target)
-		return
-
-	on_beam_hit(current_target)
+	if(current_target)
+		on_beam_hit(current_target, user)
 
 
-/// What to add when the beam connects to a target
-/datum/status_effect/cosmic_beam/proc/on_beam_hit(mob/living/target)
+/// What to add when the beam connects to a target: lock their teleporting and drape a cosmic-field trail on them.
+/datum/status_effect/cosmic_beam/proc/on_beam_hit(mob/living/target, mob/living/user)
 	if(istype(target, /mob/living/simple_animal/hostile/heretic_summon/star_gazer))
 		return
 
-	target.AddElement(/datum/element/effect_trail, /obj/effect/forcefield/cosmic_field/fast)
-
-
-/// What to process when the beam is connected to a target
-/datum/status_effect/cosmic_beam/proc/on_beam_tick(mob/living/target)
-	if(!target.adjustFireLoss(3, updating_health = FALSE))
-		return
-
-	target.updatehealth()
+	ADD_TRAIT(target, TRAIT_NO_TELEPORT, TRAIT_STATUS_EFFECT(id))
+	target.AddElement(cosmic_effect_trail, /obj/effect/forcefield/cosmic_field/star_touch)
 
 
 /// What to remove when the beam disconnects from a target
@@ -275,4 +262,5 @@
 	if(istype(target, /mob/living/simple_animal/hostile/heretic_summon/star_gazer))
 		return
 
-	target.RemoveElement(/datum/element/effect_trail, /obj/effect/forcefield/cosmic_field/fast)
+	REMOVE_TRAIT(target, TRAIT_NO_TELEPORT, TRAIT_STATUS_EFFECT(id))
+	target.RemoveElement(cosmic_effect_trail, /obj/effect/forcefield/cosmic_field/star_touch)

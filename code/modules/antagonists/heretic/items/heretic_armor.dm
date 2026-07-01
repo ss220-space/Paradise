@@ -319,6 +319,102 @@
 	)
 
 
+// Toggle action for the Starwoven Cloak's levitation (tg's toggle/gravity, adapted to master220's robe action dispatch).
+/datum/action/item_action/toggle_gravity
+	name = "Переключить левитацию"
+	button_icon = 'icons/mob/actions/actions_ecult.dmi'
+	button_icon_state = "cosmic_domain"
+	background_icon = 'icons/mob/actions/backgrounds.dmi'
+	background_icon_state = "bg_heretic"
+	overlay_icon = 'icons/mob/actions/backgrounds.dmi'
+	overlay_icon_state = "bg_heretic_border"
+
+
+// Звёздотканый Плащ (Starwoven Cloak) — Cosmic path robes.
+// Matching TG: protects against the hazards of space (pressure + cold) and lets the wearer levitate at will via a
+// toggle. Acts as a focus while hooded (inherited from the base eldritch hood's heretic_focus element).
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/cosmic
+	name = "звёздотканый плащ"
+	desc = "Сияющие самоцветы источают струйки силы, кружащие вокруг и окутывающие владельца тусклым сиянием. \
+			Глядя на плащ, невозможно отделаться от ощущения, что тебя заметили."
+	icon_state = "cosmic_armor"
+	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie/eldritch/cosmic
+	armor = list("melee" = 50, "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 35, "bio" = 20, "fire" = 20, "acid" = 20)
+	clothing_flags = STOPSPRESSUREDAMAGE
+	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS
+	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
+	actions_types = list(/datum/action/item_action/toggle, /datum/action/item_action/toggle_gravity)
+	/// Traits granted to the wearer while levitation is enabled.
+	var/static/list/levitation_traits = list(TRAIT_NEGATES_GRAVITY, TRAIT_MOVE_FLYING)
+	/// Whether our robes are currently making the wearer weightless.
+	var/weightless_enabled = FALSE
+
+
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/cosmic/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/radiation_protected_clothing)
+
+
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/cosmic/get_ru_names()
+	return alist(
+		NOMINATIVE = "звёздотканый плащ",
+		GENITIVE = "звёздотканого плаща",
+		DATIVE = "звёздотканому плащу",
+		ACCUSATIVE = "звёздотканый плащ",
+		INSTRUMENTAL = "звёздотканым плащом",
+		PREPOSITIONAL = "звёздотканом плаще",
+	)
+
+
+// The base hooded robe routes every action button to ToggleHood; dispatch on the action type so the
+// levitation toggle button toggles gravity instead.
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/cosmic/ui_action_click(mob/user, datum/action/action, leftclick)
+	if(istype(action, /datum/action/item_action/toggle_gravity))
+		toggle_gravity(user)
+		return
+	return ..()
+
+
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/cosmic/dropped(mob/user, slot, silent = FALSE)
+	. = ..()
+	// Drop the levitation when the cloak leaves the wearer (tg's on_robes_lost).
+	if(weightless_enabled)
+		toggle_gravity(user)
+
+
+/// Toggles the wearer's free movement in zero gravity (tg parity).
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/cosmic/proc/toggle_gravity(mob/living/user)
+	if(!isliving(user))
+		return
+	weightless_enabled = !weightless_enabled
+	if(weightless_enabled)
+		user.add_traits(levitation_traits, "cosmic_robe_levitation")
+		user.balloon_alert(user, "левитация включена")
+	else
+		user.remove_traits(levitation_traits, "cosmic_robe_levitation")
+		user.balloon_alert(user, "левитация выключена")
+
+
+/obj/item/clothing/head/hooded/cult_hoodie/eldritch/cosmic
+	name = "звёздотканый капюшон"
+	icon_state = "cosmic_armor"
+	armor = list("melee" = 30, "bullet" = 30, "laser" = 30, "energy" = 30, "bomb" = 15, "bio" = 10, "fire" = 10, "acid" = 10)
+	clothing_flags = STOPSPRESSUREDAMAGE
+	cold_protection = HEAD
+	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
+
+
+/obj/item/clothing/head/hooded/cult_hoodie/eldritch/cosmic/get_ru_names()
+	return alist(
+		NOMINATIVE = "звёздотканый капюшон",
+		GENITIVE = "звёздотканого капюшона",
+		DATIVE = "звёздотканому капюшону",
+		ACCUSATIVE = "звёздотканый капюшон",
+		INSTRUMENTAL = "звёздотканым капюшоном",
+		PREPOSITIONAL = "звёздотканом капюшоне",
+	)
+
+
 // Извивающиеся Объятия (Writhing Embrace) — Flesh path robes.
 // Matching TG: grants a passive aura that slowly heals nearby summons (but not the wearer), and a medical
 // HUD (health detection) while the hood is up. Acts as a focus while hooded (inherited from the eldritch base).

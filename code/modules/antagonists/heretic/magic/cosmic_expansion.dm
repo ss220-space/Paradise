@@ -1,6 +1,6 @@
 /obj/effect/proc_holder/spell/aoe/conjure/cosmic_expansion
 	name = "Расширение территории"
-	desc = "Это заклинание создаёт небольшую область космических полей вокруг вас. \
+	desc = "Это заклинание создаёт вокруг вас область космических полей размером 5x5. \
 			Существа, находящиеся на расстоянии до 7 клеток, получат звёздную метку."
 	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
 	action_background_icon_state = "bg_heretic"
@@ -12,14 +12,14 @@
 	school = SCHOOL_FORBIDDEN
 	human_req = FALSE
 	clothes_req = FALSE
-	base_cooldown = 45 SECONDS
+	base_cooldown = 15 SECONDS
 
 	invocation = "Б'СК'Н'ЧН П'СТ'Т!"
 	invocation_type = INVOCATION_SHOUT
 	spell_requirements = NONE
 
-	summon_amt = 9
-	aoe_range = 1
+	summon_amt = 25
+	aoe_range = 2
 	summon_type = list(/obj/effect/forcefield/cosmic_field)
 	/// The range at which people will get marked with a star mark.
 	var/star_mark_range = 7
@@ -30,20 +30,28 @@
 
 
 /obj/effect/proc_holder/spell/aoe/conjure/cosmic_expansion/cast(list/targets, mob/user = usr)
-	new expansion_effect(get_turf(action.owner))
-	for(var/mob/living/nearby_mob in range(star_mark_range, action.owner))
-		if(action.owner == nearby_mob)
+	var/mob/living/caster = action?.owner
+	if(!caster)
+		return
+	new expansion_effect(get_turf(caster))
+	for(var/mob/living/nearby_mob in range(star_mark_range, caster))
+		// tg parity: don't star-mark ourselves or fellow heretics/monsters.
+		if(nearby_mob == caster || IS_HERETIC_OR_MONSTER(nearby_mob))
 			continue
+		nearby_mob.apply_status_effect(/datum/status_effect/star_mark, caster)
 
-		nearby_mob.apply_status_effect(/datum/status_effect/star_mark, action.owner)
+	// Lay our 5x5 (aoe_range = 2) carpet of cosmic fields, each upgraded by our passive level. We create them
+	// ourselves via create_cosmic_field (rather than the base conjure summon) so the passive upgrades apply.
+	for(var/turf/field_turf in targets)
+		if(field_turf.density)
+			continue
+		create_cosmic_field(field_turf, caster)
 
-	if(!ascended)
-		return ..()
+	if(ascended)
+		for(var/turf/cast_turf as anything in get_turfs(get_turf(caster)))
+			create_cosmic_field(cast_turf, caster)
 
-	for(var/turf/cast_turf as anything in get_turfs(get_turf(action.owner)))
-		new /obj/effect/forcefield/cosmic_field(cast_turf)
-
-	return ..()
+	return TRUE
 
 
 /obj/effect/proc_holder/spell/aoe/conjure/cosmic_expansion/proc/get_turfs(turf/target_turf)

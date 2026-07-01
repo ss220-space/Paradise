@@ -537,3 +537,31 @@
 	owner.remove_traits(list(TRAIT_SHOCKIMMUNE, TRAIT_XRAY_VISION, TRAIT_LOCK_GRASP_UPGRADED), TRAIT_STATUS_EFFECT(id))
 	owner.update_sight()
 	return ..()
+
+
+//---- Cosmic Passive: "Избранник Звёзд" ("Chosen of the Stars") - ported 1:1 from /tg/station.
+// Unlike the other passives this one grants no traits on the mob: its power lives in the cosmic FIELDS the
+// heretic creates, which create_cosmic_field/cosmic_trail_based_on_passive upgrade by reading our level.
+// Level 1 - standing on a cosmic field speeds you up (movespeed modifier, applied by the field) and regenerates
+//           stamina (the tick below). Granted on picking the path.
+// Level 2 - the fields you create disrupt/disable nearby grenades & bombs (granted on crafting the robe).
+// Level 3 - the fields you create slow down projectiles passing through them (granted on ascension).
+/datum/status_effect/heretic_passive/cosmic
+	id = "heretic_passive_cosmic"
+	tick_interval = 1 SECONDS
+	name = "Избранник Звёзд"
+	passive_descriptions = list(
+		"Космические поля ускоряют вас и восстанавливают выносливость.",
+		"Создаваемые вами космические поля выводят из строя гранаты и бомбы поблизости.",
+		"Создаваемые вами космические поля замедляют пролетающие сквозь них снаряды.",
+	)
+
+
+/datum/status_effect/heretic_passive/cosmic/tick(seconds_between_ticks)
+	. = ..()
+	if(!(locate(/obj/effect/forcefield/cosmic_field) in get_turf(owner)))
+		return
+	// SSmobs.wait is 2 secs, so DELTA_WORLD_TIME is halved (matches the rest of the heretic passives).
+	var/delta_time = DELTA_WORLD_TIME(SSmobs) * 0.5
+	if(owner.adjustStaminaLoss(-15 * delta_time, updating_health = FALSE))
+		owner.updatehealth()

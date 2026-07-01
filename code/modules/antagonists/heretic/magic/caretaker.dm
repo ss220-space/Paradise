@@ -60,6 +60,10 @@
 
 
 /// TRUE if the AI, or anyone actively driving a camera console, could currently see this turf through a camera.
+/// "Actively" is the operative word: a console that is merely powered on / has a camera selected does NOT count -
+/// there has to be a live, conscious onlooker whose feed actually shows this turf right now. Otherwise a ghost
+/// who peeked at a camera (which leaks into computers_watched_by, never cleared on a non-living close) or an
+/// operator staring at a different part of the station would lock the heretic out of the Refuge forever.
 /obj/effect/proc_holder/spell/jaunt/space_crawl/caretaker/proc/is_watched_by_camera(turf/our_turf)
 	// Cheap gate first: if no working camera covers this spot at all, no camera-watcher can possibly see it.
 	if(!GLOB.cameranet.checkTurfVis(our_turf))
@@ -74,16 +78,41 @@
 			continue
 		if(our_turf in view(ai.client.view, eye))
 			return TRUE
-	// Advanced camera consoles relocate the operator's own perspective into the camera eye.
+	// Advanced camera consoles relocate the operator's own perspective into a camera eye. Block only if that
+	// operator's eye actually has us in view - watching a far-off camera shouldn't out us here.
 	for(var/mob/watcher as anything in GLOB.camera_console_watchers)
-		if(watcher.client)
+		if(!watcher.client || !isliving(watcher))
+			continue
+		var/mob/living/living_watcher = watcher
+		if(living_watcher.stat == DEAD)
+			continue
+		var/atom/movable/eye = watcher.remote_control
+		if(isnull(eye))
+			continue
+		if(our_turf in view(watcher.client.view, eye))
 			return TRUE
-	// Basic security monitors: a working camera that can see us AND is currently being watched on a console.
+	// Basic security monitors: a working camera that can see us AND is currently being watched by a live,
+	// conscious operator standing at a console (not just a console left "on" or a ghost's lingering peek).
 	for(var/obj/machinery/camera/cam in range(CARETAKER_MAX_WATCH_RANGE, our_turf))
 		if(!length(cam.computers_watched_by) || !cam.can_use())
 			continue
+		if(!has_live_console_watcher(cam))
+			continue
 		if(our_turf in view(cam.view_range, cam))
 			return TRUE
+	return FALSE
+
+
+/// TRUE if any console currently showing this camera has a live, conscious operator present at it. We can't trust
+/// computers_watched_by alone: it only means "a console has this camera selected," and it leaks (a ghost peeking
+/// at the feed adds the console but a non-living ui_close never removes it), so we re-check the console's own
+/// concurrent_users for a real watcher.
+/obj/effect/proc_holder/spell/jaunt/space_crawl/caretaker/proc/has_live_console_watcher(obj/machinery/camera/cam)
+	for(var/obj/machinery/computer/security/console as anything in cam.computers_watched_by)
+		for(var/uid in console.concurrent_users)
+			var/mob/living/operator = locateUID(uid)
+			if(istype(operator) && operator.client && operator.stat != DEAD)
+				return TRUE
 	return FALSE
 
 

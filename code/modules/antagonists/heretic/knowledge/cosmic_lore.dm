@@ -5,17 +5,60 @@
 
 	route = PATH_COSMIC
 	ui_bgr = "node_cosmos"
-
+	complexity = "Сложный"
+	complexity_color = "#c93b3b"
+	path_description = list(
+		"Путь Космоса строится вокруг контроля территории, телепортации и власти над пространством.",
+		"Берите этот путь, если любите подстраиваться под обстановку и мыслить вне (или внутри) коробки.",
+	)
+	path_pros = list(
+		"Управляйте перемещением врагов с помощью космических полей.",
+		"Свободно передвигайтесь в открытом космосе.",
+		"Молниеносно телепортируйтесь по всей станции.",
+		"Сбивайте противников с толку барьерами поверх барьеров.",
+	)
+	path_cons = list(
+		"Чтобы космические поля действовали на врагов, нужно сперва наложить на них звёздную метку.",
+		"Относительно низкий урон.",
+		"Слабая прямая защита; путь сильно зависит от грамотного применения способностей.",
+	)
+	path_tips = list(
+		"Ваше «Прикосновение Мансуса» накладывает на противника звёздную метку и оставляет метку, которая при \
+		срабатывании телепортирует жертву обратно в точку, где метка была наложена, и ненадолго парализует её.",
+		"Космические руны мгновенно перебрасывают вас между двумя точками. Но осторожно: не-еретики тоже могут \
+		проходить сквозь них. Проявите смекалку и заманите противника прямо в ловушку — выйдет он уже со звёздной меткой!",
+		"Стоя на космической руне, вы можете активировать её, щёлкнув по себе пустой рукой.",
+		"Звёздомеченые враги не могут по своей воле пересекать ваши космические поля. Но их можно протащить силой!",
+		"«Звёздный взрыв» — это одновременно прыжок-скачок и средство обездвиживания. Ловите им сразу нескольких \
+		человек в свои космические поля.",
+		"«Звёздное Касание» не даст цели телепортироваться прочь. Если она не разорвёт привязь, её усыпит и притянет \
+		к вашим ногам.",
+		"Всегда полезно оставить одну космическую руну рядом с ритуальной руной — так вы сможете быстро похищать \
+		цели для жертвоприношения.",
+	)
+	// "Избранник Звёзд" passive (see /datum/status_effect/heretic_passive/cosmic): its power lives in your fields.
+	passive_name = "Избранник Звёзд"
+	passive_descriptions = list(
+		"Космические поля ускоряют вас и восстанавливают выносливость.",
+		"Создаваемые вами космические поля выводят из строя гранаты и бомбы поблизости.",
+		"Создаваемые вами космические поля замедляют пролетающие сквозь них снаряды.",
+	)
+	// TG-format column (1:1 with tgstation Cosmos). Main line:
+	// base_cosmic -> cosmic_runes -> star_blast -> Starwoven Cloak(robes) -> star_touch -> Cosmic Blade ->
+	// cosmic_expansion -> ascension. The grasp field + cosmic mark are folded into base_cosmic (matching TG,
+	// no separate grasp/mark nodes).
 	start = /datum/heretic_knowledge/limited_amount/starting/base_cosmic
-	grasp = /datum/heretic_knowledge/cosmic_grasp
-	tier1 = /datum/heretic_knowledge/spell/cosmic_runes
-	mark = /datum/heretic_knowledge/mark/cosmic_mark
-	ritual_of_knowledge = /datum/heretic_knowledge/knowledge_ritual/cosmic
-	unique_ability = /datum/heretic_knowledge/spell/star_touch
-	tier2 = /datum/heretic_knowledge/spell/star_blast
+	knowledge_tier1 = /datum/heretic_knowledge/spell/cosmic_runes
+	knowledge_tier2 = /datum/heretic_knowledge/spell/star_blast
+	robes = /datum/heretic_knowledge/armor/cosmic
+	knowledge_tier3 = /datum/heretic_knowledge/spell/star_touch
 	blade = /datum/heretic_knowledge/blade_upgrade/cosmic
-	tier3 =	 /datum/heretic_knowledge/spell/cosmic_expansion
+	knowledge_tier4 = /datum/heretic_knowledge/spell/cosmic_expansion
 	ascension = /datum/heretic_knowledge/ultimate/cosmic_final
+	// Side knowledges guaranteed to be offered in this path's drafts (TG).
+	guaranteed_side_tier1 = /datum/heretic_knowledge/eldritch_coin
+	guaranteed_side_tier2 = /datum/heretic_knowledge/spell/space_phase
+	guaranteed_side_tier3 = /datum/heretic_knowledge/essence
 
 
 /datum/heretic_knowledge/limited_amount/starting/base_cosmic
@@ -32,34 +75,19 @@
 	result_atoms = list(/obj/item/melee/sickly_blade/cosmic)
 	research_tree_icon_path = 'icons/obj/weapons/khopesh.dmi'
 	research_tree_icon_state = "cosmic_blade"
+	// The cosmic teleport-back mark and the grasp field/star-mark both live here now (matching TG), instead
+	// of separate "Прикосновение космоса" / "Метка Космоса" nodes.
+	mark_type = /datum/status_effect/eldritch/cosmic
+	passive_type = /datum/status_effect/heretic_passive/cosmic
 
 
-/datum/heretic_knowledge/cosmic_grasp
-	name = "Прикосновение космоса"
-	desc = "Ваше Прикосновение Мансуса даст людям звёздную метку и создаст космическое поле там, где вы стоите. \
-			Люди со звёздной меткой не могут проходить сквозь космические поля."
-	gain_text = "Некоторые звёзды потускнели, другие засияли ярче. \
-				Обретя новые силы, я смог направить силу туманности в себя."
-	cost = 1
-	research_tree_icon_path = 'icons/ui_icons/antags/heretic/knowledge.dmi'
-	research_tree_icon_state = "grasp_cosmos"
-
-
-/datum/heretic_knowledge/cosmic_grasp/on_gain(mob/user, datum/antagonist/heretic/our_heretic)
-	RegisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK, PROC_REF(on_mansus_grasp))
-
-
-/datum/heretic_knowledge/cosmic_grasp/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
-	UnregisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK)
-
-
-/// Aplies the effect of the mansus grasp when it hits a target.
-/datum/heretic_knowledge/cosmic_grasp/proc/on_mansus_grasp(mob/living/source, mob/living/target)
-	SIGNAL_HANDLER
-
+/// Mansus Grasp star-marks the victim and drops a cosmic field where you stand (was the "Прикосновение космоса"
+/// node). The path's teleport-back mark (/datum/status_effect/eldritch/cosmic) is applied by the parent via mark_type.
+/datum/heretic_knowledge/limited_amount/starting/base_cosmic/on_mansus_grasp(mob/living/source, mob/living/target)
+	. = ..()
 	to_chat(target, span_danger("Над вашей головой появилось космическое кольцо!"))
 	target.apply_status_effect(/datum/status_effect/star_mark, source)
-	new /obj/effect/forcefield/cosmic_field(get_turf(source))
+	create_cosmic_field(get_turf(source), source)
 
 
 /datum/heretic_knowledge/spell/cosmic_runes
@@ -73,17 +101,7 @@
 	research_tree_icon_path = 'icons/mob/actions/actions_ecult.dmi'
 	research_tree_icon_state = "cosmic_rune"
 	spell_to_add = /obj/effect/proc_holder/spell/cosmic_rune
-	cost = 1
-
-
-/datum/heretic_knowledge/mark/cosmic_mark
-	name = "Метка Космоса"
-	desc = "Ваше «Прикосновение Мансуса» теперь накладывает Метку Космоса. Метка активируется атакой \
-			вашим клинком. При срабатывании метки жертва возвращается в место, где эта метка изначально была \
-			наложена, оставляя на своём месте космическое поле. После перемещения жертва будет парализована на 2 секунды."
-	gain_text = "Зверь изредка нашептывал мне отрывочные подробности их жизни. \
-				Я могу им помочь, я должен им помочь."
-	mark_type = /datum/status_effect/eldritch/cosmic
+	cost = 2
 
 
 /datum/heretic_knowledge/knowledge_ritual/cosmic
@@ -100,27 +118,44 @@
 	research_tree_icon_path = 'icons/mob/actions/actions_ecult.dmi'
 	research_tree_icon_state = "star_touch"
 	spell_to_add = /obj/effect/proc_holder/spell/touch/star_touch
-	cost = 1
+	cost = 2
 
 
 /datum/heretic_knowledge/spell/star_blast
 	name = "Звёздный взрыв"
-	desc = "Выпускает снаряд, создающий стену космических полей. \
-			Любой, в кого попал снаряд, будет сбит с ног и получит звёздную метку."
+	desc = "Выпускает очень медленный снаряд, поднимающий на своём пути недолговечную стену космических полей. \
+			Все, в кого попадает снаряд, будут сбиты с ног, а все в радиусе трёх плиток получат звёздную метку."
 	gain_text = "Зверь всегда был позади меня, и с каждой принесенной жертвой я чувствовал его одобрение."
 	research_tree_icon_path = 'icons/mob/actions/actions_ecult.dmi'
 	research_tree_icon_state = "star_blast"
 	spell_to_add = /obj/effect/proc_holder/spell/pointed/projectile/star_blast
-	cost = 1
+	cost = 2
+
+
+/datum/heretic_knowledge/armor/cosmic
+	name = "Звёздотканый Плащ"
+	desc = "Позволяет преобразовать стол (или верхнюю одежду), маску и лист плазмы в Звёздотканый Плащ. \
+			Он защищает владельца от опасностей космоса и позволяет ему левитировать по желанию. \
+			Действует как фокус, пока капюшон надет."
+	gain_text = "Подобно лучистым нитям, звёзды слились воедино в шелковистой форме струящегося плаща, что \
+				одновременно укрывает и не укрывает мои плечи. Взор Зверя остановился на мне — и прошёл сквозь меня."
+	required_atoms = list(
+		list(/obj/structure/table, /obj/item/clothing/suit) = 1,
+		/obj/item/clothing/mask = 1,
+		/obj/item/stack/sheet/mineral/plasma = 1,
+	)
+	result_atoms = list(/obj/item/clothing/suit/hooded/cultrobes/eldritch/cosmic)
+	research_tree_icon_path = 'icons/obj/clothing/suits.dmi'
+	research_tree_icon_state = "cosmic_armor"
+	research_tree_icon_frame = 1
 
 
 /datum/heretic_knowledge/blade_upgrade/cosmic
 	name = "Клинок Космоса"
-	desc = "Ваш клинок теперь наносит урон органам людей космическим излучением. \
-			Ваши атаки будут наносить дополнительный урон предыдущим жертвам. \
-			Комбо сбрасывается после двух секунд без атаки, \
-			или после атаки по той же цели. Если вы выполните более четырёх таких атак подрят, вы получите \
-			метку космоса и увеличите время комбо до десяти секунд."
+	desc = "Ваш клинок теперь накладывает на жертв звёздную метку и позволяет атаковать звёздомеченых \
+			еретиков-отступников на расстоянии. Ваши атаки наносят дополнительный урон вплоть до двух предыдущих \
+			жертв. Комбо сбрасывается после двух секунд без атаки или если вы атакуете уже отмеченную цель. \
+			Сделав три удара комбо, вы получите космический след и увеличите таймер комбо до десяти секунд."
 	gain_text = "Зверь взглянул на мои клинки. Я упал на колени почувствовав острую боль. \
 				Клинки сверкали силой. Я упал на землю и заплакал у ног Зверя."
 	research_tree_icon_path = 'icons/ui_icons/antags/heretic/knowledge.dmi'
@@ -141,20 +176,22 @@
 	var/increase_amount = 0.5 SECONDS
 	/// The hits we have on a mob with a mind.
 	var/combo_counter = 0
+	/// How much further we can hit star-marked people, modified by ascension.
+	var/max_attack_range = 2
+
+
+/datum/heretic_knowledge/blade_upgrade/cosmic/do_ranged_effects(mob/living/source, mob/living/target, obj/item/melee/sickly_blade/blade)
+	if(!isliving(target) || get_dist(source, target) > max_attack_range || !target.has_status_effect(/datum/status_effect/star_mark))
+		return
+	source.changeNext_move(blade.attack_speed)
+	blade.attack(target, source)
 
 
 /datum/heretic_knowledge/blade_upgrade/cosmic/do_melee_effects(mob/living/source, mob/living/target, obj/item/melee/sickly_blade/blade)
-	var/static/list/valid_organ_slots = list(
-		INTERNAL_ORGAN_HEART,
-		INTERNAL_ORGAN_LUNGS,
-		INTERNAL_ORGAN_STOMACH,
-		INTERNAL_ORGAN_EYES,
-		INTERNAL_ORGAN_EARS,
-		INTERNAL_ORGAN_LIVER,
-		INTERNAL_ORGAN_BRAIN
-	)
 	if(source == target || !isliving(target))
 		return
+
+	target.apply_status_effect(/datum/status_effect/star_mark, source)
 
 	if(combo_timer)
 		deltimer(combo_timer)
@@ -164,7 +201,6 @@
 	var/mob/living/third_target_resolved = third_target?.resolve()
 	var/need_mob_update = FALSE
 	need_mob_update += target.adjustFireLoss(5, updating_health = FALSE)
-	need_mob_update += target.adjustOrganLoss(pick(valid_organ_slots), 8)
 	if(need_mob_update)
 		target.updatehealth()
 
@@ -175,47 +211,29 @@
 	if(target.mind && target.stat != DEAD)
 		combo_counter += 1
 
-	if(!second_target_resolved)
-		second_target = WEAKREF(target)
-		return
+	if(second_target_resolved)
+		new /obj/effect/temp_visual/cosmic_explosion(get_turf(second_target_resolved))
+		playsound(get_turf(second_target_resolved), 'sound/magic/cosmic_energy.ogg', 25, FALSE)
+		need_mob_update = FALSE
+		need_mob_update += second_target_resolved.adjustFireLoss(14, updating_health = FALSE)
+		if(need_mob_update)
+			second_target_resolved.updatehealth()
 
-	new /obj/effect/temp_visual/cosmic_explosion(get_turf(second_target_resolved))
-	playsound(get_turf(second_target_resolved), 'sound/magic/cosmic_energy.ogg', 25, FALSE)
-	need_mob_update = FALSE
-	need_mob_update += second_target_resolved.adjustFireLoss(14, updating_health = FALSE)
-	need_mob_update += second_target_resolved.adjustOrganLoss(pick(valid_organ_slots), 12)
-	if(need_mob_update)
-		second_target_resolved.updatehealth()
+		if(third_target_resolved)
+			new /obj/effect/temp_visual/cosmic_domain(get_turf(third_target_resolved))
+			playsound(get_turf(third_target_resolved), 'sound/magic/cosmic_energy.ogg', 50, FALSE)
+			need_mob_update = FALSE
+			need_mob_update += third_target_resolved.adjustFireLoss(28, updating_health = FALSE)
+			if(need_mob_update)
+				third_target_resolved.updatehealth()
 
-	if(!third_target_resolved)
+			if(combo_counter == 3)
+				if(target.mind && target.stat != DEAD)
+					increase_combo_duration()
+					source.AddElement(cosmic_trail_based_on_passive(source), /obj/effect/forcefield/cosmic_field/fast)
+
 		third_target = second_target
-		second_target = WEAKREF(target)
-		return
 
-	new /obj/effect/temp_visual/cosmic_domain(get_turf(third_target_resolved))
-	playsound(get_turf(third_target_resolved), 'sound/magic/cosmic_energy.ogg', 50, FALSE)
-	need_mob_update = FALSE
-	need_mob_update += third_target_resolved.adjustFireLoss(28, updating_health = FALSE)
-	need_mob_update += third_target_resolved.adjustOrganLoss(pick(valid_organ_slots), 14)
-	if(need_mob_update)
-		third_target_resolved.updatehealth()
-
-	if(combo_counter < 3)
-		third_target = second_target
-		second_target = WEAKREF(target)
-		return
-
-	target.apply_status_effect(/datum/status_effect/star_mark, source)
-	if(!target.mind || target.stat == DEAD)
-		third_target = second_target
-		second_target = WEAKREF(target)
-		return
-
-	increase_combo_duration()
-	if(combo_counter == 4)
-		source.AddElement(/datum/element/effect_trail, /obj/effect/forcefield/cosmic_field/fast)
-
-	third_target = second_target
 	second_target = WEAKREF(target)
 
 
@@ -223,8 +241,7 @@
 /datum/heretic_knowledge/blade_upgrade/cosmic/proc/reset_combo(mob/living/source)
 	second_target = null
 	third_target = null
-	if(combo_counter > 3)
-		source.RemoveElement(/datum/element/effect_trail, /obj/effect/forcefield/cosmic_field/fast)
+	source.RemoveElement(cosmic_trail_based_on_passive(source), /obj/effect/forcefield/cosmic_field/fast)
 
 	combo_duration = combo_duration_amount
 	combo_counter = 0
@@ -245,13 +262,14 @@
 
 /datum/heretic_knowledge/spell/cosmic_expansion
 	name = "Расширение территории"
-	desc = "Даёт вам «Расширение территории» — заклинание, создающее вокруг вас область космических полей размером 3x3. \
-			Существа поблизости получат звёздную метку."
+	desc = "Даёт вам «Расширение территории» — заклинание, создающее вокруг вас область космических полей размером 5x5. \
+			Существа поблизости также получат звёздную метку."
 	gain_text = "Земля подо мной задрожала. Зверь вселился в меня. Его голос опьянял."
 	research_tree_icon_path = 'icons/mob/actions/actions_ecult.dmi'
 	research_tree_icon_state = "cosmic_domain"
 	spell_to_add = /obj/effect/proc_holder/spell/aoe/conjure/cosmic_expansion
-	cost = 1
+	cost = 2
+	is_final_knowledge = TRUE // TG's knowledge_tier4 / final pre-ascension power.
 
 
 /datum/heretic_knowledge/ultimate/cosmic_final
@@ -279,6 +297,10 @@
 		/datum/pet_command/follow,
 		/datum/pet_command/attack/star_gazer
 	)
+	/// Traits granted to the ascended heretic (low/high pressure = cold/heat resist in master220, + x-ray).
+	var/static/list/ascended_traits = list(TRAIT_RESIST_HEAT, TRAIT_RESIST_COLD, TRAIT_XRAY_VISION)
+	/// Traits granted to our summoned Star Gazer.
+	var/static/list/stargazer_traits = list(TRAIT_RESIST_HEAT, TRAIT_RESIST_COLD, TRAIT_XRAY_VISION, TRAIT_BOMBIMMUNE)
 
 
 /datum/heretic_knowledge/ultimate/cosmic_final/is_valid_sacrifice(mob/living/carbon/human/sacrifice)
@@ -286,43 +308,54 @@
 	if(!.)
 		return FALSE
 
-	return sacrifice.reagents.has_reagent("plasma") || sacrifice.reagents.has_reagent("plasma_dust")
+	// tg parity: only star-marked corpses count toward the ascension.
+	return sacrifice.has_status_effect(/datum/status_effect/star_mark)
 
 
 /datum/heretic_knowledge/ultimate/cosmic_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	. = ..()
 
-	var/control_self = tgui_alert(usr, "Вы хотите стать Звёздным Глашатаем самостоятельно, вместо того чтобы отдавать контроль призраку? (Ваше оригинальное тело в этом случае будет уничтоженно.)", "Выбор управляющего глашатаем", list("Да", "Нет")) == "Да"
+	// The heretic stays themselves and ascends; the Star Gazer is a separate, befriended ally (tg parity -
+	// no "become the gazer yourself" option).
+	user.add_traits(ascended_traits, type)
+	if(ishuman(user))
+		user.update_sight()
 
-	var/mob/living/simple_animal/hostile/heretic_summon/star_gazer/star_gazer_mob = new /mob/living/simple_animal/hostile/heretic_summon/star_gazer(loc)
+	var/mob/living/simple_animal/hostile/heretic_summon/star_gazer/star_gazer_mob = new(loc)
+	star_gazer_mob.maxHealth = INFINITY
+	star_gazer_mob.health = INFINITY
+	star_gazer_mob.faction |= FACTION_HERETIC
+	star_gazer_mob.add_traits(stargazer_traits, type)
 	star_gazer_mob.AddComponent(/datum/component/damage_aura, range = 7, burn_damage = 0.5, simple_damage = 0.5, immune_factions = list(FACTION_HERETIC), current_owner = user)
 
-	if(!control_self)
-		var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите стать [star_gazer_mob.declent_ru(INSTRUMENTAL)]?", SPECIAL_ROLE_HERETIC_MONSTER, FALSE, poll_time = 10 SECONDS, source = star_gazer_mob)
-		if(!candidates.len)
-			to_chat(user, span_warning("Разум [star_gazer_mob.declent_ru(GENITIVE)] повреждён. Вам [span_bold("придётся")] занять его тело."))
-			control_self = TRUE
-		else
-			var/mob/dead/observer/observer = pick(candidates)
-			star_gazer_mob.key = observer.key
-			var/datum/antagonist/heretic_monster/heretic_monster = star_gazer_mob.mind.add_antag_datum(/datum/antagonist/heretic_monster)
-			heretic_monster.set_owner(user.mind)
+	// Befriend our master (so it never turns on us and heeds our commands), let us boss it around, and leash it to us.
+	SEND_SIGNAL(star_gazer_mob, COMSIG_LIVING_BEFRIENDED, user)
+	star_gazer_mob.AddComponent(/datum/component/obeys_commands, star_gazer_commands, radial_menu_offset = list(30, 0), radial_menu_lifetime = 15 SECONDS, radial_relative_to_user = TRUE)
+	star_gazer_mob.AddComponent(/datum/component/leash, user, 7)
+	user.AddComponent(/datum/component/death_linked, star_gazer_mob)
 
-	if(control_self)
-		to_chat(user, span_warning("[capitalize(star_gazer_mob.declent_ru(NOMINATIVE))] смотр[pluralize_ru(star_gazer_mob.gender, "ит", "ят")] на вас."))
-		user.mind.transfer_to(star_gazer_mob)
-		user.gib()
-		return
+	// Grant the command + replace-consciousness actions.
+	user.mind.AddSpell(new /obj/effect/proc_holder/spell/open_mob_commands(star_gazer_mob))
+	user.mind.AddSpell(new /obj/effect/proc_holder/spell/replace_star_gazer(star_gazer_mob))
 
+	// Offer the body to a ghost; if none answers it just stays AI-controlled (still obeys our commands).
+	var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите стать [star_gazer_mob.declent_ru(INSTRUMENTAL)] [user.real_name]?", SPECIAL_ROLE_HERETIC_MONSTER, FALSE, poll_time = 10 SECONDS, source = star_gazer_mob)
+	if(length(candidates))
+		var/mob/dead/observer/observer = pick(candidates)
+		star_gazer_mob.key = observer.key
+		var/datum/antagonist/heretic_monster/heretic_monster = star_gazer_mob.mind.add_antag_datum(/datum/antagonist/heretic_monster)
+		heretic_monster.set_owner(user.mind)
+
+	// Empower the rest of the path.
 	var/datum/antagonist/heretic/heretic_datum = user.mind.has_antag_datum(/datum/antagonist/heretic)
 	var/datum/heretic_knowledge/blade_upgrade/cosmic/blade_upgrade = heretic_datum.get_knowledge(/datum/heretic_knowledge/blade_upgrade/cosmic)
 	blade_upgrade.combo_duration = 10 SECONDS
 	blade_upgrade.combo_duration_amount = 10 SECONDS
 	blade_upgrade.max_combo_duration = 30 SECONDS
 	blade_upgrade.increase_amount = 2 SECONDS
+	blade_upgrade.max_attack_range = 3
 	var/obj/effect/proc_holder/spell/aoe/conjure/cosmic_expansion/cosmic_expansion_spell = locate() in user.mob_spell_list
 	cosmic_expansion_spell?.ascended = TRUE
-	user.AddComponent(/datum/component/death_linked, star_gazer_mob)
 	var/obj/effect/proc_holder/spell/touch/star_touch/star_touch_spell = locate() in user.mob_spell_list
 	if(star_touch_spell)
 		star_touch_spell.set_star_gazer(star_gazer_mob)
@@ -365,3 +398,47 @@
 		return
 
 	command_component.display_menu(action.owner)
+
+
+// Replaces the mind of your Star Gazer with that of a different ghost (tg's "Reset Star Gazer Consciousness").
+/obj/effect/proc_holder/spell/replace_star_gazer
+	name = "Сменить разум Глашатая"
+	desc = "Заменяет разум вашего Звёздного Глашатая разумом другого призрака."
+	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
+	action_background_icon_state = "bg_heretic"
+	overlay_icon_state = "bg_heretic_border"
+	action_icon = 'icons/mob/actions/actions_ecult.dmi'
+	action_icon_state = "stargazer_menu"
+	base_cooldown = 5 MINUTES
+	human_req = FALSE
+	clothes_req = FALSE
+	/// The stargazer whose mind we swap out.
+	var/mob/living/simple_animal/hostile/heretic_summon/star_gazer/our_mob
+
+
+/obj/effect/proc_holder/spell/replace_star_gazer/New(gazer)
+	. = ..()
+	our_mob = gazer
+
+
+/obj/effect/proc_holder/spell/replace_star_gazer/cast(list/targets, mob/user)
+	if(QDELETED(our_mob))
+		to_chat(user, span_warning("У вас нет Звёздного Глашатая."))
+		return FALSE
+
+	to_chat(user, span_hierophant("Вы побуждаете [our_mob.declent_ru(ACCUSATIVE)] сменить свою личность..."))
+	var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите играть за [our_mob.declent_ru(ACCUSATIVE)] [span_danger("[user.real_name]")]?", SPECIAL_ROLE_HERETIC_MONSTER, FALSE, poll_time = 10 SECONDS, source = our_mob)
+	if(!length(candidates))
+		to_chat(user, span_hierophant("Никто не откликнулся на ваш зов. Похоже, пока придётся обойтись тем, что есть."))
+		return FALSE
+
+	var/mob/dead/observer/observer = pick(candidates)
+	if(our_mob.mind)
+		to_chat(our_mob, span_hierophant("Хозяин сбросил вас, и ваше тело занял другой призрак. Видимо, он остался недоволен."))
+		our_mob.ghostize(FALSE)
+	our_mob.key = observer.key
+	if(our_mob.mind && !our_mob.mind.has_antag_datum(/datum/antagonist/heretic_monster))
+		var/datum/antagonist/heretic_monster/heretic_monster = our_mob.mind.add_antag_datum(/datum/antagonist/heretic_monster)
+		heretic_monster.set_owner(user.mind)
+	to_chat(user, span_hierophant("Разум [our_mob.declent_ru(GENITIVE)] перекроился под вас."))
+	return TRUE

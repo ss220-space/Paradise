@@ -91,6 +91,12 @@
 		arm_grenade(user)
 
 /obj/item/grenade/proc/prime(mob/user)
+	// Cosmic heretics (level-2 passive) generate fields that disrupt nearby detonations: fizzle if one is close.
+	for(var/obj/effect/forcefield/cosmic_field/potential_field as anything in GLOB.active_cosmic_fields)
+		if(get_dist(potential_field, src) < 3)
+			new /obj/effect/temp_visual/cosmic_cloud(get_turf(src))
+			active = FALSE
+			return
 	SEND_SIGNAL(src, COMSIG_GRENADE_DETONATE, user)
 	return
 
