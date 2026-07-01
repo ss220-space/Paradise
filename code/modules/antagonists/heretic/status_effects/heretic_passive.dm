@@ -565,3 +565,46 @@
 	var/delta_time = DELTA_WORLD_TIME(SSmobs) * 0.5
 	if(owner.adjustStaminaLoss(-15 * delta_time, updating_health = FALSE))
 		owner.updatehealth()
+
+
+//---- Void Passive: "Aristocrat's Way" ("Путь Аристократа") - ported 1:1 from /tg/station.
+// Level 1 - cold and low-pressure immunity (granted on picking the path). master220 has no dedicated
+//           TRAIT_RESISTLOWPRESSURE: low-pressure damage is gated on TRAIT_RESIST_COLD (human/life.dm),
+//           so that one trait IS "cold and low pressure immunity" (same substitution the ash passive uses).
+// Level 2 - you no longer need to breathe (granted on crafting the robe).
+// Level 3 - water, ice and slippery surfaces no longer slip you (granted on ascension).
+// (This replaces the legacy "Путь аристократа" cold_snap knowledge node, which granted all of it at once.)
+/datum/status_effect/heretic_passive/void
+	id = "heretic_passive_void"
+	name = "Путь Аристократа"
+	passive_descriptions = list(
+		"Иммунитет к холоду и низкому давлению.",
+		"Вам больше не нужно дышать.",
+		"Вода, лёд и скользкие поверхности вам не страшны.",
+	)
+
+
+/datum/status_effect/heretic_passive/void/on_apply()
+	. = ..()
+	if(!.)
+		return
+	ADD_TRAIT(owner, TRAIT_RESIST_COLD, TRAIT_STATUS_EFFECT(id))
+
+
+/datum/status_effect/heretic_passive/void/level_upgrade()
+	. = ..()
+	if(!.)
+		return
+	ADD_TRAIT(owner, TRAIT_NO_BREATH, TRAIT_STATUS_EFFECT(id))
+
+
+/datum/status_effect/heretic_passive/void/level_final()
+	. = ..()
+	if(!.)
+		return
+	owner.add_traits(list(TRAIT_NO_SLIP_WATER, TRAIT_NO_SLIP_ICE, TRAIT_NO_SLIP_SLIDE), TRAIT_STATUS_EFFECT(id))
+
+
+/datum/status_effect/heretic_passive/void/on_remove()
+	owner.remove_traits(list(TRAIT_RESIST_COLD, TRAIT_NO_BREATH, TRAIT_NO_SLIP_WATER, TRAIT_NO_SLIP_ICE, TRAIT_NO_SLIP_SLIDE), TRAIT_STATUS_EFFECT(id))
+	return ..()

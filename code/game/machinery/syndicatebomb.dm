@@ -53,6 +53,15 @@
 		countdown.stop()
 		return
 
+	// Cosmic heretics (level-2 passive): a cosmic field nearby disrupts the bomb's mechanism, defusing it (tg parity).
+	for(var/obj/effect/forcefield/cosmic_field/potential_field as anything in GLOB.active_cosmic_fields)
+		if(get_dist(potential_field, src) < 3)
+			new /obj/effect/temp_visual/revenant(get_turf(src))
+			active = FALSE
+			timer_set = initial(timer_set)
+			update_icon(UPDATE_ICON_STATE)
+			return
+
 	if(!isnull(next_beep) && (next_beep <= world.time))
 		var/volume
 		switch(seconds_remaining())

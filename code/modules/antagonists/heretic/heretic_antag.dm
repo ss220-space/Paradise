@@ -187,14 +187,17 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	var/list/knowledge_data = list()
 
 	var/cost = meta ? meta[HKT_COST] : initial(knowledge.cost)
+	// Directly-granted knowledge that isn't part of any tree column (e.g. the Ritual of Knowledge gifted
+	// by the robe craft) has no tree entry - fall back to side-node visuals instead of indexing null.
+	var/list/tree_entry = meta ? null : GLOB.heretic_research_tree[knowledge]
 	knowledge_data["path"] = knowledge
 	knowledge_data["icon_params"] = get_icon_of_knowledge(knowledge)
 	knowledge_data["name"] = initial(knowledge.name)
 	knowledge_data["gainFlavor"] = initial(knowledge.gain_text)
 	knowledge_data["cost"] = cost
 	knowledge_data["disabled"] = (!done) && (cost > knowledge_points)
-	knowledge_data["bgr"] = meta ? BGR_SIDE : GLOB.heretic_research_tree[knowledge][HKT_UI_BGR]
-	knowledge_data["depth"] = meta ? meta[HKT_DEPTH] : GLOB.heretic_research_tree[knowledge][HKT_DEPTH]
+	knowledge_data["bgr"] = tree_entry ? tree_entry[HKT_UI_BGR] : BGR_SIDE
+	knowledge_data["depth"] = meta ? meta[HKT_DEPTH] : (tree_entry ? tree_entry[HKT_DEPTH] : 1)
 	knowledge_data["finished"] = done
 	knowledge_data["ascension"] = ispath(knowledge,/datum/heretic_knowledge/ultimate)
 
@@ -260,7 +263,9 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 		// the path you're walking (matching TG / the Ash path) - so don't skip a researched start here.
 		// (Unpicked starts are still skipped in the researchable loop below, keeping path-choice in Пути.)
 		var/list/knowledge_data = get_knowledge_data(knowledge, TRUE)
-		if(GLOB.heretic_research_tree[knowledge][HKT_ROUTE] == PATH_SIDE)
+		// No tree entry (directly-granted, e.g. the gifted Ritual of Knowledge) renders as an owned side node.
+		var/list/tree_entry = GLOB.heretic_research_tree[knowledge]
+		if(!tree_entry || tree_entry[HKT_ROUTE] == PATH_SIDE)
 			shop += list(knowledge_data)
 			continue
 		add_node_to_tiers(tiers, knowledge_data)
@@ -446,7 +451,7 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 		gain_knowledge(starting_knowledge)
 
 	addtimer(CALLBACK(src, PROC_REF(passive_influence_gain)), passive_gain_timer) // Gain +1 knowledge every 20 minutes.
-	RegisterSignal(owner.current, COMSIG_GET_DREAMS, PROC_REF(get_dreams))
+	// (eldritch dreams are registered per-body in apply_innate_effects, so they follow body transfers)
 	ADD_TRAIT(owner, TRAIT_BAD_SOUL, HERETIC_TRAIT)
 	return ..()
 
@@ -460,7 +465,6 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 		knowledge.on_lose(owner.current, src)
 
 	QDEL_LIST_ASSOC_VAL(researched_knowledge)
-	UnregisterSignal(owner.current, COMSIG_GET_DREAMS)
 	return ..()
 
 
@@ -490,6 +494,9 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	// This is why the aura vanished after ascension (which triggers a regenerate_icons via trait/body
 	// changes). Re-add the aura on regenerate, exactly like /datum/component/shielded does for its shield.
 	RegisterSignal(our_mob, COMSIG_HUMAN_REGENERATE_ICONS, PROC_REF(on_regenerate_icons))
+	// Eldritch dreams (tg's heretic_dreams status): sleeping shows visions of the Mansus reflecting the
+	// area around a reality smash. Registered per-body here (not in on_gain) so body transfers keep it.
+	RegisterSignal(our_mob, COMSIG_GET_DREAMS, PROC_REF(get_dreams), override = TRUE)
 	our_mob.update_appearance(UPDATE_OVERLAYS)
 
 /datum/antagonist/heretic/remove_innate_effects(mob/living/mob_override)
@@ -510,6 +517,7 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 		COMSIG_ATOM_UPDATE_OVERLAYS,
 		COMSIG_ATOM_EXAMINE,
 		COMSIG_HUMAN_REGENERATE_ICONS,
+		COMSIG_GET_DREAMS,
 		SIGNAL_ADDTRAIT(TRAIT_HERETIC_AURA_HIDDEN),
 		SIGNAL_REMOVETRAIT(TRAIT_HERETIC_AURA_HIDDEN),
 	))
@@ -1168,12 +1176,18 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	var/list/banned_knowledge = list()
 	for(var/knowledge_index in researched_knowledge)
 		var/datum/heretic_knowledge/knowledge = researched_knowledge[knowledge_index]
+		// Directly-granted knowledge that lives in NO tree column (e.g. the Ritual of Knowledge gifted by
+		// the robe craft) has no tree entry at all - indexing it would runtime and kill the menu.
+		var/list/tree_entry = GLOB.heretic_research_tree[knowledge_index]
+		if(!tree_entry)
+			banned_knowledge |= knowledge.type
+			continue
 		// Side knowledges that belong to our per-heretic draft/shop pool (TG-format paths) are governed by
 		// that engine, NOT the legacy tree-bridge. Following their legacy HKT_NEXT would leak an adjacent
 		// path's tier ability into our tree out of order, so don't expand it.
 		if(!drafted_knowledge[knowledge_index] && !shop_knowledge_pool[knowledge_index])
-			researchable_knowledge |= GLOB.heretic_research_tree[knowledge_index][HKT_NEXT]
-		banned_knowledge |= GLOB.heretic_research_tree[knowledge_index][HKT_BAN]
+			researchable_knowledge |= tree_entry[HKT_NEXT]
+		banned_knowledge |= tree_entry[HKT_BAN]
 		banned_knowledge |= knowledge.type
 
 	researchable_knowledge -= banned_knowledge
@@ -1473,6 +1487,10 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 
 /datum/antagonist/heretic/proc/get_dreams(mob/living/carbon/sleeper, list/dreams)
 	SIGNAL_HANDLER
+	// No influences left on the station - nothing for the waters of the Mansus to reflect (and pick()
+	// on an empty list would runtime).
+	if(!length(GLOB.reality_smash_track?.smashes))
+		return
 	dreams += "Вы бродите по лесу Мансуса"
 	dreams += "Вы видите " + pick("пруд", "колодец", "озеро", "лужу", "ручей", "реку", "болото")
 

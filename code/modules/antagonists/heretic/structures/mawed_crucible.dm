@@ -260,11 +260,6 @@
 	return ..()
 
 
-// no breaky herety thingy
-/obj/structure/destructible/eldritch_crucible/rust_heretic_act()
-	return
-
-
 // Potions created by the mawed crucible.
 /obj/item/eldritch_potion
 	name = "Варево дня и ночи"
@@ -276,6 +271,8 @@
 	var/crucible_tip = "Не делает абсолютно ничего."
 	/// Typepath to the status effect this applies
 	var/status_effect
+	/// Whether drinking this brew while its blessing is still active refreshes it (tg parity).
+	var/can_refresh = TRUE
 
 /obj/item/eldritch_potion/examine(mob/user)
 	. = ..()
@@ -290,6 +287,10 @@
 		return
 
 	if(!iscarbon(user))
+		return
+
+	// tg: a non-refreshable brew refuses to work while its blessing is still active.
+	if(!can_refresh && user.has_status_effect(status_effect))
 		return
 
 	playsound(src, 'sound/effects/bubbles/bubbles.ogg', 50, TRUE)
@@ -322,7 +323,16 @@
 	desc = "Стеклянная бутылка с ярко-оранжевой полупрозрачной жидкостью."
 	icon_state = "crucible_soul"
 	status_effect = /datum/status_effect/crucible_soul
-	crucible_tip = "Позволяет проходить сквозь стены. После окончания действия вы телепортируетесь в исходное местоположение. Длится 15 секунд."
+	crucible_tip = "Позволяет проходить сквозь стены. После окончания действия вы телепортируетесь в исходное местоположение. Длится 40 секунд."
+	can_refresh = FALSE
+
+
+// tg: refuses to work during the 2-minute post-phase lockout.
+/obj/item/eldritch_potion/crucible_soul/attack_self(mob/living/carbon/user)
+	if(user.has_status_effect(/datum/status_effect/crucible_soul_cooldown))
+		balloon_alert(user, "на перезарядке!")
+		return TRUE
+	return ..()
 
 
 /obj/item/eldritch_potion/crucible_soul/get_ru_names()

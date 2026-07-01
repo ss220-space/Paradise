@@ -1230,6 +1230,114 @@
 	)
 
 
+// Полое Плетение (Hollow Weave) — Void path robes (tg 1:1). Every 20 seconds the weave swallows one
+// incoming attack outright and cloaks the wearer for 5 seconds (alpha 0) so they can reposition.
+// A non-heretic who dares to don it is flash-frozen solid.
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/void
+	name = "полое плетение"
+	desc = "Поначалу пустое полотно этих одежд словно мерцает слабым холодным светом. Но проследив \
+			изгибы складок внимательнее, понимаешь: точнее сказать, что света в них попросту нет."
+	// Item + worn sprites live in the shared suits.dmi / suit.dmi as the "void_armor" state (inherited).
+	icon_state = "void_armor"
+	item_state = "void_armor"
+	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
+	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie/eldritch/void
+	armor = list(MELEE = 40, BULLET = 40, LASER = 50, ENERGY = 50, BOMB = 40, BIO = 40, FIRE = 40, ACID = 40)
+	/// Cooldown before we can go back into stealth
+	COOLDOWN_DECLARE(stealth_cooldown)
+	/// Timer before our stealth runs out
+	var/stealth_timer
+
+
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/void/get_ru_names()
+	return alist(
+		NOMINATIVE = "полое плетение",
+		GENITIVE = "полого плетения",
+		DATIVE = "полому плетению",
+		ACCUSATIVE = "полое плетение",
+		INSTRUMENTAL = "полым плетением",
+		PREPOSITIONAL = "полом плетении",
+	)
+
+
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/void/examine(mob/user)
+	. = ..()
+	if(!isheretic(user))
+		return
+	. += span_notice("Время от времени плетение полностью поглощает направленную на вас атаку и на несколько секунд скрывает вас из виду.")
+
+
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/void/equipped(mob/user, slot, initial = FALSE)
+	. = ..()
+	if(slot != ITEM_SLOT_CLOTH_OUTER)
+		return
+	// Heretics get the weave's protection; anyone else who dons it is flash-frozen (tg's robes_side_effect).
+	if(!isheretic(user) && isliving(user))
+		INVOKE_ASYNC(src, PROC_REF(freeze_thief), user)
+
+
+/// tg's robes_side_effect: a heathen who puts the Hollow Weave on is instantly deep-frozen.
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/void/proc/freeze_thief(mob/living/thief)
+	if(QDELETED(thief) || isheretic(thief))
+		return
+	to_chat(thief, span_userdanger("Пустота высасывает из вас всё тепло!"))
+	thief.adjust_bodytemperature(-INFINITY)
+	thief.apply_status_effect(/datum/status_effect/freon)
+
+
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/void/dropped(mob/user, slot, silent = FALSE)
+	. = ..()
+	// Remove from stealth when you lose the robes (tg's on_robes_lost).
+	if(!timeleft(stealth_timer))
+		return
+	deltimer(stealth_timer)
+	end_stealth(user)
+
+
+/// tg's hit_reaction: every 20s the weave nullifies one attack entirely and cloaks the wearer for 5s.
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/void/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "атаку", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
+	. = ..()
+	if(.)
+		return
+	if(!COOLDOWN_FINISHED(src, stealth_cooldown))
+		return
+	COOLDOWN_START(src, stealth_cooldown, 20 SECONDS)
+	stealth_timer = addtimer(CALLBACK(src, PROC_REF(end_stealth), owner), 5 SECONDS, TIMER_STOPPABLE)
+	owner.visible_message(
+		span_danger("[DECLENT_RU_CAP(owner, NOMINATIVE)] растворяется в пустоте!"),
+		span_userdanger("Плетение поглощает [attack_text] и скрывает вас из виду!"),
+	)
+	owner.alpha = 0
+	return TRUE
+
+
+/// Fades the wearer back into view once the short stealth runs out.
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/void/proc/end_stealth(mob/living/carbon/human/owner)
+	if(QDELETED(owner))
+		return
+	animate(owner, time = 1 SECONDS, alpha = initial(owner.alpha))
+
+
+/obj/item/clothing/head/hooded/cult_hoodie/eldritch/void
+	name = "капюшон полого плетения"
+	desc = "Поначалу пустое полотно этих одежд словно мерцает слабым холодным светом. Но проследив \
+			изгибы складок внимательнее, понимаешь: точнее сказать, что света в них попросту нет."
+	// Item + worn sprites live in the shared hats.dmi / head.dmi as the "void_armor" state (inherited).
+	icon_state = "void_armor"
+	armor = list(MELEE = 40, BULLET = 40, LASER = 50, ENERGY = 50, BOMB = 40, BIO = 40, FIRE = 40, ACID = 40)
+
+
+/obj/item/clothing/head/hooded/cult_hoodie/eldritch/void/get_ru_names()
+	return alist(
+		NOMINATIVE = "капюшон полого плетения",
+		GENITIVE = "капюшона полого плетения",
+		DATIVE = "капюшону полого плетения",
+		ACCUSATIVE = "капюшон полого плетения",
+		INSTRUMENTAL = "капюшоном полого плетения",
+		PREPOSITIONAL = "капюшоне полого плетения",
+	)
+
+
 // Плащ Пустоты. Turns invisible with the hood up, lets you hide stuff.
 /obj/item/clothing/head/hooded/cult_hoodie/void
 	name = "капюшон пустоты"

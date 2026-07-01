@@ -116,9 +116,6 @@
 	drafting_tier = 5
 
 
-/datum/heretic_knowledge/knowledge_ritual/ash
-
-
 /datum/heretic_knowledge/spell/fire_blast
 	name = "Извержение Вулкана"
 	desc = "Дарует вам «Извержение Вулкана» — заклинание, после короткой подготовки выпускающее луч энергии \

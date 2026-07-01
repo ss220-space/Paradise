@@ -69,6 +69,13 @@
 /// NOTE: master220 does not emit this in its attack chain yet; listeners compile but won't fire until wired in the runtime pass.
 #define COMSIG_ATOM_WAS_ATTACKED "atom_was_attacked"
 
+/// Sent on a human right before a projectile applies its effects in bullet_act (the port's additive
+/// equivalent of tg's COMSIG_ATOM_PRE_BULLET_ACT). A handler may re-aim the projectile and return
+/// COMPONENT_BULLET_DEFLECTED to make bullet_act return -1 (projectile survives and keeps flying).
+/// Used by the Void ascension's storm deflect.
+#define COMSIG_HUMAN_TRY_DEFLECT_BULLET "human_try_deflect_bullet"
+	#define COMPONENT_BULLET_DEFLECTED (1<<0)
+
 /// Sent on a mob from /datum/component/mob_chain when component is attached with it as the front.
 #define COMSIG_MOB_CHAIN_GAINED_TAIL "mob_chain_gained_tail"
 /// Sent on a mob from /datum/component/mob_chain when component is detached from it as the front.

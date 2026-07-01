@@ -65,7 +65,7 @@
 
 /datum/status_effect/void_prison/on_remove()
 	if(!isheretic(owner))
-		owner.apply_status_effect(/datum/status_effect/void_chill, 3)
+		owner.apply_status_effect(/datum/status_effect/void_chill, 1) // TG: 1 stack on release
 
 	if(!stasis_overlay)
 		return ..()

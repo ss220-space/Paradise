@@ -6,7 +6,8 @@
 
 	tier1 = /datum/heretic_knowledge/void_cloak
 	tier2 = /datum/heretic_knowledge/spell/blood_siphon
-	tier3 = list(/datum/heretic_knowledge/spell/void_prison, /datum/heretic_knowledge/spell/cleave)
+	// void_prison moved into the Void main line (TG-format knowledge_tier2); its knowledge now lives in void_lore.dm.
+	tier3 = /datum/heretic_knowledge/spell/cleave
 
 // Sidepaths for knowledge between Flesh and Void.
 
@@ -41,20 +42,6 @@
 	research_tree_icon_path = 'icons/mob/actions/actions_ecult.dmi'
 	research_tree_icon_state = "blood_siphon"
 	spell_to_add = /obj/effect/proc_holder/spell/pointed/blood_siphon
-	cost = 1
-
-
-/datum/heretic_knowledge/spell/void_prison
-	drafting_tier = 5
-	name = "Пустотная Тюрьма"
-	desc = "Даёт вам «Пустотную Тюрьму» — заклинание, заключающее вашу жертву в шар, \
-			лишая её возможности что-либо делать или говорить."
-	gain_text = "Я вижу себя, вальсирующего по заснеженной улице. \
-				Я пытаюсь кричать, пытаюсь схватить этого дурака, пытаюсь сказать ему, чтобы он бежал. \
-				Моё улыбающееся лицо поворачивается ко мне, отражая в остекленевших глазах пустоту - путь по которому я шел."
-	research_tree_icon_path = 'icons/mob/actions/actions_ecult.dmi'
-	research_tree_icon_state = "voidball"
-	spell_to_add = /obj/effect/proc_holder/spell/pointed/void_prison
 	cost = 1
 
 

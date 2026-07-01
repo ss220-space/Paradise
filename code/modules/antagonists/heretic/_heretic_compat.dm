@@ -160,6 +160,16 @@
 /obj/machinery/rust_heretic_act(strength)
 	take_damage(500 + strength * 200, BRUTE, BOMB, TRUE)
 
+// Windoors don't shatter outright like other machinery - tg's /obj/machinery/door/window/rust_heretic_act
+// instead corrodes them: rusty tint, the rust element, armor stripped, half their current integrity gone
+// and max integrity cut to 20%. (set_armor(getArmor()) = tg's /datum/armor/none, all zeroes.)
+/obj/machinery/door/window/rust_heretic_act(strength)
+	add_atom_colour(COLOR_RUSTED_GLASS, FIXED_COLOUR_PRIORITY)
+	AddElement(/datum/element/rust)
+	set_armor(getArmor())
+	take_damage(get_integrity() * 0.5)
+	modify_max_integrity(initial(max_integrity) * 0.2)
+
 // Airlocks: vanilla tg (and the /obj/machinery path above) destroys the airlock but leaves a
 // /obj/structure/door_assembly frame behind, so corroding a door took two grasps (door -> frame -> gone).
 // Per design we want the Rust grasp to crumble the WHOLE door to rust in a single grasp. Setting

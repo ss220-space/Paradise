@@ -194,6 +194,44 @@
 	user.update_sight()
 
 
+// tg parity: an x-ray variant of the medallion (not granted by any knowledge; admin/loot curiosity).
+/obj/item/clothing/neck/eldritch_amulet/piercing
+	name = "жуткий пронзающий медальон"
+	desc = "Странный медальон. Сквозь кристаллическую поверхность свет преломляется в новые, пугающие спектры. \
+			Вы видите себя, отражённого в каскаде зеркал, искажённого до невозможных форм."
+	heretic_only_trait = TRAIT_XRAY_VISION
+
+
+/obj/item/clothing/neck/eldritch_amulet/piercing/get_ru_names()
+	return alist(
+		NOMINATIVE = "жуткий пронзающий медальон",
+		GENITIVE = "жуткого пронзающего медальона",
+		DATIVE = "жуткому пронзающему медальону",
+		ACCUSATIVE = "жуткий пронзающий медальон",
+		INSTRUMENTAL = "жутким пронзающим медальоном",
+		PREPOSITIONAL = "жутком пронзающем медальоне",
+	)
+
+
+// tg parity: a purely cosmetic lookalike medallion (no focus, no traits).
+/obj/item/clothing/neck/fake_heretic_amulet
+	name = "религиозная иконка"
+	desc = "Странный медальон, из-за которого его носитель выглядит как член какого-то культа."
+	icon = 'icons/obj/eldritch.dmi'
+	icon_state = "eye_medalion"
+
+
+/obj/item/clothing/neck/fake_heretic_amulet/get_ru_names()
+	return alist(
+		NOMINATIVE = "религиозная иконка",
+		GENITIVE = "религиозной иконки",
+		DATIVE = "религиозной иконке",
+		ACCUSATIVE = "религиозную иконку",
+		INSTRUMENTAL = "религиозной иконкой",
+		PREPOSITIONAL = "религиозной иконке",
+	)
+
+
 // The amulet conversion tool used by moon heretics
 /obj/item/clothing/neck/heretic_focus/moon_amulet
 	name = "амулет лунного света"

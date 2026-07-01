@@ -30,6 +30,17 @@
 	location = null
 	cancel_button.Remove(owner)
 	cancel_button = null
+	// tg: phasing through reality leaves you unable to do it again for a while.
+	owner.apply_status_effect(/datum/status_effect/crucible_soul_cooldown)
+
+
+// tg parity: the 2-minute lockout after a Crucible Soul brew wears off (the brew refuses to work while active).
+/datum/status_effect/crucible_soul_cooldown
+	id = "Crucible Soul Cooldown"
+	status_type = STATUS_EFFECT_UNIQUE
+	duration = 2 MINUTES
+	alert_type = /atom/movable/screen/alert/status_effect/crucible_soul_cooldown
+	show_duration = TRUE
 
 
 /datum/status_effect/crucible_soul/get_examine_text()
@@ -165,6 +176,12 @@
 	name = "Благославление измученной души"
 	desc = "Вы прошли сквозь ткань реальности. Вы на полпути к конечному пункту назначения..."
 	icon_state = "crucible"
+
+
+/atom/movable/screen/alert/status_effect/crucible_soul_cooldown
+	name = "Истощение измученной души"
+	desc = "Вы недавно прошли сквозь ткань реальности. Придётся подождать, прежде чем сделать это снова."
+	icon_state = "crucible_cooldown"
 
 
 /atom/movable/screen/alert/status_effect/duskndawn

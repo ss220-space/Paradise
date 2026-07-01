@@ -37,6 +37,10 @@
 	// it, lights up the eldritch aura (see /datum/status_effect/heretic_passive/level_upgrade).
 	var/datum/antagonist/heretic/our_heretic = user.mind?.has_antag_datum(/datum/antagonist/heretic)
 	our_heretic?.set_passive_level(2)
+	// tg also gifts the Ritual of Knowledge (a one-off random transmutation worth bonus knowledge points)
+	// when the robe is crafted (heretic_armor_knowledge.dm). gain_knowledge is idempotent, so a second
+	// robe craft can't grant it twice.
+	our_heretic?.gain_knowledge(/datum/heretic_knowledge/knowledge_ritual)
 
 
 /datum/heretic_knowledge/crucible

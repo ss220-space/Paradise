@@ -373,6 +373,10 @@
 	desc = "Вас терзает ненасытный голод! Утолите его любой ценой! Или просто взгляните на картину и тоскуйте по обещанному ею пиршеству..."
 	icon_state = "eldritch_painting_desire"
 
+// tg: the Curse of Indulgence applies this permanent variant (removed only by the uncurse timer).
+/datum/status_effect/eldritch_painting/desire/permanent
+	duration = STATUS_EFFECT_PERMANENT
+
 // "Леди за Вратами" — compulsively claws at any clothed part of the body.
 /datum/status_effect/eldritch_painting/beauty
 	id = "painting_beauty"
