@@ -1261,3 +1261,63 @@
 	var/real_type = pick(subtypesof(/obj/item/spellbook/oneuse) - banned_spells)
 	new real_type(loc)
 	qdel(src)
+
+// MARK: BLOCK 3.4: MIME BOOKS
+
+/obj/item/spellbook/oneuse/mime
+	spell_type  = /datum/action/cooldown/spell/forcewall/mime
+	spellname = "Невидимая стена"
+	name = "Miming Manual"
+	desc = "В книге представлены разнообразные фотографии, на которых запечатлены мимы в процессе выступления, а также несколько иллюстрированных руководств."
+	icon_state = "bookmime"
+	item_state = "bookmime"
+
+/obj/item/spellbook/oneuse/mime/get_ru_names()
+	return alist(
+		NOMINATIVE = "руководство по пантомимам",
+		GENITIVE = "руководства по пантомимам",
+		DATIVE = "руководству по пантомимам",
+		ACCUSATIVE = "руководство по пантомимам",
+		INSTRUMENTAL = "руководством по пантомимам",
+		PREPOSITIONAL = "руководстве по пантомимам",
+	)
+
+/obj/item/spellbook/oneuse/mime/attack_self(mob/user)
+	if(!user.mind)
+		return
+	for(var/datum/action/cooldown/spell/spell as anything in user.actions)
+		if(spell.type == spell_type)
+			balloon_alert(user, "вы уже знаете это!")
+			return
+	if(used)
+		recoil(user)
+	else
+		spell = new spell_type
+		spell.Grant(user)
+		to_chat(user, span_notice("Вы впитываете в себя содержимое книги, приобретая новую способность - <b>\"[spellname]\"</b>!"))
+		user.create_log(MISC_LOG, "learned the spell [spellname]")
+		user.create_attack_log("<font color='orange'>[key_name(user)] learned the spell [spellname].</font>")
+		onlearned(user)
+
+/obj/item/spellbook/oneuse/mime/recoil(mob/user)
+	to_chat(user, span_notice("Вы пролистываете страницы, но не находите ничего интересного для себя."))
+
+/obj/item/spellbook/oneuse/mime/onlearned(mob/user)
+	used = TRUE
+	if(!locate(/datum/action/cooldown/spell/mime) in user.actions) //add vow of silence if not known by user
+		var/datum/action/cooldown/spell/mime_spell = new /datum/action/cooldown/spell/mime
+		mime_spell.Grant(user)
+		to_chat(user, span_notice("Вы узнали, как применять обет молчания в своих представлениях."))
+
+/obj/item/spellbook/oneuse/mime/fingergun
+	spell_type = /datum/action/cooldown/spell/conjure_item/fingergun
+	spellname = "Пальцы-пистолеты"
+	desc = "Содержит изображения оружия, а также способы его имитации с помощью пантомим."
+
+/obj/item/spellbook/oneuse/mime/fingergun/fake
+	spell_type = /datum/action/cooldown/spell/conjure_item/fingergun/fake
+
+/obj/item/spellbook/oneuse/mime/greaterwall
+	spell_type = /datum/action/cooldown/spell/forcewall/greater/mime
+	spellname = "Великая Невидимая стена"
+	desc = "Содержит изображения выдающихся сооружений, которые оставили след в истории человечества."

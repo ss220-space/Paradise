@@ -429,9 +429,10 @@
 		return
 
 	if(H.mind)
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/conjure/build/mime_wall(null))
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/mime/speak(null))
-		ADD_TRAIT(H.mind, TRAIT_MIMING, UNIQUE_TRAIT_SOURCE(H.mind))
+		var/datum/action/cooldown/spell/mime/mime = new
+		var/datum/action/cooldown/spell/forcewall/mime/mime_wall = new
+		mime_wall.Grant(H)
+		mime.Grant(H)
 
 /datum/job/service/janitor
 	title = JOB_TITLE_JANITOR

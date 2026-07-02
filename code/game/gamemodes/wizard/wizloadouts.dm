@@ -68,13 +68,13 @@
 		/datum/action/cooldown/spell/touch/mime_malaise,
 		/datum/action/cooldown/spell/aoe/knock,
 		/datum/action/cooldown/spell/conjure/timestop,
+		/datum/action/cooldown/spell/mime,
 	)
 	category = "Unique"
 	destroy_spellbook = TRUE
 
 /datum/spellbook_entry/loadout/mimewiz/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
 	if(user.mind)
-		user.mind.AddSpell(new /obj/effect/proc_holder/spell/mime/speak(null))
 		ADD_TRAIT(user.mind, TRAIT_MIMING, UNIQUE_TRAIT_SOURCE(user.mind))
 	..()
 
