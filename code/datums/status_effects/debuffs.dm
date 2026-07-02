@@ -1618,6 +1618,7 @@
 	var/datum/status_effect/stamina_boost_restriction/new_effect = human.apply_status_effect(/datum/status_effect/stamina_boost_restriction, initial(duration), saved_original)
 	if(!new_effect)
 		return
+
 	new_effect.current_penalty = saved_penalty
 	new_effect.original_max_stamina = saved_original
 	human.set_max_stamina(max(0, saved_original - saved_penalty))
@@ -1626,12 +1627,14 @@
 /datum/status_effect/stamina_boost_restriction/proc/update_alert()
 	if(!linked_alert)
 		return
+
 	var/stacks = round(current_penalty / STAMINA_PENALTY)
 	linked_alert.name = "Ограничение выносливости x[stacks]"
 
 /datum/status_effect/stamina_boost_restriction/on_remove()
 	if(!istype(owner) && isnull(original_max_stamina))
 		return
+
 	owner.set_max_stamina(original_max_stamina)
 	original_max_stamina = null
 
