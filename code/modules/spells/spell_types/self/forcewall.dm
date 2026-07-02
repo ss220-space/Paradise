@@ -41,13 +41,39 @@
 	button_icon_state = "mime_bigwall"
 	background_icon_state = "bg_mime"
 
-/datum/action/cooldown/spell/forcewall/greater/before_cast(atom/cast_on)
-	var/mob/living/caster = cast_on
-	if(!HAS_MIND_TRAIT(caster, TRAIT_MIMING))
-		to_chat(caster, span_warning("Сначала вы должны принять обет молчания!"))
-		return
+/datum/action/cooldown/spell/forcewall/greater/mime/can_cast_spell(feedback)
 	. = ..()
+	if(!HAS_MIND_TRAIT(owner, TRAIT_MIMING))
+		if(feedback)
+			to_chat(owner, span_warning("Сначала вы должны принять обет молчания!"))
+		return FALSE
 
 /datum/action/cooldown/spell/forcewall/greater/mime/cast(atom/cast_on)
 	. = ..()
-	cast_on.visible_message("<b>[usr]</b> выглядит так, как будто бы перед н[GEND_IM_EI_IM_IMI(cast_on)] находится стена.")
+	var/mob/caster = cast_on
+	cast_on.visible_message("<b>[caster]</b> выглядит так, как будто бы перед н[GEND_IM_EI_IM_IMI(caster)] находится стена.")
+
+/datum/action/cooldown/spell/forcewall/mime
+	name = "Великая Невидимая стена"
+	desc = "Создайте перед собой невидимую стену шириной в три тайла."
+	school = SCHOOL_MIME
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
+	wall_type = /obj/effect/forcefield/mime
+	cooldown_time = 60 SECONDS
+	sound =  null
+	invocation = ""
+	invocation_type = INVOCATION_EMOTE
+	button_icon_state = "mime_bigwall"
+	background_icon_state = "bg_mime"
+
+/datum/action/cooldown/spell/forcewall/mime/can_cast_spell(feedback)
+	. = ..()
+	if(!HAS_MIND_TRAIT(owner, TRAIT_MIMING))
+		if(feedback)
+			to_chat(owner, span_warning("Сначала вы должны принять обет молчания!"))
+		return FALSE
+
+/datum/action/cooldown/spell/forcewall/mime/cast(atom/cast_on)
+	. = ..()
+	var/mob/caster = cast_on
+	cast_on.visible_message("<b>[caster]</b> выглядит так, как будто бы перед н[GEND_IM_EI_IM_IMI(caster)] находится стена.")
