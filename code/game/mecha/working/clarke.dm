@@ -16,7 +16,7 @@
 	normal_step_energy_drain = 2
 	stepsound = 'sound/mecha/mechmove04.ogg'
 	turnsound = 'sound/mecha/mechmove04.ogg'
-
+	allowed_equipment = MECH_EQUIPMENT_CLARKE
 	mech_type = MECH_TYPE_CLARKE
 
 /obj/mecha/working/clarke/GrantActions(mob/living/user, human_occupant = 0)

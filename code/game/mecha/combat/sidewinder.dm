@@ -15,6 +15,7 @@
 	internal_damage_threshold = 100 // для тестов внутренних повреждений
 	max_equip = 40 //а хули вы хотели, 60 тонн!
 	starting_voice = /obj/item/mecha_modkit/voice/nanotrasen
+	allowed_equipment = MECH_EQUIPMENT_ALL
 
 	mech_type = MECH_TYPE_SIDEWINTER
 

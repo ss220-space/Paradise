@@ -164,7 +164,7 @@
 	QDEL_NULL(screentip_text)
 
 	QDEL_NULL(mini_holomap)
-	. = ..()
+	return ..()
 
 /datum/hud/proc/client_refresh(datum/source)
 	SIGNAL_HANDLER

@@ -13,8 +13,8 @@
 	maint_access = TRUE
 	force = 40
 	wreckage = /obj/structure/mecha_wreckage/durand
-
 	mech_type = MECH_TYPE_DURAND
+	allowed_equipment = MECH_EQUIPMENT_DURAND
 
 /obj/mecha/combat/durand/GrantActions(mob/living/user, human_occupant = 0)
 	..()

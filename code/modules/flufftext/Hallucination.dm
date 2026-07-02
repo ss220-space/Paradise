@@ -1147,5 +1147,6 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 	if(!halitem)
 		return
 	if(client)
+		client.screen -= halitem
 		client.images -= halitem
 	QDEL_NULL(halitem)

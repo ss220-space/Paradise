@@ -130,7 +130,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 	if(!possible_spawn_areas)
 		possible_spawn_areas = list()
-		for(var/area/maintenance/area in GLOB.areas)
+		for(var/area/station/maintenance/area in GLOB.areas)
 			possible_spawn_areas += area
 		src.possible_spawn_areas = possible_spawn_areas
 
@@ -863,7 +863,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	for(var/datum/mind/player as anything in owners)
 		// Fails traitors if they are in the security area
 		var/area/location = get_area(player.current)
-		if(istype(location, /area/security))
+		if(istype(location, /area/station/security))
 			return FALSE
 
 		// Fails traitors if they are in the shuttle brig
@@ -1293,8 +1293,8 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	///Where we should KABOOM
 	var/area/detonation_location
 	var/list/area_blacklist = list(
-		/area/engineering/engine, /area/engineering/supermatter,
-		/area/toxins/test_area, /area/turret_protected/ai)
+		/area/station/engineering/engine, /area/station/engineering/supermatter/engine,
+		/area/station/science/toxins/test, /area/station/ai/satellite/chamber)
 	needs_target = FALSE
 
 /datum/objective/plant_explosive/New(text, datum/team/team_to_join)
@@ -1480,7 +1480,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 		if(target_record.fields["criminal"] == SEC_RECORD_STATUS_INCARCERATED || target_record.fields["criminal"] == SEC_RECORD_STATUS_EXECUTE || target_record.fields["criminal"] == SEC_RECORD_STATUS_PAROLLED || target_record.fields["criminal"] == SEC_RECORD_STATUS_RELEASED)
 			return TRUE
 
-	if(istype(target.current.lastarea, /area/security/prison/cell_block) || istype(target.current.lastarea, /area/security/permabrig) || istype(target.current.lastarea, /area/security/processing))
+	if(istype(target.current.lastarea, /area/station/security/prison/cell_block) || istype(target.current.lastarea, /area/station/security/prison/perma) || istype(target.current.lastarea, /area/station/security/processing))
 		return TRUE
 
 	var/turf/location = get_turf(target.current)

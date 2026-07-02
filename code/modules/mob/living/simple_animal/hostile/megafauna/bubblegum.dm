@@ -155,7 +155,7 @@ Difficulty: Hard
 		H.overlay_fullscreen("bubblegum", /atom/movable/screen/fullscreen/fog, 2)
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/death(gibbed)
-	qdel(second_life_portal)
+	QDEL_NULL(second_life_portal)
 	if(enraged && !second_life)
 		var/obj/structure/closet/crate/necropolis/bubblegum/bait/jebait = new /obj/structure/closet/crate/necropolis/bubblegum/bait(get_turf(src))
 		var/obj/effect/bubblegum_trigger/great_chest_ahead = new /obj/effect/bubblegum_trigger(jebait, ListTargets())
