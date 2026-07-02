@@ -1593,7 +1593,7 @@
 /datum/status_effect/stamina_boost_restriction
 	id = "stamina_boost_restriction"
 	alert_type = /atom/movable/screen/alert/status_effect/stamina_boost_restriction
-	duration = 40 SECONDS
+	duration = 120 SECONDS
 
 	var/original_max_stamina
 	var/current_penalty = 0
@@ -1613,15 +1613,15 @@
 
 	var/saved_original = original_max_stamina
 	var/saved_penalty = current_penalty + STAMINA_PENALTY
-
 	human.remove_status_effect(/datum/status_effect/stamina_boost_restriction)
 
 	var/datum/status_effect/stamina_boost_restriction/new_effect = human.apply_status_effect(/datum/status_effect/stamina_boost_restriction, initial(duration), saved_original)
-	if(new_effect)
-		new_effect.current_penalty = saved_penalty
-		new_effect.original_max_stamina = saved_original
-		human.set_max_stamina(max(0, saved_original - saved_penalty))
-		new_effect.update_alert()
+	if(!new_effect)
+		return
+	new_effect.current_penalty = saved_penalty
+	new_effect.original_max_stamina = saved_original
+	human.set_max_stamina(max(0, saved_original - saved_penalty))
+	new_effect.update_alert()
 
 /datum/status_effect/stamina_boost_restriction/proc/update_alert()
 	if(!linked_alert)
@@ -1630,9 +1630,10 @@
 	linked_alert.name = "Ограничение выносливости x[stacks]"
 
 /datum/status_effect/stamina_boost_restriction/on_remove()
-	if(istype(owner) && !isnull(original_max_stamina))
-		owner.set_max_stamina(original_max_stamina)
-		original_max_stamina = null
+	if(!istype(owner) && isnull(original_max_stamina))
+		return
+	owner.set_max_stamina(original_max_stamina)
+	original_max_stamina = null
 
 /atom/movable/screen/alert/status_effect/stamina_boost_restriction
 	name = "Ограничение выносливости"
