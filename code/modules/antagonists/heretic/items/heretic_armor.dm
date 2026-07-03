@@ -366,6 +366,15 @@
 	)
 
 
+// Switches the worn body to the hood-up sprite (cosmic_armor_hood = TG's cosmic_armor_t, whose cowl covers
+// the head) when the hood is raised, and back when lowered - what the stock hooded update_icon_state does.
+// Re-implemented here because master220's no-op `/obj/item/clothing/suit/hooded/update_icon_state() return`
+// typo in miscellaneous.dm shadows the stock one for ALL hooded suits (same workaround as the rust raiment).
+// The head-slot worn sprite is deliberately BLANK, 1:1 with TG - the visible hood IS the suit body.
+/obj/item/clothing/suit/hooded/cultrobes/eldritch/cosmic/update_icon_state()
+	icon_state = "cosmic_armor[suit_adjusted ? "_hood" : ""]"
+
+
 // The base hooded robe routes every action button to ToggleHood; dispatch on the action type so the
 // levitation toggle button toggles gravity instead.
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/cosmic/ui_action_click(mob/user, datum/action/action, leftclick)

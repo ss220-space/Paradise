@@ -112,7 +112,8 @@
 	icon_state = "star_ball"
 	damage = 0
 	// tg speed 0.2 = 0.2 tiles per decisecond; Paradise speed = deciseconds per tile, so 1/0.2 = 5 (slow disk).
-	speed = 5
+	// Playtest: slowed a touch further (5 -> 6) so the disk is easier to chase for the teleport recast.
+	speed = 6
 	range = 25
 	knockdown = 4 SECONDS
 	// tg disk passes through nearly everything and *pierces* mobs/vehicles (projectile_piercing). Paradise has

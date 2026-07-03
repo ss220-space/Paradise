@@ -245,7 +245,7 @@
 	// If we made it here, the ritual had all necessary components, and we can try to cast it.
 	// This doesn't necessarily mean the ritual will succeed, but it's valid!
 	// Do the animations and associated feedback.
-	play_activation_animation()
+	flick("[icon_state]_active", src)
 	playsound(user, 'sound/magic/castsummon.ogg', 75, TRUE, extrarange = SILENCED_SOUND_EXTRARANGE, falloff_exponent = 10)
 
 	// All the components have been invisibled, time to actually do the ritual. Call on_finished_recipe
@@ -266,12 +266,6 @@
 	return ritual_result
 
 
-/// Plays the rune's "ritual completed" animation. Overridden by subtypes that need to composite
-/// the GAGS-style coloured animation by hand (see [/obj/effect/decal/heretic_rune/big]).
-/obj/effect/decal/heretic_rune/proc/play_activation_animation()
-	flick("[icon_state]_active", src)
-
-
 /// A 3x3 heretic rune. The kind heretics actually draw in game.
 /obj/effect/decal/heretic_rune/big
 	icon = 'icons/effects/96x96.dmi'
@@ -283,11 +277,13 @@
 	//greyscale_config = /datum/greyscale_config/heretic_rune
 	/// The path colour this rune is tinted with, kept so the activation animation can match it.
 	var/rune_colour = COLOR_WHITE
-	/// Pre-baked, rsc-registered "ritual completed" animation. Baking it lazily inside flick() meant the
-	/// very first craft raced the client's download of the freshly-generated icon and showed nothing - the
-	/// animation only appeared on later uses once it was cached. Building it once here and registering it in
-	/// the rsc (fcopy_rsc) gives it a stable resource the client receives reliably, so the first flick plays.
-	var/icon/activation_icon
+	/// Per-colour cache of the baked rune icon FILES ("transmutation_rune" static state + its "_active"
+	/// animation in ONE icon, like TG's GAGS output). One stable rsc resource per path colour: the rune
+	/// displays this file the whole time it exists, so by ritual time every viewer already has it downloaded
+	/// and the plain tg-style flick("[icon_state]_active") plays reliably. The old approach - flicking a
+	/// SEPARATE baked animation icon - handed the client a brand-new resource at flick time, and the first
+	/// ritual raced the download and showed nothing.
+	var/static/list/baked_rune_icons = list()
 
 
 /obj/effect/decal/heretic_rune/big/Initialize(mapload, path_colour)
@@ -295,18 +291,18 @@
 	if(path_colour)
 		rune_colour = path_colour
 
-	// master220 has no GAGS, so bake the coloured static rune by hand (multiply greyscale * colour).
-	// fcopy_rsc registers each hand-baked icon as a proper resource file (see activation_icon comment).
-	var/source_icon = icon
-	icon = fcopy_rsc(heretic_rune_icon(source_icon, "transmutation_rune", rune_colour))
-	icon_state = ""
-
-	// Composite the two-layer "activate" animation (coloured linework + untinted white pen) up-front.
-	activation_icon = fcopy_rsc(heretic_rune_icon(source_icon, "transmutation_rune_activate_colour", rune_colour, "transmutation_rune_activate_white"))
-
-
-/obj/effect/decal/heretic_rune/big/play_activation_animation()
-	flick(activation_icon, src)
+	// master220 has no GAGS, so bake TG's heretic_rune.json by hand (multiply greyscale * colour), folding
+	// the static rune AND the two-layer "activate" animation (coloured linework + untinted white pen accents)
+	// into one icon file - the same shape GAGS produces, letting do_ritual flick by state name (tg 1:1).
+	var/icon/baked = baked_rune_icons[rune_colour]
+	if(!baked)
+		var/icon/combined = new
+		combined.Insert(heretic_rune_icon(icon, "transmutation_rune", rune_colour), "transmutation_rune")
+		combined.Insert(heretic_rune_icon(icon, "transmutation_rune_activate_colour", rune_colour, "transmutation_rune_activate_white"), "transmutation_rune_active")
+		baked = fcopy_rsc(combined)
+		baked_rune_icons[rune_colour] = baked
+	icon = baked
+	icon_state = "transmutation_rune"
 
 
 /obj/effect/temp_visual/drawing_heretic_rune
