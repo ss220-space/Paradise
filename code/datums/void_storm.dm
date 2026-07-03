@@ -34,6 +34,9 @@
 	. = ..()
 	var/atom/parent_atom = parent
 	var/obj/effect/abstract/effect = new(target) // Makes the field visible to players.
+	// master220's /obj/effect/abstract base is INVISIBILITY_ABSTRACT (tg's is visible) - unhide it
+	// or the whole storm aura renders as nothing.
+	effect.invisibility = INVISIBILITY_NONE
 	effect.alpha = 255 - get_dist(target, parent_atom.loc) * 23
 	effect.color = COLOR_BLACK
 	effect.icon = storm_overlay.icon

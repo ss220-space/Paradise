@@ -119,8 +119,8 @@
 	shapeshift_type = null //pick another loser
 
 	if(!QDELETED(trapped_caster) && trapped_caster.mind)
-		// The seethrough_mob component AddSpell'd its toggle onto the shared mind; it's a form-only ability
-		// (and would otherwise duplicate every shift), so drop it from the human on the way back.
+		// The seethrough toggle is mob-bound now (lives on the discarded form), but scrub any stale copy that
+		// older rounds parked on the shared mind so it can't duplicate on the way back.
 		trapped_caster.mind.RemoveSpell(/obj/effect/proc_holder/spell/toggle_seethrough)
 		// Re-add any knowledge spell that went missing (a duplicate/dead-action spell pruned during the
 		// transfer would otherwise be gone for good - this is why returning from a form bled Lock abilities).

@@ -40,8 +40,10 @@
 
 	render_source_atom.render_source = "*transparent_bigmob[personal_uid]"
 
+	// The toggle is body-bound (tg Grants its action to the mob, not the mind): mindless mobs like the
+	// freshly-summoned star gazer must not crash here, and whoever pilots the body later gets the button.
 	var/mob/mob = parent
-	mob.mind.AddSpell(new /obj/effect/proc_holder/spell/toggle_seethrough)
+	mob.AddSpell(new /obj/effect/proc_holder/spell/toggle_seethrough)
 
 
 /datum/component/seethrough_mob/Destroy(force)

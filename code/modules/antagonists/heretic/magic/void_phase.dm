@@ -13,7 +13,7 @@
 	school = SCHOOL_FORBIDDEN
 	human_req = FALSE
 	clothes_req = FALSE
-	base_cooldown = 25 SECONDS
+	base_cooldown = 20 SECONDS
 
 	invocation = "СДВ'Г Р'ЛЬН'СТ."
 	invocation_type = INVOCATION_WHISPER
@@ -47,11 +47,11 @@
 	cause_aoe(source_turf, /obj/effect/temp_visual/voidin)
 	cause_aoe(targeted_turf, /obj/effect/temp_visual/voidout)
 
+	// TG: no_effects = TRUE - the voidblink sound in cause_aoe() is the whole audiovisual.
 	do_teleport(
 		action.owner,
 		targeted_turf,
 		aprecision = 1,
-		asoundin = 'sound/magic/repulse.ogg'
 	)
 
 
@@ -67,7 +67,7 @@
 			continue
 
 		living_mob.apply_damage(40, BRUTE/*, wound_bonus = CANT_WOUND*/)
-		living_mob.apply_status_effect(/datum/status_effect/void_chill, 1)
+		living_mob.apply_status_effect(/datum/status_effect/void_chill, 2)
 
 
 /obj/effect/temp_visual/voidin

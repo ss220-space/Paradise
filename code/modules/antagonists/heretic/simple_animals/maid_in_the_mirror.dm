@@ -61,7 +61,7 @@
 	if(!harmed_by_examine || user == src || user.stat == DEAD || !isliving(user) || IS_HERETIC_OR_MONSTER(user))
 		return
 
-	var/user_ref = UID()
+	var/user_ref = user.UID() // was src's own UID - which throttled examine damage globally, not per-examiner
 	if(user_ref in recent_examiner_refs)
 		return
 

@@ -327,6 +327,20 @@
 /proc/can_see(atom/source, atom/target, range = 5)
 	return source?.can_see(target, length = range)
 
+/// tg-style befriending (trimmed): registers the friend on the AI blackboard (so obeys_commands /
+/// dont_target_friends see them) and announces it AFTER, so obeys_commands can hook the friend's speech.
+/mob/living/proc/befriend(mob/living/new_friend)
+	if(QDELETED(new_friend))
+		return FALSE
+	if(ai_controller)
+		var/list/friends = ai_controller.blackboard[BB_FRIENDS_LIST] || list()
+		if(new_friend in friends)
+			return FALSE
+		friends |= new_friend
+		ai_controller.set_blackboard_key(BB_FRIENDS_LIST, friends)
+	SEND_SIGNAL(src, COMSIG_LIVING_BEFRIENDED, new_friend)
+	return TRUE
+
 /// tg-style blackboard helpers used by some imported AI support datums.
 /datum/ai_controller/proc/set_blackboard_key(key, value)
 	blackboard[key] = value

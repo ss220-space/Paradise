@@ -138,7 +138,8 @@
 
 /datum/status_effect/eldritch/void/on_effect()
 	owner.apply_status_effect(/datum/status_effect/void_chill, 3)
-	owner.Silence(10 SECONDS)
+	// TG adjust_silence(10 SECONDS): stacks on top of any existing silence (e.g. the grasp's).
+	owner.AdjustSilence(10 SECONDS)
 	return ..()
 
 // MARK OF BLADES

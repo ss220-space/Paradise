@@ -274,6 +274,7 @@
 	desc = "Ритуал вознесения Пути Космоса. \
 			Поднесите 3 трупа со звёздной меткой к руне трансмутации, чтобы завершить ритуал. \
 			После завершения ритуала вы станете владельцем Звёздного Глашатая. \
+			Вы сможете отдавать ему приказы через способность «Управлять Звёздным Глашатаем» или голосом. \
 			Звёздный Глашатай — сильный союзник, способный разрушать укреплённые стены. \
 			У Звёздного Глашатая есть аура, исцеляющая вас и наносящая урон противникам. \
 			Звёздное Касание теперь может телепортировать вас к Звёздному Глашатаю. \
@@ -321,30 +322,24 @@
 	if(ishuman(user))
 		user.update_sight()
 
-	var/mob/living/simple_animal/hostile/heretic_summon/star_gazer/star_gazer_mob = new(loc)
+	var/mob/living/simple_animal/hostile/heretic_summon/star_gazer/star_gazer_mob = new(loc, user)
 	star_gazer_mob.maxHealth = INFINITY
 	star_gazer_mob.health = INFINITY
 	star_gazer_mob.faction |= FACTION_HERETIC
 	star_gazer_mob.add_traits(stargazer_traits, type)
 	star_gazer_mob.AddComponent(/datum/component/damage_aura, range = 7, burn_damage = 0.5, simple_damage = 0.5, immune_factions = list(FACTION_HERETIC), current_owner = user)
 
-	// Befriend our master (so it never turns on us and heeds our commands), let us boss it around, and leash it to us.
-	SEND_SIGNAL(star_gazer_mob, COMSIG_LIVING_BEFRIENDED, user)
+	// Let us boss it around, THEN befriend our master: obeys_commands must already sit on the mob when
+	// COMSIG_LIVING_BEFRIENDED fires, or it never hooks our speech/pointing (tg order).
 	star_gazer_mob.AddComponent(/datum/component/obeys_commands, star_gazer_commands, radial_menu_offset = list(30, 0), radial_menu_lifetime = 15 SECONDS, radial_relative_to_user = TRUE)
-	star_gazer_mob.AddComponent(/datum/component/leash, user, 7)
+	star_gazer_mob.befriend(user)
+	star_gazer_mob.leash_to(star_gazer_mob, user)
 	user.AddComponent(/datum/component/death_linked, star_gazer_mob)
 
-	// Grant the command + replace-consciousness actions.
+	// Grant the command + replace-consciousness actions. (The gazer itself keeps begging ghosts to
+	// take it over from its own Initialize, tg-style, so no one-shot poll here.)
 	user.mind.AddSpell(new /obj/effect/proc_holder/spell/open_mob_commands(star_gazer_mob))
 	user.mind.AddSpell(new /obj/effect/proc_holder/spell/replace_star_gazer(star_gazer_mob))
-
-	// Offer the body to a ghost; if none answers it just stays AI-controlled (still obeys our commands).
-	var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите стать [star_gazer_mob.declent_ru(INSTRUMENTAL)] [user.real_name]?", SPECIAL_ROLE_HERETIC_MONSTER, FALSE, poll_time = 10 SECONDS, source = star_gazer_mob)
-	if(length(candidates))
-		var/mob/dead/observer/observer = pick(candidates)
-		star_gazer_mob.key = observer.key
-		var/datum/antagonist/heretic_monster/heretic_monster = star_gazer_mob.mind.add_antag_datum(/datum/antagonist/heretic_monster)
-		heretic_monster.set_owner(user.mind)
 
 	// Empower the rest of the path.
 	var/datum/antagonist/heretic/heretic_datum = user.mind.has_antag_datum(/datum/antagonist/heretic)
@@ -416,6 +411,12 @@
 	var/mob/living/simple_animal/hostile/heretic_summon/star_gazer/our_mob
 
 
+// Without a targeting datum the action button is dead: master220's choose_targets() null-derefs
+// `targeting.use_intercept_click` on every click (see toggle_seethrough for the same gotcha).
+/obj/effect/proc_holder/spell/replace_star_gazer/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+
 /obj/effect/proc_holder/spell/replace_star_gazer/New(gazer)
 	. = ..()
 	our_mob = gazer
@@ -427,7 +428,8 @@
 		return FALSE
 
 	to_chat(user, span_hierophant("Вы побуждаете [our_mob.declent_ru(ACCUSATIVE)] сменить свою личность..."))
-	var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите играть за [our_mob.declent_ru(ACCUSATIVE)] [span_danger("[user.real_name]")]?", SPECIAL_ROLE_HERETIC_MONSTER, FALSE, poll_time = 10 SECONDS, source = our_mob)
+	// role = null + ignore_respawnability (see star_gazer poll: SPECIAL_ROLE_* is not a be_special pref).
+	var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите играть за [our_mob.declent_ru(ACCUSATIVE)] [span_danger("[user.real_name]")]?", null, FALSE, poll_time = 10 SECONDS, ignore_respawnability = TRUE, source = our_mob)
 	if(!length(candidates))
 		to_chat(user, span_hierophant("Никто не откликнулся на ваш зов. Похоже, пока придётся обойтись тем, что есть."))
 		return FALSE
