@@ -57,7 +57,6 @@
 	name = "Великая Невидимая стена"
 	desc = "Создайте перед собой невидимую стену шириной в три тайла."
 	school = SCHOOL_MIME
-	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 	wall_type = /obj/effect/forcefield/mime
 	cooldown_time = 60 SECONDS
 	sound =  null

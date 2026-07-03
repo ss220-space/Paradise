@@ -52,7 +52,7 @@
 	/// How much weaken a successful ambush attack applies
 	var/ambush_weaken = 6 SECONDS
 	/// The spell the morph uses to morph
-	var/obj/effect/proc_holder/spell/mimic/morph/mimic_spell
+	var/datum/action/cooldown/spell/pointed/mimic/morph/mimic_spell
 	/// The ambush action used by the morph
 	var/obj/effect/proc_holder/spell/morph_spell/ambush/ambush_spell
 	/// The spell the morph uses to pass through airlocks
@@ -89,7 +89,7 @@
 /mob/living/simple_animal/hostile/morph/Initialize(mapload)
 	. = ..()
 	mimic_spell = new
-	AddSpell(mimic_spell)
+	mimic_spell.Grant(src)
 	ambush_spell = new
 	AddSpell(ambush_spell)
 	open_vent_spell = new
