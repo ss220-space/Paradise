@@ -114,7 +114,16 @@
 	var/atom/aim_assist_target
 	if(aim_assist)
 		aim_assist_target = aim_assist(clicker, target)
-	return ..(clicker, params, aim_assist_target || target)
+	var/atom/final_target = aim_assist_target || target
+	// tg parity (pointed PreActivate): reject out-of-range clicks and invalid targets HERE, before anything
+	// is invoked or spent - the misclick costs nothing and the ability stays armed for an immediate retry.
+	if(get_dist(get_turf(clicker), get_turf(final_target)) > cast_range)
+		final_target.balloon_alert(clicker, "слишком далеко!")
+		return TRUE
+	if(!valid_target(final_target, clicker))
+		final_target.balloon_alert(clicker, "неподходящая цель!")
+		return TRUE
+	return ..(clicker, params, final_target)
 
 
 /obj/effect/proc_holder/spell/pointed/proc/aim_assist(mob/living/clicker, atom/target)

@@ -94,6 +94,34 @@
 	silicon_image.override = TRUE
 	add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/silicons, "cosmic", silicon_image)
 	ADD_TRAIT(src, TRAIT_MOPABLE, INNATE_TRAIT)
+	// tg parity: clicking YOURSELF while standing on the rune invokes it (saves pixel-hunting the decal).
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+		COMSIG_ATOM_EXITED = PROC_REF(on_exited),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+	for(var/mob/living/mob_on_rune in get_turf(src))
+		RegisterSignal(mob_on_rune, COMSIG_ATOM_ATTACK_HAND, PROC_REF(on_attack_self))
+
+
+/obj/effect/cosmic_rune/proc/on_entered(datum/source, atom/movable/arrived)
+	SIGNAL_HANDLER
+	if(!isliving(arrived))
+		return
+	RegisterSignal(arrived, COMSIG_ATOM_ATTACK_HAND, PROC_REF(on_attack_self))
+
+
+/// If someone clicks on themselves while on top of the rune, we act as if they clicked the rune instead.
+/obj/effect/cosmic_rune/proc/on_attack_self(datum/source, mob/living/user)
+	SIGNAL_HANDLER
+	if(source == user)
+		INVOKE_ASYNC(src, TYPE_PROC_REF(/atom, attack_hand), user)
+		return COMPONENT_CANCEL_ATTACK_CHAIN
+
+
+/obj/effect/cosmic_rune/proc/on_exited(datum/source, exiter)
+	SIGNAL_HANDLER
+	UnregisterSignal(exiter, COMSIG_ATOM_ATTACK_HAND)
 
 
 /obj/effect/cosmic_rune/attack_animal(mob/living/simple_animal/user)
@@ -128,6 +156,11 @@
 /obj/effect/cosmic_rune/proc/invoke(mob/living/user)
 	var/obj/effect/cosmic_rune/linked_rune_resolved = linked_rune?.resolve()
 	new rune_effect(get_turf(src))
+	// tg parity: whatever the heretic is dragging comes along, and the grab is re-established after the jump.
+	var/atom/movable/pulled_thing
+	if(isheretic(user) && user.pulling)
+		pulled_thing = user.pulling
+		do_direct_teleport(pulled_thing, get_turf(linked_rune_resolved))
 	// do_direct_teleport (not do_teleport) skips /datum/teleport/instant/science's default spark_spread,
 	// so the rune teleports silently like on TG - only the cosmic_energy sound plays, no sparks.
 	do_direct_teleport(
@@ -136,6 +169,8 @@
 		soundin = 'sound/magic/cosmic_energy.ogg',
 		soundout = 'sound/magic/cosmic_energy.ogg',
 	)
+	if(pulled_thing) // Regrab after the teleports are done
+		user.start_pulling(pulled_thing)
 	for(var/mob/living/person_on_rune in get_turf(src))
 		if(!person_on_rune.has_status_effect(/datum/status_effect/star_mark))
 			continue

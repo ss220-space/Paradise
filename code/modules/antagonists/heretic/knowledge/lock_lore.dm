@@ -295,6 +295,9 @@
 	research_tree_icon_state = "lockascend"
 	announcement_text = "Обнаружена пространственная аномалия класса «Дельта» %SPOOKY% Реальность пала. Врата открыты, двери открыты, %NAME% вознёсся! %SPOOKY%"
 	announcement_sound = 'sound/music/heretic/ascend_knock.ogg'
+	// tg parity: the research-tree node wears the path's ascension achievement sprite.
+	research_tree_icon_path = 'icons/ui_icons/antags/heretic/ascension.dmi'
+	research_tree_icon_state = "lockascend"
 
 
 /datum/heretic_knowledge/ultimate/lock_final/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)

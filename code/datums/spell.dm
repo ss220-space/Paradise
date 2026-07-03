@@ -431,7 +431,12 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 /obj/effect/proc_holder/spell/proc/perform(list/targets, recharge = TRUE, mob/user = usr) //if recharge is started is important for the trigger spells
 	SHOULD_NOT_OVERRIDE(TRUE)
 
-	before_cast(targets, user)
+	// A before_cast override may veto the cast (returns SPELL_CANCEL_CAST, e.g. heretic pointed spells
+	// rejecting an invalid target): refund the spent cost and stop before any invocation/cooldown/effect.
+	// Legacy before_cast overrides return null, which never carries the flag.
+	if(before_cast(targets, user) & SPELL_CANCEL_CAST)
+		revert_cast(user)
+		return
 	invocation(user)
 
 	if(user?.ckey)

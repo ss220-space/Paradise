@@ -27,41 +27,60 @@
 	var/datum/weakref/projectile_weakref
 	/// Weakref to our summoner; only relevant if we are a stargazer, prevents us from harming our master.
 	var/datum/weakref/summoner
-	/// Set for one cast when we teleport to the disk instead of firing, so after_cast applies the long cooldown.
-	var/teleported = FALSE
 
 
 /obj/effect/proc_holder/spell/pointed/projectile/star_blast/ready_projectile(obj/projectile/to_fire, atom/target, mob/user, iteration)
 	. = ..()
 	projectile_weakref = WEAKREF(to_fire)
+	RegisterSignal(to_fire, COMSIG_QDELETING, PROC_REF(on_ball_deleted))
 	to_fire.AddElement(cosmic_trail_based_on_passive(user), /obj/effect/forcefield/cosmic_field/fast)
 
 
-// While a disk is live, the next cast teleports us to it and pulls nearby heathens into cosmic fields, instead of
-// firing a new disk (tg's set_click_ability recast, adapted to the proc_holder pointed model — re-select + click).
-/obj/effect/proc_holder/spell/pointed/projectile/star_blast/cast(list/targets, mob/user = usr)
+// While the disk is live, pressing the action button again teleports us to it and pulls nearby heathens into
+// cosmic fields, instead of arming a new shot (tg's set_click_ability recast — no target click needed).
+/obj/effect/proc_holder/spell/pointed/projectile/star_blast/Click()
 	var/obj/projectile/magic/star_ball/active_ball = projectile_weakref?.resolve()
 	if(!active_ball)
 		return ..()
+	if(!cast_check(TRUE, FALSE, usr))
+		return TRUE
 
 	pull_victims()
 	do_teleport(action.owner, get_turf(active_ball))
 	pull_victims() // Intentional: pull from where we were, AND from where we teleported to.
-	QDEL_NULL(active_ball)
-	projectile_weakref = null
-	teleported = TRUE
-	current_amount = 0
+	QDEL_NULL(active_ball) // on_ball_deleted clears the weakref and the green border.
+	// Cooldown is only 1 second after shooting; it's 25 seconds after we teleport to our disk.
+	cooldown_handler.start_recharge(25 SECONDS)
+	action?.UpdateButtonIcon()
 	return TRUE
 
 
+// The disk was fired: light up the green "recast ready" border (tg's apply_button_overlay green frame).
 /obj/effect/proc_holder/spell/pointed/projectile/star_blast/after_cast(atom/cast_on)
-	if(teleported)
-		teleported = FALSE
-		cooldown_handler.start_recharge(25 SECONDS)
-		if(action?.owner?.client)
-			remove_mousepointer(action.owner.client, refund_cooldown = FALSE)
+	. = ..()
+	if(projectile_weakref?.resolve())
+		set_ball_indicator(TRUE)
+
+
+/// The disk died (hit range end / we teleported to it) - drop the weakref and the green border.
+/obj/effect/proc_holder/spell/pointed/projectile/star_blast/proc/on_ball_deleted(datum/source)
+	SIGNAL_HANDLER
+	projectile_weakref = null
+	set_ball_indicator(FALSE)
+
+
+/// Toggles the green "teleport available" border on the action button while our disk is alive.
+/obj/effect/proc_holder/spell/pointed/projectile/star_blast/proc/set_ball_indicator(active)
+	if(!action)
 		return
-	return ..()
+	action.targeting_overlay = active ? "bg_spell_border_active_green" : ACTION_BUTTON_DEFAULT_TARGETING_OVERLAY
+	action.targeting_process = active
+	action.UpdateButtonIcon(ALL)
+
+
+// tg's expanding purple ring shown at both ends of the star blast teleport.
+/obj/effect/temp_visual/circle_wave/star_blast
+	color = COLOR_VOID_PURPLE
 
 
 /// Raises a ring of cosmic fields around us and drags nearby heathens in, star-marking them.
@@ -69,7 +88,7 @@
 	var/mob/living/caster = action.owner
 	if(!caster)
 		return
-	new /obj/effect/temp_visual/cosmic_domain(get_turf(caster))
+	new /obj/effect/temp_visual/circle_wave/star_blast(get_turf(caster))
 	for(var/turf/spawn_turf in range(1, get_turf(caster)))
 		if(spawn_turf.density)
 			continue
@@ -92,11 +111,16 @@
 	gender = MALE
 	icon_state = "star_ball"
 	damage = 0
-	speed = 0.2
+	// tg speed 0.2 = 0.2 tiles per decisecond; Paradise speed = deciseconds per tile, so 1/0.2 = 5 (slow disk).
+	speed = 5
 	range = 25
 	knockdown = 4 SECONDS
-	// Flies through people and tables so it can reach its mark and stay alive for the teleport recast.
-	pass_flags = PASSTABLE | PASSMOB
+	// tg disk passes through nearly everything and *pierces* mobs/vehicles (projectile_piercing). Paradise has
+	// no projectile_piercing: things NOT in pass_flags (mobs, walls, mechs) Bump us instead, and forcedodge = -1
+	// makes every such Bump apply the hit (knockdown + star marks) and fly on, never stopping until range end -
+	// which also keeps the disk alive for the teleport recast.
+	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE | PASSBLOB | PASSMACHINE | PASSSTRUCTURE | PASSFLAPS | PASSFENCE | PASSDOOR | PASSITEM
+	forcedodge = -1
 	/// Effect for when the ball hits something.
 	var/obj/effect/explosion_effect = /obj/effect/temp_visual/cosmic_explosion
 	/// The range at which people will get marked with a star mark.

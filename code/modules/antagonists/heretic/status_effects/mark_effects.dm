@@ -247,8 +247,9 @@
 
 /datum/status_effect/eldritch/cosmic/on_effect()
 	new teleport_effect(get_turf(owner))
-	new /obj/effect/forcefield/cosmic_field(get_turf(owner))
-	do_teleport(
+	create_cosmic_field(get_turf(owner), owner)
+	// do_direct_teleport skips the science-teleport spark spread, matching tg's no_effects = TRUE.
+	do_direct_teleport(
 		owner,
 		get_turf(cosmic_diamond),
 	)

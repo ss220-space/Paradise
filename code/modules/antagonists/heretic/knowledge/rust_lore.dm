@@ -242,6 +242,9 @@
 	research_tree_icon_state = "rustascend"
 	announcement_text = "%SPOOKY% Бойтесь, ибо Ржавеющий, %NAME%, вознёсся! Никто и ничто не избежит коррозии! %SPOOKY%"
 	announcement_sound = 'sound/music/heretic/ascend_rust.ogg'
+	// tg parity: the research-tree node wears the path's ascension achievement sprite.
+	research_tree_icon_path = 'icons/ui_icons/antags/heretic/ascension.dmi'
+	research_tree_icon_state = "rustascend"
 	/// If TRUE, then immunities are currently active.
 	var/immunities_active = FALSE
 	/// A typepath to an area that we must finish the ritual in.

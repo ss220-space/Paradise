@@ -287,6 +287,9 @@
 	//ascension_achievement = /datum/award/achievement/misc/cosmic_ascension
 	announcement_text = "%SPOOKY% Звёздный Наблюдатель прибыл на станцию, %NAME% вознесся! %SPOOKY%"
 	announcement_sound = 'sound/music/heretic/ascend_cosmic.ogg'
+	// tg parity: the research-tree node wears the path's ascension achievement sprite.
+	research_tree_icon_path = 'icons/ui_icons/antags/heretic/ascension.dmi'
+	research_tree_icon_state = "cosmicascend"
 	/// A static list of command we can use with our mob.
 	var/static/list/star_gazer_commands = list(
 		/datum/pet_command/idle,

@@ -364,6 +364,9 @@
 	research_tree_icon_state = "fleshascend"
 	announcement_text = "%SPOOKY% Реальность развернулась. ВОЗДЕНЬТЕ РУКИ К НЕБУ И ПОПРИВЕТСТВУЙТЕ, ВЛАДЫКУ НОЧИ! %NAME% вознесся! %SPOOKY%"
 	announcement_sound = 'sound/music/heretic/ascend_flesh.ogg'
+	// tg parity: the research-tree node wears the path's ascension achievement sprite.
+	research_tree_icon_path = 'icons/ui_icons/antags/heretic/ascension.dmi'
+	research_tree_icon_state = "fleshascend"
 
 
 /datum/heretic_knowledge/ultimate/flesh_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)

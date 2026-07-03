@@ -40,7 +40,21 @@
 	)
 */
 
+// tg parity: the touch also works at range (both left- and right-click) within 3 tiles - the base ranged
+// handler would fire afterattack at ANY range, so we intercept and gate it ourselves.
+/obj/item/melee/touch_attack/star_touch/ranged_interact_with_atom(atom/interacting_with, mob/living/user, list/modifiers)
+	if(!isliving(interacting_with))
+		return NONE
+	var/mob/living/living_target = interacting_with
+	if(get_dist(living_target, user) > 3)
+		return NONE
+	melee_attack_chain(user, living_target, modifiers)
+	return TRUE
+
+
 /obj/item/melee/touch_attack/star_touch/afterattack(mob/living/victim, mob/living/carbon/caster, proximity, params)
+	if(!proximity) // Ranged use goes through ranged_interact_with_atom (3-tile limit), never straight to here.
+		return FALSE
 	if(!istype(victim))
 		return FALSE
 
@@ -118,19 +132,26 @@
 
 
 /*
- * Callback for effect_remover component.
+ * Callback for effect_remover component. tg parity: erasing a cosmic rune with the star touch also
+ * dissolves the caster's own linked rune pair.
  */
 /obj/item/melee/touch_attack/star_touch/proc/after_clear_rune(obj/effect/target, mob/living/user)
 	new /obj/effect/temp_visual/cosmic_rune_fade(get_turf(target))
-	//var/obj/effect/proc_holder/spell/touch/star_touch/star_touch_spell = attached_spell
-	//star_touch_spell?.spell_feedback(user)
+	var/obj/effect/proc_holder/spell/cosmic_rune/rune_spell = locate() in user.mob_spell_list
+	if(rune_spell)
+		var/obj/effect/cosmic_rune/first_rune = rune_spell.first_rune?.resolve()
+		var/obj/effect/cosmic_rune/second_rune = rune_spell.second_rune?.resolve()
+		if(!QDELETED(first_rune))
+			new /obj/effect/temp_visual/cosmic_rune_fade(get_turf(first_rune))
+			QDEL_NULL(first_rune)
+		if(!QDELETED(second_rune))
+			new /obj/effect/temp_visual/cosmic_rune_fade(get_turf(second_rune))
+			QDEL_NULL(second_rune)
 	remove_hand_with_no_refund(user)
 
-/*
 /obj/item/melee/touch_attack/star_touch/ignition_effect(atom/to_light, mob/user)
-	. = span_rose("[user] effortlessly snaps [user.p_their()] fingers near [to_light], igniting it with cosmic energies. Fucking badass!")
+	. = span_rose("[user.declent_ru(NOMINATIVE)] непринуждённо щёлкает пальцами возле [to_light.declent_ru(GENITIVE)], поджигая космическими энергиями. Чертовски круто!")
 	remove_hand_with_no_refund(user)
-*/
 
 /obj/item/melee/touch_attack/star_touch/attack_self(mob/living/user)
 	var/obj/effect/proc_holder/spell/touch/star_touch/star_touch_spell = attached_spell

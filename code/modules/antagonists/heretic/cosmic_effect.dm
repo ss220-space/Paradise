@@ -118,7 +118,7 @@ GLOBAL_LIST_EMPTY_TYPED(active_cosmic_fields, /obj/effect/forcefield/cosmic_fiel
 		var/obj/projectile/bullet = thing
 		if(istype(bullet, /obj/projectile/magic/star_ball)) // Don't slow down star balls
 			return
-		bullet.speed *= 0.2 // 80% slowdown (lower speed value = slower projectile, cf. star_ball speed=0.2)
+		bullet.speed *= 5 // 80% slowdown (Paradise speed = deciseconds per tile, HIGHER = slower; tg's *0.2 inverted)
 		return
 
 	if(!isliving(thing))
@@ -134,7 +134,7 @@ GLOBAL_LIST_EMPTY_TYPED(active_cosmic_fields, /obj/effect/forcefield/cosmic_fiel
 		var/obj/projectile/bullet = thing
 		if(istype(bullet, /obj/projectile/magic/star_ball)) // Don't speed up star balls
 			return
-		bullet.speed /= 0.2
+		bullet.speed /= 5
 		return
 
 	if(!isliving(thing))

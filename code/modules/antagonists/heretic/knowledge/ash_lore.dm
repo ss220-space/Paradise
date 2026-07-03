@@ -221,6 +221,9 @@
 	research_tree_icon_state = "ashascend"
 	announcement_text = "%SPOOKY% Бойтесь пламени, ибо Повелитель Пепла, %NAME% вознесся! Пламя поглотит все! %SPOOKY%"
 	announcement_sound = 'sound/music/heretic/ascend_ash.ogg'
+	// tg parity: the research-tree node wears the path's ascension achievement sprite.
+	research_tree_icon_path = 'icons/ui_icons/antags/heretic/ascension.dmi'
+	research_tree_icon_state = "ashascend"
 	/// A static list of all traits we apply on ascension.
 	// TG also applies TRAIT_RESISTHIGHPRESSURE / TRAIT_RESISTLOWPRESSURE, which master220 has no
 	// equivalent for — the bomb/heat/cold/no-breath immunities below cover the environmental hazards.

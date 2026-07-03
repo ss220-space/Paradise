@@ -35,8 +35,8 @@
 		return
 	new expansion_effect(get_turf(caster))
 	for(var/mob/living/nearby_mob in range(star_mark_range, caster))
-		// tg parity: don't star-mark ourselves or fellow heretics/monsters.
-		if(nearby_mob == caster || IS_HERETIC_OR_MONSTER(nearby_mob))
+		// tg parity: don't star-mark ourselves, whoever we're carrying, or fellow heretics/monsters.
+		if(nearby_mob == caster || caster.buckled == nearby_mob || IS_HERETIC_OR_MONSTER(nearby_mob))
 			continue
 		nearby_mob.apply_status_effect(/datum/status_effect/star_mark, caster)
 

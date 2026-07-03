@@ -248,6 +248,9 @@
 	announcement_text = "%SPOOKY% Смейтесь, ибо главарь %NAME% вознёсся! \
 							Правда наконец поглотит ложь! %SPOOKY%"
 	announcement_sound = 'sound/music/heretic/ascend_moon.ogg'
+	// tg parity: the research-tree node wears the path's ascension achievement sprite.
+	research_tree_icon_path = 'icons/ui_icons/antags/heretic/ascension.dmi'
+	research_tree_icon_state = "moonascend"
 
 
 /datum/heretic_knowledge/ultimate/moon_final/is_valid_sacrifice(mob/living/sacrifice)
