@@ -141,11 +141,8 @@
 	return length(priority_possibles) ? pick(priority_possibles) : pick(possibles)
 
 
-/**
- * Status effect applied when someone's hit by the fire blast.
- *
- * Applies an overlay, then causes a damage over time (or heal over time)
- */
+// Status effect applied when someone's hit by the fire blast.
+// Applies an overlay, then causes a damage over time (or heal over time).
 /datum/status_effect/fire_blasted
 	id = "fire_blasted"
 	alert_type = null
@@ -205,12 +202,8 @@
 	icon_state = "explosion"
 
 
-/**
- * ## Channelled spells
- *
- * These spells do something after a channel time.
- * To use this template, all that's needed is for cast() to be implemented.
- */
+// Channelled spells do something after a channel time.
+// To use this template, all that's needed is for cast() to be implemented.
 /obj/effect/proc_holder/spell/charged
 	overlay_icon_state = "bg_spell_border_active_yellow"
 
@@ -252,7 +245,7 @@
 
 /obj/effect/proc_holder/spell/charged/create_new_targeting()
 	// Self-targeted: targets[1] is the caster, so the chain originates from the heretic
-	// (matching TG, where cast_on == owner) and the self-heal applies to the caster.
+	// and the self-heal applies to the caster.
 	return new /datum/spell_targeting/self
 
 
@@ -340,14 +333,9 @@
 
 	action.UpdateButtonIcon()
 
-/**
- * ### Channelled "Beam" spells
- *
- * Channelled spells that pick a random target from nearby atoms to cast a spell on.
- * Commonly used for beams, hence the name, but nothing's stopping projectiles or whatever from working.
- *
- * If no targets are nearby, cancels the spell and refunds the cooldown.
- */
+// Channelled spells that pick a random target from nearby atoms to cast a spell on.
+// Commonly used for beams, hence the name, but nothing's stopping projectiles or whatever from working.
+// If no targets are nearby, cancels the spell and refunds the cooldown.
 /obj/effect/proc_holder/spell/charged/beam
 	/// The radius around the caster to find a target.
 	var/target_radius = 5

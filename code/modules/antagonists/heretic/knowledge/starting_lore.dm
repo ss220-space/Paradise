@@ -16,13 +16,11 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 		. += knowledge
 
 
-/*
- * The base heretic knowledge. Grants the Прикосновение Мансуса spell.
- */
+/// The base heretic knowledge. Grants the Прикосновение Мансуса spell.
 /datum/heretic_knowledge/spell/basic
 	name = "Рассвет"
 	desc = "Начинает ваше путешествие в Мансус. \
-			Даёт вам Прикосновение Мансуса — мощное и улучшаемое \
+			Даёт вам Прикосновение Мансуса, мощное и улучшаемое \
 			заклинание, которое можно применить без Амулета."
 	research_tree_icon_path = 'icons/effects/effects.dmi'
 	research_tree_icon_state = "static"
@@ -67,12 +65,7 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	REMOVE_TRAIT(item, TRAIT_ROD_MANSUS_INFUSED, item.UID())
 	item.difficulty_modifier += 20
 */
-/**
- * The Living Heart heretic knowledge.
- *
- * Gives the heretic a living heart.
- * Also includes a ritual to turn their heart into a living heart.
- */
+/// Gives the heretic a living heart, and a ritual to turn their heart into one if lost.
 /datum/heretic_knowledge/living_heart
 	name = "Живое Сердце"
 	desc = "Даёт вам Живое Сердце, позволяющее отслеживать цели жертвоприношения. \
@@ -151,7 +144,6 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	qdel(our_living_heart.GetComponent(/datum/component/living_heart))
 
 
-// Don't bother letting them invoke this ritual if they have a Living Heart already in their chest
 /datum/heretic_knowledge/living_heart/can_be_invoked(datum/antagonist/heretic/invoker)
 	return invoker.has_living_heart() != HERETIC_HAS_LIVING_HEART
 
@@ -206,10 +198,7 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	return TRUE
 
 
-/**
- * Allows the heretic to craft a spell focus.
- * They require a focus to cast advanced spells.
- */
+/// Allows the heretic to craft a spell focus, required to cast advanced spells.
 /datum/heretic_knowledge/amber_focus
 	name = "Янтарный Амулет"
 	desc = "Позволяет преобразовать лист стекла и пару глаз в Янтарный Амулет.\
@@ -243,20 +232,15 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	spell_to_add = /obj/effect/proc_holder/spell/shadow_cloak
 	is_starting_knowledge = TRUE
 
-/**
- * Кодекс Истезания is available at the start:
- * This allows heretics to choose if they want to rush all the influences and take them stealthily, or
- * Construct a codex and take what's left with more points.
- * Another downside to having the book is strip searches, which means that it's not just a free nab, at least until you get exposed - and when you do, you'll probably need the faster drawing speed.
- * Overall, it's a tradeoff between speed and stealth or power.
- */
+/// Кодекс Истезания: lets heretics rush influences stealthily, or build a codex to take what's left
+/// for more points - a tradeoff between speed/stealth and power, with strip searches as the downside.
 /datum/heretic_knowledge/codex_cicatrix
 	drafting_tier = 1
 	name = "Кодекс Истезания"
 	desc = "Позволяет трансмутировать книгу, любую уникальную ручку (не обычную) и любой предмет на ваш выбор из туши (животного или человека), кожи или шкуры, чтобы создать Кодекс Истезания. \
 			Кодекс Истезания можно использовать чтобы поглотить раскол реальности для получения дополнительных знаний, но он это сопряжено с повышеннием риска быть замеченным. \
 			Его также можно использовать для более удобного рисования и удаления рун трансмутации, а также вместо Янтарного Амулета."
-	gain_text = "Потусторонние силы оставляют фрагменты знаний и силы повсюду. Кодекс Истезания — одно из доказательств. \
+	gain_text = "Потусторонние силы оставляют фрагменты знаний и силы повсюду. Кодекс Истезания - одно из доказательств. \
 				На кожанных страницах находятся знания открывающие путь к Мансусу."
 	required_atoms = list(
 		list(/obj/item/book) = 1,
@@ -266,7 +250,7 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	banned_atom_types = list(/obj/item/pen)
 	result_atoms = list(/obj/item/codex_cicatrix)
 	cost = 1
-	// No longer a free starting craft - it's purchased from the Knowledge Shop (a side knowledge), matching TG.
+	// No longer a free starting craft - it's purchased from the Knowledge Shop (a side knowledge).
 	priority = MAX_KNOWLEDGE_PRIORITY - 4 // Low ritual priority, as it's an optional boon.
 	var/static/list/non_mob_bindings = typecacheof(list(/obj/item/stack/sheet/leather, /obj/item/stack/sheet/animalhide, /mob/living/simple_animal/mouse))
 	research_tree_icon_path = 'icons/obj/eldritch.dmi'
@@ -387,11 +371,8 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	to_chat(user, span_purple(span_big("[drain_message]")))
 	return .
 
-/**
- * Warren King's Welcome
- * Ritual available at the start. So that heretics can easily gain access to maintenance airlocks without having to rely on a HoP or having to off some poor assistant.
- * Gives access to solars since those doors are especially useful to get in or out of space.
- */
+/// Warren King's Welcome: lets heretics gain maintenance/external airlock access without relying on
+/// a HoP or having to off some poor assistant.
 /datum/heretic_knowledge/bookworm
 	drafting_tier = 1
 	name = "Приветствие короля Уоррена"
@@ -404,8 +385,8 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 		/obj/item/paper = 1,
 	)
 	cost = 1
-	// TG: bookworm is a normal Tier-1 SHOP side, NOT auto-granted. With is_starting_knowledge it was free
-	// at round start and showed as "owned" instead of a buyable Tier-1 shop item (one of the 2 missing slots).
+	// bookworm is a normal Tier-1 SHOP side, not auto-granted. With is_starting_knowledge it was free
+	// at round start and showed as "owned" instead of a buyable Tier-1 shop item.
 	priority = MAX_KNOWLEDGE_PRIORITY - 3
 	research_tree_icon_path = 'icons/obj/card.dmi'
 	research_tree_icon_state = "eldritch"

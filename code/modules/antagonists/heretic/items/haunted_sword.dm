@@ -291,30 +291,24 @@
 			allow_exorcism = FALSE,\
 		)
 
-	// Get the heretic's new body and antag datum.
 	trapped_entity = trapped_mind?.current
 	//trapped_entity.PossessByPlayer(trapped_mind?.key)
 	var/datum/antagonist/heretic/heretic_holder = trapped_entity.mind?.has_antag_datum(/datum/antagonist/heretic)
 	if(!heretic_holder)
 		stack_trace("[soul_to_bind] in but not a heretic on the heretic soul blade.")
 
-	// Give the spirit a spell that lets them try to fly around.
 	trapped_entity.AddSpell(new /obj/effect/proc_holder/spell/pointed/sword_fling(null, awakener))
 
-	// Set the sword's path for spell selection.
 	heretic_path = heretic_holder.heretic_path
 
 	// Copy the objectives to keep for roundend, remove the datum as neither us nor the heretic need it anymore
 	var/list/copied_objectives = heretic_holder.objectives.Copy()
 	trapped_entity.mind.remove_antag_datum(/datum/antagonist/heretic)
 
-	// Add the fallen antag datum, give them a heads-up of what's happening.
 	var/datum/antagonist/soultrapped_heretic/bozo = new()
 	bozo.objectives |= copied_objectives
 	trapped_entity.mind.add_antag_datum(bozo)
 
-	// Assigning the spells to give to the wielder and spirit.
-	// Let them cast the given spell.
 	ADD_TRAIT(trapped_entity, TRAIT_ALLOW_HERETIC_CASTING, INNATE_TRAIT)
 
 	var/list/path_spells = heretic_paths_to_haunted_sword_abilities[heretic_path]
@@ -324,10 +318,7 @@
 
 	name = "[path_spells[SWORD_PREFIX]] [name]"
 
-
-	// Creating the path spells.
-	// The sword is created bound - so we do not grant it the spells just yet, but we still create and store them.
-
+	// The sword is created bound, so we do not grant it the spells just yet, but we still create and store them.
 	if(sword_spells)
 		for(var/obj/effect/proc_holder/spell/sword_spell as anything in sword_spells)
 			var/obj/effect/proc_holder/spell/instanced_spell = new sword_spell(trapped_entity)

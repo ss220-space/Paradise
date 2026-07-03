@@ -15,8 +15,8 @@
 	base_cooldown = 10 SECONDS
 
 	//convert_damage = FALSE // Functionally meaningless on Armsy, we track how many segments it had instead
-	// Only one possible form, so fix it up-front (TG auto-picks for a single shape) — no pointless
-	// one-option "choose your form" popup, and the button is a clean become-worm / return-to-human toggle.
+	// Only one possible form, so fix it up-front - skips the pointless one-option "choose your form" popup,
+	// and the button becomes a clean become-worm / return-to-human toggle.
 	shapeshift_type = /mob/living/simple_animal/hostile/heretic_summon/armsy
 	possible_shapes = list(/mob/living/simple_animal/hostile/heretic_summon/armsy)
 
@@ -26,10 +26,10 @@
 	var/scare_radius = 9
 
 
-// Robust toggle (TG 1:1): the base spell decides shed-vs-return via `M in current_shapes`, which can
-// desync — if it ever thinks the worm isn't a tracked shape it tries to Shapeshift again and the godmode
-// "already shapeshifted" guard silently eats the cast, so the button looks dead and you're stuck as the
-// worm. Decide off the actual body type instead: a Lord of Night always shrinks back, anything else sheds.
+// The base spell decides shed-vs-return via `M in current_shapes`, which can desync - if it ever thinks
+// the worm isn't a tracked shape it tries to Shapeshift again and the godmode "already shapeshifted" guard
+// silently eats the cast, leaving the button dead and you stuck as the worm. Decide off the actual body
+// type instead: a Lord of Night always shrinks back, anything else sheds.
 /obj/effect/proc_holder/spell/shapeshift/shed_human_form/cast(list/targets, mob/user = usr)
 	for(var/mob/living/caster in targets)
 		if(istype(caster, /mob/living/simple_animal/hostile/heretic_summon/armsy))
@@ -39,12 +39,10 @@
 
 
 /obj/effect/proc_holder/spell/shapeshift/shed_human_form/Shapeshift(mob/living/caster)
-	// When we transform into the worm, everyone nearby gets freaked out
 	for(var/mob/living/carbon/human/nearby_human in view(scare_radius, caster))
 		if(IS_HERETIC_OR_MONSTER(nearby_human) || nearby_human == caster)
 			continue
 
-		// 25% chance to cause a trauma
 		if(!prob(25))
 			continue
 
@@ -55,10 +53,10 @@
 
 	. = ..()
 
-	// TG 1:1: while shed into the worm, the ONLY ability is "return to your old form". master220's
-	// mind.transfer_to (called by the base Shapeshift) re-grants EVERY heretic spell to the new body,
-	// which would litter the worm with useless human-only spell buttons. Strip them off the worm — they
-	// stay on the mind and are re-granted automatically (transfer_mindbound_actions) when we Restore.
+	// While shed into the worm, the ONLY ability is "return to your old form". The mind transfer above
+	// (mind.transfer_to, called by the base Shapeshift) re-grants EVERY heretic spell to the new body,
+	// which would litter the worm with useless human-only spell buttons. Strip them off the worm - they
+	// stay on the mind and are re-granted automatically when we Restore.
 	var/mob/living/worm = caster.loc
 	if(istype(worm) && worm.mind)
 		for(var/obj/effect/proc_holder/spell/spell as anything in worm.mind.spell_list)
@@ -66,18 +64,15 @@
 				continue
 			spell.action.Remove(worm)
 
-		// Insurance: the shed toggle IS the only way back to human form, so guarantee its button is actually
-		// on the worm after the strip above (Grant() no-ops if already present). Without a reliable return
-		// button the player is stuck as the worm ("нет абилки для возвращения").
+		// Insurance: the shed toggle is the only way back to human form, so guarantee its button is
+		// actually on the worm after the strip above (Grant() no-ops if already present).
 		src.action?.Grant(worm)
 
-		// Hide the heretic's visible eldritch aura while we're the worm — apply_innate_effects() re-drew it
-		// on the new body during the mind transfer above. The trait makes should_show_aura() return FALSE,
-		// and the SIGNAL_ADDTRAIT hook refreshes the worm's overlays to clear it now. It returns on its own
-		// when we Restore: the worm is gibbed and apply_innate_effects() redraws the aura on the human.
+		// Hide the heretic's visible eldritch aura while we're the worm - apply_innate_effects() re-drew
+		// it on the new body during the mind transfer above. The trait makes should_show_aura() return
+		// FALSE; it returns on its own when we Restore and the aura redraws on the human.
 		ADD_TRAIT(worm, TRAIT_HERETIC_AURA_HIDDEN, HERETIC_TRAIT)
 
-		// Same client-timing reason as Restore: make sure the worm's remaining buttons actually draw.
 		worm.update_action_buttons(reload_screen = TRUE)
 
 

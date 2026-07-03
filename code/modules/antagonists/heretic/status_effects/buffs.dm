@@ -408,9 +408,9 @@
 	return TRUE
 
 
-// Last Resort — the Wave of Desperation buff. A pure "second wind" to flee with (ignores slowdown).
-// Matches TG (a buff, lives in buffs.dm): it does NOT knock the caster out — the heretic port had added a
-// Sleeping(20 SECONDS) on removal that turned this escape tool into a delayed self-stun. Removed here.
+// Last Resort - the Wave of Desperation buff. A pure "second wind" to flee with (ignores slowdown).
+// Does NOT knock the caster out on removal: an earlier version added a Sleeping(20 SECONDS) here that
+// turned this escape tool into a delayed self-stun.
 /datum/status_effect/heretic_lastresort
 	id = "heretic_lastresort"
 	alert_type = /atom/movable/screen/alert/status_effect/heretic_lastresort

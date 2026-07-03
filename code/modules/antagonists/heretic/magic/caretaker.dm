@@ -4,24 +4,20 @@
 // watch them slip into / out of hiding. See setviewrange in preference/preferences.dm.
 #define CARETAKER_MAX_WATCH_RANGE 9
 
-// Последнее пристанище смотрителя (Caretaker's Last Refuge) — reworked into a jaunt (Paradise-original,
-// improving on tg's intangible status-effect version). Built on the Space Crawl jaunt, but instead of
-// requiring a space/low-pressure turf, the gate is "nobody is watching you":
-//   * You may only ENTER the Refuge while no conscious onlooker can see you.
-//   * You may only EXIT (resurface) on a spot no conscious onlooker can see.
-// While phased you are intangible and unable to act, exactly like the Space Crawl. The jaunt model
-// (the floating holder + position indicator) is intentionally kept identical to Space Crawl for now - a
-// bespoke caretaker visual will come later. Because the parent's can_cast early-returns TRUE while jaunting,
-// the cooldown never traps you inside: you can resurface the instant you reach an unwatched spot.
+// Caretaker's Last Refuge: built on the Space Crawl jaunt, but instead of requiring a space/low-pressure
+// turf, the gate is "nobody is watching you" - you may only enter while unseen, and only resurface on a
+// spot no conscious onlooker can see. While phased you are intangible and unable to act, same as Space
+// Crawl. Because the parent's can_cast early-returns TRUE while jaunting, the cooldown never traps you
+// inside: you can resurface the instant you reach an unwatched spot.
 /obj/effect/proc_holder/spell/jaunt/space_crawl/caretaker
 	name = "Последнее пристанище смотрителя"
 	desc = "Скрывает вас в Убежище Смотрителя, делая прозрачным и неосязаемым. \
-			Войти можно, только пока вас никто не видит; выйти — лишь там, где вас никто не видит. \
+			Войти можно, только пока вас никто не видит; выйти - лишь там, где вас никто не видит. \
 			В убежище вы неуязвимы, но не можете действовать."
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
 	action_icon_state = "caretaker"
 	base_cooldown = 2 SECONDS
-	invalid_turf_message = "За вами наблюдают — вы не можете скрыться!"
+	invalid_turf_message = "За вами наблюдают - вы не можете скрыться!"
 	jaunt_type = /obj/effect/dummy/spell_jaunt/caretaker
 	jaunt_hand_type = /obj/item/space_crawl/caretaker
 	// One "locked door / turning key" sound for both submerging into and resurfacing from the Refuge.

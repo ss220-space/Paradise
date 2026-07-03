@@ -19,9 +19,7 @@
 /datum/heretic_knowledge/reroll_targets/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
 
 	var/datum/antagonist/heretic/heretic_datum = user.mind.has_antag_datum(/datum/antagonist/heretic)
-	// Check first if they have a Living Heart. If it's missing, we should
-	// throw a fail to show the heretic that there's no point in rerolling
-	// if you don't have a heart to track the targets in the first place.
+	// No point rerolling targets if there's no Living Heart to track them with.
 	if(heretic_datum.has_living_heart() != HERETIC_HAS_LIVING_HEART)
 		loc.balloon_alert(user, "нет живого сердца!")
 		return FALSE

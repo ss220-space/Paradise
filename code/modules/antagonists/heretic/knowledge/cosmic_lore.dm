@@ -26,14 +26,14 @@
 		"Ваше «Прикосновение Мансуса» накладывает на противника звёздную метку и оставляет метку, которая при \
 		срабатывании телепортирует жертву обратно в точку, где метка была наложена, и ненадолго парализует её.",
 		"Космические руны мгновенно перебрасывают вас между двумя точками. Но осторожно: не-еретики тоже могут \
-		проходить сквозь них. Проявите смекалку и заманите противника прямо в ловушку — выйдет он уже со звёздной меткой!",
+		проходить сквозь них. Проявите смекалку и заманите противника прямо в ловушку - выйдет он уже со звёздной меткой!",
 		"Стоя на космической руне, вы можете активировать её, щёлкнув по себе пустой рукой.",
 		"Звёздомеченые враги не могут по своей воле пересекать ваши космические поля. Но их можно протащить силой!",
-		"«Звёздный взрыв» — это одновременно прыжок-скачок и средство обездвиживания. Ловите им сразу нескольких \
+		"«Звёздный взрыв» - это одновременно прыжок-скачок и средство обездвиживания. Ловите им сразу нескольких \
 		человек в свои космические поля.",
 		"«Звёздное Касание» не даст цели телепортироваться прочь. Если она не разорвёт привязь, её усыпит и притянет \
 		к вашим ногам.",
-		"Всегда полезно оставить одну космическую руну рядом с ритуальной руной — так вы сможете быстро похищать \
+		"Всегда полезно оставить одну космическую руну рядом с ритуальной руной - так вы сможете быстро похищать \
 		цели для жертвоприношения.",
 	)
 	// "Избранник Звёзд" passive (see /datum/status_effect/heretic_passive/cosmic): its power lives in your fields.
@@ -43,10 +43,9 @@
 		"Создаваемые вами космические поля выводят из строя гранаты и бомбы поблизости.",
 		"Создаваемые вами космические поля замедляют пролетающие сквозь них снаряды.",
 	)
-	// TG-format column (1:1 with tgstation Cosmos). Main line:
-	// base_cosmic -> cosmic_runes -> star_blast -> Starwoven Cloak(robes) -> star_touch -> Cosmic Blade ->
-	// cosmic_expansion -> ascension. The grasp field + cosmic mark are folded into base_cosmic (matching TG,
-	// no separate grasp/mark nodes).
+	// Main line: base_cosmic -> cosmic_runes -> star_blast -> Starwoven Cloak(robes) -> star_touch -> Cosmic Blade ->
+	// cosmic_expansion -> ascension. The grasp field + cosmic mark are folded into base_cosmic,
+	// no separate grasp/mark nodes.
 	start = /datum/heretic_knowledge/limited_amount/starting/base_cosmic
 	knowledge_tier1 = /datum/heretic_knowledge/spell/cosmic_runes
 	knowledge_tier2 = /datum/heretic_knowledge/spell/star_blast
@@ -75,7 +74,7 @@
 	result_atoms = list(/obj/item/melee/sickly_blade/cosmic)
 	research_tree_icon_path = 'icons/obj/weapons/khopesh.dmi'
 	research_tree_icon_state = "cosmic_blade"
-	// The cosmic teleport-back mark and the grasp field/star-mark both live here now (matching TG), instead
+	// The cosmic teleport-back mark and the grasp field/star-mark both live here now, instead
 	// of separate "Прикосновение космоса" / "Метка Космоса" nodes.
 	mark_type = /datum/status_effect/eldritch/cosmic
 	passive_type = /datum/status_effect/heretic_passive/cosmic
@@ -93,7 +92,7 @@
 /datum/heretic_knowledge/spell/cosmic_runes
 	drafting_tier = 5
 	name = "Звёздные Руны"
-	desc = "Даёт вам \"Звёздные Руны\" — заклинание, создающее две руны телепортирующие друг на друга. \
+	desc = "Даёт вам \"Звёздные Руны\", заклинание, создающее две руны телепортирующие друг на друга. \
 			Только активировавшая руну сущность будет перемещена. Её может использовать любой человек без звёздной метки. \
 			Однако люди со звёздной меткой будут перемещены вместе с другим человеком, использующим руну."
 	gain_text = "Далёкие звёзды проникли в мои сны, ревя и крича без причины. Я заговорил и \
@@ -106,7 +105,7 @@
 
 /datum/heretic_knowledge/spell/star_touch
 	name = "Звёздное Касание"
-	desc = "Даёт вам Звёздное Касание — заклинание, которое накладывает на вашу цель звёздную метку, \
+	desc = "Даёт вам Звёздное Касание, заклинание, которое накладывает на вашу цель звёздную метку, \
 			создаёт космическое поле у ваших ног и на плитках рядом с вами. Цели, уже имеющие звёздную метку \
 			будут усыплены на 4 секунды. При попадании в жертву также создаётся луч, направленный на неё. \
 			Луч существует минуту, пока не будет преграждён или пока не будет найдена новая цель."
@@ -135,7 +134,7 @@
 			Он защищает владельца от опасностей космоса и позволяет ему левитировать по желанию. \
 			Действует как фокус, пока капюшон надет."
 	gain_text = "Подобно лучистым нитям, звёзды слились воедино в шелковистой форме струящегося плаща, что \
-				одновременно укрывает и не укрывает мои плечи. Взор Зверя остановился на мне — и прошёл сквозь меня."
+				одновременно укрывает и не укрывает мои плечи. Взор Зверя остановился на мне - и прошёл сквозь меня."
 	required_atoms = list(
 		list(/obj/structure/table, /obj/item/clothing/suit) = 1,
 		/obj/item/clothing/mask = 1,
@@ -259,14 +258,14 @@
 
 /datum/heretic_knowledge/spell/cosmic_expansion
 	name = "Расширение территории"
-	desc = "Даёт вам «Расширение территории» — заклинание, создающее вокруг вас область космических полей размером 5x5. \
+	desc = "Даёт вам «Расширение территории», заклинание, создающее вокруг вас область космических полей размером 5x5. \
 			Существа поблизости также получат звёздную метку."
 	gain_text = "Земля подо мной задрожала. Зверь вселился в меня. Его голос опьянял."
 	research_tree_icon_path = 'icons/mob/actions/actions_ecult.dmi'
 	research_tree_icon_state = "cosmic_domain"
 	spell_to_add = /obj/effect/proc_holder/spell/aoe/conjure/cosmic_expansion
 	cost = 2
-	is_final_knowledge = TRUE // TG's knowledge_tier4 / final pre-ascension power.
+	is_final_knowledge = TRUE
 
 
 /datum/heretic_knowledge/ultimate/cosmic_final
@@ -275,7 +274,7 @@
 			Поднесите 3 трупа со звёздной меткой к руне трансмутации, чтобы завершить ритуал. \
 			После завершения ритуала вы станете владельцем Звёздного Глашатая. \
 			Вы сможете отдавать ему приказы через способность «Управлять Звёздным Глашатаем» или голосом. \
-			Звёздный Глашатай — сильный союзник, способный разрушать укреплённые стены. \
+			Звёздный Глашатай - сильный союзник, способный разрушать укреплённые стены. \
 			У Звёздного Глашатая есть аура, исцеляющая вас и наносящая урон противникам. \
 			Звёздное Касание теперь может телепортировать вас к Звёздному Глашатаю. \
 			Ваше заклинание «Расширение территории» и ваши клинки также значительно усиливаются."
@@ -288,7 +287,6 @@
 	//ascension_achievement = /datum/award/achievement/misc/cosmic_ascension
 	announcement_text = "%SPOOKY% Звёздный Наблюдатель прибыл на станцию, %NAME% вознесся! %SPOOKY%"
 	announcement_sound = 'sound/music/heretic/ascend_cosmic.ogg'
-	// tg parity: the research-tree node wears the path's ascension achievement sprite.
 	research_tree_icon_path = 'icons/ui_icons/antags/heretic/ascension.dmi'
 	research_tree_icon_state = "cosmicascend"
 	/// A static list of command we can use with our mob.
@@ -309,15 +307,15 @@
 	if(!.)
 		return FALSE
 
-	// tg parity: only star-marked corpses count toward the ascension.
+	// Only star-marked corpses count toward the ascension.
 	return sacrifice.has_status_effect(/datum/status_effect/star_mark)
 
 
 /datum/heretic_knowledge/ultimate/cosmic_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	. = ..()
 
-	// The heretic stays themselves and ascends; the Star Gazer is a separate, befriended ally (tg parity -
-	// no "become the gazer yourself" option).
+	// The heretic stays themselves and ascends; the Star Gazer is a separate, befriended ally
+	// (no "become the gazer yourself" option).
 	user.add_traits(ascended_traits, type)
 	if(ishuman(user))
 		user.update_sight()
@@ -330,14 +328,14 @@
 	star_gazer_mob.AddComponent(/datum/component/damage_aura, range = 7, burn_damage = 0.5, simple_damage = 0.5, immune_factions = list(FACTION_HERETIC), current_owner = user)
 
 	// Let us boss it around, THEN befriend our master: obeys_commands must already sit on the mob when
-	// COMSIG_LIVING_BEFRIENDED fires, or it never hooks our speech/pointing (tg order).
+	// COMSIG_LIVING_BEFRIENDED fires, or it never hooks our speech/pointing.
 	star_gazer_mob.AddComponent(/datum/component/obeys_commands, star_gazer_commands, radial_menu_offset = list(30, 0), radial_menu_lifetime = 15 SECONDS, radial_relative_to_user = TRUE)
 	star_gazer_mob.befriend(user)
 	star_gazer_mob.leash_to(star_gazer_mob, user)
 	user.AddComponent(/datum/component/death_linked, star_gazer_mob)
 
 	// Grant the command + replace-consciousness actions. (The gazer itself keeps begging ghosts to
-	// take it over from its own Initialize, tg-style, so no one-shot poll here.)
+	// take it over from its own Initialize, so no one-shot poll here.)
 	user.mind.AddSpell(new /obj/effect/proc_holder/spell/open_mob_commands(star_gazer_mob))
 	user.mind.AddSpell(new /obj/effect/proc_holder/spell/replace_star_gazer(star_gazer_mob))
 
@@ -395,7 +393,7 @@
 	command_component.display_menu(action.owner)
 
 
-// Replaces the mind of your Star Gazer with that of a different ghost (tg's "Reset Star Gazer Consciousness").
+// Replaces the mind of your Star Gazer with that of a different ghost.
 /obj/effect/proc_holder/spell/replace_star_gazer
 	name = "Сменить разум Глашатая"
 	desc = "Заменяет разум вашего Звёздного Глашатая разумом другого призрака."

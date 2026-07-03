@@ -64,9 +64,7 @@
 	adjust_bleed_wounds(seconds_between_ticks)
 
 
-/*
- * Heals up all the owner a bit, fire stacks and losebreath included.
- */
+/// Heals up all the owner a bit, fire stacks and losebreath included.
 /datum/status_effect/unholy_determination/proc/adjust_all_damages(amount, seconds_between_ticks)
 
 	owner.adjust_fire_stacks(-1)
@@ -83,9 +81,7 @@
 	owner.updatehealth()
 
 
-/*
- * Adjust the owner's temperature up or down to standard body temperatures.
- */
+/// Adjust the owner's temperature up or down to standard body temperatures.
 /datum/status_effect/unholy_determination/proc/adjust_temperature(seconds_between_ticks)
 	if(!ishuman(owner))
 		return
@@ -103,9 +99,7 @@
 		human_owner.adjust_coretemperature(50 * TEMPERATURE_DAMAGE_COEFFICIENT * seconds_between_ticks, 0, target_temp)
 */
 
-/*
- * Slow and stop any blood loss the owner's experiencing.
- */
+/// Slow and stop any blood loss the owner's experiencing.
 /datum/status_effect/unholy_determination/proc/adjust_bleed_wounds(seconds_between_ticks)
 	if(!ishuman(owner) || !owner.blood_volume)
 		return
@@ -142,11 +136,10 @@
 	new /obj/effect/temp_visual/dir_setting/curse/grasp_portal(spawn_turf, victim.dir)
 	playsound(spawn_turf, 'sound/effects/curse/curse2.ogg', 80, TRUE, -1)
 	var/obj/projectile/hand = new projectile_type(spawn_turf)
-	// preparePixelProjectile(target, source): target = victim, source = the wall turf the hand spawns at.
-	// (The old port passed victim as BOTH target and source, which forceMoved the hand onto the victim
-	// so it appeared to fly out FROM them; spawn_turf was also wrongly passed as `modifiers`.)
+	// preparePixelProjectile(target, source): source must be the wall turf the hand spawns at, not the
+	// victim, or it forceMoves the hand onto the victim and it appears to fly out FROM them.
 	hand.preparePixelProjectile(victim, spawn_turf)
-	if(QDELETED(hand)) // safety check if above fails - above has a stack trace if it does fail
+	if(QDELETED(hand)) // stack_trace already fired above if this failed
 		return
 
 	hand.fire()

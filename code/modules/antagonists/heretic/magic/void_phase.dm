@@ -1,8 +1,8 @@
 /obj/effect/proc_holder/spell/pointed/void_phase
 	name = "Пустотный сдвиг"
 	desc = "Позволяет переместиться в выбранное место, повреждает всех в квадрате 3x3 вокруг \
-			выбранного места и вашего текущего местоположения. Минимальная дальность — 3 клетки, \
-			максимальная — 9 клеток."
+			выбранного места и вашего текущего местоположения. Минимальная дальность - 3 клетки, \
+			максимальная - 9 клеток."
 	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
@@ -47,7 +47,7 @@
 	cause_aoe(source_turf, /obj/effect/temp_visual/voidin)
 	cause_aoe(targeted_turf, /obj/effect/temp_visual/voidout)
 
-	// TG: no_effects = TRUE - the voidblink sound in cause_aoe() is the whole audiovisual.
+	// no_effects = TRUE - the voidblink sound in cause_aoe() is the whole audiovisual.
 	do_teleport(
 		action.owner,
 		targeted_turf,
@@ -55,7 +55,7 @@
 	)
 
 
-/// Does the AOE effect of the blinka t the passed turf
+/// Does the AOE effect of the blink at the passed turf
 /obj/effect/proc_holder/spell/pointed/void_phase/proc/cause_aoe(turf/target_turf, effect_type = /obj/effect/temp_visual/voidin)
 	new effect_type(target_turf)
 	playsound(target_turf, 'sound/magic/voidblink.ogg', 60, FALSE)

@@ -1,20 +1,18 @@
 // Everything in the heretic module rusts turfs by calling rust_heretic_act() (do_rust_heretic_act, the
 // rust spells, the grasp, the ascension's turf.rust_heretic_act(5), harvester, etc.). The /atom base of
-// that proc is a no-op (see _heretic_compat.dm) and the real per-turf behaviour lives in rust_turf()
-// below. This file ports tgstation's turf-rusting 1:1.
+// that proc is a no-op (see _heretic_compat.dm) and the real per-turf behaviour lives in rust_turf() below.
 //
-// Behaviour: walls just get a rust OVERLAY (via /datum/element/rust) and stay walls - NO dismantling, so the
-// path isn't the wall-shredder the old port made it. TILED floors get their tile stripped to bare plating
-// (the exposed, corroded look) and then rusted; we strip via make_plating() so the exposed under-floor
-// pipes/cables are re-shown at full opacity instead of the half-hidden "transparent"-looking undertile state
-// the old raw-ChangeTurf left them in.
+// Behaviour: walls just get a rust OVERLAY (via /datum/element/rust) and stay walls - no dismantling. TILED
+// floors get their tile stripped to bare plating (the exposed, corroded look) and then rusted; we strip via
+// make_plating() so the exposed under-floor pipes/cables are re-shown at full opacity instead of being left
+// in a half-hidden "undertile" state.
 
 /// How resistant this turf is to a heretic's rust. A turf only rusts if the heretic's rust_strength is
 /// at least this high (see rust_heretic_act). Defaults to BASIC; stronger turf types raise it below.
 /turf/var/rust_resistance = RUST_RESISTANCE_BASIC
 
-// Reinforced / titanium turfs resist weak heretics (point: a fresh rust heretic, rust_strength 1, must
-// NOT be able to rust reinforced walls - they need to grow first). Matches tg's rust_resistance values.
+// Reinforced / titanium turfs resist weak heretics: a fresh rust heretic (rust_strength 1) must
+// not be able to rust reinforced walls - they need to grow first.
 /turf/simulated/wall/r_wall
 	rust_resistance = RUST_RESISTANCE_REINFORCED
 
@@ -48,10 +46,7 @@
 	new /obj/effect/glowing_rune(src)
 
 
-// A TILED floor first has its tile stripped to bare plating ("exposes the floor" - the corroded look), then
-// the plating is rusted. We use make_plating() - the proper tile-removal path - rather than a raw ChangeTurf
-// so the now-exposed under-floor pipes/cables are re-shown correctly (full alpha / interactable) instead of
-// being stranded in the half-hidden "undertile" state that made them render washed-out / "transparent".
+// A tiled floor first has its tile stripped to bare plating via make_plating(), then the plating is rusted.
 /turf/simulated/floor/rust_turf()
 	if(HAS_TRAIT(src, TRAIT_RUSTY))
 		return
@@ -60,9 +55,8 @@
 	stripped?.rust_turf()
 
 
-// Bare plating just gets the rust overlay - there's no tile to strip. This is also the turf make_plating()
-// hands off to above, so it must NOT strip again: plating is a /turf/simulated/floor subtype, so without
-// this override it would re-enter the tiled-floor branch and recurse.
+// Bare plating just gets the rust overlay. This must NOT strip again: plating is a /turf/simulated/floor
+// subtype, so without this override it would re-enter the tiled-floor branch above and recurse.
 /turf/simulated/floor/plating/rust_turf()
 	if(HAS_TRAIT(src, TRAIT_RUSTY))
 		return

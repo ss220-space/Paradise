@@ -32,17 +32,16 @@
 	damage_type = BURN
 	// Slow, deliberate drift - the parade "shield" crawls along so the crowd can march after it instead of
 	// zipping across the screen. With process_paced() (see below) `speed` is a clean divisor: tiles/sec =
-	// 10/speed. TG's parade is 2 tiles/sec (its `speed = 0.2` is a multiplier: 0.2 * 10 = 2 tiles/sec), so we
-	// match it with speed = 5. NOTE: this ONLY behaves correctly because we override process() with
-	// process_paced() - the stock master220 process() double-counts elapsed time for slow projectiles and
-	// makes this fly ~2x faster and in irregular bursts no matter how high `speed` is set.
+	// 10/speed, so speed = 5 gives 2 tiles/sec. NOTE: this ONLY behaves correctly because we override
+	// process() with process_paced() - the stock process() double-counts elapsed time for slow projectiles
+	// and makes this fly ~2x faster and in irregular bursts no matter how high `speed` is set.
 	speed = 5
 	range = 75
 	// Bounce off any surface it meets, then dissipate. ricochets_max caps the TOTAL number of bounces: the
-	// parade "shield" vanishes once it has ricocheted 8 times (tg-style bounce cap). What counts as a
-	// bounceable "surface" is overridden in check_ricochet()/check_ricochet_flag() below so the parade
-	// reflects off EVERYTHING solid - walls, windows, machines, lockers, girders - not just the
-	// ballistic-flagged walls the base game allows.
+	// parade "shield" vanishes once it has ricocheted 8 times. What counts as a bounceable "surface" is
+	// overridden in check_ricochet()/check_ricochet_flag() below so the parade reflects off EVERYTHING
+	// solid - walls, windows, machines, lockers, girders - not just the ballistic-flagged walls the base
+	// game allows.
 	ricochets_max = 8
 	ricochet_chance = 100
 	///looping sound datum for our projectile.
@@ -52,8 +51,8 @@
 	. = ..()
 	soundloop = new(src, TRUE)
 
-// Use the corrected /tg/-style pacing so the parade shield drifts calmly at its nominal 2 tiles/sec
-// instead of the stock engine's faster, stuttering slow-projectile movement. See process_paced().
+// Use the corrected pacing so the parade shield drifts calmly at its nominal 2 tiles/sec instead of the
+// stock engine's faster, stuttering slow-projectile movement. See process_paced().
 /obj/projectile/moon_parade/process()
 	return process_paced()
 
@@ -66,10 +65,9 @@
 /obj/projectile/moon_parade/check_ricochet_flag(atom/bumped_atom)
 	return !isliving(bumped_atom)
 
-/// TG pierces mobs/vehicles via projectile_piercing. Paradise has no such var - instead a projectile
-/// passes through whatever it hits when bullet_act()/on_hit() returns -1 (see shooting_range.dm). So we
-/// hit each living mob, then return -1 to keep flying (and keep ricocheting off walls) so the whole crowd
-/// gets dragged into the parade, exactly like on TG.
+/// Paradise projectiles have no piercing var - instead a projectile passes through whatever it hits when
+/// bullet_act()/on_hit() returns -1 (see shooting_range.dm). So we hit each living mob, then return -1 to
+/// keep flying (and keep ricocheting off walls) so the whole crowd gets dragged into the parade.
 /obj/projectile/moon_parade/on_hit(atom/target, blocked = 0, pierce_hit)
 	. = ..()
 	if(!isliving(target))
@@ -86,8 +84,8 @@
 	if(victim == firer || is_parade_ally(victim))
 		return -1
 
-	// Anti-magic shrugs the parade off and pops the projectile - deliberate counterplay, matches TG. (In
-	// master220 can_block_magic() is currently an inert shim, so this branch is dormant until antimagic lands.)
+	// Anti-magic shrugs the parade off and pops the projectile - deliberate counterplay. (can_block_magic()
+	// is currently an inert shim, so this branch is dormant until antimagic lands.)
 	if(victim.can_block_magic(MAGIC_RESISTANCE | MAGIC_RESISTANCE_MIND))
 		visible_message(span_warning("Парад врезается в [victim.declent_ru(ACCUSATIVE)], и внезапная волна ясности накрывает [genderize_ru(victim.gender, "его", "её", "его", "их")]!"))
 		return // returns a non -1 value, so Bump() deletes the projectile and the parade stops
@@ -98,12 +96,11 @@
 		return -1
 
 	// Leash the victim to the parade PROJECTILE itself (the "shield"), passing src as the anchor. Both
-	// players and basic mobs then trail after the shield as it drifts and ricochets - NOT after the caster,
-	// which is how it works on TG. The status effect owns the leash, the 20s timer and the cleanup.
+	// players and basic mobs then trail after the shield as it drifts and ricochets - not after the caster.
+	// The status effect owns the leash, the 20s timer and the cleanup.
 	victim.apply_status_effect(/datum/status_effect/moon_parade, src)
 	victim.cause_hallucination(/datum/hallucination/delusion/preset/moon, name)
 	victim.Hallucinate(60 SECONDS)
-	// master220 has no mood system; tg's moon_insanity moodlet becomes this chat line.
 	to_chat(victim, span_warning("ЛУНА СУДИТ ВАС И НАХОДИТ НЕДОСТОЙНЫМ!!!"))
 	return -1 // keep flying so everyone in its path joins the parade
 
@@ -137,7 +134,6 @@
 
 /// Status effect that transfixes a victim to the parade projectile: it leashes them to the "shield" so they
 /// trail after it, blocks their own movement to sell the illusion, and releases them after 20s or 50 damage.
-/// Faithful port of TG's /datum/status_effect/moon_parade.
 /datum/status_effect/moon_parade
 	id = "moon_parade"
 	alert_type = /atom/movable/screen/alert/status_effect/moon_parade
@@ -207,7 +203,7 @@
 	icon_state = "moon_parade"
 
 
-/// The marching-band music that follows the parade projectile. (Paradise has no sound tokens, so omitted.)
+/// The marching-band music that follows the parade projectile.
 /datum/looping_sound/moon_parade
 	mid_sounds = list('sound/effects/moon_parade_soundloop.ogg' = 1)
 	mid_length = 2 SECONDS

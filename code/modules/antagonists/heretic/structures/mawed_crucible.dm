@@ -271,7 +271,7 @@
 	var/crucible_tip = "Не делает абсолютно ничего."
 	/// Typepath to the status effect this applies
 	var/status_effect
-	/// Whether drinking this brew while its blessing is still active refreshes it (tg parity).
+	/// Whether drinking this brew while its blessing is still active refreshes it.
 	var/can_refresh = TRUE
 
 /obj/item/eldritch_potion/examine(mob/user)
@@ -289,7 +289,7 @@
 	if(!iscarbon(user))
 		return
 
-	// tg: a non-refreshable brew refuses to work while its blessing is still active.
+	// A non-refreshable brew refuses to work while its blessing is still active.
 	if(!can_refresh && user.has_status_effect(status_effect))
 		return
 
@@ -327,7 +327,7 @@
 	can_refresh = FALSE
 
 
-// tg: refuses to work during the 2-minute post-phase lockout.
+// Refuses to work during the 2-minute post-phase lockout.
 /obj/item/eldritch_potion/crucible_soul/attack_self(mob/living/carbon/user)
 	if(user.has_status_effect(/datum/status_effect/crucible_soul_cooldown))
 		balloon_alert(user, "на перезарядке!")

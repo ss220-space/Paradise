@@ -70,7 +70,6 @@
 		affected_turf.cut_overlay(void_overlay)
 
 	for(var/turf/affected_turf as anything in view(effect_range, src))
-		// TG checks isopenturf (floors AND space); the master220 analogue is "not a dense turf".
 		if(affected_turf.density)
 			continue
 

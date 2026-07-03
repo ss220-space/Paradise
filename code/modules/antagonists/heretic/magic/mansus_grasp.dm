@@ -6,8 +6,8 @@
 	overlay_icon_state = "bg_heretic_border"
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
 	action_icon_state = "mansus_grasp"
-	// While the grasp is charged into a hand, the action button wears the red "armed" border (the same one
-	// Rust Formation uses) until the grasp is spent - the fist toggles action.targeting_process on/off.
+	// While the grasp is charged into a hand, the action button wears the red "armed" border until the
+	// grasp is spent - the fist toggles action.targeting_process on/off.
 	action_targeting_overlay = "bg_spell_border_active_red"
 	sound = 'sound/items/welder.ogg'
 
@@ -70,19 +70,15 @@
 // chain (melee_attack_chain) - BEFORE the target's own attackby. Doing it in afterattack failed on doors:
 // /obj/machinery/door/airlock/attackby would try to open the door (or shock us) and return
 // ATTACK_CHAIN_BLOCKED_ALL, skipping afterattack entirely, so the grasp never fired and the airlock
-// survived. Running before attackby makes the corrode/smash reliable, mirroring tg (where the touch hand
-// casts via interaction signals that run before the door's open handling). Living targets fall through to
-// the normal (primary) combat grasp in afterattack.
+// survived. Running before attackby makes the corrode/smash reliable. Living targets fall through to the
+// normal (primary) combat grasp in afterattack.
 /obj/item/melee/touch_attack/mansus_fist/pre_attack_secondary(atom/victim, mob/living/carbon/caster, list/modifiers, list/attack_modifiers)
 	if(isliving(victim))
 		return SECONDARY_ATTACK_CALL_NORMAL
 	if(SEND_SIGNAL(caster, COMSIG_HERETIC_MANSUS_GRASP_ATTACK_SECONDARY, victim) & COMPONENT_USE_HAND)
 		// Consume the hand AND start the spell's cooldown, exactly like the primary grasp (godhand's
-		// afterattack runs attached_spell.perform()) and like tg (where the secondary hit's
-		// SECONDARY_ATTACK_CONTINUE_CHAIN calls remove_hand(), which StartCooldown()s). The old
-		// remove_hand_with_no_refund() path just deleted the hand without ever recharging, so the
-		// secondary grasp could be spammed with no cooldown. perform() also fires the invocation/sound,
-		// matching tg's spell_feedback.
+		// afterattack runs attached_spell.perform()). Just deleting the hand without recharging would let
+		// the secondary grasp be spammed with no cooldown. perform() also fires the invocation/sound.
 		if(attached_spell)
 			attached_spell.perform(list(), user = caster)
 		qdel(src)
@@ -116,8 +112,7 @@
 	// NOBLUDGEON so the grasp isn't treated as a melee weapon: without it, right-clicking an airlock on a
 	// non-harm intent makes /obj/machinery/door/attackby run try_to_activate_door() and return
 	// ATTACK_CHAIN_BLOCKED_ALL, which skips afterattack() - so the secondary (Rust) grasp never fired and
-	// the airlock survived. With NOBLUDGEON the door lets the click through to afterattack, matching tg
-	// (where the touch hand casts via interaction signals that run before the door's open handling).
+	// the airlock survived. With NOBLUDGEON the door lets the click through to afterattack.
 	item_flags = ABSTRACT | DROPDEL | NOBLUDGEON
 	catchphrase = "Р'СКР ПР'ВД'!"
 
@@ -161,9 +156,7 @@
 	spell_action.UpdateButtonIcon()
 
 
-/*
- * Callback for effect_remover component.
- */
+/// Callback for effect_remover component.
 /obj/item/melee/touch_attack/mansus_fist/proc/after_clear_rune(obj/effect/target, mob/living/user)
 	new /obj/effect/temp_visual/drawing_heretic_rune/fail(target.loc)
 	//var/obj/effect/proc_holder/spell/touch/mansus_grasp/grasp = attached_spell?.resolve()

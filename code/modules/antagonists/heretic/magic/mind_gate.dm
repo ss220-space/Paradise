@@ -28,7 +28,7 @@
 
 // Use the VALIDATING clicked-atom targeting so a click on empty space / scenery is rejected before perform()
 // runs. Unlike a check inside cast() (which fires after the whisper, sound and cooldown have already gone
-// off), this bails in choose_targets()->try_perform() FIRST: nothing is spent and the ability stays armed.
+// off), this bails in choose_targets()->try_perform() first: nothing is spent and the ability stays armed.
 /obj/effect/proc_holder/spell/pointed/mind_gate/create_new_targeting()
 	var/datum/spell_targeting/clicked_atom/validated/new_targeting = new()
 	new_targeting.range = cast_range
@@ -36,7 +36,7 @@
 
 
 // The gate only opens on a real mind. Anything non-human (turf/scenery/animal) is not a valid target, so the
-// targeting above discards the click. Balloon a hint when it's rejected (tg: the gate needs someone to open).
+// targeting above discards the click. Balloon a hint when it's rejected.
 /obj/effect/proc_holder/spell/pointed/mind_gate/valid_target(atom/cast_on, mob/user)
 	if(!ishuman(cast_on))
 		cast_on?.balloon_alert(user || action?.owner, "нет разума!")
@@ -62,8 +62,7 @@
 	cast_on.Hallucinate(120 SECONDS)
 	cast_on.cause_hallucination(/datum/hallucination/delusion/preset/heretic/gate, "Эффект Врат Разума")
 	cast_on.adjustOrganLoss(INTERNAL_ORGAN_BRAIN, 30)
-	// master220 has no mood system; tg's moon_smile moodlet on the target becomes this chat line.
 	to_chat(cast_on, span_warning("Ваши глаза кричат от боли, уши кровоточат, а губы немеют! ЛУНА УЛЫБАЕТСЯ ВАМ!"))
 
 	var/mob/living/living_owner = action.owner
-	living_owner.adjustOrganLoss(INTERNAL_ORGAN_BRAIN, 20, 140) // TG: caster takes 20 brain damage per cast.
+	living_owner.adjustOrganLoss(INTERNAL_ORGAN_BRAIN, 20, 140) // Caster takes brain damage per cast too.

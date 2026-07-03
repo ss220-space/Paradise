@@ -1,8 +1,6 @@
-/*!
- * Contains the spell "Wolves among Sheep"
- * Handles the creation of the "arena", in terms of visuals. Banishes windows/airlocks and puts down the floors
- * For the functionality of the spell itself see [/obj/effect/abstract/heretic_arena] which is created during [/proc/create_arena()]
- */
+// Contains the spell "Wolves among Sheep". Handles the creation of the "arena", in terms of visuals -
+// banishes windows/airlocks and puts down the floors. For the functionality of the spell itself see
+// [/obj/effect/abstract/heretic_arena] which is created during [/proc/create_arena()].
 /obj/effect/proc_holder/spell/wolves_among_sheep
 	name = "Волк среди овец"
 	desc = "Изменяет ткань реальности, создавая магическую арену, недоступную для посторонних. \
@@ -87,9 +85,8 @@
 /// Applies a visual to each turf
 /obj/effect/proc_holder/spell/wolves_among_sheep/proc/apply_visual(list/turfs)
 	for(var/turf/target as anything in turfs)
-		// Drape the rose-stone arena over the existing terrain via an everyone-visible alt appearance (tg
-		// uses isopenturf/isclosedturf; master220's equivalents are isfloorturf/iswallturf). Keyed per-turf
-		// (UID) so each tile carries its own overlay and we can strip it cleanly on revert.
+		// Drape the rose-stone arena over the existing terrain via an everyone-visible alt appearance.
+		// Keyed per-turf (UID) so each tile carries its own overlay and we can strip it cleanly on revert.
 		if(isfloorturf(target))
 			var/turf_icon = "rose_stone_[pick(1, 2, 3, 4, 5, 6, 7, 8)]"
 			target.add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/everyone, "heretic_arena[target.UID()]", image('icons/turf/floors/rose_stone_turf.dmi', target, turf_icon, layer = ABOVE_OPEN_TURF_LAYER))

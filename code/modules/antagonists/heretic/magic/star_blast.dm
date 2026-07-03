@@ -36,8 +36,8 @@
 	to_fire.AddElement(cosmic_trail_based_on_passive(user), /obj/effect/forcefield/cosmic_field/fast)
 
 
-// While the disk is live, pressing the action button again teleports us to it and pulls nearby heathens into
-// cosmic fields, instead of arming a new shot (tg's set_click_ability recast — no target click needed).
+// While the disk is live, pressing the action button again teleports us to it and pulls nearby heathens
+// into cosmic fields, instead of arming a new shot (no target click needed).
 /obj/effect/proc_holder/spell/pointed/projectile/star_blast/Click()
 	var/obj/projectile/magic/star_ball/active_ball = projectile_weakref?.resolve()
 	if(!active_ball)
@@ -55,7 +55,7 @@
 	return TRUE
 
 
-// The disk was fired: light up the green "recast ready" border (tg's apply_button_overlay green frame).
+// The disk was fired: light up the green "recast ready" border.
 /obj/effect/proc_holder/spell/pointed/projectile/star_blast/after_cast(atom/cast_on)
 	. = ..()
 	if(projectile_weakref?.resolve())
@@ -78,7 +78,7 @@
 	action.UpdateButtonIcon(ALL)
 
 
-// tg's expanding purple ring shown at both ends of the star blast teleport.
+// Expanding purple ring shown at both ends of the star blast teleport.
 /obj/effect/temp_visual/circle_wave/star_blast
 	color = COLOR_VOID_PURPLE
 
@@ -111,15 +111,14 @@
 	gender = MALE
 	icon_state = "star_ball"
 	damage = 0
-	// tg speed 0.2 = 0.2 tiles per decisecond; Paradise speed = deciseconds per tile, so 1/0.2 = 5 (slow disk).
-	// Playtest: slowed a touch further (5 -> 6) so the disk is easier to chase for the teleport recast.
+	// Paradise speed is deciseconds per tile (inverse of tiles/decisecond); slowed slightly (5 -> 6) so
+	// the disk is easier to chase for the teleport recast.
 	speed = 6
 	range = 25
 	knockdown = 4 SECONDS
-	// tg disk passes through nearly everything and *pierces* mobs/vehicles (projectile_piercing). Paradise has
-	// no projectile_piercing: things NOT in pass_flags (mobs, walls, mechs) Bump us instead, and forcedodge = -1
-	// makes every such Bump apply the hit (knockdown + star marks) and fly on, never stopping until range end -
-	// which also keeps the disk alive for the teleport recast.
+	// No projectile_piercing here: things NOT in pass_flags (mobs, walls, mechs) Bump us instead, and
+	// forcedodge = -1 makes every such Bump apply the hit (knockdown + star marks) and fly on, never
+	// stopping until range end - which also keeps the disk alive for the teleport recast.
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE | PASSBLOB | PASSMACHINE | PASSSTRUCTURE | PASSFLAPS | PASSFENCE | PASSDOOR | PASSITEM
 	forcedodge = -1
 	/// Effect for when the ball hits something.

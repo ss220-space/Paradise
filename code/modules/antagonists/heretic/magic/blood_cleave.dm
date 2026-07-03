@@ -32,8 +32,7 @@
 	var/mob/living/carbon/human/cast_on = targets[1]
 	. = ..()
 	var/mob/living/caster = action?.owner || user
-	// TG "cleanses all wounds upon casting" — master220 has no TG wound system, so this mends your own
-	// injuries (heals brute/burn) at cast time, with or without a target.
+	// No wound system here, so "cleanses all wounds upon casting" becomes a flat brute/burn heal.
 	if(isliving(caster))
 		caster.adjustBruteLoss(-20)
 		caster.adjustFireLoss(-20)
@@ -55,7 +54,6 @@
 			span_danger("Ваши вены лопаются изнутри, и нечестивое пламя вырывается из вашей крови!")
 		)
 
-		// Siphon: damage the victim and heal yourself for the same amount, draining their blood.
 		victim.apply_damage(15, BRUTE)
 		if(isliving(caster))
 			caster.adjustBruteLoss(-15)

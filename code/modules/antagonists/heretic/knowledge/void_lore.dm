@@ -23,13 +23,13 @@
 		"Трудно сражаться с силиконовыми формами жизни.",
 	)
 	path_tips = list(
-		"«Прикосновение Мансуса» заглушает жертву — идеально для бесшумных убийств (учтите: датчики костюма оно не отключает, не забудьте выключить их после убийства). Прикосновение также накладывает метку: сработав от удара Клинком Пустоты, она накладывает максимум зарядов пустотного озноба, замедляя жертву до предела.",
-		"Плащ Пустоты с опущенным капюшоном прячет один из ваших клинков и Кодекс Цикатрикс, а с поднятым — служит амулетом.",
-		"Пустотный озноб — дебафф, накладываемый вашими заклинаниями, прикосновением, меткой и (после улучшения) клинком. Каждый заряд замедляет цель на 10% и постепенно охлаждает её; максимум 5 зарядов.",
+		"«Прикосновение Мансуса» заглушает жертву - идеально для бесшумных убийств (учтите: датчики костюма оно не отключает, не забудьте выключить их после убийства). Прикосновение также накладывает метку: сработав от удара Клинком Пустоты, она накладывает максимум зарядов пустотного озноба, замедляя жертву до предела.",
+		"Плащ Пустоты с опущенным капюшоном прячет один из ваших клинков и Кодекс Цикатрикс, а с поднятым - служит амулетом.",
+		"Пустотный озноб - дебафф, накладываемый вашими заклинаниями, прикосновением, меткой и (после улучшения) клинком. Каждый заряд замедляет цель на 10% и постепенно охлаждает её; максимум 5 зарядов.",
 		"На 5 зарядах пустотный озноб не даёт жертве согреться.",
 		"С самого начала смены вы невосприимчивы к низкому давлению и холоду. Улучшите пассивную способность до 2 уровня, чтобы перестать нуждаться в дыхании. Используйте это с умом.",
 		"«Пустотная Тюрьма» запирает цель в шаре на десяток секунд. Идеально, чтобы изолировать одного противника, сражаясь с несколькими.",
-		"«Врата в Пустоту» — ваша визитная карточка. Они постепенно уничтожают окна и шлюзы вокруг зоны действия. Используйте их для разгерметизации станции и расширения своих владений.",
+		"«Врата в Пустоту» - ваша визитная карточка. Они постепенно уничтожают окна и шлюзы вокруг зоны действия. Используйте их для разгерметизации станции и расширения своих владений.",
 	)
 	// "Aristocrat's Way" passive (see /datum/status_effect/heretic_passive/void): tiers light up as you grow.
 	passive_name = "Путь Аристократа"
@@ -39,9 +39,8 @@
 		"Вода, лёд и скользкие поверхности вам не страшны.",
 	)
 
-	// TG-format column (1:1 with tgstation Void). Main line:
-	// base_void -> Void Phase -> Void Prison -> Hollow Weave(robes) -> Void Pull -> Seeking Blade -> Void Conduit -> ascension.
-	// The grasp (silence + chill) and the void mark are folded into base_void (matching TG, no separate nodes).
+	// Main line: base_void -> Void Phase -> Void Prison -> Hollow Weave(robes) -> Void Pull -> Seeking Blade -> Void Conduit -> ascension.
+	// The grasp (silence + chill) and the void mark are folded into base_void, no separate nodes.
 	start = /datum/heretic_knowledge/limited_amount/starting/base_void
 	knowledge_tier1 = /datum/heretic_knowledge/spell/void_phase
 	knowledge_tier2 = /datum/heretic_knowledge/spell/void_prison
@@ -67,7 +66,6 @@
 	result_atoms = list(/obj/item/melee/sickly_blade/void)
 	research_tree_icon_path = 'icons/obj/weapons/khopesh.dmi'
 	research_tree_icon_state = "void_blade"
-	// TG folds the grasp (silence + chill), the void mark and the path passive into the starting knowledge.
 	mark_type = /datum/status_effect/eldritch/void
 	passive_type = /datum/status_effect/heretic_passive/void
 
@@ -80,8 +78,7 @@
 	return FALSE
 
 
-/// Folded from the old "Понимание пустоты" grasp node (TG parity): the parent applies our mark,
-/// then we silence and chill carbon victims.
+/// Mansus Grasp: the parent applies our mark, then we silence and chill carbon victims.
 /datum/heretic_knowledge/limited_amount/starting/base_void/on_mansus_grasp(mob/living/source, mob/living/target)
 	. = ..()
 
@@ -89,14 +86,14 @@
 		return
 
 	var/mob/living/carbon/carbon_target = target
-	// TG adjust_silence(10 SECONDS): stacks on top of any existing silence, unlike Silence() which only maxes.
+	// Stacks on top of any existing silence, unlike Silence() which only maxes.
 	carbon_target.AdjustSilence(10 SECONDS)
 	carbon_target.apply_status_effect(/datum/status_effect/void_chill, 2)
 
 
 /datum/heretic_knowledge/spell/void_phase
 	name = "Пустотный Сдвиг"
-	desc = "Дарует вам «Пустотный Сдвиг» — заклинание телепортации на большие расстояния. \
+	desc = "Дарует вам «Пустотный Сдвиг», заклинание телепортации на большие расстояния. \
 			Кроме того, наносит урон врагам вокруг вашей исходной и целевой точки назначения."
 	gain_text = "Я был в пустоте. Я видел сущность называющую себя Аристократом. \
 				Она летела оставляя после себя резкий, холодный ветер. Я следовал за ней, но \
@@ -104,14 +101,14 @@
 	research_tree_icon_path = 'icons/mob/actions/actions_ecult.dmi'
 	research_tree_icon_state = "voidblink"
 	spell_to_add = /obj/effect/proc_holder/spell/pointed/void_phase
-	cost = 2 // TG: void_phase costs 2
+	cost = 2
 	research_tree_icon_frame = 7
 
 
 /datum/heretic_knowledge/spell/void_prison
-	drafting_tier = 5 // TG: each path's signature spell is a cross-path tier-5 draftable
+	drafting_tier = 5 // each path's signature spell is a cross-path tier-5 draftable
 	name = "Пустотная Тюрьма"
-	desc = "Даёт вам «Пустотную Тюрьму» — заклинание, заключающее вашу жертву в шар, \
+	desc = "Даёт вам «Пустотную Тюрьму», заклинание, заключающее вашу жертву в шар, \
 			лишая её возможности что-либо делать или говорить. После накладывает пустотный озноб."
 	gain_text = "Я вижу себя, вальсирующего по заснеженной улице. \
 				Я пытаюсь кричать, пытаюсь схватить этого дурака, пытаюсь сказать ему, чтобы он бежал. \
@@ -119,7 +116,7 @@
 	research_tree_icon_path = 'icons/mob/actions/actions_ecult.dmi'
 	research_tree_icon_state = "voidball"
 	spell_to_add = /obj/effect/proc_holder/spell/pointed/void_prison
-	cost = 2 // TG: void_prison costs 2
+	cost = 2
 
 
 /datum/heretic_knowledge/armor/void
@@ -130,13 +127,13 @@
 	gain_text = "Ступая сквозь холодный воздух, я ощутил нечто новое. \
 				Тысячи почти неразличимых нитей льнут к моему телу. \
 				С каждым шагом я словно плыву по течению. \
-				Я слышу хруст снега под ногой — но не чувствую ничего."
+				Я слышу хруст снега под ногой - но не чувствую ничего."
 	result_atoms = list(/obj/item/clothing/suit/hooded/cultrobes/eldritch/void)
 	required_atoms = list(
 		list(/obj/structure/table, /obj/item/clothing/suit) = 1,
 		/obj/item/clothing/mask = 1,
 	)
-	// The void robe sprite was spliced into the shared suits.dmi (matches tg's suits/armor.dmi "void_armor").
+	// The void robe sprite was spliced into the shared suits.dmi.
 	// The /armor parent asks for frame 12 (eldritch_armor is a 14-frame anim); void_armor is single-frame.
 	research_tree_icon_path = 'icons/obj/clothing/suits.dmi'
 	research_tree_icon_state = "void_armor"
@@ -153,14 +150,14 @@
 
 /datum/heretic_knowledge/spell/void_pull
 	name = "Притяжение Пустоты"
-	desc = "Дает вам Притяжение Пустоты — заклинание, притягивающее к вам всех находящихся поблизости язычников, ненадолго оглушая их."
+	desc = "Дает вам Притяжение Пустоты, заклинание, притягивающее к вам всех находящихся поблизости язычников, ненадолго оглушая их."
 	gain_text = "Всё мимолётно, но что же ещё остаётся? Я близок к завершению начатого. \
 				Аристократы снова открываются мне. Они говорят, что я опоздал. \
 				Их притяжение огромно, я не могу повернуть назад."
 	research_tree_icon_path = 'icons/mob/actions/actions_ecult.dmi'
 	research_tree_icon_state = "voidpull"
 	spell_to_add = /obj/effect/proc_holder/spell/aoe/void_pull
-	cost = 2 // TG: void_pull costs 2
+	cost = 2
 
 	research_tree_icon_frame = 6
 
@@ -198,18 +195,18 @@
 
 /datum/heretic_knowledge/spell/void_conduit
 	name = "Врата в Пустоту"
-	desc = "Даёт вам «Врата в Пустоту» — заклинание, создающее пульсирующие врата в саму Пустоту. Каждый импульс разбивает окна и шлюзы, нанося вашим врагам жуткий холод и защищая еретиков от низкого давления."
+	desc = "Даёт вам «Врата в Пустоту», заклинание, создающее пульсирующие врата в саму Пустоту. Каждый импульс разбивает окна и шлюзы, нанося вашим врагам жуткий холод и защищая еретиков от низкого давления."
 	gain_text = "Гул в неподвижном, холодном воздухе превращается в какофонию. \
 				Сквозь этот шум не различить стук оконных стёкол и хаотичный бред проносящийся в моей голове. \
 				Врата не закрыть. Теперь я не могу уберечься от холода."
 	research_tree_icon_path = 'icons/mob/actions/actions_ecult.dmi'
 	research_tree_icon_state = "void_rift"
 	spell_to_add = /obj/effect/proc_holder/spell/aoe/conjure/void_conduit
-	cost = 2 // TG: void_conduit costs 2
+	cost = 2
 	is_final_knowledge = TRUE
 
 
-// The endless waltz that plays around the ascended nobleman of void (tg's void_loop, adapted paths).
+// The endless waltz that plays around the ascended nobleman of void.
 /datum/looping_sound/void_loop
 	mid_sounds = list('sound/music/heretic/VoidsEmbrace.ogg' = 1)
 	mid_length = 166.9 SECONDS // exact length of the music in ticks
@@ -231,7 +228,6 @@
 	//ascension_achievement = /datum/award/achievement/misc/void_ascension
 	announcement_text = "%SPOOKY% Дворянин пустоты %NAME% прибыл, шагая в Вальсе, который положит конец всему! %SPOOKY%"
 	announcement_sound = 'sound/music/heretic/ascend_void.ogg'
-	// tg parity: the research-tree node wears the path's ascension achievement sprite.
 	research_tree_icon_path = 'icons/ui_icons/antags/heretic/ascension.dmi'
 	research_tree_icon_state = "voidascend"
 	///soundloop for the void theme
@@ -252,31 +248,27 @@
 
 /datum/heretic_knowledge/ultimate/void_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	. = ..()
-	// TG grants TRAIT_RESISTLOWPRESSURE; master220 gates low-pressure damage on TRAIT_RESIST_COLD
-	// (see human/life.dm), which the void passive already provides - re-add it under our own source anyway
-	// so losing the passive can never strip the ascension's space immunity.
-	// (TRAIT_FREE_HYPERSPACE_MOVEMENT has no master220 equivalent.)
+	// master220 gates low-pressure damage on TRAIT_RESIST_COLD (see human/life.dm), which the void
+	// passive already provides - re-add it under our own source anyway so losing the passive can
+	// never strip the ascension's space immunity.
 	user.add_traits(list(TRAIT_RESIST_COLD, TRAIT_NEGATES_GRAVITY, TRAIT_MOVE_FLYING), type)
 
-	// Let's get this show on the road!
 	sound_loop = new(user, TRUE, TRUE)
 	RegisterSignal(user, COMSIG_LIVING_LIFE, PROC_REF(on_life))
 	RegisterSignal(user, COMSIG_HUMAN_TRY_DEFLECT_BULLET, PROC_REF(hit_by_projectile))
 	RegisterSignals(user, list(COMSIG_LIVING_DEATH, COMSIG_QDELETING), PROC_REF(on_death))
-	// NB: this is a tg-style COMPONENT - a bare new(user, 10) hands the mob to New(list/raw_args) and
-	// runtimes on raw_args[1]; components must be created through AddComponent.
+	// A bare new(user, 10) hands the mob to New(list/raw_args) and runtimes on raw_args[1];
+	// components must be created through AddComponent.
 	heavy_storm = user.AddComponent(/datum/component/proximity_monitor/advanced/void_storm, 10)
 	if(!ishuman(user))
 		return
 
 	var/mob/living/carbon/human/ascended_human = user
-	//var/obj/item/organ/internal/eyes/heretic_eyes = ascended_human.get_organ_slot(INTERNAL_ORGAN_EYES)
-	//heretic_eyes?.color_cutoffs = list(30, 30, 30) // master220 eyes have no color_cutoffs
 	ascended_human.update_sight()
 
 
 /datum/heretic_knowledge/ultimate/void_final/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
-	on_death(user) // Losing is pretty much dying. I think
+	on_death(user)
 
 /**
  * Signal proc for [COMSIG_LIVING_LIFE].
@@ -302,7 +294,7 @@
 				close_carbon.apply_status_effect(/datum/status_effect/void_conduit)
 				continue
 
-			// TG adjust_silence_up_to(2 SECONDS, 20 SECONDS): each tick stacks silence, capped at 20s.
+			// Each tick stacks silence, capped at 20s.
 			close_carbon.AdjustSilence(2 SECONDS, 0, 20 SECONDS)
 			close_carbon.apply_status_effect(/datum/status_effect/void_chill, 1)
 			close_carbon.EyeBlurry(rand(0 SECONDS, 2 SECONDS))

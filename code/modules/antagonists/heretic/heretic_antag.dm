@@ -13,12 +13,7 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 		PATH_MOON = COLOR_BLUE_LIGHT,
 	))
 
-/*
- * Simple helper to generate a string of
- * garbled symbols up to [length] characters.
- *
- * Used in creating spooky-text for heretic ascension announcements.
- */
+/// Generates a string of garbled symbols up to [length] characters, used for spooky ascension announcements.
 /proc/generate_heretic_text(length = 25)
 	if(!isnum(length)) // stupid thing so we can use this directly in replacetext
 		length = 25
@@ -136,36 +131,28 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 
 
 /datum/antagonist/heretic/proc/get_icon_of_knowledge(datum/heretic_knowledge/knowledge)
-	//basic icon parameters
 	var/icon_path = 'icons/mob/actions/actions_ecult.dmi'
 	var/icon_state = "eye"
 	var/icon_frame = knowledge.research_tree_icon_frame
 	var/icon_dir = knowledge.research_tree_icon_dir
-	//can't imagine why you would want this one, so it can't be overridden by the knowledge
 	var/icon_moving = 0
 
-	//item transmutation knowledge does not generate its own icon due to implementation difficulties, the icons have to be specified in the override vars
-
-	//if the knowledge has a special icon, use that
 	if(!isnull(knowledge.research_tree_icon_path))
 		icon_path = knowledge.research_tree_icon_path
 		icon_state = knowledge.research_tree_icon_state
 
-	//if the knowledge is a spell, use the spell's button
 	else if(ispath(knowledge,/datum/heretic_knowledge/spell))
 		var/datum/heretic_knowledge/spell/spell_knowledge = knowledge
 		var/datum/action/result_action = spell_knowledge.spell_to_add
 		icon_path = result_action.button_icon
 		icon_state = result_action.button_icon_state
 
-	//if the knowledge is a summon, use the mob sprite
 	else if(ispath(knowledge,/datum/heretic_knowledge/limited_amount/summon))
 		var/datum/heretic_knowledge/limited_amount/summon/summon_knowledge = knowledge
 		var/mob/living/result_mob = summon_knowledge.mob_to_summon
 		icon_path = result_mob.icon
 		icon_state = result_mob.icon_state
 
-	//if the knowledge is an eldritch mark, use the mark sprite
 	else if(ispath(knowledge,/datum/heretic_knowledge/mark))
 		var/datum/heretic_knowledge/mark/mark_knowledge = knowledge
 		var/datum/status_effect/eldritch/mark_effect = mark_knowledge.mark_type
@@ -243,8 +230,8 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	var/list/tiers = list()
 	var/list/shop = list()
 
-	// Path-start ("choose this path") nodes are surfaced ONLY in the Пути (Path Info) tab, never in the
-	// research tree - so that picking a path happens exclusively there, matching TG. Collect their types.
+	// Path-start ("choose this path") nodes are surfaced only in the Пути (Path Info) tab, never in the
+	// research tree, so picking a path happens exclusively there.
 	var/list/path_start_knowledges = list()
 	for(var/datum/heretic_knowledge_tree_column/main/column_type as anything in subtypesof(/datum/heretic_knowledge_tree_column/main))
 		if(initial(column_type.abstract_parent_type) == column_type)
@@ -258,10 +245,8 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	for(var/datum/heretic_knowledge/knowledge as anything in researched_knowledge)
 		if(drafted_knowledge[knowledge] || shop_knowledge_pool[knowledge])
 			continue
-		// The path-start node is normally surfaced only in the Пути tab (so picking a path happens there).
-		// But ONCE it's researched we DO want it shown in the tree as the first, already-owned ability of
-		// the path you're walking (matching TG / the Ash path) - so don't skip a researched start here.
-		// (Unpicked starts are still skipped in the researchable loop below, keeping path-choice in Пути.)
+		// Once a path-start node is researched, show it in the tree as the first owned ability of the path
+		// (unpicked starts are still skipped in the researchable loop below, keeping path-choice in Пути).
 		var/list/knowledge_data = get_knowledge_data(knowledge, TRUE)
 		// No tree entry (directly-granted, e.g. the gifted Ritual of Knowledge) renders as an owned side node.
 		var/list/tree_entry = GLOB.heretic_research_tree[knowledge]
@@ -284,21 +269,19 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 			continue
 		add_node_to_tiers(tiers, knowledge_data)
 
-	// --- Per-tier DRAFTS: the FREE overlay shown in the research tree (one free pick of three). This is
-	//     ONLY the still-available options; a draft you already picked is shown (owned) in the shop below,
-	//     and the unpicked siblings remain buyable in the shop too - exactly like TG (the draft is just a
-	//     free overlay over the shop pool, it does NOT remove anything from the shop).
+	// Per-tier DRAFTS: the free overlay shown in the research tree (one free pick of three). Only the
+	// still-available options are shown here; a picked draft shows as owned in the shop below (the draft
+	// is just a free overlay over the shop pool, it doesn't remove anything from the shop).
 	for(var/knowledge_type in drafted_knowledge)
 		if(researched_knowledge[knowledge_type])
-			continue // picked drafts show as owned in the shop (matches TG), not twice in the tree
+			continue
 		if(is_available_draft(knowledge_type))
 			add_node_to_tiers(tiers, get_knowledge_data(knowledge_type, FALSE, drafted_knowledge[knowledge_type]))
 
-	// --- Knowledge SHOP: the WHOLE side pool, grouped by shop tier ("Тир N"), unlocked tier-by-tier. TG
-	//     always shows every unlocked side knowledge here regardless of draft state, so a tier shows its
-	//     full count (e.g. 8 in Tier 1) and the draft siblings you didn't pick stay buyable for points.
-	//     TG renders already-researched shop knowledges FIRST, so buying something pushes it to the front of
-	//     its tier (the player asked for this). We mirror that with two passes: owned first, then buyable.
+	// Knowledge SHOP: the whole side pool, grouped by shop tier ("Тир N"), unlocked tier-by-tier. Every
+	// unlocked side knowledge shows here regardless of draft state, so a tier keeps its full count and the
+	// draft siblings you didn't pick stay buyable. Owned entries render first so buying something moves it
+	// to the front of its tier.
 	for(var/knowledge_type in shop_knowledge_pool)
 		if(researched_knowledge[knowledge_type])
 			shop += list(get_knowledge_data(knowledge_type, TRUE, shop_knowledge_pool[knowledge_type]))
@@ -456,10 +439,7 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	return ..()
 
 
-// master220 calls this final-removal hook from /datum/antagonist/Destroy (was on_removal() in the tg/selfharm source).
 /datum/antagonist/heretic/handle_last_instance_removal()
-	// (removed a stray `SSticker.mode.changelings -= owner` line from the source — copy-paste bug from
-	//  changeling; heretics aren't tracked in that list and master220's remove_owner_from_gamemode() handles it.)
 	for(var/knowledge_index in researched_knowledge)
 		var/datum/heretic_knowledge/knowledge = researched_knowledge[knowledge_index]
 		knowledge.on_lose(owner.current, src)
@@ -582,13 +562,9 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 		heretic_mob.mind?.RemoveSpell(/obj/effect/proc_holder/spell/shadow_cloak)
 	update_heretic_aura()
 
-/**
- * Signal handler for [COMSIG_MOB_LOGIN]. Fires when our heretic's client (re)attaches to the body.
- *
- * The mind's spell actions, the antag HUD marker, and the reality-smash huds all live on the body /
- * client and can end up missing after a relog or a rejuvenate. Re-apply them defensively here so the
- * research menu always opens and rifts are always visible without the "ghost and come back" trick.
- */
+/// Signal handler for [COMSIG_MOB_LOGIN]. Fires when our heretic's client (re)attaches to the body. The
+/// mind's spell actions, antag HUD marker, and reality-smash huds can end up missing after a relog or
+/// rejuvenate, so re-apply them defensively here.
 /datum/antagonist/heretic/proc/on_login(mob/living/source)
 	SIGNAL_HANDLER
 
@@ -606,10 +582,8 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	// Re-grant any knowledge spell that went missing from our mind (the research menu lives here).
 	resync_knowledge_spells(source)
 
-/**
- * Re-adds any [/datum/heretic_knowledge/spell] spell that is no longer present in [source]'s mind.
- * Dedupe-safe: spells already granted are skipped, so this never double-grants.
- */
+/// Re-adds any [/datum/heretic_knowledge/spell] spell that is no longer present in [source]'s mind.
+/// Dedupe-safe: spells already granted are skipped, so this never double-grants.
 /datum/antagonist/heretic/proc/resync_knowledge_spells(mob/living/source)
 	if(!source?.mind)
 		return
@@ -637,39 +611,25 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 		knowledge.on_lose(old_body, src, TRUE)
 		knowledge.on_gain(new_body, src, TRUE)
 
-/*
- * Signal proc for [COMSIG_MOB_BEFORE_SPELL_CAST] and [COMSIG_MOB_SPELL_ACTIVATED].
- *
- * Checks if our heretic has [TRAIT_ALLOW_HERETIC_CASTING] or is ascended.
- * If so, allow them to cast like normal.
- * If not, cancel the cast, and returns [SPELL_CANCEL_CAST].
- */
+/// Signal proc for [COMSIG_MOB_BEFORE_SPELL_CAST] and [COMSIG_MOB_SPELL_ACTIVATED]. Cancels forbidden-school
+/// casts unless the heretic has [TRAIT_ALLOW_HERETIC_CASTING] or is ascended.
 /datum/antagonist/heretic/proc/on_spell_cast(mob/living/source, obj/effect/proc_holder/spell/spell)
 	SIGNAL_HANDLER
 
-	// Heretic spells are of the forbidden school, otherwise we don't care
 	if(spell.school != SCHOOL_FORBIDDEN)
 		return
 
-	// If we've got the trait, we don't care
 	if(HAS_TRAIT(source, TRAIT_ALLOW_HERETIC_CASTING))
 		return
 
-	// All powerful, don't care
 	if(ascended)
 		return
 
-	// We shouldn't be able to cast this! Cancel it.
 	source.balloon_alert(source, "нужен амулет")
 	return SPELL_CANCEL_CAST
 
-/*
- * Signal proc for [COMSIG_MOB_ITEM_AFTERATTACK].
- *
- * If a heretic is holding a pen in their main hand,
- * and have mansus grasp active in their offhand,
- * they're able to draw a transmutation rune.
- */
+/// Signal proc for [COMSIG_MOB_ITEM_AFTERATTACK]. Lets a heretic draw a transmutation rune when holding a
+/// pen with mansus grasp active in their offhand.
 /datum/antagonist/heretic/proc/on_item_use(mob/living/source, atom/target, obj/item/weapon, proximity, params, status)
 	SIGNAL_HANDLER
 	if(!proximity)
@@ -688,15 +648,7 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	try_draw_rune(source, target, additional_checks = CALLBACK(src, PROC_REF(check_mansus_grasp_offhand), source))
 	return COMPONENT_AFTERATTACK_STOP
 
-/**
- * Attempt to draw a rune on [target_turf].
- *
- * Arguments
- * * user - the mob drawing the rune
- * * target_turf - the place the rune's being drawn
- * * drawing_time - how long the do_after takes to make the rune
- * * additional checks - optional callbacks to be ran while drawing the rune
- */
+/// Attempt to draw a rune on [target_turf].
 /datum/antagonist/heretic/proc/try_draw_rune(mob/living/user, turf/target_turf, drawing_time = 20 SECONDS, additional_checks)
 	for(var/turf/nearby_turf as anything in RANGE_TURFS(1, target_turf))
 		if(!iswallturf(nearby_turf) && !is_type_in_typecache(nearby_turf, blacklisted_rune_turfs))
@@ -715,15 +667,7 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 
 	INVOKE_ASYNC(src, PROC_REF(draw_rune), user, target_turf, drawing_time, additional_checks)
 
-/**
- * The actual process of drawing a rune.
- *
- * Arguments
- * * user - the mob drawing the rune
- * * target_turf - the place the rune's being drawn
- * * drawing_time - how long the do_after takes to make the rune
- * * additional checks - optional callbacks to be ran while drawing the rune
- */
+/// The actual process of drawing a rune.
 /datum/antagonist/heretic/proc/draw_rune(mob/living/user, turf/target_turf, drawing_time = 20 SECONDS, additional_checks)
 	drawing_rune = TRUE
 
@@ -747,12 +691,7 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	new /obj/effect/decal/heretic_rune/big(target_turf, rune_colour)
 	drawing_rune = FALSE
 
-/**
- * Callback to check that the user's still got their Прикосновение Мансуса out when drawing a rune.
- *
- * Arguments
- * * user - the mob drawing the rune
- */
+/// Callback to check that the user's still got their Прикосновение Мансуса out when drawing a rune.
 /datum/antagonist/heretic/proc/check_mansus_grasp_offhand(mob/living/user)
 	var/obj/item/offhand = user.get_inactive_hand()
 	return !QDELETED(offhand) && istype(offhand, /obj/item/melee/touch_attack/mansus_fist)
@@ -761,9 +700,9 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 /datum/antagonist/heretic/proc/on_cult_sacrificed(mob/living/source, list/invokers)
 	SIGNAL_HANDLER
 
-	for(var/mob/dead/observer/ghost in GLOB.dead_mob_list) // uhh let's find the guy to shove him back in
-		if((ghost.mind?.current == source) && ghost.client) // is it the same guy and do they have the same client
-			ghost.reenter_corpse() // shove them in! it doesnt do it automatically
+	for(var/mob/dead/observer/ghost in GLOB.dead_mob_list)
+		if((ghost.mind?.current == source) && ghost.client)
+			ghost.reenter_corpse()
 
 	// Drop all items and splatter them around messily.
 	var/list/dustee_items = source.unequip_everything()
@@ -813,15 +752,8 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 */
 	return SILENCE_SACRIFICE_MESSAGE|DUST_SACRIFICE
 
-/**
- * Creates an animation of the item slowly lifting up from the floor with a colored outline, then slowly drifting back down.
- * Arguments:
- * * outline_color: Default is between pink and light blue, is the color of the outline filter.
- * * ray_color: Null by default. If not set, just copies outline. Used for the ray filter.
- * * anim_time: Total time of the animation. Split into two different calls.
- * * do_float: Lets you disable the sprite floating up and down.
- * * do_layer: Lets you disable the layering increase.
- */
+/// Creates an animation of the item slowly lifting up from the floor with a colored outline, then slowly
+/// drifting back down.
 /obj/proc/gender_reveal(
 	outline_color = null,
 	ray_color = null,
@@ -841,15 +773,12 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 		animate(src, pixel_y = 12, time = anim_time * 0.5, easing = QUAD_EASING | EASE_OUT)
 		animate(pixel_y = 0, time = anim_time * 0.5, easing = QUAD_EASING | EASE_IN)
 
-	// Adding a cool outline effect
 	if(outline_color)
 		add_filter("gender_reveal_outline", 3, list("type" = "outline", "color" = outline_color, "size" = 0.5))
-		// Animating it!
 		var/gay_filter = get_filter("gender_reveal_outline")
 		animate(gay_filter, alpha = 110, time = 1.5 SECONDS, loop = -1)
 		animate(alpha = 40, time = 2.5 SECONDS)
 
-	// Adding a cool ray effect
 	if(ray_color)
 		add_filter(name = "gender_reveal_ray", priority = 1, params = list(
 				type = "rays",
@@ -857,23 +786,17 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 				color = ray_color,
 				density = 6
 			))
-		// Animating it!
 		var/ray_filter = get_filter("gender_reveal_ray")
-		// I understand nothing but copypaste saves lives
 		animate(ray_filter, offset = 100, time = 30 SECONDS, loop = -1, flags = ANIMATION_PARALLEL)
 
 	addtimer(CALLBACK(src, PROC_REF(remove_gender_reveal_fx), og_layer), anim_time)
 
-/**
- * Removes the non-animate effects from above proc
- */
+/// Removes the non-animate effects from above proc
 /obj/proc/remove_gender_reveal_fx(og_layer)
 	remove_filter(list("gender_reveal_outline", "gender_reveal_ray"))
 	layer = og_layer
 
-/**
- * Create our objectives for our heretic.
- */
+/// Create our objectives for our heretic.
 /datum/antagonist/heretic/proc/forge_primary_objectives()
 	var/datum/objective/heretic_research/research_objective = new()
 	research_objective.owner = owner
@@ -894,10 +817,8 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 
 	objectives += sac_objective
 
-/**
- * Add [target] as a sacrifice target for the heretic.
- * Generates a preview image and associates it with a weakref of the mob.
- */
+/// Add [target] as a sacrifice target for the heretic. Generates a preview image and associates it with a
+/// weakref of the mob.
 /datum/antagonist/heretic/proc/add_sacrifice_target(mob/living/carbon/human/target)
 	// Guard against re-adding an existing target (e.g. an admin picking someone already on the list):
 	// a second RegisterSignal on the same COMSIG_QDELETING would runtime.
@@ -911,10 +832,7 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	RegisterSignal(target, COMSIG_QDELETING, PROC_REF(on_target_deleted))
 	all_sac_targets += target.real_name
 
-/**
- * Removes [target] from the heretic's sacrifice list.
- * Returns FALSE if no one was removed, TRUE otherwise
- */
+/// Removes [target] from the heretic's sacrifice list. Returns FALSE if no one was removed, TRUE otherwise.
 /datum/antagonist/heretic/proc/remove_sacrifice_target(mob/living/carbon/human/target)
 	if(!(target in sac_targets))
 		return FALSE
@@ -923,19 +841,14 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	UnregisterSignal(target, COMSIG_QDELETING)
 	return TRUE
 
-/**
- * Signal proc for [COMSIG_QDELETING] registered on sac targets
- * if sacrifice targets are deleted (gibbed, dusted, whatever), free their slot and reference
- */
+/// Signal proc for [COMSIG_QDELETING] registered on sac targets: if a target is deleted (gibbed, dusted,
+/// whatever), free their slot and reference.
 /datum/antagonist/heretic/proc/on_target_deleted(mob/living/carbon/human/source)
 	SIGNAL_HANDLER
 
 	remove_sacrifice_target(source)
 
-/**
- * Increments knowledge by one.
- * Used in callbacks for passive gain over time.
- */
+/// Increments knowledge by one. Used in callbacks for passive gain over time.
 /datum/antagonist/heretic/proc/passive_influence_gain()
 	adjust_knowledge_points(1)
 	var/mob/living/carbon/human/human = owner.current
@@ -1009,9 +922,7 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	.["Adjust Knowledge Points"] = CALLBACK(src, PROC_REF(admin_change_points))
 	.["Give Focus"] = CALLBACK(src, PROC_REF(admin_give_focus))
 */
-/**
- * Admin proc for giving a heretic a Living Heart easily.
- */
+/// Admin proc for giving a heretic a Living Heart easily.
 /datum/antagonist/heretic/proc/give_living_heart(mob/admin)
 	if(!admin.client?.holder)
 		to_chat(admin, span_warning("Вам не следует это использовать!"))
@@ -1024,9 +935,7 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 
 	heart_knowledge.on_research(owner.current, src)
 
-/**
- * Admin proc for adding a marked mob to a heretic's sac list.
- */
+/// Admin proc for adding a marked mob to a heretic's sac list.
 /datum/antagonist/heretic/proc/add_marked_as_target(mob/admin)
 	if(!admin.client?.holder)
 		to_chat(admin, span_warning("Вам не следует это использовать!"))
@@ -1043,9 +952,7 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 
 	add_sacrifice_target(new_target)
 
-/**
- * Admin proc for removing a mob from a heretic's sac list.
- */
+/// Admin proc for removing a mob from a heretic's sac list.
 /datum/antagonist/heretic/proc/remove_target(mob/admin)
 	if(!admin.client?.holder)
 		to_chat(admin, span_warning("Вы не должны это использовать!"))
@@ -1070,9 +977,7 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	if(tgui_alert(admin, "Сообщать им, что цели были обновлены?", "Шепот Мансуса", list("Да", "Нет")) == "Да")
 		to_chat(owner.current, span_danger("Мансус изменил ваши задачи."))
 
-/**
- * Admin proc for easily adding / removing knowledge points.
- */
+/// Admin proc for easily adding / removing knowledge points.
 /datum/antagonist/heretic/proc/admin_change_points(admin)
 	var/change_num = tgui_input_number(admin, "Добавить или забрать очки знаний", "Очки", 0, 100, -100)
 	if(!change_num || QDELETED(src))
@@ -1081,9 +986,7 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	adjust_knowledge_points(change_num)
 
 
-/**
- * Admin proc for easily adding new sac target.
- */
+/// Admin proc for easily adding new sac target.
 /datum/antagonist/heretic/proc/add_sac_target(admin)
 	var/list/targets = list()
 	for(var/client/client as anything in GLOB.clients)
@@ -1103,9 +1006,7 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 
 	add_sacrifice_target(targets[target])
 
-/**
- * Admin proc for giving a heretic a focus.
- */
+/// Admin proc for giving a heretic a focus.
 /datum/antagonist/heretic/proc/admin_give_focus(mob/admin)
 	if(!admin.client?.holder)
 		to_chat(admin, span_warning("Вы не должны это использовать!"))
@@ -1142,12 +1043,8 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 
 	. += "<br>"
 */
-/**
- * Learns the passed [typepath] of knowledge, creating a knowledge datum
- * and adding it to our researched knowledge list.
- *
- * Returns TRUE if the knowledge was added successfully. FALSE otherwise.
- */
+/// Learns the passed [typepath] of knowledge, creating a knowledge datum and adding it to our researched
+/// knowledge list. Returns TRUE if the knowledge was added successfully, FALSE otherwise.
 /datum/antagonist/heretic/proc/gain_knowledge(datum/heretic_knowledge/knowledge_type)
 	if(!ispath(knowledge_type))
 		stack_trace("[type] gain_knowledge was given an invalid path! (Got: [knowledge_type])")
@@ -1168,9 +1065,7 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	SStgui.update_uis(src)
 	return TRUE
 
-/**
- * Get a list of all knowledge TYPEPATHS that we can currently research.
- */
+/// Get a list of all knowledge TYPEPATHS that we can currently research.
 /datum/antagonist/heretic/proc/get_researchable_knowledge()
 	var/list/researchable_knowledge = list()
 	var/list/banned_knowledge = list()
@@ -1205,9 +1100,7 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	list_clear_nulls(researchable_knowledge)
 	return researchable_knowledge
 
-/**
- * Check if the wanted type-path is in the list of research knowledge.
- */
+/// Check if the wanted type-path is in the list of research knowledge.
 /datum/antagonist/heretic/proc/get_knowledge(wanted)
 	return researched_knowledge[wanted]
 
@@ -1400,12 +1293,8 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 		// the "Loading / Please wait..." spinner.
 		SStgui.update_uis(src)
 
-/**
- * Get a list of all rituals this heretic can invoke on a rune.
- * Iterates over all of our knowledge and, if we can invoke it, adds it to our list.
- *
- * Returns an associated list of [knowledge name] to [knowledge datum] sorted by knowledge priority.
- */
+/// Get a list of all rituals this heretic can invoke on a rune, as an associated list of [knowledge name] to
+/// [knowledge datum] sorted by knowledge priority.
 /datum/antagonist/heretic/proc/get_rituals()
 	var/list/rituals = list()
 
@@ -1418,11 +1307,8 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 
 	return sortTim(rituals, GLOBAL_PROC_REF(cmp_heretic_knowledge), associative = TRUE)
 
-/**
- * Checks to see if our heretic can ccurrently ascend.
- *
- * Returns FALSE if not all of our objectives are complete, or TRUE otherwise.
- */
+/// Checks to see if our heretic can currently ascend. Returns FALSE if not all of our objectives are
+/// complete, or TRUE otherwise.
 /datum/antagonist/heretic/proc/can_ascend(say_result)
 	var/mob/user = owner.current
 	if(force_can_ascend)
@@ -1462,16 +1348,8 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 
 	return TRUE
 
-/**
- * Helper to determine if a Heretic
- * - Has a Living Heart
- * - Has a an organ in the correct slot that isn't a living heart
- * - Is missing the organ they need in the slot to make a living heart
- *
- * Returns HERETIC_NO_HEART_ORGAN if they have no heart (organ) at all,
- * Returns HERETIC_NO_LIVING_HEART if they have a heart (organ) but it's not a living one,
- * and returns HERETIC_HAS_LIVING_HEART if they have a living heart
- */
+/// Helper to determine if a Heretic has a Living Heart, has a non-living organ in that slot, or is missing
+/// the organ entirely. Returns HERETIC_NO_HEART_ORGAN / HERETIC_NO_LIVING_HEART / HERETIC_HAS_LIVING_HEART.
 /datum/antagonist/heretic/proc/has_living_heart()
 	var/obj/item/organ/our_living_heart = owner.current?.get_organ_slot(living_heart_organ_slot)
 	if(!our_living_heart)
@@ -1547,8 +1425,7 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	. = ..()
 
 	if(!main_path_length)
-		// Let's find the length of a main path. We'll use rust because it's the coolest.
-		// (All the main paths are (should be) the same length, so it doesn't matter.)
+		// Find the length of a main path (all main paths should be the same length); rust is as good as any.
 		var/rust_paths_found = 0
 		for(var/datum/heretic_knowledge/knowledge as anything in subtypesof(/datum/heretic_knowledge))
 			if(GLOB.heretic_research_tree[knowledge][HKT_ROUTE] != PATH_RUST)
@@ -1592,9 +1469,7 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	return completed || (num_summoned >= target_amount)
 
 
-/**
- * Takes any datum `source` and checks it for heretic datum.
- */
+/// Takes any datum `source` and checks it for heretic datum.
 /proc/isheretic(datum/source)
 	if(!source)
 		return FALSE

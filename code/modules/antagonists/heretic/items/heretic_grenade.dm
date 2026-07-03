@@ -160,7 +160,7 @@
 	affected_mob.visible_message(span_warning("[affected_mob.declent_ru(NOMINATIVE)] [pick("щурится!","кашляет!", "брызгает слюной!")]"))
 
 
-/// Returns TRUE only if both the eyes and the mouth are covered (TG's pepper-proof requirement).
+/// Returns TRUE only if both the eyes and the mouth are covered.
 /mob/living/carbon/human/proc/is_pepper_proof()
 	var/eyes_covered = (glasses?.flags_cover & GLASSESCOVERSEYES) || (wear_mask?.flags_cover & MASKCOVERSEYES) || (head?.flags_cover & HEADCOVERSEYES)
 	var/mouth_covered = (wear_mask?.flags_cover & MASKCOVERSMOUTH) || (head?.flags_cover & HEADCOVERSMOUTH)

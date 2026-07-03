@@ -53,7 +53,6 @@
 	if(iscultist(user))
 		//var/obj/effect/proc_holder/spell/cult/blood_magic/magic_holder = locate() in user.actions
 		team_color = COLOR_CULT_RED
-		//magic_holder.magic_enhanced = TRUE
 
 	else if(IS_HERETIC_OR_MONSTER(user) && !active)
 		for(var/obj/effect/proc_holder/spell/spell_action in user.actions)
@@ -99,13 +98,9 @@
 	QDEL_NULL(component)
 	user.remove_traits(list(TRAIT_MANSUS_TOUCHED/*, TRAIT_BLOODY_MESS*/), UID())
 
-	// If boosted enable is set, to prevent false dropped() calls from repeatedly nuking the max spells.
 	//var/obj/effect/proc_holder/spell/cult/blood_magic/magic_holder = locate() in user.actions
-	// Remove the last spell if over new limit, as we will reduce our max spell amount. Done beforehand as it causes a index out of bounds runtime otherwise.
 	//if(magic_holder?.magic_enhanced)
 	//	QDEL_NULL(magic_holder.spells[ENHANCED_BLOODCHARGE])
-
-	//magic_holder?.magic_enhanced = FALSE
 
 
 /obj/item/clothing/neck/heretic_focus/crimson_medallion/attack_self(mob/living/user, modifiers)
@@ -121,7 +116,6 @@
 	var/heal_amt = user.adjustBruteLoss(-50)
 	user.adjustFireLoss( -(50 - abs(heal_amt)) ) // no double dipping
 
-	// I want it to poison the user but I also think it'd be neat if they got their juice as well. But that cancels most of the damage out. So I dunno.
 	user.reagents?.add_reagent(/datum/reagent/fuel/unholywater, rand(6, 10))
 	user.reagents?.add_reagent(/datum/reagent/eldritch, rand(6, 10))
 	qdel(src)
@@ -194,7 +188,7 @@
 	user.update_sight()
 
 
-// tg parity: an x-ray variant of the medallion (not granted by any knowledge; admin/loot curiosity).
+// An x-ray variant of the medallion (not granted by any knowledge; admin/loot curiosity).
 /obj/item/clothing/neck/eldritch_amulet/piercing
 	name = "жуткий пронзающий медальон"
 	desc = "Странный медальон. Сквозь кристаллическую поверхность свет преломляется в новые, пугающие спектры. \
@@ -213,7 +207,7 @@
 	)
 
 
-// tg parity: a purely cosmetic lookalike medallion (no focus, no traits).
+// A purely cosmetic lookalike medallion (no focus, no traits).
 /obj/item/clothing/neck/fake_heretic_amulet
 	name = "религиозная иконка"
 	desc = "Странный медальон, из-за которого его носитель выглядит как член какого-то культа."
@@ -232,18 +226,15 @@
 	)
 
 
-// The amulet conversion tool used by moon heretics
 /obj/item/clothing/neck/heretic_focus/moon_amulet
 	name = "амулет лунного света"
 	desc = "Частица разума, души и луны. От простого взгляда на неё кружится голова. Вы слышите шепот полный смеха и радости."
 	icon = 'icons/obj/eldritch.dmi'
 	icon_state = "moon_amulette"
-	// Worn (on-mob) sprite lives in the shared neck.dmi as the "moon_amulette" state (tg's worn amulet),
-	// resolved by inheritance - no onmob_sheets override needed.
-	// How much damage does this item do to the targets sanity?
+	/// How much damage does this item do to the targets sanity?
 	var/sanity_damage = 20
 	// Brain damage a non-heretic wearer must accrue from the curse before their mind shatters and they go
-	// berserk (tg gates conversion on low sanity; master220 has no sanity, so brain damage is the meter).
+	// berserk (master220 has no sanity, so brain damage is the meter).
 	var/conversion_threshold = 100
 	// Once converted, the amulet can't just be flicked off - removing it takes a short channel (do_after).
 	// These track that channel so the moon's grip can be wrestled off over a couple of seconds.
@@ -252,8 +243,7 @@
 	var/being_removed = FALSE
 	/// Set TRUE the instant a removal channel succeeds, so the very next unequip is allowed straight through.
 	var/removal_authorized = FALSE
-	// The off-screen laughter (laugh track) played when a moon blade strikes while this amulet is worn (tg
-	// plays these "SitcomLaugh" clips through the moon blade's attack message - see on_blade_laugh).
+	// The off-screen laughter (laugh track) played when a moon blade strikes while this amulet is worn.
 	var/static/list/possible_sounds = list(
 		'sound/items/SitcomLaugh1.ogg',
 		'sound/items/SitcomLaugh2.ogg',
@@ -288,9 +278,9 @@
 		user.balloon_alert(user, "разум сопротивляется!")
 		return ..()
 
-	// TG gates conversion on low sanity. master220 has no sanity, so brain damage is the moon path's
-	// "madness meter": a mind already shattered (or a body in crit) snaps and goes berserk; an intact mind
-	// is just driven a little madder (chat + hallucination + brain damage) so you can finish softening it.
+	// master220 has no sanity, so brain damage is the moon path's "madness meter": a mind already shattered
+	// (or a body in crit) snaps and goes berserk; an intact mind is just driven a little madder (chat +
+	// hallucination + brain damage) so you can finish softening it.
 	var/madness = hit.get_organ_loss(INTERNAL_ORGAN_BRAIN)
 	if(madness < 60 && !hit.isInCrit())
 		to_chat(user, span_warning("Разум [hit.declent_ru(GENITIVE)] ещё слишком крепок, чтобы сломаться..."))
@@ -320,17 +310,17 @@
 	if(IS_HERETIC_OR_MONSTER(user))
 		// Heretic wearer: thermal vision lets you see heathens through walls and in the dark, and your moon
 		// blade drops to 0 force so you can still swing it while the Resplendent Regalia pacifies you (its
-		// damage comes from the eldritch blade effect, not physical force - tg parity).
+		// damage comes from the eldritch blade effect, not physical force).
 		ADD_TRAIT(user, TRAIT_THERMAL_VISION, "[CLOTHING_TRAIT]_[UID()]")
 		user.update_sight()
 		refresh_held_blades(user)
-		// tg channels the amulet through the moon blade: a strike now carries off-screen laughter (a laugh
+		// The amulet channels through the moon blade: a strike now carries off-screen laughter (a laugh
 		// track) on top of the eldritch blade effect. We listen for the blade-attack signal to play it.
 		RegisterSignal(user, COMSIG_HERETIC_BLADE_ATTACK, PROC_REF(on_blade_laugh), override = TRUE)
 		return
-	// Non-heretic wearer: the amulet latches on and slowly devours the mind. Unlike before it can STILL be
-	// removed (tg parity) - right up until the mind shatters, at which point the wearer goes berserk and is
-	// compelled to keep it on (NODROP is applied then, in process()).
+	// Non-heretic wearer: the amulet latches on and slowly devours the mind. It can still be removed right up
+	// until the mind shatters, at which point the wearer goes berserk and is compelled to keep it on
+	// (NODROP is applied then, in process()).
 	to_chat(user, span_userdanger("Амулет холодит кожу, и далёкий хор смеха эхом отдаётся в вашей голове..."))
 	START_PROCESSING(SSobj, src)
 
@@ -350,12 +340,12 @@
 	being_removed = FALSE
 	removal_authorized = FALSE
 	// Taking the amulet off (by any means - the removal channel, stripping, death, dismemberment) lifts the
-	// moon's compulsion: the kill-everyone objective and berserk state are cleared (issue: "снять -> цель убирается").
+	// moon's compulsion: the kill-everyone objective and berserk state are cleared.
 	user.remove_status_effect(/datum/status_effect/moon_converted)
 
 
-/// Plays the off-screen laughter when an eldritch blade lands while we're worn by a heretic (tg's laugh
-/// track - tg channels the amulet through any sickly blade, so the moon blade qualifies as a subtype).
+/// Plays the off-screen laughter when an eldritch blade lands while we're worn by a heretic. The amulet
+/// channels through any sickly blade, so the moon blade qualifies as a subtype.
 /obj/item/clothing/neck/heretic_focus/moon_amulet/proc/on_blade_laugh(mob/living/attacker, mob/living/victim, obj/item/melee/sickly_blade/blade)
 	SIGNAL_HANDLER
 	if(!istype(blade, /obj/item/melee/sickly_blade))
@@ -380,9 +370,8 @@
 		blade.update_pacifism_force(user)
 
 
-/// Non-heretic curse: grinds the wearer's brain down each tick; once shattered, they go berserk (tg's
-/// channel_amulet on a non-heretic, adapted to a gradual brain-damage curse since master220 has no sanity).
-/// The brain grind STOPS the moment they convert (PROCESS_KILL) - issue: "урон мозгу прекращается".
+/// Non-heretic curse: grinds the wearer's brain down each tick; once shattered, they go berserk (a gradual
+/// brain-damage curse since master220 has no sanity). The brain grind STOPS the moment they convert (PROCESS_KILL).
 /obj/item/clothing/neck/heretic_focus/moon_amulet/process(seconds_per_tick)
 	var/mob/living/carbon/human/wearer = loc
 	if(!istype(wearer) || wearer.neck != src || wearer.stat == DEAD || IS_HERETIC_OR_MONSTER(wearer))

@@ -22,32 +22,31 @@
 		"Поедание органов или полнота даруют различные бонусы (в зависимости от уровня вашей пассивки).",
 	)
 	path_cons = list(
-		"Значительная часть вашего развития — это получение новых призываемых чудовищ.",
+		"Значительная часть вашего развития - это получение новых призываемых чудовищ.",
 		"За пределами своих миньонов вы почти ничего не умеете.",
 		"Вы не получаете врождённого доступа к защитным, атакующим или мобильным заклинаниям.",
 		"Вы в основном сосредоточены на поддержке своих миньонов.",
 	)
 	path_tips = list(
-		"Ваше Прикосновение Мансуса превращает мёртвых гуманоидов в гулей (даже защищённых разумом — офицеров СБ и капитана). Оно также оставляет метку, вызывающую сильное кровотечение при срабатывании от вашего Кровавого Клинка.",
-		"Для Еретика Плоти органы и трупы — лучшие друзья! Их можно использовать в ритуалах, для лечения или получения бонусов.",
+		"Ваше Прикосновение Мансуса превращает мёртвых гуманоидов в гулей (даже защищённых разумом - офицеров СБ и капитана). Оно также оставляет метку, вызывающую сильное кровотечение при срабатывании от вашего Кровавого Клинка.",
+		"Для Еретика Плоти органы и трупы - лучшие друзья! Их можно использовать в ритуалах, для лечения или получения бонусов.",
 		"Заклинание «Управление Плотью» лечит ваших призванных существ. Ваши робы создают ауру, что также исцеляет миньонов поблизости (но не вас самих).",
 		"«Управление Плотью» также позволяет красть органы у гуманоидов. Полезно, если нужна запасная печень.",
 		"Пророки Сырости могут связать вас и других миньонов в телепатическую сеть для координации на расстоянии.",
-		"Ловцы Плоти — неплохие бойцы, способные маскироваться под мелких существ вроде ботов-уборщиков и корги. Они также владеют ЭМИ, но это может навредить им самим, если они обернулись роботом!",
+		"Ловцы Плоти - неплохие бойцы, способные маскироваться под мелких существ вроде ботов-уборщиков и корги. Они также владеют ЭМИ, но это может навредить им самим, если они обернулись роботом!",
 		"Ваш успех на этом пути зависит от того, насколько умелы и живучи ваши миньоны. Но в количестве всегда есть сила: чем больше миньонов, тем выше шансы на успех.",
 		"Ваши миньоны куда расходнее вас. Не бойтесь посылать их на смерть. Вы всегда сможете вернуть их позже... наверное.",
 	)
 	// "Ненасытный Голод" passive (see /datum/status_effect/heretic_passive/flesh): tiers light up as you grow.
 	passive_name = "Ненасытный Голод"
 	passive_descriptions = list(
-		"Иммунитет к болезням и отвращению — никакая еда не вызывает у вас тошноты.",
+		"Иммунитет к болезням и отвращению - никакая еда не вызывает у вас тошноты.",
 		"Поедание мяса или органов исцеляет вас, а полнота больше вас не замедляет.",
 		"Будучи толстым, вы получаете 25% сопротивления урону и устойчивость к электродубинкам.",
 	)
-	// TG-format column (1:1 with tgstation Flesh). Main line:
-	// base_flesh -> flesh_ghoul -> flesh_surgery -> Writhing Embrace(robes) -> raw_prophet -> Bleeding Steel ->
-	// stalker -> ascension. The grasp-ghoul, the flesh mark and the passive are folded into base_flesh
-	// (matching TG, no separate grasp/mark nodes).
+	// Main line: base_flesh -> flesh_ghoul -> flesh_surgery -> Writhing Embrace(robes) -> raw_prophet -> Bleeding Steel ->
+	// stalker -> ascension. The grasp-ghoul, the flesh mark and the passive are folded into base_flesh,
+	// no separate grasp/mark nodes.
 	start = /datum/heretic_knowledge/limited_amount/starting/base_flesh
 	knowledge_tier1 = /datum/heretic_knowledge/limited_amount/flesh_ghoul
 	knowledge_tier2 = /datum/heretic_knowledge/spell/flesh_surgery
@@ -76,7 +75,6 @@
 	limit = 3 // Bumped up so they can arm up their ghouls too.
 	research_tree_icon_path = 'icons/obj/weapons/khopesh.dmi'
 	research_tree_icon_state = "flesh_blade"
-	// The flesh mark and the grasp-ghoul both live here now (matching TG), instead of separate nodes.
 	mark_type = /datum/status_effect/eldritch/flesh
 	// "Ненасытный Голод" passive: disease immunity now, glutton healing on robe craft, fat resistance on ascension.
 	passive_type = /datum/status_effect/heretic_passive/flesh
@@ -145,7 +143,7 @@
 	name = "Незавершенный ритуал"
 	desc = "Позволяет преобразовать труп и мак, чтобы создать Безмолвного Мертвеца. \
 			Трупу не обязательно иметь душу. \
-			Безмолвные Мертвецы — немые гули с запасом здоровья всего 50 единиц, но могут \
+			Безмолвные Мертвецы - немые гули с запасом здоровья всего 50 единиц, но могут \
 			эффективно использовать Кровавые Клинки. \
 			Вы можете создать только двух одновременно."
 	gain_text = "Я нашел записи темного ритуала, незаконченного... но меня это не остановило..."
@@ -307,10 +305,9 @@
 	if(HAS_TRAIT(human_target, TRAIT_NO_BLOOD))
 		return
 
-	// master220 has no tg wound system. TG applies /datum/wound/slash/flesh/severe (an "Open Laceration":
-	// a sustained, bandageable/suturable bleed that clots slowly) to a picked bodypart. We mirror that by
-	// opening a sustained external bleed on a random non-robotic limb, capped at max_bleeding_amount so it
-	// stays plain external bleeding (treatable with gauze/sutures), not arterial (surgery-only).
+	// master220 has no wound system, so we approximate an "Open Laceration" bleed by opening a sustained
+	// external bleed on a random non-robotic limb, capped at max_bleeding_amount so it stays plain external
+	// bleeding (treatable with gauze/sutures), not arterial (surgery-only).
 	var/list/valid_limbs = list()
 	for(var/obj/item/organ/external/bodypart as anything in human_target.bodyparts)
 		if(!bodypart.is_robotic())
@@ -358,13 +355,10 @@
 				Реальность покорится ВЛАДЫКЕ НОЧИ или будет разрушена! СТАНЬТЕ СВИДЕТЕЛЯМИ МОЕГО ВОЗНЕСЕНИЯ!"
 	required_atoms = list(/mob/living/carbon/human = 4)
 	//ascension_achievement = /datum/award/achievement/misc/flesh_ascension
-	// tg derives the ascension node's tree icon from its achievement medal sprite; we point straight at
-	// that same medal sheet (state "fleshascend") since the achievement system itself isn't ported.
 	research_tree_icon_path = 'icons/ui/achievements/achievements.dmi'
 	research_tree_icon_state = "fleshascend"
 	announcement_text = "%SPOOKY% Реальность развернулась. ВОЗДЕНЬТЕ РУКИ К НЕБУ И ПОПРИВЕТСТВУЙТЕ, ВЛАДЫКУ НОЧИ! %NAME% вознесся! %SPOOKY%"
 	announcement_sound = 'sound/music/heretic/ascend_flesh.ogg'
-	// tg parity: the research-tree node wears the path's ascension achievement sprite.
 	research_tree_icon_path = 'icons/ui_icons/antags/heretic/ascension.dmi'
 	research_tree_icon_state = "fleshascend"
 
@@ -374,7 +368,7 @@
 	user.mind.AddSpell(new /obj/effect/proc_holder/spell/shapeshift/shed_human_form)
 
 	var/datum/antagonist/heretic/heretic_datum = user.mind.has_antag_datum(/datum/antagonist/heretic)
-	// The grasp-ghoul limit and the blade limit both live on base_flesh now (folded), so bump it there.
+	// The grasp-ghoul limit and the blade limit both live on base_flesh, so bump it there.
 	var/datum/heretic_knowledge/limited_amount/starting/base_flesh/blade_ritual = heretic_datum.get_knowledge(/datum/heretic_knowledge/limited_amount/starting/base_flesh)
 	blade_ritual.limit = 999
 	var/datum/heretic_knowledge/limited_amount/flesh_ghoul/ritual_ghoul = heretic_datum.get_knowledge(/datum/heretic_knowledge/limited_amount/flesh_ghoul)

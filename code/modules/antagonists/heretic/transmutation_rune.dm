@@ -1,19 +1,17 @@
 /// Bakes a single coloured, animated icon for a heretic rune state, replicating TG's GAGS
 /// heretic_rune.json by hand (master220 has no GAGS compositing on atoms).
 /// * [colour_state] - the greyscale linework state. It is multiplied by [rune_colour], so white
-///   pixels take the full path colour and darker pixels a darker shade — identical to GAGS' color_ids.
+///   pixels take the full path colour and darker pixels a darker shade, matching GAGS' color_ids.
 /// * [white_state] - optional matching linework overlaid untinted on top, so the bright "pen"
 ///   accents stay white (the second, uncoloured GAGS layer).
 /// * [draw_duration] / [native_delays] - when both are set, the draw-in animation is re-timed so its
-///   frames (the ones in [native_delays] — the actual drawing, excluding the trailing "hold" frame) play
+///   frames (the actual drawing frames in [native_delays], excluding the trailing "hold" frame) play
 ///   across exactly [draw_duration] deciseconds. The source states are authored ~12s/~24s long, so a faster
-///   codex (Codex Morbus draws in 5s) would otherwise place the rune at ~40% drawn — the "skip" the
-///   animation is reported as not keeping up with.
-///   IMPORTANT: the source frames have deliberately UNEVEN delays (quick pen strokes punctuated by long
-///   pauses). Flattening them to one uniform delay turns the draw into a low-fps slideshow that reads as
-///   "laggy" on the slower draws (pen / Codex of Torture). Instead we keep each frame's authored delay and
-///   scale them all by the same factor, so the fast strokes stay fast (smooth) and only the pauses stretch
-///   or shrink to make the whole thing land on [draw_duration].
+///   codex (Codex Morbus draws in 5s) would otherwise cut the animation off partway through.
+///   The source frames have deliberately uneven delays (quick pen strokes punctuated by long pauses).
+///   Flattening them to one uniform delay turns the draw into a low-fps slideshow, so instead we keep each
+///   frame's authored delay and scale them all by the same factor, landing on [draw_duration] while keeping
+///   fast strokes fast and only stretching/shrinking the pauses.
 /proc/heretic_rune_icon(icon_file, colour_state, rune_colour, white_state, draw_duration = 0, list/native_delays)
 	var/icon/composite = icon(icon_file, colour_state)
 	composite.Blend(rune_colour, ICON_MULTIPLY)
@@ -30,7 +28,7 @@
 
 	var/icon/timed = new
 	for(var/i in 1 to length(native_delays))
-		// Extract by the default state ("") rather than colour_state — icon() resolves "" to the composite's
+		// Extract by the default state ("") rather than colour_state - icon() resolves "" to the composite's
 		// single state regardless of whether the bake preserved its name, so the per-frame copy is reliable.
 		timed.Insert(icon(composite, "", SOUTH, i), "", SOUTH, i, FALSE, max(native_delays[i] * scale, 0.5))
 	return timed
@@ -111,10 +109,8 @@
 	return ATTACK_CHAIN_PROCEED
 
 
-/**
- * Attempt to begin a ritual, giving them an input list to chose from.
- * Also ensures is_in_use is enabled and disabled before and after.
- */
+/// Attempt to begin a ritual, giving them an input list to choose from. Also ensures is_in_use is enabled
+/// and disabled before and after.
 /obj/effect/decal/heretic_rune/proc/try_rituals(mob/living/user)
 	is_in_use = TRUE
 
@@ -134,18 +130,10 @@
 	is_in_use = FALSE
 
 
-/**
- * Attempt to invoke a ritual from the past list of knowledges.
- *
- * Arguments
- * * user - the heretic / the person who invoked the rune
- * * knowledge_list - a non-assoc list of heretic_knowledge datums.
- *
- * returns TRUE if any rituals passed succeeded, FALSE if they all failed.
- */
+/// Attempt to invoke a ritual from the passed list of knowledges. Returns TRUE if the ritual succeeded,
+/// FALSE if it failed.
 /obj/effect/decal/heretic_rune/proc/do_ritual(mob/living/user, datum/heretic_knowledge/ritual)
 
-	// Collect all nearby valid atoms over the rune for processing in rituals.
 	var/list/atom/movable/atoms_in_range = list()
 	for(var/atom/close_atom as anything in range(1, src))
 		if(!ismovable(close_atom))
@@ -165,27 +153,20 @@
 		atoms_in_range += close_atom
 
 	var/list/banned_atom_types = ritual.banned_atom_types.Copy()
-	// A list of all atoms we've selected to use in this recipe.
 	var/list/selected_atoms = list()
 
-	// Do the snowflake check to see if we can continue or not.
 	// selected_atoms is passed and can be modified by this proc.
 	if(!ritual.recipe_snowflake_check(user, atoms_in_range, selected_atoms, loc, TRUE))
 		return FALSE
 
-	// A copy of our requirements list, which we decrement to determine if enough of each key is present.
-	// IMPORTANT: copied AFTER recipe_snowflake_check. Some rituals (Unsealed Arts paintings) rewrite their
+	// Copied AFTER recipe_snowflake_check: some rituals (Unsealed Arts paintings) rewrite their
 	// required_atoms inside that proc based on which ingredient is present, and the change persists on the
-	// ritual datum. Copying before would carry over the PREVIOUS craft's ingredient, so the next painting
-	// would demand the wrong item and fail to craft. Only the painting mutates required_atoms, so for every
-	// other ritual this is identical to copying earlier.
+	// ritual datum. Copying before would carry over the previous craft's ingredient, so the next painting
+	// would demand the wrong item and fail to craft.
 	var/list/requirements_list = ritual.required_atoms.Copy()
 
-	// Now go through all our nearby atoms and see which are good for our ritual.
 	for(var/atom/nearby_atom as anything in atoms_in_range)
-		// Go through all of our required atoms
 		for(var/req_type in requirements_list)
-			// We already have enough of this type, skip
 			if(requirements_list[req_type] <= 0)
 				continue
 			// If req_type is a list of types, check all of them for one match.
@@ -195,14 +176,11 @@
 			else if(!islist(req_type) && !istype(nearby_atom, req_type))
 				continue
 
-			// if list has items, check if the strict type is banned.
 			if(length(banned_atom_types) && (nearby_atom.type in banned_atom_types))
 				continue
 
-			// This item is a valid type. Add it to our selected atoms list.
 			selected_atoms |= nearby_atom
-			// If it's a stack, we gotta see if it has more than one inside,
-			// as our requirements may want more than one item of a stack
+			// Stacks may satisfy more than one of the requirement in a single item.
 			if(!isstack(nearby_atom))
 				requirements_list[req_type]--
 				continue
@@ -211,16 +189,12 @@
 			requirements_list[req_type] -= picked_stack.amount // Can go negative, but doesn't matter. Negative = fulfilled
 
 
-	// All of the atoms have been checked, let's see if the ritual was successful
 	var/list/what_are_we_missing = list()
 	for(var/req_type in requirements_list)
 		var/number_of_things = requirements_list[req_type]
-		// <= 0 means it's fulfilled, skip
 		if(number_of_things <= 0)
 			continue
 
-		// > 0 means it's unfilfilled - the ritual has failed, we should tell them why
-		// Lets format the thing they're missing and put it into our list
 		var/formatted_thing = "[number_of_things] "
 		if(islist(req_type))
 			var/list/req_type_list = req_type
@@ -236,30 +210,21 @@
 		what_are_we_missing += formatted_thing
 
 	if(length(what_are_we_missing))
-		// Let them know it screwed up
 		loc.balloon_alert(user, "не хватает компонентов!")
-		// Then let them know what they're missing
 		to_chat(user, span_hierophant_warning("Для завершения ритуала \"[ritual.name]\" не хватает [english_list(what_are_we_missing)]."))
 		return FALSE
 
-	// If we made it here, the ritual had all necessary components, and we can try to cast it.
-	// This doesn't necessarily mean the ritual will succeed, but it's valid!
-	// Do the animations and associated feedback.
+	// All necessary components are present; try to cast (doesn't guarantee success, but it's valid).
 	flick("[icon_state]_active", src)
 	playsound(user, 'sound/magic/castsummon.ogg', 75, TRUE, extrarange = SILENCED_SOUND_EXTRARANGE, falloff_exponent = 10)
 
-	// All the components have been invisibled, time to actually do the ritual. Call on_finished_recipe
-	// (Note: on_finished_recipe may sleep in the case of some rituals like summons, which expect ghost candidates.)
-	// - If the ritual was success (Returned TRUE), proceede to clean up the atoms involved in the ritual. The result has already been spawned by this point.
-	// - If the ritual failed for some reason (Returned FALSE), likely due to no ghosts taking a role or an error, we shouldn't clean up anything, and reset.
+	// on_finished_recipe may sleep for rituals like summons that expect ghost candidates.
 	var/ritual_result = ritual.on_finished_recipe(user, selected_atoms, loc)
 
 	if(ritual_result)
 		ritual.cleanup_atoms(selected_atoms)
 
-	// And finally, give some user feedback
-	// No feedback is given on failure here -
-	// the ritual itself should handle it (providing specifics as to why it failed)
+	// No feedback is given on failure here - the ritual itself handles it.
 	if(ritual_result)
 		loc.balloon_alert(user, "ритуал завершен")
 
@@ -318,8 +283,8 @@
 	//greyscale_config = /datum/greyscale_config/heretic_rune
 	/// The "_colour" linework state baked (with its "_white" companion) into the coloured draw animation.
 	var/animation_state = "transmutation_rune_draw_colour"
-	/// The per-frame delays of [animation_state]'s draw-in frames — every frame EXCEPT the trailing "hold"
-	/// frame — copied verbatim from icons/effects/96x96.dmi. heretic_rune_icon scales these to the caster's
+	/// The per-frame delays of [animation_state]'s draw-in frames - every frame except the trailing "hold"
+	/// frame - copied verbatim from icons/effects/96x96.dmi. heretic_rune_icon scales these to the caster's
 	/// drawing_time, preserving the authored stroke/pause rhythm so slow draws stay smooth instead of choppy.
 	var/list/native_delays = list(1,1,1,1,1,1,1,1,1,25,1,1,1,1,5,1,1,1,25,1,1,1,1,1,1,1,1,1,10,1,1,1,1,1,1,1,1,25,1,1,1,1,1,1,1,1,1,1,1,25,1,1,1,1,1,1,25,1,1,1,1,25,1,1,1,1)
 

@@ -1,4 +1,3 @@
-// Ye old forbidden book, the Кодекс Истезания.
 /obj/item/codex_cicatrix
 	name = "Кодекс Истезания"
 	desc = "Этот увесистый том полон загадочных каракулей и невероятных схем. \
@@ -42,9 +41,8 @@
 	new /obj/effect/temp_visual/drawing_heretic_rune/fail(target.loc/*, target.greyscale_colors*/)
 
 
-/// Explicitly wipes a transmutation rune (1:1 with the Mansus Grasp). The effect_remover component above is
-/// the TG mechanism, but the master220 attack chain routes /obj effects unreliably, so the codex erases the
-/// rune directly here to guarantee it works on both left- and right-click.
+/// Explicitly wipes a transmutation rune (matches the Mansus Grasp). master220's attack chain routes /obj
+/// effects unreliably, so the codex erases the rune directly here to work on both left- and right-click.
 /obj/item/codex_cicatrix/proc/erase_rune(obj/effect/decal/heretic_rune/rune, mob/living/user)
 	to_chat(user, span_notice("Вы стираете [rune.declent_ru(ACCUSATIVE)]."))
 	after_clear_rune(rune, user)
@@ -77,8 +75,8 @@
 	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/codex_cicatrix/melee_attack_chain(mob/user, atom/target, params)
-	// Erase a transmutation rune on left- OR right-click, exactly like the Mansus Grasp. Catches both clicking
-	// the rune decal directly and clicking the turf it sits on. (Morbus intercepts its right-click curse before
+	// Erase a transmutation rune on left- or right-click, like the Mansus Grasp. Catches both clicking the
+	// rune decal directly and clicking the turf it sits on. (Morbus intercepts its right-click curse before
 	// this in its own override, so RMB-curse still wins there; LMB on a rune falls through to here and erases.)
 	if(isheretic(user))
 		var/obj/effect/decal/heretic_rune/rune = istype(target, /obj/effect/decal/heretic_rune) \
@@ -119,7 +117,7 @@
 
 
 // Upgraded version of the Кодекс Истезания that allows us to cast curses
-/obj/item/codex_cicatrix/morbus // I'm morbing all over
+/obj/item/codex_cicatrix/morbus
 	name = "Кодекс Морбус"
 	desc = "Ужасная, рваная книга, покрытая моргающими глазами. Вы понятия не имеете, как правильно держать её, \
 			и, честно говоря, не уверены, стоит ли вообще."
@@ -157,8 +155,8 @@
 	human_user.adjustOrganLoss(INTERNAL_ORGAN_BRAIN, 10, 190)
 
 
-// TG casts the curse on RIGHT-click of a rune (interact_with_atom_secondary); left-clicking a rune
-// still wipes it through the inherited effect_remover, exactly like the base Кодекс Истезания.
+// Curse casts on RIGHT-click of a rune; left-clicking a rune still wipes it through the inherited
+// effect_remover, like the base Кодекс Истезания.
 /obj/item/codex_cicatrix/morbus/melee_attack_chain(mob/user, atom/interacting_with, params)
 	if(!istype(interacting_with, /obj/effect/decal/heretic_rune) || !LAZYACCESS(params, RIGHT_CLICK))
 		return ..()
@@ -179,10 +177,8 @@
 		user.balloon_alert(user, "нет крови!")
 		return
 
-	// Require ACTUAL blood (reagent blood in a container, or blood smeared on the item) in the offhand
-	// before casting. The old check was `isnull(list())` — always FALSE — so it never gated, and with the
-	// victim's blood failing to match (see heretic_curses.dm), the curse could fall back onto the heretic.
-	// Scanning here for real blood is the front-line guard for "проклятия накладываются на меня".
+	// Require ACTUAL blood (reagent blood in a container, or blood smeared on the item) in the offhand before
+	// casting, or the curse can fall back onto the heretic themself (see heretic_curses.dm).
 	var/has_blood = LAZYLEN(held_offhand.blood_DNA)
 	if(!has_blood)
 		for(var/datum/reagent/blood/usable_reagent in held_offhand.reagents?.reagent_list)

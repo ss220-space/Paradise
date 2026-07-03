@@ -1,9 +1,5 @@
-/**
- * master220 compatibility shims for the tg-derived heretic code.
- *
- * Small adapter procs that bridge API-name differences between the heretic source
- * (Paradise-selfharm / tg) and master220. Kept in the heretic module so core files stay clean.
- */
+/// master220 compatibility shims for the tg-derived heretic code. Small adapter procs that bridge API-name
+/// differences between the heretic source and master220, kept here so core files stay clean.
 
 // --- Organ damage API ---
 // tg/selfharm uses mob.adjustOrganLoss(slot, amount, ...); master220 organs use
@@ -45,7 +41,7 @@
 /obj/item/organ/external/proc/dismember()
 	return droplimb()
 
-/// tg's set_organ_damage(amount) — master220 organs have a `damage` var + max_damage.
+/// tg's set_organ_damage(amount) - master220 organs have a `damage` var + max_damage.
 /obj/item/organ/proc/set_organ_damage(amount, required_organ_flag)
 	damage = clamp(amount, 0, max_damage)
 
@@ -286,11 +282,11 @@
 	return
 
 // tg helper: which body zones are covered by the mob's clothing. master220 lacks it; return none
-// (so noticable organs are always considered visible — slight over-reveal, runtime polish).
+// (so noticable organs are always considered visible - slight over-reveal, runtime polish).
 /mob/living/carbon/proc/get_covered_body_zones()
 	return list()
 
-/// tg's get_held_items() — master220 exposes hands via get_active_hand()/get_inactive_hand().
+/// tg's get_held_items() - master220 exposes hands via get_active_hand()/get_inactive_hand().
 /mob/living/proc/get_held_items()
 	. = list()
 	var/obj/item/active = get_active_hand()

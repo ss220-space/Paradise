@@ -1,9 +1,7 @@
 /// The max range we can zoom in on people from.
 #define MAX_LIONHUNTER_RANGE 30
 
-// The Lionhunter, a gun for heretics
-// The ammo it uses takes time to "charge" before firing, releasing a very damaging projectile.
-// Matching TG it is a BOLT-ACTION rifle: you have to rack the bolt between shots (open/close the bolt
+// The Lionhunter, a gun for heretics. Firing requires racking the bolt between shots (open/close the bolt
 // via the unique action / unloading), and reloads are done with a stripper clip while the bolt is open.
 /obj/item/gun/projectile/shotgun/boltaction/lionhunter
 	name = "винтовка охотника на львов"
@@ -18,7 +16,7 @@
 	accuracy = GUN_ACCURACY_SNIPER
 	recoil = GUN_RECOIL_HIGH
 	// wide_guns.dmi has no "lionhunter_reload" state, so skip the pump reload animation (the bolt-open sprite
-	// swap itself IS supported — see update_icon_state below).
+	// swap itself IS supported - see update_icon_state below).
 	available_reload_animation = FALSE
 	// Paradise-native scope: instead of TG's /datum/component/scope, use the built-in zoom action that
 	// every /obj/item/gun supports. Holding the rifle grants a "Масштаб" toggle that pans the view forward.
@@ -45,13 +43,13 @@
 	pump()
 
 
-// wide_guns.dmi ships the tg-style bolt sprites: "lionhunter" is the bare rifle body (no bolt handle drawn),
-// and the bolt itself is ALWAYS a separate overlay layered on top, mirroring tg's BOLT_TYPE_LOCKING rendering:
-// "lionhunter_bolt" is the bolt seated forward (closed) and "lionhunter_bolt_locked" is the bolt racked back
-// (open). The body icon_state stays constant - swapping icon_state to a bolt sprite makes the rifle "disappear"
-// (the bolt sprites are transparent everywhere except the bolt). So the body never renders bare: the matching
-// bolt overlay is added in every state and just changes position when racked. The base boltaction would build a
-// nonexistent "[icon_state]-open" suffix, hence these overrides.
+// wide_guns.dmi has "lionhunter" as the bare rifle body (no bolt handle drawn); the bolt itself is ALWAYS a
+// separate overlay layered on top: "lionhunter_bolt" is the bolt seated forward (closed) and
+// "lionhunter_bolt_locked" is the bolt racked back (open). The body icon_state stays constant - swapping
+// icon_state to a bolt sprite makes the rifle "disappear" (the bolt sprites are transparent everywhere except
+// the bolt). So the body never renders bare: the matching bolt overlay is added in every state and just
+// changes position when racked. The base boltaction would build a nonexistent "[icon_state]-open" suffix,
+// hence these overrides.
 /obj/item/gun/projectile/shotgun/boltaction/lionhunter/update_icon_state()
 	icon_state = initial(icon_state)
 
@@ -61,7 +59,7 @@
 	. += "[initial(icon_state)][bolt_open ? "_bolt_locked" : "_bolt"]"
 
 
-// The base pump() only refreshes the icon_state; the bolt is an overlay here, so refresh overlays too.
+// Base pump() only refreshes the icon_state; the bolt is an overlay here, so refresh overlays too.
 /obj/item/gun/projectile/shotgun/boltaction/lionhunter/pump(mob/M)
 	. = ..()
 	update_icon(UPDATE_OVERLAYS)
@@ -129,13 +127,11 @@
 	reticle.alpha = 0
 
 	var/list/mob/viewers = viewers(target)
-	// The shooter might be out of view, but they should be included
-	viewers |= user
+	viewers |= user // the shooter might be out of view, but they should be included
 
 	for(var/mob/viewer as anything in viewers)
 		viewer.client?.images |= reticle
 
-	// Animate the fade in
 	animate(reticle, fire_time * 0.5, alpha = 255, transform = turn(reticle.transform, 180))
 	animate(reticle, fire_time * 0.5, transform = turn(reticle.transform, 180))
 
@@ -166,10 +162,8 @@
 		return
 
 	var/distance = get_dist(user, target)
-	// If we're close range, or the target's not a living, OR for some reason a non-carbon is firing the gun
-	// The projectile is dry-fired, and gains no buffs.
-	// BUT, if we're at a decent range and the target's a living mob, the projectile's been channel fired:
-	// it has full effects and carries the heretic to whoever it strikes.
+	// At close range, against a non-living target, or fired by a non-carbon, the projectile is dry-fired with
+	// no buffs. Otherwise it's been channel fired: full effects, and it carries the heretic to whoever it strikes.
 	if(distance > min_distance && isliving(target) && iscarbon(user))
 		BB.stamina *= 2
 		BB.knockdown = 0.5 SECONDS
@@ -191,7 +185,7 @@
 
 // Base /obj/projectile/fire() only takes setAngle; the heretic firer rides inside the bullet so they are
 // carried to wherever it lands (see on_hit/on_range), which is what produces the "teleport to your target"
-// effect. Only happens when shooting a living target (matching TG).
+// effect. Only happens when shooting a living target.
 /obj/projectile/bullet/strilka310/lionhunter/fire(setAngle)
 	. = ..()
 	if(QDELETED(src) || !isliving(firer) || !isliving(original))
@@ -249,7 +243,7 @@
 
 
 // Extra ammunition can be made with a heretic ritual. A stripper clip, loaded into the rifle's internal
-// magazine while the bolt is open (matching TG's reload flow).
+// magazine while the bolt is open.
 /obj/item/ammo_box/speedloader/strilka310/lionhunter
 	name = "обойма (.310 охотник)"
 	desc = "Обойма с загадочными, необычными патронами. Она не подходит к обычным баллистическим винтовкам."

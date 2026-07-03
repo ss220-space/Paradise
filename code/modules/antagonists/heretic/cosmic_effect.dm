@@ -50,7 +50,7 @@
 /// cosmic passive). Populated by /obj/effect/forcefield/cosmic_field/proc/prevents_explosions().
 GLOBAL_LIST_EMPTY_TYPED(active_cosmic_fields, /obj/effect/forcefield/cosmic_field)
 
-/// The cosmic heretic's forcefield (extracted from tg construct_spells.dm during the port).
+/// The cosmic heretic's forcefield.
 /obj/effect/forcefield/cosmic_field
 	name = "космический щит"
 	ru_names = alist(
@@ -118,7 +118,7 @@ GLOBAL_LIST_EMPTY_TYPED(active_cosmic_fields, /obj/effect/forcefield/cosmic_fiel
 		var/obj/projectile/bullet = thing
 		if(istype(bullet, /obj/projectile/magic/star_ball)) // Don't slow down star balls
 			return
-		bullet.speed *= 5 // 80% slowdown (Paradise speed = deciseconds per tile, HIGHER = slower; tg's *0.2 inverted)
+		bullet.speed *= 5 // 80% slowdown (speed = deciseconds per tile, higher = slower)
 		return
 
 	if(!isliving(thing))

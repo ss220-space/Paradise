@@ -1,10 +1,6 @@
 #define SPACE_PHASING "space-phasing"
 
-/**
- * ### Space Crawl
- *
- * Lets the caster enter and exit tiles of space or misc turfs.
- */
+/// Lets the caster enter and exit tiles of space or misc turfs.
 /obj/effect/proc_holder/spell/jaunt/space_crawl
 	name = "Космический сдвиг"
 	desc = "Позволяет вам появляться и исчезать из реальности, находясь в космосе или на \
@@ -85,10 +81,8 @@
 	do_spacecrawl(our_turf, cast_on)
 
 
-/**
- * Attempts to enter or exit the passed space or misc turf.
- * Returns TRUE if we successfully entered or exited said turf, FALSE otherwise
- */
+/// Attempts to enter or exit the passed space or misc turf.
+/// Returns TRUE if we successfully entered or exited said turf, FALSE otherwise
 /obj/effect/proc_holder/spell/jaunt/space_crawl/proc/do_spacecrawl(turf/our_turf, mob/living/jaunter)
 	if(is_jaunting(jaunter))
 		. = try_exit_jaunt(our_turf, jaunter)
@@ -103,9 +97,7 @@
 	to_chat(jaunter, span_warning("Вы не можете это сделать!"))
 
 
-/**
- * Attempts to enter the passed space or misc turfs.
- */
+/// Attempts to enter the passed space or misc turfs.
 /obj/effect/proc_holder/spell/jaunt/space_crawl/proc/try_enter_jaunt(turf/our_turf, mob/living/jaunter)
 	// Begin the jaunt
 	ADD_TRAIT(jaunter, TRAIT_NO_TRANSFORM, UID())
@@ -149,9 +141,7 @@
 	action?.build_all_button_icons(UPDATE_BUTTON_STATUS)
 	return TRUE
 
-/**
- * Attempts to Exit the passed space or misc turf.
- */
+/// Attempts to Exit the passed space or misc turf.
 /obj/effect/proc_holder/spell/jaunt/space_crawl/proc/try_exit_jaunt(turf/our_turf, mob/living/jaunter, force = FALSE)
 	if(!force && HAS_TRAIT_FROM(jaunter, TRAIT_NO_TRANSFORM, UID()))
 		to_chat(jaunter, span_warning("Вы пока не можете вернуться!"))
@@ -212,19 +202,11 @@
 #undef SPACE_PHASING
 
 
-/**
- * ## Jaunt spells
- *
- * A basic subtype for jaunt related spells.
- * Jaunt spells put their caster in a dummy
- * phased_mob effect that allows them to float
- * around incorporeally.
- *
- * Doesn't actually implement any behavior on cast to
- * enter or exit the jaunt - that must be done via subtypes.
- *
- * Use enter_jaunt() and exit_jaunt() as wrappers.
- */
+/// A basic subtype for jaunt related spells. Jaunt spells put their caster in a dummy phased_mob effect
+/// that allows them to float around incorporeally.
+///
+/// Doesn't actually implement any behavior on cast to enter or exit the jaunt - that must be done via
+/// subtypes. Use enter_jaunt() and exit_jaunt() as wrappers.
 /obj/effect/proc_holder/spell/jaunt
 	school = SCHOOL_TRANSMUTATION
 	/// What dummy mob type do we put jaunters in on jaunt?
@@ -254,13 +236,8 @@
 	return FALSE
 
 
-/**
- * Places the [jaunter] in a jaunt holder mob
- * If [loc_override] is supplied,
- * the jaunt will be moved to that turf to start at
- *
- * Returns the holder mob that was created
- */
+/// Places the [jaunter] in a jaunt holder mob. If [loc_override] is supplied, the jaunt will be moved to
+/// that turf to start at. Returns the holder mob that was created.
 /obj/effect/proc_holder/spell/jaunt/proc/enter_jaunt(mob/living/jaunter, turf/loc_override)
 	SHOULD_CALL_PARENT(TRUE)
 
@@ -277,15 +254,9 @@
 	//SEND_SIGNAL(jaunter, COMSIG_MOB_ENTER_JAUNT, src, jaunt)
 	return jaunt
 
-/**
- * Ejects the [unjaunter] from jaunt
- * The jaunt object in turn should call on_jaunt_exited
- * If [loc_override] is supplied,
- * the jaunt will be moved to that turf
- * before ejecting the unjaunter
- *
- * Returns TRUE on successful exit, FALSE otherwise
- */
+/// Ejects the [unjaunter] from jaunt. The jaunt object in turn should call on_jaunt_exited. If
+/// [loc_override] is supplied, the jaunt will be moved to that turf before ejecting the unjaunter.
+/// Returns TRUE on successful exit, FALSE otherwise.
 /obj/effect/proc_holder/spell/jaunt/proc/exit_jaunt(mob/living/unjaunter, turf/loc_override)
 	SHOULD_CALL_PARENT(TRUE)
 
@@ -303,14 +274,11 @@
 	return TRUE
 
 
-/**
- * Called when a mob is ejected from the jaunt holder and goes back to normal.
- * This is called both fom exit_jaunt() but also if the caster is ejected involuntarily for some reason.
- * Use this to clear state data applied when jaunting, such as the trait TRAIT_MAGICALLY_PHASED.
- * Arguments
- * * jaunt - The mob holder effect the caster has just exited
- * * unjaunter - The spellcaster who is no longer jaunting
- */
+/// Called when a mob is ejected from the jaunt holder and goes back to normal. This is called both from
+/// exit_jaunt() but also if the caster is ejected involuntarily for some reason. Use this to clear state
+/// data applied when jaunting, such as the trait TRAIT_MAGICALLY_PHASED.
+/// * jaunt - The mob holder effect the caster has just exited
+/// * unjaunter - The spellcaster who is no longer jaunting
 /obj/effect/proc_holder/spell/jaunt/proc/on_jaunt_exited(obj/effect/dummy/spell_jaunt/jaunt, mob/living/unjaunter)
 	return
 /*

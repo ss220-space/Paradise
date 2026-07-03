@@ -1,17 +1,5 @@
-/**
- * Spell-system extensions needed by the heretic's tg-derived spells.
- *
- * master220's /obj/effect/proc_holder/spell already provides the modern targeting /
- * cooldown / click-intercept infrastructure (targeting, cooldown_handler, base_cooldown,
- * before_cast/after_cast, add/remove_mousepointer, InterceptClickOn, choose_targets, ...).
- * This file only adds the few pieces the heretic spells rely on that master220 lacks:
- *   - get_things_to_cast_on() helpers
- *   - on_spell_loss() / can_add() / update_status_on_signal() base hooks
- *   - the /pointed and /pointed/projectile spell subclasses
- *   - can_block_magic() / can_cast_magic() antimagic compat shims
- *
- * Kept self-contained in the heretic module so the core spell.dm is untouched.
- */
+// Base spell extensions used by the heretic's spells: targeting helpers, base hooks,
+// the /pointed and /pointed/projectile subclasses, and antimagic compat shims.
 
 /obj/effect/proc_holder/spell/proc/get_things_to_cast_on(mob/user)
 	return targeting.choose_targets(user, src)
@@ -19,27 +7,20 @@
 /obj/effect/proc_holder/spell/aoe/get_things_to_cast_on(atom/center, radius_override)
 	return targeting.choose_targets(action.owner, src, null, center, radius_override)
 
-/// Called when a spell is removed from a mob.
 /obj/effect/proc_holder/spell/proc/on_spell_loss(mob/user = usr)
 	return
 
-/// Returns whether the spell can be added to the given mob.
 /obj/effect/proc_holder/spell/proc/can_add(mob/granted)
 	return TRUE
 
-/// Relays a status-update request to the backing action button, if any.
 /// Registered against movement / status signals so the button re-evaluates can_cast()
 /// (e.g. lighting up green the moment the caster steps into space).
 /obj/effect/proc_holder/spell/proc/update_status_on_signal(datum/source, ...)
 	SIGNAL_HANDLER
 	action?.build_all_button_icons(UPDATE_BUTTON_STATUS)
 
-/**
- * ## Pointed spells
- *
- * These spells override the caster's click, allowing them to cast the spell on whatever
- * is clicked on. To add effects on cast, override cast(). targets[1] is the clicked atom.
- */
+// Pointed spells override the caster's click, casting on whatever is clicked on.
+// To add effects on cast, override cast(). targets[1] is the clicked atom.
 /obj/effect/proc_holder/spell/pointed
 	/// Message shown to the spell owner upon activating the pointed spell.
 	var/active_msg
@@ -70,7 +51,7 @@
 	on_activation(on_who.eye)
 
 
-// Note: Destroy() calls Remove(), Remove() calls remove_mousepointer() if our spell is active.
+// Destroy() calls Remove(), Remove() calls remove_mousepointer() if our spell is active.
 /obj/effect/proc_holder/spell/pointed/remove_mousepointer(client/on_who, refund_cooldown = TRUE)
 	. = ..()
 	if(!on_who)
@@ -78,8 +59,7 @@
 	on_deactivation(on_who.eye, refund_cooldown = refund_cooldown)
 
 
-// Merged from the two duplicate before_cast() defs in the selfharm source (which would not compile):
-// handles both the cancel-cleanup and the out-of-range check.
+// Handles both the cancel-cleanup and the out-of-range check.
 /obj/effect/proc_holder/spell/pointed/before_cast(list/targets, mob/user = usr)
 	. = ..()
 	if(. & SPELL_CANCEL_CAST)
@@ -92,7 +72,6 @@
 	return . | SPELL_CANCEL_CAST
 
 
-/// Called when the spell is activated / the click ability is set to our spell.
 /obj/effect/proc_holder/spell/pointed/proc/on_activation(mob/on_who)
 	SHOULD_CALL_PARENT(TRUE)
 	to_chat(on_who, span_notice("[active_msg] <B>Left-click to cast the spell on a target!</B>"))
@@ -100,11 +79,10 @@
 	return TRUE
 
 
-/// Called when the spell is deactivated / the click ability is unset from our spell.
 /obj/effect/proc_holder/spell/pointed/proc/on_deactivation(mob/on_who, refund_cooldown = TRUE)
 	SHOULD_CALL_PARENT(TRUE)
 	if(refund_cooldown)
-		// Only send the "deactivation" message if they're willingly disabling the ability.
+		// Only send the message if they're willingly disabling the ability.
 		to_chat(on_who, span_notice("[deactive_msg]"))
 	action?.UpdateButtonIcon()
 	return TRUE
@@ -115,8 +93,8 @@
 	if(aim_assist)
 		aim_assist_target = aim_assist(clicker, target)
 	var/atom/final_target = aim_assist_target || target
-	// tg parity (pointed PreActivate): reject out-of-range clicks and invalid targets HERE, before anything
-	// is invoked or spent - the misclick costs nothing and the ability stays armed for an immediate retry.
+	// Reject out-of-range clicks and invalid targets before anything is invoked or spent,
+	// so a misclick costs nothing and the ability stays armed for an immediate retry.
 	if(get_dist(get_turf(clicker), get_turf(final_target)) > cast_range)
 		final_target.balloon_alert(clicker, "слишком далеко!")
 		return TRUE
@@ -133,12 +111,8 @@
 	return (locate(/mob/living/carbon/human) in target) || (locate(/mob/living) in target)
 
 
-/**
- * ### Pointed projectile spells
- *
- * Pointed spells that, instead of casting directly on the clicked target, fire a projectile
- * in the target's direction.
- */
+// Pointed spells that, instead of casting directly on the clicked target, fire a projectile
+// in the target's direction.
 /obj/effect/proc_holder/spell/pointed/projectile
 	should_recharge_after_cast = FALSE
 	/// What projectile we create when we shoot our spell.
@@ -181,7 +155,6 @@
 		return FALSE
 	var/atom/cast_on = targets[1]
 	var/turf/caster_turf = get_turf(action.owner)
-	// Get the tile in front of the caster, based on their direction.
 	var/turf/caster_front_turf = get_step(action.owner, action.owner.dir)
 	fire_projectile(cast_on)
 	action.owner.newtonian_move(get_angle(caster_front_turf, caster_turf))
@@ -201,7 +174,7 @@
 /obj/effect/proc_holder/spell/pointed/projectile/proc/fire_projectile(atom/target)
 	current_amount--
 	for(var/i in 1 to projectiles_per_fire)
-		// Spawn at the caster's turf, not nullspace - preparePixelProjectile forceMoves to the source.
+		// Spawn at the caster's turf, not nullspace - preparePixelProjectile force-moves to the source.
 		var/obj/projectile/to_fire = new projectile_type(get_turf(action.owner))
 		ready_projectile(to_fire, target, action.owner, i)
 		to_fire.fire()
@@ -219,10 +192,9 @@
 	to_fire.preparePixelProjectile(target, user, click_params)
 
 
-// --- Targeting datums for tg-derived module spells ---
-// Paradise requires every spell to provide a targeting datum (base create_new_targeting() returns null,
-// which makes the action button silently do nothing on click). tg self-cast spells have no such concept,
-// so map them all to self-targeting here; mob abilities default to click-targeting.
+// Every spell must provide a targeting datum (base create_new_targeting() returns null,
+// which makes the action button silently do nothing on click). Self-cast spells have no
+// such concept, so map them all to self-targeting here; mob abilities default to click-targeting.
 
 /obj/effect/proc_holder/spell/jaunt/create_new_targeting()
 	return new /datum/spell_targeting/self
@@ -263,13 +235,12 @@
 /obj/effect/proc_holder/spell/track_target/create_new_targeting()
 	return new /datum/spell_targeting/self
 
-/// tg mob-cooldown abilities are click-targeted by default (charge overrides this itself).
+/// Mob-cooldown abilities are click-targeted by default (charge overrides this itself).
 /obj/effect/proc_holder/spell/mob_cooldown/create_new_targeting()
 	return new /datum/spell_targeting/clicked_atom
 
-// --- Antimagic compatibility shims ---
-// master220 has no unified antimagic check (anti_magic_check is only a vestigial signal comment),
-// so these default to "no antimagic". Proper antimagic mapping (null rod / holy) is a later refinement.
+// No unified antimagic check exists yet, so these default to "no antimagic".
+// Proper antimagic mapping (null rod / holy) is a later refinement.
 
 /mob/proc/can_block_magic(magic_flags = MAGIC_RESISTANCE, charge_cost = 0)
 	return FALSE
@@ -277,8 +248,7 @@
 /mob/proc/can_cast_magic(magic_flags = MAGIC_RESISTANCE)
 	return !can_block_magic(magic_flags)
 
-// --- Touch spell hand helper ---
-// Removes the touch hand without refunding the spell's cooldown (tg's godhand proc, not in master220).
+// Removes the touch hand without refunding the spell's cooldown.
 /obj/item/melee/touch_attack/proc/remove_hand_with_no_refund(mob/holder)
 	var/obj/effect/proc_holder/spell/touch/hand_spell = attached_spell
 	if(!QDELETED(hand_spell))

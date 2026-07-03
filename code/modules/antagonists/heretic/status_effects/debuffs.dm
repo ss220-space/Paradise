@@ -306,7 +306,7 @@
 	if(owner.reagents?.has_reagent(/datum/reagent/holywater))
 		remove_duration(3 SECONDS * seconds_between_ticks)
 		return
-	// Looking at the painting again pauses the effect — the intended counterplay.
+	// Looking at the painting again pauses the effect - the intended counterplay.
 	if(HAS_TRAIT(owner, TRAIT_ELDRITCH_PAINTING_EXAMINE))
 		return
 	on_tick(seconds_between_ticks)
@@ -321,7 +321,7 @@
 	icon = 'icons/obj/signs.dmi'
 	icon_state = "eldritch_painting_debug"
 
-// "Сестра и Плачущий" — curses the viewer with recurring hallucinations.
+// "Сестра и Плачущий" - curses the viewer with recurring hallucinations.
 /datum/status_effect/eldritch_painting/weeping
 	id = "painting_weeping"
 	alert_type = /atom/movable/screen/alert/status_effect/eldritch_painting/weeping
@@ -338,7 +338,7 @@
 	desc = "Плач эхом отдаётся в вашем разуме, разрушая рассудок! Быть может, если снова взглянуть на картину, станет легче..."
 	icon_state = "eldritch_painting_weeping"
 
-// "Фестиваль Желаний" — a ravenous, draining hunger for flesh.
+// "Фестиваль Желаний" - a ravenous, draining hunger for flesh.
 /datum/status_effect/eldritch_painting/desire
 	id = "painting_desire"
 	alert_type = /atom/movable/screen/alert/status_effect/eldritch_painting/desire
@@ -377,7 +377,7 @@
 /datum/status_effect/eldritch_painting/desire/permanent
 	duration = STATUS_EFFECT_PERMANENT
 
-// "Леди за Вратами" — compulsively claws at any clothed part of the body.
+// "Леди за Вратами" - compulsively claws at any clothed part of the body.
 /datum/status_effect/eldritch_painting/beauty
 	id = "painting_beauty"
 	alert_type = /atom/movable/screen/alert/status_effect/eldritch_painting/beauty
@@ -392,7 +392,7 @@
 	var/obj/item/organ/external/bodypart = owner.get_bodypart(owner.get_random_valid_zone(even_weights = TRUE))
 	if(!bodypart || bodypart.is_robotic())
 		return
-	// Clothing ruins the "perfection" of the body — only scratch covered parts.
+	// Clothing ruins the "perfection" of the body - only scratch covered parts.
 	var/mob/living/carbon/human/scratcher = owner
 	if(!length(scratcher.get_clothing_on_part(bodypart)))
 		return
@@ -405,7 +405,7 @@
 	desc = "Одежда скрывает скрытую под ней красоту. Сбросьте её и достигните совершенства. Или вновь узрите совершенство в той картине."
 	icon_state = "eldritch_painting_beauty"
 
-// "Хозяйка Ржавой Горы" — rusts the floor beneath the cursed.
+// "Хозяйка Ржавой Горы" - rusts the floor beneath the cursed.
 /datum/status_effect/eldritch_painting/rusting
 	id = "painting_rusting"
 	alert_type = /atom/movable/screen/alert/status_effect/eldritch_painting/rusting

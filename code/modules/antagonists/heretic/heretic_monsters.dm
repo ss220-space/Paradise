@@ -1,4 +1,3 @@
-///Tracking reasons
 /datum/antagonist/heretic_monster
 	name = "Древний ужас"
 	roundend_category = "Heretics"
@@ -24,8 +23,8 @@
 
 /datum/antagonist/heretic_monster/on_gain()
 	// Глушим стандартное приветствие/объявление целей: имя мастера нам выдаёт set_owner (или объектив
-	// "свободного" монстра добавляется напрямую) СРАЗУ после add_antag_datum. Поэтому откладываем
-	// приветствие на один тик — к этому моменту вся синхронная донастройка готова, и мы один раз
+	// "свободного" монстра добавляется напрямую) сразу после add_antag_datum. Поэтому откладываем
+	// приветствие на один тик - к этому моменту вся синхронная донастройка готова, и мы один раз
 	// показываем финальную цель с именем мастера, без пустой или промежуточной плашки.
 	silent = TRUE
 	. = ..()
@@ -64,13 +63,11 @@
 	return ..()
 
 
-/*
- * Set our [master] var to a new mind.
- */
+/// Set our [master] var to a new mind.
 /datum/antagonist/heretic_monster/proc/set_owner(datum/mind/master)
 	src.master = master
 	// Цель уже создана в give_objectives(); подставляем имя мастера. Приветствие с этой целью
-	// покажет отложенный greet_monster() — set_owner всегда вызывается сразу после add_antag_datum.
+	// покажет отложенный greet_monster() - set_owner всегда вызывается сразу после add_antag_datum.
 	if(!master_obj)
 		give_objectives()
 	master_obj.explanation_text = "Ваш мастер — [master.current.real_name]. Помогайте ему во всём."

@@ -288,7 +288,7 @@
 	carbon_owner.adjustOrganLoss(INTERNAL_ORGAN_BRAIN, -heal)
 
 
-//---- Blade Passive: "Танец Клинка" (riposte) — ported 1:1 from /tg/station, adapted to master220.
+//---- Blade Passive: "Танец Клинка" (riposte) - ported 1:1 from /tg/station, adapted to master220.
 // When attacked in melee while holding a heretic blade, you instantly strike back at the attacker, once per
 // cooldown. tg makes this riposte the blade path's PASSIVE (it folded the old standalone blade_dance node
 // into the passive), so it's granted on picking the path and strengthens as you grow. Cooldown scales with

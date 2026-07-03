@@ -113,13 +113,8 @@
 	addtimer(CALLBACK(target_obj, TYPE_PROC_REF(/obj, unfreeze)), unfreeze_object_duration)
 
 
-/**
- * ### Staggered Cone
- *
- * Staggered Cone spells will reach each cone level
- * gradually / with a delay, instead of affecting the entire
- * cone area at once.
- */
+/// Staggered Cone spells reach each cone level gradually / with a delay, instead of affecting the entire
+/// cone area at once.
 /obj/effect/proc_holder/spell/cone/staggered
 
 	/// The delay between each cone level triggering.
@@ -133,11 +128,7 @@
 		addtimer(CALLBACK(src, PROC_REF(do_cone_effects), turf_list, caster, level_counter), delay_between_level * level_counter)
 
 
-/**
- * ## Cone spells
- *
- * Cone spells shoot off as a cone from the caster.
- */
+/// Cone spells shoot off as a cone from the caster.
 /obj/effect/proc_holder/spell/cone
 	/// This controls how many levels the cone has. Increase this value to make a bigger cone.
 	var/cone_levels = 3
@@ -214,10 +205,8 @@
 			left_dir = SOUTH
 			right_dir = NORTH
 
-	// Go though every level of the cone levels and generate the cone.
 	for(var/level in 1 to cone_levels)
 		var/list/level_turfs = list()
-		// Our center turf always exists, it's straight ahead of the caster.
 		turf_to_use = get_step(turf_to_use, dir_to_use)
 		level_turfs += turf_to_use
 		// Level 1 only ever has 1 turf, it's a cone.
@@ -225,7 +214,6 @@
 			var/level_width_in_each_direction = round((calculate_cone_shape(level) - 1) / 2)
 			left_turf = turf_to_use
 			right_turf = turf_to_use
-			// Check turfs to the left...
 			for(var/left_of_center in 1 to level_width_in_each_direction)
 				if(respect_density && left_turf.density)
 					break
@@ -233,39 +221,30 @@
 				left_turf = get_step(left_turf, left_dir)
 				level_turfs += left_turf
 
-			// And turfs to the right.
 			for(var/right_of_enter in 1 to level_width_in_each_direction)
 				if(respect_density && right_turf.density)
 					break
 				right_turf = get_step(right_turf, right_dir)
 				level_turfs += right_turf
 
-		// Add the list of all turfs on this level to the turfs to return
 		turfs_to_return += list(level_turfs)
 
-		// If we're at the last level, we're done
 		if(level == cone_levels)
 			break
-		// But if we're not at the last level, we should check that we can keep going
 		if(respect_density && turf_to_use.density)
 			break
 
 	return turfs_to_return
 
 
-/**
- * Adjusts the width of the cone at the passed level.
- * This is never called on the first level of the cone (level 1 is always 1 width)
- *
- * Return a number - the TOTAL width of the cone at the passed level.
- */
+/// Adjusts the width of the cone at the passed level. This is never called on the first level of the cone
+/// (level 1 is always 1 width). Return a number - the TOTAL width of the cone at the passed level.
 /obj/effect/proc_holder/spell/cone/proc/calculate_cone_shape(current_level)
 	// Default formula: (1 (innate) -> 3 -> 5 -> 5 -> 7 -> 7 -> 9 -> 9 -> ...)
 	return current_level + (current_level % 2) + 1
 
 
-// Lasting (indefinite) freeze used by the void cold cone. master220 has the base /freon + /watcher
-// but not this /lasting subtype (it lives in selfharm's gas.dm); ported here for self-containment.
+// Lasting (indefinite) freeze used by the void cold cone.
 /datum/status_effect/freon/lasting
 	id = "lasting_frozen"
 	duration = -1

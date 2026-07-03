@@ -8,14 +8,13 @@
 	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
-	// tg's Rust Charge inherits the base charge button: actions_items.dmi "sniper_zoom" (the red
-	// crosshair). The port's base charge sets no icon, so it fell back to the generic spell scroll.
+	// Rust Charge uses the base charge button: actions_items.dmi "sniper_zoom" (the red crosshair).
 	action_icon = 'icons/mob/actions/actions_items.dmi'
 	action_icon_state = "sniper_zoom"
 	charge_distance = 10
 	charge_damage = 25
-	// tg's rust charge stops exactly on the picked tile (charge_past = 0). The base charge overshoots by
-	// 2 tiles - that's why the heretic was landing past the tile they clicked. Match tg.
+	// Rust charge stops exactly on the picked tile. The base charge overshoots by 2 tiles, which made the
+	// heretic land past the tile they clicked.
 	charge_past = 0
 	base_cooldown = 30 SECONDS
 	clothes_req = FALSE
@@ -30,7 +29,7 @@
 	if(!istype(start_turf) || !HAS_TRAIT(start_turf, TRAIT_RUSTY) || !istype(target_turf))
 		return FALSE
 
-	// tg parity: we're invulnerable while charging, and unleash a damaging knockdown shock when we stop.
+	// We're invulnerable while charging, and unleash a damaging knockdown shock when we stop.
 	if(ishuman(action.owner))
 		var/mob/living/carbon/human/human_owner = action.owner
 		human_owner.physiology.damage_resistance += 100
@@ -42,8 +41,7 @@
 	return TRUE
 
 
-/// When the charge ends, deal damage + knock down everyone next to us and drop our invulnerability. Ported
-/// from tg's /datum/action/cooldown/mob_cooldown/charge/rust/affect_aoe (fired on COMSIG_FINISHED_CHARGE).
+/// When the charge ends, deal damage + knock down everyone next to us and drop our invulnerability.
 /obj/effect/proc_holder/spell/mob_cooldown/charge/rust/proc/affect_aoe()
 	SIGNAL_HANDLER
 	UnregisterSignal(action.owner, COMSIG_FINISHED_CHARGE)

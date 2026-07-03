@@ -9,7 +9,7 @@
 	complexity_color = "#c93b3b"
 	path_description = list(
 		"Путь Луны строится вокруг рассудка, сеяния хаоса и раздора, и обхода привычных правил боя.",
-		"Берите этот путь, если уже освоились с Еретиком и хотите попробовать нечто крайне необычное — \
+		"Берите этот путь, если уже освоились с Еретиком и хотите попробовать нечто крайне необычное, \
 		или если желаете сыграть пацифистом (да-да, всерьёз!).",
 	)
 	path_pros = list(
@@ -32,11 +32,11 @@
 		"Ваша пассивка делает вас полностью невосприимчивым к травмам мозга и медленно восстанавливает его здоровье. \
 		Развивайте её, чтобы усилить регенерацию.",
 		"Сияющее Облачение полностью меняет правила боя: вы становитесь невосприимчивы к выводящим из строя эффектам, \
-		но сама мантия не даёт брони, пацифицирует вас и не позволяет пользоваться огнестрелом (клинком — можно).",
-		"Амулет лунного света — важнейшая часть набора: пока он надет, ваша пассивка восстанавливает мозг вдвое быстрее.",
+		но сама мантия не даёт брони, пацифицирует вас и не позволяет пользоваться огнестрелом (клинком - можно).",
+		"Амулет лунного света - важнейшая часть набора: пока он надет, ваша пассивка восстанавливает мозг вдвое быстрее.",
 		"«Восстание Главарей» бьёт по области уроном мозга и галлюцинациями; используйте его, когда враги сбились в кучу.",
 		"Вознесение дарует вам ауру, обращающую часть экипажа в верных лунатиков. \
-		Те, у кого вживлён щит разума, вместо этого обречены — их рассудок не выдержит.",
+		Те, у кого вживлён щит разума, вместо этого обречены - их рассудок не выдержит.",
 	)
 	// "Лунное Прозрение" passive (see /datum/status_effect/heretic_passive/moon): tiers light up as you grow.
 	passive_name = "Лунное Прозрение"
@@ -45,11 +45,10 @@
 		"Вы получаете иммунитет ко сну; восстановление мозга усилено.",
 		"Восстановление мозга достигло предела.",
 	)
-	// TG-format column (1:1 with tgstation Moon). Main line:
-	// base_moon -> Mind Gate -> Moonlight Amulet -> Resplendent Regalia(robes) ->
+	// Main line: base_moon -> Mind Gate -> Moonlight Amulet -> Resplendent Regalia(robes) ->
 	// Lunar Parade -> Moonlight Blade -> Ringleader's Rise -> ascension.
 	// The grasp (hallucination + identity hide), the moon mark and the brain passive are all folded into
-	// base_moon (matching TG, no separate grasp/mark/regen nodes). master220 has no sanity/mood system, so
+	// base_moon, no separate grasp/mark/regen nodes. master220 has no sanity/mood system, so
 	// the path's sanity mechanics are adapted to brain damage / hallucinations / confusion throughout.
 	start = /datum/heretic_knowledge/limited_amount/starting/base_moon
 	knowledge_tier1 = /datum/heretic_knowledge/spell/mind_gate
@@ -78,7 +77,6 @@
 	result_atoms = list(/obj/item/melee/sickly_blade/moon)
 	research_tree_icon_path = 'icons/obj/weapons/khopesh.dmi'
 	research_tree_icon_state = "moon_blade"
-	// The moon mark and the grasp (hallucination + identity hide) both live here now (matching TG).
 	mark_type = /datum/status_effect/eldritch/moon
 	// "Лунное Прозрение" passive: brain-trauma immunity + brain regen, scaling with power.
 	passive_type = /datum/status_effect/heretic_passive/moon
@@ -112,18 +110,18 @@
 	carbon_target.cause_hallucination(/datum/hallucination/delusion/preset/moon, "delusion/preset/moon hallucination caused by mansus grasp")
 
 
-// Mind Gate (knowledge_tier1) - the Moon path's first researchable spell. It lives on the Moon main line
-// (NOT a side knowledge), matching TG, so it appears in the research tree rather than the Knowledge Shop.
+// Mind Gate (knowledge_tier1): the Moon path's first researchable spell. It lives on the Moon main line
+// (not a side knowledge), so it appears in the research tree rather than the Knowledge Shop.
 /datum/heretic_knowledge/spell/mind_gate
 	name = "Врата Разума"
-	desc = "Даёт вам «Врату Разума» — заклинание, вызывающее у цели галлюцинации, \
+	desc = "Даёт вам «Врату Разума», заклинание, вызывающее у цели галлюцинации, \
 			спутанность сознания, удушие и повреждения мозга в течение 10 секунд.\
 			Заклинатель получает 20 единиц урона мозгу за каждое применение."
 	gain_text = "Мой разум распахивается, как врата, и это, ценой немалых жертв, позволяет мне постичь истину."
 	research_tree_icon_path = 'icons/mob/actions/actions_ecult.dmi'
 	research_tree_icon_state = "mind_gate"
 	spell_to_add = /obj/effect/proc_holder/spell/pointed/mind_gate
-	cost = 2 // TG: Mind Gate costs 2.
+	cost = 2
 
 
 /datum/heretic_knowledge/moon_amulet
@@ -132,7 +130,7 @@
 			Если применить его на ком-то в критическом состоянии, жертва впадает в ярость и начинает \
 			атаковать всех вокруг. Пока амулет надет на вас, ваша пассивка восстанавливает мозг вдвое быстрее \
 			и вы можете применять клинок даже в Сияющем Облачении."
-	gain_text = "Он стоял во главе парада, луна слилась в единую массу — отражение души."
+	gain_text = "Он стоял во главе парада, луна слилась в единую массу - отражение души."
 
 	required_atoms = list(
 		/obj/item/organ/internal/heart = 1,
@@ -140,7 +138,7 @@
 		/obj/item/clothing/accessory = 1,
 	)
 	result_atoms = list(/obj/item/clothing/neck/heretic_focus/moon_amulet)
-	cost = 2 // TG: Moonlight Amulet costs 2.
+	cost = 2
 
 	research_tree_icon_path = 'icons/obj/eldritch.dmi'
 	research_tree_icon_state = "moon_amulette"
@@ -157,13 +155,12 @@
 				Труппа кружилась в переливающихся каскадах, ослепляя зрителей истиной, которую те искали. \
 				Я смотрел, купаясь в свете, чтобы обрести себя."
 	result_atoms = list(/obj/item/clothing/suit/hooded/cultrobes/eldritch/moon)
-	// The pink Resplendent Regalia sprite was inserted into the already-mapped armor.dmi (matching tg, which
-	// points this node at suits/armor.dmi "moon_armor").
+	// The pink Resplendent Regalia sprite was inserted into the already-mapped armor.dmi.
 	research_tree_icon_path = 'icons/obj/clothing/suits.dmi'
 	research_tree_icon_state = "moon_armor"
 	// The /armor parent points at eldritch_armor (a 14-frame anim) and asks for frame 12. moon_armor is a
-	// single-frame sprite, so we MUST override back to frame 1 - requesting frame 12 of a 1-frame state
-	// returns a blank PNG (this, not PIL-vs-native, was why the node rendered empty).
+	// single-frame sprite, so we must override back to frame 1, or requesting frame 12 of a 1-frame state
+	// returns a blank PNG (this was why the node rendered empty).
 	research_tree_icon_frame = 1
 	required_atoms = list(
 		list(/obj/structure/table, /obj/item/clothing/suit) = 1,
@@ -174,14 +171,14 @@
 
 /datum/heretic_knowledge/spell/moon_parade
 	name = "Лунный Парад"
-	desc = "Дарует вам «Лунный Парад» — заклинание, которое после короткой подготовки посылает вперёд снаряд. \
+	desc = "Дарует вам «Лунный Парад», заклинание, которое после короткой подготовки посылает вперёд снаряд. \
 			При попадании жертва вынуждена следовать за вами и страдать от галлюцинаций. \
 			Чтобы освободиться, должны умереть либо она, либо вы."
-	gain_text = "Музыка, словно из глубин их души, влекла — как мотыльков к пламени."
+	gain_text = "Музыка, словно из глубин их души, влекла - как мотыльков к пламени."
 	research_tree_icon_path = 'icons/mob/actions/actions_ecult.dmi'
 	research_tree_icon_state = "moon_parade"
 	spell_to_add = /obj/effect/proc_holder/spell/pointed/projectile/moon_parade
-	cost = 2 // TG: Lunar Parade costs 2.
+	cost = 2
 	drafting_tier = 5
 
 
@@ -189,7 +186,7 @@
 	name = "Клинок Лунного Света"
 	desc = "Теперь ваш клинок наносит урон мозгу и вызывает галлюцинации. \
 			Урон по мозгу выше, если жертва без сознания."
-	gain_text = "Его слова были остры как лезвие — он рассекал ложь, принося нам радость."
+	gain_text = "Его слова были остры как лезвие - он рассекал ложь, принося нам радость."
 
 	research_tree_icon_path = 'icons/ui_icons/antags/heretic/knowledge.dmi'
 	research_tree_icon_state = "blade_upgrade_moon"
@@ -204,11 +201,11 @@
 
 	target.Hallucinate(60 SECONDS)
 	target.emote(pick("giggle", "laugh"))
-	// master220 has no mood system; tg's per-hit sanity drain becomes an occasional moon chat (gated so
+	// master220 has no mood system, so a per-hit sanity drain becomes an occasional moon chat (gated so
 	// repeated blade swings don't spam the victim's chat).
 	if(prob(50))
 		to_chat(target, span_warning("ЛУНА СУДИТ ВАС И НАХОДИТ НЕДОСТОЙНЫМ!!!"))
-	// master220 has no sanity, so the "more brain damage if insane" tg branch is reduced to a
+	// master220 has no sanity, so "more brain damage if insane" is reduced to a
 	// conscious / unconscious split: a downed victim's mind is far easier to shatter.
 	if(target.stat == CONSCIOUS)
 		target.adjustOrganLoss(INTERNAL_ORGAN_BRAIN, 10, 100)
@@ -218,14 +215,14 @@
 
 /datum/heretic_knowledge/spell/moon_ringleader
 	name = "Восстание Главарей"
-	desc = "Даёт вам «Восстание Главарей» — заклинание по области, наносящее \
+	desc = "Даёт вам «Восстание Главарей», заклинание по области, наносящее \
 			урон мозгу, вызывающее галлюцинации и спутанность у окружающих вас врагов."
 	gain_text = "Я схватил его за руку, и мы поднялись. Те, кто видел истину, поднялись вместе с нами. \
 				Главарь указал вверх, и тусклый свет истины озарил нас ярче."
 	research_tree_icon_path = 'icons/mob/actions/actions_ecult.dmi'
 	research_tree_icon_state = "moon_ringleader"
 	spell_to_add = /obj/effect/proc_holder/spell/aoe/moon_ringleader
-	cost = 2 // TG: Ringleader's Rise costs 2.
+	cost = 2
 	research_tree_icon_frame = 5
 	is_final_knowledge = TRUE
 
@@ -241,14 +238,13 @@
 				СТАНЬТЕ СВИДЕТЕЛЯМИ МОЕГО ВОЗНЕСЕНИЯ, ЛУНА СНОВА УЛЫБНУЛАСЬ И БУДЕТ УЛЫБАТЬСЯ ВСЕГДА!"
 
 	//ascension_achievement = /datum/award/achievement/misc/moon_ascension
-	// TG draws the ascension node icon from the ascension achievement's sprite; master220 has no achievement
-	// system, so we point the node straight at the extracted "moonascend" medallion instead of the default eye.
+	// master220 has no achievement system, so we point the node straight at the extracted "moonascend"
+	// medallion instead of the default eye.
 	research_tree_icon_path = 'icons/ui_icons/antags/heretic/moon_ascension.dmi'
 	research_tree_icon_state = "moonascend"
 	announcement_text = "%SPOOKY% Смейтесь, ибо главарь %NAME% вознёсся! \
 							Правда наконец поглотит ложь! %SPOOKY%"
 	announcement_sound = 'sound/music/heretic/ascend_moon.ogg'
-	// tg parity: the research-tree node wears the path's ascension achievement sprite.
 	research_tree_icon_path = 'icons/ui_icons/antags/heretic/ascension.dmi'
 	research_tree_icon_state = "moonascend"
 
@@ -324,7 +320,7 @@
 
 
 /// A mind protected by a mindshield (or a cultist's already-claimed mind) can't be converted - the aura
-/// shatters it instead of bending it (tg parity).
+/// shatters it instead of bending it.
 /datum/heretic_knowledge/ultimate/moon_final/proc/should_mind_explode(mob/living/carbon/target)
 	return ismindshielded(target) || iscultist(target)
 
@@ -379,7 +375,7 @@
 
 		// master220 has no sanity, so brain damage is the aura's madness meter: it grinds nearby minds down,
 		// and once a mind is shattered (>= 60) the weak-willed join the heretic as lunatics over time, while
-		// a mindshielded/cultist mind detonates instead (tg parity). ~4 brain/tick (SSmobs ~2s) => ~30s to
+		// a mindshielded/cultist mind detonates instead. ~4 brain/tick (SSmobs ~2s) => ~30s to
 		// break. Conversion/detonation is async since this runs inside a COMSIG_LIVING_LIFE handler.
 		carbon_view.adjustOrganLoss(INTERNAL_ORGAN_BRAIN, 4, 100)
 		if(carbon_view.get_organ_loss(INTERNAL_ORGAN_BRAIN) < 60)

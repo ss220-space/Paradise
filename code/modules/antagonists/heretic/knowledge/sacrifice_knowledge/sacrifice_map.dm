@@ -3,10 +3,10 @@
 /// A global assoc list of all landmarks that denote a heretic sacrifice location. [string heretic path] = [landmark].
 GLOBAL_LIST_EMPTY(heretic_sacrifice_landmarks)
 
-/// Lardmarks meant to designate where heretic sacrifices are sent.
+/// Landmarks meant to designate where heretic sacrifices are sent.
 /obj/effect/landmark/heretic
 	name = "стандартная метка жертвоприношения еретиков"
-	icon = 'icons/effects/landmarks_static.dmi' // ported from /tg/ — Paradise's icons/misc/landmarks.dmi has no "x" state
+	icon = 'icons/effects/landmarks_static.dmi' // Paradise's icons/misc/landmarks.dmi has no "x" state
 	icon_state = "x"
 	/// What path this landmark is intended for.
 	var/for_heretic_path = PATH_START
@@ -155,7 +155,7 @@ GLOBAL_LIST_EMPTY(heretic_sacrifice_landmarks)
 // Rooms for where heretic sacrifices send people.
 /area/centcom/heretic_sacrifice
 	name = "Мансус"
-	icon = 'icons/area/eldritch_areas.dmi' // ported from /tg/ areas_centcom.dmi — base areas.dmi has no "heretic" state
+	icon = 'icons/area/eldritch_areas.dmi' // base areas.dmi has no "heretic" state
 	icon_state = "heretic"
 	//ambience_index = AMBIENCE_SPOOKY
 	base_lighting_alpha = 0

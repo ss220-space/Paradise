@@ -236,7 +236,7 @@
 	AddComponent(/datum/component/redirect_attack_hand_from_turf, interact_check = CALLBACK(src, PROC_REF(verify_user_can_see)))
 
 	// A heretic who steps near the influence catches a glimpse of the Mansus - granting Eldritch Sight (x-ray).
-	// Range mirrors TG (7) so simply being near a rift triggers it, rather than having to stand on top of it.
+	// Range is 7 so simply being near a rift triggers it, rather than having to stand on top of it.
 	proximity_monitor = new /datum/proximity_monitor/influence_monitor(src, 7)
 
 

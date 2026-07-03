@@ -40,8 +40,8 @@
 	)
 */
 
-// tg parity: the touch also works at range (both left- and right-click) within 3 tiles - the base ranged
-// handler would fire afterattack at ANY range, so we intercept and gate it ourselves.
+// The touch also works at range (both left- and right-click) within 3 tiles - the base ranged handler
+// would fire afterattack at ANY range, so we intercept and gate it ourselves.
 /obj/item/melee/touch_attack/star_touch/ranged_interact_with_atom(atom/interacting_with, mob/living/user, list/modifiers)
 	if(!isliving(interacting_with))
 		return NONE
@@ -58,7 +58,7 @@
 	if(!istype(victim))
 		return FALSE
 
-	// tg parity: an unmarked victim just gets the star mark; the fields + tether only fire on an already-marked one.
+	// An unmarked victim just gets the star mark; the fields + tether only fire on an already-marked one.
 	if(!victim.has_status_effect(/datum/status_effect/star_mark))
 		victim.apply_status_effect(/datum/status_effect/star_mark, caster)
 		return ..()
@@ -101,7 +101,7 @@
 /obj/item/melee/touch_attack/star_touch
 	name = "звёздное касание"
 	desc = "Зловещая аура, искажающая реальность вокруг себя. \
-			Заставляет людей со звёздной меткой заснуть на 4 секунды, а людей без звёздной метки — получить её."
+			Заставляет людей со звёздной меткой заснуть на 4 секунды, а людей без звёздной метки - получить её."
 	icon = 'icons/obj/weapons/hand.dmi'
 	icon_state = "star"
 	item_state = "star"
@@ -131,10 +131,8 @@
 	)
 
 
-/*
- * Callback for effect_remover component. tg parity: erasing a cosmic rune with the star touch also
- * dissolves the caster's own linked rune pair.
- */
+// Callback for effect_remover component: erasing a cosmic rune with the star touch also dissolves the
+// caster's own linked rune pair.
 /obj/item/melee/touch_attack/star_touch/proc/after_clear_rune(obj/effect/target, mob/living/user)
 	new /obj/effect/temp_visual/cosmic_rune_fade(get_turf(target))
 	var/obj/effect/proc_holder/spell/cosmic_rune/rune_spell = locate() in user.mob_spell_list
@@ -222,9 +220,7 @@
 	return ..()
 
 
-/**
- * Proc that always is called when we want to end the beam and makes sure things are cleaned up, see beam_died()
- */
+/// Called whenever we want to end the beam; makes sure things are cleaned up (see beam_died()).
 /datum/status_effect/cosmic_beam/proc/lose_target()
 	if(active)
 		QDEL_NULL(current_beam)
@@ -236,10 +232,8 @@
 	current_target = null
 
 
-/**
- * Only called when the beam fails on its own (target fled out of range / died), not on a manual end. Warns the
- * caster the tether snapped and ends the effect without reeling the victim in.
- */
+/// Only called when the beam fails on its own (target fled out of range / died), not on a manual end.
+/// Warns the caster the tether snapped and ends the effect without reeling the victim in.
 /datum/status_effect/cosmic_beam/proc/beam_died()
 	SIGNAL_HANDLER
 	if(successful_teleport)

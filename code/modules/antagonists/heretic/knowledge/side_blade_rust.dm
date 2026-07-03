@@ -6,7 +6,7 @@
 
 	tier1 = /datum/heretic_knowledge/armor
 	tier2 = list(/datum/heretic_knowledge/crucible, /datum/heretic_knowledge/rifle)
-	// rust_charge is now the Rust main path's tier-4 knowledge (TG-format), not a side node here.
+	// rust_charge is the Rust main path's tier-4 knowledge, not a side node here.
 	tier3 = list(/datum/heretic_knowledge/greaves_of_the_prophet)
 
 
@@ -32,14 +32,13 @@
 
 /datum/heretic_knowledge/armor/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	. = ..()
-	// Crafting the eldritch robe is the heretic's tier-2 ("empowerment") milestone (tg's Armorer's Ritual
-	// sends COMSIG_HERETIC_PASSIVE_UPGRADE_FIRST here). This advances the path passive to level 2 and, with
-	// it, lights up the eldritch aura (see /datum/status_effect/heretic_passive/level_upgrade).
+	// Crafting the eldritch robe is the heretic's tier-2 ("empowerment") milestone. This advances the
+	// path passive to level 2 and, with it, lights up the eldritch aura
+	// (see /datum/status_effect/heretic_passive/level_upgrade).
 	var/datum/antagonist/heretic/our_heretic = user.mind?.has_antag_datum(/datum/antagonist/heretic)
 	our_heretic?.set_passive_level(2)
-	// tg also gifts the Ritual of Knowledge (a one-off random transmutation worth bonus knowledge points)
-	// when the robe is crafted (heretic_armor_knowledge.dm). gain_knowledge is idempotent, so a second
-	// robe craft can't grant it twice.
+	// Also gifts the Ritual of Knowledge (a one-off random transmutation worth bonus knowledge points).
+	// gain_knowledge is idempotent, so a second robe craft can't grant it twice.
 	our_heretic?.gain_knowledge(/datum/heretic_knowledge/knowledge_ritual)
 
 
@@ -69,7 +68,7 @@
 	name = "Винтовка Охотника на львов"
 	desc = "Позволяет преобразовать кусок дерева, шкуру \
 			любого животного и фотоаппарат, в винтовку Охотника на львов. \
-			Винтовка Охотника на львов — это дальнобойное баллистическое оружие вмещающее три патрона. \
+			Винтовка Охотника на львов - это дальнобойное баллистическое оружие вмещающее три патрона. \
 			Попадание по жертве оставляет вашу метку на ней."
 	gain_text = "В антикварной лавке я встретил старика, владеющего очень необычным оружием. \
 				Тогда я не смог его купить, но старик рассказал, как оно было создано."
@@ -80,7 +79,7 @@
 		/obj/item/camera = 1,
 	)
 	result_atoms = list(/obj/item/gun/projectile/shotgun/boltaction/lionhunter)
-	cost = 2 // TG: Lionhunter's Rifle costs 2 points.
+	cost = 2
 
 
 	research_tree_icon_path = 'icons/obj/weapons/ballistic.dmi'
@@ -94,7 +93,7 @@
 	gain_text = "К оружию прилагались три грубых железных шарика - патрога. \
 				Вскоре они закончились. Никакие другие боеприпасы не работали. \
 				Тот старик был очень странным."
-	cost = 0 // TG: free follow-up unlock once you've researched the rifle (HKT_NEXT off rifle).
+	cost = 0 // free follow-up unlock once you've researched the rifle (HKT_NEXT off rifle)
 	required_atoms = list(
 		/obj/item/ammo_casing = 3,
 	)
@@ -136,7 +135,7 @@
 	research_tree_icon_path = 'icons/mob/actions/actions_items.dmi'
 	research_tree_icon_state = "sniper_zoom"
 	spell_to_add = /obj/effect/proc_holder/spell/mob_cooldown/charge/rust
-	cost = 2 // TG: rust_charge costs 2
+	cost = 2
 
 
 /datum/heretic_knowledge/greaves_of_the_prophet

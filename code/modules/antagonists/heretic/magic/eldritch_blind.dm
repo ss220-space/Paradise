@@ -1,10 +1,4 @@
-/**
- * ## Blind
- *
- * Base pointed "Blind" spell (tg's /datum/action/cooldown/spell/pointed/blind). master220 had no
- * /obj/effect/proc_holder/spell/pointed/blind base, so the heretic /eldritch subtype inherited the empty
- * /pointed type and did nothing on cast. This restores the actual blinding behaviour.
- */
+// Base pointed "Blind" spell.
 /obj/effect/proc_holder/spell/pointed/blind
 	name = "Слепота"
 	desc = "Это заклинание временно ослепляет одну цель."

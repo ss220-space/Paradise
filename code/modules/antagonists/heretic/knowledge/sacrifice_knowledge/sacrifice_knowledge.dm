@@ -5,9 +5,7 @@
 /// How long sacrifices must stay in the shadow realm to survive.
 #define SACRIFICE_REALM_DURATION (2.5 MINUTES)
 
-/**
- * Allows the heretic to sacrifice living heart targets.
- */
+/// Allows the heretic to sacrifice living heart targets.
 /datum/heretic_knowledge/hunt_and_sacrifice
 	name = "Сердцебиение Мансуса"
 	desc = "Позволяет приносить цели в жертву Мансусу, положив их в руну в критическом (или худшем) состоянии. \
@@ -47,45 +45,36 @@
 	. = ..()
 	obtain_targets(user, silent = TRUE, heretic_datum = our_heretic)
 	heretic_mind = our_heretic.owner
-	// The Mansus sacrifice realm is a MAPPED location now (like /tg/): map a room per path and drop the
-	// matching /obj/effect/landmark/heretic[/<path>] in it (see sacrifice_map.dm). begin_sacrifice() reads
+	// The Mansus sacrifice realm is a mapped location: map a room per path and drop the matching
+	// /obj/effect/landmark/heretic[/<path>] in it (see sacrifice_map.dm). begin_sacrifice() reads
 	// GLOB.heretic_sacrifice_landmarks[path] || [PATH_START] to teleport the victim there. If no landmark is
 	// mapped yet, the teleport in after_target_sleeps() fails gracefully and the victim is disembowelled.
 
 /datum/heretic_knowledge/hunt_and_sacrifice/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
 	var/datum/antagonist/heretic/heretic_datum = user.mind.has_antag_datum(/datum/antagonist/heretic)
-	// First we have to check if the heretic has a Living Heart.
-	// You may wonder why we don't straight up prevent them from invoking the ritual if they don't have one -
-	// Hunt and sacrifice should always be invokable for clarity's sake, even if it'll fail immediately.
 	if(heretic_datum.has_living_heart() != HERETIC_HAS_LIVING_HEART)
 		loc.balloon_alert(user, "нет живого сердца!")
 		return FALSE
 
-	// We've got no targets set, let's try to set some.
 	// If we recently failed to acquire targets, we will be unable to acquire any.
 	if(!LAZYLEN(heretic_datum.sac_targets))
 		atoms += user
 		return TRUE
 
-	// If we have targets, we can check to see if we can do a sacrifice
-	// Let's remove any humans in our atoms list that aren't a sac target
+	// Remove any humans in our atoms list that aren't a sac target
 	for(var/mob/living/carbon/human/sacrifice in atoms)
-		// If the mob's not in soft crit or worse, remove from list
 		if(sacrifice.stat == CONSCIOUS)
 			atoms -= sacrifice
 			continue
 
-		// Otherwise if it's neither a target nor a cultist, remove it
 		if((sacrifice in heretic_datum.sac_targets) || iscultist(sacrifice))
 			continue
 
 		atoms -= sacrifice
 
-	// Finally, return TRUE if we have a target in the list
 	if(locate(/mob/living/carbon/human) in atoms)
 		return TRUE
 
-	// or FALSE if we don't
 	loc.balloon_alert(user, "жертва не найдена!")
 	return FALSE
 
@@ -104,15 +93,8 @@
 	sacrifice_process(user, selected_atoms, loc)
 	return TRUE
 
-/**
- * Obtain a list of targets for the user to hunt down and sacrifice.
- * Tries to get four targets (minds) with living human currents.
- *
- * Returns FALSE if no targets are found, TRUE if the targets list was populated.
- */
+/// Obtains a list of targets for the user to hunt down and sacrifice. Returns FALSE if no targets are found.
 /datum/heretic_knowledge/hunt_and_sacrifice/proc/obtain_targets(mob/living/user, silent = FALSE, datum/antagonist/heretic/heretic_datum)
-
-	// First construct a list of minds that are valid objective targets.
 	var/list/datum/mind/valid_targets = list()
 	for(var/datum/mind/possible_target as anything in SSticker.minds)
 		if(possible_target == user.mind)
@@ -138,11 +120,7 @@
 
 		return FALSE
 
-	// Now, let's try to get four targets.
-	// - One completely random
-	// - One from your department
-	// - One from security
-	// - One from heads of staff ("high value")
+	// Aim for: one from command, one from security, one from your department, and the rest random.
 	var/list/datum/mind/final_targets = list()
 
 	// First target, any command.
@@ -190,14 +168,7 @@
 
 	return TRUE
 
-/**
- * Begin the process of sacrificing the target.
- *
- * Arguments
- * * user - the mob doing the sacrifice (a heretic)
- * * selected_atoms - a list of all atoms chosen. Should be (at least) one human.
- * * loc - the turf the sacrifice is occurring on
- */
+/// Begins the process of sacrificing the target. selected_atoms should contain (at least) one human.
 /datum/heretic_knowledge/hunt_and_sacrifice/proc/sacrifice_process(mob/living/user, list/selected_atoms, turf/loc)
 
 	var/datum/antagonist/heretic/heretic_datum = user.mind.has_antag_datum(/datum/antagonist/heretic)
@@ -255,8 +226,6 @@
 
 
 /datum/heretic_knowledge/hunt_and_sacrifice/proc/grant_reward(mob/living/user, mob/living/sacrifice, turf/loc)
-
-	// Visible and audible encouragement!
 	to_chat(user, span_big(span_purple("Слуга Сангвинического Отступника!")))
 	to_chat(user, span_hierophant("Ваши покровители в восторге!"))
 	playsound(sacrifice, 'sound/magic/disintegrate.ogg', 75, TRUE)
@@ -266,14 +235,11 @@
 	for(var/obj/item/loot as anything in dustee_items)
 		loot.throw_at(get_step_rand(sacrifice), 2, 4, user, TRUE)
 
-	// The loser is DUSTED.
 	sacrifice.dust(TRUE, TRUE)
 
-	// Increase reward counter
 	var/datum/antagonist/heretic/antag = user.mind.has_antag_datum(/datum/antagonist/heretic)
 	antag.rewards_given++
 
-	// Cool effect for the rune as well as the item
 	var/obj/effect/decal/heretic_rune/rune = locate() in range(2, user)
 	if(rune)
 		rune.gender_reveal(
@@ -289,14 +255,12 @@
 /datum/heretic_knowledge/hunt_and_sacrifice/proc/deposit_reward(mob/user, turf/loc, loop = 0, obj/rune)
 	if(loop > 5) // Max limit for retrying a reward
 		return
-	// Remove the outline, we don't need it anymore.
 	rune?.remove_filter("reward_outline")
 	playsound(loc, 'sound/magic/repulse.ogg', 75, TRUE)
 	var/datum/antagonist/heretic/heretic_datum = user.mind.has_antag_datum(/datum/antagonist/heretic)
 	ASSERT(heretic_datum)
-	// This list will be almost identical to unlocked_heretic_items, with the same keys, the difference being the values will be 1 to 5.
 	var/list/rewards = heretic_datum.unlocked_heretic_items.Copy()
-	// We will make it increasingly less likely to get a reward if you've already got it
+	// Make it increasingly less likely to get a reward if you've already got it
 	for(var/possible_reward in heretic_datum.unlocked_heretic_items)
 		var/amount_already_awarded = heretic_datum.unlocked_heretic_items[possible_reward]
 		rewards[possible_reward] = min(5 - (amount_already_awarded * 2), 1)
@@ -319,14 +283,7 @@
 	ASSERT(reward)
 	return reward
 
-/**
- * This proc is called from [proc/sacrifice_process] after the heretic successfully sacrifices [sac_target].)
- *
- * Sets off a chain that sends the person sacrificed to the shadow realm to dodge hands to fight for survival.
- *
- * Arguments
- * * sac_target - the mob being sacrificed.
- */
+/// Sets off a chain that sends the sacrificed [sac_target] to the shadow realm to dodge hands and fight for survival.
 /datum/heretic_knowledge/hunt_and_sacrifice/proc/begin_sacrifice(mob/living/carbon/human/sac_target)
 	. = FALSE
 
@@ -344,8 +301,7 @@
 	var/turf/destination = get_turf(destination_landmark)
 
 	sac_target.visible_message(span_danger("[sac_target.declent_ru(NOMINATIVE)] начинает яростно содрогаться, когда темные щупальца утаскивают [genderize_ru(sac_target.gender, "его", "её", "его", "их")] в пустоту!"))
-	// Bind them for the sacrifice (tg parity). Solid zipties, NOT the old dissipating energy cuffs, so the
-	// restraints actually survive the trip into the realm instead of vanishing on the way.
+	// Solid zipties, not the old dissipating energy cuffs, so the restraints survive the trip into the realm.
 	sac_target.set_handcuffed(new /obj/item/restraints/handcuffs/cable(sac_target))
 
 	if(sac_target.legcuffed)
@@ -362,8 +318,7 @@
 	addtimer(CALLBACK(sac_target, TYPE_PROC_REF(/mob/living/carbon, do_jitter_animation)), SACRIFICE_SLEEP_DURATION * (1/3))
 	addtimer(CALLBACK(sac_target, TYPE_PROC_REF(/mob/living/carbon, do_jitter_animation)), SACRIFICE_SLEEP_DURATION * (2/3))
 
-	// If our target is dead, try to revive them
-	// and if we fail to revive them, don't proceede the chain
+	// If our target is dead and we fail to revive them, don't proceed the chain
 	sac_target.adjustOxyLoss(-100, FALSE)
 	if(!sac_target.heal_and_revive(50, span_danger("Сердце [sac_target.declent_ru(GENITIVE)] начинает биться с нечестивой силой, когда [genderize_ru(sac_target.gender, "он", "она", "ого", "они")] возвраща[pluralize_ru(sac_target.gender, "е", "ю")]тся из объятий смерти!")))
 		return
@@ -379,21 +334,12 @@
 	addtimer(CALLBACK(src, PROC_REF(after_target_sleeps), sac_target, destination), SACRIFICE_SLEEP_DURATION * 0.5) // Teleport to the minigame
 	return TRUE
 
-/**
- * This proc is called from [proc/begin_sacrifice] after the [sac_target] falls asleep), shortly after the sacrifice occurs.
- *
- * Teleports the [sac_target] to the heretic room, asleep.
- * If it fails to teleport, they will be disemboweled and stop the chain.
- *
- * Arguments
- * * sac_target - the mob being sacrificed.
- * * destination - the spot they're being teleported to.
- */
+/// Teleports the sleeping [sac_target] to [destination]. If the teleport fails, they're disemboweled instead.
 /datum/heretic_knowledge/hunt_and_sacrifice/proc/after_target_sleeps(mob/living/carbon/human/sac_target, turf/destination)
 	if(QDELETED(sac_target))
 		return
 
-	// The target disconnected or something, we shouldn't bother sending them along.
+	// The target disconnected or something, don't bother sending them along.
 	sac_target.grab_ghost()
 	if(!sac_target.client || !sac_target.mind)
 		disembowel_target(sac_target)
@@ -401,7 +347,6 @@
 
 	curse_organs(sac_target)
 
-	// Send 'em to the destination. If the teleport fails, just disembowel them and stop the chain
 	if(!destination || !do_teleport(sac_target, destination, asoundin = 'sound/magic/repulse.ogg', asoundout = 'sound/magic/blind.ogg', bypass_area_flag = TRUE))
 		disembowel_target(sac_target)
 		return
@@ -417,8 +362,7 @@
 		disembowel_target(sac_target)
 		return
 
-	// Make sure they're bound for the ordeal (tg cuffs the sacrifice). If the restraints came loose on the way
-	// in, re-apply solid zipties here so they always arrive in the realm cuffed.
+	// If the restraints came loose on the way in, re-apply solid zipties so they always arrive cuffed.
 	if(!sac_target.handcuffed)
 		sac_target.set_handcuffed(new /obj/item/restraints/handcuffs/cable(sac_target))
 
@@ -426,7 +370,7 @@
 	playsound(sac_target, 'sound/music/heretic/heretic_sacrifice.ogg', 50, FALSE) // play theme
 
 	sac_target.apply_status_effect(/datum/status_effect/unholy_determination, SACRIFICE_REALM_DURATION)
-	addtimer(CALLBACK(src, PROC_REF(after_target_wakes), sac_target), SACRIFICE_SLEEP_DURATION * 0.5) // Begin the minigame
+	addtimer(CALLBACK(src, PROC_REF(after_target_wakes), sac_target), SACRIFICE_SLEEP_DURATION * 0.5)
 
 	RegisterSignal(sac_target, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(on_target_escape)) // Cheese condition
 	RegisterSignal(sac_target, COMSIG_LIVING_DEATH, PROC_REF(on_target_death)) // Loss condition
@@ -447,10 +391,9 @@
 
 		var/organ_path = pick_n_take(usable_organs)
 		var/obj/item/organ/internal/to_give = new organ_path
-		// Grab the organ we're about to kick out FIRST: master220's /obj/item/organ/internal/remove()
+		// Grab the organ we're about to kick out first: master220's /obj/item/organ/internal/remove()
 		// leaves the removed organ in nullspace (loc = null) and insert() never re-homes it, so without
-		// this the displaced organ silently vanishes. Drop it on the floor (and fling it) as a gory clue,
-		// matching /tg/ where the sacrificed body's organs "force themselves out" at the rune.
+		// this the displaced organ silently vanishes. Drop it on the floor (and fling it) as a gory clue.
 		var/obj/item/organ/internal/displaced = sac_target.get_organ_slot(to_give.slot)
 		to_give.safe_replace(sac_target)
 		if(displaced && isnull(displaced.loc))
@@ -460,20 +403,11 @@
 	new /obj/effect/gibspawner/human/bodypartless(drop_turf, sac_target.dna)
 	sac_target.visible_message(span_boldwarning("Несколько органов вылетают из тела [sac_target.declent_ru(GENITIVE)] направляемые таинственной силой!"))
 
-/**
- * This proc is called from [proc/after_target_sleeps] when the [sac_target] should be waking up.)
- *
- * Begins the survival minigame, featuring the sacrifice targets.
- * Gives them Helgrasp, throwing cursed hands towards them that they must dodge to survive.
- * Also gives them a status effect, Unholy Determination, to help them in this endeavor.
- *
- * Then applies some miscellaneous effects.
- */
+/// Begins the survival minigame: throws cursed Helgrasp hands at [sac_target] to dodge, backed by Unholy Determination.
 /datum/heretic_knowledge/hunt_and_sacrifice/proc/after_target_wakes(mob/living/carbon/human/sac_target)
 	if(QDELETED(sac_target))
 		return
 
-	// About how long should the helgrasp last? (1 metab a tick = helgrasp_time / 2 ticks (so, 1 minute = 60 seconds = 30 ticks))
 	var/helgrasp_time = 1 MINUTES
 
 	sac_target.reagents?.add_reagent(/datum/reagent/inverse/helgrasp/heretic, helgrasp_time / 20)
@@ -495,11 +429,7 @@
 	var/win_timer = addtimer(CALLBACK(src, PROC_REF(return_target), sac_target), SACRIFICE_REALM_DURATION, TIMER_STOPPABLE)
 	LAZYSET(return_timers, sac_target.UID(), win_timer)
 
-/**
- * This proc is called from [proc/after_target_wakes] after the helgrasp runs out in the [sac_target].)
- *
- * It gives them a message letting them know it's getting easier and they're almost free.
- */
+/// Lets [sac_target] know it's getting easier and they're almost free, once the helgrasp runs out.
 /datum/heretic_knowledge/hunt_and_sacrifice/proc/after_helgrasp_ends(mob/living/carbon/human/sac_target)
 	if(QDELETED(sac_target) || sac_target.stat == DEAD)
 		return
@@ -508,17 +438,8 @@
 	// Sorry
 	to_chat(sac_target, span_purple("Худшее позади... Осталось совсем немного! Держитесь, иначе погибните!"))
 
-/**
- * This proc is called from [proc/begin_sacrifice] if the target survived the shadow realm), or [COMSIG_LIVING_DEATH] if they don't.
- *
- * Teleports [sac_target] back to a random safe turf on the station (or observer spawn if it fails to find a safe turf).
- * Also clears their status effects, unregisters any signals associated with the shadow realm, and sends a message
- * to the heretic who did the sacrificed about whether they survived, and where they ended up.
- *
- * Arguments
- * * sac_target - the mob being sacrificed
- * * heretic - the heretic who originally did the sacrifice.
- */
+/// Teleports [sac_target] back to a random safe station turf (or observer spawn as fallback), clears their
+/// shadow-realm status effects/signals, and tells the heretic whether they survived and where they ended up.
 /datum/heretic_knowledge/hunt_and_sacrifice/proc/return_target(mob/living/carbon/human/sac_target)
 	if(QDELETED(sac_target))
 		return
@@ -540,18 +461,16 @@
 		var/datum/antagonist/heretic/victim_heretic = sac_target.mind?.has_antag_datum(/datum/antagonist/heretic)
 		victim_heretic.knowledge_points -= 3
 
-	// Wherever we end up, we sure as hell won't be able to explain
 	sac_target.apply_status_effect(/*/datum/status_effect/speech/slurring/heretic*/ STATUS_EFFECT_CLOCK_CULT_SLUR, 40 SECONDS)
 	sac_target.Stuttering(40 SECONDS)
 
 	// They're already back on the station for some reason, don't bother teleporting
 	var/turf/below_target = get_turf(sac_target)
-	// is_station_level runtimes when passed z = 0, so I'm being very explicit here about checking for nullspace until fixed
-	// otherwise, we really don't want this to runtime error, as it'll get people stuck in hell forever - not ideal!
+	// is_station_level runtimes when passed z = 0, so check explicitly for nullspace - getting this wrong
+	// would runtime and leave people stuck in the shadow realm forever.
 	if(below_target && below_target.z != 0 && is_station_level(below_target.z))
 		return
 
-	// Teleport them to a random safe coordinate on the station z level.
 	var/turf/simulated/floor/safe_turf = get_safe_random_station_turf()
 	var/obj/effect/landmark/observer_start/backup_loc = locate(/obj/effect/landmark/observer_start) in GLOB.landmarks_list
 	if(!safe_turf)
@@ -582,9 +501,7 @@
 	composed_return_message += span_purple(get_area_name(safe_turf, TRUE))
 	to_chat(heretic_mind.current, composed_return_message)
 
-/**
- * If they die in the shadow realm, they lost. Send them back.
- */
+/// If they die in the shadow realm, they lost. Send them back.
 /datum/heretic_knowledge/hunt_and_sacrifice/proc/on_target_death(mob/living/carbon/human/sac_target, gibbed)
 	SIGNAL_HANDLER
 
@@ -593,9 +510,7 @@
 
 	return_target(sac_target)
 
-/**
- * If they somehow cheese the shadow realm by teleporting out, they are disemboweled and killed.
- */
+/// If they somehow cheese the shadow realm by teleporting out, they are disemboweled and killed.
 /datum/heretic_knowledge/hunt_and_sacrifice/proc/on_target_escape(mob/living/carbon/human/sac_target, old_z, new_z)
 	SIGNAL_HANDLER
 
@@ -603,19 +518,15 @@
 	// Ends up calling return_target() via death signal to clean up.
 	disembowel_target(sac_target)
 
-/**
- * This proc is called from [proc/return_target] if the [sac_target] survives the shadow realm.)
- *
- * Gives the sacrifice target some after effects upon ariving back to reality.
- */
+/// Gives [sac_target] some after-effects upon arriving back to reality.
 /datum/heretic_knowledge/hunt_and_sacrifice/proc/after_return_live_target(mob/living/carbon/human/sac_target)
 	to_chat(sac_target, span_purple("Борьба окончена, но дорогой ценой. Вы вернулись на станцию целым и невредимым."))
 	if(isheretic(sac_target))
 		to_chat(sac_target, span_big(span_purple("Вы не помните ничего, что предшествовало этому опыту, \
-											но чувствуете, что ваша связь с Мансусом ослабла — когда-то известные знания забыты...")))
+											но чувствуете, что ваша связь с Мансусом ослабла - когда-то известные знания забыты...")))
 	else
 		to_chat(sac_target, span_big(span_purple("Вы не помните ничего из того, что предшествовало этому опыту. \
-												Все, о чем вы можете думать, — это те ужасные руки...")))
+												Все, о чем вы можете думать, - это те ужасные руки...")))
 
 	// Oh god where are we?
 	sac_target.flash_eyes()
@@ -630,15 +541,10 @@
 	sac_target.reagents?.add_reagent(/datum/reagent/medicine/atropine, 8)
 	sac_target.reagents?.add_reagent(/datum/reagent/medicine/epinephrine, 8)
 
-/**
- * This proc is called from [proc/return_target] if the target dies in the shadow realm.)
- *
- * After teleporting the target back to the station (dead),
- * it spawns a special red broken illusion on their spot, for style.
- */
+/// After teleporting the dead target back to the station, spawns a red broken illusion on their spot for style.
 /datum/heretic_knowledge/hunt_and_sacrifice/proc/after_return_dead_target(mob/living/carbon/human/sac_target)
 	to_chat(sac_target, span_purple("Вы не смогли противостоять ужасам Мансуса! Ваше изуродованное тело вернули на станцию."))
-	to_chat(sac_target, span_big(span_purple("Этот опыт оставляет ваш разум повреждённым, а воспоминания — рваными. \
+	to_chat(sac_target, span_big(span_purple("Этот опыт оставляет ваш разум повреждённым, а воспоминания - рваными. \
 												Даже если вы вернётесь к жизни, вы не вспомните ничего, что предшествовало этому опыту.")))
 
 	var/obj/effect/visible_heretic_influence/illusion = new(get_turf(sac_target))
@@ -646,10 +552,7 @@
 	illusion.desc = "Трещина в реальности, достаточно широкая, чтобы что-то... или кто-то... мог через нее пройти."
 	illusion.color = COLOR_DARK_RED
 
-/**
- * "Fuck you" proc that gets called if the chain is interrupted at some points.
- * Disembowels the [sac_target] and brutilizes their body. Throws some gibs around for good measure.
- */
+/// Called if the chain is interrupted: disembowels the [sac_target] and brutalizes their body.
 /datum/heretic_knowledge/hunt_and_sacrifice/proc/disembowel_target(mob/living/carbon/human/sac_target)
 	//if(heretic_mind)
 	//	log_combat(heretic_mind.current, sac_target, "disemboweled via sacrifice")
@@ -670,15 +573,7 @@
 #undef SACRIFICE_SLEEP_DURATION
 #undef SACRIFICE_REALM_DURATION
 
-/**
- * Drops a mob's organs on the floor
- *
- * drop_bitflags: (see code/__DEFINES/blood.dm)
- * * DROP_BRAIN - Mob will drop a brain
- * * DROP_ORGANS - Mob will drop organs
- * * DROP_BODYPARTS - Mob will drop bodyparts (arms, legs, etc.)
- * * DROP_ALL_REMAINS - Mob will drop everything
-**/
+/// Drops a mob's organs on the floor.
 /mob/living/proc/spill_organs()
 	return
 
@@ -692,15 +587,9 @@
 		organ.throw_at(get_edge_target_turf(src, pick(GLOB.alldirs)), rand(1,3), 5)
 
 
-/// Applies a curse with various possible effects
-// NOTE(heretic-port): /mob/living/proc/apply_necropolis_curse() already exists in master220
-// (code/datums/status_effects/debuffs.dm) — duplicate removed here.
-
-
-// NOTE(heretic-port): /datum/status_effect/necropolis_curse + /obj/effect/temp_visual/curse already
-// exist in master220 (code/datums/status_effects/debuffs.dm) — master220 even kept the grasping/
-// fire_curse_hand path commented "//TODO uncomment after heretic". The duplicate definition that was
-// here has been removed; we keep only the curse pieces master220 lacks (curse_arm, curse_hand, fire_curse_hand).
+// /mob/living/proc/apply_necropolis_curse() and /datum/status_effect/necropolis_curse +
+// /obj/effect/temp_visual/curse already exist in master220 (code/datums/status_effects/debuffs.dm),
+// so we keep only the curse pieces master220 lacks (curse_arm, curse_hand, fire_curse_hand).
 /obj/effect/temp_visual/curse
 	icon_state = "curse"
 
@@ -722,19 +611,18 @@
 	layer = LARGE_MOB_LAYER
 	damage_type = BURN
 	paralyze = 20
-	// With process_paced() (see below) `speed` is a clean divisor: tiles/sec = 10/speed. TG's curse_hand is
-	// 5 tiles/sec (its `speed = 0.5` is a multiplier, 0.5 * 10 = 5), so we match it with speed = 2. The /hel
-	// subtype keeps speed = 1 (= 10 tiles/sec), matching TG's hel hand. NOTE: this only paces correctly
-	// because process() is overridden with process_paced() - the stock master220 process() double-counts
-	// elapsed time for slow projectiles, making the hands fly faster and in irregular jerks (so they appear
-	// to "snag"/cling on the target) regardless of `speed`.
+	// With process_paced() (see below) `speed` is a clean divisor: tiles/sec = 10/speed. We want 5 tiles/sec,
+	// so speed = 2. The /hel subtype keeps speed = 1 (10 tiles/sec). NOTE: this only paces correctly because
+	// process() is overridden with process_paced() - the stock master220 process() double-counts elapsed
+	// time for slow projectiles, making the hands fly faster and in irregular jerks (so they appear to
+	// "snag"/cling on the target) regardless of `speed`.
 	speed = 2
 	range = 16
 	hit_crawling_mobs_chance = 100
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
-	// tg's curse hands phase through everything and simply fade out at max range (prehit_pierce PHASE,
-	// which master220 lacks). The stock projectile defaults to ricochets_max = 2, so instead they were
-	// bouncing off walls. Disable ricochet so they fly straight and vanish (finale()) like tg.
+	// These are meant to phase through everything and simply fade out at max range, but master220 lacks a
+	// prehit_pierce PHASE equivalent. The stock projectile defaults to ricochets_max = 2, so instead they
+	// were bouncing off walls. Disable ricochet so they fly straight and vanish (finale()) instead.
 	ricochets_max = 0
 	var/datum/beam/arm
 	var/handedness = 0
@@ -757,7 +645,7 @@
 	handedness = prob(50)
 	icon_state = "[base_icon_state][handedness]"
 
-// Use the corrected /tg/-style pacing so the cursed hands reach for the victim at a calm, dodgeable
+// Use the corrected pacing so the cursed hands reach for the victim at a calm, dodgeable
 // 5 tiles/sec (10 for /hel) instead of the stock engine's faster, jerky slow-projectile movement that
 // made them look like they were snagging on the target. See process_paced() in _heretic_compat.dm.
 /obj/projectile/curse_hand/process()
@@ -825,8 +713,8 @@
 
 /obj/projectile/curse_hand/hel //Used in helbital's impure reagent
 	paralyze = 0 //Lets not stun people!
-	// With process_paced(), tiles/sec = 10/speed. TG's hel hand is 10 tiles/sec (speed = 1); we nudge it
-	// slightly slower to 8 tiles/sec (speed = 1.25) to make the Mansus sacrifice realm a touch more dodgeable.
+	// With process_paced(), tiles/sec = 10/speed. We nudge it slightly slower to 8 tiles/sec (speed = 1.25)
+	// to make the Mansus sacrifice realm a touch more dodgeable.
 	speed = 1.25
 	range = 20
 	color = "#ff7e7e"//Tint it slightly
@@ -863,19 +751,7 @@
 	icon_state = "cursehand1"
 
 
-/**
- * Heals up the mob up to [heal_to] of the main damage types.
- * EX: If heal_to is 50, and they have 150 brute damage, they will heal 100 brute (up to 50 brute damage)
- *
- * If the target is dead, also revives them and heals their organs / restores blood.
- * If we have a [revive_message], play a visible message if the revive was successful.
- *
- * Arguments
- * * heal_to - the health threshold to heal the mob up to for each of the main damage types.
- * * revive_message - if provided, a visible message to show on a successful revive.
- *
- * Returns TRUE if the mob is alive afterwards, or FALSE if they're still dead (revive failed).
- */
+/// Heals the mob up to [heal_to] of each main damage type, reviving them if dead. Returns TRUE if alive afterwards.
 /mob/living/proc/heal_and_revive(heal_to = 50, revive_message)
 
 	// Heal their brute and burn up to the threshold we're looking for

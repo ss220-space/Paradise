@@ -1,5 +1,3 @@
-// An unholy water flask, but for heretics.
-// Heals heretics, harms non-heretics. Pretty much identical.
 /obj/item/reagent_containers/glass/beaker/eldritch
 	name = "флакон с жуткой эссенцией"
 	desc = "Токсичен для людей с ограниченным мышлением, но освежает тех, кто обладает знаниями о запредельном."
@@ -20,7 +18,6 @@
 	)
 
 
-// Unique bottle that lets you instantly draw blood from a victim
 /obj/item/reagent_containers/glass/phylactery
 	name = "проклятая филактерия"
 	desc = "Используется для кражи крови у будущих жертв."
@@ -81,9 +78,8 @@
 
 
 // The base /glass container (unlike /glass/beaker) has no on_reagent_change hook, so the fill-level
-// sprite never refreshed on its own — it only updated when something else forced an update_icon
-// (e.g. the blood-draw above). That left the icon stale/"broken" after draining. Hook the reagent
-// change so the sprite tracks both filling AND draining, matching the beaker pattern.
+// sprite never refreshed on its own - it only updated when something forced an update_icon (e.g. the
+// blood-draw above), leaving the icon stale after draining. Hook the reagent change to fix that.
 /obj/item/reagent_containers/glass/phylactery/on_reagent_change()
 	. = ..()
 	update_icon()
@@ -102,7 +98,7 @@
 			icon_state = base_icon_state + "_2"
 
 
-// Funny potion that is basically an aheal. The downside is that it puts you to sleep for a minute.
+// Basically an aheal in a bottle, but it puts you to sleep for a minute.
 /obj/item/ether
 	name = "душа нерожденного младенца"
 	desc = "Флакон с тошнотворной, густой зелёной жидкостью. Полностью восстанавливает организм, \
@@ -162,13 +158,12 @@
 /atom/movable/screen/alert/status_effect/eldritch_sleep
 	name = "Жуткий сон"
 	desc = "Вы чувствуете неописуемое тепло, защищающее вас..."
-	// Paradise's shared screen_alert.dmi has no "eldritch_slumber" state, so the alert rendered blank.
-	// Ported the TG sprite into a dedicated icon file and point the alert at it.
+	// Paradise's shared screen_alert.dmi has no "eldritch_slumber" state, so the alert rendered blank -
+	// use a dedicated icon file instead.
 	icon = 'icons/mob/screen_alert_heretic.dmi'
 	icon_state = "eldritch_slumber"
 
 
-// The eldritch reagent (extracted from selfharm's shared water.dm during the port).
 // Heals heretics/monsters, harms everyone else.
 /datum/reagent/eldritch
 	name = "Сущность ужаса"

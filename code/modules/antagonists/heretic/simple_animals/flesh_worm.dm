@@ -1,7 +1,6 @@
 /// Armsy starts to look a bit funky if he's shorter than this
 #define MINIMUM_ARMSY_LENGTH 2
 
-// What if we took a linked list... But made it a mob?
 /// The "Terror of the Night" / Armsy, a large worm made of multiple bodyparts that occupies multiple tiles
 /mob/living/simple_animal/hostile/heretic_summon/armsy
 	name = "Лорд Ночи"
@@ -43,11 +42,8 @@
 	)
 
 
-/*
- * Arguments
- * * spawn_bodyparts - whether we spawn additional armsy bodies until we reach length.
- * * worm_length - the length of the worm we're creating. Below 2 doesn't work very well.
- */
+/// * spawn_bodyparts - whether we spawn additional armsy bodies until we reach length.
+/// * worm_length - the length of the worm we're creating. Below 2 doesn't work very well.
 /mob/living/simple_animal/hostile/heretic_summon/armsy/Initialize(mapload, spawn_bodyparts = TRUE, worm_length = 6)
 	. = ..()
 	AddElement(/datum/element/wall_smasher, ENVIRONMENT_SMASH_RWALLS)
@@ -99,10 +95,10 @@
 	var/mob/living/simple_animal/hostile/heretic_summon/armsy/segment = new type(drop_location(), FALSE)
 	segment.AddComponent(/datum/component/mob_chain, front = behind, vary_icon_state = TRUE)
 	behind.register_behind(segment)
-	// TG's segments are inert basic mobs with no AI controller; here they're hostile simple_animals, so we
-	// must kill their AI explicitly. NOTE: these MUST target `segment`, not `src` — a segment that keeps its
-	// own hostile AI wanders off, picks its own targets and flees when hurt (each part acting like its own
-	// animal). The chain only moves/attacks the body through mob_chain; the segment itself stays a puppet.
+	// Segments are hostile simple_animals, so their AI must be killed explicitly. NOTE: these MUST target
+	// `segment`, not `src` - a segment that keeps its own hostile AI wanders off, picks its own targets and
+	// flees when hurt (each part acting like its own animal). The chain only moves/attacks the body through
+	// mob_chain; the segment itself stays a puppet.
 	segment.toggle_ai(AI_OFF)
 	segment.can_have_ai = FALSE
 	segment.shouldwakeup = FALSE
@@ -137,10 +133,8 @@
 	on_arm_eaten()
 
 
-/*
- * Handle healing our chain.
- * Eating arms off the ground heals us, and if we eat enough arms while above a certain health threshold we get longer!
- */
+/// Eating arms off the ground heals the chain, and eating enough while above a certain health threshold
+/// makes it longer.
 /mob/living/simple_animal/hostile/heretic_summon/armsy/proc/on_arm_eaten()
 	if(!isnull(back_tg))
 		back_tg.on_arm_eaten()
@@ -161,9 +155,7 @@
 	new_segment(behind = src)
 
 
-/*
- * Recursively get the length of our chain.
- */
+/// Recursively get the length of our chain.
 /mob/living/simple_animal/hostile/heretic_summon/armsy/proc/get_length()
 	. = 1
 	if(isnull(back_tg))

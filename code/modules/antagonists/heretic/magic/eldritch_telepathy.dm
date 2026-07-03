@@ -1,11 +1,6 @@
-/**
- * ## Eldritch Telepathy
- *
- * tg's eldritch telepathy is a /datum/action/cooldown/spell/list_target/telepathy/eldritch: a pointed
- * spell that whispers a typed message into a single target's head. The old port mapped it onto master220's
- * genetics `remotetalk` spell, whose cast() early-returns unless `ishuman(user)` — Raw Prophets are
- * simple_animals, so it did nothing. This is a faithful pointed reimplementation.
- */
+// Pointed reimplementation: whispers a typed message into a single target's head. Needed because the
+// genetics `remotetalk` spell's cast() early-returns unless `ishuman(user)`, and Raw Prophets are
+// simple_animals, so mapping onto that did nothing.
 /obj/effect/proc_holder/spell/pointed/eldritch_telepathy
 	name = "Жуткая телепатия"
 	desc = "Телепатически передаёт сообщение цели."

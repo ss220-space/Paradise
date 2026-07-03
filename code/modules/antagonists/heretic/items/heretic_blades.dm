@@ -20,9 +20,9 @@
 	//wound_bonus = 5
 	//bare_wound_bonus = 15
 	toolspeed = 0.375
-	// TG's demolition_mod: heretic blades are clumsy against objects/silicons (0.8x). master220 has no
-	// /obj/item/demolition_mod var, so we apply it by briefly scaling force at swing time (see attack_obj /
-	// attack below). The Blade path's Empowered Blades upgrade bumps the dark blade up to 2.5x (3x+ jump).
+	// Heretic blades are clumsy against objects/silicons (0.8x). master220 has no /obj/item/demolition_mod
+	// var, so we apply it by briefly scaling force at swing time (see attack_obj / attack below). The Blade
+	// path's Empowered Blades upgrade bumps the dark blade up to 2.5x.
 	var/demolition_mod = 0.8
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	armour_penetration = 35
@@ -91,7 +91,7 @@
 		human_user.AdjustParalysis(5 SECONDS)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	// Silicons (borgs/AI shells) count as "structures" for the demolition_mod (TG parity).
+	// Silicons (borgs/AI shells) count as "structures" for the demolition_mod.
 	var/mod = issilicon(target) ? get_current_demolition_mod(user) : 1
 	if(mod == 1)
 		return ..()
@@ -101,7 +101,7 @@
 	force = old_force
 
 
-// Returns the force multiplier this blade currently applies to objects / silicons (TG's get_demolition_modifier).
+// Returns the force multiplier this blade currently applies to objects / silicons.
 /obj/item/melee/sickly_blade/proc/get_current_demolition_mod(mob/user)
 	return demolition_mod
 
@@ -162,7 +162,7 @@
 	var/turf/safe_turf = find_safe_turf(zlevels = z/*, extended_safety_checks = TRUE*/)
 	if(!check_usability(user))
 		to_chat(user, span_warning("Вы разбиваете [declent_ru(ACCUSATIVE)]."))
-		playsound(src, pick('sound/effects/glassbr1.ogg','sound/effects/glassbr2.ogg','sound/effects/glassbr3.ogg'), 70, TRUE) //copied from the code for smashing a glass sheet onto the ground to turn it into a shard
+		playsound(src, pick('sound/effects/glassbr1.ogg','sound/effects/glassbr2.ogg','sound/effects/glassbr3.ogg'), 70, TRUE)
 		qdel(src)
 		return
 
@@ -171,7 +171,7 @@
 	else
 		to_chat(user, span_warning("Вы разбиваете [declent_ru(ACCUSATIVE)], но ваша мольба остается без ответа."))
 
-	playsound(src, pick('sound/effects/glassbr1.ogg','sound/effects/glassbr2.ogg','sound/effects/glassbr3.ogg'), 70, TRUE) //copied from the code for smashing a glass sheet onto the ground to turn it into a shard
+	playsound(src, pick('sound/effects/glassbr1.ogg','sound/effects/glassbr2.ogg','sound/effects/glassbr3.ogg'), 70, TRUE)
 	qdel(src)
 
 
@@ -186,7 +186,6 @@
 	SEND_SIGNAL(user, COMSIG_HERETIC_RANGED_BLADE_ATTACK, target, src)
 
 
-// Path of Rust's blade
 /obj/item/melee/sickly_blade/rust
 	name = "ржавый клинок"
 	desc = "Этот серповидный клинок обветшал и покрывается ржавчиной. \
@@ -207,7 +206,6 @@
 	)
 
 
-// Path of Ash's blade
 /obj/item/melee/sickly_blade/ash
 	name = "клинок пепла"
 	desc = "Полурасплавленный и необработанный, кусок металла, покрытый в пеплом и шлаком. \
@@ -229,7 +227,6 @@
 	)
 
 
-// Path of Flesh's blade
 /obj/item/melee/sickly_blade/flesh
 	name = "кровавый клинок"
 	desc = "Полумесяц, рожденный из изуродованной плоти существа. \
@@ -265,7 +262,6 @@
 	)*/
 
 
-// Path of Void's blade
 /obj/item/melee/sickly_blade/void
 	name = "клинок пустоты"
 	desc = "Этот клинок, не состоит из какого-либо материала. \
@@ -286,8 +282,7 @@
 	)
 
 
-// Path of the Blade's... blade.
-// Opting for /dark instead of /blade to avoid "sickly_blade/blade".
+// Path of the Blade's blade. Named /dark instead of /blade to avoid "sickly_blade/blade".
 /obj/item/melee/sickly_blade/dark
 	name = "повреждённый клинок"
 	desc = "Клинок доблестного война, расколотый и разорванный. \
@@ -331,7 +326,6 @@
 
 	mark_to_apply.create_mark(user, living_target)
 
-	//Remove the infusion from any blades we own (and update their sprite)
 	for(var/obj/item/melee/sickly_blade/dark/to_infuse in user.get_all_contents_type(/obj/item/melee/sickly_blade/dark))
 		to_infuse.infused = FALSE
 		to_infuse.update_appearance(UPDATE_ICON)
@@ -368,12 +362,10 @@
 	item_state = base_icon_state
 
 
-// Empowered Blades (tg's demolition_mod): once the heretic learns "Усиленные Клинки", their dark blades hit
-// structures, machinery, mechs and silicons far harder - the blade's demolition_mod jumps from the base 0.8
-// to 2.5 (a >3x increase, exactly like tg). master220 has no /obj/item/demolition_mod var and never emits
-// COMSIG_MOB_EQUIPPED_ITEM (which tg uses to set the mod on equip), so we resolve the modifier at swing time
-// from the wielder's knowledge instead - it can never go stale on a body/inventory change. The actual force
-// scaling lives on the base blade's attack_obj / attack (silicon) above.
+// Empowered Blades: once the heretic learns "Усиленные Клинки", their dark blades hit structures, machinery,
+// mechs and silicons far harder - the blade's demolition_mod jumps from the base 0.8 to 2.5. We resolve the
+// modifier at swing time from the wielder's knowledge, so it can never go stale on a body/inventory change.
+// The actual force scaling lives on the base blade's attack_obj / attack (silicon) above.
 /// Returns TRUE if the wielder is a heretic who has learned Empowered Blades.
 /obj/item/melee/sickly_blade/dark/proc/wielder_has_empowered_blades(mob/user)
 	var/datum/antagonist/heretic/heretic_datum = isheretic(user)
@@ -384,7 +376,6 @@
 	return wielder_has_empowered_blades(user) ? demolition_bonus : demolition_mod
 
 
-// Path of Cosmos's blade
 /obj/item/melee/sickly_blade/cosmic
 	name = "космический клинок"
 	desc = "Частица небесного резонанса, оформившаяся в клинок сотканный из звёздного света. \
@@ -405,7 +396,6 @@
 	)
 
 
-// Path of Knock's blade
 /obj/item/melee/sickly_blade/lock
 	name = "клинок - ключ"
 	desc = "И клинок и ключ. Ключ от чего? \
@@ -429,7 +419,6 @@
 	)
 
 
-// Path of Moon's blade
 /obj/item/melee/sickly_blade/moon
 	name = "лунный клинок"
 	desc = "Железный клинок, отражающий правду земли: однажды все присоединяются к параду. \
@@ -450,9 +439,9 @@
 	)
 
 
-// While the wielder wears a Moonlight Amulet the blade does 0 physical force (tg parity): this lets it be
-// swung even while the Resplendent Regalia pacifies you (the pacifism block only stops force > 0 attacks),
-// and its damage comes from the eldritch blade effect (brain damage / hallucinations) instead.
+// While the wielder wears a Moonlight Amulet the blade does 0 physical force: this lets it be swung even
+// while the Resplendent Regalia pacifies you (the pacifism block only stops force > 0 attacks), and its
+// damage comes from the eldritch blade effect (brain damage / hallucinations) instead.
 /obj/item/melee/sickly_blade/moon/proc/update_pacifism_force(mob/living/user)
 	if(ishuman(user))
 		var/mob/living/carbon/human/human_user = user
@@ -472,8 +461,7 @@
 	force = initial(force)
 
 
-// Path of Nar'Sie's blade
-// What!? This blade is given to cultists as an altar item when they sacrifice a heretic.
+// This blade is given to cultists as an altar item when they sacrifice a heretic.
 // It is also given to the heretic themself if they sacrifice a cultist.
 /obj/item/melee/sickly_blade/cursed
 	name = "проклятый клинок"
@@ -531,7 +519,7 @@
 		to_chat(user, span_cultlarge(pick("\"Нетронутый разум? Забавно.\"", "\"Полагаю, не стоит и пытаться тебя остановить.\"", "\"Валяй, мне всё равно.\"", "\"Скоро твоя душа будет моей!\"")))
 		user.apply_damage(5, BURN, user.get_active_hand())
 		playsound(src, 'sound/weapons/sear.ogg', 25, TRUE)
-		to_chat(user, span_danger("Ваша рука шипит.")) // Nar nar might not care but their essence still doesn't like you
+		to_chat(user, span_danger("Ваша рука шипит."))
 		return TRUE
 
 	if(!prob(15))
@@ -539,7 +527,7 @@
 
 	to_chat(user, span_big(span_purple("ДВ'НАФХ'НАХОР УН'ЕНАХ'УМГ ЕПГОКА АХ НАФЛ МГЕМПГАХ'ЕХУЕ")))
 	to_chat(user, span_danger("Ужасные, непонятные высказывания заполоняют ваш разум!"))
-	user.adjustOrganLoss(INTERNAL_ORGAN_BRAIN, 15) // This can kill you if you ignore it
+	user.adjustOrganLoss(INTERNAL_ORGAN_BRAIN, 15)
 	return TRUE
 
 
@@ -565,11 +553,10 @@
 	if(iswallturf(target) || user.a_intent == INTENT_HARM)
 		return NONE
 
-	heretic_datum.try_draw_rune(user, target, drawing_time = 14 SECONDS) // Faster than pen, slower than cicatrix
+	heretic_datum.try_draw_rune(user, target, drawing_time = 14 SECONDS)
 	return ATTACK_CHAIN_BLOCKED
 
 
-// Weaker blade variant given to people so they can participate in the heretic arena spell
 /obj/item/melee/sickly_blade/training
 	name = "несовершенный клинок"
 	desc = "Клинок, дарованный из жалости тем, кто не может принять истину. \
@@ -590,4 +577,4 @@
 
 
 /obj/item/melee/sickly_blade/training/check_usability(mob/living/user)
-	return TRUE // If you can hold this, you can use it
+	return TRUE

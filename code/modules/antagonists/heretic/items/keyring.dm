@@ -45,7 +45,7 @@
 	qdel(src)
 
 
-///Signal handler for when our location is entered, calls teleport on the victim, if their old_loc didnt contain a portal already (to prevent loops)
+///Signal handler for when our location is entered, calls teleport on the victim if their old_loc didn't already contain a portal (to prevent loops)
 /obj/effect/lock_portal/proc/on_entered(datum/source, mob/living/loser, atom/old_loc)
 	SIGNAL_HANDLER
 	if(!istype(loser) || (locate(type) in old_loc))
@@ -73,7 +73,6 @@
 		qdel(src)
 		return
 
-	//get it?
 	var/obj/machinery/door/doorstination = (inverted ? !IS_HERETIC_OR_MONSTER(teleportee) : IS_HERETIC_OR_MONSTER(teleportee)) ? destination.our_airlock : find_random_airlock()
 	if(!do_teleport(teleportee, get_turf(doorstination)))
 		return
@@ -90,8 +89,8 @@
 ///Returns a random airlock on the same Z level as our portal, that isnt our airlock
 /obj/effect/lock_portal/proc/find_random_airlock()
 	var/list/turf/possible_destinations = list()
-	// GLOB.airlocks holds every /obj/machinery/door (poddoors, firedoors...); the implicit
-	// istype filter (no "as anything") keeps us to real airlocks, matching TG.
+	// GLOB.airlocks holds every /obj/machinery/door (poddoors, firedoors...); the implicit istype filter
+	// (no "as anything") keeps us to real airlocks.
 	for(var/obj/machinery/door/airlock/airlock in GLOB.airlocks)
 		if(airlock.z != z)
 			continue
@@ -100,7 +99,6 @@
 			continue
 
 		// Don't dump heathens (or ourselves) into no-teleport areas - the CC shuttle, mining base, etc.
-		// (tg filters NOTELEPORT areas here; master220's equivalent area flag is tele_proof.)
 		var/area/airlock_area = get_area(airlock)
 		if(airlock_area?.tele_proof)
 			continue
@@ -190,11 +188,10 @@
 	photo = card.photo
 	dat = card.dat
 	name = card.name //not update_label because of the captains spare moment
-	// PARADISE GOTCHA: every on-map/examine name goes through declent_ru() -> the instance `ru_names`, NOT the
-	// `name` var. Copying only `name` (as tg does) leaves the disguise reading the generic "ID-карта" with no
-	// owner/job in every RU context - this is the "card has no name / whose it is" bug. Carry the source card's
-	// declensions across: copy its instance ru_names when present (preserves special names like the captain's
-	// spare), otherwise rebuild them from the copied registered_name/assignment.
+	// Every on-map/examine name goes through declent_ru() -> the instance `ru_names`, NOT the `name` var.
+	// Copying only `name` leaves the disguise reading the generic "ID-карта" with no owner/job in every RU
+	// context. Carry the source card's declensions across: copy its instance ru_names when present (preserves
+	// special names like the captain's spare), otherwise rebuild them from registered_name/assignment.
 	if(card.ru_names)
 		ru_names = card.ru_names.Copy()
 	else
@@ -264,7 +261,7 @@
 	return ATTACK_CHAIN_SUCCESS
 
 
-// TG mirrors this on item_interaction: using a normal ID *on* the heretic card consumes it too.
+// Using a normal ID *on* the heretic card consumes it too.
 /obj/item/card/id/advanced/heretic/attackby(obj/item/I, mob/user, params)
 	if(isheretic(user) && istype(I, /obj/item/card/id))
 		eat_card(I, user)

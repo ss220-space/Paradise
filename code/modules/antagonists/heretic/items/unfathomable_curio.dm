@@ -76,7 +76,6 @@
 	UnregisterSignal(user, COMSIG_HUMAN_CHECK_SHIELDS)
 
 
-// Here we make sure our curio is only able to block while worn on the belt slot.
 /obj/item/storage/belt/unfathomable_curio/proc/shield_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "атаку", block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	SIGNAL_HANDLER
 
@@ -90,7 +89,6 @@
 
 	return NONE
 
-// Our on hit effect
 /obj/item/storage/belt/unfathomable_curio/proc/shield_damaged(mob/living/carbon/human/wearer, attack_text, new_current_charges)
 	/*var/list/brain_traumas = list(
 		/datum/brain_trauma/severe/mute,

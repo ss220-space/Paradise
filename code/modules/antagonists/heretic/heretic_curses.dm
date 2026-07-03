@@ -18,10 +18,9 @@
 
 /datum/heretic_knowledge/curse/recipe_snowflake_check(mob/living/carbon/human/user, list/atoms, list/selected_atoms, turf/loc)
 	// IMPORTANT: fingerprints/blood_samples MUST be ASSOC lists (key = print/DNA, value = TRUE), because
-	// on_finished_recipe matches victims via assoc lookup `blood_samples[their_blood]`. The old code did
-	// `blood_samples.Add(dna)` (a PLAIN element) → the assoc lookup always returned null → the victim's
-	// blood never matched, so the ONLY match left was the heretic's own fingerprint on the held container
-	// → "проклятия накладываются на меня". Mirror TG: scan every atom's blood_DNA, fingerprints AND reagents.
+	// on_finished_recipe matches victims via assoc lookup `blood_samples[their_blood]`. A plain list here
+	// makes the assoc lookup always return null, so the only match left is the heretic's own fingerprint
+	// on the held container - "проклятия накладываются на меня".
 	fingerprints = list()
 	blood_samples = list()
 	for(var/atom/requirement as anything in atoms)
@@ -306,8 +305,8 @@
 	curse_color = COLOR_MAROON
 
 /datum/heretic_knowledge/curse/indulgence/curse(mob/living/carbon/human/chosen_mob)
-	// tg applies the permanent "Фестиваль Желаний" status (ravenous flesh-hunger + top-right alert),
-	// not the flesh_desire brain trauma - the uncurse timer below is what ends it.
+	// Applies the permanent "Фестиваль Желаний" status (ravenous flesh-hunger + top-right alert);
+	// the uncurse timer below is what ends it.
 	chosen_mob.apply_status_effect(/datum/status_effect/eldritch_painting/desire/permanent)
 	chosen_mob.nutrition = NUTRITION_LEVEL_STARVING
 	return ..()

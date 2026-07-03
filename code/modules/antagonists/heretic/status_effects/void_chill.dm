@@ -31,7 +31,7 @@
 	if(issilicon(owner))
 		return FALSE
 
-	// TG parity: fellow heretics and their monsters can't be chilled (matters for rival heretics).
+	// Fellow heretics and their monsters can't be chilled (matters for rival heretics).
 	if(IS_HERETIC_OR_MONSTER(owner))
 		return FALSE
 

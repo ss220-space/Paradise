@@ -1,9 +1,7 @@
-// The basic eldritch painting
 /obj/item/wallframe/painting/eldritch
 	name = "Чистый холст"
 	desc = "Невозможная картина, созданная невозможной краской. Она не должна существовать в этой реальности."
-	// master220's painting compat base points at decals.dmi; the eldritch painting sprites live in
-	// signs.dmi (matching TG), so override the file here or every subtype renders blank.
+	// master220's painting compat base points at decals.dmi; the eldritch painting sprites live in signs.dmi.
 	icon = 'icons/obj/signs.dmi'
 	icon_state = "eldritch_painting_debug"
 	result_path = /obj/structure/sign/painting/eldritch
@@ -15,9 +13,7 @@
 	icon = 'icons/obj/signs.dmi'
 	icon_state = "eldritch_painting_debug"
 	//buildable_sign = FALSE
-	// The list of canvas types accepted by this frame, set to zero here
 	accepted_canvas_types = list()
-	// Set to false since we don't want this to persist
 	persistence_id = FALSE
 	/// The status effect this painting curses onlookers with. null = no passive curse (e.g. the vines).
 	var/applied_status_effect = /datum/status_effect/eldritch_painting
@@ -36,8 +32,8 @@
 
 /obj/structure/sign/painting/eldritch/proc/apply_painting_effect(datum/source, mob/living/carbon/viewer)
 	SIGNAL_HANDLER
-	// NB: must be viewer.can_see(src, range) — the master220 atom method. tg's bare can_see(viewer, src, range)
-	// would resolve to /atom/proc/can_see here and pass the painting as the `length` arg, silently failing LOS.
+	// Must be viewer.can_see(src, range), the master220 atom method - a bare can_see(viewer, src, range)
+	// would resolve to /atom/proc/can_see and pass the painting as the `length` arg, silently failing LOS.
 	if(!isliving(viewer) || !viewer.can_see(src, range))
 		return
 
@@ -53,8 +49,8 @@
 	if(viewer.can_block_magic(MAGIC_RESISTANCE|MAGIC_RESISTANCE_MIND))
 		return
 
-	// tg returns silently for the holy-watered: the curse's on_apply would refuse it anyway, but we mustn't
-	// fire the scream + "mind burns" feedback for a viewer who is actually immune.
+	// Returns silently for the holy-watered: on_apply would refuse the curse anyway, but we shouldn't fire
+	// the scream + "mind burns" feedback for a viewer who is actually immune.
 	if(viewer.reagents?.has_reagent(/datum/reagent/holywater))
 		return
 
@@ -77,10 +73,8 @@
 	if(!iscarbon(user))
 		return
 
-	// Per-painting cooldown (keyed by this painting's UID), not a global one. tg checks the trait from ANY
-	// source, so examining one painting blocks the examine effect of EVERY other painting for 3 min — which
-	// made e.g. The Feast of Desire "do nothing" right after looking at another painting. HAS_TRAIT_FROM keeps
-	// the 3-min anti-spam on the SAME painting while letting each painting work independently.
+	// Per-painting cooldown (keyed by this painting's UID), not a global one - a global trait would block the
+	// examine effect of EVERY other painting for 3 min after looking at just one of them.
 	if(HAS_TRAIT_FROM(user, TRAIT_ELDRITCH_PAINTING_EXAMINE, UID()))
 		return
 
@@ -97,7 +91,6 @@
 	to_chat(examiner, span_notice("Какая странная картина..."))
 
 
-// The Sister and He Who Wept eldritch painting
 /obj/item/wallframe/painting/eldritch/weeping
 	name = "Сестра и Плачущий"
 	desc = "Прекрасная картина, изображающая прекрасную даму, сидящую рядом с Ним. Он плачет. Вы ещё увидите Его."
@@ -116,16 +109,14 @@
 /obj/structure/sign/painting/eldritch/weeping/examine_effects(mob/living/carbon/examiner)
 	if(!isheretic(examiner))
 		// The actual "respite" is the TRAIT_ELDRITCH_PAINTING_EXAMINE set in the base examine(), which pauses
-		// the weeping curse's hallucination ticks for 3 minutes — matching tg (tg also removes a mood event here).
+		// the weeping curse's hallucination ticks for 3 minutes.
 		to_chat(examiner, span_hypnophrase("Отдохните. Пока можете..."))
 		return
 
-	// tg: clears the heretic's own hallucination status (+ a good mood event we can't port). No brain heal in tg.
 	to_chat(examiner, span_notice("Просто глядя на [declent_ru(ACCUSATIVE)], вы очищаете свой разум."))
 	examiner.SetHallucinate(0)
 
 
-// The First Desire painting, using a lot of the painting/eldritch framework
 /obj/item/wallframe/painting/eldritch/desire
 	name = "Фестиваль Желаний"
 	desc = "Картина, изображающая изысканное пиршество. Несмотря на то, что еда давно сгнила, она выглядит очень аппетитно."
@@ -141,10 +132,8 @@
 	text_to_display = "Как же хочется есть..."
 
 
-// The special examine interaction for this painting
 /obj/structure/sign/painting/eldritch/desire/examine_effects(mob/living/carbon/examiner)
 	if(!isheretic(examiner))
-		// Gives them some nutrition
 		examiner.adjust_nutrition(50)
 		to_chat(examiner, span_warning("Вы чувствуете жгучую боль в животе!"))
 		examiner.adjustOrganLoss(INTERNAL_ORGAN_STOMACH, 5)
@@ -152,7 +141,6 @@
 		to_chat(examiner, span_warning("Вам следует запастись сырым мясом и органами, прежде чем вы снова проголодаетесь."))
 		return
 
-	// A list made of the organs and bodyparts the heretic can get
 	var/static/list/random_bodypart_or_organ = list(
 		/obj/item/organ/internal/brain,
 		/obj/item/organ/internal/lungs,
@@ -173,7 +161,6 @@
 	to_chat(examiner, span_warning("Пустота кричит!"))
 
 
-// Great chaparral over rolling hills, this one doesn't have the sensor type
 /obj/item/wallframe/painting/eldritch/vines
 	name = "Мир Без Всех Вас"
 	desc = "Картина, изображающая густые заросли. Эта картина кипит жизнью, а её содержимое словно рвётся наружу."
@@ -186,7 +173,6 @@
 	desc = "Картина, изображающая густые заросли. Эта картина кипит жизнью, а её содержимое словно рвётся наружу. \
 			Можно снять кусачками."
 	icon_state = "eldritch_painting_vines"
-	// A static list of 5 pretty strong mutations, simple to expand for any admins
 	var/list/mutations = list(
 		/datum/spacevine_mutation/aggressive_spread,
 		/datum/spacevine_mutation/fire_proof,
@@ -194,12 +180,11 @@
 		/datum/spacevine_mutation/thorns,
 		/datum/spacevine_mutation/toxicity,
 	)
-	// Poppy and harebell are used in heretic rituals
 	var/list/items_to_spawn = list(
 		/obj/item/reagent_containers/food/snacks/grown/poppy,
 		/obj/item/reagent_containers/food/snacks/grown/harebell,
 	)
-	// This one has no passive sightline curse — it just spawns kudzu when hung.
+	// No passive sightline curse - just spawns kudzu when hung.
 	applied_status_effect = null
 
 
@@ -222,7 +207,6 @@
 	new item_to_spawn(examiner.drop_location())
 
 
-// Lady out of gates, gives a brain trauma causing the person to scratch themselves
 /obj/item/wallframe/painting/eldritch/beauty
 	name = "Леди за Вратами"
 	desc = "Картина существа из другого мира. Тонкая кожа цвета фарфора туго натянута на странные кости. Она обладает странной красотой."
@@ -240,7 +224,6 @@
 	var/list/reagents_to_add = list(/datum/reagent/medicine/mutadone = 5)
 
 
-// The special examine interaction for this painting
 /obj/structure/sign/painting/eldritch/beauty/examine_effects(mob/living/carbon/examiner)
 	. = ..()
 	if(!examiner.dna)
@@ -255,7 +238,6 @@
 	examiner.reagents.add_reagent_list(reagents_to_add)
 
 
-// Climb over the rusted mountain, gives a brain trauma causing the person to randomly rust tiles beneath them
 /obj/item/wallframe/painting/eldritch/rust
 	name = "Хозяйка Ржавой Горы"
 	desc = "Картина, изображающая странное существо, взбирающееся на гору цвета ржавчины. Стиль картины неестественный и пугающий."
@@ -271,7 +253,6 @@
 	text_to_display = "Ржавчина гниёт. Хозяйка поднимается. Она зовёт. Вы отвечаете..."
 
 
-// The special examine interaction for this painting
 /obj/structure/sign/painting/eldritch/rust/examine_effects(mob/living/carbon/examiner)
 	. = ..()
 

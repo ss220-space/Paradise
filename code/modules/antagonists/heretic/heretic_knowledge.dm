@@ -34,7 +34,7 @@
 	var/is_starting_knowledge = FALSE
 	/// If the spell is final knowledge (the path's last tier before ascension). Cosmetic on Clauretic for now.
 	var/is_final_knowledge = FALSE
-	/// Drafting system (TG): tier (1..HERETIC_DRAFT_TIER_MAX) this side knowledge belongs to. 0 = not draftable.
+	/// Drafting system tier (1..HERETIC_DRAFT_TIER_MAX) this side knowledge belongs to. 0 = not draftable.
 	/// A non-zero value also makes it appear in the Knowledge Shop at this tier.
 	var/drafting_tier = 0
 	/// If TRUE this side knowledge only appears in the shop, never as a random draft option.
@@ -269,12 +269,12 @@
 	limit = 2
 	cost = 1
 	priority = MAX_KNOWLEDGE_PRIORITY - 5
-	/// The Mansus Grasp mark status effect this path applies, if any.
-	/// TG folds a path's grasp/mark mechanics into its starting knowledge instead of separate tree
-	/// nodes (e.g. Ash). Leave null for paths that still use a dedicated /datum/heretic_knowledge/mark.
+	/// The Mansus Grasp mark status effect this path applies, if any. Some paths fold their grasp/mark
+	/// mechanics into their starting knowledge instead of a separate tree node (e.g. Ash). Leave null
+	/// for paths that still use a dedicated /datum/heretic_knowledge/mark.
 	var/datum/status_effect/eldritch/mark_type
 	/// This path's passive ("empowerment") effect, granted when the path is chosen. See
-	/// /datum/status_effect/heretic_passive. Leave null for paths whose passive isn't ported yet.
+	/// /datum/status_effect/heretic_passive. Leave null for paths whose passive isn't set up yet.
 	var/datum/status_effect/heretic_passive/passive_type
 
 /datum/heretic_knowledge/limited_amount/starting/on_research(mob/user, datum/antagonist/heretic/our_heretic)
@@ -298,7 +298,7 @@
 
 /datum/heretic_knowledge/limited_amount/starting/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
 	// Once empowered (robe crafted / enough knowledge), the mansus lets us forge blades without the
-	// two-at-a-time cap (tg's unlimited_blades). Otherwise fall back to the normal limited-amount check.
+	// two-at-a-time cap. Otherwise fall back to the normal limited-amount check.
 	var/datum/antagonist/heretic/our_heretic = user.mind?.has_antag_datum(/datum/antagonist/heretic)
 	if(our_heretic?.unlimited_blades)
 		return TRUE
@@ -406,10 +406,10 @@
  */
 /datum/heretic_knowledge/blade_upgrade
 	abstract_parent_type = /datum/heretic_knowledge/blade_upgrade
-	cost = 1 // TG: blade upgrades cost 1
+	cost = 1
 
-// NOTE: the passive's tier-2 ("empowerment") upgrade is granted by CRAFTING the robe now (tg parity -
-// see /datum/heretic_knowledge/armor/on_finished_recipe), not by researching the blade upgrade.
+// NOTE: the passive's tier-2 ("empowerment") upgrade is granted by CRAFTING the robe now
+// (see /datum/heretic_knowledge/armor/on_finished_recipe), not by researching the blade upgrade.
 
 /datum/heretic_knowledge/blade_upgrade/on_gain(mob/user, datum/antagonist/heretic/our_heretic, mind_transfer = FALSE)
 	RegisterSignal(user, COMSIG_HERETIC_BLADE_ATTACK, PROC_REF(on_eldritch_blade))
@@ -675,8 +675,8 @@
 	// Ascension is the final passive ("empowerment") tier.
 	heretic_datum.set_passive_level(3)
 
-	// Show the cool red gradiant in our UI. Partial update (not update_static_data → send_full_update),
-	// to avoid the rate-limited full-update path that flashes the "Loading / Please wait..." spinner.
+	// Show the cool red gradiant in our UI. Partial update (not update_static_data, which sends a full
+	// update) to avoid the rate-limited full-update path that flashes the "Loading / Please wait..." spinner.
 	SStgui.update_uis(heretic_datum)
 
 	if(ishuman(user))

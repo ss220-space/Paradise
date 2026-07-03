@@ -16,14 +16,14 @@
 	invocation = "ПР'В'Д' 'Х К' МН'"
 	invocation_type = INVOCATION_WHISPER
 	spell_requirements = NONE
-	aoe_range = 2 // TG aoe_radius
+	aoe_range = 2
 
 
 /obj/effect/proc_holder/spell/aoe/void_pull/create_new_targeting()
 	return new /datum/spell_targeting/self
 
 
-// Before the cast, show the void visual around the caster (tg parity)
+// Before the cast, show the void visual around the caster.
 /obj/effect/proc_holder/spell/aoe/void_pull/before_cast(list/targets, mob/user = usr)
 	. = ..()
 	if(. & SPELL_CANCEL_CAST)
@@ -50,7 +50,7 @@
 	return things
 
 
-// For the actual cast, everyone caught in the AoE is damaged, chilled, microstunned and pulled in (tg 1:1).
+// For the actual cast, everyone caught in the AoE is damaged, chilled, microstunned and pulled in.
 /obj/effect/proc_holder/spell/aoe/void_pull/cast(list/targets, mob/user = usr)
 	var/mob/living/caster = action.owner || user
 	for(var/mob/living/victim as anything in get_things_to_cast_on(caster))

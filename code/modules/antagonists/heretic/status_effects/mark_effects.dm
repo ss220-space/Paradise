@@ -71,10 +71,9 @@
 	if(HAS_TRAIT(human_owner, TRAIT_NO_BLOOD))
 		return ..()
 
-	// TG fires cause_wound_of_type_and_severity(WOUND_SLASH, ..., WOUND_SEVERITY_SEVERE) here - the exact same
-	// severe laceration the Bleeding Steel blade upgrade applies. master220 has no wound datums, so we model it
-	// identically: a sustained, bandageable external bleed on a random non-robotic limb, capped at
-	// max_bleeding_amount so it stays plain external bleeding (gauze/sutures), not arterial (surgery-only).
+	// Applies the same severe laceration the Bleeding Steel blade upgrade does: a sustained, bandageable
+	// external bleed on a random non-robotic limb, capped at max_bleeding_amount so it stays plain external
+	// bleeding (gauze/sutures), not arterial (surgery-only). We have no wound datums to hook into instead.
 	var/list/valid_limbs = list()
 	for(var/obj/item/organ/external/bodypart as anything in human_owner.bodyparts)
 		if(!bodypart.is_robotic())
@@ -138,7 +137,7 @@
 
 /datum/status_effect/eldritch/void/on_effect()
 	owner.apply_status_effect(/datum/status_effect/void_chill, 3)
-	// TG adjust_silence(10 SECONDS): stacks on top of any existing silence (e.g. the grasp's).
+	// Stacks on top of any existing silence (e.g. the grasp's).
 	owner.AdjustSilence(10 SECONDS)
 	return ..()
 
@@ -249,7 +248,7 @@
 /datum/status_effect/eldritch/cosmic/on_effect()
 	new teleport_effect(get_turf(owner))
 	create_cosmic_field(get_turf(owner), owner)
-	// do_direct_teleport skips the science-teleport spark spread, matching tg's no_effects = TRUE.
+	// do_direct_teleport skips the science-teleport spark spread (no_effects = TRUE).
 	do_direct_teleport(
 		owner,
 		get_turf(cosmic_diamond),
@@ -317,7 +316,7 @@
 	owner.Confused(30 SECONDS)
 	owner.adjustOrganLoss(INTERNAL_ORGAN_BRAIN, 25, 160)
 	owner.emote(pick("giggle", "laugh"))
-	// master220 has no mood system; tg's moon_insanity moodlet becomes this chat line.
+	// No mood system here, so the moon_insanity moodlet becomes this chat line instead.
 	to_chat(owner, span_userdanger("ЛУНА СУДИТ ВАС И НАХОДИТ НЕДОСТОЙНЫМ!!!"))
 	return ..()
 

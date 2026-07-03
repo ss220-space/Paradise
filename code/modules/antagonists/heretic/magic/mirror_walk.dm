@@ -131,14 +131,8 @@
 		span_notice("Вы выпрыгиваете из отражения в [nearby_reflection.declent_ru(PREPOSITIONAL)], покидая зеркальный мир."),
 	)
 
-/**
- * Goes through all nearby atoms in sight of the
- * passed caster and determines if they are "reflective"
- * for the purpose of us being able to utilize it to enter or exit.
- *
- * Returns an object reference to a "reflective" object in view if one was found,
- * or null if no object was found that was determined to be "reflective".
- */
+/// Checks all nearby atoms in sight of the caster for a "reflective" surface usable to enter/exit.
+/// Returns the reflective atom found, or null if none was.
 /obj/effect/proc_holder/spell/jaunt/mirror_walk/proc/is_reflection_nearby(atom/caster)
 	for(var/atom/thing as anything in view(2, caster))
 		if(isitem(thing))

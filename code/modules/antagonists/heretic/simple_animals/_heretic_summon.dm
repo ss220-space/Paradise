@@ -44,9 +44,9 @@
 	qdel(src)
 
 
-/// tg's /mob/living/basic/melee_attack, adapted: the ported basic-mob AI behaviors (basic_melee_attack etc.)
-/// call pawn.melee_attack(target) - route that into the native simple_animal attack flow. (The behavior's
-/// pawn var is declared /mob/living/basic, so this resolves via dynamic dispatch at runtime.)
+/// The basic-mob AI behaviors (basic_melee_attack etc.) call pawn.melee_attack(target) - route that into
+/// the native simple_animal attack flow. (The behavior's pawn var is declared /mob/living/basic, so this
+/// resolves via dynamic dispatch at runtime.)
 /mob/living/simple_animal/hostile/heretic_summon/proc/melee_attack(atom/attacked_target)
 	if(QDELETED(attacked_target))
 		return FALSE

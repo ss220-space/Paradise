@@ -4,10 +4,9 @@
 
 	route = PATH_SIDE
 
-	// NB: Mind Gate is NOT a side knowledge - it is the Moon path's knowledge_tier1 (see moon_lore.dm),
-	// so it must NOT be claimed here. Listing it as this side column's tier1 used to overwrite its route to
-	// PATH_SIDE in the global tree, which shoved it into the Knowledge Shop (green node) instead of the Moon
-	// research tree. The moon_to_lock side column only carries genuine side knowledges.
+	// NB: Mind Gate is the Moon path's knowledge_tier1 (see moon_lore.dm) and must NOT be claimed here -
+	// listing it as this column's tier1 would overwrite its route to PATH_SIDE, shoving it into the
+	// Knowledge Shop instead of the Moon research tree.
 	tier2 = list(/datum/heretic_knowledge/unfathomable_curio, /datum/heretic_knowledge/painting)
 	tier3 = /datum/heretic_knowledge/codex_morbus
 
@@ -104,11 +103,7 @@
 	user.balloon_alert(user, "нет второго предмета!")
 	return FALSE
 
-/**
- * Codex Morbus, an upgrade to the base codex
- * Functionally an upgraded version of the codex, but it also has the ability to cast curses by right clicking at a rune.
- * Requires you to have the blood of your victim in your off-hand
- */
+/// Upgraded codex that can also cast curses by right-clicking a rune. Requires the victim's blood in your off-hand.
 /datum/heretic_knowledge/codex_morbus
 	drafting_tier = 2
 	name = "Кодекс Морбус"

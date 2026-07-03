@@ -25,9 +25,9 @@
 		"Ваше Прикосновение Мансуса накладывает короткую слепоту и метку, которая при срабатывании от клинка вгоняет жертву в стамина-крит. Метка может перекидываться на ближайших врагов.",
 		"Выбор этого пути даёт иммунитет к урону от высокой температуры. Но помните: ваша одежда всё ещё может гореть!",
 		"Извержение Вулкана быстро расправится с врагами, если те имели глупость сбиться в кучу.",
-		"Не пренебрегайте Маской Безумия — она медленно выкачивает выносливость врагов и вызывает галлюцинации.",
+		"Не пренебрегайте Маской Безумия - она медленно выкачивает выносливость врагов и вызывает галлюцинации.",
 		"Поджигайте как можно больше врагов! Возрождение Ночного Дозорного лечит вас и снижает откат за каждого поражённого.",
-		"Вознесение даёт полный иммунитет к опасностям окружения, включая бомбы! Но обычное оружие всё ещё опасно — не теряйте бдительности.",
+		"Вознесение даёт полный иммунитет к опасностям окружения, включая бомбы! Но обычное оружие всё ещё опасно, не теряйте бдительности.",
 	)
 	// "Vow of Destruction" passive (see /datum/status_effect/heretic_passive/ash): tiers light up as you grow.
 	passive_name = "Клятва Разрушения"
@@ -36,9 +36,8 @@
 		"Иммунитет к лаве.",
 		"Сопротивление высокому и низкому давлению.",
 	)
-	// TG-format column (1:1 with tgstation Ash). Main line:
-	// base_ash -> ash_passage -> fire_blast -> Scorched Mantle(robes) -> mad_mask -> Fiery Blade -> flame_birth -> ascension.
-	// Grasp blind + ash mark are folded into base_ash (matching TG, no separate nodes).
+	// Main line: base_ash -> ash_passage -> fire_blast -> Scorched Mantle(robes) -> mad_mask -> Fiery Blade -> flame_birth -> ascension.
+	// Grasp blind + ash mark are folded into base_ash, no separate nodes.
 	start = /datum/heretic_knowledge/limited_amount/starting/base_ash
 	knowledge_tier1 = /datum/heretic_knowledge/spell/ash_passage
 	knowledge_tier2 = /datum/heretic_knowledge/spell/fire_blast
@@ -66,7 +65,6 @@
 	result_atoms = list(/obj/item/melee/sickly_blade/ash)
 	research_tree_icon_path = 'icons/obj/weapons/khopesh.dmi'
 	research_tree_icon_state = "ash_blade"
-	// The Ash mark and the grasp blind both live here now (matching TG), instead of separate nodes.
 	mark_type = /datum/status_effect/eldritch/ash
 	// "Vow of Destruction" passive: heat/ashstorm immunity now, lava on blade upgrade, cold on ascension.
 	passive_type = /datum/status_effect/heretic_passive/ash
@@ -82,10 +80,9 @@
 		return
 
 	to_chat(target, span_danger("Яркий зеленый свет ужасно жжет ваши глаза!"))
-	// TG damages the eyes (15), but there organ damage heals back on its own, so the burn is temporary.
 	// master220 internal organs do NOT self-heal, so a raw adjustOrganLoss is permanent and stacks across
-	// grasps past the eyes' break threshold (45) -> permanent blindness. Apply the burn for the same brief
-	// window as the blur, then heal it back, so the grasp blinds temporarily like TG instead of forever.
+	// grasps past the eyes' break threshold (45), causing permanent blindness. Apply the burn for the same
+	// brief window as the blur, then heal it back, so the grasp blinds temporarily instead of forever.
 	target.adjustOrganLoss(INTERNAL_ORGAN_EYES, 15)
 	target.EyeBlurry(20 SECONDS)
 	addtimer(CALLBACK(target, TYPE_PROC_REF(/mob/living, adjustOrganLoss), INTERNAL_ORGAN_EYES, -15), 20 SECONDS)
@@ -107,7 +104,7 @@
 
 /datum/heretic_knowledge/spell/ash_passage
 	name = "Врата Пепла"
-	desc = "Дает вам «Врата Пепла» — заклинание, позволяющее вам выходить из реальности и перемещаться на небольшие расстояния, проходя сквозь любые стены."
+	desc = "Дает вам «Врата Пепла», заклинание, позволяющее вам выходить из реальности и перемещаться на небольшие расстояния, проходя сквозь любые стены."
 	gain_text = "Он умел ходить между мирами."
 	research_tree_icon_path = 'icons/mob/actions/actions_ecult.dmi'
 	research_tree_icon_state = "ash_shift"
@@ -118,7 +115,7 @@
 
 /datum/heretic_knowledge/spell/fire_blast
 	name = "Извержение Вулкана"
-	desc = "Дарует вам «Извержение Вулкана» — заклинание, после короткой подготовки выпускающее луч энергии \
+	desc = "Дарует вам «Извержение Вулкана», заклинание, после короткой подготовки выпускающее луч энергии \
 			в ближайшего врага, поджигая его. Если противник не погаснет сам, \
 			луч продолжит движение к другой цели."
 	gain_text = "Никакой огонь не был достаточно жарким, чтобы разжечь фонарь вновь. Никакой огонь не был достаточно ярким, чтобы спасти их. Никакой огонь не вечен."
@@ -136,14 +133,14 @@
 			Когда у вас накопится достаточно огня, вы сможете применять усиленные версии пепельных заклинаний. \
 			Действует как амулет, пока капюшон надет."
 	gain_text = "Дозор остаётся там, где пал, рассыпаясь в прах. И всё же ветра, веющие сквозь город, \
-				зовут их обратно на службу, поднимая пыль в воздух — дрейфующий силуэт павших."
+				зовут их обратно на службу, поднимая пыль в воздух - дрейфующий силуэт павших."
 	required_atoms = list(
 		list(/obj/structure/table, /obj/item/clothing/suit) = 1,
 		/obj/item/clothing/mask = 1,
 		/obj/item/match = 1,
 	)
 	result_atoms = list(/obj/item/clothing/suit/hooded/cultrobes/eldritch/ash)
-	// Point this node at the Scorched Mantle's own "ash_armor" sprite, which lives in the shared suits.dmi.
+	// Point this node at the Scorched Mantle's own "ash_armor" sprite in the shared suits.dmi.
 	// (The base eldritch_armor frame would read as the rusty mantle instead.) Single-frame, so frame 1.
 	research_tree_icon_path = 'icons/obj/clothing/suits.dmi'
 	research_tree_icon_state = "ash_armor"
@@ -188,7 +185,7 @@
 
 /datum/heretic_knowledge/spell/flame_birth
 	name = "Возрождение Ночного Дозорного"
-	desc = "Дарует вам «Возрождение Ночного Дозорного — заклинание, которое тушит вас и \
+	desc = "Дарует вам «Возрождение Ночного Дозорного», заклинание, которое тушит вас и \
 			ранит всех находящихся поблизости горящих язычников, исцеляя вас за каждую пораженную жертву. \
 			Если жертвы находятся в критическом состоянии, они также мгновенно умирают."
 	gain_text = "Огонь был неизбежен, и всё же жизнь теплилась в его обугленном теле. \
@@ -215,18 +212,15 @@
 				ибо теперь он един с пламенем, СТАНЬТЕ СВИДЕТЕЛЕМ МОЕГО ВОЗНЕСЕНИЯ, ПЕПЕЛЬНЫЙ ФОНАРЬ СНОВА ЗАГОРИТСЯ!"
 
 	//ascension_achievement = /datum/award/achievement/misc/ash_ascension
-	// tg derives the ascension node's tree icon from its achievement medal sprite; we point straight at
-	// that same medal sheet (state "ashascend") since the achievement system itself isn't ported.
 	research_tree_icon_path = 'icons/ui/achievements/achievements.dmi'
 	research_tree_icon_state = "ashascend"
 	announcement_text = "%SPOOKY% Бойтесь пламени, ибо Повелитель Пепла, %NAME% вознесся! Пламя поглотит все! %SPOOKY%"
 	announcement_sound = 'sound/music/heretic/ascend_ash.ogg'
-	// tg parity: the research-tree node wears the path's ascension achievement sprite.
 	research_tree_icon_path = 'icons/ui_icons/antags/heretic/ascension.dmi'
 	research_tree_icon_state = "ashascend"
 	/// A static list of all traits we apply on ascension.
-	// TG also applies TRAIT_RESISTHIGHPRESSURE / TRAIT_RESISTLOWPRESSURE, which master220 has no
-	// equivalent for — the bomb/heat/cold/no-breath immunities below cover the environmental hazards.
+	// No equivalent for TRAIT_RESISTHIGHPRESSURE / TRAIT_RESISTLOWPRESSURE in master220; the
+	// bomb/heat/cold/no-breath immunities below cover the environmental hazards instead.
 	var/static/list/traits_to_apply = list(
 		TRAIT_BOMBIMMUNE,
 		TRAIT_NO_BREATH,
@@ -252,7 +246,7 @@
 
 /datum/heretic_knowledge/ultimate/ash_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	. = ..()
-	// Two new abilities, exactly like TG: Oath of Flame (passive ring) and the Greater Fire Cascade.
+	// Two new abilities: Oath of Flame (passive ring) and the Greater Fire Cascade.
 	user.mind.AddSpell(new /obj/effect/proc_holder/spell/fire_sworn())
 	user.mind.AddSpell(new /obj/effect/proc_holder/spell/fire_cascade/big())
 	var/obj/effect/proc_holder/spell/charged/beam/fire_blast/existing_beam_spell = locate() in user.mind.spell_list

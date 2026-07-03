@@ -25,21 +25,17 @@
 	var/old_shouldwakeup
 
 
-/**
- * master220's base shapeshift.dm dropped two pieces selfharm's base had, which the heretic summons need:
- *   1. a COMSIG_MOB_DEATH revert — without it, a summon that died in its borrowed animal form stayed dead
- *      (the caster was left trapped, godmoded and mindless, inside the corpse → "при перевоплощении умер").
- *   2. silencing the parked simple_animal caster's AI so it doesn't wake up and wander while mindless.
- * We restore both here (scoped to the heretic, leaving the wizard/dragon base untouched), and return the
- * created shape so subtypes (the lock ascension) can read it from `.`.
- */
+// Restores two pieces the base shapeshift lacks, scoped to the heretic only:
+//   1. a COMSIG_MOB_DEATH revert - without it, a summon that died in its borrowed animal form stayed dead
+//      (the caster was left trapped, godmoded and mindless, inside the corpse).
+//   2. silencing the parked simple_animal caster's AI so it doesn't wake up and wander while mindless.
+// Returns the created shape so subtypes (the lock ascension) can read it from `.`.
 /obj/effect/proc_holder/spell/shapeshift/eldritch/Shapeshift(mob/living/caster)
 	..()
 	var/mob/living/shape = caster.loc
-	if(!istype(shape) || !(shape in current_shapes)) // base bailed (already shifted / blocked)
+	if(!istype(shape) || !(shape in current_shapes))
 		return null
 
-	// Revert to our real body (instead of dying for good) when the borrowed form is killed.
 	RegisterSignal(shape, COMSIG_MOB_DEATH, PROC_REF(on_death))
 
 	if(istype(caster, /mob/living/simple_animal))
@@ -57,7 +53,7 @@
 
 
 /obj/effect/proc_holder/spell/shapeshift/eldritch/Restore(mob/living/shape)
-	// Grab the parked simple_animal caster before the base proc pulls it back out and qdels the shape.
+	// Grab the parked caster before the base proc pulls it back out and qdels the shape.
 	var/mob/living/simple_animal/animal
 	for(var/mob/living/simple_animal/candidate in shape)
 		if(candidate in current_casters)

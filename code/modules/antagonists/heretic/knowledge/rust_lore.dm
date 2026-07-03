@@ -21,19 +21,19 @@
 	path_cons = list(
 		"Крайне заметен; о скрытности можно забыть.",
 		"Вне ржавых плит вы становитесь значительно уязвимее.",
-		"Привязанность к территории облегчает применение против вас разрушительных средств — например, бомб.",
+		"Привязанность к территории облегчает применение против вас разрушительных средств, например, бомб.",
 		"Высокая защита достигается ценой атакующей мощи.",
 	)
 	path_tips = list(
 		"«Прикосновение Мансуса» мгновенно уничтожает мехов, силиконов и андроидов. Удар клинком по помеченной цели вызывает лёгкое отвращение и рвоту, на мгновение сбивая с ног.",
-		"Ваше «Прикосновение» и заклинания ржавят стены и полы — это полезно вам и вредно экипажу и силиконам. Распространяйте ржавчину как можно шире.",
+		"Ваше «Прикосновение» и заклинания ржавят стены и полы - это полезно вам и вредно экипажу и силиконам. Распространяйте ржавчину как можно шире.",
 		"Ржавые плиты лечат вас, регулируют температуру крови, дают сопротивление оглушению дубинками и восстанавливают выносливость и кровь.",
 		"Всегда сражайтесь на своей территории. Враг, ступивший на вашу ржавчину, оказывается в крайне невыгодном положении.",
-		"Ваша способность разрушать объекты и стены растёт с уровнем пассивки — со временем вы прожжёте даже шлюзы, укреплённые и титановые стены.",
+		"Ваша способность разрушать объекты и стены растёт с уровнем пассивки - со временем вы прожжёте даже шлюзы, укреплённые и титановые стены.",
 		"Распространение ржавчины поначалу медленное. Призовите несколько Ржавых Ходоков, чтобы расширять свои владения.",
 		"«Ржавая Постройка» создаёт барьеры для укрытия, побега или блокировки чужого отхода. Используйте окружение в своих целях.",
 	)
-	// "Leeching Walk" passive (on-rust durability that scales), ported 1:1 from tg. Tiers light up as you grow.
+	// "Leeching Walk" passive (on-rust durability that scales). Tiers light up as you grow.
 	passive_name = "Ржавая Поступь"
 	passive_descriptions = list(
 		"Стоя на ржавых плитах, вы исцеляетесь и очищаете тело от химикатов.",
@@ -41,11 +41,10 @@
 		"Стоя на ржавых плитах, вы восстанавливаете утраченные конечности; теперь вы можете ржаветь титановые и пласттитановые стены, а лечение усилено.",
 	)
 
-	// TG-format column (1:1 with tgstation Rust). Main line:
-	// base_rust -> Aggressive Spread -> Rust Construction -> Reassembled Raiment(robes) ->
+	// Main line: base_rust -> Aggressive Spread -> Rust Construction -> Reassembled Raiment(robes) ->
 	// Entropic Plume -> Toxic Blade -> Rust Charge -> ascension.
 	// The grasp (silicon-destroy + secondary turf rust), the rust mark and the on-rust passive are all
-	// folded into base_rust (matching TG, no separate grasp/mark/regen nodes).
+	// folded into base_rust, no separate grasp/mark/regen nodes.
 	start = /datum/heretic_knowledge/limited_amount/starting/base_rust
 	knowledge_tier1 = /datum/heretic_knowledge/spell/area_conversion
 	knowledge_tier2 = /datum/heretic_knowledge/spell/rust_construction
@@ -65,7 +64,7 @@
 	desc = "Открывает вам Путь Ржавчины. \
 			Позволяет превратить нож и мусор (например обертки) в ржавый клинок. \
 			Вы можете создать только два клинка одновременно."
-	gain_text = "«Позволь мне рассказать тебе историю», — сказал Кузнец, пристально вглядываясь в свой ржавый клинок."
+	gain_text = "«Позволь мне рассказать тебе историю», - сказал Кузнец, пристально вглядываясь в свой ржавый клинок."
 	required_atoms = list(
 		/obj/item/kitchen/knife = 1,
 		/obj/item/trash = 1,
@@ -73,7 +72,6 @@
 	result_atoms = list(/obj/item/melee/sickly_blade/rust)
 	research_tree_icon_path = 'icons/obj/weapons/khopesh.dmi'
 	research_tree_icon_state = "rust_blade"
-	// TG folds the grasp, the rust mark and the on-rust passive into the starting knowledge.
 	mark_type = /datum/status_effect/eldritch/rust
 	passive_type = /datum/status_effect/heretic_passive/rust
 
@@ -81,7 +79,7 @@
 /datum/heretic_knowledge/limited_amount/starting/base_rust/on_gain(mob/user, datum/antagonist/heretic/our_heretic, mind_transfer = FALSE)
 	. = ..()
 	// Secondary grasp (RMB on a turf/structure/airlock) corrodes it - the base starting knowledge only
-	// wires the primary grasp, so register the secondary here. Folded from the old "Прикосновение Ржавчины".
+	// wires the primary grasp, so register the secondary here.
 	RegisterSignal(user, COMSIG_HERETIC_MANSUS_GRASP_ATTACK_SECONDARY, PROC_REF(on_secondary_mansus_grasp), override = TRUE)
 	if(!mind_transfer)
 		our_heretic.increase_rust_strength()
@@ -93,12 +91,11 @@
 
 
 /// Primary grasp: apply our rust mark (via parent), violently corrode any robotic limbs the target has,
-/// then instantly crumble silicons/synthetics. Ported 1:1 from tg's rust grasp.
+/// then instantly crumble silicons/synthetics.
 /datum/heretic_knowledge/limited_amount/starting/base_rust/on_mansus_grasp(mob/living/source, mob/living/target)
 	. = ..()
 
-	// Augmented / IPC crew: the grasp wrecks any robotic limbs they carry (tg does receive_damage(500)
-	// per robotic bodypart; master220 limbs use external_receive_damage, so we call that instead).
+	// Augmented / IPC crew: the grasp wrecks any robotic limbs they carry.
 	if(ishuman(target))
 		var/mob/living/carbon/human/human_target = target
 		for(var/obj/item/organ/external/limb as anything in human_target.bodyparts)
@@ -106,8 +103,8 @@
 				continue
 			limb.external_receive_damage(500, 0)
 
-	// Silicons (borgs / AI shells) crumble to rust outright. master220 has no mob_biotypes, so tg's
-	// MOB_ROBOTIC biotype branch isn't portable - issilicon covers the synthetic mobs we can detect.
+	// Silicons (borgs / AI shells) crumble to rust outright. master220 has no mob_biotypes, so
+	// issilicon covers the synthetic mobs we can detect.
 	if(!issilicon(target))
 		return
 
@@ -130,28 +127,28 @@
 
 /datum/heretic_knowledge/spell/rust_construction
 	name = "Ржавая Постройка"
-	desc = "Даёт вам «Ржавая Постройка» — заклинание, позволяющее создать стену на ржавом полу. \
+	desc = "Даёт вам «Ржавая Постройка», заклинание, позволяющее создать стену на ржавом полу. \
 			Все кто на нём находились, будут отброшен в стороны (или вверх) и получат урон."
 	gain_text = "В голове закружились образы чуждых и зловещих сооружений. \
 				Покрытые толстым слоем ржавчины, они больше не выглядели рукотворными. \
 				Или, возможно, они никогда небыли таковыми."
-	// Match the ability button: tg's actions_spells.dmi "shield", not actions.dmi "shield" (a blue badge).
+	// Match the ability button: actions_spells.dmi "shield", not actions.dmi "shield" (a blue badge).
 	research_tree_icon_path = 'icons/mob/actions/actions_spells.dmi'
 	research_tree_icon_state = "shield"
 	spell_to_add = /obj/effect/proc_holder/spell/pointed/rust_construction
-	cost = 2 // TG: rust_construction costs 2
+	cost = 2
 
 
 /datum/heretic_knowledge/spell/area_conversion
 	name = "Агрессивное Распространение"
-	desc = "Даёт вам «Агрессивное Распространение» — заклинание, распространяющее ржавчину на близлежащие \
+	desc = "Даёт вам «Агрессивное Распространение», заклинание, распространяющее ржавчину на близлежащие \
 			поверхности. Уже поражённые ржавчиной поверхности уничтожаются."
 	gain_text = "Все мудрецы прекрасно знали, что не стоило посещать Ржавые Холмы... \
 				И все же рассказ Кузнеца был вдохновляющим."
 	research_tree_icon_path = 'icons/mob/actions/actions_ecult.dmi'
 	research_tree_icon_state = "corrode"
 	spell_to_add = /obj/effect/proc_holder/spell/aoe/rust_conversion
-	cost = 2 // TG: area_conversion costs 2
+	cost = 2
 	research_tree_icon_frame = 5
 
 
@@ -215,7 +212,7 @@
 	research_tree_icon_path = 'icons/mob/actions/actions_ecult.dmi'
 	research_tree_icon_state = "entropic_plume"
 	spell_to_add = /obj/effect/proc_holder/spell/cone/staggered/entropic_plume
-	cost = 2 // TG: entropic_plume costs 2
+	cost = 2
 
 
 /datum/heretic_knowledge/spell/entropic_plume/on_gain(mob/user)
@@ -236,13 +233,10 @@
 				Кузнец идёт вперёд! Ржавые Холмы, НАЗОВИТЕ МОЁ ИМЯ! СТАНЬТЕ СВИДЕТЕЛЯМИ МОЕГО ВОЗНЕСЕНИЯ!"
 
 	//ascension_achievement = /datum/award/achievement/misc/rust_ascension
-	// tg derives the ascension node's tree icon from its achievement medal sprite; we point straight at
-	// that same medal sheet (state "rustascend") since the achievement system itself isn't ported.
 	research_tree_icon_path = 'icons/ui/achievements/achievements.dmi'
 	research_tree_icon_state = "rustascend"
 	announcement_text = "%SPOOKY% Бойтесь, ибо Ржавеющий, %NAME%, вознёсся! Никто и ничто не избежит коррозии! %SPOOKY%"
 	announcement_sound = 'sound/music/heretic/ascend_rust.ogg'
-	// tg parity: the research-tree node wears the path's ascension achievement sprite.
 	research_tree_icon_path = 'icons/ui_icons/antags/heretic/ascension.dmi'
 	research_tree_icon_state = "rustascend"
 	/// If TRUE, then immunities are currently active.
@@ -335,7 +329,7 @@
 
 /datum/heretic_knowledge/ultimate/rust_final/proc/delay_transform_turfs(list/turfs)
 	for(var/turf/turf as anything in turfs)
-		// ORGANIC (4) like tg: the ascension corrodes everything short of ABSOLUTE-resistance turfs
+		// ORGANIC (4): the ascension corrodes everything short of ABSOLUTE-resistance turfs
 		// (space, indestructible), so the station rusts over but the void/hull stays intact.
 		turf.rust_heretic_act(RUST_RESISTANCE_ORGANIC)
 		CHECK_TICK
@@ -382,7 +376,7 @@
 		return
 
 	var/need_mob_update = FALSE
-	var/base_heal_amt = 1 * DELTA_WORLD_TIME(SSmobs) // tg parity (the ascension stacks on the rust passive's own on-rust heal)
+	var/base_heal_amt = 1 * DELTA_WORLD_TIME(SSmobs) // the ascension stacks on the rust passive's own on-rust heal
 	need_mob_update += source.adjustBruteLoss(-base_heal_amt, updating_health = FALSE)
 	need_mob_update += source.adjustFireLoss(-base_heal_amt, updating_health = FALSE)
 	need_mob_update += source.adjustToxLoss(-base_heal_amt, updating_health = FALSE, forced = TRUE)

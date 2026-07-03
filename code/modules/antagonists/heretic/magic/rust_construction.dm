@@ -4,8 +4,8 @@
 	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
-	// tg's Rust Formation button is actions_spells.dmi "shield" (NOT actions.dmi "shield", which is a
-	// completely different blue badge in master220). action_spells.dmi is copied 1:1 from tg for this.
+	// Rust Formation's button is actions_spells.dmi "shield" (NOT actions.dmi "shield", which is a
+	// completely different blue badge).
 	action_icon = 'icons/mob/actions/actions_spells.dmi'
 	action_icon_state = "shield"
 	// The button's background is backgrounds.dmi (bg_heretic), which has NO "targeting" state, so the default
@@ -18,8 +18,8 @@
 	school = SCHOOL_FORBIDDEN
 	human_req = FALSE
 	clothes_req = FALSE
-	// TG's Rust Formation is a toggle (unset_after_click = FALSE) on a short cooldown: you keep the
-	// click ability armed and raise a wall every couple seconds. See should_remove_click_intercept below.
+	// Rust Formation is a toggle on a short cooldown: you keep the click ability armed and raise a wall
+	// every couple seconds. See should_remove_click_intercept below.
 	base_cooldown = 2 SECONDS
 
 	// Both of these are changed in before_cast
@@ -34,21 +34,19 @@
 	var/filter_duration = 2 MINUTES
 
 
-/**
- * Overrides 'aim assist' because we always want to hit just the turf we clicked on.
- */
+/// Overrides 'aim assist' because we always want to hit just the turf we clicked on.
 /obj/effect/proc_holder/spell/pointed/rust_construction/aim_assist(mob/living/clicker, atom/target)
 	return get_turf(target)
 
-// Toggleable: keep the click ability armed after each cast (TG's unset_after_click = FALSE) so the
-// heretic can raise several walls in a row. Click the ability button again to disarm it.
+// Toggleable: keep the click ability armed after each cast so the heretic can raise several walls in a
+// row. Click the ability button again to disarm it.
 /obj/effect/proc_holder/spell/pointed/rust_construction/should_remove_click_intercept(mob/user)
 	return FALSE
 
 
 // Make the throw-target cursor STICKY while the ability is armed. The spell system only sets
 // client.mouse_pointer_icon, but update_mouse_pointer() (run on every movement keypress - see
-// bindings_client.dm) wipes that straight back to the default, which is exactly why the red "hand" cursor
+// bindings_client.dm) wipes that straight back to the default, which is why the red "hand" cursor
 // vanished the moment you walked. mouse_override_icon is the persistent slot update_mouse_pointer() always
 // re-applies (the same one mechs / the ninja katana use), so the cursor now survives moving and running.
 // on_activation/on_deactivation are the pointed-spell hooks fired when the click ability is armed/disarmed.
@@ -196,16 +194,14 @@
 	wall.remove_filter("rust_wall")
 
 
-/**
- * Added (alongside /datum/component/torn_wall) to walls raised by Rust Formation. Handles two things the
- * base rust element and torn_wall don't:
- *  - If the wall is still rusty when it's removed (e.g. the heretic crumbles it with the spell again),
- *    the floor left behind STAYS rusty - the rust soaks back into the ground instead of vanishing with
- *    the wall. Burning the rust off first (RMB weld) and then tearing the wall down leaves clean floor.
- *  - Lets the wall be torn down with a welder on RIGHT-click once its rust has been burned off. LMB weld
- *    stays the torn_wall repair; RMB weld on a de-rusted wall dismantles it for nothing (0 sheets / no
- *    girder), matching the order the heretic uncreates their own walls.
- */
+// Added (alongside /datum/component/torn_wall) to walls raised by Rust Formation. Handles two things the
+// base rust element and torn_wall don't:
+//  - If the wall is still rusty when it's removed (e.g. the heretic crumbles it with the spell again),
+//    the floor left behind STAYS rusty - the rust soaks back into the ground instead of vanishing with
+//    the wall. Burning the rust off first (RMB weld) and then tearing the wall down leaves clean floor.
+//  - Lets the wall be torn down with a welder on RIGHT-click once its rust has been burned off. LMB weld
+//    stays the torn_wall repair; RMB weld on a de-rusted wall dismantles it for nothing (0 sheets / no
+//    girder), matching the order the heretic uncreates their own walls.
 /datum/component/rust_construction_wall
 	dupe_mode = COMPONENT_DUPE_UNIQUE
 

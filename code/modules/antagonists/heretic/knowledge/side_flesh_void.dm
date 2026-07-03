@@ -6,7 +6,7 @@
 
 	tier1 = /datum/heretic_knowledge/void_cloak
 	tier2 = /datum/heretic_knowledge/spell/blood_siphon
-	// void_prison moved into the Void main line (TG-format knowledge_tier2); its knowledge now lives in void_lore.dm.
+	// void_prison moved into the Void main line (knowledge_tier2); its knowledge now lives in void_lore.dm.
 	tier3 = /datum/heretic_knowledge/spell/cleave
 
 // Sidepaths for knowledge between Flesh and Void.
@@ -19,8 +19,8 @@
 			Он также обеспечивает хорошую броню и \
 			имеет карманы, в которые можно положить один из ваших клинков или различные ритуальные \
 			принадлежности (например, органы) и небольшие еретические безделушки."
-	gain_text = "Сова — хранительница того, что на практике не совсем так, но теоретически таковым является. \
-				И многие вещи таковыми являются." // Wtf. In English its also too strange.
+	gain_text = "Сова - хранительница того, что на практике не совсем так, но теоретически таковым является. \
+				И многие вещи таковыми являются."
 
 	required_atoms = list(
 		/obj/item/shard = 1,
@@ -36,7 +36,7 @@
 
 /datum/heretic_knowledge/spell/blood_siphon
 	name = "Вампиризм"
-	desc = "Дарует вам «Вампиризм» — заклинание, высасывающее кровь и здоровье жертвы и передающее их вам. \
+	desc = "Дарует вам «Вампиризм», заклинание, высасывающее кровь и здоровье жертвы и передающее их вам. \
 			Также есть шанс передать раны от вас жертве."
 	gain_text = "«Все мы разные, но кровь у всех идет одинаково». Так мне сказал маршал."
 	research_tree_icon_path = 'icons/mob/actions/actions_ecult.dmi'
@@ -45,17 +45,16 @@
 	cost = 1
 
 
-// TG calls this knowledge "Crimson Cleave" (same gain_text); the port had named it "Расчленение".
 /datum/heretic_knowledge/spell/cleave
 	drafting_tier = 4
 	name = "Кровавое рассечение" // Crimson Cleave
-	desc = "Даёт вам «Кровавое рассечение» — направленное заклинание, вытягивающее здоровье \
+	desc = "Даёт вам «Кровавое рассечение», направленное заклинание, вытягивающее здоровье \
 			в небольшой области вокруг цели. При применении очищает все ваши раны."
 	gain_text = "Сначала я не понимал, как использовать эти орудия войны, но священник \
 				велел мне научиться. Скоро, сказал он, я овладею ими в совершенстве."
 	research_tree_icon_path = 'icons/mob/actions/actions_ecult.dmi'
-	research_tree_icon_state = "blood_siphon" // TG crimson_cleave uses the blood_siphon icon
+	research_tree_icon_state = "blood_siphon"
 	spell_to_add = /obj/effect/proc_holder/spell/pointed/cleave
-	cost = 2 // TG crimson_cleave cost
+	cost = 2
 
 

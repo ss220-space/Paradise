@@ -13,7 +13,7 @@
 	school = SCHOOL_FORBIDDEN
 	human_req = FALSE
 	clothes_req = FALSE
-	base_cooldown = 30 SECONDS // TG: Furious Steel has a 30s cooldown.
+	base_cooldown = 30 SECONDS
 	invocation = "Р'СТН СТ'ЛЬ!"
 
 	active_msg = "Вы призываете три серебрянных клинка."

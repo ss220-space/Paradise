@@ -74,8 +74,8 @@
 			caster.updatehealth()
 
 
-// Lower the cooldown for every victim drained, exactly like TG. Reads base_cooldown so the ascension's
-// base_cooldown *= 0.16 reduction is respected. Hard-floored so an ascended heretic can't spam it freely.
+// Lower the cooldown for every victim drained. Reads base_cooldown so the ascension's base_cooldown *= 0.16
+// reduction is respected. Hard-floored so an ascended heretic can't spam it freely.
 /obj/effect/proc_holder/spell/aoe/fiery_rebirth/after_cast(list/targets, mob/user)
 	. = ..()
 	if(!victims_counter)

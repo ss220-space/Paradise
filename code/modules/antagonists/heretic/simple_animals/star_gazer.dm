@@ -42,7 +42,7 @@
 	var/leash_range = 20
 	/// Timer for finding a ghost so it doesn't spam dead chat with requests
 	var/begging_timer
-	///---- Abilities given to the star gazer mob (tg's abilities_to_grant, on proc_holder rails)
+	/// Abilities given to the star gazer mob
 	var/list/abilities_to_grant = list(
 		/obj/effect/proc_holder/spell/aoe/conjure/cosmic_expansion,
 		/obj/effect/proc_holder/spell/pointed/projectile/star_blast,
@@ -69,7 +69,7 @@
 	for(var/spell_path in abilities_to_grant)
 		var/obj/effect/proc_holder/spell/spell = new spell_path(src)
 		AddSpell(spell)
-		// Never harm our master with our own magic (tg wires the same refs through its spell datums).
+		// Never harm our master with our own magic.
 		if(istype(spell, /obj/effect/proc_holder/spell/pointed/projectile/star_blast))
 			var/obj/effect/proc_holder/spell/pointed/projectile/star_blast/blast = spell
 			blast.summoner = summoner
@@ -112,8 +112,8 @@
 
 /mob/living/simple_animal/hostile/heretic_summon/star_gazer/proc/poll_for_gazer()
 	var/mob/living/master = summoner?.resolve()
-	// role = null + ignore_respawnability, like every other heretic-summon poll in the port: SPECIAL_ROLE_*
-	// is a mind label, not a be_special pref toggle - gating on it silently yields 0 candidates every time.
+	// role = null + ignore_respawnability: SPECIAL_ROLE_* is a mind label, not a be_special pref toggle -
+	// gating on it silently yields 0 candidates every time.
 	var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите стать [declent_ru(INSTRUMENTAL)] вознёсшегося еретика[master ? " [master.real_name]" : ""]?", null, FALSE, poll_time = 20 SECONDS, ignore_respawnability = TRUE, source = src)
 	if(!length(candidates) || client || QDELETED(src))
 		return
@@ -158,7 +158,7 @@
 		add_attack_logs(src, nearby_mob, "slashed (star gazer cleave)")
 
 
-// tg's /datum/action/cooldown/recall_stargazer on proc_holder rails: teleport to our master.
+// Teleports the star gazer back to its master.
 /obj/effect/proc_holder/spell/recall_stargazer
 	name = "Найти хозяина"
 	desc = "Телепортирует вас к вашему хозяину."
@@ -271,7 +271,7 @@
 	var/beam_timer = addtimer(CALLBACK(src, PROC_REF(open_laser), caster, beam_targets), 2.2 SECONDS, TIMER_STOPPABLE)
 	playsound(caster, 'sound/creatures/stargazer/beam_open.ogg', 50, FALSE)
 	if(!do_after(caster, 3 SECONDS, caster))
-		// Interrupted wind-up costs almost nothing (tg sets cooldown_time = 1 SECONDS for that cast).
+		// Interrupted wind-up costs almost nothing.
 		cooldown_handler.start_recharge(1 SECONDS)
 		deltimer(beam_timer)
 		UnregisterSignal(caster, list(COMSIG_MOVABLE_MOVED, COMSIG_ATOM_DIR_CHANGE))
@@ -369,7 +369,7 @@
 
 
 // Visual effect of the big orb when you start channeling the laser
-// NB: master220's /obj/effect/abstract base is INVISIBILITY_ABSTRACT (tg's is visible) -
+// NB: /obj/effect/abstract's base invisibility is INVISIBILITY_ABSTRACT -
 // every laser visual must unhide itself or the whole beam renders as nothing.
 /obj/effect/abstract/gazer_orb
 	icon = 'icons/effects/160x160.dmi'

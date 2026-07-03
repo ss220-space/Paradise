@@ -1,4 +1,4 @@
-// Given to ascended knock heretics, is a form of shapeshift that can turn into all 4 common heretic summons, and is not limited to 1 selection.
+// Given to ascended knock heretics; a form of shapeshift that can turn into all 4 common heretic summons, and is not limited to 1 selection.
 /obj/effect/proc_holder/spell/shapeshift/eldritch/ascension
 	name = "Высший полиморфизм"
 	desc = "Заклинание, позволяющее вам принять облик другого сверхъестественного \
@@ -16,12 +16,11 @@
 	)
 
 
-// TG presents the four forms in a radial menu showing each monster's sprite (its before_cast()), instead of
-// master220's base shapeshift text dropdown (tgui_input_list). We override cast() to replicate that flow 1:1:
-// revert if already shifted, otherwise pop the radial and shift into the picked form.
+// Shows a radial menu of the four forms (each slice showing that monster's sprite) instead
+// of a text dropdown. Revert if already shifted, otherwise pop the radial and shift into the picked form.
 /obj/effect/proc_holder/spell/shapeshift/eldritch/ascension/cast(list/targets, mob/user = usr)
 	for(var/mob/living/caster in targets)
-		// Already one of the forms -> revert (TG do_unshapeshift). The previous Restore cleared shapeshift_type,
+		// Already one of the forms -> revert. The previous Restore cleared shapeshift_type,
 		// so we never re-prompt for a form when reverting.
 		if(caster in current_shapes)
 			Restore(caster)
@@ -36,8 +35,7 @@
 		Shapeshift(caster)
 
 
-/// Builds a radial menu of possible_shapes - keyed by name, each slice showing that monster's on-map sprite -
-/// mirroring TG's /datum/action/cooldown/spell/shapeshift before_cast() radial selection.
+/// Builds a radial menu of possible_shapes, keyed by name, each slice showing that monster's on-map sprite.
 /obj/effect/proc_holder/spell/shapeshift/eldritch/ascension/proc/pick_eldritch_form(mob/living/caster)
 	var/list/shape_names_to_types = list()
 	var/list/shape_names_to_image = list()
@@ -58,7 +56,7 @@
 	return shape_names_to_types[picked]
 
 
-/// Radial keep-open check (TG's check_menu): bail if the caster can no longer act.
+/// Radial keep-open check: bail if the caster can no longer act.
 /obj/effect/proc_holder/spell/shapeshift/eldritch/ascension/proc/check_menu(mob/living/caster)
 	if(QDELETED(caster))
 		return FALSE
@@ -72,11 +70,11 @@
 
 	var/mob/living/simple_animal/monster = .
 
-	// TG 1:1 (same as the flesh worm): mind.transfer_to re-granted EVERY heretic spell to the monster,
-	// littering it with useless human-only spell buttons. Strip them off the form FIRST - they stay on the
-	// mind and come back on Restore. Done before the seethrough hookup below so that toggle (a real FORM
-	// ability TG keeps) is granted afterwards and survives. The monster keeps its own innate combat abilities
-	// (mob_spell_list, untouched) + this ascension toggle (skipped below) so it can shift again / revert.
+	// mind.transfer_to re-grants EVERY heretic spell to the monster, littering it with useless
+	// human-only spell buttons. Strip them off the form FIRST - they stay on the mind and come back
+	// on Restore. Done before the seethrough hookup below so that toggle is granted afterwards and
+	// survives. The monster keeps its own innate combat abilities (mob_spell_list, untouched) plus
+	// this ascension toggle (skipped below) so it can shift again / revert.
 	if(monster.mind)
 		for(var/obj/effect/proc_holder/spell/spell as anything in monster.mind.spell_list)
 			if(spell == src || !spell.action)
@@ -85,7 +83,7 @@
 		// Insurance: guarantee the revert toggle is on the form (the only way back to human shape).
 		src.action?.Grant(monster)
 
-	//buff our forms so this ascension ability isnt shit
+	// Buff the forms so this ascension ability isn't weak compared to the base monster.
 	playsound(caster, 'sound/magic/demon_consume.ogg', 50, TRUE)
 	monster.AddComponent(/datum/component/seethrough_mob) // adds the (kept) "Видеть сквозь себя" toggle
 	monster.maxHealth *= 1.5
@@ -101,8 +99,8 @@
 
 /obj/effect/proc_holder/spell/shapeshift/eldritch/ascension/Restore(mob/living/shape)
 	// Hold onto the human trapped inside the form so we can re-arm their spell buttons after the base transfer
-	// pulls them back out - mirroring the flesh worm fix. Without this the heretic returns to human form with
-	// NO spell buttons (transfer_mindbound_actions is supposed to re-grant them but doesn't reliably here).
+	// pulls them back out. Without this the heretic returns to human form with no spell buttons
+	// (transfer_mindbound_actions is supposed to re-grant them but doesn't reliably here).
 	var/mob/living/trapped_caster
 	// Belt-and-suspenders: base Restore() bails unless the shape is in current_shapes and the trapped caster is
 	// in current_casters. If those lists desynced we'd lose the mind transfer back AND every ability, which is
@@ -116,7 +114,7 @@
 			break
 
 	. = ..()
-	shapeshift_type = null //pick another loser
+	shapeshift_type = null
 
 	if(!QDELETED(trapped_caster) && trapped_caster.mind)
 		// The seethrough toggle is mob-bound now (lives on the discarded form), but scrub any stale copy that

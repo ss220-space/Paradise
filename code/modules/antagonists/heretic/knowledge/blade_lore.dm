@@ -8,9 +8,9 @@
 	complexity = "Сложный"
 	complexity_color = "#c93b3b"
 	path_description = list(
-		"Путь Клинка — именно то, что следует из названия.",
+		"Путь Клинка - именно то, что следует из названия.",
 		"Вы мастерски кромсаете противников в лоскуты.",
-		"Берите этот путь, если хотите драться — и хотите быть лучшим в драке.",
+		"Берите этот путь, если хотите драться и хотите быть лучшим в драке.",
 	)
 	path_pros = list(
 		"Способен блокировать входящие атаки и отвечать контрударом.",
@@ -27,20 +27,20 @@
 	path_tips = list(
 		"Ваше «Прикосновение Мансуса» оглушает противника, если ударить его со спины или пока он лежит. \
 		Метка запирает жертву в комнате; срабатывание метки дарует вращающийся нож, блокирующий одну атаку.",
-		"У вас самый высокий лимит клинков среди всех путей (до 4). Но они требуют серебра или титана — \
-		без работы шахтёров вы рискуете остаться без материалов. Стены и сиденья шаттла — источник титана, \
-		операционные столы — серебра.",
-		"Вы крайне зависимы от ближнего боя. Поскальзывания, бола и медвежьи капканы — ваши злейшие враги.",
+		"У вас самый высокий лимит клинков среди всех путей (до 4). Но они требуют серебра или титана, \
+		так что без работы шахтёров вы рискуете остаться без материалов. Стены и сиденья шаттла - источник титана, \
+		операционные столы - серебра.",
+		"Вы крайне зависимы от ближнего боя. Поскальзывания, бола и медвежьи капканы - ваши злейшие враги.",
 		"«Перестройка» вытащит вас из оглушений и сбиваний с ног, но на время пацифицирует.",
 		"С «Усиленными Клинками» вы бьёте сразу обеими руками и можете вкладывать в клинки силу Мансуса, \
 		активировав «Прикосновение». Клинки также сильнее крушат объекты, силиконов и мехов.",
 		"Хорошая атака рождает хорошую защиту: с вращающимися клинками вы блокируете больше входящих атак.",
 		"«Яростная сталь» создаёт несколько ножей для защиты, которые можно метать по щелчку пустой рукой.",
 		"Используйте «Волка среди овец» с осторожностью: помимо большого отката, он вооружает клинками и тех, \
-		кто заперт вместе с вами. Это последний рубеж обороны — или добивающий удар при явном преимуществе.",
+		кто заперт вместе с вами. Это последний рубеж обороны или добивающий удар при явном преимуществе.",
 	)
 	// "Танец Клинка" passive (see /datum/status_effect/heretic_passive/blade): the riposte, folded into the
-	// path's passive (tg parity, replacing the old standalone blade_dance node) and scaling as you grow.
+	// path's passive (replacing the old standalone blade_dance node) and scaling as you grow.
 	passive_name = "Танец Клинка"
 	passive_descriptions = list(
 		"Атакованный в ближнем бою с клинком Еретика в любой руке, вы наносите мгновенный бесплатный ответный удар атакующему. Срабатывает не чаще раза в 20 секунд.",
@@ -48,11 +48,10 @@
 		"Откат контратаки сокращён до 10 секунд.",
 	)
 
-	// TG-format column (1:1 with tgstation Blade). Main line:
-	// base_blade -> Realignment -> Stance of the Torn Champion -> Shattered Panoply(robes) ->
+	// Main line: base_blade -> Realignment -> Stance of the Torn Champion -> Shattered Panoply(robes) ->
 	// Furious Steel -> Empowered Blades -> Wolves Among Sheep -> ascension.
-	// The grasp (backstab stun), the blade mark and the riposte passive are all folded into base_blade
-	// (matching TG, no separate grasp/mark/dance nodes).
+	// The grasp (backstab stun), the blade mark and the riposte passive are all folded into base_blade,
+	// so there are no separate grasp/mark/dance nodes.
 	start = /datum/heretic_knowledge/limited_amount/starting/base_blade
 	knowledge_tier1 = /datum/heretic_knowledge/spell/realignment
 	knowledge_tier2 = /datum/heretic_knowledge/duel_stance
@@ -81,27 +80,25 @@
 	limit = 4 // It's the blade path, it's a given
 	research_tree_icon_path = 'icons/obj/weapons/khopesh.dmi'
 	research_tree_icon_state = "dark_blade"
-	// The blade mark and the riposte passive both live on the starting knowledge now (matching TG).
 	mark_type = /datum/status_effect/eldritch/blade
 	// "Танец Клинка" passive: the riposte, granted on picking the path and scaling with power.
 	passive_type = /datum/status_effect/heretic_passive/blade
 
 
-// Folded grasp (tg parity): the Mansus Grasp backstab-stuns a target hit from behind or while prone.
+/// Mansus Grasp backstab-stuns a target hit from behind or while prone.
 /datum/heretic_knowledge/limited_amount/starting/base_blade/on_mansus_grasp(mob/living/source, mob/living/target)
 	. = ..()
 	if(!check_behind(source, target))
 		return
 
-	// We're officially behind them, apply effects
 	target.AdjustParalysis(1.5 SECONDS)
 	target.apply_damage(10, BRUTE/*, wound_bonus = CANT_WOUND*/)
 	target.balloon_alert(source, "удар в спину!")
 	playsound(target, 'sound/weapons/guillotine.ogg', 100, TRUE)
 
 
-// Folded mark (tg parity): the blade mark locks the victim to their current area until it expires/triggers,
-// and triggering it (via a moon... blade hit) grants the heretic an orbiting protective blade.
+// The blade mark locks the victim to their current area until it expires/triggers,
+// and triggering it grants the heretic an orbiting protective blade.
 /datum/heretic_knowledge/limited_amount/starting/base_blade/create_mark(mob/living/source, mob/living/target)
 	var/datum/status_effect/eldritch/blade/blade_mark = ..()
 	if(!istype(blade_mark))
@@ -122,15 +119,15 @@
 
 
 /*
- * Stance of the Torn Champion (TG `duel_stance`). The Blade path's knowledge_tier2, ALSO offered to other
- * paths as a Tier-5 shop/draft side (drafting_tier 5, matching TG). master220 has no TG wound system, so the wound-resilience parts are
+ * Stance of the Torn Champion. The Blade path's knowledge_tier2, also offered to other
+ * paths as a Tier-5 shop/draft side. master220 has no wound system, so the wound-resilience parts are
  * dropped; kept the iconic immunity-to-dismemberment, plus the low-health (<50%) "duelist stance".
  *
- * IMPORTANT (matches TG): the duelist stance does NOT make you flat-out faster. It grants immunity to the
- * DAMAGE-induced slowdown (TG: add_movespeed_mod_immunities(damage_slowdown); here: TRAIT_IGNOREDAMAGESLOWDOWN,
- * which makes update_movespeed_damage_modifiers() drop /datum/movespeed_modifier/damage_slowdown[_flying]).
- * So while wounded below 50% you move at your NORMAL baseline pace instead of being slowed by your injuries -
- * you never exceed baseline. Driven off the Life tick (master220 has no COMSIG_LIVING_HEALTH_UPDATE).
+ * The duelist stance does NOT make you flat-out faster. It grants immunity to the damage-induced
+ * slowdown via TRAIT_IGNOREDAMAGESLOWDOWN, which makes update_movespeed_damage_modifiers() drop
+ * /datum/movespeed_modifier/damage_slowdown[_flying]. So while wounded below 50% you move at your
+ * normal baseline pace instead of being slowed by your injuries - you never exceed baseline.
+ * Driven off the Life tick (master220 has no COMSIG_LIVING_HEALTH_UPDATE).
  */
 /datum/heretic_knowledge/duel_stance
 	name = "Стойка Истерзанного Чемпиона"
@@ -181,7 +178,7 @@
 		ADD_TRAIT(source, TRAIT_IGNOREDAMAGESLOWDOWN, type)
 
 
-// Расколотая Эгида (Shattered Panoply) — Blade path robes. Inherits the armor base (table/suit + mask +
+// Расколотая Эгида (Shattered Panoply): Blade path robes. Inherits the armor base (table/suit + mask +
 // silver/titanium; cost 1). The robe grants shock immunity + baton resistance (see the item).
 /datum/heretic_knowledge/armor/blade
 	name = "Расколотая Эгида" // Shattered Panoply
@@ -191,9 +188,9 @@
 	gain_text = "Эхо бесцельной какофонии насилия отдаётся вокруг меня. Даже когда стальную эгиду Чемпиона \
 				сорвали с его тела, каждая её часть всё ещё жаждет цели, стремясь перехватить незримые удары."
 	result_atoms = list(/obj/item/clothing/suit/hooded/cultrobes/eldritch/blade)
-	// The blade robe sprite was inserted into the already-mapped armor.dmi (matches tg, which points this node
-	// at suits/armor.dmi "blade_armor"). The /armor parent asks for frame 12 (eldritch_armor is a 14-frame
-	// anim); blade_armor is single-frame, so override back to frame 1 or the node renders a blank PNG.
+	// The blade robe sprite was inserted into the already-mapped armor.dmi. The /armor parent asks for
+	// frame 12 (eldritch_armor is a 14-frame anim); blade_armor is single-frame, so override back to
+	// frame 1 or the node renders a blank PNG.
 	research_tree_icon_path = 'icons/obj/clothing/suits.dmi'
 	research_tree_icon_state = "blade_armor"
 	research_tree_icon_frame = 1
@@ -206,14 +203,14 @@
 
 /datum/heretic_knowledge/spell/realignment
 	name = "Перестройка"
-	desc = "Даёт вам «Перестройку» — заклинание, которое быстро перестраивает ваше тело на короткий промежуток времени. \
+	desc = "Даёт вам «Перестройку», заклинание, которое быстро перестраивает ваше тело на короткий промежуток времени. \
 			Во время этого процесса вы будете быстро восстанавливать выносливость и быстро восстанавливаться от оглушения, \
 			однако не сможете атаковать."
 	gain_text = "В круговерти смерти он обрёл внутренний покой. Несмотря на непреодолимые препятствия, он продолжал идти вперёд."
 	research_tree_icon_path = 'icons/hud/implants.dmi'
 	research_tree_icon_state = "adrenal"
 	spell_to_add = /obj/effect/proc_holder/spell/realignment
-	cost = 2 // TG: Realignment costs 2.
+	cost = 2
 
 
 /datum/heretic_knowledge/spell/wolves_among_sheep
@@ -228,9 +225,9 @@
 				разорвал все союзы. В этой истине я теперь знаю хрупкость товарищества. Мои враги падут."
 	research_tree_icon_path = 'icons/mob/actions/actions_ecult.dmi'
 	research_tree_icon_state = "among_sheep"
-	cost = 2 // TG: Wolves Among Sheep costs 2.
+	cost = 2
 	spell_to_add = /obj/effect/proc_holder/spell/wolves_among_sheep
-	is_final_knowledge = TRUE // TG's knowledge_tier4 / final pre-ascension power.
+	is_final_knowledge = TRUE
 
 
 /datum/heretic_knowledge/blade_upgrade/blade
@@ -252,9 +249,9 @@
 /datum/heretic_knowledge/blade_upgrade/blade/on_gain(mob/user, datum/antagonist/heretic/our_heretic)
 	. = ..()
 	RegisterSignal(user, COMSIG_TOUCH_HANDLESS_CAST, PROC_REF(on_grasp_cast))
-	// The "blades are stronger against structures/silicons/mechs" half of this knowledge (tg's demolition_mod)
-	// is handled directly on the blade (/obj/item/melee/sickly_blade/dark checks for THIS knowledge at swing
-	// time), since master220 never emits COMSIG_MOB_EQUIPPED_ITEM - so no equip-time signal is needed here.
+	// The "blades are stronger against structures/silicons/mechs" half of this knowledge is handled
+	// directly on the blade (/obj/item/melee/sickly_blade/dark checks for THIS knowledge at swing time),
+	// since master220 never emits COMSIG_MOB_EQUIPPED_ITEM, so no equip-time signal is needed here.
 	RegisterSignal(user, COMSIG_HERETIC_BLADE_ATTACK, PROC_REF(do_melee_effects), override = TRUE)
 
 
@@ -284,7 +281,7 @@
 		off_hand_blade.infused = TRUE
 		off_hand_blade.update_appearance(UPDATE_ICON)
 
-	// Refresh the in-hand sprites so the blade(s) visibly switch to their infused look (tg parity).
+	// Refresh the in-hand sprites so the blade(s) visibly switch to their infused look.
 	cast_on.update_held_items()
 
 	return COMPONENT_CAST_HANDLESS
@@ -298,8 +295,7 @@
 	if(QDELETED(off_hand) || !istype(off_hand, /obj/item/melee/sickly_blade))
 		return
 
-	// If our off-hand is the blade that's attacking,
-	// quit out now to avoid an infinite stab combo
+	// Avoid an infinite stab combo if our off-hand is the blade that's attacking
 	if(off_hand == blade)
 		return
 
@@ -311,34 +307,27 @@
 	if(QDELETED(source) || QDELETED(target) || QDELETED(blade))
 		return
 
-	// Sanity to ensure that the blade we're delivering an offhand attack with is ACTUALLY our offhand
 	if(blade != source.get_inactive_hand())
 		return
 
-	// And we easily could've moved away
 	if(!source.Adjacent(target))
 		return
 
-	// Check if we need to recaclulate our offhand force
-	// This is just so we don't run this block every attack, that's wasteful
+	// Skip recalculating offhand force unless the weapon actually changed
 	if(last_weapon_force == blade.force)
-		// Perform the offhand attack
 		blade.melee_attack_chain(source, target, null, list(FORCE_MODIFIER = -offand_force_decrement))
 		return
 
 	offand_force_decrement = 0
-	// We want to make sure that the offhand blade increases their hits to crit by one, just about
-	// So, let's do some quick math. Yes this'll be inaccurate if their mainhand blade is modified (whetstone), no I don't care
-	// Find how much force we need to detract from the second blade
+	// Roughly aim for the offhand blade to add one extra hit-to-crit vs the mainhand alone
 	var/hits_to_crit_on_average = ROUND_UP(100 / (blade.force * 2))
 	while(hits_to_crit_on_average <= 3) // 3 hits and beyond is a bit too absurd
-		if(offand_force_decrement + 2 > blade.force * 0.5) // But also cutting the force beyond half is absurd
+		if(offand_force_decrement + 2 > blade.force * 0.5) // Cutting the force beyond half is absurd too
 			break
 
 		offand_force_decrement += 2
 		hits_to_crit_on_average = ROUND_UP(100 / (blade.force * 2 - offand_force_decrement))
 
-	// Perform the offhand attack
 	blade.melee_attack_chain(source, target, null, list(FORCE_MODIFIER = -offand_force_decrement))
 
 /datum/heretic_knowledge/spell/furious_steel
@@ -353,7 +342,7 @@
 	research_tree_icon_path = 'icons/mob/actions/actions_ecult.dmi'
 	research_tree_icon_state = "furious_steel"
 	spell_to_add = /obj/effect/proc_holder/spell/pointed/projectile/furious_steel
-	cost = 2 // TG: Furious Steel costs 2.
+	cost = 2
 
 
 /datum/heretic_knowledge/ultimate/blade_final
@@ -364,20 +353,17 @@
 			Эти клинки защитят вас от всех атак, но расходуются при использовании. \
 			Ваше заклинание «Неистовая сталь» также будет перезаряжаться быстрее. \
 			Кроме того, вы становитесь мастером боя, получая полную невосприимчивость \
-			к переломам и любым кровотечениям — внутренним, артериальным и обычным, — \
+			к переломам и любым кровотечениям - внутренним, артериальным и обычным - \
 			а также способность игнорировать кратковременные оглушения. \
 			Ваши клинки наносят дополнительный урон и исцеляют вас при \
 			атаке на часть нанесенного урона."
 	gain_text = "Я достиг вершины боевого мастерства! МНЕ НЕТ РАВНЫХ! ДА НАГНЕТАЕТ МОИХ ВРАГОВ БУРЯ ИЗ СТАЛИ И СЕРЕБРА! СТАНЬТЕ СВИДЕТЕЛЯМИ МОЕГО ВОЗНЕСЕНИЯ!"
 
 	//ascension_achievement = /datum/award/achievement/misc/blade_ascension
-	// tg derives the ascension node's tree icon from its achievement medal sprite; we point straight at that
-	// same medal sheet (state "bladeascend") since the achievement system itself isn't ported.
 	research_tree_icon_path = 'icons/ui/achievements/achievements.dmi'
 	research_tree_icon_state = "bladeascend"
 	announcement_text = "%SPOOKY% Мастер Клинка, %NAME% вознесся! Сталь клинков рассечет реальность в серебрянном водовороте! %SPOOKY%"
 	announcement_sound = 'sound/music/heretic/ascend_blade.ogg'
-	// tg parity: the research-tree node wears the path's ascension achievement sprite.
 	research_tree_icon_path = 'icons/ui_icons/antags/heretic/ascension.dmi'
 	research_tree_icon_state = "bladeascend"
 
@@ -392,8 +378,8 @@
 
 /datum/heretic_knowledge/ultimate/blade_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	. = ..()
-	// tg grants TRAIT_NEVER_WOUNDED (full wound immunity). master220 has no wound system, but it DOES have
-	// fractures - so the master220 equivalent of "full wound immunity" is fracture immunity (TRAIT_IGNORE_FRACTURE).
+	// master220 has no wound system, but it does have fractures, so full wound immunity is
+	// approximated here as fracture immunity (TRAIT_IGNORE_FRACTURE).
 	if(ishuman(user))
 		var/mob/living/carbon/human/human_user = user
 		human_user.add_fracture_ignore_trait(type)
@@ -409,9 +395,9 @@
 	RegisterSignal(user, COMSIG_HERETIC_BLADE_ATTACK, PROC_REF(on_eldritch_blade))
 	// Plain external bleeding is the only kind with no prevention flag in master220 (only the over-broad
 	// TRAIT_NO_BLOOD, which makes the heretic literally bloodless). It can only accrue from brute hits, so we
-	// wipe it on the Life tick - but behind a cheap bleed_rate early-out, so idle ticks do effectively nothing.
+	// wipe it on the Life tick, behind a cheap bleed_rate early-out so idle ticks do effectively nothing.
 	RegisterSignal(user, COMSIG_LIVING_LIFE, PROC_REF(suppress_external_bleeding))
-	// Permanent, self-regenerating orbit of 8 protective blades; each consumed blade recharges after 60s (tg parity).
+	// Permanent, self-regenerating orbit of 8 protective blades; each consumed blade recharges after 60s.
 	user.apply_status_effect(/datum/status_effect/protective_blades/recharging, STATUS_EFFECT_PERMANENT, 8, 30, 0.25 SECONDS, /obj/effect/floating_blade, 60 SECONDS)
 	user.add_stun_absorption(
 		source = name,
@@ -427,8 +413,8 @@
 		delete_after_passing_max = FALSE,
 		recharge_time = 2 MINUTES,
 	)
-	// Halve the Furious Steel cooldown (tg). base_cooldown alone won't re-cut the live cooldown - the handler's
-	// recharge_duration was already seeded from it at init - so we halve both.
+	// base_cooldown alone won't re-cut the live cooldown - the handler's recharge_duration was already
+	// seeded from it at init - so we halve both.
 	var/obj/effect/proc_holder/spell/pointed/projectile/furious_steel/steel_spell = locate() in user.mob_spell_list
 	if(steel_spell)
 		steel_spell.base_cooldown /= 2
@@ -461,7 +447,7 @@
 	if(target == source)
 		return
 
-	// Turns your heretic blades into eswords, pretty much.
+	// Turns your heretic blades into eswords.
 	var/bonus_damage = clamp(30 - blade.force, 0, 12)
 
 	target.apply_damage(
@@ -474,7 +460,6 @@
 	)
 
 	if(target.stat != DEAD)
-		// And! Get some free healing for a portion of the bonus damage dealt.
 		source.heal_overall_damage(bonus_damage / 2, bonus_damage / 2)
 
 

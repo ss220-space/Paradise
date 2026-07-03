@@ -2,9 +2,8 @@
 	name = "страницы карты лабиринта"
 	desc = "Множество листов бумаги летающих в воздухе, отпугивающих язычников с невероятной силой."
 	gender = PLURAL
-	// The "lintel" state lives in eldritch.dmi - the base /obj/effect/forcefield inherits effects.dmi from
-	// /obj/effect, which has no "lintel" frame, so without this override the barrier renders completely
-	// invisible. (TG ships "lintel" inside its effects.dmi; this port keeps it in the heretic icon instead.)
+	// The base /obj/effect/forcefield inherits effects.dmi from /obj/effect, which has no "lintel" frame,
+	// so without this override the barrier renders completely invisible.
 	icon = 'icons/effects/eldritch.dmi'
 	icon_state = "lintel"
 	lifetime = 15 SECONDS
@@ -114,7 +113,7 @@
 	playsound(turf_target, 'sound/magic/smoke.ogg', 30)
 	new barrier_type(turf_target, user)
 	charges--
-	// The handbook is never consumed - each spent charge regenerates on its own timer (tg parity).
+	// The handbook is never consumed - each spent charge regenerates on its own timer.
 	charge_timers += addtimer(CALLBACK(src, PROC_REF(recharge)), charge_time, TIMER_STOPPABLE)
 	return ATTACK_CHAIN_SUCCESS
 

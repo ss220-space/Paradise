@@ -22,8 +22,7 @@
 
 	/// The time it takes to link to a mob.
 	var/link_time = 6 SECONDS
-	/// The mind_linker component that created us. On master220 proc_holder spells store the
-	/// linker here (tg actions kept it in `target`); `action.owner` is the CASTER mob, not the component.
+	/// The mind_linker component that created us. `action.owner` is the CASTER mob, not the component.
 	var/datum/component/mind_linker/linker
 
 
@@ -63,9 +62,7 @@
 		return . | SPELL_CANCEL_CAST
 
 
-/**
- * The actual process of linking [linkee] to our network.
- */
+/// Links linkee to our network.
 /obj/effect/proc_holder/spell/pointed/manse_link/proc/do_linking(mob/living/linkee)
 	var/mob/living/caster = action?.owner
 	if(QDELETED(linker) || QDELETED(caster))

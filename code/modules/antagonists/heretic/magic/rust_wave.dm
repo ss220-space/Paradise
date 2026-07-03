@@ -43,8 +43,8 @@
 	if(victim.can_block_magic(antimagic_flags) || IS_HERETIC_OR_MONSTER(victim) || victim == caster)
 		return
 
-	// Mirrors TG: forces them to attack each other (amok), briefly blinds (cloudstruck) and poisons (disgust).
-	// (Paradise's /datum/status_effect/amok already shows the rage message on apply, so no extra to_chat.)
+	// Forces them to attack each other (amok), briefly blinds (cloudstruck) and poisons (disgust).
+	// /datum/status_effect/amok already shows the rage message on apply, so no extra to_chat.
 	victim.apply_status_effect(/datum/status_effect/amok)
 	victim.apply_status_effect(/datum/status_effect/cloudstruck, 5 SECONDS)
 	victim.AdjustDisgust(100)
@@ -121,9 +121,8 @@
 	speed = 1
 
 
-// Honours ignored_factions (tg behaviour): the entropic plume must not hurt fellow heretics/minions.
-// master220 projectiles don't read ignored_factions natively, so we zero the hit in prehit
-// (same pattern as /obj/projectile/herald).
+// The entropic plume must not hurt fellow heretics/minions. Projectiles don't read ignored_factions
+// natively, so we zero the hit in prehit (same pattern as /obj/projectile/herald).
 /obj/projectile/magic/aoe/rust_wave/prehit(atom/target)
 	if(isliving(target))
 		var/mob/living/living_target = target

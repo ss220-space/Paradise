@@ -16,18 +16,18 @@
 	human_req = FALSE
 	clothes_req = FALSE
 	base_cooldown = 6 SECONDS
-	// TG's Realignment ramps its OWN cooldown each cast (the spell-levelling mechanic): every cast lengthens
+	// Realignment ramps its OWN cooldown each cast (the spell-levelling mechanic): every cast lengthens
 	// the cooldown by realign_cooldown_step up to realign_max_level steps (6s -> ... -> 60s), and each cast
-	// schedules a delevel that walks it back down after a while. master220's proc_holder spells have no
-	// built-in levelling, so we drive cooldown_handler.recharge_duration directly to reproduce it 1:1.
+	// schedules a delevel that walks it back down after a while. Since proc_holder spells have no built-in
+	// levelling, cooldown_handler.recharge_duration is driven directly to reproduce this.
 	invocation = "П'Р'СТР'ЙК"
 	invocation_type = INVOCATION_SHOUT
 	spell_requirements = NONE
 	/// Current ramp level (0 = base cooldown). Climbs with each cast, decays over time.
 	var/realign_level = 0
-	/// How many times the cooldown can ramp up (tg: spell_max_level 10).
+	/// How many times the cooldown can ramp up.
 	var/realign_max_level = 10
-	/// How much each ramp level adds to the cooldown (tg: -cooldown_reduction_per_rank = 6s).
+	/// How much each ramp level adds to the cooldown.
 	var/realign_cooldown_step = 6 SECONDS
 
 
@@ -44,7 +44,7 @@
 
 /obj/effect/proc_holder/spell/realignment/after_cast(list/targets, mob/user)
 	. = ..()
-	// Every cast ramps the cooldown up one level (for a while), matching tg's escalating Realignment cost.
+	// Every cast ramps the cooldown up one level (for a while), an escalating cost for repeated casts.
 	// start_recharge() already ran with the OLD duration in perform(), so this only affects future casts.
 	if(!level_realignment())
 		return
