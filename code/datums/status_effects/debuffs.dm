@@ -1049,6 +1049,7 @@
 	// Maybe this should be bad for server perfomance, but i dont test it on production server
 	for(var/mob/dead/observer/observe in owner.inventory_observers)
 		if(!observe.client)
+			observe.handle_when_autoobserve_move()
 			LAZYREMOVE(owner.inventory_observers, observe)
 			continue
 		game_plane_master_controller = observe.hud_used.plane_master_controllers[PLANE_MASTERS_GAME]
@@ -1070,6 +1071,7 @@
 	// Maybe this should be bad for server perfomance, but i dont test it on production server
 	for(var/mob/dead/observer/observe in owner.inventory_observers)
 		if(!observe.client)
+			observe.handle_when_autoobserve_move()
 			LAZYREMOVE(owner.inventory_observers, observe)
 			continue
 		game_plane_master_controller = observe.hud_used.plane_master_controllers[PLANE_MASTERS_GAME]

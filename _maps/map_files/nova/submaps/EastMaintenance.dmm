@@ -4,13 +4,13 @@
 /obj/effect/spawner/lootdrop/maintenance/tripple,
 /obj/structure/closet/crate,
 /turf/simulated/floor/plating,
-/area/crew_quarters/trading)
+/area/station/commons/trading)
 "al" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
 /turf/simulated/floor/carpet/black,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "am" = (
 /obj/structure/window/plasmareinforced{
 	color = "#22aab7";
@@ -24,7 +24,7 @@
 	pixel_y = 5
 	},
 /turf/simulated/floor/carpet/black,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "an" = (
 /obj/machinery/door/airlock/maintenance{
 	req_access = list(12)
@@ -33,14 +33,14 @@
 	dir = 4;
 	icon_state = "darkredcornersalt"
 	},
-/area/maintenance/starboard)
+/area/station/maintenance/starboard)
 "ao" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "as" = (
 /obj/structure/window/plasmareinforced{
 	color = "#22aab7";
@@ -53,19 +53,19 @@
 /obj/structure/table/glass,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/carpet/black,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "aA" = (
 /obj/item/clipboard,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/carpet/black,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "aC" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "aL" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
@@ -74,19 +74,19 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/maintenance/backstage)
+/area/station/maintenance/backstage)
 "aS" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/crew_quarters/trading)
+/area/station/commons/trading)
 "aV" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/grille/broken,
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "aZ" = (
 /obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
 	dir = 1
@@ -105,7 +105,7 @@
 	},
 /obj/machinery/space_heater,
 /turf/simulated/floor/plating,
-/area/maintenance/starboard)
+/area/station/maintenance/starboard)
 "bj" = (
 /obj/structure/rack,
 /obj/item/clothing/mask/fakemoustache,
@@ -114,11 +114,11 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
-/area/crew_quarters/trading)
+/area/station/commons/trading)
 "br" = (
 /obj/structure/flora/ausbushes/ywflowers,
 /turf/simulated/floor/indestructible/grass,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "bs" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/curtain/open/shower/security{
@@ -130,11 +130,11 @@
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating,
-/area/maintenance/backstage)
+/area/station/maintenance/backstage)
 "bv" = (
 /obj/effect/spawner/random_spawners/grille_13,
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "bw" = (
 /obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
 	dir = 1
@@ -151,7 +151,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
-/area/crew_quarters/trading)
+/area/station/commons/trading)
 "bF" = (
 /obj/structure/railing,
 /obj/effect/decal/cleanable/dirt,
@@ -160,7 +160,7 @@
 	dir = 1;
 	icon_state = "darkredaltstrip"
 	},
-/area/maintenance/starboard)
+/area/station/maintenance/starboard)
 "bK" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -178,7 +178,7 @@
 	dir = 1;
 	icon_state = "darkredcornersalt"
 	},
-/area/maintenance/starboard)
+/area/station/maintenance/starboard)
 "bN" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -190,7 +190,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
-/area/crew_quarters/trading)
+/area/station/commons/trading)
 "bO" = (
 /obj/structure/window/reinforced,
 /obj/structure/table/glass,
@@ -199,7 +199,7 @@
 	pixel_y = 4
 	},
 /turf/simulated/floor/carpet/royalblack,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "ca" = (
 /obj/structure/filingcabinet/chestdrawer,
 /obj/structure/noticeboard{
@@ -207,7 +207,7 @@
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "cf" = (
 /obj/structure/railing{
 	dir = 1
@@ -218,13 +218,13 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
 	},
-/area/maintenance/starboard)
+/area/station/maintenance/starboard)
 "co" = (
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "cp" = (
 /turf/simulated/floor/plating,
-/area/maintenance/backstage)
+/area/station/maintenance/backstage)
 "cA" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -236,15 +236,15 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "cF" = (
 /obj/structure/table_frame/wood,
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "cO" = (
 /obj/structure/grille/broken,
 /turf/simulated/floor/plating,
-/area/maintenance/starboard)
+/area/station/maintenance/starboard)
 "cP" = (
 /obj/item/paper,
 /obj/item/paper{
@@ -253,7 +253,7 @@
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/carpet/black,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "cY" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -261,12 +261,12 @@
 /obj/effect/decal/cleanable/dust,
 /obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating,
-/area/crew_quarters/trading)
+/area/station/commons/trading)
 "di" = (
 /obj/item/chair,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/carpet/black,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "dl" = (
 /obj/machinery/door/airlock/public{
 	name = "Meeting room"
@@ -284,7 +284,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "dm" = (
 /obj/structure/chair/sofa/corp/left{
 	dir = 8
@@ -295,18 +295,18 @@
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/alarm/directional/east,
 /turf/simulated/floor/plating,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "du" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/barricade/wooden,
 /turf/simulated/floor/plating,
-/area/crew_quarters/trading)
+/area/station/commons/trading)
 "dL" = (
 /obj/item/paper,
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "dM" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
@@ -321,7 +321,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
-/area/crew_quarters/trading)
+/area/station/commons/trading)
 "dV" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -335,7 +335,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "eg" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -343,7 +343,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "ek" = (
 /obj/machinery/door/airlock/maintenance,
 /obj/structure/cable{
@@ -352,7 +352,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "eo" = (
 /obj/structure/window/plasmareinforced{
 	color = "#22aab7";
@@ -362,13 +362,13 @@
 /obj/machinery/computer/library/public,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/carpet/black,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "er" = (
 /obj/machinery/light/small{
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "es" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -388,22 +388,22 @@
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-oak-broken3"
 	},
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "ey" = (
 /obj/effect/decal/cleanable/fungus,
 /turf/simulated/wall,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "eD" = (
 /obj/structure/chair/comfy/blue,
 /turf/simulated/floor/carpet/blue,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "eF" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/spiderling_remains,
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken"
 	},
-/area/maintenance/backstage)
+/area/station/maintenance/backstage)
 "eJ" = (
 /obj/structure/grille,
 /obj/structure/window/plasmareinforced{
@@ -411,7 +411,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/starboard)
+/area/station/maintenance/starboard)
 "eN" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -426,7 +426,7 @@
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-oak-broken6"
 	},
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "eV" = (
 /obj/effect/turf_decal/siding/blue/corner{
 	dir = 8
@@ -434,14 +434,14 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/carpet/black,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "eW" = (
 /obj/structure/sign/poster/official/pinup_b{
 	pixel_x = -32
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "fb" = (
 /obj/structure/railing,
 /obj/effect/decal/cleanable/dirt,
@@ -449,14 +449,14 @@
 	dir = 1;
 	icon_state = "darkredaltstrip"
 	},
-/area/maintenance/starboard)
+/area/station/maintenance/starboard)
 "fh" = (
 /obj/structure/window/reinforced{
 	dir = 4
 	},
 /obj/structure/filingcabinet/chestdrawer,
 /turf/simulated/floor/carpet/royalblack,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "fm" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
@@ -471,7 +471,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "fB" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -480,7 +480,7 @@
 	},
 /obj/structure/grille/broken,
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "fD" = (
 /obj/item/paper,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -492,7 +492,7 @@
 	dir = 8;
 	icon_state = "neutral"
 	},
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "fO" = (
 /obj/machinery/door/airlock/public{
 	name = "Break room"
@@ -501,7 +501,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/wood,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "fW" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/vending/autodrobe,
@@ -510,7 +510,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/wood,
-/area/maintenance/backstage)
+/area/station/maintenance/backstage)
 "gj" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -522,11 +522,11 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "gk" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/carpet/black,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "gl" = (
 /obj/effect/turf_decal/siding/blue,
 /obj/effect/decal/cleanable/dust,
@@ -535,17 +535,17 @@
 	pixel_y = -7
 	},
 /turf/simulated/floor/carpet/black,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "gD" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/spawner/random_spawners/cobweb_right_frequent,
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "gE" = (
 /obj/structure/sign/custodian,
 /turf/simulated/wall,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "gJ" = (
 /obj/structure/railing{
 	dir = 1
@@ -563,7 +563,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
 	},
-/area/maintenance/starboard)
+/area/station/maintenance/starboard)
 "gK" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -578,17 +578,17 @@
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "gQ" = (
 /obj/effect/turf_decal/siding/blue{
 	dir = 8
 	},
 /turf/simulated/floor/carpet/black,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "gT" = (
 /obj/item/grenade/clusterbuster/honk,
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "hd" = (
 /obj/structure/window/plasmareinforced{
 	color = "#22aab7";
@@ -602,14 +602,14 @@
 	pixel_y = -1
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "hk" = (
 /obj/structure/window/reinforced{
 	dir = 1
 	},
 /obj/structure/flora/ausbushes/ywflowers,
 /turf/simulated/floor/indestructible/grass,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "hl" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
@@ -621,7 +621,7 @@
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken3"
 	},
-/area/maintenance/backstage)
+/area/station/maintenance/backstage)
 "hn" = (
 /obj/structure/railing/corner{
 	dir = 1
@@ -634,14 +634,14 @@
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating,
-/area/maintenance/backstage)
+/area/station/maintenance/backstage)
 "hp" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
-/area/crew_quarters/trading)
+/area/station/commons/trading)
 "hr" = (
 /obj/structure/railing{
 	dir = 1
@@ -655,12 +655,12 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
 	},
-/area/maintenance/starboard)
+/area/station/maintenance/starboard)
 "ht" = (
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "hy" = (
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -677,7 +677,7 @@
 	dir = 8;
 	icon_state = "purplecorner"
 	},
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "hz" = (
 /obj/structure/window/plasmareinforced{
 	color = "#22aab7";
@@ -685,7 +685,7 @@
 	},
 /obj/structure/computerframe,
 /turf/simulated/floor/carpet/black,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "hH" = (
 /obj/structure/table/wood,
 /obj/item/lipstick,
@@ -698,7 +698,7 @@
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood,
-/area/maintenance/backstage)
+/area/station/maintenance/backstage)
 "hL" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
@@ -708,7 +708,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "hP" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
@@ -724,7 +724,7 @@
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "ic" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -736,14 +736,14 @@
 	pixel_x = -6
 	},
 /turf/simulated/floor/carpet/royalblack,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "ij" = (
 /obj/item/caution,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "purple"
 	},
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "im" = (
 /obj/structure/railing,
 /obj/effect/decal/cleanable/dirt,
@@ -760,7 +760,7 @@
 	dir = 1;
 	icon_state = "darkredaltstrip"
 	},
-/area/maintenance/starboard)
+/area/station/maintenance/starboard)
 "in" = (
 /obj/item/paper{
 	pixel_x = -5;
@@ -771,7 +771,7 @@
 	pixel_y = -9
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "io" = (
 /obj/effect/decal/cleanable/dust,
 /obj/item/clothing/shoes/galoshes,
@@ -779,7 +779,7 @@
 	dir = 1;
 	icon_state = "purple"
 	},
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "ip" = (
 /obj/machinery/door/airlock/maintenance{
 	req_access = list(22)
@@ -794,14 +794,14 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/starboard)
+/area/station/maintenance/starboard)
 "it" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/starboard)
+/area/station/maintenance/starboard)
 "iy" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
@@ -810,11 +810,11 @@
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken6"
 	},
-/area/maintenance/backstage)
+/area/station/maintenance/backstage)
 "iB" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/starboard)
+/area/station/maintenance/starboard)
 "iD" = (
 /obj/structure/bed,
 /obj/item/bedsheet/clown,
@@ -822,11 +822,11 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/maintenance/backstage)
+/area/station/maintenance/backstage)
 "iO" = (
 /obj/structure/girder,
 /turf/simulated/floor/plating,
-/area/maintenance/starboard)
+/area/station/maintenance/starboard)
 "iQ" = (
 /obj/effect/map_effect/marker/mapmanip/submap/extract/nova/EastMaintenance,
 /obj/effect/map_effect/marker_helper/submap_def/nova/EastMaintenance/offices,
@@ -837,14 +837,14 @@
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance/tripple,
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "iY" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/carpet/black,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "jb" = (
 /obj/structure/reagent_dispensers/water_cooler,
 /obj/machinery/light_construct{
@@ -852,7 +852,7 @@
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "jq" = (
 /obj/machinery/door/airlock/maintenance{
 	req_access = list(12)
@@ -861,13 +861,13 @@
 	dir = 8;
 	icon_state = "darkredcornersalt"
 	},
-/area/maintenance/starboard)
+/area/station/maintenance/starboard)
 "ju" = (
 /obj/structure/window/reinforced{
 	dir = 1
 	},
 /turf/simulated/floor/indestructible/grass,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "jA" = (
 /obj/structure/barricade/wooden,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -879,23 +879,23 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
-/area/crew_quarters/trading)
+/area/station/commons/trading)
 "jG" = (
 /obj/effect/decal/cleanable/dust,
 /obj/effect/spawner/lootdrop/spentcasing,
 /turf/simulated/floor/plating,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "jJ" = (
 /obj/structure/table/glass,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/carpet/blue,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "ka" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken5"
 	},
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "kb" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -903,7 +903,7 @@
 	},
 /obj/machinery/power/apc/directional/south,
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "kh" = (
 /obj/structure/table/glass,
 /obj/machinery/computer/library/public{
@@ -913,7 +913,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/carpet/royalblack,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "kx" = (
 /obj/structure/holosign/barrier,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -922,13 +922,13 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "kG" = (
 /obj/structure/sign/poster/official/random{
 	pixel_y = 32
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "kK" = (
 /obj/structure/window/plasmareinforced{
 	color = "#22aab7";
@@ -940,7 +940,7 @@
 /obj/structure/table_frame,
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/carpet/black,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "kO" = (
 /obj/structure/grille,
 /obj/structure/window/plasmareinforced{
@@ -951,11 +951,11 @@
 	color = "#d70000"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/starboard)
+/area/station/maintenance/starboard)
 "kT" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "la" = (
 /obj/structure/closet,
 /obj/item/clothing/under/color/random,
@@ -964,13 +964,13 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/crew_quarters/trading)
+/area/station/commons/trading)
 "lf" = (
 /obj/structure/chair/comfy/blue{
 	dir = 1
 	},
 /turf/simulated/floor/carpet/blue,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "lk" = (
 /obj/structure/window/plasmareinforced{
 	color = "#22aab7";
@@ -980,14 +980,14 @@
 /obj/item/trash/raisins,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/carpet/black,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "ln" = (
 /obj/structure/flora/grass/jungle,
 /turf/simulated/floor/indestructible/grass,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "lp" = (
 /turf/simulated/wall/rust,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "ly" = (
 /obj/structure/window/plasmareinforced{
 	color = "#22aab7";
@@ -998,7 +998,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
-/area/crew_quarters/trading)
+/area/station/commons/trading)
 "lC" = (
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -1011,12 +1011,12 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "lF" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/wood,
-/area/maintenance/backstage)
+/area/station/maintenance/backstage)
 "lK" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -1025,31 +1025,31 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "lQ" = (
 /obj/machinery/photocopier,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/carpet/royalblack,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "mc" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/poster/official/random{
 	pixel_x = -32
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "me" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "mi" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/tomato_smudge,
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken3"
 	},
-/area/maintenance/backstage)
+/area/station/maintenance/backstage)
 "mr" = (
 /obj/structure/sink{
 	dir = 8;
@@ -1062,11 +1062,11 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "tranquillite"
 	},
-/area/maintenance/backstage)
+/area/station/maintenance/backstage)
 "mE" = (
 /obj/structure/ladder,
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "mF" = (
 /obj/machinery/door/airlock/maintenance{
 	req_access = list(12)
@@ -1081,7 +1081,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "mH" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -1097,12 +1097,12 @@
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/starboard)
+/area/station/maintenance/starboard)
 "ni" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/spiderling_remains,
 /turf/simulated/floor/plating,
-/area/maintenance/backstage)
+/area/station/maintenance/backstage)
 "np" = (
 /obj/structure/window/plasmareinforced{
 	color = "#22aab7";
@@ -1111,19 +1111,19 @@
 /obj/structure/closet/crate/can,
 /obj/item/trash/semki,
 /turf/simulated/floor/carpet/black,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "nJ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random_spawners/blood_5,
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "nR" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/backstage)
+/area/station/maintenance/backstage)
 "op" = (
 /obj/machinery/door/airlock/maintenance{
 	req_access = list(12)
@@ -1134,14 +1134,14 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "ov" = (
 /obj/structure/window/reinforced{
 	dir = 1
 	},
 /obj/structure/flora/grass/jungle,
 /turf/simulated/floor/indestructible/grass,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "ow" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -1157,7 +1157,7 @@
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/starboard)
+/area/station/maintenance/starboard)
 "oA" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -1177,13 +1177,13 @@
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-oak"
 	},
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "oF" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random_spawners/grille_13,
 /obj/structure/cable,
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "oP" = (
 /obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
 	dir = 4
@@ -1192,14 +1192,14 @@
 	dir = 1
 	},
 /turf/simulated/wall,
-/area/maintenance/starboard)
+/area/station/maintenance/starboard)
 "oQ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack,
 /obj/item/wrench,
 /obj/item/tank/internals/emergency_oxygen/engi,
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "oY" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/grille/broken,
@@ -1210,7 +1210,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "pe" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -1218,7 +1218,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "pf" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
@@ -1232,7 +1232,7 @@
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken5"
 	},
-/area/maintenance/backstage)
+/area/station/maintenance/backstage)
 "pj" = (
 /obj/structure/window/plasmareinforced{
 	color = "#22aab7";
@@ -1243,18 +1243,18 @@
 	layer = 3.1
 	},
 /turf/simulated/floor/carpet/black,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "pl" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
 /turf/simulated/floor/carpet/royalblue,
-/area/blueshield)
+/area/station/command/office/blueshield)
 "pr" = (
 /obj/structure/chair,
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "pv" = (
 /obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
 	dir = 8
@@ -1269,7 +1269,7 @@
 /obj/effect/spawner/lootdrop/maintenance/double,
 /obj/structure/closet/crate,
 /turf/simulated/floor/plating,
-/area/maintenance/starboard)
+/area/station/maintenance/starboard)
 "pA" = (
 /obj/structure/railing{
 	dir = 1
@@ -1283,7 +1283,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
 	},
-/area/maintenance/starboard)
+/area/station/maintenance/starboard)
 "pF" = (
 /obj/machinery/door/airlock/maintenance{
 	req_access = list(22)
@@ -1298,7 +1298,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/starboard)
+/area/station/maintenance/starboard)
 "pP" = (
 /obj/structure/railing{
 	dir = 1
@@ -1308,7 +1308,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredaltstrip"
 	},
-/area/maintenance/starboard)
+/area/station/maintenance/starboard)
 "pR" = (
 /obj/effect/turf_decal/siding/blue{
 	dir = 4
@@ -1317,42 +1317,42 @@
 	pixel_x = -32
 	},
 /turf/simulated/floor/carpet/black,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "pU" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "pW" = (
 /obj/structure/chair/comfy/brown{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/carpet/black,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "qg" = (
 /obj/structure/window/reinforced{
 	dir = 4
 	},
 /turf/simulated/floor/indestructible/grass,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "qk" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating,
-/area/maintenance/starboard)
+/area/station/maintenance/starboard)
 "qo" = (
 /obj/structure/chair,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plating,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "qY" = (
 /obj/item/paper,
 /obj/effect/decal/cleanable/dust,
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plating,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "re" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -1367,7 +1367,7 @@
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/carpet/black,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "rq" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -1385,7 +1385,7 @@
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-oak"
 	},
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "rr" = (
 /obj/structure/chair/sofa/corp/right{
 	dir = 4
@@ -1399,7 +1399,7 @@
 	dir = 8;
 	icon_state = "neutral"
 	},
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "rt" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
@@ -1411,7 +1411,7 @@
 	dir = 9
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "ru" = (
 /obj/structure/table/reinforced,
 /obj/item/soap,
@@ -1419,13 +1419,13 @@
 	dir = 1;
 	icon_state = "purple"
 	},
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "rx" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken7"
 	},
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "rz" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/clown{
@@ -1434,7 +1434,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/maintenance/backstage)
+/area/station/maintenance/backstage)
 "rC" = (
 /obj/structure/holosign/barrier,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -1448,7 +1448,7 @@
 	dir = 8;
 	icon_state = "neutral"
 	},
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "rD" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/lootdrop/spentcasing,
@@ -1456,20 +1456,20 @@
 	dir = 8;
 	icon_state = "neutral"
 	},
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "rP" = (
 /obj/structure/chair{
 	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "rY" = (
 /obj/structure/sign/poster/official/pinup_a{
 	pixel_x = 32
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "sj" = (
 /obj/structure/railing{
 	dir = 1
@@ -1484,14 +1484,14 @@
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken7"
 	},
-/area/maintenance/backstage)
+/area/station/maintenance/backstage)
 "so" = (
 /obj/effect/turf_decal/siding/blue/corner{
 	dir = 4
 	},
 /obj/item/paicard,
 /turf/simulated/floor/carpet/black,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "ss" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -1504,20 +1504,20 @@
 	},
 /obj/effect/decal/cleanable/flour,
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "st" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/light_construct,
 /turf/simulated/floor/wood,
-/area/maintenance/backstage)
+/area/station/maintenance/backstage)
 "sx" = (
 /obj/structure/flora/ausbushes/ywflowers,
 /obj/machinery/light/small{
 	dir = 8
 	},
 /turf/simulated/floor/indestructible/grass,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "sA" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -1533,7 +1533,7 @@
 	pixel_y = 32
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "sQ" = (
 /obj/effect/map_effect/marker/mapmanip/submap/extract/nova/EastMaintenance,
 /turf/template_noop,
@@ -1551,7 +1551,7 @@
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/carpet/blue,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "sY" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -1559,35 +1559,35 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "tj" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutral"
 	},
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "tm" = (
 /obj/item/pen/fancy,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/carpet/black,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "tp" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/confetti,
 /obj/structure/cable,
 /turf/simulated/floor/plating,
-/area/maintenance/backstage)
+/area/station/maintenance/backstage)
 "tu" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "tA" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "tC" = (
 /obj/structure/railing{
 	dir = 1
@@ -1602,7 +1602,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
 	},
-/area/maintenance/starboard)
+/area/station/maintenance/starboard)
 "tF" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
@@ -1617,7 +1617,7 @@
 	pixel_y = 32
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "tG" = (
 /obj/structure/table/wood,
 /obj/item/toy/figure/clown{
@@ -1629,7 +1629,7 @@
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood,
-/area/maintenance/backstage)
+/area/station/maintenance/backstage)
 "tH" = (
 /obj/structure/window/plasmareinforced{
 	color = "#22aab7";
@@ -1637,7 +1637,7 @@
 	},
 /obj/structure/filingcabinet,
 /turf/simulated/floor/carpet/black,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "tN" = (
 /obj/structure/window/plasmareinforced{
 	color = "#22aab7"
@@ -1648,7 +1648,7 @@
 	pixel_y = 8
 	},
 /turf/simulated/floor/carpet/black,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "uh" = (
 /obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
 	dir = 6
@@ -1664,7 +1664,7 @@
 	dir = 1;
 	icon_state = "purple"
 	},
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "uo" = (
 /obj/structure/railing{
 	dir = 1
@@ -1680,13 +1680,13 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
 	},
-/area/maintenance/starboard)
+/area/station/maintenance/starboard)
 "uu" = (
 /obj/effect/decal/cleanable/flour,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
-/area/crew_quarters/trading)
+/area/station/commons/trading)
 "uB" = (
 /obj/machinery/door/airlock/maintenance{
 	req_access = list(12)
@@ -1695,7 +1695,7 @@
 	dir = 1;
 	icon_state = "darkredcornersalt"
 	},
-/area/maintenance/starboard)
+/area/station/maintenance/starboard)
 "uI" = (
 /obj/structure/railing,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -1712,10 +1712,10 @@
 	dir = 1;
 	icon_state = "darkredaltstrip"
 	},
-/area/maintenance/starboard)
+/area/station/maintenance/starboard)
 "uM" = (
 /turf/simulated/floor/carpet/royalblue,
-/area/blueshield)
+/area/station/command/office/blueshield)
 "uO" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -1728,17 +1728,17 @@
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "uR" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "uU" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-oak-broken"
 	},
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "vk" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -1748,11 +1748,11 @@
 	},
 /obj/structure/girder,
 /turf/simulated/floor/plating,
-/area/maintenance/starboard)
+/area/station/maintenance/starboard)
 "vm" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/carpet/royalblue,
-/area/blueshield)
+/area/station/command/office/blueshield)
 "vu" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -1765,7 +1765,7 @@
 	dir = 5
 	},
 /turf/simulated/floor/carpet/red,
-/area/maintenance/backstage)
+/area/station/maintenance/backstage)
 "vw" = (
 /obj/structure/railing{
 	dir = 1
@@ -1781,7 +1781,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
 	},
-/area/maintenance/starboard)
+/area/station/maintenance/starboard)
 "vA" = (
 /obj/structure/table_frame,
 /obj/effect/decal/cleanable/dust,
@@ -1792,21 +1792,21 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
-/area/crew_quarters/trading)
+/area/station/commons/trading)
 "vC" = (
 /obj/item/reagent_containers/glass/beaker/waterbottle,
 /obj/structure/holosign/barrier,
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "vQ" = (
 /obj/structure/window/reinforced{
 	dir = 4
 	},
 /obj/structure/flora/ausbushes/ywflowers,
 /turf/simulated/floor/indestructible/grass,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "vR" = (
 /obj/structure/window/plasmareinforced{
 	color = "#22aab7"
@@ -1817,7 +1817,7 @@
 	pixel_y = -1
 	},
 /turf/simulated/floor/carpet/black,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "vS" = (
 /obj/structure/railing,
 /obj/structure/cable{
@@ -1834,14 +1834,14 @@
 	dir = 1;
 	icon_state = "darkredaltstrip"
 	},
-/area/maintenance/starboard)
+/area/station/maintenance/starboard)
 "vT" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/starboard)
+/area/station/maintenance/starboard)
 "vU" = (
 /obj/structure/reagent_dispensers/water_cooler,
 /obj/machinery/light,
@@ -1849,7 +1849,7 @@
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-oak"
 	},
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "vX" = (
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
@@ -1866,7 +1866,7 @@
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "vZ" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8
@@ -1882,11 +1882,11 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "wb" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/carpet/red,
-/area/maintenance/backstage)
+/area/station/maintenance/backstage)
 "wc" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -1900,7 +1900,7 @@
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-oak"
 	},
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "wd" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/curtain/open/shower/security{
@@ -1910,7 +1910,7 @@
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood,
-/area/maintenance/backstage)
+/area/station/maintenance/backstage)
 "wk" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
@@ -1922,24 +1922,24 @@
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "wn" = (
 /obj/structure/window/reinforced,
 /obj/machinery/papershredder,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "ww" = (
 /obj/effect/spawner/random_spawners/wall_rusted_70,
 /turf/simulated/wall,
-/area/maintenance/backstage)
+/area/station/maintenance/backstage)
 "wE" = (
 /obj/structure/grille,
 /obj/structure/window/plasmareinforced{
 	color = "#d70000"
 	},
 /turf/space,
-/area/maintenance/starboard)
+/area/station/maintenance/starboard)
 "wH" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -1955,7 +1955,7 @@
 	pixel_y = 32
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "wO" = (
 /obj/structure/chair/sofa/left{
 	dir = 4;
@@ -1968,14 +1968,14 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light_construct,
 /turf/simulated/floor/wood,
-/area/maintenance/backstage)
+/area/station/maintenance/backstage)
 "wV" = (
 /obj/effect/turf_decal/siding/blue{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/carpet/black,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "wZ" = (
 /obj/structure/table_frame,
 /obj/effect/spawner/lootdrop{
@@ -1985,25 +1985,25 @@
 /obj/effect/decal/cleanable/glass,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "xh" = (
 /obj/structure/table/glass,
 /obj/item/flashlight/lamp/green,
 /turf/simulated/floor/carpet/blue,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "xp" = (
 /obj/effect/decal/cleanable/dust,
 /obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
-/area/crew_quarters/trading)
+/area/station/commons/trading)
 "xC" = (
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "xG" = (
 /obj/effect/decal/cleanable/dust,
 /obj/item/cartridge/janitor,
@@ -2014,7 +2014,7 @@
 /obj/item/storage/box/lights/mixed,
 /obj/structure/closet/jcloset,
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "xL" = (
 /obj/structure/reagent_dispensers/watertank/high,
 /obj/effect/decal/cleanable/dust,
@@ -2022,7 +2022,7 @@
 	dir = 10;
 	icon_state = "purple"
 	},
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "xN" = (
 /obj/structure/cable{
 	icon_state = "2-4"
@@ -2034,7 +2034,7 @@
 	dir = 6
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "xO" = (
 /obj/structure/window/reinforced,
 /obj/structure/table/glass,
@@ -2044,19 +2044,19 @@
 	pixel_y = 15
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "xR" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "xU" = (
 /obj/effect/spawner/random_spawners/grille_13,
 /obj/structure/cable,
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "yd" = (
 /obj/structure/sign/poster/official/random{
 	pixel_y = 32
@@ -2067,19 +2067,19 @@
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "yf" = (
 /obj/structure/chair/office/dark{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/carpet/royalblack,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "yg" = (
 /obj/structure/rack,
 /obj/item/clothing/mask/bandana/skull,
 /turf/simulated/floor/plating,
-/area/crew_quarters/trading)
+/area/station/commons/trading)
 "yk" = (
 /obj/item/paper_bin,
 /obj/item/paper{
@@ -2087,20 +2087,20 @@
 	pixel_y = 3
 	},
 /turf/simulated/floor/carpet/black,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "yl" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/confetti,
 /obj/effect/decal/cleanable/dust,
 /obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/wood,
-/area/maintenance/backstage)
+/area/station/maintenance/backstage)
 "yw" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "yA" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -2115,7 +2115,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
-/area/crew_quarters/trading)
+/area/station/commons/trading)
 "zg" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/closet/emcloset,
@@ -2124,12 +2124,12 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "zm" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/firecloset,
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "zr" = (
 /obj/effect/decal/cleanable/dust,
 /obj/effect/decal/cleanable/blood/tracks{
@@ -2140,7 +2140,7 @@
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-oak"
 	},
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "zv" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -2149,7 +2149,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "zw" = (
 /obj/structure/curtain/open/shower/security{
 	alpha = 255;
@@ -2160,7 +2160,7 @@
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating,
-/area/maintenance/backstage)
+/area/station/maintenance/backstage)
 "zy" = (
 /obj/machinery/door/airlock/maintenance{
 	req_access = list(12)
@@ -2175,7 +2175,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "zI" = (
 /obj/machinery/door/airlock,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -2188,7 +2188,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "zN" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -2206,7 +2206,7 @@
 	dir = 4;
 	icon_state = "darkredcornersalt"
 	},
-/area/maintenance/starboard)
+/area/station/maintenance/starboard)
 "zO" = (
 /obj/machinery/power/apc/worn_out/directional/east,
 /obj/structure/cable{
@@ -2214,7 +2214,7 @@
 	},
 /obj/item/trash/spentcasing,
 /turf/simulated/floor/carpet/black,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "zS" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/snacks/baguette,
@@ -2223,15 +2223,15 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "tranquillite"
 	},
-/area/maintenance/backstage)
+/area/station/maintenance/backstage)
 "Ac" = (
 /obj/machinery/vending/chinese,
 /turf/simulated/floor/plating,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "Ad" = (
 /obj/effect/turf_decal/siding/blue,
 /turf/simulated/floor/carpet/black,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "At" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -2244,7 +2244,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "Ax" = (
 /obj/structure/window/plasmareinforced{
 	color = "#22aab7";
@@ -2257,11 +2257,11 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
-/area/crew_quarters/trading)
+/area/station/commons/trading)
 "AA" = (
 /obj/machinery/vending/coffee,
 /turf/simulated/floor/plating,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "AN" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -2279,14 +2279,14 @@
 	dir = 6;
 	icon_state = "darkredcornersalt"
 	},
-/area/maintenance/starboard)
+/area/station/maintenance/starboard)
 "AR" = (
 /obj/machinery/vending/autodrobe,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
 	icon_state = "tranquillite"
 	},
-/area/crew_quarters/trading)
+/area/station/commons/trading)
 "AT" = (
 /obj/structure/railing{
 	dir = 1
@@ -2304,7 +2304,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
 	},
-/area/maintenance/starboard)
+/area/station/maintenance/starboard)
 "AZ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -2317,7 +2317,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/starboard)
+/area/station/maintenance/starboard)
 "Be" = (
 /obj/structure/railing{
 	dir = 1
@@ -2335,13 +2335,13 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredaltstrip"
 	},
-/area/maintenance/starboard)
+/area/station/maintenance/starboard)
 "Bh" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/maintenance/backstage)
+/area/station/maintenance/backstage)
 "Bj" = (
 /obj/structure/railing/corner{
 	dir = 4
@@ -2351,12 +2351,12 @@
 	},
 /obj/effect/decal/cleanable/egg_smudge,
 /turf/simulated/floor/wood,
-/area/maintenance/backstage)
+/area/station/maintenance/backstage)
 "Br" = (
 /obj/machinery/photocopier,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/carpet/black,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "Bs" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -2372,14 +2372,14 @@
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "Bt" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/poster/official/random{
 	pixel_y = 32
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "Bv" = (
 /obj/structure/window/plasmareinforced{
 	color = "#22aab7"
@@ -2387,7 +2387,7 @@
 /obj/structure/table/glass,
 /obj/item/flashlight/lamp,
 /turf/simulated/floor/plating,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "BL" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
@@ -2405,7 +2405,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "BM" = (
 /obj/effect/map_effect/marker/mapmanip/submap/extract/nova/EastMaintenance,
 /obj/effect/map_effect/marker_helper/submap_def/nova/EastMaintenance/janitor,
@@ -2430,7 +2430,7 @@
 	dir = 4;
 	icon_state = "neutral"
 	},
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "BT" = (
 /obj/structure/railing{
 	dir = 1
@@ -2439,7 +2439,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredaltstrip"
 	},
-/area/maintenance/starboard)
+/area/station/maintenance/starboard)
 "Cb" = (
 /obj/structure/table_frame,
 /obj/effect/decal/cleanable/glass,
@@ -2452,11 +2452,11 @@
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/carpet/black,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "Cm" = (
 /obj/machinery/light/small,
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "Co" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
@@ -2475,7 +2475,7 @@
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "Cp" = (
 /obj/structure/closet,
 /obj/item/stack/spacecash/c100,
@@ -2488,10 +2488,10 @@
 	dir = 1;
 	icon_state = "purple"
 	},
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "Cs" = (
 /turf/simulated/floor/plating,
-/area/maintenance/starboard)
+/area/station/maintenance/starboard)
 "Cw" = (
 /obj/structure/window/plasmareinforced{
 	color = "#22aab7";
@@ -2502,7 +2502,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
-/area/crew_quarters/trading)
+/area/station/commons/trading)
 "CA" = (
 /obj/structure/chair/comfy/blue{
 	dir = 1
@@ -2513,18 +2513,18 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/carpet/blue,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "CS" = (
 /obj/structure/table/reinforced,
 /obj/item/clothing/glasses/sunglasses,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "Db" = (
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance/double,
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "Dd" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -2533,7 +2533,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "Dg" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -2549,7 +2549,7 @@
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/starboard)
+/area/station/maintenance/starboard)
 "Dl" = (
 /obj/structure/table,
 /obj/machinery/kitchen_machine/microwave{
@@ -2559,7 +2559,7 @@
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken"
 	},
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "Dm" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -2574,7 +2574,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "purple"
 	},
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "Dn" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -2588,7 +2588,7 @@
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating,
-/area/crew_quarters/trading)
+/area/station/commons/trading)
 "Do" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -2604,20 +2604,20 @@
 	pixel_y = 32
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "Dy" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "purple"
 	},
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "DG" = (
 /obj/machinery/photocopier,
 /obj/structure/window/reinforced,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "DM" = (
 /obj/structure/window/plasmareinforced{
 	color = "#22aab7";
@@ -2626,14 +2626,14 @@
 /obj/structure/table/glass,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/carpet/black,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "DN" = (
 /obj/structure/filingcabinet/filingcabinet,
 /obj/structure/noticeboard{
 	pixel_y = 30
 	},
 /turf/simulated/floor/carpet/black,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "DT" = (
 /obj/structure/window/plasmareinforced{
 	color = "#22aab7";
@@ -2642,18 +2642,18 @@
 /obj/structure/rack,
 /obj/item/clothing/mask/gas/mime/sexy,
 /turf/simulated/floor/plating,
-/area/crew_quarters/trading)
+/area/station/commons/trading)
 "DV" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "purple"
 	},
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "DX" = (
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "Eb" = (
 /obj/structure/table/wood,
 /obj/item/storage/fancy/crayons{
@@ -2674,15 +2674,15 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/maintenance/backstage)
+/area/station/maintenance/backstage)
 "Ec" = (
 /obj/item/clothing/mask/gas/clown_hat/joker,
 /turf/simulated/floor/plating,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "El" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/crew_quarters/trading)
+/area/station/commons/trading)
 "Eq" = (
 /obj/structure/closet,
 /obj/effect/spawner/lootdrop{
@@ -2694,7 +2694,7 @@
 	},
 /obj/machinery/alarm/directional/west,
 /turf/simulated/floor/plating,
-/area/crew_quarters/trading)
+/area/station/commons/trading)
 "EP" = (
 /obj/effect/turf_decal/siding/blue/corner{
 	dir = 1
@@ -2702,17 +2702,17 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/carpet/black,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "ER" = (
 /obj/effect/decal/cleanable/dust,
 /obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "EU" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate/secure/loot,
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "EV" = (
 /obj/item/radio/intercom/directional/east,
 /obj/structure/bed,
@@ -2720,7 +2720,7 @@
 	name = "Blueshield's bedsheet."
 	},
 /turf/simulated/floor/carpet/royalblue,
-/area/blueshield)
+/area/station/command/office/blueshield)
 "Fb" = (
 /turf/template_noop,
 /area/template_noop)
@@ -2736,12 +2736,12 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "Fj" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "Fs" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -2752,10 +2752,10 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
-/area/crew_quarters/trading)
+/area/station/commons/trading)
 "Ft" = (
 /turf/simulated/wall,
-/area/maintenance/backstage)
+/area/station/maintenance/backstage)
 "Fv" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -2767,27 +2767,27 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "Fx" = (
 /obj/effect/spawner/random_spawners/wall_rusted_70,
 /turf/simulated/wall,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "Fz" = (
 /obj/structure/closet/firecloset,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "FA" = (
 /obj/machinery/vending/coffee,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "FD" = (
 /obj/structure/sign/poster/official/here_for_your_safety{
 	pixel_x = 32
 	},
 /turf/simulated/floor/carpet/royalblue,
-/area/blueshield)
+/area/station/command/office/blueshield)
 "FN" = (
 /obj/structure/sign/poster/official/random{
 	pixel_y = -32
@@ -2800,7 +2800,7 @@
 	dir = 5
 	},
 /turf/simulated/floor/carpet/royalblue,
-/area/blueshield)
+/area/station/command/office/blueshield)
 "FU" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -2810,7 +2810,7 @@
 	dir = 1;
 	icon_state = "purplecorner"
 	},
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "FX" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/effect/decal/cleanable/dust,
@@ -2821,7 +2821,7 @@
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-oak"
 	},
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "FY" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -2834,10 +2834,10 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "Ge" = (
 /turf/simulated/wall/rust,
-/area/maintenance/backstage)
+/area/station/maintenance/backstage)
 "Gj" = (
 /obj/structure/closet/wardrobe/black,
 /obj/structure/sign/poster/official/random{
@@ -2846,7 +2846,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
-/area/crew_quarters/trading)
+/area/station/commons/trading)
 "Gk" = (
 /obj/structure/rack{
 	dir = 1
@@ -2860,7 +2860,7 @@
 	dir = 9;
 	icon_state = "purple"
 	},
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "Gr" = (
 /obj/structure/table,
 /obj/item/trash/tastybread,
@@ -2869,19 +2869,19 @@
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "Gs" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "GA" = (
 /obj/structure/chair/comfy/black{
 	dir = 4
 	},
 /turf/simulated/floor/carpet/blue,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "GE" = (
 /obj/structure/window/plasmareinforced{
 	color = "#22aab7";
@@ -2890,7 +2890,7 @@
 /obj/machinery/computer/library/public,
 /obj/structure/table/glass,
 /turf/simulated/floor/carpet/black,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "GF" = (
 /obj/structure/rack{
 	dir = 1
@@ -2903,29 +2903,29 @@
 	dir = 5;
 	icon_state = "purple"
 	},
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "GK" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plasteel,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "GM" = (
 /obj/structure/janitorialcart,
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "GX" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
-/area/crew_quarters/trading)
+/area/station/commons/trading)
 "Hb" = (
 /obj/structure/reagent_dispensers/water_cooler,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutral"
 	},
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "Hc" = (
 /obj/item/paper{
 	pixel_x = -5;
@@ -2935,7 +2935,7 @@
 	layer = 3.1
 	},
 /turf/simulated/floor/carpet/royalblack,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "Hh" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -2948,7 +2948,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "Hi" = (
 /obj/structure/girder,
 /obj/structure/cable{
@@ -2961,7 +2961,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "Hn" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack{
@@ -2969,7 +2969,7 @@
 	},
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "Hq" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
@@ -2991,7 +2991,7 @@
 	pixel_x = -19
 	},
 /turf/simulated/floor/carpet/black,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "HK" = (
 /obj/structure/railing{
 	dir = 1
@@ -3009,7 +3009,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredaltstrip"
 	},
-/area/maintenance/starboard)
+/area/station/maintenance/starboard)
 "HU" = (
 /obj/structure/rack{
 	dir = 1
@@ -3022,14 +3022,14 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "HW" = (
 /obj/effect/decal/cleanable/flour,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "purple"
 	},
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "Ia" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -3037,12 +3037,12 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/starboard)
+/area/station/maintenance/starboard)
 "Ih" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/barricade/wooden,
 /turf/simulated/floor/plating,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "Ii" = (
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -3057,11 +3057,11 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "purple"
 	},
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "Im" = (
 /obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "Io" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/decal/cleanable/dirt,
@@ -3071,25 +3071,25 @@
 	},
 /obj/structure/grille/broken,
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "Iz" = (
 /obj/structure/table,
 /obj/item/clothing/head/sovietofficerhat,
 /turf/simulated/floor/plating,
-/area/crew_quarters/trading)
+/area/station/commons/trading)
 "IA" = (
 /obj/machinery/light_construct{
 	dir = 4
 	},
 /obj/effect/spawner/lootdrop/spentcasing/rifle,
 /turf/simulated/floor/carpet/black,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "IK" = (
 /obj/structure/closet/crate/can,
 /obj/effect/spawner/lootdrop/maintenance/double,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "IL" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -3101,7 +3101,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "IN" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -3116,7 +3116,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
-/area/crew_quarters/trading)
+/area/station/commons/trading)
 "IP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -3134,7 +3134,7 @@
 	dir = 8;
 	icon_state = "darkredcornersalt"
 	},
-/area/maintenance/starboard)
+/area/station/maintenance/starboard)
 "IS" = (
 /obj/structure/railing{
 	dir = 1
@@ -3146,7 +3146,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
 	},
-/area/maintenance/starboard)
+/area/station/maintenance/starboard)
 "IT" = (
 /obj/structure/safe/floor{
 	known_by = list("office")
@@ -3156,7 +3156,7 @@
 /obj/effect/decal/cleanable/dust,
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/carpet/black,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "IU" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -3169,7 +3169,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "IV" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
@@ -3181,7 +3181,7 @@
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "Ja" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -3190,7 +3190,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "Jc" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -3200,7 +3200,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/lootdrop/spentcasing,
 /turf/simulated/floor/plasteel,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "Jk" = (
 /obj/item/caution,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -3215,7 +3215,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "purplecorner"
 	},
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "Jn" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/light_construct{
@@ -3225,11 +3225,11 @@
 	dir = 4;
 	icon_state = "neutral"
 	},
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "Jp" = (
 /obj/item/clothing/mask/gas/clown_hat/rockso,
 /turf/simulated/floor/plating,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "Jy" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
@@ -3245,7 +3245,7 @@
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/starboard)
+/area/station/maintenance/starboard)
 "JC" = (
 /obj/structure/sink{
 	dir = 8;
@@ -3259,17 +3259,17 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
-/area/maintenance/backstage)
+/area/station/maintenance/backstage)
 "JH" = (
 /obj/structure/girder,
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "JL" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/spawner/random_spawners/cobweb_left_frequent,
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "JN" = (
 /obj/structure/window/plasmareinforced{
 	color = "#22aab7";
@@ -3278,7 +3278,7 @@
 /obj/structure/table/glass,
 /obj/item/flashlight/lamp/green,
 /turf/simulated/floor/carpet/black,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "JU" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -3294,7 +3294,7 @@
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "JW" = (
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -3304,7 +3304,7 @@
 	dir = 4;
 	icon_state = "purplecorner"
 	},
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "Ke" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -3318,16 +3318,16 @@
 	},
 /obj/effect/spawner/random_spawners/blood_5,
 /turf/simulated/floor/plating,
-/area/maintenance/starboard)
+/area/station/maintenance/starboard)
 "Kg" = (
 /obj/machinery/vending/clothesmate,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating,
-/area/crew_quarters/trading)
+/area/station/commons/trading)
 "Ky" = (
 /obj/structure/grille/broken,
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "Kz" = (
 /obj/structure/table,
 /obj/item/folder/red{
@@ -3347,7 +3347,7 @@
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/carpet/black,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "KB" = (
 /obj/structure/table/glass,
 /obj/item/paper_bin,
@@ -3355,11 +3355,11 @@
 	pixel_x = 3
 	},
 /turf/simulated/floor/carpet/blue,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "KM" = (
 /obj/structure/dresser,
 /turf/simulated/floor/carpet/royalblue,
-/area/blueshield)
+/area/station/command/office/blueshield)
 "KW" = (
 /obj/structure/closet/secure_closet/blueshield,
 /obj/item/taperecorder,
@@ -3369,13 +3369,13 @@
 	},
 /obj/item/shield/riot/tele,
 /turf/simulated/floor/carpet/royalblue,
-/area/blueshield)
+/area/station/command/office/blueshield)
 "Ll" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet,
 /obj/effect/spawner/lootdrop/maintenance/double,
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "Ls" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/girder,
@@ -3384,11 +3384,11 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "Lv" = (
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/carpet/black,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "LD" = (
 /obj/machinery/door/airlock/multi_tile/glass{
 	name = "Old clothing store"
@@ -3398,7 +3398,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
-/area/crew_quarters/trading)
+/area/station/commons/trading)
 "LM" = (
 /obj/structure/closet/wardrobe/mixed,
 /obj/effect/decal/cleanable/dust,
@@ -3406,18 +3406,18 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
-/area/crew_quarters/trading)
+/area/station/commons/trading)
 "LR" = (
 /obj/effect/spawner/random_spawners/blood_5,
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "LV" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
 /obj/machinery/light_switch/directional/east,
 /turf/simulated/floor/wood,
-/area/maintenance/backstage)
+/area/station/maintenance/backstage)
 "LY" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -3429,16 +3429,16 @@
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "Md" = (
 /obj/structure/grille/broken,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "Mk" = (
 /obj/item/flag/clown,
 /turf/simulated/floor/plating,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "Mp" = (
 /obj/machinery/door/airlock/maintenance{
 	req_access = list(12)
@@ -3456,18 +3456,18 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/starboard)
+/area/station/maintenance/starboard)
 "Mt" = (
 /obj/structure/chair/office/dark{
 	dir = 4
 	},
 /turf/simulated/floor/carpet/black,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "MC" = (
 /obj/item/storage/secure/briefcase,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/carpet/black,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "MP" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
@@ -3482,39 +3482,39 @@
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "MV" = (
 /obj/structure/flora/rock/jungle,
 /obj/machinery/light/small,
 /turf/simulated/floor/indestructible/grass,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "Ng" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small,
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "Ni" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/lootdrop/spentcasing/pistol,
 /turf/simulated/floor/plasteel/dark,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "Nj" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate,
 /obj/effect/spawner/random_spawners/cobweb_right_frequent,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "Nw" = (
 /obj/structure/table/wood,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken6"
 	},
-/area/maintenance/backstage)
+/area/station/maintenance/backstage)
 "Nx" = (
 /turf/simulated/wall/r_wall,
-/area/blueshield)
+/area/station/command/office/blueshield)
 "Ny" = (
 /obj/structure/chair{
 	dir = 1
@@ -3523,22 +3523,22 @@
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken6"
 	},
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "NF" = (
 /obj/effect/turf_decal/siding/blue/corner,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/carpet/black,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "NG" = (
 /turf/simulated/wall,
-/area/chapel/office)
+/area/station/service/chapel/office)
 "NI" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/crayon,
 /turf/simulated/floor/plasteel{
 	icon_state = "tranquillite"
 	},
-/area/maintenance/backstage)
+/area/station/maintenance/backstage)
 "NL" = (
 /obj/structure/table/glass,
 /obj/item/reagent_containers/food/drinks/bottle/vodka/badminka{
@@ -3554,7 +3554,7 @@
 	pixel_y = 2
 	},
 /turf/simulated/floor/carpet/blue,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "NP" = (
 /obj/structure/chair/sofa/corp/right{
 	dir = 8
@@ -3563,12 +3563,12 @@
 	dir = 4;
 	icon_state = "neutral"
 	},
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "NV" = (
 /obj/item/pen/multi/fountain,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/carpet/black,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "NY" = (
 /obj/effect/spawner/lootdrop{
 	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
@@ -3576,12 +3576,12 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "Ob" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "Og" = (
 /obj/effect/decal/cleanable/glass,
 /obj/item/shard{
@@ -3592,30 +3592,30 @@
 	dir = 8;
 	icon_state = "neutral"
 	},
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "Oi" = (
 /obj/structure/grille,
 /obj/structure/railing{
 	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "Oo" = (
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
-/area/maintenance/starboard)
+/area/station/maintenance/starboard)
 "Ov" = (
 /obj/effect/spawner/random_spawners/oil_20,
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "Oy" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "purple"
 	},
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "OA" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
@@ -3623,7 +3623,7 @@
 	},
 /obj/structure/grille/broken,
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "OF" = (
 /obj/effect/turf_decal/siding/blue{
 	dir = 1
@@ -3634,7 +3634,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/carpet/black,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "ON" = (
 /obj/effect/turf_decal/siding/blue{
 	dir = 4
@@ -3644,26 +3644,26 @@
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/carpet/black,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "OV" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
 	},
 /turf/simulated/floor/carpet/royalblue,
-/area/blueshield)
+/area/station/command/office/blueshield)
 "OY" = (
 /obj/effect/decal/cleanable/blood/drip{
 	pixel_y = 19
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "Ph" = (
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/light/small{
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "Pi" = (
 /obj/structure/window/plasmareinforced{
 	color = "#22aab7";
@@ -3675,18 +3675,18 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
-/area/crew_quarters/trading)
+/area/station/commons/trading)
 "Pr" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "PG" = (
 /obj/effect/decal/cleanable/dust,
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
 /turf/simulated/floor/carpet/black,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "PK" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -3696,7 +3696,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "PO" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
@@ -3709,10 +3709,10 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "PQ" = (
 /turf/simulated/wall,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "PR" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -3729,11 +3729,11 @@
 	},
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/carpet/black,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "PU" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating,
-/area/crew_quarters/trading)
+/area/station/commons/trading)
 "PW" = (
 /obj/structure/bed,
 /obj/item/bedsheet/mime,
@@ -3744,17 +3744,17 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "tranquillite"
 	},
-/area/maintenance/backstage)
+/area/station/maintenance/backstage)
 "PY" = (
 /obj/machinery/door/airlock/maintenance,
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "Qh" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/structure/closet/crate,
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "Ql" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -3766,7 +3766,7 @@
 /obj/structure/grille,
 /obj/structure/barricade/wooden,
 /turf/simulated/floor/plating,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "Qm" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
@@ -3782,7 +3782,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "Qp" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
@@ -3797,22 +3797,22 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "Qz" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/barricade/wooden,
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "QB" = (
 /turf/simulated/wall/rust,
-/area/maintenance/starboard)
+/area/station/maintenance/starboard)
 "QE" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "rampbottom"
 	},
-/area/maintenance/backstage)
+/area/station/maintenance/backstage)
 "QR" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /obj/effect/decal/cleanable/dirt,
@@ -3820,13 +3820,13 @@
 	dir = 8;
 	icon_state = "neutral"
 	},
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "QW" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
 /turf/simulated/floor/carpet/royalblue,
-/area/blueshield)
+/area/station/command/office/blueshield)
 "Rn" = (
 /obj/structure/window/plasmareinforced{
 	color = "#22aab7";
@@ -3840,7 +3840,7 @@
 /obj/item/paper_bin,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/carpet/black,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "Rr" = (
 /obj/structure/window/plasmareinforced{
 	color = "#22aab7";
@@ -3849,13 +3849,13 @@
 /obj/machinery/papershredder,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "RA" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
-/area/crew_quarters/trading)
+/area/station/commons/trading)
 "RB" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -3865,30 +3865,30 @@
 	},
 /obj/structure/grille/broken,
 /turf/simulated/floor/plating,
-/area/maintenance/starboard)
+/area/station/maintenance/starboard)
 "RC" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "RD" = (
 /obj/structure/filingcabinet/filingcabinet,
 /turf/simulated/floor/carpet/black,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "RG" = (
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/machinery/power/apc/worn_out/directional/south,
 /obj/structure/cable,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/crew_quarters/trading)
+/area/station/commons/trading)
 "RO" = (
 /obj/structure/closet/firecloset,
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "Sc" = (
 /obj/effect/decal/cleanable/fungus,
 /turf/simulated/wall,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "Sf" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -3901,17 +3901,17 @@
 	},
 /obj/structure/girder,
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "Sh" = (
 /obj/item/toy/crayon/rainbow,
 /turf/simulated/floor/plating,
-/area/maintenance/backstage)
+/area/station/maintenance/backstage)
 "Si" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/machinery/light/small,
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "So" = (
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/structure/sign/poster/contraband/pinup_syn{
@@ -3919,13 +3919,13 @@
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "Sr" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
 	icon_state = "purple"
 	},
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "Su" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/poster/official/nanotrasen_logo{
@@ -3935,17 +3935,17 @@
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/light/small,
 /turf/simulated/floor/plating,
-/area/maintenance/backstage)
+/area/station/maintenance/backstage)
 "Sx" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
-/area/crew_quarters/trading)
+/area/station/commons/trading)
 "Sz" = (
 /turf/simulated/wall,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "SM" = (
 /obj/structure/railing{
 	dir = 9
@@ -3958,15 +3958,15 @@
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken"
 	},
-/area/maintenance/backstage)
+/area/station/maintenance/backstage)
 "SN" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/space_heater,
 /turf/simulated/floor/plating,
-/area/maintenance/starboard)
+/area/station/maintenance/starboard)
 "SU" = (
 /turf/simulated/wall,
-/area/crew_quarters/trading)
+/area/station/commons/trading)
 "Tb" = (
 /obj/structure/railing{
 	dir = 1
@@ -3986,13 +3986,13 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
 	},
-/area/maintenance/starboard)
+/area/station/maintenance/starboard)
 "Th" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "tranquillite"
 	},
-/area/crew_quarters/trading)
+/area/station/commons/trading)
 "Tr" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -4005,7 +4005,7 @@
 	dir = 10
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "Tt" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -4018,13 +4018,13 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "Tx" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
 	},
 /turf/simulated/floor/carpet/red,
-/area/maintenance/backstage)
+/area/station/maintenance/backstage)
 "TE" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -4033,22 +4033,22 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/starboard)
+/area/station/maintenance/starboard)
 "TN" = (
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "TR" = (
 /obj/effect/turf_decal/siding/thinplating/dark,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "TV" = (
 /obj/machinery/light/small{
 	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "TZ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/poster/official/nanotrasen_logo{
@@ -4060,7 +4060,7 @@
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/light/small,
 /turf/simulated/floor/wood,
-/area/maintenance/backstage)
+/area/station/maintenance/backstage)
 "Uf" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
@@ -4087,7 +4087,7 @@
 	pixel_y = -16
 	},
 /turf/simulated/floor/carpet/black,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "Uo" = (
 /obj/structure/window/plasmareinforced{
 	color = "#22aab7";
@@ -4096,17 +4096,17 @@
 /obj/structure/table/glass,
 /obj/effect/spawner/lootdrop/officetoys,
 /turf/simulated/floor/carpet/black,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "Uu" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/girder,
 /turf/simulated/floor/plating,
-/area/maintenance/starboard)
+/area/station/maintenance/starboard)
 "Uy" = (
 /obj/machinery/door/airlock/maintenance_hatch,
 /obj/structure/barricade/wooden,
 /turf/simulated/floor/plating,
-/area/maintenance/backstage)
+/area/station/maintenance/backstage)
 "UG" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -4121,7 +4121,7 @@
 	req_access = list(12)
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "UH" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
@@ -4133,12 +4133,12 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "UJ" = (
 /obj/structure/table/glass,
 /obj/item/folder/red,
 /turf/simulated/floor/carpet/blue,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "UR" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -4163,14 +4163,14 @@
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-oak"
 	},
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "UT" = (
 /obj/effect/decal/cleanable/dust,
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken3"
 	},
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "Vi" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
@@ -4178,7 +4178,7 @@
 /obj/effect/landmark/start/blueshield,
 /obj/machinery/light,
 /turf/simulated/floor/carpet/royalblue,
-/area/blueshield)
+/area/station/command/office/blueshield)
 "Vl" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -4195,7 +4195,7 @@
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "Vp" = (
 /obj/structure/table,
 /obj/item/paper_bin{
@@ -4205,7 +4205,7 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "Vs" = (
 /obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
 	dir = 4
@@ -4224,7 +4224,7 @@
 /obj/item/clothing/mask/cigarette/cigar/cohiba,
 /obj/item/toy/russian_revolver,
 /turf/simulated/floor/carpet/royalblue,
-/area/blueshield)
+/area/station/command/office/blueshield)
 "VN" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -4240,7 +4240,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "VP" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -4252,7 +4252,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/starboard)
+/area/station/maintenance/starboard)
 "VZ" = (
 /obj/machinery/door/airlock/multi_tile/glass{
 	name = "Offices"
@@ -4266,7 +4266,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "Wa" = (
 /obj/structure/window/plasmareinforced{
 	color = "#22aab7";
@@ -4279,7 +4279,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
-/area/crew_quarters/trading)
+/area/station/commons/trading)
 "Wg" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -4290,7 +4290,7 @@
 /obj/structure/grille,
 /obj/structure/cable,
 /turf/simulated/floor/plating,
-/area/maintenance/starboard)
+/area/station/maintenance/starboard)
 "Wl" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8
@@ -4305,7 +4305,7 @@
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "Wp" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -4314,7 +4314,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "Wr" = (
 /obj/structure/rack{
 	dir = 1
@@ -4328,21 +4328,21 @@
 	dir = 1;
 	icon_state = "purple"
 	},
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "Wz" = (
 /obj/machinery/door/airlock/public/glass,
 /turf/simulated/floor/plating,
-/area/crew_quarters/trading)
+/area/station/commons/trading)
 "WA" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/item/storage/pill_bottle/random_drug_bottle,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/carpet/black,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "WC" = (
 /obj/structure/sign/poster/contraband/random,
 /turf/simulated/wall,
-/area/maintenance/starboard)
+/area/station/maintenance/starboard)
 "WD" = (
 /obj/machinery/door/airlock/maintenance{
 	req_access = list(12)
@@ -4351,12 +4351,12 @@
 	dir = 6;
 	icon_state = "darkredcornersalt"
 	},
-/area/maintenance/starboard)
+/area/station/maintenance/starboard)
 "WF" = (
 /obj/effect/turf_decal/siding/blue,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/carpet/black,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "WV" = (
 /obj/structure/railing{
 	dir = 1
@@ -4375,21 +4375,21 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
 	},
-/area/maintenance/starboard)
+/area/station/maintenance/starboard)
 "Xa" = (
 /obj/effect/turf_decal/siding/blue{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/carpet/black,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "Xb" = (
 /obj/structure/chair/sofa/corp/left{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "Xd" = (
 /obj/structure/table/glass,
 /obj/item/paper/safe_code{
@@ -4400,10 +4400,10 @@
 	pixel_y = -1
 	},
 /turf/simulated/floor/carpet/blue,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "Xf" = (
 /turf/simulated/wall,
-/area/maintenance/starboard)
+/area/station/maintenance/starboard)
 "Xh" = (
 /obj/effect/map_effect/marker_helper/mapmanip/submap/edge{
 	dir = 1
@@ -4412,7 +4412,7 @@
 	dir = 4
 	},
 /turf/simulated/wall,
-/area/maintenance/starboard)
+/area/station/maintenance/starboard)
 "Xk" = (
 /obj/structure/railing{
 	dir = 5
@@ -4422,7 +4422,7 @@
 	},
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/wood,
-/area/maintenance/backstage)
+/area/station/maintenance/backstage)
 "Xt" = (
 /obj/structure/railing{
 	dir = 1
@@ -4437,10 +4437,10 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
 	},
-/area/maintenance/starboard)
+/area/station/maintenance/starboard)
 "Xw" = (
 /turf/simulated/wall,
-/area/chapel/main)
+/area/station/service/chapel)
 "Xy" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -4450,13 +4450,13 @@
 	},
 /obj/structure/flora/grass/jungle,
 /turf/simulated/floor/indestructible/grass,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "XE" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-oak-broken7"
 	},
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "XM" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
@@ -4469,24 +4469,24 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/starboard)
+/area/station/maintenance/starboard)
 "XQ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "XW" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plating,
-/area/maintenance/starboard)
+/area/station/maintenance/starboard)
 "XY" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/structure/rack,
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "Yc" = (
 /obj/structure/closet/l3closet/janitor,
 /obj/effect/spawner/lootdrop{
@@ -4496,19 +4496,19 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "purplefull"
 	},
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "Yi" = (
 /obj/effect/turf_decal/siding/thinplating/dark,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "Yk" = (
 /obj/structure/flora/grass/jungle,
 /obj/structure/flora/ausbushes/reedbush,
 /turf/simulated/floor/indestructible/grass,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "Yn" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
@@ -4534,20 +4534,20 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "Yu" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "Yy" = (
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
-/area/crew_quarters/trading)
+/area/station/commons/trading)
 "YC" = (
 /obj/effect/turf_decal/siding/blue{
 	dir = 4
@@ -4557,7 +4557,7 @@
 	},
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/carpet/black,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "YP" = (
 /obj/effect/turf_decal/siding/blue{
 	dir = 1
@@ -4572,7 +4572,7 @@
 	pixel_y = 4
 	},
 /turf/simulated/floor/carpet/black,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "YZ" = (
 /obj/effect/decal/cleanable/dust,
 /obj/effect/decal/cleanable/blood/tracks{
@@ -4585,17 +4585,17 @@
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-oak-broken3"
 	},
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "Za" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance/double,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "Zz" = (
 /obj/machinery/photocopier,
 /turf/simulated/floor/carpet/black,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "ZD" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -4609,22 +4609,22 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/girder,
 /turf/simulated/floor/plating,
-/area/maintenance/fore2)
+/area/station/maintenance/fore2)
 "ZK" = (
 /obj/structure/chair/office/dark,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/carpet/black,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "ZV" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 "ZX" = (
 /obj/effect/spawner/random_spawners/wall_rusted_70,
 /turf/simulated/wall,
-/area/maintenance/abandonedoffices)
+/area/station/maintenance/abandonedoffices)
 
 (1,1,1) = {"
 Fb

@@ -145,12 +145,12 @@
 	collide(moving_atom)
 
 /obj/effect/meatgrinder/proc/collide(atom/movable/moving_atom)
-	if(triggered || !ishuman(moving_atom))
+	var/mob/living/carbon/human/human = moving_atom
+	if(triggered || !ishuman(human))
 		return
-	visible_message(span_warning("[moving_atom] triggered the [get_examine_icon(viewers(src))] [src]!"))
+	visible_message(span_warning("[human] triggered the [get_examine_icon(viewers(src))] [src]!"))
 	triggered = TRUE
-	do_sparks(3, TRUE, src)
-	explosion(src, devastation_range = 1, heavy_impact_range = 0, light_impact_range = 0, flash_range = 0)
+	human.gib()
 	qdel(src)
 
 /////For the Wishgranter///////////

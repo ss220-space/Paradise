@@ -149,7 +149,7 @@
 		overmind_datum.add_to_mode = TRUE
 		overmind_datum.is_offspring = is_offspring
 		if(overmind.blobstrain)
-			overmind_datum.strain = overmind.blobstrain
+			overmind_datum.strain_ref = WEAKREF(overmind.blobstrain)
 		overmind.mind.add_antag_datum(overmind_datum)
 
 /obj/structure/blob/special/core/proc/lateblobtimer()

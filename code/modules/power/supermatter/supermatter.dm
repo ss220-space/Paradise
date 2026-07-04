@@ -642,7 +642,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 
 			if(!istype(delamination_strategy, /datum/sm_delam/cascade))
 				return
-			for(var/mob/living/lucky_engi as anything in mobs_in_area_type(list(/area/engineering/supermatter)))
+			for(var/mob/living/lucky_engi as anything in mobs_in_area_type(list(/area/station/engineering/supermatter/engine)))
 				if(isnull(lucky_engi.client))
 					continue
 				if(isanimal(lucky_engi))

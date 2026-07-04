@@ -1,6 +1,7 @@
 /obj/mecha/makeshift
 	desc = "Шкафчик с украденными проводами, распорками, электроникой и сервоприводами шлюза, грубо собранными во что-то, напоминающее меха."
 	name = "Locker Mech"
+	gender = MALE
 	icon = 'icons/obj/mecha/lockermech.dmi'
 	icon_state = "lockermech"
 	initial_icon = "lockermech"
@@ -12,9 +13,9 @@
 	max_equip = 2 //You only have two arms and the control system is shitty
 	wreckage = null
 	mech_enter_time = 20
-
+	allowed_equipment = MECH_EQUIPMENT_MAKESHIFT
 	cargo_capacity = 5 // you can fit a few things in this locker but not much.
-
+	emp_protection = TRUE
 	mech_type = MECH_TYPE_LOCKER
 
 /obj/mecha/makeshift/get_ru_names()
@@ -31,26 +32,20 @@
 	new /obj/structure/closet(loc)
 	return ..()
 
-/obj/mecha/combat/lockersyndie
+/obj/mecha/makeshift/lockersyndie
 	desc = "Шкафчик с украденными проводами, распорками, электроникой и сервоприводами шлюза, грубо собранными во что-то, напоминающее меха. Окрашен в темно-красный цвет."
 	name = "Syndie Locker Mech"
-	gender = MALE
-	icon = 'icons/obj/mecha/lockermech.dmi'
 	icon_state = "syndielockermech"
 	initial_icon = "syndielockermech"
-	lights_power = 5
-	step_in = 4
 	max_integrity = 250 //its made of scraps
 	armor = list(melee = 25, bullet = 20, laser = 25, energy = 15, bomb = 20, bio = 0, fire = 70, acid = 60)
-	internal_damage_threshold = 30
 	deflect_chance = 25
 	force = 20
-	mech_enter_time = 20
 	max_equip = 4
-	wreckage = null
 	ui_theme = "syndicate"
+	allowed_equipment = MECH_EQUIPMENT_ALL
 
-/obj/mecha/combat/lockersyndie/get_ru_names()
+/obj/mecha/makeshift/lockersyndie/get_ru_names()
 	return alist(
 		NOMINATIVE = "Синди-Шкафомех",
 		GENITIVE = "Синди-Шкафомеха",
@@ -60,10 +55,10 @@
 		PREPOSITIONAL = "Синди-Шкафомехе",
 	)
 
-/obj/mecha/combat/lockersyndie/add_cell()
+/obj/mecha/makeshift/lockersyndie/add_cell()
 	cell = new /obj/item/stock_parts/cell/high/slime(src)
 
-/obj/mecha/combat/lockersyndie/loaded/Initialize(mapload)
+/obj/mecha/makeshift/lockersyndie/loaded/Initialize(mapload)
 	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/heavy(src)
 	ME.attach(src, MECH_HAND_LEFT)
@@ -72,7 +67,7 @@
 	ME = new /obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster(src)
 	ME.attach(src)
 
-/obj/mecha/combat/lockersyndie/Destroy()
+/obj/mecha/makeshift/lockersyndie/Destroy()
 	new /obj/structure/closet(loc)
 	return ..()
 
@@ -89,7 +84,7 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "pointer"
 	item_state = "pen"
-	var/mecha_type = /obj/mecha/combat/lockersyndie/loaded
+	var/mecha_type = /obj/mecha/makeshift/lockersyndie/loaded
 	var/obj/mecha/summon_mecha
 	var/list/summon_sound = 'sound/items/bikehorn.ogg'
 	var/used = FALSE
