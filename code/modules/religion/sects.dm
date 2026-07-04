@@ -936,7 +936,7 @@
 /datum/religion_sect/community/proc/can_fortify_temple_turf(turf/field_turf)
 	if(!field_turf)
 		return FALSE
-	return istype(get_area(field_turf), /area/chapel/main)
+	return istype(get_area(field_turf), /area/station/service/chapel)
 
 /datum/religion_sect/community/proc/start_fortified_temple(obj/structure/sect_altar/source_altar)
 	if(!source_altar)
