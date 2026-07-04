@@ -694,7 +694,7 @@
 		return ..()
 	if(isitem(offering))
 		var/obj/item/item_offering = offering
-		var/melee_armor = item_offering.armor ? item_offering.armor["melee"] : 0
+		var/melee_armor = item_offering.armor ? item_offering.armor.getRating("melee") : 0
 		if(item_offering.force <= 0 && melee_armor <= 0)
 			return 0
 		return max(item_offering.force * 20, melee_armor * 15)

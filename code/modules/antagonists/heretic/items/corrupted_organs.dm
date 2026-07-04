@@ -7,7 +7,6 @@
 	//iris_overlay = null
 	//eye_color_left = COLOR_VOID_PURPLE
 	//eye_color_right = COLOR_VOID_PURPLE
-	//organ_flags.status = parent_type:://organ_flags.status | ORGAN_HAZARDOUS
 	/// The override images we are applying
 	var/list/hallucinations
 
@@ -64,7 +63,6 @@
 	name = "искаженные голосовые связки"
 	desc = "Эти только лгут."
 	gender = PLURAL
-	//organ_flags.status = parent_type:://organ_flags.status | ORGAN_HAZARDOUS
 
 
 /obj/item/organ/internal/vocal_cords/corrupt/get_ru_names()
@@ -106,7 +104,6 @@
 /obj/item/organ/internal/liver/corrupt
 	name = "искаженная печень"
 	desc = "После увиденного вам действительно захочется выпить."
-	//organ_flags.status = parent_type:://organ_flags.status | ORGAN_HAZARDOUS
 	/// How much extra ingredients to add?
 	var/amount_added = 5
 	/// What extra ingredients can we add?
@@ -163,7 +160,6 @@
 /obj/item/organ/internal/heart/corrupt
 	name = "искажённое сердце"
 	desc = "Какая порча распространяется вместе с кровью?"
-	//organ_flags.status = parent_type:://organ_flags.status | ORGAN_HAZARDOUS
 	/// How long until the next heart?
 	COOLDOWN_DECLARE(hand_cooldown)
 
@@ -197,7 +193,6 @@
 /obj/item/organ/internal/lungs/corrupt
 	name = "искаженные лёгкие"
 	desc = "Некоторые вещи ДОЛЖНЫ утонуть в смоле."
-	//organ_flags.status = parent_type:://organ_flags.status | ORGAN_HAZARDOUS
 	/// How likely are we not to cough every time we take a breath?
 	var/cough_chance = 15
 	/// How much gas to emit?
@@ -248,7 +243,6 @@
 /obj/item/organ/internal/appendix/corrupt
 	name = "искажённый аппендикс"
 	desc = "Какая темная космическая сила вообще может захотеть испортить аппендикс?"
-	//organ_flags.status = parent_type:://organ_flags.status | ORGAN_HAZARDOUS
 	/// How likely are we to spawn worms?
 	var/worm_chance = 2
 

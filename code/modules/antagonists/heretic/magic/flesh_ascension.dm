@@ -46,8 +46,6 @@
 		if(!prob(25))
 			continue
 
-		//var/datum/brain_trauma/trauma = pick(subtypesof(BRAIN_TRAUMA_MILD) + subtypesof(BRAIN_TRAUMA_SEVERE))
-		//nearby_human.gain_trauma(trauma, TRAUMA_RESILIENCE_LOBOTOMY)
 		nearby_human.adjustBrainLoss(50)
 		nearby_human.Hallucinate(300 SECONDS)
 

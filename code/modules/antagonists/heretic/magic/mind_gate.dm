@@ -65,4 +65,5 @@
 	to_chat(cast_on, span_warning("Ваши глаза кричат от боли, уши кровоточат, а губы немеют! ЛУНА УЛЫБАЕТСЯ ВАМ!"))
 
 	var/mob/living/living_owner = action.owner
-	living_owner.adjustOrganLoss(INTERNAL_ORGAN_BRAIN, 20, 140) // Caster takes brain damage per cast too.
+	if(living_owner)
+		living_owner.adjustOrganLoss(INTERNAL_ORGAN_BRAIN, 20, 140) // Caster takes brain damage per cast too.

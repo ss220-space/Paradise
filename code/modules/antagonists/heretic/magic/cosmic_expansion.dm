@@ -49,6 +49,8 @@
 
 	if(ascended)
 		for(var/turf/cast_turf as anything in get_turfs(get_turf(caster)))
+			if(cast_turf.density) // don't bury fields inside walls, same as the main carpet loop above
+				continue
 			create_cosmic_field(cast_turf, caster)
 
 	return TRUE

@@ -726,30 +726,7 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 
 	for(var/mob/living/culto as anything in invokers)
 		to_chat(culto, span_cultlarge("\"Последователь забытых богов! Ты должен быть вознагражден за столь ценную жертву.\""))
-/*
-	// Locate a cultist team (Is there a better way??)
-	var/mob/living/random_cultist = pick(invokers)
-	// Unlock one of 3 special items!
-	var/list/possible_unlocks
-	for(var/i in cult_team.unlocked_heretic_items)
-		if(cult_team.unlocked_heretic_items[i])
-			continue
 
-		LAZYADD(possible_unlocks, i)
-
-	if(!length(possible_unlocks))
-		return SILENCE_SACRIFICE_MESSAGE|DUST_SACRIFICE
-
-	var/result = pick(possible_unlocks)
-	cult_team.unlocked_heretic_items[result] = TRUE
-
-	for(var/datum/mind/mind as anything in SSticker.mode.cult)
-		if(!mind.current)
-			continue
-
-		SEND_SOUND(mind.current, 'sound/magic/clockwork/narsie_attack.ogg')
-		to_chat(mind.current, span_cultlarge(span_warning("Тайные и запретные знания заполонили ваши кузницы и архивы. Культ научился создавать ")) + span_cultlarge(span_purple("[result]!")))
-*/
 	return SILENCE_SACRIFICE_MESSAGE|DUST_SACRIFICE
 
 /// Creates an animation of the item slowly lifting up from the floor with a colored outline, then slowly
@@ -903,25 +880,16 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 
 	for(var/knowledge_index in researched_knowledge)
 		var/datum/heretic_knowledge/knowledge = researched_knowledge[knowledge_index]
+		if(istype(knowledge, /datum/heretic_knowledge/ultimate))
+			string_of_knowledge += span_bold(knowledge.name)
+			continue
+
 		string_of_knowledge += knowledge.name
 
-	parts += english_list(string_of_knowledge)
+	parts += english_list(string_of_knowledge, and_text = " и ")
 
 	return parts.Join("<br>")
-/*
-/datum/antagonist/heretic/get_admin_commands()
-	. = ..()
 
-	switch(has_living_heart())
-		if(HERETIC_NO_LIVING_HEART)
-			.["Give Living Heart"] = CALLBACK(src, PROC_REF(give_living_heart))
-		if(HERETIC_HAS_LIVING_HEART)
-			.["Add Heart Target (Marked Mob)"] = CALLBACK(src, PROC_REF(add_marked_as_target))
-			.["Remove Heart Target"] = CALLBACK(src, PROC_REF(remove_target))
-
-	.["Adjust Knowledge Points"] = CALLBACK(src, PROC_REF(admin_change_points))
-	.["Give Focus"] = CALLBACK(src, PROC_REF(admin_give_focus))
-*/
 /// Admin proc for giving a heretic a Living Heart easily.
 /datum/antagonist/heretic/proc/give_living_heart(mob/admin)
 	if(!admin.client?.holder)
@@ -1016,33 +984,6 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	pawn.equip_to_slot_if_possible(new /obj/item/clothing/neck/heretic_focus(get_turf(pawn)), ITEM_SLOT_NECK, TRUE, TRUE)
 	to_chat(pawn, span_purple("Мансус даровал вам способность колдовать без амулетов."))
 
-
-/datum/antagonist/heretic/roundend_report()
-	var/list/string_of_knowledge = list()
-
-	for(var/knowledge_index in researched_knowledge)
-		var/datum/heretic_knowledge/knowledge = researched_knowledge[knowledge_index]
-		if(istype(knowledge, /datum/heretic_knowledge/ultimate))
-			string_of_knowledge += span_bold(knowledge.name)
-			continue
-
-		string_of_knowledge += knowledge.name
-
-	return "<br><b>Обретенные знания:</b><br>[english_list(string_of_knowledge, and_text = " и ")]<br>"
-/*
-/datum/antagonist/heretic/antag_panel_objectives()
-	. = ..()
-	if(!LAZYLEN(sac_targets))
-		. += "<br><i><b>Нет целей!</b></i><br><br>"
-		return .
-
-	. += "<br>"
-	. += "<i><b>Текущие цели:</b></i><br>"
-	for(var/mob/living/carbon/human/target as anything in sac_targets)
-		. += " - <b>[target.real_name]</b> - [target.mind?.assigned_role || "обычный гуманоид"].<br>"
-
-	. += "<br>"
-*/
 /// Learns the passed [typepath] of knowledge, creating a knowledge datum and adding it to our researched
 /// knowledge list. Returns TRUE if the knowledge was added successfully, FALSE otherwise.
 /datum/antagonist/heretic/proc/gain_knowledge(datum/heretic_knowledge/knowledge_type)

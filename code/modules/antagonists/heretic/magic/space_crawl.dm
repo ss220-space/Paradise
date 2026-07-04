@@ -15,15 +15,13 @@
 	school = SCHOOL_FORBIDDEN
 	human_req = FALSE
 	clothes_req = FALSE
-	clothes_req = FALSE
-	human_req = FALSE
 	phase_allowed = TRUE
 	base_cooldown = 5 SECONDS
 	spell_requirements = NONE
 
 	jaunt_type = /obj/effect/dummy/spell_jaunt/space
 	///List of traits that are added to the heretic while in space phase jaunt
-	var/static/list/jaunting_traits = list(TRAIT_RESIST_COLD, TRAIT_RESIST_COLD, TRAIT_NO_BREATH)
+	var/static/list/jaunting_traits = list(TRAIT_RESIST_COLD, TRAIT_NO_BREATH)
 	/// Message shown when the caster tries to enter/exit on a turf that isn't valid (see is_valid_turf).
 	var/invalid_turf_message = "Вы должны находиться в космосе или на открытом воздухе с низким давлением!"
 	/// The "hands" given to a carbon jaunter to stop them acting. Subtypes override this to rename them.

@@ -191,7 +191,6 @@
 	resilience = TRAUMA_RESILIENCE_LOBOTOMY
 
 /datum/brain_trauma/severe/mute/handle_speech(datum/source, list/speech_args)
-	SIGNAL_HANDLER
 	speech_args[1] = "" // blanks the spoken message
 
 /// The victim periodically loses control of a limb (light, flavorful version).

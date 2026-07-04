@@ -54,41 +54,6 @@
 	return spell.steal_organ_from_mob(src, victim, caster)
 
 
-/*
-/obj/effect/proc_holder/spell/touch/flesh_surgery/register_hand_signals()
-	. = ..()
-	RegisterSignal(attached_hand, COMSIG_ITEM_REQUESTING_CONTEXT_FOR_TARGET, PROC_REF(add_item_context))
-	attached_hand.item_flags |= ITEM_HAS_CONTEXTUAL_SCREENTIPS
-
-/obj/effect/proc_holder/spell/touch/flesh_surgery/unregister_hand_signals()
-	. = ..()
-	UnregisterSignal(attached_hand, COMSIG_ITEM_REQUESTING_CONTEXT_FOR_TARGET)
-*/
-/*
-/// Signal proc for [COMSIG_ITEM_REQUESTING_CONTEXT_FOR_TARGET] to add some context to the hand.
-/obj/effect/proc_holder/spell/touch/flesh_surgery/proc/add_item_context(obj/item/melee/touch_attack/source, list/context, atom/victim, mob/living/user)
-	SIGNAL_HANDLER
-
-	. = NONE
-
-	if(isliving(victim))
-		var/mob/living/mob_victim = victim
-
-		if(iscarbon(mob_victim))
-			context[SCREENTIP_CONTEXT_LMB] = "Extract organ"
-			. = CONTEXTUAL_SCREENTIP_SET
-
-		if(HAS_TRAIT(mob_victim, TRAIT_HERETIC_SUMMON))
-			context[SCREENTIP_CONTEXT_RMB] = "Heal [ishuman(mob_victim) ? "minion" : "summon"]"
-			. = CONTEXTUAL_SCREENTIP_SET
-
-	else if(isorgan(victim))
-		context[SCREENTIP_CONTEXT_LMB] = "Heal organ"
-		. = CONTEXTUAL_SCREENTIP_SET
-
-	return .
-*/
-
 /// If cast on an organ, we'll restore its health and even un-fail it.
 /obj/item/melee/touch_attack/flesh_surgery/proc/heal_organ(obj/item/melee/touch_attack/hand, obj/item/organ/to_heal, mob/living/carbon/caster)
 	if(to_heal.damage == 0)

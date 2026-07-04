@@ -148,6 +148,10 @@
 		to_chat(human_user, span_danger("Вы в последний момент отдергиваете руку от дыры, видя как потусторонняя энергия, пытается ухватиться за нее!"))
 		return
 
+	if(!their_poor_arm) // that hand's already gone - nothing left for the hole to tear off
+		to_chat(human_user, span_danger("Вы тянетесь к дыре тем, чего у вас уже нет..."))
+		return TRUE
+
 	to_chat(human_user, span_userdanger("Нечто потустороннее отрывает и поглощает вашу [their_poor_arm.declent_ru(ACCUSATIVE)] когда вы пытаетесь прикоснуться к дыре в ткани реальности!"))
 	their_poor_arm.dismember()
 	their_poor_arm.forceMove(src) // stored for later fishage

@@ -104,6 +104,10 @@
 	var/mob/living/carbon/carbon_owner = owner
 	carbon_owner.adjustStaminaLoss(6 * repetitions) // first one = 30 stam
 	carbon_owner.adjustFireLoss(3 * repetitions) // first one = 15 burn
+	// repetitions is clamped to >= 1, so we must stop the chain here rather than pass repetitions - 1 == 0
+	// (which would re-clamp back to 1 and let the mark propagate to a fresh victim forever).
+	if(repetitions <= 1)
+		return ..()
 	for(var/mob/living/carbon/victim in shuffle(range(3, carbon_owner)))
 		if(isheretic(victim) || victim == carbon_owner)
 			continue

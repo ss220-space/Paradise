@@ -1108,6 +1108,9 @@
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/blade/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
 	user.remove_traits(panoply_traits, UID())
+	// Taking the Panoply off ends the barrage and re-arms the guard, so re-equipping starts a fresh volley.
+	// (Pending timers still no-op via should_keep_cutting, since wear_suit is no longer us.)
+	murdering_with_blades = FALSE
 
 
 // --- Anti-thief blade barrage ---------------------------------------------------------------------------
@@ -1125,8 +1128,8 @@
 			break
 		addtimer(CALLBACK(src, PROC_REF(cut_em_good), target), delay * knife)
 		delay = max(0.5 SECONDS, delay - 0.1 SECONDS)
-
-	murdering_with_blades = FALSE
+	// murdering_with_blades stays TRUE for the whole barrage so a second volley can't be stacked on top of
+	// this one; it's cleared in dropped() when the victim takes the Panoply off.
 
 
 /// Keeps the barrage going only while the (living, non-heretic) victim is still wearing us.

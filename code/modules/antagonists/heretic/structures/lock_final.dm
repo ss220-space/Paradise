@@ -36,7 +36,8 @@
 
 	GLOB.poi_list |= src
 	notify_ghosts("Что это?", "???", source = src)
-	poll_ghosts()
+	// poll_ghosts() sleeps (candidate poll + tgui_alert); must not block Initialize()
+	INVOKE_ASYNC(src, PROC_REF(poll_ghosts))
 
 
 /// Ask ghosts if they want to make some noise

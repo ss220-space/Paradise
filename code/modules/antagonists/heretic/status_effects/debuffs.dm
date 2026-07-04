@@ -277,7 +277,6 @@
 
 // The amulet curse persists through damage; only removing the amulet ends it (the base clears at 75 damage).
 /datum/status_effect/moon_converted/permanent/on_damaged(datum/source, damage, damagetype)
-	SIGNAL_HANDLER
 	return
 
 

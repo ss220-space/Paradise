@@ -233,8 +233,6 @@
 				Кузнец идёт вперёд! Ржавые Холмы, НАЗОВИТЕ МОЁ ИМЯ! СТАНЬТЕ СВИДЕТЕЛЯМИ МОЕГО ВОЗНЕСЕНИЯ!"
 
 	//ascension_achievement = /datum/award/achievement/misc/rust_ascension
-	research_tree_icon_path = 'icons/ui/achievements/achievements.dmi'
-	research_tree_icon_state = "rustascend"
 	announcement_text = "%SPOOKY% Бойтесь, ибо Ржавеющий, %NAME%, вознёсся! Никто и ничто не избежит коррозии! %SPOOKY%"
 	announcement_sound = 'sound/music/heretic/ascend_rust.ogg'
 	research_tree_icon_path = 'icons/ui_icons/antags/heretic/ascension.dmi'

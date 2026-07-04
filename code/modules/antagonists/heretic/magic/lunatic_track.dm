@@ -71,29 +71,29 @@
 		return balloon_message
 
 	if(is_mining_level(their_z))
-		balloon_message = "on lavaland!"
+		balloon_message = "на лавовой земле!"
 		return balloon_message
 
 	if(is_away_level(their_z) || is_admin_level(their_z))
-		balloon_message = "beyond the gateway!"
+		balloon_message = "за вратами!"
 		return balloon_message
 
 	// We already checked if they are on lavaland or gateway, so if they arent there or on the station we can early return
 	if(!is_station_level(their_z))
-		balloon_message = "on another plane!"
+		balloon_message = "в другой реальности!"
 		return balloon_message
 
 	// They must be on station because we have checked every other z-level, and since we arent on station we should go there
 	if(!is_station_level(our_z))
-		balloon_message = "on station!"
+		balloon_message = "на станции!"
 		return balloon_message
 
 	if(our_z > their_z)
-		balloon_message = "below you!"
+		balloon_message = "ниже вас!"
 		return balloon_message
 
 	if(our_z < their_z)
-		balloon_message = "above you!"
+		balloon_message = "выше вас!"
 		return balloon_message
 
 	return balloon_message

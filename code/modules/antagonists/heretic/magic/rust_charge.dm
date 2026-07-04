@@ -20,6 +20,8 @@
 	clothes_req = FALSE
 	human_req = FALSE
 	school = SCHOOL_FORBIDDEN
+	/// The human we handed the +100 damage_resistance to while charging, so we only ever remove it once.
+	var/mob/living/carbon/human/shielded_owner
 
 
 /obj/effect/proc_holder/spell/mob_cooldown/charge/rust/cast(list/targets, mob/user = usr)
@@ -31,9 +33,12 @@
 
 	// We're invulnerable while charging, and unleash a damaging knockdown shock when we stop.
 	if(ishuman(action.owner))
-		var/mob/living/carbon/human/human_owner = action.owner
-		human_owner.physiology.damage_resistance += 100
+		shielded_owner = action.owner
+		shielded_owner.physiology.damage_resistance += 100
 	RegisterSignal(action.owner, COMSIG_FINISHED_CHARGE, PROC_REF(affect_aoe))
+	// Failsafe: if do_charge bails before it ever fires COMSIG_FINISHED_CHARGE (e.g. the move loop fails to
+	// start), we'd otherwise leak the invulnerability forever. Guarantee it gets dropped.
+	addtimer(CALLBACK(src, PROC_REF(drop_shield)), 15 SECONDS)
 
 	//cooldown_handler.start_recharge(135 SECONDS, 135 SECONDS)
 	INVOKE_ASYNC(src, PROC_REF(charge_sequence), action.owner, target_turf, charge_delay, charge_past)
@@ -50,9 +55,15 @@
 			continue
 		nearby_mob.apply_damage(charge_damage, BRUTE)
 		nearby_mob.Knockdown(5 SECONDS)
-	if(ishuman(action.owner))
-		var/mob/living/carbon/human/human_owner = action.owner
-		human_owner.physiology.damage_resistance -= 100
+	drop_shield()
+
+
+/// Removes the temporary charge invulnerability. Safe to call more than once (only the shielded owner loses it).
+/obj/effect/proc_holder/spell/mob_cooldown/charge/rust/proc/drop_shield()
+	if(isnull(shielded_owner))
+		return
+	shielded_owner.physiology.damage_resistance -= 100
+	shielded_owner = null
 
 
 /obj/effect/proc_holder/spell/mob_cooldown/charge/rust/on_move(atom/source, atom/new_loc, atom/target)

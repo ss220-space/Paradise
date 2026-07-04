@@ -355,8 +355,6 @@
 				Реальность покорится ВЛАДЫКЕ НОЧИ или будет разрушена! СТАНЬТЕ СВИДЕТЕЛЯМИ МОЕГО ВОЗНЕСЕНИЯ!"
 	required_atoms = list(/mob/living/carbon/human = 4)
 	//ascension_achievement = /datum/award/achievement/misc/flesh_ascension
-	research_tree_icon_path = 'icons/ui/achievements/achievements.dmi'
-	research_tree_icon_state = "fleshascend"
 	announcement_text = "%SPOOKY% Реальность развернулась. ВОЗДЕНЬТЕ РУКИ К НЕБУ И ПОПРИВЕТСТВУЙТЕ, ВЛАДЫКУ НОЧИ! %NAME% вознесся! %SPOOKY%"
 	announcement_sound = 'sound/music/heretic/ascend_flesh.ogg'
 	research_tree_icon_path = 'icons/ui_icons/antags/heretic/ascension.dmi'

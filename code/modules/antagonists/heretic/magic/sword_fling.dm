@@ -34,8 +34,9 @@
 	return ..()
 
 
-/obj/effect/proc_holder/spell/pointed/sword_fling/cast(turf/cast_on)
+/obj/effect/proc_holder/spell/pointed/sword_fling/cast(list/targets, mob/user = usr)
 	. = ..()
+	var/turf/cast_on = get_turf(targets[1])
 	var/atom/sword_loc = flinged_sword.loc
 	if(ismob(sword_loc))
 		var/mob/loccer = sword_loc

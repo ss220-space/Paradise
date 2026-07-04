@@ -300,7 +300,11 @@
 /obj/effect/proc_holder/spell/stargazer_laser/proc/open_laser(mob/owner, list/turf/beam_targets)
 	beam_visual = new(get_step(get_step(owner, owner.dir), owner.dir), beam_targets[length(beam_targets)])
 	end_visual = new(beam_targets[length(beam_targets)], owner)
-	for(var/turf/to_fill as anything in (get_line(beam_targets[4], beam_targets[length(beam_targets) - 2])))
+	// Clamp the fill endpoints: a short beam against a nearby wall can have fewer than 4 turfs, so the raw
+	// beam_targets[4] / [length - 2] indices would run off the end of the list and crash.
+	var/start_index = min(4, length(beam_targets))
+	var/end_index = max(1, length(beam_targets) - 2)
+	for(var/turf/to_fill as anything in (get_line(beam_targets[start_index], beam_targets[end_index])))
 		var/obj/effect/abstract/gazer_beam_filling/new_filling = new(to_fill, owner.dir)
 		beam_fillings += new_filling
 

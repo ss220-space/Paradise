@@ -212,8 +212,6 @@
 				ибо теперь он един с пламенем, СТАНЬТЕ СВИДЕТЕЛЕМ МОЕГО ВОЗНЕСЕНИЯ, ПЕПЕЛЬНЫЙ ФОНАРЬ СНОВА ЗАГОРИТСЯ!"
 
 	//ascension_achievement = /datum/award/achievement/misc/ash_ascension
-	research_tree_icon_path = 'icons/ui/achievements/achievements.dmi'
-	research_tree_icon_state = "ashascend"
 	announcement_text = "%SPOOKY% Бойтесь пламени, ибо Повелитель Пепла, %NAME% вознесся! Пламя поглотит все! %SPOOKY%"
 	announcement_sound = 'sound/music/heretic/ascend_ash.ogg'
 	research_tree_icon_path = 'icons/ui_icons/antags/heretic/ascension.dmi'

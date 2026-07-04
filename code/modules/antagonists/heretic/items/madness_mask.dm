@@ -87,7 +87,7 @@
 		// MAJORS (xeno that attacks, fake bullets, fire, etc.), unlike the moon path's visual-only set.
 		// Fired ASYNC because hallucinate_living() can sleep for several seconds and this is a process() tick.
 		if(prob(10))
-			INVOKE_ASYNC(human_in_range, TYPE_PROC_REF(/mob/living, hallucinate_living), pickweight(GLOB.minor_hallutinations + GLOB.medium_hallutinations + GLOB.major_hallutinations))
+			INVOKE_ASYNC(human_in_range, TYPE_PROC_REF(/mob/living, hallucinate_living), pickweight(GLOB.minor_medium_major_hallutinations))
 
 		// Also keep the ambient hallucination status pinned near TG's 120 SECONDS cap (Hallucinate() only ever
 		// raises), so hallucinations keep coming for up to ~120 SECONDS after the victim leaves the mask's sight.

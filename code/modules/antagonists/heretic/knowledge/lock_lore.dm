@@ -275,11 +275,6 @@
 				Лабиринт больше не будет заперт, и мы обретём свободу! СТАНЬТЕ СВИДЕТЕЛЯМИ НАШЕГО ОСВОБОЖДЕНИЯ!"
 	required_atoms = list(/mob/living/carbon/human = 3)
 	//ascension_achievement = /datum/award/achievement/misc/lock_ascension
-	// The achievement system isn't ported, so get_icon_of_knowledge can't derive the ascension sprite from it.
-	// Point straight at the achievement dmi's "lockascend" state - matches the other _final nodes
-	// (blade/flesh/ash/rust). Without this the node falls back to the "eye".
-	research_tree_icon_path = 'icons/ui/achievements/achievements.dmi'
-	research_tree_icon_state = "lockascend"
 	announcement_text = "Обнаружена пространственная аномалия класса «Дельта» %SPOOKY% Реальность пала. Врата открыты, двери открыты, %NAME% вознёсся! %SPOOKY%"
 	announcement_sound = 'sound/music/heretic/ascend_knock.ogg'
 	research_tree_icon_path = 'icons/ui_icons/antags/heretic/ascension.dmi'

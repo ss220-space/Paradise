@@ -40,7 +40,11 @@
 	if(isnull(storage_item))
 		return FALSE
 
-	var/obj/item/item = pick(storage_item.return_inv())
+	var/list/contents = storage_item.return_inv()
+	if(!length(contents)) // pick() on an empty list runtimes; nothing to steal from an empty bag
+		return FALSE
+
+	var/obj/item/item = pick(contents)
 	if(isnull(item))
 		return FALSE
 

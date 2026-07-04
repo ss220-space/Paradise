@@ -7,8 +7,6 @@
 	gender = FEMALE
 	icon_state = "unfathomable_curio"
 	item_state = "unfathomable_curio"
-	//content_overlays = FALSE
-	//storage_type = /datum/storage/unfathomable_curio
 	max_combined_w_class = 21
 	storage_slots = 21
 	//Vars used for the shield component
@@ -90,13 +88,6 @@
 	return NONE
 
 /obj/item/storage/belt/unfathomable_curio/proc/shield_damaged(mob/living/carbon/human/wearer, attack_text, new_current_charges)
-	/*var/list/brain_traumas = list(
-		/datum/brain_trauma/severe/mute,
-		/datum/brain_trauma/severe/flesh_desire,
-		/datum/brain_trauma/severe/eldritch_beauty,
-		/datum/brain_trauma/severe/paralysis,
-		/datum/brain_trauma/severe/monophobia
-	)*/
 	wearer.visible_message(span_danger("[declent_ru(NOMINATIVE)] обволакивает [wearer.declent_ru(ACCUSATIVE)] блокируя атаку!"))
 	if(isheretic(wearer))
 		return

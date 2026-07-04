@@ -234,7 +234,7 @@
 /obj/effect/proc_holder/spell/charged/New(Target, original)
 	. = ..()
 	if(!channel_message)
-		channel_message = span_notice("You start chanelling [src]...")
+		channel_message = span_notice("Вы начинаете взывать к [src]...")
 
 	if(charge_sound)
 		charge_sound_instance = sound(charge_sound)
@@ -274,7 +274,7 @@
 	if(!show_message)
 		return FALSE
 
-	to_chat(action.owner, span_warning("You're already channeling [src]!"))
+	to_chat(action.owner, span_warning("Вы уже взываете к [src]!"))
 	return FALSE
 
 
@@ -307,16 +307,6 @@
 	. = ..()
 	var/atom/cast_on = targets[1]
 	stop_channel_effect(cast_on)
-
-/*
-/obj/effect/proc_holder/spell/charged/set_statpanel_format()
-	. = ..()
-	if(!islist(.))
-		return
-
-	if(currently_channeling)
-		.[PANEL_DISPLAY_STATUS] = "CHANNELING"
-*/
 
 /// Interrupts the chanelling effect, removing any overlay or sound playing (for the passed mob)
 /obj/effect/proc_holder/spell/charged/proc/stop_channel_effect(mob/for_who)

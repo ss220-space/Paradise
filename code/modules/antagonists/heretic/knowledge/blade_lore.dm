@@ -360,8 +360,6 @@
 	gain_text = "Я достиг вершины боевого мастерства! МНЕ НЕТ РАВНЫХ! ДА НАГНЕТАЕТ МОИХ ВРАГОВ БУРЯ ИЗ СТАЛИ И СЕРЕБРА! СТАНЬТЕ СВИДЕТЕЛЯМИ МОЕГО ВОЗНЕСЕНИЯ!"
 
 	//ascension_achievement = /datum/award/achievement/misc/blade_ascension
-	research_tree_icon_path = 'icons/ui/achievements/achievements.dmi'
-	research_tree_icon_state = "bladeascend"
 	announcement_text = "%SPOOKY% Мастер Клинка, %NAME% вознесся! Сталь клинков рассечет реальность в серебрянном водовороте! %SPOOKY%"
 	announcement_sound = 'sound/music/heretic/ascend_blade.ogg'
 	research_tree_icon_path = 'icons/ui_icons/antags/heretic/ascension.dmi'

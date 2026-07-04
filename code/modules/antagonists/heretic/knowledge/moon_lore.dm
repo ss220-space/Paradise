@@ -238,10 +238,6 @@
 				СТАНЬТЕ СВИДЕТЕЛЯМИ МОЕГО ВОЗНЕСЕНИЯ, ЛУНА СНОВА УЛЫБНУЛАСЬ И БУДЕТ УЛЫБАТЬСЯ ВСЕГДА!"
 
 	//ascension_achievement = /datum/award/achievement/misc/moon_ascension
-	// master220 has no achievement system, so we point the node straight at the extracted "moonascend"
-	// medallion instead of the default eye.
-	research_tree_icon_path = 'icons/ui_icons/antags/heretic/moon_ascension.dmi'
-	research_tree_icon_state = "moonascend"
 	announcement_text = "%SPOOKY% Смейтесь, ибо главарь %NAME% вознёсся! \
 							Правда наконец поглотит ложь! %SPOOKY%"
 	announcement_sound = 'sound/music/heretic/ascend_moon.ogg'
@@ -371,7 +367,7 @@
 		// actually manifest galuns. Async (this is a COMSIG_LIVING_LIFE handler) and minor+medium only, so
 		// the moon stays atmospheric/visual rather than throwing the mask's scary majors.
 		if(prob(20))
-			INVOKE_ASYNC(carbon_view, TYPE_PROC_REF(/mob/living, hallucinate_living), pickweight(GLOB.minor_hallutinations + GLOB.medium_hallutinations))
+			INVOKE_ASYNC(carbon_view, TYPE_PROC_REF(/mob/living, hallucinate_living), pickweight(GLOB.minor_medium_hallutinations))
 
 		// master220 has no sanity, so brain damage is the aura's madness meter: it grinds nearby minds down,
 		// and once a mind is shattered (>= 60) the weak-willed join the heretic as lunatics over time, while

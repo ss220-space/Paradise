@@ -89,8 +89,7 @@
 	//    hallucinate_living() can sleep for several seconds (animated hallucinations); this proc runs inside
 	//    the mansus-grasp attack chain (a signal handler), and a synchronous sleep there stalled afterattack
 	//    so the grasp hand was never removed or put on cooldown (spam-clickable). INVOKE_ASYNC returns at once.
-	INVOKE_ASYNC(who, TYPE_PROC_REF(/mob/living, hallucinate_living), pickweight(GLOB.minor_hallutinations + GLOB.medium_hallutinations))
-	INVOKE_ASYNC(who, TYPE_PROC_REF(/mob/living, hallucinate_living), pickweight(GLOB.minor_hallutinations + GLOB.medium_hallutinations))
+	INVOKE_ASYNC(who, TYPE_PROC_REF(/mob/living, hallucinate_living), pickweight(GLOB.minor_medium_hallutinations))
 	// 2) Themed "everyone looks like a monster" delusion on top, for when bystanders ARE around (the moon
 	//    visual). skip_nearby = FALSE so people right next to the victim transform too. (Does not sleep.)
 	new /obj/effect/hallucination/delusion(who.loc, who, null, duration, FALSE)
@@ -429,7 +428,7 @@
 /proc/bicon(atom/thing)
 	return icon2html(thing, usr)
 
-/mob/living/carbon/proc/mob_light2()
+/mob/living/carbon/proc/mob_light2(range, power, color, duration)
 	return
 
 /obj/effect/proc_holder/spell/watchers_look/heretic

@@ -80,18 +80,6 @@
 	RegisterSignal(blade_effect, COMSIG_BLADE_BARRIER_TRIGGERED, PROC_REF(on_status_effect_triggered))
 
 
-/*
-/obj/effect/proc_holder/spell/pointed/projectile/furious_steel/on_deactivation(mob/on_who, refund_cooldown = TRUE)
-	. = ..()
-	if(!blade_effect)
-		return
-
-	UnregisterSignal(blade_effect, COMSIG_QDELETING)
-	UnregisterSignal(blade_effect, COMSIG_BLADE_BARRIER_TRIGGERED)
-	QDEL_NULL(blade_effect)
-*/
-
-
 /obj/effect/proc_holder/spell/pointed/projectile/furious_steel/before_cast(list/targets, mob/user = usr)
 	. = ..()
 	if(. & SPELL_CANCEL_CAST)

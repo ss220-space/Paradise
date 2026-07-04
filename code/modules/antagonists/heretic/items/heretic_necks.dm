@@ -51,13 +51,12 @@
 
 	var/team_color = COLOR_ADMIN_PINK
 	if(iscultist(user))
-		//var/obj/effect/proc_holder/spell/cult/blood_magic/magic_holder = locate() in user.actions
 		team_color = COLOR_CULT_RED
 
 	else if(IS_HERETIC_OR_MONSTER(user) && !active)
 		for(var/obj/effect/proc_holder/spell/spell_action in user.actions)
 			spell_action.base_cooldown *= 0.5
-			active = TRUE
+		active = TRUE
 
 		team_color = COLOR_GREEN
 
