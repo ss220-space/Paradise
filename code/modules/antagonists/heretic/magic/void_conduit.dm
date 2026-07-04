@@ -36,6 +36,9 @@
 	max_integrity = 150
 	///Overlay to apply to the tiles in range of the conduit
 	var/static/image/void_overlay = image(icon = 'icons/turf/overlays.dmi', icon_state = "voidtile")
+	// voidtile - сплошная непрозрачная почти-чёрная плитка. На TG движок рендерит её как лёгкий
+	// эффект, у нас же она глушит пол. Аддитивное смешивание оставляет пол видимым (чёрное = +0),
+	// подсвечивая только звёзды -> "особый эффект, но всё видно".
 	///List of tiles that we added an overlay to, so we can clear them when the conduit is deleted
 	var/list/overlayed_turfs = list()
 	///How many tiles far our effect is
@@ -68,6 +71,11 @@
 /obj/structure/void_conduit/proc/build_view_turfs()
 	for(var/turf/affected_turf as anything in overlayed_turfs)
 		affected_turf.cut_overlay(void_overlay)
+	overlayed_turfs.Cut()
+
+	void_overlay.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	void_overlay.alpha = 180
+	void_overlay.blend_mode = BLEND_ADD
 
 	for(var/turf/affected_turf as anything in view(effect_range, src))
 		if(affected_turf.density)
@@ -75,8 +83,6 @@
 
 		affected_turf.add_overlay(void_overlay)
 		overlayed_turfs += affected_turf
-		void_overlay.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-		void_overlay.alpha = 180
 
 
 /obj/structure/void_conduit/Destroy(force)
