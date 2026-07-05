@@ -1073,7 +1073,7 @@
 	item_state = "clockwork_treads"
 	strip_delay = 60
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	armor = list(MELEE = 40, BULLET = 50, LASER = 30, ENERGY = 30, BOMB = 40, BIO = 30, FIRE = 10, ACID = 10)
+	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 5, BIO = 5, FIRE = 10, ACID = 10)
 
 /obj/item/clothing/shoes/clockwork/equipped(mob/living/user, slot, initial)
 	. = ..()
