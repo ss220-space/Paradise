@@ -434,8 +434,6 @@
 	if(QDELETED(sac_target) || sac_target.stat == DEAD)
 		return
 
-	// Давай! давай давай давай давай давай❤️ ты сможешь🤗верь в себя🙏зайка🥺верь💘давай давай!! поднажми)) ☝🏼еще чуть-чуть...прошу тебя😕не здавайся😘поднажми😉ты все сможешь!! 😭
-	// Sorry
 	to_chat(sac_target, span_purple("Худшее позади... Осталось совсем немного! Держитесь, иначе погибните!"))
 
 /// Teleports [sac_target] back to a random safe station turf (or observer spawn as fallback), clears their

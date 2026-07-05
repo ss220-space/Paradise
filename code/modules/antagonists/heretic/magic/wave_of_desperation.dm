@@ -70,8 +70,7 @@
 		QDEL_NULL(human.handcuffed)
 
 	if(human.legcuffed)
-		human.visible_message(span_danger("[human.legcuffed.declent_ru(NOMINATIVE)] котор[genderize_ru(human.legcuffed.gender, "ый", "ое", "ую", "ые")] нос[pluralize_ru(human.gender, "ит", "ят")] [human.declent_ru(NOMINATIVE)] рассыпа[pluralize_ru(human.handcuffed.gender, "ет", "ют")]ся на множество осколков!"))
-		human.visible_message(span_danger("[human.legcuffed] on [human] shatters!"))
+		human.visible_message(span_danger("[human.legcuffed.declent_ru(NOMINATIVE)] котор[genderize_ru(human.legcuffed.gender, "ый", "ое", "ую", "ые")] нос[pluralize_ru(human.gender, "ит", "ят")] [human.declent_ru(NOMINATIVE)] рассыпа[pluralize_ru(human.legcuffed.gender, "ет", "ют")]ся на множество осколков!"))
 		QDEL_NULL(human.legcuffed)
 
 	human.apply_status_effect(/datum/status_effect/heretic_lastresort)

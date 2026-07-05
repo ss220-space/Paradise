@@ -92,9 +92,5 @@
 	loony.is_master = TRUE
 	loony.update_explanation_text()
 	return ..()
-
-
-/datum/antagonist/lunatic/master/apply_innate_effects(mob/living/mob_override)
-	. = ..()
-	var/mob/living/our_mob = mob_override || owner.current
-	add_team_hud(our_mob, /datum/antagonist/lunatic)
+// apply_innate_effects is inherited: the parent already grants the team HUD for masters (before the
+// ismaster early return) and skips the thrall spells, so no master-specific override is needed.

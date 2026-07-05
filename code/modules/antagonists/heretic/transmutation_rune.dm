@@ -99,7 +99,7 @@
 		qdel(src)
 		return ATTACK_CHAIN_PROCEED
 
-	// Codices (Истезания / Морбус) wipe the rune in their own melee_attack_chain (before reaching here);
+	// Codices wipe the rune in their own melee_attack_chain (before reaching here);
 	// this branch is a safety net so a codex never accidentally pops the ritual menu instead of erasing.
 	if(istype(item, /obj/item/codex_cicatrix))
 		return ..()

@@ -307,7 +307,7 @@ GLOBAL_LIST_EMPTY(heretic_arenas)
 )
 	SIGNAL_HANDLER
 
-	if(source.health <= HEALTH_THRESHOLD_CRIT) // I think it will work.
+	if(source.health <= HEALTH_THRESHOLD_CRIT)
 		on_enter_crit(source)
 
 	if(isnull(used_weapon))

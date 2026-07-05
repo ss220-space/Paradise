@@ -32,7 +32,7 @@
 		ROLE_ESCAPING_PRISONER = 40,
 		ROLE_DEVIL = 40,
 		ROLE_NINJA = 40,
-		ROLE_HERETIC = 15,
+		ROLE_HERETIC = 40,
 	)
 	/// Antag weights for main antags
 	var/list/antags_weights

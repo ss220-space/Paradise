@@ -12,8 +12,8 @@
 
 
 /datum/antagonist/heretic_monster/give_objectives()
-	// Создаём цель сразу, чтобы плашка "Your current objectives" не появлялась пустой.
-	// Имя мастера проставится в set_owner ещё до того, как мы поприветствуем монстра.
+	// Seed the objective immediately so "Your current objectives" never shows empty.
+	// The master's name gets filled in by set_owner before we greet the monster.
 	master_obj = new()
 	master_obj.owner = owner
 	master_obj.explanation_text = "Служите своему мастеру."
@@ -22,10 +22,10 @@
 
 
 /datum/antagonist/heretic_monster/on_gain()
-	// Глушим стандартное приветствие/объявление целей: имя мастера нам выдаёт set_owner (или объектив
-	// "свободного" монстра добавляется напрямую) сразу после add_antag_datum. Поэтому откладываем
-	// приветствие на один тик - к этому моменту вся синхронная донастройка готова, и мы один раз
-	// показываем финальную цель с именем мастера, без пустой или промежуточной плашки.
+	// Suppress the default greeting/objective announcement: the master's name is filled in by set_owner
+	// (or a "free" monster's objective is added directly) right after add_antag_datum. So we defer the
+	// greeting by one tick - by then all synchronous setup is done, and we show the final objective with
+	// the master's name once, with no empty or intermediate popup.
 	silent = TRUE
 	. = ..()
 	silent = initial(silent)
@@ -66,8 +66,8 @@
 /// Set our [master] var to a new mind.
 /datum/antagonist/heretic_monster/proc/set_owner(datum/mind/master)
 	src.master = master
-	// Цель уже создана в give_objectives(); подставляем имя мастера. Приветствие с этой целью
-	// покажет отложенный greet_monster() - set_owner всегда вызывается сразу после add_antag_datum.
+	// The objective was already created in give_objectives(); fill in the master's name. The deferred
+	// greet_monster() will show it - set_owner is always called right after add_antag_datum.
 	if(!master_obj)
 		give_objectives()
 	master_obj.explanation_text = "Ваш мастер — [master.current.real_name]. Помогайте ему во всём."

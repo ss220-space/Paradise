@@ -386,16 +386,55 @@
 /datum/atom_hud/alternate_appearance/basic/heretic/mob_should_see(mob/viewer)
 	return IS_HERETIC_OR_MONSTER(viewer) || isobserver(viewer)
 
+/// All active team-antag markers, so a newly-joined member can be shown the ones that predate them.
+GLOBAL_LIST_EMPTY(has_antagonist_huds)
+
 /datum/atom_hud/alternate_appearance/basic/has_antagonist
+	/// Only holders of this antag datum type (plus observers) see the marker.
 	var/antag_datum_type
+
+/datum/atom_hud/alternate_appearance/basic/has_antagonist/New(key, image/hud, options, datum/antagonist/antag_datum_type)
+	src.antag_datum_type = antag_datum_type
+	GLOB.has_antagonist_huds += src
+	return ..()
+
+/datum/atom_hud/alternate_appearance/basic/has_antagonist/Destroy(force)
+	GLOB.has_antagonist_huds -= src
+	return ..()
 
 /datum/atom_hud/alternate_appearance/basic/has_antagonist/mob_should_see(mob/viewer)
 	if(isobserver(viewer))
 		return TRUE
 	return viewer?.mind?.has_antag_datum(antag_datum_type)
 
+/**
+ * Shows [target]'s antag HUD marker to everyone who shares the [antag_type] antag datum (and to observers).
+ * This is how a team of antagonists sees one another - e.g. lunatics spotting their ringleader and each other.
+ */
 /proc/add_team_hud(mob/living/target, datum/antagonist/antag_type)
-	return
+	if(!istype(target) || isnull(target.mind))
+		return
+
+	var/datum/antagonist/antag = target.mind.has_antag_datum(antag_type)
+	if(isnull(antag) || isnull(antag.antag_hud_name))
+		return
+
+	var/image/marker = image('icons/mob/hud.dmi', target, antag.antag_hud_name)
+	marker.plane = ABOVE_GAME_PLANE
+	marker.appearance_flags = RESET_COLOR | PIXEL_SCALE | KEEP_APART
+	target.add_alt_appearance(
+		/datum/atom_hud/alternate_appearance/basic/has_antagonist,
+		"antag_team_hud_[target.UID()]",
+		marker,
+		AA_TARGET_SEE_APPEARANCE,
+		antag_type,
+	)
+
+	// Markers only apply their viewers at creation time, so a member joining after their teammates would
+	// never be shown the earlier markers (e.g. lunatics converted later couldn't see the ringleader). Re-run
+	// every existing team marker against the newcomer so they see the whole team.
+	for(var/datum/atom_hud/alternate_appearance/basic/has_antagonist/existing_marker as anything in GLOB.has_antagonist_huds)
+		existing_marker.apply_to_new_mob(target)
 
 // --- Construct/simplemob compat ---
 

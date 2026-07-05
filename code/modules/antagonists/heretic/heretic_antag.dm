@@ -483,6 +483,7 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	. = ..()
 	var/mob/living/our_mob = mob_override || owner.current
 	our_mob.faction -= FACTION_HERETIC
+	clear_passive()
 
 	if(owner in GLOB.reality_smash_track.tracked_heretics)
 		GLOB.reality_smash_track.remove_tracked_mind(owner)
