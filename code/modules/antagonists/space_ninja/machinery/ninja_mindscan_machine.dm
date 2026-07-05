@@ -181,7 +181,7 @@
 	if(!occupant)
 		return
 	var/turf/destination = pick(GLOB.ninja_teleport)
-	if(!do_teleport(occupant, destination, blocked_when_interfered = TRUE))
+	if(!do_teleport(occupant, destination))
 		return
 	var/teleport_loc = occupant.loc
 	var/effect_dir = occupant.dir

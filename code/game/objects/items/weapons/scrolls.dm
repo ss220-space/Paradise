@@ -46,9 +46,6 @@
 	return
 
 /obj/item/teleportation_scroll/proc/teleportscroll(mob/user)
-	if(itb_blocks_teleport(user, user, "ITB подавляет магическое перемещение свитка."))
-		return
-
 	var/A
 
 	A = tgui_input_list(user, "Area to jump to", "BOOYEA", SSmapping.teleportlocs)
@@ -94,13 +91,13 @@
 	var/success = FALSE
 	while(length(tempL))
 		attempt = pick(tempL)
-		do_magic_direct_teleport(user, attempt, notified_user = user, block_message = "ITB подавляет магическое перемещение свитка.")
+		do_direct_teleport(user, attempt, always_precise = TRUE, bypass_area_flag = TRUE)
 		if(get_turf(user) == attempt)
 			success = TRUE
 			break
 		tempL.Remove(attempt)
 
-	if(!success && !do_magic_direct_teleport(user, pick(L), notified_user = user, block_message = "ITB подавляет магическое перемещение свитка."))
+	if(!success && !do_direct_teleport(user, pick(L), always_precise = TRUE, bypass_area_flag = TRUE))
 		return
 
 	var/datum/effect_system/fluid_spread/smoke/origin_smoke = new

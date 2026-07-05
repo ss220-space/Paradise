@@ -519,8 +519,6 @@
 	if(!isliving(target))
 		return
 	var/mob/living/teleporting_mob = target
-	if(itb_blocks_teleport(teleporting_mob, user, "ITB подавляет кровавый телепорт."))
-		return
 	for(var/R in GLOB.teleport_runes)
 		var/obj/effect/rune/teleport/T = R
 		var/resultkey = T.listkey
@@ -554,9 +552,6 @@
 		teleporting_mob.color = mob_color
 		balloon_alert(user, "телепорт прерван!")
 		return
-	if(itb_blocks_teleport(teleporting_mob, user, "ITB подавляет кровавый телепорт."))
-		teleporting_mob.color = mob_color
-		return
 
 	playsound(origin, 'sound/misc/enter_blood.ogg', 50, TRUE, -1)
 	INVOKE_ASYNC(actual_selected_rune, TYPE_PROC_REF(/obj/effect/rune, teleport_effect), teleporting_mob, origin, destination)
@@ -575,7 +570,7 @@
 	else
 		teleporting_mob.visible_message(span_warning("Dust flows from [user]'s hand, and [teleporting_mob] disappears in a flash of red light!"), \
 		span_cultitalic("You suddenly find yourself somewhere else!"))
-	if(!do_magic_direct_teleport(teleporting_mob, destination, notified_user = user, block_message = "ITB подавляет кровавый телепорт."))
+	if(!do_direct_teleport(teleporting_mob, destination, always_precise = TRUE, bypass_area_flag = TRUE))
 		return
 	destination.visible_message(span_warning("There is a boom of outrushing air as something appears above the rune!"), null, "<i>You hear a boom.</i>")
 	playsound(destination, 'sound/misc/exit_blood.ogg', 50, TRUE, -1)

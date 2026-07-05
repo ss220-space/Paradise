@@ -391,7 +391,7 @@
 		return
 	if(do_after(user, 1.5 SECONDS, user))
 		var/turf/origin = get_turf(user)
-		if(!do_magic_direct_teleport(user, get_turf(linked), notified_user = user, block_message = "ITB блокирует куб."))
+		if(!do_direct_teleport(user, get_turf(linked), always_precise = TRUE, bypass_area_flag = TRUE))
 			return
 		var/datum/effect_system/fluid_spread/smoke/smoke = new
 		smoke.set_up(amount = 1, location = origin)

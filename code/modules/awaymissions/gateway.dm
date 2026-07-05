@@ -18,14 +18,13 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 	if(dir == SOUTH)
 		set_density(FALSE)
 
-/// Rejects gate entry for anyone with an active teleport blocker (ITB collar, BSIG-P) or standing
-/// in a stationary BSIG field. Returns TRUE if entry was rejected.
+/// Rejects gate entry for anyone with an active teleport blocker. Returns TRUE if entry was rejected.
 /obj/machinery/gateway/proc/reject_teleport_blocked(atom/movable/moving_atom)
 	if(!is_teleport_blocked(moving_atom))
 		return FALSE
 	var/mob/living/notified = isliving(moving_atom) ? moving_atom : get_teleport_blocking_living(moving_atom)
 	if(notified)
-		to_chat(notified, span_warning("Блюспейс-помехи не дают [src] перебросить вас!"))
+		to_chat(notified, span_warning("Что-то не даёт [src] перебросить вас!"))
 	return TRUE
 
 /obj/machinery/gateway/update_icon_state()

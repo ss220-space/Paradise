@@ -231,15 +231,9 @@
 			return ..()
 
 	else
-		if(itb_blocks_teleport(user, user, "ITB подавляет магическое перемещение [src]."))
-			return
 		user.fakefire()
 		to_chat(user, span_warning("Адское пламя выплёскивает вас обратно в реальность."))
 		if(do_after(user, 10 SECONDS, user, NONE))
-			if(itb_blocks_teleport(user, user, "ITB подавляет магическое перемещение [src]."))
-				user.ExtinguishMob()
-				user.fakefireextinguish()
-				return
 			ADD_TRAIT(user, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
 			user.infernalphaseout(src)
 		else
@@ -259,7 +253,7 @@
 	var/obj/effect/dummy/slaughter/s_holder = new(loc)
 
 	ExtinguishMob()
-	if(!do_magic_direct_teleport(src, s_holder, notified_user = src, block_message = "ITB подавляет магическое перемещение [spell]."))
+	if(!do_direct_teleport(src, s_holder, always_precise = TRUE, bypass_area_flag = TRUE))
 		QDEL_NULL(s_holder)
 		REMOVE_TRAIT(src, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(spell))
 		fakefireextinguish()
@@ -276,7 +270,7 @@
 		return FALSE
 
 	fakefire()
-	if(!do_magic_direct_teleport(src, get_turf(src), notified_user = src, block_message = "ITB подавляет магическое перемещение [spell]."))
+	if(!do_direct_teleport(src, get_turf(src), always_precise = TRUE, bypass_area_flag = TRUE))
 		fakefireextinguish()
 		return FALSE
 

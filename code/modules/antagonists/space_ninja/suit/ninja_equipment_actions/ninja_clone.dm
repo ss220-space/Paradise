@@ -36,4 +36,4 @@
 			if(ismindshielded(in_turf_mob))
 				ninja_clone.GiveTarget(in_turf_mob)
 				break
-	do_teleport(ninja, get_turf(ninja), 2, asoundin = 'sound/effects/phasein.ogg', blocked_when_interfered = TRUE)
+	do_teleport(ninja, get_turf(ninja), 2, asoundin = 'sound/effects/phasein.ogg')

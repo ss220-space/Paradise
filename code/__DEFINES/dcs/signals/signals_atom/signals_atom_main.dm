@@ -82,10 +82,9 @@
 ///from base of atom/get_gravity(): (turf/location, list/forced_gravities)
 #define COMSIG_ATOM_HAS_GRAVITY "atom_has_gravity"
 
-///called when teleporting into a possibly protected turf: (turf/origin, list/teleport_data)
+///called when teleporting into a possibly protected turf: (turf/origin)
 #define COMSIG_ATOM_INTERCEPT_TELEPORTING "intercept_teleporting"
 	#define COMPONENT_BLOCK_TELEPORT (1<<0)
-	// TELEPORT_INTERCEPT_* keys for the teleport_data argument live in code/__DEFINES/teleport.dm
 
 ///called when an atom is added to the hearers on get_hearers_in_view(): (list/processing_list, list/hearers)
 #define COMSIG_ATOM_HEARER_IN_VIEW "atom_hearer_in_view"

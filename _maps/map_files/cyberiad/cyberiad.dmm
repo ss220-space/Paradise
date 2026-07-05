@@ -44624,7 +44624,6 @@
 /area/station/maintenance/genetics)
 "mju" = (
 /obj/effect/turf_decal/delivery/red/hollow,
-/obj/machinery/power/bluespace_interference_generator/stationary,
 /obj/structure/table/reinforced,
 /obj/item/storage/box/trackimp,
 /obj/item/storage/box/chemimp{

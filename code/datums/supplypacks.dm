@@ -816,15 +816,6 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	access = ACCESS_ARMORY
 	announce_beacons = list("Security" = list("Warden", "Head of Security's Desk"))
 
-/datum/supply_packs/security/armory/bsig_stationary
-	name = "Плата BSIG-S"
-	contains = list(
-		/obj/item/circuitboard/machine/bsig_stationary,
-	)
-	cost = 100
-	containername = "BSIG-S circuit board crate"
-	required_tech = list(RESEARCH_TREE_MATERIALS = 7, RESEARCH_TREE_BLUESPACE = 7)
-
 ///// Armor: Specialist
 
 /datum/supply_packs/security/armory/riothelmets

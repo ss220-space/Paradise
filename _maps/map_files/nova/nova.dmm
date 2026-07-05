@@ -48081,7 +48081,6 @@
 /area/station/security/courtroom)
 "hql" = (
 /obj/effect/turf_decal/delivery/red/hollow,
-/obj/machinery/power/bluespace_interference_generator/stationary,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

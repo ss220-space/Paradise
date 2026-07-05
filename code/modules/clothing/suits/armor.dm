@@ -498,8 +498,7 @@
 		if(!isturf(picked))
 			return
 		// always_precise: реактивная броня телепортирует точно в радиусе tele_range и не даёт
-		// абузить разброс точности через Мешок Хватания (SoH). Запрет телепорта носителя
-		// (ITB / BSIG-P) уже отсекается через can_reactive_teleport выше.
+		// абузить разброс точности через Мешок Хватания (SoH).
 		if(!do_teleport(H, picked, always_precise = TRUE))
 			return 0
 		return 1

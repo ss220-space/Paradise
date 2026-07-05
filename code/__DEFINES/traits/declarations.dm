@@ -23,8 +23,6 @@
 #define TRAIT_NO_IMMOBILIZE "no_immobilize"
 ///Chasms will be safe to cross if there is something with this trait on it
 #define TRAIT_CHASM_STOPPER "chasm_stopper"
-/// This atom is specifically blocked by the prisoner teleport blocker collar.
-#define TRAIT_ITB_TELEPORT_BLOCK "itb_teleport_block"
 /// `do_teleport` will not allow this atom to teleport
 #define TRAIT_NO_TELEPORT "no-teleport"
 
@@ -56,8 +54,6 @@
 #define TRAIT_JESTER "jester"
 #define TRAIT_ELITE_CHALLENGER "elite_challenger"
 #define TRAIT_MUTE "mute"
-/// Mob can only whisper and cannot transmit speech over radios.
-#define TRAIT_COMMANDO_ABDUCTOR_SPEECH "commando_abductor_speech"
 #define TRAIT_DEAF "deaf"
 #define TRAIT_SECDEATH "secdeath"
 #define TRAIT_AI_UNTRACKABLE "AI_untrackable"
@@ -130,8 +126,6 @@
 #define TRAIT_HEALS_FROM_CULT_PYLONS "heals_from_cult_pylons"
 /// This mob heals from holy pylons.
 #define TRAIT_HEALS_FROM_HOLY_PYLONS "heals_from_holy_pylons"
-/// This mob has an implanted sect binary link.
-#define TRAIT_SECT_BINARY_LINK "sect_binary_link"
 /// This mob heals from bingle holes.
 #define TRAIT_HEALS_FROM_BINGLE_HOLES "heals_from_bingle_holes"
 

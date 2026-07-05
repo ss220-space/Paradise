@@ -396,7 +396,7 @@
 	if(!is_teleport_allowed(L.z))
 		src.visible_message(span_warning("Кажется, [declent_ru(NOMINATIVE)] начинает дрожать!"))
 		return
-	do_magic_teleport(L, get_turf(L), blink_range, soundin = 'sound/effects/phasein.ogg', notified_user = L, block_message = "ITB подавляет пустотное перемещение [src].")
+	do_teleport(L, get_turf(L), blink_range, asoundin = 'sound/effects/phasein.ogg', always_precise = TRUE)
 
 /obj/item/gem/void/proc/reset_cooldown()
 	cooldown = FALSE

@@ -856,10 +856,11 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	if(length(objectives))
 		var/count = 1
 		for(var/datum/objective/objective as anything in objectives)
-			if(!objective.check_completion())
+			if(objective.check_completion())
+				parts += "<b>Цель #[count]</b>: [objective.explanation_text] [span_greentext("Успех!")]"
+			else
+				parts += "<b>Цель #[count]</b>: [objective.explanation_text] [span_redtext("Провал.")]"
 				succeeded = FALSE
-
-			parts += "<b>Цель #[count]</b>: [objective.explanation_text] [span_greentext("Успех!")]"
 			count++
 
 	if(feast_of_owls)

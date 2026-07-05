@@ -104,8 +104,6 @@
 
 	var/isholy = FALSE // is this person a chaplain or admin role allowed to use bibles
 	var/isblessed = FALSE // is this person blessed by a chaplain?
-	var/datum/religion_sect/holy_sect
-	var/datum/religion_sect/devoted_sect
 	var/num_blessed = 0 // for prayers
 
 	var/lost_memory = FALSE // for the memorizers

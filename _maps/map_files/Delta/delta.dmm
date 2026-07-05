@@ -67194,7 +67194,6 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/power/bluespace_interference_generator/stationary,
 /obj/effect/spawner/random_spawners/security_ballistics,
 /turf/simulated/floor/plasteel{
 	dir = 4;

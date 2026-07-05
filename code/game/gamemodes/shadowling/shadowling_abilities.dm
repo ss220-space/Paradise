@@ -112,7 +112,6 @@
 	clothes_req = FALSE
 	phase_allowed = TRUE
 	action_icon_state = "shadow_walk"
-	itb_blocks_spell = TRUE
 
 /obj/effect/proc_holder/spell/shadowling_shadow_walk/create_new_targeting()
 	return new /datum/spell_targeting/self

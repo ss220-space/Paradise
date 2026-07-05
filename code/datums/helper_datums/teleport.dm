@@ -1,5 +1,4 @@
 #define TELEPORT_BLOCKER_CONTENT_SEARCH_DEPTH 3
-#define BLUESPACE_INTERFERENCE_SHUNT_ATTEMPTS 15
 
 /**
  * Standard teleport wrapper, routed through the science instant teleport (`/datum/teleport/instant/science`).
@@ -8,15 +7,13 @@
  * precision logic, so bags/sacks of holding in the teleatom's contents randomise the landing turf.
  *
  * Interference arguments, shared with the procs below:
- * * always_precise - skip the BoH/SoH precision randomisation AND ignore stationary BSIG fields,
- *   landing exactly on the requested turf. Does not bypass [TRAIT_NO_TELEPORT] blockers.
- * * blocked_when_interfered - if inside a BSIG field, fully block the teleport instead of shunting
- *   it to the field edge. Has no effect together with `always_precise` (which ignores fields).
+ * * always_precise - skip the BoH/SoH precision randomisation, landing exactly on the requested turf.
+ *   Does not bypass [TRAIT_NO_TELEPORT] blockers.
  * * ignore_blocking_traits - skip the [TRAIT_NO_TELEPORT] blocker check entirely.
  *
  * Returns TRUE on a successful teleport, FALSE otherwise.
  */
-/proc/do_teleport(ateleatom, adestination, aprecision = 0, afteleport = 1, aeffectin = null, aeffectout = null, asoundin = null, asoundout = null, bypass_area_flag = FALSE, always_precise = FALSE, blocked_when_interfered = FALSE, ignore_blocking_traits = FALSE)
+/proc/do_teleport(ateleatom, adestination, aprecision = 0, afteleport = 1, aeffectin = null, aeffectout = null, asoundin = null, asoundout = null, bypass_area_flag = FALSE, always_precise = FALSE, ignore_blocking_traits = FALSE)
 	var/datum/teleport/instant/science/D = new
 	if(D.start(arglist(args)))
 		return TRUE
@@ -31,7 +28,7 @@
  *
  * Returns TRUE on a successful teleport, FALSE otherwise.
  */
-/proc/do_direct_teleport(atom/movable/teleatom, atom/destination, precision = 0, force_teleport = TRUE, datum/effect_system/effectin = null, datum/effect_system/effectout = null, soundin = null, soundout = null, bypass_area_flag = FALSE, always_precise = FALSE, blocked_when_interfered = FALSE, ignore_blocking_traits = FALSE)
+/proc/do_direct_teleport(atom/movable/teleatom, atom/destination, precision = 0, force_teleport = TRUE, datum/effect_system/effectin = null, datum/effect_system/effectout = null, soundin = null, soundout = null, bypass_area_flag = FALSE, always_precise = FALSE, ignore_blocking_traits = FALSE)
 	if(!teleatom || !destination)
 		return FALSE
 
@@ -47,55 +44,7 @@
 		soundout,
 		bypass_area_flag,
 		always_precise,
-		blocked_when_interfered,
 		ignore_blocking_traits
-	)
-
-/**
- * Magical teleport: use this for spells, runes and other supernatural displacement.
- *
- * Differs from [do_teleport] in two ways:
- * * It is gated by the ITB collar — [itb_blocks_teleport] is checked first, and a worn, active ITB
- *   aborts the teleport (notifying `notified_user` with `block_message`).
- * * Magic ignores mundane bluespace interference: it always teleports precisely and bypasses
- *   [TRAIT_NO_TELEPORT] blockers (only the ITB stops it).
- *
- * Returns TRUE on a successful teleport, FALSE otherwise.
- */
-/proc/do_magic_teleport(atom/movable/teleatom, atom/destination, precision = 0, force_teleport = TRUE, datum/effect_system/effectin = null, datum/effect_system/effectout = null, soundin = null, soundout = null, bypass_area_flag = FALSE, mob/notified_user = null, block_message = null)
-	if(itb_blocks_teleport(teleatom, notified_user, block_message))
-		return FALSE
-	return do_teleport(
-		teleatom,
-		destination,
-		precision,
-		force_teleport,
-		effectin,
-		effectout,
-		soundin,
-		soundout,
-		bypass_area_flag,
-		always_precise = TRUE,
-		ignore_blocking_traits = TRUE
-	)
-
-/// As [do_magic_teleport], but routed through [do_direct_teleport] (explicit args, no science
-/// precision logic) and defaulting `bypass_area_flag` to TRUE. Still gated by the ITB collar.
-/proc/do_magic_direct_teleport(atom/movable/teleatom, atom/destination, precision = 0, force_teleport = TRUE, datum/effect_system/effectin = null, datum/effect_system/effectout = null, soundin = null, soundout = null, bypass_area_flag = TRUE, mob/notified_user = null, block_message = null)
-	if(itb_blocks_teleport(teleatom, notified_user, block_message))
-		return FALSE
-	return do_direct_teleport(
-		teleatom,
-		destination,
-		precision,
-		force_teleport,
-		effectin,
-		effectout,
-		soundin,
-		soundout,
-		bypass_area_flag,
-		always_precise = TRUE,
-		ignore_blocking_traits = TRUE
 	)
 
 /// Returns the mob carrying `blocking_trait` for a single living atom: either `living_teleatom`
@@ -160,9 +109,9 @@
 	return get_contained_teleport_blocker(teleatom, blocking_trait)
 
 /// Returns TRUE if `teleatom` cannot be teleported from where it currently stands: either it (or a
-/// mob it carries) has a teleport-blocking trait (ITB collar, BSIG-P), or it is inside an active
-/// stationary BSIG field. Use this for "step-through" movers (e.g. the gateway) that don't run a
-/// full [do_teleport] but should still respect bluespace interference.
+/// mob it carries) has a teleport-blocking trait, or a registered listener otherwise vetoes it.
+/// Use this for "step-through" movers (e.g. the gateway) that don't run a full [do_teleport] but
+/// should still respect the same blockers.
 /proc/is_teleport_blocked(atom/movable/teleatom)
 	if(!teleatom)
 		return FALSE
@@ -171,34 +120,25 @@
 	var/turf/origin = get_turf(teleatom)
 	if(!origin)
 		return FALSE
-	return SEND_SIGNAL(teleatom, COMSIG_MOVABLE_TELEPORTING, origin, origin, null) & COMPONENT_BLOCK_TELEPORT
+	return SEND_SIGNAL(teleatom, COMSIG_MOVABLE_TELEPORTING, origin, origin) & COMPONENT_BLOCK_TELEPORT
 
-/proc/notify_bluespace_interference(atom/movable/notified_atom, atom/movable/teleatom)
+/proc/notify_teleport_blocked(atom/movable/notified_atom, atom/movable/teleatom)
 	if(!isliving(notified_atom))
 		return
 	var/mob/living/notified_living = notified_atom
-	to_chat(notified_living, span_warning("Блюспейс-помехи предотвращают телепортацию!"))
+	to_chat(notified_living, span_warning("Что-то мешает телепортации!"))
 	if(notified_atom == teleatom || !isliving(teleatom))
 		return
 	var/mob/living/living_teleatom = teleatom
-	to_chat(living_teleatom, span_warning("Блюспейс-помехи предотвращают телепортацию!"))
-
-/proc/notify_bluespace_interference_shunt(atom/movable/teleatom)
-	if(!isliving(teleatom))
-		return
-	var/mob/living/living_teleatom = teleatom
-	to_chat(living_teleatom, span_warning("Блюспейс-помехи искажают телепортацию!"))
+	to_chat(living_teleatom, span_warning("Что-то мешает телепортации!"))
 
 /**
- * Resolves the turf a teleport should actually land on after interference is accounted for.
- *
- * First respects [TRAIT_NO_TELEPORT] blockers (unless `ignore_blocking_traits`), then sends the
- * teleport through the BSIG field handlers via signals. A field may block the teleport (returns null),
- * shunt it to its edge (returns a different turf), or leave it untouched. With `always_precise` the
- * fields are ignored and the original `destination` is returned. Set `notify` to message the mob on
- * a block/shunt. Returns the final destination turf, or null if the teleport should be cancelled.
+ * Resolves the turf a teleport should actually land on. First respects [TRAIT_NO_TELEPORT] blockers
+ * (unless `ignore_blocking_traits`), then checks the teleport signals so listeners (chasms, portals,
+ * eldritch effects, etc) can veto the teleport. Set `notify` to message the mob on a block.
+ * Returns the destination turf, or null if the teleport should be cancelled.
  */
-/proc/get_teleport_intercepted_destination(atom/movable/teleatom, turf/origin, turf/destination, always_precise = FALSE, blocked_when_interfered = FALSE, notify = TRUE, ignore_blocking_traits = FALSE)
+/proc/get_teleport_intercepted_destination(atom/movable/teleatom, turf/origin, turf/destination, always_precise = FALSE, notify = TRUE, ignore_blocking_traits = FALSE)
 	if(!teleatom || !origin || !destination)
 		return null
 
@@ -206,48 +146,20 @@
 		var/mob/living/teleport_blocker = get_teleport_blocking_living(teleatom)
 		if(teleport_blocker)
 			if(notify)
-				notify_bluespace_interference(teleport_blocker, teleatom)
+				notify_teleport_blocked(teleport_blocker, teleatom)
 			return null
 
-	var/list/teleport_data = list(
-		TELEPORT_INTERCEPT_TELEATOM = teleatom,
-		TELEPORT_INTERCEPT_DESTINATION = destination,
-		TELEPORT_INTERCEPT_IGNORE_BLUESPACE = always_precise,
-		TELEPORT_INTERCEPT_BLOCK_BLUESPACE = blocked_when_interfered,
-		TELEPORT_INTERCEPT_BLUESPACE_SHUNTED = FALSE,
-	)
-
-	if(SEND_SIGNAL(teleatom, COMSIG_MOVABLE_TELEPORTING, origin, destination, teleport_data) & COMPONENT_BLOCK_TELEPORT)
-		if(notify && teleport_data[TELEPORT_INTERCEPT_BLUESPACE_BLOCKED])
-			notify_bluespace_interference(teleatom, teleatom)
+	if(SEND_SIGNAL(teleatom, COMSIG_MOVABLE_TELEPORTING, origin, destination) & COMPONENT_BLOCK_TELEPORT)
+		if(notify)
+			notify_teleport_blocked(teleatom, teleatom)
 		return null
 
-	var/turf/current_destination = destination
-	if(always_precise)
-		teleport_data[TELEPORT_INTERCEPT_DESTINATION] = current_destination
-		if(SEND_SIGNAL(current_destination, COMSIG_ATOM_INTERCEPT_TELEPORTING, origin, teleport_data) & COMPONENT_BLOCK_TELEPORT)
-			return null
-		return teleport_data[TELEPORT_INTERCEPT_DESTINATION]
+	if(SEND_SIGNAL(destination, COMSIG_ATOM_INTERCEPT_TELEPORTING, origin) & COMPONENT_BLOCK_TELEPORT)
+		if(notify)
+			notify_teleport_blocked(teleatom, teleatom)
+		return null
 
-	var/shunt_attempts = BLUESPACE_INTERFERENCE_SHUNT_ATTEMPTS
-	while(shunt_attempts > 0)
-		shunt_attempts--
-		teleport_data[TELEPORT_INTERCEPT_DESTINATION] = current_destination
-		if(SEND_SIGNAL(current_destination, COMSIG_ATOM_INTERCEPT_TELEPORTING, origin, teleport_data) & COMPONENT_BLOCK_TELEPORT)
-			if(notify && teleport_data[TELEPORT_INTERCEPT_BLUESPACE_BLOCKED])
-				notify_bluespace_interference(teleatom, teleatom)
-			return null
-
-		var/turf/new_destination = teleport_data[TELEPORT_INTERCEPT_DESTINATION]
-		if(!new_destination)
-			return null
-		if(new_destination == current_destination)
-			if(notify && teleport_data[TELEPORT_INTERCEPT_BLUESPACE_SHUNTED])
-				notify_bluespace_interference_shunt(teleatom)
-			return current_destination
-		current_destination = new_destination
-
-	return null
+	return destination
 
 /datum/teleport
 	var/atom/movable/teleatom //atom to teleport
@@ -259,19 +171,17 @@
 	var/soundout //soundfile to play after teleportation
 	var/force_teleport = 1 //if false, teleport will use Move() proc (dense objects will prevent teleportation)
 	var/ignore_area_flag = FALSE
-	/// Skip BoH/SoH precision randomisation and ignore stationary BSIG fields (see [/proc/do_teleport]).
+	/// Skip BoH/SoH precision randomisation (see [/proc/do_teleport]).
 	var/always_precise = FALSE
-	/// Fully block the teleport inside a BSIG field instead of shunting it to the field edge.
-	var/blocked_when_interfered = FALSE
 	/// Skip the [TRAIT_NO_TELEPORT] blocker check entirely.
 	var/ignore_blocking_traits = FALSE
 
-/datum/teleport/proc/start(ateleatom, adestination, aprecision = 0, afteleport = 1, aeffectin = null, aeffectout = null, asoundin = null, asoundout = null, bypass_area_flag = FALSE, always_precise = FALSE, blocked_when_interfered = FALSE, ignore_blocking_traits = FALSE)
+/datum/teleport/proc/start(ateleatom, adestination, aprecision = 0, afteleport = 1, aeffectin = null, aeffectout = null, asoundin = null, asoundout = null, bypass_area_flag = FALSE, always_precise = FALSE, ignore_blocking_traits = FALSE)
 	if(!initTeleport(arglist(args)))
 		return FALSE
 	return TRUE
 
-/datum/teleport/proc/initTeleport(ateleatom, adestination, aprecision, afteleport, aeffectin, aeffectout, asoundin, asoundout, bypass_area_flag = FALSE, always_precise = FALSE, blocked_when_interfered = FALSE, ignore_blocking_traits = FALSE)
+/datum/teleport/proc/initTeleport(ateleatom, adestination, aprecision, afteleport, aeffectin, aeffectout, asoundin, asoundout, bypass_area_flag = FALSE, always_precise = FALSE, ignore_blocking_traits = FALSE)
 	if(!setTeleatom(ateleatom))
 		return FALSE
 	if(!setDestination(adestination))
@@ -283,7 +193,6 @@
 	setSounds(asoundin, asoundout)
 	ignore_area_flag = bypass_area_flag
 	src.always_precise = always_precise
-	src.blocked_when_interfered = blocked_when_interfered
 	src.ignore_blocking_traits = ignore_blocking_traits
 	return TRUE
 
@@ -368,7 +277,7 @@
 	if(!destturf || !curturf)
 		return FALSE
 
-	destturf = get_teleport_intercepted_destination(tele_atom, curturf, destturf, always_precise, blocked_when_interfered, ignore_blocking_traits = ignore_blocking_traits)
+	destturf = get_teleport_intercepted_destination(tele_atom, curturf, destturf, always_precise, ignore_blocking_traits = ignore_blocking_traits)
 	if(!destturf)
 		return FALSE
 
@@ -405,7 +314,7 @@
 		return doTeleport()
 	return FALSE
 
-/datum/teleport/instant/start(ateleatom, adestination, aprecision = 0, afteleport = 1, aeffectin = null, aeffectout = null, asoundin = null, asoundout = null, bypass_area_flag = FALSE, always_precise = FALSE, blocked_when_interfered = FALSE, ignore_blocking_traits = FALSE)
+/datum/teleport/instant/start(ateleatom, adestination, aprecision = 0, afteleport = 1, aeffectin = null, aeffectout = null, asoundin = null, asoundout = null, bypass_area_flag = FALSE, always_precise = FALSE, ignore_blocking_traits = FALSE)
 	if(..())
 		if(teleport())
 			return TRUE
@@ -460,8 +369,6 @@
 				var/mob/living/MM = teleatom
 				to_chat(MM, span_warning("The bluespace interface on your mining satchel of holding interferes with the teleport!"))
 	return TRUE
-
-#undef BLUESPACE_INTERFERENCE_SHUNT_ATTEMPTS
 
 // Random safe location finder
 /proc/find_safe_turf(zlevel, list/zlevels)

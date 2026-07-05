@@ -15,7 +15,7 @@
 
 				var/turf/T = get_turf(user)
 				var/turf/destination = pick(GLOB.ninja_teleport)
-				if(!do_teleport(user, destination, blocked_when_interfered = TRUE))
+				if(!do_teleport(user, destination))
 					return
 				add_fingerprint(user)
 				user.investigate_log("VOID-shifted from [COORD(T)] to [COORD(user)].", INVESTIGATE_TELEPORTATION)

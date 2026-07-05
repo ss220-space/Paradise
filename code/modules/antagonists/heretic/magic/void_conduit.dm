@@ -35,10 +35,10 @@
 	density = TRUE
 	max_integrity = 150
 	///Overlay to apply to the tiles in range of the conduit
+	// voidtile - тёмная почти-чёрная плитка с анимированными белыми звёздами. Кладём её
+	// полупрозрачным слоем (обычное смешивание, alpha ниже TG-шных 180), чтобы получить
+	// лёгкий эффект "пустоты": пол виден сквозь тёмный налёт, звёзды мягко просвечивают.
 	var/static/image/void_overlay = image(icon = 'icons/turf/overlays.dmi', icon_state = "voidtile")
-	// voidtile - сплошная непрозрачная почти-чёрная плитка. На TG движок рендерит её как лёгкий
-	// эффект, у нас же она глушит пол. Аддитивное смешивание оставляет пол видимым (чёрное = +0),
-	// подсвечивая только звёзды -> "особый эффект, но всё видно".
 	///List of tiles that we added an overlay to, so we can clear them when the conduit is deleted
 	var/list/overlayed_turfs = list()
 	///How many tiles far our effect is
@@ -74,8 +74,7 @@
 	overlayed_turfs.Cut()
 
 	void_overlay.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	void_overlay.alpha = 180
-	void_overlay.blend_mode = BLEND_ADD
+	void_overlay.alpha = 120
 
 	for(var/turf/affected_turf as anything in view(effect_range, src))
 		if(affected_turf.density)

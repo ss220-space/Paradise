@@ -196,10 +196,7 @@
 		teleloc = target.loc
 	for(var/atom/movable/stuff in teleloc)
 		if(!stuff.anchored && stuff.loc)
-			var/mob/living/notified_living
-			if(isliving(stuff))
-				notified_living = stuff
-			if(!do_magic_teleport(stuff, stuff, 10, notified_user = notified_living, block_message = "ITB подавляет магическое перемещение телепортационного снаряда."))
+			if(!do_teleport(stuff, stuff, 10, always_precise = TRUE))
 				continue
 			teleammount++
 			var/datum/effect_system/fluid_spread/smoke/smoke = new

@@ -728,29 +728,6 @@
 		speaker_mask = B.truename
 	..(speaker,message,speaker_mask)
 
-/datum/language/sect_community
-	name = LANGUAGE_SECT_COMMUNITY
-	desc = "Священный канал, открытый Устами истины для общины."
-	colour = "cult"
-	speech_verbs = list("веща%(ет,ют)%", "провозглаша%(ет,ют)%")
-	ask_verbs = list("вопроша%(ет,ют)%")
-	exclaim_verbs = list("возвеща%(ет,ют)%")
-	key = "ut"
-	flags = RESTRICTED | HIVEMIND | NOBABEL
-	follow = TRUE
-
-/datum/language/sect_community/broadcast(mob/living/speaker, message, speaker_mask)
-	if(!check_can_speak(speaker))
-		to_chat(speaker, span_warning("Уста истины позволяют вам только слышать голос храма."))
-		return FALSE
-	return ..()
-
-/datum/language/sect_community/check_can_speak(mob/living/speaker)
-	return can_speak_community_truth(speaker)
-
-/datum/language/sect_community/check_special_condition(mob/other, mob/living/speaker)
-	return can_hear_community_truth(other, speaker)
-
 /datum/language/binary
 	name = LANGUAGE_BINARY
 	desc = "Большинство космических станций поддерживают свободные коммуникационные протоколы и маршрутизационные узлы для использования Синтетиками."

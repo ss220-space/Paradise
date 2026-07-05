@@ -480,9 +480,6 @@ structure_check() searches for nearby cultist structures required for the invoca
 	var/movedsomething = FALSE
 	var/moveuser = FALSE
 	for(var/atom/movable/movable in rune_turf)
-		var/mob/notified_user = movable == user ? user : null
-		if(itb_blocks_teleport(movable, notified_user, "ITB подавляет телепорт руны."))
-			continue
 		if(ishuman(movable))
 			if(movable != user) // Teleporting someone else
 				INVOKE_ASYNC(src, PROC_REF(teleport_effect), movable, rune_turf, target)
@@ -495,7 +492,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 			movedsomething = TRUE
 			continue
 		if(!movable.anchored)
-			if(do_magic_direct_teleport(movable, target, block_message = "ITB подавляет телепорт руны."))
+			if(do_direct_teleport(movable, target, always_precise = TRUE, bypass_area_flag = TRUE))
 				movedsomething = TRUE
 
 	if(movedsomething)
@@ -506,8 +503,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 			actual_selected_rune.handle_portal("lava")
 		else if(!is_station_level(z) || isspacearea(get_area(src)))
 			actual_selected_rune.handle_portal("space", rune_turf)
-		// Сначала перемещаем самого заклинателя, иначе сообщение об успехе покажется даже при блоке.
-		if(moveuser && !do_magic_direct_teleport(user, target, notified_user = user, block_message = "ITB подавляет телепорт руны."))
+		if(moveuser && !do_direct_teleport(user, target, always_precise = TRUE, bypass_area_flag = TRUE))
 			fail_invoke()
 			return
 		rune_turf.visible_message(span_warning("There is a sharp crack of inrushing air, and everything above the rune disappears!"))
@@ -739,18 +735,13 @@ structure_check() searches for nearby cultist structures required for the invoca
 		to_chat(user, span_cultitalic("[cultist_to_summon] is not in our dimension!"))
 		fail_invoke()
 		return
-	if(itb_blocks_teleport(cultist_to_summon, user, "ITB подавляет призыв культиста."))
-		fail_invoke()
-		return
-
 	var/turf/summon_origin = get_turf(cultist_to_summon)
 	var/turf/summon_destination = get_turf(src)
 	cultist_to_summon.visible_message(
 		span_warning("[cultist_to_summon] suddenly disappears in a flash of red light!"), \
 		span_cultitalic("<b>Overwhelming vertigo consumes you as you are hurled through the air!</b>")
 	)
-	// Перемещаем культиста до эффекта и сообщения об успехе, чтобы при блоке они не показывались.
-	if(!do_magic_direct_teleport(cultist_to_summon, summon_destination, notified_user = user, block_message = "ITB подавляет призыв культиста."))
+	if(!do_direct_teleport(cultist_to_summon, summon_destination, always_precise = TRUE, bypass_area_flag = TRUE))
 		fail_invoke()
 		return
 	..()

@@ -133,7 +133,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 	return key
 
 /mob/living/proc/binarycheck()
-	return HAS_TRAIT(src, TRAIT_SECT_BINARY_LINK)
+	return FALSE
 
 /mob/proc/get_default_language()
 	return null

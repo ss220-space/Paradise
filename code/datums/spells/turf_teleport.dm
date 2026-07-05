@@ -2,7 +2,6 @@
 	name = "Turf Teleport"
 	desc = "This spell teleports the target to the turf in range."
 	nonabstract_req = TRUE
-	itb_blocks_spell = TRUE
 
 	var/inner_tele_radius = 1
 	var/outer_tele_radius = 2
@@ -61,7 +60,7 @@
 		if(!picked || !isturf(picked))
 			return
 
-		if(!do_magic_direct_teleport(target, picked, notified_user = target, block_message = "ITB подавляет магическое перемещение [src]."))
+		if(!do_direct_teleport(target, picked, always_precise = TRUE, bypass_area_flag = TRUE))
 			return
 		if(sound_out)
 			playsound(get_turf(user), sound_out, 50, TRUE)
