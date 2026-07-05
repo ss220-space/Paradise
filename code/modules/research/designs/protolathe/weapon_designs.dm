@@ -181,7 +181,7 @@
 
 /datum/design/stunrevolver
 	id = "stunrevolver"
-	req_tech = list(RESEARCH_TREE_COMBAT = 6, RESEARCH_TREE_MATERIALS = 5, RESEARCH_TREE_POWERSTORAGE = 5)
+	req_tech = list(RESEARCH_TREE_COMBAT = 6, RESEARCH_TREE_MATERIALS = 6, RESEARCH_TREE_POWERSTORAGE = 8)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = SHEET_MATERIAL_AMOUNT * 5, MAT_GLASS = SHEET_MATERIAL_AMOUNT * 5, MAT_SILVER = SHEET_MATERIAL_AMOUNT * 5)
 	build_path = /obj/item/gun/energy/tesla_cannon
