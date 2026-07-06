@@ -3,8 +3,8 @@ GLOBAL_LIST_INIT(wcBrig, pick(list("#aa0808", "#7f0606", "#ff0000")))
 GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8fcf44", "#ffffff")))
 
 /obj/proc/color_windows(obj/W)
-	var/list/wcBarAreas = list(/area/crew_quarters/bar)
-	var/list/wcBrigAreas = list(/area/security, /area/shuttle/gamma)
+	var/list/wcBarAreas = list(/area/station/service/bar)
+	var/list/wcBrigAreas = list(/area/station/security, /area/shuttle/gamma)
 
 	var/newcolor
 	var/turf/T = get_turf(W)

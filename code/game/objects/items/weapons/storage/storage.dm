@@ -239,6 +239,7 @@
 
 	for(var/mob/dead/observer/observe in user.inventory_observers)
 		if(!observe.client)
+			observe.handle_when_autoobserve_move()
 			LAZYREMOVE(user.inventory_observers, observe)
 			continue
 		show_to(observe, TRUE)
@@ -266,6 +267,7 @@
 
 	for(var/mob/dead/observer/observe in user.inventory_observers)
 		if(!observe.client)
+			observe.handle_when_autoobserve_move()
 			LAZYREMOVE(user.inventory_observers, observe)
 		hide_from(observe, TRUE)
 
@@ -742,6 +744,7 @@
 
 		for(var/mob/dead/observer/observe in usr.inventory_observers)
 			if(!observe.client)
+				observe.handle_when_autoobserve_move()
 				LAZYREMOVE(usr.inventory_observers, observe)
 				continue
 			observe.client.screen -= W

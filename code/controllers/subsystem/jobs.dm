@@ -565,7 +565,7 @@ SUBSYSTEM_DEF(jobs)
 
 	if(HAS_TRAIT(SSstation, STATION_TRAIT_RANDOM_ARRIVALS))
 		if(rank == JOB_TITLE_PRISONER)
-			mark_spawn = get_safe_random_station_turf(typesof(/area/security))  || pick(GLOB.latejoin_prisoner)
+			mark_spawn = get_safe_random_station_turf(typesof(/area/station/security))  || pick(GLOB.latejoin_prisoner)
 		else
 			mark_spawn = get_safe_random_station_turf()  || pick(GLOB.latejoin)
 
@@ -595,7 +595,7 @@ SUBSYSTEM_DEF(jobs)
 
 	if(!mark_spawn || HAS_TRAIT(SSstation, STATION_TRAIT_LATE_ARRIVALS)) // still no spawn, fall back to the arrivals shuttle
 		if(rank == JOB_TITLE_PRISONER)
-			mark_spawn = get_random_area_turf_for_spawn(/area/security/permabrig)
+			mark_spawn = get_random_area_turf_for_spawn(/area/station/security/prison/perma)
 		else
 			mark_spawn = get_random_area_turf_for_spawn(/area/shuttle/arrival/station)
 

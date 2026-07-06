@@ -958,7 +958,7 @@
 /datum/design/cap_ammo
 	id = "cap_ammo"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 100)
+	materials = list(MAT_METAL = 600)
 	build_path = /obj/item/ammo_box/speedloader/caps
 	category = list(PRINTER_CATEGORY_INITIAL, AUTOLATHE_CATEGORY_MISC)
 

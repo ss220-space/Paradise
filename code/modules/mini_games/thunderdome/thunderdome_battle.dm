@@ -1,6 +1,6 @@
 GLOBAL_DATUM_INIT(thunderdome_battle, /datum/mini_game/thunderdome_battle, new())
-GLOBAL_VAR_INIT(tdome_arena, locate(/area/tdome/newtdome))
-GLOBAL_VAR_INIT(tdome_arena_melee, locate(/area/tdome/newtdome/CQC))
+GLOBAL_VAR_INIT(tdome_arena, locate(/area/centcom/tdome/new_arena))
+GLOBAL_VAR_INIT(tdome_arena_melee, locate(/area/centcom/tdome/new_arena/cqc))
 
 /**
  * #thunderdome_battle
@@ -204,7 +204,7 @@ GLOBAL_VAR_INIT(tdome_arena_melee, locate(/area/tdome/newtdome/CQC))
 	if(dead_fighter.ckey)
 		addtimer(CALLBACK(src, PROC_REF(restore_ghost_state), dead_fighter.ckey), 5 SECONDS)
 
-	if(!length(fighters) && !is_cleansing_going)
+	if(length(fighters) <= 1 && !is_cleansing_going)
 		for(var/datum/timedevent/timer in _active_timers)
 			qdel(timer)
 		is_cleansing_going = TRUE

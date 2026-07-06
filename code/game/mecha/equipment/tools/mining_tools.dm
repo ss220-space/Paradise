@@ -13,6 +13,7 @@
 	force = 15
 	harmful = TRUE
 	sharp = TRUE
+	module_type = MECH_EQUIPMENT_WORKING | MECH_EQUIPMENT_COMBAT
 	var/drill_delay = 7
 	var/drill_level = DRILL_BASIC
 
@@ -88,12 +89,6 @@
 		var/obj/mecha/working/R = chassis //we could assume that it's a ripley because it has a clamp, but that's ~unsafe~ and ~bad practice~
 		R.collect_ore()
 
-/obj/item/mecha_parts/mecha_equipment/drill/can_attach(obj/mecha/M)
-	if(..())
-		if(istype(M, /obj/mecha/working) || istype(M, /obj/mecha/combat))
-			return TRUE
-	return FALSE
-
 /obj/item/mecha_parts/mecha_equipment/drill/proc/drill_mob(mob/living/target, mob/user)
 	target.visible_message(
 		span_danger("[chassis] is drilling [target] with [src]!"),
@@ -156,10 +151,10 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/item/mecha_parts/mecha_equipment/mining_scanner/attach_act(obj/mecha/M)
+/obj/item/mecha_parts/mecha_equipment/mining_scanner/attach_act(obj/mecha/mech)
 	START_PROCESSING(SSobj, src)
 
-/obj/item/mecha_parts/mecha_equipment/mining_scanner/detach_act(obj/mecha/M)
+/obj/item/mecha_parts/mecha_equipment/mining_scanner/detach_act(obj/mecha/mech)
 	STOP_PROCESSING(SSobj, src)
 
 /obj/item/mecha_parts/mecha_equipment/mining_scanner/process()

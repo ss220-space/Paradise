@@ -1,0 +1,4 @@
+author: "saizenlow"
+delete-after: True
+changes:
+  - balance: "Стоимость печати ускорителя заряжания: холостого повышена со 100 до 600 металла. (PR #9447)"
