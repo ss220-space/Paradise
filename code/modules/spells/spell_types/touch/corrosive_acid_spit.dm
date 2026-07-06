@@ -1,7 +1,7 @@
 /datum/action/cooldown/spell/touch/corrosive_acid_spit
 	name = "Corrosive acid"
 	desc = "Spit acid on someone in range, this acid melts through nearly anything and heavily damages anyone lacking proper safety equipment."
-	hand_path = /obj/item/melee/magic_hand/alien/corrosive_acid
+	hand_path = /obj/item/melee/touch_attack/alien/corrosive_acid
 	button_icon_state = "alien_acid"
 	background_icon_state = "bg_alien"
 	check_flags = AB_CHECK_CONSCIOUS
@@ -39,7 +39,7 @@
 
 	return TRUE
 
-/datum/action/cooldown/spell/touch/corrosive_acid_spit/cast_on_hand_hit(obj/item/melee/magic_hand/hand, atom/victim, mob/living/carbon/caster)
+/datum/action/cooldown/spell/touch/corrosive_acid_spit/cast_on_hand_hit(obj/item/melee/touch_attack/hand, atom/victim, mob/living/carbon/caster)
 	var/mob/living/carbon/alien/alien_caster = caster
 
 	if(!victim.acid_act(acid_power, 100))
@@ -61,7 +61,7 @@
 	plasma_cost = 50
 	acid_power = 1000
 
-/obj/item/melee/magic_hand/alien/corrosive_acid
+/obj/item/melee/touch_attack/alien/corrosive_acid
 	name = "Corrosive acid"
 	desc = "A fistfull of death."
 	icon_state = "alien_acid"

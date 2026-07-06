@@ -3,7 +3,7 @@
 	desc = "A spell popular with theater nerd wizards and contrarian pranksters, this spell will put on a mime costume on the target, \
 		stun them so that they may contemplate Art, and silence them. \
 		Warning : Effects are permanent on non-wizards."
-	hand_path = /obj/item/melee/magic_hand/mime_malaise
+	hand_path = /obj/item/melee/touch_attack/mime_malaise
 	school = SCHOOL_MIME
 	invocation = ""
 	cooldown_time = 30 SECONDS
@@ -11,7 +11,7 @@
 	sound = null
 	button_icon_state = "mime_curse"
 
-/obj/item/melee/magic_hand/mime_malaise
+/obj/item/melee/touch_attack/mime_malaise
 	name = "mime hand"
 	desc = "..."
 	icon_state = "fleshtostone"
@@ -21,7 +21,7 @@
 	return ishuman(cast_on)
 
 
-/datum/action/cooldown/spell/touch/mime_malaise/cast_on_hand_hit(obj/item/melee/magic_hand/hand, atom/victim, mob/living/carbon/caster)
+/datum/action/cooldown/spell/touch/mime_malaise/cast_on_hand_hit(obj/item/melee/touch_attack/hand, atom/victim, mob/living/carbon/caster)
 	. = ..()
 	var/datum/effect_system/fluid_spread/smoke/s = new
 	s.set_up(amount = 5, location = target)

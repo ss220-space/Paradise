@@ -251,9 +251,10 @@
 
 /datum/species/unathi/ashwalker/shaman/on_species_gain(mob/living/carbon/human/owner)
 	. = ..()
-	var/obj/effect/proc_holder/spell/touch/healtouch/healtouch = locate() in owner.mob_spell_list
+	var/datum/action/cooldown/spell/touch/healtouch/shaman/healtouch = locate() in owner.actions
 	if(!healtouch)
-		owner.AddSpell(new /obj/effect/proc_holder/spell/touch/healtouch)
+		healtouch = new
+		healtouch.Grant(owner)
 	var/datum/action/innate/shaman_gps/finder = locate() in owner.actions
 	if(!finder)
 		finder = new
@@ -265,7 +266,9 @@
 
 /datum/species/unathi/ashwalker/shaman/on_species_loss(mob/living/carbon/human/owner)
 	. = ..()
-	owner.RemoveSpell(/obj/effect/proc_holder/spell/touch/healtouch)
+	var/datum/action/cooldown/spell/touch/healtouch/shaman/healtouch = locate() in owner.actions
+	healtouch?.Remove(owner)
+	qdel(healtouch)
 	var/datum/action/innate/shaman_gps/finder = locate() in owner.actions
 	if(finder)
 		finder.Remove(owner)

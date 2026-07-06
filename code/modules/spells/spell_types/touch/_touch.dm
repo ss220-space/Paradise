@@ -25,9 +25,9 @@
 	invocation_type = INVOCATION_SHOUT
 
 	/// Typepath of what hand we create on initial cast.
-	var/obj/item/melee/magic_hand/hand_path = /obj/item/melee/magic_hand
+	var/obj/item/melee/touch_attack/hand_path = /obj/item/melee/touch_attack
 	/// Ref to the hand we currently have deployed.
-	var/obj/item/melee/magic_hand/attached_hand
+	var/obj/item/melee/touch_attack/attached_hand
 	/// The message displayed to the person upon creating the touch hand
 	var/draw_message = span_notice_alt("You channel the power of the spell to your hand.")
 	/// The message displayed upon willingly dropping / deleting / cancelling the touch hand before using it
@@ -87,7 +87,7 @@
 /datum/action/cooldown/spell/touch/proc/create_hand(mob/living/carbon/cast_on)
 	SHOULD_CALL_PARENT(TRUE)
 
-	var/obj/item/melee/magic_hand/new_hand = new hand_path(cast_on, src)
+	var/obj/item/melee/touch_attack/new_hand = new hand_path(cast_on, src)
 	if(!cast_on.put_in_hands(new_hand, qdel_on_fail = TRUE))
 		reset_spell_cooldown()
 		if(cast_on.usable_hands == 0)
@@ -211,7 +211,7 @@
  *
  * Implements checks for antimagic.
  */
-/datum/action/cooldown/spell/touch/proc/do_hand_hit(obj/item/melee/magic_hand/hand, atom/victim, mob/living/carbon/caster)
+/datum/action/cooldown/spell/touch/proc/do_hand_hit(obj/item/melee/touch_attack/hand, atom/victim, mob/living/carbon/caster)
 	SHOULD_NOT_OVERRIDE(TRUE) // Don't put effects here, put them in cast_on_hand_hit
 
 	SEND_SIGNAL(src, COMSIG_SPELL_TOUCH_HAND_HIT, victim, caster, hand)
@@ -239,7 +239,7 @@
 
  * Does NOT check for antimagic on its own. Implement your own checks if you want the r-click to abide by it.
  */
-/datum/action/cooldown/spell/touch/proc/do_secondary_hand_hit(obj/item/melee/magic_hand/hand, atom/victim, mob/living/carbon/caster)
+/datum/action/cooldown/spell/touch/proc/do_secondary_hand_hit(obj/item/melee/touch_attack/hand, atom/victim, mob/living/carbon/caster)
 	SHOULD_NOT_OVERRIDE(TRUE) // Don't put effects here, put them in cast_on_secondary_hand_hit
 
 	var/secondary_result = cast_on_secondary_hand_hit(hand, victim, caster)
@@ -269,7 +269,7 @@
  * Return TRUE on a successful cast to use up the hand (delete it)
  * Return FALSE to do nothing and let them keep the hand in hand
  */
-/datum/action/cooldown/spell/touch/proc/cast_on_hand_hit(obj/item/melee/magic_hand/hand, atom/victim, mob/living/carbon/caster)
+/datum/action/cooldown/spell/touch/proc/cast_on_hand_hit(obj/item/melee/touch_attack/hand, atom/victim, mob/living/carbon/caster)
 	return FALSE
 
 /**
@@ -280,7 +280,7 @@
  * Return SECONDARY_ATTACK_CONTINUE_CHAIN to prevent the normal cast_on_hand_hit from calling, but still use up the hand
  * Return SECONDARY_ATTACK_CANCEL_CHAIN to prevent the spell from being used
  */
-/datum/action/cooldown/spell/touch/proc/cast_on_secondary_hand_hit(obj/item/melee/magic_hand/hand, atom/victim, mob/living/carbon/caster)
+/datum/action/cooldown/spell/touch/proc/cast_on_secondary_hand_hit(obj/item/melee/touch_attack/hand, atom/victim, mob/living/carbon/caster)
 	return SECONDARY_ATTACK_CALL_NORMAL
 
 /**
@@ -308,7 +308,7 @@
 /**
  * Called whenever our spell is cast, but blocked by antimagic.
  */
-/*/datum/action/cooldown/spell/touch/proc/on_antimagic_triggered(obj/item/melee/magic_hand/hand, atom/victim, mob/living/carbon/caster)
+/*/datum/action/cooldown/spell/touch/proc/on_antimagic_triggered(obj/item/melee/touch_attack/hand, atom/victim, mob/living/carbon/caster)
 	return*/
 
 /**
@@ -322,9 +322,7 @@
  * These should generally just be dummy objects - holds name and icon stuff.
  */
 
-//	TODO: change back to touch_attack
-
-/obj/item/melee/magic_hand
+/obj/item/melee/touch_attack
 	name = "\improper outstretched hand"
 	desc = "High Five?"
 	item_state = "lgloves"
@@ -337,9 +335,8 @@
 	/// A weakref to what spell made us.
 	var/datum/weakref/spell_which_made_us
 
-/obj/item/melee/magic_hand/Initialize(mapload, datum/action/cooldown/spell/spell)
+/obj/item/melee/touch_attack/Initialize(mapload, datum/action/cooldown/spell/spell)
 	. = ..()
-
 	if(spell)
 		spell_which_made_us = WEAKREF(spell)
 
@@ -350,7 +347,7 @@
  * However, if you want to consume the hand and not give a cooldown,
  * such as adding a unique behavior to the hand specifically, this function will do that.
  */
-/obj/item/melee/magic_hand/proc/remove_hand_with_no_refund(mob/holder)
+/obj/item/melee/touch_attack/proc/remove_hand_with_no_refund(mob/holder)
 	var/datum/action/cooldown/spell/touch/hand_spell = spell_which_made_us?.resolve()
 	if(!QDELETED(hand_spell))
 		hand_spell.remove_hand(holder, reset_cooldown_after = FALSE)

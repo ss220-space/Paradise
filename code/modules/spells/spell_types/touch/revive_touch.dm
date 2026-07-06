@@ -4,7 +4,7 @@
 /datum/action/cooldown/spell/touch/revive_touch
 	name = "Воскрешающее косание"
 	desc = "Чрезвычайно могущественное некромантическое заклинание"
-	hand_path = /obj/item/melee/magic_hand/revive_touch
+	hand_path = /obj/item/melee/touch_attack/revive_touch
 	school = SCHOOL_NECROMANCY
 	invocation = "Surge e lecto!"
 	cooldown_time = 1 MINUTES
@@ -12,13 +12,13 @@
 	button_icon_state = "revive"
 	sound = 'sound/magic/staff_healing.ogg'
 
-/obj/item/melee/magic_hand/revive_touch
+/obj/item/melee/touch_attack/revive_touch
 	name = "воскрешающее касание"
 	desc = "Воскрешает тело умершего на определенное время."
 	icon_state = "disintegrate"
 	color = "#acb78e"
 
-/obj/item/melee/magic_hand/revive_touch/get_ru_names()
+/obj/item/melee/touch_attack/revive_touch/get_ru_names()
 	return alist(
 		NOMINATIVE = "воскрешающее касание",
 		GENITIVE = "воскрешающего касания",
@@ -28,7 +28,7 @@
 		PREPOSITIONAL = "воскрешающем касании",
 	)
 
-/datum/action/cooldown/spell/touch/revive_touch/cast_on_hand_hit(obj/item/melee/magic_hand/hand, atom/victim, mob/living/carbon/caster)
+/datum/action/cooldown/spell/touch/revive_touch/cast_on_hand_hit(obj/item/melee/touch_attack/hand, atom/victim, mob/living/carbon/caster)
 	var/mob/living/mob = victim
 
 	if(mob.stat != DEAD || !(mob.mind?.is_revivable()))

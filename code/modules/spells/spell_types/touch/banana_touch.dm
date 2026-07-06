@@ -3,7 +3,7 @@
 	desc = "A spell popular at wizard birthday parties, this spell will put on a clown costume on the target, \
 		stun them with a loud HONK, and mutate them to make them more entertaining! \
 		Warning : Effects are permanent on non-wizards."
-	hand_path = /obj/item/melee/magic_hand/banana_touch
+	hand_path = /obj/item/melee/touch_attack/banana_touch
 	school = SCHOOL_TRANSMUTATION
 	sound = 'sound/items/AirHorn.ogg'
 	invocation = "NWOLC YRGNA"
@@ -11,7 +11,7 @@
 	cooldown_reduction_per_rank = 5 SECONDS //50 deciseconds reduction per rank
 	button_icon_state = "clown"
 
-/obj/item/melee/magic_hand/banana_touch
+/obj/item/melee/touch_attack/banana_touch
 	name = "banana touch"
 	desc = "It's time to start clowning around."
 	icon_state = "banana_touch"
@@ -20,7 +20,7 @@
 /datum/action/cooldown/spell/touch/banana_touch/is_valid_target(atom/cast_on)
 	return ishuman(cast_on)
 
-/datum/action/cooldown/spell/touch/banana_touch/cast_on_hand_hit(obj/item/melee/magic_hand/hand, atom/victim, mob/living/carbon/caster)
+/datum/action/cooldown/spell/touch/banana_touch/cast_on_hand_hit(obj/item/melee/touch_attack/hand, atom/victim, mob/living/carbon/caster)
 	var/datum/effect_system/fluid_spread/smoke/smoke = new
 	smoke.set_up(amount = 5, location = victim)
 	smoke.start()

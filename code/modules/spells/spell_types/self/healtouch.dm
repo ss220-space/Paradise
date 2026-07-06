@@ -2,7 +2,7 @@
 /datum/action/cooldown/spell/touch/healtouch
 	name = "Целебное касание"
 	desc = "Это заклинание заряжает вашу руку целительной энергиец, позволяя вам лечить некоторые повреждения."
-	hand_path = /obj/item/melee/magic_hand/healtouch
+	hand_path = /obj/item/melee/touch_attack/healtouch
 	cooldown_time = 20 SECONDS
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 	invocation = "ИСЦЕЛЕНИЕ!"
@@ -16,13 +16,13 @@
 	var/tox = 10
 	var/oxy = 50
 
-/obj/item/melee/magic_hand/healtouch
+/obj/item/melee/touch_attack/healtouch
 	name = "healing touch"
 	desc = "Целительная аура, вырывающаяся из вашей руки. При прикосновении к гуманоиду заживляет его раны."
 	icon_state = "disintegrate" //ironic huh
 	item_state = "disintegrate"
 
-/obj/item/melee/magic_hand/healtouch/get_ru_names()
+/obj/item/melee/touch_attack/healtouch/get_ru_names()
 	return alist(
 		NOMINATIVE = "целебное касание",
 		GENITIVE = "целебного касания",
@@ -32,7 +32,7 @@
 		PREPOSITIONAL = "целебном касании",
 	)
 
-/datum/action/cooldown/spell/touch/healtouch/cast_on_hand_hit(obj/item/melee/magic_hand/hand, atom/victim, mob/living/carbon/caster)
+/datum/action/cooldown/spell/touch/healtouch/cast_on_hand_hit(obj/item/melee/touch_attack/hand, atom/victim, mob/living/carbon/caster)
 	var/mob/living/M = victim
 	new /obj/effect/temp_visual/heal(get_turf(M), "#899d39")
 	var/update = NONE
@@ -50,6 +50,6 @@
 	desc = "Это заклинание заряжает вашу руку энергией Некрополя, позволяя вам лечить некоторые повреждения и взаимодействовать с некоторыми предметами."
 	school = SCHOOL_LAVALAND
 	can_cast_on_self = FALSE
-	hand_path = /obj/item/melee/magic_hand/healtouch/shaman
+	hand_path = /obj/item/melee/touch_attack/healtouch/shaman
 
-/obj/item/melee/magic_hand/healtouch/shaman
+/obj/item/melee/touch_attack/healtouch/shaman

@@ -1,7 +1,7 @@
 /datum/action/cooldown/spell/touch/transfer_plasma
 	name = "Transfer Plasma"
 	desc = "Transfers plasma to a nearby alien"
-	hand_path = /obj/item/melee/magic_hand/transfer_plasma
+	hand_path = /obj/item/melee/touch_attack/transfer_plasma
 	button_icon_state = "alien_transfer"
 	background_icon_state = "bg_alien"
 	active_background_icon_state = "bg_alien"
@@ -30,7 +30,7 @@
 	user.adjust_alien_plasma(-plasma_amount)
 	return ..()
 
-/datum/action/cooldown/spell/touch/transfer_plasma/cast_on_hand_hit(obj/item/melee/magic_hand/hand, atom/victim, mob/living/carbon/caster)
+/datum/action/cooldown/spell/touch/transfer_plasma/cast_on_hand_hit(obj/item/melee/touch_attack/hand, atom/victim, mob/living/carbon/caster)
 	var/mob/living/carbon/transfering_to = victim
 	transfering_to.adjust_alien_plasma(plasma_amount)
 	to_chat(caster, span_noticealien("You have transfered [plasma_amount] plasma to [transfering_to]."))
@@ -44,12 +44,12 @@
 	user.adjust_alien_plasma(plasma_amount)
 	plasma_amount = 0
 
-/obj/item/melee/magic_hand/transfer_plasma
+/obj/item/melee/touch_attack/transfer_plasma
 	name = "plasma transfer"
 	desc = "Transfers plasma to another alien."
 	icon_state = "alien_transfer"
 
-/obj/item/melee/magic_hand/alien/transfer_plasma/New()
+/obj/item/melee/touch_attack/alien/transfer_plasma/New()
 	. = ..()
 	var/datum/action/cooldown/spell/touch/transfer_plasma/transfer_spell = spell_which_made_us.resolve()
 	name = "[name] ([(transfer_spell.plasma_amount)])"

@@ -1,7 +1,7 @@
 /datum/action/cooldown/spell/touch/cluwne
 	name = "Curse of the Cluwne"
 	desc = "Turns the target into a fat and cursed monstrosity of a clown."
-	hand_path = /obj/item/melee/magic_hand/cluwne
+	hand_path = /obj/item/melee/touch_attack/cluwne
 	invocation = "NWOLC EGNEVER"
 	school = SCHOOL_TRANSMUTATION
 	sound = 'sound/misc/sadtrombone.ogg'
@@ -9,7 +9,7 @@
 	cooldown_reduction_per_rank = 10 SECONDS
 	button_icon_state  = "cluwne"
 
-/obj/item/melee/magic_hand/cluwne
+/obj/item/melee/touch_attack/cluwne
 	name = "cluwne touch"
 	desc = "It's time to start clowning around."
 	icon_state = "cluwnecurse"
@@ -18,7 +18,7 @@
 /datum/action/cooldown/spell/touch/cluwne/is_valid_target(atom/cast_on)
 	return ishuman(cast_on)
 
-/datum/action/cooldown/spell/touch/cluwne/cast_on_hand_hit(obj/item/melee/magic_hand/hand, atom/victim, mob/living/carbon/caster)
+/datum/action/cooldown/spell/touch/cluwne/cast_on_hand_hit(obj/item/melee/touch_attack/hand, atom/victim, mob/living/carbon/caster)
 	var/mob/living/carbon/human/H = victim
 	if(iswizard(H))
 		to_chat(caster, span_warning("The spell has no effect on [victim]."))
