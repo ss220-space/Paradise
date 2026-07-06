@@ -117,7 +117,7 @@
 	desc = "You were a roboticist, once. Now you are Electro-Negmatic, a name this station will learn to fear. You designed \
 	your costume to resemble E-N, your faithful dog that some callous RD destroyed because it was sparking up the plasma. You \
 	intend to take your revenge and make them all pay thanks to your magnetic powers."
-	default_spells = list(/obj/effect/proc_holder/spell/charge_up/bounce/magnet)
+	default_spells = list(/datum/action/cooldown/spell/charged/beam/magnet)
 
 /datum/superheroes/electro/equip(mob/living/carbon/human/H)
 	..()
