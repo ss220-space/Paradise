@@ -28,7 +28,7 @@
 	/// A list which holds all categories and items the biogenator has available. Used with the UI to save having to rebuild this every time someone opens it.
 	var/list/product_list = list()
 	/// The [/datum/design]'s categories which can be produced by this machine and can be uploaded via a disk.
-	var/static/list/categories = list("Food", "Botany Chemicals", "Organic Materials", "Leather and Cloth")
+	var/static/list/categories = list("Ботанические реагенты", "Органические материалы", "Кожа и ткань", "Кубы", "Еда")
 
 /obj/machinery/biogenerator/Initialize(mapload)
 	. = ..()
@@ -209,7 +209,7 @@
 /obj/machinery/biogenerator/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "Biogenerator", "Biogenerator")
+		ui = new(user, src, "Биогенератор", "Биогенератор")
 		ui.set_autoupdate(FALSE)
 		ui.open()
 
