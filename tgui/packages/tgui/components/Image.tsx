@@ -53,7 +53,7 @@ export const Image = (props: Props) => {
         clearTimeout(retryTimeout.current);
       }
     },
-    [],
+    []
   );
 
   const computedProps = computeBoxProps(rest);

@@ -374,7 +374,7 @@ const KnowledgeShop = (props) => {
                 </Flex>
                 <hr />
               </Stack.Item>
-            ),
+            )
         )}
       </Stack>
     </Section>
@@ -429,11 +429,11 @@ const PathInfo = ({ currentPath }: { currentPath?: HereticPath }) => {
   const { paths } = data;
 
   const pathChosenIndex = paths.findIndex(
-    (path) => currentPath && path.route === currentPath.route,
+    (path) => currentPath && path.route === currentPath.route
   );
 
   const [currentTab, setCurrentTab] = useState(
-    pathChosenIndex !== -1 ? pathChosenIndex : 0,
+    pathChosenIndex !== -1 ? pathChosenIndex : 0
   );
 
   const path = paths[currentTab];
@@ -612,7 +612,7 @@ export const AntagInfoHeretic = (props) => {
 
   // The path we're actually walking (its starting knowledge is researched), if any.
   const currentPath = (paths ?? []).find(
-    (path) => path.starting_knowledge?.finished,
+    (path) => path.starting_knowledge?.finished
   );
 
   const tabs = [

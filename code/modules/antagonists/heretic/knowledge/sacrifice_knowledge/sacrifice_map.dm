@@ -141,6 +141,43 @@ GLOBAL_LIST_EMPTY(heretic_sacrifice_landmarks)
 	heavyfootstep = FOOTSTEP_MEAT
 
 
+// Visual variants used by the mapped Mansus rooms. Keep atmos here instead of
+// DMM var-edits: maplint bans tile atmos variables on mapped turfs.
+/turf/simulated/floor/fakespace/mansus_air
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_TEMPERATE
+
+
+/turf/simulated/floor/plating/asteroid/mansus_air
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_TEMPERATE
+
+
+/turf/simulated/floor/plating/asteroid/basalt/lava/mansus_air
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_TEMPERATE
+
+
+/turf/simulated/floor/plating/ironsand/mansus_air
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_TEMPERATE
+
+
+/turf/simulated/floor/plating/mansus_air
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_TEMPERATE
+
+
+/turf/simulated/floor/indestructible/plating/mansus_air
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_TEMPERATE
+
+
+/turf/simulated/floor/glass/mansus_air
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_TEMPERATE
+
+
 /turf/simulated/floor/indestructible/mansus/get_ru_names()
 	return alist(
 		NOMINATIVE = "плоть Мансуса",

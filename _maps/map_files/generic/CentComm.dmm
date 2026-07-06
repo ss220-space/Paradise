@@ -1825,10 +1825,7 @@
 /turf/simulated/floor/carpet/cyan,
 /area/centcom/central_command_areas/zone/three)
 "aTl" = (
-/turf/simulated/floor/plating/asteroid{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plating/asteroid/mansus_air,
 /area/centcom/heretic_sacrifice/moon)
 "aTn" = (
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
@@ -2061,10 +2058,7 @@
 /area/centcom/central_command_areas/zone/two)
 "aZl" = (
 /obj/machinery/light/very_dim/directional/west,
-/turf/simulated/floor/fakespace{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/fakespace/mansus_air,
 /area/centcom/heretic_sacrifice/moon)
 "aZG" = (
 /turf/simulated/wall/indestructible/abductor{
@@ -2719,10 +2713,7 @@
 /obj/machinery/door/airlock/maintenance_hatch{
 	locked = 1
 	},
-/turf/simulated/floor/indestructible/plating{
-	atmos_mode = 2;
-	atmos_environment = "temperate"
-	},
+/turf/simulated/floor/indestructible/plating/mansus_air,
 /area/centcom/heretic_sacrifice/lock)
 "bmT" = (
 /obj/effect/turf_decal/delivery/white/hollow,
@@ -6724,10 +6715,7 @@
 	},
 /area/centcom/central_command_areas/zone/two)
 "dgw" = (
-/turf/simulated/floor/fakespace{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/fakespace/mansus_air,
 /area/centcom/heretic_sacrifice/moon)
 "dgO" = (
 /obj/structure/railing{
@@ -7935,10 +7923,7 @@
 /area/shuttle/administration)
 "dEh" = (
 /obj/structure/cable/yellow,
-/turf/simulated/floor/plating/ironsand{
-	atmos_mode = 2;
-	atmos_environment = "temperate"
-	},
+/turf/simulated/floor/plating/ironsand/mansus_air,
 /area/centcom/heretic_sacrifice/rust)
 "dEm" = (
 /obj/machinery/computer/security/wooden_tv{
@@ -8729,10 +8714,7 @@
 /area/centcom/central_command_areas/special_operations)
 "dYo" = (
 /obj/effect/landmark/heretic/ash,
-/turf/simulated/floor/plating/asteroid/basalt/lava{
-	atmos_mode = 2;
-	atmos_environment = "temperate"
-	},
+/turf/simulated/floor/plating/asteroid/basalt/lava/mansus_air,
 /area/centcom/heretic_sacrifice/ash)
 "dYz" = (
 /obj/machinery/vending/chinese{
@@ -15023,10 +15005,7 @@
 /area/centcom/syndicate_base/outside)
 "hde" = (
 /obj/structure/grille,
-/turf/simulated/floor/indestructible/plating{
-	atmos_mode = 2;
-	atmos_environment = "temperate"
-	},
+/turf/simulated/floor/indestructible/plating/mansus_air,
 /area/centcom/heretic_sacrifice/lock)
 "hdC" = (
 /obj/machinery/door/airlock/external{
@@ -18395,10 +18374,7 @@
 /area/centcom/central_command_areas/special_operations)
 "iEo" = (
 /obj/machinery/light/very_dim/directional/north,
-/turf/simulated/floor/fakespace{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/fakespace/mansus_air,
 /area/centcom/heretic_sacrifice/moon)
 "iFk" = (
 /obj/effect/turf_decal{
@@ -19013,10 +18989,7 @@
 /area/centcom/wizard_station)
 "iQT" = (
 /obj/effect/landmark/heretic/moon,
-/turf/simulated/floor/plating/asteroid{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plating/asteroid/mansus_air,
 /area/centcom/heretic_sacrifice/moon)
 "iRb" = (
 /turf/simulated/wall/shuttle,
@@ -20896,10 +20869,7 @@
 /area/centcom/central_command_areas/zone/one)
 "jIC" = (
 /obj/structure/bonfire/prelit,
-/turf/simulated/floor/plating/asteroid/basalt/lava{
-	atmos_mode = 2;
-	atmos_environment = "temperate"
-	},
+/turf/simulated/floor/plating/asteroid/basalt/lava/mansus_air,
 /area/centcom/heretic_sacrifice/ash)
 "jJn" = (
 /obj/structure/curtain/open/shower/security,
@@ -26811,10 +26781,7 @@
 /area/centcom/vox_station)
 "mrk" = (
 /obj/effect/decal/cleanable/blood,
-/turf/simulated/floor/indestructible/plating{
-	atmos_mode = 2;
-	atmos_environment = "temperate"
-	},
+/turf/simulated/floor/indestructible/plating/mansus_air,
 /area/centcom/heretic_sacrifice/lock)
 "mrp" = (
 /obj/machinery/light{
@@ -27459,10 +27426,7 @@
 	},
 /area/centcom/syndicate_base)
 "mHX" = (
-/turf/simulated/floor/plating/ironsand{
-	atmos_mode = 2;
-	atmos_environment = "temperate"
-	},
+/turf/simulated/floor/plating/ironsand/mansus_air,
 /area/centcom/heretic_sacrifice/rust)
 "mIH" = (
 /obj/structure/closet/cabinet,
@@ -29957,10 +29921,7 @@
 	loot = list(/obj/item/reagent_containers/food/snacks/lasagna=10,/obj/item/reagent_containers/food/snacks/sliceable/pizza/hawaiianpizza=10,/obj/item/reagent_containers/food/snacks/sushi_TobikoEgg=10,/obj/item/reagent_containers/food/snacks/bigbiteburger=10,/obj/item/reagent_containers/food/snacks/sushi_SmokedSalmon=10,""=70);
 	name = "Food CC Spawner #2"
 	},
-/turf/simulated/floor/fakespace{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/fakespace,
 /area/centcom/central_command_areas/zone/three)
 "nWP" = (
 /obj/effect/turf_decal/stripes/line,
@@ -30339,10 +30300,7 @@
 /turf/simulated/floor/carpet/black,
 /area/centcom/ninja/outpost)
 "oeM" = (
-/turf/simulated/floor/indestructible/plating{
-	atmos_mode = 2;
-	atmos_environment = "temperate"
-	},
+/turf/simulated/floor/indestructible/plating/mansus_air,
 /area/centcom/heretic_sacrifice/lock)
 "oeQ" = (
 /obj/structure/chair/sofa/corp/right{
@@ -30389,10 +30347,7 @@
 /area/centcom/central_command_areas/special_operations)
 "ofK" = (
 /obj/machinery/light/very_dim/directional/east,
-/turf/simulated/floor/plating/asteroid{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plating/asteroid/mansus_air,
 /area/centcom/heretic_sacrifice/moon)
 "ofV" = (
 /obj/effect/turf_decal/stripes/end{
@@ -30599,10 +30554,7 @@
 	},
 /area/centcom/central_command_areas/zone/one)
 "okd" = (
-/turf/simulated/floor/glass{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/glass/mansus_air,
 /area/centcom/heretic_sacrifice/moon)
 "okj" = (
 /obj/structure/table/glass,
@@ -35939,10 +35891,7 @@
 	layer = 5;
 	req_access = list(114)
 	},
-/turf/simulated/floor/fakespace{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/fakespace,
 /area/centcom/central_command_areas/special_operations)
 "qPU" = (
 /obj/structure/toilet{
@@ -37904,10 +37853,7 @@
 /turf/simulated/floor/carpet,
 /area/centcom/syndicate_base/infiltrators)
 "rET" = (
-/turf/simulated/floor/plating{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plating/mansus_air,
 /area/centcom/heretic_sacrifice/rust)
 "rFb" = (
 /turf/simulated/floor/shuttle,
@@ -39429,10 +39375,7 @@
 /area/centcom/syndicate_base/control)
 "sjq" = (
 /obj/structure/lattice,
-/turf/simulated/floor/plating/ironsand{
-	atmos_mode = 2;
-	atmos_environment = "temperate"
-	},
+/turf/simulated/floor/plating/ironsand/mansus_air,
 /area/centcom/heretic_sacrifice/rust)
 "sjP" = (
 /obj/machinery/door/poddoor{
@@ -40559,10 +40502,7 @@
 /area/centcom/central_command_areas/bridge)
 "sJq" = (
 /obj/effect/landmark/heretic/void,
-/turf/simulated/floor/plating/asteroid{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plating/asteroid/mansus_air,
 /area/centcom/heretic_sacrifice/moon)
 "sJD" = (
 /obj/structure/table/abductor,
@@ -42180,10 +42120,7 @@
 /area/centcom/central_command_areas/zone/two)
 "twz" = (
 /obj/machinery/light/very_dim/directional/south,
-/turf/simulated/floor/plating/asteroid{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/plating/asteroid/mansus_air,
 /area/centcom/heretic_sacrifice/moon)
 "twB" = (
 /obj/structure/table/wood/poker,
@@ -43869,10 +43806,7 @@
 	loot = list(/obj/item/reagent_containers/food/snacks/baguette=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/applepie=10,/obj/item/reagent_containers/food/snacks/soup/bloodsoup=10,/obj/item/reagent_containers/food/snacks/boiledrice=10,/obj/item/reagent_containers/food/snacks/carrotfries=10,/obj/item/reagent_containers/food/drinks/cans/cola=10,""=70);
 	name = "Food CC Spawner #1"
 	},
-/turf/simulated/floor/fakespace{
-	atmos_environment = "temperate";
-	atmos_mode = 2
-	},
+/turf/simulated/floor/fakespace,
 /area/centcom/central_command_areas/zone/three)
 "ulf" = (
 /turf/simulated/floor/plasteel{
@@ -45156,10 +45090,7 @@
 	},
 /area/centcom/central_command_areas/supply)
 "uNJ" = (
-/turf/simulated/floor/plating/asteroid/basalt/lava{
-	atmos_mode = 2;
-	atmos_environment = "temperate"
-	},
+/turf/simulated/floor/plating/asteroid/basalt/lava/mansus_air,
 /area/centcom/heretic_sacrifice/ash)
 "uNY" = (
 /obj/item/flag/nt,
@@ -47470,10 +47401,7 @@
 /obj/item/flashlight/flare{
 	on = 1
 	},
-/turf/simulated/floor/indestructible/plating{
-	atmos_mode = 2;
-	atmos_environment = "temperate"
-	},
+/turf/simulated/floor/indestructible/plating/mansus_air,
 /area/centcom/heretic_sacrifice/lock)
 "vNF" = (
 /turf/simulated/wall/shuttle/nosmooth{
@@ -50431,11 +50359,7 @@
 "xfl" = (
 /obj/machinery/light/floor,
 /obj/structure/lattice,
-/obj/structure/lattice,
-/turf/simulated/floor/plating/ironsand{
-	atmos_mode = 2;
-	atmos_environment = "temperate"
-	},
+/turf/simulated/floor/plating/ironsand/mansus_air,
 /area/centcom/heretic_sacrifice/rust)
 "xfs" = (
 /turf/simulated/wall/shuttle/nosmooth/interior{
@@ -51570,10 +51494,7 @@
 /area/centcom/central_command_areas/special_operations)
 "xAG" = (
 /obj/machinery/light/floor,
-/turf/simulated/floor/plating/ironsand{
-	atmos_mode = 2;
-	atmos_environment = "temperate"
-	},
+/turf/simulated/floor/plating/ironsand/mansus_air,
 /area/centcom/heretic_sacrifice/rust)
 "xAH" = (
 /turf/simulated/floor/mineral/plastitanium,
@@ -53025,10 +52946,7 @@
 /area/centcom/syndicate_base/elite_squad)
 "yfc" = (
 /obj/effect/landmark/heretic/lock,
-/turf/simulated/floor/indestructible/plating{
-	atmos_mode = 2;
-	atmos_environment = "temperate"
-	},
+/turf/simulated/floor/indestructible/plating/mansus_air,
 /area/centcom/heretic_sacrifice/lock)
 "yfw" = (
 /obj/effect/mapping_helpers/light{
