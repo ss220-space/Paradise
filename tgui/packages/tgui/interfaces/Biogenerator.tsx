@@ -83,7 +83,7 @@ const Storage = (props: unknown) => {
             </Box>
           </ProgressBar>
         ) : (
-          <Stack.Item>None</Stack.Item>
+          <Stack.Item>Отсутствует</Stack.Item>
         )}
       </Stack>
     </Section>
