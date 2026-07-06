@@ -37,6 +37,12 @@
 #define COMSIG_GET_COOKING_EXTRA_COUNT_CHANCE "get_cooking_extra_count_chance"
 /// Get chem reaction amount modifier for drinks skill (mob/living/user, list/modifiers)
 #define COMSIG_GET_DRINKS_DISPENSE_RAND_SIZE "get_drinks_dispense_rand_size"
+/// Get plant growth rate for botany skill (mob/living/user, list/modifiers)
+#define COMSIG_GET_PLANT_GROWTH_RATE "get_plant_growth_rate"
+/// Get hydroponic cultivation modifier for botany skill (mob/living/user, list/modifiers)
+#define COMSIG_GET_HYDROPONIC_CULTIVATION_MOD "get_hydroponic_cultivation_mod"
+/// Get harvest modifier for botany skill (mob/living/user, list/modifiers)
+#define COMSIG_GET_HYDROPONIC_HARVEST_MOD "get_hydroponic_harvest_mod"
 
 // MARK: General
 /// Get speed modifier for mech driving skill (mob/living/user, list/modifiers)
