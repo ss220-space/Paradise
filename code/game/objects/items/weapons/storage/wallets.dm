@@ -7,7 +7,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	resistance_flags = FLAMMABLE
 	slot_flags = ITEM_SLOT_ID
-	storage_slots = 4
+	storage_slots = 5
 	can_hold = list(
 		/obj/item/card,
 		/obj/item/clothing/gloves/ring,
