@@ -61,7 +61,7 @@ const Storage = (props: unknown) => {
     <Section title="Хранилище">
       <Stack>
         <Stack.Item mr="20px" color="silver">
-          Биомассы:
+          Биомасса:
         </Stack.Item>
         <Stack.Item mr="5px">{biomass}</Stack.Item>
         <Icon name="leaf" size={1.2} color="#3d8c40" />
@@ -103,9 +103,7 @@ const Controls = (props: unknown) => {
             textAlign="center"
             icon="power-off"
             disabled={!has_plants}
-            tooltip={
-              has_plants ? '' : 'В биогенераторе нет расстений.'
-            }
+            tooltip={has_plants ? '' : 'В биогенераторе нет растений.'}
             tooltipPosition="top-start"
             onClick={() => act('activate')}
           >
@@ -118,9 +116,7 @@ const Controls = (props: unknown) => {
             textAlign="center"
             icon="flask"
             disabled={!container}
-            tooltip={
-              container ? '' : 'В биогенераторе нет контейнера.'
-            }
+            tooltip={container ? '' : 'В биогенераторе нет контейнера.'}
             tooltipPosition="top"
             onClick={() => act('detach_container')}
           >
@@ -133,7 +129,7 @@ const Controls = (props: unknown) => {
             textAlign="center"
             icon="eject"
             disabled={!has_plants}
-            tooltip={has_plants ? '' : 'В биогенераторе нет расстений.'}
+            tooltip={has_plants ? '' : 'В биогенераторе нет растений.'}
             tooltipPosition="top-end"
             onClick={() => act('eject_plants')}
           >

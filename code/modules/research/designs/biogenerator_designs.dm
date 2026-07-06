@@ -188,7 +188,7 @@
 	category = list(PRINTER_CATEGORY_INITIAL, "Органические материалы")
 
 /datum/design/rollingpapers
-	name = "Рулонная бумага"
+	name = "Бумага для самокруток"
 	id = "rolling_paper_pack"
 	build_type = BIOGENERATOR
 	materials = list(MAT_BIOMASS = 50)
