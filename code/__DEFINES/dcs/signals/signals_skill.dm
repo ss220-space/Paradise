@@ -43,6 +43,10 @@
 #define COMSIG_GET_HYDROPONIC_CULTIVATION_MOD "get_hydroponic_cultivation_mod"
 /// Get harvest modifier for botany skill (mob/living/user, list/modifiers)
 #define COMSIG_GET_HYDROPONIC_HARVEST_MOD "get_hydroponic_harvest_mod"
+/// Get speed modifier for cleaning skill (mob/living/user, list/modifiers)
+#define COMSIG_GET_CLEANING_SPEED_MOD "get_cleaning_speed_mod"
+/// Get cleaning distance modifier for cleaning skill (mob/living/user, list/modifiers)
+#define COMSIG_GET_CLEANING_DISTANCE "get_cleaning_distance"
 
 // MARK: General
 /// Get speed modifier for mech driving skill (mob/living/user, list/modifiers)
@@ -57,12 +61,6 @@
 #define COMSIG_GET_SPACESUIT_SLOWDOWN_MOD "get_spacesuit_slowdown"
 /// Get spacepod battery usage modifier (mob/living/user, list/modifiers)
 #define COMSIG_GET_SPACEPOD_BATTERY_USAGE_MOD "get_spacepod_battery_usage"
-
-// MARK: Service
-/// Get speed modifier for cleaning skill (mob/living/user, list/modifiers)
-#define COMSIG_GET_CLEANING_SPEED_MOD "get_cleaning_speed"
-/// Get cleaning distance modifier for cleaning skill (mob/living/user, list/modifiers)
-#define COMSIG_GET_CLEANING_DISTANCE_MOD
 
 // MARK: Combat
 /// Get gun accuracy modifier for accuracy skill (mob/living/user, list/modifiers)

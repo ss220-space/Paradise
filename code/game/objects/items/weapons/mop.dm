@@ -88,12 +88,13 @@
 		ignored_mobs = user
 	)
 	user.balloon_alert(user, "мытьё пола...")
+	CALCULATE_SKILL_MOD(user, COMSIG_GET_CLEANING_SPEED_MOD, cleaning_skill_mod)
 
 	var/list/bubbles = list()
 	for(var/turf/turf as anything in turfs)
-		bubbles += new /obj/effect/temp_visual/bubbles(turf, mopspeed)
+		bubbles += new /obj/effect/temp_visual/bubbles(turf, mopspeed * cleaning_skill_mod)
 
-	if(!do_after(user, mopspeed, clicked_turf))
+	if(!do_after(user, mopspeed * cleaning_skill_mod, clicked_turf))
 		QDEL_LAZYLIST(bubbles)
 		return
 

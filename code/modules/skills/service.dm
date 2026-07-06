@@ -63,4 +63,25 @@
 	name = "Уборка"
 	desc = "Влияет на мытье полов и уборку."
 	duration_mod_signals = list(COMSIG_GET_CLEANING_SPEED_MOD)
-	quality_mod_signals = list(COMSIG_GET_CLEANING_DISTANCE_MOD)
+	var/cleaner_distances = alist(
+		SKILL_LEVEL_NONE = 1,
+		SKILL_LEVEL_BEGINNER = 2,
+		SKILL_LEVEL_BASIC = 3,
+		SKILL_LEVEL_ADVANCED = 4,
+		SKILL_LEVEL_PROFESSIONAL = 5,
+		SKILL_LEVEL_EXPERT = 6,
+		SKILL_LEVEL_LEGEND = 7,
+		SKILL_LEVEL_UNAVAILABLE = 0,
+	)
+
+/datum/skill/service/cleaning/apply_to_mob(mob/owner)
+	. = ..()
+	RegisterSignal(owner, COMSIG_GET_CLEANING_DISTANCE, PROC_REF(get_cleaner_dustance))
+
+/datum/skill/service/cleaning/remove_from_mob(mob/owner)
+	. = ..()
+	UnregisterSignal(owner, COMSIG_GET_CLEANING_DISTANCE)
+
+/datum/skill/service/cleaning/proc/get_cleaner_dustance(mob/living/user, list/results)
+	SIGNAL_HANDLER
+	get_modifier(user, results, cleaner_distances)
