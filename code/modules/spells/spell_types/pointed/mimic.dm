@@ -239,6 +239,7 @@
 
 /datum/action/cooldown/spell/pointed/mimic/morph
 	background_icon_state = "bg_morph"
+	active_background_icon_state = "bg_morph"
 	button_icon_state = "morph_mimic"
 
 /datum/action/cooldown/spell/pointed/mimic/morph/create_new_handler()

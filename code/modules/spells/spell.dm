@@ -354,7 +354,7 @@
 		sig_return |= SEND_SIGNAL(owner, COMSIG_MOB_BEFORE_SPELL_CAST, src, cast_on)
 
 	custom_handler?.before_cast(cast_on, owner, src)
-
+	custom_handler?.spend_spell_cost(owner, src)
 	return sig_return
 
 /**
@@ -393,7 +393,7 @@
 		smoke.set_up(smoke_amt, holder = owner, location = get_turf(owner))
 		smoke.start()
 	custom_handler?.after_cast(cast_on, owner, src)
-	custom_handler?.spend_spell_cost(owner, src)
+
 
 	// Send signals last in case they delete the spell
 	SEND_SIGNAL(owner, COMSIG_MOB_AFTER_SPELL_CAST, src, cast_on)

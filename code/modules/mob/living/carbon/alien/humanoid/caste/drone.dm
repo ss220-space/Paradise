@@ -14,9 +14,11 @@
 	if(name == "alien drone")
 		name = "alien drone ([rand(1, 1000)])"
 	real_name = name
-	AddSpell(new /obj/effect/proc_holder/spell/alien_spell/break_vents)
+	var/datum/action/cooldown/spell/pointed/break_vent/vent_spell = new
+	vent_spell.Grant(src)
 	if(!sterile)
-		AddSpell(new /obj/effect/proc_holder/spell/alien_spell/evolve/queen)
+		var/datum/action/cooldown/spell/evolve/queen/evolve_spell = new
+		evolve_spell.Grant(src)
 
 /mob/living/carbon/alien/humanoid/drone/get_caste_organs()
 	. = ..()

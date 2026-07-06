@@ -156,7 +156,7 @@
 		StartCooldown()
 		return
 
-	if(!QDELETED(attached_hand) && (attached_hand in cast_on.get_item_by_slot(cast_on.get_active_hand())))
+	if(!QDELETED(attached_hand) && (attached_hand in cast_on.contents))
 		remove_hand(cast_on, reset_cooldown_after = TRUE)
 		return
 

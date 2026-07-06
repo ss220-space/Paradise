@@ -14,8 +14,10 @@
 		name = text("alien sentinel ([rand(1, 1000)])")
 	real_name = name
 	. = ..()
-	AddSpell(new /obj/effect/proc_holder/spell/alien_spell/break_vents)
-	AddSpell(new /obj/effect/proc_holder/spell/alien_spell/evolve/praetorian)
+	var/datum/action/cooldown/spell/pointed/break_vent/vent_spell = new
+	vent_spell.Grant(src)
+	var/datum/action/cooldown/spell/evolve/praetorian/evolve_spell = new
+	evolve_spell.Grant(src)
 
 /mob/living/carbon/alien/humanoid/sentinel/get_caste_organs()
 	. = ..()
@@ -54,7 +56,8 @@
 	real_name = name
 	action_sprite = new
 	action_sprite.Grant(src)
-	AddSpell(new /obj/effect/proc_holder/spell/alien_spell/break_vents)
+	var/datum/action/cooldown/spell/pointed/break_vent = new
+	break_vent.Grant(src)
 	praetorian_count++
 
 /mob/living/carbon/alien/humanoid/praetorian/Destroy()
