@@ -116,7 +116,6 @@
 /obj/item/storage/wallet/color
 	name = "cheap wallet"
 	desc = "A cheap wallet from the arcade."
-	storage_slots = 5		//smaller storage than normal wallets
 
 /obj/item/storage/wallet/color/Initialize(mapload)
 	. = ..()
