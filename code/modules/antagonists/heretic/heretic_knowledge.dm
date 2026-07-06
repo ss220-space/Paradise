@@ -491,8 +491,8 @@
 	summoned.move_resist = MOVE_FORCE_OVERPOWERING
 	animate(summoned, 10 SECONDS, alpha = 155)
 
-	message_admins("[summoned.name] был[genderize_ru(summoned.gender, "", "а", "о", "и")] призван[genderize_ru(summoned.gender, "", "а", "о", "ы")] [ADMIN_LOOKUPFLW(user)] в [ADMIN_COORDJMP(summoned)].")
-	var/list/candidates = SSghost_spawns.poll_candidates("Вы бы хотели сыграть за [summoned.declent_ru(ACCUSATIVE)] призванн[genderize_ru(summoned.gender, "ого", "ую", "ое", "ых")] еретиком?", \
+	message_admins("[summoned.name] был[GEND_A_O_I(summoned)] призван[GEND_A_O_Y(summoned)] [ADMIN_LOOKUPFLW(user)] в [ADMIN_COORDJMP(summoned)].")
+	var/list/candidates = SSghost_spawns.poll_candidates("Вы бы хотели сыграть за [summoned.declent_ru(ACCUSATIVE)] призванн[UNLINT(genderize_ru(summoned.gender, "ого", "ую", "ое", "ых"))] еретиком?", \
 								null, FALSE, 10 SECONDS, TRUE, source = summoned)
 	if(!candidates.len)
 		loc.balloon_alert(user, "нет готовых кандидатов!")
@@ -686,7 +686,7 @@
 
 	SSblackbox.record_feedback("tally", "heretic_ascended", 1, GLOB.heretic_research_tree[type][HKT_ROUTE])
 	notify_ghosts(
-		"[user.real_name] завершил[genderize_ru(user.gender, "", "а", "о", "и")] ритуал вознесения!",
+		"[user.real_name] завершил[GEND_A_O_I(user)] ритуал вознесения!",
 		source = user,
 		title = "Еретик Вознесся!",
 	)

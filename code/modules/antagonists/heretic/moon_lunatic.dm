@@ -37,7 +37,7 @@
 	lunatic_obj.master = heretic_master
 	lunatic_obj.update_explanation_text()
 
-	to_chat(owner, span_boldnotice("Разрушь ложь, спаси правду служа [heretic_master] - лидеру Лунатиков!"))
+	to_chat(owner, span_boldnotice("Разрушь ложь, спаси правду служа [heretic_master] — лидеру Лунатиков!"))
 
 
 /datum/antagonist/lunatic/apply_innate_effects(mob/living/mob_override)
@@ -75,7 +75,7 @@
 		explanation_text = "Используйте лунатиков для достижеиния своих целей!"
 		return
 
-	explanation_text = "Помогите лидеру Лунатиков. Лидер - [master.current.real_name]. Не вредите другим лунатикам!"
+	explanation_text = "Помогите лидеру Лунатиков. Лидер — [master.current.real_name]. Не вредите другим лунатикам!"
 
 
 // Lunatic master

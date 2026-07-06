@@ -51,7 +51,7 @@
 			Монета будет открывать или закрывать ближайшие шлюзы при выпадении орла и переключать их болты \
 			при выпадении решки. Если вставить монету в шлюз, она будет уничтожена \
 			и сожжёт его электронику, что сделает шлюз открытым навсегда, если только он небыл заблокирован."
-	gain_text = "Мансус - сборище всевозможных грехов. Но жадность играет здесь особую роль."
+	gain_text = "Мансус — сборище всевозможных грехов. Но жадность играет здесь особую роль."
 
 	required_atoms = list(
 		/obj/item/stack/sheet/mineral/diamond = 1,
@@ -144,7 +144,7 @@
 
 
 /obj/item/coin/eldritch/melee_attack_chain(mob/living/user, atom/interacting_with, params)
-	if(!istype(interacting_with, /obj/machinery/door/airlock))
+	if(!is_airlock(interacting_with))
 		return ..()
 
 	if(!isheretic(user))

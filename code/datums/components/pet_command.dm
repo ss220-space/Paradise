@@ -56,7 +56,7 @@
 	try_activate_command(speaker, FALSE)
 
 /datum/pet_command/proc/find_command_in_text(spoken_text, check_verbosity = FALSE)
-	for(var/command as anything in speech_commands)
+	for(var/command in speech_commands)
 		if(findtext(spoken_text, command))
 			return TRUE
 	return FALSE

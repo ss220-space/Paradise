@@ -23,9 +23,9 @@
 		"Трудно сражаться с силиконовыми формами жизни.",
 	)
 	path_tips = list(
-		"«Прикосновение Мансуса» заглушает жертву - идеально для бесшумных убийств (учтите: датчики костюма оно не отключает, не забудьте выключить их после убийства). Прикосновение также накладывает метку: сработав от удара Клинком Пустоты, она накладывает максимум зарядов пустотного озноба, замедляя жертву до предела.",
-		"Плащ Пустоты с опущенным капюшоном прячет один из ваших клинков и Кодекс Цикатрикс, а с поднятым - служит амулетом.",
-		"Пустотный озноб - дебафф, накладываемый вашими заклинаниями, прикосновением, меткой и (после улучшения) клинком. Каждый заряд замедляет цель на 10% и постепенно охлаждает её; максимум 5 зарядов.",
+		"«Прикосновение Мансуса» заглушает жертву — идеально для бесшумных убийств (учтите: датчики костюма оно не отключает, не забудьте выключить их после убийства). Прикосновение также накладывает метку: сработав от удара Клинком Пустоты, она накладывает максимум зарядов пустотного озноба, замедляя жертву до предела.",
+		"Плащ Пустоты с опущенным капюшоном прячет один из ваших клинков и Кодекс Цикатрикс, а с поднятым — служит амулетом.",
+		"Пустотный озноб — дебафф, накладываемый вашими заклинаниями, прикосновением, меткой и (после улучшения) клинком. Каждый заряд замедляет цель на 10% и постепенно охлаждает её; максимум 5 зарядов.",
 		"На 5 зарядах пустотный озноб не даёт жертве согреться.",
 		"С самого начала смены вы невосприимчивы к низкому давлению и холоду. Улучшите пассивную способность до 2 уровня, чтобы перестать нуждаться в дыхании. Используйте это с умом.",
 		"«Пустотная Тюрьма» запирает цель в шаре на десяток секунд. Идеально, чтобы изолировать одного противника, сражаясь с несколькими.",
@@ -112,7 +112,7 @@
 			лишая её возможности что-либо делать или говорить. После накладывает пустотный озноб."
 	gain_text = "Я вижу себя, вальсирующего по заснеженной улице. \
 				Я пытаюсь кричать, пытаюсь схватить этого дурака, пытаюсь сказать ему, чтобы он бежал. \
-				Моё улыбающееся лицо поворачивается ко мне, отражая в остекленевших глазах пустоту - путь по которому я шел."
+				Моё улыбающееся лицо поворачивается ко мне, отражая в остекленевших глазах пустоту — путь по которому я шел."
 	research_tree_icon_path = 'icons/mob/actions/actions_ecult.dmi'
 	research_tree_icon_state = "voidball"
 	spell_to_add = /obj/effect/proc_holder/spell/pointed/void_prison
@@ -127,7 +127,7 @@
 	gain_text = "Ступая сквозь холодный воздух, я ощутил нечто новое. \
 				Тысячи почти неразличимых нитей льнут к моему телу. \
 				С каждым шагом я словно плыву по течению. \
-				Я слышу хруст снега под ногой - но не чувствую ничего."
+				Я слышу хруст снега под ногой — но не чувствую ничего."
 	result_atoms = list(/obj/item/clothing/suit/hooded/cultrobes/eldritch/void)
 	required_atoms = list(
 		list(/obj/structure/table, /obj/item/clothing/suit) = 1,
@@ -135,7 +135,6 @@
 	)
 	// The void robe sprite was spliced into the shared suits.dmi.
 	// The /armor parent asks for frame 12 (eldritch_armor is a 14-frame anim); void_armor is single-frame.
-	research_tree_icon_path = 'icons/obj/clothing/suits.dmi'
 	research_tree_icon_state = "void_armor"
 	research_tree_icon_frame = 1
 
@@ -210,7 +209,6 @@
 /datum/looping_sound/void_loop
 	mid_sounds = list('sound/music/heretic/VoidsEmbrace.ogg' = 1)
 	mid_length = 166.9 SECONDS // exact length of the music in ticks
-	volume = 100
 	extra_range = 30
 
 
@@ -302,7 +300,7 @@
 			var/obj/affected_door = thing_in_range
 			affected_door.take_damage(rand(60, 80))
 
-		if(istype(thing_in_range, /obj/structure/window) || istype(thing_in_range, /obj/structure/grille))
+		if(is_window(thing_in_range) || istype(thing_in_range, /obj/structure/grille))
 			var/obj/structure/affected_structure = thing_in_range
 			affected_structure.take_damage(rand(20, 40))
 
@@ -312,8 +310,6 @@
 		var/turf/affected_turf = thing_in_range
 		var/datum/gas_mixture/environment = affected_turf.get_readonly_air()
 		environment.set_temperature(environment.temperature() * 0.9) // master220 MILLA: temperature is via getter/setter (runtime: may need a milla_safe write to persist)
-
-
 
 	// Telegraph the storm in every area on the station.
 	var/list/station_levels = levels_by_trait(STATION_LEVEL)
@@ -378,8 +374,6 @@
 		hitting_projectile.firer = ascended_heretic
 		hitting_projectile.set_angle(rand(0, 360)) //SHING
 	return COMPONENT_BULLET_DEFLECTED
-
-
 
 /datum/weather/void_storm
 	name = "пустотный шторм"

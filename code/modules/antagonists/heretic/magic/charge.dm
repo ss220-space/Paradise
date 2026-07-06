@@ -181,8 +181,6 @@
 	INVOKE_ASYNC(src, PROC_REF(DestroySurroundings), source)
 	try_hit_target(source, target)
 
-
-
 /// Attempt to hit someone with our charge
 /obj/effect/proc_holder/spell/mob_cooldown/charge/proc/try_hit_target(atom/movable/source, atom/target)
 	if(can_hit_target(source, target))

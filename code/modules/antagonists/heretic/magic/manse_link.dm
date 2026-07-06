@@ -28,6 +28,8 @@
 
 /obj/effect/proc_holder/spell/pointed/manse_link/New(Target)
 	. = ..()
+	if(isnull(Target)) // instantiated bare (e.g. unit tests) — the linker will never be set, but don't runtime
+		return
 	if(!istype(Target, /datum/component/mind_linker))
 		stack_trace("[name] ([type]) was instantiated on a non-mind_linker target, this doesn't work.")
 		return
@@ -68,7 +70,7 @@
 		return FALSE
 
 	if(linkee.stat == DEAD)
-		to_chat(caster, span_warning("[genderize_ru(linkee.gender, "Он мёртв", "Она мертва", "Оно мертво", "Они мертвы")]!"))
+		to_chat(caster, span_warning("[GEND_HE_SHE_CAP(linkee)] мертв[GEND_A_O_Y(linkee)]!"))
 		return FALSE
 
 	to_chat(caster, span_notice("Вы начинаете соединять разум [linkee.declent_ru(GENITIVE)] с вашим..."))

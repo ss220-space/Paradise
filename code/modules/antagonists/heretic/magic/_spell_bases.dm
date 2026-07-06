@@ -74,7 +74,7 @@
 
 /obj/effect/proc_holder/spell/pointed/proc/on_activation(mob/on_who)
 	SHOULD_CALL_PARENT(TRUE)
-	to_chat(on_who, span_notice("[active_msg] <B>Left-click to cast the spell on a target!</B>"))
+	to_chat(on_who, span_notice("[active_msg] <b>Left-click to cast the spell on a target!</b>"))
 	action?.UpdateButtonIcon()
 	return TRUE
 

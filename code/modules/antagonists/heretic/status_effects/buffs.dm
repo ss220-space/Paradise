@@ -37,14 +37,13 @@
 // tg parity: the 2-minute lockout after a Crucible Soul brew wears off (the brew refuses to work while active).
 /datum/status_effect/crucible_soul_cooldown
 	id = "Crucible Soul Cooldown"
-	status_type = STATUS_EFFECT_UNIQUE
 	duration = 2 MINUTES
 	alert_type = /atom/movable/screen/alert/status_effect/crucible_soul_cooldown
 	show_duration = TRUE
 
 
 /datum/status_effect/crucible_soul/get_examine_text()
-	return span_notice("Не похоже что [genderize_ru(owner.gender, "он", "она", "оно", "они")] действительно здесь наход[pluralize_ru(owner.gender, "и", "я")]тся.")
+	return span_notice("Не похоже что [GEND_HE_SHE(owner)] действительно здесь наход[PLUR_IT_YAT(owner)]ся.")
 
 
 /datum/action/cancel_crucible_soul

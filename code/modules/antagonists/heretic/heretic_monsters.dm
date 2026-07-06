@@ -51,7 +51,7 @@
 		return ..()
 
 	if(master?.current)
-		to_chat(master.current, span_warning("Вы чувствуете как связь с [owner.current.declent_ru(NOMINATIVE)] - вашим слугой, постепенно рассеивается."))
+		to_chat(master.current, span_warning("Вы чувствуете как связь с [owner.current.declent_ru(NOMINATIVE)] — вашим слугой, постепенно рассеивается."))
 
 	if(!owner.current)
 		master = null

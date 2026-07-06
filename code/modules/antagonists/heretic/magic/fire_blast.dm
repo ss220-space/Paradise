@@ -63,7 +63,7 @@
 	// but likely will (due to them not catching on fire)
 	if(to_beam.can_block_magic(antimagic_flags))
 		to_beam.visible_message(
-			span_warning("[to_beam.declent_ru(NOMINATIVE)] поглоща[pluralize_ru(to_beam.gender, "е", "ю")]т заклинание, оставаясь невредим[genderize_ru(to_beam.gender, "ым", "ой", "ым", "ыми")]!"),
+			span_warning("[to_beam.declent_ru(NOMINATIVE)] поглоща[PLUR_ET_YUT(to_beam)] заклинание, оставаясь невредим[GEND_YM_OI_YM_YMI(to_beam)]!"),
 			span_userdanger("Вы поглощаете заклинание, оставаясь невредимым!"),
 		)
 		// Apply status effect but with no overlay

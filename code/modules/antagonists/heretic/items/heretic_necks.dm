@@ -295,8 +295,8 @@
 		to_chat(hit, span_warning("Что-то в вашей голове отражает вторжение Луны."))
 		return ..()
 
-	user.balloon_alert(user, "[genderize_ru(target.gender, "он", "она", "оно", "они")] увид[pluralize_ru(target.gender, "ит", "ят")] правду!")
-	to_chat(user, span_purple("Вы обращаете [hit.declent_ru(ACCUSATIVE)] в безумного слугу Луны — теперь [genderize_ru(hit.gender, "он", "она", "оно", "они")] набросится на всех вокруг!"))
+	user.balloon_alert(user, "[GEND_HE_SHE(target)] увид[PLUR_IT_YAT(target)] правду!")
+	to_chat(user, span_purple("Вы обращаете [hit.declent_ru(ACCUSATIVE)] в безумного слугу Луны — теперь [GEND_HE_SHE(hit)] набросится на всех вокруг!"))
 	hit.apply_status_effect(/datum/status_effect/moon_converted)
 	log_game("[key_name(user)] drove [key_name(hit)] berserk with a moonlight amulet.")
 	. = ..()
@@ -350,7 +350,7 @@
 	if(!istype(blade, /obj/item/melee/sickly_blade))
 		return
 	to_chat(attacker, span_purple(pick(
-		"Вы рассекаете [victim.declent_ru(ACCUSATIVE)], раздваивая [genderize_ru(victim.gender, "его", "её", "его", "их")] отражение надвое.",
+		"Вы рассекаете [victim.declent_ru(ACCUSATIVE)], раздваивая [GEND_HIS_HER(victim)] отражение надвое.",
 		"Клинок входит глубоко, освобождая [victim.declent_ru(ACCUSATIVE)] от лишних мыслей. Безупречно.",
 		"Свет вспыхивает на лезвии, и [victim.declent_ru(NOMINATIVE)] на миг видит мир в иных, невозможных красках.",
 	)))

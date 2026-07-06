@@ -123,7 +123,7 @@
 /proc/fire_curse_hand(mob/living/carbon/victim, turf/forced_turf, range = 8, projectile_type = /obj/projectile/curse_hand/hel)
 	var/grab_dir = turn(victim.dir, pick(-90, 90, 180, 180)) // Not in front, favour behind
 	var/turf/spawn_turf = get_freeway_ranged_target_turf(victim, grab_dir, range, 2)
-	for(var/dir as anything in GLOB.cardinal)
+	for(var/dir in GLOB.cardinal)
 		if(spawn_turf)
 			break
 

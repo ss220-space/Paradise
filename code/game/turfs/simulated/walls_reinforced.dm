@@ -8,6 +8,7 @@
 	damage_cap = 600
 	max_temperature = 6000
 	hardness = 10
+	rust_resistance = RUST_RESISTANCE_REINFORCED
 	sheet_type = /obj/item/stack/sheet/plasteel
 	sheet_amount = 1
 	girder_type = /obj/structure/girder/reinforced

@@ -9,7 +9,6 @@
 
 /datum/status_effect/heretic_passive
 	id = "heretic_passive"
-	duration = STATUS_EFFECT_PERMANENT
 	status_type = STATUS_EFFECT_REPLACE
 	alert_type = null
 	/// The heretic antag datum that owns us.
@@ -548,7 +547,6 @@
 // Level 3 - the fields you create slow down projectiles passing through them (granted on ascension).
 /datum/status_effect/heretic_passive/cosmic
 	id = "heretic_passive_cosmic"
-	tick_interval = 1 SECONDS
 	name = "Избранник Звёзд"
 	passive_descriptions = list(
 		"Космические поля ускоряют вас и восстанавливают выносливость.",

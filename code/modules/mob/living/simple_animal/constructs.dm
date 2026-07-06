@@ -1,6 +1,10 @@
 /mob/living/simple_animal/hostile/construct
 	name = "Construct"
 	real_name = "Construct"
+	// tg heretic compat (harvester/rusted constructs)
+	var/seeking = FALSE
+	var/can_repair = TRUE
+	var/mob/living/construct_master
 	speak_emote = list("шипит")
 	emote_hear = list("визжит", "воет")
 	tts_seed = "Acolyte"

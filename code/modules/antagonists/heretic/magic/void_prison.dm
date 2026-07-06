@@ -41,7 +41,7 @@
 		return
 
 	cast_on.visible_message(
-		span_danger("Холодная, кружащаяся пустота окутывает [cast_on.declent_ru(ACCUSATIVE)], но [genderize_ru(cast_on.gender, "он", "она", "оно", "они")] вырыва[pluralize_ru(cast_on.gender, "е", "ю")]тся на свободу!"),
+		span_danger("Холодная, кружащаяся пустота окутывает [cast_on.declent_ru(ACCUSATIVE)], но [GEND_HE_SHE(cast_on)] вырыва[PLUR_ET_YUT(cast_on)]ся на свободу!"),
 		span_danger("Перед вами появляется бескраяняя пустота, но мощная волна жара разносит её вдребезги! Вы защищены!!")
 	)
 

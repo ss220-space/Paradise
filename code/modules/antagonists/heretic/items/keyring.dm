@@ -110,7 +110,7 @@
 
 ///Asynchronous proc to unbolt, then open the passed door
 /obj/effect/lock_portal/proc/async_opendoor(obj/machinery/door/door)
-	if(!istype(door, /obj/machinery/door/airlock)) //they can create portals on ANY door, but we should unlock airlocks so they can actually open
+	if(!is_airlock(door)) //they can create portals on ANY door, but we should unlock airlocks so they can actually open
 		door.open()
 		return
 
@@ -231,7 +231,7 @@
 	if(!isheretic(user))
 		return ..()
 
-	if(istype(target, /obj/item/card/id))
+	if(is_id_card(target))
 		eat_card(target, user)
 		return ATTACK_CHAIN_SUCCESS
 
@@ -263,7 +263,7 @@
 
 // Using a normal ID *on* the heretic card consumes it too.
 /obj/item/card/id/advanced/heretic/attackby(obj/item/I, mob/user, params)
-	if(isheretic(user) && istype(I, /obj/item/card/id))
+	if(isheretic(user) && is_id_card(I))
 		eat_card(I, user)
 		return ATTACK_CHAIN_BLOCKED_ALL
 

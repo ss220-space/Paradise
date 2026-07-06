@@ -43,7 +43,7 @@
 		return FALSE
 
 	cast_on.visible_message(
-		span_danger("[cast_on.declent_ru(NOMINATIVE)] бледне[pluralize_ru(cast_on.gender, "е", "ю")]т охваченн[genderize_ru(cast_on.gender, "ый", "ая", "ое", "ые")] алым сиянием!"),
+		span_danger("[cast_on.declent_ru(NOMINATIVE)] бледне[PLUR_ET_YUT(cast_on)] охваченн[GEND_YI_AYA_OE_YE(cast_on)] алым сиянием!"),
 		span_danger("Вы бледнеете, когда вас окутывает алое сияние!"),
 	)
 

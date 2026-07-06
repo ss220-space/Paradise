@@ -53,14 +53,6 @@ GLOBAL_LIST_EMPTY_TYPED(active_cosmic_fields, /obj/effect/forcefield/cosmic_fiel
 /// The cosmic heretic's forcefield.
 /obj/effect/forcefield/cosmic_field
 	name = "космический щит"
-	ru_names = alist(
-		NOMINATIVE = "космический щит",
-		GENITIVE = "космического щита",
-		DATIVE = "космическому щиту",
-		ACCUSATIVE = "космический щит",
-		INSTRUMENTAL = "космическим щитом",
-		PREPOSITIONAL = "космическом щите",
-	)
 	desc = "Силовой щит, который не могут пройти люди, отмеченные звездой."
 	gender = MALE
 	icon = 'icons/effects/eldritch.dmi'
@@ -71,6 +63,17 @@ GLOBAL_LIST_EMPTY_TYPED(active_cosmic_fields, /obj/effect/forcefield/cosmic_fiel
 	var/antimagic_flags = MAGIC_RESISTANCE
 	/// If we are able to slow down projectiles (level-3 cosmic passive).
 	var/slows_projectiles = FALSE
+
+/obj/effect/forcefield/cosmic_field/get_ru_names()
+	return alist(
+		NOMINATIVE = "космический щит",
+		GENITIVE = "космического щита",
+		DATIVE = "космическому щиту",
+		ACCUSATIVE = "космический щит",
+		INSTRUMENTAL = "космическим щитом",
+		PREPOSITIONAL = "космическом щите",
+	)
+
 
 /obj/effect/forcefield/cosmic_field/Initialize(mapload, flags = MAGIC_RESISTANCE)
 	. = ..()
@@ -114,7 +117,7 @@ GLOBAL_LIST_EMPTY_TYPED(active_cosmic_fields, /obj/effect/forcefield/cosmic_fiel
 
 /obj/effect/forcefield/cosmic_field/proc/on_entered(datum/source, atom/movable/thing)
 	SIGNAL_HANDLER
-	if(istype(thing, /obj/projectile) && slows_projectiles)
+	if(isprojectile(thing) && slows_projectiles)
 		var/obj/projectile/bullet = thing
 		if(istype(bullet, /obj/projectile/magic/star_ball)) // Don't slow down star balls
 			return
@@ -130,7 +133,7 @@ GLOBAL_LIST_EMPTY_TYPED(active_cosmic_fields, /obj/effect/forcefield/cosmic_fiel
 
 /obj/effect/forcefield/cosmic_field/proc/on_loc_exited(datum/source, atom/movable/thing)
 	SIGNAL_HANDLER
-	if(istype(thing, /obj/projectile) && slows_projectiles)
+	if(isprojectile(thing) && slows_projectiles)
 		var/obj/projectile/bullet = thing
 		if(istype(bullet, /obj/projectile/magic/star_ball)) // Don't speed up star balls
 			return
@@ -159,7 +162,6 @@ GLOBAL_LIST_EMPTY_TYPED(active_cosmic_fields, /obj/effect/forcefield/cosmic_fiel
 	lifetime = 5 SECONDS
 
 /obj/effect/forcefield/cosmic_field/star_touch
-	lifetime = 30 SECONDS
 
 /obj/effect/forcefield/cosmic_field/fast
 	lifetime = 5 SECONDS

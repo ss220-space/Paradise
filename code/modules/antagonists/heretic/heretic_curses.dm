@@ -84,7 +84,7 @@
 		return FALSE
 
 	if(isheretic(to_curse) && to_curse != user)
-		to_chat(user, span_warning("Связь жертвы с Мансусом слишком крепка. Вы не можете проклясть [genderize_ru(to_curse.gender, "его", "ее", "его", "их")]."))
+		to_chat(user, span_warning("Связь жертвы с Мансусом слишком крепка. Вы не можете проклясть [GEND_HIS_HER(to_curse)]."))
 		return TRUE
 
 	if(to_curse.can_block_magic(MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY, charge_cost = 0))
@@ -93,7 +93,7 @@
 
 	var/obj/item/codex_cicatrix/morbus/cursed_book = locate() in selected_atoms
 	curse(to_curse, cursed_book)
-	to_chat(user, span_hierophant("Вы применяете \"[name]\". Ваша цель - [to_curse.real_name]."))
+	to_chat(user, span_hierophant("Вы применяете \"[name]\". Ваша цель — [to_curse.real_name]."))
 
 	fingerprints = null
 	blood_samples = null

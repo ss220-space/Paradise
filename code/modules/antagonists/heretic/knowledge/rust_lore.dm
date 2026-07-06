@@ -5,7 +5,6 @@
 
 	route = PATH_RUST
 	ui_bgr = "node_rust"
-	complexity = "Средняя"
 	complexity_color = "#d6a531"
 	path_description = list(
 		"Путь Ржавчины строится вокруг живучести, порчи и грубого прорыва сквозь препятствия.",
@@ -26,10 +25,10 @@
 	)
 	path_tips = list(
 		"«Прикосновение Мансуса» мгновенно уничтожает мехов, силиконов и андроидов. Удар клинком по помеченной цели вызывает лёгкое отвращение и рвоту, на мгновение сбивая с ног.",
-		"Ваше «Прикосновение» и заклинания ржавят стены и полы - это полезно вам и вредно экипажу и силиконам. Распространяйте ржавчину как можно шире.",
+		"Ваше «Прикосновение» и заклинания ржавят стены и полы — это полезно вам и вредно экипажу и силиконам. Распространяйте ржавчину как можно шире.",
 		"Ржавые плиты лечат вас, регулируют температуру крови, дают сопротивление оглушению дубинками и восстанавливают выносливость и кровь.",
 		"Всегда сражайтесь на своей территории. Враг, ступивший на вашу ржавчину, оказывается в крайне невыгодном положении.",
-		"Ваша способность разрушать объекты и стены растёт с уровнем пассивки - со временем вы прожжёте даже шлюзы, укреплённые и титановые стены.",
+		"Ваша способность разрушать объекты и стены растёт с уровнем пассивки — со временем вы прожжёте даже шлюзы, укреплённые и титановые стены.",
 		"Распространение ржавчины поначалу медленное. Призовите несколько Ржавых Ходоков, чтобы расширять свои владения.",
 		"«Ржавая Постройка» создаёт барьеры для укрытия, побега или блокировки чужого отхода. Используйте окружение в своих целях.",
 	)
@@ -117,7 +116,7 @@
 
 	// Rusting an airlock causes it to lose power, mostly to prevent the airlock from shocking you.
 	// This is a bit of a hack, but fixing this would require the entire wire cut/pulse system to be reworked.
-	if(istype(target, /obj/machinery/door/airlock))
+	if(is_airlock(target))
 		var/obj/machinery/door/airlock/airlock = target
 		airlock.loseMainPower()
 
@@ -188,9 +187,6 @@
 		/obj/item/trash = 1,
 	)
 	result_atoms = list(/obj/item/clothing/suit/hooded/cultrobes/eldritch/rust)
-	research_tree_icon_path = 'icons/obj/clothing/suits.dmi'
-	research_tree_icon_state = "eldritch_armor"
-	research_tree_icon_frame = 12
 
 
 /datum/heretic_knowledge/armor/rust/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)

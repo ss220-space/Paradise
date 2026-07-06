@@ -73,7 +73,7 @@
 	void_overlay.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	void_overlay.alpha = 120
 
-	for(var/turf/affected_turf as anything in view(effect_range, src))
+	for(var/turf/affected_turf in view(effect_range, src))
 		if(affected_turf.density)
 			continue
 
@@ -99,7 +99,7 @@
 ///Sends out a pulse
 /obj/structure/void_conduit/proc/do_conduit_pulse()
 	var/list/turfs_to_affect = list()
-	for(var/turf/affected_turf as anything in view(effect_range, loc))
+	for(var/turf/affected_turf in view(effect_range, loc))
 		var/distance = get_dist(loc, affected_turf)
 		if(!turfs_to_affect["[distance]"])
 			turfs_to_affect["[distance]"] = list()
@@ -131,7 +131,7 @@
 					affected_mob.apply_status_effect(/datum/status_effect/void_chill, 1)
 
 			if(istype(thing_to_affect, /obj/machinery/door) || istype(thing_to_affect, /obj/structure/door_assembly) \
-				|| istype(thing_to_affect, /obj/structure/window) || istype(thing_to_affect, /obj/structure/grille))
+				|| is_window(thing_to_affect) || istype(thing_to_affect, /obj/structure/grille))
 				var/obj/affected_structure = thing_to_affect
 				affected_structure.take_damage(rand(15, 30))
 

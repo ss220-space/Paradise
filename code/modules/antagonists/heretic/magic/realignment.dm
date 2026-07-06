@@ -81,7 +81,7 @@
 
 
 /datum/status_effect/realignment/get_examine_text()
-	return span_notice("[genderize_ru(owner.gender, "Его", "Её", "Его", "Их")] глаза слегка мерцают.")
+	return span_notice("[GEND_HIS_HER_CAP(owner)] глаза слегка мерцают.")
 
 
 /datum/status_effect/realignment/on_apply()

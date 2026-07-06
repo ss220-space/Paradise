@@ -59,7 +59,7 @@
 
 	var/turf/simulated/wall/wall_turf = target
 
-	if(istype(wall_turf, /turf/simulated/wall/r_wall) && strength_flag != ENVIRONMENT_SMASH_RWALLS)
+	if(isreinforcedwallturf(wall_turf) && strength_flag != ENVIRONMENT_SMASH_RWALLS)
 		playsound(wall_turf, 'sound/effects/bang.ogg', 50, vary = TRUE)
 		wall_turf.balloon_alert(puncher, "слишком твердая!")
 		return COMPONENT_CANCEL_ATTACK_CHAIN

@@ -48,7 +48,7 @@
 	if(isnull(item))
 		return FALSE
 
-	to_chat(cast_on, span_warning("Ваш[genderize_ru(storage_item.gender, "", "а", "е", "и")] [storage_item.declent_ru(NOMINATIVE)] станов[pluralize_ru(storage_item.gender, "и", "я")]тся легче..."))
+	to_chat(cast_on, span_warning("Ваш[GEND_A_E_I(storage_item)] [storage_item.declent_ru(NOMINATIVE)] станов[PLUR_IT_YAT(storage_item)]ся легче..."))
 	to_chat(action.owner, span_notice("Вы делаете легкий взмах рукой, доставая [item.declent_ru(ACCUSATIVE)] из [storage_item.declent_ru(GENITIVE)]."))
 	if(action.owner.put_in_active_hand(item))
 		return

@@ -5,7 +5,6 @@
 
 	route = PATH_LOCK
 	ui_bgr = "node_lock"
-	complexity = "Средняя"
 	complexity_color = "#d6a531"
 	// Lock gets a flat -1 to every Knowledge Shop tier (the path's whole identity is gadget-shopping).
 	// This is the "shop is cheaper" half of the lock passive's level-1 line; the passive itself only grants
@@ -17,20 +16,20 @@
 	)
 	path_pros = list(
 		"Ваше «Прикосновение Мансуса» открывает любой замок, разблокирует любой терминал и обходит любое ограничение доступа.",
-		"Еретики Замка получают скидку в магазине знаний - идеальный путь, если хотите поэкспериментировать со всеми безделушками магазина.",
+		"Еретики Замка получают скидку в магазине знаний — идеальный путь, если хотите поэкспериментировать со всеми безделушками магазина.",
 	)
 	path_cons = list(
 		"Слабейший путь еретика в прямом бою, без вариантов.",
 		"Крайне ограниченная боевая польза.",
 		"Никаких защитных бонусов или иммунитетов.",
 		"Никакой мобильности и дополнительной телепортации.",
-		"Сильно зависит от чужой силы - других отделов, игроков и игрового мира.",
+		"Сильно зависит от чужой силы — других отделов, игроков и игрового мира.",
 	)
 	path_tips = list(
 		"«Прикосновение Мансуса» открывает вам всё: шлюзы, консоли и даже мехов, но на игроков оно прямого эффекта не оказывает. Зато оно оставляет метку, при срабатывании которой жертва не сможет покинуть помещение, где вы находитесь.",
 		"Ваш клинок работает и как лом! Его можно хранить в поясах для инструментов и, в крайнем случае, вскрыть им шлюз.",
 		"Ваша ID карта Еретика создаёт портал между двумя шлюзами. Полезно, если хотите устроить тайную базу.",
-		"Используйте справочник по лабиринту, чтобы оторваться от преследователей - он создаёт стены, непроходимые ни для кого, кроме вас.",
+		"Используйте справочник по лабиринту, чтобы оторваться от преследователей — он создаёт стены, непроходимые ни для кого, кроме вас.",
 	)
 	passive_name = "Открытое Приглашение"
 	passive_descriptions = list(
@@ -105,7 +104,7 @@
 				occupant.Paralyse(5 SECONDS)
 				INVOKE_ASYNC(mecha, TYPE_PROC_REF(/obj/mecha, force_eject_occupant), occupant)
 
-	else if(istype(target, /obj/machinery/door/airlock))
+	else if(is_airlock(target))
 		var/obj/machinery/door/airlock/door = target
 		door.locked = FALSE
 		INVOKE_ASYNC(door, TYPE_PROC_REF(/obj/machinery/door, open), TRUE)
@@ -113,7 +112,7 @@
 	// master220's base computer has no unified `authenticated` flag (only a handful of subtypes do), so
 	// consoles are left out rather than special-casing each type. Airlocks/mechs/lockers cover the path's core utility.
 
-	else if(istype(target, /obj/structure/closet))
+	else if(iscloset(target))
 		var/obj/structure/closet/closet = target
 		closet.open(TRUE)
 
@@ -188,12 +187,11 @@
 			Она даёт камуфляж от камер, скрывает вашу личность, голос и приглушает шаги. \
 			Действует как амулет, пока надет капюшон."
 	gain_text = "Хотя Стюарды известны Консьержу, между собой и с чужаками они общаются под тенью капюшонов. \
-				Узнавание - это предательство, даже самого себя."
+				Узнавание — это предательство, даже самого себя."
 	result_atoms = list(/obj/item/clothing/suit/hooded/cultrobes/eldritch/lock)
 	// The /armor parent points at eldritch_armor (a multi-frame anim) and asks for frame 12. lock_armor is a
 	// single-frame sprite, so we MUST override path + frame 1 - requesting frame 12 of a 1-frame state renders
 	// a blank node in the research tree (same bug class as the moon robe).
-	research_tree_icon_path = 'icons/obj/clothing/suits.dmi'
 	research_tree_icon_state = "lock_armor"
 	research_tree_icon_frame = 1
 	required_atoms = list(
@@ -249,8 +247,8 @@
 
 /datum/heretic_knowledge/spell/caretaker_refuge
 	name = "Последнее пристанище смотрителя"
-	desc = "Даёт вам заклинание, скрывающее вас в Убежище Смотрителя - прозрачным и неосязаемым. \
-			Войти в него можно, только пока вас никто не видит, и выйти - лишь там, где вас никто не видит. \
+	desc = "Даёт вам заклинание, скрывающее вас в Убежище Смотрителя — прозрачным и неосязаемым. \
+			Войти в него можно, только пока вас никто не видит, и выйти — лишь там, где вас никто не видит. \
 			В убежище вы неуязвимы, но не можете действовать."
 	gain_text = "Завистливо преследовали меня Страж и Гончая. Но я скрыл свой облик став неосязаемым туманом."
 	research_tree_icon_path = 'icons/mob/actions/actions_ecult.dmi'
@@ -271,7 +269,7 @@
 			Через этот разлом потусторонние существа смогут попасть в наш мир. \
 			Они будут обязаны подчиняться вашим указаниям."
 	gain_text = "Наместники вели меня, а я вел их. \
-				Мои враги были Замками, а мои клинки - Ключом! \
+				Мои враги были Замками, а мои клинки — Ключом! \
 				Лабиринт больше не будет заперт, и мы обретём свободу! СТАНЬТЕ СВИДЕТЕЛЯМИ НАШЕГО ОСВОБОЖДЕНИЯ!"
 	required_atoms = list(/mob/living/carbon/human = 3)
 	//ascension_achievement = /datum/award/achievement/misc/lock_ascension

@@ -77,7 +77,7 @@
 	var/obj/effect/proc_holder/spell/touch/star_touch/star_touch = attached_spell
 	var/range = star_touch.ascended ? 2 : 1
 	var/list/directions = list(turn(owner.dir, 90), turn(owner.dir, 270))
-	for(var/direction as anything in directions)
+	for(var/direction in directions)
 		for(var/i in 1 to range)
 			target_turfs += get_ranged_target_turf(owner, direction, i)
 
@@ -101,7 +101,7 @@
 /obj/item/melee/touch_attack/star_touch
 	name = "звёздное касание"
 	desc = "Зловещая аура, искажающая реальность вокруг себя. \
-			Заставляет людей со звёздной меткой заснуть на 4 секунды, а людей без звёздной метки - получить её."
+			Заставляет людей со звёздной меткой заснуть на 4 секунды, а людей без звёздной метки — получить её."
 	icon = 'icons/obj/weapons/hand.dmi'
 	icon_state = "star"
 	item_state = "star"

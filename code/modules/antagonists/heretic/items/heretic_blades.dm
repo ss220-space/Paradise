@@ -123,7 +123,7 @@
 		// disable_blade_breaking()). They keep their blades instead of escaping.
 		var/datum/antagonist/heretic/our_heretic = user.mind?.has_antag_datum(/datum/antagonist/heretic)
 		if(our_heretic?.unlimited_blades)
-			user.balloon_alert(user, "Мансус не даёт сломать клинок!")
+			user.balloon_alert(user, UNLINT("Мансус не даёт сломать клинок!"))
 			return
 
 		if(!HAS_TRAIT(user, TRAIT_NO_TELEPORT))
@@ -397,7 +397,7 @@
 
 
 /obj/item/melee/sickly_blade/lock
-	name = "клинок - ключ"
+	name = "клинок — ключ"
 	desc = "И клинок и ключ. Ключ от чего? \
 			Какие великие врата он открывает?"
 	icon_state = "key_blade"
@@ -410,12 +410,12 @@
 
 /obj/item/melee/sickly_blade/lock/get_ru_names()
 	return alist(
-		NOMINATIVE = "клинок - ключ",
-		GENITIVE = "клинка - ключа",
-		DATIVE = "клинку - ключу",
-		ACCUSATIVE = "клинок - ключ",
-		INSTRUMENTAL = "клинком - ключом",
-		PREPOSITIONAL = "клинке - ключе",
+		NOMINATIVE = "клинок — ключ",
+		GENITIVE = "клинка — ключа",
+		DATIVE = "клинку — ключу",
+		ACCUSATIVE = "клинок — ключ",
+		INSTRUMENTAL = "клинком — ключом",
+		PREPOSITIONAL = "клинке — ключе",
 	)
 
 

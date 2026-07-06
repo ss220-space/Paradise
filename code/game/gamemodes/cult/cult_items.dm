@@ -22,6 +22,8 @@
 /obj/item/melee/cultblade
 	name = "cult blade"
 	desc = "An arcane weapon wielded by the followers of a cult."
+	/// tg heretic compat: lets non-cultists wield the blade without backlash (e.g. haunted blade holders).
+	var/free_use = FALSE
 	icon = 'icons/obj/cult.dmi'
 	icon_state = "blood_blade"
 	item_state = "blood_blade"

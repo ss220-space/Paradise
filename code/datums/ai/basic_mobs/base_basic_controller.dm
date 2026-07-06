@@ -6,12 +6,12 @@
 	// their behaviors were ported to drive them (AttackingTarget/abilities + the melee_attack shim on
 	// heretic_summon). Refusing them here made the controller CRASH + self-delete on every summon spawn,
 	// which also broke everything that needs a live controller (obeys_commands, the friends blackboard).
-	if(!isbasicmob(new_pawn) && !istype(new_pawn, /mob/living/simple_animal))
+	if(!isbasicmob(new_pawn) && !is_simple_animal(new_pawn))
 		return AI_CONTROLLER_INCOMPATIBLE
 
 	// A possessed simple_animal must not ALSO be driven by its native wakeup AI - park it, the
 	// controller is its brain now (same idiom the heretic shapeshift uses).
-	if(istype(new_pawn, /mob/living/simple_animal))
+	if(is_simple_animal(new_pawn))
 		var/mob/living/simple_animal/animal_pawn = new_pawn
 		animal_pawn.toggle_ai(AI_OFF)
 		animal_pawn.shouldwakeup = FALSE

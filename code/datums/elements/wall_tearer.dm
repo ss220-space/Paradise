@@ -56,7 +56,7 @@
 
 /datum/element/wall_tearer/proc/rip_and_tear(mob/living/tearer, atom/target)
 	// We need to do this three times to actually destroy it
-	var/rip_time = (istype(target, /turf/simulated/wall/r_wall) ? tear_time * reinforced_multiplier : tear_time) / 3
+	var/rip_time = (isreinforcedwallturf(target) ? tear_time * reinforced_multiplier : tear_time) / 3
 	if(rip_time > 0)
 		tearer.visible_message(span_warning("[tearer] begins tearing through [target]!"))
 		playsound(tearer, 'sound/machines/airlock_alien_prying.ogg', vol = 100, vary = TRUE)
@@ -84,7 +84,7 @@
 	if(!iswallturf(target))
 		return WALL_TEAR_INVALID
 
-	var/reinforced = istype(target, /turf/simulated/wall/r_wall)
+	var/reinforced = isreinforcedwallturf(target)
 	if(allow_reinforced || reinforced)
 		return WALL_TEAR_ALLOWED
 

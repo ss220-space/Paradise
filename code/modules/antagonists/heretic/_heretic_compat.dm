@@ -127,10 +127,6 @@
 /atom/proc/get_examine_time()
 	return 0
 
-// tg cultblade "free_use" var (lets non-cultists wield without backlash). Behaviour wiring = runtime polish.
-/obj/item/melee/cultblade
-	var/free_use = FALSE
-
 // --- Projectile helper ---
 // tg's /obj/projectile/proc/is_hostile_projectile() isn't present in master220.
 // A projectile counts as hostile here if it deals damage.
@@ -211,16 +207,6 @@
 // the heretic jaunt spells (mirror_walk/space_crawl/ash_jaunt) use. Add the missing bits here.
 // NOTE: full reconciliation of the two jaunt models is task #8 (runtime); this unblocks compile +
 // gives working behaviour for the heretic flow which sets `jaunter` itself.
-/obj/effect/dummy/spell_jaunt
-	/// The movable currently jaunting inside this dummy (tg API).
-	var/atom/movable/jaunter
-	/// Icon we draw the jaunter's position indicator from (tg uses the projectiles sheet).
-	var/phased_mob_icon = 'icons/obj/weapons/guns/projectiles.dmi'
-	/// Icon state for the jaunter's position indicator (set by some heretic jaunt subtypes, e.g. ash = "red_1").
-	var/phased_mob_icon_state
-	/// The client image shown to the jaunter so they can see where they are (the "red dot").
-	var/image/position_indicator
-
 // master220's base do_jaunt forceMoves the jaunter straight into the dummy (no set_jaunter call), so we
 // hook Entered to wire up tg's position indicator: an ABOVE_LIGHTING client image the jaunter alone sees,
 // telling them where their ashen/phased form is. Only fires for dummies that opted in via phased_mob_icon_state,
@@ -437,14 +423,8 @@ GLOBAL_LIST_EMPTY(has_antagonist_huds)
 		existing_marker.apply_to_new_mob(target)
 
 // --- Construct/simplemob compat ---
-
-/mob/living/simple_animal/hostile/construct
-	var/seeking = FALSE
-	var/can_repair = TRUE
-	var/mob/living/construct_master
-
-/datum/game_mode
-	var/list/heretics = list()
+// (construct seeking/can_repair/construct_master vars live in constructs.dm,
+// the game_mode heretics list lives in game_mode.dm)
 
 // --- Object/gib compat ---
 

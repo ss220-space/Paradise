@@ -104,6 +104,15 @@
 	var/reappearing = FALSE
 	var/movedelay = 0
 	var/movespeed = 2
+	// tg heretic jaunt API (mirror_walk/space_crawl/ash_jaunt), see heretic _heretic_compat.dm
+	/// The movable currently jaunting inside this dummy (tg API).
+	var/atom/movable/jaunter
+	/// Icon we draw the jaunter's position indicator from (tg uses the projectiles sheet).
+	var/phased_mob_icon = 'icons/obj/weapons/guns/projectiles.dmi'
+	/// Icon state for the jaunter's position indicator (set by some heretic jaunt subtypes, e.g. ash = "red_1").
+	var/phased_mob_icon_state
+	/// The client image shown to the jaunter so they can see where they are (the "red dot").
+	var/image/position_indicator
 
 /obj/effect/dummy/spell_jaunt/Destroy()
 	// Eject contents if deleted somehow

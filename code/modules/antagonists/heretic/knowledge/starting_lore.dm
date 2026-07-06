@@ -130,10 +130,10 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 		return
 
 	where_to_put_our_heart.AddComponent(/datum/component/living_heart)
-	desc = "Даёт вам Живое Сердце, привязанное к ваш[genderize_ru(where_to_put_our_heart.gender, "ему", "ей", "ему", "им")] [where_to_put_our_heart.declent_ru(DATIVE)], позволяющее отслеживать цели жертвоприношений. \
+	desc = "Даёт вам Живое Сердце, привязанное к ваш[GEND_HIM_HER(where_to_put_our_heart)] [where_to_put_our_heart.declent_ru(DATIVE)], позволяющее отслеживать цели жертвоприношений. \
 			Если вы потеряете своё [where_to_put_our_heart.declent_ru(ACCUSATIVE)], вы можете преобразовать мак и лужу крови, \
-			чтобы пробудить силы Живого Сердца в ваш[genderize_ru(where_to_put_our_heart.gender, "ем", "ей", "ем", "их")] [where_to_put_our_heart.declent_ru(DATIVE)]. \
-			Кибернетическ[genderize_ru(where_to_put_our_heart.gender, "ий", "ая", "ое", "ие")] [where_to_put_our_heart.declent_ru(NOMINATIVE)] не позвол[pluralize_ru(where_to_put_our_heart.gender, "ит", "ят")] провести ритуал!"
+			чтобы пробудить силы Живого Сердца в ваш[GEND_EM_EI_EM_IH(where_to_put_our_heart)] [where_to_put_our_heart.declent_ru(DATIVE)]. \
+			Кибернетическ[UNLINT(genderize_ru(where_to_put_our_heart.gender, "ий", "ая", "ое", "ие"))] [where_to_put_our_heart.declent_ru(NOMINATIVE)] не позвол[PLUR_IT_YAT(where_to_put_our_heart)] провести ритуал!"
 
 
 /datum/heretic_knowledge/living_heart/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
@@ -240,10 +240,10 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	desc = "Позволяет трансмутировать книгу, любую уникальную ручку (не обычную) и любой предмет на ваш выбор из туши (животного или человека), кожи или шкуры, чтобы создать Кодекс Истезания. \
 			Кодекс Истезания можно использовать чтобы поглотить раскол реальности для получения дополнительных знаний, но он это сопряжено с повышеннием риска быть замеченным. \
 			Его также можно использовать для более удобного рисования и удаления рун трансмутации, а также вместо Янтарного Амулета."
-	gain_text = "Потусторонние силы оставляют фрагменты знаний и силы повсюду. Кодекс Истезания - одно из доказательств. \
+	gain_text = "Потусторонние силы оставляют фрагменты знаний и силы повсюду. Кодекс Истезания — одно из доказательств. \
 				На кожанных страницах находятся знания открывающие путь к Мансусу."
 	required_atoms = list(
-		list(/obj/item/book) = 1,
+		/obj/item/book = 1,
 		/obj/item/pen = 1,
 		list(/mob/living, /obj/item/stack/sheet/leather, /obj/item/stack/sheet/animalhide) = 1,
 	)

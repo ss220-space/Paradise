@@ -262,6 +262,7 @@
 /turf/simulated/wall/mineral/titanium //has to use this path due to how building walls works
 	name = "wall"
 	desc = "A light-weight titanium wall used in shuttles."
+	rust_resistance = RUST_RESISTANCE_TITANIUM
 	icon = 'icons/turf/walls/shuttle/shuttle_wall.dmi'
 	icon_state = "shuttle-0"
 	base_icon_state = "shuttle"
@@ -360,6 +361,7 @@
 /turf/simulated/wall/mineral/plastitanium
 	name = "wall"
 	desc = "An evil wall of plasma and titanium."
+	rust_resistance = RUST_RESISTANCE_TITANIUM
 	icon = 'icons/turf/walls/plastitanium_wall.dmi'
 	icon_state = "plastitanium_wall-0"
 	base_icon_state = "plastitanium_wall"

@@ -7,25 +7,8 @@
 // make_plating() so the exposed under-floor pipes/cables are re-shown at full opacity instead of being left
 // in a half-hidden "undertile" state.
 
-/// How resistant this turf is to a heretic's rust. A turf only rusts if the heretic's rust_strength is
-/// at least this high (see rust_heretic_act). Defaults to BASIC; stronger turf types raise it below.
-/turf/var/rust_resistance = RUST_RESISTANCE_BASIC
-
-// Reinforced / titanium turfs resist weak heretics: a fresh rust heretic (rust_strength 1) must
-// not be able to rust reinforced walls - they need to grow first.
-/turf/simulated/wall/r_wall
-	rust_resistance = RUST_RESISTANCE_REINFORCED
-
-/turf/simulated/wall/mineral/titanium
-	rust_resistance = RUST_RESISTANCE_TITANIUM
-
-/turf/simulated/wall/mineral/plastitanium
-	rust_resistance = RUST_RESISTANCE_TITANIUM
-
-// Don't rust space - it has no surface to corrode and rusting it looks broken.
-/turf/space
-	rust_resistance = RUST_RESISTANCE_ABSOLUTE
-
+// The rust_resistance var itself lives in the /turf declaration (code/game/turfs/turf.dm); per-type
+// values are set in each turf's own definition (walls_reinforced.dm, walls_mineral.dm, space.dm).
 
 /// Check if the heretic is strong enough to rust this turf, and if so, rust it (overlay only).
 /// rust_strength defaults to BASIC so the many no-arg callers (rust spells, charge, ...) rust basic turfs.

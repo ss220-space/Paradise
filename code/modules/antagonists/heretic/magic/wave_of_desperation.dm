@@ -12,7 +12,6 @@
 	// EVOCATION, not FORBIDDEN: this is the break-free panic button used while cuffed/stripped, so it must
 	// NOT go through the heretic focus gate (on_spell_cast cancels SCHOOL_FORBIDDEN casts with "нужен амулет"
 	// unless you hold your amulet - which you won't when arrested).
-	school = SCHOOL_EVOCATION
 	human_req = FALSE
 	clothes_req = FALSE
 	base_cooldown = 5 MINUTES
@@ -66,11 +65,11 @@
 
 	var/mob/living/carbon/human/human = action.owner
 	if(human.handcuffed)
-		human.visible_message(span_danger("[human.handcuffed.declent_ru(NOMINATIVE)] котор[genderize_ru(human.handcuffed.gender, "ый", "ое", "ую", "ые")] нос[pluralize_ru(human.gender, "ит", "ят")] [human.declent_ru(NOMINATIVE)] рассыпа[pluralize_ru(human.handcuffed.gender, "ет", "ют")]ся на множество осколков!"))
+		human.visible_message(span_danger("[human.handcuffed.declent_ru(NOMINATIVE)] котор[GEND_YI_AYA_OE_YE(human.handcuffed)] нос[PLUR_IT_YAT(human)] [human.declent_ru(NOMINATIVE)] рассыпа[PLUR_ET_YUT(human.handcuffed)]ся на множество осколков!"))
 		QDEL_NULL(human.handcuffed)
 
 	if(human.legcuffed)
-		human.visible_message(span_danger("[human.legcuffed.declent_ru(NOMINATIVE)] котор[genderize_ru(human.legcuffed.gender, "ый", "ое", "ую", "ые")] нос[pluralize_ru(human.gender, "ит", "ят")] [human.declent_ru(NOMINATIVE)] рассыпа[pluralize_ru(human.legcuffed.gender, "ет", "ют")]ся на множество осколков!"))
+		human.visible_message(span_danger("[human.legcuffed.declent_ru(NOMINATIVE)] котор[GEND_YI_AYA_OE_YE(human.legcuffed)] нос[PLUR_IT_YAT(human)] [human.declent_ru(NOMINATIVE)] рассыпа[PLUR_ET_YUT(human.legcuffed)]ся на множество осколков!"))
 		QDEL_NULL(human.legcuffed)
 
 	human.apply_status_effect(/datum/status_effect/heretic_lastresort)
@@ -127,6 +126,5 @@
 
 
 /obj/effect/temp_visual/knockblast
-	icon = 'icons/effects/effects.dmi' // base temp_visual sets no icon file → without this the flash is invisible
 	icon_state = "shield-flash"
 	alpha = 180

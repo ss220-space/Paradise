@@ -17,7 +17,6 @@
 	recoil = GUN_RECOIL_HIGH
 	// wide_guns.dmi has no "lionhunter_reload" state, so skip the pump reload animation (the bolt-open sprite
 	// swap itself IS supported - see update_icon_state below).
-	available_reload_animation = FALSE
 	// Paradise-native scope: instead of TG's /datum/component/scope, use the built-in zoom action that
 	// every /obj/item/gun supports. Holding the rifle grants a "Масштаб" toggle that pans the view forward.
 	zoomable = TRUE
@@ -248,7 +247,6 @@
 	name = "обойма (.310 охотник)"
 	desc = "Обойма с загадочными, необычными патронами. Она не подходит к обычным баллистическим винтовкам."
 	gender = FEMALE
-	icon = 'icons/obj/weapons/ammo.dmi'
 	icon_state = "310_strip"
 	gun_name = "винтовки охотника на львов"
 	ammo_type = /obj/item/ammo_casing/strilka310/lionhunter

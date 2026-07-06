@@ -66,14 +66,6 @@
 
 /obj/structure/easel
 	name = "мольберт"
-	ru_names = alist(
-		NOMINATIVE = "мольберт",
-		GENITIVE = "мольберта",
-		DATIVE = "мольберту",
-		ACCUSATIVE = "мольберт",
-		INSTRUMENTAL = "мольбертом",
-		PREPOSITIONAL = "мольберте"
-	)
 	desc = "Только для лучших произведений искусства!"
 	gender = MALE
 	icon = 'icons/obj/art/artstuff.dmi'
@@ -82,6 +74,17 @@
 	resistance_flags = FLAMMABLE
 	max_integrity = 60
 	var/obj/item/canvas/painting = null
+
+
+/obj/structure/easel/get_ru_names()
+	return alist(
+		NOMINATIVE = "мольберт",
+		GENITIVE = "мольберта",
+		DATIVE = "мольберту",
+		ACCUSATIVE = "мольберт",
+		INSTRUMENTAL = "мольбертом",
+		PREPOSITIONAL = "мольберте"
+	)
 
 
 //Adding canvases
@@ -114,14 +117,6 @@
 
 /obj/item/canvas
 	name = "холст"
-	ru_names = alist(
-		NOMINATIVE = "холст",
-		GENITIVE = "холста",
-		DATIVE = "холсту",
-		ACCUSATIVE = "холст",
-		INSTRUMENTAL = "холстом",
-		PREPOSITIONAL = "холсте"
-	)
 	desc = "Нарисуйте свою душу на этом холсте!"
 	gender = MALE
 	icon = 'icons/obj/art/artstuff.dmi'
@@ -156,6 +151,17 @@
 	var/list/zoom_by_observer
 
 	SET_BASE_PIXEL(11, 10)
+
+
+/obj/item/canvas/get_ru_names()
+	return alist(
+		NOMINATIVE = "холст",
+		GENITIVE = "холста",
+		DATIVE = "холсту",
+		ACCUSATIVE = "холст",
+		INSTRUMENTAL = "холстом",
+		PREPOSITIONAL = "холсте"
+	)
 
 
 /obj/item/canvas/Initialize(mapload)
@@ -482,11 +488,11 @@
 		var/obj/item/paint_palette/palette = painting_implement
 		return palette.current_color
 
-	if(istype(painting_implement, /obj/item/toy/crayon))
+	if(iscrayon(painting_implement))
 		var/obj/item/toy/crayon/crayon = painting_implement
 		return crayon.colour
 
-	if(istype(painting_implement, /obj/item/soap) || istype(painting_implement, /obj/item/reagent_containers/glass/rag))
+	if(issoap(painting_implement) || istype(painting_implement, /obj/item/reagent_containers/glass/rag))
 		return canvas_color
 
 
@@ -512,10 +518,10 @@
 	if(istype(painting_implement, /obj/item/paint_palette))
 		return "Масло на холсте"
 
-	if(istype(painting_implement, /obj/item/toy/crayon))
+	if(iscrayon(painting_implement))
 		return "Следы мелка на холсте"
 
-	if(istype(painting_implement, /obj/item/soap) || istype(painting_implement, /obj/item/reagent_containers/glass/rag))
+	if(issoap(painting_implement) || istype(painting_implement, /obj/item/reagent_containers/glass/rag))
 		return //These are just for cleaning, ignore them
 
 	return "Неизвестный материал"
@@ -666,14 +672,6 @@
 
 /obj/item/canvas/nineteen_nineteen
 	name = "холст (19x19)"
-	ru_names = alist(
-		NOMINATIVE = "холст (19x19)",
-		GENITIVE = "холста (19x19)",
-		DATIVE = "холсту (19x19)",
-		ACCUSATIVE = "холст (19x19)",
-		INSTRUMENTAL = "холстом (19x19)",
-		PREPOSITIONAL = "холсте (19x19)"
-	)
 	icon_state = "19x19"
 	width = 19
 	height = 19
@@ -682,16 +680,19 @@
 	framed_offset_y = 7
 
 
+/obj/item/canvas/nineteen_nineteen/get_ru_names()
+	return alist(
+		NOMINATIVE = "холст (19x19)",
+		GENITIVE = "холста (19x19)",
+		DATIVE = "холсту (19x19)",
+		ACCUSATIVE = "холст (19x19)",
+		INSTRUMENTAL = "холстом (19x19)",
+		PREPOSITIONAL = "холсте (19x19)"
+	)
+
+
 /obj/item/canvas/twentythree_nineteen
 	name = "холст (23x19)"
-	ru_names = alist(
-		NOMINATIVE = "холст (23x19)",
-		GENITIVE = "холста (23x19)",
-		DATIVE = "холсту (23x19)",
-		ACCUSATIVE = "холст (23x19)",
-		INSTRUMENTAL = "холстом (23x19)",
-		PREPOSITIONAL = "холсте (23x19)"
-	)
 	icon_state = "23x19"
 	width = 23
 	height = 19
@@ -701,16 +702,19 @@
 	pixels_per_unit = 8
 
 
+/obj/item/canvas/twentythree_nineteen/get_ru_names()
+	return alist(
+		NOMINATIVE = "холст (23x19)",
+		GENITIVE = "холста (23x19)",
+		DATIVE = "холсту (23x19)",
+		ACCUSATIVE = "холст (23x19)",
+		INSTRUMENTAL = "холстом (23x19)",
+		PREPOSITIONAL = "холсте (23x19)"
+	)
+
+
 /obj/item/canvas/twentythree_twentythree
 	name = "холст (23x23)"
-	ru_names = alist(
-		NOMINATIVE = "холст (23x23)",
-		GENITIVE = "холста (23x23)",
-		DATIVE = "холсту (23x23)",
-		ACCUSATIVE = "холст (23x23)",
-		INSTRUMENTAL = "холстом (23x23)",
-		PREPOSITIONAL = "холсте (23x23)"
-	)
 	icon_state = "23x23"
 	width = 23
 	height = 23
@@ -720,16 +724,19 @@
 	pixels_per_unit = 8
 
 
+/obj/item/canvas/twentythree_twentythree/get_ru_names()
+	return alist(
+		NOMINATIVE = "холст (23x23)",
+		GENITIVE = "холста (23x23)",
+		DATIVE = "холсту (23x23)",
+		ACCUSATIVE = "холст (23x23)",
+		INSTRUMENTAL = "холстом (23x23)",
+		PREPOSITIONAL = "холсте (23x23)"
+	)
+
+
 /obj/item/canvas/twentyfour_twentyfour
 	name = "холст (24x24)"
-	ru_names = alist(
-		NOMINATIVE = "холст (24x24)",
-		GENITIVE = "холста (24x24)",
-		DATIVE = "холсту (24x24)",
-		ACCUSATIVE = "холст (24x24)",
-		INSTRUMENTAL = "холстом (24x24)",
-		PREPOSITIONAL = "холсте (24x24)"
-	)
 	desc = "Слишком велик для стандартной рамки."
 	icon_state = "24x24"
 	width = 24
@@ -740,20 +747,23 @@
 	pixels_per_unit = 8
 
 
+/obj/item/canvas/twentyfour_twentyfour/get_ru_names()
+	return alist(
+		NOMINATIVE = "холст (24x24)",
+		GENITIVE = "холста (24x24)",
+		DATIVE = "холсту (24x24)",
+		ACCUSATIVE = "холст (24x24)",
+		INSTRUMENTAL = "холстом (24x24)",
+		PREPOSITIONAL = "холсте (24x24)"
+	)
+
+
 // Oversized canvases. Their sprites live in the 64x64 sheet, so the icon is swapped in Initialize (the
 // 32x32 "24x24" state from artstuff.dmi is kept as the spawn/craft-menu icon, matching TG). item_scaling
 // shrinks the big sprite while it's lying on a turf so it doesn't sprawl across tiles. Too big for the
 // standard painting frame (not in accepted_canvas_types), same as TG.
 /obj/item/canvas/thirtysix_twentyfour
 	name = "холст (36x24)"
-	ru_names = alist(
-		NOMINATIVE = "холст (36x24)",
-		GENITIVE = "холста (36x24)",
-		DATIVE = "холсту (36x24)",
-		ACCUSATIVE = "холст (36x24)",
-		INSTRUMENTAL = "холстом (36x24)",
-		PREPOSITIONAL = "холсте (36x24)"
-	)
 	desc = "Очень большой холст, чтобы выплеснуть свою душу. Для рамы понадобится стена побольше."
 	icon_state = "24x24"
 	width = 36
@@ -765,6 +775,17 @@
 	w_class = WEIGHT_CLASS_BULKY
 
 
+/obj/item/canvas/thirtysix_twentyfour/get_ru_names()
+	return alist(
+		NOMINATIVE = "холст (36x24)",
+		GENITIVE = "холста (36x24)",
+		DATIVE = "холсту (36x24)",
+		ACCUSATIVE = "холст (36x24)",
+		INSTRUMENTAL = "холстом (36x24)",
+		PREPOSITIONAL = "холсте (36x24)"
+	)
+
+
 /obj/item/canvas/thirtysix_twentyfour/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/item_scaling, 1, 0.8)
@@ -774,14 +795,6 @@
 
 /obj/item/canvas/fortyfive_twentyseven
 	name = "холст (45x27)"
-	ru_names = alist(
-		NOMINATIVE = "холст (45x27)",
-		GENITIVE = "холста (45x27)",
-		DATIVE = "холсту (45x27)",
-		ACCUSATIVE = "холст (45x27)",
-		INSTRUMENTAL = "холстом (45x27)",
-		PREPOSITIONAL = "холсте (45x27)"
-	)
 	desc = "Самый большой холст на космическом рынке. Для рамы понадобится стена побольше."
 	icon_state = "24x24"
 	width = 45
@@ -791,6 +804,17 @@
 	framed_offset_y = 4
 	pixels_per_unit = 6
 	w_class = WEIGHT_CLASS_BULKY
+
+
+/obj/item/canvas/fortyfive_twentyseven/get_ru_names()
+	return alist(
+		NOMINATIVE = "холст (45x27)",
+		GENITIVE = "холста (45x27)",
+		DATIVE = "холсту (45x27)",
+		ACCUSATIVE = "холст (45x27)",
+		INSTRUMENTAL = "холстом (45x27)",
+		PREPOSITIONAL = "холсте (45x27)"
+	)
 
 
 /obj/item/canvas/fortyfive_twentyseven/Initialize(mapload)
@@ -808,15 +832,7 @@
 /// the active colour, right-click a swatch to recolour that slot.
 /obj/item/paint_palette
 	name = "палитра"
-	ru_names = alist(
-		NOMINATIVE = "палитра",
-		GENITIVE = "палитры",
-		DATIVE = "палитре",
-		ACCUSATIVE = "палитру",
-		INSTRUMENTAL = "палитрой",
-		PREPOSITIONAL = "палитре"
-	)
-	desc = "Кисть в комплекте. ЛКМ по ячейке - выбрать цвет, ПКМ - изменить. Кнопка «+» добавляет цвет, ПКМ по «+» - удаляет."
+	desc = "Кисть в комплекте. ЛКМ по ячейке — выбрать цвет, ПКМ — изменить. Кнопка «+» добавляет цвет, ПКМ по «+» - удаляет."
 	gender = FEMALE
 	icon = 'icons/obj/art/artstuff.dmi'
 	icon_state = "palette"
@@ -827,6 +843,17 @@
 	var/list/palette_colors
 	/// Maximum number of colour slots the palette can hold (the "+" button stops adding past this), like tg.
 	var/max_colors = 16
+
+
+/obj/item/paint_palette/get_ru_names()
+	return alist(
+		NOMINATIVE = "палитра",
+		GENITIVE = "палитры",
+		DATIVE = "палитре",
+		ACCUSATIVE = "палитру",
+		INSTRUMENTAL = "палитрой",
+		PREPOSITIONAL = "палитре"
+	)
 
 
 /obj/item/paint_palette/Initialize(mapload)
@@ -961,8 +988,14 @@
 
 
 /obj/item/wallframe/painting
-	name = "рама"
-	ru_names = alist(
+	desc = "Идеальная витрина для ваших любимых воспоминаний."
+	gender = FEMALE
+	result_path = /obj/structure/sign/painting
+	pixel_shift = 30
+
+
+/obj/item/wallframe/painting/get_ru_names()
+	return alist(
 		NOMINATIVE = "рама",
 		GENITIVE = "рамы",
 		DATIVE = "раме",
@@ -970,24 +1003,10 @@
 		INSTRUMENTAL = "рамой",
 		PREPOSITIONAL = "раме"
 	)
-	desc = "Идеальная витрина для ваших любимых воспоминаний."
-	gender = FEMALE
-	icon = 'icons/obj/signs.dmi'
-	icon_state = "frame-empty"
-	result_path = /obj/structure/sign/painting
-	pixel_shift = 30
 
 
 /obj/structure/sign/painting
 	name = "картина"
-	ru_names = alist(
-		NOMINATIVE = "картина",
-		GENITIVE = "картины",
-		DATIVE = "картине",
-		ACCUSATIVE = "картину",
-		INSTRUMENTAL = "картиной",
-		PREPOSITIONAL = "картине"
-	)
 	desc = "Искусство или \"Исскуство\"? Зависит только от вас."
 	icon = 'icons/obj/signs.dmi'
 	icon_state = "frame-empty"
@@ -1010,6 +1029,17 @@
 	var/wallframe_type = /obj/item/wallframe/painting
 
 
+/obj/structure/sign/painting/get_ru_names()
+	return alist(
+		NOMINATIVE = "картина",
+		GENITIVE = "картины",
+		DATIVE = "картине",
+		ACCUSATIVE = "картину",
+		INSTRUMENTAL = "картиной",
+		PREPOSITIONAL = "картине"
+	)
+
+
 /obj/structure/sign/painting/Initialize(mapload, dir, building)
 	. = ..()
 	// See /obj/item/canvas/Initialize(): the framed painting + frame are runtime/offset overlays that need
@@ -1024,7 +1054,7 @@
 		frame_canvas(user, I)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(!current_canvas || current_canvas.painting_metadata.title != initial(current_canvas.painting_metadata.title) || !istype(I, /obj/item/pen))
+	if(!current_canvas || current_canvas.painting_metadata.title != initial(current_canvas.painting_metadata.title) || !is_pen(I))
 		return ..()
 
 	if(!try_rename(user))
@@ -1099,7 +1129,7 @@
 
 
 /obj/structure/sign/painting/update_name(updates)
-	name = current_canvas ? "картина - [current_canvas.painting_metadata.title]" : initial(name)
+	name = current_canvas ? "картина — [current_canvas.painting_metadata.title]" : initial(name)
 	return ..()
 
 
@@ -1196,7 +1226,6 @@
 	name = "Палитра художника"
 	result = /obj/item/paint_palette
 	reqs = list(/obj/item/stack/sheet/wood = 1)
-	time = 3 SECONDS
 	category = CAT_MISC
 
 

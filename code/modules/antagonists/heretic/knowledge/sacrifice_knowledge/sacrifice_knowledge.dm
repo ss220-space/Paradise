@@ -300,7 +300,7 @@
 
 	var/turf/destination = get_turf(destination_landmark)
 
-	sac_target.visible_message(span_danger("[sac_target.declent_ru(NOMINATIVE)] начинает яростно содрогаться, когда темные щупальца утаскивают [genderize_ru(sac_target.gender, "его", "её", "его", "их")] в пустоту!"))
+	sac_target.visible_message(span_danger("[sac_target.declent_ru(NOMINATIVE)] начинает яростно содрогаться, когда темные щупальца утаскивают [GEND_HIS_HER(sac_target)] в пустоту!"))
 	// Solid zipties, not the old dissipating energy cuffs, so the restraints survive the trip into the realm.
 	sac_target.set_handcuffed(new /obj/item/restraints/handcuffs/cable(sac_target))
 
@@ -320,7 +320,7 @@
 
 	// If our target is dead and we fail to revive them, don't proceed the chain
 	sac_target.adjustOxyLoss(-100, FALSE)
-	if(!sac_target.heal_and_revive(50, span_danger("Сердце [sac_target.declent_ru(GENITIVE)] начинает биться с нечестивой силой, когда [genderize_ru(sac_target.gender, "он", "она", "ого", "они")] возвраща[pluralize_ru(sac_target.gender, "е", "ю")]тся из объятий смерти!")))
+	if(!sac_target.heal_and_revive(50, span_danger("Сердце [sac_target.declent_ru(GENITIVE)] начинает биться с нечестивой силой, когда [GEND_HE_SHE(sac_target)] возвраща[PLUR_ET_YUT(sac_target)]ся из объятий смерти!")))
 		return
 
 	if(sac_target.Sleeping(SACRIFICE_SLEEP_DURATION))
@@ -358,7 +358,7 @@
 	sac_target.adjustOxyLoss(-100, FALSE)
 	sac_target.setStaminaLoss(0, updating_health = FALSE)
 	sac_target.SetSleeping(0)
-	if(!sac_target.heal_and_revive(0, span_danger("Сердце [sac_target.declent_ru(GENITIVE)] начинает биться с нечестивой силой, когда [genderize_ru(sac_target.gender, "он", "она", "ого", "они")] возвраща[pluralize_ru(sac_target.gender, "е", "ю")]тся из объятий смерти!")))
+	if(!sac_target.heal_and_revive(0, span_danger("Сердце [sac_target.declent_ru(GENITIVE)] начинает биться с нечестивой силой, когда [GEND_HE_SHE(sac_target)] возвраща[PLUR_ET_YUT(sac_target)]ся из объятий смерти!")))
 		disembowel_target(sac_target)
 		return
 
@@ -521,7 +521,7 @@
 	to_chat(sac_target, span_purple("Борьба окончена, но дорогой ценой. Вы вернулись на станцию целым и невредимым."))
 	if(isheretic(sac_target))
 		to_chat(sac_target, span_big(span_purple("Вы не помните ничего, что предшествовало этому опыту, \
-											но чувствуете, что ваша связь с Мансусом ослабла - когда-то известные знания забыты...")))
+											но чувствуете, что ваша связь с Мансусом ослабла — когда-то известные знания забыты...")))
 	else
 		to_chat(sac_target, span_big(span_purple("Вы не помните ничего из того, что предшествовало этому опыту. \
 												Все, о чем вы можете думать, - это те ужасные руки...")))
@@ -542,7 +542,7 @@
 /// After teleporting the dead target back to the station, spawns a red broken illusion on their spot for style.
 /datum/heretic_knowledge/hunt_and_sacrifice/proc/after_return_dead_target(mob/living/carbon/human/sac_target)
 	to_chat(sac_target, span_purple("Вы не смогли противостоять ужасам Мансуса! Ваше изуродованное тело вернули на станцию."))
-	to_chat(sac_target, span_big(span_purple("Этот опыт оставляет ваш разум повреждённым, а воспоминания - рваными. \
+	to_chat(sac_target, span_big(span_purple("Этот опыт оставляет ваш разум повреждённым, а воспоминания — рваными. \
 												Даже если вы вернётесь к жизни, вы не вспомните ничего, что предшествовало этому опыту.")))
 
 	var/obj/effect/visible_heretic_influence/illusion = new(get_turf(sac_target))
@@ -588,14 +588,6 @@
 // /mob/living/proc/apply_necropolis_curse() and /datum/status_effect/necropolis_curse +
 // /obj/effect/temp_visual/curse already exist in master220 (code/datums/status_effects/debuffs.dm),
 // so we keep only the curse pieces master220 lacks (curse_arm, curse_hand, fire_curse_hand).
-/obj/effect/temp_visual/curse
-	icon_state = "curse"
-
-/obj/effect/temp_visual/curse/Initialize(mapload)
-	. = ..()
-	deltimer(timerid)
-
-
 /obj/effect/ebeam/curse_arm
 	name = "проклятая рука"
 

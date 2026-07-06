@@ -5,7 +5,6 @@ GLOBAL_LIST_EMPTY(heretic_arenas)
 	icon = null
 	icon_state = null
 	alpha = 0
-	anchored = TRUE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	resistance_flags = INDESTRUCTIBLE
 	/// Proximity monitor that handles the effects we are looking for

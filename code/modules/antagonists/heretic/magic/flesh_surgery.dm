@@ -71,7 +71,7 @@
 	playsound(to_heal, 'sound/magic/staff_healing.ogg', 30)
 	new /obj/effect/temp_visual/cult/sparks(get_turf(to_heal))
 	caster.visible_message(
-		span_warning("Рука [caster.declent_ru(GENITIVE)] светится брильянтово красным когда он[genderize_ru(caster.gender, "", "а", "о", "и")] каса[pluralize_ru(caster.gender, "е", "ю")]тся [to_heal.declent_ru(GENITIVE)]!"),
+		span_warning("Рука [caster.declent_ru(GENITIVE)] светится брильянтово красным когда он[GEND_A_O_I(caster)] каса[PLUR_ET_YUT(caster)]ся [to_heal.declent_ru(GENITIVE)]!"),
 		span_notice("Ваша рука светится брильянтово красным когда вы касаетесь [to_heal.declent_ru(GENITIVE)]!"),
 	)
 
@@ -92,7 +92,7 @@
 	playsound(to_heal, 'sound/magic/staff_healing.ogg', 30)
 	new /obj/effect/temp_visual/cult/sparks(get_turf(to_heal))
 	caster.visible_message(
-		span_warning("Рука [caster.declent_ru(GENITIVE)] светится брильянтово красным когда он[genderize_ru(caster.gender, "", "а", "о", "и")] каса[pluralize_ru(caster.gender, "е", "ю")]тся [to_heal.declent_ru(GENITIVE)]!"),
+		span_warning("Рука [caster.declent_ru(GENITIVE)] светится брильянтово красным когда он[GEND_A_O_I(caster)] каса[PLUR_ET_YUT(caster)]ся [to_heal.declent_ru(GENITIVE)]!"),
 		span_notice("Ваша рука светится брильянтово красным когда вы касаетесь [to_heal.declent_ru(GENITIVE)]!"),
 	)
 	return TRUE
@@ -149,19 +149,19 @@
 
 	// Sure you can remove your own organs, fun party trick
 	if(carbon_victim == caster)
-		var/are_you_sure = tgui_alert(caster, "Вы уверены что хотите извлечь сво[genderize_ru(picked_organ.gender, "й", "ю", "ё", "и")] [picked_organ.declent_ru(ACCUSATIVE)]?", "Вы уверены?", list("Да", "Нет"))
+		var/are_you_sure = tgui_alert(caster, "Вы уверены что хотите извлечь сво[UNLINT(genderize_ru(picked_organ.gender, "й", "ю", "ё", "и"))] [picked_organ.declent_ru(ACCUSATIVE)]?", "Вы уверены?", list("Да", "Нет"))
 		if(are_you_sure != "Да" || !extraction_checks(picked_organ, hand, victim, caster))
 			return FALSE
 
 		time_it_takes = 6 SECONDS
 		caster.visible_message(
-			span_warning("Рука [caster.declent_ru(GENITIVE)] светится брильянтово красным когда он[genderize_ru(caster.gender, "", "а", "о", "и")] погружа[pluralize_ru(caster.gender, "е", "ю")]т её в своё тело!"),
+			span_warning("Рука [caster.declent_ru(GENITIVE)] светится брильянтово красным когда он[GEND_A_O_I(caster)] погружа[PLUR_ET_YUT(caster)] её в своё тело!"),
 			span_notice("Ваша рука светится брильянтово красным когда вы погружаете её в своё тело!"),
 		)
 
 	else
 		caster.visible_message(
-			span_warning("Рука [caster.declent_ru(GENITIVE)] светится брильянтово красным когда он[genderize_ru(caster.gender, "", "а", "о", "и")] погружа[pluralize_ru(caster.gender, "е", "ю")]т её в тело [carbon_victim.declent_ru(ACCUSATIVE)]!"),
+			span_warning("Рука [caster.declent_ru(GENITIVE)] светится брильянтово красным когда он[GEND_A_O_I(caster)] погружа[PLUR_ET_YUT(caster)] её в тело [carbon_victim.declent_ru(ACCUSATIVE)]!"),
 			span_notice("Ваша рука светится брильянтово красным когда вы погружаете её в тело [carbon_victim.declent_ru(ACCUSATIVE)]!"),
 		)
 
@@ -177,13 +177,13 @@
 	// Mainly so it gets across if you're taking the eyes of someone who's conscious
 	if(carbon_victim == caster)
 		caster.visible_message(
-			span_bolddanger("[caster.declent_ru(NOMINATIVE)] извлека[pluralize_ru(caster.gender, "ет", "ют")] [picked_organ.declent_ru(ACCUSATIVE)] из своего тела!"),
+			span_bolddanger("[caster.declent_ru(NOMINATIVE)] извлека[PLUR_ET_YUT(caster)] [picked_organ.declent_ru(ACCUSATIVE)] из своего тела!"),
 			span_bolddanger("Вы извлекаете [picked_organ.declent_ru(ACCUSATIVE)] из своего тела!"),
 		)
 
 	else
 		carbon_victim.visible_message(
-			span_bolddanger("[caster.declent_ru(NOMINATIVE)] извлека[pluralize_ru(caster.gender, "ет", "ют")] [picked_organ.declent_ru(ACCUSATIVE)] из тела [carbon_victim.declent_ru(GENITIVE)]!"),
+			span_bolddanger("[caster.declent_ru(NOMINATIVE)] извлека[PLUR_ET_YUT(caster)] [picked_organ.declent_ru(ACCUSATIVE)] из тела [carbon_victim.declent_ru(GENITIVE)]!"),
 			span_bolddanger("Вы извлекаете [picked_organ.declent_ru(ACCUSATIVE)] из тела [carbon_victim.declent_ru(GENITIVE)]!"),
 		)
 

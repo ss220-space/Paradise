@@ -30,7 +30,7 @@
 		action.owner.balloon_alert(action.owner, get_balloon_message(ascended_heretic))
 
 		if(ascended_heretic.stat == DEAD)
-			to_chat(action.owner, span_hierophant("[ascended_heretic.declent_ru(NOMINATIVE)] мертв[pluralize_ru(ascended_heretic.gender, "", "а", "о", "ы")]. Рыдайте, ибо ложь победила."))
+			to_chat(action.owner, span_hierophant("[ascended_heretic.declent_ru(NOMINATIVE)] мертв[GEND_A_O_Y(ascended_heretic)]. Рыдайте, ибо ложь победила."))
 
 		cooldown_handler.start_recharge()
 		return TRUE
@@ -40,7 +40,7 @@
 /obj/effect/proc_holder/spell/lunatic_track/proc/get_balloon_message(mob/living/carbon/human/tracked_mob)
 	var/balloon_message = generate_balloon_message(tracked_mob)
 	if(tracked_mob.stat == DEAD)
-		balloon_message = "мертв[pluralize_ru(tracked_mob.gender, "", "а", "о", "ы")] " + balloon_message
+		balloon_message = "мертв[GEND_A_O_Y(tracked_mob)] " + balloon_message
 
 	return balloon_message
 

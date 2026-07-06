@@ -184,9 +184,9 @@
 	if(tracked_mob.stat != DEAD)
 		return
 
-	to_chat(action.owner, span_hierophant("[tracked_mob.declent_ru(NOMINATIVE)] мертв[genderize_ru(tracked_mob.gender, "", "а", "о", "ы")]. \
-										Принесите [genderize_ru(tracked_mob.gender, "его", "её", "его", "их")] на руну трансформации и скастуйте \
-										\"[sac_knowledge.name]\", чтобы принисти [genderize_ru(tracked_mob.gender, "его", "её", "его", "их")] в жертву!"))
+	to_chat(action.owner, span_hierophant("[tracked_mob.declent_ru(NOMINATIVE)] мертв[GEND_A_O_Y(tracked_mob)]. \
+										Принесите [GEND_HIS_HER(tracked_mob)] на руну трансформации и скастуйте \
+										\"[sac_knowledge.name]\", чтобы принисти [GEND_HIS_HER(tracked_mob)] в жертву!"))
 
 
 /// Callback for the radial to ensure it's closed when not allowed.
@@ -270,7 +270,7 @@
 	if(tracked_mob.stat != DEAD)
 		return balloon_message
 
-	return "мертв[genderize_ru(tracked_mob.gender, "ый", "ая", "ое", "ые")] " + balloon_message
+	return "мертв[GEND_YI_AYA_OE_YE(tracked_mob)] " + balloon_message
 
 
 /atom/movable/screen/navigate_arrow

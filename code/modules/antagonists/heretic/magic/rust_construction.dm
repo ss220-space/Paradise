@@ -124,7 +124,7 @@
 
 	playsound(new_wall, 'sound/effects/constructform.ogg', 50, TRUE)
 	new_wall.rust_heretic_act()
-	new_wall.name = "зачарованн[genderize_ru(new_wall.gender, "ый", "ая", "ое", "ые")] [new_wall.name]"
+	new_wall.name = "зачарованн[GEND_YI_AYA_OE_YE(new_wall)] [new_wall.name]"
 	new_wall.AddComponent(/datum/component/torn_wall)
 	new_wall.AddComponent(/datum/component/rust_construction_wall)
 	new_wall.hardness = 60

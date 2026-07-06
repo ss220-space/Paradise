@@ -17,6 +17,8 @@
 /datum/game_mode
 	var/name = "invalid"
 	var/config_tag = null
+	/// All heretic minds for the round (tg heretic port).
+	var/list/heretics = list()
 	/// Probablity for this mode in secret mode type.
 	var/probability = 0
 	/// Whether this mode can be voted by players.

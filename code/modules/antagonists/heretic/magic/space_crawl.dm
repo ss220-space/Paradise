@@ -193,7 +193,6 @@
 /// The holder itself is invisible (invisibility = 60); the position indicator is a client image built from
 /// phased_mob_icon[_state] in /obj/effect/dummy/spell_jaunt/Entered, so those are the vars that matter here.
 /obj/effect/dummy/spell_jaunt/space
-	phased_mob_icon = 'icons/obj/weapons/guns/projectiles.dmi'
 	phased_mob_icon_state = "solarflare"
 	movespeed = 0
 

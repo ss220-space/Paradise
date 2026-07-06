@@ -265,7 +265,7 @@
 	if(!real_owner)
 		return
 
-	to_chat(real_owner, span_userdanger("[victim.real_name] наступил[genderize_ru(victim.gender, "", "а", "о", "и")] на [declent_ru(ACCUSATIVE)] в [get_area(src)]!"))
+	to_chat(real_owner, span_userdanger("[victim.real_name] наступил[GEND_A_O_I(victim)] на [declent_ru(ACCUSATIVE)] в [get_area(src)]!"))
 	real_owner.playsound_local(get_turf(real_owner), 'sound/magic/curse.ogg', 50, TRUE)
 
 

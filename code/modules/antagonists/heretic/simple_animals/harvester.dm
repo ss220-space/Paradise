@@ -85,6 +85,8 @@
 
 /obj/effect/proc_holder/spell/seek_master/New(Target)
 	. = ..()
+	if(!isconstruct(Target)) // instantiated bare (e.g. unit tests)
+		return
 	the_construct = Target
 	the_construct.seeking = TRUE
 
@@ -102,7 +104,7 @@
 
 /mob/living/simple_animal/hostile/construct/harvester/heretic/proc/on_master_death(mob/self, mob/master)
 	SIGNAL_HANDLER
-	to_chat(src, span_userdanger("Ваша связь с Мансусом внезапно обрывается, когда ваш хозяин [construct_master.declent_ru(NOMINATIVE)] погибает! Без [genderize_ru(construct_master.gender, "его", "её", "его", "их")] поддержки ваше тело рассыпается..."))
+	to_chat(src, span_userdanger("Ваша связь с Мансусом внезапно обрывается, когда ваш хозяин [construct_master.declent_ru(NOMINATIVE)] погибает! Без [GEND_HIS_HER(construct_master)] поддержки ваше тело рассыпается..."))
 	visible_message(span_alert("[declent_ru(NOMINATIVE)] внезапно рассыпается в пыль!"))
 	death()
 

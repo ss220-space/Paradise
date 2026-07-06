@@ -110,7 +110,6 @@
 	name = "звёздный диск"
 	gender = MALE
 	icon_state = "star_ball"
-	damage = 0
 	// Paradise speed is deciseconds per tile (inverse of tiles/decisecond); slowed slightly (5 -> 6) so
 	// the disk is easier to chase for the teleport recast.
 	speed = 6

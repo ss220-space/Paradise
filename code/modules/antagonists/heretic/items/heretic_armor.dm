@@ -14,7 +14,7 @@
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi',
 	)
 
 
@@ -51,7 +51,7 @@
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
 	)
 
 
@@ -187,8 +187,6 @@
 		PREPOSITIONAL = "капюшоне изменчивой личины",
 	)
 
-
-
 /// Returns TRUE if this mob can currently cast EMPOWERED ashen spells: caster must be human, wearing the
 /// Scorched Mantle, and carrying more than 3 fire stacks.
 /proc/is_ash_empowered(mob/living/owner)
@@ -203,7 +201,6 @@
 // Toggle action for the Scorched Mantle's passive flame generation.
 /datum/action/item_action/toggle_flames
 	name = "Переключить пламя"
-	button_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "fireball"
 	background_icon = 'icons/mob/actions/backgrounds.dmi'
 	background_icon_state = "bg_heretic"
@@ -1342,7 +1339,7 @@
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi',
 	)
 
 
@@ -1382,7 +1379,7 @@
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
 	)
 	/// Whether the cloak is currently hidden (hood up). Starts TRUE so Initialize()'s make_visible() runs the initial focus setup.
 	var/cloak_hidden = TRUE

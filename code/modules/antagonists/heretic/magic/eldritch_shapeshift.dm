@@ -38,7 +38,7 @@
 
 	RegisterSignal(shape, COMSIG_MOB_DEATH, PROC_REF(on_death))
 
-	if(istype(caster, /mob/living/simple_animal))
+	if(is_simple_animal(caster))
 		var/mob/living/simple_animal/animal = caster
 		animal.toggle_ai(AI_OFF)
 		old_shouldwakeup = animal.shouldwakeup

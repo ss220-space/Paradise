@@ -143,8 +143,6 @@
 	if(null in source.get_held_items())
 		INVOKE_ASYNC(src, PROC_REF(apply_mutant_hands))
 
-
-
 /**
  * Generic mutant hand type for use with the mutant hands component
  * (Technically speaking, the component doesn't require you use this type. But it's here for posterity)

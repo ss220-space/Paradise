@@ -87,7 +87,7 @@
 	// Anti-magic shrugs the parade off and pops the projectile - deliberate counterplay. (can_block_magic()
 	// is currently an inert shim, so this branch is dormant until antimagic lands.)
 	if(victim.can_block_magic(MAGIC_RESISTANCE | MAGIC_RESISTANCE_MIND))
-		visible_message(span_warning("Парад врезается в [victim.declent_ru(ACCUSATIVE)], и внезапная волна ясности накрывает [genderize_ru(victim.gender, "его", "её", "его", "их")]!"))
+		visible_message(span_warning("Парад врезается в [victim.declent_ru(ACCUSATIVE)], и внезапная волна ясности накрывает [GEND_HIS_HER(victim)]!"))
 		return // returns a non -1 value, so Bump() deletes the projectile and the parade stops
 
 	// Already marching - just refresh the madness, don't re-leash.

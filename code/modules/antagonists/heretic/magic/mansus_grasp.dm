@@ -171,7 +171,7 @@
 */
 
 /obj/item/melee/touch_attack/mansus_fist/suicide_act(mob/living/user)
-	user.visible_message(span_suicide("[user.declent_ru(NOMINATIVE)] делает фейспалм [declent_ru(INSTRUMENTAL)]! Похоже [genderize_ru(user.gender, "он", "она", "оно", "они")] пыта[pluralize_ru(user.gender, "е", "ю")]тся убить себя!"))
+	user.visible_message(span_suicide("[user.declent_ru(NOMINATIVE)] делает фейспалм [declent_ru(INSTRUMENTAL)]! Похоже [GEND_HE_SHE(user)] пыта[PLUR_ET_YUT(user)]ся убить себя!"))
 	var/mob/living/carbon/carbon_user = user //iscarbon already used in spell's parent
 	var/obj/effect/proc_holder/spell/touch/mansus_grasp/source = attached_spell//?.resolve()
 	if(QDELETED(source) || !isheretic(user))

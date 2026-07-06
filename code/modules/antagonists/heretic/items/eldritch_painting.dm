@@ -2,7 +2,6 @@
 	name = "Чистый холст"
 	desc = "Невозможная картина, созданная невозможной краской. Она не должна существовать в этой реальности."
 	// master220's painting compat base points at decals.dmi; the eldritch painting sprites live in signs.dmi.
-	icon = 'icons/obj/signs.dmi'
 	icon_state = "eldritch_painting_debug"
 	result_path = /obj/structure/sign/painting/eldritch
 
@@ -10,7 +9,6 @@
 /obj/structure/sign/painting/eldritch
 	name = "Чистый холст"
 	desc = "Невозможная картина, созданная невозможной краской. Она не должна существовать в этой реальности."
-	icon = 'icons/obj/signs.dmi'
 	icon_state = "eldritch_painting_debug"
 	//buildable_sign = FALSE
 	accepted_canvas_types = list()

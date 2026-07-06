@@ -9,6 +9,10 @@
 			Он светится яростной, сдержанной зелёной энергией."
 	icon_state = "hauntedblade"
 	item_state = "hauntedblade"
+	lefthand_file = 'icons/mob/inhands/64x64_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/64x64_righthand.dmi'
+	inhand_x_dimension = 64
+	inhand_y_dimension = 64
 	throwforce = 25
 	block_chance = 55
 	//wound_bonus = -25
@@ -271,7 +275,7 @@
 		bind_soul(soul_to_bind, awakener)
 
 	binding_filters_update()
-	addtimer(CALLBACK(src, PROC_REF(start_glow_loop)), rand(0.1 SECONDS, 1.9 SECONDS))
+	addtimer(CALLBACK(src, PROC_REF(start_glow_loop)), randfloat(0.1 SECONDS, 1.9 SECONDS))
 
 
 /obj/item/melee/cultblade/haunted/proc/bind_soul(mob/soul_to_bind, mob/awakener)

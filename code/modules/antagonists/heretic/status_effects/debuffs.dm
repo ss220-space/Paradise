@@ -169,8 +169,6 @@
 /datum/status_effect/star_mark/extended
 	duration = 3 MINUTES
 
-
-
 /// Used by moon heretics to make people mad
 /datum/status_effect/moon_converted
 	id = "moon converted"
@@ -289,7 +287,6 @@
 	id = "eldritch_painting"
 	alert_type = /atom/movable/screen/alert/status_effect/eldritch_painting
 	duration = 10 MINUTES
-	status_type = STATUS_EFFECT_UNIQUE
 
 /datum/status_effect/eldritch_painting/on_apply()
 	if(IS_HERETIC_OR_MONSTER(owner))

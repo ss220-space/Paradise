@@ -12,9 +12,7 @@
  */
 
 // --- Brain organ: trauma storage + management ---
-/obj/item/organ/internal/brain
-	/// Active brain traumas on this brain.
-	var/list/traumas = list()
+// (the `traumas` list var itself is declared on the brain in brain_item.dm)
 
 /obj/item/organ/internal/brain/Destroy()
 	QDEL_LIST(traumas)
@@ -214,7 +212,6 @@
 	scan_desc = "острое тревожное расстройство"
 	gain_text = span_warning_alt("Вы чувствуете нарастающий ужас от мысли остаться в одиночестве.")
 	lose_text = span_notice_alt("Страх одиночества отступает.")
-	resilience = TRAUMA_RESILIENCE_SURGERY
 
 /datum/brain_trauma/severe/monophobia/on_life(seconds_per_tick, times_fired)
 	if(!prob(10))

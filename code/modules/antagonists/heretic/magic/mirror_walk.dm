@@ -102,7 +102,7 @@
 		return FALSE
 
 	nearby_reflection.Beam(phase_turf, icon_state = "light_beam", time = phase_in_time)
-	nearby_reflection.visible_message(span_warning(span_warning("[nearby_reflection.declent_ru(NOMINATIVE)] начинает светиться и слегка дрожать!")))
+	nearby_reflection.visible_message(span_warning("[nearby_reflection.declent_ru(NOMINATIVE)] начинает светиться и слегка дрожать!"))
 	if(!do_after(unjaunter, phase_in_time, nearby_reflection))
 		return FALSE
 
