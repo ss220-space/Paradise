@@ -557,6 +557,9 @@
  * Span-based 4-dir flood fill used by the bucket tool in the UI.
  */
 /obj/item/canvas/proc/canvas_fill(x, y, new_color)
+	// Coordinates come straight from tgui - clamp them so a forged packet can't index out of bounds.
+	x = clamp(x, 1, width)
+	y = clamp(y, 1, height)
 	var/prev_color = grid[x][y]
 	if(prev_color == new_color)
 		return FALSE

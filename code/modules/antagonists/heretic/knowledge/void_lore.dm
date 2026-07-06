@@ -235,7 +235,7 @@
 	///Reference to the ongoing voidstrom that surrounds the heretic
 	var/datum/weather/void_storm/storm
 	///The storm where there are actual effects
-	var/datum/component/proximity_monitor/advanced/void_storm/heavy_storm
+	var/datum/proximity_monitor/advanced/void_storm/heavy_storm
 
 
 /datum/heretic_knowledge/ultimate/void_final/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/simulated/loc)
@@ -257,9 +257,7 @@
 	RegisterSignal(user, COMSIG_LIVING_LIFE, PROC_REF(on_life))
 	RegisterSignal(user, COMSIG_HUMAN_TRY_DEFLECT_BULLET, PROC_REF(hit_by_projectile))
 	RegisterSignals(user, list(COMSIG_LIVING_DEATH, COMSIG_QDELETING), PROC_REF(on_death))
-	// A bare new(user, 10) hands the mob to New(list/raw_args) and runtimes on raw_args[1];
-	// components must be created through AddComponent.
-	heavy_storm = user.AddComponent(/datum/component/proximity_monitor/advanced/void_storm, 10)
+	heavy_storm = new(user, 10)
 	if(!ishuman(user))
 		return
 

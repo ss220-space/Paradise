@@ -10,7 +10,7 @@
  */
 /datum/element/wall_tearer
 	element_flags = ELEMENT_BESPOKE
-	//argument_hash_start_idx = 2
+	argument_hash_start_idx = 2
 	/// Whether we can break reinforced walls
 	var/allow_reinforced
 	/// How long it takes for us to destroy a wall completely (its a 3 step process so this will be divided by three)

@@ -9,7 +9,6 @@
 			Он светится яростной, сдержанной зелёной энергией."
 	icon_state = "hauntedblade"
 	item_state = "hauntedblade"
-	item_state = "hauntedblade"
 	throwforce = 25
 	block_chance = 55
 	//wound_bonus = -25

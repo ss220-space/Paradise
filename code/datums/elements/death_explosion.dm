@@ -5,6 +5,7 @@
  */
 /datum/element/death_explosion
 	element_flags = ELEMENT_BESPOKE
+	argument_hash_start_idx = 3
 	///The range at which devastating impact happens
 	var/devastation
 	///The range at which heavy impact happens

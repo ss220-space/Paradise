@@ -5,15 +5,16 @@ GLOBAL_LIST_EMPTY(heretic_arenas)
 	icon = null
 	icon_state = null
 	alpha = 0
+	anchored = TRUE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	resistance_flags = INDESTRUCTIBLE
 	/// Proximity monitor that handles the effects we are looking for
-	var/datum/component/proximity_monitor/advanced/heretic_arena/arena
+	var/datum/proximity_monitor/advanced/heretic_arena/arena
 
 
 /obj/effect/abstract/heretic_arena/Initialize(mapload, range, duration, caster)
 	. = ..()
-	arena = new(list(src, range))
+	arena = new(src, range)
 	QDEL_IN(src, duration)
 	arena.set_caster(caster)
 	GLOB.heretic_arenas += src
@@ -25,7 +26,7 @@ GLOBAL_LIST_EMPTY(heretic_arenas)
 	. = ..()
 
 
-/datum/component/proximity_monitor/advanced/heretic_arena
+/datum/proximity_monitor/advanced/heretic_arena
 	/// Reference to the caster, the spell collapses if they leave the arena
 	var/arena_caster
 	/// List of mobs inside our arena
@@ -52,10 +53,10 @@ GLOBAL_LIST_EMPTY(heretic_arenas)
 	)
 
 
-/datum/component/proximity_monitor/advanced/heretic_arena/Initialize(range, _ignore_if_not_on_turf)
-	. = ..() // forwards `range` to the base monitor as its radius
+/datum/proximity_monitor/advanced/heretic_arena/New(atom/_host, range, works_when_not_on_turf)
+	. = ..()
 	recalculate_field(full_recalc = TRUE)
-	var/list/things_in_range = range(range, parent) // centre the sweep on the arena, not on usr
+	var/list/things_in_range = range(range, host) // centre the sweep on the arena, not on usr
 	for(var/mob/living/carbon/human/human_in_range in things_in_range)
 		human_in_range.add_traits(given_immunities, HERETIC_ARENA_TRAIT)
 		contained_mobs += human_in_range
@@ -70,16 +71,10 @@ GLOBAL_LIST_EMPTY(heretic_arenas)
 		human_in_range.apply_status_effect(/datum/status_effect/arena_tracker)
 		RegisterSignal(human_in_range, COMSIG_CAN_Z_MOVE, PROC_REF(on_try_z_move))
 		RegisterSignal(human_in_range, COMSIG_LADDER_TRAVEL, PROC_REF(on_try_ladder))
-		//RegisterSignal(human_in_range, COMSIG_MOVABLE_PRE_MOVE, PROC_REF(on_pre_move))
 		RegisterSignal(human_in_range, COMSIG_MOVABLE_POST_TELEPORT, PROC_REF(on_teleport))
-		// master220's ported advanced-field system has its edge crossing/uncrossing hooks commented out
-		// (see field.dm), so field_edge_uncrossed() never fires. We watch each participant's movement
-		// directly instead: once a victor (the only one the walls let pass) steps beyond the edge we strip
-		// their arena state, and if the caster themselves leaves we collapse the whole arena shortly after.
-		RegisterSignal(human_in_range, COMSIG_MOVABLE_MOVED, PROC_REF(on_participant_moved))
 
 
-/datum/component/proximity_monitor/advanced/heretic_arena/Destroy()
+/datum/proximity_monitor/advanced/heretic_arena/Destroy()
 	// Tear the border walls down FIRST so the arena always physically collapses,
 	// even if participant cleanup below hits a snag on some mob.
 	for(var/turf/to_restore in border_walls)
@@ -89,7 +84,7 @@ GLOBAL_LIST_EMPTY(heretic_arenas)
 	for(var/mob/living/carbon/human/mob in contained_mobs)
 		mob.remove_traits(given_immunities, HERETIC_ARENA_TRAIT)
 		mob.remove_status_effect(/datum/status_effect/arena_tracker)
-		UnregisterSignal(mob, list(COMSIG_CAN_Z_MOVE, COMSIG_LADDER_TRAVEL/*, COMSIG_MOVABLE_PRE_MOVE*/, COMSIG_MOVABLE_POST_TELEPORT, COMSIG_MOVABLE_MOVED))
+		UnregisterSignal(mob, list(COMSIG_CAN_Z_MOVE, COMSIG_LADDER_TRAVEL, COMSIG_MOVABLE_POST_TELEPORT))
 		if(mob.mind?.has_antag_datum(/datum/antagonist/heretic_arena_participant))
 			mob.mind.remove_antag_datum(/datum/antagonist/heretic_arena_participant)
 		to_chat(mob, span_big(span_purple("Ваша жажда крови утолена.")))
@@ -102,60 +97,32 @@ GLOBAL_LIST_EMPTY(heretic_arenas)
 	return ..()
 
 
-/datum/component/proximity_monitor/advanced/heretic_arena/setup_edge_turf(turf/target)
-	if(edge_is_a_field) // If the edge is considered a field, set it up like one
-		setup_field_turf(target)
-
+/datum/proximity_monitor/advanced/heretic_arena/setup_edge_turf(turf/target)
+	. = ..()
 	var/old_turf = target.type
 	target.ChangeTurf(/turf/simulated/wall/indestructible/heretic_wall)
 	border_walls += target
 	border_walls[target] = old_turf // store the original turf type so Destroy() can change it back
 
 
-/datum/component/proximity_monitor/advanced/heretic_arena/field_edge_uncrossed(atom/movable/movable, turf/old_location, turf/new_location)
+/datum/proximity_monitor/advanced/heretic_arena/field_edge_uncrossed(atom/movable/movable, turf/old_location, turf/new_location)
 	if(!isliving(movable))
 		return
 	var/mob/living/living_mob = movable
 	addtimer(CALLBACK(living_mob, TYPE_PROC_REF(/mob/living, remove_status_effect), /datum/status_effect/arena_tracker), 10 SECONDS)
 	living_mob.remove_traits(given_immunities, HERETIC_ARENA_TRAIT)
 	if(living_mob == arena_caster)
-		QDEL_IN(parent, 3 SECONDS)
-
-
-/// Fires on every move of a participant. Since the ported field system doesn't drive field_edge_uncrossed,
-/// this is what actually detects a (victorious) fighter walking out past the arena's edge walls.
-/datum/component/proximity_monitor/advanced/heretic_arena/proc/on_participant_moved(mob/living/mover, atom/old_loc)
-	SIGNAL_HANDLER
-	// parent is the central arena effect; the wall ring sits at `radius`, so anything farther is outside.
-	if(QDELETED(parent) || get_dist(mover, parent) <= radius)
-		return
-
-	// They've escaped the ring (only victors can pass the walls). Release them from the arena's grip.
-	addtimer(CALLBACK(mover, TYPE_PROC_REF(/mob/living, remove_status_effect), /datum/status_effect/arena_tracker), 10 SECONDS)
-	mover.remove_traits(given_immunities, HERETIC_ARENA_TRAIT)
-	UnregisterSignal(mover, COMSIG_MOVABLE_MOVED)
-
-	// If the caster leaves, the whole spectacle collapses shortly after, just like on tg.
-	if(mover == arena_caster)
-		QDEL_IN(parent, 3 SECONDS)
+		QDEL_IN(host, 3 SECONDS)
 
 
 /// Prevents using ladders
-/datum/component/proximity_monitor/advanced/heretic_arena/proc/on_try_ladder(mob/climber)
+/datum/proximity_monitor/advanced/heretic_arena/proc/on_try_ladder(mob/climber)
 	SIGNAL_HANDLER
 	return LADDER_TRAVEL_BLOCK
 
 
-/// If we try to enter a space turf that has a mirage, we will block the movement
-/*
-/datum/component/proximity_monitor/advanced/heretic_arena/proc/on_pre_move(atom/movable/mover, atom/newloc)
-	if(locate(/atom/movable/mirage_holder) in newloc.contents)
-		return COMPONENT_MOVABLE_BLOCK_PRE_MOVE
-*/
-
-
 /// Blocks Z movement to new z levels
-/datum/component/proximity_monitor/advanced/heretic_arena/proc/on_try_z_move(atom/movable/source, turf/start, turf/destination)
+/datum/proximity_monitor/advanced/heretic_arena/proc/on_try_z_move(atom/movable/source, turf/start, turf/destination)
 	SIGNAL_HANDLER
 	if(start.z == destination.z)
 		return
@@ -164,14 +131,14 @@ GLOBAL_LIST_EMPTY(heretic_arenas)
 
 
 /// If our caster teleports away (after winning presumably) we'll collapse the arena so that it doens't needlessly linger
-/datum/component/proximity_monitor/advanced/heretic_arena/proc/on_teleport(atom/teleportee, atom/destination)
+/datum/proximity_monitor/advanced/heretic_arena/proc/on_teleport(atom/teleportee, atom/destination)
 	if(teleportee != arena_caster)
 		return
 
-	qdel(parent)
+	qdel(host)
 
 
-/datum/component/proximity_monitor/advanced/heretic_arena/proc/set_caster(atom/caster)
+/datum/proximity_monitor/advanced/heretic_arena/proc/set_caster(atom/caster)
 	arena_caster = caster
 
 

@@ -4,6 +4,7 @@
 
 /datum/element/effect_trail
 	element_flags = ELEMENT_BESPOKE
+	argument_hash_start_idx = 2
 	/// The effect used for the trail generation.
 	var/chosen_effect
 

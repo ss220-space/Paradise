@@ -5,7 +5,7 @@
  */
 /datum/element/death_gases
 	element_flags = ELEMENT_BESPOKE
-	//argument_hash_start_idx = 3
+	argument_hash_start_idx = 3
 	///What gas the target spawns when killed
 	var/gas_type
 	///The amount of gas spawned on death

@@ -5,6 +5,7 @@
  */
 /datum/element/wall_smasher
 	element_flags = ELEMENT_BESPOKE
+	argument_hash_start_idx = 2
 	/// Either ENVIRONMENT_SMASH_WALLS or ENVIRONMENT_SMASH_RWALLS, as in '_DEFINES/mobs.dm'
 	var/strength_flag
 

@@ -1,6 +1,7 @@
 /// This element will allow the mob it's attached to to pass through a specified type of wall, and drag anything through it.
 /datum/element/wall_walker
 	element_flags = ELEMENT_BESPOKE
+	argument_hash_start_idx = 2
 	/// What kind of walls can we pass through?
 	var/wall_type
 	/// What trait on turfs allows us to pass through? Can be used as OR if wall_type is null, or AND if it's set.

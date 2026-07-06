@@ -346,6 +346,8 @@
 		if(old_bruteloss != 0)
 			updatehealth("adjustBruteLoss")
 		return STATUS_UPDATE_NONE
+	if(SEND_SIGNAL(src, COMSIG_LIVING_ADJUST_BRUTE_DAMAGE, BRUTE, amount, forced) & COMPONENT_IGNORE_CHANGE)
+		return STATUS_UPDATE_NONE
 	if(!forced && amount > 0)
 		amount *= ((100 - clamp(blocked + get_blocking_resistance(amount, BRUTE, def_zone, sharp, used_weapon), 0, 100)) / 100)
 		amount *= get_incoming_damage_modifier(amount, BRUTE, def_zone, sharp, used_weapon)
@@ -398,6 +400,8 @@
 		if(old_fireloss != 0)
 			updatehealth("adjustFireLoss")
 		return STATUS_UPDATE_NONE
+	if(SEND_SIGNAL(src, COMSIG_LIVING_ADJUST_BURN_DAMAGE, BURN, amount, forced) & COMPONENT_IGNORE_CHANGE)
+		return STATUS_UPDATE_NONE
 	if(!forced && amount > 0)
 		amount *= ((100 - clamp(blocked + get_blocking_resistance(amount, BURN, def_zone, sharp, used_weapon), 0, 100)) / 100)
 		amount *= get_incoming_damage_modifier(amount, BURN, def_zone, sharp, used_weapon)
@@ -441,6 +445,8 @@
 		oxyloss = 0
 		if(old_oxyloss != 0)
 			updatehealth("adjustOxyLoss")
+		return STATUS_UPDATE_NONE
+	if(SEND_SIGNAL(src, COMSIG_LIVING_ADJUST_OXY_DAMAGE, OXY, amount, forced) & COMPONENT_IGNORE_CHANGE)
 		return STATUS_UPDATE_NONE
 	if(!forced && amount > 0)
 		amount *= ((100 - clamp(blocked + get_blocking_resistance(amount, OXY, used_weapon = used_weapon), 0, 100)) / 100)
@@ -511,6 +517,8 @@
 		toxloss = 0
 		if(old_toxloss != 0)
 			updatehealth("adjustToxLoss")
+		return STATUS_UPDATE_NONE
+	if(SEND_SIGNAL(src, COMSIG_LIVING_ADJUST_TOX_DAMAGE, TOX, amount, forced) & COMPONENT_IGNORE_CHANGE)
 		return STATUS_UPDATE_NONE
 	if(!forced && amount > 0)
 		amount *= ((100 - clamp(blocked + get_blocking_resistance(amount, TOX, used_weapon = used_weapon), 0, 100)) / 100)
@@ -716,6 +724,8 @@
 		staminaloss = 0
 		if(old_stamloss != 0)
 			updatehealth("adjustStaminaLoss")
+		return STATUS_UPDATE_NONE
+	if(SEND_SIGNAL(src, COMSIG_LIVING_ADJUST_STAMINA_DAMAGE, STAMINA, amount, forced) & COMPONENT_IGNORE_CHANGE)
 		return STATUS_UPDATE_NONE
 	if(!forced && amount > 0)
 		amount *= ((100 - clamp(blocked + get_blocking_resistance(amount, STAMINA, used_weapon = used_weapon), 0, 100)) / 100)

@@ -513,9 +513,18 @@ GLOBAL_LIST_EMPTY(has_antagonist_huds)
 
 /datum/reagent/inverse/helgrasp/on_mob_delete(mob/living/carbon/human/user)
 	. = ..()
+	clear_hand_timers()
+
+/datum/reagent/inverse/helgrasp/Destroy()
+	// The timer subsystem holds references to us through the callbacks - clear them
+	// or a reagent removed mid-cycle hard-deletes.
+	clear_hand_timers()
+	return ..()
+
+/datum/reagent/inverse/helgrasp/proc/clear_hand_timers()
 	for(var/timer_id in timer_ids)
 		deltimer(timer_id)
-	timer_ids?.Cut()
+	timer_ids = null
 
 /datum/reagent/inverse/helgrasp/heretic
 	name = "Прикосновение Мансуса"

@@ -5,7 +5,7 @@
  */
 /datum/element/venomous
 	element_flags = ELEMENT_BESPOKE
-	//argument_hash_start_idx = 2
+	argument_hash_start_idx = 2
 	///Path of the reagent added
 	var/reagents
 	///Details of how we inject our venom

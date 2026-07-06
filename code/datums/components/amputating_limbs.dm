@@ -74,4 +74,7 @@
 	if(surgery_time > 0 && !do_after(surgeon, delay = surgery_time, target = victim))
 		return
 
+	if(QDELETED(to_remove) || QDELETED(victim))
+		return
+
 	to_remove.dismember()

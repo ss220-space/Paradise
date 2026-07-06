@@ -632,7 +632,7 @@
 				toggle_strafe(silent = TRUE)
 			if(can_move < world.time)
 				. = FALSE // We lie to mech code and say we didn't get to move, because we want to handle power usage + cooldown ourself
-				flick(get_phase_state(), src)
+				flick("[initial_icon]-phase", src)
 				forceMove(get_step(src, direction))
 				use_power(phasing_energy_drain / phase_modifier)
 				playsound(src, stepsound, 40, TRUE)
@@ -1794,18 +1794,6 @@
 	diag_hud_set_mechcell()
 	diag_hud_set_mechstat()
 	diag_hud_set_mechtracking()
-
-/obj/mecha/proc/can_phase()
-	return TRUE
-
-/obj/mecha/proc/prevents_weapon_fire(obj/item/mecha_parts/mecha_equipment/weapon/weapon)
-	return FALSE
-
-/obj/mecha/proc/get_phase_state()
-	return phase_state || "[initial_icon]-phase"
-
-/obj/mecha/proc/uses_thruster_icon()
-	return TRUE
 
 /obj/mecha/speech_bubble(bubble_state = "", bubble_loc = src, list/bubble_recipients = list())
 	var/image/I = image('icons/mob/talk.dmi', bubble_loc, bubble_state, FLY_LAYER)

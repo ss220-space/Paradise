@@ -5,7 +5,7 @@
  */
 /datum/element/noticable_organ
 	element_flags = ELEMENT_BESPOKE
-	//argument_hash_start_idx = 2
+	argument_hash_start_idx = 2
 
 	///Shows on examining someone with an infused organ.
 	var/infused_desc

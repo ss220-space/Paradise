@@ -121,7 +121,7 @@
 /obj/item/organ/internal/brain/proc/gain_trauma_type(brain_trauma_type = /datum/brain_trauma, resilience, natural_gain = FALSE)
 	var/list/datum/brain_trauma/possible_traumas = list()
 	for(var/datum/brain_trauma/brain_trauma as anything in subtypesof(brain_trauma_type))
-		if(!can_gain_trauma(brain_trauma, resilience, natural_gain) && initial(brain_trauma.random_gain))
+		if(!can_gain_trauma(brain_trauma, resilience, natural_gain) || !initial(brain_trauma.random_gain))
 			continue
 		possible_traumas += brain_trauma
 

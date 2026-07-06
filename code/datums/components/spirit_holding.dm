@@ -149,7 +149,7 @@
 		return chosen_name
 
 	to_chat(awakener, span_warning("Your blade did not select a valid name! Please wait as they try again.")) // more verbose than what sanitize_name might pass in it's error message
-	return custom_name(awakener, iteration++)
+	return custom_name(awakener, iteration + 1)
 
 
 ///signal fired from a mob moving inside the parent

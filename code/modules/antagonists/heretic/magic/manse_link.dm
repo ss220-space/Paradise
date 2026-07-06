@@ -30,7 +30,6 @@
 	. = ..()
 	if(!istype(Target, /datum/component/mind_linker))
 		stack_trace("[name] ([type]) was instantiated on a non-mind_linker target, this doesn't work.")
-		qdel(src)
 		return
 	linker = Target
 
