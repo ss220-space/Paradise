@@ -3,7 +3,7 @@
 ///////////////////////////////////
 
 /datum/design/milk
-	name = "10u молока"
+	name = "10 ед. молока"
 	id = "milk"
 	build_type = BIOGENERATOR
 	materials = list(MAT_BIOMASS = 25)
@@ -11,7 +11,7 @@
 	category = list(PRINTER_CATEGORY_INITIAL, "Еда")
 
 /datum/design/cream
-	name = "10u сливок"
+	name = "10 ед. сливок"
 	id = "cream"
 	build_type = BIOGENERATOR
 	materials = list(MAT_BIOMASS = 25)
@@ -19,7 +19,7 @@
 	category = list(PRINTER_CATEGORY_INITIAL, "Еда")
 
 /datum/design/sodiumchloride
-	name = "10u соли"
+	name = "10 ед. соли"
 	id = "sodiumchloride"
 	build_type = BIOGENERATOR
 	materials = list(MAT_BIOMASS = 25)
@@ -27,7 +27,7 @@
 	category = list(PRINTER_CATEGORY_INITIAL, "Еда")
 
 /datum/design/black_pepper
-	name = "10u чёрного перца"
+	name = "10 ед. чёрного перца"
 	id = "black_pepper"
 	build_type = BIOGENERATOR
 	materials = list(MAT_BIOMASS = 25)
@@ -180,7 +180,7 @@
 	category = list(PRINTER_CATEGORY_INITIAL, "Органические материалы")
 
 /datum/design/wrapper
-	name = "Оберточная бумага"
+	name = "Обёрточная бумага"
 	id = "wrapper"
 	build_type = BIOGENERATOR
 	materials = list(MAT_BIOMASS = 50)
@@ -260,7 +260,7 @@
 	category = list(PRINTER_CATEGORY_INITIAL, "Кожа и ткань")
 
 /datum/design/webbing
-	name = "РПС"
+	name = "Разгрузка"
 	id = "webbing"
 	build_type = BIOGENERATOR
 	materials = list(MAT_BIOMASS = 500)
@@ -268,7 +268,7 @@
 	category = list(PRINTER_CATEGORY_INITIAL, "Кожа и ткань")
 
 /datum/design/brown_vest
-	name = "Коричневый РПС-жилет"
+	name = "Коричневая разгрузка"
 	id = "brown_vest"
 	build_type = BIOGENERATOR
 	materials = list(MAT_BIOMASS = 800)
@@ -276,7 +276,7 @@
 	category = list(PRINTER_CATEGORY_INITIAL, "Кожа и ткань")
 
 /datum/design/black_vest
-	name = "Чёрный РПС-жилет"
+	name = "Чёрная разгрузка"
 	id = "black_vest"
 	build_type = BIOGENERATOR
 	materials = list(MAT_BIOMASS = 800)
