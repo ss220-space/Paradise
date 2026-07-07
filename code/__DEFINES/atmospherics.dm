@@ -21,6 +21,8 @@
 #define T0C 273.15
 /// 20degC
 #define T20C 293.15
+/// 80degC
+#define T80C 353.15
 /// 100degC
 #define T100C 373.15
 
@@ -85,7 +87,7 @@
 // This looks silly, but it's for clarity when reading elsewhere.
 #define ZERO_HEAT_TRANSFER_COEFFICIENT 0.0
 
-#define HEAT_CAPACITY_VACUUM 700000 //a hack to help make vacuums "cold", sacrificing realism for gameplay
+#define HEAT_CAPACITY_VACUUM 700000 //!a hack to help make vacuums "cold", sacrificing realism for gameplay
 
 //FIRE
 #define FIRE_MINIMUM_TEMPERATURE_TO_SPREAD (150 + T0C)

@@ -10,7 +10,7 @@
 	eyeblur = 4 SECONDS
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/red_laser
 	reflectability = REFLECTABILITY_ENERGY
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	light_range = 2
 	light_color = COLOR_SOFT_RED
 	ricochets_max = 50	//Honk!

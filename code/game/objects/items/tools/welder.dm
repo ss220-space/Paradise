@@ -28,7 +28,7 @@
 	usesound = 'sound/items/welder.ogg'
 	drop_sound = 'sound/items/handling/drop/weldingtool_drop.ogg'
 	pickup_sound = 'sound/items/handling/pickup/weldingtool_pickup.ogg'
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	light_range = 2
 	light_power = 0.75
 	light_color = LIGHT_COLOR_FIRE
@@ -47,6 +47,8 @@
 	var/low_fuel_changes_icon = TRUE
 	/// Length of time between each "eye flash"
 	var/progress_flash_divisor = 10
+	/// Lighting middleman, lets us do a flicker effect
+	var/datum/light_middleman/middleman
 
 /obj/item/weldingtool/get_ru_names()
 	return alist(
@@ -60,21 +62,30 @@
 
 /obj/item/weldingtool/Initialize(mapload)
 	. = ..()
+	if(IS_OVERLAY_LIGHT_SYSTEM(light_system))
+		middleman = new(src, "flashlight")
+		RegisterSignal(middleman, COMSIG_LIGHT_MIDDLEMAN_UPDATED, PROC_REF(light_updated))
+		middleman.being_overriding_light()
 	create_reagents(maximum_fuel)
 	reagents.add_reagent("fuel", maximum_fuel)
-	update_icon()
 	AddElement(/datum/element/falling_hazard, damage = force, hardhat_safety = TRUE, crushes = FALSE, impact_sound = hitsound)
 	RegisterSignal(src, COMSIG_TOOLBOX_RADIAL_MENU_TOOL_USAGE, PROC_REF(handle_toolbox_signal))
+	update_appearance()
 
 /obj/item/weldingtool/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	UnregisterSignal(src, COMSIG_TOOLBOX_RADIAL_MENU_TOOL_USAGE)
+	QDEL_NULL(middleman)
 	return ..()
 
 /obj/item/weldingtool/examine(mob/user)
 	. = ..()
 	if(get_dist(user, src) <= 0)
 		. += span_notice("Индикатор топливного бака: <b>[GET_FUEL]/[maximum_fuel]</b>.")
+
+/obj/item/weldingtool/proc/light_updated(datum/source)
+	SIGNAL_HANDLER
+	fire_flicker_middleman(middleman)
 
 /obj/item/weldingtool/suicide_act(mob/user)
 	user.visible_message(span_suicide("[user] заварива[PLUR_ET_YUT(user)] себе все лицевые отверстия! Это похоже на попытку самоубийства!"))

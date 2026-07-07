@@ -1,4 +1,0 @@
-author: "dageavtobusnick"
-delete-after: True
-changes:
-  - bugfix: "Фикс рантайма в QDEL_LIST. (PR #9432)"
