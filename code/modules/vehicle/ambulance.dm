@@ -9,7 +9,7 @@
 
 	//Lights on ability activation
 	light_on = FALSE
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	light_range = 4
 	light_power = 3
 	light_color = "#F70027"

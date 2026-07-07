@@ -36,9 +36,6 @@
 	for(var/image/I in overlays_standing)
 		add_overlay(I)
 
-	if(blocks_emissive)
-		add_overlay(get_emissive_block())
-
 /mob/living/carbon/alien/humanoid/empress/Initialize(mapload)
 	. = ..()
 	//there should only be one queen

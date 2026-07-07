@@ -3,7 +3,7 @@
 #define MINERAL_TYPE_ANCIENT_OUTER "ancient_outer"
 /**********************Mineral deposits**************************/
 
-/turf/simulated/mineral //wall piece
+/turf/simulated/mineral
 	name = "rock"
 	icon = 'icons/turf/smoothrocks.dmi'
 	icon_state = "smoothrocks-0"
@@ -17,6 +17,7 @@
 	blocks_air = TRUE
 	init_air = FALSE
 	layer = EDGED_TURF_LAYER
+	plane = WALL_PLANE
 	// We're a BIG wall, larger then 32x32, so we need to be on the game plane
 	// Otherwise we'll draw under shit in weird ways
 	var/environment_type = "asteroid"

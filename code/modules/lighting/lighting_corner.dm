@@ -3,7 +3,8 @@
 // For the record: these should never ever ever be deleted, even if the turf doesn't have dynamic lighting.
 
 /datum/lighting_corner
-	var/list/datum/light_source/affecting // Light sources affecting us.
+	/// Light sources affecting us.
+	var/list/datum/light_source/affecting
 
 	var/x = 0
 	var/y = 0
@@ -19,9 +20,9 @@
 	var/lum_b = 0
 
 	//true color values, guaranteed to be between 0 and 1
-	var/cache_r  = LIGHTING_SOFT_THRESHOLD
-	var/cache_g  = LIGHTING_SOFT_THRESHOLD
-	var/cache_b  = LIGHTING_SOFT_THRESHOLD
+	var/cache_r = LIGHTING_SOFT_THRESHOLD
+	var/cache_g = LIGHTING_SOFT_THRESHOLD
+	var/cache_b = LIGHTING_SOFT_THRESHOLD
 	///the maximum of lum_r, lum_g, and lum_b. if this is > 1 then the three cached color values are divided by this
 	var/largest_color_luminosity = 0
 	///whether we are to be added to SSlighting's corners_queue list for an update
@@ -85,7 +86,6 @@
 
 // God that was a mess, now to do the rest of the corner code! Hooray!
 /datum/lighting_corner/proc/update_lumcount(delta_r, delta_g, delta_b)
-
 	if(!(delta_r || delta_g || delta_b)) // 0 is falsey ok
 		return
 
@@ -102,25 +102,32 @@
 	var/lum_r = src.lum_r
 	var/lum_g = src.lum_g
 	var/lum_b = src.lum_b
-	var/largest_color_luminosity  = max(lum_r, lum_g, lum_b) // Scale it so one of them is the strongest lum, if it is above 1.
+	var/largest_color_luminosity = max(lum_r, lum_g, lum_b) // Scale it so one of them is the strongest lum, if it is above 1.
 	. = 1 // factor
-	if(largest_color_luminosity  > 1)
+	if(largest_color_luminosity > 1)
 		. = 1 / largest_color_luminosity
 
+	var/old_r = cache_r
+	var/old_g = cache_g
+	var/old_b = cache_b
+
 	#if LIGHTING_SOFT_THRESHOLD != 0
-	else if(largest_color_luminosity  < LIGHTING_SOFT_THRESHOLD)
+	else if(largest_color_luminosity < LIGHTING_SOFT_THRESHOLD)
 		. = 0 // 0 means soft lighting.
 
-	cache_r  = round(lum_r * ., LIGHTING_ROUND_VALUE) || LIGHTING_SOFT_THRESHOLD
-	cache_g  = round(lum_g * ., LIGHTING_ROUND_VALUE) || LIGHTING_SOFT_THRESHOLD
-	cache_b  = round(lum_b * ., LIGHTING_ROUND_VALUE) || LIGHTING_SOFT_THRESHOLD
+	cache_r = round(lum_r * ., LIGHTING_ROUND_VALUE) || LIGHTING_SOFT_THRESHOLD
+	cache_g = round(lum_g * ., LIGHTING_ROUND_VALUE) || LIGHTING_SOFT_THRESHOLD
+	cache_b = round(lum_b * ., LIGHTING_ROUND_VALUE) || LIGHTING_SOFT_THRESHOLD
 	#else
-	cache_r  = round(lum_r * ., LIGHTING_ROUND_VALUE)
-	cache_g  = round(lum_g * ., LIGHTING_ROUND_VALUE)
-	cache_b  = round(lum_b * ., LIGHTING_ROUND_VALUE)
+	cache_r = round(lum_r * ., LIGHTING_ROUND_VALUE)
+	cache_g = round(lum_g * ., LIGHTING_ROUND_VALUE)
+	cache_b = round(lum_b * ., LIGHTING_ROUND_VALUE)
 	#endif
 
 	src.largest_color_luminosity = round(largest_color_luminosity, LIGHTING_ROUND_VALUE)
+
+	if(old_r == cache_r && old_g == cache_g && old_b == cache_b)
+		return
 
 	var/atom/movable/lighting_object/lighting_object = master_NE?.lighting_object
 	if(lighting_object && !lighting_object.needs_update)
@@ -169,5 +176,37 @@
 
 	return ..()
 
-/datum/lighting_corner/dummy/New()
+/// Debug proc to aid in understanding how corners work
+/datum/lighting_corner/proc/display(max_lum)
+	if(QDELETED(src))
+		return
+
+	var/turf/draw_to = master_SW || master_NE || master_SE || master_NW
+	var/mutable_appearance/display = mutable_appearance('icons/turf/debug.dmi', "corner_color", LIGHT_DEBUG_LAYER, draw_to, BALLOON_CHAT_PLANE)
+	if(x > draw_to.x)
+		display.pixel_w = 16
+	else
+		display.pixel_w = -16
+	if(y > draw_to.y)
+		display.pixel_z = 16
+	else
+		display.pixel_z = -16
+
+	display.color = rgb(cache_r * 255, cache_g * 255, cache_b * 255)
+
+	draw_to.add_overlay(display)
+
+/datum/lighting_corner/dummy/display()
 	return
+
+/// Makes all lighting corners visible, debug to aid in understanding
+/proc/display_corners()
+	var/list/corners = list()
+	var/max_lum = 0
+	// comms for hack linter --LittleBoobs
+	for(/* */var/datum/lighting_corner/corner/* */) // I am so sorry - TG comment
+		corners += corner
+		max_lum = max(max_lum, corner.largest_color_luminosity)
+
+	for(var/datum/lighting_corner/corner as anything in corners)
+		corner.display(max_lum)

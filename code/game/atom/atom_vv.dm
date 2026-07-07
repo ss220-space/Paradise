@@ -138,30 +138,47 @@
  */
 /atom/vv_edit_var(var_name, var_value)
 	var/old_light_flags = light_flags
+	// Disable frozen lights for now, so we can actually modify it
+	light_flags &= ~LIGHT_FROZEN
 	switch(var_name)
 		if(NAMEOF(src, light_range))
-			if(light_system == STATIC_LIGHT)
+			if(light_system == COMPLEX_LIGHT)
 				set_light(l_range = var_value)
 			else
 				set_light_range(var_value)
 			. = TRUE
 
 		if(NAMEOF(src, light_power))
-			if(light_system == STATIC_LIGHT)
+			if(light_system == COMPLEX_LIGHT)
 				set_light(l_power = var_value)
 			else
 				set_light_power(var_value)
 			. = TRUE
 
 		if(NAMEOF(src, light_color))
-			if(light_system == STATIC_LIGHT)
+			if(light_system == COMPLEX_LIGHT)
 				set_light(l_color = var_value)
 			else
 				set_light_color(var_value)
 			. = TRUE
 
+		if(NAMEOF(src, light_angle))
+			if(light_system == COMPLEX_LIGHT)
+				set_light(l_angle = var_value)
+				. = TRUE
+
+		if(NAMEOF(src, light_dir))
+			if(light_system == COMPLEX_LIGHT)
+				set_light(l_dir = var_value)
+				. = TRUE
+
+		if(NAMEOF(src, light_height))
+			if(light_system == COMPLEX_LIGHT)
+				set_light(l_height = var_value)
+				. = TRUE
+
 		if(NAMEOF(src, light_on))
-			if(light_system == STATIC_LIGHT)
+			if(light_system == COMPLEX_LIGHT)
 				set_light(l_on = var_value)
 			else
 				set_light_on(var_value)
@@ -171,6 +188,35 @@
 			set_light_flags(var_value)
 			// I'm sorry
 			old_light_flags = var_value
+			. = TRUE
+
+		if(NAMEOF(src, light_render_source))
+			set_light_render_source(var_value)
+			. = TRUE
+
+		if(NAMEOF(src, light_angle))
+			if(light_system == COMPLEX_LIGHT)
+				set_light(l_angle = var_value)
+			else
+				set_light_angle(var_value)
+			. = TRUE
+
+		if(NAMEOF(src, light_dir))
+			if(light_system == COMPLEX_LIGHT)
+				set_light(l_dir = var_value)
+			else
+				set_light_dir(var_value)
+			. = TRUE
+
+		if(NAMEOF(src, light_height))
+			if(light_system == COMPLEX_LIGHT)
+				set_light(l_height = var_value)
+			else
+				set_light_height(var_value)
+			. = TRUE
+
+		if(NAMEOF(src, smoothing_junction))
+			set_smoothed_icon_state(var_value)
 			. = TRUE
 
 		if(NAMEOF(src, opacity))

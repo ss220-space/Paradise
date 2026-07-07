@@ -49,5 +49,7 @@
 
 /obj/item/pipe_painter/window_painter/update_overlays()
 	. = ..()
-	. += mutable_appearance(icon, icon_state = "window_painter_colour", color = colour)
+	var/mutable_appearance/colour_overlay = mutable_appearance(icon, "window_painter_colour")
+	colour_overlay.color = colour
+	. += colour_overlay
 

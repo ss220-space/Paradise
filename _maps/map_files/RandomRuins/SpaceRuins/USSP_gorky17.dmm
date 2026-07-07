@@ -149,9 +149,7 @@
 	name = "Docking port Gorky17 Station";
 	width = 8
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "aC" = (
 /obj/structure/cable{
@@ -5263,9 +5261,7 @@
 /turf/simulated/floor/carpet,
 /area/ruin/space/USSP_gorky17/dorms)
 "tD" = (
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "tF" = (
 /obj/structure/table,

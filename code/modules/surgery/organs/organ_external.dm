@@ -24,8 +24,7 @@
 /obj/item/organ/external
 	name = "external"
 	max_damage = 0
-	blocks_emissive = FALSE
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	light_on = FALSE
 
 	/// External body part zone

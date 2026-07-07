@@ -7,10 +7,19 @@
 #define CHANNEL_STATIC_LIGHT 6
 #define CHANNEL_STATIC_ENVIRON 7
 
-//Power use
+
+// Power use
+/// dont use power
 #define NO_POWER_USE 0
+/// use idle_power_usage i.e. the power needed just to keep the machine on
 #define IDLE_POWER_USE 1
+/// use active_power_usage i.e. the power the machine consumes to perform a specific task
 #define ACTIVE_POWER_USE 2
+
+/// Base global power consumption for idling machines
+#define BASE_MACHINE_IDLE_CONSUMPTION (100 WATTS)
+/// Base global power consumption for active machines. The unit is ambiguous (joules or watts) depending on the use case for dynamic users.
+#define BASE_MACHINE_ACTIVE_CONSUMPTION (BASE_MACHINE_IDLE_CONSUMPTION * 10)
 
 //APC charging
 /// APC is not receiving power
