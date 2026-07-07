@@ -202,9 +202,9 @@ range 2-3
 /obj/item/mod/module/anomaly_locked/kinesis/proc/grab_atom(atom/movable/target)
 	grabbed_atom = target
 	if(isliving(grabbed_atom))
-		grabbed_atom.add_traits(list(TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED), ref(src))
+		grabbed_atom.add_traits(list(TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED), UNIQUE_TRAIT_SOURCE(src))
 		RegisterSignal(grabbed_atom, COMSIG_MOB_STATCHANGE, PROC_REF(on_statchange))
-	ADD_TRAIT(grabbed_atom, TRAIT_NO_FLOATING_ANIM, ref(src))
+	ADD_TRAIT(grabbed_atom, TRAIT_NO_FLOATING_ANIM, UNIQUE_TRAIT_SOURCE(src))
 	RegisterSignal(grabbed_atom, COMSIG_MOVABLE_SET_ANCHORED, PROC_REF(on_setanchored))
 	playsound(grabbed_atom, 'sound/weapons/contractorbatonhit.ogg', 75, TRUE)
 	kinesis_icon = mutable_appearance(icon = 'icons/effects/effects.dmi', icon_state = "kinesis", layer = grabbed_atom.layer - 0.1, appearance_flags = RESET_ALPHA|RESET_COLOR|RESET_TRANSFORM|KEEP_APART)
@@ -229,7 +229,7 @@ range 2-3
 	grabbed_atom.cut_overlay(kinesis_icon)
 	QDEL_NULL(kinesis_beam)
 	if(isliving(grabbed_atom))
-		grabbed_atom.remove_traits(list(TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED), ref(src))
+		grabbed_atom.remove_traits(list(TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED), UNIQUE_TRAIT_SOURCE(src))
 	if(!isitem(grabbed_atom))
 		animate(grabbed_atom, 0.2 SECONDS, pixel_x = pre_pixel_x, pixel_y = pre_pixel_y)
 	grabbed_atom = null

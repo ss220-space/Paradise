@@ -198,8 +198,8 @@
 	/// do I look unpowered, even when powered?
 	var/force_no_power_icon_state = FALSE
 
-	var/light_range_on = 1
-	var/light_power_on = 0.5
+	var/light_range_on = MINIMUM_USEFUL_LIGHT_RANGE
+	var/light_power_on = 0.7
 
 	/// If this vending machine can be tipped or not
 	var/tiltable = TRUE
@@ -367,8 +367,6 @@
 /obj/machinery/vending/update_overlays()
 	. = ..()
 
-	underlays.Cut()
-
 	if((stat & NOPOWER) || force_no_power_icon_state)
 		if(broken_overlay && (stat & BROKEN))
 			. += broken_overlay
@@ -381,7 +379,7 @@
 		if(broken_overlay)
 			. += broken_overlay
 		if(broken_lightmask_overlay)
-			underlays += emissive_appearance(icon, broken_lightmask_overlay, src)
+			. += emissive_appearance(icon, broken_lightmask_overlay, src, alpha = src.alpha)
 		if(panel_overlay && panel_open)
 			. += panel_overlay
 		return
@@ -403,7 +401,7 @@
 			. += deny_lightmask
 
 	if(!lightmask_used && lightmask_overlay)
-		underlays += emissive_appearance(icon, lightmask_overlay, src)
+		. += emissive_appearance(icon, lightmask_overlay, src, alpha = src.alpha)
 
 	if(panel_overlay && panel_open)
 		. += panel_overlay
@@ -437,7 +435,6 @@
 /obj/machinery/vending/extinguish_light(force = FALSE)
 	if(light_on)
 		set_light_on(FALSE)
-		underlays.Cut()
 
 /obj/machinery/vending/proc/flick_vendor_overlay(flick_flag = FLICK_NONE)
 	if(flick_sequence & (FLICK_VEND|FLICK_DENY))

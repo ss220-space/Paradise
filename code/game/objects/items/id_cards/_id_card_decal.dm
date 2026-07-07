@@ -82,6 +82,23 @@
 		PREPOSITIONAL = "наклейке на ID-карту \"Заключённый\"",
 	)
 
+/obj/item/id_decal/clown
+	name = "prisoner ID card decal"
+	desc = "Обёртка из наноцеллофана, которая принимает форму ID-карты. Носит сугубо косметическую функцию. \
+			Ваша карта будет выглядеть так, будто принадлежит клоуну."
+	decal_icon_state = "clown"
+	decal_item_state = "clown-id"
+
+/obj/item/id_decal/prisoner/get_ru_names()
+	return alist(
+		NOMINATIVE = "наклейка на ID-карту \"Клоун\"",
+		GENITIVE = "наклейки на ID-карту \"Клоун\"",
+		DATIVE = "наклейке на ID-карту \"Клоун\"",
+		ACCUSATIVE = "наклейку на ID-карту \"Клоун\"",
+		INSTRUMENTAL = "наклейкой на ID-карту \"Клоун\"",
+		PREPOSITIONAL = "наклейке на ID-карту \"Клоун\"",
+	)
+
 /obj/item/id_decal/centcom
 	name = "centcom ID card decal"
 	icon_state = "id_decal_centcom"

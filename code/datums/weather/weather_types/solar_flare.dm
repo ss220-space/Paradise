@@ -18,9 +18,9 @@
 
 /datum/weather/solar_flare/generate_area_list()
 	..()
-	var/list/bonus_areas = get_areas(/area/solar)
+	var/list/bonus_areas = get_areas(/area/station/solars)
 	// no, solars in space are NOT a subtype of /area/space.
-	// no, we don't want to re-path every reference to all the subtypes of /area/solar across every map file.
+	// no, we don't want to re-path every reference to all the subtypes of /area/station/solars across every map file.
 	// no, we don't want to change /datum/weather/var/area_type into a list as that requires changing every item that touches weather
 	for(var/V in bonus_areas)
 		var/area/A = V

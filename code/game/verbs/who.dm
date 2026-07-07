@@ -5,7 +5,7 @@
 	set name = "Список игроков"
 	set category = VERB_CATEGORY_OOC
 
-	var/msg = "<b>Игроков онлайн:</b><br>"
+	var/msg = ""
 
 	var/list/lines = list()
 	var/columns_per_row = DEFAULT_WHO_CELLS_PER_ROW
@@ -90,74 +90,76 @@
 
 	msg += span_bold("Всего в сети: [length(lines)]")
 
-	to_chat(src, chat_box_examine(msg), type = MESSAGE_TYPE_INFO)
+	to_chat(src, fieldset_block(span_bold("Игроков онлайн"), span_infoplain(msg), "boxed_message"), type = MESSAGE_TYPE_INFO)
 
 /client/verb/adminwho()
 	set name = "В сети"
 	set category = ADMIN_CATEGORY_TICKETS
 
+	var/list/adminwho_data = generate_adminwho_string()
+	var/header = adminwho_data["has_admins"] ? "В сети" : "Нет никого в сети"
+
+	to_chat(src, fieldset_block(span_bold(header), adminwho_data["body"], "boxed_message"), type = MESSAGE_TYPE_INFO)
+
+/// Builds the adminwho body, split into admin / mentor / developer sections.
+/// Returns an assoc list with "body" (ready-to-display string) and "has_admins" (TRUE if any admin is online).
+/client/proc/generate_adminwho_string()
 	var/list/adminmsg = list()
 	var/list/mentormsg = list()
 	var/list/devmsg = list()
 
-	var/num_admins_online = 0
-	var/num_mentors_online = 0
-	var/num_devs_online = 0
-
-	for(var/client/client in GLOB.admins)
+	for(var/client/staffer in GLOB.admins)
 		var/list/line = list()
-		line += "\[[get_colored_rank(client.holder.rank)]\]  [client]"
+		line += "\[[get_colored_rank(staffer.holder.rank)]\] [staffer]"
 
 		if(holder) // Only for those with perms see the extra bit
-			if(client.holder.fakekey && check_rights(R_ADMIN, FALSE))
-				line += " <i>(как [client.holder.fakekey])</i>"
+			if(staffer.holder.fakekey && check_rights(R_ADMIN, FALSE))
+				line += " <i>(как [staffer.holder.fakekey])</i>"
 
-			if(isobserver(client.mob))
+			if(isobserver(staffer.mob))
 				line += " – Наблюдает"
-			else if(isnewplayer(client.mob))
+			else if(isnewplayer(staffer.mob))
 				line += " – В лобби"
 			else
 				line += " – Играет"
 
-			if(client.is_afk())
+			if(staffer.is_afk())
 				line += " (AFK)"
 
 		line += "<br>"
-		if(check_rights(R_ADMIN, FALSE, client.mob)) // Is this client an admin?
-			if(client?.holder?.fakekey && !check_rights(R_ADMIN, FALSE)) // Only admins can see stealthmins
+		if(check_rights(R_ADMIN, FALSE, staffer.mob)) // Is this client an admin?
+			if(staffer?.holder?.fakekey && !check_rights(R_ADMIN, FALSE)) // Only admins can see stealthmins
 				continue
 
-			if(client?.holder?.big_brother && !check_rights(R_PERMISSIONS, FALSE)) // Normal admins can't see Big Brother
+			if(staffer?.holder?.big_brother && !check_rights(R_PERMISSIONS, FALSE)) // Normal admins can't see Big Brother
 				continue
 
-			num_admins_online++
 			adminmsg += jointext(line, "")
 
-		else if(check_rights(R_MENTOR|R_MOD, FALSE, client.mob)) // Is this client a mentor or moderator?
-			num_mentors_online++
+		else if(check_rights(R_MENTOR|R_MOD, FALSE, staffer.mob)) // Is this client a mentor or moderator?
 			mentormsg += jointext(line, "")
 
-		else if(check_rights(R_VIEWRUNTIMES, FALSE, client.mob)) // Is this client a developer?
-			num_devs_online++
+		else if(check_rights(R_VIEWRUNTIMES, FALSE, staffer.mob)) // Is this client a developer?
 			devmsg += jointext(line, "")
 
 	var/list/final_message = list()
-	if(num_admins_online)
-		final_message += span_bold("Админов онлайн ([num_admins_online]):<br>")
-		final_message += adminmsg
-		final_message += "<br>"
-	if(num_mentors_online)
-		final_message += span_bold("Менторов онлайн ([num_mentors_online]):<br>")
-		final_message += mentormsg
-		final_message += "<br>"
-	if(num_devs_online)
-		final_message += span_bold("Разработчиков онлайн ([num_devs_online]):<br>")
-		final_message += devmsg
-		final_message += "<br>"
-	if(!num_admins_online) // Only admin tickets are parsed to discord.
+	final_message += build_adminwho_section("Админов онлайн", adminmsg)
+	final_message += build_adminwho_section("Менторов онлайн", mentormsg)
+	final_message += build_adminwho_section("Разработчиков онлайн", devmsg)
+
+	if(!length(adminmsg)) // Only admin tickets are parsed to discord.
 		final_message += span_notice(NO_ADMINS_ONLINE_MESSAGE)
 
-	to_chat(src, chat_box_examine(jointext(final_message, "")), type = MESSAGE_TYPE_INFO)
+	return list(
+		"body" = jointext(final_message, ""),
+		"has_admins" = length(adminmsg) > 0,
+	)
+
+/// Builds a single titled adminwho section, or an empty string when there are no entries.
+/proc/build_adminwho_section(title, list/entries)
+	if(!length(entries))
+		return ""
+	return span_bold("[title] ([length(entries)]):<br>") + jointext(entries, "") + "<br>"
 
 /// Returns colored rank representation.
 /proc/get_colored_rank(rank)

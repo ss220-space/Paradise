@@ -3,7 +3,7 @@
 #define MINERAL_TYPE_ANCIENT_OUTER "ancient_outer"
 /**********************Mineral deposits**************************/
 
-/turf/simulated/mineral //wall piece
+/turf/simulated/mineral
 	name = "rock"
 	icon = 'icons/turf/smoothrocks.dmi'
 	icon_state = "smoothrocks-0"
@@ -17,6 +17,7 @@
 	blocks_air = TRUE
 	init_air = FALSE
 	layer = EDGED_TURF_LAYER
+	plane = WALL_PLANE
 	// We're a BIG wall, larger then 32x32, so we need to be on the game plane
 	// Otherwise we'll draw under shit in weird ways
 	var/environment_type = "asteroid"
@@ -913,6 +914,39 @@
 		INSTRUMENTAL = "закалённым вулканическим базальтом",
 		PREPOSITIONAL = "закалённом вулканическом базальте",
 	)
+
+/turf/simulated/mineral/ancient
+	name = "ancient rock"
+	desc = "A rare asteroid rock that appears to be resistant to all mining tools except pickaxes!"
+	mine_time = 6 SECONDS
+	color = COLOR_ANCIENT_ROCK
+	layer = MAP_EDITOR_TURF_LAYER
+	should_reset_color = FALSE
+	baseturf = /turf/simulated/floor/plating/asteroid/ancient
+
+/turf/simulated/mineral/ancient/blob_act(obj/structure/blob/attacking_blob)
+	if(prob(50))
+		blob_destruction()
+
+/turf/simulated/mineral/ancient/proc/blob_destruction()
+	playsound(src, 'sound/effects/break_stone.ogg', 30, 1 )
+
+	for(var/obj/content_obj in contents) //Eject contents!
+		if(istype(content_obj, /obj/structure/sign/poster))
+			var/obj/structure/sign/poster/poster = content_obj
+			poster.roll_and_drop(src)
+		else
+			content_obj.forceMove(src)
+
+	ChangeTurf(/turf/simulated/floor/plating/asteroid/ancient)
+	return TRUE
+
+/turf/simulated/mineral/ancient/outer
+	name = "cold ancient rock"
+	desc = "A rare and dense asteroid rock that appears to be resistant to everything except diamond and sonic tools! Can not be used to create portals to hell."
+	mine_time = 15 SECONDS
+	color = COLOR_COLD_ANCIENT_ROCK
+	hardness = 3
 
 // Gibtonite
 /turf/simulated/mineral/gibtonite

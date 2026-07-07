@@ -34,7 +34,7 @@
 	QDEL_NULL(radio)
 	QDEL_NULL(radio_action)
 	QDEL_NULL(held_brain)
-	. = ..()
+	return ..()
 
 /obj/item/mmi/update_icon_state()
 	if(held_brain)
@@ -194,7 +194,7 @@
 
 	brainmob.container = null//Reset brainmob mmi var.
 	brainmob.forceMove(held_brain) //Throw mob into brain.
-	GLOB.respawnable_list += brainmob
+	brainmob.add_to_respawnable_list()
 	brainmob.remove_from_alive_mob_list()//Get outta here
 	held_brain.brainmob = brainmob//Set the brain to use the brainmob
 	held_brain.brainmob.cancel_camera()

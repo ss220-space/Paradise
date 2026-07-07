@@ -37,7 +37,7 @@
 		eballs.Add(new type(loc, src))
 
 /obj/effect/anomaly/energetic/Destroy()
-	QDEL_LAZYLIST(eballs)
+	QDEL_LIST(eballs)
 	return ..()
 
 /obj/effect/anomaly/energetic/collapse()

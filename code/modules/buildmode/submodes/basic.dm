@@ -2,7 +2,7 @@
 	key = "basic"
 
 /datum/buildmode_mode/basic/show_help(mob/builder)
-	to_chat(builder, span_purple(chat_box_examine(
+	to_chat(builder, span_purple(boxed_message(
 		"[span_bold("Строительство / Улучшение")] -> ЛКМ\n\
 		[span_bold("Разобрать / Удалить / Ухудшение")] -> ПКМ\n\
 		[span_bold("Укреплённое окно")] -> ЛКМ + Ctrl\n\

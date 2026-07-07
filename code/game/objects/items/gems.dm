@@ -174,7 +174,7 @@
 	light_range = 4
 	light_power = 2
 	light_color = "#ff7b00"
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	var/hot = TRUE
 
 /obj/item/gem/magma/get_ru_names()
@@ -222,7 +222,7 @@
 	light_range = 4
 	light_power = 2
 	light_color = "#62cad5"
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	var/cold = TRUE
 	sell_multiplier = 2
 
@@ -273,7 +273,7 @@
 	light_range = 4
 	light_power = 4
 	light_color = "#62326a"
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 
 /obj/item/gem/phoron/get_ru_names()
 	return alist(
@@ -295,7 +295,7 @@
 	light_range = 4
 	light_power = 2
 	light_color = "#cc47a6"
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
 	var/obj/item/gps/internal
@@ -337,7 +337,7 @@
 	light_range = 4
 	light_power = 4
 	light_color = "#FFBF00"
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 
 /obj/item/gem/amber/get_ru_names()
 	return alist(
@@ -359,7 +359,7 @@
 	light_range = 4
 	light_power = 2
 	light_color = "#4785a4"
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	var/blink_range = 6
 	var/cooldown = FALSE
 	var/cooldown_time = 40 SECONDS
@@ -411,7 +411,7 @@
 	light_range = 4
 	light_power = 6
 	light_color = "#ac0606"
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	var/used = FALSE
 	var/blood = 50
 	var/charges = 10
@@ -466,7 +466,7 @@
 	light_range = 4
 	light_power = 6
 	light_color = "#4245f3"
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	point_value = 2000
 	insertable = FALSE
 	sell_multiplier = 10

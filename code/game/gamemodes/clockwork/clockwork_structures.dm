@@ -458,6 +458,13 @@
 	timer_fabrictor = addtimer(CALLBACK(src, PROC_REF(open_slot)), TIME_NEW_COGSCRAB SECONDS)
 	notify_ghosts("[src] is created at [get_area(src)].", title = "New cogscarab fabricator!", source = src, flashwindow = FALSE, action = NOTIFY_JUMP)
 
+/obj/structure/clockwork/functional/cogscarab_fabricator/Destroy(force)
+	GLOB.clockwork_fabricators -= src
+	for(var/mob/living/silicon/robot/cogscarab/crab as anything in cogscarab_list)
+		crab.fabr = null
+	LAZYCLEARLIST(cogscarab_list)
+	return ..()
+
 /obj/structure/clockwork/functional/cogscarab_fabricator/obj_destruction()
 	. = ..()
 	GLOB.clockwork_fabricators -= src

@@ -49,7 +49,7 @@
 	var/datum/effect_system/spark_spread/spark_system = new
 	var/lights = 0
 	var/lights_power = 6
-	var/lights_color = -99999 // "NONSENSICAL_VALUE"
+	var/lights_color = NONSENSICAL_VALUE
 	var/frozen = FALSE
 	var/repairing = FALSE
 	/// The internal storage of the exosuit. For the cargo module
@@ -58,6 +58,14 @@
 	var/cargo_capacity = 1
 	/// for wide cargo module
 	var/cargo_expanded = FALSE
+	/// emp protection
+	var/emp_protection = FALSE
+	/// mech equipment types
+	var/allowed_equipment = MECH_EQUIPMENT_WORKING
+
+	/// emag
+	var/emaggable = FALSE
+	var/emag_desc = span_danger_alt("</br>Слоты оборудования меха опасно искрят!")
 
 	//inner atmos
 	var/use_internal_tank = FALSE
@@ -78,7 +86,8 @@
 	/// Required access level to open cell compartment.
 	var/list/internals_req_access = list(ACCESS_ENGINE,ACCESS_ROBOTICS)
 
-	var/wreckage
+	/// Type that the mecha becomes when destroyed
+	var/obj/structure/mecha_wreckage/wreckage = null
 
 	var/list/equipment = new
 	var/list/list/equipment_in_hands
@@ -203,7 +212,7 @@
 	AddElement(/datum/element/falling_hazard, damage = 100, hardhat_safety = FALSE, crushes = TRUE)
 
 /obj/mecha/Destroy()
-
+	STOP_PROCESSING(SSobj, src)
 	for(var/atom/movable/cargo_thing as anything in cargo)
 		cargo -= cargo_thing
 		cargo_thing.forceMove(drop_location())
@@ -212,22 +221,20 @@
 	if(occupant)
 		occupant.SetSleeping(destruction_sleep_duration)
 	go_out()
-	var/mob/living/silicon/ai/AI
 	for(var/mob/M in src) //Let's just be ultra sure
 		if(isAI(M))
-			occupant = null
-			AI = M //AIs are loaded into the mech computer itself. When the mech dies, so does the AI. They can be recovered with an AI card from the wreck.
+			var/mob/living/silicon/ai/AI = M //AIs are loaded into the mech computer itself. When the mech dies, so does the AI. They can be recovered with an AI card from the wreck.
+			AI.gib() //No wreck, no AI to recover
 		else
 			M.forceMove(loc)
+	occupant = null
 	for(var/obj/item/mecha_parts/mecha_equipment/E in equipment)
 		E.detach(loc)
 		qdel(E)
 	equipment.Cut()
 	QDEL_NULL(cell)
 	QDEL_NULL(internal_tank)
-	if(AI)
-		AI.gib() //No wreck, no AI to recover
-	STOP_PROCESSING(SSobj, src)
+	QDEL_NULL(radio)
 	GLOB.poi_list.Remove(src)
 	var/turf/location = get_turf(src)
 	if(location)
@@ -235,15 +242,16 @@
 	else
 		qdel(cabin_air)
 	cabin_air = null
+	connected_port = null
 	QDEL_NULL(spark_system)
 	QDEL_NULL(smoke_system)
 	QDEL_LIST(trackers)
-	selected_equipment_in_hands.Cut()
+	LAZYCLEARLIST(selected_equipment_in_hands)
 	for(var/list/equipment in equipment_in_hands)
 		equipment.Cut()
 	QDEL_NULL(ui_view)
-	QDEL_NULL(radio)
 	lose_hearing_sensitivity(trait_source = ROUNDSTART_TRAIT)
+	remove_from_all_data_huds()
 	GLOB.mechas_list -= src //global mech list
 	return ..()
 
@@ -874,6 +882,8 @@
 
 //TODO
 /obj/mecha/emp_act(severity)
+	if(emp_protection)
+		return FALSE
 	if(get_charge())
 		use_power((cell.charge/3)/(severity*2))
 		take_damage(30 / severity, BURN, ENERGY, 1)
@@ -1158,8 +1168,19 @@
 		. = ..()
 
 /obj/mecha/emag_act(mob/user)
+	if(emagged)
+		return FALSE
+	if(!emaggable)
+		if(user)
+			to_chat(user, span_warning("ID слот меха [src] отклоняет карту."))
+		return
+	add_attack_logs(user, src, "emagged")
+	emagged = TRUE
+	allowed_equipment |= MECH_EQUIPMENT_COMBAT
 	if(user)
-		to_chat(user, span_warning("[src]'s ID slot rejects the card."))
+		to_chat(user, span_notice("Вы проводите картой по ID слоту меха [src]."))
+	playsound(loc, SFX_SPARKS, 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	desc += emag_desc
 
 /////////////////////////////////////
 //////////// AI piloting ////////////

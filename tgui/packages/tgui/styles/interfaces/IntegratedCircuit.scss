@@ -54,6 +54,16 @@ $fg-map: colors.$fg-map !default;
   inset: 0;
 }
 
+.Tooltip__Port {
+  background-color: hsl(0, 0%, 0%);
+  border-radius: base.$border-radius;
+  box-shadow: 0.1em 0.1em 1.25em -0.1em rgba(0, 0, 0, 0.5);
+  color: hsl(0, 0%, 100%);
+  max-width: base.em(250px);
+  padding: 0.5em 0.75em;
+  text-align: left;
+}
+
 @each $color-name, $color-value in $fg-map {
   .color-stroke-#{$color-name} {
     stroke: $color-value !important;

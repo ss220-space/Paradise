@@ -199,7 +199,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	aiMulti = new(src)
 	aiRadio = new(src)
-	common_radio = aiRadio
 	aiRadio.myAi = src
 	additional_law_channels["Binary"] = get_language_prefix(LANGUAGE_BINARY)
 	additional_law_channels["Holopad"] = ":h"
@@ -268,23 +267,28 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	QDEL_NULL(builtInCamera)
 	return ..()
 
+/mob/living/silicon/ai/get_radio()
+	return aiRadio
+
 /mob/living/silicon/ai/proc/on_mob_init()
-	to_chat(src, "<b>You are playing the station's AI. The AI cannot move, but can interact with many objects while viewing them (through cameras).</b>")
-	to_chat(src, "<b>To look at other parts of the station, click on yourself to get a camera menu.</b>")
-	to_chat(src, "<b>While observing through a camera, you can use most (networked) devices which you can see, such as computers, APCs, intercoms, doors, etc.</b>")
-	to_chat(src, "To use something, simply click on it.")
-	to_chat(src, "Use say '[get_language_prefix(LANGUAGE_BINARY)]' to speak to your cyborgs through binary. Use say ':h ' to speak from an active holopad.")
-	to_chat(src, "For department channels, use the following say commands:")
+	var/list/announcement = list()
+	announcement += "<b>You are playing the station's AI. The AI cannot move, but can interact with many objects while viewing them (through cameras).</b>"
+	announcement += "<b>To look at other parts of the station, click on yourself to get a camera menu.</b>"
+	announcement += "<b>While observing through a camera, you can use most (networked) devices which you can see, such as computers, APCs, intercoms, doors, etc.</b>"
+	announcement += "To use something, simply click on it."
+	announcement += "Use say '[get_language_prefix(LANGUAGE_BINARY)]' to speak to your cyborgs through binary. Use say ':h ' to speak from an active holopad."
+	announcement += "For department channels, use the following say commands:"
 
-	var/radio_text = ""
-	for(var/i = 1 to length(common_radio.channels))
-		var/channel = common_radio.channels[i]
+	var/list/radio_channels = aiRadio.channels
+
+	for(var/i in 1 to length(radio_channels))
+		var/channel = radio_channels[i]
 		var/key = get_radio_key_from_channel(channel)
-		radio_text += "[key] - [channel]"
-		if(i != length(common_radio.channels))
-			radio_text += ", "
+		announcement += "[key] - [channel]"
+		if(i != length(radio_channels))
+			announcement += ", "
 
-	to_chat(src, radio_text)
+	to_chat(src, announcement.Join(""))
 
 	show_laws()
 	to_chat(src, "<b>These laws may be changed by other players, or by you being the traitor.</b>")
@@ -831,21 +835,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			return
 		if(M)
 			M.transfer_ai(AI_MECH_HACK, src, usr) //Called om the mech itself.
-
-	else if(href_list["faketrack"])
-		var/mob/target = locateUID(href_list["track"])
-		var/mob/living/silicon/ai/A = locateUID(href_list["track2"])
-		if(A && target)
-
-			A.cameraFollow = target
-			to_chat(A, "Now tracking [target.name] on camera.")
-			if(usr.machine == null)
-				usr.machine = usr
-
-			while(cameraFollow == target)
-				to_chat(usr, "Target is not on or near any active cameras on the station. We'll check again in 5 seconds (unless you use the cancel-camera verb).")
-				sleep(40)
-				continue
 
 	else if(href_list["open"])
 		var/mob/target = locateUID(href_list["open"])
@@ -1545,6 +1534,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	sync_lighting_plane_alpha()
+
+	return ..()
 
 /mob/living/silicon/ai/ghostize(can_reenter_corpse)
 	var/old_turf = get_turf(eyeobj)

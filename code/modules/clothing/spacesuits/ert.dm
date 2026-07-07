@@ -24,6 +24,10 @@
 		if(ishuman(wearer))
 			register_camera(wearer)
 
+/obj/item/clothing/head/helmet/space/hardsuit/ert/Destroy()
+	QDEL_NULL(camera)
+	return ..()
+
 /obj/item/clothing/head/helmet/space/hardsuit/ert/attack_self(mob/user)
 	if(camera || !has_camera)
 		..(user)

@@ -147,7 +147,6 @@
 	icon_state = "holo_firelock"
 	density = FALSE
 	layer = ABOVE_MOB_LAYER
-	layer = ABOVE_MOB_LAYER
 	alpha = 150
 	rad_insulation = RAD_LIGHT_INSULATION
 	resistance_flags = FIRE_PROOF | FREEZE_PROOF

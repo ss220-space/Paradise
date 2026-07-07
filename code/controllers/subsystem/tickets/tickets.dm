@@ -636,7 +636,10 @@ SUBSYSTEM_DEF(tickets)
 			msg = span_admin_channel("ADMIN TICKET: [msg]")
 		if(TICKET_STAFF_MESSAGE_PREFIX)
 			msg = span_adminticket("[span_prefix("ADMIN TICKET:")] [msg]")
-	message_adminTicket(chat_box_ahelp(msg), important)
+	message_adminTicket(
+		fieldset_block("<span class='adminhelp'>[ticket_name]</span>", msg, "boxed_message red_box"),
+		important,
+	)
 
 /datum/controller/subsystem/tickets/Topic(href, href_list)
 	if(!check_rights(rights_needed))

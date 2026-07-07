@@ -1,4 +1,0 @@
-author: "SCPfollower"
-delete-after: True
-changes:
-  - tweak: "Возможность конвоировать цель на ганпоинте (мушке) если она идет шагом, а не бежит. (PR #9341)"

@@ -6,7 +6,7 @@
 	if(!dname)
 		dname = M
 
-	return {"<tr><td><a href='byond://?src=[UID()];adminplayeropts=[M.UID()]'>[dname]</a><b>[caption]</b>[logout_status][istype(A, /area/security/permabrig) ? "<b><span style='color: red;'> (PERMA) </b></span>" : ""][M.stat == 2 ? " <b><span style='color: red;'>(DEAD)</span></b>" : ""]</td>
+	return {"<tr><td><a href='byond://?src=[UID()];adminplayeropts=[M.UID()]'>[dname]</a><b>[caption]</b>[logout_status][istype(A, /area/station/security/prison/perma) ? "<b><span style='color: red;'> (PERMA) </b></span>" : ""][M.stat == 2 ? " <b><span style='color: red;'>(DEAD)</span></b>" : ""]</td>
 		<td><a href='byond://?src=[usr.UID()];priv_msg=[M.client?.ckey]'>PM</a> [ADMIN_FLW(M, "FLW")] </td>[close ? "</tr>" : ""]"}
 
 /datum/admins/proc/check_antagonists()

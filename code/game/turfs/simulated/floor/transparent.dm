@@ -20,6 +20,13 @@
 	clawfootstep = FOOTSTEP_GLASS
 	/// Amount of SSobj ticks (Roughly 2 seconds) that a extinguished glass floor tile has been lit up
 	var/light_process = 0
+	/// List of /atom/movable/render_step that are being used to make this glass floor glow
+	/// These are OWNED by this floor, they delete when we delete them, not before not after
+	var/list/glow_stuff
+	/// How much alpha to leave when cutting away emissive blockers
+	var/alpha_to_leave = 255
+	/// Color of starlight to use. Defaults to STARLIGHT_COLOR if not set
+	var/starlight_color
 
 /turf/simulated/floor/glass/Initialize(mapload)
 	dir = SOUTH //dirs that are not 2/south cause smoothing jank
@@ -30,13 +37,33 @@
 /turf/simulated/floor/glass/LateInitialize()
 	. = ..()
 	AddElement(/datum/element/turf_z_transparency)
-	var/turf/T = GET_TURF_BELOW(src)
-	if(T)
-		if(!isspaceturf(T))
-			light_power = 0
-			light_range = 0
-			update_light()
-		RegisterSignal(T, COMSIG_TURF_CHANGE, PROC_REF(update_below_light))
+	setup_glow()
+
+/turf/simulated/floor/glass/Destroy()
+	. = ..()
+	QDEL_LIST(glow_stuff)
+	UnregisterSignal(SSdcs, COMSIG_STARLIGHT_COLOR_CHANGED)
+
+/// If this turf is at the bottom of the local rendering stack
+/// Then we're gonna make it emissive block so the space below glows
+/turf/simulated/floor/glass/proc/setup_glow()
+	if(GET_TURF_PLANE_OFFSET(src) != GET_LOWEST_STACK_OFFSET(z)) // We ain't the bottom brother
+		return
+
+	// We assume no parallax means no space means no light
+	if(check_level_trait(z, ZTRAIT_NOPARALLAX))
+		return
+
+	glow_stuff = partially_block_emissives(src, alpha_to_leave)
+	if(!starlight_color)
+		RegisterSignal(SSdcs, COMSIG_STARLIGHT_COLOR_CHANGED, PROC_REF(starlight_changed))
+	else
+		UnregisterSignal(SSdcs, COMSIG_STARLIGHT_COLOR_CHANGED)
+	set_light(2, 1, starlight_color || GLOB.starlight_color, l_height = LIGHTING_HEIGHT_SPACE)
+
+/turf/simulated/floor/glass/proc/starlight_changed(datum/source, old_star, new_star)
+	if(light_color == old_star)
+		set_light(l_color = new_star)
 
 /turf/simulated/floor/glass/welder_act(mob/user, obj/item/I)
 	if(!broken && !burnt)
@@ -163,6 +190,7 @@
 	thermal_conductivity = 0.035
 	heat_capacity = 1600
 	explosion_vertical_block = 1
+	alpha_to_leave = 206
 
 /turf/simulated/floor/glass/reinforced/acid_act(acidpwr, acid_volume)
 	acidpwr = min(acidpwr, 50)

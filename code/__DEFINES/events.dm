@@ -62,6 +62,7 @@
 #define EVENT_TERROR_SPIDER "Пауки Ужаса"
 #define EVENT_TRADERS "Торговцы"
 #define EVENT_VENT_CLOG "Отходы из вытяжек"
+#define EVENT_VOX_RAIDERS "Воксы рейдеры"
 #define EVENT_WALL_FUNGUS "Стенной грибок"
 #define EVENT_WORMHOLES "Червоточины"
 #define EVENT_XENOMORPH_INFESTATION "Заражение ксеноморфами"

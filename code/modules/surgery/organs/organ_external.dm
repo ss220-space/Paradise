@@ -24,8 +24,7 @@
 /obj/item/organ/external
 	name = "external"
 	max_damage = 0
-	blocks_emissive = FALSE
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	light_on = FALSE
 
 	/// External body part zone
@@ -358,6 +357,9 @@
 		remove_splint(splint_break = TRUE, silent = silent)	// Taking damage to splinted limbs removes the splints
 
 	if(used_weapon)
+		if(isobj(used_weapon))
+			var/obj/weapon_obj = used_weapon
+			used_weapon = weapon_obj.declent_ru(NOMINATIVE)
 		add_autopsy_data("[used_weapon]", brute + burn)
 	else
 		add_autopsy_data(null, brute + burn)

@@ -562,7 +562,7 @@ SUBSYSTEM_DEF(ticker)
 			m = pick(memetips)
 
 	if(m)
-		to_chat(world, chat_box_purple(span_purple("<b>Совет раунда: </b>[html_encode(m)]")))
+		to_chat(world, custom_boxed_message("purple_box", span_purple("<b>Совет раунда: </b>[html_encode(m)]")))
 
 /datum/controller/subsystem/ticker/proc/declare_completion()
 	GLOB.nologevent = TRUE //end of round murder and shenanigans are legal; there's no need to jam up  past this point.
@@ -766,13 +766,16 @@ SUBSYSTEM_DEF(ticker)
 	var/round_end_sound = pick(GLOB.round_end_sounds)
 	var/sound_length = GLOB.round_end_sounds[round_end_sound]
 
+	log_debug("Sending round end sound to every player.")
 	for(var/mob/mob as anything in GLOB.player_list)
 		if(mob.client.prefs.sound & SOUND_MUTE_END_OF_ROUND)
 			continue
 		SEND_SOUND(mob, round_end_sound)
 
+	log_debug("Running sleep on round end sound duration...")
 	sleep(sound_length)
 
+	log_debug("Initiating world reboot from Ticker subsystem...")
 	world.Reboot()
 
 // Timers invoke this async

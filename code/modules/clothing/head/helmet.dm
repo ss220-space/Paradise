@@ -327,7 +327,7 @@
 	desc = "Deus Vult."
 	icon_state = "knight_templar"
 	item_state = "knight_templar"
-	armor = list(melee = 20, bullet = 7, laser = 2, energy = 2, bomb = 2, bio = 2, fire = 80, acid = 80)
+	armor = list(MELEE = 10, BULLET = 10, LASER = 5, ENERGY = 5, BOMB = 5, BIO = 5, FIRE = 80, ACID = 80)
 	sprite_sheets = list(
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi',
@@ -337,7 +337,7 @@
 	name = "skull helmet"
 	desc = "Этот шлем, который выглядит устрашающе и походит на племенной, кажется не очень удобным."
 	flags_inv = parent_type::flags_inv|HIDEMASK|HIDENAME
-	armor = list(MELEE = 45, BULLET = 30, LASER = 30, ENERGY = 20, BOMB = 40, BIO = 0, FIRE = 50, ACID = 50)
+	armor = list(MELEE = 25, BULLET = 15, LASER = 15, ENERGY = 10, BOMB = 20, BIO = 0, FIRE = 25, ACID = 25)
 	icon_state = "skull"
 	item_state = "skull"
 	strip_delay = 100

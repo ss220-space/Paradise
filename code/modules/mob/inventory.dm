@@ -557,6 +557,7 @@
 		// For inventory observing
 		for(var/mob/dead/observer/observe as anything in inventory_observers)
 			if(!observe.client)
+				observe.handle_when_autoobserve_move()
 				LAZYREMOVE(inventory_observers, observe)
 				continue
 			observe.client.screen -= I

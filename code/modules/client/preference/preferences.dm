@@ -606,6 +606,8 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 				dat += "<b>OOC заметки:</b> <a href='byond://?_src_=prefs;preference=metadata;task=input'><b>Редактировать</b></a><br>"
 			dat += "<b>Параллакс:</b> <a href='byond://?_src_=prefs;preference=parallax'>"
 			switch(parallax)
+				if(PARALLAX_BOOMER)
+					dat += "Старое качество"
 				if(PARALLAX_LOW)
 					dat += "Низкое качество"
 				if(PARALLAX_MED)
@@ -647,7 +649,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 			dat += " – <b>Прозрачность:</b> <a href='byond://?_src_=prefs;preference=UIalpha'><b>[UI_style_alpha]</b></a><br>"
 			dat += " – <b>Цвет:</b> <a href='byond://?_src_=prefs;preference=UIcolor'><b>[UI_style_color]</b></a> <span style='border: 1px solid #161616; background-color: [UI_style_color];'>&nbsp;&nbsp;&nbsp;</span><br>"
 			dat += " – <b>Стиль интерфейса:</b> <a href='byond://?_src_=prefs;preference=ui'><b>[ui_theme_to_russian(UI_style)]</b></a><br>"
-			dat += "<b>Красивый TGUI:</b> <a href='byond://?_src_=prefs;preference=tgui'>[(toggles2 & PREFTOGGLE_2_FANCYUI) ? "Да" : "Нет"]</a><br>"
+			dat += "<b>Блокировать TGUI:</b> <a href='byond://?_src_=prefs;preference=tgui'>[(toggles2 & PREFTOGGLE_2_FANCYUI) ? "Да" : "Нет"]</a><br>"
 			dat += "<b> – Размер TGUI strip menu:</b> <a href='byond://?_src_=prefs;preference=tgui_strip_menu'>[toggles2 & PREFTOGGLE_2_BIG_STRIP_MENU ? "Полноразмерный" : "Миниатюрный"]</a><br>"
 			dat += "<b> – Тема TGUI say:</b> <a href='byond://?_src_=prefs;preference=tgui_say_light_mode'>[(toggles2 & PREFTOGGLE_2_ENABLE_TGUI_SAY_LIGHT_MODE) ? "Светлая" : "Тёмная"]</a><br>"
 			dat += "<b> – TGUI ввод:</b> <a href='byond://?_src_=prefs;preference=tgui_input'>[(toggles2 & PREFTOGGLE_2_DISABLE_TGUI_INPUT) ? "Нет" : "Да"]</a><br>"
@@ -2646,6 +2648,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 				if("parallax")
 					var/parallax_styles = list(
 						"Отключено" = PARALLAX_DISABLE,
+						"Старое" = PARALLAX_BOOMER,
 						"Низкое" = PARALLAX_LOW,
 						"Среднее" = PARALLAX_MED,
 						"Высокое" = PARALLAX_HIGH,
@@ -2662,8 +2665,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 					*/
 
 					parallax = parallax_styles[new_parallax]
-					if(parent?.mob && parent.mob.hud_used)
-						parent.mob.hud_used.update_parallax_pref(parent.mob)
+					parent.mob?.hud_used?.update_parallax_pref()
 
 				if("multiz_detail")
 					var/multiz_det_styles = list(

@@ -70,7 +70,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 	for(var/datum/mind/cult_mind in cult)
 		SEND_SOUND(cult_mind.current, sound('sound/ambience/antag/bloodcult.ogg'))
 		var/list/messages = list(CULT_GREETING)
-		to_chat(cult_mind.current, chat_box_red(messages.Join("<br>")))
+		to_chat(cult_mind.current, custom_boxed_message("red_box center", messages.Join("<br>")))
 		equip_cultist(cult_mind.current)
 		cult_mind.current.faction |= "cult"
 		ADD_TRAIT(cult_mind.current, TRAIT_HEALS_FROM_CULT_PYLONS, CULT_TRAIT)
