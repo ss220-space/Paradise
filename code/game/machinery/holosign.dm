@@ -69,5 +69,5 @@
 				return
 
 /obj/machinery/holosign_switch/update_icon_state()
-	icon_state = "light[active]"
+	icon_state = "light[active ? "-on" : "-off"]"
 
