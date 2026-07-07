@@ -287,7 +287,7 @@
 		return
 
 	var/datum/stack_recipe/recipe = locateUID(params["recipe_uid"])
-	if(!is_valid_recipe(recipe)) // href exploit protection
+	if(!is_valid_recipe(recipe, recipes)) // href exploit protection
 		stack_trace("Incorrect recipe [recipe.title] used in stack creation [src], [usr] is most likely attempting an exploit")
 		return FALSE
 
@@ -453,8 +453,8 @@
  * * R - The stack recipe we are checking if it is valid
  * * recipe_list - The list of recipes we are using to check the given recipe
  */
-/obj/item/stack/proc/is_valid_recipe(datum/stack_recipe/R)
-	for(var/S in recipes)
+/obj/item/stack/proc/is_valid_recipe(datum/stack_recipe/R, list/recipe_list)
+	for(var/S in recipe_list)
 		if(S == R)
 			return TRUE
 		if(istype(S, /datum/stack_recipe_list))
