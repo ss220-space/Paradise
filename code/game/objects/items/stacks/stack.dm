@@ -285,7 +285,12 @@
 	var/obj/item/stack/material = src
 	if(action != "make")
 		return
+
 	var/datum/stack_recipe/recipe = locateUID(params["recipe_uid"])
+	if(!is_valid_recipe(recipe)) // href exploit protection
+		stack_trace("Incorrect recipe [recipe.title] used in stack creation [src], [usr] is most likely attempting an exploit")
+		return FALSE
+
 	var/multiplier = text2num(params["multiplier"])
 	if(!recipe.try_build(user, material, multiplier))
 		return FALSE
@@ -440,3 +445,20 @@
 	fingerprints		= material.fingerprints
 	fingerprintshidden	= material.fingerprintshidden
 	fingerprintslast	= material.fingerprintslast
+
+/**
+ * Checks if the recipe is valid to be used
+ *
+ * Arguments:
+ * * R - The stack recipe we are checking if it is valid
+ * * recipe_list - The list of recipes we are using to check the given recipe
+ */
+/obj/item/stack/proc/is_valid_recipe(datum/stack_recipe/R)
+	for(var/S in recipes)
+		if(S == R)
+			return TRUE
+		if(istype(S, /datum/stack_recipe_list))
+			var/datum/stack_recipe_list/L = S
+			if(is_valid_recipe(R, L.recipes))
+				return TRUE
+	return FALSE
