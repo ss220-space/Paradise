@@ -18,14 +18,10 @@ INITIALIZE_IMMEDIATE(/atom/movable/render_plane_relay)
 
 /client/proc/on_render_plane_relay_qdeleted(atom/movable/render_plane_relay/source)
 	SIGNAL_HANDLER
-	if(!istype(source))
-		return
 	screen.RemoveAll(source)
 	UnregisterSignal(source, COMSIG_QDELETING)
 
 /client/proc/register_render_plane_relay(atom/movable/render_plane_relay/relay)
-	if(!istype(relay))
-		return
 	var/exist_check = (relay in screen)
 	screen += relay
 	if(exist_check)

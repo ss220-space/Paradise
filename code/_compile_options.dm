@@ -70,7 +70,7 @@
 
 //#define PASSIVE_GC
 
-#ifdef TGS_V3_API
+#if defined(TGS_V3_API) || defined(PARADISE_PRODUCTION_HARDWARE)
 // TGS performs its own build of dm.exe, but includes a prepended TGS define.
 #define CBT
 #endif
