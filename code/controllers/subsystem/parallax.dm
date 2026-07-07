@@ -7,9 +7,6 @@ SUBSYSTEM_DEF(parallax)
 	ss_flags = SS_POST_FIRE_TIMING | SS_BACKGROUND | SS_NO_INIT
 	priority = FIRE_PRIORITY_PARALLAX
 	runlevels = RUNLEVEL_LOBBY | RUNLEVELS_DEFAULT
-	dependencies = list(
-		/datum/controller/subsystem/atoms,
-	)
 
 	var/list/currentrun
 	var/planet_x_offset = 128
@@ -73,7 +70,7 @@ SUBSYSTEM_DEF(parallax)
 	if(picked_parallax == PARALLAX_NONE)
 		return
 
-	random_layer = new picked_parallax(null,  /* hud_owner = */ null, /* template = */ TRUE)
+	random_layer = new picked_parallax(null,  /* hud_owner = */ null, /* owner = */ null, /* template = */ TRUE)
 	RegisterSignal(random_layer, COMSIG_QDELETING, PROC_REF(clear_references))
 	random_layer.get_random_look()
 
@@ -87,8 +84,9 @@ SUBSYSTEM_DEF(parallax)
 	//Parallax is one of the first things to be set (during client join), so rarely is anything fast enough to swap it out
 	//That's why we need to swap the layers out for fast joining clients :/
 	for(var/client/client as anything in GLOB.clients)
-		client.parallax_layers_cached?.Cut()
-		client.mob?.hud_used?.update_parallax_pref(client.mob)
+		// gotta clear things out
+		client?.parallax_rock?.set_layer_settings(0, FALSE, FALSE)
+		client.mob?.hud_used?.update_parallax_pref()
 
 /datum/controller/subsystem/parallax/proc/clear_references()
 	SIGNAL_HANDLER

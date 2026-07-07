@@ -209,3 +209,6 @@
 #define HERETIC_TRAIT "heretic"
 #define HERETIC_ARENA_TRAIT "heretic_arena"
 #define HAND_REPLACEMENT_TRAIT "magic-hand"
+
+/// Trait acquired from being painted a certain color
+#define ATOM_COLOR_TRAIT "atom_color"

@@ -69,8 +69,6 @@
 		blob_overlay.color = overmind.blobstrain.color
 	. += blob_overlay
 	. += mutable_appearance('icons/mob/blob.dmi', "blob_core_overlay")
-	if(blocks_emissive)
-		add_overlay(get_emissive_block())
 
 /obj/structure/blob/special/core/update_icon()
 	. = ..()

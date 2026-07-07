@@ -87,7 +87,7 @@
 // This looks silly, but it's for clarity when reading elsewhere.
 #define ZERO_HEAT_TRANSFER_COEFFICIENT 0.0
 
-#define HEAT_CAPACITY_VACUUM 700000 //a hack to help make vacuums "cold", sacrificing realism for gameplay
+#define HEAT_CAPACITY_VACUUM 700000 //!a hack to help make vacuums "cold", sacrificing realism for gameplay
 
 //FIRE
 #define FIRE_MINIMUM_TEMPERATURE_TO_SPREAD (150 + T0C)

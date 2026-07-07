@@ -101,7 +101,7 @@
 	loot = list(/obj/effect/decal/cleanable/robot_debris, /obj/item/stack/ore/bluespace_crystal)
 	del_on_death = 1
 	deathmessage = "explodes with a sharp pop!"
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	light_color = LIGHT_COLOR_CYAN
 	light_range = 3
 	light_on = FALSE
@@ -276,10 +276,10 @@
 	return TRUE
 
 /obj/machinery/door/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
-	var/isonshuttle = istype(get_area(src), /area/shuttle)
+	var/isonshuttle = is_area_shuttle(get_area(src))
 	for(var/turf/T in range(1, src))
 		var/area/A = get_area(T)
-		if(isspaceturf(T) || (!isonshuttle && (istype(A, /area/shuttle) || isspacearea(A))) || (isonshuttle && !istype(A, /area/shuttle)))
+		if(isspaceturf(T) || (!isonshuttle && (is_area_shuttle(A) || isspacearea(A))) || (isonshuttle && !is_area_shuttle(A)))
 			to_chat(S, span_warning("Destroying this object has the potential to cause a hull breach. Aborting."))
 			S.GiveTarget(null)
 			return FALSE
@@ -391,10 +391,10 @@
 	return FALSE
 
 /turf/simulated/wall/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
-	var/isonshuttle = istype(loc, /area/shuttle)
+	var/isonshuttle = is_area_shuttle(loc)
 	for(var/turf/T in range(1, src))
 		var/area/A = get_area(T)
-		if(isspaceturf(T) || (!isonshuttle && (istype(A, /area/shuttle) || isspacearea(A))) || (isonshuttle && !istype(A, /area/shuttle)))
+		if(isspaceturf(T) || (!isonshuttle && (is_area_shuttle(A) || isspacearea(A))) || (isonshuttle && !is_area_shuttle(A)))
 			to_chat(S, span_warning("Destroying this object has the potential to cause a hull breach. Aborting."))
 			S.GiveTarget(null)
 			return TRUE
@@ -405,10 +405,10 @@
 	return ..()
 
 /obj/structure/window/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
-	var/isonshuttle = istype(get_area(src), /area/shuttle)
+	var/isonshuttle = is_area_shuttle(get_area(src))
 	for(var/turf/T in range(1, src))
 		var/area/A = get_area(T)
-		if(isspaceturf(T) || (!isonshuttle && (istype(A, /area/shuttle) || isspacearea(A))) || (isonshuttle && !istype(A, /area/shuttle)))
+		if(isspaceturf(T) || (!isonshuttle && (is_area_shuttle(A) || isspacearea(A))) || (isonshuttle && !is_area_shuttle(A)))
 			to_chat(S, span_warning("Destroying this object has the potential to cause a hull breach. Aborting."))
 			S.GiveTarget(null)
 			return TRUE
@@ -419,10 +419,10 @@
 	return ..()
 
 /obj/structure/holosign/barrier/atmos/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
-	var/isonshuttle = istype(get_area(src), /area/shuttle)
+	var/isonshuttle = is_area_shuttle(get_area(src))
 	for(var/turf/T in range(1, src))
 		var/area/A = get_area(T)
-		if(isspaceturf(T) || (!isonshuttle && (istype(A, /area/shuttle) || isspacearea(A))) || (isonshuttle && !istype(A, /area/shuttle)))
+		if(isspaceturf(T) || (!isonshuttle && (is_area_shuttle(A) || isspacearea(A))) || (isonshuttle && !is_area_shuttle(A)))
 			to_chat(S, span_warning("Destroying this object has the potential to cause a hull breach. Aborting."))
 			S.GiveTarget(null)
 			return TRUE

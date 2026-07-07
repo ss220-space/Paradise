@@ -57,7 +57,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 		GLOB.req_console_supplies |= department
 	if(departmentType & RC_INFO)
 		GLOB.req_console_information |= department
-	update_icon(UPDATE_OVERLAYS)
+	update_appearance()
 
 /obj/machinery/requests_console/Destroy()
 	GLOB.allRequestConsoles -= src
@@ -89,17 +89,24 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 /obj/machinery/requests_console/power_change(forced = FALSE)
 	. = ..()
 	if(.)
-		update_icon(UPDATE_OVERLAYS)
+		update_appearance()
+
+/obj/machinery/requests_console/update_appearance(updates=ALL)
+	. = ..()
+	if(stat & NOPOWER)
+		set_light(0)
+		return
+	set_light(1.5, 0.7, "#34D352")//green light
 
 /obj/machinery/requests_console/update_overlays()
 	. = ..()
-	underlays.Cut()
 
 	if(stat & NOPOWER)
 		return
 
-	. += "req_comp[newmessagepriority]"
-	underlays += emissive_appearance(icon, "req_comp_lightmask", src)
+	var/screen_state = "req_comp[newmessagepriority]"
+	. += mutable_appearance(icon, screen_state)
+	. += emissive_appearance(icon, screen_state, src, alpha = src.alpha)
 
 /obj/machinery/requests_console/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -219,7 +226,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 				for(var/obj/machinery/requests_console/Console in GLOB.allRequestConsoles)
 					if(Console.department == department)
 						Console.newmessagepriority = RQ_NONEW_MESSAGES
-						Console.update_icon(UPDATE_OVERLAYS)
+						Console.update_appearance()
 			if(tempScreen == RCS_MAINMENU)
 				reset_message()
 			screen = tempScreen
@@ -316,7 +323,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	capitalize(title)
 	if(newmessagepriority < priority)
 		newmessagepriority = priority
-		update_icon(UPDATE_OVERLAYS)
+		update_appearance()
 	if(!silent)
 		playsound(loc, 'sound/machines/twobeep.ogg', 50, TRUE)
 		atom_say(title)

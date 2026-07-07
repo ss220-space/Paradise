@@ -232,6 +232,10 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 
 #define isspaceturf(A) (istype(A, /turf/space))
 
+#define isnearstation(A) (istype(A, /area/space/nearstation))
+
+#define iscordon(A) (istype(A, /turf/cordon))
+
 #define isopenspaceturf(A) (istype(A, /turf/simulated/openspace) || istype(A, /turf/space/openspace))
 
 #define istransparentturf(A) (HAS_TRAIT(A, TURF_Z_TRANSPARENT_TRAIT))
@@ -446,3 +450,6 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 #define isplatingturf(A) (istype(A, /turf/simulated/floor/plating))
 #define IS_LUNATIC(mob) (mob.mind?.has_antag_datum(/datum/antagonist/lunatic))
 #define IS_HERETIC_OR_MONSTER(mob) (isheretic(mob) || HAS_TRAIT(mob, TRAIT_HERETIC_SUMMON) || IS_LUNATIC(mob))
+
+#define is_area_nearby_station(checked_area) (istype(checked_area, /area/space) || istype(checked_area, /area/space/nearstation) || istype(checked_area, /area/centcom/asteroid))
+#define is_area_shuttle(checked_area) (istype(checked_area, /area/shuttle))
