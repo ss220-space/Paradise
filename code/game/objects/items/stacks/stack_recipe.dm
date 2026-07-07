@@ -69,7 +69,7 @@
 /datum/stack_recipe/proc/try_build(mob/user, obj/item/stack/material, multiplier)
 	if(!isnum(multiplier) || (multiplier < 1) || !IS_FINITE(multiplier)) // href exploit protection
 		stack_trace("Invalid multiplier value in stack creation [multiplier], [user] is likely attempting an exploit")
-		return
+		return FALSE
 
 	if(material.get_amount() < req_amount * multiplier)
 		if(req_amount * multiplier > 1)
