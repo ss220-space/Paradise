@@ -5,7 +5,6 @@
 	cooldown_time = 30 SECONDS
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC
 	charge_sound ='sound/magic/lightning_chargeup.ogg'
-	channel_time = 10 SECONDS
 	channel_message = "You start gathering magnetism around you."
 	sound = 'sound/machines/defib_zap.ogg'
 	charge_overlay_icon = 'icons/effects/effects.dmi'
