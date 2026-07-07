@@ -34,8 +34,6 @@
 			blob_overlay.color = BlendRGB(overmind.blobstrain.color, COLOR_WHITE, 0.5) //lighten it to indicate an off-station blob
 	. += blob_overlay
 	. += mutable_appearance('icons/mob/blob.dmi', "blob_node_overlay")
-	if(blocks_emissive)
-		add_overlay(get_emissive_block())
 
 /obj/structure/blob/special/node/link_to_overmind(mob/camera/blob/owner_overmind)
 	. = ..()

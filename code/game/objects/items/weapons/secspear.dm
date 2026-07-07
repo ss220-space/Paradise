@@ -22,7 +22,7 @@
 	light_power = 2
 	light_range = 2
 	light_on = FALSE
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 
 	var/folded = TRUE
 	var/fold_sound = 'sound/weapons/batonextend.ogg'

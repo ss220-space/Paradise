@@ -350,7 +350,7 @@
 	incompatible_modules = list(/obj/item/mod/module/flashlight, /obj/item/mod/module/flashlight/darkness)
 	overlay_state_inactive = "module_light"
 	overlay_state_active = "module_light_on"
-	light_system = MOVABLE_LIGHT_DIRECTIONAL
+	light_system = OVERLAY_LIGHT_DIRECTIONAL
 	light_range = 4
 	light_on = FALSE
 	required_slots = list(ITEM_SLOT_HEAD|ITEM_SLOT_MASK)
@@ -413,7 +413,7 @@
 	desc = "Модуль для МЭК, представляющий собой пару темнариков, устанавливаемых по бокам шлема. \
 			Полезно для затемнения пространства в настраиваемом радиусе."
 	light_color = COLOR_BLACK
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	light_range = 2
 	min_range = 1
 	max_range = 3

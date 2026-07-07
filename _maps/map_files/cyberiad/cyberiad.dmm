@@ -5,9 +5,7 @@
 	id = "whiteship_home";
 	name = "Near NSS Cyberiad"
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "aaS" = (
 /obj/machinery/power/apc/directional/north,
@@ -501,9 +499,7 @@
 	name = "northwest of station";
 	width = 18
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "adL" = (
 /obj/effect/turf_decal/delivery/hollow,
@@ -4327,9 +4323,7 @@
 	name = "North-West Solars";
 	width = 11
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "asO" = (
 /obj/structure/window/reinforced{
@@ -5001,9 +4995,7 @@
 	name = "pod3 home dock";
 	width = 5
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "avc" = (
 /obj/effect/decal/cleanable/dirt,
@@ -7594,9 +7586,7 @@
 	name = "fore bay 1";
 	width = 9
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "aFl" = (
 /obj/structure/cable{
@@ -14889,9 +14879,7 @@
 	name = "Near Cyberiad Arrivals";
 	width = 11
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "bkZ" = (
 /turf/simulated/floor/plasteel{
@@ -24919,9 +24907,7 @@
 	name = "port bay 5 at Cyberiad";
 	width = 15
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "ccY" = (
 /obj/machinery/door/firedoor,
@@ -40642,9 +40628,7 @@
 	name = "emergency evac bay";
 	width = 29
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "drN" = (
 /obj/machinery/porta_turret{
@@ -41953,9 +41937,7 @@
 	name = "Station Church dock";
 	width = 10
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "dRk" = (
 /obj/item/cigbutt{
@@ -48079,9 +48061,7 @@
 	name = "mining shuttle bay";
 	width = 7
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "grQ" = (
 /obj/effect/decal/cleanable/dirt,
@@ -50873,9 +50853,7 @@
 	name = "supply bay";
 	width = 12
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "hzW" = (
 /obj/machinery/atmospherics/unary/portables_connector{
@@ -51838,9 +51816,7 @@
 	name = "port bay 1";
 	width = 18
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "hVB" = (
 /obj/effect/spawner/window/reinforced,
@@ -58472,9 +58448,7 @@
 	name = "southwest of station";
 	width = 21
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "kFm" = (
 /obj/structure/cable{
@@ -59457,9 +59431,7 @@
 	pixel_x = 32;
 	width = 6
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "kWo" = (
 /obj/effect/landmark/start/hangover,
@@ -60372,9 +60344,7 @@
 	name = "gamma dock";
 	width = 7
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "lqE" = (
 /obj/machinery/light,
@@ -69968,9 +69938,7 @@
 	name = "pod2 home dock";
 	width = 5
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "puj" = (
 /obj/machinery/door/firedoor,
@@ -76019,9 +75987,7 @@
 	name = "pod4 home dock";
 	width = 5
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "rRW" = (
 /obj/effect/turf_decal/stripes/line{
@@ -80038,9 +80004,7 @@
 	name = "port bay 3";
 	width = 5
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "tyK" = (
 /obj/machinery/newscaster/security_unit/directional/south,
@@ -82779,9 +82743,7 @@
 	name = "pod1 home dock";
 	width = 5
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "uHX" = (
 /obj/effect/turf_decal/stripes/line{
@@ -91571,9 +91533,7 @@
 	name = "port bay 2";
 	width = 5
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "ygG" = (
 /obj/structure/rack{
@@ -91826,9 +91786,7 @@
 /turf/simulated/floor/bluegrid,
 /area/station/ai/satellite/chamber)
 "ylx" = (
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "ylE" = (
 /obj/machinery/light/small{

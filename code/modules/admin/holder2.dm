@@ -29,6 +29,7 @@ GLOBAL_PROTECT(href_token)
 	var/datum/filter_editor/filterrific
 	var/datum/particle_editor/particle_test
 	var/datum/colorblind_tester/color_test
+	var/datum/plane_master_debug/plane_debug
 	var/datum/spawn_menu/spawn_menu
 	var/datum/spawnpanel/spawn_panel
 
@@ -50,12 +51,14 @@ GLOBAL_PROTECT(href_token)
 		rights = initial_rights
 	href_token = GenerateToken()
 	GLOB.admin_datums[ckey] = src
+	plane_debug = new(src)
 
 /datum/admins/Destroy()
 	if(IsAdminAdvancedProcCall())
 		to_chat(usr, span_boldannounceooc("Admin rank deletion blocked: Advanced ProcCall detected."))
 		log_and_message_admins("attempted to delete an admin rank via advanced proc-call")
 		return
+	QDEL_NULL(plane_debug)
 	return ..()
 
 /datum/admins/proc/associate(client/C)

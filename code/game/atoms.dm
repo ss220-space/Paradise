@@ -102,7 +102,7 @@
 	var/greyscale_colors
 
 	///Light systems, both shouldn't be active at the same time.
-	var/light_system = STATIC_LIGHT
+	var/light_system = COMPLEX_LIGHT
 	///Range of the light in tiles. Zero means no light.
 	var/light_range = 0
 	///Intensity of the light. The stronger, the less shadows you will see on the lit area.
@@ -113,6 +113,19 @@
 	var/light_on = TRUE
 	///Bitflags to determine lighting-related atom properties.
 	var/light_flags = NONE
+
+	// OVERLAY_LIGHT only values
+	/// An optional render_source to apply to this atom's light overlay
+	var/light_render_source = ""
+
+	// COMPLEX_LIGHT only values
+	/// Angle of light to show in light_dir
+	/// 360 is a circle, 90 is a cone, etc.
+	var/light_angle = 360
+	/// What angle to project light in
+	var/light_dir = NORTH
+	/// How many tiles "up" this light is. 1 is typical, should only really change this if it's a floor light
+	var/light_height = LIGHTING_HEIGHT
 	///Our light source. Don't fuck with this directly unless you have a good reason!
 	var/tmp/datum/light_source/light
 	///Any light sources that are "inside" of us, for example, if src here was a mob that's carrying a flashlight, that flashlight's light source would be part of this list.
@@ -213,6 +226,9 @@
 
 	///Cooldown tick timer for buckle messages
 	COOLDOWN_DECLARE(buckle_message_cd)
+
+	VAR_PRIVATE/list/invisibility_sources
+	VAR_PRIVATE/current_invisibility_priority = -INFINITY
 
 /atom/proc/onCentcom()
 	. = FALSE
@@ -504,14 +520,11 @@
 		. |= UPDATE_ICON_STATE
 
 	if(updates & UPDATE_OVERLAYS)
+		if(length(managed_vis_overlays))
+			SSvis_overlays.remove_vis_overlay(src, managed_vis_overlays)
+
 		var/list/new_overlays = update_overlays(updates)
 		SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_OVERLAYS, new_overlays)
-
-		// Ok, so its rather this or required inheritance in every [update_overlays()]
-		var/emissive_block = get_emissive_block()
-		if(emissive_block)
-			// Emissive block should always go at the beginning of the list
-			new_overlays.Insert(1, emissive_block)
 
 		var/nulls = 0
 		for(var/i in 1 to length(new_overlays))
@@ -605,10 +618,6 @@
 /atom/proc/update_greyscale()
 	icon = SSgreyscale.get_colored_icon_by_type(greyscale_config, greyscale_colors)
 	looting_icon_mode = LOOT_ICON_ICON_TO_HTML
-
-/// Updates atom's emissive block if present.
-/atom/proc/get_emissive_block()
-	return
 
 /**
  * Adds a special overlay to any atom.
@@ -1566,11 +1575,12 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
  * It notifies (potentially) affected light sources so they can update (if needed).
  */
 /atom/proc/set_opacity(new_opacity)
-	if(new_opacity == opacity)
+	if(new_opacity == opacity || light_flags & LIGHT_FROZEN)
 		return
 	SEND_SIGNAL(src, COMSIG_ATOM_SET_OPACITY, new_opacity)
 	. = opacity
 	opacity = new_opacity
+	return .
 
 ///Setter for the `base_pixel_x` variable to append behavior related to its changing.
 /atom/proc/set_base_pixel_x(new_value)

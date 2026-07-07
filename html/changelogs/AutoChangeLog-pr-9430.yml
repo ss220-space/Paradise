@@ -1,4 +1,0 @@
-author: "littleboobs"
-delete-after: True
-changes:
-  - refactor: "Рефактор зон в подтипы. (PR #9430)"

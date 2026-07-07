@@ -183,7 +183,7 @@
 	light_range = 2
 	light_color = COLOR_SOFT_RED
 	light_on = FALSE
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	armour_penetration = 20
 	var/on = FALSE
 	var/backstab_sound = 'sound/items/unsheath.ogg'

@@ -18,12 +18,23 @@
 
 /obj/structure/lattice/Initialize(mapload)
 	. = ..()
-	for(var/obj/structure/lattice/LAT in loc)
-		if(LAT != src)
-			QDEL_IN(LAT, 0)
+	for(var/obj/structure/lattice/lattice in loc)
+		if(lattice == src)
+			continue
+		WARNING("multiple lattices found in ([loc.x], [loc.y], [loc.z], [get_area(lattice)])")
+		return INITIALIZE_HINT_QDEL
+
 	if(length(give_turf_traits))
 		give_turf_traits = string_list(give_turf_traits)
 		AddElement(/datum/element/give_turf_traits, give_turf_traits)
+
+// so items on the lattice fall when the lattice is destroyed
+/obj/structure/lattice/Destroy(force)
+	var/turf/turfloc = loc
+	. = ..()
+	if(isturf(turfloc))
+		for(var/thing_that_falls in turfloc)
+			turfloc.zFall(thing_that_falls)
 
 /obj/structure/lattice/examine(mob/user)
 	. = ..()
@@ -50,6 +61,15 @@
 	for(var/obj/structure/cable/C in T)
 		C.deconstruct()
 	..()
+
+/obj/structure/lattice/proc/replace_with_catwalk()
+	var/list/post_replacement_callbacks = list()
+	SEND_SIGNAL(src, COMSIG_LATTICE_PRE_REPLACE_WITH_CATWALK, post_replacement_callbacks)
+	var/turf/turf = loc
+	qdel(src)
+	var/new_catwalk = new /obj/structure/lattice/catwalk(turf)
+	for(var/datum/callback/callback as anything in post_replacement_callbacks)
+		callback.Invoke(new_catwalk)
 
 /obj/structure/lattice/attackby(obj/item/I, mob/user, list/modifiers)
 	if((resistance_flags & INDESTRUCTIBLE) || !isturf(loc))

@@ -294,7 +294,7 @@
 			balloon_alert(user, "ваши глаза закрыты!")
 			return
 
-	user.mob_light(LIGHT_COLOR_BLOOD_MAGIC, _range = 3, _duration = 0.2 SECONDS)
+	user.mob_light(LIGHT_COLOR_BLOOD_MAGIC, range = 3, duration = 0.2 SECONDS)
 	user.visible_message(span_warning("Глаза [user] испускают ослепительную вспышку!"))
 
 	var/datum/antagonist/vampire/vampire = user.mind.has_antag_datum(/datum/antagonist/vampire)

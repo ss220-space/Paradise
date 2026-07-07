@@ -1,6 +1,6 @@
 // MARK: BASE
 /obj/effect/warp_effect
-	plane = GRAVITY_PULSE_PLANE
+	plane = DISPLACEMENT_PLANE
 	appearance_flags = PIXEL_SCALE|LONG_GLIDE
 	icon = 'icons/effects/seismic_stomp_effect.dmi'
 	icon_state = "stomp_effect"
