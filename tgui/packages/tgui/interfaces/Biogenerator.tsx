@@ -79,7 +79,7 @@ const Storage = (props: unknown) => {
               {container_curr_reagents +
                 ' / ' +
                 container_max_reagents +
-                ' units'}
+                ' единиц'}
             </Box>
           </ProgressBar>
         ) : (
@@ -202,7 +202,7 @@ const Products = (props: unknown) => {
       buttons={
         <>
           <Box inline mr="5px" color="silver">
-            Размер печати:
+            Количество:
           </Box>
           <NumberInput
             animated
