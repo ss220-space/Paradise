@@ -2204,9 +2204,7 @@
 	name = "South-West Solars";
 	width = 11
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "asb" = (
 /obj/structure/disposalpipe/trunk/multiz{
@@ -8696,9 +8694,7 @@
 	id = "whiteship_home";
 	name = "Near NSS Nova"
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "buJ" = (
 /turf/simulated/floor/plasteel{
@@ -8791,9 +8787,7 @@
 	pixel_x = 32;
 	width = 6
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "bvZ" = (
 /obj/machinery/disposal,
@@ -9715,9 +9709,7 @@
 	name = "Station Church dock";
 	width = 10
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "bDf" = (
 /turf/simulated/floor/plasteel{
@@ -27811,9 +27803,7 @@
 	name = "pod1 home dock";
 	width = 5
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "exw" = (
 /obj/effect/landmark/start/hangover,
@@ -88837,9 +88827,7 @@
 	name = "emergency evac bay";
 	width = 29
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "nDD" = (
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -105863,9 +105851,7 @@
 	name = "port bay 1";
 	width = 18
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "qoY" = (
 /obj/structure/cable,
@@ -112046,9 +112032,7 @@
 	name = "pod2 home dock";
 	width = 5
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "riy" = (
 /obj/structure/railing{
@@ -126463,9 +126447,7 @@
 	name = "port bay 2";
 	width = 15
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "trh" = (
 /obj/machinery/light/small{
@@ -138455,9 +138437,7 @@
 	name = "South-West of Station";
 	width = 21
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "viB" = (
 /turf/simulated/floor/plasteel{
@@ -139136,9 +139116,7 @@
 	name = "supply bay";
 	width = 12
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "vnu" = (
 /obj/structure/sign/securearea{
@@ -146885,9 +146863,7 @@
 	},
 /area/station/medical/storage/bio)
 "wuh" = (
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "wui" = (
 /obj/structure/cable{
@@ -147499,9 +147475,7 @@
 	name = "North of Station";
 	width = 11
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "wyA" = (
 /obj/machinery/portable_atmospherics/canister/oxygen,
@@ -153374,9 +153348,7 @@
 	name = "port bay 3";
 	width = 5
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "xrq" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
@@ -156180,9 +156152,7 @@
 	name = "port bay 4";
 	width = 5
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "xMv" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{

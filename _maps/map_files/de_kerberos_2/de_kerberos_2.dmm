@@ -5,9 +5,7 @@
 	id = "whiteship_home";
 	name = "Near NSS Kerberos"
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "aad" = (
 /turf/simulated/floor/plasteel,
@@ -1798,9 +1796,7 @@
 	name = "port bay 1";
 	width = 18
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "arF" = (
 /obj/effect/spawner/window/reinforced,
@@ -5812,9 +5808,7 @@
 	name = "port bay 2";
 	width = 5
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "bfE" = (
 /obj/effect/spawner/random_spawners/blood_5,
@@ -6283,9 +6277,7 @@
 	name = "emergency evac bay";
 	width = 29
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "bkG" = (
 /turf/simulated/floor/plasteel{
@@ -6352,9 +6344,7 @@
 	name = "port bay 5 at Kerberos";
 	width = 15
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "blG" = (
 /turf/simulated/floor/plasteel{
@@ -7596,9 +7586,7 @@
 	name = "port bay 3";
 	width = 5
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "bzd" = (
 /obj/structure/table/wood,
@@ -10981,9 +10969,7 @@
 	name = "mining shuttle bay";
 	width = 7
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "chO" = (
 /obj/effect/turf_decal/stripes/white/line{
@@ -25394,9 +25380,7 @@
 	name = "south of station";
 	width = 18
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "fmN" = (
 /obj/effect/decal/cleanable/dirt,
@@ -27459,9 +27443,7 @@
 	pixel_x = 32;
 	width = 6
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "fHN" = (
 /obj/item/twohanded/required/kirbyplants,
@@ -43982,9 +43964,7 @@
 	name = "South-East Solars";
 	width = 11
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "iJf" = (
 /obj/machinery/power/emitter{
@@ -50930,9 +50910,7 @@
 	name = "southwest of station";
 	width = 21
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "jXs" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
@@ -57230,9 +57208,7 @@
 	name = "Near Kerberos Arrivals";
 	width = 11
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "lgq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -57694,9 +57670,7 @@
 /area/station/engineering/monitor)
 "ljQ" = (
 /obj/structure/lattice,
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "ljR" = (
 /obj/structure/rack{
@@ -72301,9 +72275,7 @@
 	name = "supply bay";
 	width = 12
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "nUL" = (
 /obj/effect/spawner/random_spawners/fungus_30,
@@ -79398,9 +79370,7 @@
 	name = "northwest of station";
 	width = 18
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "plR" = (
 /obj/structure/cable{
@@ -91007,9 +90977,7 @@
 	name = "fore bay 1";
 	width = 9
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "rlo" = (
 /obj/machinery/door_control{
@@ -103049,9 +103017,7 @@
 	name = "Station Church dock";
 	width = 10
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "twU" = (
 /obj/structure/lattice,
@@ -129110,9 +129076,7 @@
 /turf/simulated/floor/wood/fancy/light,
 /area/station/command/office/hop)
 "yhg" = (
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "yhj" = (
 /obj/effect/decal/cleanable/dirt,
@@ -129633,9 +129597,7 @@
 	name = "gamma dock";
 	width = 7
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "ylA" = (
 /obj/structure/cable{

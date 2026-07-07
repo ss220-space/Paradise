@@ -5,9 +5,7 @@
 	id = "whiteship_home";
 	name = "Near NSS Kerberos"
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "aad" = (
 /turf/simulated/floor/plasteel,
@@ -619,9 +617,7 @@
 	name = "pod1 home dock";
 	width = 5
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "ahf" = (
 /obj/docking_port/stationary{
@@ -631,9 +627,7 @@
 	name = "pod2 home dock";
 	width = 5
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "ahg" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1587,9 +1581,7 @@
 	name = "port bay 1";
 	width = 18
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "arI" = (
 /obj/effect/turf_decal/delivery/red/hollow,
@@ -5325,9 +5317,7 @@
 	name = "port bay 2";
 	width = 5
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "bfD" = (
 /obj/machinery/camera{
@@ -5804,9 +5794,7 @@
 	name = "emergency evac bay";
 	width = 29
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "bkF" = (
 /obj/structure/sign/securearea,
@@ -5872,9 +5860,7 @@
 	name = "port bay 5 at Kerberos";
 	width = 15
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "blz" = (
 /obj/structure/disposalpipe/segment,
@@ -7109,9 +7095,7 @@
 	name = "port bay 3";
 	width = 5
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "byT" = (
 /obj/structure/cable{
@@ -9988,9 +9972,7 @@
 	name = "mining shuttle bay";
 	width = 7
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "chS" = (
 /obj/machinery/light,
@@ -24646,9 +24628,7 @@
 	name = "south of station";
 	width = 18
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "fmN" = (
 /obj/structure/rack{
@@ -26542,9 +26522,7 @@
 	pixel_x = 32;
 	width = 6
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "fHJ" = (
 /obj/effect/turf_decal/delivery,
@@ -42945,9 +42923,7 @@
 	name = "South-East Solars";
 	width = 11
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "iJr" = (
 /obj/machinery/door/airlock/freezer,
@@ -49548,9 +49524,7 @@
 	name = "southwest of station";
 	width = 21
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "jXr" = (
 /obj/machinery/door/airlock/tranquillite{
@@ -56128,9 +56102,7 @@
 	name = "Near Kerberos Arrivals";
 	width = 11
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "lgv" = (
 /obj/structure/table/wood,
@@ -56525,9 +56497,7 @@
 /area/station/command/bridge)
 "ljQ" = (
 /obj/structure/lattice,
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "ljU" = (
 /turf/simulated/wall,
@@ -62879,9 +62849,7 @@
 	name = "pod3 home dock";
 	width = 5
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "mrX" = (
 /obj/structure/cable{
@@ -71082,9 +71050,7 @@
 	name = "supply bay";
 	width = 12
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "nVb" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -78195,9 +78161,7 @@
 	name = "northwest of station";
 	width = 18
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "plR" = (
 /obj/machinery/door/window/brigdoor{
@@ -89100,9 +89064,7 @@
 	name = "fore bay 1";
 	width = 9
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "rli" = (
 /turf/simulated/floor/plasteel{
@@ -102020,9 +101982,7 @@
 	name = "Station Church dock";
 	width = 10
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "twU" = (
 /obj/structure/lattice,
@@ -113054,9 +113014,7 @@
 	name = "pod4 home dock";
 	width = 5
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "vAs" = (
 /obj/structure/table/reinforced,
@@ -127102,9 +127060,7 @@
 	},
 /area/station/hallway/primary/starboard/east)
 "yhg" = (
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "yhp" = (
 /obj/effect/turf_decal/stripes/corner{
@@ -127453,9 +127409,7 @@
 	name = "gamma dock";
 	width = 7
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "ylA" = (
 /obj/structure/cable{

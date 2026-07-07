@@ -92,6 +92,9 @@ GLOBAL_LIST_EMPTY(starlight)
 	//This is used to optimize the map loader
 	return
 
+/turf/space/black
+	icon_state = MAP_SWITCH("space", "black")
+
 /turf/space/BeforeChange()
 	..()
 	var/datum/space_level/space_level = GLOB.space_manager.get_zlev(z)
