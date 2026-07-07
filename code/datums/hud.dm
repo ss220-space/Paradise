@@ -38,6 +38,7 @@ GLOBAL_ALIST_INIT(huds, alist(
 	ANTAG_HUD_TEAM_1 = new /datum/atom_hud/antag(),
 	ANTAG_HUD_TEAM_2 = new /datum/atom_hud/antag(),
 	ANTAG_HUD_TEAM_3 = new /datum/atom_hud/antag(),
+	ANTAG_HUD_VOX_RAIDER = new /datum/atom_hud/antag(),\
 	THOUGHTS_HUD = new/datum/atom_hud/thoughts(),
 	DATA_HUD_KIDAN_PHEROMONES = new/datum/atom_hud/kidan_pheromones(),
 	PACIFISM_HUD = new/datum/atom_hud/pacifism(),
@@ -252,9 +253,10 @@ GLOBAL_ALIST_INIT(huds, alist(
 
 	var/turf/atom_turf = get_turf(hud_atom_to_remove)
 	if(!atom_turf)
-		for(var/z, list in hud_atoms)
-			var/list/huds_list = list
-			LAZYREMOVE(huds_list, hud_atom_to_remove)
+		for(var/z in 1 to length(hud_atoms))
+			if(!hud_atoms[z])
+				continue
+			hud_atoms[z] -= hud_atom_to_remove
 		return TRUE
 
 	hud_atoms[atom_turf.z] -= hud_atom_to_remove

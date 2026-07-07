@@ -11,7 +11,7 @@
 
 	var/mapping = 0 // For the overview file (overview.dm), not used on this page
 
-	var/list/network = list("SS13","Mining Outpost")
+	var/list/network = list("SS13","Research Outpost","Mining Outpost", "Labor Camp")
 	var/obj/machinery/camera/active_camera
 	var/list/concurrent_users = list()
 
@@ -430,5 +430,13 @@
 
 /obj/machinery/computer/security/mortar/set_broken()
 	return
+
+/obj/machinery/computer/security/labor_camp
+	name = "labor camp camera console"
+	desc = "Используется для слежки за каторжными заключенными."
+	network = list("Labor Camp")
+
+/obj/machinery/camera/labor_camp
+	network = list("Labor Camp")
 
 #undef DEFAULT_MAP_SIZE

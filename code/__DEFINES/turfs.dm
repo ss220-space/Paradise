@@ -16,8 +16,8 @@
 /// Used only by /turf/openspace. Show and grants access to what's under.
 #define TURF_FULLTRANSPARENT 2
 
-#define CHANGETURF_IGNORE_AIR (1<<0) // This flag prevents changeturf from gathering air from nearby turfs to fill the new turf with an approximation of local air
-#define CHANGETURF_KEEP_CABLING (1<<1) // This flags prevents from cables being removed. Used in maploader only
+#define CHANGETURF_IGNORE_AIR (1<<0) //! This flag prevents changeturf from gathering air from nearby turfs to fill the new turf with an approximation of local air
+#define CHANGETURF_KEEP_CABLING (1<<1) //! This flags prevents from cables being removed. Used in maploader only
 
 #define IS_OPAQUE_TURF(turf) (turf.directional_opacity == ALL_CARDINALS)
 

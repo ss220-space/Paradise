@@ -17,6 +17,7 @@
 	force = 15
 	phase_state = "phazon-phase"
 	mech_type = MECH_TYPE_PHAZON
+	allowed_equipment = MECH_EQUIPMENT_PHAZON
 
 /obj/mecha/combat/phazon/GrantActions(mob/living/user, human_occupant = 0)
 	..()

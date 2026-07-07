@@ -199,6 +199,9 @@
 	overlay_sparking = "largebinsparks"
 	overlay_broken = "largebinemag"
 
+/obj/structure/closet/crate/secure/bin/anchored
+	anchored = TRUE
+
 /obj/structure/closet/crate/secure/large
 	name = "large crate"
 	desc = "A hefty metal crate with an electronic locking system."

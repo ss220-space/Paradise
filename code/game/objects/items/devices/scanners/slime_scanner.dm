@@ -52,4 +52,4 @@
 	if(T.effectmod)
 		msgs += span_notice("Core mutation in progress: [T.effectmod]")
 		msgs += span_notice("Progress in core mutation: [T.applied] / [SLIME_EXTRACT_CROSSING_REQUIRED]")
-	to_chat(user, chat_box_healthscan(msgs.Join("<br>")))
+	to_chat(user, custom_boxed_message("blue_box", msgs.Join("<br>")))

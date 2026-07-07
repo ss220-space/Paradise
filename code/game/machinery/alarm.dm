@@ -679,7 +679,7 @@ GLOBAL_LIST_INIT(human_tlv, list(
 	for(var/gas_id, meta_list in GLOB.gas_meta)
 		var/list/gas_info = meta_list
 		thresholds += list(list("name" = gas_info[META_GAS_NAME], "settings" = list()))
-		selected = TLV[gas_id]
+		selected = TLV[gas_id] || TLV[TLV_OTHER]
 		thresholds[length(thresholds)]["settings"] += list(list("env" = gas_id, "val" = "min2", "selected" = selected.min2))
 		thresholds[length(thresholds)]["settings"] += list(list("env" = gas_id, "val" = "min1", "selected" = selected.min1))
 		thresholds[length(thresholds)]["settings"] += list(list("env" = gas_id, "val" = "max1", "selected" = selected.max1))

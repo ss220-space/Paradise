@@ -1,4 +1,4 @@
-// Causes any affecting light sources to be queued for a visibility update, for example a door got opened.
+/// Causes any affecting light sources to be queued for a visibility update, for example a door got opened.
 /turf/proc/reconsider_lights()
 	lighting_corner_NE?.vis_update()
 	lighting_corner_SE?.vis_update()
@@ -7,14 +7,14 @@
 
 /turf/proc/lighting_clear_overlay()
 	if(lighting_object)
-		qdel(lighting_object, force=TRUE)
+		qdel(lighting_object, force = TRUE)
 
-// Builds a lighting object for us, but only if our area is dynamic.
+/// Builds a lighting object for us, but only if our area is dynamic.
 /turf/proc/lighting_build_overlay()
 	if(lighting_object)
-		qdel(lighting_object,force=TRUE) //Shitty fix for lighting objects persisting after death
+		qdel(lighting_object, force = TRUE) //Shitty fix for lighting objects persisting after death
 
-	new /atom/movable/lighting_object(src)
+	new /atom/movable/lighting_object(null, src)
 
 /// Used to get a scaled lumcount.
 /turf/proc/get_lumcount(minlum = 0, maxlum = 1)
@@ -22,19 +22,19 @@
 		return 1
 
 	var/totallums = 0
-	var/datum/lighting_corner/L
-	L = lighting_corner_NE
-	if(L)
-		totallums += L.lum_r + L.lum_b + L.lum_g
-	L = lighting_corner_SE
-	if(L)
-		totallums += L.lum_r + L.lum_b + L.lum_g
-	L = lighting_corner_SW
-	if(L)
-		totallums += L.lum_r + L.lum_b + L.lum_g
-	L = lighting_corner_NW
-	if(L)
-		totallums += L.lum_r + L.lum_b + L.lum_g
+	var/datum/lighting_corner/corner
+	corner = lighting_corner_NE
+	if(corner)
+		totallums += corner.lum_r + corner.lum_b + corner.lum_g
+	corner = lighting_corner_SE
+	if(corner)
+		totallums += corner.lum_r + corner.lum_b + corner.lum_g
+	corner = lighting_corner_SW
+	if(corner)
+		totallums += corner.lum_r + corner.lum_b + corner.lum_g
+	corner = lighting_corner_NW
+	if(corner)
+		totallums += corner.lum_r + corner.lum_b + corner.lum_g
 
 	totallums /= 12 // 4 corners, each with 3 channels, get the average.
 
@@ -55,9 +55,13 @@
 	return !(luminosity || dynamic_lumcount)
 
 /turf/proc/change_area(area/old_area, area/new_area)
+	//don't waste our time
+	if(old_area == new_area)
+		return
 
 	old_area.contents -= src
 
+	//move the turf
 	LISTASSERTLEN(old_area.turfs_to_uncontain_by_zlevel, z, list())
 	LISTASSERTLEN(new_area.turfs_by_zlevel, z, list())
 	old_area.turfs_to_uncontain_by_zlevel[z] += src
@@ -75,7 +79,16 @@
 		for(var/mob/living/mob in contents)
 			mob.refresh_gravity()
 
-	if(SSlighting.initialized)
+	//changes to make after turf has moved
+	on_change_area(old_area, new_area)
+
+/// Allows for reactions to an area change without inherently requiring change_area() be called (I hate maploading)
+/turf/proc/on_change_area(area/old_area, area/new_area)
+	transfer_area_lighting(old_area, new_area)
+
+///Transfer the lighting of one area to another
+/turf/proc/transfer_area_lighting(area/old_area, area/new_area)
+	if(SSlighting.initialized && !space_lit)
 		if(new_area.static_lighting != old_area.static_lighting)
 			if(new_area.static_lighting)
 				lighting_build_overlay()
@@ -85,12 +98,19 @@
 	// We will only run this logic on turfs off the prime z layer
 	// Since on the prime z layer, we use an overlay on the area instead, to save time
 	if(SSmapping.z_level_to_plane_offset[z])
-		var/index = SSmapping.z_level_to_plane_offset[z]
+		var/index = SSmapping.z_level_to_plane_offset[z] + 1
 		//Inherit overlay of new area
 		if(old_area.lighting_effects)
 			cut_overlay(old_area.lighting_effects[index])
 		if(new_area.lighting_effects)
 			add_overlay(new_area.lighting_effects[index])
+
+	// Manage removing/adding starlight overlays, we'll inherit from the area so we can drop it if the area has it already
+	if(space_lit)
+		if(!new_area.lighting_effects && old_area.lighting_effects)
+			overlays += GLOB.starlight_overlays[GET_TURF_PLANE_OFFSET(src) + 1]
+		else if(new_area.lighting_effects && !old_area.lighting_effects)
+			overlays -= GLOB.starlight_overlays[GET_TURF_PLANE_OFFSET(src) + 1]
 
 ///Proc to add movable sources of opacity on the turf and let it handle lighting code.
 /turf/proc/add_opacity_source(atom/movable/new_source)
@@ -122,6 +142,9 @@
 			else //If fulltile and opaque, then the whole tile blocks view, no need to continue checking.
 				directional_opacity = ALL_CARDINALS
 				break
+	else
+		for(var/atom/movable/content as anything in contents)
+			SEND_SIGNAL(content, COMSIG_TURF_NO_LONGER_BLOCK_LIGHT)
 	if(. != directional_opacity && (. == ALL_CARDINALS || directional_opacity == ALL_CARDINALS))
 		reconsider_lights() //The lighting system only cares whether the tile is fully concealed from all directions or not.
 

@@ -183,6 +183,23 @@
 	tastes = list("tomato" = 1, "carrot" = 1)
 	foodtype = VEGETABLES
 
+/obj/item/reagent_containers/food/snacks/soup/stew/batya
+	name = "great soup"
+	desc = "Этот великий суп был приготовлен самим Bat'Ya, ценящийся всеми сословиями. Но даже от одного только взгляда на него — у вас уже слезятся глаза. Ты его не сможешь доесть, даже не пытайся."
+	antable = FALSE
+	bitesize = 0.01
+	randomize_position = FALSE
+
+/obj/item/reagent_containers/food/snacks/soup/stew/batya/get_ru_names()
+	return alist(
+		NOMINATIVE = "великий суп",
+		GENITIVE = "великого супа",
+		DATIVE = "великому супу",
+		ACCUSATIVE = "великий суп",
+		INSTRUMENTAL = "великим супом",
+		PREPOSITIONAL = "великом супе",
+	)
+
 /obj/item/reagent_containers/food/snacks/soup/stewedsoymeat
 	name = "stewed soy meat"
 	desc = "Even non-vegetarians will LOVE this!"
@@ -191,6 +208,7 @@
 	list_reagents = list("nutriment" = 8)
 	tastes = list("soy" = 1, "vegetables" = 1)
 	foodtype = VEGETABLES
+
 
 //////////////////////
 //		Chili		//

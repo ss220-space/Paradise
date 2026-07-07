@@ -22,7 +22,7 @@
 	var/charge_time = 15
 	var/detonation_damage = 50
 	var/backstab_bonus = 30
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	light_range = 5
 	light_on = FALSE
 	var/adaptive_damage_bonus = 0
@@ -284,6 +284,12 @@
 		INSTRUMENTAL = "хвостовым шипом",
 		PREPOSITIONAL = "хвостовом шипе",
 	)
+
+/obj/item/crusher_trophy/Destroy()
+	if(istype(loc, /obj/item/twohanded/kinetic_crusher))
+		var/obj/item/twohanded/kinetic_crusher/crusher = loc
+		crusher.trophies -= src
+	return ..()
 
 /obj/item/crusher_trophy/examine(mob/living/user)
 	. = ..()

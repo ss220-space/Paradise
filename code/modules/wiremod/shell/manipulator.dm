@@ -11,7 +11,7 @@
 	var/target_move_delay = 1 SECONDS
 
 	density = TRUE
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	light_on = FALSE
 	var/locked = FALSE
 

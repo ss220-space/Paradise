@@ -745,20 +745,20 @@
 		return ITEM_INTERACT_SUCCESS
 	return ..()
 
-/obj/item/gun/attackby(obj/item/I, mob/user, list/modifiers)
-	if(is_pen(I))
+/obj/item/gun/attackby(obj/item/item, mob/living/user, list/modifiers)
+	if(is_pen(item))
 		if(!unique_rename)
 			add_fingerprint(user)
 			to_chat(user, span_warning("Вы не можете переименовать [declent_ru(ACCUSATIVE)]!"))
 			return ATTACK_CHAIN_BLOCKED_ALL
-		var/new_name = rename_interactive(user, I, use_prefix = FALSE)
+		var/new_name = rename_interactive(user, item, use_prefix = FALSE)
 		if(!isnull(new_name))
 			to_chat(user, span_notice("Вы переименовываете \"[name]\". Познакомьтесь со своим новым другом."))
 		return ATTACK_CHAIN_BLOCKED
 
-	if(istype(I, /obj/item/gun_module))
+	if(istype(item, /obj/item/gun_module))
 		add_fingerprint(user)
-		var/obj/item/gun_module/module = I
+		var/obj/item/gun_module/module = item
 		if(module.try_attach(src, user))
 			return ATTACK_CHAIN_BLOCKED_ALL
 
@@ -1018,6 +1018,7 @@
 
 		for(var/mob/dead/observer/observe in user.inventory_observers)
 			if(!observe.client)
+				observe.handle_when_autoobserve_move()
 				LAZYREMOVE(user.inventory_observers, observe)
 				continue
 			observe.client.pixel_x = ICON_SIZE_X*_x
@@ -1028,6 +1029,7 @@
 
 		for(var/mob/dead/observer/observe in user.inventory_observers)
 			if(!observe.client)
+				observe.handle_when_autoobserve_move()
 				LAZYREMOVE(user.inventory_observers, observe)
 				continue
 			observe.client.pixel_x = 0

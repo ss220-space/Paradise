@@ -251,7 +251,10 @@
 				usr.temporarily_remove_item_from_inventory(src, force = TRUE)
 				usr.put_in_hands(P, ignore_anim = FALSE)
 				close_window(usr, "PaperBundle[UID()]")
+				usr.unset_machine() // Ensure the bundle GCs
 				qdel(src)
+				return
+
 			else if(page == amount)
 				screen = 2
 			else if(page == amount+1)

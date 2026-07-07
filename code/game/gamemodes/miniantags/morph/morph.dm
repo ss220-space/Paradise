@@ -442,7 +442,7 @@
 		mind.objectives += procreate
 		messages.Add(mind.prepare_announce_objectives(FALSE))
 
-	to_chat(src, chat_box_red(messages.Join("<br>")))
+	to_chat(src, custom_boxed_message("red_box center", messages.Join("<br>")))
 
 /mob/living/simple_animal/hostile/morph/get_visible_gender()
 	return morphed ? mimic_spell.selected_form.examine_gender : ..()

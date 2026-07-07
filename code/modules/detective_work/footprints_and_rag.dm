@@ -8,7 +8,6 @@
 	volume = 5
 	item_flags = NOBLUDGEON
 	has_lid = FALSE
-	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	var/wipespeed = 3 SECONDS
 
 /obj/item/reagent_containers/glass/rag/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)

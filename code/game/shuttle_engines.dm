@@ -24,6 +24,10 @@
 	. = ..()
 	set_light_range_power_color(2)
 
+/obj/structure/shuttle/engine/Destroy(force)
+	QDEL_LIST(fillers)
+	return ..()
+
 /obj/structure/shuttle/engine/heater
 	name = "heater"
 	icon_state = "heater"

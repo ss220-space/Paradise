@@ -274,6 +274,10 @@
 	dir = WEST
 	syndicate = TRUE
 
+/obj/machinery/cryopod/offstation
+	// Won't announce when used for cryoing.
+	syndicate = TRUE
+
 /obj/machinery/cryopod/Initialize(mapload)
 	. = ..()
 	icon_state = base_icon_state
@@ -756,7 +760,7 @@
 	for(var/obj/machinery/cryopod/P in SSmachines.get_by_type(/obj/machinery/cryopod))
 		if(!P.occupant && istype(get_area(P), /area/syndicate/unpowered/syndicate_space_base) && istype(P, /obj/machinery/cryopod/syndie))
 			free_syndie_cryopods += P
-		else if(!P.occupant && istype(get_area(P), /area/crew_quarters/sleep))
+		else if(!P.occupant && istype(get_area(P), /area/station/commons/sleep))
 			free_cryopods += P
 	var/obj/machinery/cryopod/target_cryopod = null
 	if(length(free_cryopods))

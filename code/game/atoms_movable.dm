@@ -78,10 +78,10 @@
 	/// without snowflake code all of the place.
 	var/set_dir_on_move = TRUE
 
-	/// Either FALSE, [EMISSIVE_BLOCK_GENERIC], or [EMISSIVE_BLOCK_UNIQUE]
-	var/blocks_emissive = FALSE
+	/// Either [EMISSIVE_BLOCK_NONE], [EMISSIVE_BLOCK_GENERIC], or [EMISSIVE_BLOCK_UNIQUE]
+	var/blocks_emissive = EMISSIVE_BLOCK_NONE
 	///Internal holder for emissive blocker object, do not use directly use blocks_emissive
-	var/atom/movable/emissive_blocker/em_block
+	var/atom/movable/render_step/emissive_blocker/em_block
 
 	///Lazylist to keep track on the sources of illumination.
 	var/list/affected_dynamic_lights
@@ -123,40 +123,33 @@
 	/// Last location of the atom for demo recording purposes
 	var/atom/demo_last_loc
 
+/mutable_appearance/emissive_blocker
+
+/mutable_appearance/emissive_blocker/New()
+	. = ..()
+	// Need to do this here because it's overridden by the parent call
+	// This is a microop which is the sole reason why this child exists, because its static this is a really cheap way to set color without setting or checking it every time we create an atom
+	color = EM_BLOCK_COLOR
+
 /atom/movable/attempt_init(loc, ...)
-	var/turf/T = get_turf(src)
-	if(T && SSatoms.initialized != INITIALIZATION_INSSATOMS && GLOB.space_manager.is_zlevel_dirty(T.z))
-		GLOB.space_manager.postpone_init(T.z, src)
+	var/turf/current_turf = get_turf(src)
+	if(current_turf && SSatoms.initialized != INITIALIZATION_INSSATOMS && GLOB.space_manager.is_zlevel_dirty(current_turf.z))
+		GLOB.space_manager.postpone_init(current_turf.z, src)
 		return
 	. = ..()
 
 /atom/movable/Initialize(mapload, ...)
 	. = ..()
-	switch(blocks_emissive)
-		if(EMISSIVE_BLOCK_GENERIC)
-			var/static/mutable_appearance/emissive_blocker/blocker = new
-			blocker.icon = icon
-			blocker.icon_state = icon_state
-			blocker.dir = dir
-			blocker.alpha = alpha
-			blocker.appearance_flags |= appearance_flags
-			blocker.plane = GET_NEW_PLANE(EMISSIVE_PLANE, PLANE_TO_OFFSET(plane))
-			// Ok so this is really cursed, but I want to set with this blocker cheaply while
-			// still allowing it to be removed from the overlays list later.
-			// So I'm gonna flatten it, then insert the flattened overlay into overlays AND the managed overlays list, directly.
-			// I'm sorry!
-			var/mutable_appearance/flat = blocker.appearance
-			overlays += flat
-			if(managed_overlays)
-				if(islist(managed_overlays))
-					managed_overlays += flat
-				else
-					managed_overlays = list(managed_overlays, flat)
-			else
-				managed_overlays = flat
 
-		if(EMISSIVE_BLOCK_UNIQUE)
-			render_target = UID()
+	// This one is incredible.
+	// `if(x) else { /* code */ }` is surprisingly fast, and it's faster than a switch, which is seemingly not a jump table.
+	// From what I can tell, a switch case checks every single branch individually, although sane, is slow in a hot proc like this.
+	// So, we make the most common `blocks_emissive` value, EMISSIVE_BLOCK_GENERIC, 0, getting to the fast else branch quickly.
+	// If it fails, then we can check over every value it can be (here, EMISSIVE_BLOCK_UNIQUE is the only one that matters).
+	// This saves several hundred milliseconds of init time.
+	if(blocks_emissive)
+		if(blocks_emissive == EMISSIVE_BLOCK_UNIQUE)
+			render_target = UID_of(src)
 			em_block = new(null, src)
 			overlays += em_block
 			if(managed_overlays)
@@ -166,14 +159,39 @@
 					managed_overlays = list(managed_overlays, em_block)
 			else
 				managed_overlays = em_block
+	else
+		var/static/mutable_appearance/emissive_blocker/blocker = new()
+		if(!blocker)
+			WARNING("Emissive blocker static instance is null during init of [src]! Skipping emissive setup.")
+			return
+		blocker.icon = icon
+		blocker.icon_state = icon_state
+		blocker.dir = dir
+		blocker.appearance_flags = appearance_flags | EMISSIVE_APPEARANCE_FLAGS
+		blocker.plane = GET_NEW_PLANE(EMISSIVE_PLANE, PLANE_TO_OFFSET(plane)) // Takes a light path through the normal macro for a microop
+		if(IS_TOPDOWN_PLANE(plane))
+			blocker.layer = TOPDOWN_TO_EMISSIVE_LAYER(layer)
+		// Ok so this is really cursed, but I want to set with this blocker cheaply while
+		// Still allowing it to be removed from the overlays list later
+		// So I'm gonna flatten it, then insert the flattened overlay into overlays AND the managed overlays list, directly
+		// I'm sorry
+		var/mutable_appearance/flat = blocker.appearance
+		overlays += flat
+		if(managed_overlays)
+			if(islist(managed_overlays))
+				managed_overlays += flat
+			else
+				managed_overlays = list(managed_overlays, flat)
+		else
+			managed_overlays = flat
 
 	if(opacity)
 		AddElement(/datum/element/light_blocking)
 
 	switch(light_system)
-		if(MOVABLE_LIGHT)
+		if(OVERLAY_LIGHT)
 			AddComponent(/datum/component/overlay_lighting)
-		if(MOVABLE_LIGHT_DIRECTIONAL)
+		if(OVERLAY_LIGHT_DIRECTIONAL)
 			AddComponent(/datum/component/overlay_lighting, is_directional = TRUE)
 
 /atom/movable/Destroy(force)
@@ -203,23 +221,51 @@
 
 	. = ..()
 
-	LAZYNULL(important_recursive_contents)//has to be before moveToNullspace() so that we can exit our spatial_grid cell if we're in it
-
 	if(loc)
 		loc.handle_atom_del(src)
-	for(var/atom/movable/AM in contents)
-		qdel(AM)
+	for(var/atom/movable/movable_content in contents)
+		qdel(movable_content)
+
 	move_to_null_space()
 
-/atom/movable/get_emissive_block()
-	switch(blocks_emissive)
-		if(EMISSIVE_BLOCK_GENERIC)
-			return fast_emissive_blocker(src)
-		if(EMISSIVE_BLOCK_UNIQUE)
-			if(!em_block && !QDELETED(src))
-				render_target = UID()
+	// This absolutely must be after moveToNullspace()
+	// We rely on Entered and Exited to manage this list, and the copy of this list that is on any /atom/movable "Containers"
+	// If we clear this before the nullspace move, a ref to this object will be hung in any of its movable containers
+	LAZYNULL(important_recursive_contents)
+
+	vis_locs = null //clears this atom out of all viscontents
+
+	// Checking length(vis_contents) before cutting has significant speed benefits
+	if(length(vis_contents))
+		vis_contents.Cut()
+
+/atom/movable/proc/update_emissive_block()
+	// This one is incredible.
+	// `if(x) else { /* code */ }` is surprisingly fast, and it's faster than a switch, which is seemingly not a jump table.
+	// From what I can tell, a switch case checks every single branch individually, although sane, is slow in a hot proc like this.
+	// So, we make the most common `blocks_emissive` value, EMISSIVE_BLOCK_GENERIC, 0, getting to the fast else branch quickly.
+	// If it fails, then we can check over every value it can be (here, EMISSIVE_BLOCK_UNIQUE is the only one that matters).
+	// This saves several hundred milliseconds of init time.
+	if(blocks_emissive)
+		if(blocks_emissive == EMISSIVE_BLOCK_UNIQUE)
+			if(em_block)
+				SET_PLANE(em_block, EMISSIVE_PLANE, src)
+			else if(!QDELETED(src))
+				render_target = UID_of(src)
 				em_block = new(null, src)
 			return em_block
+		// Implied else if(blocks_emissive == EMISSIVE_BLOCK_NONE) -> return
+	// EMISSIVE_BLOCK_GENERIC == 0
+	else
+		return fast_emissive_blocker(src)
+
+/atom/movable/update_overlays()
+	var/list/overlays = ..()
+	var/emissive_block = update_emissive_block()
+	if(emissive_block)
+		// Emissive block should always go at the beginning of the list
+		overlays.Insert(1, emissive_block)
+	return overlays
 
 /atom/movable/vv_edit_var(var_name, var_value)
 	var/static/list/banned_edits = list(NAMEOF_STATIC(src, step_x) = TRUE, NAMEOF_STATIC(src, step_y) = TRUE, NAMEOF_STATIC(src, step_size) = TRUE, NAMEOF_STATIC(src, bounds) = TRUE)
@@ -742,9 +788,6 @@
 	if(old_turf?.z != new_turf?.z)
 		var/same_z_layer = (GET_TURF_PLANE_OFFSET(old_turf) == GET_TURF_PLANE_OFFSET(new_turf))
 		on_changed_z_level(old_turf, new_turf, same_z_layer)
-
-	for(var/datum/light_source/light as anything in light_sources) // Cycle through the light sources on this atom and tell them to update.
-		light.source_atom.update_light()
 
 	if(HAS_SPATIAL_GRID_CONTENTS(src))
 		if(old_turf && new_turf && (old_turf.z != new_turf.z \

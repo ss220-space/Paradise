@@ -14,8 +14,9 @@
 	wreckage = /obj/structure/mecha_wreckage/ripley
 	var/hides = 0
 	var/plates = 0
-
+	emaggable = TRUE
 	mech_type = MECH_TYPE_RIPLEY
+	allowed_equipment = MECH_EQUIPMENT_RIPPLEY
 
 /obj/mecha/working/ripley/Destroy()
 	for(var/i=1, i <= hides, i++)
@@ -89,6 +90,7 @@
 	armor = list(MELEE = 40, BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 60, BIO = 0, FIRE = 100, ACID = 100)
 	max_equip = 5 // More armor, less tools
 	wreckage = /obj/structure/mecha_wreckage/ripley/firefighter
+	allowed_equipment = MECH_EQUIPMENT_FIREFIGHTER
 
 /obj/mecha/working/ripley/mkii
 	desc = "Autonomous Power Loader Unit MK-II. This prototype Ripley is refitted with a pressurized cabin, trading its prior speed for atmospheric protection and armor."
@@ -151,17 +153,6 @@
 
 	var/obj/item/mecha_parts/mecha_equipment/mining_scanner/scanner = new
 	scanner.attach(src, MECH_HAND_RIGHT)
-
-/obj/mecha/working/ripley/emag_act(mob/user)
-	if(!emagged)
-		add_attack_logs(user, src, "emagged")
-		emagged = TRUE
-		if(user)
-			to_chat(user, span_notice("You slide the card through [src]'s ID slot."))
-		playsound(loc, SFX_SPARKS, 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-		desc += span_danger("</br>The mech's equipment slots spark dangerously!")
-	else if(user)
-		to_chat(user, span_warning("[src]'s ID slot rejects the card."))
 
 /obj/mecha/working/ripley/full_load
 	name = "Тестовый Рипли"

@@ -268,7 +268,7 @@
 /obj/structure/closet/supplypod/Initialize(mapload, customStyle = FALSE)
 	. = ..()
 	if(!loc)
-		var/shippingLane = GLOB.areas_by_type[/area/centcom/supplypod/supplypod_temp_holding] //temporary holder for supplypods mid-transit
+		var/shippingLane = GLOB.areas_by_type[/area/centcom/central_command_areas/supplypod/supplypod_temp_holding] //temporary holder for supplypods mid-transit
 		forceMove(shippingLane)
 	if(customStyle)
 		style = customStyle
@@ -414,7 +414,7 @@
 	if(holder != src)
 		contents |= holder.contents
 		qdel(holder)
-	var/shippingLane = GLOB.areas_by_type[/area/centcom/supplypod/supplypod_temp_holding]
+	var/shippingLane = GLOB.areas_by_type[/area/centcom/central_command_areas/supplypod/supplypod_temp_holding]
 	forceMove(shippingLane) //Move to the centcom-z-level until the pod_landingzone says we can drop back down again
 	if(custom_rev_delay)
 		delays = reverse_delays
@@ -905,4 +905,5 @@
 	QDEL_NULL(helper)
 	pod.preOpen() //Begin supplypod open procedures. Here effects like explosions, damage, and other dangerous (and potentially admin-caused, if the centcom_podlauncher datum was used) memes will take place
 	drawSmoke()
+	pod = null
 	qdel(src) //The pod_landingzone's purpose is complete. It can rest easy now

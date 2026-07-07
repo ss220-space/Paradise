@@ -463,7 +463,7 @@
 		span_cultitalic("You attempt to stun [L] with the spell!"),
 	)
 
-	user.mob_light(LIGHT_COLOR_BLOOD_MAGIC, 3, _duration = 2)
+	user.mob_light(LIGHT_COLOR_BLOOD_MAGIC, 3, duration = 2)
 
 	var/obj/item/nullrod/N = locate() in target
 

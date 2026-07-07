@@ -162,7 +162,7 @@
 			readout += "Нет информации о прочности или защите."
 
 		var/formatted_readout = span_notice("<b>ЗАЩИТНЫЕ ХАРАКТЕРИСТИКИ</b><hr>[jointext(readout, "\n")]")
-		to_chat(usr, chat_box_examine(formatted_readout))
+		to_chat(usr, boxed_message(formatted_readout))
 
 /obj/item/clothing/update_icon_state()
 	if(!can_toggle)
@@ -1470,4 +1470,6 @@
 	if(istype(user) && user.dna && ("[blood_state]blood" in user.dna.species.get_blood_overlays()))
 		blood_mask = user.dna.species.blood_mask
 
-	return mutable_appearance(blood_mask, "[blood_state]blood", color = blood_color)
+	var/mutable_appearance/blood_overlay = mutable_appearance(blood_mask, "[blood_state]blood")
+	blood_overlay.color = blood_color
+	return blood_overlay

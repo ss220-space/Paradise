@@ -1,53 +1,60 @@
 /atom/movable/lighting_object
 	name = ""
 	anchored = TRUE
-	icon = LIGHTING_ICON
-	icon_state = "transparent"
-	color = null
 	plane = LIGHTING_PLANE
+	icon = LIGHTING_ICON
+	icon_state = null
+	color = null
+	appearance_flags = RESET_COLOR | RESET_ALPHA | RESET_TRANSFORM
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	layer = LIGHTING_LAYER
 	invisibility = INVISIBILITY_LIGHTING
 	simulated = FALSE
-	light_system = NO_LIGHT_SUPPORT
-	resistance_flags = FIRE_PROOF|ACID_PROOF
-
-	var/turf/myturf
-
-	///the underlay we are currently applying to our turf to apply light
-	//var/mutable_appearance/current_underlay
-
+	move_resist = INFINITY
 	///whether we are already in the SSlighting.objects_queue list
 	var/needs_update = FALSE
 
 	///the turf that our light is applied to
 	var/turf/affected_turf
 
-// Global list of lighting underlays, indexed by z level
-GLOBAL_LIST_EMPTY(default_lighting_underlays_by_z)
+/atom/movable/lighting_object/Initialize(mapload, turf/affected_turf)
+	if(!isnull(loc))
+		if(isturf(loc))
+			affected_turf = loc
+			moveToNullspace()
+			stack_trace("a lighting object was improperly initialized - they should have a null loc, with the affected turf being the second argument")
+		else
+			qdel(src, force = TRUE)
+			CRASH("a lighting object tried to be spawned for a non-turf!")
 
-/atom/movable/lighting_object/New(turf/source)
-	if(!isturf(source))
-		qdel(src, force=TRUE)
-		stack_trace("a lighting object was assigned to [source], a non turf! ")
-		return
+	if(!isturf(affected_turf))
+		qdel(src, force = TRUE)
+		CRASH("a lighting object was assigned to [affected_turf], a non turf!")
+
 	. = ..()
 
-	var/mutable_appearance/light_appearance = new(GLOB.default_lighting_underlays_by_z[source.z])
-	appearance = light_appearance
+	verbs.Cut()
 
-	affected_turf = source
+	src.affected_turf = affected_turf
+	layer = affected_turf.z * 0.01
+	if(SSmapping.max_plane_offset)
+		// generates the offset lighting plane to use. NOTE: this assumes the turf lighting
+		// plane is ALWAYS offsettable which is technically dependent on a plane master var.
+		// checking for that is slower and this is hot enough that this is a worthwhile risk to take
+		plane = LIGHTING_PLANE - (PLANE_RANGE * GET_Z_PLANE_OFFSET(affected_turf.z))
 	if(affected_turf.lighting_object)
 		qdel(affected_turf.lighting_object, force = TRUE)
 		stack_trace("a lighting object was assigned to a turf that already had a lighting object!")
 
 	affected_turf.lighting_object = src
+	affected_turf.vis_contents += src
+	// Default to fullbright, so things can "see" if they use view() before we update
+	affected_turf.luminosity = 1
 
 	// This path is really hot. this is faster
 	// Really this should be a global var or something, but lets not think about that yes?
-	if(CONFIG_GET(flag/starlight))
-		for(var/turf/space/space_tile in RANGE_TURFS(1, affected_turf))
-			space_tile.update_starlight()
+	for(var/turf/space/space_tile in RANGE_TURFS(1, affected_turf))
+		space_tile.enable_starlight()
 
 	needs_update = TRUE
 	SSlighting.objects_queue += src
@@ -57,11 +64,15 @@ GLOBAL_LIST_EMPTY(default_lighting_underlays_by_z)
 		return QDEL_HINT_LETMELIVE
 	SSlighting.objects_queue -= src
 	if(isturf(affected_turf))
+		affected_turf.vis_contents -= src
 		affected_turf.lighting_object = null
+		affected_turf.luminosity = 1
 	affected_turf = null
 	return ..()
 
 /atom/movable/lighting_object/proc/update()
+	var/turf/affected_turf = src.affected_turf
+
 	// To the future coder who sees this and thinks
 	// "Why didn't he just use a loop?"
 	// Well my man, it's because the loop performed like shit.
@@ -70,10 +81,8 @@ GLOBAL_LIST_EMPTY(default_lighting_underlays_by_z)
 	// Oh it's also shorter line wise.
 	// Including with these comments.
 
-	// See LIGHTING_CORNER_DIAGONAL in lighting_corner.dm for why these values are what they are.
 	var/static/datum/lighting_corner/dummy/dummy_lighting_corner = new
 
-	var/turf/affected_turf = src.affected_turf
 	var/datum/lighting_corner/red_corner = affected_turf.lighting_corner_SW || dummy_lighting_corner
 	var/datum/lighting_corner/green_corner = affected_turf.lighting_corner_SE || dummy_lighting_corner
 	var/datum/lighting_corner/blue_corner = affected_turf.lighting_corner_NW || dummy_lighting_corner
@@ -89,13 +98,7 @@ GLOBAL_LIST_EMPTY(default_lighting_underlays_by_z)
 	var/set_luminosity = max > 1e-6
 	#endif
 
-	if(red_corner.cache_r & green_corner.cache_r & blue_corner.cache_r & alpha_corner.cache_r && \
-		(red_corner.cache_g + green_corner.cache_g + blue_corner.cache_g + alpha_corner.cache_g + \
-		red_corner.cache_b + green_corner.cache_b + blue_corner.cache_b + alpha_corner.cache_b == 8))
-		//anything that passes the first case is very likely to pass the second, and addition is a little faster in this case
-		icon_state = "transparent_lighting_object"
-		color = null
-	else if(!set_luminosity)
+	if(!set_luminosity)
 		icon_state = "dark_lighting_object"
 		color = null
 	else
@@ -108,10 +111,9 @@ GLOBAL_LIST_EMPTY(default_lighting_underlays_by_z)
 			00, 00, 00, 01
 		)
 
-	//SSdemo.mark_turf(affected_turf)
+	luminosity = set_luminosity
 
 // Variety of overrides so the overlays don't get affected by weird things.
-
 /atom/movable/lighting_object/ex_act(severity, target)
 	return FALSE
 
@@ -125,12 +127,17 @@ GLOBAL_LIST_EMPTY(default_lighting_underlays_by_z)
 	return
 
 /atom/movable/lighting_object/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer)
-	return ..()
+	SHOULD_CALL_PARENT(FALSE)
+	return
+
+/atom/movable/lighting_object/wash_tg(clean_types)
+	SHOULD_CALL_PARENT(FALSE) // lighting objects are dirty, confirmed
+	return
 
 // Override here to prevent things accidentally moving around overlays.
 /atom/movable/lighting_object/forceMove(atom/destination, no_tp = FALSE, harderforce = FALSE)
 	if(harderforce)
-		. = ..()
+		return ..()
 
 /atom/movable/lighting_object/Bump(atom/bumped_atom)
 	return
@@ -138,3 +145,8 @@ GLOBAL_LIST_EMPTY(default_lighting_underlays_by_z)
 /atom/movable/lighting_object/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback, force, dodgeable)
 	return
 
+/atom/movable/lighting_object/onShuttleMove()
+	return FALSE
+
+/atom/movable/lighting_object/ref_search_details()
+	return "[UID_of(src)] (turf: [affected_turf ? "[affected_turf.type] @ [AREACOORD(affected_turf)]" : "null"] needs_update: [needs_update ? "true" : "false"])"

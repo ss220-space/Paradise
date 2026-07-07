@@ -128,7 +128,7 @@
 				return
 			var/mob/living/living = target
 			visible_message(span_warning("[user]'s [src] sparks for a moment with bright light!"))
-			user.mob_light(LIGHT_COLOR_HOLY_MAGIC, 3, _duration = 2) //No questions
+			user.mob_light(LIGHT_COLOR_HOLY_MAGIC, 3, duration = 2) //No questions
 
 			if(living.null_rod_check())
 				visible_message(span_warning("[target]'s holy weapon absorbs the light!"))

@@ -50,6 +50,7 @@
 /obj/item/radio/headset/Destroy()
 	QDEL_NULL(keyslot)
 	QDEL_NULL(keyslot2)
+	QDEL_NULL(syndiekey)
 	return ..()
 
 /obj/item/radio/headset/examine_tags(mob/user)

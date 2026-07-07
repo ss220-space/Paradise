@@ -9,7 +9,7 @@
 	icon = 'icons/obj/pipes_and_stuff/not_atmos/transit_tube.dmi'
 	icon_state = "straight"
 	density = TRUE
-	layer = 3.1
+	layer = LOW_ITEM_LAYER
 	anchored = TRUE
 	pass_flags_self = PASSGLASS
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF //indestructible until i make this createble
