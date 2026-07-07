@@ -11,8 +11,8 @@
 	COOLDOWN_DECLARE(party_cooldown)
 	/// List of areas to drop pizza
 	var/static/list/bar_areas = list(
-		/area/crew_quarters/bar/atrium,
-		/area/crew_quarters/serviceyard,
+		/area/station/service/bar/atrium,
+		/area/station/commons/serviceyard,
 	)
 
 /datum/station_trait/lucky_winner/on_round_start()
@@ -103,7 +103,7 @@
 		/obj/item/flashlight/flare/glowstick/blue,
 		/obj/item/flashlight/flare/glowstick/red,
 	)
-	for(var/area/maintenance/maint in GLOB.areas)
+	for(var/area/station/maintenance/maint in GLOB.areas)
 		var/list/turfs = get_area_turfs(maint)
 		for(var/i in 1 to round(length(turfs) * 0.115))
 			CHECK_TICK
@@ -367,7 +367,7 @@
 	INVOKE_ASYNC(src, PROC_REF(upgrade_armory))
 
 /datum/station_trait/upgraded_armory/proc/upgrade_armory()
-	for(var/area/security/securearmory/armory in GLOB.areas)
+	for(var/area/station/security/hallway/armory/armory in GLOB.areas)
 		for(var/list/zlevel_turfs as anything in armory.get_zlevel_turf_lists())
 			for(var/turf/current_turf as anything in zlevel_turfs)
 				for(var/obj/current_thing as anything in current_turf.contents)

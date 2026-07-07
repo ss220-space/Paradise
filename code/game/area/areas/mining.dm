@@ -1,5 +1,4 @@
-/**********************Mine areas**************************/
-
+// MARK: Mine
 /area/mine
 	icon_state = "mining"
 	has_gravity = STANDARD_GRAVITY
@@ -75,6 +74,10 @@
 /area/mine/west_outpost
 	name = "West Mining Outpost"
 
+/area/mine/laborcamp
+	name = "Labor Camp"
+	icon_state = "brig"
+
 /area/mine/laborcamp/security
 	name = "Labor Camp Security"
 	icon_state = "security"
@@ -83,8 +86,7 @@
 /area/mine/podbay
 	name = "Mining Podbay"
 
-/**********************Lavaland Areas**************************/
-
+// MARK: Lavaland
 /area/lavaland
 	icon_state = "mining"
 	has_gravity = STANDARD_GRAVITY

@@ -14,6 +14,7 @@
 	var/target_UID = null
 	var/target_name = null	// target.name can change after scanning, so better save it here.
 	var/timeofdeath = null
+	var/timeofscan = null
 	var/target_rank = null
 	STATIC_COOLDOWN_DECLARE(print_cooldown)
 
@@ -55,78 +56,98 @@
 	weapon_data.time_inflicted = time_inflicted
 	return weapon_data
 
-/obj/item/autopsy_scanner/proc/add_autopsy_data(obj/item/organ/check_organ)
-	if(!length(check_organ.autopsy_data))
-		return
-
-	for(var/index in check_organ.autopsy_data)
-		var/datum/autopsy_data/weapon_data = check_organ.autopsy_data[index]
-
-		var/datum/autopsy_data_scanner/scanner_data = LAZYACCESS(wdata, index)
-		if(!scanner_data)
-			scanner_data = new()
-			scanner_data.weapon = weapon_data.weapon
-			LAZYADDASSOC(wdata, index, scanner_data)
-
-		var/organ_name = check_organ.declent_ru(NOMINATIVE)
-
-		if(!scanner_data.organs_scanned[organ_name])
-			if(scanner_data.organ_names == "")
-				scanner_data.organ_names = organ_name
-			else
-				scanner_data.organ_names += ", [organ_name]"
-
-		qdel(scanner_data.organs_scanned[organ_name])
-		scanner_data.organs_scanned[organ_name] = weapon_data.copy()
-
-/obj/item/autopsy_scanner/proc/add_chemical_traces(obj/item/organ/check_organ)
-	if(!length(check_organ.trace_chemicals))
-		return
-
-	for(var/chemID in check_organ.trace_chemicals)
-		if(check_organ.trace_chemicals[chemID] <= 0)
-			continue
-		if(LAZYIN(chemtraces, chemID))
-			continue
-		LAZYADD(chemtraces, chemID)
-
-/obj/item/autopsy_scanner/examine(mob/user)
-	. = ..()
-	if(Adjacent(user))
-		. += span_notice("Вы можете воспользоваться ручкой, чтобы быстро написать отчет.")
-
-/obj/item/autopsy_scanner/proc/paper_work(mob/user)
-	var/dead_name = tgui_input_text(user, "Укажите имя субъекта", default = target_name, title = "Отчёт патологоанатома", max_length = 60)
-	var/dead_rank = tgui_input_text(user, "Укажите должность субъекта", default = target_rank, title = "Отчёт патологоанатома", max_length = 60)
-	var/dead_tod = tgui_input_text(user, "Укажите время смерти", default = station_time_timestamp("hh:mm", timeofdeath), title = "Отчёт патологоанатома", max_length = 60)
-	var/dead_cause = tgui_input_text(user, "Укажите причину смерти", title = "Отчёт патологоанатома", max_length = 60)
-	var/dead_chems = tgui_input_text(user, "Укажите химические следы", multiline = TRUE, title = "Отчёт патологоанатома")
-	var/dead_notes = tgui_input_text(user, "Укажите важные детали", multiline = TRUE, title = "Отчёт патологоанатома")
-
-	COOLDOWN_START(src, print_cooldown, PRINT_TIMER)
-	var/obj/item/paper/paper = new(user.loc)
-	paper.name = "Отчёт патологоанатома — [dead_name]"
-	paper.info = "<b><center>[station_name()] — Отчёт патологоанатома</b></center><br><br><b>Имя погибшего:</b> [dead_name]</br><br><b>Должность погибшего:</b> [dead_rank]<br><br><b>Время смерти:</b> [dead_tod]<br><br><b>Причина смерти:</b> [dead_cause]<br><br><b>Химические следы:</b> [dead_chems]<br><br><b>Дополнительные детали:</b> [dead_notes]<br><br><b>Подпись патологоанатома:</b> <span class=\"paper_field\">"
-	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, TRUE)
-	user.put_in_hands(paper, ignore_anim = FALSE)
-
-/obj/item/autopsy_scanner/attackby(obj/item/used, mob/user, params)
-	if(!is_pen(used))
-		return ..()
-
-	if(!COOLDOWN_FINISHED(src, print_cooldown))
-		user.balloon_alert(user, "идёт печать...")
-		return ATTACK_CHAIN_PROCEED_SUCCESS
-
-	add_fingerprint(user)
-	paper_work(user)
-
-	return ATTACK_CHAIN_PROCEED_SUCCESS
 
 /obj/item/autopsy_scanner/attack_self(mob/user)
 	if(..())
 		return TRUE
+	add_fingerprint(user)
+	SStgui.update_uis(src)
+	ui_interact(user)
 
+// MARK: TGUI
+/obj/item/autopsy_scanner/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "Autopsy")
+		ui.open()
+
+/obj/item/autopsy_scanner/ui_data(mob/user)
+	var/list/data = list()
+	data["exists"] = FALSE
+	data["target_name"] = "Н/Д"
+	if(target_name)
+		data["target_name"] = target_name
+	data["death_time"] = "Н/Д"
+	if(timeofdeath)
+		data["death_time"] = station_time_timestamp("hh:mm:ss", timeofdeath)
+	data["scan_time"] = "Н/Д"
+	if(timeofscan)
+		data["scan_time"] = station_time_timestamp("hh:mm:ss", timeofscan)
+	var/list/weapons_data = list()
+	if(LAZYLEN(wdata))
+		data["exists"] = TRUE
+		var/n = 1
+		for(var/wdata_idx in wdata)
+			var/datum/autopsy_data_scanner/scanner_data = LAZYACCESS(wdata, wdata_idx)
+			var/total_hits = 0
+			var/total_score = 0
+			var/age = 0
+			for(var/wound_idx in scanner_data.organs_scanned)
+				var/datum/autopsy_data/weapon_data = scanner_data.organs_scanned[wound_idx]
+				total_hits += weapon_data.hits
+				total_score += weapon_data.damage
+				age = max(age, weapon_data.time_inflicted)
+
+			var/damage_desc
+			switch(total_score)
+				if(1 to 5)
+					damage_desc = "небольшой тяжести"
+				if(5 to 15)
+					damage_desc = "средней тяжести"
+				if(15 to 30)
+					damage_desc = "тяжёлое"
+				if(30 to 1000)
+					damage_desc = "критическое"
+				else
+					damage_desc = "Н/Д"
+			var/list/weapon = list()
+			weapon["number"] = "Оружие №[n]"
+			weapon["severity"] = damage_desc
+			weapon["count"] = total_hits
+			weapon["time"] = station_time_timestamp("hh:mm", age)
+			weapon["bodyparts"] = scanner_data.organ_names
+			weapon["name"] = scanner_data.weapon
+			n++
+			weapons_data += list(weapon)
+	data["weapons"] = weapons_data
+	return data
+
+/obj/item/autopsy_scanner/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	if(..())
+		return FALSE
+	add_fingerprint(usr)
+	playsound(loc, SFX_TERMINAL_TYPE, 25, TRUE)
+	. = TRUE
+	switch(action)
+		if("clear")
+			to_chat(usr, "Экран [declent_ru(GENITIVE)] моргает и все данные пропадают.")
+			target_name = null
+			timeofdeath = null
+			timeofscan = null
+			target_rank = null
+			LAZYCLEARLIST(wdata)
+			LAZYCLEARLIST(chemtraces)
+			SStgui.update_uis(src)
+
+		if("print_data")
+			print_data(usr)
+
+		if("print_report")
+			print_report_form(usr)
+
+
+// MARK: Paper work
+/obj/item/autopsy_scanner/proc/print_data(mob/user)
 	if(!COOLDOWN_FINISHED(src, print_cooldown))
 		user.balloon_alert(user, "идёт печать...")
 		return
@@ -138,6 +159,11 @@
 		scan_data += "<b>Время смерти:</b> [station_time_timestamp("hh:mm:ss", timeofdeath)]<br><br>"
 	else
 		scan_data += "<b>Время смерти:</b> Н/Д<br><br>"
+
+	if(timeofscan)
+		scan_data += "<b>Время сканирования:</b> [station_time_timestamp("hh:mm:ss", timeofscan)]<br><br>"
+	else
+		scan_data += "<b>Время сканирования:</b> Н/Д<br><br>"
 
 	if(LAZYLEN(wdata))
 		var/n = 1
@@ -194,8 +220,34 @@
 	paper.update_icon()
 	user.put_in_hands(paper, ignore_anim = FALSE)
 
+
+/obj/item/autopsy_scanner/proc/print_report_form(mob/user)
+	if(!COOLDOWN_FINISHED(src, print_cooldown))
+		user.balloon_alert(user, "идёт печать...")
+		return
+
+	var/dead_name = tgui_input_text(user, "Укажите имя субъекта", default = target_name, title = "Отчёт патологоанатома", max_length = 60)
+	var/dead_rank = tgui_input_text(user, "Укажите должность субъекта", default = target_rank, title = "Отчёт патологоанатома", max_length = 60)
+	var/dead_tod = tgui_input_text(user, "Укажите время смерти", default = station_time_timestamp("hh:mm", timeofdeath), title = "Отчёт патологоанатома", max_length = 60)
+	var/dead_cause = tgui_input_text(user, "Укажите причину смерти", title = "Отчёт патологоанатома", max_length = 60)
+	var/dead_chems = tgui_input_text(user, "Укажите химические следы", multiline = TRUE, title = "Отчёт патологоанатома")
+	var/dead_notes = tgui_input_text(user, "Укажите важные детали", multiline = TRUE, title = "Отчёт патологоанатома")
+
+	COOLDOWN_START(src, print_cooldown, PRINT_TIMER)
+	var/obj/item/paper/paper = new(user.loc)
+	paper.name = "Отчёт патологоанатома — [dead_name]"
+	paper.info = "<b><center>[station_name()] — Отчёт патологоанатома</b></center><br><br><b>Имя погибшего:</b> [dead_name]</br><br><b>Должность погибшего:</b> [dead_rank]<br><br><b>Время смерти:</b> [dead_tod]<br><br><b>Причина смерти:</b> [dead_cause]<br><br><b>Химические следы:</b> [dead_chems]<br><br><b>Дополнительные детали:</b> [dead_notes]<br><br><b>Подпись патологоанатома:</b> <span class=\"paper_field\">"
+	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, TRUE)
+	user.put_in_hands(paper, ignore_anim = FALSE)
+
+//MARK: Collect data
 /obj/item/autopsy_scanner/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
-	if(!ishuman(target) || !on_operable_surface(target))
+	if(!ishuman(target))
+		target.balloon_alert(user, "неправильная цель")
+		return ATTACK_CHAIN_PROCEED
+
+	if(!on_operable_surface(target))
+		target.balloon_alert(user, "нельзя сканировать на этой поверхности!")
 		return ATTACK_CHAIN_PROCEED
 
 	. = ATTACK_CHAIN_PROCEED_SUCCESS
@@ -210,6 +262,7 @@
 		to_chat(user, span_notice("Обнаружен новый пациент. Данные о предыдущем пациенте удалены."))
 
 	timeofdeath = target.timeofdeath
+	timeofscan = world.time
 
 	var/obj/item/organ/external/limb = target.get_organ(user.zone_selected)
 	if(!limb)
@@ -220,5 +273,41 @@
 
 	add_autopsy_data(limb)
 	add_chemical_traces(limb)
+	SStgui.update_uis(src)
+
+/obj/item/autopsy_scanner/proc/add_autopsy_data(obj/item/organ/check_organ)
+	if(!length(check_organ.autopsy_data))
+		return
+
+	for(var/index in check_organ.autopsy_data)
+		var/datum/autopsy_data/weapon_data = check_organ.autopsy_data[index]
+
+		var/datum/autopsy_data_scanner/scanner_data = LAZYACCESS(wdata, index)
+		if(!scanner_data)
+			scanner_data = new()
+			scanner_data.weapon = weapon_data.weapon
+			LAZYADDASSOC(wdata, index, scanner_data)
+
+		var/organ_name = check_organ.declent_ru(NOMINATIVE)
+
+		if(!scanner_data.organs_scanned[organ_name])
+			if(scanner_data.organ_names == "")
+				scanner_data.organ_names = organ_name
+			else
+				scanner_data.organ_names += ", [organ_name]"
+
+		qdel(scanner_data.organs_scanned[organ_name])
+		scanner_data.organs_scanned[organ_name] = weapon_data.copy()
+
+/obj/item/autopsy_scanner/proc/add_chemical_traces(obj/item/organ/check_organ)
+	if(!length(check_organ.trace_chemicals))
+		return
+
+	for(var/chemID in check_organ.trace_chemicals)
+		if(check_organ.trace_chemicals[chemID] <= 0)
+			continue
+		if(LAZYIN(chemtraces, chemID))
+			continue
+		LAZYADD(chemtraces, chemID)
 
 #undef PRINT_TIMER

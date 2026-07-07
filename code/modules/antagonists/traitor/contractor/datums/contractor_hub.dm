@@ -76,6 +76,14 @@
 		else
 			stack_trace("Expected Hub purchase [purchases[i]] to be a type but it wasn't!")
 
+/datum/contractor_hub/Destroy(force)
+	contractor_uplink = null
+	owner = null
+	current_contract = null
+	QDEL_LIST(contracts)
+	LAZYCLEARLIST(targets)
+	return ..()
+
 /datum/contractor_hub/ui_host(mob/user)
 	return contractor_uplink
 

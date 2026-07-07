@@ -435,7 +435,7 @@ effective or pretty fucking useless.
 	duration = 5
 
 /obj/item/teleporter/admin
-	desc = "A strange syndicate version of a cult veil shifter. \n This one seems EMP proof, and with much better safety protocols."
+	desc = "A strange syndicate version of a cult veil shifter. \nThis one seems EMP proof, and with much better safety protocols."
 	charges = 8
 	max_charges = 8
 	flawless = TRUE

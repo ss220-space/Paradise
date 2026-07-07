@@ -248,7 +248,7 @@
 	if(!is_admin_level(T.z))//if not, don't bother
 		return
 
-	if(istype(T.loc, /area/shuttle/syndicate_elite) || istype(T.loc, /area/syndicate_mothership))
+	if(istype(T.loc, /area/shuttle/syndicate_elite) || istype(T.loc, /area/centcom/syndicate_base))
 		return TRUE
 
 /atom/Destroy(force)
