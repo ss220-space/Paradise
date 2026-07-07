@@ -239,6 +239,7 @@
 
 	for(var/mob/dead/observer/observe in user.inventory_observers)
 		if(!observe.client)
+			observe.handle_when_autoobserve_move()
 			LAZYREMOVE(user.inventory_observers, observe)
 			continue
 		show_to(observe, TRUE)
@@ -247,7 +248,8 @@
 	LAZYREMOVE(mobs_viewing, user) // Remove clientless mobs too
 	var/datum/storage_box/box = LAZYACCESS(storage_boxes, user)
 	var/client/user_client = user.client
-	storage_boxes -= user
+	if(storage_boxes)
+		storage_boxes -= user
 	if(user_client)
 		if(box)
 			user_client.screen -= box.screens_list()
@@ -265,6 +267,7 @@
 
 	for(var/mob/dead/observer/observe in user.inventory_observers)
 		if(!observe.client)
+			observe.handle_when_autoobserve_move()
 			LAZYREMOVE(user.inventory_observers, observe)
 		hide_from(observe, TRUE)
 
@@ -741,6 +744,7 @@
 
 		for(var/mob/dead/observer/observe in usr.inventory_observers)
 			if(!observe.client)
+				observe.handle_when_autoobserve_move()
 				LAZYREMOVE(usr.inventory_observers, observe)
 				continue
 			observe.client.screen -= W

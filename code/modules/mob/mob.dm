@@ -12,13 +12,20 @@
 			continue
 		observe.stop_orbit()
 		observe.reset_perspective(null)
+
+	for(var/mob/dead/observer/ghost as anything in inventory_observers)
+		ghost.handle_when_autoobserve_move()
+
 	QDEL_NULL(hud_used)
 	lose_hearing_sensitivity()
 	if(mind && mind.current == src)
 		spellremove(src)
 	mobspellremove(src)
 	QDEL_LIST(diseases)
-	QDEL_LIST(actions)
+	for(var/datum/action/action in actions)
+		action.HideFrom(src)
+		action.clear_ref(src)
+	LAZYCLEARLIST(actions)
 
 	if(length(progressbars))
 		stack_trace("[src] destroyed with elements in its progressbars list")
@@ -39,6 +46,9 @@
 
 	if(mind?.current == src)
 		mind.current = null
+
+	LAZYCLEARLIST(screens)
+	clear_fullscreens()
 
 	key = null
 	ckey = null
@@ -842,7 +852,7 @@
 
 	// They should be in a cell or the Brig portion of the shuttle.
 	var/area/A = loc.loc
-	if(!istype(A, /area/security/prison))
+	if(!istype(A, /area/station/security/prison))
 		if(!istype(A, /area/shuttle/escape) || loc.name != "Brig floor")
 			return 0
 
@@ -1224,6 +1234,7 @@
 	return FALSE
 
 /mob/proc/update_sight()
+	//SHOULD_CALL_PARENT(TRUE)
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	sync_lighting_plane_alpha()
 
@@ -1247,6 +1258,7 @@
 		vision_type = new O
 		for(var/mob/dead/observer/observe as anything in inventory_observers)
 			if(!observe.client)
+				observe.handle_when_autoobserve_move()
 				LAZYREMOVE(inventory_observers, observe)
 				continue
 			observe.vision_type = vision_type
@@ -1255,7 +1267,7 @@
 /mob/proc/sync_lighting_plane_alpha()
 	if(!hud_used)
 		return
-	for(var/atom/movable/screen/plane_master/rendering_plate/lighting/light_plane in hud_used.get_true_plane_masters(RENDER_PLANE_LIGHTING))
+	for(var/atom/movable/screen/plane_master/rendering_plate/lighting/light_plane as anything in hud_used.get_true_plane_masters(RENDER_PLANE_LIGHTING))
 		light_plane.set_alpha(lighting_alpha)
 
 	sync_nightvision_screen() //Sync up the overlay used for nightvision to the amount of see_in_dark a mob has. This needs to be called everywhere sync_lighting_plane_alpha() is.
@@ -1311,8 +1323,8 @@
 	usr = temp
 
 GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
-	/area/chapel,
-	/area/maintenance/chapel
+	/area/station/service/chapel,
+	/area/station/maintenance/chapel
 )))
 
 /mob/proc/holy_check()

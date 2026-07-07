@@ -69,8 +69,6 @@
 		blob_overlay.color = overmind.blobstrain.color
 	. += blob_overlay
 	. += mutable_appearance('icons/mob/blob.dmi', "blob_core_overlay")
-	if(blocks_emissive)
-		add_overlay(get_emissive_block())
 
 /obj/structure/blob/special/core/update_icon()
 	. = ..()
@@ -149,7 +147,7 @@
 		overmind_datum.add_to_mode = TRUE
 		overmind_datum.is_offspring = is_offspring
 		if(overmind.blobstrain)
-			overmind_datum.strain = overmind.blobstrain
+			overmind_datum.strain_ref = WEAKREF(overmind.blobstrain)
 		overmind.mind.add_antag_datum(overmind_datum)
 
 /obj/structure/blob/special/core/proc/lateblobtimer()

@@ -393,6 +393,9 @@
 		return
 	icon_state = new_state
 
+/obj/item/extinguisher/cyborg
+	can_explode = FALSE
+
 #undef EXTINGUISHER_TEMP_MED
 #undef EXTINGUISHER_TEMP_HIGH
 #undef EXTINGUISHER_TEMP_ULTRA

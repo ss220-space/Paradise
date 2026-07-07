@@ -355,6 +355,7 @@
 		if(observe.client && observe.client.eye == src && observe.do_observe_target == src)
 			observe.client.screen -= I
 		else
+			observe.handle_when_autoobserve_move()
 			LAZYREMOVE(inventory_observers, observe)
 
 	I.forceMove(src)

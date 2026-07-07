@@ -49,7 +49,7 @@
 	var/datum/effect_system/spark_spread/spark_system = new
 	var/lights = 0
 	var/lights_power = 6
-	var/lights_color = -99999 // "NONSENSICAL_VALUE"
+	var/lights_color = NONSENSICAL_VALUE
 	var/frozen = FALSE
 	var/repairing = FALSE
 	/// The internal storage of the exosuit. For the cargo module
@@ -58,6 +58,14 @@
 	var/cargo_capacity = 1
 	/// for wide cargo module
 	var/cargo_expanded = FALSE
+	/// emp protection
+	var/emp_protection = FALSE
+	/// mech equipment types
+	var/allowed_equipment = MECH_EQUIPMENT_WORKING
+
+	/// emag
+	var/emaggable = FALSE
+	var/emag_desc = span_danger_alt("</br>Слоты оборудования меха опасно искрят!")
 
 	//inner atmos
 	var/use_internal_tank = FALSE
@@ -874,6 +882,8 @@
 
 //TODO
 /obj/mecha/emp_act(severity)
+	if(emp_protection)
+		return FALSE
 	if(get_charge())
 		use_power((cell.charge/3)/(severity*2))
 		take_damage(30 / severity, BURN, ENERGY, 1)
@@ -1158,8 +1168,19 @@
 		. = ..()
 
 /obj/mecha/emag_act(mob/user)
+	if(emagged)
+		return FALSE
+	if(!emaggable)
+		if(user)
+			to_chat(user, span_warning("ID слот меха [src] отклоняет карту."))
+		return
+	add_attack_logs(user, src, "emagged")
+	emagged = TRUE
+	allowed_equipment |= MECH_EQUIPMENT_COMBAT
 	if(user)
-		to_chat(user, span_warning("[src]'s ID slot rejects the card."))
+		to_chat(user, span_notice("Вы проводите картой по ID слоту меха [src]."))
+	playsound(loc, SFX_SPARKS, 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	desc += emag_desc
 
 /////////////////////////////////////
 //////////// AI piloting ////////////

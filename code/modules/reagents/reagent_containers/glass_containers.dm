@@ -13,7 +13,6 @@
 	container_type = OPENCONTAINER
 	has_lid = TRUE
 	resistance_flags = ACID_PROOF
-	blocks_emissive = FALSE
 	var/label_text = ""
 
 /obj/item/reagent_containers/glass/Initialize(mapload)
@@ -195,7 +194,7 @@
 
 	if(!is_open_container())
 		. += "lid_[initial(icon_state)]"
-		if(blocks_emissive == FALSE)
+		if(blocks_emissive == EMISSIVE_BLOCK_NONE)
 			. += emissive_blocker(icon, "lid_[initial(icon_state)]", src)
 
 	if(assembly)
@@ -346,7 +345,6 @@
 	icon_state = "beakernoreact"
 	materials = list(MAT_METAL=3000)
 	origin_tech = "materials=2;engineering=3;plasmatech=3"
-	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 
 /obj/item/reagent_containers/glass/beaker/noreact/get_ru_names()
 	return alist(
@@ -369,7 +367,6 @@
 	materials = list(MAT_GLASS=3000)
 	volume = 300
 	possible_transfer_amounts = list(5, 10, 15, 25, 30, 50, 100, 300)
-	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	origin_tech = "bluespace=5;materials=4;plasmatech=4"
 
 /obj/item/reagent_containers/glass/beaker/bluespace/get_ru_names()
@@ -411,7 +408,6 @@
 	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 75, ACID = 50) //Weak melee protection, because you can wear it on your head
 	slot_flags = ITEM_SLOT_HEAD
 	resistance_flags = NONE
-	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	var/paintable = TRUE
 
 /obj/item/reagent_containers/glass/bucket/get_ru_names()
@@ -568,7 +564,6 @@
 	possible_transfer_amounts = null
 	volume = 15
 	resistance_flags = FLAMMABLE
-	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	color = "#0085E5"
 
 /obj/item/reagent_containers/glass/pet_bowl/get_ru_names()
@@ -621,7 +616,9 @@
 					feed_overlay.icon_state = "petfood_15"
 			. += feed_overlay
 		else
-			. += mutable_appearance(icon, "liquid_overlay", color = mix_color_from_reagents(reagents.reagent_list), appearance_flags = RESET_COLOR)
+			var/mutable_appearance/liquid_overlay = mutable_appearance(icon, "liquid_overlay", appearance_flags = RESET_COLOR)
+			liquid_overlay.color = mix_color_from_reagents(reagents.reagent_list)
+			. += liquid_overlay
 
 /obj/item/reagent_containers/glass/pet_bowl/attack_animal(mob/living/simple_animal/pet)
 	if(!pet.client || !pet.safe_respawn(pet, check_station_level = FALSE) || !reagents.total_volume)

@@ -12,6 +12,7 @@
 	dna = null
 	ventcrawler_trait = TRAIT_VENTCRAWLER_ALIEN
 	abstract_type = /mob/living/carbon/alien
+	blocks_emissive = EMISSIVE_BLOCK_UNIQUE
 	var/nightvision_enabled = FALSE
 	nightvision = 4
 

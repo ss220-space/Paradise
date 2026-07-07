@@ -180,9 +180,6 @@
 		if(hat)
 			add_overlay(hat)
 
-	if(blocks_emissive)
-		add_overlay(get_emissive_block())
-
 /mob/living/silicon/robot/drone/choose_icon()
 	return
 

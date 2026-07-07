@@ -6367,7 +6367,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 
 /datum/supply_packs/contraband/ammobox_nagant
-	name = "Патргоны 7,62x38 мм"
+	name = "Патроны 7,62x38 мм"
 	contains = list(
 		/obj/item/ammo_box/n762x38,
 		/obj/item/ammo_box/n762x38,

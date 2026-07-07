@@ -1018,6 +1018,7 @@
 
 		for(var/mob/dead/observer/observe in user.inventory_observers)
 			if(!observe.client)
+				observe.handle_when_autoobserve_move()
 				LAZYREMOVE(user.inventory_observers, observe)
 				continue
 			observe.client.pixel_x = ICON_SIZE_X*_x
@@ -1028,6 +1029,7 @@
 
 		for(var/mob/dead/observer/observe in user.inventory_observers)
 			if(!observe.client)
+				observe.handle_when_autoobserve_move()
 				LAZYREMOVE(user.inventory_observers, observe)
 				continue
 			observe.client.pixel_x = 0
