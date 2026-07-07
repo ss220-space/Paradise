@@ -448,6 +448,10 @@
 
 #define TRAIT_PRESSURE_VISION "pressure_vision"
 
+/// GLOB trait, applied whenever something in the world wants to use the distortion plane
+/// Distortion is an expensive effect, so it's worthwhile to keep it off until we care
+#define TRAIT_DISTORTION_IN_USE(z_layer) "distortion_in_use_#[z_layer]"
+
 /// Traits given by station traits
 #define STATION_TRAIT_CARP_INFESTATION "station_trait_carp_infestation"
 #define STATION_TRAIT_LATE_ARRIVALS "station_trait_late_arrivals"
@@ -528,6 +532,8 @@
 // Hud traits
 /// This hud is owned by a client with an open escape menu
 #define TRAIT_ESCAPE_MENU_OPEN "escape_menu_open"
+/// This hud has parallax displayed on it
+#define TRAIT_PARALLAX_DISPLAYED "parallax_displayed"
 
 /// If a human has a fracture in their legs or feet (for optimization)
 #define TRAIT_FRACTURE_FALL "fracture_fall"
@@ -575,3 +581,9 @@
 #define TRAIT_DISCO_DANCER "disco_dancer"
 
 #define TRAIT_GIVE_READY "give_ready"
+
+/// Mob has fov applied to it
+#define TRAIT_FOV_APPLIED "fov_applied"
+
+/// Used for managing KEEP_TOGETHER in [/atom/var/appearance_flags]
+#define TRAIT_KEEP_TOGETHER "keep-together"

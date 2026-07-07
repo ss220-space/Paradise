@@ -157,9 +157,6 @@
 	if(stat == CONSCIOUS)
 		add_overlay("eyes-[icon_state]")
 
-	if(blocks_emissive)
-		add_overlay(get_emissive_block())
-
 /mob/living/silicon/robot/cogscarab/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/borg/upgrade))
 		return ATTACK_CHAIN_BLOCKED

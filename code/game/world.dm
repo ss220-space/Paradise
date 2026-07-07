@@ -122,16 +122,22 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 /world/Reboot(reason, fast_track = FALSE)
 	//special reboot, do none of the normal stuff
 	if((reason == 1) || fast_track) // Do NOT change this to if(reason). You WILL break the entirety of world rebooting
+		log_debug("Hard reboot initiated")
 		if(usr)
 			if(!check_rights(R_SERVER))
 				log_and_message_admins("attempted to restart the server via the Profiler, without access.")
 				return
 			log_and_message_admins("has requested an immediate world restart via client side debugging tools")
 			to_chat(world, span_boldannounceooc("Rebooting world immediately due to host request"))
-		rustlib_clear_uuid_storage()
-		rustg_log_close_all() // Past this point, no logging procs can be used, at risk of data loss.
+
 		// Now handle a reboot
 		if(config && CONFIG_GET(flag/shutdown_on_reboot))
+			if(CONFIG_GET(flag/kill_on_shutdown))
+				world.KillImmediately()
+				return
+
+			rustlib_clear_uuid_storage()
+			rustg_log_close_all() // Past this point, no logging procs can be used, at risk of data loss.
 			sleep(0)
 			if(GLOB.shutdown_shell_command)
 				shell(GLOB.shutdown_shell_command)
@@ -139,11 +145,15 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 			TgsEndProcess() // We want to shutdown on reboot. That means kill our TGS process "gracefully", instead of the watchdog crying
 			return
 		else
+			rustlib_clear_uuid_storage()
+			rustg_log_close_all() // Past this point, no logging procs can be used, at risk of data loss.
 			TgsReboot() // Tell TGS we did a reboot
 			return ..(1)
 
 	// If we got here, we are in a "normal" reboot
+	log_debug("Dumping overlay manager stats...")
 	GLOB.overlay_manager.dump_stats()
+	log_debug("Shutting down Master...")
 	Master.Shutdown() // Shutdown subsystems
 
 	// If we were running unit tests, finish that run
@@ -156,18 +166,24 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	if(GLOB.pending_server_update)
 		to_chat(world, span_boldannounceooc("Reboot will take a little longer, due to pending updates."))
 
+	//log_debug("Sending roundrestart to all clients...")
 	// Send the reboot banner to all players
-	var/position = 0 // queue autoreconnect
-	for(var/client/C in GLOB.clients)
-		C?.tgui_panel?.send_roundrestart(position)
-		position++
-		if(CONFIG_GET(string/server)) // If you set a server location in config.txt, it sends you there instead of trying to reconnect to the same world address. -- NeoFite
-			C << link("byond://[CONFIG_GET(string/server)]")
+	//var/position = 0 // queue autoreconnect
+	//for(var/client/C in GLOB.clients)
+	//	C?.tgui_panel?.send_roundrestart(position)
+	//	position++
+	//	if(CONFIG_GET(string/server)) // If you set a server location in config.txt, it sends you there instead of trying to reconnect to the same world address. -- NeoFite
+	//		C << link("byond://[CONFIG_GET(string/server)]")
 
-	rustlib_clear_uuid_storage()
+	log_debug("Shutting down...")
 	// And begin the real shutdown
-	rustg_log_close_all() // Past this point, no logging procs can be used, at risk of data loss.
 	if(config && CONFIG_GET(flag/shutdown_on_reboot))
+		if(CONFIG_GET(flag/kill_on_shutdown))
+			world.KillImmediately()
+			return
+
+		rustlib_clear_uuid_storage()
+		rustg_log_close_all() // Past this point, no logging procs can be used, at risk of data loss.
 		sleep(0)
 		if(GLOB.shutdown_shell_command)
 			shell(GLOB.shutdown_shell_command)
@@ -176,6 +192,8 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 		TgsEndProcess() // We want to shutdown on reboot. That means kill our TGS process "gracefully", instead of the watchdog crying
 		return
 	else
+		rustlib_clear_uuid_storage()
+		rustg_log_close_all() // Past this point, no logging procs can be used, at risk of data loss.
 		TgsReboot() // We did a normal reboot. Tell TGS we did a normal reboot.
 		..(0)
 
@@ -312,7 +330,32 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	var/latest_changelog = file("html/changelogs/archive/" + time2text(world.timeofday, "YYYY-MM") + ".yml")
 	GLOB.changelog_hash = fexists(latest_changelog) ? md5(latest_changelog) : 0 //for telling if the changelog has changed recently
 
+/**
+ * This proc kills DreamDaemon (DreamSeeker if locally debugging) instance via shell command.
+ * This is not a normal routine and it should be used under certain circumstances (like world can't shutdown itself properly)
+ * Please close spawned threads with separate PIDs (if any)
+ */
+/world/proc/KillImmediately()
+	PrepareShutdown()
+	log_world("Shutting down current instance via forceful killing from shell...")
+
+	log_debug("Kill via shell initiated...")
+	rustlib_clear_uuid_storage()
+	rustg_log_close_all() // Past this point, no logging procs can be used, at risk of data loss.
+
+	var/process_id = UNLINT(world.process) // SpacemanDMM does not know about world.process, which returns PID of the current instance.
+
+	if(world.system_type == UNIX)
+		shell("kill -15 [process_id]")
+
+	if(world.system_type == MS_WINDOWS)
+		shell("taskkill /pid [process_id]")
+
 /world/Del()
+	PrepareShutdown()
+	return ..()
+
+/world/proc/PrepareShutdown()
 	rustg_close_async_http_client() // Close the HTTP client. If you dont do this, youll get phantom threads which can crash DD from memory access violations
 	var/debug_server = world.GetConfig("env", "AUXTOOLS_DEBUG_DLL")
 	if(debug_server)
@@ -320,7 +363,6 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	if(SSredis.connected)
 		rustg_redis_disconnect() // Disconnects the redis connection. See above.
 	prof_stop()
-	..()
 
 /**
  * Handles incresing the world's maxx var and intializing the new turfs and assigning them to the global area.

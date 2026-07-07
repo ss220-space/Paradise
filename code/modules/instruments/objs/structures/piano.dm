@@ -48,7 +48,7 @@
 	allowed_instrument_ids = "r3grand"
 	light_range = 2
 	light_color = "#ff0000"
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 
 /obj/structure/pianoclassic/ghostpiano/ui_state(mob/user)
 	if(isobserver(user))

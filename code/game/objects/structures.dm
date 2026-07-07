@@ -8,6 +8,7 @@
 	pull_push_slowdown = 1.3
 	interaction_flags_atom = INTERACT_ATOM_ATTACK_HAND | INTERACT_ATOM_UI_INTERACT
 	layer = BELOW_OBJ_LAYER
+	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	/// Determines if a structure adds the TRAIT_TURF_COVERED to its turf.
 	var/creates_cover = FALSE
 	var/mob/living/climber

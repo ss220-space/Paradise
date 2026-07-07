@@ -72,6 +72,7 @@
 
 	SSicon_smooth.remove_halt_source(src)
 	GLOB.space_manager.remove_dirt(placement.z)
+	//SSlighting.setup_static_lighting_if_needed(block(bot_left, top_right))
 	var/datum/milla_safe_must_sleep/late_setup_level/milla = new()
 	milla.invoke_async(bot_left, top_right, block(ST_bot_left, ST_top_right))
 	add_game_logs("[name] loaded at [min_x],[min_y],[placement.z]")

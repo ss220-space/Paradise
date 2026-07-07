@@ -65,24 +65,28 @@ GLOBAL_LIST_EMPTY(overminds)
 	START_PROCESSING(SSobj, src)
 	GLOB.blob_telepathy_mobs |= src
 
-/mob/camera/blob/Destroy()
+/mob/camera/blob/Destroy(force)
 	QDEL_NULL(blobstrain)
 	for(var/obj/structure/blob/blob_structure as anything in all_blobs)
 		blob_structure.overmind = null
 		blob_structure.update_blob()
-	all_blobs = null
-	resource_blobs = null
-	factory_blobs = null
-	node_blobs = null
+	LAZYCLEARLIST(all_blobs)
+	LAZYCLEARLIST(resource_blobs)
+	LAZYCLEARLIST(factory_blobs)
+	LAZYCLEARLIST(node_blobs)
+	LAZYCLEARLIST(blobs_legit)
 	for(var/mob/living/simple_animal/hostile/blob_minion/mob as anything in blob_mobs)
 		if(istype(mob) && !mob.factory_linked)
 			mob.death()
-	blob_mobs = null
+	LAZYCLEARLIST(blob_mobs)
 	GLOB.overminds -= src
 	QDEL_LIST_ASSOC_VAL(strain_choices)
 
 	STOP_PROCESSING(SSobj, src)
 	GLOB.blob_telepathy_mobs -= src
+
+	if(mind?.current == src)
+		mind.current = null
 
 	return ..()
 
@@ -106,7 +110,7 @@ GLOBAL_LIST_EMPTY(overminds)
 
 /mob/camera/blob/Logout()
 	update_z(null)
-	. = ..()
+	return ..()
 
 /mob/camera/blob/proc/can_attack()
 	return (world.time > (last_attack + CLICK_CD_RANGE))
@@ -212,7 +216,7 @@ GLOBAL_LIST_EMPTY(overminds)
 	blobstrain = new new_strain(src)
 	var/datum/antagonist/blob_overmind/overmind_datum = mind?.has_antag_datum(/datum/antagonist/blob_overmind)
 	if(overmind_datum)
-		overmind_datum.strain = blobstrain
+		overmind_datum.strain_ref = WEAKREF(blobstrain)
 	blobstrain.on_gain()
 
 	if(had_strain && !first_select)

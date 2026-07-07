@@ -1,5 +1,0 @@
-author: "makaroshka003"
-delete-after: True
-changes:
-  - spellcheck: "\"Патргоны 7,62x38 мм\" >>> \"Патроны 7,62x38 мм\". (PR #9441)"
-  - spellcheck: " Убрал лишний пробел у админ телепортера. (PR #9441)"

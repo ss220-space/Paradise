@@ -528,8 +528,6 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	update_worn_pda()
 	update_transform()
 	UpdateDamageIcon()
-	if(blocks_emissive)
-		add_overlay(get_emissive_block())
 	SEND_SIGNAL(src, COMSIG_MOB_HALO_GAINED)
 	update_fire()
 	update_ssd_overlay()
@@ -567,7 +565,8 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 	for(var/obj/item/clothing/accessory/accessory as anything in w_uniform.accessories)
 		var/acc_state_type = accessory.item_state ? accessory.item_state : accessory.icon_state
-		var/mutable_appearance/acc_olay = mutable_appearance(accessory.onmob_sheets[ITEM_SLOT_ACCESSORY_STRING], acc_state_type, alpha = accessory.alpha, color = accessory.color)
+		var/mutable_appearance/acc_olay = mutable_appearance(accessory.onmob_sheets[ITEM_SLOT_ACCESSORY_STRING], acc_state_type, alpha = accessory.alpha)
+		acc_olay.color = accessory.color
 		if(accessory.sprite_sheets?[dna.species.name])
 			acc_olay.icon = accessory.sprite_sheets[dna.species.name]
 		uniform_overlay.overlays += acc_olay
@@ -629,11 +628,13 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		var/mutable_appearance/hands_combined = mutable_appearance(layer = -GLOVES_LAYER, appearance_flags = KEEP_TOGETHER)
 		if(clock_hands)
 			if(has_left_hand())
-				var/mutable_appearance/clock_hands_overlay = mutable_appearance('icons/effects/clockwork_effects.dmi', "clockedhands_l", color = COLOR_LIGHT_ORANGE)
+				var/mutable_appearance/clock_hands_overlay = mutable_appearance('icons/effects/clockwork_effects.dmi', "clockedhands_l")
+				clock_hands_overlay.color = COLOR_LIGHT_ORANGE
 				hands_combined.overlays += clock_hands_overlay
 
 			if(has_right_hand())
-				var/mutable_appearance/clock_hands_overlay = mutable_appearance('icons/effects/clockwork_effects.dmi', "clockedhands_r", color = COLOR_LIGHT_ORANGE)
+				var/mutable_appearance/clock_hands_overlay = mutable_appearance('icons/effects/clockwork_effects.dmi', "clockedhands_r")
+				clock_hands_overlay.color = COLOR_LIGHT_ORANGE
 				hands_combined.overlays += clock_hands_overlay
 
 		else if(blood_DNA)
@@ -641,11 +642,13 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			if(dna && ("bloodyhands_left" in dna.species.get_blood_overlays()))
 				blood_mask = dna.species.blood_mask
 			if(has_left_hand())
-				var/mutable_appearance/blood_hands_overlay = mutable_appearance(blood_mask, "bloodyhands_left", color = hand_blood_color)
+				var/mutable_appearance/blood_hands_overlay = mutable_appearance(blood_mask, "bloodyhands_left")
+				blood_hands_overlay.color = hand_blood_color
 				hands_combined.overlays += blood_hands_overlay
 
 			if(has_right_hand())
-				var/mutable_appearance/blood_hands_overlay = mutable_appearance(blood_mask, "bloodyhands_right", color = hand_blood_color)
+				var/mutable_appearance/blood_hands_overlay = mutable_appearance(blood_mask, "bloodyhands_right")
+				blood_hands_overlay.color = hand_blood_color
 				hands_combined.overlays += blood_hands_overlay
 
 		overlays_standing[GLOVES_LAYER] = hands_combined
@@ -741,7 +744,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(!shoes)
 		if(!feet_blood_DNA)
 			return
-		overlays_standing[SHOES_LAYER] = mutable_appearance(dna.species.blood_mask, "shoeblood", layer = -SHOES_LAYER, color = feet_blood_color)
+		var/mutable_appearance/shoeblood_overlay = mutable_appearance(dna.species.blood_mask, "shoeblood", layer = -SHOES_LAYER)
+		shoeblood_overlay.color = feet_blood_color
+		overlays_standing[SHOES_LAYER] = shoeblood_overlay
 		apply_overlay(SHOES_LAYER)
 		return
 

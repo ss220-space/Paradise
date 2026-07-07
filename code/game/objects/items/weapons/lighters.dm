@@ -12,7 +12,7 @@
 	slot_flags = ITEM_SLOT_BELT
 	attack_verb = null
 	resistance_flags = FIRE_PROOF
-	light_system = MOVABLE_LIGHT_DIRECTIONAL
+	light_system = OVERLAY_LIGHT
 	light_range = 2
 	light_on = FALSE
 	custom_price = PAYCHECK_MIN
@@ -25,6 +25,8 @@
 	var/next_on_message
 	/// Cooldown until the next turned off message/sound can be activated
 	var/next_off_message
+	/// Lighting middleman, lets us do a flicker effect
+	var/datum/light_middleman/middleman
 
 /obj/item/lighter/get_ru_names()
 	return alist(
@@ -42,6 +44,18 @@
 	icon_on = "lighter-[color]-on"
 	icon_off = "lighter-[color]"
 	icon_state = icon_off
+
+	if(IS_OVERLAY_LIGHT_SYSTEM(light_system))
+		middleman = new(src, "flashlight")
+		RegisterSignal(middleman, COMSIG_LIGHT_MIDDLEMAN_UPDATED, PROC_REF(light_updated))
+		middleman.being_overriding_light()
+
+	update_appearance()
+
+/obj/item/lighter/Destroy(force)
+	if(!isnull(middleman))
+		QDEL_NULL(middleman)
+	return ..()
 
 /obj/item/lighter/attack_self(mob/living/user)
 	. = ..()
@@ -66,6 +80,10 @@
 	attempt_light(user)
 	set_light_on(TRUE)
 	START_PROCESSING(SSobj, src)
+
+/obj/item/lighter/proc/light_updated(datum/source)
+	SIGNAL_HANDLER
+	fire_flicker_middleman(middleman)
 
 /obj/item/lighter/proc/attempt_light(mob/living/user)
 	if(prob(75) || issilicon(user)) // Robots can never burn themselves trying to light it.

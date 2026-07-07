@@ -215,7 +215,7 @@
 /obj/effect/proc_holder/spell/infernal_jaunt/cast(list/targets, mob/living/user = usr)
 	if(istype(user.loc, /obj/effect/dummy/slaughter))
 		var/continuing = 0
-		if(istype(get_area(user), /area/shuttle)) // Can always phase in in a shuttle.
+		if(is_area_shuttle(get_area(user))) // Can always phase in in a shuttle.
 			continuing = TRUE
 		else
 			for(var/mob/living/C in orange(2, get_turf(user.loc))) //Can also phase in when nearby a potential buyer.
