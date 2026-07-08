@@ -2,7 +2,7 @@
 // genetics `remotetalk` spell's cast() early-returns unless `ishuman(user)`, and Raw Prophets are
 // simple_animals, so mapping onto that did nothing.
 /obj/effect/proc_holder/spell/pointed/eldritch_telepathy
-	name = "Жуткая телепатия"
+	name = "Жуткая Телепатия"
 	desc = "Телепатически передаёт сообщение цели."
 	action_icon = 'icons/mob/actions/actions_ecult.dmi'
 	action_icon_state = "mansus_link"
@@ -44,18 +44,18 @@
 	if(!message || QDELETED(src) || QDELETED(user) || QDELETED(cast_on))
 		return FALSE
 
-	var/formatted_message = "<span class='[telepathy_span]'>[message]</span>"
+	var/formatted_message = "[span_notice(message)]"
 
-	to_chat(user, "<span class='[bold_telepathy_span]'>Вы передаёте [cast_on.declent_ru(DATIVE)]:</span> [formatted_message]")
+	to_chat(user, "[span_boldnotice("Вы передаёте [cast_on.declent_ru(DATIVE)]:")] [formatted_message]")
 	if(!cast_on.can_block_magic(antimagic_flags, charge_cost = 0)) // hear no evil
 		cast_on.balloon_alert(cast_on, "вы слышите голос")
-		to_chat(cast_on, "<span class='[bold_telepathy_span]'>Вы слышите голос в своей голове...</span> [formatted_message]")
+		to_chat(cast_on, "[span_boldnotice("Вы слышите голос в своей голове...")] [formatted_message]")
 	else
 		user.balloon_alert(user, "передача заблокирована!")
 		to_chat(user, span_warning("Что-то заблокировало вашу передачу!"))
 
 	for(var/mob/dead/observer/ghost in GLOB.dead_mob_list)
-		to_chat(ghost, "[ghost_follow_link(user, ghost)] <span class='[bold_telepathy_span]'>[user] [name] [cast_on]:</span> [formatted_message]")
+		to_chat(ghost, "[ghost_follow_link(user, ghost)] [span_boldnotice("[user] [name] [cast_on]:")] [formatted_message]")
 
 	log_say("(ELDRITCH TPATH to [key_name(cast_on)]) [message]", user)
 	return TRUE

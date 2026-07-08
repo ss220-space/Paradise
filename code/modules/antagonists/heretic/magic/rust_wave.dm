@@ -1,6 +1,6 @@
 // Shoots out in a wave-like, what rust heretics themselves get
 /obj/effect/proc_holder/spell/cone/staggered/entropic_plume
-	name = "Шлейф разложения"
+	name = "Шлейф Разложения"
 	desc = "Выбрасывает дезориентирующий шлейф, заставляющий врагов атаковать друг друга, \
 			кратковременно ослепляет их (эффект усиливается с увеличением расстояния) и \
 			отравляет (эффект уменьшается с увеличением расстояния). \
@@ -108,7 +108,7 @@
 
 
 /obj/projectile/magic/aoe/rust_wave
-	name = "сгусток ржавчины"
+	name = "rust wave"
 	gender = MALE
 	icon_state = "eldritch_projectile"
 	alpha = 180

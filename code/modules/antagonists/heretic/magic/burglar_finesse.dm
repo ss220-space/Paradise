@@ -1,6 +1,6 @@
 /obj/effect/proc_holder/spell/pointed/burglar_finesse
-	name = "Хитрость взломщика"
-	desc = "Помещает случайный предмет из рюкзака выбранной жертвы вам в руку."
+	name = "Хитрость Взломщика"
+	desc = "Помещает случайный предмет из сумки выбранной жертвы вам в руку."
 	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
@@ -32,7 +32,7 @@
 	. = ..()
 	if(cast_on.can_block_magic(antimagic_flags))
 		to_chat(cast_on, span_danger("Вы чувствуете легкий рывок!"))
-		to_chat(action.owner, span_danger("[cast_on.declent_ru(NOMINATIVE)] отражает попытку кражи!"))
+		to_chat(action.owner, span_danger("[DECLENT_RU_CAP(cast_on, NOMINATIVE)] отражает попытку кражи!"))
 		return FALSE
 
 	var/obj/item/storage/storage_item = cast_on.get_item_by_slot(ITEM_SLOT_BACK)

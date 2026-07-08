@@ -1,6 +1,6 @@
 /mob/living/simple_animal/hostile/heretic_summon/star_gazer
-	name = "Звёздный Глашатай"
-	desc = "Существо, которому поручено следить за звездами."
+	name = "star gazer"
+	desc = "Существо, которому поручено следить за звёздами."
 	gender = MALE
 	icon = 'icons/mob/96x96eldritch_mobs.dmi'
 	icon_state = "star_gazer"
@@ -53,12 +53,12 @@
 
 /mob/living/simple_animal/hostile/heretic_summon/star_gazer/get_ru_names()
 	return alist(
-		NOMINATIVE = "Звёздный Глашатай",
-		GENITIVE = "Звёздного Глашатая",
-		DATIVE = "Звёздному Глашатаю",
-		ACCUSATIVE = "Звёздного Глашатая",
-		INSTRUMENTAL = "Звёздным Глашатаем",
-		PREPOSITIONAL = "Звёздном Глашатае",
+		NOMINATIVE = "Звёздный Наблюдатель",
+		GENITIVE = "Звёздного Наблюдателя",
+		DATIVE = "Звёздному Наблюдателю",
+		ACCUSATIVE = "Звёздного Наблюдателя",
+		INSTRUMENTAL = "Звёздным Наблюдателем",
+		PREPOSITIONAL = "Звёздном Наблюдателе",
 	)
 
 

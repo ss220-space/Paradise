@@ -205,7 +205,7 @@ GLOBAL_LIST_EMPTY(heretic_arenas)
 		return
 
 	if(isheretic(owner))
-		to_chat(owner, span_big(span_purple("Мансус доволен вашим выступлением, теперь вы свободны.")))
+		to_chat(owner, span_big(span_purple("Обитель довольна вашим выступлением, теперь вы свободны.")))
 	else
 		to_chat(owner, span_big(span_purple("Вы хорошо постарались, теперь вы можете идти.")))
 

@@ -211,8 +211,8 @@
 	owner.adjustFireLoss(-150)
 
 	moon_objective = new("Луна нашептала вам истину: всё вокруг — ложь, и лишь смех очистит её. \
-												Убейте каждого, до кого дотянетесь, и пляшите под лунный смех. \
-												И ни при каких обстоятельствах не снимайте амулет — он есть ваша единственная правда.")
+						Убейте каждого, до кого дотянетесь, и пляшите под лунный смех. \
+						И ни при каких обстоятельствах не снимайте Амулет — он есть ваша единственная правда.")
 
 	if(owner.mind)
 		moon_objective.needs_target = FALSE
@@ -250,7 +250,7 @@
 
 /datum/status_effect/moon_converted/on_remove()
 	// Span warning and unconscious so they realize they aren't evil anymore
-	to_chat(owner, span_warning("Ваш разум очищен от влияния Мансуса."))
+	to_chat(owner, span_warning("Ваш разум очищен от влияния Обители."))
 	REMOVE_TRAIT(owner, TRAIT_MUTE, TRAIT_STATUS_EFFECT(id))
 	owner.Sleeping(5 SECONDS)
 	log_game("[key_name_log(owner)] is no longer insane.")
@@ -312,7 +312,7 @@
 	return
 
 /atom/movable/screen/alert/status_effect/eldritch_painting
-	name = "Эльдричская картина"
+	name = "Древняя Картина"
 	desc = "Нечто оставило отпечаток в вашем разуме."
 	icon = 'icons/obj/signs.dmi'
 	icon_state = "eldritch_painting_debug"
@@ -398,7 +398,7 @@
 
 /atom/movable/screen/alert/status_effect/eldritch_painting/beauty
 	name = "Леди за Вратами"
-	desc = "Одежда скрывает скрытую под ней красоту. Сбросьте её и достигните совершенства. Или вновь узрите совершенство в той картине."
+	desc = "Одежда скрывает истинную красоту. Сбросьте её и достигните совершенства. Или вновь узрите совершенство в той картине."
 	icon_state = "eldritch_painting_beauty"
 
 // "Хозяйка Ржавой Горы" - rusts the floor beneath the cursed.

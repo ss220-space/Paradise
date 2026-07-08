@@ -2,10 +2,10 @@
 // banishes windows/airlocks and puts down the floors. For the functionality of the spell itself see
 // [/obj/effect/abstract/heretic_arena] which is created during [/proc/create_arena()].
 /obj/effect/proc_holder/spell/wolves_among_sheep
-	name = "Волк среди овец"
+	name = "Волк среди Овец"
 	desc = "Изменяет ткань реальности, создавая магическую арену, недоступную для посторонних. \
 			Все участники оказываются в ловушке. \
-			Пойманным участникам даруется Клинок, и они не могут покинуть арену пока не убьют противника."
+			Пойманным участникам даруется Клинок, и они не могут покинуть арену, пока не убьют противника."
 	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = null

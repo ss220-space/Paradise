@@ -1,5 +1,5 @@
 /obj/effect/forcefield/wizard/heretic
-	name = "страницы карты лабиринта"
+	name = "labyrinth map pages"
 	desc = "Множество листов бумаги летающих в воздухе, отпугивающих язычников с невероятной силой."
 	gender = PLURAL
 	// The base /obj/effect/forcefield inherits effects.dmi from /obj/effect, which has no "lintel" frame,
@@ -40,7 +40,7 @@
 
 ///A heretic item that spawns a barrier at the clicked turf, 3 uses
 /obj/item/heretic_labyrinth_handbook
-	name = "справочник по лабиринту"
+	name = "labyrinth handbook"
 	desc = "Книга, содержащая законы и правила Лабиринта. Её страницы извиваются и дёргаются, пытаясь вырваться наружу."
 	gender = MALE
 	icon = 'icons/obj/library.dmi'
@@ -84,7 +84,7 @@
 		return
 
 	. += span_purple("Создаёт барьер на любой плитке в поле зрения, через который можете пройти только вы. Действует 15 секунд.")
-	. += span_purple("Осталось <b>[charges]</b> [charges == 1 ? "заряд" : "зарядов"]. Заряды восстанавливаются со временем.")
+	. += span_purple("Остал[declension_ru(charges, "ся", "ось", "ось")] <b>[charges]</b> заряд[DECL_CREDIT(charges)]. Заряды восстанавливаются со временем.")
 
 
 /obj/item/heretic_labyrinth_handbook/afterattack(atom/interacting_with, mob/user, proximity, params, status)
@@ -124,7 +124,7 @@
 
 //fancy effects
 /obj/effect/temp_visual/paper_scatter
-	name = "клочки бумаги"
+	name = "paper pieces"
 	desc = "Кусочки бумаги, разлетающиеся по ветру."
 	layer = ABOVE_NORMAL_TURF_LAYER
 	icon_state = "paper_scatter"

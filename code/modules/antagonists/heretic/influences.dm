@@ -95,7 +95,7 @@
 
 
 /obj/effect/visible_heretic_influence
-	name = "раскол реальности"
+	name = "pierced reality"
 	icon = 'icons/effects/eldritch.dmi'
 	icon_state = "pierced_illusion"
 	layer = BELOW_MOB_LAYER
@@ -145,14 +145,14 @@
 	var/mob/living/carbon/human/human_user = user
 	var/obj/item/organ/external/their_poor_arm = user.hand ? user.get_organ(BODY_ZONE_L_ARM) : user.get_organ(BODY_ZONE_R_ARM)
 	if(prob(75))
-		to_chat(human_user, span_danger("Вы в последний момент отдергиваете руку от дыры, видя как потусторонняя энергия, пытается ухватиться за нее!"))
+		to_chat(human_user, span_danger("Вы в последний момент отдёргиваете руку от дыры, видя как потусторонняя энергия пытается ухватиться за нее!"))
 		return
 
 	if(!their_poor_arm) // that hand's already gone - nothing left for the hole to tear off
 		to_chat(human_user, span_danger("Вы тянетесь к дыре тем, чего у вас уже нет..."))
 		return TRUE
 
-	to_chat(human_user, span_userdanger("Нечто потустороннее отрывает и поглощает вашу [their_poor_arm.declent_ru(ACCUSATIVE)] когда вы пытаетесь прикоснуться к дыре в ткани реальности!"))
+	to_chat(human_user, span_userdanger("Нечто потустороннее отрывает и поглощает вашу [their_poor_arm.declent_ru(ACCUSATIVE)], когда вы пытаетесь прикоснуться к дыре в ткани реальности!"))
 	their_poor_arm.dismember()
 	their_poor_arm.forceMove(src) // stored for later fishage
 	return TRUE
@@ -173,11 +173,11 @@
 	// You see, these tendrils are psychic. That's why you can't see them. Definitely not laziness. Just psychic. The character can feel but not see them.
 	// Because they're psychic. Yeah.
 	if(human_user.can_block_magic(MAGIC_RESISTANCE_MIND))
-		visible_message(span_danger("Эфимерные щупальца вылезают из [declent_ru(GENITIVE)], но не могут достичь головы [declent_ru(GENITIVE)]."))
+		visible_message(span_danger("Эфимерные щупальца вылезают из [declent_ru(GENITIVE)], но не могут достичь головы [human_user]."))
 		return
 
 	// A very elaborate way to suicide
-	visible_message(span_userdanger("Эфимерные щупальца вылезают из [declent_ru(GENITIVE)], обхватывают голову [declent_ru(GENITIVE)] и отрывают её!"))
+	visible_message(span_userdanger("Эфимерные щупальца вылезают из [declent_ru(GENITIVE)], обхватывают голову [human_user] и отрывают её!"))
 	var/obj/item/organ/external/head/head = locate() in human_user.bodyparts
 	if(head)
 		head.dismember()
@@ -185,7 +185,7 @@
 	else
 		human_user.gib()
 
-	human_user.investigate_log("умер от использования телекинеза на разломе реальности.", INVESTIGATE_DEATHS)
+	human_user.investigate_log("has died from using telekinesis on a heretic influence.", INVESTIGATE_DEATHS)
 	var/datum/effect_system/reagents_explosion/explosion = new()
 	explosion.set_up(1, get_turf(human_user), TRUE, 0)
 	explosion.start(src)
@@ -206,7 +206,7 @@
 
 
 /obj/effect/heretic_influence
-	name = "раскол реальности"
+	name = "pierced reality"
 	icon = 'icons/effects/eldritch.dmi'
 	//interaction_flags_atom = INTERACT_ATOM_NO_FINGERPRINT_ATTACK_HAND|INTERACT_ATOM_NO_FINGERPRINT_INTERACT
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
@@ -310,7 +310,7 @@
 /obj/effect/heretic_influence/proc/after_drain(mob/living/user)
 	if(user)
 		to_chat(user, span_purple(pick_list(HERETIC_INFLUENCE_FILE, "drain_message")))
-		to_chat(user, span_warning("[src] начинает проявляться в реальности!"))
+		to_chat(user, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] начинает проявляться в реальности!"))
 
 	var/obj/effect/visible_heretic_influence/illusion = new /obj/effect/visible_heretic_influence(drop_location())
 	var/choosen_name = pick_list(HERETIC_INFLUENCE_FILE, "drained")

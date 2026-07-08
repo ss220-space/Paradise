@@ -7,8 +7,8 @@
 
 /// Allows the heretic to sacrifice living heart targets.
 /datum/heretic_knowledge/hunt_and_sacrifice
-	name = "Сердцебиение Мансуса"
-	desc = "Позволяет приносить цели в жертву Мансусу, положив их в руну в критическом (или худшем) состоянии. \
+	name = "Сердцебиение Обители"
+	desc = "Позволяет приносить цели в жертву Обители, положив их в руну в критическом (или худшем) состоянии. \
 			Если у вас нет целей, встаньте на руну трансмутации и проведите этот ритуал, чтобы получить их."
 	required_atoms = list(/mob/living/carbon/human = 1)
 	priority = MAX_KNOWLEDGE_PRIORITY // Should be at the top
@@ -215,8 +215,8 @@
 
 		SEND_SOUND(mind.current, 'sound/magic/clockwork/narsie_attack.ogg')
 		var/message = span_narsie("Подлый еретик ") + \
-		span_cultlarge(span_purple("принес в жертву")) + \
-		span_narsie(" одного из наших. Уничтожьте и принеси в жертву неверных, прежде чем они принесут в жертву нас!")
+		span_cultlarge(span_purple("принёс в жертву")) + \
+		span_narsie(" одного из наших. Уничтожьте и принесите в жертву неверных, прежде чем они принесут в жертву нас!")
 		to_chat(mind.current, message)
 
 	// he(retic) gets a warn too
@@ -226,7 +226,7 @@
 
 
 /datum/heretic_knowledge/hunt_and_sacrifice/proc/grant_reward(mob/living/user, mob/living/sacrifice, turf/loc)
-	to_chat(user, span_big(span_purple("Слуга Сангвинического Отступника!")))
+	to_chat(user, span_big(span_purple("Слуга Кровавого Отступника!")))
 	to_chat(user, span_hierophant("Ваши покровители в восторге!"))
 	playsound(sacrifice, 'sound/magic/disintegrate.ogg', 75, TRUE)
 
@@ -326,7 +326,7 @@
 	if(sac_target.Sleeping(SACRIFICE_SLEEP_DURATION))
 		to_chat(sac_target, span_purple("Ваш разум разрывается на части, когда вы погружаетесь в поверхностный сон..."))
 	else
-		to_chat(sac_target, span_purple("Ваш разум начинает разрываться на части, когда вы видите, как вас окутывают темные щупальца."))
+		to_chat(sac_target, span_purple("Ваш разум начинает разрываться на части, когда вы видите, как вас окутывают тёмные щупальца."))
 
 	sac_target.AdjustParalysis(SACRIFICE_SLEEP_DURATION * 1.2)
 	sac_target.AdjustImmobilized(SACRIFICE_SLEEP_DURATION * 1.2)
@@ -418,8 +418,8 @@
 	sac_target.Hallucinate(24 SECONDS)
 	sac_target.emote("scream")
 
-	//to_chat(sac_target, span_reallybig(span_purple("Прикосновение Мансус открывается вам!")))
-	to_chat(sac_target, span_purple("Вы чувствуете прилив сил! Боритесь чтобывыжить!"))
+	//to_chat(sac_target, span_reallybig(span_purple("Хватка Обители открывается вам!")))
+	to_chat(sac_target, span_purple("Вы чувствуете прилив сил! Боритесь, чтобы выжить!"))
 	// When it runs out, let them know they're almost home free
 	addtimer(CALLBACK(src, PROC_REF(after_helgrasp_ends), sac_target), helgrasp_time)
 	// Win condition
@@ -492,7 +492,7 @@
 	else
 		composed_return_message += span_green("живой, но с разбитым разумом. ")
 
-	composed_return_message += span_notice("Вы слышите шепот...")
+	composed_return_message += span_notice("Вы слышите шёпот...")
 	composed_return_message += span_purple(get_area_name(safe_turf, TRUE))
 	to_chat(heretic_mind.current, composed_return_message)
 
@@ -509,7 +509,7 @@
 /datum/heretic_knowledge/hunt_and_sacrifice/proc/on_target_escape(mob/living/carbon/human/sac_target, old_z, new_z)
 	SIGNAL_HANDLER
 
-	to_chat(sac_target, span_boldwarning("Ваша попытка сбежать от Мансуса не будет встречена благосклонно!"))
+	to_chat(sac_target, span_boldwarning("Ваша попытка сбежать от Обители не будет встречена благосклонно!"))
 	// Ends up calling return_target() via death signal to clean up.
 	disembowel_target(sac_target)
 
@@ -518,7 +518,7 @@
 	to_chat(sac_target, span_purple("Борьба окончена, но дорогой ценой. Вы вернулись на станцию целым и невредимым."))
 	if(isheretic(sac_target))
 		to_chat(sac_target, span_big(span_purple("Вы не помните ничего, что предшествовало этому опыту, \
-											но чувствуете, что ваша связь с Мансусом ослабла — когда-то известные знания забыты...")))
+											но чувствуете, что ваша связь с Обителью ослабла — когда-то известные знания забыты...")))
 	else
 		to_chat(sac_target, span_big(span_purple("Вы не помните ничего из того, что предшествовало этому опыту. \
 												Все, о чем вы можете думать, - это те ужасные руки...")))
@@ -538,7 +538,7 @@
 
 /// After teleporting the dead target back to the station, spawns a red broken illusion on their spot for style.
 /datum/heretic_knowledge/hunt_and_sacrifice/proc/after_return_dead_target(mob/living/carbon/human/sac_target)
-	to_chat(sac_target, span_purple("Вы не смогли противостоять ужасам Мансуса! Ваше изуродованное тело вернули на станцию."))
+	to_chat(sac_target, span_purple("Вы не смогли противостоять ужасам Обители! Ваше изуродованное тело вернули на станцию."))
 	to_chat(sac_target, span_big(span_purple("Этот опыт оставляет ваш разум повреждённым, а воспоминания — рваными. \
 												Даже если вы вернётесь к жизни, вы не вспомните ничего, что предшествовало этому опыту.")))
 
@@ -560,7 +560,7 @@
 
 	sac_target.visible_message(
 		span_danger("Органы [sac_target.declent_ru(GENITIVE)] были вытащены из тела теневыми руками!"),
-		span_userdanger("Вашей органы насильно вырваны из тела теневыми руками!")
+		span_userdanger("Ваши органы насильно вырваны из тела теневыми руками!")
 	)
 
 	new /obj/effect/gibspawner/human/bodypartless(get_turf(sac_target), sac_target.dna)
@@ -590,7 +590,7 @@
 
 
 /obj/projectile/curse_hand
-	name = "проклятая рука"
+	name = "curse hand"
 	gender = FEMALE
 	icon_state = "cursehand0"
 	base_icon_state = "cursehand"

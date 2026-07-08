@@ -1,5 +1,5 @@
 /obj/effect/proc_holder/spell/charged/beam/fire_blast
-	name = "Извержение вулкана"
+	name = "Извержение Вулкана"
 	desc = "Зарядите огненную атаку, которая цепочкой охватит ближайших язычников, поджигая их. \
 			Цели, которые уже горят, имеют приоритет. Если цель не загорится или \
 			погаснет до передачи атаки дальше, цепочка прекратится."
@@ -15,7 +15,7 @@
 	clothes_req = FALSE
 	base_cooldown = 45 SECONDS
 
-	invocation = "V'LC'N!"
+	invocation = "В'ЛК'Н!"
 	invocation_type = INVOCATION_SHOUT
 	spell_requirements = NONE
 	channel_time = 3 SECONDS
@@ -63,7 +63,7 @@
 	// but likely will (due to them not catching on fire)
 	if(to_beam.can_block_magic(antimagic_flags))
 		to_beam.visible_message(
-			span_warning("[to_beam.declent_ru(NOMINATIVE)] поглоща[PLUR_ET_YUT(to_beam)] заклинание, оставаясь невредим[GEND_YM_OI_YM_YMI(to_beam)]!"),
+			span_warning("[DECLENT_RU_CAP(to_beam, NOMINATIVE)] поглоща[PLUR_ET_YUT(to_beam)] заклинание, оставаясь невредим[GEND_YM_OI_YM_YMI(to_beam)]!"),
 			span_userdanger("Вы поглощаете заклинание, оставаясь невредимым!"),
 		)
 		// Apply status effect but with no overlay
@@ -348,7 +348,7 @@
 	var/atom/cast_on = targets[1]
 	initial_target = get_target(cast_on)
 	if(isnull(initial_target))
-		cast_on.balloon_alert(cast_on, "no targets nearby!")
+		cast_on.balloon_alert(cast_on, "нет целей!")
 		stop_channel_effect(cast_on)
 		return . | SPELL_CANCEL_CAST
 

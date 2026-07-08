@@ -1,5 +1,5 @@
 /obj/effect/proc_holder/spell/lunatic_track
-	name = "Эхо лунного света"
+	name = "Эхо Лунного Света"
 	desc = "Узнайте местоположение вашего Лидера."
 	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
 	action_background_icon_state = "bg_heretic"
@@ -30,7 +30,7 @@
 		action.owner.balloon_alert(action.owner, get_balloon_message(ascended_heretic))
 
 		if(ascended_heretic.stat == DEAD)
-			to_chat(action.owner, span_hierophant("[ascended_heretic.declent_ru(NOMINATIVE)] мертв[GEND_A_O_Y(ascended_heretic)]. Рыдайте, ибо ложь победила."))
+			to_chat(action.owner, span_hierophant("[ascended_heretic.declent_ru(NOMINATIVE)] [GEND_MERTV(ascended_heretic)]. Рыдайте, ибо ложь победила."))
 
 		cooldown_handler.start_recharge()
 		return TRUE
@@ -40,7 +40,7 @@
 /obj/effect/proc_holder/spell/lunatic_track/proc/get_balloon_message(mob/living/carbon/human/tracked_mob)
 	var/balloon_message = generate_balloon_message(tracked_mob)
 	if(tracked_mob.stat == DEAD)
-		balloon_message = "мертв[GEND_A_O_Y(tracked_mob)] " + balloon_message
+		balloon_message = "[GEND_MERTV(tracked_mob)] " + balloon_message
 
 	return balloon_message
 
@@ -80,7 +80,7 @@
 
 	// We already checked if they are on lavaland or gateway, so if they arent there or on the station we can early return
 	if(!is_station_level(their_z))
-		balloon_message = "в другой реальности!"
+		balloon_message = "на другом слое реальности!!"
 		return balloon_message
 
 	// They must be on station because we have checked every other z-level, and since we arent on station we should go there

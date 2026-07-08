@@ -35,9 +35,9 @@
 /obj/effect/proc_holder/spell/pointed/New(Target)
 	. = ..()
 	if(!active_msg)
-		active_msg = "You prepare to use [src] on a target..."
+		active_msg = "Вы готовитесь использовать [declent_ru(ACCUSATIVE)] на цели..."
 	if(!deactive_msg)
-		deactive_msg = "You dispel [src]."
+		deactive_msg = "Вы отменяете [declent_ru(ACCUSATIVE)]."
 
 
 /obj/effect/proc_holder/spell/pointed/create_new_targeting()
@@ -74,7 +74,7 @@
 
 /obj/effect/proc_holder/spell/pointed/proc/on_activation(mob/on_who)
 	SHOULD_CALL_PARENT(TRUE)
-	to_chat(on_who, span_notice("[active_msg] <b>Left-click to cast the spell on a target!</b>"))
+	to_chat(on_who, span_notice("[active_msg] <b>Нажмите ЛКМ чтобы применить умение на цели!</b>"))
 	action?.UpdateButtonIcon()
 	return TRUE
 

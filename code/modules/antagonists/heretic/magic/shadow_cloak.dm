@@ -1,7 +1,7 @@
 /obj/effect/proc_holder/spell/shadow_cloak
-	name = "Плащ тьмы"
+	name = "Плащ Тьмы"
 	desc = "Полностью скрывает вашу личность, но не делает вас невидимым. Можно активировать снова, чтобы отключить эффект. \
-			При использовании вы двигаетесь быстрее, но реагируете гораздо медленнее. \
+			При использовании вы двигаетесь быстрее, но совершаете действия медленнее. \
 			Получение урона при надетом плаще может привести к его внезапному отключению."
 	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
 	action_background_icon_state = "bg_heretic"
@@ -34,7 +34,7 @@
 	if(!HAS_TRAIT(cast_on, TRAIT_HULK)) // Hulks are not stealthy. Need not apply
 		return isliving(cast_on)
 
-	cast_on.balloon_alert(cast_on, "вы халк")
+	cast_on.balloon_alert(cast_on, "вы халк!")
 	return FALSE
 
 
@@ -77,7 +77,7 @@
 /obj/effect/proc_holder/spell/shadow_cloak/proc/cloak_mob(mob/living/cast_on)
 	playsound(cast_on, 'sound/effects/ahaha.ogg', 50, TRUE, -1, extrarange = SILENCED_SOUND_EXTRARANGE, frequency = 0.5)
 	cast_on.visible_message(
-		span_warning("[cast_on.declent_ru(NOMINATIVE)] скрывается в тени!"),
+		span_warning("[DECLENT_RU_CAP(cast_on, NOMINATIVE)] скрывается в тени!"),
 		span_notice("Вы скрываетесь в тени."),
 	)
 
@@ -96,7 +96,7 @@
 	playsound(cast_on, 'sound/effects/curse/curseattack.ogg', 50)
 	if(show_message)
 		cast_on.visible_message(
-			span_warning("[cast_on.declent_ru(NOMINATIVE)] появляется из тени!"),
+			span_warning("[DECLENT_RU_CAP(cast_on, NOMINATIVE)] появляется из тени!"),
 			span_notice("Вы появляетесь из тени!"),
 		)
 
@@ -114,7 +114,7 @@
 		return // Natural expiry - the cloak simply ran out, no penalty.
 
 	removed.visible_message(
-		span_warning("[removed.declent_ru(NOMINATIVE)] появляется из тени!"),
+		span_warning("[DECLENT_RU_CAP(removed, NOMINATIVE)] появляется из тени!"),
 		span_userdanger("Вас вытащили из тени!"),
 	)
 
@@ -132,7 +132,7 @@
 
 	uncloak_mob(source, show_message = FALSE)
 	source.visible_message(
-		span_warning("[source.declent_ru(NOMINATIVE)] внезапно появляется из тени!"),
+		span_warning("[DECLENT_RU_CAP(source, NOMINATIVE)] внезапно появляется из тени!"),
 		span_userdanger("После потери концентрации, вы больше не можете скрываться в тени!"),
 	)
 	cooldown_handler.start_recharge(uncloak_time / 3)

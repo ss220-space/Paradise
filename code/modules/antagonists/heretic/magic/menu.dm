@@ -1,5 +1,5 @@
 /obj/effect/proc_holder/spell/heretic_menu
-	name = "Меню еретика"
+	name = "Меню Еретика"
 	desc = "Открывает меню прокачки."
 	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
 	action_background_icon_state = "bg_heretic"

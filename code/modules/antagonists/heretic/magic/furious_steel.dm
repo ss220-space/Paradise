@@ -1,5 +1,5 @@
 /obj/effect/proc_holder/spell/pointed/projectile/furious_steel
-	name = "Яростная сталь"
+	name = "Яростная Сталь"
 	desc = "Призывает три серебряных клинка, вращающихся вокруг вас. \
 			Эти клинки защитят вас от атак, но будут расходоваться при использовании. \
 			Кроме того, вы можете кликнуть, чтобы выстрелить клинками в цель, нанося урон и вызывая кровотечение."
@@ -16,8 +16,8 @@
 	base_cooldown = 30 SECONDS
 	invocation = "Р'СТН СТ'ЛЬ!"
 
-	active_msg = "Вы призываете три серебрянных клинка."
-	deactive_msg = "Вы отзываете три серебрянных клинка."
+	active_msg = "Вы призываете три серебряных клинка."
+	deactive_msg = "Вы отзываете три серебряных клинка."
 	cast_range = 20
 	projectile_type = /obj/projectile/floating_blade
 	projectile_amount = 3
@@ -127,7 +127,7 @@
 
 
 /obj/projectile/floating_blade
-	name = "клинок"
+	name = "knife"
 	icon = 'icons/effects/eldritch.dmi'
 	icon_state = "dio_knife"
 	damage = 25
@@ -176,7 +176,7 @@
 */
 
 /obj/projectile/floating_blade/haunted
-	name = "ритуальный клинок"
+	name = "ritual knife"
 	icon = 'icons/obj/weapons/khopesh.dmi'
 	icon_state = "render"
 	damage = 35
@@ -196,11 +196,11 @@
 
 
 /obj/effect/proc_holder/spell/pointed/projectile/furious_steel/solo
-	name = "Ослабленная Яростная сталь"
+	name = "Ослабленная Яростная Сталь"
 	base_cooldown = 20 SECONDS
 	projectile_amount = 1
-	active_msg = "Вы призываете серебрянный клинок."
-	deactive_msg = "Вы отзываете серебрянный клинок."
+	active_msg = "Вы призываете серебряный клинок."
+	deactive_msg = "Вы отзываете серебряный клинок."
 
 
 /obj/effect/proc_holder/spell/pointed/projectile/furious_steel/haunted

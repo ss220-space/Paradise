@@ -1,7 +1,7 @@
 /obj/effect/proc_holder/spell/aoe/wave_of_desperation
-	name = "Волна отчаяния"
-	desc = "Развязывает вас, отталкивает и сбивает с ног находящихся рядом людей, а также накладывает определённые эффекты Прикосновения Мансуса на всё вокруг. \
-			Нельзя применить, если вы не ограничены. (Можно применять без амулета.)"
+	name = "Волна Отчаяния"
+	desc = "Развязывает вас, отталкивает и сбивает с ног находящихся рядом гуманоидов, а также накладывает определённые эффекты Хватки Обители на всё вокруг. \
+			Можно применить только если вы скованны. Можно применять без фокуса."
 	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
@@ -50,7 +50,7 @@
 /obj/effect/proc_holder/spell/aoe/wave_of_desperation/cast_check(charge_check = TRUE, start_recharge = TRUE, mob/user = usr)
 	var/mob/living/carbon/human/human = user
 	if(!istype(human) || (!human.handcuffed && !human.legcuffed))
-		to_chat(user, span_warning("«[name]» можно применить, только будучи скованным!"))
+		to_chat(user, span_warning("\"[name]\" можно применить, только будучи скованным!"))
 		return FALSE
 	return ..()
 
@@ -65,11 +65,11 @@
 
 	var/mob/living/carbon/human/human = action.owner
 	if(human.handcuffed)
-		human.visible_message(span_danger("[human.handcuffed.declent_ru(NOMINATIVE)] котор[GEND_YI_AYA_OE_YE(human.handcuffed)] нос[PLUR_IT_YAT(human)] [human.declent_ru(NOMINATIVE)] рассыпа[PLUR_ET_YUT(human.handcuffed)]ся на множество осколков!"))
+		human.visible_message(span_danger("[DECLENT_RU_CAP(human.handcuffed, NOMINATIVE)] котор[GEND_YI_AYA_OE_YE(human.handcuffed)] нос[PLUR_IT_YAT(human)] [human.declent_ru(NOMINATIVE)] рассыпа[PLUR_ET_YUT(human.handcuffed)]ся на множество осколков!"))
 		QDEL_NULL(human.handcuffed)
 
 	if(human.legcuffed)
-		human.visible_message(span_danger("[human.legcuffed.declent_ru(NOMINATIVE)] котор[GEND_YI_AYA_OE_YE(human.legcuffed)] нос[PLUR_IT_YAT(human)] [human.declent_ru(NOMINATIVE)] рассыпа[PLUR_ET_YUT(human.legcuffed)]ся на множество осколков!"))
+		human.visible_message(span_danger("[DECLENT_RU_CAP(human.legcuffed, NOMINATIVE)] котор[GEND_YI_AYA_OE_YE(human.legcuffed)] нос[PLUR_IT_YAT(human)] [human.declent_ru(NOMINATIVE)] рассыпа[PLUR_ET_YUT(human.legcuffed)]ся на множество осколков!"))
 		QDEL_NULL(human.legcuffed)
 
 	human.apply_status_effect(/datum/status_effect/heretic_lastresort)

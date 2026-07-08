@@ -235,4 +235,4 @@
 
 /datum/brain_trauma/severe/eldritch_beauty/on_life(seconds_per_tick, times_fired)
 	if(prob(8))
-		to_chat(owner, span_warning_alt(pick("Узоры на стенах складываются в нечто прекрасное и неправильное.", "Вы не можете отвести взгляд от пустоты.", "Красота Мансуса зовёт вас.")))
+		to_chat(owner, span_warning_alt(pick("Узоры на стенах складываются в нечто прекрасное и неправильное.", "Вы не можете отвести взгляд от пустоты.", "Красота Обители зовёт вас.")))

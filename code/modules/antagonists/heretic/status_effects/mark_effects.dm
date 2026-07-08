@@ -293,7 +293,7 @@
 
 	ADD_TRAIT(owner, TRAIT_PACIFISM, TRAIT_STATUS_EFFECT(id))
 	owner.emote(pick("giggle", "laugh"))
-	to_chat(owner, span_notice("Вы чувствуете что не можете причинить вред кому-бы то нибыло..."))
+	to_chat(owner, span_notice("Вы чувствуете что не можете причинить вред кому бы то ни было..."))
 	RegisterSignal (owner, COMSIG_MOB_APPLY_DAMAGE, PROC_REF(on_damaged))
 	return TRUE
 
@@ -313,7 +313,7 @@
 
 	// Removes the trait in here since we don't wanna destroy the mark before its detonated or allow detonation triggers with other weapons
 	REMOVE_TRAIT(owner, TRAIT_PACIFISM, TRAIT_STATUS_EFFECT(id))
-	to_chat(owner, span_notice("Вы чувствуете что снова можете причинять вред..."))
+	to_chat(owner, span_notice("Вы чувствуете, что снова можете причинять вред..."))
 
 
 /datum/status_effect/eldritch/moon/on_effect()

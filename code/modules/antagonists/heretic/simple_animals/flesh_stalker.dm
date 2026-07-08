@@ -1,6 +1,6 @@
 /// Durable ambush mob with an EMP ability
 /mob/living/simple_animal/hostile/heretic_summon/stalker
-	name = "Ловец Плоти"
+	name = "\improper Flesh Stalker"
 	real_name = "Ловец Плоти"
 	desc = "Мерзость, слепленная из разрозненных человеческих останков."
 	gender = MALE

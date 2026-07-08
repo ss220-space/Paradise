@@ -1,5 +1,5 @@
 /obj/effect/proc_holder/spell/pointed/cleave
-	name = "Кровавое рассечение" // Crimson Cleave
+	name = "Кровавое Рассечение" // Crimson Cleave
 	desc = "Направленное заклинание: вытягивает здоровье и кровь у жертв в небольшом радиусе вокруг цели, \
 			исцеляя вас. При применении очищает все ваши раны."
 	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
@@ -41,7 +41,7 @@
 			continue
 		if(victim.can_block_magic(antimagic_flags))
 			victim.visible_message(
-				span_danger("[victim.declent_ru(NOMINATIVE)] слегка мерцает!"),
+				span_danger("[DECLENT_RU_CAP(victim, NOMINATIVE)] слегка мерцает!"),
 				span_danger("Ваше тело начинает светиться огненным свечением, но затем постепенно затухает!")
 			)
 			continue
@@ -50,7 +50,7 @@
 			continue
 
 		victim.visible_message(
-			span_danger("[victim.declent_ru(NOMINATIVE)] покрывается множеством мелких порезов, кровь хлещет наружу!"),
+			span_danger("[DECLENT_RU_CAP(victim, NOMINATIVE)] покрывается множеством мелких порезов, кровь хлещет наружу!"),
 			span_danger("Ваши вены лопаются изнутри, и нечестивое пламя вырывается из вашей крови!")
 		)
 

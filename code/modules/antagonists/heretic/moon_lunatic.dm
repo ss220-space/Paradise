@@ -5,7 +5,7 @@
 	antag_hud_name = "lunatic"
 	antag_hud_type = ANTAG_HUD_LUNATIC
 	clown_gain_text = "Древние знания о Луне позволили вам преодолеть свою шутовскую натуру и научиться владеть оружием, не причиняя себе вреда."
-	clown_removal_text = "По мере того, как ваши знания о Луне рассеиваются, вы возвращаетесь к своему неуклюжему, клоунскому «я»."
+	clown_removal_text = "По мере того, как ваши знания о Луне рассеиваются, вы возвращаетесь к своему неуклюжему, клоунскому \"я\"."
 	// The mind of the ascended heretic who created us
 	var/datum/mind/ascended_heretic
 	// The body of the ascended heretic who created us
@@ -37,7 +37,7 @@
 	lunatic_obj.master = heretic_master
 	lunatic_obj.update_explanation_text()
 
-	to_chat(owner, span_boldnotice("Разрушь ложь, спаси правду служа [heretic_master] — лидеру Лунатиков!"))
+	to_chat(owner, span_boldnotice("Разрушь ложь, спаси правду, служа [heretic_master], — лидеру Лунатиков!"))
 
 
 /datum/antagonist/lunatic/add_antag_hud(mob/living/antag_mob)
@@ -80,7 +80,7 @@
 /datum/objective/lunatic/update_explanation_text()
 	. = ..()
 	if(is_master)
-		explanation_text = "Используйте лунатиков для достижеиния своих целей!"
+		explanation_text = "Используйте лунатиков для достижения своих целей!"
 		return
 
 	explanation_text = "Помогите лидеру Лунатиков. Лидер — [master.current.real_name]. Не вредите другим лунатикам!"

@@ -1,10 +1,10 @@
 /obj/effect/proc_holder/spell/touch/star_touch
-	name = "Звёздное касание"
+	name = "Звёздное Касание"
 	desc = "Создаёт космические поля на плитках рядом с вами, одновременно отмечая жертву звёздной меткой \
 			или поглощая уже существующую звёздную метку, чтобы усыпить её на 4 секунды. \
 			Затем жертва будет связана с вами космическим лучом, сжигающим её до минуты или \
-			до момента пока ваша жертва не скроется от вас. «Звёздное Касание» также может стереть Космические \
-			руны или телепортировать вас к вашему Звёздному Глашатаю при использовании на себе."
+			до момента пока ваша жертва не скроется от вас. \"Звёздное Касание\" также может стереть Космические \
+			руны или телепортировать вас к вашему Звёздному Наблюдателю при использовании на себе."
 	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
@@ -99,7 +99,7 @@
 
 
 /obj/item/melee/touch_attack/star_touch
-	name = "звёздное касание"
+	name = "star touch"
 	desc = "Зловещая аура, искажающая реальность вокруг себя. \
 			Заставляет людей со звёздной меткой заснуть на 4 секунды, а людей без звёздной метки — получить её."
 	icon = 'icons/obj/weapons/hand.dmi'
@@ -148,7 +148,7 @@
 	remove_hand_with_no_refund(user)
 
 /obj/item/melee/touch_attack/star_touch/ignition_effect(atom/to_light, mob/user)
-	. = span_rose("[user.declent_ru(NOMINATIVE)] непринуждённо щёлкает пальцами возле [to_light.declent_ru(GENITIVE)], поджигая космическими энергиями. Чертовски круто!")
+	. = span_rose("[DECLENT_RU_CAP(user, NOMINATIVE)] непринуждённо щёлкает пальцами, поджигая [to_light.declent_ru(ACCUSATIVE)] космическими энергиями. Чертовски круто!")
 	remove_hand_with_no_refund(user)
 
 /obj/item/melee/touch_attack/star_touch/attack_self(mob/living/user)

@@ -1,8 +1,8 @@
 // The mawed crucible, a heretic structure that can create potions from bodyparts and organs.
 /obj/structure/destructible/eldritch_crucible
-	name = "Котёл Страданий"
+	name = "mawed crucible"
 	desc = "Глубокий чугунный котёл, удерживаемый стальными шипами. \
-			Смотря на мерзкий экстракт внутри, вы чувствуете как ваш разум наполняется ужасными идеями."
+			Одного взгляда на мерзкий экстракт внутри достаточно, чтобы ваш разум начал наполняться ужасными идеями."
 	icon = 'icons/obj/eldritch.dmi'
 	icon_state = "crucible"
 	base_icon_state = "crucible"
@@ -23,18 +23,18 @@
 
 /obj/structure/destructible/eldritch_crucible/get_ru_names()
 	return alist(
-		NOMINATIVE = "Котёл Страданий",
-		GENITIVE = "Котла Страданий",
-		DATIVE = "Котлу Страданий",
-		ACCUSATIVE = "Котёл Страданий",
-		INSTRUMENTAL = "Котлом Страданий",
-		PREPOSITIONAL = "Котле Страданий",
+		NOMINATIVE = "котёл страданий",
+		GENITIVE = "котла страданий",
+		DATIVE = "котлу страданий",
+		ACCUSATIVE = "котёл страданий",
+		INSTRUMENTAL = "котлом страданий",
+		PREPOSITIONAL = "котле страданий",
 	)
 
 
 /obj/structure/destructible/eldritch_crucible/Initialize(mapload)
 	. = ..()
-	break_message = span_warning("[declent_ru(NOMINATIVE)] с грохотом разваливается!")
+	break_message = span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] с грохотом разваливается!")
 	START_PROCESSING(SSobj, src)
 
 
@@ -54,7 +54,7 @@
 /obj/structure/destructible/eldritch_crucible/Destroy(force)
 	// Create a spillage if we were destroyed with leftover mass
 	if(current_mass)
-		break_message = span_warning("[declent_ru(NOMINATIVE)] с грохотом разваливается, разливая повсюду блестящий экстракт!")
+		break_message = span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] с грохотом разваливается, разливая повсюду блестящий экстракт!")
 		var/turf/our_turf = get_turf(src)
 
 		new /obj/effect/decal/cleanable/greenglow(our_turf)
@@ -75,15 +75,15 @@
 		return
 
 	if(current_mass > 0)
-		. += span_notice("Содержимым можно наполнить Жуткую Колбу.")
+		. += span_notice("Содержимым можно наполнить <b>жуткую колбу</b>.")
 
 	if(current_mass < max_mass)
 		var/to_fill = max_mass - current_mass
-		. += span_notice("[declent_ru(DATIVE)] необходимо еще <b>[to_fill]</b> орган[to_fill == 1 ? "" : (to_fill <= 4 ? "а" : "ов")] или част[to_fill == 1 ? "ь" : (to_fill <= 4 ? "и" : "ей")] тела.")
+		. += span_notice("[DECLENT_RU_CAP(src, DATIVE)] необходимо еще <b>[to_fill]</b> орган[DECL_CREDIT(to_fill)] или част[declension_ru(to_fill, "ь", "и", "ей")] тела.")
 	else
-		. += span_boldnotice("[declent_ru(NOMINATIVE)] наполнен вязкой субстанцией и готов к использованию.")
+		. += span_boldnotice("[DECLENT_RU_CAP(src, NOMINATIVE)] наполнен вязкой субстанцией и готов к использованию.")
 
-	. += span_notice("Вы можете <b>[anchored ? "прикрепить к полу":"открепить от пола"]</b> [declent_ru(ACCUSATIVE)] используя <b>Кодекс Истезания</b> или <b>Прикосновение Мансуса</b>.")
+	. += span_notice("Вы можете <b>[anchored ? "прикрепить к полу":"открепить от пола"]</b> [declent_ru(ACCUSATIVE)] используя <b>Кодекс Истязания</b> или <b>Хватку Обители</b>.")
 	. += span_notice("Можно сварить следующие зелья:")
 	for(var/obj/item/eldritch_potion/potion as anything in subtypesof(/obj/item/eldritch_potion))
 		var/potion_string = span_notice(initial(potion.name) + " - " + initial(potion.crucible_tip))
@@ -144,7 +144,7 @@
 
 	to_fill.reagents.add_reagent(/datum/reagent/eldritch, 50)
 	current_mass--
-	balloon_alert(user, "колба заполненна")
+	balloon_alert(user, "колба заполнена")
 	return ATTACK_CHAIN_BLOCKED_ALL
 
 
@@ -230,7 +230,7 @@
 	if(QDELETED(arm))
 		return
 
-	to_chat(user, span_userdanger("[declent_ru(NOMINATIVE)] пожирает вашу [arm.declent_ru(ACCUSATIVE)]!"))
+	to_chat(user, span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] пожирает вашу [arm.declent_ru(ACCUSATIVE)]!"))
 	arm.dismember()
 	consume_fuel(consumed = arm)
 
@@ -247,7 +247,7 @@
 
 	current_mass++
 	playsound(src, 'sound/items/eatfood.ogg', 100, TRUE)
-	visible_message(span_notice("[declent_ru(NOMINATIVE)] пожирает [consumed.declent_ru(ACCUSATIVE)] и наполняется небольшим количеством таинственной субстанции!"))
+	visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] пожирает [consumed.declent_ru(ACCUSATIVE)] и наполняется небольшим количеством таинственной субстанции!"))
 
 	if(feeder)
 		balloon_alert(feeder, "заполненность: [current_mass] / [max_mass]")
@@ -262,9 +262,10 @@
 
 // Potions created by the mawed crucible.
 /obj/item/eldritch_potion
-	name = "Варево дня и ночи"
+	abstract_type = /obj/item/eldritch_potion
+	name = "brew of day and night"
 	//No ru_names, because its not for game.
-	desc = "Вы не должны были это увидеть."
+	desc = "Вы не должны были это увидеть, сообщите о баге."
 	icon = 'icons/obj/eldritch.dmi'
 	w_class = WEIGHT_CLASS_SMALL
 	/// When a heretic examines a mawed crucible, shows a list of possible potions by name + includes this tip to explain what it does.
@@ -296,13 +297,13 @@
 	playsound(src, 'sound/effects/bubbles/bubbles.ogg', 50, TRUE)
 
 	if(!IS_HERETIC_OR_MONSTER(user))
-		to_chat(user, span_danger("Вы осторожно выливаете немного субстанции из [declent_ru(GENITIVE)] себе в рот. Вкус вызывает тошноту, а стакан внезапно исчезает."))
+		to_chat(user, span_danger("Вы осторожно выливаете немного субстанции из [declent_ru(GENITIVE)] себе в рот. Вкус вызывает тошноту, а флакон внезапно исчезает."))
 		user.reagents?.add_reagent(/datum/reagent/eldritch, 10)
 		user.Disgust(50)
 		qdel(src)
 		return TRUE
 
-	to_chat(user, span_notice("Вы пьете вязкую субстанцию из [declent_ru(GENITIVE)], в результате чего стакан дематериализуется."))
+	to_chat(user, span_notice("Вы пьете вязкую субстанцию из [declent_ru(GENITIVE)], в результате чего флакон дематериализуется."))
 	potion_effect(user)
 	qdel(src)
 	return TRUE
@@ -319,8 +320,8 @@
 
 
 /obj/item/eldritch_potion/crucible_soul
-	name = "Зелье Блуждающей Души"
-	desc = "Стеклянная бутылка с ярко-оранжевой полупрозрачной жидкостью."
+	name = "brew of the crucible soul"
+	desc = "Стеклянный флакон с ярко-оранжевой полупрозрачной жидкостью."
 	icon_state = "crucible_soul"
 	status_effect = /datum/status_effect/crucible_soul
 	crucible_tip = "Позволяет проходить сквозь стены. После окончания действия вы телепортируетесь в исходное местоположение. Длится 40 секунд."
@@ -337,18 +338,18 @@
 
 /obj/item/eldritch_potion/crucible_soul/get_ru_names()
 	return alist(
-		NOMINATIVE = "Зелье Блуждающей Души",
-		GENITIVE = "Зелья Блуждающей Души",
-		DATIVE = "Зелью Блуждающей Души",
-		ACCUSATIVE = "Зелье Блуждающей Души",
-		INSTRUMENTAL = "Зельем Блуждающей Души",
-		PREPOSITIONAL = "Зелье Блуждающей Души",
+		NOMINATIVE = "зелье блуждающей души",
+		GENITIVE = "зелья блуждающей души",
+		DATIVE = "зелью блуждающей души",
+		ACCUSATIVE = "зелье блуждающей души",
+		INSTRUMENTAL = "зельем блуждающей души",
+		PREPOSITIONAL = "зелье блуждающей души",
 	)
 
 
 /obj/item/eldritch_potion/duskndawn
-	name = "Зелье Заката и Рассвета"
-	desc = "Стеклянная бутылка с мутно-желтой жидкостью. Содержимое то появляется, то исчезает."
+	name = "brew of dusk and dawn"
+	desc = "Стеклянный флакон с мутно-жёлтой жидкостью. Содержимое то появляется, то исчезает."
 	icon_state = "clarity"
 	status_effect = /datum/status_effect/duskndawn
 	crucible_tip = "Позволяет видеть сквозь преграды. Длится 90 секунд."
@@ -356,31 +357,31 @@
 
 /obj/item/eldritch_potion/duskndawn/get_ru_names()
 	return alist(
-		NOMINATIVE = "Зелье Заката и Рассвета",
-		GENITIVE = "Зелья Заката и Рассвета",
-		DATIVE = "Зелью Заката и Рассвета",
-		ACCUSATIVE = "Зелье Заката и Рассвета",
-		INSTRUMENTAL = "Зельем Заката и Рассвета",
-		PREPOSITIONAL = "Зелье Заката и Рассвета",
+		NOMINATIVE = "зелье заката и рассвета",
+		GENITIVE = "зелья заката и рассвета",
+		DATIVE = "зелью заката и рассвета",
+		ACCUSATIVE = "зелье заката и рассвета",
+		INSTRUMENTAL = "зельем заката и рассвета",
+		PREPOSITIONAL = "зелье заката и рассвета",
 	)
 
 
 /obj/item/eldritch_potion/wounded
-	name = "Зелье Раненого Солдата"
-	desc = "Стеклянный бутылек, содержащая бесцветную темную жидкость."
+	name = "brew of the wounded soldier"
+	desc = "Стеклянный флакон, содержащий бесцветную тёмную жидкость."
 	icon_state = "marshal"
 	status_effect = /datum/status_effect/marshal
-	crucible_tip = "Постепенно исцеляет полученные вами раны. Переломы и внутренние кровотечения заживут. \
+	crucible_tip = "Постепенно исцеляет полученные вами раны, переломы и внутренние кровотечения. \
 					Чем серьезнее раны, тем сильнее заживление. Кроме того, предотвращает замедление от повреждений. \
 					Длится 60 секунд."
 
 
 /obj/item/eldritch_potion/wounded/get_ru_names()
 	return alist(
-		NOMINATIVE = "Зелье Раненого Солдата",
-		GENITIVE = "Зелья Раненого Солдата",
-		DATIVE = "Зелью Раненого Солдата",
-		ACCUSATIVE = "Зелье Раненого Солдата",
-		INSTRUMENTAL = "Зельем Раненого Солдата",
-		PREPOSITIONAL = "Зелье Раненого Солдата",
+		NOMINATIVE = "зелье раненого солдата",
+		GENITIVE = "зелья раненого солдата",
+		DATIVE = "зелью раненого солдата",
+		ACCUSATIVE = "зелье раненого солдата",
+		INSTRUMENTAL = "зельем раненого солдата",
+		PREPOSITIONAL = "зелье раненого солдата",
 	)

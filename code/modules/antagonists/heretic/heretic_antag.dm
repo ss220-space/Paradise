@@ -32,7 +32,7 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	wiki_page_name = "Heretic"
 	russian_wiki_name = "Еретик"
 	clown_gain_text = "Вы обрели знания противоречащие учениям Хонкоматери и теперь можете владеть оружием, не причиняя себе вреда."
-	clown_removal_text = "По мере того, как ваши еретические знания рассеиваются, вы возвращаетесь к своему неуклюжему, клоунскому «я»."
+	clown_removal_text = "По мере того, как ваши еретические знания рассеиваются, вы возвращаетесь к своему неуклюжему, клоунскому \"я\"."
 	antag_menu_name = "Еретик"
 	/// Automaticly allow to ascend
 	var/force_can_ascend = FALSE
@@ -586,7 +586,7 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	unlimited_blades = TRUE
 	var/mob/heretic_mob = owner?.current
 	if(!QDELETED(heretic_mob))
-		to_chat(heretic_mob, span_boldwarning("Вы обрели немалую силу. Мансус больше не позволит вам ломать свои клинки, но теперь вы можете создавать их сколько пожелаете."))
+		to_chat(heretic_mob, span_boldwarning("Вы обрели немалую силу. Обитель больше не позволит вам ломать свои клинки, но теперь вы можете создавать их без ограничений."))
 		heretic_mob.balloon_alert(heretic_mob, "клинки больше не ломаются!")
 		// Growing this strong sheds your stealth - the cloak of shadows leaves you (no-op if you never had it).
 		heretic_mob.mind?.RemoveSpell(/obj/effect/proc_holder/spell/shadow_cloak)
@@ -652,7 +652,7 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	if(ascended)
 		return
 
-	source.balloon_alert(source, "нужен амулет")
+	source.balloon_alert(source, "нужен фокус!")
 	return SPELL_CANCEL_CAST
 
 /// Signal proc for [COMSIG_MOB_ITEM_AFTERATTACK]. Lets a heretic draw a transmutation rune when holding a
@@ -681,7 +681,7 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 		if(!iswallturf(nearby_turf) && !is_type_in_typecache(nearby_turf, blacklisted_rune_turfs))
 			continue
 
-		target_turf.balloon_alert(user, "не подходящее место!")
+		target_turf.balloon_alert(user, "неподходящее место!")
 		return
 
 	if(locate(/obj/effect/decal/heretic_rune) in range(3, target_turf))
@@ -689,7 +689,7 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 		return
 
 	if(drawing_rune)
-		target_turf.balloon_alert(user, "уже чертите")
+		target_turf.balloon_alert(user, "вы уже чертите!")
 		return
 
 	INVOKE_ASYNC(src, PROC_REF(draw_rune), user, target_turf, drawing_time, additional_checks)
@@ -718,7 +718,7 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	new /obj/effect/decal/heretic_rune/big(target_turf, rune_colour)
 	drawing_rune = FALSE
 
-/// Callback to check that the user's still got their Прикосновение Мансуса out when drawing a rune.
+/// Callback to check that the user's still got their mansus grasp out when drawing a rune.
 /datum/antagonist/heretic/proc/check_mansus_grasp_offhand(mob/living/user)
 	var/obj/item/offhand = user.get_inactive_hand()
 	return !QDELETED(offhand) && istype(offhand, /obj/item/melee/touch_attack/mansus_fist)
@@ -752,7 +752,7 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	haunted_blade.gender_reveal(outline_color = null, ray_color = COLOR_HERETIC_GREEN)
 
 	for(var/mob/living/culto as anything in invokers)
-		to_chat(culto, span_cultlarge("\"Последователь забытых богов! Ты должен быть вознагражден за столь ценную жертву.\""))
+		to_chat(culto, span_cultlarge("Душа последователя забытых богов... Ты будешь вознаграждён за столь ценную жертву."))
 
 	return SILENCE_SACRIFICE_MESSAGE|DUST_SACRIFICE
 
@@ -855,11 +855,12 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 /// Increments knowledge by one. Used in callbacks for passive gain over time.
 /datum/antagonist/heretic/proc/passive_influence_gain()
 	adjust_knowledge_points(1)
+
 	// The timer must ALWAYS re-arm: bailing out while the body is briefly gone (mid body-transfer,
 	// gibbed awaiting revival) would silently kill the 20-minute point gain for the rest of the round.
 	var/mob/living/heretic_mob = owner?.current
 	if(!QDELETED(heretic_mob) && (heretic_mob.stat == CONSCIOUS || heretic_mob.IsSleeping()))
-		to_chat(heretic_mob, "[span_hear("Вы слышите шепот...")] [span_purple(pick_list(HERETIC_INFLUENCE_FILE, "drain_message"))]")
+		to_chat(heretic_mob, "[span_hear("Вы слышите шёпот...")] [span_purple(pick_list(HERETIC_INFLUENCE_FILE, "drain_message"))]")
 
 	addtimer(CALLBACK(src, PROC_REF(passive_influence_gain)), passive_gain_timer)
 
@@ -877,7 +878,7 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	var/succeeded = TRUE
 
 	parts += printplayer(owner)
-	parts += "<b>Принесенные жертвы:</b> [total_sacrifices]"
+	parts += "<b>Принесённые жертвы:</b> [total_sacrifices]"
 	parts += "Целями жертвоприношений еретика были: [english_list(all_sac_targets, nothing_text = "-")]."
 	if(length(objectives))
 		var/count = 1
@@ -890,14 +891,14 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 			count++
 
 	if(feast_of_owls)
-		parts += span_greentext("Отрекшиеся Вознеслись")
+		parts += span_greentext("Отрекшиеся Вознеслись.")
 
 	if(ascended)
 		parts += span_greentext(span_big("ЕРЕТИК ВОЗНЕССЯ!"))
 
 	else
 		if(succeeded)
-			parts += span_greentext("Еретик выполнил цели, но не вознесся!")
+			parts += span_greentext("Еретик выполнил цели, но не вознёсся!")
 		else
 			parts += span_redtext("Еретик провалился.")
 
@@ -937,7 +938,7 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 
 	var/datum/heretic_knowledge/living_heart/heart_knowledge = get_knowledge(/datum/heretic_knowledge/living_heart)
 	if(!heart_knowledge)
-		to_chat(admin, span_warning("У еретика почему-то нет знания о Живом сердце. Какого черта?"))
+		to_chat(admin, span_warning("У еретика почему-то нет знания о Живом сердце, сообщите об этом баге."))
 		return
 
 	heart_knowledge.on_research(owner.current, src)
@@ -950,12 +951,12 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 
 	var/mob/living/carbon/human/new_target = admin.client?.holder.marked_datum
 	if(!istype(new_target))
-		to_chat(admin, span_warning("Вы должны быть гуманойдом!"))
+		to_chat(admin, span_warning("Вы должны быть гуманоидом!"))
 		return
 
-	if(tgui_alert(admin, "Сообщать им, что цели были обновлены?", "Шепот Мансуса", list("Да", "Нет")) == "Да")
-		to_chat(owner.current, span_danger("Мансус изменил следующую жертву. Иди и найди её!"))
-		to_chat(owner.current, span_danger("[new_target.real_name], the [new_target.mind?.assigned_role || "human"]."))
+	if(tgui_alert(admin, "Сообщить им, что цели были обновлены?", "Шёпот Обители", list("Да", "Нет")) == "Да")
+		to_chat(owner.current, span_danger("Обитель сменила свою следующую жертву. Отыщи её!"))
+		to_chat(owner.current, span_danger("[new_target.real_name], [new_target.mind?.assigned_role || "гуманоид"]."))
 
 	add_sacrifice_target(new_target)
 
@@ -969,7 +970,7 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	for(var/mob/living/carbon/human/old_target as anything in sac_targets)
 		removable[old_target.name] = old_target
 
-	var/name_of_removed = tgui_input_list(admin, "Выберите цель которую хотите удалить.", "Кого пощадить", removable)
+	var/name_of_removed = tgui_input_list(admin, "Выберите цель, которую хотите удалить.", "Кого пощадить", removable)
 	if(QDELETED(src) || !admin.client?.holder || isnull(name_of_removed))
 		return
 
@@ -978,11 +979,11 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 		return
 
 	if(!remove_sacrifice_target(chosen_target))
-		to_chat(admin, span_warning("Не получилось удалить [name_of_removed] из списка целей [owner]. Возможно [name_of_removed] уже не в списке."))
+		to_chat(admin, span_warning("Не получилось удалить [name_of_removed] из списка целей [owner]. Возможно, [name_of_removed] уже не в списке."))
 		return
 
-	if(tgui_alert(admin, "Сообщать им, что цели были обновлены?", "Шепот Мансуса", list("Да", "Нет")) == "Да")
-		to_chat(owner.current, span_danger("Мансус изменил ваши задачи."))
+	if(tgui_alert(admin, "Сообщить им, что цели были обновлены?", "Шёпот Обители", list("Да", "Нет")) == "Да")
+		to_chat(owner.current, span_danger("Обитель изменила ваши задачи."))
 
 /// Admin proc for easily adding / removing knowledge points.
 /datum/antagonist/heretic/proc/admin_change_points(admin)
@@ -1021,7 +1022,7 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 
 	var/mob/living/pawn = owner.current
 	pawn.equip_to_slot_if_possible(new /obj/item/clothing/neck/heretic_focus(get_turf(pawn)), ITEM_SLOT_NECK, TRUE, TRUE)
-	to_chat(pawn, span_purple("Мансус даровал вам способность колдовать без амулетов."))
+	to_chat(pawn, span_purple("Обитель даровала вам способность колдовать без фокуса."))
 
 /// Learns the passed [typepath] of knowledge, creating a knowledge datum and adding it to our researched
 /// knowledge list. Returns TRUE if the knowledge was added successfully, FALSE otherwise.
@@ -1295,14 +1296,15 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 		if(!say_result)
 			return TRUE
 
-		user.balloon_alert(user, "вам дозволенно вознестись")
+		user.balloon_alert(user, "вам дозволено вознестись")
 		return TRUE
 
 	if(feast_of_owls)
 		if(!say_result)
 			return FALSE
 
-		user.balloon_alert(user, "ваши амбиции поглощены")
+		user.balloon_alert(user, "ваши амбиции поглощены!")
+		to_chat(user, span_boldnotice("Совы поглотили ваши амбиции!"))
 		return FALSE // We sold our ambition for immediate power :/
 
 	for(var/datum/objective/heretic_research/research in objectives)
@@ -1312,7 +1314,8 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 		if(!say_result)
 			return FALSE
 
-		user.balloon_alert(user, "слишком мало знаний")
+		user.balloon_alert(user, "слишком мало знаний!")
+		to_chat(user, span_boldnotice("Слишком мало знаний!"))
 		return FALSE
 
 
@@ -1323,7 +1326,8 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 		if(!say_result)
 			return FALSE
 
-		user.balloon_alert(user, "слишком мало жертв")
+		user.balloon_alert(user, "слишком мало жертв!")
+		to_chat(user, span_boldnotice("Слишком мало жертв!"))
 		return FALSE
 
 	return TRUE
@@ -1349,7 +1353,7 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	// on an empty list would runtime).
 	if(!length(GLOB.reality_smash_track?.smashes))
 		return
-	dreams += "Вы бродите по лесу Мансуса"
+	dreams += "Вы бродите по лесу вокруг Обители"
 	dreams += "Вы видите " + pick("пруд", "колодец", "озеро", "лужу", "ручей", "реку", "болото")
 
 	if(isnull(dreams_allowed_typecaches_by_root_type))
@@ -1372,7 +1376,7 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 		dreams += found_object.declent_ru(NOMINATIVE)
 
 	if(!something_found)
-		dreams += pick("Вода полностью чёрная", "Отражение слишкмо размыто.", "Вы бесцельно бродите")
+		dreams += pick("Вода полностью чёрная", "Отражение слишкмо размыто", "Вы бесцельно бродите")
 	else
 		dreams += "Изображения на поверхности воды постепенно рассеиваются"
 
@@ -1382,9 +1386,9 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 
 /// Heretic's minor sacrifice objective. "Minor sacrifices" includes anyone.
 /datum/objective/heretic_sacrifice
-	name = "жертва мансусу"
+	name = "жертва Обители"
 	target_amount = 5
-	explanation_text = "Принесите мансусу как минимум 5 жертв. \
+	explanation_text = "Принесите Обители как минимум 5 жертв. \
 						В жертву можно приносить только тех, на кого укажет Живое Сердце."
 
 
@@ -1441,7 +1445,7 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 /datum/objective/heretic_summon
 	name = "призыв монстров"
 	target_amount = 2
-	explanation_text = "Призовите хотябы двух монстров из царства Мансуса в эту реальность."
+	explanation_text = "Призовите хотя бы двух монстров из Обители в эту реальность."
 	/// The total number of summons the objective owner has done
 	var/num_summoned = 0
 

@@ -104,8 +104,20 @@ REPLACEMENTS = [
     (r'genderize_ru\(([^,]+)\.gender,\s*"вашего",\s*"вашей",\s*"вашего",\s*"ваших"\)', r'GEND_YOURS(\1)', 'GEND_YOURS'),
     (r'genderize_ru\(gender,\s*"вашего",\s*"вашей",\s*"вашего",\s*"ваших"\)', r'GEND_YOURS(src)', 'GEND_YOURS'),
 
-    (r'genderize_ru\(([^,]+)\.gender,\s*"ий",\s*"ая",\s*"ий",\s*"ие"\)', r'GEND_II_AYA_II_IE(\1)', 'GEND_II_AYA_II_IE'),
-    (r'genderize_ru\(gender,\s*"ий",\s*"ая",\s*"ий",\s*"ие"\)', r'GEND_II_AYA_II_IE(src)', 'GEND_II_AYA_II_IE'),
+    (r'genderize_ru\(([^,]+)\.gender,\s*"ий",\s*"ая",\s*"ое",\s*"ие"\)', r'GEND_II_AYA_OE_IE(\1)', 'GEND_II_AYA_OE_IE'),
+    (r'genderize_ru\(gender,\s*"ий",\s*"ая",\s*"ое",\s*"ие"\)', r'GEND_II_AYA_OE_IE(src)', 'GEND_II_AYA_OE_IE'),
+
+    (r'genderize_ru\(([^,]+)\.gender,\s*"ий",\s*"ая",\s*"ее",\s*"ие"\)', r'GEND_II_AYA_EE_IE(\1)', 'GEND_II_AYA_EE_IE'),
+    (r'genderize_ru\(gender,\s*"ий",\s*"ая",\s*"ее",\s*"ие"\)', r'GEND_II_AYA_EE_IE(src)', 'GEND_II_AYA_EE_IE'),
+
+    (r'genderize_ru\(([^,]+)\.gender,\s*"ого",\s*"ую",\s*"ое",\s*"ых"\)', r'GEND_OGO_UU_OE_YH(\1)', 'GEND_OGO_UU_OE_YH'),
+    (r'genderize_ru\(gender,\s*"ого",\s*"ую",\s*"ое",\s*"ых"\)', r'GEND_OGO_UU_OE_YH(src)', 'GEND_OGO_UU_OE_YH'),
+
+    (r'genderize_ru\(([^,]+)\.gender,\s*"й",\s*"ю",\s*"ё",\s*"и"\)', r'GEND_I_U_UO_I(\1)', 'GEND_I_U_UO_I'),
+    (r'genderize_ru\(gender,\s*"й",\s*"ю",\s*"ё",\s*"и"\)', r'GEND_I_U_UO_I(src)', 'GEND_I_U_UO_I'),
+
+    (r'genderize_ru\(([^,]+)\.gender,\s*"мёртв",\s*"мертва",\s*"мертво",\s*"мертвы"\)', r'GEND_MERTV(\1)', 'GEND_MERTV'),
+    (r'genderize_ru\(gender,\s*"мёртв",\s*"мертва",\s*"мертво",\s*"мертвы"\)', r'GEND_MERTV(src)', 'GEND_MERTV'),
 
     # capitalize(declent_ru())
     (r'capitalize\(declent_ru\((\w+)\)\)', r'DECLENT_RU_CAP(src, \1)', 'DECLENT_RU_CAP'),

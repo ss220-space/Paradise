@@ -425,7 +425,7 @@
 
 /datum/reagent/inverse/helgrasp/on_mob_add(mob/living/carbon/human/user)
 	. = ..()
-	to_chat(user, span_hierophant("Вы слышите смех, когда перед вами появляются жуткие руки, жаждущие утащить вас в ад!.. Берегитесь!"))
+	to_chat(user, span_hierophant("Вы слышите смех, когда перед вами появляются жуткие руки, жаждущие утащить вас в ад! Берегитесь!"))
 	playsound(user.loc, 'sound/effects/ahaha.ogg', 80, TRUE, -1)
 
 /datum/reagent/inverse/helgrasp/on_mob_life(mob/living/M)
@@ -459,7 +459,7 @@
 	timer_ids = null
 
 /datum/reagent/inverse/helgrasp/heretic
-	name = "Прикосновение Мансуса"
+	name = "Хватка Обители"
 	id = "mansus_touch"
 	description = "Чья-то рука у вашего горла..."
 

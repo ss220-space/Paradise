@@ -1,6 +1,6 @@
 // Eldritch armor. Looks cool, hood lets you cast heretic spells.
 /obj/item/clothing/head/hooded/cult_hoodie/eldritch
-	name = "зловещий капюшон"
+	name = "ominous hood"
 	desc = "Рваный, покрытый пылью капюшон. Внутри виднеются жуткие глаза."
 	icon_state = "eldritch"
 	//item_state = "eldritch"
@@ -35,7 +35,7 @@
 
 
 /obj/item/clothing/suit/hooded/cultrobes/eldritch
-	name = "зловещая броня"
+	name = "ominous mantle"
 	desc = "Рваная, пыльная мантия. Внутри — видны жуткие глаза."
 	gender = FEMALE
 	icon_state = "eldritch_armor"
@@ -82,8 +82,8 @@
 // A non-heretic who dares to don it is violently relieved of everything they carry, the instant they put it on.
 // (the guise traits are the same ones the shadow cloak uses, see status_effects/buffs.dm.)
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/lock
-	name = "изменчивая личина"
-	desc = "Набор затенённых одеяний с глубоким капюшоном. Под ним невозможно разглядеть, кто скрывается."
+	name = "shifting guise"
+	desc = "Набор затенённых одеяний с глубоким капюшоном. Невозможно разглядеть, кто под ним скрывается."
 	icon_state = "lock_armor"
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie/eldritch/lock
 	armor = list("melee" = 40, "bullet" = 40, "laser" = 40, "energy" = 40, "bomb" = 40, "bio" = 40, "fire" = 40, "acid" = 40)
@@ -170,7 +170,7 @@
 
 
 /obj/item/clothing/head/hooded/cult_hoodie/eldritch/lock
-	name = "капюшон изменчивой личины"
+	name = "shifting guise hood"
 	icon_state = "lock_armor"
 	armor = list("melee" = 40, "bullet" = 40, "laser" = 40, "energy" = 40, "bomb" = 40, "bio" = 40, "fire" = 40, "acid" = 40)
 
@@ -210,7 +210,7 @@
 // Completely fire-proof, and can passively set the wearer ablaze via a toggle. Building up fire stacks on
 // yourself empowers your ashen spells (see is_ash_empowered). The wearer takes no fire damage.
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/ash
-	name = "опалённая мантия"
+	name = "scorched mantle"
 	desc = "Тлеющая мантия из пепла и углей. Жар не причиняет ей вреда — лишь питает её."
 	icon_state = "ash_armor"
 	// Base eldritch robes set HIDESHOES, which made the wearer's shoes vanish - the Scorched Mantle
@@ -284,7 +284,7 @@
 
 
 /obj/item/clothing/head/hooded/cult_hoodie/eldritch/ash
-	name = "капюшон опалённой мантии"
+	name = "scorched mantle hood"
 	icon_state = "ash_armor"
 	armor = list("melee" = 30, "bullet" = 30, "laser" = 30, "energy" = 30, "bomb" = 15, "bio" = 10, "fire" = 100, "acid" = 10)
 
@@ -315,9 +315,9 @@
 // Protects against the hazards of space (pressure + cold) and lets the wearer levitate at will via a toggle.
 // Acts as a focus while hooded (inherited from the base eldritch hood's heretic_focus element).
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/cosmic
-	name = "звёздотканый плащ"
+	name = "starwoven cloak"
 	desc = "Сияющие самоцветы источают струйки силы, кружащие вокруг и окутывающие владельца тусклым сиянием. \
-			Глядя на плащ, невозможно отделаться от ощущения, что тебя заметили."
+			Глядя на плащ, невозможно отделаться от ощущения, что за тобой наблюдают."
 	icon_state = "cosmic_armor"
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie/eldritch/cosmic
 	armor = list("melee" = 50, "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 35, "bio" = 20, "fire" = 20, "acid" = 20)
@@ -386,7 +386,7 @@
 
 
 /obj/item/clothing/head/hooded/cult_hoodie/eldritch/cosmic
-	name = "звёздотканый капюшон"
+	name = "starwoven hood"
 	icon_state = "cosmic_armor"
 	armor = list("melee" = 30, "bullet" = 30, "laser" = 30, "energy" = 30, "bomb" = 15, "bio" = 10, "fire" = 10, "acid" = 10)
 	clothing_flags = STOPSPRESSUREDAMAGE
@@ -409,9 +409,9 @@
 // Grants a passive aura that slowly heals nearby summons (but not the wearer), and a medical HUD (health
 // detection) while the hood is up. Acts as a focus while hooded (inherited from the eldritch base).
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/flesh
-	name = "извивающиеся объятия"
+	name = "writhing embrace"
 	desc = "Гниющая туша, а может, и несколько, скрученные в мясистые полипы, спутанные кишки и треснувшие кости. \
-			Как такое вообще «носят» — выше всякого разумения. Оно шевелится, когда думает, что за ним не наблюдают."
+			Как такое вообще \"носят\" — выше всякого разумения. Оно шевелится, когда думает, что за ним не наблюдают."
 	icon_state = "flesh_armor"
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie/eldritch/flesh
 	armor = list("melee" = 70, "bullet" = 40, "laser" = 30, "energy" = 30, "bomb" = 35, "bio" = 100, "fire" = 0, "acid" = 100)
@@ -463,7 +463,7 @@
 
 
 /obj/item/clothing/head/hooded/cult_hoodie/eldritch/flesh
-	name = "капюшон извивающихся объятий"
+	name = "writhing embrace hood"
 	icon_state = "flesh_armor"
 	armor = list("melee" = 40, "bullet" = 25, "laser" = 20, "energy" = 20, "bomb" = 20, "bio" = 60, "fire" = 0, "acid" = 60)
 
@@ -522,9 +522,9 @@
 
 
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/rust
-	name = "собранный раймент"
-	desc = "Прикосновение к складкам этой простой робы наполняет вас тревогой. \
-			Даже один взгляд вызывает головокружение. \
+	name = "reassembled raiment"
+	desc = "Прикосновение к складкам этой простой на вид робы наполняет вас тревогой, \
+			а один лишь беглый взгляд вызывает головокружение. \
 			Что-то пульсирует под ней, словно силясь затянуть вас внутрь."
 	icon_state = "rust_armor"
 	item_state = "rust_armor"
@@ -550,12 +550,12 @@
 
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/rust/get_ru_names()
 	return alist(
-		NOMINATIVE = "собранный раймент",
-		GENITIVE = "собранного раймента",
-		DATIVE = "собранному райменту",
-		ACCUSATIVE = "собранный раймент",
-		INSTRUMENTAL = "собранным райментом",
-		PREPOSITIONAL = "собранном райменте",
+		NOMINATIVE = "воссозданное одеяние",
+		GENITIVE = "воссозданного одеяния",
+		DATIVE = "воссозданному одеянию",
+		ACCUSATIVE = "воссозданное одеяние",
+		INSTRUMENTAL = "воссозданным одеянием",
+		PREPOSITIONAL = "воссозданном одеянии",
 	)
 
 
@@ -563,7 +563,7 @@
 	. = ..()
 	if(!isheretic(user))
 		return
-	. += span_notice("Стоя на ржавчине, вы получаете значительно усиленную защиту.")
+	. += span_notice("Ваша защита значительно усиливается, когда вы стоите на ржавчине.")
 
 
 // Switches the worn body to the hood-up sprite (rust_armor_hood, whose opaque interior covers the head) when
@@ -720,7 +720,7 @@
 		our_hood?.cut_overlay(hood_object_overlay)
 	if(ishuman(wearer))
 		wearer.update_worn_oversuit()
-		wearer.balloon_alert(wearer, rusted ? "ржавчина укрепляет броню" : "защита спадает")
+		wearer.balloon_alert(wearer, rusted ? "ржавчина укрепляет броню" : "ржавчина спадает")
 
 
 // Mirrors the flicked rust_overlay onto the worn robe. Re-evaluated each time the worn sprite rebuilds (e.g.
@@ -734,9 +734,9 @@
 
 
 /obj/item/clothing/head/hooded/cult_hoodie/eldritch/rust
-	name = "капюшон собранного раймента"
-	desc = "Прикосновение к складкам этой простой робы наполняет вас тревогой. \
-			Даже один взгляд вызывает головокружение. \
+	name = "reassembled raiment hood"
+	desc = "Прикосновение к складкам этой простой на вид робы наполняет вас тревогой, \
+			а один лишь беглый взгляд вызывает головокружение. \
 			Что-то пульсирует под ней, словно силясь затянуть вас внутрь."
 	icon_state = "rust_armor"
 	// Worn (on-mob) head-slot sprite is BLANK. When the hood is raised the SUIT body switches to its "_hood"
@@ -752,12 +752,12 @@
 
 /obj/item/clothing/head/hooded/cult_hoodie/eldritch/rust/get_ru_names()
 	return alist(
-		NOMINATIVE = "капюшон собранного раймента",
-		GENITIVE = "капюшона собранного раймента",
-		DATIVE = "капюшону собранного раймента",
-		ACCUSATIVE = "капюшон собранного раймента",
-		INSTRUMENTAL = "капюшоном собранного раймента",
-		PREPOSITIONAL = "капюшоне собранного раймента",
+		NOMINATIVE = "капюшон воссозданного одеяния",
+		GENITIVE = "капюшона воссозданного одеяния",
+		DATIVE = "капюшону воссозданного одеяния",
+		ACCUSATIVE = "капюшон воссозданного одеяния",
+		INSTRUMENTAL = "капюшоном воссозданного одеяния",
+		PREPOSITIONAL = "капюшоне воссозданного одеяния",
 	)
 
 
@@ -838,8 +838,8 @@
 // prevents the use of firearms. The moon blade can still be used (and, with a Moonlight Amulet, used while
 // pacified). All incoming damage converts into brain damage, and death while wearing it gibs the head.
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/moon
-	name = "сияющее облачение"
-	desc = "Переливающаяся мантия из лунного света и зеркальных нитей. Она не защищает тело — \
+	name = "resplendent regalia"
+	desc = "Переливающаяся мантия, сотканная из лунного света и зеркальных нитей. Она не защищает тело — \
 			лишь освобождает разум от оков боли и страха."
 	// Moon robe sprites (item + worn) live in the shared suits.dmi / suit.dmi as the "moon_armor" state,
 	// resolved by inheritance from the base cult robes.
@@ -880,7 +880,7 @@
 	if(!isheretic(user))
 		return
 	. += span_notice("Делает вас невосприимчивым к выводящим из строя эффектам, но не даёт брони, \
-		пацифицирует и не позволяет пользоваться огнестрелом. Бить клинком можно только с Амулетом Лунного Света.")
+		умиротворяет и не позволяет пользоваться огнестрельным оружием. Атаковать клинком возможно только с Амулетом Лунного Света.")
 
 
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/moon/equipped(mob/user, slot, initial = FALSE)
@@ -991,8 +991,8 @@
 
 
 /obj/item/clothing/head/hooded/cult_hoodie/eldritch/moon
-	name = "капюшон сияющего облачения"
-	desc = "Переливающийся капюшон из лунного света и зеркальных нитей."
+	name = "resplendent regalia hood"
+	desc = "Переливающийся капюшон, сотканный из лунного света и зеркальных нитей."
 	icon_state = "moon_armor"
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "fire" = 0, "acid" = 0)
 
@@ -1038,7 +1038,7 @@
 			icon_state = "[base_icon_state]_6"
 
 
-// Расколотая Эгида (Shattered Panoply) - Blade path robes.
+// Расколотая Паноплия (Shattered Panoply) - Blade path robes.
 // Solid all-round armour, full shock insulation + shock/baton immunity while worn, and acts as a focus
 // while hooded (inherited from the eldritch base hood).
 /datum/armor/eldritch_armor_blade
@@ -1053,7 +1053,7 @@
 
 
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/blade
-	name = "расколотая эгида"
+	name = "shattered panoply"
 	desc = "Заострённые края этого древнего доспеха несут истину, ведомую лишь воинам: \
 			истинного бойца не отличить от клинка, что он держит."
 	// Item + worn sprites live in the shared suits.dmi / suit.dmi as the "blade_armor" state (inherited).
@@ -1072,12 +1072,12 @@
 
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/blade/get_ru_names()
 	return alist(
-		NOMINATIVE = "расколотая эгида",
-		GENITIVE = "расколотой эгиды",
-		DATIVE = "расколотой эгиде",
-		ACCUSATIVE = "расколотую эгиду",
-		INSTRUMENTAL = "расколотой эгидой",
-		PREPOSITIONAL = "расколотой эгиде",
+		NOMINATIVE = "расколотая паноплия",
+		GENITIVE = "расколотой паноплии",
+		DATIVE = "расколотой паноплии",
+		ACCUSATIVE = "расколотую паноплию",
+		INSTRUMENTAL = "расколотой паноплией",
+		PREPOSITIONAL = "расколотой паноплии",
 	)
 
 
@@ -1167,7 +1167,7 @@
 
 
 /obj/item/kitchen/knife/magic
-	name = "магический нож"
+	name = "magic knife"
 	desc = "Призрачный клинок, который рвётся к плоти недостойного."
 	icon = 'icons/effects/eldritch.dmi'
 	icon_state = "dio_knife"
@@ -1196,7 +1196,7 @@
 
 
 /obj/item/clothing/head/hooded/cult_hoodie/eldritch/blade
-	name = "капюшон расколотой эгиды"
+	name = "shattered panoply hood"
 	desc = "Заострённые края этого древнего доспеха несут истину, ведомую лишь воинам."
 	icon_state = "blade_armor"
 	armor = list(MELEE = 50, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 50, BIO = 50, FIRE = 50, ACID = 50)
@@ -1205,12 +1205,12 @@
 
 /obj/item/clothing/head/hooded/cult_hoodie/eldritch/blade/get_ru_names()
 	return alist(
-		NOMINATIVE = "капюшон расколотой эгиды",
-		GENITIVE = "капюшона расколотой эгиды",
-		DATIVE = "капюшону расколотой эгиды",
-		ACCUSATIVE = "капюшон расколотой эгиды",
-		INSTRUMENTAL = "капюшоном расколотой эгиды",
-		PREPOSITIONAL = "капюшоне расколотой эгиды",
+		NOMINATIVE = "капюшон расколотой паноплии",
+		GENITIVE = "капюшона расколотой паноплии",
+		DATIVE = "капюшону расколотой паноплии",
+		ACCUSATIVE = "капюшон расколотой паноплии",
+		INSTRUMENTAL = "капюшоном расколотой паноплии",
+		PREPOSITIONAL = "капюшоне расколотой паноплии",
 	)
 
 
@@ -1218,9 +1218,9 @@
 // outright and cloaks the wearer for 5 seconds (alpha 0) so they can reposition.
 // A non-heretic who dares to don it is flash-frozen solid.
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/void
-	name = "полое плетение"
+	name = "hollow weave"
 	desc = "Поначалу пустое полотно этих одежд словно мерцает слабым холодным светом. Но проследив \
-			изгибы складок внимательнее, понимаешь: точнее сказать, что света в них попросту нет."
+			изгибы складок внимательнее, понимаешь: точнее будет сказать, что оно пожирает весь свет."
 	icon_state = "void_armor"
 	item_state = "void_armor"
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
@@ -1302,9 +1302,9 @@
 
 
 /obj/item/clothing/head/hooded/cult_hoodie/eldritch/void
-	name = "капюшон полого плетения"
+	name = "hollow weave hood"
 	desc = "Поначалу пустое полотно этих одежд словно мерцает слабым холодным светом. Но проследив \
-			изгибы складок внимательнее, понимаешь: точнее сказать, что света в них попросту нет."
+			изгибы складок внимательнее, понимаешь: точнее будет сказать, что оно пожирает весь свет."
 	icon_state = "void_armor"
 	armor = list(MELEE = 40, BULLET = 40, LASER = 50, ENERGY = 50, BOMB = 40, BIO = 40, FIRE = 40, ACID = 40)
 
@@ -1322,9 +1322,9 @@
 
 // Плащ Пустоты. Turns invisible with the hood up, lets you hide stuff.
 /obj/item/clothing/head/hooded/cult_hoodie/void
-	name = "капюшон пустоты"
-	desc = "Чёрный, как смола, не отражающий свет. Покрытый рунами. \
-			С каждой вспышкой вы теряете понимание того, что видите."
+	name = "void hood"
+	desc = "Чёрный, как смола, не отражающий свет. Покрыт рунами. \
+			С каждым импульсом его тьмы вы теряете понимание того, что видите."
 	// Item sprite lives in the shared hats.dmi as the "void_cloak" state (inherited).
 	icon_state = "void_cloak"
 	//item_state = "void_cloak"
@@ -1358,9 +1358,9 @@
 
 
 /obj/item/clothing/suit/hooded/cultrobes/void
-	name = "плащ пустоты"
+	name = "void cloak"
 	desc = "Чёрный, как смола, не отражающий свет. Покрытый рунами. \
-			С каждой вспышкой вы теряете понимание того, что видите."
+			С каждым импульсом его тьмы вы теряете понимание того, что видите."
 	icon_state = "void_cloak"
 	//item_state = "void_cloak"
 	//item_state = null
@@ -1401,7 +1401,7 @@
 	if(!isheretic(user))
 		return
 
-	. += span_notice("Позволяет использовать еретические заклинания, пока капюшон опущен..")
+	. += span_notice("Позволяет использовать еретические заклинания, пока капюшон опущен.")
 
 
 /obj/item/clothing/suit/hooded/cultrobes/void/Initialize(mapload)

@@ -1,7 +1,7 @@
 //Item for knock/moon heretic sidepath, it can block 5 hits of damage, acts as storage and if the heretic is examined the examiner suffers brain damage and blindness
 
 /obj/item/storage/belt/unfathomable_curio
-	name = "непостижимая диковинка"
+	name = "unfathomable curio"
 	desc = "Оно. Оно оглядывается назад. Оно смотрит в прошлое. \
 			Оно заглядывает внутрь. Оно видит. Оно прячется. Оно открывается."
 	gender = FEMALE
@@ -12,7 +12,7 @@
 	//Vars used for the shield component
 	max_w_class = WEIGHT_CLASS_NORMAL
 	can_hold = list(
-		/obj/item/ammo_box/speedloader/strilka310/lionhunter,
+		/obj/item/ammo_box/speedloader/lionhunter,
 		/obj/item/heretic_labyrinth_handbook,
 		/obj/item/organ, // Bodyparts are often used in rituals.
 		/obj/item/clothing/neck/eldritch_amulet,
@@ -88,11 +88,11 @@
 	return NONE
 
 /obj/item/storage/belt/unfathomable_curio/proc/shield_damaged(mob/living/carbon/human/wearer, attack_text, new_current_charges)
-	wearer.visible_message(span_danger("[declent_ru(NOMINATIVE)] обволакивает [wearer.declent_ru(ACCUSATIVE)] блокируя атаку!"))
+	wearer.visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] обволакивает [wearer.declent_ru(ACCUSATIVE)], блокируя атаку!"))
 	if(isheretic(wearer))
 		return
 
-	to_chat(wearer, span_warning("Смех раздается в вашем сознании..."))
+	to_chat(wearer, span_warning("Смех раздаётся в вашем сознании..."))
 	wearer.adjustOrganLoss(INTERNAL_ORGAN_BRAIN, 40)
 	wearer.drop_item_ground(src, TRUE)
 	var/trauma_type = rand(1, 5)
@@ -118,5 +118,5 @@
 
 	user.adjustOrganLoss(INTERNAL_ORGAN_BRAIN, 10, 160)
 	user.EyeBlind(5 SECONDS)
-	. += span_notice("Оно. Оно смотрело. ОНО ОБВАЛИВАЕТ МЕНЯ.")
+	. += span_notice("Оно. Оно смотрело. ОНО ОБВОЛАКИВАЕТ МЕНЯ.")
 

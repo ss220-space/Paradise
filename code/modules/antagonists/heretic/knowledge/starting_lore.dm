@@ -16,12 +16,12 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 		. += knowledge
 
 
-/// The base heretic knowledge. Grants the Прикосновение Мансуса spell.
+/// The base heretic knowledge. Grants the Хватка Обители spell.
 /datum/heretic_knowledge/spell/basic
 	name = "Рассвет"
-	desc = "Начинает ваше путешествие в Мансус. \
-			Даёт вам Прикосновение Мансуса, мощное и улучшаемое \
-			заклинание, которое можно применить без Амулета."
+	desc = "Начинает ваше путешествие по Обители. \
+			Даёт вам \"Хватку Обители\", мощное и улучшаемое \
+			заклинание, которое можно применить без фокуса."
 	research_tree_icon_path = 'icons/effects/effects.dmi'
 	research_tree_icon_state = "static"
 	spell_to_add = /obj/effect/proc_holder/spell/touch/mansus_grasp
@@ -68,8 +68,8 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 /// Gives the heretic a living heart, and a ritual to turn their heart into one if lost.
 /datum/heretic_knowledge/living_heart
 	name = "Живое Сердце"
-	desc = "Даёт вам Живое Сердце, позволяющее отслеживать цели жертвоприношения. \
-			Если вы потеряете сердце, вы можете преобразовать мак и лужу крови \
+	desc = "Даёт вам \"Живое Сердце\", позволяющее отслеживать цели жертвоприношения. \
+			Если вы потеряете сердце, вы можете использовать мак и лужу крови, \
 			чтобы переобразовать своё сердце в Живое Сердце. Если ваше сердце кибернетическое, \
 			вы не сможете переобразовать его."
 	required_atoms = list(
@@ -107,7 +107,7 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 			// We found a replacement place to put our heart
 			where_to_put_our_heart = look_for_backup
 			our_heretic.living_heart_organ_slot = backup_slot
-			to_chat(user, span_boldnotice("Поскольку у вашего вида нет сердца, ваше Живое Сердце находится в вашем [look_for_backup.declent_ru(PREPOSITIONAL)]."))
+			to_chat(user, span_boldnotice("Поскольку у вашего вида нет сердца, ваше Живое Сердце находится в ваш[GEND_EM_EI_EM_IH(look_for_backup)] [look_for_backup.declent_ru(PREPOSITIONAL)]."))
 			break
 
 	// Fully synthetic crew (IPCs / machinepeople) carry only robotic organs, so every is_valid_heart() check
@@ -122,11 +122,11 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 				continue
 			where_to_put_our_heart = fallback_organ
 			our_heretic.living_heart_organ_slot = fallback_slot
-			to_chat(user, span_boldnotice("Поскольку ваше тело синтетическое, ваше Живое Сердце пробуждается в вашем [fallback_organ.declent_ru(PREPOSITIONAL)]."))
+			to_chat(user, span_boldnotice("Поскольку ваше тело синтетическое, ваше Живое Сердце пробуждается в ваш[GEND_EM_EI_EM_IH(fallback_organ)] [fallback_organ.declent_ru(PREPOSITIONAL)]."))
 			break
 
 	if(!where_to_put_our_heart)
-		to_chat(user, span_boldnotice("У вас нет сердца, да и вообще каких-либо органов в грудной клетке. Из-за этого вы не получили живое сердце."))
+		to_chat(user, span_boldnotice("У вас нет сердца, да и вообще каких-либо органов в грудной клетке. Из-за этого вы не получили Живое Сердце."))
 		return
 
 	where_to_put_our_heart.AddComponent(/datum/component/living_heart)
@@ -201,8 +201,8 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 /// Allows the heretic to craft a spell focus, required to cast advanced spells.
 /datum/heretic_knowledge/amber_focus
 	name = "Янтарный Амулет"
-	desc = "Позволяет преобразовать лист стекла и пару глаз в Янтарный Амулет.\
-			Для использования более сложных заклинаний необходимо надеть Амулет."
+	desc = "Позволяет преобразовать лист стекла и пару глаз в Янтарный Амулет. \
+			Предоставляет носителю фокус, необходимый для использования более сложных заклинаний."
 	required_atoms = list(
 		/obj/item/organ/internal/eyes = 1,
 		/obj/item/stack/sheet/glass = 1,
@@ -225,23 +225,23 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 
 /datum/heretic_knowledge/spell/cloak_of_shadows
 	name = "Плащ Тьмы"
-	desc = "Даёт вам заклинание «Плащ тьмы». Это заклинание полностью скроет вашу личность в фиолетовом дыму \
+	desc = "Даёт вам заклинание \"Плащ Тьмы\". Это заклинание полностью скроет вашу личность в фиолетовом дыму \
 			на три минуты, помогая вам сохранять скрытность. Для применения требуется концентрация."
 	research_tree_icon_path = 'icons/effects/effects.dmi'
 	research_tree_icon_state = "curse"
 	spell_to_add = /obj/effect/proc_holder/spell/shadow_cloak
 	is_starting_knowledge = TRUE
 
-/// Кодекс Истезания: lets heretics rush influences stealthily, or build a codex to take what's left
+/// Кодекс Истязания: lets heretics rush influences stealthily, or build a codex to take what's left
 /// for more points - a tradeoff between speed/stealth and power, with strip searches as the downside.
 /datum/heretic_knowledge/codex_cicatrix
 	drafting_tier = 1
-	name = "Кодекс Истезания"
-	desc = "Позволяет трансмутировать книгу, любую уникальную ручку (не обычную) и любой предмет на ваш выбор из туши (животного или человека), кожи или шкуры, чтобы создать Кодекс Истезания. \
-			Кодекс Истезания можно использовать чтобы поглотить раскол реальности для получения дополнительных знаний, но он это сопряжено с повышеннием риска быть замеченным. \
-			Его также можно использовать для более удобного рисования и удаления рун трансмутации, а также вместо Янтарного Амулета."
-	gain_text = "Потусторонние силы оставляют фрагменты знаний и силы повсюду. Кодекс Истезания — одно из доказательств. \
-				На кожанных страницах находятся знания открывающие путь к Мансусу."
+	name = "Кодекс Истязания"
+	desc = "Позволяет трансмутировать книгу, любую уникальную ручку (не обычную) и любой предмет на ваш выбор из туши (животного или человека), кожи или шкуры, чтобы создать Кодекс Истязания. \
+			Кодекс Истязания можно использовать для получения дополнительных знаний при поглощении раскола реальности. \
+			Кроме этого его можно использовать для более удобного рисования и удаления рун трансмутации, а также в качестве источника фокуса при сотворении заклинаний."
+	gain_text = "Потусторонние силы оставляют фрагменты знаний и силы повсюду. Кодекс Истязания — одно из доказательств. \
+				На кожанных страницах находятся знания, открывающие путь к Обители."
 	required_atoms = list(
 		/obj/item/book = 1,
 		/obj/item/pen = 1,
@@ -284,7 +284,7 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 		selected_atoms += body
 		return TRUE
 
-	user.balloon_alert(user, "нет трупа")
+	user.balloon_alert(user, "нет трупа!")
 	return FALSE
 
 
@@ -317,11 +317,11 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	// Procure book for flavor text. This is why we call parent at the end.
 	var/obj/item/book/le_book = locate() in selected_atoms
 	if(!le_book)
-		stack_trace("Somehow, no book in Кодекс Истезания selected atoms! [english_list(selected_atoms)]")
+		stack_trace("Somehow, no book in Codex Cicatrix selected atoms! [english_list(selected_atoms)]")
 
 	playsound(body, 'sound/items/poster_ripped.ogg', 100, TRUE)
 	body.do_jitter_animation()
-	body.visible_message(span_danger("Раздается ужасный звук, когда кожа отделяется от [ripped_thing.declent_ru(GENITIVE)] и обретает жутковатый синий оттенок становясь обложкой [le_book.declent_ru(GENITIVE)]!"))
+	body.visible_message(span_danger("Раздается ужасный звук, когда кожа отделяется от [ripped_thing.declent_ru(GENITIVE)] и обретает жутковатый синий оттенок, становясь обложкой [le_book.declent_ru(GENITIVE)]!"))
 	return ..()
 
 
@@ -342,8 +342,8 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 
 
 /datum/heretic_knowledge/feast_of_owls/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
-	var/alert = tgui_alert(user, "Вы действительно хотите отказаться от своего вознесения? Это действие необратимо.", "Фестиваль Сов", list("Да, я уверен", "Нет"), 30 SECONDS)
-	if(alert == "Нет" || QDELETED(user) || QDELETED(src) || get_dist(user, loc) > 2)
+	var/alert = tgui_alert(user, "Вы действительно хотите отказаться от своего вознесения? Это действие необратимо.", "Фестиваль Сов", list("Да", "Нет"), 30 SECONDS)
+	if(alert != "Да" || QDELETED(user) || QDELETED(src) || get_dist(user, loc) > 2)
 		return FALSE
 
 	var/datum/antagonist/heretic/heretic_datum = user.mind.has_antag_datum(/datum/antagonist/heretic)

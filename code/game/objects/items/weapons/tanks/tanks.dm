@@ -105,9 +105,9 @@
 	else if(celsius_temperature < 100)
 		descriptive = "тёпл[GEND_YI_AYA_OE_YE(src)]"
 	else if(celsius_temperature < 300)
-		descriptive = "горяч[GEND_II_AYA_II_IE(src)]"
+		descriptive = "горяч[GEND_II_AYA_EE_IE(src)]"
 	else
-		descriptive = "обжигающе горяч[GEND_II_AYA_II_IE(src)]"
+		descriptive = "обжигающе горяч[GEND_II_AYA_EE_IE(src)]"
 
 	. += span_notice("На ощупь <b>[descriptive]</b>.")
 	. += span_notice("Манометр показывает <b>[round(air_contents.return_pressure())]</b> кПа.")

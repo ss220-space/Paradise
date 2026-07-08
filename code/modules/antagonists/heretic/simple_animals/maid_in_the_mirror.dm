@@ -1,8 +1,8 @@
 /// Scout and assassin who can appear and disappear from glass surfaces. Damaged by being examined.
 /mob/living/simple_animal/hostile/heretic_summon/maid_in_the_mirror
-	name = "Горничная в Зеркале"
-	real_name = "Горничная в Зеркале"
-	desc = "Плавающий, струящийся поток холодного воздуха. При постороннем взгляде, начинает слегка мерцать."
+	name = "Дева-из-Зеркала"
+	real_name = "Дева-из-Зеркала"
+	desc = "Парящий, струящийся поток холодного воздуха. При взгляде на него начинает слегка мерцать."
 	gender = FEMALE
 	icon = 'icons/mob/mob.dmi'
 	icon_state = "stand"
@@ -27,12 +27,12 @@
 
 /mob/living/simple_animal/hostile/heretic_summon/maid_in_the_mirror/get_ru_names()
 	return alist(
-		NOMINATIVE = "Горничная в Зеркале",
-		GENITIVE = "Горничную в Зеркале",
-		DATIVE = "Горничной в Зеркале",
-		ACCUSATIVE = "Горничную в Зеркале",
-		INSTRUMENTAL = "Горничной в Зеркале",
-		PREPOSITIONAL = "Горничной в Зеркале",
+		NOMINATIVE = "Дева-из-Зеркала",
+		GENITIVE = "Девы-из-Зеркала",
+		DATIVE = "Деве-из-Зеркала",
+		ACCUSATIVE = "Деву-из-Зеркала",
+		INSTRUMENTAL = "Девой-из-Зеркала",
+		PREPOSITIONAL = "Деве-из-Зеркала",
 	)
 
 
@@ -69,7 +69,7 @@
 	if(health > (maxHealth * 0.02))
 		visible_message(
 				span_warning("[declent_ru(NOMINATIVE)] едва заметно мерцает."),
-				span_userdanger("Взгляд пронзает все твое существо!"),
+				span_userdanger("Чужой взгляд пронзает всё твое существо!"),
 		)
 
 		recent_examiner_refs += user_ref

@@ -44,7 +44,7 @@
 /datum/component/living_heart/proc/on_organ_removed(obj/item/organ/source, mob/living/carbon/old_owner)
 	SIGNAL_HANDLER
 
-	to_chat(old_owner, span_userdanger("[source.declent_ru(NOMINATIVE)] покидает ваше тело и вы чувствуете как ваша связь с Мансусом слабеет!"))
+	to_chat(old_owner, span_userdanger("[DECLENT_RU_CAP(source, NOMINATIVE)] покидает ваше тело, и вы чувствуете, как ваша связь с Обителью слабеет!"))
 	qdel(src)
 
 /**
@@ -66,8 +66,8 @@
  * Allows a heretic to track sacrifice targets.
  */
 /obj/effect/proc_holder/spell/track_target
-	name = "Биение живого сердца"
-	desc = "ЛКМ: Выберите одну из целей жертвоприношения для отслеживания.\nАльтклик: Переключает автовыбор последней выбранной цели."
+	name = "Биение Живого Сердца"
+	desc = "ЛКМ: Выберите одну из целей жертвоприношения для отслеживания.\nАльт-клик: Переключает автовыбор последней выбранной цели."
 	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
 	action_background_icon_state = "bg_heretic"
 	action_icon = 'icons/obj/eldritch.dmi'
@@ -184,9 +184,9 @@
 	if(tracked_mob.stat != DEAD)
 		return
 
-	to_chat(action.owner, span_hierophant("[tracked_mob.declent_ru(NOMINATIVE)] мертв[GEND_A_O_Y(tracked_mob)]. \
-										Принесите [GEND_HIS_HER(tracked_mob)] на руну трансформации и скастуйте \
-										\"[sac_knowledge.name]\", чтобы принисти [GEND_HIS_HER(tracked_mob)] в жертву!"))
+	to_chat(action.owner, span_hierophant("[DECLENT_RU_CAP(tracked_mob, NOMINATIVE)] мертв[GEND_A_O_Y(tracked_mob)]. \
+										Принесите [GEND_HIS_HER(tracked_mob)] на руну трансформации и используйте \
+										\"[sac_knowledge.name]\", чтобы принести [GEND_HIS_HER(tracked_mob)] в жертву!"))
 
 
 /// Callback for the radial to ensure it's closed when not allowed.
@@ -229,15 +229,15 @@
 
 		// Mining
 		else if(is_mining_level(their_z))
-			balloon_message = "на лаваленде!"
+			balloon_message = "на лавовой земле!"
 
 		// In the gateway
 		else if(is_away_level(their_z))
-			balloon_message = "в гейте!"
+			balloon_message = "за вратами!"
 
 		// They're somewhere we probably can't get too - sacrifice z-level, centcom, etc
 		else
-			balloon_message = "в другом секторе!"
+			balloon_message = "на другом слое реальности!"
 
 	// They're on the same z-level as us!
 	else
@@ -270,7 +270,7 @@
 	if(tracked_mob.stat != DEAD)
 		return balloon_message
 
-	return "мертв[GEND_YI_AYA_OE_YE(tracked_mob)] " + balloon_message
+	return "[GEND_MERTV(tracked_mob)], " + balloon_message
 
 
 /atom/movable/screen/navigate_arrow

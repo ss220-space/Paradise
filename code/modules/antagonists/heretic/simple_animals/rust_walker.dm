@@ -1,6 +1,6 @@
 /// Pretty simple mob which creates areas of rust and has a rust-creating projectile spell
 /mob/living/simple_animal/hostile/heretic_summon/rust_walker
-	name = "Ржавый Странник"
+	name = "rust walker"
 	real_name = "Ржавчик"
 	gender = MALE
 	desc = "Скрежещущая, лязгающая конструкция, высасывающая жизнь из своего окружения."

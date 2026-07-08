@@ -1,6 +1,7 @@
 /mob/living/simple_animal/hostile/heretic_summon
-	name = "Жуткий Демон"
-	real_name = "Жуткий Демон"
+	abstract_type = /mob/living/simple_animal/hostile/heretic_summon
+	name = "Eldritch Demon"
+	real_name = "Eldritch Demon"
 	desc = "Ужас из потустороннего мира, вызванный плохим кодом."
 	icon = 'icons/mob/eldritch_mobs.dmi'
 	faction = list(FACTION_HERETIC)
@@ -10,7 +11,7 @@
 	Atkcool = CLICK_CD_MELEE
 	universal_speak = TRUE
 	attack_sound = 'sound/weapons/punch1.ogg'
-	response_help = "прикосается"
+	response_help = "прикасается"
 	response_disarm = "молотит"
 	response_harm = "рвет"
 	deathmessage = "распадается в воздухе."
@@ -20,17 +21,6 @@
 	ai_controller = null
 	speak_emote = list("кричит")
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-
-
-/mob/living/simple_animal/hostile/heretic_summon/get_ru_names()
-	return alist(
-		NOMINATIVE = "Жуткий Демон",
-		GENITIVE = "Жуткого Демона",
-		DATIVE = "Жуткому Демону",
-		ACCUSATIVE = "Жуткого Демона",
-		INSTRUMENTAL = "Жутким Демоном",
-		PREPOSITIONAL = "Жутком Демоне",
-	)
 
 
 /mob/living/simple_animal/hostile/heretic_summon/Initialize(mapload)

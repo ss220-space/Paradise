@@ -1,7 +1,7 @@
 /obj/effect/proc_holder/spell/aoe/conjure/void_conduit
-	name = "Врата в пустоту"
-	desc = "Открывает врата в Пустоту испускающие частые импульсы, повреждающие окна и шлюзы, \
-			а также поражающин язычников пустотным холодом. \
+	name = "Врата в Пустоту"
+	desc = "Открывает врата в Пустоту, испускающие частые импульсы, повреждающие окна и шлюзы, \
+			а также поражающие язычников пустотным холодом. \
 			Ближайшие еретики получают легкую сопротивляемость давлению."
 	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
 	action_background_icon_state = "bg_heretic"
@@ -24,7 +24,7 @@
 
 
 /obj/structure/void_conduit
-	name = "врата в пустоту"
+	name = "void conduit"
 	desc = "Открытые врата, ведущие в небытие. Испускают импульсы, под которые вам не хотелось бы попасть."
 	gender = PLURAL
 	icon = 'icons/effects/effects.dmi'

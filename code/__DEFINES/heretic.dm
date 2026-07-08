@@ -2,16 +2,16 @@
 // Ported from /tg/station (via Paradise-selfharm) onto Paradise master220.
 
 // Heretic path defines.
-#define PATH_START "Start Path"
-#define PATH_SIDE "Side Path"
-#define PATH_ASH "Ash Path"
-#define PATH_RUST "Rust Path"
-#define PATH_FLESH "Flesh Path"
-#define PATH_VOID "Void Path"
-#define PATH_BLADE "Blade Path"
-#define PATH_COSMIC "Cosmic Path"
-#define PATH_LOCK "Lock Path"
-#define PATH_MOON "Moon Path"
+#define PATH_START "Стартовый Путь"
+#define PATH_SIDE "Вторичный Путь"
+#define PATH_ASH "Путь Пепла"
+#define PATH_RUST "Путь Ржавчины"
+#define PATH_FLESH "Путь Плоти"
+#define PATH_VOID "Путь Пустоты"
+#define PATH_BLADE "Путь Клинка"
+#define PATH_COSMIC "Путь Космоса"
+#define PATH_LOCK "Путь Замка́"
+#define PATH_MOON "Путь Луны"
 
 // Heretic knowledge tree defines (keys used in the knowledge tree assoc lists).
 #define HKT_NEXT "next"

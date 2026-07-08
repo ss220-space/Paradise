@@ -1,7 +1,7 @@
 /obj/item/codex_cicatrix
-	name = "Кодекс Истезания"
+	name = "Кодекс Истязания"
 	desc = "Этот увесистый том полон загадочных каракулей и невероятных схем. \
-			Согласно легенде, его можно расшифровать, раскрыв тайны завесы между мирами."
+			Согласно легендам, если его расшифровать, можно раскрыть тайны завесы между мирами."
 	gender = MALE
 	icon = 'icons/obj/eldritch.dmi'
 	base_icon_state = "book"
@@ -18,12 +18,12 @@
 
 /obj/item/codex_cicatrix/get_ru_names()
 	return alist(
-		NOMINATIVE = "Кодекс Истезания",
-		GENITIVE = "Кодекса Истезания",
-		DATIVE = "Кодексу Истезания",
-		ACCUSATIVE = "Кодекс Истезания",
-		INSTRUMENTAL = "Кодексом Истезания",
-		PREPOSITIONAL = "Кодексе Истезания",
+		NOMINATIVE = "Кодекс Истязания",
+		GENITIVE = "Кодекса Истязания",
+		DATIVE = "Кодексу Истязания",
+		ACCUSATIVE = "Кодекс Истязания",
+		INSTRUMENTAL = "Кодексом Истязания",
+		PREPOSITIONAL = "Кодексе Истязания",
 	)
 
 
@@ -56,7 +56,7 @@
 
 	. += span_notice("Может использоваться для поглощения расколов реальности с целью получения дополнительных очков знаний.")
 	. += span_notice("Также может быть использован для легкого рисования или удаления рун трансмутации.")
-	. += span_notice("Кроме того, при удерживании в руках он может служить амулетом для ваших заклинаний.")
+	. += span_notice("Кроме того, при нахождении в руках он может служить в качестве источника фокуса для ваших заклинаний.")
 
 
 /obj/item/codex_cicatrix/attack_self(mob/user, modifiers)
@@ -116,9 +116,9 @@
 	book_open = FALSE
 
 
-// Upgraded version of the Кодекс Истезания that allows us to cast curses
+// Upgraded version of the Кодекс Истязания that allows us to cast curses
 /obj/item/codex_cicatrix/morbus
-	name = "Кодекс Морбус"
+	name = "Кодекс Хвори"
 	desc = "Ужасная, рваная книга, покрытая моргающими глазами. Вы понятия не имеете, как правильно держать её, \
 			и, честно говоря, не уверены, стоит ли вообще."
 	base_icon_state = "book_morbus"
@@ -131,12 +131,12 @@
 
 /obj/item/codex_cicatrix/morbus/get_ru_names()
 	return alist(
-		NOMINATIVE = "Кодекс Морбус",
-		GENITIVE = "Кодекса Морбус",
-		DATIVE = "Кодексу Морбус",
-		ACCUSATIVE = "Кодекс Морбус",
-		INSTRUMENTAL = "Кодексом Морбус",
-		PREPOSITIONAL = "Кодексе Морбус",
+		NOMINATIVE = "Кодекс Хвори",
+		GENITIVE = "Кодекса Хвори",
+		DATIVE = "Кодексу Хвори",
+		ACCUSATIVE = "Кодекс Хвори",
+		INSTRUMENTAL = "Кодексом Хвори",
+		PREPOSITIONAL = "Кодексе Хвори",
 	)
 
 
@@ -156,7 +156,7 @@
 
 
 // Curse casts on RIGHT-click of a rune; left-clicking a rune still wipes it through the inherited
-// effect_remover, like the base Кодекс Истезания.
+// effect_remover, like the base Кодекс Истязания.
 /obj/item/codex_cicatrix/morbus/melee_attack_chain(mob/user, atom/interacting_with, params)
 	if(!istype(interacting_with, /obj/effect/decal/heretic_rune) || !LAZYACCESS(params, RIGHT_CLICK))
 		return ..()

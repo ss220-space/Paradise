@@ -1,6 +1,6 @@
 // The spooky "void" / "abyssal" / "madness" mask for heretics.
 /obj/item/clothing/mask/madness_mask
-	name = "маска безумия"
+	name = "madness mask"
 	desc = "Маска, созданная из страданий. Когда вы смотрите в щели для глаз, Нечто смотрит оттуда на вас."
 	icon_state = "mad_mask"
 	item_state = null
@@ -33,7 +33,7 @@
 		. += span_danger("Эти пустые глазницы пугают вас... Лучше избегать их.")
 		return
 
-	. += span_notice("При ношении активно высасывает рассудок и выносливость находящихся рядом нееретиков.")
+	. += span_notice("При ношении активно высасывает рассудок и выносливость находящихся рядом язычников.")
 	. += span_notice("Если надеть на лицо нееретика, он не сможет добровольно снять её.")
 
 
@@ -52,7 +52,7 @@
 		return
 
 	ADD_TRAIT(src, TRAIT_NODROP, CLOTHING_TRAIT)
-	to_chat(user, span_userdanger("[declent_ru(NOMINATIVE)] крепко прижимается к вашему лицу. Вы чувствуете, как ваша душа бьётся пытаясь вырваться из тела!"))
+	to_chat(user, span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] крепко прижимается к вашему лицу. Вы чувствуете, как ваша душа бьётся в ужасе, пытаясь вырваться из тела!"))
 
 
 /obj/item/clothing/mask/madness_mask/dropped(mob/M)

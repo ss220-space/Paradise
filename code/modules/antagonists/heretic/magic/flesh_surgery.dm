@@ -1,6 +1,6 @@
 /obj/effect/proc_holder/spell/touch/flesh_surgery
-	name = "Управление плотью"
-	desc = "Заклинание позволяющее касанием собирать или восстанавливать плоть цели. \
+	name = "Управление Плотью"
+	desc = "Заклинание, позволяющее касанием собирать или восстанавливать плоть цели. \
 			Извлекает органы жертвы без необходимости проводить \
 			операцию или потрошить её. При применении к призванным существам \
 			или миньонам восстанавливает им здоровье. Также может использоваться для лечения \
@@ -71,8 +71,8 @@
 	playsound(to_heal, 'sound/magic/staff_healing.ogg', 30)
 	new /obj/effect/temp_visual/cult/sparks(get_turf(to_heal))
 	caster.visible_message(
-		span_warning("Рука [caster.declent_ru(GENITIVE)] светится брильянтово красным когда он[GEND_A_O_I(caster)] каса[PLUR_ET_YUT(caster)]ся [to_heal.declent_ru(GENITIVE)]!"),
-		span_notice("Ваша рука светится брильянтово красным когда вы касаетесь [to_heal.declent_ru(GENITIVE)]!"),
+		span_warning("Рука [caster.declent_ru(GENITIVE)] вспыхивает бриллиантово-красным, когда он[GEND_A_O_I(caster)] каса[PLUR_ET_YUT(caster)]ся [to_heal.declent_ru(GENITIVE)]!"),
+		span_notice("Ваша рука вспыхивает бриллиантово-красным, когда вы касаетесь [to_heal.declent_ru(GENITIVE)]!"),
 	)
 
 	return TRUE
@@ -92,8 +92,8 @@
 	playsound(to_heal, 'sound/magic/staff_healing.ogg', 30)
 	new /obj/effect/temp_visual/cult/sparks(get_turf(to_heal))
 	caster.visible_message(
-		span_warning("Рука [caster.declent_ru(GENITIVE)] светится брильянтово красным когда он[GEND_A_O_I(caster)] каса[PLUR_ET_YUT(caster)]ся [to_heal.declent_ru(GENITIVE)]!"),
-		span_notice("Ваша рука светится брильянтово красным когда вы касаетесь [to_heal.declent_ru(GENITIVE)]!"),
+		span_warning("Рука [caster.declent_ru(GENITIVE)] вспыхивает бриллиантово-красным, когда он[GEND_A_O_I(caster)] каса[PLUR_ET_YUT(caster)]ся [to_heal.declent_ru(GENITIVE)]!"),
+		span_notice("Ваша рука вспыхивает бриллиантово-красным, когда вы касаетесь [to_heal.declent_ru(GENITIVE)]!"),
 	)
 	return TRUE
 
@@ -149,20 +149,20 @@
 
 	// Sure you can remove your own organs, fun party trick
 	if(carbon_victim == caster)
-		var/are_you_sure = tgui_alert(caster, "Вы уверены что хотите извлечь сво[UNLINT(genderize_ru(picked_organ.gender, "й", "ю", "ё", "и"))] [picked_organ.declent_ru(ACCUSATIVE)]?", "Вы уверены?", list("Да", "Нет"))
+		var/are_you_sure = tgui_alert(caster, "Вы уверены что хотите извлечь сво[GEND_I_U_UO_I(picked_organ)] [picked_organ.declent_ru(ACCUSATIVE)]?", "Вы уверены?", list("Да", "Нет"))
 		if(are_you_sure != "Да" || !extraction_checks(picked_organ, hand, victim, caster))
 			return FALSE
 
 		time_it_takes = 6 SECONDS
 		caster.visible_message(
-			span_warning("Рука [caster.declent_ru(GENITIVE)] светится брильянтово красным когда он[GEND_A_O_I(caster)] погружа[PLUR_ET_YUT(caster)] её в своё тело!"),
-			span_notice("Ваша рука светится брильянтово красным когда вы погружаете её в своё тело!"),
+			span_warning("Рука [caster.declent_ru(GENITIVE)] вспыхивает бриллиантово-красным, когда он[GEND_A_O_I(caster)] погружа[PLUR_ET_YUT(caster)] её в своё тело!"),
+			span_notice("Ваша рука вспыхивает бриллиантово-красным, когда вы погружаете её в своё тело!"),
 		)
 
 	else
 		caster.visible_message(
-			span_warning("Рука [caster.declent_ru(GENITIVE)] светится брильянтово красным когда он[GEND_A_O_I(caster)] погружа[PLUR_ET_YUT(caster)] её в тело [carbon_victim.declent_ru(ACCUSATIVE)]!"),
-			span_notice("Ваша рука светится брильянтово красным когда вы погружаете её в тело [carbon_victim.declent_ru(ACCUSATIVE)]!"),
+			span_warning("Рука [caster.declent_ru(GENITIVE)] вспыхивает бриллиантово-красным, когда он[GEND_A_O_I(caster)] погружа[PLUR_ET_YUT(caster)] её в тело [carbon_victim.declent_ru(GENITIVE)]!"),
+			span_notice("Ваша рука вспыхивает бриллиантово-красным, когда вы погружаете её в тело [carbon_victim.declent_ru(GENITIVE)]!"),
 		)
 
 	carbon_victim.balloon_alert(caster, "извлечение [picked_organ.declent_ru(GENITIVE)]...")
@@ -177,13 +177,13 @@
 	// Mainly so it gets across if you're taking the eyes of someone who's conscious
 	if(carbon_victim == caster)
 		caster.visible_message(
-			span_bolddanger("[caster.declent_ru(NOMINATIVE)] извлека[PLUR_ET_YUT(caster)] [picked_organ.declent_ru(ACCUSATIVE)] из своего тела!"),
+			span_bolddanger("[DECLENT_RU_CAP(caster, NOMINATIVE)] извлека[PLUR_ET_YUT(caster)] [picked_organ.declent_ru(ACCUSATIVE)] из своего тела!"),
 			span_bolddanger("Вы извлекаете [picked_organ.declent_ru(ACCUSATIVE)] из своего тела!"),
 		)
 
 	else
 		carbon_victim.visible_message(
-			span_bolddanger("[caster.declent_ru(NOMINATIVE)] извлека[PLUR_ET_YUT(caster)] [picked_organ.declent_ru(ACCUSATIVE)] из тела [carbon_victim.declent_ru(GENITIVE)]!"),
+			span_bolddanger("[DECLENT_RU_CAP(caster, NOMINATIVE)] извлека[PLUR_ET_YUT(caster)] [picked_organ.declent_ru(ACCUSATIVE)] из тела [carbon_victim.declent_ru(GENITIVE)]!"),
 			span_bolddanger("Вы извлекаете [picked_organ.declent_ru(ACCUSATIVE)] из тела [carbon_victim.declent_ru(GENITIVE)]!"),
 		)
 
@@ -226,7 +226,7 @@
 
 
 /obj/item/melee/touch_attack/flesh_surgery
-	name = "рука покрытая плотью"
+	name = "flesh hand"
 	desc = "Лечить не так приятно, как убивать." // TF2
 	icon = 'icons/obj/weapons/hand.dmi'
 	icon_state = "disintegrate"
@@ -242,10 +242,10 @@
 
 /obj/item/melee/touch_attack/flesh_surgery/get_ru_names()
 	return alist(
-		NOMINATIVE = "рука покрытая плотью",
-		GENITIVE = "руки покрытой плотью",
-		DATIVE = "руке покрытой плотью",
-		ACCUSATIVE = "руку покрытую плотью",
-		INSTRUMENTAL = "рукой покрытой плотью",
-		PREPOSITIONAL = "руке покрытой плотью",
+		NOMINATIVE = "покрытая плотью рука",
+		GENITIVE = "покрытой плотью руки",
+		DATIVE = "покрытой плотью руке",
+		ACCUSATIVE = "покрытую плотью руку",
+		INSTRUMENTAL = "покрытой плотью рукой",
+		PREPOSITIONAL = "покрытой плотью руке",
 	)

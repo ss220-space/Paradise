@@ -36,8 +36,8 @@
 
 /// The heretic's rune, which they use to complete transmutation rituals.
 /obj/effect/decal/heretic_rune
-	name = "Руна Трансформации"
-	desc = "Жуткий круг фигур и рун изображенный на полу, заполненный густой черной как смоль жидкостью. Выглядит довольно маленьким."
+	name = "transmutation rune"
+	desc = "Жуткий круг непонятных маслянисто-чёрных знаков и рун, выгравированный на полу."
 	icon = 'icons/obj/rune.dmi'
 	icon_state = "main1"
 	plane = BELOW_GAME_PLANE
@@ -48,12 +48,12 @@
 
 /obj/effect/decal/heretic_rune/get_ru_names()
 	return alist(
-		NOMINATIVE = "Руна Трансформации",
-		GENITIVE = "Руны Трансформации",
-		DATIVE = "Руне Трансформации",
-		ACCUSATIVE = "Руну Трансформации",
-		INSTRUMENTAL = "Руной Трансформации",
-		PREPOSITIONAL = "Руне Трансформации"
+		NOMINATIVE = "руна трансформации",
+		GENITIVE = "руны трансформации",
+		DATIVE = "руне трансформации",
+		ACCUSATIVE = "руну трансформации",
+		INSTRUMENTAL = "руной трансформации",
+		PREPOSITIONAL = "руне трансформации"
 	)
 
 
@@ -71,7 +71,7 @@
 		return
 
 	. += span_notice("Позволяет трансмутировать предметы, после соблюдения некоторых условий.")
-	. += span_notice("Вы можете использовать <i>Прикосновение Мансуса</i> на руне, чтобы стереть её.")
+	. += span_notice("Вы можете использовать <i>хватку Обители</i> на руне, чтобы стереть её.")
 
 
 /obj/effect/decal/heretic_rune/proc/can_interact(mob/living/user)
@@ -95,7 +95,7 @@
 
 /obj/effect/decal/heretic_rune/attackby(obj/item/item, mob/living/user, params)
 	if(istype(item, /obj/item/melee/touch_attack/mansus_fist))
-		user.balloon_alert(user, "руна стерта")
+		user.balloon_alert(user, "руна стёрта")
 		qdel(src)
 		return ATTACK_CHAIN_PROCEED
 
@@ -117,7 +117,7 @@
 	var/datum/antagonist/heretic/heretic_datum = user.mind.has_antag_datum(/datum/antagonist/heretic)
 	var/list/rituals = heretic_datum.get_rituals()
 	if(!length(rituals))
-		loc.balloon_alert(user, "нет доступных ритуалов")
+		loc.balloon_alert(user, "нет доступных ритуалов!")
 		is_in_use = FALSE
 		return
 
@@ -202,7 +202,7 @@
 			for(var/atom/possible_type as anything in req_type_list)
 				req_text_list += ritual.parse_required_item(possible_type)
 
-			formatted_thing += english_list(req_text_list, and_text = "or")
+			formatted_thing += russian_list(req_text_list, and_text = "или")
 
 		else
 			formatted_thing = ritual.parse_required_item(req_type)
@@ -211,7 +211,7 @@
 
 	if(length(what_are_we_missing))
 		loc.balloon_alert(user, "не хватает компонентов!")
-		to_chat(user, span_hierophant_warning("Для завершения ритуала \"[ritual.name]\" не хватает [english_list(what_are_we_missing)]."))
+		to_chat(user, span_hierophant_warning("Для завершения ритуала \"[ritual.name]\" не хватает [russian_list(what_are_we_missing)]."))
 		return FALSE
 
 	// All necessary components are present; try to cast (doesn't guarantee success, but it's valid).
@@ -226,7 +226,7 @@
 
 	// No feedback is given on failure here - the ritual itself handles it.
 	if(ritual_result)
-		loc.balloon_alert(user, "ритуал завершен")
+		loc.balloon_alert(user, "ритуал завершён")
 
 	return ritual_result
 
