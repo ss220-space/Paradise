@@ -244,6 +244,8 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 
 #define isfloorturf(A) (istype(A, /turf/simulated/floor))
 
+#define isplasteelfloor(A) (istype(A, /turf/simulated/floor/plasteel))
+
 #define iswallturf(A) (istype(A, /turf/simulated/wall))
 
 #define isreinforcedwallturf(A) (istype(A, /turf/simulated/wall/r_wall))
