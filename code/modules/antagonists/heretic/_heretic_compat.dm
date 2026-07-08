@@ -376,11 +376,15 @@
 GLOBAL_LIST_EMPTY(has_antagonist_huds)
 
 /datum/atom_hud/alternate_appearance/basic/has_antagonist
-	/// Only holders of this antag datum type (plus observers) see the marker.
+	/// Only holders of this antag datum type (plus observers) see the marker. May be a list of types,
+	/// in which case holding ANY of them is enough (e.g. a heretic and their monsters see each other).
 	var/antag_datum_type
 
-/datum/atom_hud/alternate_appearance/basic/has_antagonist/New(key, image/hud, options, datum/antagonist/antag_datum_type)
-	src.antag_datum_type = antag_datum_type
+/datum/atom_hud/alternate_appearance/basic/has_antagonist/New(key, image/hud, options, antag_datum_type)
+	// Subtypes (e.g. the heretic influence hud) preset antag_datum_type on the type itself and get created
+	// without the argument - blindly assigning would null it out and lock every heretic out of mob_should_see.
+	if(antag_datum_type)
+		src.antag_datum_type = antag_datum_type
 	GLOB.has_antagonist_huds += src
 	return ..()
 
@@ -391,17 +395,28 @@ GLOBAL_LIST_EMPTY(has_antagonist_huds)
 /datum/atom_hud/alternate_appearance/basic/has_antagonist/mob_should_see(mob/viewer)
 	if(isobserver(viewer))
 		return TRUE
+	if(islist(antag_datum_type))
+		for(var/checked_type in antag_datum_type)
+			if(viewer?.mind?.has_antag_datum(checked_type))
+				return TRUE
+		return FALSE
 	return viewer?.mind?.has_antag_datum(antag_datum_type)
 
 /**
  * Shows [target]'s antag HUD marker to everyone who shares the [antag_type] antag datum (and to observers).
  * This is how a team of antagonists sees one another - e.g. lunatics spotting their ringleader and each other.
+ * [antag_type] may be a list of datum types: any of them grants sight, and the marker icon comes from the
+ * first one the target actually holds - so callers put their own datum type first.
  */
-/proc/add_team_hud(mob/living/target, datum/antagonist/antag_type)
+/proc/add_team_hud(mob/living/target, antag_type)
 	if(!istype(target) || isnull(target.mind))
 		return
 
-	var/datum/antagonist/antag = target.mind.has_antag_datum(antag_type)
+	var/datum/antagonist/antag
+	for(var/checked_type in (islist(antag_type) ? antag_type : list(antag_type)))
+		antag = target.mind.has_antag_datum(checked_type)
+		if(antag)
+			break
 	if(isnull(antag) || isnull(antag.antag_hud_name))
 		return
 

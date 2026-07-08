@@ -351,14 +351,11 @@
 		disembowel_target(sac_target)
 		return
 
-	// Fully restore the sacrifice on arrival so they reach the realm able to fight - EVEN one brought here
-	// alive but in crit (not just the dead). heal_and_revive(0) zeroes brute/burn/oxy/tox (and revives the
-	// dead if possible); we ALSO clear stamina and sleep, so a stamina-critted or downed victim actually gets
-	// back on their feet instead of arriving helpless. If even that can't bring them back, disembowel + stop.
+	// If our target died during the (short) wait timer,
+	// and we fail to revive them (using a lower number than before),
+	// just disembowel them and stop the chain
 	sac_target.adjustOxyLoss(-100, FALSE)
-	sac_target.setStaminaLoss(0, updating_health = FALSE)
-	sac_target.SetSleeping(0)
-	if(!sac_target.heal_and_revive(0, span_danger("Сердце [sac_target.declent_ru(GENITIVE)] начинает биться с нечестивой силой, когда [GEND_HE_SHE(sac_target)] возвраща[PLUR_ET_YUT(sac_target)]ся из объятий смерти!")))
+	if(!sac_target.heal_and_revive(60, span_danger("Сердце [sac_target.declent_ru(GENITIVE)] начинает биться с нечестивой силой, когда [GEND_HE_SHE(sac_target)] возвраща[PLUR_ET_YUT(sac_target)]ся из объятий смерти!")))
 		disembowel_target(sac_target)
 		return
 
@@ -766,12 +763,31 @@
 
 	// We've given them a decent heal.
 	// If they happen to be dead too, try to revive them - if possible.
+	// TG does this via revive(excess_healing = 10) - a small nudge over the death threshold,
+	// NOT a full heal. rejuvenate() here is the admin aheal (wipes all damage, brainloss,
+	// blindness, restores blood/organs), which would return a dead victim in better shape
+	// than a living one - so inline the weak revive instead.
 	if(stat == DEAD && can_be_revived())
+		grab_ghost()
+		adjustOxyLoss(-10, updating_health = FALSE)
+		adjustToxLoss(-10, updating_health = FALSE, forced = TRUE)
+		updatehealth()
 		// If the revive is successful, show our revival message (if present).
-		if(rejuvenate() && revive_message)
+		if(update_revive() && revive_message)
+			INVOKE_ASYNC(src, PROC_REF(emote), "gasp")
 			visible_message(revive_message)
 
 	// Finally update health again after we're all done
 	updatehealth()
 
 	return stat != DEAD
+
+
+/mob/living/carbon/human/heal_and_revive(heal_to = 50, revive_message)
+	// We can't heal them if they're missing a heart their species expects
+	if(dna.species.has_organ[INTERNAL_ORGAN_HEART] && !get_organ_slot(INTERNAL_ORGAN_HEART))
+		return FALSE
+
+	. = ..()
+	if(.)
+		set_heartattack(FALSE)

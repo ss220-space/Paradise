@@ -885,6 +885,7 @@
 	. += auto_declare_completion_goon_enthralled()
 	. += auto_declare_completion_devil()
 	. += auto_declare_completion_sintouched()
+	. += auto_declare_completion_heretic()
 	list_clear_nulls(.)
 
 /datum/game_mode/proc/apocalypse_cinema(obj/god/god, inevitable = FALSE)

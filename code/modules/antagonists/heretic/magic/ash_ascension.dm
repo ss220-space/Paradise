@@ -1,3 +1,33 @@
+/// Path of Ash abilities want fire that actually burns, not the decorative kind. A hotspot spawned with a
+/// bare new() on Paradise isn't MILLA-managed, so it never expires and never ignites anyone; we instead use
+/// the self-deleting /obj/effect/hotspot/fake and set things alight ourselves, the same way fireflash() does.
+/proc/ash_flame_turf(turf/target, burn_damage, mob/living/exempt, stacks_to_add = 3)
+	if(!isturf(target))
+		return
+	var/obj/effect/hotspot/fake/eldritch/flame_tile = locate() in target
+	if(!flame_tile)
+		flame_tile = new(target)
+	target.hotspot_expose(flame_tile.temperature, flame_tile.volume)
+	for(var/atom/movable/burnable in target)
+		if(burnable == flame_tile || isliving(burnable))
+			continue
+		burnable.fire_act(flame_tile.temperature, flame_tile.volume)
+	for(var/mob/living/fried_living in target)
+		if(fried_living == exempt)
+			continue
+		fried_living.apply_damage(burn_damage, BURN)
+		fried_living.adjust_fire_stacks(stacks_to_add)
+		fried_living.IgniteMob()
+
+/obj/effect/hotspot/fake/eldritch
+	burn_time = 1 SECONDS
+	temperature = 2500
+	alpha = 200
+
+/obj/effect/hotspot/fake/eldritch/Initialize(mapload)
+	. = ..()
+	recolor()
+
 /// Creates a constant Ring of Fire around the caster for a set duration of time, which follows them.
 /obj/effect/proc_holder/spell/fire_sworn
 	name = "Клятва пламени"
@@ -63,16 +93,7 @@
 		return
 
 	for(var/turf/nearby_turf as anything in RANGE_TURFS(1, owner))
-		var/obj/effect/hotspot/flame_tile = (locate() in nearby_turf) || new(nearby_turf)
-		// Hot, bright-orange fire instead of the dim grey default: atmos tints hotspots by
-		// temperature (at ~750K update_visuals keeps it ~97% greyscale), so we expose much hotter
-		// and recolor the visual tile directly to a fiery orange.
-		flame_tile.temperature = 2500
-		flame_tile.alpha = 200
-		flame_tile.recolor()
-		nearby_turf.hotspot_expose(2500, 25 * seconds_between_ticks, 1)
-		for(var/mob/living/fried_living in nearby_turf.contents - owner)
-			fried_living.apply_damage(2.5 * seconds_between_ticks, BURN)
+		ash_flame_turf(nearby_turf, 2.5 * seconds_between_ticks, owner)
 
 
 /// Creates one, large, expanding ring of fire around the caster, which does not follow them.
@@ -109,14 +130,7 @@
 /obj/effect/proc_holder/spell/fire_cascade/proc/fire_cascade(atom/centre, flame_radius = 1)
 	for(var/i in 0 to flame_radius)
 		for(var/turf/nearby_turf as anything in spiral_range_turfs(i + 1, centre))
-			var/obj/effect/hotspot/flame_tile = (locate() in nearby_turf) || new(nearby_turf)
-			// Hot, bright-orange fire (see fire_ring/tick): expose hotter + recolor the visual tile.
-			flame_tile.temperature = 2500
-			flame_tile.alpha = 200
-			flame_tile.recolor()
-			nearby_turf.hotspot_expose(2500, 50, 1)
-			for(var/mob/living/fried_living in nearby_turf.contents - action.owner)
-				fried_living.apply_damage(5, BURN)
+			ash_flame_turf(nearby_turf, 5, action.owner)
 
 		stoplag(0.3 SECONDS)
 

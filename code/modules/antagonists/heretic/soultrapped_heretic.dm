@@ -5,6 +5,7 @@
 	special_role = SPECIAL_ROLE_SOULTRAPPED_HERETIC
 	job_rank = ROLE_HERETIC
 	antag_hud_name = "heretic"
+	antag_hud_type = ANTAG_HUD_HERETIC
 
 
 // always failure obj

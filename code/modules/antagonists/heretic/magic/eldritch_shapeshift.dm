@@ -38,6 +38,14 @@
 
 	RegisterSignal(shape, COMSIG_MOB_DEATH, PROC_REF(on_death))
 
+	// On summons this spell is mob-bound (mob_spell_list), and mind.transfer_to only carries mind
+	// spells - so the borrowed form would have no revert button, and can_cast() rejects casts from
+	// a mob that doesn't own the spell ("You shouldn't have this spell!"). Hand the whole spell over;
+	// Restore() hands it back.
+	if(LAZYIN(caster.mob_spell_list, src))
+		LAZYREMOVE(caster.mob_spell_list, src)
+		shape.AddSpell(src)
+
 	if(is_simple_animal(caster))
 		var/mob/living/simple_animal/animal = caster
 		animal.toggle_ai(AI_OFF)
@@ -60,7 +68,13 @@
 			animal = candidate
 			break
 
+	// Reclaim the spell from the doomed shape (see Shapeshift), it goes back to the caster below.
+	if(animal)
+		LAZYREMOVE(shape.mob_spell_list, src)
+
 	. = ..()
 
 	if(!QDELETED(animal))
 		animal.shouldwakeup = old_shouldwakeup
+		if(!LAZYIN(animal.mob_spell_list, src))
+			animal.AddSpell(src)
