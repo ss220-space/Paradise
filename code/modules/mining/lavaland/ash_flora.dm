@@ -422,7 +422,7 @@
 		qdel(src)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	return ATTACK_CHAIN_PROCEED
+	return ..()
 
 //SEEDS
 

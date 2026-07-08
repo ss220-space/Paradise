@@ -1733,10 +1733,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 /mob/living/silicon/robot/proc/choose_icon()
 	if(!module)
 		return
-	var/datum/robot_skin/skin = select_skin(module.borg_skins, module?.default_skin)
+	var/datum/robot_skin/skin = select_skin(module.borg_skins, module.default_skin)
 	if(!skin)
 		return
-	set_skin(skin, TRUE, skin.type != module?.default_skin)
+	set_skin(skin, TRUE, skin.type != module.default_skin)
 	return
 
 /mob/living/silicon/robot/proc/select_skin(list/skins, default_skin_name)
@@ -2285,7 +2285,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	set_hud_image_state(DIAG_AISHELL_STAT_HUD, "hudtrackingai-active")
 	mainframe.set_hud_image_state(DIAG_AISHELL_STAT_HUD, "hudtrackingai")
-	if(module && mainframe && mainframe.aiRadio)
+	if(module && mainframe?.aiRadio)
 		module.channels = mainframe.aiRadio.channels
 	radio.recalculate_channels()
 
