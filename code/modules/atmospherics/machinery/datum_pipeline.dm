@@ -56,7 +56,8 @@ GLOBAL_VAR_INIT(pipenetwarnings, 10)
 		for(var/obj/machinery/atmospherics/borderline as anything in possible_expansions)
 
 			var/list/result = borderline.pipeline_expansion(src)
-			list_clear_nulls(result)
+			if(result)
+				list_clear_nulls(result)
 
 			if(length(result) > 0)
 				for(var/obj/machinery/atmospherics/P as anything in result)
