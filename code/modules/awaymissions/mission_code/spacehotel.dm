@@ -76,6 +76,11 @@
 		loader_landmark = src
 	INVOKE_ASYNC(src, PROC_REF(load_room_async))
 
+/obj/effect/landmark/map_loader/hotel_room/Destroy()
+	if(loader_landmark == src)
+		loader_landmark = null
+	return ..()
+
 /obj/effect/landmark/map_loader/hotel_room/proc/load_room_async()
 	if(QDELETED(src))
 		return
@@ -144,7 +149,7 @@
 
 /obj/machinery/door/unpowered/hotel_door/Initialize(mapload)
 	. = ..()
-	
+
 	if(id)
 		name = "Room [id]"
 

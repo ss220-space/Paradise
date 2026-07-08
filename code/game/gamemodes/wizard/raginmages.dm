@@ -36,26 +36,26 @@
 		if(isnull(wizard.current))
 			continue
 		if(!iscarbon(wizard.current))
-			if(istype(get_area(wizard.current), /area/wizard_station)) // We don't want people camping other wizards
+			if(istype(get_area(wizard.current), /area/centcom/wizard_station)) // We don't want people camping other wizards
 				to_chat(wizard.current, span_warning("If there aren't any admins on and another wizard is camping you in the wizard lair, report them on the forums"))
 				message_admins("[wizard.current] was transformed in the wizard lair, another wizard is likely camping")
 				end_squabble(get_area(wizard.current))
 			continue
 		if(isbrain(wizard.current))
-			if(istype(get_area(wizard.current), /area/wizard_station)) // We don't want people camping other wizards
+			if(istype(get_area(wizard.current), /area/centcom/wizard_station)) // We don't want people camping other wizards
 				to_chat(wizard.current, span_warning("If there aren't any admins on and another wizard is camping you in the wizard lair, report them on the forums"))
 				message_admins("[wizard.current] was brainified in the wizard lair, another wizard is likely camping")
 				end_squabble(get_area(wizard.current))
 			continue
 		if(wizard.current.stat==DEAD)
-			if(istype(get_area(wizard.current), /area/wizard_station)) // We don't want people camping other wizards
+			if(istype(get_area(wizard.current), /area/centcom/wizard_station)) // We don't want people camping other wizards
 				to_chat(wizard.current, span_warning("If there aren't any admins on and another wizard is camping you in the wizard lair, report them on the forums"))
 				message_admins("[wizard.current] died in the wizard lair, another wizard is likely camping")
 				end_squabble(get_area(wizard.current))
 			continue
 		if(wizard.current.stat==UNCONSCIOUS)
 			if(wizard.current.health < 0)
-				if(istype(get_area(wizard.current), /area/wizard_station))
+				if(istype(get_area(wizard.current), /area/centcom/wizard_station))
 					to_chat(wizard.current, span_warning("If there aren't any admins on and another wizard is camping you in the wizard lair, report them on the forums"))
 					message_admins("[wizard.current] went into crit in the wizard lair, another wizard is likely camping")
 					end_squabble(get_area(wizard.current))
@@ -85,14 +85,14 @@
 	return ..()
 
 // To silence all struggles within the wizard's lair
-/datum/game_mode/wizard/raginmages/proc/end_squabble(area/wizard_station/A)
+/datum/game_mode/wizard/raginmages/proc/end_squabble(area/centcom/wizard_station/A)
 	if(!istype(A)) return // You could probably do mean things with this otherwise
 	var/list/marked_for_death = list()
 	for(var/mob/living/L in A) // To hit non-wizard griefers
 		if(L.mind || L.client)
 			marked_for_death |= L
 	for(var/datum/mind/M in wizards)
-		if(istype(M.current) && istype(get_area(M.current), /area/wizard_station))
+		if(istype(M.current) && istype(get_area(M.current), /area/centcom/wizard_station))
 			mages_made -= 1
 			wizards -= M // No, you don't get to occupy a slot
 			marked_for_death |= M.current

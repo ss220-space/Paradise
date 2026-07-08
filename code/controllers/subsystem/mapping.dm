@@ -526,7 +526,7 @@ SUBSYSTEM_DEF(mapping)
 	log_world("Ruin loader finished with [budget] left to spend.")
 
 /datum/controller/subsystem/mapping/proc/make_maint_all_access()
-	for(var/area/maintenance/area in existing_station_areas)
+	for(var/area/station/maintenance/area in existing_station_areas)
 		for(var/obj/machinery/door/airlock/door in area)
 			door.emergency = TRUE
 			door.update_icon()
@@ -537,7 +537,7 @@ SUBSYSTEM_DEF(mapping)
 	SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("emergency maintenance access", "enabled"))
 
 /datum/controller/subsystem/mapping/proc/revoke_maint_all_access()
-	for(var/area/maintenance/area in existing_station_areas)
+	for(var/area/station/maintenance/area in existing_station_areas)
 		for(var/obj/machinery/door/airlock/door in area)
 			door.emergency = FALSE
 			door.update_icon()

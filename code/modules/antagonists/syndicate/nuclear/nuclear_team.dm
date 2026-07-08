@@ -280,8 +280,8 @@
 	if(GLOB.nuke_codes[/obj/machinery/nuclearbomb/syndicate] != "Nope")
 		var/area/A = get_area(nuke)
 
-		var/list/thousand_penalty = list(/area/wizard_station, /area/solar)
-		var/list/fiftythousand_penalty = list(/area/security/main, /area/security/brig, /area/security/armory, /area/security/checkpoint/south)
+		var/list/thousand_penalty = list(/area/centcom/wizard_station, /area/station/solars)
+		var/list/fiftythousand_penalty = list(/area/station/security/main, /area/station/security/brig, /area/station/security/hallway/armory, /area/station/security/checkpoint/south)
 
 		if(is_type_in_list(A, thousand_penalty))
 			scoreboard.nuked_penalty = 1000
@@ -289,7 +289,7 @@
 		else if(is_type_in_list(A, fiftythousand_penalty))
 			scoreboard.nuked_penalty = 50000
 
-		else if(istype(A, /area/engineering))
+		else if(istype(A, /area/station/engineering))
 			scoreboard.nuked_penalty = 100000
 
 		else
