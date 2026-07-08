@@ -151,6 +151,8 @@
 #define TRAUMA_RESILIENCE_WOUND 4     // Curable by healing the head wound
 #define TRAUMA_RESILIENCE_MAGIC 5     // Curable only with magic
 #define TRAUMA_RESILIENCE_ABSOLUTE 6  // Here to stay
+#define HERETIC_ANTAG_HUD_Y_OFFSET -8
+
 // Per-resilience caps on how many traumas of that tier can be naturally gained.
 #define TRAUMA_LIMIT_BASIC 3
 #define TRAUMA_LIMIT_SURGERY 2

@@ -212,6 +212,7 @@ GLOBAL_LIST_EMPTY(camera_console_watchers)
 	ui_interact(user)
 
 /atom/movable/screen/map_view/camera
+	popup_group_type = /datum/plane_master_group/popup/camera
 	/// All the plane masters that need to be applied.
 	var/atom/movable/screen/background/cam_background
 

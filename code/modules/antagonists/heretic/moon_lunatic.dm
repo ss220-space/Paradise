@@ -3,7 +3,7 @@
 	name = "Лунатик"
 	special_role = SPECIAL_ROLE_LUNATIC
 	antag_hud_name = "lunatic"
-	antag_hud_type = ANTAG_HUD_HERETIC
+	antag_hud_type = ANTAG_HUD_LUNATIC
 	clown_gain_text = "Древние знания о Луне позволили вам преодолеть свою шутовскую натуру и научиться владеть оружием, не причиняя себе вреда."
 	clown_removal_text = "По мере того, как ваши знания о Луне рассеиваются, вы возвращаетесь к своему неуклюжему, клоунскому «я»."
 	// The mind of the ascended heretic who created us
@@ -40,11 +40,19 @@
 	to_chat(owner, span_boldnotice("Разрушь ложь, спаси правду служа [heretic_master] — лидеру Лунатиков!"))
 
 
+/datum/antagonist/lunatic/add_antag_hud(mob/living/antag_mob)
+	. = ..()
+	offset_heretic_antag_hud(antag_mob)
+
+/datum/antagonist/lunatic/remove_antag_hud(mob/living/antag_mob)
+	. = ..()
+	offset_heretic_antag_hud(antag_mob, 0)
+
+
 /datum/antagonist/lunatic/apply_innate_effects(mob/living/mob_override)
 	. = ..()
 	var/mob/living/our_mob = mob_override || owner.current
 	our_mob.faction |= FACTION_HERETIC
-	add_team_hud(our_mob, /datum/antagonist/lunatic)
 	ADD_TRAIT(our_mob, TRAIT_MADNESS_IMMUNE, UID())
 
 	if(ismaster)
@@ -92,5 +100,3 @@
 	loony.is_master = TRUE
 	loony.update_explanation_text()
 	return ..()
-// apply_innate_effects is inherited: the parent already grants the team HUD for masters (before the
-// ismaster early return) and skips the thrall spells, so no master-specific override is needed.

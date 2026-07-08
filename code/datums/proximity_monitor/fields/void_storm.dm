@@ -16,8 +16,13 @@
 
 
 /datum/proximity_monitor/advanced/void_storm/recalculate_field(full_recalc)
-	full_recalc = TRUE // We always perform a full recalc because we need to update ALL the sprites
-	return ..()
+	. = ..()
+	var/turf/host_turf = get_turf(host)
+	if(!host_turf)
+		return
+	for(var/turf/target as anything in turf_effects)
+		var/obj/effect/abstract/effect = turf_effects[target]
+		effect.alpha = 255 - get_dist(target, host_turf) * 23
 
 
 /datum/proximity_monitor/advanced/void_storm/cleanup_field_turf(turf/target)

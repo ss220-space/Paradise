@@ -235,7 +235,7 @@
 	generate_name()
 
 	var/image/heretic_image = image(icon, src, real_icon_state, OBJ_LAYER)
-	add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/has_antagonist/heretic, "reality_smash", heretic_image)
+	add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/heretic, "reality_smash", heretic_image)
 
 	AddComponent(/datum/component/redirect_attack_hand_from_turf, interact_check = CALLBACK(src, PROC_REF(verify_user_can_see)))
 
@@ -355,9 +355,3 @@
 		return
 	arrived_living.apply_status_effect(/datum/status_effect/temporary_xray/eldritch)
 	COOLDOWN_START(src, xray_cooldown, 3 MINUTES)
-
-
-/// Hud used for heretics to see influences
-/datum/atom_hud/alternate_appearance/basic/has_antagonist/heretic
-	antag_datum_type = /datum/antagonist/heretic
-	add_ghost_version = TRUE

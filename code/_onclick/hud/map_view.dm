@@ -13,6 +13,7 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/map_view)
 
 	// Weakrefs of all our hud viewers -> a weakref to the hud datum they last used
 	var/list/datum/weakref/viewers_to_huds = list()
+	var/popup_group_type = /datum/plane_master_group/popup
 
 /atom/movable/screen/map_view/Destroy()
 	for(var/datum/weakref/client_ref in viewers_to_huds)
@@ -67,7 +68,7 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/map_view)
 		return our_hud.get_plane_group(PLANE_GROUP_POPUP_WINDOW(src))
 
 	// Generate a new plane group for this case
-	var/datum/plane_master_group/popup/pop_planes = new(PLANE_GROUP_POPUP_WINDOW(src), assigned_map)
+	var/datum/plane_master_group/popup/pop_planes = new popup_group_type(PLANE_GROUP_POPUP_WINDOW(src), assigned_map)
 	viewers_to_huds[client_ref] = WEAKREF(show_to.mob.hud_used)
 	pop_planes.attach_to(show_to.mob.hud_used)
 

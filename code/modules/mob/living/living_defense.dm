@@ -238,9 +238,8 @@
 		return FALSE
 	if(fire_stacks > 0)
 		adjust_fire_stacks(-0.1) //the fire is slowly consumed
-		for(var/obj/item/clothing/burning in contents)
-			burning.catch_fire()
-			burning.fire_act(fire_stacks * 50) //being ablaze eats through your clothing - fire_act turns ~2% of this into burn damage, scaling with how hard you're burning
+		for(var/obj/item/clothing/C in contents)
+			C.catch_fire()
 	else
 		ExtinguishMob()
 		return FALSE

@@ -205,7 +205,7 @@
 	sink_animation(enter_point, user)
 	var/obj/effect/dummy/slaughter/holder = new /obj/effect/dummy/slaughter(mobloc)
 	var/victim = user.pulling
-	if(!do_direct_teleport(user, holder, always_precise = TRUE, bypass_area_flag = TRUE))
+	if(!user.forceMove(holder))
 		QDEL_NULL(holder)
 		REMOVE_TRAIT(user, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
 		return
@@ -253,8 +253,7 @@
 		return FALSE
 	var/turf/tele_loc = isturf(enter_point) ? enter_point : enter_point.loc
 	var/holder = user.loc
-	if(!do_direct_teleport(user, tele_loc, always_precise = TRUE, bypass_area_flag = TRUE))
-		return FALSE
+	user.forceMove(tele_loc)
 	user.client.set_eye(user)
 
 	rise_animation(tele_loc, user, enter_point)

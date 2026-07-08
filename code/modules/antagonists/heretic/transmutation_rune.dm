@@ -301,10 +301,13 @@
 	// caster's do_after does (otherwise a fast Codex Morbus draw cuts the ~12s animation off mid-draw).
 	var/source_icon = icon
 	var/white_state = replacetext(animation_state, "_colour", "_white")
-	// fcopy_rsc registers the hand-baked icon as a real resource file so EVERY client receives the draw
-	// animation. Without it, the raw in-memory /icon distributes unreliably - the drawer sees the animation
-	// but bystanders (and the freshly-joined) often see nothing (same race the big rune's bake comment covers).
-	icon = fcopy_rsc(heretic_rune_icon(source_icon, animation_state, path_colour, white_state, drawing_time, drawing_time > 0 ? native_delays : null))
+	var/static/list/baked_draw_icons = list()
+	var/cache_key = "[animation_state]/[path_colour]/[drawing_time]"
+	var/baked = baked_draw_icons[cache_key]
+	if(!baked)
+		baked = fcopy_rsc(heretic_rune_icon(source_icon, animation_state, path_colour, white_state, drawing_time, drawing_time > 0 ? native_delays : null))
+		baked_draw_icons[cache_key] = baked
+	icon = baked
 	icon_state = ""
 	var/image/silicon_image = image(icon = 'icons/effects/eldritch.dmi', icon_state = null, loc = src)
 	silicon_image.override = TRUE

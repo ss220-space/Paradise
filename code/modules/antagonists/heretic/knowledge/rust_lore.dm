@@ -276,7 +276,7 @@
 
 /datum/heretic_knowledge/ultimate/rust_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	. = ..()
-	trigger(loc)
+	INVOKE_ASYNC(src, PROC_REF(trigger), loc)
 	RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
 	RegisterSignal(user, COMSIG_LIVING_LIFE, PROC_REF(on_life))
 	//user.client?.give_award(/datum/award/achievement/misc/rust_ascension, user)
@@ -284,12 +284,12 @@
 	rust_spread_spell?.base_cooldown /= 2
 
 
-// I sure hope this doesn't have performance implications
 /datum/heretic_knowledge/ultimate/rust_final/proc/trigger(turf/center)
 	var/greatest_dist = 0
 	var/list/turfs_to_transform = list()
-	var/list/stations_z = levels_by_trait(STATION_LEVEL)
-	var/list/station_turfs = block(1, 1, stations_z[1], world.maxx, world.maxy, stations_z[length(stations_z)])
+	var/list/station_turfs = list()
+	for(var/z_level in levels_by_trait(STATION_LEVEL))
+		station_turfs += block(1, 1, z_level, world.maxx, world.maxy, z_level)
 	for(var/turf/transform_turf as anything in station_turfs)
 		//if(transform_turf.turf_flags & NO_RUST)
 		//	continue
@@ -302,6 +302,7 @@
 			turfs_to_transform["[dist]"] = list()
 
 		turfs_to_transform["[dist]"] += transform_turf
+		CHECK_TICK
 
 	for(var/iterator in 1 to greatest_dist)
 		if(!turfs_to_transform["[iterator]"])
@@ -325,7 +326,7 @@
 	for(var/turf/turf as anything in turfs)
 		// ORGANIC (4): the ascension corrodes everything short of ABSOLUTE-resistance turfs
 		// (space, indestructible), so the station rusts over but the void/hull stays intact.
-		turf.rust_heretic_act(RUST_RESISTANCE_ORGANIC)
+		turf.rust_heretic_act(RUST_RESISTANCE_ORGANIC, spawn_rune = prob(5))
 		CHECK_TICK
 
 

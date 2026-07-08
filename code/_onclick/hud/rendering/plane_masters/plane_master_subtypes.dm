@@ -265,7 +265,8 @@
 	// Alpha, not force_hidden: a hidden plane master dumps anything drawn on it straight onto the output
 	// render, only alpha 0 actually swallows the contents.
 	if(istype(home, /datum/plane_master_group/popup))
-		disable_alpha()
+		if(istype(home, /datum/plane_master_group/popup/camera))
+			disable_alpha()
 		return
 	if(home)
 		RegisterSignal(home, COMSIG_GROUP_HUD_CHANGED, PROC_REF(hud_changed))

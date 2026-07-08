@@ -3,6 +3,7 @@
 // to reach that far, or an ultrawide onlooker standing 8-9 tiles away (off-screen for the heretic) could
 // watch them slip into / out of hiding. See setviewrange in preference/preferences.dm.
 #define CARETAKER_MAX_WATCH_RANGE 9
+#define CARETAKER_WATCH_CACHE_TIME (0.5 SECONDS)
 
 // Caretaker's Last Refuge: built on the Space Crawl jaunt, but instead of requiring a space/low-pressure
 // turf, the gate is "nobody is watching you" - you may only enter while unseen, and only resurface on a
@@ -22,6 +23,9 @@
 	// One "locked door / turning key" sound for both submerging into and resurfacing from the Refuge.
 	jaunt_in_sound = 'sound/magic/heretic/caretaker_lock.ogg'
 	jaunt_out_sound = 'sound/magic/heretic/caretaker_lock.ogg'
+	var/cached_verdict
+	var/turf/cached_turf
+	var/cache_expires = 0
 
 
 /// The Refuge's "valid turf" is any spot where no conscious onlooker can see us. Used for both entering
@@ -30,6 +34,11 @@
 	var/turf/our_turf = get_turf(user)
 	if(!our_turf)
 		return FALSE
+	if(our_turf == cached_turf && world.time < cache_expires)
+		return cached_verdict
+	cached_turf = our_turf
+	cache_expires = world.time + CARETAKER_WATCH_CACHE_TIME
+	cached_verdict = TRUE
 	// Gather every living onlooker that could POSSIBLY see this turf (max viewport radius), then defer to each
 	// watcher's OWN client.view for the real line-of-sight test - so a classic-view player 8 tiles away (who
 	// genuinely can't see us) won't block the Refuge, but an ultrawide one at that distance will. view() also
@@ -38,8 +47,9 @@
 		if(watcher == user || watcher.stat == DEAD || !watcher.client)
 			continue
 		if(our_turf in view(watcher.client.view, watcher))
-			return FALSE
-	return TRUE
+			cached_verdict = FALSE
+			break
+	return cached_verdict
 
 
 // The in-person watcher test above is cheap, so the parent runs it on every button-status refresh (each move,
@@ -137,3 +147,4 @@
 	)
 
 #undef CARETAKER_MAX_WATCH_RANGE
+#undef CARETAKER_WATCH_CACHE_TIME

@@ -85,8 +85,6 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	var/unlimited_blades = FALSE
 	/// How many cumulative knowledge points are needed before the visible aura kicks in (tg uses 8).
 	var/points_to_aura = 8
-	/// Whether we've summoned at least one creature. The team HUD marker (what our monsters and we see above
-	/// each other's heads) stays hidden until then - a heretic with no servants shows no marker.
 	var/summoned_creature = FALSE
 
 	/// List that keeps track of which items have been gifted to the heretic after a cultist was sacrificed. Used to alter drop chances to reduce dupes.
@@ -451,16 +449,38 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	return ..()
 
 
+/datum/antagonist/heretic/add_antag_hud(mob/living/antag_mob)
+	. = ..()
+	offset_heretic_antag_hud(antag_mob)
+	if(summoned_creature)
+		GLOB.huds[antag_hud_type].show_to(antag_mob)
+
+/datum/antagonist/heretic/remove_antag_hud(mob/living/antag_mob)
+	. = ..()
+	offset_heretic_antag_hud(antag_mob, 0)
+
+/datum/antagonist/heretic/proc/reveal_antag_hud()
+	if(summoned_creature)
+		return
+	summoned_creature = TRUE
+	var/mob/living/heretic_mob = owner?.current
+	if(QDELETED(heretic_mob))
+		return
+	GLOB.huds[antag_hud_type].show_to(heretic_mob)
+
+/datum/antagonist/heretic/proc/hide_antag_hud()
+	if(!summoned_creature)
+		return
+	summoned_creature = FALSE
+	var/mob/living/heretic_mob = owner?.current
+	if(QDELETED(heretic_mob))
+		return
+	GLOB.huds[antag_hud_type].hide_from(heretic_mob)
+
 /datum/antagonist/heretic/apply_innate_effects(mob/living/mob_override)
 	. = ..()
 	var/mob/living/our_mob = mob_override || owner.current
 	our_mob.faction |= FACTION_HERETIC
-	// The native ANTAG_HUD_HERETIC is a hidden hud (ghost/admin-only), so heretics and their creations
-	// mark each other with team markers instead: both sides see both the "heretic" and "heretic_beast" icons.
-	// The heretic's own marker stays hidden until they summon their first creature (see reveal_team_hud);
-	// here we only re-apply it after a body transfer if it was already revealed.
-	if(summoned_creature)
-		add_team_hud(our_mob, list(/datum/antagonist/heretic, /datum/antagonist/heretic_monster))
 
 	if(!issilicon(our_mob))
 		GLOB.reality_smash_track.add_tracked_mind(owner)
@@ -492,7 +512,6 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	. = ..()
 	var/mob/living/our_mob = mob_override || owner.current
 	our_mob.faction -= FACTION_HERETIC
-	our_mob.remove_alt_appearance("antag_team_hud_[our_mob.UID()]")
 	clear_passive()
 
 	if(owner in GLOB.reality_smash_track.tracked_heretics)
@@ -573,21 +592,6 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 		heretic_mob.mind?.RemoveSpell(/obj/effect/proc_holder/spell/shadow_cloak)
 	update_heretic_aura()
 
-/// Reveals our team HUD marker the first time we summon a creature. Before this, a heretic shows no marker;
-/// afterwards they and their servants see each other's icons. Idempotent - safe to call on every summon.
-/datum/antagonist/heretic/proc/reveal_team_hud()
-	summoned_creature = TRUE
-	if(QDELETED(owner?.current))
-		return
-	add_team_hud(owner.current, list(/datum/antagonist/heretic, /datum/antagonist/heretic_monster))
-
-/// Hides our team HUD marker again once our last creature is gone, dropping us back to unmarked.
-/datum/antagonist/heretic/proc/hide_team_hud()
-	summoned_creature = FALSE
-	if(QDELETED(owner?.current))
-		return
-	owner.current.remove_alt_appearance("antag_team_hud_[owner.current.UID()]")
-
 /// Signal handler for [COMSIG_MOB_LOGIN]. Fires when our heretic's client (re)attaches to the body. The
 /// mind's spell actions, antag HUD marker, and reality-smash huds can end up missing after a relog or
 /// rejuvenate, so re-apply them defensively here.
@@ -597,19 +601,12 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	if(QDELETED(source) || owner?.current != source)
 		return
 
-	// Antag special-role HUD marker (what other heretics / observers see above our head).
 	if(antag_hud_type && antag_hud_name)
 		add_antag_hud(source)
 
-	// Reality-smash (rift) huds for any influences that already exist in the world.
 	if(!issilicon(source) && GLOB.reality_smash_track)
 		GLOB.reality_smash_track.rework_existing_influences(source)
 
-	// Team markers - re-show our own (only if we've summoned) and every existing heretic/monster marker (lost on relog).
-	if(summoned_creature)
-		add_team_hud(source, list(/datum/antagonist/heretic, /datum/antagonist/heretic_monster))
-
-	// Re-grant any knowledge spell that went missing from our mind (the research menu lives here).
 	resync_knowledge_spells(source)
 
 /// Re-adds any [/datum/heretic_knowledge/spell] spell that is no longer present in [source]'s mind.

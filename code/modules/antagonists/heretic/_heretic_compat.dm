@@ -363,79 +363,16 @@
 // The eldritch paintings (items/eldritch_painting.dm) subclass those real base types.
 
 // --- HUD compat ---
-// The source heretic module has team/antag-filtered alternate appearances. master220 has the
-// generic alternate appearance system, so only the visibility predicate is missing here.
+/proc/offset_heretic_antag_hud(mob/living/antag_mob, offset = HERETIC_ANTAG_HUD_Y_OFFSET)
+	var/image/holder = antag_mob?.hud_list?[SPECIALROLE_HUD]
+	if(holder)
+		holder.pixel_z = offset
 
 /datum/atom_hud/alternate_appearance/basic/heretic
 	add_ghost_version = TRUE
 
 /datum/atom_hud/alternate_appearance/basic/heretic/mob_should_see(mob/viewer)
 	return IS_HERETIC_OR_MONSTER(viewer) || isobserver(viewer)
-
-/// All active team-antag markers, so a newly-joined member can be shown the ones that predate them.
-GLOBAL_LIST_EMPTY(has_antagonist_huds)
-
-/datum/atom_hud/alternate_appearance/basic/has_antagonist
-	/// Only holders of this antag datum type (plus observers) see the marker. May be a list of types,
-	/// in which case holding ANY of them is enough (e.g. a heretic and their monsters see each other).
-	var/antag_datum_type
-
-/datum/atom_hud/alternate_appearance/basic/has_antagonist/New(key, image/hud, options, antag_datum_type)
-	// Subtypes (e.g. the heretic influence hud) preset antag_datum_type on the type itself and get created
-	// without the argument - blindly assigning would null it out and lock every heretic out of mob_should_see.
-	if(antag_datum_type)
-		src.antag_datum_type = antag_datum_type
-	GLOB.has_antagonist_huds += src
-	return ..()
-
-/datum/atom_hud/alternate_appearance/basic/has_antagonist/Destroy(force)
-	GLOB.has_antagonist_huds -= src
-	return ..()
-
-/datum/atom_hud/alternate_appearance/basic/has_antagonist/mob_should_see(mob/viewer)
-	if(isobserver(viewer))
-		return TRUE
-	if(islist(antag_datum_type))
-		for(var/checked_type in antag_datum_type)
-			if(viewer?.mind?.has_antag_datum(checked_type))
-				return TRUE
-		return FALSE
-	return viewer?.mind?.has_antag_datum(antag_datum_type)
-
-/**
- * Shows [target]'s antag HUD marker to everyone who shares the [antag_type] antag datum (and to observers).
- * This is how a team of antagonists sees one another - e.g. lunatics spotting their ringleader and each other.
- * [antag_type] may be a list of datum types: any of them grants sight, and the marker icon comes from the
- * first one the target actually holds - so callers put their own datum type first.
- */
-/proc/add_team_hud(mob/living/target, antag_type)
-	if(!istype(target) || isnull(target.mind))
-		return
-
-	var/datum/antagonist/antag
-	for(var/checked_type in (islist(antag_type) ? antag_type : list(antag_type)))
-		antag = target.mind.has_antag_datum(checked_type)
-		if(antag)
-			break
-	if(isnull(antag) || isnull(antag.antag_hud_name))
-		return
-
-	var/image/marker = image('icons/mob/hud.dmi', target, antag.antag_hud_name)
-	marker.plane = ABOVE_GAME_PLANE
-	marker.appearance_flags = RESET_COLOR | PIXEL_SCALE | KEEP_APART
-	target.add_alt_appearance(
-		/datum/atom_hud/alternate_appearance/basic/has_antagonist,
-		"antag_team_hud_[target.UID()]",
-		marker,
-		AA_TARGET_SEE_APPEARANCE,
-		antag_type,
-	)
-
-	// Markers only apply their viewers at creation time, so a member joining after their teammates would
-	// never be shown the earlier markers (e.g. lunatics converted later couldn't see the ringleader). Re-run
-	// every existing team marker against the newcomer so they see the whole team.
-	for(var/datum/atom_hud/alternate_appearance/basic/has_antagonist/existing_marker as anything in GLOB.has_antagonist_huds)
-		existing_marker.apply_to_new_mob(target)
 
 // --- Construct/simplemob compat ---
 // (construct seeking/can_repair/construct_master vars live in constructs.dm,

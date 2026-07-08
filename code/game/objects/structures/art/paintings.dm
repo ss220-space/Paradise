@@ -8,6 +8,7 @@
  */
 
 #define MAX_PAINTING_ZOOM_OUT 3
+#define CANVAS_PREVIEW_BAKE_DELAY (3 SECONDS)
 
 
 /// Lightweight metadata for a painting. The persistence-related fields are kept inert for compat.
@@ -135,6 +136,7 @@
 	var/show_grid = TRUE
 	var/icon_generated = FALSE
 	var/icon/generated_icon
+	var/bake_pending = FALSE
 	var/datum/painting/painting_metadata
 
 	// Painting overlay offset when framed
@@ -316,9 +318,7 @@
 			else
 				painting_metadata.medium = medium
 			used = TRUE
-			// Bake the actual drawing onto the canvas right away so it's visible on the object itself
-			// (e.g. lying on the floor) without having to be finalized — not just a generic splotch.
-			bake_drawing()
+			queue_bake()
 			. = TRUE
 
 		if("select_color")
@@ -450,11 +450,21 @@
 /**
  * (Re)bakes the actual drawing onto the canvas object as an overlay from the current grid.
  *
- * Called as a live preview every time the canvas is painted (so a work-in-progress painting shows its
- * real art on the object itself — lying on the floor, in hand, on an easel — instead of only the generic
- * "wip" splotch), and once more when the painting is finalized.
+ * Called as a throttled live preview while the canvas is painted (so a work-in-progress painting shows
+ * its real art on the object itself — lying on the floor, in hand, on an easel — instead of only the
+ * generic "wip" splotch), and once more when the painting is finalized.
  */
+/obj/item/canvas/proc/queue_bake()
+	if(bake_pending)
+		return
+	bake_pending = TRUE
+	addtimer(CALLBACK(src, PROC_REF(bake_drawing)), CANVAS_PREVIEW_BAKE_DELAY)
+
+
 /obj/item/canvas/proc/bake_drawing()
+	bake_pending = FALSE
+	if(QDELETED(src))
+		return
 	// Persistence subsystem (which created data/paintings/) isn't ported; use the always-present data/ root.
 	var/png_filename = "data/temp_painting.png"
 	var/image_data = get_data_string()
@@ -1230,3 +1240,4 @@
 
 
 #undef MAX_PAINTING_ZOOM_OUT
+#undef CANVAS_PREVIEW_BAKE_DELAY

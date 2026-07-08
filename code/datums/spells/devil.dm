@@ -253,7 +253,7 @@
 	var/obj/effect/dummy/slaughter/s_holder = new(loc)
 
 	ExtinguishMob()
-	if(!do_direct_teleport(src, s_holder, always_precise = TRUE, bypass_area_flag = TRUE))
+	if(!forceMove(s_holder))
 		QDEL_NULL(s_holder)
 		REMOVE_TRAIT(src, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(spell))
 		fakefireextinguish()
@@ -270,9 +270,7 @@
 		return FALSE
 
 	fakefire()
-	if(!do_direct_teleport(src, get_turf(src), always_precise = TRUE, bypass_area_flag = TRUE))
-		fakefireextinguish()
-		return FALSE
+	forceMove(get_turf(src))
 
 	visible_message(span_warning("<b>[DECLENT_RU_CAP(src, NOMINATIVE)] появляется в огненной вспышке!</b>"))
 	playsound(get_turf(src), 'sound/misc/exit_blood.ogg', 100, TRUE, -1)
