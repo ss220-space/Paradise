@@ -1,5 +1,5 @@
 /obj/effect/proc_holder/spell/shapeshift/shed_human_form
-	name = "Сброс старой оболочки"
+	name = "Сброс Старой Оболочки"
 	desc = "Сбросьте свою хрупкую оболочку, станьте единым с руками, стань единым с Императором. \
 			Вызывает серьёзные повреждения мозга и потерю рассудка у находящихся рядом смертных."
 	action_background_icon = 'icons/mob/actions/backgrounds.dmi'

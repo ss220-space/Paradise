@@ -1,5 +1,5 @@
 /obj/effect/proc_holder/spell/aoe/rust_conversion
-	name = "Агрессивное распространение"
+	name = "Агрессивное Распространение"
 	desc = "Покрывает всё вокруг ржавчиной."
 	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
 	action_background_icon_state = "bg_heretic"

@@ -2,7 +2,7 @@
  * Player-only mob which is fast, can jaunt a short distance, and is dangerous at close range
  */
 /mob/living/simple_animal/hostile/heretic_summon/ash_spirit
-	name = "Дух Пепла"
+	name = "\improper Ash Spirit"
 	real_name = "Эшель"
 	gender = MALE
 	desc = "Воплощение пепла, оставляющее за собой нескончаемое облако недолговечных угольков."

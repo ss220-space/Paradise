@@ -4,9 +4,9 @@
  * It can blind people to make a getaway, but also get stronger if it attacks the same target consecutively.
  */
 /mob/living/simple_animal/hostile/heretic_summon/raw_prophet
-	name = "Пророк Сырости"
-	real_name = "Пророк Сырости"
-	desc = "Мерзость, сшитая из нескольких отрубленных рук и глаза."
+	name = "raw prophet"
+	real_name = "Бескожий Пророк"
+	desc = "Мерзость, сшитая из нескольких отрубленных рук и одного глаза."
 	gender = MALE
 	icon_state = "raw_prophet"
 	icon_living = "raw_prophet"
@@ -25,12 +25,12 @@
 
 /mob/living/simple_animal/hostile/heretic_summon/raw_prophet/get_ru_names()
 	return alist(
-		NOMINATIVE = "Пророк Сырости",
-		GENITIVE = "Пророка Сырости",
-		DATIVE = "Пророку Сырости",
-		ACCUSATIVE = "Пророка Сырости",
-		INSTRUMENTAL = "Пророком Сырости",
-		PREPOSITIONAL = "Пророке Сырости",
+		NOMINATIVE = "Бескожий Пророк",
+		GENITIVE = "Бескожего Пророка",
+		DATIVE = "Бескожему Пророку",
+		ACCUSATIVE = "Бескожего Пророка",
+		INSTRUMENTAL = "Бескожим Пророком",
+		PREPOSITIONAL = "Бескожем Пророке",
 	)
 
 
@@ -41,11 +41,11 @@
 	AddElement(/datum/element/death_drops, body_parts)
 	AddComponent(/datum/component/focused_attacker)
 	var/on_link_message = "Вы чувствуете, как что-то инородное проникает в ваше подсознание... \
-		Вы слышите шепот людей где-то вдалеке, крики ужаса и приветственное гудение [declent_ru(GENITIVE)]."
+		Вы слышите шёпот людей где-то вдалеке, крики ужаса и приветственное гудение [declent_ru(GENITIVE)]."
 	var/on_unlink_message = "Ваш разум пронзает волна боли! Вы больше не чувствуете [declent_ru(GENITIVE)]!"
 	AddComponent( \
 		/datum/component/mind_linker/active_linking, \
-		network_name = "Связь Мансуса", \
+		network_name = "Связь Обители", \
 		chat_color = "#568b00", \
 		post_unlink_callback = CALLBACK(src, PROC_REF(after_unlink)), \
 		speech_action_background_icon_state = "bg_heretic", \

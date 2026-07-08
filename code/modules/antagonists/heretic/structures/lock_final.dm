@@ -106,7 +106,7 @@
 	return ..()
 
 /obj/effect/temp_visual/destabilising_tear
-	name = "нестабильный разлом"
+	name = "destabilised tear"
 	icon_state = "bhole3"
 	color = COLOR_VOID_PURPLE
 	light_color = COLOR_VOID_PURPLE

@@ -36,7 +36,7 @@
 
 	if(cast_on.can_block_magic(antimagic_flags))
 		cast_on.visible_message(
-			span_danger("Повреждения [cast_on.declent_ru(ACCUSATIVE)] слегка мерцают!"),
+			span_danger("Повреждения [cast_on.declent_ru(GENITIVE)] слегка мерцают!"),
 			span_danger("Ваши раны немного покалывает, но вы защищены!")
 		)
 		return FALSE

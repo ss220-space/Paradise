@@ -64,7 +64,7 @@
 		return
 	SEND_SOUND(owner.current, sound('sound/music/heretic/heretic_gain.ogg'))
 	var/list/messages = list()
-	messages += span_userdanger("Вы [ishuman(owner.current) ? "вернулись с того света" : "ужасное создание, пришедшее"] сюда через Врата Мансуса!")
+	messages += span_userdanger("Вы [ishuman(owner.current) ? "вернулись с того света" : "ужасное создание, пришедшее"] сюда через Врата Обители!")
 	if(master?.current)
 		messages += span_boldnotice("[master.current.real_name] — ваш мастер. Помогайте ему во всём.")
 	messages += owner.prepare_announce_objectives()
@@ -83,14 +83,14 @@
 		return ..()
 
 	if(master?.current)
-		to_chat(master.current, span_warning("Вы чувствуете как связь с [owner.current.declent_ru(NOMINATIVE)] — вашим слугой, постепенно рассеивается."))
+		to_chat(master.current, span_warning("Вы чувствуете, как связь с [owner.current.declent_ru(INSTRUMENTAL)], вашим слугой, постепенно рассеивается."))
 
 	if(!owner.current)
 		master = null
 		return ..()
 
-	to_chat(owner.current, span_warning("Ваш разум расслабляется. [master ? "[master.current.declent_ru(NOMINATIVE)] больше не властен над вами." : "у вас больше нет Мастера."]"))
-	owner.current.visible_message(span_warning("Вы чувствуете что [owner.current.declent_ru(NOMINATIVE)] освободился от цепей Мансуса!"), ignored_mobs = owner.current)
+	to_chat(owner.current, span_warning("Ваш разум расслабляется. [master ? "[DECLENT_RU_CAP(master.current, NOMINATIVE)] больше не властен над вами." : "У вас больше нет Мастера."]"))
+	owner.current.visible_message(span_warning("Вы чувствуете, что [owner.current.declent_ru(NOMINATIVE)] освободил[GEND_SYA_AS_OS_IS(owner.current)] от цепей Обители!"), ignored_mobs = owner.current)
 	master = null
 	return ..()
 

@@ -35,8 +35,8 @@
 
 /// Creates a constant Ring of Fire around the caster for a set duration of time, which follows them.
 /obj/effect/proc_holder/spell/fire_sworn
-	name = "Клятва пламени"
-	desc = "В течении вы будете пассивно создадавать вокруг себя огненные кольца."
+	name = "Клятва Пламени"
+	desc = "Во время действия вы будете пассивно создавать вокруг себя огненные кольца."
 	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
@@ -205,8 +205,10 @@
 
 		for(var/mob/living/L in T.contents)
 			if(L.can_block_magic())
-				L.visible_message(span_danger("[L.declent_ru(NOMINATIVE)] отражает заклинание!"), \
-								span_danger("Заклинание рассеивается не успев коснуться вас!"))
+				L.visible_message(
+					span_danger("[DECLENT_RU_CAP(L, NOMINATIVE)] отражает заклинание!"),
+					span_danger("Заклинание рассеивается, не успев коснуться вас!")
+				)
 				continue
 
 			if((L in hit_list) || L == source)

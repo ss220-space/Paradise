@@ -23,7 +23,7 @@
 
 
 /datum/status_effect/crucible_soul/on_remove()
-	to_chat(owner,span_notice("Вы восстанавливаете свою физическую форму и вернулись в свое изначальное местоположение..."))
+	to_chat(owner,span_notice("Вы восстанавливаете свою физическую форму и возвращаетесь в свое изначальное местоположение..."))
 	owner.alpha = initial(owner.alpha)
 	owner.pass_flags &= ~PASSEVERYTHING
 	owner.forceMove(location)
@@ -43,12 +43,12 @@
 
 
 /datum/status_effect/crucible_soul/get_examine_text()
-	return span_notice("Не похоже что [GEND_HE_SHE(owner)] действительно здесь наход[PLUR_IT_YAT(owner)]ся.")
+	return span_notice("Не похоже, что [GEND_HE_SHE(owner)] действительно здесь наход[PLUR_IT_YAT(owner)]ся.")
 
 
 /datum/action/cancel_crucible_soul
 	name = "Вернуться"
-	desc = "Используйте, чтобы закончить эффект дарованного Мансусом благословения раньше времени."
+	desc = "Используйте, чтобы закончить эффект дарованного Обителью благословения раньше времени."
 	button_icon = 'icons/obj/eldritch.dmi'
 	button_icon_state = "crucible_soul"
 
@@ -154,7 +154,7 @@
 		return
 
 	drinker.dna.species.create_organs(drinker, missing_bodyparts)
-	to_chat(drinker, span_purple("Мансус вернул вам [missing_bodyparts.len == 1 ? "утерянную конечность" : "утерянные конечности"]."))
+	to_chat(drinker, span_purple("Обитель возвращает вам [missing_bodyparts.len == 1 ? "утерянную конечность" : "утерянные конечности"]."))
 	playsound(drinker, 'sound/effects/ahaha.ogg', 50, TRUE, -1, extrarange = SILENCED_SOUND_EXTRARANGE, frequency = 0.5)
 
 
@@ -172,19 +172,19 @@
 
 
 /atom/movable/screen/alert/status_effect/crucible_soul
-	name = "Благославление измученной души"
+	name = "Благословение Измученной Души"
 	desc = "Вы прошли сквозь ткань реальности. Вы на полпути к конечному пункту назначения..."
 	icon_state = "crucible"
 
 
 /atom/movable/screen/alert/status_effect/crucible_soul_cooldown
-	name = "Истощение измученной души"
+	name = "Истощение Измученной Души"
 	desc = "Вы недавно прошли сквозь ткань реальности. Придётся подождать, прежде чем сделать это снова."
 	icon_state = "crucible_cooldown"
 
 
 /atom/movable/screen/alert/status_effect/duskndawn
-	name = "Благословение заката и рассвета"
+	name = "Благословение Заката и Рассвета"
 	desc = "Многое скрыто за горизонтом. С помощью Совы мне удалось проскользнуть мимо стражи Солнца и часового Луны."
 	icon_state = "duskndawn"
 
@@ -196,7 +196,7 @@
 
 
 /atom/movable/screen/alert/status_effect/marshal
-	name = "Благословение раненого солдата"
+	name = "Благословение Раненого Солдата"
 	desc = "Некоторые люди ищут силу через искупление. Многие люди не знают, что битва \
 			— это окончательное искупление, а раны позволяют вам наслаждаться вечной славой."
 	icon_state = "wounded_soldier"
@@ -304,8 +304,8 @@
 	playsound(get_turf(source), 'sound/weapons/parry.ogg', 100, TRUE)
 	var/atom/atom_source = source
 	source.visible_message(
-		span_warning("[to_remove.declent_ru(NOMINATIVE)] вращающийся вокруг [atom_source.declent_ru(GENITIVE)] блокирет атаку и исчезает!"),
-		span_warning("[to_remove.declent_ru(NOMINATIVE)] вращающийся вокруг вас блокирет атаку и исчезает!"),
+		span_warning("[DECLENT_RU_CAP(to_remove, NOMINATIVE)], вращающийся вокруг [atom_source.declent_ru(GENITIVE)] блокирет атаку и исчезает!"),
+		span_warning("[DECLENT_RU_CAP(to_remove, NOMINATIVE)], вращающийся вокруг вас блокирует атаку и исчезает!"),
 		span_hear("Вы слышите металлический звон."),
 	)
 
@@ -386,7 +386,7 @@
 
 /atom/movable/screen/alert/status_effect/moon_grasp_hide
 	name = "Благословение Луны"
-	desc = "Луна одаряет вас своим светом, так-же как когда-то одаряло солнце."
+	desc = "Луна одаряет вас своим светом так же, как когда-то одаряло солнце."
 	icon_state = "moon_hide"
 
 

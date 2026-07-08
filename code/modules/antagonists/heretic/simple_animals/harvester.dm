@@ -1,7 +1,7 @@
 /mob/living/simple_animal/hostile/construct/harvester/heretic
-	name = "Ржавый Жнец"
+	name = "rust harvester"
 	desc = "Длинный, тонкий, ветхий конструкт, изначально созданный, чтобы возвестить о возвышении Нар'Си, \
-			но затем оскверненный и заржавевший под натиском сил Мансуса."
+			но затем оскверненный и заржавевший под натиском сил Обители."
 	construct_spells = list(
 		/obj/effect/proc_holder/spell/aoe/rust_conversion,
 		/obj/effect/proc_holder/spell/pointed/rust_construction,
@@ -13,7 +13,7 @@
 	sight = SEE_MOBS
 	response_harm = "кромсает"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
-	playstyle_string = "<span class='bold'>Вы — Ржавый Жнец, созданный для служения Нар'Си, извращенный для исполнения воли Мансуса. \
+	playstyle_string = "<span class='bold'>Вы — Ржавый Жнец, созданный для служения Нар'Си, извращенный для исполнения воли Обители. \
 								Вы хрупки и слабы, но вы разрываете культистов (только) на части при каждой атаке. \
 								Следуйте приказам своего Хозяина!</span>"
 
@@ -72,7 +72,7 @@
 
 /obj/effect/proc_holder/spell/seek_master
 	name = "Найти своего хозяина"
-	desc = "Используйте прямую связь с Мансусом, чтобы чувствовать определить местонахождение вашего хозяина."
+	desc = "Используйте прямую связь с Обителью, чтобы определить местонахождение вашего хозяина."
 	//buttontooltipstyle = "cult"
 	action_icon_state = "cult_mark"
 	action_icon = 'icons/mob/actions/actions_cult.dmi'
@@ -104,7 +104,7 @@
 
 /mob/living/simple_animal/hostile/construct/harvester/heretic/proc/on_master_death(mob/self, mob/master)
 	SIGNAL_HANDLER
-	to_chat(src, span_userdanger("Ваша связь с Мансусом внезапно обрывается, когда ваш хозяин [construct_master.declent_ru(NOMINATIVE)] погибает! Без [GEND_HIS_HER(construct_master)] поддержки ваше тело рассыпается..."))
+	to_chat(src, span_userdanger("Ваша связь с Обителью внезапно обрывается, когда ваш хозяин [construct_master.declent_ru(NOMINATIVE)] погибает! Без [GEND_HIS_HER(construct_master)] поддержки ваше тело рассыпается..."))
 	visible_message(span_alert("[declent_ru(NOMINATIVE)] внезапно рассыпается в пыль!"))
 	death()
 

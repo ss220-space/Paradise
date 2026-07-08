@@ -1,6 +1,6 @@
 /obj/effect/proc_holder/spell/pointed/mind_gate
-	name = "Врата разума"
-	desc = "Вызывает у цели галлюцинации, ошеломление на 10 секунд, удушие и повреждения мозга. \
+	name = "Врата Разума"
+	desc = "Вызывает у цели галлюцинации, ошеломление на 10 секунд, удушье и повреждения мозга. \
 			Наносит вашему мозгу 20 единиц урона за каждое использование."
 	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
 	action_background_icon_state = "bg_heretic"
@@ -49,7 +49,7 @@
 	var/mob/living/carbon/human/cast_on = targets[1]
 	. = ..()
 	if(cast_on.can_block_magic(antimagic_flags))
-		to_chat(cast_on, span_notice("Вы внезапно чувствуете что ваш разум закрыт. К чему бы это?"))
+		to_chat(cast_on, span_notice("Вы внезапно чувствуете, что ваш разум закрыт. К чему бы это?"))
 		to_chat(action.owner, span_warning("Разум жертвы не смог раскрыться, ровно как и ваш."))
 		return FALSE
 

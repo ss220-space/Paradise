@@ -4,9 +4,8 @@
 #define SWORD_PREFIX "sword_prefix"
 
 /obj/item/melee/cultblade/haunted
-	name = "призрачный меч"
-	desc = "Жуткий меч с клинком, который не чёрный, а скорей вообще не существует. \
-			Он светится яростной, сдержанной зелёной энергией."
+	name = "haunted sword"
+	desc = "Жуткий меч с клинком цвета самой тёмной ночи. Он светится яростной, еле сдерживаемой зелёной энергией."
 	icon_state = "hauntedblade"
 	item_state = "hauntedblade"
 	lefthand_file = 'icons/mob/inhands/64x64_lefthand.dmi'
@@ -42,7 +41,7 @@
 		PATH_FLESH = list(
 			WIELDER_SPELLS = list(/obj/effect/proc_holder/spell/pointed/blood_siphon),
 			SWORD_SPELLS = list(/obj/effect/proc_holder/spell/pointed/cleave),
-			SWORD_PREFIX = "сангвинический",
+			SWORD_PREFIX = "кровавый",
 		),
 		// Void
 		PATH_VOID = list(
@@ -54,7 +53,7 @@
 		PATH_BLADE = list(
 			WIELDER_SPELLS = list(/obj/effect/proc_holder/spell/pointed/projectile/furious_steel/haunted),
 			SWORD_SPELLS = list(/obj/effect/proc_holder/spell/pointed/projectile/furious_steel/solo),
-			SWORD_PREFIX = "острый",
+			SWORD_PREFIX = "яростный",
 		),
 		// Rust
 		PATH_RUST = list(
@@ -72,7 +71,7 @@
 		PATH_LOCK = list(
 			WIELDER_SPELLS = list(/obj/effect/proc_holder/spell/pointed/burglar_finesse),
 			SWORD_SPELLS = list(/obj/effect/proc_holder/spell/pointed/apetra_vulnera),
-			SWORD_PREFIX = "острый",
+			SWORD_PREFIX = "утончённый",
 		),
 		// Moon
 		PATH_MOON = list(
@@ -84,7 +83,7 @@
 		PATH_START = list(
 			WIELDER_SPELLS = null,
 			SWORD_SPELLS = null,
-			SWORD_PREFIX = "мертворожденный", // lol loser
+			SWORD_PREFIX = "мертворождённый", // lol loser
 		) ,
 	)
 	actions_types = list(/datum/action/item_action/haunted_blade)
@@ -106,9 +105,9 @@
 
 	var/examine_text = ""
 	if(bound)
-		examine_text = "[declent_ru(NOMINATIVE)] сияет тусклым, болезненно-зелёным светом. Исходящая от него сила явно связана рунами на клинке. Вы можете освободить его и овладеть его устрашающей мощью. Но стоит ли ослаблять оковы духа внутри?"
+		examine_text = "[DECLENT_RU_CAP(src, NOMINATIVE)] сияет тусклым, болезненно-зелёным светом. Исходящая от него сила явно связана рунами на клинке. Вы можете освободить его и овладеть его устрашающей мощью. Но стоит ли ослаблять оковы духа внутри?"
 	else
-		examine_text = "[declent_ru(NOMINATIVE)] сияет ярким зловещим бледно-лаймовым светом. Кто-то освободил дух внутри, и теперь сила, едва сдерживаемая и полная ярости, отчётливо резонирует внутри клинка. Вы можете снова запечатать его, или попытаться использовать его силу."
+		examine_text = "[DECLENT_RU_CAP(src, NOMINATIVE)] сияет зловещим бледно-лаймовым светом. Кто-то освободил дух внутри, и теперь сила, едва сдерживаемая и полная ярости, отчётливо резонирует внутри клинка. Вы можете снова запечатать его, или попытаться использовать его силу."
 
 	. += span_cult(examine_text)
 
@@ -171,7 +170,7 @@
 		to_chat(user, span_notice("Вам нужно держать ритуальный кинжал, чтобы запечатать [declent_ru(ACCUSATIVE)]!"))
 		return
 
-	user.visible_message(span_cultbold("Вы начинаете надразрезать ладонь над [declent_ru(INSTRUMENTAL)]..."),\
+	user.visible_message(span_cultbold("Вы начинаете надрезать ладонь над [declent_ru(INSTRUMENTAL)]..."),\
 		span_cultbold("[user] начинает надрезать свою ладонь над [declent_ru(INSTRUMENTAL)]..."))
 	if(!do_after(user, 6 SECONDS, src))
 		to_chat(user, span_notice("Вас прервали!"))
@@ -185,10 +184,13 @@
 	// todo make the former a subtype of latter
 	var/binding_implements = list(/obj/item/clothing/neck/eldritch_amulet, /obj/item/clothing/neck/heretic_focus)
 	if(!user.is_holding_item_of_types(binding_implements))
-		to_chat(user, span_notice("Вам нужен амулет, чтобы запечатать [declent_ru(ACCUSATIVE)]!"))
+		to_chat(user, span_notice("Вам нужен Амулет, чтобы запечатать [declent_ru(ACCUSATIVE)]!"))
 		return
 
-	user.visible_message(span_cultbold("Вы направляете силв Мансуса, усиливая запечатывающие руны..."), span_cultbold("[user.declent_ru(NOMINATIVE)] направляет сверхъестественную силу на [declent_ru(ACCUSATIVE)]..."))
+	user.visible_message(
+		span_cultbold("Вы концентрируете силы Обители, усиливая запечатывающие руны..."),
+		span_cultbold("[user.declent_ru(NOMINATIVE)] направляет сверхъестественную силу на [declent_ru(ACCUSATIVE)]...")
+	)
 	if(do_after(user, 6 SECONDS, src))
 		return TRUE
 
@@ -196,7 +198,10 @@
 
 
 /obj/item/melee/cultblade/haunted/proc/on_wizard_handle(mob/living/user, actiontype)
-	user.visible_message(span_cultbold("Вы начинаете быстро и ловко накладывать запечатывающие руны."), span_cultbold("[user] начинает чертить руны на [declent_ru(PREPOSITIONAL)]..."))
+	user.visible_message(
+		span_cultbold("Вы начинаете быстро и ловко накладывать запечатывающие руны."),
+		span_cultbold("[user] начинает чертить руны на [declent_ru(PREPOSITIONAL)]...")
+	)
 	if(do_after(user, 3 SECONDS, src))
 		return TRUE
 
@@ -211,7 +216,10 @@
 		return
 
 	var/passage = "[pick(GLOB.first_names_male)] [rand(1,9)]:[rand(1,25)]" // Space Bibles will have Alejandro 9:21 passages, as part of the Very New Testament.
-	user.visible_message(span_cultbold("Вы начинаете читать вслух отрывок \"[passage]\"..."), span_cultbold("[user] начинает читать в слух отрывок \"[passage]\"..."))
+	user.visible_message(
+		span_cultbold("Вы начинаете читать вслух отрывок \"[passage]\"..."),
+		span_cultbold("[user] начинает читать в слух отрывок \"[passage]\"...")
+	)
 	if(!do_after(user, 12 SECONDS, src))
 		to_chat(user, span_notice("Вас прервали!"))
 		return

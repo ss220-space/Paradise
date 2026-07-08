@@ -1,6 +1,6 @@
 /// Renders you unable to see people who were heretics at the time that this organ is gained
 /obj/item/organ/internal/eyes/corrupt
-	name = "искаженные сферы"
+	name = "corrupt orbs"
 	desc = "Эти глаза увидели то, чего им видеть не следовало."
 	icon_state = "eyes_voidwalker"
 	color = COLOR_VOID_PURPLE
@@ -25,7 +25,7 @@
 /obj/item/organ/internal/eyes/corrupt/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/corrupted_organ, FALSE)
-	AddElement(/datum/element/noticable_organ, "Зрачки широко раскрыты, радужки нет. В их глубинах что-то движется.", BODY_ZONE_PRECISE_EYES)
+	AddElement(/datum/element/noticable_organ, "Зрачки широко раскрыты, радужки нет. В их бескрайней пустоте что-то движется.", BODY_ZONE_PRECISE_EYES)
 
 
 /obj/item/organ/internal/eyes/corrupt/insert(mob/living/carbon/organ_owner, special, movement_flags)
@@ -60,8 +60,8 @@
 
 /// Sometimes speak in incomprehensible tongues
 /obj/item/organ/internal/vocal_cords/corrupt
-	name = "искаженные голосовые связки"
-	desc = "Эти только лгут."
+	name = "corrupt tongue"
+	desc = "Они молвят только ложь."
 	gender = PLURAL
 
 
@@ -102,7 +102,7 @@
 
 /// Randomly secretes alcohol or hallucinogens when you're drinking something
 /obj/item/organ/internal/liver/corrupt
-	name = "искаженная печень"
+	name = "corrupt liver"
 	desc = "После увиденного вам действительно захочется выпить."
 	/// How much extra ingredients to add?
 	var/amount_added = 5
@@ -158,7 +158,7 @@
 
 /// Occasionally bombards you with spooky hands and lets everyone hear your pulse.
 /obj/item/organ/internal/heart/corrupt
-	name = "искажённое сердце"
+	name = "corrupt heart"
 	desc = "Какая порча распространяется вместе с кровью?"
 	/// How long until the next heart?
 	COOLDOWN_DECLARE(hand_cooldown)
@@ -191,7 +191,7 @@
 
 /// Sometimes cough out some kind of dangerous gas
 /obj/item/organ/internal/lungs/corrupt
-	name = "искаженные лёгкие"
+	name = "corrupt lungs"
 	desc = "Некоторые вещи ДОЛЖНЫ утонуть в смоле."
 	/// How likely are we not to cough every time we take a breath?
 	var/cough_chance = 15
@@ -241,8 +241,8 @@
 
 /// It's full of worms
 /obj/item/organ/internal/appendix/corrupt
-	name = "искажённый аппендикс"
-	desc = "Какая темная космическая сила вообще может захотеть испортить аппендикс?"
+	name = "corrupt appendix"
+	desc = "Какая тёмная космическая сила вообще может захотеть испортить аппендикс?"
 	/// How likely are we to spawn worms?
 	var/worm_chance = 2
 

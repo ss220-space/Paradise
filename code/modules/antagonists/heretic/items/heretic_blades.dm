@@ -1,6 +1,6 @@
 
 /obj/item/melee/sickly_blade
-	name = "серповидный клинок"
+	name = "sickly blade"
 	desc = "Болезненно-зелёный клинок в форме полумесяца, украшенный реалистичным декоративным глазом. \
 			Возможно даже слишком реалистичным... Стоп, он что, моргнул?"
 	gender = MALE
@@ -27,7 +27,7 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	armour_penetration = 35
 	//attack_verb_continuous = list("attacks", "slashes", "slices", "tears", "lacerates", "rips", "dices", "rends")
-	attack_verb = list("атакует", "режет", "рубит", "крамсает", "царапает", "разрывает", "сечёт")
+	attack_verb = list("атакует", "режет", "рубит", "кромсает", "царапает", "разрывает", "сечёт")
 	var/after_use_message = ""
 	/// Tracks how many times attack_self() is called so that breaking a blade while in an arena has to be intentional
 	var/escape_attempts = 0
@@ -73,7 +73,7 @@
 	// Empowered heretics (aura ignited) can no longer shatter blades to teleport, so don't offer the hint.
 	var/datum/antagonist/heretic/our_heretic = user.mind?.has_antag_datum(/datum/antagonist/heretic)
 	if(our_heretic?.unlimited_blades)
-		. += span_notice("Ваша аура пробудилась — Мансус больше не позволит вам ломать клинки.")
+		. += span_notice("Ваша аура пробудилась — Обитель больше не позволит вам ломать клинки.")
 		return
 
 	. += span_notice("Вы можете разбить клинок, чтобы телепортироваться в случайное, обычно безопасное место, <b>сжав его в руке</b>.")
@@ -123,7 +123,7 @@
 		// disable_blade_breaking()). They keep their blades instead of escaping.
 		var/datum/antagonist/heretic/our_heretic = user.mind?.has_antag_datum(/datum/antagonist/heretic)
 		if(our_heretic?.unlimited_blades)
-			user.balloon_alert(user, UNLINT("Мансус не даёт сломать клинок!"))
+			user.balloon_alert(user, UNLINT("Обитель не даёт сломать клинок!"))
 			return
 
 		if(!HAS_TRAIT(user, TRAIT_NO_TELEPORT))
@@ -187,8 +187,8 @@
 
 
 /obj/item/melee/sickly_blade/rust
-	name = "ржавый клинок"
-	desc = "Этот серповидный клинок обветшал и покрывается ржавчиной. \
+	name = "rust blade"
+	desc = "Этот серповидный клинок обветшал и покрылся ржавчиной. \
 			Он всё ещё опасен, способный разрывать плоть ржавыми зазубринами."
 	icon_state = "rust_blade"
 	item_state = "rust_blade"
@@ -207,9 +207,9 @@
 
 
 /obj/item/melee/sickly_blade/ash
-	name = "клинок пепла"
-	desc = "Полурасплавленный и необработанный, кусок металла, покрытый в пеплом и шлаком. \
-			Незаконченный, он выглядит как нечто большее, чем он есть."
+	name = "ash blade"
+	desc = "Полурасплавленный и необработанный кусок металла, покрытый пеплом и шлаком. \
+			Незаконченный, он тем не менее выглядит как нечто большее, чем он есть."
 	icon_state = "ash_blade"
 	item_state = "ash_blade"
 	after_use_message = "Ночной Дозорный слышит ваш зов..."
@@ -228,7 +228,7 @@
 
 
 /obj/item/melee/sickly_blade/flesh
-	name = "кровавый клинок"
+	name = "flesh blade"
 	desc = "Полумесяц, рожденный из изуродованной плоти существа. \
 			Он постоянно чувствует боль и стремится передать свои страдания другим."
 	icon_state = "flesh_blade"
@@ -263,9 +263,9 @@
 
 
 /obj/item/melee/sickly_blade/void
-	name = "клинок пустоты"
-	desc = "Этот клинок, не состоит из какого-либо материала. \
-			Это настоящее воплощение пустоты и хаоса."
+	name = "void blade"
+	desc = "Этот клинок выкован не из металла — \
+			это настоящее воплощение пустоты и хаоса."
 	icon_state = "void_blade"
 	item_state = "void_blade"
 	after_use_message = "Аристократ слышит ваш зов..."
@@ -284,9 +284,9 @@
 
 // Path of the Blade's blade. Named /dark instead of /blade to avoid "sickly_blade/blade".
 /obj/item/melee/sickly_blade/dark
-	name = "повреждённый клинок"
-	desc = "Клинок доблестного война, расколотый и разорванный. \
-			Царапины на серебре навеки связывают его с темной целью."
+	name = "dark blade"
+	desc = "Клинок доблестного воина, расколотый и исцарапанный. \
+			Отметины на серебре навеки связывают его с его темным предназначением."
 	icon_state = "dark_blade"
 	base_icon_state = "dark_blade"
 	item_state = "dark_blade"
@@ -377,12 +377,12 @@
 
 
 /obj/item/melee/sickly_blade/cosmic
-	name = "космический клинок"
-	desc = "Частица небесного резонанса, оформившаяся в клинок сотканный из звёздного света. \
+	name = "cosmic blade"
+	desc = "Частица небесного резонанса, оформившаяся в клинок, сотканный из звёздного света. \
 			Радужный изгнанник, прокладывающий сияющие тропы, отчаянно стремящийся к единению."
 	icon_state = "cosmic_blade"
 	item_state = "cosmic_blade"
-	after_use_message = "Звёздный Глашатай слышит ваш зов..."
+	after_use_message = "Звёздный Наблюдатель слышит ваш зов..."
 
 
 /obj/item/melee/sickly_blade/cosmic/get_ru_names()
@@ -397,8 +397,8 @@
 
 
 /obj/item/melee/sickly_blade/lock
-	name = "клинок — ключ"
-	desc = "И клинок и ключ. Ключ от чего? \
+	name = "lock-blade"
+	desc = "И клинок, и ключ. Ключ от чего? \
 			Какие великие врата он открывает?"
 	icon_state = "key_blade"
 	item_state = "key_blade"
@@ -410,17 +410,17 @@
 
 /obj/item/melee/sickly_blade/lock/get_ru_names()
 	return alist(
-		NOMINATIVE = "клинок — ключ",
-		GENITIVE = "клинка — ключа",
-		DATIVE = "клинку — ключу",
-		ACCUSATIVE = "клинок — ключ",
-		INSTRUMENTAL = "клинком — ключом",
-		PREPOSITIONAL = "клинке — ключе",
+		NOMINATIVE = "клинок-ключ",
+		GENITIVE = "клинка-ключа",
+		DATIVE = "клинку-ключу",
+		ACCUSATIVE = "клинок-ключ",
+		INSTRUMENTAL = "клинком-ключом",
+		PREPOSITIONAL = "клинке-ключе",
 	)
 
 
 /obj/item/melee/sickly_blade/moon
-	name = "лунный клинок"
+	name = "moon blade"
 	desc = "Железный клинок, отражающий правду земли: однажды все присоединяются к параду. \
 			Параду, приносящему радость, вызывающему улыбки на лицах людей, хотят они того или нет."
 	icon_state = "moon_blade"
@@ -464,7 +464,7 @@
 // This blade is given to cultists as an altar item when they sacrifice a heretic.
 // It is also given to the heretic themself if they sacrifice a cultist.
 /obj/item/melee/sickly_blade/cursed
-	name = "проклятый клинок"
+	name = "cursed blade"
 	desc = "Тёмный клинок, обречённый вечно кровоточить. В постоянной борьбе между тьмой и \
 			сверхъестественным он вынужден признать любого владельца своим хозяином. \
 			С роговицы глаза на его рукояти капает кровь, но пронзительный взгляд всё равно неотрывно \
@@ -534,7 +534,7 @@
 /obj/item/melee/sickly_blade/cursed/equipped(mob/user, slot)
 	. = ..()
 	if(IS_HERETIC_OR_MONSTER(user))
-		after_use_message = "Мансус слышит ваш зов..."
+		after_use_message = "Обитель слышит ваш зов..."
 
 	else if(iscultist(user))
 		after_use_message = "[SSticker.cultdat?.entity_name] слышит ваш зов..."
@@ -558,7 +558,7 @@
 
 
 /obj/item/melee/sickly_blade/training
-	name = "несовершенный клинок"
+	name = "training blade"
 	desc = "Клинок, дарованный из жалости тем, кто не может принять истину. \
 			Пусть он станет благословением в то короткое время, что он рядом с вами."
 	force = 17

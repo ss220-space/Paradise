@@ -1,5 +1,5 @@
 /obj/effect/proc_holder/spell/pointed/projectile/moon_parade
-	name = "Лунный парад"
+	name = "Лунный Парад"
 	desc = "Оно жаждет парада, заставляя всех, кто окажется на пути, \
 			присоединиться к нему и страдать от галлюцинаций."
 	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
@@ -26,7 +26,7 @@
 
 
 /obj/projectile/moon_parade
-	name = "Лунный парад"
+	name = "moon parade"
 	icon_state = "lunar_parade"
 	damage = 0
 	damage_type = BURN
@@ -46,6 +46,16 @@
 	ricochet_chance = 100
 	///looping sound datum for our projectile.
 	var/datum/looping_sound/moon_parade/soundloop
+
+/obj/projectile/moon_parade/get_ru_names()
+	return alist(
+		NOMINATIVE = "лунный парад",
+		GENITIVE = "лунного парада",
+		DATIVE = "лунному параду",
+		ACCUSATIVE = "лунный парад",
+		INSTRUMENTAL = "лунным парадом",
+		PREPOSITIONAL = "лунном параде",
+	)
 
 /obj/projectile/moon_parade/Initialize(mapload)
 	. = ..()
@@ -87,7 +97,7 @@
 	// Anti-magic shrugs the parade off and pops the projectile - deliberate counterplay. (can_block_magic()
 	// is currently an inert shim, so this branch is dormant until antimagic lands.)
 	if(victim.can_block_magic(MAGIC_RESISTANCE | MAGIC_RESISTANCE_MIND))
-		visible_message(span_warning("Парад врезается в [victim.declent_ru(ACCUSATIVE)], и внезапная волна ясности накрывает [GEND_HIS_HER(victim)]!"))
+		visible_message(span_warning("Парад врезается в [victim.declent_ru(ACCUSATIVE)], и [GEND_HIS_HER(victim)] накрывает внезапная волна ясности!"))
 		return // returns a non -1 value, so Bump() deletes the projectile and the parade stops
 
 	// Already marching - just refresh the madness, don't re-leash.
@@ -197,7 +207,7 @@
 
 
 /atom/movable/screen/alert/status_effect/moon_parade
-	name = "Лунный парад"
+	name = "Лунный Парад"
 	desc = "Вы не в силах оторваться от парада и обязаны следовать за ним!"
 	icon = 'icons/mob/actions/actions_ecult.dmi'
 	icon_state = "moon_parade"

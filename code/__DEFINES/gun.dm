@@ -107,6 +107,8 @@ GLOBAL_LIST_INIT(gun_module_slot_ru_name, list(
 #define CALIBER_DOT_50L ".50 L"
 /// Used in AXMC sniper rifle
 #define CALIBER_DOT_338 ".338"
+/// Lionhunter's heretic rifle
+#define CALIBER_DOT_310 ".310"
 
 // Shotgun cartridges
 /// Used in all shotguns

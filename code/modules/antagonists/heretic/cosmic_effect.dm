@@ -53,7 +53,7 @@ GLOBAL_LIST_EMPTY_TYPED(active_cosmic_fields, /obj/effect/forcefield/cosmic_fiel
 /// The cosmic heretic's forcefield.
 /obj/effect/forcefield/cosmic_field
 	name = "космический щит"
-	desc = "Силовой щит, который не могут пройти люди, отмеченные звездой."
+	desc = "Силовой щит, который не могут пройти люди, отмеченные звёздами."
 	gender = MALE
 	icon = 'icons/effects/eldritch.dmi'
 	icon_state = "cosmic_carpet"

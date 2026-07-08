@@ -1,7 +1,7 @@
 /obj/effect/proc_holder/spell/pointed/blood_siphon
 	name = "Вампиризм"
 	desc = "Заклинание, которое лечит ваши раны и наносит урон врагу. \
-			Есть вероятность, что серьезные повреждения (вроде переломов) \
+			Есть вероятность, что серьёзные повреждения (вроде переломов) \
 			также смогут передаться."
 	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
 	action_background_icon_state = "bg_heretic"
@@ -37,13 +37,13 @@
 	if(cast_on.can_block_magic())
 		action.owner.balloon_alert(action.owner, "spell blocked!")
 		cast_on.visible_message(
-			span_danger("[cast_on.declent_ru(NOMINATIVE)] отражает заклинание!"),
+			span_danger("[DECLENT_RU_CAP(cast_on, NOMINATIVE)] отражает заклинание!"),
 			span_danger("Заклинание отскакивает от вас!"),
 		)
 		return FALSE
 
 	cast_on.visible_message(
-		span_danger("[cast_on.declent_ru(NOMINATIVE)] бледне[PLUR_ET_YUT(cast_on)] охваченн[GEND_YI_AYA_OE_YE(cast_on)] алым сиянием!"),
+		span_danger("[DECLENT_RU_CAP(cast_on, NOMINATIVE)] бледне[PLUR_ET_YUT(cast_on)], охваченн[GEND_YI_AYA_OE_YE(cast_on)] алым сиянием!"),
 		span_danger("Вы бледнеете, когда вас окутывает алое сияние!"),
 	)
 

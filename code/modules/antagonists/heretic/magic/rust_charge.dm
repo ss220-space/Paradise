@@ -1,8 +1,8 @@
 // Rust charge, a charge action that can only be started on rust (and only destroys rust tiles)
 /obj/effect/proc_holder/spell/mob_cooldown/charge/rust
-	name = "Заряд ржавчины"
+	name = "Заряд Ржавчины"
 	desc = "Заклинание, которое необходимо начать стоя на ржавой плитке. \
-			После применения вы с большой скоростью побежите в выбранную точку. \
+			После применения вы совершите рывок в выбранную точку. \
 			Уничтожит все ржавые предметы, с которыми вы соприкоснётесь. \
 			Нанесёт большой урон окружающим и распространит ржавчину."
 	action_background_icon = 'icons/mob/actions/backgrounds.dmi'

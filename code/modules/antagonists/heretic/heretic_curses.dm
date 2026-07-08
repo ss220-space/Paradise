@@ -66,13 +66,13 @@
 
 	var/mob/living/carbon/human/to_curse = potential_targets[chosen_mob]
 	if(QDELETED(to_curse))
-		loc.balloon_alert(user, "не подходящая цель!")
+		loc.balloon_alert(user, "неподходящая цель!")
 		return FALSE
 
 	// Yes, you COULD curse yourself, not sure why but you could
 	if(to_curse == user)
-		var/are_you_sure = tgui_alert(user, "Вы уверены что хотите проклясть себя?", name, list("Да", "Нет"))
-		if(are_you_sure == "Нет")
+		var/are_you_sure = tgui_alert(user, "Вы уверены, что хотите проклясть себя?", name, list("Да", "Нет"))
+		if(are_you_sure != "Да")
 			return FALSE
 
 	if(!ask_for_input(user))
@@ -84,7 +84,7 @@
 		return FALSE
 
 	if(isheretic(to_curse) && to_curse != user)
-		to_chat(user, span_warning("Связь жертвы с Мансусом слишком крепка. Вы не можете проклясть [GEND_HIS_HER(to_curse)]."))
+		to_chat(user, span_warning("Жертва крепко связана с Обителью, вы не можете её проклясть."))
 		return TRUE
 
 	if(to_curse.can_block_magic(MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY, charge_cost = 0))
@@ -151,10 +151,10 @@
 /datum/heretic_knowledge/curse/paralysis
 	abstract_parent_type = /datum/heretic_knowledge/curse/paralysis
 	name = "Проклятье Паралича"
-	desc = "Позволяет через жертвоприношение топора, левой и правой ноги, наложить проклятие паралича на члена экипажа. \
+	desc = "Позволяет через жертвоприношение топора, левой и правой ноги наложить проклятие паралича на члена экипажа. \
 			Пока жертва проклята, она не сможет ходить. Вы можете дополнительно использовать предмет, которого коснулась жертва \
 			или который покрыт кровью жертвы, чтобы продлить проклятие."
-	gain_text = "Плоть слаба. Покажи им насколько она ненадежна. Покажи им насколько она хрупка."
+	gain_text = "Плоть слаба. Покажи им, насколько она ненадёжна. Покажи им, насколько она хрупка."
 
 	duration = 5 MINUTES
 	curse_color = "#f19a9a"
@@ -165,10 +165,10 @@
 
 /datum/heretic_knowledge/curse/paralysis/curse(mob/living/carbon/human/chosen_mob)
 	if(chosen_mob.usable_legs <= 0) // What're you gonna do, curse someone who already can't walk?
-		to_chat(chosen_mob, span_notice("На мгновение вы чувствуете легкое покалывание в ногах. Странно."))
+		to_chat(chosen_mob, span_notice("На мгновение вы чувствуете легкое покалывание в ногах. Странно..."))
 		return
 
-	to_chat(chosen_mob, span_danger("Вы внезапно понимаете что больше не чувствуете ног!"))
+	to_chat(chosen_mob, span_danger("Вы внезапно понимаете, что больше не чувствуете ног!"))
 	ADD_TRAIT(chosen_mob, TRAIT_FLOORED, type)
 	return ..()
 
@@ -178,7 +178,7 @@
 
 	REMOVE_TRAIT(chosen_mob, TRAIT_FLOORED, type)
 	if(chosen_mob.usable_legs > 1)
-		to_chat(chosen_mob, span_green("Вы внезапно снова начинаете чувствовать свои ноги!"))
+		to_chat(chosen_mob, span_green("Внезапно вы снова начинаете чувствовать свои ноги!"))
 
 	return ..()
 
@@ -187,11 +187,11 @@
 /datum/heretic_knowledge/curse/corrosion
 	abstract_parent_type = /datum/heretic_knowledge/curse/corrosion
 	name = "Проклятье Болезни"
-	desc = "Позволяет через жертвоприношение кусачек, лужи рвоты и сердца, наложить проклятие болезни на члена экипажа. \
-			Пока жертва проклята, её будет постоянно тошнить, а органы будут постоянно получать повреждения. \
-			Вы можете дополнительно использовать предмет, которого коснулась жертва или который был покрыт ее кровью, \
+	desc = "Позволяет через жертвоприношение кусачек, лужи рвоты и сердца наложить проклятие болезни на члена экипажа. \
+			Пока жертва проклята, её будет постоянно тошнить, а её органы будут получать повреждения. \
+			Вы можете дополнительно использовать предмет, которого коснулась жертва или который был покрыт её кровью, \
 			чтобы продлить проклятие."
-	gain_text = "Плоть недолговечна. Ее старение не остановить, так-же как не остановить ржавение металлов. Покажи им насколько она хрупка."
+	gain_text = "Плоть недолговечна. Её старение не остановить, так же как не остановить ржавление металлов. Покажи им, насколько она хрупка."
 
 	duration = 3 MINUTES
 	curse_color = "#c1ffc9"
@@ -248,7 +248,7 @@
 
 /datum/heretic_knowledge/curse/transmutation/curse(mob/living/carbon/human/chosen_mob, obj/item/codex_cicatrix/morbus/cursing_book)
 	if(chosen_mob.dna.species == chosen_species)
-		to_chat(chosen_mob, span_warning("Вы чувствуете что превращаетесь в... себя?"))
+		to_chat(chosen_mob, span_warning("Вы чувствуете, что превращаетесь в... себя?"))
 		return
 
 	chosen_mob.apply_status_effect(/datum/status_effect/race_swap, chosen_species)

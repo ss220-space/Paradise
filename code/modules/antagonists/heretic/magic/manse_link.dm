@@ -1,5 +1,5 @@
 /obj/effect/proc_holder/spell/pointed/manse_link
-	name = "Связь Мансуса"
+	name = "Связь Обители"
 	desc = "Это заклинание позволяет вам соединять разумы с другими существами. \
 			Все разумы, подключенные к вашей связи, смогут \
 			незаметно общаться на больших расстояниях."
@@ -70,7 +70,7 @@
 		return FALSE
 
 	if(linkee.stat == DEAD)
-		to_chat(caster, span_warning("[GEND_HE_SHE_CAP(linkee)] мертв[GEND_A_O_Y(linkee)]!"))
+		to_chat(caster, span_warning("[GEND_HE_SHE_CAP(linkee)] [GEND_MERTV(linkee)]!"))
 		return FALSE
 
 	to_chat(caster, span_notice("Вы начинаете соединять разум [linkee.declent_ru(GENITIVE)] с вашим..."))

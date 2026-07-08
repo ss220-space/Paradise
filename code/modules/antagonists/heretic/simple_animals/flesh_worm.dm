@@ -3,7 +3,7 @@
 
 /// The "Terror of the Night" / Armsy, a large worm made of multiple bodyparts that occupies multiple tiles
 /mob/living/simple_animal/hostile/heretic_summon/armsy
-	name = "Лорд Ночи"
+	name = "Lord of the Night"
 	real_name = "Повелитель Распада"
 	desc = "Мерзость, созданная из десятков отрубленных и изуродованных конечностей, цепляющихся друг за друга."
 	gender = MALE

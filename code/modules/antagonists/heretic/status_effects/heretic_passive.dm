@@ -303,9 +303,9 @@
 	id = "heretic_passive_blade"
 	name = "Танец Клинка"
 	passive_descriptions = list(
-		"Атакованный в ближнем бою с клинком Еретика в любой руке, вы наносите мгновенный бесплатный ответный удар атакующему. Срабатывает не чаще раза в 20 секунд.",
+		"Будучи атакованным в ближнем бою с клинком Еретика в любой руке, вы наносите мгновенный ответный удар атакующему. Срабатывает не чаще, чем раз в 20 секунд.",
 		"Иммунитет к урону от падения.",
-		"Откат контратаки сокращён до 10 секунд.",
+		"Интервал срабатывания контратаки сокращён до 10 секунд.",
 	)
 	/// Whether the counter-attack is ready (used instead of a raw cooldown so we can announce when it returns).
 	var/riposte_ready = TRUE
@@ -389,7 +389,7 @@
 	playsound(get_turf(source), 'sound/weapons/parry.ogg', 100, TRUE)
 	source.balloon_alert(source, "контратака")
 	source.visible_message(
-		span_warning("[source.declent_ru(NOMINATIVE)] наклоняется к [target.declent_ru(ACCUSATIVE)] и наносит внезапный ответный удар!"),
+		span_warning("[source.declent_ru(NOMINATIVE)] наклоняется к [target.declent_ru(DATIVE)] и наносит внезапный ответный удар!"),
 		span_warning("Вы наклоняетесь и наносите внезапный ответный удар!"),
 		span_hear("Вы слышите звон, и тяжёлый удар."),
 	)
@@ -411,7 +411,7 @@
 // Level 3 - while fat, gain a flat 25% damage resistance and baton-knockdown resistance (tg parity).
 /datum/status_effect/heretic_passive/flesh
 	id = "heretic_passive_flesh"
-	name = "Ненасытный голод"
+	name = "Ненасытный Голод"
 	passive_descriptions = list(
 		"Иммунитет к болезням и отвращению — никакая еда не вызывает у вас тошноты.",
 		"Поедание мяса или органов исцеляет вас, а полнота больше вас не замедляет.",
@@ -506,7 +506,7 @@
 	passive_descriptions = list(
 		"Изоляция от тока; все знания из магазина знаний дешевле.",
 		"Рентген-зрение: вы видите сквозь стены и предметы.",
-		"Захват больше не уходит на откат, когда им открывают дверь или шкаф.",
+		"Хватка Обители больше не уходит на перезарядку, когда ей открывают дверь или шкаф.",
 	)
 
 

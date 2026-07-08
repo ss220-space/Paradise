@@ -2,7 +2,7 @@
 
 /// Lets the caster enter and exit tiles of space or misc turfs.
 /obj/effect/proc_holder/spell/jaunt/space_crawl
-	name = "Космический сдвиг"
+	name = "Космический Сдвиг"
 	desc = "Позволяет вам появляться и исчезать из реальности, находясь в космосе или на \
 			открытом воздухе с низким давлением. Для возвращения, место прибытия тоже должно быть таковым."
 	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
@@ -130,7 +130,7 @@
 	RegisterSignal(jaunter, SIGNAL_REMOVETRAIT(TRAIT_ALLOW_HERETIC_CASTING), PROC_REF(on_focus_lost), override = TRUE)
 	if(jaunt_in_sound)
 		playsound(our_turf, jaunt_in_sound, 50, TRUE, -1)
-	our_turf.visible_message(span_warning("[jaunter.declent_ru(NOMINATIVE)] погружается в [our_turf.declent_ru(ACCUSATIVE)]!"))
+	our_turf.visible_message(span_warning("[DECLENT_RU_CAP(jaunter, NOMINATIVE)] погружается в [our_turf.declent_ru(ACCUSATIVE)]!"))
 	new /obj/effect/temp_visual/space_explosion(our_turf)
 	jaunter.ExtinguishMob()
 
@@ -149,7 +149,7 @@
 		return FALSE
 
 	jaunter.remove_traits(jaunting_traits, SPACE_PHASING)
-	our_turf.visible_message(span_boldwarning("[jaunter.declent_ru(NOMINATIVE)] выходит из [our_turf.declent_ru(GENITIVE)]!"))
+	our_turf.visible_message(span_boldwarning("[DECLENT_RU_CAP(jaunter, NOMINATIVE)] выходит из [our_turf.declent_ru(GENITIVE)]!"))
 	return TRUE
 
 

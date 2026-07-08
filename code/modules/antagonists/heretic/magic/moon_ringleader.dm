@@ -1,6 +1,6 @@
 /obj/effect/proc_holder/spell/aoe/moon_ringleader
-	name = "Восстание главарей"
-	desc = "Мощное AoE-заклинание, наносящее урон мозгу и вызывающее галлюцинации у всех в зоне \
+	name = "Восстание Главарей"
+	desc = "Мощное заклинание, наносящее урон мозгу и вызывающее галлюцинации у всех в зоне \
 			действия."
 	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
 	action_background_icon_state = "bg_heretic"

@@ -57,7 +57,7 @@
 	SHOULD_CALL_PARENT(TRUE)
 
 	if(gain_text)
-		to_chat(user, span_warning("[gain_text]"))
+		to_chat(user, span_purple("[gain_text]"))
 
 	on_gain(user, our_heretic)
 
@@ -120,10 +120,10 @@
 /datum/heretic_knowledge/proc/parse_required_item(atom/item_path, number_of_things)
 	// If we need a human, there is a high likelihood we actually need a (dead) body
 	if(ispath(item_path, /mob/living/carbon/human))
-		return "bod[number_of_things > 1 ? "ies" : "y"]"
+		return "тел[number_of_things > 1 ? "а" : "о"]"
 
 	if(ispath(item_path, /mob/living))
-		return "carcass[number_of_things > 1 ? "es" : ""] of any kind"
+		return "труп[number_of_things > 1 ? "ы" : ""] любого вида"
 
 	return "[initial(item_path.name)]\s"
 /**
@@ -244,7 +244,7 @@
 		LAZYREMOVE(created_items, ref)
 
 	if(LAZYLEN(created_items) >= limit)
-		loc.balloon_alert(user, "лимит создания преавышен!")
+		loc.balloon_alert(user, "лимит создания превышен!")
 		return FALSE
 
 	return TRUE
@@ -492,7 +492,7 @@
 	animate(summoned, 10 SECONDS, alpha = 155)
 
 	message_admins("[summoned.name] был[GEND_A_O_I(summoned)] призван[GEND_A_O_Y(summoned)] [ADMIN_LOOKUPFLW(user)] в [ADMIN_COORDJMP(summoned)].")
-	var/list/candidates = SSghost_spawns.poll_candidates("Вы бы хотели сыграть за [summoned.declent_ru(ACCUSATIVE)] призванн[UNLINT(genderize_ru(summoned.gender, "ого", "ую", "ое", "ых"))] еретиком?", \
+	var/list/candidates = SSghost_spawns.poll_candidates("Вы бы хотели сыграть за [summoned.declent_ru(ACCUSATIVE)], призванн[GEND_OGO_UU_OE_YH(summoned)] еретиком?", \
 								null, FALSE, 10 SECONDS, TRUE, source = summoned)
 	if(!candidates.len)
 		loc.balloon_alert(user, "нет готовых кандидатов!")
@@ -530,7 +530,7 @@
 /datum/heretic_knowledge/knowledge_ritual
 	name = "Ритуал Знания"
 	desc = "Случайный ритуал трансмутации, который дарует знания и может быть выполнен только один раз."
-	gain_text = "Все может быть ключом к разгадке секретов за Вратами. Я должен быть осторожным и мудрым."
+	gain_text = "Всё может быть ключом к разгадке секретов за Вратами. Я должен быть осторожным и мудрым."
 	abstract_parent_type = /datum/heretic_knowledge/knowledge_ritual
 	cost = 1
 	priority = MAX_KNOWLEDGE_PRIORITY - 10 // A pretty important midgame ritual.
@@ -588,11 +588,11 @@
 	to_chat(user, span_hierophant("[name] требует следующих подношений:"))
 	for(var/obj/item/path as anything in required_atoms)
 		var/amount_needed = required_atoms[path]
-		to_chat(user, span_purple("[amount_needed] [initial(path.name)]\s..."))
-		requirements_string += "[amount_needed == 1 ? "":"[amount_needed] "][initial(path.name)]\s"
+		to_chat(user, span_purple("[amount_needed] ед. [path.declent_ru(NOMINATIVE)]\s..."))
+		requirements_string += "[amount_needed == 1 ? "" : "[amount_needed]"] [path.declent_ru(NOMINATIVE)]\s"
 
-	to_chat(user, span_hierophant("Завершив этот ритуал вы получите в награду [KNOWLEDGE_RITUAL_POINTS] очков знаний. Вы можете проверить свои знания в разделе «Изученные знания»."))
-	desc = "Позволяет трансмутировать [english_list(requirements_string)] в [KNOWLEDGE_RITUAL_POINTS] дополнительных очков знаний. Этот ритуал может быть проведен только один раз."
+	to_chat(user, span_hierophant("Завершив этот ритуал, вы получите в награду [KNOWLEDGE_RITUAL_POINTS] очк[declension_ru(KNOWLEDGE_RITUAL_POINTS, "о", "а", "ов")] знаний. Вы можете проверить свои знания в разделе \"Изученные знания\"."))
+	desc = "Позволяет трансмутировать [russian_list(requirements_string)] в [KNOWLEDGE_RITUAL_POINTS] дополнительн[declension_ru(KNOWLEDGE_RITUAL_POINTS, "ое", "ых", "ых")] очк[declension_ru(KNOWLEDGE_RITUAL_POINTS, "о", "а", "ов")] знаний. Этот ритуал может быть проведен только один раз."
 
 
 /datum/heretic_knowledge/knowledge_ritual/can_be_invoked(datum/antagonist/heretic/invoker)
@@ -608,10 +608,10 @@
 	our_heretic.adjust_knowledge_points(KNOWLEDGE_RITUAL_POINTS)
 	was_completed = TRUE
 
-	to_chat(user, span_boldnotice("[name] завершен!"))
+	to_chat(user, span_boldnotice("[name] завершён!"))
 	to_chat(user, span_purple(span_big("[pick_list(HERETIC_INFLUENCE_FILE, "drain_message")]")))
-	desc += " (Завершен!)"
-	user.store_memory("Проведен Ритуал Знания.")
+	desc += " (Завершён!)"
+	user.store_memory("Проведён Ритуал Знания.")
 	return TRUE
 
 #undef KNOWLEDGE_RITUAL_POINTS
@@ -688,7 +688,7 @@
 	notify_ghosts(
 		"[user.real_name] завершил[GEND_A_O_I(user)] ритуал вознесения!",
 		source = user,
-		title = "Еретик Вознесся!",
+		title = "Еретик Вознёсся!",
 	)
 	GLOB.major_announcement.announce(
 		message = replacetext(replacetext(announcement_text, "%NAME%", user.real_name), "%SPOOKY%", GLOBAL_PROC_REF(generate_heretic_text)),

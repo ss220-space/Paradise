@@ -1,8 +1,8 @@
 /obj/effect/proc_holder/spell/pointed/projectile/star_blast
-	name = "Звёздный взрыв"
+	name = "Звёздный Взрыв"
 	desc = "Это заклинание запускает в цель неудержимый диск с космической энергией, распространяющий звёздную метку. \
-			При повторном применении вы телепортируетесь к диску, а от диска и от вас расходятся космические поля, \
-			затягивающие в них ближайших отступников."
+			При повторном применении вы телепортируетесь к диску, а от диска и вас расходятся космические поля, \
+			затягивающие в них ближайших язычников."
 	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
@@ -19,7 +19,7 @@
 	invocation_type = INVOCATION_SHOUT
 	spell_requirements = NONE
 
-	active_msg = "Вы готовы применить звёздный взрыв!"
+	active_msg = "Вы готовы применить Звёздный Взрыв!"
 	deactive_msg = "Вы прекращаете концентрировать космическую энергию в своих руках... на время."
 	cast_range = 12
 	projectile_type = /obj/projectile/magic/star_ball
@@ -107,7 +107,7 @@
 
 
 /obj/projectile/magic/star_ball
-	name = "звёздный диск"
+	name = "star ball"
 	gender = MALE
 	icon_state = "star_ball"
 	// Paradise speed is deciseconds per tile (inverse of tiles/decisecond); slowed slightly (5 -> 6) so

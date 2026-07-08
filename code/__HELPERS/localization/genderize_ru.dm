@@ -49,6 +49,10 @@
 #define GEND_YM_OI_YM_YMI(target) genderize_ru(target.gender, "ым", "ой", "ым", "ыми")
 #define GEND_IM_EI_IM_IMI(target) genderize_ru(target.gender, "им", "ей", "им", "ими")
 #define GEND_YI_AYA_OE_YE(target) genderize_ru(target.gender, "ый", "ая", "ое", "ые")
-#define GEND_II_AYA_II_IE(target) genderize_ru(target.gender, "ий", "ая", "ий", "ие")
+#define GEND_II_AYA_OE_IE(target) genderize_ru(target.gender, "ий", "ая", "ое", "ие")
+#define GEND_II_AYA_EE_IE(target) genderize_ru(target.gender, "ий", "ая", "ее", "ие")
+#define GEND_OGO_UU_OE_YH(target) genderize_ru(target.gender, "ого", "ую", "ое", "ых")
+#define GEND_I_U_UO_I(target) genderize_ru(target.gender, "й", "ю", "ё", "и")
 // Макросы для случаев, когда обычные не применимы.
 #define GEND_SHEL(target) genderize_ru(target.gender, "шёл", "шла", "шло", "шли")
+#define GEND_MERTV(target) genderize_ru(target.gender, "мёртв", "мертва", "мертво", "мертвы")

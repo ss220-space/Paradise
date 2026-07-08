@@ -10,7 +10,7 @@
 // Crawl. Because the parent's can_cast early-returns TRUE while jaunting, the cooldown never traps you
 // inside: you can resurface the instant you reach an unwatched spot.
 /obj/effect/proc_holder/spell/jaunt/space_crawl/caretaker
-	name = "Последнее пристанище смотрителя"
+	name = "Последнее Пристанище Смотрителя"
 	desc = "Скрывает вас в Убежище Смотрителя, делая прозрачным и неосязаемым. \
 			Войти можно, только пока вас никто не видит; выйти — лишь там, где вас никто не видит. \
 			В убежище вы неуязвимы, но не можете действовать."

@@ -1,5 +1,5 @@
 /obj/effect/proc_holder/spell/pointed/rust_construction
-	name = "Ржавая постройка"
+	name = "Ржавая Постройка"
 	desc = "Превращает ржавый пол в сплошную стену ржавчины. Создание стены под врагом нанесёт ему вред."
 	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
 	action_background_icon_state = "bg_heretic"
@@ -23,7 +23,7 @@
 	base_cooldown = 2 SECONDS
 
 	// Both of these are changed in before_cast
-	invocation = "Кто-то возводит стену ржавчины."
+	invocation = "Это баг."
 	//invocation_self_message = "You raise a wall of rust."
 	invocation_type = INVOCATION_EMOTE
 	spell_requirements = NONE
@@ -111,7 +111,7 @@
 	// ambient rust spread no longer shreds walls - so the spell now dismantles the wall itself. This is how
 	// the heretic tears down their own rust walls (and any wall they've rusted) with Rust Formation.
 	if(iswallturf(cast_on))
-		cast_on.visible_message(span_warning("[cast_on.declent_ru(NOMINATIVE)] содрагается под давлением быстро растущей ржавчины!"))
+		cast_on.visible_message(span_warning("[DECLENT_RU_CAP(cast_on, NOMINATIVE)] содрогается под давлением быстро растущей ржавчины!"))
 		cast_on.Shake(/*shake_interval = 0.1 SECONDS, */duration = 0.5 SECONDS)
 		playsound(cast_on, 'sound/effects/bang.ogg', 50, vary = TRUE)
 		var/turf/simulated/wall/wall = cast_on
@@ -143,13 +143,13 @@
 		message_shown = TRUE
 		if(IS_HERETIC_OR_MONSTER(living_mob) || living_mob == action.owner)
 			living_mob.visible_message(
-				span_warning("[new_wall] [rises_message] и отталкивает [living_mob.declent_ru(ACCUSATIVE)]!"),
-				span_notice("[new_wall] [rises_message] и отталкивает вас!"),
+				span_warning("[DECLENT_RU_CAP(new_wall, NOMINATIVE)] [rises_message] и отталкивает [living_mob.declent_ru(ACCUSATIVE)]!"),
+				span_notice("[DECLENT_RU_CAP(new_wall, NOMINATIVE)] [rises_message] и отталкивает вас!"),
 			)
 		else
 			living_mob.visible_message(
-				span_warning("[new_wall] [rises_message] и врезается в [living_mob.declent_ru(ACCUSATIVE)]!"),
-				span_userdanger("[new_wall] [rises_message] под вами, раня вас!"),
+				span_warning("[DECLENT_RU_CAP(new_wall, NOMINATIVE)] [rises_message] и врезается в [living_mob.declent_ru(ACCUSATIVE)]!"),
+				span_userdanger("[DECLENT_RU_CAP(new_wall, NOMINATIVE)] [rises_message] под вами, раня вас!"),
 			)
 			living_mob.apply_damage(10, BRUTE/*, wound_bonus = 10*/)
 			living_mob.Knockdown(5 SECONDS)

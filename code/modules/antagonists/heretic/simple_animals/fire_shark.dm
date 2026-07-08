@@ -1,5 +1,5 @@
 /mob/living/simple_animal/hostile/heretic_summon/fire_shark
-	name = "Огненная Акула"
+	name = "\improper Fire Shark"
 	real_name = "Огненная Акула"
 	desc = "Это жуткая карликовая космическая акула."
 	icon_state = "fire_shark"

@@ -4,7 +4,7 @@
  */
 
 /obj/item/grenade/chem_grenade/rust_sower
-	name = "граната \"Ржавый Дождь\""
+	name = "rust sower"
 	desc = "Отличная штука, превращающаяся в облоко ржавчины после взрыва. Борги и мехи будут полностью уничтожены."
 	//possible_fuse_time = list("5")
 	stage = GRENADE_READY
@@ -16,12 +16,12 @@
 
 /obj/item/grenade/chem_grenade/rust_sower/get_ru_names()
 	return alist(
-		NOMINATIVE = "граната \"Ржавый Дождь\"",
-		GENITIVE = "гранаты \"Ржавый Дождь\"",
-		DATIVE = "гранате \"Ржавый Дождь\"",
-		ACCUSATIVE = "гранату \"Ржавый Дождь\"",
-		INSTRUMENTAL = "гранатой \"Ржавый Дождь\"",
-		PREPOSITIONAL = "гранате \"Ржавый Дождь\"",
+		NOMINATIVE = "граната \"Сеятель Ржавчины\"",
+		GENITIVE = "гранаты \"Сеятель Ржавчины\"",
+		DATIVE = "гранате \"Сеятель Ржавчины\"",
+		ACCUSATIVE = "гранату \"Сеятель Ржавчины\"",
+		INSTRUMENTAL = "гранатой \"Сеятель Ржавчины\"",
+		PREPOSITIONAL = "гранате \"Сеятель Ржавчины\"",
 	)
 
 
@@ -70,7 +70,7 @@
 */
 
 /datum/reagent/heretic_rust
-	name = "Жуткая Ржавчина"
+	name = "heretic rust"
 	description = "Вязкая, густая коричневая жидкость."
 	id = "heretic_rust"
 	color = COLOR_CARGO_BROWN // Rust color

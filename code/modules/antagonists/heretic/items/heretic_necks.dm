@@ -1,6 +1,6 @@
 /obj/item/clothing/neck/heretic_focus
-	name = "янтарный амулет"
-	desc = "Янтарный кристалл, связанный с потусторонним миром. Если не смотреть на амулет, он начинает подрагивать."
+	name = "heretic"
+	desc = "Амулет с янтарным кристаллом, связанный с потусторонним миром. Если не смотреть на амулет, он начинает подрагивать."
 	gender = MALE
 	icon_state = "eldritch_necklace"
 	resistance_flags = FIRE_PROOF
@@ -23,8 +23,8 @@
 
 
 /obj/item/clothing/neck/heretic_focus/crimson_medallion
-	name = "кровавый амулет"
-	desc = "Кроваво-красное фокусирующее стекло, обеспечивающее связь с потусторонним миром и даже чем-то похуже. \
+	name = "crimson medallion"
+	desc = "Кроваво-красное фокусирующее стекло, обеспечивающее связь с потусторонним миром или чем-то ещё хуже. \
 			Рубиновый глаз постоянно дёргается и смотрит во все стороны. Кажется, будто он беззвучно кричит..."
 	icon_state = "crimson_medallion"
 	/// The aura healing component. Used to delete it when taken off.
@@ -108,7 +108,7 @@
 	if(!do_after(user, 1.25 SECONDS, src))
 		return
 
-	to_chat(user, span_danger("[declent_ru(NOMINATIVE)] взрывается потоком крови, заливая вашу руку. Вы чувствуете, как кровь \
+	to_chat(user, span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] взрывается потоком крови, заливая вашу руку. Вы чувствуете, как кровь \
 								просачивается вам под кожу. Ваше самочувствие резко улучшается, но вскоре возникает \
 								ощущение пустоты, после которого вены начинают зудеть."))
 	new /obj/effect/gibspawner/generic(get_turf(src))
@@ -142,7 +142,7 @@
 
 
 /obj/item/clothing/neck/eldritch_amulet
-	name = "жуткий тёплый медальон"
+	name = "eldritch amulet"
 	desc = "Странный медальон. Сквозь кристаллическую поверхность виден таинственный мир. \
 			Вы видите своё бьющееся сердце среди тысяч других."
 	gender = MALE
@@ -189,7 +189,7 @@
 
 // An x-ray variant of the medallion (not granted by any knowledge; admin/loot curiosity).
 /obj/item/clothing/neck/eldritch_amulet/piercing
-	name = "жуткий пронзающий медальон"
+	name = "piercing eldritch amulet"
 	desc = "Странный медальон. Сквозь кристаллическую поверхность свет преломляется в новые, пугающие спектры. \
 			Вы видите себя, отражённого в каскаде зеркал, искажённого до невозможных форм."
 	heretic_only_trait = TRAIT_XRAY_VISION
@@ -208,7 +208,7 @@
 
 // A purely cosmetic lookalike medallion (no focus, no traits).
 /obj/item/clothing/neck/fake_heretic_amulet
-	name = "религиозная иконка"
+	name = "heretic amulet"
 	desc = "Странный медальон, из-за которого его носитель выглядит как член какого-то культа."
 	icon = 'icons/obj/eldritch.dmi'
 	icon_state = "eye_medalion"
@@ -226,7 +226,7 @@
 
 
 /obj/item/clothing/neck/heretic_focus/moon_amulet
-	name = "амулет лунного света"
+	name = "moon amulet"
 	desc = "Частица разума, души и луны. От простого взгляда на неё кружится голова. Вы слышите шепот полный смеха и радости."
 	icon = 'icons/obj/eldritch.dmi'
 	icon_state = "moon_amulette"

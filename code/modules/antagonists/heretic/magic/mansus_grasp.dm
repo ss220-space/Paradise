@@ -1,6 +1,6 @@
 /obj/effect/proc_holder/spell/touch/mansus_grasp
-	name = "Прикосновение Мансуса"
-	desc = "Заклинание позволяющее направлять силу Древних Богов через вашу руку."
+	name = "Хватка Обители"
+	desc = "Заклинание, позволяющее направлять силу Древних Богов через вашу руку."
 	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
@@ -60,7 +60,7 @@
 	playsound(carbon_hit, 'sound/magic/curse.ogg', 50, TRUE)
 
 	to_chat(caster, span_warning("Нечестивая сила вмешивается, поглощая большую часть эффектов!"))
-	to_chat(carbon_hit, span_warning("[caster.declent_ru(NOMINATIVE)] применяет к вам потусторонние силы, но ваша магия крови поглощает большую часть эффектов!"))
+	to_chat(carbon_hit, span_warning("[DECLENT_RU_CAP(caster, NOMINATIVE)] применяет к вам потусторонние силы, но ваша магия крови поглощает большую часть эффектов!"))
 	carbon_hit.balloon_alert_to_viewers("поглощено!")
 	return
 
@@ -100,10 +100,10 @@
 
 
 /obj/item/melee/touch_attack/mansus_fist
-	name = "Прикосновение Мансуса"
-	desc = "Ваша рука пропитана зловещей аурой, способной искажать реальнось. \
-			Вызывает нокдаун, лёгкие ушибы и значительный урон выносливости. \
-			По мере того, как вы расширяете свои знания о Мансусе, она приобретает дополнительные эффекты."
+	name = "Хватка Обители"
+	desc = "Ваша рука пропитана зловещей аурой, способной искажать реальность. \
+			Наносит лёгкие ушибы, значительный урон выносливости и сбивает с ног. \
+			По мере того, как вы расширяете свои знания об Обители, она приобретает дополнительные эффекты."
 	icon = 'icons/obj/weapons/hand.dmi'
 	icon_state = "mansus"
 	item_state = "mansus"
@@ -119,12 +119,12 @@
 
 /obj/item/melee/touch_attack/mansus_fist/get_ru_names()
 	return alist(
-		NOMINATIVE = "Прикосновение Мансуса",
-		GENITIVE = "Прикосновения Мансуса",
-		DATIVE = "Прикосновению Мансуса",
-		ACCUSATIVE = "Прикосновение Мансуса",
-		INSTRUMENTAL = "Прикосновением Мансуса",
-		PREPOSITIONAL = "Прикосновении Мансуса",
+		NOMINATIVE = "Хватка Обители",
+		GENITIVE = "Хватки Обители",
+		DATIVE = "Хватке Обители",
+		ACCUSATIVE = "Хватку Обители",
+		INSTRUMENTAL = "Хваткой Обители",
+		PREPOSITIONAL = "Хватке Обители",
 	)
 
 

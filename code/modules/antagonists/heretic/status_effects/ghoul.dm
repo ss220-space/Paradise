@@ -117,6 +117,6 @@
 
 
 /atom/movable/screen/alert/status_effect/ghoul
-	name = "Слуга плоти"
-	desc = "Вы Гуль!"
+	name = "Слуга Плоти"
+	desc = "Вы — Гуль!"
 	icon_state = "mind_control"

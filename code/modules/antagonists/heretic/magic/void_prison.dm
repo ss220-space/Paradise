@@ -1,8 +1,8 @@
 /obj/effect/proc_holder/spell/pointed/void_prison
-	name = "Пустотная тюрьма"
+	name = "Пустотная Тюрьма"
 	desc = "Отправляет врага в пустоту на 10 секунд. \
 			В течение этого времени он не сможет выполнять никаких действий. \
-			После этого враг будет заморожен и возвращен в мир смертных."
+			После этого враг будет заморожен и возвращён в мир смертных."
 	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
@@ -42,7 +42,7 @@
 
 	cast_on.visible_message(
 		span_danger("Холодная, кружащаяся пустота окутывает [cast_on.declent_ru(ACCUSATIVE)], но [GEND_HE_SHE(cast_on)] вырыва[PLUR_ET_YUT(cast_on)]ся на свободу!"),
-		span_danger("Перед вами появляется бескраяняя пустота, но мощная волна жара разносит её вдребезги! Вы защищены!!")
+		span_danger("Перед вами простирается бескрайняя пустота, но мощная волна жара разносит её вдребезги! Вы защищены!")
 	)
 
 

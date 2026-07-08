@@ -1,7 +1,7 @@
 /obj/effect/proc_holder/spell/pointed/moon_smile
-	name = "Лунная улыбка"
-	desc = "Позволяет обратить на кого-то взгляд луны кликнув по нему. \
-			Временно ослепляет, заглушает, не даёт говорить и ошеломляет одну цель."
+	name = "Улыбка Луны"
+	desc = "Позволяет обратить на кого-то взгляд луны, кликнув по нему. \
+			Временно ослепляет, заглушает и ошеломляет одну цель."
 	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
@@ -39,7 +39,7 @@
 
 	var/moon_smile_duration = 15 SECONDS
 	if(cast_on.can_block_magic(antimagic_flags))
-		to_chat(cast_on, span_notice("Луна отворачивается, и ее улыбка больше не обращена к вам."))
+		to_chat(cast_on, span_notice("Луна отворачивается, и её улыбка больше не обращена к вам."))
 		to_chat(action.owner, span_warning("Луна не желает улыбаться."))
 		return FALSE
 

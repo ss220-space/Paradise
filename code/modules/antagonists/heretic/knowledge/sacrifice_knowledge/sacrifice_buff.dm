@@ -2,7 +2,7 @@
 
 /// Screen alert for the below status effect.
 /atom/movable/screen/alert/status_effect/unholy_determination
-	name = "Нечестивая решимость"
+	name = "Нечестивая Решимость"
 	desc = "Где вы вообще находитесь? Тьма сгущается. Паника растет. Времени нет. Сражайтесь или умрите!"
 	icon_state = "wounded"
 

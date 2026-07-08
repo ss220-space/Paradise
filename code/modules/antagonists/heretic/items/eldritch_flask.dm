@@ -1,5 +1,5 @@
 /obj/item/reagent_containers/glass/beaker/eldritch
-	name = "флакон с жуткой эссенцией"
+	name = "flask of eldritch essence"
 	desc = "Токсичен для людей с ограниченным мышлением, но освежает тех, кто обладает знаниями о запредельном."
 	gender = MALE
 	icon = 'icons/obj/eldritch.dmi'
@@ -19,7 +19,7 @@
 
 
 /obj/item/reagent_containers/glass/phylactery
-	name = "проклятая филактерия"
+	name = "phylactery of damnation"
 	desc = "Используется для кражи крови у будущих жертв."
 	gender = FEMALE
 	icon = 'icons/obj/eldritch.dmi'
@@ -53,7 +53,7 @@
 
 	var/mob/living/living_target = target
 	if(reagents.total_volume >= reagents.maximum_volume)
-		to_chat(user, span_notice("[declent_ru(NOMINATIVE)] полон."))
+		to_chat(user, span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] полон."))
 		return ATTACK_CHAIN_BLOCKED
 
 	if(living_target == user)
@@ -100,9 +100,9 @@
 
 // Basically an aheal in a bottle, but it puts you to sleep for a minute.
 /obj/item/ether
-	name = "душа нерожденного младенца"
-	desc = "Флакон с тошнотворной, густой зелёной жидкостью. Полностью восстанавливает организм, \
-			а затем погружает в крепкий сон на целую минуту."
+	name = "ether of the newborn"
+	desc = "Флакон с густой, вызывающей тошноту зелёной жидкостью. Полностью восстанавливает организм, \
+			а затем погружает вас в крепкий сон на целую минуту."
 	gender = FEMALE
 	icon = 'icons/obj/eldritch.dmi'
 	icon_state = "poison_flask"
@@ -110,12 +110,12 @@
 
 /obj/item/ether/get_ru_names()
 	return alist(
-		NOMINATIVE = "душа нерожденного младенца",
-		GENITIVE = "души нерожденного младенца",
-		DATIVE = "душе нерожденного младенца",
-		ACCUSATIVE = "душу нерожденного младенца",
-		INSTRUMENTAL = "душой нерожденного младенца",
-		PREPOSITIONAL = "душе нерожденного младенца"
+		NOMINATIVE = "душа нерождённого младенца",
+		GENITIVE = "души нерождённого младенца",
+		DATIVE = "душе нерождённого младенца",
+		ACCUSATIVE = "душу нерождённого младенца",
+		INSTRUMENTAL = "душой нерождённого младенца",
+		PREPOSITIONAL = "душе нерождённого младенца"
 	)
 
 
@@ -156,8 +156,8 @@
 
 
 /atom/movable/screen/alert/status_effect/eldritch_sleep
-	name = "Жуткий сон"
-	desc = "Вы чувствуете неописуемое тепло, защищающее вас..."
+	name = "Необъяснимый Сон"
+	desc = "Вы чувствуете неописуемое тепло, укрывающее вас как одеяло..."
 	// Paradise's shared screen_alert.dmi has no "eldritch_slumber" state, so the alert rendered blank -
 	// use a dedicated icon file instead.
 	icon = 'icons/mob/screen_alert_heretic.dmi'
@@ -166,7 +166,7 @@
 
 // Heals heretics/monsters, harms everyone else.
 /datum/reagent/eldritch
-	name = "Сущность ужаса"
+	name = "Сущность Ужаса"
 	id = "eldritch"
 	description = "Странная жидкость, бросающая вызов законам физики. \
 					Она исцеляет, но только тех, кто может видеть дальше границ этой хрупкой реальности. \

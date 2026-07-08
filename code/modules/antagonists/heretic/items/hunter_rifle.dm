@@ -4,7 +4,7 @@
 // The Lionhunter, a gun for heretics. Firing requires racking the bolt between shots (open/close the bolt
 // via the unique action / unloading), and reloads are done with a stripper clip while the bolt is open.
 /obj/item/gun/projectile/shotgun/boltaction/lionhunter
-	name = "винтовка охотника на львов"
+	name = "lionhunter's rifle"
 	desc = "Старинное ружье, выглядящее безупречно, несмотря на то, что оно явно очень старое."
 	gender = FEMALE
 	icon = 'icons/obj/weapons/wide_guns.dmi'
@@ -67,15 +67,17 @@
 // Bolt-action internal magazine for the lionhunter. No caliber set, so ammo suitability falls back to an
 // exact ammo-type match (only lionhunter .310 rounds fit), matching how the crafted stripper clip loads.
 /obj/item/ammo_box/magazine/internal/lionhunter
-	name = "внутренний магазин винтовки охотника на львов"
+	name = "lionhunter's rifle internal mag"
 	gun_name = "винтовки охотника на львов"
-	ammo_type = /obj/item/ammo_casing/strilka310/lionhunter
-	caliber = null
+	ammo_type = /obj/item/ammo_casing/lionhunter
+	caliber = CALIBER_DOT_310
 	max_ammo = 3
 
 
-/obj/item/ammo_casing/strilka310/lionhunter
-	projectile_type = /obj/projectile/bullet/strilka310/lionhunter
+/obj/item/ammo_casing/lionhunter
+	projectile_type = /obj/projectile/bullet/lionhunter
+	ammo_marking = ".310"
+	caliber = CALIBER_DOT_310
 	/// Whether we're currently aiming this casing at something
 	var/currently_aiming = FALSE
 	/// How many seconds it takes to aim per tile of distance between the target
@@ -88,7 +90,7 @@
 // (chambered.fire(modifiers = ..., damage_mod = ..., stamina_mod = ...)). Renaming/omitting params
 // (the old override used `params` and dropped damage_mod/stamina_mod) breaks named-arg binding at
 // runtime -> the casing never fires -> "the rifle doesn't shoot".
-/obj/item/ammo_casing/strilka310/lionhunter/fire(atom/target, mob/living/user, list/modifiers, distro, quiet, zone_override = "", spread, atom/firer_source_atom, damage_mod = 1, stamina_mod = 1)
+/obj/item/ammo_casing/lionhunter/fire(atom/target, mob/living/user, list/modifiers, distro, quiet, zone_override = "", spread, atom/firer_source_atom, damage_mod = 1, stamina_mod = 1)
 	if(!check_fire(target, user))
 		return
 
@@ -96,7 +98,7 @@
 
 
 /// Checks if we can successfully fire our projectile.
-/obj/item/ammo_casing/strilka310/lionhunter/proc/check_fire(atom/target, mob/living/user)
+/obj/item/ammo_casing/lionhunter/proc/check_fire(atom/target, mob/living/user)
 	// In case someone puts this in turrets or something wacky, just fire like normal
 	if(!iscarbon(user) || !istype(loc, /obj/item/gun/projectile/shotgun/boltaction/lionhunter))
 		return TRUE
@@ -149,14 +151,14 @@
 
 
 /// Callback for the do_after within the check_fire proc to see if something will prevent us from firing while aiming
-/obj/item/ammo_casing/strilka310/lionhunter/proc/check_fire_callback(mob/living/target, mob/living/user)
+/obj/item/ammo_casing/lionhunter/proc/check_fire_callback(mob/living/target, mob/living/user)
 	if(!isturf(target.loc))
 		return FALSE
 
 	return TRUE
 
 
-/obj/item/ammo_casing/strilka310/lionhunter/ready_proj(atom/target, mob/living/user, quiet, zone_override = "", atom/firer_source_atom, damage_mod = 1, stamina_mod = 1)
+/obj/item/ammo_casing/lionhunter/ready_proj(atom/target, mob/living/user, quiet, zone_override = "", atom/firer_source_atom, damage_mod = 1, stamina_mod = 1)
 	if(!BB)
 		return
 
@@ -171,8 +173,8 @@
 	return ..()
 
 
-/obj/projectile/bullet/strilka310/lionhunter
-	name = "пуля охотника калибра .310"
+/obj/projectile/bullet/lionhunter
+	name = "hunter .310 bullet"
 	// These stats are only applied if the weapon is fired fully aimed
 	// If fired without aiming or at someone too close, it will do much less
 	damage = 30
@@ -181,11 +183,20 @@
 	///The mob that is currently inside the bullet
 	var/mob/stored_mob
 
+/obj/projectile/bullet/lionhunter/get_ru_names()
+	return alist(
+		NOMINATIVE = "охотничья пуля",
+		GENITIVE = "охотничьей пули",
+		DATIVE = "охотничьей пуле",
+		ACCUSATIVE = "охотничью пулю",
+		INSTRUMENTAL = "охотничьей пулей",
+		PREPOSITIONAL = "охотничьей пуле",
+	)
 
 // Base /obj/projectile/fire() only takes setAngle; the heretic firer rides inside the bullet so they are
 // carried to wherever it lands (see on_hit/on_range), which is what produces the "teleport to your target"
 // effect. Only happens when shooting a living target.
-/obj/projectile/bullet/strilka310/lionhunter/fire(setAngle)
+/obj/projectile/bullet/lionhunter/fire(setAngle)
 	. = ..()
 	if(QDELETED(src) || !isliving(firer) || !isliving(original))
 		return
@@ -204,19 +215,19 @@
 		gun.azoom?.Remove(living_firer)
 
 
-/obj/projectile/bullet/strilka310/lionhunter/Exited(atom/movable/gone)
+/obj/projectile/bullet/lionhunter/Exited(atom/movable/gone)
 	if(gone == stored_mob)
 		stored_mob = null
 
 	return ..()
 
 
-/obj/projectile/bullet/strilka310/lionhunter/on_range()
+/obj/projectile/bullet/lionhunter/on_range()
 	stored_mob?.forceMove(get_turf(src))
 	return ..()
 
 
-/obj/projectile/bullet/strilka310/lionhunter/on_hit(atom/target, blocked, pierce_hit)
+/obj/projectile/bullet/lionhunter/on_hit(atom/target, blocked, pierce_hit)
 	// Deposit the heretic onto the turf they struck: they teleport to their victim on a hit.
 	stored_mob?.forceMove(get_turf(src))
 	. = ..()
@@ -233,7 +244,7 @@
 	return
 
 
-/obj/projectile/bullet/strilka310/lionhunter/Destroy()
+/obj/projectile/bullet/lionhunter/Destroy()
 	if(!stored_mob)
 		return ..()
 
@@ -243,25 +254,15 @@
 
 // Extra ammunition can be made with a heretic ritual. A stripper clip, loaded into the rifle's internal
 // magazine while the bolt is open.
-/obj/item/ammo_box/speedloader/strilka310/lionhunter
-	name = "обойма (.310 охотник)"
-	desc = "Обойма с загадочными, необычными патронами. Она не подходит к обычным баллистическим винтовкам."
+/obj/item/ammo_box/speedloader/lionhunter
+	name = "ammo box .310 hunter"
+	desc = "Обойма с загадочными патронами. Она не подходит к обычным баллистическим винтовкам."
 	gender = FEMALE
+	caliber = CALIBER_DOT_310
 	icon_state = "310_strip"
 	gun_name = "винтовки охотника на львов"
-	ammo_type = /obj/item/ammo_casing/strilka310/lionhunter
+	ammo_type = /obj/item/ammo_casing/lionhunter
 	max_ammo = 3
-
-
-/obj/item/ammo_box/speedloader/strilka310/lionhunter/get_ru_names()
-	return alist(
-		NOMINATIVE = "обойма (.310 охотник)",
-		GENITIVE = "обоймы (.310 охотник)",
-		DATIVE = "обойме (.310 охотник)",
-		ACCUSATIVE = "обойму (.310 охотник)",
-		INSTRUMENTAL = "обоймой (.310 охотник)",
-		PREPOSITIONAL = "обойме (.310 охотник)",
-	)
 
 
 /obj/effect/temp_visual/bullet_target

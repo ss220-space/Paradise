@@ -127,7 +127,7 @@ const FlavorSection = () => {
         </Stack.Item>
         <Stack.Item>
           <b>
-            <span style={hereticPurple}>Врата Мансуса</span>
+            <span style={hereticPurple}>Врата Обители</span>
             &nbsp;открыты в вашем сознании!
           </b>
         </Stack.Item>
@@ -141,47 +141,46 @@ const GuideSection = () => {
     <Stack.Item>
       <Stack vertical fontSize="12px">
         <Stack.Item>
-          - Найдите&nbsp;
-          <span style={hereticPurple}>расколы реальности</span>
-          &nbsp;на станции, невидимые для обычного глаза и нажмите&nbsp;
-          <b>Кодексом Истезания</b> чтобы поглотить их силу и получить&nbsp;
-          <span style={hereticBlue}>очки знаний</span>. Поглощение сделает их
-          видимыми для всех через некоторое время.
+          - Найдите на станции невидимые для обычного глаза&nbsp;
+          <span style={hereticPurple}>расколы реальности</span> и нажмите по ним
+          пустой рукой, чтобы поглотить их силу и заработать&nbsp;
+          <span style={hereticBlue}>очки знаний</span>. Разломы,
+          поглощённые&nbsp;
+          <b>Кодексом Истязания</b>, приносят дополнительное очко. Поглощение
+          сделает разломыми видимыми для всех спустя некоторое время.
         </Stack.Item>
         <Stack.Item>
           - Используйте&nbsp;
-          <span style={hereticRed}>Живое Сердце</span>
-          &nbsp;чтобы отследить&nbsp;
+          <span style={hereticRed}>Живое Сердце</span>, чтобы отследить&nbsp;
           <span style={hereticRed}>своих жертв</span>, но будьте осторожны:
-          Используя его, вы издадите звук сердцебиения, который могут услышать
-          находящиеся поблизости люди. Эта способность связана с вашим
+          используя его, вы издадите звук сердцебиения, который могут услышать
+          находящиеся поблизости люди. Эта способность связана с вашим&nbsp;
           <b>сердцем</b> — если вы его потеряете, вам необходимо провести
           ритуал, чтобы вернуть её.
         </Stack.Item>
         <Stack.Item>
           - Начертите&nbsp;
-          <span style={hereticGreen}>Руну Трансформации</span> используя ручку
-          или мелок на полу, пока используете&nbsp;
-          <span style={hereticGreen}>Прикосновение Мансуса</span>
-          &nbsp;свободной рукой. Эта руна позволит вам совершать ритуалы и
+          <span style={hereticGreen}>Руну Трансформации</span>, используя ручку
+          или мелок на полу с <span style={hereticGreen}>Хваткой Обители</span>{' '}
+          в свободной руке. Эта руна позволит вам совершать ритуалы и
           жертвоприношения.
         </Stack.Item>
         <Stack.Item>
           - Следуйте подсказкам <span style={hereticRed}>Живого Сердца</span>,
           чтобы найти своих жертв. Притащите их на&nbsp;
           <span style={hereticGreen}>Руну Трансформации</span> в критическом
-          состоянии или мертвыми и&nbsp;
-          <span style={hereticRed}>принесите их в жертву</span> чтобы получить
-          &nbsp;
-          <span style={hereticBlue}>очки знаний</span>. Мансус принимает{' '}
-          <b> ТОЛЬКО</b>
-          тех, на кого указало
+          состоянии или мёртвыми и&nbsp;
+          <span style={hereticRed}>принесите их в жертву</span>, чтобы
+          получить&nbsp;
+          <span style={hereticBlue}>очки знаний</span>. Обитель принимает{' '}
+          <b> ТОЛЬКО</b> тех, на кого указало
           <span style={hereticRed}> Живое Сердце</span>.
         </Stack.Item>
         <Stack.Item>
-          - Сделайте себе <span style={hereticYellow}>амулет</span> чтобы иметь
-          возможность применять различные продвинутые заклинания, которые
-          помогут вам в принесении все более и более сложных жертв.
+          - Сделайте себе <span style={hereticYellow}>амулет</span>, или любой
+          другой источник <b>фокуса</b>, чтобы иметь возможность применять
+          различные продвинутые заклинания, которые помогут вам в принесении все
+          более и более сложных жертв.
         </Stack.Item>
         <Stack.Item>
           - Достигните всех своих целей, чтобы иметь возможность изучить{' '}
@@ -580,21 +579,21 @@ const PathContent = ({
 
 // Per-path window background gradients (matching TG's AntagInfoHeretic.scss theme variables).
 const pathBackgrounds: Record<string, string> = {
-  'Ash Path':
+  'Путь Пепла':
     'radial-gradient(circle, rgba(24,9,9,1) 54%, rgba(31,10,10,1) 60%, rgba(46,11,11,1) 80%, rgba(47,14,14,1) 100%)',
-  'Rust Path':
+  'Путь Ржавчины':
     'radial-gradient(circle, rgb(120,48,9) 54%, rgb(139,48,9) 60%, rgb(150,48,9) 80%, rgb(160,48,9) 100%)',
-  'Flesh Path':
+  'Путь Плоти':
     'radial-gradient(circle, rgb(153,26,26) 54%, rgba(130,9,9,1) 60%, rgb(150,33,30) 80%, rgb(141,30,26) 100%)',
-  'Void Path':
+  'Путь Пустоты':
     'radial-gradient(circle, rgb(13,13,66) 54%, rgb(22,22,66) 60%, rgb(25,25,99) 80%, rgb(42,42,192) 100%)',
-  'Blade Path':
+  'Путь Клинка':
     'radial-gradient(circle, rgb(139,141,137) 54%, rgb(139,141,137) 60%, rgb(170,188,186) 80%, rgb(185,188,182) 100%)',
-  'Cosmic Path':
+  'Путь Космоса':
     'radial-gradient(circle, rgb(78,38,110) 54%, rgb(78,38,110) 60%, rgb(78,38,110) 80%, rgb(78,38,110) 100%)',
-  'Lock Path':
+  'Путь Замка́':
     'radial-gradient(circle, rgba(3,3,7,1) 54%, rgba(9,9,26,1) 60%, rgba(8,5,15,1) 80%, rgba(13,7,26,1) 100%)',
-  'Moon Path':
+  'Путь Луны':
     'radial-gradient(circle, rgb(215,179,218) 54%, rgb(163,139,165) 60%, rgb(108,92,109) 80%, rgba(13,7,26,1) 100%)',
 };
 

@@ -1,5 +1,5 @@
 /obj/effect/proc_holder/spell/cosmic_rune
-	name = "Звёздные руны"
+	name = "Звёздные Руны"
 	desc = "Создаёт космическую руну у вас под ногами. Одновременно могут существовать \
 			только две. Применение одной руны переносит вас к другой. \
 			Любой, у кого есть звёздная метка, переносится вместе с вами."
@@ -63,7 +63,7 @@
 
 /// A rune that allows you to teleport to the location of a linked rune.
 /obj/effect/cosmic_rune
-	name = "звёздная руна"
+	name = "cosmic rune"
 	gender = FEMALE
 	desc = "Странная руна, способная мгновенно переносить людей в другое место."
 	icon = 'icons/obj/hand_of_god_structures.dmi'
@@ -214,7 +214,7 @@
 
 
 /obj/effect/temp_visual/cosmic_rune_fade
-	name = "звёздная руна"
+	name = "cosmic rune"
 	icon = 'icons/obj/hand_of_god_structures.dmi'
 	icon_state = "cosmic_rune_fade"
 	plane = FLOOR_PLANE
@@ -241,7 +241,7 @@
 
 
 /obj/effect/temp_visual/rune_light
-	name = "звёздная руна"
+	name = "cosmic rune"
 	icon = 'icons/obj/hand_of_god_structures.dmi'
 	icon_state = "cosmic_rune_light"
 	plane = FLOOR_PLANE

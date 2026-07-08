@@ -1,5 +1,5 @@
 /obj/effect/proc_holder/spell/aoe/void_pull
-	name = "Притяжение пустоты"
+	name = "Притяжение Пустоты"
 	desc = "Призывает пустоту: наносит урон, сбивает с ног, притягивает и оглушает всех находящихся поблизости."
 	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
 	action_background_icon_state = "bg_heretic"

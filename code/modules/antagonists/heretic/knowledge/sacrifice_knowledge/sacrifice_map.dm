@@ -5,7 +5,7 @@ GLOBAL_LIST_EMPTY(heretic_sacrifice_landmarks)
 
 /// Landmarks meant to designate where heretic sacrifices are sent.
 /obj/effect/landmark/heretic
-	name = "стандартная метка жертвоприношения еретиков"
+	name = "standard heretic sacrifice landmark"
 	icon = 'icons/effects/landmarks_static.dmi' // Paradise's icons/misc/landmarks.dmi has no "x" state
 	icon_state = "x"
 	/// What path this landmark is intended for.
@@ -23,7 +23,7 @@ GLOBAL_LIST_EMPTY(heretic_sacrifice_landmarks)
 
 
 /obj/effect/landmark/heretic/ash
-	name = "метка жертвоприношения еретиков пути Пепла"
+	name = "ash heretic sacrifice landmark"
 	for_heretic_path = PATH_ASH
 
 
@@ -43,52 +43,62 @@ GLOBAL_LIST_EMPTY(heretic_sacrifice_landmarks)
 
 
 /obj/effect/landmark/heretic/flesh
-	name = "метка жертвоприношения еретиков пути Плоти"
+	name = "flesh heretic sacrifice landmark"
 	for_heretic_path = PATH_FLESH
 
 
 /obj/effect/landmark/heretic/void
-	name = "метка жертвоприношения еретиков пути Пустоты"
+	name = "void heretic sacrifice landmark"
 	for_heretic_path = PATH_VOID
 
 
 /obj/effect/landmark/heretic/rust
-	name = "метка жертвоприношения еретиков пути Ржавчины"
+	name = "rust heretic sacrifice landmark"
 	for_heretic_path = PATH_RUST
 
 
 /obj/effect/landmark/heretic/lock
-	name = "метка жертвоприношения еретиков пути Ключа"
+	name = "lock heretic sacrifice landmark"
 	for_heretic_path = PATH_LOCK
 
 
 /obj/effect/landmark/heretic/moon
-	name = "метка жертвоприношения еретиков пути Луны"
+	name = "moon heretic sacrifice landmark"
 	for_heretic_path = PATH_MOON
 
 
 /obj/effect/landmark/heretic/cosmic
-	name = "метка жертвоприношения еретиков пути Космоса"
+	name = "cosmic heretic sacrifice landmark"
 	for_heretic_path = PATH_COSMIC
 
 
 /obj/effect/landmark/heretic/blade
-	name = "метка жертвоприношения еретиков пути Клинка"
+	name = "blade heretic sacrifice landmark"
 	for_heretic_path = PATH_BLADE
 
 
 // A fluff signpost object that doesn't teleport you somewhere when you touch it.
 /obj/structure/no_effect_signpost
-	name = "указатель"
+	name = "signpost"
 	desc = "Кто-нибудь подаст мне знак?"
 	icon = 'icons/obj/fluff_general.dmi'
 	icon_state = "signpost"
 	anchored = TRUE
 	density = TRUE
 
+/obj/structure/no_effect_signpost/get_ru_names()
+	return alist(
+		NOMINATIVE = "указатель",
+		GENITIVE = "указателя",
+		DATIVE = "указателю",
+		ACCUSATIVE = "указатель",
+		INSTRUMENTAL = "указателем",
+		PREPOSITIONAL = "указателе",
+	)
+
 
 /obj/structure/no_effect_signpost/void
-	name = "указатель на краю вселенной"
+	name = "void signpost"
 	desc = "Направление в бесцельной пустоте."
 	density = FALSE
 	/// Brightness of the signpost.
@@ -96,6 +106,15 @@ GLOBAL_LIST_EMPTY(heretic_sacrifice_landmarks)
 	/// Light power of the signpost.
 	var/power = 0.8
 
+/obj/structure/no_effect_signpost/void/get_ru_names()
+	return alist(
+		NOMINATIVE = "указатель на краю вселенной",
+		GENITIVE = "указателя на краю вселенной",
+		DATIVE = "указателю на краю вселенной",
+		ACCUSATIVE = "указатель на краю вселенной",
+		INSTRUMENTAL = "указателем на краю вселенной",
+		PREPOSITIONAL = "указателе на краю вселенной",
+	)
 
 /obj/structure/no_effect_signpost/void/Initialize(mapload)
 	. = ..()
@@ -128,7 +147,7 @@ GLOBAL_LIST_EMPTY(heretic_sacrifice_landmarks)
 // Exposed to the temperate environment so the room is always breathable even when sealed off by
 // indestructible walls (the sacrifice has to survive 2.5 minutes here without suffocating).
 /turf/simulated/floor/indestructible/mansus
-	name = "плоть Мансуса"
+	name = "mansus flesh"
 	desc = "Тёплая, слабо пульсирующая поверхность. Лучше не думать о том, на чём вы стоите."
 	gender = FEMALE
 	icon_state = "necro1"
@@ -140,6 +159,15 @@ GLOBAL_LIST_EMPTY(heretic_sacrifice_landmarks)
 	clawfootstep = FOOTSTEP_MEAT
 	heavyfootstep = FOOTSTEP_MEAT
 
+/turf/simulated/floor/indestructible/mansus/get_ru_names()
+	return alist(
+		NOMINATIVE = "плоть Обители",
+		GENITIVE = "плоти Обители",
+		DATIVE = "плоти Обители",
+		ACCUSATIVE = "плоть Обители",
+		INSTRUMENTAL = "плотью Обители",
+		PREPOSITIONAL = "плоти Обители",
+	)
 
 // Visual variants used by the mapped Mansus rooms. Keep atmos here instead of
 // DMM var-edits: maplint bans tile atmos variables on mapped turfs.
@@ -178,20 +206,9 @@ GLOBAL_LIST_EMPTY(heretic_sacrifice_landmarks)
 	atmos_environment = ENVIRONMENT_TEMPERATE
 
 
-/turf/simulated/floor/indestructible/mansus/get_ru_names()
-	return alist(
-		NOMINATIVE = "плоть Мансуса",
-		GENITIVE = "плоти Мансуса",
-		DATIVE = "плоти Мансуса",
-		ACCUSATIVE = "плоть Мансуса",
-		INSTRUMENTAL = "плотью Мансуса",
-		PREPOSITIONAL = "плоти Мансуса",
-	)
-
-
 // Rooms for where heretic sacrifices send people.
 /area/centcom/heretic_sacrifice
-	name = "Мансус"
+	name = "Обитель"
 	icon = 'icons/area/eldritch_areas.dmi' // base areas.dmi has no "heretic" state
 	icon_state = "heretic"
 	//ambience_index = AMBIENCE_SPOOKY
@@ -209,59 +226,59 @@ GLOBAL_LIST_EMPTY(heretic_sacrifice_landmarks)
 
 
 /area/centcom/heretic_sacrifice/ash //also, the default
-	name = "Пепельные Врата Мансуса"
+	name = "Пепельные Врата Обители"
 
 
 /area/centcom/heretic_sacrifice/void
-	name = "Пустотные Врата Мансуса"
+	name = "Пустотные Врата Обители"
 	base_lighting_color = COLOR_BLUE
 	base_lighting_alpha = 255
 	sound_environment = SOUND_ENVIRONMENT_UNDERWATER
 
 
 /area/centcom/heretic_sacrifice/flesh
-	name = "Врата Мансуса из Плоти"
+	name = "Врата Обители из Плоти"
 	sound_environment = SOUND_ENVIRONMENT_STONEROOM
 
 
 /area/centcom/heretic_sacrifice/rust
-	name = "Ржавые Врата Мансуса"
+	name = "Ржавые Врата Обители"
 	//ambience_index = AMBIENCE_REEBE
 	sound_environment = SOUND_ENVIRONMENT_SEWER_PIPE
 
 
 /area/centcom/heretic_sacrifice/lock
-	name = "Врата Мансуса выкованные из ключей"
+	name = "Врата Обители выкованные из ключей"
 	//ambience_index = AMBIENCE_DANGER
 	sound_environment = SOUND_ENVIRONMENT_PSYCHOTIC
 
 
 /area/centcom/heretic_sacrifice/cosmic
-	name = "Космические Врата Мансуса"
+	name = "Космические Врата Обители"
 	has_gravity = 0
 	sound_environment = SOUND_ENVIRONMENT_PLAIN
 
 
 /area/centcom/heretic_sacrifice/blade
-	name = "Железные Врата Мансуса"
+	name = "Железные Врата Обители"
 	base_lighting_color = COLOR_GREEN
 	base_lighting_alpha = 255
 	sound_environment = SOUND_ENVIRONMENT_ARENA
 
 
 /area/centcom/heretic_sacrifice/moon
-	name = "Лунные Врата Мансуса"
+	name = "Лунные Врата Обители"
 	sound_environment = SOUND_ENVIRONMENT_PSYCHOTIC
 
 
 /area/centcom/heretic_sacrifice/moon2
-	name = "Немного другие Лунные Врата Мансуса"
+	name = "Изменённые Лунные Врата Обители"
 	has_gravity = NEGATIVE_GRAVITY
 	sound_environment = SOUND_ENVIRONMENT_PSYCHOTIC
 
 
 /obj/structure/moon
-	name = "символ правды и луны"
+	name = "symbol of truth and moon"
 	desc = "Раздробленный на несколько частей символ из неизвестного материала. \
 			Трещины складываются в жуткого вида улыбку, что наводит на мысль, \
 			что этот символ был разбит специально. Но подождите. Почему на моём лице нет трещин? \
@@ -299,7 +316,7 @@ GLOBAL_LIST_EMPTY(heretic_sacrifice_landmarks)
 
 
 /obj/structure/moon/star
-	name = "звезда"
+	name = "star"
 	desc = "Символ из неизвестного материала в форме звезды с глазом в центре. \
 			Для чего он предназначен? Кто оставил его здесь? Откуда на моём лице улыбка? \
 			С каждым задаваемым про себя вопросом ваши мысли путаются всё сильнее."
@@ -321,7 +338,7 @@ GLOBAL_LIST_EMPTY(heretic_sacrifice_landmarks)
 
 
 /obj/structure/moon/stars
-	name = "звёзды"
+	name = "stars"
 	desc = "Три символа из неизвестного материала в форме звёзд. Почему на них нет глаз? \
 			У звёзд должны быть глаза. У луны должна быть улыбка. Нам лгут. Из-за этого \
 			никто не хочет участвовать в параде."
@@ -343,7 +360,7 @@ GLOBAL_LIST_EMPTY(heretic_sacrifice_landmarks)
 
 
 /obj/structure/orb
-	name = "жуткая сфера"
+	name = "eldritch orb"
 	desc = "Жуткая, покрытая трещинами, сфера, состоящая из затвердевшей плоти неизвестного существа. \
 			Щупальца растущие из неё уходят в пол, если это жуткое месиво вообще можно так назвать."
 	gender = FEMALE
@@ -367,7 +384,7 @@ GLOBAL_LIST_EMPTY(heretic_sacrifice_landmarks)
 
 
 /obj/structure/punji_sticks/bone
-	name = "костяной шип"
+	name = "bone spike"
 	desc = "Костяной шип ростущий из кучи плоти. Большая часть его поверхности покрыта застывшей кровью, \
 			но остриё по какой-то причине чисто."
 	gender = MALE
@@ -387,7 +404,7 @@ GLOBAL_LIST_EMPTY(heretic_sacrifice_landmarks)
 
 
 /obj/structure/punji_sticks/spike
-	name = "шипы"
+	name = "spikes"
 	desc = "Каменные шипы странной формы торчащие откуда-то из под земли."
 	gender = PLURAL
 	icon = 'icons/obj/eretik_slabs.dmi'
