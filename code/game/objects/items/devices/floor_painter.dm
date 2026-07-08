@@ -63,6 +63,18 @@
 	ui_interact(user)
 	return 1
 
+/obj/item/floor_painter/interact_with_atom_secondary(atom/interacting_with, mob/living/user, list/modifiers)
+	if(!isplasteelfloor(interacting_with))
+		return ITEM_INTERACT_BLOCKING
+	var/turf/simulated/floor/plasteel/picked_floor = interacting_with
+	if(!(picked_floor.icon_state in allowed_states))
+		user.balloon_alert(user, "невозможно скопировать!")
+		return ITEM_INTERACT_BLOCKING
+	floor_state = picked_floor.icon_state
+	SStgui.update_uis(src)
+	user.balloon_alert(user, "пол скопирован")
+	return ITEM_INTERACT_SUCCESS
+
 /obj/item/floor_painter/ui_state(mob/user)
 	return GLOB.inventory_state
 
