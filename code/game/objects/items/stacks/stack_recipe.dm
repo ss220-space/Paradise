@@ -68,7 +68,7 @@
 /// Returns TRUE if the recipe can be built, otherwise returns FALSE. This proc is only meant as a series of tests to check if construction is possible; the actual creation of the resulting atom should be handled in do_build()
 /datum/stack_recipe/proc/try_build(mob/user, obj/item/stack/material, multiplier)
 	if(!isnum(multiplier) || (multiplier < 1) || !IS_FINITE(multiplier)) // href exploit protection
-		stack_trace("Invalid multiplier value in stack creation [multiplier], [user] is likely attempting an exploit")
+		CRASH("Invalid multiplier value in stack creation [multiplier], [user] is most likely attempting an exploit")
 		return FALSE
 
 	if(material.get_amount() < req_amount * multiplier)
