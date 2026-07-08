@@ -30,7 +30,7 @@
 	return SEE_THROUGH_MAP_DEFAULT
 
 /obj/structure/flora/tree/add_debris_element()
-	AddElement(/datum/element/debris, DEBRIS_WOOD, -40, 5)
+	generate_debris_handler(DEBRIS_WOOD, -40, 5)
 
 // MARK: New Year Trees
 /obj/structure/flora/tree/new_year

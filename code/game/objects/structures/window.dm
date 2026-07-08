@@ -121,7 +121,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/structure/window/add_debris_element()
-	AddElement(/datum/element/debris, DEBRIS_GLASS, -40, 5)
+	generate_debris_handler(DEBRIS_GLASS, -40, 5)
 
 /obj/structure/window/mouse_drop_receive(atom/dropping, mob/user, params)
 	. = ..()

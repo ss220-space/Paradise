@@ -73,7 +73,7 @@
 	else if(!istype(armor, /datum/armor))
 		stack_trace("Invalid type [armor.type] found in .armor during /obj Initialize()")
 	if(sharp)
-		AddComponent(/datum/component/surgery_initiator)
+		AddElement(/datum/element/surgery_initiator)
 
 	if(on_blueprints && isturf(loc))
 		var/turf/T = loc
@@ -306,7 +306,7 @@
 	sharp = new_sharp_val
 	SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_SHARPNESS)
 	if(!sharp && new_sharp_val)
-		AddComponent(/datum/component/surgery_initiator)
+		AddElement(/datum/element/surgery_initiator)
 
 /obj/proc/force_eject_occupant(mob/target)
 	// This proc handles safely removing occupant mobs from the object if they must be teleported out (due to being SSD/AFK, by admin teleport, etc) or transformed.

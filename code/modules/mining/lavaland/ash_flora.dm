@@ -594,7 +594,7 @@
 	delete_on_harvest = TRUE
 
 /obj/structure/flora/ash/rock/add_debris_element()
-	AddElement(/datum/element/debris, DEBRIS_ROCK, -20, 10)
+	generate_debris_handler(DEBRIS_ROCK, -20, 10)
 
 /obj/structure/flora/ash/rock/style_2
 	icon_state = "basalt2"

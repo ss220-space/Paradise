@@ -54,7 +54,7 @@
 	return ..()
 
 /turf/simulated/add_debris_element()
-	AddElement(/datum/element/debris, null, -40, 8, 0.7)
+	generate_debris_handler(null, -40, 8, 0.7)
 
 /turf/simulated/proc/break_tile()
 	return

@@ -93,7 +93,7 @@
 /mob/living/simple_animal/bot/secbot/griefsky/Initialize(mapload)
 	. = ..()
 	icon_state = "[base_icon][on]"
-	var/datum/job/security/detective/J = new/datum/job/security/detective
+	var/datum/job/security/detective/J = SSjobs.GetJob(JOB_TITLE_DETECTIVE)
 	access_card.access += J.get_access()
 	prev_access = access_card.access
 

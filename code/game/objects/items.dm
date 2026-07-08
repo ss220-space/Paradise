@@ -331,7 +331,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	scatter_item()
 
 /obj/item/proc/add_eatable_component()
-	AddComponent(/datum/component/eatable)
+	AddElement(/datum/element/eatable)
 
 /obj/item/proc/get_equip_sound()
 	return islist(equip_sound) ? pick(equip_sound) : (equip_sound || SFX_EQUIP)
