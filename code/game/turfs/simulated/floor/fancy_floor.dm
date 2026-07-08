@@ -123,9 +123,6 @@
 	barefootstep = FOOTSTEP_GRASS
 	clawfootstep = FOOTSTEP_GRASS
 
-/turf/simulated/floor/grass/broken_states()
-	return list("sand")
-
 /turf/simulated/floor/grass/Initialize(mapload)
 	. = ..()
 	update_icon()
