@@ -15,7 +15,8 @@
 /datum/antagonist/heretic_monster/add_antag_hud(mob/living/antag_mob)
 	. = ..()
 	offset_heretic_antag_hud(antag_mob)
-	GLOB.huds[antag_hud_type].show_to(antag_mob)
+	var/datum/atom_hud/antag/hud = GLOB.huds[antag_hud_type]
+	hud.show_to(antag_mob)
 
 /datum/antagonist/heretic_monster/remove_antag_hud(mob/living/antag_mob)
 	. = ..()

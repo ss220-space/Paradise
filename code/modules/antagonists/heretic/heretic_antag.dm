@@ -453,7 +453,8 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	. = ..()
 	offset_heretic_antag_hud(antag_mob)
 	if(summoned_creature)
-		GLOB.huds[antag_hud_type].show_to(antag_mob)
+		var/datum/atom_hud/antag/hud = GLOB.huds[antag_hud_type]
+		hud.show_to(antag_mob)
 
 /datum/antagonist/heretic/remove_antag_hud(mob/living/antag_mob)
 	. = ..()
@@ -466,7 +467,8 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	var/mob/living/heretic_mob = owner?.current
 	if(QDELETED(heretic_mob))
 		return
-	GLOB.huds[antag_hud_type].show_to(heretic_mob)
+	var/datum/atom_hud/antag/hud = GLOB.huds[antag_hud_type]
+	hud.show_to(heretic_mob)
 
 /datum/antagonist/heretic/proc/hide_antag_hud()
 	if(!summoned_creature)
@@ -475,7 +477,8 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	var/mob/living/heretic_mob = owner?.current
 	if(QDELETED(heretic_mob))
 		return
-	GLOB.huds[antag_hud_type].hide_from(heretic_mob)
+	var/datum/atom_hud/antag/hud = GLOB.huds[antag_hud_type]
+	hud.hide_from(heretic_mob)
 
 /datum/antagonist/heretic/apply_innate_effects(mob/living/mob_override)
 	. = ..()
