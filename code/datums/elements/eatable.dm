@@ -202,8 +202,6 @@
 	var/bites_split = max_bites > 3 ? round(max_bites / 4) : 1
 	var/colour
 
-
-
 	if(current_bites >= 1 && current_bites <= bites_split)
 		colour = "#d9e0e7ff"
 
