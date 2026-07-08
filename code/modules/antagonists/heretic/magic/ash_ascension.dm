@@ -28,6 +28,11 @@
 	. = ..()
 	recolor()
 
+// Eldritch fire is magic, not a blackbody - force the deep red look instead of the temperature-derived orange.
+/obj/effect/hotspot/fake/eldritch/recolor()
+	color = COLOR_MOSTLY_PURE_RED
+	set_light(l_color = color)
+
 /// Creates a constant Ring of Fire around the caster for a set duration of time, which follows them.
 /obj/effect/proc_holder/spell/fire_sworn
 	name = "Клятва пламени"

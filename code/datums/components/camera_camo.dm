@@ -1,46 +1,38 @@
 /**
  * Camera-camo component — lock-heretic robes ("Shifting Guise").
  *
- * Makes the wearer invisible on (basic) security camera monitors WITHOUT hiding them from anyone's normal
- * eyes — i.e. the "feed only" behaviour. We redirect the mob's rendering onto CAMERA_CAMO_PLANE via a
- * render-target proxy: that plane renders normally (and lit) in every MAIN view, but the camera console
- * popup plane group force-hides it (see /datum/plane_master_group/popup/prep_plane_instance), so the wearer
- * simply isn't drawn in a security camera feed. In person they look and behave completely normally.
+ * Makes the wearer invisible on every camera feed WITHOUT hiding them from anyone's normal eyes. The mob's
+ * rendering is redirected onto CAMERA_CAMO_PLANE via a render-target proxy: that plane renders normally (and
+ * lit) for someone looking with their own eyes, but every camera view zeroes its alpha — camera console popups
+ * on creation, main-map instances whenever the viewer's eye is a camera eye (the AI, advanced camera consoles).
+ * See [/atom/movable/screen/plane_master/camera_camo].
  *
  * How the pieces fit:
  * - parent.render_target = "*camera_camo[uid]" makes the body itself stop drawing directly, and instead get
  *   captured into a named buffer.
  * - `proxy` (in parent.vis_contents) has render_source = that buffer + VIS_INHERIT_ID|VIS_INHERIT_LAYER, and
- *   sits on CAMERA_CAMO_PLANE. So the live body is re-displayed on that plane for everyone, inheriting the
- *   body's click id (it stays clickable) and layer.
- *
- * The AI and the ADVANCED camera console render the world through their MAIN view (the AI's eye / the
- * operator's relocated perspective), NOT through a camera popup — so the plane-hide alone wouldn't hide the
- * wearer from them. For those we additionally blank the proxy with a per-client `override` image, distributed
- * by the existing [/datum/element/digitalcamo] machinery via GLOB.digitalcamo_images (the robe carries that
- * element too). The basic security console is the only viewer handled purely by the plane-hide, which is why
- * it no longer needs to register as a digitalcamo watcher.
+ *   sits on CAMERA_CAMO_PLANE. So the live body is re-displayed on that plane, inheriting the body's click id
+ *   (it stays clickable) and layer.
  *
  * DATA-HUD MARKERS: the wearer's medical/security HUD markers (health doll, wanted/job/implant icons) are
  * SEPARATE images (mob.hud_list, loc = the mob, FLOAT_PLANE → they ride the mob's game plane), so the body's
- * render-target trick doesn't touch them and they'd otherwise float on a basic camera feed with no body under
- * them — a dead giveaway. We move those images onto CAMERA_CAMO_PLANE too, so the popup-hide swallows them on
- * basic monitors while they still show in person. (The HUD image objects are created once and reused, so a
- * one-shot plane swap sticks; we only re-apply on z-change for the multiz offset.) The AI's data HUDs are
- * already hidden by digitalcamo's hide_from_ai_huds, covering the AI/advanced-console side.
+ * render-target trick doesn't touch them and they'd otherwise float on a camera feed with no body under them —
+ * a dead giveaway. We move those images onto CAMERA_CAMO_PLANE too, so cameras swallow them along with the
+ * body while they still show in person. (The HUD image objects are created once and reused, so a one-shot
+ * plane swap sticks; we only re-apply on z-change for the multiz offset.)
+ *
+ * The AI-tracking block itself is separate: TRAIT_AI_UNTRACKABLE (can_track() gates on it, see living.dm),
+ * which the robe grants alongside this component.
  */
 /datum/component/camera_camo
 	/// The proxy atom that re-displays our render-target capture onto CAMERA_CAMO_PLANE.
 	var/atom/movable/proxy
-	/// Blank override image (loc = proxy) fed into GLOB.digitalcamo_images so AIs / advanced-console watchers
-	/// can't see the proxy either.
-	var/image/blanker
 	/// The mob's render_target before we hijacked it (restored on removal).
 	var/initial_render_target
 	/// Our unique render-target id.
 	var/render_id
 
-/// Medical + security data-HUD marker categories we relocate onto the camo plane so they vanish on basic monitors.
+/// Medical + security data-HUD marker categories we relocate onto the camo plane so they vanish on cameras.
 GLOBAL_LIST_INIT(camera_camo_hidden_huds, list(
 	HEALTH_HUD,
 	STATUS_HUD,
@@ -80,33 +72,21 @@ GLOBAL_LIST_INIT(camera_camo_hidden_huds, list(
 	wearer.render_target = render_id
 	wearer.vis_contents += proxy
 
-	blanker = image(loc = proxy)
-	blanker.override = TRUE
-	GLOB.digitalcamo_images |= blanker
-
-	// Hide the wearer's data-HUD markers on basic monitors too (route them onto the camo plane).
+	// Hide the wearer's data-HUD markers from cameras too (route them onto the camo plane).
 	apply_hud_plane(wearer, CAMERA_CAMO_PLANE)
 
 	// Keep the proxy (and HUD markers) on the correct (z-offset) camo plane as the wearer changes z-levels.
 	RegisterSignal(wearer, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(on_z_changed))
+	RegisterSignal(wearer, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
 
 /datum/component/camera_camo/Destroy(force)
 	var/atom/movable/wearer = parent
 	if(!QDELETED(wearer))
-		UnregisterSignal(wearer, COMSIG_MOVABLE_Z_CHANGED)
+		UnregisterSignal(wearer, list(COMSIG_MOVABLE_Z_CHANGED, COMSIG_ATOM_EXAMINE))
 		wearer.render_target = initial_render_target
 		wearer.vis_contents -= proxy
-		// Drop the HUD markers back onto the wearer's own plane so they show on monitors again.
+		// Drop the HUD markers back onto the wearer's own plane so they show on cameras again.
 		apply_hud_plane(wearer, FLOAT_PLANE)
-
-	GLOB.digitalcamo_images -= blanker
-	// Pull the proxy-blanker off anyone still holding it (AIs / advanced-console watchers), so the proxy
-	// (and therefore the wearer) renders for them again at once.
-	for(var/mob/living/silicon/ai/ai as anything in GLOB.ai_list)
-		ai.client?.images -= blanker
-	for(var/mob/watcher as anything in GLOB.camera_console_watchers)
-		watcher.client?.images -= blanker
-	blanker = null
 
 	QDEL_NULL(proxy)
 	return ..()
@@ -116,8 +96,12 @@ GLOBAL_LIST_INIT(camera_camo_hidden_huds, list(
 	SET_PLANE_EXPLICIT(proxy, CAMERA_CAMO_PLANE, source)
 	apply_hud_plane(source, CAMERA_CAMO_PLANE)
 
+/datum/component/camera_camo/proc/on_examine(datum/source, mob/user, list/examine_list)
+	SIGNAL_HANDLER
+	examine_list += span_warning("Кожа словно перетекает, будто что-то движется под ней.")
+
 /// Moves the wearer's medical/security HUD-marker images onto the given plane. CAMERA_CAMO_PLANE hides them on
-/// basic camera monitors (popup-hidden) while keeping them in person; FLOAT_PLANE puts them back on the mob.
+/// cameras while keeping them in person; FLOAT_PLANE puts them back on the mob.
 /datum/component/camera_camo/proc/apply_hud_plane(mob/wearer, target_plane)
 	if(!islist(wearer.hud_list))
 		return

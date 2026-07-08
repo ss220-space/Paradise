@@ -48,8 +48,8 @@
 #define POINT_PLANE 5
 
 /// Holds the render-target proxy of lock-heretic robe wearers. Relays to the game world like GAME_PLANE, so
-/// they look and light up normally in person, but the camera console popup plane group force-hides this plane,
-/// so they don't appear on (basic) security camera monitors. Its own value for the same per-"[plane]"-keying
+/// they look and light up normally in person, but every camera view (console popups, the AI, advanced camera
+/// consoles) renders this plane at alpha 0, so they don't appear on any feed. Its own value for the same per-"[plane]"-keying
 /// reason as SEETHROUGH_PLANE above. There is no free integer left between GAME_PLANE and RENDER_PLANE_GAME_WORLD,
 /// so it lives up here - its relay layer (derived from the plane value) still sorts above the game plane's within
 /// RENDER_PLANE_GAME_WORLD, which is all that matters for draw order.

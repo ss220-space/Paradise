@@ -959,7 +959,6 @@
 #include "code\datums\elements\debris.dm"
 #include "code\datums\elements\devil_banishment.dm"
 #include "code\datums\elements\devil_regen.dm"
-#include "code\datums\elements\digitalcamo.dm"
 #include "code\datums\elements\diona_internals.dm"
 #include "code\datums\elements\direction_slowdown.dm"
 #include "code\datums\elements\effect_trail.dm"

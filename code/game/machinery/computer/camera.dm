@@ -1,7 +1,7 @@
 #define DEFAULT_MAP_SIZE 15
 
-/// Living mobs currently watching any camera console (security console / advanced camera console). The
-/// digitalcamo element (lock-path heretic robes) reads this to hide its wearers from the camera feed.
+/// Living mobs currently driving an advanced camera console. The Caretaker's Last Refuge (lock-path heretic)
+/// reads this to tell whether one of them has a given turf on their feed right now.
 GLOBAL_LIST_EMPTY(camera_console_watchers)
 
 /obj/machinery/computer/security

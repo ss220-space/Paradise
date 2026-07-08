@@ -195,14 +195,6 @@
 /datum/plane_master_group/popup/build_planes_offset(datum/hud/source, new_offset, use_scale = TRUE)
 	return ..(source, new_offset, FALSE)
 
-/datum/plane_master_group/popup/prep_plane_instance(atom/movable/screen/plane_master/instance)
-	. = ..()
-	// Camera popups (security camera consoles) must NOT show the camera-camo plane: that's the whole point of
-	// it - lock-heretic robe wearers render there so they appear in person but are absent from camera monitors.
-	// Force-hiding the popup's instance (the main-screen instance stays visible) keeps it out of every feed.
-	if(instance.plane == CAMERA_CAMO_PLANE)
-		instance.force_hidden = TRUE
-
 /// Holds the main plane master
 /datum/plane_master_group/main
 

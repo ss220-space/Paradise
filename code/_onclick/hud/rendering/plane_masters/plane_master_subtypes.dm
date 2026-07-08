@@ -251,13 +251,40 @@
 /atom/movable/screen/plane_master/camera_camo
 	name = "Camera Camo"
 	documentation = "Holds the render-target proxy of lock-heretic robe wearers (Shifting Guise). Relays to the \
-		game world exactly like the game plane, so the wearer looks and is lit normally in person. The camera \
-		console popup plane group force-hides this plane (see /datum/plane_master_group/popup/prep_plane_instance), \
-		so the wearer is absent from basic security camera monitors WITHOUT being hidden from anyone's normal \
-		view. Kept clickable (the real body is render-target'd and not drawn, so the proxy has to catch the \
-		clicks - it inherits the body's id via VIS_INHERIT_ID, so they still resolve to the real mob)."
+		game world exactly like the game plane, so the wearer looks and is lit normally in person, but every \
+		view that goes through a camera renders it at alpha 0: popup instances (security camera console feeds) \
+		are zeroed on creation, and main map instances zero themselves while the viewer's eye is a camera eye \
+		(the AI, advanced camera consoles). Kept clickable (the real body is render-target'd and not drawn, so \
+		the proxy has to catch the clicks - it inherits the body's id via VIS_INHERIT_ID, so they still resolve \
+		to the real mob)."
 	plane = CAMERA_CAMO_PLANE
 	render_relay_planes = list(RENDER_PLANE_GAME_WORLD)
+
+/atom/movable/screen/plane_master/camera_camo/set_home(datum/plane_master_group/home)
+	. = ..()
+	// Alpha, not force_hidden: a hidden plane master dumps anything drawn on it straight onto the output
+	// render, only alpha 0 actually swallows the contents.
+	if(istype(home, /datum/plane_master_group/popup))
+		disable_alpha()
+		return
+	if(home)
+		RegisterSignal(home, COMSIG_GROUP_HUD_CHANGED, PROC_REF(hud_changed))
+		hud_changed(null, null, home.our_hud)
+
+/atom/movable/screen/plane_master/camera_camo/proc/hud_changed(datum/source, datum/hud/old_hud, datum/hud/new_hud)
+	SIGNAL_HANDLER
+	if(old_hud)
+		UnregisterSignal(old_hud, COMSIG_HUD_EYE_CHANGED)
+	if(new_hud)
+		RegisterSignal(new_hud, COMSIG_HUD_EYE_CHANGED, PROC_REF(eye_changed))
+		eye_changed(new_hud, null, new_hud.mymob?.canon_client?.eye)
+
+/atom/movable/screen/plane_master/camera_camo/proc/eye_changed(datum/hud/source, atom/old_eye, atom/new_eye)
+	SIGNAL_HANDLER
+	if(isAIEye(new_eye))
+		disable_alpha()
+	else
+		enable_alpha()
 
 // MARK: Default
 /**

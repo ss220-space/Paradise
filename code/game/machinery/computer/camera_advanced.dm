@@ -43,14 +43,10 @@
 	for(var/datum/action/A as anything in actions)
 		A.Remove(user)
 	actions.Cut()
-	// Stop being a camera viewer and drop any digitalcamo overrides we were holding, so hidden mobs (and
-	// everyone else) render normally again the instant we stop watching.
 	GLOB.camera_console_watchers -= user
 	if(user.client)
 		user.reset_perspective(null)
 		eyeobj.RemoveImages()
-		if(length(GLOB.digitalcamo_images))
-			user.client.images -= GLOB.digitalcamo_images
 	eyeobj.eye_user = null
 	user.remote_control = null
 
@@ -115,11 +111,7 @@
 	eyeobj.name = "Camera Eye ([user.name])"
 	user.remote_control = eyeobj
 	user.reset_perspective(eyeobj)
-	// Register as a camera viewer so digitalcamo (lock heretic robes) can hide its wearers from us, and apply
-	// any already-active overrides right now so we don't briefly see a hidden mob on open.
 	GLOB.camera_console_watchers |= user
-	if(length(GLOB.digitalcamo_images))
-		user.client?.images |= GLOB.digitalcamo_images
 	// Who passes control like this god I hate static code
 	for(var/atom/movable/screen/plane_master/plane_static in user.hud_used?.get_true_plane_masters(CAMERA_STATIC_PLANE))
 		plane_static.unhide_plane(user)

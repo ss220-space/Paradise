@@ -77,8 +77,8 @@
 // Изменчивая Личина (Shifting Guise) - Lock path robes. Hidden identity/voice, silenced footsteps.
 // The guise is tied to the HOOD being raised, not to wearing the robe. The wearer is invisible on EVERY
 // camera - AI, advanced AND basic monitors, body and data-HUD markers alike - while staying fully VISIBLE
-// in person. Camera coverage = digitalcamo (AI + advanced console) + the camera_camo component (basic
-// monitors, via the CAMERA_CAMO_PLANE popup-hide).
+// in person. Camera coverage = the camera_camo component: the wearer renders on CAMERA_CAMO_PLANE, which
+// every camera view blanks (alpha 0).
 // A non-heretic who dares to don it is violently relieved of everything they carry, the instant they put it on.
 // (the guise traits are the same ones the shadow cloak uses, see status_effects/buffs.dm.)
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/lock
@@ -143,10 +143,9 @@
 	user.add_traits(guise_traits, UID())
 	// Fully VISIBLE in person but invisible on EVERY camera:
 	// - TRAIT_AI_UNTRACKABLE (in guise_traits): the AI can't lock the track command onto them.
-	// - digitalcamo element: blanks the body (and AI data-HUDs) for AI eyes + ADVANCED camera consoles.
-	// - camera_camo component: render-target proxy on CAMERA_CAMO_PLANE - shows in person but is force-hidden
-	//   in the camera popup plane group, so the body AND its data-HUD markers vanish on BASIC camera monitors.
-	user.AddElement(/datum/element/digitalcamo)
+	// - camera_camo component: render-target proxy on CAMERA_CAMO_PLANE - shows in person, but every camera
+	//   view (console popups, the AI's eye, advanced consoles) renders that plane at alpha 0, so the body AND
+	//   its data-HUD markers vanish from all feeds.
 	user.AddComponent(/datum/component/camera_camo)
 
 
@@ -155,7 +154,6 @@
 	if(!user)
 		return
 	user.remove_traits(guise_traits, UID())
-	user.RemoveElement(/datum/element/digitalcamo)
 	qdel(user.GetComponent(/datum/component/camera_camo))
 
 
