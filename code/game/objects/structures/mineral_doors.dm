@@ -35,7 +35,7 @@
 	return ..()
 
 /obj/structure/mineral_door/add_debris_element()
-	AddElement(/datum/element/debris, DEBRIS_SPARKS, -20, 10)
+	generate_debris_handler(DEBRIS_SPARKS, -20, 10)
 
 /obj/structure/mineral_door/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	var/turf/T = loc
@@ -245,7 +245,7 @@
 	rad_insulation = RAD_VERY_LIGHT_INSULATION
 
 /obj/structure/mineral_door/wood/add_debris_element()
-	AddElement(/datum/element/debris, DEBRIS_WOOD, -40, 5)
+	generate_debris_handler(DEBRIS_WOOD, -40, 5)
 
 /obj/structure/mineral_door/wood/paperframe
 	name = "Paperframe door"

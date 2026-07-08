@@ -65,7 +65,7 @@
 		pixel_y = rand(0, 16)
 
 
-	AddComponent(/datum/component/surgery_initiator/robo)
+	AddElement(/datum/element/surgery_initiator/robo)
 	AddElement(/datum/element/falling_hazard, damage = force, hardhat_safety = TRUE, crushes = FALSE, impact_sound = hitsound)
 
 /obj/item/screwdriver/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)

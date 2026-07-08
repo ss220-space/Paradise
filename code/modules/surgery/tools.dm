@@ -299,7 +299,8 @@
 /obj/item/scalpel/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_SURGICAL, ROUNDSTART_TRAIT)
-	AddComponent(/datum/component/surgery_initiator)
+	if(!HAS_TRAIT(src, TRAIT_SURGERY_INITIATOR))
+		AddElement(/datum/element/surgery_initiator)
 
 /obj/item/scalpel/suicide_act(mob/user)
 	to_chat(viewers(user), pick(span_suicide("[user] [declent_ru(INSTRUMENTAL)] среза[PLUR_ET_YUT(user)] свою кожу! Похоже, что [GEND_HE_SHE(user)] соверша[PLUR_ET_YUT(user)] суицид!"),

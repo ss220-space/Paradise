@@ -4,7 +4,9 @@
  *
  * Allows an item to start (or prematurely stop) a surgical operation.
  */
-/datum/component/surgery_initiator
+/datum/element/surgery_initiator
+	element_flags = ELEMENT_BESPOKE
+	argument_hash_start_idx = 2
 	/// If present, this surgery TYPE will be attempted when the item is used.
 	/// Useful for things like limb reattachments that don't need a scalpel.
 	var/datum/surgery/forced_surgery
@@ -24,38 +26,40 @@
 	/// Also, note that for anything sharp, SURGERY_INITIATOR_ORGANIC should be set as well.
 	var/valid_starting_types = SURGERY_INITIATOR_ORGANIC
 
+
 /**
- * Create a new surgery initiating component.
+ * Attach a new surgery initiating element.
  *
  * Arguments:
  * * forced_surgery - (optional) the surgery that will be started when the parent is used on a mob.
  */
-/datum/component/surgery_initiator/Initialize(datum/surgery/forced_surgery)
+/datum/element/surgery_initiator/Attach(datum/target, datum/surgery/forced_surgery)
 	. = ..()
-	if(!isitem(parent) && !isprojectile(parent))
-		return COMPONENT_INCOMPATIBLE
+
+	if(!isitem(target) && !isprojectile(target))
+		return ELEMENT_INCOMPATIBLE
 
 	src.forced_surgery = forced_surgery
+	RegisterSignal(target, COMSIG_ITEM_ATTACK, PROC_REF(initiate_surgery_moment))
+	RegisterSignal(target, COMSIG_ATOM_UPDATE_SHARPNESS, PROC_REF(on_parent_sharpness_change))
+	ADD_TRAIT(target, TRAIT_SURGERY_INITIATOR, UNIQUE_TRAIT_SOURCE(src))
 
-/datum/component/surgery_initiator/RegisterWithParent()
-	RegisterSignal(parent, COMSIG_ITEM_ATTACK, PROC_REF(initiate_surgery_moment))
-	RegisterSignal(parent, COMSIG_ATOM_UPDATE_SHARPNESS, PROC_REF(on_parent_sharpness_change))
-
-/datum/component/surgery_initiator/UnregisterFromParent()
-	UnregisterSignal(parent, COMSIG_ITEM_ATTACK)
-	UnregisterSignal(parent, COMSIG_ATOM_UPDATE_SHARPNESS)
+/datum/element/surgery_initiator/Detach(datum/source, ...)
+	UnregisterSignal(source, COMSIG_ITEM_ATTACK)
+	UnregisterSignal(source, COMSIG_ATOM_UPDATE_SHARPNESS)
+	REMOVE_TRAIT(source, TRAIT_SURGERY_INITIATOR, UNIQUE_TRAIT_SOURCE(src))
+	return ..()
 
 /// Keep tabs on the attached item's sharpness.
 /// This component gets added in atoms when they're made sharp as well.
-/datum/component/surgery_initiator/proc/on_parent_sharpness_change()
+/datum/element/surgery_initiator/proc/on_parent_sharpness_change(datum/source)
 	SIGNAL_HANDLER  // COMSIG_ATOM_UPDATE_SHARPNESS
-	var/obj/item/tool = parent
+	var/obj/item/tool = source
 	if(!tool.sharp)
-		ClearFromParent()
-		qdel(src)
+		tool.RemoveElement(/datum/element/surgery_initiator)
 
 /// Does the surgery initiation.
-/datum/component/surgery_initiator/proc/initiate_surgery_moment(datum/source, atom/target, mob/user)
+/datum/element/surgery_initiator/proc/initiate_surgery_moment(datum/source, atom/target, mob/user)
 	SIGNAL_HANDLER	// COMSIG_ITEM_ATTACK
 	if(!isliving(user))
 		return
@@ -78,12 +82,12 @@
 	if(L.has_status_effect(STATUS_EFFECT_SUMMONEDGHOST))
 		user.balloon_alert(user, "неподходящая цель!")
 		return //no cult ghost surgery please
-	INVOKE_ASYNC(src, PROC_REF(do_initiate_surgery_moment), target, user)
+	INVOKE_ASYNC(src, PROC_REF(do_initiate_surgery_moment), source, target, user)
 	// This signal is actually part of the attack chain, so it needs to return COMPONENT_CANCEL_ATTACK_CHAIN to stop it
 	return COMPONENT_CANCEL_ATTACK_CHAIN
 
 /// Meat and potatoes of starting surgery.
-/datum/component/surgery_initiator/proc/do_initiate_surgery_moment(mob/living/target, mob/user)
+/datum/element/surgery_initiator/proc/do_initiate_surgery_moment(datum/source, mob/living/target, mob/user)
 	var/datum/surgery/current_surgery
 
 	// Check if we've already got a surgery on our target zone
@@ -95,11 +99,11 @@
 
 	if(!isnull(current_surgery) && !current_surgery.step_in_progress)
 		var/datum/surgery_step/current_step = current_surgery.get_surgery_step()
-		if(current_step.try_op(user, target, user.zone_selected, parent, current_surgery) == SURGERY_INITIATE_SUCCESS)
+		if(current_step.try_op(user, target, user.zone_selected, source, current_surgery) == SURGERY_INITIATE_SUCCESS)
 			return
-		if(istype(parent, /obj/item/scalpel/laser/manager/debug))
+		if(istype(source, /obj/item/scalpel/laser/manager/debug))
 			return
-		if(attempt_cancel_surgery(current_surgery, target, user))
+		if(attempt_cancel_surgery(source, current_surgery, target, user))
 			return
 
 	if(!isnull(current_surgery) && current_surgery.step_in_progress)
@@ -129,9 +133,9 @@
 	if(!procedure)
 		return
 
-	return try_choose_surgery(user, target, procedure)
+	return try_choose_surgery(source, user, target, procedure)
 
-/datum/component/surgery_initiator/proc/get_available_surgeries(mob/user, mob/living/target)
+/datum/element/surgery_initiator/proc/get_available_surgeries(mob/user, mob/living/target)
 	var/list/available_surgeries = list()
 	for(var/datum/surgery/surgery in GLOB.surgeries_list)
 		if(surgery.abstract && !istype(surgery, forced_surgery))  // no choosing abstract surgeries, though they can be forced
@@ -150,10 +154,10 @@
 	return available_surgeries
 
 /// Does the surgery de-initiation.
-/datum/component/surgery_initiator/proc/attempt_cancel_surgery(datum/surgery/the_surgery, mob/living/patient, mob/user)
+/datum/element/surgery_initiator/proc/attempt_cancel_surgery(datum/source, datum/surgery/the_surgery, mob/living/patient, mob/user)
 	var/selected_zone = user.zone_selected
 	var/obj/item/organ/external/affected_organ = patient.get_organ(user.zone_selected)
-	var/obj/item/tool = parent
+	var/obj/item/tool = source
 
 	/// We haven't even started yet. Any surgery can be cancelled at this point.
 	if(the_surgery.step_number == 1)
@@ -210,7 +214,7 @@
 	else if(isrobot(user))
 		if(!is_robotic)
 			// borgs need to be able to finish surgeries with just the laser scalpel, no special checks here.
-			close_tool = parent
+			close_tool = source
 		else
 			close_tool = locate(/obj/item/crowbar) in user.get_all_slots()
 			if(!close_tool)
@@ -239,12 +243,12 @@
 	// always return TRUE here so we don't continue the surgery chain and try to start a new surgery with our tool.
 	return TRUE
 
-/datum/component/surgery_initiator/proc/can_start_surgery(mob/user, mob/living/target)
+/datum/element/surgery_initiator/proc/can_start_surgery(datum/source, mob/user, mob/living/target)
 	if(!user.Adjacent(target))
 		return FALSE
 
 	// The item was moved somewhere else
-	if(!(parent in user))
+	if(!(source in user))
 		user.balloon_alert(user, "инструмент не в активной руке!")
 		return FALSE
 
@@ -256,8 +260,8 @@
 
 	return TRUE
 
-/datum/component/surgery_initiator/proc/try_choose_surgery(mob/user, mob/living/target, datum/surgery/surgery)
-	if(!can_start_surgery(user, target))
+/datum/element/surgery_initiator/proc/try_choose_surgery(datum/source, mob/user, mob/living/target, datum/surgery/surgery)
+	if(!can_start_surgery(source, user, target))
 		return
 
 	var/obj/item/organ/affecting_limb
@@ -298,18 +302,18 @@
 
 	var/datum/surgery/procedure = new surgery.type(target, selected_zone, affecting_limb)
 
-	show_starting_message(user, target, procedure)
+	show_starting_message(source, user, target, procedure)
 
 	log_attack(user, target, "operated on (OPERATION TYPE: [procedure.name]) (TARGET AREA: [selected_zone])")
 
-/datum/component/surgery_initiator/proc/surgery_needs_exposure(datum/surgery/surgery, mob/living/target, selected_zone)
+/datum/element/surgery_initiator/proc/surgery_needs_exposure(datum/surgery/surgery, mob/living/target, selected_zone)
 	return !surgery.ignore_clothes && !get_location_accessible(target, selected_zone)
 
 /// Handle to allow for easily overriding the message shown
-/datum/component/surgery_initiator/proc/show_starting_message(mob/user, mob/living/target, datum/surgery/procedure)
+/datum/element/surgery_initiator/proc/show_starting_message(datum/source, mob/user, mob/living/target, datum/surgery/procedure)
 	var/selected_zone = user.zone_selected
 	var/obj/item/organ/external/affected_organ = target.get_organ(user.zone_selected)
-	var/obj/item/tool = parent
+	var/obj/item/tool = source
 
 	if(affected_organ)
 		user.visible_message(
@@ -322,21 +326,21 @@
 			span_notice("Вы готовитесь начать операцию на [parse_zone(selected_zone)] [target], удерживая [tool.declent_ru(ACCUSATIVE)] в руке."),
 		)
 
-/datum/component/surgery_initiator/limb
+/datum/element/surgery_initiator/limb
 	can_cancel = FALSE  // don't let a leg cancel a surgery
 
-/datum/component/surgery_initiator/limb/initiate_surgery_moment(datum/source, atom/target, mob/user)
+/datum/element/surgery_initiator/limb/initiate_surgery_moment(datum/source, atom/target, mob/user)
 	var/old_forced = forced_surgery
 	var/old_anywhere = can_start_anywhere
-	if(target == user && ismachineperson(user) && isexternalorgan(parent))
+	if(target == user && ismachineperson(user) && isexternalorgan(source))
 		forced_surgery = /datum/surgery/attach_robotic_limb/self_attach_ipc
 		can_start_anywhere = TRUE
 	. = ..()
 	forced_surgery = old_forced
 	can_start_anywhere = old_anywhere
 
-/datum/component/surgery_initiator/robo
+/datum/element/surgery_initiator/robo
 	valid_starting_types = SURGERY_INITIATOR_ROBOTIC
 
-/datum/component/surgery_initiator/robo/sharp
+/datum/element/surgery_initiator/robo/sharp
 	valid_starting_types = SURGERY_INITIATOR_ORGANIC | SURGERY_INITIATOR_ROBOTIC

@@ -62,7 +62,7 @@
 	if(pipenet)
 		setPipenet(pipenet)
 		pipenet.addMachineryMember(src)
-	. = ..()
+	return ..()
 
 /obj/machinery/atmospherics/unary/thermomachine/RefreshParts()
 	var/calculated_bin_rating

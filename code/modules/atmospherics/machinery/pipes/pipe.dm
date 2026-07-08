@@ -70,6 +70,11 @@
 
 /obj/machinery/atmospherics/pipe/build_network(remove_deferral = FALSE)
 	if(!parent)
+		var/list/expansion = pipeline_expansion()
+		if(expansion)
+			list_clear_nulls(expansion)
+		if(!length(expansion))
+			return ..()
 		parent = new /datum/pipeline()
 		parent.build_pipeline(src)
 	..()
