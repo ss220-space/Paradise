@@ -60,5 +60,4 @@
 
 
 /obj/effect/proc_holder/spell/aoe/rust_conversion/construct
-	name = "Агрессивное Распространение"
 	base_cooldown = 15 SECONDS
