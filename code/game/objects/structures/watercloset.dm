@@ -124,7 +124,7 @@ MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/structure/toilet, 8, -8, 0, 0)
 		span_userdanger("[grabber] начина[PLUR_ET_YUT(grabber)] окунать вашу голову в унитаз..."),
 	)
 	animate(victim, pixel_x = swirlie_x, pixel_y = swirlie_y_down, time = 1.2 SECONDS)
-	if(!do_after(grabber, 1.2 SECONDS, src, NONE, , max_interact_count = 1) || grabber.pulling != victim)
+	if(!do_after(grabber, 1.2 SECONDS, src, NONE, max_interact_count = 1) || grabber.pulling != victim)
 		cancel_swirlie_act(victim, oldx, oldy, prev_angle)
 		return
 	// begin flushing water with victim
@@ -134,7 +134,7 @@ MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/structure/toilet, 8, -8, 0, 0)
 		span_italics("Вы слышите звук смыва унитаза."),
 	)
 	playsound(loc, 'sound/items/toilet_flush.ogg', 80, TRUE)
-	if(!do_after(grabber, 1 SECONDS, src, NONE, , max_interact_count = 1) || grabber.pulling != victim)
+	if(!do_after(grabber, 1 SECONDS, src, NONE, max_interact_count = 1) || grabber.pulling != victim)
 		cancel_swirlie_act(victim, oldx, oldy, prev_angle)
 		return
 	// success toilet swirlie
