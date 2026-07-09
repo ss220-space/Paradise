@@ -257,7 +257,6 @@ GLOBAL_LIST_INIT(job_titles_ru, list(
 #define ALT_JOB_TITLE_RU_CONSTRUCTION_WORKER "Монтажник"
 #define ALT_JOB_TITLE_RU_POWER_ENGINEER "Оператор реакторного зала"
 #define ALT_JOB_TITLE_RU_ELECTRICIAN "Электрик"
-#define ALT_JOB_TITLE_RU_ENGINEER_TRAINEE "Инженер-стажёр"
 // Atmostech
 #define ALT_JOB_TITLE_RU_LIFE_SUPPORT_SPECIALIST "Специалист СЖО"
 // Trainee engineer
@@ -268,7 +267,6 @@ GLOBAL_LIST_INIT(job_titles_ru, list(
 #define ALT_JOB_TITLE_RU_TRAUMATOLOGIST "Травматолог"
 #define ALT_JOB_TITLE_RU_RESUSCITATOR "Реаниматолог"
 #define ALT_JOB_TITLE_RU_THERAPIST "Терапевт"
-#define ALT_JOB_TITLE_RU_MEDICAL_INTERN "Интерн"
 // Coroner
 #define ALT_JOB_TITLE_RU_THANATOLOGIST "Танатолог"
 // Chemist
@@ -300,7 +298,6 @@ GLOBAL_LIST_INIT(job_titles_ru, list(
 #define ALT_JOB_TITLE_RU_PLASMOLOGIST "Исследователь плазмы"
 #define ALT_JOB_TITLE_RU_XENOBIOLOGIST "Ксенобиолог"
 #define ALT_JOB_TITLE_RU_RESEARCH_ASSOCIATE "Научный сотрудник"
-#define ALT_JOB_TITLE_RU_SCIENCE_STUDENT "Учёный-студент"
 #define ALT_JOB_TITLE_RU_CHEMICAL_RESEARCHER "Химик-исследователь"
 // Roboticist
 #define ALT_JOB_TITLE_RU_BIONICS_SPECIALIST "Специалист по бионике"
@@ -316,7 +313,6 @@ GLOBAL_LIST_INIT(job_titles_ru, list(
 #define ALT_JOB_TITLE_RU_CRIMINOLOGIST "Криминалист"
 // Security officer
 #define ALT_JOB_TITLE_RU_PATROL_OFFICER "Патрульный СБ"
-#define ALT_JOB_TITLE_RU_SECURITY_CADET "Кадет СБ"
 // Brig medic
 #define ALT_JOB_TITLE_RU_SECURITY_MEDIC "Врач СБ"
 #define ALT_JOB_TITLE_RU_TACTICAL_MEDIC "Тактический медик"

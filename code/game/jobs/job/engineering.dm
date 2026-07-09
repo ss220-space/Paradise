@@ -70,7 +70,6 @@
 		ALT_JOB_TITLE_RU_CONSTRUCTION_WORKER,
 		ALT_JOB_TITLE_RU_POWER_ENGINEER,
 		ALT_JOB_TITLE_RU_ELECTRICIAN,
-		ALT_JOB_TITLE_RU_ENGINEER_TRAINEE
 	)
 	outfit = /datum/outfit/job/engineer
 
@@ -157,18 +156,3 @@
 				uniform = /obj/item/clothing/under/rank/engineer/trainee/assistant
 				if(H.gender == FEMALE)
 					uniform = /obj/item/clothing/under/rank/engineer/trainee/assistant/skirt
-
-/datum/outfit/job/engineer/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	. = ..()
-	if(H.mind && H.mind.role_alt_title)
-		switch(H.mind.role_alt_title)
-			if(ALT_JOB_TITLE_RU_ENGINEER_TRAINEE)
-				jobtype = /datum/job/engineering/engineer/trainee
-				uniform = /obj/item/clothing/under/rank/engineer/trainee
-				id = /obj/item/card/id/engineering/trainee
-				gloves = /obj/item/clothing/gloves/color/orange
-				if(H.gender == FEMALE)
-					uniform = /obj/item/clothing/under/rank/engineer/trainee/skirt
-
-
-

@@ -185,7 +185,7 @@
 	minimal_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_WEAPONS)
 	law_level = LAW_LEVEL_SEC
 	alt_titles = list(
-		ALT_JOB_TITLE_RU_PATROL_OFFICER, ALT_JOB_TITLE_RU_SECURITY_CADET
+		ALT_JOB_TITLE_RU_PATROL_OFFICER,
 	)
 	outfit = /datum/outfit/job/officer
 
@@ -295,16 +295,3 @@
 	dufflebag = /obj/item/storage/backpack/duffel/security
 	box = /obj/item/storage/box/survival/survival_security/pilot
 	implant_variant = /obj/item/organ/internal/cyberimp/eyes/hud/security
-
-/datum/outfit/job/officer/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	. = ..()
-	if(H.mind && H.mind.role_alt_title)
-		switch(H.mind.role_alt_title)
-			if(ALT_JOB_TITLE_RU_SECURITY_CADET)
-				uniform = /obj/item/clothing/under/rank/security/cadet
-				head = /obj/item/clothing/head/soft/sec
-				id = /obj/item/card/id/security/cadet
-				l_pocket = /obj/item/reagent_containers/spray/pepper
-				box = /obj/item/storage/box/survival/survival_security/cadet
-				if(H.gender == FEMALE)
-					uniform = /obj/item/clothing/under/rank/security/cadet/skirt

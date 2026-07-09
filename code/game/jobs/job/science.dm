@@ -74,7 +74,6 @@
 		ALT_JOB_TITLE_RU_XENOBIOLOGIST,
 		ALT_JOB_TITLE_RU_RESEARCH_ASSOCIATE,
 		ALT_JOB_TITLE_RU_CHEMICAL_RESEARCHER,
-		ALT_JOB_TITLE_RU_SCIENCE_STUDENT,
 	)
 	outfit = /datum/outfit/job/scientist
 
@@ -128,17 +127,6 @@
 				uniform = /obj/item/clothing/under/rank/scientist/student/assistant
 				if(H.gender == FEMALE)
 					uniform = /obj/item/clothing/under/rank/scientist/student/assistant/skirt
-
-/datum/outfit/job/scientist/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	. = ..()
-	if(H.mind && H.mind.role_alt_title)
-		switch(H.mind.role_alt_title)
-			if(ALT_JOB_TITLE_RU_SCIENCE_STUDENT)
-				jobtype = /datum/job/science/scientist/student
-				uniform = /obj/item/clothing/under/rank/scientist/student
-				id = /obj/item/card/id/research/student
-				if(H.gender == FEMALE)
-					uniform = /obj/item/clothing/under/rank/scientist/student/skirt
 
 /datum/job/science/roboticist
 	title = JOB_TITLE_ROBOTICIST
