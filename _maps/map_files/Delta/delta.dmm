@@ -18494,7 +18494,6 @@
 	},
 /area/station/service/chapel)
 "ecF" = (
-/obj/machinery/firealarm/directional/east,
 /obj/machinery/light{
 	dir = 4
 	},

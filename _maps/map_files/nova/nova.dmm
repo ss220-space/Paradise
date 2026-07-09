@@ -116463,6 +116463,7 @@
 /area/station/engineering/supermatter/room)
 "rRk" = (
 /obj/effect/turf_decal/delivery/red/hollow,
+/obj/machinery/flasher/portable,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
