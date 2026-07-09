@@ -46,7 +46,7 @@
 	SIGNAL_HANDLER
 
 	var/atom/atom = source
-	examine_text += span_notice("[atom.declent_ru(NOMINATIVE)] очень ржав[GEND_YI_AYA_OE_YE(atom)]. Ржавчину, вероятно, можно <i>сжечь</i> или <i>соскрести</i>.")
+	examine_text += span_notice("[DECLENT_RU_CAP(atom, NOMINATIVE)] очень ржав[GEND_YI_AYA_OE_YE(atom)]. Ржавчину, вероятно, можно <i>сжечь</i> или <i>соскрести</i>.")
 
 /datum/element/rust/proc/apply_rust_overlay(atom/parent_atom, list/overlays)
 	SIGNAL_HANDLER
