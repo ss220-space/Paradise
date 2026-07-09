@@ -2271,8 +2271,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 //Called when the AI is connecting to the AIshell. Prepares cyborg for a AI-pilot
 /mob/living/silicon/robot/proc/deploy_init(mob/living/silicon/ai/AI)
-	if(!AI)
-		return
 	real_name = "[AI.real_name] [designation] Shell-[num2text(ident)]"
 	name = real_name
 	update_camera_name()
