@@ -69,10 +69,13 @@
 	. = ..()
 	var/overlay_icon = 'icons/obj/chemical.dmi'
 	if(reagents.total_volume)
-		. += mutable_appearance(overlay_icon, "mender_liquid_overlay", color = get_color_matrix_from_reagents(reagents.reagent_list))
+		var/mutable_appearance/liquid_overlay = mutable_appearance(overlay_icon, "mender_liquid_overlay")
+		liquid_overlay.color = get_color_matrix_from_reagents(reagents.reagent_list)
+		. += liquid_overlay
 
 	if(applying)
-		var/mutable_appearance/applying_overlay = mutable_appearance(overlay_icon, "mender_applying_overlay", color = greyscale_colors)
+		var/mutable_appearance/applying_overlay = mutable_appearance(overlay_icon, "mender_applying_overlay")
+		applying_overlay.color = greyscale_colors
 		flick_overlay_view(applying_overlay, 1 SECONDS)
 
 	var/reag_pct = round((reagents.total_volume / volume) * 100)

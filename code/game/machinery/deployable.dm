@@ -26,7 +26,7 @@
 	var/list/directional_list = list()
 
 /obj/structure/barricade/add_debris_element()
-	AddElement(/datum/element/debris, DEBRIS_WOOD, -40, 5)
+	generate_debris_handler(DEBRIS_WOOD, -40, 5)
 
 /obj/structure/barricade/deconstruct(disassembled = TRUE)
 	if(!(obj_flags & NODECONSTRUCT))

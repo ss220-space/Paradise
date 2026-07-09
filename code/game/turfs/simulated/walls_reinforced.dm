@@ -16,9 +16,7 @@
 	var/d_state = RWALL_INTACT
 	var/can_be_reinforced = TRUE
 
-/turf/simulated/wall/r_wall/ComponentInitialize()
-	if(!is_station_level(z))
-		return
+/turf/simulated/wall/r_wall/add_blob_consume_component()
 	AddComponent(/datum/component/blob_turf_consuming, 3)
 
 /turf/simulated/wall/r_wall/examine(mob/user)

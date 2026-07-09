@@ -2892,6 +2892,14 @@
 	icon_state = "floorgrime"
 	},
 /area/centcom/ninja/holding)
+"bzG" = (
+/obj/effect/mob_spawn/human/monkey/wolpin,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "tatami_nolines";
+	name = "Tatami"
+	},
+/area/centcom/ninja/outpost)
 "bzZ" = (
 /obj/machinery/vending/cigarette,
 /obj/effect/turf_decal/tile/neutral{
@@ -13552,14 +13560,6 @@
 	},
 /turf/simulated/floor/indestructible/grass,
 /area/centcom/ninja/outside)
-"gAV" = (
-/mob/living/carbon/human/lesser/wolpin,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "tatami";
-	name = "Tatami"
-	},
-/area/centcom/ninja/outpost)
 "gBo" = (
 /obj/effect/turf_decal/stripes/gold{
 	dir = 6
@@ -21275,7 +21275,7 @@
 	},
 /area/centcom/syndicate_base/control)
 "kgJ" = (
-/obj/effect/mob_spawn/human/farwa,
+/obj/effect/mob_spawn/human/monkey/farwa/wizard,
 /turf/simulated/floor/carpet/black,
 /area/centcom/wizard_station)
 "kgM" = (
@@ -90634,8 +90634,8 @@ fzw
 fnh
 fzw
 fnh
-gAV
-fnh
+fzw
+bzG
 fzw
 fnh
 fzw

@@ -1,0 +1,4 @@
+author: "FlitchTime"
+delete-after: True
+changes:
+  - map: "Замена карбонов на спавнеры этих же карбонов. (PR #9469)"

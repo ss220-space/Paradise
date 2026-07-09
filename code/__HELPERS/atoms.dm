@@ -178,6 +178,14 @@
 /atom/proc/add_debris_element()
 	return
 
+GLOBAL_ALIST_EMPTY(debris_handlers)
+
+/atom/proc/generate_debris_handler(debris_icon_state, debris_velocity = -40, debris_amount = 8, debris_scale = 1)
+	var/key = "[debris_icon_state] [debris_velocity] [debris_amount] [debris_scale]"
+	if(!GLOB.debris_handlers[key])
+		GLOB.debris_handlers[key] = new /datum/debris_handler(debris_icon_state, debris_velocity, debris_amount, debris_scale)
+	debris_handler = GLOB.debris_handlers[key]
+
 /**
  * Among other things, used by flamethrower and boiler spray to calculate if flame/spray can pass through.
  * Returns an atom for specific effects (primarily flames and acid spray) that damage things upon contact.

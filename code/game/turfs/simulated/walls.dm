@@ -1,9 +1,11 @@
 /turf/simulated/wall
 	name = "wall"
-	desc = "A huge chunk of metal used to seperate rooms."
+	gender = FEMALE
+	desc = "Массивный блок металла, используемый для разделения отсеков."
 	icon = 'icons/turf/walls/wall.dmi'
 	icon_state = "wall-0"
 	base_icon_state = "wall"
+	layer = CLOSED_TURF_LAYER
 	plane = WALL_PLANE
 	var/rotting = 0
 
@@ -52,7 +54,7 @@
 /turf/simulated/wall/BeforeChange()
 	for(var/obj/effect/overlay/wall_rot/WR in src)
 		qdel(WR)
-	. = ..()
+	return ..()
 
 /turf/simulated/wall/Initialize(mapload)
 	. = ..()
@@ -67,11 +69,9 @@
 		underlays += underlay_appearance
 
 /turf/simulated/wall/add_debris_element()
-	AddElement(/datum/element/debris, DEBRIS_SPARKS, -40, 8, 1)
+	generate_debris_handler(DEBRIS_SPARKS, -40, 8, 1)
 
-/turf/simulated/wall/ComponentInitialize()
-	if(!is_station_level(z))
-		return
+/turf/simulated/wall/add_blob_consume_component()
 	AddComponent(/datum/component/blob_turf_consuming, 2)
 
 /turf/simulated/wall/mouse_drop_receive(atom/dropping, mob/user, params)

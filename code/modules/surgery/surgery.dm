@@ -116,7 +116,7 @@
 			return TRUE
 		// If it's a surgery initiator, make sure it calls its attack chain down the line.
 		// Make sure this comes after the operation though, especially for things like scalpels
-		if(tool && tool.GetComponent(/datum/component/surgery_initiator))
+		if(tool && HAS_TRAIT(tool, TRAIT_SURGERY_INITIATOR))
 			return FALSE
 		if(tool && HAS_TRAIT(tool, TRAIT_SURGICAL))
 			user.balloon_alert(user, "неподходящий инструмент!")

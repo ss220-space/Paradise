@@ -54,7 +54,7 @@
 	return ..()
 
 /turf/simulated/add_debris_element()
-	AddElement(/datum/element/debris, null, -40, 8, 0.7)
+	generate_debris_handler(null, -40, 8, 0.7)
 
 /turf/simulated/proc/break_tile()
 	return
@@ -117,8 +117,8 @@
 		new_wet_floor_component.InheritComponent(slip)
 
 /turf/simulated/ChangeTurf(path, defer_change = FALSE, keep_icon = TRUE, after_flags = NONE, copy_existing_baseturf = TRUE)
-	. = ..()
 	QUEUE_SMOOTH_NEIGHBORS(src)
+	return ..()
 
 /turf/simulated/AfterChange(flags, oldType)
 	..()

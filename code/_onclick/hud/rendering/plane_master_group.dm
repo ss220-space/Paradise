@@ -36,12 +36,13 @@
 	if(our_hud)
 		our_hud.master_groups -= key
 		hide_hud()
+	var/datum/hud/old_hud = our_hud
 	our_hud = new_hud
 	if(new_hud)
 		our_hud.master_groups[key] = src
 		show_hud()
 		build_planes_offset(our_hud, active_offset)
-	SEND_SIGNAL(src, COMSIG_GROUP_HUD_CHANGED, our_hud)
+	SEND_SIGNAL(src, COMSIG_GROUP_HUD_CHANGED, old_hud, our_hud)
 
 /// Display a plane master group to some viewer, so show all our planes to it
 /datum/plane_master_group/proc/attach_to(datum/hud/viewing_hud)
@@ -73,18 +74,22 @@
 	build_plane_masters(0, SSmapping.max_plane_offset)
 
 /datum/plane_master_group/proc/hide_hud()
-	for(var/thing in plane_masters)
-		var/atom/movable/screen/plane_master/plane = plane_masters[thing]
+	for(var/thing, value in plane_masters)
+		var/atom/movable/screen/plane_master/plane = value
 		plane.hide_from(our_hud.mymob)
 
 /datum/plane_master_group/proc/show_hud()
-	for(var/thing in plane_masters)
-		var/atom/movable/screen/plane_master/plane = plane_masters[thing]
+	for(var/thing, value in plane_masters)
+		var/atom/movable/screen/plane_master/plane = value
 		show_plane(plane)
 
 /// This is mostly a proc so it can be overriden by popups, since they have unique behavior they want to do
 /datum/plane_master_group/proc/show_plane(atom/movable/screen/plane_master/plane)
 	plane.show_to(our_hud.mymob)
+
+/// Nice wrapper for the "[]"ing
+/datum/plane_master_group/proc/get_plane(plane)
+	return plane_masters["[plane]"]
 
 /// Returns a list of all the plane master types we want to create
 /datum/plane_master_group/proc/get_plane_types()
@@ -116,7 +121,9 @@
 	// No offset? piss off
 	if(!SSmapping.max_plane_offset)
 		return
+
 	active_offset = new_offset
+
 	// Each time we go "down" a visual z level, we'll reduce the scale by this amount
 	// Chosen because mothblocks liked it, didn't cause motion sickness while also giving a sense of height
 	var/scale_by = 0.965
@@ -130,6 +137,7 @@
 
 	var/list/offsets = list()
 	var/multiz_boundary = do_offset ? our_mob?.canon_client?.prefs?.multiz_detail : MULTIZ_DETAIL_LOW //low means no offset
+
 	// We accept negatives so going down "zooms" away the drop above as it goes
 	for(var/offset in -SSmapping.max_plane_offset to SSmapping.max_plane_offset)
 		// Multiz boundaries disable transforms
@@ -141,6 +149,7 @@
 		if(offset == 0)
 			offsets += null
 			continue
+
 		var/scale = scale_by ** (offset)
 		var/matrix/multiz_shrink = matrix()
 		multiz_shrink.Scale(scale)
@@ -157,6 +166,7 @@
 				// Required for making things like the blind fullscreen not render over runechat
 				plane.offset_relays_in_place(new_offset)
 			continue
+
 		var/visual_offset = plane.offset - new_offset
 
 		// Basically uh, if we're showing something down X amount of levels, or up any amount of levels
@@ -172,6 +182,7 @@
 			// We don't animate here because it should be invisble, but we do mark because it'll look nice
 			plane.transform = offsets[visual_offset + offset_offset]
 			continue
+
 		animate(plane, transform = offsets[visual_offset + offset_offset], 0.05 SECONDS, easing = LINEAR_EASING)
 
 /// Holds plane masters for popups, like camera windows
