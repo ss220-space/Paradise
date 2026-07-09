@@ -18494,9 +18494,6 @@
 	},
 /area/station/service/chapel)
 "ecF" = (
-/obj/machinery/light{
-	dir = 4
-	},
 /obj/effect/spawner/random_spawners/security_ballistics,
 /turf/simulated/floor/plasteel{
 	dir = 4;
