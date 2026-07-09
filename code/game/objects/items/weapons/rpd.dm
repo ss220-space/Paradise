@@ -127,14 +127,17 @@
 	var/rotate_dir = iconrotation ? iconrotation : user.dir
 	var/obj/structure/disposalconstruct/construct = new(src, whatdpipe, rotate_dir)
 	if(construct.density)
-		var/obj/structure/disposalconstruct/disposal_pipe_in_turf = locate(/obj/structure/disposalconstruct) in T
-		if(disposal_pipe_in_turf && disposal_pipe_in_turf.pipe_type == construct.pipe_type)
+		if(check_dpipe_duplicate(T, construct))
 			user.balloon_alert(user, "не хватает места!")
+			qdel(construct)
 			return
 		do_sparks(3, TRUE, T)
 		if(!do_after(user, RPD_DISPOSAL_PIPE_CONSTRUCT_DELAY, T, category = DA_CAT_TOOL))
-			user.balloon_alert(user, "требуется время на постройку!")
+			user?.balloon_alert(user, "требуется время на постройку!")
+			qdel(construct)
 			return
+	if(QDELETED(src) || QDELETED(construct))
+		return
 	construct.forceMove(T)
 	to_chat(user, span_notice("[src] rapidly dispenses the [construct.pipename]!"))
 	var/obj/item/inactive_hand_item = user.get_inactive_hand()
@@ -143,7 +146,6 @@
 	else if(iswrench(inactive_hand_item) && (construct.IsReachableBy(user, inactive_hand_item.reach)))
 		construct.wrench_act(user, inactive_hand_item)
 	activate_rpd(TRUE)
-
 
 /obj/item/rpd/proc/rotate_all_pipes(mob/user, turf/T) //Rotate all pipes on a turf
 	for(var/obj/item/pipe/P in T)
@@ -348,6 +350,12 @@
 
 /obj/item/rpd/proc/draw_beam(atom/target, mob/user)
 	user.Beam(target, icon = 'icons/effects/effects.dmi', icon_state = "rped_upgrade", time = 0.5 SECONDS)
+
+/obj/item/rpd/proc/check_dpipe_duplicate(turf/turf_to_check, obj/structure/disposalconstruct/dpipe_to_compare)
+	for(var/obj/structure/disposalconstruct/disposal_pipe_in_turf in turf_to_check)
+		if(disposal_pipe_in_turf.pipe_type == dpipe_to_compare.pipe_type)
+			return TRUE
+	return FALSE
 
 #undef RPD_COOLDOWN_TIME
 #undef RPD_DISPOSAL_PIPE_CONSTRUCT_DELAY
