@@ -21,10 +21,9 @@
 	var/heal_bullet = /obj/item/ammo_casing/energy/rat/slug/heal
 	var/stun_bullet = /obj/item/ammo_casing/energy/rat/slug/stun
 	isclockwork = TRUE
-	blocks_emissive = FALSE
 
 /obj/item/gun/energy/clockwork/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "латунный дробовик",
 		GENITIVE = "латунного дробовика",
 		DATIVE = "латунному дробовику",
@@ -131,7 +130,7 @@
 	stun_bullet =/obj/item/ammo_casing/energy/rat/snipe/stun
 
 /obj/item/gun/energy/clockwork/sniper/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "латунная снайперская винтовка",
 		GENITIVE = "латунной снайперской винтовки",
 		DATIVE = "латунной снайперской винтовке",
@@ -151,7 +150,6 @@
 	isclockwork = TRUE
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/light/rat)
 	recoil = new /datum/gun_recoil/high()
-	blocks_emissive = FALSE
 	fire_delay = 0.1 SECONDS
 	COOLDOWN_DECLARE(overheated)
 	COOLDOWN_DECLARE(balloon)
@@ -168,7 +166,7 @@
 	var/heal_bullet = /obj/item/ammo_casing/energy/rat_sphere/heal
 
 /obj/item/gun/energy/gun/minigun/clockwork/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "латунный миниган",
 		GENITIVE = "латунного минигана",
 		DATIVE = "латунному минигану",

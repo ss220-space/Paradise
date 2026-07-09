@@ -51,13 +51,16 @@ GLOBAL_VAR_INIT(pipenetwarnings, 10)
 	if(!air)
 		air = new
 	var/list/possible_expansions = list(base)
-	while(length(possible_expansions)>0)
-		for(var/obj/machinery/atmospherics/borderline in possible_expansions)
+	list_clear_nulls(possible_expansions)
+	while(length(possible_expansions) > 0)
+		for(var/obj/machinery/atmospherics/borderline as anything in possible_expansions)
 
 			var/list/result = borderline.pipeline_expansion(src)
+			if(result)
+				list_clear_nulls(result)
 
 			if(length(result) > 0)
-				for(var/obj/machinery/atmospherics/P in result)
+				for(var/obj/machinery/atmospherics/P as anything in result)
 					if(istype(P, /obj/machinery/atmospherics/pipe))
 						var/obj/machinery/atmospherics/pipe/item = P
 						if(!members.Find(item))

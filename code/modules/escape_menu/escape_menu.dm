@@ -19,6 +19,9 @@ GLOBAL_LIST_EMPTY(escape_menus)
 #define PAGE_LEAVE_BODY "PAGE_LEAVE_BODY"
 #define PAGE_QUIT_GAME "PAGE_QUIT_GAME"
 
+// The escape menu can be opened before SSatoms
+INITIALIZE_IMMEDIATE(/atom/movable/screen/escape_menu)
+
 /datum/escape_menu
 	/// The client that owns this escape menu
 	var/client/client
@@ -54,7 +57,7 @@ GLOBAL_LIST_EMPTY(escape_menus)
 	page_holder = new(client)
 	show_page()
 
-	if(isnewplayer(client.mob))
+	if(isnewplayer(client?.mob))
 		SStitle.hide_title_screen_from(client)
 
 	RegisterSignal(client, COMSIG_QDELETING, PROC_REF(on_client_qdel))
@@ -69,13 +72,14 @@ GLOBAL_LIST_EMPTY(escape_menus)
 		GLOB.escape_menus[ckey] = src
 
 /datum/escape_menu/Destroy(force)
+	// Deleted in page holder
+	resource_panels = null
 	QDEL_NULL(base_holder)
 	QDEL_NULL(page_holder)
-	resource_panels = null // list contents were already qdeled in QDEL_NULL(page_holder), so we can safely null this
 
 	UnregisterSignal(client, COMSIG_TILE_MENU_OPEN)
 
-	if(isnewplayer(client.mob))
+	if(isnewplayer(client?.mob))
 		SStitle.show_title_screen_to(client)
 
 	var/datum/our_hud = our_hud_ref?.resolve()
@@ -165,9 +169,6 @@ GLOBAL_LIST_EMPTY(escape_menus)
 /atom/movable/screen/escape_menu
 	plane = ESCAPE_MENU_PLANE
 	clear_with_screen = FALSE
-
-// The escape menu can be opened before SSatoms
-INITIALIZE_IMMEDIATE(/atom/movable/screen/escape_menu)
 
 #undef PAGE_HOME
 #undef PAGE_LEAVE_BODY

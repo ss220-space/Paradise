@@ -44,6 +44,7 @@
 	return
 
 /turf/simulated/floor/indestructible/rcd_deconstruct_act(mob/user, obj/item/rcd/our_rcd)
+	balloon_alert(user, "нельзя деконструировать!")
 	return
 
 /turf/simulated/floor/indestructible/plating
@@ -143,7 +144,6 @@
 /turf/simulated/floor/indestructible/abductor
 	name = "alien floor"
 	icon_state = "alienpod1"
-	always_lit = TRUE
 
 /turf/simulated/floor/indestructible/abductor/Initialize(mapload)
 	. = ..()
@@ -310,7 +310,6 @@
 	icon = null
 	icon_state = null
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	always_lit = TRUE
 
 /turf/simulated/floor/indestructible/view_portal/dense
 	density = TRUE
@@ -327,7 +326,7 @@
 	heavyfootstep = FOOTSTEP_MEAT
 
 /turf/simulated/floor/indestructible/bingle/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "яма Бинглов",
 		GENITIVE = "ямы Бинглов",
 		DATIVE = "яме Бинглов",

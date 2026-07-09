@@ -368,6 +368,7 @@
 	else
 		if(!unflip())
 			to_chat(user, span_notice("Никак не поддаётся."))
+			return
 		make_climbable()
 
 /obj/structure/table/proc/flip(direction, throw_around = TRUE)
@@ -566,7 +567,7 @@
 	resistance_flags = FLAMMABLE
 
 /obj/structure/table/wood/add_debris_element()
-	AddElement(/datum/element/debris, DEBRIS_WOOD, -40, 5)
+	generate_debris_handler(DEBRIS_WOOD, -40, 5)
 
 /obj/structure/table/wood/narsie_act(total_override = TRUE)
 	if(!total_override)

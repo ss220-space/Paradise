@@ -11,7 +11,7 @@
 	var/obj/item/organ/internal/cyberimp/storedorgan
 
 /obj/item/autoimplanter/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "автоимплантер",
 		GENITIVE = "автоимплантера",
 		DATIVE = "автоимплантеру",
@@ -89,7 +89,7 @@
 	to_chat(user, span_notice("Вы извлекли [storedorgan.name] из устройства."))
 
 /obj/item/autoimplanter/oneuse
-	desc = "A device that automatically injects a cyber-implant into the user without the hassle of extensive surgery. At once."
+	desc = "Одноразовое устройство, которое автоматически вводит киберимплант пользователю без необходимости сложной хирургической операции."
 
 /obj/item/autoimplanter/oneuse/autoimplant(mob/living/carbon/human/user)
 	. = ..()
@@ -140,7 +140,7 @@
 	icon_state = "autoimplanter"
 
 /obj/item/autoimplanter/oneuse/sec_hud/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "автоимплантер с охранным ИЛС",
 		GENITIVE = "автоимплантера с охранным ИЛС",
 		DATIVE = "автоимплантеру с охранным ИЛС",
@@ -156,7 +156,7 @@
 	icon_state = "autoimplanter"
 
 /obj/item/autoimplanter/oneuse/med_hud/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "автоимплантер с медицинским ИЛС",
 		GENITIVE = "автоимплантера с медицинским ИЛС",
 		DATIVE = "автоимплантеру с медицинским ИЛС",
@@ -172,7 +172,7 @@
 	icon_state = "autoimplanter"
 
 /obj/item/autoimplanter/oneuse/diagnostic_hud/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "автоимплантер с диагностическим ИЛС",
 		GENITIVE = "автоимплантера с диагностическим ИЛС",
 		DATIVE = "автоимплантеру с диагностическим ИЛС",
@@ -188,7 +188,7 @@
 	icon_state = "autoimplanter"
 
 /obj/item/autoimplanter/oneuse/meson_eyes/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "автоимплантер с мезонным ИЛС",
 		GENITIVE = "автоимплантера с мезонным ИЛС",
 		DATIVE = "автоимплантеру с мезонным ИЛС",
@@ -196,27 +196,3 @@
 		INSTRUMENTAL = "автоимплантером с мезонным ИЛС",
 		PREPOSITIONAL = "автоимплантере с мезонным ИЛС",
 	)
-
-/obj/item/autoimplanter/traitor
-	desc = "A device that automatically injects a cyber-implant into the user without the hassle of extensive surgery. This model is capable of implanting up to three implants before destroing."
-	var/uses = 3
-
-/obj/item/autoimplanter/traitor/autoimplant(mob/living/carbon/human/user)
-	. = ..()
-	if(!.)
-		return .
-
-	uses--
-	if(uses > 0)
-		return .
-
-	visible_message(span_warning("Автоимплантер зловеще пищит и через мгновение вспыхивает, оставляя только пепел."))
-	new /obj/effect/decal/cleanable/ash(get_turf(src))
-	user.temporarily_remove_item_from_inventory(src, force = TRUE)
-	qdel(src)
-
-/obj/item/autoimplanter/traitor/examine(mob/user)
-	. = ..()
-
-	if(uses)
-		. += span_notice("Осталось использований: [uses].")

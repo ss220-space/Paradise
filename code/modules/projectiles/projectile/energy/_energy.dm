@@ -1,4 +1,5 @@
 /obj/projectile/energy
+	abstract_type = /obj/projectile/energy
 	name = "energy"
 	icon_state = "spark"
 	damage = 0

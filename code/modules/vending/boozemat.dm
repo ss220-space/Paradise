@@ -94,7 +94,7 @@
 	)
 
 /obj/machinery/vending/boozeomat/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "торговый автомат Booze-O-Mat",
 		GENITIVE = "торгового автомата Booze-O-Mat",
 		DATIVE = "торговому автомату Booze-O-Mat",

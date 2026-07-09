@@ -215,6 +215,8 @@
 	master_commander = null
 	GLOB.simple_animals[AIStatus] -= src
 	SSnpcpool.currentrun -= src
+	SSidlenpcpool.currentrun -= src
+	walk(src, NONE)
 
 	if(nest)
 		nest.spawned_mobs -= src
@@ -652,6 +654,7 @@
 	overlay_fullscreen("see_through_darkness", /atom/movable/screen/fullscreen/see_through_darkness)
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	sync_lighting_plane_alpha()
+	return ..()
 
 /mob/living/simple_animal/proc/toggle_ai(togglestatus)
 	if(AIStatus == togglestatus)
@@ -730,9 +733,6 @@
 
 	update_fire()
 
-	if(blocks_emissive)
-		add_overlay(get_emissive_block())
-
 /mob/living/simple_animal/Login()
 	..()
 	GLOB.move_manager.stop_looping(src) // if mob is moving under ai control, then stop AI movement
@@ -742,7 +742,7 @@
 	. = ..()
 	toggle_ai(AI_ON)
 
-/mob/living/simple_animal/say(message, verb = "говор%(ит,ят)%", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE)
+/mob/living/simple_animal/say(message, verb = "говор[PLUR_IT_YAT(src)]", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE, ignore_emotes = FALSE)
 	. = ..()
 	if(. && length(talk_sound))
 		playsound(src, pick(talk_sound), 75, TRUE)

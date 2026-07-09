@@ -339,6 +339,7 @@
 
 /obj/machinery/door/airlock/vault/rcd_deconstruct_act(mob/user, obj/item/rcd/our_rcd)
 	if(!our_rcd.canRwall)
+		balloon_alert(user, "нельзя деконструировать!")
 		return RCD_NO_ACT
 	. = ..()
 
@@ -427,6 +428,10 @@
 	assemblytype = /obj/structure/door_assembly/door_assembly_mhatch
 	paintable = FALSE
 
+/obj/machinery/door/airlock/hatch/secure
+	aiControlDisabled = TRUE
+	hackProof = TRUE
+
 //////////////////////////////////
 /*
 	High Security Airlocks
@@ -445,6 +450,7 @@
 
 /obj/machinery/door/airlock/highsecurity/rcd_deconstruct_act(mob/user, obj/item/rcd/our_rcd)
 	if(!our_rcd.canRwall)
+		balloon_alert(user, "нельзя деконструировать!")
 		return RCD_NO_ACT
 	. = ..()
 

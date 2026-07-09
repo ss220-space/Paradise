@@ -116,7 +116,7 @@
 		return
 
 	if(ismecha(loc))
-		if(!locate(/turf) in list(A,A.loc)) // Prevents inventory from being drilled
+		if(!isturf(A) && !isturf(A.loc)) // Prevents inventory from being drilled
 			return
 		var/obj/mecha/M = loc
 		return M.click_action(A, src, modifiers)
@@ -140,12 +140,10 @@
 	if(W == A)
 		if(LAZYACCESS(modifiers, RIGHT_CLICK))
 			W.attack_self_secondary(src, modifiers)
-			update_held_items()
-			return
 		else
 			W.attack_self(src, modifiers)
-			update_held_items()
-			return
+		update_held_items()
+		return
 
 	// operate three levels deep here (item in backpack in src; item in box in backpack in src, not any deeper)
 	if(A in DirectAccess())
@@ -186,22 +184,25 @@
 /mob/proc/beforeRangedClick(atom/A, list/modifiers)
 	return
 
-//Is the atom obscured by a PREVENT_CLICK_UNDER object above it
+/// Is the atom obscured by a PREVENT_CLICK_UNDER object above it
 /atom/proc/IsObscured()
-	if(!isturf(loc)) //This only makes sense for things directly on turfs for now
+	SHOULD_BE_PURE(TRUE)
+	if(!isturf(loc))
 		return FALSE
-	var/turf/T = get_turf_pixel(src)
-	if(!T)
+	var/turf/target_turf = get_turf_pixel(src)
+	if(!target_turf)
 		return FALSE
-	for(var/atom/movable/AM in T)
-		if(AM.flags & PREVENT_CLICK_UNDER && AM.density && AM.layer > layer)
-			return TRUE
+	for(var/atom/movable/blocking_atom in target_turf)
+		if(!(blocking_atom.flags & PREVENT_CLICK_UNDER) || !blocking_atom.density || blocking_atom.layer <= layer)
+			continue
+		return TRUE
 	return FALSE
 
 /turf/IsObscured()
-	for(var/atom/movable/AM in src)
-		if(AM.flags & PREVENT_CLICK_UNDER && AM.density)
-			return TRUE
+	for(var/atom/movable/blocking_atom in src)
+		if(!(blocking_atom.flags & PREVENT_CLICK_UNDER) || !blocking_atom.density)
+			continue
+		return TRUE
 	return FALSE
 
 /**

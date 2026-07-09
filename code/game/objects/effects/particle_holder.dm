@@ -13,7 +13,7 @@
 	/// See \code\__DEFINES\particles_defines.dm
 	var/particle_flags = NONE
 
-	var/atom/parent
+	var/atom/movable/parent
 
 /obj/effect/abstract/particle_holder/Initialize(mapload, particle_path = /particles/droplets, particle_flags = NONE)
 	. = ..()
@@ -43,12 +43,14 @@
 
 /obj/effect/abstract/particle_holder/Destroy(force)
 	QDEL_NULL(particles)
+	parent?.vis_contents -= src
 	parent = null
 	return ..()
 
 /// Non movables don't delete contents on destroy, so we gotta do this.
-/obj/effect/abstract/particle_holder/proc/parent_deleted(datum/source)
+/obj/effect/abstract/particle_holder/proc/parent_deleted(atom/movable/attached)
 	SIGNAL_HANDLER
+	attached.vis_contents -= src
 	qdel(src)
 
 /// Signal called when a parent that's been hooked into this moves does a variety of checks to ensure overrides work out properly.

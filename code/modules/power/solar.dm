@@ -17,7 +17,7 @@
 	var/obj/machinery/power/solar_control/control = null
 
 /obj/machinery/power/solar/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "солнечная панель",
 		GENITIVE = "солнечной панели",
 		DATIVE = "солнечной панели",
@@ -204,7 +204,7 @@
 	var/glass_type = null
 
 /obj/item/solar_assembly/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "заготовка солнечной панели",
 		GENITIVE = "заготовки солнечной панели",
 		DATIVE = "заготовке солнечной панели",

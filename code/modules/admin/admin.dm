@@ -142,7 +142,8 @@ ADMIN_VERB(show_old_player_panel, R_ADMIN|R_MOD, "Show Old Player Panel", ADMIN_
 			<a href='byond://?_src_=holder;mute=[M.UID()];mute_type=[MUTE_ADMINHELP]'><span style='color: [check_mute(M.client.ckey, MUTE_ADMINHELP) ? "#ffaa00" : "#aabbff"];'>ADMINHELP</span></a> |
 			<a href='byond://?_src_=holder;mute=[M.UID()];mute_type=[MUTE_DEADCHAT]'><span style='color: [check_mute(M.client.ckey, MUTE_DEADCHAT) ?"#ffaa00" : "#aabbff"];'>DEADCHAT</span></a> |
 			<a href='byond://?_src_=holder;mute=[M.UID()];mute_type=[MUTE_TTS]'><span style='color: [check_mute(M.client.ckey, MUTE_TTS)?"#ffaa00":"#aabbff"];'>TTS</span></a> |
-			<a href='byond://?_src_=holder;mute=[M.UID()];mute_type=[MUTE_EMOTE]'><span style='color: [check_mute(M.client.ckey, MUTE_EMOTE) ? "#ffaa00" : "#aabbff"];'>EMOTE</span></a>\]
+			<a href='byond://?_src_=holder;mute=[M.UID()];mute_type=[MUTE_EMOTE]'><span style='color: [check_mute(M.client.ckey, MUTE_EMOTE) ? "#ffaa00" : "#aabbff"];'>EMOTE</span></a> |
+			<a href='byond://?_src_=holder;mute=[M.UID()];mute_type=[MUTE_INTERNET_REQUEST]'><span style='color: [check_mute(M.client.ckey, MUTE_INTERNET_REQUEST) ? "#ffaa00" : "#aabbff"];'>WEBREQ</span></a>\]
 			(<a href='byond://?_src_=holder;mute=[M.UID()];mute_type=[MUTE_ALL]'><span style='color: [check_mute(M.client.ckey, MUTE_ALL) ? "#ffaa00" : "#aabbff"];'>toggle all</span></a>)
 		"}
 		body += {"<br><b>Mob Manipulation:</b>
@@ -407,7 +408,7 @@ ADMIN_VERB(end_round, R_SERVER, "End Round", "Instantly ends the round and bring
 	SSticker.mode_result = "admin ended"
 
 ADMIN_VERB(announce, R_ADMIN, "Announce", "Announce your desires to the world.", ADMIN_CATEGORY_EVENTS)
-	var/message = tgui_input_text(user, "Global message to send:", "Admin Announce", null, multiline = TRUE, encode = FALSE)
+	var/message = tgui_input_text(user, "Глобальное сообщение для отправки:", "Объявление администрации", null, multiline = TRUE, encode = FALSE)
 	if(!message)
 		return
 
@@ -416,7 +417,7 @@ ADMIN_VERB(announce, R_ADMIN, "Announce", "Announce your desires to the world.",
 
 	message = handleDiscordEmojis(message)
 	message = replacetext(message, "\n", "<br>") // required since we're putting it in a <p> tag
-	to_chat(world, chat_box_notice(span_notice("<b>[user.holder.fakekey ? "Administrator" : user.key] Announces:</b><br><p>[message]</p>")))
+	to_chat(world, fieldset_block(span_notice("<b>[user.holder.fakekey ? "Администрация" : user.key] объявляет:</b>"), span_notice("<p>[message]</p>"), "boxed_message blue_box"))
 	log_admin("Announce: [key_name(user)] : [message]")
 	for(var/client/clients_to_alert in GLOB.clients)
 		window_flash(clients_to_alert)
@@ -701,7 +702,7 @@ ADMIN_VERB(toggle_guests, R_SERVER, "Toggle Guests", "Toggle the ability for gue
 	if(!ai_number)
 		messages += "<b>No AI's located.</b>" //Just so you know the thing is actually working and not just ignoring you.
 
-	to_chat(usr, chat_box_examine(messages.Join("\n")), confidential = TRUE)
+	to_chat(usr, boxed_message(messages.Join("\n")), confidential = TRUE)
 
 	log_and_message_admins("checked the AI laws")
 

@@ -44,11 +44,13 @@
 
 /obj/effect/proc_holder/spell/aoe/conjure/cast(list/targets,mob/living/user = usr)
 	var/list/what_conjure_summoned = list()
-	playsound(get_turf(user), cast_sound, 50, TRUE)
+	if(cast_sound)
+		playsound(get_turf(user), cast_sound, 50, TRUE)
 	for(var/turf/T in targets)
 		if(T.density && !summon_ignore_density)
 			targets -= T
-	playsound(get_turf(src), cast_sound, 50, TRUE)
+	if(cast_sound)
+		playsound(get_turf(src), cast_sound, 50, TRUE)
 
 	var/timed_action_flags = can_use_stunned ? DEFAULT_DOAFTER_IGNORE|DA_IGNORE_INCAPACITATED : DEFAULT_DOAFTER_IGNORE
 	if(do_after(user, delay, user, timed_action_flags))

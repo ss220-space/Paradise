@@ -32,7 +32,7 @@
 	var/books_to_load = 0
 
 /obj/structure/bookcase/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "книжный шкаф",
 		GENITIVE = "книжного шкафа",
 		DATIVE = "книжному шкафу",
@@ -56,7 +56,7 @@
 	. = ..()
 
 /obj/structure/bookcase/add_debris_element()
-	AddElement(/datum/element/debris, DEBRIS_WOOD, -40, 5)
+	generate_debris_handler(DEBRIS_WOOD, -40, 5)
 
 /// Populates typecache with the things allowed to store
 /obj/structure/bookcase/proc/generate_allowed_books()
@@ -253,7 +253,7 @@
 	var/has_drm = FALSE
 
 /obj/item/book/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "книга",
 		GENITIVE = "книги",
 		DATIVE = "книге",
@@ -436,7 +436,7 @@
 	var/mode = 0					// 0 - Scan only, 1 - Scan and Set Buffer, 2 - Scan and Attempt to Check In, 3 - Scan and Attempt to Add to Inventory
 
 /obj/item/barcodescanner/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сканнер штрих-кодов",
 		GENITIVE = "сканнера штрих-кодов",
 		DATIVE = "сканнеру штрих-кодов",

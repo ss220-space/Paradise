@@ -72,21 +72,22 @@
 /obj/structure/blob/obj_destruction(damage_flag)
 	if(overmind)
 		overmind.blobstrain.death_reaction(src, damage_flag)
-	. = ..()
+	return ..()
 
 /obj/structure/blob/Adjacent(atom/neighbour)
 	. = ..()
-	if(.)
-		var/result = 0
-		var/direction = get_dir(src, neighbour)
-		var/list/dirs = list("[NORTHWEST]" = list(NORTH, WEST), "[NORTHEAST]" = list(NORTH, EAST), "[SOUTHEAST]" = list(SOUTH, EAST), "[SOUTHWEST]" = list(SOUTH, WEST))
-		for(var/A in dirs)
-			if(direction == text2num(A))
-				for(var/B in dirs[A])
-					var/C = locate(/obj/structure/blob) in get_step(src, B)
-					if(C)
-						result++
-		. -= result - 1
+	if(!.)
+		return
+	var/result = 0
+	var/direction = get_dir(src, neighbour)
+	var/list/dirs = alist(NORTHWEST = list(NORTH, WEST), NORTHEAST = list(NORTH, EAST), SOUTHEAST = list(SOUTH, EAST), SOUTHWEST = list(SOUTH, WEST))
+	for(var/possible_dir, dir_list in dirs)
+		if(direction != possible_dir)
+			return
+		for(var/blob_tile in dir_list)
+			if(locate(/obj/structure/blob) in get_step(src, blob_tile))
+				result++
+	. -= result - 1
 
 /obj/structure/blob/CanAtmosPass(direction)
 	return !atmosblock
@@ -167,6 +168,9 @@
 	if(!is_location_within_transition_boundaries(T))
 		return
 	var/make_blob = TRUE //can we make a blob?
+
+	if(!T.GetComponent(/datum/component/blob_turf_consuming))
+		T.add_blob_consume_component()
 
 	if(isspaceturf(T) && !(locate(/obj/structure/lattice) in T))
 		if(SEND_SIGNAL(T, COMSIG_TRY_CONSUME_TURF) & COMPONENT_CANT_CONSUME)
@@ -269,7 +273,7 @@
 	if(ROLE_BLOB in M.faction) //sorry, but you can't kill the blob as a blobbernaut
 		to_chat(M, span_danger("Вы не можете навредить структурам блоба"))
 		return
-	..()
+	return ..()
 
 /obj/structure/blob/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = NONE)
 	switch(damage_type)

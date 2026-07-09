@@ -38,7 +38,7 @@
 	base_pixel_y = pixel_y
 
 /obj/item/gem/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "самоцвет",
 		GENITIVE = "самоцвета",
 		DATIVE = "самоцвету",
@@ -108,7 +108,7 @@
 	COOLDOWN_DECLARE(radiation_cooldown)
 
 /obj/item/gem/rupee/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кристалл рупериума",
 		GENITIVE = "кристалла рупериума",
 		DATIVE = "кристаллу рупериума",
@@ -174,11 +174,11 @@
 	light_range = 4
 	light_power = 2
 	light_color = "#ff7b00"
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	var/hot = TRUE
 
 /obj/item/gem/magma/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "окаменелый аурит",
 		GENITIVE = "окаменелого аурита",
 		DATIVE = "окаменелому ауриту",
@@ -222,12 +222,12 @@
 	light_range = 4
 	light_power = 2
 	light_color = "#62cad5"
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	var/cold = TRUE
 	sell_multiplier = 2
 
 /obj/item/gem/fdiamond/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "морозный бриллиант",
 		GENITIVE = "морозного бриллианта",
 		DATIVE = "морозному бриллианту",
@@ -273,10 +273,10 @@
 	light_range = 4
 	light_power = 4
 	light_color = "#62326a"
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 
 /obj/item/gem/phoron/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "стабилизированный бароксильдиум",
 		GENITIVE = "стабилизированного бароксильдиума",
 		DATIVE = "стабилизированному бароксильдиуму",
@@ -295,13 +295,13 @@
 	light_range = 4
 	light_power = 2
 	light_color = "#cc47a6"
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
 	var/obj/item/gps/internal
 
 /obj/item/gem/purple/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "уплотненный дилитиум",
 		GENITIVE = "уплотненного дилитиума",
 		DATIVE = "уплотненному дилитиуму",
@@ -337,10 +337,10 @@
 	light_range = 4
 	light_power = 4
 	light_color = "#FFBF00"
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 
 /obj/item/gem/amber/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Драконий жемчуг",
 		GENITIVE = "драконего жемчуга",
 		DATIVE = "драконьему жемчугу",
@@ -359,13 +359,13 @@
 	light_range = 4
 	light_power = 2
 	light_color = "#4785a4"
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	var/blink_range = 6
 	var/cooldown = FALSE
 	var/cooldown_time = 40 SECONDS
 
 /obj/item/gem/void/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пустотный кристалл",
 		GENITIVE = "пустотного кристалла",
 		DATIVE = "пустотному кристаллу",
@@ -411,13 +411,13 @@
 	light_range = 4
 	light_power = 6
 	light_color = "#ac0606"
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	var/used = FALSE
 	var/blood = 50
 	var/charges = 10
 
 /obj/item/gem/bloodstone/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кровавый ихор",
 		GENITIVE = "кровавого ихора",
 		DATIVE = "кровавому ихору",
@@ -466,13 +466,13 @@
 	light_range = 4
 	light_power = 6
 	light_color = "#4245f3"
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	point_value = 2000
 	insertable = FALSE
 	sell_multiplier = 10
 
 /obj/item/gem/data/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "блюспейс кристалл данных",
 		GENITIVE = "блюспейс кристалла данных",
 		DATIVE = "блюспейс кристаллу данных",
@@ -503,7 +503,7 @@
 	sell_multiplier = 0.5
 
 /obj/item/gem/ruby/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "рубин",
 		GENITIVE = "рубина",
 		DATIVE = "рубину",
@@ -520,7 +520,7 @@
 	sell_multiplier = 0.5
 
 /obj/item/gem/sapphire/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сапфир",
 		GENITIVE = "сапфира",
 		DATIVE = "сапфиру",
@@ -537,7 +537,7 @@
 	sell_multiplier = 0.5
 
 /obj/item/gem/emerald/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "изумруд",
 		GENITIVE = "изумруда",
 		DATIVE = "изумруду",
@@ -554,7 +554,7 @@
 	sell_multiplier = 0.5
 
 /obj/item/gem/topaz/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "топаз",
 		GENITIVE = "топаза",
 		DATIVE = "топазу",

@@ -19,7 +19,7 @@
 	origin_tech = "engineering=1;magnets=1"
 
 /obj/item/mining_scanner/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ручной шахтёрский сканер",
 		GENITIVE = "ручного шахтёрского сканера",
 		DATIVE = "ручному шахтёрскому сканеру",
@@ -69,7 +69,7 @@
 	origin_tech = "engineering=3;magnets=3"
 
 /obj/item/t_scanner/adv_mining_scanner/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "продвинутый автоматический шахтёрский сканер",
 		GENITIVE = "продвинутого автоматического шахтёрского сканера",
 		DATIVE = "продвинутому автоматическому шахтёрскому сканеру",
@@ -97,7 +97,7 @@
 	cooldown = 50
 
 /obj/item/t_scanner/adv_mining_scanner/lesser/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "автоматический шахтёрский сканер",
 		GENITIVE = "автоматического шахтёрского сканера",
 		DATIVE = "автоматическому шахтёрскому сканеру",
@@ -151,6 +151,11 @@
 	. = ..()
 	animate(src, alpha = 0, time = duration, easing = EASE_IN)
 
+/obj/effect/temp_visual/mining_overlay/Destroy(force)
+	for(var/turf/location in vis_locs)
+		location.vis_contents -= src // safety
+	return ..()
+
 /obj/item/t_scanner/adv_mining_scanner/bleary_eye
 	name = "bleary eye"
 	desc = "Глаз, вырванный из тела массивного сернистого странника. Даже спустя долгое время, он всё ещё движется и внимательно осматривает местность в поисках руды."
@@ -167,7 +172,7 @@
 	cooldown = 3 SECONDS
 
 /obj/item/t_scanner/adv_mining_scanner/bleary_eye/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "затуманенный глаз",
 		GENITIVE = "затуманенного глаза",
 		DATIVE = "затуманенному глазу",

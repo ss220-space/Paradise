@@ -22,7 +22,7 @@
 	else
 		name = "robot [initial(name)]"
 
-	AddComponent(/datum/component/surgery_initiator/limb, forced_surgery = /datum/surgery/attach_robotic_limb)
+	AddElement(/datum/element/surgery_initiator/limb, forced_surgery = /datum/surgery/attach_robotic_limb)
 
 /obj/item/robot_parts/attack_self(mob/user)
 	var/choice = tgui_input_list(user, "Select the company appearance for this limb", "Limb Company Selection", GLOB.selectable_robolimbs)
@@ -142,13 +142,9 @@
 	return FALSE
 
 /obj/item/robot_parts/robot_suit/proc/install_cell(mob/living/silicon/robot/target)
-	chest.cell.forceMove(target)
-	target.cell = chest.cell
-	chest.cell = null
-	// Since we "magically" installed a cell, we also have to update the correct component.
 	var/datum/robot_component/cell_component = target.components["power cell"]
-	cell_component.wrapped = target.cell
-	cell_component.installed = TRUE
+	cell_component.install(chest.cell)
+	chest.cell = null
 
 /obj/item/robot_parts/robot_suit/proc/check_locomotion(mob/living/silicon/robot/target)
 	if(locomotion)

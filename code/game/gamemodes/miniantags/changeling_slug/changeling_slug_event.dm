@@ -37,7 +37,7 @@
 		var/obj/vent = pick_n_take(vents)
 		var/mob/C = pick_n_take(candidates)
 		if(C)
-			GLOB.respawnable_list -= C
+			C.remove_from_respawnable_list()
 			var/mob/living/simple_animal/hostile/headslug/evented/new_slug = new(vent.loc)
 			new_slug.possess_by_player(C.key)
 			new_slug.make_slug_antag() //give objective and plays coolsound

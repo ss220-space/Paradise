@@ -99,7 +99,6 @@
 	if(!window.is_ready())
 		window.initialize(
 			strict_mode = TRUE,
-			fancy = (user.client.prefs.toggles2 & PREFTOGGLE_2_FANCYUI),
 			assets = list(
 				get_asset_datum(/datum/asset/simple/tgui),
 			))
@@ -237,7 +236,6 @@
 		"window" = list(
 			"key" = window_key,
 			"size" = window_size,
-			"fancy" = (user.client?.prefs?.toggles2 & PREFTOGGLE_2_FANCYUI),
 			"locked" = (user.client?.prefs?.toggles2 & PREFTOGGLE_2_FANCYUI),
 			"scale" = (user.client?.prefs.toggles3 & PREFTOGGLE_3_UI_SCALE),
 		),
@@ -345,3 +343,17 @@
 			LAZYINITLIST(src_object.tgui_shared_states)
 			src_object.tgui_shared_states[href_list["key"]] = href_list["value"]
 			SStgui.update_uis(src_object)
+
+/**
+ * public
+ *
+ * Sends a message to the front end to push the UI window to position 0,0
+ *
+ * optional can_be_suspended bool
+ */
+/datum/tgui/proc/reset_ui_position()
+	if(window)
+		// Windows you want to keep are usually blue screens of death
+		// and we want to keep them around, to allow user to read
+		// the error message properly.
+		window.send_message("resetposition")

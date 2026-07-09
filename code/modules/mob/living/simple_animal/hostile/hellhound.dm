@@ -31,7 +31,7 @@
 	var/datum/action/innate/demon/whisper/whisper_action
 
 /mob/living/simple_animal/hostile/hellhound/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "низший адский пёс",
 		GENITIVE = "низшего адского пса",
 		DATIVE = "низшему адскому псу",
@@ -176,7 +176,7 @@
 	faction = list("rift")
 
 /mob/living/simple_animal/hostile/hellhound/tear/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бешеный адский пёс",
 		GENITIVE = "бешеного адского пса",
 		DATIVE = "бешеному адскому псу",

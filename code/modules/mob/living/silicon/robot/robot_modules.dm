@@ -187,7 +187,7 @@
 	modules += new /obj/item/melee/baton/telescopic(src) // for minimal possablity to execute sec part of the module and also for tests
 	modules += new /obj/item/restraints/handcuffs/cable/zipties(src)
 	modules += new /obj/item/flash/cyborg(src)
-	modules += new /obj/item/reagent_containers/spray/cleaner/drone(src) // test if will be in active usage and become op to be cutted out later
+	modules += new /obj/item/reagent_containers/spray/cleaner(src) // test if will be in active usage and become op to be cutted out later
 	modules += new /obj/item/soap/nanotrasen(src)
 	modules += new /obj/item/stack/sheet/metal/cyborg(src)
 	modules += new /obj/item/stack/sheet/glass/cyborg(src) // regular glass for simplest works on broken window replacement
@@ -214,9 +214,9 @@
 	return
 
 /obj/item/robot_module/standard/respawn_consumable(mob/living/silicon/robot/R)
-	var/obj/item/reagent_containers/spray/cleaner/C = locate() in modules
-	C.reagents.add_reagent("cleaner", 3)
-	..()
+	var/obj/item/reagent_containers/spray/cleaner/cleaner = locate() in modules
+	cleaner.reagents.add_reagent(/datum/reagent/space_cleaner, 3)
+	return ..()
 
 /obj/item/robot_module/medical
 	name = "Medical"
@@ -292,6 +292,7 @@
 	modules += new /obj/item/stack/medical/suture/advanced(src)
 	modules += new /obj/item/reagent_scanner/adv(src)
 	modules += new /obj/item/roller_holder(src)
+	modules += new /obj/item/soap/nanotrasen(src)
 	modules += new /obj/item/rlf(src)
 
 	emag = new /obj/item/reagent_containers/borghypo/emagged(src) // emagged med. cyborg gets a special hypospray.
@@ -315,13 +316,6 @@
 
 /obj/item/robot_module/medical/add_default_robot_items()
 	return
-
-/obj/item/robot_module/medical/respawn_consumable(mob/living/silicon/robot/R)
-	if(emag)
-		var/obj/item/reagent_containers/spray/PS = emag
-		PS.reagents.add_reagent("sacid", 2)
-
-	..()
 
 /obj/item/robot_module/engineering
 	name = "Engineering"
@@ -374,7 +368,7 @@
 	modules += new /obj/item/flash/cyborg(src)
 	modules += new /obj/item/rcd/borg(src)
 	modules += new /obj/item/rpd(src)
-	modules += new /obj/item/extinguisher(src)
+	modules += new /obj/item/extinguisher/cyborg(src)
 	modules += new /obj/item/weldingtool/largetank/cyborg(src)
 	modules += new /obj/item/screwdriver/cyborg(src)
 	modules += new /obj/item/wrench/cyborg(src)
@@ -388,11 +382,14 @@
 	modules += new /obj/item/gripper(src)
 	modules += new /obj/item/matter_decompiler(src)
 	modules += new /obj/item/floor_painter(src)
+	modules += new /obj/item/airlock_painter(src)
+	modules += new /obj/item/pipe_painter(src)
 	modules += new /obj/item/stack/sheet/metal/cyborg(src)
+	modules += new /obj/item/stack/rods/cyborg(src)
 	modules += new /obj/item/stack/sheet/glass/cyborg(src)
 	modules += new /obj/item/stack/sheet/rglass/cyborg(src)
 	modules += new /obj/item/stack/cable_coil/cyborg(src)
-	modules += new /obj/item/stack/rods/cyborg(src)
+	modules += new /obj/item/stack/sheet/wood/cyborg(src)
 	modules += new /obj/item/stack/tile/plasteel(src)
 	modules += new /obj/item/lightreplacer/cyborg(src)
 	emag = new /obj/item/gun/energy/emittercannon(src)
@@ -516,6 +513,7 @@
 /obj/item/robot_module/janitor/Initialize(mapload)
 	. = ..()
 	modules += new /obj/item/soap/nanotrasen(src)
+	modules += new /obj/item/reagent_containers/spray/cleaner(src)
 	modules += new /obj/item/storage/bag/trash/cyborg(src)
 	modules += new /obj/item/mop/advanced/cyborg(src)
 	modules += new /obj/item/lightreplacer/cyborg(src)
@@ -529,6 +527,11 @@
 	emag.name = "Lube spray"
 
 	fix_modules()
+
+/obj/item/robot_module/janitor/respawn_consumable(mob/living/silicon/robot/R)
+	var/obj/item/reagent_containers/spray/cleaner/cleaner = locate() in modules
+	cleaner.reagents.add_reagent(/datum/reagent/space_cleaner, 4)
+	return ..()
 
 /obj/item/robot_module/butler
 	name = "Service"
@@ -603,7 +606,7 @@
 	modules += new /obj/item/lighter/zippo(src)
 	modules += new /obj/item/storage/bag/tray(src)
 	modules += new /obj/item/reagent_containers/food/drinks/shaker(src)
-	modules += new /obj/item/extinguisher(src)
+	modules += new /obj/item/extinguisher/cyborg(src)
 	modules += new /obj/item/crowbar/cyborg(src)
 	emag = new /obj/item/kitchen/knife/butcher/meatcleaver(src)
 
@@ -613,7 +616,7 @@
 	var/obj/item/reagent_containers/spray/pestspray/spray = locate() in modules
 	spray?.reagents.add_reagent("pestkiller", 3)
 
-	..()
+	return ..()
 
 /obj/item/robot_module/butler/add_languages(mob/living/silicon/robot/R)
 	//full set of languages
@@ -898,7 +901,7 @@
 	modules += new /obj/item/card/emag(src)
 	modules += new /obj/item/melee/energy/sword/cyborg(src)
 	modules += new /obj/item/gripper/nuclear(src)
-	modules += new /obj/item/extinguisher(src)
+	modules += new /obj/item/extinguisher/cyborg(src)
 	modules += new /obj/item/pinpointer/operative(src)
 	modules += new /obj/item/pinpointer/nukeop(src)
 	modules += new /obj/item/borg_chameleon(src)
@@ -1020,7 +1023,7 @@
 		var/obj/item/reagent_containers/spray/alien/acid/acidSpray = emag
 		acidSpray.reagents.add_reagent("sacid", 3)
 		acidSpray.reagents.add_reagent("facid", 3)
-	..()
+	return ..()
 
 /obj/item/robot_module/hunter/add_languages(mob/living/silicon/robot/R)
 	..()
@@ -1046,15 +1049,14 @@
 	modules += new /obj/item/weldingtool/largetank/cyborg(src)
 	modules += new /obj/item/multitool/cyborg(src)
 	modules += new /obj/item/gripper(src)
-	modules += new /obj/item/extinguisher(src)
-	modules += new /obj/item/reagent_containers/spray/cleaner/drone(src)
+	modules += new /obj/item/extinguisher/cyborg(src)
+	modules += new /obj/item/reagent_containers/spray/cleaner(src)
 	modules += new /obj/item/soap(src)
 	modules += new /obj/item/storage/bag/trash/cyborg(src)
 	modules += new /obj/item/rpd(src)
 	modules += new /obj/item/t_scanner(src)
 	modules += new /obj/item/analyzer(src)
 	modules += new /obj/item/stack/sheet/wood/cyborg(src)
-	modules += new /obj/item/stack/tile/wood(src)
 	modules += new /obj/item/matter_decompiler(src)
 	modules += new /obj/item/lightreplacer/cyborg(src)
 	modules += new /obj/item/floor_painter(src)
@@ -1072,9 +1074,9 @@
 	return
 
 /obj/item/robot_module/drone/respawn_consumable(mob/living/silicon/robot/R)
-	var/obj/item/reagent_containers/spray/cleaner/C = locate() in modules
-	C.reagents.add_reagent("cleaner", 3)
-	..()
+	var/obj/item/reagent_containers/spray/cleaner/cleaner = locate() in modules
+	cleaner.reagents.add_reagent(/datum/reagent/space_cleaner, 3)
+	return ..()
 
 /obj/item/robot_module/drone/handle_death(mob/living/silicon/robot/R, gibbed)
 	var/obj/item/gripper/G = locate(/obj/item/gripper) in modules
@@ -1103,7 +1105,7 @@
 	modules += new /obj/item/gripper/cogscarab(src)
 	modules += new /obj/item/stack/sheet/brass/cyborg(src)
 	modules += new /obj/item/clockwork/brassmaker(src)
-	modules += new /obj/item/extinguisher(src)
+	modules += new /obj/item/extinguisher/cyborg(src)
 	emag = null
 
 	fix_modules()
@@ -1151,7 +1153,7 @@
 	modules += new /obj/item/t_scanner(src)
 	modules += new /obj/item/stack/sheet/brass/cyborg(src)
 	modules += new /obj/item/clockwork/brassmaker(src)
-	modules += new /obj/item/extinguisher(src)
+	modules += new /obj/item/extinguisher/cyborg(src)
 	emag = new /obj/item/toy/carpplushie/gold(src)
 
 	fix_modules()
@@ -1201,7 +1203,7 @@
 	modules += new /obj/item/wrench/cyborg(src)
 	modules += new /obj/item/weldingtool/largetank/cyborg(src)
 	modules += new /obj/item/multitool/cyborg(src)
-	modules += new /obj/item/extinguisher(src)
+	modules += new /obj/item/extinguisher/cyborg(src)
 	modules += new /obj/item/healthanalyzer/advanced(src)
 	modules += new /obj/item/reagent_containers/borghypo/upgraded/super(src)
 	modules += new /obj/item/handheld_defibrillator(src)

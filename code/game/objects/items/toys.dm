@@ -804,6 +804,22 @@
 	item_state = "plushie_vox"
 	var/cooldown = 0
 
+/obj/item/toy/plushie/voxplushie/brick
+	name = "vox brick toy"
+	desc = "Мини-прималис. Главное в воксе — держать клюв Кирпичом. Игрушка сшитая основателем камневидного базирования в перерыве между рейдами."
+	color = "#ff78f4"
+
+/obj/item/toy/plushie/voxplushie/brick/get_ru_names()
+	return alist(
+		NOMINATIVE = "Кирпич",
+		GENITIVE = "Кирпича",
+		DATIVE = "Кирпичу",
+		ACCUSATIVE = "Кирпича",
+		INSTRUMENTAL = "Кирпичом",
+		PREPOSITIONAL = "Кирпиче",
+	)
+
+
 /obj/item/toy/plushie/rdplushie
 	name = "RD doll"
 	desc = "Это обычная кукла РД."
@@ -1514,7 +1530,7 @@
 	COOLDOWN_DECLARE(cooldown)
 
 /obj/item/toy/plushie/wet_owl/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мокрая сова",
 		GENITIVE = "мокрой совы",
 		DATIVE = "мокрой сове",
@@ -1582,7 +1598,7 @@
 	item_state = "kotik_hand"
 
 /obj/item/toy/plushie/manulplushie/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "игрушка Манула",
 		GENITIVE = "игрушки Манула",
 		DATIVE = "игрушке Манула",
@@ -1986,7 +2002,7 @@
 	var/fake_bullets = 0
 
 /obj/item/toy/russian_revolver/trick_revolver/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "револьвер .357 калибра",
 		GENITIVE = "револьвера .357 калибра",
 		DATIVE = "револьверу .357 калибра",

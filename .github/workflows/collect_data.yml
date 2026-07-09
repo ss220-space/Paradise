@@ -10,12 +10,12 @@ on:
 jobs:
   collect_data:
     runs-on: ubuntu-24.04
-    timeout-minutes: 5
+    timeout-minutes: 15
     outputs:
       stations: ${{ steps.station_finder.outputs.stations }}
 
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
       - name: Find Stations
         id: station_finder

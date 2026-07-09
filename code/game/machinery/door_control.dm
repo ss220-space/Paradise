@@ -307,6 +307,8 @@
 	. = TRUE
 	to_chat(user, span_notice("[src] is highly secured. You cannot open the cover plate."))
 
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/door_control/secure, 24, 24)
+
 // hidden mimic button
 /obj/machinery/door_control/mimic
 	icon = 'icons/obj/lighting.dmi'

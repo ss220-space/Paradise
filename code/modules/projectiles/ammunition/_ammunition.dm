@@ -62,6 +62,14 @@
 	. = ..()
 	if(projectile_type)
 		BB = new projectile_type(src)
+		BB.ru_names = string_assoc_list(alist(
+			NOMINATIVE = "пуля [get_ammo_marking()]",
+			GENITIVE = "пули [get_ammo_marking()]",
+			DATIVE = "пуле [get_ammo_marking()]",
+			ACCUSATIVE = "пулю [get_ammo_marking()]",
+			INSTRUMENTAL = "пулей [get_ammo_marking()]",
+			PREPOSITIONAL = "пуле [get_ammo_marking()]",
+		))
 	pixel_x = rand(-10, 10)
 	pixel_y = rand(-10, 10)
 	dir = pick(GLOB.alldirs)
@@ -146,7 +154,7 @@
 	if(BB)
 		gender = MALE
 		name = "[get_ammo_marking()] cartridge"
-		ru_names = string_list(list(
+		ru_names = string_assoc_list(alist(
 			NOMINATIVE = "патрон [get_ammo_marking()]",
 			GENITIVE = "патрона [get_ammo_marking()]",
 			DATIVE = "патрону [get_ammo_marking()]",
@@ -157,7 +165,7 @@
 	else
 		gender = FEMALE
 		name = "[caliber] bullet casing"
-		ru_names = string_list(list(
+		ru_names = string_assoc_list(alist(
 			NOMINATIVE = "гильза [caliber]",
 			GENITIVE = "гильзы [caliber]",
 			DATIVE = "гильзе [caliber]",
@@ -241,7 +249,7 @@
 		BB.name = initial(BB.name)
 	else
 		to_chat(user, span_notice("Вы наносите \"[label_text]\" на патрон."))
-		BB.ru_names = list(
+		BB.ru_names = alist(
 			NOMINATIVE = "пуля \"[label_text]\"",
 			GENITIVE = "пули \"[label_text]\"",
 			DATIVE = "пуле \"[label_text]\"",

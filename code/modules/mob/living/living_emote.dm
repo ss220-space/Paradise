@@ -268,6 +268,7 @@
 	)
 	vary = TRUE
 	volume = 80
+	use_sound_tokens = TRUE
 
 /datum/emote/living/scream/get_sound(mob/living/user)
 	if(isalien(user))
@@ -455,6 +456,20 @@
 	message_mime = "каж%(ет,ут)%ся ранен%(ым,ой,ым,ыми)%."
 	emote_type = EMOTE_AUDIBLE|EMOTE_MOUTH
 	muzzled_noises = list("тихие", "жалкие")
+
+/datum/emote/living/surrender
+	key = "surrender"
+	key_third_person = "surrenders"
+	message = "поднима%(ет,ют)% руки вверх и сда%(ёт,ют)%ся!"
+	emote_type = EMOTE_VISIBLE | EMOTE_AUDIBLE
+
+/datum/emote/living/surrender/run_emote(mob/user, params, type_override, intentional)
+	. = ..()
+	if(isliving(user))
+		var/mob/living/living = user
+		living.apply_status_effect(STATUS_EFFECT_CAPITULATED)
+		living.remove_status_effect(/datum/status_effect/grouped/surrender)
+		SEND_SIGNAL(living, COMSIG_LIVING_GUNPOINT_CANCEL)
 
 /datum/emote/living/custom
 	key = "me"

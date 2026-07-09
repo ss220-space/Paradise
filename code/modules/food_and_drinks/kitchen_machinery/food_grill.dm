@@ -12,7 +12,7 @@
 	officon = "grill_off"
 
 /obj/machinery/cooker/foodgrill/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "гриль",
 		GENITIVE = "гриля",
 		DATIVE = "грилю",

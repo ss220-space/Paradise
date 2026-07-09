@@ -140,7 +140,7 @@
 	if(you_are)
 		messages.Add(span_danger("You are a member of the revolutionaries' leadership!"))
 	messages.Add(rev_mind.prepare_announce_objectives())
-	to_chat(rev_mind.current, chat_box_red(messages.Join("<br>")))
+	to_chat(rev_mind.current, custom_boxed_message("red_box center", messages.Join("<br>")))
 	if(rev_mind.current)
 		SEND_SOUND(rev_mind.current, sound('sound/ambience/antag/revolutionary_tide.ogg'))
 

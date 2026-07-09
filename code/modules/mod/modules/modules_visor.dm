@@ -16,7 +16,7 @@
 	var/visor_trait = list()
 
 /obj/item/mod/module/visor/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль ИЛС",
 		GENITIVE = "модуля ИЛС",
 		DATIVE = "модулю ИЛС",
@@ -51,7 +51,7 @@
 	hud_type = DATA_HUD_MEDICAL_ADVANCED
 
 /obj/item/mod/module/visor/medhud/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль медицинского ИЛС",
 		GENITIVE = "модуля медицинского ИЛС",
 		DATIVE = "модулю медицинского ИЛС",
@@ -70,7 +70,7 @@
 	hud_type = DATA_HUD_DIAGNOSTIC
 
 /obj/item/mod/module/visor/diaghud/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль диагностического ИЛС",
 		GENITIVE = "модуля диагностического ИЛС",
 		DATIVE = "модулю диагностического ИЛС",
@@ -90,7 +90,7 @@
 	hud_type = DATA_HUD_SECURITY_ADVANCED
 
 /obj/item/mod/module/visor/sechud/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль охранного ИЛС",
 		GENITIVE = "модуля охранного ИЛС",
 		DATIVE = "модулю охранного ИЛС",
@@ -110,7 +110,7 @@
 	visor_trait = TRAIT_MESON_VISION
 
 /obj/item/mod/module/visor/meson/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль мезонного ИЛС",
 		GENITIVE = "модуля мезонного ИЛС",
 		DATIVE = "модулю мезонного ИЛС",
@@ -130,7 +130,7 @@
 	visor_trait = TRAIT_THERMAL_VISION
 
 /obj/item/mod/module/visor/thermal/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль термального ИЛС",
 		GENITIVE = "модуля термального ИЛС",
 		DATIVE = "модулю термального ИЛС",
@@ -150,7 +150,7 @@
 	visor_trait = TRAIT_NIGHT_VISION
 
 /obj/item/mod/module/visor/night/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль ночного видения",
 		GENITIVE = "модуля ночного видения",
 		DATIVE = "модулю ночного видения",

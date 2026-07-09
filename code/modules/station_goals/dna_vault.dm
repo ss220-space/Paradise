@@ -78,7 +78,7 @@ GLOBAL_LIST_EMPTY(dna_vaults)
 	var/list/dna = list()
 
 /obj/item/dna_probe/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ДНК-семплер",
 		GENITIVE = "ДНК-семплера",
 		DATIVE = "ДНК-семплеру",
@@ -189,7 +189,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 	var/list/obj/structure/fillers = list()
 
 /obj/machinery/dna_vault/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ДНК хранилище",
 		GENITIVE = "ДНК хранилища",
 		DATIVE = "ДНК хранилищу",

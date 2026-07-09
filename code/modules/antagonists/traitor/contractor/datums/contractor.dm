@@ -16,9 +16,10 @@
 	antag_hud_type = ANTAG_HUD_TRAITOR
 	antag_menu_name = "Контрактник"
 	/// The associated contractor uplink. Only present if the offer was accepted.
-	var/obj/item/contractor_uplink/contractor_uplink = null
+	var/datum/weakref/contractor_uplink_ref = null
 
 /datum/antagonist/contractor/Destroy(force)
+	var/obj/item/contractor_uplink/contractor_uplink = contractor_uplink_ref?.resolve()
 	if(contractor_uplink)
 		contractor_uplink.hub?.owner = null
 		contractor_uplink.hub?.contractor_uplink = null
@@ -26,6 +27,7 @@
 	return ..()
 
 /datum/antagonist/contractor/add_antag_hud(mob/living/antag_mob)
+	var/obj/item/contractor_uplink/contractor_uplink = contractor_uplink_ref?.resolve()
 	if(HAS_TRAIT(owner, TRAIT_HIJACK))
 		antag_hud_name = contractor_uplink ? "hudhijackcontractor" : "hudhijack"
 	else
@@ -64,7 +66,7 @@
 	give_objectives()
 	finalize_antag()
 	messages.Add(span_motd("С полной информацией вы можете ознакомиться на вики: <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Contractor\">Контрактор"))
-	to_chat(owner.current, chat_box_red(messages.Join("<br>")))
+	to_chat(owner.current, custom_boxed_message("red_box center", messages.Join("<br>")))
 	if(is_banned(owner.current) && replace_banned)
 		INVOKE_ASYNC(src, PROC_REF(replace_banned_player))
 	owner.current.create_log(MISC_LOG, "[owner.current] was made into \an [special_role]")

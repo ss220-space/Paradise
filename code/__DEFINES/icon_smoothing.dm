@@ -45,6 +45,8 @@
 #define QUEUE_SMOOTH(thing_to_queue) if(thing_to_queue.smooth & (SMOOTH_CORNERS|SMOOTH_BITMASK)) {SSicon_smooth.add_to_queue(thing_to_queue)}
 
 #define QUEUE_SMOOTH_NEIGHBORS(thing_to_queue) for(var/atom/atom_neighbor as anything in orange(1, thing_to_queue)) {QUEUE_SMOOTH(atom_neighbor)}
+#define REMOVE_FROM_SMOOTH_QUEUE(thing_to_remove) if(thing_to_remove.smooth & SMOOTH_QUEUED) {SSicon_smooth.remove_from_queues(thing_to_remove)}
+
 
 /**SMOOTHING GROUPS
  * Groups of things to smooth with.

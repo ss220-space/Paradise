@@ -200,8 +200,6 @@
 	clickable_glow = TRUE
 	/// UID of the mob offering the receiver an item.
 	var/giver_UID
-	/// UID of the mob who has this alert.
-	var/receiver_UID
 	/// UID of the item being given.
 	var/item_UID
 
@@ -209,9 +207,8 @@
 	. = ..()
 	desc = "[giver] хо[PLUR_CHET_TYAT(giver)] передать вам [item.declent_ru(ACCUSATIVE)]. Нажмите чтобы принять!"
 	giver_UID = giver.UID()
-	receiver_UID = receiver.UID()
 	item_UID = item.UID()
-	giver.apply_status_effect(STATUS_EFFECT_OFFERING_ITEM, receiver_UID, item_UID)
+	giver.apply_status_effect(STATUS_EFFECT_OFFERING_ITEM, receiver.UID(), item_UID)
 	add_overlay(icon(item.icon, item.icon_state, SOUTH))
 	add_overlay("alert_flash")
 	// If either of these atoms are deleted, we need to cancel everything. Also saves having to do null checks before interacting with these atoms.
@@ -236,12 +233,11 @@
 	SIGNAL_HANDLER
 
 	var/mob/living/giver = locateUID(giver_UID)
-	var/mob/living/receiver = locateUID(receiver_UID)
 
 	to_chat(giver, span_warning("Держите предмет в активной руке для передачи!"))
-	to_chat(receiver, span_warning("[giver] передумал[GEND_A_O_I(giver)] передавать вам [locateUID(item_UID)]."))
+	to_chat(owner, span_warning("[giver] передумал[GEND_A_O_I(giver)] передавать вам [locateUID(item_UID)]."))
 
-	receiver.clear_alert("take item [item_UID]")
+	owner.clear_alert("take item [item_UID]")
 
 /atom/movable/screen/alert/take_item/Click(location, control, params)
 	. = ..()
@@ -291,9 +287,9 @@
 	if(istype(alert, /atom/movable/screen/alert/take_item))
 		var/atom/movable/screen/alert/take_item/take_alert = alert
 		var/mob/living/giver = locateUID(take_alert.giver_UID)
+		var/obj/item/item = locateUID(take_alert.item_UID)
 		// Make sure we're still nearby. We don't want to show a message if the giver not near us.
-		if(giver in view(3, src))
-			var/obj/item/item = locateUID(take_alert.item_UID)
+		if(item && (giver in view(3, src)))
 			to_chat(giver, span_warning("Вы пытались передать [item.declent_ru(ACCUSATIVE)] [src], но [GEND_HE_SHE(src)] отказал[GEND_SYA_AS_OS_IS(src)]."))
 			to_chat(src, span_warning("[giver] прекратил[GEND_A_O_I(giver)] попытку передать вам [item.declent_ru(ACCUSATIVE)]."))
 	return ..()

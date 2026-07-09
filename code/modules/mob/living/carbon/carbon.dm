@@ -389,7 +389,7 @@
 		else
 			status_list += span_notice("Вы чувствуете усталость.")
 
-	to_chat(src, chat_box_examine(status_list.Join("\n")))
+	to_chat(src, boxed_message(status_list.Join("\n")))
 
 	if((isskeleton(human_src) || HAS_TRAIT(human_src, TRAIT_SKELETON)) && (!human_src.w_uniform) && (!human_src.wear_suit))
 		human_src.play_xylophone()
@@ -687,8 +687,7 @@
 	frequency_number = frequency_number + (rand(-5, 5) / 100)
 
 	var/volume = min(8 * min(get_dist(loc, target), range), 50)
-	if(volume >= SOUND_AUDIBLE_VOLUME_MIN)
-		playsound(src, throwsound, volume, vary = TRUE, extrarange = -1, frequency = frequency_number)
+	playsound(src, throwsound, volume, vary = TRUE, extrarange = -1, frequency = frequency_number)
 
 	visible_message(
 		span_danger("[name][power_throw_text] броса[PLUR_ET_YUT(src)] [thrown_thing.declent_ru(ACCUSATIVE)]."),

@@ -40,7 +40,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	var/destination
 
 /obj/machinery/photocopier/faxmachine/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "факс",
 		GENITIVE = "факса",
 		DATIVE = "факсу",
@@ -51,9 +51,12 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 
 /obj/machinery/photocopier/faxmachine/Initialize(mapload)
 	. = ..()
-
 	GLOB.allfaxes += src
 	update_network()
+
+/obj/machinery/photocopier/faxmachine/Destroy(force)
+	GLOB.allfaxes -= src
+	return ..()
 
 /obj/machinery/photocopier/faxmachine/proc/update_network()
 	if(department != UNKNOWN_STATUS_RUS)

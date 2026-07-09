@@ -24,8 +24,7 @@
 /obj/item/organ/external
 	name = "external"
 	max_damage = 0
-	blocks_emissive = FALSE
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	light_on = FALSE
 
 	/// External body part zone
@@ -151,7 +150,7 @@
 	else
 		application_surgery = /datum/surgery/reattach_synth
 
-	AddComponent(/datum/component/surgery_initiator/limb, forced_surgery = application_surgery)
+	AddElement(/datum/element/surgery_initiator/limb, forced_surgery = application_surgery)
 
 /obj/item/organ/external/Destroy()
 	if(parent)
@@ -358,6 +357,9 @@
 		remove_splint(splint_break = TRUE, silent = silent)	// Taking damage to splinted limbs removes the splints
 
 	if(used_weapon)
+		if(isobj(used_weapon))
+			var/obj/weapon_obj = used_weapon
+			used_weapon = weapon_obj.declent_ru(NOMINATIVE)
 		add_autopsy_data("[used_weapon]", brute + burn)
 	else
 		add_autopsy_data(null, brute + burn)
@@ -1188,7 +1190,10 @@ Note that amputating the affected organ does in fact remove the infection from t
 	encased = null
 
 	// override the existing initiator
-	AddComponent(/datum/component/surgery_initiator/limb, forced_surgery = /datum/surgery/reattach_synth)
+
+	if(!is_robotic())
+		RemoveElement(/datum/element/surgery_initiator/limb, forced_surgery = /datum/surgery/reattach)
+		AddElement(/datum/element/surgery_initiator/limb, forced_surgery = /datum/surgery/reattach_synth)
 
 	if(istext(company))
 		set_company(company)

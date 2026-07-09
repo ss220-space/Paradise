@@ -60,6 +60,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	interaction_flags_click = ALLOW_SILICON_REACH
 	cares_about_temperature = TRUE
 	rad_insulation = RAD_MEDIUM_INSULATION
+	blocks_emissive = EMISSIVE_BLOCK_NONE // Custom emissive blocker. We don't want the normal behavior.
 
 	var/security_level = 0 //How much are wires secured
 	var/aiControlDisabled = AICONTROLDISABLED_OFF
@@ -167,8 +168,8 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		damage_deflection = AIRLOCK_DAMAGE_DEFLECTION_R
 
 	prepare_huds()
-	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
-		diag_hud.add_atom_to_hud(src)
+	var/datum/atom_hud/data/diagnostic/diag_hud = GLOB.huds[DATA_HUD_DIAGNOSTIC]
+	diag_hud.add_atom_to_hud(src)
 
 	diag_hud_set_electrified()
 
@@ -204,8 +205,8 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	if(SSradio)
 		SSradio.remove_object(src, frequency)
 	radio_connection = null
-	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
-		diag_hud.remove_atom_from_hud(src)
+	var/datum/atom_hud/data/diagnostic/diag_hud = GLOB.huds[DATA_HUD_DIAGNOSTIC]
+	diag_hud.remove_atom_from_hud(src)
 	return ..()
 
 /obj/machinery/door/airlock/handle_atom_del(atom/A)
@@ -1692,19 +1693,19 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 
 /obj/machinery/door/airlock/rcd_deconstruct_act(mob/user, obj/item/rcd/our_rcd)
 	. = ..()
-	if(our_rcd.checkResource(20, user))
-		to_chat(user, "Deconstructing airlock...")
+	if(our_rcd.checkResource(RCD_COST_AIRLOCK * 2, user))
+		to_chat(user, "Деконструкция шлюза...")
 		playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, TRUE)
 		if(do_after(user, 5 SECONDS * our_rcd.toolspeed, src, category = DA_CAT_TOOL))
-			if(!our_rcd.useResource(20, user))
+			if(!our_rcd.useResource(RCD_COST_AIRLOCK * 2, user))
 				return RCD_ACT_FAILED
 			playsound(get_turf(our_rcd), our_rcd.usesound, 50, TRUE)
 			add_attack_logs(user, src, "Deconstructed airlock with RCD")
 			qdel(src)
 			return RCD_ACT_SUCCESSFULL
-		to_chat(user, span_warning("ERROR! Deconstruction interrupted!"))
+		to_chat(user, span_warning("ОШИБКА! Деконструкция прервана!"))
 		return RCD_ACT_FAILED
-	to_chat(user, span_warning("ERROR! Not enough matter in unit to deconstruct this airlock!"))
+	to_chat(user, span_warning("ОШИБКА! Недостаточно материи для деконструкции шлюза!"))
 	playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, TRUE)
 	return RCD_ACT_FAILED
 

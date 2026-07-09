@@ -327,7 +327,7 @@
 	desc = "Deus Vult."
 	icon_state = "knight_templar"
 	item_state = "knight_templar"
-	armor = list(melee = 20, bullet = 7, laser = 2, energy = 2, bomb = 2, bio = 2, fire = 80, acid = 80)
+	armor = list(MELEE = 10, BULLET = 10, LASER = 5, ENERGY = 5, BOMB = 5, BIO = 5, FIRE = 80, ACID = 80)
 	sprite_sheets = list(
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi',
@@ -337,7 +337,7 @@
 	name = "skull helmet"
 	desc = "Этот шлем, который выглядит устрашающе и походит на племенной, кажется не очень удобным."
 	flags_inv = parent_type::flags_inv|HIDEMASK|HIDENAME
-	armor = list(MELEE = 45, BULLET = 30, LASER = 30, ENERGY = 20, BOMB = 40, BIO = 0, FIRE = 50, ACID = 50)
+	armor = list(MELEE = 25, BULLET = 15, LASER = 15, ENERGY = 10, BOMB = 20, BIO = 0, FIRE = 25, ACID = 25)
 	icon_state = "skull"
 	item_state = "skull"
 	strip_delay = 100
@@ -347,7 +347,7 @@
 	)
 
 /obj/item/clothing/head/helmet/skull/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "костяной шлем",
 		GENITIVE = "костяного шлема",
 		DATIVE = "костяному шлему",
@@ -450,7 +450,7 @@
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
 		SPECIES_KIDAN = 'icons/mob/clothing/species/kidan/head.dmi',
 		SPECIES_MOTH = 'icons/mob/clothing/species/nian/helmet.dmi',
-		SPECIES_MACNINEPERSON = 'icons/mob/clothing/species/machine/helmet.dmi',
+		SPECIES_MACHINEPERSON = 'icons/mob/clothing/species/machine/helmet.dmi',
 		SPECIES_SKRELL = 'icons/mob/clothing/species/skrell/helmet.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
@@ -509,7 +509,7 @@
 	sprite_sheets = list(
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
 	)
-	species_restricted = list(SPECIES_HUMAN, SPECIES_SLIMEPERSON, SPECIES_SKELETON, SPECIES_NUCLEATION, SPECIES_MACNINEPERSON, SPECIES_DIONA, SPECIES_SHADOW_BASIC, SPECIES_MONKEY)
+	species_restricted = list(SPECIES_HUMAN, SPECIES_SLIMEPERSON, SPECIES_SKELETON, SPECIES_NUCLEATION, SPECIES_MACHINEPERSON, SPECIES_DIONA, SPECIES_SHADOW_BASIC, SPECIES_MONKEY)
 
 /obj/item/clothing/head/helmet/biker/Initialize(mapload)
 	. = ..()
@@ -525,7 +525,7 @@
 	. += biker_overlay
 
 /obj/item/clothing/head/helmet/biker/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "мотоциклетный шлем",
 		GENITIVE = "мотоциклетного шлема",
 		DATIVE = "мотоциклетному шлему",

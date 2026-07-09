@@ -62,7 +62,7 @@
 		else
 			messages.Add(user, span_notice("[H]'s Fingerprints: [md5(H.dna.uni_identity)]"))
 	if(length(messages))
-		to_chat(user, chat_box_regular(messages.Join("<br>")))
+		to_chat(user, boxed_message(messages.Join("<br>")))
 	scan_blood(C, user)
 
 /datum/data/pda/utility/scanmode/dna/scan_atom(atom/A as mob|obj|turf|area, mob/user as mob)
@@ -79,7 +79,7 @@
 		spawn(15)
 			for(var/blood in A.blood_DNA)
 				messages.Add(user, span_notice("Blood type: [A.blood_DNA[blood]]\nDNA: [blood]"))
-	to_chat(user, chat_box_regular(messages.Join("<br>")))
+	to_chat(user, boxed_message(messages.Join("<br>")))
 
 /datum/data/pda/utility/scanmode/reagent
 	base_name = "Сканер реагентов"
@@ -102,7 +102,7 @@
 			messages.Add(span_notice("No active chemical agents found in [A]."))
 	else
 		messages.Add(span_notice("No significant chemical agents found in [A]."))
-	to_chat(user, chat_box_regular(messages.Join("<br>")))
+	to_chat(user, boxed_message(messages.Join("<br>")))
 
 /datum/data/pda/utility/scanmode/gas
 	base_name = "Газоанализатор"

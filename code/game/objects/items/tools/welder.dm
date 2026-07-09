@@ -28,7 +28,7 @@
 	usesound = 'sound/items/welder.ogg'
 	drop_sound = 'sound/items/handling/drop/weldingtool_drop.ogg'
 	pickup_sound = 'sound/items/handling/pickup/weldingtool_pickup.ogg'
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	light_range = 2
 	light_power = 0.75
 	light_color = LIGHT_COLOR_FIRE
@@ -47,9 +47,11 @@
 	var/low_fuel_changes_icon = TRUE
 	/// Length of time between each "eye flash"
 	var/progress_flash_divisor = 10
+	/// Lighting middleman, lets us do a flicker effect
+	var/datum/light_middleman/middleman
 
 /obj/item/weldingtool/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "сварочный аппарат",
 		GENITIVE = "сварочного аппарата",
 		DATIVE = "сварочному аппарату",
@@ -60,21 +62,30 @@
 
 /obj/item/weldingtool/Initialize(mapload)
 	. = ..()
+	if(IS_OVERLAY_LIGHT_SYSTEM(light_system))
+		middleman = new(src, "flashlight")
+		RegisterSignal(middleman, COMSIG_LIGHT_MIDDLEMAN_UPDATED, PROC_REF(light_updated))
+		middleman.being_overriding_light()
 	create_reagents(maximum_fuel)
 	reagents.add_reagent("fuel", maximum_fuel)
-	update_icon()
 	AddElement(/datum/element/falling_hazard, damage = force, hardhat_safety = TRUE, crushes = FALSE, impact_sound = hitsound)
 	RegisterSignal(src, COMSIG_TOOLBOX_RADIAL_MENU_TOOL_USAGE, PROC_REF(handle_toolbox_signal))
+	update_appearance()
 
 /obj/item/weldingtool/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	UnregisterSignal(src, COMSIG_TOOLBOX_RADIAL_MENU_TOOL_USAGE)
+	QDEL_NULL(middleman)
 	return ..()
 
 /obj/item/weldingtool/examine(mob/user)
 	. = ..()
 	if(get_dist(user, src) <= 0)
 		. += span_notice("Индикатор топливного бака: <b>[GET_FUEL]/[maximum_fuel]</b>.")
+
+/obj/item/weldingtool/proc/light_updated(datum/source)
+	SIGNAL_HANDLER
+	fire_flicker_middleman(middleman)
 
 /obj/item/weldingtool/suicide_act(mob/user)
 	user.visible_message(span_suicide("[user] заварива[PLUR_ET_YUT(user)] себе все лицевые отверстия! Это похоже на попытку самоубийства!"))
@@ -255,7 +266,7 @@
 	origin_tech = "engineering=2;plasmatech=2"
 
 /obj/item/weldingtool/largetank/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "промышленный сварочный аппарат",
 		GENITIVE = "промышленного сварочного аппарата",
 		DATIVE = "промышленному сварочному аппарату",
@@ -272,7 +283,7 @@
 	toolspeed = 0.5
 
 /obj/item/weldingtool/largetank/cyborg/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "встроенный сварочный аппарат",
 		GENITIVE = "встроенного сварочного аппарата",
 		DATIVE = "встроенному сварочному аппарату",
@@ -292,7 +303,7 @@
 	low_fuel_changes_icon = FALSE
 
 /obj/item/weldingtool/mini/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "аварийный сварочный аппарат",
 		GENITIVE = "аварийного сварочного аппарата",
 		DATIVE = "аварийному сварочному аппарату",
@@ -317,7 +328,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/weldingtool/abductor/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "чужеродный сварочный аппарат",
 		GENITIVE = "чужеродного сварочного аппарата",
 		DATIVE = "чужеродному сварочному аппарату",
@@ -338,7 +349,7 @@
 	origin_tech = "engineering=3;plasmatech=2"
 
 /obj/item/weldingtool/hugetank/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "улучшенный сварочный аппарат",
 		GENITIVE = "улучшенного сварочного аппарата",
 		DATIVE = "улучшенному сварочному аппарату",
@@ -365,7 +376,7 @@
 	low_fuel_changes_icon = FALSE
 
 /obj/item/weldingtool/experimental/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "экспериментальный сварочный аппарат",
 		GENITIVE = "экспериментального сварочного аппарата",
 		DATIVE = "экспериментальному сварочному аппарату",
@@ -385,7 +396,7 @@
 	light_intensity = 0
 
 /obj/item/weldingtool/experimental/mecha/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "встроенный сварочный аппарат",
 		GENITIVE = "встроенного сварочного аппарата",
 		DATIVE = "встроенному сварочному аппарату",
@@ -407,7 +418,7 @@
 	force_enabled = 10
 
 /obj/item/weldingtool/experimental/brass/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "латунный сварочный аппарат",
 		GENITIVE = "латунного сварочного аппарата",
 		DATIVE = "латунному сварочному аппарату",

@@ -102,7 +102,7 @@
 	var/greyscale_colors
 
 	///Light systems, both shouldn't be active at the same time.
-	var/light_system = STATIC_LIGHT
+	var/light_system = COMPLEX_LIGHT
 	///Range of the light in tiles. Zero means no light.
 	var/light_range = 0
 	///Intensity of the light. The stronger, the less shadows you will see on the lit area.
@@ -113,6 +113,19 @@
 	var/light_on = TRUE
 	///Bitflags to determine lighting-related atom properties.
 	var/light_flags = NONE
+
+	// OVERLAY_LIGHT only values
+	/// An optional render_source to apply to this atom's light overlay
+	var/light_render_source = ""
+
+	// COMPLEX_LIGHT only values
+	/// Angle of light to show in light_dir
+	/// 360 is a circle, 90 is a cone, etc.
+	var/light_angle = 360
+	/// What angle to project light in
+	var/light_dir = NORTH
+	/// How many tiles "up" this light is. 1 is typical, should only really change this if it's a floor light
+	var/light_height = LIGHTING_HEIGHT
 	///Our light source. Don't fuck with this directly unless you have a good reason!
 	var/tmp/datum/light_source/light
 	///Any light sources that are "inside" of us, for example, if src here was a mob that's carrying a flashlight, that flashlight's light source would be part of this list.
@@ -125,10 +138,12 @@
 	/// A luminescence-shifted value of the last color calculated for chatmessage overlays
 	var/chat_color_darkened
 
-
-	/// Список склонений русского названия атома в разных грамматических падежах.
-	/// Формат: list(CASE_ID = "name_in_case", ...)
-	var/list/ru_names
+	/**
+	 * Список склонений русского названия атома в разных грамматических падежах.
+	 *
+	 * Формат: alist(CASE_ID = "name_in_case", ...)
+	 */
+	var/alist/ru_names
 
 	// Can it be drained of energy by ninja?
 	var/drain_act_protected = FALSE
@@ -201,6 +216,9 @@
 	/// Radiation insulation types
 	var/rad_insulation = RAD_NO_INSULATION
 
+	/// Preferred way to render this atom's icon in the lootpanel, as one of the LOOT_ICON_* defines.
+	/// Null lets [/datum/search_object] decide heuristically; subtypes set it when the heuristic
+	/// would pick wrong (e.g. mobs force [LOOT_ICON_FLAT_ICON] for their layered appearances).
 	var/looting_icon_mode
 
 	/// Text that appears preceding the name in [/atom/proc/examine_title]
@@ -208,6 +226,10 @@
 
 	///Cooldown tick timer for buckle messages
 	COOLDOWN_DECLARE(buckle_message_cd)
+
+	VAR_PRIVATE/list/invisibility_sources
+	VAR_PRIVATE/current_invisibility_priority = -INFINITY
+	var/datum/debris_handler/debris_handler = null
 
 /atom/proc/onCentcom()
 	. = FALSE
@@ -243,7 +265,7 @@
 	if(!is_admin_level(T.z))//if not, don't bother
 		return
 
-	if(istype(T.loc, /area/shuttle/syndicate_elite) || istype(T.loc, /area/syndicate_mothership))
+	if(istype(T.loc, /area/shuttle/syndicate_elite) || istype(T.loc, /area/centcom/syndicate_base))
 		return TRUE
 
 /atom/Destroy(force)
@@ -267,8 +289,9 @@
 		light_sources.Cut()
 
 	for(var/mob/orbiter as anything in orbiters)
-		if(orbiter && orbiter.orbiting == src)
-			orbiter.orbiting = null
+		if(orbiter?.orbiting != src)
+			continue
+		orbiter.stop_orbit()
 
 	LAZYCLEARLIST(orbiters)
 
@@ -413,6 +436,7 @@
 
 /atom/proc/bullet_act(obj/projectile/P, def_zone)
 	SEND_SIGNAL(src, COMSIG_ATOM_BULLET_ACT, P, def_zone)
+	debris_handler?.on_impact(src, P)
 	. = P.on_hit(src, 0, def_zone)
 
 /atom/proc/in_contents_of(container)//can take class or object instance as argument
@@ -498,14 +522,11 @@
 		. |= UPDATE_ICON_STATE
 
 	if(updates & UPDATE_OVERLAYS)
+		if(length(managed_vis_overlays))
+			SSvis_overlays.remove_vis_overlay(src, managed_vis_overlays)
+
 		var/list/new_overlays = update_overlays(updates)
 		SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_OVERLAYS, new_overlays)
-
-		// Ok, so its rather this or required inheritance in every [update_overlays()]
-		var/emissive_block = get_emissive_block()
-		if(emissive_block)
-			// Emissive block should always go at the beginning of the list
-			new_overlays.Insert(1, emissive_block)
 
 		var/nulls = 0
 		for(var/i in 1 to length(new_overlays))
@@ -599,10 +620,6 @@
 /atom/proc/update_greyscale()
 	icon = SSgreyscale.get_colored_icon_by_type(greyscale_config, greyscale_colors)
 	looting_icon_mode = LOOT_ICON_ICON_TO_HTML
-
-/// Updates atom's emissive block if present.
-/atom/proc/get_emissive_block()
-	return
 
 /**
  * Adds a special overlay to any atom.
@@ -1372,20 +1389,21 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		logged_name = "[use_prefix ? "[prefix][t]" : t]"
 	investigate_log("[key_name(user)] ([ADMIN_FLW(user,"FLW")]) renamed \"[src]\" ([ADMIN_VV(src, "VV")]) as \"[logged_name]\".", INVESTIGATE_RENAME)
 
-	if(actually_rename)
-		if(t == "")
-			ru_names = get_ru_names_cached()
-			name = "[initial(name)]"
-		else
-			var/list/names = get_ru_names_cached()
-			ru_names = names ? names.Copy() : new /list(6)
-			if(use_prefix)
-				for(var/i = 1; i <= 6; i++)
-					ru_names[i] = "[names ? names[i] : initial(name)] - [t]"
-			else
-				for(var/i = 1; i <= 6; i++)
-					ru_names[i] = "[t]"
-			name = "[prefix][t]"
+	if(!actually_rename)
+		return t
+
+	if(t == "")
+		ru_names = get_ru_names_cached()
+		name = "[initial(name)]"
+		return t
+
+	if(use_prefix)
+		set_ru_names_suffix(" - [t]")
+	else
+		ru_names = alist()
+		for(var/case_id in NOMINATIVE to PREPOSITIONAL)
+			ru_names[case_id] = "[t]"
+	name = "[prefix][t]"
 	return t
 
 /**
@@ -1559,11 +1577,12 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
  * It notifies (potentially) affected light sources so they can update (if needed).
  */
 /atom/proc/set_opacity(new_opacity)
-	if(new_opacity == opacity)
+	if(new_opacity == opacity || light_flags & LIGHT_FROZEN)
 		return
 	SEND_SIGNAL(src, COMSIG_ATOM_SET_OPACITY, new_opacity)
 	. = opacity
 	opacity = new_opacity
+	return .
 
 ///Setter for the `base_pixel_x` variable to append behavior related to its changing.
 /atom/proc/set_base_pixel_x(new_value)

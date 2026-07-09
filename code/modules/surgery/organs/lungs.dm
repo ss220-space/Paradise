@@ -66,7 +66,7 @@
 	var/heat_damage_types = list(BURN = 1)
 
 /obj/item/organ/internal/lungs/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "лёгкие человека",
 		GENITIVE = "лёгких человека",
 		DATIVE = "лёгким человека",
@@ -543,7 +543,7 @@
 	drop_sound = 'sound/items/handling/drop/component_drop.ogg'
 
 /obj/item/organ/internal/lungs/cybernetic/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "кибернетические лёгкие",
 		GENITIVE = "кибернетических лёгких",
 		DATIVE = "кибернетическим лёгким",
@@ -597,7 +597,7 @@
 	cold_level_3_threshold = 100
 
 /obj/item/organ/internal/lungs/cybernetic/upgraded/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "улучшенные кибернетические лёгкие",
 		GENITIVE = "улучшенных кибернетических лёгких",
 		DATIVE = "улучшенным кибернетическим лёгким",

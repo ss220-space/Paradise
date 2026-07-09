@@ -15,7 +15,7 @@
 	log_override = TRUE//it won't log even when there's a pen inside, but since the damage will be so low, I don't think there's any point in making it any more complex
 
 /obj/projectile/bullet/reusable/foam_dart/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пенный дротик",
 		GENITIVE = "пенного дротика",
 		DATIVE = "пенному дротику",
@@ -53,7 +53,7 @@
 	log_override = FALSE
 
 /obj/projectile/bullet/reusable/foam_dart/riot/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "усиленный пенный дротик",
 		GENITIVE = "усиленного пенного дротика",
 		DATIVE = "усиленному пенному дротику",
@@ -69,7 +69,7 @@
 	range = 30
 
 /obj/projectile/bullet/reusable/foam_dart/sniper/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "пенный снайперский дротик",
 		GENITIVE = "пенного снайперского дротика",
 		DATIVE = "пенному снайперскому дротику",
@@ -86,7 +86,7 @@
 	log_override = FALSE
 
 /obj/projectile/bullet/reusable/foam_dart/sniper/riot/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "усиленный пенный снайперский дротик",
 		GENITIVE = "усиленного пенного снайперского дротика",
 		DATIVE = "усиленному пенному снайперскому дротику",

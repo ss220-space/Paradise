@@ -68,6 +68,11 @@
 ///from [/obj/effect/mine/proc/triggermine]:
 #define COMSIG_MINE_TRIGGERED "minegoboom"
 
+///from base of obj/item/do_pickup_animation(): ()
+#define COMSIG_ITEM_BEFORE_PICKUP_ANIMATION "item_before_pickup_animation"
+///from base of obj/item/do_drop_animation(): ()
+#define COMSIG_ITEM_BEFORE_DROP_ANIMATION "item_before_drop_animation"
+
 // Jetpack things
 //called in /obj/item/tank/jetpack/proc/turn_on() : ()
 #define COMSIG_JETPACK_ACTIVATED "jetpack_activated"
@@ -354,3 +359,12 @@
 
 /// Called when attempting to swap two-handed weapons
 #define COMSIG_ITEM_SWAP_BLOCKED "item_swap_blocked"
+
+/// Called when card decal applied to ID card.
+#define COMSIG_CARD_DECAL_APPLIED "card_decal_applied"
+
+/// Called when item inserted into storage. [/obj/item/storage/proc/handle_item_insertion()]: (obj/item/W, prevent_warning = FALSE)
+#define COMSIG_ITEM_INSERTED_INTO_STORAGE "inserted_into_storage"
+
+/// Called when item removed from storage. [/obj/item/storage/proc/remove_from_storage()]: (obj/item/W, atom/new_location)
+#define COMSIG_ITEM_REMOVED_FROM_STORAGE "removed_from_storage"

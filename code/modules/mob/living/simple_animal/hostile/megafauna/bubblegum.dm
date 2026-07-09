@@ -79,7 +79,7 @@ Difficulty: Hard
 	)
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Бубльгум",
 		GENITIVE = "Бубльгума",
 		DATIVE = "Бубльгуму",
@@ -155,7 +155,7 @@ Difficulty: Hard
 		H.overlay_fullscreen("bubblegum", /atom/movable/screen/fullscreen/fog, 2)
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/death(gibbed)
-	qdel(second_life_portal)
+	QDEL_NULL(second_life_portal)
 	if(enraged && !second_life)
 		var/obj/structure/closet/crate/necropolis/bubblegum/bait/jebait = new /obj/structure/closet/crate/necropolis/bubblegum/bait(get_turf(src))
 		var/obj/effect/bubblegum_trigger/great_chest_ahead = new /obj/effect/bubblegum_trigger(jebait, ListTargets())
@@ -539,7 +539,7 @@ Difficulty: Hard
 	random_icon_states = list("gib3", "gib5", "gib6")
 
 /obj/effect/decal/cleanable/blood/gibs/bubblegum/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "густая кровь",
 		GENITIVE = "густой крови",
 		DATIVE = "густой крови",
@@ -662,7 +662,7 @@ Difficulty: Hard
 	loot = list(/obj/effect/decal/cleanable/blood/gibs/bubblegum)
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "галлюцинация Бубльгума",
 		GENITIVE = "галлюцинации Бубльгума",
 		DATIVE = "галлюцинации Бубльгума",

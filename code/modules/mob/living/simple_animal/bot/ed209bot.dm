@@ -56,7 +56,7 @@
 	var/speak_cooldown = FALSE
 
 /mob/living/simple_animal/bot/ed209/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "охранный робот ED-209",
 		GENITIVE = "охранного робота ED-209",
 		DATIVE = "охранному роботу ED-209",
@@ -90,13 +90,9 @@
 			else if(lasercolor == "r")
 				name = pick("КРАСНОЕ БЕЗУМИЕ","КРАСНЫЙ УНИЧТОЖИТЕЛЬ","КРАСНЫЙ КИБОРГ УБИЙЦА")
 
-	//SECHUD
-	var/datum/atom_hud/secsensor = GLOB.huds[DATA_HUD_SECURITY_ADVANCED]
-	secsensor.show_to(src)
-
 /mob/living/simple_animal/bot/ed209/proc/setup_access()
 	if(access_card)
-		var/datum/job/security/detective/J = new/datum/job/security/detective
+		var/datum/job/security/detective/J = SSjobs.GetJob(JOB_TITLE_DETECTIVE)
 		access_card.access += J.get_access()
 		prev_access = access_card.access
 

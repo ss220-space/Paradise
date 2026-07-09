@@ -19,7 +19,7 @@
 	src.target_size = target_size
 
 /datum/fluid_group/Destroy(force)
-	QDEL_LAZYLIST(nodes)
+	QDEL_LIST(nodes)
 	return ..()
 
 /**

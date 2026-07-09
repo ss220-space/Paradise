@@ -8,6 +8,7 @@
 	pull_push_slowdown = 1.3
 	interaction_flags_atom = INTERACT_ATOM_ATTACK_HAND | INTERACT_ATOM_UI_INTERACT
 	layer = BELOW_OBJ_LAYER
+	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	/// Determines if a structure adds the TRAIT_TURF_COVERED to its turf.
 	var/creates_cover = FALSE
 	var/mob/living/climber
@@ -38,8 +39,8 @@
 		GLOB.cameranet.updateVisibility(src)
 	if(smooth)
 		var/turf/T = get_turf(src)
-		spawn(0)
-			QUEUE_SMOOTH_NEIGHBORS(T)
+		QUEUE_SMOOTH_NEIGHBORS(T)
+	REMOVE_FROM_SMOOTH_QUEUE(src)
 	if(creates_cover && isturf(loc))
 		REMOVE_TRAIT(loc, TRAIT_TURF_COVERED, UNIQUE_TRAIT_SOURCE(src))
 	if(datum_flags & DF_ISPROCESSING)
@@ -47,7 +48,7 @@
 	return ..()
 
 /obj/structure/add_debris_element()
-	AddElement(/datum/element/debris, null, -40, 8, 0.7)
+	generate_debris_handler(null, -40, 8, 0.7)
 
 /obj/structure/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	var/atom/old_loc = loc

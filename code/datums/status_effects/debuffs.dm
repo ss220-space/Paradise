@@ -857,7 +857,7 @@
 	if(dreamer.get_drunkenness() > 0)
 		comfort += 1 //Aren't naps SO much better when drunk?
 		dreamer.AdjustDrunk(-0.4 SECONDS * comfort) //reduce drunkenness while sleeping.
-	if(comfort > 1 && prob(3))//You don't heal if you're just sleeping on the floor without a blanket.
+	if(comfort > 1)//You don't heal if you're just sleeping on the floor without a blanket.
 		brute_heal += 1 * comfort
 		burn_heal += 1 * comfort
 	if(brute_heal > 0 || burn_heal > 0)
@@ -1049,6 +1049,7 @@
 	// Maybe this should be bad for server perfomance, but i dont test it on production server
 	for(var/mob/dead/observer/observe in owner.inventory_observers)
 		if(!observe.client)
+			observe.handle_when_autoobserve_move()
 			LAZYREMOVE(owner.inventory_observers, observe)
 			continue
 		game_plane_master_controller = observe.hud_used.plane_master_controllers[PLANE_MASTERS_GAME]
@@ -1070,6 +1071,7 @@
 	// Maybe this should be bad for server perfomance, but i dont test it on production server
 	for(var/mob/dead/observer/observe in owner.inventory_observers)
 		if(!observe.client)
+			observe.handle_when_autoobserve_move()
 			LAZYREMOVE(owner.inventory_observers, observe)
 			continue
 		game_plane_master_controller = observe.hud_used.plane_master_controllers[PLANE_MASTERS_GAME]
@@ -1575,6 +1577,20 @@
 	name = "Unbalanced"
 	desc = "You're being shoved around by airflow! You can resist this by moving, but moving against the wind will be slow."
 	icon_state = "unbalanced"
+
+// MARK: Capitulated
+/datum/status_effect/incapacitating/capitulated
+	id = "capitulated"
+	duration = 20 SECONDS
+	status_type = STATUS_EFFECT_UNIQUE
+	alert_type = null
+	traits_to_apply = list(TRAIT_INCAPACITATED, TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED)
+
+/datum/status_effect/incapacitating/capitulated/on_apply()
+	. = ..()
+	if(!.)
+		return
+	owner.drop_all_held_items()
 
 // MARK: staminaregen_block
 /datum/status_effect/staminaregen_block

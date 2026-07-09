@@ -570,7 +570,7 @@
 	var/obj/effect/proc_holder/spell/vampire/self/infected_trophy/parent_spell
 
 /obj/item/gun/magic/skull_gun/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "заражённый череп",
 		GENITIVE = "заражённого черепа",
 		DATIVE = "заражённому черепу",
@@ -1320,7 +1320,7 @@
 	var/fullpower_heal_done = FALSE
 
 /obj/structure/closet/coffin/vampire/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "таинственный гроб",
 		GENITIVE = "таинственного гроба",
 		DATIVE = "таинственному гробу",
@@ -1839,6 +1839,8 @@
 
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	sync_lighting_plane_alpha()
+
+	return ..()
 
 /mob/living/simple_animal/hostile/vampire/do_attack_animation(atom/A, visual_effect_icon, obj/item/used_item, no_effect)
 	if(!no_effect && !visual_effect_icon)

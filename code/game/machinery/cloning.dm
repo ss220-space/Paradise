@@ -52,7 +52,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	light_color = LIGHT_COLOR_ELECTRIC_GREEN
 
 /obj/machinery/clonepod/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "капсула клонирования",
 		GENITIVE = "капсулы клонирования",
 		DATIVE = "капсуле клонирования",
@@ -119,6 +119,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 /obj/machinery/clonepod/Destroy()
 	if(connected)
 		connected.pods -= src
+		connected = null
 	if(clonemind)
 		UnregisterSignal(clonemind.current, COMSIG_LIVING_REVIVE)
 		UnregisterSignal(clonemind, COMSIG_MIND_TRANSER_TO)
@@ -144,7 +145,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	var/read_only = FALSE //Well,it's still a floppy disk
 
 /obj/item/disk/data/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "ДНК-дискета",
 		GENITIVE = "ДНК-дискеты",
 		DATIVE = "ДНК-дискете",
@@ -700,7 +701,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	icon_state = "box_disc"
 
 /obj/item/storage/box/disks/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "коробка с дискетами",
 		GENITIVE = "коробки с дискетами",
 		DATIVE = "коробке с дискетами",

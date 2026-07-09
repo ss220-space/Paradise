@@ -69,7 +69,7 @@
 	return FALSE
 
 /datum/spellbook_entry/proc/Refund(mob/living/carbon/human/user, obj/item/spellbook/book)//return point value or -1 for failure
-	var/area/wizard_station/A = locate()
+	var/area/centcom/wizard_station/A = locate()
 	if(!(user in A.contents))
 		to_chat(user, span_warning("You can only refund spells at the wizard lair."))
 		return -1
@@ -764,7 +764,7 @@
 	var/static/list/loadout_categories = list("Standard", "Unique")
 
 /obj/item/spellbook/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "книга заклинаний",
 		GENITIVE = "книги заклинаний",
 		DATIVE = "книге заклинаний",
@@ -874,7 +874,7 @@
 	if(user != owner)
 		to_chat(user, span_warning("The [name] does not recognize you as it's owner and refuses to open!"))
 		return
-	
+
 	ui_interact(user)
 
 
@@ -975,7 +975,7 @@
 				entry.limit += result
 			uses += result
 			. = TRUE
-			
+
 #undef SPELLBOOK_ACTION_BUY
 #undef SPELLBOOK_ACTION_REFUND
 
@@ -994,7 +994,7 @@
 	desc = "Эту шаблонную книгу заклинаний не должно было видеть ни одно живое существо..."
 
 /obj/item/spellbook/oneuse/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "гримуар [spellname_ru]",
 		GENITIVE = "гримуара [spellname_ru]",
 		DATIVE = "гримуару [spellname_ru]",

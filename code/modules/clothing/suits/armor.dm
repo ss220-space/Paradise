@@ -339,7 +339,7 @@
 	var/hit_reflect_chance = 50
 
 /obj/item/clothing/suit/armor/laserproof/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "абляционный бронежилет",
 		GENITIVE = "абляционного бронежилета",
 		DATIVE = "абляционному бронежилету",
@@ -375,7 +375,7 @@
 	var/hit_reflect_chance = 50
 
 /obj/item/clothing/suit/armor/reflector/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "рефлекторное пальто",
 		GENITIVE = "рефлекторное пальто",
 		DATIVE = "рефлекторному пальто",
@@ -699,7 +699,7 @@
 	hide_tail_by_species = list(SPECIES_VULPKANIN)
 
 /obj/item/clothing/suit/hooded/drake/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "доспех из дрейка",
 		GENITIVE = "доспеха из дрейка",
 		DATIVE = "доспеху из дрейка",
@@ -707,6 +707,13 @@
 		INSTRUMENTAL = "доспехом из дрейка",
 		PREPOSITIONAL = "доспехе из дрейка",
 	)
+
+/obj/item/clothing/suit/hooded/drake/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer, notify_contents)
+	. = ..()
+	if(!is_mining_level(new_turf.z))
+		armor = getArmor(melee = 35, bullet = 15, laser = 25, energy = 20, bomb = 35, bio = 30, fire = 50, acid = 50)
+		return
+	armor = getArmor(melee = 70, bullet = 30, laser = 50, energy = 40, bomb = 70, bio = 60, fire = 100, acid = 100)
 
 /obj/item/clothing/head/hooded/drake
 	name = "drake helmet"
@@ -720,7 +727,7 @@
 	flags_cover = HEADCOVERSEYES
 
 /obj/item/clothing/head/hooded/drake/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шлем из дрейка",
 		GENITIVE = "шлема из дрейка",
 		DATIVE = "шлему из дрейка",
@@ -729,18 +736,25 @@
 		PREPOSITIONAL = "шлеме из дрейка",
 	)
 
+/obj/item/clothing/head/hooded/drake/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer, notify_contents)
+	. = ..()
+	if(!is_mining_level(new_turf.z))
+		armor = getArmor(melee = 35, bullet = 15, laser = 25, energy = 20, bomb = 35, bio = 30, fire = 50, acid = 50)
+		return
+	armor = getArmor(melee = 70, bullet = 30, laser = 50, energy = 40, bomb = 70, bio = 60, fire = 100, acid = 100)
+
 /obj/item/clothing/suit/hooded/goliath
 	name = "goliath cloak"
 	icon_state = "goliath_cloak"
 	item_state = "goliath_cloak"
 	desc = "Прочный и практичный плащ, созданный из различных материалов, добытых из монстров. Он пользуется большим спросом у тех, кто ведёт жизнь отшельника или изгнанника."
 	allowed = ALLOWED_MINING_SUIT_ITEMS
-	armor = list(MELEE = 40, BULLET = 15, LASER = 30, ENERGY = 15, BOMB = 35, BIO = 0, FIRE = 80, ACID = 60) //a fair alternative to bone armor, requiring alternative materials and gaining a suit slot
+	armor = list(MELEE = 35, BULLET = 10, LASER = 25, ENERGY = 15, BOMB = 35, BIO = 0, FIRE = 50, ACID = 50) //a fair alternative to bone armor, requiring alternative materials and gaining a suit slot
 	hoodtype = /obj/item/clothing/head/hooded/goliath
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
 /obj/item/clothing/suit/hooded/goliath/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "накидка из голиафа",
 		GENITIVE = "накидки из голиафа",
 		DATIVE = "накидке из голиафа",
@@ -754,11 +768,11 @@
 	icon_state = "golhood"
 	item_state = "golhood"
 	desc = "Защитный и скрывающий капюшон."
-	armor = list(MELEE = 40, BULLET = 15, LASER = 30, ENERGY = 15, BOMB = 35, BIO = 0, FIRE = 80, ACID = 60)
+	armor = list(MELEE = 35, BULLET = 10, LASER = 25, ENERGY = 15, BOMB = 35, BIO = 0, FIRE = 50, ACID = 50)
 	flags_cover = HEADCOVERSEYES
 
 /obj/item/clothing/head/hooded/goliath/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "капюшон накидки из голиафа",
 		GENITIVE = "капюшона накидки из голиафа",
 		DATIVE = "капюшону накидки из голиафа",
@@ -781,7 +795,7 @@
 	magical = TRUE
 
 /obj/item/clothing/head/hooded/goliath/wizard/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "череп шамана",
 		GENITIVE = "черепа шамана",
 		DATIVE = "черепу шамана",
@@ -821,7 +835,7 @@
 	hide_tail_by_species = list(SPECIES_VULPKANIN)
 
 /obj/item/clothing/suit/armor/bone/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "костяная броня",
 		GENITIVE = "костяной брони",
 		DATIVE = "костяной броне",
@@ -874,7 +888,7 @@
 	)
 
 /obj/item/clothing/suit/armor/cartilage/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "броня из хрящевых пластин",
 		GENITIVE = "брони из хрящевых пластин",
 		DATIVE = "броне из хрящевых пластин",
@@ -892,7 +906,7 @@
 	body_parts_covered = UPPER_TORSO|ARMS
 
 /obj/item/clothing/suit/armor/cartilage/cartilage_pads/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "наплечники из хрящевых пластин",
 		GENITIVE = "наплечников из хрящевых пластин",
 		DATIVE = "наплечникам из хрящевых пластин",
@@ -924,7 +938,7 @@
 	body_parts_covered = LOWER_TORSO|LEGS
 
 /obj/item/clothing/suit/armor/cartilage/cartilage_greaves/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "поножи из хрящевых пластин",
 		GENITIVE = "поножей из хрящевых пластин",
 		DATIVE = "поножам из хрящевых пластин",

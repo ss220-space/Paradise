@@ -14,6 +14,7 @@ $color-syndicate: colors.bg(colors.$red) !default;
 $color-honk: colors.bg(colors.$pink) !default;
 $color-ert: colors.bg(colors.$orange) !default;
 $color-nuke: colors.bg(colors.$yellow) !default;
+$color-internet-sound: colors.bg(colors.$blue) !default;
 $color-muted: colors.bg(colors.$label) !default;
 $color-header: colors.bg(colors.$label) !default;
 $text-color: base.$color-fg !default;
@@ -21,7 +22,8 @@ $text-color: base.$color-fg !default;
 .RequestManager__request_centcom,
 .RequestManager__request_nuke,
 .RequestManager__request_prayer,
-.RequestManager__request_syndicate {
+.RequestManager__request_syndicate,
+.RequestManager__request_internet_sound {
   margin-right: 0.5rem;
 }
 
@@ -47,6 +49,10 @@ $text-color: base.$color-fg !default;
 
 .RequestManager__request_nuke {
   color: $color-nuke;
+}
+
+.RequestManager__request_internet_sound {
+  color: $color-internet-sound;
 }
 
 .RequestManager__header {

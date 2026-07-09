@@ -66,7 +66,7 @@
 	var/gathered_food = 20 // Start with a bit to use abilities
 
 /mob/living/simple_animal/hostile/morph/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "морф",
 		GENITIVE = "морфа",
 		DATIVE = "морфу",
@@ -140,7 +140,7 @@
 	desc = "Отвратительная пульсирующая масса плоти. Выглядит несколько... магически."
 
 /mob/living/simple_animal/hostile/morph/wizard/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "магический морф",
 		GENITIVE = "магического морфа",
 		DATIVE = "магическому морфу",
@@ -442,7 +442,7 @@
 		mind.objectives += procreate
 		messages.Add(mind.prepare_announce_objectives(FALSE))
 
-	to_chat(src, chat_box_red(messages.Join("<br>")))
+	to_chat(src, custom_boxed_message("red_box center", messages.Join("<br>")))
 
 /mob/living/simple_animal/hostile/morph/get_visible_gender()
 	return morphed ? mimic_spell.selected_form.examine_gender : ..()

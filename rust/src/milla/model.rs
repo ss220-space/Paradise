@@ -1,8 +1,8 @@
 use crate::milla::constants::*;
 use atomic_float::AtomicF32;
 use bitflags::bitflags;
-use byondapi::map::{byond_locatexyz, ByondXYZ};
-use byondapi::prelude::*;
+use meowtonin::ToByond;
+use meowtonin::{misc::locate_xyz, ByondError, ByondResult, ByondValue, ByondXYZ};
 use std::collections::HashSet;
 use std::ops::Add;
 use std::sync::{atomic::AtomicBool, atomic::Ordering::Relaxed, RwLock};
@@ -262,14 +262,15 @@ pub(crate) enum AtmosMode {
     NoDecay,
 }
 
-impl From<AtmosMode> for ByondValue {
-    fn from(value: AtmosMode) -> Self {
-        match value {
-            AtmosMode::Space => ByondValue::from(0.0),
-            AtmosMode::Sealed => ByondValue::from(1.0),
-            AtmosMode::ExposedTo { .. } => ByondValue::from(2.0),
-            AtmosMode::NoDecay => ByondValue::from(3.0),
-        }
+impl TryFrom<AtmosMode> for ByondValue {
+    type Error = ByondError;
+    fn try_from(value: AtmosMode) -> ByondResult<Self> {
+        Ok(match value {
+            AtmosMode::Space => (0.0).to_byond()?,
+            AtmosMode::Sealed => (1.0).to_byond()?,
+            AtmosMode::ExposedTo { .. } => (2.0).to_byond()?,
+            AtmosMode::NoDecay => (3.0).to_byond()?,
+        })
     }
 }
 
@@ -422,8 +423,9 @@ impl Tile {
 
 /// Converts a tile into BYOND values.
 /// Must match the order in code/__DEFINES/milla.dm
-impl From<&Tile> for Vec<ByondValue> {
-    fn from(value: &Tile) -> Self {
+impl TryFrom<&Tile> for Vec<ByondValue> {
+    type Error = ByondError;
+    fn try_from(value: &Tile) -> ByondResult<Self> {
         let mut environment_id: u8 = 0;
         if let AtmosMode::ExposedTo {
             environment_id: env,
@@ -431,43 +433,43 @@ impl From<&Tile> for Vec<ByondValue> {
         {
             environment_id = env;
         }
-        vec![
-            ByondValue::from(value.airtight_directions.bits() as f32),
-            ByondValue::from(value.gases.oxygen()),
-            ByondValue::from(value.gases.carbon_dioxide()),
-            ByondValue::from(value.gases.nitrogen()),
-            ByondValue::from(value.gases.toxins()),
-            ByondValue::from(value.gases.sleeping_agent()),
-            ByondValue::from(value.gases.agent_b()),
-            ByondValue::from(value.gases.hydrogen()),
-            ByondValue::from(value.gases.water_vapor()),
-            ByondValue::from(value.gases.tritium()),
-            ByondValue::from(value.gases.bz()),
-            ByondValue::from(value.gases.pluoxium()),
-            ByondValue::from(value.gases.miasma()),
-            ByondValue::from(value.gases.freon()),
-            ByondValue::from(value.gases.nitrium()),
-            ByondValue::from(value.gases.healium()),
-            ByondValue::from(value.gases.proto_nitrate()),
-            ByondValue::from(value.gases.zauker()),
-            ByondValue::from(value.gases.halon()),
-            ByondValue::from(value.gases.helium()),
-            ByondValue::from(value.gases.antinoblium()),
-            ByondValue::from(value.gases.hypernoblium()),
-            ByondValue::from(value.mode),
-            ByondValue::from(environment_id as f32),
-            ByondValue::from(value.superconductivity.north),
-            ByondValue::from(value.superconductivity.east),
-            ByondValue::from(value.superconductivity.south),
-            ByondValue::from(value.superconductivity.west),
-            ByondValue::from(value.innate_heat_capacity),
-            ByondValue::from(value.temperature()),
-            ByondValue::from(value.hotspot_temperature),
-            ByondValue::from(value.hotspot_volume),
-            ByondValue::from(value.wind[AXIS_X]),
-            ByondValue::from(value.wind[AXIS_Y]),
-            ByondValue::from(value.fuel_burnt),
-        ]
+        Ok(vec![
+            value.airtight_directions.bits().to_byond()?,
+            value.gases.oxygen().to_byond()?,
+            value.gases.carbon_dioxide().to_byond()?,
+            value.gases.nitrogen().to_byond()?,
+            value.gases.toxins().to_byond()?,
+            value.gases.sleeping_agent().to_byond()?,
+            value.gases.agent_b().to_byond()?,
+            value.gases.hydrogen().to_byond()?,
+            value.gases.water_vapor().to_byond()?,
+            value.gases.tritium().to_byond()?,
+            value.gases.bz().to_byond()?,
+            value.gases.pluoxium().to_byond()?,
+            value.gases.miasma().to_byond()?,
+            value.gases.freon().to_byond()?,
+            value.gases.nitrium().to_byond()?,
+            value.gases.healium().to_byond()?,
+            value.gases.proto_nitrate().to_byond()?,
+            value.gases.zauker().to_byond()?,
+            value.gases.halon().to_byond()?,
+            value.gases.helium().to_byond()?,
+            value.gases.antinoblium().to_byond()?,
+            value.gases.hypernoblium().to_byond()?,
+            value.mode.try_into()?,
+            environment_id.to_byond()?,
+            value.superconductivity.north.to_byond()?,
+            value.superconductivity.east.to_byond()?,
+            value.superconductivity.south.to_byond()?,
+            value.superconductivity.west.to_byond()?,
+            value.innate_heat_capacity.to_byond()?,
+            value.temperature().to_byond()?,
+            value.hotspot_temperature.to_byond()?,
+            value.hotspot_volume.to_byond()?,
+            value.wind[AXIS_X].to_byond()?,
+            value.wind[AXIS_Y].to_byond()?,
+            value.fuel_burnt.to_byond()?,
+        ])
     }
 }
 
@@ -488,7 +490,7 @@ bitflags! {
 }
 
 /// A tile that we consider interesting for some reason.
-#[derive(Debug, Clone)]
+#[derive(Clone)]
 pub(crate) struct InterestingTile {
     /// The tile itself.
     pub(crate) tile: Tile,
@@ -511,20 +513,21 @@ pub(crate) struct InterestingTile {
 /// and datums isn't possible.
 ///
 /// Must match the order in code/__DEFINES/milla.dm
-impl From<&InterestingTile> for Vec<ByondValue> {
-    fn from(value: &InterestingTile) -> Self {
-        let mut ret: Vec<ByondValue> = (&value.tile).into();
+impl TryFrom<&InterestingTile> for Vec<ByondValue> {
+    type Error = ByondError;
+    fn try_from(value: &InterestingTile) -> ByondResult<Self> {
+        let mut ret: Vec<ByondValue> = (&value.tile).try_into()?;
         ret.extend(vec![
-            byond_locatexyz(value.coords).unwrap(),
-            ByondValue::from(value.reasons.bits() as f32),
-            ByondValue::from(value.wind_x),
-            ByondValue::from(value.wind_y),
-            ByondValue::from(value.tile.radiation_energy),
-            ByondValue::from(value.tile.hallucination_strength),
-            ByondValue::from(value.tile.nuclear_particles),
+            locate_xyz(value.coords).unwrap(),
+            value.reasons.bits().to_byond()?,
+            value.wind_x.to_byond()?,
+            value.wind_y.to_byond()?,
+            value.tile.radiation_energy.to_byond()?,
+            value.tile.hallucination_strength.to_byond()?,
+            value.tile.nuclear_particles.to_byond()?,
         ]);
 
-        ret
+        Ok(ret)
     }
 }
 

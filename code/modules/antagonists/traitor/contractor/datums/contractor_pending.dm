@@ -13,7 +13,7 @@
 	if(!is_admin_forced)
 		return
 	var/list/messages = greet()
-	to_chat(mind.current, chat_box_red(messages.Join("<br>")))
+	to_chat(mind.current, custom_boxed_message("red_box center", messages.Join("<br>")))
 
 /datum/contractor_pending/proc/greet()
 	// Greet them with the unique message
@@ -49,7 +49,7 @@
 	var/obj/item/storage/box/syndie_kit/contractor/contractor_kit = new(user)
 	user.put_in_hands(contractor_kit)
 	var/obj/item/contractor_uplink/contractor_uplink = locate(/obj/item/contractor_uplink, contractor_kit)
-	contractor.contractor_uplink = contractor_uplink
+	contractor.contractor_uplink_ref = WEAKREF(contractor_uplink)
 	contractor_uplink.hub = new(user.mind, contractor_uplink)
 
 	// Remove the TC

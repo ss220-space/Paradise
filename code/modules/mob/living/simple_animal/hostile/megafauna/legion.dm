@@ -58,7 +58,7 @@ Difficulty: Medium
 	stat_attack = UNCONSCIOUS // Overriden from /tg/ - otherwise Legion starts chasing its minions
 
 /mob/living/simple_animal/hostile/megafauna/legion/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "Легион",
 		GENITIVE = "Легиона",
 		DATIVE = "Легиону",

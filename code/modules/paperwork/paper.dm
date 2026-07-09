@@ -19,7 +19,6 @@
 	body_parts_covered = HEAD
 	resistance_flags = FLAMMABLE
 	max_integrity = 50
-	blocks_emissive = FALSE
 	attack_verb = list("стукнул")
 	permeability_coefficient = 0.01
 	dog_fashion = /datum/dog_fashion/head
@@ -54,7 +53,7 @@
 	var/time = "00:00"
 
 /obj/item/paper/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бумага",
 		GENITIVE = "бумаги",
 		DATIVE = "бумаге",

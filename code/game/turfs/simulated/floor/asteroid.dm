@@ -19,7 +19,7 @@
 	var/worm_chance = 30
 
 /turf/simulated/floor/plating/asteroid/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "астероидный песок",
 		GENITIVE = "астероидного песка",
 		DATIVE = "астероидному песку",
@@ -148,7 +148,7 @@ GLOBAL_LIST_EMPTY(dug_up_basalt)
 	floor_variance = 15
 
 /turf/simulated/floor/plating/asteroid/basalt/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "вулканический пол",
 		GENITIVE = "вулканического пола",
 		DATIVE = "вулканическому полу",
@@ -165,6 +165,7 @@ GLOBAL_LIST_EMPTY(dug_up_basalt)
 /turf/simulated/floor/plating/asteroid/basalt/Destroy()
 	GLOB.dug_up_basalt -= src
 	return ..()
+
 
 /turf/simulated/floor/plating/asteroid/basalt/lava //lava underneath
 	baseturf = /turf/simulated/floor/lava
@@ -203,6 +204,14 @@ GLOBAL_LIST_EMPTY(dug_up_basalt)
 		if("basalt5", "basalt9")
 			B.set_light(1.4, 0.6, LIGHT_COLOR_LAVA) //barely anything!
 
+/turf/simulated/floor/plating/asteroid/ancient
+	baseturf = /turf/simulated/floor/plating/asteroid/ancient/airless
+
+/turf/simulated/floor/plating/asteroid/ancient/airless
+	temperature = TCMB
+	oxygen = 0
+	nitrogen = 0
+
 ///////Surface. The surface is warm, but survivable without a suit. Internals are required. The floors break to chasms, which drop you into the underground.
 
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
@@ -235,7 +244,7 @@ GLOBAL_LIST_EMPTY(dug_up_basalt)
 	digResult = /obj/item/stack/sheet/mineral/snow
 
 /turf/simulated/floor/plating/asteroid/snow/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "снег",
 		GENITIVE = "снега",
 		DATIVE = "снегу",

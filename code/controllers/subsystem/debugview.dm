@@ -58,12 +58,12 @@ SUBSYSTEM_DEF(debugview)
 /datum/controller/subsystem/debugview/proc/stop_processing(client/cur_client)
 	processing -= cur_client
 	cur_client.screen -= cur_client.debug_text_overlay
-	qdel(cur_client.debug_text_overlay)
+	QDEL_NULL(cur_client.debug_text_overlay)
 
 /atom/movable/screen/debugtextholder
 	icon = 'icons/mob/screen_full.dmi'
 	icon_state = "default"
 	screen_loc = "CENTER-7,CENTER-7"
-	plane = HUD_PLANE_DEBUGVIEW
+	plane = SPLASHSCREEN_PLANE
 	maptext_height = 480 // If we ever change view size, increase this
 	maptext_width = 480

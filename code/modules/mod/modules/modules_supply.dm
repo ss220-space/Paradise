@@ -16,7 +16,7 @@
 	device = /obj/item/gps/mod
 
 /obj/item/mod/module/gps/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль ГПС",
 		GENITIVE = "модуля ГПС",
 		DATIVE = "модулю ГПС",
@@ -48,7 +48,7 @@
 	var/list/stored_crates = list()
 
 /obj/item/mod/module/clamp/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль гидравлической клешни",
 		GENITIVE = "модуля гидравлической клешни",
 		DATIVE = "модулю гидравлической клешни",
@@ -124,7 +124,7 @@
 	required_slots = list(ITEM_SLOT_BACK)
 
 /obj/item/mod/module/clamp/loader/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль грузовой клешни",
 		GENITIVE = "модуля грузовой клешни",
 		DATIVE = "модулю грузовой клешни",
@@ -150,7 +150,7 @@
 	required_slots = list(ITEM_SLOT_GLOVES)
 
 /obj/item/mod/module/drill/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль дрели",
 		GENITIVE = "модуля дрели",
 		DATIVE = "модулю дрели",
@@ -205,7 +205,7 @@
 	var/list/ores = list()
 
 /obj/item/mod/module/orebag/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль хранилища руды",
 		GENITIVE = "модуля хранилища руды",
 		DATIVE = "модулю хранилища руды",
@@ -266,7 +266,7 @@
 	var/image/charge_up_overlay
 
 /obj/item/mod/module/hydraulic/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль гидравлических рук",
 		GENITIVE = "модуля гидравлических рук",
 		DATIVE = "модулю гидравлических рук",
@@ -331,7 +331,7 @@
 	required_slots = list(ITEM_SLOT_BACK)
 
 /obj/item/mod/module/magnet/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль грузового магнита",
 		GENITIVE = "модуля грузового магнита",
 		DATIVE = "модулю грузового магнита",
@@ -403,7 +403,7 @@
 	var/static/list/keep_turfs
 
 /obj/item/mod/module/ash_accretion/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль пепельного аттрактора",
 		GENITIVE = "модуля пепельного аттрактора",
 		DATIVE = "модулю пепельного аттрактора",
@@ -533,7 +533,7 @@
 	balloon_alert(user, "протоколы безопасности [safe ? "восстановлены" : "сняты"]!")
 
 /obj/item/mod/module/sphere_transform/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль превращения в сферу",
 		GENITIVE = "модуля превращения в сферу",
 		DATIVE = "модулю превращения в сферу",
@@ -620,7 +620,7 @@
 	var/static/image/explosion_image
 
 /obj/structure/mining_bomb/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шахтёрская бомба",
 		GENITIVE = "шахтёрской бомбы",
 		DATIVE = "шахтёрскую бомбу",

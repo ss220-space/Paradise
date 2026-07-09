@@ -157,20 +157,24 @@
 
 /datum/station_trait/random_event_weight_modifier/on_round_start()
 	. = ..()
-	for(var/datum/event_container/event_sever in SSevents.event_containers)
-		if(istype(event_sever, event_severity))
-			event_severity = event_sever
-	var/modified_event = FALSE
 
+	for(var/severity_level, container in SSevents.event_containers)
+		if(!istype(container, event_severity))
+			continue
+		event_severity = container
+		break
+
+	var/modified_event = FALSE
 	for(var/datum/event_meta/event_meta in event_severity.available_events)
-		for(var/i in event_names)
-			if(event_meta.name == i)
-				event_meta.weight *= weight_multiplier
-				for(var/role_weight in event_meta.role_weights)
-					event_meta.role_weights[role_weight] *= weight_multiplier
-				if(disable_is_one_shot == TRUE)
-					event_meta.one_shot = FALSE
-				modified_event = TRUE
+		for(var/event_name in event_names)
+			if(event_meta.name != event_name)
+				continue
+			event_meta.weight *= weight_multiplier
+			for(var/role_weight in event_meta.role_weights)
+				event_meta.role_weights[role_weight] *= weight_multiplier
+			if(disable_is_one_shot)
+				event_meta.one_shot = FALSE
+			modified_event = TRUE
 
 	if(!modified_event)
 		CRASH("[type] could not find a round event controller to modify on round start (likely has an invalid event_name or event_severity set, or an admin removed the event from the list)!")
@@ -289,21 +293,20 @@
 	)
 	/// Lists of area to trash
 	var/static/list/areas_to_trash = list(
-		/area/bridge,
-		/area/security,
-		/area/medical/cmo,
-		/area/quartermaster/qm,
-		/area/blueshield,
-		/area/ntrep,
-		/area/lawoffice,
-		/area/magistrateoffice,
-		/area/crew_quarters/captain,
-		/area/crew_quarters/heads,
-		/area/crew_quarters/hor,
-		/area/crew_quarters/hos,
-		/area/crew_quarters/chief,
-		/area/crew_quarters/courtroom,
-		/area/crew_quarters/recruit,
+		/area/station/command/bridge,
+		/area/station/security,
+		/area/station/command/office/cmo,
+		/area/station/command/office/qm,
+		/area/station/command/office/blueshield,
+		/area/station/command/office/ntrep,
+		/area/station/legal/office/law,
+		/area/station/legal/office/magistrate,
+		/area/station/command/office/captain,
+		/area/station/command/office/hop,
+		/area/station/command/office/rd,
+		/area/station/command/office/hos,
+		/area/station/command/office/ce,
+		/area/station/legal/courtroom,
 	)
 
 /datum/station_trait/revolutionary_trashing/on_round_start()
@@ -379,25 +382,18 @@
 
 /datum/station_trait/looted_armory
 	name = "Разграбленная оружейная"
-	report_message = "Из-за острой нехватки финансирования, часть снаряжения в оружейной объекта была списана. В качестве компенсации стоимость заказа вооружения была снижена."
+	report_message = "Из-за острой нехватки финансирования, часть снаряжения в оружейной объекта была списана."
 	trait_type = STATION_TRAIT_NEGATIVE
 	show_in_report = TRUE
 	trait_to_give = STATION_TRAIT_LOOTED_ARMORY
 	weight = 2
-	blacklist = list(/datum/station_trait/upgraded_armory)
 
 /datum/station_trait/looted_armory/on_round_start()
 	. = ..()
-	for(var/set_name in SSshuttle.supply_packs)
-		var/datum/supply_packs/pack = SSshuttle.supply_packs[set_name]
-		if(pack.group != SUPPLY_SECURITY)
-			continue
-		pack.cost *= 0.6
-
 	INVOKE_ASYNC(src, PROC_REF(loot_armory))
 
 /datum/station_trait/looted_armory/proc/loot_armory()
-	for(var/area/security/securearmory/armory in GLOB.areas)
+	for(var/area/station/security/hallway/armory/armory in GLOB.areas)
 		for(var/list/zlevel_turfs as anything in armory.get_zlevel_turf_lists())
 			for(var/turf/current_turf as anything in zlevel_turfs)
 				for(var/obj/current_thing as anything in current_turf.contents)

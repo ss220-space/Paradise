@@ -273,7 +273,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	w_class = WEIGHT_CLASS_TINY
 
 /obj/item/gpsupgrade/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль улучшения GPS",
 		GENITIVE = "модуля улучшения GPS",
 		DATIVE = "модулю улучшения GPS",

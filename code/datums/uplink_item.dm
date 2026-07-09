@@ -170,10 +170,7 @@
 		buyer.put_in_any_hand_if_possible(spawned)
 
 	// Append item icons to the uplink's purchase log
-	var/list/items_to_log = spawned.get_uplink_log_items()
-	for(var/atom/atom_to_display in items_to_log)
-		target_uplink.purchase_log += span_fontsize4(icon2base64html(atom_to_display))
-
+	spawned.log_contents_to_uplink(target_uplink)
 	return spawned
 
 /// Handles refund tracking for discount category items.
@@ -493,10 +490,10 @@
 /datum/uplink_item/jobspecific/lockermech
 	name = "Синди-Шкафомех"
 	desc = "Массивный и невероятно смертоносный экзоскетлет \"Синдиката\" (на самом деле нет)."
-	item = /obj/mecha/combat/lockersyndie/loaded
+	item = /obj/item/mecha_drop
 	cost = 25
 	job = list(JOB_TITLE_CIVILIAN, JOB_TITLE_ROBOTICIST)
-	surplus = 0
+	surplus = TRUE
 
 /datum/uplink_item/jobspecific/combat_drone
 	name = "Руководство по эксплуатации боевого дрона"
@@ -696,7 +693,7 @@
 			Оно оснащено алгоритмами ближнего боя и имеет обновленные протоколы безопасности для работы с микробатареями."
 	item = /obj/item/ipc_combat_upgrade
 	cost = 11
-	race = list(SPECIES_MACNINEPERSON)
+	race = list(SPECIES_MACHINEPERSON)
 
 /datum/uplink_item/racial/supercharge
 	name = "Имплант cуперзаряда"
@@ -704,7 +701,7 @@
 			Он выпускает специальный химический коктейль, который снимает и значительно сокращает эффект оглушения, а также повышает скорость передвижения."
 	item = /obj/item/implanter/supercharge
 	cost = 40
-	race = list(SPECIES_MACNINEPERSON)
+	race = list(SPECIES_MACHINEPERSON)
 
 /datum/uplink_item/racial/combat_exoframe
 	name = "Боевой каркас экзоскелета"
@@ -713,7 +710,7 @@
 			Поставляется с одноразовым автоимплантером для установки на месте."
 	item = /obj/item/storage/box/syndie_kit/combat_exoframe
 	cost = 28
-	race = list(SPECIES_MACNINEPERSON)
+	race = list(SPECIES_MACHINEPERSON)
 
 //Slime People
 
@@ -1961,13 +1958,6 @@
 	cost = 30
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
-/datum/uplink_item/device_tools/autoimplanter
-	name = "Автоимплантер"
-	desc = "Устройство, позволяющее устанавливать 3 кибернетических импланта в полевых условиях без необходимости хирургического вмешательства."
-	item = /obj/item/autoimplanter/traitor
-	cost = 28
-	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-
 /datum/uplink_item/device_tools/binary
 	name = "Ключ бинарного перевода"
 	desc = "Ключ для гарнитуры, который позволяет подключаться к двоичному каналу связи синтетиков."
@@ -2418,6 +2408,12 @@
 	cost = 33
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
+/datum/uplink_item/cyber_implants/autoimplanter
+	name = "Автоимплантер"
+	desc = "Устройство, позволяющее устанавливать кибернетический имплант в полевых условиях без необходимости хирургического вмешательства."
+	item = /obj/item/autoimplanter/oneuse
+	cost = 4
+	uplinktypes = list(UPLINK_TYPE_TRAITOR)
 
 /**
  * MARK: Pointless Badassery
@@ -2436,7 +2432,7 @@
 	name = "Электронная сигарета \"Синдиката\""
 	desc = "Со вкусом \"Двойное яблочко\"."
 	item = /obj/item/ecig/syndi
-	cost = 6
+	cost = 3
 
 /datum/uplink_item/badass/syndiecards
 	name = "Игральные карты \"Синдиката\""
@@ -2586,10 +2582,9 @@
 		remaining_TC -= chosen_item.cost
 		itemlog += chosen_item.name // To make the name more readable for the log compared to just i.item
 
-	target_uplink.purchase_log += "<big>[icon2base64html(crate)]</big>"
 	for(var/bought_item in bought_items)
-		var/obj/purchased = new bought_item(crate)
-		target_uplink.purchase_log += "<big>[icon2base64html(purchased)]</big>"
+		new bought_item(crate)
+	crate.log_contents_to_uplink(target_uplink)
 	add_game_logs("purchased a surplus crate with [jointext(itemlog, ", ")]", buyer)
 
 /datum/uplink_item/bundles_TC/telecrystal

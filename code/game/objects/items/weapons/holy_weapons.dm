@@ -683,7 +683,7 @@
 	var/list/smited_clowns
 
 /obj/item/nullrod/rosary/bread/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "молитвенный хлеб",
 		GENITIVE = "молитвенного хлеба",
 		DATIVE = "молитвенному хлебу",

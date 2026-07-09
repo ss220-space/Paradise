@@ -33,7 +33,8 @@
 
 /obj/item/reagent_containers/Initialize(mapload)
 	. = ..()
-	create_reagents(volume, temperature_min, temperature_max)
+	if(!reagents) // Some subtypes create their own reagents
+		create_reagents(volume, temperature_min, temperature_max)
 	if(spawned_disease)
 		var/datum/disease/F = new spawned_disease
 		var/list/data = list("diseases" = list(F), "blood_color" = BLOOD_COLOR_RED)

@@ -73,7 +73,7 @@
 	else if(!istype(armor, /datum/armor))
 		stack_trace("Invalid type [armor.type] found in .armor during /obj Initialize()")
 	if(sharp)
-		AddComponent(/datum/component/surgery_initiator)
+		AddElement(/datum/element/surgery_initiator)
 
 	if(on_blueprints && isturf(loc))
 		var/turf/T = loc
@@ -194,6 +194,7 @@
 
 /mob/proc/unset_machine()
 	if(machine)
+		UnregisterSignal(machine, COMSIG_QDELETING)
 		machine.on_unset_machine(src)
 		machine = null
 
@@ -207,6 +208,7 @@
 	src.machine = O
 	if(istype(O))
 		O.in_use = TRUE
+		RegisterSignal(O, COMSIG_QDELETING, PROC_REF(unset_machine))
 
 /obj/item/proc/updateSelfDialog()
 	var/mob/M = src.loc
@@ -304,7 +306,7 @@
 	sharp = new_sharp_val
 	SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_SHARPNESS)
 	if(!sharp && new_sharp_val)
-		AddComponent(/datum/component/surgery_initiator)
+		AddElement(/datum/element/surgery_initiator)
 
 /obj/proc/force_eject_occupant(mob/target)
 	// This proc handles safely removing occupant mobs from the object if they must be teleported out (due to being SSD/AFK, by admin teleport, etc) or transformed.
@@ -365,3 +367,17 @@
 	RETURN_TYPE(/list)
 	SHOULD_CALL_PARENT(FALSE)
 	return list(src)
+
+/// Adds icons of contents (with get_uplink_log_items()) into uplink
+/obj/proc/log_contents_to_uplink(obj/item/uplink/target_uplink)
+	if(!target_uplink || QDELETED(target_uplink))
+		return
+
+	var/new_purchase_logs = ""
+	var/list/items_to_log = get_uplink_log_items()
+	if(!length(items_to_log))
+		return
+
+	for(var/atom/atom_to_display in items_to_log)
+		new_purchase_logs += span_fontsize4(icon2base64html(atom_to_display))
+	target_uplink.purchase_log += new_purchase_logs

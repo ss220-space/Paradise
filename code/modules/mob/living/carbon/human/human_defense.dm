@@ -76,7 +76,7 @@ emp_act
 			return -1
 		return bullet_act(P, BODY_ZONE_CHEST) //act on chest instead
 
-	organ.add_autopsy_data(P.name, P.damage) // Add the bullet's name to the autopsy data
+	organ.add_autopsy_data(P.declent_ru(NOMINATIVE), P.damage) // Add the bullet's name to the autopsy data
 	SEND_SIGNAL(src, COMSIG_ATOM_BULLET_ACT, P, def_zone)
 	return (..(P , def_zone))
 
@@ -102,14 +102,14 @@ emp_act
 	if(HAS_TRAIT(H, TRAIT_REPAIRING_LIMB))
 		balloon_alert(user, "уже ремонтируется!")
 		return
-	ADD_TRAIT(H, TRAIT_REPAIRING_LIMB, UNIQUE_TRAIT_SOURCE(src))
+	ADD_TRAIT(H, TRAIT_REPAIRING_LIMB, UNIQUE_TRAIT_SOURCE(user))
 
 	var/surgery_time = 0
 	if(user == src)
 		surgery_time = H.robotic_limb_repair_time
 
 	if(!item.use_tool(src, user, surgery_time, amount = 1, volume = item.tool_volume))
-		REMOVE_TRAIT(H, TRAIT_REPAIRING_LIMB, UNIQUE_TRAIT_SOURCE(src))
+		REMOVE_TRAIT(H, TRAIT_REPAIRING_LIMB, UNIQUE_TRAIT_SOURCE(user))
 		return
 	var/rembrute = HEALPERWELD
 	var/nrembrute = 0
@@ -151,7 +151,7 @@ emp_act
 	if(IgniteMob())
 		add_attack_logs(user, src, "set on fire with [item]")
 
-	REMOVE_TRAIT(H, TRAIT_REPAIRING_LIMB, UNIQUE_TRAIT_SOURCE(src))
+	REMOVE_TRAIT(H, TRAIT_REPAIRING_LIMB, UNIQUE_TRAIT_SOURCE(user))
 
 /mob/living/carbon/human/check_projectile_dismemberment(obj/projectile/P, def_zone)
 	var/obj/item/organ/external/affecting = get_organ(check_zone(def_zone))
@@ -733,6 +733,11 @@ emp_act
 				else
 					visible_message(span_danger("[M] попытал[GEND_SYA_AS_OS_IS(M)] сбить с ног [src]!"))
 					add_attack_logs(M, src, "Alien tried to tackle")
+
+/mob/living/carbon/human/attackby(obj/item/item, mob/living/user, list/modifiers)
+	if(SEND_SIGNAL(src, COMSIG_HUMAN_ATTACKED, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
+		return ATTACK_CHAIN_BLOCKED_ALL
+	return ..()
 
 /mob/living/carbon/human/attack_animal(mob/living/simple_animal/M)
 	. = ..()

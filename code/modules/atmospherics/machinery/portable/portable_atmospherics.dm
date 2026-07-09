@@ -75,7 +75,7 @@
 	// be initialized before the atmos cans are
 	if(!connected_port.parent)
 		connected_port.build_network()
-	connected_port.parent.reconcile_air()
+	connected_port.parent?.reconcile_air()
 
 	set_anchored(TRUE) //Prevent movement
 

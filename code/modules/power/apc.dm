@@ -1160,6 +1160,7 @@
 	return "[area.name] : [equipment_channel]/[lighting_channel]/[environment_channel] ([last_used_equipment+last_used_lighting+last_used_environment]) : [cell? cell.percent() : "N/C"] ([charging])"
 
 /obj/machinery/power/apc/proc/update()
+	var/area/area = src.area
 	if(operating && !shorted)
 		area.power_light = (lighting_channel > CHANNEL_SETTING_AUTO_OFF)
 		area.power_equip = (equipment_channel > CHANNEL_SETTING_AUTO_OFF)
@@ -1410,6 +1411,8 @@
 /obj/machinery/power/apc/process()
 	if(stat & (BROKEN|MAINT))
 		return
+	var/area/area = src.area
+	var/obj/item/stock_parts/cell/cell = src.cell
 	if(!area.requires_power)
 		return
 
@@ -1442,18 +1445,19 @@
 		log_debug("Status: [main_status] - Excess: [excess] - Last Equip: [last_used_equipment] - Last Light: [last_used_lighting] - Longterm: [longtermpower]")
 
 	if(cell && !shorted)
+		var/cell_rate = GLOB.CELLRATE
 		// draw power from cell as before to power the area
-		var/cellused = min(cell.charge, GLOB.CELLRATE * last_used_total)	// clamp deduction to a max, amount left in cell
+		var/cellused = min(cell.charge, cell_rate * last_used_total)	// clamp deduction to a max, amount left in cell
 		cell.use(cellused)
 
 		if(excess > last_used_total)		// if power excess recharge the cell
 										// by the same amount just used
 			cell.give(cellused)
-			add_load(cellused/GLOB.CELLRATE)		// add the load used to recharge the cell
+			add_load(cellused / cell_rate)		// add the load used to recharge the cell
 
 		else		// no excess, and not enough per-apc
-			if((cell.charge/GLOB.CELLRATE + excess) >= last_used_total)		// can we draw enough from cell+grid to cover last usage?
-				cell.charge = min(cell.maxcharge, cell.charge + GLOB.CELLRATE * excess)	//recharge with what we can
+			if((cell.charge / cell_rate + excess) >= last_used_total)		// can we draw enough from cell+grid to cover last usage?
+				cell.charge = min(cell.maxcharge, cell.charge + cell_rate * excess)	//recharge with what we can
 				add_load(excess)		// so draw what we can from the grid
 				charging = APC_NOT_CHARGING
 
@@ -1480,8 +1484,8 @@
 		if(chargemode && charging == APC_IS_CHARGING && operating)
 			if(excess > 0)		// check to make sure we have enough to charge
 				// Max charge is capped to % per second constant
-				var/ch = min(excess*GLOB.CELLRATE, cell.maxcharge*GLOB.CHARGELEVEL)
-				add_load(ch/GLOB.CELLRATE) // Removes the power we're taking from the grid
+				var/ch = min(excess * cell_rate, cell.maxcharge * GLOB.CHARGELEVEL)
+				add_load(ch / cell_rate) // Removes the power we're taking from the grid
 				cell.give(ch) // actually recharge the cell
 
 			else
@@ -1495,7 +1499,7 @@
 
 		if(chargemode)
 			if(charging == APC_NOT_CHARGING)
-				if(excess > cell.maxcharge*GLOB.CHARGELEVEL)
+				if(excess > cell.maxcharge * GLOB.CHARGELEVEL)
 					chargecount++
 				else
 					chargecount = 0

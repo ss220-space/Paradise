@@ -28,9 +28,13 @@
 	if(length(weather_immunities))
 		add_traits(weather_immunities, INNATE_TRAIT)
 
+	register_context()
+
 	GLOB.mob_living_list += src
 
 /mob/living/Destroy()
+	if(leaned_object)
+		stop_leaning()
 	for(var/s in ownedSoullinks)
 		var/datum/soullink/S = s
 		S.ownerDies(FALSE)
@@ -53,7 +57,10 @@
 			else
 				S.be_replaced()
 	GLOB.mob_living_list -= src
-	GLOB.respawnable_list -= src
+	remove_from_respawnable_list()
+	QDEL_NULL(middleClickOverride)
+	if(mind?.current == src)
+		mind.current = null
 	return ..()
 
 // Used to determine the forces dependend on the mob size
@@ -617,13 +624,7 @@
 			visible_message("<b>[declent_ru(NOMINATIVE)]</b> указыва[PLUR_ET_YUT(src)] [hand_item.declent_ru(INSTRUMENTAL)] на [pointed_object].")
 			return TRUE
 
-		target.visible_message(
-			span_danger("[declent_ru(NOMINATIVE)] направля[PLUR_ET_YUT(src)] [hand_item.declent_ru(INSTRUMENTAL)] на [pointed_object]!"),
-			span_userdanger("[declent_ru(NOMINATIVE)] направля[PLUR_ET_YUT(src)] [hand_item.declent_ru(INSTRUMENTAL)] на вас!"),
-		)
-		SEND_SOUND(target, sound('sound/weapons/targeton.ogg'))
-		SEND_SOUND(src, sound('sound/weapons/targeton.ogg'))
-		add_emote_logs(src, "point [hand_item] HARM to [key_name(target)] [COORD(target)]")
+		hand_item.interact_with_atom_secondary(target, src)
 		return TRUE
 
 	if(istype(hand_item, /obj/item/toy/russian_revolver/trick_revolver) && target != hand_item)
@@ -1746,7 +1747,7 @@
 		return TRUE
 	face_atom(target)
 	if(!has_vision(information_only = TRUE))
-		to_chat(src, chat_box_regular(span_notice("Здесь что-то есть, но вы не видите — что именно.")), MESSAGE_TYPE_INFO, confidential = TRUE)
+		to_chat(src, boxed_message(span_notice("Здесь что-то есть, но вы не видите — что именно.")), MESSAGE_TYPE_INFO, confidential = TRUE)
 		return TRUE
 	return FALSE
 
@@ -2368,3 +2369,19 @@
 	var/obj/item/organ/external/part = get_bodypart(zone)
 
 	return part?.plaintext_zone || parse_zone(zone)
+
+/mob/living/add_context(atom/source, list/context, obj/item/held_item, mob/user)
+	. = ..()
+	if(!isgun(held_item))
+		return
+
+	var/obj/item/gun/held_gun = held_item
+	if(!held_gun.can_hold_up || user.a_intent != INTENT_HARM)
+		return
+
+	context[SCREENTIP_CONTEXT_RMB] = "Взять на мушку"
+	return CONTEXTUAL_SCREENTIP_SET
+
+/mob/living/proc/adjust_max_health(amount)
+	maxHealth = (maxHealth + amount)
+	updatehealth()

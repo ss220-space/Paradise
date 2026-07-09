@@ -95,7 +95,7 @@
 	var/list/holdingitems = list()
 
 /obj/machinery/reagentgrinder/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "универсальный блендер",
 		GENITIVE = "универсального блендера",
 		DATIVE = "универсальному блендеру",

@@ -11,12 +11,12 @@
 	var/target_move_delay = 1 SECONDS
 
 	density = TRUE
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	light_on = FALSE
 	var/locked = FALSE
 
 /obj/structure/wiremod_manipulator/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "манипулятор",
 		GENITIVE = "манипулятора",
 		DATIVE = "манипулятору",

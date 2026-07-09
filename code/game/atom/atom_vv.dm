@@ -86,9 +86,9 @@
 		var/new_name = tgui_input_text(usr, "Как вы хотите это переименовать?", "Авто-переименование")
 		if(!new_name)
 			return
-		var/list/ru_declensions
+		var/alist/ru_declensions
 		if(!ismob(src) && tgui_alert(usr, "Заполнить русские склонения вручную для каждого падежа?", "Авто-переименование", list("Да", "Нет")) == "Да")
-			var/static/list/case_prompts = list(
+			var/static/alist/case_prompts = alist(
 				NOMINATIVE = "Именительный (кто? что?)",
 				GENITIVE = "Родительный (кого? чего?)",
 				DATIVE = "Дательный (кому? чему?)",
@@ -96,7 +96,7 @@
 				INSTRUMENTAL = "Творительный (кем? чем?)",
 				PREPOSITIONAL = "Предложный (о ком? о чём?)",
 			)
-			ru_declensions = list()
+			ru_declensions = alist()
 			for(var/case_id in case_prompts)
 				var/case_name = tgui_input_text(usr, case_prompts[case_id], "Авто-переименование", default = new_name)
 				if(!case_name)
@@ -133,35 +133,52 @@
  * At the atom level, if you edit a var named "color" it will add the atom colour with
  * admin level priority to the atom colours list
  *
- * Also, if GLOB.debugging_enabled is FALSE, it sets the [ADMIN_SPAWNED_1] flag on [flags_1][/atom/var/flags_1], which signifies
+ * Also, if GLOB.debugging_enabled is FALSE, it sets the [ADMIN_SPAWNED] flag on [flags][/atom/var/flags], which signifies
  * the object has been admin edited
  */
 /atom/vv_edit_var(var_name, var_value)
 	var/old_light_flags = light_flags
+	// Disable frozen lights for now, so we can actually modify it
+	light_flags &= ~LIGHT_FROZEN
 	switch(var_name)
 		if(NAMEOF(src, light_range))
-			if(light_system == STATIC_LIGHT)
+			if(light_system == COMPLEX_LIGHT)
 				set_light(l_range = var_value)
 			else
 				set_light_range(var_value)
 			. = TRUE
 
 		if(NAMEOF(src, light_power))
-			if(light_system == STATIC_LIGHT)
+			if(light_system == COMPLEX_LIGHT)
 				set_light(l_power = var_value)
 			else
 				set_light_power(var_value)
 			. = TRUE
 
 		if(NAMEOF(src, light_color))
-			if(light_system == STATIC_LIGHT)
+			if(light_system == COMPLEX_LIGHT)
 				set_light(l_color = var_value)
 			else
 				set_light_color(var_value)
 			. = TRUE
 
+		if(NAMEOF(src, light_angle))
+			if(light_system == COMPLEX_LIGHT)
+				set_light(l_angle = var_value)
+				. = TRUE
+
+		if(NAMEOF(src, light_dir))
+			if(light_system == COMPLEX_LIGHT)
+				set_light(l_dir = var_value)
+				. = TRUE
+
+		if(NAMEOF(src, light_height))
+			if(light_system == COMPLEX_LIGHT)
+				set_light(l_height = var_value)
+				. = TRUE
+
 		if(NAMEOF(src, light_on))
-			if(light_system == STATIC_LIGHT)
+			if(light_system == COMPLEX_LIGHT)
 				set_light(l_on = var_value)
 			else
 				set_light_on(var_value)
@@ -171,6 +188,35 @@
 			set_light_flags(var_value)
 			// I'm sorry
 			old_light_flags = var_value
+			. = TRUE
+
+		if(NAMEOF(src, light_render_source))
+			set_light_render_source(var_value)
+			. = TRUE
+
+		if(NAMEOF(src, light_angle))
+			if(light_system == COMPLEX_LIGHT)
+				set_light(l_angle = var_value)
+			else
+				set_light_angle(var_value)
+			. = TRUE
+
+		if(NAMEOF(src, light_dir))
+			if(light_system == COMPLEX_LIGHT)
+				set_light(l_dir = var_value)
+			else
+				set_light_dir(var_value)
+			. = TRUE
+
+		if(NAMEOF(src, light_height))
+			if(light_system == COMPLEX_LIGHT)
+				set_light(l_height = var_value)
+			else
+				set_light_height(var_value)
+			. = TRUE
+
+		if(NAMEOF(src, smoothing_junction))
+			set_smoothed_icon_state(var_value)
 			. = TRUE
 
 		if(NAMEOF(src, opacity))
@@ -204,9 +250,9 @@
 			add_atom_colour(color, ADMIN_COLOUR_PRIORITY)
 			update_appearance()
 
-/atom/proc/vv_auto_rename(new_name, list/ru_declensions)
+/atom/proc/vv_auto_rename(new_name, alist/ru_declensions)
 	name = new_name
-	ru_names = ru_declensions || list(
+	ru_names = ru_declensions || alist(
 		NOMINATIVE = new_name,
 		GENITIVE = new_name,
 		DATIVE = new_name,

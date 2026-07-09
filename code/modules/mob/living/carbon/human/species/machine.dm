@@ -1,5 +1,5 @@
 /datum/species/machine
-	name = SPECIES_MACNINEPERSON
+	name = SPECIES_MACHINEPERSON
 	name_plural = "Machines"
 
 	blurb = "Positronic intelligence really took off in the 26th century, and it is not uncommon to see independant, free-willed \

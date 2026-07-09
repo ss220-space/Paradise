@@ -149,9 +149,7 @@
 	name = "Docking port Gorky17 Station";
 	width = 8
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "aC" = (
 /obj/structure/cable{
@@ -4642,9 +4640,7 @@
 	dir = 4;
 	pixel_x = 12
 	},
-/obj/machinery/defibrillator_mount{
-	pixel_x = 28
-	},
+/obj/machinery/defibrillator_mount/directional/east,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -5265,9 +5261,7 @@
 /turf/simulated/floor/carpet,
 /area/ruin/space/USSP_gorky17/dorms)
 "tD" = (
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "tF" = (
 /obj/structure/table,

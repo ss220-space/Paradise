@@ -8,14 +8,14 @@
 	icon = 'icons/obj/circuits.dmi'
 	icon_state = "setup_large"
 
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	light_on = FALSE
 
 	var/stored_money = 0
 	var/locked = FALSE
 
 /obj/structure/money_bot/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "бот-банкомат",
 		GENITIVE = "бота-банкомата",
 		DATIVE = "боту-банкомату",

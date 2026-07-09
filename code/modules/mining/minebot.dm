@@ -34,7 +34,7 @@
 	healable = FALSE
 	loot = list(/obj/effect/decal/cleanable/robot_debris)
 	del_on_death = TRUE
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	light_range = 6
 	light_on = FALSE
 	weather_immunities = list(TRAIT_ASHSTORM_IMMUNE)
@@ -42,13 +42,8 @@
 	var/mesons_active
 	var/obj/item/gun/energy/kinetic_accelerator/minebot/stored_gun
 
-	var/datum/action/innate/minedrone/toggle_light/toggle_light_action
-	var/datum/action/innate/minedrone/toggle_meson_vision/toggle_meson_vision_action
-	var/datum/action/innate/minedrone/toggle_mode/toggle_mode_action
-	var/datum/action/innate/minedrone/dump_ore/dump_ore_action
-
 /mob/living/simple_animal/hostile/mining_drone/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "шахтёрский бот",
 		GENITIVE = "шахтёрского бота",
 		DATIVE = "шахтёрскому боту",
@@ -60,16 +55,21 @@
 /mob/living/simple_animal/hostile/mining_drone/Initialize(mapload)
 	. = ..()
 	stored_gun = new(src)
-	toggle_light_action = new()
-	toggle_light_action.Grant(src)
-	toggle_meson_vision_action = new()
-	toggle_meson_vision_action.Grant(src)
-	toggle_mode_action = new()
-	toggle_mode_action.Grant(src)
-	dump_ore_action = new()
-	dump_ore_action.Grant(src)
+	var/static/list/action_paths = list(
+		/datum/action/innate/minedrone/toggle_light,
+		/datum/action/innate/minedrone/toggle_meson_vision,
+		/datum/action/innate/minedrone/toggle_mode,
+		/datum/action/innate/minedrone/dump_ore,
+	)
+	for(var/action_path in action_paths)
+		var/datum/action/act = new action_path
+		act.Grant(src)
 
 	SetCollectBehavior()
+
+/mob/living/simple_animal/hostile/mining_drone/Destroy()
+	QDEL_NULL(stored_gun)
+	return ..()
 
 /mob/living/simple_animal/hostile/mining_drone/ComponentInitialize()
 	AddComponent( \
@@ -299,7 +299,7 @@
 	icon = 'icons/obj/doors/door_assembly.dmi'
 
 /obj/item/mine_bot_upgrade/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль ближнего боя для шахтёрского бота",
 		GENITIVE = "модуля ближнего боя для шахтёрского бота",
 		DATIVE = "модулю ближнего боя для шахтёрского бота",
@@ -328,7 +328,7 @@
 	name = "minebot armor upgrade"
 
 /obj/item/mine_bot_upgrade/health/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль брони для шахтёрского бота",
 		GENITIVE = "модуля брони для шахтёрского бота",
 		DATIVE = "модулю брони для шахтёрского бота",
@@ -360,7 +360,7 @@
 	var/base_cooldown_add = 10 //base cooldown isn't reset to normal, it's just added on, since it's not practical to disable the cooldown module
 
 /obj/item/slimepotion/sentience/mining/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "модуль ИИ для шахтёрского бота",
 		GENITIVE = "модуля ИИ для шахтёрского бота",
 		DATIVE = "модулю ИИ для шахтёрского бота",
@@ -392,7 +392,7 @@
 	item_state = "electronic"
 
 /obj/item/mining_drone_cube/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "куб шахтёрского бота",
 		GENITIVE = "куба шахтёрского бота",
 		DATIVE = "кубу шахтёрского бота",

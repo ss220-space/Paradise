@@ -1,4 +1,5 @@
 /obj/item/mounted
+	abstract_type = /obj/item/mounted
 	/// The list of types on which it can be built
 	var/list/buildon_types = list(/turf/simulated/wall)
 	/// For frames that are external to the wall they are placed on, like light fixtures and cameras.
@@ -6,11 +7,20 @@
 	/// Is it possible to build it on the floor?
 	var/allow_floor_mounting = FALSE
 
-/obj/item/mounted/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
-	if(is_type_in_list(target, buildon_types))
-		if(try_build(target, user))
-			return do_build(target, user)
-	..()
+/obj/item/mounted/interact_with_atom(atom/interacting_with, mob/living/user, list/modifiers)
+	. = ..()
+	if(. & ITEM_INTERACT_ANY_BLOCKER)
+		return .
+
+	if(!is_type_in_list(interacting_with, buildon_types))
+		return NONE
+
+	if(!try_build(interacting_with, user))
+		return ITEM_INTERACT_BLOCKING // try_build already told the user why
+
+	do_build(interacting_with, user)
+	transfer_fingerprints_to(interacting_with)
+	return ITEM_INTERACT_SUCCESS
 
 /**
  * Check if we can build on this support structure
@@ -30,7 +40,7 @@
 	if(allow_floor_mounting)
 		return TRUE
 
-	var/floor_to_support = get_dir(support, user)
+	var/floor_to_support = get_dir(user, support)
 	if(!(floor_to_support in GLOB.cardinal))
 		balloon_alert(user, "встаньте лицом к стене!")
 		return FALSE

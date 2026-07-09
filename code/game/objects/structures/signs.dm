@@ -3,7 +3,6 @@
 	anchored = TRUE
 	layer = NOT_HIGH_OBJ_LAYER
 	max_integrity = 100
-	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	var/does_emissive = FALSE
 	var/random_number = FALSE
 	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 50, ACID = 50)
@@ -56,7 +55,7 @@
 	var/sign_state = ""
 
 /obj/item/sign/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "табличка",
 		GENITIVE = "таблички",
 		DATIVE = "табличке",
@@ -100,7 +99,7 @@
 	max_integrity = 500
 
 /obj/structure/sign/double/map/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "карта станции",
 		GENITIVE = "карты станции",
 		DATIVE = "карте станции",
@@ -269,14 +268,12 @@
 	desc = "Вращающаяся вывеска, указывающая на близость парикмахерской."
 	icon_state = "barber"
 	does_emissive = TRUE
-	blocks_emissive = FALSE
 
 /obj/structure/sign/chinese
 	name = "знак китайского ресторана"
 	desc = "Светящийся дракон приглашает вас внутрь."
 	icon_state = "chinese"
 	does_emissive = TRUE
-	blocks_emissive = FALSE
 
 /obj/structure/sign/bathhouse
 	name = "знак бани"

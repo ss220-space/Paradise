@@ -7,30 +7,33 @@
 #define ASSIGNMENT_SCIENTIST "Scientist"
 #define ASSIGNMENT_SECURITY "Security"
 
-GLOBAL_LIST_INIT(severity_to_string, list(
+GLOBAL_ALIST_INIT(severity_to_string, alist(
 	EVENT_LEVEL_MUNDANE = "Mundane",
 	EVENT_LEVEL_MODERATE = "Moderate",
 	EVENT_LEVEL_MAJOR = "Major",
 	EVENT_LEVEL_NONE = "None",
 ))
 
-GLOBAL_LIST_INIT(string_to_severity, list(//Config compatibility thing
+//Config compatibility thing
+GLOBAL_ALIST_INIT(string_to_severity, alist(
 	"ev_level_mundane" = EVENT_LEVEL_MUNDANE,
 	"ev_level_moderate" = EVENT_LEVEL_MODERATE,
 	"ev_level_major" = EVENT_LEVEL_MAJOR,
-	"ev_level_none" = EVENT_LEVEL_NONE
+	"ev_level_none" = EVENT_LEVEL_NONE,
 ))
 
-GLOBAL_LIST_INIT(event_delay_lower, list(//redacted by /datum/config_entry/keyed_list/event_delay_lower
+//redacted by /datum/config_entry/keyed_list/event_delay_lower
+GLOBAL_ALIST_INIT(event_delay_lower, alist(
 	EVENT_LEVEL_MUNDANE = 10 MINUTES,
 	EVENT_LEVEL_MODERATE = 30 MINUTES,
-	EVENT_LEVEL_MAJOR = 50 MINUTES
+	EVENT_LEVEL_MAJOR = 50 MINUTES,
 ))
 
-GLOBAL_LIST_INIT(event_delay_upper, list(//redacted by /datum/config_entry/keyed_list/event_delay_upper
+//redacted by /datum/config_entry/keyed_list/event_delay_upper
+GLOBAL_ALIST_INIT(event_delay_upper, alist(
 	EVENT_LEVEL_MUNDANE = 10 MINUTES,
 	EVENT_LEVEL_MODERATE = 45 MINUTES,
-	EVENT_LEVEL_MAJOR = 70 MINUTES
+	EVENT_LEVEL_MAJOR = 70 MINUTES,
 ))
 
 GLOBAL_LIST_EMPTY(event_last_fired)
@@ -277,6 +280,8 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 			EVENT_LEVEL_MODERATE, EVENT_DRIFTING_CONTRACTOR, /datum/event/drifting_contractor, 60, list(ASSIGNMENT_SECURITY = 10)),
 		new /datum/event_meta(
 			EVENT_LEVEL_MODERATE, EVENT_TRADERS, /datum/event/traders, 85, is_one_shot = TRUE),
+		new /datum/event_meta(
+			EVENT_LEVEL_MODERATE, EVENT_VOX_RAIDERS, /datum/event/vox_raiders, 85, is_one_shot = TRUE),
 	)
 
 /datum/event_container/major

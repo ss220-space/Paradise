@@ -11,7 +11,7 @@
 	var/rep_per_completion = 2
 	/// Completing every contract at a given difficulty will always result in a sum of TC greater or equal than the difficulty's threshold.
 	/// Structure: EXTRACTION_DIFFICULTY_(EASY|MEDIUM|HARD) => number
-	var/difficulty_tc_thresholds = list(
+	var/difficulty_tc_thresholds = alist(
 		EXTRACTION_DIFFICULTY_EASY = 100,
 		EXTRACTION_DIFFICULTY_MEDIUM = 150,
 		EXTRACTION_DIFFICULTY_HARD = 200,
@@ -75,6 +75,14 @@
 			purchases[i] = new P
 		else
 			stack_trace("Expected Hub purchase [purchases[i]] to be a type but it wasn't!")
+
+/datum/contractor_hub/Destroy(force)
+	contractor_uplink = null
+	owner = null
+	current_contract = null
+	QDEL_LIST(contracts)
+	LAZYCLEARLIST(targets)
+	return ..()
 
 /datum/contractor_hub/ui_host(mob/user)
 	return contractor_uplink

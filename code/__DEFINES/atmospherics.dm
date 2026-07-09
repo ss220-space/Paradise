@@ -21,6 +21,8 @@
 #define T0C 273.15
 /// 20degC
 #define T20C 293.15
+/// 80degC
+#define T80C 353.15
 /// 100degC
 #define T100C 373.15
 
@@ -85,7 +87,7 @@
 // This looks silly, but it's for clarity when reading elsewhere.
 #define ZERO_HEAT_TRANSFER_COEFFICIENT 0.0
 
-#define HEAT_CAPACITY_VACUUM 700000 //a hack to help make vacuums "cold", sacrificing realism for gameplay
+#define HEAT_CAPACITY_VACUUM 700000 //!a hack to help make vacuums "cold", sacrificing realism for gameplay
 
 //FIRE
 #define FIRE_MINIMUM_TEMPERATURE_TO_SPREAD (150 + T0C)
@@ -444,6 +446,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 #define SCRUB_HELIUM (1<<17)
 #define SCRUB_ANTINOBLIUM (1<<18)
 #define SCRUB_HYPERNOBLIUM (1<<19)
+#define SCRUB_AGENT_B (1<<20)
 
 #define SCRUB_ALL_GASES (~0)
 
@@ -454,6 +457,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 #define META_GAS_PRIMARY_COLOR 4
 #define META_GAS_SCRUB_FLAG 5
 #define META_GAS_SENSOR_FLAG 6
+#define META_BASE_VALUE 7
 
 #define MOLES_GAS_VISIBLE 0.25
 
@@ -730,3 +734,5 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 #define SPECIFIC_HEAT_HALON 175
 #define SPECIFIC_HEAT_HELIUM 15
 #define SPECIFIC_HEAT_ANTINOBLIUM 1
+
+#define MAX_GAS_CREDITS 15000

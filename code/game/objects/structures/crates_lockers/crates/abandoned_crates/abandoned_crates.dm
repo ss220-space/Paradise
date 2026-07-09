@@ -106,7 +106,7 @@
 		)
 
 /obj/structure/closet/crate/secure/loot/get_ru_names()
-	return list(
+	return alist(
 		NOMINATIVE = "заброшенный ящик",
 		GENITIVE = "заброшенного ящика",
 		DATIVE = "заброшенному ящику",

@@ -27,7 +27,7 @@
 	var/playstyle_string = "<b>You are a generic construct! Your job is to not exist, and you should probably adminhelp this.</b>"
 	var/holy = FALSE
 	healable = FALSE
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 
 /mob/living/simple_animal/hostile/construct/Initialize(mapload)
 	. = ..()

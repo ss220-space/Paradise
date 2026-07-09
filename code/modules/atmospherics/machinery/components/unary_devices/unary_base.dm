@@ -50,7 +50,7 @@
 		. = 1
 
 /obj/machinery/atmospherics/unary/build_network(remove_deferral = FALSE)
-	if(!parent)
+	if(!parent && node)
 		parent = new /datum/pipeline()
 		parent.build_pipeline(src)
 	..()

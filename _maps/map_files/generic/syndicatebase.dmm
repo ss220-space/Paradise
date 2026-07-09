@@ -7122,9 +7122,7 @@
 	name = "Taipan";
 	width = 11
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "hcJ" = (
 /obj/effect/turf_decal/tile/red{
@@ -14709,9 +14707,7 @@
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/torture_room)
 "nXt" = (
-/obj/machinery/defibrillator_mount/loaded{
-	pixel_y = -32
-	},
+/obj/machinery/defibrillator_mount/loaded/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -14789,9 +14785,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/telecomms)
 "obt" = (
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "obu" = (
 /obj/structure/window/plastitanium,
@@ -19054,9 +19048,7 @@
 	name = "Taipan";
 	width = 11
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "rDd" = (
 /obj/vehicle/ridden/wheelchair,
@@ -20712,9 +20704,7 @@
 /area/space)
 "tjA" = (
 /obj/machinery/optable,
-/obj/machinery/defibrillator_mount/loaded{
-	pixel_x = 30
-	},
+/obj/machinery/defibrillator_mount/loaded/directional/east,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -24737,9 +24727,7 @@
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "wmf" = (
 /obj/machinery/optable,
-/obj/machinery/defibrillator_mount/loaded{
-	pixel_x = 30
-	},
+/obj/machinery/defibrillator_mount/loaded/directional/east,
 /obj/machinery/light/small{
 	dir = 4
 	},
