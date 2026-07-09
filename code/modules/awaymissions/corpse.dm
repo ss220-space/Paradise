@@ -864,6 +864,7 @@ GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
 
 /obj/effect/mob_spawn/human/monkey
 	death = FALSE
+	random = TRUE
 	icon = 'icons/mob/monkey.dmi'
 	icon_state = "monkey1"
 	mob_species = /datum/species/monkey
@@ -877,6 +878,7 @@ GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
 	mob_species = /datum/species/monkey/tajaran
 
 /obj/effect/mob_spawn/human/monkey/farwa/wizard
+	random = FALSE
 	name = "wizard farwa"
 	mob_name = "dobby"
 	mob_gender = NEUTER
