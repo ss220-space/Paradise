@@ -2041,7 +2041,6 @@
 /turf/simulated/wall/r_wall,
 /area/station/ai/satellite/chamber)
 "aqk" = (
-/mob/living/carbon/human/lesser/monkey,
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_y = 32
 	},
@@ -2049,6 +2048,7 @@
 	dir = 1;
 	in_use = 1
 	},
+/obj/effect/mob_spawn/human/monkey,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkpurple"
@@ -24140,7 +24140,6 @@
 "dSo" = (
 /obj/structure/bed,
 /obj/item/bedsheet/medical,
-/mob/living/carbon/human/lesser/monkey,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
@@ -35831,6 +35830,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
+/obj/effect/mob_spawn/human/monkey,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whitegreen"
@@ -57359,17 +57359,6 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/station/service/bar/atrium)
-"iTg" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/mob/living/carbon/human/lesser/monkey,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whitehall"
-	},
-/area/station/science/genetics)
 "iTk" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -63509,7 +63498,6 @@
 "jSk" = (
 /obj/structure/bed,
 /obj/item/bedsheet/medical,
-/mob/living/carbon/human/lesser/monkey,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
@@ -79147,7 +79135,7 @@
 /turf/simulated/openspace,
 /area/station/maintenance/xenozoo)
 "mkz" = (
-/mob/living/carbon/human/lesser/monkey,
+/obj/effect/mob_spawn/human/monkey,
 /turf/simulated/floor/engine,
 /area/station/science/chem_lab/chamber)
 "mkF" = (
@@ -92994,6 +92982,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/mob_spawn/human/monkey,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whitehall"
@@ -99751,7 +99740,7 @@
 /area/station/service/chapel/massdriver)
 "prm" = (
 /obj/structure/window/reinforced,
-/mob/living/carbon/human/lesser/monkey,
+/obj/effect/mob_spawn/human/monkey,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkpurple"
 	},
@@ -124060,9 +124049,7 @@
 	},
 /area/station/engineering/atmos)
 "sYu" = (
-/mob/living/carbon/human/lesser/monkey/punpun{
-	icon_state = "punpun1"
-	},
+/obj/effect/mob_spawn/human/monkey/pun,
 /turf/simulated/floor/wood/dark,
 /area/station/service/bar)
 "sYx" = (
@@ -131170,6 +131157,7 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
+/obj/effect/mob_spawn/human/monkey,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "whitegreen"
@@ -141857,7 +141845,7 @@
 /area/station/maintenance/maintcentral)
 "vIo" = (
 /obj/structure/window/reinforced,
-/mob/living/carbon/human/lesser/monkey,
+/obj/effect/mob_spawn/human/monkey,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkpurple"
@@ -142957,7 +142945,7 @@
 /area/station/science/explab)
 "vQg" = (
 /obj/structure/window/reinforced,
-/mob/living/carbon/human/lesser/monkey,
+/obj/effect/mob_spawn/human/monkey,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "whitehall"
@@ -157382,8 +157370,8 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/mob/living/carbon/human/lesser/monkey,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/mob_spawn/human/monkey,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "whitehall"
@@ -186213,7 +186201,7 @@ uDe
 aHP
 aCK
 hQz
-iTg
+wOY
 ocp
 opB
 eQg
