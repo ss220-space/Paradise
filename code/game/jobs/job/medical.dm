@@ -61,6 +61,7 @@
 		ALT_JOB_TITLE_RU_TRAUMATOLOGIST,
 		ALT_JOB_TITLE_RU_RESUSCITATOR,
 		ALT_JOB_TITLE_RU_THERAPIST,
+		ALT_JOB_TITLE_RU_MEDICAL_INTERN,
 	)
 	outfit = /datum/outfit/job/doctor
 
@@ -91,6 +92,18 @@
 		if(ALT_JOB_TITLE_RU_SURGEON)
 			uniform = /obj/item/clothing/under/rank/medical/blue
 			head = /obj/item/clothing/head/surgery/blue
+		if(ALT_JOB_TITLE_RU_MEDICAL_INTERN)
+			jobtype = /datum/job/medical/doctor/intern
+			uniform = /obj/item/clothing/under/rank/medical/intern
+			id = /obj/item/card/id/medical/intern
+			l_hand = /obj/item/storage/firstaid/o2
+			backpack_contents = list(
+				/obj/item/clothing/mask/surgical = 1,
+				/obj/item/clothing/gloves/color/latex = 1,
+			)
+			if(H.gender == FEMALE)
+				uniform = /obj/item/clothing/under/rank/medical/intern/skirt
+
 
 /datum/job/medical/doctor/intern
 	title = JOB_TITLE_MEDICAL_INTERN
