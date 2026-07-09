@@ -12,7 +12,7 @@
 	force = 15
 	throwforce = 40
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	attack_verb = list("атакует", "рубит", "режет", "раздирает", "терзает", "распарывает", "нарезает", "бьет")
+	attack_verb = list("атаковал", "разрубил", "разрезал", "разодрал", "распорол")
 	actions_types = list(/datum/action/item_action/rune_shatter)
 	embed_chance = 75
 	embedded_pain_multiplier = 3

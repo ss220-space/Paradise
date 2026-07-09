@@ -27,7 +27,7 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	armour_penetration = 35
 	//attack_verb_continuous = list("attacks", "slashes", "slices", "tears", "lacerates", "rips", "dices", "rends")
-	attack_verb = list("атакует", "режет", "рубит", "кромсает", "царапает", "разрывает", "сечёт")
+	attack_verb = list("атаковал", "разрезал", "разрубил", "искромсал", "рассек")
 	var/after_use_message = ""
 	/// Tracks how many times attack_self() is called so that breaking a blade while in an arena has to be intentional
 	var/escape_attempts = 0
