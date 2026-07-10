@@ -1,6 +1,6 @@
 /obj/item/clothing/neck/heretic_focus
-	name = "heretic"
-	desc = "Амулет с янтарным кристаллом, связанный с потусторонним миром. Если не смотреть на амулет, он начинает подрагивать."
+	name = "amber focus"
+	desc = "Амулет с фокусирующим янтарным кристаллом, связанный с потусторонним миром. Если не смотреть на амулет, он начинает подрагивать."
 	gender = MALE
 	icon_state = "eldritch_necklace"
 	resistance_flags = FIRE_PROOF
