@@ -239,7 +239,7 @@ GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
 	var/id_access_list = null	//Allows you to manually add access to an ID card.
 	assignedrole = "Ghost Role"
 
-	var/husk = null
+	var/husk = FALSE
 	//these vars are for lazy mappers to override parts of the outfit
 	//these cannot be null by default, or mappers cannot set them to null if they want nothing in that slot
 	var/uniform = -1
@@ -862,8 +862,35 @@ GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
 	burn_damage = rand(100, 300)
 	return ..()
 
-/obj/effect/mob_spawn/human/farwa
+/obj/effect/mob_spawn/human/monkey
+	death = FALSE
+	random = TRUE
+	icon = 'icons/mob/monkey.dmi'
+	icon_state = "monkey1"
+	mob_species = /datum/species/monkey
+
+/obj/effect/mob_spawn/human/monkey/pun
+	icon_state = "punpun1"
+	mob_type = /mob/living/carbon/human/lesser/monkey/punpun
+
+/obj/effect/mob_spawn/human/monkey/farwa
+	icon_state = "tajkey1"
+	mob_species = /datum/species/monkey/tajaran
+
+/obj/effect/mob_spawn/human/monkey/farwa/wizard
+	random = FALSE
 	name = "wizard farwa"
 	mob_name = "dobby"
-	mob_species = /datum/species/monkey/tajaran
 	mob_gender = NEUTER
+
+/obj/effect/mob_spawn/human/monkey/wolpin
+	icon_state = "wolfling"
+	mob_species = /datum/species/monkey/vulpkanin
+
+/obj/effect/mob_spawn/human/monkey/neara
+	icon_state = "skrellkey1"
+	mob_species = /datum/species/monkey/skrell
+
+/obj/effect/mob_spawn/human/monkey/stok
+	icon_state = "stokkey1"
+	mob_species = /datum/species/monkey/unathi
