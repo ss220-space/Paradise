@@ -65,11 +65,9 @@
 					Spread(T)
 
 /turf/simulated/mineral/add_debris_element()
-	AddElement(/datum/element/debris, DEBRIS_ROCK, -40, 8, 1)
+	generate_debris_handler(DEBRIS_ROCK, -40, 8, 1)
 
-/turf/simulated/mineral/ComponentInitialize()
-	if(!is_station_level(z))
-		return
+/turf/simulated/mineral/add_blob_consume_component()
 	AddComponent(/datum/component/blob_turf_consuming, 2)
 
 /// Generates typecache of tools allowed to dig this mineral

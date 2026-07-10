@@ -1,7 +1,7 @@
 /// If our item has material type and this type included in special_diet (species) it can be eaten.
-/datum/component/eatable
-	/// How many bites did
-	var/current_bites
+/datum/element/eatable
+	element_flags = ELEMENT_BESPOKE|ELEMENT_DETACH_ON_HOST_DESTROY
+	argument_hash_start_idx = 2
 	/// our item material type
 	var/material_type
 	/// The maximum amount of bites before item is depleted
@@ -17,7 +17,9 @@
 	/// Amount of stack which will be spend on bite.
 	var/stack_use
 
-/datum/component/eatable/Initialize(
+	var/static/alist/bites_count = alist()
+
+/datum/element/eatable/New(
 	current_bites = 0,
 	material_type = MATERIAL_CLASS_NONE,
 	max_bites = 1,
@@ -27,10 +29,6 @@
 	is_always_eatable = FALSE,
 	stack_use = 1
 )
-	if(!isitem(parent))
-		return COMPONENT_INCOMPATIBLE
-
-	src.current_bites = current_bites
 	src.material_type = material_type
 	src.max_bites = max_bites
 	src.integrity_bite = integrity_bite
@@ -39,14 +37,36 @@
 	src.is_always_eatable = is_always_eatable
 	src.stack_use = stack_use
 
-/datum/component/eatable/RegisterWithParent()
-	RegisterSignal(parent, COMSIG_ITEM_PRE_ATTACKBY, PROC_REF(pre_try_eat_item))
-	RegisterSignal(parent, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
+/datum/element/eatable/Attach(datum/target,
+	material_type = MATERIAL_CLASS_NONE,
+	max_bites = 1,
+	integrity_bite = 10,
+	nutritional_value = 20,
+	is_only_grab_intent = FALSE,
+	is_always_eatable = FALSE,
+	stack_use = 1
+)
+	. = ..()
+	if(!isitem(target))
+		return ELEMENT_INCOMPATIBLE
 
-/datum/component/eatable/UnregisterFromParent()
-	UnregisterSignal(parent, list(COMSIG_ITEM_PRE_ATTACKBY, COMSIG_ATOM_EXAMINE))
+	src.material_type = material_type
+	src.max_bites = max_bites
+	src.integrity_bite = integrity_bite
+	src.nutritional_value = nutritional_value
+	src.is_only_grab_intent = is_only_grab_intent
+	src.is_always_eatable = is_always_eatable
+	src.stack_use = stack_use
 
-/datum/component/eatable/proc/on_examine(datum/source, mob/living/carbon/human/human, list/examine_list)
+	RegisterSignal(target, COMSIG_ITEM_PRE_ATTACKBY, PROC_REF(pre_try_eat_item))
+	RegisterSignal(target, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
+
+/datum/element/eatable/Detach(datum/source, ...)
+	UnregisterSignal(source, list(COMSIG_ITEM_PRE_ATTACKBY, COMSIG_ATOM_EXAMINE))
+	bites_count -= source.UID()
+	return ..()
+
+/datum/element/eatable/proc/on_examine(datum/source, mob/living/carbon/human/human, list/examine_list)
 	SIGNAL_HANDLER
 
 	examine_list += item_string_material()
@@ -57,12 +77,13 @@
 	if(material_type & human.dna.species.special_diet)
 		examine_list += "Вкуснятина! [is_only_grab_intent ? "\nНужно аккуратно есть." : ""]"
 
-	if(!isstack(parent))
-		examine_list += get_bite_info()
+	if(!isstack(source))
+		examine_list += get_bite_info(source)
 
-/datum/component/eatable/proc/get_bite_info()
+/datum/element/eatable/proc/get_bite_info(datum/source)
 	var/text
 	var/bites_split = max_bites > 3 ? round(max_bites / 4) : 1
+	var/current_bites = bites_count[source.UID()] || 0
 
 	if(current_bites >= 1 && current_bites <= bites_split)
 		text = "Выглядит покусанным..."
@@ -78,7 +99,7 @@
 
 	return text
 
-/datum/component/eatable/proc/item_string_material()
+/datum/element/eatable/proc/item_string_material()
 	var/material_string
 	switch(material_type)
 		if(MATERIAL_CLASS_NONE)
@@ -91,7 +112,7 @@
 			material_string = "\nМыльный предмет."
 	return material_string
 
-/datum/component/eatable/proc/pre_try_eat_item(datum/source, mob/living/carbon/human/target, mob/user)
+/datum/element/eatable/proc/pre_try_eat_item(datum/source, mob/living/carbon/human/target, mob/user)
 	SIGNAL_HANDLER
 
 	if(!istype(target))
@@ -104,12 +125,12 @@
 		return FALSE
 
 	target.changeNext_move(CLICK_CD_MELEE)
-	INVOKE_ASYNC(src, PROC_REF(try_eat_item), target, user)
+	INVOKE_ASYNC(src, PROC_REF(try_eat_item), source, target, user)
 
 	return COMPONENT_CANCEL_ATTACK_CHAIN
 
-/datum/component/eatable/proc/try_eat_item(mob/living/carbon/human/target, mob/user)
-	var/obj/item/item = parent
+/datum/element/eatable/proc/try_eat_item(datum/source, mob/living/carbon/human/target, mob/user)
+	var/obj/item/item = source
 	var/chat_message_to_user = "Вы кормите [target] [item.name]."
 	var/chat_message_to_target = "[user] покормил[GEND_A_O_I(user)] вас [item.declent_ru(INSTRUMENTAL)]."
 
@@ -129,7 +150,7 @@
 				target.adjustStaminaLoss(15)
 
 	if(target != user)
-		if(!forceFed(target, user, FALSE, NONE))
+		if(!forceFed(source, target, user, FALSE, NONE))
 			return FALSE
 
 		to_chat(target, span_notice("[chat_message_to_target]"))
@@ -138,11 +159,14 @@
 	if(!isstack(item))
 		to_chat(user, span_notice("[chat_message_to_user]"))
 
-	eat(target, user)
+	eat(source, target, user)
 	return
 
-/datum/component/eatable/proc/eat(mob/target, mob/user)
-	var/obj/item/item = parent
+/datum/element/eatable/proc/eat(datum/source, mob/target, mob/user)
+	var/obj/item/item = source
+	var/uid = source.UID()
+
+	var/current_bites = bites_count[uid] || 0
 
 	playsound(target.loc, 'sound/items/eatfood.ogg', 50, FALSE)
 	if(!isvampire(target)) //Dont give nutrition to vampires
@@ -157,14 +181,15 @@
 	else
 		current_bites++
 		item.update_integrity(item.obj_integrity - integrity_bite)
-		item.add_atom_colour(get_colour(), FIXED_COLOUR_PRIORITY)
+		item.add_atom_colour(get_colour(current_bites), FIXED_COLOUR_PRIORITY)
+		bites_count[uid] = current_bites
 		if(current_bites >= max_bites)
 			target.visible_message(span_notice("[target] доел[GEND_A_O_I(target)] [item.declent_ru(ACCUSATIVE)]."))
 			qdel(item)
 	return
 
-/datum/component/eatable/proc/forceFed(mob/target, mob/user, instant_application = FALSE)
-	var/obj/item/item = parent
+/datum/element/eatable/proc/forceFed(datum/source, mob/target, mob/user, instant_application = FALSE)
+	var/obj/item/item = source
 
 	if(!instant_application)
 		item.visible_message(span_warning("[user] пыта[PLUR_ET_YUT(user)]ся накормить [target], запихивая в рот [item.declent_ru(ACCUSATIVE)]."))
@@ -173,7 +198,7 @@
 
 	return TRUE
 
-/datum/component/eatable/proc/get_colour()
+/datum/element/eatable/proc/get_colour(current_bites)
 	var/bites_split = max_bites > 3 ? round(max_bites / 4) : 1
 	var/colour
 

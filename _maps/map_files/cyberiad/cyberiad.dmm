@@ -48422,13 +48422,13 @@
 	},
 /area/station/command/office/cmo)
 "gAN" = (
-/mob/living/carbon/human/lesser/monkey,
 /obj/structure/disposalpipe/segment{
 	dir = 6
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
+/obj/effect/mob_spawn/human/monkey,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreenfull"
 	},
@@ -62177,8 +62177,8 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "lZK" = (
-/mob/living/carbon/human/lesser/monkey,
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/effect/mob_spawn/human/monkey,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreenfull"
 	},
@@ -62397,7 +62397,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/livingcomplex)
 "meY" = (
-/mob/living/carbon/human/lesser/monkey,
+/obj/effect/mob_spawn/human/monkey,
 /turf/simulated/floor/engine,
 /area/station/science/chem_lab/chamber)
 "meZ" = (
@@ -64990,15 +64990,13 @@
 	},
 /area/station/engineering/storage)
 "nqt" = (
-/mob/living/carbon/human/lesser/monkey/punpun{
-	icon_state = "punpun1"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/effect/mob_spawn/human/monkey/pun,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -85969,10 +85967,10 @@
 	},
 /area/station/maintenance/port)
 "vUY" = (
-/mob/living/carbon/human/lesser/monkey,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
+/obj/effect/mob_spawn/human/monkey,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreenfull"
 	},

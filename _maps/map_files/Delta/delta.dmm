@@ -18700,7 +18700,7 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/mob/living/carbon/human/lesser/monkey,
+/obj/effect/mob_spawn/human/monkey,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -28703,6 +28703,19 @@
 	icon_state = "dark"
 	},
 /area/station/maintenance/electrical)
+"gdi" = (
+/obj/machinery/atmospherics/pipe/simple/insulated{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/effect/mob_spawn/human/monkey,
+/turf/simulated/floor/engine,
+/area/station/science/chem_lab/chamber)
 "gdq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -30847,7 +30860,7 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
-/mob/living/carbon/human/lesser/monkey,
+/obj/effect/mob_spawn/human/monkey,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -36620,6 +36633,12 @@
 /obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
+"hyI" = (
+/obj/effect/mob_spawn/human/monkey/pun,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/service/bar)
 "hyJ" = (
 /obj/machinery/door/airlock/command{
 	name = "Head of Security";
@@ -41600,7 +41619,6 @@
 /area/station/security/prison/cell_block/secondary)
 "iuk" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/mob/living/carbon/human/lesser/monkey,
 /turf/simulated/floor/engine,
 /area/station/science/chem_lab/chamber)
 "iuo" = (
@@ -64411,14 +64429,6 @@
 /obj/structure/chair/office/dark,
 /turf/simulated/floor/carpet/red,
 /area/station/maintenance/casino)
-"mFP" = (
-/mob/living/carbon/human/lesser/monkey/punpun{
-	icon_state = "punpun1"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/service/bar)
 "mFS" = (
 /obj/machinery/hologram/holopad,
 /obj/structure/cable{
@@ -77690,7 +77700,7 @@
 /area/station/medical/storage/bio)
 "phV" = (
 /obj/machinery/light,
-/mob/living/carbon/human/lesser/monkey,
+/obj/effect/mob_spawn/human/monkey,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -117111,7 +117121,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/mob/living/carbon/human/lesser/monkey,
+/obj/effect/mob_spawn/human/monkey,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -119618,7 +119628,7 @@
 	},
 /obj/machinery/power/apc/directional/south,
 /obj/structure/cable,
-/mob/living/carbon/human/lesser/monkey,
+/obj/effect/mob_spawn/human/monkey,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -151307,7 +151317,7 @@ ewI
 eMG
 fHF
 get
-lcQ
+gdi
 get
 get
 get
@@ -162806,7 +162816,7 @@ miD
 hgk
 lHG
 kvK
-hjN
+hyI
 cYe
 bRf
 pgZ
@@ -163063,7 +163073,7 @@ miD
 pii
 seb
 pew
-mFP
+hjN
 aVu
 bRf
 pgZ

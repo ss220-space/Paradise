@@ -229,6 +229,7 @@
 
 	VAR_PRIVATE/list/invisibility_sources
 	VAR_PRIVATE/current_invisibility_priority = -INFINITY
+	var/datum/debris_handler/debris_handler = null
 
 /atom/proc/onCentcom()
 	. = FALSE
@@ -435,6 +436,7 @@
 
 /atom/proc/bullet_act(obj/projectile/P, def_zone)
 	SEND_SIGNAL(src, COMSIG_ATOM_BULLET_ACT, P, def_zone)
+	debris_handler?.on_impact(src, P)
 	. = P.on_hit(src, 0, def_zone)
 
 /atom/proc/in_contents_of(container)//can take class or object instance as argument
