@@ -163,7 +163,7 @@ MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/structure/toilet, 8, -8, 0, 0)
 		return
 
 	var/datum/reagents/reagents = new()
-	reagents.add_reagent("toiletwater", 5)
+	reagents.add_reagent(/datum/reagent/fishwater/toiletwater, 5)
 	reagents.trans_to(victim, 5)
 	QDEL_NULL(reagents)
 
