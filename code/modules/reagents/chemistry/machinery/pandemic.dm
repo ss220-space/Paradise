@@ -432,7 +432,7 @@
 /obj/machinery/computer/pandemic/proc/add_random_symptom(index)
 	var/datum/disease/disease = GetDiseaseByIndex(index)
 	if(!istype(disease, /datum/disease/virus/advance))
-		balloon_alert(usr, "Ошибка!")
+		balloon_alert(usr, "ошибка!")
 		return
 
 	var/datum/disease/virus/advance/advance_virus = disease
@@ -452,7 +452,7 @@
 /obj/machinery/computer/pandemic/proc/remove_random_symptom(index)
 	var/datum/disease/disease = GetDiseaseByIndex(index)
 	if(!istype(disease, /datum/disease/virus/advance))
-		balloon_alert(usr, "Ошибка!")
+		balloon_alert(usr, "ошибка!")
 		return
 
 	var/datum/disease/virus/advance/advance_virus = disease
