@@ -286,7 +286,7 @@
 	exp_type = EXP_TYPE_MEDICAL
 	outfit = /datum/outfit/job/brigdoc
 	skill_levels = list(
-		/datum/skill/general/carring = SKILL_LEVEL_BASIC,
+		/datum/skill/general/carrying = SKILL_LEVEL_BASIC,
 		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
 		/datum/skill/medical/surgery = SKILL_LEVEL_BASIC,
 		/datum/skill/medical/heal = SKILL_LEVEL_BASIC,

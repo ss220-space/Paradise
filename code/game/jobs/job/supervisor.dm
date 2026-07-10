@@ -173,7 +173,7 @@
 	insurance_type = INSURANCE_TYPE_DELUXE
 	paycheck = PAYCHECK_COMMAND
 	skill_levels = list(
-		/datum/skill/general/carring = SKILL_LEVEL_BASIC,
+		/datum/skill/general/carrying = SKILL_LEVEL_BASIC,
 		/datum/skill/general/mech_drive = SKILL_LEVEL_BEGINNER,
 		/datum/skill/combat/accuracy = SKILL_LEVEL_ADVANCED,
 		/datum/skill/combat/guns = SKILL_LEVEL_ADVANCED,

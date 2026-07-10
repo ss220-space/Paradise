@@ -317,7 +317,7 @@
 		to_chat(user, span_notice("[part.declent_ru(NOMINATIVE)] вставлен[GEND_A_O_Y(part)]."))
 		GET_SKILL_LEVEL(user, /datum/skill/engineering/construction, construction_level)
 		// automatic next part only if skill great than basic (professional, expert, legend)
-		if(construction_level > SKILL_LEVEL_BASIC && construction_level != SKILL_LEVEL_UNAVAILABLE)
+		if(construction_level > SKILL_LEVEL_BASIC)
 			return apply_parts_from_construction_bag(bag, user, count + 1)
 		break
 	balloon_alert(user, "вставлен[declension_ru(count, "а", "о", "о")] [count] детал[declension_ru(count, "ь", "и", "ей")]")

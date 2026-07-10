@@ -3,7 +3,7 @@
 	category = "Общие"
 	category_color = "#b88646"
 
-/datum/skill/general/carring
+/datum/skill/general/carrying
 	id = "general.carrying"
 	name = "Переноска"
 	desc = "Влияет на переноски вещей."

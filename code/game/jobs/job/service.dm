@@ -541,7 +541,7 @@
 	)
 	outfit = /datum/outfit/job/chaplain
 	skill_levels = list(
-		/datum/skill/general/carring = SKILL_LEVEL_BEGINNER,
+		/datum/skill/general/carrying = SKILL_LEVEL_BEGINNER,
 		/datum/skill/service/cleaning = SKILL_LEVEL_BEGINNER,
 		/datum/skill/combat/melee = SKILL_LEVEL_BASIC,
 	)

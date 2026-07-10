@@ -22,7 +22,7 @@
 	exp_type = EXP_TYPE_SUPPLY
 	outfit = /datum/outfit/job/qm
 	skill_levels = list(
-		/datum/skill/general/carring = SKILL_LEVEL_PROFESSIONAL,
+		/datum/skill/general/carrying = SKILL_LEVEL_PROFESSIONAL,
 		/datum/skill/general/mech_drive = SKILL_LEVEL_ADVANCED,
 		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
 		/datum/skill/combat/accuracy = SKILL_LEVEL_BEGINNER,
@@ -74,7 +74,7 @@
 	)
 	outfit = /datum/outfit/job/cargo_tech
 	skill_levels = list(
-		/datum/skill/general/carring = SKILL_LEVEL_ADVANCED,
+		/datum/skill/general/carrying = SKILL_LEVEL_ADVANCED,
 		/datum/skill/general/mech_drive = SKILL_LEVEL_BASIC,
 		/datum/skill/combat/fists = SKILL_LEVEL_BEGINNER,
 	)
@@ -100,7 +100,7 @@
 	outfit = /datum/outfit/job/mining
 	insurance_type = INSURANCE_TYPE_EXTENDED
 	skill_levels = list(
-		/datum/skill/general/carring = SKILL_LEVEL_BASIC,
+		/datum/skill/general/carrying = SKILL_LEVEL_BASIC,
 		/datum/skill/general/mech_drive = SKILL_LEVEL_BASIC,
 		/datum/skill/combat/accuracy = SKILL_LEVEL_BASIC,
 		/datum/skill/combat/guns = SKILL_LEVEL_BEGINNER,
@@ -171,7 +171,7 @@
 	insurance_type = INSURANCE_TYPE_EXTENDED
 	exp_type = EXP_TYPE_MEDICAL
 	skill_levels = list(
-		/datum/skill/general/carring = SKILL_LEVEL_BASIC,
+		/datum/skill/general/carrying = SKILL_LEVEL_BASIC,
 		/datum/skill/medical/surgery = SKILL_LEVEL_BASIC,
 		/datum/skill/medical/heal = SKILL_LEVEL_BASIC,
 		/datum/skill/medical/chemistry = SKILL_LEVEL_BEGINNER,

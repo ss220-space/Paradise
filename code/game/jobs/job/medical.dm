@@ -383,7 +383,7 @@
 	)
 	outfit = /datum/outfit/job/paramedic
 	skill_levels = list(
-		/datum/skill/general/carring = SKILL_LEVEL_BASIC,
+		/datum/skill/general/carrying = SKILL_LEVEL_BASIC,
 		/datum/skill/general/mech_drive = SKILL_LEVEL_BEGINNER,
 		/datum/skill/engineering/lockpick = SKILL_LEVEL_BEGINNER,
 		/datum/skill/medical/surgery = SKILL_LEVEL_BEGINNER,

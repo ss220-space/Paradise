@@ -34,7 +34,7 @@
 
 /datum/skill/medical/heal
 	id = "medical.heal"
-	name = "Лучение"
+	name = "Лечение"
 	desc = "Влияет на скорось и величину лечения медикаментами."
 	duration_mod_signals = list(COMSIG_GET_HEAL_DURATION_MOD)
 	var/heal_mods = alist(
