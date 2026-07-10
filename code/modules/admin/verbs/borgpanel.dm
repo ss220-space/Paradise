@@ -167,9 +167,9 @@ ADMIN_VERB(borg_panel_in_list, R_ADMIN, "Show Borg Panel in List", "Open Borg Pa
 				qdel(installedupgrade) // see [mob/living/silicon/robot/on_upgrade_deleted()].
 			else
 				var/obj/item/borg/upgrade/upgrade = new upgradepath(borg)
-				if(!upgrade.action(borg))
+				if(!borg.install_upgrade(upgrade))
+					qdel(upgrade)
 					return
-				borg.install_upgrade(upgrade)
 				message_admins("[key_name_admin(user)] added the [upgrade] borg upgrade to [ADMIN_LOOKUPFLW(borg)].")
 				log_admin("[key_name(user)] added the [upgrade] borg upgrade to [key_name(borg)].")
 		if("toggle_radio")

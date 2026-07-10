@@ -13,15 +13,16 @@
 	var/list/subsystems = list()
 	var/list/module_actions = list()
 
-	var/module_type = "NoMod" // For icon usage
+	/// For icon usage
+	var/module_type = "NoMod"
 
 	var/list/storages = list()
 	var/channels = list()
 	var/list/custom_removals = list()
 
-	///List of skins the borg can be reskinned to, optional
+	/// List of skins the borg can be reskinned to, optional
 	var/list/borg_skins
-	//If decides not to choose
+	/// If decides not to choose
 	var/default_skin
 
 /obj/item/robot_module/emp_act(severity)
@@ -99,6 +100,19 @@
 	for(var/obj/O in temp_list)
 		if(!QDELETED(O)) //so items getting deleted don't stay in module list and haunt you
 			modules += O
+
+/// Installs default set of upgrades, that every ERT-borg must have. Also used by ninjaborg
+/obj/item/robot_module/proc/install_ert_upgrades(mob/living/silicon/robot/robot)
+	var/obj/item/borg/upgrade/vtec/vtec = new(robot)
+	robot.install_upgrade(vtec)
+	var/obj/item/borg/upgrade/magboots/magboots = new(robot)
+	robot.install_upgrade(magboots)
+	var/obj/item/borg/upgrade/selfrepair/selfrepair = new(robot)
+	robot.install_upgrade(selfrepair)
+	var/obj/item/borg/upgrade/thrusters/thrusters = new(robot)
+	robot.install_upgrade(thrusters)
+	var/obj/item/borg/upgrade/mounted_seat/mounted_seat = new(robot)
+	robot.install_upgrade(mounted_seat)
 
 /obj/item/robot_module/proc/add_languages(mob/living/silicon/robot/R)
 	//full set of languages
@@ -317,6 +331,24 @@
 /obj/item/robot_module/medical/add_default_robot_items()
 	return
 
+/obj/item/robot_module/medical/ert
+	name = "Combat Medical"
+
+/obj/item/robot_module/medical/ert/on_apply(mob/living/silicon/robot/robot)
+
+	install_ert_upgrades(robot)
+	var/obj/item/borg/upgrade/storageincreaser/storageincreaser = new(robot)
+	robot.install_upgrade(storageincreaser)
+	var/obj/item/borg/upgrade/hypospray/hypospray = new(robot)
+	robot.install_upgrade(hypospray)
+	var/obj/item/borg/upgrade/hypospray_pierce/hypospray_pierce = new(robot)
+	robot.install_upgrade(hypospray_pierce)
+
+	robot.status_flags &= ~CANPUSH
+	robot.see_reagents = TRUE
+
+	return TRUE
+
 /obj/item/robot_module/engineering
 	name = "Engineering"
 	module_type = "Engineer"
@@ -405,6 +437,17 @@
 	if(G)
 		G.drop_gripped_item(silent = TRUE)
 
+/obj/item/robot_module/engineering/ert
+	name = "Combat Engineering"
+
+/obj/item/robot_module/engineering/ert/on_apply(mob/living/silicon/robot/robot)
+
+	install_ert_upgrades(robot)
+	var/obj/item/borg/upgrade/storageincreaser/storageincreaser = new(robot)
+	robot.install_upgrade(storageincreaser)
+
+	return TRUE
+
 /obj/item/robot_module/security
 	name = "Security"
 	module_type = "Security"
@@ -478,6 +521,26 @@
 
 	fix_modules()
 
+/obj/item/robot_module/security/ert
+	name = "Combat Security"
+
+/obj/item/robot_module/security/ert/on_apply(mob/living/silicon/robot/robot)
+
+	robot.weapons_unlock = TRUE
+	install_ert_upgrades(robot)
+	var/obj/item/borg/upgrade/disablercooler/disablercooler = new(robot)
+	robot.install_upgrade(disablercooler)
+
+	return TRUE
+
+/obj/item/robot_module/security/ert/Destroy()
+	if(!isrobot(loc))
+		return
+	var/mob/living/silicon/robot/robot = loc
+	robot.weapons_unlock = initial(robot.weapons_unlock)
+	..()
+
+
 /obj/item/robot_module/janitor
 	name = "Janitor"
 	module_type = "Janitor"
@@ -532,6 +595,15 @@
 	var/obj/item/reagent_containers/spray/cleaner/cleaner = locate() in modules
 	cleaner.reagents.add_reagent(/datum/reagent/space_cleaner, 4)
 	return ..()
+
+/obj/item/robot_module/janitor/ert
+	name = "Сombat Janitor"
+
+/obj/item/robot_module/janitor/ert/on_apply(mob/living/silicon/robot/robot)
+
+	install_ert_upgrades(robot)
+
+	return TRUE
 
 /obj/item/robot_module/butler
 	name = "Service"
@@ -751,8 +823,7 @@
 	var/mob/living/silicon/robot/deathsquad/death = new(get_turf(robot))
 	robot.mind?.transfer_to(death)
 	qdel(robot)
-	var/obj/item/borg/upgrade/magboots/upgrade = new(death)
-	death.install_upgrade(upgrade)
+	install_ert_upgrades(death)
 
 	return TRUE
 
@@ -933,8 +1004,7 @@
 	var/mob/living/silicon/robot/destroyer/destroy = new(get_turf(robot))
 	robot.mind?.transfer_to(destroy)
 	qdel(robot)
-	var/obj/item/borg/upgrade/magboots/upgrade = new(destroy)
-	destroy.install_upgrade(upgrade)
+	install_ert_upgrades(destroy)
 
 	return TRUE
 
@@ -972,8 +1042,7 @@
 
 /obj/item/robot_module/combat/on_apply(mob/living/silicon/robot/robot)
 	robot.status_flags &= ~CANPUSH
-	var/obj/item/borg/upgrade/magboots/upgrade = new(robot)
-	robot.install_upgrade(upgrade)
+	install_ert_upgrades(robot)
 
 	return TRUE
 
@@ -1190,6 +1259,7 @@
 	var/mob/living/silicon/robot/syndicate/saboteur/ninja/ninja = new(get_turf(robot))
 	robot.mind?.transfer_to(ninja)
 	qdel(robot)
+	install_ert_upgrades(ninja)
 
 	return TRUE
 
@@ -1231,7 +1301,7 @@
 	modules += new /obj/item/stack/sheet/glass/cyborg(src)
 	modules += new /obj/item/stack/sheet/rglass/cyborg(src)
 	modules += new /obj/item/stack/rods/cyborg(src)
-	modules += new /obj/item/pinpointer/ninja(src)			// Почему бы и да
+	modules += new /obj/item/pinpointer/ninja(src)			// Why not?
 	var/obj/item/borg_chameleon/cham_proj = new /obj/item/borg_chameleon(src)
 	cham_proj.disguise = "maximillion"
 	modules += cham_proj
@@ -1287,6 +1357,11 @@
 	name = "Metal Storage"
 	max_energy = 400
 	recharge_rate = 15
+
+/datum/robot_energy_storage/plasteel
+	name = "Plasteel Storage"
+	max_energy = 100
+	recharge_rate = 75
 
 /datum/robot_energy_storage/glass
 	name = "Glass Storage"

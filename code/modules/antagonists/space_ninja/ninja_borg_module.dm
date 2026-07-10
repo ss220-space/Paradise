@@ -1,5 +1,5 @@
 /*
- * Наследуем от саботажника, чтобы иметь возможность легко интегрировать этому боргу свой хамелион проектор
+ * we inherit from sabouter module, so we have an ability to simply integrate  cyborg chamelon projector into our ninjaborg
  */
 /mob/living/silicon/robot/syndicate/saboteur/ninja
 	base_icon = "ninja"
@@ -20,7 +20,7 @@
 /mob/living/silicon/robot/syndicate/saboteur/ninja/init(alien = FALSE, mob/living/silicon/ai/ai_to_sync_to = null)
 	. = ..()
 	laws = new /datum/ai_laws/ninja_override(src)
-	QDEL_NULL(module)	//Удаление модуля саботёра который мы наследуем
+	QDEL_NULL(module)	// Deleting the sabouter module we inherited
 	module = new /obj/item/robot_module/ninja(src)
 	aiCamera = new/obj/item/camera/siliconcam/robot_camera(src)
 	radio = new /obj/item/radio/borg/ninja(src)
