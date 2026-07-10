@@ -18,15 +18,6 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 	if(dir == SOUTH)
 		set_density(FALSE)
 
-/// Rejects gate entry for anyone with an active teleport blocker. Returns TRUE if entry was rejected.
-/obj/machinery/gateway/proc/reject_teleport_blocked(atom/movable/moving_atom)
-	if(!is_teleport_blocked(moving_atom))
-		return FALSE
-	var/mob/living/notified = isliving(moving_atom) ? moving_atom : get_teleport_blocking_living(moving_atom)
-	if(notified)
-		to_chat(notified, span_warning("Что-то не даёт [src] перебросить вас!"))
-	return TRUE
-
 /obj/machinery/gateway/update_icon_state()
 	icon_state = active ? "on" : "off"
 
@@ -140,8 +131,6 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 	. = ..()
 	if(!ready || !active || !awaygate)
 		return
-	if(reject_teleport_blocked(moving_atom))
-		return
 	if(awaygate.calibrated)
 		moving_atom.forceMove(get_step(awaygate.loc, SOUTH))
 		moving_atom.dir = SOUTH
@@ -238,8 +227,6 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 /obj/machinery/gateway/centeraway/Bumped(atom/movable/moving_atom)
 	. = ..()
 	if(!ready || !active || QDELETED(stationgate))
-		return
-	if(reject_teleport_blocked(moving_atom))
 		return
 	if(isliving(moving_atom))
 		if(exilecheck(moving_atom))

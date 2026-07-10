@@ -52,6 +52,8 @@
 		action.owner,
 		targeted_turf,
 		aprecision = 1,
+		ignore_bluespace_interference = TRUE,
+		no_effects = TRUE,
 	)
 
 

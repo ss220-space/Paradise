@@ -46,6 +46,7 @@
 	return
 
 /obj/item/teleportation_scroll/proc/teleportscroll(mob/user)
+
 	var/A
 
 	A = tgui_input_list(user, "Area to jump to", "BOOYEA", SSmapping.teleportlocs)
@@ -64,6 +65,10 @@
 		to_chat(user, span_warning("A mysterious force disrupts your arcane spell matrix, and you remain where you are."))
 		return
 
+	var/datum/effect_system/fluid_spread/smoke/smoke = new
+	smoke.set_up(amount = 5, location = user.loc)
+	smoke.attach(user)
+	smoke.start()
 	var/list/L = list()
 	for(var/turf/T in get_area_turfs(thearea.type))
 		if(!T.density)
@@ -85,26 +90,20 @@
 	if(user && user.has_buckled_mobs())
 		user.unbuckle_all_mobs(force = TRUE)
 
-	var/turf/origin = get_turf(user)
-	var/list/tempL = L.Copy()
+	var/list/tempL = L
 	var/attempt = null
 	var/success = FALSE
 	while(length(tempL))
 		attempt = pick(tempL)
-		do_direct_teleport(user, attempt, always_precise = TRUE, bypass_area_flag = TRUE)
+		user.forceMove(attempt)
 		if(get_turf(user) == attempt)
 			success = TRUE
 			break
 		tempL.Remove(attempt)
 
-	if(!success && !do_direct_teleport(user, pick(L), always_precise = TRUE, bypass_area_flag = TRUE))
-		return
+	if(!success)
+		user.forceMove(pick(L))
 
-	var/datum/effect_system/fluid_spread/smoke/origin_smoke = new
-	origin_smoke.set_up(amount = 5, location = origin)
-	origin_smoke.start()
-	var/datum/effect_system/fluid_spread/smoke/destination_smoke = new
-	destination_smoke.set_up(amount = 5, location = user.loc)
-	destination_smoke.start()
+	smoke.start()
 	src.uses -= 1
 	user.update_action_buttons_icon()  //Update action buttons as some spells might now be castable

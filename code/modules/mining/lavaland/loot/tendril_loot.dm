@@ -390,13 +390,11 @@
 		balloon_alert(user, "куб искрится и шипит")
 		return
 	if(do_after(user, 1.5 SECONDS, user))
-		var/turf/origin = get_turf(user)
-		if(!do_direct_teleport(user, get_turf(linked), always_precise = TRUE, bypass_area_flag = TRUE))
-			return
 		var/datum/effect_system/fluid_spread/smoke/smoke = new
-		smoke.set_up(amount = 1, location = origin)
+		smoke.set_up(amount = 1, location = user.loc)
 		smoke.start()
 
+		user.forceMove(get_turf(linked))
 		SSblackbox.record_feedback("tally", "warp_cube", 1, type)
 
 		var/datum/effect_system/fluid_spread/smoke/smoke2 = new

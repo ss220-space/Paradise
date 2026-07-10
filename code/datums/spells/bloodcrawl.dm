@@ -205,10 +205,7 @@
 	sink_animation(enter_point, user)
 	var/obj/effect/dummy/slaughter/holder = new /obj/effect/dummy/slaughter(mobloc)
 	var/victim = user.pulling
-	if(!user.forceMove(holder))
-		QDEL_NULL(holder)
-		REMOVE_TRAIT(user, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
-		return
+	user.forceMove(holder)
 	user.ExtinguishMob()
 	handle_consumption(user, victim, enter_point, holder)
 	post_phase_in(user, holder)
@@ -294,3 +291,4 @@
 		return
 	var/mob/living/simple_animal/demon/shadow/demon = user
 	demon.RegisterSignal(holder, COMSIG_MOVABLE_MOVED, TYPE_PROC_REF(/mob/living/simple_animal/demon/shadow, check_darkness))
+

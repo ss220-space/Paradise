@@ -166,7 +166,7 @@
 		qdel(src)
 		return
 
-	if(do_teleport(user, safe_turf))
+	if(do_teleport(user, safe_turf, ignore_bluespace_interference = TRUE, no_effects = TRUE))
 		to_chat(user, span_warning("После разбивания [declent_ru(GENITIVE)], вы чувствуете, как по вашему телу проходит поток энергии. [after_use_message]"))
 	else
 		to_chat(user, span_warning("Вы разбиваете [declent_ru(ACCUSATIVE)], но ваша мольба остается без ответа."))

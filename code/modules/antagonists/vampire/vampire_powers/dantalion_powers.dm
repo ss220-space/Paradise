@@ -236,12 +236,8 @@
 		return
 	var/turf/user_turf = get_turf(user)
 	var/turf/target_turf = get_turf(target)
-	if(!do_direct_teleport(target, user_turf, always_precise = TRUE, bypass_area_flag = TRUE))
-		revert_cast()
-		return
-	if(!do_direct_teleport(user, target_turf, always_precise = TRUE, bypass_area_flag = TRUE))
-		revert_cast()
-		return
+	target.forceMove(user_turf)
+	user.forceMove(target_turf)
 	var/sound/sound = sound('sound/magic/mindswap.ogg')
 	sound.volume = 30
 	SEND_SOUND(user, sound)
@@ -335,3 +331,4 @@
 		target.Slowed(4 SECONDS)
 		target.flash_eyes(2, TRUE) // flash to give them a second to lose track of who is who
 		new /obj/effect/hallucination/delusion(get_turf(user), target, skip_nearby = FALSE)
+

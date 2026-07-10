@@ -42,7 +42,7 @@
 
 	if(istype(I, /obj/item/rcs))
 		add_fingerprint(user)
-		to_chat(user, span_warning("Блюспейс-помехи мешают [I] захватить [src] в цель!"))
+		to_chat(user, span_warning("Bluespace interference prevents [I] from locking onto [src]!"))
 		return ATTACK_CHAIN_PROCEED
 
 	return ..()

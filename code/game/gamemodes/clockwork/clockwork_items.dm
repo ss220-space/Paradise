@@ -103,9 +103,7 @@
 		animate(user, color = COLOR_PURPLE, time = 1.5 SECONDS)
 		if(do_after(user, 1.5 SECONDS, user) && destination)
 			do_sparks(4, FALSE, user)
-			if(!do_direct_teleport(user, get_turf(destination), always_precise = TRUE, bypass_area_flag = TRUE))
-				user.color = null
-				return
+			user.forceMove(get_turf(destination))
 			playsound(user, 'sound/effects/phasein.ogg', 20, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 			add_attack_logs(user, destination, "Teleported to by [src]", ATKLOG_ALL)
 			deplete_spell()
@@ -193,9 +191,7 @@
 			animate(user, color = COLOR_PURPLE, time = 1.5 SECONDS)
 			if(do_after(user, 1.5 SECONDS, user))
 				do_sparks(4, FALSE, user)
-				if(!do_direct_teleport(user, get_turf(target), always_precise = TRUE, bypass_area_flag = TRUE))
-					user.color = null
-					return
+				user.forceMove(get_turf(target))
 				playsound(user, 'sound/effects/phasein.ogg', 20, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 				add_attack_logs(user, target, "Teleported to by [src]", ATKLOG_ALL)
 				deplete_spell()

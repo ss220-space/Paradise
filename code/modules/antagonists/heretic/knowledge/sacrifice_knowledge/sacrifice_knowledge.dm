@@ -347,7 +347,7 @@
 
 	curse_organs(sac_target)
 
-	if(!destination || !do_teleport(sac_target, destination, asoundin = 'sound/magic/repulse.ogg', asoundout = 'sound/magic/blind.ogg', bypass_area_flag = TRUE))
+	if(!destination || !do_teleport(sac_target, destination, asoundin = 'sound/magic/repulse.ogg', asoundout = 'sound/magic/blind.ogg', bypass_area_flag = TRUE, ignore_bluespace_interference = TRUE, no_effects = TRUE, ignore_blocking_traits = TRUE))
 		disembowel_target(sac_target)
 		return
 
@@ -472,7 +472,7 @@
 		safe_turf = get_turf(backup_loc)
 		stack_trace("[type] - return_target was unable to find a safe turf for [sac_target] to return to. Defaulting to observer start turf.")
 
-	if(!do_teleport(sac_target, safe_turf, asoundout = 'sound/magic/blind.ogg'/*, forced = TRUE*/))
+	if(!do_teleport(sac_target, safe_turf, asoundout = 'sound/magic/blind.ogg', ignore_bluespace_interference = TRUE, no_effects = TRUE, ignore_blocking_traits = TRUE))
 		safe_turf = get_turf(backup_loc)
 		sac_target.forceMove(safe_turf)
 		stack_trace("[type] - return_target was unable to teleport [sac_target] to the observer start turf. Forcemoving.")

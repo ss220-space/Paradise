@@ -492,8 +492,8 @@ structure_check() searches for nearby cultist structures required for the invoca
 			movedsomething = TRUE
 			continue
 		if(!movable.anchored)
-			if(do_direct_teleport(movable, target, always_precise = TRUE, bypass_area_flag = TRUE))
-				movedsomething = TRUE
+			movedsomething = TRUE
+			movable.forceMove(target)
 
 	if(movedsomething)
 		..()
@@ -503,11 +503,12 @@ structure_check() searches for nearby cultist structures required for the invoca
 			actual_selected_rune.handle_portal("lava")
 		else if(!is_station_level(z) || isspacearea(get_area(src)))
 			actual_selected_rune.handle_portal("space", rune_turf)
-		if(moveuser && !do_direct_teleport(user, target, always_precise = TRUE, bypass_area_flag = TRUE))
-			fail_invoke()
-			return
-		rune_turf.visible_message(span_warning("There is a sharp crack of inrushing air, and everything above the rune disappears!"))
-		to_chat(user, span_cult("You[moveuser ? "r vision blurs, and you suddenly appear somewhere else":" send everything above the rune away"]."))
+		user.visible_message(
+			span_warning("There is a sharp crack of inrushing air, and everything above the rune disappears!"),
+			span_cult("You[moveuser ? "r vision blurs, and you suddenly appear somewhere else":" send everything above the rune away"].")
+		)
+		if(moveuser)
+			user.forceMove(target)
 	else
 		fail_invoke()
 
@@ -735,18 +736,15 @@ structure_check() searches for nearby cultist structures required for the invoca
 		to_chat(user, span_cultitalic("[cultist_to_summon] is not in our dimension!"))
 		fail_invoke()
 		return
-	var/turf/summon_origin = get_turf(cultist_to_summon)
-	var/turf/summon_destination = get_turf(src)
+
 	cultist_to_summon.visible_message(
 		span_warning("[cultist_to_summon] suddenly disappears in a flash of red light!"), \
 		span_cultitalic("<b>Overwhelming vertigo consumes you as you are hurled through the air!</b>")
 	)
-	if(!do_direct_teleport(cultist_to_summon, summon_destination, always_precise = TRUE, bypass_area_flag = TRUE))
-		fail_invoke()
-		return
 	..()
-	INVOKE_ASYNC(src, PROC_REF(teleport_effect), cultist_to_summon, summon_origin, summon_destination)
+	INVOKE_ASYNC(src, PROC_REF(teleport_effect), cultist_to_summon, get_turf(cultist_to_summon), src)
 	visible_message(span_warning("[src] begins to bubble and rises into the form of [cultist_to_summon]!"))
+	cultist_to_summon.forceMove(get_turf(src))
 	qdel(src)
 
 /**

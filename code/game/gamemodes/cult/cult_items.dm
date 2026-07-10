@@ -22,8 +22,6 @@
 /obj/item/melee/cultblade
 	name = "cult blade"
 	desc = "An arcane weapon wielded by the followers of a cult."
-	/// tg heretic compat: lets non-cultists wield the blade without backlash (e.g. haunted blade holders).
-	var/free_use = FALSE
 	icon = 'icons/obj/cult.dmi'
 	icon_state = "blood_blade"
 	item_state = "blood_blade"
@@ -34,6 +32,7 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("атаковал", "полоснул", "уколол", "поранил", "порезал")
 	sprite_sheets_inhand = list(SPECIES_SKRELL = 'icons/mob/clothing/species/skrell/held.dmi') // To stop skrell stabbing themselves in the head
+	var/free_use = FALSE
 
 /obj/item/melee/cultblade/Initialize(mapload)
 	. = ..()
@@ -59,7 +58,7 @@
 		item_state = initial(item_state)
 
 /obj/item/melee/cultblade/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
-	if(!iscultist(user))
+	if(!iscultist(user) && !free_use)
 		user.Knockdown(10 SECONDS)
 		user.drop_item_ground(src, force = TRUE)
 		user.visible_message(
@@ -75,7 +74,7 @@
 		to_chat(user, span_danger("You can't seem to hold the blade properly!"))
 		return FALSE
 
-	if(!iscultist(user))
+	if(!iscultist(user) && !free_use)
 		to_chat(user, span_cultlarge("\"I wouldn't advise that.\""))
 		to_chat(user, span_warning("An overwhelming sense of nausea overpowers you!"))
 		user.Confused(20 SECONDS)
@@ -452,8 +451,8 @@
 	var/mob/living/carbon/C = user
 	if(C.pulling)
 		var/atom/movable/pulled = C.pulling
-		if(do_direct_teleport(pulled, T, always_precise = TRUE, bypass_area_flag = TRUE))
-			. = pulled
+		pulled.forceMove(T)
+		. = pulled
 
 /obj/item/cult_shift/attack_self(mob/user)
 	if(!uses || !iscarbon(user))
@@ -496,8 +495,7 @@
 		new /obj/effect/temp_visual/dir_setting/cult/phase/out(mobloc, C.dir)
 
 		var/atom/movable/pulled = handle_teleport_grab(destination, C)
-		if(!do_direct_teleport(C, destination, always_precise = TRUE, bypass_area_flag = TRUE))
-			return
+		C.forceMove(destination)
 		if(pulled)
 			if(C.pull_hand == PULL_WITHOUT_HANDS)
 				C.start_pulling(pulled) //forcemove resets pulls, so we need to re-pull
@@ -798,3 +796,4 @@
 	item_state = "summoning_orb"
 	desc = "It's an orb of crystalized blood. Can be used to transfer blood between cultists."
 	var/blood = 50
+

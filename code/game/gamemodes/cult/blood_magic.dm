@@ -516,9 +516,6 @@
 	if(!iscultist(target) || !proximity_flag)
 		to_chat(user, span_warning("You can only teleport adjacent cultists with this spell!"))
 		return
-	if(!isliving(target))
-		return
-	var/mob/living/teleporting_mob = target
 	for(var/R in GLOB.teleport_runes)
 		var/obj/effect/rune/teleport/T = R
 		var/resultkey = T.listkey
@@ -539,6 +536,7 @@
 		to_chat(user, span_cultitalic("You are not in the right dimension!"))
 		return
 
+	var/mob/living/teleporting_mob = target
 	var/input_rune_key = tgui_input_list(user, "Choose a rune to teleport to.", "Rune to Teleport to", potential_runes) //we know what key they picked
 	var/obj/effect/rune/teleport/actual_selected_rune = potential_runes[input_rune_key] //what rune does that key correspond to?
 	var/turf/destination = get_turf(actual_selected_rune)
@@ -570,9 +568,8 @@
 	else
 		teleporting_mob.visible_message(span_warning("Dust flows from [user]'s hand, and [teleporting_mob] disappears in a flash of red light!"), \
 		span_cultitalic("You suddenly find yourself somewhere else!"))
-	if(!do_direct_teleport(teleporting_mob, destination, always_precise = TRUE, bypass_area_flag = TRUE))
-		return
 	destination.visible_message(span_warning("There is a boom of outrushing air as something appears above the rune!"), null, "<i>You hear a boom.</i>")
+	teleporting_mob.forceMove(destination)
 	playsound(destination, 'sound/misc/exit_blood.ogg', 50, TRUE, -1)
 	return ..()
 

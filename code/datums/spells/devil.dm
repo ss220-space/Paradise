@@ -197,6 +197,7 @@
 	action_background_icon_state = "bg_demon"
 
 	phase_allowed = TRUE
+
 	clothes_req = FALSE
 	human_req = FALSE
 
@@ -253,11 +254,7 @@
 	var/obj/effect/dummy/slaughter/s_holder = new(loc)
 
 	ExtinguishMob()
-	if(!forceMove(s_holder))
-		QDEL_NULL(s_holder)
-		REMOVE_TRAIT(src, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(spell))
-		fakefireextinguish()
-		return FALSE
+	forceMove(s_holder)
 
 	holder = s_holder
 
@@ -582,3 +579,4 @@
 			continue
 		to_chat(player_mob, message)
 		INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, user, player_mob, message, user.tts_seed, TRUE)
+

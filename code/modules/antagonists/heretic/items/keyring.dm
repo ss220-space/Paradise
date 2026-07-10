@@ -74,7 +74,7 @@
 		return
 
 	var/obj/machinery/door/doorstination = (inverted ? !IS_HERETIC_OR_MONSTER(teleportee) : IS_HERETIC_OR_MONSTER(teleportee)) ? destination.our_airlock : find_random_airlock()
-	if(!do_teleport(teleportee, get_turf(doorstination)))
+	if(!do_teleport(teleportee, get_turf(doorstination), ignore_bluespace_interference = TRUE, no_effects = TRUE))
 		return
 
 	teleportee.client?.move_delay = 0 //make moving through smoother

@@ -177,16 +177,13 @@
 
 	var/turf/start_turf = get_turf(user)
 	var/turf/end_turf = get_turf(anchor)
-	// Якорь расходуется при любой попытке отзыва, даже если телепорт заблокирован — иначе он может
-	// остаться в недосягаемом месте, и новый создать уже не получится.
 	QDEL_NULL(anchor)
 	if(end_turf.z != start_turf.z)
 		return
 	if(!is_teleport_allowed(end_turf.z))
 		return
 
-	if(!do_direct_teleport(user, end_turf, always_precise = TRUE, bypass_area_flag = TRUE))
-		return
+	user.forceMove(end_turf)
 
 	if(end_turf.z == start_turf.z)
 		shadow_to_animation(start_turf, end_turf, user)
@@ -252,8 +249,7 @@
 /obj/effect/proc_holder/spell/vampire/dark_passage/cast(list/targets, mob/user)
 	var/turf/target = get_turf(targets[1])
 	new /obj/effect/temp_visual/vamp_mist_out(get_turf(user))
-	if(!do_direct_teleport(user, target, always_precise = TRUE, bypass_area_flag = TRUE))
-		return
+	user.forceMove(target)
 	new /obj/effect/temp_visual/vamp_mist_in(get_turf(user))
 
 /obj/effect/temp_visual/vamp_mist_out
@@ -354,3 +350,4 @@
 
 /datum/vampire_passive/xray
 	gain_desc = "Теперь вы можете видеть сквозь стены, если вы не заметили."
+

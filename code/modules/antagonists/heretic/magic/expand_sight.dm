@@ -9,3 +9,9 @@
 	action_background_icon_state = "bg_heretic"
 	overlay_icon_state = "bg_heretic_border"
 	human_req = FALSE
+
+/obj/effect/proc_holder/spell/view_range/expand_sight/get_view_ranges()
+	var/static/list/view_ranges
+	if(!view_ranges)
+		view_ranges = ..() + list("23x23", "25x25")
+	return view_ranges

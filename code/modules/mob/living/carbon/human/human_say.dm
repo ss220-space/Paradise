@@ -63,8 +63,6 @@
 	if(GetSpecialVoice())
 		return GetSpecialVoice()
 
-	// Magically concealed voice (e.g. heretic's shadow cloak) - the speaker shows as "Unknown" in chat.
-	// A deliberate disguise (voice changer / changeling mimic above) still takes priority.
 	if(HAS_TRAIT(src, TRAIT_UNKNOWN_VOICE))
 		return UNKNOWN_NAME_RUS
 
@@ -265,9 +263,7 @@
 	return returns
 
 /mob/living/carbon/human/binarycheck()
-	. = ..()
-	if(.)
-		return TRUE
+	. = FALSE
 	var/obj/item/radio/headset/R
 	if(istype(l_ear, /obj/item/radio/headset))
 		R = l_ear
@@ -312,3 +308,4 @@
 				say(temp)
 
 			winset(client, "input", "text=[null]")
+

@@ -614,8 +614,6 @@
 // mechanisms; behavior wiring for the immunity traits is verified in the runtime phase.
 #define TRAIT_MOPABLE "mopable"
 #define TRAIT_SUBTREE_REQUIRED_OPERATIONAL_DATUM "element-required"
-#define TRAIT_ON_HIT_EFFECT "trait_on_hit_effect"
-#define TRAIT_FROZEN "frozen"
 #define TRAIT_HYPOTHERMIC "body_hypothermic"
 #define TRAIT_DEATH_HUD "deathhud"
 #define TRAIT_EXAMINE_SKIP "examine_skip"

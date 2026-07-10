@@ -312,12 +312,6 @@ effective or pretty fucking useless.
 
 	if(user.loc != mobloc) // No locker / mech / sleeper teleporting, that breaks stuff
 		to_chat(user, span_danger("[src] will not work here!"))
-		return
-
-	var/turf/destination = pick(turfs)
-	destination = get_teleport_intercepted_destination(user, mobloc, destination)
-	if(!destination)
-		return
 
 	if(charges > 0) //While we want EMP triggered teleports to drain charge, we also do not want it to go negative charge, as such we need this check here
 		charges--
@@ -325,11 +319,11 @@ effective or pretty fucking useless.
 		if(!(datum_flags & DF_ISPROCESSING))
 			START_PROCESSING(SSobj, src)
 
+	var/turf/destination = pick(turfs)
 	if(tile_check(destination) || flawless) // Why is there so many bloody floor types
 		var/turf/fragging_location = destination
 		telefrag(fragging_location, user)
-		if(!do_direct_teleport(user, destination))
-			return
+		user.forceMove(destination)
 		playsound(mobloc, SFX_SPARKS, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		new/obj/effect/temp_visual/teleport_abductor/syndi_teleporter(mobloc)
 		playsound(destination, SFX_SPARKS, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
@@ -339,7 +333,6 @@ effective or pretty fucking useless.
 		panic_teleport(user, destination, direction)
 	else // Emp activated? Bag of holding? No saving throw for you
 		get_fragged(user, destination)
-
 
 /obj/item/teleporter/proc/tile_check(turf/check_turf)
 	return isfloorturf(check_turf) || isspaceturf(check_turf) || isopenspaceturf(check_turf)
@@ -388,14 +381,9 @@ effective or pretty fucking useless.
 		return
 
 	var/turf/new_destination = pick(turfs)
-	new_destination = get_teleport_intercepted_destination(user, mobloc, new_destination)
-	if(!new_destination)
-		return
-
 	var/turf/fragging_location = new_destination
 	telefrag(fragging_location, user)
-	if(!do_direct_teleport(user, new_destination))
-		return
+	user.forceMove(new_destination)
 	playsound(mobloc, SFX_SPARKS, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(mobloc)
 	new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(new_destination)
@@ -403,12 +391,7 @@ effective or pretty fucking useless.
 
 /obj/item/teleporter/proc/get_fragged(mob/user, turf/destination)
 	var/turf/mobloc = get_turf(user)
-	destination = get_teleport_intercepted_destination(user, mobloc, destination)
-	if(!destination)
-		return
-
-	if(!do_direct_teleport(user, destination, always_precise = TRUE))
-		return
+	user.forceMove(destination)
 	playsound(mobloc, SFX_SPARKS, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(mobloc)
 	new /obj/effect/temp_visual/teleport_abductor/syndi_teleporter(destination)

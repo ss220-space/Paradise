@@ -21,10 +21,9 @@
 	var/turf/T = get_turf(target)
 	if(!T)
 		return FALSE
-	var/turf/user_turf = get_turf(src)
-	if(!do_teleport(chassis, T, tele_precision))
-		return FALSE
 	chassis.use_power(energy_drain)
+	var/turf/user_turf = get_turf(src)
+	do_teleport(chassis, T, tele_precision)
 	chassis.investigate_log("[key_name_log(chassis.occupant)] mecha-teleported from [COORD(user_turf)] to [COORD(chassis)].", INVESTIGATE_TELEPORTATION)
 	start_cooldown()
 
@@ -48,16 +47,6 @@
 	if(!action_checks(target) || !is_teleport_allowed(loc.z))
 		return FALSE
 	if(!is_faced_target(target))
-		return FALSE
-	var/turf/portal_turf = get_turf(target)
-	if(!portal_turf)
-		return FALSE
-	var/turf/source_turf = get_turf(chassis)
-	if(get_teleport_blocking_living(chassis))
-		occupant_message(span_warning("Что-то мешает сформировать червоточину!"))
-		return FALSE
-	if(!get_teleport_intercepted_destination(chassis, source_turf, portal_turf, notify = FALSE))
-		occupant_message(span_warning("Что-то мешает сформировать червоточину!"))
 		return FALSE
 	var/list/theareas = get_areas_in_range(100, chassis)
 	if(!length(theareas))

@@ -196,9 +196,8 @@
 		teleloc = target.loc
 	for(var/atom/movable/stuff in teleloc)
 		if(!stuff.anchored && stuff.loc)
-			if(!do_teleport(stuff, stuff, 10, always_precise = TRUE))
-				continue
 			teleammount++
+			do_teleport(stuff, stuff, 10)
 			var/datum/effect_system/fluid_spread/smoke/smoke = new
 			smoke.set_up(amount = max(round(10 - teleammount),1), location = stuff.loc) //Smoke drops off if a lot of stuff is moved for the sake of sanity
 			smoke.start()

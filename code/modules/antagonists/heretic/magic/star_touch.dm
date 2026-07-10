@@ -164,6 +164,8 @@
 		get_turf(star_gazer_mob),
 		asoundin = 'sound/magic/cosmic_energy.ogg',
 		asoundout = 'sound/magic/cosmic_energy.ogg',
+		ignore_bluespace_interference = TRUE,
+		no_effects = TRUE,
 	)
 	remove_hand_with_no_refund(user)
 
@@ -209,7 +211,7 @@
 /// Puts the victim to sleep and reels them in to the caster's feet, re-marking them.
 /datum/status_effect/cosmic_beam/proc/yoink_victim()
 	current_target.Sleeping(8 SECONDS)
-	do_teleport(current_target, get_turf(owner), ignore_blocking_traits = TRUE)
+	do_teleport(current_target, get_turf(owner), ignore_bluespace_interference = TRUE, no_effects = TRUE, ignore_blocking_traits = TRUE)
 	current_target.apply_status_effect(/datum/status_effect/star_mark)
 
 

@@ -551,7 +551,7 @@
 
 	do_sparks(4, FALSE, target)
 	playsound(src,'sound/effects/sparks4.ogg', 50, TRUE)
-	do_teleport(target, F, 0, always_precise = TRUE)
+	do_teleport(target, F, 0)
 	investigate_log("[key_name_log(src)] teleported [key_name_log(target)] to [COORD(F)]", INVESTIGATE_TELEPORTATION)
 
 /mob/living/simple_animal/hostile/swarmer/electrocute_act(shock_damage, atom/source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)

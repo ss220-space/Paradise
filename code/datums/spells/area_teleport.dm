@@ -65,7 +65,7 @@
 		if(target?.has_buckled_mobs())
 			target.unbuckle_all_mobs(force = TRUE)
 
-		var/list/area_turfs_temp = area_turfs.Copy()
+		var/list/area_turfs_temp = area_turfs
 		var/attempt = null
 		var/success = FALSE
 		while(length(area_turfs_temp))
@@ -77,8 +77,7 @@
 				break
 
 		if(!success)
-			if(!do_direct_teleport(target, pick(area_turfs), always_precise = TRUE, bypass_area_flag = TRUE))
-				continue
+			target.forceMove(pick(area_turfs))
 			playsound(get_turf(user), sound_out, 50, TRUE)
 
 		user.update_action_buttons_icon()  //Update action buttons as some spells might now be castable
@@ -93,3 +92,4 @@
 
 		if("whisper")
 			user.whisper("[invocation] [uppertext(selected_area.name)]")
+

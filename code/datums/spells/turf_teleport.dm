@@ -60,7 +60,7 @@
 		if(!picked || !isturf(picked))
 			return
 
-		if(!do_direct_teleport(target, picked, always_precise = TRUE, bypass_area_flag = TRUE))
-			return
+		target.forceMove(picked)
 		if(sound_out)
 			playsound(get_turf(user), sound_out, 50, TRUE)
+

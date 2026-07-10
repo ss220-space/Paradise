@@ -160,14 +160,14 @@
 	var/atom/movable/pulled_thing
 	if(isheretic(user) && user.pulling)
 		pulled_thing = user.pulling
-		do_direct_teleport(pulled_thing, get_turf(linked_rune_resolved))
-	// do_direct_teleport (not do_teleport) skips /datum/teleport/instant/science's default spark_spread,
-	// so the rune teleports silently - only the cosmic_energy sound plays, no sparks.
-	do_direct_teleport(
+		do_teleport(pulled_thing, get_turf(linked_rune_resolved), ignore_bluespace_interference = TRUE, no_effects = TRUE)
+	do_teleport(
 		user,
 		get_turf(linked_rune_resolved),
-		soundin = 'sound/magic/cosmic_energy.ogg',
-		soundout = 'sound/magic/cosmic_energy.ogg',
+		asoundin = 'sound/magic/cosmic_energy.ogg',
+		asoundout = 'sound/magic/cosmic_energy.ogg',
+		ignore_bluespace_interference = TRUE,
+		no_effects = TRUE,
 	)
 	if(pulled_thing) // Regrab after the teleports are done
 		user.start_pulling(pulled_thing)
@@ -175,7 +175,7 @@
 		if(!person_on_rune.has_status_effect(/datum/status_effect/star_mark))
 			continue
 
-		do_direct_teleport(person_on_rune, get_turf(linked_rune_resolved))
+		do_teleport(person_on_rune, get_turf(linked_rune_resolved), ignore_bluespace_interference = TRUE, no_effects = TRUE)
 
 	// Non-heretics who invoke a rune get branded with a star mark: it stops them rune-hopping
 	// freely and drags them along on the heretic's next jump.

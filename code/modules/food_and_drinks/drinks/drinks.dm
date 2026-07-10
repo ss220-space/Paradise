@@ -160,16 +160,6 @@
 		var/trans = target.reagents.trans_to(src, amount_per_transfer_from_this)
 		to_chat(user, span_notice("Вы наполняете [declent_ru(ACCUSATIVE)] <b>[trans]</b> единиц[declension_ru(trans, "ей", "ами", "ами")] вещества из содержимого [target.declent_ru(ACCUSATIVE)]."))
 
-	else if(isturf(target) && reagents.total_volume && is_drainable() && user.a_intent == INTENT_HARM)
-		// Pour the contents out onto the floor we clicked (e.g. pour cola straight from the can onto a
-		// rusted floor to strip it) - mirrors the glass beaker's harm-intent splash. The reagents' own
-		// reaction_turf() then does its thing. Restricted to turfs so it can't interfere with feeding/etc.
-		user.visible_message(
-			span_danger("[user] облива[PLUR_ET_YUT(user)] [target.declent_ru(ACCUSATIVE)] содержимым [declent_ru(GENITIVE)]!"),
-			span_danger("Вы обливаете [target.declent_ru(ACCUSATIVE)] содержимым [declent_ru(GENITIVE)]!")
-		)
-		make_splashes(target)
-
 	return FALSE
 
 /obj/item/reagent_containers/food/drinks/examine(mob/user)

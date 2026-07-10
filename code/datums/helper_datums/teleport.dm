@@ -1,165 +1,10 @@
-#define TELEPORT_BLOCKER_CONTENT_SEARCH_DEPTH 3
-
-/**
- * Standard teleport wrapper, routed through the science instant teleport (`/datum/teleport/instant/science`).
- *
- * Use this for the vast majority of teleports. Unlike [do_direct_teleport], it runs the science
- * precision logic, so bags/sacks of holding in the teleatom's contents randomise the landing turf.
- *
- * Interference arguments, shared with the procs below:
- * * always_precise - skip the BoH/SoH precision randomisation, landing exactly on the requested turf.
- *   Does not bypass [TRAIT_NO_TELEPORT] blockers.
- * * ignore_blocking_traits - skip the [TRAIT_NO_TELEPORT] blocker check entirely.
- *
- * Returns TRUE on a successful teleport, FALSE otherwise.
- */
-/proc/do_teleport(ateleatom, adestination, aprecision = 0, afteleport = 1, aeffectin = null, aeffectout = null, asoundin = null, asoundout = null, bypass_area_flag = FALSE, always_precise = FALSE, ignore_blocking_traits = FALSE)
+//wrapper
+// Set *ignore_bluespace_interference* to TRUE if you don't want your teleportation to be affected by BoH, SoH and other bluespace stuff
+/proc/do_teleport(ateleatom, adestination, aprecision = 0, afteleport = 1, aeffectin = null, aeffectout = null, asoundin = null, asoundout = null, bypass_area_flag = FALSE, ignore_bluespace_interference = FALSE, no_effects = FALSE, ignore_blocking_traits = FALSE)
 	var/datum/teleport/instant/science/D = new
 	if(D.start(arglist(args)))
 		return TRUE
 	return FALSE
-
-/**
- * Direct teleport variant that takes explicit, typed arguments and skips the science precision logic.
- *
- * Behaves like [do_teleport] regarding the interference arguments, but never applies the
- * bag/sack of holding precision randomisation, so it always aims for `destination` (+/- `precision`).
- * Defaults `force_teleport` to TRUE. Prefer this when you need a predictable, exact teleport.
- *
- * Returns TRUE on a successful teleport, FALSE otherwise.
- */
-/proc/do_direct_teleport(atom/movable/teleatom, atom/destination, precision = 0, force_teleport = TRUE, datum/effect_system/effectin = null, datum/effect_system/effectout = null, soundin = null, soundout = null, bypass_area_flag = FALSE, always_precise = FALSE, ignore_blocking_traits = FALSE)
-	if(!teleatom || !destination)
-		return FALSE
-
-	var/datum/teleport/instant/direct_teleport = new
-	return direct_teleport.start(
-		teleatom,
-		destination,
-		precision,
-		force_teleport,
-		effectin,
-		effectout,
-		soundin,
-		soundout,
-		bypass_area_flag,
-		always_precise,
-		ignore_blocking_traits
-	)
-
-/// Returns the mob carrying `blocking_trait` for a single living atom: either `living_teleatom`
-/// itself or one of the mobs buckled to it. Returns null if none is found.
-/proc/get_living_teleport_blocker(mob/living/living_teleatom, blocking_trait = TRAIT_NO_TELEPORT)
-	if(!living_teleatom)
-		return null
-	if(HAS_TRAIT(living_teleatom, blocking_trait))
-		return living_teleatom
-	if(living_teleatom.has_buckled_mobs())
-		var/list/buckled = living_teleatom.buckled_mobs
-		for(var/mob/living/buckled_living as anything in buckled)
-			if(HAS_TRAIT(buckled_living, blocking_trait))
-				return buckled_living
-	return null
-
-/// Recursively searches `container`'s contents (up to [TELEPORT_BLOCKER_CONTENT_SEARCH_DEPTH] deep)
-/// for a living mob carrying `blocking_trait`, e.g. someone stuffed in a locker or bag. Returns it or null.
-/proc/get_contained_teleport_blocker(atom/movable/container, blocking_trait = TRAIT_NO_TELEPORT, depth = 0)
-	if(!container || depth >= TELEPORT_BLOCKER_CONTENT_SEARCH_DEPTH)
-		return null
-
-	var/list/contents = container.contents
-	for(var/atom/movable/contained_atom as anything in contents)
-		if(QDELETED(contained_atom))
-			continue
-		if(isliving(contained_atom))
-			var/mob/living/contained_living = contained_atom
-			var/mob/living/contained_blocker = get_living_teleport_blocker(contained_living, blocking_trait)
-			if(contained_blocker)
-				return contained_blocker
-		var/list/contained_contents = contained_atom.contents
-		if(length(contained_contents))
-			var/mob/living/found_blocker = get_contained_teleport_blocker(contained_atom, blocking_trait, depth + 1)
-			if(found_blocker)
-				return found_blocker
-	return null
-
-/// Top-level blocker lookup for an arbitrary teleatom. Checks the atom itself, mobs buckled to it,
-/// a mecha occupant, and finally its nested contents, returning the first mob with `blocking_trait`.
-/proc/get_teleport_blocking_living(atom/movable/teleatom, blocking_trait = TRAIT_NO_TELEPORT)
-	if(!teleatom)
-		return null
-	if(isliving(teleatom))
-		var/mob/living/living_teleatom = teleatom
-		var/mob/living/living_blocker = get_living_teleport_blocker(living_teleatom, blocking_trait)
-		if(living_blocker)
-			return living_blocker
-	if(teleatom.has_buckled_mobs())
-		var/list/buckled = teleatom.buckled_mobs
-		for(var/mob/living/buckled_living as anything in buckled)
-			var/mob/living/buckled_blocker = get_living_teleport_blocker(buckled_living, blocking_trait)
-			if(buckled_blocker)
-				return buckled_blocker
-	if(ismecha(teleatom))
-		var/obj/mecha/mecha = teleatom
-		if(isliving(mecha.occupant))
-			var/mob/living/mecha_occupant = mecha.occupant
-			var/mob/living/mecha_blocker = get_living_teleport_blocker(mecha_occupant, blocking_trait)
-			if(mecha_blocker)
-				return mecha_blocker
-	return get_contained_teleport_blocker(teleatom, blocking_trait)
-
-/// Returns TRUE if `teleatom` cannot be teleported from where it currently stands: either it (or a
-/// mob it carries) has a teleport-blocking trait, or a registered listener otherwise vetoes it.
-/// Use this for "step-through" movers (e.g. the gateway) that don't run a full [do_teleport] but
-/// should still respect the same blockers.
-/proc/is_teleport_blocked(atom/movable/teleatom)
-	if(!teleatom)
-		return FALSE
-	if(get_teleport_blocking_living(teleatom))
-		return TRUE
-	var/turf/origin = get_turf(teleatom)
-	if(!origin)
-		return FALSE
-	return SEND_SIGNAL(teleatom, COMSIG_MOVABLE_TELEPORTING, origin, origin) & COMPONENT_BLOCK_TELEPORT
-
-/proc/notify_teleport_blocked(atom/movable/notified_atom, atom/movable/teleatom)
-	if(!isliving(notified_atom))
-		return
-	var/mob/living/notified_living = notified_atom
-	to_chat(notified_living, span_warning("Что-то мешает телепортации!"))
-	if(notified_atom == teleatom || !isliving(teleatom))
-		return
-	var/mob/living/living_teleatom = teleatom
-	to_chat(living_teleatom, span_warning("Что-то мешает телепортации!"))
-
-/**
- * Resolves the turf a teleport should actually land on. First respects [TRAIT_NO_TELEPORT] blockers
- * (unless `ignore_blocking_traits`), then checks the teleport signals so listeners (chasms, portals,
- * eldritch effects, etc) can veto the teleport. Set `notify` to message the mob on a block.
- * Returns the destination turf, or null if the teleport should be cancelled.
- */
-/proc/get_teleport_intercepted_destination(atom/movable/teleatom, turf/origin, turf/destination, always_precise = FALSE, notify = TRUE, ignore_blocking_traits = FALSE)
-	if(!teleatom || !origin || !destination)
-		return null
-
-	if(!ignore_blocking_traits)
-		var/mob/living/teleport_blocker = get_teleport_blocking_living(teleatom)
-		if(teleport_blocker)
-			if(notify)
-				notify_teleport_blocked(teleport_blocker, teleatom)
-			return null
-
-	if(SEND_SIGNAL(teleatom, COMSIG_MOVABLE_TELEPORTING, origin, destination) & COMPONENT_BLOCK_TELEPORT)
-		if(notify)
-			notify_teleport_blocked(teleatom, teleatom)
-		return null
-
-	if(SEND_SIGNAL(destination, COMSIG_ATOM_INTERCEPT_TELEPORTING, origin) & COMPONENT_BLOCK_TELEPORT)
-		if(notify)
-			notify_teleport_blocked(teleatom, teleatom)
-		return null
-
-	return destination
 
 /datum/teleport
 	var/atom/movable/teleatom //atom to teleport
@@ -171,33 +16,31 @@
 	var/soundout //soundfile to play after teleportation
 	var/force_teleport = 1 //if false, teleport will use Move() proc (dense objects will prevent teleportation)
 	var/ignore_area_flag = FALSE
-	/// Skip BoH/SoH precision randomisation (see [/proc/do_teleport]).
-	var/always_precise = FALSE
-	/// Skip the [TRAIT_NO_TELEPORT] blocker check entirely.
+	var/no_effects = FALSE
 	var/ignore_blocking_traits = FALSE
 
-/datum/teleport/proc/start(ateleatom, adestination, aprecision = 0, afteleport = 1, aeffectin = null, aeffectout = null, asoundin = null, asoundout = null, bypass_area_flag = FALSE, always_precise = FALSE, ignore_blocking_traits = FALSE)
+/datum/teleport/proc/start(ateleatom, adestination, aprecision = 0, afteleport = 1, aeffectin = null, aeffectout = null, asoundin = null, asoundout = null, bypass_area_flag = FALSE, ignore_bluespace_interference = FALSE, no_effects = FALSE, ignore_blocking_traits = FALSE)
 	if(!initTeleport(arglist(args)))
 		return FALSE
 	return TRUE
 
-/datum/teleport/proc/initTeleport(ateleatom, adestination, aprecision, afteleport, aeffectin, aeffectout, asoundin, asoundout, bypass_area_flag = FALSE, always_precise = FALSE, ignore_blocking_traits = FALSE)
+/datum/teleport/proc/initTeleport(ateleatom, adestination, aprecision, afteleport, aeffectin, aeffectout, asoundin, asoundout, bypass_area_flag = FALSE, ignore_bluespace_interference = FALSE, no_effects = FALSE, ignore_blocking_traits = FALSE)
+	src.no_effects = no_effects
+	src.ignore_blocking_traits = ignore_blocking_traits
 	if(!setTeleatom(ateleatom))
 		return FALSE
 	if(!setDestination(adestination))
 		return FALSE
-	if(!setPrecision(aprecision, always_precise))
+	if(!setPrecision(aprecision, ignore_bluespace_interference))
 		return FALSE
 	setEffects(aeffectin, aeffectout)
 	setForceTeleport(afteleport)
 	setSounds(asoundin, asoundout)
 	ignore_area_flag = bypass_area_flag
-	src.always_precise = always_precise
-	src.ignore_blocking_traits = ignore_blocking_traits
 	return TRUE
 
 //must succeed
-/datum/teleport/proc/setPrecision(aprecision, always_precise)
+/datum/teleport/proc/setPrecision(aprecision, ignore_bluespace_interference)
 	if(isnum(aprecision))
 		precision = aprecision
 		return TRUE
@@ -258,9 +101,8 @@
 //do the monkey dance
 /datum/teleport/proc/doTeleport()
 
-	var/atom/movable/tele_atom = teleatom
 	var/turf/destturf
-	var/turf/curturf = get_turf(tele_atom)
+	var/turf/curturf = get_turf(teleatom)
 	var/area/curarea = get_area(curturf)
 
 	if(precision)
@@ -274,13 +116,6 @@
 	else
 		destturf = get_turf(destination)
 
-	if(!destturf || !curturf)
-		return FALSE
-
-	destturf = get_teleport_intercepted_destination(tele_atom, curturf, destturf, always_precise, ignore_blocking_traits = ignore_blocking_traits)
-	if(!destturf)
-		return FALSE
-
 	if(!is_teleport_allowed(destturf.z) && !ignore_area_flag)
 		return FALSE
 	// Only check the destination zlevel for is_teleport_allowed. Checking origin as well breaks ERT teleporters.
@@ -293,19 +128,32 @@
 		if(destarea.tele_proof)
 			return FALSE
 
+	if(!destturf || !curturf)
+		return FALSE
+
+	if(!ignore_blocking_traits && HAS_TRAIT(teleatom, TRAIT_NO_TELEPORT))
+		if(ismob(teleatom))
+			teleatom.balloon_alert(teleatom, "что-то держит вас!")
+		return FALSE
+
+	if(SEND_SIGNAL(teleatom, COMSIG_MOVABLE_TELEPORTING, curturf, destturf) & COMPONENT_BLOCK_TELEPORT)
+		return FALSE
+	if(SEND_SIGNAL(destturf, COMSIG_ATOM_INTERCEPT_TELEPORTING, curturf) & COMPONENT_BLOCK_TELEPORT)
+		return FALSE
+
 	playSpecials(curturf, effectin, soundin)
-	var/success = tele_atom.forceMove(destturf)
+	var/success = teleatom.forceMove(destturf)
 	if(success)
 		playSpecials(destturf, effectout, soundout)
 
-	if(isliving(tele_atom))
-		var/mob/living/living_teleatom = tele_atom
-		if(living_teleatom.buckled)
-			living_teleatom.buckled.unbuckle_mob(living_teleatom, force = TRUE)
-		if(living_teleatom.has_buckled_mobs())
-			living_teleatom.unbuckle_all_mobs(force = TRUE)
+	if(isliving(teleatom))
+		var/mob/living/L = teleatom
+		if(L.buckled)
+			L.buckled.unbuckle_mob(L, force = TRUE)
+		if(L.has_buckled_mobs())
+			L.unbuckle_all_mobs(force = TRUE)
 
-	tele_atom.on_teleported()
+	teleatom.on_teleported()
 
 	return TRUE
 
@@ -314,7 +162,7 @@
 		return doTeleport()
 	return FALSE
 
-/datum/teleport/instant/start(ateleatom, adestination, aprecision = 0, afteleport = 1, aeffectin = null, aeffectout = null, asoundin = null, asoundout = null, bypass_area_flag = FALSE, always_precise = FALSE, ignore_blocking_traits = FALSE)
+/datum/teleport/instant/start(ateleatom, adestination, aprecision = 0, afteleport = 1, aeffectin = null, aeffectout = null, asoundin = null, asoundout = null)
 	if(..())
 		if(teleport())
 			return TRUE
@@ -323,6 +171,8 @@
 /datum/teleport/instant/science
 
 /datum/teleport/instant/science/setEffects(datum/effect_system/aeffectin, datum/effect_system/aeffectout)
+	if(no_effects)
+		return ..()
 	if(aeffectin == null || aeffectout == null)
 		var/datum/effect_system/spark_spread/aeffect = new
 		aeffect.set_up(5, 1, teleatom)
@@ -332,10 +182,10 @@
 	else
 		return ..()
 
-/datum/teleport/instant/science/setPrecision(aprecision, always_precise)
+/datum/teleport/instant/science/setPrecision(aprecision, ignore_bluespace_interference)
 	..()
 	if(!is_admin_level(destination.z))
-		if(always_precise)
+		if(ignore_bluespace_interference)
 			return TRUE
 
 		if(istype(teleatom, /obj/item/storage/backpack/holding))
@@ -452,5 +302,3 @@
 
 	// DING! You have passed the gauntlet, and are "probably" safe.
 	return TRUE
-
-#undef TELEPORT_BLOCKER_CONTENT_SEARCH_DEPTH

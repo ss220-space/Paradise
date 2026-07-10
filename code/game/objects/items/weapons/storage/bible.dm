@@ -140,6 +140,9 @@
 		playsound(loc, SFX_PUNCH, 25, TRUE, -1)
 		return .|ATTACK_CHAIN_SUCCESS
 
+	if(!ishuman(target))
+		return .
+
 	. |= ATTACK_CHAIN_SUCCESS
 
 	if(prob(60))
@@ -241,7 +244,7 @@
 		SSticker.Bible_item_state = item_state
 
 /obj/item/storage/bible/proc/radial_check(mob/user)
-	if(!user.mind?.isholy || !ishuman(user))
+	if(!user?.mind.isholy || !ishuman(user))
 		return FALSE
 	var/mob/living/carbon/human/H = user
 	if(!src || !H.is_type_in_hands(src) || H.incapacitated())

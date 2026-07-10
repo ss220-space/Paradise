@@ -258,9 +258,7 @@
 	sleep(2)
 	if(!M)
 		return
-	if(!do_direct_teleport(M, turf_to_teleport_to, always_precise = TRUE, bypass_area_flag = TRUE))
-		animate(M, alpha = 255, time = 2, easing = EASE_IN)
-		return
+	M.forceMove(turf_to_teleport_to)
 	sleep(1)
 	if(!M)
 		return
@@ -473,8 +471,7 @@
 	for(var/mob/living/carbon/human/H in GLOB.human_list)
 		if(H.ckey == user.master)
 			var/turf/start_turf = get_turf(H)
-			if(!do_direct_teleport(H, target_turf, always_precise = TRUE, bypass_area_flag = TRUE))
-				return
+			H.forceMove(target_turf)
 			new /obj/effect/temp_visual/hierophant/telegraph(target_turf, src)
 			new /obj/effect/temp_visual/hierophant/telegraph(start_turf, src)
 			playsound(start_turf,'sound/machines/airlock_open.ogg', 200, TRUE)

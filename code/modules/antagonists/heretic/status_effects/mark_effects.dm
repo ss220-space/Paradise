@@ -205,15 +205,15 @@
 	return COMPONENT_CANCEL_THROW
 
 /// Signal proc for [COMSIG_MOVABLE_TELEPORTING] that blocks any teleports from our locked area.
-/datum/status_effect/eldritch/blade/proc/on_teleport(mob/living/source, atom/destination, channel)
+/datum/status_effect/eldritch/blade/proc/on_teleport(mob/living/source, turf/origin, turf/destination)
 	SIGNAL_HANDLER
 
-	if(!is_escaping_locked_area(source, destination))
+	if(!is_escaping_locked_area(origin, destination))
 		return
 
 	to_chat(source, span_purple("Потусторонняя сила не дает вам сбежать из [get_area_name(locked_to)]!"))
 	source.Stun(1 SECONDS)
-	return TRUE
+	return COMPONENT_BLOCK_TELEPORT
 
 /// Signal proc for [COMSIG_MOVABLE_MOVED] that blocks any movement out of our locked area
 /datum/status_effect/eldritch/blade/proc/on_move(mob/living/source, turf/old_loc, movement_dir, forced)
@@ -252,10 +252,11 @@
 /datum/status_effect/eldritch/cosmic/on_effect()
 	new teleport_effect(get_turf(owner))
 	create_cosmic_field(get_turf(owner), owner)
-	// do_direct_teleport skips the science-teleport spark spread (no_effects = TRUE).
-	do_direct_teleport(
+	do_teleport(
 		owner,
 		get_turf(cosmic_diamond),
+		ignore_bluespace_interference = TRUE,
+		no_effects = TRUE,
 	)
 	new teleport_effect(get_turf(owner))
 	owner.Paralyse(2 SECONDS)

@@ -180,9 +180,7 @@
 /obj/machinery/ninja_mindscan_machine/proc/teleport_out()
 	if(!occupant)
 		return
-	var/turf/destination = pick(GLOB.ninja_teleport)
-	if(!do_teleport(occupant, destination))
-		return
+	occupant.forceMove(pick(GLOB.ninja_teleport))
 	var/teleport_loc = occupant.loc
 	var/effect_dir = occupant.dir
 	occupant = null
@@ -238,3 +236,4 @@
 			go_out()
 		if("teleport_out")
 			teleport_out()
+
