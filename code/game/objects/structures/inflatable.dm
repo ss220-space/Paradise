@@ -7,8 +7,17 @@
 /obj/item/inflatable/attack_self(mob/user)
 	playsound(loc, 'sound/items/zip.ogg', 75, TRUE)
 	to_chat(user, span_notice("You inflate [src]."))
-	var/obj/structure/inflatable/R = new /obj/structure/inflatable(user.loc)
-	transfer_fingerprints_to(R)
+	inflate(user)
+
+/obj/item/inflatable/proc/inflate(mob/user)
+	if(QDELETED(src))
+		return
+	if(!do_after(user, 0.5 SECONDS, src))
+		return
+	if(QDELETED(src) || QDELETED(user))
+		return
+	var/obj/structure/inflatable/inflated_wall = new /obj/structure/inflatable(user.loc)
+	transfer_fingerprints_to(inflated_wall)
 	qdel(src)
 
 /obj/structure/inflatable
