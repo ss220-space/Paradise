@@ -33065,6 +33065,9 @@
 	id = "wloop_atm_meter";
 	name = "Waste Loop"
 	},
+/obj/machinery/camera{
+	c_tag = "Atmospherics North-East"
+	},
 /turf/simulated/floor/plasteel,
 /area/atmos/distribution)
 "cNa" = (
@@ -57531,9 +57534,6 @@
 	name = "Дыхательную смесь в отходы"
 	},
 /obj/item/radio/intercom/directional/north,
-/obj/machinery/camera{
-	c_tag = "Atmospherics North-East"
-	},
 /turf/simulated/floor/plasteel,
 /area/atmos/distribution)
 "kmQ" = (
