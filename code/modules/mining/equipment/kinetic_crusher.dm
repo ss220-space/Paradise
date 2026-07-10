@@ -22,7 +22,7 @@
 	var/charge_time = 15
 	var/detonation_damage = 50
 	var/backstab_bonus = 30
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	light_range = 5
 	light_on = FALSE
 	var/adaptive_damage_bonus = 0

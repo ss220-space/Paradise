@@ -416,7 +416,6 @@
 	burn_damage = 1000
 	mob_name = "ashen skeleton"
 	mob_gender = NEUTER
-	husk = FALSE
 	mob_species = /datum/species/skeleton
 	mob_color = "#454545"
 

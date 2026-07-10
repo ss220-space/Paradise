@@ -1,6 +1,6 @@
 // Shuttle on-movement //
 /atom/movable/proc/onShuttleMove(turf/oldT, turf/T1, rotation, mob/requester)
-	if(light && light_system == STATIC_LIGHT)
+	if(light && light_system == COMPLEX_LIGHT)
 		update_light()
 
 	if(rotation)
@@ -81,7 +81,4 @@
 
 // Holy shit go away
 /obj/effect/abstract/z_holder/onShuttleMove()
-	return FALSE
-
-/atom/movable/lighting_object/onShuttleMove()
 	return FALSE

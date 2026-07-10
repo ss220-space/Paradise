@@ -1,4 +1,0 @@
-author: "makaroshka003"
-delete-after: True
-changes:
-  - bugfix: "теперь рецепт \"matedecoca\" возможен, понижена температура для реакции (PR #9444)"

@@ -640,8 +640,6 @@
 		var/image/I = image(icon, wrapper_state)
 		I.color = wrapper_color
 		add_overlay(I)
-		if(blocks_emissive)
-			add_overlay(get_emissive_block())
 
 /obj/item/storage/pill_bottle/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!iscarbon(target) || !length(contents))

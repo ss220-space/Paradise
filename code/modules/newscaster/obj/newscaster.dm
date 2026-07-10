@@ -19,6 +19,7 @@
 	desc = "Устройство, позволяющее получить доступ к самым свежим новостям со всей Галактики. Лицензировано \"Нанотрейзен\" для использования на коммерческих объектах."
 	icon = 'icons/obj/machines/terminals.dmi'
 	icon_state = "newscaster"
+	base_icon_state = "newscaster"
 	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 50, ACID = 30)
 	integrity_failure = 50
 	anchored = TRUE
@@ -79,7 +80,7 @@
 	. = ..()
 	GLOB.allNewscasters += src
 	unit_number = length(GLOB.allNewscasters)
-	update_icon(UPDATE_OVERLAYS) //for any custom ones on the map...
+	update_appearance() //for any custom ones on the map...
 	if(!last_views)
 		last_views = list()
 
@@ -107,41 +108,50 @@
 	QDEL_NULL(photo)
 	return ..()
 
+/obj/machinery/newscaster/update_appearance(updates=ALL)
+	. = ..()
+	if(stat & (NOPOWER|BROKEN))
+		set_light(0)
+		return
+	set_light(1.5, 0.7, "#34D352") // green light
+
 /obj/machinery/newscaster/update_overlays()
 	. = ..()
-	underlays.Cut()
 	if(inoperable())
 		return
 
-	if(!(stat & NOPOWER))
-		underlays += emissive_appearance(icon, "newscaster_lightmask", src)
+	if(!(stat & (NOPOWER|BROKEN)))
+		var/state = "[base_icon_state]_[GLOB.news_network.wanted_issue ? "wanted" : "normal"]"
+		. += mutable_appearance(icon, state)
+		. += emissive_appearance(icon, state, src, alpha = src.alpha)
 
-	if(GLOB.news_network.wanted_issue)
-		. += "newscaster_wanted"
-	else
-		. += "newscaster_normal"
-
-	if(!GLOB.news_network.wanted_issue && alert) //wanted icon state, there can be no overlays on it as it's a priority message
-		. += "newscaster_alert"
+		if(GLOB.news_network.wanted_issue && alert)
+			. += mutable_appearance(icon, "[base_icon_state]_alert")
+			. += emissive_appearance(icon, "[base_icon_state]_alert", src, alpha = src.alpha,)
 
 	var/hp_percent = round(obj_integrity * 100 / max_integrity)
 	switch(hp_percent)
-		if(-INFINITY to 25)
-			. += "crack3"
-		if(26 to 50)
-			. += "crack2"
-		if(51 to 75)
+		if(75 to 100)
+			return
+		if(50 to 75)
 			. += "crack1"
+			. += emissive_blocker(icon, "crack1", src, alpha = src.alpha)
+		if(25 to 50)
+			. += "crack2"
+			. += emissive_blocker(icon, "crack2", src, alpha = src.alpha)
+		else
+			. += "crack3"
+			. += emissive_blocker(icon, "crack3", src, alpha = src.alpha)
 
 /obj/machinery/newscaster/power_change(forced = FALSE)
 	. = ..()
 	if(.)
-		update_icon(UPDATE_OVERLAYS)
+		update_appearance()
 
 /obj/machinery/newscaster/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = TRUE, attack_dir, armour_penetration = 0)
 	. = ..()
 	if(.)
-		update_icon(UPDATE_OVERLAYS)
+		update_appearance()
 
 /obj/machinery/newscaster/wrench_act(mob/user, obj/item/I)
 	. = TRUE
@@ -189,7 +199,7 @@
 	if(!(stat & BROKEN) && !(obj_flags & NODECONSTRUCT))
 		stat |= BROKEN
 		playsound(loc, 'sound/effects/glassbr3.ogg', 100, TRUE)
-		update_icon(UPDATE_OVERLAYS)
+		update_appearance()
 
 /obj/machinery/newscaster/attack_ghost(mob/user)
 	ui_interact(user)
@@ -441,7 +451,7 @@
 			GLOB.news_network.wanted_issue = null
 			set_temp("Уведомление о розыске снято.", update_now = TRUE)
 			for(var/obj/machinery/newscaster/NC as anything in GLOB.allNewscasters)
-				NC.update_icon(UPDATE_OVERLAYS)
+				NC.update_appearance()
 			return FALSE
 		if("toggle_mute")
 			is_silent = !is_silent
@@ -708,14 +718,14 @@
 		return
 	alert = TRUE
 	addtimer(CALLBACK(src, PROC_REF(alert_timer_finish)), 30 SECONDS)
-	update_icon(UPDATE_OVERLAYS)
+	update_appearance()
 
 /**
  * Called when the timer following a call to [/obj/machinery/newscaster/proc/alert_news] finishes.
  */
 /obj/machinery/newscaster/proc/alert_timer_finish()
 	alert = FALSE
-	update_icon(UPDATE_OVERLAYS)
+	update_appearance()
 
 #undef CHANNEL_NAME_MAX_LENGTH
 #undef CHANNEL_DESC_MAX_LENGTH

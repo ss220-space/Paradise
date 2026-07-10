@@ -606,6 +606,8 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 				dat += "<b>OOC заметки:</b> <a href='byond://?_src_=prefs;preference=metadata;task=input'><b>Редактировать</b></a><br>"
 			dat += "<b>Параллакс:</b> <a href='byond://?_src_=prefs;preference=parallax'>"
 			switch(parallax)
+				if(PARALLAX_BOOMER)
+					dat += "Старое качество"
 				if(PARALLAX_LOW)
 					dat += "Низкое качество"
 				if(PARALLAX_MED)
@@ -2646,6 +2648,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 				if("parallax")
 					var/parallax_styles = list(
 						"Отключено" = PARALLAX_DISABLE,
+						"Старое" = PARALLAX_BOOMER,
 						"Низкое" = PARALLAX_LOW,
 						"Среднее" = PARALLAX_MED,
 						"Высокое" = PARALLAX_HIGH,
@@ -2662,8 +2665,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 					*/
 
 					parallax = parallax_styles[new_parallax]
-					if(parent?.mob && parent.mob.hud_used)
-						parent.mob.hud_used.update_parallax_pref(parent.mob)
+					parent.mob?.hud_used?.update_parallax_pref()
 
 				if("multiz_detail")
 					var/multiz_det_styles = list(

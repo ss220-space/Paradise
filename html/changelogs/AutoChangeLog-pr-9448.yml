@@ -1,4 +1,0 @@
-author: "FlitchTime"
-delete-after: True
-changes:
-  - bugfix: "Убираем вечный ветер из логова эшей при поломке тендрила. (PR #9448)"

@@ -97,11 +97,16 @@
 	main_group.attach_to(src)
 
 	for(var/mytype in subtypesof(/atom/movable/plane_master_controller))
-		var/atom/movable/plane_master_controller/controller_instance = new mytype(src)
+		var/atom/movable/plane_master_controller/controller_instance = new mytype(null, src)
 		plane_master_controllers[controller_instance.name] = controller_instance
 
 	screentip_text = new(null, src)
 	static_inventory += screentip_text
+
+	// Register onto the global spacelight appearances
+	// So they can be render targeted by anything in the world
+	for(var/obj/starlight_appearance/starlight as anything in GLOB.starlight_objects)
+		register_reuse(starlight)
 
 	RegisterSignal(SSmapping, COMSIG_PLANE_OFFSET_INCREASE, PROC_REF(on_plane_increase))
 	RegisterSignal(mymob, COMSIG_MOB_LOGIN, PROC_REF(client_refresh))
@@ -124,11 +129,11 @@
 
 	QDEL_LIST(static_inventory)
 
-	inv_slots.Cut()
+	LAZYCLEARLIST(inv_slots)
 	action_intent = null
 	zone_select = null
 	move_intent = null
-	hand_slots.Cut()
+	LAZYCLEARLIST(hand_slots)
 
 	QDEL_LIST(toggleable_inventory)
 
@@ -168,17 +173,23 @@
 
 /datum/hud/proc/client_refresh(datum/source)
 	SIGNAL_HANDLER
+
 	var/client/client = mymob.canon_client
 	RegisterSignal(client, COMSIG_CLIENT_SET_EYE, PROC_REF(on_eye_change))
 	on_eye_change(null, null, client.eye)
 
 /datum/hud/proc/clear_client(datum/source)
+	SIGNAL_HANDLER
+
 	var/client/client = mymob.canon_client
 	if(client)
 		UnregisterSignal(client, COMSIG_CLIENT_SET_EYE)
 
 /datum/hud/proc/on_eye_change(datum/source, atom/old_eye, atom/new_eye)
 	SIGNAL_HANDLER
+
+	SEND_SIGNAL(src, COMSIG_HUD_EYE_CHANGED, old_eye, new_eye)
+
 	if(old_eye)
 		UnregisterSignal(old_eye, COMSIG_MOVABLE_Z_CHANGED)
 	if(new_eye)
@@ -189,13 +200,15 @@
 	eye_z_changed(new_eye)
 
 /datum/hud/proc/update_sightflags(datum/source, new_sight, old_sight)
+	SIGNAL_HANDLER
+
 	// If neither the old and new flags can see turfs but not objects, don't transform the turfs
 	// This is to ensure parallax works when you can't see holder objects
 	if(should_sight_scale(new_sight) == should_sight_scale(old_sight))
 		return
 
-	for(var/group_key in master_groups)
-		var/datum/plane_master_group/group = master_groups[group_key]
+	for(var/group_key, value in master_groups)
+		var/datum/plane_master_group/group = value
 		group.build_planes_offset(src, current_plane_offset)
 
 /datum/hud/proc/should_use_scale()
@@ -219,18 +232,20 @@
 	current_plane_offset = new_offset
 
 	SEND_SIGNAL(src, COMSIG_HUD_OFFSET_CHANGED, old_offset, new_offset)
-	for(var/group_key in master_groups)
-		var/datum/plane_master_group/group = master_groups[group_key]
+	for(var/group_key, value in master_groups)
+		var/datum/plane_master_group/group = value
 		group.build_planes_offset(src, new_offset)
 
 /datum/hud/proc/on_plane_increase(datum/source, old_max_offset, new_max_offset)
 	SIGNAL_HANDLER
+	for(var/i in old_max_offset + 1 to new_max_offset)
+		register_reuse(GLOB.starlight_objects[i + 1])
 	build_plane_groups(old_max_offset + 1, new_max_offset)
 
 /// Creates the required plane masters to fill out new z layers (because each "level" of multiz gets its own plane master set)
 /datum/hud/proc/build_plane_groups(starting_offset, ending_offset)
-	for(var/group_key in master_groups)
-		var/datum/plane_master_group/group = master_groups[group_key]
+	for(var/group_key, value in master_groups)
+		var/datum/plane_master_group/group = value
 		group.build_plane_masters(starting_offset, ending_offset)
 
 /// Returns the plane master that matches the input plane from the passed in group
@@ -266,6 +281,13 @@
 	hud_used = new_hud
 	new_hud.build_action_groups()
 
+/**
+ * Shows this hud's hud to some mob
+ *
+ * Arguments
+ * * version - denotes which style should be displayed. blank or 0 means "next version"
+ * * viewmob - what mob to show the hud to. Can be this hud's mob, can be another mob, can be null (will use this hud's mob if so)
+ */
 /datum/hud/proc/show_hud(version = 0, mob/viewmob)
 	if(!ismob(mymob))
 		return FALSE
@@ -337,7 +359,7 @@
 	reorganize_alerts(screenmob)
 	reload_fullscreen()
 	if(screenmob == mymob)
-		update_parallax_pref(screenmob)
+		update_parallax_pref()
 	else
 		viewmob.hud_used.update_parallax_pref()
 

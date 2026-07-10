@@ -1,0 +1,11 @@
+author: "dageavtobusnick"
+delete-after: True
+changes:
+  - code_imp: "Оптимизирован процессинг апц. (PR #9467)"
+  - code_imp: "Заменен /datum/element/debris и обработки сигнала на /datum/debris_handler. (PR #9467)"
+  - code_imp: "Заменен /datum/component/eatable на /datum/element/eatable. (PR #9467)"
+  - code_imp: "Заменен /datum/component/surgery_initiator на /datum/element/surgery_initiator (PR #9467)"
+  - code_imp: "Теперь /datum/component/blob_turf_consuming добавляется при взаимодействии блоба с тайлами (PR #9467)"
+  - code_imp: "Оптимизирована сборка сетей труб (PR #9467)"
+  - code_imp: "Убраны бесполезные листы атмоса в турфах (PR #9467)"
+  - code_imp: "Оптимизирован расход памяти (PR #9467)"

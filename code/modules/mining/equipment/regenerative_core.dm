@@ -30,7 +30,7 @@
 	light_range = 2
 	light_power = 3
 	light_color = "#FFBF00"
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 
 /obj/item/hivelordstabilizer/molten_mass/get_ru_names()
 	return alist(

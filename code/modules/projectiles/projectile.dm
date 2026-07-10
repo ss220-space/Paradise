@@ -4,6 +4,7 @@
 #define MUZZLE_EFFECT_PIXEL_INCREMENT 17
 
 /obj/projectile
+	abstract_type = /obj/projectile
 	name = "projectile"
 	icon = 'icons/obj/weapons/guns/projectiles.dmi'
 	icon_state = "bullet"
@@ -13,6 +14,7 @@
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	movement_type = FLYING
 	animate_movement = NO_STEPS
+	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	//The sound this plays on impact.
 	var/hitsound = 'sound/weapons/pierce.ogg'
 	var/hitsound_wall = ""

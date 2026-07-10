@@ -1535,6 +1535,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	sync_lighting_plane_alpha()
 
+	return ..()
+
 /mob/living/silicon/ai/ghostize(can_reenter_corpse)
 	var/old_turf = get_turf(eyeobj)
 	. = ..()

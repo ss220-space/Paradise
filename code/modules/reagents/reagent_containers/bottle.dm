@@ -1343,6 +1343,7 @@
 	volume = 50
 	amount_per_transfer_from_this = 5
 	container_type = NONE
+	materials = list(MAT_GLASS = 500)
 	var/cap_on = TRUE
 
 /obj/item/reagent_containers/glass/bottle/syrup_bottle/get_ru_names()

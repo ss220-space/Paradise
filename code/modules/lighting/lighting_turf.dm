@@ -22,19 +22,19 @@
 		return 1
 
 	var/totallums = 0
-	var/datum/lighting_corner/L
-	L = lighting_corner_NE
-	if(L)
-		totallums += L.lum_r + L.lum_b + L.lum_g
-	L = lighting_corner_SE
-	if(L)
-		totallums += L.lum_r + L.lum_b + L.lum_g
-	L = lighting_corner_SW
-	if(L)
-		totallums += L.lum_r + L.lum_b + L.lum_g
-	L = lighting_corner_NW
-	if(L)
-		totallums += L.lum_r + L.lum_b + L.lum_g
+	var/datum/lighting_corner/corner
+	corner = lighting_corner_NE
+	if(corner)
+		totallums += corner.lum_r + corner.lum_b + corner.lum_g
+	corner = lighting_corner_SE
+	if(corner)
+		totallums += corner.lum_r + corner.lum_b + corner.lum_g
+	corner = lighting_corner_SW
+	if(corner)
+		totallums += corner.lum_r + corner.lum_b + corner.lum_g
+	corner = lighting_corner_NW
+	if(corner)
+		totallums += corner.lum_r + corner.lum_b + corner.lum_g
 
 	totallums /= 12 // 4 corners, each with 3 channels, get the average.
 
@@ -88,7 +88,7 @@
 
 ///Transfer the lighting of one area to another
 /turf/proc/transfer_area_lighting(area/old_area, area/new_area)
-	if(SSlighting.initialized && !always_lit)
+	if(SSlighting.initialized && !space_lit)
 		if(new_area.static_lighting != old_area.static_lighting)
 			if(new_area.static_lighting)
 				lighting_build_overlay()
@@ -106,11 +106,11 @@
 			add_overlay(new_area.lighting_effects[index])
 
 	// Manage removing/adding starlight overlays, we'll inherit from the area so we can drop it if the area has it already
-	if(always_lit)
+	if(space_lit)
 		if(!new_area.lighting_effects && old_area.lighting_effects)
-			overlays += GLOB.fullbright_overlays[GET_TURF_PLANE_OFFSET(src) + 1]
+			overlays += GLOB.starlight_overlays[GET_TURF_PLANE_OFFSET(src) + 1]
 		else if(new_area.lighting_effects && !old_area.lighting_effects)
-			overlays -= GLOB.fullbright_overlays[GET_TURF_PLANE_OFFSET(src) + 1]
+			overlays -= GLOB.starlight_overlays[GET_TURF_PLANE_OFFSET(src) + 1]
 
 ///Proc to add movable sources of opacity on the turf and let it handle lighting code.
 /turf/proc/add_opacity_source(atom/movable/new_source)
@@ -142,6 +142,9 @@
 			else //If fulltile and opaque, then the whole tile blocks view, no need to continue checking.
 				directional_opacity = ALL_CARDINALS
 				break
+	else
+		for(var/atom/movable/content as anything in contents)
+			SEND_SIGNAL(content, COMSIG_TURF_NO_LONGER_BLOCK_LIGHT)
 	if(. != directional_opacity && (. == ALL_CARDINALS || directional_opacity == ALL_CARDINALS))
 		reconsider_lights() //The lighting system only cares whether the tile is fully concealed from all directions or not.
 
