@@ -125,7 +125,7 @@
 	if(!can_dispense_pipe(whatdpipe, RPD_DISPOSALS_MODE))
 		CRASH("Failed to spawn [get_pipe_name(whatdpipe, PIPETYPE_DISPOSAL)] - possible tampering detected")
 	var/rotate_dir = iconrotation ? iconrotation : user.dir
-	var/obj/structure/disposalconstruct/construct = new(src, whatdpipe, rotate_dir)
+	var/obj/structure/disposalconstruct/construct = new(null, whatdpipe, rotate_dir)
 	if(construct.density)
 		if(check_dpipe_duplicate(T, construct))
 			user.balloon_alert(user, "не хватает места!")
@@ -133,7 +133,7 @@
 			return
 		do_sparks(3, TRUE, T)
 		if(!do_after(user, RPD_DISPOSAL_PIPE_CONSTRUCT_DELAY, T, category = DA_CAT_TOOL))
-			user?.balloon_alert(user, "требуется время на постройку!")
+			user?.balloon_alert(user, "прервано!")
 			qdel(construct)
 			return
 	if(QDELETED(src) || QDELETED(construct))
