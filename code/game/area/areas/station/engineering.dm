@@ -60,7 +60,7 @@
 	name = "Atmospherics Distribution Loop"
 
 /area/station/engineering/atmos/mixing_atmos
-	name = "Atmospherics Mising Room"
+	name = "Atmospherics Mixing Room"
 	icon_state = "atmos_mixing"
 
 /area/station/engineering/storage/tech
