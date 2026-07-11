@@ -1037,7 +1037,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	if(!cell)	// haxing
 		wiresexposed = !wiresexposed
-		balloon_alert(user, "панель откручена")
+		balloon_alert(user, "панель [wiresexposed ? "от" : "за"]кручена")
 		update_icons()
 		I.play_tool_sound(user, I.tool_volume)
 	else //radio check
