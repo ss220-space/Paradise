@@ -22,7 +22,7 @@
 	form = "Последствия трансплантации"
 	additional_info = "Пациенту требуется иммуносупрессия для подавления симптомов."
 	cure_text = "Нейроматин (Иммуносупрессивная терапия)"
-	var/required_reagent = "neuromatin"
+	var/required_reagent = /datum/reagent/medicine/neuromatin
 	can_immunity = FALSE
 	ignore_immunity = TRUE
 	visibility_flags = HIDDEN_PANDEMIC

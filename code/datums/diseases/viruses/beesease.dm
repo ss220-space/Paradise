@@ -8,7 +8,7 @@
 	can_progress_in_dead = TRUE
 	discovery_threshold = 0.9
 	spread_flags = CONTACT
-	cures = list("sugar")
+	cures = list(/datum/reagent/consumable/sugar)
 	severity = DISEASE_SEVERITY_HARMFUL
 	possible_mutations = list(/datum/disease/virus/lycan)
 	var/bees_spawned = 0

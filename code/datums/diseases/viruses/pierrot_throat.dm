@@ -4,7 +4,7 @@
 	desc = "Заболевание мозга, которое было завезено первыми исследователями планеты Клоунов, которое повреждает базальные ганглии, жертвы будут иметь неконтролируемое желание делать ХОНК."
 	max_stages = 4
 	spread_flags = AIRBORNE
-	cures = list("banana")
+	cures = list(/datum/reagent/consumable/drink/banana)
 	cure_prob = 75
 	permeability_mod = 0.75
 	severity = DISEASE_SEVERITY_MINOR

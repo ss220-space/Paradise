@@ -53,7 +53,7 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	/// Probability of mutation if the necessary reagents are in the body
 	var/mutation_chance = 1
 	/// Necessary reagents
-	var/list/mutation_reagents = list("mutagen")
+	var/list/mutation_reagents = list(/datum/reagent/mutagen)
 	/// List of diseases in which it can mutate
 	var/list/possible_mutations
 

@@ -3,7 +3,7 @@
 	form = "Заболевание"
 	agent = "Трупные микробы"
 	desc = "Ужасная болезнь, вызванная разлагающимися трупами."
-	cures = list("calomel")
+	cures = list(/datum/reagent/medicine/calomel)
 	cure_prob = 6
 	stage_prob = 0.8
 	spread_flags = BLOOD

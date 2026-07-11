@@ -36,13 +36,13 @@ Bonus
 			M.reagents.remove_all_type(/datum/reagent/consumable/ethanol, 3, 0, 1)
 		if(A.stage >= 4)
 			M.AdjustDrowsy(-4 SECONDS)
-			if(RD.has_reagent("lsd"))
-				RD.remove_reagent("lsd", 5)
-			if(RD.has_reagent("histamine"))
-				RD.remove_reagent("histamine", 5)
+			if(RD.has_reagent(/datum/reagent/lsd))
+				RD.remove_reagent(/datum/reagent/lsd, 5)
+			if(RD.has_reagent(/datum/reagent/histamine))
+				RD.remove_reagent(/datum/reagent/histamine, 5)
 			M.AdjustHallucinate(-10 SECONDS)
 		if(A.stage >= 5)
-			RD.check_and_add("mannitol", 10, 10)
+			RD.check_and_add(/datum/reagent/medicine/mannitol, 10, 10)
 
 /datum/symptom/sensory_restoration
 	name = "Сенсорное восстановление"

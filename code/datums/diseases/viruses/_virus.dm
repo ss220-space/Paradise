@@ -41,7 +41,7 @@
 	return TRUE
 
 /datum/disease/virus/try_increase_stage()
-	if(prob(affected_mob.reagents?.has_reagent("spaceacillin") ? stage_prob/2 : stage_prob))
+	if(prob(affected_mob.reagents?.has_reagent(/datum/reagent/medicine/spaceacillin) ? stage_prob/2 : stage_prob))
 		stage = min(stage + 1,max_stages)
 		if(!discovered && stage >= ceil(max_stages * discovery_threshold)) // Once we reach a late enough stage, medical HUDs can pick us up even if we regress
 			discovered = TRUE
@@ -61,7 +61,7 @@
 	if((spread_flags <= BLOOD) && !force_spread)
 		return
 
-	if(affected_mob.reagents?.has_reagent("spaceacillin") || (affected_mob.satiety > 0 && prob(affected_mob.satiety/10)))
+	if(affected_mob.reagents?.has_reagent(/datum/reagent/medicine/spaceacillin) || (affected_mob.satiety > 0 && prob(affected_mob.satiety/10)))
 		return
 
 	var/spread_range = force_spread ? force_spread : 1
