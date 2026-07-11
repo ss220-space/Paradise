@@ -365,6 +365,9 @@ SUBSYSTEM_DEF(jobs)
 	for(var/mob/new_player/player in GLOB.player_list)
 		if(player.ready && player.mind && !player.mind.assigned_role)
 			unassigned += player
+			var/datum/preferences/prefs = player.client.prefs
+			if(prefs.alternate_option == RETURN_TO_LOBBY && !prefs.skip_antag)
+				prefs.alternate_option = GET_RANDOM_JOB
 
 	Debug("DO, Len: [length(unassigned)]")
 	if(length(unassigned) == 0)
