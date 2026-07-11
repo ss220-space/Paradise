@@ -505,7 +505,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/extinguisher/Initialize(mapload)
 	create_reagents(1000)
-	reagents.add_reagent("water", 1000)
+	reagents.add_reagent(/datum/reagent/water, 1000)
 	. = ..()
 
 /obj/item/mecha_parts/mecha_equipment/extinguisher/action(atom/target, list/modifiers) //copypasted from extinguisher. TODO: Rewrite from scratch.

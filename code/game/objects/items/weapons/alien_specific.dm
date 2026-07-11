@@ -51,7 +51,7 @@
 
 /obj/item/reagent_containers/spray/alien/stun/afterattack(atom/target, mob/user, proximity_flag, list/modifiers, status)
 	var/datum/reagents/reagents_list = new (250)
-	reagents_list.add_reagent("blob_cryogenic_poison", 250) // new blow reagent because old was deleted
+	reagents_list.add_reagent(/datum/reagent/blob/cryogenic_poison, 250) // new blow reagent because old was deleted
 	var/datum/effect_system/fluid_spread/smoke/chem/smoke = new
 	smoke.set_up(range = 3, location = user.loc, carry = reagents_list, silent = TRUE)
 	playsound(user.loc, 'sound/effects/smoke.ogg', 50, TRUE, -3)

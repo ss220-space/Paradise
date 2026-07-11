@@ -1755,8 +1755,8 @@
 
 /datum/reagent/medicine/ashiezine/on_mob_life(mob/living/M)
 	if(isashwalker(M))
-		M.reagents.add_reagent("epinephrine", 0.2)
-		M.reagents.add_reagent("heparin", 0,4)
+		M.reagents.add_reagent(/datum/reagent/medicine/epinephrine, 0.2)
+		M.reagents.add_reagent(/datum/reagent/heparin, 0,4)
 	return ..()
 
 /datum/reagent/medicine/sanguinius

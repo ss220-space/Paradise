@@ -98,8 +98,8 @@
 	H.stop_tail_wagging()
 
 /datum/species/tajaran/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
-	if(R.id == "moonlin")
-		H.reagents.add_reagent("psilocybin",(0.5))
+	if(R.type == /datum/reagent/moonlin)
+		H.reagents.add_reagent(/datum/reagent/psilocybin, 0.5)
 		return TRUE
 	return ..()
 

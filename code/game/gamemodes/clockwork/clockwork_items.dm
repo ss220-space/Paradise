@@ -1514,7 +1514,7 @@
 	clocker.heal_overall_damage(heal, heal, affect_robotic = robo_affect_heal)
 	if(!can_adv_heal)
 		return
-	clocker.reagents?.add_reagent("epinephrine", 5)
+	clocker.reagents?.add_reagent(/datum/reagent/medicine/epinephrine, 5)
 	var/mob/living/carbon/human/H = clocker
 	for(var/obj/item/organ/external/bodypart as anything in H.bodyparts)
 		bodypart.stop_internal_bleeding()

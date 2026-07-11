@@ -694,14 +694,14 @@
 				to_chat(user, span_warning("The [name] is empty!"))
 				return ATTACK_CHAIN_PROCEED
 			if(water_level >= I.reagents.maximum_volume) //Enough to fill the container completely
-				I.reagents.add_reagent("fishwater", I.reagents.maximum_volume)
+				I.reagents.add_reagent(/datum/reagent/fishwater, I.reagents.maximum_volume)
 				adjust_water_level(-I.reagents.maximum_volume)
 				user.visible_message(
 					span_notice("[user.name] scoops out some water from [src]."),
 					span_notice("You completely fill [I.name] from [src]."),
 				)
 			else	//Fill the container as much as possible with the water_level
-				I.reagents.add_reagent("fishwater", water_level)
+				I.reagents.add_reagent(/datum/reagent/fishwater, water_level)
 				adjust_water_level(-water_level)
 				user.visible_message(
 					span_notice("[user.name] scoops out some water from [src]."),

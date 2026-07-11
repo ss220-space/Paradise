@@ -598,7 +598,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		return
 	if(smoketime <= 0)
 		user.balloon_alert(user, "трубка наполнена")
-		reagents.add_reagent("nicotine", chem_volume)
+		reagents.add_reagent(/datum/reagent/nicotine, chem_volume)
 		smoketime = initial(smoketime)
 		first_puff = TRUE
 
@@ -753,10 +753,10 @@ LIGHTERS ARE IN LIGHTERS.DM
 		return
 
 	if(!has_smoked)
-		C.reagents.add_reagent("nicotine", 2)
+		C.reagents.add_reagent(/datum/reagent/nicotine, 2)
 		has_smoked = TRUE
 	else
-		C.reagents.add_reagent("nicotine", REAGENTS_METABOLISM)
+		C.reagents.add_reagent(/datum/reagent/nicotine, REAGENTS_METABOLISM)
 
 /obj/item/clothing/mask/holo_cigar/equipped(mob/user, slot, initial)
 	. = ..()

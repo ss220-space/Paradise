@@ -114,7 +114,7 @@
 		transfer_mob_blood_dna(victim)
 
 		if(!isplasmaman(victim) && !ismachineperson(victim))
-			reagents.add_reagent("nutriment", (victim.nutrition / 15) / initial(victim.meatleft))
+			reagents.add_reagent(/datum/reagent/consumable/nutriment, (victim.nutrition / 15) / initial(victim.meatleft))
 
 /obj/item/reagent_containers/food/snacks/meat/humanoid/human
 	name = "human meat"

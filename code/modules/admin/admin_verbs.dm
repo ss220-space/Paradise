@@ -241,9 +241,9 @@ ADMIN_VERB(bless, R_EVENT, "Bless", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HI
 			to_chat(M,span_userdanger("You feel invigorated!"), confidential = TRUE)
 			logmsg = "a moderate heal."
 		if("Heal Over Time")
-			H.reagents.add_reagent("salglu_solution", 30)
-			H.reagents.add_reagent("salbutamol", 20)
-			H.reagents.add_reagent("spaceacillin", 20)
+			H.reagents.add_reagent(/datum/reagent/medicine/salglu_solution, 30)
+			H.reagents.add_reagent(/datum/reagent/medicine/salbutamol, 20)
+			H.reagents.add_reagent(/datum/reagent/medicine/spaceacillin, 20)
 			logmsg = "a heal over time."
 		if("Permanent Regeneration")
 			H.force_gene_block(GLOB.regenerateblock, TRUE)

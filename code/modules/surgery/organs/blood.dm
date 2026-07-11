@@ -172,7 +172,7 @@
 		if(blood_id == C.get_blood_id() && !HAS_TRAIT(C, TRAIT_NO_BLOOD_RESTORE))//both mobs have the same blood substance
 			if(blood_id == "blood") //normal blood
 				if(!(blood_data["blood_type"] in get_safe_blood(C.dna.blood_type)) || !(blood_data["blood_species"] == C.dna.species.blood_species))
-					C.reagents.add_reagent("toxin", amount * 0.5)
+					C.reagents.add_reagent(/datum/reagent/toxin, amount * 0.5)
 					return 1
 
 			C.setBlood(min(C.blood_volume + round(amount, 0.1), BLOOD_VOLUME_NORMAL))

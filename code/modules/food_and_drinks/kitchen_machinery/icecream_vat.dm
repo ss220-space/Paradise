@@ -110,33 +110,33 @@
 				var/brand = pick(1,2,3,4)
 				if(brand == 1)
 					if(type == 2)
-						reagents.add_reagent("cola",5)
+						reagents.add_reagent(/datum/reagent/consumable/drink/cold/space_cola, 5)
 					else
-						reagents.add_reagent("kahlua",5)
+						reagents.add_reagent(/datum/reagent/consumable/ethanol/kahlua, 5)
 				else if(brand == 2)
 					if(type == 2)
-						reagents.add_reagent("dr_gibb",5)
+						reagents.add_reagent(/datum/reagent/consumable/drink/cold/dr_gibb, 5)
 					else
-						reagents.add_reagent("vodka",5)
+						reagents.add_reagent(/datum/reagent/consumable/ethanol/vodka, 5)
 				else if(brand == 3)
 					if(type == 2)
-						reagents.add_reagent("space_up",5)
+						reagents.add_reagent(/datum/reagent/consumable/drink/cold/space_up, 5)
 					else
-						reagents.add_reagent("rum",5)
+						reagents.add_reagent(/datum/reagent/consumable/ethanol/rum, 5)
 				else if(brand == 4)
 					if(type == 2)
-						reagents.add_reagent("spacemountainwind",5)
+						reagents.add_reagent(/datum/reagent/consumable/drink/cold/spacemountainwind, 5)
 					else
-						reagents.add_reagent("gin",5)
+						reagents.add_reagent(/datum/reagent/consumable/ethanol/gin, 5)
 			else if(type == 4)
 				var/remaining_space = min(30, reagents.maximum_volume - reagents.total_volume)
 				if(remaining_space > 0)
-					reagents.add_reagent("cream", remaining_space)
+					reagents.add_reagent(/datum/reagent/consumable/drink/milk/cream, remaining_space)
 				. = TRUE
 			else if(type == 5)
 				var/remaining_space = min(30, reagents.maximum_volume - reagents.total_volume)
 				if(remaining_space > 0)
-					reagents.add_reagent("water", remaining_space)
+					reagents.add_reagent(/datum/reagent/water, remaining_space)
 				. = TRUE
 
 		if("createcup")
@@ -198,13 +198,13 @@
 
 	if(istype(I, /obj/item/reagent_containers/food/snacks/icecream))
 		add_fingerprint(user)
-		if(I.reagents.has_reagent("sprinkles"))
+		if(I.reagents.has_reagent(/datum/reagent/consumable/sprinkles))
 			balloon_alert(user, "уже есть посыпка!")
 			return ATTACK_CHAIN_PROCEED
 		balloon_alert(user, "посыпка добавлена")
 		if(I.reagents.total_volume > 29)
 			I.reagents.remove_any(1)
-		I.reagents.add_reagent("sprinkles", 1)
+		I.reagents.add_reagent(/datum/reagent/consumable/sprinkles, 1)
 		I.name += " c посыпкой"
 		I.desc += " С ароматной посыпкой."
 		return ATTACK_CHAIN_PROCEED_SUCCESS

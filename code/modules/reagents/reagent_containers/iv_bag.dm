@@ -262,7 +262,7 @@
 	. = ..()
 	if(blood_type != null && blood_species != null)
 		name = "[initial(name)] - [blood_species] ([blood_type])"
-		reagents.add_reagent("blood", 200, list("donor"=null,"diseases"=null,"blood_DNA"=null,"blood_type"=blood_type,"blood_species"=blood_species,"resistances"=null,"trace_chem"=null))
+		reagents.add_reagent(/datum/reagent/blood, 200, list("donor"=null,"diseases"=null,"blood_DNA"=null,"blood_type"=blood_type,"blood_species"=blood_species,"resistances"=null,"trace_chem"=null))
 		update_icon(UPDATE_OVERLAYS)
 
 /obj/item/reagent_containers/iv_bag/blood/random/get_ru_names()
@@ -350,7 +350,7 @@
 	. = ..()
 	if(blood_type != null && blood_species != null)
 		name = "[initial(name)] - Oxygenis"
-		reagents.add_reagent("sbloodoxy", 200, list("donor"=null,"diseases"=null,"blood_DNA"=null,"blood_type"=blood_type,"blood_species"=blood_species,"resistances"=null,"trace_chem"=null))
+		reagents.add_reagent(/datum/reagent/blood/synthetic/oxy, 200, list("donor"=null,"diseases"=null,"blood_DNA"=null,"blood_type"=blood_type,"blood_species"=blood_species,"resistances"=null,"trace_chem"=null))
 		update_icon(UPDATE_OVERLAYS)
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis
 	var/blood_species = "Vox - synthetic"
@@ -369,7 +369,7 @@
 	. = ..()
 	if(blood_type != null && blood_species != null)
 		name = "[initial(name)] - Nitrogenis"
-		reagents.add_reagent("sbloodvox", 200, list("donor"=null,"diseases"=null,"blood_DNA"=null,"blood_type"=blood_type,"blood_species"=blood_species,"resistances"=null,"trace_chem"=null))
+		reagents.add_reagent(/datum/reagent/blood/synthetic/oxy, 200, list("donor"=null,"diseases"=null,"blood_DNA"=null,"blood_type"=blood_type,"blood_species"=blood_species,"resistances"=null,"trace_chem"=null))
 		update_icon(UPDATE_OVERLAYS)
 
 /obj/item/reagent_containers/iv_bag/slime

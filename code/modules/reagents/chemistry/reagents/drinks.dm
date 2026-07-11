@@ -294,8 +294,8 @@
 /datum/reagent/consumable/drink/coffee/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	update_flags |= M.adjustStaminaLoss(-1, FALSE)
-	if(holder.has_reagent("frostoil"))
-		holder.remove_reagent("frostoil", 5)
+	if(holder.has_reagent(/datum/reagent/consumable/frostoil))
+		holder.remove_reagent(/datum/reagent/consumable/frostoil, 5)
 	return ..() | update_flags
 
 /datum/reagent/consumable/drink/coffee/overdose_process(mob/living/target, severity)

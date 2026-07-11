@@ -59,8 +59,8 @@ Bonus
 		var/mob/living/M = A.affected_mob
 		switch(A.stage)
 			if(4, 5)
-				if(M.reagents.get_reagent_amount("oculine") < 20)
-					M.reagents.add_reagent("oculine", 20)
+				if(M.reagents.get_reagent_amount(/datum/reagent/medicine/oculine) < 20)
+					M.reagents.add_reagent(/datum/reagent/medicine/oculine, 20)
 			else
 				if(prob(SYMPTOM_ACTIVATION_PROB * 5))
 					to_chat(M, span_notice(pick("Ваши глаза чувствуют себя прекрасно.", "Вы чувствуете, что ваши глаза могут фокусироваться чётче.", "Вы не чувствуете необходимости моргать.", "Ваши уши чувствуют себя прекрасно.", "Ваш слух стал острее.")))

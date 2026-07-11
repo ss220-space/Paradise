@@ -219,8 +219,8 @@
 
 		//Service
 		if(istype(module, /obj/item/reagent_containers/food/condiment/enzyme))
-			if(module.reagents.get_reagent_amount("enzyme") < 50)
-				module.reagents.add_reagent("enzyme", 2 * coeff)
+			if(module.reagents.get_reagent_amount(/datum/reagent/consumable/enzyme) < 50)
+				module.reagents.add_reagent(/datum/reagent/consumable/enzyme, 2 * coeff)
 			continue
 
 		//Janitor
@@ -251,16 +251,16 @@
 	if(istype(robot.module.emag, /obj/item/reagent_containers/spray))
 		var/obj/item/reagent_containers/spray/spray = robot.module.emag
 		if(spray.name == "polyacid spray")
-			spray.reagents.add_reagent("facid", 2 * coeff)
+			spray.reagents.add_reagent(/datum/reagent/acid/facid, 2 * coeff)
 			return
 
 		if(spray.name == "lube spray")
-			spray.reagents.add_reagent("lube", 2 * coeff)
+			spray.reagents.add_reagent(/datum/reagent/lube, 2 * coeff)
 			return
 
 		if(spray.name == "acid synthesizer")
-			spray.reagents.add_reagent("facid", 2 * coeff)
-			spray.reagents.add_reagent("sacid", 2 * coeff)
+			spray.reagents.add_reagent(/datum/reagent/acid/facid, 2 * coeff)
+			spray.reagents.add_reagent(/datum/reagent/acid, 2 * coeff)
 			return
 
 /obj/machinery/recharge_station/verb/move_eject()

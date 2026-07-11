@@ -19,9 +19,9 @@
 	imp_in.set_resting(FALSE, instant = TRUE)
 	imp_in.get_up(instant = TRUE)
 
-	imp_in.reagents.add_reagent("surge_plus", 10)
-	imp_in.reagents.add_reagent("liquid_solder", 10)
-	imp_in.reagents.add_reagent("combatlube", 10)
+	imp_in.reagents.add_reagent(/datum/reagent/surge_plus, 10)
+	imp_in.reagents.add_reagent(/datum/reagent/medicine/liquid_solder, 10)
+	imp_in.reagents.add_reagent(/datum/reagent/lube/combat, 10)
 
 	. = ..()
 

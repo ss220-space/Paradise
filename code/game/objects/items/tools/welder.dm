@@ -67,7 +67,7 @@
 		RegisterSignal(middleman, COMSIG_LIGHT_MIDDLEMAN_UPDATED, PROC_REF(light_updated))
 		middleman.being_overriding_light()
 	create_reagents(maximum_fuel)
-	reagents.add_reagent("fuel", maximum_fuel)
+	reagents.add_reagent(/datum/reagent/fuel, maximum_fuel)
 	AddElement(/datum/element/falling_hazard, damage = force, hardhat_safety = TRUE, crushes = FALSE, impact_sound = hitsound)
 	RegisterSignal(src, COMSIG_TOOLBOX_RADIAL_MENU_TOOL_USAGE, PROC_REF(handle_toolbox_signal))
 	update_appearance()
@@ -107,7 +107,7 @@
 			remove_fuel(1)
 	if(refills_over_time)
 		if(GET_FUEL < maximum_fuel)
-			reagents.add_reagent("fuel", 1)
+			reagents.add_reagent(/datum/reagent/fuel, 1)
 	..()
 
 /obj/item/weldingtool/extinguish_light(force = FALSE)

@@ -70,7 +70,7 @@
 		return
 	if(!T.reagents)
 		T.create_reagents(volume)
-	T.reagents.add_reagent("napalm", volume)
+	T.reagents.add_reagent(/datum/reagent/napalm, volume)
 
 /datum/reagent/napalm/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
 	if(method == REAGENT_TOUCH)
@@ -152,7 +152,7 @@
 		return
 	if(!T.reagents)
 		T.create_reagents(50)
-	T.reagents.add_reagent("fuel", volume)
+	T.reagents.add_reagent(/datum/reagent/fuel, volume)
 
 /datum/reagent/fuel/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)//Splashing people with welding fuel to make them easy to ignite!
 	if(method == REAGENT_TOUCH)
@@ -196,7 +196,7 @@
 		return
 	if(!T.reagents)
 		T.create_reagents(volume)
-	T.reagents.add_reagent("plasma", volume)
+	T.reagents.add_reagent(/datum/reagent/plasma, volume)
 
 /datum/reagent/thermite
 	name = "Термит"
@@ -228,7 +228,7 @@
 	if(istype(S))
 		if(!S.reagents)
 			S.create_reagents(volume)
-		S.reagents.add_reagent("thermite", volume)
+		S.reagents.add_reagent(/datum/reagent/thermite, volume)
 		S.melting_olay = mutable_appearance('icons/effects/effects.dmi', icon_state = "thermite")
 		S.add_overlay(S.melting_olay)
 		if(S.active_hotspot)
@@ -298,7 +298,7 @@
 		return
 	if(!T.reagents)
 		T.create_reagents(50)
-	T.reagents.add_reagent("sorium", 5)
+	T.reagents.add_reagent(/datum/reagent/sorium, 5)
 
 /datum/reagent/liquid_dark_matter
 	name = "Жидкая тёмная материя"
@@ -317,7 +317,7 @@
 		return
 	if(!T.reagents)
 		T.create_reagents(50)
-	T.reagents.add_reagent("liquid_dark_matter", 5)
+	T.reagents.add_reagent(/datum/reagent/liquid_dark_matter, 5)
 
 /datum/reagent/blackpowder
 	name = "Чёрный порох"
@@ -347,7 +347,7 @@
 		return
 	if(!T.reagents)
 		T.create_reagents(volume)
-	T.reagents.add_reagent("flash_powder", volume)
+	T.reagents.add_reagent(/datum/reagent/flash_powder, volume)
 
 /datum/reagent/smoke_powder
 	name = "Дымный порошок"
@@ -362,7 +362,7 @@
 		return
 	if(!T.reagents)
 		T.create_reagents(volume)
-	T.reagents.add_reagent("smoke_powder", 10)
+	T.reagents.add_reagent(/datum/reagent/smoke_powder, 10)
 
 /datum/reagent/sonic_powder
 	name = "Звуковой порошок"
@@ -378,7 +378,7 @@
 		return
 	if(!T.reagents)
 		T.create_reagents(volume)
-	T.reagents.add_reagent("sonic_powder", volume)
+	T.reagents.add_reagent(/datum/reagent/sonic_powder, volume)
 
 /datum/reagent/cryostylane
 	name = "Криостилан"
@@ -504,4 +504,4 @@
 		return
 	if(!T.reagents)
 		T.create_reagents(volume)
-	T.reagents.add_reagent("plasma_dust", volume)
+	T.reagents.add_reagent(/datum/reagent/plasma_dust, volume)

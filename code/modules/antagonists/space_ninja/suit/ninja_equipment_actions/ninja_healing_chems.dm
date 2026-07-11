@@ -27,7 +27,7 @@
 	if(ninjacost(0,N_HEAL))
 		return
 	var/mob/living/carbon/human/ninja = affecting
-	ninja.reagents.add_reagent("chiyurizine", 25)	//The 25 dose is important. Reagent won't work if you add less. And it will overdose if you add 30 or more
+	ninja.reagents.add_reagent(/datum/reagent/medicine/chiyurizine, 25)	//The 25 dose is important. Reagent won't work if you add less. And it will overdose if you add 30 or more
 	balloon_alert(ninja, "чиюризин введён")
 	atom_say("Spider-OS напоминает вам, вы можете отслеживать количество реагента в крови с помощью встроенных сканеров.")
 	add_attack_logs(ninja, null, "Activated healing chems.")

@@ -283,7 +283,7 @@
 				to_chat(H, span_userdanger("WHAT THE FUCK IS THAT?!"))
 				to_chat(H, "<font face='Comic Sans MS'><i>.KNOH !nuf hcum os si uoy htiw gniyalP .KNOH KNOH KNOH</i></font>")
 				H.playsound_local(src, 'sound/hallucinations/im_here1.ogg', 25)
-				H.reagents.add_reagent("lsd", 3)
+				H.reagents.add_reagent(/datum/reagent/lsd, 3)
 				Appear()
 				manifested = FALSE
 				addtimer(CALLBACK(src, TYPE_PROC_REF(/mob/living/simple_animal/hostile/floor_cluwne, Manifest)), 2)
@@ -412,7 +412,7 @@
 
 /obj/effect/temp_visual/fcluwne_manifest/Initialize(mapload)
 	. = ..()
-	
+
 	playsound(src, 'sound/spookoween/scary_clown_appear.ogg', 100, TRUE)
 
 #undef STAGE_HAUNT

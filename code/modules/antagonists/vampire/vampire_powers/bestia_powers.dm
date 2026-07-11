@@ -1426,8 +1426,8 @@
 			continue
 		human_vampire.reagents.remove_reagent(reagent.id, amount_reagents_cleansed)
 
-	human_vampire.reagents.add_reagent("spaceacillin", 1)	// FOR
-	human_vampire.reagents.add_reagent("mutadone", 1)		// FREE!
+	human_vampire.reagents.add_reagent(/datum/reagent/medicine/spaceacillin, 1)	// FOR
+	human_vampire.reagents.add_reagent(/datum/reagent/medicine/mutadone, 1)		// FREE!
 
 	// cures heart attack, heart failure and shock
 	human_vampire.set_heartattack(FALSE)

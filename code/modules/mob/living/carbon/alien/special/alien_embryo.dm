@@ -19,7 +19,7 @@
 
 /obj/item/organ/internal/body_egg/alien_embryo/prepare_eat()
 	var/obj/S = ..()
-	S.reagents.add_reagent("sacid", 10)
+	S.reagents.add_reagent(/datum/reagent/acid, 10)
 	return S
 
 /obj/item/organ/internal/body_egg/alien_embryo/on_life()
@@ -68,7 +68,7 @@
 	spawn()
 		var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите сыгрять за Чужого?", ROLE_ALIEN, FALSE, source = /mob/living/carbon/alien/larva)
 		var/mob/C = null
-		
+
 		if(QDELETED(src))
 			return
 		// To stop clientless larva, we will check that our host has a client
@@ -89,10 +89,10 @@
 		owner.add_overlay(overlay)
 
 		spawn(6)
-		
+
 			if(QDELETED(src) || QDELETED(owner))
 				return
-				
+
 			var/mob/living/carbon/alien/larva/new_xeno = new(owner.drop_location())
 			new_xeno.possess_by_player(C.key)
 			new_xeno.mind.name = new_xeno.name

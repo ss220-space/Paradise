@@ -151,8 +151,8 @@
 
 /datum/smite/cold/apply_effect(mob/living/target, reason)
 	to_chat(target, span_userdanger("Вы чувствуете как холод пронизывает ваше тело! Боги наказали вас за [reason]!"))
-	target.reagents.add_reagent("frostoil", 40)
-	target.reagents.add_reagent("ice", 40)
+	target.reagents.add_reagent(/datum/reagent/consumable/frostoil, 40)
+	target.reagents.add_reagent(/datum/reagent/consumable/drink/cold/ice, 40)
 
 // MARK: Hunger
 /datum/smite/hunger

@@ -190,7 +190,7 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 		var/mob/living/carbon/C = M
 		if(C.get_blood_id() == "blood")
 			if(!data || !(data["blood_type"] in get_safe_blood(C.dna.blood_type)) || !(data["blood_species"] == C.dna.species.blood_species))
-				C.reagents.add_reagent("toxin", volume * 0.5)
+				C.reagents.add_reagent(/datum/reagent/toxin, volume * 0.5)
 			else
 				C.blood_volume = min(C.blood_volume + round(volume, 0.1), BLOOD_VOLUME_NORMAL)
 
@@ -262,7 +262,7 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 		var/mob/living/carbon/C = M
 		if(C.get_blood_id() == "blood")
 			if(!data || !(C.dna.species.blood_species == "Vox"))
-				C.reagents.add_reagent("toxin", volume * 0.5)
+				C.reagents.add_reagent(/datum/reagent/toxin, volume * 0.5)
 				if(C.stat != DEAD)
 					C.adjustOxyLoss(4)
 			else
@@ -281,7 +281,7 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 		var/mob/living/carbon/C = M
 		if(C.get_blood_id() == "blood")
 			if(!data || C.dna.species.blood_species == "Vox")
-				C.reagents.add_reagent("toxin", volume * 0.5)
+				C.reagents.add_reagent(/datum/reagent/toxin, volume * 0.5)
 				if(C.stat != DEAD)
 					C.adjustOxyLoss(4)
 			else

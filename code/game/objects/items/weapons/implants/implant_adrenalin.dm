@@ -60,10 +60,10 @@
 	imp_in.set_resting(FALSE, instant = TRUE)
 	imp_in.get_up(instant = TRUE)
 
-	imp_in.reagents.add_reagent("synaptizine", 5)
-	imp_in.reagents.add_reagent("omnizine", 5)
-	imp_in.reagents.add_reagent("stimulative_agent", 5)
-	imp_in.reagents.add_reagent("adrenaline", 3)
+	imp_in.reagents.add_reagent(/datum/reagent/medicine/synaptizine, 5)
+	imp_in.reagents.add_reagent(/datum/reagent/medicine/omnizine, 5)
+	imp_in.reagents.add_reagent(/datum/reagent/medicine/stimulative_agent, 5)
+	imp_in.reagents.add_reagent(/datum/reagent/medicine/adrenaline, 3)
 
 	imp_in.apply_status_effect(/datum/status_effect/adrenaline)
 
@@ -102,10 +102,10 @@
 	imp_in.set_resting(FALSE, instant = TRUE)
 	imp_in.get_up(instant = TRUE)
 
-	imp_in.reagents.add_reagent("synaptizine", 5)
-	imp_in.reagents.add_reagent("omnizine", 5)
-	imp_in.reagents.add_reagent("stimulative_agent", 5)
-	imp_in.reagents.add_reagent("adrenaline", 3)
+	imp_in.reagents.add_reagent(/datum/reagent/medicine/synaptizine, 5)
+	imp_in.reagents.add_reagent(/datum/reagent/medicine/omnizine, 5)
+	imp_in.reagents.add_reagent(/datum/reagent/medicine/stimulative_agent, 5)
+	imp_in.reagents.add_reagent(/datum/reagent/medicine/adrenaline, 3)
 
 	imp_in.apply_status_effect(/datum/status_effect/adrenaline/prototype)
 

@@ -541,7 +541,7 @@
 						var/amount = O.reagents.total_volume
 						O.reagents.trans_to(beaker, min(amount, space))
 				if(O.Uses > 0)
-						beaker.reagents.add_reagent("slimejelly",min(20*efficiency, space))
+						beaker.reagents.add_reagent(/datum/reagent/slimejelly, min(20*efficiency, space))
 				remove_object(O)
 
 		//Everything else - Transfers reagents from it into beaker

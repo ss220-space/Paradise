@@ -639,7 +639,7 @@
 		return .
 	play_poof_sound() // Play the whoosh sound in local area
 	if(iscarbon(target) && prob(10))
-		target.reagents.add_reagent("hugs", 10)
+		target.reagents.add_reagent(/datum/reagent/hugs, 10)
 
 /// Use this to override how your poof sound plays
 /obj/item/toy/plushie/proc/play_poof_sound()

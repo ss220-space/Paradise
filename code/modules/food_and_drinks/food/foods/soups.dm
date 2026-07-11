@@ -75,8 +75,8 @@
 	tastes = list("chaos" = 1)
 
 /obj/item/reagent_containers/food/snacks/soup/mysterysoup/Initialize(mapload)
-	extra_reagent = pick("capsaicin", "frostoil", "omnizine", "banana", "blood", "slimejelly", "toxin", "banana", "carbon", "oculine")
-	reagents.add_reagent("[extra_reagent]", 5)
+	extra_reagent = pick(/datum/reagent/consumable/capsaicin, /datum/reagent/consumable/frostoil, /datum/reagent/medicine/omnizine, /datum/reagent/consumable/drink/banana, /datum/reagent/blood, /datum/reagent/slimejelly, /datum/reagent/toxin, /datum/reagent/consumable/drink/banana, /datum/reagent/carbon, /datum/reagent/medicine/oculine)
+	reagents.add_reagent(extra_reagent, 5)
 	. = ..()
 
 /obj/item/reagent_containers/food/snacks/soup/wishsoup
@@ -90,8 +90,8 @@
 /obj/item/reagent_containers/food/snacks/soup/wishsoup/Initialize(mapload)
 	if(prob(25))
 		desc = "A wish come true!" // hue
-		reagents.add_reagent("nutriment", 9)
-		reagents.add_reagent("vitamin", 1)
+		reagents.add_reagent(/datum/reagent/consumable/nutriment, 9)
+		reagents.add_reagent(/datum/reagent/consumable/nutriment/vitamin, 1)
 	. = ..()
 
 /obj/item/reagent_containers/food/snacks/soup/sawdustsoup

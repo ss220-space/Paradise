@@ -1045,7 +1045,7 @@
 		M.AdjustStunned(-2 SECONDS)
 		M.AdjustWeakened(-2 SECONDS)
 	if(prob(8))
-		M.reagents.add_reagent("methamphetamine",1.2)
+		M.reagents.add_reagent(/datum/reagent/methamphetamine, 1.2)
 		var/sonic_message = pick("НАДО! ЕЩЁ! БЫСТРЕЕ!!!", "БЫСТРЕЕ, БЫСТРЕЕ, ЕЩЁ БЫСТРЕЕ!!!", "ДА, ДЕТКА!!!", "БОДРИТ!!!", "ПОШЁЛ, ПОШЁЛ!!!", "На старт... МАРШ!!!", "ПОНЕСЛАСЬ!!!")
 		if(prob(50))
 			M.say("[sonic_message]")

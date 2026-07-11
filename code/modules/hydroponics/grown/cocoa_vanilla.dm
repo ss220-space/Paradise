@@ -92,6 +92,6 @@
 /obj/item/reagent_containers/food/snacks/grown/bungopit/Initialize(mapload, obj/item/seeds/new_seed)
 	. = ..()
 	reagents.clear_reagents()
-	reagents.add_reagent("bungotoxin", seed.potency * 0.10) //More than this will kill at too low potency
-	reagents.add_reagent("nutriment", seed.potency * 0.04)
+	reagents.add_reagent(/datum/reagent/bungotoxin, seed.potency * 0.10) //More than this will kill at too low potency
+	reagents.add_reagent(/datum/reagent/consumable/nutriment, seed.potency * 0.04)
 	update_icon()

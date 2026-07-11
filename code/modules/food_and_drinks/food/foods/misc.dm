@@ -195,7 +195,7 @@
 	foodtype = JUNKFOOD | MEAT | GRAIN
 
 /obj/item/reagent_containers/food/snacks/warmdonkpocket/Post_Consume(mob/living/M)
-	M.reagents.add_reagent("omnizine", 15)
+	M.reagents.add_reagent(/datum/reagent/medicine/omnizine, 15)
 
 /obj/item/reagent_containers/food/snacks/warmdonkpocket_weak
 	name = "lukewarm Donk-pocket"
@@ -215,12 +215,12 @@
 	foodtype = JUNKFOOD | MEAT | GRAIN
 
 /obj/item/reagent_containers/food/snacks/syndidonkpocket/Post_Consume(mob/living/M)
-	M.reagents.add_reagent("omnizine", 15)
-	M.reagents.add_reagent("teporone", 15)
-	M.reagents.add_reagent("synaptizine", 15)
-	M.reagents.add_reagent("salglu_solution", 15)
-	M.reagents.add_reagent("salbutamol", 15)
-	M.reagents.add_reagent("methamphetamine", 15)
+	M.reagents.add_reagent(/datum/reagent/medicine/omnizine, 15)
+	M.reagents.add_reagent(/datum/reagent/medicine/teporone, 15)
+	M.reagents.add_reagent(/datum/reagent/medicine/synaptizine, 15)
+	M.reagents.add_reagent(/datum/reagent/medicine/salglu_solution, 15)
+	M.reagents.add_reagent(/datum/reagent/medicine/salbutamol, 15)
+	M.reagents.add_reagent(/datum/reagent/methamphetamine, 15)
 
 //////////////////////
 //  Buckwheat       //

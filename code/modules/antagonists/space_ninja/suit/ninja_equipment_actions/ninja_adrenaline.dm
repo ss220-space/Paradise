@@ -44,8 +44,8 @@
 	ninja.set_resting(FALSE, instant = TRUE)
 	ninja.get_up(instant = TRUE)
 	ninja.SetStuttering(0)
-	ninja.reagents.add_reagent("synaptizine", 20)
-	ninja.reagents.add_reagent("stimulative_agent", 20)
+	ninja.reagents.add_reagent(/datum/reagent/medicine/synaptizine, 20)
+	ninja.reagents.add_reagent(/datum/reagent/medicine/stimulative_agent, 20)
 	add_attack_logs(ninja, null, "Activated ninja-boost(adrenaline).")
 	//Никакого омнизина как в трейторском адренале. Наш адренал не хилит!
 	ninja.say(pick(boost_phrases))

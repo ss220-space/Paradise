@@ -173,7 +173,7 @@
 /obj/item/pen/sleepy/Initialize(mapload)
 	. = ..()
 	create_reagents(100)
-	reagents.add_reagent("ketamine", 100)
+	reagents.add_reagent(/datum/reagent/ketamine, 100)
 
 /*
  * (Alan) Edaggers

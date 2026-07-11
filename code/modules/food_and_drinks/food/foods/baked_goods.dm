@@ -538,7 +538,7 @@
 	if(prob(10))
 		name = "exceptional plump pie"
 		desc = "Microwave is taken by a fey mood! It has cooked an exceptional plump pie!" // What
-		reagents.add_reagent("omnizine", 5)
+		reagents.add_reagent(/datum/reagent/medicine/omnizine, 5)
 	. = ..()
 
 /obj/item/reagent_containers/food/snacks/xemeatpie
@@ -621,25 +621,25 @@
 			if(1)
 				name = "chocolate donut"
 				icon_state = "donut5"
-				reagents.add_reagent("cocoa", 2)
+				reagents.add_reagent(/datum/reagent/consumable/cocoa, 2)
 				filling_color = "#2e1300"
 				donut_sprite_type = "chocolate"
 			if(2)
 				name = "vanilla donut"
 				icon_state = "donut4"
-				reagents.add_reagent("vanilla", 2)
+				reagents.add_reagent(/datum/reagent/consumable/vanilla, 2)
 				filling_color = "#dcd8b0"
 				donut_sprite_type = "vanilla"
 			if(3)
 				name = "berry donut"
 				icon_state = "donut3"
-				reagents.add_reagent("berryjuice", 2)
+				reagents.add_reagent(/datum/reagent/consumable/drink/berryjuice, 2)
 				filling_color = "#82e4ed"
 				donut_sprite_type = "berry"
 			if(4)
 				icon_state = "donut2"
 				name = "frosted donut"
-				reagents.add_reagent("sprinkles", 2)
+				reagents.add_reagent(/datum/reagent/consumable/sprinkles, 2)
 				donut_sprite_type = "frosted"
 				filling_color = "#FF69B4"
 
@@ -660,23 +660,23 @@
 		if(1)
 			name = "chocolate donut"
 			icon_state = "donut5"
-			reagents.add_reagent("cocoa", 2)
+			reagents.add_reagent(/datum/reagent/consumable/cocoa, 2)
 			filling_color = "#2e1300"
 			donut_sprite_type = "chocolate"
 		if(2)
 			name = "vanilla donut"
 			icon_state = "donut4"
-			reagents.add_reagent("vanilla", 2)
+			reagents.add_reagent(/datum/reagent/consumable/vanilla, 2)
 			filling_color = "#dcd8b0"
 			donut_sprite_type = "vanilla"
 		if(3)
 			name = "berry donut"
 			icon_state = "donut3"
-			reagents.add_reagent("berryjuice", 2)
+			reagents.add_reagent(/datum/reagent/consumable/drink/berryjuice, 2)
 			filling_color = "#82e4ed"
 			donut_sprite_type = "berry"
 		if(4)
-			reagents.add_reagent("sprinkles", 2)
+			reagents.add_reagent(/datum/reagent/consumable/sprinkles, 2)
 
 /obj/item/reagent_containers/food/snacks/donut/chaos
 	name = "chaos donut"
@@ -688,32 +688,32 @@
 
 /obj/item/reagent_containers/food/snacks/donut/chaos/Initialize(mapload)
 	. = ..()
-	extra_reagent = pick("nutriment", "capsaicin", "frostoil", "krokodil", "plasma", "cocoa", "slimejelly", "banana", "berryjuice", "omnizine")
-	reagents.add_reagent("[extra_reagent]", 3)
+	extra_reagent = pick(/datum/reagent/consumable/nutriment, /datum/reagent/consumable/capsaicin, /datum/reagent/consumable/frostoil, /datum/reagent/krokodil, /datum/reagent/plasma, /datum/reagent/consumable/cocoa, /datum/reagent/slimejelly, /datum/reagent/consumable/drink/banana, /datum/reagent/consumable/drink/berryjuice, /datum/reagent/medicine/omnizine)
+	reagents.add_reagent(extra_reagent, 3)
 	if(prob(30))
 		switch(rand(1,4))
 			if(1)
 				name = "chocolate chaos donut"
 				icon_state = "donut5"
-				reagents.add_reagent("cocoa", 2)
+				reagents.add_reagent(/datum/reagent/consumable/cocoa, 2)
 				filling_color = "#2e1300"
 				donut_sprite_type = "chocolate"
 			if(2)
 				name = "vanilla chaos donut"
 				icon_state = "donut4"
-				reagents.add_reagent("vanilla", 2)
+				reagents.add_reagent(/datum/reagent/consumable/vanilla, 2)
 				filling_color = "#dcd8b0"
 				donut_sprite_type = "vanilla"
 			if(3)
 				name = "berry chaos donut"
 				icon_state = "donut3"
-				reagents.add_reagent("berryjuice", 2)
+				reagents.add_reagent(/datum/reagent/consumable/drink/berryjuice, 2)
 				filling_color = "#82e4ed"
 				donut_sprite_type = "berry"
 			if(4)
 				icon_state = "donut2"
 				name = "frosted chaos donut"
-				reagents.add_reagent("sprinkles", 2)
+				reagents.add_reagent(/datum/reagent/consumable/sprinkles, 2)
 				donut_sprite_type = "frosted"
 				filling_color = "#FF69B4"
 
@@ -721,7 +721,7 @@
 	name = "jelly donut"
 	desc = "You jelly?"
 	icon_state = "jdonut1"
-	extra_reagent = "berryjuice"
+	extra_reagent = /datum/reagent/consumable/drink/berryjuice
 	donut_sprite_type = "jelly"
 	randomized_sprinkles = 0
 	tastes = list("jelly" = 1, "donut" = 10)
@@ -729,41 +729,41 @@
 /obj/item/reagent_containers/food/snacks/donut/jelly/Initialize(mapload)
 	. = ..()
 	if(extra_reagent)
-		reagents.add_reagent("[extra_reagent]", 3)
+		reagents.add_reagent(extra_reagent, 3)
 	if(prob(30))
 		switch(rand(1,4))
 			if(1)
 				name = "chocolate jelly donut"
 				icon_state = "jdonut5"
-				reagents.add_reagent("cocoa", 2)
+				reagents.add_reagent(/datum/reagent/consumable/cocoa, 2)
 				filling_color = "#2e1300"
 				donut_sprite_type = "chocolatejelly"
 			if(2)
 				name = "vanilla jelly donut"
 				icon_state = "jdonut4"
-				reagents.add_reagent("vanilla", 2)
+				reagents.add_reagent(/datum/reagent/consumable/vanilla, 2)
 				filling_color = "#dcd8b0"
 				donut_sprite_type = "vanillajelly"
 			if(3)
 				name = "berry jelly donut"
 				icon_state = "jdonut3"
-				reagents.add_reagent("berryjuice", 2)
+				reagents.add_reagent(/datum/reagent/consumable/drink/berryjuice, 2)
 				filling_color = "#82e4ed"
 				donut_sprite_type = "berryjelly"
 			if(4)
 				icon_state = "jdonut2"
 				name = "frosted jelly donut"
-				reagents.add_reagent("sprinkles", 2)
+				reagents.add_reagent(/datum/reagent/consumable/sprinkles, 2)
 				donut_sprite_type = "frostedjelly"
 				filling_color = "#FF69B4"
 
 /obj/item/reagent_containers/food/snacks/donut/jelly/slimejelly
 	name = "slimejelly donut"
-	extra_reagent = "slimejelly"
+	extra_reagent = /datum/reagent/slimejelly
 	foodtype = TOXIC
 
 /obj/item/reagent_containers/food/snacks/donut/jelly/cherryjelly
-	extra_reagent = "cherryjelly"
+	extra_reagent = /datum/reagent/consumable/cherryjelly
 
 //////////////////////
 //		Pancakes	//
@@ -837,7 +837,7 @@
 	if(prob(10))
 		name = "exceptional plump helmet biscuit"
 		desc = "Microwave is taken by a fey mood! It has cooked an exceptional plump helmet biscuit!" // Is this a reference?
-		reagents.add_reagent("omnizine", 5)
+		reagents.add_reagent(/datum/reagent/medicine/omnizine, 5)
 	. = ..()
 
 /obj/item/reagent_containers/food/snacks/appletart

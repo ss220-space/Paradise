@@ -723,7 +723,7 @@
 
 /datum/reagents/proc/has_reagent(reagent, amount = -1)
 	for(var/datum/reagent/R in reagent_list)
-		if(R.id == reagent || R.type == reagent)
+		if(R.type == reagent)
 			if(!amount)
 				return R
 			else
@@ -746,16 +746,11 @@
 	return FALSE
 
 /datum/reagents/proc/get_reagent_amount(reagent_id)
-	if(ispath(reagent_id))
-		var/datum/reagent/found_reagent = get_reagent(reagent_id)
-		return found_reagent ? found_reagent.volume : FALSE
+	if(!ispath(reagent_id))
+		return FALSE
 
-	for(var/datum/reagent/current_reagent as anything in reagent_list)
-		if(current_reagent.id != reagent_id)
-			continue
-		return current_reagent.volume
-
-	return FALSE
+	var/datum/reagent/found_reagent = get_reagent(reagent_id)
+	return found_reagent ? found_reagent.volume : FALSE
 
 /datum/reagents/proc/get_reagents()
 	var/result = ""

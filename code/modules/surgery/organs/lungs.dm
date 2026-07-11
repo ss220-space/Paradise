@@ -529,7 +529,7 @@
 
 /obj/item/organ/internal/lungs/prepare_eat()
 	var/obj/S = ..()
-	S.reagents.add_reagent("salbutamol", 5)
+	S.reagents.add_reagent(/datum/reagent/medicine/salbutamol, 5)
 	return S
 
 /obj/item/organ/internal/lungs/cybernetic

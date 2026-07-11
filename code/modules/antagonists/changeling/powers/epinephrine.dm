@@ -23,8 +23,8 @@
 	user.setStaminaLoss(0)
 	user.set_resting(FALSE, instant = TRUE)
 	user.get_up(instant = TRUE)
-	user.reagents.add_reagent("synaptizine", 20)
-	user.reagents.add_reagent("noradrenaline", 2)
+	user.reagents.add_reagent(/datum/reagent/medicine/synaptizine, 20)
+	user.reagents.add_reagent(/datum/reagent/medicine/noradrenaline, 2)
 
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return TRUE
