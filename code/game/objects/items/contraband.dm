@@ -44,10 +44,14 @@
 
 	while(primaries > 0)
 		primaries--
-		reagents.add_reagent(pick_list(CHEMISTRY_TOOLS_FILE, "CYBERPUNK_drug_primaries"), 6)
+		var/p_drug_id = pick_list(CHEMISTRY_TOOLS_FILE, "CYBERPUNK_drug_primaries")
+		var/datum/reagent/p_drug = GLOB.chemical_reagents_list[p_drug_id]
+		reagents.add_reagent(p_drug.type, 6)
 	while(adulterants > 0)
 		adulterants--
-		reagents.add_reagent(pick_list(CHEMISTRY_TOOLS_FILE, "CYBERPUNK_drug_adulterants"), 3)
+		var/a_drug_id = pick_list(CHEMISTRY_TOOLS_FILE, "CYBERPUNK_drug_adulterants")
+		var/datum/reagent/a_drug = GLOB.chemical_reagents_list[a_drug_id]
+		reagents.add_reagent(a_drug.type, 3)
 
 /obj/item/reagent_containers/food/pill/random_drugs/on_mob_eating_effect(mob/drug_addict)
 	drug_addict.client.give_award(/datum/award/score/maintenance_pills, drug_addict) //Progresses score by one

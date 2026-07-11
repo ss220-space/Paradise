@@ -435,7 +435,7 @@
 			return
 
 		to_chat(src, span_userdanger("Вы впрыскиваете [reagent.name] из своих резервуаров в кровь [host]."))
-		host.reagents.add_reagent(reagent.id, reagent.quantity)
+		host.reagents.add_reagent(reagent.type, reagent.quantity)
 		chemicals -= reagent.chemuse
 		add_attack_logs(src, host, "injected [reagent.name]")
 

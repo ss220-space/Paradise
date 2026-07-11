@@ -181,8 +181,8 @@
 		occupant_message("Applying [to_inject] units of [R.name] to [patient].")
 		add_attack_logs(chassis.occupant, patient, "Injected with [name] containing [R], transferred [to_inject] units", R.harmless ? ATKLOG_ALMOSTALL : null)
 		var/datum/reagents/chosen_reagent = new(to_inject)
-		chosen_reagent.add_reagent(R.id, to_inject)
-		SG.reagents.remove_reagent(R.id, to_inject, TRUE)
+		chosen_reagent.add_reagent(R.type, to_inject)
+		SG.reagents.remove_reagent(R.type, to_inject, TRUE)
 		var/fraction = min(inject_amount / to_inject, 1)
 		var/method = REAGENT_INGEST
 		for(var/r_type in reagent_ingest_blacklist)
@@ -239,7 +239,7 @@
 	create_reagents(max_volume)
 	reagents.set_reacting(FALSE)
 	syringes = new
-	known_reagents = list("epinephrine" = "Эпинефрин", "charcoal" = "Активированный уголь")
+	known_reagents = list(/datum/reagent/medicine/epinephrine = "Эпинефрин", /datum/reagent/medicine/charcoal = "Активированный уголь")
 	processed_reagents = new
 
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/detach_act()
@@ -454,7 +454,7 @@
 		return
 	var/amount = synth_speed / processed_reagents.len
 	for(var/reagent in processed_reagents)
-		reagents.add_reagent(reagent,amount)
+		reagents.add_reagent(reagent, amount)
 		chassis.use_power(energy_drain)
 
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun_upgrade

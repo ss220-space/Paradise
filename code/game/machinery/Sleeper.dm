@@ -15,8 +15,8 @@
 	dir = WEST
 	interaction_flags_mouse_drop = NEED_DEXTERITY
 	var/mob/living/carbon/human/occupant = null
-	var/possible_chems = list("ephedrine", "salglu_solution", "salbutamol", "charcoal")
-	var/emergency_chems = list("ephedrine") // Desnowflaking
+	var/possible_chems = list(/datum/reagent/medicine/ephedrine, /datum/reagent/medicine/salglu_solution, /datum/reagent/medicine/salbutamol, /datum/reagent/medicine/charcoal)
+	var/emergency_chems = list(/datum/reagent/medicine/ephedrine) // Desnowflaking
 	var/amounts = list(5, 10)
 	/// Beaker loaded into the sleeper. Used for dialysis.
 	var/obj/item/reagent_containers/glass/beaker = null
@@ -247,7 +247,7 @@
 
 	var/chemicals[0]
 	for(var/re in possible_chems)
-		var/datum/reagent/temp = GLOB.chemical_reagents_list[re]
+		var/datum/reagent/temp = new re()
 		if(temp)
 			var/reagent_amount = 0
 			var/pretty_amount
@@ -267,7 +267,10 @@
 
 			pretty_amount = round(reagent_amount, 0.05)
 
-			chemicals.Add(list(list("title" = temp.name, "id" = temp.id, "commands" = list("chemical" = temp.id), "occ_amount" = reagent_amount, "pretty_amount" = pretty_amount, "injectable" = injectable, "overdosing" = overdosing, "od_warning" = caution)))
+			chemicals.Add(list(list("title" = temp.name, "id" = temp.type, "commands" = list("chemical" = temp.id), "occ_amount" = reagent_amount, "pretty_amount" = pretty_amount, "injectable" = injectable, "overdosing" = overdosing, "od_warning" = caution)))
+
+			QDEL_NULL(temp)
+
 	data["chemicals"] = chemicals
 	return data
 

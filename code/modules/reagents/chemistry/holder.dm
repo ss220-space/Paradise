@@ -906,7 +906,7 @@
 		for(var/thing  in subtypesof(/datum/reagent))
 			var/datum/reagent/R = thing
 			if(initial(R.can_synth))
-				random_reagents += initial(R.id)
+				random_reagents += R.type
 	var/picked_reagent = pick(random_reagents)
 	return picked_reagent
 

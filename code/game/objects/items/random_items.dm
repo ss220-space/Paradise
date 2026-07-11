@@ -41,11 +41,12 @@
 	. = ..()
 	var/list/possible_chems = GLOB.chemical_reagents_list.Copy()
 	possible_chems -= GLOB.blocked_chems.Copy()
-	var/datum/reagent/R = pick(possible_chems)
-	if(GLOB.rare_chemicals.Find(R))
-		reagents.add_reagent(R, 10)
+	var/random_chem_id = pick(possible_chems)
+	var/datum/reagent/random_reagent = GLOB.chemical_reagents_list[p_drug_id]
+	if(GLOB.rare_chemicals.Find(random_reagent.id))
+		reagents.add_reagent(random_reagent.type, 10)
 	else
-		reagents.add_reagent(R, rand(2, 3)*10)
+		reagents.add_reagent(random_reagent.type, rand(2, 3)*10)
 	pixel_x = rand(-10, 10)
 	pixel_y = rand(-10, 10)
 
@@ -55,11 +56,11 @@
 
 /obj/item/reagent_containers/glass/bottle/random_chem/Initialize(mapload)
 	. = ..()
-	var/R = get_random_reagent_id()
-	if(GLOB.rare_chemicals.Find(R))
-		reagents.add_reagent(R, 10)
+	var/datum/reagent/random_reagent = get_random_reagent_id()
+	if(GLOB.rare_chemicals.Find(random_reagent))
+		reagents.add_reagent(random_reagent, 10)
 	else
-		reagents.add_reagent(R, rand(2, 3)*10)
+		reagents.add_reagent(random_reagent.type, rand(2, 3)*10)
 	name = "unlabelled bottle"
 	pixel_x = rand(-10, 10)
 	pixel_y = rand(-10, 10)
