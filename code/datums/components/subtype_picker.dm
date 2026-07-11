@@ -49,13 +49,17 @@
 	built_radial_list = list()
 	name2subtype = list()
 	for(var/obj/item/subtype as anything in subtype2descriptions)
+		var/atom/placeholder = new subtype()
+		var/option_name = placeholder.declent_ru(NOMINATIVE)
+		qdel(placeholder)
 
 		var/datum/radial_menu_choice/option = new
 		option.image = image(icon = initial(subtype.icon), icon_state = initial(subtype.icon_state))
 		option.info = span_boldnotice(subtype2descriptions[subtype])
+		option.name = option_name
 
-		name2subtype[initial(subtype.name)] = subtype
-		built_radial_list += list(initial(subtype.name) = option)
+		name2subtype[subtype] = subtype
+		built_radial_list[subtype] = option
 	built_radial_list = sort_list(built_radial_list)
 
 /**
