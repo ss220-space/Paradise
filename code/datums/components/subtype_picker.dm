@@ -72,6 +72,8 @@
 		return
 
 	var/picked_subtype = name2subtype[name_of_type]
+	if(!picked_subtype)
+		return
 	var/obj/item/picked = new picked_subtype(picker.drop_location())
 	on_picked_callback?.Invoke(picked, picker)
 	SEND_SIGNAL(picked, COMSIG_ITEM_SUBTYPE_PICKER_SELECTED, target, picker)
