@@ -69,7 +69,7 @@
 
 /turf/simulated/floor/light/BeforeChange()
 	set_light_on(FALSE)
-	..()
+	return ..()
 
 /turf/simulated/floor/light/attack_hand(mob/user)
 	if(!can_modify_colour)

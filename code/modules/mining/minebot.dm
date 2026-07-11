@@ -34,7 +34,7 @@
 	healable = FALSE
 	loot = list(/obj/effect/decal/cleanable/robot_debris)
 	del_on_death = TRUE
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	light_range = 6
 	light_on = FALSE
 	weather_immunities = list(TRAIT_ASHSTORM_IMMUNE)

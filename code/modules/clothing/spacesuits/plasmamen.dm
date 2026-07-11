@@ -11,7 +11,7 @@
 	resistance_flags = FIRE_PROOF
 	light_range = 4
 	light_on = FALSE
-	light_system = MOVABLE_LIGHT_DIRECTIONAL
+	light_system = OVERLAY_LIGHT_DIRECTIONAL
 	can_toggle = TRUE
 	var/on = FALSE
 	var/smile = FALSE

@@ -6,7 +6,7 @@
 	use_power = ACTIVE_POWER_USE
 	idle_power_usage = 20
 	active_power_usage = 80
-	light_color = LIGHT_COLOR_ORANGE
+	light_color = LIGHT_COLOR_DIM_YELLOW
 	circuit = /obj/item/circuitboard/powermonitor
 	var/datum/powernet/powernet = null
 	var/datum/ui_module/power_monitor/power_monitor

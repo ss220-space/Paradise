@@ -5,9 +5,7 @@
 	id = "whiteship_home";
 	name = "Near NSS Cyberiad"
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "aaS" = (
 /obj/machinery/power/apc/directional/north,
@@ -501,9 +499,7 @@
 	name = "northwest of station";
 	width = 18
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "adL" = (
 /obj/effect/turf_decal/delivery/hollow,
@@ -4327,9 +4323,7 @@
 	name = "North-West Solars";
 	width = 11
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "asO" = (
 /obj/structure/window/reinforced{
@@ -5001,9 +4995,7 @@
 	name = "pod3 home dock";
 	width = 5
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "avc" = (
 /obj/effect/decal/cleanable/dirt,
@@ -7594,9 +7586,7 @@
 	name = "fore bay 1";
 	width = 9
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "aFl" = (
 /obj/structure/cable{
@@ -14889,9 +14879,7 @@
 	name = "Near Cyberiad Arrivals";
 	width = 11
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "bkZ" = (
 /turf/simulated/floor/plasteel{
@@ -24919,9 +24907,7 @@
 	name = "port bay 5 at Cyberiad";
 	width = 15
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "ccY" = (
 /obj/machinery/door/firedoor,
@@ -33050,6 +33036,9 @@
 	id = "wloop_atm_meter";
 	name = "Waste Loop"
 	},
+/obj/machinery/camera{
+	c_tag = "Atmospherics North-East"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/distribution)
 "cNa" = (
@@ -40642,9 +40631,7 @@
 	name = "emergency evac bay";
 	width = 29
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "drN" = (
 /obj/machinery/porta_turret{
@@ -41953,9 +41940,7 @@
 	name = "Station Church dock";
 	width = 10
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "dRk" = (
 /obj/item/cigbutt{
@@ -48079,9 +48064,7 @@
 	name = "mining shuttle bay";
 	width = 7
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "grQ" = (
 /obj/effect/decal/cleanable/dirt,
@@ -48442,13 +48425,13 @@
 	},
 /area/station/command/office/cmo)
 "gAN" = (
-/mob/living/carbon/human/lesser/monkey,
 /obj/structure/disposalpipe/segment{
 	dir = 6
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
+/obj/effect/mob_spawn/human/monkey,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreenfull"
 	},
@@ -50873,9 +50856,7 @@
 	name = "supply bay";
 	width = 12
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "hzW" = (
 /obj/machinery/atmospherics/unary/portables_connector{
@@ -51838,9 +51819,7 @@
 	name = "port bay 1";
 	width = 18
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "hVB" = (
 /obj/effect/spawner/window/reinforced,
@@ -57514,9 +57493,6 @@
 	name = "Дыхательную смесь в отходы"
 	},
 /obj/item/radio/intercom/directional/north,
-/obj/machinery/camera{
-	c_tag = "Atmospherics North-East"
-	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/distribution)
 "kmQ" = (
@@ -58472,9 +58448,7 @@
 	name = "southwest of station";
 	width = 21
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "kFm" = (
 /obj/structure/cable{
@@ -59457,9 +59431,7 @@
 	pixel_x = 32;
 	width = 6
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "kWo" = (
 /obj/effect/landmark/start/hangover,
@@ -60372,9 +60344,7 @@
 	name = "gamma dock";
 	width = 7
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "lqE" = (
 /obj/machinery/light,
@@ -62207,8 +62177,8 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "lZK" = (
-/mob/living/carbon/human/lesser/monkey,
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/effect/mob_spawn/human/monkey,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreenfull"
 	},
@@ -62427,7 +62397,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/livingcomplex)
 "meY" = (
-/mob/living/carbon/human/lesser/monkey,
+/obj/effect/mob_spawn/human/monkey,
 /turf/simulated/floor/engine,
 /area/station/science/chem_lab/chamber)
 "meZ" = (
@@ -65020,15 +64990,13 @@
 	},
 /area/station/engineering/storage)
 "nqt" = (
-/mob/living/carbon/human/lesser/monkey/punpun{
-	icon_state = "punpun1"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/effect/mob_spawn/human/monkey/pun,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -69968,9 +69936,7 @@
 	name = "pod2 home dock";
 	width = 5
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "puj" = (
 /obj/machinery/door/firedoor,
@@ -76019,9 +75985,7 @@
 	name = "pod4 home dock";
 	width = 5
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "rRW" = (
 /obj/effect/turf_decal/stripes/line{
@@ -80038,9 +80002,7 @@
 	name = "port bay 3";
 	width = 5
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "tyK" = (
 /obj/machinery/newscaster/security_unit/directional/south,
@@ -82779,9 +82741,7 @@
 	name = "pod1 home dock";
 	width = 5
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "uHX" = (
 /obj/effect/turf_decal/stripes/line{
@@ -86007,10 +85967,10 @@
 	},
 /area/station/maintenance/port)
 "vUY" = (
-/mob/living/carbon/human/lesser/monkey,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
+/obj/effect/mob_spawn/human/monkey,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreenfull"
 	},
@@ -91571,9 +91531,7 @@
 	name = "port bay 2";
 	width = 5
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "ygG" = (
 /obj/structure/rack{
@@ -91826,9 +91784,7 @@
 /turf/simulated/floor/bluegrid,
 /area/station/ai/satellite/chamber)
 "ylx" = (
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "ylE" = (
 /obj/machinery/light/small{

@@ -1234,6 +1234,7 @@
 	return FALSE
 
 /mob/proc/update_sight()
+	//SHOULD_CALL_PARENT(TRUE)
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	sync_lighting_plane_alpha()
 
@@ -1266,7 +1267,7 @@
 /mob/proc/sync_lighting_plane_alpha()
 	if(!hud_used)
 		return
-	for(var/atom/movable/screen/plane_master/rendering_plate/lighting/light_plane in hud_used.get_true_plane_masters(RENDER_PLANE_LIGHTING))
+	for(var/atom/movable/screen/plane_master/rendering_plate/lighting/light_plane as anything in hud_used.get_true_plane_masters(RENDER_PLANE_LIGHTING))
 		light_plane.set_alpha(lighting_alpha)
 
 	sync_nightvision_screen() //Sync up the overlay used for nightvision to the amount of see_in_dark a mob has. This needs to be called everywhere sync_lighting_plane_alpha() is.

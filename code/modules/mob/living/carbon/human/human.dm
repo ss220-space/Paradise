@@ -486,7 +486,7 @@
 		return .
 	if(!(flags & SHOCK_ILLUSION))
 		if(shock_damage * siemens_coeff >= 5)
-			forcesay()
+			INVOKE_ASYNC(src, PROC_REF(forcesay))
 		if(undergoing_cardiac_arrest() && (shock_damage * siemens_coeff >= 1) && prob(25))
 			if(set_heartattack(FALSE) && stat == CONSCIOUS)
 				to_chat(src, span_warning("Вы чувствуете, как ваше сердце вновь бьётся!"))

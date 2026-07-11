@@ -68,6 +68,7 @@
 	gender = MALE
 	density = TRUE
 	anchored = TRUE
+	blocks_emissive = EMISSIVE_BLOCK_UNIQUE
 	var/icon_state_inuse
 	var/material_drop = /obj/item/stack/sheet/metal
 	var/material_drop_amount = 5

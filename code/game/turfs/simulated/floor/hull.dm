@@ -16,8 +16,8 @@
 	var/old_turf_type = /turf/simulated/openspace // set to this one, if getting oldtype got ruined somehow
 
 /turf/simulated/floor/engine/hull/ceiling/AfterChange(flags, oldType)
-	. = ..()
 	old_turf_type = oldType
+	return ..()
 
 /turf/simulated/floor/engine/hull/reinforced
 	name = "exterior reinforced hull plating"

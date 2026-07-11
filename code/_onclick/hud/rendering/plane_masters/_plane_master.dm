@@ -1,4 +1,5 @@
 INITIALIZE_IMMEDIATE(/atom/movable/screen/plane_master)
+
 /atom/movable/screen/plane_master
 	screen_loc = "CENTER"
 	icon_state = "blank"
@@ -27,7 +28,7 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/plane_master)
 	/// Real plane here represents the "true" plane value of something, ignoring the offset required to handle lower levels
 	var/real_plane
 	/// list of planes we will relay this plane's render to
-	var/list/render_relay_planes = list(RENDER_PLANE_GAME)
+	var/list/render_relay_planes = list(RENDER_PLANE_UNLIT_GAME)
 	/// blend mode to apply to the render relay in case you dont want to use the plane_masters blend_mode
 	var/blend_mode_override
 	/// list of current relays this plane is utilizing to render
@@ -60,15 +61,19 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/plane_master)
 	/// If this plane master is outside of our visual bounds right now
 	var/is_outside_bounds = FALSE
 
+	/// Has this plane master had its offset made concrete? Avoids modifications/uses that are going to immediately break
+	var/offset_already_updated = FALSE
+
 /atom/movable/screen/plane_master/Initialize(mapload, datum/hud/hud_owner, datum/plane_master_group/home, offset = 0)
 	. = ..()
 	src.offset = offset
 	true_alpha = alpha
 	real_plane = plane
+	update_offset()
 
 	if(!set_home(home))
 		return INITIALIZE_HINT_QDEL
-	update_offset()
+
 	if(!documentation && !(istype(src, /atom/movable/screen/plane_master) || istype(src, /atom/movable/screen/plane_master/rendering_plate)))
 		stack_trace("Plane master created without a description. Document how your thing works so people will know in future, and we can display it in the debug menu")
 	if(start_hidden)
@@ -106,6 +111,7 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/plane_master)
 		render_relay_planes[i] = GET_NEW_PLANE(render_relay_planes[i], offset)
 	if(initial(render_target))
 		render_target = OFFSET_RENDER_TARGET(initial(render_target), offset)
+	offset_already_updated = TRUE
 
 /atom/movable/screen/plane_master/proc/set_alpha(new_alpha)
 	true_alpha = new_alpha
@@ -140,13 +146,10 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/plane_master)
 			return TRUE
 		our_client.screen += src
 
-		if(!(critical & PLANE_CRITICAL_NO_EMPTY_RELAY))
+		if(!(critical & PLANE_CRITICAL_NO_RELAY))
 			for(var/atom/movable/render_plane_relay/relay as anything in relays)
 				our_client.register_render_plane_relay(relay)
 			return TRUE
-		for(var/atom/movable/render_plane_relay/relay as anything in relays)
-			if(relay.critical_target)
-				our_client.register_render_plane_relay(relay)
 		return TRUE
 
 	if(!our_client)
@@ -199,39 +202,39 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/plane_master)
 		hide_plane(our_mob)
 	else
 		unhide_plane(our_mob)
+
 /atom/movable/screen/plane_master/proc/outside_bounds(mob/relevant)
 	if(force_hidden || is_outside_bounds)
 		return
 	is_outside_bounds = TRUE
 	// If we're of critical importance, AND we're below the rendering layer
 	if(critical & PLANE_CRITICAL_DISPLAY)
-		if(!(critical & PLANE_CRITICAL_NO_EMPTY_RELAY))
+		// We here assume that your render target starts with *
+		if(critical & PLANE_CRITICAL_CUT_RENDER && render_target)
+			render_target = copytext_char(render_target, 2)
+		if(!(critical & PLANE_CRITICAL_NO_RELAY))
 			return
 		var/client/our_client = relevant.client
 		if(our_client)
 			for(var/atom/movable/render_plane_relay/relay as anything in relays)
-				if(!relay.critical_target)
-					our_client.screen -= relay
+				our_client.screen -= relay
 
-		// We here assume that your render target starts with *
-		if(render_target)
-			render_target = copytext_char(render_target, 2)
 		return
 	hide_from(relevant)
 
 /atom/movable/screen/plane_master/proc/inside_bounds(mob/relevant)
 	is_outside_bounds = FALSE
 	if(critical & PLANE_CRITICAL_DISPLAY)
-		if(!(critical & PLANE_CRITICAL_NO_EMPTY_RELAY))
+		// We here assume that your render target starts with *
+		if(critical & PLANE_CRITICAL_CUT_RENDER && render_target)
+			render_target = "*[render_target]"
+
+		if(!(critical & PLANE_CRITICAL_NO_RELAY))
 			return
 		var/client/our_client = relevant.client
 		if(our_client)
 			for(var/atom/movable/render_plane_relay/relay as anything in relays)
-				if(!relay.critical_target)
-					our_client.screen += relay
+				our_client.screen += relay
 
-		// We here assume that your render target starts with *
-		if(render_target)
-			render_target = "*[render_target]"
 		return
 	show_to(relevant)
