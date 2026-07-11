@@ -121,7 +121,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/structure/window/add_debris_element()
-	AddElement(/datum/element/debris, DEBRIS_GLASS, -40, 5)
+	generate_debris_handler(DEBRIS_GLASS, -40, 5)
 
 /obj/structure/window/mouse_drop_receive(atom/dropping, mob/user, params)
 	. = ..()
@@ -621,7 +621,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 /obj/machinery/button/windowtint
 	name = "window tint control"
 	icon = 'icons/obj/engines_and_power/power.dmi'
-	icon_state = "light0"
+	icon_state = "light-off"
 	desc = "Пульт дистанционного управления для поляризованных окон."
 	anchored = TRUE
 	var/range = 7
@@ -682,7 +682,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		toggle_tint()
 
 /obj/machinery/button/windowtint/update_icon_state()
-	icon_state = "light[active]"
+	icon_state = "light[active ? "-on" : "-off"]"
 
 /obj/structure/window/plasmabasic
 	name = "plasma window"

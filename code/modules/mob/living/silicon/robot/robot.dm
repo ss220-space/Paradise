@@ -18,8 +18,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	bubble_icon = "robot"
 	universal_understand = TRUE
 	deathgasp_on_death = TRUE
+
 	blocks_emissive = EMISSIVE_BLOCK_UNIQUE
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT_DIRECTIONAL
 	light_on = FALSE
 
 	hud_possible = list(SPECIALROLE_HUD, DIAG_STAT_HUD, DIAG_HUD, DIAG_BATT_HUD, DIAG_AISHELL_STAT_HUD)
@@ -1381,9 +1382,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			add_overlay(head_icon)
 
 	update_fire()
-
-	if(blocks_emissive)
-		add_overlay(get_emissive_block())
 
 	if(module)
 		module.set_appearance(src)

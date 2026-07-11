@@ -7,7 +7,7 @@
 	name = "compact remote"
 	icon = 'icons/obj/circuits.dmi'
 	icon_state = "setup_small_simple"
-	light_system = MOVABLE_LIGHT_DIRECTIONAL
+	light_system = OVERLAY_LIGHT_DIRECTIONAL
 	light_on = FALSE
 	w_class = WEIGHT_CLASS_TINY
 

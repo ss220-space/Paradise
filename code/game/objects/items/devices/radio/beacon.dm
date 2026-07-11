@@ -9,7 +9,7 @@
 	slot_flags = ITEM_SLOT_BELT
 	throw_range = 9
 	w_class = WEIGHT_CLASS_SMALL
-	materials = list(MAT_METAL = 200, MAT_GLASS = 100)
+	materials = list(MAT_METAL = 150, MAT_GLASS = 100)
 
 	var/syndicate = FALSE
 	var/area_bypass = FALSE

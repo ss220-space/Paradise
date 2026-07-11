@@ -169,6 +169,9 @@
 		return
 	var/make_blob = TRUE //can we make a blob?
 
+	if(!T.GetComponent(/datum/component/blob_turf_consuming))
+		T.add_blob_consume_component()
+
 	if(isspaceturf(T) && !(locate(/obj/structure/lattice) in T))
 		if(SEND_SIGNAL(T, COMSIG_TRY_CONSUME_TURF) & COMPONENT_CANT_CONSUME)
 			make_blob = FALSE

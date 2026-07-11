@@ -9,7 +9,7 @@
 	var/can_see_food = FALSE
 	/// Empty list == all species allowed
 	var/list/species_restrictions
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	light_on = FALSE
 
 	lefthand_file = 'icons/mob/inhands/organ_lefthand.dmi'

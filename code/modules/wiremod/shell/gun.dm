@@ -11,7 +11,7 @@
 	icon_state = "setup_gun"
 	ammo_type = list(/obj/item/ammo_casing/energy/wiremod_gun)
 	cell_type = /obj/item/stock_parts/cell/emproof/wiremod_gun
-	light_system = MOVABLE_LIGHT_DIRECTIONAL
+	light_system = OVERLAY_LIGHT_DIRECTIONAL
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL
 	clumsy_check = FALSE
 	needs_permit = FALSE

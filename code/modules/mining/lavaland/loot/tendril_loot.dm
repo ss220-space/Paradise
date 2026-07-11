@@ -257,7 +257,7 @@
 	var/obj/effect/wisp/wisp
 	var/sight_flags = SEE_MOBS
 	var/lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	light_on = FALSE
 
 /obj/item/wisp_lantern/get_ru_names()

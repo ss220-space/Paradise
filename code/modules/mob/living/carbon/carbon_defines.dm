@@ -8,6 +8,7 @@
 	pull_hand = null
 	throw_range = 3
 	looting_icon_mode = LOOT_ICON_FLAT_ICON
+	blocks_emissive = EMISSIVE_BLOCK_NONE
 	var/list/stomach_contents
 	var/list/processing_patches
 	var/list/internal_organs	= list()

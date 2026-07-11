@@ -68,8 +68,6 @@
 	blob_head_overlay.color = LAZYACCESS(atom_colours, FIXED_COLOUR_PRIORITY) || COLOR_WHITE
 	color = initial(color) // reversing what our component did lol, but we needed the value for the overlay
 	. |= blob_head_overlay
-	if(blocks_emissive)
-		. |= get_emissive_block()
 
 /// Create an explosion of spores on death
 /mob/living/simple_animal/hostile/blob_minion/zombie/proc/death_burst()

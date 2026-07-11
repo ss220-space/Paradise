@@ -1,3 +1,4 @@
+// MARK: Click Catcher
 /atom/movable/screen/plane_master/clickcatcher
 	name = "Click Catcher"
 	documentation = "Contains the screen object we use as a backdrop to catch clicks on portions of the screen that would otherwise contain nothing else. \
@@ -19,16 +20,51 @@
 	if(new_off > offset)
 		hide_plane(home?.our_hud?.mymob)
 
+// MARK: Parallax whitifier
 /atom/movable/screen/plane_master/parallax_white
 	name = "Parallax whitifier"
 	documentation = "Essentially a backdrop for the parallax plane. We're rendered just below it, so we'll be multiplied by its well, parallax.\
 		<br>If you want something to look as if it has parallax on it, draw it to this plane."
 	plane = PLANE_SPACE
 	appearance_flags = PLANE_MASTER|NO_CLIENT_COLOR
-	render_relay_planes = list(RENDER_PLANE_GAME, EMISSIVE_MASK_PLANE)
+	render_relay_planes = list(RENDER_PLANE_UNLIT_GAME, RENDER_PLANE_LIGHT_MASK)
 	critical = PLANE_CRITICAL_FUCKO_PARALLAX // goes funny when touched. no idea why I don't trust byond
 
-///Contains space parallax
+/atom/movable/screen/plane_master/parallax_white/Initialize(mapload, datum/hud/hud_owner, datum/plane_master_group/home, offset)
+	. = ..()
+	add_relay_to(GET_NEW_PLANE(RENDER_PLANE_EMISSIVE, offset), relay_layer = EMISSIVE_SPACE_LAYER)
+
+/atom/movable/screen/plane_master/parallax_white/set_home(datum/plane_master_group/home)
+	. = ..()
+	if(home)
+		RegisterSignal(home, COMSIG_GROUP_HUD_CHANGED, PROC_REF(hud_changed))
+		hud_changed(null, null, home.our_hud)
+
+/atom/movable/screen/plane_master/parallax_white/proc/hud_changed(datum/source, datum/hud/old_hud, datum/hud/new_hud)
+	SIGNAL_HANDLER
+	if(old_hud)
+		UnregisterSignal(old_hud, list(SIGNAL_ADDTRAIT(TRAIT_PARALLAX_DISPLAYED), SIGNAL_REMOVETRAIT(TRAIT_PARALLAX_DISPLAYED)), PROC_REF(parallax_updated))
+	if(new_hud)
+		RegisterSignals(new_hud, list(SIGNAL_ADDTRAIT(TRAIT_PARALLAX_DISPLAYED), SIGNAL_REMOVETRAIT(TRAIT_PARALLAX_DISPLAYED)), PROC_REF(parallax_updated))
+		parallax_updated(new_hud)
+
+/atom/movable/screen/plane_master/parallax_white/proc/parallax_updated(datum/source)
+	SIGNAL_HANDLER
+	if(isnull(home.our_hud?.mymob))
+		return
+	if(HAS_TRAIT(home.our_hud, TRAIT_PARALLAX_DISPLAYED))
+		// Gives parallax a fullwhite backdrop to multiply against
+		color = list(
+			0, 0, 0, 0,
+			0, 0, 0, 0,
+			0, 0, 0, 0,
+			1, 1, 1, 1,
+			0, 0, 0, 0
+			)
+	else
+		color = initial(color)
+
+// MARK: Parallax
 /atom/movable/screen/plane_master/parallax
 	name = "Parallax"
 	documentation = "Contains parallax, or to be more exact the screen objects that hold parallax.\
@@ -45,9 +81,33 @@
 	. = ..()
 	if(offset != 0)
 		// You aren't the source? don't change yourself
+		critical = PLANE_CRITICAL_FUCKO_PARALLAX
 		return
 	RegisterSignal(SSmapping, COMSIG_PLANE_OFFSET_INCREASE, PROC_REF(on_offset_increase))
 	offset_increase(0, SSmapping.max_plane_offset)
+
+/atom/movable/screen/plane_master/parallax/set_home(datum/plane_master_group/home)
+	. = ..()
+	if(home)
+		RegisterSignal(home, COMSIG_GROUP_HUD_CHANGED, PROC_REF(hud_changed))
+		hud_changed(null, null, home.our_hud)
+
+/atom/movable/screen/plane_master/parallax/proc/hud_changed(datum/source, datum/hud/old_hud, datum/hud/new_hud)
+	SIGNAL_HANDLER
+	if(old_hud)
+		UnregisterSignal(old_hud, list(SIGNAL_ADDTRAIT(TRAIT_PARALLAX_DISPLAYED), SIGNAL_REMOVETRAIT(TRAIT_PARALLAX_DISPLAYED)), PROC_REF(parallax_updated))
+	if(new_hud)
+		RegisterSignals(new_hud, list(SIGNAL_ADDTRAIT(TRAIT_PARALLAX_DISPLAYED), SIGNAL_REMOVETRAIT(TRAIT_PARALLAX_DISPLAYED)), PROC_REF(parallax_updated))
+		parallax_updated(new_hud)
+
+/atom/movable/screen/plane_master/parallax/proc/parallax_updated(datum/source)
+	SIGNAL_HANDLER
+	if(isnull(home.our_hud?.mymob))
+		return
+	if(HAS_TRAIT(home.our_hud, TRAIT_PARALLAX_DISPLAYED))
+		show_to(home.our_hud.mymob)
+	else
+		hide_from(home.our_hud.mymob)
 
 /atom/movable/screen/plane_master/parallax/proc/on_offset_increase(datum/source, old_offset, new_offset)
 	SIGNAL_HANDLER
@@ -63,7 +123,7 @@
 // Hacky shit to ensure parallax works in perf mode
 /atom/movable/screen/plane_master/parallax/outside_bounds(mob/relevant)
 	if(offset == 0)
-		remove_relay_from(GET_NEW_PLANE(RENDER_PLANE_GAME, 0))
+		remove_relay_from(GET_NEW_PLANE(RENDER_PLANE_UNLIT_GAME, 0))
 		is_outside_bounds = TRUE // I'm sorry :(
 		return
 	// If we can't render, and we aren't the bottom layer, don't render us
@@ -78,7 +138,7 @@
 
 /atom/movable/screen/plane_master/parallax/inside_bounds(mob/relevant)
 	if(offset == 0)
-		add_relay_to(GET_NEW_PLANE(RENDER_PLANE_GAME, 0))
+		add_relay_to(GET_NEW_PLANE(RENDER_PLANE_UNLIT_GAME, 0))
 		is_outside_bounds = FALSE
 		return
 	// Always readd, just in case we lost it
@@ -91,37 +151,101 @@
 	// If we're outside bounds AND we're the 0th plane, we need to show cause parallax is hacked to hell
 	return offset != 0 && is_outside_bounds
 
+// MARK: Displacement
+/atom/movable/screen/plane_master/displacement
+	name = "Displacement"
+	documentation = "Ok so this one's fun. Basically, we want to be able to distort the game plane when a grav annom or similar is around.\
+		<br>So we draw the pattern we want to use to this plane, and it's then used as a render target by a distortion filter on the game plane.\
+		<br>Note the blend mode and lack of relay targets. This plane exists only to distort, it's never rendered anywhere."
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	plane = DISPLACEMENT_PLANE
+	appearance_flags = PLANE_MASTER|NO_CLIENT_COLOR
+	blend_mode = BLEND_ADD
+	render_target = DISPLACEMENT_RENDER_TARGET
+	render_relay_planes = list()
+	// We start out hidden as we do not need to render when there's no distortion on our level
+	start_hidden = TRUE
+
+/atom/movable/screen/plane_master/displacement/Initialize(mapload, datum/hud/hud_owner, datum/plane_master_group/home, offset)
+	. = ..()
+	RegisterSignal(GLOB, SIGNAL_ADDTRAIT(TRAIT_DISTORTION_IN_USE(offset)), PROC_REF(distortion_enabled))
+	RegisterSignal(GLOB, SIGNAL_REMOVETRAIT(TRAIT_DISTORTION_IN_USE(offset)), PROC_REF(distortion_disabled))
+	if(HAS_TRAIT(GLOB, TRAIT_DISTORTION_IN_USE(offset)))
+		distortion_enabled()
+
+/atom/movable/screen/plane_master/displacement/proc/distortion_enabled(datum/source)
+	SIGNAL_HANDLER
+	var/mob/our_mob = home?.our_hud?.mymob
+	unhide_plane(our_mob)
+
+/atom/movable/screen/plane_master/displacement/proc/distortion_disabled(datum/source)
+	SIGNAL_HANDLER
+	hide_plane()
+
+// MARK: Floor
 /atom/movable/screen/plane_master/floor
 	name = "Floor"
 	documentation = "The well, floor. This is mostly used as a sorting mechanism, but it also lets us create a \"border\" around the game world plane, so its drop shadow will actually work."
 	plane = FLOOR_PLANE
-	render_relay_planes = list(RENDER_PLANE_GAME, EMISSIVE_MASK_PLANE)
+	render_relay_planes = list(RENDER_PLANE_UNLIT_GAME, RENDER_PLANE_LIGHT_MASK)
 
+/atom/movable/screen/plane_master/floor/Initialize(mapload, datum/hud/hud_owner, datum/plane_master_group/home, offset)
+	. = ..()
+	add_relay_to(GET_NEW_PLANE(RENDER_PLANE_EMISSIVE, offset), relay_layer = EMISSIVE_FLOOR_LAYER, relay_color = GLOB.em_block_color)
+
+// MARK: Transparent Floor
+/atom/movable/screen/plane_master/transparent_floor
+	name = "Transparent Floor"
+	documentation = "Really just openspace, stuff that is a turf but has no color or alpha whatsoever.\
+		<br>We use this to draw to just the light mask plane, cause if it's not there we get holes of blackness over openspace"
+	plane = TRANSPARENT_FLOOR_PLANE
+	render_relay_planes = list(RENDER_PLANE_LIGHT_MASK)
+	// Needs to be critical or it uh, it'll look white
+	critical = PLANE_CRITICAL_DISPLAY|PLANE_CRITICAL_NO_RELAY
+
+// MARK: Wall
 /atom/movable/screen/plane_master/wall
 	name = "Wall"
 	documentation = "Holds all walls. We render this onto the game world. Separate so we can use this + space and floor planes as a guide for where byond blackness is NOT."
 	plane = WALL_PLANE
-	render_relay_planes = list(RENDER_PLANE_GAME_WORLD, EMISSIVE_MASK_PLANE)
+	render_relay_planes = list(RENDER_PLANE_GAME_WORLD, RENDER_PLANE_LIGHT_MASK)
 
+/atom/movable/screen/plane_master/wall/Initialize(mapload, datum/hud/hud_owner, datum/plane_master_group/home, offset)
+	. = ..()
+	add_relay_to(GET_NEW_PLANE(RENDER_PLANE_EMISSIVE, offset), relay_layer = EMISSIVE_WALL_LAYER, relay_color = GLOB.em_block_color)
+
+// MARK: Below Game
 /atom/movable/screen/plane_master/below_game
-	name = "Под основными объектами"
-	documentation = "Содержит то, что должно быть выше турфов, но ниже большинства игровых объектов. \
-					Используется в случаях, когда спрайт объекта вылазит за свою плитку и перекрывает спрайты находящиеся выше."
+	name = "Below Game" // its
+	documentation = "It contains what should be above the turfs, but below most of the game objects. \
+		Is used in cases where the sprite of an object climbs behind its tile and overlaps the sprites above."
 	plane = BELOW_GAME_PLANE
 	render_relay_planes = list(RENDER_PLANE_GAME_WORLD)
 
+// MARK: Game
 /atom/movable/screen/plane_master/game
-	name = "Lower game world"
-	documentation = "Holds anything that draws just above floor. Runes, crayons and etc."
+	name = "Game"
+	documentation = "Holds most non floor/wall things. Anything on this plane \"wants\" to interlayer depending on position."
 	plane = GAME_PLANE
 	render_relay_planes = list(RENDER_PLANE_GAME_WORLD)
 
+// MARK: Upper Game
 /atom/movable/screen/plane_master/game_world_above
 	name = "Upper Game"
 	documentation = "For stuff you want to draw like the game plane, but not ever below its contents"
 	plane = ABOVE_GAME_PLANE
 	render_relay_planes = list(RENDER_PLANE_GAME_WORLD)
 
+// MARK: Seethrough
+/atom/movable/screen/plane_master/seethrough
+	name = "Seethrough"
+	documentation = "Holds the seethrough versions (done using image overrides) of large objects. Mouse transparent, so you can click through them."
+	plane = SEETHROUGH_PLANE
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	render_relay_planes = list(RENDER_PLANE_GAME_WORLD)
+	start_hidden = TRUE
+
+// MARK: Default
 /**
  * Plane master that byond will by default draw to
  * Shouldn't be used, exists to prevent people using plane 0
@@ -138,11 +262,13 @@
 	multiz_scaled = FALSE
 	start_hidden = TRUE // Doesn't DO anything, exists to hold this place
 
+// MARK: Area
 /atom/movable/screen/plane_master/area
 	name = "Area"
 	documentation = "Holds the areas themselves, which ends up meaning it holds any overlays/effects we apply to areas. NOT snow or rad storms, those go on above lighting"
 	plane = AREA_PLANE
 
+// MARK: Weather
 /atom/movable/screen/plane_master/weather
 	name = "Weather"
 	documentation = "Holds the main tiling 32x32 sprites of weather. We mask against walls that are on the edge of weather effects."
@@ -155,80 +281,90 @@
 		return
 	home.AddComponent(/datum/component/hide_weather_planes, src)
 
+// MARK: Massive object
 /atom/movable/screen/plane_master/massive_obj
 	name = "Massive object"
 	documentation = "Huge objects need to render above everything else on the game plane, otherwise they'd well, get clipped and look not that huge. This does that."
 	plane = MASSIVE_OBJ_PLANE
 
+// MARK: Point
 /atom/movable/screen/plane_master/point
 	name = "Point"
 	documentation = "I mean like, what do you want me to say? Points draw over pretty much everything else, so they get their own plane. Remember we layer render relays to draw planes in their proper order on render plates."
 	plane = POINT_PLANE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
-///Contains all turf lighting
-/atom/movable/screen/plane_master/lighting
-	name = "lighting plane master"
+// MARK: Turf Lighting
+/// Contains all turf lighting
+/atom/movable/screen/plane_master/turf_lighting
+	name = "Turf Lighting"
 	documentation = "Contains all lighting drawn to turfs. Not so complex, draws directly onto the lighting plate."
 	plane = LIGHTING_PLANE
 	appearance_flags = PLANE_MASTER|NO_CLIENT_COLOR
-	render_relay_planes = list(RENDER_PLANE_LIGHTING)
+	render_relay_planes = list(RENDER_PLANE_TURF_LIGHTING)
 	blend_mode_override = BLEND_ADD
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	critical = PLANE_CRITICAL_DISPLAY
 
-/// This will not work through multiz, because of a byond bug with BLEND_MULTIPLY
-/// Bug report is up, waiting on a fix
+// MARK: Overlight light visual
+/// This will not work through multiz, because of a byond bug with BLEND_MULTIPLY.
+/// Bug report is up, waiting on a fix.
 /atom/movable/screen/plane_master/o_light_visual
 	name = "Overlight light visual"
 	documentation = "Holds overlay lighting objects, or the sort of lighting that's a well, overlay stuck to something.\
-		<br>Exists because lighting updating is really slow, and movement needs to feel smooth.\
-		<br>We draw to the game plane, and mask out space for ourselves on the lighting plane so any color we have has the chance to display."
+		<br>Exists because lighting updating is really slow, and movement needs to feel smooth (also being an overlay lets us muck with it easier)."
 	plane = O_LIGHTING_VISUAL_PLANE
 	appearance_flags = PLANE_MASTER|NO_CLIENT_COLOR
-	render_target = O_LIGHTING_VISUAL_RENDER_TARGET
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	blend_mode = BLEND_MULTIPLY
+	blend_mode = BLEND_ADD
+	render_relay_planes = list(RENDER_PLANE_O_LIGHTING)
 	critical = PLANE_CRITICAL_DISPLAY
 
-/**
- * Handles emissive overlays and emissive blockers.
- */
-/atom/movable/screen/plane_master/emissive
-	name = "Emissive"
-	documentation = "This system works by exploiting BYONDs color matrix filter to use layers to handle emissive blockers.\
-		<br>Emissive overlays are pasted with an atom color that converts them to be entirely some specific color.\
-		<br>Emissive blockers are pasted with an atom color that converts them to be entirely some different color.\
-		<br>Emissive overlays and emissive blockers are put onto the same plane (This one).\
-		<br>The layers for the emissive overlays and emissive blockers cause them to mask eachother similar to normal BYOND objects.\
-		<br>A color matrix filter is applied to the emissive plane to mask out anything that isn't whatever the emissive color is.\
-		<br>This is then used to alpha mask the lighting plane."
-	plane = EMISSIVE_PLANE
-	appearance_flags = PLANE_MASTER|NO_CLIENT_COLOR
-	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	render_target = EMISSIVE_RENDER_TARGET
-	render_relay_planes = list()
-	critical = PLANE_CRITICAL_DISPLAY
-
-/atom/movable/screen/plane_master/emissive/Initialize(mapload, datum/hud/hud_owner, datum/plane_master_group/home, offset)
-	. = ..()
-	add_filter("emissive_mask", 1, alpha_mask_filter(render_source = OFFSET_RENDER_TARGET(EMISSIVE_MASK_RENDER_TARGET, offset)))
-	add_filter("em_block_masking", 2, color_matrix_filter(GLOB.em_mask_matrix))
-
+// MARK: Above lighting
 /atom/movable/screen/plane_master/above_lighting
 	name = "Above lighting"
 	plane = ABOVE_LIGHTING_PLANE
 	documentation = "Anything on the game plane that needs a space to draw on that will be above the lighting plane.\
 		<br>Mostly little alerts and effects, also sometimes contains things that are meant to look as if they glow."
+	render_relay_planes = list(RENDER_PLANE_GAME)
 
+// MARK: Emissive
+/**
+ * Handles emissive overlays and emissive blockers.
+ */
+/atom/movable/screen/plane_master/emissive
+	name = "Emissive"
+	documentation = "Holds things that will be used to mask the lighting plane later on. Masked by the Emissive Mask plane to ensure we don't emiss out under a wall.\
+		<br>Relayed onto the Emissive render plane to do the actual masking of lighting, since we need to be transformed and other emissive stuff needs to be transformed too.\
+		<br>Don't want to double scale now."
+	plane = EMISSIVE_PLANE
+	appearance_flags = PLANE_MASTER|NO_CLIENT_COLOR
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	render_relay_planes = list()
+	critical = PLANE_CRITICAL_DISPLAY
+
+/atom/movable/screen/plane_master/emissive/Initialize(mapload, datum/hud/hud_owner, datum/plane_master_group/home, offset)
+	. = ..()
+	/// Okay, so what we're doing here is making all emissives convert to white for actual emissive masking (i.e. adding light so objects glow)
+	add_relay_to(GET_NEW_PLANE(RENDER_PLANE_EMISSIVE, offset), relay_color = list(1,1,1,0, 1,1,1,0, 0,0,0,0, 0,0,0,1, 0,0,0,0))
+	/// But for the bloom plate we convert only the red color into full white, this way we can have emissives in green channel unaffected by bloom
+	/// which allows us to selectively bloom only a part of our emissives
+	add_relay_to(GET_NEW_PLANE(RENDER_PLANE_EMISSIVE_BLOOM, offset), relay_color = list(255,255,255,0, 0,0,0,0, 0,0,0,0, 0,0,0,1, 0,0,0,0))
+	add_relay_to(GET_NEW_PLANE(RENDER_PLANE_EMISSIVE_BLOOM_MASK, offset), relay_color = list(1,1,1,1, 0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0))
+	// Blue channel is dedicated to specular, i.e. our bootleg implementation of shiny objects
+	// We map it onto alpha so we can use the mask plate in an alpha mask filter to cut out only the shiny bits
+	add_relay_to(GET_NEW_PLANE(RENDER_PLANE_SPECULAR_MASK, offset), relay_color = list(0,0,0,0, 0,0,0,0, 0,0,0,1, 0,0,0,0, 1,1,1,0))
+
+// MARK: Pipecrawl
 /atom/movable/screen/plane_master/pipecrawl
 	name = "Pipecrawl"
 	documentation = "Holds pipecrawl images generated during well, pipecrawling.\
 		<br>Has a few effects and a funky color matrix designed to make things a bit more visually readable."
 	plane = PIPECRAWL_IMAGES_PLANE
 	start_hidden = TRUE
+	render_relay_planes = list(RENDER_PLANE_GAME)
 
-/atom/movable/screen/plane_master/pipecrawl/Initialize(mapload, datum/hud/hud_owner, datum/plane_master_group/home, offset)
+/atom/movable/screen/plane_master/pipecrawl/Initialize(mapload, datum/hud/hud_owner)
 	. = ..()
 	// Makes everything on this plane slightly brighter
 	// Has a nice effect, makes thing stand out
@@ -237,24 +373,45 @@
 	add_filter("pipe_dropshadow", 1, drop_shadow_filter(x = -1, y= -1, size = 1, color = COLOR_HALF_TRANSPARENT_BLACK))
 	mirror_parent_hidden()
 
+// MARK: Camera static
 /atom/movable/screen/plane_master/camera_static
 	name = "Camera static"
 	documentation = "Holds camera static images. Usually only visible to people who can well, see static.\
 		<br>We use images rather then vis contents because they're lighter on maptick, and maptick sucks butt."
 	plane = CAMERA_STATIC_PLANE
-	start_hidden = TRUE
+	render_relay_planes = list(RENDER_PLANE_GAME)
 
-/atom/movable/screen/plane_master/camera_static/show_to(mob/mymob)
-	// If we aren't an AI, we have no need for this plane master (most of the time, ai eyes are weird and annoying)
-	if(force_hidden && isAI(mymob))
-		unhide_plane(mymob)
+/atom/movable/screen/plane_master/camera_static/set_home(datum/plane_master_group/home)
 	. = ..()
-	if(!.)
-		return
-	if(isAI(mymob))
-		return
-	return FALSE
+	if(home)
+		RegisterSignal(home, COMSIG_GROUP_HUD_CHANGED, PROC_REF(hud_changed))
+		hud_changed(null, null, home.our_hud)
 
+/atom/movable/screen/plane_master/camera_static/proc/hud_changed(datum/source, datum/hud/old_hud, datum/hud/new_hud)
+	SIGNAL_HANDLER
+	if(old_hud)
+		UnregisterSignal(old_hud, COMSIG_HUD_EYE_CHANGED, PROC_REF(eye_changed))
+	if(new_hud)
+		RegisterSignal(new_hud, COMSIG_HUD_EYE_CHANGED, PROC_REF(eye_changed))
+		eye_changed(new_hud, null, new_hud.mymob?.canon_client?.eye)
+
+/atom/movable/screen/plane_master/camera_static/proc/eye_changed(datum/hud/source, atom/old_eye, atom/new_eye)
+	SIGNAL_HANDLER
+
+	//if(istype(new_eye, /obj/effect/landmark/ai_multicam_room))
+	//	if(force_hidden)
+	//		unhide_plane(source.mymob)
+	//	return
+
+	if(!isAIEye(new_eye))
+		if(!force_hidden)
+			hide_plane(source.mymob)
+		return
+
+	if(force_hidden)
+		unhide_plane(source.mymob)
+
+// MARK: High Game
 /atom/movable/screen/plane_master/high_game
 	name = "High Game"
 	documentation = "Holds anything that wants to be displayed above the rest of the game plane, and doesn't want to be clickable. \
@@ -262,13 +419,16 @@
 		<br>Really only exists for its layering potential, we don't use this for any vfx"
 	plane = HIGH_GAME_PLANE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	render_relay_planes = list(RENDER_PLANE_GAME)
 
+// MARK: Ghost
 /atom/movable/screen/plane_master/ghost
 	name = "Ghost"
-	documentation = "Ghosts draw here, so they don't get mixed up in the visuals of the game world. Note, this is not not how we HIDE ghosts from people, that's done with invisible and see_invisible."
+	documentation = "Ghosts draw here, so they don't get mixed up in the visuals of the game world. Note, this is not how we HIDE ghosts from people, that's done with invisible and see_invisible."
 	plane = GHOST_PLANE
 	render_relay_planes = list(RENDER_PLANE_NON_GAME)
 
+// MARK: Fullscreen
 /atom/movable/screen/plane_master/fullscreen
 	name = "Fullscreen"
 	documentation = "Holds anything that applies to or above the full screen. \
@@ -279,6 +439,7 @@
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	offsetting_flags = BLOCKS_PLANE_OFFSETTING|OFFSET_RELAYS_MATCH_HIGHEST
 
+// MARK: Runechat
 /atom/movable/screen/plane_master/runechat
 	name = "Runechat"
 	documentation = "Holds runechat images, that text that pops up when someone say something. Uses a dropshadow to well, look nice."
@@ -291,8 +452,11 @@
 		return
 	remove_filter("AO")
 	if(istype(mymob) && (mymob.canon_client?.prefs.toggles & PREFTOGGLE_AMBIENT_OCCLUSION))
-		add_filter("AO", 1, drop_shadow_filter(x = 0, y = -2, size = 4, color = "#04080FAA"))
+		// We use outlines instead of drop shadow due to how extremely expensive it is, and there's no reason to use it for runechat
+		// which already has high drop shadow transparency at just 32 alpha, so outline does the job good enough
+		add_filter("AO", 1, outline_filter(size = 2, color = "#04080F20", flags = OUTLINE_SQUARE))
 
+// MARK: Balloon chat
 /atom/movable/screen/plane_master/balloon_chat
 	name = "Balloon chat"
 	documentation = "Holds ballon chat images, those little text bars that pop up for a second when you do some things. NOT runechat."
@@ -300,6 +464,7 @@
 	appearance_flags = PLANE_MASTER|NO_CLIENT_COLOR
 	render_relay_planes = list(RENDER_PLANE_NON_GAME)
 
+// MARK: HUD
 /atom/movable/screen/plane_master/hud
 	name = "HUD"
 	documentation = "Contains anything that want to be rendered on the hud. Typically is just screen elements."
@@ -308,6 +473,7 @@
 	render_relay_planes = list(RENDER_PLANE_NON_GAME)
 	offsetting_flags = BLOCKS_PLANE_OFFSETTING|OFFSET_RELAYS_MATCH_HIGHEST
 
+// MARK: Above HUD
 /atom/movable/screen/plane_master/above_hud
 	name = "Above HUD"
 	documentation = "Anything that wants to be drawn ABOVE the rest of the hud. Typically close buttons and other elements that need to be always visible. Think preventing draggable action button memes."
@@ -316,26 +482,16 @@
 	render_relay_planes = list(RENDER_PLANE_NON_GAME)
 	offsetting_flags = BLOCKS_PLANE_OFFSETTING|OFFSET_RELAYS_MATCH_HIGHEST
 
+// MARK: Above HUD
 /atom/movable/screen/plane_master/splashscreen
 	name = "Splashscreen"
-	documentation = "Anything that's drawn above LITERALLY everything else. Think cinimatics and the well, spashscreen."
+	documentation = "Cinematics and the splash screen."
 	plane = SPLASHSCREEN_PLANE
 	appearance_flags = PLANE_MASTER|NO_CLIENT_COLOR
 	render_relay_planes = list(RENDER_PLANE_NON_GAME)
 	offsetting_flags = BLOCKS_PLANE_OFFSETTING|OFFSET_RELAYS_MATCH_HIGHEST
 
-/atom/movable/screen/plane_master/gravpulse
-	name = "Gravpulse"
-	documentation = "Ok so this one's fun. Basically, we want to be able to distort the game plane when a grav annom is around.\
-		<br>So we draw the pattern we want to use to this plane, and it's then used as a render target by a distortion filter on the game plane.\
-		<br>Note the blend mode and lack of relay targets. This plane exists only to distort, it's never rendered anywhere."
-	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	plane = GRAVITY_PULSE_PLANE
-	appearance_flags = PLANE_MASTER|NO_CLIENT_COLOR
-	blend_mode = BLEND_ADD
-	render_target = GRAVITY_PULSE_RENDER_TARGET
-	render_relay_planes = list()
-
+// MARK: Escape Menu
 /atom/movable/screen/plane_master/escape_menu
 	name = "Escape Menu"
 	documentation = "Anything relating to the escape menu."
