@@ -13,7 +13,7 @@
 		return FALSE
 	if(!(is_jaunting(owner)))
 		return TRUE
-	if(istype(get_area(owner), /area/shuttle)) // Can always phase in in a shuttle.
+	if(is_area_shuttle(get_area(user))) // Can always phase in in a shuttle.
 		return TRUE
 	for(var/mob/living/C in orange(2, get_turf(owner.loc))) //Can also phase in when nearby a potential buyer.
 		if(C.mind && C.mind.soulOwner == C.mind)
