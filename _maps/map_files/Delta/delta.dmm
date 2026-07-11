@@ -20267,10 +20267,6 @@
 	name = "Turbine Generator Access";
 	req_access = list(32)
 	},
-/obj/machinery/atmospherics/pipe/simple/visible{
-	desc = "Труба служит для подачу горючей смеси в турбину для её работы";
-	name = "Труба турбины"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
@@ -38637,11 +38633,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/customs)
 "hSj" = (
-/obj/machinery/atmospherics/pipe/simple/visible{
-	desc = "Труба служит для подачу горючей смеси в турбину для её работы";
-	dir = 10;
-	name = "Труба турбины"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
@@ -39792,14 +39783,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/electrical)
-"iaY" = (
-/obj/machinery/atmospherics/pipe/simple/visible{
-	desc = "Труба служит для подачу горючей смеси в турбину для её работы";
-	dir = 4;
-	name = "Труба турбины"
-	},
-/turf/simulated/floor/plasteel,
-/area/station/maintenance/turbine)
 "iaZ" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -89411,15 +89394,6 @@
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/central/south)
-"rmk" = (
-/obj/machinery/atmospherics/pipe/simple/visible{
-	desc = "Труба служит для подачу горючей смеси в турбину для её работы";
-	dir = 4;
-	name = "Труба турбины"
-	},
-/obj/machinery/atmospherics/meter,
-/turf/simulated/floor/plasteel,
-/area/station/maintenance/turbine)
 "rmm" = (
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_x = -32
@@ -109420,8 +109394,9 @@
 	},
 /area/station/maintenance/library)
 "uPL" = (
-/obj/machinery/atmospherics/pipe/manifold/visible{
-	dir = 8
+/obj/machinery/atmospherics/pipe/simple/visible{
+	desc = "Труба служит для подачу горючей смеси в турбину для её работы";
+	name = "Труба турбины"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/turbine)
@@ -127384,13 +127359,6 @@
 	icon_state = "darkblue"
 	},
 /area/station/command/bridge)
-"ygU" = (
-/obj/machinery/atmospherics/binary/pump{
-	dir = 8;
-	name = "Gas to Thermo"
-	},
-/turf/simulated/floor/plasteel,
-/area/station/maintenance/turbine)
 "ygV" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/emcloset,
@@ -148260,7 +148228,7 @@ rZi
 vNp
 tKt
 gFH
-ygU
+pBS
 kWC
 kWC
 kWC
@@ -148517,7 +148485,7 @@ rZi
 bpY
 tKt
 fCc
-iaY
+pBS
 kWC
 hlM
 whA
@@ -148774,13 +148742,13 @@ rBC
 bML
 tDP
 oJL
-rmk
+pBS
 kWC
 olQ
 hFF
 kMT
 kwj
-kwj
+fNV
 kwj
 kwj
 bhb
