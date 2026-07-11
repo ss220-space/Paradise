@@ -122,7 +122,7 @@
 	return TRUE
 
 /datum/element/reagent_attack/widow
-	reagent_id = "terror_black_toxin"
+	reagent_id = /datum/reagent/terror_black_toxin
 	reagent_limit = 100
 	reagent_amount = 20
 	allowed_zones = list(BODY_ZONE_CHEST, BODY_ZONE_HEAD)
