@@ -95,3 +95,11 @@ GLOBAL_LIST_EMPTY(skills)
 		GLOB.skills_window.ui_interact(usr)
 	else
 		to_chat(src, "Произошла неизвестная ошибка, поэтому мы не можем показать вам ваши навыки.")
+
+/mob/verb/select_skills_win()
+	set name = "Выбрать навыки"
+	set category = VERB_CATEGORY_IC
+	if(mind)
+		GLOB.skills_select_window.ui_interact(usr)
+	else
+		to_chat(src, "Произошла неизвестная ошибка, поэтому мы не можем показать вам ваши навыки.")

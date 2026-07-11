@@ -129,6 +129,8 @@
 	var/skills_initialized = FALSE
 	/// List of skill levels (associative map of type to level (number))
 	var/list/skills = list()
+	/// Available free skill points
+	var/free_skill_points = BASIC_SKILL_POINTS_COUNT
 
 	///Owned cyborg skin permissions
 	var/list/cyborg_skin_permissions = list()
