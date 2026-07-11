@@ -367,7 +367,7 @@ SUBSYSTEM_DEF(jobs)
 			unassigned += player
 			var/datum/preferences/prefs = player.client.prefs
 			if(prefs.alternate_option == RETURN_TO_LOBBY && !prefs.skip_antag)
-				prefs.alternate_option = GET_RANDOM_JOB
+				prefs.alternate_option = BE_ASSISTANT
 
 	Debug("DO, Len: [length(unassigned)]")
 	if(length(unassigned) == 0)
