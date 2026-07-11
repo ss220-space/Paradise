@@ -526,6 +526,13 @@
 
 /obj/item/robot_module/security/ert/on_apply(mob/living/silicon/robot/robot)
 
+	modules += new /obj/item/weldingtool/mini(src)
+	modules += new /obj/item/stack/cable_coil/cyborg(src)
+
+	rebuild()
+	fix_modules()
+	handle_storages()
+
 	robot.weapons_unlock = TRUE
 	install_ert_upgrades(robot)
 	var/obj/item/borg/upgrade/disablercooler/disablercooler = new(robot)
@@ -769,6 +776,7 @@
 	modules += new /obj/item/pickaxe/drill/cyborg(src)
 	modules += new /obj/item/shovel(src)
 	modules += new /obj/item/weldingtool/mini(src)
+	modules += new /obj/item/stack/cable_coil/cyborg(src)
 	modules += new /obj/item/extinguisher/mini(src)
 	modules += new /obj/item/storage/bag/sheetsnatcher/borg(src)
 	modules += new /obj/item/t_scanner/adv_mining_scanner/cyborg(src)
@@ -777,6 +785,7 @@
 	emag = new /obj/item/storage/bag/kaboom/cyborg(src)
 
 	fix_modules()
+	handle_storages()
 
 // Replace their normal drill with a diamond drill.
 /obj/item/robot_module/miner/emag_act()
@@ -834,9 +843,12 @@
 	modules += new /obj/item/crowbar(src)
 	modules += new /obj/item/gripper/nuclear(src)
 	modules += new /obj/item/pinpointer(src)
+	modules += new /obj/item/weldingtool/mini(src)
+	modules += new /obj/item/stack/cable_coil/cyborg(src)
 	emag = new /obj/item/gun/energy/pulse/destroyer/annihilator(src)
 
 	fix_modules()
+	handle_storages()
 
 /obj/item/robot_module/syndicate
 	name = "Syndicate Bloodhound"
@@ -870,9 +882,12 @@
 	modules += new /obj/item/pinpointer/operative(src)
 	modules += new /obj/item/pinpointer/nukeop(src)
 	modules += new /obj/item/gripper/nuclear(src)
+	modules += new /obj/item/weldingtool/mini(src)
+	modules += new /obj/item/stack/cable_coil/cyborg(src)
 	emag = null
 
 	fix_modules()
+	handle_storages()
 
 /obj/item/robot_module/syndicate_medical
 	name = "Syndicate Medical"
@@ -1019,9 +1034,12 @@
 	modules += new /obj/item/crowbar/cyborg(src)
 	modules += new /obj/item/gripper/nuclear(src)
 	modules += new /obj/item/pinpointer(src)
+	modules += new /obj/item/weldingtool/mini(src)
+	modules += new /obj/item/stack/cable_coil/cyborg(src)
 	emag = new /obj/item/gun/energy/pulse/destroyer/annihilator(src)
 
 	fix_modules()
+	handle_storages()
 
 /obj/item/robot_module/combat
 	name = "Combat"
@@ -1060,9 +1078,12 @@
 	modules += new /obj/item/crowbar/cyborg(src)
 	modules += new /obj/item/gripper/nuclear(src)
 	modules += new /obj/item/pinpointer(src)
+	modules += new /obj/item/weldingtool/mini(src)
+	modules += new /obj/item/stack/cable_coil/cyborg(src)
 	emag = null
 
 	fix_modules()
+	handle_storages()
 
 /obj/item/robot_module/hunter
 	name = "Hunter"
