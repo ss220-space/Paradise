@@ -368,3 +368,6 @@
 
 /// Called when item removed from storage. [/obj/item/storage/proc/remove_from_storage()]: (obj/item/W, atom/new_location)
 #define COMSIG_ITEM_REMOVED_FROM_STORAGE "removed_from_storage"
+
+/// from /datum/component/subtype_picker/pick_subtype(): (obj/item/old_item, mob/picker)
+#define COMSIG_ITEM_SUBTYPE_PICKER_SELECTED "item_subtype_picker_selected"
