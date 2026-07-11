@@ -635,68 +635,62 @@
 		var/amt = list_reagents[r_id]
 		add_reagent(r_id, amt, data)
 
-/datum/reagents/proc/add_reagent(reagent, amount, list/data=null, reagtemp = T20C, no_react = FALSE)
-	if(!isnum(amount))
+/datum/reagents/proc/add_reagent(reagent_type, amount, list/data=null, reagtemp = T20C, no_react = FALSE)
+	if(!ispath(reagent_type))
+		stack_trace("invalid reagent passed to add reagent [reagent_type]")
+		return FALSE
+
+	if(!IS_FINITE(amount))
+		stack_trace("non finite amount passed to add reagent [amount] [reagent_type]")
 		return TRUE
 
 	update_total()
-	if(total_volume + amount > maximum_volume) amount = (maximum_volume - total_volume) // Doesnt fit in. Make it disappear. Shouldnt happen. Will happen.
-
+	if(total_volume + amount > maximum_volume)
+		amount = (maximum_volume - total_volume) // Doesnt fit in. Make it disappear. Shouldnt happen. Will happen.
 	if(amount <= 0)
 		return FALSE
 
 	chem_temp = clamp((chem_temp * total_volume + reagtemp * amount) / (total_volume + amount), temperature_min, temperature_max) // equalize with new chems
-	if(SEND_SIGNAL(src, COMSIG_EARLY_REAGENT_ADDED, reagent, amount, data, reagtemp, no_react, chem_temp) & COMPONENT_PREVENT_ADD_REAGENT)
+	if(SEND_SIGNAL(src, COMSIG_EARLY_REAGENT_ADDED, reagent_type, amount, data, reagtemp, no_react, chem_temp) & COMPONENT_PREVENT_ADD_REAGENT)
 		return FALSE
 
 	var/list/cached_reagents = reagent_list
-	for(var/A in cached_reagents)
-		var/datum/reagent/R = A
-		if(R.id == reagent || R.type == reagent)
-			R.volume += amount
-			update_total()
+	for(var/datum/reagent/cached_reagent in cached_reagents)
+		if(cached_reagent.type != reagent_type)
+			continue
 
-			if(my_atom)
-				my_atom.on_reagent_change()
-
-			R.on_merge(data)
-
-			if(!no_react)
-				temperature_react()
-				handle_reactions()
-
-			return FALSE
-
-	var/datum/reagent/D = (ispath(reagent))? new reagent() : GLOB.chemical_reagents_list[reagent]
-	if(D)
-		var/datum/reagent/R = new D.type()
-		cached_reagents += R
-		R.holder = src
-		R.volume = amount
-		R.on_new(data)
-
-		if(data)
-			R.data = data
-
-		if(isliving(my_atom))
-			R.on_mob_add(my_atom) // Must occur befor it could posibly run on_mob_delete
-
+		cached_reagent.volume += amount
 		update_total()
-
 		if(my_atom)
 			my_atom.on_reagent_change()
-
+		cached_reagent.on_merge(data)
 		if(!no_react)
 			temperature_react()
 			handle_reactions()
-
 		return FALSE
 
-	else
-		stack_trace("[my_atom] attempted to add a reagent called '[reagent]' which doesn't exist. ([usr])")
+	var/datum/reagent/reagent = new reagent_type()
+	cached_reagents += reagent
+	reagent.holder = src
+	reagent.volume = amount
+	reagent.on_new(data)
 
-	handle_reactions()
-	return TRUE
+	if(data)
+		reagent.data = data
+
+	if(isliving(my_atom))
+		reagent.on_mob_add(my_atom) // Must occur befor it could posibly run on_mob_delete
+
+	update_total()
+	if(my_atom)
+		my_atom.on_reagent_change()
+
+	if(!no_react)
+		temperature_react()
+		handle_reactions()
+
+	return amount
+
 
 /datum/reagents/proc/check_and_add(reagent, check, add)
 	if(get_reagent_amount(reagent) < check)
