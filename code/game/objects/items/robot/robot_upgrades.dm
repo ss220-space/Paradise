@@ -563,12 +563,12 @@
 
 	if(cyborg && (cyborg.stat != DEAD) && on)
 		if(!cyborg.cell)
-			to_chat(cyborg, span_warning("Self-repair module deactivated. Please, insert the power cell."))
+			balloon_alert(cyborg, "саморемонт остановлен")
 			deactivate_sr()
 			return
 
 		if(cyborg.cell.charge < powercost * 2)
-			to_chat(cyborg, span_notice("Self-repair module deactivated. Please recharge."))
+			balloon_alert(cyborg, "недостаточно энергии для саморемонта")
 			deactivate_sr()
 			return
 
@@ -586,12 +586,12 @@
 		repair_tick = 0
 
 		if((world.time - 2000) > msg_cooldown)
-			var/msgmode = "standby"
 			if(cyborg.health < 0)
-				msgmode = "critical"
+				balloon_alert(cyborg, "саморемонт в интенсивном режиме")
 			else if(cyborg.health < cyborg.maxHealth)
-				msgmode = "normal"
-			to_chat(cyborg, span_notice("Self-repair is active in [span_boldnotice("[msgmode]")] mode."))
+				balloon_alert(cyborg, "саморемонт в обычном режиме")
+			else
+				balloon_alert(cyborg, "саморемонт в спящем режиме")
 			msg_cooldown = world.time
 	else
 		deactivate_sr()
