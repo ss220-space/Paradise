@@ -29,6 +29,7 @@
 		reset_spell_cooldown()
 		return
 	log_say("(AWHISPER to [key_name(target)]) [msg]", owner)
+	target.balloon_alert(target, "вы слышите голос в голове...")
 	to_chat(target, "<span class='noticealien'>You hear a strange, alien voice in your head...<span class='noticealien'> [msg]")
 	to_chat(owner, span_noticealien("You said: [msg] to [target]"))
 	for(var/mob/dead/observer/ghosts in GLOB.player_list)
