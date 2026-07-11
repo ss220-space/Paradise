@@ -955,12 +955,12 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			return ATTACK_CHAIN_PROCEED
 
 		if(!mmi)
-			balloon_alert(user, "ММИ отсуствует")
+			balloon_alert(user, "мми отсуствует")
 			SEND_SOUND(user, 'sound/machines/buzz-two.ogg')
 			return ATTACK_CHAIN_PROCEED
 
 		if(mmi.radio)
-			balloon_alert(user, "Уже установлено")
+			balloon_alert(user, "уже установлено")
 			SEND_SOUND(user, 'sound/machines/buzz-two.ogg')
 			return ATTACK_CHAIN_PROCEED
 
