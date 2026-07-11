@@ -16,7 +16,7 @@
 		return
 	if(QDELETED(src) || QDELETED(user))
 		return
-	var/obj/structure/inflatable/inflated_wall = new /obj/structure/inflatable(user.loc)
+	var/obj/structure/inflatable/inflated_wall = new(user.loc)
 	transfer_fingerprints_to(inflated_wall)
 	qdel(src)
 
@@ -87,12 +87,15 @@
 	desc = "A folded membrane which rapidly expands into a simple door on activation."
 	icon_state = "folded_door"
 
-/obj/item/inflatable/door/attack_self(mob/user)
-	playsound(loc, 'sound/items/zip.ogg', 75, TRUE)
-	to_chat(user, span_notice("You inflate [src]."))
-	var/obj/structure/inflatable/door/R = new /obj/structure/inflatable/door(user.loc)
-	src.transfer_fingerprints_to(R)
-	R.add_fingerprint(user)
+/obj/item/inflatable/door/inflate(mob/user)
+	if(QDELETED(src))
+		return
+	if(!do_after(user, 0.5 SECONDS, src))
+		return
+	if(QDELETED(src) || QDELETED(user))
+		return
+	var/obj/structure/inflatable/door/inflated_door = new(user.loc)
+	transfer_fingerprints_to(inflated_door)
 	qdel(src)
 
 /obj/structure/inflatable/door //Based on mineral door code
