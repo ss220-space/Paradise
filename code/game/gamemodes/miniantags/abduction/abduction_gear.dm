@@ -768,7 +768,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "bed"
 	no_icon_updates = 1 //no icon updates for this; it's static.
-	injected_reagents = list("corazone","spaceacillin")
+	injected_reagents = list(/datum/reagent/medicine/corazone,/datum/reagent/medicine/spaceacillin)
 	reagent_target_amount = 31 //the patient needs at least 30u of spaceacillin to prevent necrotization.
 	inject_amount = 10
 
@@ -827,7 +827,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 /obj/item/reagent_containers/applicator/abductor/brute
 	name = "alien brute mender"
 	desc = "Небольшое электронное устройство, предназначенное для местного применения лекарственных препаратов. Эта версия — для заживления механических повреждений. Выполнено из прочного инопланетного материала."
-	list_reagents = list("styptic_powder" = 200)
+	list_reagents = list(/datum/reagent/medicine/styptic_powder = 200)
 
 /obj/item/reagent_containers/applicator/abductor/brute/get_ru_names()
 	return alist(
@@ -843,7 +843,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	name = "alien burn mender"
 	desc = "Небольшое электронное устройство, предназначенное для местного применения лекарственных препаратов. Эта версия — для заживления термических повреждений. Выполнено из прочного инопланетного материала."
 	base_icon = "alien_mender_burn"
-	list_reagents = list("silver_sulfadiazine" = 200)
+	list_reagents = list(/datum/reagent/medicine/silver_sulfadiazine = 200)
 
 /obj/item/reagent_containers/applicator/abductor/burn/get_ru_names()
 	return alist(
@@ -860,7 +860,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	desc = "Прототип улучшенного авто-мендера, созданного компанией \"Вита-пром\" как альтернатива стандартным мендерам \"Нанотрейзен\". \
 	Обладает увеличенным объёмом хранилища веществ и возможностью пробивать плотные материалы. Не попал в серийное производство из-за сложности и дороговизны, но всё ещё встречается на рынке в качестве единичных экземплеров."
 	volume = 500
-	list_reagents = list("synthflesh" = 500)
+	list_reagents = list(/datum/reagent/medicine/synthflesh = 500)
 	icon_state = "mender2_empty"
 	item_state = "mender2"
 	base_icon = "mender2"
@@ -898,7 +898,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 
 /obj/item/reagent_containers/glass/bottle/abductor/rezadone
 	name = "rezadone bottle"
-	list_reagents = list("rezadone" = 50)
+	list_reagents = list(/datum/reagent/medicine/rezadone = 50)
 
 /obj/item/reagent_containers/glass/bottle/abductor/rezadone/get_ru_names()
 	return alist(
@@ -912,7 +912,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 
 /obj/item/reagent_containers/glass/bottle/abductor/epinephrine
 	name = "epinephrine bottle"
-	list_reagents = list("epinephrine" = 50)
+	list_reagents = list(/datum/reagent/medicine/epinephrine = 50)
 
 /obj/item/reagent_containers/glass/bottle/abductor/epinephrine/get_ru_names()
 	return alist(
@@ -926,7 +926,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 
 /obj/item/reagent_containers/glass/bottle/abductor/salgu
 	name = "saline-glucose solution bottle"
-	list_reagents = list("salglu_solution" = 50)
+	list_reagents = list(/datum/reagent/medicine/salglu_solution = 50)
 
 /obj/item/reagent_containers/glass/bottle/abductor/salgu/get_ru_names()
 	return alist(
@@ -940,7 +940,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 
 /obj/item/reagent_containers/glass/bottle/abductor/oculine
 	name = "oculine bottle"
-	list_reagents = list("oculine" = 50)
+	list_reagents = list(/datum/reagent/medicine/oculine = 50)
 
 /obj/item/reagent_containers/glass/bottle/abductor/oculine/get_ru_names()
 	return alist(
@@ -954,7 +954,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 
 /obj/item/reagent_containers/glass/bottle/abductor/pen_acid
 	name = "pentetic acid bottle"
-	list_reagents = list("pen_acid" = 50)
+	list_reagents = list(/datum/reagent/medicine/pen_acid = 50)
 
 /obj/item/reagent_containers/glass/bottle/abductor/pen_acid/get_ru_names()
 	return alist(

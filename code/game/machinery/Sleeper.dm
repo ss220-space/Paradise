@@ -577,8 +577,8 @@
 /obj/machinery/sleeper/syndie
 	icon_state = "sleeper_s-open"
 	base_icon = "sleeper_s"
-	possible_chems = list("epinephrine", "ether", "salbutamol", "styptic_powder", "silver_sulfadiazine")
-	emergency_chems = list("epinephrine")
+	possible_chems = list(/datum/reagent/medicine/epinephrine, /datum/reagent/medicine/ether, /datum/reagent/medicine/salbutamol, /datum/reagent/medicine/styptic_powder, /datum/reagent/medicine/silver_sulfadiazine)
+	emergency_chems = list(/datum/reagent/medicine/epinephrine)
 	controls_inside = TRUE
 
 	light_color = COLOR_SOFT_RED

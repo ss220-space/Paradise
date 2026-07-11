@@ -327,7 +327,7 @@
 
 		if(!stat && host.stat != DEAD)
 
-			if(host.reagents.has_reagent("sugar"))
+			if(host.reagents.has_reagent(/datum/reagent/consumable/sugar))
 
 				if(!docile)
 

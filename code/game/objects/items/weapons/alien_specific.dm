@@ -42,7 +42,7 @@
 	name = "acid synthesizer"
 	desc = "squirts burny liquids."
 	icon_state = "borg-spray-acid"
-	list_reagents = list("facid" = 125, "sacid" = 125)
+	list_reagents = list(/datum/reagent/acid/facid = 125, /datum/reagent/acid = 125)
 
 /obj/item/reagent_containers/spray/alien/stun
 	name = "paralytic toxin synthesizer"

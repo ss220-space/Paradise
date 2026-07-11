@@ -33,7 +33,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	var/lastHolder = null
 	var/smoketime = 150
 	var/chem_volume = 60
-	var/list/list_reagents = list("nicotine" = 40)
+	var/list/list_reagents = list(/datum/reagent/nicotine = 40)
 	var/first_puff = TRUE // the first puff is a bit more reagents ingested
 	COOLDOWN_DECLARE(smoking_cooldown)
 
@@ -274,10 +274,10 @@ LIGHTERS ARE IN LIGHTERS.DM
 /obj/item/clothing/mask/cigarette/proc/check_reagents_explosion()
 	var/reagent = ""
 	var/reagent_divisor = 2.5
-	if(reagents.get_reagent_amount("plasma"))
-		reagent = "plasma"
-	else if(reagents.get_reagent_amount("fuel"))
-		reagent = "fuel"
+	if(reagents.get_reagent_amount(/datum/reagent/plasma))
+		reagent = /datum/reagent/plasma
+	else if(reagents.get_reagent_amount(/datum/reagent/fuel))
+		reagent = /datum/reagent/fuel
 		reagent_divisor = 5
 	if(!reagent)
 		return FALSE
@@ -356,28 +356,28 @@ LIGHTERS ARE IN LIGHTERS.DM
 	return lit * 1000
 
 /obj/item/clothing/mask/cigarette/menthol
-	list_reagents = list("nicotine" = 40, "menthol" = 20)
+	list_reagents = list(/datum/reagent/nicotine = 40, /datum/reagent/medicine/menthol = 20)
 
 /obj/item/clothing/mask/cigarette/random
 
 /obj/item/clothing/mask/cigarette/random/Initialize(mapload)
-	list_reagents = list("nicotine" = 40, pick("fuel","saltpetre","synaptizine","green_vomit","potass_iodide","msg","lexorin","mannitol","spaceacillin","cryoxadone","holywater","tea","egg","haloperidol","mutagen","omnizine","carpet","aranesp","cryostylane","chocolate","bilk","cheese","rum","blood","charcoal","coffee","ectoplasm","space_drugs","milk","mutadone","antihol","teporone","insulin","salbutamol","toxin") = 20)
+	list_reagents = list(/datum/reagent/nicotine = 40, pick(/datum/reagent/fuel,/datum/reagent/saltpetre,/datum/reagent/medicine/synaptizine,/datum/reagent/greenvomit,/datum/reagent/medicine/potass_iodide,/datum/reagent/questionmark,/datum/reagent/lexorin,/datum/reagent/medicine/mannitol,/datum/reagent/medicine/spaceacillin,/datum/reagent/medicine/cryoxadone,/datum/reagent/holywater,/datum/reagent/consumable/drink/tea,/datum/reagent/consumable/egg,/datum/reagent/medicine/haloperidol,/datum/reagent/mutagen,/datum/reagent/medicine/omnizine,/datum/reagent/carpet,/datum/reagent/aranesp,/datum/reagent/cryostylane,/datum/reagent/consumable/chocolate,/datum/reagent/consumable/ethanol/bilk,/datum/reagent/consumable/cheese,/datum/reagent/consumable/ethanol/rum,/datum/reagent/blood,/datum/reagent/medicine/charcoal,/datum/reagent/consumable/drink/coffee,/datum/reagent/ectoplasm,/datum/reagent/space_drugs,/datum/reagent/consumable/drink/milk,/datum/reagent/medicine/mutadone,/datum/reagent/medicine/antihol,/datum/reagent/medicine/teporone,/datum/reagent/medicine/insulin,/datum/reagent/medicine/salbutamol,/datum/reagent/toxin) = 20)
 	. = ..()
 
 /obj/item/clothing/mask/cigarette/syndicate
-	list_reagents = list("nicotine" = 40, "syndiezine" = 20)
+	list_reagents = list(/datum/reagent/nicotine = 40, /datum/reagent/medicine/syndiezine = 20)
 
 /obj/item/clothing/mask/cigarette/medical_marijuana
-	list_reagents = list("thc" = 40, "cbd" = 20)
+	list_reagents = list(/datum/reagent/thc = 40, /datum/reagent/cbd = 20)
 
 /obj/item/clothing/mask/cigarette/robustgold
-	list_reagents = list("nicotine" = 40, "gold" = 1)
+	list_reagents = list(/datum/reagent/nicotine = 40, /datum/reagent/gold = 1)
 
 /obj/item/clothing/mask/cigarette/shadyjims
-	list_reagents = list("nicotine" = 40, "lipolicide" = 7.5, "ammonia" = 2, "atrazine" = 1, "toxin" = 1.5)
+	list_reagents = list(/datum/reagent/nicotine = 40, /datum/reagent/lipolicide = 7.5, /datum/reagent/ammonia = 2, /datum/reagent/glyphosate/atrazine = 1, /datum/reagent/toxin = 1.5)
 
 /obj/item/clothing/mask/cigarette/richard
-	list_reagents = list("nicotine" = 40, "epinephrine" = 5, "absinthe" = 5)
+	list_reagents = list(/datum/reagent/nicotine = 40, /datum/reagent/medicine/epinephrine = 5, /datum/reagent/consumable/ethanol/absinthe = 5)
 
 /obj/item/clothing/mask/cigarette/rollie
 	name = "rollie"
@@ -428,7 +428,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	item_state = "cigaroff"
 	smoketime = 300
 	chem_volume = 120
-	list_reagents = list("nicotine" = 120)
+	list_reagents = list(/datum/reagent/nicotine = 120)
 	muhtar_fashion = /datum/muhtar_fashion/mask/cigar
 	custom_price = PAYCHECK_CREW
 
@@ -467,7 +467,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	icon_off = "cigar2off"
 	smoketime = 450
 	chem_volume = 180
-	list_reagents = list("nicotine" = 180)
+	list_reagents = list(/datum/reagent/nicotine = 180)
 	custom_premium_price = PAYCHECK_MAX * 2 // cause they're expensive as hell
 
 /obj/item/clothing/mask/cigarette/cigar/havana/get_ru_names()
@@ -553,7 +553,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	icon_off = "pipeoff"
 	smoketime = 500
 	chem_volume = 200
-	list_reagents = list("nicotine" = 200)
+	list_reagents = list(/datum/reagent/nicotine = 200)
 
 /obj/item/clothing/mask/cigarette/pipe/get_ru_names()
 	return alist(

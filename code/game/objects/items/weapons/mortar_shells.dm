@@ -118,7 +118,7 @@
 	var/obj/item/warhead/mortar/warhead
 	var/obj/item/reagent_containers/glass/beaker/fuel
 	var/fuel_requirement = 60
-	var/fuel_type = "hydrogen"
+	var/fuel_type = /datum/reagent/hydrogen
 
 /obj/item/mortar_shell/custom/examine(mob/user)
 	. = ..()

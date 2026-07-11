@@ -198,16 +198,16 @@
 
 	if(target.reagents)
 		dat += "Epinephrine units: [target.reagents.get_reagent_amount("Epinephrine")] units<br>"
-		dat += "Ether: [target.reagents.get_reagent_amount("ether")] units<br>"
+		dat += "Ether: [target.reagents.get_reagent_amount(/datum/reagent/medicine/ether)] units<br>"
 
-		extra_font = (target.reagents.get_reagent_amount("silver_sulfadiazine") < 30 ? "<font color='black'>" : "<font color='red'>")
-		dat += "[extra_font]\tSilver Sulfadiazine: [target.reagents.get_reagent_amount("silver_sulfadiazine")]</font><br>"
+		extra_font = (target.reagents.get_reagent_amount(/datum/reagent/medicine/silver_sulfadiazine) < 30 ? "<font color='black'>" : "<font color='red'>")
+		dat += "[extra_font]\tSilver Sulfadiazine: [target.reagents.get_reagent_amount(/datum/reagent/medicine/silver_sulfadiazine)]</font><br>"
 
-		extra_font = (target.reagents.get_reagent_amount("styptic_powder") < 30 ? "<font color='black'>" : "<font color='red'>")
-		dat += "[extra_font]\tStyptic Powder: [target.reagents.get_reagent_amount("styptic_powder")] units<br>"
+		extra_font = (target.reagents.get_reagent_amount(/datum/reagent/medicine/styptic_powder) < 30 ? "<font color='black'>" : "<font color='red'>")
+		dat += "[extra_font]\tStyptic Powder: [target.reagents.get_reagent_amount(/datum/reagent/medicine/styptic_powder)] units<br>"
 
-		extra_font = (target.reagents.get_reagent_amount("salbutamol") < 30 ? "<font color='black'>" : "<font color='red'>")
-		dat += "[extra_font]\tSalbutamol: [target.reagents.get_reagent_amount("salbutamol")] units<br>"
+		extra_font = (target.reagents.get_reagent_amount(/datum/reagent/medicine/salbutamol) < 30 ? "<font color='black'>" : "<font color='red'>")
+		dat += "[extra_font]\tSalbutamol: [target.reagents.get_reagent_amount(/datum/reagent/medicine/salbutamol)] units<br>"
 
 	dat += "<hr><table border='1'>"
 	dat += "<tr>"

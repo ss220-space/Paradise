@@ -488,17 +488,17 @@
 		dat += "[extra_font]\tУровень крови: [blood_percent] ([occupant.blood_volume] u)</font><br>"
 
 		if(occupant.reagents)
-			dat += "Эпинефрин: [occupant.reagents.get_reagent_amount("epinephrine")] u<br>"
-			dat += "Эфир: [occupant.reagents.get_reagent_amount("ether")] u<br>"
+			dat += "Эпинефрин: [occupant.reagents.get_reagent_amount(/datum/reagent/medicine/epinephrine)] u<br>"
+			dat += "Эфир: [occupant.reagents.get_reagent_amount(/datum/reagent/medicine/ether)] u<br>"
 
-			extra_font = (occupant.reagents.get_reagent_amount("silver_sulfadiazine") < 30 ? "<font color='black'>" : "<font color='red'>")
-			dat += "[extra_font]\tСульфадиазин серебра: [occupant.reagents.get_reagent_amount("silver_sulfadiazine")] u</font><br>"
+			extra_font = (occupant.reagents.get_reagent_amount(/datum/reagent/medicine/silver_sulfadiazine) < 30 ? "<font color='black'>" : "<font color='red'>")
+			dat += "[extra_font]\tСульфадиазин серебра: [occupant.reagents.get_reagent_amount(/datum/reagent/medicine/silver_sulfadiazine)] u</font><br>"
 
-			extra_font = (occupant.reagents.get_reagent_amount("styptic_powder") < 30 ? "<font color='black'>" : "<font color='red'>")
-			dat += "[extra_font]\tКровоостанавливающая пудра: [occupant.reagents.get_reagent_amount("styptic_powder")] u<br>"
+			extra_font = (occupant.reagents.get_reagent_amount(/datum/reagent/medicine/styptic_powder) < 30 ? "<font color='black'>" : "<font color='red'>")
+			dat += "[extra_font]\tКровоостанавливающая пудра: [occupant.reagents.get_reagent_amount(/datum/reagent/medicine/styptic_powder)] u<br>"
 
-			extra_font = (occupant.reagents.get_reagent_amount("salbutamol") < 30 ? "<font color='black'>" : "<font color='red'>")
-			dat += "[extra_font]\tСальбутамол: [occupant.reagents.get_reagent_amount("salbutamol")] u<br>"
+			extra_font = (occupant.reagents.get_reagent_amount(/datum/reagent/medicine/salbutamol) < 30 ? "<font color='black'>" : "<font color='red'>")
+			dat += "[extra_font]\tСальбутамол: [occupant.reagents.get_reagent_amount(/datum/reagent/medicine/salbutamol)] u<br>"
 
 		dat += "<hr><table border='1'>"
 		dat += "<tr>"

@@ -215,7 +215,7 @@
 
 /// Doesn't check if we have enough fuel, it just removes however much is left if there's not enough
 /obj/item/weldingtool/proc/remove_fuel(amount)
-	reagents.remove_reagent("fuel", amount * requires_fuel)
+	reagents.remove_reagent(/datum/reagent/fuel, amount * requires_fuel)
 	if(!GET_FUEL)
 		toggle_welder(TRUE)
 
@@ -225,7 +225,7 @@
 	if(GET_FUEL >= maximum_fuel)
 		balloon_alert(user, "бак полон!")
 		return
-	var/amount_transferred = A.reagents.trans_id_to(src, "fuel", amount)
+	var/amount_transferred = A.reagents.trans_id_to(src, /datum/reagent/fuel, amount)
 	if(amount_transferred)
 		balloon_alert(user, "пополнено на <b>[amount_transferred]</b> единиц[DECL_CREDIT(amount_transferred)] топлива")
 		playsound(src, 'sound/effects/refill.ogg', 50, TRUE)

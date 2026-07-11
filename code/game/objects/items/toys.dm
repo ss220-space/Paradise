@@ -81,7 +81,7 @@
 		if(!I.reagents || I.reagents.total_volume < 1)
 			to_chat(user, span_warning("[DECLENT_RU_CAP(I, NOMINATIVE)] пуст!"))
 			return ATTACK_CHAIN_PROCEED
-		if(I.reagents.has_reagent("facid", 1) || I.reagents.has_reagent("acid", 1))
+		if(I.reagents.has_reagent(/datum/reagent/acid/facid, 1) || I.reagents.has_reagent(/datum/reagent/acid, 1))
 			to_chat(user, span_warning("Кислота прожигает шарик!"))
 			I.reagents.reaction(user)
 			qdel(src)

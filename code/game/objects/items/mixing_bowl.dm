@@ -139,9 +139,9 @@
 
 		for(var/datum/reagent/R in reagents.reagent_list)
 			var/display_name = R.name
-			if(R.id == "capsaicin")
+			if(R.type == /datum/reagent/consumable/capsaicin)
 				display_name = "Hotsauce"
-			if(R.id == "frostoil")
+			if(R.type == /datum/reagent/consumable/frostoil)
 				display_name = "Coldsauce"
 			dat += {"<b>[display_name]:</b> [R.volume] unit\s<br>"}
 

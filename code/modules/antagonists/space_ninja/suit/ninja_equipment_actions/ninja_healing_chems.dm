@@ -38,7 +38,7 @@
 		ninjaheal.toggle_button_on_off()
 
 // A reality rift designated to contain our ninja inside it.
-// Created via the "chiyurizine" reagent.
+// Created via the /datum/reagent/medicine/chiyurizine reagent.
 /obj/effect/temp_visual/ninja_rend
 	name = "A somewhat stable rend in reality"
 	desc = "Невероятно... но абсурдно. Кто может выйти из этого?"

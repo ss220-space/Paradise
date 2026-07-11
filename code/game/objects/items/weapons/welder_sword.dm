@@ -123,8 +123,8 @@
 	toggle_welder()
 
 /obj/item/weldingtool/sword/double/remove_fuel(amount)
-	reagents.remove_reagent("fuel", amount * requires_fuel)
-	if(!(reagents.get_reagent_amount("fuel")) && tool_enabled)
+	reagents.remove_reagent(/datum/reagent/fuel, amount * requires_fuel)
+	if(!(reagents.get_reagent_amount(/datum/reagent/fuel)) && tool_enabled)
 		attack_self(usr)
 
 /obj/item/weldingtool/sword/double/try_toggle_welder(mob/user, manual_toggle = TRUE)

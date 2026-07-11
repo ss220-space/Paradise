@@ -233,13 +233,13 @@
 		//Fire extinguisher
 		if(istype(module, /obj/item/extinguisher))
 			var/obj/item/extinguisher/ext = module
-			ext.reagents.check_and_add("water", ext.max_water, 5 * coeff)
+			ext.reagents.check_and_add(/datum/reagent/water, ext.max_water, 5 * coeff)
 			continue
 
 		//Welding tools
 		if(iswelder(module))
 			var/obj/item/weldingtool/weld = module
-			weld.reagents.check_and_add("fuel", weld.maximum_fuel, 2 * coeff)
+			weld.reagents.check_and_add(/datum/reagent/fuel, weld.maximum_fuel, 2 * coeff)
 			continue
 
 	robot.module.respawn_consumable(robot)

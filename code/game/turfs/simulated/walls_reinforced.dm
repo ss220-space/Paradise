@@ -97,7 +97,7 @@
 		return .|ATTACK_CHAIN_BLOCKED_ALL
 
 /turf/simulated/wall/r_wall/welder_act(mob/user, obj/item/I)
-	if(reagents?.get_reagent_amount("thermite") && I.use_tool(src, user, volume = I.tool_volume))
+	if(reagents?.get_reagent_amount(/datum/reagent/thermite) && I.use_tool(src, user, volume = I.tool_volume))
 		thermitemelt(user)
 		return TRUE
 	if(!(d_state in list(RWALL_COVER, RWALL_SUPPORT_RODS, RWALL_CUT_COVER)))

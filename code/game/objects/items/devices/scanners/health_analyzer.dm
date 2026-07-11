@@ -412,7 +412,7 @@
 		var/blood_type = H.dna.blood_type
 		var/blood_species = H.dna.species.blood_species
 
-		if(blood_id != "blood")
+		if(blood_id != /datum/reagent/blood)
 			var/datum/reagent/R = GLOB.chemical_reagents_list[blood_id]
 			if(R)
 				blood_type = R.name
@@ -745,7 +745,7 @@
 		if(ru_blood_species[blood_species])
 			blood_species_text = ", кровь расы: [ru_blood_species[blood_species]]"
 
-		if(blood_id != "blood")//special blood substance
+		if(blood_id != /datum/reagent/blood)//special blood substance
 			var/datum/reagent/R = GLOB.chemical_reagents_list[blood_id]
 			if(R)
 				blood_type = R.name
