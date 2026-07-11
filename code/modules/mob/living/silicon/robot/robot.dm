@@ -1,5 +1,8 @@
 #define BORG_LAMP_CD_RESET 10 SECONDS
-#define BORG_BASE_SELFREPAIR_DELAY 10 SECONDS
+#define BORG_BASE_SELFREPAIR_DELAY 2 SECONDS
+
+#define BORG_BASE_MAINTPANEL_OPEN_DELAY 2.5 SECONDS
+#define BORG_BASE_INNERPANEL_OPEN_DELAY 1 SECONDS
 
 GLOBAL_LIST_EMPTY(available_ai_shells)
 
@@ -18,6 +21,17 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	blocks_emissive = EMISSIVE_BLOCK_UNIQUE
 	light_system = MOVABLE_LIGHT
 	light_on = FALSE
+
+	hud_possible = list(SPECIALROLE_HUD, DIAG_STAT_HUD, DIAG_HUD, DIAG_BATT_HUD, DIAG_AISHELL_STAT_HUD)
+	hud_type = /datum/hud/robot
+
+	silicon_subsystems = list(
+		/mob/living/silicon/proc/subsystem_open_gps,
+		/mob/living/silicon/robot/proc/self_diagnosis,
+		/mob/living/silicon/proc/subsystem_law_manager,
+	)
+
+	tts_effect_override = SOUND_EFFECT_ROBOT
 
 	var/sight_mode = 0
 	var/custom_name = ""
@@ -134,9 +148,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	/// portable camera camerachunk update
 	var/updating = FALSE
 
-	hud_possible = list(SPECIALROLE_HUD, DIAG_STAT_HUD, DIAG_HUD, DIAG_BATT_HUD, DIAG_AISHELL_STAT_HUD)
-	hud_type = /datum/hud/robot
-
 	var/default_cell_type = /obj/item/stock_parts/cell/high
 	/// Jetpack-like effect.
 	var/ionpulse = FALSE
@@ -154,13 +165,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/datum/robot_skin/selected_skin
 
 	var/datum/ui_module/robot_self_diagnosis/self_diagnosis
-	silicon_subsystems = list(
-		/mob/living/silicon/proc/subsystem_open_gps,
-		/mob/living/silicon/robot/proc/self_diagnosis,
-		/mob/living/silicon/proc/subsystem_law_manager,
-	)
-
-	tts_effect_override = SOUND_EFFECT_ROBOT
 
 /mob/living/silicon/robot/get_cell()
 	return cell
@@ -838,11 +842,14 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			return ATTACK_CHAIN_PROCEED
 
 		if(selfattack)
-			addtimer(CALLBACK(src, PROC_REF(heal_overall_damage), 0, 30), 2 SECONDS)
+			if(!do_after(src, 2 SECONDS, src))
+				return ATTACK_CHAIN_BLOCKED_ALL
+			heal_overall_damage(burn = 30)
+
 		else
 			heal_overall_damage(burn = 30)
 
-		balloon_alert_to_viewers("проводка заменена", "вашу проводку заменили")
+		balloon_alert_to_viewers("проводка заменена", "[selfattack ? "cаморемонт окончен" : "вашу проводку заменили"]")
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	if(iscell(I))	// trying to put a cell inside
@@ -1024,12 +1031,12 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		return FALSE
 
 	. = TRUE
-	if(!I.use_tool(src, user, volume = I.tool_volume))
+	if(!I.use_tool(src, user, BORG_BASE_INNERPANEL_OPEN_DELAY, volume = I.tool_volume))
 		return
 
 	if(!cell)	// haxing
 		wiresexposed = !wiresexposed
-		balloon_alert_to_viewers("панель [wiresexposed ? "от" : "при"]кручена", "ваша панель [wiresexposed ? "от" : "при"]кручен")
+		balloon_alert(user, "панель откручена")
 		update_icons()
 		I.play_tool_sound(user, I.tool_volume)
 	else //radio check
@@ -1055,20 +1062,20 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			SEND_SOUND(user, 'sound/machines/buzz-two.ogg')
 			return
 
-		if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		if(!I.use_tool(src, user, BORG_BASE_MAINTPANEL_OPEN_DELAY, volume = I.tool_volume))
 			return
 
-		balloon_alert(user, "техпанель открыта")
 		opened = TRUE
+		balloon_alert_to_viewers("техпанель открыта", "ваша техпанель открыта")
 		update_icons()
 		return
 
 	else if(cell)
-		if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		if(!I.use_tool(src, user, BORG_BASE_MAINTPANEL_OPEN_DELAY, volume = I.tool_volume))
 			return
 
-		balloon_alert(user, "техпанель закрыта")
 		opened = FALSE
+		balloon_alert_to_viewers("техпанель закрыта", "ваша техпанель закрыта")
 		update_icons()
 		return
 
@@ -1080,8 +1087,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			return
 
 		balloon_alert(user, "деконструкция начата")
-		if(I.use_tool(src, user, 30, volume = I.tool_volume))
-			user.visible_message("[user] разбир[PLUR_ET_UT(user)] [src]!", span_notice("Вы снимаете поддерживающие заклёпки, и  [src] разваливается на составные части!"))
+		if(I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume))
+			user.visible_message("[user] разбир[PLUR_ET_UT(user)] [src]!", span_notice("Вы снимаете поддерживающие заклёпки, и [src] разваливается на составные части!"))
 			deconstruct()
 
 		return
@@ -1128,11 +1135,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 /mob/living/silicon/robot/welder_act(mob/user, obj/item/I)
 	if(user.a_intent == INTENT_HARM)	// no interactions in combat
 		return FALSE
-	var/has_delay = FALSE
+	var/selfattack = FALSE
 
 	if(user == src)
-		has_delay = TRUE
-		return FALSE
+		selfattack = TRUE
 
 	. = TRUE
 	if(!getBruteLoss())
@@ -1149,12 +1155,14 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return .
 
-	if(has_delay)
-		addtimer(CALLBACK(src, PROC_REF(heal_overall_damage), 30), 2 SECONDS)
+	if(selfattack)
+		if(!do_after(src, BORG_BASE_SELFREPAIR_DELAY, src))
+			return ATTACK_CHAIN_BLOCKED_ALL
+		heal_overall_damage(brute = 30)
 	else
 		heal_overall_damage(brute = 30)
 
-	balloon_alert_to_viewers("корпус отремонтирован", "вас отремонтировали")
+	balloon_alert_to_viewers("корпус отремонтирован", "[selfattack ? "cаморемонт окончен" : "вас отремонтировали"]")
 
 /mob/living/silicon/robot/proceed_attack_results(obj/item/I, mob/living/user, params, def_zone)
 	. = ..()
@@ -2033,6 +2041,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	brute_mod = 0.5 // Bullets are dealing 50%+5 less damage. Full line of shotgun slugs now won't kill the cyborg(but cyborg will lose 2 modules and armor planting)
 	burn_mod = 0.5 // Interesting. Deathsquad cyborg can reflect laser projectiles, however still reduces samage from explosives, and grants ability to tanl more than one SRM8 rocket.
 	damage_protection = 20 // Reduce all incoming damage by this number. Very high in the case of /destroyer borgs, since it is an admin-only borg.
+	reflectable = TRUE
 	faction = list("nanotrasen")
 	is_emaggable = FALSE
 	can_lock_cover = TRUE
