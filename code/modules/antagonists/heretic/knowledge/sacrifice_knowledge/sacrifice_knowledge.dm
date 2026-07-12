@@ -351,13 +351,13 @@
 		disembowel_target(sac_target)
 		return
 
-	// If our target died during the (short) wait timer,
-	// and we fail to revive them (using a lower number than before),
-	// just disembowel them and stop the chain
 	sac_target.adjustOxyLoss(-100, FALSE)
-	if(!sac_target.heal_and_revive(60, span_danger("Сердце [sac_target.declent_ru(GENITIVE)] начинает биться с нечестивой силой, когда [GEND_HE_SHE(sac_target)] возвраща[PLUR_ET_YUT(sac_target)]ся из объятий смерти!")))
+	if(!sac_target.heal_and_revive(0, span_danger("Сердце [sac_target.declent_ru(GENITIVE)] начинает биться с нечестивой силой, когда [GEND_HE_SHE(sac_target)] возвраща[PLUR_ET_YUT(sac_target)]ся из объятий смерти!")))
 		disembowel_target(sac_target)
 		return
+
+	sac_target.adjustBruteLoss(20)
+	sac_target.adjustFireLoss(10)
 
 	// If the restraints came loose on the way in, re-apply solid zipties so they always arrive cuffed.
 	if(!sac_target.handcuffed)
@@ -598,12 +598,7 @@
 	layer = LARGE_MOB_LAYER
 	damage_type = BURN
 	paralyze = 20
-	// With process_paced() (see below) `speed` is a clean divisor: tiles/sec = 10/speed. We want 5 tiles/sec,
-	// so speed = 2. The /hel subtype keeps speed = 1 (10 tiles/sec). NOTE: this only paces correctly because
-	// process() is overridden with process_paced() - the stock master220 process() double-counts elapsed
-	// time for slow projectiles, making the hands fly faster and in irregular jerks (so they appear to
-	// "snag"/cling on the target) regardless of `speed`.
-	speed = 2
+	speed = 3
 	range = 16
 	hit_crawling_mobs_chance = 100
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
@@ -700,9 +695,7 @@
 
 /obj/projectile/curse_hand/hel //Used in helbital's impure reagent
 	paralyze = 0 //Lets not stun people!
-	// With process_paced(), tiles/sec = 10/speed. We nudge it slightly slower to 8 tiles/sec (speed = 1.25)
-	// to make the Mansus sacrifice realm a touch more dodgeable.
-	speed = 1.25
+	speed = 1.875
 	range = 20
 	color = "#ff7e7e"//Tint it slightly
 

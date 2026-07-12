@@ -385,6 +385,8 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 			var/datum/heretic_knowledge/researched_path = text2path(params["path"])
 			if(!ispath(researched_path, /datum/heretic_knowledge))
 				CRASH("Heretic attempted to learn non-heretic_knowledge path! (Got: [researched_path || "invalid path"])")
+			if(researched_knowledge[researched_path])
+				return TRUE
 			if(!(researched_path in get_researchable_knowledge()))
 				message_admins("Heretic [key_name(owner)] potentially attempted to href exploit to learn knowledge they can't learn!")
 				CRASH("Heretic attempted to learn knowledge they can't learn! (Got: [researched_path])")
@@ -451,14 +453,12 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 
 /datum/antagonist/heretic/add_antag_hud(mob/living/antag_mob)
 	. = ..()
-	offset_heretic_antag_hud(antag_mob)
 	if(summoned_creature)
-		var/datum/atom_hud/antag/hud = GLOB.huds[antag_hud_type]
-		hud.show_to(antag_mob)
+		add_team_hud(antag_mob, /datum/atom_hud/alternate_appearance/basic/heretic_team, owner)
 
 /datum/antagonist/heretic/remove_antag_hud(mob/living/antag_mob)
 	. = ..()
-	offset_heretic_antag_hud(antag_mob, 0)
+	remove_team_hud()
 
 /datum/antagonist/heretic/proc/reveal_antag_hud()
 	if(summoned_creature)
@@ -467,18 +467,35 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	var/mob/living/heretic_mob = owner?.current
 	if(QDELETED(heretic_mob))
 		return
-	var/datum/atom_hud/antag/hud = GLOB.huds[antag_hud_type]
-	hud.show_to(heretic_mob)
+	add_team_hud(heretic_mob, /datum/atom_hud/alternate_appearance/basic/heretic_team, owner)
 
 /datum/antagonist/heretic/proc/hide_antag_hud()
 	if(!summoned_creature)
 		return
 	summoned_creature = FALSE
-	var/mob/living/heretic_mob = owner?.current
-	if(QDELETED(heretic_mob))
-		return
-	var/datum/atom_hud/antag/hud = GLOB.huds[antag_hud_type]
-	hud.hide_from(heretic_mob)
+	remove_team_hud()
+
+// The heretic and their summons see each other's hud icons, keyed by the master heretic's mind.
+// Rival heretics (and their teams) never qualify, so nothing leaks between competing heretics.
+/datum/atom_hud/alternate_appearance/basic/heretic_team
+	var/datum/mind/master_mind
+
+/datum/atom_hud/alternate_appearance/basic/heretic_team/New(key, image/hud, datum/mind/master_mind)
+	src.master_mind = master_mind
+	..(key, hud, NONE)
+
+/datum/atom_hud/alternate_appearance/basic/heretic_team/Destroy(force)
+	master_mind = null
+	return ..()
+
+/datum/atom_hud/alternate_appearance/basic/heretic_team/mob_should_see(mob/viewer)
+	var/datum/mind/viewer_mind = viewer.mind
+	if(!viewer_mind || !master_mind)
+		return FALSE
+	if(viewer_mind == master_mind)
+		return TRUE
+	var/datum/antagonist/heretic_monster/monster = viewer_mind.has_antag_datum(/datum/antagonist/heretic_monster)
+	return monster?.master == master_mind
 
 /datum/antagonist/heretic/apply_innate_effects(mob/living/mob_override)
 	. = ..()

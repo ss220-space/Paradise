@@ -34,6 +34,9 @@
 	src.ascended_heretic = heretic_master
 	src.ascended_body = heretic_body
 
+	if(!QDELETED(owner?.current))
+		add_team_hud(owner.current, /datum/atom_hud/alternate_appearance/basic/heretic_team/lunatic, heretic_master)
+
 	lunatic_obj.master = heretic_master
 	lunatic_obj.update_explanation_text()
 
@@ -42,11 +45,24 @@
 
 /datum/antagonist/lunatic/add_antag_hud(mob/living/antag_mob)
 	. = ..()
-	offset_heretic_antag_hud(antag_mob)
+	var/datum/mind/team_master = ismaster ? owner : ascended_heretic
+	if(team_master)
+		add_team_hud(antag_mob, /datum/atom_hud/alternate_appearance/basic/heretic_team/lunatic, team_master)
 
 /datum/antagonist/lunatic/remove_antag_hud(mob/living/antag_mob)
 	. = ..()
-	offset_heretic_antag_hud(antag_mob, 0)
+	remove_team_hud()
+
+
+// Lunatics and their ascended master see each other, keyed by the master's mind like the summon team hud.
+/datum/atom_hud/alternate_appearance/basic/heretic_team/lunatic/mob_should_see(mob/viewer)
+	var/datum/mind/viewer_mind = viewer.mind
+	if(!viewer_mind || !master_mind)
+		return FALSE
+	if(viewer_mind == master_mind)
+		return TRUE
+	var/datum/antagonist/lunatic/lunatic = viewer_mind.has_antag_datum(/datum/antagonist/lunatic)
+	return lunatic?.ascended_heretic == master_mind
 
 
 /datum/antagonist/lunatic/apply_innate_effects(mob/living/mob_override)

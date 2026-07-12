@@ -257,7 +257,10 @@
 	if(!isheretic(user))
 		return ..()
 
-	INVOKE_ASYNC(src, PROC_REF(drain_influence), user, 1, 15 SECONDS)
+	if(being_drained)
+		loc.balloon_alert(user, "уже иссушается!")
+	else
+		INVOKE_ASYNC(src, PROC_REF(drain_influence), user, 1, 15 SECONDS)
 
 
 /obj/effect/heretic_influence/attackby(obj/item/weapon, mob/user, list/modifiers, list/attack_modifiers)
@@ -291,7 +294,8 @@
 
 	if(!do_after(user, drain_speed, src))
 		being_drained = FALSE
-		loc.balloon_alert(user, "прервано!")
+		if(!QDELETED(src))
+			loc.balloon_alert(user, "прервано!")
 		return
 
 	// We don't need to set being_drained back since we delete after anyways

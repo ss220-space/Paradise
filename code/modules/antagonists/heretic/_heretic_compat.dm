@@ -363,11 +363,6 @@
 // The eldritch paintings (items/eldritch_painting.dm) subclass those real base types.
 
 // --- HUD compat ---
-/proc/offset_heretic_antag_hud(mob/living/antag_mob, offset = HERETIC_ANTAG_HUD_Y_OFFSET)
-	var/image/holder = antag_mob?.hud_list?[SPECIALROLE_HUD]
-	if(holder)
-		holder.pixel_z = offset
-
 /datum/atom_hud/alternate_appearance/basic/heretic
 	add_ghost_version = TRUE
 
