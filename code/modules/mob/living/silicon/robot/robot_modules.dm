@@ -342,12 +342,18 @@
 /obj/item/robot_module/medical/ert/on_apply(mob/living/silicon/robot/robot)
 
 	install_ert_upgrades(robot)
-	var/obj/item/borg/upgrade/storageincreaser/storageincreaser = new(robot)
-	robot.install_upgrade(storageincreaser)
-	var/obj/item/borg/upgrade/hypospray/hypospray = new(robot)
-	robot.install_upgrade(hypospray)
-	var/obj/item/borg/upgrade/hypospray_pierce/hypospray_pierce = new(robot)
-	robot.install_upgrade(hypospray_pierce)
+	if(!locate(/obj/item/borg/upgrade/storageincreaser) in robot.upgrades)
+		var/obj/item/borg/upgrade/storageincreaser/storageincreaser = new(robot)
+		if(!robot.install_upgrade(storageincreaser))
+			qdel(storageincreaser)
+	if(!locate(/obj/item/borg/upgrade/hypospray) in robot.upgrades)
+		var/obj/item/borg/upgrade/hypospray/hypospray = new(robot)
+		if(!robot.install_upgrade(hypospray))
+			qdel(hypospray)
+	if(!locate(/obj/item/borg/upgrade/hypospray_pierce) in robot.upgrades)
+		var/obj/item/borg/upgrade/hypospray_pierce/hypospray_pierce = new(robot)
+		if(!robot.install_upgrade(hypospray_pierce))
+			qdel(hypospray_pierce)
 
 	robot.status_flags &= ~CANPUSH
 	robot.see_reagents = TRUE
@@ -448,8 +454,10 @@
 /obj/item/robot_module/engineering/ert/on_apply(mob/living/silicon/robot/robot)
 
 	install_ert_upgrades(robot)
-	var/obj/item/borg/upgrade/storageincreaser/storageincreaser = new(robot)
-	robot.install_upgrade(storageincreaser)
+	if(!locate(/obj/item/borg/upgrade/storageincreaser) in robot.upgrades)
+		var/obj/item/borg/upgrade/storageincreaser/storageincreaser = new(robot)
+		if(!robot.install_upgrade(storageincreaser))
+			qdel(storageincreaser)
 
 	return TRUE
 
@@ -533,8 +541,10 @@
 
 	robot.weapons_unlock = TRUE
 	install_ert_upgrades(robot)
-	var/obj/item/borg/upgrade/disablercooler/disablercooler = new(robot)
-	robot.install_upgrade(disablercooler)
+	if(!locate(/obj/item/borg/upgrade/disablercooler) in robot.upgrades)
+		var/obj/item/borg/upgrade/disablercooler/disablercooler = new(robot)
+		if(!robot.install_upgrade(disablercooler))
+			qdel(disablercooler)
 
 	return TRUE
 

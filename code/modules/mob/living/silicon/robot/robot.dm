@@ -437,7 +437,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		modtype = forced_module
 
 	else
-		modtype = tgui_input_list(usr, "Пожайлуста, выберете модуль!", "Выбор специализации", modules)
+		modtype = tgui_input_list(usr, "Пожалуйста, выберите модуль!", "Выбор специализации", modules)
 		modtype = modules[modtype]
 
 	if(!modtype)
@@ -823,7 +823,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			return ATTACK_CHAIN_PROCEED
 
 		if(!getFireLoss())
-			balloon_alert(user, "обжоги отсуствуют")
+			balloon_alert(user, "ожоги отсутствуют")
 			SEND_SOUND(user, 'sound/machines/buzz-two.ogg')
 			return ATTACK_CHAIN_PROCEED
 
@@ -851,19 +851,19 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			return ATTACK_CHAIN_PROCEED
 
 		if(wiresexposed)
-			balloon_alert(user, "внутрення панель открыта")
+			balloon_alert(user, "внутренняя панель открыта")
 			SEND_SOUND(user, 'sound/machines/buzz-two.ogg')
 			return ATTACK_CHAIN_PROCEED
 
 		if(cell)
-			balloon_alert(user, span_warning("аккамулятор уже установлен"))
+			balloon_alert(user, "аккумулятор уже установлен")
 			SEND_SOUND(user, 'sound/machines/buzz-two.ogg')
 			return ATTACK_CHAIN_PROCEED
 
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 
-		balloon_alert(user, "аккамулятор установлен")
+		balloon_alert(user, "аккумулятор установлен")
 		var/datum/robot_component/cell/cell_component = components["power cell"]
 
 		cell_component.install(I)
@@ -1093,7 +1093,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(module)
 		removable_components += module.custom_removals
 
-	var/remove = tgui_input_list(user, "Какой комопнент вы хотите вытащить?", "Тех. обслуживание [src]", removable_components)
+	var/remove = tgui_input_list(user, "Какой компонент вы хотите вытащить?", "Тех. обслуживание [src]", removable_components)
 	if(!remove)
 		return
 
@@ -1167,7 +1167,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if(!item)
 			return
 		if(carbon.drop_item_ground(item))
-			var/turf/destination = get_edge_target_turf(src, ~user.dir)
+			var/turf/destination = get_edge_target_turf(src, turn(user.dir, 180))
 			item.throw_at(destination, 10, 5, user)
 		return
 
@@ -1293,17 +1293,17 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	set desc = "Toggles the lock on your cover."
 
 	if(can_lock_cover)
-		if(tgui_alert(usr, "Вы уврены?", locked ? "Разблокировка" : "Блокировка", list("ДА", "ОТМЕНА")) == "ДА")
+		if(tgui_alert(usr, "Вы уверены?", locked ? "Разблокировка" : "Блокировка", list("ДА", "ОТМЕНА")) == "ДА")
 			locked = !locked
 			update_icons()
-			to_chat(usr, span_notice("Вы [locked ? "за" : "раз"] блокировали свою техпанель ."))
+			to_chat(usr, span_notice("Вы [locked ? "за" : "раз"]блокировали свою техпанель ."))
 		return
 
 	if(!locked)
 		to_chat(usr, span_warning("Вы не можете сделать это самостоятельно. Обратитесь к робототехникам."))
 		return
 
-	if(tgui_alert(usr, "Вы уже не сможете заблокировать техпанель обратно?\nДля этого вам потребуется помощь робототехников", "Разблокировка панели", list("ДА", "ОТМЕНА")) == "ДА")
+	if(tgui_alert(usr, "Вы уже не сможете заблокировать техпанель обратно.\nДля этого вам потребуется помощь робототехников", "Разблокировка панели", list("ДА", "ОТМЕНА")) == "ДА")
 		locked = FALSE
 		update_icons()
 		to_chat(usr, span_notice("Вы разблокировали свою техпанель."))
@@ -1448,6 +1448,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	popup.open()
 
 /mob/living/silicon/robot/proc/install_upgrade(obj/item/borg/upgrade/upgrade, mob/user)
+	if(!upgrade)
+		return FALSE
 	if(!upgrade.action(src, user))
 		upgrade.forceMove(drop_location())
 		return FALSE
@@ -1543,7 +1545,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	else //Some sort of magical "modulo" thing which somehow increments lamp power by 2, until it hits the max and resets to 0.
 		lamp_intensity = (lamp_intensity + 2) % (lamp_max + 2)
 
-	to_chat(src, span_notice("[lamp_intensity > 2 ? "Вы переключили мощность своих фар. Уровень мощность: [lamp_intensity * 0.5]" : "фары отключены"]."))
+	to_chat(src, span_notice("[lamp_intensity > 2 ? "Вы переключили мощность своих фар. Уровень мощности: [lamp_intensity * 0.5]" : "фары отключены"]."))
 	update_headlamp()
 
 /mob/living/silicon/robot/proc/update_headlamp(turn_off = FALSE, cooldown = 10 SECONDS)
@@ -1574,7 +1576,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/turf/T = get_turf(src)
 
 	if((modtype != /obj/item/robot_module/clockwork || !mmi.clock) && isclocker(src))
-		to_chat(src, span_warning("Вместе с вашим телом, были и разрушены оковы ужасного заводного культа! Вы свободны от его пагубного влияния и можете продолжить служить станции!"))
+		to_chat(src, span_warning("Вместе с вашим телом были разрушены и оковы ужасного заводного культа! Вы свободны от его пагубного влияния и можете продолжить служить станции!"))
 		SSticker.mode.remove_clocker(mind, FALSE)
 
 	evacuate_ai(DANGER_LVL_NONE)

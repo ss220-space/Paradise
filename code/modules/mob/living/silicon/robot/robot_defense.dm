@@ -6,7 +6,7 @@
 
 			if(I)
 				uneq_active()
-				balloon_alert_to_viewers("обезоруржен", "мы обезоружены")
+				balloon_alert_to_viewers("обезоружен", "мы обезоружены")
 				add_attack_logs(M, src, "alien disarmed")
 
 			else
@@ -56,7 +56,7 @@
 			cell.add_fingerprint(user)
 			cell.forceMove_turf()
 			user.put_in_active_hand(cell, ignore_anim = FALSE)
-			balloon_alert(user, "аккамулятор извлечен")
+			balloon_alert(user, "аккумулятор извлечен")
 			var/datum/robot_component/C = components["power cell"]
 			C.uninstall()
 			module?.update_cells(unlink_cell = TRUE)
