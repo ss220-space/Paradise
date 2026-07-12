@@ -191,7 +191,7 @@
 /obj/item/reagent_containers/syringe/antiviral
 	name = "Syringe (spaceacillin)"
 	desc = "Щприц с антибиотическим средством."
-	list_reagents = list("spaceacillin" = 15)
+	list_reagents = list(/datum/reagent/medicine/spaceacillin = 15)
 
 /obj/item/reagent_containers/syringe/antiviral/get_ru_names()
 	return alist(
@@ -206,7 +206,7 @@
 /obj/item/reagent_containers/syringe/charcoal
 	name = "Syringe (charcoal)"
 	desc = "Шприц со средством против отравлений."
-	list_reagents = list("charcoal" = 15)
+	list_reagents = list(/datum/reagent/medicine/charcoal = 15)
 
 /obj/item/reagent_containers/syringe/charcoal/get_ru_names()
 	return alist(
@@ -221,7 +221,7 @@
 /obj/item/reagent_containers/syringe/epinephrine
 	name = "Syringe (Epinephrine)"
 	desc = "Шприц со средством для стабилизации критических пациентов."
-	list_reagents = list("epinephrine" = 15)
+	list_reagents = list(/datum/reagent/medicine/epinephrine = 15)
 
 /obj/item/reagent_containers/syringe/epinephrine/get_ru_names()
 	return alist(
@@ -236,7 +236,7 @@
 /obj/item/reagent_containers/syringe/insulin
 	name = "Syringe (insulin)"
 	desc = "Шприц со средством для борьбы с диабетической комой."
-	list_reagents = list("insulin" = 15)
+	list_reagents = list(/datum/reagent/medicine/insulin = 15)
 
 /obj/item/reagent_containers/syringe/insulin/get_ru_names()
 	return alist(
@@ -251,7 +251,7 @@
 /obj/item/reagent_containers/syringe/calomel
 	name = "Syringe (calomel)"
 	desc = "Шприц со средством для выведения веществ из кровотока."
-	list_reagents = list("calomel" = 15)
+	list_reagents = list(/datum/reagent/medicine/calomel = 15)
 
 /obj/item/reagent_containers/syringe/calomel/get_ru_names()
 	return alist(
@@ -266,7 +266,7 @@
 /obj/item/reagent_containers/syringe/heparin
 	name = "Syringe (heparin)"
 	desc = "Шприц с антикоагулянтом."
-	list_reagents = list("heparin" = 15)
+	list_reagents = list(/datum/reagent/heparin = 15)
 
 /obj/item/reagent_containers/syringe/heparin/get_ru_names()
 	return alist(
@@ -281,7 +281,7 @@
 /obj/item/reagent_containers/syringe/bioterror
 	name = "bioterror syringe"
 	desc = "Щприц с несколькими нервно-паралитическими ядами."
-	list_reagents = list("neurotoxin" = 5, "capulettium_plus" = 5, "sodium_thiopental" = 5)
+	list_reagents = list(/datum/reagent/consumable/ethanol/neurotoxin = 5, /datum/reagent/capulettium_plus = 5, /datum/reagent/sodium_thiopental = 5)
 
 /obj/item/reagent_containers/syringe/bioterror/get_ru_names()
 	return alist(
@@ -298,7 +298,7 @@
 	desc = "Странный шприц, измазанный в зелёной жиже."
 	amount_per_transfer_from_this = 1
 	volume = 1
-	list_reagents = list("gluttonytoxin" = 1)
+	list_reagents = list(/datum/reagent/gluttonytoxin = 1)
 
 /obj/item/reagent_containers/syringe/gluttony/get_ru_names()
 	return alist(
@@ -313,7 +313,7 @@
 /obj/item/reagent_containers/syringe/capulettium_plus
 	name = "capulettium plus syringe"
 	desc = "Шприц со средством для имитации смерти."
-	list_reagents = list("capulettium_plus" = 15)
+	list_reagents = list(/datum/reagent/capulettium_plus = 15)
 
 /obj/item/reagent_containers/syringe/capulettium_plus/get_ru_names()
 	return alist(
@@ -328,7 +328,7 @@
 /obj/item/reagent_containers/syringe/sarin
 	name = "sarin syringe"
 	desc = "Щприц со смертельно опасным нервно-паралитическим ядом."
-	list_reagents = list("sarin" = 15)
+	list_reagents = list(/datum/reagent/sarin = 15)
 
 /obj/item/reagent_containers/syringe/sarin/get_ru_names()
 	return alist(
@@ -343,7 +343,7 @@
 /obj/item/reagent_containers/syringe/pancuronium
 	name = "pancuronium syringe"
 	desc = "Шприц с парализующим веществом."
-	list_reagents = list("pancuronium" = 15)
+	list_reagents = list(/datum/reagent/pancuronium = 15)
 
 /obj/item/reagent_containers/syringe/pancuronium/get_ru_names()
 	return alist(
@@ -360,7 +360,7 @@
 	desc = "Шприц, используемый для смертельных инъекций. Вмещает в себя вплоть до <b>50</b> единиц вещества."
 	amount_per_transfer_from_this = 50
 	volume = 50
-	list_reagents = list("toxin" = 15, "pancuronium" = 10, "cyanide" = 5, "facid" = 10, "fluorine" = 10)
+	list_reagents = list(/datum/reagent/toxin = 15, /datum/reagent/pancuronium = 10, /datum/reagent/cyanide = 5, /datum/reagent/acid/facid = 10, /datum/reagent/fluorine = 10)
 
 /obj/item/reagent_containers/syringe/lethal/get_ru_names()
 	return alist(
@@ -375,7 +375,7 @@
 /obj/item/reagent_containers/syringe/steroids
 	name = "Syringe (Стероиды)"
 	desc = "Шприц с опасным для здоровья веществом, которое способствует быстрому увеличению мышечной массы."
-	list_reagents = list("steroids" = 15)
+	list_reagents = list(/datum/reagent/status_effect/steroids = 15)
 
 /obj/item/reagent_containers/syringe/steroids/get_ru_names()
 	return alist(

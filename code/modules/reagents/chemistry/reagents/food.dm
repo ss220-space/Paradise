@@ -405,8 +405,8 @@
 			if(is_slime)
 				adjusted_temp += rand(5,20)
 			user.adjust_bodytemperature(-adjusted_temp)
-			if(holder.has_reagent("capsaicin"))
-				holder.remove_reagent("capsaicin", 5)
+			if(holder.has_reagent(/datum/reagent/consumable/capsaicin))
+				holder.remove_reagent(/datum/reagent/consumable/capsaicin, 5)
 		if(15 to 25)
 			adjusted_temp = 15 * TEMPERATURE_DAMAGE_COEFFICIENT
 			if(is_slime)

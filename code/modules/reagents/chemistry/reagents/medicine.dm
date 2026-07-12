@@ -736,8 +736,8 @@
 
 /datum/reagent/medicine/diphenhydramine/on_mob_life(mob/living/M)
 	M.AdjustJitter(-40 SECONDS)
-	M.reagents.remove_reagent("histamine",3)
-	M.reagents.remove_reagent("itching_powder",3)
+	M.reagents.remove_reagent(/datum/reagent/histamine,3)
+	M.reagents.remove_reagent(/datum/reagent/itching_powder,3)
 	if(prob(7))
 		M.emote("yawn")
 	if(prob(3))
@@ -837,7 +837,7 @@
 		update_flags |= M.adjustFireLoss(-1.5, FALSE, affect_robotic = FALSE)
 	else if(M.health > -60)
 		update_flags |= M.adjustToxLoss(1, FALSE)
-	M.reagents.remove_reagent("sarin", 20)
+	M.reagents.remove_reagent(/datum/reagent/sarin, 20)
 	return ..() | update_flags
 
 /datum/reagent/medicine/epinephrine
@@ -866,7 +866,7 @@
 		M.SetSleeping(0)
 	if(prob(5))
 		update_flags |= M.adjustBrainLoss(-1, FALSE)
-	holder.remove_reagent("histamine", 15)
+	holder.remove_reagent(/datum/reagent/histamine, 15)
 	M.AdjustLoseBreath(-2 SECONDS, bound_lower = 6 SECONDS)
 	if(M.getOxyLoss() > 35)
 		update_flags |= M.adjustOxyLoss(-5, FALSE)
@@ -1137,7 +1137,7 @@
 	chemuse = 50
 
 /datum/reagent/medicine/insulin/on_mob_life(mob/living/M)
-	M.reagents.remove_reagent("sugar", 5)
+	M.reagents.remove_reagent(/datum/reagent/consumable/sugar, 5)
 	return ..()
 
 /datum/reagent/heparin
@@ -1150,7 +1150,7 @@
 	taste_description = "горечи"
 
 /datum/reagent/heparin/on_mob_life(mob/living/M)
-	M.reagents.remove_reagent("cholesterol", 2)
+	M.reagents.remove_reagent(/datum/reagent/cholesterol, 2)
 	return ..()
 
 /datum/reagent/heparin/overdose_process(mob/living/carbon/M, severity)
@@ -1207,14 +1207,14 @@
 	color = "#FFDCFF"
 	taste_description = "стабильности и успокоения"
 	harmless = FALSE
-	var/list/drug_list = list("crank","methamphetamine","space_drugs","psilocybin","ephedrine","epinephrine","stimulants","bath_salts","lsd","thc")
+	var/list/drug_list = list(/datum/reagent/crank,/datum/reagent/methamphetamine,/datum/reagent/space_drugs,/datum/reagent/psilocybin,/datum/reagent/medicine/ephedrine,/datum/reagent/medicine/epinephrine,/datum/reagent/medicine/stimulants,/datum/reagent/bath_salts,/datum/reagent/lsd,/datum/reagent/thc)
 
 /datum/reagent/medicine/haloperidol/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	for(var/I in M.reagents.reagent_list)
 		var/datum/reagent/R = I
-		if(drug_list.Find(R.id))
-			M.reagents.remove_reagent(R.id, 5)
+		if(drug_list.Find(R.type))
+			M.reagents.remove_reagent(R.type, 5)
 	M.AdjustDruggy(-10 SECONDS)
 	M.AdjustHallucinate(-5 SECONDS)
 	M.AdjustJitter(-10 SECONDS)
@@ -1333,11 +1333,11 @@
 		M.AdjustConfused(-10 SECONDS)
 	for(var/datum/reagent/R in M.reagents.reagent_list)
 		if(R != src)
-			if(R.id == "ultralube" || R.id == "lube")
+			if(R.type == /datum/reagent/lube/ultra || R.type == /datum/reagent/lube)
 				//Flushes lube and ultra-lube even faster than other chems
-				M.reagents.remove_reagent(R.id, 5)
+				M.reagents.remove_reagent(R.type, 5)
 			else
-				M.reagents.remove_reagent(R.id,1)
+				M.reagents.remove_reagent(R.type, 1)
 	return ..() | update_flags
 
 /datum/reagent/medicine/degreaser/reaction_turf(turf/simulated/T, volume)
@@ -1492,14 +1492,14 @@
 	can_synth = FALSE
 	harmless = FALSE
 	taste_description = "предстоящих страданий"
-	var/list/stimulant_list = list("methamphetamine", "crank", "bath_salts", "stimulative_agent", "stimulants", "adrenaline")
+	var/list/stimulant_list = list(/datum/reagent/methamphetamine, /datum/reagent/crank, /datum/reagent/bath_salts, /datum/reagent/medicine/stimulative_agent, /datum/reagent/medicine/stimulants, /datum/reagent/medicine/adrenaline)
 
 /datum/reagent/medicine/nanocalcium/on_mob_life(mob/living/carbon/human/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	var/has_stimulant = FALSE
 	for(var/I in M.reagents.reagent_list)
 		var/datum/reagent/R = I
-		if(stimulant_list.Find(R.id))
+		if(stimulant_list.Find(R.itype))
 			has_stimulant = TRUE
 	switch(current_cycle)
 		if(1 to 9)
@@ -1509,8 +1509,8 @@
 				update_flags |= M.adjustFireLoss(1, FALSE)
 			if(has_stimulant)
 				for(var/datum/reagent/R in M.reagents.reagent_list)
-					if(stimulant_list.Find(R.id))
-						M.reagents.remove_reagent(R.id, 1) //We will be generous (for nukies really) and purge out the chemicals during this phase, so they don't fucking die during the next phase. Of course, if they try to use adrenals in the next phase, well...
+					if(stimulant_list.Find(R.type))
+						M.reagents.remove_reagent(R.type, 1) //We will be generous (for nukies really) and purge out the chemicals during this phase, so they don't fucking die during the next phase. Of course, if they try to use adrenals in the next phase, well...
 		if(10 to 21)
 			//If they have stimulants or stimulant drugs then just apply toxin damage instead.
 			if(has_stimulant)

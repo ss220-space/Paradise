@@ -179,8 +179,8 @@
 /datum/reagent/plasma/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	update_flags |= M.adjustToxLoss(0.5, FALSE)
-	if(holder.has_reagent("epinephrine"))
-		holder.remove_reagent("epinephrine", 2)
+	if(holder.has_reagent(/datum/reagent/medicine/epinephrine))
+		holder.remove_reagent(/datum/reagent/medicine/epinephrine, 2)
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M
 		C.adjust_alien_plasma(10)
@@ -397,16 +397,16 @@
 	return ..()
 
 /datum/reagent/cryostylane/on_mob_life(mob/living/M) //TODO: code freezing into an ice cube
-	if(M.reagents.has_reagent("oxygen"))
-		M.reagents.remove_reagent("oxygen", 1)
+	if(M.reagents.has_reagent(/datum/reagent/oxygen))
+		M.reagents.remove_reagent(/datum/reagent/oxygen, 1)
 		M.adjust_bodytemperature(-30)
 	return ..()
 
 /datum/reagent/cryostylane/process()
 	if(..())
-		if(holder.has_reagent("oxygen"))
-			holder.remove_reagent("oxygen", 2)
-			holder.remove_reagent("cryostylane", 2)
+		if(holder.has_reagent(/datum/reagent/oxygen))
+			holder.remove_reagent(/datum/reagent/oxygen, 2)
+			holder.remove_reagent(/datum/reagent/cryostylane, 2)
 			holder.temperature_reagents(holder.chem_temp - 200)
 
 /datum/reagent/cryostylane/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
@@ -439,16 +439,16 @@
 	return ..()
 
 /datum/reagent/pyrosium/on_mob_life(mob/living/M)
-	if(M.reagents.has_reagent("oxygen"))
-		M.reagents.remove_reagent("oxygen", 1)
+	if(M.reagents.has_reagent(/datum/reagent/oxygen))
+		M.reagents.remove_reagent(/datum/reagent/oxygen, 1)
 		M.adjust_bodytemperature(30)
 	return ..()
 
 /datum/reagent/pyrosium/process()
 	if(..())
-		if(holder.has_reagent("oxygen"))
-			holder.remove_reagent("oxygen", 2)
-			holder.remove_reagent("pyrosium", 2)
+		if(holder.has_reagent(/datum/reagent/oxygen))
+			holder.remove_reagent(/datum/reagent/oxygen, 2)
+			holder.remove_reagent(/datum/reagent/pyrosium, 2)
 			holder.temperature_reagents(holder.chem_temp + 200)
 
 /datum/reagent/firefighting_foam

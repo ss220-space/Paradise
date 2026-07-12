@@ -604,7 +604,7 @@
 		M.SetWeakened(0, FALSE)
 		M.SetKnockdown(0, FALSE)
 	if(volume >= 70 && prob(25))
-		if(M.reagents.get_reagent_amount("thc") <= 20)
+		if(M.reagents.get_reagent_amount(/datum/reagent/thc) <= 20)
 			M.Drowsy(20 SECONDS)
 	if(prob(25))
 		update_flags |= M.adjustBruteLoss(-2, FALSE, affect_robotic = FALSE)

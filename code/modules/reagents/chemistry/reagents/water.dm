@@ -8,9 +8,9 @@
 #define BLOOD_ANTIGEN_B (1 << 1)
 
 GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
-			"blood",
-			"slimejelly",
-			"cryoxadone",
+			/datum/reagent/blood,
+			/datum/reagent/slimejelly,
+			/datum/reagent/medicine/cryoxadone,
 		))
 
 /datum/reagent/water
@@ -188,7 +188,7 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 
 	if(method == REAGENT_INGEST && iscarbon(M))
 		var/mob/living/carbon/C = M
-		if(C.get_blood_id() == "blood")
+		if(C.get_blood_id() == /datum/reagent/blood)
 			if(!data || !(data["blood_type"] in get_safe_blood(C.dna.blood_type)) || !(data["blood_species"] == C.dna.species.blood_species))
 				C.reagents.add_reagent(/datum/reagent/toxin, volume * 0.5)
 			else
@@ -260,7 +260,7 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 
 	if(method == REAGENT_INGEST && iscarbon(M))
 		var/mob/living/carbon/C = M
-		if(C.get_blood_id() == "blood")
+		if(C.get_blood_id() == /datum/reagent/blood)
 			if(!data || !(C.dna.species.blood_species == "Vox"))
 				C.reagents.add_reagent(/datum/reagent/toxin, volume * 0.5)
 				if(C.stat != DEAD)
@@ -279,7 +279,7 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 
 	if(method == REAGENT_INGEST && iscarbon(M))
 		var/mob/living/carbon/C = M
-		if(C.get_blood_id() == "blood")
+		if(C.get_blood_id() == /datum/reagent/blood)
 			if(!data || C.dna.species.blood_species == "Vox")
 				C.reagents.add_reagent(/datum/reagent/toxin, volume * 0.5)
 				if(C.stat != DEAD)

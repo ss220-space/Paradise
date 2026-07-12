@@ -211,7 +211,7 @@
 // PRE-FILLED IV BAGS BELOW
 
 /obj/item/reagent_containers/iv_bag/salglu
-	list_reagents = list("salglu_solution" = 200)
+	list_reagents = list(/datum/reagent/medicine/salglu_solution = 200)
 
 /obj/item/reagent_containers/iv_bag/salglu/get_ru_names()
 	return alist(
@@ -373,7 +373,7 @@
 		update_icon(UPDATE_OVERLAYS)
 
 /obj/item/reagent_containers/iv_bag/slime
-	list_reagents = list("slimejelly" = 200)
+	list_reagents = list(/datum/reagent/slimejelly = 200)
 
 /obj/item/reagent_containers/iv_bag/slime/get_ru_names()
 	return alist(

@@ -164,7 +164,7 @@
 
 /obj/item/reagent_containers/hypospray/safety/ert
 	name = "medical hypospray (Omnizine)"
-	list_reagents = list("omnizine" = 30)
+	list_reagents = list(/datum/reagent/medicine/omnizine = 30)
 
 /obj/item/reagent_containers/hypospray/safety/ert/get_ru_names()
 	return alist(
@@ -179,7 +179,7 @@
 /obj/item/reagent_containers/hypospray/CMO
 	volume = 250
 	possible_transfer_amounts = list(1, 2, 3, 4, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50)
-	list_reagents = list("omnizine" = 100)
+	list_reagents = list(/datum/reagent/medicine/omnizine = 100)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
 /obj/item/reagent_containers/hypospray/CMO/get_ru_names()
@@ -207,7 +207,7 @@
 	icon_state = "combat_hypo"
 	volume = 90
 	ignore_flags = 1 // So they can heal their comrades.
-	list_reagents = list("epinephrine" = 30, "weak_omnizine" = 30, "salglu_solution" = 30)
+	list_reagents = list(/datum/reagent/medicine/epinephrine = 30, /datum/reagent/medicine/omnizine_diluted = 30, /datum/reagent/medicine/salglu_solution = 30)
 
 /obj/item/reagent_containers/hypospray/combat/get_ru_names()
 	return alist(
@@ -230,7 +230,7 @@
 	name = "Hydrocodon combat stimulant injector"
 	desc = "Модифицированный автоинъектор с воздушной иглой, используемый оперативниками поддержки для быстрого заживления ран в бою. Содержит гидрокодон."
 	icon_state = "hypocombat-hydro"
-	list_reagents = list("hydrocodone" = 90)
+	list_reagents = list(/datum/reagent/medicine/hydrocodone = 90)
 
 /obj/item/reagent_containers/hypospray/ertm/hydrocodone/get_ru_names()
 	return alist(
@@ -247,7 +247,7 @@
 	name = "Perfluorodecalin combat stimulant injector"
 	icon_state = "hypocombat-perfa"
 	desc = "Модифицированный автоинъектор с воздушной иглой, используемый оперативниками поддержки для быстрого заживления ран в бою. Содержит Перфтордекалин."
-	list_reagents = list("perfluorodecalin" = 90)
+	list_reagents = list(/datum/reagent/medicine/perfluorodecalin = 90)
 
 /obj/item/reagent_containers/hypospray/ertm/perfluorodecalin/get_ru_names()
 	return alist(
@@ -263,7 +263,7 @@
 	name = "Pentic acid combat stimulant injector"
 	icon_state = "hypocombat-dtpa"
 	desc = "Модифицированный автоинъектор с воздушной иглой, используемый оперативниками поддержки для быстрого заживления ран в бою. Содержит пентетовую кислоту."
-	list_reagents = list("pen_acid" = 90)
+	list_reagents = list(/datum/reagent/medicine/pen_acid = 90)
 
 /obj/item/reagent_containers/hypospray/ertm/pentic_acid/get_ru_names()
 	return alist(
@@ -279,7 +279,7 @@
 	name = "Epinephrine combat stimulant injector"
 	icon_state = "hypocombat-epi"
 	desc = "Модифицированный автоинъектор с воздушной иглой, используемый оперативниками поддержки для быстрого заживления ран в бою. Содержит эпинефрин."
-	list_reagents = list("epinephrine" = 90)
+	list_reagents = list(/datum/reagent/medicine/epinephrine = 90)
 
 /obj/item/reagent_containers/hypospray/ertm/epinephrine/get_ru_names()
 	return alist(
@@ -295,7 +295,7 @@
 	name = "Mannitol combat stimulant injector"
 	desc = "Модифицированный автоинъектор с воздушной иглой, используемый оперативниками поддержки для быстрого заживления ран в бою. Содержит маннитол."
 	icon_state = "hypocombat-mani"
-	list_reagents = list("mannitol" = 90)
+	list_reagents = list(/datum/reagent/medicine/mannitol = 90)
 
 /obj/item/reagent_containers/hypospray/ertm/mannitol/get_ru_names()
 	return alist(
@@ -311,7 +311,7 @@
 	name = "Oculine combat stimulant injector"
 	icon_state = "hypocombat-ocu"
 	desc = "Модифицированный автоинъектор с воздушной иглой, используемый оперативниками поддержки для быстрого заживления ран в бою. Содержит окулин."
-	list_reagents = list("oculine" = 90)
+	list_reagents = list(/datum/reagent/medicine/oculine = 90)
 
 /obj/item/reagent_containers/hypospray/ertm/oculine/get_ru_names()
 	return alist(
@@ -328,7 +328,7 @@
 	name = "DilOmni-Salglu solution combat stimulant injector"
 	icon_state = "hypocombat-womnisal"
 	desc = "Модифицированный автоинъектор с воздушной иглой, используемый оперативниками поддержки для быстрого заживления ран в бою. Содержит разбавленный омнизин и физиологический раствор."
-	list_reagents = list("weak_omnizine" = 45, "salglu_solution" = 45)
+	list_reagents = list(/datum/reagent/medicine/omnizine_diluted = 45, /datum/reagent/medicine/salglu_solution = 45)
 	possible_transfer_amounts = list(10, 20, 30)
 
 /obj/item/reagent_containers/hypospray/ertm/omnisal/get_ru_names()
@@ -344,7 +344,7 @@
 /obj/item/reagent_containers/hypospray/combat/nanites
 	desc = "Модифицированный автоинъектор с воздушной иглой, используемый оперативниками поддержки для быстрого заживления ран в бою. Заполнен дорогостоящими медицинскими нанитами для быстрого заживления."
 	volume = 100
-	list_reagents = list("nanites" = 100)
+	list_reagents = list(/datum/reagent/medicine/adminordrazine/nanites = 100)
 
 /obj/item/reagent_containers/hypospray/combat/nanites/get_ru_names()
 	return alist(
@@ -368,7 +368,7 @@
 	ignore_flags = TRUE //so you can medipen through hardsuits
 	container_type = DRAWABLE
 	flags = null
-	list_reagents = list("epinephrine" = 10)
+	list_reagents = list(/datum/reagent/medicine/epinephrine = 10)
 	custom_price = PAYCHECK_MIN
 	/// Whether we can rename and repaint source
 	var/reskin_allowed = FALSE
@@ -488,7 +488,7 @@
 	name = "teporone autoinjector"
 	desc = "Маленький инъектор в форме ручки, содержащий внутри дозу тепорона. Быстрый способ восстановления температуры тела до естественных показателей."
 	icon_state = "lepopen"
-	list_reagents = list("teporone" = 10)
+	list_reagents = list(/datum/reagent/medicine/teporone = 10)
 
 /obj/item/reagent_containers/hypospray/autoinjector/teporone/get_ru_names()
 	return alist(
@@ -504,7 +504,7 @@
 	name = "traneksam acid autoinjector"
 	desc = "Маленький инъектор в форме ручки, содержащий внутри дозу транексамовой кислота. Экстренный способ остановки кровотечений."
 	icon_state = "orangeinjector"
-	list_reagents = list("traneksam_acid" = 5)
+	list_reagents = list(/datum/reagent/medicine/traneksam_acid = 5)
 
 /obj/item/reagent_containers/hypospray/autoinjector/traneksam/get_ru_names()
 	return alist(
@@ -522,7 +522,7 @@
 	icon_state = "violetinjector"
 	volume = 15
 	amount_per_transfer_from_this = 15
-	list_reagents = list("neuromatin" = 15)
+	list_reagents = list(/datum/reagent/medicine/neuromatin = 15)
 
 /obj/item/reagent_containers/hypospray/autoinjector/neuromatin/get_ru_names()
 	return alist(
@@ -540,7 +540,7 @@
 	icon_state = "stimpen"
 	volume = 20
 	amount_per_transfer_from_this = 20
-	list_reagents = list("methamphetamine" = 10, "coffee" = 10)
+	list_reagents = list(/datum/reagent/methamphetamine = 10, /datum/reagent/consumable/drink/coffee = 10)
 
 /obj/item/reagent_containers/hypospray/autoinjector/stimpack/get_ru_names()
 	return alist(
@@ -558,7 +558,7 @@
 	icon_state = "stimpen"
 	amount_per_transfer_from_this = 50
 	volume = 50
-	list_reagents = list("stimulants" = 50)
+	list_reagents = list(/datum/reagent/medicine/stimulants = 50)
 
 /obj/item/reagent_containers/hypospray/autoinjector/stimulants/get_ru_names()
 	return alist(
@@ -577,7 +577,7 @@
 	belt_icon = "survival_medipen"
 	volume = 42
 	amount_per_transfer_from_this = 42
-	list_reagents = list("salbutamol" = 10, "teporone" = 15, "epinephrine" = 10, "lavaland_extract" = 2, "weak_omnizine" = 5) //Short burst of healing, followed by minor healing from the saline
+	list_reagents = list(/datum/reagent/medicine/salbutamol = 10, /datum/reagent/medicine/teporone = 15, /datum/reagent/medicine/epinephrine = 10, /datum/reagent/medicine/lavaland_extract = 2, /datum/reagent/medicine/omnizine_diluted = 5) //Short burst of healing, followed by minor healing from the saline
 
 /obj/item/reagent_containers/hypospray/autoinjector/survival/get_ru_names()
 	return alist(
@@ -595,7 +595,7 @@
 	icon_state = "redinjector"
 	volume = 40
 	amount_per_transfer_from_this = 40
-	list_reagents = list("salbutamol" = 10, "adv_lava_extract" = 10, "teporone" = 10, "hydrocodone" = 10)
+	list_reagents = list(/datum/reagent/medicine/salbutamol = 10, /datum/reagent/medicine/adv_lava_extract = 10, /datum/reagent/medicine/teporone = 10, /datum/reagent/medicine/hydrocodone = 10)
 
 /obj/item/reagent_containers/hypospray/autoinjector/survival/luxury/get_ru_names()
 	return alist(
@@ -625,7 +625,7 @@
 	icon_state = "bonepen"
 	amount_per_transfer_from_this = 15
 	volume = 15
-	list_reagents = list("nanocalcium" = 15)
+	list_reagents = list(/datum/reagent/medicine/nanocalcium = 15)
 
 /obj/item/reagent_containers/hypospray/autoinjector/nanocalcium/get_ru_names()
 	return alist(
@@ -673,7 +673,7 @@
 	icon_state = "ablueinjector"
 	amount_per_transfer_from_this = 20
 	volume = 20
-	list_reagents = list("salbutamol" = 20)
+	list_reagents = list(/datum/reagent/medicine/salbutamol = 20)
 
 /obj/item/reagent_containers/hypospray/autoinjector/salbutamol/get_ru_names()
 	return alist(
@@ -689,7 +689,7 @@
 	name = "Radium autoinjector"
 	desc = "Маленький инъектор в форме ручки, содержащий внутри дозу радия для экстренной первой помощи нуклеациям."
 	icon_state = "ablueinjector"
-	list_reagents = list("radium" = 10)
+	list_reagents = list(/datum/reagent/radium = 10)
 
 /obj/item/reagent_containers/hypospray/autoinjector/radium/get_ru_names()
 	return alist(
@@ -707,7 +707,7 @@
 	icon_state = "greeninjector"
 	amount_per_transfer_from_this = 20
 	volume = 20
-	list_reagents = list("charcoal" = 20)
+	list_reagents = list(/datum/reagent/medicine/charcoal = 20)
 
 /obj/item/reagent_containers/hypospray/autoinjector/charcoal/get_ru_names()
 	return alist(
@@ -725,7 +725,7 @@
 	icon_state = "redinjector"
 	amount_per_transfer_from_this = 15
 	volume = 15
-	list_reagents = list("sanguinius" = 15)
+	list_reagents = list(/datum/reagent/medicine/sanguinius = 15)
 
 /obj/item/reagent_containers/hypospray/autoinjector/sanguinius/get_ru_names()
 	return alist(

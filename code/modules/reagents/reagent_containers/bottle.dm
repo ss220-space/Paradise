@@ -63,7 +63,7 @@
 /obj/item/reagent_containers/glass/bottle/toxin
 	name = "toxin bottle"
 	desc = "Небольшая стеклянная бутылочка, внутри находится сильный токсин."
-	list_reagents = list("toxin" = 30)
+	list_reagents = list(/datum/reagent/toxin = 30)
 
 /obj/item/reagent_containers/glass/bottle/toxin/get_ru_names()
 	return alist(
@@ -78,7 +78,7 @@
 /obj/item/reagent_containers/glass/bottle/atropine
 	name = "atropine bottle"
 	desc = "Небольшая стеклянная бутылочка, внутри находится атропин."
-	list_reagents = list("atropine" = 30)
+	list_reagents = list(/datum/reagent/medicine/atropine = 30)
 	custom_price = PAYCHECK_MIN
 
 /obj/item/reagent_containers/glass/bottle/atropine/get_ru_names()
@@ -94,7 +94,7 @@
 /obj/item/reagent_containers/glass/bottle/saline
 	name = "saline-glucose bottle"
 	desc = "Небольшая стеклянная бутылочка, внутри находится физиологический раствор."
-	list_reagents = list("salglu_solution" = 30)
+	list_reagents = list(/datum/reagent/medicine/salglu_solution = 30)
 
 /obj/item/reagent_containers/glass/bottle/saline/get_short_name()
 	return "Физраствор"
@@ -112,7 +112,7 @@
 /obj/item/reagent_containers/glass/bottle/salicylic
 	name = "salicylic acid bottle"
 	desc = "Небольшая стеклянная бутылочка, внутри находится салициловая кислота."
-	list_reagents = list("sal_acid" = 30)
+	list_reagents = list(/datum/reagent/medicine/sal_acid = 30)
 
 /obj/item/reagent_containers/glass/bottle/salicylic/get_short_name()
 	return "Сал. кислота"
@@ -130,7 +130,7 @@
 /obj/item/reagent_containers/glass/bottle/cyanide
 	name = "cyanide bottle"
 	desc = "Небольшая стеклянная бутылочка, внутри находится очень токсичный цианид."
-	list_reagents = list("cyanide" = 30)
+	list_reagents = list(/datum/reagent/cyanide = 30)
 
 /obj/item/reagent_containers/glass/bottle/cyanide/get_ru_names()
 	return alist(
@@ -147,7 +147,7 @@
 	desc = "Небольшая стеклянная бутылочка, внутри находится нестабильный мутаген."
 	icon_state = "round_bottle"
 	item_state = "round_bottle"
-	list_reagents = list("mutagen" = 30)
+	list_reagents = list(/datum/reagent/mutagen = 30)
 
 /obj/item/reagent_containers/glass/bottle/mutagen/get_short_name()
 	return "Нестаб. мутаген"
@@ -167,7 +167,7 @@
 	desc = "Небольшая стеклянная бутылочка, внутри находится аммиак."
 	icon_state = "round_bottle"
 	item_state = "round_bottle"
-	list_reagents = list("ammonia" = 30)
+	list_reagents = list(/datum/reagent/ammonia = 30)
 
 /obj/item/reagent_containers/glass/bottle/ammonia/get_ru_names()
 	return alist(
@@ -184,7 +184,7 @@
 	desc = "Небольшая стеклянная бутылочка, внутри находится диэтиламин."
 	icon_state = "round_bottle"
 	item_state = "round_bottle"
-	list_reagents = list("diethylamine" = 30)
+	list_reagents = list(/datum/reagent/diethylamine = 30)
 
 /obj/item/reagent_containers/glass/bottle/diethylamine/get_ru_names()
 	return alist(
@@ -201,7 +201,7 @@
 	desc = "Небольшая стеклянная бутылочка, внутри находится фторсерная кислота."
 	icon_state = "round_bottle"
 	item_state = "round_bottle"
-	list_reagents = list("facid" = 30)
+	list_reagents = list(/datum/reagent/acid/facid = 30)
 
 /obj/item/reagent_containers/glass/bottle/facid/get_short_name()
 	return "Фторсер. кислота"
@@ -221,7 +221,7 @@
 	desc = "Небольшая стеклянная бутылочка, содержащая в себе божественную эссенцию."
 	icon = 'icons/obj/drinks.dmi'
 	icon_state = "holyflask"
-	list_reagents = list("adminordrazine" = 30)
+	list_reagents = list(/datum/reagent/medicine/adminordrazine = 30)
 
 /obj/item/reagent_containers/glass/bottle/adminordrazine/get_ru_names()
 	return alist(
@@ -238,7 +238,7 @@
 	desc = "Небольшая стеклянная бутылочка, внутри находится капсаицин, получаемый из перца чили."
 	icon_state = "round_bottle"
 	item_state = "round_bottle"
-	list_reagents = list("capsaicin" = 30)
+	list_reagents = list(/datum/reagent/consumable/capsaicin = 30)
 
 /obj/item/reagent_containers/glass/bottle/capsaicin/get_ru_names()
 	return alist(
@@ -255,7 +255,7 @@
 	desc = "Небольшая стеклянная бутылочка, внутри находится ледяное масло, получаемое из ледяного перца чили."
 	icon_state = "round_bottle"
 	item_state = "round_bottle"
-	list_reagents = list("frostoil" = 30)
+	list_reagents = list(/datum/reagent/consumable/frostoil = 30)
 
 /obj/item/reagent_containers/glass/bottle/frostoil/get_short_name()
 	return "Лед. масло"
@@ -275,7 +275,7 @@
 	desc = "Небольшая стеклянная бутылочка, внутри находится морфин."
 	icon_state = "round_bottle"
 	item_state = "round_bottle"
-	list_reagents = list("morphine" = 30)
+	list_reagents = list(/datum/reagent/medicine/morphine = 30)
 	custom_price = PAYCHECK_MIN
 
 /obj/item/reagent_containers/glass/bottle/morphine/get_ru_names()
@@ -293,7 +293,7 @@
 	desc = "Небольшая стеклянная бутылочка, внутри находится эфир."
 	icon_state = "round_bottle"
 	item_state = "round_bottle"
-	list_reagents = list("ether" = 30)
+	list_reagents = list(/datum/reagent/medicine/ether = 30)
 
 /obj/item/reagent_containers/glass/bottle/ether/get_ru_names()
 	return alist(
@@ -310,7 +310,7 @@
 	desc = "Небольшая стеклянная бутылочка, внутри находится активированный уголь."
 	icon_state = "wide_bottle"
 	item_state = "wide_bottle"
-	list_reagents = list("charcoal" = 30)
+	list_reagents = list(/datum/reagent/medicine/charcoal = 30)
 
 /obj/item/reagent_containers/glass/bottle/charcoal/get_short_name()
 	return "Акт. уголь"
@@ -330,7 +330,7 @@
 	desc = "Небольшая стеклянная бутылочка, внутри находится эпинефрин."
 	icon_state = "round_bottle"
 	item_state = "round_bottle"
-	list_reagents = list("epinephrine" = 30)
+	list_reagents = list(/datum/reagent/medicine/epinephrine = 30)
 
 /obj/item/reagent_containers/glass/bottle/epinephrine/get_ru_names()
 	return alist(
@@ -347,7 +347,7 @@
 	desc = "Небольшая стеклянная бутылочка, внутри находится панкуроний."
 	icon_state = "round_bottle"
 	item_state = "round_bottle"
-	list_reagents = list("pancuronium" = 30)
+	list_reagents = list(/datum/reagent/pancuronium = 30)
 
 /obj/item/reagent_containers/glass/bottle/pancuronium/get_ru_names()
 	return alist(
@@ -364,7 +364,7 @@
 	desc = "Небольшая стеклянная бутылочка, внутри находится сульфонал."
 	icon_state = "round_bottle"
 	item_state = "round_bottle"
-	list_reagents = list("sulfonal" = 30)
+	list_reagents = list(/datum/reagent/sulfonal = 30)
 
 /obj/item/reagent_containers/glass/bottle/sulfonal/get_ru_names()
 	return alist(
@@ -381,7 +381,7 @@
 	desc = "Небольшая стеклянная бутылочка, внутри находится плазменная пыль."
 	icon_state = "wide_bottle"
 	item_state = "wide_bottle"
-	list_reagents = list("plasma_dust" = 30)
+	list_reagents = list(/datum/reagent/plasma_dust = 30)
 
 /obj/item/reagent_containers/glass/bottle/plasma/get_short_name()
 	return "Плазм. пыль"
@@ -401,7 +401,7 @@
 	desc = "Небольшая стеклянная бутылочка, внутри находится дифенгидрамин."
 	icon_state = "round_bottle"
 	item_state = "round_bottle"
-	list_reagents = list("diphenhydramine" = 30)
+	list_reagents = list(/datum/reagent/medicine/diphenhydramine = 30)
 
 /obj/item/reagent_containers/glass/bottle/diphenhydramine/get_ru_names()
 	return alist(
@@ -418,7 +418,7 @@
 	desc = "Небольшая стеклянная бутылочка, внутри находится окулин."
 	icon_state = "round_bottle"
 	item_state = "round_bottle"
-	list_reagents = list("oculine" = 30)
+	list_reagents = list(/datum/reagent/medicine/oculine = 30)
 	custom_price = PAYCHECK_MIN * 2
 
 /obj/item/reagent_containers/glass/bottle/oculine/get_ru_names()
@@ -436,7 +436,7 @@
 	desc = "Небольшая стеклянная бутылочка, внутри находится иодид калия."
 	icon_state = "wide_bottle"
 	item_state = "wide_bottle"
-	list_reagents = list("potass_iodide" = 30)
+	list_reagents = list(/datum/reagent/medicine/potass_iodide = 30)
 
 /obj/item/reagent_containers/glass/bottle/potassium_iodide/get_ru_names()
 	return alist(
@@ -462,7 +462,7 @@
 /obj/item/reagent_containers/glass/bottle/reagent/oil
 	name = "Oil Bottle"
 	desc = "Небольшая стеклянная бутылочка, внутри находится масло."
-	list_reagents = list("oil" = 50)
+	list_reagents = list(/datum/reagent/oil = 50)
 	pixel_x = -4
 	pixel_y = 6
 
@@ -479,7 +479,7 @@
 /obj/item/reagent_containers/glass/bottle/reagent/phenol
 	name = "Phenol Bottle"
 	desc = "Небольшая стеклянная бутылочка, внутри находится фенол."
-	list_reagents = list("phenol" = 50)
+	list_reagents = list(/datum/reagent/phenol = 50)
 	pixel_x = 6
 	pixel_y = 6
 
@@ -496,7 +496,7 @@
 /obj/item/reagent_containers/glass/bottle/reagent/acetone
 	name = "Acetone Bottle"
 	desc = "Небольшая стеклянная бутылочка, внутри находится ацетон."
-	list_reagents = list("acetone" = 50)
+	list_reagents = list(/datum/reagent/acetone = 50)
 	pixel_x = -4
 
 /obj/item/reagent_containers/glass/bottle/reagent/acetone/get_ru_names()
@@ -512,7 +512,7 @@
 /obj/item/reagent_containers/glass/bottle/reagent/ammonia
 	name = "Ammonia Bottle"
 	desc = "Небольшая стеклянная бутылочка, внутри находится аммиак."
-	list_reagents = list("ammonia" = 50)
+	list_reagents = list(/datum/reagent/ammonia = 50)
 	pixel_x = 6
 
 /obj/item/reagent_containers/glass/bottle/reagent/ammonia/get_ru_names()
@@ -528,7 +528,7 @@
 /obj/item/reagent_containers/glass/bottle/reagent/diethylamine
 	name = "Diethylamine Bottle"
 	desc = "Небольшая стеклянная бутылочка, внутри находится диэтиламин."
-	list_reagents = list("diethylamine" = 50)
+	list_reagents = list(/datum/reagent/diethylamine = 50)
 	pixel_x = -4
 	pixel_y = -6
 
@@ -545,7 +545,7 @@
 /obj/item/reagent_containers/glass/bottle/reagent/acid
 	name = "Acid Bottle"
 	desc = "Небольшая стеклянная бутылочка, внутри находится серная кислота."
-	list_reagents = list("sacid" = 50)
+	list_reagents = list(/datum/reagent/acid = 50)
 	pixel_x = 6
 	pixel_y = -6
 
@@ -562,7 +562,7 @@
 /obj/item/reagent_containers/glass/bottle/reagent/formaldehyde
 	name = "Formaldehyde Bottle"
 	desc = "Небольшая стеклянная бутылочка, внутри находится формальдегид."
-	list_reagents = list("formaldehyde" = 50)
+	list_reagents = list(/datum/reagent/formaldehyde = 50)
 
 /obj/item/reagent_containers/glass/bottle/reagent/formaldehyde/get_ru_names()
 	return alist(
@@ -577,7 +577,7 @@
 /obj/item/reagent_containers/glass/bottle/reagent/synaptizine
 	name = "Synaptizine Bottle"
 	desc = "Небольшая стеклянная бутылочка, внутри находится синаптизин."
-	list_reagents = list("synaptizine" = 50)
+	list_reagents = list(/datum/reagent/medicine/synaptizine = 50)
 
 /obj/item/reagent_containers/glass/bottle/reagent/synaptizine/get_ru_names()
 	return alist(
@@ -592,7 +592,7 @@
 /obj/item/reagent_containers/glass/bottle/reagent/morphine
 	name = "Morphine Bottle"
 	desc = "Небольшая стеклянная бутылочка, внутри находится морфин."
-	list_reagents = list("morphine" = 50)
+	list_reagents = list(/datum/reagent/medicine/morphine = 50)
 
 /obj/item/reagent_containers/glass/bottle/reagent/morphine/get_ru_names()
 	return alist(
@@ -607,7 +607,7 @@
 /obj/item/reagent_containers/glass/bottle/reagent/insulin
 	name = "Insulin Bottle"
 	desc = "Небольшая стеклянная бутылочка, внутри находится инсулин."
-	list_reagents = list("insulin" = 50)
+	list_reagents = list(/datum/reagent/medicine/insulin = 50)
 
 /obj/item/reagent_containers/glass/bottle/reagent/insulin/get_ru_names()
 	return alist(
@@ -622,7 +622,7 @@
 /obj/item/reagent_containers/glass/bottle/reagent/hairgrownium
 	name = "Hair Grow Gel"
 	desc = "Небольшая стеклянная бутылочка, внутри находится власорост."
-	list_reagents = list("hairgrownium" = 50)
+	list_reagents = list(/datum/reagent/hairgrownium = 50)
 
 /obj/item/reagent_containers/glass/bottle/reagent/hairgrownium/get_ru_names()
 	return alist(
@@ -637,7 +637,7 @@
 /obj/item/reagent_containers/glass/bottle/reagent/hair_dye
 	name = "Quantum Hair Dye Bottle"
 	desc = "Небольшая стеклянная бутылочка, внутри находится квантовая краска для волос."
-	list_reagents = list("hair_dye" = 50)
+	list_reagents = list(/datum/reagent/hair_dye = 50)
 
 /obj/item/reagent_containers/glass/bottle/reagent/hair_dye/get_ru_names()
 	return alist(
@@ -652,7 +652,7 @@
 /obj/item/reagent_containers/glass/bottle/reagent/omnizine
 	name = "Omnizine Bottle"
 	desc = "Небольшая стеклянная бутылочка, внутри находится омнизин."
-	list_reagents = list("omnizine" = 50)
+	list_reagents = list(/datum/reagent/medicine/omnizine = 50)
 
 /obj/item/reagent_containers/glass/bottle/reagent/omnizine/get_ru_names()
 	return alist(
@@ -667,7 +667,7 @@
 /obj/item/reagent_containers/glass/bottle/reagent/strange_reagent
 	name = "Strange Reagent Bottle"
 	desc = "Небольшая стеклянная бутылочка, внутри находится странный реагент."
-	list_reagents = list("strange_reagent" = 30)
+	list_reagents = list(/datum/reagent/medicine/strange_reagent = 30)
 
 /obj/item/reagent_containers/glass/bottle/reagent/strange_reagent/get_ru_names()
 	return alist(
@@ -1297,7 +1297,7 @@
 	desc = "Небольшая стеклянная бутылочка, внутри находится смесь лекарственных веществ для лечения био-вирусов."
 	icon_state = "wide_bottle"
 	item_state = "wide_bottle"
-	list_reagents = list("atropine" = 5, "epinephrine" = 5, "salbutamol" = 10, "spaceacillin" = 10)
+	list_reagents = list(/datum/reagent/medicine/atropine = 5, /datum/reagent/medicine/epinephrine = 5, /datum/reagent/medicine/salbutamol = 10, /datum/reagent/medicine/spaceacillin = 10)
 
 /obj/item/reagent_containers/glass/bottle/tuberculosiscure/get_short_name()
 	return "Антидот"
@@ -1317,7 +1317,7 @@
 	desc = "Небольшая стеклянная бутылочка, внутри находится вещество, заставляющее выпившего выучить обезьяний язык. Удивительно."
 	icon_state = "round_bottle"
 	item_state = "round_bottle"
-	list_reagents = list("monkeylanguage" = 30)
+	list_reagents = list(/datum/reagent/monkeylanguage = 30)
 
 /obj/item/reagent_containers/glass/bottle/monkeylangue/get_ru_names()
 	return alist(
@@ -1430,7 +1430,7 @@
 	name = "bottle of caramel syrup"
 	desc = "Стеклянная бутылка для сиропа, предназначенного для добавления в кофе. Оснащена удобным дозатором. \
 			Содержит карамелизированный сахар, также известный как карамель. Очень липкий."
-	list_reagents = list("caramel" = 50)
+	list_reagents = list(/datum/reagent/consumable/caramel = 50)
 
 /obj/item/reagent_containers/glass/bottle/syrup_bottle/caramel/get_ru_names()
 	return alist(
@@ -1446,7 +1446,7 @@
 	name = "bottle of coffee liqueur syrup"
 	desc = "Стеклянная бутылка для сиропа, предназначенного для добавления в кофе. Оснащена удобным дозатором. \
 			Содержит мексиканский ликёр \"Калуа\". В производстве с 1936 года!"
-	list_reagents = list("kahlua" = 50)
+	list_reagents = list(/datum/reagent/consumable/ethanol/kahlua = 50)
 
 /obj/item/reagent_containers/glass/bottle/syrup_bottle/liqueur/get_ru_names()
 	return alist(

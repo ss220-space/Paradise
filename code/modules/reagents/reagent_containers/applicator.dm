@@ -173,7 +173,7 @@
 	desc = "Небольшое электронное устройство, предназначенное для местного применения лекарственных препаратов. Эта версия — для заживления механических повреждений."
 	icon_state = "/obj/item/reagent_containers/applicator/brute"
 	greyscale_colors = COLOR_MENDER_BRUTE
-	list_reagents = list("styptic_powder" = 200)
+	list_reagents = list(/datum/reagent/medicine/styptic_powder = 200)
 
 /obj/item/reagent_containers/applicator/brute/get_ru_names()
 	return alist(
@@ -190,7 +190,7 @@
 	desc = "Небольшое электронное устройство, предназначенное для местного применения лекарственных препаратов. Эта версия — для заживления термических повреждений."
 	greyscale_colors = COLOR_MENDER_BURN
 	icon_state = "/obj/item/reagent_containers/applicator/burn"
-	list_reagents = list("silver_sulfadiazine" = 200)
+	list_reagents = list(/datum/reagent/medicine/silver_sulfadiazine = 200)
 
 /obj/item/reagent_containers/applicator/burn/get_ru_names()
 	return alist(
@@ -207,7 +207,7 @@
 	desc = "Небольшое электронное устройство, предназначенное для местного применения лекарственных препаратов. Эта версия — для заживления как механических, так и термических повреждений."
 	greyscale_colors = COLOR_MENDER_DUAL
 	icon_state = "/obj/item/reagent_containers/applicator/dual"
-	list_reagents = list("synthflesh" = 200)
+	list_reagents = list(/datum/reagent/medicine/synthflesh = 200)
 
 /obj/item/reagent_containers/applicator/dual/get_ru_names()
 	return alist(

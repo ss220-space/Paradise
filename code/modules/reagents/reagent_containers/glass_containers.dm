@@ -327,7 +327,7 @@
 	possible_transfer_amounts = null
 	volume = 25
 	can_assembly = 0
-	list_reagents = list("thermite" = 25)
+	list_reagents = list(/datum/reagent/thermite = 25)
 
 /obj/item/reagent_containers/glass/beaker/thermite/get_ru_names()
 	return alist(
@@ -380,19 +380,19 @@
 	)
 
 /obj/item/reagent_containers/glass/beaker/cryoxadone
-	list_reagents = list("cryoxadone" = 30)
+	list_reagents = list(/datum/reagent/medicine/cryoxadone = 30)
 
 /obj/item/reagent_containers/glass/beaker/sacid
-	list_reagents = list("sacid" = 50)
+	list_reagents = list(/datum/reagent/acid = 50)
 
 /obj/item/reagent_containers/glass/beaker/slimejelly
-	list_reagents = list("slimejelly" = 50)
+	list_reagents = list(/datum/reagent/slimejelly = 50)
 
 /obj/item/reagent_containers/glass/beaker/drugs/meth
-	list_reagents = list("methamphetamine" = 10)
+	list_reagents = list(/datum/reagent/methamphetamine = 10)
 
 /obj/item/reagent_containers/glass/beaker/laughter
-	list_reagents = list("laughter" = 50)
+	list_reagents = list(/datum/reagent/consumable/laughter = 50)
 
 /obj/item/reagent_containers/glass/bucket
 	name = "bucket"
@@ -517,7 +517,7 @@
 	icon = 'icons/obj/drinks.dmi'
 	icon_state = "smallbottle"
 	item_state = "bottle"
-	list_reagents = list("water" = 49.5, "fluorine" = 0.5) //see desc, don't think about it too hard
+	list_reagents = list(/datum/reagent/water = 49.5, /datum/reagent/fluorine = 0.5) //see desc, don't think about it too hard
 	materials = list(MAT_GLASS = 0)
 
 /obj/item/reagent_containers/glass/beaker/waterbottle/get_ru_names()
@@ -537,7 +537,7 @@
 	desc = "Свежая бутылка воды коммерческого размера."
 	icon_state = "largebottle"
 	materials = list(MAT_GLASS = 0)
-	list_reagents = list("water" = 100)
+	list_reagents = list(/datum/reagent/water = 100)
 	volume = 100
 	amount_per_transfer_from_this = 20
 
@@ -608,7 +608,7 @@
 	var/mutable_appearance/bowl_nc_mask = mutable_appearance(icon = 'icons/obj/pet_bowl.dmi', icon_state = "nc_petbowl", appearance_flags = RESET_COLOR)
 	. += bowl_nc_mask
 	if(reagents.total_volume)
-		var/datum/reagent/feed = reagents.has_reagent("afeed")
+		var/datum/reagent/feed = reagents.has_reagent(/datum/reagent/consumable/animal_feed)
 		if(feed && (feed.volume >= (reagents.total_volume - feed.volume)))
 			var/image/feed_overlay = image(icon = 'icons/obj/pet_bowl.dmi', icon_state = "petfood_5", layer = FLOAT_LAYER)
 			feed_overlay.appearance_flags = RESET_COLOR
@@ -626,9 +626,9 @@
 /obj/item/reagent_containers/glass/pet_bowl/attack_animal(mob/living/simple_animal/pet)
 	if(!pet.client || !pet.safe_respawn(pet, check_station_level = FALSE) || !reagents.total_volume)
 		return ..()
-	if(reagents.has_reagent("afeed", 1))
+	if(reagents.has_reagent(/datum/reagent/consumable/animal_feed, 1))
 		pet.heal_organ_damage(5, 5)
-		reagents.remove_reagent("afeed", 1)
+		reagents.remove_reagent(/datum/reagent/consumable/animal_feed, 1)
 		playsound(pet.loc, 'sound/items/eatfood.ogg', rand(10, 30), TRUE)
 	else
 		reagents.remove_any(1)

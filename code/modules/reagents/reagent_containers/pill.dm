@@ -77,7 +77,7 @@
 	name = "Toxins pill"
 	desc = "Очень токсично."
 	icon_state = "pill21"
-	list_reagents = list("toxin" = 50)
+	list_reagents = list(/datum/reagent/toxin = 50)
 
 /obj/item/reagent_containers/food/pill/tox/get_ru_names()
 	return alist(
@@ -93,7 +93,7 @@
 	name = "initropidril pill"
 	desc = "Не глотайте это."
 	icon_state = "pill21"
-	list_reagents = list("initropidril" = 50)
+	list_reagents = list(/datum/reagent/initropidril = 50)
 
 /obj/item/reagent_containers/food/pill/initropidril/get_ru_names()
 	return alist(
@@ -109,7 +109,7 @@
 	name = "fake death pill"
 	desc = "Проглотите, чтобы скрыть свой пульс и прикинуться мёртвым. Побочный эффект — вы не сможете говорить во время действия вещества."
 	icon_state = "pill4"
-	list_reagents = list("capulettium_plus" = 50)
+	list_reagents = list(/datum/reagent/capulettium_plus = 50)
 
 /obj/item/reagent_containers/food/pill/fakedeath/get_ru_names()
 	return alist(
@@ -125,7 +125,7 @@
 	name = "Adminordrazine pill"
 	desc = "Магия. Тут нечего объяснять."
 	icon_state = "pill16"
-	list_reagents = list("adminordrazine" = 50)
+	list_reagents = list(/datum/reagent/medicine/adminordrazine = 50)
 
 /obj/item/reagent_containers/food/pill/adminordrazine/get_ru_names()
 	return alist(
@@ -141,7 +141,7 @@
 	name = "Morphine pill"
 	desc = "Опиат, оказывающий обезболивающее и седативное действие на организм."
 	icon_state = "pill8"
-	list_reagents = list("morphine" = 30)
+	list_reagents = list(/datum/reagent/medicine/morphine = 30)
 
 /obj/item/reagent_containers/food/piil/morphine/get_ru_names()
 	return alist(
@@ -157,7 +157,7 @@
 	name = "Methamphetamine pill"
 	desc = "Бодрит, пробуждает, увеличивает концентрацию и улучшает мышечный тонус. Вызывает сильное привыкание, негативно сказывается на функциях мозга при длительном применении."
 	icon_state = "pill8"
-	list_reagents = list("methamphetamine" = 5)
+	list_reagents = list(/datum/reagent/methamphetamine = 5)
 
 /obj/item/reagent_containers/food/pill/methamphetamine/get_ru_names()
 	return alist(
@@ -172,7 +172,7 @@
 	name = "LSD pill"
 	desc = "Быстрый способ кайфануть."
 	icon_state = "pill4"
-	list_reagents = list("lsd" = 5)
+	list_reagents = list(/datum/reagent/lsd = 5)
 
 /obj/item/reagent_containers/food/pill/lsd/get_ru_names()
 	return alist(
@@ -188,7 +188,7 @@
 	name = "rum pill"
 	desc = "Суровая пиратская медицина, надо полагать..?"
 	icon_state = "pill8"
-	list_reagents = list("rum" = 25)
+	list_reagents = list(/datum/reagent/consumable/ethanol/rum = 25)
 
 /obj/item/reagent_containers/food/pill/rum/get_ru_names()
 	return alist(
@@ -204,7 +204,7 @@
 	name = "combat stimulant pill"
 	desc = "Обычно используется бойцами элитных сил дял кратковременного улучшения возможностей организма во время боя."
 	icon_state = "pill15"
-	list_reagents = list("stimulative_agent" = 5)
+	list_reagents = list(/datum/reagent/medicine/stimulative_agent = 5)
 
 /obj/item/reagent_containers/food/pill/stimulative_agent/get_ru_names()
 	return alist(
@@ -220,7 +220,7 @@
 	name = "Haloperidol pill"
 	desc = "Антипсихотическое средство, используемое для лечения психиатрических проблем."
 	icon_state = "pill8"
-	list_reagents = list("haloperidol" = 15)
+	list_reagents = list(/datum/reagent/medicine/haloperidol = 15)
 
 /obj/item/reagent_containers/food/pill/haloperidol/get_ru_names()
 	return alist(
@@ -236,7 +236,7 @@
 	name = "Happy pill"
 	desc = "Счастливая радость!"
 	icon_state = "pill18"
-	list_reagents = list("space_drugs" = 15, "sugar" = 15)
+	list_reagents = list(/datum/reagent/space_drugs = 15, /datum/reagent/consumable/sugar = 15)
 
 /obj/item/reagent_containers/food/pill/happy/get_ru_names()
 	return alist(
@@ -252,7 +252,7 @@
 	name = "Zoom pill"
 	desc = "Быстрее, быстрее, ещё быстрее!"
 	icon_state = "pill18"
-	list_reagents = list("synaptizine" = 5, "methamphetamine" = 5)
+	list_reagents = list(/datum/reagent/medicine/synaptizine = 5, /datum/reagent/methamphetamine = 5)
 
 /obj/item/reagent_containers/food/pill/zoom/get_ru_names()
 	return alist(
@@ -268,7 +268,7 @@
 	name = "Charcoal pill"
 	desc = "Стандартное лекарство от отравлений."
 	icon_state = "pill17"
-	list_reagents = list("charcoal" = 50)
+	list_reagents = list(/datum/reagent/medicine/charcoal = 50)
 
 /obj/item/reagent_containers/food/pill/charcoal/get_ru_names()
 	return alist(
@@ -284,7 +284,7 @@
 	name = "Epinephrine pill"
 	desc = "Для стабилизации пациентов в критическом состоянии."
 	icon_state = "pill6"
-	list_reagents = list("epinephrine" = 50)
+	list_reagents = list(/datum/reagent/medicine/epinephrine = 50)
 
 /obj/item/reagent_containers/food/pill/epinephrine/get_ru_names()
 	return alist(
@@ -300,7 +300,7 @@
 	name = "Salicylic Acid pill"
 	desc = "Стандартное обезболивающее и жаропонижающее средство."
 	icon_state = "pill4"
-	list_reagents = list("sal_acid" = 20)
+	list_reagents = list(/datum/reagent/medicine/sal_acid = 20)
 
 /obj/item/reagent_containers/food/pill/salicylic/get_ru_names()
 	return alist(
@@ -316,7 +316,7 @@
 	name = "Salbutamol pill"
 	desc = "Используется для лечения проблем с дыханием."
 	icon_state = "pill8"
-	list_reagents = list("salbutamol" = 20)
+	list_reagents = list(/datum/reagent/medicine/salbutamol = 20)
 
 /obj/item/reagent_containers/food/pill/salbutamol/get_ru_names()
 	return alist(
@@ -332,7 +332,7 @@
 	name = "Hydrocodone pill"
 	desc = "Сильное обезболивающее для самых крайних случаев."
 	icon_state = "pill6"
-	list_reagents = list("hydrocodone" = 15)
+	list_reagents = list(/datum/reagent/medicine/hydrocodone = 15)
 
 /obj/item/reagent_containers/food/pill/hydrocodone/get_ru_names()
 	return alist(
@@ -348,7 +348,7 @@
 	name = "calomel pill"
 	desc = "Может использоваться для выведения токсинов из организма, но сам по себе очень токсичен."
 	icon_state = "pill3"
-	list_reagents = list("calomel" = 15)
+	list_reagents = list(/datum/reagent/medicine/calomel = 15)
 
 /obj/item/reagent_containers/food/pill/calomel/get_ru_names()
 	return alist(
@@ -364,7 +364,7 @@
 	name = "mutadone pill"
 	desc = "Для лечения генетических отклонений."
 	icon_state = "pill18"
-	list_reagents = list("mutadone" = 20)
+	list_reagents = list(/datum/reagent/medicine/mutadone = 20)
 
 /obj/item/reagent_containers/food/pill/mutadone/get_ru_names()
 	return alist(
@@ -380,7 +380,7 @@
 	name = "mannitol pill"
 	desc = "Для восстановления повреждённых тканей мозга."
 	icon_state = "pill19"
-	list_reagents = list("mannitol" = 20)
+	list_reagents = list(/datum/reagent/medicine/mannitol = 20)
 
 /obj/item/reagent_containers/food/pill/mannitol/get_ru_names()
 	return alist(
@@ -396,7 +396,7 @@
 	name = "bicaridine pill"
 	desc = "Используется для лечения травм."
 	icon_state = "pill5"
-	list_reagents = list("bicaridine" = 10)
+	list_reagents = list(/datum/reagent/medicine/bicaridine = 10)
 
 /obj/item/reagent_containers/food/pill/bicaridine/get_ru_names()
 	return alist(
@@ -412,7 +412,7 @@
 	name = "kelotane pill"
 	desc = "Используется для лечения ожогов."
 	icon_state = "pill6"
-	list_reagents = list("kelotane" = 10)
+	list_reagents = list(/datum/reagent/medicine/kelotane = 10)
 
 /obj/item/reagent_containers/food/pill/kelotane/get_ru_names()
 	return alist(
