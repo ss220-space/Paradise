@@ -137,7 +137,7 @@
 // Reagent genes store reagent ID and reagent ratio. Amount of reagent in the plant = 1 + (potency * rate)
 /datum/plant_gene/reagent
 	name = "Nutriment"
-	var/reagent_id = "nutriment"
+	var/reagent_id = /datum/reagent/consumable/nutriment
 	var/rate = 0.04
 
 /datum/plant_gene/reagent/get_name()
@@ -246,7 +246,7 @@
 
 	var/stun_len = our_plant.seed.potency * rate * 0.8 SECONDS
 
-	if(!istype(our_plant, /obj/item/grown/bananapeel) && (!our_plant.reagents || !our_plant.reagents.has_reagent("lube")))
+	if(!istype(our_plant, /obj/item/grown/bananapeel) && (!our_plant.reagents || !our_plant.reagents.has_reagent(/datum/reagent/lube)))
 		stun_len /= 3
 
 	stun_len = min(stun_len, 14 SECONDS)// No fun allowed
@@ -466,7 +466,7 @@
 			pocell.name = "[G] battery"
 			pocell.desc = "A rechargable plant based power cell. This one has a power rating of [pocell.maxcharge], and you should not swallow it."
 
-			if(G.reagents.has_reagent("plasma", 2))
+			if(G.reagents.has_reagent(/datum/reagent/plasma, 2))
 				pocell.rigged = 1
 
 			qdel(G)
