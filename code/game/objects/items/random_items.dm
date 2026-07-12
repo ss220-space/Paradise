@@ -56,7 +56,7 @@
 
 /obj/item/reagent_containers/glass/bottle/random_chem/Initialize(mapload)
 	. = ..()
-	var/datum/reagent/random_reagent = get_random_reagent_id()
+	var/datum/reagent/random_reagent = get_random_reagent_type()
 	if(GLOB.rare_chemicals.Find(random_reagent))
 		reagents.add_reagent(random_reagent, 10)
 	else
@@ -90,7 +90,7 @@
 		if(initial(reagent.id) in GLOB.blocked_chems)
 			reagent = pick(special_drinks)
 
-	reagents.add_reagent(initial(reagent.id), volume)
+	reagents.add_reagent(reagent, volume)
 	name = "unlabelled bottle"
 	icon_state = pick("alco-white","alco-green","alco-blue","alco-clear","alco-red")
 	pixel_x = rand(-5, 5)
@@ -101,7 +101,7 @@
 
 /obj/item/reagent_containers/food/drinks/bottle/random_reagent/Initialize(mapload)
 	. = ..()
-	var/R = get_random_reagent_id()
+	var/R = get_random_reagent_type()
 	if(GLOB.rare_chemicals.Find(R))
 		reagents.add_reagent(R, 10)
 	else

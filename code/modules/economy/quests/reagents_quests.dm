@@ -69,7 +69,7 @@
 		return FALSE
 
 	for(var/datum/reagent/R in container.reagents.reagent_list)
-		if((R.id in required_reagents) && required_reagents[R.id]["volume"] <= R.volume)
+		if((R.type in required_reagents) && required_reagents[R.type]["volume"] <= R.volume)
 			return TRUE
 
 /datum/cargo_quest/reagents/length_quest()

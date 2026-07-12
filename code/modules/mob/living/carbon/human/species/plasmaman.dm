@@ -264,7 +264,7 @@
 		if(/datum/reagent/plasma)
 			H.heal_overall_damage(0.5, 0.5)
 			H.adjust_alien_plasma(20)
-			H.reagents.remove_reagent(R.id, REAGENTS_METABOLISM)
+			H.reagents.remove_reagent(R.type, REAGENTS_METABOLISM)
 			return FALSE //Handling reagent removal on our own. Prevents plasma from dealing toxin damage to Plasmaman
 		if(/datum/reagent/plasma_dust)
 			H.heal_overall_damage(0.25, 0.25)
@@ -275,7 +275,7 @@
 				for(var/obj/item/organ/external/bodypart as anything in fractured_organs)
 					if(bodypart.mend_fracture())
 						break
-			H.reagents.remove_reagent(R.id, REAGENTS_METABOLISM)
+			H.reagents.remove_reagent(R.type, REAGENTS_METABOLISM)
 			return FALSE
 	return ..()
 

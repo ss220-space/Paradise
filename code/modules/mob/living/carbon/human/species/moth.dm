@@ -126,7 +126,7 @@
 /datum/species/moth/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
 	if(R.type == /datum/reagent/pestkiller)
 		H.adjustToxLoss(3)
-		H.reagents.remove_reagent(R.id, REAGENTS_METABOLISM)
+		H.reagents.remove_reagent(R.type, REAGENTS_METABOLISM)
 		return TRUE
 
 	return ..()

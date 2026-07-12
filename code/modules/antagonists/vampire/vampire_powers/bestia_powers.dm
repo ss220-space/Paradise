@@ -1424,7 +1424,7 @@
 	for(var/datum/reagent/reagent in human_vampire.reagents.reagent_list)
 		if(istype(reagent, /datum/reagent/medicine/spaceacillin) || istype(reagent, /datum/reagent/medicine/mutadone))
 			continue
-		human_vampire.reagents.remove_reagent(reagent.id, amount_reagents_cleansed)
+		human_vampire.reagents.remove_reagent(reagent.type, amount_reagents_cleansed)
 
 	human_vampire.reagents.add_reagent(/datum/reagent/medicine/spaceacillin, 1)	// FOR
 	human_vampire.reagents.add_reagent(/datum/reagent/medicine/mutadone, 1)		// FREE!

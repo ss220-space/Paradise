@@ -62,3 +62,10 @@ GLOBAL_LIST_INIT(borer_reagents, list( \
 	/datum/reagent/medicine/spaceacillin, /datum/reagent/medicine/salglu_solution, /datum/reagent/medicine/hydrocodone,
 	/datum/reagent/methamphetamine, /datum/reagent/medicine/mitocholide, /datum/reagent/fliptonium, /datum/reagent/medicine/insulin
 ))
+
+/proc/find_chemical_reagent_by_id(reagent_id)
+	for(var/reagent_path in GLOB.chemical_reagents_list)
+		var/datum/reagent/reagent = GLOB.chemical_reagents_list[reagent_path]
+		if(reagent.id == reagent_id)
+			return reagent
+	return null

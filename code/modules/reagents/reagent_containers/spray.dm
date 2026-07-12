@@ -245,7 +245,7 @@
 	for(var/filth in reagents.reagent_list)
 		var/datum/reagent/R = filth
 		if(R.type != /datum/reagent/space_cleaner) //all chems other than space cleaner are filthy.
-			reagents.del_reagent(R.id)
+			reagents.del_reagent(R.type)
 			if(ismob(loc))
 				to_chat(loc, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] определяет и удаляет недопустимое вещество."))
 			else

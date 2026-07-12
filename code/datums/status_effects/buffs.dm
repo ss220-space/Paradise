@@ -547,7 +547,7 @@
 	owner.reagents.remove_all_type(/datum/reagent/consumable/ethanol, 10)
 	for(var/datum/reagent/reagent in owner.reagents.reagent_list)
 		if(!reagent.harmless)
-			owner.reagents.remove_reagent(reagent.id, 2)
+			owner.reagents.remove_reagent(reagent.type, 2)
 
 /datum/status_effect/terror/regeneration
 	id = "terror_regen"

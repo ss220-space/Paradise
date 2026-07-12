@@ -68,7 +68,7 @@
 
 	for(var/thing in transfer_data)
 		var/datum/reagent/R = thing
-		ids_data[initial(R.id)] = transfer_data[R]
+		ids_data[R] = transfer_data[R]
 		trans += transfer_data[R]
 
 	if(length(ids_data))

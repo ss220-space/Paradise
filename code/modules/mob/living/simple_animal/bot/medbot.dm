@@ -418,8 +418,8 @@
 	//If we have and are using a medicine beaker, return any reagent the patient is missing
 	if(use_beaker && reagent_glass?.reagents.total_volume)
 		for(var/datum/reagent/R in reagent_glass.reagents.reagent_list)
-			if(!C.reagents.has_reagent(R.id))
-				return R.id
+			if(!C.reagents.has_reagent(R.type))
+				return R.type
 
 /mob/living/simple_animal/bot/medbot/proc/assess_viruses(mob/living/carbon/C)
 	. = FALSE

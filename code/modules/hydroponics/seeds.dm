@@ -412,7 +412,7 @@ GLOBAL_LIST_EMPTY(plant_seeds)
 	var/amount_random_reagents = rand(lower, upper)
 	for(var/i in 1 to amount_random_reagents)
 		var/random_amount = rand(4, 15) * 0.01 // this must be multiplied by 0.01, otherwise, it will not properly associate
-		var/datum/plant_gene/reagent/R = new(get_random_reagent_id(), random_amount)
+		var/datum/plant_gene/reagent/R = new(get_random_reagent_type(), random_amount)
 		if(R.can_add(src))
 			genes += R
 		else

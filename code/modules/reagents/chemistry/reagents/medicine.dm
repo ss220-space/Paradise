@@ -456,7 +456,7 @@
 	if(prob(50))
 		for(var/datum/reagent/R in M.reagents.reagent_list)
 			if(R != src)
-				M.reagents.remove_reagent(R.id,1)
+				M.reagents.remove_reagent(R.type, 1)
 	return ..() | update_flags
 
 /datum/reagent/medicine/coaltree_extract
@@ -476,7 +476,7 @@
 	if(prob(50))
 		for(var/datum/reagent/R in M.reagents.reagent_list)
 			if(R != src)
-				M.reagents.remove_reagent(R.id,1)
+				M.reagents.remove_reagent(R.type, 1)
 	return ..() | update_flags
 
 /datum/reagent/medicine/omnizine
@@ -553,7 +553,7 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	for(var/datum/reagent/R in M.reagents.reagent_list)
 		if(R != src)
-			M.reagents.remove_reagent(R.id,5)
+			M.reagents.remove_reagent(R.type, 5)
 	if(M.health > 20)
 		update_flags |= M.adjustToxLoss(2.5, FALSE)
 	if(prob(6))

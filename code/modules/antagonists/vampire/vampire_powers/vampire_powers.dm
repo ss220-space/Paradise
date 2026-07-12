@@ -153,7 +153,7 @@
 			user.updatehealth()
 		for(var/datum/reagent/R in user.reagents.reagent_list)
 			if(!R.harmless)
-				user.reagents.remove_reagent(R.id, 2 * rejuv_bonus)
+				user.reagents.remove_reagent(R.type, 2 * rejuv_bonus)
 		sleep(3.5 SECONDS)
 
 /datum/antagonist/vampire/proc/get_rejuv_bonus()

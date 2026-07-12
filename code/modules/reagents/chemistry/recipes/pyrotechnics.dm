@@ -44,7 +44,7 @@
 		var/list/beeagents = list()
 		for(var/X in holder.reagent_list)
 			var/datum/reagent/R = X
-			if(R.id in required_reagents)
+			if(R.type in required_reagents)
 				continue
 			if(!R.can_synth)
 				continue

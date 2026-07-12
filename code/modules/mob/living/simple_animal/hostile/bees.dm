@@ -239,7 +239,7 @@
 	if(. && beegent && isliving(target))
 		var/mob/living/L = target
 		beegent.reaction_mob(L, REAGENT_TOUCH)
-		L.reagents.add_reagent(beegent.id, rand(1, 5))
+		L.reagents.add_reagent(beegent.type, rand(1, 5))
 
 //PEASENT BEES
 /mob/living/simple_animal/hostile/poison/bees/queen/pollinate()
@@ -300,7 +300,7 @@
 		if(!new_reagent || !syringe.reagents.has_reagent(new_reagent.id, 5))
 			to_chat(user, span_warning("You don't have enough units of [new_reagent.name] to modify the bee's DNA!"))
 			return ATTACK_CHAIN_PROCEED
-		syringe.reagents.remove_reagent(new_reagent.id, 5, TRUE)
+		syringe.reagents.remove_reagent(new_reagent.type, 5, TRUE)
 		syringe.update_icon()
 		queen.assign_reagent(new_reagent)
 		user.visible_message(
