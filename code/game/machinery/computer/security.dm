@@ -169,8 +169,8 @@
 	if(ui_login_act(action, params))
 		return
 
-	var/logged_in = ui_login_get().logged_in
 	var/datum/ui_login/state = ui_login_get()
+	var/logged_in = state.logged_in
 	switch(action)
 		if("cleartemp")
 			temp_notice = null
@@ -244,7 +244,7 @@
 			if(!record_general)
 				return
 			if(state.law_level < LAW_LEVEL_WARDEN)
-				to_chat(ui.user, span_danger("Неудалось удалить записи о члене экипажа") + ": Вы не имеете достаточных прав для удаления.")
+				to_chat(ui.user, span_danger("Не удалось удалить записи о члене экипажа") + ": Вы не имеете достаточных прав для удаления.")
 				return
 			message_admins("[ADMIN_LOOKUPFLW(usr)] has deleted [record_general.fields["name"]]'s general, security and medical records at [ADMIN_COORDJMP(usr)]")
 			add_misc_logs(usr, "deleted [record_general.fields["name"]]'s general, security and medical records")
@@ -264,7 +264,7 @@
 			if(!record_security)
 				return
 			if(state.law_level < LAW_LEVEL_WARDEN)
-				to_chat(ui.user, span_danger("Неудалось удалить записи безопасности") + ": Вы не имеете достаточных прав для удаления.")
+				to_chat(ui.user, span_danger("Не удалось удалить записи безопасности") + ": Вы не имеете достаточных прав для удаления.")
 				return
 			message_admins("[ADMIN_LOOKUPFLW(usr)] has deleted [record_security.fields["name"]]'s security record at [ADMIN_COORDJMP(usr)]")
 			add_misc_logs(usr, "deleted [record_security.fields["name"]]'s security record")
@@ -300,7 +300,7 @@
 			if(!logged_in)
 				return
 			if(state.law_level < LAW_LEVEL_WARDEN)
-				to_chat(ui.user, span_danger("Неудалось удалить данный Комментарии/Записи") + ": Вы не имеете достаточных прав для удаления.")
+				to_chat(ui.user, span_danger("Не удалось удалить данный Комментарии/Записи") + ": Вы не имеете достаточных прав для удаления.")
 				return
 			var/index = text2num(params["id"])
 			if(!index || !record_security)
