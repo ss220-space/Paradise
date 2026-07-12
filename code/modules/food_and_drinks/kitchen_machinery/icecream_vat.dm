@@ -212,7 +212,7 @@
 	return ..()
 
 /obj/machinery/icemachine/proc/validexchange(reag)
-	if(reag == "sprinkles" | reag == "cola" | reag == "kahlua" | reag == "dr_gibb" | reag == "vodka" | reag == "space_up" | reag == "rum" | reag == "spacemountainwind" | reag == "gin" | reag == "cream" | reag == "water")
+	if(reag == /datum/reagent/consumable/sprinkles || reag == /datum/reagent/consumable/drink/cold/space_cola || reag == /datum/reagent/consumable/ethanol/kahlua || reag == /datum/reagent/consumable/drink/cold/dr_gibb || reag == /datum/reagent/consumable/ethanol/vodka || reag == /datum/reagent/consumable/drink/cold/space_up || reag == /datum/reagent/consumable/ethanol/rum || reag == /datum/reagent/consumable/drink/cold/spacemountainwind || reag == /datum/reagent/consumable/ethanol/gin || reag == /datum/reagent/consumable/drink/milk/cream || reag == /datum/reagent/water)
 		return 1
 	else
 		if(reagents.total_volume < 500)

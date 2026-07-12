@@ -316,9 +316,9 @@
 	data["reagents"] = list()
 	for(var/datum/reagent/R in reagents.reagent_list)
 		var/display_name = R.name
-		if(R.id == "capsaicin")
+		if(R.type == /datum/reagent/consumable/capsaicin)
 			display_name = "Hotsauce"
-		else if(R.id == "frostoil")
+		else if(R.type == /datum/reagent/consumable/frostoil)
 			display_name = "Coldsauce"
 
 		data["reagents"] += list(list(
@@ -430,7 +430,7 @@
 				if(istype(O, /obj/item/mixing_bowl))	//ignore mixing bowls present among the ingredients in our source (only really applies to machine sourced recipes)
 					continue
 				if(O.reagents)
-					O.reagents.del_reagent("nutriment")
+					O.reagents.del_reagent(/datum/reagent/consumable/nutriment)
 					O.reagents.update_total()
 					O.reagents.trans_to(temp_reagents, O.reagents.total_volume, no_react = TRUE) // Don't react with the abstract holder please
 				qdel(O)

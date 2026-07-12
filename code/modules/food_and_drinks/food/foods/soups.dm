@@ -18,7 +18,7 @@
 	desc = "You've got balls kid, BALLS!"
 	icon_state = "meatballsoup"
 	filling_color = "#785210"
-	list_reagents = list("nutriment" = 8, "water" = 5, "vitamin" = 4)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 8, /datum/reagent/water = 5, /datum/reagent/consumable/nutriment/vitamin = 4)
 	tastes = list("meatball" = 1)
 	foodtype = MEAT
 
@@ -27,7 +27,7 @@
 	desc = "If no water is available, you may substitute tears."
 	icon_state = "slimesoup"
 	filling_color = "#C4DBA0"
-	list_reagents = list("nutriment" = 5, "slimejelly" = 5, "water" = 5, "vitamin" = 4)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 5, /datum/reagent/slimejelly = 5, /datum/reagent/water = 5, /datum/reagent/consumable/nutriment/vitamin = 4)
 	tastes = list("slime" = 1)
 	foodtype = TOXIC
 
@@ -36,7 +36,7 @@
 	desc = "Smells like copper."
 	icon_state = "tomatosoup"
 	filling_color = "#FF0000"
-	list_reagents = list("nutriment" = 2, "blood" = 10, "water" = 5, "vitamin" = 4)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 2, /datum/reagent/blood = 10, /datum/reagent/water = 5, /datum/reagent/consumable/nutriment/vitamin = 4)
 	tastes = list("iron" = 1)
 	foodtype = MEAT
 
@@ -45,7 +45,7 @@
 	desc = "Not very funny."
 	icon_state = "clownstears"
 	filling_color = "#C4FBFF"
-	list_reagents = list("nutriment" = 4, "banana" = 5, "water" = 5, "vitamin" = 8)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 4, /datum/reagent/consumable/drink/banana = 5, /datum/reagent/water = 5, /datum/reagent/consumable/nutriment/vitamin = 8)
 	tastes = list("a bad joke" = 1)
 
 /obj/item/reagent_containers/food/snacks/soup/vegetablesoup
@@ -53,7 +53,7 @@
 	desc = "A true vegan meal."
 	icon_state = "vegetablesoup"
 	filling_color = "#AFC4B5"
-	list_reagents = list("nutriment" = 8, "water" = 5, "vitamin" = 4)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 8, /datum/reagent/water = 5, /datum/reagent/consumable/nutriment/vitamin = 4)
 	tastes = list("vegetables" = 1)
 	foodtype = VEGETABLES
 
@@ -62,7 +62,7 @@
 	desc = "To think, the botanist would've beaten you to death with one of these."
 	icon_state = "nettlesoup"
 	filling_color = "#AFC4B5"
-	list_reagents = list("nutriment" = 8, "water" = 5, "vitamin" = 4)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 8, /datum/reagent/water = 5, /datum/reagent/consumable/nutriment/vitamin = 4)
 	tastes = list("nettles" = 1)
 	foodtype = VEGETABLES
 
@@ -71,7 +71,7 @@
 	desc = "The mystery is, why aren't you eating it?"
 	icon_state = "mysterysoup"
 	var/extra_reagent = null
-	list_reagents = list("nutriment" = 6)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 6)
 	tastes = list("chaos" = 1)
 
 /obj/item/reagent_containers/food/snacks/soup/mysterysoup/Initialize(mapload)
@@ -84,7 +84,7 @@
 	desc = "I wish this was soup."
 	icon_state = "wishsoup"
 	filling_color = "#D1F4FF"
-	list_reagents = list("water" = 10)
+	list_reagents = list(/datum/reagent/water = 10)
 	tastes = list("wishes" = 1)
 
 /obj/item/reagent_containers/food/snacks/soup/wishsoup/Initialize(mapload)
@@ -99,7 +99,7 @@
 	desc = "ЧТООО как этот суп попал в мои опилки!?"
 	icon_state = "sawdustsoup"
 	filling_color = "#D3C28D"
-	list_reagents = list("nutriment" = 15)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 15)
 	tastes = list("wood" = 1)
 	foodtype = GROSS
 
@@ -118,7 +118,7 @@
 	desc = "Drinking this feels like being a vampire! A tomato vampire..."
 	icon_state = "tomatosoup"
 	filling_color = "#D92929"
-	list_reagents = list("nutriment" = 5, "tomatojuice" = 10, "vitamin" = 3)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 5, /datum/reagent/consumable/drink/tomatojuice = 10, /datum/reagent/consumable/nutriment/vitamin = 3)
 	tastes = list("tomato" = 1)
 	foodtype = VEGETABLES
 
@@ -126,7 +126,7 @@
 	name = "miso soup"
 	desc = "The universe's best soup! Yum!!!"
 	icon_state = "misosoup"
-	list_reagents = list("nutriment" = 7, "vitamin" = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 7, /datum/reagent/consumable/nutriment/vitamin = 2)
 	foodtype = VEGETABLES
 	tastes = list("miso" = 1)
 
@@ -135,7 +135,7 @@
 	desc = "A delicious and hearty mushroom soup."
 	icon_state = "mushroomsoup"
 	filling_color = "#E386BF"
-	list_reagents = list("nutriment" = 8, "vitamin" = 4)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 8, /datum/reagent/consumable/nutriment/vitamin = 4)
 	tastes = list("mushroom" = 1)
 	foodtype = VEGETABLES
 
@@ -144,7 +144,7 @@
 	desc = "Wait, how do you spell it again..?"
 	icon_state = "beetsoup"
 	filling_color = "#FAC9FF"
-	list_reagents = list("nutriment" = 7, "vitamin" = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 7, /datum/reagent/consumable/nutriment/vitamin = 2)
 	tastes = list("beet" = 1)
 	foodtype = VEGETABLES
 
@@ -157,7 +157,7 @@
 	desc = "Quite popular in USSP."
 	icon_state = "rassolnik"
 	filling_color = "#F1FC72"
-	list_reagents = list("nutriment" = 6, "kelotane" = 1, "vitamin" = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/medicine/kelotane = 1, /datum/reagent/consumable/nutriment/vitamin = 2)
 	tastes = list("potato" = 1, "pickles" = 1, "rice" = 1, "Russia" = 1)
 	foodtype = VEGETABLES
 
@@ -166,7 +166,7 @@
 	desc = "Light soup with fresh shavel and vegetables."
 	icon_state = "shavelsoup"
 	filling_color = "#135f13"
-	list_reagents = list("nutriment" = 4, "water" = 5, "vitamin" = 5)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 4, /datum/reagent/water = 5, /datum/reagent/consumable/nutriment/vitamin = 5)
 	tastes = list("sour weed" = 1, "potato" = 1)
 //////////////////////
 //		Stews		//
@@ -179,7 +179,7 @@
 	icon_state = "stew"
 	filling_color = "#9E673A"
 	bitesize = 7
-	list_reagents = list("nutriment" = 10, "oculine" = 5, "tomatojuice" = 5, "vitamin" = 5)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 10, /datum/reagent/medicine/oculine = 5, /datum/reagent/consumable/drink/tomatojuice = 5, /datum/reagent/consumable/nutriment/vitamin = 5)
 	tastes = list("tomato" = 1, "carrot" = 1)
 	foodtype = VEGETABLES
 
@@ -205,7 +205,7 @@
 	desc = "Even non-vegetarians will LOVE this!"
 	icon_state = "stewedsoymeat"
 	trash = /obj/item/trash/plate
-	list_reagents = list("nutriment" = 8)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 8)
 	tastes = list("soy" = 1, "vegetables" = 1)
 	foodtype = VEGETABLES
 
@@ -219,7 +219,7 @@
 	desc = "A five alarm Texan Chili!"
 	icon_state = "hotchili"
 	filling_color = "#FF3C00"
-	list_reagents = list("nutriment" = 5, "capsaicin" = 1, "tomatojuice" = 2, "vitamin" = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 5, /datum/reagent/consumable/capsaicin = 1, /datum/reagent/consumable/drink/tomatojuice = 2, /datum/reagent/consumable/nutriment/vitamin = 2)
 	tastes = list("hot peppers" = 1, "tomato" = 1)
 	foodtype = VEGETABLES | MEAT
 
@@ -228,6 +228,6 @@
 	desc = "This slush is barely a liquid!"
 	icon_state = "coldchili"
 	filling_color = "#2B00FF"
-	list_reagents = list("nutriment" = 5, "frostoil" = 1, "tomatojuice" = 2, "vitamin" = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 5, /datum/reagent/consumable/frostoil = 1, /datum/reagent/consumable/drink/tomatojuice = 2, /datum/reagent/consumable/nutriment/vitamin = 2)
 	tastes = list("tomato" = 1, "mint" = 1)
 	foodtype = VEGETABLES | MEAT

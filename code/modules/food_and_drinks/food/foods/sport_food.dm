@@ -6,7 +6,7 @@
 	icon_state = "proteinbar_bananza"
 	filling_color = "#d1a62f"
 	junkiness = 5
-	list_reagents = list("protein" = 10, "banana" = 5, "sugar" = 3)
+	list_reagents = list(/datum/reagent/consumable/nutriment/protein = 10, /datum/reagent/consumable/drink/banana = 5, /datum/reagent/consumable/sugar = 3)
 	tastes = list("банана" = 1, "удовольствия" = 1)
 	foodtype = JUNKFOOD
 	opened = FALSE
@@ -29,7 +29,7 @@
 	icon_state = "proteinbar_cherry"
 	filling_color = "#d1a62f"
 	junkiness = 5
-	list_reagents = list("protein" = 10, "cherryjelly" = 5, "sugar" = 3, "slimejelly" = 1)
+	list_reagents = list(/datum/reagent/consumable/nutriment/protein = 10, /datum/reagent/consumable/cherryjelly = 5, /datum/reagent/consumable/sugar = 3, /datum/reagent/slimejelly = 1)
 	tastes = list("вишни" = 1, "удовольствия" = 1)
 	foodtype = JUNKFOOD
 	opened = FALSE
@@ -52,7 +52,7 @@
 	icon_state = "proteinbar_beef"
 	filling_color = "#d1a62f"
 	junkiness = 5
-	list_reagents = list("protein" = 12)
+	list_reagents = list(/datum/reagent/consumable/nutriment/protein = 12)
 	tastes = list("говядины" = 1, "удовольствия" = 1)
 	foodtype = JUNKFOOD
 	opened = FALSE
@@ -75,7 +75,7 @@
 	item_state = "protein_zaza"
 	volume = 80
 	foodtype = GROSS
-	list_reagents = list("protein" = 80)
+	list_reagents = list(/datum/reagent/consumable/nutriment/protein = 80)
 
 /obj/item/reagent_containers/food/drinks/protein/get_ru_names()
 	return alist(
@@ -91,7 +91,7 @@
 	name = "банка протеина (Заза)"
 	desc = "Банка наполненная протеиновым порошком. \
 			На самом деле не отличается от банки протеина со вкусом вишни ничем кроме изображения на этикетке."
-	list_reagents = list("protein" = 70, "zaza" = 10)
+	list_reagents = list(/datum/reagent/consumable/nutriment/protein = 70, /datum/reagent/consumable/drink/cold/zaza = 10)
 
 /obj/item/reagent_containers/food/drinks/protein/zaza/get_ru_names()
 	return alist(
@@ -109,7 +109,7 @@
 			На самом деле не отличается от банки протеина со вкусом Зазы ничем кроме изображения на этикетке."
 	icon_state = "protein_cherry"
 	item_state = "protein_cherry"
-	list_reagents = list("protein" = 70, "cherryshake" = 10)
+	list_reagents = list(/datum/reagent/consumable/nutriment/protein = 70, /datum/reagent/consumable/drink/cherryshake = 10)
 
 /obj/item/reagent_containers/food/drinks/protein/cherry/get_ru_names()
 	return alist(
@@ -127,7 +127,7 @@
 			Единственный вкус протеинового порошка не вызывающий отвращения при потреблении в неразбавленном виде."
 	icon_state = "protein_chocolate"
 	item_state = "protein_chocolate"
-	list_reagents = list("protein" = 70, "chocolate" = 10)
+	list_reagents = list(/datum/reagent/consumable/nutriment/protein = 70, /datum/reagent/consumable/chocolate = 10)
 	foodtype = SUGAR
 
 /obj/item/reagent_containers/food/drinks/protein/chocolate/get_ru_names()
@@ -146,7 +146,7 @@
 			До ребрендинга вместо банана и клубники была просто клубника."
 	icon_state = "protein_bananastrawberry"
 	item_state = "protein_bananastrawberry"
-	list_reagents = list("protein" = 70, "banana" = 5, "strawwberry" = 5)
+	list_reagents = list(/datum/reagent/consumable/nutriment/protein = 70, /datum/reagent/consumable/drink/banana = 5, /datum/reagent/consumable/drink/strawwberry = 5)
 
 /obj/item/reagent_containers/food/drinks/protein/bananastrawberry/get_ru_names()
 	return alist(
@@ -164,7 +164,7 @@
 			На этикетке нарисована малина, не смотря на то, что в составе нет ничего связанного с ней."
 	icon_state = "guarana_raspberry"
 	item_state = "guarana_raspberry"
-	list_reagents = list("guarana" = 10)
+	list_reagents = list(/datum/reagent/status_effect/guarana = 10)
 
 /obj/item/reagent_containers/food/drinks/guarana/get_ru_names()
 	return alist(
@@ -182,7 +182,7 @@
 			На этикетке нарисована малина, не смотря на то, что в составе нет ничего связанного с ней."
 	icon_state = "creatine"
 	item_state = "creatine"
-	list_reagents = list("creatine" = 10)
+	list_reagents = list(/datum/reagent/status_effect/creatine = 10)
 
 /obj/item/reagent_containers/food/drinks/creatine/get_ru_names()
 	return alist(

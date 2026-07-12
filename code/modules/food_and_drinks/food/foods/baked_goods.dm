@@ -298,7 +298,7 @@
 	bitesize = 3
 	filling_color = "#5e1706"
 	tastes = list("cherry" = 5, "sweetness" = 1, /datum/reagent/consumable/chocolate = 1)
-	list_reagents = list("nutriment" = 10, "sugar" = 35, "cocoa" = 4)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 10, /datum/reagent/consumable/sugar = 35, /datum/reagent/consumable/cocoa = 4)
 	foodtype = SUGAR | FRUIT | GRAIN
 
 /obj/item/reagent_containers/food/snacks/choccherrycakeslice
