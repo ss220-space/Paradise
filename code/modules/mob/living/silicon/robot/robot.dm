@@ -529,7 +529,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	icon = initial(icon)
 	icon_state = "robot"
 	base_icon = "robot"
-	module.remove_subsystems_and_actions(src)
+	if(module)
+		module.remove_subsystems_and_actions(src)
 	transform = matrix()
 
 	for(var/obj/item/borg/upgrade/upgrade in upgrades) //remove all upgrades, cuz we reseting
@@ -1496,7 +1497,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		return TRUE
 
 /mob/living/silicon/robot/proc/radio_menu()
-	radio.interact(src)
+	if(radio)
+		radio.interact(src)
 
 /mob/living/silicon/robot/proc/control_headlamp()
 	if(stat || lamp_cooldown > world.time || low_power_mode)
@@ -1729,10 +1731,12 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 // Proc that calls radial menu for borg to choose AFTER he chose his module.
 // In module there is borg_skins
 /mob/living/silicon/robot/proc/choose_icon()
-	var/datum/robot_skin/skin = select_skin(module.borg_skins, module?.default_skin)
+	if(!module)
+		return
+	var/datum/robot_skin/skin = select_skin(module.borg_skins, module.default_skin)
 	if(!skin)
 		return
-	set_skin(skin, TRUE, skin.type != module?.default_skin)
+	set_skin(skin, TRUE, skin.type != module.default_skin)
 	return
 
 /mob/living/silicon/robot/proc/select_skin(list/skins, default_skin_name)
@@ -2279,7 +2283,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	set_hud_image_state(DIAG_AISHELL_STAT_HUD, "hudtrackingai-active")
 	mainframe.set_hud_image_state(DIAG_AISHELL_STAT_HUD, "hudtrackingai")
-	module.channels = mainframe.aiRadio.channels
+	if(module && mainframe?.aiRadio)
+		module.channels = mainframe.aiRadio.channels
 	radio.recalculate_channels()
 
 //Called when the AI is leaving the AIshell.
