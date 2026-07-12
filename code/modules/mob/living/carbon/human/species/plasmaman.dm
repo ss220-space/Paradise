@@ -25,7 +25,7 @@
 
 	taste_sensitivity = TASTE_SENSITIVITY_NO_TASTE //skeletons can't taste anything
 
-	butt_sprite = "plasma"
+	butt_sprite = /datum/reagent/plasma
 
 	breathid = "tox"
 
@@ -260,13 +260,13 @@
 	user.reagents.add_reagent(/datum/reagent/plasma_dust, fracture.plasma_dust)
 
 /datum/species/plasmaman/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
-	switch(R.id)
-		if("plasma")
+	switch(R.type)
+		if(/datum/reagent/plasma)
 			H.heal_overall_damage(0.5, 0.5)
 			H.adjust_alien_plasma(20)
 			H.reagents.remove_reagent(R.id, REAGENTS_METABOLISM)
 			return FALSE //Handling reagent removal on our own. Prevents plasma from dealing toxin damage to Plasmaman
-		if("plasma_dust")
+		if(/datum/reagent/plasma_dust)
 			H.heal_overall_damage(0.25, 0.25)
 			H.adjust_alien_plasma(20)
 			if(prob(1))

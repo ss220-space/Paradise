@@ -368,7 +368,7 @@
 			blood_volume_text = span_warning("Критический уровень крови!")
 		msg += "[blood_volume_text]\n"
 
-	if(reagents.has_reagent("teslium"))
+	if(reagents.has_reagent(/datum/reagent/teslium))
 		msg += span_warning("[GEND_HE_SHE_CAP(src)] излуча[PLUR_ET_YUT(src)] мягкое голубое свечение!\n")
 
 	if(!appears_dead)

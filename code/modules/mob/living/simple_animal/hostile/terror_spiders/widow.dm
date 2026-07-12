@@ -55,7 +55,7 @@
 	L.AdjustSilence(10 SECONDS)
 	if(!poisonable)
 		return TRUE
-	if(!ckey && (!(target in enemies) || L.reagents.has_reagent("terror_black_toxin", 60)))
+	if(!ckey && (!(target in enemies) || L.reagents.has_reagent(/datum/reagent/terror_black_toxin, 60)))
 		step_away(src, L)
 		step_away(src, L)
 		lose_target()

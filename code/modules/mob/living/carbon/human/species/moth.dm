@@ -124,7 +124,7 @@
 	H.remove_status_effect(STATUS_EFFECT_BURNT_WINGS)
 
 /datum/species/moth/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
-	if(R.id == "pestkiller")
+	if(R.type == /datum/reagent/pestkiller)
 		H.adjustToxLoss(3)
 		H.reagents.remove_reagent(R.id, REAGENTS_METABOLISM)
 		return TRUE

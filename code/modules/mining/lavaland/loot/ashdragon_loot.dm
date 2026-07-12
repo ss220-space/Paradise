@@ -219,7 +219,7 @@
 /datum/disease/virus/transformation/dragon
 	name = "Драконья трансформация"
 	cure_text = "Неизлечимо"
-	cures = list("adminordrazine")
+	cures = list(/datum/reagent/medicine/adminordrazine)
 	agent = "Кровь дракона"
 	desc = "Какое отношение драконы имеют к Космической Станции 13?"
 	stage_prob = 20

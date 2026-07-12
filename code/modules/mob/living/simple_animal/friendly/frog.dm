@@ -77,7 +77,7 @@
 	icon_dead = "rare_frog_dead"
 	icon_resting = "rare_frog"
 	var/toxin_per_touch = 2.5
-	var/toxin_type = "toxin"
+	var/toxin_type = /datum/reagent/toxin
 	gold_core_spawnable = HOSTILE_SPAWN
 	holder_type = /obj/item/holder/frog/toxic
 

@@ -136,7 +136,7 @@
 	retranslator.install_chip(H, chip, ignore_lid = TRUE)
 
 /datum/species/grey/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
-	if(R.id == "water")
+	if(R.type == /datum/reagent/water)
 		H.adjustFireLoss(1)
 		return TRUE
 
