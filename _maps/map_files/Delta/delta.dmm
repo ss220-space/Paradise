@@ -14861,6 +14861,7 @@
 /area/station/maintenance/asmaint4)
 "dnV" = (
 /obj/machinery/hologram/holopad,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "doj" = (
@@ -20980,8 +20981,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/obj/structure/cable,
-/obj/machinery/power/apc/directional/south,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
+	},
 /turf/simulated/floor/engine,
 /area/station/engineering/atmos/mixing_atmos)
 "eDx" = (
@@ -23027,6 +23029,14 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
+"eWM" = (
+/obj/machinery/camera{
+	c_tag = "Atmospherics Toxins Tank";
+	network = list("SS13","Engineering");
+	dir = 8
+	},
+/turf/simulated/floor/engine/plasma,
+/area/station/engineering/atmos/mixing_atmos)
 "eWS" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
@@ -23450,6 +23460,12 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/science/chem_lab/chamber)
+"fbk" = (
+/obj/effect/landmark/start/atmospheric,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/station/engineering/atmos/mixing_atmos)
 "fbn" = (
 /obj/machinery/light{
 	dir = 8
@@ -25170,12 +25186,12 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 9
 	},
-/obj/machinery/light/small,
 /obj/machinery/camera{
 	c_tag = "Atmospherics Mixing South";
 	dir = 10;
 	network = list("Engineering","SS13")
 	},
+/obj/machinery/light/small,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -25567,6 +25583,14 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
+"fuD" = (
+/obj/machinery/camera{
+	c_tag = "Atmospherics CO2 Tank";
+	network = list("SS13","Engineering");
+	dir = 8
+	},
+/turf/simulated/floor/engine/co2,
+/area/station/engineering/atmos/mixing_atmos)
 "fuG" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -26021,6 +26045,10 @@
 /obj/structure/grille,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint2)
+"fzS" = (
+/obj/structure/sign/nosmoking_2,
+/turf/simulated/wall/r_wall/coated,
+/area/station/engineering/atmos/mixing_atmos)
 "fzZ" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
@@ -38113,10 +38141,8 @@
 /turf/simulated/floor/plasteel,
 /area/station/command/vip)
 "hLf" = (
-/obj/item/twohanded/required/kirbyplants,
 /obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 6;
-	level = 1
+	dir = 6
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -42036,6 +42062,7 @@
 /area/station/hallway/primary/central/nw)
 "iwd" = (
 /obj/machinery/hologram/holopad,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -64751,12 +64778,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 1
-	},
 /obj/machinery/light{
 	dir = 4
 	},
@@ -64765,6 +64786,9 @@
 	dir = 8;
 	network = list("Engineering","SS13")
 	},
+/obj/machinery/power/apc/directional/east,
+/obj/structure/cable,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/engine,
 /area/station/engineering/atmos/mixing_atmos)
 "mFF" = (
@@ -69884,6 +69908,14 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/command/meeting_room)
+"nFw" = (
+/obj/machinery/camera{
+	c_tag = "Atmospherics Gas Mix Tank";
+	network = list("SS13","Engineering");
+	dir = 8
+	},
+/turf/simulated/floor/engine/vacuum,
+/area/station/engineering/atmos/mixing_atmos)
 "nFz" = (
 /obj/structure/table,
 /obj/item/reagent_containers/food/drinks/drinkingglass{
@@ -72634,7 +72666,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "ogv" = (
-/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
@@ -80714,6 +80745,10 @@
 	},
 /turf/simulated/wall,
 /area/station/engineering/mechanic_workshop)
+"pId" = (
+/obj/structure/sign/fire,
+/turf/simulated/wall/r_wall/coated,
+/area/station/engineering/atmos)
 "pIe" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -85307,6 +85342,14 @@
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/storage/tech)
+"qza" = (
+/obj/machinery/atmospherics/pipe/manifold4w/visible/yellow{
+	desc = "Труба хранит в себе набор газов для смешивания";
+	name = "Труба смешивания"
+	},
+/obj/machinery/atmospherics/meter,
+/turf/simulated/floor/plasteel,
+/area/station/engineering/atmos/mixing_atmos)
 "qzj" = (
 /obj/machinery/atmospherics/unary/portables_connector,
 /obj/effect/turf_decal/box,
@@ -88099,7 +88142,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/light{
+/obj/machinery/light/small{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
@@ -90458,17 +90501,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/supermatter/room)
-"rtw" = (
-/obj/machinery/atmospherics/pipe/simple/visible/yellow{
-	desc = "Труба хранит в себе набор газов для смешивания";
-	dir = 4;
-	name = "Труба смешивания"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "escape"
-	},
-/area/station/engineering/atmos/mixing_atmos)
 "rtx" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp/green,
@@ -91488,9 +91520,7 @@
 	c_tag = "Atmospherics Mixing North";
 	network = list("Engineering","SS13")
 	},
-/obj/machinery/light/small{
-	dir = 1
-	},
+/obj/machinery/light/directional/north,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/mixing_atmos)
 "rDD" = (
@@ -93566,6 +93596,7 @@
 	dir = 5;
 	network = list("Engineering","SS13")
 	},
+/obj/structure/extinguisher_cabinet/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "escape"
@@ -98113,7 +98144,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/light{
+/obj/machinery/light/small{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
@@ -99375,13 +99406,6 @@
 	icon_state = "tranquillite"
 	},
 /area/station/service/mime)
-"sTj" = (
-/obj/machinery/camera{
-	c_tag = "Atmospherics N2O Tank";
-	network = list("SS13","Engineering")
-	},
-/turf/simulated/floor/engine/n20,
-/area/station/engineering/atmos/mixing_atmos)
 "sTk" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -108980,6 +109004,9 @@
 	dir = 1;
 	name = "Gas Pump"
 	},
+/obj/machinery/light/small{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "escape"
@@ -109633,10 +109660,7 @@
 	},
 /area/station/maintenance/library)
 "uPL" = (
-/obj/machinery/atmospherics/pipe/simple/visible{
-	desc = "Труба служит для подачу горючей смеси в турбину для её работы";
-	name = "Труба турбины"
-	},
+/obj/machinery/atmospherics/pipe/simple/visible,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/turbine)
 "uPR" = (
@@ -111183,6 +111207,14 @@
 "vdj" = (
 /turf/simulated/wall,
 /area/station/science/genetics)
+"vdH" = (
+/obj/machinery/camera{
+	c_tag = "Atmospherics N2O Tank";
+	network = list("SS13","Engineering");
+	dir = 8
+	},
+/turf/simulated/floor/engine/n20,
+/area/station/engineering/atmos/mixing_atmos)
 "vdI" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -113157,13 +113189,6 @@
 /obj/machinery/power/apc/directional/west,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry/eastarrival)
-"vvD" = (
-/obj/machinery/camera{
-	c_tag = "Atmospherics Toxins Tank";
-	network = list("SS13","Engineering")
-	},
-/turf/simulated/floor/engine/plasma,
-/area/station/engineering/atmos/mixing_atmos)
 "vvL" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -113817,13 +113842,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/commons/locker)
-"vCq" = (
-/obj/machinery/camera{
-	c_tag = "Atmospherics Gas Mix Tank";
-	network = list("SS13","Engineering")
-	},
-/turf/simulated/floor/engine/vacuum,
-/area/station/engineering/atmos/mixing_atmos)
 "vCv" = (
 /obj/structure/cable{
 	icon_state = "2-4"
@@ -122194,6 +122212,15 @@
 	icon_state = "darkblue"
 	},
 /area/station/service/theatre)
+"xes" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 9
+	},
+/obj/machinery/light/directional/south,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/engineering/atmos/mixing_atmos)
 "xew" = (
 /obj/machinery/hologram/holopad,
 /obj/effect/turf_decal/delivery/green/hollow,
@@ -124769,13 +124796,6 @@
 /obj/effect/spawner/new_year/garland/south,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/station/commons/serviceyard)
-"xGF" = (
-/obj/machinery/camera{
-	c_tag = "Atmospherics CO2 Tank";
-	network = list("SS13","Engineering")
-	},
-/turf/simulated/floor/engine/co2,
-/area/station/engineering/atmos/mixing_atmos)
 "xGI" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -143101,7 +143121,7 @@ ajO
 vTl
 lTb
 dUo
-vti
+qza
 dZk
 hez
 tbs
@@ -143364,7 +143384,7 @@ ufl
 pZT
 coE
 ges
-vCq
+sAn
 gkc
 gkc
 aSu
@@ -143622,7 +143642,7 @@ tbs
 nsf
 aXo
 gLK
-sAn
+nFw
 gkc
 aSu
 wWp
@@ -143872,7 +143892,7 @@ ajO
 vTl
 oxI
 kkI
-rtw
+kkI
 iiY
 szv
 glc
@@ -144384,7 +144404,7 @@ ajO
 ajO
 ajO
 ajO
-ajO
+fbk
 muB
 ftf
 eLQ
@@ -144392,7 +144412,7 @@ lhp
 pZT
 coE
 ges
-vvD
+kDp
 iEy
 muq
 aSu
@@ -144650,7 +144670,7 @@ tbs
 nsf
 aXo
 yen
-kDp
+eWM
 muq
 aSu
 wWp
@@ -144902,7 +144922,7 @@ qzj
 suN
 siU
 fXr
-diY
+xes
 glc
 coE
 aSu
@@ -145420,7 +145440,7 @@ lhp
 pZT
 coE
 ges
-sTj
+pLv
 oVr
 clj
 aSu
@@ -145678,7 +145698,7 @@ tbs
 nsf
 aXo
 iLy
-pLv
+vdH
 clj
 aSu
 wWp
@@ -146437,7 +146457,7 @@ coE
 glc
 rio
 ajO
-ajO
+fbk
 ajO
 ajO
 ajO
@@ -146448,7 +146468,7 @@ lhp
 pZT
 coE
 ges
-xGF
+ptT
 vRD
 nSy
 aSu
@@ -146706,7 +146726,7 @@ tbs
 nsf
 aXo
 pla
-ptT
+fuD
 nSy
 aSu
 wWp
@@ -147982,7 +148002,7 @@ xjr
 eqh
 mFu
 eDw
-xjr
+fzS
 uvw
 uvw
 mOY
@@ -148492,7 +148512,7 @@ euZ
 kWC
 kWC
 xaA
-daA
+pId
 vJT
 dIp
 qLj
