@@ -455,7 +455,7 @@
 /obj/item/reagent_containers/food/snacks/crayfish_cooked_small/mr_chang
 	name = "spicy small lobster"
 	desc = "Wait, thats not a lobster! But still tasty dish with a special Mr.Chang's ingredient."
-	list_reagents = list(/datum/reagent/consumable/nutriment = 1, "msg" = 2, /datum/reagent/consumable/sugar = 1)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/msg = 2, /datum/reagent/consumable/sugar = 1)
 	foodtype = MEAT|FRIED
 
 /obj/item/reagent_containers/food/snacks/crayfish_cooked
@@ -473,6 +473,6 @@
 /obj/item/reagent_containers/food/snacks/crayfish_cooked/mr_chang
 	name = "spicy lobster"
 	desc = "Wait, thats not a lobster! But still tasty dish with a special Mr.Chang's ingredient."
-	list_reagents = list(/datum/reagent/consumable/nutriment = 2, "msg" = 4, /datum/reagent/consumable/sugar = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 2, /datum/reagent/msg = 4, /datum/reagent/consumable/sugar = 2)
 	foodtype = MEAT|FRIED
 

@@ -683,7 +683,7 @@
 	name = "bacon"
 	desc = "It looks crispy and tastes amazing! Mmm... Bacon."
 	icon_state = "bacon"
-	list_reagents = list(/datum/reagent/consumable/nutriment = 4, /datum/reagent/consumable/porktonium = 10, "msg" = 4)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 4, /datum/reagent/consumable/porktonium = 10, /datum/reagent/msg = 4)
 	tastes = list("bacon" = 1)
 	foodtype = MEAT
 

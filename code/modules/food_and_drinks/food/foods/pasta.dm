@@ -96,7 +96,7 @@
 	icon = 'icons/obj/food/pasta.dmi'
 	icon_state = "lasagna"
 	filling_color = "#E18712"
-	list_reagents = list(/datum/reagent/consumable/nutriment = 10, "msg" = 3, /datum/reagent/consumable/nutriment/vitamin = 4, /datum/reagent/consumable/drink/tomatojuice = 10)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 10, /datum/reagent/msg = 3, /datum/reagent/consumable/nutriment/vitamin = 4, /datum/reagent/consumable/drink/tomatojuice = 10)
 	tastes = list("pasta" = 1, "cheese" = 1, "tomato" = 1, "meat" = 1)
 	foodtype = GRAIN | DAIRY | VEGETABLES | MEAT
 
