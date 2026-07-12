@@ -133,8 +133,6 @@ SUBSYSTEM_DEF(jobs)
 			return FALSE
 		if(job.available_in_playtime(player.client))
 			return FALSE
-		if(!job.can_novice_play(player.client))
-			return FALSE
 		if(job.barred_by_disability(player.client))
 			return FALSE
 		if(!job.character_old_enough(player.client))
@@ -152,6 +150,11 @@ SUBSYSTEM_DEF(jobs)
 			Debug("Player: [player] is now Rank: [rank], JCP:[job.current_positions], JPL:[position_limit]")
 			player.mind.assigned_role = rank
 			player.mind.role_alt_title = GetPlayerAltTitle(player, rank)
+
+			// Reallocating slots from trainees to the primary profession
+			if(!job.can_novice_play(player.client) && job.upgrade_job)
+				var/datum/job/J = SSjobs.GetJob(job.upgrade_job)
+				job = J
 
 			// JOB OBJECTIVES OH SHIT
 			player.mind.job_objectives.Cut()

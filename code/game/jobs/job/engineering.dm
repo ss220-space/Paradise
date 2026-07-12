@@ -126,6 +126,7 @@
 /datum/job/engineering/engineer/trainee
 	title = JOB_TITLE_ENGINEER_TRAINEE
 	flag = JOB_FLAG_ENGINEER_TRAINEE
+	upgrade_job = JOB_TITLE_ENGINEER
 	spawn_positions = 3
 	alt_titles = list(
 		ALT_JOB_TITLE_RU_ENGINEER_ASSISTANT,

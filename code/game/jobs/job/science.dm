@@ -96,6 +96,7 @@
 /datum/job/science/scientist/student
 	title = JOB_TITLE_SCIENCE_STUDENT
 	flag = JOB_FLAG_SCIENTIST_STUDENT
+	upgrade_job = JOB_TITLE_SCIENTIST
 	total_positions = 5
 	spawn_positions = 3
 	department_head = list(JOB_TITLE_RD, JOB_TITLE_SCIENTIST)

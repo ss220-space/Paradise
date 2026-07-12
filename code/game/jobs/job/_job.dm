@@ -105,6 +105,9 @@
 	/// Lazylist of traits added to the liver of the mob assigned this job (used for the classic "cops heal from donuts" reaction, among others)
 	var/list/liver_traits = null
 
+	/// A var that stores the next stage to which certain other jobs are transferred.
+	var/upgrade_job = null
+
 #define MAX_START_MONEY_MULTIPLIER 3
 
 /datum/job/New()

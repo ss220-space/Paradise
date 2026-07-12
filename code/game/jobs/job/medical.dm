@@ -95,6 +95,7 @@
 /datum/job/medical/doctor/intern
 	title = JOB_TITLE_MEDICAL_INTERN
 	flag = JOB_FLAG_INTERN
+	upgrade_job = JOB_TITLE_DOCTOR
 	alt_titles = list(
 		ALT_JOB_TITLE_RU_MEDICAL_TRAINEE,
 	)

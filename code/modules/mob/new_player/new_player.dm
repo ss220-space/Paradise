@@ -300,8 +300,10 @@
 		return 0
 	if(job.available_in_playtime(client))
 		return 0
-	if(!job.can_novice_play(client))
-		return 0
+	if(!job.can_novice_play(client) && job.upgrade_job)
+		var/datum/job/J = SSjobs.GetJob(job.upgrade_job)
+		if(!J || !J.is_position_available())
+			return 0
 
 	if(CONFIG_GET(flag/assistant_limit))
 		if(job.title == JOB_TITLE_CIVILIAN)
