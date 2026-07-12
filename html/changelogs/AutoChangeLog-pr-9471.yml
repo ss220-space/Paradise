@@ -1,0 +1,4 @@
+author: "SCPfollower"
+delete-after: True
+changes:
+  - image: "Добавлены спрайты для некоторых карт когда они находятся в ПДА. (PR #9471)"
