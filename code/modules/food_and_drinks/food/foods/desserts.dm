@@ -9,7 +9,7 @@
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "icecream_cone"
 	bitesize = 3
-	list_reagents = list("nutriment" = 1, "sugar" = 3)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/sugar = 3)
 	tastes = list("ice cream" = 1)
 	foodtype = SUGAR | DAIRY
 
@@ -31,19 +31,19 @@
 
 /obj/item/reagent_containers/food/snacks/icecream/icecreamcone
 	name = "ice cream cone"
-	list_reagents = list("nutriment" = 3, "sugar" = 7, "ice" = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 3, /datum/reagent/consumable/sugar = 7, /datum/reagent/consumable/drink/cold/ice = 2)
 
 /obj/item/reagent_containers/food/snacks/icecream/icecreamcup
 	name = "chocolate ice cream cone"
 	icon_state = "icecream_cup"
 	bitesize = 6
-	list_reagents = list("nutriment" = 5, "chocolate" = 8, "ice" = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 5, /datum/reagent/consumable/chocolate = 8, /datum/reagent/consumable/drink/cold/ice = 2)
 
 /obj/item/reagent_containers/food/snacks/icecreamsandwich
 	name = "icecream sandwich"
 	desc = "Portable Ice-cream in its own packaging."
 	icon_state = "icecreamsandwich"
-	list_reagents = list("nutriment" = 2, "ice" = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 2, /datum/reagent/consumable/drink/cold/ice = 2)
 	foodtype = SUGAR | DAIRY
 
 //////////////////////
@@ -55,7 +55,7 @@
 	desc = "Goreng Pisang, also known as fried bananas."
 	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "friedbanana"
-	list_reagents = list("sugar" = 10, "nutriment" = 8, "cornoil" = 4)
+	list_reagents = list(/datum/reagent/consumable/sugar = 10, /datum/reagent/consumable/nutriment = 8, /datum/reagent/consumable/cornoil = 4)
 	foodtype = FRIED | FRUIT | SUGAR
 
 /obj/item/reagent_containers/food/snacks/ricepudding
@@ -65,7 +65,7 @@
 	icon_state = "rpudding"
 	trash = /obj/item/trash/snack_bowl
 	filling_color = "#FFFBDB"
-	list_reagents = list("nutriment" = 7, "vitamin" = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 7, /datum/reagent/consumable/nutriment/vitamin = 2)
 	tastes = list("rice" = 1, "sweetness" = 1)
 	foodtype = GRAIN | SUGAR
 
@@ -77,7 +77,7 @@
 	trash = /obj/item/trash/snack_bowl
 	filling_color = "#42B873"
 	bitesize = 3
-	list_reagents = list("nutriment" = 6, "psilocybin" = 6)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/psilocybin = 6)
 	tastes = list("jelly" = 1, "mushroom" = 1)
 	foodtype = FRUIT | SUGAR
 
@@ -89,7 +89,7 @@
 	trash = /obj/item/trash/snack_bowl
 	filling_color = "#ED0758"
 	bitesize = 3
-	list_reagents = list("nutriment" = 6, "amanitin" = 6, "psilocybin" = 3)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/amanitin = 6, /datum/reagent/psilocybin = 3)
 	tastes = list("jelly" = 1, "mushroom" = 1)
 	foodtype = VEGETABLES | SUGAR
 	log_eating = TRUE
@@ -100,7 +100,7 @@
 	icon_state = "candiedapple"
 	filling_color = "#F21873"
 	bitesize = 3
-	list_reagents = list("nutriment" = 3, "sugar" = 5)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 3, /datum/reagent/consumable/sugar = 5)
 	tastes = list("apple" = 2, "sweetness" = 2)
 	foodtype = FRUIT | SUGAR
 
@@ -110,4 +110,4 @@
 	icon_state = "mint"
 	bitesize = 1
 	filling_color = "#F2F2F2"
-	list_reagents = list("minttoxin" = 1)
+	list_reagents = list(/datum/reagent/minttoxin = 1)
