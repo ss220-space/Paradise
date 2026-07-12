@@ -145,7 +145,7 @@
 ****************************************************/
 
 //Gets blood from mob to a container or other mob, preserving all data in it.
-/mob/living/proc/transfer_blood_to(atom/movable/AM, amount, forced)
+/mob/living/proc/transfer_blood_to(atom/movable/AM, amount, forced, ignore_incompatibility = FALSE)
 	if(!blood_volume || !AM.reagents)
 		return 0
 	if(blood_volume < BLOOD_VOLUME_BAD && !forced)
@@ -171,7 +171,7 @@
 				V.Contract(C)
 		if(blood_id == C.get_blood_id() && !HAS_TRAIT(C, TRAIT_NO_BLOOD_RESTORE))//both mobs have the same blood substance
 			if(blood_id == "blood") //normal blood
-				if(!(blood_data["blood_type"] in get_safe_blood(C.dna.blood_type)) || !(blood_data["blood_species"] == C.dna.species.blood_species))
+				if(!ignore_incompatibility && (!(blood_data["blood_type"] in get_safe_blood(C.dna.blood_type)) || !(blood_data["blood_species"] == C.dna.species.blood_species)))
 					C.reagents.add_reagent("toxin", amount * 0.5)
 					return 1
 

@@ -50,9 +50,18 @@
 
 /mob/living/simple_animal/hostile/heretic_summon/maid_in_the_mirror/death(gibbed)
 	var/turf/simulated/death_turf = get_turf(src)
-	death_turf.get_readonly_air()?.set_temperature(death_turf.get_readonly_air()?.temperature() - 40) // MILLA: write may need milla_safe to persist
-	death_turf.air_update_turf()
+	if(istype(death_turf))
+		var/datum/milla_safe/maid_death_chill/chill = new()
+		chill.invoke_async(death_turf)
 	return ..()
+
+
+/datum/milla_safe/maid_death_chill
+
+/datum/milla_safe/maid_death_chill/on_run(turf/location)
+	var/datum/gas_mixture/air = get_turf_air(location)
+	air.set_temperature(max(air.temperature() - 40, TCMB))
+	air.react()
 
 
 // Examining them will harm them, on a cooldown.

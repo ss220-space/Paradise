@@ -29,6 +29,10 @@
 	AddElement(/datum/element/death_drops, string_list(list(/obj/effect/gibspawner/generic)))
 	ADD_TRAIT(src, TRAIT_HERETIC_SUMMON, INNATE_TRAIT)
 
+/mob/living/simple_animal/hostile/heretic_summon/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/animal_temperature, cold_damage = 0, heat_damage = 0)
+
 /mob/living/simple_animal/hostile/heretic_summon/death(gibbed)
 	. = ..()
 	qdel(src)

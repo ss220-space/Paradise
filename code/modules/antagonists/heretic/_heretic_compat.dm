@@ -151,15 +151,13 @@
 /obj/machinery/rust_heretic_act(strength)
 	take_damage(500 + strength * 200, BRUTE, BOMB, TRUE)
 
-// Windoors don't shatter outright like other machinery - tg's /obj/machinery/door/window/rust_heretic_act
-// instead corrodes them: rusty tint, the rust element, armor stripped, half their current integrity gone
-// and max integrity cut to 20%. (set_armor(getArmor()) = tg's /datum/armor/none, all zeroes.)
+// Windoors: tg only corrodes them (weaken + a rust element), but that left the door alive forever - the
+// rust element painted its full-tile overlay across the whole tile, and the indestructible border kept
+// blocking anything sharing the tile (a table couldn't be smashed from that side). Per Paradise design the
+// Rust grasp crumbles any door whole, so destroy it outright like the airlock and firelock below.
 /obj/machinery/door/window/rust_heretic_act(strength)
-	add_atom_colour(COLOR_RUSTED_GLASS, FIXED_COLOUR_PRIORITY)
-	AddElement(/datum/element/rust)
-	set_armor(getArmor())
-	take_damage(get_integrity() * 0.5)
-	modify_max_integrity(initial(max_integrity) * 0.2)
+	obj_flags |= NODECONSTRUCT
+	return ..()
 
 // Airlocks: vanilla tg (and the /obj/machinery path above) destroys the airlock but leaves a
 // /obj/structure/door_assembly frame behind, so corroding a door took two grasps (door -> frame -> gone).
@@ -167,6 +165,13 @@
 // NODECONSTRUCT makes the airlock's deconstruct() skip spawning the assembly (and electronics) and just
 // qdel, so one corrode fully removes the door with nothing left to block the way.
 /obj/machinery/door/airlock/rust_heretic_act(strength)
+	obj_flags |= NODECONSTRUCT
+	return ..()
+
+// Firelocks corrode the same way: without this the /obj/machinery hit destroys the door but
+// deconstruct() drops a firelock_frame that keeps blocking the tile. NODECONSTRUCT crumbles the whole
+// firelock in one grasp, matching the airlock above.
+/obj/machinery/door/firedoor/rust_heretic_act(strength)
 	obj_flags |= NODECONSTRUCT
 	return ..()
 

@@ -108,6 +108,9 @@
 	if(SEND_SIGNAL(src, COMSIG_LIVING_GENERIC_INCAPACITATE_CHECK, check_flags, force_apply) & COMPONENT_NO_EFFECT)
 		return TRUE
 
+	if(HAS_TRAIT(src, TRAIT_STUNIMMUNE))
+		return TRUE
+
 	// Do we have the correct flag set to allow this status?
 	// This checks that ALL flags are set, not just one of them.
 	if((status_flags & check_flags) == check_flags)

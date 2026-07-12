@@ -30,5 +30,4 @@
 ///signal called by the stat of the target changing
 /datum/element/death_gases/proc/on_death(mob/living/target, gibbed)
 	SIGNAL_HANDLER
-	var/turf/simulated/our_turf = get_turf(target)
-	our_turf?.atmos_spawn_air(gas_type, amount_of_gas, T20C)
+	target.atmos_spawn_air(gas_type, amount_of_gas, T20C)

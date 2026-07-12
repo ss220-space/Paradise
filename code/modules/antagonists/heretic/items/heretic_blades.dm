@@ -49,6 +49,7 @@
 /obj/item/melee/sickly_blade/Initialize(mapload)
 	. = ..()
 	RegisterSignal(src, COMSIG_ITEM_HARVESTED_SOMEBODY, PROC_REF(on_harvest))
+	AddComponent(/datum/component/cleave_attack)
 
 
 /obj/item/melee/sickly_blade/Destroy()
@@ -308,9 +309,9 @@
 	)
 
 
-/obj/item/melee/sickly_blade/dark/afterattack(atom/target, mob/user, list/modifiers, list/attack_modifiers)
+/obj/item/melee/sickly_blade/dark/afterattack(atom/target, mob/user, proximity, list/attack_modifiers)
 	. = ..()
-	if(!infused || target == user || !isliving(target))
+	if(!proximity || !infused || target == user || !isliving(target))
 		return
 
 	var/datum/antagonist/heretic/heretic_datum = isheretic(user)
@@ -543,18 +544,16 @@
 		after_use_message = null
 
 
-/obj/item/melee/sickly_blade/cursed/afterattack(atom/target, mob/user, list/modifiers, list/attack_modifiers)
-	. = ..()
-	var/datum/antagonist/heretic/heretic_datum = user.mind.has_antag_datum(/datum/antagonist/heretic)
+/obj/item/melee/sickly_blade/cursed/interact_with_atom(atom/interacting_with, mob/living/user, list/modifiers)
+	if(user.a_intent == INTENT_HARM || iswallturf(interacting_with))
+		return NONE
+
+	var/datum/antagonist/heretic/heretic_datum = isheretic(user)
 	if(!heretic_datum)
 		return NONE
 
-	// Can only carve runes with it if off combat mode.
-	if(iswallturf(target) || user.a_intent == INTENT_HARM)
-		return NONE
-
-	heretic_datum.try_draw_rune(user, target, drawing_time = 14 SECONDS)
-	return ATTACK_CHAIN_BLOCKED
+	heretic_datum.try_draw_rune(user, interacting_with, drawing_time = 14 SECONDS)
+	return ITEM_INTERACT_BLOCKING
 
 
 /obj/item/melee/sickly_blade/training

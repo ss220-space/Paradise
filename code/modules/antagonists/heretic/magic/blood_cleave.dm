@@ -12,13 +12,13 @@
 	school = SCHOOL_FORBIDDEN
 	human_req = FALSE
 	clothes_req = FALSE
-	base_cooldown = 45 SECONDS
+	base_cooldown = 30 SECONDS
 
 	invocation = "Р'СЧЛ'Н'Н!"
 	invocation_type = INVOCATION_WHISPER
 	spell_requirements = NONE
 
-	cast_range = 4
+	cast_range = 5
 
 	/// The radius of the cleave effect
 	var/cleave_radius = 1
@@ -57,7 +57,7 @@
 		victim.apply_damage(15, BRUTE)
 		if(isliving(caster))
 			caster.adjustBruteLoss(-15)
-			victim.transfer_blood_to(caster, 15, TRUE)
+			victim.transfer_blood_to(caster, 15, forced = TRUE, ignore_incompatibility = TRUE)
 
 		new /obj/effect/temp_visual/cleave(get_turf(victim))
 

@@ -455,7 +455,7 @@
 		ROLE_THIEF = 0,
 		ROLE_VAMPIRE = 20,
 		ROLE_CHANGELING = 20,
-		ROLE_HERETIC = 20,
+		ROLE_HERETIC = 60,
 	)
 
 /datum/config_entry/keyed_list/antag_paradise_double_antags_weights
@@ -466,7 +466,7 @@
 		ROLE_THIEF = 0,
 		ROLE_VAMPIRE = 20,
 		ROLE_CHANGELING = 20,
-		ROLE_HERETIC = 20,
+		ROLE_HERETIC = 60,
 	)
 
 /datum/config_entry/keyed_list/antag_paradise_tripple_antags_weights
@@ -477,7 +477,7 @@
 		ROLE_THIEF = 0,
 		ROLE_VAMPIRE = 20,
 		ROLE_CHANGELING = 20,
-		ROLE_HERETIC = 20,
+		ROLE_HERETIC = 60,
 	)
 
 /datum/config_entry/keyed_list/antag_paradise_special_antags_weights
