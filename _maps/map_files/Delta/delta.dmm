@@ -8702,6 +8702,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 5
 	},
+/obj/machinery/vending/wallmed/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -31311,6 +31312,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
 	},
+/obj/machinery/light_switch/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -32185,6 +32187,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/engine,
 /area/station/engineering/atmos/mixing_atmos)
 "gFH" = (
@@ -36007,7 +36010,6 @@
 	dir = 9;
 	name = "Труба фильтрации"
 	},
-/obj/structure/lattice,
 /obj/structure/lattice,
 /turf/space,
 /area/space)
@@ -50322,12 +50324,6 @@
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/station/science/xenobiology)
-"kbT" = (
-/obj/structure/lattice,
-/obj/structure/grille,
-/obj/structure/lattice,
-/turf/space,
-/area/space)
 "kbU" = (
 /obj/machinery/light{
 	dir = 1
@@ -69344,6 +69340,10 @@
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/station/commons/storage/primary)
+"nzT" = (
+/obj/structure/sign/poster/random,
+/turf/simulated/wall/r_wall,
+/area/station/engineering/atmos/mixing_atmos)
 "nAb" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
@@ -74244,6 +74244,7 @@
 /obj/item/grenade/chem_grenade/metalfoam,
 /obj/effect/turf_decal/delivery/hollow,
 /obj/item/holosign_creator/atmos,
+/obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -91483,12 +91484,12 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/light{
-	dir = 1
-	},
 /obj/machinery/camera{
 	c_tag = "Atmospherics Mixing North";
 	network = list("Engineering","SS13")
+	},
+/obj/machinery/light/small{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/mixing_atmos)
@@ -124842,6 +124843,7 @@
 	req_access = list(10,24)
 	},
 /obj/structure/fans/tiny,
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/engine,
 /area/station/engineering/atmos/mixing_atmos)
 "xHc" = (
@@ -142066,7 +142068,7 @@ dZq
 bCI
 coE
 aaq
-kbT
+bCI
 bCI
 coE
 bCI
@@ -142585,7 +142587,7 @@ glc
 glc
 glc
 glc
-glc
+pZT
 jOw
 glc
 glc
@@ -146689,7 +146691,7 @@ bft
 kqe
 eFm
 aaq
-glc
+nzT
 rio
 ajO
 ajO
