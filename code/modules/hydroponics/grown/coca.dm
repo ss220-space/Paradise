@@ -11,7 +11,7 @@
 	production = 3
 	yield = 5
 	icon_dead = "tobacco-dead"
-	reagents_add = list("cocaextract" = 0.1, "plantmatter" = 0.1)
+	reagents_add = list(/datum/reagent/coca_extract = 0.1, /datum/reagent/consumable/nutriment/plantmatter = 0.1)
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
 
 /obj/item/reagent_containers/food/snacks/grown/coca

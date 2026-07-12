@@ -16,7 +16,7 @@
 	icon_dead = "cocoapod-dead"
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
 	mutatelist = list(/obj/item/seeds/cocoapod/vanillapod, /obj/item/seeds/cocoapod/bungotree)
-	reagents_add = list("cocoa" = 0.25, "plantmatter" = 0.1)
+	reagents_add = list(/datum/reagent/consumable/cocoa = 0.25, /datum/reagent/consumable/nutriment/plantmatter = 0.1)
 
 /obj/item/reagent_containers/food/snacks/grown/cocoapod
 	seed = /obj/item/seeds/cocoapod
@@ -38,7 +38,7 @@
 	product = /obj/item/reagent_containers/food/snacks/grown/vanillapod
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
 	mutatelist = list()
-	reagents_add = list("vanilla" = 0.25, "plantmatter" = 0.1)
+	reagents_add = list(/datum/reagent/consumable/vanilla = 0.25, /datum/reagent/consumable/nutriment/plantmatter = 0.1)
 
 /obj/item/reagent_containers/food/snacks/grown/vanillapod
 	seed = /obj/item/seeds/cocoapod/vanillapod
@@ -47,7 +47,7 @@
 	icon_state = "vanillapod"
 	filling_color = "#FFD700"
 	tastes = list("vanilla" = 1)
-	distill_reagent = "vanilla" //Takes longer, but you can get even more vanilla from it.
+	distill_reagent = /datum/reagent/consumable/vanilla //Takes longer, but you can get even more vanilla from it.
 
 /obj/item/seeds/cocoapod/bungotree
 	name = "pack of bungo tree seeds"
@@ -62,7 +62,7 @@
 	production = 7
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
 	mutatelist = list()
-	reagents_add = list("enzyme" = 0.1, "nutriment" = 0.1)
+	reagents_add = list(/datum/reagent/consumable/enzyme = 0.1, /datum/reagent/consumable/nutriment = 0.1)
 	growthstages = 4
 	icon_grow = "bungotree-grow"
 	icon_dead = "bungotree-dead"
