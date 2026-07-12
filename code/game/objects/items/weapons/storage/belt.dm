@@ -623,6 +623,8 @@
 		/obj/item/wirecutters,
 		/obj/item/wrench,
 		/obj/item/multitool,
+		/obj/item/rcd,
+		/obj/item/rpd,
 	)
 
 /obj/item/storage/belt/military/traitor/hacker/populate_contents()

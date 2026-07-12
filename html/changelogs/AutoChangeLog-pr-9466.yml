@@ -1,0 +1,4 @@
+author: "Dimempers"
+delete-after: True
+changes:
+  - bugfix: "Исправлено несколько рантаймов. (PR #9466)"
