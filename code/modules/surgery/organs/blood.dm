@@ -170,7 +170,7 @@
 					continue
 				V.Contract(C)
 		if(blood_id == C.get_blood_id() && !HAS_TRAIT(C, TRAIT_NO_BLOOD_RESTORE))//both mobs have the same blood substance
-			if(blood_id == "blood") //normal blood
+			if(blood_id == /datum/reagent/blood) //normal blood
 				if(!(blood_data["blood_type"] in get_safe_blood(C.dna.blood_type)) || !(blood_data["blood_species"] == C.dna.species.blood_species))
 					C.reagents.add_reagent(/datum/reagent/toxin, amount * 0.5)
 					return 1
@@ -206,7 +206,7 @@
 			blood_data["resistances"] = resistances.Copy()
 
 	switch(blood_id)
-		if("blood")
+		if(/datum/reagent/blood)
 			blood_data["donor"] = src
 			blood_data["blood_DNA"] = copytext(dna.unique_enzymes,1,0)
 			var/list/temp_chem = list()
@@ -227,11 +227,11 @@
 			blood_data["factions"] = faction
 			blood_data["dna"] = dna.Clone()
 
-		if("slimejelly")
+		if(/datum/reagent/slimejelly)
 			blood_data["colour"] = dna.species.blood_color
 			blood_data["blood_color"] = dna.species.blood_color
 
-		if("cryoxadone")
+		if(/datum/reagent/medicine/cryoxadone)
 			blood_data["blood_color"] = dna.species.blood_color
 
 	return blood_data
@@ -242,7 +242,7 @@
 
 /mob/living/simple_animal/get_blood_id()
 	if(blood_volume)
-		return "blood"
+		return /datum/reagent/blood
 	return ""
 
 /mob/living/carbon/human/get_blood_id()
@@ -250,7 +250,7 @@
 		return ""
 	if(HAS_TRAIT(src, TRAIT_EXOTIC_BLOOD))	//some races may bleed water..or kethcup..
 		return dna.species.exotic_blood
-	return "blood"
+	return /datum/reagent/blood
 
 // This is has more potential uses, and is probably faster than the old proc.
 /proc/get_safe_blood(bloodtype)
@@ -278,7 +278,7 @@
 
 //to add a splatter of blood or other mob liquid.
 /mob/living/proc/add_splatter_floor(turf/T, small_drip, shift_x, shift_y, amt)
-	var/static/list/acceptable_blood = list("blood", "cryoxadone", "slimejelly")
+	var/static/list/acceptable_blood = list(/datum/reagent/blood, /datum/reagent/medicine/cryoxadone, /datum/reagent/slimejelly)
 	var/check_blood = get_blood_id()
 	if(!check_blood || !(check_blood in acceptable_blood))//is it blood or welding fuel?
 		return

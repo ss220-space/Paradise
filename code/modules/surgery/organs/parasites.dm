@@ -34,7 +34,7 @@
 
 /obj/item/organ/internal/body_egg/spider_eggs/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	..()
-	M.reagents.del_reagent("spidereggs") //purge all remaining spider eggs reagent if caught, in time.
+	M.reagents.del_reagent(/datum/reagent/spider_eggs) //purge all remaining spider eggs reagent if caught, in time.
 	if(!QDELETED(src))
 		qdel(src) // prevent people re-implanting them into others
 	return null
@@ -106,10 +106,10 @@
 	var/extra_progress = 0
 	if(owner.nutrition > NUTRITION_LEVEL_FULL)
 		extra_progress += 1
-	var/antibiotics = owner.reagents.get_reagent_amount("spaceacillin")
+	var/antibiotics = owner.reagents.get_reagent_amount(/datum/reagent/medicine/spaceacillin)
 	if(antibiotics > 15)
 		extra_progress -= 0.5
-	var/boosters = owner.reagents.get_reagent_amount("salglu_solution")
+	var/boosters = owner.reagents.get_reagent_amount(/datum/reagent/medicine/salglu_solution)
 	if(boosters > 1)
 		extra_progress += 1
 	return extra_progress
