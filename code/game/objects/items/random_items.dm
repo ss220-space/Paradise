@@ -42,8 +42,8 @@
 	var/list/possible_chems = GLOB.chemical_reagents_list.Copy()
 	possible_chems -= GLOB.blocked_chems.Copy()
 	var/random_chem_id = pick(possible_chems)
-	var/datum/reagent/random_reagent = GLOB.chemical_reagents_list[p_drug_id]
-	if(GLOB.rare_chemicals.Find(random_reagent.id))
+	var/datum/reagent/random_reagent = GLOB.chemical_reagents_list[random_chem_id]
+	if(GLOB.rare_chemicals.Find(random_reagent))
 		reagents.add_reagent(random_reagent.type, 10)
 	else
 		reagents.add_reagent(random_reagent.type, rand(2, 3)*10)
