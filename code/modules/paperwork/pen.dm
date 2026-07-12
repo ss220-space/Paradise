@@ -273,7 +273,7 @@
 		to_chat(user, span_warning("[P] is already coated."))
 	else if(uses_left)
 		uses_left--
-		P.contact_poison = "amanitin"
+		P.contact_poison = /datum/reagent/amanitin
 		P.contact_poison_volume = 15
 		P.contact_poison_poisoner = user.name
 		add_attack_logs(user, P, "Poison pen'ed")

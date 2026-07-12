@@ -379,14 +379,14 @@
 
 /datum/reagents/proc/find_blood_group(datum/chemical_reaction/reaction)
 	for(var/K in reaction.required_blood_group)
-		var/datum/reagent/I = has_reagent("blood", reaction.required_reagents["blood"])
+		var/datum/reagent/I = has_reagent(/datum/reagent/blood, reaction.required_reagents[/datum/reagent/blood])
 		if(I.data["blood_group"] == K)
 			return TRUE
 	return FALSE
 
 /datum/reagents/proc/find_blood_species(datum/chemical_reaction/reaction)
 	for(var/K in reaction.required_blood_species)
-		var/datum/reagent/I = has_reagent("blood", reaction.required_reagents["blood"])
+		var/datum/reagent/I = has_reagent(/datum/reagent/blood, reaction.required_reagents[/datum/reagent/blood])
 		if(I.data["blood_species"] == K)
 			return TRUE
 	return FALSE
@@ -417,7 +417,7 @@
 				for(var/B in C.required_reagents)
 					if(!has_reagent(B, C.required_reagents[B]))
 						break
-					if((B == "blood") && (C.required_blood_group || C.required_blood_species))
+					if((B == /datum/reagent/blood) && (C.required_blood_group || C.required_blood_species))
 						if(C.required_blood_group)
 							if(!find_blood_group(C))
 								break
@@ -630,7 +630,7 @@
 			if("OBJ")
 				R.reaction_obj(A, R.volume * volume_modifier)
 
-/datum/reagents/proc/add_reagent_list(list/list_reagents, list/data = null) // Like add_reagent but you can enter a list. Format it like this: list("toxin" = 10, "beer" = 15)
+/datum/reagents/proc/add_reagent_list(list/list_reagents, list/data = null) // Like add_reagent but you can enter a list. Format it like this: list(/datum/reagent/toxin = 10, /datum/reagent/consumable/ethanol/beer = 15)
 	for(var/r_id in list_reagents)
 		var/amt = list_reagents[r_id]
 		add_reagent(r_id, amt, data)

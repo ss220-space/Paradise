@@ -23,11 +23,21 @@
 	var/mutable_appearance/icon_beaker //cached overlay
 	/// Different dispensers have different overlay for installed beaker
 	var/beaker_overlay_name = "disp_beaker"
-	var/list/dispensable_reagents = list("hydrogen", "lithium", "carbon", "nitrogen", "oxygen", "fluorine",
-	"sodium", "aluminum", "silicon", "phosphorus", "sulfur", "chlorine", "potassium", "iron",
-	"copper", "mercury", "plasma", "radium", "water", "ethanol", "sugar", "iodine", "bromine", "silver", "chromium")
-	var/list/upgrade_reagents = list("oil", "ash", "acetone", "saltpetre", "ammonia", "diethylamine", "fuel")
-	var/list/hacked_reagents = list("toxin")
+	var/list/dispensable_reagents = list(
+		/datum/reagent/hydrogen, /datum/reagent/lithium, /datum/reagent/carbon, /datum/reagent/nitrogen,
+		/datum/reagent/oxygen, /datum/reagent/fluorine, /datum/reagent/sodium, /datum/reagent/aluminum,
+		/datum/reagent/silicon, /datum/reagent/phosphorus, /datum/reagent/sulfur, /datum/reagent/chlorine,
+		/datum/reagent/potassium, /datum/reagent/iron, /datum/reagent/copper, /datum/reagent/mercury,
+		/datum/reagent/plasma, /datum/reagent/radium, /datum/reagent/water, /datum/reagent/consumable/ethanol,
+		/datum/reagent/consumable/sugar, /datum/reagent/iodine, /datum/reagent/bromine, /datum/reagent/silver,
+		/datum/reagent/chromium,
+	)
+	var/list/upgrade_reagents = list(
+		/datum/reagent/oil, /datum/reagent/ash, /datum/reagent/acetone,
+		/datum/reagent/saltpetre, /datum/reagent/ammonia,
+		/datum/reagent/diethylamine, /datum/reagent/fuel,
+	)
+	var/list/hacked_reagents = list(/datum/reagent/toxin)
 	var/is_drink = FALSE
 
 /obj/machinery/chem_dispenser/get_ru_names()
@@ -87,18 +97,18 @@
 	obj_flags = NODECONSTRUCT
 
 	dispensable_reagents = list(
-		"mutagen",
-		"saltpetre",
-		"eznutriment",
-		"left4zednutriment",
-		"robustharvestnutriment",
-		"water",
-		"atrazine",
-		"pestkiller",
-		"cryoxadone",
-		"ammonia",
-		"ash",
-		"diethylamine",
+		/datum/reagent/mutagen,
+		/datum/reagent/saltpetre,
+		/datum/reagent/plantnutriment/eznutriment,
+		/datum/reagent/plantnutriment/left4zednutriment,
+		/datum/reagent/plantnutriment/robustharvestnutriment,
+		/datum/reagent/water,
+		/datum/reagent/glyphosate/atrazine,
+		/datum/reagent/pestkiller,
+		/datum/reagent/medicine/cryoxadone,
+		/datum/reagent/ammonia,
+		/datum/reagent/ash,
+		/datum/reagent/diethylamine,
 	)
 	upgrade_reagents = list()
 
@@ -193,7 +203,7 @@
 	var/beakerCurrentVolume = 0
 	if(beaker?.reagents && length(beaker.reagents.reagent_list))
 		for(var/datum/reagent/R in beaker.reagents.reagent_list)
-			beakerContents.Add(list(list("name" = R.name, "id"=R.id, "volume" = R.volume))) // list in a list because Byond merges the first list...
+			beakerContents.Add(list(list("name" = R.name, "id"=R.type, "volume" = R.volume))) // list in a list because Byond merges the first list...
 			beakerCurrentVolume += R.volume
 	data["beakerContents"] = beakerContents
 
@@ -378,12 +388,29 @@
 	icon_state = "soda_dispenser"
 	beaker_overlay_name = "bar_beaker"
 	ui_title = "Фонтан Напитков 10000"
-	dispensable_reagents = list("banana", "berryjuice", "carrotjuice", "coffee", "cola", "dr_gibb", "grapejuice", "hot_coco", "ice", "lemon_lime",
-	"lemonjuice", "limejuice", "milk", "orangejuice", "potato", "sodawater", "soymilk", "space_up", "spacemountainwind", "sugar",
-	"tea", "tomatojuice", "tonic", "water", "watermelonjuice")
-	upgrade_reagents = list("bananahonk", "milkshake", "cafe_latte", "cafe_mocha", "triple_citrus", "icecoffe","icetea")
-	hacked_reagents = list("thirteenloko")
-	var/list/hackedupgrade_reagents = list("zaza") //I possess zaza
+	dispensable_reagents = list(
+		/datum/reagent/consumable/drink/banana, /datum/reagent/consumable/drink/berryjuice,
+		/datum/reagent/consumable/drink/carrotjuice, /datum/reagent/consumable/drink/coffee,
+		/datum/reagent/consumable/drink/cold/space_cola, /datum/reagent/consumable/drink/cold/dr_gibb,
+		/datum/reagent/consumable/drink/grapejuice, /datum/reagent/consumable/hot_coco,
+		/datum/reagent/consumable/drink/cold/ice, /datum/reagent/consumable/drink/cold/lemon_lime,
+		/datum/reagent/consumable/drink/lemonjuice, /datum/reagent/consumable/drink/limejuice,
+		/datum/reagent/consumable/drink/milk, /datum/reagent/consumable/drink/orangejuice,
+		/datum/reagent/consumable/drink/potato_juice, /datum/reagent/consumable/drink/cold/sodawater,
+		/datum/reagent/consumable/drink/milk/soymilk, /datum/reagent/consumable/drink/cold/space_up,
+		/datum/reagent/consumable/drink/cold/spacemountainwind, /datum/reagent/consumable/sugar,
+		/datum/reagent/consumable/drink/tea, /datum/reagent/consumable/drink/tomatojuice,
+		/datum/reagent/consumable/drink/cold, /datum/reagent/water,
+		/datum/reagent/consumable/drink/watermelonjuice,
+	)
+	upgrade_reagents = list(
+		/datum/reagent/consumable/drink/bananahonk, /datum/reagent/consumable/drink/cold/milkshake,
+		/datum/reagent/consumable/drink/coffee/cafe_latte, /datum/reagent/consumable/drink/coffee/cafe_latte/cafe_mocha,
+		/datum/reagent/consumable/drink/triple_citrus, /datum/reagent/consumable/drink/coffee/icecoffee,
+		/datum/reagent/consumable/drink/tea/icetea,
+	)
+	hacked_reagents = list(/datum/reagent/consumable/ethanol/thirteenloko)
+	var/list/hackedupgrade_reagents = list(/datum/reagent/consumable/drink/cold/zaza) //I possess zaza
 	is_drink = TRUE
 
 /obj/machinery/chem_dispenser/soda/get_ru_names()
@@ -437,9 +464,31 @@
 	icon_state = "booze_dispenser"
 	beaker_overlay_name = "bar_beaker"
 	ui_title = "Наливатель Бухла 9001"
-	dispensable_reagents = list("ice", "cream", "cider", "beer", "kahlua", "whiskey", "wine", "vodka", "gin", "rum", "tequila", "vermouth", "cognac", "ale", "mead", "synthanol", "jagermeister", "bluecuracao", "sambuka", "schnaps", "sheridan")
-	upgrade_reagents = list("iced_beer", "irishcream", "manhattan", "antihol", "synthignon", "bravebull")
-	hacked_reagents = list("goldschlager", "patron", "absinthe", "ethanol", "nothing", "sake", "bitter", "champagne", "aperol", "noalco_beer")
+	dispensable_reagents = list(
+		/datum/reagent/consumable/drink/cold/ice, /datum/reagent/consumable/drink/milk/cream,
+		/datum/reagent/consumable/ethanol/cider, /datum/reagent/consumable/ethanol/beer,
+		/datum/reagent/consumable/ethanol/kahlua, /datum/reagent/consumable/ethanol/whiskey,
+		/datum/reagent/consumable/ethanol/wine, /datum/reagent/consumable/ethanol/vodka,
+		/datum/reagent/consumable/ethanol/gin, /datum/reagent/consumable/ethanol/rum,
+		/datum/reagent/consumable/ethanol/tequila, /datum/reagent/consumable/ethanol/vermouth,
+		/datum/reagent/consumable/ethanol/cognac, /datum/reagent/consumable/ethanol/ale,
+		/datum/reagent/consumable/ethanol/mead, /datum/reagent/consumable/ethanol/synthanol,
+		/datum/reagent/consumable/ethanol/jagermeister, /datum/reagent/consumable/ethanol/bluecuracao,
+		/datum/reagent/consumable/ethanol/sambuka, /datum/reagent/consumable/ethanol/schnaps,
+		/datum/reagent/consumable/ethanol/sheridan,
+	)
+	upgrade_reagents = list(
+		/datum/reagent/consumable/ethanol/iced_beer, /datum/reagent/consumable/ethanol/irish_cream,
+		/datum/reagent/consumable/ethanol/manhattan, /datum/reagent/medicine/antihol,
+		/datum/reagent/consumable/ethanol/synthanol/synthignon, /datum/reagent/consumable/ethanol/brave_bull,
+	)
+	hacked_reagents = list(
+		/datum/reagent/consumable/ethanol/goldschlager, /datum/reagent/consumable/ethanol/patron,
+		/datum/reagent/consumable/ethanol/absinthe, /datum/reagent/consumable/ethanol,
+		/datum/reagent/consumable/drink/nothing, /datum/reagent/consumable/ethanol/sake,
+		/datum/reagent/consumable/ethanol/bitter, /datum/reagent/consumable/ethanol/champagne,
+		/datum/reagent/consumable/ethanol/aperol, /datum/reagent/consumable/drink/non_alcoholic_beer,
+	)
 	is_drink = TRUE
 
 /obj/machinery/chem_dispenser/beer/get_ru_names()
@@ -481,8 +530,15 @@
 	name = "botanical chemical dispenser"
 	desc = "Узкоспециализированная модель химического раздатчика, настроенная на синтез ограниченного числа веществ, специально для ботанических нужд."
 	ui_title = "Ботанический ХимРаздатчик"
-	dispensable_reagents = list("mutagen", "saltpetre", "ammonia", "water")
-	upgrade_reagents = list("atrazine", "glyphosate", "pestkiller", "diethylamine", "ash")
+	dispensable_reagents = list(
+		/datum/reagent/mutagen, /datum/reagent/saltpetre,
+		/datum/reagent/ammonia, /datum/reagent/water,
+	)
+	upgrade_reagents = list(
+		/datum/reagent/glyphosate/atrazine, /datum/reagent/glyphosate,
+		/datum/reagent/pestkiller, /datum/reagent/diethylamine,
+		/datum/reagent/ash,
+	)
 
 /obj/machinery/chem_dispenser/botanical/get_ru_names()
 	return alist(
@@ -530,9 +586,21 @@
 	var/amount = 10
 	var/mode = "dispense"
 	var/is_drink = FALSE
-	var/list/dispensable_reagents = list("hydrogen", "lithium", "carbon", "nitrogen", "oxygen", "fluorine",
-	"sodium", "aluminum", "silicon", "phosphorus", "sulfur", "chlorine", "potassium", "iron",
-	"copper", "mercury", "plasma", "radium", "water", "ethanol", "sugar", "iodine", "bromine", "silver", "chromium")
+	var/list/dispensable_reagents = list(
+		/datum/reagent/hydrogen, /datum/reagent/lithium,
+		/datum/reagent/carbon, /datum/reagent/nitrogen,
+		/datum/reagent/oxygen, /datum/reagent/fluorine,
+		/datum/reagent/sodium, /datum/reagent/aluminum,
+		/datum/reagent/silicon, /datum/reagent/phosphorus,
+		/datum/reagent/sulfur, /datum/reagent/chlorine,
+		/datum/reagent/potassium, /datum/reagent/iron,
+		/datum/reagent/copper, /datum/reagent/mercury,
+		/datum/reagent/plasma, /datum/reagent/radium,
+		/datum/reagent/water, /datum/reagent/consumable/ethanol,
+		/datum/reagent/consumable/sugar, /datum/reagent/iodine,
+		/datum/reagent/bromine, /datum/reagent/silver,
+		/datum/reagent/chromium,
+	)
 	var/current_reagent = null
 	var/efficiency = 0.2
 	var/recharge_rate = 1 // Keep this as an integer
@@ -721,10 +789,27 @@
 	item_state = "handheld_booze"
 	icon_state = "handheld_booze"
 	is_drink = TRUE
-	dispensable_reagents = list("ice", "cream", "cider", "beer", "kahlua", "whiskey", "wine", "vodka", "gin", "rum", "tequila",
-	"vermouth", "cognac", "ale", "mead", "synthanol", "jagermeister", "bluecuracao", "sambuka", "schnaps", "sheridan", "iced_beer",
-	"irishcream", "manhattan", "antihol", "synthignon", "bravebull", "goldschlager", "patron", "absinthe", "ethanol", "nothing",
-	"sake", "bitter", "champagne", "aperol", "noalco_beer")
+	dispensable_reagents = list(
+		/datum/reagent/consumable/drink/cold/ice, /datum/reagent/consumable/drink/milk/cream,
+		/datum/reagent/consumable/ethanol/cider, /datum/reagent/consumable/ethanol/beer,
+		/datum/reagent/consumable/ethanol/kahlua, /datum/reagent/consumable/ethanol/whiskey,
+		/datum/reagent/consumable/ethanol/wine, /datum/reagent/consumable/ethanol/vodka,
+		/datum/reagent/consumable/ethanol/gin, /datum/reagent/consumable/ethanol/rum,
+		/datum/reagent/consumable/ethanol/tequila, /datum/reagent/consumable/ethanol/vermouth,
+		/datum/reagent/consumable/ethanol/cognac, /datum/reagent/consumable/ethanol/ale,
+		/datum/reagent/consumable/ethanol/mead, /datum/reagent/consumable/ethanol/synthanol,
+		/datum/reagent/consumable/ethanol/jagermeister, /datum/reagent/consumable/ethanol/bluecuracao,
+		/datum/reagent/consumable/ethanol/sambuka, /datum/reagent/consumable/ethanol/schnaps,
+		/datum/reagent/consumable/ethanol/sheridan, /datum/reagent/consumable/ethanol/iced_beer,
+		/datum/reagent/consumable/ethanol/irish_cream, /datum/reagent/consumable/ethanol/manhattan,
+		/datum/reagent/medicine/antihol, /datum/reagent/consumable/ethanol/synthanol/synthignon,
+		/datum/reagent/consumable/ethanol/brave_bull, /datum/reagent/consumable/ethanol/goldschlager,
+		/datum/reagent/consumable/ethanol/patron, /datum/reagent/consumable/ethanol/absinthe,
+		/datum/reagent/consumable/ethanol, /datum/reagent/consumable/drink/nothing,
+		/datum/reagent/consumable/ethanol/sake, /datum/reagent/consumable/ethanol/bitter,
+		/datum/reagent/consumable/ethanol/champagne, /datum/reagent/consumable/ethanol/aperol,
+		/datum/reagent/consumable/drink/non_alcoholic_beer,
+	)
 
 /obj/item/handheld_chem_dispenser/booze/get_ru_names()
 	return alist(
@@ -742,10 +827,24 @@
 	item_state = "handheld_soda"
 	icon_state = "handheld_soda"
 	is_drink = TRUE
-	dispensable_reagents = list("water", "ice", "soymilk", "coffee", "tea", "hot_coco", "cola", "spacemountainwind", "dr_gibb",
-	"space_up", "tonic", "sodawater", "lemon_lime", "grapejuice", "sugar", "orangejuice", "lemonjuice", "limejuice", "tomatojuice",
-	"banana", "watermelonjuice", "carrotjuice", "potato", "berryjuice", "bananahonk", "milkshake", "cafe_latte", "cafe_mocha",
-	"triple_citrus", "icecoffe", "icetea", "thirteenloko")
+	dispensable_reagents = list(
+		/datum/reagent/water, /datum/reagent/consumable/drink/cold/ice,
+		/datum/reagent/consumable/drink/milk/soymilk, /datum/reagent/consumable/drink/coffee,
+		/datum/reagent/consumable/drink/tea, /datum/reagent/consumable/hot_coco,
+		/datum/reagent/consumable/drink/cold/space_cola, /datum/reagent/consumable/drink/cold/spacemountainwind,
+		/datum/reagent/consumable/drink/cold/dr_gibb, /datum/reagent/consumable/drink/cold/space_up,
+		/datum/reagent/consumable/drink/cold, /datum/reagent/consumable/drink/cold/sodawater,
+		/datum/reagent/consumable/drink/cold/lemon_lime, /datum/reagent/consumable/drink/grapejuice,
+		/datum/reagent/consumable/sugar, /datum/reagent/consumable/drink/orangejuice,
+		/datum/reagent/consumable/drink/lemonjuice, /datum/reagent/consumable/drink/limejuice,
+		/datum/reagent/consumable/drink/tomatojuice, /datum/reagent/consumable/drink/banana,
+		/datum/reagent/consumable/drink/watermelonjuice, /datum/reagent/consumable/drink/carrotjuice,
+		/datum/reagent/consumable/drink/potato_juice, /datum/reagent/consumable/drink/berryjuice,
+		/datum/reagent/consumable/drink/bananahonk, /datum/reagent/consumable/drink/cold/milkshake,
+		/datum/reagent/consumable/drink/coffee/cafe_latte, /datum/reagent/consumable/drink/coffee/cafe_latte/cafe_mocha,
+		/datum/reagent/consumable/drink/triple_citrus, /datum/reagent/consumable/drink/coffee/icecoffee,
+		/datum/reagent/consumable/drink/tea/icetea, /datum/reagent/consumable/ethanol/thirteenloko,
+	)
 
 /obj/item/handheld_chem_dispenser/soda/get_ru_names()
 	return alist(
@@ -761,18 +860,18 @@
 	name = "handheld botanical chemical dispenser"
 	desc = "Компактная версия ботанического раздатчика. Удобно!"
 	dispensable_reagents = list(
-		"mutagen",
-		"saltpetre",
-		"eznutriment",
-		"left4zednutriment",
-		"robustharvestnutriment",
-		"water",
-		"atrazine",
-		"pestkiller",
-		"cryoxadone",
-		"ammonia",
-		"ash",
-		"diethylamine",
+		/datum/reagent/mutagen,
+		/datum/reagent/saltpetre,
+		/datum/reagent/plantnutriment/eznutriment,
+		/datum/reagent/plantnutriment/left4zednutriment,
+		/datum/reagent/plantnutriment/robustharvestnutriment,
+		/datum/reagent/water,
+		/datum/reagent/glyphosate/atrazine,
+		/datum/reagent/pestkiller,
+		/datum/reagent/medicine/cryoxadone,
+		/datum/reagent/ammonia,
+		/datum/reagent/ash,
+		/datum/reagent/diethylamine,
 	)
 
 /obj/item/handheld_chem_dispenser/botanical/get_ru_names()
@@ -789,10 +888,10 @@
 	name = "handheld cooking chemical dispenser"
 	desc = "Компактный кухонный раздатчик. Удобно!"
 	dispensable_reagents = list(
-		"sodiumchloride",
-		"blackpepper",
-		"ketchup",
-		"herbsmix",
+		/datum/reagent/consumable/sodiumchloride,
+		/datum/reagent/consumable/blackpepper,
+		/datum/reagent/consumable/ketchup,
+		/datum/reagent/consumable/herbs,
 	)
 
 /obj/item/handheld_chem_dispenser/cooking/get_ru_names()
