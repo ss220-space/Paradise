@@ -1499,7 +1499,7 @@
 	var/has_stimulant = FALSE
 	for(var/I in M.reagents.reagent_list)
 		var/datum/reagent/R = I
-		if(stimulant_list.Find(R.itype))
+		if(stimulant_list.Find(R.type))
 			has_stimulant = TRUE
 	switch(current_cycle)
 		if(1 to 9)
