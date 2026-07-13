@@ -67,7 +67,6 @@
 
 
 /obj/structure/void_conduit/process(seconds_per_tick)
-	build_view_turfs()
 	do_conduit_pulse()
 
 
