@@ -881,7 +881,7 @@
 /obj/machinery/door/airlock/syndicate/extmai/glass/jail
 	name = "Cell"
 	locked = TRUE
-	req_access = list(153)
+	req_access = list(ACCESS_SYNDICATE_COMMAND)
 	id_tag = "syndicate_jail_cell"
 	resistance_flags = INDESTRUCTIBLE
 
