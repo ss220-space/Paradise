@@ -1,4 +1,0 @@
-author: "littleboobs"
-delete-after: True
-changes:
-  - add: "Портирован ТГ свет (PR #9418)"

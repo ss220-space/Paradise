@@ -253,6 +253,8 @@
 //Table
 /obj/structure/table/survival_pod
 	icon = 'icons/obj/lavaland/survival_pod.dmi'
+	smoothing_groups = null
+	canSmoothWith = null
 	smooth = NONE
 	can_be_flipped = FALSE
 
