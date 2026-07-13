@@ -23,7 +23,7 @@
 
 /datum/deathmatch_controller/proc/create_new_lobby(mob/host)
 	lobbies[host.ckey] = new /datum/deathmatch_lobby(host)
-	notify_ghosts("Было открыто новое лобби тандердома.", enter_link = "<a href=byond://?src=[UID_of(lobbies[host.ckey])];ghostjoin=1>(Click to enter)</a>")
+	notify_ghosts("Было открыто новое лобби тандердома.", enter_link = "<a href=byond://?src=[lobbies[host.ckey].UID()];ghostjoin=1>(Click to enter)</a>")
 
 /datum/deathmatch_controller/proc/remove_lobby(ckey)
 	var/lobby = lobbies[ckey]
@@ -123,8 +123,8 @@
 				return
 			var/lobby = params["id"]
 			switch(params["func"])
-				if("Close")
+				if("Закрыть лобби")
 					remove_lobby(lobby)
 					log_admin("[key_name(usr)] removed deathmatch lobby [lobby].")
-				if("View")
+				if("Просмотр")
 					lobbies[lobby].ui_interact(usr)

@@ -582,6 +582,6 @@ GLOBAL_ALIST_INIT(body_zone, alist(
 /proc/init_subtypes_w_path_keys(prototype, list/L)
 	if(!istype(L))
 		L = list()
-	for(var/path as anything in subtypesof(prototype))
+	for(var/path in subtypesof(prototype))
 		L[path] = new path()
 	return L

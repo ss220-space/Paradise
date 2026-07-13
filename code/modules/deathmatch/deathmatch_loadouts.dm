@@ -15,6 +15,6 @@
 
 /datum/outfit/deathmatch_loadout/naked
 	name = "Deathmatch: Naked"
-	display_name = "Unarmed, Butt-naked"
-	desc = "Naked man craves for bloodshed."
+	display_name = "Без одежды"
+	desc = "Голые космонавтики жаждут устроить кровавую баню."
 	shoes = null

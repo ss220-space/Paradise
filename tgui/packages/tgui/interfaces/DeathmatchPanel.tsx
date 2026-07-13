@@ -38,8 +38,8 @@ export const DeathmatchPanel = (props) => {
         <Stack fill vertical>
           <Stack.Item>
             <NoticeBox danger>
-              If you play, you can still possibly be returned to your body (No
-              Guarantees)!
+              Если ваше тело все еще в раунде, вы в теории сможете вернуться в
+              него после игры, но это не гарантируется!
             </NoticeBox>
           </Stack.Item>
           <Stack.Item grow>
@@ -53,7 +53,7 @@ export const DeathmatchPanel = (props) => {
               color="good"
               onClick={() => act('host')}
             >
-              Create Lobby
+              Создать лобби
             </Button>
           </Stack.Item>
         </Stack>
@@ -70,10 +70,10 @@ const LobbyPane = (props) => {
     <Section fill scrollable>
       <Table>
         <Table.Row header>
-          <Table.Cell>Host</Table.Cell>
-          <Table.Cell>Map</Table.Cell>
+          <Table.Cell>Хост</Table.Cell>
+          <Table.Cell>Карта</Table.Cell>
           <Table.Cell>
-            <Tooltip content="Players">
+            <Tooltip content="Количество игроков">
               <Icon name="users" />
             </Tooltip>
           </Table.Cell>
@@ -86,7 +86,7 @@ const LobbyPane = (props) => {
           <Table.Row>
             <Table.Cell colSpan={4}>
               <NoticeBox textAlign="center">
-                No lobbies found. Start one!
+                Лобби не найдены. Создайте новое!
               </NoticeBox>
             </Table.Cell>
           </Table.Row>
@@ -117,7 +117,7 @@ const LobbyDisplay = (props) => {
             width={10}
             noChevron
             selected={lobby.name}
-            options={['Close', 'View']}
+            options={['Закрыть лобби', 'Просмотр']}
             onSelected={(value) =>
               act('admin', {
                 id: lobby.name,
@@ -140,7 +140,7 @@ const LobbyDisplay = (props) => {
             width="100%"
             textAlign="center"
           >
-            {playing === lobby.name ? 'View' : 'Join'}
+            {playing === lobby.name ? 'войти' : 'зайти'}
           </Button>
         ) : (
           <Button

@@ -16,8 +16,8 @@
 	var/template_in_use = FALSE
 
 /datum/lazy_template/deathmatch/ragecage
-	name = "Ragecage"
-	desc = "Fun for the whole family, the classic ragecage."
+	name = "Клетка"
+	desc = "Классическая клетка для устраивания мордобоя."
 	max_players = 4
 	automatic_gameend_time = 4 MINUTES // its a 10x10 cage what are you guys doing in there
 	allowed_loadouts = list(/datum/outfit/deathmatch_loadout/naked) //заменить на ассистента нах

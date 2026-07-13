@@ -102,23 +102,23 @@ export const DeathmatchLobby = (props) => {
                       color="caution"
                       onClick={() => act('admin', { func: 'Force start' })}
                     >
-                      Force Start
+                      Принудительный запуск
                     </Button>
                   )}
                 </Stack.Item>
                 <Stack.Item>
                   <Button color="caution" onClick={() => act('observe')}>
-                    {isObserver ? 'Join' : 'Observe'}
+                    {isObserver ? 'Играть' : 'Наблюдать'}
                   </Button>
                   <Button color="bad" onClick={() => act('leave_game')}>
-                    Leave Game
+                    Покинуть лобби
                   </Button>
                   <Button
                     color="good"
                     disabled={!allReady}
                     onClick={() => act('start_game')}
                   >
-                    Start Game
+                    Начать игру
                   </Button>
                 </Stack.Item>
               </Stack>
@@ -150,11 +150,11 @@ const PlayerColumn = (props) => {
       <Table>
         <Table.Row header>
           <Table.Cell collapsing />
-          <Table.Cell>Name</Table.Cell>
-          <Table.Cell>Loadout</Table.Cell>
+          <Table.Cell>Сикей</Table.Cell>
+          <Table.Cell>Снаряжение</Table.Cell>
           <Table.Cell collapsing align="center">
             <Tooltip
-              content={!allReady ? 'Players are preparing' : 'Press start!'}
+              content={!allReady ? 'Игроки не готовы' : 'Нажмите на запуск!'}
             >
               <Icon
                 name={!allReady ? 'check' : 'check-circle'}
@@ -172,12 +172,12 @@ const PlayerColumn = (props) => {
             <Table.Row className="candystripe" key={player.key}>
               <Table.Cell align="center" collapsing verticalAlign="top">
                 {isHost && (
-                  <Tooltip content="Host">
+                  <Tooltip content="хост">
                     <Icon color="gold" name="star" pt={isSelf && 0.5} />
                   </Tooltip>
                 )}
                 {!host && isSelf && (
-                  <Tooltip content="You">
+                  <Tooltip content="вы">
                     <Icon color="green" name="arrow-right" pt={0.9} />
                   </Tooltip>
                 )}
@@ -190,7 +190,11 @@ const PlayerColumn = (props) => {
                   <Dropdown
                     width={9}
                     selected={player.key}
-                    options={['Kick', 'Transfer host', 'Toggle observe']}
+                    options={[
+                      'Выгнать',
+                      'Сделать хостом',
+                      'Переключить наблюдение',
+                    ]}
                     onSelected={(value) =>
                       act('host', {
                         id: player.key,
@@ -261,7 +265,11 @@ const PlayerColumn = (props) => {
                   <Dropdown
                     width={9}
                     selected={observer.key}
-                    options={['Kick', 'Transfer host', 'Toggle observe']}
+                    options={[
+                      'Выгнать',
+                      'Сделать хостом',
+                      'Переключить наблюдение',
+                    ]}
                     onSelected={(value) =>
                       act('host', {
                         id: observer.key,
@@ -271,7 +279,7 @@ const PlayerColumn = (props) => {
                   />
                 )}
               </Table.Cell>
-              <Table.Cell color="label">Observing</Table.Cell>
+              <Table.Cell color="label">Наблюдает</Table.Cell>
             </Table.Row>
           );
         })}
@@ -297,13 +305,13 @@ const HostControls = (props) => {
         <>
           <Divider />
           <Button textAlign="center" fluid onClick={() => act('open_mod_menu')}>
-            Toggle Modifiers
+            Просмотр модификаторов
           </Button>
         </>
       )}
       <Divider />
       <NoticeBox info align="center">
-        Loadout Description
+        Описание снаряжения
       </NoticeBox>
 
       <Box textAlign="center">{loadoutdesc}</Box>
@@ -311,7 +319,7 @@ const HostControls = (props) => {
         <>
           <Divider />
           <Box textAlign="center">
-            The game is currently in progress, or loading.
+            Игра уже запущена или в процессе запуска.
           </Box>
         </>
       )}
@@ -354,7 +362,7 @@ const MapInfo = (props) => {
   const { host, maps = [], map, players } = data;
 
   if (!host && !map?.name) {
-    return <NoticeBox align="center">No map selected</NoticeBox>;
+    return <NoticeBox align="center">Карта не выбрана</NoticeBox>;
   }
 
   return (
@@ -381,16 +389,16 @@ const MapInfo = (props) => {
       {map.desc}
       <Divider />
       <LabeledList>
-        <LabeledList.Item label="Max Play Time">
-          {`${map.time / 600}min`}
+        <LabeledList.Item label="Время игры">
+          {`до ${map.time / 600} мин.`}
         </LabeledList.Item>
-        <LabeledList.Item label="Min Players">
+        <LabeledList.Item label="мин. игроков">
           {map.min_players}
         </LabeledList.Item>
-        <LabeledList.Item label="Max Players">
+        <LabeledList.Item label="макс. игроков">
           {map.max_players}
         </LabeledList.Item>
-        <LabeledList.Item label="Current Players">
+        <LabeledList.Item label="игроков в лобби">
           {players.length}
         </LabeledList.Item>
       </LabeledList>

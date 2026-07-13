@@ -1,9 +1,9 @@
 ///Deathmatch modifiers are little options the host can choose to spice the match a bit.
 /datum/deathmatch_modifier
 	/// The name of the modifier
-	var/name = "Unnamed Modifier"
+	var/name = "модификатор"
 	/// A small description/tooltip shown in the UI
-	var/description = "What the heck does this do?"
+	var/description = "интересно, что он делает??"
 	/// The color of the button shown in the UI
 	var/color = "blue"
 	/// A lazylist of modifier typepaths this is incompatible with.
@@ -18,7 +18,7 @@
 	SHOULD_CALL_PARENT(TRUE)
 	if(!random_exempted && (/datum/deathmatch_modifier/random in lobby.modifiers))
 		return FALSE
-	if(length(lobby.modifiers & blacklisted_modifiers))
+	if(blacklisted_modifiers && length(lobby.modifiers & blacklisted_modifiers))
 		return FALSE
 	if(map_incompatible(lobby.map))
 		return FALSE
@@ -95,7 +95,7 @@
 		var/datum/deathmatch_modifier/modifier = GLOB.deathmatch_game.modifiers[pick_n_take(modifiers_pool)]
 		modifier.on_select(lobby)
 		modifier.on_start_game(lobby)
-		lobby += modifier.type
+		lobby.modifiers += modifier.type
 		modifiers_pool -= modifier.blacklisted_modifiers
 		if(!length(modifiers_pool))
 			return

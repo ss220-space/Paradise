@@ -116,7 +116,7 @@
 	playing = DEATHMATCH_PLAYING
 	addtimer(CALLBACK(src, PROC_REF(game_took_too_long)), initial(map.automatic_gameend_time))
 	log_game("Deathmatch game [host] started.")
-	announce(span_reallybig("GO!"))
+	announce(span_reallybig("В бой!"))
 	if(length(modifiers))
 		var/list/modifier_names = list()
 		for(var/datum/deathmatch_modifier/modifier as anything in modifiers)
@@ -184,7 +184,7 @@
 		if(!isnull(winner_info["mob"]))
 			winner = winner_info["mob"] //only one should remain anyway but incase of a draw
 
-	announce(span_reallybig("THE GAME HAS ENDED.<BR>THE WINNER IS: [winner ? winner.real_name : "no one"]."))
+	announce(span_reallybig("Игра окончена.<br>Победитель: [winner ? winner.real_name : "никто"]."))
 
 	for(var/ckey in players)
 		var/mob/loser = players[ckey]["mob"]
@@ -346,7 +346,7 @@
 
 /// fills the lobby with fake players for the sake of UI debug, can only be called via VV
 /datum/deathmatch_lobby/proc/fakefill(count)
-	for(var/i = 1 to count)
+	for(var/i in 1 to count)
 		players["[rand(1,999)]"] = list("mob" = usr, "host" = FALSE, "ready" = FALSE, "loadout" = pick(loadouts))
 
 /datum/deathmatch_lobby/ui_interact(mob/user, datum/tgui/ui)
@@ -401,7 +401,7 @@
 		var/datum/outfit/deathmatch_loadout/loadout = players[user.ckey]["loadout"]
 		data["loadoutdesc"] = loadout::desc
 	else
-		data["loadoutdesc"] = "You are an observer! As an observer, you can hear lobby announcements."
+		data["loadoutdesc"] = "Вы наблюдатель! Вас перебросит на арену в момент начала раунда."
 
 	return data
 
@@ -421,7 +421,7 @@
 			return TRUE
 
 		if("leave_game")
-			(playing)
+			if(playing)
 				return FALSE
 			leave(usr.ckey)
 			ui.close()
@@ -467,22 +467,24 @@
 				return FALSE
 			var/uckey = params["id"]
 
-			switch (params["func"])
-				if("Kick")
+			switch(params["func"])
+				if("Выгнать")
 					leave(uckey)
 					var/umob = get_mob_by_ckey(uckey)
 					var/datum/tgui/uui = SStgui.get_open_ui(umob, src)
 					uui?.close()
 					GLOB.deathmatch_game.ui_interact(umob)
 					return TRUE
-				if("Transfer host")
+				if("Сделать хостом")
 					if(host == uckey)
 						return FALSE
 					GLOB.deathmatch_game.passoff_lobby(host, uckey)
 					host = uckey
 					return TRUE
-				if("Toggle observe")
+				if("Переключить наблюдение")
 					var/umob = get_mob_by_ckey(uckey)
+					if(!umob)
+						return FALSE
 					if(players[uckey])
 						remove_ckey_from_play(uckey)
 						add_observer(umob, host == uckey)
@@ -511,6 +513,8 @@
 			if(usr.ckey != host && !check_rights(R_ADMIN))
 				return TRUE
 			var/datum/deathmatch_modifier/chosen_modifier = GLOB.deathmatch_game.modifiers[modpath]
+			if(!chosen_modifier)
+				return TRUE
 			if(modpath in modifiers)
 				unselect_modifier(chosen_modifier)
 				return TRUE
