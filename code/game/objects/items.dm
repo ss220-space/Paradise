@@ -425,11 +425,20 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 /obj/item/proc/add_weapon_description()
 	AddElement(/datum/element/weapon_description)
 
-/obj/item/proc/check_allowed_items(atom/target, not_inside, target_self)
-	if(((src in target) && !target_self) || (!isturf(target.loc) && !isturf(target) && not_inside))
+/**
+ * Checks if an item is allowed to be used on an atom/target
+ * Returns TRUE if allowed.
+ *
+ * Args:
+ * target_self - Whether we will check if we (src) are in target, preventing people from using items on themselves.
+ * not_inside - Whether target (or target's loc) has to be a turf.
+ */
+/obj/item/proc/check_allowed_items(atom/target, not_inside = FALSE, target_self = FALSE)
+	if(!target_self && (src in target))
 		return FALSE
-	else
-		return TRUE
+	if(not_inside && !isturf(target.loc) && !isturf(target))
+		return FALSE
+	return TRUE
 
 /obj/item/blob_act(obj/structure/blob/B)
 	if(B && B.loc == loc && !QDELETED(src) && !(obj_flags & IGNORE_BLOB_ACT))
@@ -1110,21 +1119,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		return TRUE
 	return FALSE
 
-/obj/item/proc/wash(mob/user, atom/source)
-	if(item_flags & ABSTRACT) //Abstract items like grabs won't wash. No-drop items will though because it's still technically an item in your hand.
-		return
-	to_chat(user, span_notice("Вы начинаете мыть [declent_ru(ACCUSATIVE)]..."))
-	if(!do_after(user, 4 SECONDS, source))
-		return
-	clean_blood()
-	SEND_SIGNAL(src, COMSIG_COMPONENT_CLEAN_ACT, 5)
-	acid_level = 0
-	user.visible_message(
-		span_notice("[user] мо[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] с помощью [source.declent_ru(GENITIVE)]."),
-		span_notice("Вы моете [declent_ru(ACCUSATIVE)] с помощью [source.declent_ru(GENITIVE)].")
-	)
-	return TRUE
-
 /// Returns an effectiveness of an item as a crunch, which allow mobs to stand if they are missing a leg/foot?
 /obj/item/proc/is_crutch()
 	return 0
@@ -1542,3 +1536,27 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 			FORCE: <font size='1'><a href='byond://?_src_=vars;item_to_tweak=[UID_of(src)];var_tweak=force' id='force'>[force]</a>
 		</font>
 	"}
+
+/// Common proc used by painting tools like spraycans and palettes that can access the entire 24 bits color space.
+/obj/item/proc/pick_painting_tool_color(mob/user, default_color)
+	var/chosen_color = tgui_input_color(user, "Pick new color", "[src]", default_color)
+	if(!chosen_color || QDELETED(src) || IS_DEAD_OR_INCAP(user) || !user.is_in_hands(src))
+		return
+	set_painting_tool_color(chosen_color)
+
+/obj/item/proc/set_painting_tool_color(chosen_color)
+	SEND_SIGNAL(src, COMSIG_PAINTING_TOOL_SET_COLOR, chosen_color)
+
+// Update icons if this is being carried by a mob
+/obj/item/wash_tg(clean_types)
+	. = ..()
+	if(!.) // we don't need mob updates when the item was already clean
+		return
+
+	if((clean_types & CLEAN_TYPE_BLOOD) && initial(icon) && initial(icon_state))
+		remove_filter("blood_splatter")
+		. |= COMPONENT_CLEANED
+
+	if(ismob(loc))
+		var/mob/mob_loc = loc
+		mob_loc.update_clothing(slot_flags)

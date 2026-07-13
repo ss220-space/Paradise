@@ -271,6 +271,15 @@
 /obj/machinery/kitchen_machine/on_deconstruction()
 	dropContents()
 
+/obj/machinery/kitchen_machine/wash_tg(clean_types)
+	. = ..()
+	if(operating || !(clean_types & CLEAN_SCRUB))
+		return .
+
+	dirty = 0
+	update_appearance()
+	. |= COMPONENT_CLEANED|COMPONENT_CLEANED_GAIN_XP
+
 /********************
 *   Machine Menu	*
 ********************/

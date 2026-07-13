@@ -309,7 +309,7 @@ GLOBAL_LIST_INIT(cloth_recipes, list(
 	)),
 	new /datum/stack_recipe_list("misc", list(
 		new /datum/stack_recipe("improvised gauze", /obj/item/stack/medical/bruise_pack/improvised, res_amount = 2, max_res_amount = 6),
-		new /datum/stack_recipe("rag", /obj/item/reagent_containers/glass/rag),
+		new /datum/stack_recipe("rag", /obj/item/rag),
 	)),
 	null,
 ))

@@ -10,6 +10,7 @@
 	random_icon_states = list("mfloor1", "mfloor2", "mfloor3", "mfloor4", "mfloor5", "mfloor6", "mfloor7")
 	blood_DNA = list()
 	bloodiness = BLOOD_AMOUNT_PER_DECAL
+	clean_type = CLEAN_TYPE_BLOOD
 	var/base_icon = 'icons/effects/blood.dmi'
 	var/blood_state = BLOOD_STATE_HUMAN
 	var/basecolor = BLOOD_COLOR_RED
@@ -165,7 +166,7 @@
 	layer = ABOVE_WINDOW_LAYER
 	vis_flags = VIS_INHERIT_PLANE
 	alpha = 180
-	//is_mopped = FALSE
+	is_mopped = FALSE
 
 /obj/effect/decal/cleanable/blood/splatter/over_window/never_should_have_come_here(turf/here_turf)
 	return isgroundlessturf(here_turf)
@@ -246,6 +247,7 @@
 	no_clear = TRUE
 	scoop_reagents = list("liquidgibs" = 5)
 	mergeable_decal = FALSE
+	is_mopped = TRUE // probably shouldn't be, but janitor powercreep
 	var/image/giblets
 	var/fleshcolor = "#FFFFFF"
 	/// Do these gibs produce squishy sounds?
@@ -355,6 +357,7 @@
 	icon_state = "hitsplatter1"
 	random_icon_states = list("hitsplatter1", "hitsplatter2", "hitsplatter3")
 	layer = ABOVE_WINDOW_LAYER
+	is_mopped = FALSE
 	/// The turf we just came from, so we can back up when we hit a wall
 	var/turf/prev_loc
 	/// Skip making the final blood splatter when we're done, like if we're not in a turf

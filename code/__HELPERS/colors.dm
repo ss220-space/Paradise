@@ -136,3 +136,33 @@ GLOBAL_LIST_INIT(hex_characters, list("0","1","2","3","4","5","6","7","8","9","a
 
 	var/rgbcolor = rgb(new_color[1], new_color[2], new_color[3], new_color[4], space = colorspace)
 	return rgbcolor
+
+/// Given a color in the format of "#RRGGBB" or "#RRGGBBAA", gives back a 4 entry list with the number values of each
+/proc/split_color(color)
+	var/list/output = rgb2num(color)
+	if(length(output) == 3)
+		output += 255
+	return output
+
+#define ALPHA_COMPOSE(src_a, comp_a, back_ch, src_ch) ((1 - src_a / comp_a) * back_ch + (src_a / comp_a) * src_ch)
+
+/// Blend two colors using the normal blend mode of the CSS compositing algorithm
+/proc/blend_color(backdrop = "#00000000", source)
+	var/list/rgb_source = split_color(source)
+	var/source_alpha = rgb_source[4]
+	if(source_alpha == 0)
+		return backdrop
+	if(source_alpha == 255)
+		return source
+	var/list/rgb_backdrop = split_color(backdrop)
+	var/backdrop_alpha = rgb_backdrop[4] / 255
+	source_alpha /= 255
+	var/output_alpha = source_alpha + backdrop_alpha - source_alpha * backdrop_alpha
+	return rgb(
+		ALPHA_COMPOSE(source_alpha, output_alpha, rgb_backdrop[1], rgb_source[1]),
+		ALPHA_COMPOSE(source_alpha, output_alpha, rgb_backdrop[2], rgb_source[2]),
+		ALPHA_COMPOSE(source_alpha, output_alpha, rgb_backdrop[3], rgb_source[3]),
+		output_alpha * 255
+	)
+
+#undef ALPHA_COMPOSE

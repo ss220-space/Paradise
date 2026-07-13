@@ -391,15 +391,15 @@
 	if(!new_owner)
 		return
 
-	if(old_owner == new_owner && old_owner.get_gravity() == -1)
+	if(old_owner == new_owner && old_owner.has_gravity() == -1)
 		return
 
 	old_owner.remove_gravity_source("core_grav")
 	if(ismob(new_owner))
-		new_owner.add_gravity("core_grav", -(new_owner.get_gravity() + 2))
+		new_owner.add_gravity("core_grav", -(new_owner.has_gravity() + 2))
 
 	if(isitem(new_owner))
-		new_owner.add_gravity("core_grav", -(new_owner.get_gravity() + 1))
+		new_owner.add_gravity("core_grav", -(new_owner.has_gravity() + 1))
 
 	old_owner = new_owner
 
