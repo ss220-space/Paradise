@@ -34,6 +34,7 @@
 
 		COOLDOWN_START(src, cooldown, 1 SECONDS)
 		return TRUE
+	..()
 
 /obj/random/mech
 	abstract_type = /obj/random/mech
