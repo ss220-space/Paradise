@@ -18,7 +18,7 @@
 		return COMPONENT_INCOMPATIBLE
 	src.old_mind_ref = WEAKREF(old_mind)
 	if(istype(old_body))
-		ADD_TRAIT(old_body, TRAIT_MIND_TEMPORARILY_GONE, REF(src))
+		ADD_TRAIT(old_body, TRAIT_MIND_TEMPORARILY_GONE, src.UID())
 		src.old_body_ref = WEAKREF(old_body)
 	src.delete_on_death = delete_on_death
 
@@ -52,12 +52,12 @@
 		CRASH("[src] belonging to [parent] was completely unable to find a ghost to put back into a body!")
 	ghost.mind = old_mind
 	if(old_body?.stat != DEAD)
-		old_mind.transfer_to(old_body, force_key_move = TRUE)
+		old_mind.transfer_to(old_body)
 	else
 		old_mind.set_current(old_body)
 
 	if(old_body)
-		REMOVE_TRAIT(old_body, TRAIT_MIND_TEMPORARILY_GONE, REF(src))
+		REMOVE_TRAIT(old_body, TRAIT_MIND_TEMPORARILY_GONE, src.UID())
 
 	old_mind = null
 	old_body = null

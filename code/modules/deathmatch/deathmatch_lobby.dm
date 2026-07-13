@@ -375,7 +375,7 @@
 	data["host"] = is_host
 	data["loadouts"] = list("Randomize")
 
-	for (var/datum/outfit/deathmatch_loadout/loadout as anything in loadouts)
+	for(var/datum/outfit/deathmatch_loadout/loadout as anything in loadouts)
 		data["loadouts"] += loadout::display_name
 
 	data["map"] = list()
