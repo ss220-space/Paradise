@@ -57878,7 +57878,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/reinforced,
 /obj/machinery/recharger,
-/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/honey {
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/honey{
 	pixel_x = 9;
 	pixel_y = 5
 	},
