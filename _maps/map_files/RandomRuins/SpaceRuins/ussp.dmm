@@ -6362,7 +6362,7 @@
 /obj/item/trash/tapetrash,
 /obj/item/trash/pistachios,
 /obj/item/reagent_containers/syringe/charcoal{
-	list_reagents = list("charcoal"=13,"salmonella"=2)
+	list_reagents = list(/datum/reagent/medicine/charcoal=13,/datum/reagent/salmonella=2)
 	},
 /obj/effect/decal/cleanable/cobweb,
 /obj/structure/spider/stickyweb,
