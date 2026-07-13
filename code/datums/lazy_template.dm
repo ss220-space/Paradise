@@ -60,7 +60,7 @@
 	var/datum/turf_reservation/reservation = SSmapping.request_turf_block_reservation(
 		width,
 		height,
-		bounds[MAP_MAXZ],
+		bounds[MAP_MAXZ] - bounds[MAP_MINZ] + 1,
 		noisy = FALSE,
 	)
 	if(!reservation)

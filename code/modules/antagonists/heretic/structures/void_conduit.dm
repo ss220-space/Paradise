@@ -1,28 +1,3 @@
-/obj/effect/proc_holder/spell/aoe/conjure/void_conduit
-	name = "Врата в Пустоту"
-	desc = "Открывает врата в Пустоту, испускающие частые импульсы, повреждающие окна и шлюзы, \
-			а также поражающие язычников пустотным холодом. \
-			Ближайшие еретики получают легкую сопротивляемость давлению."
-	action_background_icon = 'icons/mob/actions/backgrounds.dmi'
-	action_background_icon_state = "bg_heretic"
-	overlay_icon_state = "bg_heretic_border"
-	action_icon = 'icons/mob/actions/actions_ecult.dmi'
-	action_icon_state = "void_rift"
-
-	base_cooldown = 1 MINUTES
-
-	sound = null
-	school = SCHOOL_FORBIDDEN
-	human_req = FALSE
-	clothes_req = FALSE
-	invocation = "ВР'Т В П'СТ'Т!"
-	invocation_type = INVOCATION_SHOUT
-	spell_requirements = NONE
-
-	aoe_range = 0
-	summon_type = list(/obj/structure/void_conduit)
-
-
 /obj/structure/void_conduit
 	name = "void conduit"
 	desc = "Открытые врата, ведущие в небытие. Испускают импульсы, под которые вам не хотелось бы попасть."
@@ -159,6 +134,18 @@
 
 /datum/status_effect/void_conduit/on_remove()
 	REMOVE_TRAIT(owner, TRAIT_RESIST_COLD, TRAIT_STATUS_EFFECT(id))
+
+
+/obj/effect/temp_visual/void_conduit_opening
+	icon_state = /obj/structure/void_conduit::icon_state
+	duration = 5 SECONDS
+
+
+/obj/effect/temp_visual/void_conduit_opening/Initialize(mapload)
+	. = ..()
+	transform = transform.Scale(0.1)
+	alpha = 0
+	animate(src, time = 5 SECONDS, transform = transform.Scale(1), alpha = /obj/structure/void_conduit::alpha)
 
 
 /// Visual effect spawned when the bioscrambler scrambles your bio

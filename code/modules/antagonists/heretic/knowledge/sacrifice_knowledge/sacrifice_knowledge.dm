@@ -8,8 +8,8 @@
 /// Allows the heretic to sacrifice living heart targets.
 /datum/heretic_knowledge/hunt_and_sacrifice
 	name = "Сердцебиение Обители"
-	desc = "Позволяет приносить цели в жертву Обители, положив их в руну в критическом (или худшем) состоянии. \
-			Если у вас нет целей, встаньте на руну трансмутации и проведите этот ритуал, чтобы получить их."
+	desc = "Позволяет приносить цели в жертву Обители, положив их в руну в критическом (или худшем) состоянии."
+	notice = "Если у вас нет целей, встаньте на руну трансмутации и проведите этот ритуал, чтобы получить их."
 	required_atoms = list(/mob/living/carbon/human = 1)
 	priority = MAX_KNOWLEDGE_PRIORITY // Should be at the top
 	is_starting_knowledge = TRUE
@@ -23,6 +23,7 @@
 	var/list/datum/mind/target_blacklist
 	/// An assoc list of [ref] to [timers] - a list of all the timers of people in the shadow realm currently
 	var/list/return_timers
+	var/backdoor_sacrifice_attempts = 0
 	/// Evil organs we can put in people
 	var/static/list/grantable_organs = list(
 		/obj/item/organ/internal/appendix/corrupt,
@@ -60,6 +61,34 @@
 	if(!LAZYLEN(heretic_datum.sac_targets))
 		atoms += user
 		return TRUE
+
+	if(istype(get_area(loc), /area/centcom/heretic_backdoor))
+		loc.balloon_alert(user, "неподходящее место!")
+		switch(backdoor_sacrifice_attempts)
+			if(0)
+				to_chat(user, span_hypnophrase("Проводить жертвоприношение так близко к богам рискованно..."))
+			if(1)
+				to_chat(user, span_hypnophrase("<i>Вы слышите стук[HAS_TRAIT(user, TRAIT_DEAF) ? ", несмотря на свою глухоту" : ""]...</i>"))
+			if(2)
+				to_chat(user, span_hypnophrase("<i>Стук становится громче...</i>"))
+				user.AdjustDeaf(10 SECONDS)
+				user.Weaken(1 SECONDS)
+				user.adjustBruteLoss(10)
+			if(3)
+				to_chat(user, span_hypnophrase("<i>Стук становится оглушительным!</i>"))
+				user.AdjustDeaf(20 SECONDS)
+				user.Weaken(4 SECONDS)
+				user.adjustBruteLoss(20)
+			if(4)
+				if(begin_sacrifice(user))
+					to_chat(user, span_hypnophrase("<b><i>Ваша дерзость наказана!</i></b>"))
+				else
+					to_chat(user, span_hypnophrase("Стук прекращается — но вас не покидает чувство, что вы чудом избежали расправы."))
+			if(5 to INFINITY)
+				to_chat(user, span_hypnophrase("Вы не думаете, что очередная попытка откроет вам что-то новое..."))
+
+		backdoor_sacrifice_attempts++
+		return FALSE
 
 	// Remove any humans in our atoms list that aren't a sac target
 	for(var/mob/living/carbon/human/sacrifice in atoms)

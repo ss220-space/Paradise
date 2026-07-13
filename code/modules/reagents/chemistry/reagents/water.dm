@@ -345,6 +345,9 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 			if(prob(5))
 				M.AdjustCultSlur(10 SECONDS)//5 seems like a good number...
 				M.say(pick("Ав'те Нар'си","Па'лид Морс","ИНО ИНО ОРА АНА","САТ АНА!","Дайм'ниодиес Арс'иай Ле'ионес","Игкау'хом'нау ен Кеосу","Хо Дьяк'нос ту Ап'айрон","Ар'ж На'си","Диабо ас Во'исцум","Си гн'ам Ко'ну"))
+		if(isheretic(M) && !HAS_TRAIT(M, TRAIT_ALLOW_HERETIC_CASTING) && !HAS_TRAIT(M, TRAIT_HERETIC_HOLY_LOCKED))
+			ADD_TRAIT(M, TRAIT_HERETIC_HOLY_LOCKED, HOLYWATER_TRAIT)
+			to_chat(M, span_hypnophrase("Святая вода туманит ваш разум, отрезая его от Обители! Вам нужен фокус, чтобы вновь дотянуться до её сил."))
 	if(current_cycle >= 75 && prob(33))	// 30 units, 150 seconds
 		M.AdjustConfused(6 SECONDS)
 		if(isvampirethrall(M))

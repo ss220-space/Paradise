@@ -85,6 +85,14 @@
 	return IS_HERETIC_OR_MONSTER(user)
 
 
+/obj/item/melee/sickly_blade/pre_attackby(atom/target, mob/living/user, modifiers)
+	. = ..()
+	if(ATTACK_CHAIN_CANCEL_CHECK(.))
+		return
+	if(SEND_SIGNAL(user, COMSIG_HERETIC_BLADE_PREATTACK, target, src) & COMPONENT_CANCEL_ATTACK_CHAIN)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+
 /obj/item/melee/sickly_blade/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE, list/attack_modifiers)
 	if(!check_usability(user))
 		to_chat(user, span_danger("Вы чувствуете, как нечто инородное вторгается в ваш разум!"))

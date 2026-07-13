@@ -117,6 +117,26 @@
 
 		A.loc = locate(teleport_x, teleport_y, teleport_z)
 
+/* Relative teleporter, jumps the atom by the given offset from its current position */
+
+/obj/effect/step_trigger/teleporter/offset
+	var/teleport_x_offset = 0
+	var/teleport_y_offset = 0
+
+/obj/effect/step_trigger/teleporter/offset/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	if(!old_loc?.Adjacent(loc))
+		return
+	return ..()
+
+/obj/effect/step_trigger/teleporter/offset/Trigger(atom/movable/poor_soul)
+	var/turf/destination = locate(x + teleport_x_offset, y + teleport_y_offset, z)
+	if(!destination)
+		return
+	poor_soul.forceMove(destination)
+	var/mob/living/living_soul = poor_soul
+	if(istype(living_soul) && living_soul.client)
+		living_soul.client.move_delay = 0
+
 /* Random teleporter, teleports atoms to locations ranging from teleport_x - teleport_x_offset, etc */
 
 /obj/effect/step_trigger/teleporter/random

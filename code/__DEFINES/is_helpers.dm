@@ -450,6 +450,7 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 
 /// Heretic helpers. isheretic() itself is a proc defined in heretic_antag.dm.
 #define isplatingturf(A) (istype(A, /turf/simulated/floor/plating))
+#define issnowturf(A) (istype(A, /turf/simulated/floor/plating/asteroid/snow))
 #define IS_LUNATIC(mob) (mob.mind?.has_antag_datum(/datum/antagonist/lunatic))
 #define IS_HERETIC_OR_MONSTER(mob) (isheretic(mob) || HAS_TRAIT(mob, TRAIT_HERETIC_SUMMON) || IS_LUNATIC(mob))
 

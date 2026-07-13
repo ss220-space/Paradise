@@ -42,7 +42,7 @@
 	//item_state = "eldritch_armor"
 	flags_inv = HIDESHOES|HIDEJUMPSUIT
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS
-	allowed = list(/obj/item/melee/sickly_blade, /obj/item/gun/projectile/shotgun/boltaction/lionhunter)
+	allowed = list(/obj/item/melee/sickly_blade, /obj/item/gun/projectile/shotgun/boltaction/lionhunter, /obj/item/flashlight/lantern/heretic)
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie/eldritch
 	armor = list("melee" = 50, "bullet" = 50, "laser" = 50,"energy" = 50, "bomb" = 35, "bio" = 20, "fire" = 20, "acid" = 20)
 	sprite_sheets = list(
@@ -185,17 +185,6 @@
 		PREPOSITIONAL = "капюшоне изменчивой личины",
 	)
 
-/// Returns TRUE if this mob can currently cast EMPOWERED ashen spells: caster must be human, wearing the
-/// Scorched Mantle, and carrying more than 3 fire stacks.
-/proc/is_ash_empowered(mob/living/owner)
-	if(!ishuman(owner))
-		return FALSE
-	var/mob/living/carbon/human/human_owner = owner
-	if(!istype(human_owner.wear_suit, /obj/item/clothing/suit/hooded/cultrobes/eldritch/ash))
-		return FALSE
-	return human_owner.fire_stacks > 3
-
-
 // Toggle action for the Scorched Mantle's passive flame generation.
 /datum/action/item_action/toggle_flames
 	name = "Переключить пламя"
@@ -207,8 +196,6 @@
 
 
 // Опалённая Мантия (Scorched Mantle) - Ash path robes.
-// Completely fire-proof, and can passively set the wearer ablaze via a toggle. Building up fire stacks on
-// yourself empowers your ashen spells (see is_ash_empowered). The wearer takes no fire damage.
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/ash
 	name = "scorched mantle"
 	desc = "Тлеющая мантия из пепла и углей. Жар не причиняет ей вреда — лишь питает её."

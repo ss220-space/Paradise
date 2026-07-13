@@ -364,6 +364,8 @@ GLOBAL_LIST_EMPTY(closets)
 		return open(user)
 
 /obj/structure/closet/deconstruct(disassembled = TRUE)
+	if(resistance_flags & INDESTRUCTIBLE)
+		return
 	if(ispath(material_drop) && material_drop_amount && !(obj_flags & NODECONSTRUCT))
 		new material_drop(loc, material_drop_amount)
 	qdel(src)
@@ -446,6 +448,9 @@ GLOBAL_LIST_EMPTY(closets)
 	if(!used.tool_use_check(user, 0))
 		return
 	if(opened)
+		if(resistance_flags & INDESTRUCTIBLE)
+			to_chat(user, span_warning("Вам не под силу разрезать [declent_ru(ACCUSATIVE)]!"))
+			return
 		WELDER_ATTEMPT_SLICING_MESSAGE
 		if(used.use_tool(src, user, 40, volume = used.tool_volume))
 			WELDER_SLICING_SUCCESS_MESSAGE

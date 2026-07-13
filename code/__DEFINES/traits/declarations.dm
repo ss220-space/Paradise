@@ -595,6 +595,7 @@
 // --- Heretic antagonist traits (ported from tg via Paradise-selfharm) ---
 // Heretic-internal traits (the heretic code both sets and checks these):
 #define TRAIT_ALLOW_HERETIC_CASTING "allow_heretic_casting"
+#define TRAIT_HERETIC_HOLY_LOCKED "heretic_holy_locked"
 #define TRAIT_HERETIC_SUMMON "heretic_summon"
 /// Blocks limb dismemberment (Blade "Stance of the Torn Champion" / duel_stance).
 #define TRAIT_NODISMEMBER "nodismember"

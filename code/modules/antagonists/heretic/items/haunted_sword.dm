@@ -46,7 +46,7 @@
 		// Void
 		PATH_VOID = list(
 			WIELDER_SPELLS = list(/obj/effect/proc_holder/spell/pointed/void_phase),
-			SWORD_SPELLS = list(/obj/effect/proc_holder/spell/pointed/void_prison),
+			SWORD_SPELLS = list(/obj/effect/proc_holder/spell/aoe/void_pull),
 			SWORD_PREFIX = "мрачный",
 		),
 		// Blade

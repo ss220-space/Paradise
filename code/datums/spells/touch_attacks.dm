@@ -15,15 +15,19 @@
 	if(HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		to_chat(usr, span_warning("You can't control your hands!!"))
 		return FALSE
+	if(attached_hand)
+		discharge_hand(usr, TRUE)
+		return FALSE
+	// Touch spells never go through cast_check(), so listeners gating casts (the heretic focus/holy-water
+	// lock) get the same veto here before the hand is charged. Withdrawing the hand is never blocked.
+	if(SEND_SIGNAL(usr, COMSIG_MOB_BEFORE_SPELL_CAST, src) & SPELL_CANCEL_CAST)
+		return FALSE
 	// tg parity (/datum/action/cooldown/spell/touch/cast): a "handless" cast lets a listener consume the
 	// spell without summoning the touch hand - e.g. the Blade path's Empowered Blades infusing the Mansus
 	// Grasp into a held Sundered Blade. If a handler claims it (COMPONENT_CAST_HANDLESS), start the spell's
 	// cooldown and stop here instead of charging a hand. Harmless for non-heretic touch spells (no listener).
 	if(SEND_SIGNAL(usr, COMSIG_TOUCH_HANDLESS_CAST, src) & COMPONENT_CAST_HANDLESS)
 		cooldown_handler?.start_recharge()
-		return FALSE
-	if(attached_hand)
-		discharge_hand(usr, TRUE)
 		return FALSE
 	charge_hand(usr)
 

@@ -188,12 +188,13 @@ GLOBAL_LIST_EMPTY(heretic_arenas)
 	crown_overlay.pixel_z = 24
 	owner.add_overlay(crown_overlay)
 	owner.remove_traits(list(TRAIT_ELDRITCH_ARENA_PARTICIPANT, TRAIT_NO_TELEPORT), TRAIT_STATUS_EFFECT(id))
+	crit_count++
 
 	// The mansus celebrates your efforts
 	if(isheretic(owner))
-		owner.heal_overall_damage(60, 60, 60)
-		owner.adjustToxLoss(-60, forced = TRUE) // Slime heretics everywhere...
-		owner.adjustOxyLoss(-60)
+		owner.heal_overall_damage(round(30 / crit_count, DAMAGE_PRECISION), round(30 / crit_count, DAMAGE_PRECISION))
+		owner.adjustToxLoss(round(-20 / crit_count, DAMAGE_PRECISION), forced = TRUE) // Slime heretics everywhere...
+		owner.adjustOxyLoss(round(-20 / crit_count, DAMAGE_PRECISION))
 		if(ishuman(owner))
 			var/mob/living/carbon/human/human_owner = owner
 			for(var/obj/item/organ/external/bodypart as anything in human_owner.bodyparts)
@@ -221,6 +222,7 @@ GLOBAL_LIST_EMPTY(heretic_arenas)
 	id = "arena_tracker"
 	tick_interval = -1
 	alert_type = null
+	var/crit_count = 0
 	/// Tracks the last person who dealt damage to this mob
 	var/datum/weakref/last_attacker
 	/// If our mob is free to leave, set to true

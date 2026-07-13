@@ -121,7 +121,41 @@
 		is_in_use = FALSE
 		return
 
-	var/chosen = tgui_input_list(user, "Выберите ритуал, который хотите провести.", "Выбор ритуала", rituals)
+	var/static/list/ritual_images = list()
+	var/list/ritual_radial = list()
+	for(var/ritual_name in rituals)
+		var/datum/heretic_knowledge/ritual = rituals[ritual_name]
+		var/ritual_info = ""
+		var/list/ritual_requirements = list()
+		for(var/req_type in ritual.required_atoms)
+			if(islist(req_type))
+				var/list/req_type_list = req_type
+				var/list/req_text_list = list()
+				for(var/atom/possible_type as anything in req_type_list)
+					req_text_list += ritual.parse_required_item(possible_type, 1)
+				ritual_requirements += russian_list(req_text_list, and_text = " или ")
+
+			else
+				ritual_requirements += ritual.parse_required_item(req_type, ritual.required_atoms[req_type])
+
+		if(length(ritual_requirements))
+			ritual_info = "Требуется: [russian_list(ritual_requirements)]"
+
+		var/image/ritual_image = ritual_images[ritual.type]
+		if(!ritual_image)
+			var/list/ritual_icon_info = heretic_datum.get_icon_of_knowledge(ritual.type)
+			var/list/tree_entry = GLOB.heretic_research_tree[ritual.type]
+			ritual_image = image(icon(ritual_icon_info["icon"], ritual_icon_info["state"], ritual_icon_info["dir"], ritual_icon_info["frame"]))
+			ritual_image.underlays += image(icon = 'icons/ui_icons/antags/heretic/knowledge.dmi', icon_state = tree_entry ? tree_entry[HKT_UI_BGR] : BGR_SIDE)
+			ritual_images[ritual.type] = ritual_image
+
+		var/datum/radial_menu_choice/choice = new()
+		choice.name = ritual.name
+		choice.info = ritual_info
+		choice.image = ritual_image
+		ritual_radial[ritual.name] = choice
+
+	var/chosen = show_radial_menu(user, loc, ritual_radial, radius = 48, require_near = TRUE)
 	if(!chosen || !istype(rituals[chosen], /datum/heretic_knowledge) || QDELETED(src) || QDELETED(user) || QDELETED(heretic_datum))
 		is_in_use = FALSE
 		return
@@ -191,23 +225,19 @@
 
 	var/list/what_are_we_missing = list()
 	for(var/req_type in requirements_list)
-		var/number_of_things = requirements_list[req_type]
-		if(number_of_things <= 0)
+		var/fulfilled_amount = requirements_list[req_type]
+		if(fulfilled_amount <= 0)
 			continue
 
-		var/formatted_thing = "[number_of_things] "
 		if(islist(req_type))
 			var/list/req_type_list = req_type
 			var/list/req_text_list = list()
 			for(var/atom/possible_type as anything in req_type_list)
-				req_text_list += ritual.parse_required_item(possible_type)
-
-			formatted_thing += russian_list(req_text_list, and_text = "или")
+				req_text_list += ritual.parse_required_item(possible_type, fulfilled_amount)
+			what_are_we_missing += russian_list(req_text_list, and_text = "или")
 
 		else
-			formatted_thing = ritual.parse_required_item(req_type)
-
-		what_are_we_missing += formatted_thing
+			what_are_we_missing += ritual.parse_required_item(req_type, fulfilled_amount)
 
 	if(length(what_are_we_missing))
 		loc.balloon_alert(user, "не хватает компонентов!")
@@ -215,20 +245,25 @@
 		return FALSE
 
 	// All necessary components are present; try to cast (doesn't guarantee success, but it's valid).
-	flick("[icon_state]_active", src)
-	playsound(user, 'sound/magic/castsummon.ogg', 75, TRUE, extrarange = SILENCED_SOUND_EXTRARANGE, falloff_exponent = 10)
+	ritual_animation()
 
 	// on_finished_recipe may sleep for rituals like summons that expect ghost candidates.
 	var/ritual_result = ritual.on_finished_recipe(user, selected_atoms, loc)
 
 	if(ritual_result)
 		ritual.cleanup_atoms(selected_atoms)
+		SSblackbox.record_feedback("tally", "heretic_ritual_completed", 1, ritual.type)
 
 	// No feedback is given on failure here - the ritual itself handles it.
 	if(ritual_result)
 		loc.balloon_alert(user, "ритуал завершён")
 
 	return ritual_result
+
+
+/obj/effect/decal/heretic_rune/proc/ritual_animation()
+	flick("[icon_state]_active", src)
+	playsound(src, 'sound/magic/castsummon.ogg', 75, TRUE, extrarange = SILENCED_SOUND_EXTRARANGE, falloff_exponent = 10)
 
 
 /// A 3x3 heretic rune. The kind heretics actually draw in game.

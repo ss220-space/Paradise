@@ -43,6 +43,11 @@
 	if(. & SPELL_CANCEL_CAST)
 		return
 
+	var/datum/antagonist/heretic/heretic_datum = cast_on.mind?.has_antag_datum(/datum/antagonist/heretic)
+	if(heretic_datum && heretic_datum.has_living_heart() != HERETIC_HAS_LIVING_HEART)
+		to_chat(cast_on, span_hypnophrase("Вам нужно Живое Сердце, чтобы применить \"[name]\"!"))
+		return . | SPELL_CANCEL_CAST
+
 	sound = pick(
 		'sound/effects/curse/curse1.ogg',
 		'sound/effects/curse/curse2.ogg',

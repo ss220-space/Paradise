@@ -31,24 +31,6 @@
 	jaunt_out_type = /obj/effect/temp_visual/dir_setting/ash_shift/out
 
 
-/obj/effect/proc_holder/spell/ethereal_jaunt/ash/cast(list/targets, mob/user = usr)
-	// Empowered (Scorched Mantle + fire stacks): a longer jaunt that also frees you of stuns, stamina
-	// crit and restraints.
-	if(is_ash_empowered(user))
-		jaunt_duration = initial(jaunt_duration) + 1 SECONDS
-		if(iscarbon(user))
-			var/mob/living/carbon/carbon_user = user
-			carbon_user.SetStunned(0)
-			carbon_user.SetKnockdown(0)
-			carbon_user.SetImmobilized(0)
-			carbon_user.SetParalysis(0)
-			carbon_user.setStaminaLoss(0)
-			carbon_user.uncuff()
-	else
-		jaunt_duration = initial(jaunt_duration)
-	return ..()
-
-
 /obj/effect/proc_holder/spell/ethereal_jaunt/ash/long
 	name = "Прогулка по Углям"
 	desc = "Заклинание, позволяющее в течении небольшого промежутка времени беспрепятственно проходить сквозь стены."

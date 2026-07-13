@@ -23,7 +23,8 @@
 	)
 	path_tips = list(
 		"Ваша \"Хватка Обители\" накладывает короткую слепоту и метку, которая при срабатывании от клинка вгоняет жертву в стамина-крит. Метка может перекидываться на ближайших врагов.",
-		"Выбор этого пути даёт иммунитет к урону от высокой температуры. Но помните: ваша одежда всё ещё может гореть!",
+		"Выбор этого пути даёт иммунитет к урону от высокой температуры. Но помните: ваша одежда всё ещё может гореть! Если хотите защититься от собственного огня — носите Опалённую Мантию.",
+		"Опалённая Мантия будет поддерживать на вас пламя, защищая от его вредных эффектов. Пользуйтесь этим: врывайтесь в толпы врагов и разносите огонь повсюду.",
 		"\"Извержение Вулкана\" быстро расправится с врагами, если те имели глупость сбиться в кучу.",
 		"Не пренебрегайте \"Маской Безумия\" — она медленно выкачивает выносливость врагов и вызывает галлюцинации.",
 		"Поджигайте как можно больше врагов! \"Возрождение Ночного Дозорного\" лечит вас и снижает откат за каждого поражённого.",
@@ -36,13 +37,13 @@
 		"Иммунитет к лаве.",
 		"Сопротивление высокому и низкому давлению.",
 	)
-	// Main line: base_ash -> ash_passage -> fire_blast -> Scorched Mantle(robes) -> mad_mask -> Fiery Blade -> flame_birth -> ascension.
+	// Main line: base_ash -> ash_passage -> fire_blast -> Scorched Mantle(robes) -> nightwatchers_lantern -> Fiery Blade -> flame_birth -> ascension.
 	// Grasp blind + ash mark are folded into base_ash, no separate nodes.
 	start = /datum/heretic_knowledge/limited_amount/starting/base_ash
 	knowledge_tier1 = /datum/heretic_knowledge/spell/ash_passage
 	knowledge_tier2 = /datum/heretic_knowledge/spell/fire_blast
 	robes = /datum/heretic_knowledge/armor/ash
-	knowledge_tier3 = /datum/heretic_knowledge/mad_mask
+	knowledge_tier3 = /datum/heretic_knowledge/nightwatchers_lantern
 	blade = /datum/heretic_knowledge/blade_upgrade/ash
 	knowledge_tier4 = /datum/heretic_knowledge/spell/flame_birth
 	ascension = /datum/heretic_knowledge/ultimate/ash_final
@@ -128,10 +129,10 @@
 
 /datum/heretic_knowledge/armor/ash
 	name = "Опалённая Мантия"
-	desc = "Позволяет преобразовать стол (или верхнюю одежду), маску и спичку в Опалённую Мантию. \
+	desc = "Позволяет создать Опалённую Мантию.<br>\
 			Она обеспечивает полную защиту от огня и способна пассивно создавать пламя. \
-			Когда у вас накопится достаточно огня, вы сможете применять усиленные версии пепельных заклинаний. \
 			Действует в качестве источника фокуса, пока надет капюшон."
+	transmute_text = "Преобразуйте стол (или верхнюю одежду), маску и спичку."
 	gain_text = "Дозор остаётся там, где пал, рассыпаясь в прах. И всё же ветра, веющие сквозь город, \
 				зовут их обратно на службу, поднимая пыль в воздух — дрейфующий силуэт павших."
 	required_atoms = list(
@@ -146,22 +147,31 @@
 	research_tree_icon_frame = 1
 
 
-/datum/heretic_knowledge/mad_mask
-	name = "Маска Безумия"
-	desc = "Позволяет преобразовать любую маску, четыре свечи, стандубинку и печень в \"Маску Безумия\". \
-			Маска вселяет страх в язычников, которые её видят, вызывая снижение выносливости, галлюцинации и безумие. \
-			Её также можно надеть на язычника силой, чтобы он не смог её снять..."
-	gain_text = "Ночной Дозорный был мертв. Так считал Дозор. И всё же он бродил по миру, не привлекая внимания людей."
+/datum/heretic_knowledge/nightwatchers_lantern
+	name = "Фонарь Ночного Дозорного"
+	desc = "Позволяет создать пылающий фонарь.<br>\
+			Пылающий фонарь — источник яркого света, который повреждает глаза и со временем \
+			дезориентирует тех, кто слишком долго на него смотрит. Эффект слабее для тех, \
+			кто носит защиту глаз, и сильнее, если пылающий фонарь — единственный источник света поблизости."
+	transmute_text = "Преобразуйте лампу, фонарь или фонарик охраны, пару глаз, вспышку и четыре зажжённые свечи."
+	gain_text = "Ночной Дозорный не выходил во тьму. Это было бы глупостью — даже Дозор понимал это. \
+				Его фонарь горел светом, способным сжечь само солнце."
+	result_atoms = list(/obj/item/flashlight/lantern/heretic)
 	required_atoms = list(
-		/obj/item/organ/internal/liver = 1,
-		/obj/item/melee/baton/security = 1,  // Technically means a cattleprod is valid
-		/obj/item/clothing/mask = 1,
+		list(/obj/item/flashlight/lamp, /obj/item/flashlight/lantern, /obj/item/flashlight/seclite) = 1,
+		/obj/item/organ/internal/eyes = 1,
+		/obj/item/flash = 1,
 		/obj/item/candle = 4,
 	)
-	result_atoms = list(/obj/item/clothing/mask/madness_mask)
-	cost = 2
-	research_tree_icon_path = 'icons/obj/clothing/masks.dmi'
-	research_tree_icon_state = "mad_mask"
+	research_tree_icon_path = 'icons/obj/lighting.dmi'
+	research_tree_icon_state = "lantern"
+
+
+/datum/heretic_knowledge/nightwatchers_lantern/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
+	. = ..()
+	for(var/obj/item/candle/candle in atoms)
+		if(!candle.lit)
+			atoms -= candle
 
 
 /datum/heretic_knowledge/blade_upgrade/ash
@@ -204,7 +214,6 @@
 			После завершения ритуала вы становитесь предвестником пламени и получаете две способности. \
 			Каскад, создающий вокруг вас огромное растущее огненное кольцо, \
 			и Клятва Пламени, позволяющая вам пассивно создавать огненное кольцо при ходьбе. \
-			Также будут усилены некоторые заклинания пепла, которые вы уже знали. \
 			Вы также приобретете иммунитет к огню и давлению."
 	gain_text = "Дозор уничтожен, Ночной Дозорный сгорел вместе с ним. Но его огонь горит вечно, \
 				ибо Ночной Дозорный принёс себя в жертву человечеству! Его взгляд продолжает смотреть, \

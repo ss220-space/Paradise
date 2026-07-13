@@ -29,7 +29,7 @@
 		"На 5 зарядах пустотный озноб не даёт жертве согреться.",
 		"С самого начала смены вы невосприимчивы к низкому давлению и холоду. Улучшите пассивную способность до 2 уровня, чтобы перестать нуждаться в дыхании. Используйте это с умом.",
 		"\"Пустотная Тюрьма\" запирает цель в шаре на десяток секунд. Идеально, чтобы изолировать одного противника, сражаясь с несколькими.",
-		"\"Врата в Пустоту\" - ваша визитная карточка. Они постепенно уничтожают окна и шлюзы вокруг зоны действия. Используйте их для разгерметизации станции и расширения своих владений.",
+		"\"Врата в Пустоту\" - ваша визитная карточка. Вонзите Клинок Пустоты в космос, снег или вакуум, чтобы открыть врата: они постепенно уничтожают окна и шлюзы вокруг зоны действия. Используйте их для разгерметизации станции и расширения своих владений. Клинок при этом расходуется.",
 	)
 	// "Aristocrat's Way" passive (see /datum/status_effect/heretic_passive/void): tiers light up as you grow.
 	passive_name = "Путь Аристократа"
@@ -43,11 +43,11 @@
 	// The grasp (silence + chill) and the void mark are folded into base_void, no separate nodes.
 	start = /datum/heretic_knowledge/limited_amount/starting/base_void
 	knowledge_tier1 = /datum/heretic_knowledge/spell/void_phase
-	knowledge_tier2 = /datum/heretic_knowledge/spell/void_prison
+	knowledge_tier2 = /datum/heretic_knowledge/void_prison
 	robes = /datum/heretic_knowledge/armor/void
 	knowledge_tier3 = /datum/heretic_knowledge/spell/void_pull
 	blade = /datum/heretic_knowledge/blade_upgrade/void
-	knowledge_tier4 = /datum/heretic_knowledge/spell/void_conduit
+	knowledge_tier4 = /datum/heretic_knowledge/void_conduit
 	ascension = /datum/heretic_knowledge/ultimate/void_final
 	// Side knowledges guaranteed to be offered in this path's drafts (TG).
 	guaranteed_side_tier1 = /datum/heretic_knowledge/void_cloak
@@ -105,18 +105,45 @@
 	research_tree_icon_frame = 7
 
 
-/datum/heretic_knowledge/spell/void_prison
+/datum/heretic_knowledge/void_prison
 	drafting_tier = 5 // each path's signature spell is a cross-path tier-5 draftable
 	name = "Пустотная Тюрьма"
-	desc = "Даёт вам \"Пустотную Тюрьму\", заклинание, заключающее вашу жертву в шар, \
-			лишая её возможности что-либо делать или говорить. После накладывает пустотный озноб."
+	desc = "Позволяет преобразовать наручники, стандубинку и шкаф в \"Пустотную Тюрьму\".<br>\
+			Пустотная Тюрьма — сфера, при использовании заключающая всех ближайших язычников \
+			без метки в стазис-шар на 10 секунд. Внутри шара они не могут говорить, действовать \
+			или получать урон. Сфера расходуется после одного использования."
+	transmute_text = "Преобразуйте наручники, стандубинку и шкаф."
 	gain_text = "Я вижу себя, вальсирующего по заснеженной улице. \
 				Я пытаюсь кричать, пытаюсь схватить этого дурака, пытаюсь сказать ему, чтобы он бежал. \
 				Моё улыбающееся лицо поворачивается ко мне, отражая в остекленевших глазах пустоту — путь по которому я шёл."
+	required_atoms = list(
+		/obj/item/restraints/handcuffs = 1,
+		/obj/structure/closet = 1,
+		/obj/item/melee/baton/security = 1,
+	)
+	result_atoms = list(/obj/item/void_prison)
 	research_tree_icon_path = 'icons/mob/actions/actions_ecult.dmi'
 	research_tree_icon_state = "voidball"
-	spell_to_add = /obj/effect/proc_holder/spell/pointed/void_prison
 	cost = 2
+	var/list/closet_blacklist = list(
+		/obj/structure/closet/crate,
+		/obj/structure/closet/body_bag,
+		/obj/structure/closet/cardboard,
+	)
+
+
+/datum/heretic_knowledge/void_prison/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
+	. = ..()
+	for(var/obj/structure/closet/closet in atoms)
+		if(is_type_in_list(closet, closet_blacklist))
+			atoms -= closet
+
+
+/datum/heretic_knowledge/void_prison/cleanup_atoms(list/selected_atoms)
+	for(var/obj/structure/closet/closet in selected_atoms)
+		closet.dump_contents()
+
+	return ..()
 
 
 /datum/heretic_knowledge/armor/void
@@ -178,8 +205,11 @@
 	target.apply_status_effect(/datum/status_effect/void_chill, 2)
 
 
-/datum/heretic_knowledge/blade_upgrade/void/do_ranged_effects(mob/living/user, mob/living/target, obj/item/melee/sickly_blade/blade)
-	if(!target.has_status_effect(/datum/status_effect/eldritch))
+/datum/heretic_knowledge/blade_upgrade/void/do_ranged_effects(mob/living/user, atom/target, obj/item/melee/sickly_blade/blade)
+	if(!isliving(target))
+		return
+	var/mob/living/living_target = target
+	if(!living_target.has_status_effect(/datum/status_effect/eldritch))
 		return
 
 	var/dir = angle2dir(dir2angle(get_dir(user, target)) + 180)
@@ -192,17 +222,94 @@
 	blade.melee_attack_chain(user, target)
 
 
-/datum/heretic_knowledge/spell/void_conduit
+/datum/heretic_knowledge/void_conduit
 	name = "Врата в Пустоту"
-	desc = "Даёт вам \"Врата в Пустоту\", заклинание, создающее пульсирующие врата в саму Пустоту. Каждый импульс разбивает окна и шлюзы, замораживая ваших врагов и защищая еретиков от низкого давления."
+	desc = "Наделяет ваш клинок силой разрывать саму ткань пространства.<br>\
+			Ударив Клинком Пустоты по космосу, вы откроете врата в Пустоту, \
+			наносящие урон и замораживающие ближайших язычников, \
+			а также разрушающие окна и шлюзы в округе."
+	notice = "Клинок расходуется в процессе. Способность также работает на снегу и на любом тайле в полном вакууме."
 	gain_text = "Гул в неподвижном, холодном воздухе превращается в какофонию. \
 				Сквозь этот шум не различить стук оконных стёкол и хаотичный бред, проносящийся в моей голове. \
 				Врата не закрыть. Теперь я не могу уберечься от холода."
 	research_tree_icon_path = 'icons/mob/actions/actions_ecult.dmi'
 	research_tree_icon_state = "void_rift"
-	spell_to_add = /obj/effect/proc_holder/spell/aoe/conjure/void_conduit
 	cost = 2
 	is_final_knowledge = TRUE
+
+
+/datum/heretic_knowledge/void_conduit/on_gain(mob/user, datum/antagonist/heretic/our_heretic, mind_transfer = FALSE)
+	. = ..()
+	RegisterSignal(user, COMSIG_HERETIC_BLADE_PREATTACK, PROC_REF(on_blade_preattack))
+
+
+/datum/heretic_knowledge/void_conduit/on_lose(mob/user, datum/antagonist/heretic/our_heretic, mind_transfer = FALSE)
+	. = ..()
+	UnregisterSignal(user, COMSIG_HERETIC_BLADE_PREATTACK)
+
+
+/datum/heretic_knowledge/void_conduit/proc/is_valid_turf(turf/affected_turf)
+	if(isspaceturf(affected_turf) || issnowturf(affected_turf))
+		return TRUE
+	var/datum/gas_mixture/air = affected_turf.get_readonly_air()
+	if(!air || air.return_pressure() <= 0)
+		return TRUE
+	return FALSE
+
+
+/datum/heretic_knowledge/void_conduit/proc/is_turf_still_cold(turf/affected_turf)
+	var/datum/gas_mixture/air = affected_turf.get_readonly_air()
+	return !air || air.temperature() <= T0C
+
+
+/datum/heretic_knowledge/void_conduit/proc/is_valid_turf_callback(turf/affected_turf, mob/living/source, obj/item/sword)
+	if(!source.is_in_hands(sword))
+		return FALSE
+	if(!is_valid_turf(affected_turf))
+		return FALSE
+	if(!is_turf_still_cold(affected_turf))
+		return FALSE
+	return TRUE
+
+
+/datum/heretic_knowledge/void_conduit/proc/on_blade_preattack(mob/living/source, atom/target, obj/item/sword)
+	SIGNAL_HANDLER
+	if(!isturf(target) || iswallturf(target))
+		return NONE
+
+	var/turf/affected_turf = target
+	if(!is_valid_turf(affected_turf))
+		return NONE
+
+	if(is_turf_still_cold(affected_turf))
+		INVOKE_ASYNC(src, PROC_REF(create_conduit), affected_turf, source, sword)
+		return COMPONENT_CANCEL_ATTACK_CHAIN
+
+	to_chat(source, span_hypnophrase("[DECLENT_RU_CAP(sword, NOMINATIVE)] гудит от силы, но [affected_turf.declent_ru(NOMINATIVE)] недостаточно холодн[GEND_A_O_Y(affected_turf)], чтобы открыть врата!"))
+	return NONE
+
+
+/datum/heretic_knowledge/void_conduit/proc/create_conduit(turf/affected_turf, mob/living/source, obj/item/sword)
+	playsound(source, 'sound/magic/voidblink.ogg', 50, TRUE)
+	to_chat(source, span_hypnophrase("Вы вонзаете [sword.declent_ru(ACCUSATIVE)] глубоко в [affected_turf.declent_ru(ACCUSATIVE)], пытаясь разорвать проход в Пустоту!"))
+	source.visible_message(
+		span_hypnophrase("[DECLENT_RU_CAP(source, NOMINATIVE)] вонзает [sword.declent_ru(ACCUSATIVE)] в [affected_turf.declent_ru(ACCUSATIVE)] — и из разлома начинает сочиться тёмная энергия!"),
+		ignored_mobs = list(source),
+	)
+	var/obj/effect/temp_visual/void_conduit_opening/animation = new(affected_turf)
+	if(!do_after(source, 5 SECONDS, affected_turf, extra_checks = CALLBACK(src, PROC_REF(is_valid_turf_callback), affected_turf, source, sword)))
+		animate(animation, alpha = 0, time = 1 SECONDS)
+		QDEL_IN(animation, 1 SECONDS)
+		return
+	to_chat(source, span_hypnophrase("Врата открываются, высвобождая шторм пустотной энергии! [DECLENT_RU_CAP(sword, NOMINATIVE)] рассыпается на миллион крошечных осколков!"))
+	source.visible_message(
+		span_hypnophrase("Врата в Пустоту открываются, высвобождая шторм пустотной энергии!"),
+		ignored_mobs = list(source),
+	)
+	new /obj/structure/void_conduit(affected_turf)
+	source.drop_item_ground(sword)
+	qdel(sword)
+	playsound(source, SFX_SHATTER, 50, FALSE)
 
 
 // The endless waltz that plays around the ascended nobleman of void.

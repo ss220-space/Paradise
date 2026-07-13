@@ -1,5 +1,14 @@
 import { useState } from 'react';
-import { Box, Button, DmIcon, Flex, Section, Stack, Tabs } from '../components';
+import {
+  BlockQuote,
+  Box,
+  Button,
+  DmIcon,
+  Flex,
+  Section,
+  Stack,
+  Tabs,
+} from '../components';
 import { BooleanLike } from 'common/react';
 
 import { useBackend } from '../backend';
@@ -49,6 +58,8 @@ type Knowledge = {
   disabled: BooleanLike;
   finished: BooleanLike;
   ascension: BooleanLike;
+  notice?: string;
+  transmuteText?: string;
 };
 
 type KnowledgeTier = {
@@ -77,6 +88,7 @@ type Info = {
   charges: number;
   total_sacrifices: number;
   ascended: BooleanLike;
+  points_to_aura: number;
   knowledge_tiers: KnowledgeTier[];
   knowledge_shop: Knowledge[];
   passive_level: number;
@@ -99,7 +111,7 @@ const IntroductionSection = (props) => {
   return (
     <Stack justify="space-evenly" height="100%" width="100%">
       <Stack.Item grow>
-        <Section title="Вы Еретик!" fill fontSize="14px">
+        <Section title="Вы Еретик!" fill fontSize="14px" scrollable>
           <Stack vertical>
             <FlavorSection />
             <Stack.Divider />
@@ -137,6 +149,8 @@ const FlavorSection = () => {
 };
 
 const GuideSection = () => {
+  const { data } = useBackend<Info>();
+  const { points_to_aura } = data;
   return (
     <Stack.Item>
       <Stack vertical fontSize="12px">
@@ -187,6 +201,14 @@ const GuideSection = () => {
           <span style={hereticYellow}>последний ритуал</span>. Завершите ритуал,
           чтобы стать всемогущим!
         </Stack.Item>
+        <Stack.Item>
+          - Накопив в общей сложности <b>{points_to_aura}</b>&nbsp;
+          <span style={hereticBlue}>очков знаний</span>, вы проявите вокруг себя
+          видимую ауру&nbsp;
+          <span style={hereticPurple}>энергии Обители</span>. Эта аура будет
+          видна всем окружающим и выдаст в вас еретика. Взвесьте риски, прежде
+          чем накапливать слишком много знаний!
+        </Stack.Item>
       </Stack>
     </Stack.Item>
   );
@@ -231,6 +253,28 @@ const InformationSection = (props) => {
   );
 };
 
+const formatTooltipText = (text: string) => {
+  return (
+    <Stack vertical>
+      {text.split('<br>').map((line, index) => {
+        const isBulletPoint = line.includes('&bull;');
+        if (isBulletPoint) {
+          line = line.replace(/&bull;/g, '•');
+        }
+        return (
+          <Stack.Item
+            key={index}
+            fontSize={isBulletPoint ? '10px' : undefined}
+            width={isBulletPoint ? '110%' : undefined}
+          >
+            {line}
+          </Stack.Item>
+        );
+      })}
+    </Stack>
+  );
+};
+
 type KnowledgeNodeProps = {
   node: Knowledge;
   canBuy?: boolean;
@@ -253,8 +297,32 @@ const KnowledgeNode = (props: KnowledgeNodeProps) => {
   return (
     <Button
       color="transparent"
-      tooltip={`${node.name}:
-        ${node.desc}`}
+      tooltip={
+        <Stack vertical>
+          <Stack.Item align="center" fontSize="16px">
+            <b>{node.name}</b>
+          </Stack.Item>
+          <Stack.Item>
+            <BlockQuote>
+              <span style={hereticPurple}>Результат: </span>{' '}
+            </BlockQuote>
+            {formatTooltipText(node.desc)}
+          </Stack.Item>
+          {!!node.notice && (
+            <Stack.Item color="red">
+              {formatTooltipText(node.notice)}
+            </Stack.Item>
+          )}
+          {!!node.transmuteText && (
+            <Stack.Item>
+              <BlockQuote>
+                <span style={hereticGreen}>Рецепт: </span>{' '}
+              </BlockQuote>
+              {formatTooltipText(node.transmuteText)}
+            </Stack.Item>
+          )}
+        </Stack>
+      }
       onClick={buyable ? () => act('research', { path: node.path }) : undefined}
       width={node.ascension ? '192px' : '64px'}
       height={node.ascension ? '192px' : '64px'}
@@ -292,7 +360,7 @@ const KnowledgeNode = (props: KnowledgeNodeProps) => {
         textColor="white"
         bold
       >
-        {!node.finished && (node.cost > 0 ? node.cost : 'FREE')}
+        {buyable && (node.cost > 0 ? node.cost : 'FREE')}
       </Box>
     </Button>
   );
@@ -465,6 +533,162 @@ const PathInfo = ({ currentPath }: { currentPath?: HereticPath }) => {
   );
 };
 
+const PathProCons = ({
+  proconlist,
+  title,
+  titleStyle,
+  bullet,
+}: {
+  proconlist: string[];
+  title: string;
+  titleStyle: Record<string, string>;
+  bullet: string;
+}) => {
+  return (
+    <Stack vertical>
+      <Stack.Item>
+        <b style={titleStyle}>{title}:</b>
+      </Stack.Item>
+      <Stack.Item textAlign="left">
+        {proconlist.map((item, index) => (
+          <div key={index} style={{ marginBottom: '0.5em' }}>
+            {bullet} {item}
+          </div>
+        ))}
+      </Stack.Item>
+    </Stack>
+  );
+};
+
+const PathContentUnselected = ({ path }: { path: HereticPath }) => {
+  return (
+    <Stack vertical>
+      <Stack.Item textAlign="center">
+        <h2>Выбрать путь:</h2>
+        <KnowledgeNode node={path.starting_knowledge} />
+        <div>
+          <b>Сложность: </b>
+          <span style={{ color: path.complexity_color }}>
+            {path.complexity}
+          </span>
+        </div>
+      </Stack.Item>
+      <Stack.Item textAlign="left">
+        {(path.description ?? []).map((line, index) => (
+          <div key={index}>{line}</div>
+        ))}
+      </Stack.Item>
+      <Stack.Divider />
+      <Stack.Item>
+        <Stack>
+          <Stack.Item width="50%">
+            {!!path.passive && (
+              <Stack vertical>
+                <Stack.Item>
+                  <b style={hereticPurple}>Усиление: {path.passive.name}</b>
+                </Stack.Item>
+                <Stack.Item style={passiveCardStyle}>
+                  {(path.passive.description ?? [])[0]}
+                </Stack.Item>
+              </Stack>
+            )}
+          </Stack.Item>
+          <Stack.Item width="50%">
+            <Stack vertical>
+              <Stack.Item>
+                <b>Способности пути:</b>
+              </Stack.Item>
+              <Stack.Item>
+                <Stack wrap="wrap" justify="center">
+                  {(path.preview_abilities ?? []).map((ability) => (
+                    <Stack.Item key={ability.path} m={1}>
+                      <KnowledgeNode node={ability} canBuy={false} />
+                    </Stack.Item>
+                  ))}
+                </Stack>
+              </Stack.Item>
+            </Stack>
+          </Stack.Item>
+        </Stack>
+      </Stack.Item>
+      <Stack.Divider />
+      <Stack.Item>
+        <Stack>
+          <Stack.Item width="50%">
+            <PathProCons
+              proconlist={path.pros ?? []}
+              title="Плюсы"
+              titleStyle={hereticGreen}
+              bullet="+"
+            />
+          </Stack.Item>
+          <Stack.Item width="50%">
+            <PathProCons
+              proconlist={path.cons ?? []}
+              title="Минусы"
+              titleStyle={hereticRed}
+              bullet="−"
+            />
+          </Stack.Item>
+        </Stack>
+      </Stack.Item>
+    </Stack>
+  );
+};
+
+const PathContentSelected = ({
+  path,
+  passiveLevel,
+}: {
+  path: HereticPath;
+  passiveLevel: number;
+}) => {
+  return (
+    <Stack vertical>
+      <Stack.Item textAlign="left">
+        {(path.description ?? []).map((line, index) => (
+          <div key={index}>{line}</div>
+        ))}
+      </Stack.Item>
+      {!!path.passive && (
+        <Stack.Item>
+          <Stack vertical>
+            <Stack.Item>
+              <b style={hereticPurple}>
+                Усиление: {path.passive.name} (уровень {passiveLevel})
+              </b>
+            </Stack.Item>
+            {(path.passive.description ?? []).map((line, index) => (
+              <Stack.Item
+                key={index}
+                style={
+                  passiveLevel >= index + 1
+                    ? passiveCardActiveStyle
+                    : passiveCardStyle
+                }
+              >
+                <b>Уровень {index + 1}</b>
+                <br />
+                {line}
+              </Stack.Item>
+            ))}
+          </Stack>
+        </Stack.Item>
+      )}
+      {(path.tips ?? []).length > 0 && (
+        <Stack.Item textAlign="left" mt={2} mb={1}>
+          <b style={hereticYellow}>Советы:</b>
+          <Stack vertical mt={1}>
+            {(path.tips ?? []).map((tip, index) => (
+              <Stack.Item key={index}>• {tip}</Stack.Item>
+            ))}
+          </Stack>
+        </Stack.Item>
+      )}
+    </Stack>
+  );
+};
+
 const PathContent = ({
   path,
   isPathSelected,
@@ -477,102 +701,11 @@ const PathContent = ({
 
   return (
     <Section title={path.route} textAlign="center" fill scrollable>
-      <Stack vertical>
-        {!isPathSelected && (
-          <Stack.Item textAlign="center">
-            <h2>Выбрать путь:</h2>
-            <KnowledgeNode node={path.starting_knowledge} />
-            <div>
-              <b>Сложность: </b>
-              <span style={{ color: path.complexity_color }}>
-                {path.complexity}
-              </span>
-            </div>
-          </Stack.Item>
-        )}
-
-        <Stack.Item textAlign="left">
-          <b>Описание:</b>
-          {(path.description ?? []).map((line, index) => (
-            <div key={index}>{line}</div>
-          ))}
-        </Stack.Item>
-
-        {!!path.passive &&
-          (!isPathSelected ? (
-            <Stack.Item style={{ justifyItems: 'center' }}>
-              <b style={hereticPurple}>Усиление: {path.passive.name}</b>
-              <div style={{ ...passiveCardStyle, width: '50%' }}>
-                {(path.passive.description ?? [])[0]}
-              </div>
-            </Stack.Item>
-          ) : (
-            <Stack.Item>
-              <b style={hereticPurple}>
-                Усиление: {path.passive.name} (уровень {passive_level})
-              </b>
-              <Stack>
-                {(path.passive.description ?? []).map((line, index) => {
-                  const unlocked = passive_level >= index + 1;
-                  return (
-                    <Stack.Item
-                      key={index}
-                      grow
-                      style={
-                        unlocked ? passiveCardActiveStyle : passiveCardStyle
-                      }
-                    >
-                      Уровень {index + 1}
-                      <br />
-                      {line}
-                    </Stack.Item>
-                  );
-                })}
-              </Stack>
-            </Stack.Item>
-          ))}
-
-        {!isPathSelected && (path.preview_abilities ?? []).length > 0 && (
-          <Stack.Item>
-            <b>Гарантированные способности:</b>
-            <Stack wrap="wrap" justify="center">
-              {(path.preview_abilities ?? []).map((ability) => (
-                <Stack.Item key={ability.path} m={1}>
-                  <KnowledgeNode node={ability} canBuy={false} />
-                </Stack.Item>
-              ))}
-            </Stack>
-          </Stack.Item>
-        )}
-
-        {!isPathSelected && (path.pros ?? []).length > 0 && (
-          <Stack.Item textAlign="left">
-            <b style={hereticGreen}>Плюсы:</b>
-            {(path.pros ?? []).map((pro, index) => (
-              <div key={index}>+ {pro}</div>
-            ))}
-          </Stack.Item>
-        )}
-        {!isPathSelected && (path.cons ?? []).length > 0 && (
-          <Stack.Item textAlign="left">
-            <b style={hereticRed}>Минусы:</b>
-            {(path.cons ?? []).map((con, index) => (
-              <div key={index}>− {con}</div>
-            ))}
-          </Stack.Item>
-        )}
-
-        {isPathSelected && (path.tips ?? []).length > 0 && (
-          <Stack.Item textAlign="left">
-            <b style={hereticYellow}>Советы:</b>
-            <ul style={{ marginTop: '2px' }}>
-              {(path.tips ?? []).map((tip, index) => (
-                <li key={index}>{tip}</li>
-              ))}
-            </ul>
-          </Stack.Item>
-        )}
-      </Stack>
+      {isPathSelected ? (
+        <PathContentSelected path={path} passiveLevel={passive_level} />
+      ) : (
+        <PathContentUnselected path={path} />
+      )}
     </Section>
   );
 };

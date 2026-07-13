@@ -24,25 +24,10 @@
 
 	/// How long the beam visual lasts, also used to determine time between jumps
 	var/beam_duration = 2 SECONDS
-	/// If our spell is empowered (Scorched Mantle + fire stacks), it gains added effects.
-	var/empowered_cast = FALSE
 
 
 /obj/effect/proc_holder/spell/charged/beam/fire_blast/valid_target(target, user)
 	return ..() && isliving(target)
-
-
-/obj/effect/proc_holder/spell/charged/beam/fire_blast/before_cast(list/targets, mob/user = usr)
-	empowered_cast = FALSE
-	channel_time = initial(channel_time)
-	// Wearing the Scorched Mantle with enough fire stacks empowers Volcano Blast: instant cast, more flames.
-	if(is_ash_empowered(user))
-		empowered_cast = TRUE
-		channel_time = 0.1 SECONDS
-		if(isliving(user))
-			var/mob/living/living_user = user
-			living_user.ExtinguishMob()
-	return ..()
 
 
 /obj/effect/proc_holder/spell/charged/beam/fire_blast/cast(list/targets, mob/user = usr)
@@ -72,7 +57,7 @@
 	// Otherwise, if unblocked apply the damage and set them up
 	else
 		to_beam.apply_damage(20, BURN/*, wound_bonus = 5*/)
-		to_beam.adjust_fire_stacks(empowered_cast ? 6 : 3)
+		to_beam.adjust_fire_stacks(3)
 		to_beam.IgniteMob()
 		// Apply the fire blast status effect to show they got blasted
 		to_beam.apply_status_effect(/datum/status_effect/fire_blasted, beam_duration * 0.5)
@@ -93,7 +78,7 @@
 
 		nearby_living.Knockdown(0.8 SECONDS)
 		nearby_living.apply_damage(15, BURN/*, wound_bonus = 5*/)
-		nearby_living.adjust_fire_stacks(empowered_cast ? 4 : 2)
+		nearby_living.adjust_fire_stacks(2)
 		nearby_living.IgniteMob()
 
 

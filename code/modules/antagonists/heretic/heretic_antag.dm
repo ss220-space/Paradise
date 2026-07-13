@@ -193,8 +193,11 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	if(done)
 		var/datum/heretic_knowledge/knowledge_instance = researched_knowledge[knowledge]
 		knowledge_data["desc"] = knowledge_instance.desc
+		knowledge_data["transmuteText"] = knowledge_instance.transmute_text
 	else
 		knowledge_data["desc"] = initial(knowledge.desc)
+		knowledge_data["transmuteText"] = initial(knowledge.transmute_text)
+	knowledge_data["notice"] = initial(knowledge.notice)
 
 	return knowledge_data
 
@@ -225,6 +228,7 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	data["charges"] = knowledge_points
 	data["total_sacrifices"] = total_sacrifices
 	data["ascended"] = ascended
+	data["points_to_aura"] = points_to_aura
 
 	// The Research Tree (path progression, grouped by depth) and the Knowledge Shop (route == PATH_SIDE:
 	// general, non-path-locked purchases like the Codex) are shown as two separate lists in the UI.
@@ -508,6 +512,7 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 	ADD_TRAIT(our_mob, TRAIT_MANSUS_TOUCHED, UID())
 	RegisterSignal(our_mob, COMSIG_LIVING_CULT_SACRIFICED, PROC_REF(on_cult_sacrificed))
 	RegisterSignals(our_mob, list(COMSIG_MOB_BEFORE_SPELL_CAST, COMSIG_MOB_SPELL_ACTIVATED), PROC_REF(on_spell_cast))
+	RegisterSignal(our_mob, SIGNAL_ADDTRAIT(TRAIT_ALLOW_HERETIC_CASTING), PROC_REF(on_focus_regained))
 	RegisterSignal(our_mob, COMSIG_MOB_ITEM_AFTERATTACK, PROC_REF(on_item_use))
 	// Re-apply our hud + spells whenever the client (re)logs into this body. Relog / rejuvenate could
 	// otherwise leave a heretic without their rift huds, antag marker, or a working research menu.
@@ -548,6 +553,7 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 		COMSIG_ATOM_EXAMINE,
 		COMSIG_HUMAN_REGENERATE_ICONS,
 		COMSIG_GET_DREAMS,
+		SIGNAL_ADDTRAIT(TRAIT_ALLOW_HERETIC_CASTING),
 		SIGNAL_ADDTRAIT(TRAIT_HERETIC_AURA_HIDDEN),
 		SIGNAL_REMOVETRAIT(TRAIT_HERETIC_AURA_HIDDEN),
 	))
@@ -663,17 +669,25 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 /datum/antagonist/heretic/proc/on_spell_cast(mob/living/source, obj/effect/proc_holder/spell/spell)
 	SIGNAL_HANDLER
 
-	if(spell.school != SCHOOL_FORBIDDEN)
+	if(ascended)
 		return
 
 	if(HAS_TRAIT(source, TRAIT_ALLOW_HERETIC_CASTING))
 		return
 
-	if(ascended)
+	if(HAS_TRAIT(source, TRAIT_HERETIC_HOLY_LOCKED))
+		source.balloon_alert(source, "разум затуманен!")
+		return SPELL_CANCEL_CAST
+
+	if(spell.school != SCHOOL_FORBIDDEN)
 		return
 
 	source.balloon_alert(source, "нужен фокус!")
 	return SPELL_CANCEL_CAST
+
+/datum/antagonist/heretic/proc/on_focus_regained(mob/living/source)
+	SIGNAL_HANDLER
+	REMOVE_TRAIT(source, TRAIT_HERETIC_HOLY_LOCKED, HOLYWATER_TRAIT)
 
 /// Signal proc for [COMSIG_MOB_ITEM_AFTERATTACK]. Lets a heretic draw a transmutation rune when holding a
 /// pen with mansus grasp active in their offhand.
@@ -1165,13 +1179,22 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 
 	// Per-tier draft groups (parent = the tier knowledge that reveals the draft row).
 	var/list/draft_specs = list(
-		list("parent" = t1, "guaranteed" = guaranteed[1], "weights" = list("1"=50, "2"=50, "3"=0, "4"=0, "5"=0), "depth" = HKT_DEPTH_DRAFT_1),
+		list("parent" = t1, "guaranteed" = guaranteed[1], "supplementary" = list(/datum/heretic_knowledge/spell/cloak_of_shadows), "weights" = list("1"=50, "2"=50, "3"=0, "4"=0, "5"=0), "depth" = HKT_DEPTH_DRAFT_1),
 		list("parent" = t2, "guaranteed" = guaranteed[2], "weights" = list("1"=50, "2"=25, "3"=25, "4"=0, "5"=0), "depth" = HKT_DEPTH_DRAFT_2),
 		list("parent" = t3, "guaranteed" = guaranteed[3], "weights" = list("1"=20, "2"=20, "3"=20, "4"=20, "5"=20), "depth" = HKT_DEPTH_DRAFT_3),
 		list("parent" = t4, "guaranteed" = null, "weights" = list("1"=0, "2"=0, "3"=0, "4"=0, "5"=100), "depth" = HKT_DEPTH_DRAFT_4),
 	)
 	for(var/list/spec in draft_specs)
 		var/list/group = list()
+		for(var/datum/heretic_knowledge/supplementary as anything in spec["supplementary"])
+			group += supplementary
+			drafted_knowledge[supplementary] = list(
+				HKT_PARENT = spec["parent"],
+				HKT_DEPTH = spec["depth"],
+				HKT_DRAFT_TIER = initial(supplementary.drafting_tier),
+				HKT_COST = 0,
+				HKT_BAN = list(),
+			)
 		for(var/cycle in 1 to 3)
 			var/datum/heretic_knowledge/picked
 			if(spec["guaranteed"] && cycle == 1)

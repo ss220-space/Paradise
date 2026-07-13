@@ -13,6 +13,8 @@
 	var/name = "Пишите баг репорт."
 	/// Description of the knowledge, shown to the heretic. Describes what it unlocks / does.
 	var/desc = "Если вы это увидели, что-то пошло не так."
+	var/transmute_text = ""
+	var/notice = ""
 	/// What's shown to the heretic when the knowledge is acquired
 	var/gain_text
 	/// The abstract parent type of the knowledge, used in determine mutual exclusivity in some cases
@@ -120,12 +122,12 @@
 /datum/heretic_knowledge/proc/parse_required_item(atom/item_path, number_of_things)
 	// If we need a human, there is a high likelihood we actually need a (dead) body
 	if(ispath(item_path, /mob/living/carbon/human))
-		return "тел[number_of_things > 1 ? "а" : "о"]"
+		return "[number_of_things] тел[declension_ru(number_of_things, "о", "а", "")]"
 
 	if(ispath(item_path, /mob/living))
-		return "труп[number_of_things > 1 ? "ы" : ""] любого вида"
+		return "[number_of_things] труп[declension_ru(number_of_things, "", "а", "ов")] любого вида"
 
-	return "[initial(item_path.name)]\s"
+	return "[number_of_things] [initial(item_path.name)]\s"
 /**
  * Called whenever the knowledge's associated ritual is completed successfully.
  *
@@ -529,7 +531,8 @@
  */
 /datum/heretic_knowledge/knowledge_ritual
 	name = "Ритуал Знания"
-	desc = "Случайный ритуал трансмутации, который дарует знания и может быть выполнен только один раз."
+	desc = "Случайный ритуал трансмутации, который дарует знания."
+	notice = "Этот ритуал может быть проведён только один раз."
 	gain_text = "Всё может быть ключом к разгадке секретов за Вратами. Я должен быть осторожным и мудрым."
 	abstract_parent_type = /datum/heretic_knowledge/knowledge_ritual
 	cost = 1
@@ -592,7 +595,8 @@
 		requirements_string += "[amount_needed == 1 ? "" : "[amount_needed]"] [path.declent_ru(NOMINATIVE)]\s"
 
 	to_chat(user, span_hierophant("Завершив этот ритуал, вы получите в награду [KNOWLEDGE_RITUAL_POINTS] очк[declension_ru(KNOWLEDGE_RITUAL_POINTS, "о", "а", "ов")] знаний. Вы можете проверить свои знания в разделе \"Изученные знания\"."))
-	desc = "Позволяет трансмутировать [russian_list(requirements_string)] в [KNOWLEDGE_RITUAL_POINTS] дополнительн[declension_ru(KNOWLEDGE_RITUAL_POINTS, "ое", "ых", "ых")] очк[declension_ru(KNOWLEDGE_RITUAL_POINTS, "о", "а", "ов")] знаний. Этот ритуал может быть проведен только один раз."
+	transmute_text = "Преобразуйте [russian_list(requirements_string)]."
+	desc = "Дарует вам [KNOWLEDGE_RITUAL_POINTS] дополнительн[declension_ru(KNOWLEDGE_RITUAL_POINTS, "ое", "ых", "ых")] очк[declension_ru(KNOWLEDGE_RITUAL_POINTS, "о", "а", "ов")] знаний."
 
 
 /datum/heretic_knowledge/knowledge_ritual/can_be_invoked(datum/antagonist/heretic/invoker)

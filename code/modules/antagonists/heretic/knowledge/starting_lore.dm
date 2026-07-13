@@ -226,16 +226,20 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 /datum/heretic_knowledge/spell/cloak_of_shadows
 	name = "Плащ Тьмы"
 	desc = "Даёт вам заклинание \"Плащ Тьмы\". Это заклинание полностью скроет вашу личность в фиолетовом дыму \
-			на три минуты, помогая вам сохранять скрытность. Для применения требуется концентрация."
+			на три минуты, помогая вам сохранять скрытность."
+	notice = "Можно применить, только пока у вас есть Живое Сердце."
 	research_tree_icon_path = 'icons/effects/effects.dmi'
 	research_tree_icon_state = "curse"
 	spell_to_add = /obj/effect/proc_holder/spell/shadow_cloak
-	is_starting_knowledge = TRUE
+	cost = 1
+	drafting_tier = 1
+	is_shop_only = TRUE
 
 /// Кодекс Истязания: lets heretics rush influences stealthily, or build a codex to take what's left
 /// for more points - a tradeoff between speed/stealth and power, with strip searches as the downside.
 /datum/heretic_knowledge/codex_cicatrix
 	drafting_tier = 1
+	is_shop_only = TRUE
 	name = "Кодекс Истязания"
 	desc = "Позволяет трансмутировать книгу, любую уникальную ручку (не обычную) и любой предмет на ваш выбор из туши (животного или человека), кожи или шкуры, чтобы создать Кодекс Истязания. \
 			Кодекс Истязания можно использовать для получения дополнительных знаний при поглощении раскола реальности. \
@@ -325,6 +329,34 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	return ..()
 
 
+/datum/heretic_knowledge/miraculous_mirror
+	drafting_tier = 1
+	is_shop_only = TRUE
+	name = "Чудотворное Зеркало"
+	desc = "Позволяет создать Чудотворное Зеркало.<br>\
+			Чудотворное Зеркало позволяет вам свободно менять любые черты своей внешности. \
+			Через него можно даже сменить расу, но при этом зеркало разобьётся. \
+			Язычник, заглянувший в зеркало, впадёт в транс, и отражение изменит его по своей прихоти."
+	transmute_text = "Преобразуйте пять слитков серебра и пару органических глаз."
+	gain_text = "Я был несовершенен, слаб. Как я мог достичь столь великих свершений в столь жалком состоянии? \
+				В каждом окне, мимо которого я проходил, я видел своё отражение — и всякий раз чувствовал жгучее желание измениться, стать лучше, начать заново."
+	required_atoms = list(
+		/obj/item/organ/internal/eyes = 1,
+		/obj/item/stack/sheet/mineral/silver = 5,
+	)
+	result_atoms = list(/obj/item/mounted/mirror/heretic)
+	cost = 1
+	research_tree_icon_path = 'icons/obj/watercloset.dmi'
+	research_tree_icon_state = "magic_mirror"
+
+
+/datum/heretic_knowledge/miraculous_mirror/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
+	. = ..()
+	for(var/obj/item/organ/internal/eyes/eye in atoms)
+		if(eye.is_robotic())
+			atoms -= eye
+
+
 /datum/heretic_knowledge/feast_of_owls
 	name = "Фестиваль Сов"
 	desc = "Позволяет пройти ритуал, дающий 5 очков знаний, но блокирующий возможность вознесения. Это можно сделать только один раз."
@@ -372,17 +404,21 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	return .
 
 /// Warren King's Welcome: lets heretics gain maintenance/external airlock access without relying on
-/// a HoP or having to off some poor assistant.
+/// a HoP or having to off some poor assistant, and brand nearby airlocks as their own.
 /datum/heretic_knowledge/bookworm
 	drafting_tier = 1
 	name = "Приветствие короля Уоррена"
-	desc = "Позволяет преобразовать 5 кусков кабеля и лист бумаги в любую ID карту с доступом к тех тоннелям и внешним шлюзам."
+	desc = "Ставит клеймо на все принесённые ID-карты и ближайшие шлюзы.<br>\
+			Заклеймённые ID-карты получают доступ к тех тоннелям, внешним шлюзам, а также к заклеймённым шлюзам.<br>\
+			Заклеймённые шлюзы открываются только заклеймённой ID-картой."
+	transmute_text = "Преобразуйте 10 кусков кабеля, лист бумаги и мультитул."
 	gain_text = "Въевшись в кости пальцев, существо направляет мой гудящий, затуманенный разум к массивной двери. \
 				Медленно свет танцует среди наползающей тьмы, покрывая зловонный променад бесконечными бликами. \
 				Но король скоро получит свой фунт плоти. Даже здесь сборщик налогов получает свою долю. Ибо нужно кормить тысячи ртов."
 	required_atoms = list(
-		/obj/item/stack/cable_coil = 5,
+		/obj/item/stack/cable_coil = 10,
 		/obj/item/paper = 1,
+		/obj/item/multitool = 1,
 	)
 	cost = 1
 	// bookworm is a normal Tier-1 SHOP side, not auto-granted. With is_starting_knowledge it was free
@@ -395,19 +431,25 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 /datum/heretic_knowledge/bookworm/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
 	. = ..()
 	for(var/obj/item/card/id/used_id in atoms)
-		if((ACCESS_MAINT_TUNNELS in used_id.access) && (ACCESS_EXTERNAL_AIRLOCKS in used_id.access)) // If we can't give any access we aren't elligible
-			continue
-
 		selected_atoms += used_id
-		return TRUE
-
-	user.balloon_alert(user, "провал, нет доступа!")
-	return FALSE
+	var/obj/item/card/id/user_card = user.get_id_card()
+	if(istype(user_card))
+		selected_atoms |= user_card
 
 
 /datum/heretic_knowledge/bookworm/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	. = ..()
-	var/obj/item/card/id/improved_id = locate() in selected_atoms
-	improved_id.access |= list(ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS)
-	selected_atoms -= improved_id
+	for(var/obj/item/card/id/improved_id in selected_atoms)
+		improved_id.access |= list(ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_HERETIC)
+		selected_atoms -= improved_id
+	for(var/obj/machinery/door/airlock/door in view(7, loc))
+		door.req_access = list(ACCESS_HERETIC)
+		door.wires?.cut(WIRE_AI_CONTROL)
+		do_sparks(3, FALSE, door.loc)
+		var/obj/effect/light_emitter/brand_light = new(door.loc)
+		brand_light.set_light(1.75, 1.5, "#a95c68")
+		QDEL_IN(brand_light, 1 SECONDS)
+		playsound(door, 'sound/magic/castsummon.ogg', 20, vary = TRUE, extrarange = SILENCED_SOUND_EXTRARANGE, ignore_walls = FALSE)
+		playsound(door, SFX_SPARKS, 33, vary = TRUE, extrarange = SILENCED_SOUND_EXTRARANGE, ignore_walls = FALSE)
+
 	return TRUE

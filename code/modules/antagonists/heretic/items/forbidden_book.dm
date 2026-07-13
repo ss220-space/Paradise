@@ -13,7 +13,7 @@
 	/// How fast we can drain influences
 	var/drain_speed = 10 SECONDS
 	/// How fast we can draw runes
-	var/draw_speed = 8 SECONDS
+	var/draw_speed = 15 SECONDS
 
 
 /obj/item/codex_cicatrix/get_ru_names()
@@ -124,7 +124,7 @@
 	base_icon_state = "book_morbus"
 	icon_state = "book_morbus"
 	drain_speed = 7 SECONDS
-	draw_speed = 5 SECONDS
+	draw_speed = 10 SECONDS
 	/// List of mobs we've cursed with transmutation. When the codex is destroyed all those curses become undone
 	var/list/transmuted_victims = list()
 
