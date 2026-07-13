@@ -373,7 +373,7 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 		M.AdjustConfused(6 SECONDS)
 		if(isvampirethrall(M))
 			M.mind.remove_antag_datum(/datum/antagonist/mindslave/thrall)
-			holder.remove_reagent(id, volume)
+			holder.remove_reagent(type, volume)
 			M.visible_message(span_biggerdanger("[M] отшатыва[PLUR_ET_YUT(M)]ся, [GEND_HIS_HER(M)] кожа окрашивается в яркий цвет, [GEND_HE_SHE(M)] вновь обрета[PLUR_ET_YUT(M)] чувство контроля над собой!"))
 			M.SetJitter(0)
 			M.SetStuttering(0)
@@ -382,7 +382,7 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 
 		if(iscultist(M))
 			SSticker.mode.remove_cultist(M.mind)
-			holder.remove_reagent(id, volume)	// maybe this is a little too perfect and a max() cap on the statuses would be better??
+			holder.remove_reagent(type, volume)	// maybe this is a little too perfect and a max() cap on the statuses would be better??
 			M.SetJitter(0)
 			M.SetStuttering(0)
 			M.SetConfused(0)
@@ -397,7 +397,7 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 
 		if(isclocker(M))
 			SSticker.mode.remove_clocker(M.mind)
-			holder.remove_reagent(id, volume)
+			holder.remove_reagent(type, volume)
 			M.SetJitter(0)
 			M.SetStuttering(0)
 			M.SetConfused(0)
@@ -424,7 +424,7 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 				if(!vomit_stun)
 					V.adjustBruteLoss(3)
 			else
-				holder.remove_reagent(id, volume)
+				holder.remove_reagent(type, volume)
 				V.vomit(0, stun = vomit_stun)
 				return
 		else

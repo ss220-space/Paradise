@@ -297,7 +297,7 @@
 			)
 			return ATTACK_CHAIN_PROCEED_SUCCESS
 		var/datum/reagent/new_reagent = GLOB.chemical_reagents_list[syringe.reagents.get_master_reagent_id()]
-		if(!new_reagent || !syringe.reagents.has_reagent(new_reagent.id, 5))
+		if(!new_reagent || !syringe.reagents.has_reagent(new_reagent.type, 5))
 			to_chat(user, span_warning("You don't have enough units of [new_reagent.name] to modify the bee's DNA!"))
 			return ATTACK_CHAIN_PROCEED
 		syringe.reagents.remove_reagent(new_reagent.type, 5, TRUE)

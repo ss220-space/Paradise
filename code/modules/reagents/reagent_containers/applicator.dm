@@ -55,8 +55,8 @@
 	if(!emagged)
 		var/found_forbidden_reagent = FALSE
 		for(var/datum/reagent/chem in reagents.reagent_list)
-			if(!GLOB.safe_chem_applicator_list.Find(chem.id))
-				reagents.del_reagent(chem.id)
+			if(!GLOB.safe_chem_applicator_list.Find(chem.type))
+				reagents.del_reagent(chem.type)
 				found_forbidden_reagent = TRUE
 		if(found_forbidden_reagent)
 			if(ismob(loc))

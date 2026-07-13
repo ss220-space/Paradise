@@ -258,7 +258,7 @@
 				injectable = 0
 
 			if(occupant?.reagents)
-				reagent_amount = occupant.reagents.get_reagent_amount(temp.id)
+				reagent_amount = occupant.reagents.get_reagent_amount(temp.type)
 				// If they're mashing the highest concentration, they get one warning
 				if(temp.overdose_threshold && reagent_amount + 10 > temp.overdose_threshold)
 					caution = 1

@@ -1,4 +1,4 @@
-#define GET_FUEL reagents.get_reagent_amount("fuel")
+#define GET_FUEL reagents.get_reagent_amount(/datum/reagent/fuel)
 
 /obj/item/weldingtool
 	name = "welding tool"

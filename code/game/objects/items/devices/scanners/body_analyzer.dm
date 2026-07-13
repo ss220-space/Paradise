@@ -197,7 +197,7 @@
 	dat += "[extra_font]\tBlood Level %: [blood_percent] ([target.blood_volume] units)</font><br>"
 
 	if(target.reagents)
-		dat += "Epinephrine units: [target.reagents.get_reagent_amount("Epinephrine")] units<br>"
+		dat += "Epinephrine units: [target.reagents.get_reagent_amount(/datum/reagent/medicine/epinephrine)] units<br>"
 		dat += "Ether: [target.reagents.get_reagent_amount(/datum/reagent/medicine/ether)] units<br>"
 
 		extra_font = (target.reagents.get_reagent_amount(/datum/reagent/medicine/silver_sulfadiazine) < 30 ? "<font color='black'>" : "<font color='red'>")

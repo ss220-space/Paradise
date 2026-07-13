@@ -92,15 +92,15 @@
 
 /// Get the id of the reagent there is the most of in this holder
 /datum/reagents/proc/get_master_reagent_id()
-	var/the_id
+	var/the_type
 	var/max_volume = 0
 	for(var/A in reagent_list)
 		var/datum/reagent/R = A
 		if(R.volume > max_volume)
 			max_volume = R.volume
-			the_id = R.type
+			the_type = R.type
 
-	return the_id
+	return the_type
 
 /datum/reagents/proc/trans_to(target, amount = 1, multiplier = 1, preserve_data = TRUE, no_react = FALSE) //if preserve_data=0, the reagents data will be lost. Usefull if you use data for some strange stuff and don't want it to be transferred.
 	if(!target)
@@ -206,7 +206,7 @@
 	var/trans_data = null
 	for(var/A in reagent_list)
 		var/datum/reagent/current_reagent = A
-		if(current_reagent.id == reagent)
+		if(current_reagent.type == reagent)
 			if(preserve_data)
 				trans_data = copy_data(current_reagent)
 			R.add_reagent(current_reagent.type, amount, trans_data, chem_temp)
@@ -493,21 +493,14 @@
 	update_total()
 	return FALSE
 
-/datum/reagents/proc/floor_reagent(reagent_id)
+/datum/reagents/proc/floor_reagent(reagent)
 	for(var/A in reagent_list)
 		var/datum/reagent/R = A
-		if(R.id == reagent_id)
+		if(R.type == reagent)
 			R.volume = floor(R.volume)
 			update_total()
 			return TRUE
 	return FALSE
-
-/datum/reagents/proc/isolate_reagent_by_id(reagent_id)
-	for(var/A in reagent_list)
-		var/datum/reagent/R = A
-		if(R.id != reagent_id)
-			del_reagent(R.type)
-			update_total()
 
 /datum/reagents/proc/isolate_reagent(reagent)
 	for(var/A in reagent_list)
@@ -516,10 +509,10 @@
 			del_reagent(R.type)
 			update_total()
 
-/datum/reagents/proc/del_reagent(reagent_id)
+/datum/reagents/proc/del_reagent(reagent_type)
 	var/list/cached_reagents = reagent_list
 	for(var/datum/reagent/reagent as anything in cached_reagents)
-		if(reagent.id == reagent_id)
+		if(reagent.type == reagent_type)
 			if(isliving(my_atom))
 				if(reagent.metabolizing)
 					reagent.metabolizing = FALSE
@@ -752,11 +745,18 @@
 					return FALSE
 	return FALSE
 
-/datum/reagents/proc/get_reagent_amount(reagent_id)
-	if(!ispath(reagent_id))
+/datum/reagents/proc/get_reagent_amount(reagent)
+	if(!ispath(reagent))
 		return FALSE
 
-	var/datum/reagent/found_reagent = get_reagent(reagent_id)
+	var/datum/reagent/found_reagent = get_reagent(reagent)
+	return found_reagent ? found_reagent.volume : FALSE
+
+/datum/reagents/proc/get_reagent_amount_by_id(reagent_id)
+	if(ispath(reagent_id))
+		return get_reagent_amount(reagent_id)
+
+	var/datum/reagent/found_reagent = get_reagent_by_id(reagent_id)
 	return found_reagent ? found_reagent.volume : FALSE
 
 /datum/reagents/proc/get_reagents()

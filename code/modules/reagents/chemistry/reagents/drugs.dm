@@ -1090,7 +1090,7 @@
 		if(holder)
 			for(var/i = 0, i < round(volume/10,1),i++)
 				new /obj/item/crack_crystal(get_turf(holder.my_atom))
-			holder.del_reagent(id)
+			holder.del_reagent(type)
 
 /datum/reagent/cocaine
 	name = "Кокаин"
@@ -1138,7 +1138,7 @@
 		if(holder)
 			for(var/i = 0, i < round(volume/10,1),i++)
 				new /obj/item/coca_packet(get_turf(holder.my_atom))
-			holder.del_reagent(id)
+			holder.del_reagent(type)
 
 /datum/reagent/matedecoca
 	name = "Мате де Кока"

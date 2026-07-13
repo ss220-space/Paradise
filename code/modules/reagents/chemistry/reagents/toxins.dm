@@ -132,9 +132,9 @@
 
 	if(method == REAGENT_INGEST && iscarbon(M))
 		var/mob/living/carbon/C = M
-		if(C.get_blood_id() == id && !HAS_TRAIT(C, TRAIT_NO_BLOOD_RESTORE))
+		if(C.get_blood_id() == type && !HAS_TRAIT(C, TRAIT_NO_BLOOD_RESTORE))
 			C.setBlood(min(C.blood_volume + round(volume, 0.1), BLOOD_VOLUME_NORMAL))
-			C.reagents.del_reagent(id)
+			C.reagents.del_reagent(type)
 
 /datum/reagent/slimejelly/reaction_turf(turf/T, volume, color)
 	if(volume >= 3 && !isspaceturf(T) && !locate(/obj/effect/decal/cleanable/blood/slime) in T)

@@ -10,7 +10,7 @@
 
 	handle_addiction(M, total_depletion_rate)
 	sate_addiction(M)
-	holder.remove_reagent(id, total_depletion_rate) //medicine reagents stay longer if you have a better metabolism
+	holder.remove_reagent(type, total_depletion_rate) //medicine reagents stay longer if you have a better metabolism
 	return STATUS_UPDATE_NONE
 
 /datum/reagent/medicine/hydrocodone
@@ -135,9 +135,9 @@
 
 	if(method == REAGENT_INGEST && iscarbon(M))
 		var/mob/living/carbon/C = M
-		if(C.get_blood_id() == id && !HAS_TRAIT(C, TRAIT_NO_BLOOD_RESTORE))
+		if(C.get_blood_id() == type && !HAS_TRAIT(C, TRAIT_NO_BLOOD_RESTORE))
 			C.setBlood(min(C.blood_volume + round(volume, 0.1), BLOOD_VOLUME_NORMAL))
-			C.reagents.del_reagent(id)
+			C.reagents.del_reagent(type)
 
 	if(iscarbon(M))
 		data["method"] = method

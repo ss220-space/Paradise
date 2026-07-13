@@ -20,8 +20,8 @@
 	return TRUE
 
 /datum/disease/critical/has_cure()
-	for(var/C_id in cures)
-		if(affected_mob.reagents.has_reagent(C_id))
+	for(var/cure_type in cures)
+		if(affected_mob.reagents.has_reagent(cure_type))
 			if(prob(cure_prob))
 				return TRUE
 	return FALSE

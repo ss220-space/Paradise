@@ -324,16 +324,18 @@
 			var/amount = text2num(params["amount"])
 			if(!id || !amount)
 				return
-			R.trans_id_to(src, id, amount)
+			var/datum/reagent/reagent_type = find_chemical_reagent_by_id(id)
+			R.trans_id_to(src, reagent_type, amount)
 		if("remove")
 			var/id = params["id"]
 			var/amount = text2num(params["amount"])
 			if(!id || !amount)
 				return
+			var/datum/reagent/reagent_type = find_chemical_reagent_by_id(id)
 			if(mode)
-				reagents.trans_id_to(beaker, id, amount)
+				reagents.trans_id_to(beaker, reagent_type, amount)
 			else
-				reagents.remove_reagent(id, amount)
+				reagents.remove_reagent(reagent_type, amount)
 		if("eject")
 			if(!beaker)
 				return

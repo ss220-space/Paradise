@@ -62,7 +62,7 @@
 		var/turf/T = get_turf(holder.my_atom)
 		fire_flash_log(holder, id)
 		if(holder)
-			holder.del_reagent(id)
+			holder.del_reagent(type)
 		fireflash_sm(T, radius, rand(3000, 6000), 500)
 
 /datum/reagent/napalm/reaction_turf(turf/T, volume)
@@ -126,7 +126,7 @@
 	if(exposed_temperature > combustion_temp)
 		if(volume < 1)
 			if(holder)
-				holder.del_reagent(id)
+				holder.del_reagent(type)
 			return
 
 		var/will_explode = volume >= explosion_threshold
@@ -139,7 +139,7 @@
 
 		var/turf/T = get_turf(holder.my_atom)
 		if(holder) // Delete the fuel from the holder before we trigger the fireball
-			holder.del_reagent(id)
+			holder.del_reagent(type)
 
 		var/radius = min(max(min_radius, volume * volume_radius_multiplier + volume_radius_modifier), max_radius)
 		fireflash_sm(T, radius, 2200 + radius * 250, radius * 50)
@@ -173,7 +173,7 @@
 		var/turf/T = get_turf(holder.my_atom)
 		fire_flash_log(holder, id)
 		if(holder)
-			holder.del_reagent(id) // Remove first. Else fireflash triggers a reaction again
+			holder.del_reagent(type) // Remove first. Else fireflash triggers a reaction again
 		fireflash(T, min(max(0, volume / 10), 8))
 
 /datum/reagent/plasma/on_mob_life(mob/living/M)
@@ -218,10 +218,9 @@
 
 	if(exposed_temperature >= T0C + 100)
 		var/datum/reagents/Holder = holder
-		var/Id = id
 		var/Volume = volume
 		fire_flash_log(holder, id)
-		Holder.del_reagent(Id)
+		Holder.del_reagent(type)
 		fireflash_sm(S, 0, rand(20000, 25000) + Volume * 2500, 0, 0, 1)
 
 /datum/reagent/thermite/reaction_turf(turf/simulated/S, volume)
@@ -482,7 +481,7 @@
 		var/turf/T = get_turf(holder.my_atom)
 		fire_flash_log(holder, id)
 		if(holder)
-			holder.del_reagent(id) // Remove first. Else fireflash triggers a reaction again
+			holder.del_reagent(type) // Remove first. Else fireflash triggers a reaction again
 		fireflash(T, min(max(0, volume / 10), 8))
 
 /datum/reagent/plasma_dust/on_mob_life(mob/living/M)

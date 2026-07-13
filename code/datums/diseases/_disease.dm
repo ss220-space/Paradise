@@ -138,8 +138,8 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
  */
 /datum/disease/proc/has_cure()
 	. = cures.len
-	for(var/C_id in cures)
-		if(!affected_mob.reagents?.has_reagent(C_id))
+	for(var/cure_type in cures)
+		if(!affected_mob.reagents?.has_reagent(cure_type))
 			.--
 	if(. <= 0 || (needs_all_cures && . < length(cures)))
 		return 0

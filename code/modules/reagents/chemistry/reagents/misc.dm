@@ -185,7 +185,7 @@
 		var/datum/reagents/old_holder = holder
 		fire_flash_log(holder, id)
 		if(holder)
-			holder.del_reagent(id) // Remove first. Else fireflash triggers a reaction again
+			holder.del_reagent(type) // Remove first. Else fireflash triggers a reaction again
 
 		fireflash(target_turf, min(max(0, volume / 40), 8))
 		var/datum/effect_system/fluid_spread/smoke/bad/smoke = new

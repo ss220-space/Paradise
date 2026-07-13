@@ -272,7 +272,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	playsound(src, 'sound/items/lighter/light.ogg', 25, TRUE)
 
 /obj/item/clothing/mask/cigarette/proc/check_reagents_explosion()
-	var/reagent = ""
+	var/reagent = null
 	var/reagent_divisor = 2.5
 	if(reagents.get_reagent_amount(/datum/reagent/plasma))
 		reagent = /datum/reagent/plasma

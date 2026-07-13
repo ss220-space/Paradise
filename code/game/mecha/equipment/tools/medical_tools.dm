@@ -162,7 +162,9 @@
 		return FALSE
 
 	if(action == "inject_reagent")
-		var/datum/reagent/medication = shooter.reagents.has_reagent(params["reagent"])
+		var/reagent_id = params["reagent"]
+		var/reagent_type = find_chemical_reagent_by_id(reagent_id)
+		var/datum/reagent/medication = shooter.reagents.has_reagent(reagent_type)
 		if(!medication)
 			return FALSE
 		inject_reagent(medication, shooter)
@@ -307,10 +309,13 @@
 			reagents.clear_reagents()
 			return TRUE
 		if("purge_reagent")
-			reagents.del_reagent(params["reagent"])
+			var/reagent_id = params["reagent"]
+			var/datum/reagent/reagent_type = find_chemical_reagent_by_id(reagent_id)
+			reagents.del_reagent(reagent_type)
 			return TRUE
 		if("toggle_reagent")
-			var/switch_reagent = params["reagent"]
+			var/switch_reagent_id = params["reagent"]
+			var/datum/reagent/switch_reagent = find_chemical_reagent_by_id(switch_reagent_id)
 			if(switch_reagent in processed_reagents)
 				processed_reagents -= switch_reagent
 			else
