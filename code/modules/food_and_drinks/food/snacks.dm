@@ -294,7 +294,7 @@
 	desc = "Someone should be demoted from chef for this."
 	icon_state = "badrecipe"
 	filling_color = "#211F02"
-	list_reagents = list("????" = 30)
+	list_reagents = list(/datum/reagent/questionmark = 30)
 
 /obj/item/reagent_containers/food/snacks/badrecipe/Initialize(mapload)
 	. = ..()

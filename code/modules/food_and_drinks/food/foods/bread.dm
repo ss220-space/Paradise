@@ -168,7 +168,7 @@
 /obj/item/reagent_containers/food/snacks/breadslice/burned
 	name = "burned bread slice"
 	desc = "A slice of slightly burned bread. Probably it's not the best idea to eat this..."
-	list_reagents = list(/datum/reagent/consumable/nutriment = 2, /datum/reagent/consumable/bread = 5, "????" = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 2, /datum/reagent/consumable/bread = 5, /datum/reagent/questionmark = 2)
 	tastes = list("bread" = 10)
 	foodtype = GRAIN | TOXIC
 

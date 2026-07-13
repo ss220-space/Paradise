@@ -535,7 +535,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	desc = "A slab of rotten meat. Looks really awful, a couple of flies sit on it."
 	icon_state = "rottenmeatslab"
-	list_reagents = list(/datum/reagent/consumable/nutriment/protein = 1, /datum/reagent/toxin = 10, "????" = 20)
+	list_reagents = list(/datum/reagent/consumable/nutriment/protein = 1, /datum/reagent/toxin = 10, /datum/reagent/questionmark = 20)
 	tastes = list("slimy meat" = 3, "rotten meat" = 3, "stink" = 3)
 	foodtype = MEAT | GROSS | RAW | TOXIC
 

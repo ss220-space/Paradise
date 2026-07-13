@@ -47,7 +47,7 @@
 	name = "bath_salts"
 	id = "bath_salts"
 	result = /datum/reagent/bath_salts
-	required_reagents = list("????" = 1, /datum/reagent/saltpetre = 1, /datum/reagent/msg = 1, /datum/reagent/space_cleaner = 1, /datum/reagent/consumable/enzyme = 1, /datum/reagent/consumable/mugwort = 1, /datum/reagent/mercury = 1)
+	required_reagents = list(/datum/reagent/questionmark = 1, /datum/reagent/saltpetre = 1, /datum/reagent/msg = 1, /datum/reagent/space_cleaner = 1, /datum/reagent/consumable/enzyme = 1, /datum/reagent/consumable/mugwort = 1, /datum/reagent/mercury = 1)
 	result_amount = 6
 	min_temp = T0C + 100
 	mix_message = "Tiny cubic crystals precipitate out of the mixture. Huh."
