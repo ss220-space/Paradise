@@ -49,7 +49,6 @@
 	icon = 'icons/obj/species_organs/grey.dmi'
 	item_state = "grey_eyes"
 	see_in_dark = 3
-	examine_mod = EXAMINE_INSTANT // Insta carbon examine
 
 /obj/item/organ/internal/eyes/grey/get_ru_names()
 	return alist(

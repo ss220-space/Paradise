@@ -1535,6 +1535,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	sync_lighting_plane_alpha()
 
+	return ..()
+
 /mob/living/silicon/ai/ghostize(can_reenter_corpse)
 	var/old_turf = get_turf(eyeobj)
 	. = ..()
@@ -1584,7 +1586,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(!target || !(target in possible))
 		target = tgui_input_list(src, "К какой оболочке подключиться?", "Подключиться", sort_names(possible))
 
-	if(isnull(target))
+	if(QDELETED(target))
+		return
+	if(QDELETED(src))
 		return
 	if(!can_connect_to(target))
 		to_chat(src, span_warning("Во время установки cоеденения с оболочкой произошла ошибка."))

@@ -19,7 +19,7 @@
 	var/start_lit = FALSE
 	var/flickering = FALSE
 	light_color = "#E09D37"
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	light_range = CANDLE_LUM
 	light_on = FALSE
 

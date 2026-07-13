@@ -204,7 +204,7 @@ GLOBAL_VAR_INIT(tdome_arena_melee, locate(/area/centcom/tdome/new_arena/cqc))
 	if(dead_fighter.ckey)
 		addtimer(CALLBACK(src, PROC_REF(restore_ghost_state), dead_fighter.ckey), 5 SECONDS)
 
-	if(!length(fighters) && !is_cleansing_going)
+	if(length(fighters) <= 1 && !is_cleansing_going)
 		for(var/datum/timedevent/timer in _active_timers)
 			qdel(timer)
 		is_cleansing_going = TRUE

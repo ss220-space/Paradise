@@ -7122,9 +7122,7 @@
 	name = "Taipan";
 	width = 11
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "hcJ" = (
 /obj/effect/turf_decal/tile/red{
@@ -14787,9 +14785,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/telecomms)
 "obt" = (
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "obu" = (
 /obj/structure/window/plastitanium,
@@ -19052,9 +19048,7 @@
 	name = "Taipan";
 	width = 11
 	},
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/space)
 "rDd" = (
 /obj/vehicle/ridden/wheelchair,

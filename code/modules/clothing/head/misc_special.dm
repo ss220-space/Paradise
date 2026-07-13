@@ -130,7 +130,7 @@
 	flags_cover = HEADCOVERSEYES
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 0, ACID = 0)
 	var/on_fire = FALSE
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	light_on = FALSE
 	light_range = 1.5
 	light_color = LIGHT_COLOR_DIM_YELLOW

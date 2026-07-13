@@ -9,7 +9,7 @@
 	item_flags = NOSHARPENING
 	light_power = 2
 	light_range = 2
-	light_system = MOVABLE_LIGHT
+	light_system = OVERLAY_LIGHT
 	light_on = FALSE
 	heat = T3500K
 	var/active = 0

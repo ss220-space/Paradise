@@ -415,9 +415,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/gate)
 "bF" = (
-/turf/space{
-	icon_state = "black"
-	},
+/turf/space/black,
 /area/template_noop)
 "bG" = (
 /obj/structure/cable,

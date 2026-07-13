@@ -130,9 +130,6 @@
 	else
 		add_overlay(cap_living)
 
-	if(blocks_emissive)
-		add_overlay(get_emissive_block())
-
 /mob/living/simple_animal/hostile/mushroom/proc/Recover()
 	visible_message(span_notice("[src] starts to slowly recover."))
 	faint_ticker = 0

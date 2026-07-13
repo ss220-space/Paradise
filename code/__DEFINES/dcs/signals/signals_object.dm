@@ -68,6 +68,11 @@
 ///from [/obj/effect/mine/proc/triggermine]:
 #define COMSIG_MINE_TRIGGERED "minegoboom"
 
+///from base of obj/item/do_pickup_animation(): ()
+#define COMSIG_ITEM_BEFORE_PICKUP_ANIMATION "item_before_pickup_animation"
+///from base of obj/item/do_drop_animation(): ()
+#define COMSIG_ITEM_BEFORE_DROP_ANIMATION "item_before_drop_animation"
+
 // Jetpack things
 //called in /obj/item/tank/jetpack/proc/turn_on() : ()
 #define COMSIG_JETPACK_ACTIVATED "jetpack_activated"
@@ -363,3 +368,5 @@
 
 /// Called when item removed from storage. [/obj/item/storage/proc/remove_from_storage()]: (obj/item/W, atom/new_location)
 #define COMSIG_ITEM_REMOVED_FROM_STORAGE "removed_from_storage"
+/// Called when the spraycan interacts.
+#define COMSIG_OBJ_PAINTED "obj_painted"
