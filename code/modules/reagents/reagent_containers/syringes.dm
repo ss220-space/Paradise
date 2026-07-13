@@ -218,6 +218,9 @@
 		PREPOSITIONAL = "шприце (Активированный уголь)",
 	)
 
+/obj/item/reagent_containers/syringe/charcoal/ussp
+	list_reagents = list(/datum/reagent/medicine/charcoal = 13, /datum/reagent/salmonella = 2)
+
 /obj/item/reagent_containers/syringe/epinephrine
 	name = "Syringe (Epinephrine)"
 	desc = "Шприц со средством для стабилизации критических пациентов."

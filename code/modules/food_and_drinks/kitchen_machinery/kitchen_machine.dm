@@ -139,7 +139,7 @@
 			balloon_alert(user, "ёмкость пуста!")
 			return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 		for(var/datum/reagent/reagent as anything in container.reagents.reagent_list)
-			if(!(reagent.id in GLOB.cooking_reagents[recipe_type]))
+			if(!(reagent.type in GLOB.cooking_reagents[recipe_type]))
 				balloon_alert(user, "содержит непригодные вещества!")
 				return ATTACK_CHAIN_PROCEED_NO_AFTERATTACK
 		container.reagents.trans_to(src, container.amount_per_transfer_from_this)

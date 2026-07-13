@@ -6361,9 +6361,7 @@
 /obj/item/trash/gum,
 /obj/item/trash/tapetrash,
 /obj/item/trash/pistachios,
-/obj/item/reagent_containers/syringe/charcoal{
-	list_reagents = list(/datum/reagent/medicine/charcoal=13,/datum/reagent/salmonella=2)
-	},
+/obj/item/reagent_containers/syringe/charcoal/ussp,
 /obj/effect/decal/cleanable/cobweb,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plasteel{
