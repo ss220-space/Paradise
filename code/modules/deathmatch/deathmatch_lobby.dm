@@ -96,7 +96,7 @@
 
 	for(var/key in players)
 		var/mob/dead/observer/observer = players[key]["mob"]
-		if (isnull(observer) || !observer.client)
+		if(isnull(observer) || !observer.client)
 			log_game("Removed player [key] from deathmatch lobby [host], as they couldn't be found.")
 			remove_ckey_from_play(key)
 			continue
@@ -238,7 +238,7 @@
 		end_game()
 
 /datum/deathmatch_lobby/proc/add_observer(mob/mob, host = FALSE)
-	if (players[mob.ckey])
+	if(players[mob.ckey])
 		CRASH("Tried to add [mob.ckey] as an observer while being a player.")
 	observers[mob.ckey] = list("mob" = mob, "host" = host)
 
@@ -306,7 +306,7 @@
 	player.forceMove(pick(location.reserved_turfs))
 
 /datum/deathmatch_lobby/proc/change_map(new_map)
-	if (!new_map || !GLOB.deathmatch_game.maps[new_map])
+	if(!new_map || !GLOB.deathmatch_game.maps[new_map])
 		return
 	map = GLOB.deathmatch_game.maps[new_map]
 	var/max_players = map.max_players
@@ -364,15 +364,14 @@
 
 /datum/deathmatch_lobby/ui_data(mob/user)
 	var/list/data = list()
-
 	var/is_player = !isnull(players[user.ckey])
 	var/is_host = (user.ckey == host)
 	var/is_admin = check_rights_for(user.client, R_ADMIN)
-	var/has_auth = is_host || is_admin
+	var/has_auth = (is_host || is_admin)
 
-	data["active_mods"] = "No modifiers selected"
-	data["admin"] = is_admin
-	data["host"] = is_host
+	data["active_mods"] = ("No modifiers selected")
+	data["admin"] = (is_admin)
+	data["host"] = (is_host)
 	data["loadouts"] = list("Randomize")
 
 	for(var/datum/outfit/deathmatch_loadout/loadout as anything in loadouts)

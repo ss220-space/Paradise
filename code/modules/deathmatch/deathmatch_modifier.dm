@@ -61,10 +61,49 @@
 /datum/deathmatch_modifier/proc/apply(mob/living/carbon/player, datum/deathmatch_lobby/lobby)
 	return
 
+/datum/deathmatch_modifier/random
+	name = "Random Modifiers"
+	description = "Picks 3 to 5 random modifiers as the game is about to start"
+	random_exempted = TRUE
+
+/datum/deathmatch_modifier/random/on_select(datum/deathmatch_lobby/lobby)
+	///remove any other global modifier if chosen. It'll pick random ones when the time comes.
+	for(var/modpath in lobby.modifiers)
+		var/datum/deathmatch_modifier/modifier = GLOB.deathmatch_game.modifiers[modpath]
+		if(modifier.random_exempted)
+			continue
+		modifier.unselect(lobby)
+		lobby.modifiers -= modpath
+
+/datum/deathmatch_modifier/random/on_start_game(datum/deathmatch_lobby/lobby)
+	lobby.modifiers -= type //remove it before attempting to select other modifiers, or they'll fail.
+
+	var/static/list/static_pool
+	if(isnull(static_pool))
+		static_pool = subtypesof(/datum/deathmatch_modifier)
+		for(var/datum/deathmatch_modifier/modpath as anything in static_pool)
+			if(initial(modpath.random_exempted))
+				static_pool -= modpath
+	var/list/modifiers_pool = static_pool.Copy()
+	for(var/modpath in modifiers_pool)
+		var/datum/deathmatch_modifier/modifier = GLOB.deathmatch_game.modifiers[modpath]
+		if(!modifier.selectable(lobby))
+			modifiers_pool -= modpath
+
+	///Pick global modifiers at random.
+	for(var/iteration in 1 to rand(3, 5))
+		var/datum/deathmatch_modifier/modifier = GLOB.deathmatch_game.modifiers[pick_n_take(modifiers_pool)]
+		modifier.on_select(lobby)
+		modifier.on_start_game(lobby)
+		lobby += modifier.type
+		modifiers_pool -= modifier.blacklisted_modifiers
+		if(!length(modifiers_pool))
+			return
+
 /datum/deathmatch_modifier/health
 	name = "Double-Health"
 	description = "Doubles your starting health"
-	blacklisted_modifiers = list(/datum/deathmatch_modifier/health/half, /datum/deathmatch_modifier/health/triple)
+	//blacklisted_modifiers = list(/datum/deathmatch_modifier/health/half, /datum/deathmatch_modifier/health/triple)
 	var/multiplier = 2
 
 /datum/deathmatch_modifier/health/apply(mob/living/carbon/player, datum/deathmatch_lobby/lobby)

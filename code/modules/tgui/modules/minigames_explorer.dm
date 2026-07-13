@@ -57,7 +57,7 @@
 		if("deathmatch")
 			ui.close()
 			deathmatch()
-			. = TRUE
+			return TRUE
 
 	var/list/possible_spawners = params["ID"]
 	var/obj/MS = locateUID(pick(possible_spawners))

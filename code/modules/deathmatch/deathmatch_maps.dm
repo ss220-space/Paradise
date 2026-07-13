@@ -1,5 +1,5 @@
 /datum/lazy_template/deathmatch
-	map_dir = "_maps/minigame/deathmatch"
+	map_dir = "_maps/minigames/deathmatch"
 	/// Map UI Name
 	var/name
 	/// Map Description

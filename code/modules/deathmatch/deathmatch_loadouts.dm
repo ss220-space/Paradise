@@ -1,6 +1,6 @@
 /datum/outfit/deathmatch_loadout //remember that fun > balance
 	name = ""
-	shoes = /obj/item/clothing/shoes/sneakers/black // im not doing this on all of them
+	shoes = /obj/item/clothing/shoes/color/black // im not doing this on all of them
 	/// Name shown in the UI
 	var/display_name = ""
 	/// Description shown in the UI

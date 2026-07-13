@@ -54,7 +54,7 @@
 	if(old_body?.stat != DEAD)
 		old_mind.transfer_to(old_body)
 	else
-		old_mind.set_current(old_body)
+		old_mind.current = old_body
 
 	if(old_body)
 		REMOVE_TRAIT(old_body, TRAIT_MIND_TEMPORARILY_GONE, src.UID())
