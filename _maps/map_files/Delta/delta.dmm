@@ -10388,7 +10388,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/visible,
+/obj/machinery/atmospherics/binary/pump,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/mixing_atmos)
 "cmO" = (
@@ -16499,6 +16499,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/mixing_atmos)
 "dFo" = (
@@ -21504,7 +21505,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "eIe" = (
-/obj/machinery/atmospherics/binary/pump,
+/obj/machinery/atmospherics/binary/valve/digital/open,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -26857,6 +26858,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/mixing_atmos)
 "fJW" = (
@@ -39711,6 +39713,17 @@
 	icon_state = "darkblue"
 	},
 /area/station/command/bridge)
+"hZL" = (
+/obj/machinery/atmospherics/pipe/simple/visible/green{
+	desc = "Труба проводящая газ по фильтрам, где он перемещается в камеры хранения";
+	dir = 4;
+	name = "Труба фильтрации"
+	},
+/obj/machinery/atmospherics/meter,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/station/engineering/atmos/mixing_atmos)
 "hZN" = (
 /obj/machinery/computer/secure_data,
 /obj/machinery/door_control{
@@ -56992,7 +57005,10 @@
 	dir = 4;
 	name = "Труба фильтрации"
 	},
-/obj/machinery/atmospherics/pipe/simple/visible,
+/obj/machinery/atmospherics/binary/pump{
+	dir = 1;
+	name = "Gas Pump"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -83294,15 +83310,6 @@
 /obj/structure/lattice/catwalk,
 /turf/space,
 /area/space)
-"qft" = (
-/obj/machinery/atmospherics/binary/pump{
-	dir = 1;
-	name = "Gas Pump"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/station/engineering/atmos)
 "qfx" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -102529,6 +102536,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "twQ" = (
@@ -147748,7 +147756,7 @@ mhA
 kzm
 fJV
 dFn
-xyD
+hZL
 tAa
 glc
 coE
@@ -152880,7 +152888,7 @@ pLD
 qvF
 syw
 ioN
-qft
+eIe
 otW
 kwj
 kwj
