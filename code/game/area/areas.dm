@@ -159,7 +159,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
  */
 /proc/process_teleport_locs()
 	for(var/area/AR as anything in get_sorted_areas())
-		if(istype(AR, /area/shuttle) || AR.tele_proof)
+		if(is_area_shuttle(AR) || AR.tele_proof)
 			continue
 		if(GLOB.teleportlocs[AR.name])
 			continue

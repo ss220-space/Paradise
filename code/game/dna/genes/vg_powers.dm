@@ -203,7 +203,6 @@
 /datum/action/cooldown/spell/list_target/remotetalk
 	name = "Project Mind"
 	desc = "Позвольте другим ощущать ваши мысли."
-	cooldown_time = 0
 	spell_requirements = NONE
 	button_icon_state = "genetic_project"
 

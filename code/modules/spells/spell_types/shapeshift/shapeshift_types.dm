@@ -29,8 +29,6 @@
 /datum/action/cooldown/spell/shapeshift/hellhound
 	name = "Lesser Hellhound Form"
 	desc = "Take on the shape of a Hellhound."
-	invocation = "none"
-	invocation_type = "none"
 	background_icon_state = "bg_demon"
 	button_icon_state = "glare"
 	possible_shapes = list(/mob/living/simple_animal/hostile/hellhound)
