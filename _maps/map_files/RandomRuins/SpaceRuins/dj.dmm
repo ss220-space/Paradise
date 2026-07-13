@@ -199,9 +199,7 @@
 /area/space)
 "bc" = (
 /obj/structure/curtain/open/shower,
-/obj/machinery/shower{
-	dir = 4
-	},
+/obj/machinery/shower/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"

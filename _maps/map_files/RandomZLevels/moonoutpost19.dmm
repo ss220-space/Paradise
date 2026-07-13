@@ -4045,18 +4045,14 @@
 	},
 /area/moonoutpost19/mo19arrivals)
 "hU" = (
-/obj/machinery/shower{
-	pixel_y = 16
-	},
+/obj/machinery/shower/directional/south,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
 /area/moonoutpost19/mo19arrivals)
 "hV" = (
-/obj/machinery/shower{
-	pixel_y = 16
-	},
+/obj/machinery/shower/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -4246,9 +4242,7 @@
 	},
 /area/moonoutpost19/mo19arrivals)
 "io" = (
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/shower/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -4369,9 +4363,7 @@
 	},
 /area/moonoutpost19/mo19arrivals)
 "iB" = (
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/shower/directional/west,
 /obj/item/bikehorn/rubberducky,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -4469,10 +4461,7 @@
 /obj/structure/sign/securearea{
 	pixel_y = 32
 	},
-/obj/machinery/shower{
-	dir = 4;
-	name = "emergency shower"
-	},
+/obj/machinery/shower/directional/east,
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
@@ -4512,9 +4501,7 @@
 	},
 /area/moonoutpost19/mo19research)
 "iQ" = (
-/obj/machinery/shower{
-	dir = 1
-	},
+/obj/machinery/shower/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},

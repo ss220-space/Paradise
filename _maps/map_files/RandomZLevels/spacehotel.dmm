@@ -515,9 +515,7 @@
 	},
 /area/awaymission/spacehotel)
 "cp" = (
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/shower/directional/west,
 /obj/structure/curtain/open/shower{
 	anchored = 1;
 	opacity = 1
@@ -3099,9 +3097,7 @@
 /turf/simulated/wall/shuttle,
 /area/awaymission)
 "ll" = (
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/shower/directional/west,
 /turf/simulated/floor/indestructible{
 	icon_state = "freezerfloor"
 	},

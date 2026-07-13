@@ -1567,9 +1567,7 @@
 /turf/simulated/floor/carpet/arcade,
 /area/ruin/space/spacehotelv1/reception)
 "lY" = (
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/shower/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -1949,9 +1947,7 @@
 	},
 /area/ruin/space/spacehotelv1/kitchen)
 "pj" = (
-/obj/machinery/shower{
-	dir = 4
-	},
+/obj/machinery/shower/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -2357,9 +2353,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/guestroom1)
 "sy" = (
-/obj/machinery/shower{
-	pixel_y = 20
-	},
+/obj/machinery/shower/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -2669,9 +2663,7 @@
 /turf/simulated/floor/carpet/arcade,
 /area/ruin/space/spacehotelv1/guestroom3)
 "us" = (
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/shower/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -2744,9 +2736,7 @@
 /turf/simulated/wall,
 /area/ruin/space/spacehotelv1/guestroom1)
 "vb" = (
-/obj/machinery/shower{
-	dir = 4
-	},
+/obj/machinery/shower/directional/east,
 /obj/structure/curtain/open/shower,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -3127,9 +3117,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/forehallway)
 "yj" = (
-/obj/machinery/shower{
-	dir = 4
-	},
+/obj/machinery/shower/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -4624,9 +4612,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/restoraunt)
 "JO" = (
-/obj/machinery/shower{
-	pixel_y = 20
-	},
+/obj/machinery/shower/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -5269,9 +5255,7 @@
 /turf/simulated/floor/plasteel/grimy,
 /area/ruin/space/spacehotelv1/forehallway)
 "NV" = (
-/obj/machinery/shower{
-	pixel_y = 20
-	},
+/obj/machinery/shower/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},

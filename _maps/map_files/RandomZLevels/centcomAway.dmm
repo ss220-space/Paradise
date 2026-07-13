@@ -4688,9 +4688,7 @@
 	},
 /area/awaymission/centcom_away/thunderdome)
 "mV" = (
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/shower/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -4710,9 +4708,7 @@
 	},
 /area/awaymission/centcom_away/general)
 "mY" = (
-/obj/machinery/shower{
-	dir = 4
-	},
+/obj/machinery/shower/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},

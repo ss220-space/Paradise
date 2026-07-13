@@ -3592,10 +3592,7 @@
 /obj/structure/mirror{
 	pixel_x = -26
 	},
-/obj/machinery/shower{
-	pixel_x = 23;
-	pixel_y = 20
-	},
+/obj/machinery/shower/directional/south,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment{
 	dir = 5

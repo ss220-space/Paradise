@@ -107,9 +107,7 @@
 	},
 /area/template_noop)
 "s" = (
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/shower/directional/west,
 /obj/structure/alien/weeds{
 	icon_state = "weeds1"
 	},

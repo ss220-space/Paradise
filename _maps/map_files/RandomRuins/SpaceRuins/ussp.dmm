@@ -850,9 +850,7 @@
 	},
 /area/derelict/crew_quarters)
 "ck" = (
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/shower/directional/west,
 /obj/structure/curtain/open/shower,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -1050,10 +1048,7 @@
 /area/derelict/security)
 "cO" = (
 /obj/structure/curtain/open/shower,
-/obj/machinery/shower{
-	dir = 4;
-	pixel_x = 5
-	},
+/obj/machinery/shower/directional/east,
 /obj/structure/window/reinforced{
 	dir = 1
 	},
@@ -2549,9 +2544,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/shower/directional/west,
 /obj/structure/curtain/open/shower,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
@@ -5079,14 +5072,10 @@
 /turf/space,
 /area/derelict/garden)
 "ne" = (
-/obj/machinery/shower{
-	dir = 4
-	},
+/obj/machinery/shower/directional/east,
 /obj/structure/curtain/open/shower,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/shower{
-	pixel_y = 16
-	},
+/obj/machinery/shower/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -5097,9 +5086,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/curtain/open/shower,
-/obj/machinery/shower{
-	pixel_y = 16
-	},
+/obj/machinery/shower/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -9325,9 +9312,7 @@
 	},
 /area/derelict/common)
 "Sq" = (
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/shower/directional/west,
 /obj/structure/curtain/open/shower,
 /obj/effect/decal/cleanable/dirt,
 /mob/living/basic/cockroach,

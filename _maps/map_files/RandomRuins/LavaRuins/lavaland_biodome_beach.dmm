@@ -363,9 +363,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/powered/beach)
 "px" = (
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/shower/directional/west,
 /turf/simulated/floor/pod/light/lavaland_air,
 /area/ruin/powered/beach)
 "pI" = (
@@ -495,9 +493,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/powered/beach)
 "zI" = (
-/obj/machinery/shower{
-	dir = 4
-	},
+/obj/machinery/shower/directional/east,
 /obj/effect/turf_decal/sand,
 /turf/simulated/floor/pod/light/lavaland_air,
 /area/ruin/powered/beach)

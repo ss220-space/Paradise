@@ -71,9 +71,7 @@
 /area/survivalpod)
 "n" = (
 /obj/structure/curtain/black,
-/obj/machinery/shower{
-	pixel_y = 20
-	},
+/obj/machinery/shower/directional/south,
 /turf/simulated/floor/pod,
 /area/survivalpod)
 "o" = (

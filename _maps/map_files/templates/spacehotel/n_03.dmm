@@ -74,9 +74,7 @@
 	},
 /area/template_noop)
 "m" = (
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/shower/directional/west,
 /turf/simulated/floor/indestructible{
 	icon_state = "freezerfloor"
 	},

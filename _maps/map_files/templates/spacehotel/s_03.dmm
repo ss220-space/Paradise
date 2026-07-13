@@ -6,9 +6,7 @@
 /turf/simulated/floor/indestructible/upperlevel,
 /area/awaymission/desert)
 "c" = (
-/obj/machinery/shower{
-	pixel_y = 24
-	},
+/obj/machinery/shower/directional/south,
 /obj/structure/window/reinforced/polarized{
 	dir = 4;
 	id = "room_s"

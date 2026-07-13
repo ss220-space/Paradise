@@ -5730,10 +5730,7 @@
 /area/ruin/space/ancientstation/charlie_dininghall)
 "uA" = (
 /obj/machinery/optable,
-/obj/machinery/shower{
-	pixel_x = -3;
-	pixel_y = 3
-	},
+/obj/machinery/shower/directional/south,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
@@ -5888,10 +5885,7 @@
 "uY" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/optable,
-/obj/machinery/shower{
-	pixel_x = -3;
-	pixel_y = 3
-	},
+/obj/machinery/shower/directional/south,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
@@ -6253,9 +6247,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/shower/directional/west,
 /obj/item/soap/nanotrasen,
 /obj/structure/curtain/open,
 /turf/simulated/floor/plasteel{
@@ -9986,9 +9978,7 @@
 "Jv" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/curtain/open,
-/obj/machinery/shower{
-	pixel_y = 18
-	},
+/obj/machinery/shower/directional/south,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_punishmentcell)
 "JA" = (

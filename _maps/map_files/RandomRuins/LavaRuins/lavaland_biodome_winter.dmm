@@ -211,9 +211,7 @@
 /turf/simulated/floor/plating/ice/smooth,
 /area/ruin/powered/snow_biodome)
 "bw" = (
-/obj/machinery/shower{
-	dir = 4
-	},
+/obj/machinery/shower/directional/east,
 /obj/structure/curtain/open/shower,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"

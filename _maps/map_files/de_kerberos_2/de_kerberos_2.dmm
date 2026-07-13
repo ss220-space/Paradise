@@ -995,11 +995,7 @@
 "aiw" = (
 /obj/structure/curtain/open/shower/security,
 /obj/item/restraints/handcuffs/pinkcuffs,
-/obj/machinery/shower{
-	dir = 1;
-	layer = 5;
-	pixel_y = -5
-	},
+/obj/machinery/shower/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -3788,10 +3784,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/shower{
-	pixel_x = -3;
-	pixel_y = 3
-	},
+/obj/machinery/shower/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -4115,11 +4108,7 @@
 "aPQ" = (
 /obj/machinery/power/apc/directional/east,
 /obj/structure/cable,
-/obj/machinery/shower{
-	dir = 1;
-	layer = 5;
-	pixel_y = -5
-	},
+/obj/machinery/shower/directional/north,
 /obj/structure/sink/directional/west,
 /obj/structure/curtain/open/shower,
 /turf/simulated/floor/plasteel{
@@ -6186,10 +6175,7 @@
 	dir = 8
 	},
 /mob/living/simple_animal/hostile/lizard/croco/Gena,
-/obj/machinery/shower{
-	dir = 4;
-	pixel_y = 4
-	},
+/obj/machinery/shower/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -10436,11 +10422,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/machinery/shower{
-	dir = 1;
-	layer = 5;
-	pixel_y = -5
-	},
+/obj/machinery/shower/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitehall"
@@ -10485,10 +10467,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/shower{
-	pixel_x = -3;
-	pixel_y = 3
-	},
+/obj/machinery/shower/directional/south,
 /obj/effect/landmark/spawner/armory,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -10776,9 +10755,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "cgc" = (
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/shower/directional/west,
 /obj/structure/curtain/open/shower,
 /obj/machinery/door_control{
 	id = "showers";
@@ -15136,9 +15113,7 @@
 /turf/space,
 /area/space)
 "djj" = (
-/obj/machinery/shower{
-	dir = 4
-	},
+/obj/machinery/shower/directional/east,
 /obj/structure/curtain/open/shower/anchored,
 /obj/item/soap/homemade_banana,
 /turf/simulated/floor/plasteel{
@@ -23647,10 +23622,7 @@
 /area/station/engineering/mechanic_workshop/hangar)
 "eVg" = (
 /obj/structure/extinguisher_cabinet/directional/west,
-/obj/machinery/shower{
-	dir = 4;
-	pixel_y = 4
-	},
+/obj/machinery/shower/directional/east,
 /obj/effect/turf_decal/siding/white/end{
 	dir = 1
 	},
@@ -24332,10 +24304,7 @@
 	},
 /area/station/maintenance/fpmaint)
 "fbQ" = (
-/obj/machinery/shower{
-	dir = 4;
-	pixel_y = 4
-	},
+/obj/machinery/shower/directional/east,
 /obj/effect/turf_decal/siding/white/end,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -31631,9 +31600,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/shower/directional/west,
 /turf/simulated/floor/plasteel,
 /area/station/medical/virology/lab)
 "gye" = (
@@ -37162,10 +37129,7 @@
 	},
 /area/station/hallway/secondary/exit)
 "hzK" = (
-/obj/machinery/shower{
-	dir = 4;
-	pixel_y = 4
-	},
+/obj/machinery/shower/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dust,
 /obj/effect/turf_decal/siding/white{
@@ -50246,10 +50210,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/shower{
-	pixel_x = -3;
-	pixel_y = 3
-	},
+/obj/machinery/shower/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -55554,9 +55515,7 @@
 	desc = "Этот красивый стул был отлит из двух трофейных боргов \"Синдиката\".";
 	name = "Дизайнерский стул"
 	},
-/obj/machinery/shower{
-	pixel_y = 5
-	},
+/obj/machinery/shower/directional/south,
 /obj/effect/decal/cleanable/blood/old,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
@@ -70937,9 +70896,7 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/machinery/shower{
-	pixel_y = 20
-	},
+/obj/machinery/shower/directional/south,
 /obj/structure/sink/directional/west,
 /obj/structure/curtain/open/shower,
 /turf/simulated/floor/plasteel{
@@ -71752,10 +71709,7 @@
 /area/station/maintenance/brig)
 "nPV" = (
 /obj/machinery/optable,
-/obj/machinery/shower{
-	pixel_x = -3;
-	pixel_y = 3
-	},
+/obj/machinery/shower/directional/south,
 /obj/item/tank/internals/anesthetic,
 /obj/item/clothing/mask/breath/medical,
 /obj/structure/cable{
@@ -75061,9 +75015,7 @@
 /obj/item/bikehorn/rubberducky,
 /obj/structure/curtain/open/shower,
 /obj/effect/landmark/spawner/blob,
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/shower/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -85839,9 +85791,7 @@
 	},
 /area/station/medical/secondary)
 "qsq" = (
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/shower/directional/west,
 /obj/structure/curtain/open/shower,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -89108,10 +89058,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/shower{
-	dir = 4;
-	pixel_y = 4
-	},
+/obj/machinery/shower/directional/east,
 /turf/simulated/floor/plasteel,
 /area/station/medical/virology/lab)
 "qUk" = (
@@ -89787,10 +89734,7 @@
 	dir = 4
 	},
 /obj/effect/landmark/start/captain,
-/obj/machinery/shower{
-	dir = 4;
-	pixel_y = 6
-	},
+/obj/machinery/shower/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -93133,9 +93077,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/shower/directional/west,
 /turf/simulated/floor/plasteel,
 /area/station/medical/virology/lab)
 "rFg" = (
@@ -94015,9 +93957,7 @@
 	},
 /area/station/hallway/primary/central/west)
 "rNB" = (
-/obj/machinery/shower{
-	pixel_y = 22
-	},
+/obj/machinery/shower/directional/south,
 /obj/structure/curtain/open/shower/anchored,
 /mob/living/simple_animal/frog,
 /obj/item/reagent_containers/syringe/steroids,
@@ -94560,10 +94500,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
-/obj/machinery/shower{
-	dir = 4;
-	pixel_y = 4
-	},
+/obj/machinery/shower/directional/east,
 /turf/simulated/floor/plasteel,
 /area/station/medical/virology/lab)
 "rTg" = (
@@ -99599,9 +99536,7 @@
 	},
 /area/station/engineering/storage/tech)
 "sRR" = (
-/obj/machinery/shower{
-	dir = 4
-	},
+/obj/machinery/shower/directional/east,
 /obj/structure/curtain/open/shower/anchored,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -119649,10 +119584,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/shower{
-	pixel_x = -3;
-	pixel_y = 3
-	},
+/obj/machinery/shower/directional/south,
 /obj/effect/landmark/spawner/armory,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"

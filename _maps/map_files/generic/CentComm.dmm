@@ -2572,9 +2572,7 @@
 /turf/simulated/floor/carpet/black,
 /area/centcom/syndicate_base/infiltrators)
 "brM" = (
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/shower/directional/west,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -10177,9 +10175,7 @@
 "eWL" = (
 /obj/machinery/defibrillator_mount/loaded/directional/west,
 /obj/machinery/optable,
-/obj/machinery/shower{
-	pixel_y = 20
-	},
+/obj/machinery/shower/directional/south,
 /turf/simulated/floor/plasteel/freezer,
 /area/centcom/ninja/outpost)
 "eWS" = (
@@ -12681,9 +12677,7 @@
 	name = "Shuttle Hatch";
 	req_access = list(109)
 	},
-/obj/machinery/shower{
-	pixel_y = 20
-	},
+/obj/machinery/shower/directional/south,
 /obj/structure/fans/tiny,
 /obj/machinery/door/poddoor/impassable/preopen{
 	id_tag = "ERT_Quarantine";
@@ -18703,9 +18697,7 @@
 /area/centcom/central_command_areas/zone/three)
 "jeY" = (
 /obj/structure/curtain/open/shower,
-/obj/machinery/shower{
-	pixel_y = 20
-	},
+/obj/machinery/shower/directional/south,
 /obj/effect/turf_decal/plaque{
 	icon_state = "plumbing"
 	},
@@ -22942,9 +22934,7 @@
 /area/centcom/central_command_areas/zone/two)
 "kTy" = (
 /obj/structure/curtain/open/shower,
-/obj/machinery/shower{
-	pixel_y = 20
-	},
+/obj/machinery/shower/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -26766,10 +26756,7 @@
 /area/centcom/central_command_areas/special_operations)
 "mCb" = (
 /obj/structure/curtain/open/shower,
-/obj/machinery/shower{
-	dir = 8;
-	pixel_x = 4
-	},
+/obj/machinery/shower/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -28984,10 +28971,7 @@
 /area/centcom/syndicate_base/outside)
 "nyo" = (
 /obj/structure/curtain/open/shower,
-/obj/machinery/shower{
-	dir = 8;
-	pixel_x = 8
-	},
+/obj/machinery/shower/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -29921,10 +29905,7 @@
 /area/centcom/central_command_areas/supply)
 "nRs" = (
 /obj/structure/curtain/open/shower,
-/obj/machinery/shower{
-	dir = 4;
-	pixel_x = 4
-	},
+/obj/machinery/shower/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -30943,9 +30924,7 @@
 /area/centcom/central_command_areas/zone/one)
 "ooP" = (
 /obj/structure/curtain/open/shower,
-/obj/machinery/shower{
-	pixel_y = 20
-	},
+/obj/machinery/shower/directional/south,
 /obj/effect/turf_decal{
 	icon_state = "plumbing";
 	name = "plumbing"
@@ -31009,10 +30988,7 @@
 /area/centcom/syndicate_base/control)
 "oqC" = (
 /obj/structure/curtain/open/shower,
-/obj/machinery/shower{
-	dir = 8;
-	pixel_x = 4
-	},
+/obj/machinery/shower/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -34123,10 +34099,7 @@
 /area/centcom/ninja/outpost)
 "pOv" = (
 /obj/structure/curtain/open/shower,
-/obj/machinery/shower{
-	dir = 4;
-	pixel_x = 4
-	},
+/obj/machinery/shower/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -38790,9 +38763,7 @@
 /area/centcom/central_command_areas/special_operations)
 "rJa" = (
 /obj/structure/curtain/open/shower/security,
-/obj/machinery/shower{
-	pixel_y = 20
-	},
+/obj/machinery/shower/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -41349,9 +41320,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/machinery/shower{
-	pixel_y = 20
-	},
+/obj/machinery/shower/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -48512,9 +48481,7 @@
 	name = "Shuttle Hatch";
 	req_access = list(109)
 	},
-/obj/machinery/shower{
-	dir = 1
-	},
+/obj/machinery/shower/directional/north,
 /obj/structure/fans/tiny,
 /obj/machinery/door/poddoor/impassable/preopen{
 	id_tag = "ERT_Quarantine";
@@ -49801,9 +49768,7 @@
 /area/centcom/central_command_areas/evacuation)
 "wLP" = (
 /obj/structure/curtain/open/shower/security,
-/obj/machinery/shower{
-	pixel_y = 20
-	},
+/obj/machinery/shower/directional/south,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -52931,10 +52896,7 @@
 /area/centcom/central_command_areas/zone/three)
 "yly" = (
 /obj/structure/curtain/open/shower,
-/obj/machinery/shower{
-	dir = 4;
-	pixel_x = -4
-	},
+/obj/machinery/shower/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},

@@ -82,9 +82,7 @@
 	},
 /area/template_noop)
 "n" = (
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/shower/directional/west,
 /obj/structure/curtain/open/shower{
 	anchored = 1;
 	opacity = 1

@@ -147,9 +147,7 @@
 "ay" = (
 /obj/item/bikehorn/rubberducky,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/shower/directional/west,
 /obj/structure/curtain/open/shower,
 /turf/simulated/floor/plasteel/white,
 /area/mine/laborcamp)
@@ -1690,9 +1688,7 @@
 /area/mine/living_quarters)
 "gi" = (
 /obj/structure/curtain/open/shower,
-/obj/machinery/shower{
-	pixel_y = 20
-	},
+/obj/machinery/shower/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -4880,9 +4876,7 @@
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
 "yG" = (
-/obj/machinery/shower{
-	dir = 8
-	},
+/obj/machinery/shower/directional/west,
 /obj/structure/extinguisher_cabinet/directional/north,
 /obj/effect/turf_decal/delivery/partial{
 	dir = 1
@@ -7099,10 +7093,7 @@
 	network = list("Mining Outpost")
 	},
 /obj/machinery/optable,
-/obj/machinery/shower{
-	pixel_x = -3;
-	pixel_y = 3
-	},
+/obj/machinery/shower/directional/south,
 /obj/item/tank/internals/anesthetic,
 /obj/item/clothing/mask/breath/medical,
 /turf/simulated/floor/plasteel{
