@@ -6,7 +6,6 @@
 	has_gravity = STANDARD_GRAVITY
 	area_flags = UNIQUE_AREA
 	tele_proof = TRUE
-	no_teleportlocs = TRUE
 
 /area/deathmatch/fullbright
 	static_lighting = FALSE

@@ -22,4 +22,4 @@
 	automatic_gameend_time = 4 MINUTES // its a 10x10 cage what are you guys doing in there
 	allowed_loadouts = list(/datum/outfit/deathmatch_loadout/naked) //заменить на ассистента нах
 	map_name = "ragecage"
-	key = "ragecage"
+	key = LAZY_TEMPLATE_KEY_DEATHMATCH_RAGECAGE
