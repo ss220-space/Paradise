@@ -153,8 +153,8 @@ SUBSYSTEM_DEF(jobs)
 
 			// Reallocating slots from trainees to the primary profession
 			if(!job.can_novice_play(player.client) && job.upgrade_job)
-				var/datum/job/J = SSjobs.GetJob(job.upgrade_job)
-				job = J
+				var/datum/job/upgraded_job = SSjobs.GetJob(job.upgrade_job)
+				job = upgraded_job
 
 			// JOB OBJECTIVES OH SHIT
 			player.mind.job_objectives.Cut()
