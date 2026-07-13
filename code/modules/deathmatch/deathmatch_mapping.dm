@@ -3,7 +3,6 @@
 	requires_power = FALSE
 	has_gravity = TRUE
 	hide_attacklogs = TRUE
-	has_gravity = STANDARD_GRAVITY
 	area_flags = UNIQUE_AREA
 	tele_proof = TRUE
 
