@@ -38,7 +38,10 @@
 /obj/item/toy/snappop/proc/pop_burst(number = 3, cardinal_only = TRUE)
 	do_sparks(number, cardinal_only, src)
 	new ash_type(loc)
-	visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] взрывается!"), span_warning("Вы слышите хлопок!"))
+	visible_message(
+		span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] взрывается!"),
+		span_warning("Вы слышите хлопок!")
+	)
 	playsound(src, 'sound/effects/snap.ogg', 50, TRUE)
 	qdel(src)
 
@@ -119,7 +122,8 @@
 	user.visible_message(
 		span_notice("[user] нажима[PLUR_ET_YUT(user)] кнопку на [declent_ru(PREPOSITIONAL)]."),
 		span_notice("Вы нажимаете кнопку на [declent_ru(PREPOSITIONAL)]."),
-		span_sinister("Слышишь тихий щелчок."))
+		span_sinister("Слышишь тихий щелчок.")
+	)
 
 	var/list/messages = list()
 	var/datum/devilinfo/devil = new
@@ -137,14 +141,12 @@
 		user.loc.visible_message(span_danger("[get_examine_icon(viewers(user.loc))] [message]"))
 		sleep(1 SECONDS)
 
-	return
-
 /*
  * Mini gibber
  */
 /obj/item/toy/minigibber
 	name = "miniature gibber"
-	desc = "Миниатюрная копия знаменитой мясорубки компании \"Nanotrasen\"."
+	desc = "Миниатюрная копия знаменитой мясорубки компании \"Нанотрейзен\"."
 	icon_state = "minigibber"
 	attack_verb = list("перемолол", "гибнул")
 	w_class = WEIGHT_CLASS_SMALL
@@ -199,7 +201,7 @@
 	icon = 'icons/obj/assemblies.dmi'
 	icon_state = "bigred"
 	w_class = WEIGHT_CLASS_SMALL
-	var/cooldown = 0
+	COOLDOWN_DECLARE(cooldown)
 
 /obj/item/toy/redbutton/get_ru_names()
 	return alist(
@@ -212,23 +214,30 @@
 	)
 
 /obj/item/toy/redbutton/attack_self(mob/user)
-	if(cooldown < world.time)
-		cooldown = (world.time + 300) // Sets cooldown at 30 seconds
-		user.visible_message(span_warning("[user] нажима[PLUR_ET_YUT(user)] большую красную кнопку."), span_notice("Вы нажимаете кнопку, раздаётся громкий звук!"), span_notice("Кнопка громко щёлкает."))
-		playsound(src, 'sound/effects/explosionfar.ogg', 50, FALSE, 0)
-		for(var/mob/M in range(10, src)) // Checks range
-			if(!M.stat && !isAI(M)) // Checks to make sure whoever's getting shaken is alive/not the AI
-				sleep(8) // Short delay to match up with the explosion sound
-				shake_camera(M, 2, 1) // Shakes player camera 2 squares for 1 second.
-
-	else
+	if(!COOLDOWN_FINISHED(src, cooldown))
 		to_chat(user, span_alert("Ничего не происходит."))
+		return FALSE
 
+	user.visible_message(
+		span_warning("[user] нажима[PLUR_ET_YUT(user)] большую красную кнопку."),
+		span_notice("Вы нажимаете кнопку, раздаётся громкий звук!"), span_notice("Кнопка громко щёлкает.")
+	)
+
+	addtimer(CALLBACK(src, PROC_REF(boom)), 1 SECONDS)
+
+	COOLDOWN_START(src, cooldown, 30 SECONDS)
+	return TRUE
+
+/obj/item/toy/redbutton/proc/boom()
+	for(var/mob/M in range(10, get_turf(src))) // Checks range
+		if(!M.stat && !isAI(M)) // Checks to make sure whoever's getting shaken is alive/not the AI
+			playsound(src, 'sound/effects/explosionfar.ogg', 50, FALSE, 0)
+			shake_camera(M, 2, 1)
 /*
  * Fake cuffs (honk honk)
  */
 /obj/item/restraints/handcuffs/toy
-	desc = "Toy handcuffs. Plastic and extremely cheaply made."
+	desc = "Игрушечные наручники. Пластиковые, сделаны крайне дёшево."
 	throwforce = 0
 	breakout_time = 0
 	ignoresClumsy = TRUE
@@ -241,7 +250,7 @@
 	desc = "Мистический! Волшебный! Для детей от 8 лет!"
 	icon_state = "eight-ball"
 	var/use_action = "трясёт шар"
-	var/cooldown = 0
+	COOLDOWN_DECLARE(cooldown)
 	var/list/possible_answers = list("Определённо", "Все признаки указывают на \"да\".", "Скорее всего.", "Да.", "Спроси позже.", "Лучше не сейчас.", "Будущее неясно.", "Возможно.", "Сомнительно.", "Нет.", "Не рассчитывай на это.", "Никогда.")
 
 /obj/item/toy/eight_ball/get_ru_names()
@@ -255,13 +264,15 @@
 	)
 
 /obj/item/toy/eight_ball/attack_self(mob/user as mob)
-	if(!cooldown)
-		var/answer = pick(possible_answers)
-		user.visible_message(span_notice("[user] сосредотачива[PLUR_ET_YUT(user)]ся на своём вопросе и [use_action]..."))
-		user.visible_message(span_notice("[get_examine_icon(viewers(user))] [DECLENT_RU_CAP(src, NOMINATIVE)] говорит: \"[answer]\""))
-		spawn(30)
-			cooldown = 0
-		return
+	if(!COOLDOWN_FINISHED(src, cooldown))
+		return FALSE
+
+	var/answer = pick(possible_answers)
+	user.visible_message(span_notice("[user] сосредотачива[PLUR_ET_YUT(user)]ся на своём вопросе и [use_action]..."))
+	user.visible_message(span_notice("[get_examine_icon(viewers(user))] [DECLENT_RU_CAP(src, NOMINATIVE)] говорит: \"[answer]\""))
+
+	COOLDOWN_START(src, cooldown, 3 SECONDS)
+	return TRUE
 
 /obj/item/toy/eight_ball/conch
 	name = "Magic Conch Shell"
@@ -284,6 +295,7 @@
 * Office desk toys
 */
 /obj/item/toy/desk
+	abstract_type = /obj/item/toy/desk
 	name = "desk toy master"
 	desc = "A object that does not exist. Parent Item"
 	layer = ABOVE_MOB_LAYER

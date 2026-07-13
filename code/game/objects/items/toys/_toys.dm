@@ -55,8 +55,8 @@
 	desc = "Пластиковая модель ядерной боеголовки."
 	icon_state = "nuketoyidle"
 	w_class = WEIGHT_CLASS_SMALL
-	var/cooldown = 0
 	var/animation_stage = 0
+	COOLDOWN_DECLARE(cooldown)
 
 /obj/item/toy/nuke/get_ru_names()
 	return alist(
@@ -78,13 +78,20 @@
 			icon_state = initial(icon_state)
 
 /obj/item/toy/nuke/attack_self(mob/user)
-	if(cooldown < world.time)
-		cooldown = world.time + 3 MINUTES
-		user.visible_message(span_warning("[user] нажима[PLUR_ET_YUT(user)] кнопку на [declent_ru(DATIVE)]"), span_notice("Вы активируете [declent_ru(ACCUSATIVE)], раздаётся громкий звук!"), span_notice("Слышишь щелчок кнопки."))
-		INVOKE_ASYNC(src, PROC_REF(async_animation))
-	else
-		var/timeleft = (cooldown - world.time)
+	if(!COOLDOWN_FINISHED(src, cooldown))
+		var/timeleft = COOLDOWN_TIMELEFT(src, cooldown)
 		to_chat(user, "[span_alert("Ничего не происходит, и число '")][round(timeleft/10)][span_alert("' появляется на маленьком дисплее.")]")
+		return FALSE
+
+	user.visible_message(
+			span_warning("[user] нажима[PLUR_ET_YUT(user)] кнопку на [declent_ru(DATIVE)]"), span_notice("Вы активируете [declent_ru(ACCUSATIVE)], раздаётся громкий звук!"),
+			span_notice("Слышишь щелчок кнопки.")
+		)
+	INVOKE_ASYNC(src, PROC_REF(async_animation))
+	COOLDOWN_START(src, cooldown, 3 MINUTES)
+	return TRUE
+	..()
+
 
 /obj/item/toy/nuke/proc/async_animation()
 	animation_stage++
@@ -93,7 +100,7 @@
 	sleep(13 SECONDS)
 	animation_stage++
 	update_icon(UPDATE_ICON_STATE)
-	sleep(cooldown - world.time)
+	sleep(COOLDOWN_TIMELEFT(src, cooldown))
 	animation_stage = 0
 	update_icon(UPDATE_ICON_STATE)
 
@@ -132,7 +139,7 @@
 	desc = "Небольшая игрушечная модель ядра станционного Искусственного Интеллекта с реальными функциями объявления законов!"
 	icon_state = "AI"
 	w_class = WEIGHT_CLASS_SMALL
-	var/cooldown = 0
+	COOLDOWN_DECLARE(cooldown)
 
 /obj/item/toy/AI/get_ru_names()
 	return alist(
@@ -145,14 +152,16 @@
 	)
 
 /obj/item/toy/AI/attack_self(mob/user)
-	if(!cooldown) //for the sanity of everyone
-		var/message = generate_ion_law()
-		to_chat(user, span_notice("Вы нажимаете кнопку на [declent_ru(DATIVE)]."))
-		playsound(user, 'sound/machines/click.ogg', 20, TRUE)
-		user.visible_message(span_danger("[get_examine_icon(viewers(user))] [message]"))
-		cooldown = 1
-		spawn(30) cooldown = 0
-		return
+	if(!COOLDOWN_FINISHED(src, cooldown))
+		return FALSE
+
+	var/message = generate_ion_law()
+	to_chat(user, span_notice("Вы нажимаете кнопку на [declent_ru(DATIVE)]."))
+	playsound(user, 'sound/machines/click.ogg', 20, TRUE)
+	user.visible_message(span_danger("[get_examine_icon(viewers(user))] [message]"))
+
+	COOLDOWN_START(src, cooldown, 5 SECONDS)
+	return TRUE
 	..()
 
 /*

@@ -10,36 +10,46 @@
  * Mech prizes
  */
 /obj/item/toy/prize
+	abstract_type = /obj/item/toy/prize
 	icon_state = "ripleytoy"
-	var/cooldown = 0
+	COOLDOWN_DECLARE(cooldown)
 
 /obj/item/toy/prize/attack_self(mob/user as mob)
-	if(cooldown < world.time - 8)
-		to_chat(user, span_notice("Вы играете с [declent_ru(INSTRUMENTAL)]."))
-		playsound(user, 'sound/mecha/mechstep.ogg', 20, TRUE)
-		cooldown = world.time
+	if(!COOLDOWN_FINISHED(src, cooldown))
+		return FALSE
+
+	to_chat(user, span_notice("Вы играете с [declent_ru(INSTRUMENTAL)]."))
+	playsound(user, 'sound/mecha/mechstep.ogg', 20, TRUE)
+
+	COOLDOWN_START(src, cooldown, 1 SECONDS)
+	return TRUE
+	..()
 
 /obj/item/toy/prize/attack_hand(mob/user as mob)
+	if(!COOLDOWN_FINISHED(src, cooldown))
+		return FALSE
+
 	if(loc == user)
-		if(cooldown < world.time - 8)
-			to_chat(user, span_notice("Вы играете с [declent_ru(INSTRUMENTAL)]."))
-			playsound(user, 'sound/mecha/mechturn.ogg', 20, TRUE)
-			cooldown = world.time
-			return
+		to_chat(user, span_notice("Вы играете с [declent_ru(INSTRUMENTAL)]."))
+		playsound(user, 'sound/mecha/mechturn.ogg', 20, TRUE)
+
+		COOLDOWN_START(src, cooldown, 1 SECONDS)
+		return TRUE
 	..()
 
 /obj/random/mech
+	abstract_type = /obj/random/mech
 	name = "Random Mech Prize"
 	desc = "This is a random prize"
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "ripleytoy"
 
 /obj/random/mech/item_to_spawn()
-	return pick(subtypesof(/obj/item/toy/prize)) //exclude the base type.
+	return pick(valid_subtypesof(/obj/item/toy/prize)) //exclude the base type.
 
 /obj/item/toy/prize/ripley
 	name = "toy ripley"
-	desc = "Маленькая фигурка меха, собери всю коллекцию! Номер 1 из 11. Эта фигурка изображает Рипли, используется в работе шахтёров и инженеров."
+	desc = "Маленькая фигурка меха, собери всю коллекцию! Номер 1 из 11. Эта фигурка изображает \"Рипли\", который используется в работе шахтёров и инженеров."
 
 /obj/item/toy/prize/ripley/get_ru_names()
 	return alist(
@@ -53,7 +63,7 @@
 
 /obj/item/toy/prize/fireripley
 	name = "toy firefighting ripley"
-	desc = "Mаленькая фигурка меха, собери всю коллекцию! Номер 2 из 11. Эта фигурка изображает Огнеборца, используется в работе шахтёров и инженеров. Огнеупорный!"
+	desc = "Mаленькая фигурка меха, собери всю коллекцию! Номер 2 из 11. Эта фигурка изображает \"Огнеборец\", который используется в работе шахтёров и инженеров. Огнеупорный!"
 	icon_state = "fireripleytoy"
 
 /obj/item/toy/prize/fireripley/get_ru_names()
@@ -69,7 +79,7 @@
 /obj/item/toy/prize/deathripley
 	name = "toy deathsquad ripley"
 	desc = "Mаленькая фигурка меха, собери всю коллекцию! Номер 3 из 11. Эта фигурка изображает чёрный вариант рипли, который использовался \
-			героем сериала \"Отряд смерти\", который повествует о безбашенных офицерах отряда быстрого реагирования."
+			героем сериала \"Отряд смерти\", повествующего о безбашенных офицерах отряда быстрого реагирования."
 	icon_state = "deathripleytoy"
 
 /obj/item/toy/prize/deathripley/get_ru_names()
@@ -84,7 +94,7 @@
 
 /obj/item/toy/prize/gygax
 	name = "toy gygax"
-	desc = "Mаленькая фигурка меха, собери всю коллекцию! Номер 4 из 11. Эта фигурка изображает быстрый боевой мех Гигакс. Пиу-пиу!"
+	desc = "Mаленькая фигурка меха, собери всю коллекцию! Номер 4 из 11. Эта фигурка изображает быстрый боевой мех \"Гигакс\". Пиу-пиу!"
 	icon_state = "gygaxtoy"
 
 /obj/item/toy/prize/gygax/get_ru_names()
@@ -99,7 +109,7 @@
 
 /obj/item/toy/prize/durand
 	name = "toy durand"
-	desc = "Mаленькая фигурка меха, собери всю коллекцию! Номер 5 из 11. Эта фигурка изображает тяжелого боевого меха Дюранд. Топ-топ!"
+	desc = "Mаленькая фигурка меха, собери всю коллекцию! Номер 5 из 11. Эта фигурка изображает тяжёлый боевой мех \"Дюранд\". Топ-топ!"
 	icon_state = "durandprize"
 
 /obj/item/toy/prize/durand/get_ru_names()
@@ -114,7 +124,7 @@
 
 /obj/item/toy/prize/honk
 	name = "toy H.O.N.K."
-	desc = "Mаленькая фигурка меха, собери всю коллекцию! Номер 6 из 11. Да это же тот самый печально известный Хонкомех!"
+	desc = "Mаленькая фигурка меха, собери всю коллекцию! Номер 6 из 11. Да это же тот самый печально известный \"Хонкомех\"!"
 	icon_state = "honkprize"
 
 /obj/item/toy/prize/honk/get_ru_names()
@@ -129,7 +139,7 @@
 
 /obj/item/toy/prize/marauder
 	name = "toy marauder"
-	desc = "Mаленькая фигурка меха, собери всю коллекцию! Номер 7 из 11. Эта фигурка изображает мощного боевого меха — Мародёр. Бегите в укрытие!"
+	desc = "Mаленькая фигурка меха, собери всю коллекцию! Номер 7 из 11. Эта фигурка изображает мощного боевого меха — \"Мародёр\". Бегите в укрытие!"
 	icon_state = "marauderprize"
 
 /obj/item/toy/prize/marauder/get_ru_names()
@@ -144,7 +154,7 @@
 
 /obj/item/toy/prize/seraph
 	name = "toy seraph"
-	desc = "Mаленькая фигурка меха, собери всю коллекцию! Номер 8 из 11. Эта фигурка изображает одного из сильнейших боевых мехов — Серафим. Кому-то не повезло..."
+	desc = "Mаленькая фигурка меха, собери всю коллекцию! Номер 8 из 11. Эта фигурка изображает один из сильнейших боевых мехов — \"Серафим\". Кому-то не повезло..."
 	icon_state = "seraphprize"
 
 /obj/item/toy/prize/seraph/get_ru_names()
@@ -159,7 +169,7 @@
 
 /obj/item/toy/prize/mauler
 	name = "toy mauler"
-	desc = "Mаленькая фигурка меха, собери всю коллекцию! Номер 9 из 11. Эта фигурка изображает смертоносного меха — Маулер. Берегитесь!"
+	desc = "Mаленькая фигурка меха, собери всю коллекцию! Номер 9 из 11. Эта фигурка изображает смертоносный мех — \"Маулер\". Берегитесь!"
 	icon_state = "maulerprize"
 
 /obj/item/toy/prize/mauler/get_ru_names()
@@ -174,7 +184,7 @@
 
 /obj/item/toy/prize/odysseus
 	name = "toy odysseus"
-	desc = "Mаленькая фигурка меха, собери всю коллекцию! Номер 10 из 11. Эта фигурка изображает белого изворотливого меха Одиссея. Его используют врачи и парамедики по всей галактике."
+	desc = "Mаленькая фигурка меха, собери всю коллекцию! Номер 10 из 11. Эта фигурка изображает белый изворотливый мех \"Одиссей\". Его используют врачи и парамедики по всей галактике."
 	icon_state = "odysseusprize"
 
 /obj/item/toy/prize/odysseus/get_ru_names()
@@ -189,7 +199,7 @@
 
 /obj/item/toy/prize/phazon
 	name = "toy phazon"
-	desc = "Mаленькая фигурка меха, собери всю коллекцию! Номер 11 из 11. Это мистический боевой мех — Фазон. Никто не останется в безопасности!"
+	desc = "Mаленькая фигурка меха, собери всю коллекцию! Номер 11 из 11. Это мистический боевой мех — \"Фазон\". Никто не останется в безопасности!"
 	icon_state = "phazonprize"
 
 /obj/item/toy/prize/phazon/get_ru_names()
@@ -266,6 +276,7 @@
  * Use the naming convention (type)character for the icon states.
  */
 /obj/item/toy/character
+	abstract_type = /obj/item/toy/character
 	w_class = WEIGHT_CLASS_SMALL
 	pixel_z = 5
 
@@ -407,7 +418,7 @@
 	desc = "MEGA представляет новую фигурку \"Xenos Isolated\"! В комплект входят реалистичные звуковые эффекты. Чтобы активировать их, потяните за шнурок."
 	w_class = WEIGHT_CLASS_SMALL
 	bubble_icon = "alien"
-	var/cooldown = 0
+	COOLDOWN_DECLARE(cooldown)
 	var/animating = FALSE
 
 /obj/item/toy/toy_xeno/get_ru_names()
@@ -424,12 +435,15 @@
 	icon_state = animating ? "[initial(icon_state)]_used" : initial(icon_state)
 
 /obj/item/toy/toy_xeno/attack_self(mob/user)
-	if(cooldown <= world.time)
-		cooldown = (world.time + 50) //5 second cooldown
-		user.visible_message(span_notice("[user] дергает[PLUR_ET_YUT(user)] верёвку на [declent_ru(PREPOSITIONAL)]."))
-		INVOKE_ASYNC(src, PROC_REF(async_animation))
-	else
+	if(!COOLDOWN_FINISHED(src, cooldown))
 		to_chat(user, span_warning("Верёвка [declent_ru(GENITIVE)] еще не замоталась!"))
+		return FALSE
+
+	user.visible_message(span_notice("[user] дергает[PLUR_ET_YUT(user)] верёвку на [declent_ru(PREPOSITIONAL)]."))
+	INVOKE_ASYNC(src, PROC_REF(async_animation))
+	COOLDOWN_START(src, cooldown, 5 SECONDS)
+	return TRUE
+
 
 /obj/item/toy/toy_xeno/proc/async_animation()
 	animating = TRUE
@@ -446,20 +460,22 @@
  * Action figures
  */
 /obj/random/figure
+	abstract_type = /obj/item/toy/figure
 	name = "Random Action Figure"
 	desc = "This is a random toy action figure"
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "nuketoy"
 
 /obj/random/figure/item_to_spawn()
-	return pick(subtypesof(/obj/item/toy/figure))
+	return pick(valid_subtypesof(/obj/item/toy/figure))
 
 /obj/item/toy/figure
+	abstract_type = /obj/item/toy/figure
 	name = "Non-Specific Action Figure action figure"
 	desc = "Бренд \"Space Life\"... погодите, что это вообще за штука?"
 	icon_state = "nuketoy"
 	w_class = WEIGHT_CLASS_SMALL
-	var/cooldown = 0
+	COOLDOWN_DECLARE(cooldown)
 	var/toysay = "Чё за хуйню вы натворили?"
 
 /obj/item/toy/figure/get_ru_names()
@@ -473,10 +489,14 @@
 	)
 
 /obj/item/toy/figure/attack_self(mob/user as mob)
-	if(cooldown < world.time)
-		cooldown = (world.time + 30) //3 second cooldown
-		user.visible_message(span_notice("[get_examine_icon(viewers(user))] [DECLENT_RU_CAP(src, NOMINATIVE)] говорит \"[toysay]\"."))
-		playsound(user, 'sound/machines/click.ogg', 20, TRUE)
+	if(!COOLDOWN_FINISHED(src, cooldown))
+		return FALSE
+
+	user.visible_message(span_notice("[get_examine_icon(viewers(user))] [DECLENT_RU_CAP(src, NOMINATIVE)] говорит \"[toysay]\"."))
+	playsound(user, 'sound/machines/click.ogg', 20, TRUE)
+
+	COOLDOWN_START(src, cooldown, 3 SECONDS)
+	return TRUE
 
 /obj/item/toy/figure/cmo
 	name = "Chief Medical Officer action figure"
@@ -578,7 +598,7 @@
 	name = "Captain action figure"
 	desc = "Некомпетентный капитан из коллекции фигурок SS12 от \"Space life\"."
 	icon_state = "captain"
-	toysay = "Экипаж, ядерный диск в безопасности, он в меня в трусах!"
+	toysay = "Экипаж, ядерный диск в безопасности, он у меня в трусах!"
 
 /obj/item/toy/figure/captain/get_ru_names()
 	return alist(
@@ -835,7 +855,7 @@
 	name = "Lawyer action figure"
 	desc = "Недооцененный юрист из коллекции фигурок SS12 от \"Space life\"."
 	icon_state = "lawyer"
-	toysay = "СРП говорит, что они виновны! Взлом — доказательство того, что они Враги Корпорации!"
+	toysay = "СРП говорит, что они виновны! Взлом — доказательство того, что они враги корпорации!"
 
 /obj/item/toy/figure/lawyer/get_ru_names()
 	return alist(

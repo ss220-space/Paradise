@@ -75,7 +75,10 @@
 
 /obj/item/toy/waterballoon/proc/balloon_burst(atom/hit_atom)
 	if(reagents.total_volume >= 1)
-		visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] лопается!"), "Вы слышите хлопок и всплеск.")
+		visible_message(
+			span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] лопается!"),
+			"Вы слышите хлопок и всплеск."
+		)
 		reagents.reaction(get_turf(hit_atom))
 		for(var/atom/A in get_turf(hit_atom))
 			reagents.reaction(A)
@@ -313,13 +316,13 @@
 */
 
 /obj/item/toy/balloon_animal
+	abstract_type = /obj/item/toy/balloon_animal
 	name = "balloon animal"
 	desc = "You shouldn't have this."
 	icon = 'icons/obj/toys/balloons.dmi'
 	item_state = "balloon"
 	lefthand_file = 'icons/mob/inhands/balloons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/balloons_righthand.dmi'
-	abstract_type = /obj/item/toy/balloon_animal
 
 /obj/item/toy/balloon_animal/guy
 	name = "balloon guy"

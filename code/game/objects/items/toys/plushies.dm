@@ -3,6 +3,7 @@
  */
 
 /obj/item/toy/plushie
+	abstract_type = /obj/item/toy/plushie
 	name = "plushie"
 	desc = "Очаровательная, мягкая и приятная на ощупь плюшевая игрушка."
 	var/poof_sound = 'sound/weapons/thudswoosh.ogg'
@@ -70,7 +71,7 @@
 	icon_state = "redfox"
 
 /obj/random/plushie/item_to_spawn()
-	return pick(subtypesof(/obj/item/toy/plushie) - typesof(/obj/item/toy/plushie/fluff) - subtypesof(/obj/item/toy/plushie/plasmamanplushie/standart)) //exclude the base type and 11 random plasma plushies
+	return pick(valid_subtypesof(/obj/item/toy/plushie) - typesof(/obj/item/toy/plushie/fluff) - subtypesof(/obj/item/toy/plushie/plasmamanplushie/standart)) //exclude the base type and 11 random plasma plushies
 
 /*
  * Foxes
@@ -304,7 +305,7 @@
 
 /obj/item/toy/plushie/greyplushie
 	name = "Плюшевый грей"
-	desc = "Плюшевая кукла грея в толстовке. Кукла входит в серию \"Пришелец\" и имеет свитер, большую голову и мультяшные глаза. Любит мехов."
+	desc = "Плюшевая кукла грея в толстовке. Кукла входит в серию \"Пришелец\" и имеет свитер, большую голову и мультяшные глаза. Любит мехи."
 	icon_state = "plushie_grey"
 	item_state = "plushie_grey"
 	cuddle_verb = list("☝︎❒︎♏︎♏︎⧫︎♓︎■︎♑︎⬧︎📬︎", "☟︎□︎⬥︎ ♋︎❒︎♏︎ ⍓︎□︎◆︎✍︎", "☹︎♓︎●︎◆︎ ♓︎⬧︎ ⧫︎♒︎♏︎ ♌︎♏︎⬧︎⧫︎", "✋︎ ●︎□︎❖︎♏︎ ❍︎♏︎♍︎♒︎⬧︎✏︎")
@@ -359,15 +360,15 @@
 	)
 
 /obj/item/toy/plushie/ipcplushie/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/reagent_containers/food/snacks/breadslice))
-		add_fingerprint(user)
-		new /obj/item/reagent_containers/food/snacks/toast(drop_location())
-		to_chat(user, span_notice("Вы засовываете хлеб в тостер."))
-		playsound(loc, 'sound/machines/ding.ogg', 50, TRUE)
-		qdel(I)
-		return ATTACK_CHAIN_BLOCKED_ALL
+	if(!istype(I, /obj/item/reagent_containers/food/snacks/breadslice))
+		return ..()
 
-	return ..()
+	add_fingerprint(user)
+	new /obj/item/reagent_containers/food/snacks/toast(drop_location())
+	to_chat(user, span_notice("Вы засовываете хлеб в тостер."))
+	playsound(loc, 'sound/machines/ding.ogg', 50, TRUE)
+	qdel(I)
+	return ATTACK_CHAIN_BLOCKED_ALL
 
 //New generation TG plushies
 
@@ -1123,12 +1124,12 @@
 
 /obj/item/toy/plushie/rouny/get_ru_names()
 	return alist(
-		NOMINATIVE = "плюшевый ксеноморф-бегун",
-		GENITIVE = "плюшевого ксеноморфа-бегуна",
-		DATIVE = "плюшевому ксеноморфу-бегуну",
-		ACCUSATIVE = "плюшевого ксеноморфа-бегуна",
-		INSTRUMENTAL = "плюшевым ксеноморфом-бегуном",
-		PREPOSITIONAL = "плюшевом ксеноморфе-бегуне",
+		NOMINATIVE = "плюшевый \"Руни\"",
+		GENITIVE = "плюшевого \"Руни\"",
+		DATIVE = "плюшевому \"Руни\"",
+		ACCUSATIVE = "плюшевого \"Руни\"",
+		INSTRUMENTAL = "плюшевым \"Руни\"",
+		PREPOSITIONAL = "плюшевом \"Руни\"",
 	)
 
 /obj/item/toy/plushie/banbanana
@@ -1159,9 +1160,9 @@
 	name = "rubber piggy"
 	desc = "Люди требуют свиней!"
 	icon_state = "pig1"
-	var/spam_flag = 0
-	var/message_spam_flag = 0
 	gender = FEMALE
+	COOLDOWN_DECLARE(oink_cooldown)
+	COOLDOWN_DECLARE(message_cooldown)
 
 /obj/item/toy/plushie/pig/get_ru_names()
 	return alist(
@@ -1174,18 +1175,22 @@
 	)
 
 /obj/item/toy/plushie/pig/proc/oink(mob/user, msg)
-	if(spam_flag == 0)
-		spam_flag = 1
-		playsound(loc, pick('sound/items/pig1.ogg','sound/items/pig2.ogg','sound/items/pig3.ogg'), 100, TRUE)
-		add_fingerprint(user)
-		if(message_spam_flag == 0)
-			message_spam_flag = 1
-			user.visible_message(span_notice("[user] [msg] [declent_ru(ACCUSATIVE)]!"), span_notice("Вы [msg] [declent_ru(ACCUSATIVE)]!"))
-			spawn(30)
-				message_spam_flag = 0
-		spawn(3)
-			spam_flag = 0
-	return
+	if(!COOLDOWN_FINISHED(src, oink_cooldown))
+		return FALSE
+
+	COOLDOWN_START(src, oink_cooldown, 0.3 SECONDS)
+
+	playsound(loc, pick('sound/items/pig1.ogg','sound/items/pig2.ogg','sound/items/pig3.ogg'), 100, TRUE)
+	add_fingerprint(user)
+
+	if(COOLDOWN_FINISHED(src, message_cooldown))
+		COOLDOWN_START(src, message_cooldown, 3 SECONDS)
+		user.visible_message(
+			span_notice("[user] [msg] [declent_ru(ACCUSATIVE)]!"),
+			span_notice("Ты [msg] [declent_ru(ACCUSATIVE)]!")
+		)
+
+	return TRUE
 
 /obj/item/toy/plushie/pig/attack_self(mob/user)
 	oink(user, "сжал[GEND_A_O_I(user)]")
