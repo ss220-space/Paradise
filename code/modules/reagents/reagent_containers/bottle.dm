@@ -690,7 +690,9 @@
 
 /obj/item/reagent_containers/glass/bottle/traitor/Initialize(mapload)
 	. = ..()
-	reagents.add_reagent(pick_list(CHEMISTRY_TOOLS_FILE, "traitor_poison_bottle"), 40)
+	var/reagent_id = pick_list(CHEMISTRY_TOOLS_FILE, "traitor_poison_bottle")
+	var/datum/reagent/reagent = find_chemical_reagent_by_id(reagent_id)
+	reagents.add_reagent(reagent.type, 40)
 
 /**
  * MARK: Vuric cultures

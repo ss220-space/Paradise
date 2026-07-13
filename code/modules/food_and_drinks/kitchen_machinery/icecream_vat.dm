@@ -87,23 +87,23 @@
 
 		if("add")
 			var/id = params["id"]
-			var/datum/reagent/reagent_type = find_chemical_reagent_by_id(id)
+			var/datum/reagent/reagent = find_chemical_reagent_by_id(id)
 			var/amount = text2num(params["amount"])
-			if(beaker && validexchange(reagent_type))
+			if(beaker && validexchange(reagent.type))
 				var/obj/item/reagent_containers/glass/A = beaker
 				var/datum/reagents/R = A.reagents
-				R.trans_id_to(src, reagent_type, amount)
+				R.trans_id_to(src, reagent.type, amount)
 				. = TRUE
 
 		if("remove")
 			var/id = params["id"]
-			var/datum/reagent/reagent_type = find_chemical_reagent_by_id(id)
+			var/datum/reagent/reagent = find_chemical_reagent_by_id(id)
 			var/amount = text2num(params["amount"])
-			if(beaker && validexchange(reagent_type))
+			if(beaker && validexchange(reagent.type))
 				var/obj/item/reagent_containers/glass/A = beaker
-				reagents.trans_id_to(A, reagent_type, amount)
+				reagents.trans_id_to(A, reagent.type, amount)
 			else
-				reagents.remove_reagent(reagent_type, amount)
+				reagents.remove_reagent(reagent.type, amount)
 			. = TRUE
 
 		if("synthcond")

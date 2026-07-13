@@ -203,7 +203,7 @@
 	var/beakerCurrentVolume = 0
 	if(beaker?.reagents && length(beaker.reagents.reagent_list))
 		for(var/datum/reagent/R in beaker.reagents.reagent_list)
-			beakerContents.Add(list(list("name" = R.name, "id"=R.type, "volume" = R.volume))) // list in a list because Byond merges the first list...
+			beakerContents.Add(list(list("name" = R.name, "id"=R.id, "volume" = R.volume))) // list in a list because Byond merges the first list...
 			beakerCurrentVolume += R.volume
 	data["beakerContents"] = beakerContents
 
@@ -238,8 +238,8 @@
 			if(!is_operational() || QDELETED(cell))
 				return
 			var/id = params["reagent"]
-			var/datum/reagent/reagent_type = find_chemical_reagent_by_id(id)
-			if(!beaker || !dispensable_reagents.Find(reagent_type))
+			var/datum/reagent/reagent = find_chemical_reagent_by_id(id)
+			if(!beaker || !dispensable_reagents.Find(reagent.type))
 				return
 			var/datum/reagents/R = beaker.reagents
 			var/free = R.maximum_volume - R.total_volume
@@ -247,7 +247,7 @@
 			if(!cell.use(actual / powerefficiency))
 				atom_say("Недостаточно энергии для завершения операции!")
 				return
-			R.add_reagent(reagent_type, actual)
+			R.add_reagent(reagent.type, actual)
 			update_icon(UPDATE_OVERLAYS)
 		if("remove")
 			var/amount = text2num(params["amount"])
@@ -255,13 +255,13 @@
 				return
 			var/datum/reagents/R = beaker.reagents
 			var/id = params["reagent"]
-			var/datum/reagent/reagent_type = find_chemical_reagent_by_id(id)
+			var/datum/reagent/reagent = find_chemical_reagent_by_id(id)
 			if(amount > 0)
-				R.remove_reagent(reagent_type, amount)
+				R.remove_reagent(reagent.type, amount)
 			else if(amount == -1) //Isolate instead
-				R.isolate_reagent(reagent_type)
+				R.isolate_reagent(reagent.type)
 			else if(amount == -2) //Round to lesser number (a.k.a 14.61 -> 14)
-				R.floor_reagent(reagent_type)
+				R.floor_reagent(reagent.type)
 		if("ejectBeaker")
 			if(!beaker)
 				return
