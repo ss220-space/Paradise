@@ -36,7 +36,7 @@
 		data["spawners"] += list(this)
 	return data
 
-/datum/minigames_explorer/ui_act(action, params)
+/datum/minigames_explorer/ui_act(action, params, datum/tgui/ui)
 	if(..())
 		return
 	switch(action)

@@ -214,7 +214,7 @@
 							if(G.can_reenter_corpse == 0)
 								foundghost = FALSE
 							break
-				if(!foundghost)
+				if(!foundghost && !HAS_TRAIT(src, TRAIT_MIND_TEMPORARILY_GONE))
 					msg += span_deadsay(" [GEND_HIS_HER_CAP(src)] душа покинула тело")
 		msg += span_deadsay("...\n")
 

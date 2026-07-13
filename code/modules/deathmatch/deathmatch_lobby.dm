@@ -26,13 +26,13 @@
 
 /datum/deathmatch_lobby/New(mob/player)
 	. = ..()
-	if (!player)
+	if(!player)
 		stack_trace("Attempted to create a deathmatch lobby without a host.")
 		return qdel(src)
 	host = player.ckey
 	map = GLOB.deathmatch_game.maps[pick(GLOB.deathmatch_game.maps)]
 	log_game("[host] created a deathmatch lobby.")
-	if (map.allowed_loadouts)
+	if(map.allowed_loadouts)
 		loadouts = map.allowed_loadouts
 	else
 		loadouts = GLOB.deathmatch_game.loadouts
@@ -42,7 +42,7 @@
 
 /datum/deathmatch_lobby/Destroy(force, ...)
 	. = ..()
-	for (var/key in players+observers)
+	for(var/key in players+observers)
 		var/datum/tgui/ui = SStgui.get_open_ui(get_mob_by_ckey(key), src)
 		if (ui) ui.close()
 		remove_ckey_from_play(key)
@@ -57,7 +57,7 @@
 	modifiers = null
 
 /datum/deathmatch_lobby/proc/start_game()
-	if (playing)
+	if(playing)
 		return
 	if(map.template_in_use)
 		to_chat(get_mob_by_ckey(host), span_warning("This map is currently loading for another lobby. Please wait until that other map finishes loading. It would be a disaster if these two mixed up."))
@@ -85,7 +85,7 @@
 	addtimer(CALLBACK(src, PROC_REF(start_game_after_delay)), start_time)
 
 /datum/deathmatch_lobby/proc/start_game_after_delay()
-	if (!length(player_spawns) || length(player_spawns) < length(players))
+	if(!length(player_spawns) || length(player_spawns) < length(players))
 		stack_trace("Failed to get spawns when loading deathmatch map [map.name] for lobby [host].")
 		clear_reservation()
 		playing = FALSE
@@ -94,7 +94,7 @@
 	for(var/modpath in modifiers)
 		GLOB.deathmatch_game.modifiers[modpath].on_start_game(src)
 
-	for (var/key in players)
+	for(var/key in players)
 		var/mob/dead/observer/observer = players[key]["mob"]
 		if (isnull(observer) || !observer.client)
 			log_game("Removed player [key] from deathmatch lobby [host], as they couldn't be found.")
@@ -109,7 +109,7 @@
 	// Remove rest of spawns.
 	QDEL_LIST(player_spawns)
 
-	for (var/observer_key in observers)
+	for(var/observer_key in observers)
 		var/mob/observer = observers[observer_key]["mob"]
 		observer.forceMove(pick(location.reserved_turfs))
 
@@ -127,20 +127,19 @@
 /datum/deathmatch_lobby/proc/spawn_observer_as_player(ckey, loc)
 	var/list/players_info = players[ckey]
 	var/mob/dead/observer/observer = players_info["mob"]
-	if (isnull(observer) || !observer.client)
+	if(isnull(observer) || !observer.client)
 		remove_ckey_from_play(ckey)
 		return
 
 	// equip player
 	var/datum/outfit/deathmatch_loadout/loadout = players_info["loadout"]
-	if (!(loadout in loadouts))
+	if(!(loadout in loadouts))
 		loadout = loadouts[1]
 
 	var/mob/living/carbon/human/new_player = new(loc)
-	observer.client?.prefs.safe_transfer_prefs_to(new_player)
-	new_player.dna.update_dna_identity()
-	new_player.updateappearance(icon_update = TRUE, mutcolor_update = TRUE, mutations_overlay_update = TRUE)
-	new_player.add_traits(list(TRAIT_CANNOT_CRYSTALIZE, TRAIT_PERMANENTLY_MORTAL, TRAIT_TEMPORARY_BODY), INNATE_TRAIT)
+	observer.client?.prefs.copy_to(new_player)
+	new_player.UpdateAppearance()
+	new_player.add_traits(list(TRAIT_TEMPORARY_BODY), INNATE_TRAIT)
 	if(observer.mind)
 		new_player.AddComponent( \
 			/datum/component/temporary_body, \
@@ -148,7 +147,7 @@
 			old_body = observer.mind.current, \
 		)
 	new_player.equipOutfit(loadout) // Loadout
-	new_player.PossessByPlayer(ckey)
+	new_player.possess_by_player(ckey)
 	players_info["mob"] = new_player
 
 	for(var/datum/deathmatch_modifier/modifier as anything in modifiers)

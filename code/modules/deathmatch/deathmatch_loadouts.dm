@@ -17,3 +17,4 @@
 	name = "Deathmatch: Naked"
 	display_name = "Unarmed, Butt-naked"
 	desc = "Naked man craves for bloodshed."
+	shoes = null
