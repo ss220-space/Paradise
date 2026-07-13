@@ -115,7 +115,7 @@ MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/structure/toilet, 8, -8, 0, 0)
 		span_userdanger("[grabber] поднима[PLUR_ET_YUT(grabber)] вас над унитазом!"),
 	)
 	animate(victim, pixel_x = swirlie_x, pixel_y = swirlie_y, time = 0.8 SECONDS)
-	if(!do_after(grabber, 0.8 SECONDS, src, NONE) || grabber.pulling != victim)
+	if(!do_after(grabber, 0.8 SECONDS, src, NONE, max_interact_count = 1) || grabber.pulling != victim)
 		cancel_swirlie_act(victim, oldx, oldy, prev_angle)
 		return
 	// begin move down into toilet
@@ -124,7 +124,7 @@ MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/structure/toilet, 8, -8, 0, 0)
 		span_userdanger("[grabber] начина[PLUR_ET_YUT(grabber)] окунать вашу голову в унитаз..."),
 	)
 	animate(victim, pixel_x = swirlie_x, pixel_y = swirlie_y_down, time = 1.2 SECONDS)
-	if(!do_after(grabber, 1.2 SECONDS, src, NONE) || grabber.pulling != victim)
+	if(!do_after(grabber, 1.2 SECONDS, src, NONE, max_interact_count = 1) || grabber.pulling != victim)
 		cancel_swirlie_act(victim, oldx, oldy, prev_angle)
 		return
 	// begin flushing water with victim
@@ -134,7 +134,7 @@ MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/structure/toilet, 8, -8, 0, 0)
 		span_italics("Вы слышите звук смыва унитаза."),
 	)
 	playsound(loc, 'sound/items/toilet_flush.ogg', 80, TRUE)
-	if(!do_after(grabber, 1 SECONDS, src, NONE) || grabber.pulling != victim)
+	if(!do_after(grabber, 1 SECONDS, src, NONE, max_interact_count = 1) || grabber.pulling != victim)
 		cancel_swirlie_act(victim, oldx, oldy, prev_angle)
 		return
 	// success toilet swirlie
@@ -146,12 +146,26 @@ MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/structure/toilet, 8, -8, 0, 0)
 /obj/structure/toilet/proc/cancel_swirlie_act(mob/living/victim, oldx, oldy, prev_angle)
 	animate(victim, pixel_x = oldx, pixel_y = oldy, time = 0.1 SECONDS)
 	victim.set_lying_angle(prev_angle)
+	victim.update_offsets()
+	if(victim.body_position == LYING_DOWN)
+		victim.on_lying_down()
+	else
+		victim.on_standing_up()
 	swirlie = null
 
 /obj/structure/toilet/proc/apply_swirlie_effect(mob/living/grabber, mob/living/victim)
-	if(!victim.internal)
-		victim.adjustOxyLoss(15)
 	victim.SetEyeBlurry(5 SECONDS)
+	if(victim.internal)
+		return
+
+	victim.adjustOxyLoss(15)
+	if(!victim.is_injectable(grabber) || victim.reagents.total_volume >= victim.reagents.maximum_volume)
+		return
+
+	var/datum/reagents/reagents = new()
+	reagents.add_reagent(/datum/reagent/fishwater/toiletwater, 5)
+	reagents.trans_to(victim, 5)
+	QDEL_NULL(reagents)
 
 /obj/structure/toilet/proc/do_smash_into_toilet(mob/living/grabber, mob/living/victim)
 	playsound(loc, 'sound/effects/bang.ogg', 25, TRUE)
