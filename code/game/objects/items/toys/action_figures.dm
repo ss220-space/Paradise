@@ -23,7 +23,6 @@
 
 	COOLDOWN_START(src, cooldown, 1 SECONDS)
 	return TRUE
-	..()
 
 /obj/item/toy/prize/attack_hand(mob/user as mob)
 	if(!COOLDOWN_FINISHED(src, cooldown))
@@ -35,7 +34,6 @@
 
 		COOLDOWN_START(src, cooldown, 1 SECONDS)
 		return TRUE
-	..()
 
 /obj/random/mech
 	abstract_type = /obj/random/mech

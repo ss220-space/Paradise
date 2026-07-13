@@ -90,8 +90,6 @@
 	INVOKE_ASYNC(src, PROC_REF(async_animation))
 	COOLDOWN_START(src, cooldown, 3 MINUTES)
 	return TRUE
-	..()
-
 
 /obj/item/toy/nuke/proc/async_animation()
 	animation_stage++
@@ -162,7 +160,6 @@
 
 	COOLDOWN_START(src, cooldown, 5 SECONDS)
 	return TRUE
-	..()
 
 /*
  * Pet Rocks
