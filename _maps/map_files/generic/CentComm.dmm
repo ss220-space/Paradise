@@ -881,11 +881,7 @@
 /turf/simulated/wall/shuttle/onlyselfsmooth,
 /area/shuttle/siberia)
 "atf" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
-	},
+/obj/structure/sink/directional/east,
 /obj/structure/mirror{
 	pixel_x = -30
 	},
@@ -1076,10 +1072,7 @@
 	},
 /area/centcom/syndicate_base/outside)
 "ayr" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 13
-	},
+/obj/structure/sink/directional/west,
 /obj/structure/mirror{
 	pixel_x = 32
 	},
@@ -1722,11 +1715,7 @@
 /turf/space,
 /area/shuttle/vox)
 "aPx" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
-	},
+/obj/structure/sink/directional/east,
 /obj/structure/mirror{
 	pixel_x = -30
 	},
@@ -4050,9 +4039,7 @@
 /obj/structure/table,
 /obj/item/storage/box/masks,
 /obj/item/storage/box/gloves,
-/obj/structure/sink{
-	dir = 1
-	},
+/obj/structure/sink/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -5279,9 +5266,7 @@
 /obj/item/circular_saw,
 /obj/item/surgicaldrill,
 /obj/item/clothing/gloves/color/latex/nitrile,
-/obj/structure/sink{
-	dir = 1
-	},
+/obj/structure/sink/directional/north,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor3"
 	},
@@ -7384,9 +7369,7 @@
 /area/centcom/central_command_areas/prison)
 "dGP" = (
 /obj/machinery/seed_extractor,
-/obj/structure/sink{
-	pixel_y = 32
-	},
+/obj/structure/sink/directional/south,
 /turf/simulated/floor/wood,
 /area/centcom/central_command_areas/evacuation)
 "dGU" = (
@@ -8895,9 +8878,7 @@
 /area/shuttle/escape)
 "etr" = (
 /obj/structure/toilet,
-/obj/structure/sink{
-	pixel_y = 32
-	},
+/obj/structure/sink/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -10825,9 +10806,7 @@
 /obj/item/storage/box/monkeycubes/stokcubes,
 /obj/item/storage/box/monkeycubes/wolpincubes,
 /obj/item/storage/box/monkeycubes/wolpincubes,
-/obj/structure/sink{
-	dir = 1
-	},
+/obj/structure/sink/directional/north,
 /obj/structure/table/reinforced,
 /obj/structure/sign/poster/official/healthy{
 	pixel_y = -32
@@ -12323,9 +12302,7 @@
 /obj/structure/mirror{
 	pixel_y = -30
 	},
-/obj/structure/sink{
-	dir = 1
-	},
+/obj/structure/sink/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "sepia"
@@ -17207,9 +17184,7 @@
 	},
 /area/centcom/syndicate_base/cargo)
 "iwv" = (
-/obj/structure/sink/kitchen{
-	pixel_y = 28
-	},
+/obj/structure/sink/kitchen/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -22991,10 +22966,7 @@
 /turf/simulated/floor/carpet/blue,
 /area/shuttle/trade/sol)
 "kUC" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 13
-	},
+/obj/structure/sink/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
@@ -24609,10 +24581,7 @@
 /obj/structure/mirror{
 	pixel_x = -30
 	},
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
+/obj/structure/sink/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -24655,10 +24624,7 @@
 	},
 /area/centcom/central_command_areas/supplypod/loading/two)
 "lFP" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 13
-	},
+/obj/structure/sink/directional/west,
 /turf/simulated/floor/carpet/black,
 /area/centcom/wizard_station)
 "lFU" = (
@@ -25772,9 +25738,7 @@
 /obj/structure/mirror{
 	pixel_y = 30
 	},
-/obj/structure/sink{
-	pixel_y = 25
-	},
+/obj/structure/sink/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "sepia"
@@ -25830,9 +25794,7 @@
 	pixel_y = -27
 	},
 /obj/structure/extinguisher_cabinet/directional/south,
-/obj/structure/sink{
-	dir = 1
-	},
+/obj/structure/sink/directional/north,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -28024,9 +27986,7 @@
 	id = "syndie_FB_cells";
 	pixel_y = -24
 	},
-/obj/structure/sink{
-	dir = 1
-	},
+/obj/structure/sink/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
 	},
@@ -28933,10 +28893,7 @@
 /turf/simulated/floor/glass/reinforced,
 /area/centcom/central_command_areas/special_operations)
 "nvA" = (
-/obj/structure/sink/kitchen{
-	dir = 4;
-	pixel_x = -13
-	},
+/obj/structure/sink/kitchen/directional/east,
 /turf/simulated/floor/plating{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "elevatorshaft";
@@ -30193,10 +30150,7 @@
 /turf/simulated/floor/indestructible/snow,
 /area/centcom/ninja/outside)
 "nVN" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 13
-	},
+/obj/structure/sink/directional/west,
 /obj/structure/mirror{
 	pixel_x = 30
 	},
@@ -30347,9 +30301,7 @@
 /turf/simulated/floor/indestructible/grass,
 /area/centcom/syndicate_base/outside)
 "nZr" = (
-/obj/structure/sink{
-	dir = 1
-	},
+/obj/structure/sink/directional/north,
 /turf/simulated/floor/indestructible{
 	icon_state = "darkpurple"
 	},
@@ -30965,9 +30917,7 @@
 /turf/simulated/floor/carpet/green,
 /area/centcom/ninja/outpost)
 "ooD" = (
-/obj/structure/sink{
-	dir = 1
-	},
+/obj/structure/sink/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -31606,10 +31556,7 @@
 	},
 /area/centcom/syndicate_base/control)
 "oDr" = (
-/obj/structure/sink{
-	layer = 4;
-	pixel_y = 26
-	},
+/obj/structure/sink/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"
 	},
@@ -33935,9 +33882,7 @@
 	},
 /area/centcom/central_command_areas/evacuation)
 "pHO" = (
-/obj/structure/sink{
-	dir = 1
-	},
+/obj/structure/sink/directional/north,
 /obj/structure/mirror{
 	pixel_y = -32
 	},
@@ -35353,9 +35298,7 @@
 /obj/item/storage/box/beakers/bluespace,
 /obj/item/storage/box/beakers/bluespace,
 /obj/item/reagent_scanner/adv,
-/obj/structure/sink{
-	dir = 1
-	},
+/obj/structure/sink/directional/north,
 /turf/simulated/floor/engine,
 /area/centcom/central_command_areas/special_operations)
 "qnP" = (
@@ -35548,10 +35491,7 @@
 /turf/simulated/floor/plating/airless,
 /area/shuttle/funeral)
 "qqS" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 13
-	},
+/obj/structure/sink/directional/west,
 /obj/structure/mirror{
 	pixel_x = 30
 	},
@@ -36887,9 +36827,7 @@
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/shuttle/vox)
 "qVY" = (
-/obj/structure/sink{
-	dir = 1
-	},
+/obj/structure/sink/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -37720,11 +37658,7 @@
 	dir = 8;
 	pixel_y = 8
 	},
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 15;
-	pixel_y = 10
-	},
+/obj/structure/sink/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -38655,9 +38589,7 @@
 /obj/item/stack/nanopaste,
 /obj/item/mmi,
 /obj/item/stack/nanopaste,
-/obj/structure/sink{
-	dir = 1
-	},
+/obj/structure/sink/directional/north,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor3"
 	},
@@ -38944,9 +38876,7 @@
 /turf/simulated/floor/wood,
 /area/centcom/central_command_areas/zone/three)
 "rKZ" = (
-/obj/structure/sink{
-	pixel_y = 32
-	},
+/obj/structure/sink/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -39510,10 +39440,7 @@
 	},
 /area/centcom/syndicate_base/elite_squad)
 "rXb" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 13
-	},
+/obj/structure/sink/directional/west,
 /obj/structure/mirror{
 	pixel_x = 30
 	},
@@ -40649,10 +40576,7 @@
 	},
 /area/centcom/syndicate_base/cargo)
 "sAI" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -13
-	},
+/obj/structure/sink/directional/east,
 /obj/structure/mirror{
 	pixel_x = -30
 	},
@@ -42196,10 +42120,7 @@
 	},
 /area/centcom/central_command_areas/evacuation)
 "tjO" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 13
-	},
+/obj/structure/sink/directional/west,
 /obj/structure/mirror{
 	pixel_x = 30
 	},
@@ -42369,9 +42290,7 @@
 	},
 /area/centcom/central_command_areas/special_operations)
 "tmL" = (
-/obj/structure/sink{
-	dir = 1
-	},
+/obj/structure/sink/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -48399,9 +48318,7 @@
 	id = "syndie_FB_cells";
 	pixel_y = -24
 	},
-/obj/structure/sink{
-	dir = 1
-	},
+/obj/structure/sink/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
 	},
@@ -50070,9 +49987,7 @@
 /obj/structure/reagent_dispensers/spacecleanertank{
 	pixel_x = -32
 	},
-/obj/structure/sink{
-	dir = 1
-	},
+/obj/structure/sink/directional/north,
 /turf/simulated/floor/indestructible{
 	dir = 10;
 	icon_state = "darkpurple"
@@ -51696,10 +51611,7 @@
 	},
 /area/centcom/syndicate_base/outside)
 "xAs" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
+/obj/structure/sink/directional/east,
 /obj/structure/mirror{
 	pixel_x = -30
 	},

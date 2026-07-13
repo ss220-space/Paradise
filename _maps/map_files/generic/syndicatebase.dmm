@@ -522,10 +522,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/toilets)
 "aEz" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
+/obj/structure/sink/directional/west,
 /obj/structure/mirror{
 	pixel_x = 28
 	},
@@ -1558,10 +1555,7 @@
 /obj/structure/mirror{
 	pixel_x = 28
 	},
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
+/obj/structure/sink/directional/west,
 /obj/machinery/power/apc/syndicate/directional/south,
 /obj/structure/cable,
 /turf/simulated/floor/plasteel{
@@ -8425,9 +8419,7 @@
 /obj/structure/sign/restroom{
 	pixel_y = -30
 	},
-/obj/structure/sink{
-	dir = 1
-	},
+/obj/structure/sink/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -9829,10 +9821,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
-/obj/structure/sink/kitchen{
-	dir = 8;
-	pixel_x = 13
-	},
+/obj/structure/sink/kitchen/directional/west,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -11445,10 +11434,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
+/obj/structure/sink/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -11838,10 +11824,7 @@
 	dir = 4
 	},
 /obj/structure/extinguisher_cabinet/directional/east,
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
+/obj/structure/sink/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -23918,10 +23901,7 @@
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "vzU" = (
 /obj/effect/turf_decal/delivery/hollow,
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -11
-	},
+/obj/structure/sink/directional/east,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},

@@ -5514,10 +5514,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/utility)
 "ro" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
+/obj/structure/sink/directional/west,
 /obj/machinery/defibrillator_mount/directional/east,
 /obj/machinery/light{
 	dir = 4
@@ -14482,10 +14479,7 @@
 	},
 /area/ruin/space/USSP_gorky17/collapsed/engineering)
 "Rz" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
+/obj/structure/sink/directional/west,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},

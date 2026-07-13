@@ -1606,11 +1606,7 @@
 /turf/simulated/floor/engine/vacuum,
 /area/awaymission/BMPship/Buffer)
 "eJ" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
-	},
+/obj/structure/sink/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -1884,10 +1880,7 @@
 	},
 /area/awaymission/BMPship/CommonArea)
 "ft" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/west,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -4642,10 +4635,7 @@
 /turf/simulated/floor/mineral/plastitanium/red/airless,
 /area/awaymission/BMPship/TraderShuttle)
 "vy" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -5510,10 +5500,7 @@
 	},
 /area/awaymission/BMPship/Kitchen)
 "Dx" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 13
-	},
+/obj/structure/sink/directional/west,
 /obj/structure/mirror{
 	pixel_x = 32
 	},
@@ -7293,10 +7280,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/BMPship/Containment)
 "Wc" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
 	dir = 4

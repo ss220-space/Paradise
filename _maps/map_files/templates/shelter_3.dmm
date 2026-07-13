@@ -167,10 +167,7 @@
 /turf/simulated/floor/pod,
 /area/survivalpod)
 "I" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
+/obj/structure/sink/directional/west,
 /obj/machinery/light/small{
 	dir = 1
 	},

@@ -871,10 +871,7 @@
 	},
 /area/shuttle/administration)
 "OA" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
+/obj/structure/sink/directional/east,
 /obj/machinery/shower{
 	dir = 4
 	},

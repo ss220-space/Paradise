@@ -335,10 +335,7 @@
 	},
 /area/station/cargo/storage)
 "acJ" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
+/obj/structure/sink/directional/east,
 /obj/structure/mirror{
 	pixel_x = -28
 	},
@@ -386,11 +383,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
-/obj/structure/sink{
-	dir = 1;
-	layer = 5;
-	pixel_y = -5
-	},
+/obj/structure/sink/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -2477,10 +2470,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/cargo/delivery)
 "aut" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
+/obj/structure/sink/directional/west,
 /obj/structure/closet/walllocker/emerglocker/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -4067,10 +4057,7 @@
 	},
 /area/station/maintenance/trading)
 "aHD" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -11
-	},
+/obj/structure/sink/directional/east,
 /obj/structure/mirror{
 	pixel_x = -28
 	},
@@ -4980,10 +4967,7 @@
 	},
 /area/station/maintenance/gambling_den)
 "aOH" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
+/obj/structure/sink/directional/west,
 /obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel,
@@ -10726,10 +10710,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/trading)
 "bLt" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
+/obj/structure/sink/directional/west,
 /obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/plasteel,
 /area/station/commons/toilet/three)
@@ -15159,9 +15140,7 @@
 /turf/simulated/floor/plating,
 /area/station/engineering/engine)
 "cuD" = (
-/obj/structure/sink/kitchen{
-	pixel_y = 24
-	},
+/obj/structure/sink/kitchen/directional/south,
 /turf/simulated/floor/plasteel,
 /area/station/science/xenobiology)
 "cuN" = (
@@ -17533,11 +17512,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
 	},
-/obj/structure/sink{
-	dir = 1;
-	layer = 5;
-	pixel_y = -5
-	},
+/obj/structure/sink/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -20496,11 +20471,7 @@
 	},
 /area/station/science/server)
 "dnz" = (
-/obj/structure/sink{
-	dir = 1;
-	layer = 5;
-	pixel_y = -5
-	},
+/obj/structure/sink/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
@@ -21668,10 +21639,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "dxO" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
+/obj/structure/sink/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -23946,11 +23914,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/maintcentral)
 "dQU" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 5
-	},
+/obj/structure/sink/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -24198,10 +24162,7 @@
 	},
 /area/station/cargo/office)
 "dSO" = (
-/obj/structure/sink/kitchen{
-	dir = 8;
-	pixel_x = 12
-	},
+/obj/structure/sink/kitchen/directional/west,
 /obj/structure/extinguisher_cabinet/directional/east,
 /turf/simulated/floor/plasteel/grimy,
 /area/station/service/bar)
@@ -26168,10 +26129,7 @@
 	},
 /area/station/science/toxins/mixing)
 "eiM" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
@@ -26325,10 +26283,7 @@
 /obj/structure/toilet{
 	pixel_y = 19
 	},
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
+/obj/structure/sink/directional/west,
 /obj/structure/mirror{
 	pixel_x = 26;
 	pixel_y = 4
@@ -26796,10 +26751,7 @@
 	},
 /area/station/security/customs)
 "epD" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/west,
 /obj/structure/toilet{
 	pixel_y = 19
 	},
@@ -29514,10 +29466,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint3)
 "eLg" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
+/obj/structure/sink/directional/east,
 /obj/structure/curtain/open/shower,
 /obj/machinery/shower{
 	dir = 4;
@@ -30404,9 +30353,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood,
-/obj/structure/sink{
-	pixel_y = 22
-	},
+/obj/structure/sink/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "blue"
@@ -30533,10 +30480,7 @@
 /obj/structure/toilet{
 	pixel_y = 19
 	},
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
+/obj/structure/sink/directional/east,
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel/freezer,
 /area/station/command/office/hop)
@@ -31862,10 +31806,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "fda" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
+/obj/structure/sink/directional/west,
 /obj/item/reagent_containers/glass/bucket,
 /obj/machinery/light_switch/directional/east,
 /turf/simulated/floor/plasteel{
@@ -33666,10 +33607,7 @@
 /area/station/engineering/monitor)
 "fqu" = (
 /obj/machinery/firealarm/directional/west,
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
+/obj/structure/sink/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -34149,9 +34087,7 @@
 	icon_state = "mirror_broke";
 	pixel_y = 32
 	},
-/obj/structure/sink{
-	pixel_y = 22
-	},
+/obj/structure/sink/directional/south,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/radio/intercom/directional/west,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -36449,9 +36385,7 @@
 /obj/structure/mirror{
 	pixel_y = 32
 	},
-/obj/structure/sink{
-	pixel_y = 21
-	},
+/obj/structure/sink/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -38907,10 +38841,7 @@
 /obj/structure/janitorialcart,
 /obj/item/mop,
 /obj/item/reagent_containers/glass/bucket,
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
+/obj/structure/sink/directional/east,
 /obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/light/small{
 	dir = 4
@@ -41414,9 +41345,7 @@
 /obj/structure/mirror{
 	pixel_y = 32
 	},
-/obj/structure/sink{
-	pixel_y = 22
-	},
+/obj/structure/sink/directional/south,
 /obj/machinery/alarm/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -42727,10 +42656,7 @@
 	},
 /area/station/commons/fitness)
 "gIG" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
+/obj/structure/sink/directional/west,
 /obj/machinery/newscaster/directional/east,
 /turf/simulated/floor/plasteel,
 /area/station/commons/toilet/three)
@@ -47412,9 +47338,7 @@
 "hsQ" = (
 /obj/item/reagent_containers/glass/bucket,
 /obj/item/mop,
-/obj/structure/sink{
-	pixel_y = 22
-	},
+/obj/structure/sink/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "purple"
@@ -55595,9 +55519,7 @@
 	},
 /area/station/security/customs)
 "iFl" = (
-/obj/structure/sink/kitchen{
-	pixel_y = 24
-	},
+/obj/structure/sink/kitchen/directional/south,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/vomit,
 /turf/simulated/floor/plasteel{
@@ -62468,10 +62390,7 @@
 /obj/structure/toilet{
 	pixel_y = 19
 	},
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
+/obj/structure/sink/directional/west,
 /obj/structure/mirror{
 	pixel_x = 28
 	},
@@ -64531,11 +64450,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint6)
 "jZT" = (
-/obj/structure/sink{
-	dir = 1;
-	layer = 5;
-	pixel_y = -5
-	},
+/obj/structure/sink/directional/north,
 /obj/structure/mirror{
 	pixel_y = -30
 	},
@@ -71756,10 +71671,7 @@
 /turf/simulated/floor/carpet/orange,
 /area/station/maintenance/casino)
 "ldP" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
+/obj/structure/sink/directional/west,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
@@ -74188,10 +74100,7 @@
 	},
 /area/station/cargo/delivery)
 "lwL" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
+/obj/structure/sink/directional/east,
 /obj/item/mop,
 /obj/item/reagent_containers/glass/bottle/ammonia,
 /turf/simulated/floor/plating,
@@ -74882,10 +74791,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/prison/perma)
 "lCC" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -78966,10 +78872,7 @@
 	},
 /area/station/maintenance/detectives_office)
 "miT" = (
-/obj/structure/sink{
-	layer = 4;
-	pixel_y = 26
-	},
+/obj/structure/sink/directional/west,
 /obj/machinery/light/small,
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/command/east)
@@ -79849,9 +79752,7 @@
 /obj/structure/mirror{
 	pixel_y = 30
 	},
-/obj/structure/sink{
-	pixel_y = 21
-	},
+/obj/structure/sink/directional/south,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/station/commons/toilet/one)
@@ -80968,10 +80869,7 @@
 /obj/structure/toilet{
 	dir = 1
 	},
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
+/obj/structure/sink/directional/east,
 /obj/structure/mirror{
 	pixel_x = -28
 	},
@@ -87598,9 +87496,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/maintcentral)
 "nuO" = (
-/obj/structure/sink/kitchen{
-	pixel_y = 24
-	},
+/obj/structure/sink/kitchen/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -88128,9 +88024,7 @@
 /obj/structure/mirror{
 	pixel_y = 32
 	},
-/obj/structure/sink{
-	pixel_y = 21
-	},
+/obj/structure/sink/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -90404,10 +90298,7 @@
 /area/station/maintenance/asmaint)
 "nPV" = (
 /obj/machinery/alarm/directional/west,
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
+/obj/structure/sink/directional/east,
 /obj/effect/landmark/start/scientist,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -91570,10 +91461,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "oaC" = (
-/obj/structure/sink{
-	layer = 4;
-	pixel_y = 26
-	},
+/obj/structure/sink/directional/west,
 /obj/machinery/light/small,
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/command/west)
@@ -95751,10 +95639,7 @@
 	dir = 8;
 	network = list("Research","SS13")
 	},
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
+/obj/structure/sink/directional/west,
 /obj/structure/disposalpipe/segment,
 /obj/structure/sign/poster/official/random{
 	pixel_x = 32
@@ -101850,11 +101735,7 @@
 	},
 /area/hydroponics)
 "pIZ" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 5
-	},
+/obj/structure/sink/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/decal/cleanable/vomit,
@@ -105233,11 +105114,7 @@
 	},
 /area/station/science/chem_lab/chamber)
 "qlg" = (
-/obj/structure/sink{
-	dir = 1;
-	layer = 5;
-	pixel_y = -5
-	},
+/obj/structure/sink/directional/north,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -114123,9 +114000,7 @@
 	},
 /area/station/science/chem_lab/chamber)
 "ryW" = (
-/obj/structure/sink/kitchen{
-	pixel_y = 25
-	},
+/obj/structure/sink/kitchen/directional/south,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -115346,11 +115221,7 @@
 	pixel_x = -26;
 	pixel_y = 4
 	},
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 5
-	},
+/obj/structure/sink/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -121191,9 +121062,7 @@
 	},
 /area/station/science/xenobiology)
 "sDc" = (
-/obj/structure/sink/kitchen{
-	pixel_y = 25
-	},
+/obj/structure/sink/kitchen/directional/south,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -122224,9 +122093,7 @@
 /obj/structure/mirror{
 	pixel_y = 32
 	},
-/obj/structure/sink{
-	pixel_y = 22
-	},
+/obj/structure/sink/directional/south,
 /turf/simulated/floor/plating,
 /area/station/maintenance/medroom)
 "sKB" = (
@@ -125568,10 +125435,7 @@
 /obj/structure/toilet{
 	pixel_y = 19
 	},
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
+/obj/structure/sink/directional/east,
 /turf/simulated/floor/plasteel/freezer,
 /area/station/command/office/ntrep)
 "tkK" = (
@@ -131840,10 +131704,7 @@
 /turf/simulated/floor/carpet/red,
 /area/station/commons/cabin/four)
 "ugF" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -11
-	},
+/obj/structure/sink/directional/east,
 /obj/structure/mirror{
 	pixel_x = -28
 	},
@@ -134380,10 +134241,7 @@
 	},
 /area/station/hallway/primary/central/second/south)
 "uBZ" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
+/obj/structure/sink/directional/west,
 /turf/simulated/floor/plating,
 /area/station/security/hallway/perma)
 "uCa" = (
@@ -135741,10 +135599,7 @@
 /area/station/maintenance/tourist)
 "uMS" = (
 /obj/effect/landmark/start/hangover,
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
+/obj/structure/sink/directional/east,
 /obj/structure/curtain/open/shower,
 /obj/machinery/shower{
 	dir = 4;
@@ -140889,10 +140744,7 @@
 	},
 /area/station/engineering/mechanic_workshop/hangar)
 "vAU" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
+/obj/structure/sink/directional/west,
 /obj/item/radio/intercom/directional/east,
 /turf/simulated/floor/plasteel,
 /area/station/commons/toilet/three)
@@ -151785,10 +151637,7 @@
 	},
 /area/station/security/prison/cell_block/secondary)
 "xeR" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/west,
 /obj/item/reagent_containers/glass/bucket,
 /obj/item/radio/intercom/directional/east,
 /turf/simulated/floor/plasteel{
@@ -156521,10 +156370,7 @@
 	},
 /area/station/commons/toilet/four)
 "xOF" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
+/obj/structure/sink/directional/west,
 /obj/item/reagent_containers/glass/bucket,
 /turf/simulated/floor/wood,
 /area/station/commons/pet_store)
@@ -157839,9 +157685,7 @@
 /obj/structure/mirror{
 	pixel_y = 32
 	},
-/obj/structure/sink{
-	pixel_y = 21
-	},
+/obj/structure/sink/directional/south,
 /obj/machinery/light/small{
 	dir = 4
 	},

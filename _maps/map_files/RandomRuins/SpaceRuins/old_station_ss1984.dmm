@@ -2347,10 +2347,7 @@
 /area/ruin/space/ancientstation/charlie_hydroponics)
 "iz" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
+/obj/structure/sink/directional/west,
 /obj/structure/mirror{
 	name = "dusty mirror";
 	pixel_x = 26
@@ -2710,10 +2707,7 @@
 /area/template_noop)
 "jV" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
+/obj/structure/sink/directional/west,
 /obj/structure/curtain/open/shower,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -4365,11 +4359,7 @@
 /area/ruin/space/ancientstation/charlie_warden)
 "pC" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sink{
-	dir = 1;
-	layer = 5;
-	pixel_y = -5
-	},
+/obj/structure/sink/directional/north,
 /obj/machinery/light_construct/small{
 	dir = 8
 	},
@@ -5569,9 +5559,7 @@
 /area/ruin/space/ancientstation/beta_atmos)
 "tP" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sink/kitchen{
-	pixel_y = 22
-	},
+/obj/structure/sink/kitchen/directional/south,
 /obj/machinery/light_switch/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -9703,9 +9691,7 @@
 /area/ruin/space/ancientstation/theta_corridor)
 "It" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/sink/kitchen{
-	pixel_y = 22
-	},
+/obj/structure/sink/kitchen/directional/south,
 /obj/structure/foodcart,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"

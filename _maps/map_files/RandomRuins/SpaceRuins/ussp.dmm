@@ -934,10 +934,7 @@
 	},
 /area/derelict/bridge)
 "cy" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12
-	},
+/obj/structure/sink/directional/east,
 /obj/structure/mirror{
 	dir = 4;
 	pixel_x = -32
@@ -2905,11 +2902,7 @@
 	},
 /area/derelict/security)
 "hw" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
-	},
+/obj/structure/sink/directional/east,
 /obj/structure/sign/nosmoking_1{
 	pixel_x = -32
 	},
@@ -5254,11 +5247,7 @@
 	},
 /area/derelict/dining)
 "nC" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12;
-	pixel_y = 2
-	},
+/obj/structure/sink/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/camera{
 	c_tag = "Кухня";

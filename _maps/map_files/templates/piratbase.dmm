@@ -1016,9 +1016,7 @@
 	dir = 9
 	},
 /obj/effect/turf_decal/siding/wood/corner,
-/obj/structure/sink/kitchen{
-	pixel_y = 26
-	},
+/obj/structure/sink/kitchen/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "sepia"
 	},
@@ -1979,9 +1977,7 @@
 /turf/simulated/floor/pod/dark,
 /area/ruin/space/pirate_base/atrium)
 "fT" = (
-/obj/structure/sink{
-	pixel_y = 22
-	},
+/obj/structure/sink/directional/south,
 /obj/effect/turf_decal/delivery/blue,
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
@@ -3405,10 +3401,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -13
-	},
+/obj/structure/sink/directional/east,
 /obj/structure/mirror{
 	pixel_x = -25
 	},
@@ -4164,10 +4157,7 @@
 /turf/simulated/floor/plasteel,
 /area/shuttle/pirate_corvette)
 "mR" = (
-/obj/structure/sink/kitchen{
-	name = "sink";
-	pixel_y = 28
-	},
+/obj/structure/sink/kitchen/directional/south,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -5853,10 +5843,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/mining)
 "sb" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -13
-	},
+/obj/structure/sink/directional/east,
 /obj/structure/mirror{
 	pixel_x = -25
 	},
@@ -13012,11 +12999,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/structure/sink{
-	dir = 1;
-	layer = 5;
-	pixel_y = -5
-	},
+/obj/structure/sink/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
@@ -13218,11 +13201,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/atrium)
 "OF" = (
-/obj/structure/sink{
-	dir = 1;
-	layer = 5;
-	pixel_y = -5
-	},
+/obj/structure/sink/directional/north,
 /obj/effect/turf_decal/delivery/blue,
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
@@ -13600,10 +13579,7 @@
 /turf/simulated/floor/pod/light,
 /area/ruin/space/pirate_base/telecomms)
 "PG" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -13
-	},
+/obj/structure/sink/directional/east,
 /obj/structure/mirror{
 	pixel_x = -25
 	},

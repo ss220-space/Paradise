@@ -2475,10 +2475,7 @@
 /turf/simulated/floor/grass,
 /area/ruin/space/spacebotany/Garden)
 "Gd" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -11
-	},
+/obj/structure/sink/directional/east,
 /obj/structure/spacevine,
 /turf/simulated/floor/plasteel{
 	dir = 8;

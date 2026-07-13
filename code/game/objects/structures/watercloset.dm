@@ -987,6 +987,8 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sink, (-14), (-14))
 	icon_state = "sink_alt"
 	can_rotate = 0
 
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/sink/kitchen, -16, -16)
+
 /obj/structure/sink/puddle	//splishy splashy ^_^
 	name = "puddle"
 	desc = "Неглубокий водоём с мутноватой водой. Идеален для мытья рук, полива грядок и философских размышлений о том, кто в нём купался до вас."

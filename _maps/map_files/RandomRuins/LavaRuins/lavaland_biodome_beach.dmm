@@ -355,10 +355,7 @@
 /area/ruin/powered/beach)
 "pg" = (
 /obj/effect/turf_decal/sand,
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
+/obj/structure/sink/directional/west,
 /obj/structure/mirror{
 	pixel_x = 26;
 	pixel_y = -2
@@ -407,10 +404,7 @@
 /area/ruin/powered/beach)
 "rX" = (
 /obj/item/tank/internals/oxygen,
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
+/obj/structure/sink/directional/west,
 /turf/simulated/floor/plating,
 /area/ruin/powered/beach)
 "sq" = (

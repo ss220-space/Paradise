@@ -62,10 +62,7 @@
 /turf/simulated/floor/carpet/black,
 /area/survivalpod)
 "l" = (
-/obj/structure/sink/kitchen{
-	dir = 4;
-	pixel_x = -11
-	},
+/obj/structure/sink/kitchen/directional/east,
 /turf/simulated/floor/carpet/black,
 /area/survivalpod)
 "m" = (
