@@ -61,7 +61,6 @@
 		to_chat(owner, span_hypnophrase("<i>...[lowertext(hypnotic_phrase)]...</i>"))
 
 /datum/brain_trauma/hypnosis/handle_hearing(datum/source, list/hearing_args)
-	SIGNAL_HANDLER
 	if(!target_phrase || HAS_TRAIT(owner, TRAIT_DEAF) || owner == hearing_args[HEARING_SPEAKER])
 		return
 	hearing_args[HEARING_RAW_MESSAGE] = target_phrase.Replace(hearing_args[HEARING_RAW_MESSAGE], span_hypnophrase("$1"))

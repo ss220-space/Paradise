@@ -139,7 +139,6 @@
 	sound_environment = SOUND_ENVIRONMENT_PLAIN
 	area_flags = UNIQUE_AREA
 	no_teleportlocs = TRUE
-	static_lighting = FALSE
 	base_lighting_alpha = 200
 	base_lighting_color = "#FFF4AA"
 
