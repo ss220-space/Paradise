@@ -369,10 +369,10 @@
 	var/is_admin = check_rights_for(user.client, R_ADMIN)
 	var/has_auth = (is_host || is_admin)
 
-	data["active_mods"] = ("No modifiers selected")
+	data["active_mods"] = ("Модификаторы не выбраны")
 	data["admin"] = (is_admin)
 	data["host"] = (is_host)
-	data["loadouts"] = list("Randomize")
+	data["loadouts"] = list("Случайно")
 
 	for(var/datum/outfit/deathmatch_loadout/loadout as anything in loadouts)
 		data["loadouts"] += loadout::display_name
@@ -395,7 +395,7 @@
 		var/list/mod_names = list()
 		for(var/datum/deathmatch_modifier/modpath as anything in modifiers)
 			mod_names += modpath::name
-		data["active_mods"] = "Selected modifiers: [english_list(mod_names)]"
+		data["active_mods"] = "Выбранные модификаторы: [russian_list(mod_names)]"
 
 	if(is_player && !isnull(players[user.ckey]["loadout"]))
 		var/datum/outfit/deathmatch_loadout/loadout = players[user.ckey]["loadout"]
@@ -433,7 +433,7 @@
 				return FALSE
 			if(params["player"] != usr.ckey && host != usr.ckey)
 				return FALSE
-			if(params["loadout"] == "Randomize")
+			if(params["loadout"] == "Случайно")
 				players[params["player"]]["loadout"] = pick(loadouts)
 				return TRUE
 			for(var/datum/outfit/deathmatch_loadout/possible_loadout as anything in loadouts)

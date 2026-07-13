@@ -80,7 +80,7 @@
 			if(lobbies[usr.ckey])
 				return
 			if(!SSticker.HasRoundStarted())
-				tgui_alert(usr, "The round hasn't started yet!")
+				tgui_alert(usr, "Раунд еще не начался!")
 				return
 			ui.close()
 			create_new_lobby(usr)

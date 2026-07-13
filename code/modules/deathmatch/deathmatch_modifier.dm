@@ -62,8 +62,8 @@
 	return
 
 /datum/deathmatch_modifier/random
-	name = "Random Modifiers"
-	description = "Picks 3 to 5 random modifiers as the game is about to start"
+	name = "Случайные модификаторы"
+	description = "Выбор от трех до пяти случайных модификаторов битвы."
 	random_exempted = TRUE
 
 /datum/deathmatch_modifier/random/on_select(datum/deathmatch_lobby/lobby)
@@ -101,8 +101,8 @@
 			return
 
 /datum/deathmatch_modifier/health
-	name = "Double-Health"
-	description = "Doubles your starting health"
+	name = "Удвоенное здоровье"
+	description = "Увеличивает ваше здоровье в два раза."
 	//blacklisted_modifiers = list(/datum/deathmatch_modifier/health/half, /datum/deathmatch_modifier/health/triple)
 	var/multiplier = 2
 
