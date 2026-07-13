@@ -41055,7 +41055,7 @@
 /area/ruin/unpowered/coldcolony_outside)
 "pnH" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/glass/rag,
+/obj/item/rag,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},

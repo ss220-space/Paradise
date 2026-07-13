@@ -23057,7 +23057,7 @@
 /area/station/hallway/secondary/entry/lounge)
 "dJx" = (
 /obj/structure/table,
-/obj/item/reagent_containers/glass/rag,
+/obj/item/rag,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
 	icon_state = "stage_bleft"
@@ -40870,7 +40870,7 @@
 	id_tag = "Bar";
 	name = "Bar Privacy Shutters"
 	},
-/obj/item/reagent_containers/glass/rag,
+/obj/item/rag,
 /turf/simulated/floor/light{
 	icon_state = "light_on-p";
 	state = 7
@@ -157724,7 +157724,7 @@
 	id_tag = "kitchen_abandoned";
 	name = "Abandoned Kitchen Shutters"
 	},
-/obj/item/reagent_containers/glass/rag,
+/obj/item/rag,
 /turf/simulated/floor/plasteel{
 	icon_state = "stage_bleft"
 	},

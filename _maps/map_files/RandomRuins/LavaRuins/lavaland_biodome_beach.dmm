@@ -250,7 +250,7 @@
 "dR" = (
 /obj/structure/table,
 /obj/item/reagent_containers/food/drinks/shaker,
-/obj/item/reagent_containers/glass/rag,
+/obj/item/rag,
 /obj/machinery/light{
 	dir = 1
 	},

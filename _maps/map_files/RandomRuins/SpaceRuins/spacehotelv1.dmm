@@ -6946,7 +6946,7 @@
 /area/ruin/space/spacehotelv1/restoraunt2)
 "ZH" = (
 /obj/item/reagent_containers/food/drinks/shaker,
-/obj/item/reagent_containers/glass/rag,
+/obj/item/rag,
 /obj/structure/table,
 /obj/item/storage/box/matches,
 /obj/item/storage/fancy/cigarettes/cigpack_random,

@@ -754,7 +754,7 @@
 /area/awaymission/BMPship/MedBay)
 "cw" = (
 /obj/structure/closet/crate/trashcart,
-/obj/item/reagent_containers/glass/rag,
+/obj/item/rag,
 /obj/item/storage/bag/trash,
 /obj/item/trash/plate,
 /obj/item/trash/plate,
@@ -828,7 +828,7 @@
 /area/awaymission/BMPship/Engines)
 "cG" = (
 /obj/structure/closet/crate/trashcart,
-/obj/item/reagent_containers/glass/rag,
+/obj/item/rag,
 /obj/item/storage/bag/trash,
 /obj/item/trash/plate,
 /obj/item/trash/plate,
@@ -2715,7 +2715,7 @@
 /area/awaymission/BMPship/Gate)
 "hS" = (
 /obj/structure/closet/crate/trashcart,
-/obj/item/reagent_containers/glass/rag,
+/obj/item/rag,
 /obj/item/storage/bag/trash,
 /obj/item/trash/plate,
 /obj/item/trash/plate,
@@ -4922,7 +4922,7 @@
 /area/space/nearstation)
 "xA" = (
 /obj/structure/closet/crate/trashcart,
-/obj/item/reagent_containers/glass/rag,
+/obj/item/rag,
 /obj/item/storage/bag/trash,
 /obj/item/trash/plate,
 /obj/item/trash/plate,

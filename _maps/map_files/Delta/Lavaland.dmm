@@ -440,7 +440,7 @@
 /area/mine/living_quarters)
 "bt" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/glass/rag,
+/obj/item/rag,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},

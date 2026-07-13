@@ -159,7 +159,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
 "av" = (
-/obj/item/reagent_containers/glass/rag,
+/obj/item/rag,
 /obj/item/reagent_containers/spray/cleaner,
 /obj/effect/turf_decal/tile/blue{
 	dir = 1

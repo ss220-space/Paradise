@@ -606,7 +606,7 @@
 	id_tag = "Bar";
 	name = "Bar Privacy Shutters"
 	},
-/obj/item/reagent_containers/glass/rag,
+/obj/item/rag,
 /obj/item/poster/random_contraband,
 /turf/simulated/floor/wood,
 /area/ruin/ussp_space_banya)

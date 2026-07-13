@@ -2713,7 +2713,7 @@
 /area/derelict/engineer_area)
 "gV" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/glass/rag,
+/obj/item/rag,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},

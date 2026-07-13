@@ -6781,7 +6781,7 @@
 /obj/item/kitchen/utensil/pspork,
 /obj/item/kitchen/utensil/pspork,
 /obj/item/kitchen/rollingpin,
-/obj/item/reagent_containers/glass/rag,
+/obj/item/rag,
 /obj/item/flashlight/lamp,
 /obj/item/storage/belt/chef,
 /turf/simulated/floor/plasteel{

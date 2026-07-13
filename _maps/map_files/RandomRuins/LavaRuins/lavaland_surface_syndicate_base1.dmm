@@ -4840,7 +4840,7 @@
 /area/ruin/unpowered/syndicate_lava_base/bar)
 "lz" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/glass/rag{
+/obj/item/rag{
 	pixel_x = -4;
 	pixel_y = 9
 	},

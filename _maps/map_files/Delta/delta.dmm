@@ -125204,7 +125204,7 @@
 	id_tag = "Bar";
 	name = "Bar Privacy Shutters"
 	},
-/obj/item/reagent_containers/glass/rag,
+/obj/item/rag,
 /obj/effect/spawner/new_year/garland/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -127280,7 +127280,7 @@
 	name = "Kitchen Desk";
 	req_access = list(28)
 	},
-/obj/item/reagent_containers/glass/rag,
+/obj/item/rag,
 /turf/simulated/floor/plasteel{
 	icon_state = "tranquillite"
 	},

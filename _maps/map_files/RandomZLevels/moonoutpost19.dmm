@@ -6766,7 +6766,7 @@
 "ot" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
-/obj/item/reagent_containers/glass/rag{
+/obj/item/rag{
 	pixel_y = 5
 	},
 /obj/machinery/door/poddoor/shutters{
