@@ -346,7 +346,7 @@
 	if(user.a_intent == INTENT_HARM || (stat & (NOPOWER|BROKEN)))
 		return ..()
 
-	if(istype(I, /obj/item/reagent_containers))
+	if(is_reagent_container(I))
 		add_fingerprint(user)
 		if(!(I.container_type & OPENCONTAINER))
 			balloon_alert(user, "несовместимо!")

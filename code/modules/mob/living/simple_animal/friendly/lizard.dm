@@ -65,3 +65,7 @@
 		INSTRUMENTAL = "аксолотлем",
 		PREPOSITIONAL = "аксолотле",
 	)
+
+/mob/living/simple_animal/lizard/axolotl/Initialize(mapload)
+	. = ..()
+	add_traits(list(TRAIT_NODROWN, TRAIT_SWIMMER), INNATE_TRAIT)

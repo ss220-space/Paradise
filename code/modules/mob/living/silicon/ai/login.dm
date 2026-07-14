@@ -4,7 +4,7 @@
 		var/image/blood = image(loc = rune)
 		blood.override = 1
 		client.images += blood
-	regenerate_icons()
+	update_appearance(UPDATE_ICON)
 
 	if(stat != DEAD)
 		for(var/obj/machinery/ai_status_display/display as anything in GLOB.ai_displays) //change status

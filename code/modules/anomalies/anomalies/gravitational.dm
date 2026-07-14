@@ -39,7 +39,7 @@
 	if(QDELETED(item))
 		return
 
-	var/grav_delta = -item.get_gravity()
+	var/grav_delta = -item.has_gravity()
 	var/id = GRAVITY_SOURCE_ANOMALY + "[rand(1, 1000000)]"
 	item.add_gravity(id, grav_delta)
 	addtimer(CALLBACK(item, TYPE_PROC_REF(/atom, remove_gravity_source), id), rand(grav_change_time_low, grav_change_time_high))

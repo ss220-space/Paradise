@@ -132,3 +132,13 @@ GLOBAL_LIST_INIT(surgery_tool_behaviors, list(
 
 /// Combination flag for any item interaction that blocks the rest of the attack chain
 #define ITEM_INTERACT_ANY_BLOCKER (ITEM_INTERACT_SUCCESS | ITEM_INTERACT_BLOCKING)
+
+// Used by the decal painter to get information about the decal being painted
+/// Icon state to paint
+#define DECAL_INFO_ICON_STATE "icon_state"
+/// Color to paint the decal with
+#define DECAL_INFO_COLOR "color"
+/// Dir of the decal sprite
+#define DECAL_INFO_DIR "dir"
+/// Alpha of the decal
+#define DECAL_INFO_ALPHA "alpha"

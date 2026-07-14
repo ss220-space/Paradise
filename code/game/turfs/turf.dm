@@ -768,7 +768,7 @@
 		return FALSE
 
 	// Yes, you can fall up.
-	var/fall_dir = get_gravity() > 0 ? DOWN : UP
+	var/fall_dir = has_gravity() > 0 ? DOWN : UP
 
 	var/turf/target = get_step_multiz(src, fall_dir)
 	if(!target)
@@ -1200,3 +1200,12 @@
 
 /turf/proc/add_blob_consume_component()
 	return
+
+// When our turf is washed, we may wash everything on top of the turf
+// By default we will only wash mopable things (like blood or vomit)
+// but you may optionally pass in all_contents = TRUE to wash everything
+/turf/wash_tg(clean_types, all_contents = FALSE)
+	. = ..()
+	for(var/atom/movable/to_clean as anything in src)
+		if(all_contents || HAS_TRAIT(to_clean, TRAIT_MOPABLE))
+			. |= to_clean.wash_tg(clean_types)
