@@ -420,6 +420,7 @@
 	heal_brute = 20
 	amount = 8
 	max_amount = 8
+	stop_bleeding = 0
 	merge_type = /obj/item/stack/medical/bruise_pack/advanced
 	use_flags = DA_IGNORE_LYING
 	custom_price = PAYCHECK_MIN * 1.5
@@ -455,6 +456,7 @@
 	heal_brute = 20
 	amount = 10
 	max_amount = 10
+	stop_bleeding = 0
 	use_flags = DA_IGNORE_LYING
 	merge_type = /obj/item/stack/medical/bruise_pack/extended
 	custom_premium_price = PAYCHECK_LOWER
@@ -610,6 +612,7 @@
 	heal_burn = 12
 	amount = 8
 	max_amount = 8
+	stop_bleeding = 0
 	use_flags = DA_IGNORE_LYING
 	merge_type = /obj/item/stack/medical/bruise_pack/synthflesh_kit
 	custom_price = PAYCHECK_LOWER
@@ -641,6 +644,7 @@
 	icon = 'icons/obj/hydroponics/harvest.dmi'
 	icon_state = "tea_aspera_leaves"
 	color = "#378C61"
+	stop_bleeding = 0
 	heal_brute = 12
 	drop_sound = 'sound/misc/moist_impact.ogg'
 	mob_throw_hit_sound = 'sound/misc/moist_impact.ogg'
