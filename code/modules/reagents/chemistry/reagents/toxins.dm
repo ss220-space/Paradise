@@ -235,13 +235,19 @@
 	var/rad_power = 2
 
 /datum/reagent/radium/on_mob_life(mob/living/affected_mob)
-	var/update_flags = STATUS_UPDATE_NONE
-	if(!HAS_TRAIT(affected_mob, TRAIT_IRRADIATED) && SSradiation.can_irradiate_basic(affected_mob))
-		var/chance = min(volume / (20 - rad_power * 5), rad_power)
-		if(prob(chance))
-			affected_mob.AddComponent(/datum/component/irradiated)
-	update_flags |= affected_mob.adjustToxLoss(1 * REM, updating_health = FALSE)
-	return ..() | update_flags
+    var/update_flags = STATUS_UPDATE_NONE
+    if(ishuman(affected_mob))
+        var/mob/living/carbon/human/H = affected_mob
+        if(H.dna && istype(H.dna.species, /datum/species/nucleation))
+            update_flags |= H.adjustBruteLoss(-3 * REM, updating_health = FALSE)
+            update_flags |= H.adjustFireLoss(-3 * REM, updating_health = FALSE)
+            return ..() | update_flags
+    if(!HAS_TRAIT(affected_mob, TRAIT_IRRADIATED) && SSradiation.can_irradiate_basic(affected_mob))
+        var/chance = min(volume / (20 - rad_power * 5), rad_power)
+        if(prob(chance))
+            affected_mob.AddComponent(/datum/component/irradiated)
+    update_flags |= affected_mob.adjustToxLoss(1 * REM, updating_health = FALSE)
+    return ..() | update_flags
 
 /datum/reagent/radium/reaction_turf(turf/reaction_turf, volume)
 	if(!SSradiation.can_irradiate_basic(reaction_turf))
@@ -368,13 +374,19 @@
 	var/rad_power = 1
 
 /datum/reagent/uranium/on_mob_life(mob/living/affected_mob)
-	var/update_flags = STATUS_UPDATE_NONE
-	if(!HAS_TRAIT(affected_mob, TRAIT_IRRADIATED) && SSradiation.can_irradiate_basic(affected_mob))
-		var/chance = min(volume / (20 - rad_power * 5), rad_power)
-		if(prob(chance))
-			affected_mob.AddComponent(/datum/component/irradiated)
-	update_flags |= affected_mob.adjustToxLoss(tox_damage * REM, updating_health = FALSE)
-	return ..() | update_flags
+    var/update_flags = STATUS_UPDATE_NONE
+    if(ishuman(affected_mob))
+        var/mob/living/carbon/human/H = affected_mob
+        if(H.dna && istype(H.dna.species, /datum/species/nucleation))
+            update_flags |= H.adjustBruteLoss(-3 * REM, updating_health = FALSE)
+            update_flags |= H.adjustFireLoss(-3 * REM, updating_health = FALSE)
+            return ..() | update_flags
+    if(!HAS_TRAIT(affected_mob, TRAIT_IRRADIATED) && SSradiation.can_irradiate_basic(affected_mob))
+        var/chance = min(volume / (20 - rad_power * 5), rad_power)
+        if(prob(chance))
+            affected_mob.AddComponent(/datum/component/irradiated)
+    update_flags |= affected_mob.adjustToxLoss(tox_damage * REM, updating_health = FALSE)
+    return ..() | update_flags
 
 /datum/reagent/uranium/reaction_turf(turf/reaction_turf, volume)
 	if(!SSradiation.can_irradiate_basic(reaction_turf))
