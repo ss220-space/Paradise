@@ -22,7 +22,7 @@
 /datum/outfit/deathmatch_loadout/assistant
 	name = "Deathmatch: Assistant"
 	display_name = "Ассистент"
-	desc = "Классический ассистент - серый комбинезон и туллбокс в руках."
+	desc = "Классический ассистент — серый комбинезон и туллбокс в руках."
 
 	l_hand = /obj/item/storage/toolbox/mechanical
 	uniform = /obj/item/clothing/under/color/grey

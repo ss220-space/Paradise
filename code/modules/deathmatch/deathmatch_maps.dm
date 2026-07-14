@@ -26,7 +26,7 @@
 
 /datum/lazy_template/deathmatch/osha_violator
 	name = "Нарушение ТБ"
-	desc = "Мечта для любого инженера - понатыканные куда попало рефлекторы, едва рабочий СМ и куча бесполезного мусора."
+	desc = "Мечта для любого инженера — понатыканные куда попало рефлекторы, едва рабочий СМ и куча бесполезного мусора."
 	max_players = 10
 	allowed_loadouts = list(/datum/outfit/deathmatch_loadout/assistant)
 	map_name = "OSHA_violator"

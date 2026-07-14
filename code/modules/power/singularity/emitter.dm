@@ -443,7 +443,6 @@
 	locked = TRUE
 	welded = TRUE
 	req_access = list("science")
-	use_power = NO_POWER_USE
 
 /obj/item/emitter_disk
 	name = "Diode Disk: Debugger"

@@ -54,10 +54,7 @@
 	footstep = FOOTSTEP_PLATING
 
 /turf/simulated/floor/indestructible/gray_floor
-	name = "floor"
 	icon_state = "floor"
-	icon = 'icons/turf/floors.dmi'
-	footstep = FOOTSTEP_FLOOR
 
 /turf/simulated/floor/indestructible/brig_floor
 	icon_state = "darkredfull"
